@@ -1,0 +1,17 @@
+{
+  "version": "0.0.0",
+  "name": "app",
+  "main": "index.ts",
+  "dependencies": {
+    "@react-navigation/bottom-tabs": "^6.3.1",
+    "@react-navigation/native": "^6.0.8",
+    "@react-navigation/native-stack": "^6.5.0",
+    "dripsy": "^3.6.0",
+    "expo-linking": "^3.0.0",
+    "moti": "canary",
+    "react-native-modal": "^13.0.1",
+    "react-native-reanimated-carousel": "^2.3.10",
+    "solito": "latest"
+  },
+  "sideEffects": false
+}
