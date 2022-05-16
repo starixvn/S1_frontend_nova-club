@@ -18,5 +18,9 @@
     "web": "cd apps/next && yarn next",
     "plus": "yarn lernaupdate --lazy",
     "reset": "find . -type dir -name node_modules | xargs rm -rf && rm -rf yarn.lock"
+  },
+  "resolutions": {
+    "@types/react": "^17.0.39",
+    "@types/react-native": "^0.67.2"
   }
 }
