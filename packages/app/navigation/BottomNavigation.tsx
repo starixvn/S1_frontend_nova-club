@@ -9,15 +9,31 @@ const tabConfig = [
     name: 'Sportsbook',
     icon: '',
     isFocused: false,
+    iconName: 'sb',
     route: '/test/Sportsbook',
   },
-  { id: 2, name: 'Games', icon: '', isFocused: false, route: '/games/Games' },
-  { id: 3, name: 'Home', icon: 'home', isFocused: true, route: '/home' },
+  {
+    id: 2,
+    name: 'Games',
+    icon: '',
+    isFocused: false,
+    iconName: 'games',
+    route: '/games/Games',
+  },
+  {
+    id: 3,
+    name: 'Home',
+    icon: 'home',
+    isFocused: true,
+    iconName: 'home',
+    route: '/home',
+  },
   {
     id: 4,
     name: 'Slots',
     icon: '',
     isFocused: false,
+    iconName: 'sl',
     route: '/slots/Slots?page=1&limit=10',
   },
   {
@@ -25,6 +41,7 @@ const tabConfig = [
     name: 'Live Casino',
     icon: '',
     isFocused: false,
+    iconName: 'lc',
     route: '/live/Live Casino',
   },
 ]
@@ -48,6 +65,7 @@ const BottomNavigation = () => {
         <BottomNavIcon
           key={item.id}
           name={item.name}
+          iconName={item.iconName}
           active={activeIdx === index}
           onPress={() => {
             setActiveIdx(index)

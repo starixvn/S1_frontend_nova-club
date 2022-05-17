@@ -7,7 +7,17 @@ const theme = makeTheme({
       fontSize: 16,
     },
   },
+  colors: {
+    '0D2035': '#0D2035', // WIP: Should be change to better naming
+    'fffff': '#ffffff', // WIP: Should be change to better naming
+  },
 })
+
+type MyTheme = typeof theme
+declare module 'dripsy' {
+  // eslint-disable-next-line
+  interface DripsyCustomTheme extends MyTheme {}
+}
 
 export function Dripsy({ children }: { children: React.ReactNode }) {
   return (
