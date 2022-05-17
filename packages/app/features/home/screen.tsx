@@ -1,4 +1,4 @@
-import { Text, useSx, View, H1, P, Row, A } from 'dripsy'
+import { Text, useSx, View, H1, P, Row, A, Image } from 'dripsy'
 import { TextLink } from 'solito/link'
 import { MotiLink } from 'solito/moti'
 
@@ -33,6 +33,8 @@ export function HomeScreen() {
         </P>
       </View>
       <View sx={{ height: 32 }} />
+      
+
       <Row>
         <TextLink
           href="/user/wilson"

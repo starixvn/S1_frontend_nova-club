@@ -1,4 +1,4 @@
-import { Flex } from 'dripsy'
+import { Flex, View } from 'dripsy'
 import React, { useState } from 'react'
 import { useRouter } from 'solito/router'
 import BottomNavIcon from './BottomNavIcon'
@@ -7,7 +7,6 @@ const tabConfig = [
   {
     id: 1,
     name: 'Sportsbook',
-    icon: '',
     isFocused: false,
     iconName: 'sb',
     route: '/test/Sportsbook',
@@ -15,7 +14,6 @@ const tabConfig = [
   {
     id: 2,
     name: 'Games',
-    icon: '',
     isFocused: false,
     iconName: 'games',
     route: '/games/Games',
@@ -23,7 +21,6 @@ const tabConfig = [
   {
     id: 3,
     name: 'Home',
-    icon: 'home',
     isFocused: true,
     iconName: 'home',
     route: '/home',
@@ -31,7 +28,6 @@ const tabConfig = [
   {
     id: 4,
     name: 'Slots',
-    icon: '',
     isFocused: false,
     iconName: 'sl',
     route: '/slots/Slots?page=1&limit=10',
@@ -39,7 +35,6 @@ const tabConfig = [
   {
     id: 5,
     name: 'Live Casino',
-    icon: '',
     isFocused: false,
     iconName: 'lc',
     route: '/live/Live Casino',
@@ -50,28 +45,41 @@ const BottomNavigation = () => {
   const { push } = useRouter()
   const [activeIdx, setActiveIdx] = useState(2)
 
+  const BAR_HEIGHT = 60;
+  const CIRCLE_HEIGHT = BAR_HEIGHT;
+  const ICON_HEIGHT = 60;
+  const MARGIN_TOP = -BAR_HEIGHT * 0.4;
+
   return (
     <Flex
       sx={{
+        alignItems: 'flex-end',
         justifyContent: 'space-evenly',
         backgroundColor: '#0d2035',
         width: '100%',
-        height: 56,
-        position: 'relative',
+        height: BAR_HEIGHT,
         // paddingX: [12, 'auto'],
       }}
     >
       {tabConfig.map((item, index) => (
-        <BottomNavIcon
-          key={item.id}
-          name={item.name}
-          iconName={item.iconName}
-          active={activeIdx === index}
-          onPress={() => {
-            setActiveIdx(index)
-            push(item.route)
-          }}
-        />
+        <View
+          key={item.id} sx={{
+            marginTop: MARGIN_TOP,
+            paddingBottom: 1,
+            flex: 1,
+            overflow: 'visible',
+          }}>
+          <BottomNavIcon
+            name={item.name}
+            iconName={item.iconName}
+            active={activeIdx === index}
+            size={CIRCLE_HEIGHT}
+            onPress={() => {
+              setActiveIdx(index)
+              push(item.route, undefined, {scroll: false})
+            }}
+          />
+        </View>
       ))}
     </Flex>
   )

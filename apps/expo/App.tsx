@@ -1,4 +1,6 @@
 import useFontInit from 'app/hooks/useFontInit'
+import 'react-native-gesture-handler';
+
 import { NativeNavigation } from 'app/navigation/native'
 import { Provider } from 'app/provider'
 import { Text } from 'react-native'

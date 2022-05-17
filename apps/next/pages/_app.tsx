@@ -1,9 +1,10 @@
+import 'raf/polyfill'
+
 import useFontInit from 'app/hooks/useFontInit'
 import BottomNavigation from 'app/navigation/BottomNavigation'
 import MainHeader from 'app/navigation/MainHeader'
 import { Provider } from 'app/provider'
 import Head from 'next/head'
-import 'raf/polyfill'
 import React from 'react'
 import { Text } from 'react-native'
 import type { SolitoAppProps } from 'solito'
@@ -26,6 +27,7 @@ function MyApp({ Component, pageProps }: SolitoAppProps) {
           name="description"
           content="Expo + Next.js with Solito. By Fernando Rojo."
         />
+        <meta name="viewport" content="width=375, initial-scale=1.0" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Provider>
