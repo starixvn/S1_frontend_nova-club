@@ -1,14 +1,15 @@
 import 'raf/polyfill'
 
 import useFontInit from 'app/hooks/useFontInit'
-import BottomNavigation from 'app/navigation/BottomNavigation'
-import MainHeader from 'app/navigation/MainHeader'
 import { Provider } from 'app/provider'
 import Head from 'next/head'
 import React from 'react'
 import { Text } from 'react-native'
 import type { SolitoAppProps } from 'solito'
 import iconFile from '/public/fonts/icomoon.ttf'
+import MainHeader from 'app/navigation/MainHeader'
+import BottomNavigation from 'app/navigation/BottomNavigation'
+import '../global.css'
 
 function MyApp({ Component, pageProps }: SolitoAppProps) {
   const [loaded, error] = useFontInit({
