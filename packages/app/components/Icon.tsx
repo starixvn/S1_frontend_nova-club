@@ -11,13 +11,13 @@ const IconComponent = createIconSetFromIcoMoon(
 
 const StylesIcon = styled(IconComponent)()
 
-type IconComponentProps = ComponentProps<typeof IconComponent> &
+export type IconComponentProps = ComponentProps<typeof IconComponent> &
   ComponentProps<typeof StylesIcon>
 
 const Icon = (iconProps: IconComponentProps) => {
   const { theme } = useDripsyTheme()
 
-  return <StylesIcon color={theme.colors['0D2035']} {...iconProps} />
+  return <StylesIcon {...theme.icon} {...iconProps} />
 }
 
 export default Icon
