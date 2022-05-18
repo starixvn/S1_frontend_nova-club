@@ -17,7 +17,8 @@
     "native": "cd apps/expo && expo start",
     "web": "cd apps/next && yarn next",
     "plus": "yarn lernaupdate --lazy",
-    "reset": "find . -type dir -name node_modules | xargs rm -rf && rm -rf yarn.lock"
+    "reset": "find . -type dir -name node_modules | xargs rm -rf && rm -rf yarn.lock",
+    "copy-assets": "node ./apps/next/scripts/copy-directory.js"
   },
   "resolutions": {
     "@types/react": "^17.0.39",
