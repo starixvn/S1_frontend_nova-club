@@ -32,9 +32,18 @@ function MyApp({ Component, pageProps }: SolitoAppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Provider>
-        <MainHeader navigation={undefined} title="Web header" />
-        <Component {...pageProps} />
-        <BottomNavigation />
+        <div
+          style={{
+            maxHeight: '100vh',
+            flex: '1 1 0%',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <MainHeader navigation={undefined} title="Web header" />
+          <Component {...pageProps} />
+          <BottomNavigation />
+        </div>
       </Provider>
     </>
   )

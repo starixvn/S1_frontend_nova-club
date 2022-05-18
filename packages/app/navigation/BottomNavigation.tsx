@@ -30,7 +30,7 @@ const tabConfig = [
         name: 'Slots',
         isFocused: false,
         iconName: 'sl',
-        route: '/slots/Slots?page=1&limit=10',
+        route: '/slots/Slots',
     },
     {
         id: 5,

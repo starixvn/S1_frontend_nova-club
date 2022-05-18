@@ -24,7 +24,7 @@ const commonColors = {
     success: 'green',
     $error: '#F37070',
     $border: '#B3BADE',
-    '0D2035': '#0D2035', // WIP: Should be change to better naming
+    $secondary: '#0D2035', 
     fffff: '#ffffff', // WIP: Should be change to better naming
     placeholderTextColor: 'this string is ignored but must be declared',
 }
