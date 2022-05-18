@@ -1,38 +1,34 @@
-import { Image, styled, Text, View } from 'dripsy'
-import React from 'react'
-import { Gradient } from '@dripsy/gradient'
+import { DripsyGradient } from 'app/components/Gradient'
+import Icon from 'app/components/Icon'
+import { styled, Text, View } from 'dripsy'
+import React, { FC } from 'react'
 
-const SectionHeader = ({
-  title,
-  bgColor,
-}: {
+interface SectionHeaderProps {
   title: string
   bgColor: string
+  iconName: string
+}
+
+const SectionHeader: FC<SectionHeaderProps> = ({
+  title,
+  bgColor,
+  iconName,
 }) => {
   return (
     <StyledView>
-      <Gradient
+      <DripsyGradient
         gradient={bgColor}
         sx={{ borderRadius: 20, m: '$2', padding: '$2' }}
       >
-        <Image
-          source={require('../../../assets/poker.png')}
+        <Icon
+          name={iconName}
+          size={28}
           sx={{
-            height: [30, 35, 40],
-            width: [30, 35, 40],
+            color: 'white',
           }}
-        ></Image>
-      </Gradient>
-      <Text
-        sx={{
-          fontSize: [18, 23, 28],
-          color: 'white',
-          padding: '$3',
-          fontWeight: 'bold',
-        }}
-      >
-        {title}
-      </Text>
+        />
+      </DripsyGradient>
+      <StyledText>{title}</StyledText>
     </StyledView>
   )
 }
@@ -49,6 +45,13 @@ const StyledView = styled(View)({
   my: '$3',
   mt: '$15',
   alignItems: 'center',
+})
+
+const StyledText = styled(Text)({
+  fontSize: [18, 23, 28],
+  color: 'white',
+  padding: '$3',
+  fontWeight: 'bold',
 })
 
 export default SectionHeader
