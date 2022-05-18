@@ -77,7 +77,7 @@ const TextInputWrap = styled(View, {
 })(() => ({}))
 
 const TextInputIconWrap = styled(View)(() => ({
-    borderRadius: '50%',
+    borderRadius: 15,
     backgroundColor: '#1e79d4',
     justifyContent: 'center',
     alignItems: 'center',
@@ -88,7 +88,7 @@ const TextInputIconWrap = styled(View)(() => ({
 
 const TextInputContent = styled(View)(({ error }: { error?: string }) => ({
     flexDirection: 'row',
-    flex: 1,
+    height: 40,
     borderBottomWidth: 1,
     borderColor: error ? '$error' : '$border',
 }))
@@ -112,7 +112,6 @@ const TextInputFocusArea: FC<TextInputProps> = ({ prefix, _icon, _input }) => {
                 flex: 1,
                 alignItems: 'flex-start',
                 justifyContent: 'center',
-                height: 40,
             }}
         >
             <View

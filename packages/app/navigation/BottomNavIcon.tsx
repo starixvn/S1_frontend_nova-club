@@ -130,7 +130,7 @@ const BottomNavIcon: FC<BottomNavTabProps> = ({
           overflow: 'visible',
         }}
       >
-        <MotiView
+        {/* <MotiView
           state={outerAnimationState}
           transition={{ type: 'spring' }}
           style={{
@@ -154,7 +154,7 @@ const BottomNavIcon: FC<BottomNavTabProps> = ({
             alignItems: 'center',
             overflow: 'hidden',
           }}
-        >
+        > */}
             <DripsyGradient
               colors={colorGradient}
               sx={{
@@ -178,8 +178,8 @@ const BottomNavIcon: FC<BottomNavTabProps> = ({
                 />
               </MotiView>
             </DripsyGradient>
-          </MotiView>
-        </MotiView>
+          {/* </MotiView>
+        </MotiView> */}
 
         <MotiText
         state={textState}
