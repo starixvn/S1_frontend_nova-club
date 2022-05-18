@@ -1,0 +1,6 @@
+**
+!apps/expo/package.json
+!apps/next
+!packages
+!package.json
+!yarn.lock
