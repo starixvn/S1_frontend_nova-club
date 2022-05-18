@@ -6,7 +6,6 @@ const nextConfig = {
     disableStaticImages: true,
   },
 }
-const withImages = require('next-images');
 
 const { withExpo } = require('@expo/next-adapter')
 const withPlugins = require('next-compose-plugins')
