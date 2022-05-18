@@ -2,7 +2,11 @@
 const nextConfig = {
   reactStrictMode: true,
   webpack5: true,
+  images: {
+    disableStaticImages: true,
+  },
 }
+const withImages = require('next-images');
 
 const { withExpo } = require('@expo/next-adapter')
 const withPlugins = require('next-compose-plugins')
@@ -11,6 +15,7 @@ const optimizedImages = require('next-optimized-images');
 const withTM = require('next-transpile-modules')([
   'solito',
   'dripsy',
+  '@dripsy/gradient',
   '@dripsy/core',
   '@dripsy/gradient',
   'moti',

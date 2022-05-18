@@ -11,6 +11,7 @@
     "expo-font": "^10.1.0",
     "expo-linking": "^3.0.0",
     "moti": "canary",
+    "next-images": "^1.8.4",
     "react-native-modal": "^13.0.1",
     "react-native-reanimated-carousel": "^2.3.10",
     "solito": "latest"
