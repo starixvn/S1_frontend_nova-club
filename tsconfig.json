@@ -5,6 +5,7 @@
     "paths": {
       "app/*": ["./packages/app/*"]
     },
+    "typeRoots": ["./packages/app/env.d.ts"]
   },
   "include": ["**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
   "extends": "expo/tsconfig.base"
