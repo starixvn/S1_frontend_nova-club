@@ -6,6 +6,8 @@ import GamesSection from './Section/GamesSection'
 import HotGamesSection from './Section/HotGamesSection'
 import LeaderboardSection from './Section/LeaderboardSection'
 import LotterySection from './Section/LotterySection'
+import GridSection from './Section/GridSection'
+import WalletMenu from './WalletMenu'
 
 const HomeScreen = () => {
   const { data } = useLoginQuery({ username: 'tre', password: '123' })
@@ -28,7 +30,7 @@ const HomeScreen = () => {
       sx={{ bg: '$background', flex: 1, pt: 2 }}
       showsVerticalScrollIndicator={false}
     >
-      <Text sx={{ marginBottom: 20 }}>
+      {/* <Text sx={{ marginBottom: 20 }}>
         {data ? JSON.stringify(data, null, 2) : 'no login data'}
       </Text>
       <Text>
@@ -38,7 +40,9 @@ const HomeScreen = () => {
           : isError
           ? JSON.stringify(error, null, 2)
           : 'no register data'}
-      </Text>
+      </Text> */}
+      <WalletMenu/>
+      <GridSection />
       <CasinoSection />
       <LotterySection />
       <GamesSection />
