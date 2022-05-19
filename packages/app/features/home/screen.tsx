@@ -32,13 +32,14 @@ const HomeScreen = () => {
         {data ? JSON.stringify(data, null, 2) : 'no login data'}
       </Text>
       <Text>
-        Register data : 
+        Register data :
         {registerData
           ? 'registerData'
           : isError
           ? JSON.stringify(error, null, 2)
           : 'no register data'}
       </Text>
+      <Text> This is the new Update</Text>
       <CasinoSection />
       <LotterySection />
       <GamesSection />

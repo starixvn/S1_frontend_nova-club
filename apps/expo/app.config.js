@@ -7,6 +7,9 @@ export default {
   "version": "1.0.0",
   "sdkVersion": "44.0.0",
   "scheme": "chlgame",
+  "splash": {
+    "image": "../../packages/app/assets/devicon.png",
+  },
   "platforms": [
     "ios",
     "android"
