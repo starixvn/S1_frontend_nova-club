@@ -71,10 +71,10 @@ COPY --from=builder --chown=nextjs:nodejs /app/apps/next/.next/static ./.next/st
 COPY --from=builder --chown=nextjs:nodejs /app/apps/next/public ./public
 
 RUN mkdir -p /app/public/images \
+   mount -t nfs -o nolock -o vers=4 nfs.n88club-stage.local:/mnt/k8sdata/em/www/web_static/static/nvclub/nova-club /app/public/images \
    cp -fr /app/.next/static/* /app/public/images
 
 USER nextjs
-USER root
 
 EXPOSE 3000
 
