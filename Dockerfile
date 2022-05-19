@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:experimental
+
 # Install dependencies only when needed
 FROM node:16-alpine AS deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
@@ -36,6 +38,8 @@ COPY --from=deps /workspace-install/node_modules ./node_modules
 
 RUN yarn build:web
 
+# **********rsync here , copy static & public folder to mnt
+
 # If using npm comment out above and use below instead
 # RUN npm run build
 
@@ -64,7 +68,7 @@ RUN adduser --system --uid 1001 nextjs
 COPY --from=builder --chown=nextjs:nodejs /app/apps/next/.next/standalone/apps/next ./
 COPY --from=builder --chown=nextjs:nodejs /app/apps/next/.next/standalone/node_modules ./node_modules
 COPY --from=builder --chown=nextjs:nodejs /app/apps/next/.next/static ./.next/static
-COPY --from=builder --chown=nextjs:nodejs /app/apps/next/public ./
+COPY --from=builder --chown=nextjs:nodejs /app/apps/next/public ./public
 
 USER nextjs
 
