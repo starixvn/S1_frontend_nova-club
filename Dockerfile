@@ -70,6 +70,10 @@ COPY --from=builder --chown=nextjs:nodejs /app/apps/next/.next/standalone/node_m
 COPY --from=builder --chown=nextjs:nodejs /app/apps/next/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/apps/next/public ./public
 
+RUN mkdir -p /app/public/images
+RUN --security=insecure mkdir /nfs && \
+   mount -t nfs -o nolock -o vers=4 nfs.n88club-stage.local:/mnt/k8sdata/em/www/web_static/static/nvclub/nova-club mkdir -p /app/public/images
+
 USER nextjs
 
 EXPOSE 3000
