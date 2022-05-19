@@ -7,12 +7,16 @@
     "@react-navigation/bottom-tabs": "^6.3.1",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.5.0",
+    "@reduxjs/toolkit": "^1.8.1",
+    "axios": "^0.27.2",
     "dripsy": "^3.6.0",
     "expo-font": "^10.1.0",
     "expo-linking": "^3.0.0",
     "moti": "canary",
+    "react-native-dotenv": "^3.3.1",
     "react-native-modal": "^13.0.1",
     "react-native-reanimated-carousel": "^2.3.10",
+    "react-redux": "^8.0.1",
     "solito": "latest"
   },
   "sideEffects": false
