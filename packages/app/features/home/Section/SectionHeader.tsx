@@ -1,18 +1,18 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import { styled, Text, View } from 'dripsy'
-import React, { FC } from 'react'
+import React from 'react'
 
-interface SectionHeaderProps {
-  title: string
-  bgColor: string
-  iconName: string
-}
 
-const SectionHeader: FC<SectionHeaderProps> = ({
+
+const SectionHeader = ({
   title,
   bgColor,
   iconName,
+}: {
+  title: string
+  bgColor: string
+  iconName: string
 }) => {
   return (
     <StyledView>
