@@ -1,12 +1,16 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
-import { axiosBaseQuery } from './common/axiosBaseQuery'
-import { EndpointBuilderType, IResponse } from './common/types'
 import {
   LoginQueryArgs,
   LoginResult,
   RegisterQueryArgs,
   RegisterResult,
 } from './authApi.type'
+import { axiosBaseQuery } from './common/axiosBaseQuery'
+import {
+  ConvertResponseType,
+  EndpointBuilderType,
+  IResponse,
+} from './common/types'
 
 /**
  * @param builder Pass builder from `createApi` *endpoints*
@@ -22,7 +26,7 @@ const authEndpoints = (builder: EndpointBuilderType) => {
         },
       }),
     }),
-    register: builder.query<RegisterResult, RegisterQueryArgs>({
+    register: builder.query<IResponse<RegisterResult>, RegisterQueryArgs>({
       query: (queryArgs) => ({
         url: `/player_api/createPlayer`,
         data: {
@@ -53,15 +57,25 @@ export const { useLoginQuery, useRegisterQuery } = authApi
  */
 
 /**
- * Either put this `addTagAuthApi` in `apps/expo` or `apps/next`
- * or directly at here which is `authApi` above
+ * Use this as a way to enhance endpoints for additional features
  */
-const addTagAuthApi = authApi.enhanceEndpoints({
+const dummyAuthApi = authApi as ConvertResponseType<
+  typeof authApi,
+  'endpoints',
+  {
+    login: string
+  }
+>
+
+const addTagAuthApi = dummyAuthApi.enhanceEndpoints({
   addTagTypes: ['Login', 'Register'],
   endpoints: {
     login: {
       providesTags: ['Login'],
       keepUnusedDataFor: 5,
+      transformResponse: (resp): string => {
+        return '123'
+      },
     },
     register: {
       providesTags: ['Register'],
@@ -69,31 +83,4 @@ const addTagAuthApi = authApi.enhanceEndpoints({
   },
 })
 
-export const { useLoginQuery: useLoginQueryTag } = addTagAuthApi
-
-/**
- * To change the response structure, make sure endpoints name do not duplicate
- * else the return response's type will consist of 2 different types union together
- * 
- * Below example changed to `login999999` to prevent duplicate endpoints name which
- * is `login` from `authApi`. 
- * If duplicate endpoints name is used, then the response's type will be a union type
- * Eg: { name: string } | IResponse<LoginResult>
- */
-const transformResponseAuthApi = authApi.injectEndpoints({
-  endpoints: (builder) => ({
-    login999999: builder.query<{ name: string }, LoginQueryArgs>({
-      query: ({ username, password }) => ({
-        url: `/player_api/login`,
-        data: {
-          username,
-          password,
-        },
-      }),
-      transformResponse: (resp): { name: string } => {
-        return { name: '123' }
-      },
-    }),
-  }),
-  overrideExisting: false,
-})
+const { useLoginQuery: useLoginQueryTag } = addTagAuthApi
