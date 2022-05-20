@@ -1,12 +1,16 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
-import { axiosBaseQuery } from './common/axiosBaseQuery'
-import { EndpointBuilderType, IResponse } from './common/types'
 import {
   LoginQueryArgs,
   LoginResult,
   RegisterQueryArgs,
   RegisterResult,
 } from './authApi.type'
+import { axiosBaseQuery } from './common/axiosBaseQuery'
+import {
+  ConvertResponseType,
+  EndpointBuilderType,
+  IResponse,
+} from './common/types'
 
 /**
  * @param builder Pass builder from `createApi` *endpoints*
@@ -22,7 +26,7 @@ const authEndpoints = (builder: EndpointBuilderType) => {
         },
       }),
     }),
-    register: builder.query<RegisterResult, RegisterQueryArgs>({
+    register: builder.query<IResponse<RegisterResult>, RegisterQueryArgs>({
       query: (queryArgs) => ({
         url: `/player_api/createPlayer`,
         data: {
@@ -47,3 +51,36 @@ const authApi = createApi({
 export default authApi
 export { authEndpoints }
 export const { useLoginQuery, useRegisterQuery } = authApi
+
+/**
+ * For Demo differrent use cases
+ */
+
+/**
+ * Use this as a way to enhance endpoints for additional features
+ */
+const dummyAuthApi = authApi as ConvertResponseType<
+  typeof authApi,
+  'endpoints',
+  {
+    login: string
+  }
+>
+
+const addTagAuthApi = dummyAuthApi.enhanceEndpoints({
+  addTagTypes: ['Login', 'Register'],
+  endpoints: {
+    login: {
+      providesTags: ['Login'],
+      keepUnusedDataFor: 5,
+      transformResponse: (resp): string => {
+        return '123'
+      },
+    },
+    register: {
+      providesTags: ['Register'],
+    },
+  },
+})
+
+const { useLoginQuery: useLoginQueryTag } = addTagAuthApi
