@@ -1,6 +1,6 @@
 import { useLoginQuery, useRegisterQuery } from 'app/services/authApi'
-import { ScrollView, Text } from 'dripsy'
-import React, { useEffect } from 'react'
+import { ScrollView } from 'dripsy'
+import React from 'react'
 import CasinoSection from './Section/CasinoSection'
 import GamesSection from './Section/GamesSection'
 import HotGamesSection from './Section/HotGamesSection'
@@ -43,7 +43,7 @@ const HomeScreen = () => {
       </Text>
       <Text> This is the new Update</Text>
       </Text> */}
-      <WalletMenu/>
+      <WalletMenu />
       <GridSection />
       <CasinoSection />
       <LotterySection />

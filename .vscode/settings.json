@@ -1,9 +1,10 @@
 {
-    "i18n-ally.localesPaths": [
-        "apps/expo/ios/Pods/RCT-Folly/folly/lang",
-        "apps/expo/ios/Pods/boost-for-react-native/boost/locale",
-        "apps/expo/ios/Pods/Headers/Private/RCT-Folly/folly/lang",
-        "apps/expo/ios/Pods/boost-for-react-native/boost/predef/language",
-        "apps/expo/ios/Pods/Headers/Public/RCT-Folly/folly/lang"
-    ]
+  "i18n-ally.localesPaths": [
+    "apps/expo/ios/Pods/RCT-Folly/folly/lang",
+    "apps/expo/ios/Pods/boost-for-react-native/boost/locale",
+    "apps/expo/ios/Pods/Headers/Private/RCT-Folly/folly/lang",
+    "apps/expo/ios/Pods/boost-for-react-native/boost/predef/language",
+    "apps/expo/ios/Pods/Headers/Public/RCT-Folly/folly/lang"
+  ],
+  "editor.formatOnSave": true
 }
