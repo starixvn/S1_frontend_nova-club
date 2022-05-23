@@ -1,19 +1,14 @@
 import fishing from 'app/config/games/fishing'
 import hotgame from 'app/config/games/hotgame'
 import lottery from 'app/config/games/lottery'
-import {
-  Image,
-  Pressable, styled,
-  Text,
-  View
-} from 'dripsy'
+import { Image, Pressable, styled, Text, View } from 'dripsy'
 import React from 'react'
 import { useWindowDimensions } from 'react-native'
 import Animated, {
   Extrapolate,
   interpolate,
   useAnimatedStyle,
-  useSharedValue
+  useSharedValue,
 } from 'react-native-reanimated'
 import Carousel from 'react-native-reanimated-carousel'
 import SectionHeader from './SectionHeader'
@@ -25,9 +20,14 @@ const GamesSection = () => {
   const StyledImage = styled(Image)({
     mx: '$3',
     borderRadius: 5,
-    height: [160, 190, 210],
-    width: [width / 2.6, 2.1, 130, 150],
+    height: [160, 250, 330],
+    width: [width / 2.6, width / 2.5, width / 2.3],
   })
+
+  const StyledCarousel = styled(Carousel)({
+    height: [height * 0.6, height * 0.8, height],
+  })
+
   const selectedColor = 'rgb(65,64,95)'
   const colors = [selectedColor, selectedColor, selectedColor]
   const progressValue = useSharedValue<number>(0)
@@ -35,13 +35,12 @@ const GamesSection = () => {
   return (
     <View>
       <SectionHeader title={'GAMES'} bgColor="green" iconName="games" />
-      <Carousel
+      <StyledCarousel
         panGestureHandlerProps={{
           activeOffsetX: [-10, 10],
         }}
         loop={false}
         width={width}
-        height={height / 1.5}
         data={data}
         pagingEnabled
         snapEnabled
