@@ -43,7 +43,7 @@ const StyledView = styled(View)({
   flexDirection: 'row',
   ml: '$7',
   my: '$3',
-  mt: '$15',
+  mt: '$12',
   alignItems: 'center',
 })
 
