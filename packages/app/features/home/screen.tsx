@@ -1,6 +1,6 @@
 import { useLoginQuery, useRegisterQuery } from 'app/services/authApi'
-import { ScrollView, Text } from 'dripsy'
-import React, { useEffect } from 'react'
+import { ScrollView } from 'dripsy'
+import React from 'react'
 import CasinoSection from './Section/CasinoSection'
 import GamesSection from './Section/GamesSection'
 import HotGamesSection from './Section/HotGamesSection'
@@ -28,17 +28,6 @@ const HomeScreen = () => {
       sx={{ bg: '$background', flex: 1, pt: 2 }}
       showsVerticalScrollIndicator={false}
     >
-      <Text sx={{ marginBottom: 20 }}>
-        {data ? JSON.stringify(data, null, 2) : 'no login data'}
-      </Text>
-      <Text>
-        Register data : 
-        {registerData
-          ? 'registerData'
-          : isError
-          ? JSON.stringify(error, null, 2)
-          : 'no register data'}
-      </Text>
       <CasinoSection />
       <LotterySection />
       <GamesSection />
