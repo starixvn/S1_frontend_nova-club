@@ -1,3 +1,4 @@
+import { Api, QueryDefinition } from '@reduxjs/toolkit/query'
 import { createApi } from '@reduxjs/toolkit/query/react'
 
 export type CreateApiParamType = Parameters<typeof createApi>[0]
@@ -9,3 +10,51 @@ export interface IResponse<T = void> {
   message: string
   success: boolean
 }
+
+/**
+ * This type utility is used as type assertion for `enhanceEndpoints`
+ * to convert the default `build.query` response result's type into the custom
+ * type. This type utility is meant to solve this issue
+ * https://github.com/reduxjs/redux-toolkit/issues/1441.
+ *
+ * 1st generic argument: Need to pass the type of `createApi`.
+ *
+ * 2nd generic argument: Should be always "*endpoints*" (intellisense should
+ * show this). It is required for typescript to auto detect what is the declared
+ * endpoints name available for used in 3rd generic argument.
+ *
+ * 3rd generic argument: A type object with key get from declared endpoints name
+ * and value to describe what is the custom response for the endpoint.
+ *
+ * @example
+ *
+ * ```
+ * const sampleApi = createApi({...})
+ * const enhancedSampleApi = sampleApi as ConvertResponseType<typeof sampleApi,
+ * "endpoints",
+ * { name: string }
+ * >
+ * ```
+ */
+export type ConvertResponseType<
+  O,
+  OKey extends keyof O,
+  T extends Partial<Record<keyof O[OKey], any>>
+> = O extends Api<infer T1, infer Definition, infer T3, infer T4, infer T5>
+  ? Definition extends Record<keyof T, any>
+    ? Api<
+        T1,
+        Omit<Definition, keyof T> & {
+          [P in keyof T]: Definition extends Record<
+            P,
+            QueryDefinition<infer TI1, infer TI2, infer TI3, infer _, infer TI5>
+          >
+            ? QueryDefinition<TI1, TI2, TI3, T[P], TI5>
+            : undefined
+        },
+        T3,
+        T4,
+        T5
+      >
+    : O
+  : O
