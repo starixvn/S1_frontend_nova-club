@@ -1,8 +1,8 @@
 import fishing from 'app/config/games/fishing'
 import hotgame from 'app/config/games/hotgame'
 import lottery from 'app/config/games/lottery'
-import { Image, Pressable, styled, Text, View } from 'dripsy'
-import React from 'react'
+import { styled, Text, View } from 'dripsy'
+import React, { FC } from 'react'
 import { useWindowDimensions } from 'react-native'
 import Animated, {
   Extrapolate,
@@ -11,18 +11,13 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated'
 import Carousel from 'react-native-reanimated-carousel'
+import { CarouselRenderItem } from 'react-native-reanimated-carousel/lib/typescript/types'
+import GameCard, { GameCardProps } from './GameCard'
 import SectionHeader from './SectionHeader'
 
 const GamesSection = () => {
   const data = [fishing, lottery, hotgame]
   const { width, height } = useWindowDimensions()
-
-  const StyledImage = styled(Image)({
-    mx: '$3',
-    borderRadius: 5,
-    height: [160, 250, 330],
-    width: [width / 2.6, width / 2.5, width / 2.3],
-  })
 
   const StyledCarousel = styled(Carousel)({
     height: [height * 0.6, height * 0.8, height],
@@ -36,60 +31,26 @@ const GamesSection = () => {
     <View>
       <SectionHeader title={'GAMES'} bgColor="green" iconName="games" />
       <StyledCarousel
-        panGestureHandlerProps={{
-          activeOffsetX: [-10, 10],
-        }}
         loop={false}
         width={width}
         data={data}
         pagingEnabled
         snapEnabled
-        onProgressChange={(_, absoluteProgress) =>
-          (progressValue.value = absoluteProgress)
-        }
         mode="parallax"
         modeConfig={{
           parallaxScrollingScale: 0.92,
           parallaxScrollingOffset: 60,
           parallaxAdjacentItemScale: 0.92,
         }}
-        renderItem={({ item, index }) => {
-          const img = item.gameList.slice(0, 6)
-          return (
-            <StyledContainer key={item.label}>
-              <StyledLabel>
-                <StyledTitle>{item.label}</StyledTitle>
-                <Pressable>
-                  <StyledMore>{`>`}</StyledMore>
-                </Pressable>
-              </StyledLabel>
-              <View
-                sx={{
-                  flexDirection: 'row',
-                  flexWrap: 'wrap',
-                }}
-              >
-                {img.map((r, rindex) => {
-                  return (
-                    <View style={{ marginHorizontal: 3 }} key={rindex}>
-                      <StyledImage source={r.image} />
-                    </View>
-                  )
-                })}
-              </View>
-            </StyledContainer>
-          )
+        panGestureHandlerProps={{
+          activeOffsetX: [-10, 10],
         }}
+        onProgressChange={(_, absoluteProgress) =>
+          (progressValue.value = absoluteProgress)
+        }
+        renderItem={renderItem}
       />
-      <View
-        sx={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          width: 50,
-          alignSelf: 'center',
-          mt: '$5',
-        }}
-      >
+      <StyledContainerPaginatiom>
         {colors.map((r, rindex) => {
           return (
             <PaginationItem
@@ -101,12 +62,16 @@ const GamesSection = () => {
             />
           )
         })}
-      </View>
+      </StyledContainerPaginatiom>
     </View>
   )
 }
 
-const PaginationItem: React.FC<{
+const renderItem: CarouselRenderItem<GameCardProps> = ({ item }) => {
+  return <GameCard label={item.label} gameList={item.gameList} />
+}
+
+const PaginationItem: FC<{
   index: number
   backgroundColor: string
   length: number
@@ -140,17 +105,7 @@ const PaginationItem: React.FC<{
   }, [animValue, index, length])
 
   return (
-    <View
-      style={{
-        backgroundColor: '#99ECFE',
-        borderColor: '#99ECFE',
-        borderWidth: 1,
-        width,
-        height: width,
-        borderRadius: 50,
-        overflow: 'hidden',
-      }}
-    >
+    <StyledBoxPaginatiom>
       <Animated.View
         style={[
           {
@@ -161,34 +116,26 @@ const PaginationItem: React.FC<{
           animStyle,
         ]}
       />
-    </View>
+    </StyledBoxPaginatiom>
   )
 }
 
-const StyledContainer = styled(View)({
-  bg: '$primary',
-  borderRadius: 10,
-  mx: '$12',
-  bottom: '$8',
-})
-
-const StyledLabel = styled(View)({
+const StyledContainerPaginatiom = styled(View)({
   flexDirection: 'row',
   justifyContent: 'space-between',
-  padding: 2,
+  width: 50,
+  alignSelf: 'center',
+  mt: '$5',
 })
 
-const StyledTitle = styled(Text)({
-  color: 'white',
-  textTransform: 'capitalize',
-  paddingLeft: '$5',
-  padding: '$3',
-})
-
-const StyledMore = styled(Text)({
-  color: 'white',
-  padding: '$3',
-  paddingRight: '$5',
+const StyledBoxPaginatiom = styled(View)({
+  backgroundColor: '#99ECFE',
+  borderColor: '#99ECFE',
+  borderWidth: 1,
+  width: 10,
+  height: 10,
+  borderRadius: 50,
+  overflow: 'hidden',
 })
 
 export default GamesSection

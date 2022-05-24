@@ -15,7 +15,7 @@ export function NavigationProvider({
           config: {
             screens: {
               Home: 'home',
-              Test: 'test/:name',
+              Sportsbook: 'sportsbook/:name',
               Test2: '/games/:name',
               Test3: '/slots/:name',
               Test4: '/live/:name',

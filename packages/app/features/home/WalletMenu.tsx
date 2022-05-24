@@ -47,9 +47,7 @@ const WalletMenu = () => {
                     {index !== 2 && <StyledText>$888.00</StyledText>}
                   </StyledViewText>
                 </View>
-                <StyledWrapBar sx={{}}>
-                  {index !== 2 && <StyledBar />}
-                </StyledWrapBar>
+                <StyledWrapBar>{index !== 2 && <StyledBar />}</StyledWrapBar>
               </StyledBox>
             )
           })}

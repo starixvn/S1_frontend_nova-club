@@ -3,25 +3,22 @@ export default {
   icon: 'sb',
   gameList: [
     {
-      image: require('../../assets/images/games/sports/sb.png'),
+      image: require('../../assets/images/games/sports/saba.png'),
     },
     {
-      image: require('../../assets/images/games/sports/games.png'),
+      image: require('../../assets/images/games/sports/sabasoccer.png'),
     },
     {
-      image: require('../../assets/images/games/sports/slots.png'),
+      image: require('../../assets/images/games/sports/betradar.png'),
     },
     {
-      image: require('../../assets/images/games/sports/lc.png'),
+      image: require('../../assets/images/games/sports/bti.png'),
     },
     {
-      image: require('../../assets/images/games/sports/lottery.png'),
+      image: require('../../assets/images/games/sports/soccer.png'),
     },
     {
-      image: require('../../assets/images/games/sports/fishing.png'),
-    },
-    {
-      image: require('../../assets/images/games/sports/card.png'),
+      image: require('../../assets/images/games/sports/virtualsports.png'),
     },
   ],
 }
