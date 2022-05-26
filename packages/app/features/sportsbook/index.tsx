@@ -1,7 +1,7 @@
 import sport from 'app/config/games/sport'
 import { FlatList, styled, View } from 'dripsy'
 import React from 'react'
-import { Image, ImageSourcePropType, useWindowDimensions } from 'react-native'
+import { Image, useWindowDimensions } from 'react-native'
 import ListSectionHeader from '../ListSectionHeader'
 
 const Sportsbook = () => {
@@ -15,7 +15,7 @@ const Sportsbook = () => {
 
   return (
     <View sx={{ bg: '$background', flex: 1 }}>
-      <ListSectionHeader title={'sportsbook'} bgColor="yellow" iconName="sb" />
+      <ListSectionHeader title={'SPORTSBOOK'} bgColor="yellow" iconName="sb" />
       <FlatList
         keyExtractor={(item: any) => item.image}
         style={{ paddingBottom: 30, paddingHorizontal: 8 }}

@@ -1,2 +1,2 @@
-import HomeScreen from 'app/features/home/screen'
-export default HomeScreen
+import Slots from 'app/features/slots'
+export default Slots

@@ -15,6 +15,9 @@ const sizeList = {
   $11: 22,
   $12: 24,
   $15: 30,
+  $16: 32,
+
+  $20: 40,
 }
 
 const commonColors = {
@@ -34,13 +37,16 @@ const commonColors = {
 
 const colorGradient = {
   maroon: ['rgb(160,50,100)', 'rgb(112,27,42)'],
+  lightPurple: ['rgb(174,98,206)', 'rgb(115,54,124)'],
   purple: ['rgb(71,82,200)', 'rgb(40,47,120)'],
   blue: ['rgb(115,218,191)', 'rgb(46,101,99)'],
   darkBlue: ['rgb(25,52,93)', 'rgb(18,33,53)'],
   green: ['rgb(88,173,64)', 'rgb(47,106,50)'],
   pink: ['rgb(204,64,87)', 'rgb(179,43,60)'],
   yellow: ['rgb(213,190,63)', 'rgb(206,121,45)'],
+  gold: ['rgb(242,168,59)', 'rgb(247,209,70)', 'rgb(242,168,59)'],
   orange: ['rgb(235,166,78)', 'rgb(210,78,86)'],
+  main: ['#24C0E3', '#3799CC'],
 }
 
 const theme = makeTheme({
@@ -58,7 +64,7 @@ const theme = makeTheme({
       color: '$error',
     },
     sm: {
-      fontSize: 12,
+      fontSize: 9,
     },
   },
   forms: {

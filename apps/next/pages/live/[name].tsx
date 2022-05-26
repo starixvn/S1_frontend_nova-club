@@ -1,2 +1,2 @@
-import HomeScreen from 'app/features/home/screen'
-export default HomeScreen
+import Casino from 'app/features/casino'
+export default Casino

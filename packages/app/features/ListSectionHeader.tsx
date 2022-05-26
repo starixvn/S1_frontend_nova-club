@@ -49,7 +49,6 @@ const StyledText = styled(Text)({
   pl: '$3',
   pr: '$10',
   fontWeight: 'bold',
-  textTransform: 'uppercase',
   fontStyle: 'italic',
 })
 

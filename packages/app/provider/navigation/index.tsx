@@ -16,9 +16,9 @@ export function NavigationProvider({
             screens: {
               Home: 'home',
               Sportsbook: 'sportsbook/:name',
-              Test2: '/games/:name',
-              Test3: '/slots/:name',
-              Test4: '/live/:name',
+              Games: '/games/:name',
+              Slots: '/slots/:name',
+              Casino: '/live/:name',
             },
           },
         }),

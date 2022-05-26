@@ -1,13 +1,19 @@
 import authApi from 'app/services/authApi'
 import contentApi from 'app/services/contentApi'
 import { configureStore } from '@reduxjs/toolkit'
+import gameApi from 'app/services/gameApi'
 
-const middlerwares = [authApi.middleware, contentApi.middleware]
+const middlerwares = [
+  authApi.middleware,
+  contentApi.middleware,
+  gameApi.middleware,
+]
 
 export const store = configureStore({
   reducer: {
     [authApi.reducerPath]: authApi.reducer,
     [contentApi.reducerPath]: contentApi.reducer,
+    [gameApi.reducerPath]: gameApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(middlerwares),

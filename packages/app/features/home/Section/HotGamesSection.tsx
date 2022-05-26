@@ -1,31 +1,21 @@
+import ListImage from 'app/components/ListImage'
 import hotgame from 'app/config/games/hotgame'
-import { Image, ScrollView, styled, View } from 'dripsy'
+import { useGameListQuery } from 'app/services/gameApi'
+import { View } from 'dripsy'
 import React from 'react'
 import SectionHeader from './SectionHeader'
 
 const HotGamesSection = () => {
+  const { data } = useGameListQuery({
+    platform: 'PRAGMATICPLAY_API',
+    type: 'slot',
+  })
   return (
-    <View>
+    <View sx={{ mb: '$15' }}>
       <SectionHeader title={hotgame.label} bgColor="orange" iconName="sb" />
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        sx={{ ml: '$7' }}
-      >
-        {hotgame.gameList.map((i) => {
-          return <StyledImage key={i.image.toString()} source={i.image} />
-        })}
-      </ScrollView>
+      <ListImage data={hotgame.gameList} />
     </View>
   )
 }
-
-const StyledImage = styled(Image)({
-  margin: 2,
-  mb: '$15',
-  borderRadius: 5,
-  height: [110, 130, 150],
-  width: [110, 130, 150],
-})
 
 export default HotGamesSection

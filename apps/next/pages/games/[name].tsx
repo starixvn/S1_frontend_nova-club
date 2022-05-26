@@ -1,3 +1,3 @@
-import HomeScreen from 'app/features/home/screen'
+import Games from 'app/features/games'
 
-export default HomeScreen
+export default Games
