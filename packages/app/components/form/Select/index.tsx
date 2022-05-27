@@ -1,7 +1,7 @@
 import { DripsyGradient, DripsyGradientProps } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { mergeRefs } from 'app/uitls/mergeRefs'
+import { mergeRefs } from 'app/utils/mergeRefs'
 import { Pressable, SxProp, Text, useDripsyTheme, View } from 'dripsy'
 import React, {
   ComponentProps,
