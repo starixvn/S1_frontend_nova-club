@@ -12,8 +12,6 @@ const sizeList = {
   $8: 16,
   $9: 18,
   $10: 20,
-  $11: 22,
-  $12: 24,
   $15: 30,
   $16: 32,
 
@@ -31,6 +29,12 @@ const commonColors = {
   $yellow: 'rgb(255,255,84)',
   $border: '#B3BADE',
   $secondary: '#0D2035',
+  $navyBlue: '#066D9A',
+  $navyBlue2: '#246d92',
+  $lightNavyBlue: '#33A0D0',
+  $lightNavyBlue2: '#AFE4FF',
+  $darkNavyBlue: '#014F71',
+  $dark: '#132C43',
   fffff: '#ffffff', // WIP: Should be change to better naming
   placeholderTextColor: 'this string is ignored but must be declared',
 }
@@ -41,6 +45,10 @@ const colorGradient = {
   purple: ['rgb(71,82,200)', 'rgb(40,47,120)'],
   blue: ['rgb(115,218,191)', 'rgb(46,101,99)'],
   darkBlue: ['rgb(25,52,93)', 'rgb(18,33,53)'],
+  navyBlue: ['rgb(6, 109, 154)', 'rgb(1, 79, 113)'],
+  darkNavyBlue: ['rgb(19, 51, 81)', 'rgb(13, 32, 53)'],
+  lightNavyBlue: ['rgb(51, 160, 208)', 'rgb(1, 79, 113)'],
+  oceanBlue: ['rgb(24, 95, 161)', 'rgb(51, 160, 208)'],
   green: ['rgb(88,173,64)', 'rgb(47,106,50)'],
   pink: ['rgb(204,64,87)', 'rgb(179,43,60)'],
   yellow: ['rgb(213,190,63)', 'rgb(206,121,45)'],

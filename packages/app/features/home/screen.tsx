@@ -1,6 +1,6 @@
-import { useLoginQuery, useRegisterQuery } from 'app/services/authApi'
+import Select from 'app/components/form/Select'
 import { ScrollView } from 'dripsy'
-import React from 'react'
+import React, { useState } from 'react'
 import CasinoSection from './Section/CasinoSection'
 import GamesSection from './Section/GamesSection'
 import HotGamesSection from './Section/HotGamesSection'
@@ -10,26 +10,34 @@ import GridSection from './Section/GridSection'
 import WalletMenu from './WalletMenu'
 
 const HomeScreen = () => {
-  const { data } = useLoginQuery({ username: 'tre', password: '123' })
-  const {
-    data: registerData,
-    isError,
-    error,
-  } = useRegisterQuery({
-    contactNumber: '123',
-    cpassword: '123',
-    email: '123@gmal.com',
-    password: '123',
-    terms: true,
-    tracking_code: '13',
-    username: 'username',
-  })
+  const [selected, setSelected] = useState(null)
 
   return (
     <ScrollView
       sx={{ bg: '$background', flex: 1, pt: 2 }}
       showsVerticalScrollIndicator={false}
     >
+      <Select
+        headerTitle={'Period'}
+        buttonTitle="Click here to oopen"
+        buttonProps={{
+          sx: {
+            m: 10,
+          },
+          isActive: false,
+        }}
+        data={[
+          { name: '13', value: 0 },
+          { name: '1321312313', value: 1 },
+          { name: '121231313123313132313232123123123213131231', value: 2 },
+          { name: 'a', value: 3 },
+          { name: 'b', value: 4 },
+          { name: 'c', value: 5 },
+          { name: 'd', value: 6 },
+          { name: 'f', value: 1 },
+        ]}
+        setSelectedValue={setSelected}
+      ></Select>
       {/* <Text sx={{ marginBottom: 20 }}>
         {data ? JSON.stringify(data, null, 2) : 'no login data'}
       </Text>
