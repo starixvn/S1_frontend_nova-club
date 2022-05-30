@@ -50,7 +50,7 @@ const authApi = createApi({
 
 export default authApi
 export { authEndpoints }
-export const { useLoginQuery, useRegisterQuery } = authApi
+export const { useLazyLoginQuery, useLazyRegisterQuery } = authApi
 
 /**
  * For Demo differrent use cases
@@ -71,16 +71,17 @@ const addTagAuthApi = dummyAuthApi.enhanceEndpoints({
   addTagTypes: ['Login', 'Register'],
   endpoints: {
     login: {
-      providesTags: ['Login'],
-      keepUnusedDataFor: 5,
-      transformResponse: (resp): string => {
-        return '123'
+      transformResponse: (resp: string) => {
+        return resp
       },
     },
     register: {
       providesTags: ['Register'],
+      transformResponse: (resp: IResponse<RegisterResult>) => {
+        return resp
+      },
     },
   },
 })
 
-const { useLoginQuery: useLoginQueryTag } = addTagAuthApi
+// const { useLoginQuery: useLoginQueryTag } = addTagAuthApi

@@ -1,4 +1,8 @@
-import { Api, QueryDefinition } from '@reduxjs/toolkit/query'
+import {
+  Api,
+  MutationDefinition,
+  QueryDefinition,
+} from '@reduxjs/toolkit/query'
 import { createApi } from '@reduxjs/toolkit/query/react'
 
 export type CreateApiParamType = Parameters<typeof createApi>[0]
@@ -47,9 +51,20 @@ export type ConvertResponseType<
         Omit<Definition, keyof T> & {
           [P in keyof T]: Definition extends Record<
             P,
-            QueryDefinition<infer TI1, infer TI2, infer TI3, infer _, infer TI5>
+            QueryDefinition<infer TQ1, infer TQ2, infer TQ3, infer _, infer TQ5>
           >
-            ? QueryDefinition<TI1, TI2, TI3, T[P], TI5>
+            ? QueryDefinition<TQ1, TQ2, TQ3, T[P], TQ5>
+            : Definition extends Record<
+                P,
+                MutationDefinition<
+                  infer TM1,
+                  infer TM2,
+                  infer TM3,
+                  infer _,
+                  infer TM5
+                >
+              >
+            ? MutationDefinition<TM1, TM2, TM3, T[P], TM5>
             : undefined
         },
         T3,
