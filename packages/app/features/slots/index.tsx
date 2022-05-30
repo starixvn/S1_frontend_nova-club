@@ -6,7 +6,7 @@ import ListSectionHeader from '../ListSectionHeader'
 
 const Slots = () => {
   return (
-    <ScrollView sx={{ bg: '$background' }}>
+    <ScrollView sx={{ bg: '$background' }} showsVerticalScrollIndicator={false}>
       <ListSectionHeader title={'Slots'} bgColor="lightPurple" iconName="sl" />
       <SimpleGridImage data={fishing.gameList} />
     </ScrollView>

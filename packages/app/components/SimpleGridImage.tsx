@@ -7,6 +7,7 @@ const SimpleGridImage = ({ data }: { data: any[] }) => {
   const StyledImage = styled(Image)({
     mx: '$3',
     borderRadius: 10,
+    my: '$3',
     width: [width / 2.25, width / 2.25, width / 2.25],
     height: [width / 2.2, width / 2.2, width / 2.2],
   })

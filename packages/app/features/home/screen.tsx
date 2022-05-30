@@ -8,6 +8,7 @@ import LeaderboardSection from './Section/LeaderboardSection'
 import LotterySection from './Section/LotterySection'
 import GridSection from './Section/GridSection'
 import WalletMenu from './WalletMenu'
+import BannerSection from './Section/BannerSection'
 
 const HomeScreen = () => {
   const [selected, setSelected] = useState(null)
@@ -51,7 +52,8 @@ const HomeScreen = () => {
       </Text>
       <Text> This is the new Update</Text>
       </Text> */}
-      <WalletMenu />
+      <BannerSection />
+      {/* <WalletMenu /> */}
       <GridSection />
       <CasinoSection />
       <LotterySection />

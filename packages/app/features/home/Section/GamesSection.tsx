@@ -1,7 +1,7 @@
 import fishing from 'app/config/games/fishing'
 import hotgame from 'app/config/games/hotgame'
 import lottery from 'app/config/games/lottery'
-import { styled, Text, View } from 'dripsy'
+import { styled, View } from 'dripsy'
 import React, { FC } from 'react'
 import { useWindowDimensions } from 'react-native'
 import Animated, {
@@ -76,9 +76,8 @@ const PaginationItem: FC<{
   backgroundColor: string
   length: number
   animValue: Animated.SharedValue<number>
-  isRotate?: boolean
 }> = (props) => {
-  const { animValue, index, length, backgroundColor, isRotate } = props
+  const { animValue, index, length, backgroundColor } = props
   const width = 10
 
   const animStyle = useAnimatedStyle(() => {

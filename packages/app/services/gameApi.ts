@@ -1,7 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import { axiosBaseQuery } from './common/axiosBaseQuery'
 import { EndpointBuilderType, IResponse } from './common/types'
-import { BannerResult } from './contentApi.type'
 import { GameListResult, GameQueryArgs } from './gameApi.type'
 
 /**

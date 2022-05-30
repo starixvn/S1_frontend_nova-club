@@ -8,8 +8,13 @@ import SlotGames from './SlotGames'
 
 const Games = () => {
   return (
-    <ScrollView sx={{ bg: '$background' }}>
-      <ListSectionHeader title={'Games'} bgColor="green" iconName="games" />
+    <ScrollView sx={{ bg: '$background' }} showsVerticalScrollIndicator={false}>
+      <ListSectionHeader
+        title={'Games'}
+        bgColor="green"
+        iconName="games"
+        search
+      />
       <MenuRow />
       <HotGames />
       <Fishing />

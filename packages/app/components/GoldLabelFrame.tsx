@@ -16,7 +16,7 @@ const GoldLabelFrame = ({ title }: { title: string }) => {
 const StyledGradient = styled(DripsyGradient)({
   mx: '$16',
   borderRadius: 5,
-  bottom: 25,
+  bottom: 33,
 })
 
 const StyledText = styled(Text)({

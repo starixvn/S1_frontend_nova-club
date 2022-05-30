@@ -7,8 +7,13 @@ import ListSectionHeader from '../ListSectionHeader'
 
 const Casino = () => {
   return (
-    <ScrollView sx={{ bg: '$background' }}>
-      <ListSectionHeader title={'Live Casino'} bgColor="maroon" iconName="lc" />
+    <ScrollView sx={{ bg: '$background' }} showsVerticalScrollIndicator={false}>
+      <ListSectionHeader
+        title={'Live Casino'}
+        bgColor="maroon"
+        iconName="lc"
+        search
+      />
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
