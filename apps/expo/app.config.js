@@ -4,6 +4,7 @@ const IS_STAGING = process.env.APP_VARIANT === "staging";
 export default {
   "name": IS_STAGING ? "Nova Club Staging" : "Nova Club",
   "slug": "chlgame",
+  "owner": "beacora",
   "version": "1.0.0",
   "sdkVersion": "44.0.0",
   "scheme": "chlgame",
@@ -15,9 +16,10 @@ export default {
     "android"
   ],
   "ios": {
-    "bundleIdentifier": IS_STAGING ? "com.chlgame.staging" : "com.chlgame"
+    "bundleIdentifier": IS_STAGING ? "com.chlgame.staging" : "com.chlgame.app"
   },
   "android": {
-    "package": IS_STAGING ? "com.chlgame.staging" : "com.chlgame"
+    "package": IS_STAGING ? "com.chlgame.staging" : "com.chlgame.app"
   }
+  // "plugins": ["expo-community-flipper"]
 }
