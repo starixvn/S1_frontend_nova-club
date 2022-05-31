@@ -28,5 +28,5 @@ export default {
   "updates": {
     "checkAutomatically": "ON_ERROR_RECOVERY"
   }
-  // "plugins": ["expo-community-flipper"]
+
 }
