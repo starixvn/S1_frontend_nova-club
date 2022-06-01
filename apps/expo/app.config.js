@@ -20,6 +20,9 @@ export default {
   },
   "android": {
     "package": IS_STAGING ? "com.chlgame.staging" : "com.chlgame.app"
+  },
+  "updates": {
+    "checkAutomatically": "ON_ERROR_RECOVERY"
   }
   // "plugins": ["expo-community-flipper"]
 }

@@ -3,10 +3,12 @@
   "name": "app",
   "main": "index.ts",
   "dependencies": {
+    "utils": "*",
     "@dripsy/gradient": "^3.6.0",
     "@react-navigation/bottom-tabs": "^6.3.1",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.5.0",
+    "@react-navigation/stack": "^6.2.1",
     "@reduxjs/toolkit": "^1.8.1",
     "axios": "^0.27.2",
     "dripsy": "^3.6.0",

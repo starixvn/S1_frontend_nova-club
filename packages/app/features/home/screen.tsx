@@ -14,18 +14,18 @@ import * as Updates from 'expo-updates'
 
 const HomeScreen = () => {
   const [selected, setSelected] = useState(null)
-  const [updateStatus, setUpdateStatus] = useState('-')
+  const [updateStatus, setUpdateStatus] = useState('--')
   const [event, setEvent] = useState('-')
 
   useEffect(() => {
     async function checkUpdate() {
       const update = await Updates.checkForUpdateAsync()
       if (update.isAvailable && update.manifest) {
-        setUpdateStatus(JSON.stringify(update.manifest))
+        setUpdateStatus(JSON.stringify(update.manifest.id))
       }
 
       Updates.addListener((e) => {
-        setEvent(JSON.stringify(e))
+        setEvent(e.type)
       })
     }
 
@@ -89,7 +89,7 @@ const HomeScreen = () => {
       <Text> This is the new Update</Text>
       </Text> */}
       <Text>{'Status : ' + updateStatus}</Text>
-      <Text>{'Event : ' + updateStatus}</Text>
+      <Text>{'Event : ' + event}</Text>
       <BannerSection />
       {/* <WalletMenu /> */}
       <GridSection />

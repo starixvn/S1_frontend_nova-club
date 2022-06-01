@@ -1,13 +1,11 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import TestCarousel from 'app/features/TestCarousel'
-import TestModal from '../../../../apps/next/pages/test-modal'
-
-import { HomeScreen } from '../../features/home/screen'
-import { UserDetailScreen } from '../../features/user/detail-screen'
+import { createStackNavigator } from '@react-navigation/stack'
+import SplashScreen from 'app/features/splashscreen'
+import { fadeScaleIn, forFadeFromCenter } from 'app/transitions/test'
 import MainHeader from '../MainHeader'
 import TabNavigation from './TabNavigation'
 
-const Stack = createNativeStackNavigator<{
+const Stack = createStackNavigator<{
+  SplashScreen: undefined
   BottomNav: undefined
 }>()
 
@@ -23,7 +21,20 @@ export function NativeNavigation() {
         },
       }}
     >
-      <Stack.Screen name="BottomNav" component={TabNavigation} />
+      <Stack.Screen
+        name="SplashScreen"
+        component={SplashScreen}
+        options={{
+          header: () => null,
+        }}
+      />
+      <Stack.Screen
+        name="BottomNav"
+        component={TabNavigation}
+        options={{
+          cardStyleInterpolator: fadeScaleIn,
+        }}
+      />
     </Stack.Navigator>
   )
 }
