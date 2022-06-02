@@ -14,7 +14,7 @@ export function NavigationProvider({
           prefixes: ['http://localhost:3000'],
           config: {
             screens: {
-              Test: 'test',
+              SplashScreen: 'SplashScreen',
               BottomNav: 'BottomNav',
               Home: 'home',
               Sportsbook: 'sportsbook/:name',
