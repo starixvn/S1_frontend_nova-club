@@ -43,6 +43,7 @@ export function NavigationProvider({
                   Casino: '/live/:name',
                 },
               },
+              Profile: 'profile',
             },
           },
         }),

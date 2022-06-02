@@ -1,8 +1,9 @@
 import Select from 'app/components/form/Select'
-import { ScrollView, Text } from 'dripsy'
+import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
+import { ScrollView, Text, View } from 'dripsy'
 import * as Updates from 'expo-updates'
-import { default as React, useEffect, useState } from 'react'
-import { Platform } from 'react-native'
+import { default as React, useEffect, useRef, useState } from 'react'
+import { Button, Platform } from 'react-native'
 import { MotiLink } from 'solito/moti'
 import BannerSection from './Section/BannerSection'
 import CasinoSection from './Section/CasinoSection'
@@ -16,6 +17,8 @@ const HomeScreen = () => {
   const [selected, setSelected] = useState(null)
   const [updateStatus, setUpdateStatus] = useState('--')
   const [event, setEvent] = useState('-')
+
+  const OTPRef = useRef<ITimerButtonForwardRef>(null)
 
   useEffect(() => {
     async function checkUpdate() {
@@ -33,6 +36,10 @@ const HomeScreen = () => {
       checkUpdate()
     }
   }, [])
+
+  const handleOtp = () => {
+    console.log('handle otp api')
+  }
 
   return (
     <ScrollView
@@ -80,6 +87,15 @@ const HomeScreen = () => {
       </Text> */}
       <Text>{'Status : ' + updateStatus}</Text>
       <Text>{'Event : ' + event}</Text>
+      <Text>{'Event : ' + updateStatus}</Text>
+      <View sx={{ flexDirection: 'row' }}>
+        <TimerButton title="Request OTP" onPress={handleOtp} ref={OTPRef} />
+        <Button
+          title="Start timer"
+          onPress={() => OTPRef.current && OTPRef.current.startOtpTimer()}
+        />
+      </View>
+
       <BannerSection />
       {/* <WalletMenu /> */}
       <GridSection />

@@ -34,12 +34,18 @@ const commonColors = {
   $navyBlue2: '#246d92',
   $lightNavyBlue: '#33A0D0',
   $lightNavyBlue2: '#AFE4FF',
+  $lightCyan: '#9CD9FA',
   $darkNavyBlue: '#014F71',
   $dark: '#132C43',
   $oceanBlue: '#9AC9FF',
   $cyan: '#00E5FF',
   $darkOcean: '#002243',
   $darkOcean2: '#133351',
+  $disabled: '#BDBDBD',
+  $PaleBlue: '#C0E0FD',
+  $PastelBlue: '#6397B7',
+  $yellowLight: '#F6FF7A',
+  $taupeGray: '#8B8787',
   placeholderTextColor: 'this string is ignored but must be declared',
   $orange: '#F15D12',
 }
@@ -63,6 +69,12 @@ const colorGradient = {
   orange: ['rgb(235,166,78)', 'rgb(210,78,86)'],
   orangeRed: ['rgb(231, 97, 21)', 'rgb(206, 48, 8)'],
   main: ['#24C0E3', '#3799CC'],
+  PaleBlue: ['#066D9A', '#014F71'],
+  lightRed: ['#FC819B', '#E13256'],
+  lightGreen: ['#91F5CA', '#24AA3F'],
+  lightBlue: ['#8EB0FF', '#2B32F9'],
+  lightYellow: ['#F7ED7B', '#F9B32B'],
+  wineRed: ['#BF0A31', '#78031D'],
 }
 
 const theme = makeTheme({

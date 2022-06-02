@@ -1,6 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import SplashScreen from 'app/features/splashscreen'
 import { fadeScaleIn } from 'app/transitions/fade'
+import ProfileScreen from 'app/features/profile'
 import MainHeader from '../MainHeader'
 import TabNavigation from './TabNavigation'
 import LoginPage from 'app/features/auth/login'
@@ -12,6 +13,7 @@ const Stack = createStackNavigator<{
   BottomNav: undefined
   LoginPage: undefined
   RegisterPage: undefined
+  Profile: undefined
 }>()
 
 export function NativeNavigation() {
@@ -80,6 +82,8 @@ export function NativeNavigation() {
           },
         }}
       />
+      <Stack.Screen name="BottomNav" component={TabNavigation} />
+      <Stack.Screen name="Profile" component={ProfileScreen} />
     </Stack.Navigator>
   )
 }
