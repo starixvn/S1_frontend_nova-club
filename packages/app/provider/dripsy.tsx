@@ -36,8 +36,12 @@ const commonColors = {
   $lightNavyBlue2: '#AFE4FF',
   $darkNavyBlue: '#014F71',
   $dark: '#132C43',
-  fffff: '#ffffff', // WIP: Should be change to better naming
+  $oceanBlue: '#9AC9FF',
+  $cyan: '#00E5FF',
+  $darkOcean: '#002243',
+  $darkOcean2: '#133351',
   placeholderTextColor: 'this string is ignored but must be declared',
+  $orange: '#F15D12',
 }
 
 const colorGradient = {
@@ -50,11 +54,14 @@ const colorGradient = {
   darkNavyBlue: ['rgb(19, 51, 81)', 'rgb(13, 32, 53)'],
   lightNavyBlue: ['rgb(51, 160, 208)', 'rgb(1, 79, 113)'],
   oceanBlue: ['rgb(24, 95, 161)', 'rgb(51, 160, 208)'],
+  lightOceanBlue: ['rgb(36, 108, 158)', 'rgb(29, 89, 135)'],
+  darkOceanBlue: ['rgb(3, 62, 116)', 'rgb(19, 44, 71)'],
   green: ['rgb(88,173,64)', 'rgb(47,106,50)'],
   pink: ['rgb(204,64,87)', 'rgb(179,43,60)'],
   yellow: ['rgb(213,190,63)', 'rgb(206,121,45)'],
   gold: ['rgb(242,168,59)', 'rgb(247,209,70)', 'rgb(242,168,59)'],
   orange: ['rgb(235,166,78)', 'rgb(210,78,86)'],
+  orangeRed: ['rgb(231, 97, 21)', 'rgb(206, 48, 8)'],
   main: ['#24C0E3', '#3799CC'],
 }
 
@@ -72,8 +79,11 @@ const theme = makeTheme({
     error: {
       color: '$error',
     },
+    md: {
+      fontSize: 14,
+    },
     sm: {
-      fontSize: 9,
+      fontSize: 12,
     },
   },
   forms: {

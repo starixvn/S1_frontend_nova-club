@@ -2,6 +2,7 @@ import { API_DOMAIN, API_KEY } from '@env'
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { IResponse } from './types'
 import { BaseQueryFn } from '@reduxjs/toolkit/dist/query'
+import { generateFPSParams } from 'app/utils/fps/fpsGenerator'
 
 const DEFAULT_TIMEOUT = 15000
 
@@ -11,11 +12,38 @@ const axiosInstance = axios.create({
 })
 
 const onRequestFullfilled = (config: AxiosRequestConfig) => {
-  let { headers } = config
+  type RequestParams = {
+    black_b: string
+  } & ReturnType<typeof generateFPSParams>
+
+  let { url, headers } = config
+  const requestParams: RequestParams = {} as RequestParams
+
+  const fraudDetectionNeeded = ['/player_api/createPlayer', '/player_api/login']
+
+  if (fraudDetectionNeeded.includes(url!)) {
+    headers = {
+      ...headers,
+      'Content-Type': 'application/json',
+    }
+
+    Object.assign(requestParams, generateFPSParams())
+
+    try {
+      const black_b = window.IGLOO?.getBlackbox().blackbox
+      requestParams.black_b = black_b
+    } catch (e) {
+      console.log('Failed to retrieve blackbox')
+    }
+  }
 
   config.headers = {
     ...headers,
     api_key: API_KEY,
+  }
+  config.data = {
+    ...config.data,
+    ...requestParams,
   }
 
   return config

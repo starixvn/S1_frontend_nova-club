@@ -1,16 +1,16 @@
 import Select from 'app/components/form/Select'
 import { ScrollView, Text } from 'dripsy'
-import React, { useEffect, useState } from 'react'
+import * as Updates from 'expo-updates'
+import { default as React, useEffect, useState } from 'react'
+import { Platform } from 'react-native'
+import { MotiLink } from 'solito/moti'
+import BannerSection from './Section/BannerSection'
 import CasinoSection from './Section/CasinoSection'
 import GamesSection from './Section/GamesSection'
+import GridSection from './Section/GridSection'
 import HotGamesSection from './Section/HotGamesSection'
 import LeaderboardSection from './Section/LeaderboardSection'
 import LotterySection from './Section/LotterySection'
-import GridSection from './Section/GridSection'
-import WalletMenu from './WalletMenu'
-import BannerSection from './Section/BannerSection'
-import { Platform } from 'react-native'
-import * as Updates from 'expo-updates'
 
 const HomeScreen = () => {
   const [selected, setSelected] = useState(null)
@@ -39,27 +39,17 @@ const HomeScreen = () => {
       sx={{ bg: '$background', flex: 1, pt: 2 }}
       showsVerticalScrollIndicator={false}
     >
-      <Select
-        headerTitle={'Period'}
-        buttonTitle="Click here to oopen"
-        buttonProps={{
-          sx: {
-            m: 10,
-          },
-          isActive: false,
+      <MotiLink
+        href={'/auth/login'}
+        animate={({ hovered, pressed }) => {
+          'worklet'
+          return {
+            scale: pressed ? 0.9 : hovered ? 1.1 : 1,
+          }
         }}
-        data={[
-          { name: '13', value: 0 },
-          { name: '1321312313', value: 1 },
-          { name: '121231313123313132313232123123123213131231', value: 2 },
-          { name: 'a', value: 3 },
-          { name: 'b', value: 4 },
-          { name: 'c', value: 5 },
-          { name: 'd', value: 6 },
-          { name: 'f', value: 1 },
-        ]}
-        setSelectedValue={setSelected}
-      />
+      >
+        <Text>Login Page</Text>
+      </MotiLink>
       <Select
         headerTitle={'Period'}
         buttonTitle="Click here to oopen"

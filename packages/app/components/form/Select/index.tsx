@@ -38,6 +38,22 @@ interface SelectProps {
 
 const DEFAULT_ACTION_SHEET_ID = 'select'
 
+/**
+ *
+ * @example
+ *<Select
+ *  headerTitle={'Period'}
+ *  buttonTitle="Click here to oopen"
+ *  buttonProps={{
+ *    sx: {
+ *      m: 10,
+ *    },
+ *    isActive: false,
+ *  }}
+ *  data={[{ name: '13', value: 0 }]}
+ *  setSelectedValue={setSelected}
+ *  ></Select>
+ */
 const Select = (
   {
     actionSheetContentProps,

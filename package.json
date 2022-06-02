@@ -18,16 +18,18 @@
     "web": "cd apps/next && yarn next",
     "plus": "yarn lernaupdate --lazy",
     "reset": "find . -type dir -name node_modules | xargs rm -rf && rm -rf yarn.lock",
-    "copy-assets": "node ./apps/next/scripts/copy-directory.js",
+    "copy-assets": "node ./apps/next/scripts/copy-assets.js",
     "build:web": "yarn workspace next-app build",
     "docker:web": "docker build -t chlgame .",
     "docker:verify": "docker run -it chlgame sh",
     "docker:run": "docker run -p 3000:3000 chlgame",
     "deploy:staging": "expo publish --release-channel staging",
-    "deploy:prod": "expo publish --release-channel prod"
+    "deploy:prod": "expo publish --release-channel prod",
+    "rndebug": "open 'rndebugger://set-debugger-loc?host=localhost&port=19000'"
   },
   "resolutions": {
     "@types/react": "^17.0.39",
-    "@types/react-native": "^0.67.2"
+    "@types/react-native": "^0.67.2",
+    "react-devtools-core": "4.14.0"
   }
 }

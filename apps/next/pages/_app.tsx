@@ -10,6 +10,7 @@ import iconFile from '/public/fonts/icomoon.ttf'
 import MainHeader from 'app/navigation/MainHeader'
 import BottomNavigation from 'app/navigation/BottomNavigation'
 import '../global.css'
+import Script from 'next/script'
 
 function MyApp({ Component, pageProps }: SolitoAppProps) {
   const [loaded, error] = useFontInit({
@@ -45,6 +46,9 @@ function MyApp({ Component, pageProps }: SolitoAppProps) {
           <BottomNavigation />
         </div>
       </Provider>
+
+      <Script src="/js/iovation_static.js" />
+      <Script src="https://scqa2.detecas.com/activator.ashx" />
     </>
   )
 }

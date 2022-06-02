@@ -1,12 +1,15 @@
-// This script is to move the `packages/app/assets/fonts` nested folder to
-// `apps/next/public` folder automatically. The reason is for nextjs, font file (eg: .ttf)
-// should be put into `public` folder.
+// This script is to move the `icomoon.ttf` to
+// `apps/next/public` folder automatically. The reason is for nextjs,
+// font file (eg: .ttf) should be put into `public` folder.
 
 const fse = require('fs-extra')
 const path = require('path')
 
-const srcDir = path.resolve(__dirname, '../../../packages/app/assets/fonts')
-const destDir = path.resolve(__dirname, '../public/fonts')
+const srcDir = path.resolve(
+  __dirname,
+  '../../../packages/app/assets/fonts/icomoon.ttf'
+)
+const destDir = path.resolve(__dirname, '../public/fonts/icomoon.ttf')
 
 function startCopyDirectory() {
   try {
