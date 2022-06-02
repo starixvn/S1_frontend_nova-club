@@ -13,6 +13,7 @@ import { useMemo } from 'react'
  * Object value: Parameter pass into the component
  */
 interface NavigationParamList {
+  SplashScreen: undefined
   LoginPage: undefined
   BottomNav: undefined
   RegisterPage: undefined
@@ -30,7 +31,7 @@ export function NavigationProvider({
           prefixes: ['http://localhost:3000'],
           config: {
             screens: {
-              SplashScreen: 'SplashScreen',
+              SplashScreen: 'splashscreen',
               LoginPage: '/auth/login',
               RegisterPage: '/auth/register',
               BottomNav: {

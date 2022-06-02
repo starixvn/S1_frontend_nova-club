@@ -2,7 +2,6 @@ import { Text, View } from 'dripsy'
 import { MotiView } from 'moti'
 import React, { useEffect } from 'react'
 import { ImageBackground } from 'react-native'
-import { MotiLink } from 'solito/moti'
 import { useRouter } from 'solito/router'
 import useOTA from './useOTA'
 import useSplashScreen from './useSplashScreen'
@@ -14,7 +13,7 @@ const SplashScreen = () => {
 
   useEffect(() => {
     if (status) {
-      push('/BottomNav')
+      push('/auth/login')
     }
   }, [status, push])
 

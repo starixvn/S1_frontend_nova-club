@@ -38,7 +38,7 @@ export function fadeScaleIn({
     next ? next.progress : 0
   ).interpolate({
     inputRange: [0, 1, 2],
-    outputRange: [1, 1, 1.5],
+    outputRange: [1, 1, 1.3],
   })
 
   const opacity = Animated.add(
