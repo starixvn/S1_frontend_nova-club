@@ -24,4 +24,5 @@ export interface RegisterQueryArgs {
   terms: true
   tracking_code: string
   username: string
+  real_name: string
 }

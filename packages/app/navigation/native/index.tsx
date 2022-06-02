@@ -6,9 +6,13 @@ import { HomeScreen } from '../../features/home/screen'
 import { UserDetailScreen } from '../../features/user/detail-screen'
 import MainHeader from '../MainHeader'
 import TabNavigation from './TabNavigation'
+import LoginPage from 'app/features/auth/login'
+import RegisterPage from 'app/features/auth/register'
 
 const Stack = createNativeStackNavigator<{
   BottomNav: undefined
+  LoginPage: undefined
+  RegisterPage: undefined
 }>()
 
 export function NativeNavigation() {
@@ -23,6 +27,8 @@ export function NativeNavigation() {
         },
       }}
     >
+      <Stack.Screen name="LoginPage" component={LoginPage} />
+      <Stack.Screen name="RegisterPage" component={RegisterPage} />
       <Stack.Screen name="BottomNav" component={TabNavigation} />
     </Stack.Navigator>
   )
