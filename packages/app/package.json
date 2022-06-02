@@ -15,6 +15,7 @@
     "expo-device": "^4.2.0",
     "expo-font": "^10.1.0",
     "expo-linking": "^3.0.0",
+    "formik": "^2.2.9",
     "moti": "canary",
     "react-native-actions-sheet": "^0.6.1",
     "react-native-dotenv": "^3.3.1",
@@ -22,11 +23,8 @@
     "react-native-modal": "^13.0.1",
     "react-native-reanimated-carousel": "^2.3.10",
     "react-redux": "^8.0.1",
-    "solito": "latest"
-  },
-  "sideEffects": false,
-  "devDependencies": {
-    "formik": "^2.2.9",
+    "solito": "latest",
     "yup": "^0.32.11"
-  }
+  },
+  "sideEffects": false
 }
