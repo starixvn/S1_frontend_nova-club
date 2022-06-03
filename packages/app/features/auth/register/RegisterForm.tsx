@@ -6,6 +6,7 @@ import validation from 'app/utils/validation'
 import { styled, Text, View } from 'dripsy'
 import { useFormik } from 'formik'
 import React, { useState } from 'react'
+import { KeyboardAvoidingView, Platform } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { MotiLink } from 'solito/moti'
 import { useRouter } from 'solito/router'
@@ -23,7 +24,6 @@ type LoginFormValues = {
 const RegisterForm = () => {
   const [register] = useLazyRegisterQuery()
   const [errorMsg, setErrorMsg] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
   const { push } = useRouter()
 
   const onSubmit = async ({
@@ -105,22 +105,12 @@ const RegisterForm = () => {
           value: values.password,
           onChangeText: handleChange('password'),
           onBlur: handleBlur('password'),
-          secureTextEntry: showPassword,
+          secureTextEntry: true,
         }}
         error={
           touched.password && errors.password ? errors.password : undefined
         }
-        sx={{ mt: '$12', minHeight: 50 }}
-        actions={[
-          () => (
-            <StyledButtonOpacity
-              activeOpacity={0.6}
-              onPress={() => setShowPassword((password) => !password)}
-            >
-              <Icon name="lc" size={25} sx={{ color: '$orange' }} />
-            </StyledButtonOpacity>
-          ),
-        ]}
+        sx={{ mt: '$6', minHeight: 50 }}
       />
 
       <TextInput
@@ -130,20 +120,14 @@ const RegisterForm = () => {
           value: values.confirmPassword,
           onChangeText: handleChange('confirmPassword'),
           onBlur: handleBlur('confirmPassword'),
+          secureTextEntry: true,
         }}
         error={
           touched.confirmPassword && errors.confirmPassword
             ? errors.confirmPassword
             : undefined
         }
-        sx={{ mt: '$12', minHeight: 50 }}
-        actions={[
-          () => (
-            <StyledButtonOpacity activeOpacity={0.6}>
-              <Icon name="lc" size={25} sx={{ color: '$orange' }} />
-            </StyledButtonOpacity>
-          ),
-        ]}
+        sx={{ mt: '$6' }}
       />
 
       <TextInput
@@ -158,19 +142,12 @@ const RegisterForm = () => {
         error={
           touched.realName && errors.realName ? errors.realName : undefined
         }
-        sx={{ mt: '$12', minHeight: 50 }}
-        actions={[
-          () => (
-            <StyledButtonOpacity activeOpacity={0.6}>
-              <Icon name="lc" size={25} sx={{ color: '$orange' }} />
-            </StyledButtonOpacity>
-          ),
-        ]}
+        sx={{ mt: '$6', minHeight: 50 }}
       />
 
       <Text variant="error">{errorMsg}</Text>
 
-      <View sx={{ alignItems: 'center', mt: '$6' }}>
+      <View sx={{ alignItems: 'center', mt: '$10' }}>
         <View sx={{ width: '80%' }}>
           <StyledButtonOpacity
             activeOpacity={0.6}

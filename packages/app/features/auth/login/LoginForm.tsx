@@ -48,7 +48,7 @@ const LoginForm = () => {
       password: '',
     },
     validationSchema: Yup.object({
-      username: validation.username,
+      username: Yup.string().required('validation.required'),
       //   password: Yup.string().required('validation.required'),
       password: validation.passwordRestrict,
     }),
@@ -78,7 +78,6 @@ const LoginForm = () => {
         error={
           touched.username && errors.username ? errors.username : undefined
         }
-        sx={{ minHeight: 50 }}
       />
 
       <TextInput
@@ -88,18 +87,12 @@ const LoginForm = () => {
           value: values.password,
           onChangeText: handleChange('password'),
           onBlur: handleBlur('password'),
+          secureTextEntry: true,
         }}
         error={
           touched.password && errors.password ? errors.password : undefined
         }
-        sx={{ mt: '$12', minHeight: 50 }}
-        actions={[
-          () => (
-            <StyledButtonOpacity activeOpacity={0.6}>
-              <Icon name="lc" size={25} sx={{ color: '$orange' }} />
-            </StyledButtonOpacity>
-          ),
-        ]}
+        sx={{ mt: '$6' }}
       />
 
       <View sx={{ alignItems: 'flex-end' }}>
@@ -127,7 +120,7 @@ const LoginForm = () => {
 
       <Text variant="error">{errorMsg}</Text>
 
-      <View sx={{ alignItems: 'center', mt: '$12' }}>
+      <View sx={{ alignItems: 'center', mt: '$10' }}>
         <View sx={{ width: '80%' }}>
           <StyledButtonOpacity
             activeOpacity={0.6}
