@@ -20,7 +20,6 @@ export function NativeNavigation() {
   return (
     <Stack.Navigator
       screenOptions={{
-        // headerShown: false,
         header: ({ navigation, route, options }) => {
           const title = route.name
 
@@ -35,7 +34,13 @@ export function NativeNavigation() {
           header: () => null,
         }}
       />
-      <Stack.Screen name="RegisterPage" component={RegisterPage} />
+      <Stack.Screen
+        name="RegisterPage"
+        component={RegisterPage}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen
         name="LoginPage"
         component={LoginPage}
@@ -57,6 +62,7 @@ export function NativeNavigation() {
               },
             },
           },
+          headerShown: false,
         }}
       />
       <Stack.Screen

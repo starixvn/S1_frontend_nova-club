@@ -1,21 +1,22 @@
-import 'raf/polyfill'
-
 import useFontInit from 'app/hooks/useFontInit'
 import { Provider } from 'app/provider'
 import Head from 'next/head'
+import Script from 'next/script'
+import 'raf/polyfill'
 import React from 'react'
 import { Text } from 'react-native'
 import type { SolitoAppProps } from 'solito'
-import iconFile from '/public/fonts/icomoon.ttf'
-import MainHeader from 'app/navigation/MainHeader'
-import BottomNavigation from 'app/navigation/BottomNavigation'
 import '../global.css'
-import Script from 'next/script'
+import CommonLayout from '../layouts/commonLayout'
+import iconFile from '/public/fonts/icomoon.ttf'
 
 function MyApp({ Component, pageProps }: SolitoAppProps) {
   const [loaded, error] = useFontInit({
     iconUrl: iconFile,
   })
+
+  // Use the layout defined at the page level, if available
+  const getLayout = Component.getLayout || CommonLayout
 
   if (!loaded) {
     return <Text>log from _app.tsx: Loading... {JSON.stringify(error)}</Text>
@@ -41,9 +42,7 @@ function MyApp({ Component, pageProps }: SolitoAppProps) {
             flexDirection: 'column',
           }}
         >
-          <MainHeader navigation={undefined} title="Web header" />
-          <Component {...pageProps} />
-          <BottomNavigation />
+          {getLayout(<Component {...pageProps} />)}
         </div>
       </Provider>
 

@@ -1,9 +1,10 @@
 import useFontInit from 'app/hooks/useFontInit'
-import 'react-native-gesture-handler';
+import 'react-native-gesture-handler'
 
 import { NativeNavigation } from 'app/navigation/native'
 import { Provider } from 'app/provider'
 import { Text } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
 
 export default function App() {
   /**
@@ -19,6 +20,7 @@ export default function App() {
 
   return (
     <Provider>
+      <StatusBar style="light" />
       <NativeNavigation />
     </Provider>
   )

@@ -25,7 +25,7 @@ const AuthLayout = ({
   formHeader,
   children,
 }: AuthLayoutProps) => {
-  const { bottom } = useSafeArea()
+  const { top, bottom } = useSafeArea()
 
   return (
     <ScrollView bounces={false} contentContainerStyle={{ flexGrow: 1 }}>
@@ -36,6 +36,7 @@ const AuthLayout = ({
         sx={{
           flexGrow: 1,
           justifyContent: 'space-between',
+          pt: top,
         }}
       >
         <View>
@@ -104,7 +105,7 @@ const AuthLayout = ({
           </View>
         </View>
 
-        <View sx={{ alignItems: 'center', mb: bottom, mt: 70 }}>
+        <View sx={{ alignItems: 'center', mb: bottom + 8, mt: 70 }}>
           <Text variant="md" sx={{ opacity: 0.7, mt: '$5' }}>
             Powered by NOVA88
           </Text>
