@@ -156,7 +156,6 @@ const LoginForm = () => {
           sx={{ mt: '$10' }}
         >
           <Text
-            variant="body"
             sx={{
               textAlign: 'center',
               fontWeight: 'bold',

@@ -7,6 +7,7 @@ import TabNavigation from './TabNavigation'
 import LoginPage from 'app/features/auth/login'
 import RegisterPage from 'app/features/auth/register'
 import { Easing } from 'react-native'
+import ButtonDemo from 'app/components/form/Button/ButtonDemo'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -38,7 +39,7 @@ export function NativeNavigation() {
       <Stack.Screen name="RegisterPage" component={RegisterPage} />
       <Stack.Screen
         name="LoginPage"
-        component={LoginPage}
+        component={ButtonDemo}
         options={{
           cardStyleInterpolator: fadeScaleIn,
           transitionSpec: {

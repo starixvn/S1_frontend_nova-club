@@ -48,6 +48,7 @@ const commonColors = {
   $taupeGray: '#8B8787',
   placeholderTextColor: 'this string is ignored but must be declared',
   $orange: '#F15D12',
+  $accent: '#F15D12',
 }
 
 const colorGradient = {
@@ -92,10 +93,22 @@ const theme = makeTheme({
       color: '$error',
     },
     md: {
-      fontSize: 14,
+      fontSize: 16,
     },
     sm: {
       fontSize: 12,
+    },
+  },
+  buttons: {
+    default: {
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    sm: {
+      paddingVertical: 4,
+    },
+    lg: {
+      height: 50,
     },
   },
   forms: {
@@ -117,6 +130,15 @@ const theme = makeTheme({
   colors: commonColors,
   linearGradients: colorGradient,
   space: sizeList,
+  sizes: {
+    $button: 40,
+    $2: 15,
+  },
+  roundness: {
+    sm: 5,
+    md: 8,
+    lg: 25,
+  },
 })
 
 type MyTheme = typeof theme
