@@ -82,7 +82,6 @@ export function NativeNavigation() {
           },
         }}
       />
-      <Stack.Screen name="BottomNav" component={TabNavigation} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
     </Stack.Navigator>
   )
