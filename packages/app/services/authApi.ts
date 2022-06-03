@@ -2,6 +2,7 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 import {
   LoginQueryArgs,
   LoginResult,
+  LogoutQueryArgs,
   RegisterQueryArgs,
   RegisterResult,
 } from './authApi.type'
@@ -34,6 +35,14 @@ const authEndpoints = (builder: EndpointBuilderType) => {
         },
       }),
     }),
+    logout: builder.query<IResponse<string>, LogoutQueryArgs>({
+      query: ({ username }) => ({
+        url: `/player_api/logout`,
+        data: {
+          username,
+        },
+      }),
+    }),
   }
 }
 
@@ -41,7 +50,7 @@ const authEndpoints = (builder: EndpointBuilderType) => {
  * `endpoints` has to rewrite here for proper typescript inference
  */
 const authApi = createApi({
-  reducerPath: 'auth',
+  reducerPath: 'authApi',
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
     ...authEndpoints(builder),

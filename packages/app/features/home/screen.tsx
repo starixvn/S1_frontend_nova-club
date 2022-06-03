@@ -1,10 +1,13 @@
 import Select from 'app/components/form/Select'
 import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
-import { ScrollView, Text, View } from 'dripsy'
+import { useAppSelector } from 'app/provider/redux/store'
+import { logOut } from 'app/utils/authUtil'
+import { Pressable, ScrollView, Text, View } from 'dripsy'
 import * as Updates from 'expo-updates'
 import { default as React, useEffect, useRef, useState } from 'react'
 import { Button, Platform } from 'react-native'
 import { MotiLink } from 'solito/moti'
+import { useRouter } from 'solito/router'
 import BannerSection from './Section/BannerSection'
 import CasinoSection from './Section/CasinoSection'
 import GamesSection from './Section/GamesSection'
@@ -19,6 +22,9 @@ const HomeScreen = () => {
   const [event, setEvent] = useState('-')
 
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
+  const { push } = useRouter()
+
+  const state = useAppSelector((state) => state.auth.tokens)
 
   useEffect(() => {
     async function checkUpdate() {
@@ -41,11 +47,17 @@ const HomeScreen = () => {
     console.log('handle otp api')
   }
 
+  const onLogout = async () => {
+    await logOut()
+    push('/auth/login')
+  }
+
   return (
     <ScrollView
       sx={{ bg: '$background', flex: 1, pt: 2 }}
       showsVerticalScrollIndicator={false}
     >
+      <Text>{JSON.stringify(state)}</Text>
       <MotiLink
         href={'/auth/login'}
         animate={({ hovered, pressed }) => {
@@ -57,6 +69,14 @@ const HomeScreen = () => {
       >
         <Text>Login Page</Text>
       </MotiLink>
+
+      <Pressable
+        sx={{ borderWidth: 1, borderColor: '$cyan', p: '$3' }}
+        onPress={onLogout}
+      >
+        <Text>Logout</Text>
+      </Pressable>
+
       <Select
         headerTitle={'Period'}
         buttonTitle="Click here to oopen"

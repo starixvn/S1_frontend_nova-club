@@ -10,6 +10,8 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import validation from 'app/utils/validation'
 import { useRouter } from 'solito/router'
+import { useAppDispatch } from 'app/provider/redux/store'
+import { AuthActions } from 'app/store/authReducer'
 
 const StyledButtonOpacity = styled(TouchableOpacity)({})
 const StyledLink = styled(MotiLink)({})
@@ -24,14 +26,19 @@ const LoginForm = () => {
   const [errorMsg, setErrorMsg] = useState('')
   const { push } = useRouter()
 
+  const dispatch = useAppDispatch()
+
   const onSubmit = async ({ username, password }: LoginFormValues) => {
     try {
-      const { result, success, message } = await login({
+      const { data, success, message } = await login({
         username,
         password,
       }).unwrap()
 
-      if (success && result) {
+      if (success && data) {
+        const { playerName, token } = data
+
+        dispatch(AuthActions.setToken({ playerName, token }))
         push('/home')
       } else {
         throw new Error(message)
@@ -74,6 +81,7 @@ const LoginForm = () => {
           value: values.username,
           onChangeText: handleChange('username'),
           onBlur: handleBlur('username'),
+          autoCapitalize: 'none',
         }}
         error={
           touched.username && errors.username ? errors.username : undefined

@@ -4,7 +4,7 @@ export interface LoginQueryArgs {
 }
 
 export interface LoginResult {
-  playerId: string
+  // playerId: string
   playerName: string
   token: string
 }
@@ -25,4 +25,8 @@ export interface RegisterQueryArgs {
   tracking_code: string
   username: string
   real_name: string
+}
+
+export interface LogoutQueryArgs {
+  username: string
 }

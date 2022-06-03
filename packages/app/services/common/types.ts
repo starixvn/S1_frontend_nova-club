@@ -9,7 +9,7 @@ export type CreateApiParamType = Parameters<typeof createApi>[0]
 export type EndpointBuilderType = Parameters<CreateApiParamType['endpoints']>[0]
 
 export interface IResponse<T = void> {
-  result?: T
+  data?: T
   code: number
   message: string
   success: boolean

@@ -3,8 +3,8 @@
   "name": "app",
   "main": "index.ts",
   "dependencies": {
-    "utils": "*",
     "@dripsy/gradient": "^3.6.0",
+    "@react-native-async-storage/async-storage": "^1.17.6",
     "@react-navigation/bottom-tabs": "^6.3.1",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.5.0",
@@ -24,7 +24,9 @@
     "react-native-modal": "^13.0.1",
     "react-native-reanimated-carousel": "^2.3.10",
     "react-redux": "^8.0.1",
+    "redux-persist": "^6.0.0",
     "solito": "latest",
+    "utils": "*",
     "yup": "^0.32.11"
   },
   "sideEffects": false
