@@ -1,24 +1,45 @@
 import { Gradient } from '@dripsy/gradient'
 import { Pressable, styled, Text, View } from 'dripsy'
-import React from 'react'
+import { MotiPressable } from 'moti/interactions'
+import React, { ComponentProps, useMemo } from 'react'
 import { DripsyGradient } from './Gradient'
 import Icon from './Icon'
 
-const IconAction = ({ gradient, icon, title, ...rest }) => {
+type Props = ComponentProps<typeof StyledMotiPressable> & {
+  gradient: string
+  icon: string
+  title: string
+  onPress: () => void
+}
+
+const IconAction = ({ gradient, icon, title, onPress, ...rest }) => {
   return (
-    <StyledPressable
-      android_ripple={{ color: 'black', borderless: false }}
-      {...rest}
-    >
-      <StyledGradient
-        gradient={gradient}
-        sx={{
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
+    <View {...rest}>
+      <StyledMotiPressable
+        onPress={onPress}
+        animate={useMemo(
+          () =>
+            ({ hovered, pressed }) => {
+              'worklet'
+
+              return {
+                opacity: hovered || pressed ? 0.5 : 1,
+                scale: pressed ? 0.95 : 1,
+              }
+            },
+          []
+        )}
       >
-        <Icon name={icon} size={42} />
-      </StyledGradient>
+        <StyledGradient
+          gradient={gradient}
+          sx={{
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Icon name={icon} size={42} />
+        </StyledGradient>
+      </StyledMotiPressable>
       <Text
         sx={{
           my: '$2',
@@ -29,11 +50,11 @@ const IconAction = ({ gradient, icon, title, ...rest }) => {
       >
         {title}
       </Text>
-    </StyledPressable>
+    </View>
   )
 }
 
-const StyledPressable = styled(Pressable)(({ onPressIn }) => ({
+const StyledMotiPressable = styled(MotiPressable)(() => ({
   alignItems: 'center',
 }))
 

@@ -22,11 +22,9 @@ const ProfileOverview = () => {
             More
           </Text>
           <IconButton
-            _icon={{
-              name: 'chevdown',
-              size: 24,
-              color: theme.colors.$lightCyan,
-            }}
+            name="chevdown"
+            size={24}
+            color={theme.colors.$lightCyan}
           />
         </Pressable>
       </StyledOverView>

@@ -15,15 +15,15 @@ const ProfileLanguage = () => {
   return (
     <StyledView>
       <IconButton
-        _icon={{ name: 'sb' }}
-        sx={activeIndex === 0 ? activeIconStyle : {}}
+        name="sb"
         onPress={() => setActiveIndex(0)}
+        sx={activeIndex === 0 ? activeIconStyle : {}}
       />
       <View sx={{ mx: '$2' }} />
       <IconButton
-        _icon={{ name: 'sb' }}
-        sx={activeIndex === 1 ? activeIconStyle : {}}
+        name="sb"
         onPress={() => setActiveIndex(1)}
+        sx={activeIndex === 1 ? activeIconStyle : {}}
       />
     </StyledView>
   )

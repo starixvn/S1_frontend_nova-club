@@ -2,14 +2,17 @@ import GradientBox from 'app/components/GradientBox'
 import Icon from 'app/components/Icon'
 import { Pressable, styled, Text, View } from 'dripsy'
 import React from 'react'
+import { useRouter } from 'solito/router'
 
 const ProfileOptions = () => {
+  const { push } = useRouter()
+
   const optionsRoute = [
     {
       id: 1,
       title: 'Profile',
       iconName: 'sb',
-      route: '/profile-detail',
+      route: '/profile-details',
     },
     {
       id: 2,
@@ -58,7 +61,7 @@ const ProfileOptions = () => {
           key={item.id}
           gradient={item.gradient ?? 'darkNavyBlue'}
         >
-          <StyledPressable>
+          <StyledPressable onPress={() => push('profile/profile-details')}>
             <StyledIcon
               name={item.iconName}
               size={36}

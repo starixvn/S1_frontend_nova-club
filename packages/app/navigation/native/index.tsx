@@ -7,13 +7,14 @@ import TabNavigation from './TabNavigation'
 import LoginPage from 'app/features/auth/login'
 import RegisterPage from 'app/features/auth/register'
 import { Easing } from 'react-native'
+import ProfileNavigation from './ProfileNavigation'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
   BottomNav: undefined
   LoginPage: undefined
   RegisterPage: undefined
-  Profile: undefined
+  ProfilePage: undefined
 }>()
 
 export function NativeNavigation() {
@@ -88,7 +89,7 @@ export function NativeNavigation() {
           },
         }}
       />
-      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="ProfilePage" component={ProfileNavigation} />
     </Stack.Navigator>
   )
 }

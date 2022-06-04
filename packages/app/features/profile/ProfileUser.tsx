@@ -14,8 +14,8 @@ const ProfileUser = () => {
         <Text sx={{ color: '$PaleBlue', fontWeight: 'bold' }}>HELLO!</Text>
         <Text>PLAYER1648282114</Text>
       </ViewTextWrapper>
-      <IconButton _icon={{ name: 'sb' }} />
-      <IconButton _icon={{ name: 'lc' }} />
+      <IconButton name="sb" />
+      <IconButton name="lc" />
     </ViewWrapper>
   )
 }

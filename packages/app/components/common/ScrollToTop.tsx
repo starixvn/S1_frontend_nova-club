@@ -1,20 +1,20 @@
-import React, { useEffect, useRef } from 'react';
-import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
-import * as Animatable from 'react-native-animatable';
-import IconButton from '../form/IconButton';
+import React, { useEffect, useRef } from 'react'
+import { FlatList, ScrollView, StyleSheet, View } from 'react-native'
+import * as Animatable from 'react-native-animatable'
+import IconButton from '../form/IconButton'
 
 type TriggerRefType =
   | InstanceType<typeof FlatList>
-  | InstanceType<typeof ScrollView>;
+  | InstanceType<typeof ScrollView>
 
 export type ScrollToTopProps = React.ComponentProps<typeof IconButton> & {
-  triggerRef: React.RefObject<TriggerRefType>;
-  bottom?: string | number;
-  right?: string | number;
-  showButton: boolean;
-};
+  triggerRef: React.RefObject<TriggerRefType>
+  bottom?: string | number
+  right?: string | number
+  showButton: boolean
+}
 
-const ANIMATION_DURATION = 200; // ms
+const ANIMATION_DURATION = 200 // ms
 
 const ScrollToTop = ({
   triggerRef,
@@ -23,28 +23,28 @@ const ScrollToTop = ({
   showButton,
   ...restProps
 }: ScrollToTopProps) => {
-  const animationViewRef = useRef<Animatable.View & View>(null);
+  const animationViewRef = useRef<Animatable.View & View>(null)
 
   const scrollToTop = () => {
     if (!triggerRef?.current) {
-      console.warn('`scrollToTop` rootView undefined');
-      return;
+      console.warn('`scrollToTop` rootView undefined')
+      return
     }
 
     if (triggerRef.current instanceof FlatList) {
-      triggerRef.current.scrollToOffset({ offset: 0, animated: true });
+      triggerRef.current.scrollToOffset({ offset: 0, animated: true })
     } else {
-      triggerRef.current?.scrollTo({ x: 0, y: 0, animated: true });
+      triggerRef.current?.scrollTo({ x: 0, y: 0, animated: true })
     }
-  };
+  }
 
   useEffect(() => {
     if (showButton) {
-      animationViewRef.current?.zoomIn?.(ANIMATION_DURATION);
-      return;
+      animationViewRef.current?.zoomIn?.(ANIMATION_DURATION)
+      return
     }
-    animationViewRef.current?.zoomOut?.(ANIMATION_DURATION);
-  }, [showButton]);
+    animationViewRef.current?.zoomOut?.(ANIMATION_DURATION)
+  }, [showButton])
 
   return (
     <Animatable.View
@@ -58,23 +58,14 @@ const ScrollToTop = ({
           bottom: bottom ?? 25,
           right: right ?? 10,
         },
-      ]}>
-      <IconButton
-        _icon={{
-          size: 28,
-          name: "cross",
-          sx: {
-            color: '#fff',
-          }
-        }}
-        onPress={scrollToTop}
-        {...restProps}
-      />
+      ]}
+    >
+      <IconButton {...restProps} name="cross" size={28} onPress={scrollToTop} />
     </Animatable.View>
-  );
-};
+  )
+}
 
-export default ScrollToTop;
+export default ScrollToTop
 
 const styles = StyleSheet.create({
   floatingButton: {
@@ -83,4 +74,4 @@ const styles = StyleSheet.create({
     backgroundColor: '#fab617',
     position: 'absolute',
   },
-});
+})
