@@ -10,17 +10,18 @@ import {
   Text,
   Theme,
   useDripsyTheme,
+  View,
 } from 'dripsy'
 import { createContext, useContext } from 'react'
-import { Platform, View } from 'react-native'
+import { Platform } from 'react-native'
 import BouncePressable from 'app/pressable/BouncePressable'
 import { Gradient } from '@dripsy/gradient'
 type GradientList = keyof DripsyCustomTheme['linearGradients']
 type ColorList = keyof DripsyCustomTheme['colors']
 
-type FillGradient = {
+export type FillGradient = {
   type: 'gradient'
-  color: GradientList
+  color: GradientList | string[]
 } & ComponentProps<typeof Gradient>
 
 type FillSurface = {
@@ -42,23 +43,27 @@ type ButtonProps = {
   children: React.ReactNode
   fill?: FillGradient | FillSurface | FillGhost | FillBorder
   stretch?: boolean
-  roundness?: boolean | number | DripsyVariant<'roundness'>
+  rounded?: boolean
   disabled?: boolean
   onPress?: () => void
   loading?: boolean
   textColor?: string | keyof DripsyCustomTheme['colors']
-  height?: number | keyof Theme['sizes']
+  containerStyle?: SxProp
 } & Omit<StyledProps<'buttons'>, 'themeKey'>
 
 type ButtonColorContextType = Pick<
   ButtonProps,
-  'fill' | 'loading' | 'roundness' | 'textColor' | 'height'
->
+  'fill' | 'loading' | 'rounded' | 'textColor' | 'variant' | 'variants'
+> & {
+  height: number
+}
 
 const ButtonColorContext = createContext<ButtonColorContextType>({
-  fill: { type: 'gradient', color: 'orangeRed' },
+  rounded: false,
+  textColor: 'white',
+  variant: 'md',
   loading: false,
-  height: '$button',
+  height: 0,
 })
 
 const StyledGradientContainer = styled(Gradient, {
@@ -75,14 +80,14 @@ function Button({
   children,
   fill = { type: 'gradient', color: 'orangeRed' },
   stretch,
-  roundness,
+  rounded,
   disabled,
   onPress,
   loading,
-  height = '$button',
-  variant = 'default',
+  variant = 'md',
   variants,
   textColor,
+  containerStyle,
 }: ButtonProps) {
   if (__DEV__ && typeof children == 'string') {
     throw new Error(
@@ -92,21 +97,19 @@ function Button({
 
   const { theme } = useDripsyTheme()
 
-  const containerStyles = {
-    px: '$10',
-    py: '$3',
+  const height = theme.buttons[variant].height
+
+  const containerStyles: SxProp = {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     alignSelf: stretch ? 'stretch' : 'center',
-    borderRadius:
-      roundness == null
-        ? 0
-        : typeof roundness === 'number'
-        ? roundness
-        : typeof roundness === 'string'
-        ? theme.roundness[roundness]
-        : theme.roundness.md,
+    borderRadius: rounded ? height * 0.5 : 10,
     bg: fill.type === 'surface' ? fill.color : 'transparent',
     borderWidth: fill.type === 'border' ? 1 : 0,
     borderColor: fill.type === 'border' ? fill.color : undefined,
+    ...containerStyle,
+    opacity: disabled || loading ? 0.3 : 1,
   }
 
   const containerProps = {
@@ -114,8 +117,20 @@ function Button({
     variants,
   }
 
+  const gradientProps = {
+    gradient: fill.color,
+    colors: fill.color.length === 2 ? fill.color : undefined,
+    start: fill.start,
+    end: fill.end,
+  }
+
+  const Container =
+    fill.type === 'gradient' ? StyledGradientContainer : StyledViewContainer
+
   return (
-    <ButtonColorContext.Provider value={{ fill, loading, textColor, height }}>
+    <ButtonColorContext.Provider
+      value={{ fill, loading, textColor, variant, variants, height }}
+    >
       <BouncePressable
         sx={{
           alignItems: 'center',
@@ -123,35 +138,30 @@ function Button({
         disabled={disabled || loading}
         onPress={onPress}
       >
-        {fill.type === 'gradient' ? (
-          <StyledGradientContainer
-            sx={{ ...containerStyles }}
-            gradient={fill.color}
-            {...containerProps}
-            start={fill.start}
-            end={fill.end}
-          >
-            {children}
-          </StyledGradientContainer>
-        ) : (
-          <StyledViewContainer
+        <Container
+          sx={{
+            ...containerStyles,
+          }}
+          {...containerProps}
+          {...(fill.type === 'gradient' ? gradientProps : {})}
+        >
+          {children}
+        </Container>
+        {loading && (
+          <View
             sx={{
-              ...containerStyles,
+              position: 'absolute',
+              top: 0,
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '100%',
             }}
-            {...containerProps}
+            pointerEvents="none"
           >
-            {children}
-          </StyledViewContainer>
+            <ActivityIndicator color={'#9CD9FA'} />
+          </View>
         )}
       </BouncePressable>
-      {loading && (
-        <View
-          {...{ justifyContent: 'center', alignItems: 'center' }}
-          pointerEvents="none"
-        >
-          <ActivityIndicator color={textColor} />
-        </View>
-      )}
     </ButtonColorContext.Provider>
   )
 }
@@ -159,23 +169,28 @@ function Button({
 function ButtonLabel({
   children,
   textTransform,
+  sx,
 }: {
   children: string
   textTransform?: 'capitalize'
+  sx?: SxProp
 }) {
-  const { textColor, loading, height } = useContext(ButtonColorContext)
+  const { textColor, loading, variant, variants, height } =
+    useContext(ButtonColorContext)
   const { theme } = useDripsyTheme()
 
-  const lineHeightBase =
-    typeof height == 'string' ? theme.sizes[height] : height
   return (
     <Text
-      variant="md"
+      variant={variant}
+      variants={variants}
       sx={{
+        px: '$2',
+        lineHeight: height,
         fontWeight: 'bold',
         textTransform,
         color: textColor,
         opacity: loading ? 0 : 1,
+        ...sx,
       }}
       selectable={false}
     >

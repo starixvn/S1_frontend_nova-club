@@ -17,8 +17,8 @@ const BouncePressable: FC<BouncePressableProps> = ({ children, ...rest }) => {
             'worklet'
 
             return {
-              scale: hovered || pressed ? 1.05 : 1,
-              opacity: hovered || pressed ? 0.5 : 1,
+              scale: pressed ? 1.05 : 1,
+              opacity: pressed ? 0.5 : 1,
             }
           },
         []

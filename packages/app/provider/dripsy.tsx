@@ -92,23 +92,35 @@ const theme = makeTheme({
     error: {
       color: '$error',
     },
+    xs: {
+      fontSize: 12,
+    },
+    sm: {
+      fontSize: 14,
+    },
     md: {
       fontSize: 16,
     },
-    sm: {
-      fontSize: 12,
+    lg: {
+      fontSize: 20,
     },
   },
   buttons: {
-    default: {
-      alignItems: 'center',
-      justifyContent: 'center',
+    xs: {
+      height: 22,
+      px: '$4',
     },
     sm: {
-      paddingVertical: 4,
+      height: 28,
+      px: '$7',
+    },
+    md: {
+      height: 40,
+      px: '$10',
     },
     lg: {
       height: 50,
+      px: '$20',
     },
   },
   forms: {
@@ -132,7 +144,6 @@ const theme = makeTheme({
   space: sizeList,
   sizes: {
     $button: 40,
-    $2: 15,
   },
   roundness: {
     sm: 5,
