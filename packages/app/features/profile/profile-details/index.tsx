@@ -1,23 +1,26 @@
-import GradientBox from 'app/components/GradientBox'
-import GradientTextBox from 'app/components/GradientTextBox'
+import { GradientBoxText } from 'app/components/GradientBoxText'
 import { styled, Text, View } from 'dripsy'
 import React, { useEffect, useRef } from 'react'
 
 const ProfileDetails = () => {
   const ref = useRef(null)
-  const items = [
-    { key: 'name', title: 'Real Name' },
-    { key: 'username', title: 'Username' },
-    { key: 'phone', title: 'Phone Number' },
-    { key: 'referrer', title: 'Referrer' },
-    { key: 'currency', title: 'Currency' },
-  ]
+  const user = {
+    name: 'Tech Test S1',
+    username: 'TechTestS1',
+    phone: '60111222001',
+    referrer: 'TechTestS2',
+    currency: 'MYR',
+  }
 
   return (
     <StyledViewPage>
-      {items.map((item) => (
-        <GradientTextBox key={item.key} title={item.title} value={item.key} />
-      ))}
+      <GradientBoxText>
+        <GradientBoxText.Label label="Real Name" value={user.name} />
+        <GradientBoxText.Label label="Username" value={user.username} />
+        <GradientBoxText.Label label="Phone Number" value={user.phone} />
+        <GradientBoxText.Label label="Referrer" value={user.referrer} />
+        <GradientBoxText.Label label="Currency" value={user.currency} />
+      </GradientBoxText>
     </StyledViewPage>
   )
 }
