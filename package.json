@@ -30,6 +30,7 @@
   "resolutions": {
     "@types/react": "^17.0.39",
     "@types/react-native": "^0.67.2",
-    "react-devtools-core": "4.14.0"
+    "react-devtools-core": "4.14.0",
+    "ts-toolbelt": "^9.6.0"
   }
 }
