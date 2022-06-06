@@ -61,7 +61,11 @@ const TextInput: FC<TextInputProps> = (props) => {
               activeOpacity={0.6}
               onPress={() => setHidePassword(!hidePassword)}
             >
-              <Icon name="lc" size={25} sx={{ color: '$orange' }} />
+              <Icon
+                name={hidePassword ? 'password-hide' : 'password-show'}
+                size={25}
+                sx={{ color: '$orange' }}
+              />
             </StyledButtonOpacity>
           </TextInputActions>
         )}

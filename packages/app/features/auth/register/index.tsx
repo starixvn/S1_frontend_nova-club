@@ -7,7 +7,7 @@ import { MotiLink } from 'solito/moti'
 import AuthLayout from '../layout/AuthLayout'
 import RegisterForm from './RegisterForm'
 
-const HEADER_IMAGE = require('../../../assets/images/games/games/hotGames04.png')
+const HEADER_IMAGE = require('../../../assets/images/register/referral-avatar.png')
 
 const StyledImage = styled(Image)({
   height: 120,

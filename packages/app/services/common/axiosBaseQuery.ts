@@ -3,6 +3,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { IResponse } from './types'
 import { BaseQueryFn } from '@reduxjs/toolkit/dist/query'
 import { generateFPSParams } from 'app/utils/fps/fpsGenerator'
+import { store } from 'app/provider/redux/store'
 
 const DEFAULT_TIMEOUT = 15000
 
@@ -18,6 +19,15 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
 
   let { url, headers } = config
   const requestParams: RequestParams = {} as RequestParams
+
+  if (!url?.includes('/static_api')) {
+    const state = store.getState()
+    const { token } = state.player.currentLoginInfo
+    if (token) {
+      if (config.headers === undefined) config.headers = {}
+      config.headers.common!['Authorization'] = `Bearer ${token}`
+    }
+  }
 
   const fraudDetectionNeeded = ['/player_api/createPlayer', '/player_api/login']
 

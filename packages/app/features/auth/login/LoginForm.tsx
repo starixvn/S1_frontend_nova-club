@@ -1,17 +1,16 @@
-import React, { useState } from 'react'
 import TextInput from 'app/components/form/TextInput'
-import { useLazyLoginQuery } from 'app/services/authApi'
-import { styled, View, Text, Pressable } from 'dripsy'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import Icon from 'app/components/Icon'
-import { MotiLink } from 'solito/moti'
 import { DripsyGradient } from 'app/components/Gradient'
-import { useFormik } from 'formik'
-import * as Yup from 'yup'
-import validation from 'app/utils/validation'
-import { useRouter } from 'solito/router'
 import { useAppDispatch } from 'app/provider/redux/store'
-import { AuthActions } from 'app/store/authReducer'
+import { useLazyLoginQuery } from 'app/services/authApi'
+import { PlayerActions } from 'app/store/playerReducer'
+import validation from 'app/utils/validation'
+import { styled, Text, View } from 'dripsy'
+import { Formik, FormikHelpers, useFormik } from 'formik'
+import React, { useState } from 'react'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { MotiLink } from 'solito/moti'
+import { useRouter } from 'solito/router'
+import * as Yup from 'yup'
 
 const StyledButtonOpacity = styled(TouchableOpacity)({})
 const StyledLink = styled(MotiLink)({})
@@ -23,12 +22,16 @@ type LoginFormValues = {
 
 const LoginForm = () => {
   const [login, { isLoading, isError }] = useLazyLoginQuery()
+
   const [errorMsg, setErrorMsg] = useState('')
   const { push } = useRouter()
 
   const dispatch = useAppDispatch()
 
-  const onSubmit = async ({ username, password }: LoginFormValues) => {
+  const onSubmit = async (
+    { username, password }: LoginFormValues,
+    actions: FormikHelpers<LoginFormValues>
+  ) => {
     try {
       const { data, success, message } = await login({
         username,
@@ -36,9 +39,10 @@ const LoginForm = () => {
       }).unwrap()
 
       if (success && data) {
-        const { playerName, token } = data
+        dispatch(PlayerActions.setCurrentLoginInfo(data))
+        actions.resetForm()
+        if (errorMsg) setErrorMsg('')
 
-        dispatch(AuthActions.setToken({ playerName, token }))
         push('/home')
       } else {
         throw new Error(message)
@@ -70,12 +74,13 @@ const LoginForm = () => {
     errors,
     touched,
     submitForm,
+    handleReset,
   } = formik
 
   return (
     <>
       <TextInput
-        _icon="sl"
+        _icon="avatar"
         _input={{
           placeholder: 'User ID',
           value: values.username,
@@ -89,7 +94,7 @@ const LoginForm = () => {
       />
 
       <TextInput
-        _icon="sl"
+        _icon="lock"
         _input={{
           placeholder: 'Password',
           value: values.password,
@@ -126,7 +131,9 @@ const LoginForm = () => {
         </StyledLink>
       </View>
 
-      <Text variant="error">{errorMsg}</Text>
+      <Text variant="error" sx={{ mt: '$6' }}>
+        {errorMsg}
+      </Text>
 
       <View sx={{ alignItems: 'center', mt: '$10' }}>
         <View sx={{ width: '80%' }}>

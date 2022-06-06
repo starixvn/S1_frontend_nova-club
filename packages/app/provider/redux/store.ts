@@ -3,28 +3,42 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import authApi from 'app/services/authApi'
 import contentApi from 'app/services/contentApi'
 import gameApi from 'app/services/gameApi'
-import authReducer from 'app/store/authReducer'
+import playerApi from 'app/services/playerApi'
+import playerReducer from 'app/store/playerReducer'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
-import { persistReducer, persistStore } from 'redux-persist'
+import {
+  PersistedState,
+  persistReducer,
+  persistStore,
+  createMigrate,
+} from 'redux-persist'
+
+const migrations = {
+  1: (s: PersistedState) => s,
+  2: (s: PersistedState) => s,
+}
 
 const persistConfig = {
   key: 'root',
-  version: 1,
+  version: 2,
   storage: AsyncStorage,
-  whitelist: ['auth'],
+  whitelist: ['player'],
+  migrate: createMigrate(migrations, { debug: true }),
 }
 
 const middlerwares = [
   authApi.middleware,
   contentApi.middleware,
   gameApi.middleware,
+  playerApi.middleware,
 ]
 
 const rootReducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
   [contentApi.reducerPath]: contentApi.reducer,
   [gameApi.reducerPath]: gameApi.reducer,
-  auth: authReducer,
+  [playerApi.reducerPath]: playerApi.reducer,
+  player: playerReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

@@ -5,7 +5,7 @@ import { View, Text, styled, Image, ScrollView } from 'dripsy'
 import React from 'react'
 import { MotiLink } from 'solito/moti'
 
-const HEADER_IMAGE = require('../../../assets/images/games/games/hotGames04.png')
+const HEADER_IMAGE = require('../../../assets/images/common/logo.jpg')
 const BACK_ICON_SIZE = 40
 
 const StyledImage = styled(Image)({
@@ -72,7 +72,7 @@ const AuthLayout = ({
                     }
                   }}
                 >
-                  <Icon name="chevdown" size={BACK_ICON_SIZE} />
+                  <Icon name="chevleft" size={BACK_ICON_SIZE} />
                 </StyledLink>
               </View>
             ) : null}

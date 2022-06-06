@@ -1,10 +1,13 @@
 import TextInput from 'app/components/form/TextInput'
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
+import { useAppDispatch } from 'app/provider/redux/store'
 import { useLazyRegisterQuery } from 'app/services/authApi'
+import { LoginResult } from 'app/services/authApi.type'
+import { PlayerActions } from 'app/store/playerReducer'
 import validation from 'app/utils/validation'
 import { styled, Text, View } from 'dripsy'
-import { useFormik } from 'formik'
+import { FormikHelpers, useFormik } from 'formik'
 import React, { useState } from 'react'
 import { KeyboardAvoidingView, Platform } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
@@ -26,14 +29,14 @@ const RegisterForm = () => {
   const [errorMsg, setErrorMsg] = useState('')
   const { push } = useRouter()
 
-  const onSubmit = async ({
-    username,
-    password,
-    confirmPassword,
-    realName,
-  }: LoginFormValues) => {
+  const dispatch = useAppDispatch()
+
+  const onSubmit = async (
+    { username, password, confirmPassword, realName }: LoginFormValues,
+    actions: FormikHelpers<LoginFormValues>
+  ) => {
     try {
-      const { result, success, message } = await register({
+      const { data, success, message } = await register({
         username,
         password,
         cpassword: confirmPassword,
@@ -45,7 +48,10 @@ const RegisterForm = () => {
       }).unwrap()
 
       if (success) {
-        setErrorMsg('')
+        dispatch(PlayerActions.setCurrentLoginInfo(data as LoginResult))
+        actions.resetForm()
+        if (errorMsg) setErrorMsg('')
+
         push('/home')
       } else {
         throw new Error(message)
@@ -67,7 +73,9 @@ const RegisterForm = () => {
       username: validation.username,
       password: validation.passwordRestrict,
       confirmPassword: validation.confirmPassword,
-      realName: Yup.string().required('validation.required'),
+      realName: Yup.string()
+        .min(6, 'validation.userNameMinMaxLength')
+        .required('validation.required'),
     }),
     onSubmit,
   })
@@ -85,12 +93,13 @@ const RegisterForm = () => {
   return (
     <>
       <TextInput
-        _icon="sl"
+        _icon="avatar"
         _input={{
           placeholder: 'Username',
           value: values.username,
           onChangeText: handleChange('username'),
           onBlur: handleBlur('username'),
+          autoCapitalize: 'none',
         }}
         error={
           touched.username && errors.username ? errors.username : undefined
@@ -99,7 +108,7 @@ const RegisterForm = () => {
       />
 
       <TextInput
-        _icon="sl"
+        _icon="lock"
         _input={{
           placeholder: 'Password',
           value: values.password,
@@ -114,7 +123,7 @@ const RegisterForm = () => {
       />
 
       <TextInput
-        _icon="sl"
+        _icon="lock-check"
         _input={{
           placeholder: 'Confirm Password',
           value: values.confirmPassword,
@@ -131,7 +140,7 @@ const RegisterForm = () => {
       />
 
       <TextInput
-        _icon="sl"
+        _icon="avatar-write"
         _input={{
           maxLength: 20,
           placeholder: 'Real Name',
@@ -145,7 +154,9 @@ const RegisterForm = () => {
         sx={{ mt: '$6', minHeight: 50 }}
       />
 
-      <Text variant="error">{errorMsg}</Text>
+      <Text variant="error" sx={{ mt: '$6' }}>
+        {errorMsg}
+      </Text>
 
       <View sx={{ alignItems: 'center', mt: '$10' }}>
         <View sx={{ width: '80%' }}>

@@ -1,6 +1,7 @@
 import Select from 'app/components/form/Select'
 import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
 import { useAppSelector } from 'app/provider/redux/store'
+import { useLazyPlayerProfileQuery } from 'app/services/playerApi'
 import { logOut } from 'app/utils/authUtil'
 import { Pressable, ScrollView, Text, View } from 'dripsy'
 import * as Updates from 'expo-updates'
@@ -24,7 +25,9 @@ const HomeScreen = () => {
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
   const { push } = useRouter()
 
-  const state = useAppSelector((state) => state.auth.tokens)
+  const state = useAppSelector((state) => state.player.currentLoginInfo)
+
+  const [playerProfile] = useLazyPlayerProfileQuery()
 
   useEffect(() => {
     async function checkUpdate() {
@@ -52,6 +55,17 @@ const HomeScreen = () => {
     push('/auth/login')
   }
 
+  const onGetPlayer = async () => {
+    try {
+      const { data } = await playerProfile({
+        username: state.playerName,
+      }).unwrap()
+      console.log(data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <ScrollView
       sx={{ bg: '$background', flex: 1, pt: 2 }}
@@ -69,6 +83,13 @@ const HomeScreen = () => {
       >
         <Text>Login Page</Text>
       </MotiLink>
+
+      <Pressable
+        sx={{ borderWidth: 1, borderColor: '$cyan', p: '$3' }}
+        onPress={onGetPlayer}
+      >
+        <Text>Get player profile</Text>
+      </Pressable>
 
       <Pressable
         sx={{ borderWidth: 1, borderColor: '$cyan', p: '$3' }}

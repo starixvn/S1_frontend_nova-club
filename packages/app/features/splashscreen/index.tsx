@@ -1,3 +1,4 @@
+import { useAppSelector } from 'app/provider/redux/store'
 import { Text, View } from 'dripsy'
 import { MotiView } from 'moti'
 import React, { useEffect } from 'react'
@@ -10,9 +11,14 @@ const SplashScreen = () => {
   const { push } = useRouter()
   const { isReady } = useOTA()
   const { status } = useSplashScreen({}, isReady, { minWaitTime: 500 })
+  const { token } = useAppSelector((state) => state.player.currentLoginInfo)
 
   useEffect(() => {
     if (status) {
+      if (token) {
+        push('/home')
+        return
+      }
       push('/auth/login')
     }
   }, [status, push])
