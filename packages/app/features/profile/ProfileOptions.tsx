@@ -12,13 +12,13 @@ const ProfileOptions = () => {
       id: 1,
       title: 'Profile',
       iconName: 'sb',
-      route: '/profile-details',
+      route: 'profile/profile-details',
     },
     {
       id: 2,
       title: 'Change Password',
       iconName: 'games',
-      route: '/change-password',
+      route: 'profile/change-password',
     },
     {
       id: 3,
@@ -61,7 +61,7 @@ const ProfileOptions = () => {
           key={item.id}
           gradient={item.gradient ?? 'darkNavyBlue'}
         >
-          <StyledPressable onPress={() => push('profile/profile-details')}>
+          <StyledPressable onPress={() => push(item.route)}>
             <StyledIcon
               name={item.iconName}
               size={36}
