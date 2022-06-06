@@ -1,10 +1,10 @@
+import 'raf/polyfill'
+
 import useFontInit from 'app/hooks/useFontInit'
 import { Provider } from 'app/provider'
 import Head from 'next/head'
 import Script from 'next/script'
-import 'raf/polyfill'
 import React from 'react'
-import { Text } from 'react-native'
 import type { SolitoAppProps } from 'solito'
 import '../global.css'
 import CommonLayout from '../layouts/commonLayout'
@@ -17,10 +17,6 @@ function MyApp({ Component, pageProps }: SolitoAppProps) {
 
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || CommonLayout
-
-  if (!loaded) {
-    return <Text>log from _app.tsx: Loading... {JSON.stringify(error)}</Text>
-  }
 
   return (
     <>

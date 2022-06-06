@@ -1,11 +1,11 @@
 import { getInitialProps } from '@expo/next-adapter/document'
-import Document, { Head, Main, NextScript } from 'next/document'
+import Document, { Head, Html, Main, NextScript } from 'next/document'
 import React from 'react'
 
 class CustomDocument extends Document {
   render() {
     return (
-      <html>
+      <Html>
         <Head>
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         </Head>
@@ -43,7 +43,7 @@ class CustomDocument extends Document {
           />
           {/* ====== */}
         </body>
-      </html>
+      </Html>
     )
   }
 }

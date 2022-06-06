@@ -1,9 +1,8 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import MainHeader from 'app/navigation/MainHeader'
 import BottomNavigation from 'app/navigation/BottomNavigation'
+import MainHeader from 'app/navigation/MainHeader'
+import React from 'react'
 
-const commonLayout = (children: React.ReactNode) => {
+const CommonLayout = (children: React.ReactNode) => {
   return (
     <>
       <MainHeader navigation={undefined} title="Web header" />
@@ -13,4 +12,4 @@ const commonLayout = (children: React.ReactNode) => {
   )
 }
 
-export default commonLayout
+export default CommonLayout
