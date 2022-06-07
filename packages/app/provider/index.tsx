@@ -1,3 +1,4 @@
+import { PortalProvider } from '@gorhom/portal'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { Dripsy } from './dripsy'
 import { NavigationProvider } from './navigation'
@@ -10,7 +11,9 @@ export function Provider({ children }: { children: React.ReactNode }) {
       <ReduxProvider>
         <SafeArea>
           <NavigationProvider>
-            <Dripsy>{children}</Dripsy>
+            <Dripsy>
+              <PortalProvider>{children}</PortalProvider>
+            </Dripsy>
           </NavigationProvider>
         </SafeArea>
       </ReduxProvider>

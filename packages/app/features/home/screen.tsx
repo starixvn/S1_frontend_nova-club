@@ -16,6 +16,7 @@ import GridSection from './Section/GridSection'
 import HotGamesSection from './Section/HotGamesSection'
 import LeaderboardSection from './Section/LeaderboardSection'
 import LotterySection from './Section/LotterySection'
+import AnnoucementMarquee from './Section/AnnouncementMarquee'
 
 const HomeScreen = () => {
   const [selected, setSelected] = useState(null)
@@ -138,7 +139,7 @@ const HomeScreen = () => {
       </View>
 
       <BannerSection />
-      {/* <WalletMenu /> */}
+      {/* <AnnoucementMarquee /> */}
       <GridSection />
       <CasinoSection />
       <LotterySection />

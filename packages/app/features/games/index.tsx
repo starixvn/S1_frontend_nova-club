@@ -1,4 +1,4 @@
-import { ScrollView } from 'dripsy'
+import { ScrollView, View } from 'dripsy'
 import React from 'react'
 import ListSectionHeader from '../ListSectionHeader'
 import Fishing from './FishingGames'
@@ -16,6 +16,7 @@ const Games = () => {
         search
       />
       <MenuRow />
+      <View sx={{ bg: '$lightNavyBlue', height: 1 }} />
       <HotGames />
       <Fishing />
       <SlotGames />

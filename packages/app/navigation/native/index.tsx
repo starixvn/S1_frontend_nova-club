@@ -28,7 +28,7 @@ export function NativeNavigation() {
         },
       }}
     >
-      <Stack.Screen
+      {/* <Stack.Screen
         name="SplashScreen"
         component={SplashScreen}
         options={{
@@ -65,7 +65,7 @@ export function NativeNavigation() {
           },
           headerShown: false,
         }}
-      />
+      /> */}
       <Stack.Screen
         name="BottomNav"
         component={TabNavigation}
