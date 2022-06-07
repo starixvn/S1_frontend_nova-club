@@ -1,4 +1,5 @@
 import Icon, { IconComponentProps } from 'app/components/Icon'
+import BouncePressable from 'app/pressable/BouncePressable'
 import { Pressable, styled, SxProp, View } from 'dripsy'
 import { MotiPressable } from 'moti/interactions'
 import { useMemo } from 'react'
@@ -7,6 +8,8 @@ import { TouchableOpacity } from 'react-native'
 interface IIconButtonProps {
   name: string
   size?: number
+  disabled?: boolean
+  loading?: boolean
   onPress?: () => void
 }
 
@@ -14,28 +17,32 @@ const IconButton = ({
   onPress,
   name,
   size = 32,
+  disabled,
+  loading,
   ...rest
 }: IIconButtonProps) => {
   return (
-    <StyledMotiPressable
-      onPress={onPress}
-      animate={useMemo(
-        () =>
-          ({ hovered, pressed }) => {
-            'worklet'
+    // <StyledMotiPressable
+    //   onPress={onPress}
+    //   animate={useMemo(
+    //     () =>
+    //       ({ hovered, pressed }) => {
+    //         'worklet'
 
-            return {
-              opacity: hovered || pressed ? 0.5 : 1,
-              scale: pressed ? 0.8 : 1,
-              backgroundColor: hovered || pressed ? 'black' : 'transparent',
-            }
-          },
-        []
-      )}
-      {...rest}
-    >
+    //         return {
+    //           opacity: hovered || pressed ? 0.5 : 1,
+    //           scale: pressed ? 0.8 : 1,
+    //           backgroundColor: hovered || pressed ? 'black' : 'transparent',
+    //         }
+    //       },
+    //     []
+    //   )}
+    //   {...rest}
+    // >
+    <BouncePressable disabled={disabled || loading} onPress={onPress} {...rest}>
       <Icon name={name} size={size} />
-    </StyledMotiPressable>
+    </BouncePressable>
+    // </StyledMotiPressable>
   )
 }
 

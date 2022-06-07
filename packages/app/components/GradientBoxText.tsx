@@ -87,7 +87,7 @@ const GradientBoxTextInput = ({
         <TouchableWithoutFeedback>
           <StyledView
             sx={{
-              color: '$white',
+              color: 'white',
             }}
           >
             <StyledTextLabel

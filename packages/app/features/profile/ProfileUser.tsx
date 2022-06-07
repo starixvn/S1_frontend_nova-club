@@ -3,7 +3,11 @@ import IconButton from 'app/components/form/IconButton'
 import { styled, Text, View } from 'dripsy'
 import React from 'react'
 
-const ProfileUser = () => {
+type ProfileUserProps = {
+  username: string
+}
+
+const ProfileUser = ({ username }: ProfileUserProps) => {
   return (
     <ViewWrapper>
       <Avatar
@@ -12,7 +16,7 @@ const ProfileUser = () => {
       />
       <ViewTextWrapper>
         <Text sx={{ color: '$PaleBlue', fontWeight: 'bold' }}>HELLO!</Text>
-        <Text>PLAYER1648282114</Text>
+        <Text>{username}</Text>
       </ViewTextWrapper>
       <IconButton name="sb" />
       <IconButton name="lc" />

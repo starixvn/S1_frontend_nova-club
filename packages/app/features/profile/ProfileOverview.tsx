@@ -63,7 +63,7 @@ const StyledItemViewWrapper = styled(View)(() => ({
 
 const StyledItemView = styled(View)(() => ({
   flex: 1,
-  textAlign: 'center',
+  alignItems: 'center',
 }))
 
 const StyledValueText = styled(Text)(() => ({

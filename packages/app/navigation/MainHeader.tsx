@@ -1,6 +1,7 @@
 import { Image, SafeAreaView, styled, Text, View } from 'dripsy'
 import React, { useState } from 'react'
 import { Platform, TouchableOpacity, StatusBar } from 'react-native'
+import { useRouter } from 'solito/router'
 import MainMenu from './MainMenu'
 
 const MainHeader = ({
@@ -13,6 +14,7 @@ const MainHeader = ({
   const isIOS = Platform.OS === 'ios'
   const isAndroid = Platform.OS === 'android'
   const [showMenu, setShowMenu] = useState(false)
+  const { push } = useRouter()
   //change to icon
   const MENU_ROW = [
     {
@@ -31,6 +33,7 @@ const MainHeader = ({
       img: require('../assets/images/header/avatar.png'),
       action: () => {
         console.log('profile')
+        push('/profile')
       },
     },
     {

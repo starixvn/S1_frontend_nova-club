@@ -7,7 +7,7 @@ const ProfileAction = () => {
   const { push } = useRouter()
 
   const handleOnPress = () => {
-    push('profile/bank-account')
+    push('/profile/bank-account')
   }
 
   return (

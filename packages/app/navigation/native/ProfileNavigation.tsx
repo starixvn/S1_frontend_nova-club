@@ -13,7 +13,11 @@ const Profile = createStackNavigator<{
 
 function ProfileNavigation() {
   return (
-    <Profile.Navigator>
+    <Profile.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
       <Profile.Screen name="Profile" component={ProfileScreen} />
       <Profile.Screen name="ProfileDetails" component={ProfileDetails} />
       <Profile.Screen name="ChangePassword" component={ChangePasswordScreen} />

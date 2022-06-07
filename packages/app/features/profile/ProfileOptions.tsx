@@ -12,13 +12,13 @@ const ProfileOptions = () => {
       id: 1,
       title: 'Profile',
       iconName: 'sb',
-      route: 'profile/profile-details',
+      route: '/profile/profile-details',
     },
     {
       id: 2,
       title: 'Change Password',
       iconName: 'games',
-      route: 'profile/change-password',
+      route: '/profile/change-password',
     },
     {
       id: 3,

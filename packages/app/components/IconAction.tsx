@@ -46,6 +46,7 @@ const IconAction = ({ gradient, icon, title, onPress, ...rest }) => {
           fontSize: 13,
           fontWeight: 'bold',
           flexWrap: 'nowrap',
+          textAlign: 'center',
         }}
       >
         {title}

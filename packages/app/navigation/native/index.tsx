@@ -28,7 +28,7 @@ export function NativeNavigation() {
         },
       }}
     >
-      {/* <Stack.Screen
+      <Stack.Screen
         name="SplashScreen"
         component={SplashScreen}
         options={{
@@ -65,7 +65,7 @@ export function NativeNavigation() {
           },
           headerShown: false,
         }}
-      /> */}
+      />
       <Stack.Screen
         name="BottomNav"
         component={TabNavigation}
@@ -89,7 +89,29 @@ export function NativeNavigation() {
           },
         }}
       />
-      <Stack.Screen name="ProfilePage" component={ProfileNavigation} />
+      <Stack.Screen
+        name="ProfilePage"
+        component={ProfileNavigation}
+        options={{
+          cardStyleInterpolator: fadeScaleIn,
+          transitionSpec: {
+            open: {
+              animation: 'timing',
+              config: {
+                duration: 500,
+                easing: Easing.ease,
+              },
+            },
+            close: {
+              animation: 'timing',
+              config: {
+                duration: 2000,
+                easing: Easing.ease,
+              },
+            },
+          },
+        }}
+      />
     </Stack.Navigator>
   )
 }

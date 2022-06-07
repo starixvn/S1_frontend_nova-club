@@ -19,6 +19,29 @@ const sizeList = {
   $20: 40,
 }
 
+const size = {
+  $0: 0,
+  '$0.5': 2,
+  $1: 4,
+  $2: 8,
+  $3: 12,
+  $4: 16,
+  $5: 20,
+  $6: 24,
+  $7: 28,
+  $8: 32,
+  $9: 36,
+  $10: 40,
+  '$10.5': 48,
+  $11: 64,
+  '$11.5': 72,
+  $12: 88,
+  '$12.5': 96,
+  $13: 112,
+  $14: 136,
+  $15: 160,
+}
+
 const commonColors = {
   $background: '#033454',
   $shadow: 'rgb(26,64,98)',
@@ -70,12 +93,14 @@ const colorGradient = {
   orange: ['rgb(235,166,78)', 'rgb(210,78,86)'],
   orangeRed: ['rgb(231, 97, 21)', 'rgb(206, 48, 8)'],
   main: ['#24C0E3', '#3799CC'],
+  secondary: ['#33A0D0', '#0B76A5'],
   PaleBlue: ['#066D9A', '#014F71'],
   lightRed: ['#FC819B', '#E13256'],
   lightGreen: ['#91F5CA', '#24AA3F'],
   lightBlue: ['#8EB0FF', '#2B32F9'],
   lightYellow: ['#F7ED7B', '#F9B32B'],
   wineRed: ['#BF0A31', '#78031D'],
+  white: ['#FFF', '#FFF'],
 }
 
 const theme = makeTheme({
@@ -93,13 +118,13 @@ const theme = makeTheme({
       color: '$error',
     },
     xs: {
-      fontSize: 12,
+      fontSize: '$0',
     },
     sm: {
-      fontSize: 14,
+      fontSize: '$1',
     },
     md: {
-      fontSize: 16,
+      fontSize: '$2',
     },
     lg: {
       fontSize: 20,
@@ -108,19 +133,19 @@ const theme = makeTheme({
   buttons: {
     xs: {
       height: 22,
-      px: '$4',
+      px: '$4', //8
     },
     sm: {
       height: 28,
-      px: '$7',
+      px: '$7', //14
     },
     md: {
       height: 40,
-      px: '$10',
+      px: '$10', //20
     },
     lg: {
       height: 50,
-      px: '$20',
+      px: '$20', //40
     },
   },
   forms: {
@@ -134,11 +159,15 @@ const theme = makeTheme({
   icon: {
     color: 'white',
   },
-  // space: {
-  //     $1: 4,
-  //     $2: 8,
-  //     $3: 12,
-  // },
+  fontSizes: {
+    $0: 12,
+    $1: 14,
+    $2: 16,
+    $3: 18,
+    $4: 24,
+    $5: 28,
+    $6: 32,
+  },
   colors: commonColors,
   linearGradients: colorGradient,
   space: sizeList,
