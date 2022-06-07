@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }: SolitoAppProps) {
   return (
     <>
       <Head>
-        <title>Solito Example App</title>
+        <title>Nova88 Club</title>
         <meta
           name="description"
           content="Expo + Next.js with Solito. By Fernando Rojo."
