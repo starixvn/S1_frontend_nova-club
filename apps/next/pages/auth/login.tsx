@@ -11,9 +11,5 @@ const AnimatedLoginPage = () => {
     </Layout>
   )
 }
-// @ts-expect-error: To be fix
-AnimatedLoginPage.getLayout = function getLayout(page: ReactElement) {
-  return page
-}
 
-export default AnimatedLoginPage
+export default LoginPage

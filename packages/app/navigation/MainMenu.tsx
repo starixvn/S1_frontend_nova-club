@@ -1,5 +1,7 @@
 import { Portal } from '@gorhom/portal'
+import { logOut } from 'app/utils/authUtil'
 import { Image, styled, View } from 'dripsy'
+import { useMemo } from 'react'
 import {
   Platform,
   StatusBar,
@@ -8,40 +10,10 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-
-//change to icon
-const MENU_LIST = [
-  {
-    label: 'Agent Login',
-    img: require('../assets/images/menu/agent.png'),
-  },
-  {
-    label: 'Deposit',
-    img: require('../assets/images/menu/deposit.png'),
-  },
-  {
-    label: 'Withdrawal',
-    img: require('../assets/images/menu/wallet.png'),
-  },
-  {
-    label: 'Transfer',
-    img: require('../assets/images/menu/transfer.png'),
-  },
-  {
-    label: 'Customer Support',
-    img: require('../assets/images/menu/cs.png'),
-  },
-  {
-    label: 'Switch Account',
-    img: require('../assets/images/menu/switch.png'),
-  },
-  {
-    label: 'Logout',
-    img: require('../assets/images/menu/transfer.png'),
-  },
-]
+import { useRouter } from 'solito/router'
 
 const MainMenu = () => {
+  const { push } = useRouter()
   const iconHeight = 30
   const top = 10
   const webTop = 20
@@ -52,6 +24,46 @@ const MainMenu = () => {
     : isAndroid
     ? StatusBar.currentHeight + iconHeight + top
     : useSafeAreaInsets().top + iconHeight + top
+
+  //change to icon
+  const MENU_LIST = useMemo(
+    () => [
+      {
+        label: 'Agent Login',
+        img: require('../assets/images/menu/agent.png'),
+      },
+      {
+        label: 'Deposit',
+        img: require('../assets/images/menu/deposit.png'),
+      },
+      {
+        label: 'Withdrawal',
+        img: require('../assets/images/menu/wallet.png'),
+      },
+      {
+        label: 'Transfer',
+        img: require('../assets/images/menu/transfer.png'),
+      },
+      {
+        label: 'Customer Support',
+        img: require('../assets/images/menu/cs.png'),
+      },
+      {
+        label: 'Switch Account',
+        img: require('../assets/images/menu/switch.png'),
+      },
+      {
+        label: 'Logout',
+        img: require('../assets/images/menu/transfer.png'),
+        onPress: async () => {
+          await logOut()
+          // TODO: add loading to prevent spamming
+          push('/auth/login')
+        },
+      },
+    ],
+    []
+  )
 
   return (
     <Portal>
@@ -73,6 +85,7 @@ const MainMenu = () => {
           const isSwitchAcc = index === MENU_LIST.length - 2
           return (
             <StyledWrapList
+              onPress={i.onPress}
               key={i.label}
               sx={{
                 bg: isSwitchAcc
