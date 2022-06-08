@@ -1,9 +1,19 @@
+import React from 'react'
 import LoginPage from 'app/features/auth/login'
-import type { ReactElement } from 'react'
+import { MotiView } from 'moti'
+import { Easing } from 'react-native-reanimated'
+import Layout from '../../layouts/commonLayout'
 
-export default LoginPage
-
+const AnimatedLoginPage = () => {
+  return (
+    <Layout>
+      <LoginPage />
+    </Layout>
+  )
+}
 // @ts-expect-error: To be fix
-LoginPage.getLayout = function getLayout(page: ReactElement) {
+AnimatedLoginPage.getLayout = function getLayout(page: ReactElement) {
   return page
 }
+
+export default AnimatedLoginPage

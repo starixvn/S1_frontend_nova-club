@@ -36,7 +36,7 @@ export function NavigationProvider({
               RegisterPage: '/auth/register',
               BottomNav: {
                 screens: {
-                  Home: 'home',
+                  Home: '',
                   Sportsbook: 'sportsbook/:name',
                   Games: '/games/:name',
                   Slots: '/slots/:name',

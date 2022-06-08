@@ -21,7 +21,7 @@ function useOTA() {
 
   useEffect(() => {
     if (!isReady) checkOTA()
-  }, [])
+  }, [isReady])
 
   return {
     isReady,

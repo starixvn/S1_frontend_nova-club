@@ -23,7 +23,7 @@ const tabConfig = [
     name: 'Home',
     isFocused: true,
     iconName: 'home',
-    route: '/home',
+    route: '/',
   },
   {
     id: 4,

@@ -4,13 +4,7 @@ import { Platform, TouchableOpacity, StatusBar } from 'react-native'
 import { useRouter } from 'solito/router'
 import MainMenu from './MainMenu'
 
-const MainHeader = ({
-  navigation,
-  title,
-}: {
-  navigation: any
-  title: string
-}) => {
+const MainHeader = () => {
   const isIOS = Platform.OS === 'ios'
   const isAndroid = Platform.OS === 'android'
   const [showMenu, setShowMenu] = useState(false)

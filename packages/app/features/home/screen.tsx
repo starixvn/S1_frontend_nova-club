@@ -1,5 +1,6 @@
 import Select from 'app/components/form/Select'
 import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
+import withAuth from 'app/hooks/withAuth'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useLazyPlayerProfileQuery } from 'app/services/playerApi'
 import { logOut } from 'app/utils/authUtil'
@@ -69,10 +70,10 @@ const HomeScreen = () => {
 
   return (
     <ScrollView
-      sx={{ bg: '$background', flex: 1, pt: 2 }}
+      sx={{ bg: '$background', flex: 1 }}
       showsVerticalScrollIndicator={false}
     >
-      <Text>{JSON.stringify(state)}</Text>
+      {/* <Text>{JSON.stringify(state)}</Text>
       <MotiLink
         href={'/auth/login'}
         animate={({ hovered, pressed }) => {
@@ -97,8 +98,8 @@ const HomeScreen = () => {
         onPress={onLogout}
       >
         <Text>Logout</Text>
-      </Pressable>
-
+      </Pressable> */}
+      {/* 
       <Select
         headerTitle={'Period'}
         buttonTitle="Click here to oopen"
@@ -113,30 +114,15 @@ const HomeScreen = () => {
           { name: '1321312313', value: 1 },
         ]}
         setSelectedValue={setSelected}
-      />
-      {/* <Text sx={{ marginBottom: 20 }}>
-        {data ? JSON.stringify(data, null, 2) : 'no login data'}
-      </Text>
-      <Text>
-        Register data :
-        {registerData
-          ? 'registerData'
-          : isError
-          ? JSON.stringify(error, null, 2)
-          : 'no register data'}
-      </Text>
-      <Text> This is the new Update</Text>
-      </Text> */}
-      <Text>{'Status : ' + updateStatus}</Text>
-      <Text>{'Event : ' + event}</Text>
-      <Text>{'Event : ' + updateStatus}</Text>
+      /> */}
+      {/* 
       <View sx={{ flexDirection: 'row' }}>
         <TimerButton title="Request OTP" onPress={handleOtp} ref={OTPRef} />
         <Button
           title="Start timer"
           onPress={() => OTPRef.current && OTPRef.current.startOtpTimer()}
         />
-      </View>
+      </View> */}
 
       <BannerSection />
       {/* <AnnoucementMarquee /> */}
@@ -150,4 +136,4 @@ const HomeScreen = () => {
   )
 }
 
-export default HomeScreen
+export default withAuth(HomeScreen)

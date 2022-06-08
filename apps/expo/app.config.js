@@ -16,10 +16,15 @@ export default {
     "android"
   ],
   "ios": {
-    "bundleIdentifier": IS_STAGING ? "com.chlgame.staging" : "com.chlgame.app"
+    "bundleIdentifier": IS_STAGING ? "com.chlgame.staging" : "com.chlgame.app",
+    "infoPlist": {
+      "NSCameraUsageDescription": "QR Scanning capability",
+      "LSApplicationQueriesSchemes": ["fb", "instagram", "twitter", "vnd.youtube", "line", "whatsapp", "skype", "tg",]
+    }
   },
   "android": {
-    "package": IS_STAGING ? "com.chlgame.staging" : "com.chlgame.app"
+    "package": IS_STAGING ? "com.chlgame.staging" : "com.chlgame.app",
+    "permissions": ["CAMERA"]
   },
   "updates": {
     "checkAutomatically": "ON_ERROR_RECOVERY"

@@ -12,6 +12,8 @@
     "@expo/next-adapter": "^3.1.20",
     "app": "*",
     "expo-font": "^10.1.0",
+    "framer-motion": "^6.3.10",
+    "moti": "canari",
     "next": "12.1.0",
     "next-fonts": "^1.5.1",
     "next-images": "^1.8.4",

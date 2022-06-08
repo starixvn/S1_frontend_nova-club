@@ -8,20 +8,20 @@ import useOTA from './useOTA'
 import useSplashScreen from './useSplashScreen'
 
 const SplashScreen = () => {
-  const { push } = useRouter()
+  const { replace } = useRouter()
   const { isReady } = useOTA()
   const { status } = useSplashScreen({}, isReady, { minWaitTime: 500 })
-  const { token } = useAppSelector((state) => state.player.currentLoginInfo)
+  const loginResult = useAppSelector((state) => state.player.currentLoginInfo)
 
   useEffect(() => {
     if (status) {
-      if (token) {
-        push('/home')
+      if (loginResult) {
+        replace('/')
         return
       }
-      push('/auth/login')
+      replace('/auth/login')
     }
-  }, [status, push])
+  }, [status, replace, loginResult])
 
   return (
     <View

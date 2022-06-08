@@ -8,6 +8,8 @@ import LoginPage from 'app/features/auth/login'
 import RegisterPage from 'app/features/auth/register'
 import { Easing } from 'react-native'
 import ProfileNavigation from './ProfileNavigation'
+import { useSelector } from 'react-redux'
+import { RootState } from 'app/provider/redux/store'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -18,6 +20,8 @@ const Stack = createStackNavigator<{
 }>()
 
 export function NativeNavigation() {
+  const loginInfo = useSelector((s: RootState) => s.player.currentLoginInfo)
+
   return (
     <Stack.Navigator
       screenOptions={{

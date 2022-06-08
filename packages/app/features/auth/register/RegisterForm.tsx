@@ -27,7 +27,7 @@ type LoginFormValues = {
 const RegisterForm = () => {
   const [register] = useLazyRegisterQuery()
   const [errorMsg, setErrorMsg] = useState('')
-  const { push } = useRouter()
+  const { replace } = useRouter()
 
   const dispatch = useAppDispatch()
 
@@ -52,7 +52,7 @@ const RegisterForm = () => {
         actions.resetForm()
         if (errorMsg) setErrorMsg('')
 
-        push('/home')
+        replace('/')
       } else {
         throw new Error(message)
       }

@@ -5,6 +5,7 @@ import contentApi from 'app/services/contentApi'
 import gameApi from 'app/services/gameApi'
 import playerApi from 'app/services/playerApi'
 import playerReducer from 'app/store/playerReducer'
+import { Platform } from 'react-native'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import {
   PersistedState,
@@ -12,6 +13,7 @@ import {
   persistStore,
   createMigrate,
 } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 
 const migrations = {
   1: (s: PersistedState) => s,
@@ -21,7 +23,7 @@ const migrations = {
 const persistConfig = {
   key: 'root',
   version: 2,
-  storage: AsyncStorage,
+  storage: Platform.OS === 'web' ? storage : AsyncStorage,
   whitelist: ['player'],
   migrate: createMigrate(migrations, { debug: true }),
 }

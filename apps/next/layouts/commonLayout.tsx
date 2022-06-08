@@ -1,15 +1,33 @@
 import BottomNavigation from 'app/navigation/BottomNavigation'
 import MainHeader from 'app/navigation/MainHeader'
-import React from 'react'
-
-const CommonLayout = (children: React.ReactNode) => {
-  return (
-    <>
-      <MainHeader navigation={undefined} title="Web header" />
-      {children}
-      <BottomNavigation />
-    </>
-  )
+import React, { ReactNode } from 'react'
+import { motion } from 'framer-motion'
+// https:github.com/james-wallis/wallis.dev/blob/master/components/Layout.tsx
+type Props = {
+  children: ReactNode
+  // title: string
+  // description: string
 }
 
-export default CommonLayout
+const variants = {
+  hidden: { opacity: 0, x: 0, y: 0 },
+  enter: { opacity: 1, x: 0, y: 0 },
+  exit: { opacity: 0, x: 0, y: 0 },
+}
+
+const Layout = ({ children, title, description }: Props): JSX.Element => (
+  <div>
+    {/* <NextSeo title={title} description={description} openGraph={{ title, description }} /> */}
+    <motion.main
+      initial="hidden"
+      animate="enter"
+      exit="exit"
+      variants={variants}
+      transition={{ type: 'linear' }}
+    >
+      {children}
+    </motion.main>
+  </div>
+)
+
+export default Layout

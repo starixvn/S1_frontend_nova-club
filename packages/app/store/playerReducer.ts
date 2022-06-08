@@ -8,14 +8,14 @@ type Player = ProfileResult & TokenType
 
 type PlayerState = {
   players: Player[]
-  currentLoginUser: Player
-  currentLoginInfo: LoginResult
+  currentLoginUser?: Player
+  currentLoginInfo?: LoginResult
 }
 
 const initialState: PlayerState = {
   players: [],
-  currentLoginUser: {} as PlayerState['currentLoginUser'],
-  currentLoginInfo: { playerName: '', token: '' },
+  // currentLoginUser: {} as PlayerState['currentLoginUser'],
+  // currentLoginInfo: { playerName: '', token: '' },
 }
 
 const playerSlice = createSlice({

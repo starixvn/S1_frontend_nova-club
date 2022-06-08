@@ -66,7 +66,6 @@ export default function useSplashScreen(
         mandatoryTasks,
       ]).catch((e) => console.log('retry'))
 
-      console.log('all Mandatory', allMandatory)
       if (!allMandatory) {
         // retryTO = setTimeout(() => {
         //   startProgress();

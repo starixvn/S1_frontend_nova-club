@@ -11,6 +11,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { MotiLink } from 'solito/moti'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
+import { Button } from 'app/components/form/Button'
 
 const StyledButtonOpacity = styled(TouchableOpacity)({})
 const StyledLink = styled(MotiLink)({})
@@ -24,7 +25,7 @@ const LoginForm = () => {
   const [login, { isLoading, isError }] = useLazyLoginQuery()
 
   const [errorMsg, setErrorMsg] = useState('')
-  const { push } = useRouter()
+  const { push, replace } = useRouter()
 
   const dispatch = useAppDispatch()
 
@@ -43,7 +44,7 @@ const LoginForm = () => {
         actions.resetForm()
         if (errorMsg) setErrorMsg('')
 
-        push('/home')
+        replace('/')
       } else {
         throw new Error(message)
       }
@@ -137,20 +138,14 @@ const LoginForm = () => {
 
       <View sx={{ alignItems: 'center', mt: '$10' }}>
         <View sx={{ width: '80%' }}>
-          <StyledButtonOpacity
-            activeOpacity={0.6}
-            sx={{ mt: '$8' }}
+          <Button
+            stretch
             onPress={submitForm}
+            sx={{ mt: '$8' }}
+            loading={isSubmitting}
           >
-            <DripsyGradient
-              gradient={'orangeRed'}
-              sx={{ alignItems: 'center', borderRadius: 10 }}
-            >
-              <Text variant="body" sx={{ p: '$7' }}>
-                Login
-              </Text>
-            </DripsyGradient>
-          </StyledButtonOpacity>
+            <Button.Label>Login</Button.Label>
+          </Button>
         </View>
 
         <StyledLink

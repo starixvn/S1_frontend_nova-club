@@ -1,5 +1,4 @@
 import 'raf/polyfill'
-
 import useFontInit from 'app/hooks/useFontInit'
 import { Provider } from 'app/provider'
 import Head from 'next/head'
@@ -10,7 +9,9 @@ import '../global.css'
 import CommonLayout from '../layouts/commonLayout'
 import iconFile from '/public/fonts/icomoon.ttf'
 
-function MyApp({ Component, pageProps }: SolitoAppProps) {
+import { AnimatePresence } from 'framer-motion'
+
+function MyApp({ Component, pageProps, router }: SolitoAppProps) {
   const [loaded, error] = useFontInit({
     iconUrl: iconFile,
   })
@@ -22,25 +23,24 @@ function MyApp({ Component, pageProps }: SolitoAppProps) {
     <>
       <Head>
         <title>Nova88 Club</title>
+        <meta name="description" content="Nova88 Club" />
         <meta
-          name="description"
-          content="Expo + Next.js with Solito. By Fernando Rojo."
+          name="viewport"
+          content="width=375, initial-scale=1.0, user-scalable=no"
         />
-        <meta name="viewport" content="width=375, initial-scale=1.0" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Provider>
-        <div
-          style={{
-            maxHeight: '100vh',
-            flex: '1 1 0%',
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          {getLayout(<Component {...pageProps} />)}
-        </div>
-      </Provider>
+      <div className="container">
+        <Provider>
+          <AnimatePresence
+            exitBeforeEnter
+            initial={false}
+            onExitComplete={() => window.scrollTo(0, 0)}
+          >
+            {getLayout(<Component {...pageProps} />)}
+          </AnimatePresence>
+        </Provider>
+      </div>
 
       <Script src="/js/iovation_static.js" />
       <Script src="https://scqa2.detecas.com/activator.ashx" />

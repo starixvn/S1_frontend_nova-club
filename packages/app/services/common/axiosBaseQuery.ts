@@ -22,7 +22,7 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
 
   if (!url?.includes('/static_api')) {
     const state = store.getState()
-    const { token } = state.player.currentLoginInfo
+    const token = state.player?.currentLoginInfo?.token
     if (token) {
       if (config.headers === undefined) config.headers = {}
       config.headers.common!['Authorization'] = `Bearer ${token}`
