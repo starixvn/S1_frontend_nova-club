@@ -4,6 +4,7 @@ import authApi from 'app/services/authApi'
 import contentApi from 'app/services/contentApi'
 import gameApi from 'app/services/gameApi'
 import playerApi from 'app/services/playerApi'
+import { alertReducer } from 'app/store/alert'
 import playerReducer from 'app/store/playerReducer'
 import { Platform } from 'react-native'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
@@ -40,6 +41,7 @@ const rootReducer = combineReducers({
   [contentApi.reducerPath]: contentApi.reducer,
   [gameApi.reducerPath]: gameApi.reducer,
   [playerApi.reducerPath]: playerApi.reducer,
+  alert: alertReducer,
   player: playerReducer,
 })
 

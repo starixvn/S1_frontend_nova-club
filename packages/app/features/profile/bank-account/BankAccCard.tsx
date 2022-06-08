@@ -17,9 +17,10 @@ type BankAccItem = {
 
 type BankAccCardProps = {
   item: BankAccItem
+  onPressRemove: (number) => void
 }
 
-const BankAccCard = ({ item }: BankAccCardProps) => {
+const BankAccCard = ({ item, onPressRemove }: BankAccCardProps) => {
   return (
     <StyledBox>
       <RoundedIcon size="small" image={item.logo} />
@@ -33,8 +34,8 @@ const BankAccCard = ({ item }: BankAccCardProps) => {
       <IconButton
         name="cross"
         size={36}
-        onPress={() => console.log('Click on ', item.bankName)}
-        sx={{ margin: 'auto' }}
+        onPress={() => onPressRemove(item.bankId)}
+        sx={{ mt: 'auto', mb: 'auto' }}
       />
     </StyledBox>
   )

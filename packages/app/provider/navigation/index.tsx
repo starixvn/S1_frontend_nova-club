@@ -1,4 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native'
+import AlertModal from 'app/components/modal/AlertModal'
 import * as Linking from 'expo-linking'
 import { useMemo } from 'react'
 
@@ -49,6 +50,7 @@ export function NavigationProvider({
                   ProfileDetails: '/profile/profile-details',
                   ChangePassword: '/profile/change-password',
                   BankAccount: '/profile/bank-account',
+                  AddBankAccount: '/profile/bank-account/add-bank-account',
                 },
               },
             },

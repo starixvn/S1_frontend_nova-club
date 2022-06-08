@@ -1,4 +1,5 @@
 import { PortalProvider } from '@gorhom/portal'
+import AlertModal from 'app/components/modal/AlertModal'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { Dripsy } from './dripsy'
 import { NavigationProvider } from './navigation'
@@ -13,6 +14,7 @@ export function Provider({ children }: { children: React.ReactNode }) {
           <NavigationProvider>
             <Dripsy>
               <PortalProvider>{children}</PortalProvider>
+              <AlertModal />
             </Dripsy>
           </NavigationProvider>
         </SafeArea>

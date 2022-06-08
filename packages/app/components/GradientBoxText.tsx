@@ -7,7 +7,13 @@ import {
   View,
 } from 'dripsy'
 import { AnimatePresence, MotiText } from 'moti'
-import React, { ComponentProps, createContext, memo, useContext } from 'react'
+import React, {
+  ComponentProps,
+  createContext,
+  memo,
+  useContext,
+  useRef,
+} from 'react'
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
 import GradientBox from './GradientBox'
 
@@ -30,6 +36,7 @@ type GradientBoxTextInputProps = {
   label: string
   _input: DripsyTextInputProps
   error?: string
+  containerStyle?: SxProp
 }
 
 const GradientBoxText = ({
@@ -73,18 +80,23 @@ const GradientBoxTextLabel = ({ label, value }: GradientBoxTextLabelProps) => {
 const GradientBoxTextInput = ({
   label,
   error,
+  containerStyle,
   _input,
 }: GradientBoxTextInputProps) => {
   const { labelWidth } = useContext(GradientTextBoxContext)
+  const textInputRef = useRef(null)
 
   return (
     <View>
       <GradientBox
         sx={{
           my: '$2',
+          ...containerStyle,
         }}
       >
-        <TouchableWithoutFeedback>
+        <TouchableWithoutFeedback
+          onPress={() => textInputRef?.current?.focus()}
+        >
           <StyledView
             sx={{
               color: 'white',
@@ -98,6 +110,7 @@ const GradientBoxTextInput = ({
               {label}
             </StyledTextLabel>
             <StyledTextInput
+              ref={textInputRef}
               placeholderTextColor={'$border'}
               sx={{
                 flex: 1,
@@ -108,9 +121,11 @@ const GradientBoxTextInput = ({
         </TouchableWithoutFeedback>
       </GradientBox>
 
-      <TextInputHints>
-        <MemoErrorText error={error} />
-      </TextInputHints>
+      {error && (
+        <TextInputHints>
+          <MemoErrorText error={error} />
+        </TextInputHints>
+      )}
     </View>
   )
 }
@@ -142,9 +157,8 @@ const MemoErrorText = memo(ErrorText)
 
 const StyledView = styled(View)(() => ({
   flexDirection: 'row',
-  py: '$8',
+  py: '$10',
   px: '$8',
-  my: '$2',
 }))
 
 const StyledTextLabel = styled(Text)(() => ({

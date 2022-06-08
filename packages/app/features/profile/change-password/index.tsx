@@ -6,7 +6,7 @@ import React from 'react'
 import validation from 'app/utils/validation'
 import { Button } from 'react-native'
 
-type LoginFormValues = {
+type PasswordFormValues = {
   oldPassword: string
   newPassword: string
   confirmPassword: string
@@ -17,13 +17,13 @@ const ChangePasswordScreen = () => {
     oldPassword,
     newPassword,
     confirmPassword,
-  }: LoginFormValues) => {
+  }: PasswordFormValues) => {
     console.log('oldPassword :>> ', oldPassword)
     console.log('newPassword :>> ', newPassword)
     console.log('confirmPassword :>> ', confirmPassword)
   }
 
-  const formik = useFormik<LoginFormValues>({
+  const formik = useFormik<PasswordFormValues>({
     initialValues: {
       oldPassword: '',
       newPassword: '',
@@ -48,7 +48,7 @@ const ChangePasswordScreen = () => {
     dirty,
     submitForm,
   } = formik
-  console.log('touched', touched)
+
   return (
     <StyledViewPage>
       <GradientBoxText labelWidth={0.6}>

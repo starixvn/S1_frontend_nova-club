@@ -1,3 +1,4 @@
+import AlertModal from 'app/components/modal/AlertModal'
 import { useAppSelector } from 'app/provider/redux/store'
 import { usePlayerProfileQuery } from 'app/services/playerApi'
 import { PlayerActions } from 'app/store/playerReducer'
@@ -11,10 +12,6 @@ import ProfileLanguage from './ProfileLanguage'
 import ProfileOptions from './ProfileOptions'
 import ProfileOverview from './ProfileOverview'
 import ProfileUser from './ProfileUser'
-
-const wait = (timeout) => {
-  return new Promise((resolve) => setTimeout(resolve, timeout))
-}
 
 const ProfileScreen = () => {
   const [refreshing, setRefreshing] = React.useState(false)
@@ -41,6 +38,7 @@ const ProfileScreen = () => {
         <RefreshControl refreshing={refreshing} onRefresh={refetch} />
       }
     >
+      {/* <AlertModal /> */}
       <ProfileUser username={user?.username} />
       <ProfileBalance />
       <Text sx={{ textAlign: 'center' }}>UTC/GMT +7</Text>

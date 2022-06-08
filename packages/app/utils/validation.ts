@@ -32,6 +32,12 @@ const validation = {
     ),
 
   email: Yup.string().email('validation.email').required('validation.required'),
+
+  accountName: Yup.string().required('form.tips.realName'),
+  accountNo: Yup.number()
+    .typeError('validation.numberOnly')
+    .required('form.tips.needAccountNo'),
+  sysId: Yup.number().nullable().required('validation.required'),
 }
 
 export default validation

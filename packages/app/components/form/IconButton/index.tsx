@@ -22,32 +22,23 @@ const IconButton = ({
   ...rest
 }: IIconButtonProps) => {
   return (
-    // <StyledMotiPressable
-    //   onPress={onPress}
-    //   animate={useMemo(
-    //     () =>
-    //       ({ hovered, pressed }) => {
-    //         'worklet'
-
-    //         return {
-    //           opacity: hovered || pressed ? 0.5 : 1,
-    //           scale: pressed ? 0.8 : 1,
-    //           backgroundColor: hovered || pressed ? 'black' : 'transparent',
-    //         }
-    //       },
-    //     []
-    //   )}
-    //   {...rest}
-    // >
-    <BouncePressable disabled={disabled || loading} onPress={onPress} {...rest}>
+    <StyledMotiPressable
+      disabled={disabled || loading}
+      onPress={onPress}
+      size={size}
+      {...rest}
+    >
       <Icon name={name} size={size} />
-    </BouncePressable>
-    // </StyledMotiPressable>
+    </StyledMotiPressable>
   )
 }
 
-const StyledMotiPressable = styled(MotiPressable)(() => ({
+const StyledMotiPressable = styled(BouncePressable)(({ size }) => ({
   borderRadius: 100,
+  aspectRatio: 1,
+  alignItems: 'center',
+  justifyContent: 'center',
+  minHeight: size,
 }))
 
 export default IconButton
