@@ -62,7 +62,7 @@ const MainMenu = () => {
         },
       },
     ],
-    []
+    [push]
   )
 
   return (
