@@ -1,6 +1,5 @@
 import 'raf/polyfill'
 import useFontInit from 'app/hooks/useFontInit'
-import useOnAppStart from 'app/hooks/useOnAppStart'
 import { Provider } from 'app/provider'
 import Head from 'next/head'
 import Script from 'next/script'
@@ -16,7 +15,6 @@ function MyApp({ Component, pageProps, router }: SolitoAppProps) {
   const [loaded, error] = useFontInit({
     iconUrl: iconFile,
   })
-  useOnAppStart()
 
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || CommonLayout

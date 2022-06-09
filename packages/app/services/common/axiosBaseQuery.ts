@@ -44,7 +44,7 @@ export function axiosBaseQuery<T>(): BaseQueryFn<
       // }
 
       return {
-        error: e.response.data,
+        error: e.response.data ?? e,
       }
     }
   }

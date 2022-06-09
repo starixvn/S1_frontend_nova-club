@@ -1,3 +1,4 @@
+import { store } from 'app/provider/redux/store'
 import { configureAxios } from 'app/services/common/axiosInstance'
 import { logOut } from 'app/utils/authUtil'
 import { useEffect } from 'react'
@@ -8,6 +9,7 @@ const useOnAppStart = () => {
 
   useEffect(() => {
     configureAxios({
+      store,
       onTokenExpired: async () => {
         await logOut()
         replace('/auth/login')

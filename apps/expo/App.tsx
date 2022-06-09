@@ -5,7 +5,6 @@ import { NativeNavigation } from 'app/navigation/native'
 import { Provider } from 'app/provider'
 import { Text } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
-import useOnAppStart from 'app/hooks/useOnAppStart'
 
 export default function App() {
   /**
@@ -13,7 +12,6 @@ export default function App() {
    * Should put into splashscreen
    */
   const [loaded] = useFontInit()
-  useOnAppStart()
 
   if (!loaded) {
     return <Text>Nothing here</Text>
