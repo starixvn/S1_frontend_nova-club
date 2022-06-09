@@ -6,6 +6,7 @@ import gameApi from 'app/services/gameApi'
 import playerApi from 'app/services/playerApi'
 import { alertReducer } from 'app/store/alert'
 import playerReducer from 'app/store/playerReducer'
+import { settingReducer } from 'app/store/setting.slice'
 import { Platform } from 'react-native'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import {
@@ -43,6 +44,7 @@ const rootReducer = combineReducers({
   [playerApi.reducerPath]: playerApi.reducer,
   alert: alertReducer,
   player: playerReducer,
+  setting: settingReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
