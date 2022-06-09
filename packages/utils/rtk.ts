@@ -27,8 +27,12 @@ function dummyRtkReducer(state, action) {
   }
 }
 
+type DummyRTKType = typeof dummyRtkState & {
+  refetch: Promise<any>
+}
+
 /// data, isFetching, isLoading, isSuccess, refetch
-export function useDummyRtk(dummyData) {
+export function useDummyRtk(dummyData): DummyRTKType {
   const [state, dispatch] = useReducer(dummyRtkReducer, dummyRtkState)
 
   async function dummyApiRequest(first?: boolean) {
