@@ -17,7 +17,7 @@ const ProfileScreen = () => {
   const [refreshing, setRefreshing] = React.useState(false)
   const dispatch = useDispatch()
 
-  const state = useAppSelector((state) => state.player.currentLoginInfo)
+  const state = useAppSelector((state) => state.player.currentLoginInfo || {})
   const user = useAppSelector((state) => state.player.currentLoginUser)
   const { data, isFetching, isLoading, isSuccess, refetch } =
     usePlayerProfileQuery({
