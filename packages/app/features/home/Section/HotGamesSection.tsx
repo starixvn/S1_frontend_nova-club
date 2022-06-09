@@ -12,7 +12,7 @@ const HotGamesSection = () => {
   })
   return (
     <View sx={{ mb: '$15' }}>
-      <SectionHeader title={hotgame.label} bgColor="orange" iconName="sb" />
+      <SectionHeader title={hotgame.label} bgColor="orange" iconName="fire" />
       <ListImage data={hotgame.gameList} />
     </View>
   )

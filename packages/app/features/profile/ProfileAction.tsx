@@ -16,6 +16,7 @@ const ProfileAction = () => {
         gradient="lightRed"
         icon="sb"
         title="Deposit"
+        size={'md'}
         onPress={handleOnPress}
         sx={{ flex: 1 }}
       />
@@ -23,6 +24,7 @@ const ProfileAction = () => {
         gradient="lightGreen"
         icon="games"
         title="Withdraw"
+        size={'md'}
         onPress={handleOnPress}
         sx={{ flex: 1 }}
       />
@@ -30,6 +32,7 @@ const ProfileAction = () => {
         gradient="lightBlue"
         icon="sl"
         title="Bank Account"
+        size={'md'}
         onPress={handleOnPress}
         sx={{ flex: 1 }}
       />
@@ -37,6 +40,7 @@ const ProfileAction = () => {
         gradient="lightYellow"
         icon="lc"
         title="History"
+        size={'md'}
         onPress={handleOnPress}
         sx={{ flex: 1 }}
       />
