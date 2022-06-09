@@ -1,5 +1,5 @@
 import { BaseQueryFn } from '@reduxjs/toolkit/dist/query'
-import { AxiosRequestConfig, AxiosResponse } from 'axios'
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { axiosInstance } from './axiosInstance'
 import { IResponse } from './types'
 
@@ -33,18 +33,25 @@ export function axiosBaseQuery<T>(): BaseQueryFn<
       }
 
       return { data: respData }
-    } catch (e) {
-      console.error('axiosBaseQuery error', e)
-      // return {
-      //   error: {
-      //     code: -999,
-      //     message: 'common.systemError',
-      //     success: false,
-      //   },
-      // }
+    } catch (error) {
+      console.error('axiosBaseQuery error', error)
+
+      if (axios.isAxiosError(error)) {
+        const errorMessage = error.response?.data as undefined | IResponse<T>
+
+        if (errorMessage) {
+          return {
+            error: errorMessage,
+          }
+        }
+      }
 
       return {
-        error: e.response.data ?? e,
+        error: {
+          code: -999,
+          message: error.message === '' ? 'common.systemError' : error.message,
+          success: false,
+        },
       }
     }
   }
