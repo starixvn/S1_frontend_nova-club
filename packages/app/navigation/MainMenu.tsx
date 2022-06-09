@@ -1,5 +1,6 @@
 import { Portal } from '@gorhom/portal'
 import { logOut } from 'app/utils/authUtil'
+import Icon from 'app/components/Icon'
 import { Image, styled, View } from 'dripsy'
 import { useMemo } from 'react'
 import {
@@ -26,35 +27,36 @@ const MainMenu = () => {
     : useSafeAreaInsets().top + iconHeight + top
 
   //change to icon
+
   const MENU_LIST = useMemo(
     () => [
       {
         label: 'Agent Login',
-        img: require('../assets/images/menu/agent.png'),
+        icon: 'profile',
       },
       {
         label: 'Deposit',
-        img: require('../assets/images/menu/deposit.png'),
+        icon: 'deposit',
       },
       {
         label: 'Withdrawal',
-        img: require('../assets/images/menu/wallet.png'),
+        icon: 'wallet',
       },
       {
         label: 'Transfer',
-        img: require('../assets/images/menu/transfer.png'),
+        icon: 'transfer',
       },
       {
         label: 'Customer Support',
-        img: require('../assets/images/menu/cs.png'),
+        icon: 'cs',
       },
       {
         label: 'Switch Account',
-        img: require('../assets/images/menu/switch.png'),
+        icon: 'switch',
       },
       {
         label: 'Logout',
-        img: require('../assets/images/menu/transfer.png'),
+        icon: 'transfer',
         onPress: async () => {
           await logOut()
           // TODO: add loading to prevent spamming
@@ -62,7 +64,7 @@ const MainMenu = () => {
         },
       },
     ],
-    []
+    [push]
   )
 
   return (
@@ -95,11 +97,7 @@ const MainMenu = () => {
                   : null,
               }}
             >
-              <Image
-                source={i.img}
-                sx={{ height: [25, 20, 30], width: [30, 20, 30] }}
-                resizeMode="contain"
-              />
+              <Icon name={i.icon} size={23} />
               <StyleText sx={{ color: lastItem ? 'grey' : 'white' }}>
                 {i.label}
               </StyleText>

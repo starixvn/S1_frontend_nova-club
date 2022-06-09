@@ -118,7 +118,7 @@ function Button({
   }
 
   const gradientProps = {
-    gradient: fill.color,
+    gradient: fill.color.length !== 2 && fill.color,
     colors: fill.color.length === 2 ? fill.color : undefined,
     start: fill.start,
     end: fill.end,

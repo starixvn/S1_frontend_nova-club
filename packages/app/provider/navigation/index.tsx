@@ -53,6 +53,7 @@ export function NavigationProvider({
                   AddBankAccount: '/profile/bank-account/add-bank-account',
                 },
               },
+              PreLaunchGame: '/games/prelaunchgame',
             },
           },
         }),

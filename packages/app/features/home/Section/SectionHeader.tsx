@@ -3,8 +3,6 @@ import Icon from 'app/components/Icon'
 import { styled, Text, View } from 'dripsy'
 import React from 'react'
 
-
-
 const SectionHeader = ({
   title,
   bgColor,
@@ -18,13 +16,20 @@ const SectionHeader = ({
     <StyledView>
       <DripsyGradient
         gradient={bgColor}
-        sx={{ borderRadius: 20, m: '$2', padding: '$2' }}
+        sx={{
+          borderRadius: 15,
+          m: '$2',
+          height: 30,
+          aspectRatio: 1,
+          justifyContent: 'center',
+        }}
       >
         <Icon
           name={iconName}
-          size={28}
+          size={23}
           sx={{
             color: 'white',
+            alignSelf: 'center',
           }}
         />
       </DripsyGradient>

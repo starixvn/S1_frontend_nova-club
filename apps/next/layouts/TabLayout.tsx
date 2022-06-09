@@ -8,7 +8,7 @@ const TabLayout = ({ children }) => {
     <View
       sx={{
         minHeight: '100vh',
-        marginTop: 66,
+        marginTop: 51,
         marginBottom: 60,
       }}
     >

@@ -10,6 +10,7 @@ import { Easing } from 'react-native'
 import ProfileNavigation from './ProfileNavigation'
 import { useSelector } from 'react-redux'
 import { RootState } from 'app/provider/redux/store'
+import PreLaunchGame from 'app/features/games/PreLaunchGame'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -17,6 +18,7 @@ const Stack = createStackNavigator<{
   LoginPage: undefined
   RegisterPage: undefined
   ProfilePage: undefined
+  PreLaunchGame: undefined
 }>()
 
 export function NativeNavigation() {
@@ -116,6 +118,7 @@ export function NativeNavigation() {
           },
         }}
       />
+      <Stack.Screen name="PreLaunchGame" component={PreLaunchGame} />
     </Stack.Navigator>
   )
 }

@@ -38,6 +38,7 @@ const withTM = require('next-transpile-modules')([
   '@motify/core',
   '@motify/components',
   'app',
+  'utils',
   '@gorhom/portal'
 ])
 

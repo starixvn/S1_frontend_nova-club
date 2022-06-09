@@ -1,6 +1,10 @@
 import { Image, ScrollView, styled } from 'dripsy'
+import { TouchableOpacity } from 'react-native'
+import { useRouter } from 'solito/router'
 
 const ListImage = ({ data }: { data: any[] }) => {
+  const { push } = useRouter()
+
   return (
     <ScrollView
       horizontal
@@ -8,7 +12,16 @@ const ListImage = ({ data }: { data: any[] }) => {
       sx={{ ml: '$5' }}
     >
       {data.map((i) => {
-        return <StyledImage key={i.image.toString()} source={i.image} />
+        return (
+          <TouchableOpacity
+            key={i.image.toString()}
+            onPress={() => {
+              push('/games/prelaunchgame')
+            }}
+          >
+            <StyledImage source={i.image} />
+          </TouchableOpacity>
+        )
       })}
     </ScrollView>
   )
