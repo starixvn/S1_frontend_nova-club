@@ -9,7 +9,7 @@ const ListImage = ({ data }: { data: any[] }) => {
     <ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
-      sx={{ ml: '$5' }}
+      sx={{ ml: '$2a' }}
     >
       {data.map((i) => {
         return (

@@ -11,7 +11,7 @@ const DepositMethodCard = ({ item, ...rest }) => {
   return (
     <TouchableOpacity
       style={sx({
-        p: '$2',
+        p: '$1',
         flex: 1,
         position: 'relative',
         ...rest.sx,
@@ -64,7 +64,7 @@ const IconWrap = styled(View)({
   borderColor: 'white',
   justifyContent: 'center',
   alignItems: 'center',
-  m: '$1',
+  m: '$0a',
 })
 
 const Background = styled(DripsyGradient)({

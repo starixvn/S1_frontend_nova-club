@@ -21,7 +21,7 @@ const PreLaunchGame = () => {
         isAgree={agree}
       />
       <GameAmount />
-      <View sx={{ mt: '$20', mx: '$10' }}>
+      <View sx={{ mt: '$10', mx: '$5' }}>
         <Button
           disabled={!agree}
           rounded

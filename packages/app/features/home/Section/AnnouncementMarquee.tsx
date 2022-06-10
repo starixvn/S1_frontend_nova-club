@@ -40,7 +40,7 @@ const StyledContainer = styled(View)({
   borderTopWidth: 1,
   borderColor: '$lightNavyBlue',
   borderBottomWidth: 1,
-  pl: '$5',
+  pl: '$2a',
 })
 
 export default AnnoucementMarquee

@@ -112,7 +112,7 @@ const TextInputIconWrap = styled(View)(() => ({
   alignItems: 'center',
   width: 30,
   height: 30,
-  mr: '$2',
+  mr: '$1',
 }))
 
 const TextInputContent = styled(View)(({ error }: { error?: string }) => ({
@@ -120,17 +120,17 @@ const TextInputContent = styled(View)(({ error }: { error?: string }) => ({
   flex: 1,
   borderBottomWidth: 1,
   borderColor: error ? '$error' : '$border',
-  py: '$4',
+  py: '$2',
 }))
 
 const TextInputActions = styled(View)(() => ({
   justifyContent: 'center',
-  ml: '$2',
+  ml: '$1',
 }))
 
 const TextInputHints = styled(View)(() => ({
   justifyContent: 'center',
-  pt: '$1',
+  pt: '$0a',
 }))
 
 export interface TextInputProps {
@@ -174,7 +174,7 @@ const TextInputFocusArea: FC<TextInputProps> = ({
             <Icon {..._icon} />
           </TextInputIconWrap>
         ) : null}
-        {prefix && <Text sx={{ mr: '$2' }}>{prefix}</Text>}
+        {prefix && <Text sx={{ mr: '$1' }}>{prefix}</Text>}
       </View>
       <DripsyTextInput
         placeholder="This filed"

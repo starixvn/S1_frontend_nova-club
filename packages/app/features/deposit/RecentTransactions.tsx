@@ -20,7 +20,7 @@ const RecentTransactions = () => {
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          m: '$4',
+          m: '$2',
           bg: 'red',
         }}
       >

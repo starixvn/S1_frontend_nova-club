@@ -17,7 +17,7 @@ const Casino = () => {
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        sx={{ pl: '$7' }}
+        sx={{ pl: '$3a' }}
       >
         {casino.gameList.map((i, index) => {
           return (
@@ -25,14 +25,14 @@ const Casino = () => {
           )
         })}
       </ScrollView>
-      <View sx={{ mt: '$10' }}>
+      <View sx={{ mt: '$5' }}>
         <SimpleGridImage data={hotgame.gameList} />
       </View>
     </ScrollView>
   )
 }
 const StyledImage = styled(Image)({
-  margin: '$4',
+  margin: '$2',
   borderRadius: 10,
   height: [210, 220, 230],
   width: [130, 140, 150],

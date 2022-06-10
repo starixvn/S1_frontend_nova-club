@@ -44,8 +44,8 @@ const AuthLayout = ({
             sx={{
               position: 'relative',
               alignItems: 'center',
-              pt: '$6',
-              pb: '$3',
+              pt: '$3',
+              pb: '$1a',
             }}
           >
             <StyledImage
@@ -90,7 +90,7 @@ const AuthLayout = ({
               sx={{
                 textTransform: 'uppercase',
                 fontWeight: 'bold',
-                p: '$6',
+                p: '$3',
                 textAlign: 'center',
               }}
             >
@@ -100,13 +100,13 @@ const AuthLayout = ({
 
           {formHeader}
 
-          <View sx={{ alignItems: 'center', pt: '$16' }}>
+          <View sx={{ alignItems: 'center', pt: '$8' }}>
             <View sx={{ width: '75%' }}>{children}</View>
           </View>
         </View>
 
         <View sx={{ alignItems: 'center', mb: bottom + 8, mt: 70 }}>
-          <Text variant="md" sx={{ opacity: 0.7, mt: '$5' }}>
+          <Text variant="md" sx={{ opacity: 0.7, mt: '$2a' }}>
             Powered by NOVA88
           </Text>
         </View>

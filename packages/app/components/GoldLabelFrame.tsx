@@ -14,14 +14,14 @@ const GoldLabelFrame = ({ title }: { title: string }) => {
 }
 
 const StyledGradient = styled(DripsyGradient)({
-  mx: '$16',
+  mx: '$8',
   borderRadius: 5,
   bottom: 33,
 })
 
 const StyledText = styled(Text)({
   color: 'black',
-  py: '$3',
+  py: '$1a',
   fontSize: [12, 20, 25],
   fontWeight: 'bold',
   textAlign: 'center',

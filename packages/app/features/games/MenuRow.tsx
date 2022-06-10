@@ -55,13 +55,13 @@ const StyledText = styled(Text)({
   fontSize: 10,
   width: '90%',
   mt: -10,
-  mb: '$5',
+  mb: '$2a',
 })
 
 const StyledListView = styled(DripsyGradient)({
-  mx: '$5',
-  my: '$5',
-  mb: '$10',
+  mx: '$2a',
+  my: '$2a',
+  mb: '$5',
   flexDirection: 'row',
   justifyContent: 'space-around',
   borderRadius: 15,

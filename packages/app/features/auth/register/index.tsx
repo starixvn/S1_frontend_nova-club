@@ -25,7 +25,7 @@ const RegisterPage = () => {
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
-              py: '$3',
+              py: '$1a',
             }}
           >
             <StyledImage
@@ -37,12 +37,12 @@ const RegisterPage = () => {
               }}
             />
 
-            <View sx={{ ml: '$6' }}>
+            <View sx={{ ml: '$3' }}>
               <Text sx={{ color: '$oceanBlue', fontSize: 18 }}>
                 Referrer information
               </Text>
 
-              <Text sx={{ fontSize: 18, mt: '$2' }}>PLAYER88888</Text>
+              <Text sx={{ fontSize: 18, mt: '$1' }}>PLAYER88888</Text>
             </View>
           </DripsyGradient>
           <View sx={{ height: 1.5, backgroundColor: '$cyan' }}></View>

@@ -100,14 +100,14 @@ const StyledViewModal = styled(View)(() => ({
 const StyledViewHeader = styled(View)(() => ({
   flexDirection: 'row',
   alignItems: 'center',
-  p: '$8',
+  p: '$4',
 }))
 const StyledViewBody = styled(View)(() => ({
-  padding: '$8',
+  padding: '$4',
   minHeight: 120,
 }))
 const StyledViewFooter = styled(View)(() => ({
-  padding: '$8',
+  padding: '$4',
 }))
 
 const StyledTextHeader = styled(Text)(() => ({
@@ -116,8 +116,8 @@ const StyledTextHeader = styled(Text)(() => ({
 }))
 const StyledViewClose = styled(View)(() => ({
   position: 'absolute',
-  right: '$4',
-  top: '$4',
+  right: '$2',
+  top: '$2',
 }))
 const StyledViewButton = styled(View)(() => ({
   flexDirection: 'row',

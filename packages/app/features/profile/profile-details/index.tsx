@@ -28,6 +28,6 @@ const ProfileDetails = () => {
 const StyledViewPage = styled(View)(() => ({
   flex: 1,
   bg: '$secondary',
-  pt: '$6',
+  pt: '$3',
 }))
 export default ProfileDetails

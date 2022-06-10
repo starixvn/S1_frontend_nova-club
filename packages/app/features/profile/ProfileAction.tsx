@@ -52,7 +52,7 @@ const ProfileAction = () => {
 
 const StyledView = styled(View)(() => ({
   flexDirection: 'row',
-  m: '$8',
+  m: '$4',
   textAlign: 'center',
 }))
 

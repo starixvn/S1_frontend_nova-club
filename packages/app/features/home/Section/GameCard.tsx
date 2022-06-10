@@ -12,7 +12,7 @@ const GameCard: FC<GameCardProps> = ({ label, gameList }) => {
   const img = gameList.slice(0, 6)
 
   const StyledImage = styled(Image)({
-    mx: '$3',
+    mx: '$1a',
     borderRadius: 5,
     height: [160, 250, 330],
     width: [width / 2.6, width / 2.5, width / 2.3],
@@ -29,7 +29,7 @@ const GameCard: FC<GameCardProps> = ({ label, gameList }) => {
       <StyledWrapItem>
         {img.map((r, rindex) => {
           return (
-            <View sx={{ mx: '$1' }} key={rindex}>
+            <View sx={{ mx: '$0a' }} key={rindex}>
               <StyledImage source={r.image} />
             </View>
           )
@@ -42,8 +42,8 @@ const GameCard: FC<GameCardProps> = ({ label, gameList }) => {
 const StyledContainer = styled(View)({
   bg: '$primary',
   borderRadius: 10,
-  mx: '$12',
-  bottom: '$8',
+  mx: '$6',
+  bottom: '$4',
 })
 
 const StyledLabel = styled(View)({
@@ -55,14 +55,14 @@ const StyledLabel = styled(View)({
 const StyledTitle = styled(Text)({
   color: 'white',
   textTransform: 'capitalize',
-  paddingLeft: '$5',
-  padding: '$3',
+  paddingLeft: '$2a',
+  padding: '$1a',
 })
 
 const StyledMore = styled(Text)({
   color: 'white',
-  padding: '$3',
-  paddingRight: '$5',
+  padding: '$1a',
+  paddingRight: '$2a',
 })
 
 const StyledWrapItem = styled(View)({

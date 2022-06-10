@@ -87,14 +87,14 @@ const HomeScreen = () => {
       </MotiLink>
 
       <Pressable
-        sx={{ borderWidth: 1, borderColor: '$cyan', p: '$3' }}
+        sx={{ borderWidth: 1, borderColor: '$cyan', p: '$1a' }}
         onPress={onGetPlayer}
       >
         <Text>Get player profile</Text>
       </Pressable>
 
       <Pressable
-        sx={{ borderWidth: 1, borderColor: '$cyan', p: '$3' }}
+        sx={{ borderWidth: 1, borderColor: '$cyan', p: '$1a' }}
         onPress={onLogout}
       >
         <Text>Logout</Text>

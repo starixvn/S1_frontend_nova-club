@@ -1,26 +1,26 @@
-import dayjs from 'dayjs';
-import { useDripsyTheme, useSx } from 'dripsy';
-import React, { useRef, useState } from 'react';
-import { ListRenderItem, View } from 'react-native';
-import { FlatListScrollTop } from '../list/withScolllToTop';
-import HistoryEmpty from './HistoryEmpty';
+import dayjs from 'dayjs'
+import { useDripsyTheme, useSx } from 'dripsy'
+import React, { useRef, useState } from 'react'
+import { ListRenderItem, View } from 'react-native'
+import { FlatListScrollTop } from '../list/withScolllToTop'
+import HistoryEmpty from './HistoryEmpty'
 
 interface HistoryListingProps<T> {
-  apiUri: string;
-  keyExtractor?: (item: T, index: number) => string;
-  renderItem: ListRenderItem<T>;
-  _header?: any;
+  apiUri: string
+  keyExtractor?: (item: T, index: number) => string
+  renderItem: ListRenderItem<T>
+  _header?: any
   // _header?: Omit<IButtonCollapsibleProps, 'isLoading' | 'onPressRefresh'>;
 }
 
 function HistoryListing<T>(props: HistoryListingProps<T>) {
-  const { apiUri, keyExtractor, renderItem, _header } = props;
-  const [isRequesting, setIsRequesting] = useState<boolean>(false);
-  const [pageNumber, setPageNumber] = useState<number>(1);
-  const [maxPage, setMaxPage] = useState<number>(1);
-  const [isSearched, setIsSearched] = useState(false);
-  const [displayList, setDisplayList] = useState<T[]>([]);
-  const isSearchFromButtonRef = useRef(false);
+  const { apiUri, keyExtractor, renderItem, _header } = props
+  const [isRequesting, setIsRequesting] = useState<boolean>(false)
+  const [pageNumber, setPageNumber] = useState<number>(1)
+  const [maxPage, setMaxPage] = useState<number>(1)
+  const [isSearched, setIsSearched] = useState(false)
+  const [displayList, setDisplayList] = useState<T[]>([])
+  const isSearchFromButtonRef = useRef(false)
   const sx = useSx()
 
   // async function search(dtRange: DateRangeType, pn: number) {
@@ -82,10 +82,10 @@ function HistoryListing<T>(props: HistoryListingProps<T>) {
   return (
     <View style={{ flex: 1 }}>
       <FlatListScrollTop
-        contentContainerStyle={sx({ padding: '$3' })}
+        contentContainerStyle={sx({ padding: '$1a' })}
         onRefresh={onRefresh}
         refreshing={!isSearchFromButtonRef.current && isRequesting}
-        ListEmptyComponent={isSearched ? <HistoryEmpty mt="$5" /> : null}
+        ListEmptyComponent={isSearched ? <HistoryEmpty mt="$2a" /> : null}
         data={displayList}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
@@ -93,7 +93,7 @@ function HistoryListing<T>(props: HistoryListingProps<T>) {
         onEndReachedThreshold={0.5}
       />
     </View>
-  );
+  )
 }
 
-export default HistoryListing;
+export default HistoryListing

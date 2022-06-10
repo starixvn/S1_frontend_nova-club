@@ -56,7 +56,7 @@ const SelectLists = ({
           gradient={index === selectedIndex ? 'lightNavyBlue' : 'darkNavyBlue'}
           start={{ x: 0, y: 0.5 }}
           end={{ x: 0.9, y: 0.5 }}
-          sx={{ paddingY: '$6', paddingX: '$10' }}
+          sx={{ paddingY: '$3', paddingX: '$5' }}
         >
           <View
             sx={{
@@ -84,8 +84,8 @@ const SelectLists = ({
                   borderRadius: 50,
                   width: 25,
                   aspectRatio: 1,
-                  p: '$2',
-                  ml: '$6',
+                  p: '$1',
+                  ml: '$3',
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}

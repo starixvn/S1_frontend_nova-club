@@ -38,7 +38,7 @@ const dummyData = [
 
 const GridSection = () => {
   return (
-    <View sx={{ mt: '$5' }}>
+    <View sx={{ mt: '$2a' }}>
       {dummyData.map((i) => {
         return <SimpleGrid data={i.img} key={i.key} />
       })}
@@ -50,7 +50,7 @@ const SimpleGrid = ({ data }: { data: any }) => {
   const { width, height } = useWindowDimensions()
 
   const StyledImage = styled(Image)({
-    m: '$2',
+    m: '$1',
     borderRadius: 10,
     height: [width / 3.5, width / 3.5, width / 3.4],
   })
@@ -74,7 +74,7 @@ const SimpleGrid = ({ data }: { data: any }) => {
 }
 
 const StyledContainer = styled(View)({
-  marginX: '$7',
+  marginX: '$3a',
   justifyContent: 'center',
   borderRadius: 5,
 })

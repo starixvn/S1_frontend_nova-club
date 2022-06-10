@@ -109,7 +109,7 @@ const WithdrawalPage = () => {
               sx={{
                 flexDirection: 'row',
                 flexWrap: 'wrap',
-                p: '$4',
+                p: '$2',
               }}
             >
               {isSuccess
@@ -119,7 +119,7 @@ const WithdrawalPage = () => {
                         size="small"
                         key={item.id}
                         image={require('app/assets/images/home/fishing.png')}
-                        containerStyle={{ m: '$2' }}
+                        containerStyle={{ m: '$1' }}
                       />
                       <Text sx={{ color: 'black', textAlign: 'center' }}>
                         {item.bankName}
@@ -141,7 +141,7 @@ const WithdrawalPage = () => {
             onBlur: handleBlur('amount'),
           }}
           error={touched.amount && errors.amount ? errors.amount : undefined}
-          containerStyle={{ my: '$6' }}
+          containerStyle={{ my: '$3' }}
         />
 
         <ImportantNotice keys={NOTES} module="withdrawal" />
@@ -158,7 +158,7 @@ const WithdrawalPage = () => {
             end: { x: 1, y: 0 },
           }}
           sx={{
-            my: '$20',
+            my: '$10',
           }}
           onPress={submitForm}
         >
@@ -172,7 +172,7 @@ const WithdrawalPage = () => {
 const StyledView = styled(View)(() => ({
   flex: 1,
   background: '$secondary',
-  p: '$8',
+  p: '$4',
 }))
 
 export default WithdrawalPage

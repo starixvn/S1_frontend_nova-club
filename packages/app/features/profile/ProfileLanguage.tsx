@@ -19,7 +19,7 @@ const ProfileLanguage = () => {
         onPress={() => setActiveIndex(0)}
         sx={activeIndex === 0 ? activeIconStyle : {}}
       />
-      <View sx={{ mx: '$2' }} />
+      <View sx={{ mx: '$1' }} />
       <IconButton
         name="sb"
         onPress={() => setActiveIndex(1)}
@@ -33,6 +33,6 @@ const StyledView = styled(View)(() => ({
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'center',
-  p: '$12',
+  p: '$6',
 }))
 export default ProfileLanguage

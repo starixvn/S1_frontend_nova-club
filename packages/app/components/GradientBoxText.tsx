@@ -56,7 +56,7 @@ const GradientBoxTextLabel = ({ label, value }: GradientBoxTextLabelProps) => {
   return (
     <GradientBox
       sx={{
-        my: '$2',
+        my: '$1',
       }}
     >
       <StyledView
@@ -90,7 +90,7 @@ const GradientBoxTextInput = ({
     <View>
       <GradientBox
         sx={{
-          my: '$2',
+          my: '$1',
           ...containerStyle,
         }}
       >
@@ -144,7 +144,7 @@ const ErrorText = ({ error }: { error?: string }) => {
           exit={{ height: 0, opacity: 0 }}
           transition={{ type: 'timing', duration: 300 }}
         >
-          <Text variants={['error', 'sm']} sx={{ ml: '$4' }}>
+          <Text variants={['error', 'sm']} sx={{ ml: '$2' }}>
             {error}
           </Text>
         </MotiText>
@@ -157,8 +157,8 @@ const MemoErrorText = memo(ErrorText)
 
 const StyledView = styled(View)(() => ({
   flexDirection: 'row',
-  py: '$10',
-  px: '$8',
+  py: '$5',
+  px: '$4',
 }))
 
 const StyledTextLabel = styled(Text)(() => ({
@@ -174,7 +174,7 @@ const StyledTextInput = styled(DripsyTextInput)(() => ({}))
 
 const TextInputHints = styled(View)(() => ({
   justifyContent: 'center',
-  pt: '$1',
+  pt: '$0a',
 }))
 
 GradientBoxText.Label = GradientBoxTextLabel

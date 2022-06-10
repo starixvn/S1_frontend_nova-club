@@ -10,7 +10,7 @@ const CasinoSection = () => {
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        sx={{ ml: '$7' }}
+        sx={{ ml: '$3a' }}
       >
         {casino.gameList.map((i, index) => {
           return (
@@ -23,7 +23,7 @@ const CasinoSection = () => {
 }
 
 const StyledImage = styled(Image)({
-  margin: '$4',
+  margin: '$2',
   borderRadius: 5,
   height: [210, 220, 230],
   width: [130, 140, 150],

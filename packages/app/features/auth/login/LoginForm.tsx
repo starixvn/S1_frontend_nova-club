@@ -107,7 +107,7 @@ const LoginForm = () => {
         error={
           touched.password && errors.password ? errors.password : undefined
         }
-        sx={{ mt: '$6' }}
+        sx={{ mt: '$3' }}
       />
 
       <View sx={{ alignItems: 'flex-end' }}>
@@ -125,7 +125,7 @@ const LoginForm = () => {
             variant="md"
             sx={{
               opacity: 0.43,
-              mt: '$3',
+              mt: '$1a',
             }}
           >
             Forgot Password?
@@ -133,16 +133,16 @@ const LoginForm = () => {
         </StyledLink>
       </View>
 
-      <Text variant="error" sx={{ mt: '$6' }}>
+      <Text variant="error" sx={{ mt: '$3' }}>
         {errorMsg}
       </Text>
 
-      <View sx={{ alignItems: 'center', mt: '$10' }}>
+      <View sx={{ alignItems: 'center', mt: '$5' }}>
         <View sx={{ width: '80%' }}>
           <Button
             stretch
             onPress={submitForm}
-            sx={{ mt: '$8' }}
+            sx={{ mt: '$4' }}
             loading={isSubmitting}
           >
             <Button.Label>Login</Button.Label>
@@ -157,7 +157,7 @@ const LoginForm = () => {
               scale: pressed ? 0.9 : hovered ? 1.1 : 1,
             }
           }}
-          sx={{ mt: '$10' }}
+          sx={{ mt: '$5' }}
         >
           <Text
             sx={{

@@ -99,7 +99,7 @@ const AddBankAccountScreen = () => {
               ? errors.accountName
               : undefined
           }
-          containerStyle={{ my: '$6' }}
+          containerStyle={{ my: '$3' }}
         />
         <GradientBoxText.TextInput
           label="Bank"
@@ -177,11 +177,11 @@ const AddBankAccountScreen = () => {
 const StyledView = styled(View)(() => ({
   flex: 1,
   bg: '$secondary',
-  pt: '$12',
+  pt: '$6',
 }))
 
 const StyledButtonWrapper = styled(View)(() => ({
-  my: '$20',
-  mx: '$12',
+  my: '$10',
+  mx: '$6',
 }))
 export default AddBankAccountScreen

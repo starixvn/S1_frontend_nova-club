@@ -12,7 +12,7 @@ const ProfileUser = ({ username }: ProfileUserProps) => {
     <ViewWrapper>
       <Avatar
         source={require('../../assets/images/games/fishing/fishing08.png')}
-        sx={{ mr: '$4', bg: 'white' }}
+        sx={{ mr: '$2', bg: 'white' }}
       />
       <ViewTextWrapper>
         <Text sx={{ color: '$PaleBlue', fontWeight: 'bold' }}>HELLO!</Text>
@@ -25,7 +25,7 @@ const ProfileUser = ({ username }: ProfileUserProps) => {
 }
 
 const ViewWrapper = styled(View)({
-  p: '$8',
+  p: '$4',
   flexDirection: 'row',
   alignItems: 'center',
 })

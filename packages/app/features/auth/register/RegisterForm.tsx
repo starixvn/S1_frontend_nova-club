@@ -119,7 +119,7 @@ const RegisterForm = () => {
         error={
           touched.password && errors.password ? errors.password : undefined
         }
-        sx={{ mt: '$6', minHeight: 50 }}
+        sx={{ mt: '$3', minHeight: 50 }}
       />
 
       <TextInput
@@ -136,7 +136,7 @@ const RegisterForm = () => {
             ? errors.confirmPassword
             : undefined
         }
-        sx={{ mt: '$6' }}
+        sx={{ mt: '$3' }}
       />
 
       <TextInput
@@ -151,25 +151,25 @@ const RegisterForm = () => {
         error={
           touched.realName && errors.realName ? errors.realName : undefined
         }
-        sx={{ mt: '$6', minHeight: 50 }}
+        sx={{ mt: '$3', minHeight: 50 }}
       />
 
-      <Text variant="error" sx={{ mt: '$6' }}>
+      <Text variant="error" sx={{ mt: '$3' }}>
         {errorMsg}
       </Text>
 
-      <View sx={{ alignItems: 'center', mt: '$10' }}>
+      <View sx={{ alignItems: 'center', mt: '$5' }}>
         <View sx={{ width: '80%' }}>
           <StyledButtonOpacity
             activeOpacity={0.6}
-            sx={{ mt: '$8' }}
+            sx={{ mt: '$4' }}
             onPress={submitForm}
           >
             <DripsyGradient
               gradient={'orangeRed'}
               sx={{ alignItems: 'center', borderRadius: 10 }}
             >
-              <Text variant="body" sx={{ p: '$7' }}>
+              <Text variant="body" sx={{ p: '$3a' }}>
                 Register
               </Text>
             </DripsyGradient>

@@ -26,7 +26,7 @@ const Header = () => {
 
 const StyledTop = styled(View)({
   flexDirection: 'row',
-  py: '$10',
+  py: '$5',
   alignItems: 'center',
 })
 

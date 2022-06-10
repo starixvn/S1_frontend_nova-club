@@ -66,7 +66,7 @@ function BankItem({ bank, disabled, loading, onPress }: BankItemProps) {
           key={bank.id}
           image={require('app/assets/images/home/fishing.png')}
           containerStyle={{
-            m: '$2',
+            m: '$1',
           }}
         />
         <Text

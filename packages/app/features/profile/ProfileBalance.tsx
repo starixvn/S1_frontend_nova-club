@@ -145,8 +145,8 @@ const BalanceItem = ({
 }
 
 const StyledGradient = styled(Gradient)(() => ({
-  m: '$8',
-  px: '$8',
+  m: '$4',
+  px: '$4',
   borderWidth: 2,
   borderColor: '$lightNavyBlue',
   borderRadius: 18,
