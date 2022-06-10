@@ -17,7 +17,9 @@ const ProfileAction = () => {
         icon="sb"
         title="Deposit"
         size={'md'}
-        onPress={handleOnPress}
+        onPress={() => {
+          push('/deposit')
+        }}
         sx={{ flex: 1 }}
       />
       <IconAction

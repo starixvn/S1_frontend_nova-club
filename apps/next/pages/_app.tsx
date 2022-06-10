@@ -7,7 +7,7 @@ import React from 'react'
 import type { SolitoAppProps } from 'solito'
 import '../global.css'
 import CommonLayout from '../layouts/commonLayout'
-import iconFile from '/public/fonts/icomoon.ttf'
+import iconFile from '/public/icomoon.ttf'
 
 import { AnimatePresence } from 'framer-motion'
 

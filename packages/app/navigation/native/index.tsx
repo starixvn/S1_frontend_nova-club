@@ -11,12 +11,14 @@ import ProfileNavigation from './ProfileNavigation'
 import { useSelector } from 'react-redux'
 import { RootState } from 'app/provider/redux/store'
 import PreLaunchGame from 'app/features/games/PreLaunchGame'
+import Deposit from '../../../../apps/next/pages/deposit'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
   BottomNav: undefined
   LoginPage: undefined
   RegisterPage: undefined
+  DepositPage: undefined
   ProfilePage: undefined
   PreLaunchGame: undefined
 }>()
@@ -44,6 +46,13 @@ export function NativeNavigation() {
       <Stack.Screen
         name="RegisterPage"
         component={RegisterPage}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="DepositPage"
+        component={Deposit}
         options={{
           headerShown: false,
         }}

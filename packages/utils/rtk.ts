@@ -11,7 +11,7 @@ const dummyRtkState = {
 function dummyRtkReducer(state, action) {
   switch (action.type) {
     case 'firstRequest':
-      return { ...state, isLoading: true, isFetching: true }
+      return { ...state, isLoading: !state.data, isFetching: true }
     case 'subsequentRequest':
       return { ...state, isFetching: true }
     case 'onSuccess':

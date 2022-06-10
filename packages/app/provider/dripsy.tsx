@@ -171,7 +171,7 @@ const theme = makeTheme({
   },
   colors: commonColors,
   linearGradients: colorGradient,
-  space: sizeList,
+  space: size,
   sizes: {
     $button: 40,
   },

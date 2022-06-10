@@ -1,5 +1,9 @@
 {
   "deposit": {
-    "deposit": "Deposit"
+    "deposit": "Deposit",
+    "choose": "Choose your Deposit Options"
+  },
+  "transaction": {
+    "transactions": "Transactions"
   }
 }

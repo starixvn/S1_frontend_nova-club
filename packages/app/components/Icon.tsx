@@ -17,7 +17,7 @@ export type IconComponentProps = ComponentProps<typeof IconComponent> &
 const Icon = (iconProps: IconComponentProps) => {
   const { theme } = useDripsyTheme()
 
-  return <StylesIcon {...theme.icon} {...iconProps} />
+  return <StylesIcon size={25} {...theme.icon} {...iconProps} />
 }
 
 export default Icon
