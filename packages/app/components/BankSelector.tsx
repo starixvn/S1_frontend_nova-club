@@ -26,7 +26,14 @@ const BankSelector = ({
 }: BankSelectorProps) => {
   const renderItem = ({ item }) => {
     return (
-      <BankItem bank={item} loading={isLoading} onPress={() => onPress(item)} />
+      <BankItem
+        bank={item}
+        loading={isLoading}
+        onPress={() => {
+          console.log('item', item)
+          onPress(item)
+        }}
+      />
     )
   }
 
@@ -55,29 +62,29 @@ const BankSelector = ({
 
 function BankItem({ bank, disabled, loading, onPress }: BankItemProps) {
   return (
-    <BouncePressable disabled={disabled || loading} onPress={onPress}>
-      <View
+    <View
+      sx={{
+        alignItems: 'center',
+      }}
+    >
+      <RoundedIcon
+        size="lg"
+        key={bank.id}
+        icon={require('app/assets/images/home/fishing.png')}
+        // disabled={disabled || loading}
+        onPress={onPress}
+        containerStyle={{
+          m: '$1',
+        }}
+      />
+      <Text
         sx={{
-          alignItems: 'center',
+          color: 'black',
         }}
       >
-        <RoundedIcon
-          size="small"
-          key={bank.id}
-          image={require('app/assets/images/home/fishing.png')}
-          containerStyle={{
-            m: '$1',
-          }}
-        />
-        <Text
-          sx={{
-            color: 'black',
-          }}
-        >
-          {bank.bank_code}
-        </Text>
-      </View>
-    </BouncePressable>
+        {bank.bank_code}
+      </Text>
+    </View>
   )
 }
 

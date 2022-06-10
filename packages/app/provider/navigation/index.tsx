@@ -48,6 +48,7 @@ export function NavigationProvider({
               ProfilePage: {
                 screens: {
                   Profile: '/profile',
+                  Overview: '/profile/overview',
                   ProfileDetails: '/profile/profile-details',
                   ChangePassword: '/profile/change-password',
                   BankAccount: '/profile/bank-account',

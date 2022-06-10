@@ -1,7 +1,16 @@
-import IconAction from 'app/components/IconAction'
-import { styled, View } from 'dripsy'
+import { GradientList } from 'app/components/Gradient'
+import RoundedIcon from 'app/components/RoundedIcon'
+import BouncePressable from 'app/pressable/BouncePressable'
+import { Pressable, styled, Text, View } from 'dripsy'
 import React from 'react'
 import { useRouter } from 'solito/router'
+
+type IconActionProps = {
+  gradient: GradientList
+  icon: string
+  title?: string
+  onPress: () => void
+}
 
 const ProfileAction = () => {
   const { push } = useRouter()
@@ -16,37 +25,49 @@ const ProfileAction = () => {
         gradient="lightRed"
         icon="sb"
         title="Deposit"
-        size={'md'}
         onPress={() => {
           push('/deposit')
         }}
-        sx={{ flex: 1 }}
       />
       <IconAction
         gradient="lightGreen"
         icon="games"
         title="Withdraw"
-        size={'md'}
         onPress={() => push('/withdrawal')}
-        sx={{ flex: 1 }}
       />
       <IconAction
         gradient="lightBlue"
         icon="sl"
         title="Bank Account"
-        size={'md'}
         onPress={() => push('/profile/bank-account')}
-        sx={{ flex: 1 }}
       />
       <IconAction
         gradient="lightYellow"
         icon="lc"
         title="History"
-        size={'md'}
         onPress={handleOnPress}
-        sx={{ flex: 1 }}
       />
     </StyledView>
+  )
+}
+
+const IconAction = ({
+  gradient,
+  icon,
+  title,
+  onPress,
+  ...rest
+}: IconActionProps) => {
+  return (
+    <View sx={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <RoundedIcon
+        gradient={gradient}
+        icon={icon}
+        size="md"
+        onPress={onPress}
+      />
+      {title && <StyledTextIcon>{title}</StyledTextIcon>}
+    </View>
   )
 }
 
@@ -54,6 +75,14 @@ const StyledView = styled(View)(() => ({
   flexDirection: 'row',
   m: '$4',
   textAlign: 'center',
+  justifyContent: 'space-between',
+}))
+
+const StyledTextIcon = styled(Text)(() => ({
+  my: '$1',
+  fontSize: 13,
+  fontWeight: 'bold',
+  flexWrap: 'nowrap',
 }))
 
 export default ProfileAction
