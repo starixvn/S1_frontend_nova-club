@@ -7,7 +7,7 @@ const ProfileAction = () => {
   const { push } = useRouter()
 
   const handleOnPress = () => {
-    push('/profile/bank-account')
+    console.log('Profile action click')
   }
 
   return (
@@ -25,7 +25,7 @@ const ProfileAction = () => {
         icon="games"
         title="Withdraw"
         size={'md'}
-        onPress={handleOnPress}
+        onPress={() => push('/withdrawal')}
         sx={{ flex: 1 }}
       />
       <IconAction
@@ -33,7 +33,7 @@ const ProfileAction = () => {
         icon="sl"
         title="Bank Account"
         size={'md'}
-        onPress={handleOnPress}
+        onPress={() => push('/profile/bank-account')}
         sx={{ flex: 1 }}
       />
       <IconAction

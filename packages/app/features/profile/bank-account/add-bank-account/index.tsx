@@ -1,50 +1,53 @@
 import React, { useReducer, useState } from 'react'
 import { GradientBoxText } from 'app/components/GradientBoxText'
-import { Image, ScrollView, styled, Text, View } from 'dripsy'
+import {
+  ActivityIndicator,
+  FlatList,
+  ScrollView,
+  styled,
+  Text,
+  View,
+} from 'dripsy'
 import { Button } from 'app/components/form/Button'
 import { useAppSelector } from 'app/provider/redux/store'
-import { useFormik } from 'formik'
+import { FormikHelpers, useFormik } from 'formik'
 import * as Yup from 'yup'
 import validation from 'app/utils/validation'
 import Select from 'app/components/form/Select'
-import fishing from 'app/config/games/fishing'
 import RoundedIcon from 'app/components/RoundedIcon'
-import home from 'app/config/home'
-import SlotGames from 'app/features/games/SlotGames'
-import hotgame from 'app/config/games/hotgame'
-import lottery from 'app/config/games/lottery'
-import sport from 'app/config/games/sport'
-import casino from 'app/config/games/casino'
-import Modal from 'app/components/modal'
 import { useDispatch } from 'react-redux'
 import { AlertActions } from 'app/store/alert'
-import AlertModal from 'app/components/modal/AlertModal'
+import { useWithdrawalBankQuery } from 'app/services/withdrawalBank'
+import BankSelector from 'app/components/BankSelector'
+import { Dimensions } from 'react-native'
 
 type AddBankAccountValues = {
   accountName: string
   bank: number
-  accountNo: number
+  accountNo: string
 }
 
 const AddBankAccountScreen = () => {
   const dispatch = useDispatch()
   const user = useAppSelector((state) => state.player.currentLoginUser)
+  const { data, isLoading, isFetching, isSuccess } = useWithdrawalBankQuery({
+    username: user?.username ?? '',
+  })
 
-  const onSubmit = async ({
-    accountName,
-    bank,
-    accountNo,
-  }: AddBankAccountValues) => {
-    console.log('accountName :>> ', accountName)
-    console.log('bank :>> ', bank)
-    console.log('accountNo :>> ', accountNo)
+  // const [selectedBank, setSelectedBank] = useState()
+
+  const onSubmit = async (
+    { accountName, bank, accountNo }: AddBankAccountValues,
+    actions: FormikHelpers<AddBankAccountValues>
+  ) => {
+    console.log('AddBank :>> ', { accountName, bank, accountNo })
   }
 
   const formik = useFormik<AddBankAccountValues>({
     initialValues: {
-      accountName: '',
+      accountName: user?.firstName ?? '',
       bank: 0,
-      accountNo: 0,
+      accountNo: '',
     },
     validationSchema: Yup.object({
       accountName: validation.accountName,
@@ -64,39 +67,21 @@ const AddBankAccountScreen = () => {
     isValid,
     dirty,
     submitForm,
+    setFieldValue,
+    setValues,
   } = formik
 
-  const handleButtonClick = () => {
-    console.log('Click next')
-    dispatch(
-      AlertActions.addAlert({
-        // title: 'Alert Dialog',
-        message: 'Show modal from add bank account',
+  function onAmountChanged(text: string) {
+    if (text != null) {
+      const cleanText = text.replace(/[^0-9]/g, '')
+      if (cleanText === values.accountNo) return
+      let amountNumber = parseFloat(cleanText)
+      if (isNaN(amountNumber)) amountNumber = 0
+      setValues({
+        ...values,
+        accountNo: cleanText,
       })
-    )
-
-    // dispatch(
-    //   AlertActions.addInfo({
-    //     message: 'Add Info',
-    //     actions: [
-    //       {
-    //         label: 'common.yes',
-    //         onPress: () => console.log('Click yest'),
-    //       },
-    //       {
-    //         label: 'common.no',
-    //       },
-    //     ],
-    //   })
-    // )
-
-    // dispatch(AlertActions.addError('common.systemError'))
-
-    // dispatch(AlertActions.addSuccess('common.systemError'))
-
-    // setTimeout(() => {
-    //   dispatch(AlertActions.dismiss())
-    // }, 1000)
+    }
   }
 
   return (
@@ -106,9 +91,14 @@ const AddBankAccountScreen = () => {
           label="Account name"
           _input={{
             placeholder: "Please enter your 'Registered Real Name",
-            editable: false,
-            value: user?.firstName,
+            editable: values.accountName === '' ? true : false,
+            value: values.accountName,
           }}
+          error={
+            touched.accountName && errors.accountName
+              ? errors.accountName
+              : undefined
+          }
           containerStyle={{ my: '$6' }}
         />
         <GradientBoxText.TextInput
@@ -119,6 +109,7 @@ const AddBankAccountScreen = () => {
             onChangeText: handleChange('bank'),
             onBlur: handleBlur('bank'),
           }}
+          error={touched.bank && errors.bank ? errors.bank : undefined}
           containerStyle={{ my: '$0' }}
         />
         <Select
@@ -130,45 +121,34 @@ const AddBankAccountScreen = () => {
             },
             isActive: false,
           }}
+          actionSheetContentProps={{
+            sx: {
+              minHeight: Dimensions.get('window').height * 0.2,
+            },
+          }}
           // setSelectedValue={setSelected}
         >
-          <ScrollView
-            sx={{
-              bg: 'white',
+          <BankSelector
+            bankList={data}
+            isLoading={isLoading || isFetching}
+            selectedBank={values.bank}
+            onPress={(bank) => {
+              setFieldValue('bank', bank.id)
             }}
-          >
-            <View
-              sx={{
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                p: '$4',
-                justifyContent: 'space-between',
-              }}
-            >
-              {casino.gameList.map((item) => (
-                <RoundedIcon
-                  size="small"
-                  key={item.image.toString()}
-                  image={item.image}
-                  containerStyle={{ m: '$2' }}
-                />
-              ))}
-            </View>
-          </ScrollView>
+          />
         </Select>
         <GradientBoxText.TextInput
           label="Account no"
           _input={{
             placeholder: 'Please enter account',
-            value: values.accountNo.toString(),
-            onChangeText: handleChange('accountNo'),
+            value: values.accountNo,
+            onChangeText: onAmountChanged,
             onBlur: handleBlur('accountNo'),
+            keyboardType: 'number-pad',
           }}
-          // error={
-          //   // touched.oldPassword && errors.oldPassword
-          //   //   ? errors.oldPassword
-          //   //   : undefined
-          // }
+          error={
+            touched.accountNo && errors.accountNo ? errors.accountNo : undefined
+          }
           containerStyle={{ my: '$0' }}
         />
       </GradientBoxText>
@@ -177,7 +157,7 @@ const AddBankAccountScreen = () => {
         <Button
           rounded
           stretch
-          // disabled
+          disabled={!isValid || !dirty}
           variant="lg"
           fill={{
             type: 'gradient',
@@ -185,7 +165,7 @@ const AddBankAccountScreen = () => {
             start: { x: 0, y: 0 },
             end: { x: 1, y: 0 },
           }}
-          onPress={handleButtonClick}
+          onPress={submitForm}
         >
           <Button.Label>Next</Button.Label>
         </Button>

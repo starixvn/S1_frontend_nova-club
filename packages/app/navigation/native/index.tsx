@@ -11,6 +11,7 @@ import ProfileNavigation from './ProfileNavigation'
 import { useSelector } from 'react-redux'
 import { RootState } from 'app/provider/redux/store'
 import PreLaunchGame from 'app/features/games/PreLaunchGame'
+import WithdrawalPage from 'app/features/withdrawal'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -19,6 +20,7 @@ const Stack = createStackNavigator<{
   RegisterPage: undefined
   ProfilePage: undefined
   PreLaunchGame: undefined
+  WithdrawalPage: undefined
 }>()
 
 export function NativeNavigation() {
@@ -119,6 +121,29 @@ export function NativeNavigation() {
         }}
       />
       <Stack.Screen name="PreLaunchGame" component={PreLaunchGame} />
+      <Stack.Screen
+        name="WithdrawalPage"
+        component={WithdrawalPage}
+        options={{
+          cardStyleInterpolator: fadeScaleIn,
+          transitionSpec: {
+            open: {
+              animation: 'timing',
+              config: {
+                duration: 500,
+                easing: Easing.ease,
+              },
+            },
+            close: {
+              animation: 'timing',
+              config: {
+                duration: 2000,
+                easing: Easing.ease,
+              },
+            },
+          },
+        }}
+      />
     </Stack.Navigator>
   )
 }

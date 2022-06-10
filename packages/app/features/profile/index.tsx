@@ -21,7 +21,7 @@ const ProfileScreen = () => {
   const user = useAppSelector((state) => state.player.currentLoginUser)
   const { data, isFetching, isLoading, isSuccess, refetch } =
     usePlayerProfileQuery({
-      username: state.playerName,
+      username: state?.playerName,
     })
 
   useEffect(() => {
