@@ -3,6 +3,7 @@ import GradientBox from 'app/components/GradientBox'
 import GradientIcon from 'app/components/GradientIcon'
 import IconAction from 'app/components/IconAction'
 import RoundedIcon from 'app/components/RoundedIcon'
+import { PlayerWithdrawalBankResult } from 'app/services/playerWithdrawalBank.type'
 import { styled, Text, View } from 'dripsy'
 import React from 'react'
 import { ImageSourcePropType } from 'react-native'
@@ -16,7 +17,7 @@ type BankAccItem = {
 }
 
 type BankAccCardProps = {
-  item: BankAccItem
+  item: PlayerWithdrawalBankResult
   onPressRemove: (number) => void
 }
 
@@ -28,13 +29,13 @@ const BankAccCard = ({ item, onPressRemove }: BankAccCardProps) => {
         <Text sx={{ color: '$PaleBlue', fontWeight: 'bold' }}>
           {item.bankName}
         </Text>
-        <Text>{item.bankAccNo}</Text>
-        <Text>{item.bankAccHolderName}</Text>
+        <Text>{item.bankAccountNumber}</Text>
+        <Text>{item.bankAccountFullName}</Text>
       </StyledViewV>
       <IconButton
         name="cross"
         size={36}
-        onPress={() => onPressRemove(item.bankId)}
+        onPress={() => onPressRemove(item.bankTypeId)}
         sx={{ mt: 'auto', mb: 'auto' }}
       />
     </StyledBox>

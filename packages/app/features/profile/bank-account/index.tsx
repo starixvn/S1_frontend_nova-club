@@ -1,7 +1,16 @@
 import { Button } from 'app/components/form/Button'
 import Icon from 'app/components/Icon'
-import { Image, ScrollView, styled, Text, View } from 'dripsy'
-import React, { useState } from 'react'
+import { useAppSelector } from 'app/provider/redux/store'
+import { usePlayerWithdrawalBankQuery } from 'app/services/playerWithdrawalBank'
+import {
+  ActivityIndicator,
+  Image,
+  ScrollView,
+  styled,
+  Text,
+  View,
+} from 'dripsy'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'solito/router'
 import BankAccCard from './BankAccCard'
 
@@ -31,18 +40,31 @@ const bankAccList = [
 
 const BankAccountScreen = () => {
   const { push } = useRouter()
-  const [items, setItems] = useState(bankAccList)
+  const user = useAppSelector((state) => state.player.currentLoginUser)
+  const { data, isLoading, isFetching, isSuccess } =
+    usePlayerWithdrawalBankQuery({
+      username: user?.username ?? '',
+    })
+
+  const [convertedData, setConvertedData] = useState(bankAccList)
 
   const handleRemove = (id) => {
-    setItems(items.filter((item) => item.bankId !== id))
+    // setConvertedData(convertedData.filter((item) => item.bankId !== id))
+    console.log('id', id)
   }
+
+  useEffect(() => {
+    data && setConvertedData(Object.keys(data).map((key) => data[key]))
+  }, [data])
 
   return (
     <StyledView>
-      {items.length > 0 ? (
-        items.map((item) => (
+      {isLoading || isFetching ? (
+        <ActivityIndicator size={'large'} />
+      ) : convertedData.length > 0 ? (
+        convertedData.map((item, index) => (
           <BankAccCard
-            key={item.bankId + item.bankName}
+            key={index + item.bankName}
             item={item}
             onPressRemove={handleRemove}
           />

@@ -60,8 +60,7 @@ const LoginForm = () => {
       password: '',
     },
     validationSchema: Yup.object({
-      username: Yup.string().required('validation.required'),
-      //   password: Yup.string().required('validation.required'),
+      username: validation.username,
       password: validation.passwordRestrict,
     }),
     onSubmit,
@@ -88,6 +87,7 @@ const LoginForm = () => {
           onChangeText: handleChange('username'),
           onBlur: handleBlur('username'),
           autoCapitalize: 'none',
+          onSubmitEditing: submitForm,
         }}
         error={
           touched.username && errors.username ? errors.username : undefined
@@ -102,6 +102,7 @@ const LoginForm = () => {
           onChangeText: handleChange('password'),
           onBlur: handleBlur('password'),
           secureTextEntry: true,
+          onSubmitEditing: submitForm,
         }}
         error={
           touched.password && errors.password ? errors.password : undefined

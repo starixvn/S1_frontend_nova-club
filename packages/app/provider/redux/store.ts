@@ -1,9 +1,11 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import authApi from 'app/services/authApi'
+import changePasswordApi from 'app/services/changePassword'
 import contentApi from 'app/services/contentApi'
 import gameApi from 'app/services/gameApi'
 import playerApi from 'app/services/playerApi'
+import playerWithdrawalBankApi from 'app/services/playerWithdrawalBank'
+import withdrawalBankApi from 'app/services/withdrawalBank'
 import { alertReducer } from 'app/store/alert'
 import playerReducer from 'app/store/playerReducer'
 import { settingReducer } from 'app/store/setting.slice'
@@ -15,7 +17,7 @@ import {
   persistStore,
   createMigrate,
 } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+import { storage } from './persistStorage/index'
 
 const migrations = {
   1: (s: PersistedState) => s,
@@ -25,7 +27,7 @@ const migrations = {
 const persistConfig = {
   key: 'root',
   version: 2,
-  storage: Platform.OS === 'web' ? storage : AsyncStorage,
+  storage,
   whitelist: ['player'],
   migrate: createMigrate(migrations, { debug: true }),
 }
@@ -35,6 +37,9 @@ const middlerwares = [
   contentApi.middleware,
   gameApi.middleware,
   playerApi.middleware,
+  changePasswordApi.middleware,
+  withdrawalBankApi.middleware,
+  playerWithdrawalBankApi.middleware,
 ]
 
 const rootReducer = combineReducers({
@@ -42,6 +47,9 @@ const rootReducer = combineReducers({
   [contentApi.reducerPath]: contentApi.reducer,
   [gameApi.reducerPath]: gameApi.reducer,
   [playerApi.reducerPath]: playerApi.reducer,
+  [changePasswordApi.reducerPath]: changePasswordApi.reducer,
+  [withdrawalBankApi.reducerPath]: withdrawalBankApi.reducer,
+  [playerWithdrawalBankApi.reducerPath]: playerWithdrawalBankApi.reducer,
   alert: alertReducer,
   player: playerReducer,
   setting: settingReducer,

@@ -38,6 +38,10 @@ const validation = {
     .typeError('validation.numberOnly')
     .required('form.tips.needAccountNo'),
   sysId: Yup.number().nullable().required('validation.required'),
+
+  amount: Yup.number()
+    .typeError('validation.numberOnly')
+    .required('form.tips.needAmount'),
 }
 
 export default validation

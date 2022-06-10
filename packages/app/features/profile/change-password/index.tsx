@@ -1,37 +1,66 @@
 import { GradientBoxText } from 'app/components/GradientBoxText'
 import { styled, Text, View } from 'dripsy'
-import { useFormik } from 'formik'
+import { FormikHelpers, useFormik } from 'formik'
 import * as Yup from 'yup'
 import React from 'react'
 import validation from 'app/utils/validation'
 import { Button } from 'react-native'
+import { useLazyChangePasswordQuery } from 'app/services/changePassword'
+import { AlertActions } from 'app/store/alert'
+import { useDispatch } from 'react-redux'
+import { useRouter } from 'solito/router'
+import { useAppSelector } from 'app/provider/redux/store'
 
 type PasswordFormValues = {
   oldPassword: string
-  newPassword: string
+  password: string
   confirmPassword: string
 }
 
 const ChangePasswordScreen = () => {
-  const onSubmit = async ({
-    oldPassword,
-    newPassword,
-    confirmPassword,
-  }: PasswordFormValues) => {
+  const [queryChangePassword] = useLazyChangePasswordQuery()
+  const dispatch = useDispatch()
+  const { replace } = useRouter()
+  const user = useAppSelector((state) => state.player.currentLoginUser)
+
+  const onSubmit = async (
+    { oldPassword, password, confirmPassword }: PasswordFormValues,
+    actions: FormikHelpers<PasswordFormValues>
+  ) => {
+    try {
+      const { data, success, message } = await queryChangePassword({
+        username: user.username,
+        old_password: oldPassword,
+        password: password,
+        cpassword: confirmPassword,
+      }).unwrap()
+
+      if (success) {
+        console.log('data', data)
+        dispatch(AlertActions.addSuccess(message))
+        actions.resetForm()
+
+        replace('/profile')
+      } else {
+        dispatch(AlertActions.addError(message))
+      }
+    } catch (e) {
+      dispatch(AlertActions.addError('common.systemError'))
+    }
     console.log('oldPassword :>> ', oldPassword)
-    console.log('newPassword :>> ', newPassword)
+    console.log('password :>> ', password)
     console.log('confirmPassword :>> ', confirmPassword)
   }
 
   const formik = useFormik<PasswordFormValues>({
     initialValues: {
       oldPassword: '',
-      newPassword: '',
+      password: '',
       confirmPassword: '',
     },
     validationSchema: Yup.object({
       oldPassword: validation.passwordRestrict,
-      newPassword: validation.passwordRestrict,
+      password: validation.passwordRestrict,
       confirmPassword: validation.confirmPassword,
     }),
     onSubmit,
@@ -71,15 +100,13 @@ const ChangePasswordScreen = () => {
           label="New Password"
           _input={{
             placeholder: 'Please enter new password',
-            value: values.newPassword,
-            onChangeText: handleChange('newPassword'),
-            onBlur: handleBlur('newPassword'),
+            value: values.password,
+            onChangeText: handleChange('password'),
+            onBlur: handleBlur('password'),
             secureTextEntry: true,
           }}
           error={
-            touched.newPassword && errors.newPassword
-              ? errors.newPassword
-              : undefined
+            touched.password && errors.password ? errors.password : undefined
           }
         />
         <GradientBoxText.TextInput
@@ -100,7 +127,7 @@ const ChangePasswordScreen = () => {
       </GradientBoxText>
 
       <View sx={{ m: '$12' }}>
-        <Button title="Ok" disabled={!isValid || !dirty} />
+        <Button title="Ok" disabled={!isValid || !dirty} onPress={submitForm} />
       </View>
 
       <StyledText>

@@ -1,4 +1,5 @@
 import { DripsyProvider, makeTheme } from 'dripsy'
+import useOnAppStart from 'app/hooks/useOnAppStart'
 
 const sizeList = {
   $0: 0,
@@ -22,14 +23,18 @@ const sizeList = {
 const size = {
   $0: 0,
   $0a: 2,
+  '$1-5': 20,
   $1: 4,
   $1a: 6,
   $2: 8,
+  $2a: 10,
   $3: 12,
+  $3a: 14,
   $4: 16,
   $5: 20,
   $6: 24,
   $7: 28,
+  $7a: 32,
   $8: 32,
   $9: 36,
   $10: 40,
@@ -189,6 +194,8 @@ declare module 'dripsy' {
 }
 
 export function Dripsy({ children }: { children: React.ReactNode }) {
+  useOnAppStart()
+
   return (
     <DripsyProvider
       theme={theme}
