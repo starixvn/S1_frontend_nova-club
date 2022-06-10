@@ -81,6 +81,7 @@ const colorGradient = {
   main: ['#24C0E3', '#3799CC'],
   secondary: ['#33A0D0', '#0B76A5'],
   PaleBlue: ['#066D9A', '#014F71'],
+  PaleBlue60: ['#066D9A99', '#014F7199'],
   lightRed: ['#FC819B', '#E13256'],
   lightGreen: ['#91F5CA', '#24AA3F'],
   lightBlue: ['#8EB0FF', '#2B32F9'],
@@ -131,7 +132,7 @@ const theme = makeTheme({
     },
     lg: {
       height: 50,
-      px: '$20',
+      px: '$10',
     },
   },
   forms: {

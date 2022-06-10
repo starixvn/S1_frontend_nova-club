@@ -1,3 +1,4 @@
+import BouncePressable from 'app/pressable/BouncePressable'
 import { Image, ScrollView, styled } from 'dripsy'
 import { TouchableOpacity } from 'react-native'
 import { useRouter } from 'solito/router'
@@ -13,14 +14,14 @@ const ListImage = ({ data }: { data: any[] }) => {
     >
       {data.map((i) => {
         return (
-          <TouchableOpacity
+          <BouncePressable
             key={i.image.toString()}
             onPress={() => {
               push('/games/prelaunchgame')
             }}
           >
             <StyledImage source={i.image} />
-          </TouchableOpacity>
+          </BouncePressable>
         )
       })}
     </ScrollView>

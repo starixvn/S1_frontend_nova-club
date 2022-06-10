@@ -4,9 +4,11 @@ import ProfileDetails from 'app/features/profile/profile-details'
 import ChangePasswordScreen from 'app/features/profile/change-password'
 import BankAccountScreen from 'app/features/profile/bank-account'
 import AddBankAccountScreen from 'app/features/profile/bank-account/add-bank-account'
+import OverviewScreen from 'app/features/profile/overview'
 
 const Profile = createStackNavigator<{
   Profile: undefined
+  Overview: undefined
   ProfileDetails: undefined
   ChangePassword: undefined
   BankAccount: undefined
@@ -21,6 +23,7 @@ function ProfileNavigation() {
       }}
     >
       <Profile.Screen name="Profile" component={ProfileScreen} />
+      <Profile.Screen name="Overview" component={OverviewScreen} />
       <Profile.Screen name="ProfileDetails" component={ProfileDetails} />
       <Profile.Screen name="ChangePassword" component={ChangePasswordScreen} />
       <Profile.Screen name="BankAccount" component={BankAccountScreen} />

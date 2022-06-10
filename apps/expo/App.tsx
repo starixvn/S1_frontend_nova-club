@@ -20,7 +20,7 @@ export default function App() {
 
   return (
     <Provider>
-      <StatusBar backgroundColor="$background" style="light" />
+      <StatusBar backgroundColor="#0D2035" style="light" />
       <NativeNavigation />
     </Provider>
   )

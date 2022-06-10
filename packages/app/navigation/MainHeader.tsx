@@ -1,6 +1,7 @@
+import BouncePressable from 'app/pressable/BouncePressable'
 import { Image, SafeAreaView, styled, Text, View } from 'dripsy'
 import React, { useState } from 'react'
-import { Platform, TouchableOpacity, StatusBar } from 'react-native'
+import { Platform, StatusBar } from 'react-native'
 import { useRouter } from 'solito/router'
 import MainMenu from './MainMenu'
 
@@ -9,6 +10,7 @@ const MainHeader = () => {
   const isAndroid = Platform.OS === 'android'
   const [showMenu, setShowMenu] = useState(false)
   const { push } = useRouter()
+
   //change to icon
   const MENU_ROW = [
     {
@@ -54,7 +56,7 @@ const MainHeader = () => {
         {MENU_ROW.map((i, index) => {
           if (index === 1) {
             return (
-              <TouchableOpacity key={index}>
+              <BouncePressable key={index}>
                 <StyledSearchBox>
                   <StyledBgImage
                     source={require('../assets/images/header/walletbg.png')}
@@ -63,17 +65,22 @@ const MainHeader = () => {
                   <StyledWalletImg source={i.img} resizeMode="contain" />
                   <StyledText>88K</StyledText>
                 </StyledSearchBox>
-              </TouchableOpacity>
+              </BouncePressable>
             )
           }
           return (
-            <TouchableOpacity onPress={i.action} key={index}>
+            <BouncePressable onPress={i.action} key={index}>
               <StyledImg source={i.img} resizeMode="contain" />
-            </TouchableOpacity>
+            </BouncePressable>
           )
         })}
       </StyledContainer>
-      {showMenu && <MainMenu />}
+      <MainMenu
+        isShow={showMenu}
+        onMenu={(e) => {
+          return setShowMenu(e)
+        }}
+      />
     </SafeAreaView>
   )
 }
@@ -103,6 +110,7 @@ const StyledWalletImg = styled(Image)({
   left: [10, 10, 15],
   top: [4, 6, 12],
 })
+
 const StyledImg = styled(Image)({
   width: [40, 50, 60],
   height: [30, 50, 50],

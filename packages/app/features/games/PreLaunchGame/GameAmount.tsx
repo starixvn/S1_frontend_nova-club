@@ -1,6 +1,6 @@
 import { styled, Text, View } from 'dripsy'
-import IconAction from 'app/components/IconAction'
 import Icon from 'app/components/Icon'
+import RoundedIcon from 'app/components/RoundedIcon'
 
 const GameAmount = () => {
   const dummyData = [
@@ -46,7 +46,7 @@ const GameAmount = () => {
         <View sx={{ flex: 0.92, borderRightWidth: 1, borderColor: '#00C5D4' }}>
           <ListItem data={dummyData} />
         </View>
-        <IconAction
+        <RoundedIcon
           size={'sm'}
           gradient="lightRed"
           icon="deposit"

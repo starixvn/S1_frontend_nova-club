@@ -1,18 +1,26 @@
 import IconButton from 'app/components/form/IconButton'
 import GradientBox from 'app/components/GradientBox'
+import Icon from 'app/components/Icon'
+import BouncePressable from 'app/pressable/BouncePressable'
 import { Pressable, styled, Text, useDripsyTheme, View } from 'dripsy'
 import React from 'react'
+import { useRouter } from 'solito/router'
 
 const ProfileOverview = () => {
   const { theme } = useDripsyTheme()
+  const { push } = useRouter()
 
   return (
     <StyledGradientBox>
       <StyledOverView>
         <Text sx={{ fontWeight: 'bold' }}>OVERVIEW</Text>
-        <Pressable
-          sx={{ flexDirection: 'row' }}
-          onPress={() => console.log('click more')}
+        <BouncePressable
+          sx={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          onPress={() => push('/profile/overview')}
         >
           <Text
             sx={{
@@ -21,12 +29,8 @@ const ProfileOverview = () => {
           >
             More
           </Text>
-          <IconButton
-            name="chevdown"
-            size={24}
-            color={theme.colors.$lightCyan}
-          />
-        </Pressable>
+          <Icon name="chevdown" size={24} color={theme.colors.$lightCyan} />
+        </BouncePressable>
       </StyledOverView>
       <StyledItemViewWrapper>
         <OverviewItem title="Registered" value={0} />
