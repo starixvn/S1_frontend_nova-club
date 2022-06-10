@@ -131,7 +131,7 @@ const theme = makeTheme({
     },
     lg: {
       height: 50,
-      px: '$20',
+      px: '$10',
     },
   },
   forms: {

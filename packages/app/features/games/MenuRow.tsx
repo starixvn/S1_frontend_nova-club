@@ -1,4 +1,5 @@
 import { DripsyGradient } from 'app/components/Gradient'
+import BouncePressable from 'app/pressable/BouncePressable'
 import { Image, styled, Text, View } from 'dripsy'
 import { TouchableOpacity } from 'react-native'
 const DATA = [
@@ -29,7 +30,7 @@ const MenuRow = () => {
       <StyledListView gradient={'navyBlue'}>
         {DATA.map((i) => {
           return (
-            <TouchableOpacity
+            <BouncePressable
               key={i.label}
               style={{
                 alignItems: 'center',
@@ -37,7 +38,7 @@ const MenuRow = () => {
             >
               <StyledImage source={i.img} resizeMode={'stretch'} />
               <StyledText>{i.label}</StyledText>
-            </TouchableOpacity>
+            </BouncePressable>
           )
         })}
       </StyledListView>

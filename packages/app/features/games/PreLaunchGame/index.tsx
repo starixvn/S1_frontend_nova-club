@@ -1,10 +1,11 @@
+import Header from 'app/components/common/Header'
 import { Button } from 'app/components/form/Button'
 import { DripsyGradient } from 'app/components/Gradient'
 import { View } from 'dripsy'
 import { useState } from 'react'
 import GameAmount from './GameAmount'
 import GameRewards from './GameRewards'
-import Header from './Header'
+import TopHeader from './TopHeader'
 import UserAgreement from './UserAgreement'
 
 const PreLaunchGame = () => {
@@ -12,7 +13,7 @@ const PreLaunchGame = () => {
 
   return (
     <DripsyGradient colors={['#164672', '#0D2035']} sx={{ flex: 1 }}>
-      <Header />
+      <TopHeader />
       <GameRewards />
       <UserAgreement
         onAgree={(e) => {

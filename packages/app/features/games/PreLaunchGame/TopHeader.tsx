@@ -1,18 +1,19 @@
 import Icon from 'app/components/Icon'
+import BouncePressable from 'app/pressable/BouncePressable'
 import { Image, styled, View } from 'dripsy'
 import { TouchableOpacity } from 'react-native'
 import { useRouter } from 'solito/router'
 
-const Header = () => {
+const TopHeader = () => {
   const { back } = useRouter()
   const onGoBack = () => {
     back()
   }
   return (
     <StyledTop>
-      <TouchableOpacity onPress={onGoBack}>
+      <BouncePressable onPress={onGoBack}>
         <Icon name="chevleft" size={40} color="#9CD9FA" />
-      </TouchableOpacity>
+      </BouncePressable>
       <View sx={{ alignItems: 'center', flex: 0.9 }}>
         <Image
           source={require('../../../assets/images/games/saba-logo.png')}
@@ -30,4 +31,4 @@ const StyledTop = styled(View)({
   alignItems: 'center',
 })
 
-export default Header
+export default TopHeader

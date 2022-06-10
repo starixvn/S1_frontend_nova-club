@@ -5,5 +5,10 @@
   },
   "transaction": {
     "transactions": "Transactions"
+  },
+  "contact":{
+    "whatsapp":"WhatsApp",
+    "telegram":"Telegram",
+    "livechat":"Live Chat"
   }
 }
