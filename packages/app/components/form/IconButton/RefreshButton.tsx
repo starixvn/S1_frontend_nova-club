@@ -85,7 +85,7 @@ const RefreshButton: FC<RefreshButtonProps> = (props) => {
   }, [loading])
 
   return (
-    <BouncePressable {...restProps}>
+    <BouncePressable {...restProps} onPress={onPressHandler}>
       <Animated.View style={[animationStyle]}>
         <Icon name="lc" {..._icon} />
       </Animated.View>

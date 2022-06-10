@@ -20,12 +20,11 @@ const RecentTransactions = () => {
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          m: '$2',
-          bg: 'red',
+          m: '$4',
         }}
       >
         <Text sx={{}}>{t('transaction.transactions')}</Text>
-        <RefreshIconButton loading={isFetching} onPress={refetch} />
+        <RefreshIconButton loading={isFetching} onPress={() => refetch()} />
       </View>
       <GradientBox>
         <Text>a</Text>

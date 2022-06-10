@@ -159,6 +159,7 @@ const theme = makeTheme({
   space: size,
   sizes: {
     $button: 40,
+    container: 800,
   },
   roundness: {
     sm: 5,

@@ -8,6 +8,7 @@ import type { SolitoAppProps } from 'solito'
 import '../global.css'
 import CommonLayout from '../layouts/commonLayout'
 import iconFile from '/public/icomoon.ttf'
+import { Container } from 'dripsy'
 
 import { AnimatePresence } from 'framer-motion'
 
@@ -30,8 +31,8 @@ function MyApp({ Component, pageProps, router }: SolitoAppProps) {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="container">
-        <Provider>
+      <Provider>
+        <Container>
           <AnimatePresence
             exitBeforeEnter
             initial={false}
@@ -39,8 +40,8 @@ function MyApp({ Component, pageProps, router }: SolitoAppProps) {
           >
             {getLayout(<Component {...pageProps} />)}
           </AnimatePresence>
-        </Provider>
-      </div>
+        </Container>
+      </Provider>
 
       <Script src="/js/iovation_static.js" />
       <Script src="https://scqa2.detecas.com/activator.ashx" />

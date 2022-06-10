@@ -28,10 +28,10 @@ const Deposit = () => {
   const { t } = useLocalization()
   return (
     <PageSafeArea sx={{}}>
-      <Text sx={{ my: '$3', mx: '$2' }}>{t('deposit.choose')}</Text>
+      <Text sx={{ my: '$6', mx: '$4' }}>{t('deposit.choose')}</Text>
       {isLoading && <ActivityIndicator />}
 
-      <View sx={{ position: 'relative', mx: '$2' }}>
+      <View sx={{ position: 'relative', mx: '$4' }}>
         {data && (
           <FlatList
             data={data}
@@ -41,8 +41,8 @@ const Deposit = () => {
               <DepositMethodCard
                 item={item}
                 sx={{
-                  mr: index % 2 === 0 ? '$4' : 0,
-                  mb: data.length - index <= 2 ? 0 : '$2',
+                  mr: index % 2 === 0 ? '$8' : 0,
+                  mb: data.length - index <= 2 ? 0 : '$4',
                 }}
               />
             )}

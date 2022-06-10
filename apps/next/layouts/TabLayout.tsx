@@ -26,6 +26,7 @@ const HeaderFloat = ({}) => {
         position: 'fixed',
         zIndex: 1,
         width: '100%',
+        maxWidth: 'container',
         top: 0,
       }}
     >
@@ -42,6 +43,7 @@ const BottomTabFloat = () => {
         zIndex: 1,
         width: '100%',
         bottom: 0,
+        maxWidth: 'container',
       }}
     >
       <BottomNavigation />
