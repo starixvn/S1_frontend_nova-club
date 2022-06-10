@@ -28,7 +28,7 @@ function dummyRtkReducer(state, action) {
 }
 
 type DummyRTKType = typeof dummyRtkState & {
-  refetch: Promise<any>
+  refetch: () => Promise<any>
 }
 
 /// data, isFetching, isLoading, isSuccess, refetch
