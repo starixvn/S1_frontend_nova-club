@@ -79,7 +79,7 @@ const BankAccountScreen = () => {
         </StyledViewNoResult>
       )}
 
-      <View sx={{ m: '$20' }}>
+      <View sx={{ m: '$10' }}>
         <Button
           rounded
           stretch
@@ -103,12 +103,12 @@ const BankAccountScreen = () => {
 const StyledView = styled(ScrollView)(() => ({
   flex: 1,
   bg: '$secondary',
-  pt: '$12',
+  pt: '$6',
 }))
 
 const StyledViewNoResult = styled(View)(() => ({
   textAlign: 'center',
-  p: '$12',
+  p: '$6',
   alignItems: 'center',
 }))
 

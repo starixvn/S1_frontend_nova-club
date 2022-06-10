@@ -84,7 +84,7 @@ const ProfileOptions = () => {
 
 const StyledGradientBox = styled(GradientBox)(() => ({
   minHeight: 60,
-  p: '$6',
+  p: '$3',
 }))
 
 const StyledPressable = styled(Pressable)(() => ({
@@ -93,7 +93,7 @@ const StyledPressable = styled(Pressable)(() => ({
 }))
 
 const StyledIcon = styled(Icon)(() => ({
-  mx: '$6',
+  mx: '$3',
   flex: 1 / 6,
   color: '$PastelBlue',
   textAlign: 'center',

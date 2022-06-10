@@ -11,7 +11,7 @@ const HotGamesSection = () => {
     type: 'slot',
   })
   return (
-    <View sx={{ mb: '$15' }}>
+    <View sx={{ mb: '$7a' }}>
       <SectionHeader title={hotgame.label} bgColor="orange" iconName="fire" />
       <ListImage data={hotgame.gameList} />
     </View>

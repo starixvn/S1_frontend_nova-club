@@ -30,7 +30,7 @@ const UserAgreement = ({ onAgree, isAgree }) => {
 const SytledView = styled(View)({
   flexDirection: 'row',
   justifyContent: 'center',
-  mt: '$12',
+  mt: '$6',
   alignItems: 'center',
 })
 
@@ -43,7 +43,7 @@ const StyledBouncePressable = styled(BouncePressable)({
 
 const StyleText = styled(Text)({
   fontSize: 11,
-  ml: '$3',
+  ml: '$1a',
   color: '#DBDBDB',
 })
 

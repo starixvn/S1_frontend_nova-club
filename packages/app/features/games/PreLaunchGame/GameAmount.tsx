@@ -22,7 +22,7 @@ const GameAmount = () => {
   return (
     <View
       sx={{
-        mx: '$5',
+        mx: '$2a',
       }}
     >
       <StyledView>
@@ -31,7 +31,7 @@ const GameAmount = () => {
       </StyledView>
       <StyleLabel
         sx={{
-          mt: '$3',
+          mt: '$1a',
         }}
       >
         Balance
@@ -71,7 +71,7 @@ const ListItem = ({ data }) => {
           </StyledWrapIcon>
           <StyleLabel
             sx={{
-              ml: '$2',
+              ml: '$1',
             }}
           >
             {i.label}
@@ -90,14 +90,14 @@ const StyledView = styled(View)({
   justifyContent: 'space-between',
   borderBottomWidth: 1,
   borderColor: '#00FFFF',
-  mt: '$12',
+  mt: '$6',
   alignItems: 'center',
 })
 
 const StyledWrapItem = styled(View)({
   flexDirection: 'row',
   alignItems: 'center',
-  mt: '$3',
+  mt: '$1a',
   justifyContent: 'space-between',
 })
 
@@ -120,7 +120,7 @@ const StyledWrapIcon = styled(View)({
 
 const StyledText = styled(Text)({
   color: '#00FFFF',
-  pb: '$5',
+  pb: '$2a',
 })
 
 const StyleLabel = styled(Text)({

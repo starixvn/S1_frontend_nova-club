@@ -1,29 +1,9 @@
 import { DripsyProvider, makeTheme } from 'dripsy'
 import useOnAppStart from 'app/hooks/useOnAppStart'
 
-const sizeList = {
-  $0: 0,
-  $1: 2,
-  $2: 4,
-  $3: 6,
-  $4: 8,
-  $5: 10,
-  $6: 12,
-  $7: 14,
-  $8: 16,
-  $9: 18,
-  $10: 20,
-  $11: 22,
-  $12: 24,
-  $15: 30,
-  $16: 32,
-  $20: 40,
-}
-
 const size = {
   $0: 0,
   $0a: 2,
-  '$1-5': 20,
   $1: 4,
   $1a: 6,
   $2: 8,
@@ -34,7 +14,7 @@ const size = {
   $5: 20,
   $6: 24,
   $7: 28,
-  $7a: 32,
+  $7a: 30,
   $8: 32,
   $9: 36,
   $10: 40,

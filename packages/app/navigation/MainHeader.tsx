@@ -42,7 +42,7 @@ const MainHeader = () => {
     <SafeAreaView sx={{ bg: '$secondary' }}>
       <StyledContainer
         sx={{
-          my: isIOS ? 0 : isAndroid ? StatusBar.currentHeight : '$5',
+          my: isIOS ? 0 : isAndroid ? StatusBar.currentHeight : '$2a',
         }}
       >
         <View style={{ flex: 1 }}>
@@ -81,14 +81,14 @@ const MainHeader = () => {
 const StyledContainer = styled(View)({
   flexDirection: 'row',
   bg: '$secondary',
-  mb: '$3',
+  mb: '$1a',
   alignItems: 'center',
 })
 
 const StyledLogo = styled(Image)({
   width: [50, 50, 50],
   height: [30, 50, 50],
-  ml: '$10',
+  ml: '$5',
 })
 
 const StyledBgImage = styled(Image)({
@@ -111,7 +111,7 @@ const StyledImg = styled(Image)({
 const StyledText = styled(Text)({
   alignSelf: 'center',
   color: '$yellow',
-  pr: '$4',
+  pr: '$2',
 })
 
 const StyledSearchBox = styled(View)({
@@ -123,7 +123,7 @@ const StyledSearchBox = styled(View)({
   justifyContent: 'space-between',
   borderWidth: 2,
   borderColor: '$background',
-  mr: '$3',
+  mr: '$1a',
 })
 
 export default MainHeader

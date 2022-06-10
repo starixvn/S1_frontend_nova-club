@@ -48,7 +48,7 @@ const OverviewItem = ({ title, value }: { title: string; value: number }) => {
 
 const StyledGradientBox = styled(GradientBox)(() => ({
   minHeight: 100,
-  p: '$6',
+  p: '$3',
 }))
 
 const StyledOverView = styled(View)(() => ({

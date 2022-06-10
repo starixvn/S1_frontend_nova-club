@@ -10,7 +10,7 @@ const GameRewards = () => {
           alignItems: 'center',
         }}
       >
-        <Text sx={{ color: '#6397B7', py: '$5', fontSize: 14 }}>
+        <Text sx={{ color: '#6397B7', py: '$2a', fontSize: 14 }}>
           Game Rewards:{' '}
           <Text sx={{ color: '#FF7070', fontSize: 14 }}>0.5%</Text>
         </Text>

@@ -5,7 +5,7 @@ import Section from './Section'
 
 const SlotGames = () => {
   return (
-    <View sx={{ mt: '$10' }}>
+    <View sx={{ mt: '$5' }}>
       <Section title="hot slot games" />
       <SimpleGridImage data={fishing.gameList} />
     </View>

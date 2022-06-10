@@ -126,7 +126,7 @@ const ChangePasswordScreen = () => {
         />
       </GradientBoxText>
 
-      <View sx={{ m: '$12' }}>
+      <View sx={{ m: '$6' }}>
         <Button title="Ok" disabled={!isValid || !dirty} onPress={submitForm} />
       </View>
 
@@ -140,10 +140,10 @@ const ChangePasswordScreen = () => {
 const StyledViewPage = styled(View)(() => ({
   flex: 1,
   bg: '$secondary',
-  pt: '$6',
+  pt: '$3',
 }))
 
 const StyledText = styled(Text)(() => ({
-  mx: '$12',
+  mx: '$6',
 }))
 export default ChangePasswordScreen

@@ -18,7 +18,7 @@ const SectionHeader = ({
         gradient={bgColor}
         sx={{
           borderRadius: 15,
-          m: '$2',
+          m: '$1',
           height: 30,
           aspectRatio: 1,
           justifyContent: 'center',
@@ -46,16 +46,16 @@ const StyledView = styled(View)({
   borderRightColor: '$primary',
   borderColor: '$shadow',
   flexDirection: 'row',
-  ml: '$7',
-  my: '$3',
-  mt: '$12',
+  ml: '$3a',
+  my: '$1a',
+  mt: '$6',
   alignItems: 'center',
 })
 
 const StyledText = styled(Text)({
   fontSize: [18, 23, 28],
   color: 'white',
-  padding: '$3',
+  padding: '$1a',
   fontWeight: 'bold',
 })
 

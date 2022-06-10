@@ -29,7 +29,7 @@ const StyledGradient = styled(DripsyGradient)({
 
 const StyledIcon = styled(Icon)({
   color: 'white',
-  padding: '$1',
+  padding: '$0a',
 })
 
 export default GradientIcon

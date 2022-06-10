@@ -34,7 +34,7 @@ const WalletMenu = () => {
                 <View
                   sx={{
                     flexDirection: 'row',
-                    paddingX: '$5',
+                    paddingX: '$2a',
                   }}
                 >
                   <GradientIcon
@@ -65,12 +65,12 @@ const StyledTop = styled(View)({
 const StyledContainer = styled(View)({
   flexDirection: 'row',
   justifyContent: 'space-around',
-  py: '$3',
+  py: '$1a',
 })
 
 const StyledBox = styled(View)({
   flexDirection: 'row',
-  my: '$2',
+  my: '$1',
 })
 
 const StyledWrapBar = styled(View)({
@@ -81,7 +81,7 @@ const StyledWrapBar = styled(View)({
 const StyledBar = styled(View)({
   width: [1, 2, 3],
   bg: '#99ECFE',
-  my: '$3',
+  my: '$1a',
   flexDirection: 'row',
   justifyContent: 'flex-end',
 })
@@ -89,7 +89,7 @@ const StyledBar = styled(View)({
 const StyledViewText = styled(View)({
   justifyContent: 'center',
   alignItems: 'center',
-  ml: '$1',
+  ml: '$0a',
 })
 const StyledText = styled(Text)({
   color: '$yellow',
@@ -105,7 +105,7 @@ const StyledGradient = styled(DripsyGradient)({
 
 const StyledIcon = styled(Icon)({
   color: 'white',
-  padding: '$1',
+  padding: '$0a',
 })
 
 export default WalletMenu

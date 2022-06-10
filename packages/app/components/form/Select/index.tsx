@@ -97,7 +97,7 @@ const Select = (
       borderBottomWidth: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      py: '$6',
+      py: '$3',
       px: 45,
     },
     ...headerSx,
@@ -139,7 +139,7 @@ const Select = (
       </Text>
 
       <Pressable
-        sx={{ position: 'absolute', right: '$12' }}
+        sx={{ position: 'absolute', right: '$6' }}
         onPress={onActionSheetClose}
       >
         <Icon name={'cross'} size={25}></Icon>

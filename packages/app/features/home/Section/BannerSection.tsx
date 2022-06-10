@@ -129,7 +129,7 @@ const StyledContainerPaginatiom = styled(View)({
   justifyContent: 'space-between',
   width: 30,
   alignSelf: 'center',
-  mt: '$5',
+  mt: '$2a',
   position: 'absolute',
   bottom: 10,
 })

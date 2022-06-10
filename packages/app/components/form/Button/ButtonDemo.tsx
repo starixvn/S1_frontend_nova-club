@@ -72,9 +72,7 @@ const ButtonDemo = () => {
         }}
       >
         <Icon name="lc" size={25} />
-        <Button.Label sx={{ marginRight: '$10' }}>
-          Add Bank Account
-        </Button.Label>
+        <Button.Label sx={{ marginRight: '$5' }}>Add Bank Account</Button.Label>
         <Icon name="lc" size={25} sx={{ marginLeft: 'auto' }} />
       </Button>
       {/* loading */}
@@ -91,9 +89,7 @@ const ButtonDemo = () => {
         }}
       >
         <Icon name="lc" size={25} />
-        <Button.Label sx={{ marginRight: '$10' }}>
-          Add Bank Account
-        </Button.Label>
+        <Button.Label sx={{ marginRight: '$5' }}>Add Bank Account</Button.Label>
         <Icon name="lc" size={25} sx={{ marginLeft: 'auto' }} />
       </Button>
       <Button

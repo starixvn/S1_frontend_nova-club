@@ -62,7 +62,7 @@ const IconAction: FC<Props> = ({
       {title && (
         <Text
           sx={{
-            my: '$2',
+            my: '$1',
             fontSize: 13,
             fontWeight: 'bold',
             flexWrap: 'nowrap',

@@ -16,7 +16,7 @@ const ImportantNotice = ({ keys, module }: ImportantNoticeProps) => {
   return (
     <StyledView>
       <StyledViewTitle>
-        <Icon name="information-solid" color="#134dae" sx={{ mr: '$2' }} />
+        <Icon name="information-solid" color="#134dae" sx={{ mr: '$1' }} />
         <StyledTextTitle>
           {'note.importantNotice'.toUpperCase()}
         </StyledTextTitle>
@@ -65,7 +65,7 @@ const ImportantNotice = ({ keys, module }: ImportantNoticeProps) => {
 }
 
 const StyledView = styled(View)(() => ({
-  padding: '$4',
+  padding: '$2',
   borderRadius: 'sm',
 }))
 
@@ -73,7 +73,7 @@ const StyledViewTitle = styled(View)(() => ({
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'center',
-  mb: '$4',
+  mb: '$2',
 }))
 
 const StyledTextTitle = styled(Text)(() => ({

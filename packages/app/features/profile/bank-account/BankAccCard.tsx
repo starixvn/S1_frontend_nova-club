@@ -44,12 +44,12 @@ const BankAccCard = ({ item, onPressRemove }: BankAccCardProps) => {
 
 const StyledBox = styled(GradientBox)(() => ({
   flexDirection: 'row',
-  mt: '$4',
-  padding: '$12',
+  mt: '$2',
+  padding: '$6',
 }))
 
 const StyledViewV = styled(View)(() => ({
-  px: '$12',
+  px: '$6',
   flex: 1,
   justifyContent: 'space-evenly',
 }))

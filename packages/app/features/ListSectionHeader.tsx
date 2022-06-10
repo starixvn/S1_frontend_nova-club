@@ -30,10 +30,10 @@ const ListSectionHeader = ({
       </StyledView>
       {search && (
         <StyledSearchBox>
-          <TextInput sx={{ width: '80%', height: '100%', pl: '$5' }} />
+          <TextInput sx={{ width: '80%', height: '100%', pl: '$2a' }} />
           <Icon
             name="lc"
-            sx={{ alignSelf: 'center', pr: '$3' }}
+            sx={{ alignSelf: 'center', pr: '$1a' }}
             color={'white'}
             size={15}
           />
@@ -44,8 +44,8 @@ const ListSectionHeader = ({
 }
 
 const StyledContainer = styled(View)({
-  my: '$3',
-  mt: '$3',
+  my: '$1a',
+  mt: '$1a',
   flexDirection: 'row',
   justifyContent: 'space-between',
 })
@@ -65,17 +65,17 @@ const StyledView = styled(View)({
 const StyledText = styled(Text)({
   fontSize: [15, 20, 25],
   color: 'white',
-  padding: '$3',
-  pl: '$3',
-  pr: '$10',
+  padding: '$1a',
+  pl: '$1a',
+  pr: '$5',
   fontWeight: 'bold',
   fontStyle: 'italic',
 })
 
 const StyledGradient = styled(DripsyGradient)({
   borderRadius: 10,
-  padding: '$1',
-  ml: '$8',
+  padding: '$0a',
+  ml: '$4',
 })
 
 const StyledSearchBox = styled(View)({
@@ -87,7 +87,7 @@ const StyledSearchBox = styled(View)({
   justifyContent: 'space-between',
   borderWidth: 2,
   borderColor: '$background',
-  mr: '$3',
+  mr: '$1a',
 })
 
 export default ListSectionHeader
