@@ -10,7 +10,7 @@ const dummyData = [
   },
 ]
 const RecentTransactions = () => {
-  const { data, isLoading, isFetching } = useDummyRtk(dummyData)
+  const { data, isLoading, isFetching, refetch } = useDummyRtk(dummyData)
   const { t } = useLocalization()
 
   return (
@@ -25,7 +25,7 @@ const RecentTransactions = () => {
         }}
       >
         <Text sx={{}}>{t('transaction.transactions')}</Text>
-        <RefreshIconButton />
+        <RefreshIconButton loading={isFetching} onPress={refetch} />
       </View>
       <GradientBox>
         <Text>a</Text>
