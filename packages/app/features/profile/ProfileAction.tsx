@@ -1,5 +1,6 @@
 import { GradientList } from 'app/components/Gradient'
 import RoundedIcon from 'app/components/RoundedIcon'
+import useContextualRouting from 'app/hooks/useContextualRouting'
 import BouncePressable from 'app/pressable/BouncePressable'
 import { Pressable, styled, Text, View } from 'dripsy'
 import React from 'react'
@@ -19,6 +20,11 @@ const ProfileAction = () => {
     console.log('Profile action click')
   }
 
+  const { makeContextualHref, returnHref } = useContextualRouting()
+  const to = makeContextualHref({
+    module: 'deposit',
+  })
+
   return (
     <StyledView>
       <IconAction
@@ -26,7 +32,7 @@ const ProfileAction = () => {
         icon="sb"
         title="Deposit"
         onPress={() => {
-          push('/deposit')
+          push(to, `/deposit`)
         }}
       />
       <IconAction

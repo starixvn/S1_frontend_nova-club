@@ -4,6 +4,9 @@ import { Text, View, ActivityIndicator, FlatList, styled } from 'dripsy'
 import { useDummyRtk } from 'utils/rtk'
 import RecentTransactions from './RecentTransactions'
 import DepositMethodCard from './DepositMethodCard'
+import { Button } from 'app/components/form/Button'
+import { useRouter } from 'solito/router'
+import useContextualRouting from 'app/hooks/useContextualRouting'
 
 const mapTypeToIcon = {}
 
@@ -24,13 +27,22 @@ const sampleData = [
 
 const Deposit = () => {
   const { data, isLoading, isFetching } = useDummyRtk(sampleData)
+  const { push } = useRouter()
 
   const { t } = useLocalization()
+
+  const { makeContextualHref, returnHref } = useContextualRouting()
+  const to = makeContextualHref({
+    module: 'deposit',
+    sub: 'topup',
+  })
   return (
     <PageSafeArea sx={{}}>
       <Text sx={{ my: '$6', mx: '$4' }}>{t('deposit.choose')}</Text>
       {isLoading && <ActivityIndicator />}
-
+      <Button onPress={() => push(to, `${returnHref}/topup`)}>
+        <Button.Label>aa</Button.Label>
+      </Button>
       <View sx={{ position: 'relative', mx: '$4' }}>
         {data && (
           <FlatList

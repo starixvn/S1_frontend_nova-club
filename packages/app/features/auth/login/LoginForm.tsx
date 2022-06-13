@@ -4,7 +4,7 @@ import { useAppDispatch } from 'app/provider/redux/store'
 import { useLazyLoginQuery } from 'app/services/authApi'
 import { PlayerActions } from 'app/store/playerReducer'
 import validation from 'app/utils/validation'
-import { styled, Text, View } from 'dripsy'
+import { styled, Text, useSx, View } from 'dripsy'
 import { Formik, FormikHelpers, useFormik } from 'formik'
 import React, { useState } from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
@@ -12,9 +12,13 @@ import { MotiLink } from 'solito/moti'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import { Button } from 'app/components/form/Button'
+import useContextualRouting from 'app/hooks/useContextualRouting'
+import { TextLink } from 'solito/link'
+import withContextualNav from 'app/navigation/web/withContextualNav'
 
 const StyledButtonOpacity = styled(TouchableOpacity)({})
 const StyledLink = styled(MotiLink)({})
+const StyledTextLink = styled(TextLink)({})
 
 type LoginFormValues = {
   username: string
@@ -23,6 +27,7 @@ type LoginFormValues = {
 
 const LoginForm = () => {
   const [login, { isLoading, isError }] = useLazyLoginQuery()
+  const sx = useSx()
 
   const [errorMsg, setErrorMsg] = useState('')
   const { push, replace } = useRouter()
@@ -66,6 +71,10 @@ const LoginForm = () => {
     onSubmit,
   })
 
+  const { makeContextualHref, returnHref } = useContextualRouting()
+  const to = makeContextualHref({
+    module: 'forget-password',
+  })
   const {
     handleChange,
     handleBlur,
@@ -111,15 +120,18 @@ const LoginForm = () => {
       />
 
       <View sx={{ alignItems: 'flex-end' }}>
-        <StyledLink
-          href={'/forgot-password'}
+        <MotiLink
+          href={to}
+          as={`/auth/forget-password`}
+          style={sx({
+            mt: '$5',
+          })}
           animate={({ hovered, pressed }) => {
             'worklet'
             return {
               scale: pressed ? 0.9 : hovered ? 1.1 : 1,
             }
           }}
-          sx={{ width: '100%' }}
         >
           <Text
             variant="md"
@@ -130,7 +142,7 @@ const LoginForm = () => {
           >
             Forgot Password?
           </Text>
-        </StyledLink>
+        </MotiLink>
       </View>
 
       <Text variant="error" sx={{ mt: '$3' }}>
@@ -174,4 +186,4 @@ const LoginForm = () => {
   )
 }
 
-export default LoginForm
+export default withContextualNav(LoginForm)

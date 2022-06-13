@@ -35,6 +35,7 @@ export function NavigationProvider({
               SplashScreen: 'splashscreen',
               LoginPage: '/auth/login',
               RegisterPage: '/auth/register',
+              ForgotPassword: '/auth/forget-password',
               DepositPage: '/deposit',
               BottomNav: {
                 screens: {

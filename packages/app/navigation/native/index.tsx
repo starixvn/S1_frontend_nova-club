@@ -11,8 +11,9 @@ import ProfileNavigation from './ProfileNavigation'
 import { useSelector } from 'react-redux'
 import { RootState } from 'app/provider/redux/store'
 import PreLaunchGame from 'app/features/games/PreLaunchGame'
-import Deposit from '../../../../apps/next/pages/deposit'
+import Deposit from 'app/features/deposit'
 import WithdrawalPage from 'app/features/withdrawal'
+import ForgotPassword from 'app/features/auth/ForgotPassword'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -23,6 +24,7 @@ const Stack = createStackNavigator<{
   ProfilePage: undefined
   PreLaunchGame: undefined
   WithdrawalPage: undefined
+  ForgotPassword: undefined
 }>()
 
 export function NativeNavigation() {
@@ -48,6 +50,13 @@ export function NativeNavigation() {
       <Stack.Screen
         name="RegisterPage"
         component={RegisterPage}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="ForgotPassword"
+        component={ForgotPassword}
         options={{
           headerShown: false,
         }}

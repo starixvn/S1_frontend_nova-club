@@ -2131,10 +2131,17 @@
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.5.tgz#75a2a8e7d8ab4b230414505d92335d1dcb53a6df"
   integrity sha512-L28j2FcJfSZOnL1WBjDYp2vUHCeIFlyYI/53EwD/rKUBQ7MtUUfbQWiyKJGpcnv4/WgrhWsFKrcPstcAt/J0tQ==
 
-"@types/react-native@^0.67.2", "@types/react-native@~0.64.12":
+"@types/react-native@^0.67.2":
   version "0.67.8"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.67.8.tgz#edaaa0527b835fffbfc34c09874722b6e4a4d1f3"
   integrity sha512-xA8rYiTHvO6RoZv/LFnmEeqRuhA2y34mGB8zX3bGHe/pCt9jEStUPyUO4q1KcDc9GiGIOBD8ArfRtThprAjSfQ==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-native@~0.64.12":
+  version "0.64.24"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.64.24.tgz#54d8aaadc12d429004b0a573dc3a65ad27430cc6"
+  integrity sha512-qgqOJub7BYsAkcg3VSL3w63cgJdLoMmAX6TSTAPL53heCzUkIdtpWqjyNRH0n7jPjxPGG1Qmsv6GSUh7IfyqRg==
   dependencies:
     "@types/react" "*"
 
@@ -7751,6 +7758,13 @@ next-transpile-modules@^9.0.0:
     enhanced-resolve "^5.7.0"
     escalade "^3.1.1"
 
+next-use-contextual-routing@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/next-use-contextual-routing/-/next-use-contextual-routing-2.3.0.tgz#0d626b4b18ab45fa4483b955753cd36741be9176"
+  integrity sha512-JTZ+cUjHfelG58wSOBhmEhwpcNJhSSpQHt9FodV0pOH8NsqF3uL5YSBohXUtN4q3VZriudzIbTGHe2WbJHoesg==
+  dependencies:
+    qs-stringify "^1.2.1"
+
 next@12.1.0:
   version "12.1.0"
   resolved "https://registry.yarnpkg.com/next/-/next-12.1.0.tgz#c33d753b644be92fc58e06e5a214f143da61dd5d"
@@ -9017,6 +9031,11 @@ q@^1.1.2:
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
   integrity sha512-kV/CThkXo6xyFEZUugw/+pIOywXcDbFYgSct5cT3gqlbkBE1SJdwy6UQoZvodiWF/ckQLZyDE/Bu1M6gVu5lVw==
 
+qs-stringify@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/qs-stringify/-/qs-stringify-1.2.1.tgz#9b39ef6b816bd83309628fc9dad435fc0eccc28b"
+  integrity sha512-2N5xGLGZUxpgAYq1fD1LmBSCbxQVsXYt5JU0nU3FuPWO8PlCnKNFQwXkZgyB6mrTdg7IbexX4wxIR403dJw9pw==
+
 qs@^6.9.1:
   version "6.10.3"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.10.3.tgz#d6cde1b2ffca87b5aa57889816c5f81535e22e8e"
@@ -9133,7 +9152,7 @@ react-dev-utils@~11.0.1:
     strip-ansi "6.0.0"
     text-table "0.2.0"
 
-react-devtools-core@4.14.0, react-devtools-core@^4.6.0:
+react-devtools-core@^4.6.0:
   version "4.14.0"
   resolved "https://registry.yarnpkg.com/react-devtools-core/-/react-devtools-core-4.14.0.tgz#4b9dc50937ed4cf4c04fa293430cac62d829fa8b"
   integrity sha512-cE7tkSUkGCDxTA79pntDGJCBgzNN/XxA3kgPdXujdfSfEfVhzrItQIEsN0kCN/hJJACDvH2Q8p5+tJb/K4B3qA==
