@@ -1,7 +1,23 @@
 {
+  "common": {
+    "next": "Next",
+    "amount": "Amount"
+  },
   "deposit": {
     "deposit": "Deposit",
-    "choose": "Choose your Deposit Options"
+    "choose": "Choose your Deposit Options",
+    "options": {
+      "bankTransfer": "Bank Transfer",
+      "onlineBanking": "Online Banking",
+      "momo": "MOMO",
+      "qrCode": "QR Code Transfer",
+      "topUp": "Top Up Card",
+      "crypto": "Crypto"
+    },
+    "paymentMode": "Payment Mode",
+    "cardValue": "Card Value",
+    "cardCode": "Card Code",
+    "cardSerialNo": "Card serial no."    
   },
   "transaction": {
     "transactions": "Transactions"

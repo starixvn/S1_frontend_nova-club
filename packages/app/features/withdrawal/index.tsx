@@ -1,49 +1,82 @@
 import { Button } from 'app/components/form/Button'
 import Select from 'app/components/form/Select'
 import { GradientBoxText } from 'app/components/GradientBoxText'
-import RoundedIcon from 'app/components/RoundedIcon'
 import { useAppSelector } from 'app/provider/redux/store'
-import { usePlayerWithdrawalBankQuery } from 'app/services/playerWithdrawalBank'
-import { ScrollView, styled, Text, View } from 'dripsy'
+import { styled, View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import { FormikHelpers, useFormik } from 'formik'
 import * as Yup from 'yup'
 import validation from 'app/utils/validation'
 import ImportantNotice from 'app/components/ImportantNotice'
 import BankSelector from 'app/components/BankSelector'
+import { useDispatch } from 'react-redux'
+import { AlertActions } from 'app/store/alert'
+import { useRouter } from 'solito/router'
+import { useSubmitWithdrawalMutation } from 'app/services/withdrawal'
+import { toRealAmount } from 'app/utils'
+import { usePlayerWithdrawalBankQuery } from 'app/services/bank'
 
 type WithdrawalValues = {
-  bank: number
   amount: string
+  realAmount: number
+  bankId: number
 }
 
 const NOTES = ['note.w1', 'note.w2', 'note.w3', 'note.w4', 'note.w5']
 
 const WithdrawalPage = () => {
+  const dispatch = useDispatch()
+  const { replace } = useRouter()
   const user = useAppSelector((state) => state.player.currentLoginUser)
   const { data, isLoading, isFetching, isSuccess } =
     usePlayerWithdrawalBankQuery({
       username: user?.username ?? '',
     })
-
+  const [postSubmitWithdrawal] = useSubmitWithdrawalMutation()
   const [convertedData, setConvertedData] = useState([])
   const [selectedBank, setSelectedBank] = useState()
 
   const onSubmit = async (
-    { bank, amount }: WithdrawalValues,
+    { amount, realAmount }: WithdrawalValues,
     actions: FormikHelpers<WithdrawalValues>
   ) => {
-    console.log('bank :>> ', bank)
-    console.log('amount :>> ', amount)
+    try {
+      const { data, success, message } = await postSubmitWithdrawal({
+        amount: realAmount,
+        bank_acc_name: '112233',
+        bank_acc_num: '112233',
+        bank_details_id: 1,
+        bank_type_id: 1,
+        crypto_address: '112233',
+        crypto_protocol: '112233',
+        exchange_rate: 1,
+        username: user?.username ?? '',
+      }).unwrap()
+      console.log(
+        '🚀 ~ file: index.tsx ~ line 64 ~ WithdrawalPage ~ data',
+        data
+      )
+
+      if (success) {
+        dispatch(AlertActions.addSuccess(message))
+        actions.resetForm()
+
+        replace('/profile')
+      } else {
+        dispatch(AlertActions.addError(message))
+      }
+    } catch (e) {
+      dispatch(AlertActions.addError('common.systemError'))
+    }
   }
 
   const formik = useFormik<WithdrawalValues>({
     initialValues: {
-      bank: 0,
       amount: '',
+      realAmount: 0,
+      bankId: 0,
     },
     validationSchema: Yup.object({
-      bank: validation.sysId,
       amount: validation.amount,
     }),
     onSubmit,
@@ -72,15 +105,11 @@ const WithdrawalPage = () => {
       setValues({
         ...values,
         amount: cleanText,
+        realAmount: toRealAmount(amountNumber),
       })
     }
   }
 
-  useEffect(() => {
-    data && setConvertedData(Object.keys(data).map((key) => data[key]))
-  }, [data])
-  console.log('errors', errors)
-  console.log('bank', selectedBank)
   return (
     <StyledView>
       <GradientBoxText labelWidth={0.55}>
@@ -98,37 +127,12 @@ const WithdrawalPage = () => {
           <BankSelector
             bankList={convertedData}
             isLoading={isLoading || isFetching}
-            selectedBank={values.bank}
+            selectedBank={values.bankId}
             onPress={(id) => {
               setSelectedBank(id)
               setFieldValue('bank', id)
             }}
           />
-          {/* <ScrollView sx={{ bg: 'white' }}>
-            <View
-              sx={{
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                p: '$2',
-              }}
-            >
-              {isSuccess
-                ? convertedData.map((item) => (
-                    <View key={item.id}>
-                      <RoundedIcon
-                        size="small"
-                        key={item.id}
-                        image={require('app/assets/images/home/fishing.png')}
-                        containerStyle={{ m: '$1' }}
-                      />
-                      <Text sx={{ color: 'black', textAlign: 'center' }}>
-                        {item.bankName}
-                      </Text>
-                    </View>
-                  ))
-                : null}
-            </View>
-          </ScrollView> */}
         </Select>
 
         <GradientBoxText.TextInput

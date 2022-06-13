@@ -13,6 +13,7 @@ import { RootState } from 'app/provider/redux/store'
 import PreLaunchGame from 'app/features/games/PreLaunchGame'
 import Deposit from '../../../../apps/next/pages/deposit'
 import WithdrawalPage from 'app/features/withdrawal'
+import DepositNavigation from './DepositNavigation'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -54,8 +55,25 @@ export function NativeNavigation() {
       />
       <Stack.Screen
         name="DepositPage"
-        component={Deposit}
+        component={DepositNavigation}
         options={{
+          cardStyleInterpolator: fadeScaleIn,
+          transitionSpec: {
+            open: {
+              animation: 'timing',
+              config: {
+                duration: 500,
+                easing: Easing.ease,
+              },
+            },
+            close: {
+              animation: 'timing',
+              config: {
+                duration: 2000,
+                easing: Easing.ease,
+              },
+            },
+          },
           headerShown: false,
         }}
       />

@@ -38,6 +38,7 @@ const commonColors = {
   $error: '#F37070',
   $yellow: 'rgb(255,255,84)',
   $border: '#B3BADE',
+  $border2: '#33A0D0',
   $secondary: '#0D2035',
   $navyBlue: '#066D9A',
   $navyBlue2: '#246d92',
@@ -58,6 +59,7 @@ const commonColors = {
   placeholderTextColor: 'this string is ignored but must be declared',
   $orange: '#F15D12',
   $accent: '#F15D12',
+  $transparent: '#00000000',
 }
 
 const colorGradient = {
@@ -88,6 +90,7 @@ const colorGradient = {
   lightYellow: ['#F7ED7B', '#F9B32B'],
   wineRed: ['#BF0A31', '#78031D'],
   white: ['#FFF', '#FFF'],
+  transparent: ['', ''],
 }
 
 const theme = makeTheme({

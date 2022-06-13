@@ -1,11 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import authApi from 'app/services/authApi'
+import bankApi from 'app/services/bank'
 import changePasswordApi from 'app/services/changePassword'
 import contentApi from 'app/services/contentApi'
 import gameApi from 'app/services/gameApi'
 import playerApi from 'app/services/playerApi'
-import playerWithdrawalBankApi from 'app/services/playerWithdrawalBank'
-import withdrawalBankApi from 'app/services/withdrawalBank'
+import withdrawalApi from 'app/services/withdrawal'
 import { alertReducer } from 'app/store/alert'
 import playerReducer from 'app/store/playerReducer'
 import { settingReducer } from 'app/store/setting.slice'
@@ -38,8 +38,8 @@ const middlerwares = [
   gameApi.middleware,
   playerApi.middleware,
   changePasswordApi.middleware,
-  withdrawalBankApi.middleware,
-  playerWithdrawalBankApi.middleware,
+  bankApi.middleware,
+  withdrawalApi.middleware,
 ]
 
 const rootReducer = combineReducers({
@@ -48,8 +48,8 @@ const rootReducer = combineReducers({
   [gameApi.reducerPath]: gameApi.reducer,
   [playerApi.reducerPath]: playerApi.reducer,
   [changePasswordApi.reducerPath]: changePasswordApi.reducer,
-  [withdrawalBankApi.reducerPath]: withdrawalBankApi.reducer,
-  [playerWithdrawalBankApi.reducerPath]: playerWithdrawalBankApi.reducer,
+  [bankApi.reducerPath]: bankApi.reducer,
+  [withdrawalApi.reducerPath]: withdrawalApi.reducer,
   alert: alertReducer,
   player: playerReducer,
   setting: settingReducer,

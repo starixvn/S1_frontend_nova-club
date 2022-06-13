@@ -1,30 +1,35 @@
 import IconButton from 'app/components/form/IconButton'
 import GradientBox from 'app/components/GradientBox'
 import RoundedIcon from 'app/components/RoundedIcon'
-import { PlayerWithdrawalBankResult } from 'app/services/playerWithdrawalBank.type'
+import { PlayerWithdrawalBankResult } from 'app/services/bank.type'
 import { styled, Text, View } from 'dripsy'
 import React from 'react'
 
 type BankAccCardProps = {
   item: PlayerWithdrawalBankResult
-  onPressRemove: (number) => void
+  onPressRemove: (item) => void
 }
 
 const BankAccCard = ({ item, onPressRemove }: BankAccCardProps) => {
   return (
     <StyledBox>
-      <RoundedIcon size="lg" icon={item.logo} />
+      <RoundedIcon
+        size="lg"
+        icon={{
+          uri: `https://player-stage.gball8.com/api/nv88_api/v1/${item.BankIcon}`,
+        }}
+      />
       <StyledViewV>
         <Text sx={{ color: '$PaleBlue', fontWeight: 'bold' }}>
-          {item.bankName}
+          {item.BankCode}
         </Text>
-        <Text>{item.bankAccountNumber}</Text>
-        <Text>{item.bankAccountFullName}</Text>
+        <Text>{item.BankAccountNumber}</Text>
+        <Text>{item.BankAccountFullName}</Text>
       </StyledViewV>
       <IconButton
         name="cross"
         size={36}
-        onPress={() => onPressRemove(item.bankTypeId)}
+        onPress={() => onPressRemove(item)}
         sx={{ mt: 'auto', mb: 'auto' }}
       />
     </StyledBox>
