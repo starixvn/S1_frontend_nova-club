@@ -3,17 +3,20 @@ import { View } from 'dripsy'
 import ModalNavigation from './ModalNavigation'
 import { createParam } from 'solito'
 import { getContextualComponent } from './withContextualNavConstant'
+import { memo, useEffect, useMemo } from 'react'
 
 const { useParam } = createParam()
 
 function withContextualNav(Component, moduleKey) {
   const context = () => {
     const [module] = useParam(moduleKey)
-    const Module = module ? getContextualComponent(module) ?? View : View
+    const Module = useMemo(() => {
+      return module ? getContextualComponent(module) ?? View : View
+    }, [module])
     return (
       <View style={{ flex: 1 }}>
         <Component />
-        <ModalNavigation isVisible={!!module}>
+        <ModalNavigation key={moduleKey} isVisible={!!module}>
           <Module />
         </ModalNavigation>
       </View>
