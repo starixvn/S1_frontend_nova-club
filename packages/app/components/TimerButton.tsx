@@ -8,15 +8,18 @@ import {
   useDripsyTheme,
 } from 'dripsy'
 import React, {
+  ComponentProps,
   forwardRef,
   useEffect,
   useImperativeHandle,
   useState,
 } from 'react'
 
-interface ITimerButtonProps {
+interface ITimerButtonProps extends ComponentProps<typeof Pressable> {
   title: string
   onPress: () => void
+  loading?: boolean
+  _text?: ComponentProps<typeof Text>
 }
 
 export interface ITimerButtonForwardRef {
@@ -25,9 +28,11 @@ export interface ITimerButtonForwardRef {
 }
 
 const TimerButton = forwardRef<ITimerButtonForwardRef, ITimerButtonProps>(
-  ({ title, onPress }: ITimerButtonProps, ref) => {
+  ({ title, onPress, _text, loading, ...props }: ITimerButtonProps, ref) => {
     const { theme } = useDripsyTheme()
     const [disabled, setDisabled] = useState(false)
+
+    const { sx: textSx = {}, ...textProps } = _text || {}
 
     const {
       startTimer,
@@ -45,7 +50,7 @@ const TimerButton = forwardRef<ITimerButtonForwardRef, ITimerButtonProps>(
     }, [isCountDownRunning])
 
     const handleButtonClick = () => {
-      if (!disabled) {
+      if (!disabled && !loading) {
         onPress()
         setDisabled(true)
       }
@@ -66,25 +71,32 @@ const TimerButton = forwardRef<ITimerButtonForwardRef, ITimerButtonProps>(
         disabled={disabled}
         onPress={handleButtonClick}
         style={disabled ? { backgroundColor: theme.colors.$disabled } : {}}
+        {...props}
       >
-        {disabled && (
+        {(disabled || loading) && (
           <ActivityIndicator
             size="small"
             color={theme.colors.$secondary}
             sx={{ mr: secDiff ? '$1' : '$0', fontSize: 12 }}
           />
         )}
-        <Text
-          sx={{
-            fontSize: [12, 20, 25],
-          }}
-        >
-          {disabled ? `${secDiff}` : title}
-        </Text>
+        {!loading && (
+          <Text
+            sx={{
+              fontSize: [12, 20, 25],
+              ...textSx,
+            }}
+            {...textProps}
+          >
+            {disabled ? `${secDiff}` : title}
+          </Text>
+        )}
       </StyledButton>
     )
   }
 )
+
+TimerButton.displayName = 'TimerButton'
 
 const StyledButton = styled(Pressable)({
   flexDirection: 'row',

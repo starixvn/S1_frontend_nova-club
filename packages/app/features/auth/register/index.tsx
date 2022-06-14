@@ -1,11 +1,30 @@
 import { DripsyGradient } from 'app/components/Gradient'
-import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { useAppDispatch } from 'app/provider/redux/store'
+import { useRegisterMutation } from 'app/services/authApi'
+import { LoginResult } from 'app/services/authApi.type'
+import { AlertActions } from 'app/store/alert'
+import { PlayerActions } from 'app/store/playerReducer'
+import validation, { getErrorMessage } from 'app/utils/validation'
 import { Image, styled, Text, View } from 'dripsy'
-import React, { useState } from 'react'
-import { LayoutChangeEvent } from 'react-native'
-import { MotiLink } from 'solito/moti'
+import { FormikHelpers, useFormik } from 'formik'
+import { MotiView, useDynamicAnimation } from 'moti'
+import React from 'react'
+import { useWindowDimensions } from 'react-native'
+import { useRouter } from 'solito/router'
+import * as Yup from 'yup'
 import AuthLayout from '../layout/AuthLayout'
+import VerificationPage from '../verification'
 import RegisterForm from './RegisterForm'
+
+export type RegisterFormValues = {
+  username: string
+  password: string
+  confirmPassword: string
+  realName: string
+  contactNumber: string
+  verifyCode: string
+  terms: boolean
+}
 
 const HEADER_IMAGE = require('../../../assets/images/register/referral-avatar.png')
 
@@ -15,42 +34,152 @@ const StyledImage = styled(Image)({
 })
 
 const RegisterPage = () => {
-  return (
-    <AuthLayout
-      formHeader={
-        <>
-          <DripsyGradient
-            gradient={'lightOceanBlue'}
-            sx={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              py: '$1a',
-            }}
-          >
-            <StyledImage
-              source={HEADER_IMAGE}
-              accessibilityLabel="n88 app logo"
-              sx={{
-                width: 70,
-                height: 70,
-              }}
-            />
+  const [register] = useRegisterMutation()
+  const dispatch = useAppDispatch()
+  const { push, replace } = useRouter()
+  const { width } = useWindowDimensions()
 
-            <View sx={{ ml: '$3' }}>
-              <Text sx={{ color: '$oceanBlue', fontSize: 18 }}>
-                Referrer information
-              </Text>
+  const onSubmit = async (
+    {
+      username,
+      password,
+      confirmPassword,
+      realName,
+      verifyCode,
+      terms,
+      contactNumber,
+    }: RegisterFormValues,
+    actions: FormikHelpers<RegisterFormValues>
+  ) => {
+    try {
+      const { data, success, message } = await register({
+        username,
+        password,
+        cpassword: confirmPassword,
+        contactNumber,
+        terms,
+        tracking_code: 'nEgoJLCSbn',
+        real_name: realName,
+        verify_code: verifyCode,
+      }).unwrap()
 
-              <Text sx={{ fontSize: 18, mt: '$1' }}>PLAYER88888</Text>
-            </View>
-          </DripsyGradient>
-          <View sx={{ height: 1.5, backgroundColor: '$cyan' }}></View>
-        </>
+      if (success) {
+        dispatch(PlayerActions.setCurrentLoginInfo(data as LoginResult))
+        actions.resetForm()
+        replace('/')
       }
-    >
-      <RegisterForm />
-    </AuthLayout>
+    } catch (error) {
+      const errorMessage = getErrorMessage(error)
+      dispatch(AlertActions.addAlert({ message: errorMessage }))
+    }
+  }
+
+  const formik = useFormik<RegisterFormValues>({
+    initialValues: {
+      username: '',
+      password: '',
+      confirmPassword: '',
+      realName: '',
+      contactNumber: '',
+      verifyCode: '',
+      terms: false,
+    },
+    validationSchema: Yup.object({
+      username: validation.username,
+      password: validation.passwordRestrict,
+      confirmPassword: validation.confirmPassword,
+      realName: Yup.string()
+        .min(6, 'validation.userNameMinMaxLength')
+        .required('validation.required'),
+      contactNumber: validation.phoneNumber,
+      verifyCode: Yup.string().required('validation.required'),
+      terms: Yup.bool()
+        .required('validation.required')
+        .oneOf([true], 'validation.checked'),
+    }),
+    onSubmit,
+  })
+
+  const { errors } = formik
+
+  const onRegisterSuccess = () => {
+    animationState.animateTo({
+      translateX: width >= 800 ? -800 : -width,
+    })
+  }
+
+  const onBack = () => {
+    animationState.animateTo({
+      translateX: 0,
+    })
+  }
+
+  const animationState = useDynamicAnimation(() => {
+    return {
+      translateX: 0,
+    }
+  })
+
+  return (
+    <View sx={{ flexDirection: 'row', flex: 1, overflow: 'hidden' }}>
+      <MotiView
+        state={animationState}
+        style={{ width: width >= 800 ? 800 : width }}
+        transition={{
+          type: 'timing',
+          duration: 400,
+        }}
+      >
+        <AuthLayout
+          formHeader={
+            <>
+              <DripsyGradient
+                gradient={'lightOceanBlue'}
+                sx={{
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  py: '$1a',
+                }}
+              >
+                <StyledImage
+                  source={HEADER_IMAGE}
+                  accessibilityLabel="n88 app logo"
+                  sx={{
+                    width: 70,
+                    height: 70,
+                  }}
+                />
+
+                <View sx={{ ml: '$3' }}>
+                  <Text sx={{ color: '$oceanBlue', fontSize: 18 }}>
+                    Referrer information
+                  </Text>
+
+                  <Text sx={{ fontSize: 18, mt: '$1' }}>PLAYER88888</Text>
+                </View>
+              </DripsyGradient>
+              <View sx={{ height: 1.5, backgroundColor: '$cyan' }}></View>
+            </>
+          }
+          headerDesc={'ACCOUNT REGISTRATION'}
+          onBack={() => push('/auth/login')}
+        >
+          <RegisterForm formik={formik} onSuccess={onRegisterSuccess} />
+        </AuthLayout>
+      </MotiView>
+
+      <MotiView
+        state={animationState}
+        style={{ width: width >= 800 ? 800 : width }}
+        transition={{
+          type: 'timing',
+          duration: 400,
+        }}
+      >
+        <VerificationPage formik={formik} onBack={onBack} />
+      </MotiView>
+    </View>
   )
 }
 

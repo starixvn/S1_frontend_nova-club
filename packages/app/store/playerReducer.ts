@@ -1,28 +1,25 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, current, PayloadAction } from '@reduxjs/toolkit'
 import { LoginResult } from 'app/services/authApi.type'
 import { ProfileResult } from 'app/services/playerApi.type'
 
 type TokenType = Pick<LoginResult, 'token'>
 
-type Player = ProfileResult & TokenType
-
-type PlayerState = {
-  players: Player[]
-  currentLoginUser?: Player
+export type PlayerState = {
+  players: ProfileResult[]
+  currentLoginUser?: ProfileResult
   currentLoginInfo?: LoginResult
+  tokens?: TokenType[]
 }
 
-const initialState: PlayerState = {
+export const playerInitialState: PlayerState = {
   players: [],
-  // currentLoginUser: {} as PlayerState['currentLoginUser'],
-  // currentLoginInfo: { playerName: '', token: '' },
 }
 
 const playerSlice = createSlice({
   name: 'player',
-  initialState,
+  initialState: playerInitialState,
   reducers: {
-    setUser: (state, action: PayloadAction<Player>) => {
+    setUser: (state, action: PayloadAction<ProfileResult>) => {
       const currentPlayer = action.payload
 
       state.players = [...state.players, currentPlayer]
@@ -34,7 +31,7 @@ const playerSlice = createSlice({
   },
   extraReducers: {
     LOGOUT: () => {
-      return initialState
+      return playerInitialState
     },
   },
 })

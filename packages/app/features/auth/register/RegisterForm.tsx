@@ -1,110 +1,154 @@
-import TextInput from 'app/components/form/TextInput'
-import { DripsyGradient } from 'app/components/Gradient'
-import Icon from 'app/components/Icon'
-import { useAppDispatch } from 'app/provider/redux/store'
-import { useLazyRegisterQuery } from 'app/services/authApi'
-import { LoginResult } from 'app/services/authApi.type'
-import { PlayerActions } from 'app/store/playerReducer'
-import validation from 'app/utils/validation'
-import { styled, Text, View } from 'dripsy'
-import { FormikHelpers, useFormik } from 'formik'
-import React, { useState } from 'react'
-import { KeyboardAvoidingView, Platform } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import { MotiLink } from 'solito/moti'
-import { useRouter } from 'solito/router'
-import * as Yup from 'yup'
+import { Button } from 'app/components/form/Button'
+import TextInput, { DripsyTextInputProps } from 'app/components/form/TextInput'
+import { useLazyCheckUsernameQuery } from 'app/services/authApi'
+import { getErrorMessage } from 'app/utils/validation'
+import { ActivityIndicator, useDripsyTheme, View } from 'dripsy'
+import { FormikProps } from 'formik'
+import React, { memo, useCallback, useMemo, useRef, useState } from 'react'
+import { RegisterFormValues } from '.'
 
-const StyledButtonOpacity = styled(TouchableOpacity)({})
-
-type LoginFormValues = {
-  username: string
-  password: string
-  confirmPassword: string
-  realName: string
+interface RegisterFormProps {
+  formik: FormikProps<RegisterFormValues>
+  onSuccess: () => void
 }
 
-const RegisterForm = () => {
-  const [register] = useLazyRegisterQuery()
-  const [errorMsg, setErrorMsg] = useState('')
-  const { replace } = useRouter()
+const MemoTextInput = memo(TextInput)
 
-  const dispatch = useAppDispatch()
-
-  const onSubmit = async (
-    { username, password, confirmPassword, realName }: LoginFormValues,
-    actions: FormikHelpers<LoginFormValues>
-  ) => {
-    try {
-      const { data, success, message } = await register({
-        username,
-        password,
-        cpassword: confirmPassword,
-        contactNumber: '84' + 1e7,
-        email: username + '@gmail.com',
-        terms: true,
-        tracking_code: 'nEgoJLCSbn',
-        real_name: realName,
-      }).unwrap()
-
-      if (success) {
-        dispatch(PlayerActions.setCurrentLoginInfo(data as LoginResult))
-        actions.resetForm()
-        if (errorMsg) setErrorMsg('')
-
-        replace('/')
-      } else {
-        throw new Error(message)
-      }
-    } catch (e) {
-      setErrorMsg(e.message)
-      //   dispatch(AlertActions.addError(t('common.systemError')))
-    }
-  }
-
-  const formik = useFormik<LoginFormValues>({
-    initialValues: {
-      username: '',
-      password: '',
-      confirmPassword: '',
-      realName: '',
-    },
-    validationSchema: Yup.object({
-      username: validation.username,
-      password: validation.passwordRestrict,
-      confirmPassword: validation.confirmPassword,
-      realName: Yup.string()
-        .min(6, 'validation.userNameMinMaxLength')
-        .required('validation.required'),
-    }),
-    onSubmit,
-  })
-
+const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
   const {
     handleChange,
     handleBlur,
-    isSubmitting,
     values,
     errors,
     touched,
-    submitForm,
+    setTouched,
+    setFieldValue,
+    validateForm,
   } = formik
+
+  const [checkUsername] = useLazyCheckUsernameQuery()
+
+  const [usernameErrorMsg, setUsernameErrorMsg] = useState('')
+  const [isCheckingUsername, setIsCheckingUsername] = useState(false)
+  const oldUsernameRef = useRef('')
+  const isUsernameCheckedRef = useRef(false)
+
+  const { theme } = useDripsyTheme()
+
+  const onSubmit = useCallback(async () => {
+    setTouched({
+      username: true,
+      password: true,
+      confirmPassword: true,
+      realName: true,
+    })
+
+    const { username, confirmPassword, password, realName } =
+      await validateForm()
+
+    if (username || confirmPassword || password || realName) return
+
+    if (isCheckingUsername || usernameErrorMsg || !isUsernameCheckedRef.current)
+      return
+
+    onSuccess()
+  }, [
+    isCheckingUsername,
+    onSuccess,
+    setTouched,
+    usernameErrorMsg,
+    validateForm,
+  ])
+
+  const onUsernameBlur = useCallback(async () => {
+    const newUsername = values.username
+    setTouched({ username: true })
+
+    if (oldUsernameRef.current === newUsername) return
+
+    oldUsernameRef.current = newUsername
+
+    if (!errors.username) {
+      setIsCheckingUsername(true)
+
+      try {
+        const { success } = await checkUsername({
+          username: newUsername,
+        }).unwrap()
+
+        isUsernameCheckedRef.current = true
+
+        if (success) {
+          if (usernameErrorMsg) setUsernameErrorMsg('')
+        }
+      } catch (error) {
+        const errorMessage = getErrorMessage(error)
+        setUsernameErrorMsg(errorMessage)
+      } finally {
+        setIsCheckingUsername(false)
+      }
+    }
+  }, [
+    checkUsername,
+    errors.username,
+    setTouched,
+    usernameErrorMsg,
+    values.username,
+  ])
+
+  const onUsernameChange = useCallback(
+    (e) => {
+      if (isUsernameCheckedRef.current) isUsernameCheckedRef.current = false
+      if (usernameErrorMsg) setUsernameErrorMsg('')
+
+      setFieldValue('username', e)
+    },
+    [setFieldValue, usernameErrorMsg]
+  )
+
+  const usernameInputConfig: DripsyTextInputProps = useMemo(
+    () => ({
+      nativeID: 'username',
+      placeholder: 'Username',
+      value: values.username,
+      onChangeText: onUsernameChange,
+      onBlur: onUsernameBlur,
+      autoCapitalize: 'none',
+    }),
+    [values.username, onUsernameChange, onUsernameBlur]
+  )
+
+  const usernameError = useMemo(() => {
+    if (touched.username && errors.username) {
+      return errors.username
+    } else if (usernameErrorMsg) {
+      return usernameErrorMsg
+    }
+
+    return undefined
+  }, [errors.username, touched.username, usernameErrorMsg])
+
+  const usernameActions = useMemo(
+    () => [
+      () => {
+        if (!isCheckingUsername) return null
+
+        return (
+          <ActivityIndicator color={theme.activityIndicator.primary.color} />
+        )
+      },
+    ],
+    [isCheckingUsername, theme.activityIndicator.primary.color]
+  )
 
   return (
     <>
-      <TextInput
+      {/* TextInput is memoized to prevent loading animation from keep re-rendering */}
+      <MemoTextInput
         _icon="avatar"
-        _input={{
-          placeholder: 'Username',
-          value: values.username,
-          onChangeText: handleChange('username'),
-          onBlur: handleBlur('username'),
-          autoCapitalize: 'none',
-        }}
-        error={
-          touched.username && errors.username ? errors.username : undefined
-        }
-        sx={{ minHeight: 50 }}
+        _input={usernameInputConfig}
+        error={usernameError}
+        actions={usernameActions}
       />
 
       <TextInput
@@ -115,11 +159,12 @@ const RegisterForm = () => {
           onChangeText: handleChange('password'),
           onBlur: handleBlur('password'),
           secureTextEntry: true,
+          onSubmitEditing: onSubmit,
         }}
         error={
           touched.password && errors.password ? errors.password : undefined
         }
-        sx={{ mt: '$3', minHeight: 50 }}
+        sx={{ mt: '$3' }}
       />
 
       <TextInput
@@ -130,6 +175,7 @@ const RegisterForm = () => {
           onChangeText: handleChange('confirmPassword'),
           onBlur: handleBlur('confirmPassword'),
           secureTextEntry: true,
+          onSubmitEditing: onSubmit,
         }}
         error={
           touched.confirmPassword && errors.confirmPassword
@@ -147,33 +193,23 @@ const RegisterForm = () => {
           value: values.realName,
           onChangeText: handleChange('realName'),
           onBlur: handleBlur('realName'),
+          onSubmitEditing: onSubmit,
         }}
         error={
           touched.realName && errors.realName ? errors.realName : undefined
         }
-        sx={{ mt: '$3', minHeight: 50 }}
+        sx={{ mt: '$3' }}
       />
 
-      <Text variant="error" sx={{ mt: '$3' }}>
-        {errorMsg}
-      </Text>
-
       <View sx={{ alignItems: 'center', mt: '$5' }}>
-        <View sx={{ width: '80%' }}>
-          <StyledButtonOpacity
-            activeOpacity={0.6}
+        <View sx={{ width: '70%' }}>
+          <Button
             sx={{ mt: '$4' }}
-            onPress={submitForm}
+            containerStyle={{ alignSelf: 'stretch' }}
+            onPress={onSubmit}
           >
-            <DripsyGradient
-              gradient={'orangeRed'}
-              sx={{ alignItems: 'center', borderRadius: 10 }}
-            >
-              <Text variant="body" sx={{ p: '$3a' }}>
-                Register
-              </Text>
-            </DripsyGradient>
-          </StyledButtonOpacity>
+            <Button.Label>Register</Button.Label>
+          </Button>
         </View>
       </View>
     </>

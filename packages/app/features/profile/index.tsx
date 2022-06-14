@@ -29,7 +29,9 @@ const ProfileScreen = () => {
   useEffect(() => {
     console.log('isFetching', isFetching)
     !isLoading && setRefreshing(isFetching)
-    dispatch(PlayerActions.setUser(data?.data))
+    if (data?.data) {
+      dispatch(PlayerActions.setUser(data?.data))
+    }
   }, [data, dispatch, isFetching, isLoading])
 
   return (

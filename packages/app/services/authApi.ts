@@ -1,10 +1,12 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import {
+  CheckUsernameQueryArgs,
   LoginQueryArgs,
   LoginResult,
   LogoutQueryArgs,
   RegisterQueryArgs,
   RegisterResult,
+  SendRegistrationOtpQueryArgs,
 } from './authApi.type'
 import { axiosBaseQuery } from './common/axiosBaseQuery'
 import {
@@ -18,7 +20,7 @@ import {
  */
 const authEndpoints = (builder: EndpointBuilderType) => {
   return {
-    login: builder.query<IResponse<LoginResult>, LoginQueryArgs>({
+    login: builder.mutation<IResponse<LoginResult>, LoginQueryArgs>({
       query: ({ username, password }) => ({
         url: `/player_api/login`,
         data: {
@@ -27,7 +29,7 @@ const authEndpoints = (builder: EndpointBuilderType) => {
         },
       }),
     }),
-    register: builder.query<IResponse<RegisterResult>, RegisterQueryArgs>({
+    register: builder.mutation<IResponse<RegisterResult>, RegisterQueryArgs>({
       query: (queryArgs) => ({
         url: `/player_api/createPlayer`,
         data: {
@@ -35,10 +37,30 @@ const authEndpoints = (builder: EndpointBuilderType) => {
         },
       }),
     }),
+    checkUsername: builder.query<IResponse<string>, CheckUsernameQueryArgs>({
+      query: ({ username }) => ({
+        url: `/player_api/checkUsername`,
+        data: {
+          username,
+        },
+      }),
+    }),
     logout: builder.query<IResponse<string>, LogoutQueryArgs>({
       query: ({ username }) => ({
         url: `/player_api/logout`,
         data: {
+          username,
+        },
+      }),
+    }),
+    sendRegistrationOtp: builder.mutation<
+      IResponse<{ verify_code: string }>,
+      SendRegistrationOtpQueryArgs
+    >({
+      query: ({ contactNumber, username }) => ({
+        url: `/player_api/sendRegistrationOtp`,
+        data: {
+          contactNumber,
           username,
         },
       }),
@@ -59,7 +81,13 @@ const authApi = createApi({
 
 export default authApi
 export { authEndpoints }
-export const { useLazyLoginQuery, useLazyRegisterQuery } = authApi
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useLazyCheckUsernameQuery,
+  useCheckUsernameQuery,
+  useSendRegistrationOtpMutation,
+} = authApi
 
 /**
  * For Demo differrent use cases
@@ -85,7 +113,7 @@ const addTagAuthApi = dummyAuthApi.enhanceEndpoints({
       },
     },
     register: {
-      providesTags: ['Register'],
+      invalidatesTags: ['Register'],
       transformResponse: (resp: IResponse<RegisterResult>) => {
         return resp
       },

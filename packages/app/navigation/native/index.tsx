@@ -6,6 +6,7 @@ import MainHeader from '../MainHeader'
 import TabNavigation from './TabNavigation'
 import LoginPage from 'app/features/auth/login'
 import RegisterPage from 'app/features/auth/register'
+import RegisterVerificationPage from 'app/features/auth/verification'
 import { Easing } from 'react-native'
 import ProfileNavigation from './ProfileNavigation'
 import { useSelector } from 'react-redux'
@@ -28,6 +29,7 @@ const Stack = createStackNavigator<{
   WithdrawalPage: undefined
   ForgotPassword: undefined
   CustomerSupportPage: undefined
+  RegisterVerificationPage: undefined
 }>()
 
 export function NativeNavigation() {
@@ -85,6 +87,13 @@ export function NativeNavigation() {
               },
             },
           },
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="RegisterVerificationPage"
+        component={RegisterVerificationPage}
+        options={{
           headerShown: false,
         }}
       />

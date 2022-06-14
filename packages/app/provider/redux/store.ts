@@ -7,15 +7,19 @@ import gameApi from 'app/services/gameApi'
 import playerApi from 'app/services/playerApi'
 import withdrawalApi from 'app/services/withdrawal'
 import { alertReducer } from 'app/store/alert'
-import playerReducer from 'app/store/playerReducer'
+import playerReducer, {
+  PlayerState,
+  playerInitialState,
+} from 'app/store/playerReducer'
 import { settingReducer } from 'app/store/setting.slice'
-import { Platform } from 'react-native'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import {
+  createMigrate,
+  createTransform,
+  PersistConfig,
   PersistedState,
   persistReducer,
   persistStore,
-  createMigrate,
 } from 'redux-persist'
 import { storage } from './persistStorage/index'
 
@@ -24,12 +28,26 @@ const migrations = {
   2: (s: PersistedState) => s,
 }
 
-const persistConfig = {
+const persistConfig: PersistConfig<any> = {
   key: 'root',
   version: 2,
   storage,
   whitelist: ['player'],
   migrate: createMigrate(migrations, { debug: true }),
+  transforms: [
+    createTransform<PlayerState, Pick<PlayerState, 'currentLoginInfo'>>(
+      // transform state on its way to being serialized and persisted.
+      (inboundState, key) => {
+        const { currentLoginInfo } = inboundState
+        return { currentLoginInfo }
+      },
+      // transform state being rehydrated
+      (outboundState, key) => {
+        return { ...playerInitialState, ...outboundState }
+      },
+      { whitelist: ['player'] }
+    ),
+  ],
 }
 
 const middlerwares = [

@@ -15,7 +15,7 @@ export interface TextInputAction {
   label: string
   onPress: () => void
 }
-type DripsyTextInputProps = React.ComponentProps<typeof DripsyTextInput>
+export type DripsyTextInputProps = React.ComponentProps<typeof DripsyTextInput>
 
 const StyledButtonOpacity = styled(TouchableOpacity)({})
 
@@ -58,12 +58,13 @@ const TextInput: FC<TextInputProps> = (props) => {
         {secureTextEntry && (
           <TextInputActions>
             <StyledButtonOpacity
+              accessible={false}
               activeOpacity={0.6}
               onPress={() => setHidePassword(!hidePassword)}
             >
               <Icon
                 name={hidePassword ? 'password-hide' : 'password-show'}
-                size={25}
+                size={hidePassword ? 25 : 19}
                 sx={{ color: '$orange' }}
               />
             </StyledButtonOpacity>
@@ -144,7 +145,7 @@ const TextInputFocusArea: FC<TextInputProps> = ({
   hidePassword,
 }) => {
   const [leftP, setLeftP] = useState(0)
-  const { secureTextEntry: _, ...restTextInputProps } = _input
+  const { secureTextEntry: _, ...restTextInputProps } = _input || {}
 
   return (
     <View

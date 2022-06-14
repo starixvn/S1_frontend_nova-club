@@ -1,25 +1,21 @@
+import { Button } from 'app/components/form/Button'
 import TextInput from 'app/components/form/TextInput'
-import { DripsyGradient } from 'app/components/Gradient'
+import useContextualRouting from 'app/hooks/useContextualRouting'
+import withContextualNav from 'app/navigation/web/withContextualNav'
+import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import { useAppDispatch } from 'app/provider/redux/store'
-import { useLazyLoginQuery } from 'app/services/authApi'
+import { useLoginMutation } from 'app/services/authApi'
+import { AlertActions } from 'app/store/alert'
 import { PlayerActions } from 'app/store/playerReducer'
-import validation from 'app/utils/validation'
+import validation, { getErrorMessage } from 'app/utils/validation'
 import { styled, Text, useSx, View } from 'dripsy'
-import { Formik, FormikHelpers, useFormik } from 'formik'
+import { FormikHelpers, useFormik } from 'formik'
 import React, { useState } from 'react'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 import { MotiLink } from 'solito/moti'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
-import { Button } from 'app/components/form/Button'
-import useContextualRouting from 'app/hooks/useContextualRouting'
-import { TextLink } from 'solito/link'
-import withContextualNav from 'app/navigation/web/withContextualNav'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 
-const StyledButtonOpacity = styled(TouchableOpacity)({})
 const StyledLink = styled(MotiLink)({})
-const StyledTextLink = styled(TextLink)({})
 
 type LoginFormValues = {
   username: string
@@ -27,11 +23,11 @@ type LoginFormValues = {
 }
 
 const LoginForm = () => {
-  const [login, { isLoading, isError }] = useLazyLoginQuery()
+  const [login] = useLoginMutation()
   const sx = useSx()
 
   const [errorMsg, setErrorMsg] = useState('')
-  const { push, replace } = useRouter()
+  const { replace } = useRouter()
 
   const dispatch = useAppDispatch()
 
@@ -54,9 +50,9 @@ const LoginForm = () => {
       } else {
         throw new Error(message)
       }
-    } catch (e) {
-      setErrorMsg(e.message)
-      //   dispatch(AlertActions.addError(t('common.systemError')))
+    } catch (error) {
+      const errorMessage = getErrorMessage(error)
+      dispatch(AlertActions.addError({ message: errorMessage }))
     }
   }
 
@@ -83,7 +79,6 @@ const LoginForm = () => {
     errors,
     touched,
     submitForm,
-    handleReset,
   } = formik
 
   return (

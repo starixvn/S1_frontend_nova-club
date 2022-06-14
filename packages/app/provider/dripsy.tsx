@@ -40,6 +40,7 @@ const commonColors = {
   $border: '#B3BADE',
   $border2: '#33A0D0',
   $secondary: '#0D2035',
+  $blue: '#1e79d4',
   $navyBlue: '#066D9A',
   $navyBlue2: '#246d92',
   $lightNavyBlue: '#33A0D0',
@@ -60,6 +61,8 @@ const commonColors = {
   $orange: '#F15D12',
   $accent: '#F15D12',
   $transparent: '#00000000',
+  $gray: '#DBDBDB',
+  $black: '#062646',
 }
 
 const colorGradient = {
@@ -148,6 +151,11 @@ const theme = makeTheme({
   },
   icon: {
     color: 'white',
+  },
+  activityIndicator: {
+    primary: {
+      color: commonColors.$lightCyan,
+    },
   },
   fontSizes: {
     $0: 12,

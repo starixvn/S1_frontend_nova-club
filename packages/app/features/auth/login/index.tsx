@@ -4,7 +4,7 @@ import LoginForm from './LoginForm'
 
 const LoginPage = () => {
   return (
-    <AuthLayout showBackButton={false}>
+    <AuthLayout showBackButton={false} headerDesc={'LOGIN TO YOUR ACCOUNT'}>
       <LoginForm />
     </AuthLayout>
   )

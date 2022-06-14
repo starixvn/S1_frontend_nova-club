@@ -16,6 +16,7 @@
     "dayjs": "^1.11.2",
     "dripsy": "^3.6.0",
     "expo-barcode-scanner": "^11.3.0",
+    "expo-checkbox": "^2.1.0",
     "expo-device": "^4.2.0",
     "expo-font": "^10.1.0",
     "expo-linking": "^3.0.0",

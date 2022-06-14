@@ -19,14 +19,19 @@ export type RegisterResult = LoginResult | RegisterInvalidResult[]
 export interface RegisterQueryArgs {
   contactNumber: string
   cpassword: string
-  email: string
   password: string
-  terms: true
+  real_name: string
+  terms: boolean
   tracking_code: string
   username: string
-  real_name: string
+  verify_code: string
 }
 
-export interface LogoutQueryArgs {
+export type LogoutQueryArgs = Pick<LoginQueryArgs, 'username'>
+
+export type CheckUsernameQueryArgs = Pick<LoginQueryArgs, 'username'>
+
+export type SendRegistrationOtpQueryArgs = {
+  contactNumber: string
   username: string
 }

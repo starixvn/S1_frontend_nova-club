@@ -1,7 +1,7 @@
+import IconButton from 'app/components/form/IconButton'
 import { DripsyGradient } from 'app/components/Gradient'
-import Icon from 'app/components/Icon'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { View, Text, styled, Image, ScrollView } from 'dripsy'
+import { Image, ScrollView, styled, Text, View } from 'dripsy'
 import React from 'react'
 import { MotiLink } from 'solito/moti'
 
@@ -12,20 +12,27 @@ const StyledImage = styled(Image)({
   height: 120,
   width: 120,
 })
-const StyledLink = styled(MotiLink)({})
 
 interface AuthLayoutProps {
   showBackButton?: boolean
+  headerDesc?: string
   formHeader?: React.ReactNode
   children?: React.ReactNode
+  onBack?: () => void
 }
 
 const AuthLayout = ({
   showBackButton = true,
+  headerDesc,
   formHeader,
   children,
+  onBack,
 }: AuthLayoutProps) => {
   const { top, bottom } = useSafeArea()
+
+  const onPressBack = () => {
+    onBack?.()
+  }
 
   return (
     <ScrollView bounces={false} contentContainerStyle={{ flexGrow: 1 }}>
@@ -63,17 +70,11 @@ const AuthLayout = ({
                   justifyContent: 'center',
                 }}
               >
-                <StyledLink
-                  href={'/auth/login'}
-                  animate={({ hovered, pressed }) => {
-                    'worklet'
-                    return {
-                      opacity: pressed ? 0.6 : hovered ? 0.6 : 1,
-                    }
-                  }}
-                >
-                  <Icon name="chevleft" size={BACK_ICON_SIZE} />
-                </StyledLink>
+                <IconButton
+                  name="chevleft"
+                  size={BACK_ICON_SIZE}
+                  onPress={onPressBack}
+                />
               </View>
             ) : null}
           </View>
@@ -94,7 +95,7 @@ const AuthLayout = ({
                 textAlign: 'center',
               }}
             >
-              Account registration
+              {headerDesc}
             </Text>
           </View>
 
