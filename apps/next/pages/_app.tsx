@@ -9,6 +9,7 @@ import '../global.css'
 import CommonLayout from '../layouts/commonLayout'
 import iconFile from '/public/icomoon.ttf'
 import { Container } from 'dripsy'
+import { ContextualNav } from 'app/navigation/web/withContextualNav'
 
 import { AnimatePresence } from 'framer-motion'
 
@@ -33,6 +34,7 @@ function MyApp({ Component, pageProps, router }: SolitoAppProps) {
       </Head>
       <Provider>
         <Container>
+          {/* <ContextualNav /> */}
           <AnimatePresence
             exitBeforeEnter
             initial={false}

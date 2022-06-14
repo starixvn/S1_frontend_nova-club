@@ -1,9 +1,14 @@
-const useContextualRouting: () => {
+import {
+  ContextualComponents,
+  ContextualModuleKey,
+} from 'app/navigation/web/withContextualNavConstant'
+
+const useContextualRouting: (module: ContextualModuleKey) => {
   returnHref: string
-  makeContextualHref: (extraQueryParams: { [key: string]: any }) => string
+  makeContextualHref: (to: ContextualComponents) => string
 } = function () {
   return {
-    makeContextualHref: () => '',
+    makeContextualHref: (to) => '',
     returnHref: '',
   }
 }

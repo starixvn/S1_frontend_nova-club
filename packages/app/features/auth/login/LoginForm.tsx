@@ -15,6 +15,7 @@ import { Button } from 'app/components/form/Button'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import { TextLink } from 'solito/link'
 import withContextualNav from 'app/navigation/web/withContextualNav'
+import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 
 const StyledButtonOpacity = styled(TouchableOpacity)({})
 const StyledLink = styled(MotiLink)({})
@@ -71,10 +72,9 @@ const LoginForm = () => {
     onSubmit,
   })
 
-  const { makeContextualHref, returnHref } = useContextualRouting()
-  const to = makeContextualHref({
-    module: 'forget-password',
-  })
+  const { makeContextualHref } = useContextualRouting(ContextualModuleKey.Login)
+  const to = makeContextualHref('forget-password')
+
   const {
     handleChange,
     handleBlur,
@@ -186,4 +186,4 @@ const LoginForm = () => {
   )
 }
 
-export default withContextualNav(LoginForm)
+export default withContextualNav(LoginForm, ContextualModuleKey.Login)

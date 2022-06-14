@@ -1,11 +1,10 @@
 import { GradientList } from 'app/components/Gradient'
 import RoundedIcon from 'app/components/RoundedIcon'
 import useContextualRouting from 'app/hooks/useContextualRouting'
-import BouncePressable from 'app/pressable/BouncePressable'
+import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import { Pressable, styled, Text, View } from 'dripsy'
 import React from 'react'
 import { useRouter } from 'solito/router'
-
 type IconActionProps = {
   gradient: GradientList
   icon: string
@@ -20,10 +19,10 @@ const ProfileAction = () => {
     console.log('Profile action click')
   }
 
-  const { makeContextualHref, returnHref } = useContextualRouting()
-  const to = makeContextualHref({
-    module: 'deposit',
-  })
+  const { makeContextualHref } = useContextualRouting(
+    ContextualModuleKey.Profile
+  )
+  const to = makeContextualHref('deposit')
 
   return (
     <StyledView>

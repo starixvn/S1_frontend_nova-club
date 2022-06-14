@@ -4,7 +4,7 @@ import { useRouter } from 'solito/router'
 import { DripsyGradient } from '../Gradient'
 import Icon from '../Icon'
 
-const Header = ({ title }, { title: string }) => {
+const Header = ({ title }: { title: string }) => {
   const { back } = useRouter()
   const onGoBack = () => {
     back()

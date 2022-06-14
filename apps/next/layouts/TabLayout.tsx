@@ -1,9 +1,13 @@
 import BottomNavigation from 'app/navigation/BottomNavigation'
 import MainHeader from 'app/navigation/MainHeader'
-import React from 'react'
+import React, { FC } from 'react'
 import { View } from 'dripsy'
 
-const TabLayout = ({ children }) => {
+export interface TabLayoutProps {
+  children: React.ReactElement
+}
+
+const TabLayout: FC<TabLayoutProps> = ({ children }) => {
   return (
     <View
       sx={{

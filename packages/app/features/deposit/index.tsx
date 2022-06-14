@@ -1,4 +1,7 @@
-import Page, { PageSafeArea } from 'app/components/layout/Page'
+import Page, {
+  PageSafeArea,
+  PageWithBackHeader,
+} from 'app/components/layout/Page'
 import useLocalization from 'app/provider/localization'
 import { Text, View, ActivityIndicator, FlatList, styled } from 'dripsy'
 import { useDummyRtk } from 'utils/rtk'
@@ -7,6 +10,8 @@ import DepositMethodCard from './DepositMethodCard'
 import { Button } from 'app/components/form/Button'
 import { useRouter } from 'solito/router'
 import useContextualRouting from 'app/hooks/useContextualRouting'
+import withContextualNav from 'app/navigation/web/withContextualNav'
+import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 
 const mapTypeToIcon = {}
 
@@ -31,21 +36,22 @@ const Deposit = () => {
 
   const { t } = useLocalization()
 
-  const { makeContextualHref, returnHref } = useContextualRouting()
-  const to = makeContextualHref({
-    module: 'deposit',
-    sub: 'topup',
-  })
+  const { makeContextualHref } = useContextualRouting(
+    ContextualModuleKey.Deposit
+  )
+  const to = makeContextualHref('topup')
+
   return (
-    <PageSafeArea sx={{}}>
+    <PageWithBackHeader header={{ title: 'Deposit' }}>
       <Text sx={{ my: '$6', mx: '$4' }}>{t('deposit.choose')}</Text>
       {isLoading && <ActivityIndicator />}
-      <Button onPress={() => push(to, `${returnHref}/topup`)}>
+      <Button onPress={() => push(to, `/deposit/topup`)}>
         <Button.Label>aa</Button.Label>
       </Button>
       <View sx={{ position: 'relative', mx: '$4' }}>
         {data && (
           <FlatList
+            scrollEnabled={false}
             data={data}
             numColumns={2}
             keyExtractor={(item) => item.name}
@@ -63,7 +69,7 @@ const Deposit = () => {
         <Seperator />
       </View>
       <RecentTransactions />
-    </PageSafeArea>
+    </PageWithBackHeader>
   )
 }
 
@@ -75,4 +81,4 @@ const Seperator = styled(View)({
   alignSelf: 'center',
 })
 
-export default Deposit
+export default withContextualNav(Deposit, 'deposit')

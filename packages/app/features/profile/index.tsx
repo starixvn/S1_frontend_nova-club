@@ -1,4 +1,6 @@
 import AlertModal from 'app/components/modal/AlertModal'
+import withContextualNav from 'app/navigation/web/withContextualNav'
+import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import { useAppSelector } from 'app/provider/redux/store'
 import { usePlayerProfileQuery } from 'app/services/playerApi'
 import { PlayerActions } from 'app/store/playerReducer'
@@ -50,4 +52,4 @@ const ProfileScreen = () => {
   )
 }
 
-export default ProfileScreen
+export default withContextualNav(ProfileScreen, ContextualModuleKey.Profile)
