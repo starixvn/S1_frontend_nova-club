@@ -11,6 +11,7 @@ import { Button } from 'app/components/form/Button'
 import { toCurrency, toRealAmount } from 'app/utils'
 import { DripsyGradient } from 'app/components/Gradient'
 import { Gradient } from '@dripsy/gradient'
+import { PageWithBackHeader } from 'app/components/layout/Page'
 
 const dataPayment = [
   {
@@ -171,132 +172,138 @@ const TopUpCardScreen = () => {
   }
 
   return (
-    <StyledView>
-      <View>
-        <StyledViewPayment>
-          <FlatList
-            data={dataPayment}
-            ListHeaderComponent={
-              <StyledTextTitle>{t('deposit.paymentMode')}</StyledTextTitle>
-            }
-            numColumns={NUM_COLUMN_PAYMENT}
-            keyExtractor={(item, index) => `${index} ${item.id}`}
-            renderItem={({ item }) => (
-              <ValueCard
-                item={item}
-                isActive={item.title === values.paymentMode}
-                onPress={(card) => setFieldValue('paymentMode', card.title)}
-                containerStyle={{ flex: 1 / NUM_COLUMN_PAYMENT }}
-              />
-            )}
-          />
-        </StyledViewPayment>
+    <PageWithBackHeader header={{ title: 'Topup Card' }}>
+      <StyledView>
+        <View>
+          <StyledViewPayment>
+            <FlatList
+              data={dataPayment}
+              ListHeaderComponent={
+                <StyledTextTitle>{t('deposit.paymentMode')}</StyledTextTitle>
+              }
+              numColumns={NUM_COLUMN_PAYMENT}
+              keyExtractor={(item, index) => `${index} ${item.id}`}
+              renderItem={({ item }) => (
+                <ValueCard
+                  item={item}
+                  isActive={item.title === values.paymentMode}
+                  onPress={(card) => setFieldValue('paymentMode', card.title)}
+                  containerStyle={{ flex: 1 / NUM_COLUMN_PAYMENT }}
+                />
+              )}
+            />
+          </StyledViewPayment>
 
-        <StyledViewCard>
-          <FlatList
-            data={
-              values.paymentMode === 'vietel'
-                ? data1
-                : values.paymentMode === 'vinaphone'
-                ? data2
-                : data3
-            }
-            ListHeaderComponent={
-              <StyledTextTitle>{t('deposit.cardValue')}</StyledTextTitle>
-            }
-            numColumns={NUM_COLUMN_CARD}
-            keyExtractor={(item, index) => `${index} ${item.id}`}
-            renderItem={({ item }) => (
-              <ValueCard
-                item={item}
-                isActive={item === values.cardValue}
-                onPress={(card) => onAmountChanged(card)}
-                containerStyle={{ flex: 1 / NUM_COLUMN_CARD }}
-              />
-            )}
-          />
-        </StyledViewCard>
+          <StyledViewCard>
+            <FlatList
+              data={
+                values.paymentMode === 'vietel'
+                  ? data1
+                  : values.paymentMode === 'vinaphone'
+                  ? data2
+                  : data3
+              }
+              ListHeaderComponent={
+                <StyledTextTitle>{t('deposit.cardValue')}</StyledTextTitle>
+              }
+              numColumns={NUM_COLUMN_CARD}
+              keyExtractor={(item, index) => `${index} ${item.id}`}
+              renderItem={({ item }) => (
+                <ValueCard
+                  item={item}
+                  isActive={item === values.cardValue}
+                  onPress={(card) => onAmountChanged(card)}
+                  containerStyle={{ flex: 1 / NUM_COLUMN_CARD }}
+                />
+              )}
+            />
+          </StyledViewCard>
 
-        <GradientBoxText labelWidth={0}>
-          <GradientBoxText.TextInput
-            label=""
-            _input={{
-              placeholder: t('deposit.cardCode'),
-              value: values.cardCode,
-              keyboardType: 'number-pad',
-              onChangeText: onCardCodeChanged,
-              onBlur: handleBlur('cardCode'),
-            }}
-            error={
-              touched.cardCode && errors.cardCode ? errors.cardCode : undefined
-            }
-            containerStyle={{ my: '$3' }}
-          />
-          <GradientBoxText.TextInput
-            label=""
-            _input={{
-              placeholder: t('deposit.cardSerialNo'),
-              value: values.cardSerialNo,
-              keyboardType: 'number-pad',
-              onChangeText: onCardSerialNoChanged,
-              onBlur: handleBlur('cardSerialNo'),
-            }}
-            error={
-              touched.cardSerialNo && errors.cardSerialNo
-                ? errors.cardSerialNo
-                : undefined
-            }
-            containerStyle={{ my: '$3' }}
-          />
-        </GradientBoxText>
+          <GradientBoxText labelWidth={0}>
+            <GradientBoxText.TextInput
+              label=""
+              _input={{
+                placeholder: t('deposit.cardCode'),
+                value: values.cardCode,
+                keyboardType: 'number-pad',
+                onChangeText: onCardCodeChanged,
+                onBlur: handleBlur('cardCode'),
+              }}
+              error={
+                touched.cardCode && errors.cardCode
+                  ? errors.cardCode
+                  : undefined
+              }
+              containerStyle={{ my: '$3' }}
+            />
+            <GradientBoxText.TextInput
+              label=""
+              _input={{
+                placeholder: t('deposit.cardSerialNo'),
+                value: values.cardSerialNo,
+                keyboardType: 'number-pad',
+                onChangeText: onCardSerialNoChanged,
+                onBlur: handleBlur('cardSerialNo'),
+              }}
+              error={
+                touched.cardSerialNo && errors.cardSerialNo
+                  ? errors.cardSerialNo
+                  : undefined
+              }
+              containerStyle={{ my: '$3' }}
+            />
+          </GradientBoxText>
 
-        <ImportantNotice keys={NOTES} module="deposit" />
-      </View>
+          <ImportantNotice keys={NOTES} module="deposit" />
+        </View>
 
-      <StyledViewButtonWrapper
-        colors={values.realAmount !== 0 ? ['#066D9A', '#05232E'] : ['', '']}
-        isValid={values.realAmount !== 0}
-      >
-        {values.realAmount !== 0 && (
-          <View sx={{ mb: '$3' }}>
-            <StyledViewTextWrapper>
-              <Text sx={{ flex: 1 }}>Deduction</Text>
-              {/* <Text>VND</Text> */}
-              <Text>
-                {toCurrency(-Math.round(values.realAmount * DEDUCTION_AMOUNT))}
-              </Text>
-            </StyledViewTextWrapper>
-            <StyledViewTextWrapper>
-              <Text sx={{ flex: 1 }}>Actual Deposit</Text>
-              <Text>
-                {toCurrency(
-                  Math.round(values.realAmount * ACTUAL_DEPOSIT_AMOUNT)
-                )}
-              </Text>
-            </StyledViewTextWrapper>
-          </View>
-        )}
-
-        <Button
-          rounded
-          stretch
-          disabled={!isValid || !dirty}
-          variant="lg"
-          fill={{
-            type: 'gradient',
-            color: 'secondary',
-            start: { x: 0, y: 0 },
-            end: { x: 1, y: 0 },
-          }}
-          sx={{
-            my: '$10',
-          }}
-          onPress={submitForm}
+        <StyledViewButtonWrapper
+          colors={values.realAmount !== 0 ? ['#066D9A', '#05232E'] : ['', '']}
+          isValid={values.realAmount !== 0}
         >
-          <Button.Label>Next</Button.Label>
-        </Button>
-      </StyledViewButtonWrapper>
-    </StyledView>
+          {values.realAmount !== 0 && (
+            <View sx={{ mb: '$3' }}>
+              <StyledViewTextWrapper>
+                <Text sx={{ flex: 1 }}>Deduction</Text>
+                {/* <Text>VND</Text> */}
+                <Text>
+                  {toCurrency(
+                    -Math.round(values.realAmount * DEDUCTION_AMOUNT)
+                  )}
+                </Text>
+              </StyledViewTextWrapper>
+              <StyledViewTextWrapper>
+                <Text sx={{ flex: 1 }}>Actual Deposit</Text>
+                <Text>
+                  {toCurrency(
+                    Math.round(values.realAmount * ACTUAL_DEPOSIT_AMOUNT)
+                  )}
+                </Text>
+              </StyledViewTextWrapper>
+            </View>
+          )}
+
+          <Button
+            rounded
+            stretch
+            disabled={!isValid || !dirty}
+            variant="lg"
+            fill={{
+              type: 'gradient',
+              color: 'secondary',
+              start: { x: 0, y: 0 },
+              end: { x: 1, y: 0 },
+            }}
+            sx={{
+              my: '$10',
+            }}
+            onPress={submitForm}
+          >
+            <Button.Label>Next</Button.Label>
+          </Button>
+        </StyledViewButtonWrapper>
+      </StyledView>
+    </PageWithBackHeader>
   )
 }
 

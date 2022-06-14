@@ -65,14 +65,10 @@ const DepositPage = () => {
     ContextualModuleKey.Deposit
   )
   const to = makeContextualHref('topup-card')
-
   return (
     <PageWithBackHeader header={{ title: 'Deposit' }}>
       <Text sx={{ my: '$6', mx: '$4' }}>{t('deposit.choose')}</Text>
       {isLoading && <ActivityIndicator />}
-      <Button onPress={() => push(to, `/deposit/topup-card`)}>
-        <Button.Label>aa</Button.Label>
-      </Button>
       <View sx={{ position: 'relative', mx: '$4' }}>
         {data && (
           <FlatList
@@ -87,7 +83,7 @@ const DepositPage = () => {
                   mr: index % 2 === 0 ? '$8' : 0,
                   mb: data.length - index <= 2 ? 0 : '$4',
                 }}
-                onPress={() => push('/deposit/topup-card')}
+                onPress={() => push(to, `/deposit/topup-card`)}
               />
             )}
           />
@@ -107,4 +103,4 @@ const Seperator = styled(View)({
   alignSelf: 'center',
 })
 
-export default withContextualNav(DepositPage, 'deposit')
+export default withContextualNav(DepositPage, ContextualModuleKey.Deposit)

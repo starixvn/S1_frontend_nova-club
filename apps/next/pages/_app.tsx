@@ -6,12 +6,11 @@ import Script from 'next/script'
 import React from 'react'
 import type { SolitoAppProps } from 'solito'
 import '../global.css'
-import CommonLayout from '../layouts/commonLayout'
 import iconFile from '/public/icomoon.ttf'
 import { Container } from 'dripsy'
-import { ContextualNav } from 'app/navigation/web/withContextualNav'
 
 import { AnimatePresence } from 'framer-motion'
+import layouts from '../layouts'
 
 function MyApp({ Component, pageProps, router }: SolitoAppProps) {
   const [loaded, error] = useFontInit({
@@ -19,7 +18,7 @@ function MyApp({ Component, pageProps, router }: SolitoAppProps) {
   })
 
   // Use the layout defined at the page level, if available
-  const getLayout = Component.getLayout || CommonLayout
+  const getLayout = Component.getLayout || layouts.COMMON()
 
   return (
     <>

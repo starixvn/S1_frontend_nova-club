@@ -13,7 +13,7 @@ export enum ContextualModuleKey {
 //
 const contextualComponents = {
   deposit: () => import('../../features/deposit'),
-  'topup-card': () => import('../../features/deposit/RecentTransactions'),
+  'topup-card': () => import('../../features/deposit/topup-card'),
   'forget-password': () => import('../../features/auth/ForgotPassword'),
 }
 

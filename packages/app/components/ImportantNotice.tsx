@@ -66,7 +66,6 @@ const ImportantNotice = ({ keys, module }: ImportantNoticeProps) => {
 
 const StyledView = styled(View)(() => ({
   padding: '$2',
-  borderRadius: 'sm',
 }))
 
 const StyledViewTitle = styled(View)(() => ({
