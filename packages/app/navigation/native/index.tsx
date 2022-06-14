@@ -15,6 +15,7 @@ import Deposit from 'app/features/deposit'
 import WithdrawalPage from 'app/features/withdrawal'
 import ForgotPassword from 'app/features/auth/ForgotPassword'
 import DepositNavigation from './DepositNavigation'
+import CustomerSupportPage from 'app/features/customerSupport'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -26,6 +27,7 @@ const Stack = createStackNavigator<{
   PreLaunchGame: undefined
   WithdrawalPage: undefined
   ForgotPassword: undefined
+  CustomerSupportPage: undefined
 }>()
 
 export function NativeNavigation() {
@@ -178,6 +180,13 @@ export function NativeNavigation() {
               },
             },
           },
+        }}
+      />
+      <Stack.Screen
+        name="CustomerSupportPage"
+        component={CustomerSupportPage}
+        options={{
+          header: () => null,
         }}
       />
     </Stack.Navigator>

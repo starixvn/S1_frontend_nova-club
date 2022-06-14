@@ -8,6 +8,47 @@ body {
   width: 100%;
 }
 
-input {
+.input {
   outline: none !important;
+}
+
+.inputBox {
+  text-align: center;
+  margin-inline: auto;
+}
+
+input[type='date']::-webkit-calendar-picker-indicator {
+  background: transparent;
+  bottom: 0;
+  color: transparent;
+  cursor: pointer;
+  height: 20;
+  left: 0;
+  position: relative;
+  right: 0;
+  top: 0;
+  width: 0;
+}
+
+.inputDate {
+  border: 1px solid #284985;
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  padding: 2vw;
+  align-items: center;
+  background: #033454;
+  border-color: #33a0d0;
+  outline: none;
+  outline-offset: 0px;
+}
+
+.date-input {
+  width: 110;
+  background: transparent;
+  border: 0;
+  color: white;
+  text-align: center;
+  font-family: sans-serif;
+  outline: 0;
 }

@@ -39,7 +39,8 @@ const withTM = require('next-transpile-modules')([
   '@motify/components',
   'app',
   'utils',
-  '@gorhom/portal'
+  '@gorhom/portal',
+  '@react-native-community/datetimepicker'
 ])
 
 module.exports = withPlugins(

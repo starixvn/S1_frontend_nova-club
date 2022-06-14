@@ -1,7 +1,9 @@
 {
   "common": {
     "next": "Next",
-    "amount": "Amount"
+    "amount": "Amount",
+    "confirm": "Confrim",
+    "selectDate": "Select A Date"
   },
   "deposit": {
     "deposit": "Deposit",
@@ -23,8 +25,20 @@
     "transactions": "Transactions"
   },
   "contact":{
-    "whatsapp":"WhatsApp",
-    "telegram":"Telegram",
-    "livechat":"Live Chat"
+    "whatsapp": "WhatsApp",
+    "telegram": "Telegram",
+    "livechat": "Live Chat"
+  },
+  "profile":{
+    "overview": {
+      "title":"Overview",  
+      "self": "Self",
+      "circle": "Circle",
+      "w/l": "Win/Lose (VND)",
+      "turnover": "Turn Over",
+      "realbet": "Real Bet",
+      "direct": "Direct"
+    }
+  
   }
 }

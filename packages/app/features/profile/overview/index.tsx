@@ -1,20 +1,39 @@
-import { styled, View } from 'dripsy'
-import React from 'react'
-import OverviewCard from './OverviewCard'
+import Header from 'app/components/common/Header'
+import DatePicker from 'app/components/form/DatePicker/DatePicker'
+import { DripsyGradient } from 'app/components/Gradient'
+import useLocalization from 'app/provider/localization'
+import { ScrollView, Text, View } from 'dripsy'
+import OverviewDateRange from './OverviewDateRange'
+import SummarySection from './SummarySection'
 
 const OverviewScreen = () => {
+  const { t } = useLocalization()
+
   return (
-    <StyledView>
-      <OverviewCard title={'Self'} />
-      <View sx={{ mt: 36 }} />
-      <OverviewCard title={'Circle'} isDirect />
-    </StyledView>
+    <DripsyGradient colors={['#133351', '#0D2035']} sx={{ flex: 1 }}>
+      <Header title={t('profile.overview.title')} />
+      <ScrollView>
+        <OverviewDateRange
+          onSearch={(startDate, endDate) => {
+            console.log({ startDate, endDate })
+          }}
+        />
+        <SummarySection
+          title={t('profile.overview.self')}
+          amountWL={0}
+          amountTO={0}
+          amountRB={0}
+        />
+        <SummarySection
+          title={t('profile.overview.circle')}
+          amountWL={0}
+          amountTO={0}
+          amountDirect={9}
+          amountRB={0}
+        />
+      </ScrollView>
+    </DripsyGradient>
   )
 }
-
-const StyledView = styled(View)(() => ({
-  flex: 1,
-  p: '$8',
-}))
 
 export default OverviewScreen

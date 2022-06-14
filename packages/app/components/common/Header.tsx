@@ -9,22 +9,25 @@ const Header = ({ title }: { title: string }) => {
   const onGoBack = () => {
     back()
   }
+
   return (
     <SafeAreaView sx={{ bg: '$secondary' }}>
-      <StyledTop
-        gradient={'PaleBlue'}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-      >
-        <BouncePressable onPress={onGoBack}>
-          <Icon name="chevleft" size={40} color="#9CD9FA" />
-        </BouncePressable>
-        <View sx={{ alignItems: 'center', flex: 0.9 }}>
-          <Text sx={{ fontSize: 20, color: 'white', fontWeight: 'bold' }}>
-            {title}
-          </Text>
-        </View>
-      </StyledTop>
+      <View sx={{ borderBottomWidth: 1, borderColor: '$lightNavyBlue' }}>
+        <StyledTop
+          gradient={'PaleBlue'}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+        >
+          <BouncePressable onPress={onGoBack}>
+            <Icon name="chevleft" size={40} color="#9CD9FA" />
+          </BouncePressable>
+          <View sx={{ alignItems: 'center', flex: 0.9 }}>
+            <Text sx={{ fontSize: 20, color: 'white', fontWeight: 'bold' }}>
+              {title}
+            </Text>
+          </View>
+        </StyledTop>
+      </View>
     </SafeAreaView>
   )
 }

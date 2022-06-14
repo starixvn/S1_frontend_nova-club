@@ -1,0 +1,59 @@
+import Icon from 'app/components/Icon'
+import dayjs from 'dayjs'
+import React from 'react'
+import { TextInputProps as TextInputNativeProps, ViewProps } from 'react-native'
+import { IIconProps } from '../IconButton/type'
+
+interface IDatePickerProps extends ViewProps {
+  value: Date | '' | undefined
+  onChange: (value: Date) => void
+  error?: string
+  icon?: string
+  _icon?: IIconProps
+  rightIcon?: string
+  _rightIcon?: IIconProps
+  _input?: TextInputNativeProps
+  _dateTime?: Date // Exlude "value" due to prop already include "value"
+  defaultDate?: Date
+  placeHolder?: string
+}
+
+const DatePickerWeb = ({
+  style,
+  value,
+  onChange,
+  error,
+  icon,
+  rightIcon,
+  _input = {},
+  _icon,
+  _rightIcon,
+  _dateTime,
+  defaultDate = dayjs().toDate(),
+  placeHolder = '',
+}: IDatePickerProps) => {
+  const onDateTimePickerChange = (e: any, v?: Date) => {
+    const currentSelectedDate = e.target.value
+    onChange(currentSelectedDate)
+  }
+  const getDate = dayjs(value).format('YYYY-MM-DD')
+  const maxDate = dayjs(_dateTime?.maximumDate).format('YYYY-MM-DD')
+  const currentDate = new Date()
+  return (
+    <div className="inputBox">
+      <label className="inputDate">
+        {icon && <Icon name={icon} {..._icon} />}
+        <input
+          value={getDate}
+          type={'date'}
+          onChange={onDateTimePickerChange}
+          max={maxDate || dayjs(currentDate).format('YYYY-MM-DD')}
+          className={'date-input'}
+        />
+        {rightIcon && <Icon name={rightIcon} {..._rightIcon} />}
+      </label>
+    </div>
+  )
+}
+
+export default DatePickerWeb

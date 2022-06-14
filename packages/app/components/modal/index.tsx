@@ -40,7 +40,7 @@ const Modal = ({
       <StyledViewModal>
         {isShowHeader && (
           <StyledViewHeader>
-            <StyledTextHeader>Alert</StyledTextHeader>
+            <StyledTextHeader>{title ? title : 'Alert'}</StyledTextHeader>
             {!hideCloseButton && (
               <StyledViewClose>
                 <IconButton
