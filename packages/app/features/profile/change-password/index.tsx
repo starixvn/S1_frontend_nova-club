@@ -5,11 +5,11 @@ import * as Yup from 'yup'
 import React from 'react'
 import validation from 'app/utils/validation'
 import { Button } from 'react-native'
-import { useLazyChangePasswordQuery } from 'app/services/changePassword'
 import { AlertActions } from 'app/store/alert'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'solito/router'
 import { useAppSelector } from 'app/provider/redux/store'
+import { useChangePasswordMutation } from 'app/services/changePassword'
 
 type PasswordFormValues = {
   oldPassword: string
@@ -18,7 +18,7 @@ type PasswordFormValues = {
 }
 
 const ChangePasswordScreen = () => {
-  const [queryChangePassword] = useLazyChangePasswordQuery()
+  const [postChangePassword] = useChangePasswordMutation()
   const dispatch = useDispatch()
   const { replace } = useRouter()
   const user = useAppSelector((state) => state.player.currentLoginUser)
@@ -28,7 +28,7 @@ const ChangePasswordScreen = () => {
     actions: FormikHelpers<PasswordFormValues>
   ) => {
     try {
-      const { data, success, message } = await queryChangePassword({
+      const { data, success, message } = await postChangePassword({
         username: user.username,
         old_password: oldPassword,
         password: password,

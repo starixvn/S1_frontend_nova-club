@@ -1,15 +1,18 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import BouncePressable from 'app/pressable/BouncePressable'
+import useLocalization from 'app/provider/localization'
 import { styled, Text, useSx, View } from 'dripsy'
 import { TouchableOpacity } from 'react-native'
 
 const ICON_SIZE = 50
 
-const DepositMethodCard = ({ item, ...rest }) => {
+const DepositMethodCard = ({ item, onPress, ...rest }) => {
+  const { t } = useLocalization()
   const sx = useSx()
   return (
     <TouchableOpacity
+      onPress={onPress}
       style={sx({
         p: '$2',
         flex: 1,
@@ -47,7 +50,7 @@ const DepositMethodCard = ({ item, ...rest }) => {
               fontWeight: 'bold',
             }}
           >
-            {item.name}
+            {t(item.name)}
           </Text>
         </View>
       </View>

@@ -14,6 +14,7 @@ import PreLaunchGame from 'app/features/games/PreLaunchGame'
 import Deposit from 'app/features/deposit'
 import WithdrawalPage from 'app/features/withdrawal'
 import ForgotPassword from 'app/features/auth/ForgotPassword'
+import DepositNavigation from './DepositNavigation'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -63,8 +64,25 @@ export function NativeNavigation() {
       />
       <Stack.Screen
         name="DepositPage"
-        component={Deposit}
+        component={DepositNavigation}
         options={{
+          cardStyleInterpolator: fadeScaleIn,
+          transitionSpec: {
+            open: {
+              animation: 'timing',
+              config: {
+                duration: 500,
+                easing: Easing.ease,
+              },
+            },
+            close: {
+              animation: 'timing',
+              config: {
+                duration: 2000,
+                easing: Easing.ease,
+              },
+            },
+          },
           headerShown: false,
         }}
       />

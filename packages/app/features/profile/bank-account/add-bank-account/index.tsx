@@ -14,12 +14,16 @@ import { FormikHelpers, useFormik } from 'formik'
 import * as Yup from 'yup'
 import validation from 'app/utils/validation'
 import Select from 'app/components/form/Select'
-import RoundedIcon from 'app/components/RoundedIcon'
 import { useDispatch } from 'react-redux'
-import { AlertActions } from 'app/store/alert'
-import { useWithdrawalBankQuery } from 'app/services/withdrawalBank'
 import BankSelector from 'app/components/BankSelector'
 import { Dimensions } from 'react-native'
+import {
+  useAddWithdrawalBankAccMutation,
+  useWithdrawalBankQuery,
+} from 'app/services/bank'
+import { AlertActions } from 'app/store/alert'
+import { useRoute } from '@react-navigation/native'
+import { useRouter } from 'solito/router'
 
 type AddBankAccountValues = {
   accountName: string
@@ -29,18 +33,44 @@ type AddBankAccountValues = {
 
 const AddBankAccountScreen = () => {
   const dispatch = useDispatch()
+  const { replace, back } = useRouter()
   const user = useAppSelector((state) => state.player.currentLoginUser)
   const { data, isLoading, isFetching, isSuccess } = useWithdrawalBankQuery({
     username: user?.username ?? '',
   })
-
-  // const [selectedBank, setSelectedBank] = useState()
+  const [postAddWithdrawalBankAcc] = useAddWithdrawalBankAccMutation()
 
   const onSubmit = async (
     { accountName, bank, accountNo }: AddBankAccountValues,
     actions: FormikHelpers<AddBankAccountValues>
   ) => {
-    console.log('AddBank :>> ', { accountName, bank, accountNo })
+    try {
+      const { data, success, message } = await postAddWithdrawalBankAcc({
+        bank_acc_name: 'bankAcc',
+        bank_acc_num: accountNo,
+        bank_address: 'bankAcc',
+        bank_type_id: bank,
+        branch: 'bankAcc',
+        city: 'bankAcc',
+        province: 'bankAcc',
+        username: user?.username ?? '',
+      }).unwrap()
+      console.log(
+        '🚀 ~ file: index.tsx ~ line 64 ~ WithdrawalPage ~ data',
+        data
+      )
+
+      if (success) {
+        dispatch(AlertActions.addSuccess(message))
+        actions.resetForm()
+
+        back()
+      } else {
+        dispatch(AlertActions.addError(message))
+      }
+    } catch (e) {
+      dispatch(AlertActions.addError('common.systemError'))
+    }
   }
 
   const formik = useFormik<AddBankAccountValues>({

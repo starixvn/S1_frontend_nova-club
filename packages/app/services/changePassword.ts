@@ -5,7 +5,7 @@ import { EndpointBuilderType, IResponse } from './common/types'
 
 const changePasswordEndpoints = (builder: EndpointBuilderType) => {
   return {
-    changePassword: builder.query<
+    changePassword: builder.mutation<
       IResponse<ChangePasswordResult>,
       ChangePasswordArgs
     >({
@@ -35,4 +35,4 @@ const changePasswordApi = createApi({
 
 export default changePasswordApi
 export { changePasswordEndpoints }
-export const { useLazyChangePasswordQuery } = changePasswordApi
+export const { useChangePasswordMutation } = changePasswordApi

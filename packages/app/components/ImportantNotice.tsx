@@ -16,7 +16,7 @@ const ImportantNotice = ({ keys, module }: ImportantNoticeProps) => {
   return (
     <StyledView>
       <StyledViewTitle>
-        <Icon name="information-solid" color="#134dae" sx={{ mr: '$1' }} />
+        <Icon name="cross" color="#134dae" sx={{ mr: '$1' }} />
         <StyledTextTitle>
           {'note.importantNotice'.toUpperCase()}
         </StyledTextTitle>

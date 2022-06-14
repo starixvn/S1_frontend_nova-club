@@ -1,7 +1,12 @@
 import { Button } from 'app/components/form/Button'
 import Icon from 'app/components/Icon'
 import { useAppSelector } from 'app/provider/redux/store'
-import { usePlayerWithdrawalBankQuery } from 'app/services/playerWithdrawalBank'
+import {
+  useDeleteWithdrawalBankMutation,
+  usePlayerWithdrawalBankQuery,
+} from 'app/services/bank'
+import { PlayerWithdrawalBankResult } from 'app/services/bank.type'
+import { AlertActions } from 'app/store/alert'
 import {
   ActivityIndicator,
   Image,
@@ -11,6 +16,7 @@ import {
   View,
 } from 'dripsy'
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useRouter } from 'solito/router'
 import BankAccCard from './BankAccCard'
 
@@ -39,32 +45,44 @@ const bankAccList = [
 ]
 
 const BankAccountScreen = () => {
+  const dispatch = useDispatch()
   const { push } = useRouter()
   const user = useAppSelector((state) => state.player.currentLoginUser)
   const { data, isLoading, isFetching, isSuccess } =
     usePlayerWithdrawalBankQuery({
       username: user?.username ?? '',
     })
+  const [postDeleteWithdrawalBank] = useDeleteWithdrawalBankMutation()
 
-  const [convertedData, setConvertedData] = useState(bankAccList)
-
-  const handleRemove = (id) => {
-    // setConvertedData(convertedData.filter((item) => item.bankId !== id))
-    console.log('id', id)
+  const handleRemove = async (item: PlayerWithdrawalBankResult) => {
+    try {
+      const { data, success, message } = await postDeleteWithdrawalBank({
+        bank_acc_num: item.BankAccountNumber,
+        bank_type_id: item.BankTypeId,
+        username: user?.username ?? '',
+      }).unwrap()
+      if (success) {
+        dispatch(AlertActions.addSuccess(message))
+      } else {
+        dispatch(AlertActions.addError(message))
+      }
+    } catch (e) {
+      dispatch(AlertActions.addError('common.systemError'))
+    }
   }
 
-  useEffect(() => {
-    data && setConvertedData(Object.keys(data).map((key) => data[key]))
-  }, [data])
+  // useEffect(() => {
+  //   data && setConvertedData(Object.keys(data).map((key) => data[key]))
+  // }, [data])
 
   return (
     <StyledView>
       {isLoading || isFetching ? (
         <ActivityIndicator size={'large'} />
-      ) : convertedData.length > 0 ? (
-        convertedData.map((item, index) => (
+      ) : data.length > 0 ? (
+        data.map((item: PlayerWithdrawalBankResult) => (
           <BankAccCard
-            key={index + item.bankName}
+            key={item.PlayerBankDetailsId}
             item={item}
             onPressRemove={handleRemove}
           />
@@ -84,6 +102,7 @@ const BankAccountScreen = () => {
           rounded
           stretch
           variant="lg"
+          disabled={data && data.length >= 3}
           fill={{
             type: 'gradient',
             color: 'secondary',

@@ -36,7 +36,12 @@ export function NavigationProvider({
               LoginPage: '/auth/login',
               RegisterPage: '/auth/register',
               ForgotPassword: '/auth/forget-password',
-              DepositPage: '/deposit',
+              DepositPage: {
+                screens: {
+                  Deposit: '/deposit',
+                  TopupCard: '/deposit/topup-card',
+                },
+              },
               BottomNav: {
                 screens: {
                   Home: '',
