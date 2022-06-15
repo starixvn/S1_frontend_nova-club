@@ -27,7 +27,9 @@
     "docker:run": "docker run -p 3000:3000 chlgame",
     "deploy:staging": "expo publish --release-channel staging",
     "deploy:prod": "expo publish --release-channel prod",
-    "rndebug": "open 'rndebugger://set-debugger-loc?host=localhost&port=19000'"
+    "rndebug": "open 'rndebugger://set-debugger-loc?host=localhost&port=19000'",
+    "build:android:staging": "cd apps/expo && eas build --platform android",
+    "build:ios:staging": "cd apps/expo && eas build --platform ios"
   },
   "resolutions": {
     "@types/react": "^17.0.39",

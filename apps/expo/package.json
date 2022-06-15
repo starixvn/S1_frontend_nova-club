@@ -28,7 +28,10 @@
     "start": "expo start --dev-client",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "build:all:staging": "eas build --profile staging --platform all",
+    "build:android:staging": "eas build --profile staging --platform android",
+    "build:ios:staging": "eas build --profile staging --platform ios"
   },
   "main": "index.js",
   "version": "1.0.0",
