@@ -63,6 +63,7 @@ export function NavigationProvider({
               },
               PreLaunchGame: '/games/prelaunchgame',
               CustomerSupportPage: '/customer-support',
+              GameLoaderPage: '/games/gameUrl',
             },
           },
         }),

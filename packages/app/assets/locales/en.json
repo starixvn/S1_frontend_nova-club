@@ -39,6 +39,8 @@
       "realbet": "Real Bet",
       "direct": "Direct"
     }
-  
+  },
+  "game":{
+    "enterGame":"Enter Game"
   }
 }

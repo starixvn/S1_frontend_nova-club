@@ -1,10 +1,12 @@
 import BouncePressable from 'app/pressable/BouncePressable'
 import { SafeAreaView, styled, Text, View } from 'dripsy'
+import { Platform, StatusBar } from 'react-native'
 import { useRouter } from 'solito/router'
 import { DripsyGradient } from '../Gradient'
 import Icon from '../Icon'
 
 const Header = ({ title }: { title: string }) => {
+  const isAndroid = Platform.OS === 'android'
   const { back } = useRouter()
   const onGoBack = () => {
     back()
@@ -12,7 +14,13 @@ const Header = ({ title }: { title: string }) => {
 
   return (
     <SafeAreaView sx={{ bg: '$secondary' }}>
-      <View sx={{ borderBottomWidth: 1, borderColor: '$lightNavyBlue' }}>
+      <View
+        sx={{
+          borderBottomWidth: 1,
+          borderColor: '$lightNavyBlue',
+          mt: isAndroid ? StatusBar.currentHeight : 0,
+        }}
+      >
         <StyledTop
           gradient={'PaleBlue'}
           start={{ x: 0, y: 0 }}
