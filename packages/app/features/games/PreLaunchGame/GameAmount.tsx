@@ -1,6 +1,9 @@
 import { styled, Text, View } from 'dripsy'
 import Icon from 'app/components/Icon'
 import RoundedIcon from 'app/components/RoundedIcon'
+import useContextualRouting from 'app/hooks/useContextualRouting'
+import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
+import { useRouter } from 'solito/router'
 
 const GameAmount = () => {
   const dummyData = [
@@ -15,8 +18,13 @@ const GameAmount = () => {
       amount: 8,
     },
   ]
+  const { push } = useRouter()
+  const { makeContextualHref } = useContextualRouting(
+    ContextualModuleKey.PreLaunchGame
+  )
+  const to = makeContextualHref('deposit')
   const handleOnPress = () => {
-    console.log('deposit')
+    push(to, `/deposit`)
   }
 
   return (

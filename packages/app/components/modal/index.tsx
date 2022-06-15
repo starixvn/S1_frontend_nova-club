@@ -16,7 +16,7 @@ type ModalProps = {
   _footer?: DripsyViewProps
   isShowHeader?: boolean
   hideCloseButton?: boolean
-  closeModal: () => void
+  closeModal?: () => void
 } & ComponentProps<typeof ReactNativeModal>
 
 const Modal = ({
@@ -70,6 +70,7 @@ const Modal = ({
 
                       a.onPress && a.onPress()
                     }}
+                    containerStyle={{ ml: '$3' }}
                     {...a.props}
                   >
                     <Button.Label>{a.label}</Button.Label>
@@ -121,8 +122,7 @@ const StyledViewClose = styled(View)(() => ({
 }))
 const StyledViewButton = styled(View)(() => ({
   flexDirection: 'row',
-  width: '100%',
-  justifyContent: 'center',
+  justifyContent: 'flex-end',
 }))
 
 export default Modal

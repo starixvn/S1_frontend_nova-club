@@ -48,10 +48,16 @@ const MainHeader = () => {
         }}
       >
         <View style={{ flex: 1 }}>
-          <StyledLogo
-            source={require('../assets/logo.png')}
-            resizeMode="contain"
-          />
+          <BouncePressable
+            onPress={() => {
+              push('/')
+            }}
+          >
+            <StyledLogo
+              source={require('../assets/logo.png')}
+              resizeMode="contain"
+            />
+          </BouncePressable>
         </View>
         {MENU_ROW.map((i, index) => {
           if (index === 1) {

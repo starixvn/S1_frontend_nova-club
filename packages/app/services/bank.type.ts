@@ -1,11 +1,11 @@
 /**
  * *Get Player withdrawal bank list
  */
-export type PlayerWithdrawalBankArgs = {
+export type PlayerBankArgs = {
   username: string
 }
 
-export type PlayerWithdrawalBankResult = {
+export type PlayerBankResult = {
   BankAccountFullName: string
   BankAccountNumber: string
   BankAddress: string
@@ -43,11 +43,11 @@ export type PlayerWithdrawalBankResult = {
 /**
  * *Add Player withdrawal bank account
  */
-export type addWithdrawalBankAccResult = {
-  reulst: boolean
+export type addPlayerBankAccResult = {
+  result: boolean
 }
 
-export type addWithdrawalBankAccArgs = {
+export type addPlayerBankAccArgs = {
   bank_acc_name: string
   bank_acc_num: string
   bank_address: string
@@ -61,11 +61,11 @@ export type addWithdrawalBankAccArgs = {
 /**
  * *Delete Player withdrawal bank account
  */
-export type deleteWithdrawalBankAccResult = {
-  reulst: boolean
+export type DeletePlayerBankAccResult = {
+  result: boolean
 }
 
-export type deleteWithdrawalBankAccArgs = {
+export type DeletePlayerBankAccArgs = {
   bank_acc_num: string
   bank_type_id: number
   username: string

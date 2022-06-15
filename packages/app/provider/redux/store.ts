@@ -3,6 +3,7 @@ import authApi from 'app/services/authApi'
 import bankApi from 'app/services/bank'
 import changePasswordApi from 'app/services/changePassword'
 import contentApi from 'app/services/contentApi'
+import depositApi from 'app/services/deposit'
 import gameApi from 'app/services/gameApi'
 import playerApi from 'app/services/playerApi'
 import withdrawalApi from 'app/services/withdrawal'
@@ -52,21 +53,23 @@ const persistConfig: PersistConfig<any> = {
 
 const middlerwares = [
   authApi.middleware,
+  bankApi.middleware,
+  changePasswordApi.middleware,
   contentApi.middleware,
+  depositApi.middleware,
   gameApi.middleware,
   playerApi.middleware,
-  changePasswordApi.middleware,
-  bankApi.middleware,
   withdrawalApi.middleware,
 ]
 
 const rootReducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
+  [bankApi.reducerPath]: bankApi.reducer,
+  [changePasswordApi.reducerPath]: changePasswordApi.reducer,
   [contentApi.reducerPath]: contentApi.reducer,
+  [depositApi.reducerPath]: depositApi.reducer,
   [gameApi.reducerPath]: gameApi.reducer,
   [playerApi.reducerPath]: playerApi.reducer,
-  [changePasswordApi.reducerPath]: changePasswordApi.reducer,
-  [bankApi.reducerPath]: bankApi.reducer,
   [withdrawalApi.reducerPath]: withdrawalApi.reducer,
   alert: alertReducer,
   player: playerReducer,

@@ -1,6 +1,7 @@
 import Header from 'app/components/common/Header'
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
+import { PageWithBackHeader } from 'app/components/layout/Page'
 import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
 import { openSocialPlatform } from 'app/utils/helper'
@@ -31,14 +32,15 @@ const CustomerSupportPage = () => {
   )
   return (
     <DripsyGradient colors={['#133351', '#0D2035']} sx={{ flex: 1 }}>
-      <Header title={'Customer Support'} />
-      <View sx={{ alignItems: 'center', mt: '$2a' }}>
-        <StyledImage source={HEADER_IMAGE} resizeMode="contain" />
-        <Text sx={{ fontSize: 18, fontWeight: 'bold', my: '$4' }}>
-          Contact via:
-        </Text>
-        <SupportItem data={CONTACT_LIST} />
-      </View>
+      <PageWithBackHeader header={{ title: 'Customer Support' }}>
+        <View sx={{ alignItems: 'center', mt: '$2a' }}>
+          <StyledImage source={HEADER_IMAGE} resizeMode="contain" />
+          <Text sx={{ fontSize: 18, fontWeight: 'bold', my: '$4' }}>
+            Contact via:
+          </Text>
+          <SupportItem data={CONTACT_LIST} />
+        </View>
+      </PageWithBackHeader>
     </DripsyGradient>
   )
 }

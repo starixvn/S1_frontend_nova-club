@@ -40,6 +40,7 @@ export function NavigationProvider({
                 screens: {
                   Deposit: '/deposit',
                   TopupCard: '/deposit/topup-card',
+                  Crypto: '/deposit/crypto',
                 },
               },
               BottomNav: {
@@ -63,6 +64,7 @@ export function NavigationProvider({
               },
               PreLaunchGame: '/games/prelaunchgame',
               CustomerSupportPage: '/customer-support',
+              GameLoaderPage: '/games/gameUrl',
             },
           },
         }),

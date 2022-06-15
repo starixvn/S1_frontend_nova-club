@@ -1,6 +1,6 @@
 import { Button } from 'app/components/form/Button'
 import Select from 'app/components/form/Select'
-import { GradientBoxText } from 'app/components/GradientBoxText'
+import { TextField } from 'app/components/TextField'
 import { useAppSelector } from 'app/provider/redux/store'
 import { styled, View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
@@ -8,30 +8,32 @@ import { FormikHelpers, useFormik } from 'formik'
 import * as Yup from 'yup'
 import validation from 'app/utils/validation'
 import ImportantNotice from 'app/components/ImportantNotice'
-import BankSelector from 'app/components/BankSelector'
+import BankSelectorActionSheet from 'app/components/BankSelectorActionSheet'
 import { useDispatch } from 'react-redux'
 import { AlertActions } from 'app/store/alert'
 import { useRouter } from 'solito/router'
 import { useSubmitWithdrawalMutation } from 'app/services/withdrawal'
 import { toRealAmount } from 'app/utils'
-import { usePlayerWithdrawalBankQuery } from 'app/services/bank'
+import { usePlayerBankQuery } from 'app/services/bank'
+import { PageWithBackHeader } from 'app/components/layout/Page'
+import useLocalization from 'app/provider/localization'
 
 type WithdrawalValues = {
   amount: string
   realAmount: number
-  bankId: number
+  bank: PlayerBankResult
 }
 
 const NOTES = ['note.w1', 'note.w2', 'note.w3', 'note.w4', 'note.w5']
 
 const WithdrawalPage = () => {
+  const { t } = useLocalization()
   const dispatch = useDispatch()
   const { replace } = useRouter()
   const user = useAppSelector((state) => state.player.currentLoginUser)
-  const { data, isLoading, isFetching, isSuccess } =
-    usePlayerWithdrawalBankQuery({
-      username: user?.username ?? '',
-    })
+  const { data, isLoading, isFetching, isSuccess } = usePlayerBankQuery({
+    username: user?.username ?? '',
+  })
   const [postSubmitWithdrawal] = useSubmitWithdrawalMutation()
   const [convertedData, setConvertedData] = useState([])
   const [selectedBank, setSelectedBank] = useState()
@@ -51,19 +53,15 @@ const WithdrawalPage = () => {
         crypto_protocol: '112233',
         exchange_rate: 1,
         username: user?.username ?? '',
-      }).unwrap()
-      console.log(
-        '🚀 ~ file: index.tsx ~ line 64 ~ WithdrawalPage ~ data',
-        data
-      )
+      })
+        .unwrap()
+        .catch((error) => dispatch(AlertActions.addError(error.message)))
 
       if (success) {
         dispatch(AlertActions.addSuccess(message))
         actions.resetForm()
 
         replace('/profile')
-      } else {
-        dispatch(AlertActions.addError(message))
       }
     } catch (e) {
       dispatch(AlertActions.addError('common.systemError'))
@@ -111,72 +109,71 @@ const WithdrawalPage = () => {
   }
 
   return (
-    <StyledView>
-      <GradientBoxText labelWidth={0.55}>
-        <Select
-          headerTitle={'Player Withdrawal bank'}
-          buttonTitle="Player withdrawal bank"
-          buttonProps={{
-            sx: {
-              borderColor: 'transparent',
-            },
-            isActive: false,
-          }}
-          setSelectedValue={(value) => console.log('selected value', value)}
-        >
-          <BankSelector
-            bankList={convertedData}
-            isLoading={isLoading || isFetching}
-            selectedBank={values.bankId}
-            onPress={(id) => {
-              setSelectedBank(id)
-              setFieldValue('bank', id)
+    <PageWithBackHeader header={{ title: t('menu.withdraw') }}>
+      <StyledView>
+        <TextField labelWidth={0.55}>
+          <TextField.Select
+            label="bank.bank"
+            _input={{
+              placeholder: t('bank.selectBank'),
+              value: values.bank?.BankCode,
+            }}
+            _flatList={{
+              data: data,
+              isLoading: isLoading || isFetching,
+              selectedData: values.bank,
+              keyExtractor: (item) => item?.BankTypeId,
+            }}
+            _actionSheet={{
+              headerTitle: 'bank.bank',
+            }}
+            onPress={(bank) => {
+              setFieldValue('bank', bank)
             }}
           />
-        </Select>
 
-        <GradientBoxText.TextInput
-          label="Amount"
-          _input={{
-            placeholder: 'Please enter your withdrawal amount',
-            value: values.amount.toString(),
-            keyboardType: 'number-pad',
-            onChangeText: onAmountChanged,
-            onBlur: handleBlur('amount'),
-          }}
-          error={touched.amount && errors.amount ? errors.amount : undefined}
-          containerStyle={{ my: '$3' }}
-        />
+          <TextField.TextInput
+            label="common.amount"
+            _input={{
+              placeholder: t('common.enterAmount'),
+              value: values.amount.toString(),
+              keyboardType: 'number-pad',
+              onChangeText: onAmountChanged,
+              onBlur: handleBlur('amount'),
+            }}
+            error={touched.amount && errors.amount ? errors.amount : undefined}
+            containerStyle={{ my: '$3' }}
+          />
 
-        <ImportantNotice keys={NOTES} module="withdrawal" />
+          <ImportantNotice keys={NOTES} module="withdrawal" />
 
-        <Button
-          rounded
-          stretch
-          disabled={!isValid || !dirty}
-          variant="lg"
-          fill={{
-            type: 'gradient',
-            color: 'secondary',
-            start: { x: 0, y: 0 },
-            end: { x: 1, y: 0 },
-          }}
-          sx={{
-            my: '$10',
-          }}
-          onPress={submitForm}
-        >
-          <Button.Label>Next</Button.Label>
-        </Button>
-      </GradientBoxText>
-    </StyledView>
+          <Button
+            rounded
+            stretch
+            disabled={!isValid || !dirty}
+            variant="lg"
+            fill={{
+              type: 'gradient',
+              color: 'secondary',
+              start: { x: 0, y: 0 },
+              end: { x: 1, y: 0 },
+            }}
+            sx={{
+              my: '$10',
+            }}
+            onPress={submitForm}
+          >
+            <Button.Label>Next</Button.Label>
+          </Button>
+        </TextField>
+      </StyledView>
+    </PageWithBackHeader>
   )
 }
 
 const StyledView = styled(View)(() => ({
   flex: 1,
-  background: '$secondary',
-  p: '$4',
+  bg: '$secondary',
 }))
 
 export default WithdrawalPage

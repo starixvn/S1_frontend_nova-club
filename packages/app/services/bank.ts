@@ -1,11 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import {
-  addWithdrawalBankAccArgs,
-  addWithdrawalBankAccResult,
-  deleteWithdrawalBankAccArgs,
-  deleteWithdrawalBankAccResult,
-  PlayerWithdrawalBankArgs,
-  PlayerWithdrawalBankResult,
+  addPlayerBankAccArgs,
+  addPlayerBankAccResult,
+  DeletePlayerBankAccArgs,
+  DeletePlayerBankAccResult,
+  PlayerBankArgs,
+  PlayerBankResult,
   WithdrawalBankArgs,
   WithdrawalBankResult,
 } from './bank.type'
@@ -17,10 +17,7 @@ const bankEndpoints = (builder: EndpointBuilderType) => {
     /**
      * *Player Bank Get, Add, Delete
      */
-    playerWithdrawalBank: builder.query<
-      IResponse<PlayerWithdrawalBankResult[]>,
-      PlayerWithdrawalBankArgs
-    >({
+    playerBank: builder.query<IResponse<PlayerBankResult[]>, PlayerBankArgs>({
       query: ({ username }) => ({
         url: `/player_api/getPlayerWithdrawalBankList`,
         method: 'POST',
@@ -29,15 +26,15 @@ const bankEndpoints = (builder: EndpointBuilderType) => {
         },
       }),
       transformResponse: (
-        res: IResponse<PlayerWithdrawalBankResult[]>
-      ): PlayerWithdrawalBankResult[] => {
+        res: IResponse<PlayerBankResult[]>
+      ): PlayerBankResult[] => {
         return res.data ?? []
       },
       providesTags: ['playerBank'],
     }),
-    addWithdrawalBankAcc: builder.mutation<
-      IResponse<addWithdrawalBankAccResult>,
-      addWithdrawalBankAccArgs
+    addPlayerBankAcc: builder.mutation<
+      IResponse<addPlayerBankAccResult>,
+      addPlayerBankAccArgs
     >({
       query: (queryArgs) => ({
         url: `/player_api/addWithdrawalBankAcc`,
@@ -48,9 +45,9 @@ const bankEndpoints = (builder: EndpointBuilderType) => {
       }),
       invalidatesTags: ['playerBank'],
     }),
-    deleteWithdrawalBank: builder.mutation<
-      IResponse<deleteWithdrawalBankAccResult>,
-      deleteWithdrawalBankAccArgs
+    deletePlayerBankAcc: builder.mutation<
+      IResponse<DeletePlayerBankAccResult>,
+      DeletePlayerBankAccArgs
     >({
       query: (queryArgs) => ({
         url: `/player_api/deleteWithdrawalBank`,
@@ -97,8 +94,8 @@ const bankApi = createApi({
 export default bankApi
 export { bankEndpoints }
 export const {
-  usePlayerWithdrawalBankQuery,
+  usePlayerBankQuery,
   useWithdrawalBankQuery,
-  useAddWithdrawalBankAccMutation,
-  useDeleteWithdrawalBankMutation,
+  useAddPlayerBankAccMutation,
+  useDeletePlayerBankAccMutation,
 } = bankApi

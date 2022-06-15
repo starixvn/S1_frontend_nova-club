@@ -1,8 +1,11 @@
-import { GradientBoxText } from 'app/components/GradientBoxText'
+import { TextField } from 'app/components/TextField'
+import { PageWithBackHeader } from 'app/components/layout/Page'
+import useLocalization from 'app/provider/localization'
 import { styled, Text, View } from 'dripsy'
 import React, { useEffect, useRef } from 'react'
 
 const ProfileDetails = () => {
+  const { t } = useLocalization()
   const ref = useRef(null)
   const user = {
     name: 'Tech Test S1',
@@ -13,15 +16,26 @@ const ProfileDetails = () => {
   }
 
   return (
-    <StyledViewPage>
-      <GradientBoxText>
-        <GradientBoxText.Label label="Real Name" value={user.name} />
-        <GradientBoxText.Label label="Username" value={user.username} />
-        <GradientBoxText.Label label="Phone Number" value={user.phone} />
-        <GradientBoxText.Label label="Referrer" value={user.referrer} />
-        <GradientBoxText.Label label="Currency" value={user.currency} />
-      </GradientBoxText>
-    </StyledViewPage>
+    <PageWithBackHeader header={{ title: t('menu.profile') }}>
+      <StyledViewPage>
+        <TextField>
+          <TextField.Label label="profile.details.realname" value={user.name} />
+          <TextField.Label
+            label="profile.details.username"
+            value={user.username}
+          />
+          <TextField.Label label="profile.details.phone" value={user.phone} />
+          <TextField.Label
+            label="profile.details.referrer"
+            value={user.referrer}
+          />
+          <TextField.Label
+            label="profile.details.currency"
+            value={user.currency}
+          />
+        </TextField>
+      </StyledViewPage>
+    </PageWithBackHeader>
   )
 }
 

@@ -1,4 +1,4 @@
-import { GradientBoxText } from 'app/components/GradientBoxText'
+import { TextField } from 'app/components/TextField'
 import useLocalization from 'app/provider/localization'
 import { FlatList, styled, Text, View } from 'dripsy'
 import React, { useState } from 'react'
@@ -12,6 +12,11 @@ import { toCurrency, toRealAmount } from 'app/utils'
 import { DripsyGradient } from 'app/components/Gradient'
 import { Gradient } from '@dripsy/gradient'
 import { PageWithBackHeader } from 'app/components/layout/Page'
+import { useSubmitDepositMutation } from 'app/services/deposit'
+import { useAppSelector } from 'app/provider/redux/store'
+import { useDispatch } from 'react-redux'
+import { AlertActions } from 'app/store/alert'
+import { useRouter } from 'solito/router'
 
 const dataPayment = [
   {
@@ -70,33 +75,35 @@ type TopupValues = {
 
 const TopUpCardScreen = () => {
   const { t } = useLocalization()
-  const [selectedPayment, setSelectedPayment] = useState()
-  const [selectedCard, setSelectedCard] = useState()
+  const dispatch = useDispatch()
+  const { back } = useRouter()
+  const user = useAppSelector((state) => state.player.currentLoginUser)
+  const [postSubmitDeposit] = useSubmitDepositMutation()
 
   const onSubmit = async (
     { paymentMode, cardValue, realAmount, cardCode, cardSerialNo }: TopupValues,
     actions: FormikHelpers<TopupValues>
   ) => {
-    console.log(
-      '🚀 ~ file: index.tsx ~ line 42 ~ TopUpCardScreen ~ paymentMode',
-      paymentMode
-    )
-    console.log(
-      '🚀 ~ file: index.tsx ~ line 42 ~ TopUpCardScreen ~ cardValue',
-      cardValue
-    )
-    console.log(
-      '🚀 ~ file: index.tsx ~ line 75 ~ TopUpCardScreen ~ realAmount',
-      realAmount
-    )
-    console.log(
-      '🚀 ~ file: index.tsx ~ line 42 ~ TopUpCardScreen ~ cardCode',
-      cardCode
-    )
-    console.log(
-      '🚀 ~ file: index.tsx ~ line 42 ~ TopUpCardScreen ~ cardSerialNo',
-      cardSerialNo
-    )
+    try {
+      const { data, success, message } = await postSubmitDeposit({
+        amount: realAmount,
+        bank_type_id: 13,
+        card_code: parseInt(cardCode),
+        card_seri: parseInt(cardSerialNo),
+        card_type: paymentMode,
+        deposit_from: 1,
+        username: user?.username ?? '',
+      })
+        .unwrap()
+        .catch(({ message }) => dispatch(AlertActions.addError(message)))
+      if (success) {
+        dispatch(AlertActions.addSuccess(message))
+
+        back()
+      }
+    } catch (e) {
+      dispatch(AlertActions.addError('common.systemError'))
+    }
   }
 
   const formik = useFormik<TopupValues>({
@@ -172,7 +179,7 @@ const TopUpCardScreen = () => {
   }
 
   return (
-    <PageWithBackHeader header={{ title: 'Topup Card' }}>
+    <PageWithBackHeader header={{ title: t('deposit.depositMethod.topUp') }}>
       <StyledView>
         <View>
           <StyledViewPayment>
@@ -219,8 +226,8 @@ const TopUpCardScreen = () => {
             />
           </StyledViewCard>
 
-          <GradientBoxText labelWidth={0}>
-            <GradientBoxText.TextInput
+          <TextField labelWidth={0}>
+            <TextField.TextInput
               label=""
               _input={{
                 placeholder: t('deposit.cardCode'),
@@ -236,7 +243,7 @@ const TopUpCardScreen = () => {
               }
               containerStyle={{ my: '$3' }}
             />
-            <GradientBoxText.TextInput
+            <TextField.TextInput
               label=""
               _input={{
                 placeholder: t('deposit.cardSerialNo'),
@@ -252,7 +259,7 @@ const TopUpCardScreen = () => {
               }
               containerStyle={{ my: '$3' }}
             />
-          </GradientBoxText>
+          </TextField>
 
           <ImportantNotice keys={NOTES} module="deposit" />
         </View>
@@ -264,7 +271,7 @@ const TopUpCardScreen = () => {
           {values.realAmount !== 0 && (
             <View sx={{ mb: '$3' }}>
               <StyledViewTextWrapper>
-                <Text sx={{ flex: 1 }}>Deduction</Text>
+                <Text sx={{ flex: 1 }}>{t('deposit.deduction')}</Text>
                 {/* <Text>VND</Text> */}
                 <Text>
                   {toCurrency(
@@ -273,7 +280,7 @@ const TopUpCardScreen = () => {
                 </Text>
               </StyledViewTextWrapper>
               <StyledViewTextWrapper>
-                <Text sx={{ flex: 1 }}>Actual Deposit</Text>
+                <Text sx={{ flex: 1 }}>{t('deposit.actualDeposit')}</Text>
                 <Text>
                   {toCurrency(
                     Math.round(values.realAmount * ACTUAL_DEPOSIT_AMOUNT)

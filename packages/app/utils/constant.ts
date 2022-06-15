@@ -4,7 +4,7 @@ export const currencyListMapper: { [key: number]: string } = {
   13: 'RMB',
   15: 'IDR',
   51: 'VND',
-};
+}
 
 export enum Currency {
   MYR = 2,
@@ -20,8 +20,13 @@ export enum LANGUAGE_CODE {
   VIETNAM = 'vn',
 }
 
+export enum PLATFORM_CODE {
+  WEB = 0,
+  APP = 1,
+}
+
 // Promotion
-export const STATUS_RUNNING = 1;
-export const STATUS_CANCELLED = 2;
-export const STATUS_FULFILLED = 4;
-export const STATUS_TRANSFER_OUT = 5;
+export const STATUS_RUNNING = 1
+export const STATUS_CANCELLED = 2
+export const STATUS_FULFILLED = 4
+export const STATUS_TRANSFER_OUT = 5

@@ -21,7 +21,6 @@ const ValueCard = ({
   containerStyle,
   onPress,
 }: ValueCardProps) => {
-  console.log('typeof item', typeof item)
   return (
     <TouchableOpacity onPress={() => onPress(item)} style={containerStyle}>
       <StyledView isActive={isActive}>

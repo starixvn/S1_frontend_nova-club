@@ -1,5 +1,5 @@
-import React, { useReducer, useState } from 'react'
-import { GradientBoxText } from 'app/components/GradientBoxText'
+import React, { createRef, useReducer, useRef, useState } from 'react'
+import { TextField } from 'app/components/TextField'
 import {
   ActivityIndicator,
   FlatList,
@@ -15,30 +15,36 @@ import * as Yup from 'yup'
 import validation from 'app/utils/validation'
 import Select from 'app/components/form/Select'
 import { useDispatch } from 'react-redux'
-import BankSelector from 'app/components/BankSelector'
-import { Dimensions } from 'react-native'
+import BankSelectorActionSheet from 'app/components/BankSelectorActionSheet'
+import { Dimensions, TouchableOpacity } from 'react-native'
 import {
-  useAddWithdrawalBankAccMutation,
+  useAddPlayerBankAccMutation,
   useWithdrawalBankQuery,
 } from 'app/services/bank'
 import { AlertActions } from 'app/store/alert'
 import { useRoute } from '@react-navigation/native'
 import { useRouter } from 'solito/router'
+import useLocalization from 'app/provider/localization'
+import { PageWithBackHeader } from 'app/components/layout/Page'
+import ActionSheet from 'react-native-actions-sheet'
+import { WithdrawalBankResult } from 'app/services/bank.type'
 
 type AddBankAccountValues = {
   accountName: string
-  bank: number
+  bank: WithdrawalBankResult | {}
   accountNo: string
 }
 
 const AddBankAccountScreen = () => {
   const dispatch = useDispatch()
-  const { replace, back } = useRouter()
+  const actionSheetRef = createRef()
+  const { t } = useLocalization()
+  const { back } = useRouter()
   const user = useAppSelector((state) => state.player.currentLoginUser)
   const { data, isLoading, isFetching, isSuccess } = useWithdrawalBankQuery({
     username: user?.username ?? '',
   })
-  const [postAddWithdrawalBankAcc] = useAddWithdrawalBankAccMutation()
+  const [postAddWithdrawalBankAcc] = useAddPlayerBankAccMutation()
 
   const onSubmit = async (
     { accountName, bank, accountNo }: AddBankAccountValues,
@@ -49,12 +55,14 @@ const AddBankAccountScreen = () => {
         bank_acc_name: 'bankAcc',
         bank_acc_num: accountNo,
         bank_address: 'bankAcc',
-        bank_type_id: bank,
+        bank_type_id: bank.id,
         branch: 'bankAcc',
         city: 'bankAcc',
         province: 'bankAcc',
         username: user?.username ?? '',
-      }).unwrap()
+      })
+        .unwrap()
+        .catch((error) => dispatch(AlertActions.addError(error.message)))
       console.log(
         '🚀 ~ file: index.tsx ~ line 64 ~ WithdrawalPage ~ data',
         data
@@ -65,8 +73,6 @@ const AddBankAccountScreen = () => {
         actions.resetForm()
 
         back()
-      } else {
-        dispatch(AlertActions.addError(message))
       }
     } catch (e) {
       dispatch(AlertActions.addError('common.systemError'))
@@ -76,12 +82,12 @@ const AddBankAccountScreen = () => {
   const formik = useFormik<AddBankAccountValues>({
     initialValues: {
       accountName: user?.firstName ?? '',
-      bank: 0,
+      bank: {},
       accountNo: '',
     },
     validationSchema: Yup.object({
       accountName: validation.accountName,
-      bank: validation.sysId,
+      // bank: validation.sysId,
       accountNo: validation.accountNo,
     }),
     onSubmit,
@@ -115,92 +121,79 @@ const AddBankAccountScreen = () => {
   }
 
   return (
-    <StyledView>
-      <GradientBoxText labelWidth={0.55}>
-        <GradientBoxText.TextInput
-          label="Account name"
-          _input={{
-            placeholder: "Please enter your 'Registered Real Name",
-            editable: values.accountName === '' ? true : false,
-            value: values.accountName,
-          }}
-          error={
-            touched.accountName && errors.accountName
-              ? errors.accountName
-              : undefined
-          }
-          containerStyle={{ my: '$3' }}
-        />
-        <GradientBoxText.TextInput
-          label="Bank"
-          _input={{
-            placeholder: 'Please select bank',
-            value: values.bank.toString(),
-            onChangeText: handleChange('bank'),
-            onBlur: handleBlur('bank'),
-          }}
-          error={touched.bank && errors.bank ? errors.bank : undefined}
-          containerStyle={{ my: '$0' }}
-        />
-        <Select
-          headerTitle={'Period'}
-          buttonTitle="Click here to oopen"
-          buttonProps={{
-            sx: {
-              borderColor: 'transparent',
-            },
-            isActive: false,
-          }}
-          actionSheetContentProps={{
-            sx: {
-              minHeight: Dimensions.get('window').height * 0.2,
-            },
-          }}
-          // setSelectedValue={setSelected}
-        >
-          <BankSelector
-            bankList={data}
-            isLoading={isLoading || isFetching}
-            selectedBank={values.bank}
+    <PageWithBackHeader header={{ title: t('bank.addBankAccount') }}>
+      <StyledView>
+        <TextField labelWidth={0.55}>
+          <TextField.TextInput
+            label="bank.accountName"
+            _input={{
+              placeholder: 'bank.enterAccountName',
+              editable: values.accountName === '' ? true : false,
+              value: values.accountName,
+            }}
+            error={
+              touched.accountName && errors.accountName
+                ? errors.accountName
+                : undefined
+            }
+            containerStyle={{ my: '$3' }}
+          />
+          <TextField.Select
+            label="bank.bank"
+            _input={{
+              placeholder: t('bank.selectBank'),
+              value: values.bank?.bank_name,
+            }}
+            _flatList={{
+              data: data,
+              isLoading: isLoading || isFetching,
+              selectedData: values.bank?.bank_code,
+            }}
+            _actionSheet={{
+              headerTitle: 'bank.bank',
+            }}
             onPress={(bank) => {
-              setFieldValue('bank', bank.id)
+              setFieldValue('bank', bank)
             }}
           />
-        </Select>
-        <GradientBoxText.TextInput
-          label="Account no"
-          _input={{
-            placeholder: 'Please enter account',
-            value: values.accountNo,
-            onChangeText: onAmountChanged,
-            onBlur: handleBlur('accountNo'),
-            keyboardType: 'number-pad',
-          }}
-          error={
-            touched.accountNo && errors.accountNo ? errors.accountNo : undefined
-          }
-          containerStyle={{ my: '$0' }}
-        />
-      </GradientBoxText>
 
-      <StyledButtonWrapper>
-        <Button
-          rounded
-          stretch
-          disabled={!isValid || !dirty}
-          variant="lg"
-          fill={{
-            type: 'gradient',
-            color: 'secondary',
-            start: { x: 0, y: 0 },
-            end: { x: 1, y: 0 },
-          }}
-          onPress={submitForm}
-        >
-          <Button.Label>Next</Button.Label>
-        </Button>
-      </StyledButtonWrapper>
-    </StyledView>
+          <TextField.TextInput
+            label="bank.accountNo"
+            _input={{
+              placeholder: t('bank.enterAccountNo'),
+              value: values.accountNo,
+              onChangeText: onAmountChanged,
+              onBlur: handleBlur('accountNo'),
+              keyboardType: 'number-pad',
+            }}
+            error={
+              touched.accountNo && errors.accountNo
+                ? errors.accountNo
+                : undefined
+            }
+            containerStyle={{ my: '$0' }}
+          />
+        </TextField>
+
+        <StyledButtonWrapper>
+          <Button
+            rounded
+            stretch
+            disabled={!isValid || !dirty}
+            variant="lg"
+            fill={{
+              type: 'gradient',
+              color: 'secondary',
+              start: { x: 0, y: 0 },
+              end: { x: 1, y: 0 },
+            }}
+            onPress={submitForm}
+          >
+            <Button.Label>Next</Button.Label>
+          </Button>
+        </StyledButtonWrapper>
+      </StyledView>
+    </PageWithBackHeader>
   )
 }
 
