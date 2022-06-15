@@ -19,37 +19,37 @@ const mapTypeToIcon = {}
 const sampleData = [
   {
     type: 1,
-    name: 'deposit.options.bankTransfer',
+    name: 'deposit.depositMethod.bankTransfer',
     icon: 'sl',
     color: '#ac0102',
   },
   {
     type: 2,
-    name: 'deposit.options.onlineBanking',
+    name: 'deposit.depositMethod.onlineBanking',
     icon: 'sl',
     color: '#f56e04',
   },
   {
     type: 3,
-    name: 'deposit.options.momo',
+    name: 'deposit.depositMethod.momo',
     icon: 'sl',
     color: '#AC016C',
   },
   {
     type: 4,
-    name: 'deposit.options.qrCode',
+    name: 'deposit.depositMethod.qrCode',
     icon: 'sl',
     color: '#44BAF9',
   },
   {
     type: 5,
-    name: 'deposit.options.topUp',
+    name: 'deposit.depositMethod.topUp',
     icon: 'sl',
     color: '#95AC00',
   },
   {
     type: 6,
-    name: 'deposit.options.crypto',
+    name: 'deposit.depositMethod.crypto',
     icon: 'sl',
     color: '#36A07B',
   },
@@ -65,8 +65,22 @@ const DepositPage = () => {
     ContextualModuleKey.Deposit
   )
   const to = makeContextualHref('topup-card')
+  const toCrypto = makeContextualHref('crypto')
+
+  const handlePress = (type) => {
+    switch (type) {
+      case 5:
+        push(to, `/deposit/topup-card`)
+        break
+      case 6:
+        push(toCrypto, `/deposit/crypto`)
+        break
+      default:
+        break
+    }
+  }
   return (
-    <PageWithBackHeader header={{ title: 'Deposit' }}>
+    <PageWithBackHeader header={{ title: t('menu.deposit') }}>
       <Text sx={{ my: '$6', mx: '$4' }}>{t('deposit.choose')}</Text>
       {isLoading && <ActivityIndicator />}
       <View sx={{ position: 'relative', mx: '$4' }}>
@@ -83,7 +97,7 @@ const DepositPage = () => {
                   mr: index % 2 === 0 ? '$8' : 0,
                   mb: data.length - index <= 2 ? 0 : '$4',
                 }}
-                onPress={() => push(to, `/deposit/topup-card`)}
+                onPress={() => handlePress(item.type)}
               />
             )}
           />

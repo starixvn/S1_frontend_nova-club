@@ -1,5 +1,7 @@
 import GradientBox from 'app/components/GradientBox'
 import Icon from 'app/components/Icon'
+import useContextualRouting from 'app/hooks/useContextualRouting'
+import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import { Pressable, styled, Text, View } from 'dripsy'
 import React from 'react'
 import { useRouter } from 'solito/router'
@@ -7,41 +9,53 @@ import { useRouter } from 'solito/router'
 const ProfileOptions = () => {
   const { push } = useRouter()
 
+  const { makeContextualHref } = useContextualRouting(
+    ContextualModuleKey.Profile
+  )
+  const toProfileDetails = makeContextualHref('profile-details')
+  const toChangePassword = makeContextualHref('change-password')
+
   const optionsRoute = [
     {
       id: 1,
       title: 'Profile',
       iconName: 'sb',
+      routeWeb: toProfileDetails,
       route: '/profile/profile-details',
     },
     {
       id: 2,
       title: 'Change Password',
       iconName: 'games',
+      routeWeb: toChangePassword,
       route: '/profile/change-password',
     },
     {
       id: 3,
       title: 'Commision Table',
       iconName: 'home',
+      routeWeb: toProfileDetails,
       route: '/commision-table',
     },
     {
       id: 4,
       title: 'Message/Announcement',
       iconName: 'sl',
+      routeWeb: toProfileDetails,
       route: '/announcement',
     },
     {
       id: 5,
       title: 'Customer Support',
       iconName: 'lc',
+      routeWeb: toProfileDetails,
       route: '/customer-support',
     },
     {
       id: 6,
       title: 'Switch Account',
       iconName: 'lt',
+      routeWeb: toProfileDetails,
       route: '/switch-account',
       gradient: 'wineRed',
       fontColor: 'white',
@@ -61,7 +75,7 @@ const ProfileOptions = () => {
           key={item.id}
           gradient={item.gradient ?? 'darkNavyBlue'}
         >
-          <StyledPressable onPress={() => push(item.route)}>
+          <StyledPressable onPress={() => push(item.routeWeb, item.route)}>
             <StyledIcon
               name={item.iconName}
               size={36}

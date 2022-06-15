@@ -4,6 +4,9 @@
 export type SubmitDepositArgs = {
   amount: number
   bank_type_id: number
+  card_code: number
+  card_seri: number
+  card_type: string
   deposit_from: number
   username: string
 }

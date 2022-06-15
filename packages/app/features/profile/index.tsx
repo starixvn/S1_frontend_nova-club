@@ -1,6 +1,7 @@
 import AlertModal from 'app/components/modal/AlertModal'
 import withContextualNav from 'app/navigation/web/withContextualNav'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
+import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { usePlayerProfileQuery } from 'app/services/playerApi'
 import { PlayerActions } from 'app/store/playerReducer'
@@ -16,6 +17,7 @@ import ProfileOverview from './ProfileOverview'
 import ProfileUser from './ProfileUser'
 
 const ProfileScreen = () => {
+  const { t } = useLocalization()
   const [refreshing, setRefreshing] = React.useState(false)
   const dispatch = useDispatch()
 
@@ -45,7 +47,7 @@ const ProfileScreen = () => {
       {/* <AlertModal /> */}
       <ProfileUser username={user?.username} />
       <ProfileBalance />
-      <Text sx={{ textAlign: 'center' }}>UTC/GMT +7</Text>
+      <Text sx={{ textAlign: 'center' }}>{t('profile.timeline')}</Text>
       <ProfileAction />
       <ProfileOverview />
       <ProfileOptions />

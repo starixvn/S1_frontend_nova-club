@@ -1,12 +1,12 @@
 import IconButton from 'app/components/form/IconButton'
 import GradientBox from 'app/components/GradientBox'
 import RoundedIcon from 'app/components/RoundedIcon'
-import { PlayerWithdrawalBankResult } from 'app/services/bank.type'
+import { PlayerBankResult } from 'app/services/bank.type'
 import { styled, Text, View } from 'dripsy'
 import React from 'react'
 
 type BankAccCardProps = {
-  item: PlayerWithdrawalBankResult
+  item: PlayerBankResult
   onPressRemove: (item) => void
 }
 

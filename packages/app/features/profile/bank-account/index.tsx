@@ -1,11 +1,16 @@
 import { Button } from 'app/components/form/Button'
 import Icon from 'app/components/Icon'
+import { PageWithBackHeader } from 'app/components/layout/Page'
+import useContextualRouting from 'app/hooks/useContextualRouting'
+import withContextualNav from 'app/navigation/web/withContextualNav'
+import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
+import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import {
-  useDeleteWithdrawalBankMutation,
-  usePlayerWithdrawalBankQuery,
+  useDeletePlayerBankAccMutation,
+  usePlayerBankQuery,
 } from 'app/services/bank'
-import { PlayerWithdrawalBankResult } from 'app/services/bank.type'
+import { PlayerBankResult } from 'app/services/bank.type'
 import { AlertActions } from 'app/store/alert'
 import {
   ActivityIndicator,
@@ -15,10 +20,13 @@ import {
   Text,
   View,
 } from 'dripsy'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'solito/router'
 import BankAccCard from './BankAccCard'
+import PlayerBankDeleteModal, {
+  PlayerBankDeleteModalForwardRef,
+} from './PlayerBankConfirmationModal'
 
 const bankAccList = [
   {
@@ -45,77 +53,72 @@ const bankAccList = [
 ]
 
 const BankAccountScreen = () => {
+  const { t } = useLocalization()
   const dispatch = useDispatch()
   const { push } = useRouter()
   const user = useAppSelector((state) => state.player.currentLoginUser)
-  const { data, isLoading, isFetching, isSuccess } =
-    usePlayerWithdrawalBankQuery({
-      username: user?.username ?? '',
-    })
-  const [postDeleteWithdrawalBank] = useDeleteWithdrawalBankMutation()
+  const { data, isLoading, isFetching, isSuccess } = usePlayerBankQuery({
+    username: user?.username ?? '',
+  })
+  const [postDeleteWithdrawalBank] = useDeletePlayerBankAccMutation()
+  const deleteModalRef = useRef<PlayerBankDeleteModalForwardRef>(null)
 
-  const handleRemove = async (item: PlayerWithdrawalBankResult) => {
-    try {
-      const { data, success, message } = await postDeleteWithdrawalBank({
-        bank_acc_num: item.BankAccountNumber,
-        bank_type_id: item.BankTypeId,
-        username: user?.username ?? '',
-      }).unwrap()
-      if (success) {
-        dispatch(AlertActions.addSuccess(message))
-      } else {
-        dispatch(AlertActions.addError(message))
-      }
-    } catch (e) {
-      dispatch(AlertActions.addError('common.systemError'))
-    }
+  const { makeContextualHref } = useContextualRouting(
+    ContextualModuleKey.BankAccount
+  )
+  const toAddBankAccount = makeContextualHref('add-bank-account')
+
+  const handleRemove = async (item: PlayerBankResult) => {
+    deleteModalRef.current && deleteModalRef.current.showDialog(item)
   }
 
-  // useEffect(() => {
-  //   data && setConvertedData(Object.keys(data).map((key) => data[key]))
-  // }, [data])
-
   return (
-    <StyledView>
-      {isLoading || isFetching ? (
-        <ActivityIndicator size={'large'} />
-      ) : data.length > 0 ? (
-        data.map((item: PlayerWithdrawalBankResult) => (
-          <BankAccCard
-            key={item.PlayerBankDetailsId}
-            item={item}
-            onPressRemove={handleRemove}
-          />
-        ))
-      ) : (
-        <StyledViewNoResult>
-          <Image
-            source={require('app/assets/images/home/fishing.png')}
-            style={{ aspectRatio: 1, marginBottom: 12, width: '50%' }}
-          />
-          <Text sx={{ color: '#72859A' }}>No Bank Account</Text>
-        </StyledViewNoResult>
-      )}
+    <PageWithBackHeader header={{ title: t('menu.bankAccount') }}>
+      <StyledView>
+        {isLoading || isFetching ? (
+          <ActivityIndicator size={'large'} />
+        ) : data?.length > 0 ? (
+          data.map((item: PlayerBankResult) => (
+            <BankAccCard
+              key={item.PlayerBankDetailsId}
+              item={item}
+              onPressRemove={handleRemove}
+            />
+          ))
+        ) : (
+          <StyledViewNoResult>
+            <Image
+              source={require('app/assets/images/home/fishing.png')}
+              style={{ aspectRatio: 1, marginBottom: 12, width: '50%' }}
+            />
+            <Text sx={{ color: '#72859A' }}>{t('bank.noBankAccount')}</Text>
+          </StyledViewNoResult>
+        )}
 
-      <View sx={{ m: '$10' }}>
-        <Button
-          rounded
-          stretch
-          variant="lg"
-          disabled={data && data.length >= 3}
-          fill={{
-            type: 'gradient',
-            color: 'secondary',
-            start: { x: 0, y: 0 },
-            end: { x: 1, y: 0 },
-          }}
-          onPress={() => push('/profile/bank-account/add-bank-account')}
-        >
-          <Icon name="lc" size={25} />
-          <Button.Label>Add Bank Account</Button.Label>
-        </Button>
-      </View>
-    </StyledView>
+        <View sx={{ m: '$10' }}>
+          <Button
+            rounded
+            stretch
+            variant="lg"
+            disabled={data && data.length >= 3}
+            fill={{
+              type: 'gradient',
+              color: 'secondary',
+              start: { x: 0, y: 0 },
+              end: { x: 1, y: 0 },
+            }}
+            onPress={() =>
+              push(toAddBankAccount, '/profile/bank-account/add-bank-account')
+            }
+          >
+            <Icon name="lc" size={25} />
+            <Button.Label>{t('bank.addBankAccount')}</Button.Label>
+          </Button>
+        </View>
+
+        <PlayerBankDeleteModal ref={deleteModalRef} />
+      </StyledView>
+    </PageWithBackHeader>
   )
 }
 
@@ -131,4 +134,7 @@ const StyledViewNoResult = styled(View)(() => ({
   alignItems: 'center',
 }))
 
-export default BankAccountScreen
+export default withContextualNav(
+  BankAccountScreen,
+  ContextualModuleKey.BankAccount
+)

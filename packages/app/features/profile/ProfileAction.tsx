@@ -2,6 +2,7 @@ import { GradientList } from 'app/components/Gradient'
 import RoundedIcon from 'app/components/RoundedIcon'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
+import useLocalization from 'app/provider/localization'
 import { Pressable, styled, Text, View } from 'dripsy'
 import React from 'react'
 import { useRouter } from 'solito/router'
@@ -22,34 +23,36 @@ const ProfileAction = () => {
   const { makeContextualHref } = useContextualRouting(
     ContextualModuleKey.Profile
   )
-  const to = makeContextualHref('deposit')
+  const toDeposit = makeContextualHref('deposit')
+  const toWithdrawal = makeContextualHref('withdrawal')
+  const toBankAccount = makeContextualHref('bank-account')
 
   return (
     <StyledView>
       <IconAction
         gradient="lightRed"
         icon="sb"
-        title="Deposit"
+        title="menu.deposit"
         onPress={() => {
-          push(to, `/deposit`)
+          push(toDeposit, `/deposit`)
         }}
       />
       <IconAction
         gradient="lightGreen"
         icon="games"
-        title="Withdraw"
-        onPress={() => push('/withdrawal')}
+        title="menu.withdraw"
+        onPress={() => push(toWithdrawal, '/withdrawal')}
       />
       <IconAction
         gradient="lightBlue"
         icon="sl"
-        title="Bank Account"
-        onPress={() => push('/profile/bank-account')}
+        title="menu.bankAccount"
+        onPress={() => push(toBankAccount, '/profile/bank-account')}
       />
       <IconAction
         gradient="lightYellow"
         icon="lc"
-        title="History"
+        title="menu.history"
         onPress={handleOnPress}
       />
     </StyledView>
@@ -63,15 +66,17 @@ const IconAction = ({
   onPress,
   ...rest
 }: IconActionProps) => {
+  const { t } = useLocalization()
+
   return (
-    <View sx={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View sx={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
       <RoundedIcon
         gradient={gradient}
         icon={icon}
         size="md"
         onPress={onPress}
       />
-      {title && <StyledTextIcon>{title}</StyledTextIcon>}
+      {title && <StyledTextIcon>{t(title)}</StyledTextIcon>}
     </View>
   )
 }

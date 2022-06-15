@@ -48,4 +48,5 @@ const depositApi = createApi({
 
 export default depositApi
 export { DepositEndPoints }
-export const { useSubmitDepositMutation } = depositApi
+export const { useSubmitDepositMutation, useSubmitManualDepositMutation } =
+  depositApi

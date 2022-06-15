@@ -1,4 +1,4 @@
-import { GradientBoxText } from 'app/components/GradientBoxText'
+import { TextField } from 'app/components/TextField'
 import { styled, Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import * as Yup from 'yup'
@@ -10,6 +10,8 @@ import { useDispatch } from 'react-redux'
 import { useRouter } from 'solito/router'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useChangePasswordMutation } from 'app/services/changePassword'
+import useLocalization from 'app/provider/localization'
+import { PageWithBackHeader } from 'app/components/layout/Page'
 
 type PasswordFormValues = {
   oldPassword: string
@@ -18,6 +20,7 @@ type PasswordFormValues = {
 }
 
 const ChangePasswordScreen = () => {
+  const { t } = useLocalization()
   const [postChangePassword] = useChangePasswordMutation()
   const dispatch = useDispatch()
   const { replace } = useRouter()
@@ -79,61 +82,65 @@ const ChangePasswordScreen = () => {
   } = formik
 
   return (
-    <StyledViewPage>
-      <GradientBoxText labelWidth={0.6}>
-        <GradientBoxText.TextInput
-          label="Old Password"
-          _input={{
-            placeholder: 'Please enter old password',
-            value: values.oldPassword,
-            onChangeText: handleChange('oldPassword'),
-            onBlur: handleBlur('oldPassword'),
-            secureTextEntry: true,
-          }}
-          error={
-            touched.oldPassword && errors.oldPassword
-              ? errors.oldPassword
-              : undefined
-          }
-        />
-        <GradientBoxText.TextInput
-          label="New Password"
-          _input={{
-            placeholder: 'Please enter new password',
-            value: values.password,
-            onChangeText: handleChange('password'),
-            onBlur: handleBlur('password'),
-            secureTextEntry: true,
-          }}
-          error={
-            touched.password && errors.password ? errors.password : undefined
-          }
-        />
-        <GradientBoxText.TextInput
-          label="Confirm"
-          _input={{
-            placeholder: 'Please confirm password',
-            value: values.confirmPassword,
-            onChangeText: handleChange('confirmPassword'),
-            onBlur: handleBlur('confirmPassword'),
-            secureTextEntry: true,
-          }}
-          error={
-            touched.confirmPassword && errors.confirmPassword
-              ? errors.confirmPassword
-              : undefined
-          }
-        />
-      </GradientBoxText>
+    <PageWithBackHeader header={{ title: t('menu.changePassword') }}>
+      <StyledViewPage>
+        <TextField labelWidth={0.6}>
+          <TextField.TextInput
+            label="common.oldPassword"
+            _input={{
+              placeholder: t('common.enterOldPassword'),
+              value: values.oldPassword,
+              onChangeText: handleChange('oldPassword'),
+              onBlur: handleBlur('oldPassword'),
+              secureTextEntry: true,
+            }}
+            error={
+              touched.oldPassword && errors.oldPassword
+                ? errors.oldPassword
+                : undefined
+            }
+          />
+          <TextField.TextInput
+            label="common.newPassword"
+            _input={{
+              placeholder: t('common.enterNewPassword'),
+              value: values.password,
+              onChangeText: handleChange('password'),
+              onBlur: handleBlur('password'),
+              secureTextEntry: true,
+            }}
+            error={
+              touched.password && errors.password ? errors.password : undefined
+            }
+          />
+          <TextField.TextInput
+            label="common.confirmPassword"
+            _input={{
+              placeholder: t('common.enterConfirmPassword'),
+              value: values.confirmPassword,
+              onChangeText: handleChange('confirmPassword'),
+              onBlur: handleBlur('confirmPassword'),
+              secureTextEntry: true,
+            }}
+            error={
+              touched.confirmPassword && errors.confirmPassword
+                ? errors.confirmPassword
+                : undefined
+            }
+          />
+        </TextField>
 
-      <View sx={{ m: '$6' }}>
-        <Button title="Ok" disabled={!isValid || !dirty} onPress={submitForm} />
-      </View>
+        <View sx={{ m: '$6' }}>
+          <Button
+            title="Ok"
+            disabled={!isValid || !dirty}
+            onPress={submitForm}
+          />
+        </View>
 
-      <StyledText>
-        {`1. Password must be alphanumeric without special character. The length is unless 6-12 character. \n2. Password can not be the same to old pass`}
-      </StyledText>
-    </StyledViewPage>
+        <StyledText>{t('common.passwordNote')}</StyledText>
+      </StyledViewPage>
+    </PageWithBackHeader>
   )
 }
 

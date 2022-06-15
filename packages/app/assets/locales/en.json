@@ -1,14 +1,46 @@
 {
+  "bank": {
+    "accountName": "Account name",
+    "accountNo": "Account no",
+    "addBankAccount": "Add Bank Account",
+    "bank": "Bank",
+    "enterAccountName": "Please enter your 'Registered Real Name",
+    "enterAccountNo": "Please enter account no",
+    "noBankAccount": "No Bank Account",
+    "selectBank": "Please select bank"
+  },
   "common": {
-    "next": "Next",
     "amount": "Amount",
-    "confirm": "Confrim",
-    "selectDate": "Select A Date"
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "confirmDelete": "Are you sure you want to delete? It cannot restore after deletion!",
+    "enterAmount": "Please enter your withdrawal amount",
+    "importantNote": "Important Note",
+    "next": "Next",
+    "selectDate": "Select A Date",
+    "submit": "Submit",
+    "password": "Password",
+    "oldPassword": "Old Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "enterOldPassword": "Please enter old password",
+    "enterNewPassword": "Please enter new password",
+    "enterConfirmPassword": "Please confirm password",
+    "passwordNote": "1. Password must be alphanumeric without special character. The length is unless 6-12 character. \n2. Password can not be the same to old pass"
+  },
+  "contact": {
+    "whatsapp": "WhatsApp",
+    "telegram": "Telegram",
+    "livechat": "Live Chat"
   },
   "deposit": {
-    "deposit": "Deposit",
+    "actualDeposit": "Actual Deposit",
+    "cardCode": "Card Code",
+    "cardSerialNo": "Card serial no.",
+    "cardValue": "Card Value",
     "choose": "Choose your Deposit Options",
-    "options": {
+    "deduction": "Deduction",
+    "depositMethod": {
       "bankTransfer": "Bank Transfer",
       "onlineBanking": "Online Banking",
       "momo": "MOMO",
@@ -17,30 +49,68 @@
       "crypto": "Crypto"
     },
     "paymentMode": "Payment Mode",
-    "cardValue": "Card Value",
-    "cardCode": "Card Code",
-    "cardSerialNo": "Card serial no."    
+    "select Channel": "Select Channel",
+    "usdt": "USDT",
+    "cryptoAmount": "123,456 VND"
   },
-  "transaction": {
-    "transactions": "Transactions"
+  "filter": {
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "thisWeek": "This Week",
+    "lastWeek": "Last Week",
+    "thisMonth": "This Month",
+    "lastMonth": "Last Month"
   },
-  "contact":{
-    "whatsapp": "WhatsApp",
-    "telegram": "Telegram",
-    "livechat": "Live Chat"
+  "game": {
+    "enterGame": "Enter Game"
   },
-  "profile":{
+  "menu": {
+    "bankAccount": "Bank Account",
+    "changePassword": "Change Password",
+    "commisionTable": "Commision Table",
+    "customerSupport": "Customer Support",
+    "deposit": "Deposit",
+    "history": "History",
+    "logout": "Logout",
+    "message/announcement": "Message/Announcement",
+    "profile": "Profile",
+    "switchAccount": "Switch Account",
+    "withdraw": "Withdraw"
+  },
+  "profile": {
+    "details": {
+      "realname": "Real Name",
+      "username": "Username",
+      "phone": "Phone Number",
+      "referrer": "Referrer",
+      "currency": "Currency"
+    },
     "overview": {
-      "title":"Overview",  
+      "title": "Overview",
       "self": "Self",
       "circle": "Circle",
       "w/l": "Win/Lose (VND)",
       "turnover": "Turn Over",
       "realbet": "Real Bet",
       "direct": "Direct"
-    }
+    },
+    "timeline": "UTC/GMT +7"
   },
-  "game":{
-    "enterGame":"Enter Game"
-  }
+  "status": {
+    "approved": "Approved",
+    "cancelled": "Cancelled",
+    "draft": "Draft",
+    "error": "Error",
+    "expired": "Expired",
+    "failed": "Failed",
+    "pending": "Pending",
+    "processing": "Processing",
+    "rejected": "Rejected",
+    "success": "Success",
+    "systemError": "Oops! Something wrong, please try again."
+  },
+  "transaction": {
+    "transactions": "Transactions"
+  },
+  "withdrawal": {}
 }

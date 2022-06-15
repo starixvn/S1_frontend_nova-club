@@ -40,6 +40,7 @@ export function NavigationProvider({
                 screens: {
                   Deposit: '/deposit',
                   TopupCard: '/deposit/topup-card',
+                  Crypto: '/deposit/crypto',
                 },
               },
               BottomNav: {

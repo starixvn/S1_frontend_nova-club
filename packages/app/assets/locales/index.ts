@@ -14,7 +14,7 @@ i18n.translations = { en, vi }
 
 i18n.missingTranslation = function () {
   // eslint-disable-next-line prefer-rest-params
-  console.log('arugents', arguments)
+  // console.log('arugents', arguments)
   return arguments[0]
 }
 
