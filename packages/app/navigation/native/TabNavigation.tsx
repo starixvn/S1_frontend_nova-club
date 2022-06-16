@@ -4,7 +4,9 @@ import Games from 'app/features/games'
 import HomeScreen from 'app/features/home/screen'
 import SlotGames from 'app/features/slots'
 import Sportsbook from 'app/features/sportsbook'
+import Profile from 'app/features/profile'
 import BottomNavigation from '../BottomNavigation'
+import MainHeader from '../MainHeader'
 
 const Tab = createBottomTabNavigator()
 
@@ -12,7 +14,11 @@ function TabNavigation() {
   return (
     <Tab.Navigator
       screenOptions={{
-        headerShown: false,
+        header: ({ navigation, route, options }) => {
+          const title = route.name
+
+          return <MainHeader navigation={navigation} title={title} />
+        },
       }}
       tabBar={(props) => <BottomNavigation />}
     >
@@ -21,6 +27,7 @@ function TabNavigation() {
       <Tab.Screen name="Games" component={Games} />
       <Tab.Screen name="Slots" component={SlotGames} />
       <Tab.Screen name="Casino" component={Casino} />
+      <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   )
 }

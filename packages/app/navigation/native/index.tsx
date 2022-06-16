@@ -18,6 +18,11 @@ import ForgotPassword from 'app/features/auth/ForgotPassword'
 import DepositNavigation from './DepositNavigation'
 import CustomerSupportPage from 'app/features/customerSupport'
 import GameLoaderPage from 'app/features/games/GameLoaderPage'
+import OverviewScreen from '../../../../apps/next/pages/profile/overview'
+import ProfileDetails from '../../../../apps/next/pages/profile/profile-details'
+import ChangePasswordScreen from '../../../../apps/next/pages/profile/change-password'
+import BankAccountScreen from '../../../../apps/next/pages/profile/bank-account'
+import AddBankAccountScreen from '../../../../apps/next/pages/profile/bank-account/add-bank-account'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -25,13 +30,19 @@ const Stack = createStackNavigator<{
   LoginPage: undefined
   RegisterPage: undefined
   DepositPage: undefined
-  ProfilePage: undefined
+  // ProfilePage: undefined
   PreLaunchGame: undefined
   WithdrawalPage: undefined
   ForgotPassword: undefined
   CustomerSupportPage: undefined
   RegisterVerificationPage: undefined
   GameLoaderPage: undefined
+  Profile: undefined
+  Overview: undefined
+  ProfileDetails: undefined
+  ChangePassword: undefined
+  BankAccount: undefined
+  AddBankAccount: undefined
 }>()
 
 export function NativeNavigation() {
@@ -40,11 +51,7 @@ export function NativeNavigation() {
   return (
     <Stack.Navigator
       screenOptions={{
-        header: ({ navigation, route, options }) => {
-          const title = route.name
-
-          return <MainHeader navigation={navigation} title={title} />
-        },
+        headerShown: false,
       }}
     >
       <Stack.Screen
@@ -68,30 +75,7 @@ export function NativeNavigation() {
           headerShown: false,
         }}
       />
-      <Stack.Screen
-        name="DepositPage"
-        component={DepositNavigation}
-        options={{
-          cardStyleInterpolator: fadeScaleIn,
-          transitionSpec: {
-            open: {
-              animation: 'timing',
-              config: {
-                duration: 500,
-                easing: Easing.ease,
-              },
-            },
-            close: {
-              animation: 'timing',
-              config: {
-                duration: 2000,
-                easing: Easing.ease,
-              },
-            },
-          },
-          headerShown: false,
-        }}
-      />
+      <Stack.Screen name="DepositPage" component={DepositNavigation} />
       <Stack.Screen
         name="RegisterVerificationPage"
         component={RegisterVerificationPage}
@@ -146,7 +130,7 @@ export function NativeNavigation() {
           },
         }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="ProfilePage"
         component={ProfileNavigation}
         options={{
@@ -168,7 +152,7 @@ export function NativeNavigation() {
             },
           },
         }}
-      />
+      /> */}
       <Stack.Screen name="PreLaunchGame" component={PreLaunchGame} />
       <Stack.Screen
         name="WithdrawalPage"
@@ -207,6 +191,12 @@ export function NativeNavigation() {
           header: () => null,
         }}
       />
+      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="Overview" component={OverviewScreen} />
+      <Stack.Screen name="ProfileDetails" component={ProfileDetails} />
+      <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
+      <Stack.Screen name="BankAccount" component={BankAccountScreen} />
+      <Stack.Screen name="AddBankAccount" component={AddBankAccountScreen} />
     </Stack.Navigator>
   )
 }

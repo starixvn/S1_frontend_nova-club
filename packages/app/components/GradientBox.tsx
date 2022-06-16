@@ -1,16 +1,18 @@
 import { Gradient } from '@dripsy/gradient'
-import { styled } from 'dripsy'
+import { styled, View } from 'dripsy'
 import React from 'react'
 
 const GradientBox = ({ children, ...rest }) => {
   return (
-    <StyledGradient gradient="darkNavyBlue" {...rest}>
-      {children}
-    </StyledGradient>
+    <GradientWrap>
+      <Gradient gradient="darkNavyBlue" {...rest}>
+        {children}
+      </Gradient>
+    </GradientWrap>
   )
 }
 
-const StyledGradient = styled(Gradient)(() => ({
+const GradientWrap = styled(View)(() => ({
   borderTopWidth: 1,
   borderBottomWidth: 1,
   borderColor: '$lightNavyBlue',

@@ -1,5 +1,6 @@
 import { Flex, View } from 'dripsy'
 import React, { useState } from 'react'
+import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { useRouter } from 'solito/router'
 import BottomNavIcon from './BottomNavIcon'
 
@@ -56,7 +57,8 @@ const BottomNavigation = () => {
         justifyContent: 'space-evenly',
         backgroundColor: '#0d2035',
         width: '100%',
-        height: BAR_HEIGHT,
+        height: BAR_HEIGHT + getBottomSpace(),
+        paddingBottom: getBottomSpace(),
         // paddingX: [12, 'auto'],
       }}
     >
