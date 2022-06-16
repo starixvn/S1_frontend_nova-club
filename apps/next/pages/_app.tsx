@@ -1,22 +1,16 @@
 import 'raf/polyfill'
-import useFontInit from 'app/hooks/useFontInit'
 import { Provider } from 'app/provider'
 import Head from 'next/head'
 import Script from 'next/script'
 import React from 'react'
 import type { SolitoAppProps } from 'solito'
 import '../global.css'
-import iconFile from '/public/icomoon.ttf'
 import { Container } from 'dripsy'
 
 import { AnimatePresence } from 'framer-motion'
 import layouts from '../layouts'
 
 function MyApp({ Component, pageProps, router }: SolitoAppProps) {
-  const [loaded, error] = useFontInit({
-    iconUrl: iconFile,
-  })
-
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || layouts.COMMON()
 
@@ -32,7 +26,7 @@ function MyApp({ Component, pageProps, router }: SolitoAppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Provider>
-        <Container>
+        <Container sx={{ flex: 1 }}>
           {/* <ContextualNav /> */}
           <AnimatePresence
             exitBeforeEnter

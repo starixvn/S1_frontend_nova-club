@@ -9,7 +9,7 @@ const srcDir = path.resolve(
   __dirname,
   '../../../packages/app/assets/fonts/icomoon.ttf'
 )
-const destDir = path.resolve(__dirname, '../public/icomoon.ttf')
+const destDir = path.resolve(__dirname, '../public/fonts/icomoon.ttf')
 
 function startCopyDirectory() {
   try {

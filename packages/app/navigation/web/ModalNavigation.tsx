@@ -1,9 +1,25 @@
-import Icon from 'app/components/Icon'
-import { Container, Text, View } from 'dripsy'
-import { TouchableOpacity } from 'react-native'
+import { Container } from 'dripsy'
+import { useLayoutEffect } from 'react'
+import { Platform } from 'react-native'
 import Modal from 'react-native-modal'
-import { useRouter } from 'solito/router'
+
 const ModalNavigation = ({ children, ...rest }) => {
+  useLayoutEffect(() => {
+    if (Platform.OS === 'web') {
+      const { isVisible } = rest
+
+      if (isVisible) {
+        document.documentElement.classList.add('overflow-y-hidden')
+      }
+    }
+
+    return () => {
+      if (Platform.OS === 'web') {
+        document.documentElement.classList.remove('overflow-y-hidden')
+      }
+    }
+  }, [rest.isVisible])
+
   return (
     <Modal
       animationIn={'slideInRight'}
