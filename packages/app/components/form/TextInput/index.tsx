@@ -60,6 +60,10 @@ const TextInput: FC<TextInputProps> = (props) => {
             <StyledButtonOpacity
               accessible={false}
               activeOpacity={0.6}
+              // @ts-expect-error: react-native-handler-gesture no provide this type
+              extraButtonProps={{
+                accessible: false,
+              }}
               onPress={() => setHidePassword(!hidePassword)}
             >
               <Icon

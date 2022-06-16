@@ -2,7 +2,7 @@ body {
   background: #132c47;
 }
 
-.input {
+input:focus {
   outline: none !important;
 }
 
