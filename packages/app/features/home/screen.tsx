@@ -18,11 +18,14 @@ import HotGamesSection from './Section/HotGamesSection'
 import LeaderboardSection from './Section/LeaderboardSection'
 import LotterySection from './Section/LotterySection'
 import AnnoucementMarquee from './Section/AnnouncementMarquee'
+import { PlayerActions } from 'app/store/playerReducer'
+import { useDispatch } from 'react-redux'
 
 const HomeScreen = () => {
   const [selected, setSelected] = useState(null)
   const [updateStatus, setUpdateStatus] = useState('--')
   const [event, setEvent] = useState('-')
+  const dispatch = useDispatch()
 
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
   const { push } = useRouter()
@@ -46,6 +49,7 @@ const HomeScreen = () => {
     if (Platform.OS !== 'web') {
       checkUpdate()
     }
+    onGetPlayer()
   }, [])
 
   const handleOtp = () => {
@@ -62,7 +66,9 @@ const HomeScreen = () => {
       const { data } = await playerProfile({
         username: state.playerName,
       }).unwrap()
-      console.log(data)
+      if (data) {
+        dispatch(PlayerActions.setUser(data))
+      }
     } catch (error) {
       console.error(error)
     }

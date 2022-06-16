@@ -3,6 +3,7 @@ import { DripsyGradient } from 'app/components/Gradient'
 import withContextualNav from 'app/navigation/web/withContextualNav'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { useGetGameUrlQuery } from 'app/services/gameApi'
 import { PLATFORM_CODE } from 'app/utils/constant'
 import { View } from 'dripsy'
@@ -20,13 +21,13 @@ const PreLaunchGame = () => {
 
   const isWeb = Platform.OS === 'web'
   const getPlatform = isWeb ? PLATFORM_CODE.WEB : PLATFORM_CODE.APP
-
+  const user = useAppSelector((state) => state.player.currentLoginUser)
   const { data, isError, isSuccess } = useGetGameUrlQuery({
     game_code: 'sports',
     is_demo: 0,
     is_mobile: getPlatform,
     platform_code: 'SABA',
-    username: 'wstaging02',
+    username: user && user.firstName,
   })
   const getUrl = isSuccess && data.data && data.data.url
   const url = getUrl && encodeURIComponent(getUrl)
