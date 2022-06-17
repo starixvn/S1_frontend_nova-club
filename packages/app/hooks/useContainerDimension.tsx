@@ -1,5 +1,5 @@
 import { useDripsyTheme } from 'dripsy'
-import { ScaledSize, useWindowDimensions } from 'react-native'
+import { Platform, ScaledSize, useWindowDimensions } from 'react-native'
 
 const useContainerDimension: () => ScaledSize = () => {
   const dimension = useWindowDimensions()
@@ -7,7 +7,10 @@ const useContainerDimension: () => ScaledSize = () => {
 
   return {
     ...dimension,
-    width: Math.min(dimension.width, theme.sizes.container),
+    width:
+      Platform.select({
+        web: Math.min(dimension.width, theme.sizes.container),
+      }) ?? dimension.width,
   }
 }
 
