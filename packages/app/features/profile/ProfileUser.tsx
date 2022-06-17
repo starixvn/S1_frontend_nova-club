@@ -1,5 +1,6 @@
 import Avatar from 'app/components/Avatar'
 import IconButton from 'app/components/form/IconButton'
+import Icon from 'app/components/Icon'
 import { styled, Text, View } from 'dripsy'
 import React from 'react'
 
@@ -15,23 +16,33 @@ const ProfileUser = ({ username }: ProfileUserProps) => {
         sx={{ mr: '$2', bg: 'white' }}
       />
       <ViewTextWrapper>
-        <Text sx={{ color: '$PaleBlue', fontWeight: 'bold' }}>HELLO!</Text>
-        <Text>{username}</Text>
+        <Text
+          numberOfLines={1}
+          variant="sm"
+          sx={{ color: '$PaleBlue', fontWeight: 'bold' }}
+        >
+          HELLO!
+        </Text>
+        <Text numberOfLines={1} variant="sm" sx={{ color: '#D6D5D5' }}>
+          {username ?? ' '}
+        </Text>
       </ViewTextWrapper>
-      <IconButton name="sb" />
-      <IconButton name="lc" />
+      <IconButton name="sb" sx={{ mx: '$2' }} color={'$lightCyan'} />
+      <IconButton name="lc" color={'$lightCyan'} />
     </ViewWrapper>
   )
 }
 
 const ViewWrapper = styled(View)({
-  p: '$4',
+  px: '$3',
+  py: '$1',
   flexDirection: 'row',
   alignItems: 'center',
 })
 
 const ViewTextWrapper = styled(View)({
   flex: 1,
+  mr: '$2',
 })
 
 export default ProfileUser

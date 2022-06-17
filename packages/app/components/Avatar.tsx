@@ -15,11 +15,11 @@ const Avatar: FC<IAvatarProps> = ({ source, ...rest }) => {
 }
 
 const StyledView = styled(View)(() => ({
-  borderWidth: 4,
+  borderWidth: 2,
   borderColor: '$PaleBlue',
-  borderRadius: 50,
-  height: 96,
-  width: 96,
+  borderRadius: 30,
+  height: 60,
+  width: 60,
   justifyContent: 'center',
   alignItems: 'center',
   bg: 'red',

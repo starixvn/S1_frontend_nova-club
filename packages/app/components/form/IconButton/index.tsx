@@ -7,6 +7,7 @@ import { TouchableOpacity } from 'react-native'
 
 interface IIconButtonProps {
   name: string
+  color?: string
   size?: number
   disabled?: boolean
   loading?: boolean
@@ -19,8 +20,12 @@ const IconButton = ({
   size = 32,
   disabled,
   loading,
+  color,
   ...rest
 }: IIconButtonProps) => {
+  const iconOverride: IconComponentProps = { name, size }
+  if (color) iconOverride.color = color
+
   return (
     <StyledMotiPressable
       disabled={disabled || loading}
@@ -28,7 +33,7 @@ const IconButton = ({
       size={size}
       {...rest}
     >
-      <Icon name={name} size={size} />
+      <Icon {...iconOverride} />
     </StyledMotiPressable>
   )
 }

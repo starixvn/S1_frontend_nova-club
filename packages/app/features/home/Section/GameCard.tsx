@@ -1,12 +1,12 @@
+import {
+  GAMES_GAME_CARD_WIDTH_PERCENTAGE,
+  GAMES_GAME_GROUP_WIDTH_PERCENTAGE,
+  HOME_PADDING,
+} from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { Image, Pressable, styled, Text, View } from 'dripsy'
 import { FC } from 'react'
 import { TouchableOpacity, useWindowDimensions } from 'react-native'
-import {
-  GAMES_GAME_CARD_WIDTH_PERCENTAGE,
-  GAMES_GAME_GROUP_WIDTH_PERCENTAGE,
-  HORIZONTAL_PADDING_PERCENTAGE,
-} from '../screen'
 
 export interface GameCardProps {
   gameList: any
@@ -17,7 +17,7 @@ const GameCard: FC<GameCardProps> = ({ label, gameList }) => {
   const { width } = useContainerDimension()
   const img = gameList.slice(0, 6)
 
-  const horizontalPad = width * HORIZONTAL_PADDING_PERCENTAGE
+  const horizontalPad = width * HOME_PADDING
   const cardWidth = width * GAMES_GAME_CARD_WIDTH_PERCENTAGE
 
   // const cardListWidth = cardWidth * 2 + horizontalPad * 1.5
@@ -26,7 +26,7 @@ const GameCard: FC<GameCardProps> = ({ label, gameList }) => {
   return (
     <View
       sx={{
-        pl: width * HORIZONTAL_PADDING_PERCENTAGE,
+        pl: width * HOME_PADDING,
         flexDirection: 'row',
       }}
     >

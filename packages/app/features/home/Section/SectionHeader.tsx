@@ -1,9 +1,9 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
+import { HOME_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { styled, Text, View } from 'dripsy'
 import React from 'react'
-import { HORIZONTAL_PADDING_PERCENTAGE } from '../screen'
 
 const SectionHeader = ({
   title,
@@ -16,7 +16,7 @@ const SectionHeader = ({
   iconName: string
 }) => {
   const { width } = useContainerDimension()
-  const horizontalPad = width * HORIZONTAL_PADDING_PERCENTAGE
+  const horizontalPad = width * HOME_PADDING
   return (
     <StyledView sx={{ marginLeft: horizontalPad, my: horizontalPad * 0.5 }}>
       <DripsyGradient

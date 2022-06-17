@@ -1,6 +1,6 @@
 export default [
   {
-    image: require('../../assets/images/home/sb.png'),
+    image: require('../../assets/images/home/sb.jpg'),
   },
   {
     image: require('../../assets/images/home/games.png'),

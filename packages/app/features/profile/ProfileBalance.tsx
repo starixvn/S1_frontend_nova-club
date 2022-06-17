@@ -3,6 +3,7 @@ import Divider from 'app/components/Divider'
 import IconButton from 'app/components/form/IconButton'
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
+import useLocalization from 'app/provider/localization'
 import { AnimateHeight } from 'app/transitions/animate-height'
 import { styled, StyledProps, SxProp, Text, View } from 'dripsy'
 import { AnimatePresence, motify, MotiView, useDynamicAnimation } from 'moti'
@@ -29,6 +30,8 @@ const ProfileBalance = () => {
     // animation.animateTo({ height: 200 })
   }
 
+  const { t } = useLocalization()
+
   return (
     <StyledGradient gradient="PaleBlue">
       <MotiPressable onPress={handlePress}>
@@ -37,11 +40,11 @@ const ProfileBalance = () => {
             flex: 1,
             flexDirection: 'row',
             alignItems: 'center',
-            minHeight: 100,
+            minHeight: 75,
           }}
         >
           <BalanceItem
-            title="Balance"
+            title={t('common.balance')}
             value="88K"
             size="large"
             _sx={{ justifyContent: 'center' }}
@@ -76,7 +79,7 @@ const ProfileBalance = () => {
                   borderTopWidth: 1,
                   borderTopColor: '$lightNavyBlue',
                   justifyContent: 'center',
-                  minHeight: 100,
+                  minHeight: 75,
                 }}
               >
                 <View
@@ -85,12 +88,19 @@ const ProfileBalance = () => {
                     height: '80%',
                   }}
                 >
-                  <BalanceItem title="Cash" value="86K" />
+                  <BalanceItem
+                    title="Cash"
+                    value="86K"
+                    _sx={{
+                      pr: '$7',
+                    }}
+                  />
                   <BalanceItem
                     title="Reward"
                     value="2K"
                     _sx={{
                       borderLeftWidth: 1,
+                      pl: '$7',
                       borderLeftColor: '$lightNavyBlue',
                     }}
                   />
@@ -115,8 +125,8 @@ const BalanceItem = ({
   size?: 'large' | 'small'
   _sx?: SxProp
 }) => {
-  const titleFontSize = size === 'large' ? 18 : 16
-  const valueFontSize = size === 'large' ? 28 : 24
+  const titleFontSize = size === 'large' ? 14 : 12
+  const valueFontSize = size === 'large' ? 24 : 20
 
   return (
     <View
@@ -127,7 +137,7 @@ const BalanceItem = ({
         ..._sx,
       }}
     >
-      <Icon name="lc" size={50} />
+      <Icon name="lc" size={50} color={'#56f1ff'} />
       <View>
         <Text sx={{ fontSize: titleFontSize }}>{title}</Text>
         <Text
@@ -145,8 +155,10 @@ const BalanceItem = ({
 }
 
 const StyledGradient = styled(Gradient)(() => ({
-  m: '$4',
-  px: '$4',
+  mx: '$3',
+  mt: '$5',
+  mb: '$2',
+  px: '$8',
   borderWidth: 2,
   borderColor: '$lightNavyBlue',
   borderRadius: 18,

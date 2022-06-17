@@ -29,7 +29,6 @@ const ProfileScreen = () => {
     })
 
   useEffect(() => {
-    console.log('isFetching', isFetching)
     !isLoading && setRefreshing(isFetching)
     if (data?.data) {
       dispatch(PlayerActions.setUser(data?.data))
@@ -47,7 +46,9 @@ const ProfileScreen = () => {
       {/* <AlertModal /> */}
       <ProfileUser username={user?.username} />
       <ProfileBalance />
-      <Text sx={{ textAlign: 'center' }}>{t('profile.timeline')}</Text>
+      <Text variant="xs" sx={{ textAlign: 'center' }}>
+        {t('profile.timeline')}
+      </Text>
       <ProfileAction />
       <ProfileOverview />
       <ProfileOptions />

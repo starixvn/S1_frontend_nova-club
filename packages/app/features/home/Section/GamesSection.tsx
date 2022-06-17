@@ -1,6 +1,12 @@
 import fishing from 'app/config/games/fishing'
 import hotgame from 'app/config/games/hotgame'
 import lottery from 'app/config/games/lottery'
+import {
+  GAMES_GAME_CARD_WIDTH_PERCENTAGE,
+  GAMES_GAME_GROUP_ROW,
+  GAMES_GAME_GROUP_WIDTH_PERCENTAGE,
+  HOME_PADDING,
+} from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { styled, View } from 'dripsy'
 import React, { FC } from 'react'
@@ -13,12 +19,6 @@ import Animated, {
 } from 'react-native-reanimated'
 import Carousel from 'react-native-reanimated-carousel'
 import { CarouselRenderItem } from 'react-native-reanimated-carousel/lib/typescript/types'
-import {
-  GAMES_GAME_CARD_WIDTH_PERCENTAGE,
-  GAMES_GAME_GROUP_ROW,
-  GAMES_GAME_GROUP_WIDTH_PERCENTAGE,
-  HORIZONTAL_PADDING_PERCENTAGE,
-} from '../screen'
 import GameCard, { GameCardProps } from './GameCard'
 import SectionHeader from './SectionHeader'
 
@@ -30,7 +30,7 @@ const GamesSection = () => {
     height:
       width *
       (GAMES_GAME_CARD_WIDTH_PERCENTAGE * GAMES_GAME_GROUP_ROW +
-        HORIZONTAL_PADDING_PERCENTAGE * 4),
+        HOME_PADDING * 4),
   })
 
   const selectedColor = 'rgb(65,64,95)'
@@ -50,10 +50,7 @@ const GamesSection = () => {
         modeConfig={{
           parallaxScrollingScale: 1,
           parallaxScrollingOffset:
-            width -
-            width *
-              (GAMES_GAME_GROUP_WIDTH_PERCENTAGE +
-                HORIZONTAL_PADDING_PERCENTAGE),
+            width - width * (GAMES_GAME_GROUP_WIDTH_PERCENTAGE + HOME_PADDING),
           parallaxAdjacentItemScale: 1,
         }}
         panGestureHandlerProps={{

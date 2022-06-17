@@ -1,5 +1,7 @@
+import useContainerDimension from 'app/hooks/useContainerDimension'
 import BouncePressable from 'app/pressable/BouncePressable'
-import { Image, SafeAreaView, styled, Text, View } from 'dripsy'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { Image, SafeAreaView, styled, Text, useSx, View } from 'dripsy'
 import React, { useState } from 'react'
 import { Platform, StatusBar } from 'react-native'
 import { useRouter } from 'solito/router'
@@ -8,7 +10,9 @@ import MainMenu from './MainMenu'
 const MainHeader = () => {
   const isIOS = Platform.OS === 'ios'
   const isAndroid = Platform.OS === 'android'
+  const { width } = useContainerDimension()
   const [showMenu, setShowMenu] = useState(false)
+  const sx = useSx()
   const { push } = useRouter()
 
   //change to icon
@@ -40,46 +44,79 @@ const MainHeader = () => {
     },
   ]
 
+  // Google Pixel 5a require this insets to get accurate value
+  const insets = useSafeArea()
+
+  const headerHeight = sx({
+    height: 'header',
+  }).height
+
+  const iconHeight = headerHeight.map((x) => x * 0.6)
+
   return (
-    <SafeAreaView sx={{ bg: '$secondary' }}>
-      <StyledContainer
-        sx={{
-          my: isIOS ? 0 : isAndroid ? StatusBar.currentHeight : '$2a',
-        }}
-      >
-        <View style={{ flex: 1 }}>
+    <SafeAreaView sx={{ paddingTop: insets.top, bg: '$primary' }}>
+      <StyledContainer sx={{ height: headerHeight }}>
+        <View>
           <BouncePressable
             onPress={() => {
               push('/')
             }}
           >
             <StyledLogo
+              sx={sx({
+                height: iconHeight,
+                width: iconHeight.map((x) => x * (118 / 69)),
+              })}
               source={require('../assets/logo.png')}
               resizeMode="contain"
             />
           </BouncePressable>
         </View>
-        {MENU_ROW.map((i, index) => {
-          if (index === 1) {
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+          }}
+        >
+          {MENU_ROW.map((i, index) => {
+            if (index === 1) {
+              return (
+                <View sx={{ flex: 1, maxWidth: width * 0.3 }}>
+                  <BouncePressable onPress={i.action} key={index}>
+                    <StyledSearchBox
+                      sx={{
+                        height: iconHeight,
+                      }}
+                    >
+                      {/* <StyledBgImage
+                        source={require('../assets/images/header/walletbg.png')}
+                        resizeMode="contain"
+                      />
+                      <StyledWalletImg source={i.img} resizeMode="contain" /> */}
+                      <Text
+                        variant="sm"
+                        numberOfLines={1}
+                        sx={{ flex: 1, color: '$yellow' }}
+                      >
+                        88888885934789534798543789547589759
+                      </Text>
+                    </StyledSearchBox>
+                  </BouncePressable>
+                </View>
+              )
+            }
             return (
-              <BouncePressable key={index}>
-                <StyledSearchBox>
-                  <StyledBgImage
-                    source={require('../assets/images/header/walletbg.png')}
-                    resizeMode="contain"
-                  />
-                  <StyledWalletImg source={i.img} resizeMode="contain" />
-                  <StyledText>88K</StyledText>
-                </StyledSearchBox>
+              <BouncePressable onPress={i.action} key={index}>
+                <StyledImg
+                  sx={{ width: iconHeight, height: iconHeight }}
+                  source={i.img}
+                  resizeMode="contain"
+                />
               </BouncePressable>
             )
-          }
-          return (
-            <BouncePressable onPress={i.action} key={index}>
-              <StyledImg source={i.img} resizeMode="contain" />
-            </BouncePressable>
-          )
-        })}
+          })}
+        </View>
       </StyledContainer>
       <MainMenu
         isShow={showMenu}
@@ -93,51 +130,38 @@ const MainHeader = () => {
 
 const StyledContainer = styled(View)({
   flexDirection: 'row',
-  bg: '$secondary',
-  mb: '$1a',
+  bg: '$primary',
   alignItems: 'center',
+  px: '$2',
 })
 
-const StyledLogo = styled(Image)({
-  width: [50, 50, 50],
-  height: [30, 50, 50],
-  ml: '$5',
-})
+const StyledLogo = styled(Image)({})
 
 const StyledBgImage = styled(Image)({
-  width: [30, 50, 50],
-  height: [30, 50, 50],
+  width: [30, 50],
+  height: [30, 50],
 })
 
 const StyledWalletImg = styled(Image)({
-  width: [10, 20, 20],
-  height: [20, 20, 20],
+  width: [10, 20],
+  height: [20, 20],
   position: 'absolute',
-  left: [10, 10, 15],
-  top: [4, 6, 12],
+  left: [10, 10],
+  top: [4, 6],
 })
 
 const StyledImg = styled(Image)({
-  width: [40, 50, 60],
-  height: [30, 50, 50],
-})
-
-const StyledText = styled(Text)({
-  alignSelf: 'center',
-  color: '$yellow',
-  pr: '$2',
+  ml: '$2',
 })
 
 const StyledSearchBox = styled(View)({
   borderRadius: 20,
   bg: 'rgb(48,89,117)',
-  width: [130, 150, 170],
-  height: [35, 40, 45],
   flexDirection: 'row',
   justifyContent: 'space-between',
-  borderWidth: 2,
-  borderColor: '$background',
-  mr: '$1a',
+  px: '$2',
+  overflow: 'hidden',
+  alignItems: 'center',
 })
 
 export default MainHeader

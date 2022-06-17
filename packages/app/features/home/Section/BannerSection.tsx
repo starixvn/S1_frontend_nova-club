@@ -1,9 +1,10 @@
 import { LANGUAGE_CODE } from 'app/constant/language'
+import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useBannerQuery } from 'app/services/contentApi'
 import { BannerResult } from 'app/services/contentApi.type'
 import { Image, styled, View } from 'dripsy'
 import React, { FC } from 'react'
-import { useWindowDimensions } from 'react-native'
+import { Platform, useWindowDimensions } from 'react-native'
 import Animated, {
   Extrapolate,
   interpolate,
@@ -14,13 +15,15 @@ import Carousel from 'react-native-reanimated-carousel'
 const BANNER_RATIO = 434 / 163
 
 const BannerSection = () => {
-  const { width, height } = useWindowDimensions()
+  const { width, height } = useContainerDimension()
 
-  const { data } = useBannerQuery(LANGUAGE_CODE.VIETNAM)
+  // static API language havent been fixed to "VI"
+  const { data } = useBannerQuery('vn')
   const selectedColor = '#99ECFE'
   const colors = [selectedColor, selectedColor]
   const progressValue = useSharedValue<number>(0)
 
+  if (Platform.OS === 'ios') console.log('data', data)
   return (
     <View>
       {data && (
@@ -64,7 +67,7 @@ const BannerSection = () => {
 }
 
 const BannerItem = ({ item }: { item: BannerResult }) => {
-  const { width } = useWindowDimensions()
+  const { width } = useContainerDimension()
   const { bannerMobileUrl } = item
   return (
     <View key={bannerMobileUrl}>

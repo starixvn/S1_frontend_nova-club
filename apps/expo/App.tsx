@@ -5,6 +5,7 @@ import { NativeNavigation } from 'app/navigation/native'
 import { Provider } from 'app/provider'
 import { Text } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
+import { styled } from 'dripsy'
 
 export default function App() {
   /**
@@ -20,8 +21,11 @@ export default function App() {
 
   return (
     <Provider>
-      <StatusBar backgroundColor="#0D2035" style="light" />
+      {/* StatusBar backgroundColor only affects Android, IOS refers to MainHeader */}
+      <StatusBar backgroundColor="#0E2B46" style="light" />
       <NativeNavigation />
     </Provider>
   )
 }
+
+const SB = styled(StatusBar)()

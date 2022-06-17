@@ -1,6 +1,6 @@
 import { DripsyProvider, makeTheme } from 'dripsy'
 import useOnAppStart from 'app/hooks/useOnAppStart'
-
+const fontName = 'Helvetica Neue'
 const size = {
   $0: 0,
   $0a: 2,
@@ -96,6 +96,7 @@ const colorGradient = {
   transparent: ['', ''],
 }
 
+// default breakpoints [0, 576, 768, 992, 1200]
 const theme = makeTheme({
   // https://www.dripsy.xyz/usage/theming/create
   text: {
@@ -120,7 +121,7 @@ const theme = makeTheme({
       fontSize: '$2',
     },
     lg: {
-      fontSize: 20,
+      fontSize: '$3',
     },
   },
   buttons: {
@@ -171,12 +172,30 @@ const theme = makeTheme({
   space: size,
   sizes: {
     $button: 40,
-    container: 800,
+    container: 768,
+    header: [50, 60],
   },
   roundness: {
     sm: 5,
     md: 8,
     lg: 25,
+  },
+  fonts: {
+    root: fontName,
+  },
+  customFonts: {
+    [fontName]: {
+      // I recommend setting every weight here
+      // bold: 'arialBold',
+      default: fontName,
+      normal: fontName,
+      400: fontName,
+      // 500: 'arialMedium',
+      // 600: 'arialBold',
+      // 700: 'arialBold',
+      // 800: 'arialBold',
+      // 900: 'arialBlack',
+    },
   },
 })
 

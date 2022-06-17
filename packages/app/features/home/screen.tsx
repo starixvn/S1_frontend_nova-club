@@ -8,7 +8,6 @@ import { Pressable, ScrollView, Text, View } from 'dripsy'
 import * as Updates from 'expo-updates'
 import { default as React, useEffect, useRef, useState } from 'react'
 import { Button, Platform } from 'react-native'
-import { MotiLink } from 'solito/moti'
 import { useRouter } from 'solito/router'
 import BannerSection from './Section/BannerSection'
 import CasinoSection from './Section/CasinoSection'
@@ -20,12 +19,6 @@ import LotterySection from './Section/LotterySection'
 import AnnoucementMarquee from './Section/AnnouncementMarquee'
 import { PlayerActions } from 'app/store/playerReducer'
 import { useDispatch } from 'react-redux'
-
-export const HORIZONTAL_PADDING_PERCENTAGE = 0.03
-export const GAMES_GAME_CARD_WIDTH_PERCENTAGE = 0.3
-export const GAMES_GAME_GROUP_WIDTH_PERCENTAGE =
-  GAMES_GAME_CARD_WIDTH_PERCENTAGE * 2 + HORIZONTAL_PADDING_PERCENTAGE * 1.5
-export const GAMES_GAME_GROUP_ROW = 3
 
 const HomeScreen = () => {
   const [selected, setSelected] = useState(null)

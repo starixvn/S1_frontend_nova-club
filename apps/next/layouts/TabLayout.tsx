@@ -1,18 +1,22 @@
 import BottomNavigation from 'app/navigation/BottomNavigation'
 import MainHeader from 'app/navigation/MainHeader'
 import React, { FC } from 'react'
-import { View } from 'dripsy'
+import { View, useSx } from 'dripsy'
 
 export interface TabLayoutProps {
   children: React.ReactElement
 }
 
 const TabLayout: FC<TabLayoutProps> = ({ children }) => {
+  const sx = useSx()
+  const s = sx({
+    height: 'header',
+  })
   return (
     <View
       sx={{
         minHeight: '100vh',
-        marginTop: 51,
+        marginTop: s.height,
         marginBottom: 60,
       }}
     >
