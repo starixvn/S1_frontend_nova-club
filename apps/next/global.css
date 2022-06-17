@@ -16,12 +16,12 @@ input[type='date']::-webkit-calendar-picker-indicator {
   bottom: 0;
   color: transparent;
   cursor: pointer;
-  height: 20;
+  height: auto;
   left: 0;
-  position: relative;
+  position: absolute;
   right: 0;
   top: 0;
-  width: 0;
+  width: auto;
 }
 
 .inputDate {
@@ -38,8 +38,9 @@ input[type='date']::-webkit-calendar-picker-indicator {
 }
 
 .date-input {
-  width: 110;
+  width: 100%;
   background: transparent;
+  position: relative;
   border: 0;
   color: white;
   text-align: center;
