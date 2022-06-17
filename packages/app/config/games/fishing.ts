@@ -1,5 +1,5 @@
 export default {
-  label: 'FISHING',
+  label: 'Fishing',
   icon: 'fishing',
   gameList: [
     {

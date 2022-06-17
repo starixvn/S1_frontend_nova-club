@@ -1,19 +1,24 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
+import useContainerDimension from 'app/hooks/useContainerDimension'
 import { styled, Text, View } from 'dripsy'
 import React from 'react'
+import { HORIZONTAL_PADDING_PERCENTAGE } from '../screen'
 
 const SectionHeader = ({
   title,
   bgColor,
   iconName,
+  ...rest
 }: {
   title: string
   bgColor: string
   iconName: string
 }) => {
+  const { width } = useContainerDimension()
+  const horizontalPad = width * HORIZONTAL_PADDING_PERCENTAGE
   return (
-    <StyledView>
+    <StyledView sx={{ marginLeft: horizontalPad, my: horizontalPad * 0.5 }}>
       <DripsyGradient
         gradient={bgColor}
         sx={{
@@ -46,14 +51,13 @@ const StyledView = styled(View)({
   borderRightColor: '$primary',
   borderColor: '$shadow',
   flexDirection: 'row',
-  ml: '$3a',
   my: '$1a',
   mt: '$6',
   alignItems: 'center',
 })
 
 const StyledText = styled(Text)({
-  fontSize: [18, 23, 28],
+  fontSize: [18, 23],
   color: 'white',
   padding: '$1a',
   fontWeight: 'bold',

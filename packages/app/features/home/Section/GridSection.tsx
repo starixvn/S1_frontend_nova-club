@@ -1,7 +1,7 @@
 import home from 'app/config/home'
+import useContainerDimension from 'app/hooks/useContainerDimension'
 import { Image, styled, View } from 'dripsy'
 import React from 'react'
-import { useWindowDimensions } from 'react-native'
 const dummyData = [
   {
     key: 'FirstRow',
@@ -47,8 +47,7 @@ const GridSection = () => {
 }
 
 const SimpleGrid = ({ data }: { data: any }) => {
-  const { width, height } = useWindowDimensions()
-
+  const { width } = useContainerDimension()
   const StyledImage = styled(Image)({
     m: '$1',
     borderRadius: 10,

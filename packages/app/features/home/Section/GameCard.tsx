@@ -1,6 +1,12 @@
+import useContainerDimension from 'app/hooks/useContainerDimension'
 import { Image, Pressable, styled, Text, View } from 'dripsy'
 import { FC } from 'react'
-import { useWindowDimensions } from 'react-native'
+import { TouchableOpacity, useWindowDimensions } from 'react-native'
+import {
+  GAMES_GAME_CARD_WIDTH_PERCENTAGE,
+  GAMES_GAME_GROUP_WIDTH_PERCENTAGE,
+  HORIZONTAL_PADDING_PERCENTAGE,
+} from '../screen'
 
 export interface GameCardProps {
   gameList: any
@@ -8,55 +14,59 @@ export interface GameCardProps {
 }
 
 const GameCard: FC<GameCardProps> = ({ label, gameList }) => {
-  const { width } = useWindowDimensions()
+  const { width } = useContainerDimension()
   const img = gameList.slice(0, 6)
 
-  const StyledImage = styled(Image)({
-    mx: '$1a',
-    borderRadius: 5,
-    height: [160, 250, 330],
-    width: [width / 2.6, width / 2.5, width / 2.3],
-  })
+  const horizontalPad = width * HORIZONTAL_PADDING_PERCENTAGE
+  const cardWidth = width * GAMES_GAME_CARD_WIDTH_PERCENTAGE
+
+  // const cardListWidth = cardWidth * 2 + horizontalPad * 1.5
+  const cardListWidth = width * GAMES_GAME_GROUP_WIDTH_PERCENTAGE
 
   return (
-    <StyledContainer key={label}>
-      <StyledLabel>
-        <StyledTitle>{label}</StyledTitle>
-        <Pressable>
-          <StyledMore>{`>`}</StyledMore>
-        </Pressable>
-      </StyledLabel>
-      <StyledWrapItem>
-        {img.map((r, rindex) => {
-          return (
-            <View sx={{ mx: '$0a' }} key={rindex}>
-              <StyledImage source={r.image} />
-            </View>
-          )
-        })}
-      </StyledWrapItem>
-    </StyledContainer>
+    <View
+      sx={{
+        pl: width * HORIZONTAL_PADDING_PERCENTAGE,
+        flexDirection: 'row',
+      }}
+    >
+      <StyledContainer
+        key={label}
+        sx={{ width: cardListWidth, padding: horizontalPad * 0.5 }}
+      >
+        <StyledLabel sx={{ height: horizontalPad * 3 }}>
+          <Text sx={{ fontSize: [14, 16] }}>{label}</Text>
+          <Pressable>
+            <StyledMore>{`>`}</StyledMore>
+          </Pressable>
+        </StyledLabel>
+        <StyledWrapItem>
+          {img.map((r, rindex) => {
+            return (
+              <TouchableOpacity onPress={() => {}} key={rindex}>
+                <StyledImage width={cardWidth} source={r.image} />
+              </TouchableOpacity>
+            )
+          })}
+        </StyledWrapItem>
+      </StyledContainer>
+    </View>
   )
 }
 
 const StyledContainer = styled(View)({
   bg: '$primary',
   borderRadius: 10,
-  mx: '$6',
-  bottom: '$4',
+  // border to balancer the section header's border
+  borderWidth: 2,
+  borderColor: 'rgb(3, 52, 84)',
 })
 
 const StyledLabel = styled(View)({
   flexDirection: 'row',
   justifyContent: 'space-between',
-  padding: 2,
-})
-
-const StyledTitle = styled(Text)({
-  color: 'white',
-  textTransform: 'capitalize',
-  paddingLeft: '$2a',
-  padding: '$1a',
+  alignItems: 'center',
+  pl: '$3',
 })
 
 const StyledMore = styled(Text)({
@@ -67,6 +77,13 @@ const StyledMore = styled(Text)({
 
 const StyledWrapItem = styled(View)({
   flexDirection: 'row',
+  justifyContent: 'space-evenly',
   flexWrap: 'wrap',
 })
+
+const StyledImage = styled(Image)(({ width }) => ({
+  borderRadius: 5,
+  height: width,
+  width: width,
+}))
 export default GameCard

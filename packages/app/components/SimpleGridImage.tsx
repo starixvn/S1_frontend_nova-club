@@ -1,9 +1,9 @@
+import useContainerDimension from 'app/hooks/useContainerDimension'
 import { Image, styled, View } from 'dripsy'
-import { useWindowDimensions } from 'react-native'
 import GoldLabelFrame from './GoldLabelFrame'
 
 const SimpleGridImage = ({ data }: { data: any[] }) => {
-  const { width, height } = useWindowDimensions()
+  const { width, height } = useContainerDimension()
   const StyledImage = styled(Image)({
     mx: '$1a',
     borderRadius: 10,

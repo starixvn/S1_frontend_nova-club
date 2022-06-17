@@ -21,6 +21,12 @@ import AnnoucementMarquee from './Section/AnnouncementMarquee'
 import { PlayerActions } from 'app/store/playerReducer'
 import { useDispatch } from 'react-redux'
 
+export const HORIZONTAL_PADDING_PERCENTAGE = 0.03
+export const GAMES_GAME_CARD_WIDTH_PERCENTAGE = 0.3
+export const GAMES_GAME_GROUP_WIDTH_PERCENTAGE =
+  GAMES_GAME_CARD_WIDTH_PERCENTAGE * 2 + HORIZONTAL_PADDING_PERCENTAGE * 1.5
+export const GAMES_GAME_GROUP_ROW = 3
+
 const HomeScreen = () => {
   const [selected, setSelected] = useState(null)
   const [updateStatus, setUpdateStatus] = useState('--')
@@ -79,57 +85,6 @@ const HomeScreen = () => {
       sx={{ bg: '$background', flex: 1 }}
       showsVerticalScrollIndicator={false}
     >
-      {/* <Text>{JSON.stringify(state)}</Text>
-      <MotiLink
-        href={'/auth/login'}
-        animate={({ hovered, pressed }) => {
-          'worklet'
-          return {
-            scale: pressed ? 0.9 : hovered ? 1.1 : 1,
-          }
-        }}
-      >
-        <Text>Login Page</Text>
-      </MotiLink>
-
-      <Pressable
-        sx={{ borderWidth: 1, borderColor: '$cyan', p: '$1a' }}
-        onPress={onGetPlayer}
-      >
-        <Text>Get player profile</Text>
-      </Pressable>
-
-      <Pressable
-        sx={{ borderWidth: 1, borderColor: '$cyan', p: '$1a' }}
-        onPress={onLogout}
-      >
-        <Text>Logout</Text>
-      </Pressable> */}
-      {/* 
-      <Select
-        headerTitle={'Period'}
-        buttonTitle="Click here to oopen"
-        buttonProps={{
-          sx: {
-            m: 10,
-          },
-          isActive: false,
-        }}
-        data={[
-          { name: '13', value: 0 },
-          { name: '1321312313', value: 1 },
-        ]}
-        setSelectedValue={setSelected}
-      /> */}
-      {/* 
-      <View sx={{ flexDirection: 'row' }}>
-        <TimerButton title="Request OTP" onPress={handleOtp} ref={OTPRef} />
-        <Button
-          title="Start timer"
-          onPress={() => OTPRef.current && OTPRef.current.startOtpTimer()}
-        />
-      </View> */}
-
       <BannerSection />
       {/* <AnnoucementMarquee /> */}
       <GridSection />
