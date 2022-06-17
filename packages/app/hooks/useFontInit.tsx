@@ -1,4 +1,5 @@
 import { FontSource, useFonts } from 'expo-font'
+import { Platform } from 'react-native'
 
 type FontFamilyMap = Exclude<Parameters<typeof useFonts>[0], string>
 interface UseFontArgs {
@@ -8,7 +9,7 @@ interface UseFontArgs {
 
 export const DEFAULT_ICON = {
   FAMILY: 'Icomoon',
-  FILENAME: 'icomoon.ttf',
+  FILENAME: Platform.OS === 'web' ? '/fonts/icomoon.ttf' : 'icomoon.ttf',
 }
 
 /**

@@ -18,6 +18,7 @@ interface NavigationParamList {
   LoginPage: undefined
   BottomNav: undefined
   RegisterPage: undefined
+  CommissionTablePage: undefined
 }
 
 export function NavigationProvider({
@@ -36,6 +37,7 @@ export function NavigationProvider({
               LoginPage: '/auth/login',
               RegisterPage: '/auth/register',
               ForgotPassword: '/auth/forget-password',
+              CommissionTablePage: '/profile/commission-table',
               DepositPage: {
                 screens: {
                   Deposit: '/deposit',

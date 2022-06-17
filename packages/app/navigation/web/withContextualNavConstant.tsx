@@ -14,7 +14,6 @@ export enum ContextualModuleKey {
 }
 
 // Ignore Dynamic import warning, as module: "esnext" is configured at app/next tsconfig.
-//
 const contextualComponents = {
   deposit: () => import('../../features/deposit'),
   'topup-card': () => import('../../features/deposit/topup-card'),
@@ -28,6 +27,7 @@ const contextualComponents = {
   'forget-password': () => import('../../features/auth/ForgotPassword'),
   prelaunchgame: () => import('../../features/games/PreLaunchGame'),
   'game-url': () => import('../../features/games/GameLoaderPage'),
+  'commission-table': () => import('../../features/profile/commission-table'),
 }
 
 export function getContextualComponent(key: string) {

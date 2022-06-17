@@ -10,7 +10,8 @@ import { PlayerActions } from 'app/store/playerReducer'
 import validation, { getErrorMessage } from 'app/utils/validation'
 import { styled, Text, useSx, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import React, { useState } from 'react'
+import React, { createRef, useLayoutEffect, useRef, useState } from 'react'
+import { TextInput as RNTextField } from 'react-native'
 import { MotiLink } from 'solito/moti'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
@@ -28,6 +29,8 @@ const LoginForm = () => {
 
   const [errorMsg, setErrorMsg] = useState('')
   const { replace } = useRouter()
+  const passwordFieldRef = useRef<RNTextField>(null)
+  const usernameFieldRef = useRef<RNTextField>(null)
 
   const dispatch = useAppDispatch()
 
@@ -52,7 +55,11 @@ const LoginForm = () => {
       }
     } catch (error) {
       const errorMessage = getErrorMessage(error)
-      dispatch(AlertActions.addError({ message: errorMessage }))
+      dispatch(
+        AlertActions.addError({
+          message: errorMessage,
+        })
+      )
     }
   }
 
@@ -91,7 +98,10 @@ const LoginForm = () => {
           onChangeText: handleChange('username'),
           onBlur: handleBlur('username'),
           autoCapitalize: 'none',
-          onSubmitEditing: submitForm,
+          ref: usernameFieldRef,
+          onSubmitEditing: () => {
+            passwordFieldRef.current?.focus()
+          },
         }}
         error={
           touched.username && errors.username ? errors.username : undefined
@@ -106,6 +116,7 @@ const LoginForm = () => {
           onChangeText: handleChange('password'),
           onBlur: handleBlur('password'),
           secureTextEntry: true,
+          ref: passwordFieldRef,
           onSubmitEditing: submitForm,
         }}
         error={

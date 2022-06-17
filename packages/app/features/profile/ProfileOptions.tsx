@@ -14,6 +14,7 @@ const ProfileOptions = () => {
   )
   const toProfileDetails = makeContextualHref('profile-details')
   const toChangePassword = makeContextualHref('change-password')
+  const toCommissionTable = makeContextualHref('commission-table')
 
   const optionsRoute = [
     {
@@ -34,8 +35,8 @@ const ProfileOptions = () => {
       id: 3,
       title: 'Commision Table',
       iconName: 'home',
-      routeWeb: toProfileDetails,
-      route: '/commision-table',
+      routeWeb: toCommissionTable,
+      route: '/profile/commission-table',
     },
     {
       id: 4,
@@ -68,6 +69,7 @@ const ProfileOptions = () => {
       fontColor: '$taupeGray',
     },
   ]
+
   return (
     <View>
       {optionsRoute.map((item) => (

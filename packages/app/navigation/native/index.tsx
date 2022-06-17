@@ -23,6 +23,7 @@ import ProfileDetails from '../../../../apps/next/pages/profile/profile-details'
 import ChangePasswordScreen from '../../../../apps/next/pages/profile/change-password'
 import BankAccountScreen from '../../../../apps/next/pages/profile/bank-account'
 import AddBankAccountScreen from '../../../../apps/next/pages/profile/bank-account/add-bank-account'
+import CommissionTablePage from 'app/features/profile/commission-table'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -43,6 +44,7 @@ const Stack = createStackNavigator<{
   ChangePassword: undefined
   BankAccount: undefined
   AddBankAccount: undefined
+  CommissionTablePage: undefined
 }>()
 
 export function NativeNavigation() {
@@ -197,6 +199,14 @@ export function NativeNavigation() {
       <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
       <Stack.Screen name="BankAccount" component={BankAccountScreen} />
       <Stack.Screen name="AddBankAccount" component={AddBankAccountScreen} />
+
+      <Stack.Screen
+        name="CommissionTablePage"
+        component={CommissionTablePage}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   )
 }

@@ -112,5 +112,8 @@
   "transaction": {
     "transactions": "Transactions"
   },
-  "withdrawal": {}
+  "withdrawal": {},
+  "commission": {
+    "table": "Commission Table"
+  }
 }

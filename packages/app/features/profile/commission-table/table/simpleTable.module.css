@@ -1,0 +1,52 @@
+.simple-table {
+  --table-th-p: 8px;
+  --table-td-p: 6px;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+.simple-table th {
+  border-top-width: 2px;
+  border-bottom-width: 2px;
+  border-left-width: 1px;
+  border-right-width: 1px;
+  border-style: solid;
+  padding: var(--table-th-p);
+}
+
+.simple-table td {
+  border-width: 1px;
+  border-style: solid;
+  padding: var(--table-td-p) var(--table-th-p);
+}
+
+.simple-table th:nth-child(1),
+.simple-table td:nth-child(1) {
+  border-left: none;
+  text-align: left;
+  width: 50%;
+}
+
+.simple-table th:not(:first-child),
+.simple-table td:not(:first-child) {
+  width: 16.67%;
+}
+
+.simple-table th:last-child,
+.simple-table td:last-child {
+  border-right: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .simple-table {
+    font-size: 0.9rem;
+  }
+
+  .simple-table th:nth-child(1),
+  .simple-table td:nth-child(1) {
+    width: 40%;
+  }
+}
