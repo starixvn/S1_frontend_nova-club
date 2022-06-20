@@ -6,6 +6,7 @@ import { ActivityIndicator, useDripsyTheme, View } from 'dripsy'
 import { FormikProps } from 'formik'
 import React, { memo, useCallback, useMemo, useRef, useState } from 'react'
 import { RegisterFormValues } from '.'
+import { TextInput as RNTextInput } from 'react-native'
 
 interface RegisterFormProps {
   formik: FormikProps<RegisterFormValues>
@@ -32,6 +33,9 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
   const [isCheckingUsername, setIsCheckingUsername] = useState(false)
   const oldUsernameRef = useRef('')
   const isUsernameCheckedRef = useRef(false)
+  const passwordFieldRef = useRef<RNTextInput>(null)
+  const confirmPasswordFieldRef = useRef<RNTextInput>(null)
+  const realNameFieldRef = useRef<RNTextInput>(null)
 
   const { theme } = useDripsyTheme()
 
@@ -113,6 +117,9 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
       value: values.username,
       onChangeText: onUsernameChange,
       onBlur: onUsernameBlur,
+      onSubmitEditing: () => {
+        passwordFieldRef.current?.focus()
+      },
       autoCapitalize: 'none',
     }),
     [values.username, onUsernameChange, onUsernameBlur]
@@ -159,7 +166,10 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
           onChangeText: handleChange('password'),
           onBlur: handleBlur('password'),
           secureTextEntry: true,
-          onSubmitEditing: onSubmit,
+          ref: passwordFieldRef,
+          onSubmitEditing: () => {
+            confirmPasswordFieldRef.current?.focus()
+          },
         }}
         error={
           touched.password && errors.password ? errors.password : undefined
@@ -175,7 +185,10 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
           onChangeText: handleChange('confirmPassword'),
           onBlur: handleBlur('confirmPassword'),
           secureTextEntry: true,
-          onSubmitEditing: onSubmit,
+          ref: confirmPasswordFieldRef,
+          onSubmitEditing: () => {
+            realNameFieldRef.current?.focus()
+          },
         }}
         error={
           touched.confirmPassword && errors.confirmPassword
@@ -193,6 +206,7 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
           value: values.realName,
           onChangeText: handleChange('realName'),
           onBlur: handleBlur('realName'),
+          ref: realNameFieldRef,
           onSubmitEditing: onSubmit,
         }}
         error={

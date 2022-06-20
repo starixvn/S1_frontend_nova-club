@@ -25,10 +25,11 @@ export interface TextInputProps {
   _input: DripsyTextInputProps
   _icon?: IconComponentProps | string
   actions?: (FC | TextInputAction)[]
+  endIcon?: React.ReactNode
 }
 
 const TextInput: FC<TextInputProps> = (props) => {
-  const { error, actions, _input } = props
+  const { error, actions, endIcon, _input } = props
   const { secureTextEntry } = _input || {}
 
   const [hidePassword, setHidePassword] = useState(!!secureTextEntry)
@@ -55,6 +56,7 @@ const TextInput: FC<TextInputProps> = (props) => {
             })}
           </TextInputActions>
         )}
+        {endIcon && <TextInputActions>{endIcon}</TextInputActions>}
         {secureTextEntry && (
           <TextInputActions>
             <StyledButtonOpacity

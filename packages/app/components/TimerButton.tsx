@@ -52,12 +52,12 @@ const TimerButton = forwardRef<ITimerButtonForwardRef, ITimerButtonProps>(
     const handleButtonClick = () => {
       if (!disabled && !loading) {
         onPress()
-        setDisabled(true)
       }
     }
 
     useImperativeHandle(ref, () => ({
       startOtpTimer() {
+        setDisabled(true)
         const unixTime = dayjs()
         !isCountDownRunning && startTimer(unixTime)
       },
