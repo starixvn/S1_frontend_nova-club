@@ -1,72 +1,55 @@
-import { View, Text, styled, useDripsyTheme, ActivityIndicator } from 'dripsy'
-import React, { useRef, useState } from 'react'
 import {
   createTable,
   getCoreRowModel,
   useTableInstance,
 } from '@tanstack/react-table'
+import { useCommissionTableQuery } from 'app/services/contentApi'
+import { CommissionTableResult } from 'app/services/contentApi.type'
+import { Currency, currencyListMapper } from 'app/utils/constant'
+import { ActivityIndicator, useDripsyTheme } from 'dripsy'
+import React, { useRef, useState } from 'react'
 import styles from './simpleTable.module.css'
-import { useDummyRtk } from 'utils/rtk'
 
-interface Commission {
-  productName: string
-  cashPlayerComm: string
-  cashPlayerReferralComm: string
-  creditPlayerComm: string
-}
+type Commission = Pick<
+  CommissionTableResult,
+  | 'system_name'
+  | 'game_type'
+  | 'cash_player'
+  | 'cash_player_referrer'
+  | 'credit_player'
+>
 
 const table = createTable().setRowType<Commission>()
 
-const commData: Commission[] = [
-  {
-    productName: 'Saba Sports',
-    cashPlayerComm: '0.5',
-    cashPlayerReferralComm: '0.3',
-    creditPlayerComm: '0.2',
-  },
-  {
-    productName: 'BT Sports',
-    cashPlayerComm: '0.4',
-    cashPlayerReferralComm: '0.6',
-    creditPlayerComm: '0.2',
-  },
-  {
-    productName: 'SBO Sports',
-    cashPlayerComm: '0.5',
-    cashPlayerReferralComm: '0.8',
-    creditPlayerComm: '0.2',
-  },
-]
-
 const tableColumns = [
-  table.createDataColumn('productName', {
-    header: (props) => {
-      console.log(props)
-      return 'Products List'
+  table.createDataColumn('system_name', {
+    header: 'Products List',
+    cell: (props) => {
+      return `${props.row.original?.system_name} ${props.row.original?.game_type}`
     },
   }),
-  table.createDataColumn('cashPlayerComm', {
+  table.createDataColumn('cash_player', {
     header: 'Cash Player',
   }),
-  table.createDataColumn('cashPlayerReferralComm', {
+  table.createDataColumn('cash_player_referrer', {
     header: 'Cash Player Referral',
   }),
-  table.createDataColumn('creditPlayerComm', {
+  table.createDataColumn('credit_player', {
     header: 'Credit player',
   }),
 ]
 
 const SimpleTable = () => {
-  const [data, setData] = useState(() => [...commData])
-  // const [columns] = useState<typeof tableColumns>(() => [...tableColumns])
-  const tableRef = useRef(null)
+  const [columns] = useState<typeof tableColumns>(() => [...tableColumns])
 
   const { theme } = useDripsyTheme()
 
-  const { data: columns, isLoading } = useDummyRtk(tableColumns)
+  const { data, isLoading } = useCommissionTableQuery({
+    currency: currencyListMapper[Currency.VND]!,
+  })
 
   const tableInstance = useTableInstance(table, {
-    data,
+    data: data?.data ?? [],
     columns,
     getCoreRowModel: getCoreRowModel(),
   })

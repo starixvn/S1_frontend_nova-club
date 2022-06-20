@@ -2,7 +2,12 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 import { LANGUAGE_CODE } from 'app/constant/language'
 import { axiosBaseQuery } from './common/axiosBaseQuery'
 import { EndpointBuilderType, IResponse } from './common/types'
-import { BannerResult, LeaderboardResult } from './contentApi.type'
+import {
+  BannerResult,
+  CommissionQueryArgs,
+  CommissionTableResult,
+  LeaderboardResult,
+} from './contentApi.type'
 
 /**
  * @param builder Pass builder from `createApi` *endpoints*
@@ -21,6 +26,17 @@ const contentEndpoints = (builder: EndpointBuilderType) => {
         method: 'GET',
       }),
     }),
+    commissionTable: builder.query<
+      IResponse<CommissionTableResult[]>,
+      CommissionQueryArgs
+    >({
+      query: ({ currency }) => ({
+        url: `/player_api/getProviderAndGameTypeCommission`,
+        data: {
+          currency,
+        },
+      }),
+    }),
   }
 }
 
@@ -37,4 +53,5 @@ const contentApi = createApi({
 
 export default contentApi
 export { contentEndpoints }
-export const { useBannerQuery, useLeaderboardQuery } = contentApi
+export const { useBannerQuery, useLeaderboardQuery, useCommissionTableQuery } =
+  contentApi
