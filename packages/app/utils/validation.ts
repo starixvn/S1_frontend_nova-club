@@ -68,6 +68,11 @@ const validation = {
       },
       message: 'validation.invalidPhone',
     }),
+
+  verifyCode: Yup.string()
+    .required('validation.required')
+    .min(6, 'validation.otpLength')
+    .max(6, 'validation.otpLength'),
 }
 
 export const getErrorMessage = (error: any) => {

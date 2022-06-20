@@ -52,12 +52,12 @@ const TimerButton = forwardRef<ITimerButtonForwardRef, ITimerButtonProps>(
     const handleButtonClick = () => {
       if (!disabled && !loading) {
         onPress()
-        setDisabled(true)
       }
     }
 
     useImperativeHandle(ref, () => ({
       startOtpTimer() {
+        setDisabled(true)
         const unixTime = dayjs()
         !isCountDownRunning && startTimer(unixTime)
       },
@@ -83,7 +83,7 @@ const TimerButton = forwardRef<ITimerButtonForwardRef, ITimerButtonProps>(
         {!loading && (
           <Text
             sx={{
-              fontSize: [12, 20, 25],
+              fontSize: [12, 14, 16],
               ...textSx,
             }}
             {...textProps}

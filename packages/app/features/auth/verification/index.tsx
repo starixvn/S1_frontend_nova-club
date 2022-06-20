@@ -8,7 +8,8 @@ import { getErrorMessage } from 'app/utils/validation'
 import { Pressable, Text, useDripsyTheme, View } from 'dripsy'
 import Checkbox from 'expo-checkbox'
 import { FormikProps } from 'formik'
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
+import { TextInput as RNTextField } from 'react-native'
 import AuthLayout from '../layout/AuthLayout'
 import { RegisterFormValues } from '../register'
 
@@ -36,18 +37,12 @@ const VerificationForm = ({ formik, onBack }: VerificationFormProps) => {
   const { theme } = useDripsyTheme()
   const dispatch = useAppDispatch()
 
+  const otpFieldRef = useRef<RNTextField>(null)
+
   const [sendRegistrationOtp, { isLoading }] = useSendRegistrationOtpMutation()
 
   const onCheckboxCheck = () => {
     setFieldValue('terms', !values.terms)
-  }
-
-  const onSendOtp = async () => {
-    const isValid = await isContactNumValid()
-
-    if (isValid) {
-      sendOTP()
-    }
   }
 
   const isContactNumValid = async () => {
@@ -63,14 +58,14 @@ const VerificationForm = ({ formik, onBack }: VerificationFormProps) => {
     try {
       const { data, message, success } = await sendRegistrationOtp({
         username: values.username,
-        contactNumber: values.contactNumber,
+        // WIP: Prefix should not be hardcoded
+        contactNumber: '84' + values.contactNumber,
       }).unwrap()
 
       OTPRef.current?.startOtpTimer()
 
       if (success) {
         dispatch(AlertActions.addSuccess(message))
-        setFieldValue('verifyCode', data?.verify_code ?? '')
       }
     } catch (error) {
       const errorMessage = getErrorMessage(error)
@@ -78,10 +73,19 @@ const VerificationForm = ({ formik, onBack }: VerificationFormProps) => {
     }
   }
 
+  const onSendOtp = async () => {
+    const isValid = await isContactNumValid()
+
+    if (isValid) {
+      sendOTP()
+    }
+  }
+
   return (
     <AuthLayout headerDesc={'ACCOUNT VERIFICATION'} onBack={onBack}>
       <TextInput
         _icon="avatar"
+        // WIP: Prefix should not be hardcoded
         prefix="+84"
         _input={{
           placeholder: '',
@@ -89,7 +93,9 @@ const VerificationForm = ({ formik, onBack }: VerificationFormProps) => {
           onChangeText: handleChange('contactNumber'),
           onBlur: handleBlur('contactNumber'),
           autoCapitalize: 'none',
-          onSubmitEditing: submitForm,
+          onSubmitEditing: () => {
+            otpFieldRef.current?.focus()
+          },
           keyboardType: 'number-pad',
         }}
         error={
@@ -107,6 +113,7 @@ const VerificationForm = ({ formik, onBack }: VerificationFormProps) => {
           value: values.verifyCode,
           onChangeText: handleChange('verifyCode'),
           onBlur: handleBlur('verifyCode'),
+          ref: otpFieldRef,
           onSubmitEditing: submitForm,
           keyboardType: 'number-pad',
         }}
@@ -115,28 +122,27 @@ const VerificationForm = ({ formik, onBack }: VerificationFormProps) => {
             ? errors.verifyCode
             : undefined
         }
-        actions={[
-          () => (
-            <TimerButton
-              ref={OTPRef}
-              title="Send"
-              loading={isLoading}
-              onPress={onSendOtp}
-              sx={{
-                width: 'auto',
-                backgroundColor: theme.colors.$gray,
-                m: 0,
-                px: '$3',
-                minWidth: 53,
-              }}
-              _text={{
-                sx: {
-                  color: theme.colors.$black,
-                },
-              }}
-            ></TimerButton>
-          ),
-        ]}
+        endIcon={
+          <TimerButton
+            accessibilityRole="button"
+            ref={OTPRef}
+            title="Send"
+            loading={isLoading}
+            onPress={onSendOtp}
+            sx={{
+              width: 'auto',
+              backgroundColor: theme.colors.$gray,
+              m: 0,
+              px: '$3',
+              minWidth: 53,
+            }}
+            _text={{
+              sx: {
+                color: theme.colors.$black,
+              },
+            }}
+          ></TimerButton>
+        }
         sx={{ mt: '$3' }}
       />
 
@@ -162,14 +168,15 @@ const VerificationForm = ({ formik, onBack }: VerificationFormProps) => {
         </View>
         <View sx={{ flexDirection: 'row', flexShrink: 1 }}>
           <Pressable
+            // @ts-expect-error
             accessibilityRole="label"
             sx={{ pl: '$2', flexDirection: 'row', flexShrink: 1 }}
             onPress={onCheckboxCheck}
           >
-            <Text variant="xs">
+            <Text variant="sm">
               I have read & agree the{' '}
               <Text
-                variant="xs"
+                variant="sm"
                 sx={{ color: '$orange', textDecorationLine: 'underline' }}
               >
                 user agreement

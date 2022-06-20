@@ -31,7 +31,18 @@ export type LogoutQueryArgs = Pick<LoginQueryArgs, 'username'>
 
 export type CheckUsernameQueryArgs = Pick<LoginQueryArgs, 'username'>
 
-export type SendRegistrationOtpQueryArgs = {
+export interface RegisterOtpQueryArgs {
   contactNumber: string
   username: string
+}
+
+export interface ForgotPasswordOtpQueryArgs {
+  contactNumber: string
+}
+
+export interface PasswordRecoveryQeuryArgs {
+  contactNumber: string
+  cpassword: string
+  password: string
+  verify_code: string
 }

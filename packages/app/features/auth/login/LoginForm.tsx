@@ -125,13 +125,10 @@ const LoginForm = () => {
         sx={{ mt: '$3' }}
       />
 
-      <View sx={{ alignItems: 'flex-end' }}>
+      <View sx={{ alignItems: 'flex-end', mt: '$2' }}>
         <MotiLink
           href={to}
           as={`/auth/forget-password`}
-          style={sx({
-            mt: '$5',
-          })}
           animate={({ hovered, pressed }) => {
             'worklet'
             return {
@@ -143,7 +140,6 @@ const LoginForm = () => {
             variant="md"
             sx={{
               opacity: 0.43,
-              mt: '$1a',
             }}
           >
             Forgot Password?
@@ -167,26 +163,27 @@ const LoginForm = () => {
           </Button>
         </View>
 
-        <StyledLink
-          href={'/auth/register'}
-          animate={({ hovered, pressed }) => {
-            'worklet'
-            return {
-              scale: pressed ? 0.9 : hovered ? 1.1 : 1,
-            }
-          }}
-          sx={{ mt: '$5' }}
-        >
-          <Text
-            sx={{
-              textAlign: 'center',
-              fontWeight: 'bold',
-              color: '$orange',
+        <View sx={{ mt: '$5' }}>
+          <StyledLink
+            href={'/auth/register'}
+            animate={({ hovered, pressed }) => {
+              'worklet'
+              return {
+                scale: pressed ? 0.9 : hovered ? 1.1 : 1,
+              }
             }}
           >
-            Register
-          </Text>
-        </StyledLink>
+            <Text
+              sx={{
+                textAlign: 'center',
+                fontWeight: 'bold',
+                color: '$orange',
+              }}
+            >
+              Register
+            </Text>
+          </StyledLink>
+        </View>
       </View>
     </>
   )
