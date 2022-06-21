@@ -26,6 +26,7 @@
     "oldPassword": "Old Password",
     "newPassword": "New Password",
     "confirmPassword": "Confirm Password",
+    "enter": "Enter",
     "enterOldPassword": "Please enter old password",
     "enterNewPassword": "Please enter new password",
     "enterConfirmPassword": "Please confirm password",
@@ -123,6 +124,15 @@
   },
   "withdrawal": {},
   "commission": {
-    "table": "Commission Table"
+    "table": "Commission Table",
+    "productLists": "Products List",
+    "cashPlayer": "Cash Player",
+    "cashPlayerReferral": "Cash Player Referral",
+    "creditPlayer": "Credit player"
+  },
+  "auth": {
+    "forgotPassword": "FORGOT PASSWORD",
+    "enterNewPassword": "Please enter your New Password",
+    "enterOtp": "Please enter OTP"
   }
 }

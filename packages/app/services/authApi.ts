@@ -4,9 +4,11 @@ import {
   LoginQueryArgs,
   LoginResult,
   LogoutQueryArgs,
+  PasswordRecoveryQeuryArgs,
   RegisterQueryArgs,
   RegisterResult,
-  SendRegistrationOtpQueryArgs,
+  RegisterOtpQueryArgs,
+  ForgotPasswordOtpQueryArgs,
 } from './authApi.type'
 import { axiosBaseQuery } from './common/axiosBaseQuery'
 import {
@@ -55,13 +57,38 @@ const authEndpoints = (builder: EndpointBuilderType) => {
     }),
     sendRegistrationOtp: builder.mutation<
       IResponse<{ verify_code: string }>,
-      SendRegistrationOtpQueryArgs
+      RegisterOtpQueryArgs
     >({
       query: ({ contactNumber, username }) => ({
         url: `/player_api/sendRegistrationOtp`,
         data: {
           contactNumber,
           username,
+        },
+      }),
+    }),
+    sendPasswordRecoveryOtp: builder.mutation<
+      IResponse<{ verify_code: string }>,
+      ForgotPasswordOtpQueryArgs
+    >({
+      query: ({ contactNumber }) => ({
+        url: `/player_api/passwordRecoveryOtp`,
+        data: {
+          contactNumber,
+        },
+      }),
+    }),
+    passwordRecovery: builder.mutation<
+      IResponse<undefined>,
+      PasswordRecoveryQeuryArgs
+    >({
+      query: ({ contactNumber, cpassword, password, verify_code }) => ({
+        url: `/player_api/passwordRecovery`,
+        data: {
+          contactNumber,
+          cpassword,
+          password,
+          verify_code,
         },
       }),
     }),
@@ -87,6 +114,8 @@ export const {
   useLazyCheckUsernameQuery,
   useCheckUsernameQuery,
   useSendRegistrationOtpMutation,
+  useSendPasswordRecoveryOtpMutation,
+  usePasswordRecoveryMutation,
 } = authApi
 
 /**

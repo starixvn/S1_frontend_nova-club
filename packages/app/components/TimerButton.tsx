@@ -83,7 +83,7 @@ const TimerButton = forwardRef<ITimerButtonForwardRef, ITimerButtonProps>(
         {!loading && (
           <Text
             sx={{
-              fontSize: [12, 20, 25],
+              fontSize: [12, 14, 16],
               ...textSx,
             }}
             {...textProps}
