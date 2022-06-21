@@ -7,6 +7,7 @@ import {
   ScrollView,
   styled,
   Text,
+  useDripsyTheme,
   View,
 } from 'dripsy'
 import React, { ComponentProps, createRef, forwardRef } from 'react'
@@ -53,6 +54,7 @@ const BankSelectorActionSheet = forwardRef<
   const { t } = useLocalization()
   const { headerTitle, ...restActionSheetProps } = _actionSheet || {}
   const { isLoading, selectedData, ...restFlatListProps } = _flatList || {}
+  const { theme } = useDripsyTheme()
 
   const _ref = createRef()
 
@@ -96,6 +98,7 @@ const BankSelectorActionSheet = forwardRef<
         overflow: 'hidden',
         backgroundColor: 'transparent',
         borderRadius: 0,
+        maxWidth: theme.sizes.container,
       }}
       {...restActionSheetProps}
     >

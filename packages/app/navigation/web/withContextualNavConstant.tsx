@@ -16,12 +16,15 @@ export enum ContextualModuleKey {
 // Ignore Dynamic import warning, as module: "esnext" is configured at app/next tsconfig.
 const contextualComponents = {
   deposit: () => import('../../features/deposit'),
+  'local-bank': () => import('../../features/deposit/local-bank'),
+  'online-bank': () => import('../../features/deposit/online-bank'),
   'topup-card': () => import('../../features/deposit/topup-card'),
   crypto: () => import('app/features/deposit/crypto'),
   withdrawal: () => import('app/features/withdrawal'),
   'bank-account': () => import('app/features/profile/bank-account'),
   'add-bank-account': () =>
     import('app/features/profile/bank-account/add-bank-account'),
+  history: () => import('app/features/profile/history'),
   'profile-details': () => import('app/features/profile/profile-details'),
   'change-password': () => import('app/features/profile/change-password'),
   'forget-password': () => import('../../features/auth/ForgotPassword'),

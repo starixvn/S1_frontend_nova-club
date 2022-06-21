@@ -3,31 +3,34 @@ import { PageWithBackHeader } from 'app/components/layout/Page'
 import useLocalization from 'app/provider/localization'
 import { styled, Text, View } from 'dripsy'
 import React, { useEffect, useRef } from 'react'
+import { RootState, useAppSelector } from 'app/provider/redux/store'
+import { ProfileResult } from 'app/services/playerApi.type'
 
 const ProfileDetails = () => {
   const { t } = useLocalization()
-  const ref = useRef(null)
-  const user = {
-    name: 'Tech Test S1',
-    username: 'TechTestS1',
-    phone: '60111222001',
-    referrer: 'TechTestS2',
-    currency: 'MYR',
-  }
+  const user = useAppSelector<ProfileResult>(
+    (state: RootState) => state.player.currentLoginUser
+  )
 
   return (
     <PageWithBackHeader header={{ title: t('menu.profile') }}>
       <StyledViewPage>
         <TextField>
-          <TextField.Label label="profile.details.realname" value={user.name} />
+          <TextField.Label
+            label="profile.details.realname"
+            value={user.firstName}
+          />
           <TextField.Label
             label="profile.details.username"
             value={user.username}
           />
-          <TextField.Label label="profile.details.phone" value={user.phone} />
+          <TextField.Label
+            label="profile.details.phone"
+            value={user.contractNumber}
+          />
           <TextField.Label
             label="profile.details.referrer"
-            value={user.referrer}
+            value={user.referral_code}
           />
           <TextField.Label
             label="profile.details.currency"

@@ -1,4 +1,5 @@
 import useLocalization from 'app/provider/localization'
+import { copyToClipboard } from 'app/utils'
 import {
   FlatList,
   styled,
@@ -24,6 +25,7 @@ import BankSelectorActionSheet, {
   BankSelectorActionSheetProps,
   BankSelectorFlatListProps,
 } from './BankSelectorActionSheet'
+import { Button } from './form/Button'
 import GradientBox from './GradientBox'
 import Icon from './Icon'
 
@@ -39,6 +41,7 @@ type TextFieldProps = {
 type TextFieldLabelProps = {
   label: string
   value: string
+  copy?: boolean
 }
 
 type DripsyTextInputProps = ComponentProps<typeof DripsyTextInput>
@@ -67,17 +70,45 @@ const TextField = ({ labelWidth = 0.8, children }: TextFieldProps) => {
   )
 }
 
-const TextFieldLabel = ({ label, value }: TextFieldLabelProps) => {
+const TextFieldLabel = ({
+  label,
+  value,
+  copy = false,
+  ...rest
+}: TextFieldLabelProps) => {
   const { t } = useLocalization()
   const { labelWidth } = useContext(GradientTextBoxContext)
 
   return (
-    <GradientBox sx={{ my: '$1' }}>
+    <GradientBox sx={{ my: '$1' }} {...rest}>
       <StyledView sx={{ color: '$PaleBlue' }}>
         <StyledTextLabel sx={{ flex: labelWidth }}>
           {t(label)} :
         </StyledTextLabel>
-        <StyledTextValue>{value}</StyledTextValue>
+        <View
+          sx={{
+            flex: 1,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <StyledTextValue>{value}</StyledTextValue>
+
+          {copy && (
+            <Button
+              variant="sm"
+              rounded
+              fill={{ type: 'border', color: '$lightNavyBlue' }}
+              onPress={() => {
+                copyToClipboard(value)
+                console.log('value', value)
+              }}
+            >
+              <Button.Label>{t('common.copy')}</Button.Label>
+            </Button>
+          )}
+        </View>
       </StyledView>
     </GradientBox>
   )
@@ -235,11 +266,13 @@ const StyledTextLabel = styled(Text)(() => ({
 }))
 
 const StyledTextValue = styled(Text)(() => ({
-  flex: 1,
+  // flex: 1,
   fontWeight: 'bold',
 }))
 
-const StyledTextInput = styled(DripsyTextInput)(() => ({}))
+const StyledTextInput = styled(DripsyTextInput)(() => ({
+  flex: 1,
+}))
 
 const TextInputHints = styled(View)(() => ({
   justifyContent: 'center',

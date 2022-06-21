@@ -4,10 +4,14 @@ import bankApi from 'app/services/bank'
 import changePasswordApi from 'app/services/changePassword'
 import contentApi from 'app/services/contentApi'
 import depositApi from 'app/services/deposit'
+import dummyDepositApi from 'app/services/dummyDeposit'
 import gameApi from 'app/services/gameApi'
 import playerApi from 'app/services/playerApi'
+import pokemonApi from 'app/services/pokemon'
+import walletApi from 'app/services/wallet'
 import withdrawalApi from 'app/services/withdrawal'
 import { alertReducer } from 'app/store/alert'
+import bankReducer from 'app/store/bankReducer'
 import playerReducer, {
   PlayerState,
   playerInitialState,
@@ -59,7 +63,10 @@ const middlerwares = [
   depositApi.middleware,
   gameApi.middleware,
   playerApi.middleware,
+  pokemonApi.middleware,
+  walletApi.middleware,
   withdrawalApi.middleware,
+  dummyDepositApi.middleware,
 ]
 
 const rootReducer = combineReducers({
@@ -70,8 +77,12 @@ const rootReducer = combineReducers({
   [depositApi.reducerPath]: depositApi.reducer,
   [gameApi.reducerPath]: gameApi.reducer,
   [playerApi.reducerPath]: playerApi.reducer,
+  [pokemonApi.reducerPath]: pokemonApi.reducer,
+  [walletApi.reducerPath]: walletApi.reducer,
   [withdrawalApi.reducerPath]: withdrawalApi.reducer,
+  [dummyDepositApi.reducerPath]: dummyDepositApi.reducer,
   alert: alertReducer,
+  bank: bankReducer,
   player: playerReducer,
   setting: settingReducer,
 })

@@ -5,9 +5,11 @@ import { useRouter } from 'solito/router'
 import { DripsyGradient } from '../Gradient'
 import Icon from '../Icon'
 import { getStatusBarHeight } from 'react-native-iphone-x-helper'
+import useLocalization from 'app/provider/localization'
 
 const Header = ({ title }: { title: string }) => {
   const isAndroid = Platform.OS === 'android'
+  const { t } = useLocalization()
   const { back } = useRouter()
   const onGoBack = () => {
     back()
@@ -32,7 +34,7 @@ const Header = ({ title }: { title: string }) => {
         </BouncePressable>
         <View sx={{ alignItems: 'center', flex: 0.9 }}>
           <Text sx={{ fontSize: 20, color: 'white', fontWeight: 'bold' }}>
-            {title}
+            {t(title)}
           </Text>
         </View>
       </StyledTop>

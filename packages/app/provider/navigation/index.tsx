@@ -18,6 +18,7 @@ interface NavigationParamList {
   LoginPage: undefined
   BottomNav: undefined
   RegisterPage: undefined
+  WithdrawalPage: undefined
   CommissionTablePage: undefined
 }
 
@@ -41,10 +42,13 @@ export function NavigationProvider({
               DepositPage: {
                 screens: {
                   Deposit: '/deposit',
+                  LocalBank: '/deposit/local-bank',
+                  OnlineBank: '/deposit/online-bank',
                   TopupCard: '/deposit/topup-card',
                   Crypto: '/deposit/crypto',
                 },
               },
+              WithdrawalPage: '/withdrawal',
               BottomNav: {
                 screens: {
                   Home: '',
@@ -60,6 +64,7 @@ export function NavigationProvider({
               ChangePassword: '/profile/change-password',
               BankAccount: '/profile/bank-account',
               AddBankAccount: '/profile/bank-account/add-bank-account',
+              History: '/profile/history',
               PreLaunchGame: '/games/prelaunchgame',
               CustomerSupportPage: '/customer-support',
               GameLoaderPage: '/games/gameUrl',

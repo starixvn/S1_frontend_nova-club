@@ -35,6 +35,8 @@ export const PageWithBackHeader = ({ children, header, ...rest }) => {
       <Page
         sx={{
           minHeight: 0,
+          bg: '$secondary',
+          flex: 1,
         }}
         {...rest}
       >

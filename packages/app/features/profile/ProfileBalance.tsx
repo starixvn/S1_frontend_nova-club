@@ -1,35 +1,26 @@
 import { Gradient } from '@dripsy/gradient'
-import Divider from 'app/components/Divider'
-import IconButton from 'app/components/form/IconButton'
-import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import useLocalization from 'app/provider/localization'
+import { RootState, useAppSelector } from 'app/provider/redux/store'
+import { usePlayerBalanceQuery } from 'app/services/wallet'
+import { PlayerBalanceResult } from 'app/services/wallet.type'
 import { AnimateHeight } from 'app/transitions/animate-height'
-import { styled, StyledProps, SxProp, Text, View } from 'dripsy'
-import { AnimatePresence, motify, MotiView, useDynamicAnimation } from 'moti'
+import { styled, SxProp, Text, View } from 'dripsy'
+import { AnimatePresence, motify } from 'moti'
 import { MotiPressable } from 'moti/interactions'
 import React, { useState } from 'react'
-import { StyleSheet } from 'react-native'
-import {
-  TapGestureHandler,
-  TapGestureHandlerGestureEvent,
-} from 'react-native-gesture-handler'
-import { useAnimatedGestureHandler } from 'react-native-reanimated'
 
 const ProfileBalance = () => {
   const [isExtend, setIsExtend] = useState(false)
-  // const animation = useDynamicAnimation(() => {
-  //   // optional function that returns your initial style
-  //   return {
-  //     height: 100,
-  //   }
-  // })
+  const user = useAppSelector<PlayerBalanceResult>(
+    (state: RootState) => state.player.currentLoginUser
+  )
+  const { data } = usePlayerBalanceQuery({ username: user?.username })
 
   const handlePress = () => {
     setIsExtend(!isExtend)
-    // animation.animateTo({ height: 200 })
   }
-
+  console.log('data', data)
   const { t } = useLocalization()
 
   return (
@@ -45,7 +36,15 @@ const ProfileBalance = () => {
         >
           <BalanceItem
             title={t('common.balance')}
-            value="88K"
+            value={
+              isNaN(
+                parseInt(data?.data?.main?.balance) +
+                  parseInt(data?.data?.main?.reward)
+              )
+                ? 0
+                : parseInt(data?.data?.main?.balance) +
+                  parseInt(data?.data?.main?.reward)
+            }
             size="large"
             _sx={{ justifyContent: 'center' }}
           />
@@ -90,14 +89,14 @@ const ProfileBalance = () => {
                 >
                   <BalanceItem
                     title="Cash"
-                    value="86K"
+                    value={data?.data?.main?.balance ?? 0}
                     _sx={{
                       pr: '$7',
                     }}
                   />
                   <BalanceItem
                     title="Reward"
-                    value="2K"
+                    value={data?.data?.main?.reward ?? 0}
                     _sx={{
                       borderLeftWidth: 1,
                       pl: '$7',

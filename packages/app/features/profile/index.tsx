@@ -1,11 +1,10 @@
-import AlertModal from 'app/components/modal/AlertModal'
 import withContextualNav from 'app/navigation/web/withContextualNav'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { usePlayerProfileQuery } from 'app/services/playerApi'
 import { PlayerActions } from 'app/store/playerReducer'
-import { ActivityIndicator, ScrollView, Text } from 'dripsy'
+import { ScrollView, Text } from 'dripsy'
 import React, { useEffect } from 'react'
 import { RefreshControl } from 'react-native'
 import { useDispatch } from 'react-redux'
@@ -43,7 +42,6 @@ const ProfileScreen = () => {
         <RefreshControl refreshing={refreshing} onRefresh={refetch} />
       }
     >
-      {/* <AlertModal /> */}
       <ProfileUser username={user?.username} />
       <ProfileBalance />
       <Text variant="xs" sx={{ textAlign: 'center' }}>

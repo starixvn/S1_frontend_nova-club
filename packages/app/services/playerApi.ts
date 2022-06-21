@@ -1,7 +1,14 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import { axiosBaseQuery } from './common/axiosBaseQuery'
 import { EndpointBuilderType, IResponse } from './common/types'
-import { ProfileQueryArgs, ProfileResult } from './playerApi.type'
+import {
+  OverviewArgs,
+  OverviewResult,
+  ProfileQueryArgs,
+  ProfileResult,
+  ReportArgs,
+  ReportResult,
+} from './playerApi.type'
 
 const playerEndpoints = (builder: EndpointBuilderType) => {
   return {
@@ -11,6 +18,27 @@ const playerEndpoints = (builder: EndpointBuilderType) => {
         method: 'POST',
         data: {
           username,
+        },
+      }),
+    }),
+    playerOverview: builder.query<IResponse<OverviewResult>, OverviewArgs>({
+      query: (queryArgs) => ({
+        url: `/player_api/getPlayerOverview`,
+        method: 'POST',
+        data: {
+          ...queryArgs,
+        },
+      }),
+      transformResponse: (res: IResponse<OverviewResult>): OverviewResult => {
+        return res.data
+      },
+    }),
+    playerReport: builder.query<IResponse<ReportResult>, ReportArgs>({
+      query: (queryArgs) => ({
+        url: `/player_api/getPlayerReport`,
+        method: 'POST',
+        data: {
+          ...queryArgs,
         },
       }),
     }),
@@ -27,4 +55,9 @@ const playerApi = createApi({
 
 export default playerApi
 export { playerEndpoints }
-export const { usePlayerProfileQuery, useLazyPlayerProfileQuery } = playerApi
+export const {
+  usePlayerProfileQuery,
+  useLazyPlayerProfileQuery,
+  usePlayerOverviewQuery,
+  usePlayerReportQuery,
+} = playerApi

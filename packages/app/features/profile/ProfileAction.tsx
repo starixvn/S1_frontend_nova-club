@@ -26,6 +26,7 @@ const ProfileAction = () => {
   const toDeposit = makeContextualHref('deposit')
   const toWithdrawal = makeContextualHref('withdrawal')
   const toBankAccount = makeContextualHref('bank-account')
+  const toHistory = makeContextualHref('history')
 
   return (
     <StyledView>
@@ -53,7 +54,7 @@ const ProfileAction = () => {
         gradient="lightYellow"
         icon="lc"
         title="menu.history"
-        onPress={handleOnPress}
+        onPress={() => push(toHistory, '/profile/history')}
       />
     </StyledView>
   )

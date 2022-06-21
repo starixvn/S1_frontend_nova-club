@@ -1,13 +1,14 @@
 import { Currency, currencyListMapper } from './constant'
+import * as Clipboard from 'expo-clipboard'
 
-// export function copyToClipboard(
-//     message: string,
-//     onCopied?: (msg: string) => void,
-//   ) {
-//     Clipboard.setString(message);
-//     onCopied && onCopied(message);
-//     // SimpleToast.show(t('common.copied', { message }), SimpleToast.SHORT);
-//   }
+export async function copyToClipboard(
+  message: string,
+  onCopied?: (msg: string) => void
+) {
+  await Clipboard.setStringAsync(message)
+  onCopied && onCopied(message)
+  // SimpleToast.show(t('common.copied', { message }), SimpleToast.SHORT);
+}
 
 export function toCurrency(
   amount: number,
@@ -98,4 +99,15 @@ export function toRealAmount(
   }
 
   return Math.floor(display)
+}
+
+export function toCleanAmount(text: string) {
+  if (text != null) {
+    const cleanText = text.replace(/[^0-9]/g, '')
+    // if (cleanText === values.amount) return
+    let amountNumber = parseFloat(cleanText)
+    if (isNaN(amountNumber)) amountNumber = 0
+
+    return { cleanText, amountNumber }
+  }
 }

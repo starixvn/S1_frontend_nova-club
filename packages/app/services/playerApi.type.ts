@@ -3,6 +3,7 @@ export interface ProfileResult {
   birthdate: string
   contractNumber: string
   crypto_withdrawal: boolean
+  currency: string
   email: string
   firstName: string
   gender: string
@@ -19,4 +20,45 @@ export interface ProfileResult {
 
 export interface ProfileQueryArgs {
   username: string
+}
+
+/**
+ * *Player Overview
+ */
+export type OverviewArgs = {
+  username: string
+}
+
+export type OverviewResult = {
+  self_winloss: string
+  self_turnover: string
+  self_realbet: string
+  circle_winloss: string
+  circle_turnover: string
+  circle_realbet: string
+  circle_direct: number
+}
+
+/**
+ * *Player Report
+ */
+export enum ReportTransType {
+  ALL = 'all',
+  DEPOSIT = 'deposit',
+  WITHDRAWAL = 'withdrawal',
+  REWARD = 'reward',
+}
+
+export type ReportArgs = {
+  limit: number
+  offset: number
+  time_from: string
+  time_to: string
+  trans_type: ReportTransType
+  username: string
+}
+
+export type ReportResult = {
+  row_count_total: number
+  rows: []
 }

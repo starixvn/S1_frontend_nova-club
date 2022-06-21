@@ -1,19 +1,21 @@
-import IconButton from 'app/components/form/IconButton'
 import GradientBox from 'app/components/GradientBox'
 import Icon from 'app/components/Icon'
 import BouncePressable from 'app/pressable/BouncePressable'
-import { Pressable, styled, Text, useDripsyTheme, View } from 'dripsy'
+import useLocalization from 'app/provider/localization'
+import { styled, Text, useDripsyTheme, View } from 'dripsy'
 import React from 'react'
 import { useRouter } from 'solito/router'
 
 const ProfileOverview = () => {
+  const { t } = useLocalization()
   const { theme } = useDripsyTheme()
   const { push } = useRouter()
-
   return (
     <StyledGradientBox>
       <StyledOverView>
-        <Text sx={{ fontWeight: 'bold' }}>OVERVIEW</Text>
+        <Text sx={{ fontWeight: 'bold' }}>
+          {t('profile.overview.title').toUpperCase()}
+        </Text>
         <BouncePressable
           sx={{
             flexDirection: 'row',

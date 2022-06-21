@@ -1,7 +1,9 @@
+import BouncePressable from 'app/pressable/BouncePressable'
 import React, { useEffect, useRef } from 'react'
 import { FlatList, ScrollView, StyleSheet, View } from 'react-native'
-import * as Animatable from 'react-native-animatable'
+import { AnimatePresence, motify } from 'moti'
 import IconButton from '../form/IconButton'
+import { styled } from 'dripsy'
 
 type TriggerRefType =
   | InstanceType<typeof FlatList>
@@ -23,7 +25,7 @@ const ScrollToTop = ({
   showButton,
   ...restProps
 }: ScrollToTopProps) => {
-  const animationViewRef = useRef<Animatable.View & View>(null)
+  // const animationViewRef = useRef<Animatable.View & View>(null);
 
   const scrollToTop = () => {
     if (!triggerRef?.current) {
@@ -39,39 +41,39 @@ const ScrollToTop = ({
   }
 
   useEffect(() => {
-    if (showButton) {
-      animationViewRef.current?.zoomIn?.(ANIMATION_DURATION)
-      return
-    }
-    animationViewRef.current?.zoomOut?.(ANIMATION_DURATION)
+    // if (showButton) {
+    //   animationViewRef.current?.zoomIn?.(ANIMATION_DURATION);
+    //   return;
+    // }
+    // animationViewRef.current?.zoomOut?.(ANIMATION_DURATION);
+    console.log('showButton', showButton)
   }, [showButton])
 
   return (
-    <Animatable.View
-      ref={animationViewRef}
-      duration={150}
-      style={[
-        styles.floatingButton,
-        {
-          // bottom: bottom ?? getScaledSize(25),
-          // right: right ?? getScaledSize(10),
-          bottom: bottom ?? 25,
-          right: right ?? 10,
-        },
-      ]}
-    >
-      <IconButton {...restProps} name="cross" size={28} onPress={scrollToTop} />
-    </Animatable.View>
+    <AnimatePresence>
+      {showButton && (
+        <StyledIconButton
+          size={48}
+          onPress={scrollToTop}
+          name="cross"
+          sx={{
+            bottom: bottom ?? 25,
+            right: right ?? 10,
+          }}
+          {...restProps}
+        />
+      )}
+    </AnimatePresence>
   )
 }
 
 export default ScrollToTop
 
-const styles = StyleSheet.create({
-  floatingButton: {
-    marginRight: 10,
-    borderRadius: 50,
-    backgroundColor: '#fab617',
-    position: 'absolute',
-  },
-})
+// const MotifiedIconButton = motify(IconButton)()
+const StyledIconButton = styled(IconButton)(() => ({
+  marginRight: 10,
+  borderRadius: 50,
+  backgroundColor: '#fab617',
+  color: '#fff',
+  position: 'absolute',
+}))

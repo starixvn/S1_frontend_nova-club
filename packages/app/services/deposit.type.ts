@@ -1,13 +1,21 @@
 /**
+ * *Deposit Payment List
+ */
+export type DepositPaymentListArgs = {
+  username: string
+}
+
+export type DepositPaymentListResult = {}
+/**
  * *Submit deposit
  */
 export type SubmitDepositArgs = {
   amount: number
-  bank_type_id: number
-  card_code: number
-  card_seri: number
-  card_type: string
-  deposit_from: number
+  bank_type_id: string
+  card_code?: string
+  card_seri?: string
+  card_type?: string
+  deposit_from: string
   username: string
 }
 

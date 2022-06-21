@@ -37,8 +37,8 @@ const SummarySection = ({
         </DripsyGradient>
       </View>
       <TopInfo label={t('profile.overview.w/l')} amount={amountWL} />
-      {amountDirect && (
-        <TopInfo label={t('profile.overview.direct')} amount={amountWL} />
+      {amountDirect !== undefined && (
+        <TopInfo label={t('profile.overview.direct')} amount={amountDirect} />
       )}
       <View
         sx={{
