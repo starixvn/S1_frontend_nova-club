@@ -1,11 +1,11 @@
 import { Currency, currencyListMapper } from './constant'
-import * as Clipboard from 'expo-clipboard'
+import Clipboard from '@react-native-clipboard/clipboard'
 
-export async function copyToClipboard(
+export function copyToClipboard(
   message: string,
   onCopied?: (msg: string) => void
 ) {
-  await Clipboard.setStringAsync(message)
+  Clipboard.setString(message)
   onCopied && onCopied(message)
   // SimpleToast.show(t('common.copied', { message }), SimpleToast.SHORT);
 }

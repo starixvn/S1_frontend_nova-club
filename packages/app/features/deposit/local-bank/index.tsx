@@ -1,21 +1,24 @@
 import { Button } from 'app/components/form/Button'
-import ButtonDemo from 'app/components/form/Button/ButtonDemo'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import { TextField } from 'app/components/TextField'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSubmitDepositMutation } from 'app/services/deposit'
+import {
+  DepositPaymentMethodCategoryId,
+  DepositPaymentMethodCategoryType,
+} from 'app/services/deposit.type'
 import { BankItem } from 'app/services/dummyDeposit.type'
 import { AlertActions } from 'app/store/alert'
-import { copyToClipboard, toCleanAmount, toRealAmount } from 'app/utils'
+import { toCleanAmount, toRealAmount } from 'app/utils'
 import validation from 'app/utils/validation'
-import { Text, View } from 'dripsy'
+import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import * as Yup from 'yup'
+import { DepositMethodId } from '..'
 import DepositUpload from '../DepositUpload'
-import * as Clipboard from 'expo-clipboard'
 
 type LocalBankValues = {
   bank: BankItem
@@ -30,8 +33,14 @@ const LocalBankScreen = () => {
   const [postSubmitDeposit] = useSubmitDepositMutation()
   const user = useAppSelector((state) => state.player.currentLoginUser)
 
-  const depositBank = useAppSelector(
-    (state) => state.bank.depositPayment?.manual[0].list
+  const depositBank = useAppSelector((state) =>
+    state.bank.depositPayment?.find(
+      (el) => el.id === DepositMethodId.LOCAL_BANK
+    )
+  )
+  console.log(
+    '🚀 ~ file: index.tsx ~ line 32 ~ LocalBankScreen ~ depositBank',
+    depositBank
   )
 
   const onSubmit = async (
@@ -97,26 +106,10 @@ const LocalBankScreen = () => {
       })
     }
   }
-  const [copiedText, setCopiedText] = React.useState('')
 
-  const copyToClipboard1 = () => {
-    copyToClipboard(values.bank?.bank_acc_no)
-  }
-
-  const fetchCopiedText = async () => {
-    const text = await Clipboard.getStringAsync()
-    setCopiedText(text)
-  }
   return (
     <PageWithBackHeader header={{ title: 'menu.deposit' }}>
       <View sx={{ flex: 1 }}>
-        <Button onPress={copyToClipboard1}>
-          <Button.Label>Click here to copy to Clipboard</Button.Label>
-        </Button>
-        <Button onPress={fetchCopiedText}>
-          <Button.Label>View copied text</Button.Label>
-        </Button>
-        <Text>{copiedText}</Text>
         <TextField labelWidth={0}>
           <TextField.Select
             label=""
@@ -125,9 +118,10 @@ const LocalBankScreen = () => {
               value: values.bank?.bank_name_local,
             }}
             _flatList={{
-              data: depositBank,
+              data: depositBank.list,
               // isLoading: isLoading || isFetching,
               selectedData: values.bank?.bank_name_local,
+              keyExtractor: (item) => item?.bankTypeId,
             }}
             _actionSheet={{
               headerTitle: 'bank.bank',

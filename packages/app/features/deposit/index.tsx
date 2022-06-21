@@ -18,42 +18,62 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { BankActions } from 'app/store/bankReducer'
+import { DepositPaymentMethodCategoryId } from 'app/services/deposit.type'
 
-const mapTypeToIcon = {}
+export enum DepositMethodId {
+  LOCAL_BANK = 1,
+  ONLINE_BANK = 2,
+  MOMO = 3,
+  QR_CODE = 4,
+  TOP_UP = 5,
+  CRYPTO = 6,
+}
 
 const sampleData = [
   {
-    type: 1,
+    id: DepositMethodId.LOCAL_BANK,
+    type: 'manual',
+    categoryId: DepositPaymentMethodCategoryId.LOCAL_BANK,
     name: 'deposit.depositMethod.bankTransfer',
     icon: 'sl',
     color: '#ac0102',
   },
   {
-    type: 2,
+    id: DepositMethodId.ONLINE_BANK,
+    type: 'auto',
+    categoryId: DepositPaymentMethodCategoryId.ONLINE_BANK,
     name: 'deposit.depositMethod.onlineBanking',
     icon: 'sl',
     color: '#f56e04',
   },
-  // {
-  //   type: 3,
-  //   name: 'deposit.depositMethod.momo',
-  //   icon: 'sl',
-  //   color: '#AC016C',
-  // },
-  // {
-  //   type: 4,
-  //   name: 'deposit.depositMethod.qrCode',
-  //   icon: 'sl',
-  //   color: '#44BAF9',
-  // },
   {
-    type: 5,
+    id: DepositMethodId.MOMO,
+    type: 'auto',
+    categoryId: DepositPaymentMethodCategoryId.MOMO,
+    name: 'deposit.depositMethod.momo',
+    icon: 'sl',
+    color: '#AC016C',
+  },
+  {
+    id: DepositMethodId.QR_CODE,
+    type: 'auto',
+    categoryId: DepositPaymentMethodCategoryId.QR_CODE,
+    name: 'deposit.depositMethod.qrCode',
+    icon: 'sl',
+    color: '#44BAF9',
+  },
+  {
+    id: DepositMethodId.TOP_UP,
+    type: 'auto',
+    categoryId: DepositPaymentMethodCategoryId.TOP_UP,
     name: 'deposit.depositMethod.topUp',
     icon: 'sl',
     color: '#95AC00',
   },
   {
-    type: 6,
+    id: DepositMethodId.CRYPTO,
+    type: 'manual',
+    categoryId: DepositPaymentMethodCategoryId.CRYPTO,
     name: 'deposit.depositMethod.crypto',
     icon: 'sl',
     color: '#36A07B',
@@ -65,6 +85,7 @@ const DepositPage = () => {
   const { push } = useRouter()
   const { t } = useLocalization()
   const dispatch = useDispatch()
+  const [paymentMethodList, setPaymentMethodList] = useState(sampleData)
 
   const { makeContextualHref } = useContextualRouting(
     ContextualModuleKey.Deposit
@@ -93,10 +114,21 @@ const DepositPage = () => {
     })
       .then(function (response) {
         //handle success
-        console.log(response)
-        dispatch(
-          BankActions.setDepositPayment(response.data.result.payment_cats)
-        )
+        const convertData = sampleData.map((item, index) => {
+          const res = response.data.result.payment_cats[item.type].find(
+            (el) => el.category_id === item.categoryId.toString()
+          )
+
+          return {
+            ...item,
+            categoryText: res.category_text,
+            list: res.list,
+          }
+        })
+
+        setPaymentMethodList(convertData)
+
+        dispatch(BankActions.setDepositPayment(convertData))
       })
       .catch(function (response) {
         //handle error
@@ -104,18 +136,18 @@ const DepositPage = () => {
       })
   }
 
-  const handlePress = (type) => {
-    switch (type) {
-      case 1:
+  const handlePress = (id) => {
+    switch (id) {
+      case DepositMethodId.LOCAL_BANK:
         push(toLocalBank, `/deposit/local-bank`)
         break
-      case 2:
+      case DepositMethodId.ONLINE_BANK:
         push(toOnlineBank, `/deposit/online-bank`)
         break
-      case 5:
+      case DepositMethodId.TOP_UP:
         push(to, `/deposit/topup-card`)
         break
-      case 6:
+      case DepositMethodId.CRYPTO:
         push(toCrypto, `/deposit/crypto`)
         break
       default:
@@ -128,10 +160,10 @@ const DepositPage = () => {
       <Text sx={{ my: '$6', mx: '$4' }}>{t('deposit.choose')}</Text>
       {isLoading && <ActivityIndicator />}
       <View sx={{ position: 'relative', mx: '$4' }}>
-        {data && (
+        {paymentMethodList && (
           <FlatList
             scrollEnabled={false}
-            data={data}
+            data={paymentMethodList}
             numColumns={2}
             keyExtractor={(item) => item.name}
             renderItem={({ item, index }) => {
@@ -140,9 +172,9 @@ const DepositPage = () => {
                   item={item}
                   sx={{
                     mr: index % 2 === 0 ? '$8' : 0,
-                    mb: data.length - index <= 2 ? 0 : '$4',
+                    mb: paymentMethodList.length - index <= 2 ? 0 : '$4',
                   }}
-                  onPress={() => handlePress(item.type)}
+                  onPress={() => handlePress(item.id)}
                 />
               )
             }}

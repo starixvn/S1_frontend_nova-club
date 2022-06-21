@@ -17,6 +17,7 @@ import { FormikHelpers, useFormik } from 'formik'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import * as Yup from 'yup'
+import { DepositMethodId } from '..'
 
 const NOTES = ['note.d1', 'note.d2', 'note.d3', 'note.d4']
 type OnlineBankValues = {
@@ -30,8 +31,14 @@ const OnlineBankScreen = () => {
 
   const [postSubmitDeposit] = useSubmitDepositMutation()
   const user = useAppSelector((state) => state.player.currentLoginUser)
-  const depositBank = useAppSelector(
-    (state) => state.bank.depositPayment?.auto[1].list
+  const depositBank = useAppSelector((state) =>
+    state.bank.depositPayment.find(
+      (el) => el.id === DepositMethodId.ONLINE_BANK
+    )
+  )
+  console.log(
+    '🚀 ~ file: index.tsx ~ line 36 ~ OnlineBankScreen ~ depositBank',
+    depositBank
   )
 
   const onSubmit = async (
@@ -113,9 +120,10 @@ const OnlineBankScreen = () => {
               value: values.bank?.bank_name_local,
             }}
             _flatList={{
-              data: depositBank,
+              data: depositBank?.list,
               // isLoading: isLoading || isFetching,
               selectedData: values.bank?.bank_name_local,
+              keyExtractor: (item) => values.bank?.bankTypeId,
             }}
             _actionSheet={{
               headerTitle: 'bank.bank',
