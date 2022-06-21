@@ -23,6 +23,7 @@
     "oldPassword": "Old Password",
     "newPassword": "New Password",
     "confirmPassword": "Confirm Password",
+    "enter": "Enter",
     "enterOldPassword": "Please enter old password",
     "enterNewPassword": "Please enter new password",
     "enterConfirmPassword": "Please confirm password",
@@ -52,10 +53,10 @@
     "select Channel": "Select Channel",
     "usdt": "USDT",
     "cryptoAmount": "123,456 VND",
-    "upload":{
-      "title":"Upload Receipt",
-      "description":"Browse to select receipt or invoice images to upload. Files must be 6MB or similiar, and in one of these formats JPG,JPEG",
-      "files":"Upload File"
+    "upload": {
+      "title": "Upload Receipt",
+      "description": "Browse to select receipt or invoice images to upload. Files must be 6MB or similiar, and in one of these formats JPG,JPEG",
+      "files": "Upload File"
     }
   },
   "filter": {
@@ -119,6 +120,15 @@
   },
   "withdrawal": {},
   "commission": {
-    "table": "Commission Table"
+    "table": "Commission Table",
+    "productLists": "Products List",
+    "cashPlayer": "Cash Player",
+    "cashPlayerReferral": "Cash Player Referral",
+    "creditPlayer": "Credit player"
+  },
+  "auth": {
+    "forgotPassword": "FORGOT PASSWORD",
+    "enterNewPassword": "Please enter your New Password",
+    "enterOtp": "Please enter OTP"
   }
 }

@@ -3,11 +3,12 @@ import {
   getCoreRowModel,
   useTableInstance,
 } from '@tanstack/react-table'
+import useLocalization, { Translate } from 'app/provider/localization'
 import { useCommissionTableQuery } from 'app/services/contentApi'
 import { CommissionTableResult } from 'app/services/contentApi.type'
 import { Currency, currencyListMapper } from 'app/utils/constant'
 import { ActivityIndicator, useDripsyTheme } from 'dripsy'
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import styles from './simpleTable.module.css'
 
 type Commission = Pick<
@@ -21,26 +22,32 @@ type Commission = Pick<
 
 const table = createTable().setRowType<Commission>()
 
-const tableColumns = [
-  table.createDataColumn('system_name', {
-    header: 'Products List',
-    cell: (props) => {
-      return `${props.row.original?.system_name} ${props.row.original?.game_type}`
-    },
-  }),
-  table.createDataColumn('cash_player', {
-    header: 'Cash Player',
-  }),
-  table.createDataColumn('cash_player_referrer', {
-    header: 'Cash Player Referral',
-  }),
-  table.createDataColumn('credit_player', {
-    header: 'Credit player',
-  }),
-]
+const generateTableColumns = (t: Translate) => {
+  return [
+    table.createDataColumn('system_name', {
+      header: t('commission.productLists'),
+      cell: (props) => {
+        const { system_name = '', game_type = '' } = props.row.original || {}
+        return `${system_name} ${game_type}`
+      },
+    }),
+    table.createDataColumn('cash_player', {
+      header: t('commission.cashPlayer'),
+    }),
+    table.createDataColumn('cash_player_referrer', {
+      header: t('commission.cashPlayerReferral'),
+    }),
+    table.createDataColumn('credit_player', {
+      header: t('commission.creditPlayer'),
+    }),
+  ]
+}
 
 const SimpleTable = () => {
-  const [columns] = useState<typeof tableColumns>(() => [...tableColumns])
+  const { t } = useLocalization()
+  const [columns] = useState<ReturnType<typeof generateTableColumns>>(
+    generateTableColumns(t)
+  )
 
   const { theme } = useDripsyTheme()
 

@@ -15,6 +15,7 @@ const Header = ({ title }: { title: string }) => {
 
   return (
     <View
+      nativeID="pageback-header"
       sx={{
         borderBottomWidth: 1,
         borderColor: '$lightNavyBlue',

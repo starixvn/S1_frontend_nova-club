@@ -24,7 +24,7 @@ const contextualComponents = {
     import('app/features/profile/bank-account/add-bank-account'),
   'profile-details': () => import('app/features/profile/profile-details'),
   'change-password': () => import('app/features/profile/change-password'),
-  'forget-password': () => import('../../features/auth/ForgotPassword'),
+  'forget-password': () => import('../../features/auth/forgotPassword'),
   prelaunchgame: () => import('../../features/games/PreLaunchGame'),
   'game-url': () => import('../../features/games/GameLoaderPage'),
   'commission-table': () => import('../../features/profile/commission-table'),

@@ -58,14 +58,14 @@ const VerificationForm = ({ formik, onBack }: VerificationFormProps) => {
     try {
       const { data, message, success } = await sendRegistrationOtp({
         username: values.username,
-        contactNumber: values.contactNumber,
+        // WIP: Prefix should not be hardcoded
+        contactNumber: '84' + values.contactNumber,
       }).unwrap()
 
       OTPRef.current?.startOtpTimer()
 
       if (success) {
         dispatch(AlertActions.addSuccess(message))
-        setFieldValue('verifyCode', data?.verify_code ?? '')
       }
     } catch (error) {
       const errorMessage = getErrorMessage(error)
@@ -85,6 +85,7 @@ const VerificationForm = ({ formik, onBack }: VerificationFormProps) => {
     <AuthLayout headerDesc={'ACCOUNT VERIFICATION'} onBack={onBack}>
       <TextInput
         _icon="avatar"
+        // WIP: Prefix should not be hardcoded
         prefix="+84"
         _input={{
           placeholder: '',
@@ -172,10 +173,10 @@ const VerificationForm = ({ formik, onBack }: VerificationFormProps) => {
             sx={{ pl: '$2', flexDirection: 'row', flexShrink: 1 }}
             onPress={onCheckboxCheck}
           >
-            <Text variant="xs">
+            <Text variant="sm">
               I have read & agree the{' '}
               <Text
-                variant="xs"
+                variant="sm"
                 sx={{ color: '$orange', textDecorationLine: 'underline' }}
               >
                 user agreement

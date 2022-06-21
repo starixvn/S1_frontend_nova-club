@@ -1,4 +1,5 @@
 import { DripsyGradient } from 'app/components/Gradient'
+import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useAppDispatch } from 'app/provider/redux/store'
 import { useRegisterMutation } from 'app/services/authApi'
 import { LoginResult } from 'app/services/authApi.type'
@@ -8,8 +9,7 @@ import validation, { getErrorMessage } from 'app/utils/validation'
 import { Image, styled, Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { MotiView, useDynamicAnimation } from 'moti'
-import React from 'react'
-import { useWindowDimensions } from 'react-native'
+import React, { useEffect } from 'react'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import AuthLayout from '../layout/AuthLayout'
@@ -37,7 +37,7 @@ const RegisterPage = () => {
   const [register] = useRegisterMutation()
   const dispatch = useAppDispatch()
   const { push, replace } = useRouter()
-  const { width } = useWindowDimensions()
+  const { width } = useContainerDimension()
 
   const onSubmit = async (
     {
@@ -56,7 +56,8 @@ const RegisterPage = () => {
         username,
         password,
         cpassword: confirmPassword,
-        contactNumber,
+        // WIP: Prefix should not be hardcoded
+        contactNumber: '84' + contactNumber,
         terms,
         tracking_code: 'nEgoJLCSbn',
         real_name: realName,
@@ -92,7 +93,7 @@ const RegisterPage = () => {
         .min(6, 'validation.userNameMinMaxLength')
         .required('validation.required'),
       contactNumber: validation.phoneNumber,
-      verifyCode: Yup.string().required('validation.required'),
+      verifyCode: validation.verifyCode,
       terms: Yup.bool()
         .required('validation.required')
         .oneOf([true], 'validation.checked'),
@@ -100,11 +101,9 @@ const RegisterPage = () => {
     onSubmit,
   })
 
-  const { errors } = formik
-
   const onRegisterSuccess = () => {
     animationState.animateTo({
-      translateX: width >= 800 ? -800 : -width,
+      translateX: -width,
     })
   }
 
@@ -120,11 +119,24 @@ const RegisterPage = () => {
     }
   })
 
+  useEffect(() => {
+    /** Fix if user change screen size (eg: Screen orientation)
+     * Else the `translateX` will stick to previous screen width
+     */
+    const currentX = animationState.current?.translateX
+
+    if (typeof currentX === 'number' && currentX < 0) {
+      animationState.animateTo({
+        translateX: -width,
+      })
+    }
+  }, [width])
+
   return (
     <View sx={{ flexDirection: 'row', flex: 1, overflow: 'hidden' }}>
       <MotiView
         state={animationState}
-        style={{ width: width >= 800 ? 800 : width }}
+        style={{ width }}
         transition={{
           type: 'timing',
           duration: 400,
@@ -171,7 +183,7 @@ const RegisterPage = () => {
 
       <MotiView
         state={animationState}
-        style={{ width: width >= 800 ? 800 : width }}
+        style={{ width }}
         transition={{
           type: 'timing',
           duration: 400,
