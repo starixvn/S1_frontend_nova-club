@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { combineReducers, configureStore, Reducer } from '@reduxjs/toolkit'
 import authApi from 'app/services/authApi'
 import bankApi from 'app/services/bank'
 import changePasswordApi from 'app/services/changePassword'
@@ -87,7 +87,12 @@ const rootReducer = combineReducers({
   setting: settingReducer,
 })
 
-const persistedReducer = persistReducer(persistConfig, rootReducer)
+/** Fix typescript issue https://github.com/rt2zz/redux-persist/issues/1184 */
+type InferState<Type> = Type extends Reducer<infer S> ? S : never
+const persistedReducer = persistReducer<InferState<typeof rootReducer>>(
+  persistConfig,
+  rootReducer
+)
 
 export const store = configureStore({
   reducer: persistedReducer,
