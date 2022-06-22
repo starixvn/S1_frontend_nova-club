@@ -1,13 +1,22 @@
 import { Currency, currencyListMapper } from './constant'
-import Clipboard from '@react-native-clipboard/clipboard'
+import * as Clipboard from 'expo-clipboard'
 
-export function copyToClipboard(
+/**
+ * `expo-clipboard` version 2.1.1 is used due to v3 above need Expo SDK45
+ * to support, and `setStringAsync` can't be used in IOS
+ * https://github.com/expo/expo/issues/17548
+ */
+export async function copyToClipboard(
   message: string,
   onCopied?: (msg: string) => void
 ) {
-  Clipboard.setString(message)
-  onCopied && onCopied(message)
-  // SimpleToast.show(t('common.copied', { message }), SimpleToast.SHORT);
+  try {
+    Clipboard.setString(message)
+    onCopied && onCopied(message)
+    // SimpleToast.show(t('common.copied', { message }), SimpleToast.SHORT);
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 export function toCurrency(
