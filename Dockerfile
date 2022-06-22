@@ -79,7 +79,7 @@ RUN chmod 777 /app/.next/static -R
 RUN chown nobody.nobody /app/.next/static -R
 RUN echo "SYNCvtXQwsmUcH" > /app/.rsyncd.secrets
 RUN chmod 600 /app/.rsyncd.secrets
-RUN rsync -av --password-file=/app/.rsyncd.secrets /app/.next/static/ root@nfs-stage.n88club.local::web_static/nova-club/image
+RUN rsync -av --password-file=/app/.rsyncd.secrets /app/.next/static/ root@nfs-stage.n88club.local::web_static/nova-club/next
 
 USER nextjs
 
