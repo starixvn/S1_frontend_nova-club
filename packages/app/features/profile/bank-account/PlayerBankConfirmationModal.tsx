@@ -22,7 +22,6 @@ const PlayerBankDeleteModal = forwardRef<
 >(({}, ref) => {
   const { t } = useLocalization()
   const dispatch = useDispatch()
-  const user = useAppSelector((state) => state.player.currentLoginUser)
 
   const [isVisible, setIsVisible] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -39,7 +38,6 @@ const PlayerBankDeleteModal = forwardRef<
       const { data, success, message } = await postDeletePlayerBank({
         bank_acc_num: bank?.BankAccountNumber ?? '',
         bank_type_id: bank?.BankTypeId ?? 0,
-        username: user?.username ?? '',
       })
         .unwrap()
         .catch((result) => {

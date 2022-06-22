@@ -5,17 +5,18 @@ import { SubmitWithdrawalArgs } from './withdrawal.type'
 
 const withdrawalEndPoints = (builder: EndpointBuilderType) => {
   return {
-    submitWithdrawal: builder.mutation<IResponse<string>, SubmitWithdrawalArgs>(
-      {
-        query: (queryArgs) => ({
-          url: `/player_api/submitWithdrawal`,
-          method: 'POST',
-          data: {
-            ...queryArgs,
-          },
-        }),
-      }
-    ),
+    submitWithdrawal: builder.mutation<
+      IResponse<string>,
+      SubmitWithdrawalArgs | void
+    >({
+      query: (queryArgs) => ({
+        url: `/player_api/submitWithdrawal`,
+        method: 'POST',
+        data: {
+          ...queryArgs,
+        },
+      }),
+    }),
   }
 }
 

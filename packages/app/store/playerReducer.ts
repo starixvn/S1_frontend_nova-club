@@ -1,30 +1,19 @@
-import { createSlice, current, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { LoginResult } from 'app/services/authApi.type'
-import { ProfileResult } from 'app/services/playerApi.type'
 
 type TokenType = Pick<LoginResult, 'token'>
 
 export type PlayerState = {
-  players: ProfileResult[]
-  currentLoginUser?: ProfileResult
   currentLoginInfo?: LoginResult
   tokens?: TokenType[]
 }
 
-export const playerInitialState: PlayerState = {
-  players: [],
-}
+export const playerInitialState: PlayerState = {}
 
 const playerSlice = createSlice({
   name: 'player',
   initialState: playerInitialState,
   reducers: {
-    setUser: (state, action: PayloadAction<ProfileResult>) => {
-      const currentPlayer = action.payload
-
-      state.players = [...state.players, currentPlayer]
-      state.currentLoginUser = currentPlayer
-    },
     setCurrentLoginInfo: (state, action: PayloadAction<LoginResult>) => {
       state.currentLoginInfo = action.payload
     },

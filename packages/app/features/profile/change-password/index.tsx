@@ -24,7 +24,6 @@ const ChangePasswordScreen = () => {
   const [postChangePassword] = useChangePasswordMutation()
   const dispatch = useDispatch()
   const { replace } = useRouter()
-  const user = useAppSelector((state) => state.player.currentLoginUser)
 
   const onSubmit = async (
     { oldPassword, password, confirmPassword }: PasswordFormValues,
@@ -32,7 +31,6 @@ const ChangePasswordScreen = () => {
   ) => {
     try {
       const { data, success, message } = await postChangePassword({
-        username: user.username,
         old_password: oldPassword,
         password: password,
         cpassword: confirmPassword,

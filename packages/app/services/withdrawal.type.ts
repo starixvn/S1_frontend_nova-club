@@ -7,5 +7,5 @@ export type SubmitWithdrawalArgs = {
   crypto_address: string
   crypto_protocol: string
   exchange_rate: number
-  username: string
+  username?: string
 }

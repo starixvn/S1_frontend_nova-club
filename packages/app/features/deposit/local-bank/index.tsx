@@ -31,7 +31,6 @@ const LocalBankScreen = () => {
   const dispatch = useDispatch()
 
   const [postSubmitDeposit] = useSubmitDepositMutation()
-  const user = useAppSelector((state) => state.player.currentLoginUser)
 
   const depositBank = useAppSelector((state) =>
     state.bank.depositPayment?.find(
@@ -55,7 +54,6 @@ const LocalBankScreen = () => {
         card_seri: 2222,
         card_type: '1234',
         deposit_from: bank.deposit_from,
-        username: user?.username ?? '',
       })
         .unwrap()
         .catch((error) => dispatch(AlertActions.addError(error.message)))

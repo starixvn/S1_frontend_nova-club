@@ -31,8 +31,8 @@ const axiosInstance = axios.create({
 
 const onRequestFullfilled = (config: AxiosRequestConfig) => {
   type RequestParams = {
-    black_b: string
-    username: string
+    black_b?: string
+    username?: string
   } & ReturnType<typeof generateFPSParams>
 
   let { url, headers } = config

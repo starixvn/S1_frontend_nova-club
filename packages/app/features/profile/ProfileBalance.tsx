@@ -12,10 +12,8 @@ import React, { useState } from 'react'
 
 const ProfileBalance = () => {
   const [isExtend, setIsExtend] = useState(false)
-  const user = useAppSelector<PlayerBalanceResult>(
-    (state: RootState) => state.player.currentLoginUser
-  )
-  const { data } = usePlayerBalanceQuery({ username: user?.username })
+
+  const { data } = usePlayerBalanceQuery()
 
   const handlePress = () => {
     setIsExtend(!isExtend)
