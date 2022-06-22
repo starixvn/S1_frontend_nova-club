@@ -42,7 +42,11 @@ const PlayerBankDeleteModal = forwardRef<
         username: user?.username ?? '',
       })
         .unwrap()
-        .catch(({ message }) => dispatch(AlertActions.addError(message)))
+        .catch((result) => {
+          dispatch(AlertActions.addError(result.message))
+          return result
+        })
+
       if (success) {
         dispatch(AlertActions.addSuccess(message))
       }

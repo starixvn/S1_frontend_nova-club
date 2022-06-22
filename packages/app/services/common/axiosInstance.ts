@@ -32,6 +32,7 @@ const axiosInstance = axios.create({
 const onRequestFullfilled = (config: AxiosRequestConfig) => {
   type RequestParams = {
     black_b: string
+    username: string
   } & ReturnType<typeof generateFPSParams>
 
   let { url, headers } = config
@@ -39,10 +40,16 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
 
   if (!url?.includes('/static_api')) {
     const state = customConfig.store?.getState()
-    const token = state.player?.currentLoginInfo?.token
+    const { token, playerName } = state.player?.currentLoginInfo || {}
     if (token) {
       if (config.headers === undefined) config.headers = {}
       config.headers['Authorization'] = `Bearer ${token}`
+    }
+
+    if (playerName) {
+      if ('username' in config.data === false) {
+        requestParams.username = playerName
+      }
     }
   }
 
