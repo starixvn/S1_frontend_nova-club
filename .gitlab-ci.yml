@@ -7,7 +7,6 @@ stages:
       - twidc-bot-stagrun016
     script:
       - echo "deploy stg-nova-club"
-      - ls && pwd
       - sudo sh ${_workDir}/ezdeployStg.sh ${_yamlName} ${_ProjectGroup} ${_FolderName} ${_gitBranch} ${_dockerfile}
     when: manual
 stg-nova-club:
