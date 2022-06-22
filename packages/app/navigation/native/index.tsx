@@ -24,6 +24,7 @@ import BankAccountScreen from '../../../../apps/next/pages/profile/bank-account'
 import AddBankAccountScreen from '../../../../apps/next/pages/profile/bank-account/add-bank-account'
 import CommissionTablePage from 'app/features/profile/commission-table'
 import HistoryScreen from 'app/features/profile/history'
+import MessagesPage from 'app/features/messages'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -46,6 +47,7 @@ const Stack = createStackNavigator<{
   AddBankAccount: undefined
   History: undefined
   CommissionTablePage: undefined
+  MessagesPage: undefined
 }>()
 
 export function NativeNavigation() {
@@ -205,6 +207,13 @@ export function NativeNavigation() {
       <Stack.Screen
         name="CommissionTablePage"
         component={CommissionTablePage}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="MessagesPage"
+        component={MessagesPage}
         options={{
           headerShown: false,
         }}

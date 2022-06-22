@@ -6,6 +6,7 @@ import contentApi from 'app/services/contentApi'
 import depositApi from 'app/services/deposit'
 import dummyDepositApi from 'app/services/dummyDeposit'
 import gameApi from 'app/services/gameApi'
+import messageApi from 'app/services/messageApi'
 import playerApi from 'app/services/playerApi'
 import pokemonApi from 'app/services/pokemon'
 import walletApi from 'app/services/wallet'
@@ -67,6 +68,7 @@ const middlerwares = [
   walletApi.middleware,
   withdrawalApi.middleware,
   dummyDepositApi.middleware,
+  messageApi.middleware,
 ]
 
 const rootReducer = combineReducers({
@@ -81,6 +83,7 @@ const rootReducer = combineReducers({
   [walletApi.reducerPath]: walletApi.reducer,
   [withdrawalApi.reducerPath]: withdrawalApi.reducer,
   [dummyDepositApi.reducerPath]: dummyDepositApi.reducer,
+  [messageApi.reducerPath]: messageApi.reducer,
   alert: alertReducer,
   bank: bankReducer,
   player: playerReducer,

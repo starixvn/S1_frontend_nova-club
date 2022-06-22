@@ -31,6 +31,7 @@ const contextualComponents = {
   prelaunchgame: () => import('../../features/games/PreLaunchGame'),
   'game-url': () => import('../../features/games/GameLoaderPage'),
   'commission-table': () => import('../../features/profile/commission-table'),
+  messages: () => import('../../features/messages'),
 }
 
 export function getContextualComponent(key: string) {

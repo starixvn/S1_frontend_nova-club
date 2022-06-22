@@ -21,6 +21,7 @@
     "next": "Next",
     "referenceId": "Reference ID",
     "selectDate": "Select A Date",
+    "selectAll":"Select All",
     "submit": "Submit",
     "password": "Password",
     "oldPassword": "Old Password",
@@ -133,6 +134,12 @@
   "auth": {
     "forgotPassword": "FORGOT PASSWORD",
     "enterNewPassword": "Please enter your New Password",
-    "enterOtp": "Please enter OTP"
+    "enterOtp": "Please enter OTP",
+    "table": "Commission Table"
+  },
+  "message":{
+    "personalMessage":"Personal Message",
+    "annoucement":"Annoucement"
   }
+
 }

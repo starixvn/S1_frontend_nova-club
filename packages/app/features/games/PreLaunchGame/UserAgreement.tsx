@@ -1,3 +1,4 @@
+import CheckBox from 'app/components/CheckBox'
 import Icon from 'app/components/Icon'
 import BouncePressable from 'app/pressable/BouncePressable'
 import { styled, Text, View } from 'dripsy'
@@ -5,20 +6,7 @@ import { styled, Text, View } from 'dripsy'
 const UserAgreement = ({ onAgree, isAgree }) => {
   return (
     <SytledView>
-      <StyledBouncePressable
-        onPress={() => {
-          onAgree(!isAgree)
-        }}
-      >
-        {isAgree && (
-          <Icon
-            name="tick"
-            color="green"
-            sx={{ alignSelf: 'center' }}
-            size={15}
-          />
-        )}
-      </StyledBouncePressable>
+      <CheckBox onCheck={onAgree} isCheck={isAgree} />
       <StyleText>
         I have read & agree the{' '}
         <StylePressableText>User agreement</StylePressableText>

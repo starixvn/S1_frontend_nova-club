@@ -82,7 +82,7 @@ const MainHeader = () => {
           {MENU_ROW.map((i, index) => {
             if (index === 1) {
               return (
-                <View sx={{ flex: 1, maxWidth: width * 0.3 }}>
+                <View sx={{ flex: 1, maxWidth: width * 0.3 }} key={index}>
                   <BouncePressable onPress={i.action} key={index}>
                     <StyledSearchBox
                       sx={{
