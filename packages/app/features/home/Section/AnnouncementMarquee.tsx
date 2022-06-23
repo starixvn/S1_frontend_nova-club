@@ -1,14 +1,52 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import MarqueeText from 'app/components/Marquee'
-import { styled, Text, View } from 'dripsy'
+import useContextualRouting from 'app/hooks/useContextualRouting'
+import withContextualNav from 'app/navigation/web/withContextualNav'
+import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
+import { useAnnouncementQuery } from 'app/services/contentApi'
+import { AnnouncementListItems } from 'app/services/contentApi.type'
+import { styled, View } from 'dripsy'
+import { useEffect, useState } from 'react'
 import { useWindowDimensions } from 'react-native'
+import { useRouter } from 'solito/router'
+
+interface MarqueeItem<T> {
+  label: number
+  value: string
+  item: T
+}
 
 const AnnoucementMarquee = () => {
+  const { push } = useRouter()
+  const { makeContextualHref } = useContextualRouting(ContextualModuleKey.Home)
+  const toMessages = makeContextualHref('messages', {
+    tab: 1,
+  })
   const { width } = useWindowDimensions()
+  const { data, isSuccess } = useAnnouncementQuery()
+  const [marquees, setMarquees] =
+    useState<MarqueeItem<AnnouncementListItems>[]>()
 
-  const dummyText =
-    'Lorem Ipsum refers to a dummy block of text that is often used in publishing and graphic design to fill gaps in the page before the actual words are put into the finished product.'
+  useEffect(() => {
+    if (data?.data && isSuccess) {
+      setMarquees(
+        data.data.list.map((annc) => {
+          return { label: annc.newsId, value: annc.title, item: annc }
+        })
+      )
+    }
+  }, [data, isSuccess])
+
+  const onClick = () => {
+    push(toMessages, {
+      pathname: '/messages',
+      query: {
+        tab: 1,
+      },
+    })
+  }
+
   return (
     <StyledContainer>
       <DripsyGradient
@@ -23,13 +61,14 @@ const AnnoucementMarquee = () => {
           size={18}
         />
         <MarqueeText
-          textList={[{ value: dummyText }]}
+          textList={marquees}
           speed={60}
           width={width}
           height={25}
           direction={'left'}
           reverse={false}
           textStyle={{ fontSize: 10, color: '#97FFF4' }}
+          onTextClick={onClick}
         />
       </DripsyGradient>
     </StyledContainer>
@@ -43,4 +82,4 @@ const StyledContainer = styled(View)({
   pl: '$2a',
 })
 
-export default AnnoucementMarquee
+export default withContextualNav(AnnoucementMarquee, ContextualModuleKey.Home)

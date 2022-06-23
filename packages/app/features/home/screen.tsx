@@ -78,8 +78,8 @@ const HomeScreen = () => {
       sx={{ bg: '$background', flex: 1 }}
       showsVerticalScrollIndicator={false}
     >
-      <BannerSection />
-      {/* <AnnoucementMarquee /> */}
+      {/* <BannerSection /> */}
+      <AnnoucementMarquee />
       <GridSection />
       <CasinoSection />
       <LotterySection />

@@ -13,7 +13,9 @@ const ProfileOptions = () => {
     ContextualModuleKey.Profile
   )
   const toProfileDetails = makeContextualHref('profile-details')
-  const toMessages = makeContextualHref('messages')
+  const toMessages = makeContextualHref('messages', {
+    tab: 0,
+  })
   const toChangePassword = makeContextualHref('change-password')
   const toCommissionTable = makeContextualHref('commission-table')
 
@@ -44,7 +46,12 @@ const ProfileOptions = () => {
       title: 'Message/Announcement',
       iconName: 'sl',
       routeWeb: toMessages,
-      route: '/messages',
+      route: {
+        pathname: '/messages',
+        query: {
+          tab: 0,
+        },
+      },
     },
     {
       id: 5,

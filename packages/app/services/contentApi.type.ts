@@ -29,3 +29,18 @@ export interface CommissionTableResult {
 export interface CommissionQueryArgs {
   currency: string
 }
+
+export interface AnnouncementResult {
+  list: AnnouncementListItems[]
+}
+
+export interface AnnouncementListItems {
+  subject: any
+  id: any
+  content: string
+  date: object
+  end_date: object
+  newsId: number
+  start_date: object
+  title: string
+}

@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 
 // Unique key for pages that require to open Contextual Navigation
 export enum ContextualModuleKey {
+  Home = 'home',
   Profile = 'profile',
   BankAccount = 'bankAccount',
   Deposit = 'deposit',

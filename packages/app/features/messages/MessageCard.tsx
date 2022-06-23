@@ -16,7 +16,7 @@ export interface MessageCardProps {
   id: number
   title: string
   content: string
-  time?: string
+  time?: string | object
   index: number
 }
 
@@ -56,7 +56,6 @@ const MessageCard: FC<MessageCardProps> = ({
                 pr: '$3',
                 width: width - 80,
               }}
-              numberOfLines={2}
             >
               {title}
             </Text>

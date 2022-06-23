@@ -6,10 +6,13 @@ import { View } from 'dripsy'
 import { useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { SceneMap, TabView } from 'react-native-tab-view'
+import { createParam } from 'solito'
 import AnnouncementPage from './AnnoucementPage'
 import PersonalMessagePage from './PersonalMessagePage'
 
+const { useParam } = createParam<{ tab: string }>()
 const Messages = () => {
+  const [tab] = useParam('tab')
   const { t } = useLocalization()
 
   const renderScene = SceneMap({
@@ -17,7 +20,9 @@ const Messages = () => {
     second: AnnouncementPage,
   })
 
-  const [index, setIndex] = useState(0)
+  const getTab = tab && parseInt(tab)
+
+  const [index, setIndex] = useState(getTab)
   const [routes] = useState([
     { key: 'first', title: t('message.personalMessage'), index: 0 },
     { key: 'second', title: t('message.annoucement'), index: 1 },

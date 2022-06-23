@@ -75,10 +75,15 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
     ...headers,
     api_key: API_KEY,
   }
-  config.data = {
-    ...config.data,
-    ...requestParams,
-  }
+
+  // IOS 13.3 added security where GET request should not have body data ( use query param instead)
+  // if config.data is {} on GET method , ios will reject as well.
+  // ref: https://stackoverflow.com/a/56973866
+  if (config.data || (requestParams && Object.keys(requestParams).length > 0))
+    config.data = {
+      ...config.data,
+      ...requestParams,
+    }
 
   return config
 }

@@ -136,7 +136,7 @@ export default class MarqueeText extends PureComponent {
         <View key={'' + i} activeOpacity={0.9}>
           <TouchableWithoutFeedback
             onPress={() => {
-              onTextClick(item);
+              onTextClick();
             }}>
             <View
               style={{
