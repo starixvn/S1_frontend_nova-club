@@ -13,12 +13,12 @@ import useContextualRouting from 'app/hooks/useContextualRouting'
 import withContextualNav from 'app/navigation/web/withContextualNav'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import ValueCard from './ValueCard'
-import { useDepositPaymentCategoriesQuery } from 'app/services/dummyDeposit'
+import { useDepositPaymentCategoriesQuery } from 'services/dummyDeposit'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { BankActions } from 'app/store/bankReducer'
-import { DepositPaymentMethodCategoryId } from 'app/services/deposit.type'
+import { DepositPaymentMethodCategoryId } from 'services/deposit.type'
 
 export enum DepositMethodId {
   LOCAL_BANK = 1,

@@ -1,5 +1,5 @@
 import { store } from 'app/provider/redux/store'
-import authApi from 'app/services/authApi'
+import authApi from 'services/authApi'
 
 export async function logOut() {
   try {

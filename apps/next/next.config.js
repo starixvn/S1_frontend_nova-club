@@ -1,4 +1,4 @@
-const path = require("path")
+const path = require('path')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -21,14 +21,14 @@ const nextConfig = {
   },
   experimental: {
     outputStandalone: true,
-    outputFileTracingRoot: path.join(__dirname, '../../')
-  }
+    outputFileTracingRoot: path.join(__dirname, '../../'),
+  },
 }
 
 const { withExpo } = require('@expo/next-adapter')
 const withPlugins = require('next-compose-plugins')
 const withFonts = require('next-fonts')
-const withImages = require('next-images');
+const withImages = require('next-images')
 const withTM = require('next-transpile-modules')([
   'solito',
   'dripsy',
@@ -39,8 +39,9 @@ const withTM = require('next-transpile-modules')([
   '@motify/components',
   'app',
   'utils',
+  'services',
   '@gorhom/portal',
-  '@react-native-community/datetimepicker'
+  '@react-native-community/datetimepicker',
 ])
 
 module.exports = withPlugins(
@@ -48,7 +49,7 @@ module.exports = withPlugins(
     withTM,
     withImages,
     [withExpo, { projectRoot: __dirname }],
-    [withFonts, { projectRoot: __dirname }]
+    [withFonts, { projectRoot: __dirname }],
   ],
   nextConfig
 )

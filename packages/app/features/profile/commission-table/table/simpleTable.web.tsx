@@ -4,8 +4,8 @@ import {
   useTableInstance,
 } from '@tanstack/react-table'
 import useLocalization, { Translate } from 'app/provider/localization'
-import { useCommissionTableQuery } from 'app/services/contentApi'
-import { CommissionTableResult } from 'app/services/contentApi.type'
+import { useCommissionTableQuery } from 'services/contentApi'
+import { CommissionTableResult } from 'services/contentApi.type'
 import { Currency, currencyListMapper } from 'app/utils/constant'
 import { ActivityIndicator, useDripsyTheme } from 'dripsy'
 import React, { useState } from 'react'

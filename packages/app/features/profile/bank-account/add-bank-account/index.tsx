@@ -20,15 +20,15 @@ import { Dimensions, TouchableOpacity } from 'react-native'
 import {
   useAddPlayerBankAccMutation,
   useWithdrawalBankQuery,
-} from 'app/services/bank'
+} from 'services/bank'
 import { AlertActions } from 'app/store/alert'
 import { useRoute } from '@react-navigation/native'
 import { useRouter } from 'solito/router'
 import useLocalization from 'app/provider/localization'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import ActionSheet from 'react-native-actions-sheet'
-import { WithdrawalBankResult } from 'app/services/bank.type'
-import { usePlayerProfileQuery } from 'app/services/playerApi'
+import { WithdrawalBankResult } from 'services/bank.type'
+import { usePlayerProfileQuery } from 'services/playerApi'
 
 type AddBankAccountValues = {
   accountName: string

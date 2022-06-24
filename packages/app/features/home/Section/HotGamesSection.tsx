@@ -1,6 +1,6 @@
 import ListImage from 'app/components/ListImage'
 import hotgame from 'app/config/games/hotgame'
-import { useGameListQuery } from 'app/services/gameApi'
+import { useGameListQuery } from 'services/gameApi'
 import { View } from 'dripsy'
 import React from 'react'
 import SectionHeader from './SectionHeader'

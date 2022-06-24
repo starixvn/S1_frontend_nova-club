@@ -2,7 +2,7 @@ import { Text, View } from 'dripsy'
 import React, { useEffect } from 'react'
 import HistoryListing from 'app/components/history/HistoryListing'
 import { PageWithBackHeader } from 'app/components/layout/Page'
-import { useLazyPokemonQuery } from 'app/services/pokemon'
+import { useLazyPokemonQuery } from 'services/pokemon'
 
 const data = [
   {

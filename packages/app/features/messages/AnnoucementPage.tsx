@@ -1,5 +1,5 @@
-import { useAnnouncementQuery } from 'app/services/contentApi'
-import { AnnouncementListItems } from 'app/services/contentApi.type'
+import { useAnnouncementQuery } from 'services/contentApi'
+import { AnnouncementListItems } from 'services/contentApi.type'
 import { FlatList, Text, View } from 'dripsy'
 import { ListRenderItem } from 'react-native'
 import MessageCard from './MessageCard'
