@@ -17,12 +17,15 @@ const bankEndpoints = (builder: EndpointBuilderType) => {
     /**
      * *Player Bank Get, Add, Delete
      */
-    playerBank: builder.query<IResponse<PlayerBankResult[]>, PlayerBankArgs>({
-      query: ({ username }) => ({
+    playerBank: builder.query<
+      IResponse<PlayerBankResult[]>,
+      PlayerBankArgs | void
+    >({
+      query: (queryArgs) => ({
         url: `/player_api/getPlayerWithdrawalBankList`,
         method: 'POST',
         data: {
-          username,
+          ...queryArgs,
         },
       }),
       transformResponse: (
@@ -64,13 +67,13 @@ const bankEndpoints = (builder: EndpointBuilderType) => {
      */
     withdrawalBank: builder.query<
       IResponse<WithdrawalBankResult[]>,
-      WithdrawalBankArgs
+      WithdrawalBankArgs | void
     >({
-      query: ({ username }) => ({
+      query: (queryArgs) => ({
         url: `/player_api/getWithdrawalBankList`,
         method: 'POST',
         data: {
-          username,
+          ...queryArgs,
         },
       }),
       transformResponse: (

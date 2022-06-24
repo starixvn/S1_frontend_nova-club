@@ -10,7 +10,7 @@ function withAuth<T>(Component: NextComponentType<T>) {
     // Login data added to props via redux-store (or use react context for example)
     //   const { isLoggedIn } = props;
 
-    const player = useSelector((s: RootState) => s.player.currentLoginInfo)
+    const player = useSelector((s: RootState) => s.auth.info)
     const { push } = useRouter()
 
     // If user is not logged in, return login component

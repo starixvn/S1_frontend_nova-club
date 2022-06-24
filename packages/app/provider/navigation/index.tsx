@@ -20,6 +20,7 @@ interface NavigationParamList {
   RegisterPage: undefined
   WithdrawalPage: undefined
   CommissionTablePage: undefined
+  MessagePage: undefined
 }
 
 export function NavigationProvider({
@@ -68,6 +69,7 @@ export function NavigationProvider({
               PreLaunchGame: '/games/prelaunch',
               CustomerSupportPage: '/customer-support',
               GameLoaderPage: '/games/gameUrl',
+              MessagesPage: '/messages/',
             },
           },
         }),

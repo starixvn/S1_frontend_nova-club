@@ -11,7 +11,7 @@ import SummarySection from './SummarySection'
 
 const OverviewScreen = () => {
   const { t } = useLocalization()
-  const state = useAppSelector((state) => state.player.currentLoginInfo || {})
+  const state = useAppSelector((state) => state.auth.info || {})
   const { data } = usePlayerOverviewQuery({
     username: state?.playerName,
   })

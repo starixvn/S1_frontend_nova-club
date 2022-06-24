@@ -6,9 +6,10 @@ import { useContextualRouting as ucr } from 'next-use-contextual-routing'
 
 function useContextualRouting(module: ContextualModuleKey) {
   const { makeContextualHref, ...rest } = ucr()
-  function _makeContextualHref(to: ContextualComponents) {
+  function _makeContextualHref(to: ContextualComponents, params?: any) {
     return makeContextualHref({
       [module]: to,
+      ...(params ?? {}),
     })
   }
   return {

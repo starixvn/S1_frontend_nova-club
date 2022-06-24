@@ -77,7 +77,6 @@ const TopUpCardScreen = () => {
   const { t } = useLocalization()
   const dispatch = useDispatch()
   const { back } = useRouter()
-  const user = useAppSelector((state) => state.player.currentLoginUser)
   const [postSubmitDeposit] = useSubmitDepositMutation()
 
   const onSubmit = async (
@@ -92,7 +91,6 @@ const TopUpCardScreen = () => {
         card_seri: parseInt(cardSerialNo),
         card_type: paymentMode,
         deposit_from: 1,
-        username: user?.username ?? '',
       })
         .unwrap()
         .catch(({ message }) => dispatch(AlertActions.addError(message)))

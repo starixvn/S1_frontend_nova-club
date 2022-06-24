@@ -52,6 +52,7 @@ const SimpleTable = () => {
   const { theme } = useDripsyTheme()
 
   const { data, isLoading } = useCommissionTableQuery({
+    // WIP: Currency should not be hardcoded
     currency: currencyListMapper[Currency.VND]!,
   })
 

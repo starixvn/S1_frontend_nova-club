@@ -6,22 +6,20 @@ import contentApi from 'app/services/contentApi'
 import depositApi from 'app/services/deposit'
 import dummyDepositApi from 'app/services/dummyDeposit'
 import gameApi from 'app/services/gameApi'
+import messageApi from 'app/services/messageApi'
 import playerApi from 'app/services/playerApi'
 import pokemonApi from 'app/services/pokemon'
 import walletApi from 'app/services/wallet'
 import withdrawalApi from 'app/services/withdrawal'
 import { alertReducer } from 'app/store/alert'
+import authReducer from 'app/store/authReducer'
 import bankReducer from 'app/store/bankReducer'
 import { gameLauncherReducer } from 'app/store/gameLauncher.slice'
-import playerReducer, {
-  PlayerState,
-  playerInitialState,
-} from 'app/store/playerReducer'
+
 import { settingReducer } from 'app/store/setting.slice'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import {
   createMigrate,
-  createTransform,
   PersistConfig,
   PersistedState,
   persistReducer,
@@ -38,22 +36,8 @@ const persistConfig: PersistConfig<any> = {
   key: 'root',
   version: 2,
   storage,
-  whitelist: ['player'],
+  whitelist: ['auth'],
   migrate: createMigrate(migrations, { debug: true }),
-  transforms: [
-    createTransform<PlayerState, Pick<PlayerState, 'currentLoginInfo'>>(
-      // transform state on its way to being serialized and persisted.
-      (inboundState, key) => {
-        const { currentLoginInfo } = inboundState
-        return { currentLoginInfo }
-      },
-      // transform state being rehydrated
-      (outboundState, key) => {
-        return { ...playerInitialState, ...outboundState }
-      },
-      { whitelist: ['player'] }
-    ),
-  ],
 }
 
 const middlerwares = [
@@ -68,6 +52,7 @@ const middlerwares = [
   walletApi.middleware,
   withdrawalApi.middleware,
   dummyDepositApi.middleware,
+  messageApi.middleware,
 ]
 
 const rootReducer = combineReducers({
@@ -82,9 +67,10 @@ const rootReducer = combineReducers({
   [walletApi.reducerPath]: walletApi.reducer,
   [withdrawalApi.reducerPath]: withdrawalApi.reducer,
   [dummyDepositApi.reducerPath]: dummyDepositApi.reducer,
+  [messageApi.reducerPath]: messageApi.reducer,
   alert: alertReducer,
   bank: bankReducer,
-  player: playerReducer,
+  auth: authReducer,
   setting: settingReducer,
   gameLauncher: gameLauncherReducer,
 })

@@ -16,7 +16,7 @@ const walletEndPoints = (builder: EndpointBuilderType) => {
   return {
     playerBalance: builder.query<
       IResponse<PlayerBalanceResult>,
-      PlayerBalanceArgs
+      PlayerBalanceArgs | void
     >({
       query: (queryArgs) => ({
         url: `/player_api/getPlayerBalance`,
@@ -28,7 +28,7 @@ const walletEndPoints = (builder: EndpointBuilderType) => {
     }),
     playerWalletDetail: builder.query<
       IResponse<PlayerWalletDetailResult>,
-      PlayerWalletDetailArgs
+      PlayerWalletDetailArgs | void
     >({
       query: (queryArgs) => ({
         url: `/player_api/getPlayerWalletDetail`,

@@ -5,7 +5,7 @@ import {
 
 const useContextualRouting: (module: ContextualModuleKey) => {
   returnHref: string
-  makeContextualHref: (to: ContextualComponents) => string
+  makeContextualHref: (to: ContextualComponents, params?: any) => string
 } = function () {
   return {
     makeContextualHref: (to) => '',

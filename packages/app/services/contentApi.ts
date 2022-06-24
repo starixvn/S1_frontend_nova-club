@@ -3,6 +3,7 @@ import { LANGUAGE_CODE } from 'app/constant/language'
 import { axiosBaseQuery } from './common/axiosBaseQuery'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
+  AnnouncementResult,
   BannerResult,
   CommissionQueryArgs,
   CommissionTableResult,
@@ -37,6 +38,12 @@ const contentEndpoints = (builder: EndpointBuilderType) => {
         },
       }),
     }),
+    announcement: builder.query<IResponse<AnnouncementResult>, void>({
+      query: () => ({
+        url: `/static_api/announcement`,
+        method: 'GET',
+      }),
+    }),
   }
 }
 
@@ -53,5 +60,9 @@ const contentApi = createApi({
 
 export default contentApi
 export { contentEndpoints }
-export const { useBannerQuery, useLeaderboardQuery, useCommissionTableQuery } =
-  contentApi
+export const {
+  useBannerQuery,
+  useLeaderboardQuery,
+  useCommissionTableQuery,
+  useAnnouncementQuery,
+} = contentApi

@@ -1,3 +1,21 @@
+export enum DepositPaymentMethodCategoryId {
+  LOCAL_BANK = 1,
+  ONLINE_BANK = 1,
+  MOMO = 20,
+  QR_CODE = 9,
+  TOP_UP = 16,
+  CRYPTO = 13,
+}
+
+export enum DepositPaymentMethodCategoryType {
+  LOCAL_BANK = 'manual',
+  ONLINE_BANK = 'auto',
+  MOMO = 'auto',
+  QR_CODE = 'auto',
+  TOP_UP = 'auto',
+  CRYPTO = 'manual',
+}
+
 /**
  * *Deposit Payment List
  */

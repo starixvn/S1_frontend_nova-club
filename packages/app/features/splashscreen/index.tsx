@@ -11,7 +11,7 @@ const SplashScreen = () => {
   const { replace } = useRouter()
   const { isReady } = useOTA()
   const { status } = useSplashScreen({}, isReady, { minWaitTime: 500 })
-  const loginResult = useAppSelector((state) => state.player.currentLoginInfo)
+  const loginResult = useAppSelector((state) => state.auth.info)
 
   useEffect(() => {
     if (status) {

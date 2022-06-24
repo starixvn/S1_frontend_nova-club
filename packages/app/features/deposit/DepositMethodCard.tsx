@@ -50,7 +50,7 @@ const DepositMethodCard = ({ item, onPress, ...rest }) => {
               fontWeight: 'bold',
             }}
           >
-            {t(item.name)}
+            {t(item.categoryText)}
           </Text>
         </View>
       </View>
