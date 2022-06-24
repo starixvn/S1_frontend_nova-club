@@ -9,12 +9,12 @@ import {
 
 const messageEndpoints = (builder: EndpointBuilderType) => {
   return {
-    message: builder.query<IResponse<MessageResult>, MessageQueryArgs>({
-      query: ({ username }) => ({
+    message: builder.query<IResponse<MessageResult>, MessageQueryArgs | void>({
+      query: (queryArgs) => ({
         url: `/player_api/message`,
         method: 'POST',
         data: {
-          username,
+          ...queryArgs,
         },
       }),
     }),

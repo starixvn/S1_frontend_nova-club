@@ -15,10 +15,7 @@ import MessageCard from './MessageCard'
 
 const PersonalMessagePage = () => {
   const { t } = useLocalization()
-  const state = useAppSelector((state) => state.player.currentLoginInfo || {})
-  const { data, isError, isSuccess, refetch, isLoading } = useMessageQuery({
-    username: state?.playerName,
-  })
+  const { data, isError, isSuccess, refetch, isLoading } = useMessageQuery()
 
   const [deleteMessages, { isLoading: isDeleting }] =
     useDeleteMessagesMutation()
@@ -50,7 +47,7 @@ const PersonalMessagePage = () => {
     let params = {
       isDeleteAll: false,
       ids: selectedIds,
-      username: state?.playerName,
+      // username: state?.playerName,
     }
     try {
       await deleteMessages(params).unwrap()

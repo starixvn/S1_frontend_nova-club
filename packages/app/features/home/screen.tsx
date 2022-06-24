@@ -17,7 +17,7 @@ import HotGamesSection from './Section/HotGamesSection'
 import LeaderboardSection from './Section/LeaderboardSection'
 import LotterySection from './Section/LotterySection'
 import AnnoucementMarquee from './Section/AnnouncementMarquee'
-import { PlayerActions } from 'app/store/playerReducer'
+// import { PlayerActions } from 'app/store/playerReducer'
 import { useDispatch } from 'react-redux'
 
 const HomeScreen = () => {
@@ -28,8 +28,6 @@ const HomeScreen = () => {
 
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
   const { push } = useRouter()
-
-  const state = useAppSelector((state) => state.player.currentLoginInfo)
 
   const [playerProfile] = useLazyPlayerProfileQuery()
 
@@ -62,11 +60,9 @@ const HomeScreen = () => {
 
   const onGetPlayer = async () => {
     try {
-      const { data } = await playerProfile({
-        username: state.playerName,
-      }).unwrap()
+      const { data } = await playerProfile().unwrap()
       if (data) {
-        dispatch(PlayerActions.setUser(data))
+        // dispatch(PlayerActions.setUser(data))
       }
     } catch (error) {
       console.error(error)
