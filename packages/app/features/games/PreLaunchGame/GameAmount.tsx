@@ -4,20 +4,35 @@ import RoundedIcon from 'app/components/RoundedIcon'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import { useRouter } from 'solito/router'
+import { PlayerBalanceResult } from 'services/wallet.type'
+import { toCurrency } from 'app/utils'
+import { Currency } from 'app/utils/constant'
 
-const GameAmount = () => {
-  const dummyData = [
+interface GameAmountProps {
+  playerBalance: PlayerBalanceResult | undefined
+}
+
+interface FieldData {
+  icon: string
+  label: string
+  apiKey?: keyof PlayerBalanceResult['main']
+}
+
+const GameAmount = ({ playerBalance }: GameAmountProps) => {
+  const { main } = playerBalance || {}
+
+  const fieldData: FieldData[] = [
     {
       icon: 'cash',
       label: 'Cash (VND)',
-      amount: 0,
     },
     {
       icon: 'gift',
       label: 'Rewards (VND)',
-      amount: 8,
+      apiKey: 'reward',
     },
   ]
+
   const { push } = useRouter()
   const { makeContextualHref } = useContextualRouting(
     ContextualModuleKey.PreLaunchGame
@@ -35,7 +50,13 @@ const GameAmount = () => {
     >
       <StyledView>
         <StyledText sx={{ fontSize: 20 }}>VND</StyledText>
-        <StyledText sx={{ fontSize: 23 }}>200K</StyledText>
+        <StyledText sx={{ fontSize: 23 }}>
+          {/* WIP: Currency should not be hardcoded here */}
+          {toCurrency(Number(main?.balance), Currency.VND, {
+            noDecimal: true,
+            symbol: false,
+          })}
+        </StyledText>
       </StyledView>
       <StyleLabel
         sx={{
@@ -52,7 +73,7 @@ const GameAmount = () => {
         }}
       >
         <View sx={{ flex: 0.92, borderRightWidth: 1, borderColor: '#00C5D4' }}>
-          <ListItem data={dummyData} />
+          <ListItem data={fieldData} balance={main} />
         </View>
         <RoundedIcon
           size={'sm'}
@@ -65,32 +86,47 @@ const GameAmount = () => {
   )
 }
 
-const ListItem = ({ data }) => {
-  return data.map((i, index) => {
-    return (
-      <StyledWrapItem key={i.label}>
-        <StyledWrapLabel sx={{}}>
-          <StyledWrapIcon>
-            <Icon
-              name={i.icon}
-              color={'#00C5D4'}
-              size={i.icon === 'gift' ? 12 : 10}
-            />
-          </StyledWrapIcon>
-          <StyleLabel
-            sx={{
-              ml: '$1',
-            }}
-          >
-            {i.label}
-          </StyleLabel>
-        </StyledWrapLabel>
-        <View sx={{ flex: 0.1 }}>
-          <StyleLabel>{i.amount}</StyleLabel>
-        </View>
-      </StyledWrapItem>
-    )
-  })
+interface ListItemProps {
+  data: FieldData[]
+  balance: PlayerBalanceResult['main'] | undefined
+}
+
+const ListItem = ({ data, balance }: ListItemProps) => {
+  const getBalance = (apiKey: string | undefined) => {
+    if (!balance || !apiKey) return 0
+
+    return balance[apiKey]
+  }
+
+  return (
+    <View>
+      {data.map((i, index) => {
+        return (
+          <StyledWrapItem key={i.label}>
+            <StyledWrapLabel sx={{}}>
+              <StyledWrapIcon>
+                <Icon
+                  name={i.icon}
+                  color={'#00C5D4'}
+                  size={i.icon === 'gift' ? 12 : 10}
+                />
+              </StyledWrapIcon>
+              <StyleLabel
+                sx={{
+                  ml: '$1',
+                }}
+              >
+                {i.label}
+              </StyleLabel>
+            </StyledWrapLabel>
+            <View sx={{ flex: 0.1 }}>
+              <StyleLabel>{getBalance(i.apiKey)}</StyleLabel>
+            </View>
+          </StyledWrapItem>
+        )
+      })}
+    </View>
+  )
 }
 
 const StyledView = styled(View)({
