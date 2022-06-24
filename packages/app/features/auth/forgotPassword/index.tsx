@@ -6,7 +6,7 @@ import { useAppDispatch } from 'app/provider/redux/store'
 import {
   usePasswordRecoveryMutation,
   useSendPasswordRecoveryOtpMutation,
-} from 'app/services/authApi'
+} from 'services/authApi'
 import { AlertActions } from 'app/store/alert'
 import validation, { getErrorMessage } from 'app/utils/validation'
 import { Text, useDripsyTheme, View } from 'dripsy'

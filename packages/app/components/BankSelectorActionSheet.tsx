@@ -1,5 +1,5 @@
 import useLocalization from 'app/provider/localization'
-import { PlayerBankResult, WithdrawalBankResult } from 'app/services/bank.type'
+import { PlayerBankResult, WithdrawalBankResult } from 'services/bank.type'
 import { mergeRefs } from 'app/utils/mergeRefs'
 import {
   ActivityIndicator,

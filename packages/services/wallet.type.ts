@@ -5,12 +5,18 @@ export type PlayerBalanceArgs = {
   username: string
 }
 
-export type PlayerBalanceResult = {
-  main: {
-    balance: string
-    reward: string
-  }
+export interface PlayerBalanceData {
+  balance: string
+  reward: string
 }
+
+export interface PlayerBalanceMainBalance {
+  main: PlayerBalanceData
+}
+
+export type PlayerBalanceResult = {
+  [key: string]: PlayerBalanceData
+} & PlayerBalanceMainBalance
 
 /**
  * *Player Wallet

@@ -1,7 +1,7 @@
 import IconButton from 'app/components/form/IconButton'
 import GradientBox from 'app/components/GradientBox'
 import RoundedIcon from 'app/components/RoundedIcon'
-import { PlayerBankResult } from 'app/services/bank.type'
+import { PlayerBankResult } from 'services/bank.type'
 import { styled, Text, View } from 'dripsy'
 import React from 'react'
 

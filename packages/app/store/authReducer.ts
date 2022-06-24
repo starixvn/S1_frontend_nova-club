@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { LoginResult } from 'app/services/authApi.type'
+import { LoginResult } from 'services/authApi.type'
 
 type TokenType = Pick<LoginResult, 'token'>
 

@@ -9,7 +9,7 @@ import { AlertActions } from 'app/store/alert'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'solito/router'
 import { useAppSelector } from 'app/provider/redux/store'
-import { useChangePasswordMutation } from 'app/services/changePassword'
+import { useChangePasswordMutation } from 'services/changePassword'
 import useLocalization from 'app/provider/localization'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 

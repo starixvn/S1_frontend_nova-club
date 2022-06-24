@@ -4,10 +4,7 @@ import Icon from 'app/components/Icon'
 import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import {
-  useDeleteMessagesMutation,
-  useMessageQuery,
-} from 'app/services/messageApi'
+import { useDeleteMessagesMutation, useMessageQuery } from 'services/messageApi'
 import { ActivityIndicator, styled, Text, View } from 'dripsy'
 import { useCallback, useState } from 'react'
 import { FlatList } from 'react-native'

@@ -5,14 +5,11 @@ import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstan
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import {
-  useGetGameUrlQuery,
-  useLazyGetGameUrlQuery,
-} from 'app/services/gameApi'
 import { PLATFORM_CODE } from 'app/utils/constant'
 import { View } from 'dripsy'
-import { useLayoutEffect, useState } from 'react'
+import { useState } from 'react'
 import { Linking, Platform } from 'react-native'
+import { useLazyGetGameUrlQuery } from 'services/gameApi'
 import { useRouter } from 'solito/router'
 import { sleep } from 'utils/common'
 import GameAmount from './GameAmount'
@@ -109,7 +106,7 @@ const PreLaunchGame = ({}) => {
         }}
         isAgree={agree}
       />
-      <GameAmount />
+      <GameAmount playerBalance={playerBalace?.data} />
       <View sx={{ mt: '$10', mx: '$5' }}>
         <Button
           disabled={!agree || isVerifying || !isBalanceReady}

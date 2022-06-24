@@ -4,8 +4,8 @@ import useLocalization from 'app/provider/localization'
 import { styled, Text, View } from 'dripsy'
 import React, { useEffect, useRef } from 'react'
 import { RootState, useAppSelector } from 'app/provider/redux/store'
-import { ProfileResult } from 'app/services/playerApi.type'
-import { usePlayerProfileQuery } from 'app/services/playerApi'
+import { ProfileResult } from 'services/playerApi.type'
+import { usePlayerProfileQuery } from 'services/playerApi'
 
 const ProfileDetails = () => {
   const { t } = useLocalization()

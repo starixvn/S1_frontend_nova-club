@@ -3,12 +3,12 @@ import { PageWithBackHeader } from 'app/components/layout/Page'
 import { TextField } from 'app/components/TextField'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { useSubmitDepositMutation } from 'app/services/deposit'
+import { useSubmitDepositMutation } from 'services/deposit'
 import {
   DepositPaymentMethodCategoryId,
   DepositPaymentMethodCategoryType,
-} from 'app/services/deposit.type'
-import { BankItem } from 'app/services/dummyDeposit.type'
+} from 'services/deposit.type'
+import { BankItem } from 'services/dummyDeposit.type'
 import { AlertActions } from 'app/store/alert'
 import { toCleanAmount, toRealAmount } from 'app/utils'
 import validation from 'app/utils/validation'

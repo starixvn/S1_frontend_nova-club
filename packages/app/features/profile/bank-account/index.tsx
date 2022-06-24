@@ -9,8 +9,8 @@ import { useAppSelector } from 'app/provider/redux/store'
 import {
   useDeletePlayerBankAccMutation,
   usePlayerBankQuery,
-} from 'app/services/bank'
-import { PlayerBankResult } from 'app/services/bank.type'
+} from 'services/bank'
+import { PlayerBankResult } from 'services/bank.type'
 import { AlertActions } from 'app/store/alert'
 import {
   ActivityIndicator,

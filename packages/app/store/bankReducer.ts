@@ -1,5 +1,5 @@
 import { createSlice, current, PayloadAction } from '@reduxjs/toolkit'
-import { DepositPaymentCategoriesResult } from 'app/services/dummyDeposit.type'
+import { DepositPaymentCategoriesResult } from 'services/dummyDeposit.type'
 
 export type BankState = {
   depositPayment: DepositPaymentCategoriesResult
