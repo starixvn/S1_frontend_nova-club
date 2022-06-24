@@ -1,24 +1,22 @@
-import Select from 'app/components/form/Select'
-import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
+import { ITimerButtonForwardRef } from 'app/components/TimerButton'
 import withAuth from 'app/hooks/withAuth'
-import { useAppSelector } from 'app/provider/redux/store'
-import { useLazyPlayerProfileQuery } from 'app/services/playerApi'
 import { logOut } from 'app/utils/authUtil'
-import { Pressable, ScrollView, Text, View } from 'dripsy'
+import { ScrollView } from 'dripsy'
 import * as Updates from 'expo-updates'
 import { default as React, useEffect, useRef, useState } from 'react'
-import { Button, Platform } from 'react-native'
+import { Platform } from 'react-native'
+import { useDispatch } from 'react-redux'
+import { useLazyPlayerProfileQuery } from 'services/playerApi'
+import { usePlayerBalanceQuery } from 'services/wallet'
 import { useRouter } from 'solito/router'
-import BannerSection from './Section/BannerSection'
+import AnnoucementMarquee from './Section/AnnouncementMarquee'
 import CasinoSection from './Section/CasinoSection'
 import GamesSection from './Section/GamesSection'
 import GridSection from './Section/GridSection'
 import HotGamesSection from './Section/HotGamesSection'
 import LeaderboardSection from './Section/LeaderboardSection'
 import LotterySection from './Section/LotterySection'
-import AnnoucementMarquee from './Section/AnnouncementMarquee'
 // import { PlayerActions } from 'app/store/playerReducer'
-import { useDispatch } from 'react-redux'
 
 const HomeScreen = () => {
   const [selected, setSelected] = useState(null)
@@ -30,6 +28,11 @@ const HomeScreen = () => {
   const { push } = useRouter()
 
   const [playerProfile] = useLazyPlayerProfileQuery()
+  const { data: playerBalace } = usePlayerBalanceQuery()
+
+  useEffect(() => {
+    console.log(playerBalace, playerBalace?.data)
+  }, [playerBalace])
 
   useEffect(() => {
     async function checkUpdate() {
