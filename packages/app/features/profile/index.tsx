@@ -3,7 +3,7 @@ import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstan
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { usePlayerProfileQuery } from 'app/services/playerApi'
-import { PlayerActions } from 'app/store/playerReducer'
+import { PlayerActions } from 'app/store/authReducer'
 import { ScrollView, Text } from 'dripsy'
 import React, { useEffect } from 'react'
 import { RefreshControl } from 'react-native'
@@ -20,7 +20,7 @@ const ProfileScreen = () => {
   const [refreshing, setRefreshing] = React.useState(false)
   const dispatch = useDispatch()
 
-  const state = useAppSelector((state) => state.player.currentLoginInfo || {})
+  const state = useAppSelector((state) => state.auth.info || {})
 
   const { data: playerProfile } = usePlayerProfileQuery()
 

@@ -4,7 +4,7 @@ import { useAppDispatch } from 'app/provider/redux/store'
 import { useRegisterMutation } from 'app/services/authApi'
 import { LoginResult } from 'app/services/authApi.type'
 import { AlertActions } from 'app/store/alert'
-import { PlayerActions } from 'app/store/playerReducer'
+import { PlayerActions } from 'app/store/authReducer'
 import validation, { getErrorMessage } from 'app/utils/validation'
 import { Image, styled, Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
@@ -65,7 +65,7 @@ const RegisterPage = () => {
       }).unwrap()
 
       if (success) {
-        dispatch(PlayerActions.setCurrentLoginInfo(data as LoginResult))
+        dispatch(PlayerActions.setAuthInfo(data as LoginResult))
         actions.resetForm()
         replace('/')
       }

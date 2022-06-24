@@ -49,7 +49,7 @@ const Stack = createStackNavigator<{
 }>()
 
 export function NativeNavigation() {
-  const loginInfo = useSelector((s: RootState) => s.player.currentLoginInfo)
+  const loginInfo = useSelector((s: RootState) => s.auth.info)
 
   return (
     <Stack.Navigator
