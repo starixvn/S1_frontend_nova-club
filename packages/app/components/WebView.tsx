@@ -6,36 +6,34 @@ const WebView = ({ url }) => {
   const { width, height } = useWindowDimensions()
 
   return (
-    <View>
-      <RWebView
-        bounces={false}
-        style={{ height, width }}
-        source={{
-          uri: url,
-        }}
-        allowsFullscreenVideo
-        sharedCookiesEnabled
-        thirdPartyCookiesEnabled
-        startInLoadingState={true}
-        renderLoading={() => (
-          <StyledLoadingView>
-            <ActivityIndicator size={20} color={'white'} />
-          </StyledLoadingView>
-        )}
-        onError={(e) => console.log('Error loading game', e)}
-        renderError={() => (
-          <StyledLoadingView>
-            <Text sx={{ color: 'white', fontSize: 20 }}>
-              Error Loading Game
-            </Text>
-          </StyledLoadingView>
-        )}
-        onHttpError={(syntheticEvent) => {
-          const { nativeEvent } = syntheticEvent
-          console.warn('WebView received error status code: ', nativeEvent)
-        }}
-      />
-    </View>
+    <RWebView
+      bounces={false}
+      style={{ flex: 1, width: '100%' }}
+      source={{
+        uri: url,
+      }}
+      allowsFullscreenVideo
+      sharedCookiesEnabled
+      thirdPartyCookiesEnabled
+      scalesPageToFit
+      textZoom={100}
+      startInLoadingState={true}
+      renderLoading={() => (
+        <StyledLoadingView>
+          <ActivityIndicator size={20} color={'white'} />
+        </StyledLoadingView>
+      )}
+      onError={(e) => console.log('Error loading game', e)}
+      renderError={() => (
+        <StyledLoadingView>
+          <Text sx={{ color: 'white', fontSize: 20 }}>Error Loading Game</Text>
+        </StyledLoadingView>
+      )}
+      onHttpError={(syntheticEvent) => {
+        const { nativeEvent } = syntheticEvent
+        console.warn('WebView received error status code: ', nativeEvent)
+      }}
+    />
   )
 }
 

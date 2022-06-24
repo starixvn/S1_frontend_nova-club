@@ -16,11 +16,10 @@ export interface GameListResult {
 }
 
 export interface GetGameUrlQueryArgs {
-  game_code: string
+  game_code?: string
   is_demo: number
   is_mobile: number
-  platform_code: string
-  username: string
+  platform_code?: string
 }
 
 export interface GetGameUrlResult {

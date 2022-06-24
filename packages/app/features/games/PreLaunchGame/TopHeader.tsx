@@ -1,14 +1,19 @@
 import Icon from 'app/components/Icon'
 import BouncePressable from 'app/pressable/BouncePressable'
+import { GameLauncherActions } from 'app/store/gameLauncher.slice'
 import { Image, styled, View } from 'dripsy'
 import { TouchableOpacity } from 'react-native'
+import { useDispatch } from 'react-redux'
 import { useRouter } from 'solito/router'
 
 const TopHeader = () => {
   const { back } = useRouter()
+  const dispatch = useDispatch()
   const onGoBack = () => {
     back()
+    dispatch(GameLauncherActions.reset())
   }
+
   return (
     <StyledTop>
       <BouncePressable onPress={onGoBack}>

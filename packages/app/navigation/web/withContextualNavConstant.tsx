@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 
 // Unique key for pages that require to open Contextual Navigation
 export enum ContextualModuleKey {
+  Home = 'home',
   Profile = 'profile',
   BankAccount = 'bankAccount',
   Deposit = 'deposit',
@@ -11,6 +12,7 @@ export enum ContextualModuleKey {
   Login = 'login',
   Game = 'game',
   PreLaunchGame = 'prelaunchgame',
+  Slot = 'slot',
 }
 
 // Ignore Dynamic import warning, as module: "esnext" is configured at app/next tsconfig.
@@ -28,7 +30,7 @@ const contextualComponents = {
   'profile-details': () => import('app/features/profile/profile-details'),
   'change-password': () => import('app/features/profile/change-password'),
   'forget-password': () => import('../../features/auth/forgotPassword'),
-  prelaunchgame: () => import('../../features/games/PreLaunchGame'),
+  '/games/prelaunch': () => import('../../features/games/PreLaunchGame'),
   'game-url': () => import('../../features/games/GameLoaderPage'),
   'commission-table': () => import('../../features/profile/commission-table'),
 }

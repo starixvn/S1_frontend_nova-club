@@ -1,6 +1,5 @@
 import withContextualNav from 'app/navigation/web/withContextualNav'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
-import { useGetGameUrlQuery } from 'app/services/gameApi'
 import { ScrollView, View } from 'dripsy'
 import React from 'react'
 import ListSectionHeader from '../ListSectionHeader'

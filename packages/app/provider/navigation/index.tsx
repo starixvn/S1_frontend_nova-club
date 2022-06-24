@@ -65,7 +65,7 @@ export function NavigationProvider({
               BankAccount: '/profile/bank-account',
               AddBankAccount: '/profile/bank-account/add-bank-account',
               History: '/profile/history',
-              PreLaunchGame: '/games/prelaunchgame',
+              PreLaunchGame: '/games/prelaunch',
               CustomerSupportPage: '/customer-support',
               GameLoaderPage: '/games/gameUrl',
             },

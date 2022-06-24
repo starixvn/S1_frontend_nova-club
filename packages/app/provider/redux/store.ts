@@ -12,6 +12,7 @@ import walletApi from 'app/services/wallet'
 import withdrawalApi from 'app/services/withdrawal'
 import { alertReducer } from 'app/store/alert'
 import bankReducer from 'app/store/bankReducer'
+import { gameLauncherReducer } from 'app/store/gameLauncher.slice'
 import playerReducer, {
   PlayerState,
   playerInitialState,
@@ -85,6 +86,7 @@ const rootReducer = combineReducers({
   bank: bankReducer,
   player: playerReducer,
   setting: settingReducer,
+  gameLauncher: gameLauncherReducer,
 })
 
 /** Fix typescript issue https://github.com/rt2zz/redux-persist/issues/1184 */

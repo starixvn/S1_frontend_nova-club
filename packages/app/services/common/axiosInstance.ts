@@ -39,10 +39,14 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
 
   if (!url?.includes('/static_api')) {
     const state = customConfig.store?.getState()
-    const token = state.player?.currentLoginInfo?.token
+    const { token, playerName } = state.player?.currentLoginInfo || {}
     if (token) {
       if (config.headers === undefined) config.headers = {}
       config.headers['Authorization'] = `Bearer ${token}`
+    }
+
+    if (playerName) {
+      Object.assign(requestParams, { username: playerName })
     }
   }
 

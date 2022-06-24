@@ -24,20 +24,13 @@ const gameEndpoints = (builder: EndpointBuilderType) => {
     }),
     getGameUrl: builder.query<IResponse<GetGameUrlResult>, GetGameUrlQueryArgs>(
       {
-        query: ({
-          game_code,
-          is_demo,
-          is_mobile,
-          platform_code,
-          username,
-        }) => ({
+        query: ({ game_code, is_demo, is_mobile, platform_code }) => ({
           url: `/player_api/gotogame`,
           data: {
             game_code,
             is_demo,
             is_mobile,
             platform_code,
-            username,
           },
         }),
       }
@@ -58,4 +51,5 @@ const gameApi = createApi({
 
 export default gameApi
 export { gameEndpoints }
-export const { useGameListQuery, useGetGameUrlQuery } = gameApi
+export const { useGameListQuery, useGetGameUrlQuery, useLazyGetGameUrlQuery } =
+  gameApi

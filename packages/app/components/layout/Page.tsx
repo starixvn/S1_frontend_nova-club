@@ -9,6 +9,7 @@ const pageStyles: Sx = {
 }
 
 const Page = styled(ScrollView, {})(pageStyles)
+const PageView = styled(View, {})(pageStyles)
 
 export const PageSafeArea = ({ children, ...rest }) => {
   return (
@@ -18,7 +19,13 @@ export const PageSafeArea = ({ children, ...rest }) => {
   )
 }
 
-export const PageWithBackHeader = ({ children, header, ...rest }) => {
+export const PageWithBackHeader = ({
+  children,
+  header,
+  disableScrollView = false,
+  ...rest
+}) => {
+  const PageComponent = disableScrollView ? PageView : Page
   return (
     <View
       sx={{
@@ -32,7 +39,7 @@ export const PageWithBackHeader = ({ children, header, ...rest }) => {
       }}
     >
       <Header style={{ flex: 1, flexBasis: 50 }} {...header} />
-      <Page
+      <PageComponent
         sx={{
           minHeight: 0,
           bg: '$secondary',
@@ -41,7 +48,7 @@ export const PageWithBackHeader = ({ children, header, ...rest }) => {
         {...rest}
       >
         {children}
-      </Page>
+      </PageComponent>
     </View>
   )
 }

@@ -6,9 +6,6 @@ import { TouchableOpacity } from 'react-native'
 import { useRouter } from 'solito/router'
 
 const ListImage = ({ data }: { data: any[] }) => {
-  const { push } = useRouter()
-  const { makeContextualHref } = useContextualRouting(ContextualModuleKey.Game)
-  const to = makeContextualHref('prelaunchgame')
   return (
     <ScrollView
       horizontal
@@ -20,7 +17,7 @@ const ListImage = ({ data }: { data: any[] }) => {
           <BouncePressable
             key={i.image.toString()}
             onPress={() => {
-              push(to, '/games/prelaunchgame')
+              // push(to, '/games/prelaunchgame')
             }}
           >
             <StyledImage source={i.image} />
