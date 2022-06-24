@@ -2,11 +2,12 @@ import {
   LazyQueryTrigger,
   UseQueryStateResult,
 } from '@reduxjs/toolkit/dist/query/react/buildHooks'
-import { FlatList } from 'dripsy'
-import React, { useEffect, useRef, useState } from 'react'
+import { ActivityIndicator, FlatList, Text } from 'dripsy'
+import React, { useEffect, useReducer, useRef, useState } from 'react'
 import { ListRenderItem, RefreshControl, View } from 'react-native'
 import { FlatListScrollTop } from '../list/withScrollToTop'
 import HistoryEmpty from './HistoryEmpty'
+import HistoryHeader from './HistoryHeader'
 
 const data1 = [
   {
@@ -164,36 +165,48 @@ const data1 = [
 ]
 
 interface HistoryListingProps<T> {
+  fetchParams: object
   trigger: any
   result: any
+  header: []
   keyExtractor?: (item: T, index: number) => string
   renderItem: ListRenderItem<T>
   // _header?: Omit<IButtonCollapsibleProps, 'isLoading' | 'onPressRefresh'>;
 }
 
 function HistoryListing<T>(props: HistoryListingProps<T>) {
-  const { trigger, result, keyExtractor, renderItem, _header } = props
-  const { data, isLoading, isFecthing, isSuccess } = result
+  const {
+    fetchParams,
+    trigger,
+    result,
+    header,
+    keyExtractor,
+    renderItem,
+    _header,
+  } = props
+  const { data, isLoading, isFetching, isSuccess, isUninitialized } = result
   const [limit, setLimit] = useState<number>(30)
   const [offset, setOffset] = useState<number>(0)
   const [displayList, setDisplayList] = useState<T[]>([])
 
   useEffect(() => {
-    fetchData(offset)
-  }, [])
+    fetchData(0)
+  }, [fetchParams])
 
-  async function fetchData(offset: number) {
+  async function fetchData(offset1: number) {
     try {
-      const res = await trigger({ offset, limit })
+      const res = await trigger({
+        limit: limit,
+        offset: offset1,
+        ...fetchParams,
+      })
         .unwrap()
         .catch((error) => console.log('error', error))
 
-      console.log(
-        '🚀 ~ file: HistoryListing.tsx ~ line 199 ~ fetchData ~ res',
-        res
-      )
-      if (res?.results.length > 0) {
-        setDisplayList([...displayList, ...res?.results])
+      if (isSuccess) {
+        if (offset1 > 0) setDisplayList(displayList.concat(res?.rows || []))
+        else setDisplayList(res?.rows || [])
+
         setOffset(offset + limit)
       }
     } catch (e) {
@@ -203,7 +216,7 @@ function HistoryListing<T>(props: HistoryListingProps<T>) {
 
   function onLoadMore() {
     console.log('Load more')
-    // if(offset+limit > data.row_count_total) return
+    if (offset + limit > data?.row_count_total) return
     fetchData(offset)
   }
 
@@ -211,15 +224,15 @@ function HistoryListing<T>(props: HistoryListingProps<T>) {
     console.log('refresh again')
     fetchData(10)
   }
-
+  console.log('isFetching', isFetching)
   return (
     <View style={{ flex: 1 }}>
+      <HistoryHeader data={header} />
       <FlatList
-        contentContainerStyle={{ padding: 12 }}
         onRefresh={onRefresh}
-        refreshing={isFecthing ?? false}
+        refreshing={isFetching ?? false}
         ListEmptyComponent={
-          isLoading ? <HistoryEmpty sx={{ mt: '$5' }} /> : null
+          !isUninitialized ? <HistoryEmpty sx={{ mt: '$5' }} /> : null
         }
         data={displayList}
         keyExtractor={keyExtractor}

@@ -24,10 +24,7 @@ const ProfileScreen = () => {
 
   const { data: playerProfile } = usePlayerProfileQuery()
 
-  const { data, isFetching, isLoading, isSuccess, refetch } =
-    usePlayerProfileQuery({
-      username: state?.playerName,
-    })
+  const { data, isFetching, isLoading, refetch } = usePlayerProfileQuery()
 
   useEffect(() => {
     !isLoading && setRefreshing(isFetching)

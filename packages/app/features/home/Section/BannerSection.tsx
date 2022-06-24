@@ -23,47 +23,47 @@ const BannerSection = () => {
   const colors = [selectedColor, selectedColor]
   const progressValue = useSharedValue<number>(0)
 
-  if (Platform.OS === 'ios')
-    return (
-      <View>
-        {data && (
-          <View>
-            <Carousel
-              data={data.data}
-              width={width}
-              height={width / BANNER_RATIO}
-              pagingEnabled
-              snapEnabled
-              mode="parallax"
-              autoPlay
-              autoPlayInterval={3000}
-              loop
-              modeConfig={{
-                parallaxScrollingScale: 1,
-                parallaxScrollingOffset: 1,
-              }}
-              onProgressChange={(_, absoluteProgress) =>
-                (progressValue.value = absoluteProgress)
-              }
-              renderItem={BannerItem}
-            />
-            <StyledContainerPaginatiom>
-              {colors.map((r, rindex) => {
-                return (
-                  <PaginationItem
-                    backgroundColor={r}
-                    animValue={progressValue}
-                    index={rindex}
-                    key={rindex}
-                    length={colors.length}
-                  />
-                )
-              })}
-            </StyledContainerPaginatiom>
-          </View>
-        )}
-      </View>
-    )
+  // if (Platform.OS === 'ios')
+  return (
+    <View>
+      {data && (
+        <View>
+          <Carousel
+            data={data.data}
+            width={width}
+            height={width / BANNER_RATIO}
+            pagingEnabled
+            snapEnabled
+            mode="parallax"
+            autoPlay
+            autoPlayInterval={3000}
+            loop
+            modeConfig={{
+              parallaxScrollingScale: 1,
+              parallaxScrollingOffset: 1,
+            }}
+            onProgressChange={(_, absoluteProgress) =>
+              (progressValue.value = absoluteProgress)
+            }
+            renderItem={BannerItem}
+          />
+          <StyledContainerPaginatiom>
+            {colors.map((r, rindex) => {
+              return (
+                <PaginationItem
+                  backgroundColor={r}
+                  animValue={progressValue}
+                  index={rindex}
+                  key={rindex}
+                  length={colors.length}
+                />
+              )
+            })}
+          </StyledContainerPaginatiom>
+        </View>
+      )}
+    </View>
+  )
 }
 
 const BannerItem = ({ item }: { item: BannerResult }) => {

@@ -9,14 +9,13 @@ import { useDispatch } from 'react-redux'
 import { useLazyPlayerProfileQuery } from 'services/playerApi'
 import { usePlayerBalanceQuery } from 'services/wallet'
 import { useRouter } from 'solito/router'
-import AnnoucementMarquee from './Section/AnnouncementMarquee'
 import CasinoSection from './Section/CasinoSection'
 import GamesSection from './Section/GamesSection'
 import GridSection from './Section/GridSection'
 import HotGamesSection from './Section/HotGamesSection'
 import LeaderboardSection from './Section/LeaderboardSection'
 import LotterySection from './Section/LotterySection'
-// import { PlayerActions } from 'app/store/playerReducer'
+import AnnoucementMarquee from './Section/AnnouncementMarquee'
 
 const HomeScreen = () => {
   const [selected, setSelected] = useState(null)

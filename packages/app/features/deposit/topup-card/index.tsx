@@ -10,10 +10,8 @@ import ImportantNotice from 'app/components/ImportantNotice'
 import { Button } from 'app/components/form/Button'
 import { toCurrency, toRealAmount } from 'app/utils'
 import { DripsyGradient } from 'app/components/Gradient'
-import { Gradient } from '@dripsy/gradient'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import { useSubmitDepositMutation } from 'services/deposit'
-import { useAppSelector } from 'app/provider/redux/store'
 import { useDispatch } from 'react-redux'
 import { AlertActions } from 'app/store/alert'
 import { useRouter } from 'solito/router'
@@ -86,11 +84,14 @@ const TopUpCardScreen = () => {
     try {
       const { data, success, message } = await postSubmitDeposit({
         amount: realAmount,
-        bank_type_id: 13,
+        bank_type_id: 100,
         card_code: parseInt(cardCode),
         card_seri: parseInt(cardSerialNo),
         card_type: paymentMode,
-        deposit_from: 1,
+        deposit_from: 4,
+        success_url: 'https://stage.gball8.com',
+        fail_url: 'https://stage.gball8.com',
+        home_url: 'https://stage.gball8.com',
       })
         .unwrap()
         .catch(({ message }) => dispatch(AlertActions.addError(message)))

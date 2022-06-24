@@ -1,34 +1,24 @@
-import React, { createRef, useReducer, useRef, useState } from 'react'
+import React from 'react'
 import { TextField } from 'app/components/TextField'
-import {
-  ActivityIndicator,
-  FlatList,
-  ScrollView,
-  styled,
-  Text,
-  View,
-} from 'dripsy'
+import { styled, Text, View } from 'dripsy'
 import { Button } from 'app/components/form/Button'
-import { useAppSelector } from 'app/provider/redux/store'
 import { FormikHelpers, useFormik } from 'formik'
 import * as Yup from 'yup'
 import validation from 'app/utils/validation'
-import Select from 'app/components/form/Select'
 import { useDispatch } from 'react-redux'
-import BankSelectorActionSheet from 'app/components/BankSelectorActionSheet'
-import { Dimensions, TouchableOpacity } from 'react-native'
+import { DEFAULT_SQUARE_ACTION_SHEET_ID } from 'app/components/SquareSelectorActionSheet'
 import {
   useAddPlayerBankAccMutation,
   useWithdrawalBankQuery,
 } from 'services/bank'
 import { AlertActions } from 'app/store/alert'
-import { useRoute } from '@react-navigation/native'
 import { useRouter } from 'solito/router'
 import useLocalization from 'app/provider/localization'
 import { PageWithBackHeader } from 'app/components/layout/Page'
-import ActionSheet from 'react-native-actions-sheet'
 import { WithdrawalBankResult } from 'services/bank.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
+import { SheetManager } from 'react-native-actions-sheet'
+import RoundedIcon from 'app/components/RoundedIcon'
 
 type AddBankAccountValues = {
   accountName: string
@@ -38,12 +28,13 @@ type AddBankAccountValues = {
 
 const AddBankAccountScreen = () => {
   const dispatch = useDispatch()
-  const actionSheetRef = createRef()
   const { t } = useLocalization()
   const { back } = useRouter()
   const { data, isLoading, isFetching, isSuccess } = useWithdrawalBankQuery()
   const [postAddWithdrawalBankAcc] = useAddPlayerBankAccMutation()
   const { data: playerProfile } = usePlayerProfileQuery()
+
+  const actionSheedId = t('bank.addBankAccount')
 
   const onSubmit = async (
     { accountName, bank, accountNo }: AddBankAccountValues,
@@ -145,13 +136,30 @@ const AddBankAccountScreen = () => {
             _flatList={{
               data: data,
               isLoading: isLoading || isFetching,
-              selectedData: values.bank?.bank_code,
+              keyExtractor: (item) => item.id,
+              renderItem: ({ item }) => (
+                <View sx={{ alignItems: 'center' }}>
+                  <RoundedIcon
+                    size="lg"
+                    key={item.id}
+                    icon={require('app/assets/images/home/fishing.png')}
+                    onPress={async () => {
+                      setFieldValue('bank', item)
+                      await SheetManager.hide(
+                        actionSheedId ?? DEFAULT_SQUARE_ACTION_SHEET_ID
+                      )
+                    }}
+                    containerStyle={{
+                      m: '$0a',
+                    }}
+                  />
+                  <Text sx={{ color: 'black' }}>{item.bank_code}</Text>
+                </View>
+              ),
             }}
             _actionSheet={{
-              headerTitle: 'bank.bank',
-            }}
-            onPress={(bank) => {
-              setFieldValue('bank', bank)
+              id: actionSheedId,
+              headerTitle: t('bank.bank'),
             }}
           />
 

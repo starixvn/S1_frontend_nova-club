@@ -12,17 +12,20 @@
   },
   "common": {
     "amount": "Amount",
+    "bet": "Bet",
     "cancel": "Cancel",
     "confirm": "Confirm",
     "confirmDelete": "Are you sure you want to delete? It cannot restore after deletion!",
     "copy": "Copy",
     "enterAmount": "Please enter your withdrawal amount",
     "importantNote": "Important Note",
+    "lose": "Lose",
     "next": "Next",
     "referenceId": "Reference ID",
     "selectDate": "Select A Date",
-    "selectAll":"Select All",
+    "selectAll": "Select All",
     "submit": "Submit",
+    "win": "Win",
     "password": "Password",
     "oldPassword": "Old Password",
     "newPassword": "New Password",
@@ -70,7 +73,7 @@
     "thisWeek": "This Week",
     "lastWeek": "Last Week",
     "thisMonth": "This Month",
-    "lastMonth": "Last Month"
+    "custom": "Custom"
   },
   "game": {
     "enterGame": "Enter Game"
@@ -81,12 +84,27 @@
     "commisionTable": "Commision Table",
     "customerSupport": "Customer Support",
     "deposit": "Deposit",
+    "gameHistory": "Game History",
     "history": "History",
     "logout": "Logout",
     "message/announcement": "Message/Announcement",
     "profile": "Profile",
     "switchAccount": "Switch Account",
-    "withdraw": "Withdraw"
+    "transactionHistory": "Transaction History",
+    "withdraw": "Withdraw",
+    "tab": {
+      "bets": "Bets",
+      "date": "Date",
+      "game": "Game",
+      "gameType": "Game Type",
+      "provider": "Provider",
+      "status": "Status",
+      "statusType": "Status Type",
+      "transaction": "Transaction",
+      "transactionType": "Transaction Type",
+      "type": "Type",
+      "win/loss": "Win/Loss"
+    }
   },
   "profile": {
     "details": {
@@ -137,9 +155,8 @@
     "enterOtp": "Please enter OTP",
     "table": "Commission Table"
   },
-  "message":{
-    "personalMessage":"Personal Message",
-    "annoucement":"Annoucement"
+  "message": {
+    "personalMessage": "Personal Message",
+    "annoucement": "Annoucement"
   }
-
 }

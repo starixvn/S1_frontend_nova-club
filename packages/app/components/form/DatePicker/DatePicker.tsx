@@ -104,6 +104,10 @@ const DatePicker = ({
                 isOpen={showDatePicker}
                 onChange={onDateTimePickerChange}
                 value={value || defaultDate}
+                minimumDate={
+                  _dateTime?.minimumDate ||
+                  dayjs().subtract(2, 'month').startOf('date').toDate()
+                }
                 maximumDate={
                   _dateTime?.maximumDate || dayjs().endOf('date').toDate()
                 }
@@ -115,6 +119,10 @@ const DatePicker = ({
                   value={value || defaultDate}
                   display={_dateTime?.display || 'default'}
                   onChange={onDateTimePickerChange}
+                  minimumDate={
+                    _dateTime?.minimumDate ||
+                    dayjs().subtract(2, 'month').startOf('date').toDate()
+                  }
                   maximumDate={
                     _dateTime?.maximumDate || dayjs().endOf('date').toDate()
                   }

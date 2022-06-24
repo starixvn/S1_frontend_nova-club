@@ -1,3 +1,9 @@
+import {
+  ReportStatusDeposit,
+  ReportStatusWithdrawal,
+  ReportTransactionType,
+} from 'app/utils/constant'
+
 export interface ProfileResult {
   auto_transfer_status: number
   birthdate: string
@@ -42,23 +48,29 @@ export type OverviewResult = {
 /**
  * *Player Report
  */
-export enum ReportTransType {
-  ALL = 'all',
-  DEPOSIT = 'deposit',
-  WITHDRAWAL = 'withdrawal',
-  REWARD = 'reward',
-}
-
 export type ReportArgs = {
   limit: number
   offset: number
+  status: ReportStatusDeposit | ReportStatusWithdrawal
   time_from: string
   time_to: string
-  trans_type: ReportTransType
+  trans_type: ReportTransactionType
   username: string
 }
 
 export type ReportResult = {
   row_count_total: number
-  rows: []
+  rows: ReportItem[]
+}
+
+export type ReportItem = {
+  amount: string
+  date: string
+  notes: string
+  pay_bank: null
+  pay_date: null
+  player_notes: string
+  secure_id: string
+  status: string
+  system_id: number
 }

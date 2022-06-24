@@ -1,24 +1,19 @@
-import Page, {
-  PageSafeArea,
-  PageWithBackHeader,
-} from 'app/components/layout/Page'
+import { PageWithBackHeader } from 'app/components/layout/Page'
 import useLocalization from 'app/provider/localization'
 import { Text, View, ActivityIndicator, FlatList, styled } from 'dripsy'
 import { useDummyRtk } from 'utils/rtk'
 import RecentTransactions from './RecentTransactions'
 import DepositMethodCard from './DepositMethodCard'
-import { Button } from 'app/components/form/Button'
 import { useRouter } from 'solito/router'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import withContextualNav from 'app/navigation/web/withContextualNav'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
-import ValueCard from './ValueCard'
-import { useDepositPaymentCategoriesQuery } from 'services/dummyDeposit'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { BankActions } from 'app/store/bankReducer'
 import { DepositPaymentMethodCategoryId } from 'services/deposit.type'
+import { useLazyDepositPaymentCategoriesQuery } from 'services/dummyDeposit'
 
 export enum DepositMethodId {
   LOCAL_BANK = 1,
@@ -86,6 +81,8 @@ const DepositPage = () => {
   const { t } = useLocalization()
   const dispatch = useDispatch()
   const [paymentMethodList, setPaymentMethodList] = useState(sampleData)
+  const [fetchMethod, result] = useLazyDepositPaymentCategoriesQuery()
+  console.log('🚀 ~ file: index.tsx ~ line 100 ~ DepositPage ~ result', result)
 
   const { makeContextualHref } = useContextualRouting(
     ContextualModuleKey.Deposit
@@ -103,7 +100,7 @@ const DepositPage = () => {
     const formData = new FormData()
     formData.append('is_mobile', '0')
     formData.append('api_key', '42f77fd0409566c6123d58551e85ee87')
-    formData.append('token', 'f9ef9de5e3fafecb2513ca524dba2266')
+    formData.append('token', '26174d76e0f2622d52af21a3757308d2')
     formData.append('username', 'gateway001')
 
     axios({
@@ -158,30 +155,33 @@ const DepositPage = () => {
   return (
     <PageWithBackHeader header={{ title: t('menu.deposit') }}>
       <Text sx={{ my: '$6', mx: '$4' }}>{t('deposit.choose')}</Text>
-      {isLoading && <ActivityIndicator />}
-      <View sx={{ position: 'relative', mx: '$4' }}>
-        {paymentMethodList && (
-          <FlatList
-            scrollEnabled={false}
-            data={paymentMethodList}
-            numColumns={2}
-            keyExtractor={(item) => item.name}
-            renderItem={({ item, index }) => {
-              return (
-                <DepositMethodCard
-                  item={item}
-                  sx={{
-                    mr: index % 2 === 0 ? '$8' : 0,
-                    mb: paymentMethodList.length - index <= 2 ? 0 : '$4',
-                  }}
-                  onPress={() => handlePress(item.id)}
-                />
-              )
-            }}
-          />
-        )}
-        <Seperator />
-      </View>
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <View sx={{ position: 'relative', mx: '$4' }}>
+          {paymentMethodList && (
+            <FlatList
+              scrollEnabled={false}
+              data={paymentMethodList}
+              numColumns={2}
+              keyExtractor={(item) => item.name}
+              renderItem={({ item, index }) => {
+                return (
+                  <DepositMethodCard
+                    item={item}
+                    sx={{
+                      mr: index % 2 === 0 ? '$8' : 0,
+                      mb: paymentMethodList.length - index <= 2 ? 0 : '$4',
+                    }}
+                    onPress={() => handlePress(item.id)}
+                  />
+                )
+              }}
+            />
+          )}
+          <Seperator />
+        </View>
+      )}
       <RecentTransactions />
     </PageWithBackHeader>
   )

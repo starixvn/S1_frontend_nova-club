@@ -74,7 +74,7 @@ const SelectLists = ({
               }}
               numberOfLines={1}
             >
-              {item.name}
+              {item}
             </Text>
 
             {index === selectedIndex ? (

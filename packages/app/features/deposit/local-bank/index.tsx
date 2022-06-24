@@ -1,6 +1,8 @@
 import { Button } from 'app/components/form/Button'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import { TextField } from 'app/components/TextField'
+import useContextualRouting from 'app/hooks/useContextualRouting'
+import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSubmitDepositMutation } from 'services/deposit'
@@ -15,10 +17,30 @@ import validation from 'app/utils/validation'
 import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React from 'react'
+import { Linking, Platform } from 'react-native'
 import { useDispatch } from 'react-redux'
+import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import { DepositMethodId } from '..'
 import DepositUpload from '../DepositUpload'
+// const DateTimeCOl = (rowData)=> {
+//   return < />
+// }
+// const columns = [
+//   {
+//     label : "Date Time",
+//     renderItem :(rowData)=> {
+//       return < />
+//     },
+//     flex: 0.3
+//   },
+//   {
+//     label : "Date Time",
+//     renderItem :(rowData)=> {
+//       return <Text>{rowData.amount}</Text>
+//     }
+//   }
+// ]
 
 type LocalBankValues = {
   bank: BankItem
@@ -29,6 +51,7 @@ type LocalBankValues = {
 const LocalBankScreen = () => {
   const { t } = useLocalization()
   const dispatch = useDispatch()
+  const { push } = useRouter()
 
   const [postSubmitDeposit] = useSubmitDepositMutation()
 
@@ -37,10 +60,11 @@ const LocalBankScreen = () => {
       (el) => el.id === DepositMethodId.LOCAL_BANK
     )
   )
-  console.log(
-    '🚀 ~ file: index.tsx ~ line 32 ~ LocalBankScreen ~ depositBank',
-    depositBank
+
+  const { makeContextualHref } = useContextualRouting(
+    ContextualModuleKey.Deposit
   )
+  const to = makeContextualHref('deposit-loader')
 
   const onSubmit = async (
     { bank, realAmount }: LocalBankValues,
@@ -57,6 +81,10 @@ const LocalBankScreen = () => {
       })
         .unwrap()
         .catch((error) => dispatch(AlertActions.addError(error.message)))
+
+      const webUrl = 'https://reactnative.dev/'
+      const url = webUrl && encodeURIComponent(webUrl)
+      openWebView(url, webUrl)
 
       if (success) {
         dispatch(AlertActions.addSuccess(message))
@@ -93,6 +121,20 @@ const LocalBankScreen = () => {
     setFieldValue,
   } = formik
 
+  const openWebView = (url, webUrl) => {
+    if (!url) return null
+    if (Platform.OS === 'web' && url) {
+      Linking.openURL(webUrl)
+    } else {
+      push(to, {
+        pathname: '/deposit/depositUrl',
+        query: {
+          depositUrl: url,
+        },
+      })
+    }
+  }
+
   function onAmountChanged(text: string) {
     console.log('text', text)
     if (text != null) {
@@ -116,7 +158,7 @@ const LocalBankScreen = () => {
               value: values.bank?.bank_name_local,
             }}
             _flatList={{
-              data: depositBank.list,
+              data: depositBank?.list,
               // isLoading: isLoading || isFetching,
               selectedData: values.bank?.bank_name_local,
               keyExtractor: (item) => item?.bankTypeId,
@@ -177,7 +219,7 @@ const LocalBankScreen = () => {
             end: { x: 1, y: 0 },
           }}
           containerStyle={{
-            my: '$10',
+            m: '$10',
           }}
           onPress={submitForm}
         >

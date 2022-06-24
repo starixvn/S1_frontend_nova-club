@@ -5,16 +5,14 @@ import { PageWithBackHeader } from 'app/components/layout/Page'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { usePlayerOverviewQuery } from 'services/playerApi'
-import { ScrollView, Text, View } from 'dripsy'
+import { ScrollView } from 'dripsy'
 import OverviewDateRange from './OverviewDateRange'
 import SummarySection from './SummarySection'
 
 const OverviewScreen = () => {
   const { t } = useLocalization()
   const state = useAppSelector((state) => state.auth.info || {})
-  const { data } = usePlayerOverviewQuery({
-    username: state?.playerName,
-  })
+  const { data } = usePlayerOverviewQuery()
 
   return (
     <DripsyGradient colors={['#133351', '#0D2035']} sx={{ flex: 1 }}>

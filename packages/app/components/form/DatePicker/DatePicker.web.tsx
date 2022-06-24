@@ -38,7 +38,11 @@ const DatePickerWeb = ({
   }
   const getDate = dayjs(value).format('YYYY-MM-DD')
   const maxDate = dayjs(_dateTime?.maximumDate).format('YYYY-MM-DD')
+  const minDate = _dateTime?.minimumDate
+    ? dayjs(_dateTime?.minimumDate).format('YYYY-MM-DD')
+    : dayjs(currentDate).subtract(2, 'month').format('YYYY-MM-DD')
   const currentDate = new Date()
+
   return (
     <div className="inputBox">
       <label className="inputDate">
@@ -48,6 +52,7 @@ const DatePickerWeb = ({
           type={'date'}
           onChange={onDateTimePickerChange}
           max={maxDate || dayjs(currentDate).format('YYYY-MM-DD')}
+          min={minDate}
           className={'date-input'}
         />
         {rightIcon && <Icon name={rightIcon} {..._rightIcon} />}
