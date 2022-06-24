@@ -12,12 +12,15 @@ import {
 
 const playerEndpoints = (builder: EndpointBuilderType) => {
   return {
-    playerProfile: builder.query<IResponse<ProfileResult>, ProfileQueryArgs>({
-      query: ({ username }) => ({
+    playerProfile: builder.query<
+      IResponse<ProfileResult>,
+      ProfileQueryArgs | void
+    >({
+      query: (queryArgs) => ({
         url: `/player_api/getPlayerProfile`,
         method: 'POST',
         data: {
-          username,
+          ...queryArgs,
         },
       }),
     }),

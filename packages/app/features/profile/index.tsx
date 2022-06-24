@@ -3,7 +3,7 @@ import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstan
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { usePlayerProfileQuery } from 'app/services/playerApi'
-import { PlayerActions } from 'app/store/playerReducer'
+import { PlayerActions } from 'app/store/authReducer'
 import { ScrollView, Text } from 'dripsy'
 import React, { useEffect } from 'react'
 import { RefreshControl } from 'react-native'
@@ -20,8 +20,10 @@ const ProfileScreen = () => {
   const [refreshing, setRefreshing] = React.useState(false)
   const dispatch = useDispatch()
 
-  const state = useAppSelector((state) => state.player.currentLoginInfo || {})
-  const user = useAppSelector((state) => state.player.currentLoginUser)
+  const state = useAppSelector((state) => state.auth.info || {})
+
+  const { data: playerProfile } = usePlayerProfileQuery()
+
   const { data, isFetching, isLoading, isSuccess, refetch } =
     usePlayerProfileQuery({
       username: state?.playerName,
@@ -30,7 +32,7 @@ const ProfileScreen = () => {
   useEffect(() => {
     !isLoading && setRefreshing(isFetching)
     if (data?.data) {
-      dispatch(PlayerActions.setUser(data?.data))
+      // dispatch(PlayerActions.setUser(data?.data))
     }
   }, [data, dispatch, isFetching, isLoading])
 
@@ -42,7 +44,7 @@ const ProfileScreen = () => {
         <RefreshControl refreshing={refreshing} onRefresh={refetch} />
       }
     >
-      <ProfileUser username={user?.username} />
+      <ProfileUser username={playerProfile?.data?.username || ''} />
       <ProfileBalance />
       <Text variant="xs" sx={{ textAlign: 'center' }}>
         {t('profile.timeline')}

@@ -2,10 +2,6 @@
  * *Player Balance
  */
 export type PlayerBalanceArgs = {
-  game_code: string
-  is_demo: number
-  is_mobile: number
-  platform_code: string
   username: string
 }
 
@@ -35,7 +31,7 @@ export type TransferArgs = {
   is_demo: number
   is_mobile: number
   platform_code: string
-  username: string
+  username?: string
 }
 
 export type TransferResult = {
@@ -50,7 +46,7 @@ export type TransferAllToOneArgs = {
   is_demo: number
   is_mobile: number
   platform_code: string
-  username: string
+  username?: string
 }
 
 export type TransferAllToOneResult = {

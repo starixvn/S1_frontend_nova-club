@@ -1,5 +1,6 @@
 import { API_DOMAIN, API_KEY } from '@env'
 import { EnhancedStore } from '@reduxjs/toolkit'
+import { RootState } from 'app/provider/redux/store'
 import { generateFPSParams } from 'app/utils/fps/fpsGenerator'
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 
@@ -10,7 +11,7 @@ enum RESPONSE_STATUS {
 const DEFAULT_TIMEOUT = 15000
 
 interface CustomConfig {
-  store?: EnhancedStore
+  store?: EnhancedStore<RootState>
   onTokenExpired?: () => void
   onUnauthorizedAccess?: () => void
 }
@@ -31,8 +32,8 @@ const axiosInstance = axios.create({
 
 const onRequestFullfilled = (config: AxiosRequestConfig) => {
   type RequestParams = {
-    black_b: string
-    username: string
+    black_b?: string
+    username?: string
   } & ReturnType<typeof generateFPSParams>
 
   let { url, headers } = config
@@ -40,7 +41,7 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
 
   if (!url?.includes('/static_api')) {
     const state = customConfig.store?.getState()
-    const { token, playerName } = state.player?.currentLoginInfo || {}
+    const { token, playerName } = state?.auth.info || {}
     if (token) {
       if (config.headers === undefined) config.headers = {}
       config.headers['Authorization'] = `Bearer ${token}`
@@ -100,8 +101,8 @@ const onResponseFullfilled = (response: AxiosResponse) => {
 const onResponseError = (error: AxiosError) => {
   if (error.response) {
     if (error.response.status === RESPONSE_STATUS.TOKEN_EXPIRED) {
-      const currentLoginInfo =
-        customConfig.store?.getState().player.currentLoginInfo
+      const state = customConfig.store?.getState()
+      const currentLoginInfo = state?.auth.info
 
       if (currentLoginInfo) {
         customConfig.onTokenExpired?.()

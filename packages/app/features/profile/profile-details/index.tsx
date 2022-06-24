@@ -5,12 +5,11 @@ import { styled, Text, View } from 'dripsy'
 import React, { useEffect, useRef } from 'react'
 import { RootState, useAppSelector } from 'app/provider/redux/store'
 import { ProfileResult } from 'app/services/playerApi.type'
+import { usePlayerProfileQuery } from 'app/services/playerApi'
 
 const ProfileDetails = () => {
   const { t } = useLocalization()
-  const user = useAppSelector<ProfileResult>(
-    (state: RootState) => state.player.currentLoginUser
-  )
+  const { data: userProfile } = usePlayerProfileQuery()
 
   return (
     <PageWithBackHeader header={{ title: t('menu.profile') }}>
@@ -18,23 +17,23 @@ const ProfileDetails = () => {
         <TextField>
           <TextField.Label
             label="profile.details.realname"
-            value={user.firstName}
+            value={userProfile?.data?.firstName || ''}
           />
           <TextField.Label
             label="profile.details.username"
-            value={user.username}
+            value={userProfile?.data?.username || ''}
           />
           <TextField.Label
             label="profile.details.phone"
-            value={user.contractNumber}
+            value={userProfile?.data?.contractNumber || ''}
           />
           <TextField.Label
             label="profile.details.referrer"
-            value={user.referral_code}
+            value={userProfile?.data?.referral_code || ''}
           />
           <TextField.Label
             label="profile.details.currency"
-            value={user.currency}
+            value={userProfile?.data?.currency || ''}
           />
         </TextField>
       </StyledViewPage>

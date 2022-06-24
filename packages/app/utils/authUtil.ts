@@ -3,7 +3,7 @@ import authApi from 'app/services/authApi'
 
 export async function logOut() {
   try {
-    const { playerName } = store.getState().player.currentLoginInfo || {}
+    const { playerName } = store.getState().auth.info || {}
     if (playerName) {
       await store.dispatch(
         authApi.endpoints.logout.initiate({ username: playerName })

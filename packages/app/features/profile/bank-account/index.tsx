@@ -56,10 +56,7 @@ const BankAccountScreen = () => {
   const { t } = useLocalization()
   const dispatch = useDispatch()
   const { push } = useRouter()
-  const user = useAppSelector((state) => state.player.currentLoginUser)
-  const { data, isLoading, isFetching, isSuccess } = usePlayerBankQuery({
-    username: user?.username ?? '',
-  })
+  const { data, isLoading, isFetching, isSuccess } = usePlayerBankQuery()
   const [postDeleteWithdrawalBank] = useDeletePlayerBankAccMutation()
   const deleteModalRef = useRef<PlayerBankDeleteModalForwardRef>(null)
 

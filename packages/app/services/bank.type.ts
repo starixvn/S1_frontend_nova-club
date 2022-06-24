@@ -55,7 +55,7 @@ export type addPlayerBankAccArgs = {
   branch: string
   city: string
   province: string
-  username: string
+  username?: string
 }
 
 /**
@@ -68,7 +68,7 @@ export type DeletePlayerBankAccResult = {
 export type DeletePlayerBankAccArgs = {
   bank_acc_num: string
   bank_type_id: number
-  username: string
+  username?: string
 }
 
 /**

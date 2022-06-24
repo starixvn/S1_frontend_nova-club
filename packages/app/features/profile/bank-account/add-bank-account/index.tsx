@@ -28,6 +28,7 @@ import useLocalization from 'app/provider/localization'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import ActionSheet from 'react-native-actions-sheet'
 import { WithdrawalBankResult } from 'app/services/bank.type'
+import { usePlayerProfileQuery } from 'app/services/playerApi'
 
 type AddBankAccountValues = {
   accountName: string
@@ -40,11 +41,9 @@ const AddBankAccountScreen = () => {
   const actionSheetRef = createRef()
   const { t } = useLocalization()
   const { back } = useRouter()
-  const user = useAppSelector((state) => state.player.currentLoginUser)
-  const { data, isLoading, isFetching, isSuccess } = useWithdrawalBankQuery({
-    username: user?.username ?? '',
-  })
+  const { data, isLoading, isFetching, isSuccess } = useWithdrawalBankQuery()
   const [postAddWithdrawalBankAcc] = useAddPlayerBankAccMutation()
+  const { data: playerProfile } = usePlayerProfileQuery()
 
   const onSubmit = async (
     { accountName, bank, accountNo }: AddBankAccountValues,
@@ -59,7 +58,6 @@ const AddBankAccountScreen = () => {
         branch: 'bankAcc',
         city: 'bankAcc',
         province: 'bankAcc',
-        username: user?.username ?? '',
       })
         .unwrap()
         .catch((error) => dispatch(AlertActions.addError(error.message)))
@@ -81,7 +79,7 @@ const AddBankAccountScreen = () => {
 
   const formik = useFormik<AddBankAccountValues>({
     initialValues: {
-      accountName: user?.firstName ?? '',
+      accountName: playerProfile?.data?.firstName ?? '',
       bank: {},
       accountNo: '',
     },

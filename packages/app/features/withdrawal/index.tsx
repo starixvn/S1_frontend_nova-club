@@ -30,10 +30,7 @@ const WithdrawalPage = () => {
   const { t } = useLocalization()
   const dispatch = useDispatch()
   const { replace } = useRouter()
-  const user = useAppSelector((state) => state.player.currentLoginUser)
-  const { data, isLoading, isFetching, isSuccess } = usePlayerBankQuery({
-    username: user?.username ?? '',
-  })
+  const { data, isLoading, isFetching, isSuccess } = usePlayerBankQuery()
   const [postSubmitWithdrawal] = useSubmitWithdrawalMutation()
   const [convertedData, setConvertedData] = useState([])
   const [selectedBank, setSelectedBank] = useState()
@@ -52,7 +49,6 @@ const WithdrawalPage = () => {
         crypto_address: '112233',
         crypto_protocol: '112233',
         exchange_rate: 1,
-        username: user?.username ?? '',
       })
         .unwrap()
         .catch((error) => dispatch(AlertActions.addError(error.message)))
