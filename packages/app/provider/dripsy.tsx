@@ -63,6 +63,8 @@ const commonColors = {
   $transparent: '#00000000',
   $gray: '#DBDBDB',
   $black: '#062646',
+  $dim: '#FFFFFFBF', //opacity 75%
+  $dim1: '#FFFFFF80', // opacity 50%
 }
 
 const colorGradient = {
@@ -159,13 +161,16 @@ const theme = makeTheme({
     },
   },
   fontSizes: {
-    $0: 12,
-    $1: 14,
-    $2: 16,
-    $3: 18,
-    $4: 24,
-    $5: 28,
-    $6: 32,
+    $0: '0.75rem', // 12px
+    $1: '1rem', // 16px
+    $2: '1.125rem', // 18px
+    $3: '1.25rem', // 20px
+    $4: '1.375rem', // 22px
+    $5: '1.5em', // 24px
+    $6: '1.625rem', // 26px
+    $7: '1.75rem', // 28px
+    $8: '1.875rem', // 30px
+    $9: '2rem', // 32px
   },
   colors: commonColors,
   linearGradients: colorGradient,

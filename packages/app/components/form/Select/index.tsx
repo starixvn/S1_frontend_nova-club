@@ -8,6 +8,7 @@ import React, {
   Dispatch,
   forwardRef,
   SetStateAction,
+  useReducer,
   useRef,
   useState,
 } from 'react'
@@ -70,6 +71,9 @@ const Select = (
   ref: any
 ) => {
   const [selectedIndex, setSelectedIndex] = useState(0)
+  const [isActive, toggleIsActive] = useReducer((state) => {
+    return !state
+  }, false)
   const _ref = useRef(null)
 
   const mergedRef = mergeRefs([_ref, ref])
@@ -159,6 +163,7 @@ const Select = (
         <SelectButton
           onOpen={openActionSheet}
           title={buttonTitle}
+          isActive={isActive}
           {...buttonProps}
         />
       )}
@@ -171,6 +176,8 @@ const Select = (
         headerAlwaysVisible={true}
         extraScroll={10}
         containerStyle={mergedContainerStyle}
+        onOpen={toggleIsActive}
+        onClose={toggleIsActive}
         {...restActionSheetProps}
       >
         <DripsyGradient

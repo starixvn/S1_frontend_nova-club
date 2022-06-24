@@ -43,6 +43,7 @@ export function NavigationProvider({
               DepositPage: {
                 screens: {
                   Deposit: '/deposit',
+                  DepositLoader: '/deposit/depositUrl',
                   LocalBank: '/deposit/local-bank',
                   OnlineBank: '/deposit/online-bank',
                   TopupCard: '/deposit/topup-card',

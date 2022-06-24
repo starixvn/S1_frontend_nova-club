@@ -20,11 +20,12 @@ import React, {
   useRef,
 } from 'react'
 import { TouchableWithoutFeedback } from 'react-native'
-import ActionSheet from 'react-native-actions-sheet'
-import BankSelectorActionSheet, {
-  BankSelectorActionSheetProps,
-  BankSelectorFlatListProps,
-} from './BankSelectorActionSheet'
+import ActionSheet, { SheetManager } from 'react-native-actions-sheet'
+import SquareSelectorActionSheet, {
+  DEFAULT_SQUARE_ACTION_SHEET_ID,
+  SquareSelectorActionSheetProps,
+  SquareSelectorFlatListProps,
+} from './SquareSelectorActionSheet'
 import { Button } from './form/Button'
 import GradientBox from './GradientBox'
 import Icon from './Icon'
@@ -57,8 +58,8 @@ type TextFieldSelectProps = {
   label: string
   error?: string
   containerStyle?: SxProp
-  _actionSheet: BankSelectorActionSheetProps
-  _flatList: BankSelectorFlatListProps
+  _actionSheet: SquareSelectorActionSheetProps
+  _flatList: SquareSelectorFlatListProps
   onPress: (object) => void
 }
 
@@ -160,7 +161,7 @@ const TextFieldInput = ({
  *     _flatList={{
  *       data: data,
  *       isLoading: isLoading || isFetching,
- *       selectedData: values.bank.bankName,
+ *       renderItem:()=>{}
  *     }}
  *     _actionSheet={{
  *       headerTitle: 'Bank',
@@ -177,19 +178,21 @@ const TextFieldSelect = ({
   _input,
   _flatList,
   _actionSheet,
-  onPress,
 }: TextFieldSelectProps) => {
   const { t } = useLocalization()
   const { labelWidth } = useContext(GradientTextBoxContext)
   const actionSheetRef = createRef()
-  const { selectedData } = _flatList
+
+  const { id: actionSheetId } = _actionSheet || {}
+
+  const handleActionSheetOpen = () => {
+    SheetManager.show(actionSheetId || DEFAULT_SQUARE_ACTION_SHEET_ID)
+  }
 
   return (
     <View>
       <GradientBox sx={{ my: '$1', ...containerStyle }}>
-        <TouchableWithoutFeedback
-          onPress={() => actionSheetRef?.current?.setModalVisible()}
-        >
+        <TouchableWithoutFeedback onPress={handleActionSheetOpen}>
           <StyledView sx={{ color: 'white' }}>
             <StyledTextLabel sx={{ flex: labelWidth }}>
               {t(label)}
@@ -213,11 +216,10 @@ const TextFieldSelect = ({
         </TouchableWithoutFeedback>
       </GradientBox>
 
-      <BankSelectorActionSheet
+      <SquareSelectorActionSheet
         ref={actionSheetRef}
         _flatList={_flatList}
         _actionSheet={_actionSheet}
-        onPress={onPress}
       />
       {error && (
         <TextInputHints>

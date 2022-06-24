@@ -24,19 +24,18 @@ const playerEndpoints = (builder: EndpointBuilderType) => {
         },
       }),
     }),
-    playerOverview: builder.query<IResponse<OverviewResult>, OverviewArgs>({
-      query: (queryArgs) => ({
+    playerOverview: builder.query<OverviewResult | undefined, void>({
+      query: () => ({
         url: `/player_api/getPlayerOverview`,
         method: 'POST',
-        data: {
-          ...queryArgs,
-        },
       }),
-      transformResponse: (res: IResponse<OverviewResult>): OverviewResult => {
+      transformResponse: (
+        res: IResponse<OverviewResult>
+      ): OverviewResult | undefined => {
         return res.data
       },
     }),
-    playerReport: builder.query<IResponse<ReportResult>, ReportArgs>({
+    playerReport: builder.query<ReportResult | undefined, ReportArgs>({
       query: (queryArgs) => ({
         url: `/player_api/getPlayerReport`,
         method: 'POST',
@@ -44,6 +43,11 @@ const playerEndpoints = (builder: EndpointBuilderType) => {
           ...queryArgs,
         },
       }),
+      transformResponse: (
+        res: IResponse<ReportResult>
+      ): ReportResult | undefined => {
+        return res.data
+      },
     }),
   }
 }
@@ -62,5 +66,5 @@ export const {
   usePlayerProfileQuery,
   useLazyPlayerProfileQuery,
   usePlayerOverviewQuery,
-  usePlayerReportQuery,
+  useLazyPlayerReportQuery,
 } = playerApi

@@ -14,11 +14,17 @@ const dummyDepositEndPoints = (builder: EndpointBuilderType) => {
       IResponse<DepositPaymentCategoriesResult>,
       DepositPaymentCategoriesArgs
     >({
-      query: (queryArgs) => ({
-        url: `/player_center/depositPaymentCategories`,
-        method: 'POST',
-        data: {},
-      }),
+      query: ({ formData }) => {
+        console.log('formData', formData)
+        return {
+          url: `/player_center/depositPaymentCategories`,
+          method: 'POST',
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+          data: { formData },
+        }
+      },
     }),
   }
 }
@@ -33,4 +39,7 @@ const dummyDepositApi = createApi({
 
 export default dummyDepositApi
 export { dummyDepositEndPoints }
-export const { useDepositPaymentCategoriesQuery } = dummyDepositApi
+export const {
+  useDepositPaymentCategoriesQuery,
+  useLazyDepositPaymentCategoriesQuery,
+} = dummyDepositApi

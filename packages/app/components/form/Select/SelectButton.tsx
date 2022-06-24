@@ -32,9 +32,11 @@ const SelectButton = ({
 
   const mergedGradientSx: SxProp = {
     ...{
-      py: '$6',
+      p: '$3',
+      pr: '$1',
       borderRadius: 15,
-      justifyContent: 'center',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
       alignItems: 'center',
       borderWidth: 2,
       borderColor: '$lightNavyBlue',
@@ -56,7 +58,7 @@ const SelectButton = ({
         <Icon
           name={'chevdown'}
           size={25}
-          sx={{ position: 'absolute', right: '$6' }}
+          // sx={{ position: 'absolute', right: '$6' }}
         />
       </DripsyGradient>
     </Pressable>

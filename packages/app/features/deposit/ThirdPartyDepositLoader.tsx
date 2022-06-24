@@ -1,7 +1,7 @@
+import WebView from 'app/components/WebView'
 import { Image, Text, View } from 'dripsy'
 import React, { useEffect, useState, useRef } from 'react'
 import { Platform } from 'react-native'
-import { WebView } from 'react-native-webview'
 
 const ThirdPartyDepositLoader = ({ navigation }) => {
   const [url, setUrl] = useState(navigation.getParam('url'))

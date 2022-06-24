@@ -16,28 +16,28 @@ import ActionSheet from 'react-native-actions-sheet'
 import { DripsyGradient } from './Gradient'
 import RoundedIcon from './RoundedIcon'
 
-export type BankSelectorActionSheetProps = ComponentProps<
+export type SquareSelectorActionSheetProps = ComponentProps<
   typeof ActionSheet
 > & {
   headerTitle: string
 }
-export type BankSelectorFlatListProps = ComponentProps<typeof FlatList> & {
+export type SquareSelectorFlatListProps = ComponentProps<typeof FlatList> & {
   data: WithdrawalBankResult[] | PlayerBankResult[] | []
   isLoading: boolean
   selectedData: WithdrawalBankResult | PlayerBankResult
 }
-export interface BankSelectorForwardRef {
+export interface SquareSelectorForwardRef {
   showDialog: () => void
 }
 
-type BankSelectorProps = {
+type SquareSelectorProps = {
   // bankList: WithdrawalBankResult[] | PlayerBankResult[] | []
   // headerTitle: string
   // isLoading: boolean
   // selectedBank: number | undefined
   onPress: (number) => void
-  _actionSheet: BankSelectorActionSheetProps
-  _flatList: BankSelectorFlatListProps
+  _actionSheet: SquareSelectorActionSheetProps
+  _flatList: SquareSelectorFlatListProps
 }
 
 type BankItemProps = {
@@ -47,12 +47,20 @@ type BankItemProps = {
   onPress?: () => void
 }
 
-const BankSelectorActionSheet = forwardRef<
-  BankSelectorForwardRef,
-  BankSelectorProps
->(({ _flatList, _actionSheet, onPress }: BankSelectorProps, ref) => {
+export const DEFAULT_SQUARE_ACTION_SHEET_ID = 'SquareSelector'
+
+const SquareSelectorActionSheet = forwardRef<
+  SquareSelectorForwardRef,
+  SquareSelectorProps
+>(({ _flatList, _actionSheet, onPress }: SquareSelectorProps, ref) => {
   const { t } = useLocalization()
-  const { headerTitle, ...restActionSheetProps } = _actionSheet || {}
+
+  const {
+    id: actionSheetId,
+    headerTitle,
+    ...restActionSheetProps
+  } = _actionSheet || {}
+
   const { isLoading, selectedData, ...restFlatListProps } = _flatList || {}
   const { theme } = useDripsyTheme()
 
@@ -75,22 +83,10 @@ const BankSelectorActionSheet = forwardRef<
     </StyledViewHeader>
   )
 
-  const renderItem = ({ item }) => {
-    return (
-      <BankItem
-        bank={item}
-        loading={isLoading}
-        onPress={() => {
-          onPress(item)
-          ref?.current?.setModalVisible(false)
-        }}
-      />
-    )
-  }
-
   return (
     <ActionSheet
       ref={mergedRef}
+      id={actionSheetId ?? DEFAULT_SQUARE_ACTION_SHEET_ID}
       gestureEnabled={Platform.OS === 'web' ? false : true}
       CustomHeaderComponent={HeaderComponent}
       headerAlwaysVisible={true}
@@ -102,62 +98,28 @@ const BankSelectorActionSheet = forwardRef<
       }}
       {...restActionSheetProps}
     >
-      <ScrollView
-        contentContainerSx={{
+      <View
+        sx={{
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor: 'white',
           p: '$2',
           minHeight: 100,
         }}
-        nestedScrollEnabled={true}
-        onMomentumScrollEnd={() => mergedRef.current?.handleChildScrollEnd()}
       >
         {isLoading ? (
           <ActivityIndicator size={'large'} />
         ) : (
           <FlatList
-            // data={data}
-            // keyExtractor={(item) => item?.bank_code}
             numColumns={4}
             extraData={selectedData}
             {...restFlatListProps}
-            renderItem={renderItem}
           />
         )}
-      </ScrollView>
+      </View>
     </ActionSheet>
   )
 })
-
-function BankItem({ bank, onPress }: BankItemProps) {
-  return (
-    <View
-      sx={{
-        alignItems: 'center',
-      }}
-    >
-      <RoundedIcon
-        size="lg"
-        key={bank.id}
-        icon={require('app/assets/images/home/fishing.png')}
-        onPress={onPress}
-        containerStyle={{
-          m: '$0a',
-        }}
-      />
-      <Text
-        sx={{
-          color: 'black',
-        }}
-      >
-        {(bank as WithdrawalBankResult).bank_code
-          ? bank.bank_code
-          : bank.BankCode}
-      </Text>
-    </View>
-  )
-}
 
 const StyledViewHeader = styled(DripsyGradient)({
   minHeight: 48,
@@ -167,6 +129,6 @@ const StyledViewHeader = styled(DripsyGradient)({
   alignItems: 'center',
 })
 
-BankSelectorActionSheet.displayName = 'BankSelectorActionSheet'
+SquareSelectorActionSheet.displayName = 'SquareSelectorActionSheet'
 
-export default BankSelectorActionSheet
+export default SquareSelectorActionSheet

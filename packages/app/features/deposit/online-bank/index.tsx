@@ -5,10 +5,7 @@ import { TextField } from 'app/components/TextField'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSubmitDepositMutation } from 'services/deposit'
-import {
-  BankItem,
-  DepositPaymentCategoriesResult,
-} from 'services/dummyDeposit.type'
+import { BankItem } from 'services/dummyDeposit.type'
 import { AlertActions } from 'app/store/alert'
 import { toCleanAmount, toRealAmount } from 'app/utils'
 import validation from 'app/utils/validation'
@@ -35,11 +32,6 @@ const OnlineBankScreen = () => {
       (el) => el.id === DepositMethodId.ONLINE_BANK
     )
   )
-  console.log(
-    '🚀 ~ file: index.tsx ~ line 36 ~ OnlineBankScreen ~ depositBank',
-    depositBank
-  )
-
   const onSubmit = async (
     { bank, realAmount }: OnlineBankValues,
     actions: FormikHelpers<OnlineBankValues>
@@ -95,10 +87,6 @@ const OnlineBankScreen = () => {
     console.log('text', text)
     if (text != null) {
       const { cleanText, amountNumber } = toCleanAmount(text)
-      // const cleanText = text.replace(/[^0-9]/g, '')
-      // if (cleanText === values.amount) return
-      // let amountNumber = parseFloat(cleanText)
-      // if (isNaN(amountNumber)) amountNumber = 0
       setValues({
         ...values,
         amount: cleanText,

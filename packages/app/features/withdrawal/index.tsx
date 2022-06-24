@@ -2,13 +2,15 @@ import { Button } from 'app/components/form/Button'
 import Select from 'app/components/form/Select'
 import { TextField } from 'app/components/TextField'
 import { useAppSelector } from 'app/provider/redux/store'
-import { styled, View } from 'dripsy'
+import { styled, Text, View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import { FormikHelpers, useFormik } from 'formik'
 import * as Yup from 'yup'
 import validation from 'app/utils/validation'
 import ImportantNotice from 'app/components/ImportantNotice'
-import BankSelectorActionSheet from 'app/components/BankSelectorActionSheet'
+import SquareSelectorActionSheet, {
+  DEFAULT_SQUARE_ACTION_SHEET_ID,
+} from 'app/components/SquareSelectorActionSheet'
 import { useDispatch } from 'react-redux'
 import { AlertActions } from 'app/store/alert'
 import { useRouter } from 'solito/router'
@@ -17,6 +19,8 @@ import { toRealAmount } from 'app/utils'
 import { usePlayerBankQuery } from 'services/bank'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import useLocalization from 'app/provider/localization'
+import RoundedIcon from 'app/components/RoundedIcon'
+import { SheetManager } from 'react-native-actions-sheet'
 
 type WithdrawalValues = {
   amount: string
@@ -34,6 +38,8 @@ const WithdrawalPage = () => {
   const [postSubmitWithdrawal] = useSubmitWithdrawalMutation()
   const [convertedData, setConvertedData] = useState([])
   const [selectedBank, setSelectedBank] = useState()
+
+  const actionSheedId = t('menu.withdraw')
 
   const onSubmit = async (
     { amount, realAmount }: WithdrawalValues,
@@ -112,19 +118,37 @@ const WithdrawalPage = () => {
             label="bank.bank"
             _input={{
               placeholder: t('bank.selectBank'),
-              value: values.bank?.BankCode,
+              value: values.bank?.PlayerBankDetailsId,
             }}
             _flatList={{
               data: data,
               isLoading: isLoading || isFetching,
-              selectedData: values.bank,
               keyExtractor: (item) => item?.BankTypeId,
+              renderItem: ({ item }) => (
+                <View sx={{ alignItems: 'center' }}>
+                  <RoundedIcon
+                    size="lg"
+                    key={item.BankTypeId}
+                    icon={require('app/assets/images/home/fishing.png')}
+                    onPress={async () => {
+                      setFieldValue('bank', item)
+                      await SheetManager.hide(
+                        actionSheedId ?? DEFAULT_SQUARE_ACTION_SHEET_ID
+                      )
+                    }}
+                    containerStyle={{
+                      m: '$0a',
+                    }}
+                  />
+                  <Text sx={{ color: 'black' }}>
+                    {item.PlayerBankDetailsId}
+                  </Text>
+                </View>
+              ),
             }}
             _actionSheet={{
-              headerTitle: 'bank.bank',
-            }}
-            onPress={(bank) => {
-              setFieldValue('bank', bank)
+              id: actionSheedId,
+              headerTitle: t('bank.bank'),
             }}
           />
 

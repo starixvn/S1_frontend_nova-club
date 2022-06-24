@@ -7,6 +7,7 @@ import React, { FC, useState } from 'react'
 interface DatePickerModalIOSProps {
   value: Date
   maximumDate?: Date
+  minimumDate?: Date
   isOpen: boolean
   onChange: (e: any, selectedDate: Date | undefined) => void
   onClose: () => void
@@ -15,6 +16,7 @@ interface DatePickerModalIOSProps {
 const DatePickerIOS: FC<DatePickerModalIOSProps> = ({
   value = new Date(),
   maximumDate,
+  minimumDate,
   isOpen,
   onChange,
   onClose,
@@ -44,6 +46,7 @@ const DatePickerIOS: FC<DatePickerModalIOSProps> = ({
         timeZoneOffsetInMinutes={0}
         is24Hour
         maximumDate={maximumDate}
+        minimumDate={minimumDate}
         display="spinner"
         value={localValue}
         onChange={(e, d) => d && setLocalValue(d)}
