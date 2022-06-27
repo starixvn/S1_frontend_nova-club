@@ -10,6 +10,7 @@ import { View } from 'dripsy'
 import { useState } from 'react'
 import { Linking, Platform } from 'react-native'
 import { useLazyGetGameUrlQuery } from 'services/gameApi'
+import { usePlayerBalanceQuery } from 'services/wallet'
 import { useRouter } from 'solito/router'
 import { sleep } from 'utils/common'
 import GameAmount from './GameAmount'
@@ -95,6 +96,8 @@ const PreLaunchGame = ({}) => {
   const { launchGame, isVerifying } = useGameLauncher()
   const { isBalanceReady } = useGameBalanceRule()
 
+  const { playerBalance } = usePlayerBalanceQuery()
+
   const { top } = useSafeArea()
   return (
     <DripsyGradient colors={['#164672', '#0D2035']} sx={{ flex: 1, pt: top }}>
@@ -106,7 +109,7 @@ const PreLaunchGame = ({}) => {
         }}
         isAgree={agree}
       />
-      <GameAmount playerBalance={playerBalace?.data} />
+      <GameAmount playerBalance={playerBalance?.data} />
       <View sx={{ mt: '$10', mx: '$5' }}>
         <Button
           disabled={!agree || isVerifying || !isBalanceReady}

@@ -34,7 +34,7 @@ export function axiosBaseQuery<T>(): BaseQueryFn<
 
       return { data: respData }
     } catch (error) {
-      console.error('axiosBaseQuery error', error)
+      console.error('axiosBaseQuery error', url, error)
 
       if (axios.isAxiosError(error)) {
         const errorMessage = error.response?.data as undefined | IResponse<T>

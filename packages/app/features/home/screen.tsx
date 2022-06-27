@@ -18,47 +18,11 @@ import LotterySection from './Section/LotterySection'
 import AnnoucementMarquee from './Section/AnnouncementMarquee'
 
 const HomeScreen = () => {
-  const [selected, setSelected] = useState(null)
-  const [updateStatus, setUpdateStatus] = useState('--')
-  const [event, setEvent] = useState('-')
-  const dispatch = useDispatch()
-
-  const OTPRef = useRef<ITimerButtonForwardRef>(null)
-  const { push } = useRouter()
-
   const [playerProfile] = useLazyPlayerProfileQuery()
-  const { data: playerBalace } = usePlayerBalanceQuery()
 
   useEffect(() => {
-    console.log(playerBalace, playerBalace?.data)
-  }, [playerBalace])
-
-  useEffect(() => {
-    async function checkUpdate() {
-      const update = await Updates.checkForUpdateAsync()
-      if (update.isAvailable && update.manifest) {
-        setUpdateStatus(JSON.stringify(update.manifest.id))
-      }
-
-      Updates.addListener((e) => {
-        setEvent(e.type)
-      })
-    }
-
-    if (Platform.OS !== 'web') {
-      checkUpdate()
-    }
     onGetPlayer()
   }, [])
-
-  const handleOtp = () => {
-    console.log('handle otp api')
-  }
-
-  const onLogout = async () => {
-    await logOut()
-    push('/auth/login')
-  }
 
   const onGetPlayer = async () => {
     try {
@@ -82,7 +46,7 @@ const HomeScreen = () => {
       <CasinoSection />
       <LotterySection />
       <GamesSection />
-      <LeaderboardSection />
+      {/* <LeaderboardSection /> */}
       <HotGamesSection />
     </ScrollView>
   )

@@ -1,6 +1,7 @@
 import { ComponentType } from 'react'
-import { ActivityIndicator } from 'dripsy'
+import { ActivityIndicator, View } from 'dripsy'
 import dynamic from 'next/dynamic'
+import { PageWithBackHeader } from 'app/components/layout/Page'
 
 // Unique key for pages that require to open Contextual Navigation
 export enum ContextualModuleKey {
@@ -39,7 +40,13 @@ const contextualComponents = {
 
 export function getContextualComponent(key: string) {
   return dynamic(contextualComponents[key], {
-    loading: () => <ActivityIndicator />,
+    loading: (props) => {
+      return (
+        <PageWithBackHeader header={{ title: ' ' }}>
+          <ActivityIndicator sx={{ mt: '$10' }} />
+        </PageWithBackHeader>
+      )
+    },
   })
 }
 export type ContextualComponents = keyof typeof contextualComponents

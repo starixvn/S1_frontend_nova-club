@@ -9,6 +9,7 @@ import { Container } from 'dripsy'
 
 import { AnimatePresence } from 'framer-motion'
 import layouts from '../layouts'
+import TabLayout from '../layouts/TabLayout'
 
 function MyApp({ Component, pageProps, router }: SolitoAppProps) {
   // Use the layout defined at the page level, if available
@@ -27,14 +28,7 @@ function MyApp({ Component, pageProps, router }: SolitoAppProps) {
       </Head>
       <Provider>
         <Container sx={{ flex: 1 }}>
-          {/* <ContextualNav /> */}
-          <AnimatePresence
-            exitBeforeEnter
-            initial={false}
-            onExitComplete={() => window.scrollTo(0, 0)}
-          >
-            {getLayout(<Component {...pageProps} />)}
-          </AnimatePresence>
+          {getLayout(<Component {...pageProps} />)}
         </Container>
       </Provider>
 
