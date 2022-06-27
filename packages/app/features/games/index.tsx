@@ -26,4 +26,4 @@ const Games = () => {
   )
 }
 
-export default withContextualNav(Games, ContextualModuleKey.Game)
+export default withContextualNav(Games, ContextualModuleKey.Home)

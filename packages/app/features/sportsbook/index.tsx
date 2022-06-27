@@ -1,5 +1,8 @@
 import SimpleGridImage from 'app/components/SimpleGridImage'
+import SimpleWrap from 'app/components/SimpleWrap'
 import sport from 'app/config/games/sport'
+import withContextualNav from 'app/navigation/web/withContextualNav'
+import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import { FlatList, ScrollView, styled, View } from 'dripsy'
 import React from 'react'
 import { Image, useWindowDimensions } from 'react-native'
@@ -12,10 +15,10 @@ const Sportsbook = () => {
     <ScrollView sx={{ bg: '$background' }} showsVerticalScrollIndicator={false}>
       <ListSectionHeader title={'SPORTSBOOK'} bgColor="yellow" iconName="sb" />
       <View>
-        <SimpleGridImage data={sport.gameList} />
+        <SimpleWrap data={sport.gameList} showTitle={false} />
       </View>
     </ScrollView>
   )
 }
 
-export default Sportsbook
+export default withContextualNav(Sportsbook, ContextualModuleKey.Home)

@@ -1,4 +1,4 @@
-import SimpleGridImage from 'app/components/SimpleGridImage'
+import SimpleWrap from 'app/components/SimpleWrap'
 import casino from 'app/config/games/casino'
 import hotgame from 'app/config/games/hotgame'
 import { Image, ScrollView, styled, View } from 'dripsy'
@@ -14,19 +14,8 @@ const Casino = () => {
         iconName="lc"
         search
       />
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        sx={{ pl: '$3a' }}
-      >
-        {casino.gameList.map((i, index) => {
-          return (
-            <StyledImage key={i.image.toString() + index} source={i.image} />
-          )
-        })}
-      </ScrollView>
       <View sx={{ mt: '$5' }}>
-        <SimpleGridImage data={hotgame.gameList} />
+        <SimpleWrap data={casino.gameList} showTitle={true} />
       </View>
     </ScrollView>
   )

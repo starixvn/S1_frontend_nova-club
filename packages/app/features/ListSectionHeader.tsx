@@ -1,5 +1,6 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
+import useLocalization from 'app/provider/localization'
 import { styled, Text, TextInput, View } from 'dripsy'
 import React from 'react'
 
@@ -14,6 +15,8 @@ const ListSectionHeader = ({
   iconName: string
   search?: boolean
 }) => {
+  const { t } = useLocalization()
+
   return (
     <StyledContainer>
       <StyledView>
@@ -26,7 +29,7 @@ const ListSectionHeader = ({
             }}
           />
         </StyledGradient>
-        <StyledText>{title}</StyledText>
+        <StyledText>{t(title)}</StyledText>
       </StyledView>
       {search && (
         <StyledSearchBox>
@@ -70,6 +73,7 @@ const StyledText = styled(Text)({
   pr: '$5',
   fontWeight: 'bold',
   fontStyle: 'italic',
+  textTransform: 'uppercase',
 })
 
 const StyledGradient = styled(DripsyGradient)({

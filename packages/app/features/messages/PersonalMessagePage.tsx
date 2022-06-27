@@ -44,7 +44,6 @@ const PersonalMessagePage = () => {
     let params = {
       isDeleteAll: false,
       ids: selectedIds,
-      // username: state?.playerName,
     }
     try {
       await deleteMessages(params).unwrap()

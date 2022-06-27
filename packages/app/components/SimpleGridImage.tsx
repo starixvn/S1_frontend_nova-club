@@ -1,59 +1,66 @@
+import { GAMES } from 'app/config/games/games.type'
 import { HOME_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import BouncePressable from 'app/pressable/BouncePressable'
-import { Image, styled, View, Text } from 'dripsy'
-import GoldLabelFrame from './GoldLabelFrame'
+import { GameLauncherActions } from 'app/store/gameLauncher.slice'
+import { Image, styled, Text, View } from 'dripsy'
+import { FC } from 'react'
+import { useDispatch } from 'react-redux'
 
-const SimpleGridImage = ({ data }: { data: any[] }) => {
+interface GamesProps extends GAMES {
+  showTitle: boolean
+}
+
+const SimpleGridImage: FC<GamesProps> = ({
+  gameCode,
+  gameName,
+  title,
+  image,
+  providerCode,
+  showTitle,
+}) => {
   const { width, height } = useContainerDimension()
   const borderedWidth = width - 4
   const leftRightSpace = borderedWidth * HOME_PADDING * 0.5
   const columnWidth = (borderedWidth - leftRightSpace * 2) / 2
-
-  const StyledImage = styled(Image)({
-    borderRadius: 10,
-  })
+  const dispatch = useDispatch()
+  const urlImage = typeof image == 'string' && image.indexOf('http') > -1
+  const img = urlImage ? { uri: image } : image
   return (
-    <View>
-      <StyledWrapItem sx={{ p: leftRightSpace }}>
-        {data.map((r, rindex) => {
-          return (
-            <BouncePressable
-              key={rindex}
-              sx={{ p: leftRightSpace, width: columnWidth }}
-            >
-              <StyledImage
-                resizeMode="cover"
-                source={r.image}
-                sx={{
-                  width: columnWidth - leftRightSpace * 2,
-                  height: columnWidth - leftRightSpace * 2,
-                }}
-              />
-              {r.title && (
-                <Text
-                  sx={{
-                    textAlign: 'center',
-                    color: '$lightNavyBlue',
-                    mt: -5,
-                    fontSize: 15,
-                  }}
-                >
-                  {r.title}
-                </Text>
-              )}
-            </BouncePressable>
-          )
-        })}
-      </StyledWrapItem>
-    </View>
+    <BouncePressable
+      sx={{ p: leftRightSpace, width: columnWidth }}
+      onPress={() => {
+        dispatch(
+          GameLauncherActions.launchGame({
+            gameCode: gameCode,
+            providerCode: providerCode,
+          })
+        )
+      }}
+    >
+      <Image
+        resizeMode="cover"
+        source={img}
+        sx={{
+          width: columnWidth - leftRightSpace * 2,
+          height: columnWidth - leftRightSpace * 2,
+          borderRadius: 10,
+        }}
+      />
+      {title && showTitle && (
+        <Text
+          sx={{
+            textAlign: 'center',
+            mt: '$1',
+            color: '$lightNavyBlue',
+            fontSize: 15,
+          }}
+        >
+          {title}
+        </Text>
+      )}
+    </BouncePressable>
   )
 }
-const StyledWrapItem = styled(View)({
-  flexDirection: 'row',
-  flexWrap: 'wrap',
-  borderWidth: 2,
-  borderColor: 'transparent',
-})
 
 export default SimpleGridImage

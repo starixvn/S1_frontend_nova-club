@@ -8,9 +8,16 @@ const useContainerDimension: () => ScaledSize = () => {
   return {
     ...dimension,
     width:
-      Platform.select({
-        web: Math.min(dimension.width, theme.sizes.container),
-      }) ?? dimension.width,
+      Platform.OS === 'web'
+        ? Math.min(
+            document.getElementsByTagName('body')[0]?.clientWidth ??
+              dimension.width,
+            theme.sizes.container
+          )
+        : dimension.width,
+    // Platform.select({
+    //   web: Math.min(dimension.width, theme.sizes.container),
+    // }) ?? dimension.width,
   }
 }
 
