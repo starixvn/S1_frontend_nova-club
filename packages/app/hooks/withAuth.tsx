@@ -1,7 +1,6 @@
 import { NextComponentType } from 'next'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'solito/router'
-import LoginPage from '../../../apps/next/pages/auth/login'
 import { RootState } from '../provider/redux/store'
 import Login from '../features/auth/login'
 
@@ -15,7 +14,7 @@ function withAuth<T>(Component: NextComponentType<T>) {
 
     // If user is not logged in, return login component
     if (!player) {
-      push('/auth/login')
+      return <Login />
     }
 
     // If user is logged in, return original component

@@ -10,6 +10,7 @@ import { Container } from 'dripsy'
 import { AnimatePresence } from 'framer-motion'
 import layouts from '../layouts'
 import TabLayout from '../layouts/TabLayout'
+import AuthenticationProvider from '../components/AuthenticationProvider'
 
 function MyApp({ Component, pageProps, router }: SolitoAppProps) {
   // Use the layout defined at the page level, if available
@@ -28,11 +29,13 @@ function MyApp({ Component, pageProps, router }: SolitoAppProps) {
       </Head>
       <Provider>
         <Container sx={{ flex: 1 }}>
-          {getLayout(<Component {...pageProps} />)}
+          <AuthenticationProvider>
+            {getLayout(<Component {...pageProps} />)}
+          </AuthenticationProvider>
         </Container>
       </Provider>
 
-      <Script src="/js/iovation_static.js" />
+      {/* <Script src="/js/iovation_static.js" /> */}
       <Script src="https://scqa2.detecas.com/activator.ashx" />
     </>
   )

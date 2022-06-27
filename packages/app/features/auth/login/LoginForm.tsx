@@ -16,6 +16,10 @@ import { MotiLink } from 'solito/moti'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 
+import { createParam } from 'solito'
+
+const { useParam } = createParam()
+
 const StyledLink = styled(MotiLink)({})
 
 type LoginFormValues = {
@@ -29,6 +33,9 @@ const LoginForm = () => {
 
   const [errorMsg, setErrorMsg] = useState('')
   const { replace } = useRouter()
+  const [afterLoginRedirection] = useParam('r', {
+    initial: '/',
+  })
   const passwordFieldRef = useRef<RNTextField>(null)
   const usernameFieldRef = useRef<RNTextField>(null)
 
@@ -49,7 +56,7 @@ const LoginForm = () => {
         actions.resetForm()
         if (errorMsg) setErrorMsg('')
 
-        replace('/')
+        replace(afterLoginRedirection)
       } else {
         throw new Error(message)
       }
