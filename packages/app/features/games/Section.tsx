@@ -1,13 +1,19 @@
-import { styled, Text, View } from 'dripsy'
+import { HOME_PADDING } from 'app/constant/sizes'
+import useContainerDimension from 'app/hooks/useContainerDimension'
+import useLocalization from 'app/provider/localization'
+import { styled, SxProp, Text, View } from 'dripsy'
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
 
-const Section = ({ title }: { title: string }) => {
+const Section = ({ title, sx }: { title: string; sx?: SxProp }) => {
+  const { t } = useLocalization()
+  const { width } = useContainerDimension()
+  const COMMON_PADDING = width * HOME_PADDING
   return (
-    <StyledView>
+    <StyledView sx={{ ...sx, pl: COMMON_PADDING }}>
       <StyledText>{title}</StyledText>
       <StyledButton>
-        <ButtonText>{'Click More >'}</ButtonText>
+        <ButtonText>{t('common.clickMore') + `  >`} </ButtonText>
       </StyledButton>
     </StyledView>
   )
@@ -16,11 +22,11 @@ const Section = ({ title }: { title: string }) => {
 const StyledView = styled(View)({
   flexDirection: 'row',
   justifyContent: 'space-between',
-  ml: '$3a',
+  mb: '$1',
 })
 
 const StyledText = styled(Text)({
-  fontSize: [13, 20, 25],
+  fontSize: 13,
   color: 'white',
   pl: '$1a',
   pr: '$5',
@@ -30,7 +36,7 @@ const StyledText = styled(Text)({
 })
 
 const ButtonText = styled(Text)({
-  fontSize: [10, 20, 25],
+  fontSize: 10,
   px: '$2a',
   py: '$1',
 })

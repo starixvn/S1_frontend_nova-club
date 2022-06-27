@@ -45,11 +45,10 @@ function useGameBalanceRule() {
   }
 }
 
-function useGameLauncher() {
+function useGameLauncher(gameLauncherState) {
   const { push } = useRouter()
   const [isVerifying, setVerifying] = useState(false)
   const [getGameUrl] = useLazyGetGameUrlQuery()
-  const gameLauncherState = useAppSelector((s) => s.gameLauncher)
 
   const { providerCode, gameCode, gameName } = gameLauncherState
 
@@ -92,27 +91,32 @@ function useGameLauncher() {
 
 const PreLaunchGame = ({}) => {
   const { t } = useLocalization()
+  const gameLauncherState = useAppSelector((s) => s.gameLauncher)
   const [agree, setAgree] = useState(false)
-  const { launchGame, isVerifying } = useGameLauncher()
+  const { launchGame, isVerifying } = useGameLauncher(gameLauncherState)
   const { isBalanceReady } = useGameBalanceRule()
-
   const { playerBalance } = usePlayerBalanceQuery()
 
   const { top } = useSafeArea()
+  const { providerCode } = gameLauncherState
+  const isSaba = providerCode === 'SABA'
+
   return (
     <DripsyGradient colors={['#164672', '#0D2035']} sx={{ flex: 1, pt: top }}>
       <TopHeader />
       <GameRewards />
-      <UserAgreement
-        onAgree={(e) => {
-          setAgree(e)
-        }}
-        isAgree={agree}
-      />
-      <GameAmount playerBalance={playerBalance?.data} />
+      {isSaba && (
+        <UserAgreement
+          onAgree={(e) => {
+            setAgree(e)
+          }}
+          isAgree={agree}
+        />
+      )}
+      <GameAmount />
       <View sx={{ mt: '$10', mx: '$5' }}>
         <Button
-          disabled={!agree || isVerifying || !isBalanceReady}
+          disabled={(isSaba && !agree) || isVerifying || !isBalanceReady}
           rounded
           stretch
           variant="lg"

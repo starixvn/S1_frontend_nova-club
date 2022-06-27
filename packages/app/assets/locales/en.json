@@ -1,4 +1,13 @@
 {
+  "home":{
+    "sportsbook": "Sportsbook",
+    "games": "Games",
+    "slots": "Slots",
+    "liveCasino": "Live Casino",
+    "keno/lottery": "Keno/Lottery",
+    "fishing": "Fishing",
+    "poker": "Poker"
+  },
   "bank": {
     "accountName": "Account name",
     "accountNo": "Account no",
@@ -34,7 +43,8 @@
     "enterOldPassword": "Please enter old password",
     "enterNewPassword": "Please enter new password",
     "enterConfirmPassword": "Please confirm password",
-    "passwordNote": "1. Password must be alphanumeric without special character. The length is unless 6-12 character. \n2. Password can not be the same to old pass"
+    "passwordNote": "1. Password must be alphanumeric without special character. The length is unless 6-12 character. \n2. Password can not be the same to old pass",
+    "clickMore": "Click More"
   },
   "contact": {
     "whatsapp": "WhatsApp",

@@ -22,6 +22,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     onGetPlayer()
+    // setSelected(new Date())
   }, [])
 
   const onGetPlayer = async () => {

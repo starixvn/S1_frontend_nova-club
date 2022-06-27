@@ -1,23 +1,42 @@
+import { DraggableScrollView } from 'app/components/DraggableScrollView'
 import casino from 'app/config/games/casino'
+import { HOME_PADDING } from 'app/constant/sizes'
+import useContainerDimension from 'app/hooks/useContainerDimension'
 import { Image, ScrollView, styled, View } from 'dripsy'
 import React from 'react'
 import SectionHeader from './SectionHeader'
 
 const CasinoSection = () => {
+  const { width, height } = useContainerDimension()
+
+  const borderedWidth = width - 4
+  const leftRightSpace = borderedWidth * HOME_PADDING * 0.75
+  const columnWidth = (borderedWidth - leftRightSpace * 2) / 2.5
+  const rowHeight = columnWidth * 1.35
+
   return (
     <View>
       <SectionHeader title={casino.label} bgColor={'maroon'} iconName={'lc'} />
-      <ScrollView
+      <DraggableScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        sx={{ ml: '$3a' }}
+        contentContainerStyle={{
+          paddingHorizontal: leftRightSpace,
+        }}
       >
         {casino.gameList.map((i, index) => {
           return (
-            <StyledImage key={i.image.toString() + index} source={i.image} />
+            <StyledImage
+              key={i.image.toString() + index}
+              source={i.image}
+              sx={{
+                width: columnWidth - leftRightSpace,
+                height: rowHeight,
+              }}
+            />
           )
         })}
-      </ScrollView>
+      </DraggableScrollView>
     </View>
   )
 }
@@ -25,8 +44,6 @@ const CasinoSection = () => {
 const StyledImage = styled(Image)({
   margin: '$2',
   borderRadius: 5,
-  height: [210, 220, 230],
-  width: [130, 140, 150],
 })
 
 export default CasinoSection

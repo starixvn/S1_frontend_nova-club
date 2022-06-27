@@ -1,21 +1,14 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import { axiosBaseQuery } from './common/axiosBaseQuery'
 import { EndpointBuilderType, IResponse } from './common/types'
-import {
-  DeleteMessageQueryArgs,
-  MessageQueryArgs,
-  MessageResult,
-} from './messageApi.type'
+import { DeleteMessageQueryArgs, MessageResult } from './messageApi.type'
 
 const messageEndpoints = (builder: EndpointBuilderType) => {
   return {
-    message: builder.query<IResponse<MessageResult>, MessageQueryArgs | void>({
+    message: builder.query<IResponse<MessageResult>, void>({
       query: (queryArgs) => ({
         url: `/player_api/message`,
         method: 'POST',
-        data: {
-          ...queryArgs,
-        },
       }),
     }),
     deleteMessages: builder.mutation<IResponse, DeleteMessageQueryArgs>({

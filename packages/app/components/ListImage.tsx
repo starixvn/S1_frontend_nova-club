@@ -1,37 +1,42 @@
+import { GAMES } from 'app/config/games/games.type'
 import { HOME_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
-import useContextualRouting from 'app/hooks/useContextualRouting'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import BouncePressable from 'app/pressable/BouncePressable'
+import { GameLauncherActions } from 'app/store/gameLauncher.slice'
 import { Image } from 'dripsy'
-import { useRouter } from 'solito/router'
+import { useDispatch } from 'react-redux'
 import { DraggableScrollView } from './DraggableScrollView'
 
-const ListImage = ({ data }: { data: any[] }) => {
+const ListImage = ({ data }: { data: GAMES[] }) => {
   const { width, height } = useContainerDimension()
   const borderedWidth = width - 4
   const leftRightSpace = borderedWidth * HOME_PADDING * 0.75
   const columnWidth = (borderedWidth - leftRightSpace * 2) / 3
+  const dispatch = useDispatch()
 
-  const { push } = useRouter()
-  const { makeContextualHref } = useContextualRouting(ContextualModuleKey.Game)
-  const to = makeContextualHref('prelaunchgame')
   return (
     <DraggableScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
-      contentContainerStyle={{ marginHorizontal: leftRightSpace }}
+      contentContainerStyle={{
+        paddingHorizontal: leftRightSpace,
+      }}
     >
-      {data.map((i) => {
+      {data.map((item, index) => {
         return (
           <BouncePressable
-            key={i.image.toString()}
+            key={item.gameCode + `'${index}'`}
             onPress={() => {
-              // push(to, '/games/prelaunchgame')
+              dispatch(
+                GameLauncherActions.launchGame({
+                  gameCode: item.gameCode,
+                  providerCode: item.providerCode,
+                })
+              )
             }}
           >
             <Image
-              source={i.image}
+              source={item.image}
               sx={{
                 borderRadius: 5,
                 width: columnWidth - leftRightSpace,

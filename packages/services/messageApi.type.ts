@@ -12,12 +12,8 @@ export interface Message {
   subject: string
 }
 
-export interface MessageQueryArgs {
-  username: string
-}
-
 export interface DeleteMessageQueryArgs {
   isDeleteAll: boolean
   ids: number[]
-  username: string
+  username?: string
 }

@@ -21,6 +21,8 @@ interface NavigationParamList {
   WithdrawalPage: undefined
   CommissionTablePage: undefined
   MessagePage: undefined
+  FishingPage: undefined
+  LotteryPage: undefined
 }
 
 export function NavigationProvider({
@@ -71,6 +73,8 @@ export function NavigationProvider({
               CustomerSupportPage: '/customer-support',
               GameLoaderPage: '/games/gameUrl',
               MessagesPage: '/messages/',
+              FishingPage: '/fishing/',
+              LotteryPage: '/lottery/',
             },
           },
         }),

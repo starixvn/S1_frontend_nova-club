@@ -1,30 +1,54 @@
 import home from 'app/config/home'
 import { GRID_TOTAL_COL, HOME_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
-import { Image, styled, View } from 'dripsy'
+import BouncePressable from 'app/pressable/BouncePressable'
+import useLocalization from 'app/provider/localization'
+import { Image, styled, Text, View } from 'dripsy'
 import React from 'react'
+import { useRouter } from 'solito/router'
 const dummyData = [
   {
     col: 4,
     src: home[0]?.image,
+    title: home[0]?.title,
+    route: '/sportsbook/SportsBook',
   },
-  { col: 2, src: home[1]?.image },
+  {
+    col: 2,
+    src: home[1]?.image,
+    title: home[1]?.title,
+    route: '/games/Games',
+  },
   {
     col: 3,
     src: home[2]?.image,
+    title: home[2]?.title,
+    route: '/slots/Slots',
   },
-  { col: 3, src: home[3]?.image },
+  {
+    col: 3,
+    src: home[3]?.image,
+    title: home[3]?.title,
+    route: '/live/Live Casino',
+  },
   {
     col: 2,
     src: home[4]?.image,
+    title: home[4]?.title,
+    route: '/lottery',
   },
-  { col: 2, src: home[5]?.image },
-  { col: 2, src: home[6]?.image },
+  {
+    col: 2,
+    src: home[5]?.image,
+    title: home[5]?.title,
+    route: '/fishing',
+  },
+  { col: 2, src: home[6]?.image, title: home[6]?.title, route: '/' },
 ]
-const StyledImage = styled(Image)({
-  borderRadius: 10,
-})
+
 const GridSection = () => {
+  const { push } = useRouter()
+  const { t } = useLocalization()
   const { width } = useContainerDimension()
   const borderedWidth = width - 4
   // const space = width * HOME_PADDING
@@ -32,7 +56,6 @@ const GridSection = () => {
   const thirdQuarterSpace = quarterSpace * 3
   const columnWidth = (borderedWidth - thirdQuarterSpace * 2) / GRID_TOTAL_COL
   const rowHeight = columnWidth * 2
-
   return (
     <StyledContainer
       sx={{
@@ -42,25 +65,39 @@ const GridSection = () => {
     >
       {dummyData.map((j) => {
         const width = columnWidth * j.col
-
+        const picHeight = rowHeight - quarterSpace * 2
+        const checkTextSpace = picHeight / 30
         return (
-          <View
+          <BouncePressable
             key={j.src.toString()}
             sx={{
               p: quarterSpace,
               width,
               height: rowHeight,
             }}
+            onPress={() => push(j.route)}
           >
-            <StyledImage
+            <Image
               sx={{
                 width: width - quarterSpace * 2,
                 height: rowHeight - quarterSpace * 2,
+                borderRadius: 10,
               }}
               source={j.src}
               resizeMode="cover"
             />
-          </View>
+            <StyledTextContainer
+              sx={{
+                bottom: checkTextSpace,
+                left: checkTextSpace,
+                width: width - quarterSpace * 2,
+              }}
+            >
+              <Text sx={{ textTransform: 'uppercase', fontSize: 14, py: '$1' }}>
+                {t(j.title)}
+              </Text>
+            </StyledTextContainer>
+          </BouncePressable>
         )
       })}
     </StyledContainer>
@@ -72,6 +109,14 @@ const StyledContainer = styled(View)({
   flexWrap: 'wrap',
   borderWidth: 2,
   borderColor: 'transparent',
+})
+
+const StyledTextContainer = styled(View)({
+  position: 'absolute',
+  bg: 'rgba(0,0,0,0.5)',
+  alignItems: 'center',
+  borderBottomLeftRadius: 10,
+  borderBottomRightRadius: 10,
 })
 
 export default GridSection

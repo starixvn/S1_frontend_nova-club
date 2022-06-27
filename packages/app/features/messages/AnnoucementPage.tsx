@@ -10,6 +10,7 @@ const AnnouncementPage = () => {
   return (
     <View sx={{ backgroundColor: '$secondary', flex: 1 }}>
       <FlatList
+        showsVerticalScrollIndicator={false}
         onRefresh={() => refetch()}
         keyExtractor={(item) => item.newsId.toString()}
         refreshing={isLoading}

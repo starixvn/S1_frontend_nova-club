@@ -1,30 +1,36 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import BouncePressable from 'app/pressable/BouncePressable'
-import { Image, styled, Text, View } from 'dripsy'
-import { TouchableOpacity } from 'react-native'
+import { Image, styled, Text } from 'dripsy'
+import { useRouter } from 'solito/router'
 const DATA = [
   {
     label: 'Slots',
     img: require('../../assets/images/games/slots.png'),
+    route: '/slots/Slots',
   },
-  {
-    label: 'Local Games',
-    img: require('../../assets/images/games/dice.png'),
-  },
+  // {
+  //   label: 'Local Games',
+  //   img: require('../../assets/images/games/dice.png'),
+  // },
   {
     label: 'Fishing Games',
     img: require('../../assets/images/games/fishing.png'),
+    route: '/fishing',
   },
   {
     label: 'Keno/Lottery',
     img: require('../../assets/images/games/lottery.png'),
+    route: '/lottery',
   },
   {
     label: 'Poker',
     img: require('../../assets/images/games/poker.png'),
+    route: '/',
   },
 ]
 const MenuRow = () => {
+  const { push } = useRouter()
+
   return (
     <DripsyGradient gradient={'darkBlue'}>
       <StyledListView gradient={'navyBlue'}>
@@ -35,6 +41,7 @@ const MenuRow = () => {
               style={{
                 alignItems: 'center',
               }}
+              onPress={() => push(i.route)}
             >
               <StyledImage source={i.img} resizeMode={'stretch'} />
               <StyledText>{i.label}</StyledText>
