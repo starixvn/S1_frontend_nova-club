@@ -12,6 +12,7 @@ type HeaderProps = {
 const HistoryHeader = ({ data }: HeaderProps) => {
   return (
     <DripsyGradient
+      gradient="PaleBlue"
       sx={{
         flexDirection: 'row',
         backgroundColor: '$darkNavyBlue',
@@ -32,6 +33,7 @@ const HistoryHeader = ({ data }: HeaderProps) => {
             sx={{
               flex: item.columnWidth,
               alignSelf: 'stretch',
+              textAlign: 'center',
             }}
             numberOfLines={1}
           >

@@ -130,7 +130,11 @@ const Select = (
   }
 
   const HeaderComponent = CustomHeaderComponent ?? (
-    <DripsyGradient sx={mergedHeaderSx} {...restHeaderProps}>
+    <DripsyGradient
+      gradient="PaleBlue"
+      sx={mergedHeaderSx}
+      {...restHeaderProps}
+    >
       <Text
         sx={{
           fontWeight: 'bold',
@@ -181,6 +185,7 @@ const Select = (
         {...restActionSheetProps}
       >
         <DripsyGradient
+          gradient="darkNavyBlue"
           start={{ x: 0.5, y: 0 }}
           end={{ x: 0.5, y: 1 }}
           sx={mergedActionSheetContentStyle}

@@ -2,7 +2,7 @@ import {
   LazyQueryTrigger,
   UseQueryStateResult,
 } from '@reduxjs/toolkit/dist/query/react/buildHooks'
-import { FlatList, Text } from 'dripsy'
+import { ActivityIndicator, FlatList, Text } from 'dripsy'
 import React, { useEffect, useReducer, useRef, useState } from 'react'
 import { ListRenderItem, RefreshControl, View } from 'react-native'
 import { FlatListScrollTop } from '../list/withScrollToTop'
@@ -184,7 +184,7 @@ function HistoryListing<T>(props: HistoryListingProps<T>) {
     renderItem,
     _header,
   } = props
-  const { data, isLoading, isFecthing, isSuccess, isUninitialized } = result
+  const { data, isLoading, isFetching, isSuccess, isUninitialized } = result
   const [limit, setLimit] = useState<number>(30)
   const [offset, setOffset] = useState<number>(0)
   const [displayList, setDisplayList] = useState<T[]>([])
@@ -224,13 +224,13 @@ function HistoryListing<T>(props: HistoryListingProps<T>) {
     console.log('refresh again')
     fetchData(10)
   }
-
+  console.log('isFetching', isFetching)
   return (
     <View style={{ flex: 1 }}>
+      <HistoryHeader data={header} />
       <FlatList
         onRefresh={onRefresh}
-        refreshing={isFecthing ?? false}
-        ListHeaderComponent={<HistoryHeader data={header} />}
+        refreshing={isFetching ?? false}
         ListEmptyComponent={
           !isUninitialized ? <HistoryEmpty sx={{ mt: '$5' }} /> : null
         }

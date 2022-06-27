@@ -21,9 +21,9 @@ const HistoryEmpty = ({ text, _text, ...props }: IHistoryEmpty) => {
 
       <Text
         sx={{
-          mt: '2',
-          py: '2',
-          px: '4',
+          mt: '$2',
+          py: '$2',
+          px: '$4',
           color: 'white',
           bg: 'rgba(0, 0, 0, 0.2)',
         }}
