@@ -17,15 +17,19 @@ const AuthenticationProvider = ({ children }) => {
 
   // After login success, push will take sometimes to redirect to after login page
   // persisting the LoginPage with query.r detection will prevent empty pages being shown
-  if (!loginInfo || query.r) {
-    if (!guestRoutes.some((r) => asPath.startsWith(r))) {
+
+  // if route doesnt exists in guestRoutes
+  if (!guestRoutes.some((r) => asPath.startsWith(r))) {
+    if (!loginInfo) {
       push(`${route}?r=${route}`, `/auth/login?r=${route}`, {
         shallow: true,
       })
-    }
 
-    return <LoginPage />
+      return <LoginPage />
+    }
   }
+
+  if (query.r) return <LoginPage />
 
   return children
 }
