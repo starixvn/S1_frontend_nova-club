@@ -6,7 +6,7 @@ const DATA = [
   {
     label: 'Slots',
     img: require('../../assets/images/games/slots.png'),
-    route: '/slots',
+    route: '/slot',
   },
   // {
   //   label: 'Local Games',

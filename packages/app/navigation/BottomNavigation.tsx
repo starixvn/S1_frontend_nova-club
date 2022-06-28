@@ -46,8 +46,6 @@ const BottomNavigation = () => {
   const { push, parseNextPath } = useRouter()
   const [activeIdx, setActiveIdx] = useState(2)
 
-  console.log('parsee', parseNextPath('/slot'))
-
   const BAR_HEIGHT = 60
   const CIRCLE_HEIGHT = BAR_HEIGHT
   const ICON_HEIGHT = 60

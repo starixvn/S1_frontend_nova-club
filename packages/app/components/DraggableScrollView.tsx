@@ -1,6 +1,6 @@
 import React, { ComponentProps } from 'react'
 import { ScrollView } from 'react-native'
-import { useDraggableScroll } from '../../../apps/next/pages/ues-draggable-scroll'
+import { useDraggableScroll } from '../../../apps/next/hooks/useDraggableScroll'
 
 export const DraggableScrollView = React.forwardRef<
   ScrollView,
