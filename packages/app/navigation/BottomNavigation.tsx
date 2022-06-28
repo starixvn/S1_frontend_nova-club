@@ -10,14 +10,14 @@ const tabConfig = [
     name: 'Sportsbook',
     isFocused: false,
     iconName: 'sb',
-    route: '/sportsbook/SportsBook',
+    route: '/sportsbook',
   },
   {
     id: 2,
     name: 'Games',
     isFocused: false,
     iconName: 'games',
-    route: '/games/Games',
+    route: '/games',
   },
   {
     id: 3,
@@ -31,20 +31,22 @@ const tabConfig = [
     name: 'Slots',
     isFocused: false,
     iconName: 'sl',
-    route: '/slots/Slots',
+    route: '/slot',
   },
   {
     id: 5,
     name: 'Live Casino',
     isFocused: false,
     iconName: 'lc',
-    route: '/live/Live Casino',
+    route: '/livecasino',
   },
 ]
 
 const BottomNavigation = () => {
-  const { push } = useRouter()
+  const { push, parseNextPath } = useRouter()
   const [activeIdx, setActiveIdx] = useState(2)
+
+  console.log('parsee', parseNextPath('/slot'))
 
   const BAR_HEIGHT = 60
   const CIRCLE_HEIGHT = BAR_HEIGHT

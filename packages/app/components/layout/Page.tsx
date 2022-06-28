@@ -11,10 +11,16 @@ const pageStyles: Sx = {
 const Page = styled(ScrollView, {})(pageStyles)
 const PageView = styled(View, {})(pageStyles)
 
-export const PageSafeArea = ({ children, ...rest }) => {
+export const PageSafeArea = ({
+  children,
+  disableScrollView = false,
+  ...rest
+}) => {
+  const PageComponent = disableScrollView ? PageView : Page
+
   return (
     <SafeAreaView sx={pageStyles}>
-      <Page {...rest}>{children}</Page>
+      <PageComponent {...rest}>{children}</PageComponent>
     </SafeAreaView>
   )
 }

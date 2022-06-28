@@ -6,7 +6,7 @@ const DATA = [
   {
     label: 'Slots',
     img: require('../../assets/images/games/slots.png'),
-    route: '/slots/Slots',
+    route: '/slots',
   },
   // {
   //   label: 'Local Games',
@@ -15,12 +15,12 @@ const DATA = [
   {
     label: 'Fishing Games',
     img: require('../../assets/images/games/fishing.png'),
-    route: '/fishing',
+    route: '/games/fishing',
   },
   {
     label: 'Keno/Lottery',
     img: require('../../assets/images/games/lottery.png'),
-    route: '/lottery',
+    route: '/games/lottery',
   },
   {
     label: 'Poker',

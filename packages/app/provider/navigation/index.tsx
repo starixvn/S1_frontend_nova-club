@@ -56,10 +56,10 @@ export function NavigationProvider({
               BottomNav: {
                 screens: {
                   Home: '',
-                  Sportsbook: 'sportsbook/:name',
+                  Sportsbook: 'sportsbook',
                   Games: '/games/:name',
-                  Slots: '/slots/:name',
-                  Casino: '/live/:name',
+                  Slots: '/slot',
+                  Casino: '/livecasino',
                   Profile: '/profile',
                 },
               },

@@ -1,5 +1,5 @@
 import SportsbookPage from 'app/features/sportsbook'
-import layouts from '../../layouts'
+import layouts from '../layouts'
 import { motion, AnimatePresence } from 'framer-motion'
 import React from 'react'
 

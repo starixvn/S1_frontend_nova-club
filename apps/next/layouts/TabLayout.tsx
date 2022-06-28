@@ -4,6 +4,7 @@ import React, { FC, useEffect, useState } from 'react'
 import { View, useSx } from 'dripsy'
 import { useRouter } from 'next/router'
 import { AnimatePresence } from 'framer-motion'
+import { Platform } from 'react-native'
 
 export interface TabLayoutProps {
   children: React.ReactElement
@@ -38,6 +39,7 @@ const TabLayout: FC<TabLayoutProps> = ({ children }) => {
   const s = sx({
     height: 'header',
   })
+
   return (
     <View
       sx={{
@@ -51,7 +53,7 @@ const TabLayout: FC<TabLayoutProps> = ({ children }) => {
         <div style={{ width: 100, height: 100, backgroundColor: 'red' }}></div>
       )} */}
       <HeaderFloat />
-      <View style={{ flex: 1 }}>{children}</View>
+      {children}
       {/* <AnimatePresence
         initial={false}
         onExitComplete={() => window.scrollTo(0, 0)}

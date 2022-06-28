@@ -113,6 +113,7 @@ const Select = (
       borderTopStartRadius: 12,
       borderTopEndRadius: 12,
       overflow: 'hidden',
+      maxWidth: theme.sizes.container,
     },
     ...containerStyle,
   }
