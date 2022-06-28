@@ -4,19 +4,26 @@ import Header from '../common/Header'
 const pageStyles: Sx = {
   bg: '#0D2035',
   flex: 1,
-  minHeight: Platform.OS === 'web' ? '100vh' : 0,
+  // minHeight: Platform.OS === 'web' ? '100vh' : 0,
   flexDirection: 'column',
 }
 
-const Page = styled(ScrollView, {})(pageStyles)
-const PageView = styled(View, {})(pageStyles)
+const Page = Object.assign(styled(View, {})(pageStyles), {
+  ScrollView: styled(ScrollView, {})(pageStyles),
+  FillView: styled(
+    ScrollView,
+    {}
+  )({ ...pageStyles, minHeight: Platform.OS === 'web' ? '100vh' : 0 }),
+})
+
+// Page.ScrollView
 
 export const PageSafeArea = ({
   children,
   disableScrollView = false,
   ...rest
 }) => {
-  const PageComponent = disableScrollView ? PageView : Page
+  const PageComponent = disableScrollView ? Page : Page.ScrollView
 
   return (
     <SafeAreaView sx={pageStyles}>
@@ -31,7 +38,7 @@ export const PageWithBackHeader = ({
   disableScrollView = false,
   ...rest
 }) => {
-  const PageComponent = disableScrollView ? PageView : Page
+  const PageComponent = disableScrollView ? Page : Page.ScrollView
   return (
     <View
       sx={{

@@ -43,9 +43,10 @@ const TabLayout: FC<TabLayoutProps> = ({ children }) => {
   return (
     <View
       sx={{
-        minHeight: '100vh',
-        marginTop: s.height,
-        marginBottom: 60,
+        // minHeight: '100vh',
+        height: '100vh',
+        paddingTop: s.height,
+        paddingBottom: 60,
         position: 'relative',
       }}
     >

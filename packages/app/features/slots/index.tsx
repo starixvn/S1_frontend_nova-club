@@ -62,8 +62,8 @@ const Slots = () => {
   const {
     providerSelection,
     slotTypeSelection,
-    filteredGames,
     selectedProvider,
+    filteredGames,
     selectedSlotType,
     setSelectedProvider,
     setSelectedSlotType,
@@ -116,9 +116,11 @@ const Slots = () => {
         <FlatList<SlotGame>
           numColumns={2}
           style={sx({ bg: '$background' })}
+          // onEndReached={loadMore}
+          data={filteredGames}
+          // extraData={displayList}
           keyExtractor={(item) => item.gameCode}
           renderItem={renderSlotItem}
-          data={filteredGames}
         />
       </View>
     </PageSafeArea>
