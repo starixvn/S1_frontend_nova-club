@@ -1,27 +1,27 @@
 import DatePicker from 'app/components/form/DatePicker/DatePicker'
 import Select from 'app/components/form/Select'
-import SelectButton from 'app/components/form/Select/SelectButton'
 import SelectSquare from 'app/components/form/Select/SelectSquare'
-import RoundedIcon from 'app/components/RoundedIcon'
 import useLocalization from 'app/provider/localization'
 import {
   DateFilter,
   GameProvider,
-  ReportGameStatus,
-  ReportStatusDeposit,
-  ReportStatusWithdrawal,
+  ReportDepositStatus,
   ReportTransactionType,
+  ReportTransactionTypeOptions,
+  ReportDepositStatusOptions,
+  ReportWithdrawalStatusOptions,
+  ReportGameStatusOptions,
+  DateFilterOptions,
 } from 'app/utils/constant'
 import dayjs from 'dayjs'
 import { Text, View } from 'dripsy'
 import React from 'react'
-import { SheetManager } from 'react-native-actions-sheet'
 
-const TypeList = Object.values(ReportTransactionType)
-const DateFilterList = Object.values(DateFilter)
-const DepositStatusList = Object.values(ReportStatusDeposit)
-const WithdrawalStatusList = Object.values(ReportStatusWithdrawal)
-const GameStatusList = Object.values(ReportGameStatus)
+const TypeList = ReportTransactionTypeOptions
+const DateFilterList = DateFilterOptions
+const DepositStatusList = ReportDepositStatusOptions
+const WithdrawalStatusList = ReportWithdrawalStatusOptions
+const GameStatusList = ReportGameStatusOptions
 const ProviderList = Object.keys(GameProvider)
 
 const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
@@ -72,25 +72,25 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
   }
 
   return (
-    <View>
-      <View sx={{ flexDirection: 'row', p: '$4' }}>
+    <View sx={{ p: '$2' }}>
+      <View sx={{ flexDirection: 'row' }}>
         {isTransaction ? (
           <Select
             actionSheetProps={{ id: t('menu.tab.transactionType') }}
             headerTitle={t('menu.tab.transactionType')}
-            buttonTitle={selected.selectedTransType}
+            buttonTitle={selected.selectedTransType.label}
             buttonProps={{
               sx: {
                 mr: 10,
                 flex: 1,
               },
             }}
-            data={TypeList}
+            data={TypeList.slice(0, 3)}
             setSelectedValue={(value) =>
               setSelected({
                 ...selected,
                 selectedTransType: value,
-                selectedStatus: ReportStatusDeposit.ALL,
+                selectedStatus: ReportDepositStatusOptions[0],
               })
             }
           />
@@ -121,7 +121,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
             id: isTransaction ? t('menu.tab.date') : t('menu.tab.game'),
           }}
           headerTitle={t('menu.tab.date')}
-          buttonTitle={selected.selectedDate}
+          buttonTitle={selected.selectedDate.label}
           buttonProps={{
             sx: {
               mr: 10,
@@ -130,7 +130,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
           }}
           data={isTransaction ? DateFilterList : DateFilterList.slice(0, 4)}
           setSelectedValue={(value) => {
-            const { startDate, endDate } = handleDateRange(value)
+            const { startDate, endDate } = handleDateRange(value.value)
 
             setSelected({
               ...selected,
@@ -145,7 +145,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
           <Select
             actionSheetProps={{ id: t('menu.tab.statusType') }}
             headerTitle={t('menu.tab.statusType')}
-            buttonTitle={selected.selectedStatus}
+            buttonTitle={selected.selectedStatus.label}
             buttonProps={{
               sx: {
                 flex: 1,
@@ -164,7 +164,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
           <Select
             actionSheetProps={{ id: t('menu.tab.win/loss') }}
             headerTitle={t('menu.tab.win/loss')}
-            buttonTitle={selected.selectedStatus}
+            buttonTitle={selected.selectedGameStatus.label}
             buttonProps={{
               sx: {
                 flex: 1,
@@ -172,14 +172,21 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
             }}
             data={GameStatusList}
             setSelectedValue={(value) =>
-              setSelected({ ...selected, selectedStatus: value })
+              setSelected({ ...selected, selectedGameStatus: value })
             }
           />
         )}
       </View>
 
       {isTransaction && (
-        <View sx={{ flexDirection: 'row', alignItems: 'center', mb: '$10' }}>
+        <View
+          sx={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            mt: '$2',
+          }}
+        >
           <DatePicker
             value={selected.startDate}
             icon={'sb'}
@@ -192,7 +199,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
             onChange={(value) =>
               setSelected({
                 ...selected,
-                selectedDate: DateFilter.CUSTOM,
+                selectedDate: DateFilterOptions[5],
                 startDate: value,
               })
             }
@@ -207,7 +214,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
             onChange={(value) =>
               setSelected({
                 ...selected,
-                selectedDate: DateFilter.CUSTOM,
+                selectedDate: DateFilterOptions[5],
                 endDate: value,
               })
             }

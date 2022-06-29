@@ -6,7 +6,7 @@ export type BankState = {
 }
 
 export const bankInitialState: BankState = {
-  depositPayment: undefined,
+  depositPayment: null,
 }
 
 const bankSlice = createSlice({

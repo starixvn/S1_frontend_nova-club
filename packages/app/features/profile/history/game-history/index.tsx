@@ -9,11 +9,15 @@ import FilterSelection from '../FilterSelection'
 import {
   DateFilter,
   GameProvider,
+  GameStatusMapper,
   ReportGameStatus,
-  ReportStatusDeposit,
+  ReportDepositStatus,
   ReportTransactionType,
+  ReportGameStatusOptions,
+  DateFilterOptions,
 } from 'app/utils/constant'
 import dayjs from 'dayjs'
+import { ReportGameItem } from 'services/playerApi.type'
 
 const CELL_DATE_WIDTH = 0.4
 const CELL_AMOUNT_WIDTH = 0.3
@@ -24,26 +28,26 @@ const GameHistoryTab = () => {
   const [fetchData, result] = useLazyPlayerReportQuery()
 
   const [selected, setSelected] = useState({
-    selectedGameStatus: ReportGameStatus.ALL,
-    selectedDate: DateFilter.TODAY,
+    selectedGameStatus: ReportGameStatusOptions[0],
+    selectedDate: DateFilterOptions[0],
     selectedGame: GameProvider.AB,
-    startDate: dayjs().startOf('date').toDate(),
+    startDate: dayjs().startOf('month').toDate(),
     endDate: dayjs().endOf('date').toDate(),
   })
 
   const [fetchParams, setFetchParams] = useState({
-    status: selected.selectedGameStatus,
+    status: selected.selectedGameStatus?.value,
     time_from: dayjs(selected.startDate).format('YYYY-MM-DD HH:mm:ss'),
     time_to: dayjs(selected.endDate).format('YYYY-MM-DD HH:mm:ss'),
-    trans_type: 'deposit',
+    trans_type: ReportTransactionType.GAME,
   })
 
   useEffect(() => {
     setFetchParams({
-      status: selected.selectedGameStatus.toLowerCase(),
+      status: selected.selectedGameStatus?.value,
       time_from: dayjs(selected.startDate).format('YYYY-MM-DD HH:mm:ss'),
       time_to: dayjs(selected.endDate).format('YYYY-MM-DD HH:mm:ss'),
-      trans_type: 'deposit',
+      trans_type: ReportTransactionType.GAME,
     })
   }, [selected])
 
@@ -63,7 +67,6 @@ const GameHistoryTab = () => {
   ]
 
   return (
-    // <PageWithBackHeader header={{ title: 'menu.history' }}>
     <View sx={{ flex: 1, bg: '$secondary' }}>
       <FilterSelection selected={selected} setSelected={setSelected} />
       <HistoryListing
@@ -75,16 +78,15 @@ const GameHistoryTab = () => {
         renderItem={renderItem}
       />
     </View>
-    // </PageWithBackHeader>
   )
 }
 
-const renderItem = ({ item, index }) => {
+const renderItem = ({ item }: { item: ReportGameItem }) => {
   const getStatusColor = (value) => {
-    switch (value.toLowerCase()) {
-      case ReportGameStatus.WIN.toLowerCase():
+    switch (value) {
+      case '1':
         return '#00FF19'
-      case ReportGameStatus.LOSE.toLowerCase():
+      case '-1':
         return '#BE0A16'
 
       default:
@@ -101,14 +103,14 @@ const renderItem = ({ item, index }) => {
           <DateTimeCell date={item.date} />
         </View>
         <View style={{ flex: CELL_AMOUNT_WIDTH, alignSelf: 'stretch' }}>
-          <Text sx={{ textAlign: 'center' }}>{item.amount}</Text>
+          <Text sx={{ textAlign: 'center' }}>{item.game_provider_code}</Text>
         </View>
         <View style={{ flex: CELL_STATUS_WIDTH, alignSelf: 'stretch' }}>
-          <Text sx={{ textAlign: 'center' }}>{item.amount}</Text>
+          <Text sx={{ textAlign: 'center' }}>{item.win}</Text>
           <Text
-            sx={{ textAlign: 'center', color: getStatusColor(item.status) }}
+            sx={{ textAlign: 'center', color: getStatusColor(item.winloss) }}
           >
-            {item.status}
+            {GameStatusMapper[item.winloss]}
           </Text>
         </View>
       </View>

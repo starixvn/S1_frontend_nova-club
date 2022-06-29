@@ -110,7 +110,12 @@ export function toRealAmount(
   return Math.floor(display)
 }
 
-export function toCleanAmount(text: string) {
+export interface CleanAmount {
+  cleanText: string
+  amountNumber: number
+}
+
+export function toCleanAmount(text: string): CleanAmount {
   if (text != null) {
     const cleanText = text.replace(/[^0-9]/g, '')
     // if (cleanText === values.amount) return
@@ -119,4 +124,5 @@ export function toCleanAmount(text: string) {
 
     return { cleanText, amountNumber }
   }
+  return text
 }

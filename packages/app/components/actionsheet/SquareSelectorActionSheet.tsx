@@ -13,8 +13,7 @@ import {
 import React, { ComponentProps, createRef, forwardRef } from 'react'
 import { Platform } from 'react-native'
 import ActionSheet from 'react-native-actions-sheet'
-import { DripsyGradient } from './Gradient'
-import RoundedIcon from './RoundedIcon'
+import { DripsyGradient } from '../Gradient'
 
 export type SquareSelectorActionSheetProps = ComponentProps<
   typeof ActionSheet
@@ -31,10 +30,6 @@ export interface SquareSelectorForwardRef {
 }
 
 type SquareSelectorProps = {
-  // bankList: WithdrawalBankResult[] | PlayerBankResult[] | []
-  // headerTitle: string
-  // isLoading: boolean
-  // selectedBank: number | undefined
   onPress: (number) => void
   _actionSheet: SquareSelectorActionSheetProps
   _flatList: SquareSelectorFlatListProps
@@ -48,6 +43,7 @@ type BankItemProps = {
 }
 
 export const DEFAULT_SQUARE_ACTION_SHEET_ID = 'SquareSelector'
+export const SQUARE_NUMBER_OF_COLUMNS = 4
 
 const SquareSelectorActionSheet = forwardRef<
   SquareSelectorForwardRef,
@@ -111,7 +107,7 @@ const SquareSelectorActionSheet = forwardRef<
           <ActivityIndicator size={'large'} />
         ) : (
           <FlatList
-            numColumns={4}
+            numColumns={SQUARE_NUMBER_OF_COLUMNS}
             extraData={selectedData}
             {...restFlatListProps}
           />

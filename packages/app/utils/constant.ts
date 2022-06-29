@@ -41,13 +41,59 @@ export enum DateFilter {
   CUSTOM = 'Custom',
 }
 
+export const DateFilterOptions = [
+  {
+    value: DateFilter.TODAY,
+    label: 'filter.date.today',
+  },
+  {
+    value: DateFilter.YESTERDAY,
+    label: 'filter.date.yesterday',
+  },
+  {
+    value: DateFilter.THIS_WEEK,
+    label: 'filter.date.thisWeek',
+  },
+  {
+    value: DateFilter.LAST_WEEK,
+    label: 'filter.date.lastWeek',
+  },
+  {
+    value: DateFilter.THIS_MONTH,
+    label: 'filter.date.thisMonth',
+  },
+  {
+    value: DateFilter.CUSTOM,
+    label: 'filter.date.custom',
+  },
+]
+
 export enum ReportTransactionType {
   DEPOSIT = 'deposit',
   WITHDRAWAL = 'withdrawal',
   REWARD = 'reward',
+  GAME = 'game',
 }
+export const ReportTransactionTypeOptions = [
+  {
+    value: ReportTransactionType.DEPOSIT,
+    label: 'filter.transactionType.deposit',
+  },
+  {
+    value: ReportTransactionType.WITHDRAWAL,
+    label: 'filter.transactionType.withdrawal',
+  },
+  {
+    value: ReportTransactionType.REWARD,
+    label: 'filter.transactionType.reward',
+  },
+  {
+    value: ReportTransactionType.GAME,
+    label: 'filter.transactionType.game',
+  },
+]
 
-export enum ReportStatusDeposit {
+export enum ReportDepositStatus {
   ALL = 'all',
   PENDING = 'pending',
   SETTLED_ON_BROWSER = 'settledonBrowser',
@@ -58,7 +104,42 @@ export enum ReportStatusDeposit {
   CHECKING = 'checking',
 }
 
-export enum ReportStatusWithdrawal {
+export const ReportDepositStatusOptions = [
+  {
+    value: ReportDepositStatus.ALL,
+    label: 'filter.depositStatus.all',
+  },
+  {
+    value: ReportDepositStatus.PENDING,
+    label: 'filter.depositStatus.pending',
+  },
+  {
+    value: ReportDepositStatus.SETTLED_ON_BROWSER,
+    label: 'filter.depositStatus.settledonBrowser',
+  },
+  {
+    value: ReportDepositStatus.SETTLED,
+    label: 'filter.depositStatus.settled',
+  },
+  {
+    value: ReportDepositStatus.CANCELLED,
+    label: 'filter.depositStatus.cancelled',
+  },
+  {
+    value: ReportDepositStatus.FAILED,
+    label: 'filter.depositStatus.failed',
+  },
+  {
+    value: ReportDepositStatus.DECLINED,
+    label: 'filter.depositStatus.declined',
+  },
+  {
+    value: ReportDepositStatus.CHECKING,
+    label: 'filter.depositStatus.checking',
+  },
+]
+
+export enum ReportWithdrawalStatus {
   ALL = 'all',
   REQUEST = 'request',
   PENDING_REVIEW = 'pendingReview',
@@ -68,11 +149,57 @@ export enum ReportStatusWithdrawal {
   PAYMENT = 'payment',
 }
 
+export const ReportWithdrawalStatusOptions = [
+  {
+    value: ReportWithdrawalStatus.ALL,
+    label: 'filter.withdrawalStatus.all',
+  },
+  {
+    value: ReportWithdrawalStatus.REQUEST,
+    label: 'filter.withdrawalStatus.request',
+  },
+  {
+    value: ReportWithdrawalStatus.PENDING_REVIEW,
+    label: 'filter.withdrawalStatus.pendingReview',
+  },
+  {
+    value: ReportWithdrawalStatus.DECLINED,
+    label: 'filter.withdrawalStatus.declined',
+  },
+  {
+    value: ReportWithdrawalStatus.PAID,
+    label: 'filter.withdrawalStatus.paid',
+  },
+  {
+    value: ReportWithdrawalStatus.PAYMENT_PROCESSING,
+    label: 'filter.withdrawalStatus.paymentProcessing',
+  },
+  {
+    value: ReportWithdrawalStatus.PAYMENT,
+    label: 'filter.withdrawalStatus.payment',
+  },
+]
+
 export enum ReportGameStatus {
   ALL = 'All',
   WIN = 'Win',
   LOSE = 'Lose',
 }
+
+export const ReportGameStatusOptions = [
+  {
+    value: ReportGameStatus.ALL,
+    label: 'filter.gameStatus.all',
+  },
+  {
+    value: ReportGameStatus.WIN,
+    label: 'filter.gameStatus.win',
+  },
+  {
+    value: ReportGameStatus.LOSE,
+    label: 'filter.gameStatus.lose',
+  },
+]
 
 export enum GameProvider {
   AG = 'Asia Gaming',
@@ -91,4 +218,27 @@ export enum GameProvider {
   AE_SEXY = 'AE Sexy',
   SA = 'SA Gaming Bet',
   SG = 'Skywind Group',
+}
+
+export const GameStatusMapper: { [key: number]: string } = {
+  '1': 'Win',
+  '-1': 'Lose',
+}
+
+export enum DepositPaymentMethodCategoryId {
+  LOCAL_BANK = 1,
+  ONLINE_BANK = 1,
+  MOMO = 26,
+  QR_CODE = 22,
+  TOP_UP = 25,
+  CRYPTO = 13,
+}
+
+export enum DepositPaymentMethodCategoryType {
+  LOCAL_BANK = 'manual',
+  ONLINE_BANK = 'auto',
+  MOMO = 'auto',
+  QR_CODE = 'auto',
+  TOP_UP = 'auto',
+  CRYPTO = 'manual',
 }

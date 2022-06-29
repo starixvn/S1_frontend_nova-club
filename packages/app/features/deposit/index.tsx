@@ -12,8 +12,11 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { BankActions } from 'app/store/bankReducer'
-import { DepositPaymentMethodCategoryId } from 'services/deposit.type'
-import { useLazyDepositPaymentCategoriesQuery } from 'services/dummyDeposit'
+import { useDepositPaymentListQuery } from 'services/deposit'
+import {
+  DepositPaymentMethodCategoryId,
+  DepositPaymentMethodCategoryType,
+} from 'app/utils/constant'
 
 export enum DepositMethodId {
   LOCAL_BANK = 1,
@@ -27,7 +30,7 @@ export enum DepositMethodId {
 const sampleData = [
   {
     id: DepositMethodId.LOCAL_BANK,
-    type: 'manual',
+    type: DepositPaymentMethodCategoryType.LOCAL_BANK,
     categoryId: DepositPaymentMethodCategoryId.LOCAL_BANK,
     name: 'deposit.depositMethod.bankTransfer',
     icon: 'sl',
@@ -35,7 +38,7 @@ const sampleData = [
   },
   {
     id: DepositMethodId.ONLINE_BANK,
-    type: 'auto',
+    type: DepositPaymentMethodCategoryType.ONLINE_BANK,
     categoryId: DepositPaymentMethodCategoryId.ONLINE_BANK,
     name: 'deposit.depositMethod.onlineBanking',
     icon: 'sl',
@@ -43,7 +46,7 @@ const sampleData = [
   },
   {
     id: DepositMethodId.MOMO,
-    type: 'auto',
+    type: DepositPaymentMethodCategoryType.MOMO,
     categoryId: DepositPaymentMethodCategoryId.MOMO,
     name: 'deposit.depositMethod.momo',
     icon: 'sl',
@@ -51,7 +54,7 @@ const sampleData = [
   },
   {
     id: DepositMethodId.QR_CODE,
-    type: 'auto',
+    type: DepositPaymentMethodCategoryType.QR_CODE,
     categoryId: DepositPaymentMethodCategoryId.QR_CODE,
     name: 'deposit.depositMethod.qrCode',
     icon: 'sl',
@@ -59,7 +62,7 @@ const sampleData = [
   },
   {
     id: DepositMethodId.TOP_UP,
-    type: 'auto',
+    type: DepositPaymentMethodCategoryType.TOP_UP,
     categoryId: DepositPaymentMethodCategoryId.TOP_UP,
     name: 'deposit.depositMethod.topUp',
     icon: 'sl',
@@ -67,7 +70,7 @@ const sampleData = [
   },
   {
     id: DepositMethodId.CRYPTO,
-    type: 'manual',
+    type: DepositPaymentMethodCategoryType.CRYPTO,
     categoryId: DepositPaymentMethodCategoryId.CRYPTO,
     name: 'deposit.depositMethod.crypto',
     icon: 'sl',
@@ -76,25 +79,44 @@ const sampleData = [
 ]
 
 const DepositPage = () => {
-  const { data, isLoading, isFetching } = useDummyRtk(sampleData)
   const { push } = useRouter()
   const { t } = useLocalization()
   const dispatch = useDispatch()
   const [paymentMethodList, setPaymentMethodList] = useState(sampleData)
-  const [fetchMethod, result] = useLazyDepositPaymentCategoriesQuery()
-  console.log('🚀 ~ file: index.tsx ~ line 100 ~ DepositPage ~ result', result)
+  const { data, isLoading } = useDepositPaymentListQuery()
+  console.log('🚀 ~ file: index.tsx ~ line 86 ~ DepositPage ~ data', data)
 
   const { makeContextualHref } = useContextualRouting(
     ContextualModuleKey.Deposit
   )
   const toLocalBank = makeContextualHref('local-bank')
   const toOnlineBank = makeContextualHref('online-bank')
+  const toMomo = makeContextualHref('momo')
+  const toQR = makeContextualHref('qr-transfer')
   const to = makeContextualHref('topup-card')
   const toCrypto = makeContextualHref('crypto')
 
   useEffect(() => {
-    fetchDepositPaymentCategories()
-  }, [])
+    if (data?.success) {
+      const convertData = sampleData.map((item, index) => {
+        const res = data.data.result[item.type].find(
+          (el) => el.category_id === item.categoryId
+        )
+        console.log('🚀 ~ file: index.tsx ~ line 103 ~ convertData ~ res', res)
+
+        if (!res) return item
+        return {
+          ...item,
+          categoryText: res.category_text,
+          list: res.list,
+        }
+      })
+
+      setPaymentMethodList(convertData)
+
+      dispatch(BankActions.setDepositPayment(convertData))
+    }
+  }, [data])
 
   function fetchDepositPaymentCategories() {
     const formData = new FormData()
@@ -140,6 +162,12 @@ const DepositPage = () => {
         break
       case DepositMethodId.ONLINE_BANK:
         push(toOnlineBank, `/deposit/online-bank`)
+        break
+      case DepositMethodId.MOMO:
+        push(toMomo, `/deposit/momo`)
+        break
+      case DepositMethodId.QR_CODE:
+        push(toQR, `/deposit/qr-transfer`)
         break
       case DepositMethodId.TOP_UP:
         push(to, `/deposit/topup-card`)

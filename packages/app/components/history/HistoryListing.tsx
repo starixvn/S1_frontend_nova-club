@@ -175,39 +175,45 @@ interface HistoryListingProps<T> {
 }
 
 function HistoryListing<T>(props: HistoryListingProps<T>) {
-  const {
-    fetchParams,
-    trigger,
-    result,
-    header,
-    keyExtractor,
-    renderItem,
-    _header,
-  } = props
-  const { data, isLoading, isFetching, isSuccess, isUninitialized } = result
-  const [limit, setLimit] = useState<number>(30)
-  const [offset, setOffset] = useState<number>(0)
+  const { fetchParams, trigger, result, header, keyExtractor, renderItem } =
+    props
+  const { isFetching, isSuccess, isUninitialized } = result
+  const [limit, setLimit] = useState<number>(10)
+  const [totalOffset, setTotalOffset] = useState<number>(0)
   const [displayList, setDisplayList] = useState<T[]>([])
+  const [totalRow, setTotalRow] = useState(0)
+  const [allLoaded, setAllLoaded] = useState(false)
 
   useEffect(() => {
-    fetchData(0)
+    refreshData()
   }, [fetchParams])
 
-  async function fetchData(offset1: number) {
+  const refreshData = () => {
+    setTotalRow(0)
+    setTotalOffset(0)
+    setDisplayList([])
+    setAllLoaded(false)
+    !isFetching && fetchData(0)
+  }
+
+  async function fetchData(offset: number) {
     try {
       const res = await trigger({
         limit: limit,
-        offset: offset1,
+        offset,
         ...fetchParams,
       })
         .unwrap()
         .catch((error) => console.log('error', error))
 
-      if (isSuccess) {
-        if (offset1 > 0) setDisplayList(displayList.concat(res?.rows || []))
+      if (res?.rows) {
+        if (offset > 0) setDisplayList(displayList.concat(res?.rows || []))
         else setDisplayList(res?.rows || [])
 
-        setOffset(offset + limit)
+        setTotalRow(res.row_count_total)
+        setTotalOffset(offset + limit)
+      } else {
+        setAllLoaded(true)
       }
     } catch (e) {
       console.log('🚀 ~ file: HistoryListing.tsx ~ line 204 ~ fetchData ~ e', e)
@@ -215,16 +221,16 @@ function HistoryListing<T>(props: HistoryListingProps<T>) {
   }
 
   function onLoadMore() {
-    console.log('Load more')
-    if (offset + limit > data?.row_count_total) return
-    fetchData(offset)
+    console.log('Load more totalOffset', totalOffset + '>' + totalRow)
+    if (totalOffset > totalRow || allLoaded) return
+    fetchData(totalOffset)
   }
 
   function onRefresh() {
     console.log('refresh again')
-    fetchData(10)
+    refreshData()
   }
-  console.log('isFetching', isFetching)
+
   return (
     <View style={{ flex: 1 }}>
       <HistoryHeader data={header} />
@@ -234,11 +240,14 @@ function HistoryListing<T>(props: HistoryListingProps<T>) {
         ListEmptyComponent={
           !isUninitialized ? <HistoryEmpty sx={{ mt: '$5' }} /> : null
         }
+        ListFooterComponent={() =>
+          isFetching && !allLoaded && <ActivityIndicator />
+        }
         data={displayList}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
         onEndReached={onLoadMore}
-        onEndReachedThreshold={0.5}
+        onEndReachedThreshold={0.1}
       />
     </View>
   )

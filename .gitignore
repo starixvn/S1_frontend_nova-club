@@ -71,3 +71,6 @@ web-build/
 
 .turbo
 build/**
+
+.vscode/settings.json
+.prettierrc.json

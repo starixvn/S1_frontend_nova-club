@@ -1,7 +1,7 @@
+import { Gradient } from '@dripsy/gradient'
 import useLocalization from 'app/provider/localization'
 import { copyToClipboard } from 'app/utils'
 import {
-  FlatList,
   styled,
   SxProp,
   Text,
@@ -20,12 +20,12 @@ import React, {
   useRef,
 } from 'react'
 import { TouchableWithoutFeedback } from 'react-native'
-import ActionSheet, { SheetManager } from 'react-native-actions-sheet'
+import { SheetManager } from 'react-native-actions-sheet'
 import SquareSelectorActionSheet, {
   DEFAULT_SQUARE_ACTION_SHEET_ID,
   SquareSelectorActionSheetProps,
   SquareSelectorFlatListProps,
-} from './SquareSelectorActionSheet'
+} from './actionsheet/SquareSelectorActionSheet'
 import { Button } from './form/Button'
 import GradientBox from './GradientBox'
 import Icon from './Icon'
@@ -39,7 +39,7 @@ type TextFieldProps = {
   children: React.ReactNode
 }
 
-type TextFieldLabelProps = {
+type TextFieldLabelProps = ComponentProps<typeof Gradient> & {
   label: string
   value: string
   copy?: boolean
@@ -194,7 +194,7 @@ const TextFieldSelect = ({
       <GradientBox sx={{ my: '$1', ...containerStyle }}>
         <TouchableWithoutFeedback onPress={handleActionSheetOpen}>
           <StyledView sx={{ color: 'white' }}>
-            <StyledTextLabel sx={{ flex: labelWidth }}>
+            <StyledTextLabel sx={{ flex: labelWidth }} numberOfLines={1}>
               {t(label)}
             </StyledTextLabel>
             <View

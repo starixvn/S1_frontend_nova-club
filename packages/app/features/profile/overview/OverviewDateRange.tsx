@@ -20,7 +20,15 @@ const OverviewDateRange = ({ onSearch }) => {
   }
 
   return (
-    <View sx={{ flexDirection: 'row', mt: '$5', alignItems: 'center' }}>
+    <View
+      sx={{
+        flexDirection: 'row',
+        mt: '$5',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        px: '$5',
+      }}
+    >
       <DatePicker
         value={startDate}
         icon={'sb'}
@@ -29,16 +37,16 @@ const OverviewDateRange = ({ onSearch }) => {
           color: 'white',
           size: 20,
         }}
-        style={{ flex: 1, marginHorizontal: 10 }}
+        style={{ flex: 1 }}
         onChange={(value) => onDateChange('startDate', value)}
       />
-      <Text sx={{ justifyContent: 'center', fontSize: 25 }}>-</Text>
+      <Text sx={{ justifyContent: 'center', fontSize: 25, mx: '$5' }}>-</Text>
       <DatePicker
         value={endDate}
         icon={'sb'}
         rightIcon={'chevdown'}
         _icon={{ color: 'white', size: 20 }}
-        style={{ flex: 1, marginHorizontal: 10 }}
+        style={{ flex: 1 }}
         onChange={(value) => onDateChange('endDate', value)}
       />
     </View>

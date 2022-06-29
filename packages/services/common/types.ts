@@ -15,6 +15,11 @@ export interface IResponse<T = void> {
   success: boolean
 }
 
+export type SelectOptions = {
+  value: string
+  label: string
+}
+
 /**
  * This type utility is used as type assertion for `enhanceEndpoints`
  * to convert the default `build.query` response result's type into the custom

@@ -48,6 +48,8 @@ export function NavigationProvider({
                   DepositLoader: '/deposit/depositUrl',
                   LocalBank: '/deposit/local-bank',
                   OnlineBank: '/deposit/online-bank',
+                  Momo: '/deposit/momo',
+                  QrTransfer: '/deposit/qr-transfer',
                   TopupCard: '/deposit/topup-card',
                   Crypto: '/deposit/crypto',
                 },

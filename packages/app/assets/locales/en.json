@@ -1,5 +1,5 @@
 {
-  "home":{
+  "home": {
     "sportsbook": "Sportsbook",
     "games": "Games",
     "slots": "Slots",
@@ -78,12 +78,44 @@
     }
   },
   "filter": {
-    "today": "Today",
-    "yesterday": "Yesterday",
-    "thisWeek": "This Week",
-    "lastWeek": "Last Week",
-    "thisMonth": "This Month",
-    "custom": "Custom"
+    "date": {
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "thisWeek": "This Week",
+      "lastWeek": "Last Week",
+      "thisMonth": "This Month",
+      "custom": "Custom"
+    },
+    "depositStatus": {
+      "all": "All",
+      "pending": "Pending",
+      "settledonBrowser": "Settled on Browser",
+      "settled": "Settled",
+      "cancelled": "Cancelled",
+      "failed": "Failed",
+      "declined": "Declined",
+      "checking": "Checking"
+    },
+    "gameStatus": {
+      "all": "All",
+      "win": "Win",
+      "lose": "Lose"
+    },
+    "transactionType": {
+      "deposit": "Deposit",
+      "withdrawal": "Withdrawal",
+      "reward": "Reward",
+      "game": "Game"
+    },
+    "withdrawalStatus": {
+      "all": "All",
+      "request": "Request",
+      "pendingReview": "Pending Review",
+      "declined": "Declined",
+      "paid": "Paid",
+      "paymentProcessing": "Payment Processing",
+      "payment": "Payment"
+    }
   },
   "game": {
     "enterGame": "Enter Game"

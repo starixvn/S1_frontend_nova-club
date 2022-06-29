@@ -10,7 +10,7 @@ import validation from 'app/utils/validation'
 import ImportantNotice from 'app/components/ImportantNotice'
 import SquareSelectorActionSheet, {
   DEFAULT_SQUARE_ACTION_SHEET_ID,
-} from 'app/components/SquareSelectorActionSheet'
+} from 'app/components/actionsheet/SquareSelectorActionSheet'
 import { useDispatch } from 'react-redux'
 import { AlertActions } from 'app/store/alert'
 import { useRouter } from 'solito/router'
@@ -21,6 +21,7 @@ import { PageWithBackHeader } from 'app/components/layout/Page'
 import useLocalization from 'app/provider/localization'
 import RoundedIcon from 'app/components/RoundedIcon'
 import { SheetManager } from 'react-native-actions-sheet'
+import BankItem from 'app/components/actionsheet/BankItem'
 
 type WithdrawalValues = {
   amount: string
@@ -125,25 +126,17 @@ const WithdrawalPage = () => {
               isLoading: isLoading || isFetching,
               keyExtractor: (item) => item?.BankTypeId,
               renderItem: ({ item }) => (
-                <View sx={{ alignItems: 'center' }}>
-                  <RoundedIcon
-                    size="lg"
-                    key={item.BankTypeId}
-                    icon={require('app/assets/images/home/fishing.png')}
-                    onPress={async () => {
-                      setFieldValue('bank', item)
-                      await SheetManager.hide(
-                        actionSheedId ?? DEFAULT_SQUARE_ACTION_SHEET_ID
-                      )
-                    }}
-                    containerStyle={{
-                      m: '$0a',
-                    }}
-                  />
-                  <Text sx={{ color: 'black' }}>
-                    {item.PlayerBankDetailsId}
-                  </Text>
-                </View>
+                <BankItem
+                  key={item.BankTypeId}
+                  icon={require('app/assets/images/home/fishing.png')}
+                  title={item.PlayerBankDetailsId}
+                  onPress={async () => {
+                    setFieldValue('bank', item)
+                    await SheetManager.hide(
+                      actionSheedId ?? DEFAULT_SQUARE_ACTION_SHEET_ID
+                    )
+                  }}
+                />
               ),
             }}
             _actionSheet={{

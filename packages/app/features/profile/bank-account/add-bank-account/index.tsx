@@ -6,7 +6,7 @@ import { FormikHelpers, useFormik } from 'formik'
 import * as Yup from 'yup'
 import validation from 'app/utils/validation'
 import { useDispatch } from 'react-redux'
-import { DEFAULT_SQUARE_ACTION_SHEET_ID } from 'app/components/SquareSelectorActionSheet'
+import { DEFAULT_SQUARE_ACTION_SHEET_ID } from 'app/components/actionsheet/SquareSelectorActionSheet'
 import {
   useAddPlayerBankAccMutation,
   useWithdrawalBankQuery,
@@ -19,6 +19,7 @@ import { WithdrawalBankResult } from 'services/bank.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { SheetManager } from 'react-native-actions-sheet'
 import RoundedIcon from 'app/components/RoundedIcon'
+import BankItem from 'app/components/actionsheet/BankItem'
 
 type AddBankAccountValues = {
   accountName: string
@@ -138,24 +139,37 @@ const AddBankAccountScreen = () => {
               isLoading: isLoading || isFetching,
               keyExtractor: (item) => item.id,
               renderItem: ({ item }) => (
-                <View sx={{ alignItems: 'center' }}>
-                  <RoundedIcon
-                    size="lg"
-                    key={item.id}
-                    icon={require('app/assets/images/home/fishing.png')}
-                    onPress={async () => {
-                      setFieldValue('bank', item)
-                      await SheetManager.hide(
-                        actionSheedId ?? DEFAULT_SQUARE_ACTION_SHEET_ID
-                      )
-                    }}
-                    containerStyle={{
-                      m: '$0a',
-                    }}
-                  />
-                  <Text sx={{ color: 'black' }}>{item.bank_code}</Text>
-                </View>
+                <BankItem
+                  key={item.id}
+                  icon={require('app/assets/images/home/fishing.png')}
+                  title={item.bank_code}
+                  onPress={async () => {
+                    setFieldValue('bank', item)
+                    await SheetManager.hide(
+                      actionSheedId ?? DEFAULT_SQUARE_ACTION_SHEET_ID
+                    )
+                  }}
+                />
               ),
+              // renderItem: ({ item }) => (
+              //   <View sx={{ alignItems: 'center' }}>
+              //     <RoundedIcon
+              //       size="lg"
+              //       key={item.id}
+              //       icon={require('app/assets/images/home/fishing.png')}
+              //       onPress={async () => {
+              //         setFieldValue('bank', item)
+              //         await SheetManager.hide(
+              //           actionSheedId ?? DEFAULT_SQUARE_ACTION_SHEET_ID
+              //         )
+              //       }}
+              //       containerStyle={{
+              //         m: '$0a',
+              //       }}
+              //     />
+              //     <Text sx={{ color: 'black' }}>{item.bank_code}</Text>
+              //   </View>
+              // ),
             }}
             _actionSheet={{
               id: actionSheedId,

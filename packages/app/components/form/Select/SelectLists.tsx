@@ -1,5 +1,6 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
+import useLocalization from 'app/provider/localization'
 import { Pressable, Text, View } from 'dripsy'
 import { Dispatch, memo, MutableRefObject, SetStateAction } from 'react'
 import { FlatList } from 'react-native-gesture-handler'
@@ -21,6 +22,7 @@ const SelectLists = ({
   setSelectedIndex,
   setSelectedValue,
 }: SelectListsProps) => {
+  const { t } = useLocalization()
   const handleSelectedOption = (index: number) => {
     const selectedValue = data[index]
 
@@ -74,7 +76,7 @@ const SelectLists = ({
               }}
               numberOfLines={1}
             >
-              {item}
+              {t(item.label)}
             </Text>
 
             {index === selectedIndex ? (

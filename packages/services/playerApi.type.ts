@@ -1,6 +1,6 @@
 import {
-  ReportStatusDeposit,
-  ReportStatusWithdrawal,
+  ReportDepositStatus,
+  ReportWithdrawalStatus,
   ReportTransactionType,
 } from 'app/utils/constant'
 
@@ -51,7 +51,8 @@ export type OverviewResult = {
 export type ReportArgs = {
   limit: number
   offset: number
-  status: ReportStatusDeposit | ReportStatusWithdrawal
+  status: ReportDepositStatus | ReportWithdrawalStatus
+  game_provider_code?: string
   time_from: string
   time_to: string
   trans_type: ReportTransactionType
@@ -60,17 +61,25 @@ export type ReportArgs = {
 
 export type ReportResult = {
   row_count_total: number
-  rows: ReportItem[]
+  rows: ReportTransactionItem[] | ReportGameItem[]
 }
 
-export type ReportItem = {
+export type ReportTransactionItem = {
   amount: string
   date: string
-  notes: string
   pay_bank: null
   pay_date: null
-  player_notes: string
   secure_id: string
   status: string
   system_id: number
+}
+
+export type ReportGameItem = {
+  bet: string
+  date: string
+  game_provider_code: string
+  game_type_code: string
+  loss: string
+  win: string
+  winloss: string
 }

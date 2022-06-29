@@ -5,79 +5,62 @@ import useContextualRouting from 'app/hooks/useContextualRouting'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { useSubmitDepositMutation } from 'services/deposit'
 import {
-  DepositPaymentMethodCategoryId,
-  DepositPaymentMethodCategoryType,
-} from 'services/deposit.type'
-import { BankItem } from 'services/dummyDeposit.type'
+  useDepositPaymentListQuery,
+  useSubmitDepositMutation,
+  useSubmitManualDepositMutation,
+} from 'services/deposit'
 import { AlertActions } from 'app/store/alert'
 import { toCleanAmount, toRealAmount } from 'app/utils'
 import validation from 'app/utils/validation'
 import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Linking, Platform } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import { DepositMethodId } from '..'
 import DepositUpload from '../DepositUpload'
-// const DateTimeCOl = (rowData)=> {
-//   return < />
-// }
-// const columns = [
-//   {
-//     label : "Date Time",
-//     renderItem :(rowData)=> {
-//       return < />
-//     },
-//     flex: 0.3
-//   },
-//   {
-//     label : "Date Time",
-//     renderItem :(rowData)=> {
-//       return <Text>{rowData.amount}</Text>
-//     }
-//   }
-// ]
+import BankItem from 'app/components/actionsheet/BankItem'
+import { SheetManager } from 'react-native-actions-sheet'
+import { DEFAULT_SQUARE_ACTION_SHEET_ID } from 'app/components/actionsheet/SquareSelectorActionSheet'
+import { ManualBankItem } from 'services/deposit.type'
+import { DepositPaymentMethodCategoryId } from 'app/utils/constant'
 
 type LocalBankValues = {
-  bank: BankItem
+  bank: ManualBankItem | null
   amount: string
   realAmount: number
 }
 
+const actionSheedId = 'LocalBank'
+
 const LocalBankScreen = () => {
-  const { t } = useLocalization()
-  const dispatch = useDispatch()
-  const { push } = useRouter()
-
-  const [postSubmitDeposit] = useSubmitDepositMutation()
-
-  const depositBank = useAppSelector((state) =>
-    state.bank.depositPayment?.find(
-      (el) => el.id === DepositMethodId.LOCAL_BANK
-    )
-  )
-
   const { makeContextualHref } = useContextualRouting(
     ContextualModuleKey.Deposit
   )
   const to = makeContextualHref('deposit-loader')
+
+  const { t } = useLocalization()
+  const dispatch = useDispatch()
+  const { push, back } = useRouter()
+
+  const [postSubmitManualDeposit] = useSubmitManualDepositMutation()
+  const { data, isLoading, isFetching } = useDepositPaymentListQuery()
+  const depositPayment = data?.data?.result.manual.find(
+    (el) => el.category_id === DepositPaymentMethodCategoryId.LOCAL_BANK
+  )
 
   const onSubmit = async (
     { bank, realAmount }: LocalBankValues,
     actions: FormikHelpers<LocalBankValues>
   ) => {
     try {
-      const { data, success, message } = await postSubmitDeposit({
+      const { data, success, message } = await postSubmitManualDeposit({
+        acc_name: bank?.bank_acc_name ?? '',
         amount: realAmount,
-        bank_type_id: bank.bankTypeId,
-        card_code: 1111,
-        card_seri: 2222,
-        card_type: '1234',
-        deposit_from: bank.deposit_from,
+        bank_type_id: bank?.bankTypeId ?? 0,
       })
         .unwrap()
         .catch((error) => dispatch(AlertActions.addError(error.message)))
@@ -89,6 +72,7 @@ const LocalBankScreen = () => {
       if (success) {
         dispatch(AlertActions.addSuccess(message))
         actions.resetForm()
+        back()
       }
     } catch (e) {
       dispatch(AlertActions.addError('common.systemError'))
@@ -136,7 +120,6 @@ const LocalBankScreen = () => {
   }
 
   function onAmountChanged(text: string) {
-    console.log('text', text)
     if (text != null) {
       const { cleanText, amountNumber } = toCleanAmount(text)
       setValues({
@@ -148,45 +131,59 @@ const LocalBankScreen = () => {
   }
 
   return (
-    <PageWithBackHeader header={{ title: 'menu.deposit' }}>
+    <PageWithBackHeader
+      header={{ title: depositPayment?.category_text ?? t('menu.deposit') }}
+    >
       <View sx={{ flex: 1 }}>
         <TextField labelWidth={0}>
           <TextField.Select
             label=""
             _input={{
               placeholder: t('bank.selectBank'),
-              value: values.bank?.bank_name_local,
+              value: values.bank?.bank_acc_name ?? '',
             }}
             _flatList={{
-              data: depositBank?.list,
-              // isLoading: isLoading || isFetching,
-              selectedData: values.bank?.bank_name_local,
-              keyExtractor: (item) => item?.bankTypeId,
+              data: depositPayment?.list ?? [],
+              isLoading: isLoading || isFetching,
+              numColumns: 4,
+              keyExtractor: (item: ManualBankItem) =>
+                `${item.bankTypeId} ${item.bank_acc_name}`,
+              renderItem: ({ item }: { item: ManualBankItem }) => (
+                <BankItem
+                  key={item.bankTypeId}
+                  icon={require('app/assets/images/home/fishing.png')}
+                  title={item.bank_acc_name}
+                  onPress={async () => {
+                    setFieldValue('bank', item)
+                    await SheetManager.hide(
+                      actionSheedId ?? DEFAULT_SQUARE_ACTION_SHEET_ID
+                    )
+                  }}
+                />
+              ),
             }}
             _actionSheet={{
-              headerTitle: 'bank.bank',
-            }}
-            onPress={(bank) => {
-              setFieldValue('bank', bank)
+              id: actionSheedId,
+              headerTitle: t('bank.bank'),
             }}
           />
         </TextField>
         <TextField labelWidth={0.55}>
           <TextField.Label
             label="bank.accountName"
-            value={values.bank?.bank_acc_name}
+            value={values.bank?.bank_acc_name ?? ''}
             sx={{ my: 0 }}
             copy
           />
           <TextField.Label
             label="bank.accountNumber"
-            value={values.bank?.bank_acc_no}
+            value={values.bank?.bank_acc_no ?? ''}
             sx={{ my: 0 }}
             copy
           />
           <TextField.Label
             label="common.referenceId"
-            value={values.bank?.pay_acc_id}
+            value={values.bank?.pay_acc_id ?? ''}
             sx={{ my: 0 }}
           />
           <TextField.TextInput

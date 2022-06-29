@@ -1,5 +1,6 @@
 import { DripsyGradient, DripsyGradientProps } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
+import useLocalization from 'app/provider/localization'
 import { Pressable, SxProp, Text } from 'dripsy'
 import { ComponentProps } from 'react'
 
@@ -19,6 +20,7 @@ const SelectButton = ({
   buttonContentProps,
   ...restButtonProps
 }: SelectButtonProps) => {
+  const { t } = useLocalization()
   const { sx, ...pressableProps } = restButtonProps || {}
   const { sx: buttonContentSx, ...dripsyGradientProp } =
     buttonContentProps || {}
@@ -37,8 +39,9 @@ const SelectButton = ({
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      borderWidth: 2,
+      borderWidth: 1,
       borderColor: '$lightNavyBlue',
+      minHeight: 42,
     },
     ...buttonContentSx,
   }
@@ -52,7 +55,9 @@ const SelectButton = ({
         end={isActive ? { x: 0.5, y: 1 } : { x: 1, y: 0.5 }}
         {...dripsyGradientProp}
       >
-        <Text sx={{ flex: 0.8 }}>{title}</Text>
+        <Text sx={{ flex: 0.8 }} numberOfLines={1}>
+          {t(title)}
+        </Text>
 
         <Icon
           name={'chevdown'}

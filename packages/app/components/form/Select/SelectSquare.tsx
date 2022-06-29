@@ -3,11 +3,12 @@ import SquareSelectorActionSheet, {
   DEFAULT_SQUARE_ACTION_SHEET_ID,
   SquareSelectorActionSheetProps,
   SquareSelectorFlatListProps,
-} from 'app/components/SquareSelectorActionSheet'
+} from 'app/components/actionsheet/SquareSelectorActionSheet'
 import { Text, View } from 'dripsy'
 import React, { ComponentProps, createRef, useReducer } from 'react'
 import { SheetManager } from 'react-native-actions-sheet'
 import SelectButton from './SelectButton'
+import BankItem from 'app/components/actionsheet/BankItem'
 
 type ButtonProps = ComponentProps<typeof SelectButton>
 
@@ -53,18 +54,12 @@ const SelectSquare = ({
         _flatList={{
           ..._flatList,
           renderItem: ({ item, index }) => (
-            <View>
-              <RoundedIcon
-                size="lg"
-                key={`${index} ${item}`}
-                icon={require('app/assets/images/home/fishing.png')}
-                onPress={() => handleActionSheetClose(item)}
-                containerStyle={{
-                  m: '$0a',
-                }}
-              />
-              <Text sx={{ color: 'black', textAlign: 'center' }}>{item}</Text>
-            </View>
+            <BankItem
+              key={`${index} ${item}`}
+              icon={require('app/assets/images/home/fishing.png')}
+              title={item}
+              onPress={() => handleActionSheetClose(item)}
+            />
           ),
         }}
         _actionSheet={{

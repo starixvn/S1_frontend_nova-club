@@ -16,23 +16,15 @@ const DepositEndPoints = (builder: EndpointBuilderType) => {
     /**
      * *Deposit Payment List
      */
-    depositPaymentList: builder.query<
-      IResponse<DepositPaymentListResult[]>,
-      DepositPaymentListArgs
-    >({
-      query: ({ username }) => ({
+    depositPaymentList: builder.query<IResponse<DepositPaymentListResult>, void>({
+      query: () => ({
         url: `/player_api/depositPaymentList`,
         method: 'POST',
-        data: {
-          username,
-        },
+        data: {},
       }),
     }),
 
-    submitDeposit: builder.mutation<
-      IResponse<SubmitDepositResult>,
-      SubmitDepositArgs
-    >({
+    submitDeposit: builder.mutation<IResponse<SubmitDepositResult>, SubmitDepositArgs>({
       query: (queryArgs) => ({
         url: `/player_api/submitDeposit`,
         method: 'POST',
@@ -41,10 +33,7 @@ const DepositEndPoints = (builder: EndpointBuilderType) => {
         },
       }),
     }),
-    submitManualDeposit: builder.mutation<
-      IResponse<SubmitManualDepositResult>,
-      SubmitManualDepositArgs
-    >({
+    submitManualDeposit: builder.mutation<IResponse<SubmitManualDepositResult>, SubmitManualDepositArgs>({
       query: (queryArgs) => ({
         url: `/player_api/submitManualDeposit`,
         method: 'POST',
@@ -66,5 +55,4 @@ const depositApi = createApi({
 
 export default depositApi
 export { DepositEndPoints }
-export const { useSubmitDepositMutation, useSubmitManualDepositMutation } =
-  depositApi
+export const { useDepositPaymentListQuery, useSubmitDepositMutation, useSubmitManualDepositMutation } = depositApi

@@ -8,7 +8,7 @@ input:focus {
 
 .inputBox {
   text-align: center;
-  margin-inline: auto;
+  flex: 1
 }
 
 input[type='date']::-webkit-calendar-picker-indicator {

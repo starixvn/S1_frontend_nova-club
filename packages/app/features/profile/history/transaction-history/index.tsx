@@ -8,8 +8,11 @@ import GradientBox from 'app/components/GradientBox'
 import FilterSelection from '../FilterSelection'
 import {
   DateFilter,
-  ReportStatusDeposit,
+  DateFilterOptions,
+  ReportDepositStatus,
+  ReportDepositStatusOptions,
   ReportTransactionType,
+  ReportTransactionTypeOptions,
 } from 'app/utils/constant'
 import dayjs from 'dayjs'
 
@@ -22,26 +25,26 @@ const TransactionHistoryTab = () => {
   const [fetchData, result] = useLazyPlayerReportQuery()
 
   const [selected, setSelected] = useState({
-    selectedStatus: ReportStatusDeposit.ALL,
-    selectedDate: DateFilter.TODAY,
-    selectedTransType: ReportTransactionType.DEPOSIT,
+    selectedStatus: ReportDepositStatusOptions[0],
+    selectedDate: DateFilterOptions[0],
+    selectedTransType: ReportTransactionTypeOptions[0],
     startDate: dayjs().startOf('date').toDate(),
     endDate: dayjs().endOf('date').toDate(),
   })
 
   const [fetchParams, setFetchParams] = useState({
-    status: selected.selectedStatus,
+    status: selected.selectedStatus?.value,
     time_from: dayjs(selected.startDate).format('YYYY-MM-DD HH:mm:ss'),
     time_to: dayjs(selected.endDate).format('YYYY-MM-DD HH:mm:ss'),
-    trans_type: selected.selectedTransType,
+    trans_type: selected.selectedTransType?.value,
   })
 
   useEffect(() => {
     setFetchParams({
-      status: selected.selectedStatus,
+      status: selected.selectedStatus?.value,
       time_from: dayjs(selected.startDate).format('YYYY-MM-DD HH:mm:ss'),
       time_to: dayjs(selected.endDate).format('YYYY-MM-DD HH:mm:ss'),
-      trans_type: selected.selectedTransType,
+      trans_type: selected.selectedTransType?.value,
     })
   }, [selected])
 
@@ -61,7 +64,6 @@ const TransactionHistoryTab = () => {
   ]
 
   return (
-    // <PageWithBackHeader header={{ title: 'menu.history' }}>
     <View sx={{ flex: 1, bg: '$secondary' }}>
       <FilterSelection
         selected={selected}
@@ -77,14 +79,13 @@ const TransactionHistoryTab = () => {
         renderItem={renderItem}
       />
     </View>
-    // </PageWithBackHeader>
   )
 }
 
 const renderItem = ({ item }) => {
   const getStatusColor = (value: string) => {
     switch (value.toLowerCase()) {
-      case ReportStatusDeposit.PENDING.toLowerCase():
+      case ReportDepositStatus.PENDING.toLowerCase():
         return '#13A9C8'
       default:
         return '#FFF'
