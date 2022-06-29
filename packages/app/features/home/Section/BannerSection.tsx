@@ -12,13 +12,12 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated'
 import Carousel from 'react-native-reanimated-carousel'
-const BANNER_RATIO = 434 / 163
+const BANNER_RATIO = 768 / 350
 
 const BannerSection = () => {
   const { width, height } = useContainerDimension()
 
-  // static API language havent been fixed to "VI"
-  const { data } = useBannerQuery('vn')
+  const { data } = useBannerQuery()
   const selectedColor = '#99ECFE'
   const colors = [selectedColor, selectedColor]
   const progressValue = useSharedValue<number>(0)
@@ -29,7 +28,7 @@ const BannerSection = () => {
       {data && (
         <View>
           <Carousel
-            data={data.data}
+            data={data}
             width={width}
             height={width / BANNER_RATIO}
             pagingEnabled
@@ -68,11 +67,11 @@ const BannerSection = () => {
 
 const BannerItem = ({ item }: { item: BannerResult }) => {
   const { width } = useContainerDimension()
-  const { bannerMobileUrl } = item
+  const { image } = item
   return (
-    <View key={bannerMobileUrl}>
+    <View key={image}>
       <Image
-        source={{ uri: bannerMobileUrl }}
+        source={{ uri: image }}
         resizeMode="cover"
         sx={{ width, height: width / BANNER_RATIO }}
       />

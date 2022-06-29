@@ -25,7 +25,7 @@
     "docker:web": "docker build -t chlgame .",
     "docker:verify": "docker run -it chlgame sh",
     "docker:run": "docker run -p 3000:3000 chlgame",
-    "deploy:staging": "expo publish --release-channel staging",
+    "deploy:staging": "cd apps/expo && expo publish --release-channel staging",
     "deploy:prod": "expo publish --release-channel prod",
     "rndebug": "open 'rndebugger://set-debugger-loc?host=localhost&port=19000'",
     "build:android:staging": "cd apps/expo &&  yarn build:android:staging",
