@@ -99,7 +99,9 @@
     "gameStatus": {
       "all": "All",
       "win": "Win",
-      "lose": "Lose"
+      "lose": "Lose",
+      "new": "New",
+      "hot": "Hot"
     },
     "transactionType": {
       "deposit": "Deposit",

@@ -79,7 +79,7 @@ const Slots = () => {
         <Select
           actionSheetProps={{ id: 'slotType' }}
           headerTitle={'Game Type'}
-          buttonTitle={selectedSlotType ?? 'Click here to oopen'}
+          buttonTitle={selectedSlotType?.label ?? 'Click here to open'}
           buttonProps={{
             sx: {
               m: 10,
@@ -92,7 +92,7 @@ const Slots = () => {
         <Select
           actionSheetProps={{ id: 'providerSelection' }}
           headerTitle={'Providers'}
-          buttonTitle={selectedProvider ?? 'Click here to oopen'}
+          buttonTitle={selectedProvider ?? 'Click here to open'}
           buttonProps={{
             sx: {
               m: 10,

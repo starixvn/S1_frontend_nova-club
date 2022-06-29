@@ -1,16 +1,18 @@
 import AllSlotGames from 'app/config/games/slots/all'
 import { SlotGame } from 'app/config/games/slots/slot.type'
+import { SlotType, SlotTypeOptions } from 'app/utils/constant'
 import { useMemo, useRef, useState } from 'react'
 const LIMIT = 10
+
 function useSlotGamesFilter() {
   /* State */
   const [selectedProvider, setSelectedProvider] = useState('all')
-  const [selectedSlotType, setSelectedSlotType] = useState('all')
+  const [selectedSlotType, setSelectedSlotType] = useState(SlotTypeOptions[0])
   const [numOfVisible, setNumOfVisible] = useState(LIMIT)
   const length = useRef(0)
 
   /* Filters */
-  const slotTypeSelection = ['all', 'new', 'hot']
+  const slotTypeSelection = SlotTypeOptions
   const providerSelection = useMemo(() => {
     return Object.keys(AllSlotGames)
   }, [])
@@ -29,8 +31,8 @@ function useSlotGamesFilter() {
       result = AllSlotGames[selectedProvider] as SlotGame[]
     }
 
-    if (selectedSlotType !== 'all') {
-      result = result.filter((s) => !!s[selectedSlotType])
+    if (selectedSlotType?.value !== SlotType.ALL) {
+      result = result.filter((s) => !!s[selectedSlotType?.value ?? 0])
     }
 
     setNumOfVisible(LIMIT)

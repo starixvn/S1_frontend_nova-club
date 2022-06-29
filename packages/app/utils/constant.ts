@@ -242,3 +242,23 @@ export enum DepositPaymentMethodCategoryType {
   TOP_UP = 'auto',
   CRYPTO = 'manual',
 }
+
+export enum SlotType {
+  ALL = 'all',
+  NEW = 'new',
+  HOT = 'hot',
+}
+export const SlotTypeOptions = [
+  {
+    value: SlotType.ALL,
+    label: 'filter.gameStatus.all',
+  },
+  {
+    value: SlotType.NEW,
+    label: 'filter.gameStatus.new',
+  },
+  {
+    value: SlotType.HOT,
+    label: 'filter.gameStatus.hot',
+  },
+]
