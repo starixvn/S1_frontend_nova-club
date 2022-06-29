@@ -43,6 +43,7 @@ const DatePickerIOS: FC<DatePickerModalIOSProps> = ({
       ]}
     >
       <DateTimePicker
+        themeVariant="dark"
         timeZoneOffsetInMinutes={0}
         is24Hour
         maximumDate={maximumDate}

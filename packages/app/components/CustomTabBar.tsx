@@ -40,21 +40,17 @@ const CustomTabBar = (props) => {
             }}
             key={route.title}
           >
-            <DripsyGradient
-              colors={colorGradient}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 0, y: 1 }}
-              sx={{
-                justifyContent: 'space-around',
-                flexDirection: 'row',
-                borderWidth: active ? 0 : 0.5,
-                borderColor: '#262957',
-                flex: 1,
-              }}
-            >
-              <BouncePressable
-                onPress={() => {
-                  onPress()
+            <BouncePressable style={{}} onPress={onPress}>
+              <DripsyGradient
+                colors={colorGradient}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 0, y: 1 }}
+                sx={{
+                  justifyContent: 'space-around',
+                  flexDirection: 'row',
+                  borderWidth: active ? 0 : 0.5,
+                  borderColor: '#262957',
+                  flex: 1,
                 }}
               >
                 <Text
@@ -66,8 +62,8 @@ const CustomTabBar = (props) => {
                 >
                   {route.title}
                 </Text>
-              </BouncePressable>
-            </DripsyGradient>
+              </DripsyGradient>
+            </BouncePressable>
           </Animated.View>
         )
       }}

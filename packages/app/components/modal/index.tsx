@@ -45,7 +45,7 @@ const Modal = ({
               <StyledViewClose>
                 <IconButton
                   name="cross"
-                  size={36}
+                  size={26}
                   onPress={() => modalProps.onModalHide()}
                 />
               </StyledViewClose>
@@ -117,8 +117,8 @@ const StyledTextHeader = styled(Text)(() => ({
 }))
 const StyledViewClose = styled(View)(() => ({
   position: 'absolute',
-  right: '$2',
-  top: '$2',
+  right: '$3',
+  top: '$3',
 }))
 const StyledViewButton = styled(View)(() => ({
   flexDirection: 'row',

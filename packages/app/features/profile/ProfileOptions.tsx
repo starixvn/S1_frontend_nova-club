@@ -88,7 +88,7 @@ const ProfileOptions = () => {
           <StyledPressable onPress={() => push(item.routeWeb, item.route)}>
             <StyledIcon
               name={item.iconName}
-              size={36}
+              size={26}
               sx={{ color: item.fontColor ?? '$PastelBlue' }}
             />
             <StyledText
@@ -108,23 +108,22 @@ const ProfileOptions = () => {
 
 const StyledGradientBox = styled(GradientBox)(() => ({
   minHeight: 60,
-  p: '$3',
 }))
 
 const StyledPressable = styled(Pressable)(() => ({
+  flex: 1,
   flexDirection: 'row',
   alignItems: 'center',
 }))
 
 const StyledIcon = styled(Icon)(() => ({
-  mx: '$3',
-  flex: 1 / 6,
+  mx: '$4',
   color: '$PastelBlue',
   textAlign: 'center',
 }))
 const StyledText = styled(Text)(() => ({
   flex: 1,
-  fontSize: 24,
+  fontSize: 20,
   color: '$PastelBlue',
 }))
 

@@ -15,7 +15,6 @@ const modalConfig = {
   PreLaunchGame: () => {
     const { width, height } = useContainerDimension()
 
-    console.log(Platform.OS, height)
     return (
       <View sx={{ bg: 'green', width, height }}>
         <Text>aasdfajkdh</Text>

@@ -1,4 +1,4 @@
-import { PageWithBackHeader } from 'app/components/layout/Page'
+import Page, { PageWithBackHeader } from 'app/components/layout/Page'
 import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
 import React from 'react'
@@ -8,18 +8,24 @@ import SimpleTable from './table/simpleTable'
 const CommissionTable = () => {
   const { t } = useLocalization()
 
+  let showHeader = true
+  if (Platform.OS === 'web' && window.parent != window) {
+    showHeader = false
+  }
+
+  const Container = showHeader ? PageWithBackHeader : Page
+
   return (
-    <PageWithBackHeader
+    <Container
       header={{ title: t('commission.table') }}
       contentContainerStyle={{
         flexGrow: Platform.OS === 'web' ? 0 : 1,
-        color: 'red',
       }}
     >
       <View sx={{ flex: 1 }}>
         <SimpleTable></SimpleTable>
       </View>
-    </PageWithBackHeader>
+    </Container>
   )
 }
 

@@ -4,13 +4,15 @@ import React from 'react'
 
 const GradientBox = ({ children, ...rest }) => {
   return (
-    <StyledGradient gradient="darkNavyBlue" {...rest}>
-      {children}
-    </StyledGradient>
+    <StyledContainer>
+      <Gradient gradient="darkNavyBlue" {...rest}>
+        {children}
+      </Gradient>
+    </StyledContainer>
   )
 }
 
-const StyledGradient = styled(Gradient)(() => ({
+const StyledContainer = styled(View)(() => ({
   borderTopWidth: 1,
   borderBottomWidth: 1,
   borderColor: '$lightNavyBlue',

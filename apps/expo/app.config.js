@@ -15,7 +15,9 @@ export default {
     "ios",
     "android"
   ],
+  "userInterfaceStyle": "dark",
   "ios": {
+    "requireFullScreen": true,
     "icon": "../../packages/app/assets/nclub-appicon.png",
     "bundleIdentifier": IS_STAGING ? "com.chlgame.staging" : "com.chlgame.app",
     "infoPlist": {

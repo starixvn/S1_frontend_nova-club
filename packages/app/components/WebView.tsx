@@ -13,7 +13,8 @@ const WebView = ({ url }) => {
       source={{
         uri: url,
       }}
-      allowsFullscreenVideo
+      mediaPlaybackRequiresUserAction
+      allowsFullscreenVideo={false}
       sharedCookiesEnabled
       thirdPartyCookiesEnabled
       scalesPageToFit

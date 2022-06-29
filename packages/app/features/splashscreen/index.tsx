@@ -6,12 +6,16 @@ import { ImageBackground } from 'react-native'
 import { useRouter } from 'solito/router'
 import useOTA from './useOTA'
 import useSplashScreen from './useSplashScreen'
-
+import * as ScreenOrientation from 'expo-screen-orientation'
 const SplashScreen = () => {
   const { replace } = useRouter()
   const { isReady } = useOTA()
   const { status } = useSplashScreen({}, isReady, { minWaitTime: 500 })
   const loginResult = useAppSelector((state) => state.auth.info)
+
+  useEffect(() => {
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP)
+  }, [])
 
   useEffect(() => {
     if (status) {

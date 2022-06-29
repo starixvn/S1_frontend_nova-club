@@ -8,7 +8,7 @@ import { useAnnouncementQuery } from 'services/contentApi'
 import { AnnouncementListItems } from 'services/contentApi.type'
 import { styled, View } from 'dripsy'
 import { useEffect, useState } from 'react'
-import { useWindowDimensions } from 'react-native'
+import { TouchableWithoutFeedback, useWindowDimensions } from 'react-native'
 import { useRouter } from 'solito/router'
 
 interface MarqueeItem<T> {
@@ -20,7 +20,7 @@ interface MarqueeItem<T> {
 const AnnoucementMarquee = () => {
   const { push } = useRouter()
   const { makeContextualHref } = useContextualRouting(ContextualModuleKey.Home)
-  const toMessages = makeContextualHref('/messages', {
+  const toMessages = makeContextualHref('messages', {
     tab: 1,
   })
   const { width } = useWindowDimensions()
@@ -32,13 +32,17 @@ const AnnoucementMarquee = () => {
     if (data?.data && isSuccess) {
       setMarquees(
         data.data.list.map((annc) => {
-          return { label: annc.newsId, value: annc.title, item: annc }
+          return {
+            label: annc.newsId,
+            value: annc.title + ' ' + annc.content,
+            item: annc,
+          }
         })
       )
     }
   }, [data, isSuccess])
 
-  const onClick = () => {
+  const onPress = () => {
     push(toMessages, {
       pathname: '/messages',
       query: {
@@ -49,28 +53,30 @@ const AnnoucementMarquee = () => {
 
   return (
     <StyledContainer>
-      <DripsyGradient
-        gradient="darkBlue"
-        sx={{
-          flexDirection: 'row',
-        }}
-      >
-        <Icon
-          name="home"
-          sx={{ color: '#97FFF4', alignSelf: 'center' }}
-          size={18}
-        />
-        <MarqueeText
-          textList={marquees}
-          speed={60}
-          width={width}
-          height={25}
-          direction={'left'}
-          reverse={false}
-          textStyle={{ fontSize: 10, color: '#97FFF4' }}
-          onTextClick={onClick}
-        />
-      </DripsyGradient>
+      <TouchableWithoutFeedback onPress={onPress}>
+        <DripsyGradient
+          gradient="darkBlue"
+          sx={{
+            flexDirection: 'row',
+          }}
+        >
+          <Icon
+            name="home"
+            sx={{ color: '#97FFF4', alignSelf: 'center', mx: '$2' }}
+            size={18}
+          />
+          <MarqueeText
+            textList={marquees}
+            speed={60}
+            width={width}
+            height={25}
+            direction={'left'}
+            reverse={false}
+            textStyle={{ fontSize: 12, color: '#97FFF4' }}
+            // onTextClick={onClick}
+          />
+        </DripsyGradient>
+      </TouchableWithoutFeedback>
     </StyledContainer>
   )
 }
@@ -79,7 +85,6 @@ const StyledContainer = styled(View)({
   borderTopWidth: 1,
   borderColor: '$lightNavyBlue',
   borderBottomWidth: 1,
-  pl: '$2a',
 })
 
 export default withContextualNav(AnnoucementMarquee, ContextualModuleKey.Home)
