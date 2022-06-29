@@ -69,7 +69,7 @@
       "crypto": "Crypto"
     },
     "paymentMode": "Payment Mode",
-    "select Channel": "Select Channel",
+    "selectChannel": "Select Channel",
     "usdt": "USDT",
     "cryptoAmount": "123,456 VND",
     "upload": {

@@ -168,7 +168,7 @@ const LocalBankScreen = () => {
             }}
           />
         </TextField>
-        <TextField labelWidth={0.55}>
+        <TextField labelWidth={0.6}>
           <TextField.Label
             label="bank.accountName"
             value={values.bank?.bank_acc_name ?? ''}

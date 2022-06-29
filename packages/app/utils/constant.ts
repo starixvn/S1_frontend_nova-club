@@ -262,3 +262,9 @@ export const SlotTypeOptions = [
     label: 'filter.gameStatus.hot',
   },
 ]
+
+export enum TopUpCard {
+  MOBIFONE = 'Mobi',
+  VIETTEL = 'VT',
+  VINAPHONE = 'Vina',
+}

@@ -1,12 +1,10 @@
 import { View } from 'dripsy'
 import React, { useState } from 'react'
 import useLocalization from 'app/provider/localization'
-import Header from 'app/components/common/Header'
 import { SceneMap, TabView } from 'react-native-tab-view'
 import TransactionHistoryTab from './transaction-history'
 import GameHistoryTab from './game-history'
 import { useWindowDimensions } from 'react-native'
-import useContainerDimension from 'app/hooks/useContainerDimension'
 import CustomTabBar from 'app/components/CustomTabBar'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 

@@ -94,13 +94,14 @@ const TextFieldLabel = ({
             justifyContent: 'space-between',
           }}
         >
-          <StyledTextValue>{value}</StyledTextValue>
+          <StyledTextValue numberOfLines={1}>{value}</StyledTextValue>
 
           {copy && (
             <Button
               variant="sm"
               rounded
               fill={{ type: 'border', color: '$lightNavyBlue' }}
+              containerStyle={{ px: '$2' }}
               onPress={() => {
                 copyToClipboard(value)
                 console.log('value', value)

@@ -13,12 +13,14 @@ import AutoDepositForm from '../components/AutoDepositForm'
 import { DepositPaymentMethodCategoryId } from 'app/utils/constant'
 import ImportantNotice from 'app/components/ImportantNotice'
 import { Button } from 'app/components/form/Button'
+import { useRouter } from 'solito/router'
 
 const NOTES = ['note.qr1', 'note.qr2', 'note.qr3', 'note.qr4']
 
 const QrTransferScreen = () => {
   const { t } = useLocalization()
   const dispatch = useDispatch()
+  const { back } = useRouter()
 
   const [postSubmitDeposit] = useSubmitDepositMutation()
 
@@ -37,6 +39,7 @@ const QrTransferScreen = () => {
         deposit_from: paymentGateway?.deposit_from ?? 0,
         fail_url: 'https://stage.gball8.com/',
         home_url: 'https://stage.gball8.com/',
+        process_url: 'https://stage.gball8.com/',
         name: '',
         success_url: 'https://stage.gball8.com/',
       })
@@ -46,6 +49,7 @@ const QrTransferScreen = () => {
       if (success) {
         dispatch(AlertActions.addSuccess(message))
         actions.resetForm()
+        back()
       }
     } catch (e) {
       dispatch(AlertActions.addError('common.systemError'))

@@ -10,7 +10,7 @@ type BankItemProps = {
 }
 const BankItem = ({ icon, title, onPress }: BankItemProps) => {
   return (
-    <View sx={{ flex: 1 / SQUARE_NUMBER_OF_COLUMNS, alignItems: 'center' }}>
+    <View sx={{ alignItems: 'center' }}>
       <RoundedIcon
         size="lg"
         icon={icon}
@@ -19,9 +19,7 @@ const BankItem = ({ icon, title, onPress }: BankItemProps) => {
           m: '$0a',
         }}
       />
-      <Text
-        sx={{ color: 'black', textAlign: 'center', wordBreak: 'break-word' }}
-      >
+      <Text sx={{ color: 'black', textAlign: 'center', flexShrink: 1 }}>
         {title}
       </Text>
     </View>

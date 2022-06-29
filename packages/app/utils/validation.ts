@@ -46,6 +46,7 @@ const validation = {
     .required('form.tips.needAmount'),
 
   paymentMode: Yup.string().required('form.tips.paymentMode'),
+  cardType: Yup.string().required('form.tips.cardType'),
   cardValue: Yup.string().required('form.tips.cardValue'),
   cardCode: Yup.string().required('form.tips.cardValue'),
   cardSerialNo: Yup.string().required('form.tips.cardSerialNo'),

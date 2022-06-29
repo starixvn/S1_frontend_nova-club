@@ -8,13 +8,22 @@ import validation from 'app/utils/validation'
 import ValueCard from '../ValueCard'
 import ImportantNotice from 'app/components/ImportantNotice'
 import { Button } from 'app/components/form/Button'
-import { toCurrency, toRealAmount } from 'app/utils'
+import { toCleanAmount, toCurrency, toRealAmount } from 'app/utils'
 import { DripsyGradient } from 'app/components/Gradient'
 import { PageWithBackHeader } from 'app/components/layout/Page'
-import { useSubmitDepositMutation } from 'services/deposit'
+import {
+  useDepositPaymentListQuery,
+  useSubmitDepositMutation,
+} from 'services/deposit'
 import { useDispatch } from 'react-redux'
 import { AlertActions } from 'app/store/alert'
 import { useRouter } from 'solito/router'
+import { DepositPaymentMethodCategoryId, TopUpCard } from 'app/utils/constant'
+import {
+  AutoBankItem,
+  ManualBankItem,
+  PlayerInputFieldsBank,
+} from 'services/deposit.type'
 
 const dataPayment = [
   {
@@ -64,11 +73,17 @@ const DEDUCTION_AMOUNT = 0.34
 const ACTUAL_DEPOSIT_AMOUNT = 0.66
 
 type TopupValues = {
-  paymentMode: string
-  cardValue: string
   realAmount: number
+  cardType: string
+  cardValue: string
   cardCode: string
   cardSerialNo: string
+}
+
+type CardType = {
+  value: string
+  label: string
+  logo: string
 }
 
 const TopUpCardScreen = () => {
@@ -76,25 +91,64 @@ const TopUpCardScreen = () => {
   const dispatch = useDispatch()
   const { back } = useRouter()
   const [postSubmitDeposit] = useSubmitDepositMutation()
+  const { data, isLoading, isFetching } = useDepositPaymentListQuery()
+  const paymentGateway = data?.data?.result.auto.find(
+    (el) => el.category_id === DepositPaymentMethodCategoryId.TOP_UP
+  )
+  const inputFields = Object.values(
+    paymentGateway?.list[0].player_input_fields ?? {}
+  )
+
+  const topUpFields = inputFields.find(
+    (el: PlayerInputFieldsBank) => el.type === 'topup_card_list'
+  ) as PlayerInputFieldsBank
+
+  const cardTypeList = Object.keys(topUpFields?.topup_card_tree ?? {}).map(
+    (key) => {
+      const getCardLogo = (key) => {
+        switch (key) {
+          case TopUpCard.MOBIFONE:
+            return require('app/assets/images/deposit/mobifone.png')
+          case TopUpCard.VIETTEL:
+            return require('app/assets/images/deposit/vietel.png')
+          case TopUpCard.VINAPHONE:
+            return require('app/assets/images/deposit/vinaphone.png')
+
+          default:
+            return ''
+        }
+      }
+
+      return {
+        value: key,
+        label: topUpFields?.topup_card_tree[key],
+        logo: getCardLogo(key),
+      }
+    }
+  )
 
   const onSubmit = async (
-    { paymentMode, cardValue, realAmount, cardCode, cardSerialNo }: TopupValues,
+    { realAmount, cardType, cardCode, cardSerialNo }: TopupValues,
     actions: FormikHelpers<TopupValues>
   ) => {
     try {
       const { data, success, message } = await postSubmitDeposit({
         amount: realAmount,
-        bank_type_id: 100,
+        bank: '',
+        bank_type_id: paymentGateway?.list[0]?.bankTypeId ?? 0,
         card_code: parseInt(cardCode),
         card_seri: parseInt(cardSerialNo),
-        card_type: paymentMode,
-        deposit_from: 4,
-        success_url: 'https://stage.gball8.com',
-        fail_url: 'https://stage.gball8.com',
-        home_url: 'https://stage.gball8.com',
+        card_type: cardType,
+        deposit_from: paymentGateway?.list[0]?.deposit_from ?? 0,
+        fail_url: 'https://stage.gball8.com/',
+        home_url: 'https://stage.gball8.com/',
+        process_url: 'https://stage.gball8.com/',
+        name: '',
+        success_url: 'https://stage.gball8.com/',
       })
         .unwrap()
         .catch(({ message }) => dispatch(AlertActions.addError(message)))
+
       if (success) {
         dispatch(AlertActions.addSuccess(message))
 
@@ -107,16 +161,16 @@ const TopUpCardScreen = () => {
 
   const formik = useFormik<TopupValues>({
     initialValues: {
-      paymentMode: dataPayment[0].title,
-      cardValue: '',
       realAmount: 0,
+      cardType: TopUpCard.MOBIFONE ?? '',
+      cardValue: '',
       cardCode: '',
       cardSerialNo: '',
     },
     validationSchema: Yup.object({
-      paymentMode: validation.paymentMode,
-      cardValue: validation.cardValue,
+      cardType: validation.cardType,
       realAmount: validation.amount,
+      cardValue: validation.cardValue,
       cardCode: validation.cardCode,
       cardSerialNo: validation.cardSerialNo,
     }),
@@ -137,13 +191,9 @@ const TopUpCardScreen = () => {
     setFieldValue,
   } = formik
 
-  function onAmountChanged(text: string) {
-    console.log('text', text)
+  function onCardValueChanged(text: string) {
     if (text != null) {
-      const cleanText = text.replace(/[^0-9]/g, '')
-      if (cleanText === values.cardValue) return
-      let amountNumber = parseFloat(cleanText)
-      if (isNaN(amountNumber)) amountNumber = 0
+      const { cleanText, amountNumber } = toCleanAmount(text)
       setValues({
         ...values,
         cardValue: text,
@@ -153,10 +203,7 @@ const TopUpCardScreen = () => {
   }
   function onCardCodeChanged(text: string) {
     if (text != null) {
-      const cleanText = text.replace(/[^0-9]/g, '')
-      if (cleanText === values.cardCode) return
-      let amountNumber = parseFloat(cleanText)
-      if (isNaN(amountNumber)) amountNumber = 0
+      const { cleanText, amountNumber } = toCleanAmount(text)
       setValues({
         ...values,
         cardCode: cleanText,
@@ -166,10 +213,7 @@ const TopUpCardScreen = () => {
 
   function onCardSerialNoChanged(text: string) {
     if (text != null) {
-      const cleanText = text.replace(/[^0-9]/g, '')
-      if (cleanText === values.cardSerialNo) return
-      let amountNumber = parseFloat(cleanText)
-      if (isNaN(amountNumber)) amountNumber = 0
+      const { cleanText, amountNumber } = toCleanAmount(text)
       setValues({
         ...values,
         cardSerialNo: cleanText,
@@ -183,29 +227,30 @@ const TopUpCardScreen = () => {
         <View>
           <StyledViewPayment>
             <FlatList
-              data={dataPayment}
+              data={cardTypeList}
               ListHeaderComponent={
                 <StyledTextTitle>{t('deposit.paymentMode')}</StyledTextTitle>
               }
               numColumns={NUM_COLUMN_PAYMENT}
-              keyExtractor={(item, index) => `${index} ${item.id}`}
-              renderItem={({ item }) => (
+              keyExtractor={(item) => `${item.value}`}
+              renderItem={({ item }: { item: CardType }) => (
                 <ValueCard
                   item={item}
-                  isActive={item.title === values.paymentMode}
-                  onPress={(card) => setFieldValue('paymentMode', card.title)}
+                  isActive={item.value === values.cardType}
+                  onPress={(card) => setFieldValue('cardType', card.value)}
                   containerStyle={{ flex: 1 / NUM_COLUMN_PAYMENT }}
                 />
               )}
+              extraData={values.cardType}
             />
           </StyledViewPayment>
 
           <StyledViewCard>
             <FlatList
               data={
-                values.paymentMode === 'vietel'
+                values.cardType === 'vietel'
                   ? data1
-                  : values.paymentMode === 'vinaphone'
+                  : values.cardType === 'vinaphone'
                   ? data2
                   : data3
               }
@@ -213,12 +258,12 @@ const TopUpCardScreen = () => {
                 <StyledTextTitle>{t('deposit.cardValue')}</StyledTextTitle>
               }
               numColumns={NUM_COLUMN_CARD}
-              keyExtractor={(item, index) => `${index} ${item.id}`}
+              keyExtractor={(item, index) => `${index} ${item}`}
               renderItem={({ item }) => (
                 <ValueCard
                   item={item}
                   isActive={item === values.cardValue}
-                  onPress={(card) => onAmountChanged(card)}
+                  onPress={(card) => onCardValueChanged(card)}
                   containerStyle={{ flex: 1 / NUM_COLUMN_CARD }}
                 />
               )}
