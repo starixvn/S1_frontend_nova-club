@@ -83,7 +83,8 @@ export type PlayerInputFieldsAmount = {
 }
 
 export type PlayerInputFieldsBank = {
-  bank_tree: object
+  bank_tree?: object
+  topup_card_tree?: object
   field_name: string
   label_lang: string
   name: string

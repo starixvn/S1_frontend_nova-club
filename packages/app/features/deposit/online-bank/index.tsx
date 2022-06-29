@@ -14,6 +14,7 @@ import { AutoBankItem } from 'services/deposit.type'
 import AutoDepositForm from '../components/AutoDepositForm'
 import { DepositPaymentMethodCategoryId } from 'app/utils/constant'
 import { SelectOptions } from 'services/common/types'
+import { useRouter } from 'solito/router'
 
 const NOTES = ['note.d1', 'note.d2', 'note.d3', 'note.d4']
 export type AutoDepositValues = {
@@ -25,6 +26,7 @@ export type AutoDepositValues = {
 
 const OnlineBankScreen = () => {
   const { t } = useLocalization()
+  const { back } = useRouter()
   const dispatch = useDispatch()
 
   const [postSubmitDeposit] = useSubmitDepositMutation()
@@ -44,6 +46,7 @@ const OnlineBankScreen = () => {
         deposit_from: paymentGateway?.deposit_from ?? 0,
         fail_url: 'https://stage.gball8.com/',
         home_url: 'https://stage.gball8.com/',
+        process_url: 'https://stage.gball8.com/',
         name: '',
         success_url: 'https://stage.gball8.com/',
       })
@@ -53,6 +56,7 @@ const OnlineBankScreen = () => {
       if (success) {
         dispatch(AlertActions.addSuccess(message))
         actions.resetForm()
+        back()
       }
     } catch (e) {
       dispatch(AlertActions.addError('common.systemError'))

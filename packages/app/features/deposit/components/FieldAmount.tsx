@@ -15,7 +15,6 @@ const FieldAmount = ({ field, formik }: FieldAmountProps) => {
   const { handleBlur, values, errors, touched, setValues } = formik
 
   function onAmountChanged(text: string) {
-    console.log('text', text)
     if (text != null) {
       const { cleanText, amountNumber } = toCleanAmount(text)
       setValues({

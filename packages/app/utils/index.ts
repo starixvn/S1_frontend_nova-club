@@ -116,13 +116,10 @@ export interface CleanAmount {
 }
 
 export function toCleanAmount(text: string): CleanAmount {
-  if (text != null) {
-    const cleanText = text.replace(/[^0-9]/g, '')
-    // if (cleanText === values.amount) return
-    let amountNumber = parseFloat(cleanText)
-    if (isNaN(amountNumber)) amountNumber = 0
+  const cleanText = text.replace(/[^0-9]/g, '')
+  // if (cleanText === values.amount) return
+  let amountNumber = parseFloat(cleanText)
+  if (isNaN(amountNumber)) amountNumber = 0
 
-    return { cleanText, amountNumber }
-  }
-  return text
+  return { cleanText, amountNumber }
 }
