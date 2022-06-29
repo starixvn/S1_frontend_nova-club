@@ -1,6 +1,7 @@
 import { GAMES } from 'app/config/games/games.type'
 import { HOME_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
+import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import BouncePressable from 'app/pressable/BouncePressable'
 import { GameLauncherActions } from 'app/store/gameLauncher.slice'
 import { Image, styled, Text, View } from 'dripsy'
@@ -11,13 +12,18 @@ interface GamesProps extends GAMES {
   showTitle: boolean
 }
 
-const SimpleGridImage: FC<GamesProps> = ({
+const SimpleGridImage: FC<
+  GamesProps & {
+    context: ContextualModuleKey
+  }
+> = ({
   gameCode,
   gameName,
   title,
   image,
   providerCode,
   showTitle,
+  context,
 }) => {
   const { width, height } = useContainerDimension()
   const borderedWidth = width - 4
@@ -34,6 +40,7 @@ const SimpleGridImage: FC<GamesProps> = ({
           GameLauncherActions.launchGame({
             gameCode: gameCode,
             providerCode: providerCode,
+            context,
           })
         )
       }}

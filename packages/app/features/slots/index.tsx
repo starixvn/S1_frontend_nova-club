@@ -15,6 +15,9 @@ import { useModal } from 'react-native-modalfy'
 import { useDispatch } from 'react-redux'
 import ListSectionHeader from '../ListSectionHeader'
 import useSlotGamesFilter from './useSlotGamesFilter'
+const SlotImageExtensionMapping = {
+  cq9: 'png',
+}
 
 const Slots = () => {
   const sx = useSx()
@@ -24,7 +27,9 @@ const Slots = () => {
   const leftRightSpace = (width - 4) * HOME_PADDING * 0.5
   const renderSlotItem = ({ item }: { item: SlotGame }) => {
     const { gameCode, providerCode, gameName } = item
-    const imageUrl = `${MEDIA_DOMAIN}${CONTENT_URI}/games/${providerCode.toLowerCase()}/${gameCode.toLowerCase()}.jpg`
+    const imageUrl = `${MEDIA_DOMAIN}${CONTENT_URI}/games/${providerCode.toLowerCase()}/${gameCode.toLowerCase()}.${
+      SlotImageExtensionMapping[providerCode.toLowerCase()] ?? 'jpg'
+    }`
     return (
       <SimpleGridImage
         gameName={item.gameName}
@@ -33,6 +38,7 @@ const Slots = () => {
         image={imageUrl}
         title={item.gameName}
         showTitle={true}
+        context={ContextualModuleKey.Slot}
       />
       // <TouchableOpacity
       //   onPress={() => {
