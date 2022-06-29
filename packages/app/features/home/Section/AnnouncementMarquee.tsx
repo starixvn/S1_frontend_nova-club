@@ -20,7 +20,7 @@ interface MarqueeItem<T> {
 const AnnoucementMarquee = () => {
   const { push } = useRouter()
   const { makeContextualHref } = useContextualRouting(ContextualModuleKey.Home)
-  const toMessages = makeContextualHref('messages', {
+  const toMessages = makeContextualHref('/messages', {
     tab: 1,
   })
   const { width } = useWindowDimensions()

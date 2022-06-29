@@ -9,7 +9,7 @@ export default {
   "sdkVersion": "44.0.0",
   "scheme": "chlgame",
   "splash": {
-    "image": "../../packages/app/assets/devicon.png",
+    "image": "../../packages/app/assets/nclub-appicon.png",
   },
   "platforms": [
     "ios",

@@ -76,7 +76,7 @@ export function NavigationProvider({
               PreLaunchGame: '/games/prelaunch',
               CustomerSupportPage: '/customer-support',
               GameLoaderPage: '/games/gameUrl',
-              MessagesPage: '/messages/',
+              MessagesPage: '/messages',
             },
           },
         }),

@@ -9,15 +9,16 @@ import {
   CommissionTableResult,
   LeaderboardResult,
 } from './contentApi.type'
+import { MEDIA_DOMAIN } from '@env'
 
 /**
  * @param builder Pass builder from `createApi` *endpoints*
  */
 const contentEndpoints = (builder: EndpointBuilderType) => {
   return {
-    banner: builder.query<IResponse<BannerResult[]>, LANGUAGE_CODE>({
-      query: (languageCode) => ({
-        url: `/static_api/banner/${languageCode}`,
+    banner: builder.query<IResponse<BannerResult[]>, void>({
+      query: () => ({
+        url: `${MEDIA_DOMAIN}/nvclub/nova-club/content/banners/banner.json`,
         method: 'GET',
       }),
     }),

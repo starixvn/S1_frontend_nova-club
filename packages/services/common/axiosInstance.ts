@@ -1,4 +1,4 @@
-import { API_DOMAIN, API_KEY } from '@env'
+import { API_DOMAIN, API_KEY, MEDIA_DOMAIN } from '@env'
 import { EnhancedStore } from '@reduxjs/toolkit'
 import { RootState } from 'app/provider/redux/store'
 import { generateFPSParams } from 'app/utils/fps/fpsGenerator'
@@ -36,10 +36,10 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
     username?: string
   } & ReturnType<typeof generateFPSParams>
 
-  let { url, headers } = config
+  let { url, headers, baseURL } = config
   const requestParams: RequestParams = {} as RequestParams
 
-  if (!url?.includes('/static_api')) {
+  if (baseURL && baseURL?.startsWith(API_DOMAIN) && url?.startsWith('/')) {
     const state = customConfig.store?.getState()
     const { token, playerName } = state?.auth.info || {}
     if (token) {
@@ -47,10 +47,15 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
       config.headers['Authorization'] = `Bearer ${token}`
     }
 
-    if (playerName) {
-      if ('username' in config.data === false) {
+    if (playerName && config.method?.toLowerCase() !== 'get') {
+      if (!config.data || 'username' in config.data === false) {
         requestParams.username = playerName
       }
+    }
+
+    config.headers = {
+      ...headers,
+      api_key: API_KEY,
     }
   }
 
@@ -70,11 +75,6 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
     } catch (e) {
       console.log('Failed to retrieve blackbox')
     }
-  }
-
-  config.headers = {
-    ...headers,
-    api_key: API_KEY,
   }
 
   // IOS 13.3 added security where GET request should not have body data ( use query param instead)

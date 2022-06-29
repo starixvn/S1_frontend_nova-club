@@ -16,6 +16,7 @@ import HotGamesSection from './Section/HotGamesSection'
 import LeaderboardSection from './Section/LeaderboardSection'
 import LotterySection from './Section/LotterySection'
 import AnnoucementMarquee from './Section/AnnouncementMarquee'
+import BannerSection from './Section/BannerSection'
 
 const HomeScreen = () => {
   const [playerProfile] = useLazyPlayerProfileQuery()
@@ -41,7 +42,7 @@ const HomeScreen = () => {
       sx={{ bg: '$background', flex: 1 }}
       showsVerticalScrollIndicator={false}
     >
-      {/* <BannerSection /> */}
+      <BannerSection />
       <AnnoucementMarquee />
       <GridSection />
       <CasinoSection />

@@ -1,20 +1,28 @@
 import AllSlotGames from 'app/config/games/slots/all'
 import { SlotGame } from 'app/config/games/slots/slot.type'
+import useLocalization from 'app/provider/localization'
 import { SlotType, SlotTypeOptions } from 'app/utils/constant'
 import { useMemo, useRef, useState } from 'react'
 const LIMIT = 10
-
 function useSlotGamesFilter() {
+  const { t } = useLocalization()
   /* State */
-  const [selectedProvider, setSelectedProvider] = useState('all')
+  const [selectedProvider, setSelectedProvider] = useState({
+    label: t('common.all'),
+    value: 'all',
+  })
   const [selectedSlotType, setSelectedSlotType] = useState(SlotTypeOptions[0])
   const [numOfVisible, setNumOfVisible] = useState(LIMIT)
-  const length = useRef(0)
 
   /* Filters */
   const slotTypeSelection = SlotTypeOptions
   const providerSelection = useMemo(() => {
     return Object.keys(AllSlotGames)
+      .map((k) => ({
+        label: k.toUpperCase(),
+        value: k,
+      }))
+      .concat({ label: 'All', value: 'all' })
   }, [])
 
   /* Memo */
@@ -27,8 +35,8 @@ function useSlotGamesFilter() {
 
   const filteredGames = useMemo(() => {
     let result: SlotGame[] = allSlotGames
-    if (selectedProvider !== 'all') {
-      result = AllSlotGames[selectedProvider] as SlotGame[]
+    if (selectedProvider.value !== 'all') {
+      result = AllSlotGames[selectedProvider.value] as SlotGame[]
     }
 
     if (selectedSlotType?.value !== SlotType.ALL) {
@@ -36,7 +44,7 @@ function useSlotGamesFilter() {
     }
 
     setNumOfVisible(LIMIT)
-    return result
+    return result ?? []
   }, [allSlotGames, selectedProvider, selectedSlotType])
 
   const displayList = useMemo(() => {
