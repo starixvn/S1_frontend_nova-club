@@ -6,7 +6,7 @@ import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstan
 import { useAppDispatch } from 'app/provider/redux/store'
 import { useLoginMutation } from 'services/authApi'
 import { AlertActions } from 'app/store/alert'
-import { PlayerActions } from 'app/store/authReducer'
+import { AuthActions } from 'app/store/authReducer'
 import validation, { getErrorMessage } from 'app/utils/validation'
 import { styled, Text, useSx, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
@@ -52,7 +52,7 @@ const LoginForm = () => {
       }).unwrap()
 
       if (success && data) {
-        dispatch(PlayerActions.setAuthInfo(data))
+        dispatch(AuthActions.setAuthInfo(data))
         actions.resetForm()
         if (errorMsg) setErrorMsg('')
 

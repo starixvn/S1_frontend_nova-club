@@ -1,21 +1,12 @@
-import { ITimerButtonForwardRef } from 'app/components/TimerButton'
-import withAuth from 'app/hooks/withAuth'
-import { logOut } from 'app/utils/authUtil'
 import { ScrollView } from 'dripsy'
-import * as Updates from 'expo-updates'
-import { default as React, useEffect, useRef, useState } from 'react'
-import { Platform } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { default as React, useEffect } from 'react'
 import { useLazyPlayerProfileQuery } from 'services/playerApi'
-import { usePlayerBalanceQuery } from 'services/wallet'
-import { useRouter } from 'solito/router'
+import AnnoucementMarquee from './Section/AnnouncementMarquee'
 import CasinoSection from './Section/CasinoSection'
 import GamesSection from './Section/GamesSection'
 import GridSection from './Section/GridSection'
 import HotGamesSection from './Section/HotGamesSection'
-import LeaderboardSection from './Section/LeaderboardSection'
 import LotterySection from './Section/LotterySection'
-import AnnoucementMarquee from './Section/AnnouncementMarquee'
 import BannerSection from './Section/BannerSection'
 
 const HomeScreen = () => {
@@ -28,10 +19,10 @@ const HomeScreen = () => {
 
   const onGetPlayer = async () => {
     try {
-      const { data } = await playerProfile().unwrap()
-      if (data) {
-        // dispatch(PlayerActions.setUser(data))
-      }
+      // const { data } = await playerProfile().unwrap()
+      // if (data) {
+      // dispatch(PlayerActions.setUser(data))
+      // }
     } catch (error) {
       console.error(error)
     }

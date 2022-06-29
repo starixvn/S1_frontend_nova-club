@@ -5,7 +5,7 @@ import useContextualRouting from 'app/hooks/useContextualRouting'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import { useRouter } from 'solito/router'
 import { PlayerBalanceResult } from 'services/wallet.type'
-import { toCurrency } from 'app/utils'
+import { toCurrency, toDisplayAmount } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 
 interface GameAmountProps {
@@ -53,8 +53,8 @@ const GameAmount = ({ playerBalance }: GameAmountProps) => {
         <StyledText sx={{ fontSize: 23 }}>
           {/* WIP: Currency should not be hardcoded here */}
           {toCurrency(Number(main?.balance), Currency.VND, {
-            noDecimal: true,
             symbol: false,
+            hideTruncatedThousand: false,
           })}
         </StyledText>
       </StyledView>

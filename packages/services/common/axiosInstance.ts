@@ -8,7 +8,7 @@ enum RESPONSE_STATUS {
   TOKEN_EXPIRED = 401,
 }
 
-const DEFAULT_TIMEOUT = 15000
+const DEFAULT_TIMEOUT = 25000
 
 interface CustomConfig {
   store?: EnhancedStore<RootState>
@@ -38,12 +38,12 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
 
   let { url, headers, baseURL } = config
   const requestParams: RequestParams = {} as RequestParams
+  if (config.headers === undefined) config.headers = {}
 
   if (baseURL && baseURL?.startsWith(API_DOMAIN) && url?.startsWith('/')) {
     const state = customConfig.store?.getState()
     const { token, playerName } = state?.auth.info || {}
     if (token) {
-      if (config.headers === undefined) config.headers = {}
       config.headers['Authorization'] = `Bearer ${token}`
     }
 
@@ -57,6 +57,11 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
       ...headers,
       api_key: API_KEY,
     }
+  }
+
+  const cacheControlNeeded = ['/player_api/transfer']
+  if (cacheControlNeeded.includes(url!)) {
+    config.headers['Cache-Control'] = 'no-cache'
   }
 
   const fraudDetectionNeeded = ['/player_api/createPlayer', '/player_api/login']

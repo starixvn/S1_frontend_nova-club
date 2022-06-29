@@ -134,6 +134,7 @@
   },
   "game": {
     "enterGame": "Enter Game",
+    "quitGame": "Quit Game",
     "category": {
       "sportsbook": "Sportsbook",
       "games": "Games",

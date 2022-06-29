@@ -60,6 +60,10 @@ export function toCurrency(
 
   if (!noDecimal) {
     const decimalExist = parts.length > 1
+    /**
+     * WIP: Decimal here will remove `cent` in currency
+     * For eg: 1125.78, that `78` cents will be removed
+     */
     let decimals = decimalExist
       ? parts[1].toString().substring(0, decimalLength)
       : ''

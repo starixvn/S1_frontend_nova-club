@@ -1,19 +1,32 @@
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import BouncePressable from 'app/pressable/BouncePressable'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { Image, SafeAreaView, styled, Text, useSx, View } from 'dripsy'
-import React, { useState } from 'react'
+import {
+  ActivityIndicator,
+  Image,
+  SafeAreaView,
+  styled,
+  Text,
+  useSx,
+  View,
+} from 'dripsy'
+import React, { useEffect, useState } from 'react'
 import { Platform, StatusBar } from 'react-native'
 import { useRouter } from 'solito/router'
 import MainMenu from './MainMenu'
+import { usePlayerBalanceQuery } from 'app/custom_services/walletApi'
 
 const MainHeader = () => {
   const isIOS = Platform.OS === 'ios'
   const isAndroid = Platform.OS === 'android'
   const { width } = useContainerDimension()
   const [showMenu, setShowMenu] = useState(false)
+  const [mainWalletBalance, setMainWalletBalance] = useState(0)
   const sx = useSx()
   const { push } = useRouter()
+
+  const { data: playerBalance, isLoading: isMainWalletLoading } =
+    usePlayerBalanceQuery()
 
   //change to icon
   const MENU_ROW = [
@@ -53,6 +66,16 @@ const MainHeader = () => {
 
   const iconHeight = headerHeight.map((x) => x * 0.6)
 
+  useEffect(() => {
+    const mainWallet = playerBalance?.data?.main
+
+    if (mainWallet) {
+      const { balance, reward } = mainWallet
+
+      setMainWalletBalance(Number(balance) + Number(reward))
+    }
+  }, [playerBalance])
+
   return (
     <SafeAreaView sx={{ paddingTop: insets.top, bg: '$primary' }}>
       <StyledContainer sx={{ height: headerHeight }}>
@@ -89,17 +112,39 @@ const MainHeader = () => {
                         height: iconHeight,
                       }}
                     >
-                      {/* <StyledBgImage
-                        source={require('../assets/images/header/walletbg.png')}
-                        resizeMode="contain"
-                      />
-                      <StyledWalletImg source={i.img} resizeMode="contain" /> */}
+                      {isMainWalletLoading ? (
+                        <ActivityIndicator size={23} sx={{ px: '$1' }} />
+                      ) : (
+                        <View sx={{ position: 'relative' }}>
+                          <StyledBgImage
+                            source={require('../assets/images/header/walletbg.png')}
+                            resizeMode="contain"
+                          />
+
+                          <View
+                            sx={{
+                              position: 'absolute',
+                              left: 0,
+                              right: 0,
+                              top: 0,
+                              bottom: 0,
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <StyledWalletImg
+                              source={i.img}
+                              resizeMode="contain"
+                            />
+                          </View>
+                        </View>
+                      )}
                       <Text
                         variant="sm"
                         numberOfLines={1}
                         sx={{ flex: 1, color: '$yellow' }}
                       >
-                        88888885934789534798543789547589759
+                        {mainWalletBalance}
                       </Text>
                     </StyledSearchBox>
                   </BouncePressable>
@@ -143,11 +188,8 @@ const StyledBgImage = styled(Image)({
 })
 
 const StyledWalletImg = styled(Image)({
-  width: [10, 20],
-  height: [20, 20],
-  position: 'absolute',
-  left: [10, 10],
-  top: [4, 6],
+  width: [10, 12],
+  height: [20, 12],
 })
 
 const StyledImg = styled(Image)({
@@ -159,7 +201,8 @@ const StyledSearchBox = styled(View)({
   bg: 'rgb(48,89,117)',
   flexDirection: 'row',
   justifyContent: 'space-between',
-  px: '$2',
+  pr: '$2',
+  pl: '$1',
   overflow: 'hidden',
   alignItems: 'center',
 })

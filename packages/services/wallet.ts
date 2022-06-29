@@ -74,6 +74,7 @@ export default walletApi
 export { walletEndPoints }
 export const {
   usePlayerBalanceQuery,
+  useLazyPlayerBalanceQuery,
   usePlayerWalletDetailQuery,
   useTransferMutation,
   useTransferAllToOneMutation,

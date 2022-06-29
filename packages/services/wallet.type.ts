@@ -33,10 +33,9 @@ export type PlayerWalletDetailResult = {
  * *Transfer
  */
 export type TransferArgs = {
-  game_code: string
-  is_demo: number
-  is_mobile: number
-  platform_code: string
+  amount: number
+  transfer_from: number
+  transfer_to: number
   username?: string
 }
 
