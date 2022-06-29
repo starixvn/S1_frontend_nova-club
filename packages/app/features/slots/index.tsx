@@ -92,14 +92,13 @@ const Slots = () => {
         <Select
           actionSheetProps={{ id: 'providerSelection' }}
           headerTitle={'Providers'}
-          buttonTitle={selectedProvider ?? 'Click here to open'}
+          buttonTitle={selectedProvider.label ?? 'Click here to open'}
           buttonProps={{
             sx: {
               m: 10,
             },
             isActive: false,
           }}
-          value={selectedProvider}
           data={providerSelection}
           setSelectedValue={setSelectedProvider}
         />
