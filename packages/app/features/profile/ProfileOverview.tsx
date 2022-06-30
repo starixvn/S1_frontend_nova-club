@@ -29,7 +29,7 @@ const ProfileOverview = () => {
               color: theme.colors.$lightCyan,
             }}
           >
-            More
+            {t('common.more')}
           </Text>
           <Icon name="chevdown" size={24} color={theme.colors.$lightCyan} />
         </BouncePressable>

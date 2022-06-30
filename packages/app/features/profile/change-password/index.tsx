@@ -4,14 +4,13 @@ import { FormikHelpers, useFormik } from 'formik'
 import * as Yup from 'yup'
 import React from 'react'
 import validation from 'app/utils/validation'
-import { Button } from 'react-native'
 import { AlertActions } from 'app/store/alert'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'solito/router'
-import { useAppSelector } from 'app/provider/redux/store'
 import { useChangePasswordMutation } from 'services/changePassword'
 import useLocalization from 'app/provider/localization'
 import { PageWithBackHeader } from 'app/components/layout/Page'
+import { Button } from 'app/components/form/Button'
 
 type PasswordFormValues = {
   oldPassword: string
@@ -30,11 +29,33 @@ const ChangePasswordScreen = () => {
     actions: FormikHelpers<PasswordFormValues>
   ) => {
     try {
+      // const response = await axios.put(
+      //   'https://player-stage.gball8.com/api/nv88_api/v1/player_api/password',
+      //   {
+      //     old_password: oldPassword,
+      //     password: password,
+      //     cpassword: confirmPassword,
+      //     username: 'techtests01',
+      //   },
+      //   {
+      //     headers: {
+      //       Authorization: 'Bearer d7623ecec18fea9c4269d00b6d8fa6e1',
+      //       api_key: 'zl9oo0vtrtbih1fufvq8pk8stvqprad8',
+      //     },
+      //   }
+      // )
+      // console.log(
+      //   '🚀 ~ file: index.tsx ~ line 46 ~ ChangePasswordScreen ~ response',
+      //   response
+      // )
+
       const { data, success, message } = await postChangePassword({
         old_password: oldPassword,
         password: password,
         cpassword: confirmPassword,
-      }).unwrap()
+      })
+        .unwrap()
+        .catch((error) => dispatch(AlertActions.addError(error.message)))
 
       if (success) {
         console.log('data', data)
@@ -48,9 +69,6 @@ const ChangePasswordScreen = () => {
     } catch (e) {
       dispatch(AlertActions.addError('common.systemError'))
     }
-    console.log('oldPassword :>> ', oldPassword)
-    console.log('password :>> ', password)
-    console.log('confirmPassword :>> ', confirmPassword)
   }
 
   const formik = useFormik<PasswordFormValues>({
@@ -82,7 +100,7 @@ const ChangePasswordScreen = () => {
   return (
     <PageWithBackHeader header={{ title: t('menu.changePassword') }}>
       <StyledViewPage>
-        <TextField labelWidth={0.6}>
+        <TextField labelWidth={0.8}>
           <TextField.TextInput
             label="common.oldPassword"
             _input={{
@@ -128,13 +146,25 @@ const ChangePasswordScreen = () => {
           />
         </TextField>
 
-        <View sx={{ m: '$6' }}>
-          <Button
-            title="Ok"
-            disabled={!isValid || !dirty}
-            onPress={submitForm}
-          />
-        </View>
+        <Button
+          rounded
+          stretch
+          loading={isSubmitting}
+          disabled={!isValid || !dirty}
+          variant="lg"
+          fill={{
+            type: 'gradient',
+            color: 'secondary',
+            start: { x: 0, y: 0 },
+            end: { x: 1, y: 0 },
+          }}
+          containerStyle={{
+            m: '$10',
+          }}
+          onPress={submitForm}
+        >
+          <Button.Label>{t('common.ok')}</Button.Label>
+        </Button>
 
         <StyledText>{t('common.passwordNote')}</StyledText>
       </StyledViewPage>
