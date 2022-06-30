@@ -21,7 +21,6 @@ const Header = ({ title }: { title: string }) => {
   const [currentOrientation, setCurrentOrientation] = useState(
     ScreenOrientation.Orientation.PORTRAIT_DOWN
   )
-  console.log('current orient', currentOrientation)
   useEffect(() => {
     const subs = ScreenOrientation.addOrientationChangeListener((s) => {
       console.log('set orientn to', s.orientationInfo.orientation)

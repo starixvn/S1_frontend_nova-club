@@ -1,3 +1,4 @@
+import useLocalization from 'app/provider/localization'
 import { styled, Text, View } from 'dripsy'
 import React, { ComponentProps, FC } from 'react'
 import ReactNativeModal from 'react-native-modal'
@@ -31,6 +32,8 @@ const Modal = ({
   closeModal,
   ...modalProps
 }: ModalProps) => {
+  const { t } = useLocalization()
+
   return (
     <ReactNativeModal
       backdropColor="black"
@@ -40,7 +43,7 @@ const Modal = ({
       <StyledViewModal>
         {isShowHeader && (
           <StyledViewHeader>
-            <StyledTextHeader>{title ? title : 'Alert'}</StyledTextHeader>
+            <StyledTextHeader>{t(title)}</StyledTextHeader>
             {!hideCloseButton && (
               <StyledViewClose>
                 <IconButton

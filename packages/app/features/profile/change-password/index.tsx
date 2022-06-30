@@ -22,33 +22,13 @@ const ChangePasswordScreen = () => {
   const { t } = useLocalization()
   const [postChangePassword] = useChangePasswordMutation()
   const dispatch = useDispatch()
-  const { replace } = useRouter()
+  const { back } = useRouter()
 
   const onSubmit = async (
     { oldPassword, password, confirmPassword }: PasswordFormValues,
     actions: FormikHelpers<PasswordFormValues>
   ) => {
     try {
-      // const response = await axios.put(
-      //   'https://player-stage.gball8.com/api/nv88_api/v1/player_api/password',
-      //   {
-      //     old_password: oldPassword,
-      //     password: password,
-      //     cpassword: confirmPassword,
-      //     username: 'techtests01',
-      //   },
-      //   {
-      //     headers: {
-      //       Authorization: 'Bearer d7623ecec18fea9c4269d00b6d8fa6e1',
-      //       api_key: 'zl9oo0vtrtbih1fufvq8pk8stvqprad8',
-      //     },
-      //   }
-      // )
-      // console.log(
-      //   '🚀 ~ file: index.tsx ~ line 46 ~ ChangePasswordScreen ~ response',
-      //   response
-      // )
-
       const { data, success, message } = await postChangePassword({
         old_password: oldPassword,
         password: password,
@@ -58,13 +38,10 @@ const ChangePasswordScreen = () => {
         .catch((error) => dispatch(AlertActions.addError(error.message)))
 
       if (success) {
-        console.log('data', data)
         dispatch(AlertActions.addSuccess(message))
         actions.resetForm()
 
-        replace('/profile')
-      } else {
-        dispatch(AlertActions.addError(message))
+        back()
       }
     } catch (e) {
       dispatch(AlertActions.addError('common.systemError'))
@@ -112,7 +89,9 @@ const ChangePasswordScreen = () => {
             }}
             error={
               touched.oldPassword && errors.oldPassword
-                ? errors.oldPassword
+                ? t(errors.oldPassword, {
+                    field: t('common.oldPassword'),
+                  })
                 : undefined
             }
           />
@@ -126,7 +105,11 @@ const ChangePasswordScreen = () => {
               secureTextEntry: true,
             }}
             error={
-              touched.password && errors.password ? errors.password : undefined
+              touched.password && errors.password
+                ? t(errors.password, {
+                    field: t('common.password'),
+                  })
+                : undefined
             }
           />
           <TextField.TextInput
@@ -140,7 +123,9 @@ const ChangePasswordScreen = () => {
             }}
             error={
               touched.confirmPassword && errors.confirmPassword
-                ? errors.confirmPassword
+                ? t(errors.confirmPassword, {
+                    field: t('common.confirmPassword'),
+                  })
                 : undefined
             }
           />
