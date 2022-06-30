@@ -7,7 +7,7 @@ const GradientBox = ({ children, ...rest }) => {
   return (
     <Gradient gradient="darkNavyBlue" sx={{ position: 'relative' }} {...rest}>
       <StyledContainer
-        sx={{ pointerEvents: Platform.OS === 'web' ? 'none' : '' }}
+        sx={Platform.OS === 'web' ? { pointerEvents: 'none' } : {}}
       ></StyledContainer>
       {children}
     </Gradient>

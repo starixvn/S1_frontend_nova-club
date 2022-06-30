@@ -10,7 +10,7 @@ import { SelectOptions } from 'services/common/types'
 import { PlayerInputFieldsBank } from 'services/deposit.type'
 import { AutoDepositValues } from '../online-bank'
 
-const actionSheedId = 'auto-deposit'
+const actionSheetId = 'auto-deposit'
 
 type FieldBankProps = {
   field: PlayerInputFieldsBank
@@ -40,23 +40,26 @@ const FieldSelectBank = ({ field, isLoading, formik }: FieldBankProps) => {
         _flatList={{
           data: bankList ?? [],
           isLoading: isLoading,
-          keyExtractor: (item: SelectOptions) => `${item.value}`,
-          renderItem: ({ item }: { item: SelectOptions }) => (
-            <BankItem
-              key={`${item.value}`}
-              icon={require('app/assets/images/home/fishing.png')}
-              title={item.value}
-              onPress={async () => {
-                setFieldValue('bank', item)
-                await SheetManager.hide(
-                  actionSheedId ?? DEFAULT_SQUARE_ACTION_SHEET_ID
-                )
-              }}
-            />
-          ),
+          titleType: 'value',
+          onPress: (item) => setFieldValue('bank', item),
+
+          // keyExtractor: (item: SelectOptions) => `${item.value}`,
+          // renderItem: ({ item }: { item: SelectOptions }) => (
+          //   <BankItem
+          //     key={`${item.value}`}
+          //     icon={require('app/assets/images/home/fishing.png')}
+          //     title={item.value}
+          //     onPress={async () => {
+          //       setFieldValue('bank', item)
+          //       await SheetManager.hide(
+          //         actionSheetId ?? DEFAULT_SQUARE_ACTION_SHEET_ID
+          //       )
+          //     }}
+          //   />
+          // ),
         }}
         _actionSheet={{
-          id: actionSheedId,
+          id: actionSheetId,
           headerTitle: t('bank.bank'),
         }}
         containerStyle={{ my: '$3' }}

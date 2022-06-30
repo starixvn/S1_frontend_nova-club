@@ -5,12 +5,12 @@ import { SQUARE_NUMBER_OF_COLUMNS } from './SquareSelectorActionSheet'
 
 type BankItemProps = {
   icon: string
-  title: string
+  title?: string
   onPress: () => void
 }
 const BankItem = ({ icon, title, onPress }: BankItemProps) => {
   return (
-    <View sx={{ alignItems: 'center' }}>
+    <View sx={{ alignItems: 'center', width: '25%' }}>
       <RoundedIcon
         size="lg"
         icon={icon}
