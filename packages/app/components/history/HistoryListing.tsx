@@ -238,10 +238,14 @@ function HistoryListing<T>(props: HistoryListingProps<T>) {
         onRefresh={onRefresh}
         refreshing={isFetching ?? false}
         ListEmptyComponent={
-          !isUninitialized ? <HistoryEmpty sx={{ mt: '$5' }} /> : null
+          !isUninitialized && !isFetching ? (
+            <HistoryEmpty sx={{ mt: '$5' }} />
+          ) : null
         }
         ListFooterComponent={() =>
-          isFetching && !allLoaded && <ActivityIndicator />
+          isFetching &&
+          !allLoaded &&
+          displayList.length > 0 && <ActivityIndicator />
         }
         data={displayList}
         keyExtractor={keyExtractor}

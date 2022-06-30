@@ -22,7 +22,14 @@ const DateFilterList = DateFilterOptions
 const DepositStatusList = ReportDepositStatusOptions
 const WithdrawalStatusList = ReportWithdrawalStatusOptions
 const GameStatusList = ReportGameStatusOptions
-const ProviderList = Object.keys(GameProvider)
+export const ProviderList = Object.keys(GameProvider).map((key) => ({
+  label: key,
+  value: key,
+}))
+console.log(
+  '🚀 ~ file: FilterSelection.tsx ~ line 26 ~ ProviderList',
+  ProviderList
+)
 
 const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
   const { t } = useLocalization()
@@ -96,7 +103,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
           />
         ) : (
           <SelectSquare
-            buttonTitle={selected.selectedGame}
+            buttonTitle={selected.selectedGame.label}
             buttonProps={{
               sx: {
                 mr: 10,
@@ -105,7 +112,6 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
             }}
             _flatList={{
               data: ProviderList,
-              keyExtractor: (item) => item,
               setSelectedValue: (value) =>
                 setSelected({ ...selected, selectedGame: value }),
             }}

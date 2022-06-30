@@ -181,9 +181,9 @@ export const ReportWithdrawalStatusOptions = [
 ]
 
 export enum ReportGameStatus {
-  ALL = 'All',
-  WIN = 'Win',
-  LOSE = 'Lose',
+  ALL = 'all',
+  WIN = 'win',
+  LOSE = 'lose',
 }
 
 export const ReportGameStatusOptions = [
@@ -218,11 +218,6 @@ export enum GameProvider {
   AE_SEXY = 'AE Sexy',
   SA = 'SA Gaming Bet',
   SG = 'Skywind Group',
-}
-
-export const GameStatusMapper: { [key: number]: string } = {
-  '1': 'Win',
-  '-1': 'Lose',
 }
 
 export enum DepositPaymentMethodCategoryId {

@@ -24,7 +24,7 @@ export type SquareSelectorActionSheetProps = ComponentProps<
 export type SquareSelectorFlatListProps = ComponentProps<typeof FlatList> & {
   data: WithdrawalBankResult[] | PlayerBankResult[] | []
   isLoading: boolean
-  selectedData: WithdrawalBankResult | PlayerBankResult
+  titleType: string
   onPress: (object) => void
 }
 export interface SquareSelectorForwardRef {
@@ -59,14 +59,8 @@ const SquareSelectorActionSheet = forwardRef<
     ...restActionSheetProps
   } = _actionSheet || {}
 
-  const {
-    data,
-    isLoading,
-    selectedData,
-    onPress,
-    titleType,
-    ...restFlatListProps
-  } = _flatList || {}
+  const { data, isLoading, onPress, titleType, ...restFlatListProps } =
+    _flatList || {}
   const { theme } = useDripsyTheme()
 
   const _ref = createRef()
@@ -122,26 +116,19 @@ const SquareSelectorActionSheet = forwardRef<
               justifyContent: 'flex-start',
             }}
           >
-            {data.map((item) => {
-              console.log(
-                '🚀 ~ file: SquareSelectorActionSheet.tsx ~ line 125 ~ {data.map ~ item',
-                item
-              )
-
-              return (
-                <BankItem
-                  key={item.id}
-                  icon={require('app/assets/images/home/fishing.png')}
-                  title={item[titleType]}
-                  onPress={async () => {
-                    onPress(item)
-                    await SheetManager.hide(
-                      actionSheetId ?? DEFAULT_SQUARE_ACTION_SHEET_ID
-                    )
-                  }}
-                />
-              )
-            })}
+            {data.map((item) => (
+              <BankItem
+                key={item.id}
+                icon={require('app/assets/images/home/fishing.png')}
+                title={item[titleType]}
+                onPress={async () => {
+                  onPress(item)
+                  await SheetManager.hide(
+                    actionSheetId ?? DEFAULT_SQUARE_ACTION_SHEET_ID
+                  )
+                }}
+              />
+            ))}
           </View>
         ) : (
           <Text>{t('common.emptyResult')}</Text>
