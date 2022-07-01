@@ -9,11 +9,13 @@ const ListSectionHeader = ({
   bgColor,
   iconName,
   search,
+  children,
 }: {
   title: string
   bgColor: string
   iconName: string
   search?: boolean
+  children?: React.ReactElement
 }) => {
   const { t } = useLocalization()
 
@@ -31,7 +33,8 @@ const ListSectionHeader = ({
         </StyledGradient>
         <StyledText>{t(title)}</StyledText>
       </StyledView>
-      {search && (
+      {children}
+      {/* {search && (
         <StyledSearchBox>
           <TextInput sx={{ width: '80%', height: '100%', pl: '$2a' }} />
           <Icon
@@ -41,7 +44,7 @@ const ListSectionHeader = ({
             size={15}
           />
         </StyledSearchBox>
-      )}
+      )} */}
     </StyledContainer>
   )
 }

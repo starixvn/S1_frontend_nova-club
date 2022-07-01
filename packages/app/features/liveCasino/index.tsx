@@ -10,17 +10,25 @@ import useGameGridSize from 'app/hooks/useGameGridSize'
 import withContextualNav from 'app/navigation/web/withContextualNav'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import useLocalization from 'app/provider/localization'
-import { Image, ScrollView, styled, Text, View } from 'dripsy'
+import { Image, ScrollView, styled, Text, useSx, View } from 'dripsy'
 import React from 'react'
-import { Platform } from 'react-native'
+import { FlatList, Platform } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import ListSectionHeader from '../ListSectionHeader'
 import useLiveCasinoFilter from './useLiveCasinoFilter'
+import { SlotGame } from 'app/config/games/slots/slot.type'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+
+const LiveCasinoImageExtensionMapping = {
+  cq9: 'png',
+}
 
 const LiveCasino = withContextualNav(() => {
   const { t } = useLocalization()
   const { width } = useContainerDimension()
+  const sx = useSx()
   const space = width * HOME_PADDING
+
   const {
     genreSelection,
     selectedGenre,
@@ -32,8 +40,31 @@ const LiveCasino = withContextualNav(() => {
   } = useLiveCasinoFilter()
 
   const { containerSpace, itemSpace, contentWidth } = useGameGridSize()
-  return (
-    <Page sx={{ bg: '$background' }}>
+
+  const renderItem = ({ item }: { item: SlotGame }) => {
+    const { gameCode, providerCode, gameName } = item
+    const imageUrl = `${MEDIA_DOMAIN}${CONTENT_URI}/games/${providerCode.toLowerCase()}/${gameCode.toLowerCase()}.${
+      LiveCasinoImageExtensionMapping[providerCode.toLowerCase()] ?? 'jpg'
+    }`
+
+    return (
+      <SimpleGridImage
+        sx={{ m: itemSpace }}
+        gameName={item.gameName}
+        providerCode={item.providerCode}
+        gameCode={item.gameCode}
+        image={imageUrl}
+        title={item.gameName}
+        context={ContextualModuleKey.Slot}
+        width={contentWidth}
+      />
+    )
+  }
+
+  console.log('genreSelection', genreSelection)
+
+  const Header = (
+    <View sx={{ m: -containerSpace }}>
       <ListSectionHeader
         title={t('game.category.liveCasino')}
         bgColor="maroon"
@@ -49,13 +80,14 @@ const LiveCasino = withContextualNav(() => {
         contentContainerStyle={{
           paddingHorizontal: space,
           paddingBottom: space,
-          paddingTop: 0,
+          paddingTop: 2, // for the shadow
         }}
       >
         {providerSelection.map((p) => {
           const selected = p.value === selectedProvider.value
           return (
             <TouchableOpacity
+              style={{ marginRight: space * 0.5 }}
               key={p.value}
               onPress={() => setSelectedProvider(p)}
             >
@@ -88,7 +120,24 @@ const LiveCasino = withContextualNav(() => {
           setSelectedValue={setSelectedGenre}
         />
       </View>
-      <View sx={{ p: containerSpace, flexDirection: 'row', flexWrap: 'wrap' }}>
+    </View>
+  )
+
+  return (
+    <Page sx={{ bg: '$background' }}>
+      <FlatList
+        numColumns={2}
+        ListHeaderComponent={Header}
+        style={sx({ bg: '$background', flex: 1 })}
+        contentContainerStyle={{ padding: containerSpace }}
+        // onEndReached={loadMore}
+        data={filteredGames}
+        // extraData={displayList}
+        keyExtractor={(item) => item.gameCode}
+        renderItem={renderItem}
+      />
+
+      {/* <View sx={{ p: containerSpace, flexDirection: 'row', flexWrap: 'wrap' }}>
         {filteredGames.map((item, rindex) => {
           return (
             <SimpleGridImage
@@ -106,7 +155,7 @@ const LiveCasino = withContextualNav(() => {
           )
         })}
       </View>
-      <SimpleWrap data={filteredGames} />
+      <SimpleWrap data={filteredGames} /> */}
     </Page>
   )
 }, ContextualModuleKey.LiveCasino)

@@ -8,7 +8,7 @@ import useContainerDimension from 'app/hooks/useContainerDimension'
 import useGameGridSize from 'app/hooks/useGameGridSize'
 import withContextualNav from 'app/navigation/web/withContextualNav'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
-import { useSx, View } from 'dripsy'
+import { Row, useSx, View } from 'dripsy'
 import { setUseProxies } from 'immer'
 import React, { useMemo, useState } from 'react'
 import { FlatList } from 'react-native'
@@ -56,35 +56,37 @@ const Slots = withContextualNav(() => {
   } = useSlotGamesFilter()
   return (
     <PageSafeArea disableScrollView sx={{ bg: '$background' }}>
-      <View>
-        <ListSectionHeader title={'Slots'} bgColor="purple" iconName="lt" />
-        <Select
-          actionSheetProps={{ id: 'slotType' }}
-          headerTitle={'Game Type'}
-          buttonTitle={selectedSlotType?.label ?? 'Click here to open'}
-          buttonProps={{
-            sx: {
-              m: 10,
-            },
-            isActive: false,
-          }}
-          data={slotTypeSelection}
-          setSelectedValue={setSelectedSlotType}
-        />
-        <Select
-          actionSheetProps={{ id: 'providerSelection' }}
-          headerTitle={'Providers'}
-          buttonTitle={selectedProvider.label ?? 'Click here to open'}
-          buttonProps={{
-            sx: {
-              m: 10,
-            },
-            isActive: false,
-          }}
-          data={providerSelection}
-          setSelectedValue={setSelectedProvider}
-        />
-      </View>
+      <ListSectionHeader title={'Slots'} bgColor="purple" iconName="lt">
+        <Row sx={{ flex: 1, justifyContent: 'flex-end' }}>
+          <Select
+            actionSheetProps={{ id: 'slotType' }}
+            headerTitle={'Game Type'}
+            buttonTitle={selectedSlotType?.label ?? 'Click here to open'}
+            buttonProps={{
+              sx: {
+                flex: 0.3,
+              },
+              isActive: false,
+            }}
+            data={slotTypeSelection}
+            setSelectedValue={setSelectedSlotType}
+          />
+          <Select
+            actionSheetProps={{ id: 'providerSelection' }}
+            headerTitle={'Providers'}
+            buttonTitle={selectedProvider.label ?? 'Click here to open'}
+            buttonProps={{
+              sx: {
+                ml: '$2',
+                flex: 0.3,
+              },
+              isActive: false,
+            }}
+            data={providerSelection}
+            setSelectedValue={setSelectedProvider}
+          />
+        </Row>
+      </ListSectionHeader>
 
       <FlatList<SlotGame>
         numColumns={2}

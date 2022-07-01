@@ -18,7 +18,7 @@ const SimpleWrap = ({ data }) => {
             gameName={item.gameName}
             providerCode={item.providerCode}
             gameCode={item.gameCode}
-            image={require('../assets/images/games/AG01.png')}
+            image={item.image}
             title={item.gameName}
             width={contentWidth}
           />
