@@ -64,7 +64,7 @@ const Slots = withContextualNav(() => {
             buttonTitle={selectedSlotType?.label ?? 'Click here to open'}
             buttonProps={{
               sx: {
-                flex: 0.3,
+                flex: 0.4,
               },
               isActive: false,
             }}
@@ -78,7 +78,7 @@ const Slots = withContextualNav(() => {
             buttonProps={{
               sx: {
                 ml: '$2',
-                flex: 0.3,
+                flex: 0.4,
               },
               isActive: false,
             }}

@@ -13,8 +13,7 @@ export default function useGameGridSize(numOfCol = 2) {
 
   const totalSpaceSize = spacePerUnit * totalSpacingUnits
 
-  console.log(width, spacePerUnit)
-  const columnWidth = (width - totalSpaceSize) / numOfCol
+  const columnWidth = Math.floor((width - totalSpaceSize) / numOfCol)
 
   return {
     containerSpace: containerSpaceUnits * spacePerUnit,

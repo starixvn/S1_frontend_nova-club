@@ -119,7 +119,7 @@ const TextInputIconWrap = styled(View)(() => ({
   alignItems: 'center',
   width: 30,
   height: 30,
-  mr: '$1',
+  mr: '$2',
 }))
 
 const TextInputContent = styled(View)(({ error }: { error?: string }) => ({
@@ -181,7 +181,7 @@ const TextInputFocusArea: FC<TextInputProps> = ({
             <Icon {..._icon} />
           </TextInputIconWrap>
         ) : null}
-        {prefix && <Text sx={{ mr: '$1' }}>{prefix}</Text>}
+        {prefix && <Text sx={{ mr: '$2' }}>{prefix}</Text>}
       </View>
       <DripsyTextInput
         placeholder="This filed"

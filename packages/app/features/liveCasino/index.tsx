@@ -61,8 +61,6 @@ const LiveCasino = withContextualNav(() => {
     )
   }
 
-  console.log('genreSelection', genreSelection)
-
   const Header = (
     <View sx={{ m: -containerSpace }}>
       <ListSectionHeader
@@ -92,7 +90,7 @@ const LiveCasino = withContextualNav(() => {
               onPress={() => setSelectedProvider(p)}
             >
               <ProviderSelectItem selected={selected}>
-                <Text>{p.value}</Text>
+                <Text>{p.label}</Text>
               </ProviderSelectItem>
             </TouchableOpacity>
           )
@@ -100,7 +98,7 @@ const LiveCasino = withContextualNav(() => {
       </ScrollView>
       <View
         sx={{
-          py: space * 0.5,
+          py: space,
           px: space,
           flexDirection: 'row',
           justifyContent: 'space-between',

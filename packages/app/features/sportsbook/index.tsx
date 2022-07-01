@@ -13,12 +13,10 @@ const Sportsbook = () => {
   const { width, height } = useWindowDimensions()
 
   return (
-    <Page>
+    <Page.ScrollView>
       <ListSectionHeader title={'Sportsbook'} bgColor="yellow" iconName="sb" />
-      <View>
-        <SimpleWrap data={sport.gameList} showTitle={false} />
-      </View>
-    </Page>
+      <SimpleWrap data={sport.gameList} />
+    </Page.ScrollView>
   )
 }
 

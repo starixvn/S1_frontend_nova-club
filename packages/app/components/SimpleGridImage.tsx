@@ -32,7 +32,7 @@ const SimpleGridImage: FC<GamesProps> = ({
   const img = urlImage ? { uri: image } : image
   return (
     <BouncePressable
-      sx={sx}
+      sx={{ width, ...sx }}
       onPress={() => {
         dispatch(
           GameLauncherActions.launchGame({

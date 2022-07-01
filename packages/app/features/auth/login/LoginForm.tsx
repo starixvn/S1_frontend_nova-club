@@ -146,6 +146,7 @@ const LoginForm = () => {
           <Text
             variant="md"
             sx={{
+              fontSize: [14, 16],
               opacity: 0.43,
             }}
           >

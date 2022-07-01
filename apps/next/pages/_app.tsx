@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps, router }: SolitoAppProps) {
         <meta name="description" content="Nova88 Club" />
         <meta
           name="viewport"
-          content="width=375, initial-scale=1.0, user-scalable=no"
+          content="width=375, initial-scale=1.0, user-scalable=no, maximum-scale=1"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>

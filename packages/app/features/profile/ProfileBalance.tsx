@@ -18,7 +18,6 @@ const ProfileBalance = () => {
   const handlePress = () => {
     setIsExtend(!isExtend)
   }
-  console.log('data', data)
   const { t } = useLocalization()
 
   return (
@@ -152,10 +151,12 @@ const BalanceItem = ({
 }
 
 const StyledGradient = styled(Gradient)(() => ({
-  mx: '$3',
   mt: '$5',
   mb: '$2',
-  px: '$8',
+  px: '$4',
+  width: 400,
+  alignSelf: 'center',
+  maxWidth: '90%',
   borderWidth: 2,
   borderColor: '$lightNavyBlue',
   borderRadius: 18,
