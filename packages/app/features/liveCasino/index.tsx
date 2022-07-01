@@ -1,9 +1,6 @@
 import Select from 'app/components/form/Select'
 import Page from 'app/components/layout/Page'
 import SimpleGridImage from 'app/components/SimpleGridImage'
-import SimpleWrap from 'app/components/SimpleWrap'
-import casino from 'app/config/games/casino'
-import hotgame from 'app/config/games/hotgame'
 import { HOME_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useGameGridSize from 'app/hooks/useGameGridSize'
@@ -124,7 +121,7 @@ const LiveCasino = withContextualNav(() => {
   return (
     <Page sx={{ bg: '$background' }}>
       <FlatList
-        numColumns={2}
+        numColumns={3}
         ListHeaderComponent={Header}
         style={sx({ bg: '$background', flex: 1 })}
         contentContainerStyle={{ padding: containerSpace }}

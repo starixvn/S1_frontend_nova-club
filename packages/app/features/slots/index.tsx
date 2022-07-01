@@ -89,7 +89,7 @@ const Slots = withContextualNav(() => {
       </ListSectionHeader>
 
       <FlatList<SlotGame>
-        numColumns={2}
+        numColumns={3}
         style={sx({ bg: '$background', flex: 1 })}
         contentContainerStyle={{ padding: containerSpace }}
         // onEndReached={loadMore}

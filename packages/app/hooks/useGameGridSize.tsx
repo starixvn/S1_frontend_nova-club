@@ -1,7 +1,7 @@
 import { HOME_PADDING } from 'app/constant/sizes'
 import useContainerDimension from './useContainerDimension'
 
-export default function useGameGridSize(numOfCol = 2) {
+export default function useGameGridSize(numOfCol = 3) {
   const { width, height } = useContainerDimension()
 
   const containerSpaceUnits = 1
