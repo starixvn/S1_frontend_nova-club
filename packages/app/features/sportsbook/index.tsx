@@ -1,3 +1,4 @@
+import Page from 'app/components/layout/Page'
 import SimpleGridImage from 'app/components/SimpleGridImage'
 import SimpleWrap from 'app/components/SimpleWrap'
 import sport from 'app/config/games/sport'
@@ -12,12 +13,12 @@ const Sportsbook = () => {
   const { width, height } = useWindowDimensions()
 
   return (
-    <ScrollView sx={{ bg: '$background' }} showsVerticalScrollIndicator={false}>
-      <ListSectionHeader title={'SPORTSBOOK'} bgColor="yellow" iconName="sb" />
+    <Page>
+      <ListSectionHeader title={'Sportsbook'} bgColor="yellow" iconName="sb" />
       <View>
         <SimpleWrap data={sport.gameList} showTitle={false} />
       </View>
-    </ScrollView>
+    </Page>
   )
 }
 

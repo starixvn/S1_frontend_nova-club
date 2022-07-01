@@ -5,6 +5,7 @@ import SimpleGridImage from 'app/components/SimpleGridImage'
 import { SlotGame } from 'app/config/games/slots/slot.type'
 import { HOME_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
+import useGameGridSize from 'app/hooks/useGameGridSize'
 import withContextualNav from 'app/navigation/web/withContextualNav'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import { useSx, View } from 'dripsy'
@@ -19,49 +20,28 @@ const SlotImageExtensionMapping = {
   cq9: 'png',
 }
 
-const Slots = () => {
+const Slots = withContextualNav(() => {
   const sx = useSx()
-  const dispatch = useDispatch()
   const { width } = useContainerDimension()
-  const { openModal, closeModal } = useModal()
-  const leftRightSpace = (width - 4) * HOME_PADDING * 0.5
+
+  const { contentWidth, itemSpace, containerSpace } = useGameGridSize()
   const renderSlotItem = ({ item }: { item: SlotGame }) => {
     const { gameCode, providerCode, gameName } = item
     const imageUrl = `${MEDIA_DOMAIN}${CONTENT_URI}/games/${providerCode.toLowerCase()}/${gameCode.toLowerCase()}.${
       SlotImageExtensionMapping[providerCode.toLowerCase()] ?? 'jpg'
     }`
+
     return (
       <SimpleGridImage
+        sx={{ m: itemSpace }}
         gameName={item.gameName}
         providerCode={item.providerCode}
         gameCode={item.gameCode}
         image={imageUrl}
         title={item.gameName}
-        showTitle={true}
         context={ContextualModuleKey.Slot}
+        width={contentWidth}
       />
-      // <TouchableOpacity
-      //   onPress={() => {
-      //     dispatch(
-      //       GameLauncherActions.launchGame({
-      //         gameCode: item.gameCode,
-      //         providerCode: item.providerCode,
-      //         context: ContextualModuleKey.Slot,
-      //       })
-      //     )
-      //     // openModal('PreLaunchGame')
-      //     // launch game with provider code and game code
-      //   }}
-      // >
-      //   <Image
-      //     source={{ uri: imageUrl }}
-      //     style={{
-      //       width: width * 0.4,
-      //       height: (width * 0.4) / 1.032,
-      //     }}
-      //   />
-      //   <Text>{gameName}</Text>
-      // </TouchableOpacity>
     )
   }
 
@@ -77,11 +57,7 @@ const Slots = () => {
   return (
     <PageSafeArea disableScrollView sx={{ bg: '$background' }}>
       <View>
-        <ListSectionHeader
-          title={'keno/lottery'}
-          bgColor="purple"
-          iconName="lt"
-        />
+        <ListSectionHeader title={'Slots'} bgColor="purple" iconName="lt" />
         <Select
           actionSheetProps={{ id: 'slotType' }}
           headerTitle={'Game Type'}
@@ -110,26 +86,22 @@ const Slots = () => {
         />
       </View>
 
-      <View
-        sx={{
-          p: leftRightSpace,
-          borderWidth: 2,
-          borderColor: 'transparent',
-          flex: 1,
-        }}
-      >
-        <FlatList<SlotGame>
-          numColumns={2}
-          style={sx({ bg: '$background' })}
-          // onEndReached={loadMore}
-          data={filteredGames}
-          // extraData={displayList}
-          keyExtractor={(item) => item.gameCode}
-          renderItem={renderSlotItem}
-        />
-      </View>
+      <FlatList<SlotGame>
+        numColumns={2}
+        style={sx({ bg: '$background', flex: 1 })}
+        contentContainerStyle={{ padding: containerSpace }}
+        // onEndReached={loadMore}
+        data={filteredGames}
+        // extraData={displayList}
+        keyExtractor={(item) => item.gameCode}
+        renderItem={renderSlotItem}
+      />
     </PageSafeArea>
   )
+}, ContextualModuleKey.Slot)
+
+Slots.TabLayoutStyle = {
+  height: '100vh',
 }
 
-export default withContextualNav(Slots, ContextualModuleKey.Slot)
+export default Slots

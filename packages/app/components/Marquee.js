@@ -53,7 +53,7 @@ export default class MarqueeText extends PureComponent {
     direction: 'left',
     reverse: false,
     separator: 20,
-    onTextClick: () => {},
+    onTextClick: undefined,
   };
 
   componentDidUpdate() {
@@ -74,8 +74,8 @@ export default class MarqueeText extends PureComponent {
               direction == 'left'
                 ? -textWidth
                 : direction == 'right'
-                ? width
-                : -textWidth,
+                  ? width
+                  : -textWidth,
             duration: mDuration,
             useNativeDriver: true,
             easing: Easing.linear,
@@ -135,6 +135,7 @@ export default class MarqueeText extends PureComponent {
       itemView.push(
         <View key={'' + i} activeOpacity={0.9}>
           <TouchableWithoutFeedback
+            disabled={!onTextClick}
             onPress={() => {
               onTextClick();
             }}>

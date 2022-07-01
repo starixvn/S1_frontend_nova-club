@@ -21,10 +21,8 @@ const Header = ({ title }: { title: string }) => {
   const [currentOrientation, setCurrentOrientation] = useState(
     ScreenOrientation.Orientation.PORTRAIT_DOWN
   )
-  console.log('current orient', currentOrientation)
   useEffect(() => {
     const subs = ScreenOrientation.addOrientationChangeListener((s) => {
-      console.log('set orientn to', s.orientationInfo.orientation)
       setCurrentOrientation(s.orientationInfo.orientation)
     })
 
@@ -42,6 +40,7 @@ const Header = ({ title }: { title: string }) => {
       nativeID="pageback-header"
       sx={{
         borderBottomWidth: 1,
+        borderBottomColor: '#33A0D0',
       }}
     >
       <DripsyGradient

@@ -1,16 +1,25 @@
 import BottomNavigation from 'app/navigation/BottomNavigation'
 import MainHeader from 'app/navigation/MainHeader'
-import React, { FC, useEffect, useState } from 'react'
+import React, {
+  createContext,
+  FC,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 import { View, useSx } from 'dripsy'
 import { useRouter } from 'next/router'
 import { AnimatePresence } from 'framer-motion'
 import { Platform } from 'react-native'
 
-export interface TabLayoutProps {
+export type TabLayoutProps = {
   children: React.ReactElement
+  lockHeight?: boolean
 }
 
-const TabLayout: FC<TabLayoutProps> = ({ children }) => {
+const TabLayout: FC<TabLayoutProps> = ({ children, lockHeight }) => {
   const router = useRouter()
 
   const [loading, setLoading] = useState(false)
@@ -40,11 +49,12 @@ const TabLayout: FC<TabLayoutProps> = ({ children }) => {
     height: 'header',
   })
 
+  const heightStyle = lockHeight ? { height: '100vh' } : { minHeight: '100vh' }
+
   return (
     <View
       sx={{
-        // minHeight: '100vh',
-        height: '100vh',
+        ...heightStyle,
         paddingTop: s.height,
         paddingBottom: 60,
         position: 'relative',

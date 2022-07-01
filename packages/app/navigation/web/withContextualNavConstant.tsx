@@ -14,6 +14,8 @@ export enum ContextualModuleKey {
   Game = 'game',
   PreLaunchGame = 'prelaunchgame',
   Slot = 'slot',
+  Sportsbook = 'sportsbook',
+  LiveCasino = 'casino',
 }
 
 // Ignore Dynamic import warning, as module: "esnext" is configured at app/next tsconfig.

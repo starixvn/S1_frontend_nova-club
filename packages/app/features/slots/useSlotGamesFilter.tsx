@@ -1,4 +1,4 @@
-import AllSlotGames from 'app/config/games/slots/all'
+import AllSlotGames from 'app/config/games/slots'
 import { SlotGame } from 'app/config/games/slots/slot.type'
 import useLocalization from 'app/provider/localization'
 import { SlotType, SlotTypeOptions } from 'app/utils/constant'
@@ -17,12 +17,12 @@ function useSlotGamesFilter() {
   /* Filters */
   const slotTypeSelection = SlotTypeOptions
   const providerSelection = useMemo(() => {
-    return Object.keys(AllSlotGames)
-      .map((k) => ({
+    return [{ label: 'All', value: 'all' }].concat(
+      Object.keys(AllSlotGames).map((k) => ({
         label: k.toUpperCase(),
         value: k,
       }))
-      .concat({ label: 'All', value: 'all' })
+    )
   }, [])
 
   /* Memo */

@@ -1,0 +1,142 @@
+[
+  {
+    "gameName": "Baccarat",
+    "providerCode": "BBIN",
+    "gameCode": "3001"
+  },
+  {
+    "gameName": "Dragon Tiger",
+    "providerCode": "BBIN",
+    "gameCode": "3003"
+  },
+  {
+    "gameName": "3 Face",
+    "providerCode": "BBIN",
+    "gameCode": "3005"
+  },
+  {
+    "gameName": " Wenzhou Pai Gow",
+    "providerCode": "BBIN",
+    "gameCode": "3006"
+  },
+  {
+    "gameName": "Roulette",
+    "providerCode": "BBIN",
+    "gameCode": "3007"
+  },
+  {
+    "gameName": "Sic Bo",
+    "providerCode": "BBIN",
+    "gameCode": "3008"
+  },
+  {
+    "gameName": "Se Die",
+    "providerCode": "BBIN",
+    "gameCode": "3011"
+  },
+  {
+    "gameName": "Bull Bull",
+    "providerCode": "BBIN",
+    "gameCode": "3012"
+  },
+  {
+    "gameName": "Fan Tan",
+    "providerCode": "BBIN",
+    "gameCode": "3015"
+  },
+  {
+    "gameName": "FPC Dice",
+    "providerCode": "BBIN",
+    "gameCode": "3016"
+  },
+  {
+    "gameName": "Insurance Baccarat",
+    "providerCode": "BBIN",
+    "gameCode": "3017"
+  },
+  {
+    "gameName": "Three Card Poker",
+    "providerCode": "BBIN",
+    "gameCode": "3018"
+  },
+  {
+    "gameName": "HiLo",
+    "providerCode": "BBIN",
+    "gameCode": "3021"
+  },
+  {
+    "gameName": "Fighting Bull Bull",
+    "providerCode": "BBIN",
+    "gameCode": "3023"
+  },
+  {
+    "gameName": "Blockchain Baccarat",
+    "providerCode": "BBIN",
+    "gameCode": "3025"
+  },
+  {
+    "gameName": "Blockchain Dragon Tiger",
+    "providerCode": "BBIN",
+    "gameCode": "3026"
+  },
+  {
+    "gameName": "Blockchain Insurance Baccarat",
+    "providerCode": "BBIN",
+    "gameCode": "3027"
+  },
+  {
+    "gameName": "Blockchain Roulette",
+    "providerCode": "BBIN",
+    "gameCode": "3028"
+  },
+  {
+    "gameName": "Blockchain Three Card Poker",
+    "providerCode": "BBIN",
+    "gameCode": "3029"
+  },
+  {
+    "gameName": "Blockchain 3 Face",
+    "providerCode": "BBIN",
+    "gameCode": "3030"
+  },
+  {
+    "gameName": "Blockchain Bull Bull",
+    "providerCode": "BBIN",
+    "gameCode": "3031"
+  },
+  {
+    "gameName": "Blockchain Se Die",
+    "providerCode": "BBIN",
+    "gameCode": "3032"
+  },
+  {
+    "gameName": "Blockchain Sic Bo",
+    "providerCode": "BBIN",
+    "gameCode": "3033"
+  },
+  {
+    "gameName": "Blockchain FPC Dice",
+    "providerCode": "BBIN",
+    "gameCode": "3034"
+  },
+  {
+    "gameName": "Blockchain HiLo",
+    "providerCode": "BBIN",
+    "gameCode": "3036"
+  },
+  {
+    "gameName": "Blockchain Fan Tan",
+    "providerCode": "BBIN",
+    "gameCode": "3037"
+  },
+  {
+    "gameName": "Blockchain Wenzhou Pai Gow",
+    "providerCode": "BBIN",
+    "gameCode": "3038"
+  },
+  {
+    "gameName": "Blockchain FPC Dice(Vietnam)",
+    "providerCode": "BBIN",
+    "gameCode": "3039"
+  }
+]

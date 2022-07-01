@@ -1,13 +1,5 @@
 {
-  "home": {
-    "sportsbook": "Sportsbook",
-    "games": "Games",
-    "slots": "Slots",
-    "liveCasino": "Live Casino",
-    "keno/lottery": "Keno/Lottery",
-    "fishing": "Fishing",
-    "poker": "Poker"
-  },
+  "home": {},
   "bank": {
     "accountName": "Account name",
     "accountNo": "Account no",
@@ -97,12 +89,20 @@
       "declined": "Declined",
       "checking": "Checking"
     },
-    "gameStatus": {
+    "genre": {
       "all": "All",
-      "win": "Win",
-      "lose": "Lose",
       "new": "New",
-      "hot": "Hot"
+      "hot": "Hot",
+      "sicbo": "Sicbo",
+      "poker": "Poker",
+      "roulette": "Roulette",
+      "blackjack": "Blackjack",
+      "baccarat": "Baccarat",
+      "dragonTiger": "Dragon Tiger"
+    },
+    "gameStatus": {
+      "win": "Win",
+      "lose": "Lose"
     },
     "transactionType": {
       "deposit": "Deposit",
@@ -121,7 +121,17 @@
     }
   },
   "game": {
-    "enterGame": "Enter Game"
+    "enterGame": "Enter Game",
+    "category": {
+      "sportsbook": "Sportsbook",
+      "games": "Games",
+      "slots": "Slots",
+      "liveCasino": "Live Casino",
+      "keno/lottery": "Keno / Lottery",
+      "fishing": "Fishing",
+      "poker": "Poker",
+      "hotGames": "Hot Games"
+    }
   },
   "menu": {
     "bankAccount": "Bank Account",

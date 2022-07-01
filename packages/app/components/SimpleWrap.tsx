@@ -1,26 +1,27 @@
 import { HOME_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
+import useGameGridSize from 'app/hooks/useGameGridSize'
+import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import { styled, View } from 'dripsy'
 import SimpleGridImage from './SimpleGridImage'
 
-const SimpleWrap = ({ data, showTitle }) => {
-  const { width, height } = useContainerDimension()
-  const borderedWidth = width - 4
-  const leftRightSpace = borderedWidth * HOME_PADDING * 0.5
+const SimpleWrap = ({ data }) => {
+  const { containerSpace, itemSpace, contentWidth } = useGameGridSize()
   return (
-    <StyledWrapItem sx={{ p: leftRightSpace }}>
+    <StyledWrapItem sx={{ p: containerSpace }}>
       {data.map((item, rindex) => {
         return (
-          <View key={item.gameName}>
-            <SimpleGridImage
-              gameName={item.gameName}
-              providerCode={item.providerCode}
-              gameCode={item.gameCode}
-              image={item.image}
-              title={item.gameName}
-              showTitle={showTitle}
-            />
-          </View>
+          <SimpleGridImage
+            sx={{ m: itemSpace }}
+            context={ContextualModuleKey.Sportsbook}
+            key={item.gameName}
+            gameName={item.gameName}
+            providerCode={item.providerCode}
+            gameCode={item.gameCode}
+            image={require('../assets/images/games/AG01.png')}
+            title={item.gameName}
+            width={contentWidth}
+          />
         )
       })}
     </StyledWrapItem>
@@ -29,8 +30,6 @@ const SimpleWrap = ({ data, showTitle }) => {
 const StyledWrapItem = styled(View)({
   flexDirection: 'row',
   flexWrap: 'wrap',
-  borderWidth: 2,
-  borderColor: 'transparent',
 })
 
 export default SimpleWrap

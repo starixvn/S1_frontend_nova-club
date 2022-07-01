@@ -28,11 +28,11 @@ function MyApp({ Component, pageProps, router }: SolitoAppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Provider>
-        <Container sx={{ flex: 1 }}>
-          <AuthenticationProvider>
+        <AuthenticationProvider>
+          <Container sx={{ flex: 1 }}>
             {getLayout(<Component {...pageProps} />)}
-          </AuthenticationProvider>
-        </Container>
+          </Container>
+        </AuthenticationProvider>
       </Provider>
 
       {/* <Script src="/js/iovation_static.js" /> */}

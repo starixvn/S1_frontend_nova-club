@@ -8,7 +8,11 @@ import { useAnnouncementQuery } from 'services/contentApi'
 import { AnnouncementListItems } from 'services/contentApi.type'
 import { styled, View } from 'dripsy'
 import { useEffect, useState } from 'react'
-import { TouchableWithoutFeedback, useWindowDimensions } from 'react-native'
+import {
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  useWindowDimensions,
+} from 'react-native'
 import { useRouter } from 'solito/router'
 
 interface MarqueeItem<T> {
@@ -53,7 +57,7 @@ const AnnoucementMarquee = () => {
 
   return (
     <StyledContainer>
-      <TouchableWithoutFeedback onPress={onPress}>
+      <TouchableOpacity onPress={onPress}>
         <DripsyGradient
           gradient="darkBlue"
           sx={{
@@ -76,7 +80,7 @@ const AnnoucementMarquee = () => {
             // onTextClick={onClick}
           />
         </DripsyGradient>
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
     </StyledContainer>
   )
 }

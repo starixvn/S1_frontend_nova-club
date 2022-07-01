@@ -2,6 +2,7 @@ import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import { HOME_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
+import useLocalization from 'app/provider/localization'
 import { styled, Text, View } from 'dripsy'
 import React from 'react'
 
@@ -16,6 +17,7 @@ const SectionHeader = ({
   iconName: string
 }) => {
   const { width } = useContainerDimension()
+  const { t } = useLocalization()
   const horizontalPad = width * HOME_PADDING
   return (
     <StyledView sx={{ marginLeft: horizontalPad, my: horizontalPad * 0.5 }}>
@@ -38,7 +40,7 @@ const SectionHeader = ({
           }}
         />
       </DripsyGradient>
-      <StyledText>{title}</StyledText>
+      <StyledText>{t(title)}</StyledText>
     </StyledView>
   )
 }
@@ -61,6 +63,7 @@ const StyledText = styled(Text)({
   color: 'white',
   padding: '$1a',
   fontWeight: 'bold',
+  fontStyle: 'italic',
 })
 
 export default SectionHeader

@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import Casino from 'app/features/casino'
+import Casino from 'app/features/liveCasino'
 import Games from 'app/features/games'
 import HomeScreen from 'app/features/home/screen'
 import SlotGames from 'app/features/slots'

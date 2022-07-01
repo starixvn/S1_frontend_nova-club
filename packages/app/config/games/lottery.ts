@@ -1,5 +1,5 @@
 export default {
-  label: 'KENO & LOTTERY',
+  label: 'game.category.keno/lottery',
   icon: 'lottery',
   gameList: [
     {

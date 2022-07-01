@@ -1,5 +1,5 @@
 export default {
-  label: 'LIVE CASINO',
+  label: 'game.category.liveCasino',
   icon: 'livecasino',
   gameList: [
     {

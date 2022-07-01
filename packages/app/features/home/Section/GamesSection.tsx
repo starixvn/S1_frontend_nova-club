@@ -8,6 +8,7 @@ import {
   HOME_PADDING,
 } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
+import useLocalization from 'app/provider/localization'
 import { styled, View } from 'dripsy'
 import React, { FC } from 'react'
 import { useWindowDimensions } from 'react-native'
@@ -37,9 +38,15 @@ const GamesSection = () => {
   const colors = [selectedColor, selectedColor, selectedColor]
   const progressValue = useSharedValue<number>(0)
 
+  const { t } = useLocalization()
+
   return (
     <View>
-      <SectionHeader title={'GAMES'} bgColor="green" iconName="games" />
+      <SectionHeader
+        title={t('game.category.games')}
+        bgColor="green"
+        iconName="games"
+      />
       <StyledCarousel
         loop={false}
         width={width}

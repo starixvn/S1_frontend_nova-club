@@ -4,37 +4,35 @@ import useContainerDimension from 'app/hooks/useContainerDimension'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import BouncePressable from 'app/pressable/BouncePressable'
 import { GameLauncherActions } from 'app/store/gameLauncher.slice'
-import { Image, styled, Text, View } from 'dripsy'
-import { FC } from 'react'
+import { Image, styled, SxProp, Text, View } from 'dripsy'
+import { FC, memo } from 'react'
 import { useDispatch } from 'react-redux'
 
-interface GamesProps extends GAMES {
-  showTitle: boolean
+type GamesProps = GAMES & {
+  width: number
+  height?: number
+  context: ContextualModuleKey
+  sx: SxProp
 }
 
-const SimpleGridImage: FC<
-  GamesProps & {
-    context: ContextualModuleKey
-  }
-> = ({
+export const GAME_IMAGE_RATIO = 325 / 315
+
+const SimpleGridImage: FC<GamesProps> = ({
   gameCode,
-  gameName,
   title,
   image,
   providerCode,
-  showTitle,
   context,
+  width,
+  height,
+  sx,
 }) => {
-  const { width, height } = useContainerDimension()
-  const borderedWidth = width - 4
-  const leftRightSpace = borderedWidth * HOME_PADDING * 0.5
-  const columnWidth = (borderedWidth - leftRightSpace * 2) / 2
   const dispatch = useDispatch()
   const urlImage = typeof image == 'string' && image.indexOf('http') > -1
   const img = urlImage ? { uri: image } : image
   return (
     <BouncePressable
-      sx={{ p: leftRightSpace, width: columnWidth }}
+      sx={sx}
       onPress={() => {
         dispatch(
           GameLauncherActions.launchGame({
@@ -49,12 +47,12 @@ const SimpleGridImage: FC<
         resizeMode="cover"
         source={img}
         sx={{
-          width: columnWidth - leftRightSpace * 2,
-          height: columnWidth - leftRightSpace * 2,
+          width,
+          height: height ?? width / GAME_IMAGE_RATIO,
           borderRadius: 10,
         }}
       />
-      {title && showTitle && (
+      {title && (
         <Text
           sx={{
             textAlign: 'center',
@@ -70,4 +68,4 @@ const SimpleGridImage: FC<
   )
 }
 
-export default SimpleGridImage
+export default memo(SimpleGridImage)

@@ -1,0 +1,148 @@
+import Select from 'app/components/form/Select'
+import Page from 'app/components/layout/Page'
+import SimpleGridImage from 'app/components/SimpleGridImage'
+import SimpleWrap from 'app/components/SimpleWrap'
+import casino from 'app/config/games/casino'
+import hotgame from 'app/config/games/hotgame'
+import { HOME_PADDING } from 'app/constant/sizes'
+import useContainerDimension from 'app/hooks/useContainerDimension'
+import useGameGridSize from 'app/hooks/useGameGridSize'
+import withContextualNav from 'app/navigation/web/withContextualNav'
+import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
+import useLocalization from 'app/provider/localization'
+import { Image, ScrollView, styled, Text, View } from 'dripsy'
+import React from 'react'
+import { Platform } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import ListSectionHeader from '../ListSectionHeader'
+import useLiveCasinoFilter from './useLiveCasinoFilter'
+
+const LiveCasino = withContextualNav(() => {
+  const { t } = useLocalization()
+  const { width } = useContainerDimension()
+  const space = width * HOME_PADDING
+  const {
+    genreSelection,
+    selectedGenre,
+    setSelectedGenre,
+    providerSelection,
+    selectedProvider,
+    setSelectedProvider,
+    filteredGames,
+  } = useLiveCasinoFilter()
+
+  const { containerSpace, itemSpace, contentWidth } = useGameGridSize()
+  return (
+    <Page sx={{ bg: '$background' }}>
+      <ListSectionHeader
+        title={t('game.category.liveCasino')}
+        bgColor="maroon"
+        iconName="lc"
+      />
+      <ScrollView
+        horizontal
+        sx={{
+          flexGrow: 0,
+          borderBottomColor: '$lightNavyBlue',
+          borderBottomWidth: 1,
+        }}
+        contentContainerStyle={{
+          paddingHorizontal: space,
+          paddingBottom: space,
+          paddingTop: 0,
+        }}
+      >
+        {providerSelection.map((p) => {
+          const selected = p.value === selectedProvider.value
+          return (
+            <TouchableOpacity
+              key={p.value}
+              onPress={() => setSelectedProvider(p)}
+            >
+              <ProviderSelectItem selected={selected}>
+                <Text>{p.value}</Text>
+              </ProviderSelectItem>
+            </TouchableOpacity>
+          )
+        })}
+      </ScrollView>
+      <View
+        sx={{
+          py: space * 0.5,
+          px: space,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <Text sx={{ fontSize: [15, 20] }}>{selectedProvider.label}</Text>
+        <Select
+          actionSheetProps={{ id: 'liveCasinoGenre' }}
+          headerTitle={'Game Type'}
+          buttonTitle={selectedGenre?.label ?? 'Click here to open'}
+          buttonProps={{
+            isActive: false,
+            sx: { minWidth: '25%' },
+          }}
+          data={genreSelection}
+          setSelectedValue={setSelectedGenre}
+        />
+      </View>
+      <View sx={{ p: containerSpace, flexDirection: 'row', flexWrap: 'wrap' }}>
+        {filteredGames.map((item, rindex) => {
+          return (
+            <SimpleGridImage
+              key={item.gameCode}
+              sx={{ m: itemSpace }}
+              context={ContextualModuleKey.LiveCasino}
+              gameName={item.gameName}
+              providerCode={item.providerCode}
+              gameCode={item.gameCode}
+              image={require('../../assets/images/games/AG01.png')}
+              title={item.gameName}
+              width={contentWidth}
+              height={contentWidth / (325 / 265)}
+            />
+          )
+        })}
+      </View>
+      <SimpleWrap data={filteredGames} />
+    </Page>
+  )
+}, ContextualModuleKey.LiveCasino)
+
+const ProviderSelectItem = styled(
+  View,
+  {}
+)(({ selected = false }) => ({
+  mr: '$2',
+  ml: 0,
+  width: 100,
+  height: 100,
+  justifyContent: 'center',
+  alignItems: 'center',
+  opacity: selected ? 1 : 0.3,
+  bg: '#102232',
+  borderRadius: 20,
+  borderColor: '#37558A',
+  borderWidth: 1,
+  elevation: selected ? 4 : 0,
+  ...Platform.select({
+    web: {
+      boxShadow: '0px 0px 6px #6E6E6E;',
+    },
+    default: {
+      shadowColor: '#6E6E6E',
+      shadowOffset: {
+        width: 0,
+        height: 1,
+      },
+      shadowOpacity: 0.22,
+      shadowRadius: 2.22,
+
+      elevation: 3,
+    },
+  }),
+}))
+
+export default LiveCasino

@@ -2,7 +2,7 @@ import { SafeAreaView, ScrollView, styled, Sx, View } from 'dripsy'
 import { Platform } from 'react-native'
 import Header from '../common/Header'
 const pageStyles: Sx = {
-  bg: '#0D2035',
+  bg: '$background',
   flex: 1,
   // minHeight: Platform.OS === 'web' ? '100vh' : 0,
   flexDirection: 'column',

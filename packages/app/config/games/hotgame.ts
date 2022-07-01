@@ -1,5 +1,5 @@
 export default {
-  label: 'HOT GAMES',
+  label: 'game.category.hotGames',
   icon: 'livegames',
   gameList: [
     {

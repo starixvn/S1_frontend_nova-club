@@ -47,8 +47,8 @@ const ListSectionHeader = ({
 }
 
 const StyledContainer = styled(View)({
-  my: '$1a',
-  mt: '$1a',
+  mt: ['$2a', '$4'],
+  mb: ['$4', '$6'],
   flexDirection: 'row',
   justifyContent: 'space-between',
 })
@@ -66,14 +66,13 @@ const StyledView = styled(View)({
 })
 
 const StyledText = styled(Text)({
-  fontSize: [15, 20, 25],
+  fontSize: [15, 20],
   color: 'white',
   padding: '$1a',
   pl: '$1a',
   pr: '$5',
   fontWeight: 'bold',
   fontStyle: 'italic',
-  textTransform: 'uppercase',
 })
 
 const StyledGradient = styled(DripsyGradient)({
@@ -85,8 +84,8 @@ const StyledGradient = styled(DripsyGradient)({
 const StyledSearchBox = styled(View)({
   borderRadius: 20,
   bg: 'rgb(48,89,117)',
-  width: [130, 150, 170],
-  height: [35, 40, 45],
+  width: [130, 150],
+  height: [35, 40],
   flexDirection: 'row',
   justifyContent: 'space-between',
   borderWidth: 2,

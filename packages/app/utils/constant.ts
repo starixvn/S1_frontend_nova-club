@@ -263,6 +263,47 @@ export const SlotTypeOptions = [
   },
 ]
 
+export enum LiveCasinoGenre {
+  ALL = 'all',
+  SICBO = 'sicbo',
+  POKER = 'poker',
+  ROULETTE = 'roulette',
+  BLACKJACK = 'blackjack',
+  BACCARAT = 'baccarat',
+  DRAGON_TIGER = 'dragonTiger',
+}
+
+export const LiveCasinoGenreOptions = [
+  {
+    value: LiveCasinoGenre.ALL,
+    label: 'filter.genre.all',
+  },
+  {
+    value: LiveCasinoGenre.SICBO,
+    label: 'filter.genre.sicbo',
+  },
+  {
+    value: LiveCasinoGenre.POKER,
+    label: 'filter.genre.poker',
+  },
+  {
+    value: LiveCasinoGenre.ROULETTE,
+    label: 'filter.genre.roulette',
+  },
+  {
+    value: LiveCasinoGenre.BLACKJACK,
+    label: 'filter.genre.blackjack',
+  },
+  {
+    value: LiveCasinoGenre.BACCARAT,
+    label: 'filter.genre.baccarat',
+  },
+  {
+    value: LiveCasinoGenre.DRAGON_TIGER,
+    label: 'filter.genre.dragonTiger',
+  },
+]
+
 export enum TopUpCard {
   MOBIFONE = 'Mobi',
   VIETTEL = 'VT',
