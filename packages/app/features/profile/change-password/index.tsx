@@ -4,14 +4,13 @@ import { FormikHelpers, useFormik } from 'formik'
 import * as Yup from 'yup'
 import React from 'react'
 import validation from 'app/utils/validation'
-import { Button } from 'react-native'
 import { AlertActions } from 'app/store/alert'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'solito/router'
-import { useAppSelector } from 'app/provider/redux/store'
 import { useChangePasswordMutation } from 'services/changePassword'
 import useLocalization from 'app/provider/localization'
 import { PageWithBackHeader } from 'app/components/layout/Page'
+import { Button } from 'app/components/form/Button'
 
 type PasswordFormValues = {
   oldPassword: string
@@ -23,7 +22,7 @@ const ChangePasswordScreen = () => {
   const { t } = useLocalization()
   const [postChangePassword] = useChangePasswordMutation()
   const dispatch = useDispatch()
-  const { replace } = useRouter()
+  const { back } = useRouter()
 
   const onSubmit = async (
     { oldPassword, password, confirmPassword }: PasswordFormValues,
@@ -34,23 +33,19 @@ const ChangePasswordScreen = () => {
         old_password: oldPassword,
         password: password,
         cpassword: confirmPassword,
-      }).unwrap()
+      })
+        .unwrap()
+        .catch((error) => dispatch(AlertActions.addError(error.message)))
 
       if (success) {
-        console.log('data', data)
         dispatch(AlertActions.addSuccess(message))
         actions.resetForm()
 
-        replace('/profile')
-      } else {
-        dispatch(AlertActions.addError(message))
+        back()
       }
     } catch (e) {
       dispatch(AlertActions.addError('common.systemError'))
     }
-    console.log('oldPassword :>> ', oldPassword)
-    console.log('password :>> ', password)
-    console.log('confirmPassword :>> ', confirmPassword)
   }
 
   const formik = useFormik<PasswordFormValues>({
@@ -82,7 +77,7 @@ const ChangePasswordScreen = () => {
   return (
     <PageWithBackHeader header={{ title: t('menu.changePassword') }}>
       <StyledViewPage>
-        <TextField labelWidth={0.6}>
+        <TextField labelWidth={0.8}>
           <TextField.TextInput
             label="common.oldPassword"
             _input={{
@@ -94,7 +89,9 @@ const ChangePasswordScreen = () => {
             }}
             error={
               touched.oldPassword && errors.oldPassword
-                ? errors.oldPassword
+                ? t(errors.oldPassword, {
+                    field: t('common.oldPassword'),
+                  })
                 : undefined
             }
           />
@@ -108,7 +105,11 @@ const ChangePasswordScreen = () => {
               secureTextEntry: true,
             }}
             error={
-              touched.password && errors.password ? errors.password : undefined
+              touched.password && errors.password
+                ? t(errors.password, {
+                    field: t('common.password'),
+                  })
+                : undefined
             }
           />
           <TextField.TextInput
@@ -122,19 +123,33 @@ const ChangePasswordScreen = () => {
             }}
             error={
               touched.confirmPassword && errors.confirmPassword
-                ? errors.confirmPassword
+                ? t(errors.confirmPassword, {
+                    field: t('common.confirmPassword'),
+                  })
                 : undefined
             }
           />
         </TextField>
 
-        <View sx={{ m: '$6' }}>
-          <Button
-            title="Ok"
-            disabled={!isValid || !dirty}
-            onPress={submitForm}
-          />
-        </View>
+        <Button
+          rounded
+          stretch
+          loading={isSubmitting}
+          disabled={!isValid || !dirty}
+          variant="lg"
+          fill={{
+            type: 'gradient',
+            color: 'secondary',
+            start: { x: 0, y: 0 },
+            end: { x: 1, y: 0 },
+          }}
+          containerStyle={{
+            m: '$10',
+          }}
+          onPress={submitForm}
+        >
+          <Button.Label>{t('common.ok')}</Button.Label>
+        </Button>
 
         <StyledText>{t('common.passwordNote')}</StyledText>
       </StyledViewPage>

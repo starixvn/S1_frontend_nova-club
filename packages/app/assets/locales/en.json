@@ -19,10 +19,15 @@
     "confirm": "Confirm",
     "confirmDelete": "Are you sure you want to delete? It cannot restore after deletion!",
     "copy": "Copy",
+    "emptyResult": "Empty Result",
     "enterAmount": "Please enter your withdrawal amount",
-    "importantNote": "Important Note",
+    "hello": "Hello!!",
+    "importantNote": "Important note",
+    "importantNotes": "Important Notes",
     "lose": "Lose",
+    "more": "More",
     "next": "Next",
+    "ok": "OK",
     "referenceId": "Reference ID",
     "selectDate": "Select A Date",
     "selectAll": "Select All",
@@ -120,6 +125,13 @@
       "payment": "Payment"
     }
   },
+  "form": {
+    "tips": {
+      "password": "* Password must be 6-15 characters, contain both alphanumeric and a special characters (!@#$%^&*).",
+      "realName": "Please enter your real name.",
+      "needAccountNo": "Need Account Number"
+    }
+  },
   "game": {
     "enterGame": "Enter Game",
     "category": {
@@ -181,6 +193,7 @@
     "timeline": "UTC/GMT +7"
   },
   "status": {
+    "alert": "Alert",
     "approved": "Approved",
     "cancelled": "Cancelled",
     "draft": "Draft",
@@ -195,6 +208,23 @@
   },
   "transaction": {
     "transactions": "Transactions"
+  },
+  "validation": {
+    "required": "%{field} is required",
+    "username": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only.",
+    "email": "Mail format is wrong",
+    "invalidPhone": "Phone number is invalid",
+    "invalidOTPCode": "Invalid OTP Code",
+    "insufficientBalance": "Insufficient balance",
+    "exceedAvailableTransferBalance": "Exceed available transfer balance %{balance}",
+    "numberOnly": "Only number is allowed",
+    "passwordMinMaxLength": "Password must be 6-15 characters only.",
+    "userNameMinMaxLength": "Username must be 6-18 characters only.",
+    "amount": "%{amount} not in range",
+    "erc20Format": "Must be ERC-20 compatible wallet address",
+    "usdtFormat": "Must be ERC-20 / TRC-20 compatible wallet address",
+    "dailyLimitReached": "Your Daily Limit Reached.",
+    "amountLessThan": "Amount cannot be less than %{min}"
   },
   "withdrawal": {},
   "commission": {

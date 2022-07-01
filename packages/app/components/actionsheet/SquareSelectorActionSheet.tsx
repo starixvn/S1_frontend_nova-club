@@ -12,8 +12,9 @@ import {
 } from 'dripsy'
 import React, { ComponentProps, createRef, forwardRef } from 'react'
 import { Platform } from 'react-native'
-import ActionSheet from 'react-native-actions-sheet'
+import ActionSheet, { SheetManager } from 'react-native-actions-sheet'
 import { DripsyGradient } from '../Gradient'
+import BankItem from './BankItem'
 
 export type SquareSelectorActionSheetProps = ComponentProps<
   typeof ActionSheet
@@ -23,7 +24,8 @@ export type SquareSelectorActionSheetProps = ComponentProps<
 export type SquareSelectorFlatListProps = ComponentProps<typeof FlatList> & {
   data: WithdrawalBankResult[] | PlayerBankResult[] | []
   isLoading: boolean
-  selectedData: WithdrawalBankResult | PlayerBankResult
+  titleType: string
+  onPress: (object) => void
 }
 export interface SquareSelectorForwardRef {
   showDialog: () => void
@@ -48,7 +50,7 @@ export const SQUARE_NUMBER_OF_COLUMNS = 4
 const SquareSelectorActionSheet = forwardRef<
   SquareSelectorForwardRef,
   SquareSelectorProps
->(({ _flatList, _actionSheet, onPress }: SquareSelectorProps, ref) => {
+>(({ _flatList, _actionSheet }: SquareSelectorProps, ref) => {
   const { t } = useLocalization()
 
   const {
@@ -57,7 +59,8 @@ const SquareSelectorActionSheet = forwardRef<
     ...restActionSheetProps
   } = _actionSheet || {}
 
-  const { isLoading, selectedData, ...restFlatListProps } = _flatList || {}
+  const { data, isLoading, onPress, titleType, ...restFlatListProps } =
+    _flatList || {}
   const { theme } = useDripsyTheme()
 
   const _ref = createRef()
@@ -96,21 +99,39 @@ const SquareSelectorActionSheet = forwardRef<
     >
       <View
         sx={{
+          p: '$1',
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor: 'white',
-          p: '$2',
           minHeight: 100,
         }}
       >
         {isLoading ? (
           <ActivityIndicator size={'large'} />
+        ) : data.length > 0 ? (
+          <View
+            sx={{
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              justifyContent: 'flex-start',
+            }}
+          >
+            {data.map((item) => (
+              <BankItem
+                key={item.id}
+                icon={require('app/assets/images/home/fishing.png')}
+                title={item[titleType]}
+                onPress={async () => {
+                  onPress(item)
+                  await SheetManager.hide(
+                    actionSheetId ?? DEFAULT_SQUARE_ACTION_SHEET_ID
+                  )
+                }}
+              />
+            ))}
+          </View>
         ) : (
-          <FlatList
-            numColumns={SQUARE_NUMBER_OF_COLUMNS}
-            extraData={selectedData}
-            {...restFlatListProps}
-          />
+          <Text>{t('common.emptyResult')}</Text>
         )}
       </View>
     </ActionSheet>

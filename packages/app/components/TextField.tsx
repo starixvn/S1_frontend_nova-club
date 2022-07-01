@@ -94,7 +94,9 @@ const TextFieldLabel = ({
             justifyContent: 'space-between',
           }}
         >
-          <StyledTextValue numberOfLines={1}>{value}</StyledTextValue>
+          <StyledTextValue numberOfLines={1} sx={{ flex: 1 }}>
+            {value}
+          </StyledTextValue>
 
           {copy && (
             <Button
@@ -158,19 +160,22 @@ const TextFieldInput = ({
 /**
  * @example
  * <TextField.Select
- *     label="Bank"
- *     _flatList={{
- *       data: data,
- *       isLoading: isLoading || isFetching,
- *       renderItem:()=>{}
- *     }}
- *     _actionSheet={{
- *       headerTitle: 'Bank',
- *     }}
- *     onPress={(bank) => {
- *       setFieldValue('bank', bank)
- *     }}
- *   />
+ *   label=""
+ *   _input={{
+ *     placeholder: t('bank.selectBank'),
+ *     value: values.bank?.bank_acc_name ?? '',
+ *   }}
+ *   _flatList={{
+ *     data: depositPayment?.list ?? [],
+ *     isLoading: isLoading || isFetching,
+ *     titleType: 'bank_acc_name',
+ *     onPress: (item) => setFieldValue('bank', item),
+ *   }}
+ *   _actionSheet={{
+ *     id: actionSheetId,
+ *     headerTitle: t('bank.bank'),
+ *   }}
+ * />
  */
 const TextFieldSelect = ({
   label,

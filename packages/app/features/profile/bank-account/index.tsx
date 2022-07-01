@@ -97,7 +97,7 @@ const BankAccountScreen = () => {
             rounded
             stretch
             variant="lg"
-            disabled={data && data.length >= 3}
+            // disabled={data && data.length >= 3}
             fill={{
               type: 'gradient',
               color: 'secondary',

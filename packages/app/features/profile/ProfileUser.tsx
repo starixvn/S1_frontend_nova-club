@@ -1,6 +1,7 @@
 import Avatar from 'app/components/Avatar'
 import IconButton from 'app/components/form/IconButton'
 import Icon from 'app/components/Icon'
+import useLocalization from 'app/provider/localization'
 import { styled, Text, View } from 'dripsy'
 import React from 'react'
 
@@ -9,6 +10,7 @@ type ProfileUserProps = {
 }
 
 const ProfileUser = ({ username }: ProfileUserProps) => {
+  const { t } = useLocalization()
   return (
     <ViewWrapper>
       <Avatar
@@ -21,7 +23,7 @@ const ProfileUser = ({ username }: ProfileUserProps) => {
           variant="sm"
           sx={{ color: '$PaleBlue', fontWeight: 'bold' }}
         >
-          HELLO!
+          {t('common.hello')}
         </Text>
         <Text numberOfLines={1} variant="sm" sx={{ color: '#D6D5D5' }}>
           {username ?? ' '}

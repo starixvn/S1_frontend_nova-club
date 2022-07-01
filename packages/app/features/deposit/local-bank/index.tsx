@@ -34,7 +34,7 @@ type LocalBankValues = {
   realAmount: number
 }
 
-const actionSheedId = 'LocalBank'
+const actionSheetId = 'LocalBank'
 
 const LocalBankScreen = () => {
   const { makeContextualHref } = useContextualRouting(
@@ -145,30 +145,33 @@ const LocalBankScreen = () => {
             _flatList={{
               data: depositPayment?.list ?? [],
               isLoading: isLoading || isFetching,
-              numColumns: 4,
-              keyExtractor: (item: ManualBankItem) =>
-                `${item.bankTypeId} ${item.bank_acc_name}`,
-              renderItem: ({ item }: { item: ManualBankItem }) => (
-                <BankItem
-                  key={item.bankTypeId}
-                  icon={require('app/assets/images/home/fishing.png')}
-                  title={item.bank_acc_name}
-                  onPress={async () => {
-                    setFieldValue('bank', item)
-                    await SheetManager.hide(
-                      actionSheedId ?? DEFAULT_SQUARE_ACTION_SHEET_ID
-                    )
-                  }}
-                />
-              ),
+              titleType: 'bank_acc_name',
+              onPress: (item) => setFieldValue('bank', item),
+
+              // numColumns: 4,
+              // keyExtractor: (item: ManualBankItem) =>
+              //   `${item.bankTypeId} ${item.bank_acc_name}`,
+              // renderItem: ({ item }: { item: ManualBankItem }) => (
+              //   <BankItem
+              //     key={item.bankTypeId}
+              //     icon={require('app/assets/images/home/fishing.png')}
+              //     title={item.bank_acc_name}
+              //     onPress={async () => {
+              //       setFieldValue('bank', item)
+              //       await SheetManager.hide(
+              //         actionSheetId ?? DEFAULT_SQUARE_ACTION_SHEET_ID
+              //       )
+              //     }}
+              //   />
+              // ),
             }}
             _actionSheet={{
-              id: actionSheedId,
+              id: actionSheetId,
               headerTitle: t('bank.bank'),
             }}
           />
         </TextField>
-        <TextField labelWidth={0.6}>
+        <TextField labelWidth={0.7}>
           <TextField.Label
             label="bank.accountName"
             value={values.bank?.bank_acc_name ?? ''}

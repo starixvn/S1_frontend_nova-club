@@ -22,11 +22,12 @@ import useLocalization from 'app/provider/localization'
 import RoundedIcon from 'app/components/RoundedIcon'
 import { SheetManager } from 'react-native-actions-sheet'
 import BankItem from 'app/components/actionsheet/BankItem'
+import { PlayerBankResult } from 'services/bank.type'
 
 type WithdrawalValues = {
   amount: string
   realAmount: number
-  bank: PlayerBankResult
+  bank: PlayerBankResult | undefined
 }
 
 const NOTES = ['note.w1', 'note.w2', 'note.w3', 'note.w4', 'note.w5']
@@ -40,19 +41,19 @@ const WithdrawalPage = () => {
   const [convertedData, setConvertedData] = useState([])
   const [selectedBank, setSelectedBank] = useState()
 
-  const actionSheedId = t('menu.withdraw')
+  const actionSheetId = t('menu.withdraw')
 
   const onSubmit = async (
-    { amount, realAmount }: WithdrawalValues,
+    { bank, realAmount }: WithdrawalValues,
     actions: FormikHelpers<WithdrawalValues>
   ) => {
     try {
       const { data, success, message } = await postSubmitWithdrawal({
         amount: realAmount,
-        bank_acc_name: '112233',
-        bank_acc_num: '112233',
-        bank_details_id: 1,
-        bank_type_id: 1,
+        bank_acc_name: bank?.BankAccountFullName ?? '',
+        bank_acc_num: bank?.BankAccountNumber ?? '',
+        bank_details_id: bank?.PlayerBankDetailsId ?? 0,
+        bank_type_id: bank?.BankTypeId ?? 0,
         crypto_address: '112233',
         crypto_protocol: '112233',
         exchange_rate: 1,
@@ -75,7 +76,7 @@ const WithdrawalPage = () => {
     initialValues: {
       amount: '',
       realAmount: 0,
-      bankId: 0,
+      bank: undefined,
     },
     validationSchema: Yup.object({
       amount: validation.amount,
@@ -119,28 +120,16 @@ const WithdrawalPage = () => {
             label="bank.bank"
             _input={{
               placeholder: t('bank.selectBank'),
-              value: values.bank?.PlayerBankDetailsId,
+              value: values.bank?.BankAccountFullName,
             }}
             _flatList={{
               data: data,
               isLoading: isLoading || isFetching,
-              keyExtractor: (item) => item?.BankTypeId,
-              renderItem: ({ item }) => (
-                <BankItem
-                  key={item.BankTypeId}
-                  icon={require('app/assets/images/home/fishing.png')}
-                  title={item.PlayerBankDetailsId}
-                  onPress={async () => {
-                    setFieldValue('bank', item)
-                    await SheetManager.hide(
-                      actionSheedId ?? DEFAULT_SQUARE_ACTION_SHEET_ID
-                    )
-                  }}
-                />
-              ),
+              titleType: 'BankCode',
+              onPress: (item) => setFieldValue('bank', item),
             }}
             _actionSheet={{
-              id: actionSheedId,
+              id: actionSheetId,
               headerTitle: t('bank.bank'),
             }}
           />

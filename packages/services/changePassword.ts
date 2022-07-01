@@ -16,11 +16,6 @@ const changePasswordEndpoints = (builder: EndpointBuilderType) => {
           ...queryArgs,
         },
       }),
-      transformResponse: (
-        res: IResponse<ChangePasswordResult>
-      ): ChangePasswordResult => {
-        return res.data ?? ''
-      },
     }),
   }
 }

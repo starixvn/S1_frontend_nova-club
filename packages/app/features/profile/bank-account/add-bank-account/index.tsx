@@ -35,7 +35,7 @@ const AddBankAccountScreen = () => {
   const [postAddWithdrawalBankAcc] = useAddPlayerBankAccMutation()
   const { data: playerProfile } = usePlayerProfileQuery()
 
-  const actionSheedId = t('bank.addBankAccount')
+  const actionSheetId = t('bank.addBankAccount')
 
   const onSubmit = async (
     { accountName, bank, accountNo }: AddBankAccountValues,
@@ -43,11 +43,11 @@ const AddBankAccountScreen = () => {
   ) => {
     try {
       const { data, success, message } = await postAddWithdrawalBankAcc({
-        bank_acc_name: 'bankAcc',
+        bank_acc_name: bank.bank_name,
         bank_acc_num: accountNo,
         bank_address: 'bankAcc',
         bank_type_id: bank.id,
-        branch: 'bankAcc',
+        branch: bank.bank_code,
         city: 'bankAcc',
         province: 'bankAcc',
       })
@@ -137,42 +137,11 @@ const AddBankAccountScreen = () => {
             _flatList={{
               data: data,
               isLoading: isLoading || isFetching,
-              keyExtractor: (item) => item.id,
-              renderItem: ({ item }) => (
-                <BankItem
-                  key={item.id}
-                  icon={require('app/assets/images/home/fishing.png')}
-                  title={item.bank_code}
-                  onPress={async () => {
-                    setFieldValue('bank', item)
-                    await SheetManager.hide(
-                      actionSheedId ?? DEFAULT_SQUARE_ACTION_SHEET_ID
-                    )
-                  }}
-                />
-              ),
-              // renderItem: ({ item }) => (
-              //   <View sx={{ alignItems: 'center' }}>
-              //     <RoundedIcon
-              //       size="lg"
-              //       key={item.id}
-              //       icon={require('app/assets/images/home/fishing.png')}
-              //       onPress={async () => {
-              //         setFieldValue('bank', item)
-              //         await SheetManager.hide(
-              //           actionSheedId ?? DEFAULT_SQUARE_ACTION_SHEET_ID
-              //         )
-              //       }}
-              //       containerStyle={{
-              //         m: '$0a',
-              //       }}
-              //     />
-              //     <Text sx={{ color: 'black' }}>{item.bank_code}</Text>
-              //   </View>
-              // ),
+              titleType: 'bank_code',
+              onPress: (item) => setFieldValue('bank', item),
             }}
             _actionSheet={{
-              id: actionSheedId,
+              id: actionSheetId,
               headerTitle: t('bank.bank'),
             }}
           />

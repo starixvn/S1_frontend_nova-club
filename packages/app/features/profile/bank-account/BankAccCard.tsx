@@ -26,12 +26,13 @@ const BankAccCard = ({ item, onPressRemove }: BankAccCardProps) => {
         <Text>{item.BankAccountNumber}</Text>
         <Text>{item.BankAccountFullName}</Text>
       </StyledViewV>
-      <IconButton
-        name="cross"
-        size={36}
-        onPress={() => onPressRemove(item)}
-        sx={{ mt: 'auto', mb: 'auto' }}
-      />
+      <View sx={{ alignItems: 'center', mt: 'auto', mb: 'auto' }}>
+        <IconButton
+          name="cross"
+          size={36}
+          onPress={() => onPressRemove(item)}
+        />
+      </View>
     </StyledBox>
   )
 }

@@ -53,14 +53,16 @@ const SelectSquare = ({
         ref={actionSheetRef}
         _flatList={{
           ..._flatList,
-          renderItem: ({ item, index }) => (
-            <BankItem
-              key={`${index} ${item}`}
-              icon={require('app/assets/images/home/fishing.png')}
-              title={item}
-              onPress={() => handleActionSheetClose(item)}
-            />
-          ),
+          titleType: 'label',
+          onPress: (item) => handleActionSheetClose(item),
+          // renderItem: ({ item, index }) => (
+          //   <BankItem
+          //     key={`${index} ${item}`}
+          //     icon={require('app/assets/images/home/fishing.png')}
+          //     title={item}
+          //     onPress={() => handleActionSheetClose(item)}
+          //   />
+          // ),
         }}
         _actionSheet={{
           ...{ onOpen: toggleIsActive, onClose: toggleIsActive },
