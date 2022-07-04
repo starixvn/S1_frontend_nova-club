@@ -4,20 +4,25 @@ import { TextField } from 'app/components/TextField'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import useLocalization from 'app/provider/localization'
-import { useAppSelector } from 'app/provider/redux/store'
+import { RootState, useAppSelector } from 'app/provider/redux/store'
 import {
   useDepositPaymentListQuery,
   useSubmitDepositMutation,
   useSubmitManualDepositMutation,
 } from 'services/deposit'
 import { AlertActions } from 'app/store/alert'
-import { toCleanAmount, toRealAmount } from 'app/utils'
+import {
+  toCleanAmount,
+  toCurrency,
+  toDisplayAmount,
+  toRealAmount,
+} from 'app/utils'
 import validation from 'app/utils/validation'
 import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Linking, Platform } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import { DepositMethodId } from '..'
@@ -26,7 +31,8 @@ import BankItem from 'app/components/actionsheet/BankItem'
 import { SheetManager } from 'react-native-actions-sheet'
 import { DEFAULT_SQUARE_ACTION_SHEET_ID } from 'app/components/actionsheet/SquareSelectorActionSheet'
 import { ManualBankItem } from 'services/deposit.type'
-import { DepositPaymentMethodCategoryId } from 'app/utils/constant'
+import { Currency, DepositPaymentMethodCategoryId } from 'app/utils/constant'
+import validationRule from 'app/utils/validationRule'
 
 type LocalBankValues = {
   bank: ManualBankItem | null
@@ -45,12 +51,26 @@ const LocalBankScreen = () => {
   const { t } = useLocalization()
   const dispatch = useDispatch()
   const { push, back } = useRouter()
-
+  const [limit, setLimit] = useState({ minAmount: 0, maxAmount: 0 })
   const [postSubmitManualDeposit] = useSubmitManualDepositMutation()
   const { data, isLoading, isFetching } = useDepositPaymentListQuery()
+
+  const userInfo = useSelector((s: RootState) => s.auth.user)
+  const currency = userInfo?.currency as Currency
+
   const depositPayment = data?.data?.result.manual.find(
     (el) => el.category_id === DepositPaymentMethodCategoryId.LOCAL_BANK
   )
+
+  useEffect(() => {
+    if (data?.success) {
+      setFieldValue('bank', depositPayment?.list[0])
+      setLimit({
+        minAmount: depositPayment?.list[0]?.minDeposit ?? 0,
+        maxAmount: depositPayment?.list[0]?.maxDeposit ?? 0,
+      })
+    }
+  }, [data])
 
   const onSubmit = async (
     { bank, realAmount }: LocalBankValues,
@@ -64,10 +84,6 @@ const LocalBankScreen = () => {
       })
         .unwrap()
         .catch((error) => dispatch(AlertActions.addError(error.message)))
-
-      const webUrl = 'https://reactnative.dev/'
-      const url = webUrl && encodeURIComponent(webUrl)
-      openWebView(url, webUrl)
 
       if (success) {
         dispatch(AlertActions.addSuccess(message))
@@ -87,6 +103,10 @@ const LocalBankScreen = () => {
     },
     validationSchema: Yup.object({
       realAmount: validation.amount,
+      amount: validationRule.amount({
+        min: toDisplayAmount(limit.minAmount, currency),
+        max: toDisplayAmount(limit.maxAmount, currency),
+      }),
     }),
     onSubmit,
   })
@@ -105,20 +125,6 @@ const LocalBankScreen = () => {
     setFieldValue,
   } = formik
 
-  const openWebView = (url, webUrl) => {
-    if (!url) return null
-    if (Platform.OS === 'web' && url) {
-      Linking.openURL(webUrl)
-    } else {
-      push(to, {
-        pathname: '/deposit/depositUrl',
-        query: {
-          depositUrl: url,
-        },
-      })
-    }
-  }
-
   function onAmountChanged(text: string) {
     if (text != null) {
       const { cleanText, amountNumber } = toCleanAmount(text)
@@ -129,6 +135,8 @@ const LocalBankScreen = () => {
       })
     }
   }
+
+  console.log('bank', values?.bank)
 
   return (
     <PageWithBackHeader
@@ -147,23 +155,6 @@ const LocalBankScreen = () => {
               isLoading: isLoading || isFetching,
               titleType: 'bank_acc_name',
               onPress: (item) => setFieldValue('bank', item),
-
-              // numColumns: 4,
-              // keyExtractor: (item: ManualBankItem) =>
-              //   `${item.bankTypeId} ${item.bank_acc_name}`,
-              // renderItem: ({ item }: { item: ManualBankItem }) => (
-              //   <BankItem
-              //     key={item.bankTypeId}
-              //     icon={require('app/assets/images/home/fishing.png')}
-              //     title={item.bank_acc_name}
-              //     onPress={async () => {
-              //       setFieldValue('bank', item)
-              //       await SheetManager.hide(
-              //         actionSheetId ?? DEFAULT_SQUARE_ACTION_SHEET_ID
-              //       )
-              //     }}
-              //   />
-              // ),
             }}
             _actionSheet={{
               id: actionSheetId,
@@ -184,23 +175,36 @@ const LocalBankScreen = () => {
             sx={{ my: 0 }}
             copy
           />
-          <TextField.Label
-            label="common.referenceId"
-            value={values.bank?.pay_acc_id ?? ''}
-            sx={{ my: 0 }}
-          />
           <TextField.TextInput
             label="deposit.depositAmount"
             _input={{
-              placeholder: values.bank
-                ? `${values.bank?.minDeposit} - ${values.bank?.maxDeposit}`
-                : '0',
+              placeholder: t('validation.minMaxLimit', {
+                min: toCurrency(limit.minAmount ?? 0, currency, {
+                  symbol: false,
+                  forceDecimal: false,
+                }),
+                max: toCurrency(limit.maxAmount ?? 0, currency, {
+                  symbol: false,
+                  forceDecimal: false,
+                }),
+              }),
               value: values.amount,
               keyboardType: 'number-pad',
               onChangeText: onAmountChanged,
               onBlur: handleBlur('amount'),
             }}
-            error={touched.amount && errors.amount ? errors.amount : undefined}
+            error={
+              touched.amount && errors.amount
+                ? t(errors.amount, {
+                    field: t('common.amount'),
+                    amount: values.amount,
+                    min: toCurrency(limit.minAmount ?? 0, currency, {
+                      forceDecimal: false,
+                      symbol: false,
+                    }),
+                  })
+                : undefined
+            }
             containerStyle={{ mt: '$0', mb: '$4' }}
           />
         </TextField>

@@ -20,16 +20,12 @@ const ProfileScreen = () => {
   const [refreshing, setRefreshing] = React.useState(false)
   const dispatch = useDispatch()
 
-  const state = useAppSelector((state) => state.auth.info || {})
-
-  const { data: playerProfile } = usePlayerProfileQuery()
-
   const { data, isFetching, isLoading, refetch } = usePlayerProfileQuery()
 
   useEffect(() => {
     !isLoading && setRefreshing(isFetching)
     if (data?.data) {
-      // dispatch(PlayerActions.setUser(data?.data))
+      dispatch(PlayerActions.setUser(data?.data))
     }
   }, [data, dispatch, isFetching, isLoading])
 
@@ -41,7 +37,7 @@ const ProfileScreen = () => {
         <RefreshControl refreshing={refreshing} onRefresh={refetch} />
       }
     >
-      <ProfileUser username={playerProfile?.data?.username || ''} />
+      <ProfileUser username={data?.data?.username || ''} />
       <ProfileBalance />
       <Text variant="xs" sx={{ textAlign: 'center' }}>
         {t('profile.timeline')}

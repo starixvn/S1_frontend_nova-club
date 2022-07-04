@@ -19,9 +19,9 @@ import {
 import dayjs from 'dayjs'
 import { ReportGameItem } from 'services/playerApi.type'
 
-const CELL_DATE_WIDTH = 0.4
-const CELL_AMOUNT_WIDTH = 0.3
-const CELL_STATUS_WIDTH = 0.3
+const CELL_DATE_WIDTH = 1
+const CELL_AMOUNT_WIDTH = 1
+const CELL_STATUS_WIDTH = 1
 
 const GameHistoryTab = () => {
   const { t } = useLocalization()

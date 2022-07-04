@@ -118,7 +118,7 @@ const SquareSelectorActionSheet = forwardRef<
           >
             {data.map((item) => (
               <BankItem
-                key={item.id}
+                key={item[titleType]}
                 icon={require('app/assets/images/home/fishing.png')}
                 title={item[titleType]}
                 onPress={async () => {

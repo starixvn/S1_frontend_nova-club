@@ -84,7 +84,6 @@ const DepositPage = () => {
   const dispatch = useDispatch()
   const [paymentMethodList, setPaymentMethodList] = useState(sampleData)
   const { data, isLoading } = useDepositPaymentListQuery()
-  console.log('🚀 ~ file: index.tsx ~ line 86 ~ DepositPage ~ data', data)
 
   const { makeContextualHref } = useContextualRouting(
     ContextualModuleKey.Deposit

@@ -1,6 +1,6 @@
 import Icon from 'app/components/Icon'
 import dayjs from 'dayjs'
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { TextInputProps as TextInputNativeProps, ViewProps } from 'react-native'
 import { IIconProps } from '../IconButton/type'
 
@@ -32,6 +32,13 @@ const DatePickerWeb = ({
   defaultDate = dayjs().toDate(),
   placeHolder = '',
 }: IDatePickerProps) => {
+  const [datepicker, setDatepicker] = useState()
+  const dateRef = useRef()
+
+  const handleInputClick = () => {
+    datepicker?.input?.focus()
+  }
+
   const onDateTimePickerChange = (e: any, v?: Date) => {
     const currentSelectedDate = e.target.value
     onChange(currentSelectedDate)
@@ -44,10 +51,11 @@ const DatePickerWeb = ({
   const currentDate = new Date()
 
   return (
-    <div className="inputBox">
+    <div className="inputBox" onClick={handleInputClick}>
       <label className="inputDate">
         {icon && <Icon name={icon} {..._icon} />}
         <input
+          ref={(datepicker) => setDatepicker(datepicker)}
           value={getDate}
           type={'date'}
           onChange={onDateTimePickerChange}

@@ -1,17 +1,32 @@
 import { TextField } from 'app/components/TextField'
-import { toCleanAmount, toRealAmount } from 'app/utils'
+import useLocalization from 'app/provider/localization'
+import { RootState } from 'app/provider/redux/store'
+import { toCleanAmount, toCurrency, toRealAmount } from 'app/utils'
+import { Currency, currencyToIdListMapper } from 'app/utils/constant'
 import { Text, View } from 'dripsy'
 import { FormikFormProps, FormikHandlers, FormikProps } from 'formik'
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { PlayerInputFieldsAmount } from 'services/deposit.type'
-import { AutoDepositValues } from '../online-bank'
+import { AutoDepositValues } from './AutoDepositForm'
 
 type FieldAmountProps = {
   field: PlayerInputFieldsAmount
+  minAmount: string
+  maxAmount: string
   formik: FormikProps<AutoDepositValues>
 }
 
-const FieldAmount = ({ field, formik }: FieldAmountProps) => {
+const FieldAmount = ({
+  field,
+  minAmount,
+  maxAmount,
+  formik,
+}: FieldAmountProps) => {
+  const { t } = useLocalization()
+  const userInfo = useSelector((s: RootState) => s.auth.user)
+  const currency = userInfo?.currency as Currency
+
   const { handleBlur, values, errors, touched, setValues } = formik
 
   function onAmountChanged(text: string) {
@@ -20,7 +35,7 @@ const FieldAmount = ({ field, formik }: FieldAmountProps) => {
       setValues({
         ...values,
         amount: cleanText,
-        realAmount: toRealAmount(amountNumber),
+        realAmount: toRealAmount(amountNumber, currency),
       })
     }
   }
@@ -31,15 +46,33 @@ const FieldAmount = ({ field, formik }: FieldAmountProps) => {
       <TextField.TextInput
         label=""
         _input={{
-          placeholder: values.paymentGateway
-            ? `${values.paymentGateway?.minDeposit} - ${values.paymentGateway?.maxDeposit}`
-            : '0',
+          placeholder: t('validation.minMaxLimit', {
+            min: toCurrency(minAmount ?? 0, currency, {
+              symbol: false,
+              forceDecimal: false,
+            }),
+            max: toCurrency(maxAmount ?? 0, currency, {
+              symbol: false,
+              forceDecimal: false,
+            }),
+          }),
           value: values.amount,
           keyboardType: 'number-pad',
           onChangeText: onAmountChanged,
           onBlur: handleBlur('amount'),
         }}
-        error={touched.amount && errors.amount ? errors.amount : undefined}
+        error={
+          touched.amount && errors.amount
+            ? t(errors.amount, {
+                field: t('common.amount'),
+                amount: values.amount,
+                min: toCurrency(minAmount ?? 0, currency, {
+                  forceDecimal: false,
+                  symbol: false,
+                }),
+              })
+            : undefined
+        }
         containerStyle={{ my: '$3' }}
       />
     </View>

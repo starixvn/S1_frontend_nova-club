@@ -197,11 +197,11 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
             value={selected.startDate}
             icon={'sb'}
             rightIcon={'chevdown'}
-            _icon={{
-              color: 'white',
-              size: 20,
-            }}
+            _icon={{ color: 'white', size: 20 }}
             style={{ flex: 1 }}
+            _dateTime={{
+              maximumDate: selected.endDate,
+            }}
             onChange={(value) =>
               setSelected({
                 ...selected,
@@ -217,6 +217,9 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
             rightIcon={'chevdown'}
             _icon={{ color: 'white', size: 20 }}
             style={{ flex: 1 }}
+            _dateTime={{
+              minimumDate: selected.startDate,
+            }}
             onChange={(value) =>
               setSelected({
                 ...selected,

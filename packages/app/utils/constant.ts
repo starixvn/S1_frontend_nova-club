@@ -7,12 +7,12 @@ export const currencyListMapper: { [key: number]: string } = {
 }
 
 export enum Currency {
-  MYR = 2,
-  THB = 4,
-  RMB = 13,
-  IDR = 15,
-  VND = 51,
-  CRYPTO = 96,
+  // MYR = 2,
+  // THB = 4,
+  // RMB = 13,
+  // IDR = 15,
+  VND = 'VND',
+  // CRYPTO = 96,
 }
 
 export enum LANGUAGE_CODE {

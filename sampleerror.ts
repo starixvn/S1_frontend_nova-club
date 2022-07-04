@@ -1,0 +1,1 @@
+var payload = {"amount":10000,"bank":"","bank_type_id":16,"card_code":1234,"card_seri":1234,"card_type":"Vina","deposit_from":1,"fail_url":"https://stage.gball8.com/","home_url":"https://stage.gball8.com/","process_url":"https://stage.gball8.com/","name":"","success_url":"https://stage.gball8.com/","username":"techtests01"}

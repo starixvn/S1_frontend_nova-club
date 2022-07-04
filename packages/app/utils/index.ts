@@ -1,5 +1,6 @@
 import { Currency, currencyListMapper } from './constant'
 import * as Clipboard from 'expo-clipboard'
+import { number } from 'yup'
 
 /**
  * `expo-clipboard` version 2.1.1 is used due to v3 above need Expo SDK45
@@ -20,7 +21,7 @@ export async function copyToClipboard(
 }
 
 export function toCurrency(
-  amount: number,
+  amount: number | string,
   currency: Currency = Currency.VND,
   options?: {
     symbol?: boolean
@@ -31,10 +32,11 @@ export function toCurrency(
   }
 ): string {
   if (!amount) amount = 0.0
+  if (typeof amount === 'string') amount = parseFloat(amount)
   const thousandSeperator = ','
   const decimalDeliminator = '.'
   const decimalLength = 3
-  const currencySymbol = (currency ? currencyListMapper[currency] : '') ?? ''
+  const currencySymbol = currency ?? ''
   let multiplier = ''
 
   options = options || {}
@@ -91,7 +93,11 @@ export function isThousandCurrency(currency: Currency) {
   return thousandCurrency.includes(currency)
 }
 
-export function toDisplayAmount(real = 0, currency: Currency): number {
+export function toDisplayAmount(
+  real: string | number = 0,
+  currency: Currency
+): number {
+  if (typeof real === 'string') real = parseFloat(real)
   if (isThousandCurrency(currency)) {
     real = real / 1000
   }
@@ -100,9 +106,10 @@ export function toDisplayAmount(real = 0, currency: Currency): number {
 }
 
 export function toRealAmount(
-  display: number,
+  display: number | string,
   currency: Currency = Currency.VND
 ) {
+  if (typeof display === 'string') display = parseFloat(display)
   if (isThousandCurrency(currency)) {
     display = display * 1000
   }

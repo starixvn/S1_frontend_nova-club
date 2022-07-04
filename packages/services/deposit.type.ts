@@ -11,6 +11,7 @@ export type SubmitDepositArgs = {
   deposit_from: number
   fail_url: string
   home_url: string
+  process_url: string
   name: string
   success_url: string
   username?: string

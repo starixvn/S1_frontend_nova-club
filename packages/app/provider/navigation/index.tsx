@@ -45,7 +45,7 @@ export function NavigationProvider({
               DepositPage: {
                 screens: {
                   Deposit: '/deposit',
-                  DepositLoader: '/deposit/depositUrl',
+                  DepositLoader: '/deposit/deposit-loader',
                   LocalBank: '/deposit/local-bank',
                   OnlineBank: '/deposit/online-bank',
                   Momo: '/deposit/momo',

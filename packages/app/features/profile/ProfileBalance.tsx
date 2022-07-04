@@ -1,9 +1,7 @@
 import { Gradient } from '@dripsy/gradient'
 import Icon from 'app/components/Icon'
 import useLocalization from 'app/provider/localization'
-import { RootState, useAppSelector } from 'app/provider/redux/store'
 import { usePlayerBalanceQuery } from 'services/wallet'
-import { PlayerBalanceResult } from 'services/wallet.type'
 import { AnimateHeight } from 'app/transitions/animate-height'
 import { styled, SxProp, Text, View } from 'dripsy'
 import { AnimatePresence, motify } from 'moti'
@@ -11,6 +9,7 @@ import { MotiPressable } from 'moti/interactions'
 import React, { useState } from 'react'
 
 const ProfileBalance = () => {
+  const { t } = useLocalization()
   const [isExtend, setIsExtend] = useState(false)
 
   const { data } = usePlayerBalanceQuery()
@@ -18,7 +17,6 @@ const ProfileBalance = () => {
   const handlePress = () => {
     setIsExtend(!isExtend)
   }
-  const { t } = useLocalization()
 
   return (
     <StyledGradient gradient="PaleBlue">
@@ -85,14 +83,14 @@ const ProfileBalance = () => {
                   }}
                 >
                   <BalanceItem
-                    title="Cash"
+                    title={t('common.cash')}
                     value={data?.data?.main?.balance ?? 0}
                     _sx={{
                       pr: '$7',
                     }}
                   />
                   <BalanceItem
-                    title="Reward"
+                    title={t('common.reward')}
                     value={data?.data?.main?.reward ?? 0}
                     _sx={{
                       borderLeftWidth: 1,

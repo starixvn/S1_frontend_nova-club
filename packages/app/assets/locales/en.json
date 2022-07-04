@@ -1,5 +1,10 @@
 {
-  "home": {},
+  "auth": {
+    "enterNewPassword": "Please enter your New Password",
+    "enterOtp": "Please enter OTP",
+    "forgotPassword": "FORGOT PASSWORD",
+    "table": "Commission Table"
+  },
   "bank": {
     "accountName": "Account name",
     "accountNo": "Account no",
@@ -11,88 +16,106 @@
     "noBankAccount": "No Bank Account",
     "selectBank": "Please select bank"
   },
+  "commission": {
+    "cashPlayer": "Cash Player",
+    "cashPlayerReferral": "Cash Player Referral",
+    "creditPlayer": "Credit player",
+    "productLists": "Products List",
+    "table": "Commission Table"
+  },
   "common": {
     "all": "All",
     "amount": "Amount",
+    "balance": "Balance",
     "bet": "Bet",
     "cancel": "Cancel",
+    "cash": "Cash",
+    "clickMore": "Click More",
     "confirm": "Confirm",
     "confirmDelete": "Are you sure you want to delete? It cannot restore after deletion!",
+    "confirmPassword": "Confirm Password",
     "copy": "Copy",
     "emptyResult": "Empty Result",
+    "enter": "Enter",
     "enterAmount": "Please enter your withdrawal amount",
+    "enterConfirmPassword": "Please confirm password",
+    "enterNewPassword": "Please enter new password",
+    "enterOldPassword": "Please enter old password",
     "hello": "Hello!!",
     "importantNote": "Important note",
     "importantNotes": "Important Notes",
     "lose": "Lose",
     "more": "More",
+    "newPassword": "New Password",
     "next": "Next",
     "ok": "OK",
-    "referenceId": "Reference ID",
-    "selectDate": "Select A Date",
-    "selectAll": "Select All",
-    "submit": "Submit",
-    "win": "Win",
-    "password": "Password",
     "oldPassword": "Old Password",
-    "newPassword": "New Password",
-    "confirmPassword": "Confirm Password",
-    "enter": "Enter",
-    "enterOldPassword": "Please enter old password",
-    "enterNewPassword": "Please enter new password",
-    "enterConfirmPassword": "Please confirm password",
+    "password": "Password",
     "passwordNote": "1. Password must be alphanumeric without special character. The length is unless 6-12 character. \n2. Password can not be the same to old pass",
-    "clickMore": "Click More"
+    "referenceId": "Reference ID",
+    "reward": "Reward",
+    "selectAll": "Select All",
+    "selectDate": "Select A Date",
+    "submit": "Submit",
+    "win": "Win"
   },
   "contact": {
-    "whatsapp": "WhatsApp",
+    "livechat": "Live Chat",
     "telegram": "Telegram",
-    "livechat": "Live Chat"
+    "whatsapp": "WhatsApp"
   },
+  "defaultLocale": "",
+  "defaultSeparator": "",
   "deposit": {
     "actualDeposit": "Actual Deposit",
     "cardCode": "Card Code",
     "cardSerialNo": "Card serial no.",
     "cardValue": "Card Value",
     "choose": "Choose your Deposit Options",
+    "cryptoAmount": "123,456 VND",
     "deduction": "Deduction",
+    "deposit": "",
     "depositAmount": "Deposit Amount",
     "depositMethod": {
       "bankTransfer": "Bank Transfer",
-      "onlineBanking": "Online Banking",
+      "crypto": "Crypto",
       "momo": "MOMO",
+      "onlineBanking": "Online Banking",
       "qrCode": "QR Code Transfer",
-      "topUp": "Top Up Card",
-      "crypto": "Crypto"
+      "topUp": "Top Up Card"
     },
     "paymentMode": "Payment Mode",
     "selectChannel": "Select Channel",
-    "usdt": "USDT",
-    "cryptoAmount": "123,456 VND",
     "upload": {
-      "title": "Upload Receipt",
       "description": "Browse to select receipt or invoice images to upload. Files must be 6MB or similiar, and in one of these formats JPG,JPEG",
-      "files": "Upload File"
-    }
+      "files": "Upload File",
+      "title": "Upload Receipt"
+    },
+    "usdt": "USDT"
   },
+  "fallbacks": "",
   "filter": {
     "date": {
-      "today": "Today",
-      "yesterday": "Yesterday",
-      "thisWeek": "This Week",
+      "custom": "Custom",
       "lastWeek": "Last Week",
       "thisMonth": "This Month",
-      "custom": "Custom"
+      "thisWeek": "This Week",
+      "today": "Today",
+      "yesterday": "Yesterday"
     },
     "depositStatus": {
       "all": "All",
-      "pending": "Pending",
-      "settledonBrowser": "Settled on Browser",
-      "settled": "Settled",
       "cancelled": "Cancelled",
-      "failed": "Failed",
+      "checking": "Checking",
       "declined": "Declined",
-      "checking": "Checking"
+      "failed": "Failed",
+      "pending": "Pending",
+      "settled": "Settled",
+      "settledonBrowser": "Settled on Browser"
+    },
+    "gameStatus": {
+      "lose": "Lose",
+      "win": "Win"
     },
     "genre": {
       "all": "All",
@@ -105,31 +128,27 @@
       "baccarat": "Baccarat",
       "dragonTiger": "Dragon Tiger"
     },
-    "gameStatus": {
-      "win": "Win",
-      "lose": "Lose"
-    },
     "transactionType": {
       "deposit": "Deposit",
-      "withdrawal": "Withdrawal",
+      "game": "Game",
       "reward": "Reward",
-      "game": "Game"
+      "withdrawal": "Withdrawal"
     },
     "withdrawalStatus": {
       "all": "All",
-      "request": "Request",
-      "pendingReview": "Pending Review",
       "declined": "Declined",
       "paid": "Paid",
+      "payment": "Payment",
       "paymentProcessing": "Payment Processing",
-      "payment": "Payment"
+      "pendingReview": "Pending Review",
+      "request": "Request"
     }
   },
   "form": {
     "tips": {
+      "needAccountNo": "Need Account Number",
       "password": "* Password must be 6-15 characters, contain both alphanumeric and a special characters (!@#$%^&*).",
-      "realName": "Please enter your real name.",
-      "needAccountNo": "Need Account Number"
+      "realName": "Please enter your real name."
     }
   },
   "game": {
@@ -145,6 +164,8 @@
       "hotGames": "Hot Games"
     }
   },
+  "home": {},
+  "locale": "",
   "menu": {
     "bankAccount": "Bank Account",
     "changePassword": "Change Password",
@@ -157,8 +178,6 @@
     "message/announcement": "Message/Announcement",
     "profile": "Profile",
     "switchAccount": "Switch Account",
-    "transactionHistory": "Transaction History",
-    "withdraw": "Withdraw",
     "tab": {
       "bets": "Bets",
       "date": "Date",
@@ -171,24 +190,32 @@
       "transactionType": "Transaction Type",
       "type": "Type",
       "win/loss": "Win/Loss"
-    }
+    },
+    "transactionHistory": "Transaction History",
+    "withdraw": "Withdraw"
   },
+  "message": {
+    "annoucement": "Annoucement",
+    "personalMessage": "Personal Message"
+  },
+  "missingBehaviour": "",
+  "missingTranslationPrefix": "",
   "profile": {
     "details": {
-      "realname": "Real Name",
-      "username": "Username",
+      "currency": "Currency",
       "phone": "Phone Number",
+      "realname": "Real Name",
       "referrer": "Referrer",
-      "currency": "Currency"
+      "username": "Username"
     },
     "overview": {
-      "title": "Overview",
-      "self": "Self",
       "circle": "Circle",
-      "w/l": "Win/Lose (VND)",
-      "turnover": "Turn Over",
+      "direct": "Direct",
       "realbet": "Real Bet",
-      "direct": "Direct"
+      "self": "Self",
+      "title": "Overview",
+      "turnover": "Turn Over",
+      "w/l": "Win/Lose (VND)"
     },
     "timeline": "UTC/GMT +7"
   },
@@ -210,38 +237,22 @@
     "transactions": "Transactions"
   },
   "validation": {
-    "required": "%{field} is required",
-    "username": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only.",
+    "amount": "%{amount} not in range",
+    "amountLessThan": "Amount cannot be less than %{min}",
+    "dailyLimitReached": "Your Daily Limit Reached.",
     "email": "Mail format is wrong",
-    "invalidPhone": "Phone number is invalid",
-    "invalidOTPCode": "Invalid OTP Code",
-    "insufficientBalance": "Insufficient balance",
+    "erc20Format": "Must be ERC-20 compatible wallet address",
     "exceedAvailableTransferBalance": "Exceed available transfer balance %{balance}",
+    "insufficientBalance": "Insufficient balance",
+    "invalidOTPCode": "Invalid OTP Code",
+    "invalidPhone": "Phone number is invalid",
+    "minMaxLimit": "Min/Max Limit %{min}/%{max}",
     "numberOnly": "Only number is allowed",
     "passwordMinMaxLength": "Password must be 6-15 characters only.",
-    "userNameMinMaxLength": "Username must be 6-18 characters only.",
-    "amount": "%{amount} not in range",
-    "erc20Format": "Must be ERC-20 compatible wallet address",
+    "required": "%{field} is required",
     "usdtFormat": "Must be ERC-20 / TRC-20 compatible wallet address",
-    "dailyLimitReached": "Your Daily Limit Reached.",
-    "amountLessThan": "Amount cannot be less than %{min}"
+    "userNameMinMaxLength": "Username must be 6-18 characters only.",
+    "username": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only."
   },
-  "withdrawal": {},
-  "commission": {
-    "table": "Commission Table",
-    "productLists": "Products List",
-    "cashPlayer": "Cash Player",
-    "cashPlayerReferral": "Cash Player Referral",
-    "creditPlayer": "Credit player"
-  },
-  "auth": {
-    "forgotPassword": "FORGOT PASSWORD",
-    "enterNewPassword": "Please enter your New Password",
-    "enterOtp": "Please enter OTP",
-    "table": "Commission Table"
-  },
-  "message": {
-    "personalMessage": "Personal Message",
-    "annoucement": "Annoucement"
-  }
+  "withdrawal": {}
 }

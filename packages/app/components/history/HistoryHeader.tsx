@@ -33,7 +33,7 @@ const HistoryHeader = ({ data }: HeaderProps) => {
             sx={{
               flex: item.columnWidth,
               alignSelf: 'stretch',
-              textAlign: 'center',
+              textAlign: index === 0 ? 'left' : 'center',
             }}
             numberOfLines={1}
           >
