@@ -48,7 +48,7 @@ const MainHeader = () => {
     {
       img: require('../assets/images/header/avatar.png'),
       action: () => {
-        push(makeContextualHref('profile'), 'profile')
+        push('profile')
       },
     },
     {
