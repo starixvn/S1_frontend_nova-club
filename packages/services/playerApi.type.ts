@@ -56,7 +56,7 @@ export type ReportArgs = {
   time_from: string
   time_to: string
   trans_type: ReportTransactionType
-  username: string
+  username?: string
 }
 
 export type ReportResult = {

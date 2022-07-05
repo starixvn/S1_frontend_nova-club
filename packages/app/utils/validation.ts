@@ -45,6 +45,7 @@ const validation = {
     .typeError('validation.numberOnly')
     .required('form.tips.needAmount'),
 
+  bank: Yup.object().required('form.tips.bank'),
   paymentMode: Yup.string().required('form.tips.paymentMode'),
   cardType: Yup.string().required('form.tips.cardType'),
   cardValue: Yup.string().required('form.tips.cardValue'),

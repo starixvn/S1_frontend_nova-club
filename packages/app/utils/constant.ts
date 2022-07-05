@@ -189,7 +189,7 @@ export enum ReportGameStatus {
 export const ReportGameStatusOptions = [
   {
     value: ReportGameStatus.ALL,
-    label: 'filter.gameStatus.all',
+    label: 'common.all',
   },
   {
     value: ReportGameStatus.WIN,
@@ -224,7 +224,7 @@ export enum DepositPaymentMethodCategoryId {
   LOCAL_BANK = 1,
   ONLINE_BANK = 1,
   MOMO = 26,
-  QR_CODE = 22,
+  QR_CODE = 27,
   TOP_UP = 25,
   CRYPTO = 13,
 }

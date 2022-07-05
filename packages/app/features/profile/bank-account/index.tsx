@@ -5,13 +5,11 @@ import useContextualRouting from 'app/hooks/useContextualRouting'
 import withContextualNav from 'app/navigation/web/withContextualNav'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import useLocalization from 'app/provider/localization'
-import { useAppSelector } from 'app/provider/redux/store'
 import {
   useDeletePlayerBankAccMutation,
   usePlayerBankQuery,
 } from 'services/bank'
 import { PlayerBankResult } from 'services/bank.type'
-import { AlertActions } from 'app/store/alert'
 import {
   ActivityIndicator,
   Image,
@@ -20,44 +18,17 @@ import {
   Text,
   View,
 } from 'dripsy'
-import React, { useEffect, useRef, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useRef } from 'react'
 import { useRouter } from 'solito/router'
 import BankAccCard from './BankAccCard'
-import PlayerBankDeleteModal, {
-  PlayerBankDeleteModalForwardRef,
-} from './PlayerBankConfirmationModal'
-
-const bankAccList = [
-  {
-    bankId: 1,
-    bankName: 'Vietcombank',
-    bankAccNo: '1234 3344 55555',
-    bankAccHolderName: 'Nguyen Thien',
-    logo: require('app/assets/images/home/lc.png'),
-  },
-  {
-    bankId: 2,
-    bankName: 'Bank Account 1',
-    bankAccNo: '1234 1234 1111 2222',
-    bankAccHolderName: 'Account Holder 1',
-    logo: require('app/assets/images/home/slots.png'),
-  },
-  {
-    bankId: 3,
-    bankName: 'Bank Account 2',
-    bankAccNo: '1234 1234 3333 4444',
-    bankAccHolderName: 'Account Holder 2',
-    logo: require('app/assets/images/home/lottery.png'),
-  },
-]
+import { PlayerBankDeleteModalForwardRef } from 'app/components/modal/PlayerBankConfirmationModal'
+import { useModal } from 'react-native-modalfy'
 
 const BankAccountScreen = () => {
   const { t } = useLocalization()
-  const dispatch = useDispatch()
   const { push } = useRouter()
-  const { data, isLoading, isFetching, isSuccess } = usePlayerBankQuery()
-  const [postDeleteWithdrawalBank] = useDeletePlayerBankAccMutation()
+  const { openModal } = useModal()
+  const { data, isLoading, isFetching } = usePlayerBankQuery()
   const deleteModalRef = useRef<PlayerBankDeleteModalForwardRef>(null)
 
   const { makeContextualHref } = useContextualRouting(
@@ -66,7 +37,9 @@ const BankAccountScreen = () => {
   const toAddBankAccount = makeContextualHref('add-bank-account')
 
   const handleRemove = async (item: PlayerBankResult) => {
-    deleteModalRef.current && deleteModalRef.current.showDialog(item)
+    // deleteModalRef.current && deleteModalRef.current.showDialog(item)
+    console.log('item', item)
+    openModal('PlayerBankDeleteModal', { bank: item })
   }
 
   return (
@@ -113,7 +86,7 @@ const BankAccountScreen = () => {
           </Button>
         </View>
 
-        <PlayerBankDeleteModal ref={deleteModalRef} />
+        {/* <PlayerBankDeleteModal ref={deleteModalRef} /> */}
       </StyledView>
     </PageWithBackHeader>
   )

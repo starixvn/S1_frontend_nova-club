@@ -28,6 +28,8 @@ import { RootState } from 'app/provider/redux/store'
 import { Currency, currencyToIdListMapper } from 'app/utils/constant'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
+import { DepositActions } from 'app/store/deposit.slice'
+import { useModal } from 'react-native-modalfy'
 
 export type AutoDepositValues = {
   bank: SelectOptions | null
@@ -45,6 +47,7 @@ const AutoDepositForm = ({ notes, module, DepositCategoryId }) => {
   const { t } = useLocalization()
   const { push } = useRouter()
   const dispatch = useDispatch()
+  const { openModal, closeModal } = useModal()
   const [postSubmitDeposit] = useSubmitDepositMutation()
   const { data, isLoading, isFetching } = useDepositPaymentListQuery()
 
@@ -77,6 +80,7 @@ const AutoDepositForm = ({ notes, module, DepositCategoryId }) => {
     actions: FormikHelpers<AutoDepositValues>
   ) => {
     try {
+      actions.setSubmitting(true)
       const { data, success, message } = await postSubmitDeposit({
         amount: realAmount,
         bank: bank?.value ?? '',
@@ -116,6 +120,8 @@ const AutoDepositForm = ({ notes, module, DepositCategoryId }) => {
       }
     } catch (e) {
       dispatch(AlertActions.addError('common.systemError'))
+    } finally {
+      actions.setSubmitting(false)
     }
   }
 
@@ -150,6 +156,13 @@ const AutoDepositForm = ({ notes, module, DepositCategoryId }) => {
     setFieldValue,
   } = formik
 
+  function handleConfirmDeposit() {
+    openModal('DepositConfirmationModal', {
+      amount: values.realAmount,
+      callback: () => onSubmit(values, formik),
+    })
+  }
+
   return (
     <TextField labelWidth={0}>
       <FieldSelectBank
@@ -182,7 +195,7 @@ const AutoDepositForm = ({ notes, module, DepositCategoryId }) => {
           containerStyle={{
             my: '$10',
           }}
-          onPress={submitForm}
+          onPress={handleConfirmDeposit}
         >
           <Button.Label>{t('common.next')}</Button.Label>
         </Button>

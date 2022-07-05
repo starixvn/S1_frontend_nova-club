@@ -27,6 +27,7 @@ import {
   persistStore,
 } from 'redux-persist'
 import { storage } from './persistStorage/index'
+import { depositReducer } from 'app/store/deposit.slice'
 
 const migrations = {
   1: (s: PersistedState) => s,
@@ -84,8 +85,9 @@ const rootReducer = combineReducers({
   [dummyDepositApi.reducerPath]: dummyDepositApi.reducer,
   [messageApi.reducerPath]: messageApi.reducer,
   alert: alertReducer,
-  bank: bankReducer,
   auth: authReducer,
+  bank: bankReducer,
+  deposit: depositReducer,
   setting: settingReducer,
   gameLauncher: gameLauncherReducer,
 })

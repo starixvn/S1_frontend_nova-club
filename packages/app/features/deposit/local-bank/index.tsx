@@ -33,6 +33,7 @@ import { DEFAULT_SQUARE_ACTION_SHEET_ID } from 'app/components/actionsheet/Squar
 import { ManualBankItem } from 'services/deposit.type'
 import { Currency, DepositPaymentMethodCategoryId } from 'app/utils/constant'
 import validationRule from 'app/utils/validationRule'
+import { useModal } from 'react-native-modalfy'
 
 type LocalBankValues = {
   bank: ManualBankItem | null
@@ -51,6 +52,7 @@ const LocalBankScreen = () => {
   const { t } = useLocalization()
   const dispatch = useDispatch()
   const { push, back } = useRouter()
+  const { openModal } = useModal()
   const [limit, setLimit] = useState({ minAmount: 0, maxAmount: 0 })
   const [postSubmitManualDeposit] = useSubmitManualDepositMutation()
   const { data, isLoading, isFetching } = useDepositPaymentListQuery()
@@ -77,6 +79,7 @@ const LocalBankScreen = () => {
     actions: FormikHelpers<LocalBankValues>
   ) => {
     try {
+      actions.setSubmitting(true)
       const { data, success, message } = await postSubmitManualDeposit({
         acc_name: bank?.bank_acc_name ?? '',
         amount: realAmount,
@@ -88,10 +91,11 @@ const LocalBankScreen = () => {
       if (success) {
         dispatch(AlertActions.addSuccess(message))
         actions.resetForm()
-        back()
       }
     } catch (e) {
       dispatch(AlertActions.addError('common.systemError'))
+    } finally {
+      actions.setSubmitting(false)
     }
   }
 
@@ -103,6 +107,7 @@ const LocalBankScreen = () => {
     },
     validationSchema: Yup.object({
       realAmount: validation.amount,
+      bank: validation.bank,
       amount: validationRule.amount({
         min: toDisplayAmount(limit.minAmount, currency),
         max: toDisplayAmount(limit.maxAmount, currency),
@@ -136,7 +141,12 @@ const LocalBankScreen = () => {
     }
   }
 
-  console.log('bank', values?.bank)
+  function handleConfirmDeposit() {
+    openModal('DepositConfirmationModal', {
+      amount: values.realAmount,
+      callback: () => submitForm(),
+    })
+  }
 
   return (
     <PageWithBackHeader
@@ -214,6 +224,7 @@ const LocalBankScreen = () => {
         <Button
           rounded
           stretch
+          loading={isSubmitting}
           disabled={!isValid || !dirty}
           variant="lg"
           fill={{
@@ -225,7 +236,7 @@ const LocalBankScreen = () => {
           containerStyle={{
             m: '$10',
           }}
-          onPress={submitForm}
+          onPress={handleConfirmDeposit}
         >
           <Button.Label>{t('common.next')}</Button.Label>
         </Button>

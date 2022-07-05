@@ -1,8 +1,8 @@
 import * as Localization from 'expo-localization'
 import i18n from 'i18n-js'
 
-import en from './en.json'
-import vi from './vi.json'
+import en from 'app/assets/locales/en.json'
+import vi from 'app/assets/locales/vi.json'
 
 // for fallback to EN
 i18n.fallbacks = true
