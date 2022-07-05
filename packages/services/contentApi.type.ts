@@ -31,6 +31,23 @@ export interface CommissionQueryArgs {
   currency: string
 }
 
+export enum GameCategory {
+  Slot = 'slots',
+  Fishing = 'fishing',
+  LiveCasino = 'live_dealer',
+}
+export interface GameListQueryArgs {
+  currency: string
+  game_category: GameCategory
+}
+
+export interface GameConfig {
+  game_code: string
+  game_name: string
+  game_provider_code: string
+  game_type_code: string
+}
+
 export interface AnnouncementResult {
   list: AnnouncementListItems[]
 }

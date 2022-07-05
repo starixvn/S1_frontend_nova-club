@@ -7,6 +7,8 @@ import {
   BannerResult,
   CommissionQueryArgs,
   CommissionTableResult,
+  GameConfig,
+  GameListQueryArgs,
   LeaderboardResult,
 } from './contentApi.type'
 import { MEDIA_DOMAIN } from '@env'
@@ -45,6 +47,12 @@ const contentEndpoints = (builder: EndpointBuilderType) => {
         method: 'GET',
       }),
     }),
+    gameList: builder.query<IResponse<GameConfig[]>, GameListQueryArgs>({
+      query: (data) => ({
+        url: `/player_api/getGameList`,
+        data,
+      }),
+    }),
   }
 }
 
@@ -66,4 +74,5 @@ export const {
   useLeaderboardQuery,
   useCommissionTableQuery,
   useAnnouncementQuery,
+  useGameListQuery,
 } = contentApi

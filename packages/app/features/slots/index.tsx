@@ -2,7 +2,6 @@ import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Select from 'app/components/form/Select'
 import { PageSafeArea } from 'app/components/layout/Page'
 import SimpleGridImage from 'app/components/SimpleGridImage'
-import { GameConfig } from 'app/global'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useGameGridSize from 'app/hooks/useGameGridSize'
 import withContextualNav from 'app/navigation/web/withContextualNav'
@@ -13,10 +12,12 @@ import React, { useMemo, useState } from 'react'
 import { FlatList } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useDispatch } from 'react-redux'
+import { GameConfig } from 'services/contentApi.type'
 import ListSectionHeader from '../ListSectionHeader'
 import useSlotGamesFilter from './useSlotGamesFilter'
 const SlotImageExtensionMapping = {
   cq9: 'png',
+  jili: 'png',
 }
 
 const Slots = withContextualNav(() => {
@@ -25,19 +26,19 @@ const Slots = withContextualNav(() => {
 
   const { contentWidth, itemSpace, containerSpace } = useGameGridSize(3)
   const renderSlotItem = ({ item }: { item: GameConfig }) => {
-    const { gameCode, providerCode, gameName } = item
-    const imageUrl = `${MEDIA_DOMAIN}${CONTENT_URI}/games/${providerCode.toLowerCase()}/${gameCode.toLowerCase()}.${
-      SlotImageExtensionMapping[providerCode.toLowerCase()] ?? 'jpg'
+    const { game_code, game_provider_code, game_name } = item
+    const imageUrl = `${MEDIA_DOMAIN}${CONTENT_URI}/games/${game_provider_code.toLowerCase()}/${game_code.toLowerCase()}.${
+      SlotImageExtensionMapping[game_provider_code.toLowerCase()] ?? 'jpg'
     }`
 
     return (
       <SimpleGridImage
         sx={{ m: itemSpace }}
-        gameName={item.gameName}
-        providerCode={item.providerCode}
-        gameCode={item.gameCode}
+        gameName={game_name}
+        providerCode={game_provider_code}
+        gameCode={game_code}
         image={imageUrl}
-        title={item.vi ?? item.gameName}
+        title={game_name}
         context={ContextualModuleKey.Slot}
         width={contentWidth}
       />
@@ -94,7 +95,7 @@ const Slots = withContextualNav(() => {
         // onEndReached={loadMore}
         data={filteredGames}
         // extraData={displayList}
-        keyExtractor={(item) => item.gameCode}
+        keyExtractor={(item) => item.game_code + item.game_provider_code}
         renderItem={renderSlotItem}
       />
     </PageSafeArea>

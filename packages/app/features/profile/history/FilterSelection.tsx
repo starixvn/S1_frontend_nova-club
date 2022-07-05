@@ -26,10 +26,10 @@ export const ProviderList = Object.keys(GameProvider).map((key) => ({
   label: key,
   value: key,
 }))
-console.log(
-  '🚀 ~ file: FilterSelection.tsx ~ line 26 ~ ProviderList',
-  ProviderList
-)
+// console.log(
+//   '🚀 ~ file: FilterSelection.tsx ~ line 26 ~ ProviderList',
+//   ProviderList
+// )
 
 const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
   const { t } = useLocalization()

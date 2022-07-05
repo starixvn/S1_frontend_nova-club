@@ -1,8 +1,8 @@
 import AllLiveCasinoGames from 'app/config/games/liveCasino'
-import { GameConfig } from 'app/global'
 import useLocalization from 'app/provider/localization'
 import { LiveCasinoGenreOptions } from 'app/utils/constant'
 import { useMemo, useState } from 'react'
+import { GameConfig } from 'services/contentApi.type'
 
 export default function useLiveCasinoFilter(
   gamesByProvider = AllLiveCasinoGames

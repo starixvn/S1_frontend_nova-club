@@ -2,7 +2,7 @@ import bbin from './bbin.json'
 import jdbg from './jdbg.json'
 import cq9 from './cq9.json'
 import haba from './haba.json'
-import { GameConfig } from 'app/global'
+import { GameConfig } from 'services/contentApi.type'
 
 const AllSlotGames: {
   [index: string]: GameConfig[]

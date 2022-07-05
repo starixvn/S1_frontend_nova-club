@@ -14,7 +14,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import ListSectionHeader from '../ListSectionHeader'
 import useLiveCasinoFilter from './useLiveCasinoFilter'
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { GameConfig } from 'app/global'
+import { GameConfig } from 'services/contentApi.type'
 
 const LiveCasinoImageExtensionMapping = {
   cq9: 'png',
@@ -39,19 +39,19 @@ const LiveCasino = withContextualNav(() => {
   const { containerSpace, itemSpace, contentWidth } = useGameGridSize()
 
   const renderItem = ({ item }: { item: GameConfig }) => {
-    const { gameCode, providerCode, gameName } = item
-    const imageUrl = `${MEDIA_DOMAIN}${CONTENT_URI}/games/${providerCode.toLowerCase()}/${gameCode.toLowerCase()}.${
-      LiveCasinoImageExtensionMapping[providerCode.toLowerCase()] ?? 'jpg'
+    const { game_code, game_provider_code, game_name } = item
+    const imageUrl = `${MEDIA_DOMAIN}${CONTENT_URI}/games/${game_provider_code.toLowerCase()}/${game_code.toLowerCase()}.${
+      LiveCasinoImageExtensionMapping[game_provider_code.toLowerCase()] ?? 'jpg'
     }`
 
     return (
       <SimpleGridImage
         sx={{ m: itemSpace }}
-        gameName={item.gameName}
-        providerCode={item.providerCode}
-        gameCode={item.gameCode}
+        gameName={game_name}
+        providerCode={game_provider_code}
+        gameCode={game_code}
         image={imageUrl}
-        title={item.vi ?? item.gameName}
+        title={game_name}
         context={ContextualModuleKey.LiveCasino}
         width={contentWidth}
       />
