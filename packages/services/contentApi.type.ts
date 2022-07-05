@@ -1,3 +1,5 @@
+import { ImageSourcePropType } from 'react-native'
+
 export interface BannerResult {
   image: string
   // bannerName: string
@@ -46,6 +48,7 @@ export interface GameConfig {
   game_name: string
   game_provider_code: string
   game_type_code: string
+  image?: ImageSourcePropType
 }
 
 export interface AnnouncementResult {

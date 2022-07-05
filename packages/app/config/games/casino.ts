@@ -4,43 +4,43 @@ export default {
   gameList: [
     {
       image: require('../../assets/images/games/casino/pp.png'),
-      gameName: 'Fan tan',
+      game_name: 'Fan tan',
     },
     {
       image: require('../../assets/images/games/casino/ev.png'),
-      gameName: 'Dream Catcher',
+      game_name: 'Dream Catcher',
     },
     {
       image: require('../../assets/images/games/casino/dg.png'),
-      gameName: 'Crazy Time',
+      game_name: 'Crazy Time',
     },
     {
       image: require('../../assets/images/games/casino/ae.png'),
-      gameName: 'Baccarat',
+      game_name: 'Baccarat',
     },
     {
       image: require('../../assets/images/games/casino/sa.png'),
-      gameName: 'Roulette',
+      game_name: 'Roulette',
     },
     {
       image: require('../../assets/images/games/casino/ab.png'),
-      gameName: 'Dragon Tiger',
+      game_name: 'Dragon Tiger',
     },
     {
       image: require('../../assets/images/games/casino/ag.png'),
-      gameName: 'Super Six Bio',
+      game_name: 'Super Six Bio',
     },
     {
       image: require('../../assets/images/games/casino/wm.png'),
-      gameName: 'Blackjack',
+      game_name: 'Blackjack',
     },
     {
       image: require('../../assets/images/games/casino/eb.png'),
-      gameName: 'Baccarat 88',
+      game_name: 'Baccarat 88',
     },
     {
       image: require('../../assets/images/games/casino/n20.png'),
-      gameName: 'Dragon Tiger 88',
+      game_name: 'Dragon Tiger 88',
     },
   ],
 }

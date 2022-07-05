@@ -1,3 +1,5 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import { ProviderImageExtension } from 'app/config/games/extension'
 import { HOME_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useGameGridSize from 'app/hooks/useGameGridSize'
@@ -10,16 +12,23 @@ const SimpleWrap = ({ data, col = 3, context }) => {
   return (
     <StyledWrapItem sx={{ p: containerSpace }}>
       {data.map((item, rindex) => {
+        const { game_code, game_provider_code, game_name, image } = item
+        const imageUrl =
+          image ??
+          `${MEDIA_DOMAIN}${CONTENT_URI}/games/${game_provider_code.toLowerCase()}/${game_code.toLowerCase()}.${
+            ProviderImageExtension[game_provider_code.toLowerCase()] ?? 'jpg'
+          }`
+
         return (
           <SimpleGridImage
             sx={{ m: itemSpace }}
             context={context}
-            key={item.gameName}
-            gameName={item.gameName}
-            providerCode={item.providerCode}
-            gameCode={item.gameCode}
-            image={item.image}
-            title={item.vi ?? item.gameName}
+            key={game_name}
+            gameName={game_name}
+            providerCode={game_provider_code}
+            gameCode={game_code}
+            image={imageUrl}
+            title={game_name}
             width={contentWidth}
           />
         )

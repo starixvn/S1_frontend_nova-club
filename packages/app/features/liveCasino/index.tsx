@@ -7,12 +7,20 @@ import useGameGridSize from 'app/hooks/useGameGridSize'
 import withContextualNav from 'app/navigation/web/withContextualNav'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import useLocalization from 'app/provider/localization'
-import { Image, ScrollView, styled, Text, useSx, View } from 'dripsy'
+import {
+  ActivityIndicator,
+  Image,
+  ScrollView,
+  styled,
+  Text,
+  useSx,
+  View,
+} from 'dripsy'
 import React from 'react'
 import { FlatList, Platform } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import ListSectionHeader from '../ListSectionHeader'
-import useLiveCasinoFilter from './useLiveCasinoFilter'
+import useLiveCasinoFilter from '../../hooks/game/useLiveCasinoFilter'
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { GameConfig } from 'services/contentApi.type'
 
@@ -120,18 +128,21 @@ const LiveCasino = withContextualNav(() => {
 
   return (
     <Page sx={{ bg: '$background' }}>
-      <FlatList
-        numColumns={3}
-        ListHeaderComponent={Header}
-        style={sx({ bg: '$background', flex: 1 })}
-        contentContainerStyle={{ padding: containerSpace }}
-        // onEndReached={loadMore}
-        data={filteredGames}
-        // extraData={displayList}
-        keyExtractor={(item) => item.gameCode}
-        renderItem={renderItem}
-      />
-
+      {filteredGames.length === 0 ? (
+        <ActivityIndicator size={'large'} sx={{ mt: '$8' }} />
+      ) : (
+        <FlatList
+          numColumns={3}
+          ListHeaderComponent={Header}
+          style={sx({ bg: '$background', flex: 1 })}
+          contentContainerStyle={{ padding: containerSpace }}
+          // onEndReached={loadMore}
+          data={filteredGames}
+          // extraData={displayList}
+          keyExtractor={(item) => item.gameCode}
+          renderItem={renderItem}
+        />
+      )}
       {/* <View sx={{ p: containerSpace, flexDirection: 'row', flexWrap: 'wrap' }}>
         {filteredGames.map((item, rindex) => {
           return (

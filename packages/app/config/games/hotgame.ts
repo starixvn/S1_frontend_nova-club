@@ -4,19 +4,19 @@ export default {
   gameList: [
     {
       image: require('../../assets/images/games/games/hotGames01.png'),
-      gameName: 'Fan tan',
+      game_name: 'Fan tan',
     },
     {
       image: require('../../assets/images/games/games/hotGames02.png'),
-      gameName: 'Dream Catcher',
+      game_name: 'Dream Catcher',
     },
     {
       image: require('../../assets/images/games/games/hotGames03.png'),
-      gameName: 'Crazy Time',
+      game_name: 'Crazy Time',
     },
     {
       image: require('../../assets/images/games/games/hotGames04.png'),
-      gameName: 'Baccarat',
+      game_name: 'Baccarat',
     },
   ],
 }

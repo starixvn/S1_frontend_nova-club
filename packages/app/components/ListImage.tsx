@@ -5,9 +5,10 @@ import BouncePressable from 'app/pressable/BouncePressable'
 import { GameLauncherActions } from 'app/store/gameLauncher.slice'
 import { Image } from 'dripsy'
 import { useDispatch } from 'react-redux'
+import { GameConfig } from 'services/contentApi.type'
 import { DraggableScrollView } from './DraggableScrollView'
 
-const ListImage = ({ data }: { data: GAMES[] }) => {
+const ListImage = ({ data }: { data: GameConfig[] }) => {
   const { width, height } = useContainerDimension()
   const borderedWidth = width - 4
   const leftRightSpace = borderedWidth * HOME_PADDING * 0.75
@@ -25,12 +26,12 @@ const ListImage = ({ data }: { data: GAMES[] }) => {
       {data.map((item, index) => {
         return (
           <BouncePressable
-            key={item.gameCode + `'${index}'`}
+            key={item.game_code + `'${index}'`}
             onPress={() => {
               dispatch(
                 GameLauncherActions.launchGame({
-                  gameCode: item.gameCode,
-                  providerCode: item.providerCode,
+                  gameCode: item.game_code,
+                  providerCode: item.game_provider_code,
                 })
               )
             }}

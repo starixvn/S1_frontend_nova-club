@@ -4,9 +4,9 @@ export default {
   gameList: [
     {
       image: require('../../assets/images/games/sports/sport-saba.png'),
-      gameName: 'game.name.sports',
-      providerCode: 'SABA',
-      gameCode: 'sports',
+      game_name: 'game.name.sports',
+      game_provider_code: 'SABA',
+      game_code: 'sports',
     },
     // {
     //   image: require('../../assets/images/games/sports/sport-sboBet.png'),
@@ -16,27 +16,27 @@ export default {
     // },
     {
       image: require('../../assets/images/games/sports/sport-bti.png'),
-      gameName: 'game.name.btiSports',
-      providerCode: 'BTI',
-      gameCode: 'bti',
+      game_name: 'game.name.btiSports',
+      game_provider_code: 'BTI',
+      game_code: 'bti',
     },
     {
       image: require('../../assets/images/games/sports/sport-virtual.png'),
-      gameName: 'game.name.virtualSports',
-      providerCode: 'SABA',
-      gameCode: 'Virtual Sports',
+      game_name: 'game.name.virtualSports',
+      game_provider_code: 'SABA',
+      game_code: 'Virtual Sports',
     },
     {
       image: require('../../assets/images/games/sports/sport-sabaEsport.png'),
-      gameName: 'game.name.esports',
-      providerCode: 'SABA',
-      gameCode: 'esports',
+      game_name: 'game.name.esports',
+      game_provider_code: 'SABA',
+      game_code: 'esports',
     },
     {
       image: require('../../assets/images/games/sports/sport-imEsport.png'),
-      gameName: 'game.name.imEsports',
-      providerCode: 'IM',
-      gameCode: 'esports',
+      game_name: 'game.name.imEsports',
+      game_provider_code: 'IM',
+      game_code: 'esports',
     },
   ],
 }
