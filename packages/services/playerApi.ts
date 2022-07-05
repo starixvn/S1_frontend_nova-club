@@ -64,7 +64,8 @@ export default playerApi
 export { playerEndpoints }
 export const {
   usePlayerProfileQuery,
-  useLazyPlayerProfileQuery,
+  usePlayerReportQuery,
   usePlayerOverviewQuery,
+  useLazyPlayerProfileQuery,
   useLazyPlayerReportQuery,
 } = playerApi

@@ -1,7 +1,6 @@
 import DateTimePicker from '@react-native-community/datetimepicker'
 import Modal from 'app/components/modal'
 import useLocalization from 'app/provider/localization'
-import { styled, View } from 'dripsy'
 import React, { FC, useState } from 'react'
 
 interface DatePickerModalIOSProps {

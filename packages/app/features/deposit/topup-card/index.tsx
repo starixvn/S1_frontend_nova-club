@@ -19,29 +19,8 @@ import { useDispatch } from 'react-redux'
 import { AlertActions } from 'app/store/alert'
 import { useRouter } from 'solito/router'
 import { DepositPaymentMethodCategoryId, TopUpCard } from 'app/utils/constant'
-import {
-  AutoBankItem,
-  ManualBankItem,
-  PlayerInputFieldsBank,
-} from 'services/deposit.type'
-
-const dataPayment = [
-  {
-    id: 1,
-    title: 'vietel',
-    logo: require('app/assets/images/deposit/vietel.png'),
-  },
-  {
-    id: 2,
-    title: 'vinaphone',
-    logo: require('app/assets/images/deposit/vinaphone.png'),
-  },
-  {
-    id: 3,
-    title: 'mobifone',
-    logo: require('app/assets/images/deposit/mobifone.png'),
-  },
-]
+import { PlayerInputFieldsBank } from 'services/deposit.type'
+import { useModal } from 'react-native-modalfy'
 
 const data1 = [
   '10k',
@@ -90,6 +69,7 @@ const TopUpCardScreen = () => {
   const { t } = useLocalization()
   const dispatch = useDispatch()
   const { back } = useRouter()
+  const { openModal } = useModal()
   const [postSubmitDeposit] = useSubmitDepositMutation()
   const { data, isLoading, isFetching } = useDepositPaymentListQuery()
   const paymentGateway = data?.data?.result.auto.find(
@@ -151,8 +131,7 @@ const TopUpCardScreen = () => {
 
       if (success) {
         dispatch(AlertActions.addSuccess(message))
-
-        back()
+        actions.resetForm()
       }
     } catch (e) {
       dispatch(AlertActions.addError('common.systemError'))
@@ -219,6 +198,13 @@ const TopUpCardScreen = () => {
         cardSerialNo: cleanText,
       })
     }
+  }
+
+  function handleConfirmDeposit() {
+    openModal('DepositConfirmationModal', {
+      amount: values.realAmount,
+      callback: () => submitForm(),
+    })
   }
 
   return (
@@ -309,14 +295,17 @@ const TopUpCardScreen = () => {
         </View>
 
         <StyledViewButtonWrapper
-          colors={values.realAmount !== 0 ? ['#066D9A', '#05232E'] : ['', '']}
+          colors={
+            values.realAmount !== 0
+              ? ['#066D9A', '#05232E']
+              : ['#00000000', '#00000000']
+          }
           isValid={values.realAmount !== 0}
         >
           {values.realAmount !== 0 && (
             <View sx={{ mb: '$3' }}>
               <StyledViewTextWrapper>
                 <Text sx={{ flex: 1 }}>{t('deposit.deduction')}</Text>
-                {/* <Text>VND</Text> */}
                 <Text>
                   {toCurrency(
                     -Math.round(values.realAmount * DEDUCTION_AMOUNT)
@@ -337,6 +326,7 @@ const TopUpCardScreen = () => {
           <Button
             rounded
             stretch
+            loading={isSubmitting}
             disabled={!isValid || !dirty}
             variant="lg"
             fill={{
@@ -348,7 +338,7 @@ const TopUpCardScreen = () => {
             sx={{
               my: '$10',
             }}
-            onPress={submitForm}
+            onPress={handleConfirmDeposit}
           >
             <Button.Label>Next</Button.Label>
           </Button>
@@ -385,11 +375,14 @@ const StyledViewButtonWrapper = styled(DripsyGradient)(
   ({ isValid }: { isValid: boolean }) => ({
     py: '$10',
     px: '$8',
+    overflow: 'hidden',
     borderColor: isValid ? '$border2' : '$transparent',
+    borderRadius: 24,
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
-    borderWidth: 2,
-    borderBottomWidth: 0,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+    borderTopWidth: 1,
   })
 )
 export default TopUpCardScreen

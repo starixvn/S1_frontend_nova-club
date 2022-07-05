@@ -290,5 +290,6 @@ const TextInputHints = styled(View)(() => ({
 TextField.Label = TextFieldLabel
 TextField.TextInput = TextFieldInput
 TextField.Select = TextFieldSelect
+TextField.Error = ErrorText
 
 export { TextField }

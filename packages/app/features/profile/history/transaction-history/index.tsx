@@ -95,15 +95,21 @@ const renderItem = ({ item }) => {
   return (
     <GradientBox>
       <View
-        sx={{ flex: 1, alignSelf: 'stretch', flexDirection: 'row', p: '$3' }}
+        sx={{
+          flex: 1,
+          alignSelf: 'stretch',
+          flexDirection: 'row',
+          p: '$3',
+          alignItems: 'center',
+        }}
       >
-        <View style={{ flex: CELL_DATE_WIDTH, alignSelf: 'stretch' }}>
+        <View style={{ flex: CELL_DATE_WIDTH }}>
           <DateTimeCell date={item.date} />
         </View>
-        <View style={{ flex: CELL_AMOUNT_WIDTH, alignSelf: 'stretch' }}>
+        <View style={{ flex: CELL_AMOUNT_WIDTH }}>
           <Text sx={{ textAlign: 'center' }}>{item.amount}</Text>
         </View>
-        <View style={{ flex: CELL_STATUS_WIDTH, alignSelf: 'stretch' }}>
+        <View style={{ flex: CELL_STATUS_WIDTH }}>
           <Text
             sx={{ textAlign: 'center', color: getStatusColor(item.status) }}
           >

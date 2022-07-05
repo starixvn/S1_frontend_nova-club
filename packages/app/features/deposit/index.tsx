@@ -17,6 +17,7 @@ import {
   DepositPaymentMethodCategoryId,
   DepositPaymentMethodCategoryType,
 } from 'app/utils/constant'
+import DepositConfirmationModal from 'app/components/modal/DepositConfirmationModal'
 
 export enum DepositMethodId {
   LOCAL_BANK = 1,

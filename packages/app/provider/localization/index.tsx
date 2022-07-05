@@ -1,7 +1,7 @@
-import i18n from 'app/assets/locales'
 import { Scope, TranslateOptions } from 'i18n-js'
 import React, { createContext, useContext, useMemo } from 'react'
 import { useAppSelector } from '../redux/store'
+import i18n from './i18n'
 
 const LocalizationContext = createContext<{
   t: (scope: Scope, options?: TranslateOptions) => string

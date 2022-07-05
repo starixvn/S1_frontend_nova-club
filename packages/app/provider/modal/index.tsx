@@ -1,15 +1,55 @@
+import DepositConfirmationModal from 'app/components/modal/DepositConfirmationModal'
+import PlayerBankDeleteModal from 'app/components/modal/PlayerBankDeleteModal'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { Text, View } from 'dripsy'
 import React from 'react'
-import { Platform } from 'react-native'
+import { Easing, Platform } from 'react-native'
 import {
   ModalProvider as RNMModalProvider,
   createModalStack,
 } from 'react-native-modalfy'
 
 /* Consider using this modal for other temporarily / not fullscreen modal  */
-
-const defaultOptions = { backdropOpacity: 0.6 }
+const defaultOptions = {
+  transitionOptions: (animatedValue) => ({
+    opacity: animatedValue.interpolate({
+      inputRange: [0, 1, 2],
+      outputRange: [0, 1, 0.9],
+    }),
+    transform: [
+      {
+        perspective: 2000,
+      },
+      {
+        translateY: animatedValue.interpolate({
+          inputRange: [0, 1, 2],
+          outputRange: [0, 0, -300],
+        }),
+      },
+      {
+        rotateX: animatedValue.interpolate({
+          inputRange: [0, 1, 2],
+          outputRange: ['0deg', '0deg', '90deg'],
+          extrapolate: 'clamp',
+        }),
+      },
+      {
+        scale: animatedValue.interpolate({
+          inputRange: [0, 1, 2],
+          outputRange: [0.1, 1, 0.9],
+        }),
+      },
+    ],
+  }),
+  animateInConfig: {
+    easing: Easing.bezier(0.42, -0.03, 0.27, 0.95),
+    duration: 450,
+  },
+  animateOutConfig: {
+    easing: Easing.bezier(0.42, -0.03, 0.27, 0.95),
+    duration: 450,
+  },
+}
 
 const modalConfig = {
   PreLaunchGame: () => {
@@ -21,13 +61,12 @@ const modalConfig = {
       </View>
     )
   },
+  DepositConfirmationModal: DepositConfirmationModal,
+  PlayerBankDeleteModal: PlayerBankDeleteModal,
 }
 
 const stack = createModalStack(modalConfig, {
   backdropOpacity: 0.6,
-  containerStyle: {
-    backgroundColor: 'red',
-  },
 })
 
 const ModalProvider = ({ children }) => (
