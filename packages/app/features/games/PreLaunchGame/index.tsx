@@ -1,25 +1,24 @@
 import { Button } from 'app/components/form/Button'
 import { DripsyGradient } from 'app/components/Gradient'
-import { transferAllToMainWallet } from 'app/custom_services/walletApi'
 import withContextualNav from 'app/navigation/web/withContextualNav'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { AlertActions } from 'app/store/alert'
-import { PLATFORM_CODE, WALLET } from 'app/utils/constant'
+import { PLATFORM_CODE } from 'app/utils/constant'
 import { getErrorMessage } from 'app/utils/validation'
-import { ActivityIndicator, View } from 'dripsy'
+import { View } from 'dripsy'
 import { useCallback, useEffect, useState } from 'react'
 import { Linking, Platform } from 'react-native'
 import { useLazyGetGameUrlQuery } from 'services/gameApi'
 import {
   usePlayerBalanceQuery,
   usePlayerWalletDetailQuery,
+  useTransferAllToOneMutation,
   useTransferMutation,
 } from 'services/wallet'
 import { useRouter } from 'solito/router'
-import { sleep } from 'utils/common'
 import GameAmount from './GameAmount'
 import GameRewards from './GameRewards'
 import TopHeader from './TopHeader'
@@ -32,17 +31,25 @@ const enum ERROR {
 type WalletDetail = {
   isMaintenance: boolean
   id: number
+  seamless: number
 }
 
 function useGameBalanceRule() {
   const [isBalanceReady, setBalanceReady] = useState(true)
-  const [walletDetails, setWalletDetails] =
-    useState<{ [index: string]: WalletDetail }>()
+  const [walletDetails, setWalletDetails] = useState<{
+    [index: string]: WalletDetail
+  }>()
   const [isGameRunning, setIsGameRunning] = useState(false)
   const [isTransferringToMain, setIsTransferringToMain] = useState(false)
   const [transfer] = useTransferMutation()
 
-  const { data: walletDetailsRaw, isFetching } = usePlayerWalletDetailQuery()
+  const { data: walletDetailsRaw, isFetching } = usePlayerWalletDetailQuery(
+    undefined,
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  )
+  const [transferAllToOne] = useTransferAllToOneMutation()
 
   useEffect(() => {
     const detailResponse = walletDetailsRaw?.data
@@ -56,6 +63,7 @@ function useGameBalanceRule() {
               isMaintenance:
                 (detail?.maintenance && detail.maintenance === 'true') ?? false,
               id: Number(id),
+              seamless: detail?.seamless ?? 0,
             },
           }
         }, {})
@@ -78,44 +86,33 @@ function useGameBalanceRule() {
 
   async function transferToGame() {
     // transfer single vendor wallet to main wallet
-    if (playerBalance?.data?.main.balance != null) {
-      return transfer({
-        amount: Number(playerBalance?.data?.main.balance),
-        transfer_from: 0,
-        transfer_to: walletDetails
-          ? walletDetails[targetProvider ?? '']?.id ?? 0
-          : 0,
-      })
+    try {
+      if (playerBalance?.data?.main.balance != null && walletDetails) {
+        const isSeamless = walletDetails[targetProvider ?? '']?.seamless
+
+        if (!isSeamless) {
+          await transfer({
+            amount: Number(playerBalance?.data?.main.balance),
+            transfer_from: 0,
+            transfer_to: walletDetails[targetProvider ?? '']?.id ?? 0,
+          }).unwrap()
+        }
+      }
+    } catch (error) {
+      throw error
     }
   }
 
   async function transferAllToMain() {
     try {
       setIsTransferringToMain(true)
-      const response = await transferAllToMainWallet(playerBalance?.data)
-      console.log('response, response', response)
-      /* for now we assume all success first */
-      for (const result of response) {
-        if (result) {
-          if (result.error?.code === ERROR.SYSTEM_ERROR) {
-            return {
-              isSuccess: false,
-              errorMessage: result.error?.message,
-            }
-          }
-        }
-      }
 
-      return {
-        isSuccess: true,
-        errorMessage: '',
-      }
+      await transferAllToOne({
+        transfer_from: 999,
+        transfer_to: 0,
+      }).unwrap()
     } catch (error) {
-      console.log('err', error)
-      return {
-        isSuccess: false,
-        errorMessage: getErrorMessage(error),
-      }
+      throw error
     } finally {
       setIsTransferringToMain(false)
     }
@@ -154,7 +151,6 @@ function useGameBalanceRule() {
       ? walletDetails[targetProvider]?.isMaintenance
       : false
 
-  console.log('isTargetProviderMaintenance', isTargetProviderMaintenance)
   return {
     // Ready when done translfer all
     refreshWallet: refetch,
@@ -186,8 +182,9 @@ function useGameLauncher(gameLauncherState) {
         is_mobile:
           Platform.OS === 'web' ? PLATFORM_CODE.WEB : PLATFORM_CODE.APP,
         platform_code: providerCode,
-      })
-      const url = data?.data?.url
+      }).unwrap()
+
+      const url = data?.url
 
       if (url) {
         if (Platform.OS === 'web') {
@@ -203,6 +200,7 @@ function useGameLauncher(gameLauncherState) {
         }
       }
     } catch (e) {
+      throw e
     } finally {
       setVerifying(false)
     }
@@ -218,6 +216,7 @@ const PreLaunchGame = ({}) => {
   const { t } = useLocalization()
   const gameLauncherState = useAppSelector((s) => s.gameLauncher)
   const [agree, setAgree] = useState(false)
+  const [isLaunchingGame, setIsLaunchingGame] = useState(false)
   const dispatch = useAppDispatch()
 
   const { launchGame, isVerifying } = useGameLauncher(gameLauncherState)
@@ -239,18 +238,35 @@ const PreLaunchGame = ({}) => {
   const isSaba = providerCode === 'SABA'
 
   async function onLauchGame() {
-    // try to transfer to target wallet
-    // const resp = await transferToGame()
+    setIsLaunchingGame(true)
 
-    launchGame()
+    try {
+      await transferToGame()
+      await launchGame()
+      refreshWallet()
+    } catch (error) {
+      const errorMessage = getErrorMessage(error)
+      dispatch(
+        AlertActions.addError({
+          message: errorMessage,
+        })
+      )
+    } finally {
+      setIsLaunchingGame(false)
+    }
   }
   async function quitGame() {
-    const { isSuccess, errorMessage } = await transferAllToMain()
+    try {
+      await transferAllToMain()
 
-    if (isSuccess) {
       refreshWallet()
-    } else {
-      dispatch(AlertActions.addError(errorMessage))
+    } catch (error) {
+      const errorMessage = getErrorMessage(error)
+      dispatch(
+        AlertActions.addError({
+          message: errorMessage,
+        })
+      )
     }
   }
 
@@ -278,7 +294,8 @@ const PreLaunchGame = ({}) => {
           loading={
             isCheckingBalance ||
             isTransferringToMain ||
-            !isWalletDetailsAvailable
+            !isWalletDetailsAvailable ||
+            isLaunchingGame
           }
           disabled={
             (isSaba && !agree) ||
@@ -297,7 +314,7 @@ const PreLaunchGame = ({}) => {
           }}
           onPress={isGameRunning ? quitGame : onLauchGame}
         >
-          <Button.Label>{label}</Button.Label>
+          <Button.Label sx={{ fontSize: [15, 16] }}>{label}</Button.Label>
         </Button>
       </View>
     </DripsyGradient>

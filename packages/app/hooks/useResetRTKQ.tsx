@@ -1,7 +1,7 @@
-import enhancedWalletApi from 'app/custom_services/walletApi'
 import { useCallback, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../provider/redux/store'
 import { AuthActions } from '../store/authReducer'
+import walletApi from 'services/wallet'
 
 const useResetRTKQ = () => {
   const dispatch = useAppDispatch()
@@ -11,7 +11,7 @@ const useResetRTKQ = () => {
 
   const clearRTKQState = useCallback(() => {
     if (isLogoutTriggered) {
-      dispatch(enhancedWalletApi.util.resetApiState())
+      dispatch(walletApi.util.resetApiState())
 
       dispatch(AuthActions.setIsLogoutActionTriggered(false))
     }

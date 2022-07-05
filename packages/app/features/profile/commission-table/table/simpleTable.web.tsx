@@ -53,7 +53,7 @@ const SimpleTable = () => {
 
   const { data, isLoading } = useCommissionTableQuery({
     // WIP: Currency should not be hardcoded
-    currency: currencyListMapper[Currency.VND]!,
+    currency: Currency.VND,
   })
 
   const tableInstance = useTableInstance(table, {

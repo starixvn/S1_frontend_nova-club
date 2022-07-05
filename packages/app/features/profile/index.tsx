@@ -24,9 +24,6 @@ const ProfileScreen = () => {
 
   useEffect(() => {
     !isLoading && setRefreshing(isFetching)
-    if (data?.data) {
-      dispatch(PlayerActions.setUser(data?.data))
-    }
   }, [data, dispatch, isFetching, isLoading])
 
   return (

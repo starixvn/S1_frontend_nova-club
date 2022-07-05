@@ -56,12 +56,9 @@ export type TransferResult = {
  * *Transfer All to One
  */
 export type TransferAllToOneArgs = {
-  game_code: string
-  is_demo: number
-  is_mobile: number
-  platform_code: string
+  transfer_from: number
+  transfer_to: number
+  username?: string
 }
 
-export type TransferAllToOneResult = {
-  url: string
-}
+export type TransferAllToOneResult = {}
