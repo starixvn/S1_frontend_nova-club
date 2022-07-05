@@ -12,7 +12,7 @@ import pokemonApi from 'services/pokemon'
 import walletApi from 'services/wallet'
 import withdrawalApi from 'services/withdrawal'
 import { alertReducer } from 'app/store/alert'
-import authReducer from 'app/store/authReducer'
+import authReducer, { authInitialState, AuthState } from 'app/store/authReducer'
 import bankReducer from 'app/store/bankReducer'
 import { gameLauncherReducer } from 'app/store/gameLauncher.slice'
 
@@ -20,6 +20,7 @@ import { settingReducer } from 'app/store/setting.slice'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import {
   createMigrate,
+  createTransform,
   PersistConfig,
   PersistedState,
   persistReducer,
@@ -38,6 +39,20 @@ const persistConfig: PersistConfig<any> = {
   storage,
   whitelist: ['auth'],
   migrate: createMigrate(migrations, { debug: true }),
+  transforms: [
+    createTransform<AuthState, Omit<AuthState, 'isLogoutActionTriggered'>>(
+      // transform state on its way to being serialized and persisted.
+      (inboundState, key) => {
+        const { isLogoutActionTriggered, ...restInboundState } = inboundState
+        return restInboundState
+      },
+      // transform state being rehydrated
+      (outboundState, key) => {
+        return { ...authInitialState, ...outboundState }
+      },
+      { whitelist: ['auth'] }
+    ),
+  ],
 }
 
 const middlerwares = [

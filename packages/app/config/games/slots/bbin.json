@@ -2,12 +2,14 @@
   {
     "gameName": "Alien War",
     "providerCode": "BBIN",
-    "gameCode": "5005"
+    "gameCode": "5005",
+    "new": "true"
   },
   {
     "gameName": "Staronic",
     "providerCode": "BBIN",
-    "gameCode": "5006"
+    "gameCode": "5006",
+    "new": "true"
   },
   {
     "gameName": "Monkey GoGo",

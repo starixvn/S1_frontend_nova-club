@@ -1,5 +1,5 @@
 import AllLiveCasinoGames from 'app/config/games/liveCasino'
-import { SlotGame } from 'app/config/games/slots/slot.type'
+import { GameConfig } from 'app/global'
 import useLocalization from 'app/provider/localization'
 import { LiveCasinoGenreOptions } from 'app/utils/constant'
 import { useMemo, useState } from 'react'
@@ -41,9 +41,9 @@ export default function useLiveCasinoFilter(
   }, [gamesByProvider])
 
   const filteredGames = useMemo(() => {
-    let result: SlotGame[] = allGames
+    let result: GameConfig[] = allGames
     if (selectedProvider.value !== 'all') {
-      result = gamesByProvider[selectedProvider.value] as SlotGame[]
+      result = gamesByProvider[selectedProvider.value] as GameConfig[]
     }
 
     if (selectedGenre?.value !== 'all') {

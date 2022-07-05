@@ -3,7 +3,7 @@ import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstan
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import { PlayerActions } from 'app/store/authReducer'
+import { AuthActions } from 'app/store/authReducer'
 import { ScrollView, Text } from 'dripsy'
 import React, { useEffect } from 'react'
 import { RefreshControl } from 'react-native'

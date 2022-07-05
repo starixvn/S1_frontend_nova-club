@@ -8,10 +8,12 @@ export type AuthState = {
   info?: LoginResult
   tokenList?: TokenType[]
   user: ProfileResult | undefined
+  isLogoutActionTriggered: boolean
 }
 
 export const authInitialState: AuthState = {
   user: undefined,
+  isLogoutActionTriggered: false,
 }
 
 const playerSlice = createSlice({
@@ -24,15 +26,18 @@ const playerSlice = createSlice({
     setUser: (state, action: PayloadAction<ProfileResult>) => {
       state.user = action.payload
     },
+    setIsLogoutActionTriggered: (state, action: PayloadAction<boolean>) => {
+      state.isLogoutActionTriggered = action.payload
+    },
   },
   extraReducers: {
     LOGOUT: () => {
-      return authInitialState
+      return { authInitialState, isLogoutActionTriggered: true }
     },
   },
 })
 
 const { reducer: authReducer, actions } = playerSlice
-export const PlayerActions = actions
+export const AuthActions = actions
 
 export default authReducer

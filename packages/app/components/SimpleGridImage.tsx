@@ -3,6 +3,7 @@ import { HOME_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import BouncePressable from 'app/pressable/BouncePressable'
+import useLocalization from 'app/provider/localization'
 import { GameLauncherActions } from 'app/store/gameLauncher.slice'
 import { Image, styled, SxProp, Text, View } from 'dripsy'
 import { FC, memo } from 'react'
@@ -30,6 +31,7 @@ const SimpleGridImage: FC<GamesProps> = ({
   const dispatch = useDispatch()
   const urlImage = typeof image == 'string' && image.indexOf('http') > -1
   const img = urlImage ? { uri: image } : image
+  const { t } = useLocalization()
   return (
     <BouncePressable
       sx={{ width, ...sx }}
@@ -44,7 +46,7 @@ const SimpleGridImage: FC<GamesProps> = ({
       }}
     >
       <Image
-        resizeMode="cover"
+        resizeMode="contain"
         source={img}
         sx={{
           width,
@@ -61,7 +63,7 @@ const SimpleGridImage: FC<GamesProps> = ({
             fontSize: 15,
           }}
         >
-          {title}
+          {t(title)}
         </Text>
       )}
     </BouncePressable>

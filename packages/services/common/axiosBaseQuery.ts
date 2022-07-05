@@ -13,7 +13,7 @@ export function axiosBaseQuery<T>(): BaseQueryFn<
   IResponse<T>,
   IResponse<T>
 > {
-  return async ({ url, data, method = 'POST', headers }) => {
+  return async ({ url, data, method = 'POST', headers }, { signal }) => {
     try {
       const { data: respData } = await axiosInstance.request<
         never,
@@ -23,6 +23,7 @@ export function axiosBaseQuery<T>(): BaseQueryFn<
         method,
         data,
         headers,
+        signal,
       })
       const { code } = respData
 

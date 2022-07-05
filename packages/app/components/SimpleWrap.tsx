@@ -5,21 +5,21 @@ import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstan
 import { styled, View } from 'dripsy'
 import SimpleGridImage from './SimpleGridImage'
 
-const SimpleWrap = ({ data }) => {
-  const { containerSpace, itemSpace, contentWidth } = useGameGridSize()
+const SimpleWrap = ({ data, col = 3, context }) => {
+  const { containerSpace, itemSpace, contentWidth } = useGameGridSize(col)
   return (
     <StyledWrapItem sx={{ p: containerSpace }}>
       {data.map((item, rindex) => {
         return (
           <SimpleGridImage
             sx={{ m: itemSpace }}
-            context={ContextualModuleKey.Sportsbook}
+            context={context}
             key={item.gameName}
             gameName={item.gameName}
             providerCode={item.providerCode}
             gameCode={item.gameCode}
             image={item.image}
-            title={item.gameName}
+            title={item.vi ?? item.gameName}
             width={contentWidth}
           />
         )

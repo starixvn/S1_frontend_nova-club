@@ -304,3 +304,7 @@ export enum TopUpCard {
   VIETTEL = 'VT',
   VINAPHONE = 'Vina',
 }
+
+export enum WALLET {
+  MAIN_WALLET,
+}

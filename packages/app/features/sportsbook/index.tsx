@@ -15,9 +15,12 @@ const Sportsbook = () => {
   return (
     <Page.ScrollView>
       <ListSectionHeader title={'Sportsbook'} bgColor="yellow" iconName="sb" />
-      <SimpleWrap data={sport.gameList} />
+      <SimpleWrap
+        data={sport.gameList}
+        context={ContextualModuleKey.Sportsbook}
+      />
     </Page.ScrollView>
   )
 }
 
-export default withContextualNav(Sportsbook, ContextualModuleKey.Home)
+export default withContextualNav(Sportsbook, ContextualModuleKey.Sportsbook)

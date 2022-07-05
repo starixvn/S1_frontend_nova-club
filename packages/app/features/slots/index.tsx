@@ -2,8 +2,7 @@ import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Select from 'app/components/form/Select'
 import { PageSafeArea } from 'app/components/layout/Page'
 import SimpleGridImage from 'app/components/SimpleGridImage'
-import { SlotGame } from 'app/config/games/slots/slot.type'
-import { HOME_PADDING } from 'app/constant/sizes'
+import { GameConfig } from 'app/global'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useGameGridSize from 'app/hooks/useGameGridSize'
 import withContextualNav from 'app/navigation/web/withContextualNav'
@@ -25,7 +24,7 @@ const Slots = withContextualNav(() => {
   const { width } = useContainerDimension()
 
   const { contentWidth, itemSpace, containerSpace } = useGameGridSize()
-  const renderSlotItem = ({ item }: { item: SlotGame }) => {
+  const renderSlotItem = ({ item }: { item: GameConfig }) => {
     const { gameCode, providerCode, gameName } = item
     const imageUrl = `${MEDIA_DOMAIN}${CONTENT_URI}/games/${providerCode.toLowerCase()}/${gameCode.toLowerCase()}.${
       SlotImageExtensionMapping[providerCode.toLowerCase()] ?? 'jpg'
@@ -38,7 +37,7 @@ const Slots = withContextualNav(() => {
         providerCode={item.providerCode}
         gameCode={item.gameCode}
         image={imageUrl}
-        title={item.gameName}
+        title={item.vi ?? item.gameName}
         context={ContextualModuleKey.Slot}
         width={contentWidth}
       />
@@ -88,7 +87,7 @@ const Slots = withContextualNav(() => {
         </Row>
       </ListSectionHeader>
 
-      <FlatList<SlotGame>
+      <FlatList
         numColumns={3}
         style={sx({ bg: '$background', flex: 1 })}
         contentContainerStyle={{ padding: containerSpace }}

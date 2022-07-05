@@ -13,8 +13,8 @@ import { FlatList, Platform } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import ListSectionHeader from '../ListSectionHeader'
 import useLiveCasinoFilter from './useLiveCasinoFilter'
-import { SlotGame } from 'app/config/games/slots/slot.type'
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import { GameConfig } from 'app/global'
 
 const LiveCasinoImageExtensionMapping = {
   cq9: 'png',
@@ -38,7 +38,7 @@ const LiveCasino = withContextualNav(() => {
 
   const { containerSpace, itemSpace, contentWidth } = useGameGridSize()
 
-  const renderItem = ({ item }: { item: SlotGame }) => {
+  const renderItem = ({ item }: { item: GameConfig }) => {
     const { gameCode, providerCode, gameName } = item
     const imageUrl = `${MEDIA_DOMAIN}${CONTENT_URI}/games/${providerCode.toLowerCase()}/${gameCode.toLowerCase()}.${
       LiveCasinoImageExtensionMapping[providerCode.toLowerCase()] ?? 'jpg'
@@ -51,8 +51,8 @@ const LiveCasino = withContextualNav(() => {
         providerCode={item.providerCode}
         gameCode={item.gameCode}
         image={imageUrl}
-        title={item.gameName}
-        context={ContextualModuleKey.Slot}
+        title={item.vi ?? item.gameName}
+        context={ContextualModuleKey.LiveCasino}
         width={contentWidth}
       />
     )

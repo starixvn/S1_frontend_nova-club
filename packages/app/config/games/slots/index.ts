@@ -2,10 +2,10 @@ import bbin from './bbin.json'
 import jdbg from './jdbg.json'
 import cq9 from './cq9.json'
 import haba from './haba.json'
-import { SlotGame } from './slot.type'
+import { GameConfig } from 'app/global'
 
 const AllSlotGames: {
-  [index: string]: SlotGame[]
+  [index: string]: GameConfig[]
 } = {
   bbin,
   jdbg,
