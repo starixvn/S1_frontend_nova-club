@@ -16,6 +16,7 @@ export enum ContextualModuleKey {
   Slot = 'slot',
   Sportsbook = 'sportsbook',
   LiveCasino = 'casino',
+  Fishing = 'fishing',
 }
 
 // Ignore Dynamic import warning, as module: "esnext" is configured at app/next tsconfig.
@@ -40,6 +41,7 @@ const contextualComponents = {
   'game-url': () => import('../../features/games/GameLoaderPage'),
   'commission-table': () => import('../../features/profile/commission-table'),
   messages: () => import('../../features/messages'),
+  'customer-support': () => import('../../features/customerSupport'),
 }
 
 export function getContextualComponent(key: string) {

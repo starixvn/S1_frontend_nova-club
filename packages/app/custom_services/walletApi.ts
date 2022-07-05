@@ -1,7 +1,7 @@
 import { store } from 'app/provider/redux/store'
 import { WALLET } from 'app/utils/constant'
 import walletApi from 'services/wallet'
-import { PlayerBalanceResult } from 'services/wallet.type'
+import { PlayerBalanceData, PlayerBalanceResult } from 'services/wallet.type'
 
 export const transferAllToMainWallet = async (
   walletLists?: PlayerBalanceResult
@@ -16,27 +16,25 @@ export const transferAllToMainWallet = async (
 
     if (!vendorWalletKeyLists.length) return
 
-    const vendorWalletPromises: Promise<any>[] = []
+    const vendorWalletPromises = vendorWalletKeyLists.map(
+      (vendorName: string) => {
+        const vendorWallet = walletLists[vendorName]
 
-    vendorWalletKeyLists.forEach((vendorName: string) => {
-      const vendorWallet = walletLists[vendorName]
+        if (vendorWallet) {
+          const { balance } = vendorWallet
 
-      if (vendorWallet) {
-        const { balance } = vendorWallet
-
-        if (Number(balance) > 0) {
-          const transferWalletPromise = store.dispatch(
-            walletApi.endpoints.transfer.initiate({
-              amount: Number(balance),
-              transfer_from: Number(vendorName),
-              transfer_to: WALLET.MAIN_WALLET,
-            })
-          )
-
-          vendorWalletPromises.push(transferWalletPromise)
+          if (Number(balance) > 0) {
+            return store.dispatch(
+              walletApi.endpoints.transfer.initiate({
+                amount: Number(balance),
+                transfer_from: Number(vendorName),
+                transfer_to: WALLET.MAIN_WALLET,
+              })
+            )
+          }
         }
       }
-    })
+    )
 
     return await Promise.all(vendorWalletPromises)
   } catch (error) {

@@ -26,7 +26,17 @@ export type PlayerWalletDetailArgs = {
 }
 
 export type PlayerWalletDetailResult = {
-  result: string
+  [index: string]: PlayerWalletDetail
+}
+
+export type PlayerWalletDetail = {
+  maintenance: string
+  seamless: number
+  seq: number
+  system_code: string
+  system_name: string
+  transfer_max_amount: string
+  transfer_min_amount: string
 }
 
 /**
@@ -36,7 +46,6 @@ export type TransferArgs = {
   amount: number
   transfer_from: number
   transfer_to: number
-  username?: string
 }
 
 export type TransferResult = {
@@ -51,7 +60,6 @@ export type TransferAllToOneArgs = {
   is_demo: number
   is_mobile: number
   platform_code: string
-  username?: string
 }
 
 export type TransferAllToOneResult = {

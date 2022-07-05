@@ -133,8 +133,16 @@
     }
   },
   "game": {
+    "name": {
+      "sports": "Sports",
+      "btiSports": "BTI Sports",
+      "virtualSports": "Virtual Sports",
+      "esports": "E-Sports",
+      "imEsports": "IM E-Sports"
+    },
     "enterGame": "Enter Game",
     "quitGame": "Quit Game",
+    "underMaintenance": "Game Under Maintenance",
     "category": {
       "sportsbook": "Sportsbook",
       "games": "Games",

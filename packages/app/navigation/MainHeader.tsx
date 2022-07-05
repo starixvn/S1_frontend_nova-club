@@ -15,38 +15,40 @@ import { Platform, StatusBar } from 'react-native'
 import { useRouter } from 'solito/router'
 import MainMenu from './MainMenu'
 import { usePlayerBalanceQuery } from 'app/custom_services/walletApi'
+import useContextualRouting from 'app/hooks/useContextualRouting'
+import { ContextualModuleKey } from './web/withContextualNavConstant'
 
 const MainHeader = () => {
-  const isIOS = Platform.OS === 'ios'
-  const isAndroid = Platform.OS === 'android'
   const { width } = useContainerDimension()
   const [showMenu, setShowMenu] = useState(false)
+
+  const { makeContextualHref } = useContextualRouting(ContextualModuleKey.Home)
   const [mainWalletBalance, setMainWalletBalance] = useState(0)
   const sx = useSx()
   const { push } = useRouter()
 
-  const { data: playerBalance, isLoading: isMainWalletLoading } =
-    usePlayerBalanceQuery()
+  const {
+    data: playerBalance,
+    isFetching: isMainWalletLoading,
+    refetch,
+  } = usePlayerBalanceQuery()
 
   //change to icon
   const MENU_ROW = [
     {
       img: require('../assets/images/header/deposit.png'),
       action: () => {
-        console.log('deposit')
+        push(makeContextualHref('deposit'), 'deposit')
       },
     },
     {
       img: require('../assets/images/header/wallet.png'),
-      action: () => {
-        console.log('wallet')
-      },
+      action: () => refetch(),
     },
     {
       img: require('../assets/images/header/avatar.png'),
       action: () => {
-        console.log('profile')
-        push('/profile')
+        push(makeContextualHref('profile'), 'profile')
       },
     },
     {
@@ -112,37 +114,47 @@ const MainHeader = () => {
                         height: iconHeight,
                       }}
                     >
-                      {isMainWalletLoading ? (
-                        <ActivityIndicator size={23} sx={{ px: '$1' }} />
-                      ) : (
-                        <View sx={{ position: 'relative' }}>
-                          <StyledBgImage
-                            source={require('../assets/images/header/walletbg.png')}
-                            resizeMode="contain"
-                          />
-
-                          <View
-                            sx={{
-                              position: 'absolute',
-                              left: 0,
-                              right: 0,
-                              top: 0,
-                              bottom: 0,
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                            }}
-                          >
-                            <StyledWalletImg
-                              source={i.img}
+                      <View
+                        sx={{
+                          position: 'relative',
+                          width: [35, 40],
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        {isMainWalletLoading ? (
+                          <ActivityIndicator size={23} sx={{ px: '$1' }} />
+                        ) : (
+                          <>
+                            <StyledBgImage
+                              source={require('../assets/images/header/walletbg.png')}
                               resizeMode="contain"
                             />
-                          </View>
-                        </View>
-                      )}
+
+                            <View
+                              sx={{
+                                position: 'absolute',
+                                left: 0,
+                                right: 0,
+                                top: 0,
+                                bottom: 0,
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                              }}
+                            >
+                              <StyledWalletImg
+                                source={i.img}
+                                resizeMode="contain"
+                              />
+                            </View>
+                          </>
+                        )}
+                      </View>
+
                       <Text
                         variant="sm"
                         numberOfLines={1}
-                        sx={{ flex: 1, color: '$yellow' }}
+                        sx={{ color: '$yellow', fontSize: [14, 16] }}
                       >
                         {mainWalletBalance}
                       </Text>
@@ -183,13 +195,13 @@ const StyledContainer = styled(View)({
 const StyledLogo = styled(Image)({})
 
 const StyledBgImage = styled(Image)({
-  width: [30, 50],
-  height: [30, 50],
+  width: [35, 40],
+  height: [35, 40],
 })
 
 const StyledWalletImg = styled(Image)({
-  width: [10, 12],
-  height: [20, 12],
+  width: 10,
+  height: 20,
 })
 
 const StyledImg = styled(Image)({
@@ -201,8 +213,7 @@ const StyledSearchBox = styled(View)({
   bg: 'rgb(48,89,117)',
   flexDirection: 'row',
   justifyContent: 'space-between',
-  pr: '$2',
-  pl: '$1',
+  pr: '$3',
   overflow: 'hidden',
   alignItems: 'center',
 })

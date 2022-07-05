@@ -59,10 +59,10 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
     }
   }
 
-  const cacheControlNeeded = ['/player_api/transfer']
-  if (cacheControlNeeded.includes(url!)) {
-    config.headers['Cache-Control'] = 'no-cache'
-  }
+  // const cacheControlNeeded = ['/player_api/transfer']
+  // if (cacheControlNeeded.includes(url!)) {
+  //   config.headers['Cache-Control'] = 'no-cache'
+  // }
 
   const fraudDetectionNeeded = ['/player_api/createPlayer', '/player_api/login']
 

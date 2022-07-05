@@ -14,12 +14,20 @@ const Fishing = () => {
 
   return (
     <ScrollView sx={{ bg: '$background' }} showsVerticalScrollIndicator={false}>
-      <ListSectionHeader title={'fishing'} bgColor="yellow" iconName="sb" />
+      <ListSectionHeader
+        title={'game.category.fishing'}
+        bgColor="yellow"
+        iconName="sb"
+      />
       <View>
-        <SimpleWrap data={fishing.gameList} showTitle={false} />
+        <SimpleWrap
+          data={fishing.gameList}
+          col={3}
+          context={ContextualModuleKey.Fishing}
+        />
       </View>
     </ScrollView>
   )
 }
 
-export default withContextualNav(Fishing, ContextualModuleKey.Home)
+export default withContextualNav(Fishing, ContextualModuleKey.Fishing)

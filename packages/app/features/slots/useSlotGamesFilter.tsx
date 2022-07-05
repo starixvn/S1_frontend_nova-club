@@ -1,5 +1,5 @@
 import AllSlotGames from 'app/config/games/slots'
-import { SlotGame } from 'app/config/games/slots/slot.type'
+import { GameConfig } from 'app/global'
 import useLocalization from 'app/provider/localization'
 import { SlotType, SlotTypeOptions } from 'app/utils/constant'
 import { useMemo, useRef, useState } from 'react'
@@ -34,9 +34,9 @@ function useSlotGamesFilter() {
   }, [])
 
   const filteredGames = useMemo(() => {
-    let result: SlotGame[] = allSlotGames
+    let result: GameConfig[] = allSlotGames
     if (selectedProvider.value !== 'all') {
-      result = AllSlotGames[selectedProvider.value] as SlotGame[]
+      result = AllSlotGames[selectedProvider.value] as GameConfig[]
     }
 
     if (selectedSlotType?.value !== SlotType.ALL) {

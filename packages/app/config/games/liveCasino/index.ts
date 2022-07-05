@@ -1,9 +1,9 @@
 import haba from './haba.json'
 import bbin from './bbin.json'
-import { SlotGame } from '../slots/slot.type'
+import { GameConfig } from 'app/global'
 
 const AllLiveCasinoGames: {
-  [index: string]: SlotGame[]
+  [index: string]: GameConfig[]
 } = {
   haba,
   bbin,

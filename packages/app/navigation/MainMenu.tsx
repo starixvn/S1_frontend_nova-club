@@ -1,4 +1,5 @@
 import Icon from 'app/components/Icon'
+import useContextualRouting from 'app/hooks/useContextualRouting'
 import { logOut } from 'app/utils/authUtil'
 import { Image, styled, View } from 'dripsy'
 import { useMemo } from 'react'
@@ -6,9 +7,12 @@ import { Platform, StatusBar, Text, TouchableOpacity } from 'react-native'
 import Modal from 'react-native-modal'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useRouter } from 'solito/router'
+import { ContextualModuleKey } from './web/withContextualNavConstant'
 
 const MainMenu = ({ isShow, onMenu }) => {
   const { push } = useRouter()
+
+  const { makeContextualHref } = useContextualRouting(ContextualModuleKey.Home)
   const iconHeight = 20
   const top = 10
   const isWeb = Platform.OS === 'web'
@@ -30,23 +34,22 @@ const MainMenu = ({ isShow, onMenu }) => {
       {
         label: 'Deposit',
         icon: 'deposit',
+        onPress: () => {
+          push(makeContextualHref('deposit'), '/deposit')
+        },
       },
       {
         label: 'Withdrawal',
         icon: 'wallet',
-      },
-      {
-        label: 'Transfer',
-        icon: 'transfer',
         onPress: () => {
-          push('/')
+          push(makeContextualHref('withdrawal'), '/withdrawal')
         },
       },
       {
         label: 'Customer Support',
         icon: 'cs',
         onPress: () => {
-          push('/customer-support')
+          push(makeContextualHref('customer-support'), '/customer-support')
         },
       },
       {

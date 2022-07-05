@@ -93,7 +93,13 @@ const GridSection = () => {
                 width: width - quarterSpace * 2,
               }}
             >
-              <Text sx={{ textTransform: 'uppercase', fontSize: 14, py: '$1' }}>
+              <Text
+                sx={{
+                  textTransform: 'uppercase',
+                  fontSize: [14, 18],
+                  py: ['$2', '$3'],
+                }}
+              >
                 {t(j.title)}
               </Text>
             </StyledTextContainer>

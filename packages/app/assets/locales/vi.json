@@ -2,5 +2,11 @@
   "deposit": {
     "deposit": "CÁCH GỬI TIỀN",
     "choose": "Chọn Tùy chọn tiền gửi của bạn"
+  },
+  "game": {
+    "name": {
+      "sports": "Thể Thao",
+      "virtualSports": "Thể thao ảo"
+    }
   }
 }
