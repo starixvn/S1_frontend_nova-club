@@ -17,7 +17,7 @@ import {
   usePlayerWalletDetailQuery,
   useTransferAllToOneMutation,
   useTransferMutation,
-} from 'services/wallet'
+} from 'services/walletApi'
 import { useRouter } from 'solito/router'
 import GameAmount from './GameAmount'
 import GameRewards from './GameRewards'

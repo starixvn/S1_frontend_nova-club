@@ -1,12 +1,13 @@
-import Modal from 'app/components/modal'
 import useLocalization from 'app/provider/localization'
-import { RootState, useAppSelector } from 'app/provider/redux/store'
 import { useDeletePlayerBankAccMutation } from 'services/bank'
-import { PlayerBankArgs, PlayerBankResult } from 'services/bank.type'
+import { PlayerBankResult } from 'services/bank.type'
 import { AlertActions } from 'app/store/alert'
-import { Text } from 'dripsy'
+import { Text, View } from 'dripsy'
 import React, { forwardRef, useImperativeHandle, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import Modal from 'app/components/modal'
+import ModalContent from './ModalContent'
+import ModalWrapper from './ModalWrapper'
 
 type PlayerBankDeleteModalProps = {
   //   bank: PlayerBankResult
@@ -16,20 +17,16 @@ export type PlayerBankDeleteModalForwardRef = {
   showDialog: (bank: PlayerBankResult) => void
 }
 
-const PlayerBankDeleteModal = forwardRef<
-  PlayerBankDeleteModalForwardRef,
-  PlayerBankDeleteModalProps
->(({}, ref) => {
+const PlayerBankDeleteModal = ({ modal: { closeModal, getParam } }) => {
   const { t } = useLocalization()
   const dispatch = useDispatch()
 
-  const [isVisible, setIsVisible] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [bank, setBank] = useState<PlayerBankResult>()
+  const bank = getParam('bank')
   const [postDeletePlayerBank] = useDeletePlayerBankAccMutation()
 
   const handleDismiss = () => {
-    setIsVisible(false)
+    closeModal()
   }
 
   const onSubmit = async () => {
@@ -56,37 +53,28 @@ const PlayerBankDeleteModal = forwardRef<
     }
   }
 
-  useImperativeHandle(ref, () => ({
-    showDialog(bank) {
-      setBank(bank)
-      setIsVisible(true)
-    },
-  }))
-
   return (
-    <Modal
-      isVisible={isVisible}
-      title={t('common.importantNote')}
-      onModalHide={handleDismiss}
-      onBackdropPress={handleDismiss}
-      actions={[
-        {
-          label: t('common.cancel'),
-          onPress: handleDismiss,
-        },
-        {
-          label: t('common.submit'),
-          onPress: onSubmit,
-          disableAutoClose: true,
-          loading: isSubmitting,
-        },
-      ]}
-    >
-      <Text>{t('common.confirmDelete')}</Text>
-    </Modal>
+    <ModalWrapper>
+      <ModalContent
+        title={t('common.importantNote')}
+        closeModal={closeModal}
+        actions={[
+          {
+            label: t('common.cancel'),
+            onPress: handleDismiss,
+          },
+          {
+            label: t('common.submit'),
+            onPress: onSubmit,
+            disableAutoClose: true,
+            loading: isSubmitting,
+          },
+        ]}
+      >
+        <Text>{t('common.confirmDelete')}</Text>
+      </ModalContent>
+    </ModalWrapper>
   )
-})
-
-PlayerBankDeleteModal.displayName = 'PlayerBankDeleteModal'
+}
 
 export default PlayerBankDeleteModal

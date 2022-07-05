@@ -111,6 +111,7 @@ const SquareSelectorActionSheet = forwardRef<
         ) : data.length > 0 ? (
           <View
             sx={{
+              width: '100%',
               flexDirection: 'row',
               flexWrap: 'wrap',
               justifyContent: 'flex-start',

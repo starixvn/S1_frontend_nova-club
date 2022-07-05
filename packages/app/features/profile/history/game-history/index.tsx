@@ -75,25 +75,31 @@ const GameHistoryTab = () => {
         result={result}
         header={tableHeader}
         keyExtractor={(item, index) => `${index} History ${item.name}`}
-        renderItem={(item) => renderItem(item, t)}
+        renderItem={renderItem}
       />
     </View>
   )
 }
 
-const renderItem = ({ item }, t: { item: ReportGameItem }) => {
+const renderItem = ({ item }: { item: ReportGameItem }) => {
   return (
     <GradientBox>
       <View
-        sx={{ flex: 1, alignSelf: 'stretch', flexDirection: 'row', p: '$3' }}
+        sx={{
+          flex: 1,
+          alignSelf: 'stretch',
+          flexDirection: 'row',
+          p: '$3',
+          alignItems: 'center',
+        }}
       >
-        <View style={{ flex: CELL_DATE_WIDTH, alignSelf: 'stretch' }}>
+        <View style={{ flex: CELL_DATE_WIDTH }}>
           <DateTimeCell date={item.date} />
         </View>
-        <View style={{ flex: CELL_AMOUNT_WIDTH, alignSelf: 'stretch' }}>
+        <View style={{ flex: CELL_AMOUNT_WIDTH }}>
           <Text sx={{ textAlign: 'center' }}>{item.game_provider_code}</Text>
         </View>
-        <View style={{ flex: CELL_STATUS_WIDTH, alignSelf: 'stretch' }}>
+        <View style={{ flex: CELL_STATUS_WIDTH }}>
           <Text sx={{ textAlign: 'center' }}>{item.bet}</Text>
           <Text
             sx={{

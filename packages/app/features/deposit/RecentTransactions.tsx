@@ -1,17 +1,37 @@
 import IconButton from 'app/components/form/IconButton'
 import RefreshIconButton from 'app/components/form/IconButton/RefreshButton'
 import GradientBox from 'app/components/GradientBox'
+import HistoryEmpty from 'app/components/history/HistoryEmpty'
 import useLocalization from 'app/provider/localization'
+import {
+  ReportDepositStatus,
+  ReportDepositStatusOptions,
+  ReportTransactionType,
+  ReportTransactionTypeOptions,
+} from 'app/utils/constant'
+import dayjs from 'dayjs'
 import { Text, View } from 'dripsy'
+import { usePlayerReportQuery } from 'services/playerApi'
 import { useDummyRtk } from 'utils/rtk'
+import DateTimeCell from '../profile/history/DateTimeCell'
 const dummyData = [
   {
     type: 1,
   },
 ]
 const RecentTransactions = () => {
-  const { data, isLoading, isFetching, refetch } = useDummyRtk(dummyData)
   const { t } = useLocalization()
+  const { data, isFetching, refetch } = usePlayerReportQuery({
+    limit: 5,
+    offset: 0,
+    status: ReportDepositStatus.ALL,
+    time_from: dayjs()
+      .subtract(2, 'month')
+      .startOf('date')
+      .format('YYYY-MM-DD HH:mm:ss'),
+    time_to: dayjs().startOf('date').format('YYYY-MM-DD HH:mm:ss'),
+    trans_type: ReportTransactionType.DEPOSIT,
+  })
 
   return (
     <View>
@@ -26,16 +46,56 @@ const RecentTransactions = () => {
         <Text sx={{}}>{t('transaction.transactions')}</Text>
         <RefreshIconButton loading={isFetching} onPress={() => refetch()} />
       </View>
-      <GradientBox>
-        <Text>a</Text>
-      </GradientBox>
-      <GradientBox>
-        <Text>a</Text>
-      </GradientBox>
-      <GradientBox>
-        <Text>a</Text>
-      </GradientBox>
+
+      {data?.row_count_total ?? 0 > 0 ? (
+        data?.rows.map((item) => <TableItem key={item.secure_id} item={item} />)
+      ) : (
+        <HistoryEmpty />
+      )}
     </View>
+  )
+}
+
+const CELL_DATE_WIDTH = 1
+const CELL_AMOUNT_WIDTH = 1
+const CELL_STATUS_WIDTH = 1
+
+const TableItem = ({ item }) => {
+  const getStatusColor = (value: string) => {
+    switch (value.toLowerCase()) {
+      case ReportDepositStatus.PENDING.toLowerCase():
+        return '#13A9C8'
+      default:
+        return '#FFF'
+    }
+  }
+
+  return (
+    <GradientBox>
+      <View
+        sx={{
+          flex: 1,
+          alignSelf: 'stretch',
+          flexDirection: 'row',
+          p: '$3',
+          alignItems: 'center',
+        }}
+      >
+        <View style={{ flex: CELL_DATE_WIDTH }}>
+          <DateTimeCell date={item.date} />
+        </View>
+        <View style={{ flex: CELL_AMOUNT_WIDTH }}>
+          <Text sx={{ textAlign: 'center' }}>{item.amount}</Text>
+        </View>
+        <View style={{ flex: CELL_STATUS_WIDTH }}>
+          <Text
+            sx={{ textAlign: 'center', color: getStatusColor(item.status) }}
+          >
+            {item.status}
+          </Text>
+        </View>
+      </View>
+    </GradientBox>
   )
 }
 

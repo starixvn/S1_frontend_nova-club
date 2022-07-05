@@ -38,7 +38,7 @@ const MainHeader = () => {
     {
       img: require('../assets/images/header/deposit.png'),
       action: () => {
-        push(makeContextualHref('deposit'), 'deposit')
+        push(makeContextualHref('deposit'), '/deposit')
       },
     },
     {
@@ -48,7 +48,7 @@ const MainHeader = () => {
     {
       img: require('../assets/images/header/avatar.png'),
       action: () => {
-        push(makeContextualHref('profile'), 'profile')
+        push('/profile')
       },
     },
     {

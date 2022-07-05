@@ -40,7 +40,6 @@ const AlertModal = () => {
       onModalHide={_onDismiss}
       onBackdropPress={_onDismiss}
       actions={actions}
-      //   closeOnOverlayClick={!persistent}
     >
       <Text>{message}</Text>
     </Modal>

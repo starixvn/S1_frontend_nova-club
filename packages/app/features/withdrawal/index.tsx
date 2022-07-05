@@ -1,28 +1,25 @@
 import { Button } from 'app/components/form/Button'
-import Select from 'app/components/form/Select'
 import { TextField } from 'app/components/TextField'
-import { useAppSelector } from 'app/provider/redux/store'
-import { styled, Text, View } from 'dripsy'
-import React, { useEffect, useState } from 'react'
+import { styled, View } from 'dripsy'
+import React, { useRef, useState } from 'react'
 import { FormikHelpers, useFormik } from 'formik'
 import * as Yup from 'yup'
 import validation from 'app/utils/validation'
 import ImportantNotice from 'app/components/ImportantNotice'
-import SquareSelectorActionSheet, {
-  DEFAULT_SQUARE_ACTION_SHEET_ID,
-} from 'app/components/actionsheet/SquareSelectorActionSheet'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { AlertActions } from 'app/store/alert'
 import { useRouter } from 'solito/router'
 import { useSubmitWithdrawalMutation } from 'services/withdrawal'
-import { toRealAmount } from 'app/utils'
+import { toCleanAmount, toCurrency, toRealAmount } from 'app/utils'
 import { usePlayerBankQuery } from 'services/bank'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import useLocalization from 'app/provider/localization'
-import RoundedIcon from 'app/components/RoundedIcon'
-import { SheetManager } from 'react-native-actions-sheet'
-import BankItem from 'app/components/actionsheet/BankItem'
 import { PlayerBankResult } from 'services/bank.type'
+import WithdrawalConfirmationModal, {
+  WithdrawalConfirmationModalHandler,
+} from 'app/components/modal/WithdrawalConfirmationModal'
+import { Currency } from 'app/utils/constant'
+import { RootState } from 'app/provider/redux/store'
 
 type WithdrawalValues = {
   amount: string
@@ -31,15 +28,35 @@ type WithdrawalValues = {
 }
 
 const NOTES = ['note.w1', 'note.w2', 'note.w3', 'note.w4', 'note.w5']
+const CONFIRMATION_FIELDS = [
+  {
+    label: 'withdrawal.withdrawTo',
+    value: 'bankName',
+  },
+  {
+    label: 'common.accountName',
+    value: 'accountName',
+  },
+  {
+    label: 'common.accountNumber',
+    value: 'accountNumber',
+  },
+  {
+    label: 'withdrawal.amount',
+    value: 'amount',
+  },
+]
 
 const WithdrawalPage = () => {
   const { t } = useLocalization()
   const dispatch = useDispatch()
-  const { replace } = useRouter()
-  const { data, isLoading, isFetching, isSuccess } = usePlayerBankQuery()
+  const { back } = useRouter()
+  const { data, isLoading, isFetching } = usePlayerBankQuery()
   const [postSubmitWithdrawal] = useSubmitWithdrawalMutation()
-  const [convertedData, setConvertedData] = useState([])
-  const [selectedBank, setSelectedBank] = useState()
+  const confirmModalRef = useRef<WithdrawalConfirmationModalHandler>(null)
+
+  const userInfo = useSelector((s: RootState) => s.auth.user)
+  const currency = userInfo?.currency as Currency
 
   const actionSheetId = t('menu.withdraw')
 
@@ -48,6 +65,7 @@ const WithdrawalPage = () => {
     actions: FormikHelpers<WithdrawalValues>
   ) => {
     try {
+      actions.setSubmitting(true)
       const { data, success, message } = await postSubmitWithdrawal({
         amount: realAmount,
         bank_acc_name: bank?.BankAccountFullName ?? '',
@@ -64,11 +82,11 @@ const WithdrawalPage = () => {
       if (success) {
         dispatch(AlertActions.addSuccess(message))
         actions.resetForm()
-
-        replace('/profile')
       }
     } catch (e) {
       dispatch(AlertActions.addError('common.systemError'))
+    } finally {
+      actions.setSubmitting(false)
     }
   }
 
@@ -79,6 +97,7 @@ const WithdrawalPage = () => {
       bank: undefined,
     },
     validationSchema: Yup.object({
+      bank: validation.bank,
       amount: validation.amount,
     }),
     onSubmit,
@@ -100,15 +119,33 @@ const WithdrawalPage = () => {
 
   function onAmountChanged(text: string) {
     if (text != null) {
-      const cleanText = text.replace(/[^0-9]/g, '')
-      if (cleanText === values.amount) return
-      let amountNumber = parseFloat(cleanText)
-      if (isNaN(amountNumber)) amountNumber = 0
+      const { cleanText, amountNumber } = toCleanAmount(text)
       setValues({
         ...values,
         amount: cleanText,
         realAmount: toRealAmount(amountNumber),
       })
+    }
+  }
+
+  function withdrawalConfirmation() {
+    if (values.bank) {
+      confirmModalRef.current?.setConfirmationInfo(
+        {
+          bankName: values.bank.BankName,
+          accountName: values.bank.BankAccountFullName,
+          accountNumber: values.bank.BankAccountNumber,
+          amount:
+            toCurrency(values.realAmount, currency, {
+              forceDecimal: false,
+              hideTruncatedThousand: false,
+            }) ?? '',
+          onConfirm: () => {
+            onSubmit(values, formik)
+          },
+        },
+        CONFIRMATION_FIELDS
+      )
     }
   }
 
@@ -120,7 +157,7 @@ const WithdrawalPage = () => {
             label="bank.bank"
             _input={{
               placeholder: t('bank.selectBank'),
-              value: values.bank?.BankAccountFullName,
+              value: values.bank?.BankAccountFullName ?? '',
             }}
             _flatList={{
               data: data,
@@ -138,7 +175,7 @@ const WithdrawalPage = () => {
             label="common.amount"
             _input={{
               placeholder: t('common.enterAmount'),
-              value: values.amount.toString(),
+              value: values.amount,
               keyboardType: 'number-pad',
               onChangeText: onAmountChanged,
               onBlur: handleBlur('amount'),
@@ -163,11 +200,13 @@ const WithdrawalPage = () => {
             sx={{
               my: '$10',
             }}
-            onPress={submitForm}
+            onPress={withdrawalConfirmation}
           >
             <Button.Label>Next</Button.Label>
           </Button>
         </TextField>
+
+        <WithdrawalConfirmationModal ref={confirmModalRef} />
       </StyledView>
     </PageWithBackHeader>
   )

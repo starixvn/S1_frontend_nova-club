@@ -5,6 +5,7 @@ import ReactNativeModal from 'react-native-modal'
 import { Button } from '../form/Button'
 import IconButton from '../form/IconButton'
 import { ModalAction } from './Modal.type'
+import ModalContent from './ModalContent'
 
 type DripsyViewProps = React.ComponentProps<typeof View>
 
@@ -40,6 +41,19 @@ const Modal = ({
       backdropOpacity={0.7}
       {...modalProps}
     >
+      <ModalContent
+        title={title}
+        closeModal={modalProps.onModalHide}
+        _body={_body}
+        _footer={_footer}
+        renderFooter={renderFooter}
+        actions={actions}
+        isShowHeader={isShowHeader}
+        hideCloseButton={hideCloseButton}
+      >
+        {children}
+      </ModalContent>
+      {/*
       <StyledViewModal>
         {isShowHeader && (
           <StyledViewHeader>
@@ -92,13 +106,14 @@ const Modal = ({
           )}
         </StyledViewFooter>
       </StyledViewModal>
+                */}
     </ReactNativeModal>
   )
 }
 
 const StyledViewModal = styled(View)(() => ({
   bg: '$background',
-  borderRadius: 4,
+  borderRadius: 12,
   borderColor: 'rgba(0, 0, 0, 0.1)',
 }))
 const StyledViewHeader = styled(View)(() => ({
