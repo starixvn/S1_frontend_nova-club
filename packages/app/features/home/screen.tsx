@@ -8,6 +8,8 @@ import GridSection from './Section/GridSection'
 import HotGamesSection from './Section/HotGamesSection'
 import LotterySection from './Section/LotterySection'
 import BannerSection from './Section/BannerSection'
+import withContextualNav from 'app/navigation/web/withContextualNav'
+import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 
 const HomeScreen = () => {
   const [playerProfile] = useLazyPlayerProfileQuery()
@@ -45,4 +47,4 @@ const HomeScreen = () => {
   )
 }
 
-export default HomeScreen
+export default withContextualNav(HomeScreen, ContextualModuleKey.Home)
