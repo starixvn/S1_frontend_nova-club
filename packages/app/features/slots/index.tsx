@@ -23,7 +23,7 @@ const Slots = withContextualNav(() => {
   const sx = useSx()
   const { width } = useContainerDimension()
 
-  const { contentWidth, itemSpace, containerSpace } = useGameGridSize()
+  const { contentWidth, itemSpace, containerSpace } = useGameGridSize(3)
   const renderSlotItem = ({ item }: { item: GameConfig }) => {
     const { gameCode, providerCode, gameName } = item
     const imageUrl = `${MEDIA_DOMAIN}${CONTENT_URI}/games/${providerCode.toLowerCase()}/${gameCode.toLowerCase()}.${

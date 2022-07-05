@@ -16,6 +16,7 @@ const Sportsbook = () => {
     <Page.ScrollView>
       <ListSectionHeader title={'Sportsbook'} bgColor="yellow" iconName="sb" />
       <SimpleWrap
+        col={2}
         data={sport.gameList}
         context={ContextualModuleKey.Sportsbook}
       />

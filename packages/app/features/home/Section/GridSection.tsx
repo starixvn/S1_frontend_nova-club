@@ -95,8 +95,9 @@ const GridSection = () => {
             >
               <Text
                 sx={{
+                  fontWeight: 'bold',
                   textTransform: 'uppercase',
-                  fontSize: [14, 18],
+                  fontSize: [16, 18],
                   py: ['$2', '$3'],
                 }}
               >

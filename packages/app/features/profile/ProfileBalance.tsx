@@ -1,7 +1,7 @@
 import { Gradient } from '@dripsy/gradient'
 import Icon from 'app/components/Icon'
 import useLocalization from 'app/provider/localization'
-import { usePlayerBalanceQuery } from 'services/wallet'
+import { usePlayerBalanceQuery } from 'services/walletApi'
 import { AnimateHeight } from 'app/transitions/animate-height'
 import { styled, SxProp, Text, View } from 'dripsy'
 import { AnimatePresence, motify } from 'moti'

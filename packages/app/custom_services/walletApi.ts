@@ -1,6 +1,6 @@
 import { store } from 'app/provider/redux/store'
 import { WALLET } from 'app/utils/constant'
-import walletApi from 'services/wallet'
+import walletApi from 'services/walletApi'
 import { PlayerBalanceData, PlayerBalanceResult } from 'services/wallet.type'
 
 export const transferAllToMainWallet = async (
