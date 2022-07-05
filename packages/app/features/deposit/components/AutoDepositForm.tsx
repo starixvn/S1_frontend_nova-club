@@ -99,22 +99,16 @@ const AutoDepositForm = ({ notes, module, DepositCategoryId }) => {
         .catch((error) => dispatch(AlertActions.addError(error.message)))
 
       if (success) {
-        console.log(
-          '🚀 ~ file: AutoDepositForm.tsx ~ line 87 ~ AutoDepositForm ~ data',
-          data
-        )
-        console.log(
-          'depositPayment?.category_text',
-          depositPayment?.category_text
-        )
-        push(to, {
+        const params = {
+          title: depositPayment?.category_text,
+          depositUrl: data.url,
+        }
+
+        push(makeContextualHref('deposit-loader', params), {
           pathname: '/deposit/deposit-loader',
-          query: {
-            title: depositPayment?.category_text,
-            depositUrl: data.url,
-            // depositUrl: 'https://reactnative.dev/',
-          },
+          query: params,
         })
+
         // dispatch(AlertActions.addSuccess(message))
         // actions.resetForm()
       }
