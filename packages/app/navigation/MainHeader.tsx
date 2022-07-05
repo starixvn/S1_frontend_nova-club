@@ -14,7 +14,7 @@ import React, { useEffect, useState } from 'react'
 import { Platform, StatusBar } from 'react-native'
 import { useRouter } from 'solito/router'
 import MainMenu from './MainMenu'
-import { usePlayerBalanceQuery } from 'services/wallet'
+import { usePlayerBalanceQuery } from 'services/walletApi'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import { ContextualModuleKey } from './web/withContextualNavConstant'
 

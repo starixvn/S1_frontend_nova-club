@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../provider/redux/store'
 import { AuthActions } from '../store/authReducer'
-import walletApi from 'services/wallet'
+import walletApi from 'services/walletApi'
 
 const useResetRTKQ = () => {
   const dispatch = useAppDispatch()
