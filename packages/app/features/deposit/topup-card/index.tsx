@@ -8,7 +8,7 @@ import validation from 'app/utils/validation'
 import ValueCard from '../ValueCard'
 import ImportantNotice from 'app/components/ImportantNotice'
 import { Button } from 'app/components/form/Button'
-import { toCleanAmount, toCurrency, toRealAmount } from 'app/utils'
+import { toCleanAmount, toCleanCard, toCurrency, toRealAmount } from 'app/utils'
 import { DripsyGradient } from 'app/components/Gradient'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import {
@@ -22,17 +22,7 @@ import { DepositPaymentMethodCategoryId, TopUpCard } from 'app/utils/constant'
 import { PlayerInputFieldsBank } from 'services/deposit.type'
 import { useModal } from 'react-native-modalfy'
 
-const data1 = [
-  '10k',
-  '20k',
-  '30k',
-  '50k',
-  '100k',
-  '200k',
-  '300k',
-  '500k',
-  '1000k',
-]
+const data1 = ['10k', '20k', '30k', '50k', '100k', '200k', '300k']
 
 const data2 = ['10k', '20k', '30k', '50k', '100k', '200k', '300k', '500k']
 
@@ -182,7 +172,7 @@ const TopUpCardScreen = () => {
   }
   function onCardCodeChanged(text: string) {
     if (text != null) {
-      const { cleanText, amountNumber } = toCleanAmount(text)
+      const { cleanText, amountNumber } = toCleanCard(text)
       setValues({
         ...values,
         cardCode: cleanText,
@@ -192,7 +182,7 @@ const TopUpCardScreen = () => {
 
   function onCardSerialNoChanged(text: string) {
     if (text != null) {
-      const { cleanText, amountNumber } = toCleanAmount(text)
+      const { cleanText, amountNumber } = toCleanCard(text)
       setValues({
         ...values,
         cardSerialNo: cleanText,
@@ -233,13 +223,7 @@ const TopUpCardScreen = () => {
 
           <StyledViewCard>
             <FlatList
-              data={
-                values.cardType === 'vietel'
-                  ? data1
-                  : values.cardType === 'vinaphone'
-                  ? data2
-                  : data3
-              }
+              data={data1}
               ListHeaderComponent={
                 <StyledTextTitle>{t('deposit.cardValue')}</StyledTextTitle>
               }
@@ -338,9 +322,9 @@ const TopUpCardScreen = () => {
             sx={{
               my: '$10',
             }}
-            onPress={handleConfirmDeposit}
+            onPress={submitForm}
           >
-            <Button.Label>Next</Button.Label>
+            <Button.Label>{t('common.next')}</Button.Label>
           </Button>
         </StyledViewButtonWrapper>
       </StyledView>

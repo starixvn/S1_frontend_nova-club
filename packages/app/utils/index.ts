@@ -167,13 +167,31 @@ export function toRealAmount(
   return Math.floor(display)
 }
 
+export function toThousandSeparator(text: string) {
+  if (!text) return
+  // return text.replace(/^0+(?!\.|$)/, '').replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+  return parseFloat(text)
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+}
+
 export interface CleanAmount {
   cleanText: string
   amountNumber: number
 }
 
 export function toCleanAmount(text: string): CleanAmount {
-  const cleanText = text.replace(/[^0-9]/g, '')
+  let cleanText = text.replace(/[^0-9]/g, '')
+  cleanText = toThousandSeparator(cleanText) ?? ''
+  // if (cleanText === values.amount) return
+  let amountNumber = parseFloat(cleanText)
+  if (isNaN(amountNumber)) amountNumber = 0
+
+  return { cleanText, amountNumber }
+}
+export function toCleanCard(text: string): CleanAmount {
+  let cleanText = text.replace(/[^0-9]/g, '')
+  // cleanText = toThousandSeparator(cleanText) ?? ''
   // if (cleanText === values.amount) return
   let amountNumber = parseFloat(cleanText)
   if (isNaN(amountNumber)) amountNumber = 0

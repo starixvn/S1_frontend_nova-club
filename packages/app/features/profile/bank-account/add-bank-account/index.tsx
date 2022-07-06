@@ -20,6 +20,7 @@ import { usePlayerProfileQuery } from 'services/playerApi'
 import { SheetManager } from 'react-native-actions-sheet'
 import RoundedIcon from 'app/components/RoundedIcon'
 import BankItem from 'app/components/actionsheet/BankItem'
+import { toCleanCard } from 'app/utils'
 
 type AddBankAccountValues = {
   accountName: string
@@ -34,6 +35,10 @@ const AddBankAccountScreen = () => {
   const { data, isLoading, isFetching, isSuccess } = useWithdrawalBankQuery()
   const [postAddWithdrawalBankAcc] = useAddPlayerBankAccMutation()
   const { data: playerProfile } = usePlayerProfileQuery()
+  console.log(
+    '🚀 ~ file: index.tsx ~ line 37 ~ AddBankAccountScreen ~ playerProfile',
+    playerProfile
+  )
 
   const actionSheetId = t('bank.addBankAccount')
 
@@ -97,12 +102,9 @@ const AddBankAccountScreen = () => {
     setValues,
   } = formik
 
-  function onAmountChanged(text: string) {
+  function onCardChanged(text: string) {
     if (text != null) {
-      const cleanText = text.replace(/[^0-9]/g, '')
-      if (cleanText === values.accountNo) return
-      let amountNumber = parseFloat(cleanText)
-      if (isNaN(amountNumber)) amountNumber = 0
+      const { cleanText, amountNumber } = toCleanCard(text)
       setValues({
         ...values,
         accountNo: cleanText,
@@ -151,7 +153,7 @@ const AddBankAccountScreen = () => {
             _input={{
               placeholder: t('bank.enterAccountNo'),
               value: values.accountNo,
-              onChangeText: onAmountChanged,
+              onChangeText: onCardChanged,
               onBlur: handleBlur('accountNo'),
               keyboardType: 'number-pad',
             }}

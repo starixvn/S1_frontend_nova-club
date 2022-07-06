@@ -6,6 +6,7 @@ import { Currency } from 'app/utils/constant'
 import { Text } from 'dripsy'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import Modal from '.'
 import ModalContent from './ModalContent'
 import RNModal from './ModalContent'
@@ -19,9 +20,8 @@ const DepositConfirmationModal = ({ modal: { closeModal, getParam } }) => {
   const amount = getParam('amount', 0)
   const callback = getParam('callback')
 
-  const currency = useSelector(
-    (s: RootState) => s.auth.user?.currency
-  ) as Currency
+  const { data: playerData } = usePlayerProfileQuery()
+  const currency = playerData?.data?.currency as Currency
 
   function onDismiss() {
     closeModal()

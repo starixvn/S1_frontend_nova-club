@@ -161,6 +161,7 @@ function useGameBalanceRule() {
   }
 }
 
+const ProviderRunningWithoutIframe = ['PRGP']
 function useGameLauncher(gameLauncherState) {
   const { push } = useRouter()
   const [isVerifying, setVerifying] = useState(false)
@@ -174,15 +175,17 @@ function useGameLauncher(gameLauncherState) {
       const { data } = await getGameUrl({
         game_code: gameCode,
         is_demo: 0,
-        is_mobile:
-          Platform.OS === 'web' ? PLATFORM_CODE.WEB : PLATFORM_CODE.APP,
+        is_mobile: 1, // need to implement running in desktop
         platform_code: providerCode,
       }).unwrap()
 
       const url = data?.url
 
       if (url) {
-        if (Platform.OS === 'web') {
+        if (
+          Platform.OS === 'web' ||
+          ProviderRunningWithoutIframe.includes(providerCode)
+        ) {
           Linking.openURL(url)
         } else {
           push({
