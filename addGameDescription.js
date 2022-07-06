@@ -1,868 +1,480 @@
 const data = [
   {
-    "name": "Gold Party",
-    "code": "vs25goldparty"
+    "name": "Captain Golds Fortune",
+    "code": "S-CG01"
   },
   {
-    "name": "Extra Juicy Megaways",
-    "code": "vswaysxjuicy"
+    "name": "Journey to the Wild",
+    "code": "S-JW01"
   },
   {
-    "name": "Wild Depths",
-    "code": "vs40wanderw"
+    "name": "Fruits Mania",
+    "code": "S-FM03"
   },
   {
-    "name": "Magician's Secrets",
-    "code": "vs4096magician"
+    "name": "Gold Panther Maxways",
+    "code": "S-GP03"
   },
   {
-    "name": "Crystal Caverns Megaways",
-    "code": "vswayscryscav"
+    "name": "Cai Shen",
+    "code": "S-CS02"
   },
   {
-    "name": "Smugglers Cove",
-    "code": "vs20smugcove"
+    "name": "Space Conquest",
+    "code": "S-SC01"
   },
   {
-    "name": "Emperor Caishen",
-    "code": "vs243empcaishen"
+    "name": "Fiery Sevens Exclusive",
+    "code": "S-FS02"
   },
   {
-    "name": "Lucky New Year - Tiger Treasures",
-    "code": "vs25tigeryear"
+    "name": "Lucky Koi Exclusive",
+    "code": "S-LK02"
   },
   {
-    "name": "Fortune of Giza",
-    "code": "vs20amuleteg"
+    "name": "Jokers Treasure Exclusive",
+    "code": "S-JT03"
   },
   {
-    "name": "Super X",
-    "code": "vs20superx"
+    "name": "Tiger Dance",
+    "code": "S-TD01"
   },
   {
-    "name": "Big Bass Bonanza Megaways",
-    "code": "vswaysbbb"
+    "name": "Royale House",
+    "code": "S-RH02"
   },
   {
-    "name": "Hockey Attack",
-    "code": "vs88hockattack"
+    "name": "Sexy Vegas",
+    "code": "S-VB01"
   },
   {
-    "name": "Bounty Gold",
-    "code": "vs25btygold"
+    "name": "Roma",
+    "code": "S-RM01"
   },
   {
-    "name": "Bubble Pop",
-    "code": "vs10bblpop"
+    "name": "Candy Candy",
+    "code": "S-CP02"
   },
   {
-    "name": "Book of Fallen",
-    "code": "vs10bookfallen"
+    "name": "Gold Rush Cowboy",
+    "code": "S-GR01"
   },
   {
-    "name": "Christmas Big Bass Bonanza",
-    "code": "vs10bxmasbnza"
+    "name": "Wild Wet Win",
+    "code": "S-WW02"
   },
   {
-    "name": "Santa's Wonderland",
-    "code": "vs20santawonder"
+    "name": "Royal Katt",
+    "code": "S-RK02"
   },
   {
-    "name": "Big Juan",
-    "code": "vs40bigjuan"
+    "name": "Rich Caishen",
+    "code": "S-RC01"
   },
   {
-    "name": "John Hunter and the Quest for Bermuda Riches",
-    "code": "vs20bermuda"
+    "name": "Muay Thai Fighter",
+    "code": "S-MT01"
   },
   {
-    "name": "Star Pirates Code",
-    "code": "vs10starpirate"
+    "name": "Poker Ways",
+    "code": "S-PW03"
   },
   {
-    "name": "The Tweety House",
-    "code": "vs20tweethouse"
+    "name": "Ruby Hood",
+    "code": "S-RH01"
   },
   {
-    "name": "Mystic Chief",
-    "code": "vswayswest"
+    "name": "Love Idol",
+    "code": "S-LI03"
   },
   {
-    "name": "Day of Dead",
-    "code": "vs20daydead"
+    "name": "Magic Kitty",
+    "code": "S-MK01"
   },
   {
-    "name": "Candy Village",
-    "code": "vs20candvil"
+    "name": "Sugar Bonanza",
+    "code": "S-CB02"
   },
   {
-    "name": "Piggy Bank Bills",
-    "code": "vs9piggybank"
+    "name": "Kung Fu Dragon",
+    "code": "S-KF01"
   },
   {
-    "name": "Cash Bonanza",
-    "code": "vswaysbankbonz"
+    "name": "Hugon Quest",
+    "code": "S-HQ01"
   },
   {
-    "name": "Treasure Wild",
-    "code": "vs20trsbox"
+    "name": "Legendary Beasts Saga",
+    "code": "S-LB01"
   },
   {
-    "name": "Bigger Bass Bonanza",
-    "code": "vs12bbb"
+    "name": "Moodie Foodie",
+    "code": "S-MF01"
   },
   {
-    "name": "Starlight Princess",
-    "code": "vs20starlight"
+    "name": "Rise Of Werewolves",
+    "code": "S-RW01"
   },
   {
-    "name": "Raging Bull",
-    "code": "vs243chargebull"
+    "name": "Mayan Gems",
+    "code": "S-MG02"
   },
   {
-    "name": "Pyramid Bonanza",
-    "code": "vs20pbonanza"
+    "name": "Crazy Bomber",
+    "code": "S-CB01"
   },
   {
-    "name": "Rise of Giza PowerNudge",
-    "code": "vs10nudgeit"
+    "name": "Fiery Sevens",
+    "code": "S-FS01"
   },
   {
-    "name": "Yum Yum Powerways",
-    "code": "vswaysyumyum"
+    "name": "Mega 7",
+    "code": "S-MG01"
   },
   {
-    "name": "Chilli Heat Megaways",
-    "code": "vswayschilheat"
+    "name": "Jokers Treasure",
+    "code": "S-JT02"
   },
   {
-    "name": "Lucky, Grace And Charm",
-    "code": "vs10luckcharm"
+    "name": "Double Flame",
+    "code": "S-DF03"
   },
   {
-    "name": "Aztec King Megaways",
-    "code": "vswaysaztecking"
+    "name": "Wong Choy",
+    "code": "S-WC02"
   },
   {
-    "name": "Chicken Drop",
-    "code": "vs20chickdrop"
-  },
-  {
-    "name": "Phoenix Forge",
-    "code": "vs20phoenixf"
-  },
-  {
-    "name": "Fruit Party 2",
-    "code": "vs20fparty2"
-  },
-  {
-    "name": "Empty the Bank",
-    "code": "vs20emptybank"
-  },
-  {
-    "name": "Lucky Lightning",
-    "code": "vswayslight"
-  },
-  {
-    "name": "Heart of Rio",
-    "code": "vs25rio"
-  },
-  {
-    "name": "Dragon Hot Hold and Spin",
-    "code": "vs5drhs"
-  },
-  {
-    "name": "5 Lions Megaways",
-    "code": "vswayslions"
-  },
-  {
-    "name": "Hokkaido Wolf",
-    "code": "vs576hokkwolf"
-  },
-  {
-    "name": "Cash Elevator",
-    "code": "vs20terrorv"
-  },
-  {
-    "name": "Rise of Samurai Megaways",
-    "code": "vswayssamurai"
-  },
-  {
-    "name": "The Magic Cauldron",
-    "code": "vs20magicpot"
-  },
-  {
-    "name": "Aztec King",
-    "code": "vs25aztecking"
-  },
-  {
-    "name": "Amazing Money Machine",
-    "code": "vs10amm"
-  },
-  {
-    "name": "Panda Fortune 2",
-    "code": "vs25pandatemple"
-  },
-  {
-    "name": "Floating Dragon",
-    "code": "vs10floatdrg"
-  },
-  {
-    "name": "Buffalo King Megaways",
-    "code": "vswaysbufking"
-  },
-  {
-    "name": "Hot Fiesta",
-    "code": "vs25hotfiesta"
-  },
-  {
-    "name": "Power of Thor Megaways",
-    "code": "vswayshammthor"
-  },
-  {
-    "name": "Wild Booster",
-    "code": "vs20wildboost"
-  },
-  {
-    "name": "Juicy Fruits",
-    "code": "vs50juicyfr"
-  },
-  {
-    "name": "Temujin Treasures",
-    "code": "vs1024temuj"
-  },
-  {
-    "name": "Fishin Reels",
-    "code": "vs10goldfish"
-  },
-  {
-    "name": "Gates of Olympus",
-    "code": "vs20olympgate"
-  },
-  {
-    "name": "Hot to Burn Hold and Spin",
-    "code": "vs20hburnhs"
-  },
-  {
-    "name": "Joker King",
-    "code": "vs25jokerking"
-  },
-  {
-    "name": "The Hand of Midas",
-    "code": "vs20midas"
-  },
-  {
-    "name": "Eye of the Storm",
-    "code": "vs10eyestorm"
-  },
-  {
-    "name": "Dragon Kingdom - Eyes of Fire",
-    "code": "vs5drmystery"
-  },
-  {
-    "name": "Madame Destiny Megaways",
-    "code": "vswaysmadame"
-  },
-  {
-    "name": "Congo Cash",
-    "code": "vs432congocash"
-  },
-  {
-    "name": "Emerald King Rainbow Road",
-    "code": "vs20ekingrr"
-  },
-  {
-    "name": "Mysterious Egypt",
-    "code": "vs10wildtut"
-  },
-  {
-    "name": "Golden Ox",
-    "code": "vs25gldox"
-  },
-  {
-    "name": "Voodoo Magic",
-    "code": "vs40voodoo"
-  },
-  {
-    "name": "Big Bass Bonanza",
-    "code": "vs10bbbonanza"
-  },
-  {
-    "name": "Bonanza Gold",
-    "code": "vs20bonzgold"
-  },
-  {
-    "name": "John Hunter and the Mayan Gods",
-    "code": "vs10mayangods"
-  },
-  {
-    "name": "Spartan King",
-    "code": "vs40spartaking"
-  },
-  {
-    "name": "Christmas Carol Megaways",
-    "code": "vs20xmascarol"
-  },
-  {
-    "name": "Cowboys Gold",
-    "code": "vs10cowgold"
-  },
-  {
-    "name": "Pirate Gold Deluxe",
-    "code": "vs40pirgold"
-  },
-  {
-    "name": "Emerald King",
-    "code": "vs20eking"
-  },
-  {
-    "name": "The Dragon Tiger",
-    "code": "vs1024dtiger"
-  },
-  {
-    "name": "Book of Kingdoms",
-    "code": "vs25bkofkngdm"
-  },
-  {
-    "name": "Return of the Dead",
-    "code": "vs10returndead"
-  },
-  {
-    "name": "Gems Bonanza",
-    "code": "vs20goldfever"
-  },
-  {
-    "name": "Wild Walker",
-    "code": "vs25walker"
-  },
-  {
-    "name": "Rise of Samurai",
-    "code": "vs25samurai"
-  },
-  {
-    "name": "5 Lions Dance",
-    "code": "vs1024lionsd"
-  },
-  {
-    "name": "Star Bounty",
-    "code": "vswayshive"
-  },
-  {
-    "name": "Great Rhino Deluxe",
-    "code": "vs20rhinoluxe"
-  },
-  {
-    "name": "Wild Wild Riches",
-    "code": "vs576treasures"
-  },
-  {
-    "name": "Ultra Hold and Spin",
-    "code": "vs5ultra"
-  },
-  {
-    "name": "Curse of the Werewolf Megaways",
-    "code": "vswayswerewolf"
-  },
-  {
-    "name": "Jungle Gorilla",
-    "code": "vs20gorilla"
-  },
-  {
-    "name": "Aztec Gems Deluxe",
-    "code": "vs9aztecgemsdx"
-  },
-  {
-    "name": "The Dog House Megaways",
-    "code": "vswaysdogs"
-  },
-  {
-    "name": "The Tiger Warrior",
-    "code": "vs25tigerwar"
-  },
-  {
-    "name": "Street Racer",
-    "code": "vs40streetracer"
-  },
-  {
-    "name": "Fu Fu Fu",
-    "code": "vs1fufufu"
-  },
-  {
-    "name": "Drago - Jewels of Fortune",
-    "code": "vs1600drago"
-  },
-  {
-    "name": "Bronco Spirit",
-    "code": "vs75bronco"
-  },
-  {
-    "name": "Pyramid King",
-    "code": "vs25pyramid"
-  },
-  {
-    "name": "Ultra Burn",
-    "code": "vs5ultrab"
-  },
-  {
-    "name": "Money Money Money",
-    "code": "vs1money"
-  },
-  {
-    "name": "Starz Megaways",
-    "code": "vs117649starz"
-  },
-  {
-    "name": "Fruit Party",
-    "code": "vs20fruitparty"
-  },
-  {
-    "name": "John Hunter and the Book of Tut",
-    "code": "vs10bookoftut"
-  },
-  {
-    "name": "Three Star Fortune",
-    "code": "vs10threestar"
-  },
-  {
-    "name": "Great Rhino Megaways",
-    "code": "vswaysrhino"
-  },
-  {
-    "name": "Hot to Burn",
-    "code": "vs5hotburn"
-  },
-  {
-    "name": "Dance Party",
-    "code": "vs243dancingpar"
-  },
-  {
-    "name": "Wild West Gold",
-    "code": "vs40wildwest"
-  },
-  {
-    "name": "Lucky Dragon Ball",
-    "code": "vs1ball"
-  },
-  {
-    "name": "Fruit Rainbow",
-    "code": "vs40frrainbow"
-  },
-  {
-    "name": "The Wild Machine",
-    "code": "vs40madwheel"
-  },
-  {
-    "name": "Aztec Bonanza",
-    "code": "vs7776aztec"
-  },
-  {
-    "name": "Mysterious",
-    "code": "vs4096mystery"
-  },
-  {
-    "name": "Golden Beauty",
-    "code": "vs75empress"
-  },
-  {
-    "name": "Master Joker",
-    "code": "vs1masterjoker"
-  },
-  {
-    "name": "Super 7s",
-    "code": "vs5super7"
-  },
-  {
-    "name": "Release the Kraken",
-    "code": "vs20kraken"
-  },
-  {
-    "name": "Buffalo King",
-    "code": "vs4096bufking"
-  },
-  {
-    "name": "Magic Journey",
-    "code": "vs8magicjourn"
+    "name": "Book of Myth",
+    "code": "S-BM01"
   },
   {
     "name": "Money Mouse",
-    "code": "vs25mmouse"
+    "code": "S-MM01"
   },
   {
-    "name": "Aladdin and the Sorcerer",
-    "code": "vs20aladdinsorc"
+    "name": "Dragon Empire",
+    "code": "S-DE01"
   },
   {
-    "name": "Greek Gods",
-    "code": "vs243fortseren"
+    "name": "888",
+    "code": "S-BA01"
   },
   {
-    "name": "Sweet Bonanza Xmas",
-    "code": "vs20sbxmas"
+    "name": "Three Lucky Stars",
+    "code": "S-LS02"
   },
   {
-    "name": "Hercules and Pegasus",
-    "code": "vs20hercpeg"
+    "name": "Heroes",
+    "code": "S-HE01"
   },
   {
-    "name": "Fire Strike",
-    "code": "vs10firestrike"
+    "name": "Sweet Bakery",
+    "code": "S-SB01"
   },
   {
-    "name": "Honey Honey Honey",
-    "code": "vs20honey"
+    "name": "Dancing Fever",
+    "code": "S-DF02"
   },
   {
-    "name": "Super Joker",
-    "code": "vs5spjoker"
+    "name": "Magical Lamp",
+    "code": "S-ML01"
   },
   {
-    "name": "John Hunter and the Tomb of the Scarab Queen",
-    "code": "vs25scarabqueen"
+    "name": "Triple Panda",
+    "code": "S-TP02"
   },
   {
-    "name": "Tree of Riches",
-    "code": "vs1fortunetree"
+    "name": "Gold Panther",
+    "code": "S-GP01"
   },
   {
-    "name": "The Great Chicken Escape",
-    "code": "vs20chicken"
+    "name": "Mr Chu Tycoon",
+    "code": "S-CH01"
   },
   {
-    "name": "Vampires VS Wolves",
-    "code": "vs10vampwolf"
+    "name": "Brothers kingdom",
+    "code": "S-GK01"
   },
   {
-    "name": "Hot Chilli",
-    "code": "vs9hotroll"
+    "name": "Prosperity Gods",
+    "code": "S-PG01"
   },
   {
-    "name": "John Hunter and the Aztec Treasure",
-    "code": "vs7776secrets"
+    "name": "Candy Pop",
+    "code": "S-CP01"
   },
   {
-    "name": "Monkey Warrior",
-    "code": "vs243mwarrior"
+    "name": "Golden Fist",
+    "code": "S-GF01"
   },
   {
-    "name": "Dragon Tiger",
-    "code": "bndt"
+    "name": "FaFaFa2",
+    "code": "S-LY02"
   },
   {
-    "name": "5 Lions Gold",
-    "code": "vs243lionsgold"
+    "name": "Gangster Axe",
+    "code": "S-GA01"
   },
   {
-    "name": "Wild Pixies",
-    "code": "vs20wildpix"
+    "name": "Princess Wang",
+    "code": "S-PW02"
   },
   {
-    "name": "Sweet Bonanza",
-    "code": "vs20fruitsw"
+    "name": "Wow Prosperity",
+    "code": "S-WP02"
   },
   {
-    "name": "Caishen's Cash",
-    "code": "vs243caishien"
+    "name": "First Love",
+    "code": "S-FL02"
   },
   {
-    "name": "Pirate Gold",
-    "code": "vs40pirate"
+    "name": "Golden Monkey",
+    "code": "S-FM02"
   },
   {
-    "name": "The Dog House",
-    "code": "vs20doghouse"
+    "name": "Jungle King",
+    "code": "S-TZ01"
   },
   {
-    "name": "Egyptian Fortunes",
-    "code": "vs20egypttrs"
+    "name": "Pan Fairy",
+    "code": "S-PP01"
   },
   {
-    "name": "Extra Juicy",
-    "code": "vs10fruity2"
+    "name": "ShangHai 008",
+    "code": "S-SH01"
   },
   {
-    "name": "Dragon Bonus Baccarat",
-    "code": "bnadvanced"
+    "name": "Fist of Gold",
+    "code": "S-FG01"
   },
   {
-    "name": "Wild Gladiator",
-    "code": "vs25gladiator"
+    "name": "Tiger Warrior",
+    "code": "S-TW01"
   },
   {
-    "name": "Golden Pig",
-    "code": "vs25goldpig"
+    "name": "Sea Emperor",
+    "code": "S-NT01"
   },
   {
-    "name": "Treasure Horse",
-    "code": "vs18mashang"
+    "name": "ZEUS",
+    "code": "S-ZE01"
   },
   {
-    "name": "Safari King",
-    "code": "vs50safariking"
+    "name": "Ho Yeah Monkey",
+    "code": "S-HY01"
   },
   {
-    "name": "Leprechaun Carol",
-    "code": "vs20leprexmas"
+    "name": "Golden Chicken",
+    "code": "S-GC03"
   },
   {
-    "name": "Mustang Gold",
-    "code": "vs25mustang"
+    "name": "5 Fortune SA",
+    "code": "S-WM03"
   },
   {
-    "name": "Triple Dragons",
-    "code": "vs5trdragons"
+    "name": "Big Prosperity SA",
+    "code": "S-FC03"
   },
   {
-    "name": "Baccarat",
-    "code": "bca"
+    "name": "Dragon Gold SA",
+    "code": "S-DG04"
   },
   {
-    "name": "Ancient Egypt Classic",
-    "code": "vs10egyptcls"
+    "name": "Emperor Gate SA",
+    "code": "S-EG03"
   },
   {
-    "name": "Vegas Magic",
-    "code": "vs20vegasmagic"
+    "name": "Great Stars SA",
+    "code": "S-GS04"
   },
   {
-    "name": "Master Chen's Fortune",
-    "code": "vs9chen"
+    "name": "Iceland SA",
+    "code": "S-IL03"
   },
   {
-    "name": "Da Vinci's Treasure",
-    "code": "vs25davinci"
+    "name": "Wong Choy SA",
+    "code": "S-WC03"
   },
   {
-    "name": "Peking Luck",
-    "code": "vs25peking"
+    "name": "168 Fortunes",
+    "code": "S-FO01"
   },
   {
-    "name": "Leprechaun Song",
-    "code": "vs20leprechaun"
+    "name": "Baby Cai Shen",
+    "code": "S-BC01"
   },
   {
-    "name": "Jade Butterfly",
-    "code": "vs1024butterfly"
+    "name": "Golden Lotus SE",
+    "code": "S-GL02"
   },
   {
-    "name": "Madame Destiny",
-    "code": "vs10madame"
+    "name": "King Pharaoh",
+    "code": "S-PH02"
   },
   {
-    "name": "Asgard",
-    "code": "vs25asgard"
+    "name": "Mermaid",
+    "code": "S-MR01"
   },
   {
-    "name": "5 Lions",
-    "code": "vs243lions"
+    "name": "Wong Po",
+    "code": "S-WP01"
   },
   {
-    "name": "Great Rhino",
-    "code": "vs20rhino"
+    "name": "Pocket Mon Go",
+    "code": "S-PO01"
   },
   {
-    "name": "American Blackjack",
-    "code": "bjmb"
+    "name": "Adventure Iceland",
+    "code": "S-IL02"
   },
   {
-    "name": "Joker's Jewels",
-    "code": "vs5joker"
+    "name": "5 Fortune Dragons",
+    "code": "S-FD01"
   },
   {
-    "name": "Fairytale Fortune",
-    "code": "vs15fairytale"
+    "name": "Alibaba",
+    "code": "S-AL01"
   },
   {
-    "name": "Fire 88",
-    "code": "vs7fire88"
+    "name": "Cai Shen 888",
+    "code": "S-CS01"
   },
   {
-    "name": "Chilli Heat",
-    "code": "vs25chilli"
+    "name": "Double Fortunes",
+    "code": "S-DF01"
   },
   {
-    "name": "Aztec Gems",
-    "code": "vs5aztecgems"
+    "name": "God's Kitchen",
+    "code": "S-GO01"
   },
   {
-    "name": "Gold Rush",
-    "code": "vs25goldrush"
+    "name": "Lucky Koi",
+    "code": "S-LK01"
   },
   {
-    "name": "Lucky New Year",
-    "code": "vs25newyear"
+    "name": "5 Fortune",
+    "code": "S-WM02"
   },
   {
-    "name": "Ancient Egypt",
-    "code": "vs10egypt"
+    "name": "Amazing Thailand",
+    "code": "S-AT02"
   },
   {
-    "name": "Triple Tigers",
-    "code": "vs1tigers"
+    "name": "Big Prosperity",
+    "code": "S-FC02"
   },
   {
-    "name": "Diamonds are Forever 3 Lines",
-    "code": "cs3w"
+    "name": "Dragon Gold",
+    "code": "S-DG03"
   },
   {
-    "name": "Monkey Madness",
-    "code": "vs9madmonkey"
+    "name": "Emperor Gate",
+    "code": "S-EG02"
   },
   {
-    "name": "Santa",
-    "code": "vs20santa"
+    "name": "Great Stars",
+    "code": "S-GS03"
   },
   {
-    "name": "7 Piggies",
-    "code": "vs7pigs"
+    "name": "Drunken Jungle",
+    "code": "S-CM01"
   },
   {
-    "name": "888 Dragons",
-    "code": "vs1dragon8"
+    "name": "FaFaFa",
+    "code": "S-LY01"
   },
   {
-    "name": "Vegas Nights",
-    "code": "vs25vegas"
+    "name": "Honey Hunter",
+    "code": "S-HH01"
   },
   {
-    "name": "Wild Spells",
-    "code": "vs25wildspells"
+    "name": "Golf Champions",
+    "code": "S-GP02"
   },
   {
-    "name": "Diamond Strike",
-    "code": "vs15diamond"
+    "name": "Highway Fortune",
+    "code": "S-HF01"
   },
   {
-    "name": "Panda's Fortune",
-    "code": "vs25pandagold"
+    "name": "Lucky Feng Shui",
+    "code": "S-LF01"
   },
   {
-    "name": "Money Roll",
-    "code": "cs5moneyroll"
+    "name": "Pirate King",
+    "code": "S-PK01"
   },
   {
-    "name": "Queen Of Gold",
-    "code": "vs25queenofgold"
+    "name": "Lucky Strike",
+    "code": "S-LS01"
   },
   {
-    "name": "8 Dragons",
-    "code": "vs20eightdragons"
+    "name": "Railway King",
+    "code": "S-RK01"
   },
   {
-    "name": "Wolf Gold",
-    "code": "vs25wolfgold"
+    "name": "Cai Yuan Guang Jin",
+    "code": "S-CY01"
   },
   {
-    "name": "Dragon Kingdom",
-    "code": "vs25dragonkingdom"
+    "name": "Da Fu Xiao Fu",
+    "code": "S-DX01"
   },
   {
-    "name": "3 Kingdoms - Battle of Red Cliffs",
-    "code": "vs25kingdoms"
+    "name": "Daddy Vacation",
+    "code": "S-DV01"
   },
   {
-    "name": "Gold Train",
-    "code": "vs3train"
+    "name": "Festive Lion",
+    "code": "S-BB01"
   },
   {
-    "name": "888 Gold",
-    "code": "cs5triple8gold"
+    "name": "Golden Whale",
+    "code": "S-GW01"
   },
   {
-    "name": "Hercules Son Of Zeus",
-    "code": "vs50hercules"
+    "name": "Lucky  Meow",
+    "code": "S-LM01"
   },
   {
-    "name": "Journey to the West",
-    "code": "vs25journey"
+    "name": "Lucky Cai Shen",
+    "code": "S-LC01"
   },
   {
-    "name": "Devil's 13",
-    "code": "vs13g"
+    "name": "Master Chef",
+    "code": "S-CC01"
   },
   {
-    "name": "Beowulf",
-    "code": "vs40beowulf"
+    "name": "Santa Gifts",
+    "code": "S-SG02"
   },
   {
-    "name": "Lucky Dragons",
-    "code": "vs50chinesecharms"
-  },
-  {
-    "name": "Caishen's Gold",
-    "code": "vs243fortune"
-  },
-  {
-    "name": "Pixie Wings",
-    "code": "vs50pixie"
-  },
-  {
-    "name": "Great Reef",
-    "code": "vs25sea"
-  },
-  {
-    "name": "3 Genie Wishes",
-    "code": "vs50aladdin"
-  },
-  {
-    "name": "Irish Charms",
-    "code": "cs3irishcharms"
-  },
-  {
-    "name": "Multihand Blackjack",
-    "code": "bjma"
-  },
-  {
-    "name": "Dwarven Gold Deluxe",
-    "code": "vs25dwarves_new"
-  },
-  {
-    "name": "Mighty Kong",
-    "code": "vs50kingkong"
-  },
-  {
-    "name": "Roulette",
-    "code": "rla"
-  },
-  {
-    "name": "Busy Bees",
-    "code": "vs20bl"
-  },
-  {
-    "name": "Hot Safari",
-    "code": "vs25safari"
-  },
-  {
-    "name": "Lady Godiva",
-    "code": "vs20godiva"
-  },
-  {
-    "name": "7 Monkeys",
-    "code": "vs7monkeys"
+    "name": "Spin Stone",
+    "code": "S-SA02"
   }
 ]
 
 console.log("dd", data.length)
 
 function send(obj) {
-  var myHeaders = new Headers();
-  myHeaders.append("Cookie", "SERVERID=stgn88clubgbo; XSRF-TOKEN=eyJpdiI6IjJsNVV0dTkvbWF6K0Y4YklNUlUrNUE9PSIsInZhbHVlIjoiU1llcmdCSGpaNWRJR0hUeDZBT1ArL0FoOTB0aXNRVTZiN2FXRHBqU0NOdEl3akNtNEI0aEJ5RW1acElDZ2I2M0pTdHR6WmI2T2RKODc5NVRLalNwb3pvNkdwTGtuN0c0MzdCL2pxV2ZoWVFpU0NJZ2M0THpvekVkTEZuZU1HUWgiLCJtYWMiOiJjMmM2MmIzYjMzMDZjMzExMGIyZjQwNzEyNzMyNzRkYzI5ZmVmZWJkMWQzZjNjYzgwMjdiNDMxYWU4NTgyMjU4IiwidGFnIjoiIn0%3D; gamebo_session=eyJpdiI6Im55RFBvNitDVnFHd0UxQzd3enpWL1E9PSIsInZhbHVlIjoiWVFMVENWdDV5dkpOVFhub3JPM3NTcTNDQUVKVGxNVm9KdzRyVWJOV1o3N0k3aWUzdmtjTnpZdWN5M01WcWZybFpSVmpabklGYm44Q1ljQnlScGhLalZjeFNtRDJPMFhRL0M2WitQc3QwR2Z2TmdJK1hzZnJFWXZ5VCt1a2dEbm0iLCJtYWMiOiIwNGFlZDI1NjgzMjI4ODRiMjk0NjUzYTJiMjcwZGJmNzMzMjAzODBmMDQ3NDNmMTY1MmQwNGQ0NGFiYjZmMzYxIiwidGFnIjoiIn0%3D; SERVERID=stgn88clubgbo; XSRF-TOKEN=eyJpdiI6ImgwSmFtODZ0VHluNG1Cc2dObUt3N2c9PSIsInZhbHVlIjoiN01DK0g4d1Nack40UkdSd09aWTZmQW1aeG5Wc28zWDYrUHlsYlJnWEVEWERiWXNreG9NbHVzREs5ZG5ZMWRpbXZHL0hyMGszZHBCTWxaM0ptYmoyRS9HaW8rbnBDU3BwZnVqT2c2TGFzbEpQME53TkZmb3lJTXRaK2pQY1AzTGoiLCJtYWMiOiJmMWU3M2RlNDNlYjg2ZGE3MzI4ODdkZjk3OTE5ZmNhMDQzNzAxM2QwODg1YmIwYmE1OWI5MjNhZDY5Mjc1ZWE4IiwidGFnIjoiIn0%3D; gamebo_session=eyJpdiI6InJvY0ZXT243NDh2dWxmQnJmVzF4ckE9PSIsInZhbHVlIjoiLzNOSllPang1L00wL2JmaEhocnZDa3JESytVODNvYSsxR3p3V01DMUNOZTNCaEVkQ1ZhZW9qUDR1bGVoajNodFY3QkZUVGJ1SVZSMWZNSDFNZmZLVXNpTFRINWxlOFFjeUlVT2hnTlNvUzd0M3d1UHdOZFc3ZjNFRkIwNC9md3MiLCJtYWMiOiI2MGE0ZDU5ZTliZDFhOGRhMmEyN2Q2YWI5YjVkMzI2YjcxZTdmMjQ1MTdkNjdjOGVlNmUxZGI4ZmVhYzk5NDUyIiwidGFnIjoiIn0%3D");
+  // var myHeaders = new Headers();
+  // myHeaders.append("Cookie", "SERVERID=stgn88clubgbo; XSRF-TOKEN=eyJpdiI6IjJsNVV0dTkvbWF6K0Y4YklNUlUrNUE9PSIsInZhbHVlIjoiU1llcmdCSGpaNWRJR0hUeDZBT1ArL0FoOTB0aXNRVTZiN2FXRHBqU0NOdEl3akNtNEI0aEJ5RW1acElDZ2I2M0pTdHR6WmI2T2RKODc5NVRLalNwb3pvNkdwTGtuN0c0MzdCL2pxV2ZoWVFpU0NJZ2M0THpvekVkTEZuZU1HUWgiLCJtYWMiOiJjMmM2MmIzYjMzMDZjMzExMGIyZjQwNzEyNzMyNzRkYzI5ZmVmZWJkMWQzZjNjYzgwMjdiNDMxYWU4NTgyMjU4IiwidGFnIjoiIn0%3D; gamebo_session=eyJpdiI6Im55RFBvNitDVnFHd0UxQzd3enpWL1E9PSIsInZhbHVlIjoiWVFMVENWdDV5dkpOVFhub3JPM3NTcTNDQUVKVGxNVm9KdzRyVWJOV1o3N0k3aWUzdmtjTnpZdWN5M01WcWZybFpSVmpabklGYm44Q1ljQnlScGhLalZjeFNtRDJPMFhRL0M2WitQc3QwR2Z2TmdJK1hzZnJFWXZ5VCt1a2dEbm0iLCJtYWMiOiIwNGFlZDI1NjgzMjI4ODRiMjk0NjUzYTJiMjcwZGJmNzMzMjAzODBmMDQ3NDNmMTY1MmQwNGQ0NGFiYjZmMzYxIiwidGFnIjoiIn0%3D; SERVERID=stgn88clubgbo; XSRF-TOKEN=eyJpdiI6ImgwSmFtODZ0VHluNG1Cc2dObUt3N2c9PSIsInZhbHVlIjoiN01DK0g4d1Nack40UkdSd09aWTZmQW1aeG5Wc28zWDYrUHlsYlJnWEVEWERiWXNreG9NbHVzREs5ZG5ZMWRpbXZHL0hyMGszZHBCTWxaM0ptYmoyRS9HaW8rbnBDU3BwZnVqT2c2TGFzbEpQME53TkZmb3lJTXRaK2pQY1AzTGoiLCJtYWMiOiJmMWU3M2RlNDNlYjg2ZGE3MzI4ODdkZjk3OTE5ZmNhMDQzNzAxM2QwODg1YmIwYmE1OWI5MjNhZDY5Mjc1ZWE4IiwidGFnIjoiIn0%3D; gamebo_session=eyJpdiI6InJvY0ZXT243NDh2dWxmQnJmVzF4ckE9PSIsInZhbHVlIjoiLzNOSllPang1L00wL2JmaEhocnZDa3JESytVODNvYSsxR3p3V01DMUNOZTNCaEVkQ1ZhZW9qUDR1bGVoajNodFY3QkZUVGJ1SVZSMWZNSDFNZmZLVXNpTFRINWxlOFFjeUlVT2hnTlNvUzd0M3d1UHdOZFc3ZjNFRkIwNC9md3MiLCJtYWMiOiI2MGE0ZDU5ZTliZDFhOGRhMmEyN2Q2YWI5YjVkMzI2YjcxZTdmMjQ1MTdkNjdjOGVlNmUxZGI4ZmVhYzk5NDUyIiwidGFnIjoiIn0%3D");
 
   var formdata = new FormData()
   formdata.append('_method_', 'getGameDescParam')
-  formdata.append('_token', 'M31qccMsXtQb6CKw1wPEJFp8V8aMKA0wLCEsF3G1')
+  formdata.append('_token', 'wAiwWm3yX6Or8jjyxsq9RRpK2RJMFfb7NoCSEawO')
   formdata.append('_interface_', 'GameGridz')
   formdata.append('_action_', 'editForm')
-  formdata.append('formKey', '40450061')
-  formdata.append('form[40450061][game_type_code]', 'slots')
-  formdata.append('form[40450061][game_name]', obj.name)
-  formdata.append('form[40450061][game_code]', obj.code)
-  formdata.append('form[40450061][status]', ' ')
-  formdata.append('form[40450061][status]', '1')
-  formdata.append('form[40450061][external_game_id]', obj.code)
+  formdata.append('formKey', '19696379')
+  formdata.append('form[19696379][game_type_code]', 'slots')
+  formdata.append('form[19696379][game_name]', obj.name)
+  formdata.append('form[19696379][game_code]', obj.code)
+  formdata.append('form[19696379][status]', ' ')
+  formdata.append('form[19696379][status]', '1')
+  formdata.append('form[19696379][external_game_id]', obj.code)
 
   var requestOptions = {
     method: 'POST',
-    headers: myHeaders,
+    // headers: myHeaders,
     body: formdata,
     redirect: 'follow',
   }
