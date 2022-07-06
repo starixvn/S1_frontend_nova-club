@@ -1,9 +1,13 @@
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { ActivityIndicator, styled, Text, View } from 'dripsy'
 import { useWindowDimensions } from 'react-native'
-import { WebView as RWebView } from 'react-native-webview'
+import { WebView as RWebView, WebViewProps } from 'react-native-webview'
 
-const WebView = ({ url }) => {
+interface WebViewComponentProps extends WebViewProps {
+  url: string
+}
+
+const WebView = ({ url, ...restWebViewProps }: WebViewComponentProps) => {
   const { width, height } = useContainerDimension()
 
   return (
@@ -35,6 +39,7 @@ const WebView = ({ url }) => {
         const { nativeEvent } = syntheticEvent
         console.warn('WebView received error status code: ', nativeEvent)
       }}
+      {...restWebViewProps}
     />
   )
 }
