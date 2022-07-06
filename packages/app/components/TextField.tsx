@@ -1,6 +1,7 @@
 import { Gradient } from '@dripsy/gradient'
 import useLocalization from 'app/provider/localization'
 import { copyToClipboard, toThousandSeparator } from 'app/utils'
+import { MaxLength } from 'app/utils/constant'
 import {
   styled,
   SxProp,
@@ -143,13 +144,14 @@ const TextFieldInput = ({
                 <StyledTextInput
                   ref={textInputRef}
                   placeholderTextColor={'$border'}
-                  maxLength={9}
-                  sx={{ flex: 1 }}
+                  maxLength={MaxLength.AMOUNT}
                   {..._input}
-                  // value={toThousandSeparator(value ?? '0')}
                 />
                 {!!value && (
-                  <StyledTextLabel sx={{ flex: 1 }}>K</StyledTextLabel>
+                  <View sx={{ position: 'absolute', flexDirection: 'row' }}>
+                    <Text sx={{ color: '$transparent' }}>{value}</Text>
+                    <StyledTextLabel sx={{ flex: 1 }}> K</StyledTextLabel>
+                  </View>
                 )}
                 <StyledTextLabel
                   sx={{

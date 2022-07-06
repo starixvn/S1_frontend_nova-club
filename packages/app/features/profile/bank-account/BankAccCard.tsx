@@ -4,6 +4,7 @@ import RoundedIcon from 'app/components/RoundedIcon'
 import { PlayerBankResult } from 'services/bank.type'
 import { styled, Text, View } from 'dripsy'
 import React from 'react'
+import { toCleanCard } from 'app/utils'
 
 type BankAccCardProps = {
   item: PlayerBankResult
@@ -11,6 +12,8 @@ type BankAccCardProps = {
 }
 
 const BankAccCard = ({ item, onPressRemove }: BankAccCardProps) => {
+  const { cleanText } = toCleanCard(item.BankAccountNumber)
+
   return (
     <StyledBox>
       <RoundedIcon
@@ -23,7 +26,7 @@ const BankAccCard = ({ item, onPressRemove }: BankAccCardProps) => {
         <Text sx={{ color: '$PaleBlue', fontWeight: 'bold' }}>
           {item.BankCode}
         </Text>
-        <Text>{item.BankAccountNumber}</Text>
+        <Text>{cleanText}</Text>
         <Text>{item.BankAccountFullName}</Text>
       </StyledViewV>
       <View sx={{ alignItems: 'center', mt: 'auto', mb: 'auto' }}>

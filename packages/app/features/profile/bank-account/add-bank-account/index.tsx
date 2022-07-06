@@ -156,6 +156,7 @@ const AddBankAccountScreen = () => {
               onChangeText: onCardChanged,
               onBlur: handleBlur('accountNo'),
               keyboardType: 'number-pad',
+              maxLength: MaxLength.CARD,
             }}
             error={
               touched.accountNo && errors.accountNo

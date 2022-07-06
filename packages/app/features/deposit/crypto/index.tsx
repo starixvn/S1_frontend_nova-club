@@ -13,7 +13,11 @@ import {
   toDisplayAmount,
   toRealAmount,
 } from 'app/utils'
-import { Currency, DepositPaymentMethodCategoryId } from 'app/utils/constant'
+import {
+  Currency,
+  DepositPaymentMethodCategoryId,
+  MaxLength,
+} from 'app/utils/constant'
 import validation from 'app/utils/validation'
 import validationRule from 'app/utils/validationRule'
 import { Image, styled, Text, TextInput, View } from 'dripsy'
@@ -158,7 +162,7 @@ const CryptoScreen = () => {
                 keyboardType={'number-pad'}
                 onChangeText={onAmountChanged}
                 onBlur={handleBlur('amount')}
-                maxLength={9}
+                maxLength={MaxLength.AMOUNT}
               />
             </View>
             <Text

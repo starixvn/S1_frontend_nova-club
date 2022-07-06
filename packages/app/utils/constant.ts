@@ -313,3 +313,8 @@ export enum TopUpCard {
 export enum WALLET {
   MAIN_WALLET,
 }
+
+export enum MaxLength {
+  AMOUNT = 9,
+  CARD = 19,
+}
