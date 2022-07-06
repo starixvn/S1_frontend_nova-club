@@ -61,4 +61,6 @@ export type TransferAllToOneArgs = {
   username?: string
 }
 
-export type TransferAllToOneResult = {}
+export type TransferAllToOneResult = {
+  wallet: PlayerBalanceResult
+}

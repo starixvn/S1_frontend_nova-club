@@ -1,5 +1,6 @@
 import { Button } from 'app/components/form/Button'
 import { DripsyGradient } from 'app/components/Gradient'
+import { useTransferAllToOneMutation } from 'app/custom_services/walletApi'
 import withContextualNav from 'app/navigation/web/withContextualNav'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import useLocalization from 'app/provider/localization'
@@ -15,8 +16,6 @@ import { useLazyGetGameUrlQuery } from 'services/gameApi'
 import {
   usePlayerBalanceQuery,
   usePlayerWalletDetailQuery,
-  useTransferAllToOneMutation,
-  useTransferMutation,
 } from 'services/walletApi'
 import { useRouter } from 'solito/router'
 import GameAmount from './GameAmount'
@@ -40,8 +39,6 @@ function useGameBalanceRule() {
     [index: string]: WalletDetail
   }>()
   const [isGameRunning, setIsGameRunning] = useState(false)
-  const [isTransferringToMain, setIsTransferringToMain] = useState(false)
-  const [transfer] = useTransferMutation()
 
   const { data: walletDetailsRaw, isFetching } = usePlayerWalletDetailQuery(
     undefined,
@@ -49,7 +46,10 @@ function useGameBalanceRule() {
       refetchOnMountOrArgChange: true,
     }
   )
-  const [transferAllToOne] = useTransferAllToOneMutation()
+  const [transferAllToOne, { isLoading: isTransferringToMain }] =
+    useTransferAllToOneMutation({
+      fixedCacheKey: 'transfer-all-to-one',
+    })
 
   useEffect(() => {
     const detailResponse = walletDetailsRaw?.data
@@ -104,16 +104,12 @@ function useGameBalanceRule() {
 
   async function transferAllToMain() {
     try {
-      setIsTransferringToMain(true)
-
       await transferAllToOne({
         transfer_from: 999,
         transfer_to: 0,
       }).unwrap()
     } catch (error) {
       throw error
-    } finally {
-      setIsTransferringToMain(false)
     }
   }
 
@@ -245,8 +241,8 @@ const PreLaunchGame = ({}) => {
     try {
       await transferToGame()
       await launchGame()
-      refreshWallet()
     } catch (error) {
+      console.error(error)
       const errorMessage = getErrorMessage(error)
       dispatch(
         AlertActions.addError({
@@ -260,9 +256,8 @@ const PreLaunchGame = ({}) => {
   async function quitGame() {
     try {
       await transferAllToMain()
-
-      refreshWallet()
     } catch (error) {
+      console.error(error)
       const errorMessage = getErrorMessage(error)
       dispatch(
         AlertActions.addError({
