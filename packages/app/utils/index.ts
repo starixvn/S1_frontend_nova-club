@@ -1,6 +1,7 @@
-import { Currency, currencyListMapper } from './constant'
+import { Currency, currencyListMapper, LANGUAGE_SUBTAG } from './constant'
 import * as Clipboard from 'expo-clipboard'
 import { number } from 'yup'
+import { LANGUAGE_CODE } from 'app/constant/language'
 
 /**
  * `expo-clipboard` version 2.1.1 is used due to v3 above need Expo SDK45
@@ -29,6 +30,7 @@ export function toCurrency(
     forceDecimal?: boolean
     skipThousandTruncate?: boolean
     hideTruncatedThousand?: boolean
+    withSIPrefix?: boolean
   }
 ): string {
   if (!amount) amount = 0.0
@@ -42,10 +44,11 @@ export function toCurrency(
   options = options || {}
   const {
     symbol = currency != null,
-    noDecimal = false,
-    forceDecimal = true,
-    skipThousandTruncate = false,
+    noDecimal = true,
+    forceDecimal = false,
+    skipThousandTruncate = true,
     hideTruncatedThousand = true,
+    withSIPrefix = true,
   } = options
 
   // contain multiplier
@@ -56,7 +59,8 @@ export function toCurrency(
   }
 
   const parts = amount.toString().split('.')
-  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousandSeperator)
+  // parts[0] =
+  //   parts[0]?.replace(/\B(?=(\d{3})+(?!\d))/g, thousandSeperator) || '0'
 
   let joined = parts[0]
 
@@ -86,10 +90,49 @@ export function toCurrency(
     }
   }
 
+  joined = appendWithThousandUnit(joined ?? '')
+
   if (multiplier) {
     joined += multiplier
   }
   return symbol ? `${currencySymbol} ${joined}` : joined
+}
+
+/**
+ * @example
+ * 1,000 = 1K
+ * 10,000 = 10K
+ */
+export function appendWithThousandUnit(
+  amount: string,
+  language: LANGUAGE_CODE = LANGUAGE_CODE.VIETNAM
+) {
+  if (!amount) return amount
+
+  let wholeNumber = amount
+  const isContainDecimal = amount.includes('.')
+
+  if (isContainDecimal) {
+    const [wholeNum = '0'] = amount.split('.')
+    wholeNumber = wholeNum
+  }
+
+  const parsedWholeNumber = Number(wholeNumber)
+  const dividedResult = parsedWholeNumber / 1000
+  const [quotient = '0', remainder = '0'] = dividedResult.toString().split('.')
+
+  const parsedRemainder = Number(remainder)
+  const MIN_AMOUNT = 100
+  const formattedRemainder =
+    parsedRemainder < MIN_AMOUNT ? '0' : remainder.substring(0, 1)
+
+  if (quotient === '0' && formattedRemainder === '0') return '0'
+
+  const concatAmount = quotient + `.${formattedRemainder}`
+  const locale = LANGUAGE_SUBTAG[language]
+  const formattedAmount = Intl.NumberFormat(locale).format(Number(concatAmount))
+
+  return `${formattedAmount}K`
 }
 
 const thousandCurrency = [Currency.VND]

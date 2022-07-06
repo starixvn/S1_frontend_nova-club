@@ -25,6 +25,11 @@ export enum PLATFORM_CODE {
   APP = 1,
 }
 
+export const LANGUAGE_SUBTAG = {
+  [LANGUAGE_CODE.ENGLISH]: 'en',
+  [LANGUAGE_CODE.VIETNAM]: 'vi',
+}
+
 // Promotion
 export const STATUS_RUNNING = 1
 export const STATUS_CANCELLED = 2

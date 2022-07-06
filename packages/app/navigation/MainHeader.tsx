@@ -17,13 +17,15 @@ import MainMenu from './MainMenu'
 import { usePlayerBalanceQuery } from 'services/walletApi'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import { ContextualModuleKey } from './web/withContextualNavConstant'
+import { toCurrency } from 'app/utils'
+import { Currency } from 'app/utils/constant'
 
 const MainHeader = () => {
   const { width } = useContainerDimension()
   const [showMenu, setShowMenu] = useState(false)
 
   const { makeContextualHref } = useContextualRouting(ContextualModuleKey.Home)
-  const [mainWalletBalance, setMainWalletBalance] = useState(0)
+  const [mainWalletBalance, setMainWalletBalance] = useState('0')
   const sx = useSx()
   const { push } = useRouter()
 
@@ -73,8 +75,12 @@ const MainHeader = () => {
 
     if (mainWallet) {
       const { balance, reward } = mainWallet
+      const totalBalance = Number(balance) + Number(reward)
+      const formattedBalance = toCurrency(totalBalance, Currency.VND, {
+        symbol: false,
+      })
 
-      setMainWalletBalance(Number(balance) + Number(reward))
+      setMainWalletBalance(formattedBalance)
     }
   }, [playerBalance])
 
