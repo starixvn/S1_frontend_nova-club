@@ -125,10 +125,9 @@ export function appendWithThousandUnit(
   const dividedResult = parsedWholeNumber / 1000
   const [quotient = '0', remainder = '0'] = dividedResult.toString().split('.')
 
-  const parsedRemainder = Number(remainder)
   const MIN_AMOUNT = 100
   const formattedRemainder =
-    parsedRemainder < MIN_AMOUNT ? '0' : remainder.substring(0, 1)
+    parsedWholeNumber < MIN_AMOUNT ? '0' : remainder.substring(0, 1)
 
   if (quotient === '0' && formattedRemainder === '0') return '0'
 
