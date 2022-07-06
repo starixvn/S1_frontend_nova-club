@@ -91,8 +91,7 @@ function useGameBalanceRule() {
         const isSeamless = walletDetails[targetProvider ?? '']?.seamless
 
         if (!isSeamless) {
-          await transfer({
-            amount: Number(playerBalance?.data?.main.balance),
+          await transferAllToOne({
             transfer_from: 0,
             transfer_to: walletDetails[targetProvider ?? '']?.id ?? 0,
           }).unwrap()
