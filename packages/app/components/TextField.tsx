@@ -1,6 +1,6 @@
 import { Gradient } from '@dripsy/gradient'
 import useLocalization from 'app/provider/localization'
-import { copyToClipboard } from 'app/utils'
+import { copyToClipboard, toThousandSeparator } from 'app/utils'
 import {
   styled,
   SxProp,
@@ -51,6 +51,7 @@ type TextFieldInputProps = {
   label: string
   _input: DripsyTextInputProps
   error?: string
+  isAmount: boolean
   containerStyle?: SxProp
 }
 
@@ -82,7 +83,7 @@ const TextFieldLabel = ({
 
   return (
     <GradientBox sx={{ my: '$1' }} {...rest}>
-      <StyledView sx={{ color: '$PaleBlue' }}>
+      <StyledViewRow sx={{ color: '$PaleBlue' }}>
         <StyledTextLabel sx={{ flex: labelWidth }}>
           {t(label)} :
         </StyledTextLabel>
@@ -113,7 +114,7 @@ const TextFieldLabel = ({
             </Button>
           )}
         </View>
-      </StyledView>
+      </StyledViewRow>
     </GradientBox>
   )
 }
@@ -122,11 +123,13 @@ const TextFieldInput = ({
   label,
   error,
   containerStyle,
+  isAmount = false,
   _input,
 }: TextFieldInputProps) => {
   const { t } = useLocalization()
   const { labelWidth } = useContext(GradientTextBoxContext)
   const textInputRef = useRef(null)
+  const { value } = _input
 
   return (
     <View>
@@ -134,17 +137,44 @@ const TextFieldInput = ({
         <TouchableWithoutFeedback
           onPress={() => textInputRef?.current?.focus()}
         >
-          <StyledView sx={{ color: 'white' }}>
-            <StyledTextLabel sx={{ flex: labelWidth }}>
-              {t(label)}
-            </StyledTextLabel>
-            <StyledTextInput
-              ref={textInputRef}
-              placeholderTextColor={'$border'}
-              sx={{ flex: 1 }}
-              {..._input}
-            />
-          </StyledView>
+          <StyledViewRow sx={{ color: 'white' }}>
+            {isAmount ? (
+              <>
+                <StyledTextInput
+                  ref={textInputRef}
+                  placeholderTextColor={'$border'}
+                  maxLength={9}
+                  sx={{ flex: 1 }}
+                  {..._input}
+                  // value={toThousandSeparator(value ?? '0')}
+                />
+                {!!value && (
+                  <StyledTextLabel sx={{ flex: 1 }}>K</StyledTextLabel>
+                )}
+                <StyledTextLabel
+                  sx={{
+                    color: '#FFFBAE',
+                    position: 'absolute',
+                    right: '$4',
+                  }}
+                >
+                  {`= ${_input.value ? _input.value : 0} K`}
+                </StyledTextLabel>
+              </>
+            ) : (
+              <>
+                <StyledTextLabel sx={{ flex: labelWidth }}>
+                  {t(label)}
+                </StyledTextLabel>
+                <StyledTextInput
+                  ref={textInputRef}
+                  placeholderTextColor={'$border'}
+                  sx={{ flex: 1 }}
+                  {..._input}
+                />
+              </>
+            )}
+          </StyledViewRow>
         </TouchableWithoutFeedback>
       </GradientBox>
 
@@ -199,7 +229,7 @@ const TextFieldSelect = ({
     <View>
       <GradientBox sx={{ my: '$1', ...containerStyle }}>
         <TouchableWithoutFeedback onPress={handleActionSheetOpen}>
-          <StyledView sx={{ color: 'white' }}>
+          <StyledViewRow sx={{ color: 'white' }}>
             <StyledTextLabel sx={{ flex: labelWidth }} numberOfLines={1}>
               {t(label)}
             </StyledTextLabel>
@@ -218,7 +248,7 @@ const TextFieldSelect = ({
               />
               <Icon name="chevdown" size={32} />
             </View>
-          </StyledView>
+          </StyledViewRow>
         </TouchableWithoutFeedback>
       </GradientBox>
 
@@ -262,11 +292,12 @@ const ErrorText = ({ error }: { error?: string }) => {
 
 const MemoErrorText = memo(ErrorText)
 
-const StyledView = styled(View)(() => ({
+const StyledViewRow = styled(View)(() => ({
   flexDirection: 'row',
   alignItems: 'center',
   minHeight: 60,
   px: '$4',
+  position: 'relative',
 }))
 
 const StyledTextLabel = styled(Text)(() => ({

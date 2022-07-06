@@ -30,6 +30,7 @@ import useContextualRouting from 'app/hooks/useContextualRouting'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import { DepositActions } from 'app/store/deposit.slice'
 import { useModal } from 'react-native-modalfy'
+import { usePlayerProfileQuery } from 'services/playerApi'
 
 export type AutoDepositValues = {
   bank: SelectOptions | null
@@ -51,13 +52,16 @@ const AutoDepositForm = ({ notes, module, DepositCategoryId }) => {
   const [postSubmitDeposit] = useSubmitDepositMutation()
   const { data, isLoading, isFetching } = useDepositPaymentListQuery()
 
-  const userInfo = useSelector((s: RootState) => s.auth.user)
-  const currency = userInfo?.currency as Currency
+  const { data: playerData } = usePlayerProfileQuery()
+  const currency = playerData?.data?.currency as Currency
 
   const depositPayment = data?.data?.result.auto.find(
     (el) => el.category_id === DepositCategoryId
   )
   const paymentGateway = depositPayment?.list[0]
+  // const paymentGateway = depositPayment?.list.find((el) =>
+  //   el.bank_name_local.includes('COPAY')
+  // )
   const inputFields = Object.values(paymentGateway?.player_input_fields ?? {})
 
   const fieldBank = inputFields.find(
@@ -189,7 +193,7 @@ const AutoDepositForm = ({ notes, module, DepositCategoryId }) => {
           containerStyle={{
             my: '$10',
           }}
-          onPress={handleConfirmDeposit}
+          onPress={submitForm}
         >
           <Button.Label>{t('common.next')}</Button.Label>
         </Button>

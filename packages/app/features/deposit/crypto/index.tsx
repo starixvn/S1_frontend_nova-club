@@ -26,6 +26,7 @@ import {
   useSubmitManualDepositMutation,
 } from 'services/deposit'
 import { ManualBankItem } from 'services/deposit.type'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import * as Yup from 'yup'
 
 const ICON_SIZE = 50
@@ -46,9 +47,8 @@ const CryptoScreen = () => {
   const [postSubmitManualDeposit] = useSubmitManualDepositMutation()
   const { data, isLoading, isFetching } = useDepositPaymentListQuery()
 
-  const currency = useSelector(
-    (s: RootState) => s.auth.user?.currency
-  ) as Currency
+  const { data: playerData } = usePlayerProfileQuery()
+  const currency = playerData?.data?.currency as Currency
 
   const depositPayment = data?.data?.result.manual.find(
     (el) => el.category_id === DepositPaymentMethodCategoryId.CRYPTO
@@ -158,8 +158,18 @@ const CryptoScreen = () => {
                 keyboardType={'number-pad'}
                 onChangeText={onAmountChanged}
                 onBlur={handleBlur('amount')}
+                maxLength={9}
               />
             </View>
+            <Text
+              sx={{
+                color: '#FFFBAE',
+                position: 'absolute',
+                right: '$4',
+              }}
+            >
+              {`= ${values.amount ? values.amount : 0} K`}
+            </Text>
           </View>
         </GradientBox>
 

@@ -29,14 +29,14 @@ export enum DepositMethodId {
 }
 
 const sampleData = [
-  {
-    id: DepositMethodId.LOCAL_BANK,
-    type: DepositPaymentMethodCategoryType.LOCAL_BANK,
-    categoryId: DepositPaymentMethodCategoryId.LOCAL_BANK,
-    name: 'deposit.depositMethod.bankTransfer',
-    icon: 'sl',
-    color: '#ac0102',
-  },
+  // {
+  //   id: DepositMethodId.LOCAL_BANK,
+  //   type: DepositPaymentMethodCategoryType.LOCAL_BANK,
+  //   categoryId: DepositPaymentMethodCategoryId.LOCAL_BANK,
+  //   name: 'deposit.depositMethod.bankTransfer',
+  //   icon: 'sl',
+  //   color: '#ac0102',
+  // },
   {
     id: DepositMethodId.ONLINE_BANK,
     type: DepositPaymentMethodCategoryType.ONLINE_BANK,
@@ -69,14 +69,14 @@ const sampleData = [
     icon: 'sl',
     color: '#95AC00',
   },
-  {
-    id: DepositMethodId.CRYPTO,
-    type: DepositPaymentMethodCategoryType.CRYPTO,
-    categoryId: DepositPaymentMethodCategoryId.CRYPTO,
-    name: 'deposit.depositMethod.crypto',
-    icon: 'sl',
-    color: '#36A07B',
-  },
+  // {
+  //   id: DepositMethodId.CRYPTO,
+  //   type: DepositPaymentMethodCategoryType.CRYPTO,
+  //   categoryId: DepositPaymentMethodCategoryId.CRYPTO,
+  //   name: 'deposit.depositMethod.crypto',
+  //   icon: 'sl',
+  //   color: '#36A07B',
+  // },
 ]
 
 const DepositPage = () => {

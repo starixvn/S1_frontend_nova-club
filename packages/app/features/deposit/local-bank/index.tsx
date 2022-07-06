@@ -34,6 +34,7 @@ import { ManualBankItem } from 'services/deposit.type'
 import { Currency, DepositPaymentMethodCategoryId } from 'app/utils/constant'
 import validationRule from 'app/utils/validationRule'
 import { useModal } from 'react-native-modalfy'
+import { usePlayerProfileQuery } from 'services/playerApi'
 
 type LocalBankValues = {
   bank: ManualBankItem | null
@@ -57,8 +58,8 @@ const LocalBankScreen = () => {
   const [postSubmitManualDeposit] = useSubmitManualDepositMutation()
   const { data, isLoading, isFetching } = useDepositPaymentListQuery()
 
-  const userInfo = useSelector((s: RootState) => s.auth.user)
-  const currency = userInfo?.currency as Currency
+  const { data: playerData } = usePlayerProfileQuery()
+  const currency = playerData?.data?.currency as Currency
 
   const depositPayment = data?.data?.result.manual.find(
     (el) => el.category_id === DepositPaymentMethodCategoryId.LOCAL_BANK
@@ -187,6 +188,7 @@ const LocalBankScreen = () => {
           />
           <TextField.TextInput
             label="deposit.depositAmount"
+            isAmount
             _input={{
               placeholder: t('validation.minMaxLimit', {
                 min: toCurrency(limit.minAmount ?? 0, currency, {

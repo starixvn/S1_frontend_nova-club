@@ -20,6 +20,7 @@ import WithdrawalConfirmationModal, {
 } from 'app/components/modal/WithdrawalConfirmationModal'
 import { Currency } from 'app/utils/constant'
 import { RootState } from 'app/provider/redux/store'
+import { usePlayerProfileQuery } from 'services/playerApi'
 
 type WithdrawalValues = {
   amount: string
@@ -55,8 +56,8 @@ const WithdrawalPage = () => {
   const [postSubmitWithdrawal] = useSubmitWithdrawalMutation()
   const confirmModalRef = useRef<WithdrawalConfirmationModalHandler>(null)
 
-  const userInfo = useSelector((s: RootState) => s.auth.user)
-  const currency = userInfo?.currency as Currency
+  const { data: playerData } = usePlayerProfileQuery()
+  const currency = playerData?.data?.currency as Currency
 
   const actionSheetId = t('menu.withdraw')
 
@@ -152,7 +153,7 @@ const WithdrawalPage = () => {
   return (
     <PageWithBackHeader header={{ title: t('menu.withdraw') }}>
       <StyledView>
-        <TextField labelWidth={0.55}>
+        <TextField labelWidth={0.3}>
           <TextField.Select
             label="bank.bank"
             _input={{
@@ -173,6 +174,7 @@ const WithdrawalPage = () => {
 
           <TextField.TextInput
             label="common.amount"
+            isAmount
             _input={{
               placeholder: t('common.enterAmount'),
               value: values.amount,

@@ -45,6 +45,7 @@ const FieldAmount = ({
       <Text sx={{ mx: '$4', mt: '$4' }}>{field?.label_lang}</Text>
       <TextField.TextInput
         label=""
+        isAmount
         _input={{
           placeholder: t('validation.minMaxLimit', {
             min: toCurrency(minAmount ?? 0, currency, {
