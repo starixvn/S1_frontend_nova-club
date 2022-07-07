@@ -7,8 +7,6 @@ import Sportsbook from 'app/features/sportsbook'
 import Profile from 'app/features/profile'
 import BottomNavigation from '../BottomNavigation'
 import MainHeader from '../MainHeader'
-import FishingPage from 'app/features/fishing'
-import LotteryPage from 'app/features/lottery'
 
 const Tab = createBottomTabNavigator()
 
@@ -30,8 +28,8 @@ function TabNavigation() {
       <Tab.Screen name="Slots" component={SlotGames} />
       <Tab.Screen name="Casino" component={Casino} />
       <Tab.Screen name="Profile" component={Profile} />
-      <Tab.Screen name="FishingPage" component={FishingPage} />
-      <Tab.Screen name="LotteryPage" component={LotteryPage} />
+      {/* <Tab.Screen name="FishingPage" component={FishingPage} /> */}
+      {/* <Tab.Screen name="LotteryPage" component={LotteryPage} /> */}
     </Tab.Navigator>
   )
 }

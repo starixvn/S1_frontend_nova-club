@@ -7,7 +7,6 @@ import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { AlertActions } from 'app/store/alert'
-import { PLATFORM_CODE } from 'app/utils/constant'
 import { getErrorMessage } from 'app/utils/validation'
 import { View } from 'dripsy'
 import { useCallback, useEffect, useState } from 'react'
@@ -23,10 +22,6 @@ import GameRewards from './GameRewards'
 import TopHeader from './TopHeader'
 import UserAgreement from './UserAgreement'
 
-const enum ERROR {
-  SYSTEM_ERROR = -999,
-}
-
 type WalletDetail = {
   isMaintenance: boolean
   id: number
@@ -39,6 +34,7 @@ function useGameBalanceRule() {
     [index: string]: WalletDetail
   }>()
   const [isGameRunning, setIsGameRunning] = useState(false)
+  const [isTransferTriggered, setisTransferTriggered] = useState(false)
 
   const { data: walletDetailsRaw, isFetching } = usePlayerWalletDetailQuery(
     undefined,
@@ -46,10 +42,18 @@ function useGameBalanceRule() {
       refetchOnMountOrArgChange: true,
     }
   )
-  const [transferAllToOne, { isLoading: isTransferringToMain }] =
-    useTransferAllToOneMutation({
-      fixedCacheKey: 'transfer-all-to-one',
-    })
+  const [
+    transferAllToOne,
+    { isLoading: isTransferringToMain, isUninitialized },
+  ] = useTransferAllToOneMutation({
+    fixedCacheKey: 'transfer-all-to-one',
+  })
+
+  useEffect(() => {
+    if (isTransferringToMain) {
+      setisTransferTriggered(true)
+    }
+  }, [isTransferringToMain])
 
   useEffect(() => {
     const detailResponse = walletDetailsRaw?.data
@@ -74,7 +78,7 @@ function useGameBalanceRule() {
   const targetProvider = useAppSelector((s) => s.gameLauncher.providerCode)
 
   const balanceQuery = usePlayerBalanceQuery(undefined, {
-    refetchOnMountOrArgChange: true,
+    refetchOnMountOrArgChange: !isTransferringToMain && !isTransferTriggered, // if transferAllToOne is fetching, playerBalance cannot be called
   })
 
   const {
@@ -167,7 +171,12 @@ function useGameLauncher(gameLauncherState) {
   const [isVerifying, setVerifying] = useState(false)
   const [getGameUrl] = useLazyGetGameUrlQuery()
 
-  const { providerCode, gameCode, gameName } = gameLauncherState
+  const {
+    providerCode,
+    gameCode,
+    gameName,
+    desktopMode = false,
+  } = gameLauncherState
 
   async function launchGame() {
     try {
@@ -175,7 +184,7 @@ function useGameLauncher(gameLauncherState) {
       const { data } = await getGameUrl({
         game_code: gameCode,
         is_demo: 0,
-        is_mobile: 1, // need to implement running in desktop
+        is_mobile: desktopMode ? 0 : 1,
         platform_code: providerCode,
       }).unwrap()
 

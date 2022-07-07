@@ -1,10 +1,11 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import BouncePressable from 'app/pressable/BouncePressable'
+import useLocalization from 'app/provider/localization'
 import { Image, styled, Text } from 'dripsy'
 import { useRouter } from 'solito/router'
 const DATA = [
   {
-    label: 'Slots',
+    label: 'game.category.slots',
     img: require('../../assets/images/games/slots.png'),
     route: '/slot',
   },
@@ -13,23 +14,24 @@ const DATA = [
   //   img: require('../../assets/images/games/dice.png'),
   // },
   {
-    label: 'Fishing Games',
+    label: 'game.category.fishing',
     img: require('../../assets/images/games/fishing.png'),
     route: '/games/fishing',
   },
   {
-    label: 'Keno/Lottery',
+    label: 'game.category.keno/lottery',
     img: require('../../assets/images/games/lottery.png'),
     route: '/games/lottery',
   },
   {
-    label: 'Poker',
+    label: 'game.category.poker',
     img: require('../../assets/images/games/poker.png'),
     route: '/',
   },
 ]
 const MenuRow = () => {
   const { push } = useRouter()
+  const { t } = useLocalization()
 
   return (
     <DripsyGradient gradient={'darkBlue'}>
@@ -44,7 +46,7 @@ const MenuRow = () => {
               onPress={() => push(i.route)}
             >
               <StyledImage source={i.img} resizeMode={'stretch'} />
-              <StyledText>{i.label}</StyledText>
+              <StyledText>{t(i.label)}</StyledText>
             </BouncePressable>
           )
         })}
@@ -54,13 +56,13 @@ const MenuRow = () => {
 }
 
 const StyledImage = styled(Image)({
-  height: [75, 120, 150],
-  width: [75, 120, 150],
+  height: [75, 120],
+  width: [75, 120],
 })
 const StyledText = styled(Text)({
   textAlign: 'center',
   alignSelf: 'center',
-  fontSize: 10,
+  fontSize: 12,
   width: '90%',
   mt: -10,
   mb: '$2a',

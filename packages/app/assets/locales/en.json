@@ -35,6 +35,7 @@
     "confirmDelete": "Are you sure you want to delete? It cannot restore after deletion!",
     "confirmPassword": "Confirm Password",
     "copy": "Copy",
+    "desktop": "Desktop",
     "emptyResult": "Empty Result",
     "enter": "Enter",
     "enterAmount": "Please enter your withdrawal amount",

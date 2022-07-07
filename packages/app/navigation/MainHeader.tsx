@@ -19,6 +19,7 @@ import useContextualRouting from 'app/hooks/useContextualRouting'
 import { ContextualModuleKey } from './web/withContextualNavConstant'
 import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
+import { useTransferAllToOneMutation } from 'app/custom_services/walletApi'
 
 const MainHeader = () => {
   const { width } = useContainerDimension()
@@ -35,6 +36,16 @@ const MainHeader = () => {
     refetch,
   } = usePlayerBalanceQuery()
 
+  const [_, { isLoading: isTransferringToMain }] = useTransferAllToOneMutation({
+    fixedCacheKey: 'transfer-all-to-one',
+  })
+
+  const refreshWallet = () => {
+    if (isTransferringToMain) return
+
+    refetch()
+  }
+
   //change to icon
   const MENU_ROW = [
     {
@@ -45,7 +56,7 @@ const MainHeader = () => {
     },
     {
       img: require('../assets/images/header/wallet.png'),
-      action: () => refetch(),
+      action: () => refreshWallet(),
     },
     {
       img: require('../assets/images/header/avatar.png'),
