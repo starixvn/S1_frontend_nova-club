@@ -5,7 +5,7 @@ import { Button } from 'app/components/form/Button'
 import { FormikHelpers, useFormik } from 'formik'
 import * as Yup from 'yup'
 import validation from 'app/utils/validation'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   useAddPlayerBankAccMutation,
   useWithdrawalBankQuery,
@@ -18,6 +18,7 @@ import { WithdrawalBankResult } from 'services/bank.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { toCleanCard } from 'app/utils'
 import { MaxLength } from 'app/utils/constant'
+import { RootState } from 'app/provider/redux/store'
 
 type AddBankAccountValues = {
   accountName: string
@@ -31,7 +32,8 @@ const AddBankAccountScreen = () => {
   const { back } = useRouter()
   const { data, isLoading, isFetching, isSuccess } = useWithdrawalBankQuery()
   const [postAddWithdrawalBankAcc] = useAddPlayerBankAccMutation()
-  const { data: playerProfile } = usePlayerProfileQuery()
+
+  const player = useSelector((s: RootState) => s.auth.info)
 
   const actionSheetId = t('bank.addBankAccount')
 
@@ -65,7 +67,7 @@ const AddBankAccountScreen = () => {
 
   const formik = useFormik<AddBankAccountValues>({
     initialValues: {
-      accountName: playerProfile?.data?.firstName ?? '',
+      accountName: player?.playerName ?? '',
       bank: undefined,
       accountNo: '',
     },
@@ -90,14 +92,6 @@ const AddBankAccountScreen = () => {
     setFieldValue,
     setValues,
   } = formik
-
-  useEffect(() => {
-    !!!values.accountName &&
-      setValues({
-        ...values,
-        accountName: playerProfile?.data?.firstName ?? '',
-      })
-  }, [playerProfile])
 
   function onCardChanged(text: string) {
     if (text != null) {

@@ -15,19 +15,9 @@ export enum Currency {
   // CRYPTO = 96,
 }
 
-export enum LANGUAGE_CODE {
-  ENGLISH = 'en',
-  VIETNAM = 'vn',
-}
-
 export enum PLATFORM_CODE {
   WEB = 0,
   APP = 1,
-}
-
-export const LANGUAGE_SUBTAG = {
-  [LANGUAGE_CODE.ENGLISH]: 'en',
-  [LANGUAGE_CODE.VIETNAM]: 'vi',
 }
 
 // Promotion

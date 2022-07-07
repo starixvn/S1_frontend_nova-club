@@ -4,6 +4,7 @@ import { EndpointBuilderType, IResponse } from './common/types'
 import {
   OverviewArgs,
   OverviewResult,
+  PlayerLangArgs,
   ProfileQueryArgs,
   ProfileResult,
   ReportArgs,
@@ -49,6 +50,15 @@ const playerEndpoints = (builder: EndpointBuilderType) => {
         return res.data
       },
     }),
+    playerLang: builder.mutation<string, PlayerLangArgs>({
+      query: ({ lang }) => ({
+        url: `/player_api/lang`,
+        method: 'PUT',
+        data: {
+          lang,
+        },
+      }),
+    }),
   }
 }
 
@@ -68,4 +78,5 @@ export const {
   usePlayerOverviewQuery,
   useLazyPlayerProfileQuery,
   useLazyPlayerReportQuery,
+  usePlayerLangMutation,
 } = playerApi

@@ -1,11 +1,7 @@
-import {
-  Currency,
-  currencyListMapper,
-  LANGUAGE_SUBTAG,
-  LANGUAGE_CODE,
-} from './constant'
+import { Currency, currencyListMapper } from './constant'
 import * as Clipboard from 'expo-clipboard'
 import { number } from 'yup'
+import { LANGUAGE_CODE, LANGUAGE_SUBTAG } from 'app/constant/language'
 
 /**
  * `expo-clipboard` version 2.1.1 is used due to v3 above need Expo SDK45

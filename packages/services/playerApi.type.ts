@@ -83,3 +83,11 @@ export type ReportGameItem = {
   win: string
   winloss: string
 }
+
+/**
+ * Player Update Language
+ */
+
+export type PlayerLangArgs = {
+  lang: string
+}

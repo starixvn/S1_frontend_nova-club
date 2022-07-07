@@ -38,13 +38,7 @@ const FieldAmount = ({
       })
     }
   }
-  console.log(
-    'amount Separator',
-    toCurrency(values.realAmount ?? 0, currency, {
-      forceDecimal: false,
-      symbol: false,
-    })
-  )
+
   return field ? (
     <View>
       <Text sx={{ mx: '$4', mt: '$4' }}>{field?.label_lang}</Text>
