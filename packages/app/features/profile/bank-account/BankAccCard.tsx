@@ -5,6 +5,7 @@ import { PlayerBankResult } from 'services/bank.type'
 import { styled, Text, View } from 'dripsy'
 import React from 'react'
 import { toCleanCard } from 'app/utils'
+import { getBankLogo } from 'app/config/games/bank'
 
 type BankAccCardProps = {
   item: PlayerBankResult
@@ -16,12 +17,7 @@ const BankAccCard = ({ item, onPressRemove }: BankAccCardProps) => {
 
   return (
     <StyledBox>
-      <RoundedIcon
-        size="lg"
-        icon={{
-          uri: `https://player-stage.gball8.com/api/nv88_api/v1/${item.BankIcon}`,
-        }}
-      />
+      <RoundedIcon size="lg" icon={getBankLogo(item.BankCode)} />
       <StyledViewV>
         <Text sx={{ color: '$PaleBlue', fontWeight: 'bold' }}>
           {item.BankCode}

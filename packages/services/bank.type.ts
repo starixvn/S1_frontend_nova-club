@@ -75,7 +75,7 @@ export type DeletePlayerBankAccArgs = {
  * *General Withdrawal bank list
  */
 export type WithdrawalBankResult = {
-  bank_code: number
+  bank_code: string
   bank_name: string
   id: number
 }
