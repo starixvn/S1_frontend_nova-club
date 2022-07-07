@@ -12,7 +12,8 @@ const SimpleWrap = ({ data, col = 3, context }) => {
   return (
     <StyledWrapItem sx={{ p: containerSpace }}>
       {data.map((item, rindex) => {
-        const { game_code, game_provider_code, game_name, image } = item
+        const { game_code, game_provider_code, game_name, image, desktop } =
+          item
         const imageUrl =
           image ??
           `${MEDIA_DOMAIN}${CONTENT_URI}/games/${game_provider_code.toLowerCase()}/${game_code.toLowerCase()}.${
@@ -30,6 +31,7 @@ const SimpleWrap = ({ data, col = 3, context }) => {
             image={imageUrl}
             title={game_name}
             width={contentWidth}
+            desktop={desktop}
           />
         )
       })}

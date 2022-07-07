@@ -8,8 +8,10 @@ import ModalProvider from './modal'
 import { NavigationProvider } from './navigation'
 import ReduxProvider from './redux'
 import { SafeArea } from './safe-area'
+import { useKeepAwake } from 'expo-keep-awake'
 
 export function Provider({ children }: { children: React.ReactNode }) {
+  useKeepAwake()
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ReduxProvider>

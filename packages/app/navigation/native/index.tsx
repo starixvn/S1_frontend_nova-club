@@ -11,7 +11,7 @@ import ProfileNavigation from './ProfileNavigation'
 import { useSelector } from 'react-redux'
 import { RootState } from 'app/provider/redux/store'
 import PreLaunchGame from 'app/features/games/PreLaunchGame'
-import Deposit from 'app/features/deposit'
+import FishingPage from 'app/features/fishing'
 import WithdrawalPage from 'app/features/withdrawal'
 import ForgotPassword from 'app/features/auth/forgotPassword'
 import DepositNavigation from './DepositNavigation'
@@ -25,6 +25,7 @@ import AddBankAccountScreen from '../../../../apps/next/pages/profile/bank-accou
 import CommissionTablePage from 'app/features/profile/commission-table'
 import HistoryScreen from 'app/features/profile/history'
 import MessagesPage from 'app/features/messages'
+import LotteryPage from 'app/features/lottery'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -32,7 +33,6 @@ const Stack = createStackNavigator<{
   LoginPage: undefined
   RegisterPage: undefined
   DepositPage: undefined
-  // ProfilePage: undefined
   PreLaunchGame: undefined
   WithdrawalPage: undefined
   ForgotPassword: undefined
@@ -48,6 +48,8 @@ const Stack = createStackNavigator<{
   History: undefined
   CommissionTablePage: undefined
   MessagesPage: undefined
+  FishingPage: undefined
+  LotteryPage: undefined
 }>()
 
 export function NativeNavigation() {
@@ -135,53 +137,9 @@ export function NativeNavigation() {
           },
         }}
       />
-      {/* <Stack.Screen
-        name="ProfilePage"
-        component={ProfileNavigation}
-        options={{
-          cardStyleInterpolator: fadeScaleIn,
-          transitionSpec: {
-            open: {
-              animation: 'timing',
-              config: {
-                duration: 500,
-                easing: Easing.ease,
-              },
-            },
-            close: {
-              animation: 'timing',
-              config: {
-                duration: 2000,
-                easing: Easing.ease,
-              },
-            },
-          },
-        }}
-      /> */}
+
       <Stack.Screen name="PreLaunchGame" component={PreLaunchGame} />
-      <Stack.Screen
-        name="WithdrawalPage"
-        component={WithdrawalPage}
-        options={{
-          cardStyleInterpolator: fadeScaleIn,
-          transitionSpec: {
-            open: {
-              animation: 'timing',
-              config: {
-                duration: 500,
-                easing: Easing.ease,
-              },
-            },
-            close: {
-              animation: 'timing',
-              config: {
-                duration: 2000,
-                easing: Easing.ease,
-              },
-            },
-          },
-        }}
-      />
+      <Stack.Screen name="WithdrawalPage" component={WithdrawalPage} />
       <Stack.Screen
         name="CustomerSupportPage"
         component={CustomerSupportPage}
@@ -203,21 +161,13 @@ export function NativeNavigation() {
       <Stack.Screen name="BankAccount" component={BankAccountScreen} />
       <Stack.Screen name="AddBankAccount" component={AddBankAccountScreen} />
       <Stack.Screen name="History" component={HistoryScreen} />
-
       <Stack.Screen
         name="CommissionTablePage"
         component={CommissionTablePage}
-        options={{
-          headerShown: false,
-        }}
       />
-      <Stack.Screen
-        name="MessagesPage"
-        component={MessagesPage}
-        options={{
-          headerShown: false,
-        }}
-      />
+      <Stack.Screen name="MessagesPage" component={MessagesPage} />
+      <Stack.Screen name="FishingPage" component={FishingPage} />
+      <Stack.Screen name="LotteryPage" component={LotteryPage} />
     </Stack.Navigator>
   )
 }

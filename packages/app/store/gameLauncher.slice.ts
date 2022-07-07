@@ -6,6 +6,7 @@ export interface LaunchGamePayload {
   gameCode?: string
   providerCode?: string
   gameName?: string
+  desktopMode?: boolean
   context?: ContextualModuleKey
 }
 export type GameLauncherState = LaunchGamePayload & {}

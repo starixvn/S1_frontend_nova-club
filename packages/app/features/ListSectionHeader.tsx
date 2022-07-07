@@ -69,7 +69,7 @@ const StyledView = styled(View)({
 })
 
 const StyledText = styled(Text)({
-  fontSize: [15, 20],
+  fontSize: [17, 20],
   color: 'white',
   padding: '$1a',
   pl: '$1a',
