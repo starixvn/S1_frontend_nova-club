@@ -18,7 +18,11 @@ import {
 import { useDispatch } from 'react-redux'
 import { AlertActions } from 'app/store/alert'
 import { useRouter } from 'solito/router'
-import { DepositPaymentMethodCategoryId, TopUpCard } from 'app/utils/constant'
+import {
+  DepositPaymentMethodCategoryId,
+  MaxLength,
+  TopUpCard,
+} from 'app/utils/constant'
 import { PlayerInputFieldsBank } from 'services/deposit.type'
 import { useModal } from 'react-native-modalfy'
 
@@ -249,6 +253,7 @@ const TopUpCardScreen = () => {
                 keyboardType: 'number-pad',
                 onChangeText: onCardCodeChanged,
                 onBlur: handleBlur('cardCode'),
+                maxLength: MaxLength.CARD,
               }}
               error={
                 touched.cardCode && errors.cardCode
@@ -265,6 +270,7 @@ const TopUpCardScreen = () => {
                 keyboardType: 'number-pad',
                 onChangeText: onCardSerialNoChanged,
                 onBlur: handleBlur('cardSerialNo'),
+                maxLength: MaxLength.CARD,
               }}
               error={
                 touched.cardSerialNo && errors.cardSerialNo

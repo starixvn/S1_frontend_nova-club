@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { TextField } from 'app/components/TextField'
 import { styled, Text, View } from 'dripsy'
 import { Button } from 'app/components/form/Button'
@@ -6,7 +6,6 @@ import { FormikHelpers, useFormik } from 'formik'
 import * as Yup from 'yup'
 import validation from 'app/utils/validation'
 import { useDispatch } from 'react-redux'
-import { DEFAULT_SQUARE_ACTION_SHEET_ID } from 'app/components/actionsheet/SquareSelectorActionSheet'
 import {
   useAddPlayerBankAccMutation,
   useWithdrawalBankQuery,
@@ -17,14 +16,12 @@ import useLocalization from 'app/provider/localization'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import { WithdrawalBankResult } from 'services/bank.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import { SheetManager } from 'react-native-actions-sheet'
-import RoundedIcon from 'app/components/RoundedIcon'
-import BankItem from 'app/components/actionsheet/BankItem'
 import { toCleanCard } from 'app/utils'
+import { MaxLength } from 'app/utils/constant'
 
 type AddBankAccountValues = {
   accountName: string
-  bank: WithdrawalBankResult | {}
+  bank: WithdrawalBankResult | undefined
   accountNo: string
 }
 
@@ -35,10 +32,6 @@ const AddBankAccountScreen = () => {
   const { data, isLoading, isFetching, isSuccess } = useWithdrawalBankQuery()
   const [postAddWithdrawalBankAcc] = useAddPlayerBankAccMutation()
   const { data: playerProfile } = usePlayerProfileQuery()
-  console.log(
-    '🚀 ~ file: index.tsx ~ line 37 ~ AddBankAccountScreen ~ playerProfile',
-    playerProfile
-  )
 
   const actionSheetId = t('bank.addBankAccount')
 
@@ -48,20 +41,16 @@ const AddBankAccountScreen = () => {
   ) => {
     try {
       const { data, success, message } = await postAddWithdrawalBankAcc({
-        bank_acc_name: bank.bank_name,
+        bank_acc_name: bank?.bank_name ?? '',
         bank_acc_num: accountNo,
         bank_address: 'bankAcc',
-        bank_type_id: bank.id,
-        branch: bank.bank_code,
+        bank_type_id: bank?.id ?? 0,
+        branch: bank?.bank_code ?? '',
         city: 'bankAcc',
         province: 'bankAcc',
       })
         .unwrap()
         .catch((error) => dispatch(AlertActions.addError(error.message)))
-      console.log(
-        '🚀 ~ file: index.tsx ~ line 64 ~ WithdrawalPage ~ data',
-        data
-      )
 
       if (success) {
         dispatch(AlertActions.addSuccess(message))
@@ -77,12 +66,12 @@ const AddBankAccountScreen = () => {
   const formik = useFormik<AddBankAccountValues>({
     initialValues: {
       accountName: playerProfile?.data?.firstName ?? '',
-      bank: {},
+      bank: undefined,
       accountNo: '',
     },
     validationSchema: Yup.object({
       accountName: validation.accountName,
-      // bank: validation.sysId,
+      bank: validation.bank,
       accountNo: validation.accountNo,
     }),
     onSubmit,
@@ -101,6 +90,14 @@ const AddBankAccountScreen = () => {
     setFieldValue,
     setValues,
   } = formik
+
+  useEffect(() => {
+    !!!values.accountName &&
+      setValues({
+        ...values,
+        accountName: playerProfile?.data?.firstName ?? '',
+      })
+  }, [playerProfile])
 
   function onCardChanged(text: string) {
     if (text != null) {
@@ -134,11 +131,12 @@ const AddBankAccountScreen = () => {
             label="bank.bank"
             _input={{
               placeholder: t('bank.selectBank'),
-              value: values.bank?.bank_name,
+              value: values.bank?.bank_name ?? '',
             }}
             _flatList={{
               data: data,
               isLoading: isLoading || isFetching,
+              key: 'id',
               titleType: 'bank_code',
               onPress: (item) => setFieldValue('bank', item),
             }}
@@ -156,6 +154,7 @@ const AddBankAccountScreen = () => {
               onChangeText: onCardChanged,
               onBlur: handleBlur('accountNo'),
               keyboardType: 'number-pad',
+              maxLength: MaxLength.CARD,
             }}
             error={
               touched.accountNo && errors.accountNo

@@ -1,18 +1,11 @@
-import IconButton from 'app/components/form/IconButton'
 import RefreshIconButton from 'app/components/form/IconButton/RefreshButton'
 import GradientBox from 'app/components/GradientBox'
 import HistoryEmpty from 'app/components/history/HistoryEmpty'
 import useLocalization from 'app/provider/localization'
-import {
-  ReportDepositStatus,
-  ReportDepositStatusOptions,
-  ReportTransactionType,
-  ReportTransactionTypeOptions,
-} from 'app/utils/constant'
+import { ReportDepositStatus, ReportTransactionType } from 'app/utils/constant'
 import dayjs from 'dayjs'
 import { Text, View } from 'dripsy'
 import { usePlayerReportQuery } from 'services/playerApi'
-import { useDummyRtk } from 'utils/rtk'
 import DateTimeCell from '../profile/history/DateTimeCell'
 const dummyData = [
   {
@@ -29,7 +22,7 @@ const RecentTransactions = () => {
       .subtract(2, 'month')
       .startOf('date')
       .format('YYYY-MM-DD HH:mm:ss'),
-    time_to: dayjs().startOf('date').format('YYYY-MM-DD HH:mm:ss'),
+    time_to: dayjs().endOf('date').format('YYYY-MM-DD HH:mm:ss'),
     trans_type: ReportTransactionType.DEPOSIT,
   })
 

@@ -5,10 +5,7 @@ import useContextualRouting from 'app/hooks/useContextualRouting'
 import withContextualNav from 'app/navigation/web/withContextualNav'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import useLocalization from 'app/provider/localization'
-import {
-  useDeletePlayerBankAccMutation,
-  usePlayerBankQuery,
-} from 'services/bank'
+import { usePlayerBankQuery } from 'services/bank'
 import { PlayerBankResult } from 'services/bank.type'
 import {
   ActivityIndicator,
@@ -18,10 +15,9 @@ import {
   Text,
   View,
 } from 'dripsy'
-import React, { useRef } from 'react'
+import React from 'react'
 import { useRouter } from 'solito/router'
 import BankAccCard from './BankAccCard'
-import { PlayerBankDeleteModalForwardRef } from 'app/components/modal/PlayerBankConfirmationModal'
 import { useModal } from 'react-native-modalfy'
 
 const BankAccountScreen = () => {
@@ -29,7 +25,6 @@ const BankAccountScreen = () => {
   const { push } = useRouter()
   const { openModal } = useModal()
   const { data, isLoading, isFetching } = usePlayerBankQuery()
-  const deleteModalRef = useRef<PlayerBankDeleteModalForwardRef>(null)
 
   const { makeContextualHref } = useContextualRouting(
     ContextualModuleKey.BankAccount
@@ -38,7 +33,6 @@ const BankAccountScreen = () => {
 
   const handleRemove = async (item: PlayerBankResult) => {
     // deleteModalRef.current && deleteModalRef.current.showDialog(item)
-    console.log('item', item)
     openModal('PlayerBankDeleteModal', { bank: item })
   }
 
@@ -70,7 +64,7 @@ const BankAccountScreen = () => {
             rounded
             stretch
             variant="lg"
-            // disabled={data && data.length >= 3}
+            disabled={data && data.length >= 3}
             fill={{
               type: 'gradient',
               color: 'secondary',
@@ -85,8 +79,6 @@ const BankAccountScreen = () => {
             <Button.Label>{t('bank.addBankAccount')}</Button.Label>
           </Button>
         </View>
-
-        {/* <PlayerBankDeleteModal ref={deleteModalRef} /> */}
       </StyledView>
     </PageWithBackHeader>
   )
