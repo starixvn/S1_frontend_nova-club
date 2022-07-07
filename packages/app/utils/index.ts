@@ -182,10 +182,11 @@ export interface CleanAmount {
 
 export function toCleanAmount(text: string): CleanAmount {
   let cleanText = text.replace(/[^0-9]/g, '')
-  cleanText = toThousandSeparator(cleanText) ?? ''
   // if (cleanText === values.amount) return
   let amountNumber = parseFloat(cleanText)
   if (isNaN(amountNumber)) amountNumber = 0
+
+  cleanText = toThousandSeparator(cleanText) ?? ''
 
   return { cleanText, amountNumber }
 }
@@ -194,10 +195,10 @@ export function toCleanCard(text: string): CleanAmount {
     .replace(/\s?/g, '')
     .replace(/(\d{4})/g, '$1 ')
     .trim()
-  // cleanText = toThousandSeparator(cleanText) ?? ''
   // if (cleanText === values.amount) return
   let amountNumber = parseFloat(cleanText)
   if (isNaN(amountNumber)) amountNumber = 0
 
+  // cleanText = toThousandSeparator(cleanText) ?? ''
   return { cleanText, amountNumber }
 }

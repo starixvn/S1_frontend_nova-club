@@ -1,14 +1,12 @@
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import useLocalization from 'app/provider/localization'
-import { Text, View, ActivityIndicator, FlatList, styled } from 'dripsy'
-import { useDummyRtk } from 'utils/rtk'
+import { Text, View, ActivityIndicator, styled } from 'dripsy'
 import RecentTransactions from './RecentTransactions'
 import DepositMethodCard from './DepositMethodCard'
 import { useRouter } from 'solito/router'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import withContextualNav from 'app/navigation/web/withContextualNav'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { BankActions } from 'app/store/bankReducer'
@@ -17,7 +15,6 @@ import {
   DepositPaymentMethodCategoryId,
   DepositPaymentMethodCategoryType,
 } from 'app/utils/constant'
-import DepositConfirmationModal from 'app/components/modal/DepositConfirmationModal'
 
 export enum DepositMethodId {
   LOCAL_BANK = 1,
@@ -163,7 +160,6 @@ const DepositPage = () => {
                 key={item.id}
                 item={item}
                 sx={{
-                  // ml: index % 2 !== 0 ? '$2' : 0,
                   mb: paymentMethodList.length - index <= 2 ? 0 : '$4',
                 }}
                 onPress={() => handlePress(item.id)}
