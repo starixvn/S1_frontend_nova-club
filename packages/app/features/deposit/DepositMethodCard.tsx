@@ -15,7 +15,7 @@ const DepositMethodCard = ({ item, onPress, ...rest }) => {
       onPress={onPress}
       style={sx({
         p: '$2',
-        flex: 1,
+        flexBasis: '45%',
         position: 'relative',
         ...rest.sx,
       })}
