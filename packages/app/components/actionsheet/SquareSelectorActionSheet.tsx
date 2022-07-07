@@ -15,6 +15,7 @@ import { Platform } from 'react-native'
 import ActionSheet, { SheetManager } from 'react-native-actions-sheet'
 import { DripsyGradient } from '../Gradient'
 import BankItem from './BankItem'
+import { getBankLogo } from 'app/config/games/bank'
 
 export type SquareSelectorActionSheetProps = ComponentProps<
   typeof ActionSheet
@@ -25,6 +26,7 @@ export type SquareSelectorFlatListProps = ComponentProps<typeof FlatList> & {
   data: WithdrawalBankResult[] | PlayerBankResult[] | []
   isLoading: boolean
   titleType: string
+  key: string | number
   onPress: (object) => void
 }
 export interface SquareSelectorForwardRef {
@@ -35,13 +37,6 @@ type SquareSelectorProps = {
   onPress: (number) => void
   _actionSheet: SquareSelectorActionSheetProps
   _flatList: SquareSelectorFlatListProps
-}
-
-type BankItemProps = {
-  bank: WithdrawalBankResult | PlayerBankResult
-  disabled?: boolean
-  loading?: boolean
-  onPress?: () => void
 }
 
 export const DEFAULT_SQUARE_ACTION_SHEET_ID = 'SquareSelector'
@@ -59,7 +54,7 @@ const SquareSelectorActionSheet = forwardRef<
     ...restActionSheetProps
   } = _actionSheet || {}
 
-  const { data, isLoading, onPress, titleType, ...restFlatListProps } =
+  const { data, isLoading, onPress, titleType, key, ...restFlatListProps } =
     _flatList || {}
   const { theme } = useDripsyTheme()
 
@@ -119,8 +114,8 @@ const SquareSelectorActionSheet = forwardRef<
           >
             {data.map((item) => (
               <BankItem
-                key={item[titleType]}
-                icon={require('app/assets/images/home/fishing.png')}
+                key={item[key]}
+                icon={getBankLogo(item[titleType])}
                 title={item[titleType]}
                 onPress={async () => {
                   onPress(item)

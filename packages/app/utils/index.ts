@@ -1,11 +1,7 @@
-import {
-  Currency,
-  currencyListMapper,
-  LANGUAGE_SUBTAG,
-  LANGUAGE_CODE,
-} from './constant'
+import { Currency, currencyListMapper } from './constant'
 import * as Clipboard from 'expo-clipboard'
 import { number } from 'yup'
+import { LANGUAGE_CODE, LANGUAGE_SUBTAG } from 'app/constant/language'
 
 /**
  * `expo-clipboard` version 2.1.1 is used due to v3 above need Expo SDK45
@@ -182,10 +178,11 @@ export interface CleanAmount {
 
 export function toCleanAmount(text: string): CleanAmount {
   let cleanText = text.replace(/[^0-9]/g, '')
-  cleanText = toThousandSeparator(cleanText) ?? ''
   // if (cleanText === values.amount) return
   let amountNumber = parseFloat(cleanText)
   if (isNaN(amountNumber)) amountNumber = 0
+
+  cleanText = toThousandSeparator(cleanText) ?? ''
 
   return { cleanText, amountNumber }
 }
@@ -194,10 +191,10 @@ export function toCleanCard(text: string): CleanAmount {
     .replace(/\s?/g, '')
     .replace(/(\d{4})/g, '$1 ')
     .trim()
-  // cleanText = toThousandSeparator(cleanText) ?? ''
   // if (cleanText === values.amount) return
   let amountNumber = parseFloat(cleanText)
   if (isNaN(amountNumber)) amountNumber = 0
 
+  // cleanText = toThousandSeparator(cleanText) ?? ''
   return { cleanText, amountNumber }
 }

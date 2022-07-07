@@ -1,14 +1,12 @@
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import useLocalization from 'app/provider/localization'
-import { Text, View, ActivityIndicator, FlatList, styled } from 'dripsy'
-import { useDummyRtk } from 'utils/rtk'
+import { Text, View, ActivityIndicator, styled } from 'dripsy'
 import RecentTransactions from './RecentTransactions'
 import DepositMethodCard from './DepositMethodCard'
 import { useRouter } from 'solito/router'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import withContextualNav from 'app/navigation/web/withContextualNav'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { BankActions } from 'app/store/bankReducer'
@@ -17,7 +15,6 @@ import {
   DepositPaymentMethodCategoryId,
   DepositPaymentMethodCategoryType,
 } from 'app/utils/constant'
-import DepositConfirmationModal from 'app/components/modal/DepositConfirmationModal'
 
 export enum DepositMethodId {
   LOCAL_BANK = 1,
@@ -102,7 +99,6 @@ const DepositPage = () => {
         const res = data.data.result[item.type].find(
           (el) => el.category_id === item.categoryId
         )
-        console.log('🚀 ~ file: index.tsx ~ line 103 ~ convertData ~ res', res)
 
         if (!res) return item
         return {
@@ -117,43 +113,6 @@ const DepositPage = () => {
       dispatch(BankActions.setDepositPayment(convertData))
     }
   }, [data])
-
-  function fetchDepositPaymentCategories() {
-    const formData = new FormData()
-    formData.append('is_mobile', '0')
-    formData.append('api_key', '42f77fd0409566c6123d58551e85ee87')
-    formData.append('token', '26174d76e0f2622d52af21a3757308d2')
-    formData.append('username', 'gateway001')
-
-    axios({
-      method: 'post',
-      url: 'https://player.xoon88.com/api/player_center/depositPaymentCategories',
-      data: formData,
-      headers: { 'Content-Type': 'multipart/form-data' },
-    })
-      .then(function (response) {
-        //handle success
-        const convertData = sampleData.map((item, index) => {
-          const res = response.data.result.payment_cats[item.type].find(
-            (el) => el.category_id === item.categoryId.toString()
-          )
-
-          return {
-            ...item,
-            categoryText: res.category_text,
-            list: res.list,
-          }
-        })
-
-        setPaymentMethodList(convertData)
-
-        dispatch(BankActions.setDepositPayment(convertData))
-      })
-      .catch(function (response) {
-        //handle error
-        console.log(response)
-      })
-  }
 
   const handlePress = (id) => {
     switch (id) {
@@ -186,27 +145,26 @@ const DepositPage = () => {
       {isLoading ? (
         <ActivityIndicator />
       ) : (
-        <View sx={{ position: 'relative', mx: '$4' }}>
-          {paymentMethodList && (
-            <FlatList
-              scrollEnabled={false}
-              data={paymentMethodList}
-              numColumns={2}
-              keyExtractor={(item) => item.name}
-              renderItem={({ item, index }) => {
-                return (
-                  <DepositMethodCard
-                    item={item}
-                    sx={{
-                      mr: index % 2 === 0 ? '$8' : 0,
-                      mb: paymentMethodList.length - index <= 2 ? 0 : '$4',
-                    }}
-                    onPress={() => handlePress(item.id)}
-                  />
-                )
-              }}
-            />
-          )}
+        <View
+          sx={{
+            position: 'relative',
+            mx: '$4',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+          }}
+        >
+          {paymentMethodList &&
+            paymentMethodList.map((item, index) => (
+              <DepositMethodCard
+                key={item.id}
+                item={item}
+                sx={{
+                  mb: paymentMethodList.length - index <= 2 ? 0 : '$4',
+                }}
+                onPress={() => handlePress(item.id)}
+              />
+            ))}
           <Seperator />
         </View>
       )}
@@ -220,7 +178,7 @@ const Seperator = styled(View)({
   bg: '#33A0D0',
   height: '100%',
   position: 'absolute',
-  alignSelf: 'center',
+  left: '50%',
 })
 
 export default withContextualNav(DepositPage, ContextualModuleKey.Deposit)

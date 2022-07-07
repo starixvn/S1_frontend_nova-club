@@ -147,12 +147,6 @@ const TextFieldInput = ({
                   maxLength={MaxLength.AMOUNT}
                   {..._input}
                 />
-                {!!value && (
-                  <View sx={{ position: 'absolute', flexDirection: 'row' }}>
-                    <Text sx={{ color: '$transparent' }}>{value}</Text>
-                    <StyledTextLabel sx={{ flex: 1 }}> K</StyledTextLabel>
-                  </View>
-                )}
                 <StyledTextLabel
                   sx={{
                     color: '#FFFBAE',
