@@ -13,6 +13,7 @@ const ProfileOptions = () => {
     ContextualModuleKey.Profile
   )
   const toProfileDetails = makeContextualHref('profile-details')
+  const toSupport = makeContextualHref('customer-support')
   const toMessages = makeContextualHref('messages', {
     tab: 0,
   })
@@ -57,18 +58,18 @@ const ProfileOptions = () => {
       id: 5,
       title: 'Customer Support',
       iconName: 'lc',
-      routeWeb: toProfileDetails,
+      routeWeb: toSupport,
       route: '/customer-support',
     },
-    {
-      id: 6,
-      title: 'Switch Account',
-      iconName: 'lt',
-      routeWeb: toProfileDetails,
-      route: '/switch-account',
-      gradient: 'wineRed',
-      fontColor: 'white',
-    },
+    // {
+    //   id: 6,
+    //   title: 'Switch Account',
+    //   iconName: 'lt',
+    //   routeWeb: toProfileDetails,
+    //   route: '/switch-account',
+    //   gradient: 'wineRed',
+    //   fontColor: 'white',
+    // },
     {
       id: 7,
       title: 'Logout',

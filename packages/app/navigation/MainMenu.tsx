@@ -52,10 +52,10 @@ const MainMenu = ({ isShow, onMenu }) => {
           push(makeContextualHref('customer-support'), '/customer-support')
         },
       },
-      {
-        label: 'Switch Account',
-        icon: 'switch',
-      },
+      // {
+      //   label: 'Switch Account',
+      //   icon: 'switch',
+      // },
       {
         label: 'Logout',
         icon: 'transfer',
