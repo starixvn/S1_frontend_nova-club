@@ -1,6 +1,11 @@
 import { TextField } from 'app/components/TextField'
 import useLocalization from 'app/provider/localization'
-import { toCleanAmount, toCurrency, toRealAmount } from 'app/utils'
+import {
+  clearThousandSeparator,
+  toCleanAmount,
+  toCurrency,
+  toRealAmount,
+} from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import { Text, View } from 'dripsy'
 import { FormikProps } from 'formik'
@@ -69,7 +74,6 @@ const FieldAmount = ({
                   forceDecimal: false,
                   symbol: false,
                 }),
-
                 min: toCurrency(minAmount ?? 0, currency, {
                   forceDecimal: false,
                   symbol: false,
