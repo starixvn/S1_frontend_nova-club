@@ -54,7 +54,11 @@ const Slots = withContextualNav(() => {
   return (
     <PageSafeArea disableScrollView sx={{ bg: '$background' }}>
       {filteredGames.length === 0 ? (
-        <ActivityIndicator size={'large'} sx={{ mt: '$8' }} />
+        <ActivityIndicator
+          size={'large'}
+          sx={{ mt: '$8' }}
+          color={'$lightCyan'}
+        />
       ) : (
         <>
           <ListSectionHeader title={'Slots'} bgColor="purple" iconName="lt">

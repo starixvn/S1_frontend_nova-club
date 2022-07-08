@@ -49,7 +49,7 @@ const OverviewScreen = () => {
                 // @ts-expect-error: In web, translateX should be accept percentage
                 transform: [{ translateX: '-50%' }],
               }}
-              color={theme.activityIndicator.primary.color}
+              color={'$lightCyan'}
             />
           )}
 

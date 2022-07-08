@@ -158,7 +158,7 @@ function Button({
             }}
             pointerEvents="none"
           >
-            <ActivityIndicator color={'#9CD9FA'} />
+            <ActivityIndicator color={'$lightCyan'} />
           </View>
         )}
       </BouncePressable>

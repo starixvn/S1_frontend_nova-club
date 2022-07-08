@@ -129,9 +129,10 @@ export function appendWithThousandUnit(
 
   const concatAmount = quotient + `.${formattedRemainder}`
   const locale = LANGUAGE_SUBTAG[language]
-  const formattedAmount = Intl.NumberFormat(locale).format(Number(concatAmount))
 
-  return `${formattedAmount}K`
+  // const formattedAmount = Intl.NumberFormat(locale).format(Number(concatAmount))
+
+  return `${concatAmount}K`
 }
 
 export function clearThousandSeparator(amount: string) {

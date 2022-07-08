@@ -102,7 +102,7 @@ const SquareSelectorActionSheet = forwardRef<
         }}
       >
         {isLoading ? (
-          <ActivityIndicator size={'large'} />
+          <ActivityIndicator size={'large'} color={'$lightCyan'} />
         ) : data && data?.length > 0 ? (
           <View
             sx={{

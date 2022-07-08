@@ -245,7 +245,7 @@ function HistoryListing<T>(props: HistoryListingProps<T>) {
         ListFooterComponent={() =>
           isFetching &&
           !allLoaded &&
-          displayList.length > 0 && <ActivityIndicator />
+          displayList.length > 0 && <ActivityIndicator color={'$lightCyan'} />
         }
         data={displayList}
         keyExtractor={keyExtractor}

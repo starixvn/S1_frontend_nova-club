@@ -143,7 +143,7 @@ const DepositPage = () => {
     <PageWithBackHeader header={{ title: t('menu.deposit') }}>
       <Text sx={{ my: '$6', mx: '$4' }}>{t('deposit.choose')}</Text>
       {isLoading ? (
-        <ActivityIndicator />
+        <ActivityIndicator color={'$lightCyan'} />
       ) : (
         <View
           sx={{

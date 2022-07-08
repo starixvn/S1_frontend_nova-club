@@ -67,7 +67,7 @@ const PersonalMessagePage = () => {
             </Text>
           </View>
           {isDeleting ? (
-            <ActivityIndicator sx={{ m: '$2' }} />
+            <ActivityIndicator sx={{ m: '$2' }} color={'$lightCyan'} />
           ) : (
             <BouncePressable onPress={onDelete}>
               <Icon name="lc" size={25} />

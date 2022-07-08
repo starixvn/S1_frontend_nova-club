@@ -40,7 +40,7 @@ const BankAccountScreen = () => {
     <PageWithBackHeader header={{ title: t('menu.bankAccount') }}>
       <StyledView>
         {isLoading || isFetching ? (
-          <ActivityIndicator size={'large'} />
+          <ActivityIndicator size={'large'} color={'$lightCyan'} />
         ) : data?.length > 0 ? (
           data.map((item: PlayerBankResult) => (
             <BankAccCard

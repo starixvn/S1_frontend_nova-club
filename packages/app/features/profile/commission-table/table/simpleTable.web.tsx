@@ -63,7 +63,13 @@ const SimpleTable = () => {
   })
 
   if (isLoading) {
-    return <ActivityIndicator size={'small'} sx={{ mt: '$3' }} />
+    return (
+      <ActivityIndicator
+        size={'small'}
+        sx={{ mt: '$3' }}
+        color={'$lightCyan'}
+      />
+    )
   }
 
   return (

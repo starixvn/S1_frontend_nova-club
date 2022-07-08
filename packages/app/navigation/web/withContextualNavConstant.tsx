@@ -52,7 +52,7 @@ export function getContextualComponent(key: string) {
     loading: (props) => {
       return (
         <PageWithBackHeader header={{ title: ' ' }}>
-          <ActivityIndicator sx={{ mt: '$10' }} />
+          <ActivityIndicator sx={{ mt: '$10' }} color={'$lightCyan'} />
         </PageWithBackHeader>
       )
     },

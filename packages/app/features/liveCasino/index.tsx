@@ -129,7 +129,11 @@ const LiveCasino = withContextualNav(() => {
   return (
     <Page sx={{ bg: '$background' }}>
       {filteredGames.length === 0 ? (
-        <ActivityIndicator size={'large'} sx={{ mt: '$8' }} />
+        <ActivityIndicator
+          size={'large'}
+          sx={{ mt: '$8' }}
+          color={'$lightCyan'}
+        />
       ) : (
         <FlatList
           numColumns={3}
