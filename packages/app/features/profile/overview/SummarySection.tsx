@@ -2,12 +2,14 @@ import { DripsyGradient } from 'app/components/Gradient'
 import useLocalization from 'app/provider/localization'
 import { styled, Text, View } from 'dripsy'
 
+type Amount = string | number
+
 interface SummarySectionProps {
   title: string
-  amountWL: number
-  amountTO: number
-  amountRB: number
-  amountDirect?: number
+  amountWL: Amount
+  amountTO: Amount
+  amountRB: Amount
+  amountDirect?: Amount
 }
 
 const SummarySection = ({
@@ -53,7 +55,7 @@ const SummarySection = ({
   )
 }
 
-const TopInfo = ({ label, amount }: { label: string; amount: number }) => {
+const TopInfo = ({ label, amount }: { label: string; amount: Amount }) => {
   return (
     <View
       sx={{
@@ -68,7 +70,7 @@ const TopInfo = ({ label, amount }: { label: string; amount: number }) => {
   )
 }
 
-const BottomInfo = ({ label, amount }: { label: string; amount: number }) => {
+const BottomInfo = ({ label, amount }: { label: string; amount: Amount }) => {
   return (
     <StyledBottomContainer>
       <Text sx={{ pt: '$3' }}>{label}</Text>

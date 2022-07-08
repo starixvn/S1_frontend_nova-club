@@ -5,6 +5,7 @@ import {
   OverviewArgs,
   OverviewResult,
   PlayerLangArgs,
+  PlayerOverviewArgs,
   ProfileQueryArgs,
   ProfileResult,
   ReportArgs,
@@ -25,10 +26,16 @@ const playerEndpoints = (builder: EndpointBuilderType) => {
         },
       }),
     }),
-    playerOverview: builder.query<OverviewResult | undefined, void>({
-      query: () => ({
+    playerOverview: builder.query<
+      OverviewResult | undefined,
+      PlayerOverviewArgs
+    >({
+      query: (queryArgs) => ({
         url: `/player_api/getPlayerOverview`,
         method: 'POST',
+        data: {
+          ...queryArgs,
+        },
       }),
       transformResponse: (
         res: IResponse<OverviewResult>

@@ -12,6 +12,7 @@ import {
   ReportWithdrawalStatusOptions,
   ReportGameStatusOptions,
   DateFilterOptions,
+  ReportCommonStatusOptions,
 } from 'app/utils/constant'
 import dayjs from 'dayjs'
 import { Text, View } from 'dripsy'
@@ -19,8 +20,8 @@ import React from 'react'
 
 const TypeList = ReportTransactionTypeOptions
 const DateFilterList = DateFilterOptions
-const DepositStatusList = ReportDepositStatusOptions
-const WithdrawalStatusList = ReportWithdrawalStatusOptions
+const DepositStatusList = ReportCommonStatusOptions
+const WithdrawalStatusList = ReportCommonStatusOptions
 const GameStatusList = ReportGameStatusOptions
 export const ProviderList = Object.keys(GameProvider).map((key) => ({
   label: key,
@@ -149,6 +150,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
 
         {isTransaction ? (
           <Select
+            key={selected.selectedTransType.value}
             actionSheetProps={{ id: t('menu.tab.statusType') }}
             headerTitle={t('menu.tab.statusType')}
             buttonTitle={selected.selectedStatus.label}
@@ -156,6 +158,9 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
               sx: {
                 flex: 1,
               },
+              disabled:
+                selected.selectedTransType.value ===
+                ReportTransactionType.REWARD,
             }}
             data={
               selected.selectedTransType === ReportTransactionType.DEPOSIT

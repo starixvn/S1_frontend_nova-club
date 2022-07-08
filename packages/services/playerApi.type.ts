@@ -91,3 +91,8 @@ export type ReportGameItem = {
 export type PlayerLangArgs = {
   lang: string
 }
+
+export interface PlayerOverviewArgs {
+  date_from: string
+  date_to: string
+}

@@ -7,8 +7,16 @@ input:focus {
 }
 
 .inputBox {
+  align-items: center;
+  background: #033454;
+  border-radius: 10px;
+  border: 1px solid #33a0d0;
+  display: flex;
+  flex: 1;
+  padding: 10px;
+  position: relative;
   text-align: center;
-  flex: 1
+  justify-content: space-between;
 }
 
 input[type='date']::-webkit-calendar-picker-indicator {
@@ -25,27 +33,25 @@ input[type='date']::-webkit-calendar-picker-indicator {
 }
 
 .inputDate {
-  border: 1px solid #284985;
   display: flex;
   justify-content: center;
-  border-radius: 10px;
-  padding: 2vw;
   align-items: center;
-  background: #033454;
-  border-color: #33a0d0;
-  outline: none;
-  outline-offset: 0px;
 }
 
 .date-input {
   width: 100%;
-  background: transparent;
-  position: relative;
+  height: 100%;
   border: 0;
   color: white;
   text-align: center;
   font-family: sans-serif;
   outline: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .overflow-y-hidden {

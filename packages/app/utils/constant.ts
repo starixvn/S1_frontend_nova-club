@@ -66,7 +66,7 @@ export const DateFilterOptions = [
 export enum ReportTransactionType {
   DEPOSIT = 'deposit',
   WITHDRAWAL = 'withdrawal',
-  REWARD = 'reward',
+  REWARD = 'rewards',
   GAME = 'game',
 }
 export const ReportTransactionTypeOptions = [
@@ -98,6 +98,32 @@ export enum ReportDepositStatus {
   DECLINED = 'declined',
   CHECKING = 'checking',
 }
+
+export enum ReportCommonStatus {
+  ALL = 'all',
+  PENDING = 'pending',
+  APPROVED = 'approved',
+  DECLINED = 'declined',
+}
+
+export const ReportCommonStatusOptions = [
+  {
+    value: ReportCommonStatus.ALL,
+    label: 'common.all',
+  },
+  {
+    value: ReportCommonStatus.PENDING,
+    label: 'status.pending',
+  },
+  {
+    value: ReportCommonStatus.APPROVED,
+    label: 'status.success',
+  },
+  {
+    value: ReportCommonStatus.DECLINED,
+    label: 'status.rejected',
+  },
+]
 
 export const ReportDepositStatusOptions = [
   {

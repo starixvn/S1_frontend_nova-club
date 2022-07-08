@@ -1,27 +1,63 @@
-import Header from 'app/components/common/Header'
-import DatePicker from 'app/components/form/DatePicker/DatePicker'
 import { DripsyGradient } from 'app/components/Gradient'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import useLocalization from 'app/provider/localization'
-import { useAppSelector } from 'app/provider/redux/store'
+import dayjs from 'dayjs'
+import { ActivityIndicator, ScrollView, useDripsyTheme } from 'dripsy'
+import { useState } from 'react'
+import { Platform, RefreshControl } from 'react-native'
 import { usePlayerOverviewQuery } from 'services/playerApi'
-import { ScrollView } from 'dripsy'
 import OverviewDateRange from './OverviewDateRange'
 import SummarySection from './SummarySection'
 
 const OverviewScreen = () => {
   const { t } = useLocalization()
-  const state = useAppSelector((state) => state.auth.info || {})
-  const { data } = usePlayerOverviewQuery()
+  const [endDate, setEndDate] = useState(dayjs().startOf('date').toDate())
+  const [startDate, setStartDate] = useState(dayjs().startOf('date').toDate())
+
+  const { theme } = useDripsyTheme()
+
+  const formatDate = (date: Date) => {
+    return dayjs(date).format('YYYY-MM-DD')
+  }
+
+  const {
+    data,
+    isFetching,
+    refetch: refreshPlayerOverview,
+  } = usePlayerOverviewQuery({
+    date_from: formatDate(startDate),
+    date_to: formatDate(endDate),
+  })
 
   return (
     <DripsyGradient colors={['#133351', '#0D2035']} sx={{ flex: 1 }}>
       <PageWithBackHeader header={{ title: t('profile.overview.title') }}>
-        <ScrollView>
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={isFetching}
+              onRefresh={refreshPlayerOverview}
+            />
+          }
+        >
+          {isFetching && Platform.OS === 'web' && (
+            <ActivityIndicator
+              sx={{
+                mt: '$3',
+                position: 'absolute',
+                left: '50%',
+                // @ts-expect-error: In web, translateX should be accept percentage
+                transform: [{ translateX: '-50%' }],
+              }}
+              color={theme.activityIndicator.primary.color}
+            />
+          )}
+
           <OverviewDateRange
-            onSearch={(startDate, endDate) => {
-              console.log({ startDate, endDate })
-            }}
+            startDate={startDate}
+            endDate={endDate}
+            setStartDate={setStartDate}
+            setEndDate={setEndDate}
           />
           <SummarySection
             title={t('profile.overview.self')}
