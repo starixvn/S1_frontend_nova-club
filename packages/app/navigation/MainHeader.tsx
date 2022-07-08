@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   styled,
   Text,
+  useDripsyTheme,
   useSx,
   View,
 } from 'dripsy'
@@ -29,6 +30,7 @@ const MainHeader = () => {
   const [mainWalletBalance, setMainWalletBalance] = useState('0')
   const sx = useSx()
   const { push } = useRouter()
+  const { theme } = useDripsyTheme()
 
   const {
     data: playerBalance,
@@ -140,7 +142,11 @@ const MainHeader = () => {
                         }}
                       >
                         {isMainWalletLoading ? (
-                          <ActivityIndicator size={23} sx={{ px: '$1' }} />
+                          <ActivityIndicator
+                            size={23}
+                            color={theme.colors.$primary}
+                            sx={{ px: '$1' }}
+                          />
                         ) : (
                           <>
                             <StyledBgImage

@@ -156,7 +156,7 @@ const RegisterPage = () => {
               >
                 <StyledImage
                   source={HEADER_IMAGE}
-                  accessibilityLabel="n88 app logo"
+                  // accessibilityLabel="n88 app logo"
                   sx={{
                     width: 70,
                     height: 70,

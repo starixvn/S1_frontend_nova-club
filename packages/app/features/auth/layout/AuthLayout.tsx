@@ -57,7 +57,7 @@ const AuthLayout = ({
           >
             <StyledImage
               source={HEADER_IMAGE}
-              accessibilityLabel="n88 app logo"
+              // accessibilityLabel="n88 app logo"
             />
 
             {showBackButton ? (
