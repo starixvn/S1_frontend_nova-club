@@ -134,6 +134,10 @@ export function appendWithThousandUnit(
   return `${formattedAmount}K`
 }
 
+export function clearThousandSeparator(amount: string) {
+  return amount.replace(/.(?=\d{3})/g, '')
+}
+
 const thousandCurrency = [Currency.VND]
 export function isThousandCurrency(currency: Currency) {
   return thousandCurrency.includes(currency)
@@ -143,7 +147,7 @@ export function toDisplayAmount(
   real: string | number = 0,
   currency: Currency
 ): number {
-  if (typeof real === 'string') real = parseFloat(real)
+  if (typeof real === 'string') real = parseFloat(real.replace(/\./g, ''))
   if (isThousandCurrency(currency)) {
     real = real / 1000
   }

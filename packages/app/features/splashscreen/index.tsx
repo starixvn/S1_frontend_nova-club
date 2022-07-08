@@ -10,7 +10,7 @@ import * as ScreenOrientation from 'expo-screen-orientation'
 const SplashScreen = () => {
   const { replace } = useRouter()
   const { isReady } = useOTA()
-  const { status } = useSplashScreen({}, isReady, { minWaitTime: 500 })
+  const { status } = useSplashScreen({}, isReady, { minWaitTime: 2000 })
   const loginResult = useAppSelector((state) => state.auth.info)
 
   useEffect(() => {
@@ -28,24 +28,18 @@ const SplashScreen = () => {
   }, [status, replace, loginResult])
 
   return (
-    <View
-      sx={{
-        flex: 1,
+    <ImageBackground
+      source={require('../../assets/images/splashscreen.jpg')}
+      resizeMode="cover"
+      style={{
+        width: '100%',
+        height: '100%',
+
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
-      <ImageBackground
-        source={require('../../assets/devicon.png')}
-        resizeMode="cover"
-        style={{
-          width: '100%',
-          height: '100%',
-
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Text>This is Splash Screen</Text>
-      </ImageBackground>
+      {/* <Text>This is Splash Screen</Text> */}
       {!isReady && (
         <View
           sx={{
@@ -70,7 +64,7 @@ const SplashScreen = () => {
           </MotiView>
         </View>
       )}
-    </View>
+    </ImageBackground>
   )
 }
 

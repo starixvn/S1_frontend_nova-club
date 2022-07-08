@@ -171,7 +171,12 @@ function useGameLauncher(gameLauncherState) {
   const [isVerifying, setVerifying] = useState(false)
   const [getGameUrl] = useLazyGetGameUrlQuery()
 
-  const { providerCode, gameCode, gameName } = gameLauncherState
+  const {
+    providerCode,
+    gameCode,
+    gameName,
+    desktopMode = false,
+  } = gameLauncherState
 
   async function launchGame() {
     try {
@@ -179,7 +184,7 @@ function useGameLauncher(gameLauncherState) {
       const { data } = await getGameUrl({
         game_code: gameCode,
         is_demo: 0,
-        is_mobile: 1, // need to implement running in desktop
+        is_mobile: desktopMode ? 0 : 1,
         platform_code: providerCode,
       }).unwrap()
 
