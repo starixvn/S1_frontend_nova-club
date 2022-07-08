@@ -21,12 +21,14 @@ export default {
       game_name: 'game.name.btiSports',
       game_provider_code: 'BTI',
       game_code: '1',
+      desktop: true,
     },
     {
       image: require('../../assets/images/games/sports/sport-virtual.png'),
       game_name: 'game.name.virtualSports',
       game_provider_code: 'SABA',
       game_code: 'sports',
+      desktop: true,
     },
     {
       image: require('../../assets/images/games/sports/sport-sabaEsport.png'),
