@@ -1,5 +1,5 @@
 {
-  "name": "solito-blank",
+  "name": "chlgame",
   "private": true,
   "workspaces": [
     "apps/*",
