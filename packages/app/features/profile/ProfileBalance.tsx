@@ -7,12 +7,22 @@ import { styled, SxProp, Text, View } from 'dripsy'
 import { AnimatePresence, motify } from 'moti'
 import { MotiPressable } from 'moti/interactions'
 import React, { useState } from 'react'
+import { toCurrency } from 'app/utils'
+import { Currency } from 'app/utils/constant'
 
 const ProfileBalance = () => {
   const { t } = useLocalization()
   const [isExtend, setIsExtend] = useState(false)
 
-  const { data } = usePlayerBalanceQuery()
+  const { data: playerBalance } = usePlayerBalanceQuery()
+  const { main } = playerBalance?.data || {}
+  const { balance = '0', reward = '0' } = main || {}
+  const totalBalance = parseInt(balance) + parseInt(reward)
+  const balanceValue = isNaN(totalBalance) ? 0 : totalBalance
+  // WIP: Should not hard coded currency
+  const formattedBalanceValue = toCurrency(balanceValue, Currency.VND, {
+    symbol: false,
+  })
 
   const handlePress = () => {
     setIsExtend(!isExtend)
@@ -31,15 +41,7 @@ const ProfileBalance = () => {
         >
           <BalanceItem
             title={t('common.balance')}
-            value={
-              isNaN(
-                parseInt(data?.data?.main?.balance) +
-                  parseInt(data?.data?.main?.reward)
-              )
-                ? 0
-                : parseInt(data?.data?.main?.balance) +
-                  parseInt(data?.data?.main?.reward)
-            }
+            value={formattedBalanceValue}
             size="large"
             _sx={{ justifyContent: 'center' }}
           />
@@ -84,17 +86,22 @@ const ProfileBalance = () => {
                 >
                   <BalanceItem
                     title={t('common.cash')}
-                    value={data?.data?.main?.balance ?? 0}
+                    value={toCurrency(balance, Currency.VND, {
+                      symbol: false,
+                    })}
                     _sx={{
-                      pr: '$7',
+                      pr: '$5',
                     }}
                   />
+
                   <BalanceItem
                     title={t('common.reward')}
-                    value={data?.data?.main?.reward ?? 0}
+                    value={toCurrency(reward, Currency.VND, {
+                      symbol: false,
+                    })}
                     _sx={{
                       borderLeftWidth: 1,
-                      pl: '$7',
+                      pl: '$5',
                       borderLeftColor: '$lightNavyBlue',
                     }}
                   />
@@ -131,7 +138,7 @@ const BalanceItem = ({
         ..._sx,
       }}
     >
-      <Icon name="lc" size={50} color={'#56f1ff'} />
+      <Icon name="lc" color={'#56f1ff'} sx={{ fontSize: [40, 50] }} />
       <View>
         <Text sx={{ fontSize: titleFontSize }}>{title}</Text>
         <Text
