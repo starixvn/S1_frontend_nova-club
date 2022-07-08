@@ -327,13 +327,13 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chlgame.staging;
-				PRODUCT_NAME = NovaClubStaging;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.chlgame.staging";
+				PRODUCT_NAME = "NovaClubStaging";
 				PROVISIONING_PROFILE_SPECIFIER = "Nova Club Staging Distribution Profile";
 				SWIFT_OBJC_BRIDGING_HEADER = "NovaClubStaging/NovaClubStaging-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -357,12 +357,12 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chlgame.staging;
-				PRODUCT_NAME = NovaClubStaging;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.chlgame.staging";
+				PRODUCT_NAME = "NovaClubStaging";
 				PROVISIONING_PROFILE_SPECIFIER = "Nova Club Staging Distribution Profile";
 				SWIFT_OBJC_BRIDGING_HEADER = "NovaClubStaging/NovaClubStaging-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

@@ -166,7 +166,17 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
-
+    flavorDimensions "env"
+    productFlavors {
+        prod {
+            dimension "env"
+            applicationId 'com.chlgame.app'
+        }
+        staging {
+            dimension "env"
+            applicationId 'com.chlgame.staging'
+        }
+    }
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
