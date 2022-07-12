@@ -1,5 +1,6 @@
 import DepositConfirmationModal from 'app/components/modal/DepositConfirmationModal'
 import PlayerBankDeleteModal from 'app/components/modal/PlayerBankDeleteModal'
+import QRTransferModal from 'app/components/modal/QRTransferModal'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { Text, View } from 'dripsy'
 import React from 'react'
@@ -63,6 +64,7 @@ const modalConfig = {
   },
   DepositConfirmationModal: DepositConfirmationModal,
   PlayerBankDeleteModal: PlayerBankDeleteModal,
+  QRTransferModal: QRTransferModal,
 }
 
 const stack = createModalStack(modalConfig, {

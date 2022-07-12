@@ -9,6 +9,8 @@ import {
   TransferAllToOneArgs,
   TransferAllToOneResult,
   TransferArgs,
+  TransferMemberToMemberArgs,
+  TransferMemberToMemberResult,
   TransferResult,
 } from './wallet.type'
 
@@ -59,6 +61,18 @@ const walletEndPoints = (builder: EndpointBuilderType) => {
         },
       }),
     }),
+    transferMemberToMember: builder.mutation<
+      IResponse<TransferMemberToMemberResult>,
+      TransferMemberToMemberArgs
+    >({
+      query: (queryArgs) => ({
+        url: `/player_api/memberToMemberTransfer`,
+        method: 'POST',
+        data: {
+          ...queryArgs,
+        },
+      }),
+    }),
   }
 }
 
@@ -78,4 +92,5 @@ export const {
   usePlayerWalletDetailQuery,
   useTransferMutation,
   useTransferAllToOneMutation,
+  useTransferMemberToMemberMutation,
 } = walletApi

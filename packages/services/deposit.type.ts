@@ -11,8 +11,9 @@ export type SubmitDepositArgs = {
   deposit_from: number
   fail_url: string
   home_url: string
-  process_url: string
   name: string
+  payment_account_id: number
+  process_url: string
   success_url: string
   username?: string
 }
@@ -28,6 +29,7 @@ export type SubmitManualDepositArgs = {
   acc_name: string
   amount: number
   bank_type_id: number
+  payment_account_id: number
   username?: string
 }
 
@@ -59,12 +61,14 @@ export type AutoBankItem = {
   account_icon: string
   bankTypeId: number
   bank_name_local: string
+  deposit_fee_percentage?: string
   deposit_from: number
   maxDeposit: string
   minDeposit: string
   order: number
   pay_acc_id: number
   player_input_fields: PlayerInputFieldsAmount | PlayerInputFieldsBank
+  vendor_percentage?: string
 }
 
 export type ManualBankItem = {
@@ -74,7 +78,8 @@ export type ManualBankItem = {
   bank_branch: string
   maxDeposit: string
   minDeposit: string
-  pay_acc_id: string
+  order: number
+  pay_acc_id: number
 }
 
 export type PlayerInputFieldsAmount = {

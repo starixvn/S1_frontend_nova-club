@@ -23,7 +23,7 @@ import {
   MaxLength,
   TopUpCard,
 } from 'app/utils/constant'
-import { PlayerInputFieldsBank } from 'services/deposit.type'
+import { AutoBankItem, PlayerInputFieldsBank } from 'services/deposit.type'
 import { useModal } from 'react-native-modalfy'
 
 const data1 = ['10k', '20k', '30k', '50k', '100k', '200k', '300k']
@@ -69,6 +69,10 @@ const TopUpCardScreen = () => {
   const paymentGateway = data?.data?.result.auto.find(
     (el) => el.category_id === DepositPaymentMethodCategoryId.TOP_UP
   )
+
+  const vendorFee =
+    parseFloat(paymentGateway?.list[0]?.deposit_fee_percentage) +
+    parseFloat(paymentGateway?.list[0]?.vendor_percentage)
   const inputFields = Object.values(
     paymentGateway?.list[0].player_input_fields ?? {}
   )
@@ -298,7 +302,7 @@ const TopUpCardScreen = () => {
                 <Text sx={{ flex: 1 }}>{t('deposit.deduction')}</Text>
                 <Text>
                   {toCurrency(
-                    -Math.round(values.realAmount * DEDUCTION_AMOUNT)
+                    -Math.round(values.realAmount * (vendorFee / 100))
                   )}
                 </Text>
               </StyledViewTextWrapper>
@@ -306,7 +310,7 @@ const TopUpCardScreen = () => {
                 <Text sx={{ flex: 1 }}>{t('deposit.actualDeposit')}</Text>
                 <Text>
                   {toCurrency(
-                    Math.round(values.realAmount * ACTUAL_DEPOSIT_AMOUNT)
+                    Math.round(values.realAmount * (1 - vendorFee / 100))
                   )}
                 </Text>
               </StyledViewTextWrapper>

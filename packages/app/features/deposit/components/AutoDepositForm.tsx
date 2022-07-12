@@ -95,6 +95,7 @@ const AutoDepositForm = ({ notes, module, DepositCategoryId }) => {
         home_url: 'https://stage.gball8.com/',
         process_url: 'https://stage.gball8.com/',
         name: '',
+        payment_account_id: paymentGateway?.pay_acc_id ?? 0,
         success_url: 'https://stage.gball8.com/',
       })
         .unwrap()

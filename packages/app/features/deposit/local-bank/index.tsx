@@ -35,6 +35,7 @@ import { Currency, DepositPaymentMethodCategoryId } from 'app/utils/constant'
 import validationRule from 'app/utils/validationRule'
 import { useModal } from 'react-native-modalfy'
 import { usePlayerProfileQuery } from 'services/playerApi'
+import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
 
 type LocalBankValues = {
   bank: ManualBankItem | null
@@ -42,7 +43,7 @@ type LocalBankValues = {
   realAmount: number
 }
 
-const actionSheetId = 'LocalBank'
+const actionSheetId = ACTION_SHEET_ID.LOCAL_BANK
 
 const LocalBankScreen = () => {
   const { makeContextualHref } = useContextualRouting(
@@ -85,6 +86,7 @@ const LocalBankScreen = () => {
         acc_name: bank?.bank_acc_name ?? '',
         amount: realAmount,
         bank_type_id: bank?.bankTypeId ?? 0,
+        payment_account_id: bank?.pay_acc_id ?? 0,
       })
         .unwrap()
         .catch((error) => dispatch(AlertActions.addError(error.message)))

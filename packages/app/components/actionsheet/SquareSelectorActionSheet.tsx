@@ -4,7 +4,6 @@ import { mergeRefs } from 'app/utils/mergeRefs'
 import {
   ActivityIndicator,
   FlatList,
-  ScrollView,
   styled,
   Text,
   useDripsyTheme,
@@ -16,6 +15,10 @@ import ActionSheet, { SheetManager } from 'react-native-actions-sheet'
 import { DripsyGradient } from '../Gradient'
 import BankItem from './BankItem'
 import { getBankLogo } from 'app/config/games/bank'
+import { Button } from '../form/Button'
+import { useRouter } from 'solito/router'
+import useContextualRouting from 'app/hooks/useContextualRouting'
+import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 
 export type SquareSelectorActionSheetProps = ComponentProps<
   typeof ActionSheet
@@ -47,6 +50,11 @@ const SquareSelectorActionSheet = forwardRef<
   SquareSelectorProps
 >(({ _flatList, _actionSheet }: SquareSelectorProps, ref) => {
   const { t } = useLocalization()
+  const { push } = useRouter()
+  const { makeContextualHref } = useContextualRouting(
+    ContextualModuleKey.BankAccount
+  )
+  const toAddBankAccount = makeContextualHref('add-bank-account')
 
   const {
     id: actionSheetId,
@@ -61,6 +69,10 @@ const SquareSelectorActionSheet = forwardRef<
   const _ref = createRef()
 
   const mergedRef = mergeRefs([_ref, ref])
+
+  const closeActionSheet = async () => {
+    await SheetManager.hide(actionSheetId ?? DEFAULT_SQUARE_ACTION_SHEET_ID)
+  }
 
   const HeaderComponent = (
     <StyledViewHeader gradient="secondary">
@@ -117,17 +129,34 @@ const SquareSelectorActionSheet = forwardRef<
                 key={item[key]}
                 icon={getBankLogo(item[titleType])}
                 title={item[titleType]}
-                onPress={async () => {
+                onPress={() => {
                   onPress(item)
-                  await SheetManager.hide(
-                    actionSheetId ?? DEFAULT_SQUARE_ACTION_SHEET_ID
-                  )
+                  closeActionSheet()
                 }}
               />
             ))}
           </View>
+        ) : actionSheetId ? (
+          <Button
+            rounded
+            stretch
+            variant="lg"
+            disabled={data && data.length >= 3}
+            fill={{
+              type: 'gradient',
+              color: 'secondary',
+              start: { x: 0, y: 0 },
+              end: { x: 1, y: 0 },
+            }}
+            onPress={() => {
+              closeActionSheet()
+              push(toAddBankAccount, '/profile/bank-account/add-bank-account')
+            }}
+          >
+            <Button.Label>{t('bank.addBankAccount')}</Button.Label>
+          </Button>
         ) : (
-          <Text>{t('common.emptyResult')}</Text>
+          <Text sx={{ color: 'black' }}>{t('common.emptyResult')}</Text>
         )}
       </View>
     </ActionSheet>

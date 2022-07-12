@@ -5,15 +5,13 @@ import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import { Text } from 'dripsy'
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import Modal from '.'
 import ModalContent from './ModalContent'
-import RNModal from './ModalContent'
+
 const BANK_IMG_RATIO = 216 / 115
 
 const DepositConfirmationModal = ({ modal: { closeModal, getParam } }) => {
-  const dispatch = useDispatch()
   const { t } = useLocalization()
   const { width, height } = useContainerDimension()
 

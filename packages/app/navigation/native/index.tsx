@@ -17,15 +17,17 @@ import ForgotPassword from 'app/features/auth/forgotPassword'
 import DepositNavigation from './DepositNavigation'
 import CustomerSupportPage from 'app/features/customerSupport'
 import GameLoaderPage from 'app/features/games/GameLoaderPage'
-import OverviewScreen from '../../../../apps/next/pages/profile/overview'
-import ProfileDetails from '../../../../apps/next/pages/profile/profile-details'
-import ChangePasswordScreen from '../../../../apps/next/pages/profile/change-password'
-import BankAccountScreen from '../../../../apps/next/pages/profile/bank-account'
-import AddBankAccountScreen from '../../../../apps/next/pages/profile/bank-account/add-bank-account'
+import OverviewScreen from 'app/features/profile/overview'
+import ProfileDetails from 'app/features/profile/profile-details'
+import ChangePasswordScreen from 'app/features/profile/change-password'
+import BankAccountScreen from 'app/features/profile/bank-account'
+import AddBankAccountScreen from 'app/features/profile/bank-account/add-bank-account'
 import CommissionTablePage from 'app/features/profile/commission-table'
 import HistoryScreen from 'app/features/profile/history'
 import MessagesPage from 'app/features/messages'
 import LotteryPage from 'app/features/lottery'
+import QrcodeScannerScreen from 'app/features/qrcodeScanner'
+import TransferScreen from 'app/features/transfer'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -48,6 +50,8 @@ const Stack = createStackNavigator<{
   History: undefined
   CommissionTablePage: undefined
   MessagesPage: undefined
+  QrcodeScanner: undefined
+  Transfer: undefined
   FishingPage: undefined
   LotteryPage: undefined
 }>()
@@ -166,6 +170,8 @@ export function NativeNavigation() {
         component={CommissionTablePage}
       />
       <Stack.Screen name="MessagesPage" component={MessagesPage} />
+      <Stack.Screen name="QrcodeScanner" component={QrcodeScannerScreen} />
+      <Stack.Screen name="Transfer" component={TransferScreen} />
       <Stack.Screen name="FishingPage" component={FishingPage} />
       <Stack.Screen name="LotteryPage" component={LotteryPage} />
     </Stack.Navigator>

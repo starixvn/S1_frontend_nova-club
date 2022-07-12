@@ -19,9 +19,6 @@ const BankItem = ({ icon, title, onPress }: BankItemProps) => {
           m: '$0a',
         }}
       />
-      <Text sx={{ color: 'black', textAlign: 'center', flexShrink: 1 }}>
-        {title}
-      </Text>
     </View>
   )
 }

@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { TextField } from 'app/components/TextField'
-import { styled, Text, View } from 'dripsy'
+import { styled, View } from 'dripsy'
 import { Button } from 'app/components/form/Button'
 import { FormikHelpers, useFormik } from 'formik'
 import * as Yup from 'yup'
@@ -15,10 +15,12 @@ import { useRouter } from 'solito/router'
 import useLocalization from 'app/provider/localization'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import { WithdrawalBankResult } from 'services/bank.type'
-import { usePlayerProfileQuery } from 'services/playerApi'
 import { toCleanCard } from 'app/utils'
 import { MaxLength } from 'app/utils/constant'
 import { RootState } from 'app/provider/redux/store'
+import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
+
+const actionSheetId = ACTION_SHEET_ID.ADD_BANK_ACCOUNT
 
 type AddBankAccountValues = {
   accountName: string
@@ -34,8 +36,6 @@ const AddBankAccountScreen = () => {
   const [postAddWithdrawalBankAcc] = useAddPlayerBankAccMutation()
 
   const player = useSelector((s: RootState) => s.auth.info)
-
-  const actionSheetId = t('bank.addBankAccount')
 
   const onSubmit = async (
     { accountName, bank, accountNo }: AddBankAccountValues,

@@ -1,9 +1,13 @@
 import Avatar from 'app/components/Avatar'
 import IconButton from 'app/components/form/IconButton'
 import Icon from 'app/components/Icon'
+import useContextualRouting from 'app/hooks/useContextualRouting'
+import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import useLocalization from 'app/provider/localization'
 import { styled, Text, View } from 'dripsy'
 import React from 'react'
+import { useModal } from 'react-native-modalfy'
+import { useRouter } from 'solito/router'
 
 type ProfileUserProps = {
   username: string
@@ -11,6 +15,14 @@ type ProfileUserProps = {
 
 const ProfileUser = ({ username }: ProfileUserProps) => {
   const { t } = useLocalization()
+  const { push } = useRouter()
+  const { openModal } = useModal()
+
+  const { makeContextualHref } = useContextualRouting(
+    ContextualModuleKey.Profile
+  )
+  const toQrcodeScanner = makeContextualHref('qrcode-scanner')
+
   return (
     <ViewWrapper>
       <Avatar
@@ -29,8 +41,17 @@ const ProfileUser = ({ username }: ProfileUserProps) => {
           {username ?? ' '}
         </Text>
       </ViewTextWrapper>
-      <IconButton name="sb" sx={{ mx: '$2' }} color={'$lightCyan'} />
-      <IconButton name="lc" color={'$lightCyan'} />
+      <IconButton
+        name="sb"
+        sx={{ mx: '$2' }}
+        color={'$lightCyan'}
+        onPress={() => push(toQrcodeScanner, '/qrcode-scanner')}
+      />
+      <IconButton
+        name="lc"
+        color={'$lightCyan'}
+        onPress={() => openModal('QRTransferModal')}
+      />
     </ViewWrapper>
   )
 }

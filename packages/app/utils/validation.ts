@@ -71,6 +71,7 @@ const validation = {
       message: 'validation.invalidPhone',
     }),
 
+  transferTo: Yup.string().required('form.tips.transferTo'),
   verifyCode: Yup.string()
     .required('validation.required')
     .min(6, 'validation.otpLength')
