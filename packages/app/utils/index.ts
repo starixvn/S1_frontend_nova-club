@@ -1,7 +1,7 @@
-import { Currency, currencyListMapper } from './constant'
+import { CURRENCY_SEPARATOR, CURRENCY_TO_LANGUAGE } from 'app/constant/currency'
+import { LANGUAGE_CODE } from 'app/constant/language'
 import * as Clipboard from 'expo-clipboard'
-import { number } from 'yup'
-import { LANGUAGE_CODE, LANGUAGE_SUBTAG } from 'app/constant/language'
+import { Currency } from './constant'
 
 /**
  * `expo-clipboard` version 2.1.1 is used due to v3 above need Expo SDK45
@@ -90,7 +90,8 @@ export function toCurrency(
     }
   }
 
-  joined = appendWithThousandUnit(joined ?? '')
+  const language = CURRENCY_TO_LANGUAGE[currency]
+  joined = appendWithThousandUnit(joined ?? '', language)
 
   if (multiplier) {
     joined += multiplier
@@ -105,7 +106,7 @@ export function toCurrency(
  */
 export function appendWithThousandUnit(
   amount: string,
-  language: LANGUAGE_CODE = LANGUAGE_CODE.VIETNAM
+  language: LANGUAGE_CODE = LANGUAGE_CODE.ENGLISH
 ) {
   if (!amount) return amount
 
@@ -127,13 +128,10 @@ export function appendWithThousandUnit(
 
   if (quotient === '0' && formattedRemainder === '0') return '0'
 
-  const concatAmount = quotient + `.${formattedRemainder}`
-  const locale = LANGUAGE_SUBTAG[language]
+  const formattedQuotient = toThousandSeparator(quotient, language)
+  const formattedDecimal = toDecimalSeparator(formattedRemainder, language)
 
-  // const formattedAmount = Intl.NumberFormat(locale).format(Number(concatAmount))
-  const formattedAmount = toThousandSeparator(concatAmount)
-
-  return `${formattedAmount}K`
+  return `${formattedQuotient}${formattedDecimal}K`
 }
 
 export function clearThousandSeparator(amount: string) {
@@ -169,12 +167,28 @@ export function toRealAmount(
   return Math.floor(display)
 }
 
-export function toThousandSeparator(text: string) {
+export function toDecimalSeparator(
+  text: string,
+  language: LANGUAGE_CODE = LANGUAGE_CODE.VIETNAM
+) {
+  if (!text || text === '0') return ''
+
+  const separatorSymbol = CURRENCY_SEPARATOR[language].decimal
+
+  return `${separatorSymbol}${text}`
+}
+
+export function toThousandSeparator(
+  text: string,
+  language: LANGUAGE_CODE = LANGUAGE_CODE.VIETNAM
+) {
   if (!text) return
-  // return text.replace(/^0+(?!\.|$)/, '').replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+
+  const separatorSymbol = CURRENCY_SEPARATOR[language].thousands
+
   return parseFloat(text)
     .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+    .replace(/\B(?=(\d{3})+(?!\d))/g, separatorSymbol)
 }
 
 export interface CleanAmount {
