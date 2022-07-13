@@ -59,7 +59,7 @@ const LiveCasino = withContextualNav(() => {
         providerCode={game_provider_code}
         gameCode={game_code}
         image={imageUrl}
-        title={game_name}
+        title={game_name + ` (${game_code})`}
         context={ContextualModuleKey.LiveCasino}
         width={contentWidth}
       />
@@ -143,7 +143,9 @@ const LiveCasino = withContextualNav(() => {
           // onEndReached={loadMore}
           data={filteredGames}
           // extraData={displayList}
-          keyExtractor={(item) => item.gameCode}
+          keyExtractor={(item) =>
+            item.game_code + item.game_provider_code + item.game_name
+          }
           renderItem={renderItem}
         />
       )}
