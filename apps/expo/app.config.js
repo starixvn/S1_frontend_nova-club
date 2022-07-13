@@ -2,7 +2,7 @@ const IS_STAGING = process.env.APP_VARIANT === "staging";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  "name": IS_STAGING ? "Nova Club Staging" : "Nova Club",
+  "name": "Nova Club Staging",
   "slug": "chlgame",
   "owner": "beacora",
   "version": "1.0.0",
@@ -19,7 +19,7 @@ export default {
   "ios": {
     "requireFullScreen": true,
     "icon": "../../packages/app/assets/nclub-appicon.png",
-    "bundleIdentifier": IS_STAGING ? "com.chlgame.staging" : "com.chlgame.app",
+    "bundleIdentifier": "com.chlgame.staging",
     "infoPlist": {
       "NSCameraUsageDescription": "QR Scanning capability",
       "LSApplicationQueriesSchemes": ["fb", "instagram", "twitter", "vnd.youtube", "line", "whatsapp", "skype", "tg",]
@@ -27,7 +27,7 @@ export default {
   },
   "android": {
     "icon": "../../packages/app/assets/nclub-appicon.png",
-    "package": IS_STAGING ? "com.chlgame.staging" : "com.chlgame.app",
+    "package": "com.chlgame.staging",
     "permissions": ["CAMERA"]
   },
   "updates": {

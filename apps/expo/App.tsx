@@ -6,6 +6,7 @@ import { Provider } from 'app/provider'
 import { Text } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import { styled } from 'dripsy'
+import Branch from './integrations/branch/Branch'
 
 export default function App() {
   /**
@@ -21,6 +22,7 @@ export default function App() {
 
   return (
     <Provider>
+      <Branch />
       {/* StatusBar backgroundColor only affects Android, IOS refers to MainHeader */}
       <StatusBar backgroundColor="#0E2B46" style="light" />
       <NativeNavigation />

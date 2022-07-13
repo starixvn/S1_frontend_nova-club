@@ -1,3 +1,7 @@
+# Branch Implementation:
+branch.json at root is linked to IOS xcodeproj
+branch.json on android folder is based on product flavor folder
+
 # Blank Solito Example Monorepo 🕴
 
 ```sh
