@@ -2,6 +2,7 @@ import { useCallback, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../provider/redux/store'
 import { AuthActions } from '../store/authReducer'
 import walletApi from 'services/walletApi'
+import playerApi from 'services/playerApi'
 
 const useResetRTKQ = () => {
   const dispatch = useAppDispatch()
@@ -12,6 +13,7 @@ const useResetRTKQ = () => {
   const clearRTKQState = useCallback(() => {
     if (isLogoutTriggered) {
       dispatch(walletApi.util.resetApiState())
+      dispatch(playerApi.util.resetApiState())
 
       dispatch(AuthActions.setIsLogoutActionTriggered(false))
     }

@@ -7,12 +7,14 @@ import { useSelector } from 'react-redux'
 import { Button } from '../form/Button'
 import ModalWrapper from './ModalWrapper'
 import QRCode from 'react-native-qrcode-svg'
+import { usePlayerProfileQuery } from 'services/playerApi'
 
 const QRTransferModal = ({ modal: { closeModal } }) => {
   const { t } = useLocalization()
   const { width, height } = useContainerDimension()
 
-  const username = useSelector((s: RootState) => s.auth.info?.playerName)
+  const { data } = usePlayerProfileQuery()
+  const referralCode = data?.data?.referral_code
 
   function onDismiss() {
     closeModal()
@@ -32,7 +34,7 @@ const QRTransferModal = ({ modal: { closeModal } }) => {
       >
         <View sx={{ mb: '$4', alignItems: 'center' }}>
           <QRCode
-            value={username}
+            value={referralCode}
             size={width * 0.5}
             logo={require('../../assets/nclub-appicon.png')}
             // logoSize={width * 0.2}
