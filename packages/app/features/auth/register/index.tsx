@@ -1,6 +1,6 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import useContainerDimension from 'app/hooks/useContainerDimension'
-import { useAppDispatch } from 'app/provider/redux/store'
+import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { useRegisterMutation } from 'services/authApi'
 import { LoginResult } from 'services/authApi.type'
 import { AlertActions } from 'app/store/alert'
@@ -8,13 +8,15 @@ import { AuthActions } from 'app/store/authReducer'
 import validation, { getErrorMessage } from 'app/utils/validation'
 import { Image, styled, Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import { MotiView, useDynamicAnimation } from 'moti'
+import { AnimatePresence, MotiView, useDynamicAnimation } from 'moti'
 import React, { useEffect } from 'react'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import AuthLayout from '../layout/AuthLayout'
 import VerificationPage from '../verification'
 import RegisterForm from './RegisterForm'
+import ReferrerInformation from './ReferrerInformation'
+import useLocalization from 'app/provider/localization'
 
 export type RegisterFormValues = {
   username: string
@@ -26,18 +28,16 @@ export type RegisterFormValues = {
   terms: boolean
 }
 
-const HEADER_IMAGE = require('../../../assets/images/register/referral-avatar.png')
-
-const StyledImage = styled(Image)({
-  height: 120,
-  width: 120,
-})
-
 const RegisterPage = () => {
   const [register] = useRegisterMutation()
   const dispatch = useAppDispatch()
   const { push, replace } = useRouter()
   const { width } = useContainerDimension()
+  const { t } = useLocalization()
+
+  // referral value is obtained asynchronously, do not assign to initialValues of form.
+  // consume it on onSubmit
+  const referral = useAppSelector((s) => s.setting.referral)
 
   const onSubmit = async (
     {
@@ -59,7 +59,7 @@ const RegisterPage = () => {
         // WIP: Prefix should not be hardcoded
         contactNumber: '84' + contactNumber,
         terms,
-        tracking_code: 'nEgoJLCSbn',
+        tracking_code: referral?.trackingCode ?? 'cKp859Eko',
         real_name: realName,
         verify_code: verifyCode,
       }).unwrap()
@@ -144,37 +144,11 @@ const RegisterPage = () => {
       >
         <AuthLayout
           formHeader={
-            <>
-              <DripsyGradient
-                gradient={'lightOceanBlue'}
-                sx={{
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  py: '$1a',
-                }}
-              >
-                <StyledImage
-                  source={HEADER_IMAGE}
-                  // accessibilityLabel="n88 app logo"
-                  sx={{
-                    width: 70,
-                    height: 70,
-                  }}
-                />
-
-                <View sx={{ ml: '$3' }}>
-                  <Text sx={{ color: '$oceanBlue', fontSize: 18 }}>
-                    Referrer information
-                  </Text>
-
-                  <Text sx={{ fontSize: 18, mt: '$1' }}>PLAYER88888</Text>
-                </View>
-              </DripsyGradient>
-              <View sx={{ height: 1.5, backgroundColor: '$cyan' }}></View>
-            </>
+            <AnimatePresence>
+              {referral && <ReferrerInformation />}
+            </AnimatePresence>
           }
-          headerDesc={'ACCOUNT REGISTRATION'}
+          headerDesc={t('auth.accountReg')}
           onBack={() => push('/auth/login')}
         >
           <RegisterForm formik={formik} onSuccess={onRegisterSuccess} />

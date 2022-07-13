@@ -7,6 +7,7 @@ import { FormikProps } from 'formik'
 import React, { memo, useCallback, useMemo, useRef, useState } from 'react'
 import { RegisterFormValues } from '.'
 import { TextInput as RNTextInput } from 'react-native'
+import useLocalization from 'app/provider/localization'
 
 interface RegisterFormProps {
   formik: FormikProps<RegisterFormValues>
@@ -27,6 +28,7 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
     validateForm,
   } = formik
 
+  const { t } = useLocalization()
   const [checkUsername] = useLazyCheckUsernameQuery()
 
   const [usernameErrorMsg, setUsernameErrorMsg] = useState('')
@@ -222,7 +224,7 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
             containerStyle={{ alignSelf: 'stretch' }}
             onPress={onSubmit}
           >
-            <Button.Label>Register</Button.Label>
+            <Button.Label>{t('auth.register')}</Button.Label>
           </Button>
         </View>
       </View>

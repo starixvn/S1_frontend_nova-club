@@ -53,6 +53,12 @@ const contentEndpoints = (builder: EndpointBuilderType) => {
         data,
       }),
     }),
+    affiliateUsername: builder.query<IResponse<{ username: string }>, string>({
+      query: (trackingCode) => ({
+        url: `/static_api/referral/${trackingCode}`,
+        method: 'GET',
+      }),
+    }),
   }
 }
 
@@ -75,4 +81,6 @@ export const {
   useCommissionTableQuery,
   useAnnouncementQuery,
   useGameListQuery,
+  useAffiliateUsernameQuery,
+  useLazyAffiliateUsernameQuery,
 } = contentApi

@@ -17,6 +17,7 @@ import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 
 import { createParam } from 'solito'
+import useLocalization from 'app/provider/localization'
 
 const { useParam } = createParam()
 
@@ -30,6 +31,7 @@ type LoginFormValues = {
 const LoginForm = () => {
   const [login] = useLoginMutation()
   const sx = useSx()
+  const { t } = useLocalization()
 
   const [errorMsg, setErrorMsg] = useState('')
   const { replace } = useRouter()
@@ -100,7 +102,7 @@ const LoginForm = () => {
       <TextInput
         _icon="avatar"
         _input={{
-          placeholder: 'User ID',
+          placeholder: t('common.username'),
           value: values.username,
           onChangeText: handleChange('username'),
           onBlur: handleBlur('username'),
@@ -118,7 +120,7 @@ const LoginForm = () => {
       <TextInput
         _icon="lock"
         _input={{
-          placeholder: 'Password',
+          placeholder: t('common.password'),
           value: values.password,
           onChangeText: handleChange('password'),
           onBlur: handleBlur('password'),
@@ -150,7 +152,7 @@ const LoginForm = () => {
               opacity: 0.43,
             }}
           >
-            Forgot Password?
+            {t('auth.forgotPassword') + '?'}
           </Text>
         </MotiLink>
       </View>
@@ -167,7 +169,7 @@ const LoginForm = () => {
             sx={{ mt: '$4' }}
             loading={isSubmitting}
           >
-            <Button.Label>Login</Button.Label>
+            <Button.Label>{t('auth.login')}</Button.Label>
           </Button>
         </View>
 
@@ -188,7 +190,7 @@ const LoginForm = () => {
                 color: '$orange',
               }}
             >
-              Register
+              {t('auth.register')}
             </Text>
           </StyledLink>
         </View>

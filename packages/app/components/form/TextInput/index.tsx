@@ -181,7 +181,7 @@ const TextInputFocusArea: FC<TextInputProps> = ({
             <Icon {..._icon} />
           </TextInputIconWrap>
         ) : null}
-        {prefix && <Text sx={{ mr: '$2' }}>{prefix}</Text>}
+        {prefix && <Text sx={{ mr: '$2', fontSize: 14 }}>{prefix}</Text>}
       </View>
       <DripsyTextInput
         placeholder="This filed"
@@ -192,6 +192,7 @@ const TextInputFocusArea: FC<TextInputProps> = ({
           position: 'absolute',
           width: '100%',
           height: '100%',
+          fontSize: 14,
         }}
         secureTextEntry={hidePassword}
         {...restTextInputProps}
