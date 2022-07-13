@@ -1,16 +1,13 @@
-import BankItem from 'app/components/actionsheet/BankItem'
-import { DEFAULT_SQUARE_ACTION_SHEET_ID } from 'app/components/actionsheet/SquareSelectorActionSheet'
 import { TextField } from 'app/components/TextField'
+import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
 import useLocalization from 'app/provider/localization'
 import { Text, View } from 'dripsy'
 import { FormikProps } from 'formik'
 import React from 'react'
-import { SheetManager } from 'react-native-actions-sheet'
-import { SelectOptions } from 'services/common/types'
 import { PlayerInputFieldsBank } from 'services/deposit.type'
-import { AutoDepositValues } from '../online-bank'
+import { AutoDepositValues } from './AutoDepositForm'
 
-const actionSheetId = 'auto-deposit'
+const actionSheetId = ACTION_SHEET_ID.AUTO_DEPOSIT
 
 type FieldBankProps = {
   field: PlayerInputFieldsBank
@@ -42,21 +39,6 @@ const FieldSelectBank = ({ field, isLoading, formik }: FieldBankProps) => {
           isLoading: isLoading,
           titleType: 'value',
           onPress: (item) => setFieldValue('bank', item),
-
-          // keyExtractor: (item: SelectOptions) => `${item.value}`,
-          // renderItem: ({ item }: { item: SelectOptions }) => (
-          //   <BankItem
-          //     key={`${item.value}`}
-          //     icon={require('app/assets/images/home/fishing.png')}
-          //     title={item.value}
-          //     onPress={async () => {
-          //       setFieldValue('bank', item)
-          //       await SheetManager.hide(
-          //         actionSheetId ?? DEFAULT_SQUARE_ACTION_SHEET_ID
-          //       )
-          //     }}
-          //   />
-          // ),
         }}
         _actionSheet={{
           id: actionSheetId,

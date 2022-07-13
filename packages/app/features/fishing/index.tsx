@@ -18,7 +18,7 @@ const Fishing = () => {
   const { t } = useLocalization()
   return (
     <PageWithBackHeader header={{ title: t('game.category.fishing') }}>
-      {true ? (
+      {allGames.length === 0 ? (
         <ActivityIndicator
           size={'large'}
           sx={{ mt: '$8' }}

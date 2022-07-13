@@ -35,7 +35,7 @@ const Slots = withContextualNav(() => {
         providerCode={game_provider_code}
         gameCode={game_code}
         image={imageUrl}
-        title={game_name}
+        title={game_name + ` (${game_code})`}
         context={ContextualModuleKey.Slot}
         width={contentWidth}
       />
@@ -51,6 +51,7 @@ const Slots = withContextualNav(() => {
     setSelectedProvider,
     setSelectedSlotType,
   } = useSlotGamesFilter()
+
   return (
     <PageSafeArea disableScrollView sx={{ bg: '$background' }}>
       {filteredGames.length === 0 ? (
@@ -99,7 +100,10 @@ const Slots = withContextualNav(() => {
             // onEndReached={loadMore}
             data={filteredGames}
             // extraData={displayList}
-            keyExtractor={(item) => item.game_code + item.game_provider_code}
+            keyExtractor={(item) => {
+              // console.log('code ', item.game_code + item.game_provider_code)
+              return item.game_code + item.game_provider_code + item.game_name
+            }}
             renderItem={renderSlotItem}
           />
         </>

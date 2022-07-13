@@ -20,6 +20,7 @@ export enum ContextualModuleKey {
   Sportsbook = 'sportsbook',
   LiveCasino = 'casino',
   Fishing = 'fishing',
+  QrScanner = 'qrScanner',
 }
 
 // Ignore Dynamic import warning, as module: "esnext" is configured at app/next tsconfig.
@@ -45,6 +46,8 @@ const contextualComponents = {
   'commission-table': () => import('../../features/profile/commission-table'),
   messages: () => import('../../features/messages'),
   'customer-support': () => import('../../features/customerSupport'),
+  'qrcode-scanner': () => import('../../features/qrcodeScanner'),
+  transfer: () => import('../../features/transfer'),
 }
 
 export function getContextualComponent(key: string) {

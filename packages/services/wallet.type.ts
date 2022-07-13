@@ -64,3 +64,17 @@ export type TransferAllToOneArgs = {
 export type TransferAllToOneResult = {
   wallet: PlayerBalanceResult
 }
+
+/**
+ * Transfer Member to member
+ */
+
+export type TransferMemberToMemberArgs = {
+  amount: number
+  to_username: string
+  username?: string
+}
+
+export type TransferMemberToMemberResult = {
+  wallet: PlayerBalanceResult
+}

@@ -1,6 +1,6 @@
 import { Gradient } from '@dripsy/gradient'
 import useLocalization from 'app/provider/localization'
-import { copyToClipboard, toThousandSeparator } from 'app/utils'
+import { copyToClipboard } from 'app/utils'
 import { MaxLength } from 'app/utils/constant'
 import {
   styled,

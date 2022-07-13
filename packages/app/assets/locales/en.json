@@ -31,6 +31,7 @@
     "cancel": "Cancel",
     "cash": "Cash",
     "clickMore": "Click More",
+    "close": "Close",
     "confirm": "Confirm",
     "confirmDelete": "Are you sure you want to delete? It cannot restore after deletion!",
     "confirmPassword": "Confirm Password",
@@ -38,7 +39,7 @@
     "desktop": "Desktop",
     "emptyResult": "Empty Result",
     "enter": "Enter",
-    "enterAmount": "Please enter your withdrawal amount",
+    "enterAmount": "Please enter your %{field} amount",
     "enterConfirmPassword": "Please confirm password",
     "enterNewPassword": "Please enter new password",
     "enterOldPassword": "Please enter old password",
@@ -120,14 +121,14 @@
     },
     "genre": {
       "all": "All",
-      "new": "New",
+      "baccarat": "Baccarat",
+      "blackjack": "Blackjack",
+      "dragonTiger": "Dragon Tiger",
       "hot": "Hot",
-      "sicbo": "Sicbo",
+      "new": "New",
       "poker": "Poker",
       "roulette": "Roulette",
-      "blackjack": "Blackjack",
-      "baccarat": "Baccarat",
-      "dragonTiger": "Dragon Tiger"
+      "sicbo": "Sicbo"
     },
     "transactionType": {
       "deposit": "Deposit",
@@ -153,25 +154,25 @@
     }
   },
   "game": {
-    "enterGame": "Enter Game",
     "category": {
-      "sportsbook": "Sportsbook",
-      "games": "Games",
-      "slots": "Slots",
-      "liveCasino": "Live Casino",
-      "keno/lottery": "Keno / Lottery",
       "fishing": "Fishing",
+      "games": "Games",
+      "hotGames": "Hot Games",
+      "keno/lottery": "Keno / Lottery",
+      "liveCasino": "Live Casino",
       "poker": "Poker",
-      "hotGames": "Hot Games"
+      "slots": "Slots",
+      "sportsbook": "Sportsbook"
+    },
+    "enterGame": "Enter Game",
+    "name": {
+      "btiSports": "BTI Sports",
+      "esports": "E-Sports",
+      "imEsports": "IM E-Sports",
+      "sports": "Sports",
+      "virtualSports": "Virtual Sports"
     },
     "quitGame": "Quit Game",
-    "name": {
-      "sports": "Sports",
-      "btiSports": "BTI Sports",
-      "virtualSports": "Virtual Sports",
-      "esports": "E-Sports",
-      "imEsports": "IM E-Sports"
-    },
     "underMaintenance": "Game Under Maintenance"
   },
   "home": {},
@@ -245,6 +246,11 @@
   },
   "transaction": {
     "transactions": "Transactions"
+  },
+  "transfer": {
+    "avaiableAmount": "Available Amount",
+    "transferTo": "Transfer To",
+    "transfer": "Transfer"
   },
   "validation": {
     "amount": "%{amount} not in range",

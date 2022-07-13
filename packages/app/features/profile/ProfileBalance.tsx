@@ -9,20 +9,19 @@ import { MotiPressable } from 'moti/interactions'
 import React, { useState } from 'react'
 import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
+import { usePlayerProfileQuery } from 'services/playerApi'
 
 const ProfileBalance = () => {
   const { t } = useLocalization()
   const [isExtend, setIsExtend] = useState(false)
 
-  const { data: playerBalance } = usePlayerBalanceQuery()
-  const { main } = playerBalance?.data || {}
-  const { balance = '0', reward = '0' } = main || {}
-  const totalBalance = parseInt(balance) + parseInt(reward)
-  const balanceValue = isNaN(totalBalance) ? 0 : totalBalance
-  // WIP: Should not hard coded currency
-  const formattedBalanceValue = toCurrency(balanceValue, Currency.VND, {
-    symbol: false,
-  })
+  const { data: playerData } = usePlayerProfileQuery()
+  const currency = playerData?.data?.currency as Currency
+
+  const { data } = usePlayerBalanceQuery()
+  const cash = parseInt(data?.data?.main?.balance ?? '0')
+  const reward = parseInt(data?.data?.main?.reward ?? '0')
+  const balance = cash + reward
 
   const handlePress = () => {
     setIsExtend(!isExtend)
@@ -41,7 +40,8 @@ const ProfileBalance = () => {
         >
           <BalanceItem
             title={t('common.balance')}
-            value={formattedBalanceValue}
+            value={balance ?? 0}
+            currency={currency}
             size="large"
             _sx={{ justifyContent: 'center' }}
           />
@@ -86,9 +86,8 @@ const ProfileBalance = () => {
                 >
                   <BalanceItem
                     title={t('common.cash')}
-                    value={toCurrency(balance, Currency.VND, {
-                      symbol: false,
-                    })}
+                    value={cash ?? 0}
+                    currency={currency}
                     _sx={{
                       pr: '$5',
                     }}
@@ -96,9 +95,8 @@ const ProfileBalance = () => {
 
                   <BalanceItem
                     title={t('common.reward')}
-                    value={toCurrency(reward, Currency.VND, {
-                      symbol: false,
-                    })}
+                    value={reward ?? 0}
+                    currency={currency}
                     _sx={{
                       borderLeftWidth: 1,
                       pl: '$5',
@@ -118,11 +116,13 @@ const ProfileBalance = () => {
 const BalanceItem = ({
   title,
   value,
+  currency,
   size = 'small',
   _sx,
 }: {
   title: string
-  value: string
+  value: number
+  currency: Currency
   size?: 'large' | 'small'
   _sx?: SxProp
 }) => {
@@ -148,7 +148,10 @@ const BalanceItem = ({
             color: '$yellowLight',
           }}
         >
-          {value}
+          {toCurrency(value, currency, {
+            symbol: false,
+            hideTruncatedThousand: false,
+          })}
         </Text>
       </View>
     </View>

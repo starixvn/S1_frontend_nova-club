@@ -1,12 +1,12 @@
 import { Button } from 'app/components/form/Button'
 import { TextField } from 'app/components/TextField'
 import { styled, View } from 'dripsy'
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { FormikHelpers, useFormik } from 'formik'
 import * as Yup from 'yup'
 import validation from 'app/utils/validation'
 import ImportantNotice from 'app/components/ImportantNotice'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { AlertActions } from 'app/store/alert'
 import { useRouter } from 'solito/router'
 import { useSubmitWithdrawalMutation } from 'services/withdrawal'
@@ -19,8 +19,12 @@ import WithdrawalConfirmationModal, {
   WithdrawalConfirmationModalHandler,
 } from 'app/components/modal/WithdrawalConfirmationModal'
 import { Currency } from 'app/utils/constant'
-import { RootState } from 'app/provider/redux/store'
 import { usePlayerProfileQuery } from 'services/playerApi'
+import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
+import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
+import withContextualNav from 'app/navigation/web/withContextualNav'
+
+const actionSheetId = ACTION_SHEET_ID.WITHDRAWAL
 
 type WithdrawalValues = {
   amount: string
@@ -58,8 +62,6 @@ const WithdrawalPage = () => {
 
   const { data: playerData } = usePlayerProfileQuery()
   const currency = playerData?.data?.currency as Currency
-
-  const actionSheetId = t('menu.withdraw')
 
   const onSubmit = async (
     { bank, realAmount }: WithdrawalValues,
@@ -176,7 +178,9 @@ const WithdrawalPage = () => {
             label="common.amount"
             isAmount
             _input={{
-              placeholder: t('common.enterAmount'),
+              placeholder: t('common.enterAmount', {
+                field: t('menu.withdraw').toLowerCase(),
+              }),
               value: values.amount,
               keyboardType: 'number-pad',
               onChangeText: onAmountChanged,
@@ -219,4 +223,4 @@ const StyledView = styled(View)(() => ({
   bg: '$secondary',
 }))
 
-export default WithdrawalPage
+export default withContextualNav(WithdrawalPage, ContextualModuleKey.Withdrawal)
