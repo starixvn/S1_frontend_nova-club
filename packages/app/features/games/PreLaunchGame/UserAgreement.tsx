@@ -1,16 +1,18 @@
 import CheckBox from 'app/components/CheckBox'
 import Icon from 'app/components/Icon'
 import BouncePressable from 'app/pressable/BouncePressable'
-import { styled, Text, View } from 'dripsy'
+import { Pressable, styled, Text, View } from 'dripsy'
 
 const UserAgreement = ({ onAgree, isAgree }) => {
   return (
     <SytledView>
       <CheckBox onCheck={onAgree} isCheck={isAgree} />
-      <StyleText>
-        I have read & agree the{' '}
-        <StylePressableText>User agreement</StylePressableText>
-      </StyleText>
+      <Pressable hitSlop={10} onPress={() => onAgree(!isAgree)}>
+        <StyleText>
+          I have read & agree the{' '}
+          <StylePressableText>User agreement</StylePressableText>
+        </StyleText>
+      </Pressable>
     </SytledView>
   )
 }
@@ -30,7 +32,7 @@ const StyledBouncePressable = styled(BouncePressable)({
 })
 
 const StyleText = styled(Text)({
-  fontSize: 11,
+  fontSize: 12,
   ml: '$1a',
   color: '#DBDBDB',
 })

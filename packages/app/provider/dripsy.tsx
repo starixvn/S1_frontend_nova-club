@@ -1,6 +1,6 @@
 import { DripsyProvider, makeTheme } from 'dripsy'
 import useOnAppStart from 'app/hooks/useOnAppStart'
-const fontName = 'Helvetica Neue'
+export const fontName = 'Helvetica Neue'
 const size = {
   $0: 0,
   $0a: 2,
