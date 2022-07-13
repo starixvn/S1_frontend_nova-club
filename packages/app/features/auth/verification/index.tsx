@@ -168,8 +168,6 @@ const VerificationForm = ({ formik, onBack }: VerificationFormProps) => {
         </View>
         <View sx={{ flexDirection: 'row', flexShrink: 1 }}>
           <Pressable
-            // @ts-expect-error
-            // accessibilityRole="label"
             sx={{ pl: '$2', flexDirection: 'row', flexShrink: 1 }}
             onPress={onCheckboxCheck}
           >

@@ -1,28 +1,42 @@
 import Icon from 'app/components/Icon'
 import useContextualRouting from 'app/hooks/useContextualRouting'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { logOut } from 'app/utils/authUtil'
-import { Image, styled, View } from 'dripsy'
+import { Image, styled, Sx, View } from 'dripsy'
 import { useMemo } from 'react'
-import { Platform, StatusBar, Text, TouchableOpacity } from 'react-native'
+import { Platform, Text, TouchableOpacity } from 'react-native'
 import Modal from 'react-native-modal'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useRouter } from 'solito/router'
 import { ContextualModuleKey } from './web/withContextualNavConstant'
 
-const MainMenu = ({ isShow, onMenu }) => {
+interface MainMenuProps {
+  isShow: boolean
+  onMenu: (...args: any[]) => any
+  parentPosition: { x: Sx['width']; y: Sx['height'] }
+}
+
+const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
   const { push } = useRouter()
+  const { top: safeAreaTopHeight } = useSafeArea()
+  const { x: parentWidth, y: parentHeight } = parentPosition
 
   const { makeContextualHref } = useContextualRouting(ContextualModuleKey.Home)
-  const iconHeight = 20
-  const top = 10
+
   const isWeb = Platform.OS === 'web'
   const isAndroid = Platform.OS === 'android'
-  const TOP_HEIGHT = isWeb
-    ? iconHeight + 10
-    : isAndroid
-    ? StatusBar.currentHeight - 5
-    : useSafeAreaInsets().top + iconHeight
-  const CURVE_TOP_HEIGHT = isWeb ? 0 : isAndroid ? -top : top
+  const modalRightPosition = Array.isArray(parentWidth)
+    ? parentWidth.map((width) => width / 2)
+    : Number(parentWidth) / 2
+
+  const iosTopHeight = Array.isArray(parentHeight)
+    ? parentHeight.map((height) => height + safeAreaTopHeight)
+    : Number(parentHeight) + safeAreaTopHeight
+  const TOP_HEIGHT = isWeb || isAndroid ? parentHeight : iosTopHeight
+
+  const tooltipArrowHeight = [40, 30, 30]
+  const CURVE_TOP_HEIGHT = isWeb
+    ? tooltipArrowHeight.map((height) => -height)
+    : tooltipArrowHeight.map((height) => -(height / 1.2))
 
   //change to icon
   const MENU_LIST = useMemo(
@@ -80,26 +94,34 @@ const MainMenu = ({ isShow, onMenu }) => {
       backdropOpacity={0}
       animationIn={'fadeIn'}
       animationOut={'fadeOut'}
+      coverScreen={isWeb ? false : true}
+      style={{
+        margin: 0,
+      }}
     >
-      <View
-        pointerEvents="none"
+      <StyledContainer
         sx={{
-          position: 'absolute',
-          top: CURVE_TOP_HEIGHT,
-          right: 0,
+          top: TOP_HEIGHT,
+          right: modalRightPosition,
         }}
       >
-        <Image
-          source={require('../assets/images/menu/curve.png')}
+        <View
+          pointerEvents="none"
           sx={{
-            height: [40, 30, 30],
-            width: [40, 30, 30],
+            position: 'absolute',
+            top: CURVE_TOP_HEIGHT,
+            right: 0,
           }}
-        />
-      </View>
-      <StyledContainer
-        sx={{ top: [TOP_HEIGHT, TOP_HEIGHT + 10, TOP_HEIGHT + 15] }}
-      >
+        >
+          <Image
+            source={require('../assets/images/menu/curve.png')}
+            sx={{
+              height: tooltipArrowHeight,
+              width: [40, 30, 30],
+            }}
+          />
+        </View>
+
         {MENU_LIST.map((i, index) => {
           const lastItem = index === MENU_LIST.length - 1
           const isSwitchAcc = index === MENU_LIST.length - 2

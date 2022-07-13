@@ -1,6 +1,11 @@
+import { useTransferAllToOneMutation } from 'app/custom_services/walletApi'
 import useContainerDimension from 'app/hooks/useContainerDimension'
+import useContextualRouting from 'app/hooks/useContextualRouting'
 import BouncePressable from 'app/pressable/BouncePressable'
+import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { toCurrency } from 'app/utils'
+import { Currency } from 'app/utils/constant'
 import {
   ActivityIndicator,
   Image,
@@ -12,31 +17,36 @@ import {
   View,
 } from 'dripsy'
 import React, { useEffect, useState } from 'react'
-import { Platform, StatusBar } from 'react-native'
+import { LayoutChangeEvent } from 'react-native'
+import { usePlayerBalanceQuery } from 'services/walletApi'
 import { useRouter } from 'solito/router'
 import MainMenu from './MainMenu'
-import { usePlayerBalanceQuery } from 'services/walletApi'
-import useContextualRouting from 'app/hooks/useContextualRouting'
 import { ContextualModuleKey } from './web/withContextualNavConstant'
-import { toCurrency } from 'app/utils'
-import { Currency } from 'app/utils/constant'
-import { useTransferAllToOneMutation } from 'app/custom_services/walletApi'
 
 const MainHeader = () => {
   const { width } = useContainerDimension()
+  const sx = useSx()
+  const headerHeight = sx({
+    height: 'header',
+  }).height
+
   const [showMenu, setShowMenu] = useState(false)
+  const [menuPosition, setMenuPosition] = useState({ x: 0, y: headerHeight })
 
   const { makeContextualHref } = useContextualRouting(ContextualModuleKey.Home)
   const [mainWalletBalance, setMainWalletBalance] = useState('0')
-  const sx = useSx()
   const { push } = useRouter()
   const { theme } = useDripsyTheme()
+
+  const { playerName } = useAppSelector((state) => state.auth.info) || {}
 
   const {
     data: playerBalance,
     isFetching: isMainWalletLoading,
     refetch,
-  } = usePlayerBalanceQuery()
+  } = usePlayerBalanceQuery(undefined, {
+    skip: !playerName,
+  })
 
   const [_, { isLoading: isTransferringToMain }] = useTransferAllToOneMutation({
     fixedCacheKey: 'transfer-all-to-one',
@@ -71,15 +81,22 @@ const MainHeader = () => {
       action: () => {
         setShowMenu(!showMenu)
       },
+      props: {
+        onLayout: (event: LayoutChangeEvent) => {
+          const { x, width } = event.nativeEvent.layout
+          const menuXPosition = x + width
+
+          setMenuPosition((position) => ({
+            ...position,
+            x: menuXPosition,
+          }))
+        },
+      },
     },
   ]
 
   // Google Pixel 5a require this insets to get accurate value
   const insets = useSafeArea()
-
-  const headerHeight = sx({
-    height: 'header',
-  }).height
 
   const iconHeight = headerHeight.map((x) => x * 0.6)
 
@@ -94,6 +111,10 @@ const MainHeader = () => {
       })
 
       setMainWalletBalance(formattedBalance)
+    }
+
+    return () => {
+      setMainWalletBalance('0')
     }
   }, [playerBalance])
 
@@ -187,7 +208,11 @@ const MainHeader = () => {
               )
             }
             return (
-              <BouncePressable onPress={i.action} key={index}>
+              <BouncePressable
+                onPress={i.action}
+                key={index}
+                {...(i.props || {})}
+              >
                 <StyledImg
                   sx={{ width: iconHeight, height: iconHeight }}
                   source={i.img}
@@ -203,6 +228,7 @@ const MainHeader = () => {
         onMenu={(e) => {
           return setShowMenu(e)
         }}
+        parentPosition={menuPosition}
       />
     </SafeAreaView>
   )
