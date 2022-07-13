@@ -170,7 +170,7 @@ const ForgotPassword = () => {
 
   return (
     <AuthLayout
-      headerDesc={t('auth.forgotPassword')}
+      headerDesc={t('auth.forgotPassword').toUpperCase()}
       onBack={() => {
         push('/auth/login')
       }}

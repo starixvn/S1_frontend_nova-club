@@ -4,11 +4,13 @@ import { HOME_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useGameGridSize from 'app/hooks/useGameGridSize'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
+import useLocalization from 'app/provider/localization'
 import { styled, View } from 'dripsy'
 import SimpleGridImage from './SimpleGridImage'
 
 const SimpleWrap = ({ data, col = 3, context }) => {
   const { containerSpace, itemSpace, contentWidth } = useGameGridSize(col)
+  const { t } = useLocalization()
   return (
     <StyledWrapItem sx={{ p: containerSpace }}>
       {data.map((item, rindex) => {
@@ -29,7 +31,7 @@ const SimpleWrap = ({ data, col = 3, context }) => {
             providerCode={game_provider_code}
             gameCode={game_code}
             image={imageUrl}
-            title={game_name + ` (${game_code})`}
+            title={t(game_name) + ` (${game_code})`}
             width={contentWidth}
             desktop={desktop}
           />

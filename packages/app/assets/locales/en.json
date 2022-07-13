@@ -2,8 +2,12 @@
   "auth": {
     "enterNewPassword": "Please enter your New Password",
     "enterOtp": "Please enter OTP",
-    "forgotPassword": "FORGOT PASSWORD",
-    "table": "Commission Table"
+    "forgotPassword": "Forgot Password",
+    "table": "Commission Table",
+    "accountReg": "Account Registration",
+    "referrerInfo": "Referrer information",
+    "register": "Register",
+    "login": "Login"
   },
   "bank": {
     "accountName": "Account name",
@@ -59,6 +63,7 @@
     "selectAll": "Select All",
     "selectDate": "Select A Date",
     "submit": "Submit",
+    "username": "Username",
     "win": "Win"
   },
   "contact": {
