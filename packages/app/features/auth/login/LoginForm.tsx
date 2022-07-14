@@ -3,7 +3,7 @@ import TextInput from 'app/components/form/TextInput'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import withContextualNav from 'app/navigation/web/withContextualNav'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
-import { useAppDispatch } from 'app/provider/redux/store'
+import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { useLoginMutation } from 'services/authApi'
 import { AlertActions } from 'app/store/alert'
 import { AuthActions } from 'app/store/authReducer'
@@ -40,6 +40,8 @@ const LoginForm = () => {
   })
   const passwordFieldRef = useRef<RNTextField>(null)
   const usernameFieldRef = useRef<RNTextField>(null)
+
+  const log = useAppSelector((s) => s.setting.log)
 
   const dispatch = useAppDispatch()
 
@@ -193,6 +195,8 @@ const LoginForm = () => {
               {t('auth.register')}
             </Text>
           </StyledLink>
+
+          {log && <Text>{log}</Text>}
         </View>
       </View>
     </>

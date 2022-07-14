@@ -16,6 +16,7 @@ export interface Setting {
   locale: LANGUAGE_CODE
   referral?: Referral
   popUpExpiry: PopUpExpire
+  log?: string
 }
 // export const DomainListHintPostfix = '-DomainListHint'
 // export const DepositListHintPostfix = '-DepositListHint'
@@ -38,6 +39,9 @@ const settingSlice = createSlice({
     },
     setReferral: (state, action: PayloadAction<Referral>) => {
       state.referral = action.payload
+    },
+    setLog: (state, action: PayloadAction<string>) => {
+      state.log = action.payload
     },
   },
   extraReducers: (builder) => {

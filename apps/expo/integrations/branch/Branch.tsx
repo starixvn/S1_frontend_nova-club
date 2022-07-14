@@ -9,15 +9,20 @@ function Branch() {
   useEffect(() => {
     branch.subscribe(({ error, params, uri }) => {
       // params will never be null if error is null
+      if (error) {
+        dispatch(SettingActions.setLog(JSON.stringify(error)))
+        console.error('Error from Branch: ' + error)
+        return
+      }
       const trackingCode = params ? params['ref'] : undefined
       if (typeof trackingCode === 'string') {
+        dispatch(SettingActions.setLog(JSON.stringify(params)))
         dispatch(
           SettingActions.setReferral({
             trackingCode: trackingCode.replace(/[^0-9a-zA-Z]/g, ''),
           })
         )
       }
-
       // if (params && params['+non_branch_link']) {
       //   const nonBranchUrl = params['+non_branch_link']
       //   // Route non-Branch URL if appropriate.
