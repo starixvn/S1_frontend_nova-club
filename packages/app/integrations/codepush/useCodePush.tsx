@@ -60,11 +60,11 @@ export default function useCodePushDownload(
             if (downloadedPackage) {
               setStatus(codePush.SyncStatus.INSTALLING_UPDATE)
               downloadedPackage.install(codePush.InstallMode.IMMEDIATE)
-            } else console.log('CODEPUSH DOWNLOAD PACKaGE MISSING')
+            } else console.log('CODEPUSH DOWNLOAD PACKAGE MISSING')
           } // TODO if not mandatory
         } // TODO if no auto download
       } else {
-        // codePush.notifyAppReady()
+        codePush.notifyAppReady()
         setStatus(codePush.SyncStatus.UP_TO_DATE)
       }
     }

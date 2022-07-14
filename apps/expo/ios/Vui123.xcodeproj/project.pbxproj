@@ -171,7 +171,9 @@
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 36LZ925H63;
 						LastSwiftMigration = 1250;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -306,7 +308,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Vui123/Vui123.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 36LZ925H63;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -322,10 +327,11 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chlgame.app;
 				PRODUCT_NAME = Vui123;
+				PROVISIONING_PROFILE_SPECIFIER = "Vui Production Distribution Profile";
 				SWIFT_OBJC_BRIDGING_HEADER = "Vui123/Vui123-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -337,7 +343,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Vui123/Vui123.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 36LZ925H63;
 				INFOPLIST_FILE = Vui123/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -348,9 +357,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chlgame.app;
 				PRODUCT_NAME = Vui123;
+				PROVISIONING_PROFILE_SPECIFIER = "Vui Production Distribution Profile";
 				SWIFT_OBJC_BRIDGING_HEADER = "Vui123/Vui123-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
