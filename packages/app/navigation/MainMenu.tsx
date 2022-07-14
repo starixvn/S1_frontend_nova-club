@@ -16,7 +16,7 @@ interface MainMenuProps {
 }
 
 const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
-  const { push } = useRouter()
+  const { push, replace } = useRouter()
   const { top: safeAreaTopHeight } = useSafeArea()
   const { x: parentWidth, y: parentHeight } = parentPosition
 
@@ -76,11 +76,11 @@ const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
         onPress: async () => {
           await logOut()
           // TODO: add loading to prevent spamming
-          push('/auth/login')
+          replace('/auth/login')
         },
       },
     ],
-    [push]
+    [makeContextualHref, push, replace]
   )
 
   const handleDismiss = () => {

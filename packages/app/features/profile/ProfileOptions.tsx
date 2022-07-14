@@ -22,7 +22,7 @@ const enum LOADING_STATE {
 const ProfileOptions = () => {
   const [loadingState, setLoadingState] = useState(LOADING_STATE.COMPLETE)
 
-  const { push } = useRouter()
+  const { replace } = useRouter()
   const { theme } = useDripsyTheme()
 
   const { makeContextualHref } = useContextualRouting(
@@ -96,7 +96,7 @@ const ProfileOptions = () => {
 
         setLoadingState(LOADING_STATE.LOADING)
         await logOut()
-        push('/auth/login')
+        replace('/auth/login')
         setLoadingState(LOADING_STATE.COMPLETE)
       },
       appendIcon: () => {

@@ -2,7 +2,6 @@ import { useTransferAllToOneMutation } from 'app/custom_services/walletApi'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import BouncePressable from 'app/pressable/BouncePressable'
-import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
@@ -12,7 +11,6 @@ import {
   SafeAreaView,
   styled,
   Text,
-  useDripsyTheme,
   useSx,
   View,
 } from 'dripsy'
@@ -36,17 +34,12 @@ const MainHeader = () => {
   const { makeContextualHref } = useContextualRouting(ContextualModuleKey.Home)
   const [mainWalletBalance, setMainWalletBalance] = useState('0')
   const { push } = useRouter()
-  const { theme } = useDripsyTheme()
-
-  const { playerName } = useAppSelector((state) => state.auth.info) || {}
 
   const {
     data: playerBalance,
     isFetching: isMainWalletLoading,
     refetch,
-  } = usePlayerBalanceQuery(undefined, {
-    skip: !playerName,
-  })
+  } = usePlayerBalanceQuery()
 
   const [_, { isLoading: isTransferringToMain }] = useTransferAllToOneMutation({
     fixedCacheKey: 'transfer-all-to-one',
