@@ -6,13 +6,15 @@
     "prod": {
       "releaseChannel": "prod",
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "gradleCommand": ":app:bundleProdRelease"
       }
     },
     "staging": {
       "releaseChannel": "staging",
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "gradleCommand": ":app:bundleStagingRelease"
       },
       "env": {
         "APP_VARIANT": "staging"

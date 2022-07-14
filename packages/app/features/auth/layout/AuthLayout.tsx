@@ -105,12 +105,6 @@ const AuthLayout = ({
             <View sx={{ width: '75%' }}>{children}</View>
           </View>
         </View>
-
-        <View sx={{ alignItems: 'center', mb: bottom + 8, mt: 70 }}>
-          <Text variant="md" sx={{ opacity: 0.7, mt: '$2a' }}>
-            Powered by NOVA88
-          </Text>
-        </View>
       </DripsyGradient>
     </ScrollView>
   )

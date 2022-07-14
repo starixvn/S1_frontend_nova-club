@@ -1,3 +1,11 @@
+# Branch Implementation:
+branch.json at root is linked to IOS xcodeproj
+branch.json on android folder is based on product flavor folder
+
+# Code Push Implementation:
+Android : CodePushDeploymentKey is based on product flavor folder
+IOS: CodePushDeploymentKey is using Info.plist config, and staging's config is changed at staging branch
+
 # Blank Solito Example Monorepo 🕴
 
 ```sh
