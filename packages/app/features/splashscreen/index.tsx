@@ -4,13 +4,21 @@ import { MotiView } from 'moti'
 import React, { useEffect } from 'react'
 import { ImageBackground } from 'react-native'
 import { useRouter } from 'solito/router'
-import useOTA from './useOTA'
+import CodePush from 'react-native-code-push'
 import useSplashScreen from './useSplashScreen'
 import * as ScreenOrientation from 'expo-screen-orientation'
+import useCodePushDownload from 'app/integrations/codepush/useCodePush'
+import CodePushUpdateBar from './CodePushUpdateBar'
 const SplashScreen = () => {
   const { replace } = useRouter()
-  const { isReady } = useOTA()
-  const { status } = useSplashScreen({}, isReady, { minWaitTime: 2000 })
+  // const { isReady } = useOTA()
+  const { status: codePushStatus, progress } = useCodePushDownload()
+  const { status } = useSplashScreen(
+    {},
+    codePushStatus === CodePush.SyncStatus.UP_TO_DATE,
+    { minWaitTime: 2000 }
+  )
+
   const loginResult = useAppSelector((state) => state.auth.info)
 
   useEffect(() => {
@@ -34,35 +42,12 @@ const SplashScreen = () => {
       style={{
         width: '100%',
         height: '100%',
-
         justifyContent: 'center',
         alignItems: 'center',
       }}
     >
-      {/* <Text>This is Splash Screen</Text> */}
-      {!isReady && (
-        <View
-          sx={{
-            position: 'absolute',
-            bottom: 30,
-            right: 30,
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <MotiView
-            animate={{
-              opacity: [0, 0.99, { value: 1, delay: 1000 }],
-            }}
-            transition={{
-              loop: true,
-              duration: 1000,
-            }}
-          >
-            <Text>Updating...</Text>
-          </MotiView>
-        </View>
+      {codePushStatus === CodePush.SyncStatus.DOWNLOADING_PACKAGE && (
+        <CodePushUpdateBar progress={progress} />
       )}
     </ImageBackground>
   )
