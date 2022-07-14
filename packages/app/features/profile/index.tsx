@@ -18,8 +18,14 @@ const ProfileScreen = () => {
   const { t } = useLocalization()
   const [refreshing, setRefreshing] = React.useState(false)
   const dispatch = useDispatch()
+  const { token } = useAppSelector((state) => state.auth.info) || {}
 
-  const { data, isFetching, isLoading, refetch } = usePlayerProfileQuery()
+  const { data, isFetching, isLoading, refetch } = usePlayerProfileQuery(
+    undefined,
+    {
+      skip: !token,
+    }
+  )
 
   useEffect(() => {
     !isLoading && setRefreshing(isFetching)

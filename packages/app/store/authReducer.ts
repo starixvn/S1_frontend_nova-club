@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { LOGOUT_ACTION } from 'app/constant/redux'
 import { LoginResult } from 'services/authApi.type'
 import { ProfileResult } from 'services/playerApi.type'
 
@@ -31,7 +32,7 @@ const playerSlice = createSlice({
     },
   },
   extraReducers: {
-    LOGOUT: () => {
+    [LOGOUT_ACTION]: () => {
       return { ...authInitialState, isLogoutActionTriggered: true }
     },
   },

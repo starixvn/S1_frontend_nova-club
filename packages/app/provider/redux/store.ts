@@ -1,4 +1,8 @@
 import { combineReducers, configureStore, Reducer } from '@reduxjs/toolkit'
+import { alertReducer } from 'app/store/alert'
+import authReducer, { authInitialState, AuthState } from 'app/store/authReducer'
+import bankReducer from 'app/store/bankReducer'
+import { gameLauncherReducer } from 'app/store/gameLauncher.slice'
 import authApi from 'services/authApi'
 import bankApi from 'services/bank'
 import changePasswordApi from 'services/changePassword'
@@ -8,14 +12,9 @@ import dummyDepositApi from 'services/dummyDeposit'
 import gameApi from 'services/gameApi'
 import messageApi from 'services/messageApi'
 import playerApi from 'services/playerApi'
-import pokemonApi from 'services/pokemon'
 import walletApi from 'services/walletApi'
 import withdrawalApi from 'services/withdrawal'
-import { alertReducer } from 'app/store/alert'
-import authReducer, { authInitialState, AuthState } from 'app/store/authReducer'
-import bankReducer from 'app/store/bankReducer'
-import { gameLauncherReducer } from 'app/store/gameLauncher.slice'
-
+import { depositReducer } from 'app/store/deposit.slice'
 import { settingReducer } from 'app/store/setting.slice'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import {
@@ -27,7 +26,6 @@ import {
   persistStore,
 } from 'redux-persist'
 import { storage } from './persistStorage/index'
-import { depositReducer } from 'app/store/deposit.slice'
 
 const migrations = {
   1: (s: PersistedState) => s,
@@ -64,7 +62,6 @@ const middlerwares = [
   depositApi.middleware,
   gameApi.middleware,
   playerApi.middleware,
-  pokemonApi.middleware,
   walletApi.middleware,
   withdrawalApi.middleware,
   dummyDepositApi.middleware,
@@ -79,7 +76,6 @@ const rootReducer = combineReducers({
   [depositApi.reducerPath]: depositApi.reducer,
   [gameApi.reducerPath]: gameApi.reducer,
   [playerApi.reducerPath]: playerApi.reducer,
-  [pokemonApi.reducerPath]: pokemonApi.reducer,
   [walletApi.reducerPath]: walletApi.reducer,
   [withdrawalApi.reducerPath]: withdrawalApi.reducer,
   [dummyDepositApi.reducerPath]: dummyDepositApi.reducer,

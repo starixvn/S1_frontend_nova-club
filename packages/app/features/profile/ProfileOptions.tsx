@@ -2,12 +2,28 @@ import GradientBox from 'app/components/GradientBox'
 import Icon from 'app/components/Icon'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
-import { Pressable, styled, Text, View } from 'dripsy'
-import React from 'react'
+import { logOut } from 'app/utils/authUtil'
+import {
+  ActivityIndicator,
+  Pressable,
+  styled,
+  Text,
+  useDripsyTheme,
+  View,
+} from 'dripsy'
+import React, { useState } from 'react'
 import { useRouter } from 'solito/router'
 
+const enum LOADING_STATE {
+  LOADING = 'loading',
+  COMPLETE = 'complete',
+}
+
 const ProfileOptions = () => {
+  const [loadingState, setLoadingState] = useState(LOADING_STATE.COMPLETE)
+
   const { push } = useRouter()
+  const { theme } = useDripsyTheme()
 
   const { makeContextualHref } = useContextualRouting(
     ContextualModuleKey.Profile
@@ -75,9 +91,33 @@ const ProfileOptions = () => {
       title: 'Logout',
       iconName: 'cross',
       route: 'logout',
+      onClick: async () => {
+        if (loadingState === LOADING_STATE.LOADING) return
+
+        setLoadingState(LOADING_STATE.LOADING)
+        await logOut()
+        push('/auth/login')
+        setLoadingState(LOADING_STATE.COMPLETE)
+      },
+      appendIcon: () => {
+        return loadingState === LOADING_STATE.LOADING ? (
+          <ActivityIndicator color={theme.colors.$lightCyan} />
+        ) : null
+      },
       fontColor: '$taupeGray',
     },
   ]
+
+  const onOptionPress = (item: typeof optionsRoute[number]) => {
+    const { routeWeb, route, onClick } = item
+
+    if (typeof routeWeb !== 'undefined') {
+      push(routeWeb, route)
+      return
+    }
+
+    onClick?.()
+  }
 
   return (
     <View>
@@ -86,7 +126,7 @@ const ProfileOptions = () => {
           key={item.id}
           gradient={item.gradient ?? 'darkNavyBlue'}
         >
-          <StyledPressable onPress={() => push(item.routeWeb, item.route)}>
+          <StyledPressable onPress={() => onOptionPress(item)}>
             <StyledIcon
               name={item.iconName}
               size={26}
@@ -100,6 +140,8 @@ const ProfileOptions = () => {
             >
               {item.title}
             </StyledText>
+
+            {Boolean(item.appendIcon) && item.appendIcon?.()}
           </StyledPressable>
         </StyledGradientBox>
       ))}
@@ -109,6 +151,7 @@ const ProfileOptions = () => {
 
 const StyledGradientBox = styled(GradientBox)(() => ({
   minHeight: 60,
+  px: '$4',
 }))
 
 const StyledPressable = styled(Pressable)(() => ({
@@ -118,9 +161,10 @@ const StyledPressable = styled(Pressable)(() => ({
 }))
 
 const StyledIcon = styled(Icon)(() => ({
-  mx: '$4',
+  mr: '$2',
   color: '$PastelBlue',
   textAlign: 'center',
+  minWidth: 30,
 }))
 const StyledText = styled(Text)(() => ({
   flex: 1,

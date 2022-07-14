@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ModalAction } from 'app/components/modal/Modal.type'
+import { LOGOUT_ACTION } from 'app/constant/redux'
 
 export interface Alert {
   title?: string
@@ -47,7 +48,7 @@ const alertSlice = createSlice({
     },
   },
   extraReducers: {
-    LOGOUT: () => {
+    [LOGOUT_ACTION]: () => {
       return initialState
     },
   },

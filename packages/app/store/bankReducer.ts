@@ -1,4 +1,5 @@
 import { createSlice, current, PayloadAction } from '@reduxjs/toolkit'
+import { LOGOUT_ACTION } from 'app/constant/redux'
 import { DepositPaymentCategoriesResult } from 'services/dummyDeposit.type'
 
 export type BankState = {
@@ -21,7 +22,7 @@ const bankSlice = createSlice({
     },
   },
   extraReducers: {
-    LOGOUT: () => {
+    [LOGOUT_ACTION]: () => {
       return bankInitialState
     },
   },

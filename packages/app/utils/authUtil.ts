@@ -1,3 +1,4 @@
+import { LOGOUT_ACTION } from 'app/constant/redux'
 import { store } from 'app/provider/redux/store'
 import authApi from 'services/authApi'
 
@@ -10,7 +11,7 @@ export async function logOut() {
       )
     }
 
-    await store.dispatch({ type: 'LOGOUT' })
+    await store.dispatch({ type: LOGOUT_ACTION })
   } catch (error) {
     console.error(error)
   }
