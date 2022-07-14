@@ -40,10 +40,10 @@ static void InitializeFlipper(UIApplication *application) {
 
   [AppCenterReactNative register];
   [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
-
+  
   [RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES]; // <-- add this
   NSURL *jsCodeLocation;
-
+  
   RCTBridge *bridge = [self.reactDelegate createBridgeWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [self.reactDelegate createRootViewWithBridge:bridge moduleName:@"main" initialProperties:nil];
   rootView.backgroundColor = [UIColor whiteColor];
@@ -80,8 +80,8 @@ static void InitializeFlipper(UIApplication *application) {
 
 // Universal Links
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler {
-   [RNBranch continueUserActivity:userActivity];
-   return YES;
+  [RNBranch continueUserActivity:userActivity];
+  return YES;
 }
 
 @end

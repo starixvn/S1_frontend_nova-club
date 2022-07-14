@@ -19,8 +19,8 @@ function MyApp({ Component, pageProps, router }: SolitoAppProps) {
   return (
     <>
       <Head>
-        <title>Nova88 Club</title>
-        <meta name="description" content="Nova88 Club" />
+        <title>Vui 123</title>
+        <meta name="description" content="Vui 123" />
         <meta
           name="viewport"
           content="width=375, initial-scale=1.0, user-scalable=no, maximum-scale=1"

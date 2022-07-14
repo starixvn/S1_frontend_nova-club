@@ -1,4 +1,4 @@
-package com.chlgame.staging;
+package com.chlgame.app;
 
 import android.os.Build;
 import android.os.Bundle;

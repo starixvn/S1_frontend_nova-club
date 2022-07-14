@@ -5,7 +5,7 @@
     <key>CFBundleDevelopmentRegion</key>
     <string>$(DEVELOPMENT_LANGUAGE)</string>
     <key>CFBundleDisplayName</key>
-    <string>Nova Club Staging</string>
+    <string>Vui 123</string>
     <key>CFBundleExecutable</key>
     <string>$(EXECUTABLE_NAME)</string>
     <key>CFBundleIdentifier</key>
@@ -26,7 +26,7 @@
         <key>CFBundleURLSchemes</key>
         <array>
           <string>chlgame</string>
-          <string>com.chlgame.staging</string>
+          <string>com.chlgame.app</string>
         </array>
       </dict>
     </array>
@@ -94,19 +94,19 @@
     <false/>
     <key>branch_universal_link_domains</key>
     <array>
-        <string>novaclub88-staging.app.link</string>
-        <string>novaclub88-staging-alternate.app.link</string>
-        <string>novaclub88-staging.test.app.link</string>
-        <string>novaclub88-staging-alternate.test.app.link</string>
+        <string>s2syf.app.link</string>
+        <string>s2syf-alternate.app.link</string>
+        <string>s2syf.test.app.link</string>
+        <string>s2syf-alternate.test.app.link</string>
     </array>
-    <key>branch_key</key>
+    <!-- <key>branch_key</key>
     <dict>
         <key>live</key>
-        <string>key_live_pjWNXjndLKIjpf4FrFB04kloDEcC2LqC</string>
+        <string>key_live_fp2GWTZQHN89yQ5BsjCjyiniyuaeVQ0t</string>
         <key>test</key>
-        <string>key_test_km9PZnjiJHKlhb9BzvXSpigkxxgr0IFO</string>
-    </dict>
+        <string>key_test_ib4KZK0QSG4YFNWCsjwdLbodsEinSS3V</string>
+    </dict> -->
     <key>CodePushDeploymentKey</key>
-    <string>0oWhHjfjNMiUl0xPRDItxlG73nIIidWz3et-f</string>
+    <string>7Z3-B9JPV61mEugXeyoQ3LnBCZg3-Sjk2T0dp</string>
   </dict>
 </plist>
