@@ -184,10 +184,18 @@ android {
         prod {
             dimension "env"
             applicationId 'com.chlgame.app'
+            manifestPlaceholders.scheme1 = "chlgame"
+            manifestPlaceholders.scheme2 = "com.chlgame.app"
+            manifestPlaceholders.appLink = "s2syf.app.link"
+            manifestPlaceholders.appLinkAlt = "s2syf-alternate.app.link"
         }
         staging {
             dimension "env"
             applicationId 'com.chlgame.staging'
+            manifestPlaceholders.scheme1 = "chlgame-staging"
+            manifestPlaceholders.scheme2 = "com.chlgame.staging"
+            manifestPlaceholders.appLink = "nnynt.app.link"
+            manifestPlaceholders.appLinkAlt = "nnynt-alternate.app.link"
         }
     }
     // applicationVariants are e.g. debug, release

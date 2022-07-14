@@ -28,8 +28,8 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="chlgame"/>
-        <data android:scheme="com.chlgame.app"/>
+        <data android:scheme="${scheme1}"/>
+        <data android:scheme="${scheme2}"/>
       </intent-filter>
 
       <!-- Branch App Links -->
@@ -37,9 +37,9 @@
         <action android:name="android.intent.action.VIEW" />
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
-        <data android:scheme="https" android:host="novaclub88-staging.app.link" />
+        <data android:scheme="https" android:host="${appLink}" />
         <!-- example-alternate domain is required for App Links when the Journeys/Web SDK and Deepviews are used inside your website.  -->
-        <data android:scheme="https" android:host="novaclub88-staging-alternate.app.link" />
+        <data android:scheme="https" android:host="${appLinkAlt}" />
       </intent-filter>
 
     </activity>
