@@ -61,15 +61,15 @@ const validation = {
         return /^\d+$/.test(value)
       },
       message: 'validation.numberOnly',
-    })
-    .test({
-      name: 'phone-validation',
-      test: (value) => {
-        // WIP: 2nd argument should b get from redux
-        return isValidPhoneNum(value, COUNTRY_CODE.Vietnam)
-      },
-      message: 'validation.invalidPhone',
     }),
+  // .test({
+  //   name: 'phone-validation',
+  //   test: (value) => {
+  //     // WIP: 2nd argument should b get from redux
+  //     return isValidPhoneNum(value, COUNTRY_CODE.Vietnam)
+  //   },
+  //   message: 'validation.invalidPhone',
+  // })
 
   transferTo: Yup.string().required('form.tips.transferTo'),
   verifyCode: Yup.string()

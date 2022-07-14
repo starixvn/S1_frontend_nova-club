@@ -179,6 +179,7 @@ const ForgotPassword = () => {
         _icon="avatar"
         prefix="+84"
         _input={{
+          maxLength: 9,
           placeholder: '',
           value: values.contactNumber,
           onChangeText: handleChange('contactNumber'),
