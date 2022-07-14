@@ -58,9 +58,6 @@ PODS:
   - EXScreenOrientation (4.1.2):
     - ExpoModulesCore
     - React-Core
-  - EXSplashScreen (0.14.2):
-    - ExpoModulesCore
-    - React-Core
   - FBLazyVector (0.64.3)
   - FBReactNativeSpec (0.64.3):
     - RCT-Folly (= 2020.01.13.00)
@@ -406,7 +403,6 @@ DEPENDENCIES:
   - ExpoLocalization (from `../../../node_modules/expo-localization/ios`)
   - ExpoModulesCore (from `../../../node_modules/expo-modules-core/ios`)
   - EXScreenOrientation (from `../../../node_modules/expo-screen-orientation/ios`)
-  - EXSplashScreen (from `../../../node_modules/expo-splash-screen/ios`)
   - FBLazyVector (from `../../../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../../../node_modules/react-native/React/FBReactNativeSpec`)
   - glog (from `../../../node_modules/react-native/third-party-podspecs/glog.podspec`)
@@ -499,8 +495,6 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/expo-modules-core/ios"
   EXScreenOrientation:
     :path: "../../../node_modules/expo-screen-orientation/ios"
-  EXSplashScreen:
-    :path: "../../../node_modules/expo-splash-screen/ios"
   FBLazyVector:
     :path: "../../../node_modules/react-native/Libraries/FBLazyVector"
   FBReactNativeSpec:
@@ -602,7 +596,6 @@ SPEC CHECKSUMS:
   ExpoLocalization: 8f619bb6eec64575cd5220bfabbd7b4e2d6f33f8
   ExpoModulesCore: 32c0ccb47f477d330ee93db72505380adf0de09a
   EXScreenOrientation: ca9375ec57e5706128062867516da0b03a97ef64
-  EXSplashScreen: 21669e598804ee810547dbb6692c8deb5dd8dbf3
   FBLazyVector: c71c5917ec0ad2de41d5d06a5855f6d5eda06971
   FBReactNativeSpec: 285d2eb701ec7aa856b9e5737389e5d4bcabff2f
   glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
@@ -644,6 +637,6 @@ SPEC CHECKSUMS:
   Yoga: e6ecf3fa25af9d4c87e94ad7d5d292eedef49749
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb
 
-PODFILE CHECKSUM: 12610613cf6b1f2b11b5bb33bfdfac446cbdb840
+PODFILE CHECKSUM: 2fe9c6d5243b3828f2de75fe74f2fa97df1ec2b5
 
 COCOAPODS: 1.11.3

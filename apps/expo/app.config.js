@@ -6,9 +6,6 @@ export default {
   "version": "1.0.0",
   "sdkVersion": "44.0.0",
   "scheme": "chlgame",
-  "splash": {
-    "image": "../../packages/app/assets/nclub-appicon.png",
-  },
   "platforms": [
     "ios",
     "android"
