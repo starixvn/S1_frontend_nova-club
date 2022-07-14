@@ -7,13 +7,18 @@ import { Text } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import { styled } from 'dripsy'
 import Branch from './integrations/branch/Branch'
+import { fontName } from 'app/provider/dripsy'
 
 export default function App() {
   /**
    * WIP
    * Should put into splashscreen
    */
-  const [loaded] = useFontInit()
+  const [loaded] = useFontInit({
+    fontFamily: {
+      [fontName]: require('app/assets/fonts/HelveticaNeue.ttf'),
+    },
+  })
 
   if (!loaded) {
     return <Text>Nothing here</Text>

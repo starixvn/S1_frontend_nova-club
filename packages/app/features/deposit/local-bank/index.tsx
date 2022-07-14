@@ -166,6 +166,7 @@ const LocalBankScreen = () => {
             _flatList={{
               data: depositPayment?.list ?? [],
               isLoading: isLoading || isFetching,
+              key: 'bankTypeId',
               titleType: 'bank_acc_name',
               onPress: (item) => setFieldValue('bank', item),
             }}

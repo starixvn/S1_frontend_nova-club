@@ -23,12 +23,12 @@ type TransferValues = {
   amount: string
   realAmount: number
 }
-const { useParam } = createParam<{ username: string }>()
+const { useParam } = createParam<{ referralCode: string }>()
 
 const TransferScreen = () => {
   const dispatch = useDispatch()
   const { t } = useLocalization()
-  const [username] = useParam('username')
+  const [referralCode] = useParam('referralCode')
 
   const [postTransferMemberToMember] = useTransferMemberToMemberMutation()
 
@@ -44,7 +44,7 @@ const TransferScreen = () => {
       actions.setSubmitting(true)
       const { data, success, message } = await postTransferMemberToMember({
         amount: realAmount,
-        to_username: transferTo,
+        to_invitation_code: transferTo,
       })
         .unwrap()
         .catch((error) => dispatch(AlertActions.addError(error.message)))
@@ -64,7 +64,7 @@ const TransferScreen = () => {
     initialValues: {
       amount: '',
       realAmount: 0,
-      transferTo: username ?? '',
+      transferTo: referralCode ?? '',
     },
     validationSchema: Yup.object({
       transferTo: validation.transferTo,
@@ -86,10 +86,10 @@ const TransferScreen = () => {
   } = formik
 
   useEffect(() => {
-    username &&
+    referralCode &&
       !!!values.transferTo &&
-      setValues({ ...values, transferTo: username })
-  }, [username])
+      setValues({ ...values, transferTo: referralCode })
+  }, [referralCode])
 
   function onAmountChanged(text: string) {
     if (text != null) {

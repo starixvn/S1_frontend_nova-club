@@ -31,7 +31,10 @@ const OverviewScreen = () => {
 
   return (
     <DripsyGradient colors={['#133351', '#0D2035']} sx={{ flex: 1 }}>
-      <PageWithBackHeader header={{ title: t('profile.overview.title') }}>
+      <PageWithBackHeader
+        disableScrollView={Platform.OS === 'ios'}
+        header={{ title: t('profile.overview.title') }}
+      >
         <ScrollView
           refreshControl={
             <RefreshControl

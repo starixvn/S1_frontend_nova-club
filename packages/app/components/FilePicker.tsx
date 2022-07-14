@@ -17,6 +17,10 @@ const FilePicker = () => {
       aspect: [4, 3],
       quality: 1,
     })
+    console.log(
+      '🚀 ~ file: FilePicker.tsx ~ line 20 ~ pickImage ~ result',
+      result
+    )
 
     if (!result.cancelled) {
       setImage(result.uri)
@@ -24,11 +28,12 @@ const FilePicker = () => {
       setImage(null)
     }
   }
-
   const fileName = image && 'receipt.jpg selected'
   const bgColor = fileName ? ['#132946', '#14455B'] : ['#004EB5', '#007FB7']
   const bColor = fileName ? '#00283A' : '$border2'
 
+  console.log('fileName', fileName)
+  console.log('image', image)
   return (
     <View
       sx={{

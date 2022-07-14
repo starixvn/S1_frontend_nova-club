@@ -235,6 +235,12 @@
     },
     "timeline": "UTC/GMT +7"
   },
+  "qr": {
+    "noCameraAccess": "No access to camera",
+    "qrCodeNotDetected": "Cannot detect QR code in image",
+    "requestCameraPermissions": "Requesting for camera permission",
+    "scanGallery": "Scan from gallery"
+  },
   "status": {
     "alert": "Alert",
     "approved": "Approved",
@@ -247,7 +253,8 @@
     "processing": "Processing",
     "rejected": "Rejected",
     "success": "Success",
-    "systemError": "Oops! Something wrong, please try again."
+    "systemError": "Oops! Something wrong, please try again.",
+    "imageNotSupported": "Image format not supported"
   },
   "transaction": {
     "transactions": "Transactions"

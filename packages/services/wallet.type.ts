@@ -71,7 +71,7 @@ export type TransferAllToOneResult = {
 
 export type TransferMemberToMemberArgs = {
   amount: number
-  to_username: string
+  to_invitation_code: string
   username?: string
 }
 
