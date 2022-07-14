@@ -167,7 +167,7 @@ function useGameBalanceRule() {
 
 const ProviderRunningWithoutIframe = ['PRGP']
 function useGameLauncher(gameLauncherState) {
-  const { push } = useRouter()
+  const { push, back } = useRouter()
   const [isVerifying, setVerifying] = useState(false)
   const [getGameUrl] = useLazyGetGameUrlQuery()
 
@@ -216,6 +216,7 @@ function useGameLauncher(gameLauncherState) {
   return {
     isVerifying,
     launchGame,
+    back,
   }
 }
 
@@ -224,9 +225,10 @@ const PreLaunchGame = ({}) => {
   const gameLauncherState = useAppSelector((s) => s.gameLauncher)
   const [agree, setAgree] = useState(false)
   const [isLaunchingGame, setIsLaunchingGame] = useState(false)
+  const [isGameStateEmpty, setIsGameStateEmpty] = useState(false)
   const dispatch = useAppDispatch()
 
-  const { launchGame, isVerifying } = useGameLauncher(gameLauncherState)
+  const { launchGame, isVerifying, back } = useGameLauncher(gameLauncherState)
   const {
     isWalletDetailsAvailable,
     refreshWallet,
@@ -281,6 +283,22 @@ const PreLaunchGame = ({}) => {
     : isGameRunning
     ? t('game.quitGame')
     : t('game.enterGame')
+
+  const checkIfGameLauncherStateExist = () => {
+    const gameLauncherStateKeys = Object.keys(gameLauncherState)
+
+    return Boolean(gameLauncherStateKeys.length)
+  }
+
+  useEffect(() => {
+    const isGameStateExist = checkIfGameLauncherStateExist()
+    setIsGameStateEmpty(isGameStateExist)
+    if (!isGameStateExist) back()
+  }, [])
+
+  if (!isGameStateEmpty) {
+    return null
+  }
 
   return (
     <DripsyGradient colors={['#164672', '#0D2035']} sx={{ flex: 1, pt: top }}>
