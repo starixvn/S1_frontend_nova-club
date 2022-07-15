@@ -36,7 +36,7 @@ const persistConfig: PersistConfig<any> = {
   key: 'root',
   version: 2,
   storage,
-  whitelist: ['auth'],
+  whitelist: ['auth', 'setting'],
   migrate: createMigrate(migrations, { debug: true }),
   transforms: [
     createTransform<AuthState, Omit<AuthState, 'isLogoutActionTriggered'>>(
