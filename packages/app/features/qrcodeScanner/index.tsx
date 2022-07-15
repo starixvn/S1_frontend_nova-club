@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Platform } from 'react-native'
 import { BarCodeScanner } from 'expo-barcode-scanner'
-import { Image, styled, Text, View } from 'dripsy'
+import { styled, Text, View } from 'dripsy'
 import Header from 'app/components/common/Header'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useRouter } from 'solito/router'
@@ -14,28 +14,29 @@ import jsQR from 'jsqr'
 import { Buffer } from 'buffer'
 import jpeg from 'jpeg-js'
 import { useDispatch } from 'react-redux'
-import { AlertActions } from 'app/store/alert'
 import BarcodeMask from 'react-native-barcode-mask'
 import { Button } from 'app/components/form/Button'
+import LoadingScreen from 'app/components/LoadingScreen'
+import { AlertActions } from 'app/store/alert'
 const PNG = require('pngjs/browser').PNG
 
-const MASK_WIDTH: number = 300
-const MASK_HEIGHT: number = 300
+export const FINDER_WIDTH: number = 300
+export const FINDER_HEIGHT: number = 300
 
 function QrcodeScannerScreen() {
   const { t } = useLocalization()
   const dispatch = useDispatch()
   const [hasPermission, setHasPermission] = useState(null)
   const [scanned, setScanned] = useState(false)
-  const { push, back } = useRouter()
-  const [qrImage, setQrImage] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const { push, replace } = useRouter()
 
   const { makeContextualHref } = useContextualRouting(
     ContextualModuleKey.QrScanner
   )
   const { width, height } = useContainerDimension()
-  const viewMinX = (width - MASK_WIDTH) / 2
-  const viewMinY = (height - MASK_HEIGHT) / 2
+  const viewMinX = (width - FINDER_WIDTH) / 2
+  const viewMinY = (height - FINDER_HEIGHT) / 2
 
   useEffect(() => {
     ;(async () => {
@@ -50,28 +51,25 @@ function QrcodeScannerScreen() {
     if (
       x >= viewMinX &&
       y >= viewMinY &&
-      x <= viewMinX + MASK_WIDTH / 2 &&
-      y <= viewMinY + MASK_HEIGHT / 2
+      x <= viewMinX + FINDER_WIDTH / 2 &&
+      y <= viewMinY + FINDER_HEIGHT / 2
     ) {
       setScanned(true)
-      // alert(`QRCode: ${data} has been scanned!`)
       handleGoToTransfer(data)
     }
   }
 
   const handleGoToTransfer = (value) => {
-    setScanned(false)
-
     const params = {
       referralCode: value,
     }
 
-    push(makeContextualHref('transfer', params), {
+    replace(makeContextualHref('transfer', params), {
       pathname: '/transfer',
       query: params,
     })
   }
-  console.log('scanned', scanned)
+
   if (hasPermission === null) {
     return <Text>{t('qr.requestCameraPermissions')}</Text>
   }
@@ -80,6 +78,8 @@ function QrcodeScannerScreen() {
   }
 
   const pickImageFromGallery = async () => {
+    setLoading(true)
+
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       base64: true,
@@ -87,9 +87,10 @@ function QrcodeScannerScreen() {
     })
 
     if (!result.cancelled) {
+      console.log('result.uri', result.uri)
+
       try {
         const imageBuffer = Buffer.from(result.base64, 'base64')
-
         const imageExtension =
           Platform.OS === 'web'
             ? result.uri.substring(
@@ -125,6 +126,7 @@ function QrcodeScannerScreen() {
         dispatch(AlertActions.addError('status.imageNotSupported'))
       }
     }
+    setLoading(false)
   }
 
   return (
@@ -133,20 +135,13 @@ function QrcodeScannerScreen() {
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
-        style={[
-          StyleSheet.absoluteFillObject,
-          {
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: -1,
-          },
-        ]}
+        style={[StyleSheet.absoluteFillObject, styles.camera]}
       >
         <BarcodeMask
-          width={MASK_WIDTH}
-          height={MASK_HEIGHT}
+          width={FINDER_WIDTH}
+          height={FINDER_HEIGHT}
           edgeColor="#62B1F6"
-          showAnimatedLine
+          showAnimatedLine={false}
         />
       </BarCodeScanner>
       <View
@@ -173,31 +168,18 @@ function QrcodeScannerScreen() {
           <Button.Label>{t('qr.scanGallery')}</Button.Label>
         </Button>
       </View>
+      {loading && <LoadingScreen />}
     </View>
   )
 }
 
-const StyledTextDescription = styled(Text)({
-  fontSize: 24,
-  marginTop: '10%',
-  textAlign: 'center',
-  width: '70%',
-  color: 'white',
+const styles = StyleSheet.create({
+  camera: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: -1,
+  },
 })
-
-const StyledTextCancel = styled(Text)({
-  fontSize: 20,
-  textAlign: 'center',
-  width: '70%',
-  color: 'white',
-})
-
-const StyledImageQr = styled(Image)(({ qrSize }: { qrSize: number }) => ({
-  marginTop: '20%',
-  marginBottom: '20%',
-  width: qrSize,
-  height: qrSize,
-}))
 
 export default withContextualNav(
   QrcodeScannerScreen,

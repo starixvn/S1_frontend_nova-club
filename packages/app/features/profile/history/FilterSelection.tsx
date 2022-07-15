@@ -5,18 +5,19 @@ import useLocalization from 'app/provider/localization'
 import {
   DateFilter,
   GameProvider,
-  ReportDepositStatus,
   ReportTransactionType,
   ReportTransactionTypeOptions,
   ReportDepositStatusOptions,
-  ReportWithdrawalStatusOptions,
   ReportGameStatusOptions,
   DateFilterOptions,
   ReportCommonStatusOptions,
+  ReportGameStatus,
 } from 'app/utils/constant'
 import dayjs from 'dayjs'
 import { Text, View } from 'dripsy'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { SelectOptions } from 'services/common/types'
+import { usePlayerWalletDetailQuery } from 'services/walletApi'
 
 const TypeList = ReportTransactionTypeOptions
 const DateFilterList = DateFilterOptions
@@ -27,13 +28,26 @@ export const ProviderList = Object.keys(GameProvider).map((key) => ({
   label: key,
   value: key,
 }))
-// console.log(
-//   '🚀 ~ file: FilterSelection.tsx ~ line 26 ~ ProviderList',
-//   ProviderList
-// )
 
 const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
   const { t } = useLocalization()
+  const { data } = usePlayerWalletDetailQuery()
+  const [providerList, setProviderList] = useState<SelectOptions[]>([])
+
+  useEffect(() => {
+    if (!data?.success) return
+    const newArray =
+      Object.values(data?.data).map((item) => {
+        return {
+          value: item.system_code,
+          label: item.system_name,
+        }
+      }) ?? []
+
+    setProviderList(
+      [ReportGameStatusOptions[0] as SelectOptions].concat(newArray)
+    )
+  }, [data])
 
   const handleDateRange = (
     value: string
@@ -112,7 +126,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
               },
             }}
             _flatList={{
-              data: ProviderList,
+              data: providerList,
               setSelectedValue: (value) =>
                 setSelected({ ...selected, selectedGame: value }),
             }}

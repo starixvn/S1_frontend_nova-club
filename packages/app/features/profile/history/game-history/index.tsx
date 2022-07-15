@@ -28,14 +28,15 @@ const GameHistoryTab = () => {
   const [fetchData, result] = useLazyPlayerReportQuery()
 
   const [selected, setSelected] = useState({
-    selectedGameStatus: ReportGameStatusOptions[0],
+    selectedGame: ReportGameStatusOptions[0],
     selectedDate: DateFilterOptions[0],
-    selectedGame: ProviderList[0],
+    selectedGameStatus: ReportGameStatusOptions[0],
     startDate: dayjs().startOf('month').toDate(),
     endDate: dayjs().endOf('date').toDate(),
   })
 
   const [fetchParams, setFetchParams] = useState({
+    game_provider_code: selected.selectedGame?.value,
     status: selected.selectedGameStatus?.value,
     time_from: dayjs(selected.startDate).format('YYYY-MM-DD HH:mm:ss'),
     time_to: dayjs(selected.endDate).format('YYYY-MM-DD HH:mm:ss'),
@@ -44,6 +45,7 @@ const GameHistoryTab = () => {
 
   useEffect(() => {
     setFetchParams({
+      game_provider_code: selected.selectedGame?.value,
       status: selected.selectedGameStatus?.value,
       time_from: dayjs(selected.startDate).format('YYYY-MM-DD HH:mm:ss'),
       time_to: dayjs(selected.endDate).format('YYYY-MM-DD HH:mm:ss'),
