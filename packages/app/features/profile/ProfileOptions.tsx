@@ -22,7 +22,7 @@ const enum LOADING_STATE {
 const ProfileOptions = () => {
   const [loadingState, setLoadingState] = useState(LOADING_STATE.COMPLETE)
 
-  const { replace } = useRouter()
+  const { push, replace } = useRouter()
   const { theme } = useDripsyTheme()
 
   const { makeContextualHref } = useContextualRouting(

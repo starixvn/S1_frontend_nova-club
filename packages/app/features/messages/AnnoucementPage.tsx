@@ -37,7 +37,7 @@ const renderItem: ListRenderItem<AnnouncementListItems> = ({ item, index }) => {
       index={index}
       title={item.title}
       content={item.content}
-      time={item.start_date}
+      time={item.date}
     />
   )
 }
