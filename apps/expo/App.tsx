@@ -1,13 +1,12 @@
 import useFontInit from 'app/hooks/useFontInit'
-import 'react-native-gesture-handler'
-
 import { NativeNavigation } from 'app/navigation/native'
 import { Provider } from 'app/provider'
-import { Text } from 'react-native'
-import { StatusBar } from 'expo-status-bar'
-import { styled } from 'dripsy'
-import Branch from './integrations/branch/Branch'
 import { fontName } from 'app/provider/dripsy'
+import { styled } from 'dripsy'
+import { StatusBar } from 'expo-status-bar'
+import { Text } from 'react-native'
+import 'react-native-gesture-handler'
+import Branch from './integrations/branch/Branch'
 
 export default function App() {
   /**
@@ -18,10 +17,19 @@ export default function App() {
     fontFamily: {
       [fontName]: require('app/assets/fonts/HelveticaNeue.ttf'),
     },
+    iconUrl: {
+      uri:
+        // 'http://192.168.71.119:3000/fonts/icomoon.ttf',
+        'https://stage.gball8.com/fonts/icomoon.ttf',
+    },
   })
 
   if (!loaded) {
-    return <Text>Nothing here</Text>
+    return (
+      <Text style={{ color: 'black', marginTop: 30 }}>
+        Loading Font... This process will be moved to splash screen
+      </Text>
+    )
   }
   /*********** */
 
