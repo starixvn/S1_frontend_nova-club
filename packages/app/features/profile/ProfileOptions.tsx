@@ -54,14 +54,14 @@ const ProfileOptions = () => {
     {
       id: 3,
       title: 'Commision Table',
-      iconName: 'home',
+      iconName: 'replay',
       routeWeb: toCommissionTable,
       route: '/profile/commission-table',
     },
     {
       id: 4,
       title: 'Message/Announcement',
-      iconName: 'sl',
+      iconName: 'history',
       routeWeb: toMessages,
       route: {
         pathname: '/messages',
