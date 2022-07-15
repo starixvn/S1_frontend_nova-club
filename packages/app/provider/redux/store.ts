@@ -49,7 +49,7 @@ const persistConfig: PersistConfig<any> = {
       (outboundState, key) => {
         return { ...authInitialState, ...outboundState }
       },
-      { whitelist: ['auth'] }
+      { whitelist: ['auth', 'setting'] }
     ),
   ],
 }
