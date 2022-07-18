@@ -87,7 +87,7 @@ const WithdrawalPage = () => {
         actions.resetForm()
       }
     } catch (e) {
-      dispatch(AlertActions.addError('common.systemError'))
+      dispatch(AlertActions.addError('status.systemError'))
     } finally {
       actions.setSubmitting(false)
     }
@@ -162,7 +162,7 @@ const WithdrawalPage = () => {
               placeholder: t('bank.selectBank'),
               value: values.bank?.BankAccountFullName ?? '',
             }}
-            _flatList={{
+            _dataList={{
               data: data,
               isLoading: isLoading || isFetching,
               titleType: 'BankCode',

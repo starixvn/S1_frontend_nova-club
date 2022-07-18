@@ -61,7 +61,7 @@ type TextFieldSelectProps = {
   error?: string
   containerStyle?: SxProp
   _actionSheet: SquareSelectorActionSheetProps
-  _flatList: SquareSelectorFlatListProps
+  _dataList: SquareSelectorFlatListProps
   onPress: (object) => void
 }
 
@@ -191,7 +191,7 @@ const TextFieldInput = ({
  *     placeholder: t('bank.selectBank'),
  *     value: values.bank?.bank_acc_name ?? '',
  *   }}
- *   _flatList={{
+ *   _dataList={{
  *     data: depositPayment?.list ?? [],
  *     isLoading: isLoading || isFetching,
  *     titleType: 'bank_acc_name',
@@ -208,7 +208,7 @@ const TextFieldSelect = ({
   error,
   containerStyle,
   _input,
-  _flatList,
+  _dataList,
   _actionSheet,
 }: TextFieldSelectProps) => {
   const { t } = useLocalization()
@@ -250,7 +250,7 @@ const TextFieldSelect = ({
 
       <SquareSelectorActionSheet
         ref={actionSheetRef}
-        _flatList={_flatList}
+        _dataList={_dataList}
         _actionSheet={_actionSheet}
       />
       {error && (

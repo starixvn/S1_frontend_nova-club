@@ -44,7 +44,7 @@ const ChangePasswordScreen = () => {
         back()
       }
     } catch (e) {
-      dispatch(AlertActions.addError('common.systemError'))
+      dispatch(AlertActions.addError('status.systemError'))
     }
   }
 

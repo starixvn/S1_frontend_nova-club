@@ -79,7 +79,7 @@ const validation = {
 }
 
 export const getErrorMessage = (error: any) => {
-  let errorMessage = 'common.systemError'
+  let errorMessage = 'status.systemError'
 
   if (typeof error === 'object' && 'message' in error) {
     errorMessage = error.message

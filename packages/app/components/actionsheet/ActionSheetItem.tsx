@@ -1,14 +1,13 @@
-import { Text, View } from 'dripsy'
+import { View } from 'dripsy'
 import React from 'react'
 import RoundedIcon from '../RoundedIcon'
-import { SQUARE_NUMBER_OF_COLUMNS } from './SquareSelectorActionSheet'
 
-type BankItemProps = {
+type ActionSheetItemProps = {
   icon: string
-  title?: string
   onPress: () => void
 }
-const BankItem = ({ icon, title, onPress }: BankItemProps) => {
+
+const ActionSheetItem = ({ icon, onPress }: ActionSheetItemProps) => {
   return (
     <View sx={{ alignItems: 'center', width: '25%' }}>
       <RoundedIcon
@@ -18,9 +17,12 @@ const BankItem = ({ icon, title, onPress }: BankItemProps) => {
         containerStyle={{
           m: '$0a',
         }}
+        imageStyle={{
+          bg: '$primary',
+        }}
       />
     </View>
   )
 }
 
-export default BankItem
+export default ActionSheetItem

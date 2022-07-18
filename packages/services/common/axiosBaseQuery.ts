@@ -52,7 +52,7 @@ export function axiosBaseQuery<T>(): BaseQueryFn<
       return {
         error: {
           code: -999,
-          message: error.message === '' ? 'common.systemError' : error.message,
+          message: error.message === '' ? 'status.systemError' : error.message,
           success: false,
         },
       }

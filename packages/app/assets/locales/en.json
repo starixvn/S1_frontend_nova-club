@@ -251,6 +251,7 @@
     "failed": "Failed",
     "pending": "Pending",
     "processing": "Processing",
+    "referralError": "Refferal doesn't exist, please try another code",
     "rejected": "Rejected",
     "success": "Success",
     "systemError": "Oops! Something wrong, please try again.",

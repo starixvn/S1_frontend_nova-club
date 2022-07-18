@@ -10,16 +10,17 @@ import { Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
+import { useAffiliateUsernameQuery } from 'services/contentApi'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import {
   usePlayerBalanceQuery,
   useTransferMemberToMemberMutation,
 } from 'services/walletApi'
 import { createParam } from 'solito'
+import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 
 type TransferValues = {
-  transferTo: string
   amount: string
   realAmount: number
 }
@@ -27,24 +28,37 @@ const { useParam } = createParam<{ referralCode: string }>()
 
 const TransferScreen = () => {
   const dispatch = useDispatch()
+  const { back } = useRouter()
   const { t } = useLocalization()
   const [referralCode] = useParam('referralCode')
 
   const [postTransferMemberToMember] = useTransferMemberToMemberMutation()
 
-  const { data } = usePlayerBalanceQuery()
-  const { data: playerData } = usePlayerProfileQuery()
+  const { data } = usePlayerBalanceQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  })
+  const { data: playerData, isError } = useAffiliateUsernameQuery(
+    referralCode ?? ''
+  )
+  console.log(
+    '🚀 ~ file: index.tsx ~ line 41 ~ TransferScreen ~ isError',
+    isError
+  )
+  console.log(
+    '🚀 ~ file: index.tsx ~ line 41 ~ TransferScreen ~ playerData',
+    playerData
+  )
   const currency = playerData?.data?.currency as Currency
 
   const onSubmit = async (
-    { transferTo, realAmount }: TransferValues,
+    { realAmount }: TransferValues,
     actions: FormikHelpers<TransferValues>
   ) => {
     try {
       actions.setSubmitting(true)
       const { data, success, message } = await postTransferMemberToMember({
         amount: realAmount,
-        to_invitation_code: transferTo,
+        to_invitation_code: referralCode ?? '',
       })
         .unwrap()
         .catch((error) => dispatch(AlertActions.addError(error.message)))
@@ -54,7 +68,7 @@ const TransferScreen = () => {
         actions.resetForm()
       }
     } catch (e) {
-      dispatch(AlertActions.addError('common.systemError'))
+      dispatch(AlertActions.addError('status.systemError'))
     } finally {
       actions.setSubmitting(false)
     }
@@ -64,7 +78,6 @@ const TransferScreen = () => {
     initialValues: {
       amount: '',
       realAmount: 0,
-      transferTo: referralCode ?? '',
     },
     validationSchema: Yup.object({
       transferTo: validation.transferTo,
@@ -86,10 +99,10 @@ const TransferScreen = () => {
   } = formik
 
   useEffect(() => {
-    referralCode &&
-      !!!values.transferTo &&
-      setValues({ ...values, transferTo: referralCode })
-  }, [referralCode])
+    if (isError) {
+      dispatch(AlertActions.addError('status.referralError'))
+    }
+  }, [playerData])
 
   function onAmountChanged(text: string) {
     if (text != null) {
@@ -124,7 +137,7 @@ const TransferScreen = () => {
         <TextField labelWidth={0.7}>
           <TextField.Label
             label="transfer.transferTo"
-            value={values.transferTo ?? ''}
+            value={playerData?.data?.username ?? ''}
             sx={{ my: 0 }}
           />
           <TextField.TextInput

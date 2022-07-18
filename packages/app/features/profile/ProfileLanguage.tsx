@@ -28,7 +28,7 @@ const ProfileLanguage = () => {
         dispatch(AlertActions.addSuccess(message))
       }
     } catch (e) {
-      dispatch(AlertActions.addError('common.systemError'))
+      dispatch(AlertActions.addError('status.systemError'))
     }
   }
 

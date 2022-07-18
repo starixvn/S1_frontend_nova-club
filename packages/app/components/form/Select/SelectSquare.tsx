@@ -1,14 +1,11 @@
-import RoundedIcon from 'app/components/RoundedIcon'
 import SquareSelectorActionSheet, {
   DEFAULT_SQUARE_ACTION_SHEET_ID,
   SquareSelectorActionSheetProps,
   SquareSelectorFlatListProps,
 } from 'app/components/actionsheet/SquareSelectorActionSheet'
-import { Text, View } from 'dripsy'
-import React, { ComponentProps, createRef, useReducer } from 'react'
+import React, { ComponentProps, createRef, useReducer, useState } from 'react'
 import { SheetManager } from 'react-native-actions-sheet'
 import SelectButton from './SelectButton'
-import BankItem from 'app/components/actionsheet/BankItem'
 
 type ButtonProps = ComponentProps<typeof SelectButton>
 
@@ -31,6 +28,7 @@ const SelectSquare = ({
   const [isActive, toggleIsActive] = useReducer((state) => {
     return !state
   }, false)
+  const [selectedIcon, setSelectedIcon] = useState()
 
   const handleActionSheetOpen = () => {
     SheetManager.show(actionSheetId || DEFAULT_SQUARE_ACTION_SHEET_ID)
@@ -38,6 +36,7 @@ const SelectSquare = ({
 
   const handleActionSheetClose = async (item) => {
     setSelectedValue(item)
+    setSelectedIcon(item.logo)
     await SheetManager.hide(actionSheetId || DEFAULT_SQUARE_ACTION_SHEET_ID)
   }
 
@@ -46,6 +45,7 @@ const SelectSquare = ({
       <SelectButton
         onOpen={handleActionSheetOpen}
         title={buttonTitle}
+        icon={selectedIcon}
         isActive={isActive}
         {...buttonProps}
       />
@@ -53,16 +53,9 @@ const SelectSquare = ({
         ref={actionSheetRef}
         _flatList={{
           ..._flatList,
-          titleType: 'label',
+          titleType: 'value',
+          logo: 'provider',
           onPress: (item) => handleActionSheetClose(item),
-          // renderItem: ({ item, index }) => (
-          //   <BankItem
-          //     key={`${index} ${item}`}
-          //     icon={require('app/assets/images/home/fishing.png')}
-          //     title={item}
-          //     onPress={() => handleActionSheetClose(item)}
-          //   />
-          // ),
         }}
         _actionSheet={{
           ...{ onOpen: toggleIsActive, onClose: toggleIsActive },

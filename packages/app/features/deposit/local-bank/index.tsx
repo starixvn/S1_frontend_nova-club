@@ -4,10 +4,8 @@ import { TextField } from 'app/components/TextField'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import useLocalization from 'app/provider/localization'
-import { RootState, useAppSelector } from 'app/provider/redux/store'
 import {
   useDepositPaymentListQuery,
-  useSubmitDepositMutation,
   useSubmitManualDepositMutation,
 } from 'services/deposit'
 import { AlertActions } from 'app/store/alert'
@@ -21,15 +19,10 @@ import validation from 'app/utils/validation'
 import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect, useState } from 'react'
-import { Linking, Platform } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
-import { DepositMethodId } from '..'
 import DepositUpload from '../DepositUpload'
-import BankItem from 'app/components/actionsheet/BankItem'
-import { SheetManager } from 'react-native-actions-sheet'
-import { DEFAULT_SQUARE_ACTION_SHEET_ID } from 'app/components/actionsheet/SquareSelectorActionSheet'
 import { ManualBankItem } from 'services/deposit.type'
 import { Currency, DepositPaymentMethodCategoryId } from 'app/utils/constant'
 import validationRule from 'app/utils/validationRule'
@@ -96,7 +89,7 @@ const LocalBankScreen = () => {
         actions.resetForm()
       }
     } catch (e) {
-      dispatch(AlertActions.addError('common.systemError'))
+      dispatch(AlertActions.addError('status.systemError'))
     } finally {
       actions.setSubmitting(false)
     }
@@ -163,7 +156,7 @@ const LocalBankScreen = () => {
               placeholder: t('bank.selectBank'),
               value: values.bank?.bank_acc_name ?? '',
             }}
-            _flatList={{
+            _dataList={{
               data: depositPayment?.list ?? [],
               isLoading: isLoading || isFetching,
               key: 'bankTypeId',

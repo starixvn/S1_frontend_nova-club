@@ -46,7 +46,7 @@ const PlayerBankDeleteModal = ({ modal: { closeModal, getParam } }) => {
         dispatch(AlertActions.addSuccess(message))
       }
     } catch (e) {
-      dispatch(AlertActions.addError('common.systemError'))
+      dispatch(AlertActions.addError('status.systemError'))
     } finally {
       setIsSubmitting(false)
       handleDismiss()

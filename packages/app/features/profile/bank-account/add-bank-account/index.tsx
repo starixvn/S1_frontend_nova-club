@@ -61,7 +61,7 @@ const AddBankAccountScreen = () => {
         back()
       }
     } catch (e) {
-      dispatch(AlertActions.addError('common.systemError'))
+      dispatch(AlertActions.addError('status.systemError'))
     }
   }
 
@@ -127,7 +127,7 @@ const AddBankAccountScreen = () => {
               placeholder: t('bank.selectBank'),
               value: values.bank?.bank_name ?? '',
             }}
-            _flatList={{
+            _dataList={{
               data: data,
               isLoading: isLoading || isFetching,
               key: 'id',

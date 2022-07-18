@@ -116,7 +116,7 @@ const AutoDepositForm = ({ notes, module, DepositCategoryId }) => {
         // actions.resetForm()
       }
     } catch (e) {
-      dispatch(AlertActions.addError('common.systemError'))
+      dispatch(AlertActions.addError('status.systemError'))
     } finally {
       actions.setSubmitting(false)
     }

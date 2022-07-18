@@ -34,7 +34,7 @@ const FieldSelectBank = ({ field, isLoading, formik }: FieldBankProps) => {
           placeholder: t('bank.selectBank'),
           value: values.bank?.label ?? '',
         }}
-        _flatList={{
+        _dataList={{
           data: bankList ?? [],
           isLoading: isLoading,
           titleType: 'value',

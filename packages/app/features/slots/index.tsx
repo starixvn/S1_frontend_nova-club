@@ -16,9 +16,12 @@ import { GameConfig } from 'services/contentApi.type'
 import ListSectionHeader from '../ListSectionHeader'
 import useSlotGamesFilter from '../../hooks/game/useSlotGamesFilter'
 import { ProviderImageExtension } from 'app/config/games/extension'
+import useLocalization from 'app/provider/localization'
+import SelectSquare from 'app/components/form/Select/SelectSquare'
 
 const Slots = withContextualNav(() => {
   const sx = useSx()
+  const { t } = useLocalization()
   const { width } = useContainerDimension()
 
   const { contentWidth, itemSpace, containerSpace } = useGameGridSize(3)
@@ -77,7 +80,25 @@ const Slots = withContextualNav(() => {
                 data={slotTypeSelection}
                 setSelectedValue={setSelectedSlotType}
               />
-              <Select
+              <SelectSquare
+                buttonTitle={selectedProvider.label ?? 'Click here to open'}
+                buttonProps={{
+                  sx: {
+                    ml: '$2',
+                    flex: 0.4,
+                  },
+                  isActive: false,
+                }}
+                _flatList={{
+                  data: providerSelection,
+                  setSelectedValue: setSelectedProvider,
+                }}
+                _actionSheet={{
+                  id: t('menu.tab.provider'),
+                  headerTitle: t('menu.tab.provider'),
+                }}
+              />
+              {/* <Select
                 actionSheetProps={{ id: 'providerSelection' }}
                 headerTitle={'Providers'}
                 buttonTitle={selectedProvider.label ?? 'Click here to open'}
@@ -90,7 +111,7 @@ const Slots = withContextualNav(() => {
                 }}
                 data={providerSelection}
                 setSelectedValue={setSelectedProvider}
-              />
+              /> */}
             </Row>
           </ListSectionHeader>
           <FlatList

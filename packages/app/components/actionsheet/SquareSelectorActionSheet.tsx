@@ -13,12 +13,13 @@ import React, { ComponentProps, createRef, forwardRef } from 'react'
 import { Platform } from 'react-native'
 import ActionSheet, { SheetManager } from 'react-native-actions-sheet'
 import { DripsyGradient } from '../Gradient'
-import BankItem from './BankItem'
 import { getBankLogo } from 'app/config/games/bank'
 import { Button } from '../form/Button'
 import { useRouter } from 'solito/router'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
+import ActionSheetItem from './ActionSheetItem'
+import { getProviderLogo } from 'app/config/games/provider'
 
 export type SquareSelectorActionSheetProps = ComponentProps<
   typeof ActionSheet
@@ -30,11 +31,11 @@ export type SquareSelectorFlatListProps = ComponentProps<typeof FlatList> & {
   isLoading: boolean
   titleType: string
   key: string | number
+  logo?: string
+  setSelectedValue: (object) => void
   onPress: (object) => void
 }
-export interface SquareSelectorForwardRef {
-  showDialog: () => void
-}
+export interface SquareSelectorForwardRef {}
 
 type SquareSelectorProps = {
   onPress: (number) => void
@@ -62,13 +63,29 @@ const SquareSelectorActionSheet = forwardRef<
     ...restActionSheetProps
   } = _actionSheet || {}
 
-  const { data, isLoading, onPress, titleType, key, ...restFlatListProps } =
-    _flatList || {}
+  const {
+    data,
+    isLoading,
+    onPress,
+    titleType,
+    key,
+    logo = 'bank',
+    ...restFlatListProps
+  } = _flatList || {}
   const { theme } = useDripsyTheme()
-
   const _ref = createRef()
-
   const mergedRef = mergeRefs([_ref, ref])
+
+  const getLogo = (code) => {
+    switch (logo) {
+      case 'bank':
+        return getBankLogo(code)
+      case 'provider':
+        return getProviderLogo(code)
+      default:
+        break
+    }
+  }
 
   const closeActionSheet = async () => {
     await SheetManager.hide(actionSheetId ?? DEFAULT_SQUARE_ACTION_SHEET_ID)
@@ -125,12 +142,13 @@ const SquareSelectorActionSheet = forwardRef<
             }}
           >
             {data.map((item) => (
-              <BankItem
+              <ActionSheetItem
                 key={item[key]}
-                icon={getBankLogo(item[titleType])}
+                icon={getLogo(item[titleType])}
                 title={item[titleType]}
                 onPress={() => {
-                  onPress(item)
+                  // onPress(item)
+                  onPress({ ...item, logo: getLogo(item[titleType]) })
                   closeActionSheet()
                 }}
               />
@@ -141,7 +159,6 @@ const SquareSelectorActionSheet = forwardRef<
             rounded
             stretch
             variant="lg"
-            disabled={data && data.length >= 3}
             fill={{
               type: 'gradient',
               color: 'secondary',
