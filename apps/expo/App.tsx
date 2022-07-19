@@ -17,11 +17,11 @@ export default function App() {
     fontFamily: {
       [fontName]: require('app/assets/fonts/HelveticaNeue.ttf'),
     },
-    iconUrl: {
-      uri:
-        // 'http://192.168.71.119:3000/fonts/icomoon.ttf',
-        'https://stage.gball8.com/fonts/icomoon.ttf',
-    },
+    // iconUrl: {
+    //   uri:
+    //     // 'http://192.168.71.119:3000/fonts/icomoon.ttf',
+    //     'https://stage.gball8.com/fonts/icomoon.ttf',
+    // },
   })
 
   if (!loaded) {
