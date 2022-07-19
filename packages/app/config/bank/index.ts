@@ -15,47 +15,47 @@ const enum BANK_NAME {
 export const BANK_LOGO: { [key in keyof typeof BANK_NAME] } = {
   ACB: {
     bank_code: 'ACB',
-    image: require('../../../assets/images/bank/ACB.jpg'),
+    image: require('../../assets/images/bank/ACB.jpg'),
   },
   AGB: {
     bank_code: 'AGB',
-    image: require('../../../assets/images/bank/AGB.jpg'),
+    image: require('../../assets/images/bank/AGB.jpg'),
   },
   BIDV: {
     bank_code: 'BIDV',
-    image: require('../../../assets/images/bank/BIDV.jpg'),
+    image: require('../../assets/images/bank/BIDV.jpg'),
   },
   EXIM: {
     bank_code: 'EXIM',
-    image: require('../../../assets/images/bank/EXIM.jpg'),
+    image: require('../../assets/images/bank/EXIM.jpg'),
   },
   HDB: {
     bank_code: 'HDB',
-    image: require('../../../assets/images/bank/HDB.jpg'),
+    image: require('../../assets/images/bank/HDB.jpg'),
   },
   MB: {
     bank_code: 'MB',
-    image: require('../../../assets/images/bank/MB.jpg'),
+    image: require('../../assets/images/bank/MB.jpg'),
   },
   SACOM: {
     bank_code: 'SACOM',
-    image: require('../../../assets/images/bank/SACOM.jpg'),
+    image: require('../../assets/images/bank/SACOM.jpg'),
   },
   SGCB: {
     bank_code: 'SGCB',
-    image: require('../../../assets/images/bank/SGCB.jpg'),
+    image: require('../../assets/images/bank/SGCB.jpg'),
   },
   TCB: {
     bank_code: 'TCB',
-    image: require('../../../assets/images/bank/TCB.jpg'),
+    image: require('../../assets/images/bank/TCB.jpg'),
   },
   VCB: {
     bank_code: 'VCB',
-    image: require('../../../assets/images/bank/VCB.jpg'),
+    image: require('../../assets/images/bank/VCB.jpg'),
   },
   VTB: {
     bank_code: 'VTB',
-    image: require('../../../assets/images/bank/VTB.jpg'),
+    image: require('../../assets/images/bank/VTB.jpg'),
   },
 }
 
@@ -76,7 +76,7 @@ const BankLogo = [
 export const getBankLogo = (bankCode: string) => {
   const logo = BankLogo.find((el) => el.bank_code === bankCode)?.image
 
-  return logo ?? require('../../../assets/images/home/fishing.png')
+  return logo ?? require('../../assets/images/home/fishing.png')
 }
 
 export default BankLogo

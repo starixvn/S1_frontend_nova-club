@@ -11,77 +11,15 @@ import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { BankActions } from 'app/store/bankReducer'
 import { useDepositPaymentListQuery } from 'services/deposit'
-import {
-  DepositPaymentMethodCategoryId,
-  DepositPaymentMethodCategoryType,
-} from 'app/utils/constant'
-
-export enum DepositMethodId {
-  LOCAL_BANK = 1,
-  ONLINE_BANK = 2,
-  MOMO = 3,
-  QR_CODE = 4,
-  TOP_UP = 5,
-  CRYPTO = 6,
-}
-
-const sampleData = [
-  // {
-  //   id: DepositMethodId.LOCAL_BANK,
-  //   type: DepositPaymentMethodCategoryType.LOCAL_BANK,
-  //   categoryId: DepositPaymentMethodCategoryId.LOCAL_BANK,
-  //   name: 'deposit.depositMethod.bankTransfer',
-  //   icon: 'sl',
-  //   color: '#ac0102',
-  // },
-  {
-    id: DepositMethodId.ONLINE_BANK,
-    type: DepositPaymentMethodCategoryType.ONLINE_BANK,
-    categoryId: DepositPaymentMethodCategoryId.ONLINE_BANK,
-    name: 'deposit.depositMethod.onlineBanking',
-    icon: 'mac',
-    color: '#f56e04',
-  },
-  {
-    id: DepositMethodId.MOMO,
-    type: DepositPaymentMethodCategoryType.MOMO,
-    categoryId: DepositPaymentMethodCategoryId.MOMO,
-    name: 'deposit.depositMethod.momo',
-    icon: 'momo',
-    color: '#AC016C',
-  },
-  {
-    id: DepositMethodId.QR_CODE,
-    type: DepositPaymentMethodCategoryType.QR_CODE,
-    categoryId: DepositPaymentMethodCategoryId.QR_CODE,
-    name: 'deposit.depositMethod.qrCode',
-    icon: 'qr',
-    color: '#44BAF9',
-  },
-  {
-    id: DepositMethodId.TOP_UP,
-    type: DepositPaymentMethodCategoryType.TOP_UP,
-    categoryId: DepositPaymentMethodCategoryId.TOP_UP,
-    name: 'deposit.depositMethod.topUp',
-    icon: 'card',
-    color: '#95AC00',
-  },
-  // {
-  //   id: DepositMethodId.CRYPTO,
-  //   type: DepositPaymentMethodCategoryType.CRYPTO,
-  //   categoryId: DepositPaymentMethodCategoryId.CRYPTO,
-  //   name: 'deposit.depositMethod.crypto',
-  //   icon: 'sl',
-  //   color: '#36A07B',
-  // },
-]
+import PaymentMethod, { DepositMethodId } from 'app/config/deposit'
 
 const DepositPage = () => {
   const { push } = useRouter()
   const { t } = useLocalization()
   const dispatch = useDispatch()
-  const [paymentMethodList, setPaymentMethodList] = useState(sampleData)
+  const [paymentMethodList, setPaymentMethodList] = useState(PaymentMethod)
   const { data, isLoading } = useDepositPaymentListQuery()
+  console.log('🚀 ~ file: index.tsx ~ line 22 ~ DepositPage ~ data', data)
 
   const { makeContextualHref } = useContextualRouting(
     ContextualModuleKey.Deposit
@@ -95,8 +33,11 @@ const DepositPage = () => {
 
   useEffect(() => {
     if (data?.success) {
-      const convertData = sampleData.map((item, index) => {
-        const res = data.data.result[item.type].find(
+      const activeMethod = paymentMethodList.filter(
+        (item) => item.active === true
+      )
+      const convertData = activeMethod.map((item, index) => {
+        const res = data?.data.result[item.type].find(
           (el) => el.category_id === item.categoryId
         )
 

@@ -5,7 +5,7 @@ import { PlayerBankResult } from 'services/bank.type'
 import { styled, Text, View } from 'dripsy'
 import React from 'react'
 import { toCleanCard } from 'app/utils'
-import { getBankLogo } from 'app/config/games/bank'
+import { getBankLogo } from 'app/config/bank'
 
 type BankAccCardProps = {
   item: PlayerBankResult

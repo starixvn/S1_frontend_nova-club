@@ -38,6 +38,7 @@ const FieldSelectBank = ({ field, isLoading, formik }: FieldBankProps) => {
           data: bankList ?? [],
           isLoading: isLoading,
           titleType: 'value',
+          key: 'value',
           onPress: (item) => setFieldValue('bank', item),
         }}
         _actionSheet={{

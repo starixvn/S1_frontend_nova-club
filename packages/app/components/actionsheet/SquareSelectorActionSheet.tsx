@@ -13,7 +13,7 @@ import React, { ComponentProps, createRef, forwardRef } from 'react'
 import { Platform } from 'react-native'
 import ActionSheet, { SheetManager } from 'react-native-actions-sheet'
 import { DripsyGradient } from '../Gradient'
-import { getBankLogo } from 'app/config/games/bank'
+import { getBankLogo } from 'app/config/bank'
 import { Button } from '../form/Button'
 import { useRouter } from 'solito/router'
 import useContextualRouting from 'app/hooks/useContextualRouting'
@@ -40,7 +40,7 @@ export interface SquareSelectorForwardRef {}
 type SquareSelectorProps = {
   onPress: (number) => void
   _actionSheet: SquareSelectorActionSheetProps
-  _flatList: SquareSelectorFlatListProps
+  _dataList: SquareSelectorFlatListProps
 }
 
 export const DEFAULT_SQUARE_ACTION_SHEET_ID = 'SquareSelector'
@@ -49,7 +49,7 @@ export const SQUARE_NUMBER_OF_COLUMNS = 4
 const SquareSelectorActionSheet = forwardRef<
   SquareSelectorForwardRef,
   SquareSelectorProps
->(({ _flatList, _actionSheet }: SquareSelectorProps, ref) => {
+>(({ _dataList, _actionSheet }: SquareSelectorProps, ref) => {
   const { t } = useLocalization()
   const { push } = useRouter()
   const { makeContextualHref } = useContextualRouting(
@@ -71,7 +71,7 @@ const SquareSelectorActionSheet = forwardRef<
     key,
     logo = 'bank',
     ...restFlatListProps
-  } = _flatList || {}
+  } = _dataList || {}
   const { theme } = useDripsyTheme()
   const _ref = createRef()
   const mergedRef = mergeRefs([_ref, ref])

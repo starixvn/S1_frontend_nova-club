@@ -57,9 +57,6 @@ const AutoDepositForm = ({ notes, module, DepositCategoryId }) => {
     (el) => el.category_id === DepositCategoryId
   )
   const paymentGateway = depositPayment?.list[0]
-  // const paymentGateway = depositPayment?.list.find((el) =>
-  //   el.bank_name_local.includes('COPAY')
-  // )
   const inputFields = Object.values(paymentGateway?.player_input_fields ?? {})
 
   const fieldBank = inputFields.find(

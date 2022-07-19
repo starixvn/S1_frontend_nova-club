@@ -1,4 +1,4 @@
-import { Text, View } from 'dripsy'
+import { Text, useDripsyTheme, View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import HistoryListing from 'app/components/history/HistoryListing'
 import {
@@ -21,6 +21,7 @@ import {
 import dayjs from 'dayjs'
 import { ReportTransactionItem } from 'services/playerApi.type'
 import { toCurrency } from 'app/utils'
+import { getStatusColor } from 'app/config/status'
 
 const CELL_DATE_WIDTH = 1
 const CELL_AMOUNT_WIDTH = 1
@@ -28,6 +29,7 @@ const CELL_STATUS_WIDTH = 1
 
 const TransactionHistoryTab = () => {
   const { t } = useLocalization()
+  const { theme } = useDripsyTheme()
   const [fetchData, result] = useLazyPlayerReportQuery()
   const { data: playerData } = usePlayerProfileQuery()
   const currency = playerData?.data?.currency as Currency
@@ -84,22 +86,13 @@ const TransactionHistoryTab = () => {
         result={result}
         header={tableHeader}
         keyExtractor={(item, index) => `${index} History ${item.name}`}
-        renderItem={({ item }) => renderItem({ item }, currency)}
+        renderItem={({ item }) => renderItem({ item }, currency, theme)}
       />
     </View>
   )
 }
 
-const renderItem = ({ item }, currency) => {
-  const getStatusColor = (value: string) => {
-    switch (value.toLowerCase()) {
-      case ReportDepositStatus.PENDING.toLowerCase():
-        return '#13A9C8'
-      default:
-        return '#FFF'
-    }
-  }
-
+const renderItem = ({ item }, currency, theme) => {
   return (
     <GradientBox>
       <View
@@ -124,7 +117,10 @@ const renderItem = ({ item }, currency) => {
         </View>
         <View style={{ flex: CELL_STATUS_WIDTH }}>
           <Text
-            sx={{ textAlign: 'center', color: getStatusColor(item.status) }}
+            sx={{
+              textAlign: 'center',
+              color: getStatusColor(item.status, theme),
+            }}
           >
             {item.status}
           </Text>
