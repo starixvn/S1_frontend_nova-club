@@ -19,6 +19,7 @@ type BalanceItemProps = {
   size?: 'large' | 'small'
   _sx?: SxProp
   icon: string
+  _iconStyle: SxProp
 }
 
 const ProfileBalance = () => {
@@ -56,6 +57,7 @@ const ProfileBalance = () => {
             isLoading={isFetching}
             _sx={{ justifyContent: 'center' }}
             icon="bw"
+            _iconStyle={{ fontSize: 40 }}
           />
           <MotifiedView
             animate={{ rotate: isExtend ? '-180deg' : '0deg' }}
@@ -105,6 +107,7 @@ const ProfileBalance = () => {
                       pr: '$5',
                     }}
                     icon="ac"
+                    _iconStyle={{ color: '$border', fontSize: 35 }}
                   />
 
                   <BalanceItem
@@ -118,6 +121,7 @@ const ProfileBalance = () => {
                       borderLeftColor: '$lightNavyBlue',
                     }}
                     icon="gift"
+                    _iconStyle={{ color: '$border', fontSize: 35 }}
                   />
                 </View>
               </MotifiedView>
@@ -137,6 +141,7 @@ const BalanceItem = ({
   size = 'small',
   _sx,
   icon,
+  _iconStyle,
 }: BalanceItemProps) => {
   const titleFontSize = size === 'large' ? 14 : 12
   const valueFontSize = size === 'large' ? 24 : 20
@@ -150,7 +155,7 @@ const BalanceItem = ({
         ..._sx,
       }}
     >
-      <Icon name={icon} color={'#56f1ff'} sx={{ fontSize: [40, 50] }} />
+      <Icon name={icon} color={'#56f1ff'} sx={_iconStyle} />
       <View sx={{ ml: '$1' }}>
         <Text sx={{ fontSize: titleFontSize }}>{title}</Text>
         {isLoading ? (
