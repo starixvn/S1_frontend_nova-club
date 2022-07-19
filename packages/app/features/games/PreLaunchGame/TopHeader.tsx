@@ -17,7 +17,7 @@ const TopHeader = () => {
   return (
     <StyledTop>
       <BouncePressable onPress={onGoBack}>
-        <Icon name="chevleft" size={40} color="#9CD9FA" />
+        <Icon name="chevleft" size={30} color="#9CD9FA" />
       </BouncePressable>
       <View sx={{ alignItems: 'center', flex: 0.9 }}>
         <Image
@@ -33,6 +33,7 @@ const TopHeader = () => {
 const StyledTop = styled(View)({
   flexDirection: 'row',
   py: '$5',
+  pl: '$2',
   alignItems: 'center',
 })
 

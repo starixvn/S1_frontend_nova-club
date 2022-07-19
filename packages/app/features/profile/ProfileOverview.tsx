@@ -27,11 +27,12 @@ const ProfileOverview = () => {
           <Text
             sx={{
               color: theme.colors.$lightCyan,
+              mr: '$0a',
             }}
           >
             {t('common.more')}
           </Text>
-          <Icon name="chevdown" size={24} color={theme.colors.$lightCyan} />
+          <Icon name="chevdown" size={20} color={theme.colors.$lightCyan} />
         </BouncePressable>
       </StyledOverView>
       <StyledItemViewWrapper>

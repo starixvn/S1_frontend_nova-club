@@ -59,12 +59,13 @@ const OverviewDateRange = ({
     <View sx={rootViewStyle} {...restViewProps}>
       <DatePicker
         value={startDate}
-        icon={'sb'}
+        icon={'date'}
         rightIcon={'chevdown'}
         _icon={{
           color: 'white',
           size: 20,
         }}
+        _rightIcon={{ size: 20 }}
         style={{ flex: 1 }}
         onChange={(value) => onDateChange('startDate', value)}
       />
@@ -72,9 +73,10 @@ const OverviewDateRange = ({
       <Text sx={{ justifyContent: 'center', fontSize: 25, mx: '$5' }}>-</Text>
       <DatePicker
         value={endDate}
-        icon={'sb'}
+        icon={'date'}
         rightIcon={'chevdown'}
         _icon={{ color: 'white', size: 20 }}
+        _rightIcon={{ size: 20 }}
         style={{ flex: 1 }}
         onChange={(value) => onDateChange('endDate', value)}
       />

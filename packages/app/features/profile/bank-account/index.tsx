@@ -75,7 +75,7 @@ const BankAccountScreen = () => {
               push(toAddBankAccount, '/profile/bank-account/add-bank-account')
             }
           >
-            <Icon name="lc" size={25} />
+            <Icon name="add" size={25} />
             <Button.Label>{t('bank.addBankAccount')}</Button.Label>
           </Button>
         </View>

@@ -61,9 +61,9 @@ const SelectButton = ({
 
         <Icon
           name={'chevdown'}
-          size={25}
+          size={20}
           // sx={{ flex: 0.2 }}
-          sx={{ position: 'absolute', right: '$0' }}
+          sx={{ position: 'absolute', right: '$1' }}
         />
       </DripsyGradient>
     </Pressable>

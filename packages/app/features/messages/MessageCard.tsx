@@ -69,7 +69,7 @@ const MessageCard: FC<MessageCardProps> = ({
             duration: 350,
           }}
         >
-          <Icon name="chevdown" size={40} />
+          <Icon name="chevdown" size={25} />
         </MotiView>
       </StyledView>
       <AnimateHeight enterFrom="bottom" hide={!isExtend}>

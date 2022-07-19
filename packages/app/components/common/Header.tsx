@@ -59,7 +59,7 @@ const Header = ({ title }: { title: string }) => {
           <BouncePressable onPress={onGoBack}>
             <Icon
               name="chevleft"
-              size={isLandscape ? 30 : 40}
+              size={isLandscape ? 30 : 30}
               color="#9CD9FA"
             />
           </BouncePressable>

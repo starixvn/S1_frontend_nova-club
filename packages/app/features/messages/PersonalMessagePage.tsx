@@ -66,13 +66,32 @@ const PersonalMessagePage = () => {
               {t('common.selectAll')}
             </Text>
           </View>
-          {isDeleting ? (
-            <ActivityIndicator sx={{ m: '$2' }} color={'$lightCyan'} />
-          ) : (
-            <BouncePressable onPress={onDelete}>
-              <Icon name="lc" size={25} />
-            </BouncePressable>
-          )}
+          <View sx={{ flexDirection: 'row' }}>
+            {isDeleting ? (
+              <ActivityIndicator sx={{ m: '$2' }} color={'$lightCyan'} />
+            ) : (
+              <BouncePressable onPress={onDelete}>
+                <Icon name="bin" size={25} color={'$secondary'} />
+              </BouncePressable>
+            )}
+            <View sx={{ pl: '$3' }}>
+              {isLoading ? (
+                <ActivityIndicator
+                  size={23}
+                  color={'$lightCyan'}
+                  sx={{ px: '$1' }}
+                />
+              ) : (
+                <BouncePressable
+                  onPress={() => {
+                    refetch()
+                  }}
+                >
+                  <Icon name="reload" size={25} color={'$secondary'} />
+                </BouncePressable>
+              )}
+            </View>
+          </View>
         </StyledView>
       </DripsyGradient>
       <FlatList

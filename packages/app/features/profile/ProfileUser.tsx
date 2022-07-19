@@ -42,13 +42,13 @@ const ProfileUser = ({ username }: ProfileUserProps) => {
         </Text>
       </ViewTextWrapper>
       <IconButton
-        name="sb"
+        name="scan"
         sx={{ mx: '$2' }}
         color={'$lightCyan'}
         onPress={() => push(toQrcodeScanner, '/qrcode-scanner')}
       />
       <IconButton
-        name="lc"
+        name="bar-code"
         color={'$lightCyan'}
         onPress={() => openModal('QRTransferModal')}
       />

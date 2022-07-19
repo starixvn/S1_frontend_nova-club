@@ -65,7 +65,7 @@ const AnnoucementMarquee = () => {
           }}
         >
           <Icon
-            name="home"
+            name="annoucement"
             sx={{ color: '#97FFF4', alignSelf: 'center', mx: '$2' }}
             size={18}
           />

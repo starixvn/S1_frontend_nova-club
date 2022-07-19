@@ -14,12 +14,12 @@ const CustomerSupportPage = () => {
     () => [
       {
         label: 'whatsapp',
-        icon: 'cs',
+        icon: 'wa',
         bg: ['#BFFABC', '#42C73B'],
       },
       {
         label: 'telegram',
-        icon: 'cs',
+        icon: 'tg',
         bg: ['#C0E0FD', '#33A0D0'],
       },
       {

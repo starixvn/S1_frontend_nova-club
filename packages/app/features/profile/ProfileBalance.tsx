@@ -44,6 +44,7 @@ const ProfileBalance = () => {
             currency={currency}
             size="large"
             _sx={{ justifyContent: 'center' }}
+            icon="bw"
           />
           <MotifiedView
             animate={{ rotate: isExtend ? '-180deg' : '0deg' }}
@@ -53,7 +54,7 @@ const ProfileBalance = () => {
             }}
             sx={{ position: 'absolute', right: 0 }}
           >
-            <Icon name="chevdown" size={32} />
+            <Icon name="chevdown" size={25} />
           </MotifiedView>
         </View>
 
@@ -91,6 +92,7 @@ const ProfileBalance = () => {
                     _sx={{
                       pr: '$5',
                     }}
+                    icon="ac"
                   />
 
                   <BalanceItem
@@ -102,6 +104,7 @@ const ProfileBalance = () => {
                       pl: '$5',
                       borderLeftColor: '$lightNavyBlue',
                     }}
+                    icon="gift"
                   />
                 </View>
               </MotifiedView>
@@ -119,12 +122,14 @@ const BalanceItem = ({
   currency,
   size = 'small',
   _sx,
+  icon,
 }: {
   title: string
   value: number
   currency: Currency
   size?: 'large' | 'small'
   _sx?: SxProp
+  icon: string
 }) => {
   const titleFontSize = size === 'large' ? 14 : 12
   const valueFontSize = size === 'large' ? 24 : 20
@@ -138,8 +143,8 @@ const BalanceItem = ({
         ..._sx,
       }}
     >
-      <Icon name="lc" color={'#56f1ff'} sx={{ fontSize: [40, 50] }} />
-      <View>
+      <Icon name={icon} color={'#56f1ff'} sx={{ fontSize: [40, 50] }} />
+      <View sx={{ ml: '$1' }}>
         <Text sx={{ fontSize: titleFontSize }}>{title}</Text>
         <Text
           sx={{

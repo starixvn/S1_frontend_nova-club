@@ -39,7 +39,7 @@ const sampleData = [
     type: DepositPaymentMethodCategoryType.ONLINE_BANK,
     categoryId: DepositPaymentMethodCategoryId.ONLINE_BANK,
     name: 'deposit.depositMethod.onlineBanking',
-    icon: 'sl',
+    icon: 'mac',
     color: '#f56e04',
   },
   {
@@ -47,7 +47,7 @@ const sampleData = [
     type: DepositPaymentMethodCategoryType.MOMO,
     categoryId: DepositPaymentMethodCategoryId.MOMO,
     name: 'deposit.depositMethod.momo',
-    icon: 'sl',
+    icon: 'momo',
     color: '#AC016C',
   },
   {
@@ -55,7 +55,7 @@ const sampleData = [
     type: DepositPaymentMethodCategoryType.QR_CODE,
     categoryId: DepositPaymentMethodCategoryId.QR_CODE,
     name: 'deposit.depositMethod.qrCode',
-    icon: 'sl',
+    icon: 'qr',
     color: '#44BAF9',
   },
   {
@@ -63,7 +63,7 @@ const sampleData = [
     type: DepositPaymentMethodCategoryType.TOP_UP,
     categoryId: DepositPaymentMethodCategoryId.TOP_UP,
     name: 'deposit.depositMethod.topUp',
-    icon: 'sl',
+    icon: 'card',
     color: '#95AC00',
   },
   // {

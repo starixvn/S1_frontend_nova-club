@@ -62,7 +62,7 @@ const Slots = withContextualNav(() => {
         />
       ) : (
         <>
-          <ListSectionHeader title={'Slots'} bgColor="purple" iconName="lt">
+          <ListSectionHeader title={'Slots'} bgColor="purple" iconName="sl">
             <Row sx={{ flex: 1, justifyContent: 'flex-end' }}>
               <Select
                 actionSheetProps={{ id: 'slotType' }}
