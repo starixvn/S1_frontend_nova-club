@@ -5,8 +5,6 @@ import RecentTransactions from './RecentTransactions'
 import DepositMethodCard from './DepositMethodCard'
 import { useRouter } from 'solito/router'
 import useContextualRouting from 'app/hooks/useContextualRouting'
-import withContextualNav from 'app/navigation/web/withContextualNav'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { BankActions } from 'app/store/bankReducer'
@@ -21,9 +19,7 @@ const DepositPage = () => {
   const { data, isLoading } = useDepositPaymentListQuery()
   console.log('🚀 ~ file: index.tsx ~ line 22 ~ DepositPage ~ data', data)
 
-  const { makeContextualHref } = useContextualRouting(
-    ContextualModuleKey.Deposit
-  )
+  const { makeContextualHref } = useContextualRouting()
   const toLocalBank = makeContextualHref('local-bank')
   const toOnlineBank = makeContextualHref('online-bank')
   const toMomo = makeContextualHref('momo')
@@ -122,4 +118,4 @@ const Seperator = styled(View)({
   left: '50%',
 })
 
-export default withContextualNav(DepositPage, ContextualModuleKey.Deposit)
+export default DepositPage

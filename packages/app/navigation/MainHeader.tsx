@@ -19,7 +19,6 @@ import { LayoutChangeEvent } from 'react-native'
 import { usePlayerBalanceQuery } from 'services/walletApi'
 import { useRouter } from 'solito/router'
 import MainMenu from './MainMenu'
-import { ContextualModuleKey } from './web/withContextualNavConstant'
 
 const MainHeader = () => {
   const { width } = useContainerDimension()
@@ -31,7 +30,7 @@ const MainHeader = () => {
   const [showMenu, setShowMenu] = useState(false)
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: headerHeight })
 
-  const { makeContextualHref } = useContextualRouting(ContextualModuleKey.Home)
+  const { makeContextualHref } = useContextualRouting()
   const [mainWalletBalance, setMainWalletBalance] = useState('0')
   const { push } = useRouter()
 

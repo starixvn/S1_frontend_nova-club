@@ -17,7 +17,6 @@ import { getBankLogo } from 'app/config/bank'
 import { Button } from '../form/Button'
 import { useRouter } from 'solito/router'
 import useContextualRouting from 'app/hooks/useContextualRouting'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import ActionSheetItem from './ActionSheetItem'
 import { getProviderLogo } from 'app/config/games/provider'
 
@@ -52,9 +51,7 @@ const SquareSelectorActionSheet = forwardRef<
 >(({ _dataList, _actionSheet }: SquareSelectorProps, ref) => {
   const { t } = useLocalization()
   const { push } = useRouter()
-  const { makeContextualHref } = useContextualRouting(
-    ContextualModuleKey.BankAccount
-  )
+  const { makeContextualHref } = useContextualRouting()
   const toAddBankAccount = makeContextualHref('add-bank-account')
 
   const {

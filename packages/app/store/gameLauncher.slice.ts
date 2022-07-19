@@ -1,13 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { LANGUAGE_CODE } from 'app/constant/language'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 
 export interface LaunchGamePayload {
   gameCode?: string
   providerCode?: string
   gameName?: string
   desktopMode?: boolean
-  context?: ContextualModuleKey
 }
 export type GameLauncherState = LaunchGamePayload & {}
 // export const DomainListHintPostfix = '-DomainListHint'

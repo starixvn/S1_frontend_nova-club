@@ -4,8 +4,6 @@ import { View } from 'dripsy'
 import React from 'react'
 import AutoDepositForm from '../components/AutoDepositForm'
 import { DepositPaymentMethodCategoryId } from 'app/utils/constant'
-import withContextualNav from 'app/navigation/web/withContextualNav'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 
 const NOTES = ['note.d1', 'note.d2', 'note.d3', 'note.d4']
 
@@ -27,7 +25,4 @@ const OnlineBankScreen = () => {
   )
 }
 
-export default withContextualNav(
-  OnlineBankScreen,
-  ContextualModuleKey.DepositOnline
-)
+export default OnlineBankScreen

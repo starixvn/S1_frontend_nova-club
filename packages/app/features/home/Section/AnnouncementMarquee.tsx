@@ -2,17 +2,11 @@ import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import MarqueeText from 'app/components/Marquee'
 import useContextualRouting from 'app/hooks/useContextualRouting'
-import withContextualNav from 'app/navigation/web/withContextualNav'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import { useAnnouncementQuery } from 'services/contentApi'
 import { AnnouncementListItems } from 'services/contentApi.type'
 import { styled, View } from 'dripsy'
 import { useEffect, useState } from 'react'
-import {
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  useWindowDimensions,
-} from 'react-native'
+import { TouchableOpacity, useWindowDimensions } from 'react-native'
 import { useRouter } from 'solito/router'
 
 interface MarqueeItem<T> {
@@ -23,7 +17,7 @@ interface MarqueeItem<T> {
 
 const AnnoucementMarquee = () => {
   const { push } = useRouter()
-  const { makeContextualHref } = useContextualRouting(ContextualModuleKey.Home)
+  const { makeContextualHref } = useContextualRouting()
   const toMessages = makeContextualHref('messages', {
     tab: 1,
   })
@@ -91,4 +85,4 @@ const StyledContainer = styled(View)({
   borderBottomWidth: 1,
 })
 
-export default withContextualNav(AnnoucementMarquee, ContextualModuleKey.Home)
+export default AnnoucementMarquee

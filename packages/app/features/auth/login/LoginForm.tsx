@@ -1,8 +1,6 @@
 import { Button } from 'app/components/form/Button'
 import TextInput from 'app/components/form/TextInput'
 import useContextualRouting from 'app/hooks/useContextualRouting'
-import withContextualNav from 'app/navigation/web/withContextualNav'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { useLoginMutation } from 'services/authApi'
 import { AlertActions } from 'app/store/alert'
@@ -86,7 +84,7 @@ const LoginForm = () => {
     onSubmit,
   })
 
-  const { makeContextualHref } = useContextualRouting(ContextualModuleKey.Login)
+  const { makeContextualHref } = useContextualRouting()
   const to = makeContextualHref('forget-password')
 
   const {
@@ -203,4 +201,4 @@ const LoginForm = () => {
   )
 }
 
-export default withContextualNav(LoginForm, ContextualModuleKey.Login)
+export default LoginForm

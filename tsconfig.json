@@ -6,7 +6,8 @@
     "paths": {
       "app/*": ["./packages/app/*"]
     },
-    "typeRoots": ["./packages/app/env.d.ts"]
+    "typeRoots": ["./packages/app/env.d.ts"],
+    "module": "ES2022"
   },
   "include": ["**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
   "extends": "expo/tsconfig.base"

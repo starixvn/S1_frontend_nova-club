@@ -26,7 +26,6 @@ import validationRule from 'app/utils/validationRule'
 import { toDisplayAmount } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import useContextualRouting from 'app/hooks/useContextualRouting'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import { useModal } from 'react-native-modalfy'
 import { usePlayerProfileQuery } from 'services/playerApi'
 
@@ -38,9 +37,7 @@ export type AutoDepositValues = {
 }
 
 const AutoDepositForm = ({ notes, module, DepositCategoryId }) => {
-  const { makeContextualHref } = useContextualRouting(
-    ContextualModuleKey.Deposit
-  )
+  const { makeContextualHref } = useContextualRouting()
   const to = makeContextualHref('deposit-loader')
 
   const { t } = useLocalization()

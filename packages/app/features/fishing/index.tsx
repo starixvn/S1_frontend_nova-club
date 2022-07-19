@@ -1,11 +1,6 @@
 import { PageWithBackHeader } from 'app/components/layout/Page'
-import SimpleGridImage from 'app/components/SimpleGridImage'
 import SimpleWrap from 'app/components/SimpleWrap'
-import fishing from 'app/config/games/fishing'
-import sport from 'app/config/games/sport'
 import useFishingGamesFilter from 'app/hooks/game/useFishingGamesFilter'
-import withContextualNav from 'app/navigation/web/withContextualNav'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import useLocalization from 'app/provider/localization'
 import { ActivityIndicator, FlatList, ScrollView, styled, View } from 'dripsy'
 import React from 'react'
@@ -32,11 +27,7 @@ const Fishing = () => {
             iconName="fg"
           />
           <View>
-            <SimpleWrap
-              data={allGames}
-              col={3}
-              context={ContextualModuleKey.Fishing}
-            />
+            <SimpleWrap data={allGames} col={3} />
           </View>
         </>
       )}
@@ -44,4 +35,4 @@ const Fishing = () => {
   )
 }
 
-export default withContextualNav(Fishing, ContextualModuleKey.Fishing)
+export default Fishing

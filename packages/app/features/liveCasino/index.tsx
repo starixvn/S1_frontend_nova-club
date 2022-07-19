@@ -4,8 +4,6 @@ import SimpleGridImage from 'app/components/SimpleGridImage'
 import { HOME_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useGameGridSize from 'app/hooks/useGameGridSize'
-import withContextualNav from 'app/navigation/web/withContextualNav'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import useLocalization from 'app/provider/localization'
 import {
   ActivityIndicator,
@@ -28,7 +26,7 @@ const LiveCasinoImageExtensionMapping = {
   cq9: 'png',
 }
 
-const LiveCasino = withContextualNav(() => {
+const LiveCasino = () => {
   const { t } = useLocalization()
   const { width } = useContainerDimension()
   const sx = useSx()
@@ -60,7 +58,6 @@ const LiveCasino = withContextualNav(() => {
         gameCode={game_code}
         image={imageUrl}
         title={game_name + ` (${game_code})`}
-        context={ContextualModuleKey.LiveCasino}
         width={contentWidth}
       />
     )
@@ -155,7 +152,6 @@ const LiveCasino = withContextualNav(() => {
             <SimpleGridImage
               key={item.gameCode}
               sx={{ m: itemSpace }}
-              context={ContextualModuleKey.LiveCasino}
               gameName={item.gameName}
               providerCode={item.providerCode}
               gameCode={item.gameCode}
@@ -170,7 +166,7 @@ const LiveCasino = withContextualNav(() => {
       <SimpleWrap data={filteredGames} /> */}
     </Page>
   )
-}, ContextualModuleKey.LiveCasino)
+}
 
 const ProviderSelectItem = styled(
   View,

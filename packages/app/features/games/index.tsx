@@ -1,5 +1,3 @@
-import withContextualNav from 'app/navigation/web/withContextualNav'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import { ScrollView, View } from 'dripsy'
 import React from 'react'
 import ListSectionHeader from '../ListSectionHeader'
@@ -21,4 +19,4 @@ const Games = () => {
   )
 }
 
-export default withContextualNav(Games, ContextualModuleKey.Home)
+export default Games

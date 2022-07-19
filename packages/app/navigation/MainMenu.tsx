@@ -7,7 +7,6 @@ import { useMemo } from 'react'
 import { Platform, Text, TouchableOpacity } from 'react-native'
 import Modal from 'react-native-modal'
 import { useRouter } from 'solito/router'
-import { ContextualModuleKey } from './web/withContextualNavConstant'
 
 interface MainMenuProps {
   isShow: boolean
@@ -20,7 +19,7 @@ const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
   const { top: safeAreaTopHeight } = useSafeArea()
   const { x: parentWidth, y: parentHeight } = parentPosition
 
-  const { makeContextualHref } = useContextualRouting(ContextualModuleKey.Home)
+  const { makeContextualHref } = useContextualRouting()
 
   const isWeb = Platform.OS === 'web'
   const isAndroid = Platform.OS === 'android'

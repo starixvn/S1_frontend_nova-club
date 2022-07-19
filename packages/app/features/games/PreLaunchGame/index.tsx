@@ -1,8 +1,6 @@
 import { Button } from 'app/components/form/Button'
 import { DripsyGradient } from 'app/components/Gradient'
 import { useTransferAllToOneMutation } from 'app/custom_services/walletApi'
-import withContextualNav from 'app/navigation/web/withContextualNav'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
@@ -345,7 +343,4 @@ const PreLaunchGame = ({}) => {
   )
 }
 
-export default withContextualNav(
-  PreLaunchGame,
-  ContextualModuleKey.PreLaunchGame
-)
+export default PreLaunchGame

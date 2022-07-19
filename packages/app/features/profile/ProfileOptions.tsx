@@ -1,7 +1,6 @@
 import GradientBox from 'app/components/GradientBox'
 import Icon from 'app/components/Icon'
 import useContextualRouting from 'app/hooks/useContextualRouting'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import { logOut } from 'app/utils/authUtil'
 import {
   ActivityIndicator,
@@ -25,9 +24,7 @@ const ProfileOptions = () => {
   const { push, replace } = useRouter()
   const { theme } = useDripsyTheme()
 
-  const { makeContextualHref } = useContextualRouting(
-    ContextualModuleKey.Profile
-  )
+  const { makeContextualHref } = useContextualRouting()
   const toProfileDetails = makeContextualHref('profile-details')
   const toSupport = makeContextualHref('customer-support')
   const toMessages = makeContextualHref('messages', {

@@ -4,8 +4,6 @@ import { PageSafeArea } from 'app/components/layout/Page'
 import SimpleGridImage from 'app/components/SimpleGridImage'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useGameGridSize from 'app/hooks/useGameGridSize'
-import withContextualNav from 'app/navigation/web/withContextualNav'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import { ActivityIndicator, Row, useSx, View } from 'dripsy'
 import { setUseProxies } from 'immer'
 import React, { useMemo, useState } from 'react'
@@ -19,7 +17,7 @@ import { ProviderImageExtension } from 'app/config/games/extension'
 import useLocalization from 'app/provider/localization'
 import SelectSquare from 'app/components/form/Select/SelectSquare'
 
-const Slots = withContextualNav(() => {
+const Slots = () => {
   const sx = useSx()
   const { t } = useLocalization()
   const { width } = useContainerDimension()
@@ -39,7 +37,6 @@ const Slots = withContextualNav(() => {
         gameCode={game_code}
         image={imageUrl}
         title={game_name + ` (${game_code})`}
-        context={ContextualModuleKey.Slot}
         width={contentWidth}
       />
     )
@@ -117,7 +114,7 @@ const Slots = withContextualNav(() => {
       )}
     </PageSafeArea>
   )
-}, ContextualModuleKey.Slot)
+}
 
 Slots.TabLayoutStyle = {
   height: '100vh',

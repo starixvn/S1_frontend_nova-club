@@ -1,7 +1,6 @@
 import { GAMES } from 'app/config/games/games.type'
 import { HOME_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
 import { GameLauncherActions } from 'app/store/gameLauncher.slice'
@@ -14,7 +13,6 @@ import Icon from './Icon'
 type GamesProps = GAMES & {
   width: number
   height?: number
-  context: ContextualModuleKey
   sx: SxProp
   desktop?: boolean
 }
@@ -26,7 +24,6 @@ const SimpleGridImage: FC<GamesProps> = ({
   title,
   image,
   providerCode,
-  context,
   width,
   height,
   sx,
@@ -45,7 +42,6 @@ const SimpleGridImage: FC<GamesProps> = ({
             GameLauncherActions.launchGame({
               gameCode: gameCode,
               providerCode: providerCode,
-              context,
             })
           )
         }}
@@ -80,7 +76,6 @@ const SimpleGridImage: FC<GamesProps> = ({
                 gameCode: gameCode,
                 providerCode: providerCode,
                 desktopMode: true,
-                context,
               })
             )
           }}

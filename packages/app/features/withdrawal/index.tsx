@@ -21,9 +21,6 @@ import WithdrawalConfirmationModal, {
 import { Currency } from 'app/utils/constant'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
-import withContextualNav from 'app/navigation/web/withContextualNav'
-
 const actionSheetId = ACTION_SHEET_ID.WITHDRAWAL
 
 type WithdrawalValues = {
@@ -223,4 +220,4 @@ const StyledView = styled(View)(() => ({
   bg: '$secondary',
 }))
 
-export default withContextualNav(WithdrawalPage, ContextualModuleKey.Withdrawal)
+export default WithdrawalPage

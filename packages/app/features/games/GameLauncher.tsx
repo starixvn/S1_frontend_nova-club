@@ -1,5 +1,4 @@
 import useContextualRouting from 'app/hooks/useContextualRouting'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useEffect } from 'react'
 import { useRouter } from 'solito/router'
@@ -9,9 +8,9 @@ const GameLauncher = () => {
 
   const { push } = useRouter()
 
-  const { providerCode, context = ContextualModuleKey.Home } = gameLauncherState
+  const { providerCode } = gameLauncherState
 
-  const { makeContextualHref } = useContextualRouting(context)
+  const { makeContextualHref } = useContextualRouting()
   const prelaunchUri = '/games/prelaunch'
   const to = makeContextualHref(prelaunchUri)
 

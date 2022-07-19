@@ -2,8 +2,6 @@ import { Button } from 'app/components/form/Button'
 import Icon from 'app/components/Icon'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import useContextualRouting from 'app/hooks/useContextualRouting'
-import withContextualNav from 'app/navigation/web/withContextualNav'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import useLocalization from 'app/provider/localization'
 import { usePlayerBankQuery } from 'services/bank'
 import { PlayerBankResult } from 'services/bank.type'
@@ -26,9 +24,7 @@ const BankAccountScreen = () => {
   const { openModal } = useModal()
   const { data, isLoading, isFetching } = usePlayerBankQuery()
 
-  const { makeContextualHref } = useContextualRouting(
-    ContextualModuleKey.BankAccount
-  )
+  const { makeContextualHref } = useContextualRouting()
   const toAddBankAccount = makeContextualHref('add-bank-account')
 
   const handleRemove = async (item: PlayerBankResult) => {
@@ -96,7 +92,4 @@ const StyledViewNoResult = styled(View)(() => ({
   alignItems: 'center',
 }))
 
-export default withContextualNav(
-  BankAccountScreen,
-  ContextualModuleKey.BankAccount
-)
+export default BankAccountScreen

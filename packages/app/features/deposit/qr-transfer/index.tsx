@@ -4,8 +4,6 @@ import { View } from 'dripsy'
 import React from 'react'
 import AutoDepositForm from '../components/AutoDepositForm'
 import { DepositPaymentMethodCategoryId } from 'app/utils/constant'
-import withContextualNav from 'app/navigation/web/withContextualNav'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 
 const NOTES = ['note.qr1', 'note.qr2', 'note.qr3', 'note.qr4']
 
@@ -24,7 +22,4 @@ const QrTransferScreen = () => {
   )
 }
 
-export default withContextualNav(
-  QrTransferScreen,
-  ContextualModuleKey.DepositQr
-)
+export default QrTransferScreen

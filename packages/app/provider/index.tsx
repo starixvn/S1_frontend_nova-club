@@ -9,6 +9,7 @@ import { NavigationProvider } from './navigation'
 import ReduxProvider from './redux'
 import { SafeArea } from './safe-area'
 import { useKeepAwake } from 'expo-keep-awake'
+import ContextualNavigationProvider from 'app/navigation/web/ContextualNavigation'
 
 export function Provider({ children }: { children: React.ReactNode }) {
   useKeepAwake()
@@ -20,9 +21,11 @@ export function Provider({ children }: { children: React.ReactNode }) {
             <NavigationProvider>
               <Dripsy>
                 <ModalProvider>
-                  <PortalProvider>{children}</PortalProvider>
-                  <GameLauncher />
-                  <AlertModal />
+                  <ContextualNavigationProvider>
+                    <PortalProvider>{children}</PortalProvider>
+                    <GameLauncher />
+                    <AlertModal />
+                  </ContextualNavigationProvider>
                 </ModalProvider>
               </Dripsy>
             </NavigationProvider>

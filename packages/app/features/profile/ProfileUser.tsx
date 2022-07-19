@@ -1,8 +1,6 @@
 import Avatar from 'app/components/Avatar'
 import IconButton from 'app/components/form/IconButton'
-import Icon from 'app/components/Icon'
 import useContextualRouting from 'app/hooks/useContextualRouting'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import useLocalization from 'app/provider/localization'
 import { styled, Text, View } from 'dripsy'
 import React from 'react'
@@ -18,9 +16,7 @@ const ProfileUser = ({ username }: ProfileUserProps) => {
   const { push } = useRouter()
   const { openModal } = useModal()
 
-  const { makeContextualHref } = useContextualRouting(
-    ContextualModuleKey.Profile
-  )
+  const { makeContextualHref } = useContextualRouting()
   const toQrcodeScanner = makeContextualHref('qrcode-scanner')
 
   return (

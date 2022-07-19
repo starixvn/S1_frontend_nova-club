@@ -2,7 +2,6 @@ import { Button } from 'app/components/form/Button'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import { TextField } from 'app/components/TextField'
 import useContextualRouting from 'app/hooks/useContextualRouting'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import useLocalization from 'app/provider/localization'
 import {
   useDepositPaymentListQuery,
@@ -39,9 +38,7 @@ type LocalBankValues = {
 const actionSheetId = ACTION_SHEET_ID.LOCAL_BANK
 
 const LocalBankScreen = () => {
-  const { makeContextualHref } = useContextualRouting(
-    ContextualModuleKey.Deposit
-  )
+  const { makeContextualHref } = useContextualRouting()
   const to = makeContextualHref('deposit-loader')
 
   const { t } = useLocalization()

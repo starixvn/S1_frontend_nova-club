@@ -1,7 +1,4 @@
-import withContextualNav from 'app/navigation/web/withContextualNav'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import useLocalization from 'app/provider/localization'
-import { useAppSelector } from 'app/provider/redux/store'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { ScrollView, Text } from 'dripsy'
 import React, { useEffect } from 'react'
@@ -46,4 +43,4 @@ const ProfileScreen = () => {
   )
 }
 
-export default withContextualNav(ProfileScreen, ContextualModuleKey.Profile)
+export default ProfileScreen

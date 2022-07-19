@@ -1,11 +1,8 @@
-import {
-  ContextualComponents,
-  ContextualModuleKey,
-} from 'app/navigation/web/withContextualNavConstant'
+import { ContextualComponentType } from 'app/navigation/web/ContextualNavigation'
 
-const useContextualRouting: (module: ContextualModuleKey) => {
+const useContextualRouting: () => {
   returnHref: string
-  makeContextualHref: (to: ContextualComponents, params?: any) => string
+  makeContextualHref: (to: ContextualComponentType, params?: any) => string
 } = function () {
   return {
     makeContextualHref: (to) => '',

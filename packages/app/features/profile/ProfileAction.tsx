@@ -1,7 +1,6 @@
 import { GradientList } from 'app/components/Gradient'
 import RoundedIcon from 'app/components/RoundedIcon'
 import useContextualRouting from 'app/hooks/useContextualRouting'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import useLocalization from 'app/provider/localization'
 import { Pressable, styled, Text, View } from 'dripsy'
 import React from 'react'
@@ -20,9 +19,7 @@ const ProfileAction = () => {
     console.log('Profile action click')
   }
 
-  const { makeContextualHref } = useContextualRouting(
-    ContextualModuleKey.Profile
-  )
+  const { makeContextualHref } = useContextualRouting()
   const toDeposit = makeContextualHref('deposit')
   const toWithdrawal = makeContextualHref('withdrawal')
   const toBankAccount = makeContextualHref('bank-account')

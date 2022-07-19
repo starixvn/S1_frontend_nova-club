@@ -6,8 +6,6 @@ import Header from 'app/components/common/Header'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useRouter } from 'solito/router'
 import useContextualRouting from 'app/hooks/useContextualRouting'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
-import withContextualNav from 'app/navigation/web/withContextualNav'
 import useLocalization from 'app/provider/localization'
 import * as ImagePicker from 'expo-image-picker'
 import jsQR from 'jsqr'
@@ -31,9 +29,7 @@ function QrcodeScannerScreen() {
   const [loading, setLoading] = useState(false)
   const { push, replace } = useRouter()
 
-  const { makeContextualHref } = useContextualRouting(
-    ContextualModuleKey.QrScanner
-  )
+  const { makeContextualHref } = useContextualRouting()
   const { width, height } = useContainerDimension()
   const viewMinX = (width - FINDER_WIDTH) / 2
   const viewMinY = (height - FINDER_HEIGHT) / 2
@@ -181,7 +177,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default withContextualNav(
-  QrcodeScannerScreen,
-  ContextualModuleKey.QrScanner
-)
+export default QrcodeScannerScreen
