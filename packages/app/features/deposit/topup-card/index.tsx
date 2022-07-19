@@ -1,6 +1,6 @@
 import { TextField } from 'app/components/TextField'
 import useLocalization from 'app/provider/localization'
-import { FlatList, styled, Text, View } from 'dripsy'
+import { FlatList, ScrollView, styled, Text, View } from 'dripsy'
 import React, { useState } from 'react'
 import { FormikHelpers, useFormik } from 'formik'
 import * as Yup from 'yup'
@@ -23,8 +23,9 @@ import {
   MaxLength,
   TopUpCard,
 } from 'app/utils/constant'
-import { AutoBankItem, PlayerInputFieldsBank } from 'services/deposit.type'
+import { PlayerInputFieldsBank } from 'services/deposit.type'
 import { useModal } from 'react-native-modalfy'
+import KeyboardView from 'app/components/KeyboardView'
 
 const data1 = ['10k', '20k', '30k', '50k', '100k', '200k', '300k']
 
@@ -206,145 +207,145 @@ const TopUpCardScreen = () => {
   }
 
   return (
-    <PageWithBackHeader header={{ title: t('deposit.depositMethod.topUp') }}>
-      <StyledView>
-        <View>
-          <StyledViewPayment>
-            <FlatList
-              data={cardTypeList}
-              ListHeaderComponent={
-                <StyledTextTitle>{t('deposit.paymentMode')}</StyledTextTitle>
-              }
-              numColumns={NUM_COLUMN_PAYMENT}
-              keyExtractor={(item) => `${item.value}`}
-              renderItem={({ item }: { item: CardType }) => (
-                <ValueCard
-                  item={item}
-                  isActive={item.value === values.cardType}
-                  onPress={(card) => setFieldValue('cardType', card.value)}
-                  containerStyle={{ flex: 1 / NUM_COLUMN_PAYMENT }}
-                />
-              )}
-              extraData={values.cardType}
-            />
-          </StyledViewPayment>
+    <PageWithBackHeader
+      header={{ title: t('deposit.depositMethod.topUp') }}
+      disableScrollView
+    >
+      <KeyboardView>
+        <View sx={{ flex: 1 }}>
+          <View>
+            <StyledViewPayment>
+              <FlatList
+                data={cardTypeList}
+                ListHeaderComponent={
+                  <StyledTextTitle>{t('deposit.paymentMode')}</StyledTextTitle>
+                }
+                numColumns={NUM_COLUMN_PAYMENT}
+                keyExtractor={(item) => `${item.value}`}
+                renderItem={({ item }: { item: CardType }) => (
+                  <ValueCard
+                    item={item}
+                    isActive={item.value === values.cardType}
+                    onPress={(card) => setFieldValue('cardType', card.value)}
+                    containerStyle={{ flex: 1 / NUM_COLUMN_PAYMENT }}
+                  />
+                )}
+                extraData={values.cardType}
+              />
+            </StyledViewPayment>
 
-          <StyledViewCard>
-            <FlatList
-              data={data1}
-              ListHeaderComponent={
-                <StyledTextTitle>{t('deposit.cardValue')}</StyledTextTitle>
-              }
-              numColumns={NUM_COLUMN_CARD}
-              keyExtractor={(item, index) => `${index} ${item}`}
-              renderItem={({ item }) => (
-                <ValueCard
-                  item={item}
-                  isActive={item === values.cardValue}
-                  onPress={(card) => onCardValueChanged(card)}
-                  containerStyle={{ flex: 1 / NUM_COLUMN_CARD }}
-                />
-              )}
-            />
-          </StyledViewCard>
+            <StyledViewCard>
+              <FlatList
+                data={data1}
+                ListHeaderComponent={
+                  <StyledTextTitle>{t('deposit.cardValue')}</StyledTextTitle>
+                }
+                numColumns={NUM_COLUMN_CARD}
+                keyExtractor={(item, index) => `${index} ${item}`}
+                renderItem={({ item }) => (
+                  <ValueCard
+                    item={item}
+                    isActive={item === values.cardValue}
+                    onPress={(card) => onCardValueChanged(card)}
+                    containerStyle={{ flex: 1 / NUM_COLUMN_CARD }}
+                  />
+                )}
+              />
+            </StyledViewCard>
 
-          <TextField labelWidth={0}>
-            <TextField.TextInput
-              label=""
-              _input={{
-                placeholder: t('deposit.cardCode'),
-                value: values.cardCode,
-                keyboardType: 'number-pad',
-                onChangeText: onCardCodeChanged,
-                onBlur: handleBlur('cardCode'),
-                maxLength: MaxLength.CARD,
-              }}
-              error={
-                touched.cardCode && errors.cardCode
-                  ? errors.cardCode
-                  : undefined
-              }
-              containerStyle={{ my: '$3' }}
-            />
-            <TextField.TextInput
-              label=""
-              _input={{
-                placeholder: t('deposit.cardSerialNo'),
-                value: values.cardSerialNo,
-                keyboardType: 'number-pad',
-                onChangeText: onCardSerialNoChanged,
-                onBlur: handleBlur('cardSerialNo'),
-                maxLength: MaxLength.CARD,
-              }}
-              error={
-                touched.cardSerialNo && errors.cardSerialNo
-                  ? errors.cardSerialNo
-                  : undefined
-              }
-              containerStyle={{ my: '$3' }}
-            />
-          </TextField>
-
-          <ImportantNotice keys={NOTES} module="deposit" />
-        </View>
-
-        <StyledViewButtonWrapper
-          colors={
-            values.realAmount !== 0
-              ? ['#066D9A', '#05232E']
-              : ['#00000000', '#00000000']
-          }
-          isValid={values.realAmount !== 0}
-        >
-          {values.realAmount !== 0 && (
-            <View sx={{ mb: '$3' }}>
-              <StyledViewTextWrapper>
-                <Text sx={{ flex: 1 }}>{t('deposit.deduction')}</Text>
-                <Text>
-                  {toCurrency(
-                    -Math.round(values.realAmount * (vendorFee / 100))
-                  )}
-                </Text>
-              </StyledViewTextWrapper>
-              <StyledViewTextWrapper>
-                <Text sx={{ flex: 1 }}>{t('deposit.actualDeposit')}</Text>
-                <Text>
-                  {toCurrency(
-                    Math.round(values.realAmount * (1 - vendorFee / 100))
-                  )}
-                </Text>
-              </StyledViewTextWrapper>
-            </View>
-          )}
-
-          <Button
-            rounded
-            stretch
-            loading={isSubmitting}
-            disabled={!isValid || !dirty}
-            variant="lg"
-            fill={{
-              type: 'gradient',
-              color: 'secondary',
-              start: { x: 0, y: 0 },
-              end: { x: 1, y: 0 },
-            }}
-            sx={{
-              my: '$10',
-            }}
-            onPress={submitForm}
+            <TextField labelWidth={0}>
+              <TextField.TextInput
+                label=""
+                _input={{
+                  placeholder: t('deposit.cardCode'),
+                  value: values.cardCode,
+                  keyboardType: 'number-pad',
+                  onChangeText: onCardCodeChanged,
+                  onBlur: handleBlur('cardCode'),
+                  maxLength: MaxLength.CARD,
+                }}
+                error={
+                  touched.cardCode && errors.cardCode
+                    ? errors.cardCode
+                    : undefined
+                }
+                containerStyle={{ my: '$3' }}
+              />
+              <TextField.TextInput
+                label=""
+                _input={{
+                  placeholder: t('deposit.cardSerialNo'),
+                  value: values.cardSerialNo,
+                  keyboardType: 'number-pad',
+                  onChangeText: onCardSerialNoChanged,
+                  onBlur: handleBlur('cardSerialNo'),
+                  maxLength: MaxLength.CARD,
+                }}
+                error={
+                  touched.cardSerialNo && errors.cardSerialNo
+                    ? errors.cardSerialNo
+                    : undefined
+                }
+                containerStyle={{ my: '$3' }}
+              />
+            </TextField>
+            <ImportantNotice keys={NOTES} module="deposit" />
+          </View>
+          <StyledViewButtonWrapper
+            colors={
+              values.realAmount !== 0
+                ? ['#066D9A', '#05232E']
+                : ['#00000000', '#00000000']
+            }
+            isValid={values.realAmount !== 0}
           >
-            <Button.Label>{t('common.next')}</Button.Label>
-          </Button>
-        </StyledViewButtonWrapper>
-      </StyledView>
+            {values.realAmount !== 0 && (
+              <View sx={{ mb: '$3' }}>
+                <StyledViewTextWrapper>
+                  <Text sx={{ flex: 1 }}>{t('deposit.deduction')}</Text>
+                  <Text>
+                    {toCurrency(
+                      -Math.round(values.realAmount * (vendorFee / 100))
+                    )}
+                  </Text>
+                </StyledViewTextWrapper>
+                <StyledViewTextWrapper>
+                  <Text sx={{ flex: 1 }}>{t('deposit.actualDeposit')}</Text>
+                  <Text>
+                    {toCurrency(
+                      Math.round(values.realAmount * (1 - vendorFee / 100))
+                    )}
+                  </Text>
+                </StyledViewTextWrapper>
+              </View>
+            )}
+
+            <Button
+              rounded
+              stretch
+              loading={isSubmitting}
+              disabled={!isValid || !dirty}
+              variant="lg"
+              fill={{
+                type: 'gradient',
+                color: 'secondary',
+                start: { x: 0, y: 0 },
+                end: { x: 1, y: 0 },
+              }}
+              sx={{
+                my: '$10',
+              }}
+              onPress={submitForm}
+            >
+              <Button.Label>{t('common.next')}</Button.Label>
+            </Button>
+          </StyledViewButtonWrapper>
+        </View>
+      </KeyboardView>
     </PageWithBackHeader>
   )
 }
 
-const StyledView = styled(View)(() => ({
-  flex: 1,
-}))
 const StyledViewPayment = styled(View)(() => ({
   mx: '$3',
   my: '$4',

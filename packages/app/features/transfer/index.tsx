@@ -40,14 +40,7 @@ const TransferScreen = () => {
   const { data: playerData, isError } = useAffiliateUsernameQuery(
     referralCode ?? ''
   )
-  console.log(
-    '🚀 ~ file: index.tsx ~ line 41 ~ TransferScreen ~ isError',
-    isError
-  )
-  console.log(
-    '🚀 ~ file: index.tsx ~ line 41 ~ TransferScreen ~ playerData',
-    playerData
-  )
+
   const currency = playerData?.data?.currency as Currency
 
   const onSubmit = async (

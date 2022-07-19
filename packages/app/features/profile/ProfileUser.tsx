@@ -22,7 +22,7 @@ const ProfileUser = ({ username }: ProfileUserProps) => {
   return (
     <ViewWrapper>
       <Avatar
-        source={require('../../assets/images/games/fishing/fishing08.png')}
+        source={require('../../assets/images/register/referral-avatar.png')}
         sx={{ mr: '$2', bg: 'white' }}
       />
       <ViewTextWrapper>
