@@ -3,13 +3,22 @@ import Icon from 'app/components/Icon'
 import useLocalization from 'app/provider/localization'
 import { usePlayerBalanceQuery } from 'services/walletApi'
 import { AnimateHeight } from 'app/transitions/animate-height'
-import { styled, SxProp, Text, View } from 'dripsy'
+import { ActivityIndicator, styled, SxProp, Text, View } from 'dripsy'
 import { AnimatePresence, motify } from 'moti'
 import { MotiPressable } from 'moti/interactions'
 import React, { useState } from 'react'
 import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import { usePlayerProfileQuery } from 'services/playerApi'
+
+type BalanceItemProps = {
+  title: string
+  value: number
+  currency: Currency
+  loading?: boolean
+  size?: 'large' | 'small'
+  _sx?: SxProp
+}
 
 const ProfileBalance = () => {
   const { t } = useLocalization()
@@ -18,7 +27,7 @@ const ProfileBalance = () => {
   const { data: playerData } = usePlayerProfileQuery()
   const currency = playerData?.data?.currency as Currency
 
-  const { data } = usePlayerBalanceQuery()
+  const { data, isFetching } = usePlayerBalanceQuery()
   const cash = parseInt(data?.data?.main?.balance ?? '0')
   const reward = parseInt(data?.data?.main?.reward ?? '0')
   const balance = cash + reward
@@ -43,6 +52,7 @@ const ProfileBalance = () => {
             value={balance ?? 0}
             currency={currency}
             size="large"
+            isLoading={isFetching}
             _sx={{ justifyContent: 'center' }}
           />
           <MotifiedView
@@ -88,6 +98,7 @@ const ProfileBalance = () => {
                     title={t('common.cash')}
                     value={cash ?? 0}
                     currency={currency}
+                    isLoading={isFetching}
                     _sx={{
                       pr: '$5',
                     }}
@@ -97,6 +108,7 @@ const ProfileBalance = () => {
                     title={t('common.reward')}
                     value={reward ?? 0}
                     currency={currency}
+                    isLoading={isFetching}
                     _sx={{
                       borderLeftWidth: 1,
                       pl: '$5',
@@ -117,15 +129,10 @@ const BalanceItem = ({
   title,
   value,
   currency,
+  isLoading = false,
   size = 'small',
   _sx,
-}: {
-  title: string
-  value: number
-  currency: Currency
-  size?: 'large' | 'small'
-  _sx?: SxProp
-}) => {
+}: BalanceItemProps) => {
   const titleFontSize = size === 'large' ? 14 : 12
   const valueFontSize = size === 'large' ? 24 : 20
 
@@ -141,18 +148,22 @@ const BalanceItem = ({
       <Icon name="lc" color={'#56f1ff'} sx={{ fontSize: [40, 50] }} />
       <View>
         <Text sx={{ fontSize: titleFontSize }}>{title}</Text>
-        <Text
-          sx={{
-            fontSize: valueFontSize,
-            fontWeight: 'bold',
-            color: '$yellowLight',
-          }}
-        >
-          {toCurrency(value, currency, {
-            symbol: false,
-            hideTruncatedThousand: false,
-          })}
-        </Text>
+        {isLoading ? (
+          <ActivityIndicator color={'$lightCyan'} sx={{ py: '$1' }} />
+        ) : (
+          <Text
+            sx={{
+              fontSize: valueFontSize,
+              fontWeight: 'bold',
+              color: '$yellowLight',
+            }}
+          >
+            {toCurrency(value, currency, {
+              symbol: false,
+              hideTruncatedThousand: false,
+            })}
+          </Text>
+        )}
       </View>
     </View>
   )

@@ -302,7 +302,7 @@ const PreLaunchGame = ({}) => {
 
   return (
     <DripsyGradient colors={['#164672', '#0D2035']} sx={{ flex: 1, pt: top }}>
-      <TopHeader />
+      <TopHeader providerCode={providerCode} />
       <GameRewards />
       {isSaba && (
         <UserAgreement

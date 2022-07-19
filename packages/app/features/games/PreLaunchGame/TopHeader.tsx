@@ -1,4 +1,5 @@
 import Icon from 'app/components/Icon'
+import { getProviderLogo } from 'app/config/games/provider'
 import BouncePressable from 'app/pressable/BouncePressable'
 import { GameLauncherActions } from 'app/store/gameLauncher.slice'
 import { Image, styled, View } from 'dripsy'
@@ -6,7 +7,7 @@ import { TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'solito/router'
 
-const TopHeader = () => {
+const TopHeader = ({ providerCode }: { providerCode: string }) => {
   const { back } = useRouter()
   const dispatch = useDispatch()
   const onGoBack = () => {
@@ -21,7 +22,7 @@ const TopHeader = () => {
       </BouncePressable>
       <View sx={{ alignItems: 'center', flex: 0.9 }}>
         <Image
-          source={require('../../../assets/images/games/saba-logo.png')}
+          source={providerCode && getProviderLogo(providerCode)}
           sx={{ height: [40, 40, 40], width: [120, 120, 120] }}
           resizeMode="cover"
         />

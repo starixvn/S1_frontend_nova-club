@@ -1,12 +1,16 @@
 import { Text, View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import HistoryListing from 'app/components/history/HistoryListing'
-import { useLazyPlayerReportQuery } from 'services/playerApi'
+import {
+  useLazyPlayerReportQuery,
+  usePlayerProfileQuery,
+} from 'services/playerApi'
 import useLocalization from 'app/provider/localization'
 import DateTimeCell from '../DateTimeCell'
 import GradientBox from 'app/components/GradientBox'
 import FilterSelection from '../FilterSelection'
 import {
+  Currency,
   DateFilter,
   DateFilterOptions,
   ReportDepositStatus,
@@ -15,6 +19,8 @@ import {
   ReportTransactionTypeOptions,
 } from 'app/utils/constant'
 import dayjs from 'dayjs'
+import { ReportTransactionItem } from 'services/playerApi.type'
+import { toCurrency } from 'app/utils'
 
 const CELL_DATE_WIDTH = 1
 const CELL_AMOUNT_WIDTH = 1
@@ -23,6 +29,8 @@ const CELL_STATUS_WIDTH = 1
 const TransactionHistoryTab = () => {
   const { t } = useLocalization()
   const [fetchData, result] = useLazyPlayerReportQuery()
+  const { data: playerData } = usePlayerProfileQuery()
+  const currency = playerData?.data?.currency as Currency
 
   const [selected, setSelected] = useState({
     selectedStatus: ReportDepositStatusOptions[0],
@@ -76,13 +84,13 @@ const TransactionHistoryTab = () => {
         result={result}
         header={tableHeader}
         keyExtractor={(item, index) => `${index} History ${item.name}`}
-        renderItem={renderItem}
+        renderItem={({ item }) => renderItem({ item }, currency)}
       />
     </View>
   )
 }
 
-const renderItem = ({ item }) => {
+const renderItem = ({ item }, currency) => {
   const getStatusColor = (value: string) => {
     switch (value.toLowerCase()) {
       case ReportDepositStatus.PENDING.toLowerCase():
@@ -107,7 +115,12 @@ const renderItem = ({ item }) => {
           <DateTimeCell date={item.date} />
         </View>
         <View style={{ flex: CELL_AMOUNT_WIDTH }}>
-          <Text sx={{ textAlign: 'center' }}>{item.amount}</Text>
+          <Text sx={{ textAlign: 'center' }}>
+            {toCurrency(item.amount, currency, {
+              symbol: false,
+              hideTruncatedThousand: false,
+            })}
+          </Text>
         </View>
         <View style={{ flex: CELL_STATUS_WIDTH }}>
           <Text

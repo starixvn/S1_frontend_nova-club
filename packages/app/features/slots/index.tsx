@@ -98,20 +98,6 @@ const Slots = withContextualNav(() => {
                   headerTitle: t('menu.tab.provider'),
                 }}
               />
-              {/* <Select
-                actionSheetProps={{ id: 'providerSelection' }}
-                headerTitle={'Providers'}
-                buttonTitle={selectedProvider.label ?? 'Click here to open'}
-                buttonProps={{
-                  sx: {
-                    ml: '$2',
-                    flex: 0.4,
-                  },
-                  isActive: false,
-                }}
-                data={providerSelection}
-                setSelectedValue={setSelectedProvider}
-              /> */}
             </Row>
           </ListSectionHeader>
           <FlatList

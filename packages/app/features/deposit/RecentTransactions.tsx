@@ -2,16 +2,22 @@ import RefreshIconButton from 'app/components/form/IconButton/RefreshButton'
 import GradientBox from 'app/components/GradientBox'
 import HistoryEmpty from 'app/components/history/HistoryEmpty'
 import useLocalization from 'app/provider/localization'
-import { ReportDepositStatus, ReportTransactionType } from 'app/utils/constant'
+import { toCurrency } from 'app/utils'
+import {
+  Currency,
+  ReportDepositStatus,
+  ReportTransactionType,
+} from 'app/utils/constant'
 import dayjs from 'dayjs'
 import { Text, View } from 'dripsy'
-import { usePlayerReportQuery } from 'services/playerApi'
+import { usePlayerProfileQuery, usePlayerReportQuery } from 'services/playerApi'
 import DateTimeCell from '../profile/history/DateTimeCell'
 const dummyData = [
   {
     type: 1,
   },
 ]
+
 const RecentTransactions = () => {
   const { t } = useLocalization()
   const { data, isFetching, refetch } = usePlayerReportQuery({
@@ -54,6 +60,9 @@ const CELL_AMOUNT_WIDTH = 1
 const CELL_STATUS_WIDTH = 1
 
 const TableItem = ({ item }) => {
+  const { data: playerData } = usePlayerProfileQuery()
+  const currency = playerData?.data?.currency as Currency
+
   const getStatusColor = (value: string) => {
     switch (value.toLowerCase()) {
       case ReportDepositStatus.PENDING.toLowerCase():
@@ -78,7 +87,12 @@ const TableItem = ({ item }) => {
           <DateTimeCell date={item.date} />
         </View>
         <View style={{ flex: CELL_AMOUNT_WIDTH }}>
-          <Text sx={{ textAlign: 'center' }}>{item.amount}</Text>
+          <Text sx={{ textAlign: 'center' }}>
+            {toCurrency(item.amount, currency, {
+              symbol: false,
+              hideTruncatedThousand: false,
+            })}
+          </Text>
         </View>
         <View style={{ flex: CELL_STATUS_WIDTH }}>
           <Text

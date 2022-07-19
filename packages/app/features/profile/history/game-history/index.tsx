@@ -1,23 +1,23 @@
 import { Text, View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import HistoryListing from 'app/components/history/HistoryListing'
-import { useLazyPlayerReportQuery } from 'services/playerApi'
+import {
+  useLazyPlayerReportQuery,
+  usePlayerProfileQuery,
+} from 'services/playerApi'
 import useLocalization from 'app/provider/localization'
 import DateTimeCell from '../DateTimeCell'
 import GradientBox from 'app/components/GradientBox'
-import FilterSelection, { ProviderList } from '../FilterSelection'
+import FilterSelection from '../FilterSelection'
 import {
-  DateFilter,
-  GameProvider,
-  GameStatusMapper,
-  ReportGameStatus,
-  ReportDepositStatus,
   ReportTransactionType,
   ReportGameStatusOptions,
   DateFilterOptions,
+  Currency,
 } from 'app/utils/constant'
 import dayjs from 'dayjs'
 import { ReportGameItem } from 'services/playerApi.type'
+import { toCurrency } from 'app/utils'
 
 const CELL_DATE_WIDTH = 1
 const CELL_AMOUNT_WIDTH = 1
@@ -26,6 +26,8 @@ const CELL_STATUS_WIDTH = 1
 const GameHistoryTab = () => {
   const { t } = useLocalization()
   const [fetchData, result] = useLazyPlayerReportQuery()
+  const { data: playerData } = usePlayerProfileQuery()
+  const currency = playerData?.data?.currency as Currency
 
   const [selected, setSelected] = useState({
     selectedGame: ReportGameStatusOptions[0],
@@ -77,13 +79,13 @@ const GameHistoryTab = () => {
         result={result}
         header={tableHeader}
         keyExtractor={(item, index) => `${index} History ${item.name}`}
-        renderItem={renderItem}
+        renderItem={({ item }) => renderItem({ item }, currency)}
       />
     </View>
   )
 }
 
-const renderItem = ({ item }: { item: ReportGameItem }) => {
+const renderItem = ({ item }, currency) => {
   return (
     <GradientBox>
       <View
@@ -109,7 +111,15 @@ const renderItem = ({ item }: { item: ReportGameItem }) => {
               color: item.winloss.includes('-') ? '#BE0A16' : '#00FF19',
             }}
           >
-            {item.winloss.includes('-') ? item.winloss : `+${item.winloss}`}
+            {item.winloss.includes('-')
+              ? toCurrency(item.winloss, currency, {
+                  symbol: false,
+                  hideTruncatedThousand: false,
+                })
+              : `+${toCurrency(item.winloss, currency, {
+                  symbol: false,
+                  hideTruncatedThousand: false,
+                })}`}
           </Text>
         </View>
       </View>
