@@ -242,7 +242,7 @@ const TextFieldSelect = ({
                 placeholderTextColor={'#FFFF00'}
                 {..._input}
               />
-              <Icon name="chevdown" size={32} />
+              <Icon name="chevdown" size={25} />
             </View>
           </StyledViewRow>
         </TouchableWithoutFeedback>

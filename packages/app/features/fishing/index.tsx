@@ -29,7 +29,7 @@ const Fishing = () => {
           <ListSectionHeader
             title={'game.category.fishing'}
             bgColor="yellow"
-            iconName="sb"
+            iconName="fg"
           />
           <View>
             <SimpleWrap

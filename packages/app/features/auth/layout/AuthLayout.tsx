@@ -6,7 +6,7 @@ import React from 'react'
 import { MotiLink } from 'solito/moti'
 
 const HEADER_IMAGE = require('../../../assets/images/common/logo.jpg')
-const BACK_ICON_SIZE = 40
+const BACK_ICON_SIZE = 30
 
 const StyledImage = styled(Image)({
   height: 120,

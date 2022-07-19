@@ -70,7 +70,7 @@ const TextInput: FC<TextInputProps> = (props) => {
             >
               <Icon
                 name={hidePassword ? 'password-hide' : 'password-show'}
-                size={hidePassword ? 25 : 19}
+                size={25}
                 sx={{ color: '$orange' }}
               />
             </StyledButtonOpacity>

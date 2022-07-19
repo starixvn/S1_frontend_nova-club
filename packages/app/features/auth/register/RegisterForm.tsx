@@ -201,7 +201,7 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
       />
 
       <TextInput
-        _icon="avatar-write"
+        _icon="edit-profile"
         _input={{
           maxLength: 20,
           placeholder: 'Real Name',

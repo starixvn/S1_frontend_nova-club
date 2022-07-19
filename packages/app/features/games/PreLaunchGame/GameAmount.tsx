@@ -23,7 +23,7 @@ const GameAmount = ({ playerBalance }: GameAmountProps) => {
 
   const fieldData: FieldData[] = [
     {
-      icon: 'cash',
+      icon: 'ac',
       label: 'Cash (VND)',
     },
     {
@@ -78,7 +78,7 @@ const GameAmount = ({ playerBalance }: GameAmountProps) => {
         <RoundedIcon
           size={'sm'}
           gradient="lightRed"
-          icon="deposit"
+          icon="dac"
           onPress={handleOnPress}
         />
       </View>
@@ -108,7 +108,8 @@ const ListItem = ({ data, balance }: ListItemProps) => {
                 <Icon
                   name={i.icon}
                   color={'#00C5D4'}
-                  size={i.icon === 'gift' ? 12 : 10}
+                  size={15}
+                  sx={{ p: '$1', alignSelf: 'center' }}
                 />
               </StyledWrapIcon>
               <StyleLabel
@@ -154,11 +155,10 @@ const StyledWrapLabel = styled(View)({
 const StyledWrapIcon = styled(View)({
   borderWidth: 0.5,
   borderColor: '#00C5D4',
-  borderRadius: 10,
+  borderRadius: 20,
   bg: '$background',
   justifyContent: 'center',
   alignItems: 'center',
-  height: 20,
   aspectRatio: 1,
 })
 

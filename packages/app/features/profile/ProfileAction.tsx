@@ -32,7 +32,7 @@ const ProfileAction = () => {
     <StyledView>
       <IconAction
         gradient="lightRed"
-        icon="sb"
+        icon="dac"
         title="menu.deposit"
         onPress={() => {
           push(toDeposit, `/deposit`)
@@ -40,19 +40,19 @@ const ProfileAction = () => {
       />
       <IconAction
         gradient="lightGreen"
-        icon="games"
+        icon="wda"
         title="menu.withdraw"
         onPress={() => push(toWithdrawal, '/withdrawal')}
       />
       <IconAction
         gradient="lightBlue"
-        icon="sl"
+        icon="card"
         title="menu.bankAccount"
         onPress={() => push(toBankAccount, '/profile/bank-account')}
       />
       <IconAction
         gradient="lightYellow"
-        icon="lc"
+        icon="history"
         title="menu.history"
         onPress={() => push(toHistory, '/profile/history')}
       />

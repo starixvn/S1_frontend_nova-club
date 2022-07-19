@@ -79,8 +79,8 @@ const StyledText = styled(Text)({
 })
 
 const StyledGradient = styled(DripsyGradient)({
-  borderRadius: 10,
-  padding: '$0a',
+  borderRadius: 12,
+  padding: '$1',
   ml: '$4',
 })
 

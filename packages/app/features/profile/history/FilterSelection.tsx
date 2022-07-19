@@ -214,13 +214,14 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
         >
           <DatePicker
             value={selected.startDate}
-            icon={'sb'}
+            icon={'date'}
             rightIcon={'chevdown'}
             _icon={{ color: 'white', size: 20 }}
             style={{ flex: 1 }}
             _dateTime={{
               maximumDate: selected.endDate,
             }}
+            _rightIcon={{ size: 20 }}
             onChange={(value) =>
               setSelected({
                 ...selected,
@@ -232,9 +233,10 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
           <Text sx={{ justifyContent: 'center', fontSize: 25, mx: 10 }}>-</Text>
           <DatePicker
             value={selected.endDate}
-            icon={'sb'}
+            icon={'date'}
             rightIcon={'chevdown'}
             _icon={{ color: 'white', size: 20 }}
+            _rightIcon={{ size: 20 }}
             style={{ flex: 1 }}
             _dateTime={{
               minimumDate: selected.startDate,

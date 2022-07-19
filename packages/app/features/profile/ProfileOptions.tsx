@@ -40,28 +40,28 @@ const ProfileOptions = () => {
     {
       id: 1,
       title: 'Profile',
-      iconName: 'sb',
+      iconName: 'avatar',
       routeWeb: toProfileDetails,
       route: '/profile/profile-details',
     },
     {
       id: 2,
       title: 'Change Password',
-      iconName: 'games',
+      iconName: 'lock',
       routeWeb: toChangePassword,
       route: '/profile/change-password',
     },
     {
       id: 3,
       title: 'Commision Table',
-      iconName: 'replay',
+      iconName: 'ct',
       routeWeb: toCommissionTable,
       route: '/profile/commission-table',
     },
     {
       id: 4,
       title: 'Message/Announcement',
-      iconName: 'history',
+      iconName: 'annoucement',
       routeWeb: toMessages,
       route: {
         pathname: '/messages',
@@ -73,7 +73,7 @@ const ProfileOptions = () => {
     {
       id: 5,
       title: 'Customer Support',
-      iconName: 'lc',
+      iconName: 'cs',
       routeWeb: toSupport,
       route: '/customer-support',
     },
@@ -89,7 +89,7 @@ const ProfileOptions = () => {
     {
       id: 7,
       title: 'Logout',
-      iconName: 'cross',
+      iconName: 'logout',
       route: 'logout',
       onClick: async () => {
         if (loadingState === LOADING_STATE.LOADING) return

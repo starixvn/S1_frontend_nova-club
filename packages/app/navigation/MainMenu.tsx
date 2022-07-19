@@ -47,14 +47,14 @@ const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
       },
       {
         label: 'Deposit',
-        icon: 'deposit',
+        icon: 'dac',
         onPress: () => {
           push(makeContextualHref('deposit'), '/deposit')
         },
       },
       {
         label: 'Withdrawal',
-        icon: 'wallet',
+        icon: 'wda',
         onPress: () => {
           push(makeContextualHref('withdrawal'), '/withdrawal')
         },
@@ -72,7 +72,7 @@ const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
       // },
       {
         label: 'Logout',
-        icon: 'transfer',
+        icon: 'logout',
         onPress: async () => {
           await logOut()
           // TODO: add loading to prevent spamming
