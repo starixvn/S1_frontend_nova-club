@@ -1,12 +1,300 @@
 {
+  "auth": {
+    "accountReg": "Đăng ký tài khoản",
+    "accountVerification": "xác minh tài khoản",
+    "enterNewPassword": "Vui lòng nhập mật khẩu mới của bạn",
+    "enterOtp": "Vui lòng nhập OTP",
+    "forgotPassword": "Quên mật khẩu",
+    "login": "ĐĂNG NHẬP",
+    "loginToAccount": "Dăng nhập vào tài khoản của bạn",
+    "noReceiveOTP": "Không nhận được OTP?",
+    "readAndAgree": "Tôi đã đọc và đồng ý",
+    "referrerInfo": "Thông tin người giới thiệu",
+    "register": "Đăng Ký",
+    "table": "Bảng hoa hồng"
+  },
+  "bank": {
+    "accountName": "Tên tài khoản",
+    "accountNo": "Số tài khoản",
+    "accountNumber": "Số tài khoản",
+    "addBankAccount": "Thêm tài khoản",
+    "bank": "Ngân hàng",
+    "enterAccountName": "Vui lòng nhập 'Tên thật đã Đăng ký của bạn",
+    "enterAccountNo": "Vui lòng nhập số tài khoản",
+    "noBankAccount": "Không có tài khoản ngân hàng",
+    "selectBank": "Vui lòng chọn ngân hàng"
+  },
+  "commission": {
+    "cashPlayer": "Người chơi tiền mặt",
+    "cashPlayerReferral": "Giới thiệu người chơi bằng tiền mặt",
+    "creditPlayer": "Người chơi tín dụng",
+    "productLists": "Danh sách sản phẩm",
+    "table": "Bảng hoa hồng"
+  },
+  "common": {
+    "active": "Đang hoạt",
+    "all": "HIỂN THỊ TẤT CẢ",
+    "amount": "Số tiền",
+    "balance": "Số dư",
+    "bet": "Cá cược",
+    "cancel": "Hủy",
+    "cash": "Tiền mặt",
+    "clickMore": "Nhấp vào Thêm",
+    "close": "Đóng",
+    "confirm": "Xác nhận",
+    "confirmDelete": "Bạn có chắc chắn muốn xóa? Nó không thể khôi phục sau khi xóa!",
+    "confirmPassword": "Xác nhận mật khẩu",
+    "contactUs": "Liên hệ",
+    "copy": "Sao chép",
+    "desktop": "Máy tính để bàn",
+    "emptyResult": "Kết quả trống",
+    "enter": "đi vào",
+    "enterAmount": "Vui lòng nhập số tiền %{field} của bạn",
+    "enterConfirmPassword": "Vui lòng xác nhận mật khẩu",
+    "enterNewPassword": "Vui lòng nhập mật khẩu mới",
+    "enterOldPassword": "Vui lòng nhập mật khẩu cũ",
+    "hello": "Xin chào!!",
+    "home": "Trang Chủ",
+    "importantNote": "Lưu Ý Quan Trọng",
+    "importantNotes": "Lưu Ý Quan Trọng",
+    "lose": "Mất",
+    "more": "Thêm",
+    "newPassword": "Mật khẩu mới",
+    "next": "Tiếp theo",
+    "ok": "OK",
+    "oldPassword": "Mật khẩu hiện tại",
+    "otp": "OTP",
+    "password": "Mật khẩu",
+    "passwordNote": "1. Mật khẩu phải là chữ và số không có ký tự đặc biệt. \nĐộ dài trừ khi 6-12 ký tự.\n2. Mật khẩu không được giống mật khẩu cũ",
+    "referenceId": "ID tham chiếu",
+    "registered": "Đăng ký",
+    "reward": "Giải thưởng",
+    "rewards": "Giải thưởng",
+    "selectAll": "Chọn hết",
+    "selectDate": "Chọn ngày",
+    "send": "Gởi",
+    "submit": "Gửi",
+    "turnover": "Doanh số",
+    "userAgreement": "thỏa thuận người dùng",
+    "username": "Tên đăng nhập",
+    "win": "Thắng lợi"
+  },
+  "contact": {
+    "contactVia": "Liên hệ qua",
+    "livechat": "Live Chat",
+    "telegram": "Telegram",
+    "whatsapp": "WhatsApp"
+  },
   "deposit": {
-    "deposit": "CÁCH GỬI TIỀN",
-    "choose": "Chọn Tùy chọn tiền gửi của bạn"
+    "actualDeposit": "Tiền gửi thực tế",
+    "cardCode": "Mã số thẻ",
+    "cardSerialNo": "Số sê-ri thẻ.",
+    "cardValue": "Mệnh giá thẻ",
+    "choose": "Chọn Tùy chọn tiền gửi của bạn",
+    "cryptoAmount": "123,456 đồng",
+    "deduction": "Khấu trừ",
+    "depositAmount": "Số tiền nạp",
+    "depositMethod": {
+      "bankTransfer": "Chuyển khoản",
+      "crypto": "Tiền ảo",
+      "momo": "MOMO",
+      "onlineBanking": "Cổng thanh toán",
+      "qrCode": "Chuyển mã QR",
+      "topUp": "Thẻ Top-up"
+    },
+    "paymentMode": "Chọn cổng thanh toán",
+    "selectChannel": "Chọn tài khoản nạp",
+    "upload": {
+      "description": "Duyệt để chọn hình ảnh biên lai hoặc hóa đơn để tải lên. Các tệp phải có dung lượng 6MB hoặc tương tự và ở một trong các định dạng JPG, JPEG",
+      "files": "Tải lên tệp tin",
+      "title": "Tải biên lai ngân hàng"
+    },
+    "usdt": "USDT"
+  },
+  "filter": {
+    "date": {
+      "custom": "Phong tục",
+      "lastWeek": "Tuần trước",
+      "thisMonth": "Tháng này",
+      "thisWeek": "Tuần này",
+      "today": "Hôm nay",
+      "yesterday": "Hôm qua"
+    },
+    "depositStatus": {
+      "all": "Tất cả các",
+      "cancelled": "Hủy",
+      "checking": "Kiểm tra",
+      "declined": "Suy giảm",
+      "failed": "Không thành công",
+      "pending": "Đang chờ",
+      "settled": "Định cư",
+      "settledonBrowser": "Đã giải quyết trên trình duyệt"
+    },
+    "gameStatus": {
+      "lose": "Mất",
+      "win": "Thắng lợi"
+    },
+    "genre": {
+      "all": "Tất cả các",
+      "baccarat": "Baccarat",
+      "blackjack": "Blackjack",
+      "dragonTiger": "Dragon Tiger",
+      "hot": "NỔI BẬT",
+      "new": "Mới",
+      "poker": "Poker",
+      "roulette": "Roulette",
+      "sicbo": "Sicbo"
+    },
+    "transactionType": {
+      "deposit": "Nạp tiền",
+      "game": "Trò Chơi",
+      "reward": "Sự thưởng",
+      "withdrawal": "Rút tiền"
+    },
+    "withdrawalStatus": {
+      "all": "Tất cả các",
+      "declined": "Suy giảm",
+      "paid": "Trả",
+      "payment": "Thanh toán",
+      "paymentProcessing": "Xử lý thanh toán",
+      "pendingReview": "Đang chờ xem xét",
+      "request": "Lời yêu cầu"
+    }
+  },
+  "form": {
+    "tips": {
+      "needAccountNo": "Cần nhập số tài khoản",
+      "password": "Mật khẩu phải dài 6-15 ký tự, chứa cả chữ và số và ký tự đặc biệt (!@#$%^&*).",
+      "realName": "Vui lòng nhập tên thật của bạn."
+    }
   },
   "game": {
+    "category": {
+      "fishing": "Bắn Cá",
+      "games": "Trò Chơi",
+      "hotGames": "Hot Games",
+      "keno/lottery": "Keno / Lottery",
+      "liveCasino": "SÒNG BÀI",
+      "poker": "Poker",
+      "slots": "Quay hũ",
+      "sportsbook": "THỂ THAO"
+    },
+    "enterGame": "Vào trò chơi",
     "name": {
+      "btiSports": "BTI Sports",
+      "esports": "E-Sports",
+      "imEsports": "IM E-Sports",
       "sports": "Thể Thao",
       "virtualSports": "Thể thao ảo"
-    }
+    },
+    "quitGame": "Thoát trò chơi",
+    "reward": "Phần thưởng trò chơi",
+    "underMaintenance": "Trò chơi đang được bảo trì"
+  },
+  "menu": {
+    "agentLogin": "Dăng nhập đại lý",
+    "bankAccount": "Tài khoản ngân hàng",
+    "changePassword": "Đổi Mật Khẩu",
+    "commisionTable": "Bảng hoa hồng",
+    "customerSupport": "Hỗ trợ khách hàng",
+    "deposit": "Nạp tiền",
+    "gameHistory": "Lịch sử trò chơi",
+    "history": "Lịch sử",
+    "logout": "Thoát",
+    "message/announcement": "Tin Nhắn/Thông Báo",
+    "profile": "Hồ sơ",
+    "switchAccount": "Chuyển tài khoản",
+    "tab": {
+      "bets": "Cá cược",
+      "date": "Ngày",
+      "game": "Trò Chơi",
+      "gameType": "Loại trò chơi",
+      "provider": "Các nhà cung cấp",
+      "providers": "Các nhà cung cấp",
+      "status": "Trạng thái",
+      "statusType": "Loại trạng thái",
+      "transaction": "Giao dịch",
+      "transactionType": "Loại giao dịch",
+      "type": "Loại",
+      "win/loss": "Thắng lợi/Mất"
+    },
+    "transactionHistory": "Lịch sử giao dịch",
+    "withdraw": "Rút",
+    "withdrawal": "Rút tiền"
+  },
+  "message": {
+    "annoucement": "Thông Báo",
+    "personalMessage": "Tin nhắn khách hàng"
+  },
+  "profile": {
+    "details": {
+      "currency": "Tiền tệ",
+      "phone": "Số ĐT",
+      "realname": "Tên thật",
+      "referrer": "Người giới thiệu",
+      "username": "Tên đăng nhập"
+    },
+    "overview": {
+      "circle": "Vòng tròn",
+      "direct": "Trực tiếp",
+      "realbet": "Đặt cược thực sự",
+      "self": "Bản thân",
+      "title": "Tổng quan",
+      "turnover": "Doanh số",
+      "w/l": "Thắng lợi/Mất (đồng)"
+    },
+    "timeline": "UTC/GMT +7"
+  },
+  "qr": {
+    "noCameraAccess": "Không có quyền truy cập vào máy ảnh",
+    "qrCodeNotDetected": "Không thể phát hiện mã QR trong hình ảnh",
+    "requestCameraPermissions": "Yêu cầu quyền đối với máy ảnh",
+    "scanGallery": "Quét từ thư viện"
+  },
+  "status": {
+    "alert": "Cảnh giác",
+    "approved": "Thành công",
+    "cancelled": "Hủy",
+    "draft": "Bản nháp",
+    "error": "Lỗi",
+    "expired": "Hết hạn",
+    "failed": "Không thành công",
+    "imageNotSupported": "Định dạng hình ảnh không được hỗ trợ",
+    "pending": "Đang chờ",
+    "processing": "Đang xử lý",
+    "rejected": "Từ chối",
+    "success": "Thành công",
+    "systemError": "Rất tiếc! Đã xảy ra lỗi, vui lòng thử lại."
+  },
+  "transaction": {
+    "transactions": "Giao dịch"
+  },
+  "transfer": {
+    "avaiableAmount": "Số tiền có sẵn",
+    "transfer": "Chuyển khoản",
+    "transferTo": "Chuyển tới"
+  },
+  "validation": {
+    "alphanumeric": "6-18 ký tự chữ và số (A-Z, a-z, 0-9)",
+    "amount": "%{amount} ngoài hạn mức",
+    "amountLessThan": "Số tiền không thể nhỏ hơn %{min}",
+    "dailyLimitReached": "Bạn Đã Sử Dụng Hết Hạn Mức Trong Ngày",
+    "email": "Định dạng email chưa đúng",
+    "erc20Format": "Địa chỉ ví phải tương thích với chuẩn ERC20",
+    "exceedAvailableTransferBalance": "Vượt quá số dư khả dụng %{balance}",
+    "insufficientBalance": "Số dư không đủ",
+    "invalidOTPCode": "Mã OTP không hợp lệ",
+    "invalidPhone": "Số điện thoại không hợp lệ",
+    "minMaxLimit": "Tối thiểu/Tối đa %{min}/%{max}",
+    "numberOnly": "Chỉ nhập số",
+    "otpLength": "OTP phải là số có 6 chữ số",
+    "passwordMinMaxLength": "Mật khẩu phải có 6-15 ký tự",
+    "required": "%{field} là bắt buộc",
+    "usdtFormat": "Địa chỉ ví phải tương thích với chuẩn ERC20 / TRC20",
+    "username": "6-18 ký tự chữ và số (A-Z, a-z, 0-9)",
+    "userNameMinMaxLength": "Tên người dùng phải dài từ 6 đến 18 ký tự"
+  },
+  "withdrawal": {
+    "withdrawTo": "Rút tiền về"
   }
 }

@@ -1,4 +1,3 @@
-import Header from 'app/components/common/Header'
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import { PageWithBackHeader } from 'app/components/layout/Page'
@@ -10,6 +9,8 @@ import { useMemo } from 'react'
 const HEADER_IMAGE = require('../../assets/logo.png')
 
 const CustomerSupportPage = () => {
+  const { t } = useLocalization()
+
   const CONTACT_LIST = useMemo(
     () => [
       {
@@ -32,11 +33,11 @@ const CustomerSupportPage = () => {
   )
   return (
     <DripsyGradient colors={['#133351', '#0D2035']} sx={{ flex: 1 }}>
-      <PageWithBackHeader header={{ title: 'Customer Support' }}>
+      <PageWithBackHeader header={{ title: t('menu.customerSupport') }}>
         <View sx={{ alignItems: 'center', mt: '$2a' }}>
           <StyledImage source={HEADER_IMAGE} resizeMode="contain" />
           <Text sx={{ fontSize: 18, fontWeight: 'bold', my: '$4' }}>
-            Contact via:
+            {t('contact.contactVia')}:
           </Text>
           <SupportItem data={CONTACT_LIST} />
         </View>

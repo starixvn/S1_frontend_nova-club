@@ -36,15 +36,15 @@ const CONFIRMATION_FIELDS = [
     value: 'bankName',
   },
   {
-    label: 'common.accountName',
+    label: 'bank.accountName',
     value: 'accountName',
   },
   {
-    label: 'common.accountNumber',
+    label: 'bank.accountNumber',
     value: 'accountNumber',
   },
   {
-    label: 'withdrawal.amount',
+    label: 'common.amount',
     value: 'amount',
   },
 ]
@@ -205,7 +205,7 @@ const WithdrawalPage = () => {
             }}
             onPress={withdrawalConfirmation}
           >
-            <Button.Label>Next</Button.Label>
+            <Button.Label>{t('common.next')}</Button.Label>
           </Button>
         </TextField>
 

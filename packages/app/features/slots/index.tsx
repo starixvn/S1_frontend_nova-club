@@ -62,11 +62,15 @@ const Slots = () => {
         />
       ) : (
         <>
-          <ListSectionHeader title={'Slots'} bgColor="purple" iconName="sl">
+          <ListSectionHeader
+            title={t('game.category.slots')}
+            bgColor="purple"
+            iconName="sl"
+          >
             <Row sx={{ flex: 1, justifyContent: 'flex-end' }}>
               <Select
                 actionSheetProps={{ id: 'slotType' }}
-                headerTitle={'Game Type'}
+                headerTitle={t('menu.tab.gameType')}
                 buttonTitle={selectedSlotType?.label ?? 'Click here to open'}
                 buttonProps={{
                   sx: {

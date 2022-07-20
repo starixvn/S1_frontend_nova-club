@@ -16,6 +16,7 @@ import { TextInput as RNTextField } from 'react-native'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import AuthLayout from '../layout/AuthLayout'
+import ReceiveOTPContact from '../common/ReceiveOTPContact'
 
 interface ForgotPasswordFormValues {
   contactNumber: string
@@ -170,7 +171,7 @@ const ForgotPassword = () => {
 
   return (
     <AuthLayout
-      headerDesc={t('auth.forgotPassword').toUpperCase()}
+      headerDesc={t('auth.forgotPassword')}
       onBack={() => {
         push('/auth/login')
       }}
@@ -194,7 +195,7 @@ const ForgotPassword = () => {
           <TimerButton
             accessibilityRole="button"
             ref={OTPRef}
-            title="Send"
+            title={t('common.send')}
             loading={isOtpLoading}
             onPress={onSendOtp}
             sx={{
@@ -213,7 +214,7 @@ const ForgotPassword = () => {
         }
         error={
           touched.contactNumber && errors.contactNumber
-            ? errors.contactNumber
+            ? t(errors.contactNumber, { field: t('profile.details.phone') })
             : undefined
         }
       />
@@ -232,7 +233,7 @@ const ForgotPassword = () => {
         }}
         error={
           touched.verifyCode && errors.verifyCode
-            ? errors.verifyCode
+            ? t(errors.verifyCode, { field: t('common.otp') })
             : undefined
         }
         sx={{ mt: '$3' }}
@@ -257,7 +258,9 @@ const ForgotPassword = () => {
               },
             }}
             error={
-              touched.password && errors.password ? errors.password : undefined
+              touched.password && errors.password
+                ? t(errors.password, { field: t('common.newPassword') })
+                : undefined
             }
             sx={{ mt: '$3' }}
           />
@@ -275,7 +278,9 @@ const ForgotPassword = () => {
             }}
             error={
               touched.confirmPassword && errors.confirmPassword
-                ? errors.confirmPassword
+                ? t(errors.confirmPassword, {
+                    field: t('common.confirmPassword'),
+                  })
                 : undefined
             }
             sx={{ mt: '$3' }}
@@ -302,26 +307,7 @@ const ForgotPassword = () => {
         </View>
       </View>
 
-      {currentAction === CURRENT_ACTION.GET_OTP && (
-        <View
-          sx={{
-            flexDirection: 'row',
-            flexShrink: 1,
-            justifyContent: 'center',
-            mt: '$4',
-          }}
-        >
-          <Text variant="xs" sx={{ pl: '$3' }}>
-            Didn't receive OTP?{' '}
-            <Text
-              variant="xs"
-              sx={{ color: '$orange', textDecorationLine: 'underline' }}
-            >
-              Contact Us
-            </Text>
-          </Text>
-        </View>
-      )}
+      {currentAction === CURRENT_ACTION.GET_OTP && <ReceiveOTPContact />}
     </AuthLayout>
   )
 }

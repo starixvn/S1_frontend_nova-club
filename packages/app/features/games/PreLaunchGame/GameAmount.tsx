@@ -6,6 +6,7 @@ import { useRouter } from 'solito/router'
 import { PlayerBalanceResult } from 'services/wallet.type'
 import { toCurrency, toDisplayAmount } from 'app/utils'
 import { Currency } from 'app/utils/constant'
+import useLocalization from 'app/provider/localization'
 
 interface GameAmountProps {
   playerBalance: PlayerBalanceResult | undefined
@@ -18,16 +19,18 @@ interface FieldData {
 }
 
 const GameAmount = ({ playerBalance }: GameAmountProps) => {
+  const { t } = useLocalization()
+
   const { main } = playerBalance || {}
 
   const fieldData: FieldData[] = [
     {
-      icon: 'ac',
-      label: 'Cash (VND)',
+      icon: 'cash',
+      label: 'common.cash',
     },
     {
       icon: 'gift',
-      label: 'Rewards (VND)',
+      label: 'common.rewards',
       apiKey: 'reward',
     },
   ]
@@ -60,7 +63,7 @@ const GameAmount = ({ playerBalance }: GameAmountProps) => {
           mt: '$1a',
         }}
       >
-        Balance
+        {t('common.balance')}
       </StyleLabel>
       <View
         sx={{
@@ -89,6 +92,8 @@ interface ListItemProps {
 }
 
 const ListItem = ({ data, balance }: ListItemProps) => {
+  const { t } = useLocalization()
+
   const getBalance = (apiKey: string | undefined) => {
     if (!balance || !apiKey) return 0
 
@@ -114,7 +119,7 @@ const ListItem = ({ data, balance }: ListItemProps) => {
                   ml: '$1',
                 }}
               >
-                {i.label}
+                {t(i.label)} (VND)
               </StyleLabel>
             </StyledWrapLabel>
             <View sx={{ flex: 0.1 }}>

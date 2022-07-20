@@ -12,6 +12,8 @@ import React, { useRef } from 'react'
 import { TextInput as RNTextField } from 'react-native'
 import AuthLayout from '../layout/AuthLayout'
 import { RegisterFormValues } from '../register'
+import useLocalization from 'app/provider/localization'
+import ReceiveOTPContact from '../common/ReceiveOTPContact'
 
 interface VerificationFormProps {
   formik: FormikProps<RegisterFormValues>
@@ -19,6 +21,8 @@ interface VerificationFormProps {
 }
 
 const VerificationForm = ({ formik, onBack }: VerificationFormProps) => {
+  const { t } = useLocalization()
+
   const {
     handleChange,
     handleBlur,
@@ -82,7 +86,7 @@ const VerificationForm = ({ formik, onBack }: VerificationFormProps) => {
   }
 
   return (
-    <AuthLayout headerDesc={'ACCOUNT VERIFICATION'} onBack={onBack}>
+    <AuthLayout headerDesc={t('auth.accountVerification')} onBack={onBack}>
       <TextInput
         _icon="avatar"
         // WIP: Prefix should not be hardcoded
@@ -101,7 +105,7 @@ const VerificationForm = ({ formik, onBack }: VerificationFormProps) => {
         }}
         error={
           touched.contactNumber && errors.contactNumber
-            ? errors.contactNumber
+            ? t(errors.contactNumber, { field: t('profile.details.phone') })
             : undefined
         }
       />
@@ -110,7 +114,7 @@ const VerificationForm = ({ formik, onBack }: VerificationFormProps) => {
         _icon="lock"
         prefix="OTP"
         _input={{
-          placeholder: 'Please enter OTP',
+          placeholder: t('auth.enterOtp'),
           value: values.verifyCode,
           onChangeText: handleChange('verifyCode'),
           onBlur: handleBlur('verifyCode'),
@@ -120,14 +124,14 @@ const VerificationForm = ({ formik, onBack }: VerificationFormProps) => {
         }}
         error={
           touched.verifyCode && errors.verifyCode
-            ? errors.verifyCode
+            ? t(errors.verifyCode, { field: t('common.otp') })
             : undefined
         }
         endIcon={
           <TimerButton
             accessibilityRole="button"
             ref={OTPRef}
-            title="Send"
+            title={t('common.send')}
             loading={isLoading}
             onPress={onSendOtp}
             sx={{
@@ -173,12 +177,12 @@ const VerificationForm = ({ formik, onBack }: VerificationFormProps) => {
             onPress={onCheckboxCheck}
           >
             <Text variant="sm">
-              I have read & agree the{' '}
+              {t('auth.readAndAgree')}{' '}
               <Text
                 variant="sm"
                 sx={{ color: '$orange', textDecorationLine: 'underline' }}
               >
-                user agreement
+                {t('common.userAgreement')}
               </Text>
             </Text>
           </Pressable>
@@ -193,29 +197,12 @@ const VerificationForm = ({ formik, onBack }: VerificationFormProps) => {
             sx={{ mt: '$8' }}
             loading={isSubmitting}
           >
-            <Button.Label>Enter</Button.Label>
+            <Button.Label>{t('common.enter')}</Button.Label>
           </Button>
         </View>
       </View>
 
-      <View
-        sx={{
-          flexDirection: 'row',
-          flexShrink: 1,
-          justifyContent: 'center',
-          mt: '$4',
-        }}
-      >
-        <Text variant="xs" sx={{ pl: '$3' }}>
-          Didn't receive OTP?{' '}
-          <Text
-            variant="xs"
-            sx={{ color: '$orange', textDecorationLine: 'underline' }}
-          >
-            Contact Us
-          </Text>
-        </Text>
-      </View>
+      <ReceiveOTPContact />
     </AuthLayout>
   )
 }

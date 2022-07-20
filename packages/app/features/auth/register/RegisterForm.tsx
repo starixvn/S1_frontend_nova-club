@@ -129,13 +129,13 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
 
   const usernameError = useMemo(() => {
     if (touched.username && errors.username) {
-      return errors.username
+      return t(errors.username, { field: t('common.username') })
     } else if (usernameErrorMsg) {
       return usernameErrorMsg
     }
 
     return undefined
-  }, [errors.username, touched.username, usernameErrorMsg])
+  }, [errors.username, t, touched.username, usernameErrorMsg])
 
   const usernameActions = useMemo(
     () => [
@@ -163,7 +163,7 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
       <TextInput
         _icon="lock"
         _input={{
-          placeholder: 'Password',
+          placeholder: t('common.password'),
           value: values.password,
           onChangeText: handleChange('password'),
           onBlur: handleBlur('password'),
@@ -174,7 +174,9 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
           },
         }}
         error={
-          touched.password && errors.password ? errors.password : undefined
+          touched.password && errors.password
+            ? t(errors.password, { field: t('common.password') })
+            : undefined
         }
         sx={{ mt: '$3' }}
       />
@@ -182,7 +184,7 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
       <TextInput
         _icon="lock-check"
         _input={{
-          placeholder: 'Confirm Password',
+          placeholder: t('common.confirmPassword'),
           value: values.confirmPassword,
           onChangeText: handleChange('confirmPassword'),
           onBlur: handleBlur('confirmPassword'),
@@ -194,7 +196,7 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
         }}
         error={
           touched.confirmPassword && errors.confirmPassword
-            ? errors.confirmPassword
+            ? t(errors.confirmPassword, { field: t('common.confirmPassword') })
             : undefined
         }
         sx={{ mt: '$3' }}
@@ -204,7 +206,7 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
         _icon="edit-profile"
         _input={{
           maxLength: 20,
-          placeholder: 'Real Name',
+          placeholder: t('profile.details.realname'),
           value: values.realName,
           onChangeText: handleChange('realName'),
           onBlur: handleBlur('realName'),
@@ -212,7 +214,9 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
           onSubmitEditing: onSubmit,
         }}
         error={
-          touched.realName && errors.realName ? errors.realName : undefined
+          touched.realName && errors.realName
+            ? t(errors.realName, { field: t('profile.details.realname') })
+            : undefined
         }
         sx={{ mt: '$3' }}
       />

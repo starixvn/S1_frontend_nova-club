@@ -22,7 +22,7 @@ type ButtonProps = ComponentProps<typeof SelectButton>
 
 interface SelectProps {
   actionSheetContentProps?: DripsyGradientProps
-  actionSheetProps?: ActionSheetProps
+  actionSheetProps?: Partial<ActionSheetProps>
   button?: ({
     openActionSheet,
   }: {

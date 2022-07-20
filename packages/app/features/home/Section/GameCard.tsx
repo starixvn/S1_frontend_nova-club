@@ -4,6 +4,7 @@ import {
   HOME_PADDING,
 } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
+import useLocalization from 'app/provider/localization'
 import { Image, Pressable, styled, Text, View } from 'dripsy'
 import { FC } from 'react'
 import { TouchableOpacity, useWindowDimensions } from 'react-native'
@@ -14,6 +15,7 @@ export interface GameCardProps {
 }
 
 const GameCard: FC<GameCardProps> = ({ label, gameList }) => {
+  const { t } = useLocalization()
   const { width } = useContainerDimension()
   const img = gameList.slice(0, 6)
 
@@ -35,7 +37,7 @@ const GameCard: FC<GameCardProps> = ({ label, gameList }) => {
         sx={{ width: cardListWidth, padding: horizontalPad * 0.5 }}
       >
         <StyledLabel sx={{ height: horizontalPad * 3 }}>
-          <Text sx={{ fontSize: [14, 16] }}>{label}</Text>
+          <Text sx={{ fontSize: [14, 16] }}>{t(label)}</Text>
           <Pressable>
             <StyledMore>{`>`}</StyledMore>
           </Pressable>

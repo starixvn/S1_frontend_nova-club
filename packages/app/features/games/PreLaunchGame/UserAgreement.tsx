@@ -1,16 +1,19 @@
 import CheckBox from 'app/components/CheckBox'
 import Icon from 'app/components/Icon'
 import BouncePressable from 'app/pressable/BouncePressable'
+import useLocalization from 'app/provider/localization'
 import { Pressable, styled, Text, View } from 'dripsy'
 
 const UserAgreement = ({ onAgree, isAgree }) => {
+  const { t } = useLocalization()
+
   return (
     <SytledView>
       <CheckBox onCheck={onAgree} isCheck={isAgree} />
       <Pressable hitSlop={10} onPress={() => onAgree(!isAgree)}>
         <StyleText>
-          I have read & agree the{' '}
-          <StylePressableText>User agreement</StylePressableText>
+          {t('auth.readAndAgree')}{' '}
+          <StylePressableText>{t('common.userAgreement')}</StylePressableText>
         </StyleText>
       </Pressable>
     </SytledView>

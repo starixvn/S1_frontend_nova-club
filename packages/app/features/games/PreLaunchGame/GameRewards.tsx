@@ -1,7 +1,10 @@
 import { DripsyGradient } from 'app/components/Gradient'
+import useLocalization from 'app/provider/localization'
 import { styled, Text, View } from 'dripsy'
 
 const GameRewards = () => {
+  const { t } = useLocalization()
+
   return (
     <StyledView>
       <DripsyGradient
@@ -11,7 +14,7 @@ const GameRewards = () => {
         }}
       >
         <Text sx={{ color: '#6397B7', py: '$2a', fontSize: 14 }}>
-          Game Rewards:{' '}
+          {t('game.reward')}:{' '}
           <Text sx={{ color: '#FF7070', fontSize: 14 }}>0.5%</Text>
         </Text>
       </DripsyGradient>

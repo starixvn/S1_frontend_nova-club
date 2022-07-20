@@ -108,8 +108,8 @@ function Button({
     bg: fill.type === 'surface' ? fill.color : 'transparent',
     borderWidth: fill.type === 'border' ? 1 : 0,
     borderColor: fill.type === 'border' ? fill.color : undefined,
-    ...containerStyle,
     opacity: disabled || loading ? 0.3 : 1,
+    ...containerStyle,
   }
 
   const containerProps = {
