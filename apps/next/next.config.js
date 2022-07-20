@@ -24,7 +24,7 @@ const nextConfig = {
     outputFileTracingRoot: path.join(__dirname, '../../'),
   },
 }
-
+const { withSentryConfig } = require('@sentry/nextjs');
 const { withExpo } = require('@expo/next-adapter')
 const withPlugins = require('next-compose-plugins')
 const withFonts = require('next-fonts')
@@ -43,8 +43,7 @@ const withTM = require('next-transpile-modules')([
   '@gorhom/portal',
   '@react-native-community/datetimepicker',
 ])
-
-module.exports = withPlugins(
+const moduleExports = withPlugins(
   [
     withTM,
     withImages,
@@ -53,3 +52,20 @@ module.exports = withPlugins(
   ],
   nextConfig
 )
+
+  const sentryWebpackPluginOptions = {
+    // Additional config options for the Sentry Webpack plugin. Keep in mind that
+    // the following options are set automatically, and overriding them is not
+    // recommended:
+    //   release, url, org, project, authToken, configFile, stripPrefix,
+    //   urlPrefix, include, ignore
+    // silent: true, // Suppresses all logs
+    configFile: 'sentry.properties',
+    // release:'cRQY4ipPhDjD8JQBiA-Lh'
+    release:'MxjIyysdrVpMqHPzIDoRe',
+
+    // For all available options, see:
+    // https://github.com/getsentry/sentry-webpack-plugin#options.
+  };
+
+  module.exports = withSentryConfig(moduleExports, sentryWebpackPluginOptions);
