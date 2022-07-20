@@ -43,7 +43,6 @@ const ProfileBalance = () => {
       <MotiPressable onPress={handlePress}>
         <View
           sx={{
-            flex: 1,
             flexDirection: 'row',
             alignItems: 'center',
             minHeight: 75,
@@ -57,7 +56,7 @@ const ProfileBalance = () => {
             isLoading={isFetching}
             _sx={{ justifyContent: 'center' }}
             icon="bw"
-            _iconStyle={{ fontSize: 40 }}
+            _iconStyle={{ fontSize: 35 }}
           />
           <MotifiedView
             animate={{ rotate: isExtend ? '-180deg' : '0deg' }}
@@ -67,7 +66,7 @@ const ProfileBalance = () => {
             }}
             sx={{ position: 'absolute', right: 0 }}
           >
-            <Icon name="chevdown" size={25} />
+            <Icon name="chevdown" size={20} color={'$lightCyan'} />
           </MotifiedView>
         </View>
 
@@ -107,7 +106,7 @@ const ProfileBalance = () => {
                       pr: '$5',
                     }}
                     icon="ac"
-                    _iconStyle={{ color: '$border', fontSize: 35 }}
+                    _iconStyle={{ color: '$border', fontSize: 30 }}
                   />
 
                   <BalanceItem
@@ -155,7 +154,7 @@ const BalanceItem = ({
         ..._sx,
       }}
     >
-      <Icon name={icon} color={'#56f1ff'} sx={_iconStyle} />
+      <Icon name={icon} color={'#56f1ff'} sx={{ mr: '$2', ..._iconStyle }} />
       <View sx={{ ml: '$1' }}>
         <Text sx={{ fontSize: titleFontSize }}>{title}</Text>
         {isLoading ? (
@@ -180,15 +179,14 @@ const BalanceItem = ({
 }
 
 const StyledGradient = styled(Gradient)(() => ({
-  mt: '$5',
+  mt: '$2',
   mb: '$2',
   px: '$4',
-  width: 400,
   alignSelf: 'center',
-  maxWidth: '90%',
   borderWidth: 2,
   borderColor: '$lightNavyBlue',
   borderRadius: 18,
+  width: '100%',
   position: 'relative',
 }))
 

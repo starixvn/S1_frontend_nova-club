@@ -67,7 +67,7 @@ const IconAction = ({
   const { t } = useLocalization()
 
   return (
-    <View sx={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
+    <View sx={{ justifyContent: 'flex-start', alignItems: 'center' }}>
       <RoundedIcon
         gradient={gradient}
         icon={icon}
@@ -81,9 +81,10 @@ const IconAction = ({
 
 const StyledView = styled(View)(() => ({
   flexDirection: 'row',
-  m: '$4',
+  my: '$4',
   textAlign: 'center',
   justifyContent: 'space-between',
+  width: '100%',
 }))
 
 const StyledTextIcon = styled(Text)(() => ({

@@ -1,3 +1,4 @@
+import { Gradient } from '@dripsy/gradient'
 import GradientBox from 'app/components/GradientBox'
 import Icon from 'app/components/Icon'
 import BouncePressable from 'app/pressable/BouncePressable'
@@ -11,7 +12,10 @@ const ProfileOverview = () => {
   const { theme } = useDripsyTheme()
   const { push } = useRouter()
   return (
-    <StyledGradientBox>
+    <Gradient
+      colors={['#033454', 'rgb(13, 32, 53)']}
+      sx={{ minHeight: 100, p: '$3' }}
+    >
       <StyledOverView>
         <Text sx={{ fontWeight: 'bold' }}>
           {t('profile.overview.title').toUpperCase()}
@@ -27,12 +31,17 @@ const ProfileOverview = () => {
           <Text
             sx={{
               color: theme.colors.$lightCyan,
-              mr: '$0a',
+              mr: '$1',
             }}
           >
             {t('common.more')}
           </Text>
-          <Icon name="chevdown" size={20} color={theme.colors.$lightCyan} />
+          <Icon
+            name="chevdown"
+            size={16}
+            color={theme.colors.$lightCyan}
+            sx={{ mt: 3 }}
+          />
         </BouncePressable>
       </StyledOverView>
       <StyledItemViewWrapper>
@@ -40,7 +49,7 @@ const ProfileOverview = () => {
         <OverviewItem title="Active" value={0} />
         <OverviewItem title="Turnover" value={0} />
       </StyledItemViewWrapper>
-    </StyledGradientBox>
+    </Gradient>
   )
 }
 
@@ -52,11 +61,6 @@ const OverviewItem = ({ title, value }: { title: string; value: number }) => {
     </StyledItemView>
   )
 }
-
-const StyledGradientBox = styled(GradientBox)(() => ({
-  minHeight: 100,
-  p: '$3',
-}))
 
 const StyledOverView = styled(View)(() => ({
   flexDirection: 'row',

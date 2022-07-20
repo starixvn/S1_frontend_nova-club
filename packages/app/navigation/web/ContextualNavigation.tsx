@@ -26,6 +26,7 @@ const _contextualComponents = {
     import('app/features/profile/bank-account/add-bank-account'),
   history: () => import('app/features/profile/history'),
   'profile-details': () => import('app/features/profile/profile-details'),
+  profile: () => import('app/features/profile'),
   'change-password': () => import('app/features/profile/change-password'),
   'forget-password': () => import('../../features/auth/forgotPassword'),
   '/games/prelaunch': () => import('../../features/games/PreLaunchGame'),

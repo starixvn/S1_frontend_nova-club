@@ -27,7 +27,6 @@ function TabNavigation() {
       <Tab.Screen name="Games" component={Games} />
       <Tab.Screen name="Slots" component={SlotGames} />
       <Tab.Screen name="Casino" component={Casino} />
-      <Tab.Screen name="Profile" component={Profile} />
       {/* <Tab.Screen name="FishingPage" component={FishingPage} /> */}
       {/* <Tab.Screen name="LotteryPage" component={LotteryPage} /> */}
     </Tab.Navigator>

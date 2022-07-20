@@ -65,7 +65,7 @@ const MainHeader = () => {
     {
       img: require('../assets/images/header/avatar.png'),
       action: () => {
-        push('/profile')
+        push(makeContextualHref('profile'), '/profile')
       },
     },
     {
@@ -90,7 +90,7 @@ const MainHeader = () => {
   // Google Pixel 5a require this insets to get accurate value
   const insets = useSafeArea()
 
-  const iconHeight = headerHeight.map((x) => x * 0.6)
+  const iconHeight = headerHeight.map((x) => x * 0.7)
 
   useEffect(() => {
     const mainWallet = playerBalance?.data?.main
@@ -118,13 +118,14 @@ const MainHeader = () => {
             onPress={() => {
               push('/')
             }}
+            sx={{ px: '$2', mb: 5 }}
           >
             <StyledLogo
               sx={sx({
                 height: iconHeight,
-                width: iconHeight.map((x) => x * (118 / 69)),
+                width: iconHeight.map((x) => x * (519 / 186)),
               })}
-              source={require('../assets/logo.png')}
+              source={require('../assets/images/logo.png')}
               resizeMode="contain"
             />
           </BouncePressable>

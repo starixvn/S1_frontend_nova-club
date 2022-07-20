@@ -1,6 +1,8 @@
 import Avatar from 'app/components/Avatar'
 import IconButton from 'app/components/form/IconButton'
+import Icon from 'app/components/Icon'
 import useContextualRouting from 'app/hooks/useContextualRouting'
+import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
 import { styled, Text, View } from 'dripsy'
 import React from 'react'
@@ -13,7 +15,7 @@ type ProfileUserProps = {
 
 const ProfileUser = ({ username }: ProfileUserProps) => {
   const { t } = useLocalization()
-  const { push } = useRouter()
+  const { push, back } = useRouter()
   const { openModal } = useModal()
 
   const { makeContextualHref } = useContextualRouting()
@@ -21,8 +23,11 @@ const ProfileUser = ({ username }: ProfileUserProps) => {
 
   return (
     <ViewWrapper>
+      <BouncePressable onPress={() => back()} sx={{ mr: '$4' }}>
+        <Icon name="chevleft" size={20} color="#9CD9FA" />
+      </BouncePressable>
       <Avatar
-        source={require('../../assets/images/games/fishing/fishing08.png')}
+        source={require('../../assets/images/header/avatar.png')}
         sx={{ mr: '$2', bg: 'white' }}
       />
       <ViewTextWrapper>
@@ -54,7 +59,7 @@ const ProfileUser = ({ username }: ProfileUserProps) => {
 
 const ViewWrapper = styled(View)({
   px: '$3',
-  py: '$1',
+  py: '$3',
   flexDirection: 'row',
   alignItems: 'center',
 })

@@ -51,7 +51,7 @@ const ListSectionHeader = ({
 
 const StyledContainer = styled(View)({
   mt: ['$2a', '$4'],
-  mb: ['$4', '$6'],
+  mb: [0, '$6'],
   flexDirection: 'row',
   justifyContent: 'space-between',
 })
