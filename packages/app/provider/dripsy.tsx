@@ -1,6 +1,16 @@
 import { DripsyProvider, makeTheme } from 'dripsy'
 import useOnAppStart from 'app/hooks/useOnAppStart'
+import { Platform } from 'react-native'
 export const fontName = 'Helvetica Neue'
+export const HelveticaBold = 'Helvetica Neue Bold'
+export const HelveticaBoldItalic = 'Helvetica Neue Bold Italic'
+
+const webFont = (font: string) =>
+  Platform.select({
+    web: `${font}, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, Inter-serif`,
+    default: font,
+  })
+
 const size = {
   $0: 0,
   $0a: 2,
@@ -203,15 +213,14 @@ const theme = makeTheme({
   customFonts: {
     [fontName]: {
       // I recommend setting every weight here
-      // bold: 'arialBold',
-      default: fontName,
-      normal: fontName,
-      400: fontName,
+      bold: webFont(HelveticaBold),
+      default: webFont(fontName),
+      normal: webFont(fontName),
       // 500: 'arialMedium',
       // 600: 'arialBold',
-      // 700: 'arialBold',
+      // 700: HelveticaBold,
       // 800: 'arialBold',
-      // 900: 'arialBlack',
+      900: webFont(HelveticaBoldItalic),
     },
   },
 })

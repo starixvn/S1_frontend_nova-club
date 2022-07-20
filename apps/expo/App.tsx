@@ -1,7 +1,11 @@
 import useFontInit from 'app/hooks/useFontInit'
 import { NativeNavigation } from 'app/navigation/native'
 import { Provider } from 'app/provider'
-import { fontName } from 'app/provider/dripsy'
+import {
+  fontName,
+  HelveticaBold,
+  HelveticaBoldItalic,
+} from 'app/provider/dripsy'
 import { styled } from 'dripsy'
 import { StatusBar } from 'expo-status-bar'
 import { Text } from 'react-native'
@@ -16,6 +20,8 @@ export default function App() {
   const [loaded] = useFontInit({
     fontFamily: {
       [fontName]: require('app/assets/fonts/HelveticaNeue.ttf'),
+      [HelveticaBold]: require('app/assets/fonts/HelveticaNeueBold.ttf'),
+      [HelveticaBoldItalic]: require('app/assets/fonts/HelveticaNeueBoldItalic.ttf'),
     },
     // iconUrl: {
     //   uri:

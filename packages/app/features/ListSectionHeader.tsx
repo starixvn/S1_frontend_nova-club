@@ -1,5 +1,6 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
+import { fontName, HelveticaBold } from 'app/provider/dripsy'
 import useLocalization from 'app/provider/localization'
 import { styled, Text, TextInput, View } from 'dripsy'
 import React from 'react'
@@ -51,7 +52,7 @@ const ListSectionHeader = ({
 
 const StyledContainer = styled(View)({
   mt: ['$2a', '$4'],
-  mb: [0, '$6'],
+  mb: ['$2', '$6'],
   flexDirection: 'row',
   justifyContent: 'space-between',
 })
@@ -74,8 +75,7 @@ const StyledText = styled(Text)({
   padding: '$1a',
   pl: '$1a',
   pr: '$5',
-  fontWeight: 'bold',
-  fontStyle: 'italic',
+  fontWeight: 900,
 })
 
 const StyledGradient = styled(DripsyGradient)({

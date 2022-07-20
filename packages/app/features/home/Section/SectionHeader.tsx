@@ -62,8 +62,7 @@ const StyledText = styled(Text)({
   fontSize: [18, 23],
   color: 'white',
   padding: '$1a',
-  fontWeight: 'bold',
-  fontStyle: 'italic',
+  fontWeight: 900,
 })
 
 export default SectionHeader
