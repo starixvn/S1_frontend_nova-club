@@ -48,7 +48,7 @@ const BankAccountScreen = () => {
         ) : (
           <StyledViewNoResult>
             <Image
-              source={require('app/assets/images/home/fishing.png')}
+              source={require('app/assets/images/home/fishing.jpg')}
               style={{ aspectRatio: 1, marginBottom: 12, width: '50%' }}
             />
             <Text sx={{ color: '#72859A' }}>{t('bank.noBankAccount')}</Text>

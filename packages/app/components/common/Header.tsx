@@ -53,13 +53,14 @@ const Header = ({ title }: { title: string }) => {
       >
         <StyledTop
           sx={{
-            py: isLandscape ? 0 : '$2',
+            py: isLandscape ? '$1' : '$2',
+            px: isLandscape ? '$6' : '$2',
           }}
         >
           <BouncePressable onPress={onGoBack}>
             <Icon
               name="chevleft"
-              size={isLandscape ? 30 : 30}
+              size={isLandscape ? 14 : 20}
               color="#9CD9FA"
             />
           </BouncePressable>
@@ -83,6 +84,5 @@ const Header = ({ title }: { title: string }) => {
 const StyledTop = styled(View)({
   flexDirection: 'row',
   alignItems: 'center',
-  px: '$2',
 })
 export default Header

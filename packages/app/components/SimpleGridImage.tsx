@@ -80,8 +80,8 @@ const SimpleGridImage: FC<GamesProps> = ({
             )
           }}
         >
-          <View sx={{ bg: '#e71701' }}>
-            <Icon name="sl" color="white" />
+          <View sx={{ bg: '#e71701', p: '$1a' }}>
+            <Icon name="desktop" size={20} />
           </View>
           <Text sx={{ fontSize: 12, color: '#e71701', mx: '$2' }}>
             {t('common.desktop')}

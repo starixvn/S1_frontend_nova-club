@@ -74,7 +74,7 @@ const Slots = () => {
                 buttonTitle={selectedSlotType?.label ?? 'Click here to open'}
                 buttonProps={{
                   sx: {
-                    flex: 0.4,
+                    flex: 0.45,
                   },
                   isActive: false,
                 }}
@@ -86,16 +86,16 @@ const Slots = () => {
                 buttonProps={{
                   sx: {
                     ml: '$2',
-                    flex: 0.4,
+                    flex: 0.45,
                   },
                   isActive: false,
                 }}
-                _flatList={{
+                _dataList={{
                   data: providerSelection,
                   setSelectedValue: setSelectedProvider,
                 }}
                 _actionSheet={{
-                  id: t('menu.tab.provider'),
+                  id: 'slot provider',
                   headerTitle: t('menu.tab.provider'),
                 }}
               />

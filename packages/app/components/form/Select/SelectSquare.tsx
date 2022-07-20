@@ -13,17 +13,17 @@ type SelectSquareProps = {
   buttonProps?: Omit<ButtonProps, 'title' | 'onOpen'>
   buttonTitle?: string
   _actionSheet: SquareSelectorActionSheetProps
-  _flatList: SquareSelectorFlatListProps
+  _dataList: SquareSelectorFlatListProps
 }
 
 const SelectSquare = ({
   buttonProps,
   buttonTitle = '',
-  _flatList,
+  _dataList,
   _actionSheet,
 }: SelectSquareProps) => {
   const { id: actionSheetId } = _actionSheet || {}
-  const { setSelectedValue } = _flatList || {}
+  const { setSelectedValue } = _dataList || {}
   const actionSheetRef = createRef()
   const [isActive, toggleIsActive] = useReducer((state) => {
     return !state
@@ -51,8 +51,8 @@ const SelectSquare = ({
       />
       <SquareSelectorActionSheet
         ref={actionSheetRef}
-        _flatList={{
-          ..._flatList,
+        _dataList={{
+          ..._dataList,
           titleType: 'value',
           logo: 'provider',
           onPress: (item) => handleActionSheetClose(item),
