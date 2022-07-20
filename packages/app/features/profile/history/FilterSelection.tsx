@@ -125,7 +125,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
                 flex: 1,
               },
             }}
-            _flatList={{
+            _dataList={{
               data: providerList,
               setSelectedValue: (value) =>
                 setSelected({ ...selected, selectedGame: value }),

@@ -18,7 +18,7 @@ const TopHeader = ({ providerCode }: { providerCode: string }) => {
   return (
     <StyledTop>
       <BouncePressable onPress={onGoBack}>
-        <Icon name="chevleft" size={30} color="#9CD9FA" />
+        <Icon name="chevleft" size={26} color="#9CD9FA" />
       </BouncePressable>
       <View sx={{ alignItems: 'center', flex: 0.9 }}>
         <Image

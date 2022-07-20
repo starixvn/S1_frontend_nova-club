@@ -170,6 +170,7 @@
   },
   "game": {
     "category": {
+      "cockfighting": "Cockfighting",
       "fishing": "Fishing",
       "games": "Games",
       "hotGames": "Hot Games",

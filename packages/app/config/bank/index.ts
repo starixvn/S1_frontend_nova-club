@@ -76,7 +76,7 @@ const BankLogo = [
 export const getBankLogo = (bankCode: string) => {
   const logo = BankLogo.find((el) => el.bank_code === bankCode)?.image
 
-  return logo ?? require('../../assets/images/home/fishing.png')
+  return logo ?? require('../../assets/images/home/fishing.jpg')
 }
 
 export default BankLogo

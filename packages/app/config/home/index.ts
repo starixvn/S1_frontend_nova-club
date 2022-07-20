@@ -4,30 +4,33 @@ const HOME_GAMES_CATEGORY = [
     title: 'game.category.sportsbook',
   },
   {
-    image: require('../../assets/images/home/games.png'),
+    image: require('../../assets/images/home/games.jpg'),
     title: 'game.category.games',
   },
   {
-    image: require('../../assets/images/home/slots.png'),
+    image: require('../../assets/images/home/sl.jpg'),
     title: 'game.category.slots',
   },
   {
-    image: require('../../assets/images/home/lc.png'),
+    image: require('../../assets/images/home/cf.jpg'),
+    title: 'game.category.cockfighting',
+  },
+  {
+    image: require('../../assets/images/home/lc.jpg'),
     title: 'game.category.liveCasino',
   },
   {
-    image: require('../../assets/images/home/lottery.png'),
+    image: require('../../assets/images/home/lt.jpg'),
     title: 'game.category.keno/lottery',
   },
   {
-    image: require('../../assets/images/home/fishing.png'),
+    image: require('../../assets/images/home/fishing.jpg'),
     title: 'game.category.fishing',
   },
   {
-    image: require('../../assets/images/home/card.png'),
+    image: require('../../assets/images/home/card.jpg'),
     title: 'game.category.poker',
   },
 ]
- 
 
 export default HOME_GAMES_CATEGORY

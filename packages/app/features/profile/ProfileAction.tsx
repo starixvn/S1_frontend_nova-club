@@ -92,6 +92,7 @@ const StyledTextIcon = styled(Text)(() => ({
   fontSize: 13,
   fontWeight: 'bold',
   flexWrap: 'nowrap',
+  textAlign: 'center',
 }))
 
 export default ProfileAction
