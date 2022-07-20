@@ -45,9 +45,9 @@ const ProfileOverview = () => {
         </BouncePressable>
       </StyledOverView>
       <StyledItemViewWrapper>
-        <OverviewItem title="Registered" value={0} />
-        <OverviewItem title="Active" value={0} />
-        <OverviewItem title="Turnover" value={0} />
+        <OverviewItem title={t('common.registered')} value={0} />
+        <OverviewItem title={t('common.active')} value={0} />
+        <OverviewItem title={t('common.turnover')} value={0} />
       </StyledItemViewWrapper>
     </Gradient>
   )

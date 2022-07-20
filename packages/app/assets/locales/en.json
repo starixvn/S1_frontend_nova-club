@@ -1,13 +1,17 @@
 {
   "auth": {
+    "accountReg": "Account Registration",
+    "accountVerification": "Account Verification",
     "enterNewPassword": "Please enter your New Password",
     "enterOtp": "Please enter OTP",
     "forgotPassword": "Forgot Password",
-    "table": "Commission Table",
-    "accountReg": "Account Registration",
+    "login": "Login",
+    "loginToAccount": "Login to your account",
+    "noReceiveOTP": "Didn't receive OTP?",
+    "readAndAgree": "I have read & agree the",
     "referrerInfo": "Referrer information",
     "register": "Register",
-    "login": "Login"
+    "table": "Commission Table"
   },
   "bank": {
     "accountName": "Account name",
@@ -28,6 +32,7 @@
     "table": "Commission Table"
   },
   "common": {
+    "active": "Active",
     "all": "All",
     "amount": "Amount",
     "balance": "Balance",
@@ -39,6 +44,7 @@
     "confirm": "Confirm",
     "confirmDelete": "Are you sure you want to delete? It cannot restore after deletion!",
     "confirmPassword": "Confirm Password",
+    "contactUs": "Contact Us",
     "copy": "Copy",
     "desktop": "Desktop",
     "emptyResult": "Empty Result",
@@ -48,6 +54,7 @@
     "enterNewPassword": "Please enter new password",
     "enterOldPassword": "Please enter old password",
     "hello": "Hello!!",
+    "home": "Home",
     "importantNote": "Important note",
     "importantNotes": "Important Notes",
     "lose": "Lose",
@@ -56,23 +63,28 @@
     "next": "Next",
     "ok": "OK",
     "oldPassword": "Old Password",
+    "otp": "OTP",
     "password": "Password",
     "passwordNote": "1. Password must be alphanumeric without special character. The length is unless 6-12 character. \n2. Password can not be the same to old pass",
     "referenceId": "Reference ID",
+    "registered": "Registered",
     "reward": "Reward",
+    "rewards": "Rewards",
     "selectAll": "Select All",
     "selectDate": "Select A Date",
+    "send": "Send",
     "submit": "Submit",
+    "turnover": "Turnover",
+    "userAgreement": "user agreement",
     "username": "Username",
     "win": "Win"
   },
   "contact": {
+    "contactVia": "Contact via",
     "livechat": "Live Chat",
     "telegram": "Telegram",
     "whatsapp": "WhatsApp"
   },
-  "defaultLocale": "",
-  "defaultSeparator": "",
   "deposit": {
     "actualDeposit": "Actual Deposit",
     "cardCode": "Card Code",
@@ -81,7 +93,6 @@
     "choose": "Choose your Deposit Options",
     "cryptoAmount": "123,456 VND",
     "deduction": "Deduction",
-    "deposit": "",
     "depositAmount": "Deposit Amount",
     "depositMethod": {
       "bankTransfer": "Bank Transfer",
@@ -100,7 +111,6 @@
     },
     "usdt": "USDT"
   },
-  "fallbacks": "",
   "filter": {
     "date": {
       "custom": "Custom",
@@ -154,7 +164,7 @@
   "form": {
     "tips": {
       "needAccountNo": "Need Account Number",
-      "password": "* Password must be 6-15 characters, contain both alphanumeric and a special characters (!@#$%^&*).",
+      "password": "Password must be 6-15 characters, contain both alphanumeric and a special characters (!@#$%^&*).",
       "realName": "Please enter your real name."
     }
   },
@@ -178,11 +188,11 @@
       "virtualSports": "Virtual Sports"
     },
     "quitGame": "Quit Game",
+    "reward": "Game rewards",
     "underMaintenance": "Game Under Maintenance"
   },
-  "home": {},
-  "locale": "",
   "menu": {
+    "agentLogin": "Agent Login",
     "bankAccount": "Bank Account",
     "changePassword": "Change Password",
     "commisionTable": "Commision Table",
@@ -195,11 +205,12 @@
     "profile": "Profile",
     "switchAccount": "Switch Account",
     "tab": {
-      "bets": "Bets",
+      "bets": "Bet",
       "date": "Date",
       "game": "Game",
       "gameType": "Game Type",
       "provider": "Provider",
+      "providers": "Providers",
       "status": "Status",
       "statusType": "Status Type",
       "transaction": "Transaction",
@@ -208,14 +219,13 @@
       "win/loss": "Win/Loss"
     },
     "transactionHistory": "Transaction History",
-    "withdraw": "Withdraw"
+    "withdraw": "Withdraw",
+    "withdrawal": "Withdrawal"
   },
   "message": {
     "annoucement": "Annoucement",
     "personalMessage": "Personal Message"
   },
-  "missingBehaviour": "",
-  "missingTranslationPrefix": "",
   "profile": {
     "details": {
       "currency": "Currency",
@@ -249,26 +259,27 @@
     "error": "Error",
     "expired": "Expired",
     "failed": "Failed",
+    "imageNotSupported": "Image format not supported",
     "pending": "Pending",
     "processing": "Processing",
     "referralError": "Refferal doesn't exist, please try another code",
     "rejected": "Rejected",
     "success": "Success",
-    "systemError": "Oops! Something wrong, please try again.",
-    "imageNotSupported": "Image format not supported"
+    "systemError": "Oops! Something wrong, please try again."
   },
   "transaction": {
     "transactions": "Transactions"
   },
   "transfer": {
     "avaiableAmount": "Available Amount",
-    "transferTo": "Transfer To",
-    "transfer": "Transfer"
+    "transfer": "Transfer",
+    "transferTo": "Transfer To"
   },
   "validation": {
+    "alphanumeric": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only",
     "amount": "%{amount} not in range",
     "amountLessThan": "Amount cannot be less than %{min}",
-    "dailyLimitReached": "Your Daily Limit Reached.",
+    "dailyLimitReached": "Your Daily Limit Reached",
     "email": "Mail format is wrong",
     "erc20Format": "Must be ERC-20 compatible wallet address",
     "exceedAvailableTransferBalance": "Exceed available transfer balance %{balance}",
@@ -277,11 +288,14 @@
     "invalidPhone": "Phone number is invalid",
     "minMaxLimit": "Min/Max Limit %{min}/%{max}",
     "numberOnly": "Only number is allowed",
-    "passwordMinMaxLength": "Password must be 6-15 characters only.",
+    "otpLength": "OTP must be 6-digit number",
+    "passwordMinMaxLength": "Password must be 6-15 characters only",
     "required": "%{field} is required",
     "usdtFormat": "Must be ERC-20 / TRC-20 compatible wallet address",
-    "userNameMinMaxLength": "Username must be 6-18 characters only.",
-    "username": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only."
+    "username": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only",
+    "userNameMinMaxLength": "Username must be 6-18 characters only"
   },
-  "withdrawal": {}
+  "withdrawal": {
+    "withdrawTo": "Withdraw To"
+  }
 }

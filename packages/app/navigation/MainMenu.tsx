@@ -1,5 +1,6 @@
 import Icon from 'app/components/Icon'
 import useContextualRouting from 'app/hooks/useContextualRouting'
+import useLocalization from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { logOut } from 'app/utils/authUtil'
 import { Image, styled, Sx, View } from 'dripsy'
@@ -15,6 +16,7 @@ interface MainMenuProps {
 }
 
 const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
+  const { t } = useLocalization()
   const { push, replace } = useRouter()
   const { top: safeAreaTopHeight } = useSafeArea()
   const { x: parentWidth, y: parentHeight } = parentPosition
@@ -41,25 +43,25 @@ const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
   const MENU_LIST = useMemo(
     () => [
       {
-        label: 'Agent Login',
+        label: 'menu.agentLogin',
         icon: 'profile',
       },
       {
-        label: 'Deposit',
         icon: 'dac',
+        label: 'menu.deposit',
         onPress: () => {
           push(makeContextualHref('deposit'), '/deposit')
         },
       },
       {
-        label: 'Withdrawal',
         icon: 'wda',
+        label: 'menu.withdrawal',
         onPress: () => {
           push(makeContextualHref('withdrawal'), '/withdrawal')
         },
       },
       {
-        label: 'Customer Support',
+        label: 'menu.customerSupport',
         icon: 'cs',
         onPress: () => {
           push(makeContextualHref('customer-support'), '/customer-support')
@@ -70,8 +72,8 @@ const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
       //   icon: 'switch',
       // },
       {
-        label: 'Logout',
         icon: 'logout',
+        label: 'menu.logout',
         onPress: async () => {
           await logOut()
           // TODO: add loading to prevent spamming
@@ -141,7 +143,7 @@ const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
             >
               <Icon name={i.icon} size={23} />
               <StyleText sx={{ color: lastItem ? 'grey' : 'white' }}>
-                {i.label}
+                {t(i.label)}
               </StyleText>
             </StyledWrapList>
           )

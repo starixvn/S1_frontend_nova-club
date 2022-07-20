@@ -33,16 +33,18 @@ const QRTransferModal = ({ modal: { closeModal } }) => {
         }}
       >
         <View sx={{ mb: '$4', alignItems: 'center' }}>
+          <Text sx={{ color: '$black' }}>{data?.data?.username}</Text>
           <QRCode
             value={referralCode}
             size={width * 0.5}
             logo={require('../../assets/nclub-appicon.png')}
-            // logoSize={width * 0.2}
+            ecl="H"
             quietZone={12}
             logoBackgroundColor="white"
             logoMargin={4}
             logoBorderRadius={100}
           />
+          <Text sx={{ color: '$black' }}>{t('qrcode.note')}</Text>
         </View>
         <Button
           rounded

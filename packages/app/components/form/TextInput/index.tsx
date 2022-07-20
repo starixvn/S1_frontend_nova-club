@@ -8,7 +8,7 @@ import {
 } from 'dripsy'
 import { AnimatePresence, MotiText } from 'moti'
 import { FC, useState, memo } from 'react'
-import { Button } from 'react-native'
+import { Button, Platform } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
 export interface TextInputAction {
@@ -87,18 +87,24 @@ const TextInput: FC<TextInputProps> = (props) => {
 const ErrorText = ({ error }: { error?: string }) => {
   const { theme } = useDripsyTheme()
 
+  // mobile have to be 2.5, else `numberOfLines` 2 not working
+  const textHeightPercentage = Platform.OS === 'web' ? 1.5 : 2.5
+
   return (
     <AnimatePresence>
       {error && (
         <MotiText
           animate={{
-            height: [0, theme.text.body.fontSize * 1.5],
+            height: [0, theme.text.body.fontSize * textHeightPercentage],
             opacity: [0, 1],
           }}
           exit={{ height: 0, opacity: 0 }}
           transition={{ type: 'timing', duration: 300 }}
+          {...(Platform.OS !== 'web' && { numberOfLines: 2, minHeight: 300 })}
         >
-          <Text variants={['error', 'sm']}>{error}</Text>
+          <Text variants={['error', 'sm']} numberOfLines={2}>
+            {error}
+          </Text>
         </MotiText>
       )}
     </AnimatePresence>

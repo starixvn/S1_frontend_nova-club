@@ -1,3 +1,6 @@
+import withContextualNav from 'app/navigation/web/withContextualNav'
+import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
+import useLocalization from 'app/provider/localization'
 import { ScrollView, View } from 'dripsy'
 import React from 'react'
 import ListSectionHeader from '../ListSectionHeader'
@@ -7,9 +10,15 @@ import MenuRow from './MenuRow'
 import SlotGames from './SlotGames'
 
 const Games = () => {
+  const { t } = useLocalization()
+
   return (
     <ScrollView sx={{ bg: '$background' }} showsVerticalScrollIndicator={false}>
-      <ListSectionHeader title={'Games'} bgColor="green" iconName="games" />
+      <ListSectionHeader
+        title={t('game.category.games')}
+        bgColor="green"
+        iconName="games"
+      />
       <MenuRow />
       <View sx={{ bg: '$lightNavyBlue', height: 1 }} />
       <HotGames />

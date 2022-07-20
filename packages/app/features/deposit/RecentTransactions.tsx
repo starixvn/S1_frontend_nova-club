@@ -53,9 +53,9 @@ const RecentTransactions = () => {
   )
 }
 
-const CELL_CATEGORY_WIDTH = 1.5
-const CELL_DATE_WIDTH = 1
-const CELL_STATUS_WIDTH = 1
+const CELL_CATEGORY_WIDTH = 0.45
+const CELL_DATE_WIDTH = 0.3
+const CELL_STATUS_WIDTH = 0.25
 
 const TableItem = ({ item }) => {
   const { t } = useLocalization()
@@ -88,19 +88,25 @@ const TableItem = ({ item }) => {
           <IconWrap sx={{ bg: category.color, mr: '$4' }}>
             <Icon name={category.icon} size={ICON_SIZE * 0.6} />
           </IconWrap>
-          <Text sx={{ fontWeight: 'bold' }}>{t(category.name)}</Text>
+          <Text sx={{ fontWeight: 'bold', flex: 1 }}>{t(category.name)}</Text>
         </View>
-        <View sx={{ flex: CELL_DATE_WIDTH, textAlign: 'right' }}>
+
+        <View sx={{ flex: CELL_DATE_WIDTH, alignItems: 'flex-end' }}>
           <DateTimeCell date={item.date} />
         </View>
-        <View sx={{ flex: CELL_STATUS_WIDTH, textAlign: 'right' }}>
+
+        <View sx={{ flex: CELL_STATUS_WIDTH, alignItems: 'flex-end' }}>
           <Text>
             {toCurrency(item.amount, currency, {
               symbol: false,
               hideTruncatedThousand: false,
             })}
           </Text>
-          <Text sx={{ color: getStatusColor(item.status, theme) }}>
+          <Text
+            sx={{
+              color: getStatusColor(item.status, theme),
+            }}
+          >
             {item.status}
           </Text>
         </View>

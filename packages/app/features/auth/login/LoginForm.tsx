@@ -113,7 +113,9 @@ const LoginForm = () => {
           },
         }}
         error={
-          touched.username && errors.username ? errors.username : undefined
+          touched.username && errors.username ? t(errors.username, {
+            field: t('common.username')
+          }) : undefined
         }
       />
 
@@ -129,7 +131,9 @@ const LoginForm = () => {
           onSubmitEditing: submitForm,
         }}
         error={
-          touched.password && errors.password ? errors.password : undefined
+          touched.password && errors.password ? t(errors.password, {
+            field: t('common.password')
+          }) : undefined
         }
         sx={{ mt: '$3' }}
       />

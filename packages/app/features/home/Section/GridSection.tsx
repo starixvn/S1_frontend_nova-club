@@ -99,6 +99,7 @@ const GridSection = () => {
                   textTransform: 'uppercase',
                   fontSize: [16, 18],
                   py: ['$2', '$3'],
+                  textAlign: 'center',
                 }}
               >
                 {t(j.title)}

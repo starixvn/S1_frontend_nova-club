@@ -1,9 +1,9 @@
 import IconButton from 'app/components/form/IconButton'
 import { DripsyGradient } from 'app/components/Gradient'
+import KeyboardView from 'app/components/KeyboardView'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Image, ScrollView, styled, Text, View } from 'dripsy'
 import React from 'react'
-import { MotiLink } from 'solito/moti'
 
 const HEADER_IMAGE = require('../../../assets/images/common/logo.jpg')
 const BACK_ICON_SIZE = 30
@@ -46,7 +46,7 @@ const AuthLayout = ({
           pt: top,
         }}
       >
-        <View>
+        <View sx={{ flex: 1 }}>
           <View
             sx={{
               position: 'relative',
@@ -101,8 +101,10 @@ const AuthLayout = ({
 
           {formHeader}
 
-          <View sx={{ alignItems: 'center', pt: '$8' }}>
-            <View sx={{ width: '75%' }}>{children}</View>
+          <View sx={{ alignItems: 'center', pt: '$8', flex: 1 }}>
+            <View sx={{ width: '75%', flex: 1 }}>
+              <KeyboardView>{children}</KeyboardView>
+            </View>
           </View>
         </View>
       </DripsyGradient>

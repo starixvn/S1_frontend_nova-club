@@ -14,13 +14,15 @@ import {
   useSx,
   View,
 } from 'dripsy'
-import React from 'react'
+import React, { useRef } from 'react'
 import { FlatList, Platform } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import ListSectionHeader from '../ListSectionHeader'
 import useLiveCasinoFilter from '../../hooks/game/useLiveCasinoFilter'
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { GameConfig } from 'services/contentApi.type'
+import SelectButton from 'app/components/form/Select/SelectButton'
+import ActionSheet from 'react-native-actions-sheet'
 
 const LiveCasinoImageExtensionMapping = {
   cq9: 'png',
@@ -31,6 +33,7 @@ const LiveCasino = () => {
   const { width } = useContainerDimension()
   const sx = useSx()
   const space = width * HOME_PADDING
+  const actionSheetRef = useRef<ActionSheet>(null)
 
   const {
     genreSelection,
@@ -43,6 +46,10 @@ const LiveCasino = () => {
   } = useLiveCasinoFilter()
 
   const { containerSpace, itemSpace, contentWidth } = useGameGridSize()
+
+  const openActionSheet = () => {
+    actionSheetRef.current?.show()
+  }
 
   const renderItem = ({ item }: { item: GameConfig }) => {
     const { game_code, game_provider_code, game_name } = item
@@ -108,16 +115,11 @@ const LiveCasino = () => {
         }}
       >
         <Text sx={{ fontSize: [15, 20] }}>{selectedProvider.label}</Text>
-        <Select
-          actionSheetProps={{ id: 'liveCasinoGenre' }}
-          headerTitle={'Game Type'}
-          buttonTitle={selectedGenre?.label ?? 'Click here to open'}
-          buttonProps={{
-            isActive: false,
-            sx: { minWidth: '25%' },
-          }}
-          data={genreSelection}
-          setSelectedValue={setSelectedGenre}
+        <SelectButton
+          onOpen={openActionSheet}
+          title={selectedGenre?.label ?? 'Click here to open'}
+          isActive={false}
+          sx={{ minWidth: '25%' }}
         />
       </View>
     </View>
@@ -164,6 +166,15 @@ const LiveCasino = () => {
         })}
       </View>
       <SimpleWrap data={filteredGames} /> */}
+
+      {/* `ActionSheet` cannot be shown if put inside `Flatlist` header */}
+      <Select
+        ref={actionSheetRef}
+        headerTitle={t('menu.tab.gameType')}
+        button={() => null}
+        data={genreSelection}
+        setSelectedValue={setSelectedGenre}
+      />
     </Page>
   )
 }

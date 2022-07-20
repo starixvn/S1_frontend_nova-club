@@ -27,7 +27,7 @@ const ProfileUser = ({ username }: ProfileUserProps) => {
         <Icon name="chevleft" size={20} color="#9CD9FA" />
       </BouncePressable>
       <Avatar
-        source={require('../../assets/images/header/avatar.png')}
+        source={require('../../assets/images/register/referral-avatar.png')}
         sx={{ mr: '$2', bg: 'white' }}
       />
       <ViewTextWrapper>

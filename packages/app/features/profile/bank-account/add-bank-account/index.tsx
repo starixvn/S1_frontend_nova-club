@@ -173,7 +173,7 @@ const AddBankAccountScreen = () => {
             }}
             onPress={submitForm}
           >
-            <Button.Label>Next</Button.Label>
+            <Button.Label>{t('common.next')}</Button.Label>
           </Button>
         </StyledButtonWrapper>
       </StyledView>

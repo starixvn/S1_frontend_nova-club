@@ -17,6 +17,8 @@
   },
   "scripts": {
     "native": "cd apps/expo && expo start",
+    "ios": "cd apps/expo && yarn ios",
+    "android": "cd apps/expo && yarn android",
     "web": "cd apps/next && yarn next",
     "plus": "yarn lernaupdate --lazy",
     "reset": "find . -type dir -name node_modules | xargs rm -rf && rm -rf yarn.lock",

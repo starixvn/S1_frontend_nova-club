@@ -1,6 +1,8 @@
 import GradientBox from 'app/components/GradientBox'
 import Icon from 'app/components/Icon'
 import useContextualRouting from 'app/hooks/useContextualRouting'
+import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
+import useLocalization from 'app/provider/localization'
 import { logOut } from 'app/utils/authUtil'
 import {
   ActivityIndicator,
@@ -19,6 +21,7 @@ const enum LOADING_STATE {
 }
 
 const ProfileOptions = () => {
+  const { t } = useLocalization()
   const [loadingState, setLoadingState] = useState(LOADING_STATE.COMPLETE)
 
   const { push, replace } = useRouter()
@@ -36,29 +39,29 @@ const ProfileOptions = () => {
   const optionsRoute = [
     {
       id: 1,
-      title: 'Profile',
       iconName: 'avatar',
+      title: 'menu.profile',
       routeWeb: toProfileDetails,
       route: '/profile/profile-details',
     },
     {
       id: 2,
-      title: 'Change Password',
       iconName: 'lock',
+      title: 'menu.changePassword',
       routeWeb: toChangePassword,
       route: '/profile/change-password',
     },
     {
       id: 3,
-      title: 'Commision Table',
       iconName: 'ct',
+      title: 'menu.commisionTable',
       routeWeb: toCommissionTable,
       route: '/profile/commission-table',
     },
     {
       id: 4,
-      title: 'Message/Announcement',
       iconName: 'annoucement',
+      title: 'menu.message/announcement',
       routeWeb: toMessages,
       route: {
         pathname: '/messages',
@@ -69,8 +72,8 @@ const ProfileOptions = () => {
     },
     {
       id: 5,
-      title: 'Customer Support',
       iconName: 'cs',
+      title: 'menu.customerSupport',
       routeWeb: toSupport,
       route: '/customer-support',
     },
@@ -85,8 +88,8 @@ const ProfileOptions = () => {
     // },
     {
       id: 7,
-      title: 'Logout',
       iconName: 'logout',
+      title: 'menu.logout',
       route: 'logout',
       onClick: async () => {
         if (loadingState === LOADING_STATE.LOADING) return
@@ -135,7 +138,7 @@ const ProfileOptions = () => {
                 fontWeight: item.id === 7 ? 'bold' : 'normal',
               }}
             >
-              {item.title}
+              {t(item.title)}
             </StyledText>
 
             {Boolean(item.appendIcon) && item.appendIcon?.()}

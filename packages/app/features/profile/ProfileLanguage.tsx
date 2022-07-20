@@ -1,12 +1,23 @@
-import IconButton from 'app/components/form/IconButton'
+import { Button } from 'app/components/form/Button'
 import { LANGUAGE_CODE } from 'app/constant/language'
 import { RootState } from 'app/provider/redux/store'
 import { AlertActions } from 'app/store/alert'
 import { SettingActions } from 'app/store/setting.slice'
-import { styled, View } from 'dripsy'
-import React, { useState } from 'react'
+import { Image, styled, useDripsyTheme, View } from 'dripsy'
+import React, { ComponentProps, useRef, useState } from 'react'
+import { ImageSourcePropType } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { usePlayerLangMutation } from 'services/playerApi'
+
+const LANGUAGE_TO_FLAG_ICON = {
+  [LANGUAGE_CODE.ENGLISH]: require('../../assets/images/common/icon-en.png'),
+  [LANGUAGE_CODE.VIETNAM]: require('../../assets/images/common/icon-vn.png'),
+}
+
+const enum UPDATE_STATE {
+  UPDATING = 'updating',
+  COMPLETED = 'completed',
+}
 
 const ProfileLanguage = () => {
   const dispatch = useDispatch()
@@ -14,13 +25,22 @@ const ProfileLanguage = () => {
   const lang = useSelector((s: RootState) => s.setting.locale)
   const [activeLang, setActiveLang] = useState(lang)
 
+  const updateStateRef = useRef(UPDATE_STATE.COMPLETED)
+
   const [updateLanguage] = usePlayerLangMutation()
 
   const handleClick = async (value) => {
+    if (updateStateRef.current === UPDATE_STATE.UPDATING) return
+
+    updateStateRef.current = UPDATE_STATE.UPDATING
+
     try {
       const { success, message } = await updateLanguage({ lang: value })
         .unwrap()
-        .catch((error) => dispatch(AlertActions.addError(error.message)))
+        .catch((error) => {
+          dispatch(AlertActions.addError(error.message))
+          return error
+        })
 
       if (success) {
         setActiveLang(value)
@@ -28,26 +48,63 @@ const ProfileLanguage = () => {
         dispatch(AlertActions.addSuccess(message))
       }
     } catch (e) {
-      dispatch(AlertActions.addError('status.systemError'))
+      dispatch(AlertActions.addError('common.systemError'))
+    } finally {
+      updateStateRef.current = UPDATE_STATE.COMPLETED
     }
   }
 
   return (
     <StyledView>
       <StyledSelectedView isActive={activeLang === LANGUAGE_CODE.ENGLISH}>
-        <IconButton
-          name="sb"
+        <FlagButton
           onPress={() => handleClick(LANGUAGE_CODE.ENGLISH)}
+          disabled={activeLang === LANGUAGE_CODE.ENGLISH}
+          imageSource={LANGUAGE_TO_FLAG_ICON[LANGUAGE_CODE.ENGLISH]}
         />
       </StyledSelectedView>
+
       <View sx={{ mx: '$1' }} />
+
       <StyledSelectedView isActive={activeLang === LANGUAGE_CODE.VIETNAM}>
-        <IconButton
-          name="sb"
+        <FlagButton
           onPress={() => handleClick(LANGUAGE_CODE.VIETNAM)}
+          disabled={activeLang === LANGUAGE_CODE.VIETNAM}
+          imageSource={LANGUAGE_TO_FLAG_ICON[LANGUAGE_CODE.VIETNAM]}
         />
       </StyledSelectedView>
     </StyledView>
+  )
+}
+
+interface FlagButtonProps
+  extends Omit<ComponentProps<typeof Button>, 'children'> {
+  imageSource: ImageSourcePropType
+}
+
+const FlagButton = ({ imageSource, ...props }: FlagButtonProps) => {
+  const { theme } = useDripsyTheme()
+
+  return (
+    <Button
+      rounded
+      containerStyle={{
+        px: 0,
+        opacity: 1,
+      }}
+      fill={{ type: 'ghost', color: 'transparent' }}
+      {...props}
+    >
+      <Image
+        sx={{
+          width: 35,
+          height: theme.buttons.md.height,
+          borderRadius: 10,
+        }}
+        source={imageSource}
+        resizeMode="contain"
+      />
+    </Button>
   )
 }
 
@@ -61,7 +118,7 @@ const StyledView = styled(View)(() => ({
 const StyledSelectedView = styled(View)(
   ({ isActive }: { isActive: boolean }) => ({
     borderWidth: 4,
-    borderColor: isActive ? 'red' : '$transparent',
+    borderColor: isActive ? '$blue' : '$transparent',
     aspectRatio: 1,
     justifyContent: 'center',
     alignItems: 'center',

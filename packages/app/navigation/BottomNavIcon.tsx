@@ -2,6 +2,7 @@ import AnimateCrossFadeIn from 'app/components/AnimateCrossFadeIn'
 import TextInput from 'app/components/form/TextInput'
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
+import useLocalization from 'app/provider/localization'
 import { Flex, Image, Pressable, Text, View } from 'dripsy'
 import {
   AnimatePresence,
@@ -31,6 +32,8 @@ const BottomNavIcon: FC<BottomNavTabProps> = ({
   size,
   onPress,
 }) => {
+  const { t } = useLocalization()
+
   const color = active ? '#29badf' : '#0D2035'
   const borderColor = active ? '#33A0D0' : '#133351'
   const colorGradient = active ? ['#24C0E3', '#3799CC'] : ['#0D2035', '#0B76A5']
@@ -152,7 +155,7 @@ const BottomNavIcon: FC<BottomNavTabProps> = ({
           }}
           numberOfLines={1}
         >
-          {name}
+          {t(name)}
         </MotiText>
       </Flex>
     </TouchableWithoutFeedback>
