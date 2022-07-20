@@ -71,7 +71,7 @@ const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
         label: 'Switch Accountss',
         icon: 'switch',
         onPress: () => {
-          throw 'fromIOS'
+          throw 'fromIOS-hereeee'
         },
       },
       {
