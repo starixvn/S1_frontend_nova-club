@@ -11,10 +11,11 @@ import { AnimatePresence } from 'framer-motion'
 import layouts from '../layouts'
 import TabLayout from '../layouts/TabLayout'
 import AuthenticationProvider from '../components/AuthenticationProvider'
+import useFontInit from 'app/hooks/useFontInit'
 
 function MyApp({ Component, pageProps, router }: SolitoAppProps) {
-  // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || layouts.COMMON()
+  useFontInit()
 
   return (
     <>
