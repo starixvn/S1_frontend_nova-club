@@ -1,7 +1,6 @@
 import GradientBox from 'app/components/GradientBox'
 import Icon from 'app/components/Icon'
 import useContextualRouting from 'app/hooks/useContextualRouting'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import useLocalization from 'app/provider/localization'
 import { logOut } from 'app/utils/authUtil'
 import {

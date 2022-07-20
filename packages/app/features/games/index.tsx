@@ -1,5 +1,3 @@
-import withContextualNav from 'app/navigation/web/withContextualNav'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import useLocalization from 'app/provider/localization'
 import { ScrollView, View } from 'dripsy'
 import React from 'react'
