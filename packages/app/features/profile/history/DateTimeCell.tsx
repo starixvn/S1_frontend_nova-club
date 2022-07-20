@@ -10,7 +10,7 @@ const DateTimeCell = ({ date }) => {
     <>
       <Text>{dayjs(date, 'YYYY-MM-DD HH:mm:ss A').format('YYYY-MM-DD')}</Text>
       <Text sx={{ fontSize: '$1', color: '$dim1' }}>
-        {dayjs(date, 'YYYY-MM-DD HH:mm:ss A').format('hh:MM a')}
+        {dayjs(date, 'YYYY-MM-DD HH:mm:ss A').format('hh:mm a')}
       </Text>
     </>
   )

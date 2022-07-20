@@ -38,7 +38,7 @@ const HomeScreen = () => {
       <GridSection />
       <CasinoSection />
       <LotterySection />
-      <GamesSection />
+      {/* <GamesSection /> */}
       {/* <LeaderboardSection /> */}
       <HotGamesSection />
     </ScrollView>

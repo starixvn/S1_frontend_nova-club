@@ -80,10 +80,10 @@ const SimpleGridImage: FC<GamesProps> = ({
             )
           }}
         >
-          <View sx={{ bg: 'red' }}>
-            <Icon name="sl" />
+          <View sx={{ bg: '#e71701' }}>
+            <Icon name="sl" color="white" />
           </View>
-          <Text sx={{ fontSize: 12, color: 'red', mx: '$2' }}>
+          <Text sx={{ fontSize: 12, color: '#e71701', mx: '$2' }}>
             {t('common.desktop')}
           </Text>
         </DesktopMode>
