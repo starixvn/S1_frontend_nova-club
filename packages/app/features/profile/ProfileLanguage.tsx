@@ -25,14 +25,13 @@ const ProfileLanguage = () => {
   const lang = useSelector((s: RootState) => s.setting.locale)
   const [activeLang, setActiveLang] = useState(lang)
 
-  const updateStateRef = useRef(UPDATE_STATE.COMPLETED)
-
+  const [updateState, setUpdateState] = useState(UPDATE_STATE.COMPLETED)
   const [updateLanguage] = usePlayerLangMutation()
 
   const handleClick = async (value) => {
-    if (updateStateRef.current === UPDATE_STATE.UPDATING) return
+    if (updateState === UPDATE_STATE.UPDATING) return
 
-    updateStateRef.current = UPDATE_STATE.UPDATING
+    setUpdateState(UPDATE_STATE.UPDATING)
 
     try {
       const { success, message } = await updateLanguage({ lang: value })
@@ -50,7 +49,7 @@ const ProfileLanguage = () => {
     } catch (e) {
       dispatch(AlertActions.addError('common.systemError'))
     } finally {
-      updateStateRef.current = UPDATE_STATE.COMPLETED
+      setUpdateState(UPDATE_STATE.COMPLETED)
     }
   }
 
@@ -60,6 +59,10 @@ const ProfileLanguage = () => {
         <FlagButton
           onPress={() => handleClick(LANGUAGE_CODE.ENGLISH)}
           disabled={activeLang === LANGUAGE_CODE.ENGLISH}
+          loading={
+            updateState === UPDATE_STATE.UPDATING &&
+            activeLang === LANGUAGE_CODE.VIETNAM
+          }
           imageSource={LANGUAGE_TO_FLAG_ICON[LANGUAGE_CODE.ENGLISH]}
         />
       </StyledSelectedView>
@@ -70,6 +73,10 @@ const ProfileLanguage = () => {
         <FlagButton
           onPress={() => handleClick(LANGUAGE_CODE.VIETNAM)}
           disabled={activeLang === LANGUAGE_CODE.VIETNAM}
+          loading={
+            updateState === UPDATE_STATE.UPDATING &&
+            activeLang === LANGUAGE_CODE.ENGLISH
+          }
           imageSource={LANGUAGE_TO_FLAG_ICON[LANGUAGE_CODE.VIETNAM]}
         />
       </StyledSelectedView>
@@ -93,6 +100,9 @@ const FlagButton = ({ imageSource, ...props }: FlagButtonProps) => {
         opacity: 1,
       }}
       fill={{ type: 'ghost', color: 'transparent' }}
+      loadingIndicator={{
+        color: '$blue',
+      }}
       {...props}
     >
       <Image
