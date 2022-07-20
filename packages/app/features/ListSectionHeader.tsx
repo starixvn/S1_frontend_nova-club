@@ -76,6 +76,7 @@ const StyledText = styled(Text)({
   pl: '$1a',
   pr: '$5',
   fontWeight: 900,
+  textTransform: 'capitalize',
 })
 
 const StyledGradient = styled(DripsyGradient)({

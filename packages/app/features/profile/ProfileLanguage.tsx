@@ -37,17 +37,15 @@ const ProfileLanguage = () => {
       const { success, message } = await updateLanguage({ lang: value })
         .unwrap()
         .catch((error) => {
-          dispatch(AlertActions.addError(error.message))
           return error
         })
 
       if (success) {
         setActiveLang(value)
         dispatch(SettingActions.setLocale(value))
-        dispatch(AlertActions.addSuccess(message))
       }
     } catch (e) {
-      dispatch(AlertActions.addError('common.systemError'))
+      console.error(e)
     } finally {
       setUpdateState(UPDATE_STATE.COMPLETED)
     }
