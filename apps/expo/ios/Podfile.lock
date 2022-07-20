@@ -379,7 +379,7 @@ PODS:
   - RNScreens (3.10.2):
     - React-Core
     - React-RCTImage
-  - RNSentry (3.4.3):
+  - RNSentry (3.4.2):
     - React-Core
     - Sentry (= 7.11.0)
   - RNSVG (12.1.1):
@@ -401,7 +401,7 @@ DEPENDENCIES:
   - CodePush (from `../../../node_modules/react-native-code-push`)
   - DoubleConversion (from `../../../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - EXApplication (from `../../../node_modules/expo-application/ios`)
-  - EXBarCodeScanner (from `../node_modules/expo-barcode-scanner/ios`)
+  - EXBarCodeScanner (from `../../../node_modules/expo-barcode-scanner/ios`)
   - EXCamera (from `../../../node_modules/expo-camera/ios`)
   - EXClipboard (from `../../../node_modules/expo-clipboard/ios`)
   - EXConstants (from `../../../node_modules/expo-constants/ios`)
@@ -484,7 +484,7 @@ EXTERNAL SOURCES:
   EXApplication:
     :path: "../../../node_modules/expo-application/ios"
   EXBarCodeScanner:
-    :path: "../node_modules/expo-barcode-scanner/ios"
+    :path: "../../../node_modules/expo-barcode-scanner/ios"
   EXCamera:
     :path: "../../../node_modules/expo-camera/ios"
   EXClipboard:
@@ -661,7 +661,7 @@ SPEC CHECKSUMS:
   RNGestureHandler: e1099204721a17a89c81fcd1cc2e92143dc040fb
   RNReanimated: 0e5ef4a7e4e79f84efbe5b40771c31044c51e7d0
   RNScreens: d6da2b9e29cf523832c2542f47bf1287318b1868
-  RNSentry: 85f6525b5fe8d2ada065858026b338605b3c09da
+  RNSentry: 2cd1daa124b0d9fd0dfc2cb6094fdd168cb579bc
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
   Sentry: 0c5cd63d714187b4a39c331c1f0eb04ba7868341
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
