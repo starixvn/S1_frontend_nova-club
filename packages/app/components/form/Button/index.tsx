@@ -47,6 +47,7 @@ type ButtonProps = {
   disabled?: boolean
   onPress?: () => void
   loading?: boolean
+  loadingIndicator?: ComponentProps<typeof ActivityIndicator>
   textColor?: string | keyof DripsyCustomTheme['colors']
   containerStyle?: SxProp
 } & Omit<StyledProps<'buttons'>, 'themeKey'>
@@ -84,6 +85,7 @@ function Button({
   disabled,
   onPress,
   loading,
+  loadingIndicator,
   variant = 'md',
   variants,
   textColor,
@@ -158,7 +160,7 @@ function Button({
             }}
             pointerEvents="none"
           >
-            <ActivityIndicator color={'$lightCyan'} />
+            <ActivityIndicator color={'$lightCyan'} {...loadingIndicator} />
           </View>
         )}
       </BouncePressable>

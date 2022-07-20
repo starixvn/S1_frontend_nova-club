@@ -67,7 +67,7 @@ const IconAction = ({
   const { t } = useLocalization()
 
   return (
-    <View sx={{ justifyContent: 'flex-start', alignItems: 'center' }}>
+    <View sx={{ justifyContent: 'flex-start', alignItems: 'center', flex: 1 }}>
       <RoundedIcon
         gradient={gradient}
         icon={icon}
