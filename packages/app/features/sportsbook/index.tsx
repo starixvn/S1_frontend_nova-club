@@ -2,8 +2,6 @@ import Page from 'app/components/layout/Page'
 import SimpleGridImage from 'app/components/SimpleGridImage'
 import SimpleWrap from 'app/components/SimpleWrap'
 import sport from 'app/config/games/sport'
-import withContextualNav from 'app/navigation/web/withContextualNav'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import useLocalization from 'app/provider/localization'
 import { FlatList, ScrollView, styled, View } from 'dripsy'
 import React from 'react'
@@ -21,11 +19,7 @@ const Sportsbook = () => {
         bgColor="yellow"
         iconName="sb"
       />
-      <SimpleWrap
-        col={2}
-        data={sport.gameList}
-        context={ContextualModuleKey.Sportsbook}
-      />
+      <SimpleWrap col={2} data={sport.gameList} />
     </Page.ScrollView>
   )
 }

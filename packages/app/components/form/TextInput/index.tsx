@@ -100,7 +100,7 @@ const ErrorText = ({ error }: { error?: string }) => {
           }}
           exit={{ height: 0, opacity: 0 }}
           transition={{ type: 'timing', duration: 300 }}
-          {...(Platform.OS !== 'web' && { numberOfLines: 2, minHeight: 300 })}
+          {...(Platform.OS !== 'web' && { numberOfLines: 2 })}
         >
           <Text variants={['error', 'sm']} numberOfLines={2}>
             {error}

@@ -25,7 +25,7 @@ const GameAmount = ({ playerBalance }: GameAmountProps) => {
 
   const fieldData: FieldData[] = [
     {
-      icon: 'cash',
+      icon: 'ac',
       label: 'common.cash',
     },
     {
