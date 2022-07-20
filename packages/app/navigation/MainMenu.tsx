@@ -68,8 +68,11 @@ const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
         },
       },
       // {
-      //   label: 'Switch Account',
+      //   label: 'Switch Accountss',
       //   icon: 'switch',
+      //   onPress: () => {
+      //     throw 'teskdhsdj'
+      //   },
       // },
       {
         icon: 'logout',
