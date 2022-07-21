@@ -228,6 +228,11 @@
     "annoucement": "Annoucement",
     "personalMessage": "Personal Message"
   },
+  "notes": {
+    "qr": {
+      "n1": "Scan with your app to transfer balance"
+    }
+  },
   "profile": {
     "details": {
       "currency": "Currency",
@@ -251,7 +256,8 @@
     "noCameraAccess": "No access to camera",
     "qrCodeNotDetected": "Cannot detect QR code in image",
     "requestCameraPermissions": "Requesting for camera permission",
-    "scanGallery": "Scan from gallery"
+    "scanGallery": "Scan from gallery",
+    "downloadQrCode": "Download QR code"
   },
   "status": {
     "alert": "Alert",

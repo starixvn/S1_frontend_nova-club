@@ -19,6 +19,7 @@ const modalConfig = {
 
 const stack = createModalStack(modalConfig, {
   backdropOpacity: 0.6,
+  backBehavior: 'pop',
   transitionOptions: (animatedValue) => ({
     opacity: animatedValue.interpolate({
       inputRange: [0, 1, 2],
