@@ -5,7 +5,7 @@ import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Image, ScrollView, styled, Text, View } from 'dripsy'
 import React from 'react'
 
-const HEADER_IMAGE = require('../../../assets/images/common/logo.jpg')
+const HEADER_IMAGE = require('../../../assets/images/auth-logo.png')
 const BACK_ICON_SIZE = 30
 
 const StyledImage = styled(Image)({

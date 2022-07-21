@@ -115,7 +115,7 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
   const usernameInputConfig: DripsyTextInputProps = useMemo(
     () => ({
       nativeID: 'username',
-      placeholder: 'Username',
+      placeholder: t('common.username'),
       value: values.username,
       onChangeText: onUsernameChange,
       onBlur: onUsernameBlur,

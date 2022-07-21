@@ -53,19 +53,20 @@ const moduleExports = withPlugins(
   nextConfig
 )
 
-  const sentryWebpackPluginOptions = {
-    // Additional config options for the Sentry Webpack plugin. Keep in mind that
-    // the following options are set automatically, and overriding them is not
-    // recommended:
-    //   release, url, org, project, authToken, configFile, stripPrefix,
-    //   urlPrefix, include, ignore
-    // silent: true, // Suppresses all logs
-    configFile: 'sentry.properties',
-    // release:'cRQY4ipPhDjD8JQBiA-Lh'
-    release:'MxjIyysdrVpMqHPzIDoRe',
+const sentryWebpackPluginOptions = {
+  // Additional config options for the Sentry Webpack plugin. Keep in mind that
+  // the following options are set automatically, and overriding them is not
+  // recommended:
+  //   release, url, org, project, authToken, configFile, stripPrefix,
+  //   urlPrefix, include, ignore
+  // silent: true, // Suppresses all logs
+  configFile: 'sentry.properties',
+  // release:'cRQY4ipPhDjD8JQBiA-Lh'
+  // release:'MxjIyysdrVpMqHPzIDoRe',
+  release: "c1T2jvE3-EqGkWZHDp0Rt"
 
-    // For all available options, see:
-    // https://github.com/getsentry/sentry-webpack-plugin#options.
-  };
+  // For all available options, see:
+  // https://github.com/getsentry/sentry-webpack-plugin#options.
+};
 
-  module.exports = withSentryConfig(moduleExports, sentryWebpackPluginOptions);
+module.exports = withSentryConfig(moduleExports, sentryWebpackPluginOptions);

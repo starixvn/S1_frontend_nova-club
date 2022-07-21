@@ -28,7 +28,6 @@ type LoginFormValues = {
 
 const LoginForm = () => {
   const [login] = useLoginMutation()
-  const sx = useSx()
   const { t } = useLocalization()
 
   const [errorMsg, setErrorMsg] = useState('')
@@ -38,8 +37,6 @@ const LoginForm = () => {
   })
   const passwordFieldRef = useRef<RNTextField>(null)
   const usernameFieldRef = useRef<RNTextField>(null)
-
-  const log = useAppSelector((s) => s.setting.log)
 
   const dispatch = useAppDispatch()
 
