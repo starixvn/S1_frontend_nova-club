@@ -157,7 +157,6 @@ const MainHeader = () => {
                       >
                         {isMainWalletLoading ? (
                           <ActivityIndicator
-                            size={23}
                             color={'$lightCyan'}
                             sx={{ px: '$1' }}
                           />

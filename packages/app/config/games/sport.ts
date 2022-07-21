@@ -44,5 +44,11 @@ export default {
       game_provider_code: 'IM',
       game_code: 'esports',
     },
+    {
+      image: require('../../assets/images/games/sports/sport-TG.png'),
+      game_name: 'game.name.tfGamingEsports',
+      game_provider_code: 'TFGM',
+      game_code: 'COMBO',
+    },
   ],
 }

@@ -9,10 +9,10 @@ const IconComponent = createIconSetFromIcoMoon(
   DEFAULT_ICON.FILENAME
 )
 
-const StylesIcon = styled(IconComponent)()
+export const DripsyIcon = styled(IconComponent)()
 
 export type IconComponentProps = ComponentProps<typeof IconComponent> &
-  ComponentProps<typeof StylesIcon>
+  ComponentProps<typeof DripsyIcon>
 
 const Icon = (iconProps: IconComponentProps) => {
   const { theme } = useDripsyTheme()
@@ -23,7 +23,7 @@ const Icon = (iconProps: IconComponentProps) => {
   })
 
   return (
-    <StylesIcon size={25} {...theme.icon} {...iconProps} {...themedProps} />
+    <DripsyIcon size={25} {...theme.icon} {...iconProps} {...themedProps} />
   )
 }
 

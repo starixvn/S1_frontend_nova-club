@@ -1,9 +1,11 @@
 import { DripsyGradient } from 'app/components/Gradient'
-import Icon from 'app/components/Icon'
-import { fontName, HelveticaBold } from 'app/provider/dripsy'
+import { DripsyIcon } from 'app/components/Icon'
 import useLocalization from 'app/provider/localization'
-import { styled, Text, TextInput, View } from 'dripsy'
+import { styled, Text, View } from 'dripsy'
+import { motify } from 'moti'
 import React from 'react'
+
+const MotifyIcon = motify(DripsyIcon)()
 
 const ListSectionHeader = ({
   title,
@@ -23,16 +25,40 @@ const ListSectionHeader = ({
   return (
     <StyledContainer>
       <StyledView>
-        <StyledGradient gradient={bgColor}>
-          <Icon
-            name={iconName}
-            size={15}
-            sx={{
-              color: 'white',
-            }}
-          />
-        </StyledGradient>
+        <StyledGradient gradient={bgColor}></StyledGradient>
         <StyledText>{t(title)}</StyledText>
+        <MotifyIcon
+          sx={{ left: 20, position: 'absolute' }}
+          color={'white'}
+          from={{
+            transform: [
+              {
+                translateY: -100,
+              },
+              {
+                rotate: '1440deg',
+              },
+              {
+                scale: 0.5,
+              },
+            ],
+          }}
+          animate={{
+            transform: [
+              {
+                translateY: [-5, 0],
+              },
+              {
+                rotate: 0,
+              },
+              {
+                scale: [0.8, 1],
+              },
+            ],
+          }}
+          name={iconName}
+          size={20}
+        />
       </StyledView>
       {children}
       {/* {search && (
@@ -55,6 +81,7 @@ const StyledContainer = styled(View)({
   mb: ['$2', '$6'],
   flexDirection: 'row',
   justifyContent: 'space-between',
+  alignItems: 'center',
 })
 
 const StyledView = styled(View)({
@@ -67,6 +94,7 @@ const StyledView = styled(View)({
   flexDirection: 'row',
   alignItems: 'center',
   alignSelf: 'flex-start',
+  position: 'relative',
 })
 
 const StyledText = styled(Text)({
@@ -80,16 +108,18 @@ const StyledText = styled(Text)({
 })
 
 const StyledGradient = styled(DripsyGradient)({
-  borderRadius: 12,
-  padding: '$1',
-  ml: '$4',
+  borderRadius: 15,
+  width: 30,
+  height: 30,
+  ml: 15,
+  my: '$2',
 })
 
 const StyledSearchBox = styled(View)({
   borderRadius: 20,
   bg: 'rgb(48,89,117)',
   width: [130, 150],
-  height: [35, 40],
+  height: [40, 40],
   flexDirection: 'row',
   justifyContent: 'space-between',
   borderWidth: 2,

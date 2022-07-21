@@ -100,7 +100,7 @@ const DesktopMode = styled(TouchableOpacity)(() => ({
   zIndex: 1,
   alignSelf: 'center',
   right: '10%',
-  top: '65%',
+  top: '55%',
   backgroundColor: 'white',
   flexDirection: 'row',
   alignItems: 'center',

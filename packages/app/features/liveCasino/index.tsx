@@ -77,34 +77,36 @@ const LiveCasino = () => {
         bgColor="maroon"
         iconName="lc"
       />
-      <ScrollView
-        horizontal
-        sx={{
-          flexGrow: 0,
-          borderBottomColor: '$lightNavyBlue',
-          borderBottomWidth: 1,
-        }}
-        contentContainerStyle={{
-          paddingHorizontal: space,
-          paddingBottom: space,
-          paddingTop: 2, // for the shadow
-        }}
-      >
-        {providerSelection.map((p) => {
-          const selected = p.value === selectedProvider.value
-          return (
-            <TouchableOpacity
-              style={{ marginRight: space * 0.5 }}
-              key={p.value}
-              onPress={() => setSelectedProvider(p)}
-            >
-              <ProviderSelectItem selected={selected}>
-                <Text>{p.label}</Text>
-              </ProviderSelectItem>
-            </TouchableOpacity>
-          )
-        })}
-      </ScrollView>
+      {filteredGames.length > 0 && (
+        <ScrollView
+          horizontal
+          sx={{
+            flexGrow: 0,
+            borderBottomColor: '$lightNavyBlue',
+            borderBottomWidth: 1,
+          }}
+          contentContainerStyle={{
+            paddingHorizontal: space,
+            paddingBottom: space,
+            paddingTop: 2, // for the shadow
+          }}
+        >
+          {providerSelection.map((p) => {
+            const selected = p.value === selectedProvider.value
+            return (
+              <TouchableOpacity
+                style={{ marginRight: space * 0.5 }}
+                key={p.value}
+                onPress={() => setSelectedProvider(p)}
+              >
+                <ProviderSelectItem selected={selected}>
+                  <Text>{p.label}</Text>
+                </ProviderSelectItem>
+              </TouchableOpacity>
+            )
+          })}
+        </ScrollView>
+      )}
       <View
         sx={{
           py: space,
@@ -127,27 +129,20 @@ const LiveCasino = () => {
 
   return (
     <Page sx={{ bg: '$background' }}>
-      {filteredGames.length === 0 ? (
-        <ActivityIndicator
-          size={'large'}
-          sx={{ mt: '$8' }}
-          color={'$lightCyan'}
-        />
-      ) : (
-        <FlatList
-          numColumns={3}
-          ListHeaderComponent={Header}
-          style={sx({ bg: '$background', flex: 1 })}
-          contentContainerStyle={{ padding: containerSpace }}
-          // onEndReached={loadMore}
-          data={filteredGames}
-          // extraData={displayList}
-          keyExtractor={(item) =>
-            item.game_code + item.game_provider_code + item.game_name
-          }
-          renderItem={renderItem}
-        />
-      )}
+      <FlatList
+        numColumns={3}
+        ListHeaderComponent={Header}
+        style={sx({ bg: '$background', flex: 1 })}
+        contentContainerStyle={{ padding: containerSpace }}
+        // onEndReached={loadMore}
+        data={filteredGames}
+        // extraData={displayList}
+        keyExtractor={(item) =>
+          item.game_code + item.game_provider_code + item.game_name
+        }
+        renderItem={renderItem}
+        ListEmptyComponent={<ActivityIndicator color={'$lightCyan'} />}
+      />
       {/* <View sx={{ p: containerSpace, flexDirection: 'row', flexWrap: 'wrap' }}>
         {filteredGames.map((item, rindex) => {
           return (
