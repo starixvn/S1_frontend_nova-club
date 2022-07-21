@@ -23,6 +23,7 @@ target 'Vui123' do
   # end
 
   pod 'CodePush', :path => '../../../node_modules/react-native-code-push'
+  pod 'RNFS', :path => '../../../node_modules/react-native-fs'
 
   post_install do |installer|
     react_native_post_install(installer)
