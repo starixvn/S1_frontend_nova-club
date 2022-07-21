@@ -1,6 +1,7 @@
 import GradientBox from 'app/components/GradientBox'
 import Icon from 'app/components/Icon'
 import useContextualRouting from 'app/hooks/useContextualRouting'
+import { ContextualNavigationContext } from 'app/navigation/web/ContextualNavigation'
 import useLocalization from 'app/provider/localization'
 import { logOut } from 'app/utils/authUtil'
 import {
@@ -11,7 +12,7 @@ import {
   useDripsyTheme,
   View,
 } from 'dripsy'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useRouter } from 'solito/router'
 
 const enum LOADING_STATE {
@@ -34,6 +35,10 @@ const ProfileOptions = () => {
   })
   const toChangePassword = makeContextualHref('change-password')
   const toCommissionTable = makeContextualHref('commission-table')
+
+  const { clear: clearNavigationStack } = useContext(
+    ContextualNavigationContext
+  )
 
   const optionsRoute = [
     {
@@ -96,6 +101,7 @@ const ProfileOptions = () => {
         setLoadingState(LOADING_STATE.LOADING)
         await logOut()
         replace('/auth/login')
+        clearNavigationStack()
         setLoadingState(LOADING_STATE.COMPLETE)
       },
       appendIcon: () => {

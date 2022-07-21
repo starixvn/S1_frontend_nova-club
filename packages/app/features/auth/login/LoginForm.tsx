@@ -2,20 +2,23 @@ import { Button } from 'app/components/form/Button'
 import TextInput from 'app/components/form/TextInput'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
-import { useLoginMutation } from 'services/authApi'
 import { AlertActions } from 'app/store/alert'
 import { AuthActions } from 'app/store/authReducer'
 import validation, { getErrorMessage } from 'app/utils/validation'
 import { styled, Text, useSx, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import React, { createRef, useLayoutEffect, useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { TextInput as RNTextField } from 'react-native'
+import { useLoginMutation } from 'services/authApi'
 import { MotiLink } from 'solito/moti'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 
-import { createParam } from 'solito'
+import { ContextualNavigationContext } from 'app/navigation/web/ContextualNavigation'
 import useLocalization from 'app/provider/localization'
+import { SettingActions } from 'app/store/setting.slice'
+import { useLazyPlayerProfileQuery } from 'services/playerApi'
+import { createParam } from 'solito'
 
 const { useParam } = createParam()
 
@@ -38,7 +41,22 @@ const LoginForm = () => {
   const passwordFieldRef = useRef<RNTextField>(null)
   const usernameFieldRef = useRef<RNTextField>(null)
 
+  const log = useAppSelector((s) => s.setting.log)
+
   const dispatch = useAppDispatch()
+
+  const updateLanguage = async (username: string) => {
+    try {
+      const { data } = await getPlayerProfile().unwrap()
+
+      if (data) {
+        const { language } = data
+        dispatch(SettingActions.setLocale(language))
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   const onSubmit = async (
     { username, password }: LoginFormValues,
@@ -52,6 +70,7 @@ const LoginForm = () => {
 
       if (success && data) {
         dispatch(AuthActions.setAuthInfo(data))
+        await updateLanguage(data.playerName)
         actions.resetForm()
         if (errorMsg) setErrorMsg('')
 

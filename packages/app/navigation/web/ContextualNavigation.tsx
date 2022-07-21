@@ -36,6 +36,7 @@ const _contextualComponents = {
   'customer-support': () => import('../../features/customerSupport'),
   'qrcode-scanner': () => import('../../features/qrcodeScanner'),
   transfer: () => import('../../features/transfer'),
+  '/profile/overview': () => import('../../features/profile/overview'),
 }
 
 function getContextualComponent(key: string) {
@@ -79,9 +80,11 @@ export const ContextualNavigationContext = createContext({
   stacks: [] as ContextualStackItem[],
   add: (moduleKey: string, componentKey: string) => {},
   remove: (index: number) => {},
+  clear: () => {},
 })
 const ContextualNavigationProvider = ({ children }) => {
   const [stacks, setStacks] = useState([] as ContextualStackItem[])
+
   const state = useMemo(() => {
     return {
       stacks,
@@ -94,6 +97,9 @@ const ContextualNavigationProvider = ({ children }) => {
             },
           ])
         )
+      },
+      clear: () => {
+        setStacks([])
       },
       remove: (index: number) => {
         if (index > -1) {

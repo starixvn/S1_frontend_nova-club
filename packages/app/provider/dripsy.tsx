@@ -1,5 +1,4 @@
 import { DripsyProvider, makeTheme } from 'dripsy'
-import useOnAppStart from 'app/hooks/useOnAppStart'
 import { Platform } from 'react-native'
 export const fontName = 'Helvetica Neue'
 export const HelveticaBold = 'Helvetica Neue Bold'
@@ -232,8 +231,6 @@ declare module 'dripsy' {
 }
 
 export function Dripsy({ children }: { children: React.ReactNode }) {
-  useOnAppStart()
-
   return (
     <DripsyProvider
       theme={theme}

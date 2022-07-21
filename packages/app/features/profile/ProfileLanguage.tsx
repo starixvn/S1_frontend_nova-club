@@ -19,7 +19,11 @@ const enum UPDATE_STATE {
   COMPLETED = 'completed',
 }
 
-const ProfileLanguage = () => {
+interface ProfileLanguageProps {
+  isAuthRequired?: boolean
+}
+
+const ProfileLanguage = ({ isAuthRequired = true }: ProfileLanguageProps) => {
   const dispatch = useDispatch()
 
   const lang = useSelector((s: RootState) => s.setting.locale)
@@ -28,7 +32,7 @@ const ProfileLanguage = () => {
   const [updateState, setUpdateState] = useState(UPDATE_STATE.COMPLETED)
   const [updateLanguage] = usePlayerLangMutation()
 
-  const handleClick = async (value) => {
+  const submitLanguage = async (value: LANGUAGE_CODE) => {
     if (updateState === UPDATE_STATE.UPDATING) return
 
     setUpdateState(UPDATE_STATE.UPDATING)
@@ -41,8 +45,7 @@ const ProfileLanguage = () => {
         })
 
       if (success) {
-        setActiveLang(value)
-        dispatch(SettingActions.setLocale(value))
+        setLanguage(value)
       }
     } catch (e) {
       console.error(e)
@@ -51,11 +54,25 @@ const ProfileLanguage = () => {
     }
   }
 
+  const setLanguage = (value: LANGUAGE_CODE) => {
+    setActiveLang(value)
+    dispatch(SettingActions.setLocale(value))
+  }
+
+  const onChangeLanguage = (value: LANGUAGE_CODE) => {
+    if (isAuthRequired) {
+      submitLanguage(value)
+      return
+    }
+
+    setLanguage(value)
+  }
+
   return (
     <StyledView>
       <StyledSelectedView isActive={activeLang === LANGUAGE_CODE.ENGLISH}>
         <FlagButton
-          onPress={() => handleClick(LANGUAGE_CODE.ENGLISH)}
+          onPress={() => onChangeLanguage(LANGUAGE_CODE.ENGLISH)}
           disabled={activeLang === LANGUAGE_CODE.ENGLISH}
           loading={
             updateState === UPDATE_STATE.UPDATING &&
@@ -69,7 +86,7 @@ const ProfileLanguage = () => {
 
       <StyledSelectedView isActive={activeLang === LANGUAGE_CODE.VIETNAM}>
         <FlagButton
-          onPress={() => handleClick(LANGUAGE_CODE.VIETNAM)}
+          onPress={() => onChangeLanguage(LANGUAGE_CODE.VIETNAM)}
           disabled={activeLang === LANGUAGE_CODE.VIETNAM}
           loading={
             updateState === UPDATE_STATE.UPDATING &&

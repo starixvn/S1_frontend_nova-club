@@ -1,6 +1,7 @@
 import IconButton from 'app/components/form/IconButton'
 import { DripsyGradient } from 'app/components/Gradient'
 import KeyboardView from 'app/components/KeyboardView'
+import ProfileLanguage from 'app/features/profile/ProfileLanguage'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Image, ScrollView, styled, Text, View } from 'dripsy'
 import React from 'react'
@@ -106,6 +107,10 @@ const AuthLayout = ({
               <KeyboardView>{children}</KeyboardView>
             </View>
           </View>
+        </View>
+
+        <View sx={{ alignItems: 'center', mb: bottom + 8, mt: 40 }}>
+          <ProfileLanguage isAuthRequired={false} />
         </View>
       </DripsyGradient>
     </ScrollView>

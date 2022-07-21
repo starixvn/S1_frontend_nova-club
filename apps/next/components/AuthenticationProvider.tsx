@@ -3,6 +3,7 @@ import { useAppSelector } from 'app/provider/redux/store'
 import { route } from 'next/dist/server/router'
 import { useRouter } from 'next/router'
 import React from 'react'
+import useOnAppStart from 'app/hooks/useOnAppStart'
 
 const guestRoutes = ['/auth', '/profile/commission-table']
 
@@ -21,6 +22,8 @@ export function serialize(obj) {
 }
 
 const AuthenticationProvider = ({ children }) => {
+  useOnAppStart()
+
   const { push, route, asPath, query } = useRouter()
   const loginInfo = useAppSelector((s) => s.auth.info)
 

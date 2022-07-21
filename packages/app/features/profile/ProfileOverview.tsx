@@ -1,6 +1,7 @@
 import { Gradient } from '@dripsy/gradient'
 import GradientBox from 'app/components/GradientBox'
 import Icon from 'app/components/Icon'
+import useContextualRouting from 'app/hooks/useContextualRouting'
 import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
 import { styled, Text, useDripsyTheme, View } from 'dripsy'
@@ -11,6 +12,10 @@ const ProfileOverview = () => {
   const { t } = useLocalization()
   const { theme } = useDripsyTheme()
   const { push } = useRouter()
+
+  const { makeContextualHref } = useContextualRouting()
+  const toOverview = makeContextualHref('/profile/overview')
+
   return (
     <Gradient
       colors={['#033454', 'rgb(13, 32, 53)']}
@@ -26,7 +31,7 @@ const ProfileOverview = () => {
             justifyContent: 'center',
             alignItems: 'center',
           }}
-          onPress={() => push('/profile/overview')}
+          onPress={() => push(toOverview, '/profile/overview')}
         >
           <Text
             sx={{
