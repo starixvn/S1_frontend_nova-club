@@ -63,7 +63,7 @@ function getContextualComponent(key: string) {
         transform: [{ translateX: '100%' }],
       }}
       transition={{ type: 'timing', duration: 350 }}
-      style={{ width: '100vw', height: '100vh', position: 'absolute' }}
+      style={{ minHeight: '100vh' }}
     >
       <LazyComponent />
     </MotiView>
@@ -127,8 +127,10 @@ const ContextualNavigationProvider = ({ children }) => {
       <View
         sx={{
           position: 'absolute',
-          top: 0,
-          left: 0,
+          maxWidth: 'container',
+          width: '100vw',
+          alignSelf: 'center',
+          overflow: 'hidden',
         }}
       >
         <AnimatePresence>
