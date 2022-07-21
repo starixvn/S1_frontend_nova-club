@@ -12,6 +12,7 @@
     "@expo/next-adapter": "^3.1.20",
     "@sentry/nextjs": "^7.7.0",
     "app": "*",
+    "branch-sdk": "^2.63.0",
     "expo-font": "^10.1.0",
     "framer-motion": "^6.3.10",
     "moti": "canary",
@@ -22,6 +23,7 @@
     "react-merge-refs": "^2.0.0"
   },
   "devDependencies": {
+    "@types/branch-sdk": "^2.53.3",
     "@types/node": "17.0.21",
     "eslint-config-next": "^12.1.0",
     "fs-extra": "^10.1.0",
