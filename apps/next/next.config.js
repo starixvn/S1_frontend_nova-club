@@ -23,6 +23,10 @@ const nextConfig = {
     outputStandalone: true,
     outputFileTracingRoot: path.join(__dirname, '../../'),
   },
+  sentry: {
+    disableServerWebpackPlugin: true,
+    disableClientWebpackPlugin: true,
+  },
 }
 const { withSentryConfig } = require('@sentry/nextjs');
 const { withExpo } = require('@expo/next-adapter')
@@ -43,15 +47,9 @@ const withTM = require('next-transpile-modules')([
   '@gorhom/portal',
   '@react-native-community/datetimepicker',
 ])
-const moduleExports = withPlugins(
-  [
-    withTM,
-    withImages,
-    [withExpo, { projectRoot: __dirname }],
-    [withFonts, { projectRoot: __dirname }],
-  ],
-  nextConfig
-)
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
 
 const sentryWebpackPluginOptions = {
   // Additional config options for the Sentry Webpack plugin. Keep in mind that
@@ -69,4 +67,17 @@ const sentryWebpackPluginOptions = {
   // https://github.com/getsentry/sentry-webpack-plugin#options.
 };
 
-module.exports = withSentryConfig(moduleExports, sentryWebpackPluginOptions);
+const moduleExports = withPlugins(
+  [
+    withTM,
+    [withImages, { inlineImageLimit: 0 }],
+    [withExpo, { projectRoot: __dirname }],
+    [withFonts, { projectRoot: __dirname }],
+    (nextConfig) => withSentryConfig(nextConfig, sentryWebpackPluginOptions),
+    [withBundleAnalyzer]
+  ],
+  nextConfig
+)
+
+
+module.exports = moduleExports
