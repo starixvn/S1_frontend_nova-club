@@ -11,6 +11,15 @@ const guestRoutes = ['/auth', '/profile/commission-table']
     which cause double redirection if after logout, replace("/auth/login") is executed
 */
 
+export function serialize(obj) {
+  var str = []
+  for (var p in obj)
+    if (obj.hasOwnProperty(p)) {
+      str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]))
+    }
+  return str.join('&')
+}
+
 const AuthenticationProvider = ({ children }) => {
   const { push, route, asPath, query } = useRouter()
   const loginInfo = useAppSelector((s) => s.auth.info)
@@ -21,9 +30,15 @@ const AuthenticationProvider = ({ children }) => {
   // if route doesnt exists in guestRoutes
   if (!guestRoutes.some((r) => asPath.startsWith(r))) {
     if (!loginInfo) {
-      push(`${route}?r=${route}`, `/auth/login?r=${route}`, {
-        shallow: true,
-      })
+      let serializedQuery = serialize(query)
+
+      push(
+        `${route}?r=${route}&${serializedQuery}`,
+        `/auth/login?r=${route}&${serializedQuery}`,
+        {
+          shallow: true,
+        }
+      )
 
       return <LoginPage />
     }
