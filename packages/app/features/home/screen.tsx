@@ -1,5 +1,3 @@
-import withContextualNav from 'app/navigation/web/withContextualNav'
-import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import { ScrollView } from 'dripsy'
 import { default as React, useEffect } from 'react'
 import { useLazyPlayerProfileQuery } from 'services/playerApi'
