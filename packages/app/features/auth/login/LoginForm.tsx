@@ -41,6 +41,8 @@ const LoginForm = () => {
   const passwordFieldRef = useRef<RNTextField>(null)
   const usernameFieldRef = useRef<RNTextField>(null)
 
+  const [getPlayerProfile] = useLazyPlayerProfileQuery()
+
   const log = useAppSelector((s) => s.setting.log)
 
   const dispatch = useAppDispatch()
