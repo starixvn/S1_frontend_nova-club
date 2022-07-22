@@ -67,13 +67,13 @@ const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
           push(makeContextualHref('customer-support'), '/customer-support')
         },
       },
-      {
-        label: 'Switch Accountss',
-        icon: 'switch',
-        onPress: () => {
-          throw 'fromIOS-hereeee'
-        },
-      },
+      // {
+      //   label: 'Switch Accountss',
+      //   icon: 'switch',
+      //   onPress: () => {
+      //     throw 'fromIOS-hereeee'
+      //   },
+      // },
       {
         icon: 'logout',
         label: 'menu.logout',

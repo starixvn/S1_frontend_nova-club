@@ -128,7 +128,7 @@ const ContextualNavigationProvider = ({ children }) => {
         sx={{
           position: 'absolute',
           maxWidth: 'container',
-          width: '100vw',
+          width: '100%',
           alignSelf: 'center',
           overflow: 'hidden',
         }}
