@@ -1,15 +1,12 @@
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useLocalization from 'app/provider/localization'
-import { RootState } from 'app/provider/redux/store'
 import { Text, View } from 'dripsy'
 import React, { useCallback, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
 import { Button } from '../form/Button'
 import ModalWrapper from './ModalWrapper'
 import QRCode from 'react-native-qrcode-svg'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import RNFS, { readDir } from 'react-native-fs'
-import { PermissionsAndroid, Platform } from 'react-native'
+import { PermissionsAndroid } from 'react-native'
 import ViewShot, { captureRef } from 'react-native-view-shot'
 import * as MediaLibrary from 'expo-media-library'
 
@@ -23,34 +20,20 @@ const QRTransferModal = ({ modal: { closeModal } }) => {
   const username = data?.data?.username
   const referralCode = data?.data?.referral_code
 
-  const onPressCaptureModalContent = useCallback(() => {
-    captureRef(ref).then(async (uri) => {
-      await MediaLibrary.saveToLibraryAsync(uri)
-      await closeModal()
-
-      // let filePath = RNFS.DocumentDirectoryPath + `/vui123-${username}.png`
-
-      // await RNFS.writeFile(filePath, uri, 'base64')
-      //   .then((success) => {
-      //     console.log(
-      //       '🚀 ~ file: QRTransferModal.tsx ~ line 50 ~ .then ~ success',
-      //       success
-      //     )
-      //   })
-      //   .then(async () => {
-      //     console.log('QRcode saved')
-      //     const fileArr = await readDir(RNFS.DocumentDirectoryPath)
-      //     console.log(
-      //       '🚀 ~ file: QRTransferModal.tsx ~ line 74 ~ .then ~ fileArr',
-      //       fileArr
-      //     )
-      //   })
-      //   .catch((err) => console.log('err', err))
-
-      // RNFS.readDir(RNFS.DocumentDirectoryPath).then((result) => {
-      //   console.log('GOT RESULT', result)
-      // })
-    })
+  const onPressCaptureModalContent = useCallback(async () => {
+    try {
+      if (await hasAndroidPermission()) {
+        captureRef(ref).then(async (uri) => {
+          await MediaLibrary.saveToLibraryAsync(uri)
+          await closeModal()
+        })
+      }
+    } catch (error) {
+      console.log(
+        '🚀 ~ file: QRTransferModal.tsx ~ line 28 ~ onPressCaptureModalContent ~ error',
+        error
+      )
+    }
   }, [])
 
   const hasAndroidPermission = async () => {
@@ -91,7 +74,7 @@ const QRTransferModal = ({ modal: { closeModal } }) => {
               justifyContent: 'space-evenly',
             }}
           >
-            <Text sx={{ color: '$black' }}>{data?.data?.username}</Text>
+            <Text sx={{ color: '$black' }}>{username}</Text>
             <QRCode
               value={referralCode}
               size={width * 0.5}

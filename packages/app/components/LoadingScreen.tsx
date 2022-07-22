@@ -16,7 +16,18 @@ const LoadingScreen = () => {
         opacity: 0.5,
       }}
     >
-      <ActivityIndicator size="large" />
+      <View
+        sx={{
+          width: 200,
+          aspectRatio: 1,
+          bg: 'black',
+          borderRadius: 24,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <ActivityIndicator size="large" color="white" />
+      </View>
     </View>
   )
 }

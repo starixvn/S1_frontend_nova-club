@@ -1,6 +1,7 @@
 import { DripsyGradient, DripsyGradientProps } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import useLocalization from 'app/provider/localization'
+import { ReportGameStatusOptions } from 'app/utils/constant'
 import { Image, Pressable, SxProp, Text } from 'dripsy'
 import { ComponentProps } from 'react'
 
@@ -57,7 +58,7 @@ const SelectButton = ({
         end={isActive ? { x: 0.5, y: 1 } : { x: 1, y: 0.5 }}
         {...dripsyGradientProp}
       >
-        {icon ? (
+        {icon && title !== ReportGameStatusOptions[0].label ? (
           <Image
             source={icon}
             sx={{

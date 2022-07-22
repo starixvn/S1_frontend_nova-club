@@ -13,7 +13,7 @@ type BankAccCardProps = {
 }
 
 const BankAccCard = ({ item, onPressRemove }: BankAccCardProps) => {
-  const { cleanText } = toCleanCard(item.BankAccountNumber)
+  const cleanText = toCleanCard(item.BankAccountNumber)
 
   return (
     <StyledBox>

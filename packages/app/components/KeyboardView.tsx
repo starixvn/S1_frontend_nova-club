@@ -3,7 +3,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 const KeyboardView = ({ children, ...rest }) => {
   return (
-    <KeyboardAwareScrollView extraScrollHeight={60} {...rest}>
+    <KeyboardAwareScrollView extraScrollHeight={60} enableOnAndroid {...rest}>
       {children}
     </KeyboardAwareScrollView>
   )
