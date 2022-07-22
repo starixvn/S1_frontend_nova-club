@@ -2,9 +2,11 @@ import IconButton from 'app/components/form/IconButton'
 import { DripsyGradient } from 'app/components/Gradient'
 import KeyboardView from 'app/components/KeyboardView'
 import ProfileLanguage from 'app/features/profile/ProfileLanguage'
+import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Image, ScrollView, styled, Text, View } from 'dripsy'
 import React from 'react'
+import { useRouter } from 'solito/router'
 
 const HEADER_IMAGE = require('../../../assets/images/auth-logo.png')
 const BACK_ICON_SIZE = 30
@@ -30,9 +32,20 @@ const AuthLayout = ({
   onBack,
 }: AuthLayoutProps) => {
   const { top, bottom } = useSafeArea()
+  const { replace } = useRouter()
+  const { token } = useAppSelector((state) => state.auth.info) || {}
 
   const onPressBack = () => {
     onBack?.()
+  }
+
+  const checkIfUserLoggedIn = () => {
+    return Boolean(token)
+  }
+
+  if (checkIfUserLoggedIn()) {
+    replace('/')
+    return null
   }
 
   return (

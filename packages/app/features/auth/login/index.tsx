@@ -1,6 +1,6 @@
 import { useResetRTKQ } from 'app/hooks/useResetRTKQ'
 import useLocalization from 'app/provider/localization'
-import React, { useEffect } from 'react'
+import React from 'react'
 import AuthLayout from '../layout/AuthLayout'
 import LoginForm from './LoginForm'
 
