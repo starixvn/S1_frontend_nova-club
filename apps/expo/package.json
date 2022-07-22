@@ -2,12 +2,17 @@
   "dependencies": {
     "@react-native-async-storage/async-storage": "~1.15.0",
     "@react-native-community/datetimepicker": "4.0.0",
+    "@sentry/react-native": "3.4.2",
+    "@sentry/wizard": "^1.2.17",
     "app": "*",
     "appcenter": "^4.4.4",
     "appcenter-crashes": "^4.4.4",
     "dripsy": "^3.6.0",
     "expo": "^44.0.0",
+    "expo-application": "~4.0.1",
     "expo-barcode-scanner": "~11.2.0",
+    "expo-constants": "~13.0.1",
+    "expo-device": "~4.1.0",
     "expo-font": "~10.0.4",
     "expo-image-picker": "~12.0.1",
     "expo-keep-awake": "~10.0.1",
@@ -28,7 +33,9 @@
     "react-native-svg": "12.1.1",
     "react-native-view-shot": "^3.3.0",
     "react-native-web": "0.17.1",
-    "react-native-webview": "11.15.0"
+    "react-native-webview": "11.15.0",
+    "sentry-expo": "^4.0.0",
+    "tslib": "^2.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

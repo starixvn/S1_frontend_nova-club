@@ -1,13 +1,15 @@
+import withContextualNav from 'app/navigation/web/withContextualNav'
+import { ContextualModuleKey } from 'app/navigation/web/withContextualNavConstant'
 import { ScrollView } from 'dripsy'
 import { default as React, useEffect } from 'react'
 import { useLazyPlayerProfileQuery } from 'services/playerApi'
 import AnnoucementMarquee from './Section/AnnouncementMarquee'
+import BannerSection from './Section/BannerSection'
 import CasinoSection from './Section/CasinoSection'
 import GamesSection from './Section/GamesSection'
 import GridSection from './Section/GridSection'
 import HotGamesSection from './Section/HotGamesSection'
 import LotterySection from './Section/LotterySection'
-import BannerSection from './Section/BannerSection'
 
 const HomeScreen = () => {
   const [playerProfile] = useLazyPlayerProfileQuery()
