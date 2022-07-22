@@ -23,7 +23,7 @@ import {
   MaxLength,
   TopUpCard,
 } from 'app/utils/constant'
-import { PlayerInputFieldsBank } from 'services/deposit.type'
+import { AutoBankItem, PlayerInputFieldsBank } from 'services/deposit.type'
 import { useModal } from 'react-native-modalfy'
 import KeyboardView from 'app/components/KeyboardView'
 
@@ -67,16 +67,16 @@ const TopUpCardScreen = () => {
   const { openModal } = useModal()
   const [postSubmitDeposit] = useSubmitDepositMutation()
   const { data, isLoading, isFetching } = useDepositPaymentListQuery()
-  const paymentGateway = data?.data?.result.auto.find(
+
+  const depositPayment = data?.data?.result.auto.find(
     (el) => el.category_id === DepositPaymentMethodCategoryId.TOP_UP
   )
 
+  const paymentGateway = depositPayment?.list[0] as AutoBankItem
+  const inputFields = Object.values(paymentGateway?.player_input_fields ?? {})
   const vendorFee =
-    parseFloat(paymentGateway?.list[0]?.deposit_fee_percentage) +
-    parseFloat(paymentGateway?.list[0]?.vendor_percentage)
-  const inputFields = Object.values(
-    paymentGateway?.list[0].player_input_fields ?? {}
-  )
+    parseFloat(paymentGateway?.deposit_fee_percentage) +
+    parseFloat(paymentGateway?.vendor_percentage)
 
   const topUpFields = inputFields.find(
     (el: PlayerInputFieldsBank) => el.type === 'topup_card_list'
@@ -114,14 +114,15 @@ const TopUpCardScreen = () => {
       const { data, success, message } = await postSubmitDeposit({
         amount: realAmount,
         bank: '',
-        bank_type_id: paymentGateway?.list[0]?.bankTypeId ?? 0,
-        card_code: parseInt(cardCode),
-        card_seri: parseInt(cardSerialNo),
+        bank_type_id: paymentGateway?.bankTypeId ?? 0,
+        card_code: parseInt(cardCode.replaceAll(' ', '')),
+        card_seri: parseInt(cardSerialNo.replaceAll(' ', '')),
         card_type: cardType,
-        deposit_from: paymentGateway?.list[0]?.deposit_from ?? 0,
+        deposit_from: paymentGateway?.deposit_from ?? 0,
         fail_url: 'https://stage.gball8.com/',
         home_url: 'https://stage.gball8.com/',
         process_url: 'https://stage.gball8.com/',
+        payment_account_id: paymentGateway?.pay_acc_id ?? 0,
         name: '',
         success_url: 'https://stage.gball8.com/',
       })
@@ -181,7 +182,7 @@ const TopUpCardScreen = () => {
   }
   function onCardCodeChanged(text: string) {
     if (text != null) {
-      const { cleanText, amountNumber } = toCleanCard(text)
+      const cleanText = toCleanCard(text)
       setValues({
         ...values,
         cardCode: cleanText,
@@ -191,7 +192,7 @@ const TopUpCardScreen = () => {
 
   function onCardSerialNoChanged(text: string) {
     if (text != null) {
-      const { cleanText, amountNumber } = toCleanCard(text)
+      const cleanText = toCleanCard(text)
       setValues({
         ...values,
         cardSerialNo: cleanText,
@@ -209,48 +210,35 @@ const TopUpCardScreen = () => {
   return (
     <PageWithBackHeader
       header={{ title: t('deposit.depositMethod.topUp') }}
-      disableScrollView
+      // disableScrollView
     >
       <KeyboardView>
         <View sx={{ flex: 1 }}>
           <View>
+            <StyledTextTitle>{t('deposit.paymentMode')}</StyledTextTitle>
             <StyledViewPayment>
-              <FlatList
-                data={cardTypeList}
-                ListHeaderComponent={
-                  <StyledTextTitle>{t('deposit.paymentMode')}</StyledTextTitle>
-                }
-                numColumns={NUM_COLUMN_PAYMENT}
-                keyExtractor={(item) => `${item.value}`}
-                renderItem={({ item }: { item: CardType }) => (
-                  <ValueCard
-                    item={item}
-                    isActive={item.value === values.cardType}
-                    onPress={(card) => setFieldValue('cardType', card.value)}
-                    containerStyle={{ flex: 1 / NUM_COLUMN_PAYMENT }}
-                  />
-                )}
-                extraData={values.cardType}
-              />
+              {cardTypeList.map((item) => (
+                <ValueCard
+                  key={item.value}
+                  item={item}
+                  isActive={item.value === values.cardType}
+                  onPress={(card) => setFieldValue('cardType', card.value)}
+                  containerStyle={{ width: '33%' }}
+                />
+              ))}
             </StyledViewPayment>
 
+            <StyledTextTitle>{t('deposit.cardValue')}</StyledTextTitle>
             <StyledViewCard>
-              <FlatList
-                data={data1}
-                ListHeaderComponent={
-                  <StyledTextTitle>{t('deposit.cardValue')}</StyledTextTitle>
-                }
-                numColumns={NUM_COLUMN_CARD}
-                keyExtractor={(item, index) => `${index} ${item}`}
-                renderItem={({ item }) => (
-                  <ValueCard
-                    item={item}
-                    isActive={item === values.cardValue}
-                    onPress={(card) => onCardValueChanged(card)}
-                    containerStyle={{ flex: 1 / NUM_COLUMN_CARD }}
-                  />
-                )}
-              />
+              {data1.map((item) => (
+                <ValueCard
+                  key={item}
+                  item={item}
+                  isActive={item === values.cardValue}
+                  onPress={(card) => onCardValueChanged(card)}
+                  containerStyle={{ width: '25%' }}
+                />
+              ))}
             </StyledViewCard>
 
             <TextField labelWidth={0}>
@@ -348,15 +336,19 @@ const TopUpCardScreen = () => {
 
 const StyledViewPayment = styled(View)(() => ({
   mx: '$3',
-  my: '$4',
+  flexDirection: 'row',
 }))
 const StyledViewCard = styled(View)(() => ({
   mx: '$3',
   my: '$2',
+  flexDirection: 'row',
+  flexWrap: 'wrap',
 }))
 
 const StyledTextTitle = styled(Text)(() => ({
   opacity: 0.5,
+  mx: '$4',
+  mt: '$4',
 }))
 
 const StyledViewTextWrapper = styled(View)(() => ({

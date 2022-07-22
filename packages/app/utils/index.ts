@@ -206,17 +206,13 @@ export function toCleanAmount(text: string): CleanAmount {
 
   return { cleanText, amountNumber }
 }
-export function toCleanCard(text: string): CleanAmount {
+export function toCleanCard(text: string) {
   let cleanText = text
     .replace(/\s?/g, '')
     .replace(/(\d{4})/g, '$1 ')
     .trim()
-  // if (cleanText === values.amount) return
-  let amountNumber = parseFloat(cleanText)
-  if (isNaN(amountNumber)) amountNumber = 0
 
-  // cleanText = toThousandSeparator(cleanText) ?? ''
-  return { cleanText, amountNumber }
+  return cleanText
 }
 
 function nFormatter(num, digits = 1) {

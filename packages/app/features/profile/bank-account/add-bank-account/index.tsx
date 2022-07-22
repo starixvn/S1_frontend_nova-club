@@ -44,7 +44,7 @@ const AddBankAccountScreen = () => {
     try {
       const { data, success, message } = await postAddWithdrawalBankAcc({
         bank_acc_name: bank?.bank_name ?? '',
-        bank_acc_num: accountNo,
+        bank_acc_num: accountNo.replaceAll(' ', ''),
         bank_address: 'bankAcc',
         bank_type_id: bank?.id ?? 0,
         branch: bank?.bank_code ?? '',
@@ -95,7 +95,7 @@ const AddBankAccountScreen = () => {
 
   function onCardChanged(text: string) {
     if (text != null) {
-      const { cleanText, amountNumber } = toCleanCard(text)
+      const cleanText = toCleanCard(text)
       setValues({
         ...values,
         accountNo: cleanText,

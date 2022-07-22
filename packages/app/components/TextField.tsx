@@ -240,6 +240,8 @@ const TextFieldSelect = ({
               <StyledTextInput
                 editable={false}
                 placeholderTextColor={'#FFFF00'}
+                numberOfLines={1}
+                selection={{ start: 0 }}
                 {..._input}
               />
               <Icon name="chevdown" size={25} />
