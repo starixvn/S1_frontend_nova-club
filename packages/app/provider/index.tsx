@@ -10,16 +10,26 @@ import ReduxProvider from './redux'
 import { SafeArea } from './safe-area'
 import { useKeepAwake } from 'expo-keep-awake'
 import ContextualNavigationProvider from 'app/navigation/web/ContextualNavigation'
+import { styled, useSx } from 'dripsy'
+
+const RootView = styled(GestureHandlerRootView)(() => ({
+  flex: 1,
+  width: '100%',
+  maxWidth: 'container',
+  overflow: 'hidden',
+  marginLeft: 'auto',
+  marginRight: 'auto',
+}))
 
 export function Provider({ children }: { children: React.ReactNode }) {
   useKeepAwake()
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <ReduxProvider>
-        <LocalizationProviderRedux>
-          <SafeArea>
-            <NavigationProvider>
-              <Dripsy>
+    <Dripsy>
+      <RootView>
+        <ReduxProvider>
+          <LocalizationProviderRedux>
+            <SafeArea>
+              <NavigationProvider>
                 <ModalProvider>
                   <ContextualNavigationProvider>
                     <PortalProvider>{children}</PortalProvider>
@@ -27,11 +37,11 @@ export function Provider({ children }: { children: React.ReactNode }) {
                     <AlertModal />
                   </ContextualNavigationProvider>
                 </ModalProvider>
-              </Dripsy>
-            </NavigationProvider>
-          </SafeArea>
-        </LocalizationProviderRedux>
-      </ReduxProvider>
-    </GestureHandlerRootView>
+              </NavigationProvider>
+            </SafeArea>
+          </LocalizationProviderRedux>
+        </ReduxProvider>
+      </RootView>
+    </Dripsy>
   )
 }

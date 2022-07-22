@@ -63,7 +63,12 @@ function getContextualComponent(key: string) {
         transform: [{ translateX: '100%' }],
       }}
       transition={{ type: 'timing', duration: 350 }}
-      style={{ minHeight: '100vh' }}
+      style={{
+        minHeight: '100vh',
+        position: 'absolute',
+        width: '100%',
+        top: 0,
+      }}
     >
       <LazyComponent />
     </MotiView>
@@ -76,12 +81,14 @@ interface ContextualStackItem {
   Component: React.FunctionComponent
   id: string
 }
+
 export const ContextualNavigationContext = createContext({
   stacks: [] as ContextualStackItem[],
   add: (moduleKey: string, componentKey: string) => {},
   remove: (index: number) => {},
   clear: () => {},
 })
+
 const ContextualNavigationProvider = ({ children }) => {
   const [stacks, setStacks] = useState([] as ContextualStackItem[])
 
@@ -124,22 +131,16 @@ const ContextualNavigationProvider = ({ children }) => {
   return (
     <ContextualNavigationContext.Provider value={state}>
       {children}
-      <View
-        sx={{
-          position: 'absolute',
-          maxWidth: 'container',
-          width: '100vw',
-          alignSelf: 'center',
-          overflow: 'hidden',
-        }}
-      >
-        <AnimatePresence>
-          {stacks.map((s) => {
-            const Component = s.Component
-            return <Component key={s.id} />
-          })}
-        </AnimatePresence>
-      </View>
+      {Platform.OS === 'web' && (
+        <View sx={{ position: 'initial', width: '100%' }}>
+          <AnimatePresence>
+            {stacks.map((s, i) => {
+              const Component = s.Component
+              return <Component key={s.id} />
+            })}
+          </AnimatePresence>
+        </View>
+      )}
     </ContextualNavigationContext.Provider>
   )
 }
