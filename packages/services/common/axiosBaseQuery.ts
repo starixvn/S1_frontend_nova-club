@@ -25,6 +25,7 @@ export function axiosBaseQuery<T>(): BaseQueryFn<
         headers,
         signal,
       })
+
       const { code } = respData
       if (url.startsWith('/player_api/getGameList'))
         console.log('respData', url, respData.data.length)

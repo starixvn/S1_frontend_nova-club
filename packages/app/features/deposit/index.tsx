@@ -17,7 +17,6 @@ const DepositPage = () => {
   const dispatch = useDispatch()
   const [paymentMethodList, setPaymentMethodList] = useState(PaymentMethod)
   const { data, isLoading } = useDepositPaymentListQuery()
-  console.log('🚀 ~ file: index.tsx ~ line 22 ~ DepositPage ~ data', data)
 
   const { makeContextualHref } = useContextualRouting()
   const toLocalBank = makeContextualHref('local-bank')

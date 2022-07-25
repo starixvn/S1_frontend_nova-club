@@ -28,6 +28,27 @@ export const configureAxios = (newConfig: CustomConfig) => {
 const axiosInstance = axios.create({
   baseURL: `${API_DOMAIN}`,
   timeout: DEFAULT_TIMEOUT,
+  transformRequest: [
+    (data, headers) => {
+      if (headers && data) {
+        const contentType = headers.post['Content-Type']?.toLowerCase()
+
+        switch (contentType) {
+          case 'multipart/form-data': {
+            const body = new FormData()
+            Object.keys(data).map((k) => {
+              body.append(k, data[k])
+            })
+
+            // console.log('body', Object.fromEntries(body))
+            return body
+          }
+        }
+      }
+
+      return JSON.stringify(data)
+    },
+  ],
 })
 
 const onRequestFullfilled = (config: AxiosRequestConfig) => {
@@ -127,6 +148,8 @@ const onResponseError = (error: AxiosError) => {
   return Promise.reject(error)
 }
 
+axiosInstance.defaults.headers.post['Content-Type'] = 'application/json'
+axiosInstance.defaults.headers.put['Content-Type'] = 'application/json'
 axiosInstance.interceptors.request.use(onRequestFullfilled, onRequestError)
 axiosInstance.interceptors.response.use(onResponseFullfilled, onResponseError)
 

@@ -105,6 +105,7 @@ const colorGradient = {
   wineRed: ['#BF0A31', '#78031D'],
   white: ['#FFF', '#FFF'],
   transparent: ['', ''],
+  disabled: ['#CCC', '#CCC'],
 }
 
 // default breakpoints [0, 576, 768, 992, 1200]

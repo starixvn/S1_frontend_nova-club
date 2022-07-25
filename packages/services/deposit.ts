@@ -8,6 +8,7 @@ import {
   SubmitDepositResult,
   SubmitManualDepositArgs,
   SubmitManualDepositResult,
+  UploadDepositSlipArgs,
 } from './deposit.type'
 import { SubmitWithdrawalArgs } from './withdrawal.type'
 
@@ -16,7 +17,10 @@ const DepositEndPoints = (builder: EndpointBuilderType) => {
     /**
      * *Deposit Payment List
      */
-    depositPaymentList: builder.query<IResponse<DepositPaymentListResult>, void>({
+    depositPaymentList: builder.query<
+      IResponse<DepositPaymentListResult>,
+      void
+    >({
       query: () => ({
         url: `/player_api/depositPaymentList`,
         method: 'POST',
@@ -24,7 +28,10 @@ const DepositEndPoints = (builder: EndpointBuilderType) => {
       }),
     }),
 
-    submitDeposit: builder.mutation<IResponse<SubmitDepositResult>, SubmitDepositArgs>({
+    submitDeposit: builder.mutation<
+      IResponse<SubmitDepositResult>,
+      SubmitDepositArgs
+    >({
       query: (queryArgs) => ({
         url: `/player_api/submitDeposit`,
         method: 'POST',
@@ -33,13 +40,27 @@ const DepositEndPoints = (builder: EndpointBuilderType) => {
         },
       }),
     }),
-    submitManualDeposit: builder.mutation<IResponse<SubmitManualDepositResult>, SubmitManualDepositArgs>({
+    submitManualDeposit: builder.mutation<
+      IResponse<SubmitManualDepositResult>,
+      SubmitManualDepositArgs
+    >({
       query: (queryArgs) => ({
         url: `/player_api/submitManualDeposit`,
         method: 'POST',
         data: {
           ...queryArgs,
         },
+      }),
+    }),
+    uploadDepositSlip: builder.mutation<
+      IResponse<string>,
+      UploadDepositSlipArgs
+    >({
+      query: (queryArgs) => ({
+        url: `/player_api/uploadPlayerDepositSlip`,
+        method: 'POST',
+        headers: { post: { 'Content-Type': 'multipart/form-data' } },
+        data: queryArgs,
       }),
     }),
   }
@@ -55,4 +76,9 @@ const depositApi = createApi({
 
 export default depositApi
 export { DepositEndPoints }
-export const { useDepositPaymentListQuery, useSubmitDepositMutation, useSubmitManualDepositMutation } = depositApi
+export const {
+  useDepositPaymentListQuery,
+  useSubmitDepositMutation,
+  useSubmitManualDepositMutation,
+  useUploadDepositSlipMutation,
+} = depositApi

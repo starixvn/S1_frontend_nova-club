@@ -46,7 +46,10 @@ const LocalBankScreen = () => {
   const { push, back } = useRouter()
   const { openModal } = useModal()
   const [limit, setLimit] = useState({ minAmount: 0, maxAmount: 0 })
-  const [postSubmitManualDeposit] = useSubmitManualDepositMutation()
+  const [
+    postSubmitManualDeposit,
+    { data: depositData, isSuccess: isSubmitDepositSuccess },
+  ] = useSubmitManualDepositMutation()
   const { data, isLoading, isFetching } = useDepositPaymentListQuery()
 
   const { data: playerData } = usePlayerProfileQuery()
@@ -83,7 +86,6 @@ const LocalBankScreen = () => {
 
       if (success) {
         dispatch(AlertActions.addSuccess(message))
-        actions.resetForm()
       }
     } catch (e) {
       dispatch(AlertActions.addError('status.systemError'))
@@ -217,13 +219,16 @@ const LocalBankScreen = () => {
           />
         </TextField>
 
-        <DepositUpload />
+        <DepositUpload
+          isDepositSubmitted={isSubmitDepositSuccess}
+          secureId={depositData?.data?.secure_id}
+        />
 
         <Button
           rounded
           stretch
           loading={isSubmitting}
-          disabled={!isValid || !dirty}
+          disabled={!isValid || !dirty || isSubmitDepositSuccess}
           variant="lg"
           fill={{
             type: 'gradient',
