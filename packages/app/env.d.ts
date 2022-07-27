@@ -4,4 +4,5 @@ declare module '@env' {
   export const DEV_DOMAIN: string
   export const MEDIA_DOMAIN: string
   export const CONTENT_URI: string
+  export const CMS_CONTENT_URI: string
 }

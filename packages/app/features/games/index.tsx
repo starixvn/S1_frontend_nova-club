@@ -1,4 +1,4 @@
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import SimpleGridImage from 'app/components/SimpleGridImage'
 import useGameGridSize from 'app/hooks/useGameGridSize'
 import useLocalization from 'app/provider/localization'
@@ -43,7 +43,7 @@ const Games = () => {
     item,
   }: Parameters<ListRenderItem<GameList>>[0]) => {
     const { gc, gpc, img } = item
-    const imageUrl = `${MEDIA_DOMAIN}${CONTENT_URI}/${img}`
+    const imageUrl = `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${img}`
 
     return (
       <AnimatePresence>
