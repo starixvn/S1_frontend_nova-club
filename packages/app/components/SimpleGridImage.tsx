@@ -10,11 +10,13 @@ import { TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux'
 import Icon from './Icon'
 
-type GamesProps = GAMES & {
+type GamesProps = Omit<GAMES, 'gameName'> & {
   width: number
   height?: number
   sx: SxProp
   desktop?: boolean
+  isHotGame?: boolean
+  isNewGame?: boolean
 }
 
 export const GAME_IMAGE_RATIO = 325 / 315
@@ -28,6 +30,8 @@ const SimpleGridImage: FC<GamesProps> = ({
   height,
   sx,
   desktop,
+  isHotGame,
+  isNewGame,
 }) => {
   const dispatch = useDispatch()
   const urlImage = typeof image == 'string' && image.indexOf('http') > -1
@@ -87,6 +91,32 @@ const SimpleGridImage: FC<GamesProps> = ({
             {t('common.desktop')}
           </Text>
         </DesktopMode>
+      )}
+      {isHotGame && (
+        <Image
+          resizeMode="contain"
+          source={require('../assets/images/games/common/icon-hot.png')}
+          sx={{
+            width: width * 0.5,
+            height: (height ?? width / GAME_IMAGE_RATIO) * 0.5,
+            position: 'absolute',
+            top: -10,
+            left: -10,
+          }}
+        />
+      )}
+      {isNewGame && (
+        <Image
+          resizeMode="contain"
+          source={require('../assets/images/games/common/icon-new.png')}
+          sx={{
+            width: width * 0.5,
+            height: (height ?? width / GAME_IMAGE_RATIO) * 0.5,
+            position: 'absolute',
+            top: 0,
+            left: -2,
+          }}
+        />
       )}
     </View>
   )

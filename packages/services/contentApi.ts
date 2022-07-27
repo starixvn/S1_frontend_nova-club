@@ -9,6 +9,8 @@ import {
   CommissionTableResult,
   GameConfig,
   GameListQueryArgs,
+  GetGameListQueryArgs,
+  GetGameListResult,
   LeaderboardResult,
 } from './contentApi.type'
 import { MEDIA_DOMAIN } from '@env'
@@ -53,6 +55,24 @@ const contentEndpoints = (builder: EndpointBuilderType) => {
         data,
       }),
     }),
+    getGameList: builder.query<
+      IResponse<GetGameListResult>,
+      GetGameListQueryArgs
+    >({
+      query: ({ currency, game_category, limit, offset }) => ({
+        url: `/static_api/getGameList`,
+        method: 'POST',
+        data: {
+          currency,
+          game_category,
+          limit,
+          offset,
+        },
+        _config: {
+          isStaticApi: true,
+        },
+      }),
+    }),
     affiliateUsername: builder.query<IResponse<{ username: string }>, string>({
       query: (trackingCode) => ({
         url: `/static_api/referral/${trackingCode}`,
@@ -83,4 +103,6 @@ export const {
   useGameListQuery,
   useAffiliateUsernameQuery,
   useLazyAffiliateUsernameQuery,
+  useGetGameListQuery,
+  useLazyGetGameListQuery,
 } = contentApi

@@ -334,3 +334,16 @@ export enum MaxLength {
   AMOUNT = 9,
   CARD = 19,
 }
+
+export enum GAME_TYPE_CODE {
+  E_SPORTS = 'e_sports',
+  FISHING = 'fishing',
+  LIVE_DEALER = 'live_dealer',
+  SLOTS = 'slots',
+  SPORTS = 'sports',
+  P2P = 'P2P',
+  LOTTERY = 'lottery',
+  VIRTUAL_SPORTS = 'virtual_sports',
+  GAMES = 'games',
+  COCKFIGHTING = 'cockfighting',
+}

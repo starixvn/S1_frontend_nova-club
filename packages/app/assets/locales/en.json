@@ -61,6 +61,7 @@
     "more": "More",
     "newPassword": "New Password",
     "next": "Next",
+    "noInfoAvailable": "No information is available now",
     "ok": "OK",
     "oldPassword": "Old Password",
     "otp": "OTP",
@@ -172,6 +173,7 @@
     "category": {
       "cockfighting": "Cockfighting",
       "fishing": "Fishing",
+      "fishingGames": "Fishing Games",
       "games": "Games",
       "hotGames": "Hot Games",
       "keno/lottery": "Keno / Lottery",

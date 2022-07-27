@@ -61,6 +61,7 @@
     "more": "Thêm",
     "newPassword": "Mật khẩu mới",
     "next": "Tiếp theo",
+    "noInfoAvailable": "Không Có Thông Tin",
     "ok": "OK",
     "oldPassword": "Mật khẩu hiện tại",
     "otp": "OTP",
@@ -172,6 +173,7 @@
     "category": {
       "cockfighting": "Chọi Gà",
       "fishing": "Bắn Cá",
+      "fishingGames": "Trò Chơi Câu Cá",
       "games": "Trò Chơi",
       "hotGames": "Hot Games",
       "keno/lottery": "Keno / Lottery",
@@ -189,6 +191,7 @@
       "sports": "Thể Thao",
       "virtualSports": "Thể thao ảo"
     },
+    "notFound": "Trò chơi không tìm thấy",
     "quitGame": "Thoát trò chơi",
     "reward": "Phần thưởng trò chơi",
     "underMaintenance": "Trò chơi đang được bảo trì"

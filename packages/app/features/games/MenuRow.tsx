@@ -1,81 +1,159 @@
-import { DripsyGradient } from 'app/components/Gradient'
 import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
-import { Image, styled, Text } from 'dripsy'
-import { useRouter } from 'solito/router'
+import { GAME_TYPE_CODE } from 'app/utils/constant'
+import { Image, styled, Text, View } from 'dripsy'
+import { MotiView } from 'moti'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { GameList } from 'services/contentApi.type'
+
 const DATA = [
   {
-    label: 'game.category.slots',
+    label: 'common.all',
     img: require('../../assets/images/games/slots.png'),
-    route: '/slot',
+    bgImg: require('../../assets/images/games/games/yellow-ellipse.png'),
+    gameType: [
+      GAME_TYPE_CODE.GAMES,
+      GAME_TYPE_CODE.COCKFIGHTING,
+      GAME_TYPE_CODE.FISHING,
+      GAME_TYPE_CODE.LOTTERY,
+    ],
   },
-  // {
-  //   label: 'Local Games',
-  //   img: require('../../assets/images/games/dice.png'),
-  // },
   {
-    label: 'game.category.fishing',
+    label: 'game.category.fishingGames',
     img: require('../../assets/images/games/fishing.png'),
-    route: '/games/fishing',
+    bgImg: require('../../assets/images/games/games/yellow-ellipse.png'),
+    gameType: [GAME_TYPE_CODE.FISHING],
   },
   {
     label: 'game.category.keno/lottery',
     img: require('../../assets/images/games/lottery.png'),
-    route: '/games/lottery',
+    bgImg: require('../../assets/images/games/games/green-ellipse.png'),
+    gameType: [GAME_TYPE_CODE.LOTTERY],
   },
   {
-    label: 'game.category.poker',
+    label: 'game.category.cockfighting',
     img: require('../../assets/images/games/poker.png'),
-    route: '/',
+    bgImg: require('../../assets/images/games/games/yellow-ellipse.png'),
+    gameType: [GAME_TYPE_CODE.COCKFIGHTING],
   },
 ]
-const MenuRow = () => {
-  const { push } = useRouter()
+
+interface MenuRowProps {
+  setFilterGames: Dispatch<SetStateAction<GameList[]>>
+  gameList?: GameList[]
+}
+
+const MenuRow = ({ setFilterGames, gameList }: MenuRowProps) => {
   const { t } = useLocalization()
+  const [selectedIndex, setSelectedIndex] = useState(0)
+
+  const onFilterGame = (item: typeof DATA[number], index: number) => {
+    if (!gameList?.length) return
+
+    const gameType = item.gameType
+
+    const filteredGames = gameList.filter((gamesLists) =>
+      gameType.includes(gamesLists.gtc as GAME_TYPE_CODE)
+    )
+
+    setFilterGames(filteredGames)
+    setSelectedIndex(index)
+  }
+
+  useEffect(() => {
+    if (gameList?.length) {
+      setFilterGames(gameList)
+    }
+  }, [gameList, setFilterGames])
 
   return (
-    <DripsyGradient gradient={'darkBlue'}>
-      <StyledListView gradient={'navyBlue'}>
-        {DATA.map((i) => {
-          return (
-            <BouncePressable
-              key={i.label}
-              style={{
-                alignItems: 'center',
-              }}
-              onPress={() => push(i.route)}
-            >
-              <StyledImage source={i.img} resizeMode={'stretch'} />
-              <StyledText>{t(i.label)}</StyledText>
-            </BouncePressable>
-          )
-        })}
-      </StyledListView>
-    </DripsyGradient>
+    <StyledListView>
+      {DATA.map((i, index) => {
+        return (
+          <BouncePressable
+            key={i.label}
+            style={{
+              alignItems: 'center',
+            }}
+            onPress={() => onFilterGame(i, index)}
+          >
+            <View sx={{ position: 'relative' }}>
+              <MotiView
+                animate={{
+                  scale: index === selectedIndex ? 1.2 : 1,
+                }}
+                exit={{
+                  scale: 1,
+                }}
+              >
+                <StyledImage source={i.img} resizeMode={'contain'} />
+              </MotiView>
+
+              <StyledBackgroundWrapper>
+                <MotiView
+                  transition={{
+                    damping: 6,
+                    mass: 0.5,
+                    stiffness: 200,
+                    type: 'spring',
+                  }}
+                  animate={{
+                    scale: index === selectedIndex ? 1.2 : 1,
+                  }}
+                  exit={{
+                    scale: 1,
+                  }}
+                  style={{ width: '100%', height: '100%' }}
+                >
+                  <StyledBackgroundImage
+                    source={i.bgImg}
+                    resizeMode={'contain'}
+                  />
+                </MotiView>
+              </StyledBackgroundWrapper>
+            </View>
+
+            <StyledText>{t(i.label)}</StyledText>
+          </BouncePressable>
+        )
+      })}
+    </StyledListView>
   )
 }
 
 const StyledImage = styled(Image)({
-  height: [75, 120],
-  width: [75, 120],
+  height: [85, 120],
+  width: [85, 120],
 })
+const StyledBackgroundImage = styled(Image)({
+  transform: [{ scale: 0.7 }],
+  width: '100%',
+  height: '100%',
+})
+const StyledBackgroundWrapper = styled(View)({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  bottom: 0,
+  right: 0,
+  zIndex: -1,
+})
+
 const StyledText = styled(Text)({
   textAlign: 'center',
   alignSelf: 'center',
   fontSize: 12,
+  fontWeight: 'bold',
   width: '90%',
-  mt: -10,
+  mt: '$0a',
   mb: '$2a',
 })
 
-const StyledListView = styled(DripsyGradient)({
+const StyledListView = styled(View)({
   mx: '$2a',
   my: '$2a',
-  mb: '$5',
+  mb: '$2',
   flexDirection: 'row',
   justifyContent: 'space-around',
-  borderRadius: 15,
-  borderWidth: 1,
-  borderColor: '$lightNavyBlue',
 })
 export default MenuRow

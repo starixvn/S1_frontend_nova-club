@@ -1,3 +1,4 @@
+import { LANGUAGE_CODE } from 'app/constant/language'
 import { ImageSourcePropType } from 'react-native'
 
 export interface BannerResult {
@@ -64,4 +65,25 @@ export interface AnnouncementListItems {
   newsId: number
   start_date: object
   title: string
+}
+
+export interface GetGameListQueryArgs {
+  currency: string
+  game_category: string[]
+  limit: number
+  offset: number
+}
+
+export interface GameList {
+  gc: string
+  gpc: string
+  gtc: string
+  img: string
+  name: Record<LANGUAGE_CODE, string>
+  tags: string[]
+}
+
+export interface GetGameListResult {
+  rows: GameList[]
+  row_count_total: number
 }

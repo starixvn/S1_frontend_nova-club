@@ -1,27 +1,13 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import { axiosBaseQuery } from './common/axiosBaseQuery'
 import { EndpointBuilderType, IResponse } from './common/types'
-import {
-  GameListResult,
-  GameQueryArgs,
-  GetGameUrlQueryArgs,
-  GetGameUrlResult,
-} from './gameApi.type'
+import { GetGameUrlQueryArgs, GetGameUrlResult } from './gameApi.type'
 
 /**
  * @param builder Pass builder from `createApi` *endpoints*
  */
 const gameEndpoints = (builder: EndpointBuilderType) => {
   return {
-    gameList: builder.query<IResponse<GameListResult[]>, GameQueryArgs>({
-      query: ({ platform, type }) => ({
-        url: `/static_api/getGameListApi`,
-        data: {
-          platform,
-          type,
-        },
-      }),
-    }),
     getGameUrl: builder.query<IResponse<GetGameUrlResult>, GetGameUrlQueryArgs>(
       {
         query: ({ game_code, is_demo, is_mobile, platform_code }) => ({
@@ -51,5 +37,4 @@ const gameApi = createApi({
 
 export default gameApi
 export { gameEndpoints }
-export const { useGameListQuery, useGetGameUrlQuery, useLazyGetGameUrlQuery } =
-  gameApi
+export const { useGetGameUrlQuery, useLazyGetGameUrlQuery } = gameApi
