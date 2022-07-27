@@ -1,5 +1,5 @@
 import BouncePressable from 'app/pressable/BouncePressable'
-import { SafeAreaView, styled, Text, View } from 'dripsy'
+import { SafeAreaView, styled, Text, useSx, View } from 'dripsy'
 import { Platform, StatusBar } from 'react-native'
 import { useRouter } from 'solito/router'
 import { DripsyGradient } from '../Gradient'
@@ -35,6 +35,11 @@ const Header = ({ title }: { title: string }) => {
     currentOrientation === ScreenOrientation.Orientation.LANDSCAPE_LEFT ||
     currentOrientation === ScreenOrientation.Orientation.LANDSCAPE_RIGHT
 
+  const sx = useSx()
+
+  const headerHeight = sx({
+    height: 'header',
+  })
   return (
     <View
       nativeID="pageback-header"
@@ -53,11 +58,14 @@ const Header = ({ title }: { title: string }) => {
       >
         <StyledTop
           sx={{
-            py: isLandscape ? '$1' : '$2',
+            ...(isLandscape ? {} : headerHeight),
             px: isLandscape ? '$6' : '$2',
           }}
         >
-          <BouncePressable onPress={onGoBack}>
+          <BouncePressable
+            onPress={onGoBack}
+            sx={{ p: isLandscape ? '$0a' : '$2' }}
+          >
             <Icon
               name="chevleft"
               size={isLandscape ? 14 : 20}
