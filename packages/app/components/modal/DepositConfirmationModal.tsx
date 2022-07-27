@@ -13,7 +13,6 @@ const BANK_IMG_RATIO = 216 / 115
 
 const DepositConfirmationModal = ({ modal: { closeModal, getParam } }) => {
   const { t } = useLocalization()
-  const { width, height } = useContainerDimension()
 
   const amount = getParam('amount', 0)
   const callback = getParam('callback')
@@ -32,7 +31,7 @@ const DepositConfirmationModal = ({ modal: { closeModal, getParam } }) => {
 
   return (
     <ModalContent
-      title={t('common.importantNote')}
+      title={t('menu.depositConfirmation')}
       closeModal={closeModal}
       actions={[
         {

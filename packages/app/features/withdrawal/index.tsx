@@ -15,12 +15,12 @@ import { usePlayerBankQuery } from 'services/bank'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import useLocalization from 'app/provider/localization'
 import { PlayerBankResult } from 'services/bank.type'
-import WithdrawalConfirmationModal, {
-  WithdrawalConfirmationModalHandler,
-} from 'app/components/modal/WithdrawalConfirmationModal'
 import { Currency } from 'app/utils/constant'
-import { usePlayerProfileQuery } from 'services/playerApi'
 import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
+import { useModal } from 'react-native-modalfy'
+import { usePlayerProfileQuery } from 'services/playerApi'
+import { getBankLogo } from 'app/config/bank'
+
 const actionSheetId = ACTION_SHEET_ID.WITHDRAWAL
 
 type WithdrawalValues = {
@@ -53,9 +53,9 @@ const WithdrawalPage = () => {
   const { t } = useLocalization()
   const dispatch = useDispatch()
   const { back } = useRouter()
+  const { openModal } = useModal()
   const { data, isLoading, isFetching } = usePlayerBankQuery()
   const [postSubmitWithdrawal] = useSubmitWithdrawalMutation()
-  const confirmModalRef = useRef<WithdrawalConfirmationModalHandler>(null)
 
   const { data: playerData } = usePlayerProfileQuery()
   const currency = playerData?.data?.currency as Currency
@@ -129,24 +129,21 @@ const WithdrawalPage = () => {
   }
 
   function withdrawalConfirmation() {
-    if (values.bank) {
-      confirmModalRef.current?.setConfirmationInfo(
-        {
-          bankName: values.bank.BankName,
-          accountName: values.bank.BankAccountFullName,
-          accountNumber: values.bank.BankAccountNumber,
-          amount:
-            toCurrency(values.realAmount, currency, {
-              forceDecimal: false,
-              hideTruncatedThousand: false,
-            }) ?? '',
-          onConfirm: () => {
-            onSubmit(values, formik)
-          },
-        },
-        CONFIRMATION_FIELDS
-      )
-    }
+    openModal('WithdrawalConfirmationModal', {
+      withdrawalInfo: {
+        bankName: values.bank.BankName,
+        accountName: values.bank.BankAccountFullName,
+        accountNumber: values.bank.BankAccountNumber,
+        amount:
+          toCurrency(values.realAmount, currency, {
+            forceDecimal: false,
+            hideTruncatedThousand: false,
+          }) ?? '',
+      },
+      bankLogo: getBankLogo(values.bank?.BankCode),
+      fields: CONFIRMATION_FIELDS,
+      onConfirm: () => onSubmit(values, formik),
+    })
   }
 
   return (
@@ -208,8 +205,6 @@ const WithdrawalPage = () => {
             <Button.Label>{t('common.next')}</Button.Label>
           </Button>
         </TextField>
-
-        <WithdrawalConfirmationModal ref={confirmModalRef} />
       </StyledView>
     </PageWithBackHeader>
   )

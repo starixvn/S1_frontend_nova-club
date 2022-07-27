@@ -4,7 +4,9 @@ import { Text } from 'dripsy'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Modal from '.'
+import ModalContent from './ModalContent'
 
+// const AlertModal = ({ modal: { closeModal, getParam } }) => {
 const AlertModal = () => {
   const dispatch = useDispatch()
 
@@ -44,6 +46,31 @@ const AlertModal = () => {
       <Text>{message}</Text>
     </Modal>
   )
+  // return(
+  //   <ModalContent
+  //     title={title}
+  //     closeModal={closeModal}
+  //     actions={[
+  //       {
+  //         label: t('common.cancel'),
+  //         onPress: onDismiss,
+  //       },
+  //       {
+  //         label: t('common.submit'),
+  //         onPress: onDepositConfirmed,
+  //       },
+  //     ]}
+  //   >
+  //     <Text>{t('deposit.pleaseConfirmDeposit')}</Text>
+
+  //     <Text>
+  //       {`${t('deposit.depositAmount')} : ${toCurrency(amount, currency, {
+  //         hideTruncatedThousand: false,
+  //         forceDecimal: false,
+  //       })}`}
+  //     </Text>
+  //   </ModalContent>
+  // )
 }
 
 export default AlertModal

@@ -1,84 +1,76 @@
+import { getBankLogo } from 'app/config/bank'
+import useContainerDimension from 'app/hooks/useContainerDimension'
 import useLocalization from 'app/provider/localization'
-import { Box, Text } from 'dripsy'
-import React, { forwardRef, useImperativeHandle, useState } from 'react'
-import Modal from '.'
+import { RootState } from 'app/provider/redux/store'
+import { toCurrency } from 'app/utils'
+import { Currency } from 'app/utils/constant'
+import { Box, Image, Text } from 'dripsy'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { usePlayerProfileQuery } from 'services/playerApi'
+import ModalContent from './ModalContent'
 
-interface WithdrawalConfirmationInfo {
-  [index: string]: any
-  onConfirm: () => void
-}
+const WithdrawalConfirmationModal = ({ modal: { closeModal, getParam } }) => {
+  const { t } = useLocalization()
+  const { width, height } = useContainerDimension()
 
-interface Field {
-  label: String
-  value: String
-}
+  const withdrawalInfo = getParam('withdrawalInfo', '')
+  const bankLogo = getParam('bankLogo', '')
+  console.log(
+    '🚀 ~ file: WithdrawalConfirmationModal.tsx ~ line 19 ~ WithdrawalConfirmationModal ~ bankLogo',
+    bankLogo
+  )
+  const fields = getParam('fields', '')
+  const onConfirm = getParam('onConfirm')
 
-export interface WithdrawalConfirmationModalHandler {
-  setConfirmationInfo: (
-    info: WithdrawalConfirmationInfo,
-    fields: Field[]
-  ) => void
-}
+  const isShowingFields = withdrawalInfo && fields
 
-const WithdrawalConfirmationModal =
-  forwardRef<WithdrawalConfirmationModalHandler>(({}, ref) => {
-    const { t } = useLocalization()
-    const [localInfo, setLocalInfo] =
-      useState<WithdrawalConfirmationInfo | null>()
-    const [fields, setFields] = useState<Field[]>()
+  function onDismiss() {
+    closeModal()
+  }
 
-    useImperativeHandle(ref, () => ({
-      setConfirmationInfo: (info, f) => {
-        setLocalInfo(info)
-        setFields(f)
-      },
-    }))
+  function onWithdrawalConfirmed() {
+    onConfirm && onConfirm()
+    onDismiss()
+  }
 
-    function onDismiss(triggerConfirm?: boolean) {
-      setLocalInfo(null)
-      if (triggerConfirm && localInfo) localInfo.onConfirm()
-    }
-
-    const isShowingFields = localInfo && fields
-
-    return (
-      <Modal
-        isVisible={!!localInfo}
-        title={t('common.importantNote')}
-        onModalHide={onDismiss}
-        onBackdropPress={() => onDismiss(false)}
-        actions={[
-          {
-            label: t('common.cancel'),
-            onPress: () => {
-              onDismiss()
-            },
-          },
-          {
-            label: t('common.submit'),
-            onPress: () => {
-              onDismiss(true)
-            },
-          },
-        ]}
-      >
-        {isShowingFields &&
-          fields.map((f, index) => {
-            return (
-              <Box sx={{ p: '$2' }} key={f.value?.toString()}>
-                <Text sx={{ fontWeight: 'bold' }}>
-                  {t(f.label?.toString())} :
-                </Text>
+  return (
+    <ModalContent
+      title={t('menu.withdrawalConfirmation')}
+      closeModal={closeModal}
+      actions={[
+        {
+          label: t('common.cancel'),
+          onPress: onDismiss,
+        },
+        {
+          label: t('common.submit'),
+          onPress: onWithdrawalConfirmed,
+        },
+      ]}
+    >
+      <Image source={bankLogo} sx={{ mx: '$2', width: 60, aspectRatio: 1 }} />
+      {isShowingFields &&
+        fields.map((field) => {
+          console.log(
+            '🚀 ~ file: WithdrawalConfirmationModal.tsx ~ line 64 ~ fields.map ~ field',
+            field
+          )
+          return (
+            <Box sx={{ p: '$2' }} key={field.value?.toString()}>
+              <Text sx={{ fontWeight: 'bold' }}>
+                {t(field.label?.toString())} :
+              </Text>
+              <Box sx={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Text sx={{ mt: '$1' }}>
-                  {localInfo[f.value]?.toString() ?? ''}
+                  {withdrawalInfo[field.value]?.toString() ?? ''}
                 </Text>
               </Box>
-            )
-          })}
-      </Modal>
-    )
-  })
-
-WithdrawalConfirmationModal.displayName = 'WithdrawalConfirmationModal'
+            </Box>
+          )
+        })}
+    </ModalContent>
+  )
+}
 
 export default WithdrawalConfirmationModal

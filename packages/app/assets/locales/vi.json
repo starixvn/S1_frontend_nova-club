@@ -104,6 +104,7 @@
       "topUp": "Thẻ Top-up"
     },
     "paymentMode": "Chọn cổng thanh toán",
+    "pleaseConfirmDeposit": "",
     "selectChannel": "Chọn tài khoản nạp",
     "upload": {
       "description": "Duyệt để chọn hình ảnh biên lai hoặc hóa đơn để tải lên. Các tệp phải có dung lượng 6MB hoặc tương tự và ở một trong các định dạng JPG, JPEG",
@@ -133,6 +134,7 @@
     },
     "gameStatus": {
       "lose": "Mất",
+      "loss": "",
       "win": "Thắng lợi"
     },
     "genre": {
@@ -187,8 +189,8 @@
       "btiSports": "BTI Sports",
       "esports": "E-Sports",
       "imEsports": "IM E-Sports",
-      "tfGamingEsports": "TF E-Sports",
       "sports": "Thể Thao",
+      "tfGamingEsports": "TF E-Sports",
       "virtualSports": "Thể thao ảo"
     },
     "notFound": "Trò chơi không tìm thấy",
@@ -203,6 +205,7 @@
     "commisionTable": "Bảng hoa hồng",
     "customerSupport": "Hỗ trợ khách hàng",
     "deposit": "Nạp tiền",
+    "depositConfirmation": "",
     "gameHistory": "Lịch sử trò chơi",
     "history": "Lịch sử",
     "logout": "Thoát",
@@ -225,11 +228,17 @@
     },
     "transactionHistory": "Lịch sử giao dịch",
     "withdraw": "Rút",
-    "withdrawal": "Rút tiền"
+    "withdrawal": "Rút tiền",
+    "withdrawalConfirmation": ""
   },
   "message": {
     "annoucement": "Thông Báo",
     "personalMessage": "Tin nhắn khách hàng"
+  },
+  "notes": {
+    "qr": {
+      "n1": ""
+    }
   },
   "profile": {
     "details": {
@@ -251,6 +260,7 @@
     "timeline": "UTC/GMT +7"
   },
   "qr": {
+    "downloadQrCode": "",
     "noCameraAccess": "Không có quyền truy cập vào máy ảnh",
     "qrCodeNotDetected": "Không thể phát hiện mã QR trong hình ảnh",
     "requestCameraPermissions": "Yêu cầu quyền đối với máy ảnh",
@@ -267,6 +277,7 @@
     "imageNotSupported": "Định dạng hình ảnh không được hỗ trợ",
     "pending": "Đang chờ",
     "processing": "Đang xử lý",
+    "referralError": "",
     "rejected": "Từ chối",
     "success": "Thành công",
     "systemError": "Rất tiếc! Đã xảy ra lỗi, vui lòng thử lại."
@@ -296,8 +307,8 @@
     "passwordMinMaxLength": "Mật khẩu phải có 6-15 ký tự",
     "required": "%{field} là bắt buộc",
     "usdtFormat": "Địa chỉ ví phải tương thích với chuẩn ERC20 / TRC20",
-    "username": "6-18 ký tự chữ và số (A-Z, a-z, 0-9)",
-    "userNameMinMaxLength": "Tên người dùng phải dài từ 6 đến 18 ký tự"
+    "userNameMinMaxLength": "Tên người dùng phải dài từ 6 đến 18 ký tự",
+    "username": "6-18 ký tự chữ và số (A-Z, a-z, 0-9)"
   },
   "withdrawal": {
     "withdrawTo": "Rút tiền về"

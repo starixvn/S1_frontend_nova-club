@@ -204,7 +204,7 @@ export const ReportWithdrawalStatusOptions = [
 export enum ReportGameStatus {
   ALL = 'all',
   WIN = 'win',
-  LOSE = 'lose',
+  LOSS = 'loss',
 }
 
 export const ReportGameStatusOptions = [
@@ -217,8 +217,8 @@ export const ReportGameStatusOptions = [
     label: 'filter.gameStatus.win',
   },
   {
-    value: ReportGameStatus.LOSE,
-    label: 'filter.gameStatus.lose',
+    value: ReportGameStatus.LOSS,
+    label: 'filter.gameStatus.loss',
   },
 ]
 

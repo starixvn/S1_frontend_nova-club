@@ -1,6 +1,7 @@
 import DepositConfirmationModal from 'app/components/modal/DepositConfirmationModal'
 import PlayerBankDeleteModal from 'app/components/modal/PlayerBankDeleteModal'
 import QRTransferModal from 'app/components/modal/QRTransferModal'
+import WithdrawalConfirmationModal from 'app/components/modal/WithdrawalConfirmationModal'
 
 import React from 'react'
 import { Dimensions, Easing } from 'react-native'
@@ -13,6 +14,7 @@ const { width } = Dimensions.get('screen')
 /* Consider using this modal for other temporarily / not fullscreen modal  */
 const modalConfig = {
   DepositConfirmationModal: DepositConfirmationModal,
+  WithdrawalConfirmationModal: WithdrawalConfirmationModal,
   PlayerBankDeleteModal: PlayerBankDeleteModal,
   QRTransferModal: QRTransferModal,
 }

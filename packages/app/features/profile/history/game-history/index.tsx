@@ -33,7 +33,7 @@ const GameHistoryTab = () => {
     selectedGame: ReportGameStatusOptions[0],
     selectedDate: DateFilterOptions[0],
     selectedGameStatus: ReportGameStatusOptions[0],
-    startDate: dayjs().startOf('month').toDate(),
+    startDate: dayjs().startOf('date').toDate(),
     endDate: dayjs().endOf('date').toDate(),
   })
 

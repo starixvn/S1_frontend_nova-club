@@ -31,6 +31,7 @@
     "expo-screen-orientation": "~4.1.1",
     "formik": "^2.2.9",
     "get-image-data": "^5.0.0",
+    "html-to-image": "^1.9.0",
     "i18n-js": "^3.9.2",
     "jpeg-js": "^0.4.4",
     "jsqr": "^1.4.0",

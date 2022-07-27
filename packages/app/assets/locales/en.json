@@ -104,6 +104,7 @@
       "topUp": "Top Up Card"
     },
     "paymentMode": "Payment Mode",
+    "pleaseConfirmDeposit": "Please confirm deposit information below",
     "selectChannel": "Select Channel",
     "upload": {
       "description": "Browse to select receipt or invoice images to upload. Files must be 6MB or similiar, and in one of these formats JPG,JPEG",
@@ -132,7 +133,7 @@
       "settledonBrowser": "Settled on Browser"
     },
     "gameStatus": {
-      "lose": "Lose",
+      "loss": "Loss",
       "win": "Win"
     },
     "genre": {
@@ -187,8 +188,8 @@
       "btiSports": "BTI Sports",
       "esports": "E-Sports",
       "imEsports": "IM E-Sports",
-      "tfGamingEsports": "TF E-Sports",
       "sports": "Sports",
+      "tfGamingEsports": "TF E-Sports",
       "virtualSports": "Virtual Sports"
     },
     "quitGame": "Quit Game",
@@ -202,6 +203,7 @@
     "commisionTable": "Commision Table",
     "customerSupport": "Customer Support",
     "deposit": "Deposit",
+    "depositConfirmation": "Deposit Confirmation",
     "gameHistory": "Game History",
     "history": "History",
     "logout": "Logout",
@@ -224,7 +226,8 @@
     },
     "transactionHistory": "Transaction History",
     "withdraw": "Withdraw",
-    "withdrawal": "Withdrawal"
+    "withdrawal": "Withdrawal",
+    "withdrawalConfirmation": "Withdrawal Confirmation"
   },
   "message": {
     "annoucement": "Annoucement",
@@ -255,11 +258,11 @@
     "timeline": "UTC/GMT +7"
   },
   "qr": {
+    "downloadQrCode": "Download QR code",
     "noCameraAccess": "No access to camera",
     "qrCodeNotDetected": "Cannot detect QR code in image",
     "requestCameraPermissions": "Requesting for camera permission",
-    "scanGallery": "Scan from gallery",
-    "downloadQrCode": "Download QR code"
+    "scanGallery": "Scan from gallery"
   },
   "status": {
     "alert": "Alert",
@@ -302,8 +305,8 @@
     "passwordMinMaxLength": "Password must be 6-15 characters only",
     "required": "%{field} is required",
     "usdtFormat": "Must be ERC-20 / TRC-20 compatible wallet address",
-    "username": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only",
-    "userNameMinMaxLength": "Username must be 6-18 characters only"
+    "userNameMinMaxLength": "Username must be 6-18 characters only",
+    "username": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only"
   },
   "withdrawal": {
     "withdrawTo": "Withdraw To"

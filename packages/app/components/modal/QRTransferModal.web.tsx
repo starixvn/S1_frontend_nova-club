@@ -1,18 +1,16 @@
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useLocalization from 'app/provider/localization'
 import { Text, View } from 'dripsy'
-import React, { useCallback, useRef, useState } from 'react'
+import React, { createRef } from 'react'
 import { Button } from '../form/Button'
 import ModalWrapper from './ModalWrapper'
 import QRCode from 'react-native-qrcode-svg'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import { PermissionsAndroid } from 'react-native'
-import ViewShot, { captureRef } from 'react-native-view-shot'
-import * as MediaLibrary from 'expo-media-library'
+import * as htmlToImage from 'html-to-image'
 
 const QRTransferModal = ({ modal: { closeModal } }) => {
   const { t } = useLocalization()
-  const ref = useRef()
+  const ref = createRef(null)
 
   const { width, height } = useContainerDimension()
 
@@ -20,36 +18,29 @@ const QRTransferModal = ({ modal: { closeModal } }) => {
   const username = data?.data?.username
   const referralCode = data?.data?.referral_code
 
-  const onPressCaptureModalContent = useCallback(async () => {
-    try {
-      if (await hasAndroidPermission()) {
-        captureRef(ref).then(async (uri) => {
-          await MediaLibrary.saveToLibraryAsync(uri)
-          await closeModal()
-        })
-      }
-    } catch (error) {
-      console.log(
-        '🚀 ~ file: QRTransferModal.tsx ~ line 28 ~ onPressCaptureModalContent ~ error',
-        error
-      )
-    }
-  }, [])
+  const createFileName = (extension = '', ...names) => {
+    if (!extension) return ''
 
-  const hasAndroidPermission = async () => {
-    const permission = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
-
-    const hasPermission = await PermissionsAndroid.check(permission)
-    if (hasPermission) {
-      return true
-    }
-
-    const status = await PermissionsAndroid.request(permission)
-    return status === 'granted'
+    return `${names.join('')}.${extension}`
   }
 
-  function onDismiss() {
-    closeModal()
+  const screenshot = async (node) => {
+    const dataURI = await htmlToImage.toJpeg(node)
+    return dataURI
+  }
+
+  const download = (
+    image,
+    { name = `Vui123-${username}`, extension = 'jpg' } = {}
+  ) => {
+    const a = document.createElement('a')
+    a.href = image
+    a.download = createFileName(extension, name)
+    a.click()
+  }
+
+  const onPressCaptureWeb = () => {
+    screenshot(ref.current).then(download).then(closeModal())
   }
 
   return (
@@ -62,10 +53,7 @@ const QRTransferModal = ({ modal: { closeModal } }) => {
           width: '100%',
         }}
       >
-        <ViewShot
-          ref={ref}
-          options={{ fileName: 'Your-File-Name', format: 'png', quality: 0.9 }}
-        >
+        <View ref={ref}>
           <View
             sx={{
               alignItems: 'center',
@@ -87,7 +75,7 @@ const QRTransferModal = ({ modal: { closeModal } }) => {
             />
             <Text sx={{ color: '$black' }}>{t('notes.qr.n1')}</Text>
           </View>
-        </ViewShot>
+        </View>
 
         <Button
           rounded
@@ -99,7 +87,7 @@ const QRTransferModal = ({ modal: { closeModal } }) => {
             start: { x: 0, y: 0 },
             end: { x: 1, y: 0 },
           }}
-          onPress={onPressCaptureModalContent}
+          onPress={onPressCaptureWeb}
         >
           <Button.Label>{t('qr.downloadQrCode')}</Button.Label>
         </Button>
