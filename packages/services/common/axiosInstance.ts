@@ -47,7 +47,11 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
       config.headers['Authorization'] = `Bearer ${token}`
     }
 
-    if (playerName && config.method?.toLowerCase() !== 'get') {
+    if (
+      playerName &&
+      config.method?.toLowerCase() !== 'get' &&
+      !config._config?.isStaticApi
+    ) {
       if (!config.data || 'username' in config.data === false) {
         requestParams.username = playerName
       }

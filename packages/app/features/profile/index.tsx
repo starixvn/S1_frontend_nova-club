@@ -1,17 +1,17 @@
+import Page from 'app/components/layout/Page'
 import useLocalization from 'app/provider/localization'
-import { usePlayerProfileQuery } from 'services/playerApi'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { ScrollView, Text, useSx, View } from 'dripsy'
 import React, { useEffect } from 'react'
-import { RefreshControl } from 'react-native'
+import { Platform } from 'react-native'
 import { useDispatch } from 'react-redux'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import ProfileAction from './ProfileAction'
 import ProfileBalance from './ProfileBalance'
 import ProfileLanguage from './ProfileLanguage'
 import ProfileOptions from './ProfileOptions'
 import ProfileOverview from './ProfileOverview'
 import ProfileUser from './ProfileUser'
-import Page, { PageSafeArea } from 'app/components/layout/Page'
-import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 
 const ProfileScreen = () => {
   const { t } = useLocalization()
@@ -60,6 +60,13 @@ const ProfileScreen = () => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 40 }}
+        sx={{
+          ...Platform.select({
+            web: {
+              flexBasis: 0, // Web need to put `flexBasis: 0` else `overFlowY` not working for flex container
+            },
+          }),
+        }}
       >
         <ProfileOverview />
         <View sx={{ borderTopWidth: 1, borderColor: '$lightNavyBlue' }} />

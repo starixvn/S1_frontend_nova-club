@@ -9,11 +9,15 @@ export function axiosBaseQuery<T>(): BaseQueryFn<
     data?: AxiosRequestConfig['data']
     method?: AxiosRequestConfig['method']
     headers?: AxiosRequestConfig['headers']
+    _config?: AxiosRequestConfig['_config']
   },
   IResponse<T>,
   IResponse<T>
 > {
-  return async ({ url, data, method = 'POST', headers }, { signal }) => {
+  return async (
+    { url, data, method = 'POST', headers, _config = {} },
+    { signal }
+  ) => {
     try {
       const { data: respData } = await axiosInstance.request<
         never,
@@ -24,6 +28,8 @@ export function axiosBaseQuery<T>(): BaseQueryFn<
         data,
         headers,
         signal,
+        // @ts-expect-error: Custom `_config` used only in interceptor
+        _config,
       })
       const { code } = respData
       if (url.startsWith('/player_api/getGameList'))

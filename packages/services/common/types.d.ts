@@ -5,6 +5,12 @@ import {
 } from '@reduxjs/toolkit/query'
 import { createApi } from '@reduxjs/toolkit/query/react'
 
+declare module 'axios' {
+  interface AxiosRequestConfig {
+    _config?: { isStaticApi: boolean }
+  }
+}
+
 export type CreateApiParamType = Parameters<typeof createApi>[0]
 export type EndpointBuilderType = Parameters<CreateApiParamType['endpoints']>[0]
 
