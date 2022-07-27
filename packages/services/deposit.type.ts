@@ -34,7 +34,15 @@ export type SubmitManualDepositArgs = {
 }
 
 export type SubmitManualDepositResult = {
-  result: boolean
+  secure_id: string
+}
+
+/**
+ * *Upload Receipt
+ */
+export type UploadDepositSlipArgs = {
+  secure_id: string
+  file: File
 }
 
 /**

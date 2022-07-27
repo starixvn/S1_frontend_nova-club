@@ -30,7 +30,7 @@ export const PAYMENT_METHOD: { [key in keyof typeof PAYMENT_METHOD_CATEGORY] } =
       name: 'deposit.depositMethod.bankTransfer',
       icon: 'lba',
       color: '#ac0102',
-      active: false,
+      active: true,
     },
     ONLINE_BANK: {
       id: DepositMethodId.ONLINE_BANK,

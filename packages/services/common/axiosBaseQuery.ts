@@ -31,6 +31,7 @@ export function axiosBaseQuery<T>(): BaseQueryFn<
         // @ts-expect-error: Custom `_config` used only in interceptor
         _config,
       })
+
       const { code } = respData
       if (url.startsWith('/player_api/getGameList'))
         console.log('respData', url, respData.data.length)

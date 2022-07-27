@@ -2,12 +2,19 @@ import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
 import { styled, Text, View } from 'dripsy'
 import * as ImagePicker from 'expo-image-picker'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import { Platform } from 'react-native'
 import { DripsyGradient } from './Gradient'
 import Icon from './Icon'
 
-const FilePicker = () => {
+type FilePickerProps = {
+  isActive: boolean
+  onPress: (File?) => void
+}
+
+const FilePicker = ({ isActive, onPress }: FilePickerProps) => {
   const { t } = useLocalization()
+  const webRef = useRef()
   const [image, setImage] = useState<string | null>()
 
   const pickImage = async () => {
@@ -17,23 +24,30 @@ const FilePicker = () => {
       aspect: [4, 3],
       quality: 1,
     })
-    console.log(
-      '🚀 ~ file: FilePicker.tsx ~ line 20 ~ pickImage ~ result',
-      result
-    )
 
     if (!result.cancelled) {
       setImage(result.uri)
+      onPress(result.uri)
     } else {
       setImage(null)
     }
   }
-  const fileName = image && 'receipt.jpg selected'
+
+  const handleChangeWebImage = (event) => {
+    if (event.target.value) {
+      setImage(event.target.files[0].name)
+      onPress(event.target.files[0])
+    }
+  }
+
+  const pickImageWeb = () => {
+    webRef?.current.click()
+  }
+
+  const fileName = image ? image : null
   const bgColor = fileName ? ['#132946', '#14455B'] : ['#004EB5', '#007FB7']
   const bColor = fileName ? '#00283A' : '$border2'
 
-  console.log('fileName', fileName)
-  console.log('image', image)
   return (
     <View
       sx={{
@@ -45,10 +59,12 @@ const FilePicker = () => {
         colors={bgColor}
         sx={{
           borderColor: bColor,
+          opacity: isActive ? 1 : 0.3,
         }}
       >
         <BouncePressable
-          onPress={pickImage}
+          onPress={Platform.OS === 'web' ? pickImageWeb : pickImage}
+          disabled={!isActive}
           sx={{
             flexDirection: 'row',
             height: 40,
@@ -89,6 +105,14 @@ const FilePicker = () => {
             }}
           />
         </BouncePressable>
+      )}
+      {Platform.OS === 'web' && (
+        <input
+          ref={webRef}
+          type="file"
+          onChange={handleChangeWebImage}
+          style={{ display: 'none' }}
+        />
       )}
     </View>
   )
