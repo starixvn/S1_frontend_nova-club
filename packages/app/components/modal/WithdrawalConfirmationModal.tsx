@@ -16,10 +16,7 @@ const WithdrawalConfirmationModal = ({ modal: { closeModal, getParam } }) => {
 
   const withdrawalInfo = getParam('withdrawalInfo', '')
   const bankLogo = getParam('bankLogo', '')
-  console.log(
-    '🚀 ~ file: WithdrawalConfirmationModal.tsx ~ line 19 ~ WithdrawalConfirmationModal ~ bankLogo',
-    bankLogo
-  )
+
   const fields = getParam('fields', '')
   const onConfirm = getParam('onConfirm')
 

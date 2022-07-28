@@ -13,11 +13,9 @@ const RootModal = () => {
   const isVisible = alert != null && !alert.isDismissed
 
   useEffect(() => {
-    console.log(
-      '🚀 ~ file: RootModal.tsx ~ line 17 ~ useEffect ~ isVisible',
-      isVisible
-    )
-    isVisible && openModal('AlertModal')
+    setTimeout(() => {
+      isVisible && openModal('AlertModal')
+    }, 300)
   }, [alertList])
 
   return <View></View>
