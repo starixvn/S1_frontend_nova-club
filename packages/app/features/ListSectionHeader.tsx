@@ -78,7 +78,7 @@ const ListSectionHeader = ({
 
 const StyledContainer = styled(View)({
   mt: ['$2a', '$4'],
-  mb: ['$2', '$6'],
+  mb: ['$4', '$6'],
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
@@ -112,7 +112,7 @@ const StyledGradient = styled(DripsyGradient)({
   width: 30,
   height: 30,
   ml: 15,
-  my: '$2',
+  my: '$1',
 })
 
 const StyledSearchBox = styled(View)({

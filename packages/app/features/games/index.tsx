@@ -8,7 +8,7 @@ import { AnimatePresence, MotiView } from 'moti'
 import React, { memo, useState } from 'react'
 import { ListRenderItem } from 'react-native'
 import { useGetGameListQuery } from 'services/contentApi'
-import { GameList } from 'services/contentApi.type'
+import { Game } from 'services/contentApi.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import BannerSection from '../home/Section/BannerSection'
 import ListSectionHeader from '../ListSectionHeader'
@@ -19,7 +19,7 @@ const MemoListSectionHeader = memo(ListSectionHeader)
 
 const Games = () => {
   const { t } = useLocalization()
-  const [filterGames, setFilterGames] = useState<GameList[]>([])
+  const [filterGames, setFilterGames] = useState<Game[]>([])
   const sx = useSx()
   const { contentWidth, itemSpace, containerSpace } = useGameGridSize(3)
 
@@ -39,9 +39,7 @@ const Games = () => {
       offset: 0,
     })
 
-  const renderSlotItem = ({
-    item,
-  }: Parameters<ListRenderItem<GameList>>[0]) => {
+  const renderSlotItem = ({ item }: Parameters<ListRenderItem<Game>>[0]) => {
     const { gc, gpc, img } = item
     const imageUrl = `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${img}`
 

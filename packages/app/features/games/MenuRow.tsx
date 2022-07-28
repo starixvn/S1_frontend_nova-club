@@ -4,7 +4,7 @@ import { GAME_TYPE_CODE } from 'app/utils/constant'
 import { Image, styled, Text, View } from 'dripsy'
 import { MotiView } from 'moti'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { GameList } from 'services/contentApi.type'
+import { Game } from 'services/contentApi.type'
 
 const DATA = [
   {
@@ -39,8 +39,8 @@ const DATA = [
 ]
 
 interface MenuRowProps {
-  setFilterGames: Dispatch<SetStateAction<GameList[]>>
-  gameList?: GameList[]
+  setFilterGames: Dispatch<SetStateAction<Game[]>>
+  gameList?: Game[]
 }
 
 const MenuRow = ({ setFilterGames, gameList }: MenuRowProps) => {

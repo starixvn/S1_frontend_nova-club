@@ -19,52 +19,62 @@ import { FlatList, Platform } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import ListSectionHeader from '../ListSectionHeader'
 import useLiveCasinoFilter from '../../hooks/game/useLiveCasinoFilter'
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { GameConfig } from 'services/contentApi.type'
+import { CMS_CONTENT_URI, CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import { Game, GameConfig } from 'services/contentApi.type'
 import SelectButton from 'app/components/form/Select/SelectButton'
 import ActionSheet from 'react-native-actions-sheet'
-
-const LiveCasinoImageExtensionMapping = {
-  cq9: 'png',
-}
+import { useGetGameListQuery } from 'services/contentApi'
+import { Currency, GAME_TYPE_CODE } from 'app/utils/constant'
+import { usePlayerProfileQuery } from 'services/playerApi'
+import { useAppSelector } from 'app/provider/redux/store'
 
 const LiveCasino = () => {
   const { t } = useLocalization()
-  const { width } = useContainerDimension()
   const sx = useSx()
-  const space = width * HOME_PADDING
-  const actionSheetRef = useRef<ActionSheet>(null)
+  // const locale = useAppSelector((s) => s.setting.locale)
+  // const actionSheetRef = useRef<ActionSheet>(null)
 
-  const {
-    genreSelection,
-    selectedGenre,
-    setSelectedGenre,
-    providerSelection,
-    selectedProvider,
-    setSelectedProvider,
-    filteredGames,
-  } = useLiveCasinoFilter()
+  const { data: playerProfile } = usePlayerProfileQuery()
+  const { currency } = playerProfile?.data || {}
+  // const {
+  //   genreSelection,
+  //   selectedGenre,
+  //   setSelectedGenre,
+  //   providerSelection,
+  //   selectedProvider,
+  //   setSelectedProvider,
+  //   filteredGames,
+  // } = useLiveCasinoFilter()
 
-  const { containerSpace, itemSpace, contentWidth } = useGameGridSize()
+  const { gameList, isFetching: isFetchingGameList } = useGetGameListQuery(
+    {
+      currency: currency ?? Currency.VND,
+      game_category: [GAME_TYPE_CODE.LIVE_DEALER],
+      limit: 100,
+      offset: 0,
+    },
+    {
+      selectFromResult: ({ data }) => ({
+        gameList: data?.data?.rows || [],
+      }),
+    }
+  )
 
-  const openActionSheet = () => {
-    actionSheetRef.current?.show()
-  }
+  const { containerSpace, itemSpace, contentWidth } = useGameGridSize(2)
 
-  const renderItem = ({ item }: { item: GameConfig }) => {
-    const { game_code, game_provider_code, game_name } = item
-    const imageUrl = `${MEDIA_DOMAIN}${CONTENT_URI}/games/${game_provider_code.toLowerCase()}/${game_code.toLowerCase()}.${
-      LiveCasinoImageExtensionMapping[game_provider_code.toLowerCase()] ?? 'jpg'
-    }`
+  // const openActionSheet = () => {
+  //   actionSheetRef.current?.show()
+  // }
 
+  const renderItem = ({ item }: { item: Game }) => {
+    const { gc, gpc, img, name } = item
+    const imageUrl = `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${img}`
     return (
       <SimpleGridImage
         sx={{ m: itemSpace }}
-        gameName={game_name}
-        providerCode={game_provider_code}
-        gameCode={game_code}
+        providerCode={gpc}
+        gameCode={gc}
         image={imageUrl}
-        title={game_name + ` (${game_code})`}
         width={contentWidth}
       />
     )
@@ -77,7 +87,7 @@ const LiveCasino = () => {
         bgColor="maroon"
         iconName="lc"
       />
-      {filteredGames.length > 0 && (
+      {/* {gameList?.length > 0 && (
         <ScrollView
           horizontal
           sx={{
@@ -123,23 +133,21 @@ const LiveCasino = () => {
           isActive={false}
           sx={{ minWidth: '25%' }}
         />
-      </View>
+      </View> */}
     </View>
   )
 
   return (
     <Page sx={{ bg: '$background' }}>
       <FlatList
-        numColumns={3}
+        numColumns={2}
         ListHeaderComponent={Header}
         style={sx({ bg: '$background', flex: 1 })}
         contentContainerStyle={{ padding: containerSpace }}
         // onEndReached={loadMore}
-        data={filteredGames}
+        data={gameList}
         // extraData={displayList}
-        keyExtractor={(item) =>
-          item.game_code + item.game_provider_code + item.game_name
-        }
+        keyExtractor={(item) => item.gc + item.gpc + item.gtc}
         renderItem={renderItem}
         ListEmptyComponent={<ActivityIndicator color={'$lightCyan'} />}
       />
@@ -163,13 +171,13 @@ const LiveCasino = () => {
       <SimpleWrap data={filteredGames} /> */}
 
       {/* `ActionSheet` cannot be shown if put inside `Flatlist` header */}
-      <Select
+      {/* <Select
         ref={actionSheetRef}
         headerTitle={t('menu.tab.gameType')}
         button={() => null}
         data={genreSelection}
         setSelectedValue={setSelectedGenre}
-      />
+      /> */}
     </Page>
   )
 }

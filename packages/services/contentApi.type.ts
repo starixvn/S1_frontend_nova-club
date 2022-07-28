@@ -74,7 +74,7 @@ export interface GetGameListQueryArgs {
   offset: number
 }
 
-export interface GameList {
+export interface Game {
   gc: string
   gpc: string
   gtc: string
@@ -84,6 +84,6 @@ export interface GameList {
 }
 
 export interface GetGameListResult {
-  rows: GameList[]
+  rows: Game[]
   row_count_total: number
 }
