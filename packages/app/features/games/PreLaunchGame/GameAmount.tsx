@@ -122,8 +122,10 @@ const ListItem = ({ data, balance }: ListItemProps) => {
                 {t(i.label)} (VND)
               </StyleLabel>
             </StyledWrapLabel>
-            <View sx={{ flex: 0.1 }}>
-              <StyleLabel>{getBalance(i.apiKey)}</StyleLabel>
+            <View sx={{ px: '$2', flex: 1 }}>
+              <StyleLabel sx={{ textAlign: 'right' }}>
+                {getBalance(i.apiKey)}
+              </StyleLabel>
             </View>
           </StyledWrapItem>
         )
@@ -151,7 +153,7 @@ const StyledWrapItem = styled(View)({
 const StyledWrapLabel = styled(View)({
   flexDirection: 'row',
   alignItems: 'center',
-  flex: 0.9,
+  flex: 1,
 })
 
 const StyledWrapIcon = styled(View)({

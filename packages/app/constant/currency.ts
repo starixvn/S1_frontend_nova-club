@@ -11,7 +11,7 @@ export const CURRENCY_SEPARATOR = {
     thousands: ',',
   },
   [LANGUAGE_CODE.VIETNAM]: {
-    decimal: ',',
-    thousands: '.',
+    decimal: '.',
+    thousands: ',',
   },
 }
