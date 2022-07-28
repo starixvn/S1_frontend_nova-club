@@ -6,7 +6,7 @@ import { Button } from '../form/Button'
 import ModalWrapper from './ModalWrapper'
 import QRCode from 'react-native-qrcode-svg'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import { PermissionsAndroid } from 'react-native'
+import { PermissionsAndroid, Platform } from 'react-native'
 import ViewShot, { captureRef } from 'react-native-view-shot'
 import * as MediaLibrary from 'expo-media-library'
 
@@ -22,12 +22,11 @@ const QRTransferModal = ({ modal: { closeModal } }) => {
 
   const onPressCaptureModalContent = useCallback(async () => {
     try {
-      if (await hasAndroidPermission()) {
-        captureRef(ref).then(async (uri) => {
-          await MediaLibrary.saveToLibraryAsync(uri)
-          await closeModal()
-        })
-      }
+      if (Platform.OS === 'android') if (await !hasAndroidPermission()) return
+      captureRef(ref).then(async (uri) => {
+        await MediaLibrary.saveToLibraryAsync(uri)
+        await closeModal()
+      })
     } catch (error) {
       console.log(
         '🚀 ~ file: QRTransferModal.tsx ~ line 28 ~ onPressCaptureModalContent ~ error',

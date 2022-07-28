@@ -49,13 +49,9 @@ const WithdrawalConfirmationModal = ({ modal: { closeModal, getParam } }) => {
         },
       ]}
     >
-      <Image source={bankLogo} sx={{ mx: '$2', width: 60, aspectRatio: 1 }} />
+      <Image source={bankLogo} sx={{ mx: '$2', width: 100, height: 100 }} />
       {isShowingFields &&
         fields.map((field) => {
-          console.log(
-            '🚀 ~ file: WithdrawalConfirmationModal.tsx ~ line 64 ~ fields.map ~ field',
-            field
-          )
           return (
             <Box sx={{ p: '$2' }} key={field.value?.toString()}>
               <Text sx={{ fontWeight: 'bold' }}>
