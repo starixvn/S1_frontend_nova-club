@@ -227,6 +227,7 @@
       "win/loss": "Thắng lợi/Mất"
     },
     "transactionHistory": "Lịch sử giao dịch",
+    "transfer": "Chuyển khoản",
     "withdraw": "Rút",
     "withdrawal": "Rút tiền",
     "withdrawalConfirmation": ""
@@ -287,7 +288,6 @@
   },
   "transfer": {
     "avaiableAmount": "Số tiền có sẵn",
-    "transfer": "Chuyển khoản",
     "transferTo": "Chuyển tới"
   },
   "validation": {

@@ -150,7 +150,7 @@
     "transactionType": {
       "deposit": "Deposit",
       "game": "Game",
-      "reward": "Reward",
+      "rewards": "Rewards",
       "withdrawal": "Withdrawal"
     },
     "withdrawalStatus": {
@@ -225,6 +225,7 @@
       "win/loss": "Win/Loss"
     },
     "transactionHistory": "Transaction History",
+    "transfer": "Transfer",
     "withdraw": "Withdraw",
     "withdrawal": "Withdrawal",
     "withdrawalConfirmation": "Withdrawal Confirmation"
@@ -285,7 +286,6 @@
   },
   "transfer": {
     "avaiableAmount": "Available Amount",
-    "transfer": "Transfer",
     "transferTo": "Transfer To"
   },
   "validation": {
