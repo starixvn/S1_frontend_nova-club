@@ -1,5 +1,5 @@
 import { TextField } from 'app/components/TextField'
-import { AlertActions } from 'app/store/alert'
+import { AlertActions } from 'app/store/alert.slice'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'

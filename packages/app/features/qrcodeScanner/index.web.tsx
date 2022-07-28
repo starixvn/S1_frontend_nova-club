@@ -11,7 +11,7 @@ import jsQR from 'jsqr'
 import { Buffer } from 'buffer'
 import jpeg from 'jpeg-js'
 import { useDispatch } from 'react-redux'
-import { AlertActions } from 'app/store/alert'
+import { AlertActions } from 'app/store/alert.slice'
 import { Button } from 'app/components/form/Button'
 import { QrReader } from 'react-qr-reader'
 import BarcodeMask from 'react-native-barcode-mask'
@@ -44,6 +44,8 @@ function QrcodeScannerScreen() {
   }
 
   const handleGoToTransfer = (value) => {
+    setScanned(true)
+
     const params = {
       referralCode: value,
     }

@@ -10,7 +10,7 @@ import {
   useAddPlayerBankAccMutation,
   useWithdrawalBankQuery,
 } from 'services/bank'
-import { AlertActions } from 'app/store/alert'
+import { AlertActions } from 'app/store/alert.slice'
 import { useRouter } from 'solito/router'
 import useLocalization from 'app/provider/localization'
 import { PageWithBackHeader } from 'app/components/layout/Page'

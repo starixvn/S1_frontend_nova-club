@@ -6,7 +6,7 @@ import { PageWithBackHeader } from 'app/components/layout/Page'
 import { TextField } from 'app/components/TextField'
 import useLocalization from 'app/provider/localization'
 import { RootState } from 'app/provider/redux/store'
-import { AlertActions } from 'app/store/alert'
+import { AlertActions } from 'app/store/alert.slice'
 import {
   toCleanAmount,
   toCurrency,

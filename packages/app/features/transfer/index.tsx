@@ -2,7 +2,7 @@ import { Button } from 'app/components/form/Button'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import { TextField } from 'app/components/TextField'
 import useLocalization from 'app/provider/localization'
-import { AlertActions } from 'app/store/alert'
+import { AlertActions } from 'app/store/alert.slice'
 import { toCleanAmount, toCurrency, toRealAmount } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import validation from 'app/utils/validation'
@@ -73,11 +73,11 @@ const TransferScreen = () => {
       realAmount: 0,
     },
     validationSchema: Yup.object({
-      transferTo: validation.transferTo,
-      amount: validation.amount,
+      realAmount: validation.amount,
     }),
     onSubmit,
   })
+
   const {
     handleChange,
     handleBlur,
@@ -131,6 +131,7 @@ const TransferScreen = () => {
           <TextField.Label
             label="transfer.transferTo"
             value={playerData?.data?.username ?? ''}
+            textSx={{ textAlign: 'right' }}
             sx={{ my: 0 }}
           />
           <TextField.TextInput

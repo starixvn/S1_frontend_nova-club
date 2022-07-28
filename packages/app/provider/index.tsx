@@ -11,6 +11,7 @@ import { SafeArea } from './safe-area'
 import { useKeepAwake } from 'expo-keep-awake'
 import ContextualNavigationProvider from 'app/navigation/web/ContextualNavigation'
 import { styled, useSx } from 'dripsy'
+import RootModal from 'app/components/modal/RootModal'
 
 const RootView = styled(GestureHandlerRootView)(() => ({
   flex: 1,
@@ -34,7 +35,7 @@ export function Provider({ children }: { children: React.ReactNode }) {
                   <ContextualNavigationProvider>
                     <PortalProvider>{children}</PortalProvider>
                     <GameLauncher />
-                    <AlertModal />
+                    <RootModal />
                   </ContextualNavigationProvider>
                 </ModalProvider>
               </NavigationProvider>

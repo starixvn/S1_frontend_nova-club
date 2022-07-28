@@ -1,19 +1,39 @@
+import useContainerDimension from 'app/hooks/useContainerDimension'
 import { RootState } from 'app/provider/redux/store'
-import { AlertActions } from 'app/store/alert'
+import { AlertActions } from 'app/store/alert.slice'
 import { Text } from 'dripsy'
-import React from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
+import {
+  ModalEventListener,
+  ModalOnCloseEventCallback,
+  useModal,
+} from 'react-native-modalfy'
 import { useDispatch, useSelector } from 'react-redux'
-import Modal from '.'
 import ModalContent from './ModalContent'
+import ModalWrapper from './ModalWrapper'
 
-// const AlertModal = ({ modal: { closeModal, getParam } }) => {
-const AlertModal = () => {
+const AlertModal = ({ modal: { addListener, closeModal } }) => {
   const dispatch = useDispatch()
-
+  const onCloseListener = useRef<ModalEventListener | undefined>()
   const alertList = useSelector((s: RootState) => s.alert.data)
   const alert = alertList ? alertList[0] : undefined
 
   const isVisible = alert != null && !alert.isDismissed
+
+  const handleClose: ModalOnCloseEventCallback = useCallback(
+    (closingAction) => {
+      _onDismiss()
+    },
+    []
+  )
+
+  useEffect(() => {
+    onCloseListener.current = addListener('onClose', handleClose)
+
+    return () => {
+      onCloseListener.current?.remove()
+    }
+  }, [addListener, handleClose])
 
   if (alert === undefined) return null
   let {
@@ -35,42 +55,12 @@ const AlertModal = () => {
   }
 
   return (
-    <Modal
-      isVisible={isVisible}
-      hideCloseButton={hideCloseButton}
-      title={title}
-      onModalHide={_onDismiss}
-      onBackdropPress={_onDismiss}
-      actions={actions}
-    >
-      <Text>{message}</Text>
-    </Modal>
+    <ModalWrapper>
+      <ModalContent title={title} closeModal={closeModal} actions={actions}>
+        <Text>{message}</Text>
+      </ModalContent>
+    </ModalWrapper>
   )
-  // return(
-  //   <ModalContent
-  //     title={title}
-  //     closeModal={closeModal}
-  //     actions={[
-  //       {
-  //         label: t('common.cancel'),
-  //         onPress: onDismiss,
-  //       },
-  //       {
-  //         label: t('common.submit'),
-  //         onPress: onDepositConfirmed,
-  //       },
-  //     ]}
-  //   >
-  //     <Text>{t('deposit.pleaseConfirmDeposit')}</Text>
-
-  //     <Text>
-  //       {`${t('deposit.depositAmount')} : ${toCurrency(amount, currency, {
-  //         hideTruncatedThousand: false,
-  //         forceDecimal: false,
-  //       })}`}
-  //     </Text>
-  //   </ModalContent>
-  // )
 }
 
 export default AlertModal

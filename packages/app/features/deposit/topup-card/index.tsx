@@ -16,7 +16,7 @@ import {
   useSubmitDepositMutation,
 } from 'services/deposit'
 import { useDispatch } from 'react-redux'
-import { AlertActions } from 'app/store/alert'
+import { AlertActions } from 'app/store/alert.slice'
 import { useRouter } from 'solito/router'
 import {
   DepositPaymentMethodCategoryId,

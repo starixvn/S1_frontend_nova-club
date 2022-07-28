@@ -1,13 +1,13 @@
 import useLocalization from 'app/provider/localization'
 import { useDeletePlayerBankAccMutation } from 'services/bank'
 import { PlayerBankResult } from 'services/bank.type'
-import { AlertActions } from 'app/store/alert'
 import { Text, View } from 'dripsy'
 import React, { forwardRef, useImperativeHandle, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import Modal from 'app/components/modal'
 import ModalContent from './ModalContent'
 import ModalWrapper from './ModalWrapper'
+import { AlertActions } from 'app/store/alert.slice'
 
 type PlayerBankDeleteModalProps = {
   //   bank: PlayerBankResult

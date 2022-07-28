@@ -15,7 +15,7 @@ import { useDispatch } from 'react-redux'
 import BarcodeMask from 'react-native-barcode-mask'
 import { Button } from 'app/components/form/Button'
 import LoadingScreen from 'app/components/LoadingScreen'
-import { AlertActions } from 'app/store/alert'
+import { AlertActions } from 'app/store/alert.slice'
 const PNG = require('pngjs/browser').PNG
 
 export const FINDER_WIDTH: number = 300
@@ -56,6 +56,8 @@ function QrcodeScannerScreen() {
   }
 
   const handleGoToTransfer = (value) => {
+    setScanned(true)
+
     const params = {
       referralCode: value,
     }

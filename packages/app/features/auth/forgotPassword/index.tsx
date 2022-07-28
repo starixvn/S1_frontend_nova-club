@@ -7,7 +7,7 @@ import {
   usePasswordRecoveryMutation,
   useSendPasswordRecoveryOtpMutation,
 } from 'services/authApi'
-import { AlertActions } from 'app/store/alert'
+import { AlertActions } from 'app/store/alert.slice'
 import validation, { getErrorMessage } from 'app/utils/validation'
 import { Text, useDripsyTheme, View } from 'dripsy'
 import { FormikHelpers, FormikTouched, useFormik } from 'formik'

@@ -1,7 +1,7 @@
 import { Button } from 'app/components/form/Button'
 import { LANGUAGE_CODE } from 'app/constant/language'
 import { RootState } from 'app/provider/redux/store'
-import { AlertActions } from 'app/store/alert'
+import { AlertActions } from 'app/store/alert.slice'
 import { SettingActions } from 'app/store/setting.slice'
 import { Image, styled, useDripsyTheme, View } from 'dripsy'
 import React, { ComponentProps, useRef, useState } from 'react'

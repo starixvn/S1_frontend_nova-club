@@ -43,6 +43,7 @@ type TextFieldProps = {
 type TextFieldLabelProps = ComponentProps<typeof Gradient> & {
   label: string
   value: string
+  textSx?: SxProp
   copy?: boolean
 }
 
@@ -77,6 +78,7 @@ const TextFieldLabel = ({
   label,
   value,
   copy = false,
+  textSx,
   ...rest
 }: TextFieldLabelProps) => {
   const { t } = useLocalization()
@@ -96,7 +98,7 @@ const TextFieldLabel = ({
             justifyContent: 'space-between',
           }}
         >
-          <StyledTextValue numberOfLines={1} sx={{ flex: 1 }}>
+          <StyledTextValue numberOfLines={1} sx={{ flex: 1, ...textSx }}>
             {value}
           </StyledTextValue>
 

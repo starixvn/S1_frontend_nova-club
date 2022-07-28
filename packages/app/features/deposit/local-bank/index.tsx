@@ -7,7 +7,7 @@ import {
   useDepositPaymentListQuery,
   useSubmitManualDepositMutation,
 } from 'services/deposit'
-import { AlertActions } from 'app/store/alert'
+import { AlertActions } from 'app/store/alert.slice'
 import {
   toCleanAmount,
   toCurrency,

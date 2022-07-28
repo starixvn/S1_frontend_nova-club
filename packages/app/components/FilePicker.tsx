@@ -26,7 +26,7 @@ const FilePicker = ({ isActive, onPress }: FilePickerProps) => {
     })
 
     if (!result.cancelled) {
-      setImage(result.uri)
+      setImage(result.uri.split('/').pop())
       onPress(result.uri)
     } else {
       setImage(null)

@@ -1,5 +1,5 @@
 import { combineReducers, configureStore, Reducer } from '@reduxjs/toolkit'
-import { alertReducer } from 'app/store/alert'
+import { alertReducer } from 'app/store/alert.slice'
 import authReducer, { authInitialState, AuthState } from 'app/store/authReducer'
 import bankReducer from 'app/store/bankReducer'
 import { gameLauncherReducer } from 'app/store/gameLauncher.slice'

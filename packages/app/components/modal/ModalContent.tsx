@@ -35,7 +35,7 @@ const ModalContent = ({
   const { t } = useLocalization()
 
   return (
-    <StyledViewModal>
+    <StyledViewModal {...modalProps}>
       {isShowHeader && (
         <StyledViewHeader>
           <StyledTextHeader>{t(title)}</StyledTextHeader>
@@ -75,7 +75,7 @@ const ModalContent = ({
                   closeModal()
                 }}
               >
-                <Button.Label>Close</Button.Label>
+                <Button.Label>{t('common.close')}</Button.Label>
               </Button>
             )}
           </StyledViewButton>
@@ -98,6 +98,7 @@ const StyledViewHeader = styled(View)(() => ({
 const StyledViewBody = styled(View)(() => ({
   padding: '$4',
   minHeight: 120,
+  color: 'white',
 }))
 const StyledViewFooter = styled(View)(() => ({
   padding: '$4',
