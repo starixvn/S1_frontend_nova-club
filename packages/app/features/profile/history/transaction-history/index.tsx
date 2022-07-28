@@ -84,15 +84,26 @@ const TransactionHistoryTab = () => {
         fetchParams={fetchParams}
         trigger={fetchData}
         result={result}
-        header={tableHeader}
+        header={
+          selected.selectedTransType?.value === ReportTransactionType.REWARDS
+            ? tableHeader.slice(0, -1)
+            : tableHeader
+        }
         keyExtractor={(item, index) => `${index} History ${item.name}`}
-        renderItem={({ item }) => renderItem({ item }, currency, theme)}
+        renderItem={({ item }) =>
+          renderItem(
+            { item },
+            currency,
+            theme,
+            selected.selectedTransType?.value === ReportTransactionType.REWARDS
+          )
+        }
       />
     </View>
   )
 }
 
-const renderItem = ({ item }, currency, theme) => {
+const renderItem = ({ item }, currency, theme, isReward = false) => {
   return (
     <GradientBox>
       <View
@@ -115,16 +126,18 @@ const renderItem = ({ item }, currency, theme) => {
             })}
           </Text>
         </View>
-        <View style={{ flex: CELL_STATUS_WIDTH }}>
-          <Text
-            sx={{
-              textAlign: 'center',
-              color: getStatusColor(item.status, theme),
-            }}
-          >
-            {item.status}
-          </Text>
-        </View>
+        {!isReward && (
+          <View style={{ flex: CELL_STATUS_WIDTH }}>
+            <Text
+              sx={{
+                textAlign: 'center',
+                color: getStatusColor(item.status, theme),
+              }}
+            >
+              {item.status}
+            </Text>
+          </View>
+        )}
       </View>
     </GradientBox>
   )

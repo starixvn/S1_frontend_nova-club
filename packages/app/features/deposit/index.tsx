@@ -96,7 +96,7 @@ const DepositPage = () => {
                 key={item.id}
                 item={item}
                 sx={{
-                  mb: paymentMethodList.length - index <= 2 ? 0 : '$4',
+                  mb: paymentMethodList.length - index <= 1 ? 0 : '$4',
                 }}
                 onPress={() => handlePress(item.id)}
               />

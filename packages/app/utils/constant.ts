@@ -66,7 +66,7 @@ export const DateFilterOptions = [
 export enum ReportTransactionType {
   DEPOSIT = 'deposit',
   WITHDRAWAL = 'withdrawal',
-  REWARD = 'rewards',
+  REWARDS = 'rewards',
   GAME = 'game',
 }
 export const ReportTransactionTypeOptions = [
@@ -79,8 +79,8 @@ export const ReportTransactionTypeOptions = [
     label: 'filter.transactionType.withdrawal',
   },
   {
-    value: ReportTransactionType.REWARD,
-    label: 'filter.transactionType.reward',
+    value: ReportTransactionType.REWARDS,
+    label: 'filter.transactionType.rewards',
   },
   {
     value: ReportTransactionType.GAME,

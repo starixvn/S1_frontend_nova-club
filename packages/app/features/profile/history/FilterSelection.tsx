@@ -174,7 +174,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
               },
               disabled:
                 selected.selectedTransType.value ===
-                ReportTransactionType.REWARD,
+                ReportTransactionType.REWARDS,
             }}
             data={
               selected.selectedTransType === ReportTransactionType.DEPOSIT
