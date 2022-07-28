@@ -9,58 +9,58 @@ import React from 'react'
 import { useRouter } from 'solito/router'
 const dummyData = [
   {
-    col: 4,
+    col: 6,
     src: home[0]?.image,
     title: home[0]?.title,
     route: '/sportsbook',
   },
   {
-    col: 2,
+    col: 3,
     src: home[1]?.image,
     title: home[1]?.title,
     route: '/games',
   },
   {
-    col: 2,
+    col: 3,
     src: home[2]?.image,
     title: home[2]?.title,
     route: '/slot',
   },
 
   {
-    col: 2,
+    col: 3,
     src: home[4]?.image,
     title: home[4]?.title,
     route: '/livecasino',
   },
   {
-    col: 2,
+    col: 3,
     src: home[5]?.image,
     title: home[5]?.title,
-    route: '/games/lottery',
+    route: '/games',
   },
   {
-    col: 2,
+    col: 3,
     src: home[6]?.image,
     title: home[6]?.title,
     route: '/games/fishing',
   },
+  // {
+  //   col: 3,
+  //   src: home[7]?.image,
+  //   title: home[7]?.title,
+  //   action: {
+  //     type: ActionType.GAME,
+  //     payload: {
+  //       game_provider_code: 'V8PK',
+  //       game_name: 'game.category.poker',
+  //       game_code: '0',
+  //       game_type_code: 'LIVE_DEALER',
+  //     },
+  //   },
+  // },
   {
-    col: 2,
-    src: home[7]?.image,
-    title: home[7]?.title,
-    action: {
-      type: ActionType.GAME,
-      payload: {
-        game_provider_code: 'V8PK',
-        game_name: 'game.category.poker',
-        game_code: '0',
-        game_type_code: 'LIVE_DEALER',
-      },
-    },
-  },
-  {
-    col: 2,
+    col: 3,
     src: home[3]?.image,
     title: home[3]?.title,
     route: '/',
@@ -76,7 +76,7 @@ const GridSection = () => {
   const quarterSpace = borderedWidth * HOME_PADDING * 0.25
   const thirdQuarterSpace = quarterSpace * 3
   const columnWidth = (borderedWidth - thirdQuarterSpace * 2) / GRID_TOTAL_COL
-  const rowHeight = columnWidth * 2
+  const rowHeight = columnWidth * 1.98
   return (
     <StyledContainer
       sx={{
@@ -121,7 +121,8 @@ const GridSection = () => {
                   fontWeight: 'bold',
                   textTransform: 'uppercase',
                   fontSize: [14, 16],
-                  py: ['$1', '$2'],
+                  pt: ['$1', '$2'],
+                  pb: ['$1a', '$2a'],
                   textAlign: 'center',
                 }}
               >
