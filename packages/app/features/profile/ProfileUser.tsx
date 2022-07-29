@@ -51,7 +51,7 @@ const ProfileUser = ({ username }: ProfileUserProps) => {
       <IconButton
         name="bar-code"
         color={'$lightCyan'}
-        onPress={() => openModal('QRTransferModal')}
+        onPress={() => openModal('ReferralModal')}
       />
     </ViewWrapper>
   )

@@ -20,6 +20,7 @@ const ProfileAction = () => {
   }
 
   const { makeContextualHref } = useContextualRouting()
+  const toTransferScanner = makeContextualHref('transfer-scanner')
   const toDeposit = makeContextualHref('deposit')
   const toWithdrawal = makeContextualHref('withdrawal')
   const toBankAccount = makeContextualHref('bank-account')
@@ -27,6 +28,14 @@ const ProfileAction = () => {
 
   return (
     <StyledView>
+      <IconAction
+        gradient="lightPurple"
+        icon="transfer"
+        title="menu.transfer"
+        onPress={() => {
+          push(toTransferScanner, `/transfer-scanner`)
+        }}
+      />
       <IconAction
         gradient="lightRed"
         icon="dac"
@@ -71,7 +80,7 @@ const IconAction = ({
       <RoundedIcon
         gradient={gradient}
         icon={icon}
-        size="md"
+        size="sm"
         onPress={onPress}
       />
       {title && <StyledTextIcon>{t(title)}</StyledTextIcon>}

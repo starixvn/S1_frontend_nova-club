@@ -234,3 +234,9 @@ function nFormatter(num, digits = 1) {
     ? (num / item.value).toFixed(digits).replace(rx, '$1') + item.symbol
     : '0'
 }
+
+export const createFileName = (extension = '', ...names) => {
+  if (!extension) return ''
+
+  return `${names.join('')}.${extension}`
+}

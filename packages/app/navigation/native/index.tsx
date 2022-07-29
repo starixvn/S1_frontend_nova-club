@@ -26,8 +26,8 @@ import CommissionTablePage from 'app/features/profile/commission-table'
 import HistoryScreen from 'app/features/profile/history'
 import MessagesPage from 'app/features/messages'
 import LotteryPage from 'app/features/lottery'
-import QrcodeScannerScreen from 'app/features/qrcodeScanner'
-import TransferScreen from 'app/features/transfer'
+import TransferScreen from 'app/features/transferScanner/transfer'
+import TransferScannerScreen from 'app/features/transferScanner'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -50,7 +50,7 @@ const Stack = createStackNavigator<{
   History: undefined
   CommissionTablePage: undefined
   MessagesPage: undefined
-  QrcodeScanner: undefined
+  TransferScanner: undefined
   Transfer: undefined
   FishingPage: undefined
   LotteryPage: undefined
@@ -170,7 +170,7 @@ export function NativeNavigation() {
         component={CommissionTablePage}
       />
       <Stack.Screen name="MessagesPage" component={MessagesPage} />
-      <Stack.Screen name="QrcodeScanner" component={QrcodeScannerScreen} />
+      <Stack.Screen name="TransferScanner" component={TransferScannerScreen} />
       <Stack.Screen name="Transfer" component={TransferScreen} />
       <Stack.Screen name="FishingPage" component={FishingPage} />
       <Stack.Screen name="LotteryPage" component={LotteryPage} />

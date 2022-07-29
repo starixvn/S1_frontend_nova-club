@@ -1,7 +1,7 @@
 import AlertModal from 'app/components/modal/AlertModal'
 import DepositConfirmationModal from 'app/components/modal/DepositConfirmationModal'
 import PlayerBankDeleteModal from 'app/components/modal/PlayerBankDeleteModal'
-import QRTransferModal from 'app/components/modal/QRTransferModal'
+import ReferralModal from 'app/components/modal/ReferralModal'
 import WithdrawalConfirmationModal from 'app/components/modal/WithdrawalConfirmationModal'
 
 import React from 'react'
@@ -17,7 +17,10 @@ const modalConfig = {
   AlertModal: AlertModal,
   DepositConfirmationModal: DepositConfirmationModal,
   PlayerBankDeleteModal: PlayerBankDeleteModal,
-  QRTransferModal: QRTransferModal,
+  ReferralModal: {
+    modal: ReferralModal,
+    position: 'top',
+  },
   WithdrawalConfirmationModal: WithdrawalConfirmationModal,
 }
 
@@ -43,11 +46,11 @@ const stack = createModalStack(modalConfig, {
   }),
   animateInConfig: {
     easing: Easing.bezier(0.42, -0.03, 0.27, 0.95),
-    duration: 450,
+    duration: 300,
   },
   animateOutConfig: {
     easing: Easing.bezier(0.42, -0.03, 0.27, 0.95),
-    duration: 450,
+    duration: 300,
   },
 })
 
