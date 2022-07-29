@@ -100,11 +100,11 @@ const StyledView = styled(View)({
 const StyledText = styled(Text)({
   fontSize: [17, 20],
   color: 'white',
-  padding: '$1a',
   pl: '$1a',
   pr: '$5',
+  pt: '$1',
   fontWeight: 900,
-  textTransform: 'capitalize',
+  textTransform: 'uppercase',
 })
 
 const StyledGradient = styled(DripsyGradient)({

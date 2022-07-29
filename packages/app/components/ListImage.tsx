@@ -32,6 +32,7 @@ const ListImage = ({ data }: { data: GameConfig[] }) => {
                 GameLauncherActions.launchGame({
                   gameCode: item.game_code,
                   providerCode: item.game_provider_code,
+                  image: item.image,
                 })
               )
             }}

@@ -22,11 +22,11 @@ const SectionHeader = ({
   return (
     <StyledView sx={{ marginLeft: horizontalPad, my: horizontalPad * 0.5 }}>
       <DripsyGradient
-        gradient={bgColor}
+        colors={bgColor}
         sx={{
-          borderRadius: 15,
-          m: '$1',
-          height: 30,
+          borderRadius: 20,
+          m: '$0a',
+          height: 40,
           aspectRatio: 1,
           justifyContent: 'center',
         }}
@@ -61,8 +61,10 @@ const StyledView = styled(View)({
 const StyledText = styled(Text)({
   fontSize: [18, 23],
   color: 'white',
-  padding: '$1a',
+  px: '$1a',
+  pt: '$1',
   fontWeight: 900,
+  textTransform: 'uppercase',
 })
 
 export default SectionHeader

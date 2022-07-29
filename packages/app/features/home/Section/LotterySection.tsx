@@ -8,7 +8,7 @@ const LotterySection = () => {
   return (
     <View>
       <SectionHeader title={lottery.label} bgColor="purple" iconName="lt" />
-      <ListImage data={lottery.gameList} />
+      {/* <ListImage data={lottery.gameList} /> */}
     </View>
   )
 }

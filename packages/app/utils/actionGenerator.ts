@@ -28,6 +28,7 @@ export function getAction(action: Action): () => void {
             gameCode: action.payload.game_code,
             gameName: action.payload.game_name,
             providerCode: action.payload.game_provider_code,
+            image: action.payload.image,
           })
         )
       }

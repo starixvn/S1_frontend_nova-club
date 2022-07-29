@@ -68,6 +68,7 @@
     "otp": "OTP",
     "password": "Password",
     "passwordNote": "1. Password must be alphanumeric without special character. The length is unless 6-12 character. \n2. Password can not be the same to old pass",
+    "recentlyOpened": "Recently Opened",
     "referenceId": "Reference ID",
     "registered": "Registered",
     "reward": "Reward",

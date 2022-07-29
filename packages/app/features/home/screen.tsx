@@ -8,6 +8,7 @@ import GamesSection from './Section/GamesSection'
 import GridSection from './Section/GridSection'
 import HotGamesSection from './Section/HotGamesSection'
 import LotterySection from './Section/LotterySection'
+import RecentOpenGames from './Section/RecentOpenGames'
 
 const HomeScreen = () => {
   const [playerProfile] = useLazyPlayerProfileQuery()
@@ -30,17 +31,18 @@ const HomeScreen = () => {
 
   return (
     <ScrollView
-      sx={{ bg: '$background', flex: 1 }}
+      sx={{ bg: '$background', flex: 1, paddingBottom: '$8' }}
       showsVerticalScrollIndicator={false}
     >
       <BannerSection />
       <AnnoucementMarquee />
       <GridSection />
-      <CasinoSection />
-      <LotterySection />
+      <RecentOpenGames />
+      {/* <CasinoSection /> */}
+      {/* <LotterySection /> */}
       {/* <GamesSection /> */}
       {/* <LeaderboardSection /> */}
-      <HotGamesSection />
+      {/* <HotGamesSection /> */}
     </ScrollView>
   )
 }

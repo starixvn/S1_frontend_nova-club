@@ -2,6 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { LANGUAGE_CODE } from 'app/constant/language'
 import dayjs, { Dayjs } from 'dayjs'
 import contentApi from 'services/contentApi'
+import { Game } from 'services/contentApi.type'
+import { GameLauncherActions, LaunchGamePayload } from './gameLauncher.slice'
 
 interface PopUpExpire {
   [key: string]: Dayjs | null
@@ -16,6 +18,8 @@ export interface Setting {
   locale: LANGUAGE_CODE
   referral?: Referral
   popUpExpiry: PopUpExpire
+  recentGames: LaunchGamePayload[]
+  recentGameResources: Record<string, string>
   log?: string
 }
 // export const DomainListHintPostfix = '-DomainListHint'
@@ -25,6 +29,8 @@ export interface Setting {
 const initialState: Setting = {
   locale: LANGUAGE_CODE.VIETNAM,
   popUpExpiry: {},
+  recentGames: [],
+  recentGameResources: {},
 }
 
 const settingSlice = createSlice({
@@ -43,6 +49,22 @@ const settingSlice = createSlice({
     setLog: (state, action: PayloadAction<string>) => {
       state.log = action.payload
     },
+    addRecentGame: (state, action: PayloadAction<LaunchGamePayload>) => {
+      const recentGame = action.payload
+      if (state.recentGames.length >= 20) {
+        state.recentGames.shift()
+      }
+
+      const similarGameIndex = state.recentGames.findIndex(
+        (g) =>
+          g.gameCode === recentGame.gameCode &&
+          g.providerCode === recentGame.providerCode
+      )
+
+      if (similarGameIndex > -1) state.recentGames.splice(similarGameIndex, 1)
+
+      state.recentGames.push(recentGame)
+    },
   },
   extraReducers: (builder) => {
     builder.addMatcher(
@@ -53,6 +75,7 @@ const settingSlice = createSlice({
         }
       }
     )
+    // builder.addCase(GameLauncherActions.launchGame, (state, { payload }) => {})
   },
 })
 

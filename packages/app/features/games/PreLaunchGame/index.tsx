@@ -5,10 +5,13 @@ import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { AlertActions } from 'app/store/alert.slice'
+import { LaunchGamePayload } from 'app/store/gameLauncher.slice'
+import { SettingActions } from 'app/store/setting.slice'
 import { getErrorMessage } from 'app/utils/validation'
 import { View } from 'dripsy'
 import { useCallback, useEffect, useState } from 'react'
 import { Linking, Platform } from 'react-native'
+import { useDispatch } from 'react-redux'
 import { useLazyGetGameUrlQuery } from 'services/gameApi'
 import {
   usePlayerBalanceQuery,
@@ -164,10 +167,11 @@ function useGameBalanceRule() {
 }
 
 const ProviderRunningWithoutIframe = ['PRGP']
-function useGameLauncher(gameLauncherState) {
+function useGameLauncher(gameLauncherState: LaunchGamePayload) {
   const { push, back } = useRouter()
   const [isVerifying, setVerifying] = useState(false)
   const [getGameUrl] = useLazyGetGameUrlQuery()
+  const dispatch = useDispatch()
 
   const {
     providerCode,
@@ -177,37 +181,41 @@ function useGameLauncher(gameLauncherState) {
   } = gameLauncherState
 
   async function launchGame() {
-    try {
-      setVerifying(true)
-      const { data } = await getGameUrl({
-        game_code: gameCode,
-        is_demo: 0,
-        is_mobile: desktopMode ? 0 : 1,
-        platform_code: providerCode,
-      }).unwrap()
+    if (providerCode) {
+      try {
+        setVerifying(true)
+        const { data } = await getGameUrl({
+          game_code: gameCode,
+          is_demo: 0,
+          is_mobile: desktopMode ? 0 : 1,
+          platform_code: providerCode,
+        }).unwrap()
 
-      const url = data?.url
+        const url = data?.url
 
-      if (url) {
-        if (
-          Platform.OS === 'web' ||
-          ProviderRunningWithoutIframe.includes(providerCode)
-        ) {
-          Linking.openURL(url)
-        } else {
-          push({
-            pathname: '/games/gameUrl',
-            query: {
-              gameUrl: encodeURIComponent(url),
-              title: gameName,
-            },
-          })
+        if (url) {
+          dispatch(SettingActions.addRecentGame({ ...gameLauncherState }))
+
+          if (
+            Platform.OS === 'web' ||
+            ProviderRunningWithoutIframe.includes(providerCode)
+          ) {
+            Linking.openURL(url)
+          } else {
+            push({
+              pathname: '/games/gameUrl',
+              query: {
+                gameUrl: encodeURIComponent(url),
+                title: gameName,
+              },
+            })
+          }
         }
+      } catch (e) {
+        throw e
+      } finally {
+        setVerifying(false)
       }
-    } catch (e) {
-      throw e
-    } finally {
-      setVerifying(false)
     }
   }
 

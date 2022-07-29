@@ -28,13 +28,13 @@ import {
 import { storage } from './persistStorage/index'
 
 const migrations = {
-  1: (s: PersistedState) => s,
-  2: (s: PersistedState) => s,
+  2: (s: PersistedState) => {},
+  3: (s: PersistedState) => {},
 }
 
 const persistConfig: PersistConfig<any> = {
   key: 'root',
-  version: 2,
+  version: 3,
   storage,
   whitelist: ['auth', 'setting'],
   migrate: createMigrate(migrations, { debug: true }),

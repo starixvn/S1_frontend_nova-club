@@ -13,7 +13,7 @@ import Icon from './Icon'
 type GamesProps = Omit<GAMES, 'gameName'> & {
   width: number
   height?: number
-  sx: SxProp
+  sx?: SxProp
   desktop?: boolean
   isHotGame?: boolean
   isNewGame?: boolean
@@ -46,6 +46,7 @@ const SimpleGridImage: FC<GamesProps> = ({
             GameLauncherActions.launchGame({
               gameCode: gameCode,
               providerCode: providerCode,
+              image,
             })
           )
         }}
@@ -80,6 +81,7 @@ const SimpleGridImage: FC<GamesProps> = ({
                 gameCode: gameCode,
                 providerCode: providerCode,
                 desktopMode: true,
+                image,
               })
             )
           }}
