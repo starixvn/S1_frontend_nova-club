@@ -1,21 +1,18 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Select from 'app/components/form/Select'
+import SelectSquare from 'app/components/form/Select/SelectSquare'
 import { PageSafeArea } from 'app/components/layout/Page'
 import SimpleGridImage from 'app/components/SimpleGridImage'
+import { ProviderImageExtension } from 'app/config/games/extension'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useGameGridSize from 'app/hooks/useGameGridSize'
-import { ActivityIndicator, Row, useSx, View } from 'dripsy'
-import { setUseProxies } from 'immer'
-import React, { useMemo, useState } from 'react'
-import { FlatList } from 'react-native'
-import { useModal } from 'react-native-modalfy'
-import { useDispatch } from 'react-redux'
-import { GameConfig } from 'services/contentApi.type'
-import ListSectionHeader from '../ListSectionHeader'
-import useSlotGamesFilter from '../../hooks/game/useSlotGamesFilter'
-import { ProviderImageExtension } from 'app/config/games/extension'
 import useLocalization from 'app/provider/localization'
-import SelectSquare from 'app/components/form/Select/SelectSquare'
+import { ActivityIndicator, Row, Text, useSx, View } from 'dripsy'
+import React from 'react'
+import { FlatList } from 'react-native'
+import { GameConfig } from 'services/contentApi.type'
+import useSlotGamesFilter from '../../hooks/game/useSlotGamesFilter'
+import ListSectionHeader from '../ListSectionHeader'
 
 const Slots = () => {
   const sx = useSx()
@@ -50,9 +47,10 @@ const Slots = () => {
     selectedSlotType,
     setSelectedProvider,
     setSelectedSlotType,
+    isFetching,
   } = useSlotGamesFilter()
 
-  const isGameReady = filteredGames.length > 0
+  const isGameReady = !isFetching
   return (
     <PageSafeArea disableScrollView sx={{ bg: '$background' }}>
       <ListSectionHeader
@@ -68,9 +66,19 @@ const Slots = () => {
               buttonTitle={selectedSlotType?.label ?? 'Click here to open'}
               buttonProps={{
                 sx: {
-                  flex: 0.45,
+                  flex: 0.3,
                 },
                 isActive: false,
+                buttonContentProps: {
+                  gradient: 'plainLightBlue',
+                  sx: {
+                    borderRadius: 20,
+                    minHeight: 40,
+                  },
+                },
+                iconProps: {
+                  size: 18,
+                },
               }}
               data={slotTypeSelection}
               setSelectedValue={setSelectedSlotType}
@@ -79,10 +87,20 @@ const Slots = () => {
               buttonTitle={selectedProvider.label ?? 'Click here to open'}
               buttonProps={{
                 sx: {
-                  ml: '$2',
+                  mx: '$2',
                   flex: 0.45,
                 },
                 isActive: false,
+                buttonContentProps: {
+                  gradient: 'plainLightBlue',
+                  sx: {
+                    borderRadius: 20,
+                    minHeight: 40,
+                  },
+                },
+                iconProps: {
+                  size: 18,
+                },
               }}
               _dataList={{
                 data: providerSelection,
@@ -110,7 +128,15 @@ const Slots = () => {
           return item.game_code + item.game_provider_code + item.game_name
         }}
         renderItem={renderSlotItem}
-        ListEmptyComponent={<ActivityIndicator color={'$lightCyan'} />}
+        ListEmptyComponent={
+          isFetching ? (
+            <ActivityIndicator color={'$lightCyan'} />
+          ) : (
+            <Text sx={{ textAlign: 'center' }}>
+              {t('common.noInfoAvailable')}
+            </Text>
+          )
+        }
       />
     </PageSafeArea>
   )

@@ -9,7 +9,7 @@ const LIMIT = 10
 function useSlotGamesFilter() {
   const [allSlotGames, setAllSlotGames] = useState<GameConfig[]>([])
 
-  const { data } = useGameListQuery(
+  const { data, isFetching } = useGameListQuery(
     {
       currency: Currency.VND,
       game_category: GameCategory.Slot,
@@ -88,6 +88,7 @@ function useSlotGamesFilter() {
     selectedSlotType,
     setSelectedSlotType,
     loadMore,
+    isFetching,
   }
 }
 

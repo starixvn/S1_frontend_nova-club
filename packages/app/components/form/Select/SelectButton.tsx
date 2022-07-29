@@ -11,6 +11,7 @@ interface ButtonProps {
   icon?: string
   isActive?: boolean
   buttonContentProps?: DripsyGradientProps
+  iconProps?: Partial<ComponentProps<typeof Icon>>
 }
 
 type SelectButtonProps = ButtonProps & ComponentProps<typeof Pressable>
@@ -21,6 +22,7 @@ const SelectButton = ({
   icon,
   isActive = true,
   buttonContentProps,
+  iconProps,
   ...restButtonProps
 }: SelectButtonProps) => {
   const { t } = useLocalization()
@@ -75,8 +77,8 @@ const SelectButton = ({
         <Icon
           name={'chevdown'}
           size={20}
-          // sx={{ flex: 0.2 }}
-          sx={{ position: 'absolute', right: '$1' }}
+          sx={{ position: 'absolute', right: '$2' }}
+          {...iconProps}
         />
       </DripsyGradient>
     </Pressable>

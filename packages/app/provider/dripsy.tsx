@@ -88,6 +88,7 @@ const colorGradient = {
   oceanBlue: ['rgb(24, 95, 161)', 'rgb(51, 160, 208)'],
   lightOceanBlue: ['rgb(36, 108, 158)', 'rgb(29, 89, 135)'],
   darkOceanBlue: ['rgb(3, 62, 116)', 'rgb(19, 44, 71)'],
+  plainLightBlue: ['rgba(61, 127, 156, 0.6)', 'rgba(61, 127, 156, 0.6)'],
   green: ['rgb(88,173,64)', 'rgb(47,106,50)'],
   pink: ['rgb(204,64,87)', 'rgb(179,43,60)'],
   yellow: ['rgb(213,190,63)', 'rgb(206,121,45)'],
