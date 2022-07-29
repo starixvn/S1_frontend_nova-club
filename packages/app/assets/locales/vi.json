@@ -47,6 +47,7 @@
     "contactUs": "Liên hệ",
     "copy": "Sao chép",
     "desktop": "Máy tính để bàn",
+    "download": "",
     "emptyResult": "Kết quả trống",
     "enter": "đi vào",
     "enterAmount": "Vui lòng nhập số tiền %{field} của bạn",
@@ -74,6 +75,7 @@
     "selectAll": "Chọn hết",
     "selectDate": "Chọn ngày",
     "send": "Gởi",
+    "share": "",
     "submit": "Gửi",
     "turnover": "Doanh số",
     "userAgreement": "thỏa thuận người dùng",
@@ -152,6 +154,7 @@
       "deposit": "Nạp tiền",
       "game": "Trò Chơi",
       "reward": "Sự thưởng",
+      "rewards": "",
       "withdrawal": "Rút tiền"
     },
     "withdrawalStatus": {
@@ -219,6 +222,8 @@
       "gameType": "Loại trò chơi",
       "provider": "Các nhà cung cấp",
       "providers": "Các nhà cung cấp",
+      "receive": "",
+      "send": "",
       "status": "Trạng thái",
       "statusType": "Loại trạng thái",
       "transaction": "Giao dịch",
@@ -267,6 +272,11 @@
     "requestCameraPermissions": "Yêu cầu quyền đối với máy ảnh",
     "scanGallery": "Quét từ thư viện"
   },
+  "referral": {
+    "earn": "",
+    "friend": "",
+    "link": ""
+  },
   "status": {
     "alert": "Cảnh giác",
     "approved": "Thành công",
@@ -278,6 +288,7 @@
     "imageNotSupported": "Định dạng hình ảnh không được hỗ trợ",
     "pending": "Đang chờ",
     "processing": "Đang xử lý",
+    "qrDownloadSuccess": "",
     "referralError": "",
     "rejected": "Từ chối",
     "success": "Thành công",

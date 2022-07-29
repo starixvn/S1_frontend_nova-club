@@ -15,7 +15,7 @@ const RootModal = () => {
   useEffect(() => {
     setTimeout(() => {
       isVisible && openModal('AlertModal')
-    }, 300)
+    }, 310)
   }, [alertList])
 
   return <View></View>

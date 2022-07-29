@@ -77,7 +77,7 @@ export function NavigationProvider({
               CustomerSupportPage: '/customer-support',
               GameLoaderPage: '/games/gameUrl',
               MessagesPage: '/messages',
-              QrcodeScanner: '/qrcode-scanner',
+              TransferScanner: '/transfer-scanner',
               Transfer: '/transfer',
             },
           },

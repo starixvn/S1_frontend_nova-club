@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import ModalContent from './ModalContent'
 import ModalWrapper from './ModalWrapper'
 
-const AlertModal = ({ modal: { addListener, closeModal } }) => {
+const AlertModal = ({ modal: { addListener, closeModal, closeAllModals } }) => {
   const dispatch = useDispatch()
   const onCloseListener = useRef<ModalEventListener | undefined>()
   const alertList = useSelector((s: RootState) => s.alert.data)

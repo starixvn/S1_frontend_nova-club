@@ -19,21 +19,31 @@ import { FINDER_HEIGHT, FINDER_WIDTH } from '.'
 import LoadingScreen from 'app/components/LoadingScreen'
 const PNG = require('pngjs/browser').PNG
 
-function QrcodeScannerScreen() {
+function QrcodeScannerTab({ isActive }) {
   const { t } = useLocalization()
   const dispatch = useDispatch()
-  const [scanned, setScanned] = useState(false)
+  const [scanning, setScanning] = useState(true)
+  console.log(
+    '🚀 ~ file: index.web.tsx ~ line 26 ~ QrcodeScannerTab ~ scanning',
+    scanning
+  )
   const { push, replace } = useRouter()
   const [loading, setLoading] = useState(false)
 
   const { makeContextualHref } = useContextualRouting()
   const { width, height } = useContainerDimension()
 
-  const handleBarCodeScannedWeb = (result, error) => {
-    if (scanned) return
+  useEffect(() => {
+    setScanning(isActive)
 
+    return () => {
+      setScanning(false)
+    }
+  }, [isActive])
+
+  const handleBarCodeScannedWeb = (result, error) => {
     if (!!result) {
-      setScanned(true)
+      setScanning(false)
       handleGoToTransfer(result.text)
     } else if (!!error) {
       console.log(
@@ -44,7 +54,7 @@ function QrcodeScannerScreen() {
   }
 
   const handleGoToTransfer = (value) => {
-    setScanned(true)
+    setScanning(false)
 
     const params = {
       referralCode: value,
@@ -103,8 +113,7 @@ function QrcodeScannerScreen() {
 
   return (
     <View sx={{ flex: 1, bg: '$secondary' }}>
-      <Header title={'QRScan'} />
-      {!scanned && (
+      {scanning && (
         <QrReader
           constraints={{ facingMode: 'environment' }}
           onResult={handleBarCodeScannedWeb}
@@ -151,4 +160,4 @@ function QrcodeScannerScreen() {
   )
 }
 
-export default QrcodeScannerScreen
+export default QrcodeScannerTab

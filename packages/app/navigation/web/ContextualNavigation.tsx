@@ -34,8 +34,8 @@ const _contextualComponents = {
   'commission-table': () => import('../../features/profile/commission-table'),
   messages: () => import('../../features/messages'),
   'customer-support': () => import('../../features/customerSupport'),
-  'qrcode-scanner': () => import('../../features/qrcodeScanner'),
-  transfer: () => import('../../features/transfer'),
+  'transfer-scanner': () => import('../../features/transferScanner'),
+  transfer: () => import('../../features/transferScanner/transfer'),
   '/profile/overview': () => import('../../features/profile/overview'),
 }
 

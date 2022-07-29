@@ -28,7 +28,7 @@ const nextConfig = {
     disableClientWebpackPlugin: true,
   },
 }
-const { withSentryConfig } = require('@sentry/nextjs');
+const { withSentryConfig } = require('@sentry/nextjs')
 const { withExpo } = require('@expo/next-adapter')
 const withPlugins = require('next-compose-plugins')
 const withFonts = require('next-fonts')
@@ -46,10 +46,11 @@ const withTM = require('next-transpile-modules')([
   'services',
   '@gorhom/portal',
   '@react-native-community/datetimepicker',
+  'react-native-share',
 ])
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
-});
+})
 
 const sentryWebpackPluginOptions = {
   // Additional config options for the Sentry Webpack plugin. Keep in mind that
@@ -61,11 +62,11 @@ const sentryWebpackPluginOptions = {
   configFile: 'sentry.properties',
   // release:'cRQY4ipPhDjD8JQBiA-Lh'
   // release:'MxjIyysdrVpMqHPzIDoRe',
-  release: "c1T2jvE3-EqGkWZHDp0Rt"
+  release: 'c1T2jvE3-EqGkWZHDp0Rt',
 
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options.
-};
+}
 
 const moduleExports = withPlugins(
   [
@@ -74,10 +75,9 @@ const moduleExports = withPlugins(
     [withExpo, { projectRoot: __dirname }],
     [withFonts, { projectRoot: __dirname }],
     (nextConfig) => withSentryConfig(nextConfig, sentryWebpackPluginOptions),
-    [withBundleAnalyzer]
+    [withBundleAnalyzer],
   ],
   nextConfig
 )
-
 
 module.exports = moduleExports

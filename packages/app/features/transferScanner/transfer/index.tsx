@@ -139,7 +139,7 @@ const TransferScreen = () => {
             isAmount
             _input={{
               placeholder: t('common.enterAmount', {
-                field: t('transfer.transfer').toLowerCase(),
+                field: t('menu.transfer').toLowerCase(),
               }),
               value: values.amount,
               keyboardType: 'number-pad',
@@ -168,7 +168,7 @@ const TransferScreen = () => {
           }}
           onPress={submitForm}
         >
-          <Button.Label>{t('transfer.transfer')}</Button.Label>
+          <Button.Label>{t('menu.transfer')}</Button.Label>
         </Button>
       </View>
     </PageWithBackHeader>

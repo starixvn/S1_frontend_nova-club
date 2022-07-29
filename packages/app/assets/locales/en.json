@@ -47,6 +47,7 @@
     "contactUs": "Contact Us",
     "copy": "Copy",
     "desktop": "Desktop",
+    "download": "Download",
     "emptyResult": "Empty Result",
     "enter": "Enter",
     "enterAmount": "Please enter your %{field} amount",
@@ -74,6 +75,7 @@
     "selectAll": "Select All",
     "selectDate": "Select A Date",
     "send": "Send",
+    "share": "Share",
     "submit": "Submit",
     "turnover": "Turnover",
     "userAgreement": "user agreement",
@@ -133,6 +135,7 @@
       "settledonBrowser": "Settled on Browser"
     },
     "gameStatus": {
+      "lose": "",
       "loss": "Loss",
       "win": "Win"
     },
@@ -192,6 +195,7 @@
       "tfGamingEsports": "TF E-Sports",
       "virtualSports": "Virtual Sports"
     },
+    "notFound": "",
     "quitGame": "Quit Game",
     "reward": "Game rewards",
     "underMaintenance": "Game Under Maintenance"
@@ -217,6 +221,8 @@
       "gameType": "Game Type",
       "provider": "Provider",
       "providers": "Providers",
+      "receive": "Receive",
+      "send": "Send",
       "status": "Status",
       "statusType": "Status Type",
       "transaction": "Transaction",
@@ -265,6 +271,11 @@
     "requestCameraPermissions": "Requesting for camera permission",
     "scanGallery": "Scan from gallery"
   },
+  "referral": {
+    "earn": "Share & Earn",
+    "friend": "Friend Referral",
+    "link": "Referral Link"
+  },
   "status": {
     "alert": "Alert",
     "approved": "Approved",
@@ -276,6 +287,7 @@
     "imageNotSupported": "Image format not supported",
     "pending": "Pending",
     "processing": "Processing",
+    "qrDownloadSuccess": "Qr code download successfully",
     "referralError": "Refferal doesn't exist, please try another code",
     "rejected": "Rejected",
     "success": "Success",
