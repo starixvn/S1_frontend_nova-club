@@ -25,6 +25,9 @@ const modalConfig = {
 }
 
 const stack = createModalStack(modalConfig, {
+  containerStyle: {
+    maxWidth: 768,
+  },
   backdropOpacity: 0.6,
   backBehavior: 'pop',
   transitionOptions: (animatedValue) => ({
