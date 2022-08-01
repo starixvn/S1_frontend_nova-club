@@ -6,8 +6,8 @@
     "packages/*"
   ],
   "devDependencies": {
-    "@types/react": "^17.0.39",
-    "@types/react-native": "^0.67.2",
+    "@types/react": "18.0.1",
+    "@types/react-native": "0.67.2",
     "eslint": "^8.11.0",
     "lerna-update-wizard": "^1.1.2",
     "patch-package": "^6.4.7",
@@ -35,8 +35,8 @@
     "postinstall": "patch-package"
   },
   "resolutions": {
-    "@types/react": "^17.0.39",
-    "@types/react-native": "^0.67.2",
+    "@types/react": "18.0.1",
+    "@types/react-native": "0.67.2",
     "react-devtools-core": "4.14.0",
     "ts-toolbelt": "^9.6.0"
   }

@@ -31,8 +31,8 @@ const RoundedIcon = ({
       shapeSize = 50
       break
     case 'md':
-      iconSize = 36
-      shapeSize = 72
+      iconSize = 33
+      shapeSize = 66
       break
     case 'lg':
       iconSize = 60

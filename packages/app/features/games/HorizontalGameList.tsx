@@ -13,7 +13,7 @@ const HorizontalGameList = ({ data }: { data: Game[] }) => {
   const { width, height } = useContainerDimension()
   const borderedWidth = width - 4
   const leftRightSpace = borderedWidth * HOME_PADDING
-  const columnWidth = (borderedWidth - leftRightSpace * 2) / 3.5
+  const columnWidth = (borderedWidth - leftRightSpace * 2) / 5.5
   const dispatch = useDispatch()
 
   return (

@@ -77,12 +77,7 @@ const IconAction = ({
 
   return (
     <View sx={{ justifyContent: 'flex-start', alignItems: 'center', flex: 1 }}>
-      <RoundedIcon
-        gradient={gradient}
-        icon={icon}
-        size="sm"
-        onPress={onPress}
-      />
+      <RoundedIcon gradient={gradient} icon={icon} onPress={onPress} />
       {title && <StyledTextIcon>{t(title)}</StyledTextIcon>}
     </View>
   )
@@ -98,7 +93,7 @@ const StyledView = styled(View)(() => ({
 
 const StyledTextIcon = styled(Text)(() => ({
   my: '$1',
-  fontSize: 13,
+  fontSize: 12,
   fontWeight: 'bold',
   flexWrap: 'nowrap',
   textAlign: 'center',
