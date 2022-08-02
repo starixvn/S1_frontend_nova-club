@@ -9,7 +9,8 @@ const CommissionTable = () => {
   const { t } = useLocalization()
 
   let showHeader = true
-  if (Platform.OS === 'web' && window.ReactNativeWebView !== null) {
+  if (Platform.OS === 'web' && window.ReactNativeWebView != null) {
+    console.log(`first`)
     showHeader = false
   }
 
