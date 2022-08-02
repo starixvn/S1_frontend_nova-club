@@ -154,6 +154,7 @@
     "transactionType": {
       "deposit": "Deposit",
       "game": "Game",
+      "reward": "",
       "rewards": "Rewards",
       "withdrawal": "Withdrawal"
     },
@@ -214,6 +215,7 @@
     "logout": "Logout",
     "message/announcement": "Message/Announcement",
     "profile": "Profile",
+    "referral": "Referral",
     "switchAccount": "Switch Account",
     "tab": {
       "bets": "Bet",
