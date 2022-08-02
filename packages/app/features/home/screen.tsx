@@ -3,11 +3,8 @@ import { default as React, useEffect } from 'react'
 import { useLazyPlayerProfileQuery } from 'services/playerApi'
 import AnnoucementMarquee from './Section/AnnouncementMarquee'
 import BannerSection from './Section/BannerSection'
-import CasinoSection from './Section/CasinoSection'
-import GamesSection from './Section/GamesSection'
 import GridSection from './Section/GridSection'
 import HotGamesSection from './Section/HotGamesSection'
-import LotterySection from './Section/LotterySection'
 import RecentOpenGames from './Section/RecentOpenGames'
 
 const HomeScreen = () => {
@@ -38,11 +35,7 @@ const HomeScreen = () => {
       <AnnoucementMarquee />
       <GridSection />
       <RecentOpenGames />
-      {/* <CasinoSection /> */}
-      {/* <LotterySection /> */}
-      {/* <GamesSection /> */}
-      {/* <LeaderboardSection /> */}
-      {/* <HotGamesSection /> */}
+      <HotGamesSection />
     </ScrollView>
   )
 }

@@ -9,11 +9,13 @@ import React from 'react'
 const SectionHeader = ({
   title,
   bgColor,
+  colors,
   iconName,
   ...rest
 }: {
   title: string
   bgColor: string
+  colors?: string[]
   iconName: string
 }) => {
   const { width } = useContainerDimension()
@@ -22,7 +24,8 @@ const SectionHeader = ({
   return (
     <StyledView sx={{ marginLeft: horizontalPad, my: horizontalPad * 0.5 }}>
       <DripsyGradient
-        colors={bgColor}
+        colors={colors}
+        gradient={bgColor}
         sx={{
           borderRadius: 20,
           m: '$0a',

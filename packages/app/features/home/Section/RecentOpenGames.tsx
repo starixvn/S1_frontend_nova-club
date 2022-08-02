@@ -30,7 +30,7 @@ const RecentOpenGames = () => {
     <View>
       <SectionHeader
         title={t('common.recentlyOpened')}
-        bgColor={['#03e0e8', '#da0af8']}
+        colors={['#03e0e8', '#da0af8']}
         iconName="replay"
       />
       <HorizontalGameList data={games} />
