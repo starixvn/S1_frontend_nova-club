@@ -18,16 +18,17 @@ export interface LeaderboardResult {
 }
 
 export interface CommissionTableResult {
-  system_code: string
-  system_name: string
-  game_type_code: string
-  game_type: string
-  is_game_provider: boolean
-  currency: string
   cash_player: number
   cash_player_referrer: number
   credit_player: number
-  order: number
+  currency: string
+  game_type_code: string
+  is_game_provider: boolean
+  is_game_type: boolean
+  is_master: boolean
+  seq: number
+  system_code: string
+  system_name: string
 }
 
 export interface CommissionQueryArgs {
