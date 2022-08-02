@@ -4,41 +4,59 @@ import {
   useTableInstance,
 } from '@tanstack/react-table'
 import useLocalization, { Translate } from 'app/provider/localization'
-import { useCommissionTableQuery } from 'services/contentApi'
-import { CommissionTableResult } from 'services/contentApi.type'
-import { Currency, currencyListMapper } from 'app/utils/constant'
+import { Currency } from 'app/utils/constant'
 import { ActivityIndicator, useDripsyTheme } from 'dripsy'
 import React, { useState } from 'react'
+import { useCommissionTableQuery } from 'services/contentApi'
+import { CommissionTableResult } from 'services/contentApi.type'
 import styles from './simpleTable.module.css'
 
 type Commission = Pick<
   CommissionTableResult,
   | 'system_name'
-  | 'game_type'
   | 'cash_player'
   | 'cash_player_referrer'
   | 'credit_player'
+  | 'game_type_code'
+  | 'is_game_type'
+  | 'is_master'
 >
 
 const table = createTable().setRowType<Commission>()
+
+const convertNegativeValue = (value?: number) => {
+  if ((value && value < 0) || typeof value === 'undefined') return '-'
+
+  return value
+}
 
 const generateTableColumns = (t: Translate) => {
   return [
     table.createDataColumn('system_name', {
       header: t('commission.productLists'),
       cell: (props) => {
-        const { system_name = '', game_type = '' } = props.row.original || {}
-        return `${system_name} ${game_type}`
+        const { system_name = '', game_type_code = '' } =
+          props.row.original || {}
+        return system_name ? system_name : game_type_code
       },
     }),
     table.createDataColumn('cash_player', {
       header: t('commission.cashPlayer'),
+      cell: (props) => {
+        return convertNegativeValue(props.row.original?.cash_player)
+      },
     }),
     table.createDataColumn('cash_player_referrer', {
       header: t('commission.cashPlayerReferral'),
+      cell: (props) => {
+        return convertNegativeValue(props.row.original?.cash_player_referrer)
+      },
     }),
     table.createDataColumn('credit_player', {
       header: t('commission.creditPlayer'),
+      cell: (props) => {
+        return convertNegativeValue(props.row.original?.credit_player)
+      },
     }),
   ]
 }
@@ -56,8 +74,26 @@ const SimpleTable = () => {
     currency: Currency.VND,
   })
 
+  const tableList = [...(data?.data || [])]
+  const sortedTableList = tableList.sort((a, b) => {
+    if (a.game_type_code < b.game_type_code) {
+      return -1
+    }
+    if (a.game_type_code > b.game_type_code) {
+      return 1
+    }
+    return 0
+  })
+
+  const isCategoryAndFirstCol = (row, cell) => {
+    return (
+      (row.original?.is_game_type || row.original?.is_master) &&
+      cell.column.id === 'system_name'
+    )
+  }
+
   const tableInstance = useTableInstance(table, {
-    data: data?.data ?? [],
+    data: sortedTableList,
     columns,
     getCoreRowModel: getCoreRowModel(),
   })
@@ -105,6 +141,15 @@ const SimpleTable = () => {
                 key={cell.id}
                 style={{
                   borderColor: theme.colors.$lightNavyBlue,
+                  paddingLeft: isCategoryAndFirstCol(row, cell) ? 7 : 16,
+                  fontWeight: isCategoryAndFirstCol(row, cell)
+                    ? 'bold'
+                    : 'normal',
+                  backgroundColor:
+                    row.original?.is_game_type || row.original?.is_master
+                      ? '#224972'
+                      : '',
+                  textTransform: 'capitalize',
                 }}
               >
                 {cell.renderCell()}
