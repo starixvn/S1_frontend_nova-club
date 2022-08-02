@@ -40,8 +40,8 @@ const GameHistoryTab = () => {
   const [fetchParams, setFetchParams] = useState({
     game_provider_code: selected.selectedGame?.value,
     status: selected.selectedGameStatus?.value,
-    time_from: dayjs(selected.startDate).format('YYYY-MM-DD HH:mm:ss'),
-    time_to: dayjs(selected.endDate).format('YYYY-MM-DD HH:mm:ss'),
+    time_from: dayjs(selected.startDate).toISOString(),
+    time_to: dayjs(selected.endDate).toISOString(),
     trans_type: ReportTransactionType.GAME,
   })
 
@@ -49,8 +49,8 @@ const GameHistoryTab = () => {
     setFetchParams({
       game_provider_code: selected.selectedGame?.value,
       status: selected.selectedGameStatus?.value,
-      time_from: dayjs(selected.startDate).format('YYYY-MM-DD HH:mm:ss'),
-      time_to: dayjs(selected.endDate).format('YYYY-MM-DD HH:mm:ss'),
+      time_from: dayjs(selected.startDate).toISOString(),
+      time_to: dayjs(selected.endDate).toISOString(),
       trans_type: ReportTransactionType.GAME,
     })
   }, [selected])
