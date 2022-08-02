@@ -28,7 +28,7 @@ const SimpleWrap = ({ data, col = 3, context }) => {
             providerCode={game_provider_code}
             gameCode={game_code}
             image={imageUrl}
-            title={t(game_name) + ` (${game_code} - ${game_provider_code})`}
+            title={t(game_name)}
             width={contentWidth}
             desktop={desktop}
           />

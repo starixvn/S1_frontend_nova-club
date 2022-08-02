@@ -18,11 +18,13 @@ import useShare from 'app/hooks/useShare'
 import { RWebShare } from 'react-web-share'
 import QRCodeGenerator from '../QRCodeGenerator'
 import { DripsyGradient } from '../Gradient'
+import { REFERRAL_DOMAIN } from '@env'
 
 const ReferralModal = ({ modal: { closeModal } }) => {
   const { t } = useLocalization()
+  const player = usePlayerProfileQuery()
   const ref = useRef()
-  const referralLink = 'https://stage.gball8.com/12312312312'
+  const referralLink = `${REFERRAL_DOMAIN}?ref=${player.data?.data?.referral_code}`
   const { width, height } = useContainerDimension()
 
   const { data } = usePlayerProfileQuery()
@@ -43,7 +45,7 @@ const ReferralModal = ({ modal: { closeModal } }) => {
   const { onShare } = useShare(shareOptions)
 
   return (
-    <ModalWrapper sx={{ width, p: '10%' }}>
+    <ModalWrapper sx={{ width: width * 0.8, p: 0 }}>
       <View
         sx={{
           bg: 'white',
@@ -67,25 +69,25 @@ const ReferralModal = ({ modal: { closeModal } }) => {
           <View
             sx={{
               bg: '#EEE',
-              py: '$2',
+              py: '$3',
               px: '$4',
               borderRadius: 50,
               flexDirection: 'row',
               alignItems: 'center',
             }}
           >
-            <Text sx={{ flex: 0.4, color: 'black', fontSize: 13 }}>
+            <Text sx={{ flex: 0.35, color: 'black', fontSize: 13 }}>
               {t('referral.link')}
             </Text>
             <Text
               numberOfLines={1}
-              sx={{ flex: 0.6, color: 'black', fontSize: 13 }}
+              sx={{ flex: 0.65, color: 'black', fontSize: 13 }}
             >
               {referralLink}
             </Text>
             <IconButton
               name="copy"
-              size={24}
+              size={20}
               color="black"
               sx={{ ml: '$1' }}
               onPress={() => copyToClipboard(referralLink)}
@@ -95,7 +97,8 @@ const ReferralModal = ({ modal: { closeModal } }) => {
           <View>
             <View
               sx={{
-                p: '$4',
+                my: '$8',
+                mx: '$4',
                 flexDirection: 'row',
                 justifyContent: 'space-between',
               }}
@@ -122,10 +125,15 @@ const ReferralModal = ({ modal: { closeModal } }) => {
                       border: 'none',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      fontSize: 16,
+                      fontSize: 12,
                     }}
                   >
-                    <Icon name="share" color="black" />
+                    <Icon
+                      size={22}
+                      name="share"
+                      color="black"
+                      sx={{ mb: '$1' }}
+                    />
                     <span>Share</span>
                   </button>
                 </RWebShare>
@@ -182,8 +190,8 @@ const ActionButton = ({ icon, title, onPress }) => {
       sx={{ color: 'black', alignItems: 'center' }}
       onPress={onPress}
     >
-      <Icon name={icon} color="black" />
-      <Text sx={{ color: '$black' }}>{title}</Text>
+      <Icon size={22} name={icon} color="black" />
+      <Text sx={{ color: '$black', fontSize: 12, mt: '$1' }}>{title}</Text>
     </BouncePressable>
   )
 }

@@ -43,18 +43,11 @@ const ProfileUser = ({ username }: ProfileUserProps) => {
           {username ?? ' '}
         </Text>
       </ViewTextWrapper>
-      <Button
-        variant="md"
-        fill={{
-          type: 'gradient',
-          color: 'secondary',
-          start: { x: 0, y: 0 },
-          end: { x: 1, y: 0 },
-        }}
+      <IconButton
+        name="bar-code"
+        color={'$lightCyan'}
         onPress={() => openModal('ReferralModal')}
-      >
-        <Button.Label>{t('menu.referral')}</Button.Label>
-      </Button>
+      />
     </ViewWrapper>
   )
 }

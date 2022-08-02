@@ -9,6 +9,7 @@ type RoundedIconProps = {
   size?: 'sm' | 'md' | 'lg'
   gradient?: GradientList
   icon: string | ImageSourcePropType
+  sx?: SxProp
   containerStyle?: SxProp
   imageStyle?: SxProp
   onPress?: () => void
@@ -18,6 +19,7 @@ const RoundedIcon = ({
   size = 'md',
   gradient,
   icon,
+  sx,
   containerStyle,
   imageStyle,
   onPress,
@@ -46,7 +48,7 @@ const RoundedIcon = ({
   }
 
   return (
-    <BouncePressable onPress={onPress}>
+    <BouncePressable onPress={onPress} sx={sx}>
       {gradient ? (
         <StyledGradient gradient={gradient} size={shapeSize}>
           <Icon name={icon} size={iconSize} />

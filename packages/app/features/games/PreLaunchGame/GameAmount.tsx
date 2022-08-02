@@ -72,10 +72,18 @@ const GameAmount = ({ playerBalance }: GameAmountProps) => {
           alignItems: 'center',
         }}
       >
-        <View sx={{ flex: 0.92, borderRightWidth: 1, borderColor: '#00C5D4' }}>
+        <View
+          sx={{
+            flex: 1,
+            borderRightWidth: 1,
+            mr: '$4',
+            borderColor: '#00C5D4',
+          }}
+        >
           <ListItem data={fieldData} balance={main} />
         </View>
         <RoundedIcon
+          sx={{ mr: '$2' }}
           size={'sm'}
           gradient="lightRed"
           icon="dac"
@@ -95,9 +103,9 @@ const ListItem = ({ data, balance }: ListItemProps) => {
   const { t } = useLocalization()
 
   const getBalance = (apiKey: string | undefined) => {
-    if (!balance || !apiKey) return 0
+    if (!balance || !apiKey) return toCurrency(0)
 
-    return balance[apiKey]
+    return toCurrency(balance[apiKey])
   }
 
   return (
@@ -119,10 +127,10 @@ const ListItem = ({ data, balance }: ListItemProps) => {
                   ml: '$1',
                 }}
               >
-                {t(i.label)} (VND)
+                {t(i.label)}
               </StyleLabel>
             </StyledWrapLabel>
-            <View sx={{ px: '$2', flex: 1 }}>
+            <View sx={{ px: '$4', flex: 1 }}>
               <StyleLabel sx={{ textAlign: 'right' }}>
                 {getBalance(i.apiKey)}
               </StyleLabel>
@@ -153,7 +161,7 @@ const StyledWrapItem = styled(View)({
 const StyledWrapLabel = styled(View)({
   flexDirection: 'row',
   alignItems: 'center',
-  flex: 1,
+  mr: '$4',
 })
 
 const StyledWrapIcon = styled(View)({
@@ -164,6 +172,7 @@ const StyledWrapIcon = styled(View)({
   justifyContent: 'center',
   alignItems: 'center',
   aspectRatio: 1,
+  mr: '$1',
 })
 
 const StyledText = styled(Text)({
@@ -173,7 +182,7 @@ const StyledText = styled(Text)({
 
 const StyleLabel = styled(Text)({
   color: '#00C5D4',
-  fontSize: 12,
+  fontSize: 14,
 })
 
 export default GameAmount
