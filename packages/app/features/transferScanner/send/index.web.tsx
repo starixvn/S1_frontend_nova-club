@@ -118,12 +118,28 @@ function QrcodeScannerTab({ isActive }) {
           constraints={{ facingMode: 'environment' }}
           onResult={handleBarCodeScannedWeb}
           className="absolute-fill-center"
-          videoContainerStyle={{ height }}
-          videoStyle={{ zIndex: -1 }}
+          videoContainerStyle={{
+            height,
+            width: '100%',
+            paddingTop: '100%',
+            overflow: 'visible',
+            position: 'relative',
+          }}
+          videoStyle={{
+            zIndex: -1,
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            display: 'block',
+            overflow: 'hidden',
+            position: 'absolute',
+            transform: undefined,
+          }}
           ViewFinder={() => (
             <BarcodeMask
-              width={FINDER_WIDTH}
-              height={FINDER_HEIGHT}
+              width={width / 2}
+              height={width / 2}
               edgeColor="#62B1F6"
               showAnimatedLine={false}
             />
