@@ -17,11 +17,13 @@ import React from 'react'
 import { useRouter } from 'solito/router'
 import BankAccCard from './BankAccCard'
 import { useModal } from 'react-native-modalfy'
+import useContainerDimension from 'app/hooks/useContainerDimension'
 
 const BankAccountScreen = () => {
   const { t } = useLocalization()
   const { push } = useRouter()
   const { openModal } = useModal()
+  const { width } = useContainerDimension()
   const { data, isLoading, isFetching } = usePlayerBankQuery()
 
   const { makeContextualHref } = useContextualRouting()
@@ -48,8 +50,13 @@ const BankAccountScreen = () => {
         ) : (
           <StyledViewNoResult>
             <Image
-              source={require('app/assets/images/home/fishing.jpg')}
-              style={{ aspectRatio: 1, marginBottom: 12, width: '50%' }}
+              source={require('../../../assets/images/empty-result.png')}
+              style={{
+                aspectRatio: 1,
+                marginBottom: 12,
+                width: width * 0.75,
+                height: width * 0.75,
+              }}
             />
             <Text sx={{ color: '#72859A' }}>{t('bank.noBankAccount')}</Text>
           </StyledViewNoResult>

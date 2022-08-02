@@ -137,7 +137,6 @@
       "settledonBrowser": "Settled on Browser"
     },
     "gameStatus": {
-      "lose": "",
       "loss": "Loss",
       "win": "Win"
     },
@@ -155,7 +154,6 @@
     "transactionType": {
       "deposit": "Deposit",
       "game": "Game",
-      "reward": "",
       "rewards": "Rewards",
       "withdrawal": "Withdrawal"
     },
@@ -245,8 +243,24 @@
     "personalMessage": "Personal Message"
   },
   "notes": {
+    "deposit": {
+      "n1": "Kindly please check for the latest active deposit bank details before you making a deposit.",
+      "n2": "For using Bank Transfer deposit option, please make the transfer done before submit the transaction to avoid the transaction delay.",
+      "n3": "Depositor's ACCOUNT NAME must match with your registered full name. We do not encourage transaction made using 3rd party/company account.",
+      "n4": "Please DO NOT fill in 'VUI123' or any sensitive words related to gambling as reference/remark in your online transaction.",
+      "n5": "Please take noted that will be 1x rollover required for all deposit made before any withdrawal can be processed.",
+      "n6": "Kindly please contact our 24/7 LIVECHAT if your transaction is still pending for more than 5 minutes."
+    },
+    "importantNotice": "Important Notice",
     "qr": {
       "n1": "Scan with your app to transfer balance"
+    },
+    "withdrawal": {
+      "n1": "Kindly check with our 24/7 LIVE CHAT if your transaction is pending for more than 10 minutes.",
+      "n2": "Withdrawal bank account name must match with registered full name, member is not allow withdrawal to 3rd party bank account.",
+      "n3": "Some game provider requires 15 till 30 minutes of report sync time, kindly bear with us during the required sync time.",
+      "n4": "Please make sure your required turnover is achieve, and submit the withdrawal transaction after 30 minutes to avoid system auto reject.",
+      "n5": "If there is any discrepancy or you may have any other further withdrawal inquiries, kindly contact our 24/7 LIVE CHAT. Thank you."
     }
   },
   "profile": {
@@ -291,6 +305,7 @@
     "imageNotSupported": "Image format not supported",
     "pending": "Pending",
     "processing": "Processing",
+    "scanFailed": "Scan Failed!",
     "qrDownloadSuccess": "Qr code download successfully",
     "referralError": "Refferal doesn't exist, please try another code",
     "rejected": "Rejected",

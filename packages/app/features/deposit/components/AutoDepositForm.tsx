@@ -28,6 +28,7 @@ import { Currency } from 'app/utils/constant'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import { useModal } from 'react-native-modalfy'
 import { usePlayerProfileQuery } from 'services/playerApi'
+import { DEPOSIT_NOTES } from 'app/constant/notes'
 
 export type AutoDepositValues = {
   bank: SelectOptions | null
@@ -36,7 +37,7 @@ export type AutoDepositValues = {
   realAmount: number
 }
 
-const AutoDepositForm = ({ notes, module, DepositCategoryId }) => {
+const AutoDepositForm = ({ module, DepositCategoryId }) => {
   const { makeContextualHref } = useContextualRouting()
   const to = makeContextualHref('deposit-loader')
 
@@ -168,8 +169,8 @@ const AutoDepositForm = ({ notes, module, DepositCategoryId }) => {
         formik={formik}
       />
 
-      <View sx={{ flex: 1, m: '$4', justifyContent: 'space-between' }}>
-        <ImportantNotice keys={notes} module={module} />
+      <View sx={{ flex: 1, justifyContent: 'space-between' }}>
+        <ImportantNotice keys={DEPOSIT_NOTES} module={module} />
 
         <Button
           rounded

@@ -4,7 +4,6 @@ import { View } from 'dripsy'
 import React from 'react'
 import AutoDepositForm from '../components/AutoDepositForm'
 import { DepositPaymentMethodCategoryId } from 'app/utils/constant'
-const NOTES = ['note.momo1', 'note.momo2', 'note.momo3', 'note.momo4']
 
 const MomoScreen = () => {
   const { t } = useLocalization()
@@ -13,7 +12,6 @@ const MomoScreen = () => {
     <PageWithBackHeader header={{ title: t('deposit.depositMethod.momo') }}>
       <View sx={{ flex: 1 }}>
         <AutoDepositForm
-          notes={NOTES}
           module="momo"
           DepositCategoryId={DepositPaymentMethodCategoryId.MOMO}
         />

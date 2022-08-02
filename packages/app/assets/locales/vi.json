@@ -47,7 +47,7 @@
     "contactUs": "Liên hệ",
     "copy": "Sao chép",
     "desktop": "Máy tính để bàn",
-    "download": "",
+    "download": "Tải xuống",
     "emptyResult": "Kết quả trống",
     "enter": "đi vào",
     "enterAmount": "Vui lòng nhập số tiền %{field} của bạn",
@@ -77,7 +77,7 @@
     "selectAll": "Chọn hết",
     "selectDate": "Chọn ngày",
     "send": "Gởi",
-    "share": "",
+    "share": "Đăng lại",
     "submit": "Gửi",
     "turnover": "Doanh số",
     "userAgreement": "thỏa thuận người dùng",
@@ -108,7 +108,7 @@
       "topUp": "Thẻ Top-up"
     },
     "paymentMode": "Chọn cổng thanh toán",
-    "pleaseConfirmDeposit": "",
+    "pleaseConfirmDeposit": "Vui lòng xác nhận thông tin gửi tiền bên dưới",
     "selectChannel": "Chọn tài khoản nạp",
     "upload": {
       "description": "Duyệt để chọn hình ảnh biên lai hoặc hóa đơn để tải lên. Các tệp phải có dung lượng 6MB hoặc tương tự và ở một trong các định dạng JPG, JPEG",
@@ -137,8 +137,7 @@
       "settledonBrowser": "Đã giải quyết trên trình duyệt"
     },
     "gameStatus": {
-      "lose": "Mất",
-      "loss": "",
+      "loss": "Thua",
       "win": "Thắng lợi"
     },
     "genre": {
@@ -155,8 +154,7 @@
     "transactionType": {
       "deposit": "Nạp tiền",
       "game": "Trò Chơi",
-      "reward": "Sự thưởng",
-      "rewards": "",
+      "rewards": "Sự thưởng",
       "withdrawal": "Rút tiền"
     },
     "withdrawalStatus": {
@@ -210,7 +208,7 @@
     "commisionTable": "Bảng hoa hồng",
     "customerSupport": "Hỗ trợ khách hàng",
     "deposit": "Nạp tiền",
-    "depositConfirmation": "",
+    "depositConfirmation": "Xác nhận tiền gửi",
     "gameHistory": "Lịch sử trò chơi",
     "history": "Lịch sử",
     "logout": "Thoát",
@@ -225,8 +223,8 @@
       "gameType": "Loại trò chơi",
       "provider": "Các nhà cung cấp",
       "providers": "Các nhà cung cấp",
-      "receive": "",
-      "send": "",
+      "receive": "Nhận",
+      "send": "Gửi",
       "status": "Trạng thái",
       "statusType": "Loại trạng thái",
       "transaction": "Giao dịch",
@@ -238,15 +236,31 @@
     "transfer": "Chuyển khoản",
     "withdraw": "Rút",
     "withdrawal": "Rút tiền",
-    "withdrawalConfirmation": ""
+    "withdrawalConfirmation": "Xác nhận Rút tiền"
   },
   "message": {
     "annoucement": "Thông Báo",
     "personalMessage": "Tin nhắn khách hàng"
   },
   "notes": {
+    "deposit": {
+      "n1": "Vui lòng luôn cập nhật thông tin tài khoản ngân hàng đang hoạt động trước khi gửi tiền.",
+      "n2": "Nếu chọn “Chuyển khoản”, vui lòng thực hiện chuyển khoản trước khi thực hiện lệnh gửi để tránh giao dịch bị chậm.",
+      "n3": "TÊN TÀI KHOẢN người gửi phải trùng với họ tên đăng ký. Chúng tôi không khuyến khích thực hiện giao dịch bằng bên/công ty thứ ba.",
+      "n4": "Vui lòng KHÔNG điền “BWING” hoặc bất cứ từ nhạy cảm nào liên quan đến cá cược trong phần nội dung giao dịch.",
+      "n5": "Vui lòng lưu ý rằng mọi khoản tiền nạp đều cần hoàn thành doanh thu cược 1 lần trước khi được rút.",
+      "n6": "Vui lòng liên hệ bộ phận LIVECHAT 24/7 nếu lệnh gửi chậm trễ quá 5 phút."
+    },
+    "importantNotice": "THÔNG BÁO QUAN TRỌNG",
     "qr": {
-      "n1": ""
+      "n1": "Quét bằng ứng dụng của bạn để chuyển số dư"
+    },
+    "withdrawal": {
+      "n1": "Vui lòng liên hệ bộ phận LIVECHAT 24/7 nếu lệnh rút bị chậm trễ quá 10 phút.",
+      "n2": "Tên tài khoản rút tiền phải trùng với họ tên đăng ký, thành viên không được phép rút tiền vào tài khoản bên thứ ba.",
+      "n3": "Một số nhà phát hành game yêu cầu thời gian đồng bộ 15 - 30 phút, vui lòng chờ trong thời gian trên.",
+      "n4": "Vui lòng hoàn thành yêu cầu doanh thu cược 30 phút trước khi thực hiện lệnh rút để tránh bị hệ thống tự động từ chối.",
+      "n5": "Nếu có vấn đề phát sinh hoặc cần được hỗ trợ thêm về vấn đề rút tiền, vui lòng liên hệ bộ phận LIVECHAT 24/7. Xin cám ơn."
     }
   },
   "profile": {
@@ -269,16 +283,16 @@
     "timeline": "UTC/GMT +7"
   },
   "qr": {
-    "downloadQrCode": "",
+    "downloadQrCode": "Tải xuống mã QR",
     "noCameraAccess": "Không có quyền truy cập vào máy ảnh",
     "qrCodeNotDetected": "Không thể phát hiện mã QR trong hình ảnh",
     "requestCameraPermissions": "Yêu cầu quyền đối với máy ảnh",
     "scanGallery": "Quét từ thư viện"
   },
   "referral": {
-    "earn": "",
-    "friend": "",
-    "link": ""
+    "earn": "Đăng lại",
+    "friend": "Giới thiệu bạn bè",
+    "link": "Liên kết giới thiệu"
   },
   "status": {
     "alert": "Cảnh giác",
@@ -291,9 +305,10 @@
     "imageNotSupported": "Định dạng hình ảnh không được hỗ trợ",
     "pending": "Đang chờ",
     "processing": "Đang xử lý",
-    "qrDownloadSuccess": "",
-    "referralError": "",
+    "qrDownloadSuccess": "Tải xuống mã Qr thành công",
+    "referralError": "Giới thiệu không tồn tại, vui lòng thử mã khác",
     "rejected": "Từ chối",
+    "scanFailed": "Quét không thành công!",
     "success": "Thành công",
     "systemError": "Rất tiếc! Đã xảy ra lỗi, vui lòng thử lại."
   },

@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
+import useLocalization from 'app/provider/localization'
 import { styled, Text, View } from 'dripsy'
 import React, { FC } from 'react'
 import { Linking, TouchableWithoutFeedback } from 'react-native'
@@ -13,59 +14,37 @@ const FONT_SIZE = 13
 const LIVE_CHAT_URL = ''
 
 const ImportantNotice = ({ keys, module }: ImportantNoticeProps) => {
+  const { t } = useLocalization()
+
   return (
     <StyledView>
       <StyledViewTitle>
-        <Icon name="cross" color="#134dae" sx={{ mr: '$1' }} />
+        <Icon name="alert" color="$yellow" sx={{ mr: '$2' }} />
         <StyledTextTitle>
-          {'note.importantNotice'.toUpperCase()}
+          {t('notes.importantNotice').toUpperCase()}
         </StyledTextTitle>
       </StyledViewTitle>
-      {keys.map((k, i) => {
-        const splits = k.split('|')
 
-        return (
-          <StyledViewContent key={`${module}.row${i}`}>
-            <StyledTextListNumber>{i + 1 + '.'}</StyledTextListNumber>
-            <Text sx={{ fontSize: FONT_SIZE }}>
-              {splits.map((text: string, ti: number) => {
-                const isBold = text.includes('${bold}')
-                const isLiveChat = text.includes('${livechat}')
-
-                const content = text.replace('${bold}', '')
-                if (isLiveChat)
-                  return (
-                    <TouchableWithoutFeedback
-                      key={`${module}.row${i}.text${ti}`}
-                      onPress={() => {
-                        Linking.openURL(LIVE_CHAT_URL)
-                      }}
-                    >
-                      <StyledTextListLiveChat>
-                        {'note.livechat'}
-                      </StyledTextListLiveChat>
-                    </TouchableWithoutFeedback>
-                  )
-
-                return (
-                  <StyledTextListContent
-                    key={`${module}.row${i}.text${ti}`}
-                    isBold={isBold}
-                  >
-                    {content}
-                  </StyledTextListContent>
-                )
-              })}
-            </Text>
-          </StyledViewContent>
-        )
-      })}
+      <View sx={{ flex: 1 }}>
+        {keys.map((content, i) => {
+          return (
+            <StyledViewContent key={`${module}.row${i}`}>
+              <StyledTextListNumber>{i + 1 + '.'}</StyledTextListNumber>
+              {/* <View sx={{ width: 12 }} /> */}
+              <StyledTextListContent key={`${module}.row${i}`}>
+                {t(content)}
+              </StyledTextListContent>
+            </StyledViewContent>
+          )
+        })}
+      </View>
     </StyledView>
   )
 }
 
 const StyledView = styled(View)(() => ({
-  padding: '$2',
+  p: '$4',
+  my: '$4',
 }))
 
 const StyledViewTitle = styled(View)(() => ({
@@ -81,10 +60,8 @@ const StyledTextTitle = styled(Text)(() => ({
 }))
 
 const StyledViewContent = styled(View)(() => ({
-  ml: 2,
-  mt: 1,
-  pl: 2.5,
   flexDirection: 'row',
+  mb: '$1',
 }))
 
 const StyledTextListNumber = styled(Text)(() => ({
@@ -92,17 +69,9 @@ const StyledTextListNumber = styled(Text)(() => ({
   mr: 12,
 }))
 
-const StyledTextListLiveChat = styled(Text)(() => ({
+const StyledTextListContent = styled(Text)({
   fontSize: FONT_SIZE,
-  fontWeight: 'bold',
-  color: '#134dae',
-}))
-
-const StyledTextListContent = styled(Text)(
-  ({ isBold }: { isBold: boolean }) => ({
-    fontSize: FONT_SIZE,
-    fontWeight: isBold ? 'bold' : 'normal',
-  })
-)
+  flex: 1,
+})
 
 export default ImportantNotice

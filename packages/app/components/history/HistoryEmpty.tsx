@@ -1,5 +1,6 @@
+import useContainerDimension from 'app/hooks/useContainerDimension'
 import useLocalization from 'app/provider/localization'
-import { Text, View } from 'dripsy'
+import { Image, Text, View } from 'dripsy'
 import React, { ComponentProps } from 'react'
 import Icon from '../Icon'
 
@@ -11,13 +12,22 @@ export type IHistoryEmpty = ComponentProps<typeof View> & {
 const HistoryEmpty = ({ text, _text, ...props }: IHistoryEmpty) => {
   const { t } = useLocalization()
   const { sx: containerStyle, ...restProps } = props
+  const { width } = useContainerDimension()
 
   return (
     <View
       sx={{ alignItems: 'center', justifyContent: 'center', ...containerStyle }}
       {...restProps}
     >
-      <Icon name="cross" size={60} />
+      <Image
+        source={require('../../assets/images/empty-result.png')}
+        sx={{
+          aspectRatio: 1,
+          width: width / 1.5,
+          height: width / 1.5,
+          resizeMode: 'contain',
+        }}
+      />
 
       <Text
         sx={{

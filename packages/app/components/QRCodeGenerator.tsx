@@ -33,7 +33,11 @@ const QRCodeGenerator = ({ isTransfer = true }) => {
         // logoMargin={4}
         logoBorderRadius={100}
       />
-      {isTransfer && <Text sx={{ color: '$black' }}>{t('notes.qr.n1')}</Text>}
+      {isTransfer && (
+        <Text sx={{ color: '$black', textAlign: 'center' }}>
+          {t('notes.qr.n1')}
+        </Text>
+      )}
     </View>
   )
 }

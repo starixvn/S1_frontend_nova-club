@@ -5,8 +5,6 @@ import React from 'react'
 import AutoDepositForm from '../components/AutoDepositForm'
 import { DepositPaymentMethodCategoryId } from 'app/utils/constant'
 
-const NOTES = ['note.d1', 'note.d2', 'note.d3', 'note.d4']
-
 const OnlineBankScreen = () => {
   const { t } = useLocalization()
 
@@ -16,7 +14,6 @@ const OnlineBankScreen = () => {
     >
       <View sx={{ flex: 1 }}>
         <AutoDepositForm
-          notes={NOTES}
           module="deposit"
           DepositCategoryId={DepositPaymentMethodCategoryId.ONLINE_BANK}
         />

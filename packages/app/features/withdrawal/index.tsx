@@ -29,7 +29,13 @@ type WithdrawalValues = {
   bank: PlayerBankResult | undefined
 }
 
-const NOTES = ['note.w1', 'note.w2', 'note.w3', 'note.w4', 'note.w5']
+const NOTES = [
+  'notes.withdrawal.n1',
+  'notes.withdrawal.n2',
+  'notes.withdrawal.n3',
+  'notes.withdrawal.n4',
+  'notes.withdrawal.n5',
+]
 const CONFIRMATION_FIELDS = [
   {
     label: 'withdrawal.withdrawTo',
@@ -149,7 +155,7 @@ const WithdrawalPage = () => {
   return (
     <PageWithBackHeader header={{ title: t('menu.withdraw') }}>
       <StyledView>
-        <TextField labelWidth={0.3}>
+        <TextField labelWidth={0.5}>
           <TextField.Select
             label="bank.bank"
             _input={{

@@ -26,6 +26,7 @@ import {
 import { AutoBankItem, PlayerInputFieldsBank } from 'services/deposit.type'
 import { useModal } from 'react-native-modalfy'
 import KeyboardView from 'app/components/KeyboardView'
+import { DEPOSIT_NOTES } from 'app/constant/notes'
 
 const data1 = ['10k', '20k', '30k', '50k', '100k', '200k', '300k']
 
@@ -277,7 +278,7 @@ const TopUpCardScreen = () => {
                 containerStyle={{ my: '$3' }}
               />
             </TextField>
-            <ImportantNotice keys={NOTES} module="deposit" />
+            <ImportantNotice keys={DEPOSIT_NOTES} module="deposit" />
           </View>
           <StyledViewButtonWrapper
             colors={

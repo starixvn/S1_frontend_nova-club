@@ -127,7 +127,7 @@ function QrcodeScannerTab({ isActive }) {
 
         code
           ? handleGoToTransfer(code?.data)
-          : dispatch(AlertActions.addError('status.qrCodeNotDetected'))
+          : dispatch(AlertActions.addError('status.scanFailed'))
       } catch (error) {
         dispatch(AlertActions.addError('status.imageNotSupported'))
       }
