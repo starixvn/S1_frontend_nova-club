@@ -21,12 +21,12 @@ const QrReceiveTab = () => {
   const { appScreenshotDownload } = useDownload({ ref })
 
   return (
-    <ModalWrapper sx={{ width }}>
+    <ModalWrapper sx={{ width, p: '10%' }}>
       <View
         sx={{
           bg: 'white',
           borderRadius: 12,
-          p: '$4',
+          p: '5%',
           width: '100%',
         }}
       >

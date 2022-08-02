@@ -5,7 +5,7 @@ import React from 'react'
 import QRCode from 'react-native-qrcode-svg'
 import { usePlayerProfileQuery } from 'services/playerApi'
 
-const QRCodeGenerator = () => {
+const QRCodeGenerator = ({ isTransfer = true }) => {
   const { t } = useLocalization()
   const { width, height } = useContainerDimension()
 
@@ -26,14 +26,14 @@ const QRCodeGenerator = () => {
       <QRCode
         value={referralCode}
         size={width * 0.5}
-        logo={require('../assets/nclub-appicon.png')}
+        logo={require('../assets/images/auth-logo.png')}
         ecl="H"
         quietZone={12}
         logoBackgroundColor="white"
-        logoMargin={4}
+        // logoMargin={4}
         logoBorderRadius={100}
       />
-      <Text sx={{ color: '$black' }}>{t('notes.qr.n1')}</Text>
+      {isTransfer && <Text sx={{ color: '$black' }}>{t('notes.qr.n1')}</Text>}
     </View>
   )
 }

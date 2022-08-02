@@ -22,11 +22,8 @@ const RecentTransactions = () => {
     limit: 5,
     offset: 0,
     status: ReportDepositStatus.ALL,
-    time_from: dayjs()
-      .subtract(2, 'month')
-      .startOf('date')
-      .format('YYYY-MM-DD HH:mm:ss'),
-    time_to: dayjs().endOf('date').format('YYYY-MM-DD HH:mm:ss'),
+    time_from: dayjs().subtract(2, 'month').startOf('date').toISOString(),
+    time_to: dayjs().endOf('date').toISOString(),
     trans_type: ReportTransactionType.DEPOSIT,
   })
 

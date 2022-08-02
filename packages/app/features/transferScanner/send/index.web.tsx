@@ -122,8 +122,8 @@ function QrcodeScannerTab({ isActive }) {
           videoStyle={{ zIndex: -1 }}
           ViewFinder={() => (
             <BarcodeMask
-              width={FINDER_WIDTH}
-              height={FINDER_HEIGHT}
+              width={width / 2}
+              height={width / 2}
               edgeColor="#62B1F6"
               showAnimatedLine={false}
             />

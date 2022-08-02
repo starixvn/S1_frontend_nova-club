@@ -42,7 +42,7 @@ const ProfileOverview = () => {
             {t('common.more')}
           </Text>
           <Icon
-            name="chevdown"
+            name="chevright"
             size={16}
             color={theme.colors.$lightCyan}
             sx={{ mt: 3 }}

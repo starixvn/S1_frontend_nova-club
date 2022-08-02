@@ -17,10 +17,7 @@ const modalConfig = {
   AlertModal: AlertModal,
   DepositConfirmationModal: DepositConfirmationModal,
   PlayerBankDeleteModal: PlayerBankDeleteModal,
-  ReferralModal: {
-    modal: ReferralModal,
-    position: 'top',
-  },
+  ReferralModal: ReferralModal,
   WithdrawalConfirmationModal: WithdrawalConfirmationModal,
 }
 

@@ -1,4 +1,5 @@
 import Avatar from 'app/components/Avatar'
+import { Button } from 'app/components/form/Button'
 import IconButton from 'app/components/form/IconButton'
 import Icon from 'app/components/Icon'
 import useContextualRouting from 'app/hooks/useContextualRouting'
@@ -42,17 +43,18 @@ const ProfileUser = ({ username }: ProfileUserProps) => {
           {username ?? ' '}
         </Text>
       </ViewTextWrapper>
-      <IconButton
-        name="scan"
-        sx={{ mx: '$2' }}
-        color={'$lightCyan'}
-        onPress={() => push(toQrcodeScanner, '/qrcode-scanner')}
-      />
-      <IconButton
-        name="bar-code"
-        color={'$lightCyan'}
+      <Button
+        variant="md"
+        fill={{
+          type: 'gradient',
+          color: 'secondary',
+          start: { x: 0, y: 0 },
+          end: { x: 1, y: 0 },
+        }}
         onPress={() => openModal('ReferralModal')}
-      />
+      >
+        <Button.Label>{t('menu.referral')}</Button.Label>
+      </Button>
     </ViewWrapper>
   )
 }

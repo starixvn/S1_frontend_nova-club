@@ -17,6 +17,7 @@ import BouncePressable from 'app/pressable/BouncePressable'
 import useShare from 'app/hooks/useShare'
 import { RWebShare } from 'react-web-share'
 import QRCodeGenerator from '../QRCodeGenerator'
+import { DripsyGradient } from '../Gradient'
 
 const ReferralModal = ({ modal: { closeModal } }) => {
   const { t } = useLocalization()
@@ -42,97 +43,117 @@ const ReferralModal = ({ modal: { closeModal } }) => {
   const { onShare } = useShare(shareOptions)
 
   return (
-    <ModalWrapper sx={{ width }}>
+    <ModalWrapper sx={{ width, p: '10%' }}>
       <View
         sx={{
           bg: 'white',
           borderRadius: 12,
-          p: '$4',
           width: '100%',
+          overflow: 'hidden',
         }}
       >
-        <Text sx={{ color: 'black' }}>{t('referral.friend')}</Text>
-        <View sx={{ borderWidth: 4 }}>
-          <Text sx={{ p: '$2', color: 'black' }}>{t('referral.earn')}</Text>
-          <ViewScreenShot innerRef={ref} name={`Vui123-${username}`}>
-            <QRCodeGenerator />
-          </ViewScreenShot>
+        <DripsyGradient gradient="PaleBlue" sx={{ p: '$4' }}>
+          <Text sx={{ textAlign: 'center' }}>{t('referral.friend')}</Text>
+        </DripsyGradient>
+
+        <View sx={{ p: '5%' }}>
+          <Text sx={{ color: 'black' }}>{t('referral.earn')}</Text>
+          <View>
+            <ViewScreenShot innerRef={ref} name={`Vui123-${username}`}>
+              <QRCodeGenerator isTransfer={false} />
+            </ViewScreenShot>
+          </View>
 
           <View
-            sx={{ bg: '#FAFAFA', p: '$3', mb: '$10', flexDirection: 'row' }}
+            sx={{
+              bg: '#EEE',
+              py: '$2',
+              px: '$4',
+              borderRadius: 50,
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}
           >
-            <Text sx={{ flex: 0.4, color: 'black' }}>{t('referral.link')}</Text>
-            <Text numberOfLines={1} sx={{ flex: 0.6, color: 'black' }}>
+            <Text sx={{ flex: 0.4, color: 'black', fontSize: 13 }}>
+              {t('referral.link')}
+            </Text>
+            <Text
+              numberOfLines={1}
+              sx={{ flex: 0.6, color: 'black', fontSize: 13 }}
+            >
               {referralLink}
             </Text>
             <IconButton
-              name="scan"
+              name="copy"
               size={24}
               color="black"
+              sx={{ ml: '$1' }}
               onPress={() => copyToClipboard(referralLink)}
             />
           </View>
-        </View>
 
-        <View
-          sx={{
-            px: '$4',
-            py: '$6',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}
-        >
-          <ActionButton
-            icon="scan"
-            title={t('common.download')}
-            onPress={
-              Platform.OS === 'web'
-                ? webScreenshotDownload
-                : appScreenshotDownload
-            }
-          />
-          {Platform.OS === 'web' ? (
-            <RWebShare
-              data={shareOptions}
-              onClick={() => console.info('share successful!')}
+          <View>
+            <View
+              sx={{
+                p: '$4',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}
             >
-              <button
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  backgroundColor: 'transparent',
-                  border: 'none',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  fontSize: 16,
-                }}
-              >
-                <Icon name="scan" color="black" />
-                <span>Share</span>
-              </button>
-            </RWebShare>
-          ) : (
-            <ActionButton
-              icon="scan"
-              title={t('common.share')}
-              onPress={onShare}
-            />
-          )}
+              <ActionButton
+                icon="dl-round"
+                title={t('common.download')}
+                onPress={
+                  Platform.OS === 'web'
+                    ? webScreenshotDownload
+                    : appScreenshotDownload
+                }
+              />
+              {Platform.OS === 'web' ? (
+                <RWebShare
+                  data={shareOptions}
+                  onClick={() => console.info('share successful!')}
+                >
+                  <button
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      backgroundColor: 'transparent',
+                      border: 'none',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      fontSize: 16,
+                    }}
+                  >
+                    <Icon name="share" color="black" />
+                    <span>Share</span>
+                  </button>
+                </RWebShare>
+              ) : (
+                <ActionButton
+                  icon="share"
+                  title={t('common.share')}
+                  onPress={onShare}
+                />
+              )}
+            </View>
+
+            <Button
+              rounded
+              stretch
+              variant="lg"
+              fill={{
+                type: 'gradient',
+                color: 'secondary',
+                start: { x: 0, y: 0 },
+                end: { x: 1, y: 0 },
+              }}
+              onPress={closeModal}
+            >
+              <Button.Label>{t('common.close')}</Button.Label>
+            </Button>
+          </View>
         </View>
-        <Button
-          rounded
-          stretch
-          variant="lg"
-          fill={{
-            type: 'gradient',
-            color: 'secondary',
-            start: { x: 0, y: 0 },
-            end: { x: 1, y: 0 },
-          }}
-          onPress={closeModal}
-        >
-          <Button.Label>{t('common.close')}</Button.Label>
-        </Button>
       </View>
     </ModalWrapper>
   )
