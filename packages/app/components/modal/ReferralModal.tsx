@@ -64,15 +64,30 @@ const ReferralModal = ({ modal: { closeModal } }) => {
             </ViewScreenShot>
           </View>
 
-          <View sx={{ bg: '#FAFAFA', p: '$3', flexDirection: 'row' }}>
-            <Text sx={{ flex: 0.4, color: 'black' }}>{t('referral.link')}</Text>
-            <Text numberOfLines={1} sx={{ flex: 0.6, color: 'black' }}>
+          <View
+            sx={{
+              bg: '#EEE',
+              py: '$2',
+              px: '$4',
+              borderRadius: 50,
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}
+          >
+            <Text sx={{ flex: 0.4, color: 'black', fontSize: 13 }}>
+              {t('referral.link')}
+            </Text>
+            <Text
+              numberOfLines={1}
+              sx={{ flex: 0.6, color: 'black', fontSize: 13 }}
+            >
               {referralLink}
             </Text>
             <IconButton
-              name="scan"
+              name="copy"
               size={24}
               color="black"
+              sx={{ ml: '$1' }}
               onPress={() => copyToClipboard(referralLink)}
             />
           </View>
@@ -86,7 +101,7 @@ const ReferralModal = ({ modal: { closeModal } }) => {
               }}
             >
               <ActionButton
-                icon="scan"
+                icon="dl-round"
                 title={t('common.download')}
                 onPress={
                   Platform.OS === 'web'
@@ -110,13 +125,13 @@ const ReferralModal = ({ modal: { closeModal } }) => {
                       fontSize: 16,
                     }}
                   >
-                    <Icon name="scan" color="black" />
+                    <Icon name="share" color="black" />
                     <span>Share</span>
                   </button>
                 </RWebShare>
               ) : (
                 <ActionButton
-                  icon="scan"
+                  icon="share"
                   title={t('common.share')}
                   onPress={onShare}
                 />

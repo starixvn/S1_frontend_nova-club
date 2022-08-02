@@ -30,7 +30,7 @@ const ProfileAction = () => {
     <StyledView>
       <IconAction
         gradient="lightPurple"
-        icon="transfer"
+        icon="tf-round"
         title="menu.transfer"
         onPress={() => {
           push(toTransferScanner, `/transfer-scanner`)
