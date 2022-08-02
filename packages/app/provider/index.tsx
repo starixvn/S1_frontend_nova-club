@@ -1,6 +1,10 @@
 import { PortalProvider } from '@gorhom/portal'
-import AlertModal from 'app/components/modal/AlertModal'
+import RootModal from 'app/components/modal/RootModal'
+import App from 'app/features/App'
 import GameLauncher from 'app/features/games/GameLauncher'
+import ContextualNavigationProvider from 'app/navigation/web/ContextualNavigation'
+import { styled } from 'dripsy'
+import { useKeepAwake } from 'expo-keep-awake'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { Dripsy } from './dripsy'
 import { LocalizationProviderRedux } from './localization'
@@ -8,10 +12,6 @@ import ModalProvider from './modal'
 import { NavigationProvider } from './navigation'
 import ReduxProvider from './redux'
 import { SafeArea } from './safe-area'
-import { useKeepAwake } from 'expo-keep-awake'
-import ContextualNavigationProvider from 'app/navigation/web/ContextualNavigation'
-import { styled, useSx } from 'dripsy'
-import RootModal from 'app/components/modal/RootModal'
 
 const RootView = styled(GestureHandlerRootView)(() => ({
   flex: 1,
@@ -36,6 +36,7 @@ export function Provider({ children }: { children: React.ReactNode }) {
                     <PortalProvider>{children}</PortalProvider>
                     <GameLauncher />
                     <RootModal />
+                    <App />
                   </ContextualNavigationProvider>
                 </ModalProvider>
               </NavigationProvider>

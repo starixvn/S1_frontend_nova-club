@@ -9,8 +9,8 @@ import { Game } from 'services/contentApi.type'
 const DATA = [
   {
     label: 'common.all',
-    img: require('../../assets/images/games/slots.png'),
-    bgImg: require('../../assets/images/games/games/yellow-ellipse.png'),
+    img: require('../../assets/images/games/all-icon.png'),
+    bgImg: require('../../assets/images/games/games/red-ellipse.png'),
     gameType: [
       GAME_TYPE_CODE.GAMES,
       GAME_TYPE_CODE.COCKFIGHTING,
@@ -32,8 +32,8 @@ const DATA = [
   },
   {
     label: 'game.category.cockfighting',
-    img: require('../../assets/images/games/poker.png'),
-    bgImg: require('../../assets/images/games/games/yellow-ellipse.png'),
+    img: require('../../assets/images/games/cockfighting.png'),
+    bgImg: require('../../assets/images/games/games/light-green-ellipse.png'),
     gameType: [GAME_TYPE_CODE.COCKFIGHTING],
   },
 ]
@@ -98,12 +98,15 @@ const MenuRow = ({ setFilterGames, gameList }: MenuRowProps) => {
                     type: 'spring',
                   }}
                   animate={{
-                    scale: index === selectedIndex ? 1.2 : 1,
+                    scale: index === selectedIndex ? 1.3 : 1,
                   }}
                   exit={{
                     scale: 1,
                   }}
-                  style={{ width: '100%', height: '100%' }}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                  }}
                 >
                   <StyledBackgroundImage
                     source={i.bgImg}

@@ -76,6 +76,7 @@ const validation = {
     .required('validation.required')
     .min(6, 'validation.otpLength')
     .max(6, 'validation.otpLength'),
+  stringRequired: Yup.string().required('validation.required'),
 }
 
 export const getErrorMessage = (error: any) => {
