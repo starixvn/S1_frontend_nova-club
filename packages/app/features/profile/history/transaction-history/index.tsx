@@ -44,16 +44,16 @@ const TransactionHistoryTab = () => {
 
   const [fetchParams, setFetchParams] = useState({
     status: selected.selectedStatus?.value,
-    time_from: dayjs(selected.startDate).format('YYYY-MM-DD HH:mm:ss'),
-    time_to: dayjs(selected.endDate).format('YYYY-MM-DD HH:mm:ss'),
+    time_from: dayjs(selected.startDate).toISOString(),
+    time_to: dayjs(selected.endDate).toISOString(),
     trans_type: selected.selectedTransType?.value,
   })
 
   useEffect(() => {
     setFetchParams({
       status: selected.selectedStatus?.value,
-      time_from: dayjs(selected.startDate).format('YYYY-MM-DD HH:mm:ss'),
-      time_to: dayjs(selected.endDate).format('YYYY-MM-DD HH:mm:ss'),
+      time_from: dayjs(selected.startDate).toISOString(),
+      time_to: dayjs(selected.endDate).toISOString(),
       trans_type: selected.selectedTransType?.value,
     })
   }, [selected])

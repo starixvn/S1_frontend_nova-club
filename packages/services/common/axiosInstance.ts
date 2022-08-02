@@ -1,5 +1,6 @@
 import { API_DOMAIN, API_KEY, MEDIA_DOMAIN } from '@env'
 import { EnhancedStore } from '@reduxjs/toolkit'
+import { LANGUAGE_CODE } from 'app/constant/language'
 import { RootState } from 'app/provider/redux/store'
 import { generateFPSParams } from 'app/utils/fps/fpsGenerator'
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
@@ -59,10 +60,11 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
 
   let { url, headers, baseURL } = config
   const requestParams: RequestParams = {} as RequestParams
+  const state = customConfig.store?.getState()
+
   if (config.headers === undefined) config.headers = {}
 
   if (baseURL && baseURL?.startsWith(API_DOMAIN) && url?.startsWith('/')) {
-    const state = customConfig.store?.getState()
     const { token, playerName } = state?.auth.info || {}
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`
@@ -122,6 +124,10 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
       }
     }
   }
+
+  // After login, backend will be using `locale` selected in `playerProfile` api
+  const currentLocale = state?.setting.locale || LANGUAGE_CODE.VIETNAM
+  config.headers['X-Lang'] = currentLocale
 
   return config
 }

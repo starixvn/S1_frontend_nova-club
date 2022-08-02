@@ -6,11 +6,17 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
 dayjs.extend(customParseFormat)
 
 const DateTimeCell = ({ date }) => {
+  const is12HourFormat = dayjs(date, 'YYYY-MM-DD HH:mm:ss A').isValid()
+
+  const dateInstance = is12HourFormat
+    ? dayjs(date, 'YYYY-MM-DD HH:mm:ss A')
+    : dayjs(date)
+
   return (
     <>
-      <Text>{dayjs(date, 'YYYY-MM-DD HH:mm:ss A').format('YYYY-MM-DD')}</Text>
+      <Text>{dateInstance.format('YYYY-MM-DD')}</Text>
       <Text sx={{ fontSize: '$1', color: '$dim1' }}>
-        {dayjs(date, 'YYYY-MM-DD HH:mm:ss A').format('hh:mm a')}
+        {dateInstance.format('hh:mm a')}
       </Text>
     </>
   )
