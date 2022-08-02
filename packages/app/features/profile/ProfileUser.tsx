@@ -24,7 +24,7 @@ const ProfileUser = ({ username }: ProfileUserProps) => {
 
   return (
     <ViewWrapper>
-      <BouncePressable onPress={() => back()} sx={{ mr: '$4' }}>
+      <BouncePressable onPress={() => back()} sx={{ mr: '$4', p: '$2' }}>
         <Icon name="chevleft" size={20} color="#9CD9FA" />
       </BouncePressable>
       <Avatar
