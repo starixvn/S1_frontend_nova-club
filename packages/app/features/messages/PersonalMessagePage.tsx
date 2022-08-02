@@ -53,7 +53,7 @@ const PersonalMessagePage = () => {
   }
 
   return (
-    <View sx={{ backgroundColor: '$secondary', flex: 1 }}>
+    <View sx={{ backgroundColor: '$secondary', flex: 1, flexBasis: 0 }}>
       <DripsyGradient
         colors={['rgb(34,77,110)', 'rgb(26,62,90)']}
         start={{ x: 0, y: 0 }}

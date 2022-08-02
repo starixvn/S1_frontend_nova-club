@@ -8,7 +8,7 @@ const AnnouncementPage = () => {
   const { data, refetch, isLoading } = useAnnouncementQuery()
 
   return (
-    <View sx={{ backgroundColor: '$secondary', flex: 1 }}>
+    <View sx={{ backgroundColor: '$secondary', flex: 1, flexBasis: 0 }}>
       <FlatList
         showsVerticalScrollIndicator={false}
         onRefresh={() => refetch()}
