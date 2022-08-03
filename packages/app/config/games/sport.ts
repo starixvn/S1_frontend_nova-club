@@ -7,7 +7,7 @@ export default {
       image: require('../../assets/images/games/sports/sport-saba.png'),
       game_name: 'game.name.sports',
       game_provider_code: 'SABA',
-      game_code: 'sports',
+      game_code: '1',
       desktop: true,
     },
     {
@@ -28,14 +28,14 @@ export default {
       image: require('../../assets/images/games/sports/sport-virtual.png'),
       game_name: 'game.name.virtualSports',
       game_provider_code: 'SABA',
-      game_code: 'sports',
+      game_code: '1',
       desktop: true,
     },
     {
       image: require('../../assets/images/games/sports/sport-sabaEsport.png'),
       game_name: 'game.name.esports',
       game_provider_code: 'SABA',
-      game_code: 'e_sports',
+      game_code: '43',
       desktop: true,
     },
     {
