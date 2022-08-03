@@ -5,7 +5,10 @@ import { useAppSelector } from 'app/provider/redux/store'
 import { View } from 'dripsy'
 import * as ScreenOrientation from 'expo-screen-orientation'
 import { useEffect } from 'react'
-import { usePlayerWalletDetailQuery } from 'services/walletApi'
+import {
+  useLazyPlayerBalanceQuery,
+  usePlayerWalletDetailQuery,
+} from 'services/walletApi'
 import { createParam } from 'solito'
 
 const { useParam } = createParam<{ gameUrl: string; title: string }>()
@@ -17,6 +20,8 @@ const GameLoaderPage = () => {
 
   const { data: walletDetails, isFetching } =
     usePlayerWalletDetailQuery(undefined)
+
+  const [refreshWallet] = useLazyPlayerBalanceQuery()
 
   const [transferAllToOne] = useTransferAllToOneMutation({
     fixedCacheKey: 'transfer-all-to-one',
@@ -40,10 +45,6 @@ const GameLoaderPage = () => {
 
   async function transferAllToMain() {
     try {
-      const isSeamless = isSeamlessTransfer()
-
-      if (isSeamless) return
-
       await transferAllToOne({
         transfer_from: 999,
         transfer_to: 0,
@@ -58,7 +59,10 @@ const GameLoaderPage = () => {
 
     return () => {
       ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP)
-      transferAllToMain()
+      const isSeamless = isSeamlessTransfer()
+
+      if (isSeamless) refreshWallet()
+      else transferAllToMain()
     }
   }, [])
 

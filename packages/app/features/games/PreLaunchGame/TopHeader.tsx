@@ -7,7 +7,7 @@ import { TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'solito/router'
 
-const TopHeader = ({ providerCode }: { providerCode: string }) => {
+const TopHeader = ({ providerCode }: { providerCode?: string }) => {
   const { back } = useRouter()
   const dispatch = useDispatch()
   const onGoBack = () => {
