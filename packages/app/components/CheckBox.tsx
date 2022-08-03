@@ -8,17 +8,18 @@ const CheckBox = ({
   sx,
   _icon,
 }: {
-  onCheck: (boolean) => any
+  onCheck?: (boolean) => any
   isCheck?: boolean
   sx?: SxProp
   _icon?: IconComponentProps
 }) => {
   return (
     <StyledBouncePressable
+      disabled={!onCheck}
       onPress={() => {
-        onCheck(!isCheck)
+        onCheck && onCheck(!isCheck)
       }}
-      sx={{ ...sx }}
+      sx={{ alignItems: 'center', justifyContent: 'center', ...sx }}
     >
       {isCheck && (
         <Icon
@@ -36,7 +37,7 @@ const CheckBox = ({
 const StyledBouncePressable = styled(BouncePressable)({
   bg: '#FFFFFF',
   borderRadius: 2,
-  height: 15,
+  height: 20,
   aspectRatio: 1,
 })
 

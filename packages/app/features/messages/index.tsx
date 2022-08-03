@@ -7,7 +7,7 @@ import { useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { SceneMap, TabView } from 'react-native-tab-view'
 import { createParam } from 'solito'
-import AnnouncementPage from './AnnoucementPage'
+import AnnouncementPage from './AnnouncementPage'
 import PersonalMessagePage from './PersonalMessagePage'
 
 const { useParam } = createParam<{ tab: string }>()
