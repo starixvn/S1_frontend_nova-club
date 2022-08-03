@@ -1,7 +1,7 @@
 {
   "auth": {
     "accountReg": "Đăng ký tài khoản",
-    "accountVerification": "xác minh tài khoản",
+    "accountVerification": "Xác minh tài khoản",
     "enterNewPassword": "Vui lòng nhập mật khẩu mới của bạn",
     "enterOtp": "Vui lòng nhập OTP",
     "forgotPassword": "Quên mật khẩu",
@@ -25,31 +25,31 @@
     "selectBank": "Vui lòng chọn ngân hàng"
   },
   "commission": {
-    "cashPlayer": "Người chơi tiền mặt",
-    "cashPlayerReferral": "Giới thiệu người chơi bằng tiền mặt",
+    "cashPlayer": "Người chơi trả trước",
+    "cashPlayerReferral": "Giới thiệu người chơi trả trước",
     "creditPlayer": "Người chơi tín dụng",
     "productLists": "Danh sách sản phẩm",
     "table": "Bảng hoa hồng"
   },
   "common": {
-    "active": "Đang hoạt",
+    "active": "Đang hoạt động",
     "all": "HIỂN THỊ TẤT CẢ",
     "amount": "Số tiền",
     "balance": "Số dư",
-    "bet": "Cá cược",
+    "bet": "Tiền cược",
     "cancel": "Hủy",
-    "cash": "Tiền mặt",
-    "clickMore": "Nhấp vào Thêm",
+    "cash": "Trả trước",
+    "clickMore": "Xem thêm",
     "close": "Đóng",
     "confirm": "Xác nhận",
-    "confirmDelete": "Bạn có chắc chắn muốn xóa? Nó không thể khôi phục sau khi xóa!",
+    "confirmDelete": "Bạn có chắc chắn muốn xóa? Không thể khôi phục sau khi xóa!",
     "confirmPassword": "Xác nhận mật khẩu",
     "contactUs": "Liên hệ",
     "copy": "Sao chép",
-    "desktop": "Máy tính để bàn",
+    "desktop": "Máy tính",
     "download": "Tải xuống",
-    "emptyResult": "Kết quả trống",
-    "enter": "đi vào",
+    "emptyResult": "Không có kết quả",
+    "enter": "Nhập",
     "enterAmount": "Vui lòng nhập số tiền %{field} của bạn",
     "enterConfirmPassword": "Vui lòng xác nhận mật khẩu",
     "enterNewPassword": "Vui lòng nhập mật khẩu mới",
@@ -59,7 +59,7 @@
     "importantNote": "Lưu Ý Quan Trọng",
     "importantNotes": "Lưu Ý Quan Trọng",
     "loading": "Đang tải",
-    "lose": "Mất",
+    "lose": "Thua",
     "more": "Thêm",
     "newPassword": "Mật khẩu mới",
     "next": "Tiếp theo",
@@ -72,9 +72,9 @@
     "recentlyOpened": "Recently Opened",
     "referenceId": "ID tham chiếu",
     "registered": "Đăng ký",
-    "reward": "Giải thưởng",
-    "rewards": "Giải thưởng",
-    "selectAll": "Chọn hết",
+    "reward": "Phần thưởng",
+    "rewards": "Phần thưởng",
+    "selectAll": "Chọn tất cả",
     "selectDate": "Chọn ngày",
     "send": "Gởi",
     "share": "Đăng lại",
@@ -104,22 +104,22 @@
       "crypto": "Tiền ảo",
       "momo": "MOMO",
       "onlineBanking": "Cổng thanh toán",
-      "qrCode": "Chuyển mã QR",
-      "topUp": "Thẻ Top-up"
+      "qrCode": "Chuyển bằng mã QR",
+      "topUp": "Thẻ cào"
     },
     "paymentMode": "Chọn cổng thanh toán",
     "pleaseConfirmDeposit": "Vui lòng xác nhận thông tin gửi tiền bên dưới",
     "selectChannel": "Chọn tài khoản nạp",
     "upload": {
-      "description": "Duyệt để chọn hình ảnh biên lai hoặc hóa đơn để tải lên. Các tệp phải có dung lượng 6MB hoặc tương tự và ở một trong các định dạng JPG, JPEG",
-      "files": "Tải lên tệp tin",
+      "description": "Chọn hình ảnh biên lai hoặc hóa đơn để tải lên. Các tệp phải có dung lượng 6MB hoặc tương tự với một trong các định dạng JPG, JPEG",
+      "files": "Tải tệp tin",
       "title": "Tải biên lai ngân hàng"
     },
     "usdt": "USDT"
   },
   "filter": {
     "date": {
-      "custom": "Phong tục",
+      "custom": "Tùy chọn",
       "lastWeek": "Tuần trước",
       "thisMonth": "Tháng này",
       "thisWeek": "Tuần này",
@@ -129,12 +129,12 @@
     "depositStatus": {
       "all": "Tất cả các",
       "cancelled": "Hủy",
-      "checking": "Kiểm tra",
-      "declined": "Suy giảm",
+      "checking": "Đang kiểm tra",
+      "declined": "Giảm",
       "failed": "Không thành công",
       "pending": "Đang chờ",
-      "settled": "Định cư",
-      "settledonBrowser": "Đã giải quyết trên trình duyệt"
+      "settled": "Đã thanh toán",
+      "settledonBrowser": "Đã thanh toán trên trình duyệt"
     },
     "gameStatus": {
       "loss": "Thua",
@@ -154,7 +154,7 @@
     "transactionType": {
       "deposit": "Nạp tiền",
       "game": "Trò Chơi",
-      "rewards": "Sự thưởng",
+      "rewards": "Phần thưởng",
       "withdrawal": "Rút tiền"
     },
     "withdrawalStatus": {
@@ -162,16 +162,9 @@
       "declined": "Suy giảm",
       "paid": "Trả",
       "payment": "Thanh toán",
-      "paymentProcessing": "Xử lý thanh toán",
-      "pendingReview": "Đang chờ xem xét",
-      "request": "Lời yêu cầu"
-    }
-  },
-  "form": {
-    "tips": {
-      "needAccountNo": "Cần nhập số tài khoản",
-      "password": "Mật khẩu phải dài 6-15 ký tự, chứa cả chữ và số và ký tự đặc biệt (!@#$%^&*).",
-      "realName": "Vui lòng nhập tên thật của bạn."
+      "paymentProcessing": "Đang xử lý",
+      "pendingReview": "Đang chờ",
+      "request": "Yêu cầu"
     }
   },
   "game": {
@@ -230,11 +223,11 @@
       "transaction": "Giao dịch",
       "transactionType": "Loại giao dịch",
       "type": "Loại",
-      "win/loss": "Thắng lợi/Mất"
+      "win/loss": "Thắng/Thua"
     },
     "transactionHistory": "Lịch sử giao dịch",
-    "transfer": "Chuyển khoản",
-    "withdraw": "Rút",
+    "transfer": "Chuyển quỹ",
+    "withdraw": "Rút tiền",
     "withdrawal": "Rút tiền",
     "withdrawalConfirmation": "Xác nhận Rút tiền"
   },
@@ -278,7 +271,7 @@
       "self": "Bản thân",
       "title": "Tổng quan",
       "turnover": "Doanh số",
-      "w/l": "Thắng lợi/Mất (đồng)"
+      "w/l": "Thắng/Thua (đồng)"
     },
     "timeline": "UTC/GMT +7"
   },
@@ -286,7 +279,7 @@
     "downloadQrCode": "Tải xuống mã QR",
     "noCameraAccess": "Không có quyền truy cập vào máy ảnh",
     "qrCodeNotDetected": "Không thể phát hiện mã QR trong hình ảnh",
-    "requestCameraPermissions": "Yêu cầu quyền đối với máy ảnh",
+    "requestCameraPermissions": "Yêu cầu quyền truy cập vào máy ảnh",
     "scanGallery": "Quét từ thư viện"
   },
   "referral": {
@@ -295,7 +288,7 @@
     "link": "Liên kết giới thiệu"
   },
   "status": {
-    "alert": "Cảnh giác",
+    "alert": "Cảnh báo",
     "approved": "Thành công",
     "cancelled": "Hủy",
     "draft": "Bản nháp",
@@ -337,7 +330,10 @@
     "required": "%{field} là bắt buộc",
     "usdtFormat": "Địa chỉ ví phải tương thích với chuẩn ERC20 / TRC20",
     "userNameMinMaxLength": "Tên người dùng phải dài từ 6 đến 18 ký tự",
-    "username": "6-18 ký tự chữ và số (A-Z, a-z, 0-9)"
+    "username": "6-18 ký tự chữ và số (A-Z, a-z, 0-9)",
+    "needAccountNo": "Cần nhập số tài khoản",
+    "password": "Mật khẩu phải dài 6-15 ký tự, chứa cả chữ và số và ký tự đặc biệt (!@#$%^&*).",
+    "realName": "Vui lòng nhập tên thật của bạn."
   },
   "withdrawal": {
     "withdrawTo": "Rút tiền về"

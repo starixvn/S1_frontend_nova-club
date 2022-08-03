@@ -20,7 +20,7 @@ const validation = {
     .required('validation.required')
     .min(6, 'validation.passwordMinMaxLength')
     .max(12, 'validation.passwordMinMaxLength')
-    .matches(ALPHANUMERIC_REGEX, 'form.tips.password')
+    .matches(ALPHANUMERIC_REGEX, 'validation.password')
     .oneOf([Yup.ref('password'), null], 'validation.passwordNotMatch'),
 
   passwordRestrict: Yup.string()
@@ -30,27 +30,27 @@ const validation = {
     .matches(
       // RegExp(/^(?=.*[0-9a-z])(?=.*[!@#$%^&*])([a-z0-9!@#$%^&*]+)$/i),
       ALPHANUMERIC_REGEX,
-      'form.tips.password'
+      'validation.password'
     ),
 
   email: Yup.string().email('validation.email').required('validation.required'),
 
-  accountName: Yup.string().required('form.tips.realName'),
+  accountName: Yup.string().required('validation.realName'),
   accountNo: Yup.number()
     .typeError('validation.numberOnly')
-    .required('form.tips.needAccountNo'),
+    .required('validation.needAccountNo'),
   sysId: Yup.number().nullable().required('validation.required'),
 
   amount: Yup.number()
     .typeError('validation.numberOnly')
-    .required('form.tips.needAmount'),
+    .required('validation.required'),
 
-  bank: Yup.object().required('form.tips.bank'),
-  paymentMode: Yup.string().required('form.tips.paymentMode'),
-  cardType: Yup.string().required('form.tips.cardType'),
-  cardValue: Yup.string().required('form.tips.cardValue'),
-  cardCode: Yup.string().required('form.tips.cardValue'),
-  cardSerialNo: Yup.string().required('form.tips.cardSerialNo'),
+  bank: Yup.object().required('validation.required'),
+  paymentMode: Yup.string().required('validation.required'),
+  cardType: Yup.string().required('validation.required'),
+  cardValue: Yup.string().required('validation.required'),
+  cardCode: Yup.string().required('validation.required'),
+  cardSerialNo: Yup.string().required('validation.required'),
   phoneNumber: Yup.string()
     .required('validation.required')
     .test({
@@ -71,7 +71,7 @@ const validation = {
   //   message: 'validation.invalidPhone',
   // })
 
-  transferTo: Yup.string().required('form.tips.transferTo'),
+  transferTo: Yup.string().required('validation.required'),
   verifyCode: Yup.string()
     .required('validation.required')
     .min(6, 'validation.otpLength')

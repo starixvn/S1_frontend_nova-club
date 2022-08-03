@@ -167,13 +167,6 @@
       "request": "Request"
     }
   },
-  "form": {
-    "tips": {
-      "needAccountNo": "Need Account Number",
-      "password": "Password must be 6-15 characters, contain both alphanumeric and a special characters (!@#$%^&*).",
-      "realName": "Please enter your real name."
-    }
-  },
   "game": {
     "category": {
       "cockfighting": "Cockfighting",
@@ -334,10 +327,13 @@
     "numberOnly": "Only number is allowed",
     "otpLength": "OTP must be 6-digit number",
     "passwordMinMaxLength": "Password must be 6-15 characters only",
+    "password": "Password must be 6-15 characters, contain both alphanumeric and a special characters (!@#$%^&*).",
     "required": "%{field} is required",
     "usdtFormat": "Must be ERC-20 / TRC-20 compatible wallet address",
     "userNameMinMaxLength": "Username must be 6-18 characters only",
-    "username": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only"
+    "username": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only",
+    "needAccountNo": "Need Account Number",
+    "realName": "Please enter your real name."
   },
   "withdrawal": {
     "withdrawTo": "Withdraw To"
