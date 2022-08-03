@@ -1,7 +1,7 @@
 import { ContextualNavigationContext } from 'app/navigation/web/ContextualNavigation'
 import { store } from 'app/provider/redux/store'
 import { logOut } from 'app/utils/authUtil'
-import { useContext, useEffect } from 'react'
+import { useCallback, useContext, useEffect } from 'react'
 import { configureAxios } from 'services/common/axiosInstance'
 import { useRouter } from 'solito/router'
 
@@ -12,13 +12,13 @@ const useOnAppStart = () => {
     ContextualNavigationContext
   )
 
-  const redirectToLoginPage = () => {
+  const redirectToLoginPage = useCallback(() => {
     replace('/auth/login')
 
     if (stacks.length > 0) {
       clearNavigationStack()
     }
-  }
+  }, [clearNavigationStack, replace, stacks.length])
 
   useEffect(() => {
     configureAxios({
@@ -31,7 +31,7 @@ const useOnAppStart = () => {
         redirectToLoginPage()
       },
     })
-  }, [])
+  }, [redirectToLoginPage])
 }
 
 export default useOnAppStart

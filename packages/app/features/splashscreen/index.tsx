@@ -9,11 +9,8 @@ import useSplashScreen from './useSplashScreen'
 import * as ScreenOrientation from 'expo-screen-orientation'
 import useCodePushDownload from 'app/integrations/codepush/useCodePush'
 import CodePushUpdateBar from './CodePushUpdateBar'
-import useOnAppStart from 'app/hooks/useOnAppStart'
 
 const SplashScreen = () => {
-  useOnAppStart()
-
   const { replace } = useRouter()
   // const { isReady } = useOTA()
   const { status: codePushStatus, progress } = useCodePushDownload()
