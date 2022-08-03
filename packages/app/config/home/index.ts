@@ -31,6 +31,6 @@ const HOME_GAMES_CATEGORY = [
     image: require('../../assets/images/home/card.jpg'),
     title: 'game.category.poker',
   },
-]
+] as const
 
 export default HOME_GAMES_CATEGORY

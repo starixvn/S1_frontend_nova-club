@@ -1,22 +1,11 @@
 import AnimateCrossFadeIn from 'app/components/AnimateCrossFadeIn'
-import TextInput from 'app/components/form/TextInput'
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import useLocalization from 'app/provider/localization'
-import { Flex, Image, Pressable, Text, View } from 'dripsy'
-import {
-  AnimatePresence,
-  motify,
-  MotiImage,
-  MotiText,
-  MotiView,
-  useAnimationState,
-} from 'moti'
+import { Flex } from 'dripsy'
+import { MotiText, MotiView, useAnimationState } from 'moti'
 import React, { FC, useEffect } from 'react'
-import {
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-} from 'react-native-gesture-handler'
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 interface BottomNavTabProps {
   active?: boolean
   name: string

@@ -59,7 +59,9 @@ const MessageCard: FC<MessageCardProps> = ({
             >
               {title}
             </Text>
-            <Text sx={{ color: 'white', fontSize: 13, pt: '$1' }}>{time}</Text>
+            <Text sx={{ color: 'white', fontSize: 13, pt: title ? '$1' : 0 }}>
+              {time}
+            </Text>
           </View>
         </View>
         <MotiView
