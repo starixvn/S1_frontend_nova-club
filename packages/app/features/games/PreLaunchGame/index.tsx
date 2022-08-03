@@ -1,3 +1,4 @@
+import { useFocusEffect, useIsFocused } from '@react-navigation/native'
 import { Button } from 'app/components/form/Button'
 import { DripsyGradient } from 'app/components/Gradient'
 import { useTransferAllToOneMutation } from 'app/custom_services/walletApi'
@@ -9,7 +10,7 @@ import { LaunchGamePayload } from 'app/store/gameLauncher.slice'
 import { SettingActions } from 'app/store/setting.slice'
 import { getErrorMessage } from 'app/utils/validation'
 import { View } from 'dripsy'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Linking, Platform } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { useLazyGetGameUrlQuery } from 'services/gameApi'
@@ -36,6 +37,7 @@ function useGameBalanceRule() {
   }>()
   const [isGameRunning, setIsGameRunning] = useState(false)
   const [isTransferTriggered, setisTransferTriggered] = useState(false)
+  const currentProvider = useRef<string | undefined>()
 
   const { data: walletDetailsRaw, isFetching } = usePlayerWalletDetailQuery(
     undefined,
@@ -43,6 +45,7 @@ function useGameBalanceRule() {
       refetchOnMountOrArgChange: true,
     }
   )
+
   const [
     transferAllToOne,
     { isLoading: isTransferringToMain, isUninitialized },
@@ -77,6 +80,12 @@ function useGameBalanceRule() {
   }, [walletDetailsRaw])
 
   const targetProvider = useAppSelector((s) => s.gameLauncher.providerCode)
+  if (targetProvider) currentProvider.current = targetProvider
+
+  // to persist the value when launcher cleared the provider
+  const isSeamless = !walletDetails
+    ? true
+    : walletDetails[currentProvider.current ?? '']?.seamless
 
   const balanceQuery = usePlayerBalanceQuery(undefined, {
     refetchOnMountOrArgChange: !isTransferringToMain && !isTransferTriggered, // if transferAllToOne is fetching, playerBalance cannot be called
@@ -93,12 +102,10 @@ function useGameBalanceRule() {
     // transfer single vendor wallet to main wallet
     try {
       if (playerBalance?.data?.main.balance != null && walletDetails) {
-        const isSeamless = walletDetails[targetProvider ?? '']?.seamless
-
         if (!isSeamless) {
           await transferAllToOne({
             transfer_from: 0,
-            transfer_to: walletDetails[targetProvider ?? '']?.id ?? 0,
+            transfer_to: walletDetails[currentProvider.current ?? '']?.id ?? 0,
           }).unwrap()
         }
       }
@@ -147,14 +154,15 @@ function useGameBalanceRule() {
   }, [checkIsGameRunning, playerBalance?.data])
 
   const isTargetProviderMaintenance =
-    walletDetails && targetProvider
-      ? walletDetails[targetProvider]?.isMaintenance
+    walletDetails && currentProvider.current
+      ? walletDetails[currentProvider.current]?.isMaintenance
       : false
 
   return {
     // Ready when done translfer all
     refreshWallet: refetch,
     isWalletDetailsAvailable: !!walletDetails,
+    isSeamless,
     isBalanceReady,
     isCheckingBalance,
     isGameMaintenance: isTargetProviderMaintenance,
@@ -163,6 +171,7 @@ function useGameBalanceRule() {
     transferAllToMain,
     transferToGame,
     playerBalance: playerBalance?.data,
+    currentProvider: currentProvider.current,
   }
 }
 
@@ -236,6 +245,8 @@ const PreLaunchGame = ({}) => {
 
   const { launchGame, isVerifying, back } = useGameLauncher(gameLauncherState)
   const {
+    currentProvider,
+    isSeamless,
     isWalletDetailsAvailable,
     refreshWallet,
     isGameMaintenance,
@@ -249,8 +260,7 @@ const PreLaunchGame = ({}) => {
   } = useGameBalanceRule()
 
   const { top } = useSafeArea()
-  const { providerCode } = gameLauncherState
-  const isSaba = providerCode === 'SABA'
+  const isSaba = currentProvider === 'SABA'
 
   async function onLauchGame() {
     setIsLaunchingGame(true)
@@ -308,7 +318,7 @@ const PreLaunchGame = ({}) => {
 
   return (
     <DripsyGradient colors={['#164672', '#0D2035']} sx={{ flex: 1, pt: top }}>
-      <TopHeader providerCode={providerCode} />
+      <TopHeader providerCode={currentProvider} />
       <GameRewards />
       {isSaba && (
         <UserAgreement
@@ -318,7 +328,7 @@ const PreLaunchGame = ({}) => {
           isAgree={agree}
         />
       )}
-      <GameAmount playerBalance={playerBalance} />
+      <GameAmount playerBalance={playerBalance} isSeamless={isSeamless} />
       <View sx={{ mt: '$10', mx: '$5' }}>
         <Button
           loading={

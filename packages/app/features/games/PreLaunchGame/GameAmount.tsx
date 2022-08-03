@@ -10,6 +10,7 @@ import useLocalization from 'app/provider/localization'
 
 interface GameAmountProps {
   playerBalance: PlayerBalanceResult | undefined
+  isSeamless: boolean
 }
 
 interface FieldData {
@@ -18,11 +19,13 @@ interface FieldData {
   apiKey?: keyof PlayerBalanceResult['main']
 }
 
-const GameAmount = ({ playerBalance }: GameAmountProps) => {
+const GameAmount = ({ playerBalance, isSeamless }: GameAmountProps) => {
   const { t } = useLocalization()
 
   const { main } = playerBalance || {}
 
+  // If its seamless, both cash and rewards amount will be used by the games,
+  // Rewards amount will not be transfered into non seamless wallet
   const fieldData: FieldData[] = [
     {
       icon: 'ac',
@@ -31,7 +34,7 @@ const GameAmount = ({ playerBalance }: GameAmountProps) => {
     {
       icon: 'gift',
       label: 'common.rewards',
-      apiKey: 'reward',
+      apiKey: isSeamless ? undefined : 'reward',
     },
   ]
 
@@ -41,6 +44,10 @@ const GameAmount = ({ playerBalance }: GameAmountProps) => {
   const handleOnPress = () => {
     push(to, `/deposit`)
   }
+
+  const cashInAmount = isSeamless
+    ? Number(main?.balance) + Number(main?.reward)
+    : Number(main?.balance)
 
   return (
     <View
@@ -52,7 +59,7 @@ const GameAmount = ({ playerBalance }: GameAmountProps) => {
         <StyledText sx={{ fontSize: 20 }}>VND</StyledText>
         <StyledText sx={{ fontSize: 23 }}>
           {/* WIP: Currency should not be hardcoded here */}
-          {toCurrency(Number(main?.balance), Currency.VND, {
+          {toCurrency(cashInAmount, Currency.VND, {
             symbol: false,
             hideTruncatedThousand: false,
           })}
@@ -101,7 +108,6 @@ interface ListItemProps {
 
 const ListItem = ({ data, balance }: ListItemProps) => {
   const { t } = useLocalization()
-
   const getBalance = (apiKey: string | undefined) => {
     if (!balance || !apiKey) return toCurrency(0)
 
