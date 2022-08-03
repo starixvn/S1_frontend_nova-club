@@ -347,3 +347,8 @@ export enum GAME_TYPE_CODE {
   GAMES = 'games',
   COCKFIGHTING = 'cockfighting',
 }
+
+export enum GAME_TAGS {
+  NEW = 'new',
+  HOT = 'hot',
+}

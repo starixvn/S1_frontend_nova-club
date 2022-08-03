@@ -2,7 +2,7 @@ import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import SimpleGridImage from 'app/components/SimpleGridImage'
 import useGameGridSize from 'app/hooks/useGameGridSize'
 import useLocalization from 'app/provider/localization'
-import { Currency, GAME_TYPE_CODE } from 'app/utils/constant'
+import { Currency, GAME_TAGS, GAME_TYPE_CODE } from 'app/utils/constant'
 import { ActivityIndicator, FlatList, Text, useSx, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
 import React, { memo, useState } from 'react'
@@ -40,8 +40,10 @@ const Games = () => {
     })
 
   const renderSlotItem = ({ item }: Parameters<ListRenderItem<Game>>[0]) => {
-    const { gc, gpc, img } = item
+    const { gc, gpc, img, tags } = item
     const imageUrl = `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${img}`
+    const isNewGame = tags.includes(GAME_TAGS.NEW)
+    const isHotGame = tags.includes(GAME_TAGS.HOT)
 
     return (
       <AnimatePresence>
@@ -65,6 +67,8 @@ const Games = () => {
             gameCode={gc}
             image={{ uri: imageUrl }}
             width={contentWidth}
+            isNewGame={isNewGame}
+            isHotGame={isHotGame}
           />
         </MotiView>
       </AnimatePresence>

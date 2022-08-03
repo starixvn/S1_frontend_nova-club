@@ -71,7 +71,7 @@ const PersonalMessagePage = () => {
               <ActivityIndicator sx={{ m: '$2' }} color={'$lightCyan'} />
             ) : (
               <BouncePressable onPress={onDelete}>
-                <Icon name="bin" size={25} color={'$secondary'} />
+                <Icon name="bin" size={25} color={'$text'} />
               </BouncePressable>
             )}
             <View sx={{ pl: '$3' }}>
@@ -87,7 +87,7 @@ const PersonalMessagePage = () => {
                     refetch()
                   }}
                 >
-                  <Icon name="reload" size={25} color={'$secondary'} />
+                  <Icon name="reload" size={25} color={'$text'} />
                 </BouncePressable>
               )}
             </View>
