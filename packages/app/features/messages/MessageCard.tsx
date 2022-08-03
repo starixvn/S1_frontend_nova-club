@@ -2,6 +2,7 @@ import CheckBox from 'app/components/CheckBox'
 import Icon from 'app/components/Icon'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { AnimateHeight } from 'app/transitions/animate-height'
+import dayjs from 'dayjs'
 import { styled, Text, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
 import { MotiPressable } from 'moti/interactions'
@@ -16,7 +17,7 @@ export interface MessageCardProps {
   id: number
   title: string
   content: string
-  time?: string | object
+  time?: string
   index: number
 }
 
@@ -48,7 +49,7 @@ const MessageCard: FC<MessageCardProps> = ({
       <StyledView sx={{ mt: firstItem ? 0 : '$2a' }}>
         <View sx={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
           {onToggle && <CheckBox onCheck={_onToggle} isCheck={selected} />}
-          <View sx={{ pl: '$2' }}>
+          <View sx={{ pl: onToggle ? '$3' : '$2' }}>
             <Text
               sx={{
                 color: 'white',
@@ -60,7 +61,7 @@ const MessageCard: FC<MessageCardProps> = ({
               {title}
             </Text>
             <Text sx={{ color: 'white', fontSize: 13, pt: title ? '$1' : 0 }}>
-              {time}
+              {dayjs(time).format('YYYY-MM-DD HH:mm:ss')}
             </Text>
           </View>
         </View>

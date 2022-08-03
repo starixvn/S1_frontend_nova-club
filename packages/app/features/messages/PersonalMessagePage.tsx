@@ -7,7 +7,7 @@ import { useAppSelector } from 'app/provider/redux/store'
 import { useDeleteMessagesMutation, useMessageQuery } from 'services/messageApi'
 import { ActivityIndicator, styled, Text, View } from 'dripsy'
 import { useCallback, useState } from 'react'
-import { FlatList } from 'react-native'
+import { FlatList, TouchableOpacity } from 'react-native'
 import MessageCard from './MessageCard'
 
 const PersonalMessagePage = () => {
@@ -37,7 +37,8 @@ const PersonalMessagePage = () => {
   const selectAll = () => {
     if (isAllSelected) setSelectedIds([])
     else
-      data?.data && setSelectedIds(data?.data?.messages.map((d) => d.messageId))
+      data?.data &&
+        setSelectedIds(data?.data?.messages.map((d) => d.messageId) ?? [])
   }
 
   async function onDelete() {
@@ -60,12 +61,14 @@ const PersonalMessagePage = () => {
         end={{ x: 0, y: 1 }}
       >
         <StyledView>
-          <View sx={{ flexDirection: 'row', alignItems: 'center' }}>
-            <CheckBox onCheck={selectAll} isCheck={isAllSelected} />
-            <Text sx={{ color: '#7DD7FF', pl: '$2' }}>
-              {t('common.selectAll')}
-            </Text>
-          </View>
+          <TouchableOpacity onPress={selectAll}>
+            <View sx={{ flexDirection: 'row', alignItems: 'center' }}>
+              <CheckBox isCheck={isAllSelected} />
+              <Text sx={{ color: '#7DD7FF', pl: '$2' }}>
+                {t('common.selectAll')}
+              </Text>
+            </View>
+          </TouchableOpacity>
           <View sx={{ flexDirection: 'row' }}>
             {isDeleting ? (
               <ActivityIndicator sx={{ m: '$2' }} color={'$lightCyan'} />
