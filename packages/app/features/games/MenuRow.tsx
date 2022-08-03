@@ -3,8 +3,15 @@ import useLocalization from 'app/provider/localization'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
 import { Image, styled, Text, View } from 'dripsy'
 import { MotiView } from 'moti'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react'
 import { Game } from 'services/contentApi.type'
+import { createParam } from 'solito'
 
 const DATA = [
   {
@@ -43,28 +50,52 @@ interface MenuRowProps {
   gameList?: Game[]
 }
 
+const { useParam } = createParam<{ t: string }>()
+
 const MenuRow = ({ setFilterGames, gameList }: MenuRowProps) => {
   const { t } = useLocalization()
   const [selectedIndex, setSelectedIndex] = useState(0)
+  const [gameType] = useParam('t', {
+    initial: '',
+  })
 
-  const onFilterGame = (item: typeof DATA[number], index: number) => {
-    if (!gameList?.length) return
+  const onFilterGame = useCallback(
+    (index: number, item?: typeof DATA[number]) => {
+      if (!gameList?.length || typeof item === 'undefined') return
 
-    const gameType = item.gameType
+      const gameType = item.gameType
 
-    const filteredGames = gameList.filter((gamesLists) =>
-      gameType.includes(gamesLists.gtc as GAME_TYPE_CODE)
-    )
+      const filteredGames = gameList.filter((gamesLists) =>
+        gameType.includes(gamesLists.gtc as GAME_TYPE_CODE)
+      )
 
-    setFilterGames(filteredGames)
-    setSelectedIndex(index)
-  }
+      setFilterGames(filteredGames)
+      setSelectedIndex(index)
+    },
+    [gameList, setFilterGames]
+  )
+
+  const getInitialSelectedGameType = useCallback(() => {
+    if (gameList?.length) {
+      if (gameType) {
+        const selectedGameIndex = DATA.findIndex((data) => {
+          if (data.gameType.length > 1) return false
+
+          return data.gameType.includes(gameType as GAME_TYPE_CODE)
+        })
+        const selectedGame = DATA[selectedGameIndex] ?? DATA[0]
+        const gameIndex = selectedGameIndex === -1 ? 0 : selectedGameIndex
+
+        onFilterGame(gameIndex, selectedGame)
+      } else {
+        setFilterGames(gameList)
+      }
+    }
+  }, [gameList, gameType, onFilterGame, setFilterGames])
 
   useEffect(() => {
-    if (gameList?.length) {
-      setFilterGames(gameList)
-    }
-  }, [gameList, setFilterGames])
+    getInitialSelectedGameType()
+  }, [getInitialSelectedGameType])
 
   return (
     <StyledListView>
@@ -75,7 +106,7 @@ const MenuRow = ({ setFilterGames, gameList }: MenuRowProps) => {
             style={{
               alignItems: 'center',
             }}
-            onPress={() => onFilterGame(i, index)}
+            onPress={() => onFilterGame(index, i)}
           >
             <View sx={{ position: 'relative' }}>
               <MotiView

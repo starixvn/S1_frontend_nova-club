@@ -3,7 +3,8 @@ import { GRID_TOTAL_COL, HOME_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
-import { ActionType, getAction } from 'app/utils/actionGenerator'
+import { getAction } from 'app/utils/actionGenerator'
+import { GAME_TYPE_CODE } from 'app/utils/constant'
 import { Image, styled, Text, View } from 'dripsy'
 import React from 'react'
 import { useRouter } from 'solito/router'
@@ -38,12 +39,18 @@ const dummyData = [
     src: home[5]?.image,
     title: home[5]?.title,
     route: '/games',
+    urlParam: {
+      t: GAME_TYPE_CODE.LOTTERY,
+    },
   },
   {
     col: 3,
     src: home[6]?.image,
     title: home[6]?.title,
-    route: '/games/fishing',
+    route: '/games',
+    urlParam: {
+      t: GAME_TYPE_CODE.FISHING,
+    },
   },
   // {
   //   col: 3,
@@ -63,7 +70,10 @@ const dummyData = [
     col: 3,
     src: home[3]?.image,
     title: home[3]?.title,
-    route: '/',
+    route: '/games',
+    urlParam: {
+      t: GAME_TYPE_CODE.COCKFIGHTING,
+    },
   },
 ]
 
@@ -77,6 +87,24 @@ const GridSection = () => {
   const thirdQuarterSpace = quarterSpace * 3
   const columnWidth = (borderedWidth - thirdQuarterSpace * 2) / GRID_TOTAL_COL
   const rowHeight = columnWidth * 1.98
+
+  const action = (data: typeof dummyData[number]) => {
+    if (data.action) {
+      getAction(data.action)
+      return
+    }
+
+    if (data.urlParam) {
+      push({
+        pathname: data.route,
+        query: data.urlParam,
+      })
+      return
+    }
+
+    push(data.route)
+  }
+
   return (
     <StyledContainer
       sx={{
@@ -89,7 +117,6 @@ const GridSection = () => {
         const picHeight = rowHeight - quarterSpace * 2
         const checkTextSpace = picHeight / 30
 
-        const action = j.action ? getAction(j.action) : () => push(j.route)
         return (
           <BouncePressable
             key={j.src.toString()}
@@ -98,7 +125,7 @@ const GridSection = () => {
               width,
               height: rowHeight,
             }}
-            onPress={action}
+            onPress={() => action(j)}
           >
             <Image
               sx={{

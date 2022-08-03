@@ -24,7 +24,11 @@ function TabNavigation() {
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Sportsbook" component={Sportsbook} />
-      <Tab.Screen name="Games" component={Games} />
+      <Tab.Screen
+        name="Games"
+        component={Games}
+        options={{ unmountOnBlur: true }}
+      />
       <Tab.Screen name="Slots" component={SlotGames} />
       <Tab.Screen name="Casino" component={Casino} />
       {/* <Tab.Screen name="FishingPage" component={FishingPage} /> */}

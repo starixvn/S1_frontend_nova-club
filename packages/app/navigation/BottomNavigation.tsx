@@ -1,7 +1,6 @@
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import { Flex, View } from 'dripsy'
-import React, { useState } from 'react'
-import { Platform } from 'react-native'
+import React from 'react'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { useRouter } from 'solito/router'
 import BottomNavIcon from './BottomNavIcon'
@@ -45,8 +44,7 @@ const tabConfig = [
 ]
 
 const BottomNavigation = () => {
-  const { push, parseNextPath } = useRouter()
-  const [activeIdx, setActiveIdx] = useState(2)
+  const { push } = useRouter()
 
   const { returnHref } = useContextualRouting()
 
@@ -59,7 +57,7 @@ const BottomNavigation = () => {
       isSamePath = returnHref.includes(item.route)
     }
 
-    return Platform.OS === 'web' ? isSamePath : activeIdx === index
+    return isSamePath
   }
 
   const BAR_HEIGHT = 60
@@ -94,7 +92,6 @@ const BottomNavigation = () => {
             active={isActiveState(index, item)}
             size={CIRCLE_HEIGHT}
             onPress={() => {
-              setActiveIdx(index)
               push(item.route, undefined, { scroll: false })
             }}
           />
