@@ -12,13 +12,12 @@ const messageEndpoints = (builder: EndpointBuilderType) => {
       }),
     }),
     deleteMessages: builder.mutation<IResponse, DeleteMessageQueryArgs>({
-      query: ({ isDeleteAll, ids, username }) => ({
+      query: ({ isDeleteAll, ids }) => ({
         url: `/player_api/message`,
         method: 'DELETE',
         data: {
           delete_all: isDeleteAll,
           message_ids: ids,
-          username,
         },
       }),
     }),
