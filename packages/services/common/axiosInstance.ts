@@ -14,7 +14,6 @@ const DEFAULT_TIMEOUT = 25000
 interface CustomConfig {
   store?: EnhancedStore<RootState>
   onTokenExpired?: () => void
-  onUnauthorizedAccess?: () => void
 }
 
 let customConfig: CustomConfig = {}
@@ -149,8 +148,6 @@ const onResponseError = (error: AxiosError) => {
 
       if (currentLoginInfo) {
         customConfig.onTokenExpired?.()
-      } else {
-        customConfig.onUnauthorizedAccess?.()
       }
     }
   }

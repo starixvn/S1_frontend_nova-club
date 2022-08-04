@@ -18,15 +18,19 @@ import ReceiveOTPContact from '../common/ReceiveOTPContact'
 interface VerificationFormProps {
   formik: FormikProps<RegisterFormValues>
   onBack: () => void
+  isSubmitting: boolean
 }
 
-const VerificationForm = ({ formik, onBack }: VerificationFormProps) => {
+const VerificationForm = ({
+  formik,
+  onBack,
+  isSubmitting,
+}: VerificationFormProps) => {
   const { t } = useLocalization()
 
   const {
     handleChange,
     handleBlur,
-    isSubmitting,
     values,
     errors,
     touched,
@@ -121,6 +125,7 @@ const VerificationForm = ({ formik, onBack }: VerificationFormProps) => {
           ref: otpFieldRef,
           onSubmitEditing: submitForm,
           keyboardType: 'number-pad',
+          maxLength: 6,
         }}
         error={
           touched.verifyCode && errors.verifyCode

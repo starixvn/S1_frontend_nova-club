@@ -2,7 +2,7 @@ import { Button } from 'app/components/form/Button'
 import TextInput from 'app/components/form/TextInput'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
-import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
+import { useAppDispatch } from 'app/provider/redux/store'
 import { AlertActions } from 'app/store/alert.slice'
 import { AuthActions } from 'app/store/authReducer'
 import { SettingActions } from 'app/store/setting.slice'
@@ -32,6 +32,7 @@ const LoginForm = () => {
   const { t } = useLocalization()
 
   const [errorMsg, setErrorMsg] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const { replace } = useRouter()
   const [afterLoginRedirection] = useParam('r', {
     initial: '/',
@@ -40,8 +41,6 @@ const LoginForm = () => {
   const usernameFieldRef = useRef<RNTextField>(null)
 
   const [getPlayerProfile] = useLazyPlayerProfileQuery()
-
-  const log = useAppSelector((s) => s.setting.log)
 
   const dispatch = useAppDispatch()
 
@@ -63,6 +62,8 @@ const LoginForm = () => {
     actions: FormikHelpers<LoginFormValues>
   ) => {
     try {
+      setIsSubmitting(true)
+
       const { data, success, message } = await login({
         username,
         password,
@@ -85,6 +86,8 @@ const LoginForm = () => {
           message: errorMessage,
         })
       )
+
+      setIsSubmitting(false)
     }
   }
 
@@ -103,15 +106,8 @@ const LoginForm = () => {
   const { makeContextualHref } = useContextualRouting()
   const to = makeContextualHref('forget-password')
 
-  const {
-    handleChange,
-    handleBlur,
-    isSubmitting,
-    values,
-    errors,
-    touched,
-    submitForm,
-  } = formik
+  const { handleChange, handleBlur, values, errors, touched, submitForm } =
+    formik
 
   return (
     <>
