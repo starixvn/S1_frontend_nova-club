@@ -22,6 +22,15 @@ type Commission = Pick<
   | 'is_master'
 >
 
+const enum TABLE_COLUMN {
+  SYSTEM_NAME = 'system_name',
+  CASH_PLAYER = 'cash_player',
+  PLAYER_REFERRAL = 'cash_player_referrer',
+  CREDIT_PLAYER = 'credit_player',
+}
+
+const EXCLUDE_MASTER_NAME = 'MASTER'
+
 const table = createTable().setRowType<Commission>()
 
 const convertNegativeValue = (value?: number) => {
@@ -32,7 +41,7 @@ const convertNegativeValue = (value?: number) => {
 
 const generateTableColumns = (t: Translate) => {
   return [
-    table.createDataColumn('system_name', {
+    table.createDataColumn(TABLE_COLUMN.SYSTEM_NAME, {
       header: t('commission.productLists'),
       cell: (props) => {
         const { system_name = '', game_type_code = '' } =
@@ -42,19 +51,19 @@ const generateTableColumns = (t: Translate) => {
         return system_name ? system_name : gameTypeName
       },
     }),
-    table.createDataColumn('cash_player', {
+    table.createDataColumn(TABLE_COLUMN.CASH_PLAYER, {
       header: t('commission.cashPlayer'),
       cell: (props) => {
         return convertNegativeValue(props.row.original?.cash_player)
       },
     }),
-    table.createDataColumn('cash_player_referrer', {
+    table.createDataColumn(TABLE_COLUMN.PLAYER_REFERRAL, {
       header: t('commission.cashPlayerReferral'),
       cell: (props) => {
         return convertNegativeValue(props.row.original?.cash_player_referrer)
       },
     }),
-    table.createDataColumn('credit_player', {
+    table.createDataColumn(TABLE_COLUMN.CREDIT_PLAYER, {
       header: t('commission.creditPlayer'),
       cell: (props) => {
         return convertNegativeValue(props.row.original?.credit_player)
@@ -77,7 +86,10 @@ const SimpleTable = () => {
   })
 
   const tableList = [...(data?.data || [])]
-  const sortedTableList = tableList.sort((a, b) => {
+  const excludeMasterList = tableList.filter(
+    (list) => list.system_code !== EXCLUDE_MASTER_NAME
+  )
+  const sortedTableList = excludeMasterList.sort((a, b) => {
     if (a.game_type_code < b.game_type_code) {
       return -1
     }
@@ -90,7 +102,7 @@ const SimpleTable = () => {
   const isCategoryAndFirstCol = (row, cell) => {
     return (
       (row.original?.is_game_type || row.original?.is_master) &&
-      cell.column.id === 'system_name'
+      cell.column.id === TABLE_COLUMN.SYSTEM_NAME
     )
   }
 
@@ -121,9 +133,9 @@ const SimpleTable = () => {
       <thead style={{ backgroundColor: theme.colors.$secondary }}>
         {tableInstance.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
+            {headerGroup.headers.map((header, index) => (
               <th
-                key={header.id}
+                key={index}
                 colSpan={header.colSpan}
                 style={{
                   borderColor: theme.colors.$lightNavyBlue,
@@ -138,25 +150,34 @@ const SimpleTable = () => {
       <tbody>
         {tableInstance.getRowModel().rows.map((row) => (
           <tr key={row.id}>
-            {row.getVisibleCells().map((cell) => (
-              <td
-                key={cell.id}
-                style={{
-                  borderColor: theme.colors.$lightNavyBlue,
-                  paddingLeft: isCategoryAndFirstCol(row, cell) ? 7 : 16,
-                  fontWeight: isCategoryAndFirstCol(row, cell)
-                    ? 'bold'
-                    : 'normal',
-                  backgroundColor:
-                    row.original?.is_game_type || row.original?.is_master
+            {row.getVisibleCells().map((cell, index) => {
+              if (
+                row.original?.is_game_type &&
+                cell.column.id !== TABLE_COLUMN.SYSTEM_NAME
+              ) {
+                return null
+              }
+
+              return (
+                <td
+                  key={index}
+                  style={{
+                    borderColor: theme.colors.$lightNavyBlue,
+                    paddingLeft: isCategoryAndFirstCol(row, cell) ? 7 : 16,
+                    fontWeight: isCategoryAndFirstCol(row, cell)
+                      ? 'bold'
+                      : 'normal',
+                    backgroundColor: row.original?.is_game_type
                       ? '#224972'
                       : '',
-                  textTransform: 'capitalize',
-                }}
-              >
-                {cell.renderCell()}
-              </td>
-            ))}
+                    textTransform: 'capitalize',
+                  }}
+                  colSpan={row.original?.is_game_type ? 4 : undefined}
+                >
+                  {cell.renderCell()}
+                </td>
+              )
+            })}
           </tr>
         ))}
       </tbody>
