@@ -62,7 +62,7 @@ const ReferralModal = ({ modal: { closeModal } }) => {
           <Text sx={{ color: 'black' }}>{t('referral.earn')}</Text>
           <View>
             <ViewScreenShot innerRef={ref} name={`Vui123-${username}`}>
-              <QRCodeGenerator isTransfer={false} />
+              <QRCodeGenerator isTransfer={false} referralLink={referralLink} />
             </ViewScreenShot>
           </View>
 

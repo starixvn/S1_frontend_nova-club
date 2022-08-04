@@ -9,23 +9,27 @@ import { toCurrency } from 'app/utils'
 import {
   Currency,
   ReportDepositStatus,
+  ReportDepositStatusOptions,
   ReportTransactionType,
 } from 'app/utils/constant'
 import dayjs from 'dayjs'
-import { styled, Text, useDripsyTheme, View } from 'dripsy'
+import { ActivityIndicator, styled, Text, useDripsyTheme, View } from 'dripsy'
 import { usePlayerProfileQuery, usePlayerReportQuery } from 'services/playerApi'
 import DateTimeCell from '../profile/history/DateTimeCell'
 
 const RecentTransactions = () => {
   const { t } = useLocalization()
-  const { data, isFetching, refetch } = usePlayerReportQuery({
-    limit: 5,
-    offset: 0,
-    status: ReportDepositStatus.ALL,
-    time_from: dayjs().subtract(2, 'month').startOf('date').toISOString(),
-    time_to: dayjs().endOf('date').toISOString(),
-    trans_type: ReportTransactionType.DEPOSIT,
-  })
+  const { data, isFetching, isLoading, refetch } = usePlayerReportQuery(
+    {
+      limit: 5,
+      offset: 0,
+      status: ReportDepositStatus.ALL,
+      time_from: dayjs().subtract(2, 'month').startOf('date').toISOString(),
+      time_to: dayjs().endOf('date').toISOString(),
+      trans_type: ReportTransactionType.DEPOSIT,
+    },
+    { refetchOnMountOrArgChange: true }
+  )
 
   return (
     <View>
@@ -41,7 +45,9 @@ const RecentTransactions = () => {
         <RefreshIconButton loading={isFetching} onPress={() => refetch()} />
       </View>
 
-      {data?.row_count_total ?? 0 > 0 ? (
+      {isLoading ? (
+        <ActivityIndicator size="large" />
+      ) : data?.row_count_total ?? 0 > 0 ? (
         data?.rows.map((item) => <TableItem key={item.secure_id} item={item} />)
       ) : (
         <HistoryEmpty />
@@ -50,9 +56,9 @@ const RecentTransactions = () => {
   )
 }
 
-const CELL_CATEGORY_WIDTH = 0.45
+const CELL_CATEGORY_WIDTH = 0.4
 const CELL_DATE_WIDTH = 0.3
-const CELL_STATUS_WIDTH = 0.25
+const CELL_STATUS_WIDTH = 0.3
 
 const TableItem = ({ item }) => {
   const { t } = useLocalization()
@@ -62,6 +68,13 @@ const TableItem = ({ item }) => {
 
   const category = PaymentMethod.find(
     (el) => el.categoryId === item.second_category_flag
+  )
+  const status = ReportDepositStatusOptions.find(
+    (el) => t(el.label) === item.status
+  )?.value
+  console.log(
+    '🚀 ~ file: RecentTransactions.tsx ~ line 72 ~ TableItem ~ status',
+    status
   )
 
   return (
@@ -88,7 +101,13 @@ const TableItem = ({ item }) => {
           <Text sx={{ fontWeight: 'bold', flex: 1 }}>{t(category.name)}</Text>
         </View>
 
-        <View sx={{ flex: CELL_DATE_WIDTH, alignItems: 'flex-end' }}>
+        <View
+          sx={{
+            flex: CELL_DATE_WIDTH,
+            alignItems: 'center',
+            px: '$1',
+          }}
+        >
           <DateTimeCell date={item.date} />
         </View>
 
@@ -101,7 +120,8 @@ const TableItem = ({ item }) => {
           </Text>
           <Text
             sx={{
-              color: getStatusColor(item.status, theme),
+              color: getStatusColor(status, theme),
+              textAlign: 'right',
             }}
           >
             {item.status}

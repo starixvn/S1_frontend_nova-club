@@ -5,7 +5,14 @@ import React from 'react'
 import QRCode from 'react-native-qrcode-svg'
 import { usePlayerProfileQuery } from 'services/playerApi'
 
-const QRCodeGenerator = ({ isTransfer = true }) => {
+type QRCodeGeneratorProps = {
+  isTransfer?: boolean
+  referralLink?: string
+}
+const QRCodeGenerator = ({
+  isTransfer = true,
+  referralLink,
+}: QRCodeGeneratorProps) => {
   const { t } = useLocalization()
   const { width, height } = useContainerDimension()
 
@@ -24,7 +31,7 @@ const QRCodeGenerator = ({ isTransfer = true }) => {
     >
       <Text sx={{ color: '$black' }}>{username}</Text>
       <QRCode
-        value={referralCode}
+        value={isTransfer ? referralCode : referralLink}
         size={width * 0.5}
         logo={require('../assets/images/auth-logo.png')}
         ecl="H"

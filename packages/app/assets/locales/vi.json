@@ -299,6 +299,7 @@
     "pending": "Đang chờ",
     "processing": "Đang xử lý",
     "qrDownloadSuccess": "Tải xuống mã Qr thành công",
+    "receiptRequired": "",
     "referralError": "Giới thiệu không tồn tại, vui lòng thử mã khác",
     "rejected": "Từ chối",
     "scanFailed": "Quét không thành công!",
@@ -324,16 +325,16 @@
     "invalidOTPCode": "Mã OTP không hợp lệ",
     "invalidPhone": "Số điện thoại không hợp lệ",
     "minMaxLimit": "Tối thiểu/Tối đa %{min}/%{max}",
+    "needAccountNo": "Cần nhập số tài khoản",
     "numberOnly": "Chỉ nhập số",
     "otpLength": "OTP phải là số có 6 chữ số",
+    "password": "Mật khẩu phải dài 6-15 ký tự, chứa cả chữ và số và ký tự đặc biệt (!@#$%^&*).",
     "passwordMinMaxLength": "Mật khẩu phải có 6-15 ký tự",
+    "realName": "Vui lòng nhập tên thật của bạn.",
     "required": "%{field} là bắt buộc",
     "usdtFormat": "Địa chỉ ví phải tương thích với chuẩn ERC20 / TRC20",
     "userNameMinMaxLength": "Tên người dùng phải dài từ 6 đến 18 ký tự",
-    "username": "6-18 ký tự chữ và số (A-Z, a-z, 0-9)",
-    "needAccountNo": "Cần nhập số tài khoản",
-    "password": "Mật khẩu phải dài 6-15 ký tự, chứa cả chữ và số và ký tự đặc biệt (!@#$%^&*).",
-    "realName": "Vui lòng nhập tên thật của bạn."
+    "username": "6-18 ký tự chữ và số (A-Z, a-z, 0-9)"
   },
   "withdrawal": {
     "withdrawTo": "Rút tiền về"

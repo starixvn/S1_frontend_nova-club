@@ -2,121 +2,139 @@ import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
 import { styled, Text, View } from 'dripsy'
 import * as ImagePicker from 'expo-image-picker'
-import { useRef, useState } from 'react'
+import { forwardRef, useImperativeHandle, useRef, useState } from 'react'
 import { Platform } from 'react-native'
 import { DripsyGradient } from './Gradient'
 import Icon from './Icon'
 
 type FilePickerProps = {
-  isActive: boolean
+  isActive?: boolean
   onPress: (File?) => void
 }
+export interface FilePickerForwardRef {
+  resetFile: () => void
+}
 
-const FilePicker = ({ isActive, onPress }: FilePickerProps) => {
-  const { t } = useLocalization()
-  const webRef = useRef()
-  const [image, setImage] = useState<string | null>()
+const FilePicker = forwardRef<FilePickerForwardRef, FilePickerProps>(
+  ({ isActive = true, onPress }: FilePickerProps, ref) => {
+    const { t } = useLocalization()
+    const webRef = useRef()
+    const [image, setImage] = useState<string | null>()
 
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: false,
-      aspect: [4, 3],
-      quality: 1,
-    })
+    useImperativeHandle(ref, () => ({
+      resetFile() {
+        reset()
+      },
+    }))
 
-    if (!result.cancelled) {
-      setImage(result.uri.split('/').pop())
-      onPress(result.uri)
-    } else {
+    const pickImage = async () => {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: false,
+        aspect: [4, 3],
+        quality: 1,
+      })
+
+      if (!result.cancelled) {
+        setImage(result.uri.split('/').pop())
+        onPress(result.uri)
+      } else {
+        setImage(null)
+        onPress(null)
+      }
+    }
+
+    const handleChangeWebImage = (event) => {
+      if (event.target.value) {
+        setImage(event.target.files[0].name)
+        onPress(event.target.files[0])
+      }
+    }
+
+    const reset = () => {
       setImage(null)
+      onPress(null)
+      if (webRef) webRef.current.value = null
     }
-  }
 
-  const handleChangeWebImage = (event) => {
-    if (event.target.value) {
-      setImage(event.target.files[0].name)
-      onPress(event.target.files[0])
+    const pickImageWeb = () => {
+      webRef?.current.click()
     }
-  }
 
-  const pickImageWeb = () => {
-    webRef?.current.click()
-  }
+    const fileName = image ? image : null
+    const bgColor = fileName ? ['#132946', '#14455B'] : ['#004EB5', '#007FB7']
+    const bColor = fileName ? '#00283A' : '$border2'
 
-  const fileName = image ? image : null
-  const bgColor = fileName ? ['#132946', '#14455B'] : ['#004EB5', '#007FB7']
-  const bColor = fileName ? '#00283A' : '$border2'
-
-  return (
-    <View
-      sx={{
-        flexDirection: 'row',
-        alignItems: 'center',
-      }}
-    >
-      <StyledGradient
-        colors={bgColor}
+    return (
+      <View
         sx={{
-          borderColor: bColor,
-          opacity: isActive ? 1 : 0.3,
+          flexDirection: 'row',
+          alignItems: 'center',
         }}
       >
-        <BouncePressable
-          onPress={Platform.OS === 'web' ? pickImageWeb : pickImage}
-          disabled={!isActive}
+        <StyledGradient
+          colors={bgColor}
           sx={{
-            flexDirection: 'row',
-            height: 40,
-            px: '$4',
-            alignItems: 'center',
+            borderColor: bColor,
+            opacity: isActive ? 1 : 0.3,
           }}
         >
-          {fileName && <Icon name="lc" size={25} color={'#BDBDBD'} />}
-          <Text
+          <BouncePressable
+            onPress={Platform.OS === 'web' ? pickImageWeb : pickImage}
+            disabled={!isActive}
             sx={{
-              flex: 1,
-              color: fileName ? '#BDBDBD' : 'white',
+              flexDirection: 'row',
+              height: 40,
+              px: '$4',
+              alignItems: 'center',
             }}
-            numberOfLines={1}
           >
-            {fileName ? fileName : t('deposit.upload.files')}
-          </Text>
-          {!fileName && <Icon name="lc" size={25} />}
-        </BouncePressable>
-      </StyledGradient>
-      {fileName && (
-        <BouncePressable
-          onPress={() => {
-            setImage(null)
-          }}
-          sx={{
-            marginLeft: '$2a',
-            borderRadius: 10,
-          }}
-        >
-          <Icon
-            name="cross"
-            size={20}
-            sx={{
-              color: '#BDBDBD',
-              alignSelf: 'center',
-              px: '$1',
+            {fileName && <Icon name="lc" size={25} color={'#BDBDBD'} />}
+            <Text
+              sx={{
+                flex: 1,
+                color: fileName ? '#BDBDBD' : 'white',
+              }}
+              numberOfLines={1}
+            >
+              {fileName ? fileName : t('deposit.upload.files')}
+            </Text>
+            {!fileName && <Icon name="lc" size={25} />}
+          </BouncePressable>
+        </StyledGradient>
+        {fileName && (
+          <BouncePressable
+            onPress={() => {
+              reset()
             }}
+            sx={{
+              marginLeft: '$2a',
+              borderRadius: 10,
+            }}
+          >
+            <Icon
+              name="cross"
+              size={20}
+              sx={{
+                color: '#BDBDBD',
+                alignSelf: 'center',
+                px: '$1',
+              }}
+            />
+          </BouncePressable>
+        )}
+        {Platform.OS === 'web' && (
+          <input
+            ref={webRef}
+            type="file"
+            onChange={handleChangeWebImage}
+            style={{ display: 'none' }}
           />
-        </BouncePressable>
-      )}
-      {Platform.OS === 'web' && (
-        <input
-          ref={webRef}
-          type="file"
-          onChange={handleChangeWebImage}
-          style={{ display: 'none' }}
-        />
-      )}
-    </View>
-  )
-}
+        )}
+      </View>
+    )
+  }
+)
 
 const StyledGradient = styled(DripsyGradient)({
   borderRadius: 15,
@@ -125,5 +143,7 @@ const StyledGradient = styled(DripsyGradient)({
   mb: '$4',
   flex: 1,
 })
+
+FilePicker.displayName = 'FilePicker'
 
 export default FilePicker
