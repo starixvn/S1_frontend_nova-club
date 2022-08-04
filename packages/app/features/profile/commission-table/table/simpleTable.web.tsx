@@ -27,7 +27,7 @@ const table = createTable().setRowType<Commission>()
 const convertNegativeValue = (value?: number) => {
   if ((value && value < 0) || typeof value === 'undefined') return '-'
 
-  return value
+  return `${value}%`
 }
 
 const generateTableColumns = (t: Translate) => {
@@ -37,7 +37,9 @@ const generateTableColumns = (t: Translate) => {
       cell: (props) => {
         const { system_name = '', game_type_code = '' } =
           props.row.original || {}
-        return system_name ? system_name : game_type_code
+        const gameTypeName = game_type_code.replace('_', ' ')
+
+        return system_name ? system_name : gameTypeName
       },
     }),
     table.createDataColumn('cash_player', {

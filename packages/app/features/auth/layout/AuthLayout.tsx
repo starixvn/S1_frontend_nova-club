@@ -55,17 +55,17 @@ const AuthLayout = ({
   }, [isFocus])
 
   return (
-    <ScrollView bounces={false} contentContainerStyle={{ flexGrow: 1 }}>
-      <DripsyGradient
-        gradient={'darkOceanBlue'}
-        start={{ x: 0.8, y: 0 }}
-        end={{ x: 0.1, y: 0.8 }}
-        sx={{
-          flexGrow: 1,
-          justifyContent: 'space-between',
-          pt: top,
-        }}
-      >
+    <DripsyGradient
+      gradient={'darkOceanBlue'}
+      start={{ x: 0.8, y: 0 }}
+      end={{ x: 0.1, y: 0.8 }}
+      sx={{
+        flexGrow: 1,
+        justifyContent: 'space-between',
+        pt: top,
+      }}
+    >
+      <KeyboardView bounces={false} contentContainerStyle={{ flexGrow: 1 }}>
         <View sx={{ flex: 1 }}>
           <View
             sx={{
@@ -122,17 +122,15 @@ const AuthLayout = ({
           {formHeader}
 
           <View sx={{ alignItems: 'center', pt: '$8', flex: 1 }}>
-            <View sx={{ width: '75%', flex: 1 }}>
-              <KeyboardView>{children}</KeyboardView>
-            </View>
+            <View sx={{ width: '75%', flex: 1 }}>{children}</View>
           </View>
         </View>
 
         <View sx={{ alignItems: 'center', mb: bottom + 8, mt: 40 }}>
           <ProfileLanguage isAuthRequired={false} />
         </View>
-      </DripsyGradient>
-    </ScrollView>
+      </KeyboardView>
+    </DripsyGradient>
   )
 }
 

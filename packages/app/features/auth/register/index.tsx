@@ -1,22 +1,21 @@
-import { DripsyGradient } from 'app/components/Gradient'
 import useContainerDimension from 'app/hooks/useContainerDimension'
+import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
-import { useRegisterMutation } from 'services/authApi'
-import { LoginResult } from 'services/authApi.type'
 import { AlertActions } from 'app/store/alert.slice'
 import { AuthActions } from 'app/store/authReducer'
 import validation, { getErrorMessage } from 'app/utils/validation'
-import { Image, ScrollView, styled, Text, View } from 'dripsy'
+import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { AnimatePresence, MotiView, useDynamicAnimation } from 'moti'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useRegisterMutation } from 'services/authApi'
+import { LoginResult } from 'services/authApi.type'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import AuthLayout from '../layout/AuthLayout'
 import VerificationPage from '../verification'
-import RegisterForm from './RegisterForm'
 import ReferrerInformation from './ReferrerInformation'
-import useLocalization from 'app/provider/localization'
+import RegisterForm from './RegisterForm'
 
 export type RegisterFormValues = {
   username: string
@@ -34,6 +33,7 @@ const RegisterPage = () => {
   const { push, replace } = useRouter()
   const { width } = useContainerDimension()
   const { t } = useLocalization()
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   // referral value is obtained asynchronously, do not assign to initialValues of form.
   // consume it on onSubmit
@@ -52,6 +52,7 @@ const RegisterPage = () => {
     actions: FormikHelpers<RegisterFormValues>
   ) => {
     try {
+      setIsSubmitting(true)
       const { data, success, message } = await register({
         username,
         password,
@@ -72,6 +73,7 @@ const RegisterPage = () => {
     } catch (error) {
       const errorMessage = getErrorMessage(error)
       dispatch(AlertActions.addAlert({ message: errorMessage }))
+      setIsSubmitting(false)
     }
   }
 
@@ -163,7 +165,11 @@ const RegisterPage = () => {
           duration: 400,
         }}
       >
-        <VerificationPage formik={formik} onBack={onBack} />
+        <VerificationPage
+          formik={formik}
+          isSubmitting={isSubmitting}
+          onBack={onBack}
+        />
       </MotiView>
     </View>
   )
