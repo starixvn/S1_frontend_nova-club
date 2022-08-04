@@ -183,11 +183,12 @@
     "enterGame": "Vào trò chơi",
     "name": {
       "btiSports": "BTI Sports",
-      "esports": "E-Sports",
+      "esports": "SABA E-Sports",
       "imEsports": "IM E-Sports",
-      "sports": "Thể Thao",
+      "sbo": "SBO Sports",
+      "sports": "SABA Sports",
       "tfGamingEsports": "TF E-Sports",
-      "virtualSports": "Thể thao ảo"
+      "virtualSports": "SABA Virtual Sports"
     },
     "notFound": "Trò chơi không tìm thấy",
     "quitGame": "Thoát trò chơi",
