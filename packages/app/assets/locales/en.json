@@ -183,11 +183,12 @@
     "enterGame": "Enter Game",
     "name": {
       "btiSports": "BTI Sports",
-      "esports": "E-Sports",
+      "esports": "SABA E-Sports",
       "imEsports": "IM E-Sports",
-      "sports": "Sports",
+      "sbo": "SBO Sports",
+      "sports": "SABA Sports",
       "tfGamingEsports": "TF E-Sports",
-      "virtualSports": "Virtual Sports"
+      "virtualSports": "SABA Virtual Sports"
     },
     "notFound": "",
     "quitGame": "Quit Game",

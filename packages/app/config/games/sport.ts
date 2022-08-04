@@ -12,7 +12,7 @@ export default {
     },
     {
       image: require('../../assets/images/games/sports/sport-sboBet.png'),
-      game_name: 'SBO',
+      game_name: 'game.name.sbo',
       game_provider_code: 'SBO',
       game_code: '0',
       desktop: true,
