@@ -6,6 +6,7 @@ import useLocalization from 'app/provider/localization'
 import {
   useDepositPaymentListQuery,
   useSubmitManualDepositMutation,
+  useUploadDepositSlipMutation,
 } from 'services/deposit'
 import { AlertActions } from 'app/store/alert.slice'
 import {
@@ -17,7 +18,7 @@ import {
 import validation from 'app/utils/validation'
 import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
@@ -28,8 +29,11 @@ import validationRule from 'app/utils/validationRule'
 import { useModal } from 'react-native-modalfy'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
+import { Platform } from 'react-native'
+import useLocalBankDeposit from 'app/hooks/deposit/useLocalBankDeposit'
+import { FilePickerForwardRef } from 'app/components/FilePicker'
 
-type LocalBankValues = {
+export type LocalBankValues = {
   bank: ManualBankItem | null
   amount: string
   realAmount: number
@@ -46,11 +50,14 @@ const LocalBankScreen = () => {
   const { push, back } = useRouter()
   const { openModal } = useModal()
   const [limit, setLimit] = useState({ minAmount: 0, maxAmount: 0 })
-  const [
-    postSubmitManualDeposit,
-    { data: depositData, isSuccess: isSubmitDepositSuccess },
-  ] = useSubmitManualDepositMutation()
+  const [selectedImage, setSelectedImage] = useState('')
+  const filePickerRef = useRef<FilePickerForwardRef>(null)
+
   const { data, isLoading, isFetching } = useDepositPaymentListQuery()
+
+  const [postDepositSubmit] = useLocalBankDeposit({
+    selectedImage,
+  })
 
   const { data: playerData } = usePlayerProfileQuery()
   const currency = playerData?.data?.currency as Currency
@@ -70,28 +77,12 @@ const LocalBankScreen = () => {
   }, [data])
 
   const onSubmit = async (
-    { bank, realAmount }: LocalBankValues,
+    values: LocalBankValues,
     actions: FormikHelpers<LocalBankValues>
   ) => {
-    try {
-      actions.setSubmitting(true)
-      const { data, success, message } = await postSubmitManualDeposit({
-        acc_name: bank?.bank_acc_name ?? '',
-        amount: realAmount,
-        bank_type_id: bank?.bankTypeId ?? 0,
-        payment_account_id: bank?.pay_acc_id ?? 0,
-      })
-        .unwrap()
-        .catch((error) => dispatch(AlertActions.addError(error.message)))
-
-      if (success) {
-        dispatch(AlertActions.addSuccess(message))
-      }
-    } catch (e) {
-      dispatch(AlertActions.addError('status.systemError'))
-    } finally {
-      actions.setSubmitting(false)
-    }
+    await postDepositSubmit(values, actions)
+    console.log('wating')
+    filePickerRef.current?.resetFile()
   }
 
   const formik = useFormik<LocalBankValues>({
@@ -220,15 +211,15 @@ const LocalBankScreen = () => {
         </TextField>
 
         <DepositUpload
-          isDepositSubmitted={isSubmitDepositSuccess}
-          secureId={depositData?.data?.secure_id}
+          onImagePicked={(path) => setSelectedImage(path)}
+          innerRef={filePickerRef}
         />
 
         <Button
           rounded
           stretch
           loading={isSubmitting}
-          disabled={!isValid || !dirty || isSubmitDepositSuccess}
+          disabled={!isValid || !dirty || !selectedImage}
           variant="lg"
           fill={{
             type: 'gradient',

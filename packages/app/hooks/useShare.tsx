@@ -20,17 +20,8 @@ const useShare = (shareOptions) => {
     }
   }
 
-  const webShare = async () => {
-    const sharing = await navigator.share(shareOptions)
-    console.log(
-      '🚀 ~ file: useShare.tsx ~ line 27 ~ webShare ~ sharing',
-      sharing
-    )
-  }
-
   return {
     onShare,
-    webShare,
   }
 }
 

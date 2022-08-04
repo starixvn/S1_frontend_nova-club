@@ -27,11 +27,7 @@ const DepositMethodCard = ({ item, onPress, ...rest }) => {
           alignItems: 'center',
         }}
       >
-        <IconWrap
-          sx={{
-            bg: item.color,
-          }}
-        >
+        <IconWrap sx={{ bg: item.color }}>
           <Icon name={item.icon} size={ICON_SIZE * 0.6} />
         </IconWrap>
         <View
@@ -50,7 +46,7 @@ const DepositMethodCard = ({ item, onPress, ...rest }) => {
               fontWeight: 'bold',
             }}
           >
-            {t(item.categoryText)}
+            {t(item.name)}
           </Text>
         </View>
       </View>

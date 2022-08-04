@@ -298,10 +298,11 @@
     "imageNotSupported": "Image format not supported",
     "pending": "Pending",
     "processing": "Processing",
-    "scanFailed": "Scan Failed!",
     "qrDownloadSuccess": "Qr code download successfully",
+    "receiptRequired": "Receipt is required for deposit submit",
     "referralError": "Refferal doesn't exist, please try another code",
     "rejected": "Rejected",
+    "scanFailed": "Scan Failed!",
     "success": "Success",
     "systemError": "Oops! Something wrong, please try again."
   },
@@ -324,16 +325,16 @@
     "invalidOTPCode": "Invalid OTP Code",
     "invalidPhone": "Phone number is invalid",
     "minMaxLimit": "Min/Max Limit %{min}/%{max}",
+    "needAccountNo": "Need Account Number",
     "numberOnly": "Only number is allowed",
     "otpLength": "OTP must be 6-digit number",
-    "passwordMinMaxLength": "Password must be 6-15 characters only",
     "password": "Password must be 6-15 characters, contain both alphanumeric and a special characters (!@#$%^&*).",
+    "passwordMinMaxLength": "Password must be 6-15 characters only",
+    "realName": "Please enter your real name.",
     "required": "%{field} is required",
     "usdtFormat": "Must be ERC-20 / TRC-20 compatible wallet address",
     "userNameMinMaxLength": "Username must be 6-18 characters only",
-    "username": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only",
-    "needAccountNo": "Need Account Number",
-    "realName": "Please enter your real name."
+    "username": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only"
   },
   "withdrawal": {
     "withdrawTo": "Withdraw To"

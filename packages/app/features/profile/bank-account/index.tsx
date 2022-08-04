@@ -54,8 +54,8 @@ const BankAccountScreen = () => {
               style={{
                 aspectRatio: 1,
                 marginBottom: 12,
-                width: width * 0.75,
-                height: width * 0.75,
+                width: width * 0.5,
+                height: width * 0.5,
               }}
             />
             <Text sx={{ color: '#72859A' }}>{t('bank.noBankAccount')}</Text>

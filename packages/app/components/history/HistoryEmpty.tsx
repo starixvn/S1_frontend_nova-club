@@ -23,8 +23,8 @@ const HistoryEmpty = ({ text, _text, ...props }: IHistoryEmpty) => {
         source={require('../../assets/images/empty-result.png')}
         sx={{
           aspectRatio: 1,
-          width: width / 1.5,
-          height: width / 1.5,
+          width: width * 0.25,
+          height: width * 0.25,
           resizeMode: 'contain',
         }}
       />
