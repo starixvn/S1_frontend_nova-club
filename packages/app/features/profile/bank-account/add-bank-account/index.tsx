@@ -110,13 +110,15 @@ const AddBankAccountScreen = () => {
           <TextField.TextInput
             label="bank.accountName"
             _input={{
-              placeholder: 'bank.enterAccountName',
+              placeholder: t('bank.enterAccountName'),
               editable: values.accountName === '' ? true : false,
               value: values.accountName,
             }}
             error={
               touched.accountName && errors.accountName
-                ? errors.accountName
+                ? t(errors.accountName, {
+                    field: t('bank.accountName'),
+                  })
                 : undefined
             }
             containerStyle={{ my: '$3' }}
@@ -152,7 +154,9 @@ const AddBankAccountScreen = () => {
             }}
             error={
               touched.accountNo && errors.accountNo
-                ? errors.accountNo
+                ? t(errors.accountNo, {
+                    field: t('bank.accountNo'),
+                  })
                 : undefined
             }
             containerStyle={{ my: '$0' }}

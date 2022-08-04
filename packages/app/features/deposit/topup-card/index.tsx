@@ -255,7 +255,9 @@ const TopUpCardScreen = () => {
                 }}
                 error={
                   touched.cardCode && errors.cardCode
-                    ? errors.cardCode
+                    ? t(errors.cardCode, {
+                        field: t('deposit.cardCode'),
+                      })
                     : undefined
                 }
                 containerStyle={{ my: '$3' }}
@@ -272,13 +274,19 @@ const TopUpCardScreen = () => {
                 }}
                 error={
                   touched.cardSerialNo && errors.cardSerialNo
-                    ? errors.cardSerialNo
+                    ? t(errors.cardSerialNo, {
+                        field: t('deposit.cardSerialNo'),
+                      })
                     : undefined
                 }
                 containerStyle={{ my: '$3' }}
               />
             </TextField>
-            <ImportantNotice keys={DEPOSIT_NOTES} module="deposit" />
+            <ImportantNotice
+              keys={DEPOSIT_NOTES}
+              module="deposit"
+              isExpandable
+            />
           </View>
           <StyledViewButtonWrapper
             colors={

@@ -186,7 +186,13 @@ const WithdrawalPage = () => {
               onChangeText: onAmountChanged,
               onBlur: handleBlur('amount'),
             }}
-            error={touched.amount && errors.amount ? errors.amount : undefined}
+            error={
+              touched.amount && errors.amount
+                ? t(errors.amount, {
+                    field: t('common.amount'),
+                  })
+                : undefined
+            }
             containerStyle={{ my: '$3' }}
           />
 
