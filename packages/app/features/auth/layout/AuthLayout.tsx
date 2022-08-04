@@ -2,10 +2,11 @@ import IconButton from 'app/components/form/IconButton'
 import { DripsyGradient } from 'app/components/Gradient'
 import KeyboardView from 'app/components/KeyboardView'
 import ProfileLanguage from 'app/features/profile/ProfileLanguage'
+import { useIsFocused } from 'app/hooks/isFocus/useIsFocused'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Image, ScrollView, styled, Text, View } from 'dripsy'
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useRouter } from 'solito/router'
 
 const HEADER_IMAGE = require('../../../assets/images/auth-logo.png')
@@ -31,6 +32,7 @@ const AuthLayout = ({
   children,
   onBack,
 }: AuthLayoutProps) => {
+  const isFocus = useIsFocused()
   const { top, bottom } = useSafeArea()
   const { replace } = useRouter()
   const { token } = useAppSelector((state) => state.auth.info) || {}
@@ -39,14 +41,18 @@ const AuthLayout = ({
     onBack?.()
   }
 
-  const checkIfUserLoggedIn = () => {
+  const checkIfUserLoggedIn = useCallback(() => {
     return Boolean(token)
-  }
+  }, [token])
 
-  if (checkIfUserLoggedIn()) {
-    replace('/')
-    return null
-  }
+  useEffect(() => {
+    if (!isFocus) return
+
+    if (checkIfUserLoggedIn()) {
+      replace('/')
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocus])
 
   return (
     <ScrollView bounces={false} contentContainerStyle={{ flexGrow: 1 }}>

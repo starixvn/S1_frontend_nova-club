@@ -8,24 +8,6 @@ import HotGamesSection from './Section/HotGamesSection'
 import RecentOpenGames from './Section/RecentOpenGames'
 
 const HomeScreen = () => {
-  const [playerProfile] = useLazyPlayerProfileQuery()
-
-  useEffect(() => {
-    onGetPlayer()
-    // setSelected(new Date())
-  }, [])
-
-  const onGetPlayer = async () => {
-    try {
-      // const { data } = await playerProfile().unwrap()
-      // if (data) {
-      // dispatch(PlayerActions.setUser(data))
-      // }
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   return (
     <ScrollView
       sx={{ bg: '$background', flex: 1, paddingBottom: '$8' }}

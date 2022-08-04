@@ -2,7 +2,7 @@ import { Button } from 'app/components/form/Button'
 import TextInput from 'app/components/form/TextInput'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
-import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
+import { useAppDispatch } from 'app/provider/redux/store'
 import { AlertActions } from 'app/store/alert.slice'
 import { AuthActions } from 'app/store/authReducer'
 import { SettingActions } from 'app/store/setting.slice'
@@ -40,8 +40,6 @@ const LoginForm = () => {
   const usernameFieldRef = useRef<RNTextField>(null)
 
   const [getPlayerProfile] = useLazyPlayerProfileQuery()
-
-  const log = useAppSelector((s) => s.setting.log)
 
   const dispatch = useAppDispatch()
 
