@@ -156,8 +156,8 @@ const MenuRow = ({ setFilterGames, gameList }: MenuRowProps) => {
 }
 
 const StyledImage = styled(Image)({
-  height: [85, 120],
-  width: [85, 120],
+  height: [75, 110],
+  width: [75, 110],
 })
 const StyledBackgroundImage = styled(Image)({
   transform: [{ scale: 0.7 }],
@@ -176,7 +176,7 @@ const StyledBackgroundWrapper = styled(View)({
 const StyledText = styled(Text)({
   textAlign: 'center',
   alignSelf: 'center',
-  fontSize: 12,
+  fontSize: 11,
   fontWeight: 'bold',
   width: '90%',
   mt: '$0a',
