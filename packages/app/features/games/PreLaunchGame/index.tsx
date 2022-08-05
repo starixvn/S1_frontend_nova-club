@@ -232,6 +232,7 @@ function useGameLauncher(gameLauncherState: LaunchGamePayload) {
     isVerifying,
     launchGame,
     back,
+    gameName,
   }
 }
 
@@ -243,7 +244,8 @@ const PreLaunchGame = ({}) => {
   const [isGameStateEmpty, setIsGameStateEmpty] = useState(false)
   const dispatch = useAppDispatch()
 
-  const { launchGame, isVerifying, back } = useGameLauncher(gameLauncherState)
+  const { launchGame, isVerifying, back, gameName } =
+    useGameLauncher(gameLauncherState)
   const {
     currentProvider,
     isSeamless,
@@ -260,7 +262,11 @@ const PreLaunchGame = ({}) => {
   } = useGameBalanceRule()
 
   const { top } = useSafeArea()
-  const isSaba = currentProvider === 'SABA'
+  const isSaba = [
+    t('game.name.sports'),
+    t('game.name.sbo'),
+    t('game.name.btiSports'),
+  ].includes(gameName || '')
 
   async function onLauchGame() {
     setIsLaunchingGame(true)

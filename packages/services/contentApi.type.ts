@@ -22,6 +22,7 @@ export interface CommissionTableResult {
   cash_player_referrer: number
   credit_player: number
   currency: string
+  game_type: string
   game_type_code: string
   is_game_provider: boolean
   is_game_type: boolean

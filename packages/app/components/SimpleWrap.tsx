@@ -5,7 +5,7 @@ import useLocalization from 'app/provider/localization'
 import { styled, View } from 'dripsy'
 import SimpleGridImage from './SimpleGridImage'
 
-const SimpleWrap = ({ data, col = 3, context }) => {
+const SimpleWrap = ({ data, col = 3 }) => {
   const { containerSpace, itemSpace, contentWidth } = useGameGridSize(col)
   const { t } = useLocalization()
   return (
@@ -22,9 +22,7 @@ const SimpleWrap = ({ data, col = 3, context }) => {
         return (
           <SimpleGridImage
             sx={{ m: itemSpace }}
-            context={context}
             key={game_name}
-            gameName={game_name}
             providerCode={game_provider_code}
             gameCode={game_code}
             image={imageUrl}

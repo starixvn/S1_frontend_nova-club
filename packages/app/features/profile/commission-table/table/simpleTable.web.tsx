@@ -20,6 +20,8 @@ type Commission = Pick<
   | 'game_type_code'
   | 'is_game_type'
   | 'is_master'
+  | 'game_type'
+  | 'seq'
 >
 
 const enum TABLE_COLUMN {
@@ -44,11 +46,9 @@ const generateTableColumns = (t: Translate) => {
     table.createDataColumn(TABLE_COLUMN.SYSTEM_NAME, {
       header: t('commission.productLists'),
       cell: (props) => {
-        const { system_name = '', game_type_code = '' } =
-          props.row.original || {}
-        const gameTypeName = game_type_code.replace('_', ' ')
+        const { system_name = '', game_type = '' } = props.row.original || {}
 
-        return system_name ? system_name : gameTypeName
+        return system_name ? system_name : game_type
       },
     }),
     table.createDataColumn(TABLE_COLUMN.CASH_PLAYER, {
@@ -90,10 +90,10 @@ const SimpleTable = () => {
     (list) => list.system_code !== EXCLUDE_MASTER_NAME
   )
   const sortedTableList = excludeMasterList.sort((a, b) => {
-    if (a.game_type_code < b.game_type_code) {
+    if (a.seq < b.seq) {
       return -1
     }
-    if (a.game_type_code > b.game_type_code) {
+    if (a.seq > b.seq) {
       return 1
     }
     return 0
@@ -170,7 +170,6 @@ const SimpleTable = () => {
                     backgroundColor: row.original?.is_game_type
                       ? '#224972'
                       : '',
-                    textTransform: 'capitalize',
                   }}
                   colSpan={row.original?.is_game_type ? 4 : undefined}
                 >

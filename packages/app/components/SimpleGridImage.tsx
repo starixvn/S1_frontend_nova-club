@@ -47,6 +47,7 @@ const SimpleGridImage: FC<GamesProps> = ({
               gameCode: gameCode,
               providerCode: providerCode,
               image,
+              gameName: title,
             })
           )
         }}
