@@ -39,7 +39,6 @@ const validation = {
   accountNo: Yup.number()
     .typeError('validation.numberOnly')
     .required('validation.needAccountNo'),
-  sysId: Yup.number().nullable().required('validation.required'),
 
   amount: Yup.number()
     .typeError('validation.numberOnly')
@@ -71,7 +70,6 @@ const validation = {
   //   message: 'validation.invalidPhone',
   // })
 
-  transferTo: Yup.string().required('validation.required'),
   verifyCode: Yup.string()
     .required('validation.required')
     .min(6, 'validation.otpLength')

@@ -19,11 +19,11 @@ import { toCleanCard } from 'app/utils'
 import { MaxLength } from 'app/utils/constant'
 import { RootState } from 'app/provider/redux/store'
 import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
+import { usePlayerProfileQuery } from 'services/playerApi'
 
 const actionSheetId = ACTION_SHEET_ID.ADD_BANK_ACCOUNT
 
 type AddBankAccountValues = {
-  accountName: string
   bank: WithdrawalBankResult | undefined
   accountNo: string
 }
@@ -34,22 +34,21 @@ const AddBankAccountScreen = () => {
   const { back } = useRouter()
   const { data, isLoading, isFetching, isSuccess } = useWithdrawalBankQuery()
   const [postAddWithdrawalBankAcc] = useAddPlayerBankAccMutation()
-
-  const player = useSelector((s: RootState) => s.auth.info)
+  const { data: playerData } = usePlayerProfileQuery()
 
   const onSubmit = async (
-    { accountName, bank, accountNo }: AddBankAccountValues,
+    { bank, accountNo }: AddBankAccountValues,
     actions: FormikHelpers<AddBankAccountValues>
   ) => {
     try {
       const { data, success, message } = await postAddWithdrawalBankAcc({
         bank_acc_name: bank?.bank_name ?? '',
         bank_acc_num: accountNo.replaceAll(' ', ''),
-        bank_address: 'bankAcc',
+        bank_address: bank?.bank_code ?? '',
         bank_type_id: bank?.id ?? 0,
         branch: bank?.bank_code ?? '',
-        city: 'bankAcc',
-        province: 'bankAcc',
+        city: bank?.bank_code ?? '',
+        province: bank?.bank_code ?? '',
       })
         .unwrap()
         .catch((error) => dispatch(AlertActions.addError(error.message)))
@@ -67,12 +66,10 @@ const AddBankAccountScreen = () => {
 
   const formik = useFormik<AddBankAccountValues>({
     initialValues: {
-      accountName: player?.playerName ?? '',
       bank: undefined,
       accountNo: '',
     },
     validationSchema: Yup.object({
-      accountName: validation.accountName,
       bank: validation.bank,
       accountNo: validation.accountNo,
     }),
@@ -110,15 +107,10 @@ const AddBankAccountScreen = () => {
           <TextField.TextInput
             label="bank.accountName"
             _input={{
-              placeholder: 'bank.enterAccountName',
-              editable: values.accountName === '' ? true : false,
-              value: values.accountName,
+              placeholder: t('bank.enterAccountName'),
+              editable: false,
+              value: playerData?.data?.firstName,
             }}
-            error={
-              touched.accountName && errors.accountName
-                ? errors.accountName
-                : undefined
-            }
             containerStyle={{ my: '$3' }}
           />
           <TextField.Select
@@ -152,7 +144,9 @@ const AddBankAccountScreen = () => {
             }}
             error={
               touched.accountNo && errors.accountNo
-                ? errors.accountNo
+                ? t(errors.accountNo, {
+                    field: t('bank.accountNo'),
+                  })
                 : undefined
             }
             containerStyle={{ my: '$0' }}

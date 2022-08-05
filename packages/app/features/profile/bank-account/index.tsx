@@ -30,14 +30,13 @@ const BankAccountScreen = () => {
   const toAddBankAccount = makeContextualHref('add-bank-account')
 
   const handleRemove = async (item: PlayerBankResult) => {
-    // deleteModalRef.current && deleteModalRef.current.showDialog(item)
     openModal('PlayerBankDeleteModal', { bank: item })
   }
 
   return (
     <PageWithBackHeader header={{ title: t('menu.bankAccount') }}>
       <StyledView>
-        {isLoading || isFetching ? (
+        {isLoading ? (
           <ActivityIndicator size={'large'} color={'$lightCyan'} />
         ) : data?.length > 0 ? (
           data.map((item: PlayerBankResult) => (
