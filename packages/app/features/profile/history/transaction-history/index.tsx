@@ -18,10 +18,10 @@ import {
   ReportTransactionType,
   ReportTransactionTypeOptions,
 } from 'app/utils/constant'
-import dayjs from 'dayjs'
 import { ReportTransactionItem } from 'services/playerApi.type'
 import { toCurrency } from 'app/utils'
 import { getStatusColor } from 'app/config/status'
+import dayjsTz from 'app/utils/dayjs'
 
 const CELL_DATE_WIDTH = 1
 const CELL_AMOUNT_WIDTH = 1
@@ -38,22 +38,22 @@ const TransactionHistoryTab = () => {
     selectedStatus: ReportDepositStatusOptions[0],
     selectedDate: DateFilterOptions[0],
     selectedTransType: ReportTransactionTypeOptions[0],
-    startDate: dayjs().startOf('date').toDate(),
-    endDate: dayjs().endOf('date').toDate(),
+    startDate: dayjsTz().startOf('date').toDate(),
+    endDate: dayjsTz().endOf('date').toDate(),
   })
 
   const [fetchParams, setFetchParams] = useState({
     status: selected.selectedStatus?.value,
-    time_from: dayjs(selected.startDate).toISOString(),
-    time_to: dayjs(selected.endDate).toISOString(),
+    time_from: dayjsTz(selected.startDate).toISOString(),
+    time_to: dayjsTz(selected.endDate).toISOString(),
     trans_type: selected.selectedTransType?.value,
   })
 
   useEffect(() => {
     setFetchParams({
       status: selected.selectedStatus?.value,
-      time_from: dayjs(selected.startDate).toISOString(),
-      time_to: dayjs(selected.endDate).toISOString(),
+      time_from: dayjsTz(selected.startDate).toISOString(),
+      time_to: dayjsTz(selected.endDate).toISOString(),
       trans_type: selected.selectedTransType?.value,
     })
   }, [selected])

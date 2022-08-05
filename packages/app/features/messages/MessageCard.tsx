@@ -2,7 +2,7 @@ import CheckBox from 'app/components/CheckBox'
 import Icon from 'app/components/Icon'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { AnimateHeight } from 'app/transitions/animate-height'
-import dayjs from 'dayjs'
+import dayjsTz from 'app/utils/dayjs'
 import { styled, Text, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
 import { MotiPressable } from 'moti/interactions'
@@ -61,7 +61,7 @@ const MessageCard: FC<MessageCardProps> = ({
               {title}
             </Text>
             <Text sx={{ color: 'white', fontSize: 13, pt: title ? '$1' : 0 }}>
-              {dayjs(time).format('YYYY-MM-DD HH:mm:ss')}
+              {dayjsTz(time).format('YYYY-MM-DD HH:mm:ss')}
             </Text>
           </View>
         </View>

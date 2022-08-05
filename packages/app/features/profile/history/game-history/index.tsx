@@ -15,9 +15,9 @@ import {
   DateFilterOptions,
   Currency,
 } from 'app/utils/constant'
-import dayjs from 'dayjs'
 import { ReportGameItem } from 'services/playerApi.type'
 import { toCurrency } from 'app/utils'
+import dayjsTz from 'app/utils/dayjs'
 
 const CELL_DATE_WIDTH = 1
 const CELL_AMOUNT_WIDTH = 1
@@ -33,15 +33,15 @@ const GameHistoryTab = () => {
     selectedGame: ReportGameStatusOptions[0],
     selectedDate: DateFilterOptions[0],
     selectedGameStatus: ReportGameStatusOptions[0],
-    startDate: dayjs().startOf('date').toDate(),
-    endDate: dayjs().endOf('date').toDate(),
+    startDate: dayjsTz().startOf('date').toDate(),
+    endDate: dayjsTz().endOf('date').toDate(),
   })
 
   const [fetchParams, setFetchParams] = useState({
     game_provider_code: selected.selectedGame?.value,
     status: selected.selectedGameStatus?.value,
-    time_from: dayjs(selected.startDate).toISOString(),
-    time_to: dayjs(selected.endDate).toISOString(),
+    time_from: dayjsTz(selected.startDate).toISOString(),
+    time_to: dayjsTz(selected.endDate).toISOString(),
     trans_type: ReportTransactionType.GAME,
   })
 
@@ -49,8 +49,8 @@ const GameHistoryTab = () => {
     setFetchParams({
       game_provider_code: selected.selectedGame?.value,
       status: selected.selectedGameStatus?.value,
-      time_from: dayjs(selected.startDate).toISOString(),
-      time_to: dayjs(selected.endDate).toISOString(),
+      time_from: dayjsTz(selected.startDate).toISOString(),
+      time_to: dayjsTz(selected.endDate).toISOString(),
       trans_type: ReportTransactionType.GAME,
     })
   }, [selected])

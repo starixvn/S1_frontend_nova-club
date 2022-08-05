@@ -1,7 +1,8 @@
 import dayjs from 'dayjs'
-import { Text, View } from 'dripsy'
+import { Text } from 'dripsy'
 import React from 'react'
 
+import dayjsTz from 'app/utils/dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 dayjs.extend(customParseFormat)
 
@@ -9,8 +10,8 @@ const DateTimeCell = ({ date }) => {
   const is12HourFormat = dayjs(date, 'YYYY-MM-DD HH:mm:ss A').isValid()
 
   const dateInstance = is12HourFormat
-    ? dayjs(date, 'YYYY-MM-DD HH:mm:ss A')
-    : dayjs(date)
+    ? dayjsTz(date, 'YYYY-MM-DD HH:mm:ss A')
+    : dayjsTz(date)
 
   return (
     <>

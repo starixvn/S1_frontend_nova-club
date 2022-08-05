@@ -2,7 +2,7 @@ import DateTimePicker, {
   AndroidNativeProps,
 } from '@react-native-community/datetimepicker'
 import Icon, { IconComponentProps } from 'app/components/Icon'
-import dayjs from 'dayjs'
+import dayjsTz from 'app/utils/dayjs'
 import { styled, Text, View } from 'dripsy'
 import React, { useState } from 'react'
 import {
@@ -42,7 +42,7 @@ const DatePicker = ({
   _icon,
   _rightIcon,
   _dateTime,
-  defaultDate = dayjs().toDate(),
+  defaultDate = dayjsTz().toDate(),
   placeHolder = '',
 }: IDatePickerProps) => {
   const { style: inputStyle, ...restInputProps } = _input
@@ -55,7 +55,7 @@ const DatePicker = ({
   const onDateTimePickerChange = (e: any, v?: Date) => {
     setShowDatePicker(false)
     if (e?.type === 'dismissed') return
-    const dayJsDate = dayjs(v)
+    const dayJsDate = dayjsTz(v)
     const currentSelectedDate = dayJsDate.startOf('date').toDate()
     onChange(currentSelectedDate)
   }
@@ -87,7 +87,7 @@ const DatePicker = ({
                 paddingRight: 2.5,
               }}
             >
-              {value ? dayjs(value).format('DD/MM/YYYY') : placeHolder}
+              {value ? dayjsTz(value).format('DD/MM/YYYY') : placeHolder}
             </Text>
             {rightIcon && (
               <View
@@ -106,10 +106,10 @@ const DatePicker = ({
                 value={value || defaultDate}
                 minimumDate={
                   _dateTime?.minimumDate ||
-                  dayjs().subtract(2, 'month').startOf('date').toDate()
+                  dayjsTz().subtract(2, 'month').startOf('date').toDate()
                 }
                 maximumDate={
-                  _dateTime?.maximumDate || dayjs().endOf('date').toDate()
+                  _dateTime?.maximumDate || dayjsTz().endOf('date').toDate()
                 }
               />
             ) : (
@@ -121,10 +121,10 @@ const DatePicker = ({
                   onChange={onDateTimePickerChange}
                   minimumDate={
                     _dateTime?.minimumDate ||
-                    dayjs().subtract(2, 'month').startOf('date').toDate()
+                    dayjsTz().subtract(2, 'month').startOf('date').toDate()
                   }
                   maximumDate={
-                    _dateTime?.maximumDate || dayjs().endOf('date').toDate()
+                    _dateTime?.maximumDate || dayjsTz().endOf('date').toDate()
                   }
                 />
               )

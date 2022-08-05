@@ -1,9 +1,9 @@
 import Icon from 'app/components/Icon'
-import dayjs from 'dayjs'
 import React, { useRef, useState } from 'react'
 import { TextInputProps as TextInputNativeProps, ViewProps } from 'react-native'
 import { IIconProps } from '../IconButton/type'
 import { styled, Text } from 'dripsy'
+import dayjsTz from 'app/utils/dayjs'
 
 interface IDatePickerProps extends ViewProps {
   value: Date | '' | undefined
@@ -35,7 +35,7 @@ const DatePickerWeb = ({
   _icon,
   _rightIcon,
   _dateTime,
-  defaultDate = dayjs().toDate(),
+  defaultDate = dayjsTz().toDate(),
   placeHolder = '',
 }: IDatePickerProps) => {
   const datePickerRef = useRef<HTMLInputElement>(null)
@@ -46,11 +46,11 @@ const DatePickerWeb = ({
   }
 
   const currentDate = new Date()
-  const getDate = dayjs(value).format('YYYY-MM-DD')
-  const maxDate = dayjs(_dateTime?.maximumDate).format('YYYY-MM-DD')
+  const getDate = dayjsTz(value).format('YYYY-MM-DD')
+  const maxDate = dayjsTz(_dateTime?.maximumDate).format('YYYY-MM-DD')
   const minDate = _dateTime?.minimumDate
-    ? dayjs(_dateTime?.minimumDate).format('YYYY-MM-DD')
-    : dayjs(currentDate).subtract(2, 'month').format('YYYY-MM-DD')
+    ? dayjsTz(_dateTime?.minimumDate).format('YYYY-MM-DD')
+    : dayjsTz(currentDate).subtract(2, 'month').format('YYYY-MM-DD')
 
   return (
     <div
@@ -67,7 +67,7 @@ const DatePickerWeb = ({
         value={getDate}
         type={'date'}
         onChange={onDateTimePickerChange}
-        max={maxDate || dayjs(currentDate).format('YYYY-MM-DD')}
+        max={maxDate || dayjsTz(currentDate).format('YYYY-MM-DD')}
         min={minDate}
         className={'date-input'}
       />

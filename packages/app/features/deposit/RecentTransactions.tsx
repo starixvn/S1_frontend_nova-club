@@ -12,7 +12,7 @@ import {
   ReportDepositStatusOptions,
   ReportTransactionType,
 } from 'app/utils/constant'
-import dayjs from 'dayjs'
+import dayjsTz from 'app/utils/dayjs'
 import { ActivityIndicator, styled, Text, useDripsyTheme, View } from 'dripsy'
 import { usePlayerProfileQuery, usePlayerReportQuery } from 'services/playerApi'
 import DateTimeCell from '../profile/history/DateTimeCell'
@@ -24,8 +24,8 @@ const RecentTransactions = () => {
       limit: 5,
       offset: 0,
       status: ReportDepositStatus.ALL,
-      time_from: dayjs().subtract(2, 'month').startOf('date').toISOString(),
-      time_to: dayjs().endOf('date').toISOString(),
+      time_from: dayjsTz().subtract(2, 'month').startOf('date').toISOString(),
+      time_to: dayjsTz().endOf('date').toISOString(),
       trans_type: ReportTransactionType.DEPOSIT,
     },
     { refetchOnMountOrArgChange: true }

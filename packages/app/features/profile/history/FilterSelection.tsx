@@ -13,7 +13,7 @@ import {
   ReportCommonStatusOptions,
   ReportGameStatus,
 } from 'app/utils/constant'
-import dayjs from 'dayjs'
+import dayjsTz from 'app/utils/dayjs'
 import { Text, View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import { SelectOptions } from 'services/common/types'
@@ -57,28 +57,28 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
 
     switch (value) {
       case DateFilter.TODAY:
-        startDate = dayjs().startOf('date').toDate()
-        endDate = dayjs().endOf('date').toDate()
+        startDate = dayjsTz().startOf('date').toDate()
+        endDate = dayjsTz().endOf('date').toDate()
         return { startDate, endDate }
 
       case DateFilter.YESTERDAY:
-        startDate = dayjs().subtract(1, 'day').startOf('date').toDate()
-        endDate = dayjs().subtract(1, 'day').endOf('date').toDate()
+        startDate = dayjsTz().subtract(1, 'day').startOf('date').toDate()
+        endDate = dayjsTz().subtract(1, 'day').endOf('date').toDate()
         return { startDate, endDate }
 
       case DateFilter.THIS_WEEK:
-        startDate = dayjs().startOf('week').toDate()
-        endDate = dayjs().endOf('date').toDate()
+        startDate = dayjsTz().startOf('week').toDate()
+        endDate = dayjsTz().endOf('date').toDate()
         return { startDate, endDate }
 
       case DateFilter.LAST_WEEK:
-        startDate = dayjs().subtract(1, 'week').startOf('week').toDate()
-        endDate = dayjs().subtract(1, 'week').endOf('week').toDate()
+        startDate = dayjsTz().subtract(1, 'week').startOf('week').toDate()
+        endDate = dayjsTz().subtract(1, 'week').endOf('week').toDate()
         return { startDate, endDate }
 
       case DateFilter.THIS_MONTH:
-        startDate = dayjs().startOf('month').toDate()
-        endDate = dayjs().endOf('date').toDate()
+        startDate = dayjsTz().startOf('month').toDate()
+        endDate = dayjsTz().endOf('date').toDate()
         return { startDate, endDate }
 
       case DateFilter.CUSTOM:
@@ -87,8 +87,8 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
         return { startDate, endDate }
 
       default:
-        startDate = dayjs().startOf('date').toDate()
-        endDate = dayjs().endOf('date').toDate()
+        startDate = dayjsTz().startOf('date').toDate()
+        endDate = dayjsTz().endOf('date').toDate()
         return { startDate, endDate }
     }
   }

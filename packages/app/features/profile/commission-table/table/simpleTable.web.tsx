@@ -171,7 +171,9 @@ const SimpleTable = () => {
                       ? '#224972'
                       : '',
                   }}
-                  colSpan={row.original?.is_game_type ? 4 : undefined}
+                  colSpan={
+                    row.original?.is_game_type ? columns.length : undefined
+                  }
                 >
                   {cell.renderCell()}
                 </td>
