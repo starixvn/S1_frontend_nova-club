@@ -1,4 +1,5 @@
 {
+  "Copied to clipboard": "",
   "auth": {
     "accountReg": "Đăng ký tài khoản",
     "accountVerification": "Xác minh tài khoản",
@@ -45,6 +46,7 @@
     "confirmDelete": "Bạn có chắc chắn muốn xóa? Không thể khôi phục sau khi xóa!",
     "confirmPassword": "Xác nhận mật khẩu",
     "contactUs": "Liên hệ",
+    "copied": "Sao chép vào clipboard",
     "copy": "Sao chép",
     "desktop": "Máy tính",
     "download": "Tải xuống",
@@ -56,6 +58,7 @@
     "enterOldPassword": "Vui lòng nhập mật khẩu cũ",
     "hello": "Xin chào!!",
     "home": "Trang Chủ",
+    "id": "TÔI",
     "importantNote": "Lưu Ý Quan Trọng",
     "importantNotes": "Lưu Ý Quan Trọng",
     "loading": "Đang tải",
@@ -104,7 +107,7 @@
       "crypto": "Tiền ảo",
       "momo": "MOMO",
       "onlineBanking": "Cổng thanh toán",
-      "qrCode": "Chuyển bằng mã QR",
+      "qrCode": "Qrpay",
       "topUp": "Thẻ cào"
     },
     "paymentMode": "Chọn cổng thanh toán",
@@ -215,8 +218,10 @@
       "date": "Ngày",
       "game": "Trò Chơi",
       "gameType": "Loại trò chơi",
+      "idTransfer": "",
       "provider": "Các nhà cung cấp",
       "providers": "Các nhà cung cấp",
+      "qrTransfer": "",
       "receive": "Nhận",
       "send": "Gửi",
       "status": "Trạng thái",

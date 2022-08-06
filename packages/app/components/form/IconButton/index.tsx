@@ -27,14 +27,15 @@ const IconButton = ({
   if (color) iconOverride.color = color
 
   return (
-    <StyledMotiPressable
-      disabled={disabled || loading}
-      onPress={onPress}
-      size={size}
-      {...rest}
-    >
-      <Icon {...iconOverride} />
-    </StyledMotiPressable>
+    <View {...rest}>
+      <StyledMotiPressable
+        disabled={disabled || loading}
+        onPress={onPress}
+        size={size}
+      >
+        <Icon {...iconOverride} />
+      </StyledMotiPressable>
+    </View>
   )
 }
 

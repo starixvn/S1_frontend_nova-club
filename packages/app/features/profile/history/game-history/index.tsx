@@ -15,9 +15,8 @@ import {
   DateFilterOptions,
   Currency,
 } from 'app/utils/constant'
-import { ReportGameItem } from 'services/playerApi.type'
-import { toCurrency } from 'app/utils'
 import dayjsTz from 'app/utils/dayjs'
+import { toCurrency, toThousandSeparator } from 'app/utils'
 
 const CELL_DATE_WIDTH = 1
 const CELL_AMOUNT_WIDTH = 1
@@ -104,7 +103,9 @@ const renderItem = ({ item }, currency) => {
           <Text sx={{ textAlign: 'center' }}>{item.game_provider_code}</Text>
         </View>
         <View style={{ flex: CELL_STATUS_WIDTH }}>
-          <Text sx={{ textAlign: 'center' }}>{item.bet}</Text>
+          <Text sx={{ textAlign: 'center' }}>
+            {toThousandSeparator(item.bet)}
+          </Text>
           <Text
             sx={{
               textAlign: 'center',
@@ -112,6 +113,9 @@ const renderItem = ({ item }, currency) => {
             }}
           >
             {item.winloss.includes('-')
+              ? toThousandSeparator(item.winloss)
+              : `+${toThousandSeparator(item.winloss)}`}
+            {/* {item.winloss.includes('-')
               ? toCurrency(item.winloss, currency, {
                   symbol: false,
                   hideTruncatedThousand: false,
@@ -119,7 +123,7 @@ const renderItem = ({ item }, currency) => {
               : `+${toCurrency(item.winloss, currency, {
                   symbol: false,
                   hideTruncatedThousand: false,
-                })}`}
+                })}`} */}
           </Text>
         </View>
       </View>

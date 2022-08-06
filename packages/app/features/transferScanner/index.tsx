@@ -7,11 +7,7 @@ import CustomTabBar from 'app/components/CustomTabBar'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import QrcodeScannerTab from './send'
 import QrReceiveTab from './receive'
-
-// const renderScene = SceneMap({
-//   first: QrcodeScannerTab,
-//   second: QrReceiveTab,
-// })
+import TransferScreen from './transfer'
 
 const TransferScannerScreen = () => {
   const { t } = useLocalization()
@@ -19,16 +15,19 @@ const TransferScannerScreen = () => {
 
   const [index, setIndex] = useState(0)
   const [routes] = useState([
-    { key: 'first', title: t('menu.tab.send'), index: 0 },
-    { key: 'second', title: t('menu.tab.receive'), index: 1 },
+    { key: 'first', title: t('menu.tab.receive'), index: 0 },
+    { key: 'second', title: t('menu.tab.idTransfer'), index: 1 },
+    { key: 'third', title: t('menu.tab.qrTransfer'), index: 2 },
   ])
 
   const renderScene = ({ route }) => {
     switch (route.key) {
       case 'first':
-        return <QrcodeScannerTab isActive={index === routes[0]?.index} />
-      case 'second':
         return <QrReceiveTab />
+      case 'second':
+        return <TransferScreen isIDTransfer />
+      case 'third':
+        return <QrcodeScannerTab isActive={index === routes[2]?.index} />
       default:
         return null
     }

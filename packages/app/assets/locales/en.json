@@ -1,4 +1,5 @@
 {
+  "Copied to clipboard": "common.copied",
   "auth": {
     "accountReg": "Account Registration",
     "accountVerification": "Account Verification",
@@ -45,6 +46,7 @@
     "confirmDelete": "Are you sure you want to delete? It cannot restore after deletion!",
     "confirmPassword": "Confirm Password",
     "contactUs": "Contact Us",
+    "copied": "Copied to clipboard",
     "copy": "Copy",
     "desktop": "Desktop",
     "download": "Download",
@@ -56,6 +58,7 @@
     "enterOldPassword": "Please enter old password",
     "hello": "Hello!!",
     "home": "Home",
+    "id": "ID",
     "importantNote": "Important note",
     "importantNotes": "Important Notes",
     "loading": "Loading",
@@ -104,7 +107,7 @@
       "crypto": "Crypto",
       "momo": "MOMO",
       "onlineBanking": "Online Banking",
-      "qrCode": "QR Code Transfer",
+      "qrCode": "Qrpay",
       "topUp": "Top Up Card"
     },
     "paymentMode": "Payment Mode",
@@ -215,8 +218,10 @@
       "date": "Date",
       "game": "Game",
       "gameType": "Game Type",
+      "idTransfer": "ID Transfer",
       "provider": "Provider",
       "providers": "Providers",
+      "qrTransfer": "QR Transfer",
       "receive": "Receive",
       "send": "Send",
       "status": "Status",
@@ -284,6 +289,7 @@
     "scanGallery": "Scan from gallery"
   },
   "referral": {
+    "referralId": "Referral ID",
     "earn": "Share & Earn",
     "friend": "Friend Referral",
     "link": "Referral Link"
@@ -335,7 +341,8 @@
     "required": "%{field} is required",
     "usdtFormat": "Must be ERC-20 / TRC-20 compatible wallet address",
     "userNameMinMaxLength": "Username must be 6-18 characters only",
-    "username": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only"
+    "username": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only",
+    "enterReferral": "Please enter referral ID"
   },
   "withdrawal": {
     "withdrawTo": "Withdraw To"

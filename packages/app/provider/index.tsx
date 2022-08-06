@@ -12,6 +12,7 @@ import ModalProvider from './modal'
 import { NavigationProvider } from './navigation'
 import ReduxProvider from './redux'
 import { SafeArea } from './safe-area'
+import Toast from 'react-native-toast-message'
 
 const RootView = styled(GestureHandlerRootView)(() => ({
   flex: 1,
@@ -37,6 +38,7 @@ export function Provider({ children }: { children: React.ReactNode }) {
                     <GameLauncher />
                     <RootModal />
                     <App />
+                    <Toast position="bottom" />
                   </ContextualNavigationProvider>
                 </ModalProvider>
               </NavigationProvider>

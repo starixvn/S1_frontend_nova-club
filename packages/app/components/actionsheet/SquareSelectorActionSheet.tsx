@@ -19,6 +19,9 @@ import { useRouter } from 'solito/router'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import ActionSheetItem from './ActionSheetItem'
 import { getProviderLogo } from 'app/config/games/provider'
+import IconButton from '../form/IconButton'
+import Icon from '../Icon'
+import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
 
 export type SquareSelectorActionSheetProps = ComponentProps<
   typeof ActionSheet
@@ -53,6 +56,7 @@ const SquareSelectorActionSheet = forwardRef<
   const { push } = useRouter()
   const { makeContextualHref } = useContextualRouting()
   const toAddBankAccount = makeContextualHref('add-bank-account')
+  const toBankAccount = makeContextualHref('bank-account')
 
   const {
     id: actionSheetId,
@@ -100,6 +104,25 @@ const SquareSelectorActionSheet = forwardRef<
       >
         {t(headerTitle)}
       </Text>
+
+      {actionSheetId === ACTION_SHEET_ID.WITHDRAWAL && (
+        <View
+          sx={{
+            flexDirection: 'row',
+            position: 'absolute',
+            right: 12,
+            m: '$2',
+          }}
+        >
+          <IconButton
+            name="card"
+            onPress={() => {
+              closeActionSheet()
+              push(toBankAccount, '/profile/bank-account')
+            }}
+          />
+        </View>
+      )}
     </StyledViewHeader>
   )
 
@@ -151,7 +174,7 @@ const SquareSelectorActionSheet = forwardRef<
               />
             ))}
           </View>
-        ) : actionSheetId ? (
+        ) : actionSheetId === ACTION_SHEET_ID.WITHDRAWAL ? (
           <Button
             rounded
             stretch
@@ -183,6 +206,7 @@ const StyledViewHeader = styled(DripsyGradient)({
   borderTopRightRadius: 24,
   justifyContent: 'center',
   alignItems: 'center',
+  flexDirection: 'row',
 })
 
 SquareSelectorActionSheet.displayName = 'SquareSelectorActionSheet'

@@ -1,3 +1,4 @@
+import Header from 'app/components/common/Header'
 import { Button } from 'app/components/form/Button'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import { TextField } from 'app/components/TextField'
@@ -10,7 +11,10 @@ import { Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { useAffiliateUsernameQuery } from 'services/contentApi'
+import {
+  useAffiliateUsernameQuery,
+  useLazyAffiliateUsernameQuery,
+} from 'services/contentApi'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import {
   usePlayerBalanceQuery,
@@ -21,12 +25,17 @@ import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 
 type TransferValues = {
+  referralId: string
   amount: string
   realAmount: number
 }
 const { useParam } = createParam<{ referralCode: string }>()
 
-const TransferScreen = () => {
+const TransferScreen = ({
+  isIDTransfer = false,
+}: {
+  isIDTransfer?: boolean
+}) => {
   const dispatch = useDispatch()
   const { back } = useRouter()
   const { t } = useLocalization()
@@ -37,21 +46,20 @@ const TransferScreen = () => {
   const { data } = usePlayerBalanceQuery(undefined, {
     refetchOnMountOrArgChange: true,
   })
-  const { data: playerData, isError } = useAffiliateUsernameQuery(
-    referralCode ?? ''
-  )
+  const [fetchUsername, { data: playerData, isError, error }] =
+    useLazyAffiliateUsernameQuery()
 
   const currency = playerData?.data?.currency as Currency
 
   const onSubmit = async (
-    { realAmount }: TransferValues,
+    { referralId, realAmount }: TransferValues,
     actions: FormikHelpers<TransferValues>
   ) => {
     try {
       actions.setSubmitting(true)
       const { data, success, message } = await postTransferMemberToMember({
         amount: realAmount,
-        to_invitation_code: referralCode ?? '',
+        to_invitation_code: isIDTransfer ? referralId : referralCode,
       })
         .unwrap()
         .catch((error) => dispatch(AlertActions.addError(error.message)))
@@ -69,11 +77,13 @@ const TransferScreen = () => {
 
   const formik = useFormik<TransferValues>({
     initialValues: {
+      referralId: '',
       amount: '',
       realAmount: 0,
     },
     validationSchema: Yup.object({
-      realAmount: validation.amount,
+      referralId: isIDTransfer ? validation.referralCode : null,
+      amount: validation.amount,
     }),
     onSubmit,
   })
@@ -92,8 +102,12 @@ const TransferScreen = () => {
   } = formik
 
   useEffect(() => {
+    referralCode && fetchUsername(referralCode)
+  }, [])
+
+  useEffect(() => {
     if (isError) {
-      dispatch(AlertActions.addError('status.referralError'))
+      dispatch(AlertActions.addError(error))
     }
   }, [playerData])
 
@@ -109,8 +123,9 @@ const TransferScreen = () => {
   }
 
   return (
-    <PageWithBackHeader header={{ title: 'Transfer' }}>
-      <View sx={{ flex: 1 }}>
+    <View sx={{ flex: 1, bg: '$secondary' }}>
+      {!isIDTransfer && <Header title={t('menu.transfer')} />}
+      <View>
         <View
           sx={{
             p: '$4',
@@ -128,12 +143,33 @@ const TransferScreen = () => {
           </Text>
         </View>
         <TextField labelWidth={0.7}>
-          <TextField.Label
-            label="transfer.transferTo"
-            value={playerData?.data?.username ?? ''}
-            textSx={{ textAlign: 'right' }}
-            sx={{ my: 0 }}
-          />
+          {isIDTransfer ? (
+            <TextField.TextInput
+              label="menu.tab.idTransfer"
+              _input={{
+                placeholder: t('validation.enterReferral'),
+                value: values.referralId,
+                onChangeText: handleChange('referralId'),
+                onBlur: handleBlur('referralId'),
+                sx: { textAlign: 'right' },
+              }}
+              error={
+                touched.referralId && errors.referralId
+                  ? t(errors.referralId, {
+                      field: t('referral.referralId'),
+                    })
+                  : undefined
+              }
+              containerStyle={{ mt: '$0', mb: '$4' }}
+            />
+          ) : (
+            <TextField.Label
+              label="transfer.transferTo"
+              value={playerData?.data?.username ?? ''}
+              textSx={{ textAlign: 'right' }}
+              sx={{ my: 0 }}
+            />
+          )}
           <TextField.TextInput
             label="common.amount"
             isAmount
@@ -177,7 +213,7 @@ const TransferScreen = () => {
           <Button.Label>{t('menu.transfer')}</Button.Label>
         </Button>
       </View>
-    </PageWithBackHeader>
+    </View>
   )
 }
 

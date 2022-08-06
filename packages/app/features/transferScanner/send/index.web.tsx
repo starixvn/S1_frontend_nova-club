@@ -23,10 +23,7 @@ function QrcodeScannerTab({ isActive }) {
   const { t } = useLocalization()
   const dispatch = useDispatch()
   const [scanning, setScanning] = useState(true)
-  console.log(
-    '🚀 ~ file: index.web.tsx ~ line 26 ~ QrcodeScannerTab ~ scanning',
-    scanning
-  )
+
   const { push, replace } = useRouter()
   const [loading, setLoading] = useState(false)
 
@@ -118,6 +115,7 @@ function QrcodeScannerTab({ isActive }) {
           constraints={{ facingMode: 'environment' }}
           onResult={handleBarCodeScannedWeb}
           className="absolute-fill-center"
+          scanDelay={1000}
           videoContainerStyle={{ height }}
           videoStyle={{ zIndex: -1 }}
           ViewFinder={() => (

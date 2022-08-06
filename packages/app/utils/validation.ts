@@ -50,6 +50,7 @@ const validation = {
   cardValue: Yup.string().required('validation.required'),
   cardCode: Yup.string().required('validation.required'),
   cardSerialNo: Yup.string().required('validation.required'),
+  referralCode: Yup.string().required('validation.required'),
   phoneNumber: Yup.string()
     .required('validation.required')
     .test({

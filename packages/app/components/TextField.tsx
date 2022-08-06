@@ -30,6 +30,7 @@ import SquareSelectorActionSheet, {
 import { Button } from './form/Button'
 import GradientBox from './GradientBox'
 import Icon from './Icon'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 
 const GradientTextBoxContext = createContext<{ labelWidth: number }>({
   labelWidth: 0.8,
@@ -110,7 +111,6 @@ const TextFieldLabel = ({
               containerStyle={{ px: '$2' }}
               onPress={() => {
                 copyToClipboard(value)
-                console.log('value', value)
               }}
             >
               <Button.Label>{t('common.copy')}</Button.Label>

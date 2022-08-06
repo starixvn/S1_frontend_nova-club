@@ -6,6 +6,10 @@ import { TabBar } from 'react-native-tab-view'
 import { DripsyGradient } from './Gradient'
 
 const CustomTabBar = (props) => {
+  console.log(
+    '🚀 ~ file: CustomTabBar.tsx ~ line 9 ~ CustomTabBar ~ props',
+    props
+  )
   const { width } = useContainerDimension()
 
   return (
@@ -20,7 +24,7 @@ const CustomTabBar = (props) => {
         backgroundColor: 'white',
         top: 60,
         width: width / 8,
-        left: width / 5.5,
+        left: (width / props.navigationState.routes.length - width / 8) / 2,
         height: 3,
       }}
       renderTabBarItem={({ route, navigationState, onPress, position }) => {

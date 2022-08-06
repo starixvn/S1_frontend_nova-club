@@ -7,7 +7,7 @@ export default {
       image: require('../../assets/images/games/sports/sport-saba.png'),
       game_name: 'game.name.sports',
       game_provider_code: 'SABA',
-      game_code: '1',
+      game_code: 'Vgaming:3802',
       desktop: true,
     },
     {
