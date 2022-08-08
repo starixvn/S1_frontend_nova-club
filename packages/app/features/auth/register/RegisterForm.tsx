@@ -37,7 +37,6 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
   const isUsernameCheckedRef = useRef(false)
   const passwordFieldRef = useRef<RNTextInput>(null)
   const confirmPasswordFieldRef = useRef<RNTextInput>(null)
-  const realNameFieldRef = useRef<RNTextInput>(null)
 
   const { theme } = useDripsyTheme()
 
@@ -46,13 +45,11 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
       username: true,
       password: true,
       confirmPassword: true,
-      realName: true,
     })
 
-    const { username, confirmPassword, password, realName } =
-      await validateForm()
+    const { username, confirmPassword, password } = await validateForm()
 
-    if (username || confirmPassword || password || realName) return
+    if (username || confirmPassword || password) return
 
     if (isCheckingUsername || usernameErrorMsg || !isUsernameCheckedRef.current)
       return
@@ -190,32 +187,11 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
           onBlur: handleBlur('confirmPassword'),
           secureTextEntry: true,
           ref: confirmPasswordFieldRef,
-          onSubmitEditing: () => {
-            realNameFieldRef.current?.focus()
-          },
+          onSubmitEditing: onSubmit,
         }}
         error={
           touched.confirmPassword && errors.confirmPassword
             ? t(errors.confirmPassword, { field: t('common.confirmPassword') })
-            : undefined
-        }
-        sx={{ mt: '$3' }}
-      />
-
-      <TextInput
-        _icon="edit-profile"
-        _input={{
-          maxLength: 20,
-          placeholder: t('profile.details.realname'),
-          value: values.realName,
-          onChangeText: handleChange('realName'),
-          onBlur: handleBlur('realName'),
-          ref: realNameFieldRef,
-          onSubmitEditing: onSubmit,
-        }}
-        error={
-          touched.realName && errors.realName
-            ? t(errors.realName, { field: t('profile.details.realname') })
             : undefined
         }
         sx={{ mt: '$3' }}

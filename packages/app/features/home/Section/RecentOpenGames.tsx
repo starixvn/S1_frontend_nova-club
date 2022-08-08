@@ -29,7 +29,7 @@ const RecentOpenGames = () => {
   return (
     <View>
       <SectionHeader
-        title={t('common.recentlyOpened')}
+        title={t('common.recentlyViewed')}
         colors={['#03e0e8', '#da0af8']}
         iconName="replay"
       />

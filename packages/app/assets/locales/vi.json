@@ -72,7 +72,8 @@
     "otp": "OTP",
     "password": "Mật khẩu",
     "passwordNote": "1. Mật khẩu phải là chữ và số không có ký tự đặc biệt. \nĐộ dài trừ khi 6-12 ký tự.\n2. Mật khẩu không được giống mật khẩu cũ",
-    "recentlyOpened": "Recently Opened",
+    "playNow": "Bắt đầu chơi",
+    "recentlyViewed": "Xem gần đây",
     "referenceId": "ID tham chiếu",
     "registered": "Đăng ký",
     "reward": "Phần thưởng",
@@ -184,6 +185,7 @@
       "sportsbook": "THỂ THAO"
     },
     "enterGame": "Vào trò chơi",
+    "jackpot": "Giải độc đắc",
     "name": {
       "btiSports": "BTI Sports",
       "esports": "SABA E-Sports",
