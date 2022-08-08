@@ -3,7 +3,7 @@ import { DripsyIcon } from 'app/components/Icon'
 import useLocalization from 'app/provider/localization'
 import { styled, Text, View } from 'dripsy'
 import { motify } from 'moti'
-import React from 'react'
+import React, { memo } from 'react'
 
 const MotifyIcon = motify(DripsyIcon)()
 
@@ -127,4 +127,4 @@ const StyledSearchBox = styled(View)({
   mr: '$1a',
 })
 
-export default ListSectionHeader
+export default memo(ListSectionHeader)
