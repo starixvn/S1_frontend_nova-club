@@ -66,7 +66,6 @@ function HistoryListing<T>(props: HistoryListingProps<T>) {
   }
 
   function onRefresh() {
-    console.log('refresh again')
     refreshData()
   }
 
