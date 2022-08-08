@@ -1,12 +1,13 @@
 const enum PROVIDER_NAME {
-  ALL,
   ADVP,
+  ALL,
   ALLB,
   BBIN,
   BGGG,
   BTI,
   CQ9,
   EBET,
+  EVOL,
   HABA,
   JDBG,
   JILI,
@@ -19,6 +20,8 @@ const enum PROVIDER_NAME {
   SPGM,
   TCG,
   TFGM,
+  SBO,
+  IM,
 }
 
 export const PROVIDER_LOGO: { [key in keyof typeof PROVIDER_NAME] } = {
@@ -84,7 +87,7 @@ export const PROVIDER_LOGO: { [key in keyof typeof PROVIDER_NAME] } = {
   },
   SABA: {
     provider_code: 'SABA',
-    image: require('../../../assets/images/provider/saba-casino.png'),
+    image: require('../../../assets/images/provider/SABA_SPORT.png'),
   },
   SEXY: {
     provider_code: 'SEXY',
@@ -101,6 +104,18 @@ export const PROVIDER_LOGO: { [key in keyof typeof PROVIDER_NAME] } = {
   TFGM: {
     provider_code: 'TFGM',
     image: require('../../../assets/images/provider/TF.png'),
+  },
+  EVOL: {
+    provider_code: 'EVOL',
+    image: require('../../../assets/images/provider/EVOL.png'),
+  },
+  SBO: {
+    provider_code: 'SBO',
+    image: require('../../../assets/images/provider/SBO_BET.png'),
+  },
+  IM: {
+    provider_code: 'IM',
+    image: require('../../../assets/images/provider/IM.png'),
   },
 }
 
@@ -125,6 +140,9 @@ const ProviderLogo = [
   PROVIDER_LOGO.SPGM,
   PROVIDER_LOGO.TCG,
   PROVIDER_LOGO.TFGM,
+  PROVIDER_LOGO.EVOL,
+  PROVIDER_LOGO.SBO,
+  PROVIDER_LOGO.IM,
 ]
 
 export const getProviderLogo = (code: string) => {

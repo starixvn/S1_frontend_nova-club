@@ -75,16 +75,12 @@ function HistoryListing<T>(props: HistoryListingProps<T>) {
       <FlatList
         onRefresh={onRefresh}
         refreshing={isFetching ?? false}
-        ListEmptyComponent={
-          !isUninitialized && !isFetching ? (
-            <HistoryEmpty sx={{ mt: '$5' }} />
-          ) : null
-        }
-        ListFooterComponent={() =>
-          isFetching &&
-          !allLoaded &&
-          displayList.length > 0 && <ActivityIndicator color={'$lightCyan'} />
-        }
+        ListEmptyComponent={<HistoryEmpty sx={{ mt: '$5' }} />}
+        // ListFooterComponent={() =>
+        //   isFetching &&
+        //   !allLoaded &&
+        //   displayList.length > 0 && <ActivityIndicator color={'$lightCyan'} />
+        // }
         data={displayList}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
