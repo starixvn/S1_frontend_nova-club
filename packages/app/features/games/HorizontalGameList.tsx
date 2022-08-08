@@ -26,7 +26,6 @@ const HorizontalGameList = ({ data }: { data: Game[] }) => {
     >
       {data.map((item, index) => {
         const { gc, gpc, img } = item
-        console.log('item', item)
         return (
           <SimpleGridImage
             gameCode={gc}
