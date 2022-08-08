@@ -160,7 +160,7 @@ const TransferScreen = ({
                     })
                   : undefined
               }
-              containerStyle={{ mt: '$0', mb: '$4' }}
+              sx={{ mt: '$0', mb: '$4' }}
             />
           ) : (
             <TextField.Label
@@ -189,7 +189,7 @@ const TransferScreen = ({
                   })
                 : undefined
             }
-            containerStyle={{ mt: '$0', mb: '$4' }}
+            sx={{ mt: '$0', mb: '$4' }}
           />
         </TextField>
 

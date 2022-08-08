@@ -100,9 +100,10 @@ function useGameBalanceRule() {
 
   async function transferToGame() {
     // transfer single vendor wallet to main wallet
+    const mainBalance = playerBalance?.data?.main.balance
     try {
-      if (playerBalance?.data?.main.balance != null && walletDetails) {
-        if (!isSeamless) {
+      if (mainBalance != null && walletDetails) {
+        if (!isSeamless && Number(mainBalance) > 0) {
           await transferAllToOne({
             transfer_from: 0,
             transfer_to: walletDetails[currentProvider.current ?? '']?.id ?? 0,

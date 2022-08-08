@@ -56,6 +56,7 @@ type TextFieldInputProps = {
   error?: string
   isAmount: boolean
   containerStyle?: SxProp
+  sx?: SxProp
 }
 
 type TextFieldSelectProps = {
@@ -128,6 +129,7 @@ const TextFieldInput = ({
   containerStyle,
   isAmount = false,
   _input,
+  ...rest
 }: TextFieldInputProps) => {
   const { t } = useLocalization()
   const { labelWidth } = useContext(GradientTextBoxContext)
@@ -135,7 +137,7 @@ const TextFieldInput = ({
   const { value } = _input
 
   return (
-    <View>
+    <View {...rest}>
       <GradientBox sx={{ my: '$1', ...containerStyle }}>
         <TouchableWithoutFeedback
           onPress={() => textInputRef?.current?.focus()}
@@ -316,6 +318,7 @@ const StyledTextInput = styled(DripsyTextInput)(() => ({
 const TextInputHints = styled(View)(() => ({
   justifyContent: 'center',
   pt: '$0a',
+  px: '$4',
 }))
 
 TextField.Label = TextFieldLabel
