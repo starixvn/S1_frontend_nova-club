@@ -20,7 +20,6 @@ export interface RegisterQueryArgs {
   contactNumber: string
   cpassword: string
   password: string
-  real_name: string
   terms: boolean
   tracking_code: string
   username: string

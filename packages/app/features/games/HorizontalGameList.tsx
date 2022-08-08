@@ -30,7 +30,7 @@ const HorizontalGameList = ({ data }: { data: Game[] }) => {
           <SimpleGridImage
             gameCode={gc}
             providerCode={gpc}
-            key={gc + gpc}
+            key={`${gc + gpc}${index}`}
             image={img}
             width={columnWidth}
             sx={{ mr: leftRightSpace * 0.5 }}

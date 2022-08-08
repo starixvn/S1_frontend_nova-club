@@ -24,7 +24,7 @@ const TopHeader = ({ providerCode }: { providerCode?: string }) => {
         <Image
           source={providerCode && getProviderLogo(providerCode)}
           sx={{ height: [40, 40, 40], width: [120, 120, 120] }}
-          resizeMode="cover"
+          resizeMode="contain"
         />
       </View>
     </StyledTop>

@@ -21,7 +21,6 @@ export type RegisterFormValues = {
   username: string
   password: string
   confirmPassword: string
-  realName: string
   contactNumber: string
   verifyCode: string
   terms: boolean
@@ -44,7 +43,6 @@ const RegisterPage = () => {
       username,
       password,
       confirmPassword,
-      realName,
       verifyCode,
       terms,
       contactNumber,
@@ -61,7 +59,6 @@ const RegisterPage = () => {
         contactNumber: '84' + contactNumber,
         terms,
         tracking_code: referral?.trackingCode ?? 'cKp859Eko',
-        real_name: realName,
         verify_code: verifyCode,
       }).unwrap()
 
@@ -82,7 +79,6 @@ const RegisterPage = () => {
       username: '',
       password: '',
       confirmPassword: '',
-      realName: '',
       contactNumber: '',
       verifyCode: '',
       terms: false,
@@ -91,9 +87,6 @@ const RegisterPage = () => {
       username: validation.username,
       password: validation.passwordRestrict,
       confirmPassword: validation.confirmPassword,
-      realName: Yup.string()
-        .min(6, 'validation.userNameMinMaxLength')
-        .required('validation.required'),
       contactNumber: validation.phoneNumber,
       verifyCode: validation.verifyCode,
       terms: Yup.bool()

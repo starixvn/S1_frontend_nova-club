@@ -72,7 +72,9 @@
     "otp": "OTP",
     "password": "Password",
     "passwordNote": "1. Password must be alphanumeric without special character. The length is unless 6-12 character. \n2. Password can not be the same to old pass",
+    "playNow": "Play now",
     "recentlyOpened": "Recently Opened",
+    "recentlyViewed": "Recently Viewed",
     "referenceId": "Reference ID",
     "registered": "Registered",
     "reward": "Reward",
@@ -184,6 +186,7 @@
       "sportsbook": "Sportsbook"
     },
     "enterGame": "Enter Game",
+    "jackpot": "Jackpot",
     "name": {
       "btiSports": "BTI Sports",
       "esports": "SABA E-Sports",
