@@ -6,6 +6,7 @@ import { FormikHelpers, useFormik } from 'formik'
 import * as Yup from 'yup'
 import validation from 'app/utils/validation'
 import { useDispatch, useSelector } from 'react-redux'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import {
   useAddPlayerBankAccMutation,
   useWithdrawalBankQuery,
@@ -54,7 +55,10 @@ const AddBankAccountScreen = () => {
         .catch((error) => dispatch(AlertActions.addError(error.message)))
 
       if (success) {
-        dispatch(AlertActions.addSuccess(message))
+        Toast.show({
+          type: 'success',
+          text1: message,
+        })
         actions.resetForm()
 
         back()

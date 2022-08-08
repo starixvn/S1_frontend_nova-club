@@ -12,7 +12,7 @@ import ModalProvider from './modal'
 import { NavigationProvider } from './navigation'
 import ReduxProvider from './redux'
 import { SafeArea } from './safe-area'
-import Toast from 'react-native-toast-message'
+import Toast, { BaseToast, SuccessToast } from 'react-native-toast-message'
 
 const RootView = styled(GestureHandlerRootView)(() => ({
   flex: 1,
@@ -39,7 +39,14 @@ export function Provider({ children }: { children: React.ReactNode }) {
                     <RootModal />
                     <App />
                     <View sx={{ zIndex: 999 }}>
-                      <Toast position="bottom" />
+                      <Toast
+                        position="bottom"
+                        config={{
+                          success: (props) => (
+                            <SuccessToast {...props} text1NumberOfLines={2} />
+                          ),
+                        }}
+                      />
                     </View>
                   </ContextualNavigationProvider>
                 </ModalProvider>

@@ -38,11 +38,7 @@ const ProfileUser = () => {
         sx={{ mr: '$2', bg: 'white' }}
       />
       <ViewTextWrapper>
-        <Text
-          numberOfLines={1}
-          variant="sm"
-          sx={{ color: '$PaleBlue', fontWeight: 'bold' }}
-        >
+        <Text variant="sm" sx={{ color: '$PaleBlue', fontWeight: 'bold' }}>
           {t('common.hello')}
         </Text>
         <Text numberOfLines={1} variant="sm" sx={{ color: '#D6D5D5' }}>
@@ -52,23 +48,23 @@ const ProfileUser = () => {
           sx={{
             flex: 1,
             flexDirection: 'row',
-            justifyContent: 'space-between',
             alignItems: 'center',
           }}
         >
           <Text
+            selectable
             numberOfLines={1}
             variant="sm"
-            sx={{ fontSize: 12, color: '#D6D5D5' }}
+            sx={{ fontSize: 12, color: 'grey' }}
           >
             {referralCode ?? ' '}
           </Text>
           <IconButton
             name="copy"
             color={'$lightCyan'}
-            size={18}
+            size={16}
             onPress={handleCopy}
-            sx={{ mr: '$2' }}
+            sx={{ ml: '$2' }}
           />
         </View>
       </ViewTextWrapper>

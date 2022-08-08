@@ -31,6 +31,7 @@ import { Button } from './form/Button'
 import GradientBox from './GradientBox'
 import Icon from './Icon'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
+import IconButton from './form/IconButton'
 
 const GradientTextBoxContext = createContext<{ labelWidth: number }>({
   labelWidth: 0.8,
@@ -100,22 +101,22 @@ const TextFieldLabel = ({
             justifyContent: 'space-between',
           }}
         >
-          <StyledTextValue numberOfLines={1} sx={{ flex: 1, ...textSx }}>
+          <StyledTextValue
+            selectable
+            numberOfLines={1}
+            sx={{ flex: 1, ...textSx }}
+          >
             {value}
           </StyledTextValue>
 
           {copy && (
-            <Button
-              variant="sm"
-              rounded
-              fill={{ type: 'border', color: '$lightNavyBlue' }}
-              containerStyle={{ px: '$2' }}
-              onPress={() => {
-                copyToClipboard(value)
-              }}
-            >
-              <Button.Label>{t('common.copy')}</Button.Label>
-            </Button>
+            <IconButton
+              name="copy"
+              color={'$lightCyan'}
+              size={18}
+              onPress={() => copyToClipboard(value)}
+              sx={{ ml: '$2' }}
+            />
           )}
         </View>
       </StyledViewRow>
@@ -248,7 +249,7 @@ const TextFieldSelect = ({
                 selection={{ start: 0 }}
                 {..._input}
               />
-              <Icon name="chevdown" size={25} />
+              <Icon name="chevdown" size={18} />
             </View>
           </StyledViewRow>
         </TouchableWithoutFeedback>

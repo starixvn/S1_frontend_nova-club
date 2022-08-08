@@ -62,7 +62,6 @@ const StyledViewTitle = styled(View)(() => ({
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'center',
-  mb: '$2',
 }))
 
 const StyledTextTitle = styled(Text)(() => ({

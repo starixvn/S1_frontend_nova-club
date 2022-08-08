@@ -30,7 +30,7 @@ const Accordian = ({ isExpandable = false, label, children }) => {
               duration: 350,
             }}
           >
-            <Icon name="chevdown" size={25} />
+            <Icon name="chevdown" size={20} />
           </MotiView>
         )}
       </View>

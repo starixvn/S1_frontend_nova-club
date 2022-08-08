@@ -8,6 +8,7 @@ import Modal from 'app/components/modal'
 import ModalContent from './ModalContent'
 import ModalWrapper from './ModalWrapper'
 import { AlertActions } from 'app/store/alert.slice'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 
 type PlayerBankDeleteModalProps = {
   //   bank: PlayerBankResult
@@ -43,7 +44,10 @@ const PlayerBankDeleteModal = ({ modal: { closeModal, getParam } }) => {
         })
 
       if (success) {
-        dispatch(AlertActions.addSuccess(message))
+        Toast.show({
+          type: 'success',
+          text1: message,
+        })
       }
     } catch (e) {
       dispatch(AlertActions.addError('status.systemError'))
