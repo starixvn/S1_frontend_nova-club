@@ -3,7 +3,7 @@ import RootModal from 'app/components/modal/RootModal'
 import App from 'app/features/App'
 import GameLauncher from 'app/features/games/GameLauncher'
 import ContextualNavigationProvider from 'app/navigation/web/ContextualNavigation'
-import { styled } from 'dripsy'
+import { styled, View } from 'dripsy'
 import { useKeepAwake } from 'expo-keep-awake'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { Dripsy } from './dripsy'
@@ -38,7 +38,9 @@ export function Provider({ children }: { children: React.ReactNode }) {
                     <GameLauncher />
                     <RootModal />
                     <App />
-                    <Toast position="bottom" />
+                    <View sx={{ zIndex: 999 }}>
+                      <Toast position="bottom" />
+                    </View>
                   </ContextualNavigationProvider>
                 </ModalProvider>
               </NavigationProvider>

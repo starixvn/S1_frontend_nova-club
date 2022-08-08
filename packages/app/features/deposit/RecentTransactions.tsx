@@ -72,10 +72,6 @@ const TableItem = ({ item }) => {
   const status = ReportDepositStatusOptions.find(
     (el) => t(el.label) === item.status
   )?.value
-  console.log(
-    '🚀 ~ file: RecentTransactions.tsx ~ line 72 ~ TableItem ~ status',
-    status
-  )
 
   return (
     <GradientBox>

@@ -49,9 +49,7 @@ const AlertModal = ({ modal: { addListener, closeModal, closeAllModals } }) => {
     if (typeof onDismiss === 'function') onDismiss()
     else dispatch(AlertActions.dismiss())
 
-    setTimeout(() => {
-      dispatch(AlertActions.next())
-    }, 200)
+    dispatch(AlertActions.next())
   }
 
   return (

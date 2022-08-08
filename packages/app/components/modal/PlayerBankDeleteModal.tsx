@@ -43,9 +43,7 @@ const PlayerBankDeleteModal = ({ modal: { closeModal, getParam } }) => {
         })
 
       if (success) {
-        setTimeout(() => {
-          dispatch(AlertActions.addSuccess(message))
-        }, 500)
+        dispatch(AlertActions.addSuccess(message))
       }
     } catch (e) {
       dispatch(AlertActions.addError('status.systemError'))
