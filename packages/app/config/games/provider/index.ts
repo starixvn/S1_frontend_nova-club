@@ -21,7 +21,7 @@ const enum PROVIDER_NAME {
   TCG,
   TFGM,
   SBO,
-  IM,
+  IM1,
 }
 
 export const PROVIDER_LOGO: { [key in keyof typeof PROVIDER_NAME] } = {
@@ -113,8 +113,8 @@ export const PROVIDER_LOGO: { [key in keyof typeof PROVIDER_NAME] } = {
     provider_code: 'SBO',
     image: require('../../../assets/images/provider/SBO_BET.png'),
   },
-  IM: {
-    provider_code: 'IM',
+  IM1: {
+    provider_code: 'IM1',
     image: require('../../../assets/images/provider/IM.png'),
   },
 }
@@ -142,7 +142,7 @@ const ProviderLogo = [
   PROVIDER_LOGO.TFGM,
   PROVIDER_LOGO.EVOL,
   PROVIDER_LOGO.SBO,
-  PROVIDER_LOGO.IM,
+  PROVIDER_LOGO.IM1,
 ]
 
 export const getProviderLogo = (code: string) => {
