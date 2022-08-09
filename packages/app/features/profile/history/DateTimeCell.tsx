@@ -7,11 +7,7 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
 dayjs.extend(customParseFormat)
 
 const DateTimeCell = ({ date }) => {
-  const is12HourFormat = dayjs(date, 'YYYY-MM-DD HH:mm:ss A').isValid()
-
-  const dateInstance = is12HourFormat
-    ? dayjsTz(date, 'YYYY-MM-DD HH:mm:ss A')
-    : dayjsTz(date)
+  const dateInstance = dayjsTz(date)
 
   return (
     <>

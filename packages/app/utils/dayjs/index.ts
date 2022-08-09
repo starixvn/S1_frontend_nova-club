@@ -1,22 +1,20 @@
+import { TIMEZONE } from 'app/constant/timezone'
 import dayjs, { ConfigType, Dayjs } from 'dayjs'
 import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
+import { Currency } from '../constant'
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
-// Asia/Kuala_Lumpur
-dayjs.tz.setDefault('Asia/Ho_Chi_Minh')
 
-function dayjsTz(date?: ConfigType, timezone?: string): Dayjs
-
-function dayjsTz(
-  date: ConfigType = dayjs(),
-  format: string = '',
-  timezone?: string
-): Dayjs {
+function dayjsTz(date: ConfigType = dayjs(), timezone?: string): Dayjs {
   // const { data } = playerApi.endpoints.playerProfile.select()(store.getState())
-  // console.log(data?.data?.currency)
-  return dayjs.tz(date, format, timezone)
+  // TODO: Should get from `playerProfile` currency
+  const currentPlayerCurrency = Currency.VND
+
+  const selectedTimezone = timezone || TIMEZONE[currentPlayerCurrency]
+
+  return dayjs(date).tz(selectedTimezone)
 }
 
 export default dayjsTz
