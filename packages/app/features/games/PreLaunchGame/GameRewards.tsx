@@ -1,9 +1,62 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
+import { Currency } from 'app/utils/constant'
 import { styled, Text, View } from 'dripsy'
+import { useMemo } from 'react'
+import { useCommissionTableQuery } from 'services/contentApi'
+import { usePlayerProfileQuery } from 'services/playerApi'
+
+const MASTER_NAME = 'MASTER'
 
 const GameRewards = () => {
   const { t } = useLocalization()
+
+  const { data: playerData } = usePlayerProfileQuery()
+  const currency = playerData?.data?.currency as Currency
+
+  const { gameTypeCode, providerCode } = useAppSelector(
+    (state) => state.gameLauncher
+  )
+  const { data: commissionData } = useCommissionTableQuery({
+    currency,
+  })
+  const commisions = useMemo(
+    () => commissionData?.data || [],
+    [commissionData?.data]
+  )
+
+  const providerCommission = useMemo(
+    () =>
+      commisions.find((commission) => {
+        const { system_code, game_type_code } = commission
+
+        return system_code === providerCode && game_type_code === gameTypeCode
+      }),
+    [commisions, gameTypeCode, providerCode]
+  )
+
+  const masterCommission = useMemo(
+    () =>
+      commisions.find((commission) => {
+        return commission.system_code === MASTER_NAME
+      }),
+    [commisions]
+  )
+
+  const { cash_player } = providerCommission || {}
+
+  const getReward = () => {
+    if (typeof providerCode === 'undefined') {
+      return '-'
+    }
+
+    if (typeof providerCommission === 'undefined') {
+      return masterCommission?.cash_player || '-'
+    }
+
+    return cash_player
+  }
 
   return (
     <StyledView>
@@ -15,7 +68,9 @@ const GameRewards = () => {
       >
         <Text sx={{ color: '#6397B7', py: '$2a', fontSize: 14 }}>
           {t('game.reward')}:{' '}
-          <Text sx={{ color: '#FF7070', fontSize: 14 }}>0.5%</Text>
+          <Text
+            sx={{ color: '#FF7070', fontSize: 14 }}
+          >{`${getReward()}%`}</Text>
         </Text>
       </DripsyGradient>
     </StyledView>

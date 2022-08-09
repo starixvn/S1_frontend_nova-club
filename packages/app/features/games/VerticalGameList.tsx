@@ -32,7 +32,7 @@ export default function VerticalGameList({
   const locale = useAppSelector((s) => s.setting.locale)
 
   const renderItem = ({ item }: { item: Game }) => {
-    const { gc, gpc, img, tags, name } = item
+    const { gc, gpc, gtc, img, tags, name } = item
     const imageUrl = `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${img}`
     const isNewGame = tags.includes(GAME_TAGS.NEW)
     const isHotGame = tags.includes(GAME_TAGS.HOT)
@@ -57,6 +57,7 @@ export default function VerticalGameList({
             sx={{ m: itemSpace }}
             providerCode={gpc}
             gameCode={gc}
+            gameTypeCode={gtc}
             image={{ uri: imageUrl }}
             width={contentWidth}
             isNewGame={isNewGame}

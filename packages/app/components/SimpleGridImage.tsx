@@ -1,6 +1,4 @@
 import { GAMES } from 'app/config/games/games.type'
-import { HOME_PADDING } from 'app/constant/sizes'
-import useContainerDimension from 'app/hooks/useContainerDimension'
 import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
 import { GameLauncherActions } from 'app/store/gameLauncher.slice'
@@ -17,6 +15,7 @@ type GamesProps = Omit<GAMES, 'gameName'> & {
   desktop?: boolean
   isHotGame?: boolean
   isNewGame?: boolean
+  gameTypeCode?: string
 }
 
 export const GAME_IMAGE_RATIO = 325 / 315
@@ -32,6 +31,7 @@ const SimpleGridImage: FC<GamesProps> = ({
   desktop,
   isHotGame,
   isNewGame,
+  gameTypeCode,
 }) => {
   const dispatch = useDispatch()
   const urlImage = typeof image == 'string' && image.indexOf('http') > -1
@@ -48,6 +48,7 @@ const SimpleGridImage: FC<GamesProps> = ({
               providerCode: providerCode,
               image,
               gameName: title,
+              gameTypeCode,
             })
           )
         }}

@@ -6,6 +6,7 @@ export interface LaunchGamePayload {
   gameName?: string
   desktopMode?: boolean
   image?: string
+  gameTypeCode?: string
 }
 export type GameLauncherState = LaunchGamePayload & {}
 // export const DomainListHintPostfix = '-DomainListHint'

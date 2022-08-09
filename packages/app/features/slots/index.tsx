@@ -21,7 +21,7 @@ const Slots = () => {
 
   const { contentWidth, itemSpace, containerSpace } = useGameGridSize(3)
   const renderSlotItem = ({ item }: { item: GameConfig }) => {
-    const { game_code, game_provider_code, game_name } = item
+    const { game_code, game_provider_code, game_name, game_type_code } = item
     const imageUrl = `${MEDIA_DOMAIN}${CONTENT_URI}/games/${game_provider_code.toLowerCase()}/${game_code.toLowerCase()}.${
       ProviderImageExtension[game_provider_code.toLowerCase()] ?? 'jpg'
     }`
@@ -35,6 +35,7 @@ const Slots = () => {
         image={imageUrl}
         title={game_name + ` (${game_code})`}
         width={contentWidth}
+        gameTypeCode={game_type_code}
       />
     )
   }

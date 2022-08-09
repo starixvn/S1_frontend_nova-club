@@ -40,7 +40,7 @@ const Games = () => {
     })
 
   const renderSlotItem = ({ item }: Parameters<ListRenderItem<Game>>[0]) => {
-    const { gc, gpc, img, tags } = item
+    const { gc, gpc, gtc, img, tags } = item
     const imageUrl = `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${img}`
     const isNewGame = tags.includes(GAME_TAGS.NEW)
     const isHotGame = tags.includes(GAME_TAGS.HOT)
@@ -69,6 +69,7 @@ const Games = () => {
             width={contentWidth}
             isNewGame={isNewGame}
             isHotGame={isHotGame}
+            gameTypeCode={gtc}
           />
         </MotiView>
       </AnimatePresence>

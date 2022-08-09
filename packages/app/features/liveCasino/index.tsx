@@ -1,32 +1,16 @@
-import Select from 'app/components/form/Select'
+import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Page from 'app/components/layout/Page'
 import SimpleGridImage from 'app/components/SimpleGridImage'
-import { HOME_PADDING } from 'app/constant/sizes'
-import useContainerDimension from 'app/hooks/useContainerDimension'
 import useGameGridSize from 'app/hooks/useGameGridSize'
 import useLocalization from 'app/provider/localization'
-import {
-  ActivityIndicator,
-  Image,
-  ScrollView,
-  styled,
-  Text,
-  useSx,
-  View,
-} from 'dripsy'
-import React, { useRef } from 'react'
-import { FlatList, Platform } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import ListSectionHeader from '../ListSectionHeader'
-import useLiveCasinoFilter from '../../hooks/game/useLiveCasinoFilter'
-import { CMS_CONTENT_URI, CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { Game, GameConfig } from 'services/contentApi.type'
-import SelectButton from 'app/components/form/Select/SelectButton'
-import ActionSheet from 'react-native-actions-sheet'
-import { useGetGameListQuery } from 'services/contentApi'
 import { Currency, GAME_TYPE_CODE } from 'app/utils/constant'
+import { ActivityIndicator, styled, useSx, View } from 'dripsy'
+import React from 'react'
+import { FlatList, Platform } from 'react-native'
+import { useGetGameListQuery } from 'services/contentApi'
+import { Game } from 'services/contentApi.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import { useAppSelector } from 'app/provider/redux/store'
+import ListSectionHeader from '../ListSectionHeader'
 
 const LiveCasino = () => {
   const { t } = useLocalization()
@@ -67,7 +51,7 @@ const LiveCasino = () => {
   // }
 
   const renderItem = ({ item }: { item: Game }) => {
-    const { gc, gpc, img, name } = item
+    const { gc, gpc, gtc, img, name } = item
     const imageUrl = `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${img}`
     return (
       <SimpleGridImage
@@ -76,6 +60,7 @@ const LiveCasino = () => {
         gameCode={gc}
         image={imageUrl}
         width={contentWidth}
+        gameTypeCode={gtc}
       />
     )
   }
