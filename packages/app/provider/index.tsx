@@ -1,5 +1,6 @@
 import { PortalProvider } from '@gorhom/portal'
 import RootModal from 'app/components/modal/RootModal'
+import RootToast from 'app/components/RootToast'
 import App from 'app/features/App'
 import GameLauncher from 'app/features/games/GameLauncher'
 import ContextualNavigationProvider from 'app/navigation/web/ContextualNavigation'
@@ -12,7 +13,6 @@ import ModalProvider from './modal'
 import { NavigationProvider } from './navigation'
 import ReduxProvider from './redux'
 import { SafeArea } from './safe-area'
-import Toast, { BaseToast, SuccessToast } from 'react-native-toast-message'
 
 const RootView = styled(GestureHandlerRootView)(() => ({
   flex: 1,
@@ -32,24 +32,15 @@ export function Provider({ children }: { children: React.ReactNode }) {
           <LocalizationProviderRedux>
             <SafeArea>
               <NavigationProvider>
-                <ModalProvider>
-                  <ContextualNavigationProvider>
+                <ContextualNavigationProvider>
+                  <ModalProvider>
                     <PortalProvider>{children}</PortalProvider>
                     <GameLauncher />
                     <RootModal />
                     <App />
-                    <View sx={{ zIndex: 999 }}>
-                      <Toast
-                        position="bottom"
-                        config={{
-                          success: (props) => (
-                            <SuccessToast {...props} text1NumberOfLines={2} />
-                          ),
-                        }}
-                      />
-                    </View>
-                  </ContextualNavigationProvider>
-                </ModalProvider>
+                    <RootToast />
+                  </ModalProvider>
+                </ContextualNavigationProvider>
               </NavigationProvider>
             </SafeArea>
           </LocalizationProviderRedux>

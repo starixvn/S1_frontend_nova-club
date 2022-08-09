@@ -7,3 +7,9 @@ export type UpdateTransferPinArgs = {
   pin: string
   cpin: string
 }
+
+export type RecoverPinArgs = {
+  cpin: string
+  pin: string
+  verify_code: string
+}

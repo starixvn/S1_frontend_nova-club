@@ -32,6 +32,7 @@ const CustomTabBar = (props) => {
           outputRange: inputRange.map((i) => (i === tabIndex ? 1 : 0.3)),
         })
         const colorGradient = ['#066D9A', '#014F71']
+
         return (
           <Animated.View
             style={{
@@ -56,7 +57,6 @@ const CustomTabBar = (props) => {
                 <Text
                   sx={{
                     fontWeight: 'bold',
-                    textTransform: 'capitalize',
                     py: '$7',
                   }}
                 >

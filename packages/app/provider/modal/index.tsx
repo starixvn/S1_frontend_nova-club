@@ -1,5 +1,6 @@
 import AlertModal from 'app/components/modal/AlertModal'
 import DepositConfirmationModal from 'app/components/modal/DepositConfirmationModal'
+import PinModal from 'app/components/modal/PinModal'
 import PlayerBankDeleteModal from 'app/components/modal/PlayerBankDeleteModal'
 import ReferralModal from 'app/components/modal/ReferralModal'
 import WithdrawalConfirmationModal from 'app/components/modal/WithdrawalConfirmationModal'
@@ -17,6 +18,10 @@ import {
 const modalConfig: ModalStackConfig = {
   AlertModal: AlertModal,
   DepositConfirmationModal: DepositConfirmationModal,
+  PinModal: {
+    modal: PinModal,
+    position: 'bottom',
+  },
   PlayerBankDeleteModal: PlayerBankDeleteModal,
   ReferralModal: ReferralModal,
   WithdrawalConfirmationModal: WithdrawalConfirmationModal,

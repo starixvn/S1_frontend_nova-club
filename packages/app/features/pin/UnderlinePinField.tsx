@@ -51,8 +51,7 @@ const UnderlinePinField = ({
     }
 
     return (
-      <Text
-        key={index}
+      <View
         style={[
           styles.cell,
           isFocused && styles.focusCell,
@@ -60,8 +59,10 @@ const UnderlinePinField = ({
         ]}
         onLayout={getCellOnLayoutHandler(index)}
       >
-        {textChild}
-      </Text>
+        <Text key={index} style={[styles.text, errorMsg ? styles.error : {}]}>
+          {textChild}
+        </Text>
+      </View>
     )
   }
 
@@ -74,6 +75,7 @@ const UnderlinePinField = ({
     <View>
       <Text sx={{ mx: '$4', mt: '$4' }}>{title}</Text>
       <CodeField
+        key={title}
         ref={ref}
         {...props}
         // Use `caretHidden={false}` when users can't paste a text value, because context menu doesn't appear
@@ -106,17 +108,19 @@ const styles = StyleSheet.create({
     height: CELL_SIZE,
     width: CELL_SIZE,
     aspectRatio: 1,
-    lineHeight: CELL_SIZE - 5,
-    ...Platform.select({ web: { lineHeight: 50 } }),
-    fontSize: 30,
-    textAlign: 'center',
     borderTopLeftRadius: CELL_BORDER_RADIUS,
     borderTopRightRadius: CELL_BORDER_RADIUS,
-    color: '#3557b7',
     backgroundColor: '#fff',
 
     borderBottomColor: '#000',
     borderBottomWidth: 1,
+  },
+  text: {
+    lineHeight: CELL_SIZE - 5,
+    ...Platform.select({ web: { lineHeight: 50 } }),
+    fontSize: 30,
+    textAlign: 'center',
+    color: '#3557b7',
   },
   focusCell: {
     borderBottomColor: '#00d9ff',
