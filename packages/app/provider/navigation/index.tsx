@@ -79,6 +79,7 @@ export function NavigationProvider({
               MessagesPage: '/messages',
               TransferScanner: '/transfer-scanner',
               Transfer: '/transfer',
+              CreatePin: '/pin/create-pin',
             },
           },
         }),

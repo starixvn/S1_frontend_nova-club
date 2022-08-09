@@ -36,6 +36,7 @@ const _contextualComponents = {
   'customer-support': () => import('../../features/customerSupport'),
   'transfer-scanner': () => import('../../features/transferScanner'),
   transfer: () => import('../../features/transferScanner/transfer'),
+  'create-pin': () => import('../../features/pin/CreatePinScreen'),
   '/profile/overview': () => import('../../features/profile/overview'),
 }
 

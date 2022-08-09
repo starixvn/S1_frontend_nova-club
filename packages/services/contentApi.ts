@@ -73,7 +73,10 @@ const contentEndpoints = (builder: EndpointBuilderType) => {
         },
       }),
     }),
-    affiliateUsername: builder.query<IResponse<{ username: string }>, string>({
+    affiliateUsername: builder.query<
+      IResponse<{ username: string; currency: string }>,
+      string
+    >({
       query: (trackingCode) => ({
         url: `/static_api/referral/${trackingCode}`,
         method: 'GET',

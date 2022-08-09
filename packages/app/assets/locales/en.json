@@ -1,5 +1,5 @@
 {
-  "Copied to clipboard": "common.copied",
+  "ID": "common.id",
   "auth": {
     "accountReg": "Account Registration",
     "accountVerification": "Account Verification",
@@ -206,6 +206,7 @@
     "bankAccount": "Bank Account",
     "changePassword": "Change Password",
     "commisionTable": "Commision Table",
+    "createPin": "Create PIN",
     "customerSupport": "Customer Support",
     "deposit": "Deposit",
     "depositConfirmation": "Deposit Confirmation",
@@ -265,6 +266,15 @@
       "n5": "If there is any discrepancy or you may have any other further withdrawal inquiries, kindly contact our 24/7 LIVE CHAT. Thank you."
     }
   },
+  "pin": {
+    "confirmPin": "Confirm PIN",
+    "createPin": "Create Pin",
+    "headerText1": "Create 6-digit PIN",
+    "headerText2": "Secure your transfer with PIN",
+    "note1": "PIN is required for transfer",
+    "oldPin": "Old Pin",
+    "pin": "PIN"
+  },
   "profile": {
     "details": {
       "currency": "Currency",
@@ -292,7 +302,6 @@
     "scanGallery": "Scan from gallery"
   },
   "referral": {
-    "referralId": "Referral ID",
     "earn": "Share & Earn",
     "friend": "Friend Referral",
     "link": "Referral Link"
@@ -329,6 +338,7 @@
     "amountLessThan": "Amount cannot be less than %{min}",
     "dailyLimitReached": "Your Daily Limit Reached",
     "email": "Mail format is wrong",
+    "enterId": "Please enter ID",
     "erc20Format": "Must be ERC-20 compatible wallet address",
     "exceedAvailableTransferBalance": "Exceed available transfer balance %{balance}",
     "insufficientBalance": "Insufficient balance",
@@ -340,12 +350,13 @@
     "otpLength": "OTP must be 6-digit number",
     "password": "Password must be 6-15 characters, contain both alphanumeric and a special characters (!@#$%^&*).",
     "passwordMinMaxLength": "Password must be 6-15 characters only",
+    "pin": "Pin must be numberic only",
+    "pinNotMatch": "Both PINs must be the same",
     "realName": "Please enter your real name.",
     "required": "%{field} is required",
     "usdtFormat": "Must be ERC-20 / TRC-20 compatible wallet address",
     "userNameMinMaxLength": "Username must be 6-18 characters only",
-    "username": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only",
-    "enterReferral": "Please enter referral ID"
+    "username": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only"
   },
   "withdrawal": {
     "withdrawTo": "Withdraw To"
