@@ -1,4 +1,3 @@
-import { GAMES } from 'app/config/games/games.type'
 import { HOME_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import BouncePressable from 'app/pressable/BouncePressable'

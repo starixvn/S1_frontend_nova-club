@@ -111,7 +111,7 @@ const MenuRow = ({ setFilterGames, gameList }: MenuRowProps) => {
             <View sx={{ position: 'relative' }}>
               <MotiView
                 animate={{
-                  scale: index === selectedIndex ? 1.2 : 1,
+                  scale: index === selectedIndex ? 1 : 0.85,
                 }}
                 exit={{
                   scale: 1,
@@ -129,10 +129,10 @@ const MenuRow = ({ setFilterGames, gameList }: MenuRowProps) => {
                     type: 'spring',
                   }}
                   animate={{
-                    scale: index === selectedIndex ? 1.3 : 1,
+                    scale: index === selectedIndex ? 0.95 : 0.7,
                   }}
                   exit={{
-                    scale: 1,
+                    scale: 0.95,
                   }}
                   style={{
                     width: '100%',
@@ -156,11 +156,10 @@ const MenuRow = ({ setFilterGames, gameList }: MenuRowProps) => {
 }
 
 const StyledImage = styled(Image)({
-  height: [75, 110],
-  width: [75, 110],
+  height: [80, 100],
+  width: [80, 100],
 })
 const StyledBackgroundImage = styled(Image)({
-  transform: [{ scale: 0.7 }],
   width: '100%',
   height: '100%',
 })

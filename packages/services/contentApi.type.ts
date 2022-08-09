@@ -1,4 +1,5 @@
 import { LANGUAGE_CODE } from 'app/constant/language'
+import { GAME_TYPE_CODE } from 'app/utils/constant'
 import { ImageSourcePropType } from 'react-native'
 
 export interface BannerResult {
@@ -79,7 +80,7 @@ export interface GetGameListQueryArgs {
 export interface Game {
   gc: string
   gpc: string
-  gtc: string
+  gtc: GAME_TYPE_CODE
   img: string
   name: Record<LANGUAGE_CODE, string>
   tags: string[]

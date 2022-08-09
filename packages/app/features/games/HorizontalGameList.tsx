@@ -1,13 +1,9 @@
 import { DraggableScrollView } from 'app/components/DraggableScrollView'
 import SimpleGridImage from 'app/components/SimpleGridImage'
-import { GAMES } from 'app/config/games/games.type'
 import { HOME_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
-import BouncePressable from 'app/pressable/BouncePressable'
-import { GameLauncherActions } from 'app/store/gameLauncher.slice'
-import { Image } from 'dripsy'
 import { useDispatch } from 'react-redux'
-import { Game, GameConfig } from 'services/contentApi.type'
+import { Game } from 'services/contentApi.type'
 
 const HorizontalGameList = ({ data }: { data: Game[] }) => {
   const { width, height } = useContainerDimension()

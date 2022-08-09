@@ -7,11 +7,15 @@ import { ProviderImageExtension } from 'app/config/games/extension'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useGameGridSize from 'app/hooks/useGameGridSize'
 import useLocalization from 'app/provider/localization'
+import { Currency, GAME_TYPE_CODE } from 'app/utils/constant'
 import { ActivityIndicator, Row, Text, useSx, View } from 'dripsy'
 import React from 'react'
 import { FlatList } from 'react-native'
+import { useGetGameListQuery } from 'services/contentApi'
 import { GameConfig } from 'services/contentApi.type'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import useSlotGamesFilter from '../../hooks/game/useSlotGamesFilter'
+import VerticalGameList from '../games/VerticalGameList'
 import ListSectionHeader from '../ListSectionHeader'
 
 const Slots = () => {
@@ -20,24 +24,6 @@ const Slots = () => {
   const { width } = useContainerDimension()
 
   const { contentWidth, itemSpace, containerSpace } = useGameGridSize(3)
-  const renderSlotItem = ({ item }: { item: GameConfig }) => {
-    const { game_code, game_provider_code, game_name } = item
-    const imageUrl = `${MEDIA_DOMAIN}${CONTENT_URI}/games/${game_provider_code.toLowerCase()}/${game_code.toLowerCase()}.${
-      ProviderImageExtension[game_provider_code.toLowerCase()] ?? 'jpg'
-    }`
-
-    return (
-      <SimpleGridImage
-        sx={{ m: itemSpace }}
-        gameName={game_name}
-        providerCode={game_provider_code}
-        gameCode={game_code}
-        image={imageUrl}
-        title={game_name + ` (${game_code})`}
-        width={contentWidth}
-      />
-    )
-  }
 
   const {
     providerSelection,
@@ -51,94 +37,77 @@ const Slots = () => {
   } = useSlotGamesFilter()
 
   const isGameReady = !isFetching
+
   return (
-    <PageSafeArea disableScrollView sx={{ bg: '$background' }}>
-      <ListSectionHeader
-        title={t('game.category.slots')}
-        bgColor="purple"
-        iconName="sl"
-      >
-        {isGameReady ? (
-          <Row sx={{ flex: 1, justifyContent: 'flex-end' }}>
-            <Select
-              actionSheetProps={{ id: 'slotType' }}
-              headerTitle={t('menu.tab.gameType')}
-              buttonTitle={selectedSlotType?.label ?? 'Click here to open'}
-              buttonProps={{
-                sx: {
-                  flex: 0.3,
-                },
-                isActive: false,
-                buttonContentProps: {
-                  gradient: 'plainLightBlue',
+    <VerticalGameList
+      isLoading={isFetching}
+      games={filteredGames}
+      ListHeaderComponent={
+        <ListSectionHeader
+          title={t('game.category.slots')}
+          bgColor="purple"
+          iconName="sl"
+        >
+          {isGameReady ? (
+            <Row sx={{ flex: 1, justifyContent: 'flex-end' }}>
+              <Select
+                actionSheetProps={{ id: 'slotType' }}
+                headerTitle={t('menu.tab.gameType')}
+                buttonTitle={selectedSlotType?.label ?? 'Click here to open'}
+                buttonProps={{
                   sx: {
-                    borderRadius: 20,
-                    minHeight: 40,
+                    flex: 0.3,
                   },
-                },
-                iconProps: {
-                  size: 18,
-                },
-              }}
-              data={slotTypeSelection}
-              setSelectedValue={setSelectedSlotType}
-            />
-            <SelectSquare
-              buttonTitle={selectedProvider.label ?? 'Click here to open'}
-              buttonProps={{
-                sx: {
-                  mx: '$2',
-                  flex: 0.45,
-                },
-                isActive: false,
-                buttonContentProps: {
-                  gradient: 'plainLightBlue',
+                  isActive: false,
+                  buttonContentProps: {
+                    gradient: 'plainLightBlue',
+                    sx: {
+                      borderRadius: 20,
+                      minHeight: 40,
+                    },
+                  },
+                  iconProps: {
+                    size: 16,
+                  },
+                }}
+                data={slotTypeSelection}
+                setSelectedValue={setSelectedSlotType}
+              />
+              <SelectSquare
+                buttonTitle={selectedProvider.label ?? 'Click here to open'}
+                buttonProps={{
                   sx: {
-                    borderRadius: 20,
-                    minHeight: 40,
+                    mx: '$2',
+                    flex: 0.45,
                   },
-                },
-                iconProps: {
-                  size: 18,
-                },
-              }}
-              _dataList={{
-                data: providerSelection,
-                setSelectedValue: setSelectedProvider,
-              }}
-              _actionSheet={{
-                id: 'slot provider',
-                headerTitle: t('menu.tab.provider'),
-              }}
-            />
-          </Row>
-        ) : (
-          <View />
-        )}
-      </ListSectionHeader>
-      <FlatList
-        numColumns={3}
-        style={sx({ bg: '$background', flex: 1 })}
-        contentContainerStyle={{ padding: containerSpace }}
-        // onEndReached={loadMore}
-        data={filteredGames}
-        // extraData={displayList}
-        keyExtractor={(item) => {
-          // console.log('code ', item.game_code + item.game_provider_code)
-          return item.game_code + item.game_provider_code + item.game_name
-        }}
-        renderItem={renderSlotItem}
-        ListEmptyComponent={
-          isFetching ? (
-            <ActivityIndicator color={'$lightCyan'} />
+                  isActive: false,
+                  buttonContentProps: {
+                    gradient: 'plainLightBlue',
+                    sx: {
+                      borderRadius: 20,
+                      minHeight: 40,
+                    },
+                  },
+                  iconProps: {
+                    size: 16,
+                  },
+                }}
+                _dataList={{
+                  data: providerSelection,
+                  setSelectedValue: setSelectedProvider,
+                }}
+                _actionSheet={{
+                  id: 'slot provider',
+                  headerTitle: t('menu.tab.provider'),
+                }}
+              />
+            </Row>
           ) : (
-            <Text sx={{ textAlign: 'center' }}>
-              {t('common.noInfoAvailable')}
-            </Text>
-          )
-        }
-      />
-    </PageSafeArea>
+            <View />
+          )}
+        </ListSectionHeader>
+      }
+    />
   )
 }
 

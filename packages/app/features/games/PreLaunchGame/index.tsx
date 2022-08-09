@@ -8,6 +8,7 @@ import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { AlertActions } from 'app/store/alert.slice'
 import { LaunchGamePayload } from 'app/store/gameLauncher.slice'
 import { SettingActions } from 'app/store/setting.slice'
+import { GAME_TYPE_CODE } from 'app/utils/constant'
 import { getErrorMessage } from 'app/utils/validation'
 import { View } from 'dripsy'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
@@ -263,11 +264,12 @@ const PreLaunchGame = ({}) => {
   } = useGameBalanceRule()
 
   const { top } = useSafeArea()
-  const isSaba = [
-    t('game.name.sports'),
-    t('game.name.sbo'),
-    t('game.name.btiSports'),
-  ].includes(gameName || '')
+  console.log(
+    'gameLauncherState.gameType',
+    gameLauncherState.gameType,
+    GAME_TYPE_CODE.SPORTS
+  )
+  const isSport = gameLauncherState.gameType === GAME_TYPE_CODE.SPORTS
 
   async function onLauchGame() {
     setIsLaunchingGame(true)
@@ -327,7 +329,7 @@ const PreLaunchGame = ({}) => {
     <DripsyGradient colors={['#164672', '#0D2035']} sx={{ flex: 1, pt: top }}>
       <TopHeader providerCode={currentProvider} />
       <GameRewards />
-      {isSaba && (
+      {isSport && (
         <UserAgreement
           onAgree={(e) => {
             setAgree(e)
@@ -345,7 +347,7 @@ const PreLaunchGame = ({}) => {
             isLaunchingGame
           }
           disabled={
-            (isSaba && !agree) ||
+            (isSport && !agree) ||
             isVerifying ||
             !isBalanceReady ||
             isGameMaintenance

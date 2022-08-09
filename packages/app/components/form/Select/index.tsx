@@ -151,7 +151,7 @@ const Select = (
         sx={{ position: 'absolute', right: '$6' }}
         onPress={onActionSheetClose}
       >
-        <Icon name={'cross'} size={25}></Icon>
+        <Icon name={'cross'} size={20}></Icon>
       </Pressable>
     </DripsyGradient>
   )

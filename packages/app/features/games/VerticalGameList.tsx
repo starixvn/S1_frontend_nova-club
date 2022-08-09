@@ -1,14 +1,13 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import SimpleGridImage from 'app/components/SimpleGridImage'
-import { LANGUAGE_CODE } from 'app/constant/language'
 import useGameGridSize from 'app/hooks/useGameGridSize'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { GAME_TAGS } from 'app/utils/constant'
-import { ActivityIndicator, Text, useSx, View } from 'dripsy'
+import { View, FlatList, ActivityIndicator, Text } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
-import { ComponentProps, ComponentType } from 'react'
-import { ListRenderItem, FlatList } from 'react-native'
+import { ComponentProps } from 'react'
+import { ListRenderItem } from 'react-native'
 import { Game } from 'services/contentApi.type'
 
 type FlatListProps = Partial<ComponentProps<typeof FlatList>>
@@ -21,22 +20,21 @@ type VerticalGameListProps = FlatListProps & {
 export default function VerticalGameList({
   games,
   isLoading,
-  numColumns,
+  numColumns = 3,
   showName,
   ...rest
 }: VerticalGameListProps) {
   const { containerSpace, itemSpace, contentWidth } =
     useGameGridSize(numColumns)
   const { t } = useLocalization()
-  const sx = useSx()
   const locale = useAppSelector((s) => s.setting.locale)
 
-  const renderItem = ({ item }: { item: Game }) => {
-    const { gc, gpc, img, tags, name } = item
+  const renderItem: ListRenderItem<Game> = ({ item }) => {
+    const { gc, gpc, img, tags, name, gtc } = item
     const imageUrl = `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${img}`
     const isNewGame = tags.includes(GAME_TAGS.NEW)
     const isHotGame = tags.includes(GAME_TAGS.HOT)
-    const title = showName ? name[locale] : undefined
+    const gameName = showName ? name[locale] : undefined
     return (
       <AnimatePresence>
         <MotiView
@@ -61,7 +59,8 @@ export default function VerticalGameList({
             width={contentWidth}
             isNewGame={isNewGame}
             isHotGame={isHotGame}
-            title={title}
+            gameName={gameName}
+            gameType={gtc}
           />
         </MotiView>
       </AnimatePresence>
@@ -69,15 +68,15 @@ export default function VerticalGameList({
   }
 
   return (
-    <FlatList<Game[]>
+    <FlatList
       nestedScrollEnabled={true}
       numColumns={numColumns}
-      style={sx({ bg: '$background', flex: 1 })}
+      sx={{ bg: '$background', flex: 1 }}
       columnWrapperStyle={{ padding: containerSpace }}
       contentContainerStyle={{ paddingBottom: 20 }}
       data={games}
-      keyExtractor={(_, index) => {
-        return `${index}`
+      keyExtractor={(item: Game) => {
+        return `${item.gtc}${item.gpc}${item.gc}`
       }}
       renderItem={renderItem}
       ListEmptyComponent={
