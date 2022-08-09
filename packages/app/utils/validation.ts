@@ -3,6 +3,7 @@ import * as Yup from 'yup'
 import { isValidPhoneNum } from './phoneValidation'
 
 const ALPHANUMERIC_REGEX = RegExp(/^(?=.*[0-9])(?=.*[a-z])([a-z0-9]+)$/)
+const NUMERIC_REGEX = RegExp(/^[0-9]*$/)
 
 const validation = {
   username: Yup.string()
@@ -32,6 +33,15 @@ const validation = {
       ALPHANUMERIC_REGEX,
       'validation.password'
     ),
+
+  pin: Yup.string()
+    .required('validation.required')
+    .matches(NUMERIC_REGEX, 'validation.pin'),
+
+  confirmPin: Yup.string()
+    .required('validation.required')
+    .matches(NUMERIC_REGEX, 'validation.pin')
+    .oneOf([Yup.ref('pin'), null], 'validation.pinNotMatch'),
 
   email: Yup.string().email('validation.email').required('validation.required'),
 

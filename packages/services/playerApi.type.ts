@@ -16,6 +16,7 @@ export interface ProfileResult {
   global_auto_transfer_status: string
   language: string
   lastName: string
+  pin_exist: boolean
   player_id: number
   referral_code: string
   username: string

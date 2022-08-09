@@ -1,7 +1,7 @@
 import Header from 'app/components/common/Header'
 import { Button } from 'app/components/form/Button'
-import { PageWithBackHeader } from 'app/components/layout/Page'
 import { TextField } from 'app/components/TextField'
+import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
 import { AlertActions } from 'app/store/alert.slice'
 import { toCleanAmount, toCurrency, toRealAmount } from 'app/utils'
@@ -11,16 +11,14 @@ import { Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import {
-  useAffiliateUsernameQuery,
-  useLazyAffiliateUsernameQuery,
-} from 'services/contentApi'
+import { useLazyAffiliateUsernameQuery } from 'services/contentApi'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import {
   usePlayerBalanceQuery,
   useTransferMemberToMemberMutation,
 } from 'services/walletApi'
 import { createParam } from 'solito'
+import { MotiLink } from 'solito/moti'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 
@@ -37,7 +35,7 @@ const TransferScreen = ({
   isIDTransfer?: boolean
 }) => {
   const dispatch = useDispatch()
-  const { back } = useRouter()
+  const { push } = useRouter()
   const { t } = useLocalization()
   const [referralCode] = useParam('referralCode')
 
@@ -46,10 +44,17 @@ const TransferScreen = ({
   const { data } = usePlayerBalanceQuery(undefined, {
     refetchOnMountOrArgChange: true,
   })
-  const [fetchUsername, { data: playerData, isError, error }] =
+  const [fetchUsername, { data: userData, isError, error }] =
     useLazyAffiliateUsernameQuery()
+  const { data: playerData } = usePlayerProfileQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+    refetchOnFocus: true,
+  })
+  const currency = userData?.data?.currency as Currency
+  const isPinExist = playerData?.data?.pin_exist
 
-  const currency = playerData?.data?.currency as Currency
+  const { makeContextualHref } = useContextualRouting()
+  const toCreatePin = makeContextualHref('create-pin')
 
   const onSubmit = async (
     { referralId, realAmount }: TransferValues,
@@ -109,7 +114,11 @@ const TransferScreen = ({
     if (isError) {
       dispatch(AlertActions.addError(error))
     }
-  }, [playerData])
+  }, [userData])
+
+  useEffect(() => {
+    !isPinExist && push(toCreatePin, '/pin/create-pin')
+  }, [isPinExist])
 
   function onAmountChanged(text: string) {
     if (text != null) {
@@ -147,7 +156,7 @@ const TransferScreen = ({
             <TextField.TextInput
               label="menu.tab.idTransfer"
               _input={{
-                placeholder: t('validation.enterReferral'),
+                placeholder: t('validation.enterId'),
                 value: values.referralId,
                 onChangeText: handleChange('referralId'),
                 onBlur: handleBlur('referralId'),
@@ -156,7 +165,7 @@ const TransferScreen = ({
               error={
                 touched.referralId && errors.referralId
                   ? t(errors.referralId, {
-                      field: t('referral.referralId'),
+                      field: t('common.id'),
                     })
                   : undefined
               }
@@ -165,7 +174,7 @@ const TransferScreen = ({
           ) : (
             <TextField.Label
               label="transfer.transferTo"
-              value={playerData?.data?.username ?? ''}
+              value={userData?.data?.username ?? ''}
               textSx={{ textAlign: 'right' }}
               sx={{ my: 0 }}
             />
@@ -193,6 +202,28 @@ const TransferScreen = ({
           />
         </TextField>
 
+        <View sx={{ alignItems: 'flex-end', mx: '$4' }}>
+          <MotiLink
+            href={toCreatePin}
+            as={`/pin/createPin`}
+            animate={({ hovered, pressed }) => {
+              'worklet'
+              return {
+                scale: pressed ? 0.9 : hovered ? 1.1 : 1,
+              }
+            }}
+          >
+            <Text
+              variant="md"
+              sx={{
+                fontSize: [14, 16],
+                opacity: 0.8,
+              }}
+            >
+              {t('pin.createPin')}
+            </Text>
+          </MotiLink>
+        </View>
         <Button
           rounded
           stretch
@@ -212,6 +243,8 @@ const TransferScreen = ({
         >
           <Button.Label>{t('menu.transfer')}</Button.Label>
         </Button>
+
+        <Text sx={{ mx: '$10' }}>{t('pin.note1')}</Text>
       </View>
     </View>
   )

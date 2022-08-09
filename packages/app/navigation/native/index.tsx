@@ -28,6 +28,7 @@ import MessagesPage from 'app/features/messages'
 import LotteryPage from 'app/features/lottery'
 import TransferScreen from 'app/features/transferScanner/transfer'
 import TransferScannerScreen from 'app/features/transferScanner'
+import CreatePinScreen from 'app/features/pin/CreatePinScreen'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -54,6 +55,7 @@ const Stack = createStackNavigator<{
   Transfer: undefined
   FishingPage: undefined
   LotteryPage: undefined
+  CreatePin: undefined
 }>()
 
 export function NativeNavigation() {
@@ -172,6 +174,7 @@ export function NativeNavigation() {
       <Stack.Screen name="MessagesPage" component={MessagesPage} />
       <Stack.Screen name="TransferScanner" component={TransferScannerScreen} />
       <Stack.Screen name="Transfer" component={TransferScreen} />
+      <Stack.Screen name="CreatePin" component={CreatePinScreen} />
       <Stack.Screen name="FishingPage" component={FishingPage} />
       <Stack.Screen name="LotteryPage" component={LotteryPage} />
     </Stack.Navigator>

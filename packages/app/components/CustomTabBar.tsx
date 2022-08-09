@@ -6,10 +6,6 @@ import { TabBar } from 'react-native-tab-view'
 import { DripsyGradient } from './Gradient'
 
 const CustomTabBar = (props) => {
-  // console.log(
-  //   '🚀 ~ file: CustomTabBar.tsx ~ line 9 ~ CustomTabBar ~ props',
-  //   props
-  // )
   const { width } = useContainerDimension()
 
   return (

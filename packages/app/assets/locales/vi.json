@@ -1,5 +1,5 @@
 {
-  "Copied to clipboard": "",
+  "ID": "",
   "auth": {
     "accountReg": "Đăng ký tài khoản",
     "accountVerification": "Xác minh tài khoản",
@@ -73,6 +73,7 @@
     "password": "Mật khẩu",
     "passwordNote": "1. Mật khẩu phải là chữ và số không có ký tự đặc biệt. \nĐộ dài trừ khi 6-12 ký tự.\n2. Mật khẩu không được giống mật khẩu cũ",
     "playNow": "Bắt đầu chơi",
+    "recentlyOpened": "",
     "recentlyViewed": "Xem gần đây",
     "referenceId": "ID tham chiếu",
     "registered": "Đăng ký",
@@ -205,6 +206,7 @@
     "bankAccount": "Tài khoản ngân hàng",
     "changePassword": "Đổi Mật Khẩu",
     "commisionTable": "Bảng hoa hồng",
+    "createPin": "",
     "customerSupport": "Hỗ trợ khách hàng",
     "deposit": "Nạp tiền",
     "depositConfirmation": "Xác nhận tiền gửi",
@@ -264,6 +266,15 @@
       "n5": "Nếu có vấn đề phát sinh hoặc cần được hỗ trợ thêm về vấn đề rút tiền, vui lòng liên hệ bộ phận LIVECHAT 24/7. Xin cám ơn."
     }
   },
+  "pin": {
+    "confirmPin": "",
+    "createPin": "",
+    "headerText1": "",
+    "headerText2": "",
+    "note1": "",
+    "oldPin": "",
+    "pin": ""
+  },
   "profile": {
     "details": {
       "currency": "Tiền tệ",
@@ -307,7 +318,7 @@
     "pending": "Đang chờ",
     "processing": "Đang xử lý",
     "qrDownloadSuccess": "Tải xuống mã Qr thành công",
-    "receiptRequired": "",
+    "receiptRequired": "Biên lai là bắt buộc để gửi tiền gửi",
     "referralError": "Giới thiệu không tồn tại, vui lòng thử mã khác",
     "rejected": "Từ chối",
     "scanFailed": "Quét không thành công!",
@@ -327,6 +338,7 @@
     "amountLessThan": "Số tiền không thể nhỏ hơn %{min}",
     "dailyLimitReached": "Bạn Đã Sử Dụng Hết Hạn Mức Trong Ngày",
     "email": "Định dạng email chưa đúng",
+    "enterId": "Vui lòng nhập ID giới thiệu",
     "erc20Format": "Địa chỉ ví phải tương thích với chuẩn ERC20",
     "exceedAvailableTransferBalance": "Vượt quá số dư khả dụng %{balance}",
     "insufficientBalance": "Số dư không đủ",
@@ -338,6 +350,8 @@
     "otpLength": "OTP phải là số có 6 chữ số",
     "password": "Mật khẩu phải dài 6-15 ký tự, chứa cả chữ và số và ký tự đặc biệt (!@#$%^&*).",
     "passwordMinMaxLength": "Mật khẩu phải có 6-15 ký tự",
+    "pin": "",
+    "pinNotMatch": "",
     "realName": "Vui lòng nhập tên thật của bạn.",
     "required": "%{field} là bắt buộc",
     "usdtFormat": "Địa chỉ ví phải tương thích với chuẩn ERC20 / TRC20",
