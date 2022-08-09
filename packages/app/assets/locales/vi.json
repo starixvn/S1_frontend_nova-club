@@ -269,11 +269,14 @@
   "pin": {
     "confirmPin": "",
     "createPin": "",
+    "forgotPin": "",
     "headerText1": "",
     "headerText2": "",
     "note1": "",
     "oldPin": "",
-    "pin": ""
+    "pin": "",
+    "submitNote": "",
+    "submitTitle": ""
   },
   "profile": {
     "details": {

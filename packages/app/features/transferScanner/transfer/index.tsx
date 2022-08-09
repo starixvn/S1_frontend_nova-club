@@ -1,5 +1,6 @@
 import Header from 'app/components/common/Header'
 import { Button } from 'app/components/form/Button'
+import ImportantNotice from 'app/components/ImportantNotice'
 import { TextField } from 'app/components/TextField'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
@@ -10,6 +11,7 @@ import validation from 'app/utils/validation'
 import { Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect } from 'react'
+import { useModal } from 'react-native-modalfy'
 import { useDispatch } from 'react-redux'
 import { useLazyAffiliateUsernameQuery } from 'services/contentApi'
 import { usePlayerProfileQuery } from 'services/playerApi'
@@ -29,12 +31,14 @@ type TransferValues = {
 }
 const { useParam } = createParam<{ referralCode: string }>()
 
+const NOTES = ['pin.note1']
 const TransferScreen = ({
   isIDTransfer = false,
 }: {
   isIDTransfer?: boolean
 }) => {
   const dispatch = useDispatch()
+  const { openModal } = useModal()
   const { push } = useRouter()
   const { t } = useLocalization()
   const [referralCode] = useParam('referralCode')
@@ -58,12 +62,14 @@ const TransferScreen = ({
 
   const onSubmit = async (
     { referralId, realAmount }: TransferValues,
+    transferPin: string,
     actions: FormikHelpers<TransferValues>
   ) => {
     try {
       actions.setSubmitting(true)
       const { data, success, message } = await postTransferMemberToMember({
         amount: realAmount,
+        transfer_pin: transferPin,
         to_invitation_code: isIDTransfer ? referralId : referralCode,
       })
         .unwrap()
@@ -131,6 +137,12 @@ const TransferScreen = ({
     }
   }
 
+  const handleSubmit = () => {
+    openModal('PinModal', {
+      onConfirm: (value) => onSubmit(values, value, formik),
+    })
+  }
+
   return (
     <View sx={{ flex: 1, bg: '$secondary' }}>
       {!isIDTransfer && <Header title={t('menu.transfer')} />}
@@ -138,7 +150,6 @@ const TransferScreen = ({
         <View
           sx={{
             p: '$4',
-            flex: 1,
             flexDirection: 'row',
             justifyContent: 'space-between',
           }}
@@ -202,28 +213,32 @@ const TransferScreen = ({
           />
         </TextField>
 
-        <View sx={{ alignItems: 'flex-end', mx: '$4' }}>
-          <MotiLink
-            href={toCreatePin}
-            as={`/pin/createPin`}
-            animate={({ hovered, pressed }) => {
-              'worklet'
-              return {
-                scale: pressed ? 0.9 : hovered ? 1.1 : 1,
-              }
-            }}
-          >
-            <Text
-              variant="md"
-              sx={{
-                fontSize: [14, 16],
-                opacity: 0.8,
+        {!isPinExist && (
+          <View sx={{ alignItems: 'flex-end', mx: '$4' }}>
+            <MotiLink
+              href={toCreatePin}
+              as={`/pin/create-pin`}
+              animate={({ hovered, pressed }) => {
+                'worklet'
+                return {
+                  scale: pressed ? 0.9 : hovered ? 1.1 : 1,
+                }
               }}
             >
-              {t('pin.createPin')}
-            </Text>
-          </MotiLink>
-        </View>
+              <Text
+                variant="md"
+                sx={{
+                  fontSize: [14, 16],
+                  opacity: 0.8,
+                }}
+              >
+                {t('pin.createPin')}
+              </Text>
+            </MotiLink>
+          </View>
+        )}
+
+        <ImportantNotice keys={NOTES} module="transfer" />
         <Button
           rounded
           stretch
@@ -239,12 +254,12 @@ const TransferScreen = ({
           containerStyle={{
             m: '$10',
           }}
-          onPress={submitForm}
+          onPress={handleSubmit}
         >
           <Button.Label>{t('menu.transfer')}</Button.Label>
         </Button>
 
-        <Text sx={{ mx: '$10' }}>{t('pin.note1')}</Text>
+        {/* <Text sx={{ mx: '$10' }}>{t('pin.note1')}</Text> */}
       </View>
     </View>
   )

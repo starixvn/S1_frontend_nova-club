@@ -8,7 +8,6 @@ import bankApi from 'services/bank'
 import changePasswordApi from 'services/changePassword'
 import contentApi from 'services/contentApi'
 import depositApi from 'services/deposit'
-import dummyDepositApi from 'services/dummyDeposit'
 import gameApi from 'services/gameApi'
 import messageApi from 'services/messageApi'
 import playerApi from 'services/playerApi'
@@ -26,6 +25,7 @@ import {
   persistStore,
 } from 'redux-persist'
 import { storage } from './persistStorage/index'
+import pinApi from 'services/pinApi'
 
 const migrations = {
   2: (s: PersistedState) => {},
@@ -64,7 +64,7 @@ const middlerwares = [
   playerApi.middleware,
   walletApi.middleware,
   withdrawalApi.middleware,
-  dummyDepositApi.middleware,
+  pinApi.middleware,
   messageApi.middleware,
 ]
 
@@ -78,7 +78,7 @@ const rootReducer = combineReducers({
   [playerApi.reducerPath]: playerApi.reducer,
   [walletApi.reducerPath]: walletApi.reducer,
   [withdrawalApi.reducerPath]: withdrawalApi.reducer,
-  [dummyDepositApi.reducerPath]: dummyDepositApi.reducer,
+  [pinApi.reducerPath]: pinApi.reducer,
   [messageApi.reducerPath]: messageApi.reducer,
   alert: alertReducer,
   auth: authReducer,

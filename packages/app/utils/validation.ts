@@ -50,9 +50,7 @@ const validation = {
     .typeError('validation.numberOnly')
     .required('validation.needAccountNo'),
 
-  amount: Yup.number()
-    .typeError('validation.numberOnly')
-    .required('validation.required'),
+  amount: Yup.string().required('validation.required'),
 
   bank: Yup.object().required('validation.required'),
   paymentMode: Yup.string().required('validation.required'),

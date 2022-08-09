@@ -269,11 +269,14 @@
   "pin": {
     "confirmPin": "Confirm PIN",
     "createPin": "Create Pin",
+    "forgotPin": "Forgot Pin",
     "headerText1": "Create 6-digit PIN",
     "headerText2": "Secure your transfer with PIN",
     "note1": "PIN is required for transfer",
     "oldPin": "Old Pin",
-    "pin": "PIN"
+    "pin": "PIN",
+    "submitNote": "All your transactions are processed in a safe and secured environment.",
+    "submitTitle": "Enter 6-digit PIN to confirm"
   },
   "profile": {
     "details": {

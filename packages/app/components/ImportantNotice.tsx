@@ -35,7 +35,7 @@ const ImportantNotice = ({
           </StyledViewTitle>
         }
       >
-        <View sx={{ flex: 1 }}>
+        <View>
           {keys.map((content, i) => {
             return (
               <StyledViewContent key={`${module}.row${i}`}>
