@@ -32,15 +32,15 @@ export function Provider({ children }: { children: React.ReactNode }) {
           <LocalizationProviderRedux>
             <SafeArea>
               <NavigationProvider>
-                <ContextualNavigationProvider>
-                  <ModalProvider>
+                <ModalProvider>
+                  <ContextualNavigationProvider>
                     <PortalProvider>{children}</PortalProvider>
                     <GameLauncher />
                     <RootModal />
                     <App />
                     <RootToast />
-                  </ModalProvider>
-                </ContextualNavigationProvider>
+                  </ContextualNavigationProvider>
+                </ModalProvider>
               </NavigationProvider>
             </SafeArea>
           </LocalizationProviderRedux>

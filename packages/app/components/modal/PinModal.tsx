@@ -3,6 +3,7 @@ import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
 import { Text, View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import { MotiLink } from 'solito/moti'
 import { useRouter } from 'solito/router'
 import IconButton from '../form/IconButton'
@@ -14,9 +15,7 @@ const PinModal = ({ modal: { closeModal, getParam } }) => {
   const { push } = useRouter()
   const [value, setValue] = useState('')
   const onConfirm = getParam('onConfirm')
-
-  const { makeContextualHref } = useContextualRouting()
-  const toForgotPin = makeContextualHref('forgot-pin')
+  const onForgotPin = getParam('onForgotPin')
 
   function onDismiss() {
     closeModal()
@@ -53,16 +52,11 @@ const PinModal = ({ modal: { closeModal, getParam } }) => {
 
       <View sx={{ px: MODAL_PADDING }}>
         <View sx={{ alignItems: 'flex-end', my: '$4' }}>
-          <MotiLink
-            href={toForgotPin}
-            as={`/pin/forgot-pin`}
-            animate={({ hovered, pressed }) => {
-              'worklet'
-              return {
-                scale: pressed ? 0.9 : hovered ? 1.1 : 1,
-              }
+          <TouchableOpacity
+            onPress={() => {
+              closeModal()
+              onForgotPin && onForgotPin()
             }}
-            onPress={() => closeModal()}
           >
             <Text
               variant="md"
@@ -73,7 +67,7 @@ const PinModal = ({ modal: { closeModal, getParam } }) => {
             >
               {t('pin.forgotPin') + '?'}
             </Text>
-          </MotiLink>
+          </TouchableOpacity>
         </View>
         <Text>{t('pin.submitNote')}</Text>
       </View>

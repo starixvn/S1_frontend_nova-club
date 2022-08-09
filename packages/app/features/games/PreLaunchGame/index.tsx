@@ -264,11 +264,6 @@ const PreLaunchGame = ({}) => {
   } = useGameBalanceRule()
 
   const { top } = useSafeArea()
-  console.log(
-    'gameLauncherState.gameType',
-    gameLauncherState.gameType,
-    GAME_TYPE_CODE.SPORTS
-  )
   const isSport = gameLauncherState.gameType === GAME_TYPE_CODE.SPORTS
 
   async function onLauchGame() {
