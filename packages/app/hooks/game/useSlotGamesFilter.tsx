@@ -1,28 +1,32 @@
 import useLocalization from 'app/provider/localization'
-import { Currency, SlotType, SlotTypeOptions } from 'app/utils/constant'
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { useGameListQuery } from 'services/contentApi'
-import { GameCategory, GameConfig } from 'services/contentApi.type'
+import {
+  Currency,
+  GAME_TYPE_CODE,
+  SlotType,
+  SlotTypeOptions,
+} from 'app/utils/constant'
+import { useEffect, useMemo, useState } from 'react'
+import { useGameListQuery, useGetGameListQuery } from 'services/contentApi'
+import { Game } from 'services/contentApi.type'
 import uniqBy from 'lodash/uniqBy'
+import { usePlayerProfileQuery } from 'services/playerApi'
 // import groupBy from 'lodash/groupBy'
 const LIMIT = 10
 function useSlotGamesFilter() {
-  const [allSlotGames, setAllSlotGames] = useState<GameConfig[]>([])
+  const [allSlotGames, setAllSlotGames] = useState<Game[]>([])
 
-  const { data, isFetching } = useGameListQuery(
-    {
-      currency: Currency.VND,
-      game_category: GameCategory.Slot,
-    }
-    // {
-    //   selectFromResult: ({ data }) => ({
-    //     providerGames: groupBy(data, 'game_provider_code'),
-    //   }),
-    // }
-  )
+  const { data: playerProfile } = usePlayerProfileQuery()
+  const { currency } = playerProfile?.data || {}
+
+  const { data, isFetching } = useGetGameListQuery({
+    currency: currency ?? Currency.VND,
+    game_category: [GAME_TYPE_CODE.SLOTS],
+    limit: 100,
+    offset: 0,
+  })
 
   useEffect(() => {
-    const slotGames = data?.data
+    const slotGames = data?.data?.rows ?? []
     if (slotGames && slotGames.length > 0) {
       setAllSlotGames(slotGames)
     }
@@ -41,24 +45,23 @@ function useSlotGamesFilter() {
   const slotTypeSelection = SlotTypeOptions
   const providerSelection = useMemo(() => {
     return [{ label: 'common.all', value: 'all' }].concat(
-      uniqBy(allSlotGames, 'game_provider_code').map((g) => ({
-        label: g.game_provider_code,
-        value: g.game_provider_code,
+      uniqBy(allSlotGames, 'gpc').map((g) => ({
+        label: g.gpc,
+        value: g.gpc,
       }))
     )
   }, [allSlotGames])
-
   /* Memo */
   const filteredGames = useMemo(() => {
-    let result: GameConfig[] = allSlotGames
+    let result: Game[] = allSlotGames
     if (selectedProvider.value !== 'all') {
       result = allSlotGames.filter(
-        (g) => g.game_provider_code === selectedProvider.value
-      ) as GameConfig[]
+        (g) => g.gpc === selectedProvider.value
+      ) as Game[]
     }
 
-    if (selectedSlotType?.value !== SlotType.ALL) {
-      result = result.filter((s) => !!s[selectedSlotType?.value ?? 0])
+    if (selectedSlotType?.value && selectedSlotType?.value !== SlotType.ALL) {
+      result = result.filter((s) => s.tags.includes(selectedSlotType?.value))
     }
 
     // setNumOfVisible(LIMIT)

@@ -2,7 +2,11 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 import { ChangePasswordResult, ChangePasswordArgs } from './changePassword.type'
 import { axiosBaseQuery } from './common/axiosBaseQuery'
 import { EndpointBuilderType, IResponse } from './common/types'
-import { CreateTransferPinArgs, UpdateTransferPinArgs } from './pinApi.type'
+import {
+  CreateTransferPinArgs,
+  RecoverPinArgs,
+  UpdateTransferPinArgs,
+} from './pinApi.type'
 
 const pinEndpoints = (builder: EndpointBuilderType) => {
   return {
@@ -30,6 +34,24 @@ const pinEndpoints = (builder: EndpointBuilderType) => {
         },
       }),
     }),
+    transferPinRecovery: builder.mutation<IResponse<string>, RecoverPinArgs>({
+      query: (queryArgs) => ({
+        url: `/player_api/transferPinRecovery`,
+        method: 'POST',
+        data: {
+          ...queryArgs,
+        },
+      }),
+    }),
+    transferPinRecoveryOtp: builder.mutation<IResponse<string>, object>({
+      query: (queryArgs) => ({
+        url: `/player_api/transferPinRecoveryOtp`,
+        method: 'POST',
+        data: {
+          ...queryArgs,
+        },
+      }),
+    }),
   }
 }
 
@@ -43,5 +65,9 @@ const pinApi = createApi({
 
 export default pinApi
 export { pinEndpoints }
-export const { useUpdateTransferPinMutation, useCreateTransferPinMutation } =
-  pinApi
+export const {
+  useUpdateTransferPinMutation,
+  useCreateTransferPinMutation,
+  useTransferPinRecoveryMutation,
+  useTransferPinRecoveryOtpMutation,
+} = pinApi

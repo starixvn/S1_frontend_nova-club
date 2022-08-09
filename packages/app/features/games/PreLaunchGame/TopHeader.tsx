@@ -23,7 +23,7 @@ const TopHeader = ({ providerCode }: { providerCode?: string }) => {
       <View sx={{ alignItems: 'center', flex: 0.9 }}>
         <Image
           source={providerCode && getProviderLogo(providerCode)}
-          sx={{ height: [40, 40, 40], width: [120, 120, 120] }}
+          sx={{ height: 35, width: 160 }}
           resizeMode="contain"
         />
       </View>

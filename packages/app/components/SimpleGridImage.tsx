@@ -1,18 +1,20 @@
-import { GAMES } from 'app/config/games/games.type'
 import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
-import { GameLauncherActions } from 'app/store/gameLauncher.slice'
+import {
+  GameLauncherActions,
+  LaunchGamePayload,
+} from 'app/store/gameLauncher.slice'
 import { Image, styled, SxProp, Text, View } from 'dripsy'
 import { FC, memo } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux'
+import { Game } from 'services/contentApi.type'
 import Icon from './Icon'
 
-type GamesProps = Omit<GAMES, 'gameName'> & {
+interface GamesProps extends LaunchGamePayload {
   width: number
   height?: number
   sx?: SxProp
-  desktop?: boolean
   isHotGame?: boolean
   isNewGame?: boolean
   gameTypeCode?: string
@@ -21,14 +23,15 @@ type GamesProps = Omit<GAMES, 'gameName'> & {
 export const GAME_IMAGE_RATIO = 325 / 315
 
 const SimpleGridImage: FC<GamesProps> = ({
+  gameName,
   gameCode,
-  title,
+  gameType,
   image,
   providerCode,
   width,
   height,
   sx,
-  desktop,
+  desktopMode,
   isHotGame,
   isNewGame,
   gameTypeCode,
@@ -37,20 +40,20 @@ const SimpleGridImage: FC<GamesProps> = ({
   const urlImage = typeof image == 'string' && image.indexOf('http') > -1
   const img = urlImage ? { uri: image } : image
   const { t } = useLocalization()
+  const gamePayload = {
+    gameCode,
+    providerCode,
+    image,
+    gameName,
+    gameType,
+    gameTypeCode,
+  }
   return (
     <View>
       <BouncePressable
         sx={{ width, position: 'relative', ...sx }}
         onPress={() => {
-          dispatch(
-            GameLauncherActions.launchGame({
-              gameCode: gameCode,
-              providerCode: providerCode,
-              image,
-              gameName: title,
-              gameTypeCode,
-            })
-          )
+          dispatch(GameLauncherActions.launchGame(gamePayload))
         }}
       >
         <Image
@@ -62,7 +65,7 @@ const SimpleGridImage: FC<GamesProps> = ({
             borderRadius: 10,
           }}
         />
-        {title && (
+        {gameName && (
           <Text
             sx={{
               textAlign: 'center',
@@ -71,19 +74,17 @@ const SimpleGridImage: FC<GamesProps> = ({
               fontSize: 15,
             }}
           >
-            {t(title)}
+            {t(gameName)}
           </Text>
         )}
       </BouncePressable>
-      {desktop && (
+      {desktopMode && (
         <DesktopMode
           onPress={() => {
             dispatch(
               GameLauncherActions.launchGame({
-                gameCode: gameCode,
-                providerCode: providerCode,
-                desktopMode: true,
-                image,
+                ...gamePayload,
+                desktopMode,
               })
             )
           }}

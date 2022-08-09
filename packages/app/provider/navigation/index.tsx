@@ -80,6 +80,8 @@ export function NavigationProvider({
               TransferScanner: '/transfer-scanner',
               Transfer: '/transfer',
               CreatePin: '/pin/create-pin',
+              ChangePin: 'pin/change-pin',
+              ForgotPin: 'pin/forgot-pin',
             },
           },
         }),

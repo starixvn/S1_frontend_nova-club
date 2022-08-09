@@ -38,15 +38,14 @@ const ProfileUser = () => {
         sx={{ mr: '$2', bg: 'white' }}
       />
       <ViewTextWrapper>
-        <Text variant="sm" sx={{ color: '$PaleBlue', fontWeight: 'bold' }}>
+        {/* <Text variant="sm" sx={{ color: '$PaleBlue', fontWeight: 'bold' }}>
           {t('common.hello')}
-        </Text>
+        </Text> */}
         <Text numberOfLines={1} variant="sm" sx={{ color: '#D6D5D5' }}>
           {username ?? ' '}
         </Text>
         <View
           sx={{
-            flex: 1,
             flexDirection: 'row',
             alignItems: 'center',
           }}
@@ -86,6 +85,7 @@ const ViewWrapper = styled(View)({
 
 const ViewTextWrapper = styled(View)({
   flex: 1,
+  justifyContent: 'center',
   mr: '$2',
 })
 
