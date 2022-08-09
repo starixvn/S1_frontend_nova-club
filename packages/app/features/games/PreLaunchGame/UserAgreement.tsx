@@ -1,20 +1,27 @@
 import CheckBox from 'app/components/CheckBox'
-import Icon from 'app/components/Icon'
-import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
 import { Pressable, styled, Text, View } from 'dripsy'
+import { useModal } from 'react-native-modalfy'
 
 const UserAgreement = ({ onAgree, isAgree }) => {
   const { t } = useLocalization()
+  const { openModal } = useModal()
+
+  const openUserAgreement = () => {
+    openModal('UserAgreementModal')
+  }
 
   return (
     <SytledView>
       <CheckBox onCheck={onAgree} isCheck={isAgree} />
       <Pressable hitSlop={10} onPress={() => onAgree(!isAgree)}>
-        <StyleText>
-          {t('auth.readAndAgree')}{' '}
-          <StylePressableText>{t('common.userAgreement')}</StylePressableText>
-        </StyleText>
+        <View sx={{ flexDirection: 'row', alignItems: 'center' }}>
+          <StyleText>{t('auth.readAndAgree')} </StyleText>
+
+          <Pressable onPress={openUserAgreement}>
+            <StylePressableText>{t('common.userAgreement')}</StylePressableText>
+          </Pressable>
+        </View>
       </Pressable>
     </SytledView>
   )
@@ -27,13 +34,6 @@ const SytledView = styled(View)({
   alignItems: 'center',
 })
 
-const StyledBouncePressable = styled(BouncePressable)({
-  bg: '#FFFFFF',
-  borderRadius: 2,
-  height: 15,
-  aspectRatio: 1,
-})
-
 const StyleText = styled(Text)({
   fontSize: 12,
   ml: '$1a',
@@ -41,7 +41,7 @@ const StyleText = styled(Text)({
 })
 
 const StylePressableText = styled(Text)({
-  fontSize: 11,
+  fontSize: 12,
   color: '#FF7070',
   textDecorationLine: 'underline',
 })

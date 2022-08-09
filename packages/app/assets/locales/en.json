@@ -332,6 +332,9 @@
     "avaiableAmount": "Available Amount",
     "transferTo": "Transfer To"
   },
+  "userAgreement": {
+    "description": "The sportsbook provider is in its sole and absolute discretion, reserves the right to cancel or declare a bet void without prior notification, if there appears to be an abnormal or irregular bets detected or violation of sportsbetting rule & regulation."
+  },
   "validation": {
     "alphanumeric": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only",
     "amount": "%{amount} not in range",

@@ -1,7 +1,6 @@
 import useLocalization from 'app/provider/localization'
-import { styled, Text, View } from 'dripsy'
-import React, { ComponentProps, FC } from 'react'
-import ReactNativeModal from 'react-native-modal'
+import { styled, Sx, Text, View } from 'dripsy'
+import React from 'react'
 import { Button } from '../form/Button'
 import IconButton from '../form/IconButton'
 import { ModalAction } from './Modal.type'
@@ -17,8 +16,9 @@ type ModalProps = {
   _footer?: DripsyViewProps
   isShowHeader?: boolean
   hideCloseButton?: boolean
+  headerStyle?: Sx
   closeModal: () => void
-} & ComponentProps<typeof ReactNativeModal>
+}
 
 const ModalContent = ({
   children,
@@ -30,6 +30,7 @@ const ModalContent = ({
   isShowHeader = true,
   hideCloseButton,
   closeModal,
+  headerStyle,
   ...modalProps
 }: ModalProps) => {
   const { t } = useLocalization()
@@ -38,7 +39,9 @@ const ModalContent = ({
     <StyledViewModal {...modalProps}>
       {isShowHeader && (
         <StyledViewHeader>
-          <StyledTextHeader>{t(title)}</StyledTextHeader>
+          <StyledTextHeader sx={{ ...headerStyle }}>
+            {t(title)}
+          </StyledTextHeader>
           {!hideCloseButton && (
             <StyledViewClose>
               <IconButton name="cross" size={26} onPress={() => closeModal()} />

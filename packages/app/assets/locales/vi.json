@@ -332,6 +332,9 @@
     "avaiableAmount": "Số tiền có sẵn",
     "transferTo": "Chuyển tới"
   },
+  "userAgreement": {
+    "description": "Nhà cung cấp cá cược thể thao có toàn quyền quyết định, có quyền hủy bỏ hoặc tuyên bố đặt cược vô hiệu mà không cần thông báo trước, nếu phát hiện có dấu hiệu cá cược bất thường hoặc vi phạm quy tắc & quy định cá cược thể thao."
+  },
   "validation": {
     "alphanumeric": "6-18 ký tự chữ và số (A-Z, a-z, 0-9)",
     "amount": "%{amount} ngoài hạn mức",

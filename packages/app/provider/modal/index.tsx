@@ -3,22 +3,24 @@ import DepositConfirmationModal from 'app/components/modal/DepositConfirmationMo
 import PlayerBankDeleteModal from 'app/components/modal/PlayerBankDeleteModal'
 import ReferralModal from 'app/components/modal/ReferralModal'
 import WithdrawalConfirmationModal from 'app/components/modal/WithdrawalConfirmationModal'
+import UserAgreementModal from 'app/features/games/PreLaunchGame/UserAgreementModal'
 
 import React from 'react'
-import { Dimensions, Easing } from 'react-native'
+import { Easing } from 'react-native'
 import {
-  ModalProvider as RNMModalProvider,
   createModalStack,
+  ModalProvider as RNMModalProvider,
+  ModalStackConfig,
 } from 'react-native-modalfy'
-const { width } = Dimensions.get('screen')
 
 /* Consider using this modal for other temporarily / not fullscreen modal  */
-const modalConfig = {
+const modalConfig: ModalStackConfig = {
   AlertModal: AlertModal,
   DepositConfirmationModal: DepositConfirmationModal,
   PlayerBankDeleteModal: PlayerBankDeleteModal,
   ReferralModal: ReferralModal,
   WithdrawalConfirmationModal: WithdrawalConfirmationModal,
+  UserAgreementModal,
 }
 
 const stack = createModalStack(modalConfig, {
