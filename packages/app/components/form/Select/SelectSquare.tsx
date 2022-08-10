@@ -15,6 +15,10 @@ type SelectSquareProps = {
   buttonTitle?: string
   _actionSheet: SquareSelectorActionSheetProps
   _dataList: SquareSelectorFlatListProps
+  actionSheetProps?: Omit<
+    ComponentProps<typeof SquareSelectorActionSheet>,
+    '_dataList' | '_actionSheet'
+  >
 }
 
 const SelectSquare = (
@@ -24,6 +28,7 @@ const SelectSquare = (
     buttonTitle = '',
     _dataList,
     _actionSheet,
+    actionSheetProps,
   }: SelectSquareProps,
   ref: any
 ) => {
@@ -67,6 +72,7 @@ const SelectSquare = (
           ...{ onOpen: toggleIsActive, onClose: toggleIsActive },
           ..._actionSheet,
         }}
+        {...actionSheetProps}
       />
     </>
   )

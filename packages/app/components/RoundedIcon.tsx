@@ -87,7 +87,7 @@ const StyledImage = styled(Image)(() => ({
   aspectRatio: 1,
   height: '100%',
   resizeMode: 'contain',
-  bg: 'white',
+  bg: 'transparent',
 }))
 
 export default RoundedIcon

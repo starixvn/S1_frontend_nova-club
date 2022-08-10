@@ -118,6 +118,17 @@ const Slots = () => {
           id: 'slot provider',
           headerTitle: t('menu.tab.provider'),
         }}
+        actionSheetProps={{
+          actionSheetItemProps: {
+            containerStyle: {
+              bg: '$primary',
+              p: '$2',
+            },
+            imageStyle: {
+              bg: '$transparent',
+            },
+          },
+        }}
       />
     </>
   )

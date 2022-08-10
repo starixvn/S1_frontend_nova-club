@@ -45,6 +45,7 @@ type SquareSelectorProps = {
   onPress?: (number) => void
   _actionSheet: SquareSelectorActionSheetProps
   _dataList: SquareSelectorFlatListProps
+  actionSheetItemProps?: Partial<ComponentProps<typeof ActionSheetItem>>
 }
 
 export const DEFAULT_SQUARE_ACTION_SHEET_ID = 'SquareSelector'
@@ -53,7 +54,7 @@ export const SQUARE_NUMBER_OF_COLUMNS = 4
 const SquareSelectorActionSheet = forwardRef<
   SquareSelectorForwardRef,
   SquareSelectorProps
->(({ _dataList, _actionSheet }: SquareSelectorProps, ref) => {
+>(({ _dataList, _actionSheet, actionSheetItemProps }: SquareSelectorProps, ref) => {
   const { t } = useLocalization()
   const { push } = useRouter()
   const { bottom } = useSafeArea()
@@ -182,6 +183,7 @@ const SquareSelectorActionSheet = forwardRef<
                   onPress({ ...item, logo: getLogo(item[titleType]) })
                   closeActionSheet()
                 }}
+                {...actionSheetItemProps}
               />
             ))}
           </View>
