@@ -33,7 +33,7 @@ const ProfileOptions = () => {
   const toMessages = makeContextualHref('messages', {
     tab: 0,
   })
-  const toChangePassword = makeContextualHref('change-password')
+  const toManageCredentials = makeContextualHref('manage-credentials')
   const toCommissionTable = makeContextualHref('commission-table')
 
   const { clear: clearNavigationStack } = useContext(
@@ -51,9 +51,9 @@ const ProfileOptions = () => {
     {
       id: 2,
       iconName: 'lock',
-      title: 'menu.changePassword',
-      routeWeb: toChangePassword,
-      route: '/profile/change-password',
+      title: 'menu.manageCredentials',
+      routeWeb: toManageCredentials,
+      route: '/profile/manage-credentials',
     },
     {
       id: 3,

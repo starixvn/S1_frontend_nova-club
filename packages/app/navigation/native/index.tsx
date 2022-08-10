@@ -7,7 +7,6 @@ import LoginPage from 'app/features/auth/login'
 import RegisterPage from 'app/features/auth/register'
 import RegisterVerificationPage from 'app/features/auth/verification'
 import { Easing } from 'react-native'
-import ProfileNavigation from './ProfileNavigation'
 import { useSelector } from 'react-redux'
 import { RootState } from 'app/provider/redux/store'
 import PreLaunchGame from 'app/features/games/PreLaunchGame'
@@ -19,7 +18,6 @@ import CustomerSupportPage from 'app/features/customerSupport'
 import GameLoaderPage from 'app/features/games/GameLoaderPage'
 import OverviewScreen from 'app/features/profile/overview'
 import ProfileDetails from 'app/features/profile/profile-details'
-import ChangePasswordScreen from 'app/features/profile/change-password'
 import BankAccountScreen from 'app/features/profile/bank-account'
 import AddBankAccountScreen from 'app/features/profile/bank-account/add-bank-account'
 import CommissionTablePage from 'app/features/profile/commission-table'
@@ -31,6 +29,7 @@ import TransferScannerScreen from 'app/features/transferScanner'
 import CreatePinScreen from 'app/features/pin/CreatePinScreen'
 import ChangePinScreen from 'app/features/pin/change-pin'
 import ForgotPinScreen from 'app/features/pin/forgot-pin'
+import ManageCredentialsPage from 'app/features/profile/manage-credentials'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -47,7 +46,7 @@ const Stack = createStackNavigator<{
   Profile: undefined
   Overview: undefined
   ProfileDetails: undefined
-  ChangePassword: undefined
+  ManageCredentials: undefined
   BankAccount: undefined
   AddBankAccount: undefined
   History: undefined
@@ -167,7 +166,10 @@ export function NativeNavigation() {
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="Overview" component={OverviewScreen} />
       <Stack.Screen name="ProfileDetails" component={ProfileDetails} />
-      <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
+      <Stack.Screen
+        name="ManageCredentials"
+        component={ManageCredentialsPage}
+      />
       <Stack.Screen name="BankAccount" component={BankAccountScreen} />
       <Stack.Screen name="AddBankAccount" component={AddBankAccountScreen} />
       <Stack.Screen name="History" component={HistoryScreen} />
