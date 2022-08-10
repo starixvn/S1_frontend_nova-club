@@ -59,6 +59,7 @@ const TransferScreen = ({
 
   const { makeContextualHref } = useContextualRouting()
   const toCreatePin = makeContextualHref('create-pin')
+  const toForgotPin = makeContextualHref('forgot-pin')
 
   const onSubmit = async (
     { referralId, realAmount }: TransferValues,
@@ -140,6 +141,7 @@ const TransferScreen = ({
   const handleSubmit = () => {
     openModal('PinModal', {
       onConfirm: (value) => onSubmit(values, value, formik),
+      onForgotPin: () => push(toForgotPin, '/pin/forgot-pin'),
     })
   }
 
