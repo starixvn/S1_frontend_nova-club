@@ -1,7 +1,7 @@
 import { Button } from 'app/components/form/Button'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import useLocalization from 'app/provider/localization'
-import { Text } from 'dripsy'
+import { Text, View } from 'dripsy'
 import React from 'react'
 import UnderlinePinField from '../UnderlinePinField'
 
@@ -12,6 +12,7 @@ import { AlertActions } from 'app/store/alert.slice'
 import { useRouter } from 'solito/router'
 import validation from 'app/utils/validation'
 import { useUpdateTransferPinMutation } from 'services/pinApi'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 
 type ChangePinFormValues = {
   oldPin: string
@@ -40,7 +41,8 @@ const ChangePinScreen = () => {
         .catch((error) => dispatch(AlertActions.addError(error.message)))
 
       if (success) {
-        dispatch(AlertActions.addSuccess(message))
+        Toast.show({ type: 'success', text1: message })
+
         back()
       }
     } catch (e) {
@@ -75,18 +77,13 @@ const ChangePinScreen = () => {
   } = formik
 
   return (
-    <PageWithBackHeader header={{ title: t('Change PIN') }}>
-      <Text sx={{ fontSize: 24 }}>{t('pin.headerText1')}</Text>
-      <Text>{t('pin.headerText2')}</Text>
-
+    <View sx={{ flex: 1 }}>
       <UnderlinePinField
         title={t('pin.oldPin')}
         value={values.oldPin}
         setValue={handleChange('oldPin')}
         errorMsg={
-          errors.oldPin
-            ? t(errors.oldPin, { field: t('common.pin') })
-            : undefined
+          errors.oldPin ? t(errors.oldPin, { field: t('pin.pin') }) : undefined
         }
       />
       <UnderlinePinField
@@ -101,7 +98,7 @@ const ChangePinScreen = () => {
         errorMsg={
           values.confirmPin.length === 6 && errors.confirmPin
             ? t(errors.confirmPin, {
-                field: t('common.pin'),
+                field: t('pin.pin'),
               })
             : undefined
         }
@@ -126,7 +123,7 @@ const ChangePinScreen = () => {
       >
         <Button.Label>{t('common.submit')}</Button.Label>
       </Button>
-    </PageWithBackHeader>
+    </View>
   )
 }
 

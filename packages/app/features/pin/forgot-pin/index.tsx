@@ -227,6 +227,7 @@ const ForgotPinScreen = () => {
             ref: otpFieldRef,
             onSubmitEditing: checkInitialForm,
             keyboardType: 'number-pad',
+            maxLength: 6,
           }}
           error={
             touched.verifyCode && errors.verifyCode
@@ -249,7 +250,7 @@ const ForgotPinScreen = () => {
         errorMsg={
           values.confirmPin.length === 6 && errors.confirmPin
             ? t(errors.confirmPin, {
-                field: t('common.pin'),
+                field: t('pin.pin'),
               })
             : undefined
         }

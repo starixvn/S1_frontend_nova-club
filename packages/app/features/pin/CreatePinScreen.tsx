@@ -2,7 +2,7 @@ import { PageWithBackHeader } from 'app/components/layout/Page'
 import useLocalization from 'app/provider/localization'
 import { Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import UnderlinePinField from './UnderlinePinField'
 import * as Yup from 'yup'
 import validation from 'app/utils/validation'
@@ -11,7 +11,6 @@ import { useCreateTransferPinMutation } from 'services/pinApi'
 import { useDispatch } from 'react-redux'
 import { AlertActions } from 'app/store/alert.slice'
 import { useRouter } from 'solito/router'
-import { MotiLink } from 'solito/moti'
 import { useLazyPlayerProfileQuery } from 'services/playerApi'
 
 type PinFormValues = {
@@ -24,6 +23,12 @@ const CreatePinScreen = () => {
   const dispatch = useDispatch()
   const [fetchProfile] = useLazyPlayerProfileQuery()
   const [postCreateTransferPin] = useCreateTransferPinMutation()
+
+  useEffect(() => {
+    return () => {
+      fetchProfile()
+    }
+  }, [])
 
   const onSubmit = async (
     { pin, confirmPin }: PinFormValues,
@@ -90,7 +95,7 @@ const CreatePinScreen = () => {
           errorMsg={
             values.confirmPin.length === 6 && errors.confirmPin
               ? t(errors.confirmPin, {
-                  field: t('common.pin'),
+                  field: t('pin.pin'),
                 })
               : undefined
           }

@@ -2,6 +2,7 @@ import Header from 'app/components/common/Header'
 import { Button } from 'app/components/form/Button'
 import ImportantNotice from 'app/components/ImportantNotice'
 import { TextField } from 'app/components/TextField'
+import { useIsFocused } from 'app/hooks/isFocus/useIsFocused'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
 import { AlertActions } from 'app/store/alert.slice'
@@ -41,6 +42,7 @@ const TransferScreen = ({
   const { openModal } = useModal()
   const { push } = useRouter()
   const { t } = useLocalization()
+  const isFocus = useIsFocused()
   const [referralCode] = useParam('referralCode')
 
   const [postTransferMemberToMember] = useTransferMemberToMemberMutation()
@@ -50,7 +52,7 @@ const TransferScreen = ({
   })
   const [fetchUsername, { data: userData, isError, error }] =
     useLazyAffiliateUsernameQuery()
-  const { data: playerData } = usePlayerProfileQuery(undefined, {
+  const { data: playerData, refetch } = usePlayerProfileQuery(undefined, {
     refetchOnMountOrArgChange: true,
     refetchOnFocus: true,
   })

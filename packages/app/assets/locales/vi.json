@@ -1,5 +1,4 @@
 {
-  "ID": "",
   "auth": {
     "accountReg": "Đăng ký tài khoản",
     "accountVerification": "Xác minh tài khoản",
@@ -205,6 +204,7 @@
     "agentLogin": "Dăng nhập đại lý",
     "bankAccount": "Tài khoản ngân hàng",
     "changePassword": "Đổi Mật Khẩu",
+    "changePin": "",
     "commisionTable": "Bảng hoa hồng",
     "createPin": "",
     "customerSupport": "Hỗ trợ khách hàng",

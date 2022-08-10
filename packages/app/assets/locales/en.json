@@ -1,5 +1,4 @@
 {
-  "ID": "common.id",
   "auth": {
     "accountReg": "Account Registration",
     "accountVerification": "Account Verification",
@@ -205,6 +204,7 @@
     "agentLogin": "Agent Login",
     "bankAccount": "Bank Account",
     "changePassword": "Change Password",
+    "changePin": "Change PIN",
     "commisionTable": "Commision Table",
     "createPin": "Create PIN",
     "customerSupport": "Customer Support",
@@ -213,6 +213,7 @@
     "gameHistory": "Game History",
     "history": "History",
     "logout": "Logout",
+    "manageCredentials": "Manage Credentials",
     "message/announcement": "Message/Announcement",
     "profile": "Profile",
     "referral": "Referral",
