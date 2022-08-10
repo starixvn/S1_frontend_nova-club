@@ -69,7 +69,7 @@ const Games = () => {
             width={contentWidth}
             isNewGame={isNewGame}
             isHotGame={isHotGame}
-            gameTypeCode={gtc}
+            gameType={gtc}
           />
         </MotiView>
       </AnimatePresence>

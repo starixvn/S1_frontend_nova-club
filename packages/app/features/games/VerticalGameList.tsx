@@ -55,7 +55,6 @@ export default function VerticalGameList({
             sx={{ m: itemSpace }}
             providerCode={gpc}
             gameCode={gc}
-            gameTypeCode={gtc}
             image={{ uri: imageUrl }}
             width={contentWidth}
             isNewGame={isNewGame}

@@ -92,7 +92,13 @@ export const ContextualNavigationContext = createContext({
   clear: () => {},
 })
 
-const ContextualNavigationProvider = ({ children }) => {
+interface ContextualNavigationProviderProps {
+  children: React.ReactNode
+}
+
+const ContextualNavigationProvider = ({
+  children,
+}: ContextualNavigationProviderProps) => {
   const [stacks, setStacks] = useState([] as ContextualStackItem[])
 
   const state = useMemo(() => {

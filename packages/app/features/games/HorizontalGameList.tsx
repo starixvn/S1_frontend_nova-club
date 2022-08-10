@@ -30,7 +30,7 @@ const HorizontalGameList = ({ data }: { data: Game[] }) => {
             image={img}
             width={columnWidth}
             sx={{ mr: leftRightSpace * 0.5 }}
-            gameTypeCode={gtc}
+            gameType={gtc}
           />
         )
       })}

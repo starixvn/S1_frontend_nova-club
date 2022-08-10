@@ -15,7 +15,7 @@ const GameRewards = () => {
   const { data: playerData } = usePlayerProfileQuery()
   const currency = playerData?.data?.currency as Currency
 
-  const { gameTypeCode, providerCode } = useAppSelector(
+  const { gameType, providerCode } = useAppSelector(
     (state) => state.gameLauncher
   )
   const { data: commissionData } = useCommissionTableQuery({
@@ -31,9 +31,9 @@ const GameRewards = () => {
       commisions.find((commission) => {
         const { system_code, game_type_code } = commission
 
-        return system_code === providerCode && game_type_code === gameTypeCode
+        return system_code === providerCode && game_type_code === gameType
       }),
-    [commisions, gameTypeCode, providerCode]
+    [commisions, gameType, providerCode]
   )
 
   const masterCommission = useMemo(

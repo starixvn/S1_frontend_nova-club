@@ -35,7 +35,7 @@ const SimpleWrap = ({ data, col = 3 }) => {
             title={t(game_name)}
             width={contentWidth}
             desktop={desktop}
-            gameTypeCode={game_type_code}
+            gameType={game_type_code}
           />
         )
       })}

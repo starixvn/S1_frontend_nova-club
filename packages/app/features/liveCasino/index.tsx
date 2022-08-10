@@ -60,7 +60,7 @@ const LiveCasino = () => {
         gameCode={gc}
         image={imageUrl}
         width={contentWidth}
-        gameTypeCode={gtc}
+        gameType={gtc}
       />
     )
   }

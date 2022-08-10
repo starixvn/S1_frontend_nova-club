@@ -17,7 +17,6 @@ interface GamesProps extends LaunchGamePayload {
   sx?: SxProp
   isHotGame?: boolean
   isNewGame?: boolean
-  gameTypeCode?: string
 }
 
 export const GAME_IMAGE_RATIO = 325 / 315
@@ -34,7 +33,6 @@ const SimpleGridImage: FC<GamesProps> = ({
   desktopMode,
   isHotGame,
   isNewGame,
-  gameTypeCode,
 }) => {
   const dispatch = useDispatch()
   const urlImage = typeof image == 'string' && image.indexOf('http') > -1
@@ -46,7 +44,6 @@ const SimpleGridImage: FC<GamesProps> = ({
     image,
     gameName,
     gameType,
-    gameTypeCode,
   }
   return (
     <View>
