@@ -28,7 +28,6 @@ const ReferralModal = ({ modal: { closeModal } }) => {
   const { width, height } = useContainerDimension()
 
   const { data } = usePlayerProfileQuery()
-  const username = data?.data?.username
   const referralCode = data?.data?.referral_code
 
   const { appScreenshotDownload, webScreenshotDownload } = useDownload({
@@ -61,7 +60,7 @@ const ReferralModal = ({ modal: { closeModal } }) => {
         <View sx={{ p: '5%' }}>
           <Text sx={{ color: 'black' }}>{t('referral.earn')}</Text>
           <View>
-            <ViewScreenShot innerRef={ref} name={`Vui123-${username}`}>
+            <ViewScreenShot innerRef={ref} name={`Vui123-${referralCode}`}>
               <QRCodeGenerator isTransfer={false} referralLink={referralLink} />
             </ViewScreenShot>
           </View>

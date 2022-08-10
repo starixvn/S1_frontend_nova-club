@@ -34,6 +34,7 @@ export default function VerticalGameList({
     const imageUrl = `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${img}`
     const isNewGame = tags.includes(GAME_TAGS.NEW)
     const isHotGame = tags.includes(GAME_TAGS.HOT)
+    const isDesktop = tags.includes(GAME_TAGS.DESKTOP)
     const gameName = showName ? name[locale] : undefined
     return (
       <AnimatePresence>
@@ -61,6 +62,7 @@ export default function VerticalGameList({
             isHotGame={isHotGame}
             gameName={gameName}
             gameType={gtc}
+            desktopMode={isDesktop}
           />
         </MotiView>
       </AnimatePresence>
