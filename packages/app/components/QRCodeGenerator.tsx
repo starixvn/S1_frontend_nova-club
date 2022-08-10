@@ -17,7 +17,6 @@ const QRCodeGenerator = ({
   const { width, height } = useContainerDimension()
 
   const { data } = usePlayerProfileQuery()
-  const username = data?.data?.username
   const referralCode = data?.data?.referral_code
 
   return (
@@ -29,7 +28,9 @@ const QRCodeGenerator = ({
         justifyContent: 'space-evenly',
       }}
     >
-      <Text sx={{ color: '$black' }}>{username}</Text>
+      <Text selectable sx={{ color: '$black' }}>
+        {referralCode}
+      </Text>
       <QRCode
         value={isTransfer ? referralCode : referralLink}
         size={width * 0.5}

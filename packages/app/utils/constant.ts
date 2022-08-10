@@ -351,4 +351,5 @@ export enum GAME_TYPE_CODE {
 export enum GAME_TAGS {
   NEW = 'new',
   HOT = 'hot',
+  DESKTOP = 'desktop',
 }
