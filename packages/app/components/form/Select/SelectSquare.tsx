@@ -3,28 +3,32 @@ import SquareSelectorActionSheet, {
   SquareSelectorActionSheetProps,
   SquareSelectorFlatListProps,
 } from 'app/components/actionsheet/SquareSelectorActionSheet'
-import React, { ComponentProps, createRef, useReducer, useState } from 'react'
+import React, { ComponentProps, forwardRef, useReducer, useState } from 'react'
 import { SheetManager } from 'react-native-actions-sheet'
 import SelectButton from './SelectButton'
 
 type ButtonProps = ComponentProps<typeof SelectButton>
 
 type SelectSquareProps = {
+  isShowButton?: boolean
   buttonProps?: Omit<ButtonProps, 'title' | 'onOpen'>
   buttonTitle?: string
   _actionSheet: SquareSelectorActionSheetProps
   _dataList: SquareSelectorFlatListProps
 }
 
-const SelectSquare = ({
-  buttonProps,
-  buttonTitle = '',
-  _dataList,
-  _actionSheet,
-}: SelectSquareProps) => {
+const SelectSquare = (
+  {
+    isShowButton = true,
+    buttonProps,
+    buttonTitle = '',
+    _dataList,
+    _actionSheet,
+  }: SelectSquareProps,
+  ref: any
+) => {
   const { id: actionSheetId } = _actionSheet || {}
   const { setSelectedValue } = _dataList || {}
-  const actionSheetRef = createRef()
   const [isActive, toggleIsActive] = useReducer((state) => {
     return !state
   }, false)
@@ -42,15 +46,17 @@ const SelectSquare = ({
 
   return (
     <>
-      <SelectButton
-        onOpen={handleActionSheetOpen}
-        title={buttonTitle}
-        icon={selectedIcon}
-        isActive={isActive}
-        {...buttonProps}
-      />
+      {isShowButton && (
+        <SelectButton
+          onOpen={handleActionSheetOpen}
+          title={buttonTitle}
+          icon={selectedIcon}
+          isActive={isActive}
+          {...buttonProps}
+        />
+      )}
       <SquareSelectorActionSheet
-        ref={actionSheetRef}
+        ref={ref}
         _dataList={{
           ..._dataList,
           titleType: 'value',
@@ -66,4 +72,4 @@ const SelectSquare = ({
   )
 }
 
-export default SelectSquare
+export default forwardRef(SelectSquare)

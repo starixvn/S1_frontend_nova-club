@@ -1,5 +1,9 @@
+import { getBankLogo } from 'app/config/bank'
+import { getProviderLogo } from 'app/config/games/provider'
+import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
+import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
-import { PlayerBankResult, WithdrawalBankResult } from 'services/bank.type'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { mergeRefs } from 'app/utils/mergeRefs'
 import {
   ActivityIndicator,
@@ -12,21 +16,19 @@ import {
 import React, { ComponentProps, createRef, forwardRef } from 'react'
 import { Platform } from 'react-native'
 import ActionSheet, { SheetManager } from 'react-native-actions-sheet'
-import { DripsyGradient } from '../Gradient'
-import { getBankLogo } from 'app/config/bank'
-import { Button } from '../form/Button'
+import { PlayerBankResult, WithdrawalBankResult } from 'services/bank.type'
 import { useRouter } from 'solito/router'
-import useContextualRouting from 'app/hooks/useContextualRouting'
-import ActionSheetItem from './ActionSheetItem'
-import { getProviderLogo } from 'app/config/games/provider'
+import { Button } from '../form/Button'
 import IconButton from '../form/IconButton'
-import Icon from '../Icon'
-import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
+import { DripsyGradient } from '../Gradient'
+import ActionSheetItem from './ActionSheetItem'
 
-export type SquareSelectorActionSheetProps = ComponentProps<
-  typeof ActionSheet
+export type SquareSelectorActionSheetProps = Omit<
+  ComponentProps<typeof ActionSheet>,
+  'children'
 > & {
   headerTitle: string
+  children?: React.ReactNode
 }
 export type SquareSelectorFlatListProps = ComponentProps<typeof FlatList> & {
   data: WithdrawalBankResult[] | PlayerBankResult[] | []
@@ -40,7 +42,7 @@ export type SquareSelectorFlatListProps = ComponentProps<typeof FlatList> & {
 export interface SquareSelectorForwardRef {}
 
 type SquareSelectorProps = {
-  onPress: (number) => void
+  onPress?: (number) => void
   _actionSheet: SquareSelectorActionSheetProps
   _dataList: SquareSelectorFlatListProps
 }
@@ -54,6 +56,7 @@ const SquareSelectorActionSheet = forwardRef<
 >(({ _dataList, _actionSheet }: SquareSelectorProps, ref) => {
   const { t } = useLocalization()
   const { push } = useRouter()
+  const { bottom } = useSafeArea()
   const { makeContextualHref } = useContextualRouting()
   const toAddBankAccount = makeContextualHref('add-bank-account')
   const toBankAccount = makeContextualHref('bank-account')
@@ -136,13 +139,21 @@ const SquareSelectorActionSheet = forwardRef<
       containerStyle={{
         overflow: 'hidden',
         backgroundColor: 'transparent',
-        borderRadius: 0,
+        borderTopLeftRadius: 24,
+        borderTopRightRadius: 24,
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 0,
         maxWidth: theme.sizes.container,
       }}
       {...restActionSheetProps}
     >
       <View
         sx={{
+          ...Platform.select({
+            native: {
+              pb: bottom,
+            },
+          }),
           p: '$1',
           alignItems: 'center',
           justifyContent: 'center',
@@ -202,8 +213,6 @@ const SquareSelectorActionSheet = forwardRef<
 
 const StyledViewHeader = styled(DripsyGradient)({
   minHeight: 48,
-  borderTopLeftRadius: 24,
-  borderTopRightRadius: 24,
   justifyContent: 'center',
   alignItems: 'center',
   flexDirection: 'row',
