@@ -269,7 +269,6 @@
   },
   "pin": {
     "confirmPin": "Confirm PIN",
-    "createPin": "Create Pin",
     "forgotPin": "Forgot Pin",
     "headerText1": "Create 6-digit PIN",
     "headerText2": "Secure your transfer with PIN",

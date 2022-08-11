@@ -1,25 +1,44 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import * as ImagePicker from 'expo-image-picker'
 import { Platform } from 'react-native'
 import jsQR from 'jsqr'
 import { Buffer } from 'buffer'
 import jpeg from 'jpeg-js'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { AlertActions } from 'app/store/alert.slice'
 import useLocalization from 'app/provider/localization'
 import { useLazyAffiliateUsernameQuery } from 'services/contentApi'
 import useContextualRouting from '../useContextualRouting'
 import { useRouter } from 'solito/router'
+import { useIsFocused } from '../isFocus/useIsFocused'
+import { RootState } from 'app/provider/redux/store'
+import { SettingActions } from 'app/store/setting.slice'
 const PNG = require('pngjs/browser').PNG
 
 const useImagePicker = () => {
   const { t } = useLocalization()
   const { push } = useRouter()
   const dispatch = useDispatch()
+  const isScanning = useSelector(
+    (state: RootState) => state.setting.transferScan
+  )
   const [loading, setLoading] = useState(false)
-  const [isScanning, setIsScanning] = useState(true)
-  const { makeContextualHref } = useContextualRouting()
+  const { makeContextualHref, returnHref } = useContextualRouting()
   const [fetchUsername, { isError, error }] = useLazyAffiliateUsernameQuery()
+
+  const isFocus = useIsFocused()
+
+  useEffect(() => {
+    handleScan(true)
+    return () => {
+      handleScan(false)
+      setLoading(false)
+    }
+  }, [isFocus])
+
+  const handleScan = (value: boolean) => {
+    dispatch(SettingActions.toogleScan(value))
+  }
 
   const pickImageFromGallery = async () => {
     setLoading(true)
@@ -67,6 +86,7 @@ const useImagePicker = () => {
         setLoading(false)
       }
     }
+    console.log('loading flase')
     setLoading(false)
   }
 
@@ -74,12 +94,12 @@ const useImagePicker = () => {
     const data = await fetchUsername(value)
       .unwrap()
       .catch((error) => {
-        setIsScanning(true)
+        handleScan(true)
         dispatch(AlertActions.addError(error.message))
       })
 
     if (data?.success) {
-      setIsScanning(false)
+      handleScan(false)
       const params = {
         referralCode: value,
       }
@@ -94,7 +114,7 @@ const useImagePicker = () => {
   return {
     loading,
     isScanning,
-    setIsScanning,
+    handleScan,
     pickImageFromGallery,
     handleGoToTransfer,
   }
