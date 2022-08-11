@@ -28,6 +28,7 @@ const SimpleTable = () => {
         injectedJavaScript={INJECTED_JAVASCRIPT}
         source={{ uri: COMMISSION_TABLE_URL }}
         startInLoadingState
+        style={{ backgroundColor: 'transparent' }}
       />
     </View>
   )
