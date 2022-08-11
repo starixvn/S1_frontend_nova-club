@@ -74,7 +74,7 @@ const SimpleGridImage: FC<GamesProps> = ({
           transition={{ damping: 10, mass: 0.75 }}
         >
           <Image
-            onLoad={() => setLoaded(true)}
+            // onLoad={() => setLoaded(true)}
             resizeMode={'contain'}
             source={img}
             style={{
