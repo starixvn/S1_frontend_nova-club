@@ -3,7 +3,7 @@ import SelectButton from 'app/components/form/Select/SelectButton'
 import SelectSquare from 'app/components/form/Select/SelectSquare'
 import useLocalization from 'app/provider/localization'
 import { Row, View } from 'dripsy'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import ActionSheet from 'react-native-actions-sheet'
 import useSlotGamesFilter from '../../hooks/game/useSlotGamesFilter'
 import VerticalGameList from '../games/VerticalGameList'
@@ -12,6 +12,7 @@ const Slots = () => {
   const { t } = useLocalization()
   const gameTypeRef = useRef<ActionSheet>()
   const slotProviderRef = useRef<ActionSheet>()
+  const [providerLogo, setProviderLogo] = useState('')
 
   const {
     providerSelection,
@@ -67,6 +68,7 @@ const Slots = () => {
                 <SelectButton
                   onOpen={openSlotProviderActionSheet}
                   title={selectedProvider.label ?? 'Click here to open'}
+                  icon={providerLogo}
                   sx={{
                     mx: '$2',
                     flex: 0.45,
@@ -103,6 +105,7 @@ const Slots = () => {
       <SelectSquare
         isShowButton={false}
         ref={slotProviderRef}
+        setIcon={setProviderLogo}
         _dataList={{
           data: providerSelection,
           setSelectedValue: setSelectedProvider,

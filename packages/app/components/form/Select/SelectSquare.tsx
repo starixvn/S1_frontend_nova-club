@@ -3,7 +3,14 @@ import SquareSelectorActionSheet, {
   SquareSelectorActionSheetProps,
   SquareSelectorFlatListProps,
 } from 'app/components/actionsheet/SquareSelectorActionSheet'
-import React, { ComponentProps, forwardRef, useReducer, useState } from 'react'
+import React, {
+  ComponentProps,
+  Dispatch,
+  forwardRef,
+  SetStateAction,
+  useReducer,
+  useState,
+} from 'react'
 import { SheetManager } from 'react-native-actions-sheet'
 import SelectButton from './SelectButton'
 
@@ -19,6 +26,7 @@ type SelectSquareProps = {
     ComponentProps<typeof SquareSelectorActionSheet>,
     '_dataList' | '_actionSheet'
   >
+  setIcon?: Dispatch<SetStateAction<string>>
 }
 
 const SelectSquare = (
@@ -29,6 +37,7 @@ const SelectSquare = (
     _dataList,
     _actionSheet,
     actionSheetProps,
+    setIcon,
   }: SelectSquareProps,
   ref: any
 ) => {
@@ -46,6 +55,7 @@ const SelectSquare = (
   const handleActionSheetClose = async (item) => {
     setSelectedValue(item)
     setSelectedIcon(item.logo)
+    setIcon?.(item.logo)
     await SheetManager.hide(actionSheetId || DEFAULT_SQUARE_ACTION_SHEET_ID)
   }
 
