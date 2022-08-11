@@ -37,7 +37,7 @@ const SimpleGridImage: FC<GamesProps> = ({
   isHotGame,
   isNewGame,
 }) => {
-  const [isLoaded, setLoaded] = useState(false)
+  // const [isLoaded, setLoaded] = useState(false)
   const dispatch = useDispatch()
   const _sx = useSx()
   const urlImage = typeof image == 'string' && image.indexOf('http') > -1
@@ -51,9 +51,9 @@ const SimpleGridImage: FC<GamesProps> = ({
     gameType,
   }
 
-  useEffect(() => {
-    setLoaded(false)
-  }, [image])
+  // useEffect(() => {
+  //   setLoaded(false)
+  // }, [image])
   return (
     <View>
       <TouchableOpacity
@@ -70,10 +70,8 @@ const SimpleGridImage: FC<GamesProps> = ({
             opacity: 0.2,
             translateY: Math.random() * 40 + 50,
           }}
-          animate={
-            isLoaded ? { scale: 1, opacity: 1, translateY: 0 } : undefined
-          }
-          transition={{ damping: 11, mass: 0.75 }}
+          animate={{ scale: 1, opacity: 1, translateY: 0 }}
+          transition={{ damping: 10, mass: 0.75 }}
         >
           <Image
             onLoad={() => setLoaded(true)}
