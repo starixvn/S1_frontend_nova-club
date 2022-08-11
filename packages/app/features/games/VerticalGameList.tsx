@@ -144,6 +144,7 @@ export default function VerticalGameList({
         scrollViewProps={{
           contentContainerStyle: {
             padding: containerSpace,
+            paddingBottom: containerSpace * 3,
           },
         }}
         {...rest}
