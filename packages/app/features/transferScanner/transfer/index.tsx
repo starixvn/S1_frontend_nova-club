@@ -6,6 +6,7 @@ import { useIsFocused } from 'app/hooks/isFocus/useIsFocused'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
 import { AlertActions } from 'app/store/alert.slice'
+import { SettingActions } from 'app/store/setting.slice'
 import { toCleanAmount, toCurrency, toRealAmount } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import validation from 'app/utils/validation'
@@ -50,13 +51,11 @@ const TransferScreen = ({
   const { data } = usePlayerBalanceQuery(undefined, {
     refetchOnMountOrArgChange: true,
   })
-  const [fetchUsername, { data: userData, isError, error }] =
-    useLazyAffiliateUsernameQuery()
   const { data: playerData, refetch } = usePlayerProfileQuery(undefined, {
     refetchOnMountOrArgChange: true,
     refetchOnFocus: true,
   })
-  const currency = userData?.data?.currency as Currency
+  const currency = playerData?.data?.currency as Currency
   const isPinExist = playerData?.data?.pin_exist
 
   const { makeContextualHref } = useContextualRouting()
@@ -116,17 +115,11 @@ const TransferScreen = ({
   } = formik
 
   useEffect(() => {
-    referralCode && fetchUsername(referralCode)
-  }, [])
-
-  useEffect(() => {
-    if (isError) {
-      dispatch(AlertActions.addError(error))
-    }
-  }, [userData])
-
-  useEffect(() => {
     !isPinExist && push(toCreatePin, '/pin/create-pin')
+
+    return () => {
+      !isIDTransfer && dispatch(SettingActions.toogleScan(true))
+    }
   }, [isPinExist])
 
   function onAmountChanged(text: string) {
@@ -189,7 +182,7 @@ const TransferScreen = ({
           ) : (
             <TextField.Label
               label="transfer.transferTo"
-              value={userData?.data?.username ?? ''}
+              value={playerData?.data?.username ?? ''}
               textSx={{ textAlign: 'right' }}
               sx={{ my: 0 }}
             />
@@ -236,7 +229,7 @@ const TransferScreen = ({
                   opacity: 0.8,
                 }}
               >
-                {t('pin.createPin')}
+                {t('menu.createPin')}
               </Text>
             </MotiLink>
           </View>

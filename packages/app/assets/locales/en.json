@@ -269,7 +269,6 @@
   },
   "pin": {
     "confirmPin": "Confirm PIN",
-    "createPin": "Create Pin",
     "forgotPin": "Forgot Pin",
     "headerText1": "Create 6-digit PIN",
     "headerText2": "Secure your transfer with PIN",
@@ -296,12 +295,12 @@
       "turnover": "Turn Over",
       "w/l": "Win/Lose (VND)"
     },
+    "playerId": "Player ID",
     "timeline": "UTC/GMT +7"
   },
   "qr": {
     "downloadQrCode": "Download QR code",
     "noCameraAccess": "No access to camera",
-    "qrCodeNotDetected": "Cannot detect QR code in image",
     "requestCameraPermissions": "Requesting for camera permission",
     "scanGallery": "Scan from gallery"
   },
@@ -321,6 +320,7 @@
     "imageNotSupported": "Image format not supported",
     "pending": "Pending",
     "processing": "Processing",
+    "qrCodeNotDetected": "Cannot detect QR code in image",
     "qrDownloadSuccess": "Qr code download successfully",
     "receiptRequired": "Receipt is required for deposit submit",
     "referralError": "Refferal doesn't exist, please try another code",

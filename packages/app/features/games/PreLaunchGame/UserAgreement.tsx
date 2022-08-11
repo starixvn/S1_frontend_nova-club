@@ -1,11 +1,12 @@
 import CheckBox from 'app/components/CheckBox'
 import useLocalization from 'app/provider/localization'
+import { ModalStackParams } from 'app/provider/modal'
 import { Pressable, styled, Text, View } from 'dripsy'
 import { useModal } from 'react-native-modalfy'
 
 const UserAgreement = ({ onAgree, isAgree }) => {
   const { t } = useLocalization()
-  const { openModal } = useModal()
+  const { openModal } = useModal<ModalStackParams>()
 
   const openUserAgreement = () => {
     openModal('UserAgreementModal')

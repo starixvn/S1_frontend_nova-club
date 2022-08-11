@@ -14,8 +14,32 @@ import {
   ModalStackConfig,
 } from 'react-native-modalfy'
 
+type ModalStackConfigValueType = ModalStackConfig extends Record<
+  any,
+  infer ValueType
+>
+  ? ValueType
+  : never
+
+export interface ModalStackParams {
+  AlertModal: undefined
+  DepositConfirmationModal: { amount: number; callback(...args: any): any }
+  PinModal: { onConfirm(...args: any): any; onForgotPin(...args: any): any }
+  PlayerBankDeleteModal: { bank: Record<any, any> }
+  ReferralModal: undefined
+  WithdrawalConfirmationModal: {
+    withdrawalInfo: Record<any, any>
+    bankLogo: any
+    fields: Record<any, any>[]
+    onConfirm(...args: any): any
+  }
+  UserAgreementModal: undefined
+}
+
+type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
+
 /* Consider using this modal for other temporarily / not fullscreen modal  */
-const modalConfig: ModalStackConfig = {
+const modalConfig: ModalConfigType = {
   AlertModal: AlertModal,
   DepositConfirmationModal: DepositConfirmationModal,
   PinModal: {

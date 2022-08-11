@@ -19,6 +19,9 @@ const messageEndpoints = (builder: EndpointBuilderType) => {
           delete_all: isDeleteAll,
           message_ids: ids,
         },
+        headers: {
+          'Content-Type': 'application/json',
+        },
       }),
     }),
   }

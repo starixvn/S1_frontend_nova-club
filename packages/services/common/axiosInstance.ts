@@ -101,10 +101,10 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
     Object.assign(requestParams, generateFPSParams())
 
     try {
-      const black_b = window.IGLOO?.getBlackbox().blackbox
+      const black_b = window.IGLOO?.getBlackbox?.()?.blackbox
       requestParams.black_b = black_b
     } catch (e) {
-      console.log('Failed to retrieve blackbox')
+      console.error(e, 'Failed to retrieve blackbox')
     }
   }
 

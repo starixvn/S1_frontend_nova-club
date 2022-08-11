@@ -67,6 +67,7 @@ type TextFieldSelectProps = {
   _actionSheet: SquareSelectorActionSheetProps
   _dataList: SquareSelectorFlatListProps
   onPress: (object) => void
+  _input?: DripsyTextInputProps
 }
 
 const TextField = ({ labelWidth = 0.8, children }: TextFieldProps) => {
