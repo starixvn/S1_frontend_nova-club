@@ -1,10 +1,7 @@
-import { LANGUAGE_CODE } from 'app/constant/language'
+import SkeletonPlaceholder from 'app/components/skeleton/SkeletonPlaceholder'
 import useContainerDimension from 'app/hooks/useContainerDimension'
-import { useBannerQuery } from 'services/contentApi'
-import { BannerResult } from 'services/contentApi.type'
 import { Image, styled, View } from 'dripsy'
 import React, { FC } from 'react'
-import { Platform, useWindowDimensions } from 'react-native'
 import Animated, {
   Extrapolate,
   interpolate,
@@ -12,19 +9,22 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated'
 import Carousel from 'react-native-reanimated-carousel'
+import { useBannerQuery } from 'services/contentApi'
+import { BannerResult } from 'services/contentApi.type'
+
 const BANNER_RATIO = 768 / 350
 
 const BannerSection = () => {
   const { width, height } = useContainerDimension()
 
-  const { data } = useBannerQuery()
+  const { data, isFetching } = useBannerQuery()
   const selectedColor = '#99ECFE'
   const colors = [selectedColor, selectedColor]
   const progressValue = useSharedValue<number>(0)
 
   // if (Platform.OS === 'ios')
   return (
-    <View>
+    <SkeletonPlaceholder show={isFetching} height={width / BANNER_RATIO}>
       {data && (
         <View>
           <Carousel
@@ -61,7 +61,7 @@ const BannerSection = () => {
           </StyledContainerPaginatiom>
         </View>
       )}
-    </View>
+    </SkeletonPlaceholder>
   )
 }
 

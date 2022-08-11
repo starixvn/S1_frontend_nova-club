@@ -53,7 +53,7 @@ PODS:
     - React-Core
   - Expo (44.0.6):
     - ExpoModulesCore
-  - ExpoLocalization (13.1.0):
+  - ExpoLocalization (12.0.1):
     - ExpoModulesCore
   - ExpoModulesCore (0.6.5):
     - React-Core
@@ -625,7 +625,7 @@ SPEC CHECKSUMS:
   EXLinearGradient: 4d727eacb53d19ef25b02dd810e0199b453489ce
   EXMediaLibrary: e8c8a365701629b7b21dd29769b86e8320610f18
   Expo: 534e51e607aba8229293297da5585f4b26f50fa1
-  ExpoLocalization: 63204f4b9d4f653469d266332ceaa6c6ac8a305d
+  ExpoLocalization: 72b4524c167da6c4e2a0bbe09176ff8b2c4eddbe
   ExpoModulesCore: 32c0ccb47f477d330ee93db72505380adf0de09a
   EXScreenOrientation: ca9375ec57e5706128062867516da0b03a97ef64
   FBLazyVector: c71c5917ec0ad2de41d5d06a5855f6d5eda06971
