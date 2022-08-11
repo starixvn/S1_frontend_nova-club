@@ -32,8 +32,8 @@
     "rndebug": "open 'rndebugger://set-debugger-loc?host=localhost&port=19000'",
     "build:android:staging": "cd apps/expo &&  yarn build:android:staging",
     "build:ios:staging": "cd apps/expo && yarn build:ios:staging",
-    "codepush:ios:staging": "cd apps/expo && appcenter codepush release-react -a app_team/NClub-ios -d Staging -m -t 1.0.2",
-    "codepush:android:staging": "cd apps/expo && appcenter codepush release-react -a app_team/NClub-android -d Staging -m -t 1.0.2",
+    "codepush:ios:staging": "cd apps/expo && appcenter codepush release-react -a app_team/NClub-ios -d Staging -m -t 1.0.3",
+    "codepush:android:staging": "cd apps/expo && appcenter codepush release-react -a app_team/NClub-android -d Staging -m -t 1.0.3",
     "postinstall": "patch-package"
   },
   "resolutions": {
