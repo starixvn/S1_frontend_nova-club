@@ -28,7 +28,7 @@ const ProfileDetails = () => {
             value={userProfile?.data?.contractNumber || ''}
           />
           <TextField.Label
-            label={t('common.id')}
+            label={t('profile.playerId')}
             value={userProfile?.data?.referral_code || ''}
             copy
           />

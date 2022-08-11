@@ -16,6 +16,8 @@ import BarcodeMask from 'react-native-barcode-mask'
 import { Button } from 'app/components/form/Button'
 import LoadingScreen from 'app/components/LoadingScreen'
 import { AlertActions } from 'app/store/alert.slice'
+import { useLazyAffiliateUsernameQuery } from 'services/contentApi'
+import useImagePicker from 'app/hooks/transfer/useImagePicker'
 const PNG = require('pngjs/browser').PNG
 
 export const FINDER_WIDTH: number = 300
@@ -25,20 +27,29 @@ function QrcodeScannerTab({ isActive }) {
   const { t } = useLocalization()
   const dispatch = useDispatch()
   const [hasPermission, setHasPermission] = useState(null)
-  const [scanning, setScanning] = useState(true)
-  const [loading, setLoading] = useState(false)
+  // const [scanning, setScanning] = useState(true)
+  // const [loading, setLoading] = useState(false)
   const { push, replace } = useRouter()
+  const [fetchUsername, { data, isFetching }] = useLazyAffiliateUsernameQuery()
 
   const { makeContextualHref } = useContextualRouting()
   const { width, height } = useContainerDimension()
   const viewMinX = (width - FINDER_WIDTH) / 2
   const viewMinY = (height - FINDER_HEIGHT) / 2
 
+  const {
+    loading,
+    isScanning,
+    setIsScanning,
+    handleGoToTransfer,
+    pickImageFromGallery,
+  } = useImagePicker()
+
   useEffect(() => {
-    setScanning(isActive)
+    setIsScanning(isActive)
 
     return () => {
-      setScanning(false)
+      setIsScanning(false)
     }
   }, [isActive])
 
@@ -58,87 +69,94 @@ function QrcodeScannerTab({ isActive }) {
       x <= viewMinX + FINDER_WIDTH / 2 &&
       y <= viewMinY + FINDER_HEIGHT / 2
     ) {
-      setScanning(false)
       handleGoToTransfer(data)
     }
   }
 
-  const handleGoToTransfer = (value) => {
-    setScanning(false)
+  // const handleGoToTransfer = async (value) => {
+  //   setScanning(false)
+  //   const data = await fetchUsername(value)
+  //     .unwrap()
+  //     .catch((error) => {
+  //       setScanning(true)
+  //       dispatch(AlertActions.addError(error.message))
+  //     })
 
-    const params = {
-      referralCode: value,
-    }
+  //   if (data?.success) {
+  //     const params = {
+  //       referralCode: value,
+  //     }
 
-    replace(makeContextualHref('transfer', params), {
-      pathname: '/transfer',
-      query: params,
-    })
-  }
+  //     push(makeContextualHref('transfer', params), {
+  //       pathname: '/transfer',
+  //       query: params,
+  //     })
+  //   }
+  // }
 
-  if (hasPermission === null) {
-    return <Text>{t('qr.requestCameraPermissions')}</Text>
-  }
-  if (hasPermission === false) {
-    return <Text>{t('qr.noCameraAccess')}</Text>
-  }
+  // if (hasPermission === null) {
+  //   return <Text>{t('qr.requestCameraPermissions')}</Text>
+  // }
+  // if (hasPermission === false) {
+  //   return <Text>{t('qr.noCameraAccess')}</Text>
+  // }
 
-  const pickImageFromGallery = async () => {
-    setLoading(true)
+  // const pickImageFromGallery = async () => {
+  //   setLoading(true)
 
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      base64: true,
-      quality: 1,
-    })
+  //   let result = await ImagePicker.launchImageLibraryAsync({
+  //     mediaTypes: ImagePicker.MediaTypeOptions.Images,
+  //     base64: true,
+  //     quality: 1,
+  //   })
 
-    if (!result.cancelled) {
-      console.log('result.uri', result.uri)
+  //   if (!result.cancelled) {
+  //     console.log('result.uri', result.uri)
 
-      try {
-        const imageBuffer = Buffer.from(result.base64, 'base64')
-        const imageExtension =
-          Platform.OS === 'web'
-            ? result.uri.substring(
-                result.uri.indexOf('/') + 1,
-                result.uri.indexOf(';base64')
-              )
-            : result.uri.substring(result.uri.lastIndexOf('.') + 1)
+  //     try {
+  //       const imageBuffer = Buffer.from(result.base64, 'base64')
+  //       const imageExtension =
+  //         Platform.OS === 'web'
+  //           ? result.uri.substring(
+  //               result.uri.indexOf('/') + 1,
+  //               result.uri.indexOf(';base64')
+  //             )
+  //           : result.uri.substring(result.uri.lastIndexOf('.') + 1)
 
-        let imageParse
+  //       let imageParse
 
-        switch (imageExtension.toLowerCase()) {
-          case 'png':
-            imageParse = PNG.sync.read(imageBuffer)
-            break
-          case 'jpg':
-          case 'jpeg':
-            imageParse = jpeg.decode(imageBuffer, { useTArray: true })
-            break
-          default:
-            dispatch(AlertActions.addError('status.imageNotSupported'))
-            return
-        }
+  //       switch (imageExtension.toLowerCase()) {
+  //         case 'png':
+  //           imageParse = PNG.sync.read(imageBuffer)
+  //           break
+  //         case 'jpg':
+  //         case 'jpeg':
+  //           imageParse = jpeg.decode(imageBuffer, { useTArray: true })
+  //           break
+  //         default:
+  //           dispatch(AlertActions.addError('status.imageNotSupported'))
+  //           return
+  //       }
 
-        const imageData = imageParse.data
+  //       const imageData = imageParse.data
 
-        const data = Uint8ClampedArray.from(imageData)
-        const code = jsQR(data, result.width, result.height)
+  //       const data = Uint8ClampedArray.from(imageData)
+  //       const code = jsQR(data, result.width, result.height)
 
-        code
-          ? handleGoToTransfer(code?.data)
-          : dispatch(AlertActions.addError('status.scanFailed'))
-      } catch (error) {
-        dispatch(AlertActions.addError('status.imageNotSupported'))
-      }
-    }
-    setLoading(false)
-  }
+  //       code
+  //         ? await handleGoToTransfer(code?.data)
+  //         : dispatch(AlertActions.addError('status.scanFailed'))
+  //     } catch (error) {
+  //       dispatch(AlertActions.addError('status.imageNotSupported'))
+  //     }
+  //   }
+  //   setLoading(false)
+  // }
 
   return (
     <View sx={{ flex: 1, bg: '$secondary' }}>
       <BarCodeScanner
-        onBarCodeScanned={scanning ? handleBarCodeScanned : undefined}
+        onBarCodeScanned={isScanning ? handleBarCodeScanned : undefined}
         barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
         style={[StyleSheet.absoluteFillObject, styles.camera]}
       >

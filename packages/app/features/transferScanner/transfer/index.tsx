@@ -50,13 +50,11 @@ const TransferScreen = ({
   const { data } = usePlayerBalanceQuery(undefined, {
     refetchOnMountOrArgChange: true,
   })
-  const [fetchUsername, { data: userData, isError, error }] =
-    useLazyAffiliateUsernameQuery()
   const { data: playerData, refetch } = usePlayerProfileQuery(undefined, {
     refetchOnMountOrArgChange: true,
     refetchOnFocus: true,
   })
-  const currency = userData?.data?.currency as Currency
+  const currency = playerData?.data?.currency as Currency
   const isPinExist = playerData?.data?.pin_exist
 
   const { makeContextualHref } = useContextualRouting()
@@ -114,16 +112,6 @@ const TransferScreen = ({
     submitForm,
     setValues,
   } = formik
-
-  useEffect(() => {
-    referralCode && fetchUsername(referralCode)
-  }, [])
-
-  useEffect(() => {
-    if (isError) {
-      dispatch(AlertActions.addError(error))
-    }
-  }, [userData])
 
   useEffect(() => {
     !isPinExist && push(toCreatePin, '/pin/create-pin')
@@ -189,7 +177,7 @@ const TransferScreen = ({
           ) : (
             <TextField.Label
               label="transfer.transferTo"
-              value={userData?.data?.username ?? ''}
+              value={playerData?.data?.username ?? ''}
               textSx={{ textAlign: 'right' }}
               sx={{ my: 0 }}
             />
