@@ -31,7 +31,6 @@ function HistoryListing<T>(props: HistoryListingProps<T>) {
   const refreshData = () => {
     setTotalRow(0)
     setTotalOffset(0)
-    setDisplayList([])
     setAllLoaded(false)
     !isFetching && fetchData(0)
   }
@@ -54,6 +53,7 @@ function HistoryListing<T>(props: HistoryListingProps<T>) {
         setTotalOffset(offset + limit)
       } else {
         setAllLoaded(true)
+        if (displayList.length && res.row_count_total === 0) setDisplayList([])
       }
     } catch (e) {
       console.log('🚀 ~ file: HistoryListing.tsx ~ line 204 ~ fetchData ~ e', e)
