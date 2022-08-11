@@ -4,15 +4,15 @@ import {
   GameLauncherActions,
   LaunchGamePayload,
 } from 'app/store/gameLauncher.slice'
-import { Image, styled, SxProp, Text, useSx, View } from 'dripsy'
+import { styled, SxProp, Text, useSx, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
-import { FC, memo, useEffect } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { Game } from 'services/contentApi.type'
 import Icon from './Icon'
-import FastImage from 'react-native-fast-image'
 import React from 'react'
+import Image from './common/Image'
 
 interface GamesProps extends LaunchGamePayload {
   width: number
@@ -37,6 +37,7 @@ const SimpleGridImage: FC<GamesProps> = ({
   isHotGame,
   isNewGame,
 }) => {
+  const [isLoaded, setLoaded] = useState(false)
   const dispatch = useDispatch()
   const _sx = useSx()
   const urlImage = typeof image == 'string' && image.indexOf('http') > -1
@@ -49,6 +50,10 @@ const SimpleGridImage: FC<GamesProps> = ({
     gameName,
     gameType,
   }
+
+  useEffect(() => {
+    setLoaded(false)
+  }, [image])
   return (
     <View>
       <TouchableOpacity
@@ -59,17 +64,20 @@ const SimpleGridImage: FC<GamesProps> = ({
       >
         <MotiView
           key={image}
-          delay={Math.random() * 300}
+          delay={Math.random() * 100}
           from={{
             scale: 0.1,
             opacity: 0.2,
             translateY: Math.random() * 40 + 50,
           }}
-          animate={{ scale: 1, opacity: 1, translateY: 0 }}
+          animate={
+            isLoaded ? { scale: 1, opacity: 1, translateY: 0 } : undefined
+          }
           transition={{ damping: 11, mass: 0.75 }}
         >
-          <FastImage
-            resizeMode={FastImage.resizeMode.contain}
+          <Image
+            onLoad={() => setLoaded(true)}
+            resizeMode={'contain'}
             source={img}
             style={{
               width,
