@@ -1,18 +1,18 @@
 import CheckBox from 'app/components/CheckBox'
+import RefreshButton from 'app/components/form/IconButton/RefreshButton'
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
-import { useAppSelector } from 'app/provider/redux/store'
-import { useDeleteMessagesMutation, useMessageQuery } from 'services/messageApi'
 import { ActivityIndicator, styled, Text, View } from 'dripsy'
 import { useCallback, useState } from 'react'
 import { FlatList, TouchableOpacity } from 'react-native'
+import { useDeleteMessagesMutation, useMessageQuery } from 'services/messageApi'
 import MessageCard from './MessageCard'
 
 const PersonalMessagePage = () => {
   const { t } = useLocalization()
-  const { data, isError, isSuccess, refetch, isLoading } = useMessageQuery()
+  const { data, isSuccess, refetch, isFetching } = useMessageQuery()
 
   const [deleteMessages, { isLoading: isDeleting }] =
     useDeleteMessagesMutation()
@@ -30,10 +30,12 @@ const PersonalMessagePage = () => {
     })
   }, [])
 
+  const isSelectedAtLeastOne = selectedIds.length > 0
   const isAllSelected =
     isSuccess &&
-    selectedIds.length > 0 &&
+    isSelectedAtLeastOne &&
     selectedIds.length === data?.data?.messages.length
+
   const selectAll = () => {
     if (isAllSelected) setSelectedIds([])
     else
@@ -42,6 +44,8 @@ const PersonalMessagePage = () => {
   }
 
   async function onDelete() {
+    if (!isSelectedAtLeastOne) return
+
     let params = {
       isDeleteAll: false,
       ids: selectedIds,
@@ -69,30 +73,23 @@ const PersonalMessagePage = () => {
               </Text>
             </View>
           </TouchableOpacity>
-          <View sx={{ flexDirection: 'row' }}>
+          <View sx={{ flexDirection: 'row', alignItems: 'center' }}>
             {isDeleting ? (
-              <ActivityIndicator sx={{ m: '$2' }} color={'$lightCyan'} />
+              <ActivityIndicator size={25} color={'$lightCyan'} />
             ) : (
-              <BouncePressable onPress={onDelete}>
-                <Icon name="bin" size={25} color={'$text'} />
+              <BouncePressable
+                disabled={!isSelectedAtLeastOne}
+                onPress={onDelete}
+              >
+                <Icon
+                  name="bin"
+                  size={25}
+                  color={isSelectedAtLeastOne ? '$text' : '$disabled'}
+                />
               </BouncePressable>
             )}
             <View sx={{ pl: '$3' }}>
-              {isLoading ? (
-                <ActivityIndicator
-                  size={23}
-                  color={'$lightCyan'}
-                  sx={{ px: '$1' }}
-                />
-              ) : (
-                <BouncePressable
-                  onPress={() => {
-                    refetch()
-                  }}
-                >
-                  <Icon name="reload" size={25} color={'$text'} />
-                </BouncePressable>
-              )}
+              <RefreshButton loading={isFetching} onPress={() => refetch()} />
             </View>
           </View>
         </StyledView>
@@ -100,7 +97,7 @@ const PersonalMessagePage = () => {
       <FlatList
         onRefresh={() => refetch()}
         keyExtractor={(item) => item.messageId.toString()}
-        refreshing={isLoading}
+        refreshing={isFetching}
         style={{ backgroundColor: '#0D2035' }}
         data={data?.data?.messages}
         renderItem={({ item, index }) => {
