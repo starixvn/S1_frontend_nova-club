@@ -17,22 +17,22 @@ function QrcodeScannerTab({ isActive }) {
   const {
     loading,
     isScanning,
-    setIsScanning,
+    handleScan,
     handleGoToTransfer,
     pickImageFromGallery,
   } = useImagePicker()
 
   useEffect(() => {
-    setIsScanning(isActive)
+    handleScan(isActive)
 
     return () => {
-      setIsScanning(false)
+      handleScan(false)
     }
   }, [isActive, isFocus])
 
   const handleBarCodeScannedWeb = (result, error) => {
     if (!!result) {
-      setIsScanning(false)
+      handleScan(false)
       handleGoToTransfer(result.text)
     } else if (!!error) {
       // console.log(

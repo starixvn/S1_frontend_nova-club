@@ -3,6 +3,7 @@ import { LANGUAGE_CODE } from 'app/constant/language'
 import dayjs, { Dayjs } from 'dayjs'
 import contentApi from 'services/contentApi'
 import { Game } from 'services/contentApi.type'
+import { boolean } from 'yup'
 import { GameLauncherActions, LaunchGamePayload } from './gameLauncher.slice'
 
 interface PopUpExpire {
@@ -21,6 +22,7 @@ export interface Setting {
   recentGames: LaunchGamePayload[]
   recentGameResources: Record<string, string>
   log?: string
+  transferScan: boolean
 }
 // export const DomainListHintPostfix = '-DomainListHint'
 // export const DepositListHintPostfix = '-DepositListHint'
@@ -31,6 +33,7 @@ const initialState: Setting = {
   popUpExpiry: {},
   recentGames: [],
   recentGameResources: {},
+  transferScan: false,
 }
 
 const settingSlice = createSlice({
@@ -48,6 +51,9 @@ const settingSlice = createSlice({
     },
     setLog: (state, action: PayloadAction<string>) => {
       state.log = action.payload
+    },
+    toogleScan: (state, action: PayloadAction<boolean>) => {
+      state.transferScan = action.payload
     },
     addRecentGame: (state, action: PayloadAction<LaunchGamePayload>) => {
       const recentGame = action.payload

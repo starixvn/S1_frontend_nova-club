@@ -6,6 +6,7 @@ import { useIsFocused } from 'app/hooks/isFocus/useIsFocused'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
 import { AlertActions } from 'app/store/alert.slice'
+import { SettingActions } from 'app/store/setting.slice'
 import { toCleanAmount, toCurrency, toRealAmount } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import validation from 'app/utils/validation'
@@ -115,6 +116,10 @@ const TransferScreen = ({
 
   useEffect(() => {
     !isPinExist && push(toCreatePin, '/pin/create-pin')
+
+    return () => {
+      !isIDTransfer && dispatch(SettingActions.toogleScan(true))
+    }
   }, [isPinExist])
 
   function onAmountChanged(text: string) {
@@ -224,7 +229,7 @@ const TransferScreen = ({
                   opacity: 0.8,
                 }}
               >
-                {t('pin.createPin')}
+                {t('menu.createPin')}
               </Text>
             </MotiLink>
           </View>

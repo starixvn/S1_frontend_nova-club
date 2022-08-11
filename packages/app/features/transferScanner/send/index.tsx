@@ -1,38 +1,20 @@
-import React, { useState, useEffect } from 'react'
-import { StyleSheet, Platform } from 'react-native'
-import { BarCodeScanner } from 'expo-barcode-scanner'
-import { styled, Text, View } from 'dripsy'
-import Header from 'app/components/common/Header'
-import useContainerDimension from 'app/hooks/useContainerDimension'
-import { useRouter } from 'solito/router'
-import useContextualRouting from 'app/hooks/useContextualRouting'
-import useLocalization from 'app/provider/localization'
-import * as ImagePicker from 'expo-image-picker'
-import jsQR from 'jsqr'
-import { Buffer } from 'buffer'
-import jpeg from 'jpeg-js'
-import { useDispatch } from 'react-redux'
-import BarcodeMask from 'react-native-barcode-mask'
 import { Button } from 'app/components/form/Button'
 import LoadingScreen from 'app/components/LoadingScreen'
-import { AlertActions } from 'app/store/alert.slice'
-import { useLazyAffiliateUsernameQuery } from 'services/contentApi'
 import useImagePicker from 'app/hooks/transfer/useImagePicker'
-const PNG = require('pngjs/browser').PNG
+import useContainerDimension from 'app/hooks/useContainerDimension'
+import useLocalization from 'app/provider/localization'
+import { View } from 'dripsy'
+import { BarCodeScanner } from 'expo-barcode-scanner'
+import React, { useEffect, useState } from 'react'
+import { StyleSheet } from 'react-native'
+import BarcodeMask from 'react-native-barcode-mask'
 
 export const FINDER_WIDTH: number = 300
 export const FINDER_HEIGHT: number = 300
 
 function QrcodeScannerTab({ isActive }) {
   const { t } = useLocalization()
-  const dispatch = useDispatch()
   const [hasPermission, setHasPermission] = useState(null)
-  // const [scanning, setScanning] = useState(true)
-  // const [loading, setLoading] = useState(false)
-  const { push, replace } = useRouter()
-  const [fetchUsername, { data, isFetching }] = useLazyAffiliateUsernameQuery()
-
-  const { makeContextualHref } = useContextualRouting()
   const { width, height } = useContainerDimension()
   const viewMinX = (width - FINDER_WIDTH) / 2
   const viewMinY = (height - FINDER_HEIGHT) / 2
@@ -40,16 +22,16 @@ function QrcodeScannerTab({ isActive }) {
   const {
     loading,
     isScanning,
-    setIsScanning,
+    handleScan,
     handleGoToTransfer,
     pickImageFromGallery,
   } = useImagePicker()
 
   useEffect(() => {
-    setIsScanning(isActive)
+    handleScan(isActive)
 
     return () => {
-      setIsScanning(false)
+      handleScan(false)
     }
   }, [isActive])
 
@@ -72,86 +54,6 @@ function QrcodeScannerTab({ isActive }) {
       handleGoToTransfer(data)
     }
   }
-
-  // const handleGoToTransfer = async (value) => {
-  //   setScanning(false)
-  //   const data = await fetchUsername(value)
-  //     .unwrap()
-  //     .catch((error) => {
-  //       setScanning(true)
-  //       dispatch(AlertActions.addError(error.message))
-  //     })
-
-  //   if (data?.success) {
-  //     const params = {
-  //       referralCode: value,
-  //     }
-
-  //     push(makeContextualHref('transfer', params), {
-  //       pathname: '/transfer',
-  //       query: params,
-  //     })
-  //   }
-  // }
-
-  // if (hasPermission === null) {
-  //   return <Text>{t('qr.requestCameraPermissions')}</Text>
-  // }
-  // if (hasPermission === false) {
-  //   return <Text>{t('qr.noCameraAccess')}</Text>
-  // }
-
-  // const pickImageFromGallery = async () => {
-  //   setLoading(true)
-
-  //   let result = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.Images,
-  //     base64: true,
-  //     quality: 1,
-  //   })
-
-  //   if (!result.cancelled) {
-  //     console.log('result.uri', result.uri)
-
-  //     try {
-  //       const imageBuffer = Buffer.from(result.base64, 'base64')
-  //       const imageExtension =
-  //         Platform.OS === 'web'
-  //           ? result.uri.substring(
-  //               result.uri.indexOf('/') + 1,
-  //               result.uri.indexOf(';base64')
-  //             )
-  //           : result.uri.substring(result.uri.lastIndexOf('.') + 1)
-
-  //       let imageParse
-
-  //       switch (imageExtension.toLowerCase()) {
-  //         case 'png':
-  //           imageParse = PNG.sync.read(imageBuffer)
-  //           break
-  //         case 'jpg':
-  //         case 'jpeg':
-  //           imageParse = jpeg.decode(imageBuffer, { useTArray: true })
-  //           break
-  //         default:
-  //           dispatch(AlertActions.addError('status.imageNotSupported'))
-  //           return
-  //       }
-
-  //       const imageData = imageParse.data
-
-  //       const data = Uint8ClampedArray.from(imageData)
-  //       const code = jsQR(data, result.width, result.height)
-
-  //       code
-  //         ? await handleGoToTransfer(code?.data)
-  //         : dispatch(AlertActions.addError('status.scanFailed'))
-  //     } catch (error) {
-  //       dispatch(AlertActions.addError('status.imageNotSupported'))
-  //     }
-  //   }
-  //   setLoading(false)
-  // }
 
   return (
     <View sx={{ flex: 1, bg: '$secondary' }}>
