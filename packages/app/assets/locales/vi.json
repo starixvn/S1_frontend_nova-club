@@ -213,6 +213,7 @@
     "gameHistory": "Lịch sử trò chơi",
     "history": "Lịch sử",
     "logout": "Thoát",
+    "manageCredentials": "",
     "message/announcement": "Tin Nhắn/Thông Báo",
     "profile": "Hồ sơ",
     "referral": "Giới thiệu",
@@ -295,6 +296,7 @@
       "turnover": "Doanh số",
       "w/l": "Thắng/Thua (đồng)"
     },
+    "playerId": "",
     "timeline": "UTC/GMT +7"
   },
   "qr": {

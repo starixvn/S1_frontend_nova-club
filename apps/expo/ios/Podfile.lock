@@ -6,11 +6,11 @@ PODS:
     - AppCenter/Crashes (~> 4.0)
     - AppCenterReactNativeShared (~> 4.0)
     - React-Core
-  - AppCenter/Core (4.4.2)
-  - AppCenter/Crashes (4.4.2):
+  - AppCenter/Core (4.4.3)
+  - AppCenter/Crashes (4.4.3):
     - AppCenter/Core
-  - AppCenterReactNativeShared (4.4.4):
-    - AppCenter/Core (= 4.4.2)
+  - AppCenterReactNativeShared (4.4.5):
+    - AppCenter/Core (= 4.4.3)
   - Base64 (1.1.2)
   - boost-for-react-native (1.63.0)
   - Branch (1.42.0)
@@ -53,7 +53,7 @@ PODS:
     - React-Core
   - Expo (44.0.6):
     - ExpoModulesCore
-  - ExpoLocalization (13.1.0):
+  - ExpoLocalization (12.0.1):
     - ExpoModulesCore
   - ExpoModulesCore (0.6.5):
     - React-Core
@@ -602,10 +602,10 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  AppCenter: b0eca112a27b71e97488ffa1949ee38c7abd4b79
+  AppCenter: 3fd04aa1b166e16fdb03ec81dabe488aece83fbd
   appcenter-core: c593b2e4ac28d6a21b6a217c4a5e6b3de7b0b00f
   appcenter-crashes: d9ae1c9296974c1c433600fa2f320e0ba1f12bdf
-  AppCenterReactNativeShared: 0906af7a6bf95075d6c607189820a2e81fceb6fe
+  AppCenterReactNativeShared: f395caeabde0dc3a11609dbcb737d0f14cd40e79
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   Branch: a6f1d597dc7c027360f386d05e8d109043b207d8
@@ -625,11 +625,11 @@ SPEC CHECKSUMS:
   EXLinearGradient: 4d727eacb53d19ef25b02dd810e0199b453489ce
   EXMediaLibrary: e8c8a365701629b7b21dd29769b86e8320610f18
   Expo: 534e51e607aba8229293297da5585f4b26f50fa1
-  ExpoLocalization: 63204f4b9d4f653469d266332ceaa6c6ac8a305d
+  ExpoLocalization: 72b4524c167da6c4e2a0bbe09176ff8b2c4eddbe
   ExpoModulesCore: 32c0ccb47f477d330ee93db72505380adf0de09a
   EXScreenOrientation: ca9375ec57e5706128062867516da0b03a97ef64
   FBLazyVector: c71c5917ec0ad2de41d5d06a5855f6d5eda06971
-  FBReactNativeSpec: 834ffdf5e8bac48bd21402612c9734a7dca2008e
+  FBReactNativeSpec: a6d9e8c60b891fa47ff7b69b79d85bab1e8e4b53
   glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
   JWT: ef71dfb03e1f842081e64dc42eef0e164f35d251
   RCT-Folly: ec7a233ccc97cc556cf7237f0db1ff65b986f27c
