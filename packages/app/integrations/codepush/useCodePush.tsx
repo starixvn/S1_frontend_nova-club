@@ -7,7 +7,11 @@ export default function useCodePushDownload(
   onCodePushUpdateFailed?: () => void
 ) {
   const [progress, setProgress] = useState(0)
-  const [status, setStatus] = useState<codePush.SyncStatus>()
+  const [status, setStatus] = useState<codePush.SyncStatus>(
+    __DEV__
+      ? codePush.SyncStatus.UP_TO_DATE
+      : codePush.SyncStatus.CHECKING_FOR_UPDATE
+  )
 
   function onDownloadProgress({ totalBytes, receivedBytes }: DownloadProgress) {
     setProgress(receivedBytes / totalBytes)
@@ -70,7 +74,7 @@ export default function useCodePushDownload(
     }
 
     try {
-      codePushChecking()
+      if (status != codePush.SyncStatus.UP_TO_DATE) codePushChecking()
     } catch (e) {
       console.log('useCodePushDownload error', e)
     }
@@ -83,7 +87,7 @@ export async function checkCodePushDownloadable(
   isMandatory = true
 ): Promise<boolean> {
   try {
-    // if (__DEV__) return false
+    if (__DEV__) return false
 
     const remotePackage = await codePush.checkForUpdate()
     if (remotePackage != null && (!isMandatory || remotePackage.isMandatory)) {

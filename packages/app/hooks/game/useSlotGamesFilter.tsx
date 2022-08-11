@@ -21,7 +21,7 @@ function useSlotGamesFilter() {
   const { data, isFetching } = useGetGameListQuery({
     currency: currency ?? Currency.VND,
     game_category: [GAME_TYPE_CODE.SLOTS],
-    limit: 100,
+    limit: 1000,
     offset: 0,
   })
 

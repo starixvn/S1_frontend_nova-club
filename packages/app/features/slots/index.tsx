@@ -1,29 +1,13 @@
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Select from 'app/components/form/Select'
 import SelectSquare from 'app/components/form/Select/SelectSquare'
-import { PageSafeArea } from 'app/components/layout/Page'
-import SimpleGridImage from 'app/components/SimpleGridImage'
-import { ProviderImageExtension } from 'app/config/games/extension'
-import useContainerDimension from 'app/hooks/useContainerDimension'
-import useGameGridSize from 'app/hooks/useGameGridSize'
 import useLocalization from 'app/provider/localization'
-import { Currency, GAME_TYPE_CODE } from 'app/utils/constant'
-import { ActivityIndicator, Row, Text, useSx, View } from 'dripsy'
+import { Row, View } from 'dripsy'
 import React from 'react'
-import { FlatList } from 'react-native'
-import { useGetGameListQuery } from 'services/contentApi'
-import { GameConfig } from 'services/contentApi.type'
-import { usePlayerProfileQuery } from 'services/playerApi'
 import useSlotGamesFilter from '../../hooks/game/useSlotGamesFilter'
 import VerticalGameList from '../games/VerticalGameList'
 import ListSectionHeader from '../ListSectionHeader'
-
 const Slots = () => {
-  const sx = useSx()
   const { t } = useLocalization()
-  const { width } = useContainerDimension()
-
-  const { contentWidth, itemSpace, containerSpace } = useGameGridSize(3)
 
   const {
     providerSelection,
@@ -42,6 +26,7 @@ const Slots = () => {
     <VerticalGameList
       isLoading={isFetching}
       games={filteredGames}
+      extendedState={{ isGameReady }}
       ListHeaderComponent={
         <ListSectionHeader
           title={t('game.category.slots')}

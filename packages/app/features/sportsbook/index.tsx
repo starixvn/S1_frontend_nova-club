@@ -8,7 +8,6 @@ import VerticalGameList from '../games/VerticalGameList'
 import ListSectionHeader from '../ListSectionHeader'
 
 const Sportsbook = () => {
-  const { width, height } = useWindowDimensions()
   const { t } = useLocalization()
 
   const { data: playerProfile } = usePlayerProfileQuery()

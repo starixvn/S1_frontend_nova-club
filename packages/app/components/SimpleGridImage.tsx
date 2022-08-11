@@ -4,12 +4,15 @@ import {
   GameLauncherActions,
   LaunchGamePayload,
 } from 'app/store/gameLauncher.slice'
-import { Image, styled, SxProp, Text, View } from 'dripsy'
-import { FC, memo } from 'react'
+import { Image, styled, SxProp, Text, useSx, View } from 'dripsy'
+import { AnimatePresence, MotiView } from 'moti'
+import { FC, memo, useEffect } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { Game } from 'services/contentApi.type'
 import Icon from './Icon'
+import FastImage from 'react-native-fast-image'
+import React from 'react'
 
 interface GamesProps extends LaunchGamePayload {
   width: number
@@ -35,6 +38,7 @@ const SimpleGridImage: FC<GamesProps> = ({
   isNewGame,
 }) => {
   const dispatch = useDispatch()
+  const _sx = useSx()
   const urlImage = typeof image == 'string' && image.indexOf('http') > -1
   const img = urlImage ? { uri: image } : image
   const { t } = useLocalization()
@@ -47,34 +51,47 @@ const SimpleGridImage: FC<GamesProps> = ({
   }
   return (
     <View>
-      <BouncePressable
-        sx={{ width, position: 'relative', ...sx }}
+      <TouchableOpacity
+        style={_sx({ width, position: 'relative', ...sx })}
         onPress={() => {
           dispatch(GameLauncherActions.launchGame(gamePayload))
         }}
       >
-        <Image
-          resizeMode="contain"
-          source={img}
-          sx={{
-            width,
-            height: height ?? width / GAME_IMAGE_RATIO,
-            borderRadius: 10,
+        <MotiView
+          key={image}
+          delay={Math.random() * 300}
+          from={{
+            scale: 0.1,
+            opacity: 0.2,
+            translateY: Math.random() * 40 + 50,
           }}
-        />
-        {gameName && (
-          <Text
-            sx={{
-              textAlign: 'center',
-              mt: '$1',
-              color: '$lightNavyBlue',
-              fontSize: 15,
+          animate={{ scale: 1, opacity: 1, translateY: 0 }}
+          transition={{ damping: 11, mass: 0.75 }}
+        >
+          <FastImage
+            resizeMode={FastImage.resizeMode.contain}
+            source={img}
+            style={{
+              width,
+              height: height ?? width / GAME_IMAGE_RATIO,
+              borderRadius: 10,
             }}
-          >
-            {t(gameName)}
-          </Text>
-        )}
-      </BouncePressable>
+          />
+        </MotiView>
+      </TouchableOpacity>
+      {gameName && (
+        <Text
+          numberOfLines={1}
+          sx={{
+            textAlign: 'center',
+            color: '$lightNavyBlue',
+            fontSize: 15,
+            lineHeight: 20,
+          }}
+        >
+          {t(gameName)}
+        </Text>
+      )}
       {desktopMode && (
         <DesktopMode
           onPress={() => {
@@ -95,17 +112,30 @@ const SimpleGridImage: FC<GamesProps> = ({
         </DesktopMode>
       )}
       {isHotGame && (
-        <Image
-          resizeMode="contain"
-          source={require('../assets/images/games/common/icon-hot.png')}
-          sx={{
-            width: width * 0.5,
-            height: (height ?? width / GAME_IMAGE_RATIO) * 0.5,
+        <MotiView
+          style={{
             position: 'absolute',
             top: -10,
             left: -10,
           }}
-        />
+          key={image}
+          delay={1000}
+          from={{
+            scale: 0.1,
+            opacity: 0.2,
+            translateY: Math.random() * 40 + 50,
+          }}
+          animate={{ scale: 1, opacity: 1, translateY: 0 }}
+        >
+          <Image
+            resizeMode="contain"
+            source={require('../assets/images/games/common/icon-hot.png')}
+            style={{
+              width: width * 0.5,
+              height: (height ?? width / GAME_IMAGE_RATIO) * 0.5,
+            }}
+          />
+        </MotiView>
       )}
       {isNewGame && (
         <Image

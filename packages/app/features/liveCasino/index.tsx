@@ -10,6 +10,7 @@ import { FlatList, Platform } from 'react-native'
 import { useGetGameListQuery } from 'services/contentApi'
 import { Game } from 'services/contentApi.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
+import VerticalGameList from '../games/VerticalGameList'
 import ListSectionHeader from '../ListSectionHeader'
 
 const LiveCasino = () => {
@@ -30,7 +31,7 @@ const LiveCasino = () => {
   //   filteredGames,
   // } = useLiveCasinoFilter()
 
-  const { gameList, isFetching: isFetchingGameList } = useGetGameListQuery(
+  const { gameList, isFetching } = useGetGameListQuery(
     {
       currency: currency ?? Currency.VND,
       game_category: [GAME_TYPE_CODE.LIVE_DEALER],
@@ -44,126 +45,21 @@ const LiveCasino = () => {
     }
   )
 
-  const { containerSpace, itemSpace, contentWidth } = useGameGridSize(2)
-
-  // const openActionSheet = () => {
-  //   actionSheetRef.current?.show()
-  // }
-
-  const renderItem = ({ item }: { item: Game }) => {
-    const { gc, gpc, gtc, img, name } = item
-    const imageUrl = `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${img}`
-    return (
-      <SimpleGridImage
-        sx={{ m: itemSpace }}
-        providerCode={gpc}
-        gameCode={gc}
-        image={imageUrl}
-        width={contentWidth}
-        gameType={gtc}
-      />
-    )
-  }
-
   const Header = (
-    <View sx={{ m: -containerSpace }}>
-      <ListSectionHeader
-        title={t('game.category.liveCasino')}
-        bgColor="maroon"
-        iconName="lc"
-      />
-      {/* {gameList?.length > 0 && (
-        <ScrollView
-          horizontal
-          sx={{
-            flexGrow: 0,
-            borderBottomColor: '$lightNavyBlue',
-            borderBottomWidth: 1,
-          }}
-          contentContainerStyle={{
-            paddingHorizontal: space,
-            paddingBottom: space,
-            paddingTop: 2, // for the shadow
-          }}
-        >
-          {providerSelection.map((p) => {
-            const selected = p.value === selectedProvider.value
-            return (
-              <TouchableOpacity
-                style={{ marginRight: space * 0.5 }}
-                key={p.value}
-                onPress={() => setSelectedProvider(p)}
-              >
-                <ProviderSelectItem selected={selected}>
-                  <Text>{p.label}</Text>
-                </ProviderSelectItem>
-              </TouchableOpacity>
-            )
-          })}
-        </ScrollView>
-      )}
-      <View
-        sx={{
-          py: space,
-          px: space,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        <Text sx={{ fontSize: [15, 20] }}>{selectedProvider.label}</Text>
-        <SelectButton
-          onOpen={openActionSheet}
-          title={selectedGenre?.label ?? 'Click here to open'}
-          isActive={false}
-          sx={{ minWidth: '25%' }}
-        />
-      </View> */}
-    </View>
+    <ListSectionHeader
+      title={t('game.category.liveCasino')}
+      bgColor="maroon"
+      iconName="lc"
+    />
   )
 
   return (
-    <Page sx={{ bg: '$background' }}>
-      <FlatList
-        numColumns={2}
-        ListHeaderComponent={Header}
-        style={sx({ bg: '$background', flex: 1 })}
-        contentContainerStyle={{ padding: containerSpace }}
-        // onEndReached={loadMore}
-        data={gameList}
-        // extraData={displayList}
-        keyExtractor={(item) => item.gc + item.gpc + item.gtc}
-        renderItem={renderItem}
-        ListEmptyComponent={<ActivityIndicator color={'$lightCyan'} />}
-      />
-      {/* <View sx={{ p: containerSpace, flexDirection: 'row', flexWrap: 'wrap' }}>
-        {filteredGames.map((item, rindex) => {
-          return (
-            <SimpleGridImage
-              key={item.gameCode}
-              sx={{ m: itemSpace }}
-              gameName={item.gameName}
-              providerCode={item.providerCode}
-              gameCode={item.gameCode}
-              image={require('../../assets/images/games/AG01.png')}
-              title={item.gameName}
-              width={contentWidth}
-              height={contentWidth / (325 / 265)}
-            />
-          )
-        })}
-      </View>
-      <SimpleWrap data={filteredGames} /> */}
-
-      {/* `ActionSheet` cannot be shown if put inside `Flatlist` header */}
-      {/* <Select
-        ref={actionSheetRef}
-        headerTitle={t('menu.tab.gameType')}
-        button={() => null}
-        data={genreSelection}
-        setSelectedValue={setSelectedGenre}
-      /> */}
-    </Page>
+    <VerticalGameList
+      numColumns={2}
+      isLoading={isFetching}
+      games={gameList}
+      ListHeaderComponent={Header}
+    />
   )
 }
 
