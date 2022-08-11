@@ -33,6 +33,7 @@ const FieldSelectBank = ({ field, isLoading, formik }: FieldBankProps) => {
         _input={{
           placeholder: t('bank.selectBank'),
           value: values.bank?.label ?? '',
+          pointerEvents: 'none',
         }}
         _dataList={{
           data: bankList ?? [],

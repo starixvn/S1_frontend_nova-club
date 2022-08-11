@@ -145,6 +145,7 @@ const LocalBankScreen = () => {
             _input={{
               placeholder: t('bank.selectBank'),
               value: values.bank?.bank_acc_name ?? '',
+              pointerEvents: 'none',
             }}
             _dataList={{
               data: depositPayment?.list ?? [],
