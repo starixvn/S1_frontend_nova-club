@@ -58,6 +58,7 @@ type TextFieldInputProps = {
   isAmount: boolean
   containerStyle?: SxProp
   sx?: SxProp
+  right: React.ReactNode
 }
 
 type TextFieldSelectProps = {
@@ -131,6 +132,7 @@ const TextFieldInput = ({
   containerStyle,
   isAmount = false,
   _input,
+  right,
   ...rest
 }: TextFieldInputProps) => {
   const { t } = useLocalization()
@@ -176,6 +178,7 @@ const TextFieldInput = ({
                 />
               </>
             )}
+            {right}
           </StyledViewRow>
         </TouchableWithoutFeedback>
       </GradientBox>

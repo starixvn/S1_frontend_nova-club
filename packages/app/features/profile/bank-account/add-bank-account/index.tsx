@@ -1,30 +1,36 @@
-import React from 'react'
-import { TextField } from 'app/components/TextField'
-import { styled, View } from 'dripsy'
 import { Button } from 'app/components/form/Button'
+import { PageWithBackHeader } from 'app/components/layout/Page'
+import { TextField } from 'app/components/TextField'
+import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
+import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
+import useLocalization from 'app/provider/localization'
+import { AlertActions } from 'app/store/alert.slice'
+import { toCleanCard } from 'app/utils'
+import { MaxLength } from 'app/utils/constant'
+import validation, { getErrorMessage } from 'app/utils/validation'
+import { styled, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import * as Yup from 'yup'
-import validation from 'app/utils/validation'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useRef } from 'react'
+import { TextInput } from 'react-native'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
+import { useDispatch } from 'react-redux'
 import {
   useAddPlayerBankAccMutation,
   useWithdrawalBankQuery,
 } from 'services/bank'
-import { AlertActions } from 'app/store/alert.slice'
-import { useRouter } from 'solito/router'
-import useLocalization from 'app/provider/localization'
-import { PageWithBackHeader } from 'app/components/layout/Page'
 import { WithdrawalBankResult } from 'services/bank.type'
-import { toCleanCard } from 'app/utils'
-import { MaxLength } from 'app/utils/constant'
-import { RootState } from 'app/provider/redux/store'
-import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
-import { usePlayerProfileQuery } from 'services/playerApi'
-
+import {
+  usePlayerProfileQuery,
+  useSendUpdateProfileOTPMutation,
+  useUpdateProfileMutation,
+} from 'services/playerApi'
+import { useRouter } from 'solito/router'
+import * as Yup from 'yup'
 const actionSheetId = ACTION_SHEET_ID.ADD_BANK_ACCOUNT
 
 type AddBankAccountValues = {
+  realName?: string
+  otp?: string
   bank: WithdrawalBankResult | undefined
   accountNo: string
 }
@@ -36,12 +42,39 @@ const AddBankAccountScreen = () => {
   const { data, isLoading, isFetching, isSuccess } = useWithdrawalBankQuery()
   const [postAddWithdrawalBankAcc] = useAddPlayerBankAccMutation()
   const { data: playerData } = usePlayerProfileQuery()
+  const isRealNameAvailable = playerData?.data?.firstName?.length > 0
+  const [sendOtp, { isLoading: isOtpLoading }] =
+    useSendUpdateProfileOTPMutation()
+  const [updateProfile] = useUpdateProfileMutation()
+
+  const otpFieldRef = useRef<TextInput>(null)
+  const OTPRef = useRef<ITimerButtonForwardRef>(null)
+
+  async function updateRealName(realName, otp) {
+    const { data, success, message } = await updateProfile({
+      field: 'realName',
+      value: realName,
+      verify_code: otp,
+    })
+
+    if (success) {
+      return
+    } else return message
+  }
 
   const onSubmit = async (
-    { bank, accountNo }: AddBankAccountValues,
+    { bank, accountNo, realName, otp }: AddBankAccountValues,
     actions: FormikHelpers<AddBankAccountValues>
   ) => {
     try {
+      if (!isRealNameAvailable && realName && otp) {
+        const error = await updateRealName(realName, otp)
+        if (error) {
+          dispatch(AlertActions.addError(error))
+          return
+        }
+      }
+
       const { data, success, message } = await postAddWithdrawalBankAcc({
         bank_acc_name: bank?.bank_name ?? '',
         bank_acc_num: accountNo.replaceAll(' ', ''),
@@ -68,7 +101,23 @@ const AddBankAccountScreen = () => {
     }
   }
 
+  const sendOTP = async () => {
+    try {
+      const { data, message, success } = await sendOtp().unwrap()
+
+      OTPRef.current?.startOtpTimer()
+
+      if (success) {
+        Toast.show({ type: 'success', text1: message })
+      }
+    } catch (error) {
+      const errorMessage = getErrorMessage(error)
+      dispatch(AlertActions.addAlert({ message: errorMessage }))
+    }
+  }
+
   const formik = useFormik<AddBankAccountValues>({
+    enableReinitialize: true,
     initialValues: {
       bank: undefined,
       accountNo: '',
@@ -76,6 +125,8 @@ const AddBankAccountScreen = () => {
     validationSchema: Yup.object({
       bank: validation.bank,
       accountNo: validation.accountNo,
+      realName: !isRealNameAvailable ? validation.stringRequired : undefined,
+      otp: !isRealNameAvailable ? validation.stringRequired : undefined,
     }),
     onSubmit,
   })
@@ -107,60 +158,97 @@ const AddBankAccountScreen = () => {
   return (
     <PageWithBackHeader header={{ title: t('bank.addBankAccount') }}>
       <StyledView>
-        <TextField labelWidth={0.55}>
-          <TextField.TextInput
-            label="bank.accountName"
-            _input={{
-              placeholder: t('bank.enterAccountName'),
-              editable: false,
-              value: playerData?.data?.firstName,
-            }}
-            containerStyle={{ my: '$3' }}
-          />
-          <TextField.Select
-            label="bank.bank"
-            _input={{
-              placeholder: t('bank.selectBank'),
-              value: values.bank?.bank_name ?? '',
-            }}
-            _dataList={{
-              data: data,
-              isLoading: isLoading || isFetching,
-              key: 'id',
-              titleType: 'bank_code',
-              onPress: (item) => setFieldValue('bank', item),
-            }}
-            _actionSheet={{
-              id: actionSheetId,
-              headerTitle: t('bank.bank'),
-            }}
-          />
+        {playerData?.data?.firstName.length === 0 && (
+          <>
+            <TextField labelWidth={0.55}>
+              <TextField.TextInput
+                label="bank.accountName"
+                _input={{
+                  placeholder: t('bank.enterAccountName'),
+                  value: values.realName,
+                  onChangeText: handleChange('realName'),
+                  onBlur: handleBlur('realName'),
+                }}
+              />
+            </TextField>
+            <TextField labelWidth={0.55}>
+              <TextField.TextInput
+                label="OTP"
+                _input={{
+                  placeholder: t('auth.enterOtp'),
+                  value: values.otp,
+                  onChangeText: handleChange('otp'),
+                  onBlur: handleBlur('otp'),
+                }}
+                right={
+                  <TimerButton
+                    accessibilityRole="button"
+                    ref={OTPRef}
+                    title={t('common.send')}
+                    loading={isOtpLoading}
+                    onPress={sendOTP}
+                    sx={{
+                      width: 'auto',
+                      backgroundColor: '$gray',
+                      m: 0,
+                      px: '$3',
+                      minWidth: 53,
+                    }}
+                    _text={{
+                      sx: {
+                        color: '$black',
+                      },
+                    }}
+                  />
+                }
+              />
+            </TextField>
+          </>
+        )}
 
-          <TextField.TextInput
-            label="bank.accountNo"
-            _input={{
-              placeholder: t('bank.enterAccountNo'),
-              value: values.accountNo,
-              onChangeText: onCardChanged,
-              onBlur: handleBlur('accountNo'),
-              keyboardType: 'number-pad',
-              maxLength: MaxLength.CARD,
-            }}
-            error={
-              touched.accountNo && errors.accountNo
-                ? t(errors.accountNo, {
-                    field: t('bank.accountNo'),
-                  })
-                : undefined
-            }
-            containerStyle={{ my: '$0' }}
-          />
-        </TextField>
+        <TextField.Select
+          label="bank.bank"
+          _input={{
+            placeholder: t('bank.selectBank'),
+            value: values.bank?.bank_name ?? '',
+          }}
+          _dataList={{
+            data: data,
+            isLoading: isLoading || isFetching,
+            key: 'id',
+            titleType: 'bank_code',
+            onPress: (item) => setFieldValue('bank', item),
+          }}
+          _actionSheet={{
+            id: actionSheetId,
+            headerTitle: t('bank.bank'),
+          }}
+        />
 
+        <TextField.TextInput
+          label="bank.accountNo"
+          _input={{
+            placeholder: t('bank.enterAccountNo'),
+            value: values.accountNo,
+            onChangeText: onCardChanged,
+            onBlur: handleBlur('accountNo'),
+            keyboardType: 'number-pad',
+            maxLength: MaxLength.CARD,
+          }}
+          error={
+            touched.accountNo && errors.accountNo
+              ? t(errors.accountNo, {
+                  field: t('bank.accountNo'),
+                })
+              : undefined
+          }
+          containerStyle={{ my: '$0' }}
+        />
         <StyledButtonWrapper>
           <Button
             rounded
             stretch
+            loading={isSubmitting}
             disabled={!isValid || !dirty}
             variant="lg"
             fill={{

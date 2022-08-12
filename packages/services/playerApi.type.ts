@@ -29,6 +29,12 @@ export interface ProfileQueryArgs {
   username: string
 }
 
+export interface ProfileUpdateArgs {
+  field: string
+  value: string
+  verify_code: string
+}
+
 /**
  * *Player Overview
  */

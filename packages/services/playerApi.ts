@@ -8,6 +8,7 @@ import {
   PlayerOverviewArgs,
   ProfileQueryArgs,
   ProfileResult,
+  ProfileUpdateArgs,
   ReportArgs,
   ReportResult,
 } from './playerApi.type'
@@ -21,6 +22,24 @@ const playerEndpoints = (builder: EndpointBuilderType) => {
       query: (queryArgs) => ({
         url: `/player_api/getPlayerProfile`,
         method: 'POST',
+        data: {
+          ...queryArgs,
+        },
+      }),
+    }),
+    sendUpdateProfileOTP: builder.mutation<IResponse<string>, void>({
+      query: (queryArgs) => ({
+        url: `/player_api/updateRealNameOtp`,
+        method: 'POST',
+      }),
+    }),
+    updateProfile: builder.mutation<
+      IResponse<ProfileResult>,
+      ProfileUpdateArgs
+    >({
+      query: (queryArgs) => ({
+        url: `/player_api/playerProfile`,
+        method: 'PUT',
         data: {
           ...queryArgs,
         },
@@ -86,4 +105,6 @@ export const {
   useLazyPlayerProfileQuery,
   useLazyPlayerReportQuery,
   usePlayerLangMutation,
+  useUpdateProfileMutation,
+  useSendUpdateProfileOTPMutation,
 } = playerApi
