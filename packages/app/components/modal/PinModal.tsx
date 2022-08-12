@@ -1,7 +1,9 @@
 import UnderlinePinField from 'app/features/pin/UnderlinePinField'
 import useContextualRouting from 'app/hooks/useContextualRouting'
+import { useKeyboard } from 'app/hooks/useKeyboard'
 import useLocalization from 'app/provider/localization'
 import { Text, View } from 'dripsy'
+import { MotiView } from 'moti'
 import React, { useEffect, useState } from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { MotiLink } from 'solito/moti'
@@ -16,6 +18,8 @@ const PinModal = ({ modal: { closeModal, getParam } }) => {
   const [value, setValue] = useState('')
   const onConfirm = getParam('onConfirm')
   const onForgotPin = getParam('onForgotPin')
+
+  const keyboardHeight = useKeyboard()
 
   function onDismiss() {
     closeModal()
@@ -37,6 +41,7 @@ const PinModal = ({ modal: { closeModal, getParam } }) => {
         bg: '$background',
         borderTopLeftRadius: 24,
         borderTopRightRadius: 24,
+        mb: keyboardHeight,
       }}
     >
       <View sx={{ px: MODAL_PADDING, justifyContent: 'center' }}>
@@ -48,7 +53,7 @@ const PinModal = ({ modal: { closeModal, getParam } }) => {
         />
         <Text sx={{ fontSize: 22 }}>{t('pin.submitTitle')}</Text>
       </View>
-      <UnderlinePinField title="" value={value} setValue={setValue} />
+      <UnderlinePinField autoFocus title="" value={value} setValue={setValue} />
 
       <View sx={{ px: MODAL_PADDING }}>
         <View sx={{ alignItems: 'flex-end', my: '$4' }}>

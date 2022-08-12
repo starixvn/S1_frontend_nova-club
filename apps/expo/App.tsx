@@ -6,6 +6,7 @@ import { StatusBar } from 'expo-status-bar'
 import 'react-native-gesture-handler'
 import Branch from './integrations/branch/Branch'
 import * as Sentry from '@sentry/react-native'
+import { Keyboard, TouchableWithoutFeedback, View } from 'react-native'
 
 Sentry.init({
   dsn: 'https://0782803d4b0a41ff9881ac3d5b4d9898@o1267442.ingest.sentry.io/6453774',
@@ -18,12 +19,16 @@ export default function App() {
   useFontInit()
 
   return (
-    <Provider>
-      <Branch />
-      {/* StatusBar backgroundColor only affects Android, IOS refers to MainHeader */}
-      <StatusBar backgroundColor="#0E2B46" style="light" />
-      <NativeNavigation />
-    </Provider>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={{ flex: 1 }}>
+        <Provider>
+          <Branch />
+          {/* StatusBar backgroundColor only affects Android, IOS refers to MainHeader */}
+          <StatusBar backgroundColor="#0E2B46" style="light" />
+          <NativeNavigation />
+        </Provider>
+      </View>
+    </TouchableWithoutFeedback>
   )
 }
 

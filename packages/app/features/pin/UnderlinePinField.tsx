@@ -1,7 +1,7 @@
 import useLocalization from 'app/provider/localization'
 import { toCleanAmount } from 'app/utils'
 import { Text, View } from 'dripsy'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Animated, Platform, StyleSheet } from 'react-native'
 import {
   CodeField,
@@ -21,18 +21,24 @@ type UnderlinePinFieldProps = {
   value: string
   setValue: (value: string) => void
   errorMsg?: string
+  autoFocus?: boolean
 }
 const UnderlinePinField = ({
   title,
   value,
   setValue,
   errorMsg,
+  autoFocus,
 }: UnderlinePinFieldProps) => {
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT })
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
   })
+
+  useEffect(() => {
+    if (autoFocus) ref.current?.focus()
+  }, [])
 
   const renderCell = ({ index, symbol, isFocused }) => {
     let textChild: React.ReactNode = null
