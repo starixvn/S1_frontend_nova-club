@@ -15,7 +15,7 @@ export const useKeyboard = () => {
 
   useEffect(() => {
     const showSubscription = Keyboard.addListener(
-      'keyboardWillShow',
+      'keyboardDidShow',
       onKeyboardDidShow
     )
     const hideSubscription = Keyboard.addListener(
