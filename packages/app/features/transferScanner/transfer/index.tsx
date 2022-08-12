@@ -15,7 +15,6 @@ import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect } from 'react'
 import { useModal } from 'react-native-modalfy'
 import { useDispatch } from 'react-redux'
-import { useLazyAffiliateUsernameQuery } from 'services/contentApi'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import {
   usePlayerBalanceQuery,
@@ -255,8 +254,6 @@ const TransferScreen = ({
         >
           <Button.Label>{t('menu.transfer')}</Button.Label>
         </Button>
-
-        {/* <Text sx={{ mx: '$10' }}>{t('pin.note1')}</Text> */}
       </View>
     </View>
   )

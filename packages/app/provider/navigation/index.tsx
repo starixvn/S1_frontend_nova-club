@@ -69,7 +69,7 @@ export function NavigationProvider({
               LotteryPage: '/games/lottery',
               Overview: '/profile/overview',
               ProfileDetails: '/profile/profile-details',
-              ChangePassword: '/profile/manage-credentials',
+              ManageCredentials: '/profile/manage-credentials',
               BankAccount: '/profile/bank-account',
               AddBankAccount: '/profile/bank-account/add-bank-account',
               History: '/profile/history',
