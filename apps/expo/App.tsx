@@ -19,15 +19,17 @@ export default function App() {
   useFontInit()
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={{ flex: 1 }}>
-        <Provider>
-          <Branch />
-          {/* StatusBar backgroundColor only affects Android, IOS refers to MainHeader */}
-          <StatusBar backgroundColor="#0E2B46" style="light" />
-          <NativeNavigation />
-        </Provider>
-      </View>
+    <TouchableWithoutFeedback
+      style={{ flex: 1 }}
+      onPress={Keyboard.dismiss}
+      accessible={false}
+    >
+      <Provider>
+        <Branch />
+        {/* StatusBar backgroundColor only affects Android, IOS refers to MainHeader */}
+        <StatusBar backgroundColor="#0E2B46" style="light" />
+        <NativeNavigation />
+      </Provider>
     </TouchableWithoutFeedback>
   )
 }
