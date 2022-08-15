@@ -68,17 +68,47 @@ export type ReportArgs = {
 
 export type ReportResult = {
   row_count_total: number
-  rows: ReportTransactionItem[] | ReportGameItem[]
+  rows: ReportItemTypes
 }
 
-export type ReportTransactionItem = {
+export type ReportItemTypes =
+  | ReportDepositItem[]
+  | ReportWithdrawalItem[]
+  | ReportRewardItem[]
+  | ReportGameItem[]
+
+export interface ReportDepositItem {
   amount: string
+  bank_slip_attachment: boolean
   date: string
-  pay_bank: null
-  pay_date: null
+  notes: string
+  pay_bank: string // TODO: verify is it string type
+  pay_date: string
+  pay_type: string
+  player_notes: string
+  second_category_flag: number
   secure_id: string
   status: string
   system_id: number
+}
+
+export interface ReportWithdrawalItem {
+  amount: number
+  can_cancel_withdrawal: boolean
+  date: string
+  net_withdraw: number
+  notes: string
+  status: string
+  tx_code: string
+  withdraw_charge_fee: number
+  withdraw_charge_percentage: number
+}
+
+export interface ReportRewardItem {
+  amount: number
+  date: string
+  gp: string
+  gt: string
 }
 
 export type ReportGameItem = {

@@ -134,6 +134,17 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
               id: t('menu.tab.provider'),
               headerTitle: t('menu.tab.game'),
             }}
+            actionSheetProps={{
+              actionSheetItemProps: {
+                containerStyle: {
+                  bg: '$primary',
+                  p: '$2',
+                },
+                imageStyle: {
+                  bg: '$transparent',
+                },
+              },
+            }}
           />
         )}
 

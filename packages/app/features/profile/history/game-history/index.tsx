@@ -1,26 +1,32 @@
+import GradientBox from 'app/components/GradientBox'
+import HistoryListing from 'app/components/history/HistoryListing'
+import useLocalization from 'app/provider/localization'
+import { toThousandSeparator } from 'app/utils'
+import {
+  Currency,
+  DateFilterOptions,
+  ReportGameStatusOptions,
+  ReportTransactionType,
+} from 'app/utils/constant'
+import dayjsTz from 'app/utils/dayjs'
 import { Text, View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
-import HistoryListing from 'app/components/history/HistoryListing'
 import {
   useLazyPlayerReportQuery,
   usePlayerProfileQuery,
 } from 'services/playerApi'
-import useLocalization from 'app/provider/localization'
+import { ReportGameItem, ReportResult } from 'services/playerApi.type'
 import DateTimeCell from '../DateTimeCell'
-import GradientBox from 'app/components/GradientBox'
 import FilterSelection from '../FilterSelection'
-import {
-  ReportTransactionType,
-  ReportGameStatusOptions,
-  DateFilterOptions,
-  Currency,
-} from 'app/utils/constant'
-import dayjsTz from 'app/utils/dayjs'
-import { toCurrency, toThousandSeparator } from 'app/utils'
 
 const CELL_DATE_WIDTH = 1
 const CELL_AMOUNT_WIDTH = 1
 const CELL_STATUS_WIDTH = 1
+
+type HistoryListingDataType = Extract<
+  ReportResult['rows'],
+  ReportGameItem[]
+>[number]
 
 const GameHistoryTab = () => {
   const { t } = useLocalization()
@@ -72,12 +78,14 @@ const GameHistoryTab = () => {
   return (
     <View sx={{ flex: 1, bg: '$secondary' }}>
       <FilterSelection selected={selected} setSelected={setSelected} />
-      <HistoryListing
+      <HistoryListing<HistoryListingDataType, typeof fetchParams>
         fetchParams={fetchParams}
         trigger={fetchData}
         result={result}
         header={tableHeader}
-        keyExtractor={(item, index) => `${index} History ${item.name}`}
+        keyExtractor={(item, index) =>
+          `${index} History ${item.game_provider_code}`
+        }
         renderItem={({ item }) => renderItem({ item }, currency)}
       />
     </View>

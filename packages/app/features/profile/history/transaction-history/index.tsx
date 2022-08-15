@@ -1,31 +1,35 @@
-import { Text, useDripsyTheme, View } from 'dripsy'
-import React, { useEffect, useState } from 'react'
-import HistoryListing from 'app/components/history/HistoryListing'
-import {
-  useLazyPlayerReportQuery,
-  usePlayerProfileQuery,
-} from 'services/playerApi'
-import useLocalization from 'app/provider/localization'
-import DateTimeCell from '../DateTimeCell'
 import GradientBox from 'app/components/GradientBox'
-import FilterSelection from '../FilterSelection'
+import HistoryListing from 'app/components/history/HistoryListing'
+import { getStatusColor } from 'app/config/status'
+import useLocalization from 'app/provider/localization'
+import { toCurrency } from 'app/utils'
 import {
   Currency,
-  DateFilter,
   DateFilterOptions,
-  ReportDepositStatus,
   ReportDepositStatusOptions,
   ReportTransactionType,
   ReportTransactionTypeOptions,
 } from 'app/utils/constant'
-import { ReportTransactionItem } from 'services/playerApi.type'
-import { toCurrency } from 'app/utils'
-import { getStatusColor } from 'app/config/status'
 import dayjsTz from 'app/utils/dayjs'
+import { Text, useDripsyTheme, View } from 'dripsy'
+import React, { useEffect, useState } from 'react'
+import {
+  useLazyPlayerReportQuery,
+  usePlayerProfileQuery,
+} from 'services/playerApi'
+import { ReportGameItem, ReportResult } from 'services/playerApi.type'
+import DateTimeCell from '../DateTimeCell'
+import FilterSelection from '../FilterSelection'
 
 const CELL_DATE_WIDTH = 1
 const CELL_AMOUNT_WIDTH = 1
 const CELL_STATUS_WIDTH = 1
+const CELL_GAME_WIDTH = 1
+
+type HistoryListingDataType = Exclude<
+  ReportResult['rows'],
+  ReportGameItem[]
+>[number]
 
 const TransactionHistoryTab = () => {
   const { t } = useLocalization()
@@ -58,20 +62,50 @@ const TransactionHistoryTab = () => {
     })
   }, [selected])
 
-  const tableHeader = [
-    {
+  const columns = {
+    date: {
       label: t('menu.tab.date'),
       columnWidth: CELL_DATE_WIDTH,
     },
-    {
+    game: {
+      label: t('menu.tab.game'),
+      columnWidth: CELL_GAME_WIDTH,
+    },
+    amount: {
       label: t('common.amount'),
       columnWidth: CELL_AMOUNT_WIDTH,
     },
-    {
+    label: {
       label: t('menu.tab.status'),
       columnWidth: CELL_STATUS_WIDTH,
     },
+  }
+
+  const tableHeader = {
+    [ReportTransactionType.REWARDS]: [
+      columns.date,
+      columns.game,
+      columns.amount,
+    ],
+  }[selected.selectedTransType?.value || ''] || [
+    columns.date,
+    columns.amount,
+    columns.label,
   ]
+
+  const keyExtractor = (item: HistoryListingDataType, index: number) => {
+    let uid = ''
+
+    if ('tx_code' in item) {
+      uid = item.tx_code
+    } else if ('gp' in item) {
+      uid = item.gp
+    } else if ('secure_id' in item) {
+      uid = item.secure_id
+    }
+
+    return `${index} History ${uid}`
+  }
 
   return (
     <View sx={{ flex: 1, bg: '$secondary' }}>
@@ -80,24 +114,20 @@ const TransactionHistoryTab = () => {
         setSelected={setSelected}
         isTransaction
       />
-      <HistoryListing
+      <HistoryListing<HistoryListingDataType, typeof fetchParams>
         fetchParams={fetchParams}
         trigger={fetchData}
         result={result}
-        header={
-          selected.selectedTransType?.value === ReportTransactionType.REWARDS
-            ? tableHeader.slice(0, -1)
-            : tableHeader
-        }
-        keyExtractor={(item, index) => `${index} History ${item.name}`}
-        renderItem={({ item }) =>
-          renderItem(
+        header={tableHeader}
+        keyExtractor={keyExtractor}
+        renderItem={({ item }) => {
+          return renderItem(
             { item },
             currency,
             theme,
-            selected.selectedTransType?.value === ReportTransactionType.REWARDS
+            fetchParams.trans_type === ReportTransactionType.REWARDS
           )
-        }
+        }}
       />
     </View>
   )
@@ -118,6 +148,19 @@ const renderItem = ({ item }, currency, theme, isReward = false) => {
         <View style={{ flex: CELL_DATE_WIDTH }}>
           <DateTimeCell date={item.date} />
         </View>
+
+        {isReward && (
+          <View style={{ flex: CELL_STATUS_WIDTH }}>
+            <Text
+              sx={{
+                textAlign: 'center',
+              }}
+            >
+              {item.gp}
+            </Text>
+          </View>
+        )}
+
         <View style={{ flex: CELL_AMOUNT_WIDTH }}>
           <Text sx={{ textAlign: 'center' }}>
             {toCurrency(item.amount, currency, {
@@ -126,6 +169,7 @@ const renderItem = ({ item }, currency, theme, isReward = false) => {
             })}
           </Text>
         </View>
+
         {!isReward && (
           <View style={{ flex: CELL_STATUS_WIDTH }}>
             <Text

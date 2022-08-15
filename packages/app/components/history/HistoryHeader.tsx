@@ -2,7 +2,7 @@ import { Text } from 'dripsy'
 import React from 'react'
 import { DripsyGradient } from '../Gradient'
 
-type HeaderProps = {
+export type HeaderProps = {
   data: {
     label: string
     columnWidth: number
@@ -24,6 +24,7 @@ const HistoryHeader = ({ data }: HeaderProps) => {
         py: '$4',
         px: '$3',
         textAlign: 'center',
+        minHeight: 55,
       }}
     >
       {data &&
