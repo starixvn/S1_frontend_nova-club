@@ -68,7 +68,7 @@ function HistoryListing<T, FetchParamsType>(
   }
 
   function onLoadMore() {
-    if (totalOffset > totalRow || allLoaded) return
+    if (totalOffset >= totalRow || allLoaded) return
     fetchData(totalOffset)
   }
 
@@ -111,7 +111,7 @@ function HistoryListing<T, FetchParamsType>(
         keyExtractor={keyExtractor}
         renderItem={onRenderItem}
         onEndReached={onLoadMore}
-        onEndReachedThreshold={0.1}
+        onEndReachedThreshold={0.5}
       />
     </View>
   )

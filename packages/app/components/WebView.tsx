@@ -19,6 +19,7 @@ const WebView = ({ url, ...restWebViewProps }: WebViewComponentProps) => {
       }}
       mediaPlaybackRequiresUserAction
       allowsFullscreenVideo={false}
+      allowsInlineMediaPlayback
       sharedCookiesEnabled
       thirdPartyCookiesEnabled
       scalesPageToFit

@@ -32,6 +32,8 @@ import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
 import { Platform } from 'react-native'
 import useLocalBankDeposit from 'app/hooks/deposit/useLocalBankDeposit'
 import { FilePickerForwardRef } from 'app/components/FilePicker'
+import DepositTransactions from './DepositTransactions'
+import PaymentMethod from 'app/config/deposit'
 
 export type LocalBankValues = {
   bank: ManualBankItem | null
@@ -55,7 +57,7 @@ const LocalBankScreen = () => {
 
   const { data, isLoading, isFetching } = useDepositPaymentListQuery()
 
-  const [postDepositSubmit] = useLocalBankDeposit({
+  const { postDepositSubmit } = useLocalBankDeposit({
     selectedImage,
   })
 
@@ -136,7 +138,7 @@ const LocalBankScreen = () => {
 
   return (
     <PageWithBackHeader
-      header={{ title: depositPayment?.category_text ?? t('menu.deposit') }}
+      header={{ title: PaymentMethod[0].name ?? t('menu.deposit') }}
     >
       <View sx={{ flex: 1 }}>
         <TextField labelWidth={0}>
@@ -235,6 +237,8 @@ const LocalBankScreen = () => {
         >
           <Button.Label>{t('common.next')}</Button.Label>
         </Button>
+
+        <DepositTransactions />
       </View>
     </PageWithBackHeader>
   )

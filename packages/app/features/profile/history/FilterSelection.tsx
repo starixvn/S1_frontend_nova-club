@@ -107,7 +107,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
                 flex: 1,
               },
             }}
-            data={TypeList.slice(0, 3)}
+            data={TypeList.slice(0, 5)}
             setSelectedValue={(value) =>
               setSelected({
                 ...selected,

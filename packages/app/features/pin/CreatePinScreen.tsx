@@ -84,7 +84,7 @@ const CreatePinScreen = () => {
         <Text sx={{ fontSize: 24 }}>{t('pin.headerText1')}</Text>
         <Text>{t('pin.headerText2')}</Text>
         <UnderlinePinField
-          title={t('pin.pin')}
+          title={t('pin.newPin')}
           value={values.pin}
           setValue={handleChange('pin')}
         />
@@ -95,7 +95,7 @@ const CreatePinScreen = () => {
           errorMsg={
             values.confirmPin.length === 6 && errors.confirmPin
               ? t(errors.confirmPin, {
-                  field: t('pin.pin'),
+                  field: t('pin.newPin'),
                 })
               : undefined
           }

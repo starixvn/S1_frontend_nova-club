@@ -10,6 +10,7 @@ import {
   useSubmitManualDepositMutation,
   useUploadDepositSlipMutation,
 } from 'services/deposit'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 
 type useLocalBankDepositProps = {
   selectedImage: any
@@ -40,10 +41,6 @@ const useLocalBankDeposit = ({ selectedImage }: useLocalBankDepositProps) => {
         .unwrap()
         .catch((error) => dispatch(AlertActions.addError(error.message)))
 
-      console.log(
-        '🚀 ~ file: index.tsx ~ line 89 ~ LocalBankScreen ~ data',
-        data
-      )
       if (success) {
         await uploadSlip(data.secure_id)
         dispatch(AlertActions.addSuccess(message))
@@ -56,7 +53,7 @@ const useLocalBankDeposit = ({ selectedImage }: useLocalBankDepositProps) => {
     }
   }
 
-  const uploadSlip = async (secureId) => {
+  const uploadSlip = async (secureId, isToast = false) => {
     try {
       const { data, success, message } = await postUploadReceipt({
         secure_id: secureId,
@@ -74,6 +71,11 @@ const useLocalBankDeposit = ({ selectedImage }: useLocalBankDepositProps) => {
 
       if (success) {
         // dispatch(AlertActions.addSuccess(message))
+        isToast &&
+          Toast.show({
+            type: 'success',
+            text1: t('status.bankSlipSuccess'),
+          })
         return
       }
     } catch (e) {
@@ -81,7 +83,7 @@ const useLocalBankDeposit = ({ selectedImage }: useLocalBankDepositProps) => {
     }
   }
 
-  return [postDepositSubmit]
+  return { postDepositSubmit, uploadSlip }
 }
 
 export default useLocalBankDeposit

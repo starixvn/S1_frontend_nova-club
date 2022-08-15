@@ -24,7 +24,7 @@ import { Toast } from 'react-native-toast-message/lib/src/Toast'
 interface ForgotPinFormValues {
   confirmPin: string
   contactNumber: string
-  pin: string
+  newPin: string
   verifyCode: string
 }
 
@@ -57,12 +57,12 @@ const ForgotPinScreen = () => {
   }, [playerData])
 
   const onSubmit = async (
-    { confirmPin, pin, verifyCode }: ForgotPinFormValues,
+    { confirmPin, newPin, verifyCode }: ForgotPinFormValues,
     actions: FormikHelpers<ForgotPinFormValues>
   ) => {
     try {
       const { success, message } = await recoverTransferPin({
-        pin,
+        pin: newPin,
         cpin: confirmPin,
         // WIP: Prefix should not be hardcoded
         verify_code: verifyCode,
@@ -84,7 +84,7 @@ const ForgotPinScreen = () => {
 
   const formik = useFormik<ForgotPinFormValues>({
     initialValues: {
-      pin: '',
+      newPin: '',
       confirmPin: '',
       contactNumber: '',
       verifyCode: '',
@@ -239,9 +239,9 @@ const ForgotPinScreen = () => {
       </View>
 
       <UnderlinePinField
-        title={t('pin.pin')}
-        value={values.pin}
-        setValue={handleChange('pin')}
+        title={t('pin.newPin')}
+        value={values.newPin}
+        setValue={handleChange('newPin')}
       />
       <UnderlinePinField
         title={t('pin.confirmPin')}

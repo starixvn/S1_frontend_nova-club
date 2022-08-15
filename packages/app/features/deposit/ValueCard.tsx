@@ -36,7 +36,7 @@ const ValueCard = ({
 
 const StyledView = styled(View)(({ isActive }: { isActive: boolean }) => ({
   height: 40,
-  borderColor: '$border2',
+  borderColor: '$borderBlue',
   borderWidth: isActive ? 3 : 1,
   borderRadius: 50,
   bg: isActive ? '#12304D' : '#091A2A',

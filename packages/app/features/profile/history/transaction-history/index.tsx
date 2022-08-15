@@ -1,8 +1,6 @@
-import GradientBox from 'app/components/GradientBox'
+import HistoryEmpty from 'app/components/history/HistoryEmpty'
 import HistoryListing from 'app/components/history/HistoryListing'
-import { getStatusColor } from 'app/config/status'
 import useLocalization from 'app/provider/localization'
-import { toCurrency } from 'app/utils'
 import {
   Currency,
   DateFilterOptions,
@@ -11,15 +9,18 @@ import {
   ReportTransactionTypeOptions,
 } from 'app/utils/constant'
 import dayjsTz from 'app/utils/dayjs'
-import { Text, useDripsyTheme, View } from 'dripsy'
-import React, { useEffect, useState } from 'react'
+import { useDripsyTheme, View } from 'dripsy'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
   useLazyPlayerReportQuery,
   usePlayerProfileQuery,
 } from 'services/playerApi'
 import { ReportGameItem, ReportResult } from 'services/playerApi.type'
-import DateTimeCell from '../DateTimeCell'
+import DepositHistoryItem from '../DepositHistoryItem'
 import FilterSelection from '../FilterSelection'
+import RewardHistoryItem from '../RewardHistoryItem'
+import TransferHistoryItem from '../TransferHistoryItem'
+import WithdrawalHistoryItem from '../WithdrawalHistoryItem'
 
 const CELL_DATE_WIDTH = 1
 const CELL_AMOUNT_WIDTH = 1
@@ -33,10 +34,8 @@ type HistoryListingDataType = Exclude<
 
 const TransactionHistoryTab = () => {
   const { t } = useLocalization()
-  const { theme } = useDripsyTheme()
   const [fetchData, result] = useLazyPlayerReportQuery()
   const { data: playerData } = usePlayerProfileQuery()
-  const currency = playerData?.data?.currency as Currency
 
   const [selected, setSelected] = useState({
     selectedStatus: ReportDepositStatusOptions[0],
@@ -63,6 +62,10 @@ const TransactionHistoryTab = () => {
   }, [selected])
 
   const columns = {
+    payment: {
+      label: t('deposit.paymentMode'),
+      columnWidth: CELL_DATE_WIDTH,
+    },
     date: {
       label: t('menu.tab.date'),
       columnWidth: CELL_DATE_WIDTH,
@@ -79,12 +82,26 @@ const TransactionHistoryTab = () => {
       label: t('menu.tab.status'),
       columnWidth: CELL_STATUS_WIDTH,
     },
+    transferTo: {
+      label: t('transfer.transferTo'),
+      columnWidth: CELL_STATUS_WIDTH,
+    },
   }
 
   const tableHeader = {
+    [ReportTransactionType.DEPOSIT]: [
+      columns.payment,
+      columns.date,
+      columns.label,
+    ],
     [ReportTransactionType.REWARDS]: [
       columns.date,
       columns.game,
+      columns.amount,
+    ],
+    [ReportTransactionType.TRANSFER]: [
+      columns.date,
+      columns.transferTo,
       columns.amount,
     ],
   }[selected.selectedTransType?.value || ''] || [
@@ -107,6 +124,25 @@ const TransactionHistoryTab = () => {
     return `${index} History ${uid}`
   }
 
+  const renderItem = useCallback(
+    ({ item }) => {
+      switch (selected.selectedTransType?.value) {
+        case ReportTransactionType.DEPOSIT:
+          return <DepositHistoryItem item={item} />
+        case ReportTransactionType.WITHDRAWAL:
+          return <WithdrawalHistoryItem item={item} />
+        case ReportTransactionType.REWARDS:
+          return <RewardHistoryItem item={item} />
+        case ReportTransactionType.TRANSFER:
+          return <TransferHistoryItem item={item} />
+
+        default:
+          return <WithdrawalHistoryItem item={item} />
+      }
+    },
+    [selected.selectedTransType?.value]
+  )
+
   return (
     <View sx={{ flex: 1, bg: '$secondary' }}>
       <FilterSelection
@@ -118,72 +154,14 @@ const TransactionHistoryTab = () => {
         fetchParams={fetchParams}
         trigger={fetchData}
         result={result}
-        header={tableHeader}
+        // header={tableHeader}
+        header={[
+          { label: t(selected.selectedTransType?.label), columnWidth: 1 },
+        ]}
         keyExtractor={keyExtractor}
-        renderItem={({ item }) => {
-          return renderItem(
-            { item },
-            currency,
-            theme,
-            fetchParams.trans_type === ReportTransactionType.REWARDS
-          )
-        }}
+        renderItem={renderItem}
       />
     </View>
-  )
-}
-
-const renderItem = ({ item }, currency, theme, isReward = false) => {
-  return (
-    <GradientBox>
-      <View
-        sx={{
-          flex: 1,
-          alignSelf: 'stretch',
-          flexDirection: 'row',
-          p: '$3',
-          alignItems: 'center',
-        }}
-      >
-        <View style={{ flex: CELL_DATE_WIDTH }}>
-          <DateTimeCell date={item.date} />
-        </View>
-
-        {isReward && (
-          <View style={{ flex: CELL_STATUS_WIDTH }}>
-            <Text
-              sx={{
-                textAlign: 'center',
-              }}
-            >
-              {item.gp}
-            </Text>
-          </View>
-        )}
-
-        <View style={{ flex: CELL_AMOUNT_WIDTH }}>
-          <Text sx={{ textAlign: 'center' }}>
-            {toCurrency(item.amount, currency, {
-              symbol: false,
-              hideTruncatedThousand: false,
-            })}
-          </Text>
-        </View>
-
-        {!isReward && (
-          <View style={{ flex: CELL_STATUS_WIDTH }}>
-            <Text
-              sx={{
-                textAlign: 'center',
-                color: getStatusColor(item.status, theme),
-              }}
-            >
-              {item.status}
-            </Text>
-          </View>
-        )}
-      </View>
-    </GradientBox>
   )
 }
 

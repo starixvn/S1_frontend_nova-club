@@ -1,19 +1,16 @@
-import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
 import {
   GameLauncherActions,
   LaunchGamePayload,
 } from 'app/store/gameLauncher.slice'
 import { styled, SxProp, Text, useSx, View } from 'dripsy'
-import { AnimatePresence, MotiView } from 'moti'
-import { FC, memo, useEffect, useState } from 'react'
+import { MotiView } from 'moti'
+import React, { FC, memo } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux'
-import { Game } from 'services/contentApi.type'
-import Icon from './Icon'
-import React from 'react'
+import GameFrame from '../assets/images/games/games_frame.png'
 import Image from './common/Image'
-
+import Icon from './Icon'
 interface GamesProps extends LaunchGamePayload {
   width: number
   height?: number
@@ -81,6 +78,17 @@ const SimpleGridImage: FC<GamesProps> = ({
               width,
               height: height ?? width / GAME_IMAGE_RATIO,
               borderRadius: 10,
+            }}
+          />
+          <Image
+            source={GameFrame}
+            resizeMode={'stretch'}
+            style={{
+              position: 'absolute',
+              zIndex: 1,
+              width,
+              height: height ?? width / GAME_IMAGE_RATIO,
+              borderRadius: 4,
             }}
           />
         </MotiView>

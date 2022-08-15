@@ -28,9 +28,6 @@ const QRCodeGenerator = ({
         justifyContent: 'space-evenly',
       }}
     >
-      <Text selectable sx={{ color: '$black' }}>
-        {referralCode}
-      </Text>
       <QRCode
         value={isTransfer ? referralCode : referralLink}
         size={width * 0.5}

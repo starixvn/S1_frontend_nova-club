@@ -20,6 +20,7 @@ import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
 import { useModal } from 'react-native-modalfy'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { getBankLogo } from 'app/config/bank'
+import WithdrawalTransactions from './WithdrawalTransactions'
 
 const actionSheetId = ACTION_SHEET_ID.WITHDRAWAL
 
@@ -209,14 +210,16 @@ const WithdrawalPage = () => {
               start: { x: 0, y: 0 },
               end: { x: 1, y: 0 },
             }}
-            sx={{
-              my: '$10',
+            containerStyle={{
+              m: '$10',
             }}
             onPress={withdrawalConfirmation}
           >
             <Button.Label>{t('common.next')}</Button.Label>
           </Button>
         </TextField>
+
+        <WithdrawalTransactions />
       </StyledView>
     </PageWithBackHeader>
   )

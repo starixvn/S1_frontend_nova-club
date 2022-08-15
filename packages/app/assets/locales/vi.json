@@ -96,6 +96,7 @@
   },
   "deposit": {
     "actualDeposit": "Tiền gửi thực tế",
+    "bankSlip": "Phiếu ngân hàng",
     "cardCode": "Mã số thẻ",
     "cardSerialNo": "Số sê-ri thẻ.",
     "cardValue": "Mệnh giá thẻ",
@@ -108,7 +109,7 @@
       "crypto": "Tiền ảo",
       "momo": "MOMO",
       "onlineBanking": "Cổng thanh toán",
-      "qrCode": "Qrpay",
+      "qrCode": "QR Pay",
       "topUp": "Thẻ cào"
     },
     "paymentMode": "Chọn cổng thanh toán",
@@ -272,9 +273,9 @@
     "forgotPin": "Quên mã pin",
     "headerText1": "Tạo mã PIN 6 chữ số",
     "headerText2": "Bảo mật chuyển khoản của bạn bằng mã PIN",
+    "newPin": "Pin mới",
     "note1": "Cần có mã PIN để chuyển",
     "oldPin": "Pin cũ",
-    "pin": "GHIM",
     "submitNote": "Tất cả các giao dịch của bạn được xử lý trong một môi trường an toàn và bảo mật.",
     "submitTitle": "Nhập mã PIN 6 chữ số để xác nhận"
   },
@@ -312,6 +313,7 @@
   "status": {
     "alert": "Cảnh báo",
     "approved": "Thành công",
+    "bankSlipSuccess": "Đã tải lên thành công phiếu ngân hàng",
     "cancelled": "Hủy",
     "draft": "Bản nháp",
     "error": "Lỗi",

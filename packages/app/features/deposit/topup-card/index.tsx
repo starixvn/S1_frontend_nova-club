@@ -372,7 +372,7 @@ const StyledViewButtonWrapper = styled(DripsyGradient)(
     py: '$10',
     px: '$8',
     overflow: 'hidden',
-    borderColor: isValid ? '$border2' : '$transparent',
+    borderColor: isValid ? '$borderBlue' : '$transparent',
     borderRadius: 24,
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,

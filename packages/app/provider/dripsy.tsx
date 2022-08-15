@@ -39,6 +39,7 @@ const size = {
 
 const commonColors = {
   $background: '#033454',
+  $backgroundSecondary: '#0D2035',
   $shadow: 'rgb(26,64,98)',
   $text: '#FFFFFF',
   $primary: '#0E2B46',
@@ -48,7 +49,7 @@ const commonColors = {
   $yellow: 'rgb(255,255,84)',
   $yellowOrange: '#f7ff00',
   $border: '#B3BADE',
-  $border2: '#33A0D0',
+  $borderBlue: '#33A0D0',
   $secondary: '#0D2035',
   $blue: '#1e79d4',
   $navyBlue: '#066D9A',
@@ -110,6 +111,8 @@ const colorGradient = {
   white: ['#FFF', '#FFF'],
   transparent: ['', ''],
   disabled: ['#CCC', '#CCC'],
+  background: ['#066D9A', '#014F71'],
+  backgroundSecondary: ['#33A0D0', '#0B76A5'],
 }
 
 // default breakpoints [0, 576, 768, 992, 1200]

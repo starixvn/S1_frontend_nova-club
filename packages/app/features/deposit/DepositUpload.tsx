@@ -58,7 +58,7 @@ const StyledTop = styled(DripsyGradient)({
   mx: '$4',
   alignItems: 'center',
   borderRadius: 10,
-  borderColor: '$border2',
+  borderColor: '$borderBlue',
   borderWidth: 1,
 })
 

@@ -185,7 +185,7 @@ const AutoDepositForm = ({ module, DepositCategoryId }) => {
             end: { x: 1, y: 0 },
           }}
           containerStyle={{
-            my: '$10',
+            m: '$10',
           }}
           onPress={submitForm}
         >

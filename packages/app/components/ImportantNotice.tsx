@@ -25,17 +25,17 @@ const ImportantNotice = ({
   return (
     <StyledView>
       <Collapse
-        isExpandable={isExpandable}
+        isExpandable
         label={
           <StyledViewTitle>
-            <Icon name="alert" color="$yellow" sx={{ mr: '$2' }} />
+            {/* <Icon name="alert" color="$yellow" sx={{ mr: '$2' }} /> */}
             <StyledTextTitle>
               {t('notes.importantNotice').toUpperCase()}
             </StyledTextTitle>
           </StyledViewTitle>
         }
       >
-        <View>
+        <View sx={{ p: '$3' }}>
           {keys.map((content, i) => {
             return (
               <StyledViewContent key={`${module}.row${i}`}>
@@ -54,19 +54,24 @@ const ImportantNotice = ({
 }
 
 const StyledView = styled(View)(() => ({
-  p: '$4',
-  my: '$4',
+  m: '$4',
+  borderWidth: 1,
+  borderTopLeftRadius: 16,
+  borderTopRightRadius: 16,
+  borderColor: '$borderBlue',
+  overflow: 'hidden',
 }))
 
 const StyledViewTitle = styled(View)(() => ({
   flexDirection: 'row',
   alignItems: 'center',
-  justifyContent: 'center',
+  justifyContent: 'space-between',
 }))
 
 const StyledTextTitle = styled(Text)(() => ({
   fontSize: FONT_SIZE,
   fontWeight: 'bold',
+  color: '#FFEE00',
 }))
 
 const StyledViewContent = styled(View)(() => ({

@@ -1,22 +1,21 @@
 import { Button } from 'app/components/form/Button'
-import { PageWithBackHeader } from 'app/components/layout/Page'
 import useLocalization from 'app/provider/localization'
-import { Text, View } from 'dripsy'
+import { View } from 'dripsy'
 import React from 'react'
 import UnderlinePinField from '../UnderlinePinField'
 
-import * as Yup from 'yup'
-import { FormikHelpers, useFormik } from 'formik'
-import { useDispatch } from 'react-redux'
 import { AlertActions } from 'app/store/alert.slice'
-import { useRouter } from 'solito/router'
 import validation from 'app/utils/validation'
-import { useUpdateTransferPinMutation } from 'services/pinApi'
+import { FormikHelpers, useFormik } from 'formik'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
+import { useDispatch } from 'react-redux'
+import { useUpdateTransferPinMutation } from 'services/pinApi'
+import { useRouter } from 'solito/router'
+import * as Yup from 'yup'
 
 type ChangePinFormValues = {
   oldPin: string
-  pin: string
+  newPin: string
   confirmPin: string
 }
 
@@ -27,14 +26,14 @@ const ChangePinScreen = () => {
   const [updateTransferPin] = useUpdateTransferPinMutation()
 
   const onSubmit = async (
-    { oldPin, pin, confirmPin }: ChangePinFormValues,
+    { oldPin, newPin, confirmPin }: ChangePinFormValues,
     actions: FormikHelpers<ChangePinFormValues>
   ) => {
     try {
       actions.setSubmitting(true)
       const { data, success, message } = await updateTransferPin({
         old_pin: oldPin,
-        pin: pin,
+        pin: newPin,
         cpin: confirmPin,
       })
         .unwrap()
@@ -55,12 +54,12 @@ const ChangePinScreen = () => {
   const formik = useFormik<ChangePinFormValues>({
     initialValues: {
       oldPin: '',
-      pin: '',
+      newPin: '',
       confirmPin: '',
     },
     validationSchema: Yup.object({
       oldPin: validation.pin,
-      pin: validation.pin,
+      newPin: validation.pin,
       confirmPin: validation.confirmPin,
     }),
     onSubmit,
@@ -87,9 +86,9 @@ const ChangePinScreen = () => {
         }
       />
       <UnderlinePinField
-        title={t('pin.pin')}
-        value={values.pin}
-        setValue={handleChange('pin')}
+        title={t('pin.newPin')}
+        value={values.newPin}
+        setValue={handleChange('newPin')}
       />
       <UnderlinePinField
         title={t('pin.confirmPin')}

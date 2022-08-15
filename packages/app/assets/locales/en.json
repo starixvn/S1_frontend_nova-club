@@ -96,6 +96,7 @@
   },
   "deposit": {
     "actualDeposit": "Actual Deposit",
+    "bankSlip": "Bank Slip",
     "cardCode": "Card Code",
     "cardSerialNo": "Card serial no.",
     "cardValue": "Card Value",
@@ -108,7 +109,7 @@
       "crypto": "Crypto",
       "momo": "MOMO",
       "onlineBanking": "Online Banking",
-      "qrCode": "Qrpay",
+      "qrCode": "QR Pay",
       "topUp": "Top Up Card"
     },
     "paymentMode": "Payment Mode",
@@ -268,13 +269,13 @@
     }
   },
   "pin": {
-    "confirmPin": "Confirm PIN",
+    "confirmPin": "Confirm Oub",
     "forgotPin": "Forgot Pin",
     "headerText1": "Create 6-digit PIN",
     "headerText2": "Secure your transfer with PIN",
-    "note1": "PIN is required for transfer",
+    "newPin": "New Pin",
+    "note1": "Pin is required for transfer",
     "oldPin": "Old Pin",
-    "pin": "PIN",
     "submitNote": "All your transactions are processed in a safe and secured environment.",
     "submitTitle": "Enter 6-digit PIN to confirm"
   },
@@ -312,6 +313,7 @@
   "status": {
     "alert": "Alert",
     "approved": "Approved",
+    "bankSlipSuccess": "Bank slip uploaded successfully",
     "cancelled": "Cancelled",
     "draft": "Draft",
     "error": "Error",

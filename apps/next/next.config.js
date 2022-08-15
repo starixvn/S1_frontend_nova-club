@@ -47,6 +47,7 @@ const withTM = require('next-transpile-modules')([
   '@gorhom/portal',
   '@react-native-community/datetimepicker',
   'react-native-share',
+  'recyclerlistview',
 ])
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',

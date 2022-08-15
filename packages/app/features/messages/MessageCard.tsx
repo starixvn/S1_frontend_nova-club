@@ -159,7 +159,7 @@ const StyledView = styled(View)({
   p: '$3',
   borderTopWidth: 1,
   borderBottomWidth: 1,
-  borderColor: '$border2',
+  borderColor: '$borderBlue',
   alignItems: 'center',
   bg: '$secondary',
   py: '$4',

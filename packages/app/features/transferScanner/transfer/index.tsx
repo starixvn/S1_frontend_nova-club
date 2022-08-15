@@ -234,7 +234,7 @@ const TransferScreen = ({
           </View>
         )}
 
-        <ImportantNotice keys={NOTES} module="transfer" />
+        {/* <ImportantNotice keys={NOTES} module="transfer" /> */}
         <Button
           rounded
           stretch

@@ -30,7 +30,11 @@ const BankAccountScreen = () => {
   const toAddBankAccount = makeContextualHref('add-bank-account')
 
   const handleRemove = async (item: PlayerBankResult) => {
-    openModal('PlayerBankDeleteModal', { bank: item })
+    // openModal('PlayerBankDeleteModal', { bank: item })
+    openModal('PinModal', {
+      // onConfirm: (value) => onSubmit(values, value, formik),
+      onForgotPin: () => push(toAddBankAccount, '/pin/forgot-pin'),
+    })
   }
 
   return (

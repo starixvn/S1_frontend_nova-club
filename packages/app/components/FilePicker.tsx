@@ -63,7 +63,7 @@ const FilePicker = forwardRef<FilePickerForwardRef, FilePickerProps>(
 
     const fileName = image ? image : null
     const bgColor = fileName ? ['#132946', '#14455B'] : ['#004EB5', '#007FB7']
-    const bColor = fileName ? '#00283A' : '$border2'
+    const bColor = fileName ? '#00283A' : '$borderBlue'
 
     return (
       <View

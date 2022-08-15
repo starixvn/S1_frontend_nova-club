@@ -1,8 +1,6 @@
-import useLocalization from 'app/provider/localization'
-import { toCleanAmount } from 'app/utils'
 import { Text, View } from 'dripsy'
 import React, { useEffect } from 'react'
-import { Animated, Platform, StyleSheet } from 'react-native'
+import { Platform, StyleSheet } from 'react-native'
 import {
   CodeField,
   Cursor,

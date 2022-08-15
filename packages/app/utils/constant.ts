@@ -67,6 +67,8 @@ export enum ReportTransactionType {
   DEPOSIT = 'deposit',
   WITHDRAWAL = 'withdrawal',
   REWARDS = 'rewards',
+  REFERRAL = 'referral',
+  TRANSFER = 'transfer',
   GAME = 'game',
 }
 export const ReportTransactionTypeOptions = [
@@ -81,6 +83,14 @@ export const ReportTransactionTypeOptions = [
   {
     value: ReportTransactionType.REWARDS,
     label: 'filter.transactionType.rewards',
+  },
+  {
+    value: ReportTransactionType.REFERRAL,
+    label: 'menu.referral',
+  },
+  {
+    value: ReportTransactionType.TRANSFER,
+    label: 'menu.transfer',
   },
   {
     value: ReportTransactionType.GAME,
