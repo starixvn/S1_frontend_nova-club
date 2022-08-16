@@ -121,7 +121,6 @@ const theme = makeTheme({
   text: {
     body: {
       color: 'white',
-      fontSize: 16,
     },
     p: {
       color: 'white',
@@ -129,6 +128,7 @@ const theme = makeTheme({
     },
     error: {
       color: '$error',
+      fontSize: 14,
     },
     xs: {
       fontSize: '$0',

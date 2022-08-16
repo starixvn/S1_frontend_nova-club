@@ -3,6 +3,7 @@ import {
   GameLauncherActions,
   LaunchGamePayload,
 } from 'app/store/gameLauncher.slice'
+import { GAME_TYPE_CODE } from 'app/utils/constant'
 import { styled, SxProp, Text, useSx, View } from 'dripsy'
 import { MotiView } from 'moti'
 import React, { FC, memo } from 'react'
@@ -80,17 +81,19 @@ const SimpleGridImage: FC<GamesProps> = ({
               borderRadius: 10,
             }}
           />
-          <Image
-            source={GameFrame}
-            resizeMode={'stretch'}
-            style={{
-              position: 'absolute',
-              zIndex: 1,
-              width,
-              height: height ?? width / GAME_IMAGE_RATIO,
-              borderRadius: 4,
-            }}
-          />
+          {gameType === GAME_TYPE_CODE.SLOTS && (
+            <Image
+              source={GameFrame}
+              resizeMode={'stretch'}
+              style={{
+                position: 'absolute',
+                zIndex: 1,
+                width,
+                height: height ?? width / GAME_IMAGE_RATIO,
+                borderRadius: 4,
+              }}
+            />
+          )}
         </MotiView>
       </TouchableOpacity>
       {gameName && (

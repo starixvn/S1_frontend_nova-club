@@ -70,7 +70,7 @@ const ButtonColorContext = createContext<ButtonColorContextType>({
 const StyledGradientContainer = styled(Gradient, {
   themeKey: 'buttons',
   defaultVariant: 'default',
-})()
+})(() => ({}))
 
 const StyledViewContainer = styled(View, {
   themeKey: 'buttons',
@@ -179,15 +179,14 @@ function ButtonLabel({
 }) {
   const { textColor, loading, variant, variants, height } =
     useContext(ButtonColorContext)
-  const { theme } = useDripsyTheme()
 
   return (
     <Text
       variant={variant}
       variants={variants}
       sx={{
+        mb: '$1', // fix the font not render at middle
         px: '$1',
-        lineHeight: height,
         fontWeight: 'bold',
         textTransform,
         color: textColor,

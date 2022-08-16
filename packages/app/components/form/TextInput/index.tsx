@@ -84,28 +84,26 @@ const TextInput: FC<TextInputProps> = (props) => {
   )
 }
 
+const ErrorTextMessage = styled(MotiText)()
 const ErrorText = ({ error }: { error?: string }) => {
   const { theme } = useDripsyTheme()
-
-  // mobile have to be 2.5, else `numberOfLines` 2 not working
-  const textHeightPercentage = Platform.OS === 'web' ? 1.5 : 2.5
 
   return (
     <AnimatePresence>
       {error && (
-        <MotiText
+        <ErrorTextMessage
+          sx={{ lineHeight: theme.text.error.fontSize, mt: 2 }}
+          variants={['text.error']}
           animate={{
-            height: [0, theme.text.body.fontSize * textHeightPercentage],
+            height: [0, theme.text.error.fontSize * 2],
             opacity: [0, 1],
           }}
           exit={{ height: 0, opacity: 0 }}
           transition={{ type: 'timing', duration: 300 }}
-          {...(Platform.OS !== 'web' && { numberOfLines: 2 })}
+          numberOfLines={2}
         >
-          <Text variants={['error', 'sm']} numberOfLines={2}>
-            {error}
-          </Text>
-        </MotiText>
+          {error}
+        </ErrorTextMessage>
       )}
     </AnimatePresence>
   )

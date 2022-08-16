@@ -1,9 +1,6 @@
 import Icon, { IconComponentProps } from 'app/components/Icon'
 import BouncePressable from 'app/pressable/BouncePressable'
-import { Pressable, styled, SxProp, View } from 'dripsy'
-import { MotiPressable } from 'moti/interactions'
-import { useMemo } from 'react'
-import { TouchableOpacity } from 'react-native'
+import { styled, SxProp } from 'dripsy'
 
 interface IIconButtonProps {
   name: string
@@ -12,6 +9,7 @@ interface IIconButtonProps {
   disabled?: boolean
   loading?: boolean
   onPress?: () => void
+  sx?: SxProp
 }
 
 const IconButton = ({
@@ -21,21 +19,22 @@ const IconButton = ({
   disabled,
   loading,
   color,
+  sx,
   ...rest
 }: IIconButtonProps) => {
   const iconOverride: IconComponentProps = { name, size }
   if (color) iconOverride.color = color
 
   return (
-    <View {...rest}>
-      <StyledMotiPressable
-        disabled={disabled || loading}
-        onPress={onPress}
-        size={size}
-      >
-        <Icon {...iconOverride} />
-      </StyledMotiPressable>
-    </View>
+    <StyledMotiPressable
+      disabled={disabled || loading}
+      onPress={onPress}
+      size={size}
+      sx={{ p: '$1', ...sx }}
+      {...rest}
+    >
+      <Icon {...iconOverride} />
+    </StyledMotiPressable>
   )
 }
 
