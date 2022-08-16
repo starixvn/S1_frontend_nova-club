@@ -10,6 +10,7 @@ import {
 } from 'services/deposit'
 import { AlertActions } from 'app/store/alert.slice'
 import {
+  copyToClipboard,
   toCleanAmount,
   toCurrency,
   toDisplayAmount,
@@ -32,6 +33,10 @@ import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
 import { Platform } from 'react-native'
 import useLocalBankDeposit from 'app/hooks/deposit/useLocalBankDeposit'
 import { FilePickerForwardRef } from 'app/components/FilePicker'
+import InputBase from 'app/components/form/Input/InputBase'
+import IconButton from 'app/components/form/IconButton'
+import Select from 'app/components/form/Input/Select'
+import MoneyInput from 'app/components/form/Input/MoneyInput'
 import DepositTransactions from './DepositTransactions'
 import PaymentMethod from 'app/config/deposit'
 
@@ -162,56 +167,75 @@ const LocalBankScreen = () => {
             }}
           />
         </TextField>
-        <TextField labelWidth={0.7}>
-          <TextField.Label
-            label="bank.accountName"
-            value={values.bank?.bank_acc_name ?? ''}
-            sx={{ my: 0 }}
-            copy
-          />
-          <TextField.Label
-            label="bank.accountNumber"
-            value={values.bank?.bank_acc_no ?? ''}
-            sx={{ my: 0 }}
-            copy
-          />
-          <TextField.TextInput
-            label="deposit.depositAmount"
-            isAmount
-            _input={{
-              placeholder: t('validation.minMaxLimit', {
-                min: toCurrency(limit.minAmount ?? 0, currency, {
-                  symbol: false,
-                  forceDecimal: false,
-                }),
-                max: toCurrency(limit.maxAmount ?? 0, currency, {
-                  symbol: false,
-                  forceDecimal: false,
-                }),
-              }),
-              value: values.amount,
-              keyboardType: 'number-pad',
-              onChangeText: onAmountChanged,
-              onBlur: handleBlur('amount'),
-            }}
-            error={
-              touched.amount && errors.amount
-                ? t(errors.amount, {
-                    field: t('common.amount'),
-                    amount: toCurrency(values.realAmount ?? 0, currency, {
-                      forceDecimal: false,
-                      symbol: false,
-                    }),
-                    min: toCurrency(limit.minAmount ?? 0, currency, {
-                      forceDecimal: false,
-                      symbol: false,
-                    }),
-                  })
-                : undefined
-            }
-            containerStyle={{ mt: '$0', mb: '$4' }}
-          />
-        </TextField>
+        <Select
+          sx={{ mb: 0, mt: '$2' }}
+          label={t('bank.selectBank')}
+          options={[]}
+        />
+        <InputBase
+          removeBorder
+          label={t('bank.accountName')}
+          sx={{ mb: 0 }}
+          value={values.bank?.bank_acc_name}
+          editable={false}
+          action={
+            <IconButton
+              sx={{ p: '$2' }}
+              name="copy"
+              size={18}
+              color={'$lightCyan'}
+              onPress={() => copyToClipboard(values.bank?.bank_acc_name)}
+            />
+          }
+        />
+        <InputBase
+          removeBorder
+          sx={{ mb: 0 }}
+          label={t('bank.accountName')}
+          value={values.bank?.bank_acc_no}
+          editable={false}
+          action={
+            <IconButton
+              sx={{ p: '$2' }}
+              name="copy"
+              size={18}
+              color={'$lightCyan'}
+              onPress={() => copyToClipboard(values.bank?.bank_acc_no)}
+            />
+          }
+        />
+        <MoneyInput
+          label={t('deposit.depositAmount')}
+          onChangeText={onAmountChanged}
+          keyboardType={'number-pad'}
+          onBlur={handleBlur('amount')}
+          value={values.amount}
+          placeholder={t('validation.minMaxLimit', {
+            min: toCurrency(limit.minAmount ?? 0, currency, {
+              symbol: false,
+              forceDecimal: false,
+            }),
+            max: toCurrency(limit.maxAmount ?? 0, currency, {
+              symbol: false,
+              forceDecimal: false,
+            }),
+          })}
+          error={
+            touched.amount && errors.amount
+              ? t(errors.amount, {
+                  field: t('common.amount'),
+                  amount: toCurrency(values.realAmount ?? 0, currency, {
+                    forceDecimal: false,
+                    symbol: false,
+                  }),
+                  min: toCurrency(limit.minAmount ?? 0, currency, {
+                    forceDecimal: false,
+                    symbol: false,
+                  }),
+                })
+              : undefined
+          }
+        />
 
         <DepositUpload
           onImagePicked={(path) => setSelectedImage(path)}

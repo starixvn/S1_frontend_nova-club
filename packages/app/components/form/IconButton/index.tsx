@@ -12,6 +12,7 @@ interface IIconButtonProps {
   disabled?: boolean
   loading?: boolean
   onPress?: () => void
+  sx?: SxProp
 }
 
 const IconButton = ({
@@ -21,21 +22,22 @@ const IconButton = ({
   disabled,
   loading,
   color,
+  sx,
   ...rest
 }: IIconButtonProps) => {
   const iconOverride: IconComponentProps = { name, size }
   if (color) iconOverride.color = color
 
   return (
-    <View {...rest}>
-      <StyledMotiPressable
-        disabled={disabled || loading}
-        onPress={onPress}
-        size={size}
-      >
-        <Icon {...iconOverride} />
-      </StyledMotiPressable>
-    </View>
+    <StyledMotiPressable
+      disabled={disabled || loading}
+      onPress={onPress}
+      size={size}
+      sx={{ p: '$2', ...sx }}
+      {...rest}
+    >
+      <Icon {...iconOverride} />
+    </StyledMotiPressable>
   )
 }
 
