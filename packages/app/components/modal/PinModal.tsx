@@ -53,7 +53,7 @@ const PinModal = ({ modal: { closeModal, getParam } }) => {
         />
         <Text sx={{ fontSize: 22 }}>{t('pin.submitTitle')}</Text>
       </View>
-      <UnderlinePinField autoFocus title="" value={value} setValue={setValue} />
+      <UnderlinePinField title="" value={value} setValue={setValue} />
 
       <View sx={{ px: MODAL_PADDING }}>
         <View sx={{ alignItems: 'flex-end', my: '$4' }}>
