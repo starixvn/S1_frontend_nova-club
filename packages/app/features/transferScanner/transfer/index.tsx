@@ -1,8 +1,10 @@
 import Header from 'app/components/common/Header'
 import { Button } from 'app/components/form/Button'
+import IconButton from 'app/components/form/IconButton'
 import InputBase from 'app/components/form/Input/InputBase'
 import MoneyInput from 'app/components/form/Input/MoneyInput'
 import { TextField } from 'app/components/TextField'
+import AvailableBalance from 'app/features/withdrawal/AvailableBalance'
 import { useIsFocused } from 'app/hooks/isFocus/useIsFocused'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
@@ -48,9 +50,11 @@ const TransferScreen = ({
 
   const [postTransferMemberToMember] = useTransferMemberToMemberMutation()
 
-  const { data } = usePlayerBalanceQuery(undefined, {
+  const { data: balanceData } = usePlayerBalanceQuery(undefined, {
     refetchOnMountOrArgChange: true,
   })
+  const playerBalance = balanceData?.data?.main.balance
+
   const { data: playerData, refetch } = usePlayerProfileQuery(undefined, {
     refetchOnMountOrArgChange: true,
     refetchOnFocus: true,
@@ -144,7 +148,8 @@ const TransferScreen = ({
     <View sx={{ flex: 1, bg: '$secondary' }}>
       {!isIDTransfer && <Header title={t('menu.transfer')} />}
       <View>
-        <View
+        <AvailableBalance />
+        {/* <View
           sx={{
             p: '$4',
             flexDirection: 'row',
@@ -158,49 +163,56 @@ const TransferScreen = ({
               hideTruncatedThousand: false,
             })}
           </Text>
-        </View>
-        <TextField labelWidth={0.7}>
-          {isIDTransfer ? (
-            <InputBase
-              label={t('menu.tab.idTransfer')}
-              placeholder={t('validation.enterId')}
-              value={values.referralId}
-              onChangeText={handleChange('referralId')}
-              onBlur={handleBlur('referralId')}
-              error={
-                touched.referralId && errors.referralId
-                  ? t(errors.referralId, {
-                      field: t('common.id'),
-                    })
-                  : undefined
-              }
-            />
-          ) : (
-            <InputBase
-              label={t('transfer.transferTo')}
-              value={playerData?.data?.username ?? ''}
-              editable={false}
-            />
-          )}
+        </View> */}
 
-          <MoneyInput
-            label={t('common.amount')}
-            placeholder={t('common.enterAmount', {
-              field: t('menu.transfer').toLowerCase(),
-            })}
-            keyboardType="number-pad"
-            onChangeText={onAmountChanged}
-            onBlur={handleBlur('amount')}
-            value={values.amount}
+        {isIDTransfer ? (
+          <InputBase
+            label={t('menu.tab.idTransfer')}
+            placeholder={t('validation.enterId')}
+            value={values.referralId}
+            onChangeText={handleChange('referralId')}
+            onBlur={handleBlur('referralId')}
             error={
-              touched.amount && errors.amount
-                ? t(errors.amount, {
-                    field: t('common.amount'),
+              touched.referralId && errors.referralId
+                ? t(errors.referralId, {
+                    field: t('common.id'),
                   })
                 : undefined
             }
           />
-        </TextField>
+        ) : (
+          <InputBase
+            label={t('transfer.transferTo')}
+            value={playerData?.data?.username ?? ''}
+            editable={false}
+          />
+        )}
+
+        <MoneyInput
+          label={t('common.amount')}
+          placeholder={t('common.enterAmount', {
+            field: t('menu.transfer').toLowerCase(),
+          })}
+          keyboardType="number-pad"
+          onChangeText={onAmountChanged}
+          onBlur={handleBlur('amount')}
+          value={values.amount}
+          error={
+            touched.amount && errors.amount
+              ? t(errors.amount, {
+                  field: t('common.amount'),
+                })
+              : undefined
+          }
+          action={
+            <IconButton
+              name="ac"
+              size={18}
+              color={'$lightCyan'}
+              onPress={() => onAmountChanged(playerBalance ?? '')}
+            />
+          }
+        />
 
         {!isPinExist && (
           <View sx={{ alignItems: 'flex-end', mx: '$4' }}>

@@ -55,6 +55,7 @@ const FieldAmount = ({
         keyboardType={'number-pad'}
         onChangeText={onAmountChanged}
         onBlur={handleBlur('amount')}
+        sx={{ mt: '$2' }}
         value={values.amount}
         error={
           touched.amount && errors.amount

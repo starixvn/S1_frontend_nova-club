@@ -1,16 +1,15 @@
-import { TextField } from 'app/components/TextField'
+import { Button } from 'app/components/form/Button'
+import InputBase from 'app/components/form/Input/InputBase'
+import useLocalization from 'app/provider/localization'
+import { AlertActions } from 'app/store/alert.slice'
+import validation from 'app/utils/validation'
 import { styled, Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import * as Yup from 'yup'
 import React from 'react'
-import validation from 'app/utils/validation'
-import { AlertActions } from 'app/store/alert.slice'
 import { useDispatch } from 'react-redux'
-import { useRouter } from 'solito/router'
 import { useChangePasswordMutation } from 'services/changePassword'
-import useLocalization from 'app/provider/localization'
-import { PageWithBackHeader } from 'app/components/layout/Page'
-import { Button } from 'app/components/form/Button'
+import { useRouter } from 'solito/router'
+import * as Yup from 'yup'
 
 type PasswordFormValues = {
   oldPassword: string
@@ -76,59 +75,51 @@ const ChangePasswordScreen = () => {
 
   return (
     <StyledViewPage>
-      <TextField labelWidth={0.8}>
-        <TextField.TextInput
-          label="common.oldPassword"
-          _input={{
-            placeholder: t('common.enterOldPassword'),
-            value: values.oldPassword,
-            onChangeText: handleChange('oldPassword'),
-            onBlur: handleBlur('oldPassword'),
-            secureTextEntry: true,
-          }}
-          error={
-            touched.oldPassword && errors.oldPassword
-              ? t(errors.oldPassword, {
-                  field: t('common.oldPassword'),
-                })
-              : undefined
-          }
-        />
-        <TextField.TextInput
-          label="common.newPassword"
-          _input={{
-            placeholder: t('common.enterNewPassword'),
-            value: values.password,
-            onChangeText: handleChange('password'),
-            onBlur: handleBlur('password'),
-            secureTextEntry: true,
-          }}
-          error={
-            touched.password && errors.password
-              ? t(errors.password, {
-                  field: t('common.password'),
-                })
-              : undefined
-          }
-        />
-        <TextField.TextInput
-          label="common.confirmPassword"
-          _input={{
-            placeholder: t('common.enterConfirmPassword'),
-            value: values.confirmPassword,
-            onChangeText: handleChange('confirmPassword'),
-            onBlur: handleBlur('confirmPassword'),
-            secureTextEntry: true,
-          }}
-          error={
-            touched.confirmPassword && errors.confirmPassword
-              ? t(errors.confirmPassword, {
-                  field: t('common.confirmPassword'),
-                })
-              : undefined
-          }
-        />
-      </TextField>
+      <InputBase
+        label={t('common.oldPassword')}
+        placeholder={t('common.enterOldPassword')}
+        value={values.oldPassword}
+        onChangeText={handleChange('oldPassword')}
+        onBlur={handleBlur('oldPassword')}
+        secureTextEntry
+        error={
+          touched.oldPassword && errors.oldPassword
+            ? t(errors.oldPassword, {
+                field: t('common.oldPassword'),
+              })
+            : undefined
+        }
+      />
+      <InputBase
+        label={t('common.newPassword')}
+        placeholder={t('common.enterNewPassword')}
+        value={values.password}
+        onChangeText={handleChange('password')}
+        onBlur={handleBlur('password')}
+        secureTextEntry
+        error={
+          touched.password && errors.password
+            ? t(errors.password, {
+                field: t('common.newPassword'),
+              })
+            : undefined
+        }
+      />
+      <InputBase
+        label={t('common.confirmPassword')}
+        placeholder={t('common.enterConfirmPassword')}
+        value={values.confirmPassword}
+        onChangeText={handleChange('confirmPassword')}
+        onBlur={handleBlur('confirmPassword')}
+        secureTextEntry
+        error={
+          touched.confirmPassword && errors.confirmPassword
+            ? t(errors.confirmPassword, {
+                field: t('common.confirmPassword'),
+              })
+            : undefined
+        }
+      />
 
       <Button
         rounded

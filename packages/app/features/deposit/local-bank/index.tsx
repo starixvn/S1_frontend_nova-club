@@ -173,7 +173,6 @@ const LocalBankScreen = () => {
           editable={false}
           action={
             <IconButton
-              sx={{ p: '$2' }}
               name="copy"
               size={18}
               color={'$lightCyan'}
@@ -189,7 +188,6 @@ const LocalBankScreen = () => {
           editable={false}
           action={
             <IconButton
-              sx={{ p: '$2' }}
               name="copy"
               size={18}
               color={'$lightCyan'}

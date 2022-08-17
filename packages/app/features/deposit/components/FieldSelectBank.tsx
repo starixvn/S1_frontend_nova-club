@@ -38,7 +38,7 @@ const FieldSelectBank = ({ field, isLoading, formik }: FieldBankProps) => {
         options={bankList}
         onSelected={handleSelected}
         isHorizontalActionSheet
-        sx={{ my: '$2' }}
+        sx={{ mb: 0, mt: '$2' }}
         _actionSheet={{
           sheetId: ACTION_SHEET_ID.AUTO_DEPOSIT,
           headerTitle: t('bank.bank'),
