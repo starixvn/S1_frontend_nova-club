@@ -1,7 +1,7 @@
 import { Button } from 'app/components/form/Button'
 import TextInput, { DripsyTextInputProps } from 'app/components/form/TextInput'
 import { useLazyCheckUsernameQuery } from 'services/authApi'
-import { getErrorMessage } from 'app/utils/validation'
+import { getErrorMessage, PASSWORD_MAX_LENGTH } from 'app/utils/validation'
 import { ActivityIndicator, useDripsyTheme, View } from 'dripsy'
 import { FormikProps } from 'formik'
 import React, { memo, useCallback, useMemo, useRef, useState } from 'react'
