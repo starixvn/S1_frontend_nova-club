@@ -1,6 +1,5 @@
 import { ScrollView, useDripsyTheme } from 'dripsy'
-import { default as React, useEffect } from 'react'
-import { useLazyPlayerProfileQuery } from 'services/playerApi'
+import { default as React } from 'react'
 import AnnoucementMarquee from './Section/AnnouncementMarquee'
 import BannerSection from './Section/BannerSection'
 import GridSection from './Section/GridSection'

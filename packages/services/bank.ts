@@ -28,11 +28,6 @@ const bankEndpoints = (builder: EndpointBuilderType) => {
           ...queryArgs,
         },
       }),
-      transformResponse: (
-        res: IResponse<PlayerBankResult[]>
-      ): PlayerBankResult[] => {
-        return res.data ?? []
-      },
       providesTags: ['playerBank'],
     }),
     addPlayerBankAcc: builder.mutation<
@@ -76,11 +71,6 @@ const bankEndpoints = (builder: EndpointBuilderType) => {
           ...queryArgs,
         },
       }),
-      transformResponse: (
-        res: IResponse<WithdrawalBankResult[]>
-      ): WithdrawalBankResult[] => {
-        return res.data ?? []
-      },
     }),
   }
 }

@@ -1,4 +1,5 @@
 import { Button } from 'app/components/form/Button'
+import InputBase from 'app/components/form/Input/InputBase'
 import TextInput from 'app/components/form/TextInput'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
@@ -111,6 +112,17 @@ const LoginForm = () => {
 
   return (
     <>
+      <InputBase
+        label="Select Bank"
+        onChangeText={handleChange('username')}
+        value={values.username}
+        error={errors.username}
+      />
+      <InputBase
+        label="Select Bank"
+        onChangeText={handleChange('username')}
+        value={values.username}
+      />
       <TextInput
         _icon="avatar"
         _input={{

@@ -2,7 +2,7 @@ import { SxProp, View } from 'dripsy'
 import React from 'react'
 import RoundedIcon from '../RoundedIcon'
 
-type ActionSheetItemProps = {
+export type ActionSheetItemProps = {
   icon: string
   onPress: () => void
   containerStyle?: SxProp
