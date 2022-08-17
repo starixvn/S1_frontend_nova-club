@@ -134,10 +134,9 @@ const InputBase = forwardRef<{}, InputBaseProps>(
                 style={{ fontSize: 16, marginTop: 'auto' }}
                 editable={editable}
                 sx={inputStyle}
+                value={value}
                 {...rest}
-              >
-                {value}
-              </TextInput>
+              />
             </View>
             {action && (
               <View sx={{ ml: space, justifyContent: 'center' }}>{action}</View>

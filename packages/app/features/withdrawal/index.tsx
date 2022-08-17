@@ -1,25 +1,28 @@
 import { Button } from 'app/components/form/Button'
-import { TextField } from 'app/components/TextField'
-import { styled, View } from 'dripsy'
-import React, { useRef } from 'react'
-import { FormikHelpers, useFormik } from 'formik'
-import * as Yup from 'yup'
-import validation from 'app/utils/validation'
+import Select from 'app/components/form/Input/Select'
 import ImportantNotice from 'app/components/ImportantNotice'
-import { useDispatch } from 'react-redux'
-import { AlertActions } from 'app/store/alert.slice'
-import { useRouter } from 'solito/router'
-import { useSubmitWithdrawalMutation } from 'services/withdrawal'
-import { toCleanAmount, toCurrency, toRealAmount } from 'app/utils'
-import { usePlayerBankQuery } from 'services/bank'
 import { PageWithBackHeader } from 'app/components/layout/Page'
-import useLocalization from 'app/provider/localization'
-import { PlayerBankResult } from 'services/bank.type'
-import { Currency } from 'app/utils/constant'
-import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
-import { useModal } from 'react-native-modalfy'
-import { usePlayerProfileQuery } from 'services/playerApi'
+import { TextField } from 'app/components/TextField'
 import { getBankLogo } from 'app/config/bank'
+import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
+import useContextualRouting from 'app/hooks/useContextualRouting'
+import useLocalization from 'app/provider/localization'
+import { AlertActions } from 'app/store/alert.slice'
+import { toCleanAmount, toCurrency, toRealAmount } from 'app/utils'
+import { Currency } from 'app/utils/constant'
+import validation from 'app/utils/validation'
+import { styled, View } from 'dripsy'
+import { FormikHelpers, useFormik } from 'formik'
+import React from 'react'
+import { SheetManager } from 'react-native-actions-sheet'
+import { useModal } from 'react-native-modalfy'
+import { useDispatch } from 'react-redux'
+import { usePlayerBankQuery } from 'services/bank'
+import { PlayerBankResult } from 'services/bank.type'
+import { usePlayerProfileQuery } from 'services/playerApi'
+import { useSubmitWithdrawalMutation } from 'services/withdrawal'
+import { useRouter } from 'solito/router'
+import * as Yup from 'yup'
 import WithdrawalTransactions from './WithdrawalTransactions'
 
 const actionSheetId = ACTION_SHEET_ID.WITHDRAWAL
@@ -59,10 +62,13 @@ const CONFIRMATION_FIELDS = [
 const WithdrawalPage = () => {
   const { t } = useLocalization()
   const dispatch = useDispatch()
-  const { back } = useRouter()
+  const { push } = useRouter()
   const { openModal } = useModal()
   const { data, isLoading, isFetching } = usePlayerBankQuery()
   const [postSubmitWithdrawal] = useSubmitWithdrawalMutation()
+
+  const { makeContextualHref } = useContextualRouting()
+  const toBankAccount = makeContextualHref('bank-account')
 
   const { data: playerData } = usePlayerProfileQuery()
   const currency = playerData?.data?.currency as Currency
@@ -152,6 +158,45 @@ const WithdrawalPage = () => {
       onConfirm: () => onSubmit(values, formik),
     })
   }
+
+  // const sheetData = data?.map((item) => {
+  //   return {
+  //     label: item.BankAccountFullName,
+  //     value: item.BankTypeId,
+  //     icon: getBankLogo(item.BankCode),
+  //   }
+  // })
+  // console.log(
+  //   '🚀 ~ file: index.tsx ~ line 164 ~ WithdrawalPage ~ sheetData',
+  //   sheetData
+  // )
+
+  // const handleSelected = (value) => {
+  //   const item = data?.find((el) => el.BankTypeId === value)
+  //   setFieldValue('bank', item)
+  // }
+
+  // const Action = () => (
+  //   <View>
+  //     <Select
+  //       sx={{ mb: 0, mt: '$2' }}
+  //       label={t('bank.selectBank')}
+  //       options={sheetData}
+  //       value={values.bank?.BankAccountFullName}
+  //       onSelected={handleSelected}
+  //       _actionSheet={{
+  //         sheetId: ACTION_SHEET_ID.WITHDRAWAL,
+  //         headerTitle: t('bank.bank'),
+  //         actions: [
+  //           {
+  //             icon: 'card',
+  //             onPress: () => push(toBankAccount, '/profile/bank-account'),
+  //           },
+  //         ],
+  //       }}
+  //     />
+  //   </View>
+  // )
 
   return (
     <PageWithBackHeader header={{ title: t('menu.withdraw') }}>

@@ -10284,10 +10284,10 @@ react-merge-refs@^2.0.0:
   resolved "https://registry.yarnpkg.com/react-merge-refs/-/react-merge-refs-2.0.1.tgz#a1f8c2dadefa635333e9b91ec59f30b65228b006"
   integrity sha512-pywF6oouJWuqL26xV3OruRSIqai31R9SdJX/I3gP2q8jLxUnA1IwXcLW8werUHLZOrp4N7YOeQNZrh/BKrHI4A==
 
-react-native-actions-sheet@^0.6.1:
-  version "0.6.2"
-  resolved "https://registry.yarnpkg.com/react-native-actions-sheet/-/react-native-actions-sheet-0.6.2.tgz#82b2e67ee6b2b086f7ed5ed8bce7d48bf2200cea"
-  integrity sha512-MKrI3fxjxenAMwcSyI8fHwcG41ed3Jk5QUiH6/CYvuYRCJSdsxyNfC7Hc6TeM2TYz2bwfsaFBPTMdsR8mN0MRA==
+react-native-actions-sheet@^0.7.2:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/react-native-actions-sheet/-/react-native-actions-sheet-0.7.2.tgz#7434f26267cb2a4e6d8faaabf89f1b722d5ea5ec"
+  integrity sha512-au9QkDnSC+lhiTMHYA2cNdOhrKW/6v/vdeOTNigRFuvYoVVS2+vJOJpt2Z3mumRjmD02UocV0WmHu4anSsqqpA==
 
 react-native-animatable@1.3.3:
   version "1.3.3"
