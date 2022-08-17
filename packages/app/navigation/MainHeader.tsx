@@ -5,15 +5,7 @@ import BouncePressable from 'app/pressable/BouncePressable'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
-import {
-  ActivityIndicator,
-  Image,
-  SafeAreaView,
-  styled,
-  Text,
-  useSx,
-  View,
-} from 'dripsy'
+import { ActivityIndicator, Image, styled, Text, useSx, View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import { LayoutChangeEvent } from 'react-native'
 import { usePlayerBalanceQuery } from 'services/walletApi'
@@ -111,7 +103,7 @@ const MainHeader = () => {
   }, [playerBalance])
 
   return (
-    <SafeAreaView sx={{ paddingTop: insets.top, bg: '$primary' }}>
+    <View sx={{ paddingTop: insets.top, bg: '$primary' }}>
       <StyledContainer sx={{ height: headerHeight }}>
         <View>
           <BouncePressable
@@ -222,7 +214,7 @@ const MainHeader = () => {
         }}
         parentPosition={menuPosition}
       />
-    </SafeAreaView>
+    </View>
   )
 }
 

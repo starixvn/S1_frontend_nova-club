@@ -12,6 +12,7 @@ const HomeScreen = () => {
   const { theme } = useDripsyTheme()
   return (
     <ScrollView
+      bounces={false}
       sx={{ bg: '$background', flex: 1 }}
       contentContainerStyle={{
         paddingBottom: theme.space['$8'],

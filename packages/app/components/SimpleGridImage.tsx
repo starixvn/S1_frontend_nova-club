@@ -18,11 +18,13 @@ interface GamesProps extends LaunchGamePayload {
   sx?: SxProp
   isHotGame?: boolean
   isNewGame?: boolean
+  showName?: boolean
 }
 
 export const GAME_IMAGE_RATIO = 325 / 315
 
 const SimpleGridImage: FC<GamesProps> = ({
+  showName,
   gameName,
   gameCode,
   gameType,
@@ -48,21 +50,21 @@ const SimpleGridImage: FC<GamesProps> = ({
     gameName,
     gameType,
   }
-
   // useEffect(() => {
   //   setLoaded(false)
   // }, [image])
   return (
-    <View>
+    <View sx={sx}>
       <TouchableOpacity
-        style={_sx({ width, position: 'relative', ...sx })}
+        style={_sx({ width, position: 'relative' })}
         onPress={() => {
+          console.log('gamePayload', gamePayload)
           dispatch(GameLauncherActions.launchGame(gamePayload))
         }}
       >
         <MotiView
           key={image}
-          delay={Math.random() * 100}
+          delay={Math.random() * 150}
           from={{
             scale: 0.1,
             opacity: 0.2,
@@ -96,7 +98,7 @@ const SimpleGridImage: FC<GamesProps> = ({
           )}
         </MotiView>
       </TouchableOpacity>
-      {gameName && (
+      {showName && (
         <Text
           numberOfLines={1}
           sx={{
@@ -132,8 +134,8 @@ const SimpleGridImage: FC<GamesProps> = ({
         <MotiView
           style={{
             position: 'absolute',
-            top: -10,
-            left: -10,
+            top: -20,
+            left: -15,
           }}
           key={image}
           delay={1000}

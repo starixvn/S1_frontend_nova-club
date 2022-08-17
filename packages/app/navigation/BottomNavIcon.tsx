@@ -66,7 +66,7 @@ const BottomNavIcon: FC<BottomNavTabProps> = ({
       fontSize: 12,
     },
     active: {
-      fontSize: 14,
+      fontSize: 13,
     },
   })
 
