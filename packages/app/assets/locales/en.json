@@ -19,7 +19,6 @@
     "accountNumber": "Account number",
     "addBankAccount": "Add Bank Account",
     "bank": "Bank",
-    "enterAccountName": "Please enter your real name",
     "enterAccountNo": "Please enter account no",
     "noBankAccount": "No Bank Account",
     "selectBank": "Please select bank"
@@ -269,8 +268,8 @@
     }
   },
   "pin": {
-    "confirmPin": "Confirm Oub",
-    "forgotPin": "Forgot Pin",
+    "confirmPin": "Confirm PIN",
+    "forgotPin": "Forgot PIN",
     "headerText1": "Create 6-digit PIN",
     "headerText2": "Secure your transfer with PIN",
     "newPin": "New Pin",
@@ -332,7 +331,7 @@
     "systemError": "Oops! Something wrong, please try again."
   },
   "transaction": {
-    "transactions": "Transactions"
+    "pending": "Pending Transactions"
   },
   "transfer": {
     "avaiableAmount": "Available Amount",

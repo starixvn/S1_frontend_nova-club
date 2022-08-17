@@ -164,7 +164,7 @@ const AddBankAccountScreen = () => {
               <TextField.TextInput
                 label="bank.accountName"
                 _input={{
-                  placeholder: t('bank.enterAccountName'),
+                  placeholder: t('validation.realName'),
                   value: values.realName,
                   onChangeText: handleChange('realName'),
                   onBlur: handleBlur('realName'),

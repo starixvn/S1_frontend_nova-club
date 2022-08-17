@@ -8,7 +8,10 @@ import {
   useSendPasswordRecoveryOtpMutation,
 } from 'services/authApi'
 import { AlertActions } from 'app/store/alert.slice'
-import validation, { getErrorMessage } from 'app/utils/validation'
+import validation, {
+  getErrorMessage,
+  PASSWORD_MAX_LENGTH,
+} from 'app/utils/validation'
 import { Text, useDripsyTheme, View } from 'dripsy'
 import { FormikHelpers, FormikTouched, useFormik } from 'formik'
 import { useRef, useState } from 'react'
@@ -256,6 +259,7 @@ const ForgotPassword = () => {
               onSubmitEditing: () => {
                 confirmPasswordFieldRef.current?.focus()
               },
+              maxLength: PASSWORD_MAX_LENGTH,
             }}
             error={
               touched.password && errors.password
@@ -275,6 +279,7 @@ const ForgotPassword = () => {
               secureTextEntry: true,
               ref: confirmPasswordFieldRef,
               onSubmitEditing: submitForm,
+              maxLength: PASSWORD_MAX_LENGTH,
             }}
             error={
               touched.confirmPassword && errors.confirmPassword

@@ -3,7 +3,7 @@ import { styled, Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import * as Yup from 'yup'
 import React from 'react'
-import validation from 'app/utils/validation'
+import validation, { PASSWORD_MAX_LENGTH } from 'app/utils/validation'
 import { AlertActions } from 'app/store/alert.slice'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'solito/router'
@@ -85,6 +85,7 @@ const ChangePasswordScreen = () => {
             onChangeText: handleChange('oldPassword'),
             onBlur: handleBlur('oldPassword'),
             secureTextEntry: true,
+            maxLength: PASSWORD_MAX_LENGTH,
           }}
           error={
             touched.oldPassword && errors.oldPassword
@@ -102,6 +103,7 @@ const ChangePasswordScreen = () => {
             onChangeText: handleChange('password'),
             onBlur: handleBlur('password'),
             secureTextEntry: true,
+            maxLength: PASSWORD_MAX_LENGTH,
           }}
           error={
             touched.password && errors.password
@@ -119,6 +121,7 @@ const ChangePasswordScreen = () => {
             onChangeText: handleChange('confirmPassword'),
             onBlur: handleBlur('confirmPassword'),
             secureTextEntry: true,
+            maxLength: PASSWORD_MAX_LENGTH,
           }}
           error={
             touched.confirmPassword && errors.confirmPassword

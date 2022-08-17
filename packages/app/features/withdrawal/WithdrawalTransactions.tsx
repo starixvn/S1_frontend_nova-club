@@ -14,7 +14,7 @@ const WithdrawalTransactions = () => {
     {
       limit: 5,
       offset: 0,
-      status: ReportDepositStatus.ALL,
+      status: ReportDepositStatus.PENDING,
       time_from: dayjsTz().subtract(2, 'month').startOf('date').toISOString(),
       time_to: dayjsTz().endOf('date').toISOString(),
       trans_type: ReportTransactionType.WITHDRAWAL,

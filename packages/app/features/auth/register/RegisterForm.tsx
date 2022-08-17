@@ -169,6 +169,7 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
           onSubmitEditing: () => {
             confirmPasswordFieldRef.current?.focus()
           },
+          maxLength: PASSWORD_MAX_LENGTH,
         }}
         error={
           touched.password && errors.password
@@ -188,6 +189,7 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
           secureTextEntry: true,
           ref: confirmPasswordFieldRef,
           onSubmitEditing: onSubmit,
+          maxLength: PASSWORD_MAX_LENGTH,
         }}
         error={
           touched.confirmPassword && errors.confirmPassword

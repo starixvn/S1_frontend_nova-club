@@ -45,11 +45,8 @@ const actionSheetId = ACTION_SHEET_ID.LOCAL_BANK
 
 const LocalBankScreen = () => {
   const { makeContextualHref } = useContextualRouting()
-  const to = makeContextualHref('deposit-loader')
 
   const { t } = useLocalization()
-  const dispatch = useDispatch()
-  const { push, back } = useRouter()
   const { openModal } = useModal()
   const [limit, setLimit] = useState({ minAmount: 0, maxAmount: 0 })
   const [selectedImage, setSelectedImage] = useState('')
@@ -71,10 +68,6 @@ const LocalBankScreen = () => {
   useEffect(() => {
     if (data?.success) {
       setFieldValue('bank', depositPayment?.list[0])
-      setLimit({
-        minAmount: depositPayment?.list[0]?.minDeposit ?? 0,
-        maxAmount: depositPayment?.list[0]?.maxDeposit ?? 0,
-      })
     }
   }, [data])
 
@@ -83,7 +76,6 @@ const LocalBankScreen = () => {
     actions: FormikHelpers<LocalBankValues>
   ) => {
     await postDepositSubmit(values, actions)
-    console.log('wating')
     filePickerRef.current?.resetFile()
   }
 
@@ -117,6 +109,15 @@ const LocalBankScreen = () => {
     setValues,
     setFieldValue,
   } = formik
+
+  useEffect(() => {
+    const bank = values.bank
+    if (bank)
+      setLimit({
+        minAmount: Number(bank.minDeposit) ?? 0,
+        maxAmount: Number(bank.maxDeposit) ?? 0,
+      })
+  }, [values.bank])
 
   function onAmountChanged(text: string) {
     if (text != null) {

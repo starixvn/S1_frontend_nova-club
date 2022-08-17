@@ -1,6 +1,6 @@
-import { COUNTRY_CODE } from 'app/constant/country'
 import * as Yup from 'yup'
-import { isValidPhoneNum } from './phoneValidation'
+
+export const PASSWORD_MAX_LENGTH = 12
 
 const ALPHANUMERIC_REGEX = RegExp(/^(?=.*[0-9])(?=.*[a-z])([a-z0-9]+)$/)
 const NUMERIC_REGEX = RegExp(/^[0-9]*$/)
@@ -15,19 +15,19 @@ const validation = {
   password: Yup.string()
     .required('validation.required')
     .min(6, 'validation.passwordMinMaxLength')
-    .max(12, 'validation.passwordMinMaxLength'),
+    .max(PASSWORD_MAX_LENGTH, 'validation.passwordMinMaxLength'),
 
   confirmPassword: Yup.string()
     .required('validation.required')
     .min(6, 'validation.passwordMinMaxLength')
-    .max(12, 'validation.passwordMinMaxLength')
+    .max(PASSWORD_MAX_LENGTH, 'validation.passwordMinMaxLength')
     .matches(ALPHANUMERIC_REGEX, 'validation.password')
     .oneOf([Yup.ref('password'), null], 'validation.passwordNotMatch'),
 
   passwordRestrict: Yup.string()
     .required('validation.required')
     .min(6, 'validation.passwordMinMaxLength')
-    .max(12, 'validation.passwordMinMaxLength')
+    .max(PASSWORD_MAX_LENGTH, 'validation.passwordMinMaxLength')
     .matches(
       // RegExp(/^(?=.*[0-9a-z])(?=.*[!@#$%^&*])([a-z0-9!@#$%^&*]+)$/i),
       ALPHANUMERIC_REGEX,

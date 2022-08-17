@@ -19,7 +19,6 @@
     "accountNumber": "Số tài khoản",
     "addBankAccount": "Thêm tài khoản",
     "bank": "Ngân hàng",
-    "enterAccountName": "Vui lòng nhập Tên thật",
     "enterAccountNo": "Vui lòng nhập số tài khoản",
     "noBankAccount": "Không có tài khoản ngân hàng",
     "selectBank": "Vui lòng chọn ngân hàng"
@@ -45,10 +44,10 @@
     "confirmDelete": "Bạn có chắc chắn muốn xóa? Không thể khôi phục sau khi xóa!",
     "confirmPassword": "Xác nhận mật khẩu",
     "contactUs": "Liên hệ",
-    "copied": "Sao chép vào clipboard",
+    "copied": "Đã sao chép đường dẫn",
     "copy": "Sao chép",
     "desktop": "Máy tính",
-    "download": "Tải xuống",
+    "download": "Tải ứng dụng",
     "emptyResult": "Không có kết quả",
     "enter": "Nhập",
     "enterAmount": "Vui lòng nhập số tiền %{field} của bạn",
@@ -57,7 +56,7 @@
     "enterOldPassword": "Vui lòng nhập mật khẩu cũ",
     "hello": "Xin chào!!",
     "home": "Trang Chủ",
-    "id": "TÔI",
+    "id": "Mã ID",
     "importantNote": "Lưu Ý Quan Trọng",
     "importantNotes": "Lưu Ý Quan Trọng",
     "loading": "Đang tải",
@@ -81,7 +80,7 @@
     "selectAll": "Chọn tất cả",
     "selectDate": "Chọn ngày",
     "send": "Gởi",
-    "share": "Đăng lại",
+    "share": "Chia sẻ",
     "submit": "Gửi",
     "turnover": "Doanh số",
     "userAgreement": "thỏa thuận người dùng",
@@ -205,12 +204,12 @@
     "agentLogin": "Dăng nhập đại lý",
     "bankAccount": "Tài khoản ngân hàng",
     "changePassword": "Đổi Mật Khẩu",
-    "changePin": "Thay đổi pin",
+    "changePin": "Thay đổi mã PIN",
     "commisionTable": "Bảng hoa hồng",
     "createPin": "Tạo mã PIN",
     "customerSupport": "Hỗ trợ khách hàng",
     "deposit": "Nạp tiền",
-    "depositConfirmation": "Xác nhận tiền gửi",
+    "depositConfirmation": "Xác nhận thông tin gửi tiền",
     "gameHistory": "Lịch sử trò chơi",
     "history": "Lịch sử",
     "logout": "Thoát",
@@ -224,10 +223,10 @@
       "date": "Ngày",
       "game": "Trò Chơi",
       "gameType": "Loại trò chơi",
-      "idTransfer": "Chuyển ID",
+      "idTransfer": "Chuyển quỹ bằng ID",
       "provider": "Các nhà cung cấp",
       "providers": "Các nhà cung cấp",
-      "qrTransfer": "Chuyển QR",
+      "qrTransfer": "Chuyển quỹ bằng QR",
       "receive": "Nhận",
       "send": "Gửi",
       "status": "Trạng thái",
@@ -258,7 +257,7 @@
     },
     "importantNotice": "THÔNG BÁO QUAN TRỌNG",
     "qr": {
-      "n1": "Quét bằng ứng dụng của bạn để chuyển số dư"
+      "n1": "Quét bằng ứng dụng để chuyển số dư"
     },
     "withdrawal": {
       "n1": "Vui lòng liên hệ bộ phận LIVECHAT 24/7 nếu lệnh rút bị chậm trễ quá 10 phút.",
@@ -270,14 +269,14 @@
   },
   "pin": {
     "confirmPin": "Xác nhận mã PIN",
-    "forgotPin": "Quên mã pin",
-    "headerText1": "Tạo mã PIN 6 chữ số",
+    "forgotPin": "Quên mã PIN",
+    "headerText1": "Tạo mã PIN 6 số",
     "headerText2": "Bảo mật chuyển khoản của bạn bằng mã PIN",
     "newPin": "Pin mới",
-    "note1": "Cần có mã PIN để chuyển",
-    "oldPin": "Pin cũ",
-    "submitNote": "Tất cả các giao dịch của bạn được xử lý trong một môi trường an toàn và bảo mật.",
-    "submitTitle": "Nhập mã PIN 6 chữ số để xác nhận"
+    "note1": "Vui lòng nhập mã PIN để chuyển khoản",
+    "oldPin": "Mã PIN cũ",
+    "submitNote": "Tất cả các giao dịch của bạn đều được xử lý trong một môi trường an toàn và bảo mật.",
+    "submitTitle": "Nhập mã PIN 6 số để xác nhận"
   },
   "profile": {
     "details": {
@@ -300,15 +299,15 @@
     "timeline": "UTC/GMT +7"
   },
   "qr": {
-    "downloadQrCode": "Tải xuống mã QR",
+    "downloadQrCode": "Tải mã QR thành công",
     "noCameraAccess": "Không có quyền truy cập vào máy ảnh",
     "requestCameraPermissions": "Yêu cầu quyền truy cập vào máy ảnh",
     "scanGallery": "Quét từ thư viện"
   },
   "referral": {
-    "earn": "Đăng lại",
+    "earn": "Chia sẻ & nhận thưởng",
     "friend": "Giới thiệu bạn bè",
-    "link": "Liên kết giới thiệu"
+    "link": "Đường dẫn để giới thiệu"
   },
   "status": {
     "alert": "Cảnh báo",
@@ -323,16 +322,16 @@
     "pending": "Đang chờ",
     "processing": "Đang xử lý",
     "qrCodeNotDetected": "Không thể phát hiện mã QR trong hình ảnh",
-    "qrDownloadSuccess": "Tải xuống mã Qr thành công",
-    "receiptRequired": "Biên lai là bắt buộc để gửi tiền gửi",
-    "referralError": "Giới thiệu không tồn tại, vui lòng thử mã khác",
+    "qrDownloadSuccess": "Tải mã QR thành công",
+    "receiptRequired": "Vui lòng tải biên lai gửi tiền",
+    "referralError": "Mã giới thiệu không đúng, vui lòng thử mã khác",
     "rejected": "Từ chối",
     "scanFailed": "Quét không thành công!",
     "success": "Thành công",
     "systemError": "Rất tiếc! Đã xảy ra lỗi, vui lòng thử lại."
   },
   "transaction": {
-    "transactions": "Giao dịch"
+    "transactions": "Đang chờ giao dịch"
   },
   "transfer": {
     "avaiableAmount": "Số tiền có sẵn",
@@ -360,8 +359,8 @@
     "password": "Mật khẩu phải dài 6-15 ký tự, chứa cả chữ và số và ký tự đặc biệt (!@#$%^&*).",
     "passwordMinMaxLength": "Mật khẩu phải có 6-15 ký tự",
     "pin": "Ghim chỉ phải là số",
-    "pinNotMatch": "Cả hai mã PIN phải giống nhau",
-    "realName": "Vui lòng nhập tên thật của bạn.",
+    "pinNotMatch": "Mã PIN phải giống nhau",
+    "realName": "Vui lòng nhập họ tên thật",
     "required": "%{field} là bắt buộc",
     "usdtFormat": "Địa chỉ ví phải tương thích với chuẩn ERC20 / TRC20",
     "userNameMinMaxLength": "Tên người dùng phải dài từ 6 đến 18 ký tự",

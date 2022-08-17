@@ -241,7 +241,7 @@ function useGameLauncher(gameLauncherState: LaunchGamePayload) {
 const PreLaunchGame = ({}) => {
   const { t } = useLocalization()
   const gameLauncherState = useAppSelector((s) => s.gameLauncher)
-  const [agree, setAgree] = useState(false)
+  const [agree, setAgree] = useState(true)
   const [isLaunchingGame, setIsLaunchingGame] = useState(false)
   const [isGameStateEmpty, setIsGameStateEmpty] = useState(false)
   const dispatch = useAppDispatch()
