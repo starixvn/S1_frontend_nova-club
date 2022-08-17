@@ -1,10 +1,9 @@
 import { Button } from 'app/components/form/Button'
 import Icon from 'app/components/Icon'
 import { PageWithBackHeader } from 'app/components/layout/Page'
+import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
-import { usePlayerBankQuery } from 'services/bank'
-import { PlayerBankResult } from 'services/bank.type'
 import {
   ActivityIndicator,
   Image,
@@ -14,17 +13,18 @@ import {
   View,
 } from 'dripsy'
 import React from 'react'
+import { useModal } from 'react-native-modalfy'
+import { usePlayerBankQuery } from 'services/bank'
+import { PlayerBankResult } from 'services/bank.type'
 import { useRouter } from 'solito/router'
 import BankAccCard from './BankAccCard'
-import { useModal } from 'react-native-modalfy'
-import useContainerDimension from 'app/hooks/useContainerDimension'
 
 const BankAccountScreen = () => {
   const { t } = useLocalization()
   const { push } = useRouter()
   const { openModal } = useModal()
   const { width } = useContainerDimension()
-  const { data, isLoading, isFetching } = usePlayerBankQuery()
+  const { data, isLoading } = usePlayerBankQuery()
 
   const { makeContextualHref } = useContextualRouting()
   const toAddBankAccount = makeContextualHref('add-bank-account')
@@ -38,8 +38,8 @@ const BankAccountScreen = () => {
       <StyledView>
         {isLoading ? (
           <ActivityIndicator size={'large'} color={'$lightCyan'} />
-        ) : data?.length > 0 ? (
-          data.map((item: PlayerBankResult) => (
+        ) : data?.data?.length > 0 ? (
+          data?.data.map((item: PlayerBankResult) => (
             <BankAccCard
               key={item.PlayerBankDetailsId}
               item={item}
@@ -66,7 +66,7 @@ const BankAccountScreen = () => {
             rounded
             stretch
             variant="lg"
-            disabled={data && data.length >= 3}
+            disabled={data?.data && data?.data.length >= 3}
             fill={{
               type: 'gradient',
               color: 'secondary',

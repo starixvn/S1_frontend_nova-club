@@ -1,7 +1,9 @@
 import { Button } from 'app/components/form/Button'
+import InputBase from 'app/components/form/Input/InputBase'
+import Select from 'app/components/form/Input/Select'
 import { PageWithBackHeader } from 'app/components/layout/Page'
-import { TextField } from 'app/components/TextField'
 import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
+import { getBankLogo } from 'app/config/bank'
 import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
 import useLocalization from 'app/provider/localization'
 import { AlertActions } from 'app/store/alert.slice'
@@ -39,7 +41,12 @@ const AddBankAccountScreen = () => {
   const dispatch = useDispatch()
   const { t } = useLocalization()
   const { back } = useRouter()
-  const { data, isLoading, isFetching, isSuccess } = useWithdrawalBankQuery()
+  const {
+    data: bankData,
+    isLoading,
+    isFetching,
+    isSuccess,
+  } = useWithdrawalBankQuery()
   const [postAddWithdrawalBankAcc] = useAddPlayerBankAccMutation()
   const { data: playerData } = usePlayerProfileQuery()
   const isRealNameAvailable = playerData?.data?.firstName?.length > 0
@@ -50,6 +57,14 @@ const AddBankAccountScreen = () => {
   const otpFieldRef = useRef<TextInput>(null)
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
 
+  const sheetData = bankData?.data?.map((item) => {
+    return {
+      label: item.bank_name,
+      value: item.bank_code,
+      icon: getBankLogo(item.bank_code),
+    }
+  })
+
   async function updateRealName(realName, otp) {
     const { data, success, message } = await updateProfile({
       field: 'realName',
@@ -58,6 +73,7 @@ const AddBankAccountScreen = () => {
     })
 
     if (success) {
+      Toast.show({ type: 'success', text1: message })
       return
     } else return message
   }
@@ -88,13 +104,12 @@ const AddBankAccountScreen = () => {
         .catch((error) => dispatch(AlertActions.addError(error.message)))
 
       if (success) {
-        Toast.show({
-          type: 'success',
-          text1: message,
-        })
+        Toast.show({ type: 'success', text1: message })
         actions.resetForm()
 
-        back()
+        setTimeout(() => {
+          back()
+        }, 150)
       }
     } catch (e) {
       dispatch(AlertActions.addError('status.systemError'))
@@ -155,86 +170,87 @@ const AddBankAccountScreen = () => {
     }
   }
 
+  const handleSelected = (value) => {
+    const item = bankData?.data?.find((el) => el.bank_code === value)
+    setFieldValue('bank', item)
+  }
+
   return (
     <PageWithBackHeader header={{ title: t('bank.addBankAccount') }}>
       <StyledView>
         {playerData?.data?.firstName.length === 0 && (
           <>
-            <TextField labelWidth={0.55}>
-              <TextField.TextInput
-                label="bank.accountName"
-                _input={{
-                  placeholder: t('bank.enterAccountName'),
-                  value: values.realName,
-                  onChangeText: handleChange('realName'),
-                  onBlur: handleBlur('realName'),
-                }}
-              />
-            </TextField>
-            <TextField labelWidth={0.55}>
-              <TextField.TextInput
-                label="OTP"
-                _input={{
-                  placeholder: t('auth.enterOtp'),
-                  value: values.otp,
-                  onChangeText: handleChange('otp'),
-                  onBlur: handleBlur('otp'),
-                }}
-                right={
-                  <TimerButton
-                    accessibilityRole="button"
-                    ref={OTPRef}
-                    title={t('common.send')}
-                    loading={isOtpLoading}
-                    onPress={sendOTP}
-                    sx={{
-                      width: 'auto',
-                      backgroundColor: '$gray',
-                      m: 0,
-                      px: '$3',
-                      minWidth: 53,
-                    }}
-                    _text={{
-                      sx: {
-                        color: '$black',
-                      },
-                    }}
-                  />
-                }
-              />
-            </TextField>
+            <InputBase
+              label={t('bank.accountName')}
+              value={values.realName}
+              onChangeText={handleChange('realName')}
+              onBlur={handleBlur('realName')}
+              error={
+                touched.realName && errors.realName
+                  ? t(errors.realName, {
+                      field: t('bank.accountName'),
+                    })
+                  : undefined
+              }
+            />
+            <InputBase
+              label={t('OTP')}
+              value={values.otp}
+              onChangeText={handleChange('otp')}
+              onBlur={handleBlur('otp')}
+              error={
+                touched.otp && errors.otp
+                  ? t(errors.otp, {
+                      field: t('OTP'),
+                    })
+                  : undefined
+              }
+              action={
+                <TimerButton
+                  accessibilityRole="button"
+                  ref={OTPRef}
+                  title={t('common.send')}
+                  loading={isOtpLoading}
+                  onPress={sendOTP}
+                  sx={{
+                    width: 'auto',
+                    backgroundColor: '$gray',
+                    m: 0,
+                    px: '$3',
+                    minWidth: 53,
+                  }}
+                  _text={{
+                    sx: {
+                      color: '$black',
+                    },
+                  }}
+                />
+              }
+            />
           </>
         )}
 
-        <TextField.Select
-          label="bank.bank"
-          _input={{
-            placeholder: t('bank.selectBank'),
-            value: values.bank?.bank_name ?? '',
-          }}
-          _dataList={{
-            data: data,
-            isLoading: isLoading || isFetching,
-            key: 'id',
-            titleType: 'bank_code',
-            onPress: (item) => setFieldValue('bank', item),
-          }}
+        <Select
+          label={t('bank.bank')}
+          value={values.bank?.bank_name ?? ''}
+          loading={isLoading || isFetching}
+          options={sheetData}
+          onSelected={handleSelected}
+          isHorizontalActionSheet
+          sx={{ mb: '$2' }}
           _actionSheet={{
-            id: actionSheetId,
+            sheetId: ACTION_SHEET_ID.ADD_BANK_ACCOUNT,
             headerTitle: t('bank.bank'),
           }}
         />
 
-        <TextField.TextInput
-          label="bank.accountNo"
-          _input={{
-            placeholder: t('bank.enterAccountNo'),
-            value: values.accountNo,
-            onChangeText: onCardChanged,
-            onBlur: handleBlur('accountNo'),
-            keyboardType: 'number-pad',
-            maxLength: MaxLength.CARD,
-          }}
+        <InputBase
+          label={t('bank.accountNo')}
+          value={values.accountNo}
+          onChangeText={onCardChanged}
+          onBlur={handleBlur('accountNo')}
+          keyboardType="number-pad"
+          maxLength={MaxLength.CARD}
           error={
             touched.accountNo && errors.accountNo
               ? t(errors.accountNo, {
@@ -242,8 +258,8 @@ const AddBankAccountScreen = () => {
                 })
               : undefined
           }
-          containerStyle={{ my: '$0' }}
         />
+
         <StyledButtonWrapper>
           <Button
             rounded

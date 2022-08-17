@@ -1,4 +1,5 @@
 import { Button } from 'app/components/form/Button'
+import MoneyInput from 'app/components/form/Input/MoneyInput'
 import Select from 'app/components/form/Input/Select'
 import ImportantNotice from 'app/components/ImportantNotice'
 import { PageWithBackHeader } from 'app/components/layout/Page'
@@ -24,6 +25,7 @@ import { useSubmitWithdrawalMutation } from 'services/withdrawal'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import WithdrawalTransactions from './WithdrawalTransactions'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 
 const actionSheetId = ACTION_SHEET_ID.WITHDRAWAL
 
@@ -64,7 +66,7 @@ const WithdrawalPage = () => {
   const dispatch = useDispatch()
   const { push } = useRouter()
   const { openModal } = useModal()
-  const { data, isLoading, isFetching } = usePlayerBankQuery()
+  const { data: bankData, isLoading, isFetching } = usePlayerBankQuery()
   const [postSubmitWithdrawal] = useSubmitWithdrawalMutation()
 
   const { makeContextualHref } = useContextualRouting()
@@ -72,6 +74,19 @@ const WithdrawalPage = () => {
 
   const { data: playerData } = usePlayerProfileQuery()
   const currency = playerData?.data?.currency as Currency
+
+  const sheetData = bankData?.data?.map((item) => {
+    return {
+      label: item.BankAccountFullName,
+      value: item.BankTypeId,
+      icon: getBankLogo(item.BankCode),
+    }
+  })
+
+  const handleSelected = (value) => {
+    const item = bankData?.data?.find((el) => el.BankTypeId === value)
+    setFieldValue('bank', item)
+  }
 
   const onSubmit = async (
     { bank, realAmount }: WithdrawalValues,
@@ -93,7 +108,7 @@ const WithdrawalPage = () => {
         .catch((error) => dispatch(AlertActions.addError(error.message)))
 
       if (success) {
-        dispatch(AlertActions.addSuccess(message))
+        Toast.show({ type: 'success', text1: message })
         actions.resetForm()
       }
     } catch (e) {
@@ -144,9 +159,9 @@ const WithdrawalPage = () => {
   function withdrawalConfirmation() {
     openModal('WithdrawalConfirmationModal', {
       withdrawalInfo: {
-        bankName: values.bank.BankName,
-        accountName: values.bank.BankAccountFullName,
-        accountNumber: values.bank.BankAccountNumber,
+        bankName: values.bank?.BankName,
+        accountName: values.bank?.BankAccountFullName,
+        accountNumber: values.bank?.BankAccountNumber,
         amount:
           toCurrency(values.realAmount, currency, {
             forceDecimal: false,
@@ -159,79 +174,39 @@ const WithdrawalPage = () => {
     })
   }
 
-  // const sheetData = data?.map((item) => {
-  //   return {
-  //     label: item.BankAccountFullName,
-  //     value: item.BankTypeId,
-  //     icon: getBankLogo(item.BankCode),
-  //   }
-  // })
-  // console.log(
-  //   '🚀 ~ file: index.tsx ~ line 164 ~ WithdrawalPage ~ sheetData',
-  //   sheetData
-  // )
-
-  // const handleSelected = (value) => {
-  //   const item = data?.find((el) => el.BankTypeId === value)
-  //   setFieldValue('bank', item)
-  // }
-
-  // const Action = () => (
-  //   <View>
-  //     <Select
-  //       sx={{ mb: 0, mt: '$2' }}
-  //       label={t('bank.selectBank')}
-  //       options={sheetData}
-  //       value={values.bank?.BankAccountFullName}
-  //       onSelected={handleSelected}
-  //       _actionSheet={{
-  //         sheetId: ACTION_SHEET_ID.WITHDRAWAL,
-  //         headerTitle: t('bank.bank'),
-  //         actions: [
-  //           {
-  //             icon: 'card',
-  //             onPress: () => push(toBankAccount, '/profile/bank-account'),
-  //           },
-  //         ],
-  //       }}
-  //     />
-  //   </View>
-  // )
-
   return (
     <PageWithBackHeader header={{ title: t('menu.withdraw') }}>
       <StyledView>
         <TextField labelWidth={0.5}>
-          <TextField.Select
-            label="bank.bank"
-            _input={{
-              placeholder: t('bank.selectBank'),
-              value: values.bank?.BankAccountFullName ?? '',
-            }}
-            _dataList={{
-              data: data,
-              isLoading: isLoading || isFetching,
-              titleType: 'BankCode',
-              onPress: (item) => setFieldValue('bank', item),
-            }}
+          <Select
+            label={t('bank.bank')}
+            value={values.bank?.BankAccountFullName ?? ''}
+            loading={isLoading || isFetching}
+            options={sheetData}
+            onSelected={handleSelected}
+            isHorizontalActionSheet
+            sx={{ my: '$2' }}
             _actionSheet={{
-              id: actionSheetId,
+              sheetId: ACTION_SHEET_ID.WITHDRAWAL,
               headerTitle: t('bank.bank'),
+              actions: [
+                {
+                  icon: 'card',
+                  onPress: () => push(toBankAccount, '/profile/bank-account'),
+                },
+              ],
             }}
           />
 
-          <TextField.TextInput
-            label="common.amount"
-            isAmount
-            _input={{
-              placeholder: t('common.enterAmount', {
-                field: t('menu.withdraw').toLowerCase(),
-              }),
-              value: values.amount,
-              keyboardType: 'number-pad',
-              onChangeText: onAmountChanged,
-              onBlur: handleBlur('amount'),
-            }}
+          <MoneyInput
+            label={t('common.amount')}
+            placeholder={t('common.enterAmount', {
+              field: t('menu.withdraw').toLowerCase(),
+            })}
+            keyboardType="number-pad"
+            onChangeText={onAmountChanged}
+            onBlur={handleBlur('amount')}
+            value={values.amount}
             error={
               touched.amount && errors.amount
                 ? t(errors.amount, {
@@ -239,7 +214,6 @@ const WithdrawalPage = () => {
                   })
                 : undefined
             }
-            containerStyle={{ my: '$3' }}
           />
 
           <ImportantNotice keys={NOTES} module="withdrawal" />

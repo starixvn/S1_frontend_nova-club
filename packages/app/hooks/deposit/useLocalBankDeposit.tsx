@@ -43,7 +43,7 @@ const useLocalBankDeposit = ({ selectedImage }: useLocalBankDepositProps) => {
 
       if (success) {
         await uploadSlip(data.secure_id)
-        dispatch(AlertActions.addSuccess(message))
+        Toast.show({ type: 'success', text1: message })
         actions.resetForm()
       }
     } catch (e) {

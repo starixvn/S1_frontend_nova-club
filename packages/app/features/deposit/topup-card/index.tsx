@@ -1,51 +1,34 @@
-import { TextField } from 'app/components/TextField'
-import useLocalization from 'app/provider/localization'
-import { FlatList, ScrollView, styled, Text, View } from 'dripsy'
-import React, { useState } from 'react'
-import { FormikHelpers, useFormik } from 'formik'
-import * as Yup from 'yup'
-import validation from 'app/utils/validation'
-import ValueCard from '../ValueCard'
-import ImportantNotice from 'app/components/ImportantNotice'
 import { Button } from 'app/components/form/Button'
-import { toCleanAmount, toCleanCard, toCurrency, toRealAmount } from 'app/utils'
+import InputBase from 'app/components/form/Input/InputBase'
 import { DripsyGradient } from 'app/components/Gradient'
+import ImportantNotice from 'app/components/ImportantNotice'
+import KeyboardView from 'app/components/KeyboardView'
 import { PageWithBackHeader } from 'app/components/layout/Page'
-import {
-  useDepositPaymentListQuery,
-  useSubmitDepositMutation,
-} from 'services/deposit'
-import { useDispatch } from 'react-redux'
+import { DEPOSIT_NOTES } from 'app/constant/notes'
+import useLocalization from 'app/provider/localization'
 import { AlertActions } from 'app/store/alert.slice'
-import { useRouter } from 'solito/router'
+import { toCleanAmount, toCleanCard, toCurrency, toRealAmount } from 'app/utils'
 import {
   DepositPaymentMethodCategoryId,
   MaxLength,
   TopUpCard,
 } from 'app/utils/constant'
-import { AutoBankItem, PlayerInputFieldsBank } from 'services/deposit.type'
+import validation from 'app/utils/validation'
+import { styled, Text, View } from 'dripsy'
+import { FormikHelpers, useFormik } from 'formik'
+import React from 'react'
 import { useModal } from 'react-native-modalfy'
-import KeyboardView from 'app/components/KeyboardView'
-import { DEPOSIT_NOTES } from 'app/constant/notes'
+import { useDispatch } from 'react-redux'
+import {
+  useDepositPaymentListQuery,
+  useSubmitDepositMutation,
+} from 'services/deposit'
+import { AutoBankItem, PlayerInputFieldsBank } from 'services/deposit.type'
+import { useRouter } from 'solito/router'
+import * as Yup from 'yup'
+import ValueCard from '../ValueCard'
 
 const data1 = ['10k', '20k', '30k', '50k', '100k', '200k', '300k']
-
-const data2 = ['10k', '20k', '30k', '50k', '100k', '200k', '300k', '500k']
-
-const data3 = ['10k', '20k', '30k', '50k', '100k', '200k', '300k', '500k']
-
-const NOTES = [
-  'note.deposit.card1',
-  'note.deposit.card2',
-  'note.deposit.card3',
-  'note.deposit.card4',
-  'note.deposit.card5',
-]
-
-const NUM_COLUMN_PAYMENT = 3
-const NUM_COLUMN_CARD = 4
-const DEDUCTION_AMOUNT = 0.34
-const ACTUAL_DEPOSIT_AMOUNT = 0.66
 
 type TopupValues = {
   realAmount: number
@@ -53,12 +36,6 @@ type TopupValues = {
   cardValue: string
   cardCode: string
   cardSerialNo: string
-}
-
-type CardType = {
-  value: string
-  label: string
-  logo: string
 }
 
 const TopUpCardScreen = () => {
@@ -242,51 +219,38 @@ const TopUpCardScreen = () => {
               ))}
             </StyledViewCard>
 
-            <TextField labelWidth={0}>
-              <TextField.TextInput
-                label=""
-                _input={{
-                  placeholder: t('deposit.cardCode'),
-                  value: values.cardCode,
-                  keyboardType: 'number-pad',
-                  onChangeText: onCardCodeChanged,
-                  onBlur: handleBlur('cardCode'),
-                  maxLength: MaxLength.CARD,
-                }}
-                error={
-                  touched.cardCode && errors.cardCode
-                    ? t(errors.cardCode, {
-                        field: t('deposit.cardCode'),
-                      })
-                    : undefined
-                }
-                containerStyle={{ my: '$3' }}
-              />
-              <TextField.TextInput
-                label=""
-                _input={{
-                  placeholder: t('deposit.cardSerialNo'),
-                  value: values.cardSerialNo,
-                  keyboardType: 'number-pad',
-                  onChangeText: onCardSerialNoChanged,
-                  onBlur: handleBlur('cardSerialNo'),
-                  maxLength: MaxLength.CARD,
-                }}
-                error={
-                  touched.cardSerialNo && errors.cardSerialNo
-                    ? t(errors.cardSerialNo, {
-                        field: t('deposit.cardSerialNo'),
-                      })
-                    : undefined
-                }
-                containerStyle={{ my: '$3' }}
-              />
-            </TextField>
-            <ImportantNotice
-              keys={DEPOSIT_NOTES}
-              module="deposit"
-              isExpandable
+            <InputBase
+              label={t('deposit.cardCode')}
+              value={values.cardCode}
+              onChangeText={onCardCodeChanged}
+              onBlur={handleBlur('cardCode')}
+              keyboardType="number-pad"
+              maxLength={MaxLength.CARD}
+              error={
+                touched.cardCode && errors.cardCode
+                  ? t(errors.cardCode, {
+                      field: t('deposit.cardCode'),
+                    })
+                  : undefined
+              }
             />
+            <InputBase
+              label={t('deposit.cardSerialNo')}
+              value={values.cardSerialNo}
+              onChangeText={onCardSerialNoChanged}
+              onBlur={handleBlur('cardSerialNo')}
+              keyboardType="number-pad"
+              maxLength={MaxLength.CARD}
+              error={
+                touched.cardSerialNo && errors.cardSerialNo
+                  ? t(errors.cardSerialNo, {
+                      field: t('deposit.cardSerialNo'),
+                    })
+                  : undefined
+              }
+            />
+
+            <ImportantNotice keys={DEPOSIT_NOTES} module="deposit" />
           </View>
           <StyledViewButtonWrapper
             colors={

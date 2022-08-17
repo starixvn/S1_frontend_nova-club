@@ -56,7 +56,7 @@ export default function Select({
 
   return (
     <>
-      <TouchableWithoutFeedback onPress={onSelect}>
+      <TouchableWithoutFeedback onPress={onSelect} disabled={loading}>
         <InputBase
           editable={!loading}
           action={

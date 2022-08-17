@@ -1,6 +1,7 @@
 import Header from 'app/components/common/Header'
 import { Button } from 'app/components/form/Button'
-import ImportantNotice from 'app/components/ImportantNotice'
+import InputBase from 'app/components/form/Input/InputBase'
+import MoneyInput from 'app/components/form/Input/MoneyInput'
 import { TextField } from 'app/components/TextField'
 import { useIsFocused } from 'app/hooks/isFocus/useIsFocused'
 import useContextualRouting from 'app/hooks/useContextualRouting'
@@ -160,15 +161,12 @@ const TransferScreen = ({
         </View>
         <TextField labelWidth={0.7}>
           {isIDTransfer ? (
-            <TextField.TextInput
-              label="menu.tab.idTransfer"
-              _input={{
-                placeholder: t('validation.enterId'),
-                value: values.referralId,
-                onChangeText: handleChange('referralId'),
-                onBlur: handleBlur('referralId'),
-                sx: { textAlign: 'right' },
-              }}
+            <InputBase
+              label={t('menu.tab.idTransfer')}
+              placeholder={t('validation.enterId')}
+              value={values.referralId}
+              onChangeText={handleChange('referralId')}
+              onBlur={handleBlur('referralId')}
               error={
                 touched.referralId && errors.referralId
                   ? t(errors.referralId, {
@@ -176,28 +174,24 @@ const TransferScreen = ({
                     })
                   : undefined
               }
-              sx={{ mt: '$0', mb: '$4' }}
             />
           ) : (
-            <TextField.Label
-              label="transfer.transferTo"
+            <InputBase
+              label={t('transfer.transferTo')}
               value={playerData?.data?.username ?? ''}
-              textSx={{ textAlign: 'right' }}
-              sx={{ my: 0 }}
+              editable={false}
             />
           )}
-          <TextField.TextInput
-            label="common.amount"
-            isAmount
-            _input={{
-              placeholder: t('common.enterAmount', {
-                field: t('menu.transfer').toLowerCase(),
-              }),
-              value: values.amount,
-              keyboardType: 'number-pad',
-              onChangeText: onAmountChanged,
-              onBlur: handleBlur('amount'),
-            }}
+
+          <MoneyInput
+            label={t('common.amount')}
+            placeholder={t('common.enterAmount', {
+              field: t('menu.transfer').toLowerCase(),
+            })}
+            keyboardType="number-pad"
+            onChangeText={onAmountChanged}
+            onBlur={handleBlur('amount')}
+            value={values.amount}
             error={
               touched.amount && errors.amount
                 ? t(errors.amount, {
@@ -205,7 +199,6 @@ const TransferScreen = ({
                   })
                 : undefined
             }
-            sx={{ mt: '$0', mb: '$4' }}
           />
         </TextField>
 
@@ -234,26 +227,29 @@ const TransferScreen = ({
           </View>
         )}
 
-        {/* <ImportantNotice keys={NOTES} module="transfer" /> */}
-        <Button
-          rounded
-          stretch
-          loading={isSubmitting}
-          disabled={!isValid || !dirty}
-          variant="lg"
-          fill={{
-            type: 'gradient',
-            color: 'secondary',
-            start: { x: 0, y: 0 },
-            end: { x: 1, y: 0 },
-          }}
-          containerStyle={{
-            m: '$10',
-          }}
-          onPress={handleSubmit}
-        >
-          <Button.Label>{t('menu.transfer')}</Button.Label>
-        </Button>
+        <View sx={{ mx: '$10' }}>
+          <Button
+            rounded
+            stretch
+            loading={isSubmitting}
+            disabled={!isValid || !dirty}
+            variant="lg"
+            fill={{
+              type: 'gradient',
+              color: 'secondary',
+              start: { x: 0, y: 0 },
+              end: { x: 1, y: 0 },
+            }}
+            containerStyle={{
+              my: '$4',
+            }}
+            onPress={handleSubmit}
+          >
+            <Button.Label>{t('menu.transfer')}</Button.Label>
+          </Button>
+
+          <Text>{t('pin.note1')}</Text>
+        </View>
       </View>
     </View>
   )
