@@ -1,7 +1,6 @@
 import useLocalization from 'app/provider/localization'
 import { Currency, GAME_TYPE_CODE } from 'app/utils/constant'
 import React from 'react'
-import { useWindowDimensions } from 'react-native'
 import { useGetGameListQuery } from 'services/contentApi'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import VerticalGameList from '../games/VerticalGameList'
@@ -29,7 +28,7 @@ const Sportsbook = () => {
       showName
       numColumns={2}
       isLoading={isFetching}
-      games={gameList?.data?.rows ?? []}
+      data={gameList?.data?.rows ?? []}
       ListHeaderComponent={
         <ListSectionHeader
           title={t('game.category.sportsbook')}

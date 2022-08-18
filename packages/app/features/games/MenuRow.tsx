@@ -59,21 +59,23 @@ const MenuRow = ({ setFilterGames, gameList }: MenuRowProps) => {
     initial: '',
   })
 
-  const onFilterGame = useCallback(
-    (index: number, item?: typeof DATA[number]) => {
-      if (!gameList?.length || typeof item === 'undefined') return
+  const onFilterGame = (index: number, item?: typeof DATA[number]) => {
+    if (
+      !gameList?.length ||
+      typeof item === 'undefined' ||
+      index === selectedIndex
+    )
+      return
 
-      const gameType = item.gameType
+    const gameType = item.gameType
 
-      const filteredGames = gameList.filter((gamesLists) =>
-        gameType.includes(gamesLists.gtc as GAME_TYPE_CODE)
-      )
+    const filteredGames = gameList.filter((gamesLists) =>
+      gameType.includes(gamesLists.gtc as GAME_TYPE_CODE)
+    )
 
-      setFilterGames(filteredGames)
-      setSelectedIndex(index)
-    },
-    [gameList, setFilterGames]
-  )
+    setFilterGames(filteredGames)
+    setSelectedIndex(index)
+  }
 
   const getInitialSelectedGameType = useCallback(() => {
     if (gameList?.length) {
@@ -91,7 +93,7 @@ const MenuRow = ({ setFilterGames, gameList }: MenuRowProps) => {
         setFilterGames(gameList)
       }
     }
-  }, [gameList, gameType, onFilterGame, setFilterGames])
+  }, [gameList, gameType])
 
   useEffect(() => {
     getInitialSelectedGameType()

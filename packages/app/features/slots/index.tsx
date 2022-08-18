@@ -38,8 +38,9 @@ const Slots = () => {
   return (
     <>
       <VerticalGameList
+        showName
         isLoading={isFetching}
-        games={filteredGames}
+        data={filteredGames}
         ListHeaderComponent={
           <ListSectionHeader
             title={t('game.category.slots')}

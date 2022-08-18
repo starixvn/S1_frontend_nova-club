@@ -57,7 +57,7 @@ const LiveCasino = () => {
     <VerticalGameList
       numColumns={2}
       isLoading={isFetching}
-      games={gameList}
+      data={gameList}
       ListHeaderComponent={Header}
     />
   )
