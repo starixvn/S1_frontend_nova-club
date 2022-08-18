@@ -27,6 +27,7 @@ const walletEndPoints = (builder: EndpointBuilderType) => {
           ...queryArgs,
         },
       }),
+      providesTags: ['Balance'],
     }),
     playerWalletDetail: builder.query<
       IResponse<PlayerWalletDetailResult>,
@@ -48,6 +49,7 @@ const walletEndPoints = (builder: EndpointBuilderType) => {
           ...queryArgs,
         },
       }),
+      invalidatesTags: ['Balance'],
     }),
     transferAllToOne: builder.mutation<
       IResponse<TransferAllToOneResult>,
@@ -60,6 +62,7 @@ const walletEndPoints = (builder: EndpointBuilderType) => {
           ...queryArgs,
         },
       }),
+      invalidatesTags: ['Balance'],
     }),
     transferMemberToMember: builder.mutation<
       IResponse<TransferMemberToMemberResult>,
@@ -72,6 +75,7 @@ const walletEndPoints = (builder: EndpointBuilderType) => {
           ...queryArgs,
         },
       }),
+      invalidatesTags: ['Balance'],
     }),
   }
 }
@@ -79,6 +83,7 @@ const walletEndPoints = (builder: EndpointBuilderType) => {
 const walletApi = createApi({
   reducerPath: 'walletApi',
   baseQuery: axiosBaseQuery(),
+  tagTypes: ['Balance'],
   endpoints: (builder) => ({
     ...walletEndPoints(builder),
   }),

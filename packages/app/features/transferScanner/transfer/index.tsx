@@ -18,6 +18,7 @@ import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect } from 'react'
 import { useModal } from 'react-native-modalfy'
 import { useDispatch } from 'react-redux'
+import { useAffiliateUsernameQuery } from 'services/contentApi'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import {
   usePlayerBalanceQuery,
@@ -47,7 +48,9 @@ const TransferScreen = ({
   const { t } = useLocalization()
   const isFocus = useIsFocused()
   const [referralCode] = useParam('referralCode')
+  console.log('🚀 ~ file: index.tsx ~ line 51 ~ referralCode', referralCode)
 
+  const { data: affiliateData } = useAffiliateUsernameQuery(referralCode ?? '')
   const [postTransferMemberToMember] = useTransferMemberToMemberMutation()
 
   const { data: balanceData } = usePlayerBalanceQuery(undefined, {
@@ -149,21 +152,6 @@ const TransferScreen = ({
       {!isIDTransfer && <Header title={t('menu.transfer')} />}
       <View>
         <AvailableBalance />
-        {/* <View
-          sx={{
-            p: '$4',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Text>{t('transfer.avaiableAmount')}:</Text>
-          <Text>
-            {toCurrency(Number(data?.data?.main.balance), currency, {
-              symbol: false,
-              hideTruncatedThousand: false,
-            })}
-          </Text>
-        </View> */}
 
         {isIDTransfer ? (
           <InputBase
@@ -183,7 +171,7 @@ const TransferScreen = ({
         ) : (
           <InputBase
             label={t('transfer.transferTo')}
-            value={playerData?.data?.username ?? ''}
+            value={affiliateData?.data?.username ?? ''}
             editable={false}
           />
         )}

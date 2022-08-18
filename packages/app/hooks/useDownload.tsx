@@ -8,6 +8,7 @@ import { usePlayerProfileQuery } from 'services/playerApi'
 import { useDispatch } from 'react-redux'
 import { AlertActions } from 'app/store/alert.slice'
 import useLocalization from 'app/provider/localization'
+import Toast from 'react-native-toast-message'
 
 type useDownloadProps = {
   ref: React.RefObject<any>
@@ -37,7 +38,7 @@ const useDownload = ({ ref, closeModal }: useDownloadProps) => {
       captureRef(ref).then(async (uri) => {
         await MediaLibrary.saveToLibraryAsync(uri)
         closeModal && (await closeModal())
-        await dispatch(AlertActions.addSuccess(t('status.qrDownloadSuccess')))
+        Toast.show({ type: 'success', text1: t('status.qrDownloadSuccess') })
       })
     } catch (error) {
       console.log(
@@ -70,7 +71,9 @@ const useDownload = ({ ref, closeModal }: useDownloadProps) => {
     screenshot(ref.current)
       .then(download)
       .then(closeModal && closeModal())
-      .then(dispatch(AlertActions.addSuccess(t('status.qrDownloadSuccess'))))
+      .then(
+        Toast.show({ type: 'success', text1: t('status.qrDownloadSuccess') })
+      )
   }
 
   return {

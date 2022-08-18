@@ -52,6 +52,12 @@ export type OverviewResult = {
   circle_direct: number
 }
 
+export type OverviewSummaryResult = {
+  accumulate_reward: string
+  active_player: number
+  registered: number
+}
+
 /**
  * *Player Report
  */

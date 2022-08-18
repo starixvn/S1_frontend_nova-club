@@ -31,7 +31,8 @@
     "table": "Bảng hoa hồng"
   },
   "common": {
-    "active": "Đang hoạt động",
+    "accumulateReward": "Tích lũy phần thưởng",
+    "active": "Người chơi đang hoạt động",
     "all": "HIỂN THỊ TẤT CẢ",
     "amount": "Số tiền",
     "balance": "Số dư",
@@ -275,6 +276,7 @@
     "newPin": "Pin mới",
     "note1": "Vui lòng nhập mã PIN để chuyển khoản",
     "oldPin": "Mã PIN cũ",
+    "pin": "GHIM",
     "submitNote": "Tất cả các giao dịch của bạn đều được xử lý trong một môi trường an toàn và bảo mật.",
     "submitTitle": "Nhập mã PIN 6 số để xác nhận"
   },
@@ -331,6 +333,7 @@
     "systemError": "Rất tiếc! Đã xảy ra lỗi, vui lòng thử lại."
   },
   "transaction": {
+    "pending": "Đang chờ giao dịch",
     "transactions": "Đang chờ giao dịch"
   },
   "transfer": {
@@ -358,6 +361,7 @@
     "otpLength": "OTP phải là số có 6 chữ số",
     "password": "Mật khẩu phải dài 6-12 ký tự, chứa cả chữ và số và ký tự đặc biệt (!@#$%^&*).",
     "passwordMinMaxLength": "Mật khẩu phải có 6-12 ký tự",
+    "passwordNotMatch": "Xác nhận mật khẩu không khớp",
     "pin": "Ghim chỉ phải là số",
     "pinNotMatch": "Mã PIN phải giống nhau",
     "realName": "Vui lòng nhập họ tên thật",
