@@ -3,6 +3,7 @@ import RootModal from 'app/components/modal/RootModal'
 import RootToast from 'app/components/RootToast'
 import App from 'app/features/App'
 import GameLauncher from 'app/features/games/GameLauncher'
+import useNotification from 'app/hooks/notification/useNotification'
 import ContextualNavigationProvider from 'app/navigation/web/ContextualNavigation'
 import { styled, View } from 'dripsy'
 import { useKeepAwake } from 'expo-keep-awake'
@@ -25,6 +26,8 @@ const RootView = styled(GestureHandlerRootView)(() => ({
 
 export function Provider({ children }: { children: React.ReactNode }) {
   useKeepAwake()
+  useNotification()
+
   return (
     <Dripsy>
       <RootView>

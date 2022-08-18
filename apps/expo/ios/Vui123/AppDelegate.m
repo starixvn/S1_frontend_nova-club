@@ -1,3 +1,4 @@
+#import <Firebase.h>
 #import "AppDelegate.h"
 #import <RNBranch/RNBranch.h>
 
@@ -37,7 +38,7 @@ static void InitializeFlipper(UIApplication *application) {
 #if defined(FB_SONARKIT_ENABLED) && __has_include(<FlipperKit/FlipperClient.h>)
   InitializeFlipper(application);
 #endif
-
+  [FIRApp configure];
   [AppCenterReactNative register];
   [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
   
