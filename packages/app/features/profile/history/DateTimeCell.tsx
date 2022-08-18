@@ -9,15 +9,21 @@ dayjs.extend(customParseFormat)
 type DateTimeCellProps = {
   date: string
   sx?: SxProp
+  isShowDate?: boolean
   isShowTime?: boolean
 }
 
-const DateTimeCell = ({ date, sx, isShowTime = true }: DateTimeCellProps) => {
+const DateTimeCell = ({
+  date,
+  sx,
+  isShowDate = true,
+  isShowTime = true,
+}: DateTimeCellProps) => {
   const dateInstance = dayjsTz(date)
 
   return (
     <View sx={sx}>
-      <Text sx={sx}>{dateInstance.format('YYYY-MM-DD')}</Text>
+      {isShowDate && <Text sx={sx}>{dateInstance.format('YYYY-MM-DD')}</Text>}
       {isShowTime && (
         <Text sx={{ fontSize: '$1', color: '$dim1', ...sx }}>
           {dateInstance.format('hh:mm a')}

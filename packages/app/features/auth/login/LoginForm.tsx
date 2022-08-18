@@ -112,17 +112,6 @@ const LoginForm = () => {
 
   return (
     <>
-      <InputBase
-        label="Select Bank"
-        onChangeText={handleChange('username')}
-        value={values.username}
-        error={errors.username}
-      />
-      <InputBase
-        label="Select Bank"
-        onChangeText={handleChange('username')}
-        value={values.username}
-      />
       <TextInput
         _icon="avatar"
         _input={{

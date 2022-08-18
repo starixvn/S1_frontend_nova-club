@@ -38,8 +38,8 @@ const WithdrawalTransactions = () => {
 
       {isLoading ? (
         <ActivityIndicator size="large" />
-      ) : data?.row_count_total ?? 0 > 0 ? (
-        data?.rows.map((item) => (
+      ) : data?.data?.row_count_total ?? 0 > 0 ? (
+        data?.data?.rows.map((item) => (
           <WithdrawalHistoryItem key={item.secure_id} item={item} />
         ))
       ) : (

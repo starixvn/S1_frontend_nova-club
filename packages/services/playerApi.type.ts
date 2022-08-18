@@ -56,6 +56,7 @@ export type OverviewResult = {
  * *Player Report
  */
 export type ReportArgs = {
+  is_reward_group_by?: boolean
   limit: number
   offset: number
   status: ReportDepositStatus | ReportWithdrawalStatus

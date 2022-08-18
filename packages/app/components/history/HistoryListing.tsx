@@ -44,7 +44,7 @@ function HistoryListing<T, FetchParamsType>(
 
   async function fetchData(offset: number) {
     try {
-      const res = await trigger({
+      const { data, message, success } = await trigger({
         limit: limit,
         offset,
         ...fetchParams,
@@ -52,15 +52,15 @@ function HistoryListing<T, FetchParamsType>(
         .unwrap()
         .catch((error) => console.log('error', error))
 
-      if (res?.rows) {
-        if (offset > 0) setDisplayList(displayList.concat(res?.rows || []))
-        else setDisplayList(res?.rows || [])
+      if (data?.rows) {
+        if (offset > 0) setDisplayList(displayList.concat(data?.rows || []))
+        else setDisplayList(data?.rows || [])
 
-        setTotalRow(res.row_count_total)
+        setTotalRow(data.row_count_total)
         setTotalOffset(offset + limit)
       } else {
         setAllLoaded(true)
-        if (displayList.length && res.row_count_total === 0) setDisplayList([])
+        if (displayList.length && data.row_count_total === 0) setDisplayList([])
       }
     } catch (e) {
       console.log('🚀 ~ file: HistoryListing.tsx ~ line 204 ~ fetchData ~ e', e)

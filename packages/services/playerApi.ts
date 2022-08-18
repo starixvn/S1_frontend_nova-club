@@ -62,7 +62,10 @@ const playerEndpoints = (builder: EndpointBuilderType) => {
         return res.data
       },
     }),
-    playerReport: builder.query<ReportResult | undefined, ReportArgs>({
+    playerReport: builder.query<
+      IResponse<ReportResult> | undefined,
+      ReportArgs
+    >({
       query: (queryArgs) => ({
         url: `/player_api/getPlayerReport`,
         method: 'POST',
@@ -70,11 +73,6 @@ const playerEndpoints = (builder: EndpointBuilderType) => {
           ...queryArgs,
         },
       }),
-      transformResponse: (
-        res: IResponse<ReportResult>
-      ): ReportResult | undefined => {
-        return res.data
-      },
     }),
     playerLang: builder.mutation<string, PlayerLangArgs>({
       query: ({ lang }) => ({
