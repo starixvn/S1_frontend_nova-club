@@ -17,7 +17,7 @@ type PinFormValues = {
   pin: string
   confirmPin: string
 }
-const CreatePinScreen = () => {
+const CreatePinScreen = ({ hideHeader = false }) => {
   const { t } = useLocalization()
   const { back } = useRouter()
   const dispatch = useDispatch()
@@ -79,7 +79,10 @@ const CreatePinScreen = () => {
   } = formik
 
   return (
-    <PageWithBackHeader header={{ title: t('menu.createPin') }}>
+    <PageWithBackHeader
+      header={{ title: t('menu.createPin') }}
+      hideHeader={hideHeader}
+    >
       <View sx={{ flex: 1, p: '$4' }}>
         <Text sx={{ fontSize: 24 }}>{t('pin.headerText1')}</Text>
         <Text>{t('pin.headerText2')}</Text>

@@ -7,15 +7,25 @@ import CustomTabBar from 'app/components/CustomTabBar'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import ChangePasswordScreen from './change-password'
 import ChangePinScreen from 'app/features/pin/change-pin'
+import { usePlayerProfileQuery } from 'services/playerApi'
+import CreatePinScreen from 'app/features/pin/CreatePinScreen'
 
 const ManageCredentialsPage = () => {
   const { t } = useLocalization()
   const layout = useWindowDimensions()
 
+  const { data: playerData, refetch } = usePlayerProfileQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+    refetchOnFocus: true,
+  })
+  const isPinExist = playerData?.data?.pin_exist
+
   const [index, setIndex] = useState(0)
   const [routes] = useState([
     { key: 'first', title: t('menu.changePassword'), index: 0 },
-    { key: 'second', title: t('menu.changePin'), index: 1 },
+    isPinExist
+      ? { key: 'second', title: t('menu.changePin'), index: 1 }
+      : { key: 'second', title: t('menu.createPin'), index: 1 },
   ])
 
   const renderScene = ({ route }) => {
@@ -23,7 +33,7 @@ const ManageCredentialsPage = () => {
       case 'first':
         return <ChangePasswordScreen />
       case 'second':
-        return <ChangePinScreen />
+        return isPinExist ? <ChangePinScreen /> : <CreatePinScreen hideHeader />
       default:
         return null
     }

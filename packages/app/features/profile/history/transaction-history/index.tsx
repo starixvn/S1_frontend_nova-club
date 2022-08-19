@@ -50,6 +50,7 @@ const TransactionHistoryTab = () => {
     time_from: dayjsTz(selected.startDate).toISOString(),
     time_to: dayjsTz(selected.endDate).toISOString(),
     trans_type: selected.selectedTransType?.value,
+    is_reward_group_by: false,
   })
 
   useEffect(() => {
@@ -58,6 +59,10 @@ const TransactionHistoryTab = () => {
       time_from: dayjsTz(selected.startDate).toISOString(),
       time_to: dayjsTz(selected.endDate).toISOString(),
       trans_type: selected.selectedTransType?.value,
+      is_reward_group_by:
+        selected.selectedTransType?.value === ReportTransactionType.REWARDS
+          ? true
+          : false,
     })
   }, [selected])
 

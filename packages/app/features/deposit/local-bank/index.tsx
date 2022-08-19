@@ -1,47 +1,43 @@
+import { FilePickerForwardRef } from 'app/components/FilePicker'
 import { Button } from 'app/components/form/Button'
+import IconButton from 'app/components/form/IconButton'
+import InputBase from 'app/components/form/Input/InputBase'
+import MoneyInput from 'app/components/form/Input/MoneyInput'
+import Select from 'app/components/form/Input/Select'
 import { PageWithBackHeader } from 'app/components/layout/Page'
-import { TextField } from 'app/components/TextField'
+import PaymentMethod from 'app/config/deposit'
+import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
+import useLocalBankDeposit from 'app/hooks/deposit/useLocalBankDeposit'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
 import {
-  useDepositPaymentListQuery,
-  useSubmitManualDepositMutation,
-  useUploadDepositSlipMutation,
-} from 'services/deposit'
-import { AlertActions } from 'app/store/alert.slice'
-import {
+  copyToClipboard,
   toCleanAmount,
   toCurrency,
   toDisplayAmount,
   toRealAmount,
 } from 'app/utils'
+import { Currency, DepositPaymentMethodCategoryId } from 'app/utils/constant'
 import validation from 'app/utils/validation'
+import validationRule from 'app/utils/validationRule'
 import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect, useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useModal } from 'react-native-modalfy'
+import { useDispatch } from 'react-redux'
+import { useDepositPaymentListQuery } from 'services/deposit'
+import { ManualBankItem } from 'services/deposit.type'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import DepositUpload from '../DepositUpload'
-import { ManualBankItem } from 'services/deposit.type'
-import { Currency, DepositPaymentMethodCategoryId } from 'app/utils/constant'
-import validationRule from 'app/utils/validationRule'
-import { useModal } from 'react-native-modalfy'
-import { usePlayerProfileQuery } from 'services/playerApi'
-import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
-import { Platform } from 'react-native'
-import useLocalBankDeposit from 'app/hooks/deposit/useLocalBankDeposit'
-import { FilePickerForwardRef } from 'app/components/FilePicker'
 import DepositTransactions from './DepositTransactions'
-import PaymentMethod from 'app/config/deposit'
 
 export type LocalBankValues = {
   bank: ManualBankItem | null
   amount: string
   realAmount: number
 }
-
-const actionSheetId = ACTION_SHEET_ID.LOCAL_BANK
 
 const LocalBankScreen = () => {
   const { makeContextualHref } = useContextualRouting()
@@ -64,6 +60,19 @@ const LocalBankScreen = () => {
   const depositPayment = data?.data?.result.manual.find(
     (el) => el.category_id === DepositPaymentMethodCategoryId.LOCAL_BANK
   )
+
+  const sheetData = depositPayment?.list.map((item) => {
+    return {
+      label: item.bank_acc_name,
+      value: item.bankTypeId,
+      // icon: getBankLogo(item.BankCode),
+    }
+  })
+
+  const handleSelected = (value) => {
+    const item = depositPayment?.list?.find((el) => el.bankTypeId === value)
+    setFieldValue('bank', item)
+  }
 
   useEffect(() => {
     if (data?.success) {
@@ -142,77 +151,83 @@ const LocalBankScreen = () => {
       header={{ title: PaymentMethod[0].name ?? t('menu.deposit') }}
     >
       <View sx={{ flex: 1 }}>
-        <TextField labelWidth={0}>
-          <TextField.Select
-            label=""
-            _input={{
-              placeholder: t('bank.selectBank'),
-              value: values.bank?.bank_acc_name ?? '',
-              pointerEvents: 'none',
-            }}
-            _dataList={{
-              data: depositPayment?.list ?? [],
-              isLoading: isLoading || isFetching,
-              key: 'bankTypeId',
-              titleType: 'bank_acc_name',
-              onPress: (item) => setFieldValue('bank', item),
-            }}
-            _actionSheet={{
-              id: actionSheetId,
-              headerTitle: t('bank.bank'),
-            }}
-          />
-        </TextField>
-        <TextField labelWidth={0.7}>
-          <TextField.Label
-            label="bank.accountName"
-            value={values.bank?.bank_acc_name ?? ''}
-            sx={{ my: 0 }}
-            copy
-          />
-          <TextField.Label
-            label="bank.accountNumber"
-            value={values.bank?.bank_acc_no ?? ''}
-            sx={{ my: 0 }}
-            copy
-          />
-          <TextField.TextInput
-            label="deposit.depositAmount"
-            isAmount
-            _input={{
-              placeholder: t('validation.minMaxLimit', {
-                min: toCurrency(limit.minAmount ?? 0, currency, {
-                  symbol: false,
-                  forceDecimal: false,
-                }),
-                max: toCurrency(limit.maxAmount ?? 0, currency, {
-                  symbol: false,
-                  forceDecimal: false,
-                }),
-              }),
-              value: values.amount,
-              keyboardType: 'number-pad',
-              onChangeText: onAmountChanged,
-              onBlur: handleBlur('amount'),
-            }}
-            error={
-              touched.amount && errors.amount
-                ? t(errors.amount, {
-                    field: t('common.amount'),
-                    amount: toCurrency(values.realAmount ?? 0, currency, {
-                      forceDecimal: false,
-                      symbol: false,
-                    }),
-                    min: toCurrency(limit.minAmount ?? 0, currency, {
-                      forceDecimal: false,
-                      symbol: false,
-                    }),
-                  })
-                : undefined
-            }
-            containerStyle={{ mt: '$0', mb: '$4' }}
-          />
-        </TextField>
+        <Select
+          label={t('bank.bank')}
+          placeholder={t('bank.selectBank')}
+          value={values.bank?.bank_acc_name ?? ''}
+          loading={isLoading || isFetching}
+          options={sheetData}
+          onSelected={handleSelected}
+          isHorizontalActionSheet
+          sx={{ my: '$2' }}
+          _actionSheet={{
+            sheetId: ACTION_SHEET_ID.LOCAL_BANK,
+            headerTitle: t('bank.bank'),
+          }}
+        />
+
+        <InputBase
+          removeBorder
+          label={t('bank.accountName')}
+          sx={{ mb: 0 }}
+          value={values.bank?.bank_acc_name ?? ''}
+          editable={false}
+          action={
+            <IconButton
+              name="copy"
+              size={18}
+              color={'$lightCyan'}
+              onPress={() => copyToClipboard(values.bank?.bank_acc_name)}
+            />
+          }
+        />
+        <InputBase
+          removeBorder
+          sx={{ mb: 0 }}
+          label={t('bank.accountNo')}
+          value={values.bank?.bank_acc_no ?? ''}
+          editable={false}
+          action={
+            <IconButton
+              name="copy"
+              size={18}
+              color={'$lightCyan'}
+              onPress={() => copyToClipboard(values.bank?.bank_acc_no)}
+            />
+          }
+        />
+        <MoneyInput
+          label={t('deposit.depositAmount')}
+          onChangeText={onAmountChanged}
+          keyboardType={'number-pad'}
+          onBlur={handleBlur('amount')}
+          value={values.amount}
+          placeholder={t('validation.minMaxLimit', {
+            min: toCurrency(limit.minAmount ?? 0, currency, {
+              symbol: false,
+              forceDecimal: false,
+            }),
+            max: toCurrency(limit.maxAmount ?? 0, currency, {
+              symbol: false,
+              forceDecimal: false,
+            }),
+          })}
+          error={
+            touched.amount && errors.amount
+              ? t(errors.amount, {
+                  field: t('common.amount'),
+                  amount: toCurrency(values.realAmount ?? 0, currency, {
+                    forceDecimal: false,
+                    symbol: false,
+                  }),
+                  min: toCurrency(limit.minAmount ?? 0, currency, {
+                    forceDecimal: false,
+                    symbol: false,
+                  }),
+                })
+              : undefined
+          }
+        />
 
         <DepositUpload
           onImagePicked={(path) => setSelectedImage(path)}

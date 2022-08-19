@@ -216,6 +216,7 @@ export function toCleanAmount(text: string): CleanAmount {
 }
 export function toCleanCard(text: string) {
   let cleanText = text
+    .replace(/[^0-9]/g, '')
     .replace(/\s?/g, '')
     .replace(/(\d{4})/g, '$1 ')
     .trim()

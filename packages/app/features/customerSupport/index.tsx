@@ -6,7 +6,7 @@ import useLocalization from 'app/provider/localization'
 import { openSocialPlatform } from 'app/utils/helper'
 import { Image, styled, Text, View } from 'dripsy'
 import { useMemo } from 'react'
-const HEADER_IMAGE = require('../../assets/logo.png')
+const HEADER_IMAGE = require('../../assets/images/logo.png')
 
 const CustomerSupportPage = () => {
   const { t } = useLocalization()

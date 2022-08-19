@@ -31,7 +31,8 @@
     "table": "Commission Table"
   },
   "common": {
-    "active": "Active",
+    "accumulateReward": "Accumulate Reward",
+    "active": "Active Player",
     "all": "All",
     "amount": "Amount",
     "balance": "Balance",
@@ -275,6 +276,7 @@
     "newPin": "New Pin",
     "note1": "Pin is required for transfer",
     "oldPin": "Old Pin",
+    "pin": "PIN",
     "submitNote": "All your transactions are processed in a safe and secured environment.",
     "submitTitle": "Enter 6-digit PIN to confirm"
   },
@@ -331,7 +333,8 @@
     "systemError": "Oops! Something wrong, please try again."
   },
   "transaction": {
-    "pending": "Pending Transactions"
+    "pending": "Pending Transactions",
+    "transactions": ""
   },
   "transfer": {
     "avaiableAmount": "Available Amount",
@@ -358,6 +361,7 @@
     "otpLength": "OTP must be 6-digit number",
     "password": "Password must be 6-12 characters, contain both alphanumeric and a special characters (!@#$%^&*).",
     "passwordMinMaxLength": "Password must be 6-12 characters only",
+    "passwordNotMatch": "Password confirmation does not match",
     "pin": "Pin must be numberic only",
     "pinNotMatch": "Both PINs must be the same",
     "realName": "Please enter your real name.",

@@ -41,7 +41,7 @@ const validation = {
   confirmPin: Yup.string()
     .required('validation.required')
     .matches(NUMERIC_REGEX, 'validation.pin')
-    .oneOf([Yup.ref('pin'), null], 'validation.pinNotMatch'),
+    .oneOf([Yup.ref('newPin'), null], 'validation.pinNotMatch'),
 
   email: Yup.string().email('validation.email').required('validation.required'),
 

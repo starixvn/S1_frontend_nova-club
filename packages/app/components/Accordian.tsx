@@ -2,20 +2,41 @@ import { AnimateHeight } from 'app/transitions/animate-height'
 import { styled, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
 import { MotiPressable } from 'moti/interactions'
-import React, { useReducer } from 'react'
+import React, { ReactNode, useReducer } from 'react'
 import { DripsyGradient } from './Gradient'
 import Icon from './Icon'
 
-const Accordian = ({ isExpandable = false, label, children }) => {
+type AccordianProps = {
+  isExpandable?: boolean
+  extended: boolean
+  label?: string
+  header?: ReactNode
+  children: ReactNode
+  onPress?: () => void
+}
+
+const Accordian = ({
+  isExpandable = false,
+  extended = true,
+  label,
+  header,
+  children,
+  onPress,
+}: AccordianProps) => {
   const [isExtend, toggleIsExtend] = useReducer((state) => {
     return !state
-  }, true)
+  }, extended)
+
+  const handlePress = () => {
+    onPress && !isExtend && onPress()
+    toggleIsExtend()
+  }
 
   return (
-    <MotiPressable onPress={isExpandable ? toggleIsExtend : undefined}>
+    <MotiPressable onPress={isExpandable ? handlePress : undefined}>
       <View sx={{ borderBottomWidth: 1, borderColor: '$borderBlue' }}>
-        <StyledViewHeader gradient="background">
-          <View>{label}</View>
+        <StyledViewHeader gradient={header ? 'transparent' : 'background'}>
+          {header ?? <View>{label}</View>}
           {isExpandable && (
             <MotiView
               animate={{ rotate: isExtend ? '-180deg' : '0deg' }}

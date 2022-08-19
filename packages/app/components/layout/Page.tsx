@@ -35,6 +35,7 @@ export const PageSafeArea = ({
 export const PageWithBackHeader = ({
   children,
   header,
+  hideHeader = false,
   disableScrollView = false,
   ...rest
 }) => {
@@ -51,7 +52,7 @@ export const PageWithBackHeader = ({
         minHeight: 0,
       }}
     >
-      <Header style={{ flex: 1, flexBasis: 50 }} {...header} />
+      {!hideHeader && <Header style={{ flex: 1, flexBasis: 50 }} {...header} />}
       <PageComponent
         sx={{
           minHeight: 0,

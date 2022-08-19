@@ -37,7 +37,7 @@ const AlertModal = ({ modal: { addListener, closeModal, closeAllModals } }) => {
 
   if (alert === undefined) return null
   let {
-    title = 'ImportantNote',
+    title = 'common.importantNote',
     message,
     onDismiss,
     actions,
@@ -54,7 +54,12 @@ const AlertModal = ({ modal: { addListener, closeModal, closeAllModals } }) => {
 
   return (
     <ModalWrapper>
-      <ModalContent title={title} closeModal={closeModal} actions={actions}>
+      <ModalContent
+        title={title}
+        closeModal={closeModal}
+        actions={actions}
+        hideCloseButton={true}
+      >
         <Text>{message}</Text>
       </ModalContent>
     </ModalWrapper>

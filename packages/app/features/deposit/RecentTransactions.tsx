@@ -47,8 +47,10 @@ const RecentTransactions = () => {
 
       {isLoading ? (
         <ActivityIndicator size="large" />
-      ) : data?.row_count_total ?? 0 > 0 ? (
-        data?.rows.map((item) => <TableItem key={item.secure_id} item={item} />)
+      ) : data?.data?.row_count_total ?? 0 > 0 ? (
+        data?.data?.rows.map((item) => (
+          <TableItem key={item.secure_id} item={item} />
+        ))
       ) : (
         <HistoryEmpty />
       )}

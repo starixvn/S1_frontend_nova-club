@@ -38,7 +38,7 @@
     "jsqr": "^1.4.0",
     "moti": "^0.18.0",
     "next-use-contextual-routing": "^2.3.0",
-    "react-native-actions-sheet": "^0.6.1",
+    "react-native-actions-sheet": "^0.7.2",
     "react-native-barcode-mask": "^1.2.4",
     "react-native-confirmation-code-field": "^7.3.0",
     "react-native-device-info": "^10.0.2",

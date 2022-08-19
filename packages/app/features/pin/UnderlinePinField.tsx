@@ -112,10 +112,10 @@ const styles = StyleSheet.create({
     height: CELL_SIZE,
     width: CELL_SIZE,
     aspectRatio: 1,
-    borderTopLeftRadius: CELL_BORDER_RADIUS,
-    borderTopRightRadius: CELL_BORDER_RADIUS,
+    // borderTopLeftRadius: CELL_BORDER_RADIUS,
+    // borderTopRightRadius: CELL_BORDER_RADIUS,
+    borderRadius: CELL_BORDER_RADIUS,
     backgroundColor: '#fff',
-
     borderBottomColor: '#000',
     borderBottomWidth: 1,
   },

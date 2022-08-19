@@ -54,7 +54,7 @@ const FilePicker = forwardRef<FilePickerForwardRef, FilePickerProps>(
     const reset = () => {
       setImage(null)
       onPress(null)
-      if (webRef) webRef.current.value = null
+      if (Platform.OS === 'web' && webRef) webRef.current.value = null
     }
 
     const pickImageWeb = () => {

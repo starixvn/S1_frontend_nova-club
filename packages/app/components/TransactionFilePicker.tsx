@@ -51,7 +51,7 @@ const TransactionFilePicker = forwardRef<FilePickerForwardRef, FilePickerProps>(
 
     const handleReset = () => {
       resetFile()
-      if (webRef) webRef.current.value = null
+      if (Platform.OS === 'web' && webRef) webRef.current.value = null
     }
 
     return (

@@ -106,9 +106,6 @@ const AutoDepositForm = ({ module, DepositCategoryId }) => {
           pathname: '/deposit/deposit-loader',
           query: params,
         })
-
-        // dispatch(AlertActions.addSuccess(message))
-        // actions.resetForm()
       }
     } catch (e) {
       dispatch(AlertActions.addError('status.systemError'))

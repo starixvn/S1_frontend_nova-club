@@ -1,13 +1,7 @@
-import { TextField } from 'app/components/TextField'
+import MoneyInput from 'app/components/form/Input/MoneyInput'
 import useLocalization from 'app/provider/localization'
-import {
-  clearThousandSeparator,
-  toCleanAmount,
-  toCurrency,
-  toRealAmount,
-} from 'app/utils'
+import { toCleanAmount, toCurrency, toRealAmount } from 'app/utils'
 import { Currency } from 'app/utils/constant'
-import { Text, View } from 'dripsy'
 import { FormikProps } from 'formik'
 import React from 'react'
 import { PlayerInputFieldsAmount } from 'services/deposit.type'
@@ -45,27 +39,24 @@ const FieldAmount = ({
   }
 
   return field ? (
-    <View>
-      <Text sx={{ mx: '$4', mt: '$4' }}>{field?.label_lang}</Text>
-      <TextField.TextInput
-        label=""
-        isAmount
-        _input={{
-          placeholder: t('validation.minMaxLimit', {
-            min: toCurrency(minAmount ?? 0, currency, {
-              symbol: false,
-              forceDecimal: false,
-            }),
-            max: toCurrency(maxAmount ?? 0, currency, {
-              symbol: false,
-              forceDecimal: false,
-            }),
+    <>
+      <MoneyInput
+        label={t('common.amount')}
+        placeholder={t('validation.minMaxLimit', {
+          min: toCurrency(minAmount ?? 0, currency, {
+            symbol: false,
+            forceDecimal: false,
           }),
-          value: values.amount,
-          keyboardType: 'number-pad',
-          onChangeText: onAmountChanged,
-          onBlur: handleBlur('amount'),
-        }}
+          max: toCurrency(maxAmount ?? 0, currency, {
+            symbol: false,
+            forceDecimal: false,
+          }),
+        })}
+        keyboardType={'number-pad'}
+        onChangeText={onAmountChanged}
+        onBlur={handleBlur('amount')}
+        sx={{ mt: '$2' }}
+        value={values.amount}
         error={
           touched.amount && errors.amount
             ? t(errors.amount, {
@@ -81,9 +72,8 @@ const FieldAmount = ({
               })
             : undefined
         }
-        containerStyle={{ my: '$3' }}
       />
-    </View>
+    </>
   ) : null
 }
 

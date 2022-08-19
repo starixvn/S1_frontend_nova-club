@@ -5,7 +5,7 @@ import { SceneMap, TabView } from 'react-native-tab-view'
 import { Platform, useWindowDimensions } from 'react-native'
 import CustomTabBar from 'app/components/CustomTabBar'
 import { PageWithBackHeader } from 'app/components/layout/Page'
-import QrcodeScannerTab from './send'
+import QrcodeScannerTab from './qr-transfer'
 import QrReceiveTab from './receive'
 import TransferScreen from './transfer'
 

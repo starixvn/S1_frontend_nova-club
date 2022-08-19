@@ -1,26 +1,34 @@
 import { Button } from 'app/components/form/Button'
-import { TextField } from 'app/components/TextField'
-import { styled, View } from 'dripsy'
-import React, { useRef } from 'react'
-import { FormikHelpers, useFormik } from 'formik'
-import * as Yup from 'yup'
-import validation from 'app/utils/validation'
+import MoneyInput from 'app/components/form/Input/MoneyInput'
+import Select from 'app/components/form/Input/Select'
 import ImportantNotice from 'app/components/ImportantNotice'
-import { useDispatch } from 'react-redux'
-import { AlertActions } from 'app/store/alert.slice'
-import { useRouter } from 'solito/router'
-import { useSubmitWithdrawalMutation } from 'services/withdrawal'
-import { toCleanAmount, toCurrency, toRealAmount } from 'app/utils'
-import { usePlayerBankQuery } from 'services/bank'
 import { PageWithBackHeader } from 'app/components/layout/Page'
-import useLocalization from 'app/provider/localization'
-import { PlayerBankResult } from 'services/bank.type'
-import { Currency } from 'app/utils/constant'
-import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
-import { useModal } from 'react-native-modalfy'
-import { usePlayerProfileQuery } from 'services/playerApi'
+import { TextField } from 'app/components/TextField'
 import { getBankLogo } from 'app/config/bank'
+import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
+import useContextualRouting from 'app/hooks/useContextualRouting'
+import useLocalization from 'app/provider/localization'
+import { AlertActions } from 'app/store/alert.slice'
+import { toCleanAmount, toCurrency, toRealAmount } from 'app/utils'
+import { Currency } from 'app/utils/constant'
+import validation from 'app/utils/validation'
+import { styled, View } from 'dripsy'
+import { FormikHelpers, useFormik } from 'formik'
+import React from 'react'
+import { SheetManager } from 'react-native-actions-sheet'
+import { useModal } from 'react-native-modalfy'
+import { useDispatch } from 'react-redux'
+import { usePlayerBankQuery } from 'services/bank'
+import { PlayerBankResult } from 'services/bank.type'
+import { usePlayerProfileQuery } from 'services/playerApi'
+import { useSubmitWithdrawalMutation } from 'services/withdrawal'
+import { useRouter } from 'solito/router'
+import * as Yup from 'yup'
 import WithdrawalTransactions from './WithdrawalTransactions'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
+import AvailableBalance from './AvailableBalance'
+import { usePlayerBalanceQuery } from 'services/walletApi'
+import IconButton from 'app/components/form/IconButton'
 
 const actionSheetId = ACTION_SHEET_ID.WITHDRAWAL
 
@@ -59,13 +67,34 @@ const CONFIRMATION_FIELDS = [
 const WithdrawalPage = () => {
   const { t } = useLocalization()
   const dispatch = useDispatch()
-  const { back } = useRouter()
+  const { push } = useRouter()
   const { openModal } = useModal()
-  const { data, isLoading, isFetching } = usePlayerBankQuery()
+  const { data: bankData, isLoading, isFetching } = usePlayerBankQuery()
   const [postSubmitWithdrawal] = useSubmitWithdrawalMutation()
+
+  const { makeContextualHref } = useContextualRouting()
+  const toBankAccount = makeContextualHref('bank-account')
+
+  const { data: balanceData } = usePlayerBalanceQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  })
+  const playerBalance = balanceData?.data?.main.balance
 
   const { data: playerData } = usePlayerProfileQuery()
   const currency = playerData?.data?.currency as Currency
+
+  const sheetData = bankData?.data?.map((item) => {
+    return {
+      label: item.BankAccountFullName,
+      value: item.BankTypeId,
+      icon: getBankLogo(item.BankCode),
+    }
+  })
+
+  const handleSelected = (value) => {
+    const item = bankData?.data?.find((el) => el.BankTypeId === value)
+    setFieldValue('bank', item)
+  }
 
   const onSubmit = async (
     { bank, realAmount }: WithdrawalValues,
@@ -87,7 +116,7 @@ const WithdrawalPage = () => {
         .catch((error) => dispatch(AlertActions.addError(error.message)))
 
       if (success) {
-        dispatch(AlertActions.addSuccess(message))
+        Toast.show({ type: 'success', text1: message })
         actions.resetForm()
       }
     } catch (e) {
@@ -111,18 +140,19 @@ const WithdrawalPage = () => {
   })
 
   const {
-    handleChange,
     handleBlur,
-    isSubmitting,
     values,
     errors,
     touched,
     isValid,
     dirty,
-    submitForm,
     setValues,
     setFieldValue,
   } = formik
+
+  const handleMaxAmount = () => {
+    onAmountChanged(playerBalance ?? '')
+  }
 
   function onAmountChanged(text: string) {
     if (text != null) {
@@ -138,9 +168,9 @@ const WithdrawalPage = () => {
   function withdrawalConfirmation() {
     openModal('WithdrawalConfirmationModal', {
       withdrawalInfo: {
-        bankName: values.bank.BankName,
-        accountName: values.bank.BankAccountFullName,
-        accountNumber: values.bank.BankAccountNumber,
+        bankName: values.bank?.BankName,
+        accountName: values.bank?.BankAccountFullName,
+        accountNumber: values.bank?.BankAccountNumber,
         amount:
           toCurrency(values.realAmount, currency, {
             forceDecimal: false,
@@ -156,68 +186,74 @@ const WithdrawalPage = () => {
   return (
     <PageWithBackHeader header={{ title: t('menu.withdraw') }}>
       <StyledView>
-        <TextField labelWidth={0.5}>
-          <TextField.Select
-            label="bank.bank"
-            _input={{
-              placeholder: t('bank.selectBank'),
-              value: values.bank?.BankAccountFullName ?? '',
-            }}
-            _dataList={{
-              data: data,
-              isLoading: isLoading || isFetching,
-              titleType: 'BankCode',
-              onPress: (item) => setFieldValue('bank', item),
-            }}
-            _actionSheet={{
-              id: actionSheetId,
-              headerTitle: t('bank.bank'),
-            }}
-          />
+        <AvailableBalance />
 
-          <TextField.TextInput
-            label="common.amount"
-            isAmount
-            _input={{
-              placeholder: t('common.enterAmount', {
-                field: t('menu.withdraw').toLowerCase(),
-              }),
-              value: values.amount,
-              keyboardType: 'number-pad',
-              onChangeText: onAmountChanged,
-              onBlur: handleBlur('amount'),
-            }}
-            error={
-              touched.amount && errors.amount
-                ? t(errors.amount, {
-                    field: t('common.amount'),
-                  })
-                : undefined
-            }
-            containerStyle={{ my: '$3' }}
-          />
+        <Select
+          label={values.bank?.BankAccountFullName ?? t('bank.bank')}
+          value={values.bank?.BankAccountNumber ?? ''}
+          loading={isLoading || isFetching}
+          options={sheetData}
+          onSelected={handleSelected}
+          isHorizontalActionSheet
+          sx={{ mb: '$2' }}
+          _actionSheet={{
+            sheetId: ACTION_SHEET_ID.WITHDRAWAL,
+            headerTitle: t('bank.bank'),
+            actions: [
+              {
+                icon: 'card',
+                onPress: () => push(toBankAccount, '/profile/bank-account'),
+              },
+            ],
+          }}
+        />
 
-          <ImportantNotice keys={NOTES} module="withdrawal" />
+        <MoneyInput
+          label={t('common.amount')}
+          placeholder={t('common.enterAmount', {
+            field: t('menu.withdraw').toLowerCase(),
+          })}
+          keyboardType="number-pad"
+          onChangeText={onAmountChanged}
+          onBlur={handleBlur('amount')}
+          value={values.amount}
+          error={
+            touched.amount && errors.amount
+              ? t(errors.amount, {
+                  field: t('common.amount'),
+                })
+              : undefined
+          }
+          action={
+            <IconButton
+              name="ac"
+              size={18}
+              color={'$lightCyan'}
+              onPress={() => onAmountChanged(playerBalance ?? '')}
+            />
+          }
+        />
 
-          <Button
-            rounded
-            stretch
-            disabled={!isValid || !dirty}
-            variant="lg"
-            fill={{
-              type: 'gradient',
-              color: 'secondary',
-              start: { x: 0, y: 0 },
-              end: { x: 1, y: 0 },
-            }}
-            containerStyle={{
-              m: '$10',
-            }}
-            onPress={withdrawalConfirmation}
-          >
-            <Button.Label>{t('common.next')}</Button.Label>
-          </Button>
-        </TextField>
+        <ImportantNotice keys={NOTES} module="withdrawal" />
+
+        <Button
+          rounded
+          stretch
+          disabled={!isValid || !dirty}
+          variant="lg"
+          fill={{
+            type: 'gradient',
+            color: 'secondary',
+            start: { x: 0, y: 0 },
+            end: { x: 1, y: 0 },
+          }}
+          containerStyle={{
+            m: '$10',
+          }}
+          onPress={withdrawalConfirmation}
+        >
+          <Button.Label>{t('common.next')}</Button.Label>
+        </Button>
 
         <WithdrawalTransactions />
       </StyledView>

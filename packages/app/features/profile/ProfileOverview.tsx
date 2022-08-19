@@ -6,12 +6,19 @@ import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
 import { styled, Text, useDripsyTheme, View } from 'dripsy'
 import React from 'react'
+import { usePlayerOverviewSummaryQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 
 const ProfileOverview = () => {
   const { t } = useLocalization()
   const { theme } = useDripsyTheme()
   const { push } = useRouter()
+
+  const { data } = usePlayerOverviewSummaryQuery()
+  console.log(
+    '🚀 ~ file: ProfileOverview.tsx ~ line 18 ~ ProfileOverview ~ data',
+    data
+  )
 
   const { makeContextualHref } = useContextualRouting()
   const toOverview = makeContextualHref('/profile/overview')
@@ -50,9 +57,18 @@ const ProfileOverview = () => {
         </BouncePressable>
       </StyledOverView>
       <StyledItemViewWrapper>
-        <OverviewItem title={t('common.registered')} value={0} />
-        <OverviewItem title={t('common.active')} value={0} />
-        <OverviewItem title={t('common.turnover')} value={0} />
+        <OverviewItem
+          title={t('common.registered')}
+          value={data?.data?.registered}
+        />
+        <OverviewItem
+          title={t('common.active')}
+          value={data?.data?.active_player}
+        />
+        <OverviewItem
+          title={t('common.accumulateReward')}
+          value={data?.data?.accumulate_reward}
+        />
       </StyledItemViewWrapper>
     </Gradient>
   )
@@ -62,7 +78,7 @@ const OverviewItem = ({ title, value }: { title: string; value: number }) => {
   return (
     <StyledItemView>
       <StyledValueText>{value}</StyledValueText>
-      <Text>{title}</Text>
+      <Text sx={{ textAlign: 'center' }}>{title}</Text>
     </StyledItemView>
   )
 }

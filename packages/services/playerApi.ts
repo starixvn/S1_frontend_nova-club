@@ -4,6 +4,7 @@ import { EndpointBuilderType, IResponse } from './common/types'
 import {
   OverviewArgs,
   OverviewResult,
+  OverviewSummaryResult,
   PlayerLangArgs,
   PlayerOverviewArgs,
   ProfileQueryArgs,
@@ -62,7 +63,19 @@ const playerEndpoints = (builder: EndpointBuilderType) => {
         return res.data
       },
     }),
-    playerReport: builder.query<ReportResult | undefined, ReportArgs>({
+    playerOverviewSummary: builder.query<
+      IResponse<OverviewSummaryResult> | undefined,
+      void
+    >({
+      query: () => ({
+        url: `/player_api/getPlayerOverviewSummary`,
+        method: 'POST',
+      }),
+    }),
+    playerReport: builder.query<
+      IResponse<ReportResult> | undefined,
+      ReportArgs
+    >({
       query: (queryArgs) => ({
         url: `/player_api/getPlayerReport`,
         method: 'POST',
@@ -70,11 +83,6 @@ const playerEndpoints = (builder: EndpointBuilderType) => {
           ...queryArgs,
         },
       }),
-      transformResponse: (
-        res: IResponse<ReportResult>
-      ): ReportResult | undefined => {
-        return res.data
-      },
     }),
     playerLang: builder.mutation<string, PlayerLangArgs>({
       query: ({ lang }) => ({
@@ -102,6 +110,7 @@ export const {
   usePlayerProfileQuery,
   usePlayerReportQuery,
   usePlayerOverviewQuery,
+  usePlayerOverviewSummaryQuery,
   useLazyPlayerProfileQuery,
   useLazyPlayerReportQuery,
   usePlayerLangMutation,
