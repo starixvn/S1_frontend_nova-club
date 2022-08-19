@@ -19,7 +19,6 @@ const BannerSection = () => {
 
   const { data, isFetching } = useBannerQuery()
   const selectedColor = '#99ECFE'
-  const colors = [selectedColor, selectedColor]
   const progressValue = useSharedValue<number>(0)
 
   // if (Platform.OS === 'ios')
@@ -46,19 +45,19 @@ const BannerSection = () => {
             }
             renderItem={BannerItem}
           />
-          <StyledContainerPaginatiom>
-            {colors.map((r, rindex) => {
+          <StyledContainerPagination>
+            {data.map((r, rindex) => {
               return (
                 <PaginationItem
-                  backgroundColor={r}
+                  backgroundColor={selectedColor}
                   animValue={progressValue}
                   index={rindex}
                   key={rindex}
-                  length={colors.length}
+                  length={data.length}
                 />
               )
             })}
-          </StyledContainerPaginatiom>
+          </StyledContainerPagination>
         </View>
       )}
     </SkeletonPlaceholder>
@@ -111,7 +110,7 @@ const PaginationItem: FC<{
     }
   }, [animValue, index, length])
   return (
-    <StyledBoxPaginatiom>
+    <StyledBoxPagination>
       <Animated.View
         style={[
           {
@@ -122,23 +121,23 @@ const PaginationItem: FC<{
           animStyle,
         ]}
       />
-    </StyledBoxPaginatiom>
+    </StyledBoxPagination>
   )
 }
 
-const StyledContainerPaginatiom = styled(View)({
+const StyledContainerPagination = styled(View)({
   flexDirection: 'row',
   justifyContent: 'space-between',
-  width: 30,
   alignSelf: 'center',
   mt: '$2a',
   position: 'absolute',
   bottom: 10,
 })
 
-const StyledBoxPaginatiom = styled(View)({
+const StyledBoxPagination = styled(View)({
   width: 10,
   height: 10,
+  m: '$1',
   bg: 'gray',
   borderRadius: 50,
   overflow: 'hidden',

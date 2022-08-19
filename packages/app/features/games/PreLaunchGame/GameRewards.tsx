@@ -3,7 +3,7 @@ import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Currency } from 'app/utils/constant'
 import { styled, Text, View } from 'dripsy'
-import { useMemo } from 'react'
+import { useMemo, useRef } from 'react'
 import { useCommissionTableQuery } from 'services/contentApi'
 import { usePlayerProfileQuery } from 'services/playerApi'
 
@@ -11,6 +11,7 @@ const MASTER_NAME = 'MASTER'
 
 const GameRewards = () => {
   const { t } = useLocalization()
+  const ref = useRef<number>(0)
 
   const { data: playerData } = usePlayerProfileQuery()
   const currency = playerData?.data?.currency as Currency
@@ -36,25 +37,25 @@ const GameRewards = () => {
     [commisions, gameType, providerCode]
   )
 
-  const masterCommission = useMemo(
-    () =>
-      commisions.find((commission) => {
-        return commission.system_code === MASTER_NAME
-      }),
-    [commisions]
-  )
+  // const masterCommission = useMemo(
+  //   () =>
+  //     commisions.find((commission) => {
+  //       return commission.system_code === MASTER_NAME
+  //     }),
+  //   [commisions]
+  // )
 
-  const { cash_player } = providerCommission || {}
+  const { cash_player = 0 } = providerCommission || {}
 
   const getReward = () => {
     if (typeof providerCode === 'undefined') {
-      return '-'
+      return ref.current
     }
 
-    if (typeof providerCommission === 'undefined') {
-      return masterCommission?.cash_player || '-'
-    }
-
+    // if (typeof providerCommission === 'undefined') {
+    //   return masterCommission?.cash_player || '0'
+    // }
+    ref.current = cash_player
     return cash_player
   }
 

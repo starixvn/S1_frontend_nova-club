@@ -20,7 +20,7 @@ import { MEDIA_DOMAIN } from '@env'
  */
 const contentEndpoints = (builder: EndpointBuilderType) => {
   return {
-    banner: builder.query<IResponse<BannerResult[]>, void>({
+    banner: builder.query<BannerResult[], void>({
       query: () => ({
         url: `${MEDIA_DOMAIN}/nvclub/nova-club/content/banners/banner.json`,
         method: 'GET',
