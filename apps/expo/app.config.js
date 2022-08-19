@@ -27,5 +27,8 @@ export default {
   },
   "updates": {
     "checkAutomatically": "ON_ERROR_RECOVERY"
-  }
+  },
+  "plugins": [
+    "@notifee/react-native"
+  ]
 }

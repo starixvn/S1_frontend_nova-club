@@ -8,6 +8,7 @@ require 'json'
 podfile_properties = JSON.parse(File.read('./Podfile.properties.json')) rescue {}
 
 target 'Vui123' do
+
   use_expo_modules!
   config = use_native_modules!
 
@@ -51,4 +52,10 @@ target 'Vui123' do
 
 
 
+end
+
+$NotifeeExtension = true
+
+target 'NotifeeNotificationService' do
+  pod 'RNNotifeeCore', :path => '../../../node_modules/@notifee/react-native/RNNotifeeCore.podspec'
 end
