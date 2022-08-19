@@ -1,5 +1,6 @@
 #import <Firebase.h>
 #import "AppDelegate.h"
+#import "RNFBMessagingModule.h"
 #import <RNBranch/RNBranch.h>
 
 #import <React/RCTBridge.h>
@@ -46,7 +47,13 @@ static void InitializeFlipper(UIApplication *application) {
   NSURL *jsCodeLocation;
   
   RCTBridge *bridge = [self.reactDelegate createBridgeWithDelegate:self launchOptions:launchOptions];
-  RCTRootView *rootView = [self.reactDelegate createRootViewWithBridge:bridge moduleName:@"main" initialProperties:nil];
+  
+  NSDictionary *appProperties = [RNFBMessagingModule addCustomPropsToUserProps:nil withLaunchOptions:launchOptions];
+  
+  RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
+                                               moduleName:@"main"
+                                               initialProperties:appProperties];
+  
   rootView.backgroundColor = [UIColor whiteColor];
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [self.reactDelegate createRootViewController];
