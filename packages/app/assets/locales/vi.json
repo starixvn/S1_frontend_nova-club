@@ -38,7 +38,7 @@
     "balance": "Số dư",
     "bet": "Tiền cược",
     "cancel": "Hủy",
-    "cash": "Trả trước",
+    "cash": "VÍ",
     "clickMore": "Xem thêm",
     "close": "Đóng",
     "confirm": "Xác nhận",
@@ -70,7 +70,7 @@
     "oldPassword": "Mật khẩu hiện tại",
     "otp": "OTP",
     "password": "Mật khẩu",
-    "passwordNote": "1. Mật khẩu phải là chữ và số không có ký tự đặc biệt. \nĐộ dài trừ khi 6-12 ký tự.\n2. Mật khẩu không được giống mật khẩu cũ",
+    "passwordNote": "1. Độ dài mật khẩu phải từ 6-15 ký tự.\n\n2. Mật khẩu không được giống với mật khẩu cũ",
     "playNow": "Bắt đầu chơi",
     "recentlyOpened": "Mở gần đây",
     "recentlyViewed": "Xem gần đây",
@@ -252,7 +252,7 @@
       "n1": "Vui lòng luôn cập nhật thông tin tài khoản ngân hàng đang hoạt động trước khi gửi tiền.",
       "n2": "Nếu chọn “Chuyển khoản”, vui lòng thực hiện chuyển khoản trước khi thực hiện lệnh gửi để tránh giao dịch bị chậm.",
       "n3": "TÊN TÀI KHOẢN người gửi phải trùng với họ tên đăng ký. Chúng tôi không khuyến khích thực hiện giao dịch bằng bên/công ty thứ ba.",
-      "n4": "Vui lòng KHÔNG điền “BWING” hoặc bất cứ từ nhạy cảm nào liên quan đến cá cược trong phần nội dung giao dịch.",
+      "n4": "Vui lòng KHÔNG điền “Vui123” hoặc bất cứ từ nhạy cảm nào liên quan đến cá cược trong phần nội dung giao dịch.",
       "n5": "Vui lòng lưu ý rằng mọi khoản tiền nạp đều cần hoàn thành doanh thu cược 1 lần trước khi được rút.",
       "n6": "Vui lòng liên hệ bộ phận LIVECHAT 24/7 nếu lệnh gửi chậm trễ quá 5 phút."
     },
@@ -334,7 +334,7 @@
   },
   "transaction": {
     "pending": "Đang chờ giao dịch",
-    "transactions": "Đang chờ giao dịch"
+    "recent": "Giao Dịch Gần Đây"
   },
   "transfer": {
     "avaiableAmount": "Số tiền có sẵn",
@@ -359,15 +359,15 @@
     "needAccountNo": "Cần nhập số tài khoản",
     "numberOnly": "Chỉ nhập số",
     "otpLength": "OTP phải là số có 6 chữ số",
-    "password": "Mật khẩu phải dài 6-12 ký tự, chứa cả chữ và số và ký tự đặc biệt (!@#$%^&*).",
-    "passwordMinMaxLength": "Mật khẩu phải có 6-12 ký tự",
+    "password": "Mật khẩu phải dài 6-15 ký tự, chứa cả chữ và số và ký tự đặc biệt (!@#$%^&*).",
+    "passwordMinMaxLength": "Mật khẩu phải có 6-15 ký tự",
     "passwordNotMatch": "Xác nhận mật khẩu không khớp",
     "pin": "Ghim chỉ phải là số",
     "pinNotMatch": "Mã PIN phải giống nhau",
     "realName": "Vui lòng nhập họ tên thật",
     "required": "%{field} là bắt buộc",
     "usdtFormat": "Địa chỉ ví phải tương thích với chuẩn ERC20 / TRC20",
-    "userNameMinMaxLength": "Tên người dùng phải dài từ 6 đến 18 ký tự",
+    "userNameMinMaxLength": "6-18 ký tự chữ và số (A-Z, a-z, 0-9)",
     "username": "6-18 ký tự chữ và số (A-Z, a-z, 0-9)"
   },
   "withdrawal": {

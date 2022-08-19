@@ -15,7 +15,7 @@ import * as Yup from 'yup'
 
 type ChangePinFormValues = {
   oldPin: string
-  newPin: string
+  pin: string
   confirmPin: string
 }
 
@@ -26,14 +26,14 @@ const ChangePinScreen = () => {
   const [updateTransferPin] = useUpdateTransferPinMutation()
 
   const onSubmit = async (
-    { oldPin, newPin, confirmPin }: ChangePinFormValues,
+    { oldPin, pin, confirmPin }: ChangePinFormValues,
     actions: FormikHelpers<ChangePinFormValues>
   ) => {
     try {
       actions.setSubmitting(true)
       const { data, success, message } = await updateTransferPin({
         old_pin: oldPin,
-        pin: newPin,
+        pin: pin,
         cpin: confirmPin,
       })
         .unwrap()
@@ -54,12 +54,12 @@ const ChangePinScreen = () => {
   const formik = useFormik<ChangePinFormValues>({
     initialValues: {
       oldPin: '',
-      newPin: '',
+      pin: '',
       confirmPin: '',
     },
     validationSchema: Yup.object({
       oldPin: validation.pin,
-      newPin: validation.pin,
+      pin: validation.pin,
       confirmPin: validation.confirmPin,
     }),
     onSubmit,
@@ -87,8 +87,8 @@ const ChangePinScreen = () => {
       />
       <UnderlinePinField
         title={t('pin.newPin')}
-        value={values.newPin}
-        setValue={handleChange('newPin')}
+        value={values.pin}
+        setValue={handleChange('pin')}
       />
       <UnderlinePinField
         title={t('pin.confirmPin')}

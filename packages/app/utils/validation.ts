@@ -1,14 +1,15 @@
 import * as Yup from 'yup'
 
-export const PASSWORD_MAX_LENGTH = 12
+export const PASSWORD_MAX_LENGTH = 15
 
-const ALPHANUMERIC_REGEX = RegExp(/^(?=.*[0-9])(?=.*[a-z])([a-z0-9]+)$/)
+// const ALPHANUMERIC_REGEX = RegExp(/^(?=.*[0-9])(?=.*[a-z])([a-z0-9]+)$/)
+const ALPHANUMERIC_REGEX = RegExp(/^[a-zA-Z0-9]+$/g)
 const NUMERIC_REGEX = RegExp(/^[0-9]*$/)
 
 const validation = {
   username: Yup.string()
     .min(6, 'validation.userNameMinMaxLength')
-    .max(20, 'validation.userNameMinMaxLength')
+    .max(18, 'validation.userNameMinMaxLength')
     .matches(ALPHANUMERIC_REGEX, 'validation.alphanumeric')
     .required('validation.required'),
 
@@ -21,7 +22,7 @@ const validation = {
     .required('validation.required')
     .min(6, 'validation.passwordMinMaxLength')
     .max(PASSWORD_MAX_LENGTH, 'validation.passwordMinMaxLength')
-    .matches(ALPHANUMERIC_REGEX, 'validation.password')
+    // .matches(ALPHANUMERIC_REGEX, 'validation.password')
     .oneOf([Yup.ref('password'), null], 'validation.passwordNotMatch'),
 
   passwordRestrict: Yup.string()
@@ -41,7 +42,7 @@ const validation = {
   confirmPin: Yup.string()
     .required('validation.required')
     .matches(NUMERIC_REGEX, 'validation.pin')
-    .oneOf([Yup.ref('newPin'), null], 'validation.pinNotMatch'),
+    .oneOf([Yup.ref('pin'), null], 'validation.pinNotMatch'),
 
   email: Yup.string().email('validation.email').required('validation.required'),
 

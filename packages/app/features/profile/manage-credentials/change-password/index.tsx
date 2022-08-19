@@ -54,8 +54,8 @@ const ChangePasswordScreen = () => {
       confirmPassword: '',
     },
     validationSchema: Yup.object({
-      oldPassword: validation.passwordRestrict,
-      password: validation.passwordRestrict,
+      oldPassword: validation.password,
+      password: validation.password,
       confirmPassword: validation.confirmPassword,
     }),
     onSubmit,

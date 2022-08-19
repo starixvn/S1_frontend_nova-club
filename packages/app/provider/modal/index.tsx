@@ -1,3 +1,4 @@
+import AlertDialogModal from 'app/components/modal/AlertDialogModal'
 import AlertModal from 'app/components/modal/AlertModal'
 import DepositConfirmationModal from 'app/components/modal/DepositConfirmationModal'
 import PinModal from 'app/components/modal/PinModal'
@@ -23,6 +24,7 @@ type ModalStackConfigValueType = ModalStackConfig extends Record<
 
 export interface ModalStackParams {
   AlertModal: undefined
+  AlertDialogModal: { message: string }
   DepositConfirmationModal: { amount: number; callback(...args: any): any }
   PinModal: { onConfirm(...args: any): any; onForgotPin(...args: any): any }
   PlayerBankDeleteModal: { bank: Record<any, any> }
@@ -41,6 +43,7 @@ type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
 /* Consider using this modal for other temporarily / not fullscreen modal  */
 const modalConfig: ModalConfigType = {
   AlertModal: AlertModal,
+  AlertDialogModal: AlertDialogModal,
   DepositConfirmationModal: DepositConfirmationModal,
   PinModal: {
     modal: PinModal,

@@ -15,10 +15,6 @@ const ProfileOverview = () => {
   const { push } = useRouter()
 
   const { data } = usePlayerOverviewSummaryQuery()
-  console.log(
-    '🚀 ~ file: ProfileOverview.tsx ~ line 18 ~ ProfileOverview ~ data',
-    data
-  )
 
   const { makeContextualHref } = useContextualRouting()
   const toOverview = makeContextualHref('/profile/overview')
@@ -59,15 +55,15 @@ const ProfileOverview = () => {
       <StyledItemViewWrapper>
         <OverviewItem
           title={t('common.registered')}
-          value={data?.data?.registered}
+          value={data?.data?.registered ?? 0}
         />
         <OverviewItem
           title={t('common.active')}
-          value={data?.data?.active_player}
+          value={data?.data?.active_player ?? 0}
         />
         <OverviewItem
           title={t('common.accumulateReward')}
-          value={data?.data?.accumulate_reward}
+          value={data?.data?.accumulate_reward ?? 0}
         />
       </StyledItemViewWrapper>
     </Gradient>

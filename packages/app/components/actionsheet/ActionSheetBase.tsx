@@ -95,6 +95,7 @@ const ActionSheetBase = ({
           onMomentumScrollEnd={() =>
             actionSheetRef.current?.handleChildScrollEnd()
           }
+          contentContainerStyle={{ height: '100%' }}
         >
           {children ?? <HistoryEmpty sx={{ my: '$4' }} />}
         </ScrollView>

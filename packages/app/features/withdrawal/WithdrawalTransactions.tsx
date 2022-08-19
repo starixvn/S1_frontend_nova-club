@@ -1,7 +1,11 @@
 import RefreshIconButton from 'app/components/form/IconButton/RefreshButton'
 import HistoryEmpty from 'app/components/history/HistoryEmpty'
 import useLocalization from 'app/provider/localization'
-import { ReportDepositStatus, ReportTransactionType } from 'app/utils/constant'
+import {
+  ReportDepositStatus,
+  ReportTransactionType,
+  ReportWithdrawalStatus,
+} from 'app/utils/constant'
 import dayjsTz from 'app/utils/dayjs'
 import { ActivityIndicator, Text, View } from 'dripsy'
 import React from 'react'
@@ -14,7 +18,7 @@ const WithdrawalTransactions = () => {
     {
       limit: 5,
       offset: 0,
-      status: ReportDepositStatus.PENDING,
+      status: ReportWithdrawalStatus.ALL,
       time_from: dayjsTz().subtract(2, 'month').startOf('date').toISOString(),
       time_to: dayjsTz().endOf('date').toISOString(),
       trans_type: ReportTransactionType.WITHDRAWAL,
@@ -32,7 +36,7 @@ const WithdrawalTransactions = () => {
           m: '$4',
         }}
       >
-        <Text sx={{}}>{t('transaction.transactions')}</Text>
+        <Text>{t('transaction.recent')}</Text>
         <RefreshIconButton loading={isFetching} onPress={() => refetch()} />
       </View>
 

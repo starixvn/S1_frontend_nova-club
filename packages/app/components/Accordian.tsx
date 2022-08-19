@@ -64,7 +64,7 @@ const Accordian = ({
                 exit={{
                   opacity: 0,
                 }}
-                style={{ minHeight: 100 }}
+                // style={{ minHeight: 100 }}
               >
                 {children}
               </MotiView>

@@ -5,7 +5,7 @@ import useImagePicker from 'app/hooks/transfer/useImagePicker'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import BarcodeMask from 'react-native-barcode-mask'
 import { QrReader } from 'react-qr-reader'
 
@@ -42,26 +42,31 @@ function QrcodeScannerTab({ isActive }) {
     }
   }
 
+  const QrScannerComponent = useMemo(
+    () => (
+      <QrReader
+        constraints={{ facingMode: 'environment' }}
+        onResult={isScanning ? handleBarCodeScannedWeb : undefined}
+        className="absolute-fill-center"
+        scanDelay={1000}
+        videoContainerStyle={{ height }}
+        videoStyle={{ zIndex: -1 }}
+        ViewFinder={() => (
+          <BarcodeMask
+            width={width / 2}
+            height={width / 2}
+            edgeColor="#62B1F6"
+            showAnimatedLine={false}
+          />
+        )}
+      />
+    ),
+    [isScanning]
+  )
+
   return (
     <View sx={{ flex: 1, bg: '$secondary' }}>
-      {isScanning && (
-        <QrReader
-          constraints={{ facingMode: 'environment' }}
-          onResult={handleBarCodeScannedWeb}
-          className="absolute-fill-center"
-          scanDelay={1000}
-          videoContainerStyle={{ height }}
-          videoStyle={{ zIndex: -1 }}
-          ViewFinder={() => (
-            <BarcodeMask
-              width={width / 2}
-              height={width / 2}
-              edgeColor="#62B1F6"
-              showAnimatedLine={false}
-            />
-          )}
-        />
-      )}
+      {isScanning && QrScannerComponent}
       <View
         sx={{
           m: '$4',

@@ -27,6 +27,7 @@ const CELL_AMOUNT_WIDTH = 1
 const RewardHistoryItem = ({ item }) => {
   const [fetchData, result] = useLazyPlayerReportQuery()
   const [rewardDetails, setRewardDetails] = useState([])
+  const [firstLoading, setFirstLoading] = useState(true)
 
   const handleFetchData = async (date) => {
     const { data, success } = await fetchData({
@@ -40,6 +41,13 @@ const RewardHistoryItem = ({ item }) => {
     }).unwrap()
 
     if (success) setRewardDetails(data.rows)
+    setFirstLoading(false)
+  }
+
+  const handleExpand = () => {
+    setTimeout(() => {
+      rewardDetails.length <= 0 && handleFetchData(item.date)
+    }, 1000)
   }
 
   return (
@@ -47,11 +55,11 @@ const RewardHistoryItem = ({ item }) => {
       <Accordian
         isExpandable
         extended={false}
-        onPress={() => handleFetchData(item.date)}
+        onPress={handleExpand}
         header={<RewardItem date={item.date} amount={item.amount} isShowDate />}
       >
-        {result.isFetching ? (
-          <ActivityIndicator size="large" />
+        {firstLoading ? (
+          <ActivityIndicator size="large" sx={{ flex: 1, minHeight: 96 }} />
         ) : (
           rewardDetails.map((el: ReportRewardItem, index) => (
             <RewardItem
@@ -97,12 +105,13 @@ const RewardItem = ({
           style={{
             flex: CELL_GAME_WIDTH,
             justifyContent: 'center',
+            paddingVertical: 4,
           }}
         >
           <Image
             resizeMode="contain"
             source={getProviderLogo(game)}
-            style={{ height: 48 }}
+            style={{ height: 40 }}
           />
         </View>
       )}

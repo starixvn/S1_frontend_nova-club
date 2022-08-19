@@ -2,7 +2,11 @@ import RefreshIconButton from 'app/components/form/IconButton/RefreshButton'
 import HistoryEmpty from 'app/components/history/HistoryEmpty'
 import DepositHistoryItem from 'app/features/profile/history/DepositHistoryItem'
 import useLocalization from 'app/provider/localization'
-import { ReportDepositStatus, ReportTransactionType } from 'app/utils/constant'
+import {
+  DepositPaymentMethodCategoryId,
+  ReportDepositStatus,
+  ReportTransactionType,
+} from 'app/utils/constant'
 import dayjsTz from 'app/utils/dayjs'
 import { ActivityIndicator, Text, View } from 'dripsy'
 import React from 'react'
@@ -18,6 +22,7 @@ const DepositTransactions = () => {
       time_from: dayjsTz().subtract(2, 'month').startOf('date').toISOString(),
       time_to: dayjsTz().endOf('date').toISOString(),
       trans_type: ReportTransactionType.DEPOSIT,
+      bank_category_id: DepositPaymentMethodCategoryId.LOCAL_BANK,
     },
     { refetchOnMountOrArgChange: true }
   )
@@ -32,7 +37,7 @@ const DepositTransactions = () => {
           m: '$4',
         }}
       >
-        <Text sx={{}}>{t('transaction.transactions')}</Text>
+        <Text sx={{}}>{t('transaction.pending')}</Text>
         <RefreshIconButton loading={isFetching} onPress={() => refetch()} />
       </View>
 

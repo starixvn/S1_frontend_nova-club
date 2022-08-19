@@ -5,7 +5,7 @@ import useContainerDimension from 'app/hooks/useContainerDimension'
 import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
 import { BarCodeScanner } from 'expo-barcode-scanner'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { StyleSheet } from 'react-native'
 import BarcodeMask from 'react-native-barcode-mask'
 
@@ -55,8 +55,8 @@ function QrcodeScannerTab({ isActive }) {
     }
   }
 
-  return (
-    <View sx={{ flex: 1, bg: '$secondary' }}>
+  const BarcodeComponent = useMemo(
+    () => (
       <BarCodeScanner
         onBarCodeScanned={isScanning ? handleBarCodeScanned : undefined}
         barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
@@ -69,6 +69,13 @@ function QrcodeScannerTab({ isActive }) {
           showAnimatedLine={false}
         />
       </BarCodeScanner>
+    ),
+    [isScanning]
+  )
+
+  return (
+    <View sx={{ flex: 1, bg: '$secondary' }}>
+      {BarcodeComponent}
       <View
         sx={{
           m: '$4',

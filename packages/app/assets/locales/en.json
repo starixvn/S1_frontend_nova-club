@@ -70,7 +70,7 @@
     "oldPassword": "Old Password",
     "otp": "OTP",
     "password": "Password",
-    "passwordNote": "1. Password must be alphanumeric without special character. The length is unless 6-12 character. \n2. Password can not be the same to old pass",
+    "passwordNote": "1. Password length must be 6-15 characters. \n2. Password can not be the same to old pass",
     "playNow": "Play now",
     "recentlyOpened": "Recently Opened",
     "recentlyViewed": "Recently Viewed",
@@ -334,7 +334,7 @@
   },
   "transaction": {
     "pending": "Pending Transactions",
-    "transactions": ""
+    "recent": "Recent Transactions"
   },
   "transfer": {
     "avaiableAmount": "Available Amount",
@@ -359,15 +359,15 @@
     "needAccountNo": "Need Account Number",
     "numberOnly": "Only number is allowed",
     "otpLength": "OTP must be 6-digit number",
-    "password": "Password must be 6-12 characters, contain both alphanumeric and a special characters (!@#$%^&*).",
-    "passwordMinMaxLength": "Password must be 6-12 characters only",
+    "password": "Password must be 6-15 characters, contain both alphanumeric and a special characters (!@#$%^&*).",
+    "passwordMinMaxLength": "Password must be 6-15 characters only",
     "passwordNotMatch": "Password confirmation does not match",
     "pin": "Pin must be numberic only",
     "pinNotMatch": "Both PINs must be the same",
     "realName": "Please enter your real name.",
     "required": "%{field} is required",
     "usdtFormat": "Must be ERC-20 / TRC-20 compatible wallet address",
-    "userNameMinMaxLength": "Username must be 6-18 characters only",
+    "userNameMinMaxLength": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only.",
     "username": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only"
   },
   "withdrawal": {

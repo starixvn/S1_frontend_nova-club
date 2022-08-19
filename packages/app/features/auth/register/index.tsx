@@ -85,7 +85,7 @@ const RegisterPage = () => {
     },
     validationSchema: Yup.object({
       username: validation.username,
-      password: validation.passwordRestrict,
+      password: validation.password,
       confirmPassword: validation.confirmPassword,
       contactNumber: validation.phoneNumber,
       verifyCode: validation.verifyCode,

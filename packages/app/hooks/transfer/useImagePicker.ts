@@ -13,11 +13,13 @@ import { useRouter } from 'solito/router'
 import { useIsFocused } from '../isFocus/useIsFocused'
 import { RootState } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
+import { useModal } from 'react-native-modalfy'
 const PNG = require('pngjs/browser').PNG
 
 const useImagePicker = () => {
   const { t } = useLocalization()
   const { push } = useRouter()
+  const { openModal } = useModal()
   const dispatch = useDispatch()
   const isScanning = useSelector(
     (state: RootState) => state.setting.transferScan
@@ -86,16 +88,24 @@ const useImagePicker = () => {
         setLoading(false)
       }
     }
-    console.log('loading flase')
+
     setLoading(false)
   }
 
   const handleGoToTransfer = async (value: string) => {
+    handleScan(false)
+    console.log(
+      '🚀 ~ file: useImagePicker.ts ~ line 94 ~ handleGoToTransfer ~ value',
+      value
+    )
     const data = await fetchUsername(value)
       .unwrap()
       .catch((error) => {
-        handleScan(true)
-        dispatch(AlertActions.addError(error.message))
+        // dispatch(AlertActions.addError(error.message))
+        openModal('AlertDialogModal', {
+          message: error.message,
+          callback: () => handleScan(true),
+        })
       })
 
     if (data?.success) {

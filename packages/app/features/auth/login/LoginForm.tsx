@@ -98,8 +98,8 @@ const LoginForm = () => {
       password: '',
     },
     validationSchema: Yup.object({
-      username: validation.stringRequired,
-      password: validation.stringRequired,
+      username: validation.username,
+      password: validation.password,
     }),
     onSubmit,
   })

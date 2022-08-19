@@ -41,7 +41,7 @@ const RecentTransactions = () => {
           m: '$4',
         }}
       >
-        <Text sx={{}}>{t('transaction.transactions')}</Text>
+        <Text>{t('transaction.recent')}</Text>
         <RefreshIconButton loading={isFetching} onPress={() => refetch()} />
       </View>
 

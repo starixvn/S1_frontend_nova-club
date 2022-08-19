@@ -62,6 +62,7 @@ export type OverviewSummaryResult = {
  * *Player Report
  */
 export type ReportArgs = {
+  bank_category_id?: number
   is_reward_group_by?: boolean
   limit: number
   offset: number

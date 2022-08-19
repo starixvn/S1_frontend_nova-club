@@ -4,6 +4,7 @@ import { AuthActions } from '../store/authReducer'
 import walletApi from 'services/walletApi'
 import playerApi from 'services/playerApi'
 import authApi from 'services/authApi'
+import bankApi from 'services/bank'
 
 const useResetRTKQ = () => {
   const dispatch = useAppDispatch()
@@ -16,6 +17,7 @@ const useResetRTKQ = () => {
       dispatch(walletApi.util.resetApiState())
       dispatch(playerApi.util.resetApiState())
       dispatch(authApi.util.resetApiState())
+      dispatch(bankApi.util.resetApiState())
 
       dispatch(AuthActions.setIsLogoutActionTriggered(false))
     }
