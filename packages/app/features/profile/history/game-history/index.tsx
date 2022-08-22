@@ -18,6 +18,7 @@ import {
 import { ReportGameItem, ReportResult } from 'services/playerApi.type'
 import DateTimeCell from '../DateTimeCell'
 import FilterSelection from '../FilterSelection'
+import GameHistoryItem from '../GameHistoryItem'
 
 const CELL_DATE_WIDTH = 1
 const CELL_AMOUNT_WIDTH = 1
@@ -75,6 +76,8 @@ const GameHistoryTab = () => {
     },
   ]
 
+  const renderItem = ({ item }) => <GameHistoryItem item={item} />
+
   return (
     <View sx={{ flex: 1, bg: '$secondary' }}>
       <FilterSelection selected={selected} setSelected={setSelected} />
@@ -86,13 +89,13 @@ const GameHistoryTab = () => {
         keyExtractor={(item, index) =>
           `${index} History ${item.game_provider_code}`
         }
-        renderItem={({ item }) => renderItem({ item }, currency)}
+        renderItem={renderItem}
       />
     </View>
   )
 }
 
-const renderItem = ({ item }, currency) => {
+const renderItem1 = ({ item }, currency) => {
   return (
     <GradientBox>
       <View

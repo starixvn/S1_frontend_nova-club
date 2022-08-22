@@ -111,6 +111,7 @@ const colorGradient = {
   white: ['#FFF', '#FFF'],
   transparent: ['', ''],
   disabled: ['#CCC', '#CCC'],
+  disabledSecondary: ['#666', '#666'],
   background: ['#066D9A', '#014F71'],
   backgroundSecondary: ['#33A0D0', '#0B76A5'],
 }

@@ -24,10 +24,6 @@ const DateFilterList = DateFilterOptions
 const DepositStatusList = ReportCommonStatusOptions
 const WithdrawalStatusList = ReportCommonStatusOptions
 const GameStatusList = ReportGameStatusOptions
-export const ProviderList = Object.keys(GameProvider).map((key) => ({
-  label: key,
-  value: key,
-}))
 
 const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
   const { t } = useLocalization()
@@ -132,7 +128,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
             }}
             _actionSheet={{
               id: t('menu.tab.provider'),
-              headerTitle: t('menu.tab.game'),
+              headerTitle: t('menu.tab.provider'),
             }}
             actionSheetProps={{
               actionSheetItemProps: {
@@ -184,8 +180,10 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
                 flex: 1,
               },
               disabled:
-                selected.selectedTransType.value ===
-                ReportTransactionType.REWARDS,
+                selected.selectedTransType.value !==
+                  ReportTransactionType.DEPOSIT &&
+                selected.selectedTransType.value !==
+                  ReportTransactionType.WITHDRAWAL,
             }}
             data={
               selected.selectedTransType === ReportTransactionType.DEPOSIT

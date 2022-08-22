@@ -52,13 +52,14 @@ const CustomTabBar = (props) => {
                   borderWidth: active ? 0 : 0.5,
                   borderColor: '#262957',
                   flex: 1,
+                  px: 8,
                 }}
               >
                 <Text
                   sx={{
                     fontSize: 16,
                     fontWeight: 'bold',
-                    py: '$5',
+                    py: '$7',
                     textAlign: 'center',
                   }}
                 >

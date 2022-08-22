@@ -189,7 +189,7 @@ const WithdrawalPage = () => {
         <AvailableBalance />
 
         <Select
-          label={values.bank?.BankAccountFullName ?? t('bank.bank')}
+          label={values.bank?.BankName ?? t('bank.bank')}
           value={values.bank?.BankAccountNumber ?? ''}
           loading={isLoading || isFetching}
           options={sheetData}

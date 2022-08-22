@@ -42,6 +42,7 @@ const QrReceiveTab = () => {
             end: { x: 1, y: 0 },
           }}
           onPress={webScreenshotDownload}
+          containerStyle={{ px: 24 }}
         >
           <Button.Label>{t('qr.downloadQrCode')}</Button.Label>
         </Button>

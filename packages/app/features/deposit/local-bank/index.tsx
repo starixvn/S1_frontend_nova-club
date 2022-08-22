@@ -254,7 +254,7 @@ const LocalBankScreen = () => {
           <Button.Label>{t('common.next')}</Button.Label>
         </Button>
 
-        <DepositTransactions />
+        <DepositTransactions isLocalBank />
       </View>
     </PageWithBackHeader>
   )

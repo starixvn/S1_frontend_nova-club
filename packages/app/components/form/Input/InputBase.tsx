@@ -122,7 +122,9 @@ const InputBase = forwardRef<{}, InputBaseProps>(
                 left: space,
                 color: '#999999',
                 lineHeight: 20,
+                right: 40,
               }}
+              numberOfLines={1}
             >
               {label}
             </MotiText>

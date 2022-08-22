@@ -26,7 +26,7 @@ const SelectButton = ({
   ...restButtonProps
 }: SelectButtonProps) => {
   const { t } = useLocalization()
-  const { sx, ...pressableProps } = restButtonProps || {}
+  const { sx, disabled, ...pressableProps } = restButtonProps || {}
   const { sx: buttonContentSx, ...dripsyGradientProp } =
     buttonContentProps || {}
 
@@ -52,9 +52,20 @@ const SelectButton = ({
   }
 
   return (
-    <Pressable onPress={onOpen} sx={mergedButtonSx} {...pressableProps}>
+    <Pressable
+      onPress={onOpen}
+      sx={mergedButtonSx}
+      disabled={disabled}
+      {...pressableProps}
+    >
       <DripsyGradient
-        gradient={isActive ? 'oceanBlue' : 'darkNavyBlue'}
+        gradient={
+          isActive
+            ? 'oceanBlue'
+            : disabled
+            ? 'disabledSecondary'
+            : 'darkNavyBlue'
+        }
         sx={mergedGradientSx}
         start={isActive ? { x: 0.5, y: 0 } : { x: 0, y: 0.5 }}
         end={isActive ? { x: 0.5, y: 1 } : { x: 1, y: 0.5 }}
