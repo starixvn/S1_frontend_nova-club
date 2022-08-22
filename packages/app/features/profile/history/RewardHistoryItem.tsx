@@ -56,70 +56,84 @@ const RewardHistoryItem = ({ item }) => {
         isExpandable
         extended={false}
         onPress={handleExpand}
-        header={<RewardItem date={item.date} amount={item.amount} isShowDate />}
+        header={<RewardParentItem date={item.date} amount={item.amount} />}
       >
-        {firstLoading ? (
-          <ActivityIndicator size="large" sx={{ flex: 1, minHeight: 96 }} />
-        ) : (
-          rewardDetails.map((el: ReportRewardItem, index) => (
-            <RewardItem
-              key={`${index} ${el.gp}`}
-              date={el.date}
-              game={el.gp}
-              amount={el.amount}
-              isShowTime
-            />
-          ))
-        )}
+        <View sx={{ py: 4 }}>
+          {firstLoading ? (
+            <ActivityIndicator sx={{ flex: 1, minHeight: 68 }} />
+          ) : (
+            rewardDetails.map((el: ReportRewardItem, index) => (
+              <RewardChildItem
+                key={`${index} ${el.gp}`}
+                date={el.date}
+                game={el.gp}
+                amount={el.amount}
+              />
+            ))
+          )}
+        </View>
       </Accordian>
     </GradientBox>
   )
 }
 
-const RewardItem = ({
-  date,
-  game,
-  amount,
-  isShowDate = false,
-  isShowTime = false,
-}) => {
+const RewardParentItem = ({ date, amount }) => {
   return (
     <View
       sx={{
         flex: 1,
         flexDirection: 'row',
-        px: isShowDate ? '$0' : '$3',
+        px: '$0',
         alignItems: 'center',
       }}
     >
-      <View style={{ flex: CELL_DATE_WIDTH }}>
-        <DateTimeCell
-          date={date}
-          isShowDate={isShowDate}
-          isShowTime={isShowTime}
+      <View sx={{ flex: CELL_DATE_WIDTH }}>
+        <DateTimeCell date={date} isShowTime={false} />
+      </View>
+
+      <View sx={{ flex: CELL_AMOUNT_WIDTH, mr: 8 }}>
+        <Text sx={{ textAlign: 'right' }}>{toThousandSeparator(amount)}</Text>
+      </View>
+    </View>
+  )
+}
+
+const RewardChildItem = ({ date, game, amount }) => {
+  return (
+    <View
+      sx={{
+        flex: 1,
+        flexDirection: 'row',
+        px: '$3',
+        alignItems: 'center',
+      }}
+    >
+      <View
+        sx={{
+          flex: CELL_GAME_WIDTH,
+          py: 8,
+        }}
+      >
+        <Image
+          resizeMode="contain"
+          source={getProviderLogo(game)}
+          style={{
+            height: 18,
+            maxWidth: 100,
+          }}
         />
       </View>
 
-      {isShowTime && (
-        <View
-          style={{
-            flex: CELL_GAME_WIDTH,
-            justifyContent: 'center',
-            paddingVertical: 4,
-          }}
-        >
-          <Image
-            resizeMode="contain"
-            source={getProviderLogo(game)}
-            style={{ height: 40 }}
-          />
-        </View>
-      )}
+      {/* <View sx={{ flex: CELL_DATE_WIDTH }}>
+        <DateTimeCell
+          date={date}
+          isShowDate={false}
+          sx={{ textAlign: 'right' }}
+        />
+      </View> */}
 
-      <View style={{ flex: CELL_AMOUNT_WIDTH }}>
-        <Text sx={{ textAlign: isShowDate ? 'center' : 'right' }}>
-          {toThousandSeparator(amount)}
-        </Text>
+      <View sx={{ flex: CELL_AMOUNT_WIDTH, mr: 28, justifyContent: 'center' }}>
+        <Text sx={{ textAlign: 'right' }}>{toThousandSeparator(amount)}</Text>
       </View>
     </View>
   )

@@ -12,18 +12,29 @@ import { ActivityIndicator, Text, View } from 'dripsy'
 import React from 'react'
 import { usePlayerReportQuery } from 'services/playerApi'
 
-const DepositTransactions = () => {
+const DepositTransactions = ({ isLocalBank = false }) => {
   const { t } = useLocalization()
+  const depositLocal = {
+    limit: 5,
+    offset: 0,
+    status: ReportDepositStatus.PENDING,
+    time_from: dayjsTz().subtract(2, 'month').startOf('date').toISOString(),
+    time_to: dayjsTz().endOf('date').toISOString(),
+    trans_type: ReportTransactionType.DEPOSIT,
+    bank_category_id: DepositPaymentMethodCategoryId.LOCAL_BANK,
+  }
+
+  const depositAll = {
+    limit: 5,
+    offset: 0,
+    status: ReportDepositStatus.ALL,
+    time_from: dayjsTz().subtract(2, 'month').startOf('date').toISOString(),
+    time_to: dayjsTz().endOf('date').toISOString(),
+    trans_type: ReportTransactionType.DEPOSIT,
+  }
+
   const { data, isFetching, isLoading, refetch } = usePlayerReportQuery(
-    {
-      limit: 5,
-      offset: 0,
-      status: ReportDepositStatus.PENDING,
-      time_from: dayjsTz().subtract(2, 'month').startOf('date').toISOString(),
-      time_to: dayjsTz().endOf('date').toISOString(),
-      trans_type: ReportTransactionType.DEPOSIT,
-      bank_category_id: DepositPaymentMethodCategoryId.LOCAL_BANK,
-    },
+    isLocalBank ? depositLocal : depositAll,
     { refetchOnMountOrArgChange: true }
   )
 
@@ -37,7 +48,9 @@ const DepositTransactions = () => {
           m: '$4',
         }}
       >
-        <Text sx={{}}>{t('transaction.pending')}</Text>
+        <Text sx={{}}>
+          {isLocalBank ? t('transaction.pending') : t('transaction.recent')}
+        </Text>
         <RefreshIconButton loading={isFetching} onPress={() => refetch()} />
       </View>
 

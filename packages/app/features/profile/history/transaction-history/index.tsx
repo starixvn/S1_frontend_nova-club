@@ -18,6 +18,7 @@ import {
 import { ReportGameItem, ReportResult } from 'services/playerApi.type'
 import DepositHistoryItem from '../DepositHistoryItem'
 import FilterSelection from '../FilterSelection'
+import ReferralHistoryItem from '../ReferralHistoryItem'
 import RewardHistoryItem from '../RewardHistoryItem'
 import TransferHistoryItem from '../TransferHistoryItem'
 import WithdrawalHistoryItem from '../WithdrawalHistoryItem'
@@ -138,6 +139,8 @@ const TransactionHistoryTab = () => {
           return <WithdrawalHistoryItem item={item} />
         case ReportTransactionType.REWARDS:
           return <RewardHistoryItem item={item} />
+        case ReportTransactionType.REFERRAL:
+          return <ReferralHistoryItem item={item} />
         case ReportTransactionType.TRANSFER:
           return <TransferHistoryItem item={item} />
 

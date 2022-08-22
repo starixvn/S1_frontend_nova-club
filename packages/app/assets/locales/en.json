@@ -367,8 +367,8 @@
     "realName": "Please enter your real name.",
     "required": "%{field} is required",
     "usdtFormat": "Must be ERC-20 / TRC-20 compatible wallet address",
-    "userNameMinMaxLength": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only.",
-    "username": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only"
+    "userNameMinMaxLength": "6-18 characters only",
+    "username": "6-18 characters only"
   },
   "withdrawal": {
     "withdrawTo": "Withdraw To"

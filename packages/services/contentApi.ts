@@ -73,6 +73,12 @@ const contentEndpoints = (builder: EndpointBuilderType) => {
         },
       }),
     }),
+    featuredGameList: builder.query<IResponse<GetGameListResult>, string>({
+      query: (data) => ({
+        url: `/static_api/getFeaturedGameList`,
+        data,
+      }),
+    }),
     affiliateUsername: builder.query<
       IResponse<{ username: string; currency: string }>,
       string
@@ -108,4 +114,5 @@ export const {
   useLazyAffiliateUsernameQuery,
   useGetGameListQuery,
   useLazyGetGameListQuery,
+  useFeaturedGameListQuery,
 } = contentApi

@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux'
 import { BankActions } from 'app/store/bankReducer'
 import { useDepositPaymentListQuery } from 'services/deposit'
 import PaymentMethod, { DepositMethodId } from 'app/config/deposit'
+import DepositTransactions from './local-bank/DepositTransactions'
 
 const DepositPage = () => {
   const { push } = useRouter()
@@ -104,7 +105,8 @@ const DepositPage = () => {
           <Seperator />
         </View>
       )}
-      <RecentTransactions />
+
+      <DepositTransactions />
     </PageWithBackHeader>
   )
 }

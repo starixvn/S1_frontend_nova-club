@@ -367,8 +367,8 @@
     "realName": "Vui lòng nhập họ tên thật",
     "required": "%{field} là bắt buộc",
     "usdtFormat": "Địa chỉ ví phải tương thích với chuẩn ERC20 / TRC20",
-    "userNameMinMaxLength": "6-18 ký tự chữ và số (A-Z, a-z, 0-9)",
-    "username": "6-18 ký tự chữ và số (A-Z, a-z, 0-9)"
+    "userNameMinMaxLength": "Mật khẩu phải có 6-15 ký tự",
+    "username": "Mật khẩu phải có 6-15 ký tự"
   },
   "withdrawal": {
     "withdrawTo": "Rút tiền về"

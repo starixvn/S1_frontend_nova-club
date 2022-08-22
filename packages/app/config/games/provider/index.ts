@@ -2,6 +2,7 @@ const enum PROVIDER_NAME {
   ADVP,
   ALL,
   ALLB,
+  ARG,
   BBIN,
   BGGG,
   BTI,
@@ -21,6 +22,7 @@ const enum PROVIDER_NAME {
   TCG,
   TFGM,
   SBO,
+  V8PK,
   IM1,
 }
 
@@ -36,6 +38,10 @@ export const PROVIDER_LOGO: { [key in keyof typeof PROVIDER_NAME] } = {
   ALLB: {
     provider_code: 'ALLB',
     image: require('../../../assets/images/provider/Allbet.png'),
+  },
+  ARG: {
+    provider_code: 'ARG',
+    image: require('../../../assets/images/provider/ARG.png'),
   },
   BBIN: {
     provider_code: 'BBIN',
@@ -113,6 +119,10 @@ export const PROVIDER_LOGO: { [key in keyof typeof PROVIDER_NAME] } = {
     provider_code: 'SBO',
     image: require('../../../assets/images/provider/SBO_BET.png'),
   },
+  V8PK: {
+    provider_code: 'V8PK',
+    image: require('../../../assets/images/provider/V8PK.png'),
+  },
   IM1: {
     provider_code: 'IM1',
     image: require('../../../assets/images/provider/IM.png'),
@@ -122,6 +132,7 @@ export const PROVIDER_LOGO: { [key in keyof typeof PROVIDER_NAME] } = {
 const ProviderLogo = [
   PROVIDER_LOGO.ALL,
   PROVIDER_LOGO.ADVP,
+  PROVIDER_LOGO.ARG,
   PROVIDER_LOGO.BGGG,
   PROVIDER_LOGO.ALLB,
   PROVIDER_LOGO.BBIN,
@@ -142,6 +153,7 @@ const ProviderLogo = [
   PROVIDER_LOGO.TFGM,
   PROVIDER_LOGO.EVOL,
   PROVIDER_LOGO.SBO,
+  PROVIDER_LOGO.V8PK,
   PROVIDER_LOGO.IM1,
 ]
 

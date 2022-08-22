@@ -1,10 +1,12 @@
-import { MEDIA_DOMAIN } from '@env'
+import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import ListImage from 'app/components/ListImage'
 import hotgame from 'app/config/games/hotgame'
 import HorizontalGameList from 'app/features/games/HorizontalGameList'
 import { View } from 'dripsy'
 import React from 'react'
+import { useFeaturedGameListQuery } from 'services/contentApi'
 import { Game } from 'services/contentApi.type'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import SectionHeader from './SectionHeader'
 
 const games: Game[] = [
@@ -121,10 +123,20 @@ const games: Game[] = [
 ]
 
 const HotGamesSection = () => {
+  const { data: playerProfile } = usePlayerProfileQuery()
+  const { currency } = playerProfile?.data || {}
+  const { data } = useFeaturedGameListQuery({ currency })
+  const featuredList = data?.data?.rows.map((item) => {
+    return {
+      ...item,
+      img: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.img}`,
+    }
+  })
+
   return (
     <View sx={{ mb: '$7a' }}>
       <SectionHeader title={hotgame.label} bgColor="orange" iconName="fire" />
-      <HorizontalGameList data={games} />
+      <HorizontalGameList data={featuredList ?? []} />
     </View>
   )
 }
