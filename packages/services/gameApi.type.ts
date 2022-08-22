@@ -3,6 +3,7 @@ export interface GetGameUrlQueryArgs {
   is_demo: number
   is_mobile: number
   platform_code?: string
+  home_url?: string
 }
 
 export interface GetGameUrlResult {

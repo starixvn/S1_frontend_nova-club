@@ -1,3 +1,4 @@
+import { DEV_DOMAIN } from '@env'
 import { useFocusEffect, useIsFocused } from '@react-navigation/native'
 import { Button } from 'app/components/form/Button'
 import { DripsyGradient } from 'app/components/Gradient'
@@ -200,6 +201,7 @@ function useGameLauncher(gameLauncherState: LaunchGamePayload) {
           is_demo: 0,
           is_mobile: desktopMode ? 0 : 1,
           platform_code: providerCode,
+          home_url: DEV_DOMAIN,
         }).unwrap()
 
         const url = data?.url
