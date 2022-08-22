@@ -48,8 +48,7 @@ const withTM = require('next-transpile-modules')([
   '@react-native-community/datetimepicker',
   'react-native-share',
   '@shopify/flash-list',
-  'recyclerlistview',
-  '@shopify/flash-list'
+  'recyclerlistview'
 ])
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
