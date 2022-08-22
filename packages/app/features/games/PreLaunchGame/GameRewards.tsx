@@ -45,7 +45,7 @@ const GameRewards = () => {
   //   [commisions]
   // )
 
-  const { cash_player = 0 } = providerCommission || {}
+  let { cash_player = 0 } = providerCommission || {}
 
   const getReward = () => {
     if (typeof providerCode === 'undefined') {
@@ -55,8 +55,8 @@ const GameRewards = () => {
     // if (typeof providerCommission === 'undefined') {
     //   return masterCommission?.cash_player || '0'
     // }
-    ref.current = cash_player
-    return cash_player
+    ref.current = Math.max(cash_player, 0)
+    return ref.current
   }
 
   return (

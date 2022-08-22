@@ -8,9 +8,12 @@ import {
   TextInputProps,
   StyleSheet,
   ViewProps,
+  NativeSyntheticEvent,
+  TextInputFocusEventData,
 } from 'react-native'
 
 const MotiText = motify(Text)()
+
 export interface InputBaseProps extends TextInputProps {
   label: string
   error?: string
@@ -34,6 +37,8 @@ const InputBase = forwardRef<{}, InputBaseProps>(
       containerProps,
       inputStyle,
       removeBorder,
+      onBlur,
+      onFocus,
       ...rest
     },
     ref
@@ -56,11 +61,11 @@ const InputBase = forwardRef<{}, InputBaseProps>(
       },
     })
 
-    function onFocus() {
+    function _onFocus() {
       labelState.transitionTo('shrink')
     }
 
-    function onBlur() {
+    function _onBlur() {
       if (isEmpty) {
         labelState.transitionTo('default')
       } else labelState.transitionTo('shrink')
@@ -74,7 +79,7 @@ const InputBase = forwardRef<{}, InputBaseProps>(
 
     useEffect(() => {
       if (!inputRef.current?.isFocused()) {
-        onBlur()
+        _onBlur()
       } else if (!isEmpty) {
         labelState.transitionTo('shrink')
       }
@@ -83,7 +88,7 @@ const InputBase = forwardRef<{}, InputBaseProps>(
 
     return (
       <TouchableWithoutFeedback
-        disabled
+        disabled={!editable}
         onPress={() => {
           inputRef.current?.focus()
         }}
@@ -128,8 +133,14 @@ const InputBase = forwardRef<{}, InputBaseProps>(
             >
               <TextInput
                 ref={inputRef}
-                onFocus={onFocus}
-                onBlur={onBlur}
+                onFocus={(e) => {
+                  _onFocus()
+                  onFocus && onFocus(e)
+                }}
+                onBlur={(e) => {
+                  _onBlur()
+                  onBlur && onBlur(e)
+                }}
                 placeholder={placeholder}
                 style={{ fontSize: 16, marginTop: 'auto' }}
                 editable={editable}
