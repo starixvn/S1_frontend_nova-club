@@ -4,7 +4,7 @@ import useContainerDimension from './useContainerDimension'
 export default function useGameGridSize(numOfCol = 3) {
   const { width, height } = useContainerDimension()
 
-  const containerSpaceUnits = 1
+  const containerSpaceUnits = 0
   const itemSpaceUnits = 1
   const spacePerUnit = width * HOME_PADDING * 0.5
 
