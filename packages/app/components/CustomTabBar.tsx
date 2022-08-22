@@ -1,13 +1,13 @@
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import BouncePressable from 'app/pressable/BouncePressable'
-import { Text } from 'dripsy'
+import { Text, useSx } from 'dripsy'
 import { Animated } from 'react-native'
 import { TabBar } from 'react-native-tab-view'
 import { DripsyGradient } from './Gradient'
 
 const CustomTabBar = (props) => {
   const { width } = useContainerDimension()
-
+  const sx = useSx()
   return (
     <TabBar
       {...props}
@@ -16,13 +16,13 @@ const CustomTabBar = (props) => {
         zIndex: 5,
         alignItems: 'center',
       }}
-      indicatorStyle={{
+      indicatorStyle={sx({
         backgroundColor: 'white',
-        top: 60,
+        bottom: '$2',
         width: width / 8,
         left: (width / props.navigationState.routes.length - width / 8) / 2,
         height: 3,
-      }}
+      })}
       renderTabBarItem={({ route, navigationState, onPress, position }) => {
         const tabIndex = navigationState.routes.indexOf(route)
         const active = navigationState.index === tabIndex
@@ -56,8 +56,10 @@ const CustomTabBar = (props) => {
               >
                 <Text
                   sx={{
+                    fontSize: 16,
                     fontWeight: 'bold',
-                    py: '$7',
+                    py: '$5',
+                    textAlign: 'center',
                   }}
                 >
                   {route.title}
