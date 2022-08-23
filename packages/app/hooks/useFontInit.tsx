@@ -11,15 +11,11 @@
 
 import { FontSource, useFonts } from 'expo-font'
 import { Platform } from 'react-native'
-import {
-  fontName,
-  HelveticaBold,
-  HelveticaBoldItalic,
-} from 'app/provider/dripsy'
+import { fontName, NotoSansBold, NotoSansBoldItalic } from 'app/provider/dripsy'
 import ICON_FILE from 'app/assets/fonts/icomoon.ttf'
-import NormalFont from 'app/assets/fonts/HelveticaNeue.ttf'
-import BoldFont from 'app/assets/fonts/HelveticaNeueBold.ttf'
-import BoldItalic from 'app/assets/fonts/HelveticaNeueBoldItalic.ttf'
+import NormalFont from 'app/assets/fonts/NotoSans.ttf'
+import BoldFont from 'app/assets/fonts/NotoSansBold.ttf'
+import BoldItalic from 'app/assets/fonts/NotoSansBoldItalic.ttf'
 
 type FontFamilyMap = Exclude<Parameters<typeof useFonts>[0], string>
 interface UseFontArgs {
@@ -39,8 +35,8 @@ export const DEFAULT_ICON = {
 export default function useFontInit({ iconUrl, fontFamily }: UseFontArgs = {}) {
   const composedFontFamily = {
     [fontName]: NormalFont,
-    [HelveticaBold]: BoldFont,
-    [HelveticaBoldItalic]: BoldItalic,
+    [NotoSansBold]: BoldFont,
+    [NotoSansBoldItalic]: BoldItalic,
     ...fontFamily,
   }
 

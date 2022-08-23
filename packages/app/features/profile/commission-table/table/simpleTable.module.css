@@ -2,8 +2,8 @@
   --table-th-p: 8px;
   --table-td-p: 6px;
 
-  font-family: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, Helvetica, Arial, sans-serif;
+  font-family: 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, Arial, Inter-serif;
   text-align: center;
   border-collapse: collapse;
 }

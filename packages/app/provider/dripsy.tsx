@@ -1,8 +1,8 @@
 import { DripsyProvider, makeTheme } from 'dripsy'
 import { Platform } from 'react-native'
-export const fontName = 'Helvetica Neue'
-export const HelveticaBold = 'Helvetica Neue Bold'
-export const HelveticaBoldItalic = 'Helvetica Neue Bold Italic'
+export const fontName = 'Noto Sans'
+export const NotoSansBold = 'Noto Sans Bold'
+export const NotoSansBoldItalic = 'Noto Sans Bold Italic'
 
 const webFont = (font: string) =>
   Platform.select({
@@ -221,14 +221,14 @@ const theme = makeTheme({
   customFonts: {
     [fontName]: {
       // I recommend setting every weight here
-      bold: webFont(HelveticaBold),
+      bold: webFont(NotoSansBold),
       default: webFont(fontName),
       normal: webFont(fontName),
       // 500: 'arialMedium',
       // 600: 'arialBold',
       // 700: HelveticaBold,
       // 800: 'arialBold',
-      900: webFont(HelveticaBoldItalic),
+      900: webFont(NotoSansBoldItalic),
     },
   },
 })
