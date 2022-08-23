@@ -39,7 +39,7 @@ const PersonalMessagePage = () => {
   const selectAll = () => {
     if (isAllSelected) setSelectedIds([])
     else
-      data?.data &&
+      data?.data?.messages &&
         setSelectedIds(data?.data?.messages.map((d) => d.messageId) ?? [])
   }
 
@@ -119,7 +119,7 @@ const PersonalMessagePage = () => {
         // onEndReachedThreshold={0.5}
         ListEmptyComponent={
           <Text sx={{ textAlign: 'center', mt: '$3' }}>
-            Does not have any message yet!
+            {t('message.empty')}
           </Text>
         }
       />

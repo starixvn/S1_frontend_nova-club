@@ -61,17 +61,14 @@ const useDownload = ({ ref, closeModal }: useDownloadProps) => {
     a.href = image
     a.download = createFileName(extension, name)
     a.click()
+    return
   }
 
   const webScreenshotDownload = () => {
-    console.log(
-      '🚀 ~ file: useDownload.tsx ~ line 68 ~ webScreenshotDownload ~ ref.current',
-      ref.current
-    )
     screenshot(ref.current)
-      .then(download)
-      .then(closeModal && closeModal())
-      .then(
+      .then((uri) => download(uri))
+      .then(() => closeModal && closeModal())
+      .then(() =>
         Toast.show({ type: 'success', text1: t('status.qrDownloadSuccess') })
       )
   }

@@ -1,29 +1,28 @@
-import useContainerDimension from 'app/hooks/useContainerDimension'
-import useLocalization from 'app/provider/localization'
-import { Text, View } from 'dripsy'
-import React, { Children, useCallback, useRef, useState } from 'react'
-import { Button } from '../form/Button'
-import ModalWrapper from './ModalWrapper'
-import QRCode from 'react-native-qrcode-svg'
-import { usePlayerProfileQuery } from 'services/playerApi'
-import { Button as RNButton, PermissionsAndroid, Platform } from 'react-native'
-import ViewShot, { captureRef } from 'react-native-view-shot'
-import * as MediaLibrary from 'expo-media-library'
-import useDownload from 'app/hooks/useDownload'
-import Icon from '../Icon'
-import IconButton from '../form/IconButton'
-import { copyToClipboard } from 'app/utils'
-import BouncePressable from 'app/pressable/BouncePressable'
-import useShare from 'app/hooks/useShare'
-import { RWebShare } from 'react-web-share'
-import QRCodeGenerator from '../QRCodeGenerator'
-import { DripsyGradient } from '../Gradient'
 import { REFERRAL_DOMAIN } from '@env'
+import useContainerDimension from 'app/hooks/useContainerDimension'
+import useDownload from 'app/hooks/useDownload'
+import useShare from 'app/hooks/useShare'
+import BouncePressable from 'app/pressable/BouncePressable'
+import useLocalization from 'app/provider/localization'
+import { copyToClipboard } from 'app/utils'
+import { Text, View } from 'dripsy'
+import React, { useRef } from 'react'
+import { Platform } from 'react-native'
+import ViewShot from 'react-native-view-shot'
+import { RWebShare } from 'react-web-share'
+import { usePlayerProfileQuery } from 'services/playerApi'
+import { Button } from '../form/Button'
+import IconButton from '../form/IconButton'
+import { DripsyGradient } from '../Gradient'
+import Icon from '../Icon'
+import QRCodeGenerator from '../QRCodeGenerator'
+import ModalWrapper from './ModalWrapper'
 
 const ReferralModal = ({ modal: { closeModal } }) => {
   const { t } = useLocalization()
   const player = usePlayerProfileQuery()
   const ref = useRef()
+
   const referralLink = `${REFERRAL_DOMAIN}?ref=${player.data?.data?.referral_code}`
   const { width, height } = useContainerDimension()
 
@@ -36,12 +35,15 @@ const ReferralModal = ({ modal: { closeModal } }) => {
   })
 
   const shareOptions = {
-    message: 'Share this referral link to receive rewards',
+    message: t('referral.shareMessage'),
     url: referralLink,
     title: t('common.share'),
   }
 
   const { onShare } = useShare(shareOptions)
+  const handleDownload = () => {
+    Platform.OS === 'web' ? webScreenshotDownload() : appScreenshotDownload()
+  }
 
   return (
     <ModalWrapper sx={{ width: width * 0.8, p: 0 }}>
@@ -70,27 +72,34 @@ const ReferralModal = ({ modal: { closeModal } }) => {
               bg: '#EEE',
               py: '$3',
               px: '$4',
-              borderRadius: 50,
-              flexDirection: 'row',
-              alignItems: 'center',
+              borderRadius: 12,
             }}
           >
-            <Text sx={{ flex: 0.35, color: 'black', fontSize: 13 }}>
+            <Text
+              sx={{
+                flex: 0.35,
+                color: 'black',
+                fontSize: 13,
+                fontWeight: 'bold',
+              }}
+            >
               {t('referral.link')}
             </Text>
-            <Text
-              numberOfLines={1}
-              sx={{ flex: 0.65, color: 'black', fontSize: 13 }}
-            >
-              {referralLink}
-            </Text>
-            <IconButton
-              name="copy"
-              size={20}
-              color="black"
-              sx={{ ml: '$1' }}
-              onPress={() => copyToClipboard(referralLink)}
-            />
+            <View sx={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Text
+                numberOfLines={1}
+                sx={{ flex: 1, color: 'black', fontSize: 13 }}
+              >
+                {referralLink}
+              </Text>
+              <IconButton
+                name="copy"
+                size={20}
+                color="black"
+                sx={{ ml: '$1' }}
+                onPress={() => copyToClipboard(referralLink)}
+              />
+            </View>
           </View>
 
           <View>
@@ -105,16 +114,12 @@ const ReferralModal = ({ modal: { closeModal } }) => {
               <ActionButton
                 icon="dl-round"
                 title={t('common.download')}
-                onPress={
-                  Platform.OS === 'web'
-                    ? webScreenshotDownload
-                    : appScreenshotDownload
-                }
+                onPress={handleDownload}
               />
               {Platform.OS === 'web' ? (
                 <RWebShare
                   data={shareOptions}
-                  onClick={() => console.info('share successful!')}
+                  onClick={() => console.info('Share successful!')}
                 >
                   <button
                     style={{
@@ -133,7 +138,7 @@ const ReferralModal = ({ modal: { closeModal } }) => {
                       color="black"
                       sx={{ mb: '$1' }}
                     />
-                    <span>Share</span>
+                    <span>{t('common.share')}</span>
                   </button>
                 </RWebShare>
               ) : (

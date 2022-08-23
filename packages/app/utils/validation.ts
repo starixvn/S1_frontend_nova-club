@@ -1,5 +1,6 @@
 import * as Yup from 'yup'
 
+export const USERNAME_MAX_LENGTH = 18
 export const PASSWORD_MAX_LENGTH = 15
 
 // const ALPHANUMERIC_REGEX = RegExp(/^(?=.*[0-9])(?=.*[a-z])([a-z0-9]+)$/)
@@ -10,7 +11,7 @@ const NUMERIC_REGEX = RegExp(/^[0-9]*$/)
 const validation = {
   username: Yup.string()
     .min(6, 'validation.userNameMinMaxLength')
-    .max(18, 'validation.userNameMinMaxLength')
+    .max(USERNAME_MAX_LENGTH, 'validation.userNameMinMaxLength')
     .matches(ALPHANUMERIC_REGEX, 'validation.username')
     .required('validation.required'),
 

@@ -135,8 +135,16 @@ const HotGamesSection = () => {
 
   return (
     <View sx={{ mb: '$7a' }}>
-      <SectionHeader title={hotgame.label} bgColor="orange" iconName="fire" />
-      <HorizontalGameList data={featuredList ?? []} />
+      {featuredList && featuredList.length > 0 && (
+        <>
+          <SectionHeader
+            title={hotgame.label}
+            bgColor="orange"
+            iconName="fire"
+          />
+          <HorizontalGameList data={featuredList ?? []} />
+        </>
+      )}
     </View>
   )
 }

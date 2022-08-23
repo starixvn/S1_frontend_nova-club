@@ -2,7 +2,7 @@ import { Button } from 'app/components/form/Button'
 import InputBase from 'app/components/form/Input/InputBase'
 import useLocalization from 'app/provider/localization'
 import { AlertActions } from 'app/store/alert.slice'
-import validation from 'app/utils/validation'
+import validation, { PASSWORD_MAX_LENGTH } from 'app/utils/validation'
 import { styled, Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React from 'react'
@@ -81,6 +81,7 @@ const ChangePasswordScreen = () => {
         value={values.oldPassword}
         onChangeText={handleChange('oldPassword')}
         onBlur={handleBlur('oldPassword')}
+        maxLength={PASSWORD_MAX_LENGTH}
         secureTextEntry
         error={
           touched.oldPassword && errors.oldPassword
@@ -96,6 +97,7 @@ const ChangePasswordScreen = () => {
         value={values.password}
         onChangeText={handleChange('password')}
         onBlur={handleBlur('password')}
+        maxLength={PASSWORD_MAX_LENGTH}
         secureTextEntry
         error={
           touched.password && errors.password
@@ -111,6 +113,7 @@ const ChangePasswordScreen = () => {
         value={values.confirmPassword}
         onChangeText={handleChange('confirmPassword')}
         onBlur={handleBlur('confirmPassword')}
+        maxLength={PASSWORD_MAX_LENGTH}
         secureTextEntry
         error={
           touched.confirmPassword && errors.confirmPassword
@@ -140,8 +143,6 @@ const ChangePasswordScreen = () => {
       >
         <Button.Label>{t('common.ok')}</Button.Label>
       </Button>
-
-      <StyledText>{t('common.passwordNote')}</StyledText>
     </StyledViewPage>
   )
 }

@@ -3,7 +3,7 @@ import { Button } from 'app/components/form/Button'
 import IconButton from 'app/components/form/IconButton'
 import InputBase from 'app/components/form/Input/InputBase'
 import MoneyInput from 'app/components/form/Input/MoneyInput'
-import { TextField } from 'app/components/TextField'
+import { MARGIN_TEXT_CENTERING } from 'app/constant/sizes'
 import AvailableBalance from 'app/features/withdrawal/AvailableBalance'
 import { useIsFocused } from 'app/hooks/isFocus/useIsFocused'
 import useContextualRouting from 'app/hooks/useContextualRouting'
@@ -36,7 +36,6 @@ type TransferValues = {
 }
 const { useParam } = createParam<{ referralCode: string }>()
 
-const NOTES = ['pin.note1']
 const TransferScreen = ({
   isIDTransfer = false,
 }: {
@@ -44,13 +43,11 @@ const TransferScreen = ({
 }) => {
   const dispatch = useDispatch()
   const { openModal } = useModal()
-  const { push } = useRouter()
+  const { push, back } = useRouter()
   const { t } = useLocalization()
   const isFocus = useIsFocused()
   const [referralCode] = useParam('referralCode')
-  console.log('🚀 ~ file: index.tsx ~ line 51 ~ referralCode', referralCode)
 
-  const { data: affiliateData } = useAffiliateUsernameQuery(referralCode ?? '')
   const [postTransferMemberToMember] = useTransferMemberToMemberMutation()
 
   const { data: balanceData } = usePlayerBalanceQuery(undefined, {
@@ -69,6 +66,15 @@ const TransferScreen = ({
   const toCreatePin = makeContextualHref('create-pin')
   const toForgotPin = makeContextualHref('forgot-pin')
 
+  useEffect(() => {
+    setFieldValue('referralId', referralCode)
+    if (referralCode === playerData?.data?.referral_code)
+      openModal('AlertDialogModal', {
+        message: t('status.qrTransferSelfError'),
+        onClose: () => back(),
+      })
+  }, [referralCode])
+
   const onSubmit = async (
     { referralId, realAmount }: TransferValues,
     transferPin: string,
@@ -79,7 +85,7 @@ const TransferScreen = ({
       const { data, success, message } = await postTransferMemberToMember({
         amount: realAmount,
         transfer_pin: transferPin,
-        to_invitation_code: isIDTransfer ? referralId : referralCode,
+        to_invitation_code: referralId,
       })
         .unwrap()
         .catch((error) => dispatch(AlertActions.addError(error.message)))
@@ -102,7 +108,7 @@ const TransferScreen = ({
       realAmount: 0,
     },
     validationSchema: Yup.object({
-      referralId: isIDTransfer ? validation.referralCode : null,
+      referralId: validation.referralCode,
       amount: validation.amount,
     }),
     onSubmit,
@@ -118,6 +124,7 @@ const TransferScreen = ({
     isValid,
     dirty,
     submitForm,
+    setFieldValue,
     setValues,
   } = formik
 
@@ -131,13 +138,26 @@ const TransferScreen = ({
 
   function onAmountChanged(text: string) {
     if (text != null) {
-      const { cleanText, amountNumber } = toCleanAmount(text)
+      const { cleanText, amountNumber } = toCleanAmount(text.toString())
       setValues({
         ...values,
         amount: cleanText,
         realAmount: toRealAmount(amountNumber),
       })
     }
+  }
+
+  const handleMax = () => {
+    const value = toCurrency(Number(playerBalance), currency, {
+      symbol: false,
+      hideTruncatedThousand: false,
+    })
+
+    setValues({
+      ...values,
+      amount: value.slice(0, -1),
+      realAmount: toRealAmount(value.replaceAll(',', '')),
+    })
   }
 
   const handleSubmit = () => {
@@ -171,7 +191,7 @@ const TransferScreen = ({
         ) : (
           <InputBase
             label={t('transfer.transferTo')}
-            value={affiliateData?.data?.username ?? ''}
+            value={values.referralId ?? ''}
             editable={false}
           />
         )}
@@ -193,17 +213,30 @@ const TransferScreen = ({
               : undefined
           }
           action={
-            <IconButton
-              name="ac"
-              size={18}
-              color={'$lightCyan'}
-              onPress={() => onAmountChanged(playerBalance ?? '')}
-            />
+            <View sx={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Text
+                numberOfLines={1}
+                sx={{
+                  fontWeight: 'bold',
+                  color: '#FFFBAE',
+                  mr: '$2',
+                  mb: MARGIN_TEXT_CENTERING,
+                }}
+              >
+                {`= ${values.amount ? values.amount : 0}K`}
+              </Text>
+              <IconButton
+                name="ac"
+                size={18}
+                color={'$lightCyan'}
+                onPress={handleMax}
+              />
+            </View>
           }
         />
 
         {!isPinExist && (
-          <View sx={{ alignItems: 'flex-end', mx: '$4' }}>
+          <View sx={{ alignItems: 'flex-end', mx: '$4', my: '$6' }}>
             <MotiLink
               href={toCreatePin}
               as={`/pin/create-pin`}
@@ -232,7 +265,7 @@ const TransferScreen = ({
             rounded
             stretch
             loading={isSubmitting}
-            disabled={!isValid || !dirty}
+            disabled={!isValid || !dirty || !isPinExist}
             variant="lg"
             fill={{
               type: 'gradient',
@@ -248,7 +281,11 @@ const TransferScreen = ({
             <Button.Label>{t('menu.transfer')}</Button.Label>
           </Button>
 
-          <Text>{t('pin.note1')}</Text>
+          {!isPinExist && (
+            <Text sx={{ textAlign: 'center', color: '$error' }}>
+              {t('pin.note1')}
+            </Text>
+          )}
         </View>
       </View>
     </View>

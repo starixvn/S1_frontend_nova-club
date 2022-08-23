@@ -25,9 +25,6 @@ const GameHistoryItem = ({ item }) => {
         <View style={{ flex: CELL_DATE_WIDTH }}>
           <DateTimeCell date={item.date} />
         </View>
-        {/* <View style={{ flex: CELL_AMOUNT_WIDTH }}>
-          <Text sx={{ textAlign: 'center' }}>{item.game_provider_code}</Text>
-        </View> */}
 
         <View
           sx={{

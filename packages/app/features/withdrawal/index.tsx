@@ -12,7 +12,7 @@ import { AlertActions } from 'app/store/alert.slice'
 import { toCleanAmount, toCurrency, toRealAmount } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import validation from 'app/utils/validation'
-import { styled, View } from 'dripsy'
+import { styled, Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React from 'react'
 import { SheetManager } from 'react-native-actions-sheet'
@@ -29,6 +29,7 @@ import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import AvailableBalance from './AvailableBalance'
 import { usePlayerBalanceQuery } from 'services/walletApi'
 import IconButton from 'app/components/form/IconButton'
+import { MARGIN_TEXT_CENTERING } from 'app/constant/sizes'
 
 const actionSheetId = ACTION_SHEET_ID.WITHDRAWAL
 
@@ -150,10 +151,6 @@ const WithdrawalPage = () => {
     setFieldValue,
   } = formik
 
-  const handleMaxAmount = () => {
-    onAmountChanged(playerBalance ?? '')
-  }
-
   function onAmountChanged(text: string) {
     if (text != null) {
       const { cleanText, amountNumber } = toCleanAmount(text)
@@ -180,6 +177,19 @@ const WithdrawalPage = () => {
       bankLogo: getBankLogo(values.bank?.BankCode),
       fields: CONFIRMATION_FIELDS,
       onConfirm: () => onSubmit(values, formik),
+    })
+  }
+
+  const handleMaxAmount = () => {
+    const value = toCurrency(Number(playerBalance), currency, {
+      symbol: false,
+      hideTruncatedThousand: false,
+    })
+
+    setValues({
+      ...values,
+      amount: value.slice(0, -1),
+      realAmount: toRealAmount(value.replaceAll(',', '')),
     })
   }
 
@@ -225,12 +235,25 @@ const WithdrawalPage = () => {
               : undefined
           }
           action={
-            <IconButton
-              name="ac"
-              size={18}
-              color={'$lightCyan'}
-              onPress={() => onAmountChanged(playerBalance ?? '')}
-            />
+            <View sx={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Text
+                numberOfLines={1}
+                sx={{
+                  fontWeight: 'bold',
+                  color: '#FFFBAE',
+                  mr: '$2',
+                  mb: MARGIN_TEXT_CENTERING,
+                }}
+              >
+                {`= ${values.amount ? values.amount : 0}K`}
+              </Text>
+              <IconButton
+                name="ac"
+                size={18}
+                color={'$lightCyan'}
+                onPress={handleMaxAmount}
+              />
+            </View>
           }
         />
 

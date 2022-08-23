@@ -31,8 +31,6 @@
     "table": "Bảng hoa hồng"
   },
   "common": {
-    "accumulateReward": "Tích lũy phần thưởng",
-    "active": "Người chơi đang hoạt động",
     "all": "HIỂN THỊ TẤT CẢ",
     "amount": "Số tiền",
     "balance": "Số dư",
@@ -75,7 +73,6 @@
     "recentlyOpened": "Mở gần đây",
     "recentlyViewed": "Xem gần đây",
     "referenceId": "ID tham chiếu",
-    "registered": "Đăng ký",
     "reward": "THƯỞNG",
     "rewards": "THƯỞNG",
     "selectAll": "Chọn tất cả",
@@ -157,6 +154,7 @@
       "sicbo": "Sicbo"
     },
     "transactionType": {
+      "adjustment": "Điều chỉnh",
       "deposit": "Nạp tiền",
       "game": "Trò Chơi",
       "rewards": "Phần thưởng",
@@ -245,6 +243,7 @@
   },
   "message": {
     "annoucement": "Thông Báo",
+    "empty": "Không có bất kỳ tin nhắn nào được nêu ra!",
     "personalMessage": "Tin nhắn khách hàng"
   },
   "notes": {
@@ -281,6 +280,8 @@
     "submitTitle": "Nhập mã PIN 6 số để xác nhận"
   },
   "profile": {
+    "accumulateReward": "Tích lũy phần thưởng",
+    "active": "Người chơi đang hoạt động",
     "details": {
       "currency": "Tiền tệ",
       "phone": "Số ĐT",
@@ -298,6 +299,8 @@
       "w/l": "Thắng/Thua (đồng)"
     },
     "playerId": "ID người chơi",
+    "registered": "Đăng ký",
+    "reward": "Phần thưởng hàng tháng",
     "timeline": "UTC/GMT +7"
   },
   "qr": {
@@ -309,7 +312,8 @@
   "referral": {
     "earn": "Chia sẻ & nhận thưởng",
     "friend": "Giới thiệu bạn bè",
-    "link": "Đường dẫn để giới thiệu"
+    "link": "Đường dẫn để giới thiệu",
+    "shareMessage": "Chia sẻ liên kết giới thiệu này để nhận phần thưởng"
   },
   "status": {
     "alert": "Cảnh báo",
@@ -325,6 +329,7 @@
     "processing": "Đang xử lý",
     "qrCodeNotDetected": "Không thể phát hiện mã QR trong hình ảnh",
     "qrDownloadSuccess": "Tải mã QR thành công",
+    "qrTransferSelfError": "Chuyển khoản vào tài khoản riêng không được phép",
     "receiptRequired": "Vui lòng tải biên lai gửi tiền",
     "referralError": "Mã giới thiệu không đúng, vui lòng thử mã khác",
     "rejected": "Từ chối",

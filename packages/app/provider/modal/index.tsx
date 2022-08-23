@@ -24,7 +24,7 @@ type ModalStackConfigValueType = ModalStackConfig extends Record<
 
 export interface ModalStackParams {
   AlertModal: undefined
-  AlertDialogModal: { message: string }
+  AlertDialogModal: { message: string; callback(...args: any): any }
   DepositConfirmationModal: { amount: number; callback(...args: any): any }
   PinModal: { onConfirm(...args: any): any; onForgotPin(...args: any): any }
   PlayerBankDeleteModal: { bank: Record<any, any> }

@@ -48,7 +48,7 @@ function QrcodeScannerTab({ isActive }) {
         constraints={{ facingMode: 'environment' }}
         onResult={isScanning ? handleBarCodeScannedWeb : undefined}
         className="absolute-fill-center"
-        scanDelay={1000}
+        scanDelay={500}
         videoContainerStyle={{ height }}
         videoStyle={{ zIndex: -1 }}
         ViewFinder={() => (

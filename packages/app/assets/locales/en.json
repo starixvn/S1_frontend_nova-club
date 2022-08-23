@@ -31,8 +31,6 @@
     "table": "Commission Table"
   },
   "common": {
-    "accumulateReward": "Accumulate Reward",
-    "active": "Active Player",
     "all": "All",
     "amount": "Amount",
     "balance": "Balance",
@@ -75,7 +73,6 @@
     "recentlyOpened": "Recently Opened",
     "recentlyViewed": "Recently Viewed",
     "referenceId": "Reference ID",
-    "registered": "Registered",
     "reward": "Reward",
     "rewards": "Rewards",
     "selectAll": "Select All",
@@ -157,6 +154,7 @@
       "sicbo": "Sicbo"
     },
     "transactionType": {
+      "adjustment": "Adjustment",
       "deposit": "Deposit",
       "game": "Game",
       "rewards": "Rewards",
@@ -245,6 +243,7 @@
   },
   "message": {
     "annoucement": "Annoucement",
+    "empty": "Does not have any message yet!",
     "personalMessage": "Personal Message"
   },
   "notes": {
@@ -281,6 +280,8 @@
     "submitTitle": "Enter 6-digit PIN to confirm"
   },
   "profile": {
+    "accumulateReward": "Accumulate Reward",
+    "active": "Active Player",
     "details": {
       "currency": "Currency",
       "phone": "Phone Number",
@@ -298,6 +299,8 @@
       "w/l": "Win/Lose (VND)"
     },
     "playerId": "Player ID",
+    "registered": "Registered",
+    "reward": "Monthly Reward",
     "timeline": "UTC/GMT +7"
   },
   "qr": {
@@ -309,7 +312,8 @@
   "referral": {
     "earn": "Share & Earn",
     "friend": "Friend Referral",
-    "link": "Referral Link"
+    "link": "Referral Link",
+    "shareMessage": "Share this referral link to receive rewards"
   },
   "status": {
     "alert": "Alert",
@@ -325,6 +329,7 @@
     "processing": "Processing",
     "qrCodeNotDetected": "Cannot detect QR code in image",
     "qrDownloadSuccess": "Qr code download successfully",
+    "qrTransferSelfError": "Transfer to own account is not allowed",
     "receiptRequired": "Receipt is required for deposit submit",
     "referralError": "Refferal doesn't exist, please try another code",
     "rejected": "Rejected",

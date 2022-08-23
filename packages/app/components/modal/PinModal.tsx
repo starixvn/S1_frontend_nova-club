@@ -49,7 +49,7 @@ const PinModal = ({ modal: { closeModal, getParam } }) => {
           name="cross"
           size={24}
           onPress={() => closeModal()}
-          sx={{ position: 'absolute', right: MODAL_PADDING }}
+          sx={{ position: 'absolute', right: 0 }}
         />
         <Text sx={{ fontSize: 22 }}>{t('pin.submitTitle')}</Text>
       </View>
