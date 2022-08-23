@@ -1,4 +1,3 @@
-import useFontInit from 'app/hooks/useFontInit'
 import { NativeNavigation } from 'app/navigation/native'
 import { Provider } from 'app/provider'
 import { styled } from 'dripsy'
@@ -21,8 +20,6 @@ Sentry.init({
 })
 
 export default function App() {
-  useFontInit()
-
   return (
     <TouchableWithoutFeedback
       style={{ flex: 1 }}
