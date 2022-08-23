@@ -109,6 +109,7 @@ const StyledViewFooter = styled(View)(() => ({
 
 const StyledTextHeader = styled(Text)(() => ({
   flex: 1,
+  fontSize: 20,
   textAlign: 'center',
 }))
 const StyledViewClose = styled(View)(() => ({

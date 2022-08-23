@@ -1,5 +1,4 @@
 import { Button } from 'app/components/form/Button'
-import InputBase from 'app/components/form/Input/InputBase'
 import TextInput from 'app/components/form/TextInput'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
@@ -7,7 +6,11 @@ import { useAppDispatch } from 'app/provider/redux/store'
 import { AlertActions } from 'app/store/alert.slice'
 import { AuthActions } from 'app/store/authReducer'
 import { SettingActions } from 'app/store/setting.slice'
-import validation, { getErrorMessage } from 'app/utils/validation'
+import validation, {
+  getErrorMessage,
+  PASSWORD_MAX_LENGTH,
+  USERNAME_MAX_LENGTH,
+} from 'app/utils/validation'
 import { styled, Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useRef, useState } from 'react'
@@ -124,6 +127,7 @@ const LoginForm = () => {
           onSubmitEditing: () => {
             passwordFieldRef.current?.focus()
           },
+          maxLength: USERNAME_MAX_LENGTH,
         }}
         error={
           touched.username && errors.username
@@ -144,6 +148,7 @@ const LoginForm = () => {
           secureTextEntry: true,
           ref: passwordFieldRef,
           onSubmitEditing: submitForm,
+          maxLength: PASSWORD_MAX_LENGTH,
         }}
         error={
           touched.password && errors.password

@@ -1,18 +1,32 @@
-import { Gradient } from '@dripsy/gradient'
-import GradientBox from 'app/components/GradientBox'
+import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
 import { styled, Text, useDripsyTheme, View } from 'dripsy'
-import React from 'react'
 import { usePlayerOverviewSummaryQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 
-const ProfileOverview = () => {
+type Amount = string | number
+
+interface ProfileOverviewProps {
+  title: string
+  amountWL: Amount
+  amountTO: Amount
+  amountRB: Amount
+  amountDirect?: Amount
+}
+
+const ProfileOverview = ({
+  title,
+  amountWL,
+  amountTO,
+  amountRB,
+  amountDirect,
+}: ProfileOverviewProps) => {
   const { t } = useLocalization()
-  const { theme } = useDripsyTheme()
   const { push } = useRouter()
+  const { theme } = useDripsyTheme()
 
   const { data } = usePlayerOverviewSummaryQuery()
 
@@ -20,85 +34,106 @@ const ProfileOverview = () => {
   const toOverview = makeContextualHref('/profile/overview')
 
   return (
-    <Gradient
-      colors={['#033454', 'rgb(13, 32, 53)']}
-      sx={{ minHeight: 100, p: '$3' }}
-    >
-      <StyledOverView>
-        <Text sx={{ fontWeight: 'bold' }}>
-          {t('profile.overview.title').toUpperCase()}
-        </Text>
-        <BouncePressable
-          sx={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-          onPress={() => push(toOverview, '/profile/overview')}
+    <StyledContainer>
+      <View
+        sx={{
+          overflow: 'hidden',
+        }}
+      >
+        <DripsyGradient
+          gradient={'PaleBlue'}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 0, y: 0 }}
         >
-          <Text
+          <View
             sx={{
-              color: theme.colors.$lightCyan,
-              mr: '$1',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              p: '$3',
             }}
           >
-            {t('common.more')}
-          </Text>
-          <Icon
-            name="chevright"
-            size={16}
-            color={theme.colors.$lightCyan}
-            sx={{ mt: 3 }}
-          />
-        </BouncePressable>
-      </StyledOverView>
-      <StyledItemViewWrapper>
-        <OverviewItem
-          title={t('common.registered')}
-          value={data?.data?.registered ?? 0}
+            <Text sx={{ fontWeight: 'bold' }}>
+              {t('profile.overview.title').toUpperCase()}
+            </Text>
+            <BouncePressable
+              sx={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+              onPress={() => push(toOverview, '/profile/overview')}
+            >
+              <Text
+                sx={{
+                  color: '$lightCyan',
+                  mr: '$1',
+                }}
+              >
+                {t('common.more')}
+              </Text>
+              <Icon
+                name="chevright"
+                size={16}
+                color={theme.colors.$lightCyan}
+                sx={{ mt: 3 }}
+              />
+            </BouncePressable>
+          </View>
+        </DripsyGradient>
+      </View>
+
+      <BottomInfo
+        label={t('profile.reward')}
+        amount={data?.data?.accumulate_reward ?? 0}
+      />
+
+      <View
+        sx={{
+          flexDirection: 'row',
+          justifyContent: 'space-around',
+        }}
+      >
+        <BottomInfo
+          label={t('profile.registered')}
+          amount={data?.data?.registered ?? 0}
         />
-        <OverviewItem
-          title={t('common.active')}
-          value={data?.data?.active_player ?? 0}
+        <BottomInfo
+          label={t('profile.active')}
+          amount={data?.data?.active_player ?? 0}
         />
-        <OverviewItem
-          title={t('common.accumulateReward')}
-          value={data?.data?.accumulate_reward ?? 0}
-        />
-      </StyledItemViewWrapper>
-    </Gradient>
+      </View>
+    </StyledContainer>
   )
 }
 
-const OverviewItem = ({ title, value }: { title: string; value: number }) => {
+const BottomInfo = ({ label, amount }: { label: string; amount: Amount }) => {
   return (
-    <StyledItemView>
-      <StyledValueText>{value}</StyledValueText>
-      <Text sx={{ textAlign: 'center' }}>{title}</Text>
-    </StyledItemView>
+    <StyledBottomContainer>
+      <Text sx={{ pt: '$3', fontSize: 24 }}>{amount}</Text>
+      <Text sx={{ pb: '$3' }}>{label}</Text>
+    </StyledBottomContainer>
   )
 }
 
-const StyledOverView = styled(View)(() => ({
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-}))
+const StyledContainer = styled(View)({
+  // borderWidth: 1,
+  borderColor: '$lightNavyBlue',
+})
 
-const StyledItemViewWrapper = styled(View)(() => ({
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-}))
+const StyledTitle = styled(Text)({
+  p: '$3',
+  fontWeight: 'bold',
+  pt: '$6',
+  pb: '$3',
+  fontSize: 18,
+})
 
-const StyledItemView = styled(View)(() => ({
+const StyledBottomContainer = styled(View)({
+  borderWidth: 1,
+  borderColor: '$lightNavyBlue',
   flex: 1,
   alignItems: 'center',
-}))
-
-const StyledValueText = styled(Text)(() => ({
-  fontSize: 28,
-  fontWeight: 'bold',
-  color: '$PaleBlue',
-  py: 12,
-}))
+})
 
 export default ProfileOverview

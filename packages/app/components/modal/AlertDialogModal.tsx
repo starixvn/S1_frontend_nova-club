@@ -8,11 +8,11 @@ const AlertDialogModal = ({ modal: { closeModal, getParam } }) => {
   const { t } = useLocalization()
 
   const message = getParam('message', '')
-  const callback = getParam('callback')
+  const onClose = getParam('onClose')
 
   function onDismiss() {
     setTimeout(() => {
-      callback && callback()
+      onClose && onClose()
     }, 500)
     closeModal()
   }

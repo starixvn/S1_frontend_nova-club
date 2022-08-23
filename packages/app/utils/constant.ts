@@ -69,6 +69,7 @@ export enum ReportTransactionType {
   REWARDS = 'rewards',
   REFERRAL = 'referral',
   TRANSFER = 'transfer',
+  ADJUSTMENT = 'adjustment',
   GAME = 'game',
 }
 export const ReportTransactionTypeOptions = [
@@ -91,6 +92,10 @@ export const ReportTransactionTypeOptions = [
   {
     value: ReportTransactionType.TRANSFER,
     label: 'menu.transfer',
+  },
+  {
+    value: ReportTransactionType.ADJUSTMENT,
+    label: 'filter.transactionType.adjustment',
   },
   {
     value: ReportTransactionType.GAME,

@@ -94,17 +94,14 @@ const useImagePicker = () => {
 
   const handleGoToTransfer = async (value: string) => {
     handleScan(false)
-    console.log(
-      '🚀 ~ file: useImagePicker.ts ~ line 94 ~ handleGoToTransfer ~ value',
-      value
-    )
+
     const data = await fetchUsername(value)
       .unwrap()
       .catch((error) => {
         // dispatch(AlertActions.addError(error.message))
         openModal('AlertDialogModal', {
           message: error.message,
-          callback: () => handleScan(true),
+          onClose: () => handleScan(true),
         })
       })
 
