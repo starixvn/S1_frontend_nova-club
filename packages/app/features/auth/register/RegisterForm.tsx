@@ -121,7 +121,7 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
       },
       autoCapitalize: 'none',
     }),
-    [values.username, onUsernameChange, onUsernameBlur]
+    [t, values.username, onUsernameChange, onUsernameBlur]
   )
 
   const usernameError = useMemo(() => {

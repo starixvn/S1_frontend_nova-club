@@ -7,8 +7,6 @@ import { useMemo, useRef } from 'react'
 import { useCommissionTableQuery } from 'services/contentApi'
 import { usePlayerProfileQuery } from 'services/playerApi'
 
-const MASTER_NAME = 'MASTER'
-
 const GameRewards = () => {
   const { t } = useLocalization()
   const ref = useRef<number>(0)
@@ -37,14 +35,6 @@ const GameRewards = () => {
     [commisions, gameType, providerCode]
   )
 
-  // const masterCommission = useMemo(
-  //   () =>
-  //     commisions.find((commission) => {
-  //       return commission.system_code === MASTER_NAME
-  //     }),
-  //   [commisions]
-  // )
-
   let { cash_player = 0 } = providerCommission || {}
 
   const getReward = () => {
@@ -52,9 +42,6 @@ const GameRewards = () => {
       return ref.current
     }
 
-    // if (typeof providerCommission === 'undefined') {
-    //   return masterCommission?.cash_player || '0'
-    // }
     ref.current = Math.max(cash_player, 0)
     return ref.current
   }
