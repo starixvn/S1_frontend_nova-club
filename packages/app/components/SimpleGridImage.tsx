@@ -54,7 +54,7 @@ const SimpleGridImage: FC<GamesProps> = ({
   //   setLoaded(false)
   // }, [image])
   return (
-    <View sx={sx}>
+    <View sx={{ ...{ flexShrink: 1 }, ...sx }}>
       <TouchableOpacity
         style={_sx({ width, position: 'relative' })}
         onPress={() => {
@@ -100,7 +100,7 @@ const SimpleGridImage: FC<GamesProps> = ({
       </TouchableOpacity>
       {showName && (
         <Text
-          numberOfLines={1}
+          numberOfLines={2}
           sx={{
             textAlign: 'center',
             color: '$lightNavyBlue',
