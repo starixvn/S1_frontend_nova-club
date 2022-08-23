@@ -1,15 +1,14 @@
-import HistoryEmpty from 'app/components/history/HistoryEmpty'
 import HistoryListing from 'app/components/history/HistoryListing'
 import useLocalization from 'app/provider/localization'
 import {
-  Currency,
   DateFilterOptions,
   ReportDepositStatusOptions,
   ReportTransactionType,
   ReportTransactionTypeOptions,
 } from 'app/utils/constant'
 import dayjsTz from 'app/utils/dayjs'
-import { useDripsyTheme, View } from 'dripsy'
+import dayjs from 'dayjs'
+import { View } from 'dripsy'
 import React, { useCallback, useEffect, useState } from 'react'
 import {
   useLazyPlayerReportQuery,
@@ -22,11 +21,6 @@ import ReferralHistoryItem from '../ReferralHistoryItem'
 import RewardHistoryItem from '../RewardHistoryItem'
 import TransferHistoryItem from '../TransferHistoryItem'
 import WithdrawalHistoryItem from '../WithdrawalHistoryItem'
-
-const CELL_DATE_WIDTH = 1
-const CELL_AMOUNT_WIDTH = 1
-const CELL_STATUS_WIDTH = 1
-const CELL_GAME_WIDTH = 1
 
 type HistoryListingDataType = Exclude<
   ReportResult['rows'],
@@ -42,8 +36,8 @@ const TransactionHistoryTab = () => {
     selectedStatus: ReportDepositStatusOptions[0],
     selectedDate: DateFilterOptions[0],
     selectedTransType: ReportTransactionTypeOptions[0],
-    startDate: dayjsTz().startOf('date').toDate(),
-    endDate: dayjsTz().endOf('date').toDate(),
+    startDate: dayjs().startOf('date').toDate(),
+    endDate: dayjs().endOf('date').toDate(),
   })
 
   const [fetchParams, setFetchParams] = useState({
@@ -66,55 +60,6 @@ const TransactionHistoryTab = () => {
           : false,
     })
   }, [selected])
-
-  const columns = {
-    payment: {
-      label: t('deposit.paymentMode'),
-      columnWidth: CELL_DATE_WIDTH,
-    },
-    date: {
-      label: t('menu.tab.date'),
-      columnWidth: CELL_DATE_WIDTH,
-    },
-    game: {
-      label: t('menu.tab.game'),
-      columnWidth: CELL_GAME_WIDTH,
-    },
-    amount: {
-      label: t('common.amount'),
-      columnWidth: CELL_AMOUNT_WIDTH,
-    },
-    label: {
-      label: t('menu.tab.status'),
-      columnWidth: CELL_STATUS_WIDTH,
-    },
-    transferTo: {
-      label: t('transfer.transferTo'),
-      columnWidth: CELL_STATUS_WIDTH,
-    },
-  }
-
-  const tableHeader = {
-    [ReportTransactionType.DEPOSIT]: [
-      columns.payment,
-      columns.date,
-      columns.label,
-    ],
-    [ReportTransactionType.REWARDS]: [
-      columns.date,
-      columns.game,
-      columns.amount,
-    ],
-    [ReportTransactionType.TRANSFER]: [
-      columns.date,
-      columns.transferTo,
-      columns.amount,
-    ],
-  }[selected.selectedTransType?.value || ''] || [
-    columns.date,
-    columns.amount,
-    columns.label,
-  ]
 
   const keyExtractor = (item: HistoryListingDataType, index: number) => {
     let uid = ''

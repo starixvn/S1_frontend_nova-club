@@ -4,16 +4,15 @@ import SelectSquare from 'app/components/form/Select/SelectSquare'
 import useLocalization from 'app/provider/localization'
 import {
   DateFilter,
+  DateFilterOptions,
   GameProvider,
-  ReportTransactionType,
-  ReportTransactionTypeOptions,
+  ReportCommonStatusOptions,
   ReportDepositStatusOptions,
   ReportGameStatusOptions,
-  DateFilterOptions,
-  ReportCommonStatusOptions,
-  ReportGameStatus,
+  ReportTransactionType,
+  ReportTransactionTypeOptions,
 } from 'app/utils/constant'
-import dayjsTz from 'app/utils/dayjs'
+import dayjs from 'dayjs'
 import { Text, View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import { SelectOptions } from 'services/common/types'
@@ -53,28 +52,28 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
 
     switch (value) {
       case DateFilter.TODAY:
-        startDate = dayjsTz().startOf('date').toDate()
-        endDate = dayjsTz().endOf('date').toDate()
+        startDate = dayjs().startOf('date').toDate()
+        endDate = dayjs().endOf('date').toDate()
         return { startDate, endDate }
 
       case DateFilter.YESTERDAY:
-        startDate = dayjsTz().subtract(1, 'day').startOf('date').toDate()
-        endDate = dayjsTz().subtract(1, 'day').endOf('date').toDate()
+        startDate = dayjs().subtract(1, 'day').startOf('date').toDate()
+        endDate = dayjs().subtract(1, 'day').endOf('date').toDate()
         return { startDate, endDate }
 
       case DateFilter.THIS_WEEK:
-        startDate = dayjsTz().startOf('week').toDate()
-        endDate = dayjsTz().endOf('date').toDate()
+        startDate = dayjs().startOf('week').toDate()
+        endDate = dayjs().endOf('date').toDate()
         return { startDate, endDate }
 
       case DateFilter.LAST_WEEK:
-        startDate = dayjsTz().subtract(1, 'week').startOf('week').toDate()
-        endDate = dayjsTz().subtract(1, 'week').endOf('week').toDate()
+        startDate = dayjs().subtract(1, 'week').startOf('week').toDate()
+        endDate = dayjs().subtract(1, 'week').endOf('week').toDate()
         return { startDate, endDate }
 
       case DateFilter.THIS_MONTH:
-        startDate = dayjsTz().startOf('month').toDate()
-        endDate = dayjsTz().endOf('date').toDate()
+        startDate = dayjs().startOf('month').toDate()
+        endDate = dayjs().endOf('date').toDate()
         return { startDate, endDate }
 
       case DateFilter.CUSTOM:
@@ -83,8 +82,8 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
         return { startDate, endDate }
 
       default:
-        startDate = dayjsTz().startOf('date').toDate()
-        endDate = dayjsTz().endOf('date').toDate()
+        startDate = dayjs().startOf('date').toDate()
+        endDate = dayjs().endOf('date').toDate()
         return { startDate, endDate }
     }
   }
