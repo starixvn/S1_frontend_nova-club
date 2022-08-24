@@ -185,7 +185,6 @@ function ButtonLabel({
       variant={variant}
       variants={variants}
       sx={{
-        mb: '$1', // fix the font not render at middle
         px: '$1',
         fontWeight: 'bold',
         textTransform,

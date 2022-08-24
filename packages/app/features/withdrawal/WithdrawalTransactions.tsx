@@ -33,7 +33,9 @@ const WithdrawalTransactions = () => {
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          m: '$4',
+          px: '$3',
+          py: '$2',
+          mt: '$4',
         }}
       >
         <Text>{t('transaction.recent')}</Text>

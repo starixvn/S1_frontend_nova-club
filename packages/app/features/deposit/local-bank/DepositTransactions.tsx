@@ -45,7 +45,8 @@ const DepositTransactions = ({ isLocalBank = false }) => {
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          m: '$4',
+          p: '$2',
+          mt: '$4',
         }}
       >
         <Text sx={{}}>

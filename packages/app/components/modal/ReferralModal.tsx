@@ -70,14 +70,13 @@ const ReferralModal = ({ modal: { closeModal } }) => {
           <View
             sx={{
               bg: '#EEE',
-              py: '$3',
-              px: '$4',
+              py: '$2',
+              px: '$3',
               borderRadius: 12,
             }}
           >
             <Text
               sx={{
-                flex: 0.35,
                 color: 'black',
                 fontSize: 13,
                 fontWeight: 'bold',

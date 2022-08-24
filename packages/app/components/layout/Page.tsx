@@ -59,6 +59,7 @@ export const PageWithBackHeader = ({
           bg: '$secondary',
           flex: 1,
         }}
+        showsVerticalScrollIndicator={false}
         {...rest}
       >
         {children}

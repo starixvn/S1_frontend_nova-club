@@ -177,11 +177,11 @@ const StyledBackgroundWrapper = styled(View)({
 const StyledText = styled(Text)({
   textAlign: 'center',
   alignSelf: 'center',
-  fontSize: 11,
+  fontSize: 12,
   fontWeight: 'bold',
   width: '90%',
-  mt: '$0a',
-  mb: '$2a',
+  mt: '$1',
+  mb: '$2',
 })
 
 const StyledListView = styled(View)({

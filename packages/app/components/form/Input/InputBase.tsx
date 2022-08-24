@@ -98,7 +98,7 @@ const InputBase = forwardRef<{}, InputBaseProps>(
             sx={{
               flexDirection: 'row',
               height: 60,
-              py: '$3',
+              py: '$2a',
               px: space,
               position: 'relative',
             }}

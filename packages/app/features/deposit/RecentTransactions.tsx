@@ -38,7 +38,6 @@ const RecentTransactions = () => {
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          m: '$4',
         }}
       >
         <Text>{t('transaction.recent')}</Text>

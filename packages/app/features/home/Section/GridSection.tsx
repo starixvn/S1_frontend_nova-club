@@ -148,8 +148,7 @@ const GridSection = () => {
                   fontWeight: 'bold',
                   textTransform: 'uppercase',
                   fontSize: [14, 16],
-                  pt: ['$1', '$2'],
-                  pb: ['$1a', '$2a'],
+                  py: ['$1', '$2'],
                   textAlign: 'center',
                 }}
               >

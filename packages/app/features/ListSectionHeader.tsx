@@ -102,7 +102,6 @@ const StyledText = styled(Text)({
   color: 'white',
   pl: '$1a',
   pr: '$5',
-  pt: '$1',
   fontWeight: 900,
   textTransform: 'uppercase',
 })

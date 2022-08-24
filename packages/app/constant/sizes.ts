@@ -7,4 +7,4 @@ export const GAMES_GAME_GROUP_ROW = 3
 /* Home Grid */
 export const GRID_TOTAL_COL = 6
 
-export const MARGIN_TEXT_CENTERING = 4
+export const MARGIN_TEXT_CENTERING = 0 // previously using value 4, the new font no longer have spacing issue
