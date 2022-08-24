@@ -67,7 +67,7 @@ const AddBankAccountScreen = () => {
 
   async function updateRealName(realName, otp) {
     const { data, success, message } = await updateProfile({
-      field: 'realName',
+      field: 'firstName',
       value: realName,
       verify_code: otp,
     })
