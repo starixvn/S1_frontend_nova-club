@@ -3,10 +3,14 @@ import {
   getCoreRowModel,
   useTableInstance,
 } from '@tanstack/react-table'
+import { LANGUAGE_CODE } from 'app/constant/language'
 import useLocalization, { Translate } from 'app/provider/localization'
+import { useAppDispatch } from 'app/provider/redux/store'
+import { SettingActions } from 'app/store/setting.slice'
 import { Currency } from 'app/utils/constant'
 import { ActivityIndicator, useDripsyTheme } from 'dripsy'
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
+import { Platform } from 'react-native'
 import { useCommissionTableQuery } from 'services/contentApi'
 import { CommissionTableResult } from 'services/contentApi.type'
 import styles from './simpleTable.module.css'
@@ -73,10 +77,11 @@ const generateTableColumns = (t: Translate) => {
 }
 
 const SimpleTable = () => {
+  const dispatch = useAppDispatch()
   const { t } = useLocalization()
-  const [columns] = useState<ReturnType<typeof generateTableColumns>>(
-    generateTableColumns(t)
-  )
+  const [columns, setColumns] = useState<
+    ReturnType<typeof generateTableColumns>
+  >(generateTableColumns(t))
 
   const { theme } = useDripsyTheme()
 
@@ -111,6 +116,25 @@ const SimpleTable = () => {
     columns,
     getCoreRowModel: getCoreRowModel(),
   })
+
+  const getUrlQueryLang = useCallback(() => {
+    const url = new URLSearchParams(window.location.search)
+    const urlLang = url.get('lang')
+
+    if (
+      urlLang &&
+      Object.values(LANGUAGE_CODE).includes(urlLang as LANGUAGE_CODE)
+    ) {
+      dispatch(SettingActions.setLocale(urlLang))
+    }
+  }, [dispatch])
+
+  useEffect(() => {
+    if (Platform.OS === 'web' && window.ReactNativeWebView != null) {
+      getUrlQueryLang()
+      setColumns(generateTableColumns(t))
+    }
+  }, [getUrlQueryLang, t])
 
   if (isLoading) {
     return (

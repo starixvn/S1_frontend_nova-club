@@ -1,11 +1,14 @@
+import { DEV_DOMAIN } from '@env'
+import { useAppSelector } from 'app/provider/redux/store'
 import { View } from 'dripsy'
 import React from 'react'
 import WebView from 'react-native-webview'
-import { DEV_DOMAIN } from '@env'
-
-const COMMISSION_TABLE_URL = DEV_DOMAIN + '/profile/commission-table'
 
 const SimpleTable = () => {
+  const lang = useAppSelector((state) => state.setting.locale)
+
+  const COMMISSION_TABLE_URL = `${DEV_DOMAIN}/profile/commission-table?lang=${lang}`
+
   // Used to hide the header inside webview
   const INJECTED_JAVASCRIPT = `
   window.addEventListener('load', () => {
