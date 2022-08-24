@@ -7,6 +7,7 @@ export const PASSWORD_MAX_LENGTH = 15
 const ALPHANUMERIC_REGEX = RegExp(/^[0-9A-Za-z]*$/g)
 const PASSWORD_REGEX = RegExp(/^([a-zA-Z0-9!@#$%^&*]+)$/g)
 const NUMERIC_REGEX = RegExp(/^[0-9]*$/)
+const AMOUNT_REGEX = RegExp(/^(?!0$).*/)
 
 const validation = {
   username: Yup.string()
@@ -50,7 +51,9 @@ const validation = {
     .typeError('validation.numberOnly')
     .required('validation.needAccountNo'),
 
-  amount: Yup.string().required('validation.required'),
+  amount: Yup.string()
+    .required('validation.required')
+    .matches(AMOUNT_REGEX, 'validation.amount0'),
 
   bank: Yup.object().required('validation.required'),
   paymentMode: Yup.string().required('validation.required'),

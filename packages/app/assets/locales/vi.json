@@ -351,6 +351,7 @@
   "validation": {
     "alphanumeric": "6-18 ký tự chữ và số (A-Z, a-z, 0-9)",
     "amount": "%{amount} ngoài hạn mức",
+    "amount0": "",
     "amountLessThan": "Số tiền không thể nhỏ hơn %{min}",
     "dailyLimitReached": "Bạn Đã Sử Dụng Hết Hạn Mức Trong Ngày",
     "email": "Định dạng email chưa đúng",

@@ -95,7 +95,9 @@ const useImagePicker = () => {
   const handleGoToTransfer = async (value: string) => {
     handleScan(false)
 
-    const data = await fetchUsername(value)
+    const cleanText = value.replace(/\W/g, '') ?? ''
+
+    const data = await fetchUsername(cleanText)
       .unwrap()
       .catch((error) => {
         // dispatch(AlertActions.addError(error.message))
@@ -108,7 +110,7 @@ const useImagePicker = () => {
     if (data?.success) {
       handleScan(false)
       const params = {
-        referralCode: value,
+        referralCode: cleanText,
       }
 
       push(makeContextualHref('transfer', params), {

@@ -351,6 +351,7 @@
   "validation": {
     "alphanumeric": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only",
     "amount": "%{amount} not in range",
+    "amount0": "Amount must not be 0",
     "amountLessThan": "Amount cannot be less than %{min}",
     "dailyLimitReached": "Your Daily Limit Reached",
     "email": "Mail format is wrong",
