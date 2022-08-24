@@ -5,7 +5,7 @@ import ProfileLanguage from 'app/features/profile/ProfileLanguage'
 import { useIsFocused } from 'app/hooks/isFocus/useIsFocused'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { Image, ScrollView, styled, Text, View } from 'dripsy'
+import { Image, styled, Text, View } from 'dripsy'
 import React, { useCallback, useEffect } from 'react'
 import { useRouter } from 'solito/router'
 

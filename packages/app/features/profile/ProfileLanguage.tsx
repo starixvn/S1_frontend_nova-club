@@ -1,12 +1,11 @@
 import { Button } from 'app/components/form/Button'
 import { LANGUAGE_CODE } from 'app/constant/language'
-import { RootState } from 'app/provider/redux/store'
-import { AlertActions } from 'app/store/alert.slice'
+import { useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
 import { Image, styled, useDripsyTheme, View } from 'dripsy'
-import React, { ComponentProps, useRef, useState } from 'react'
+import React, { ComponentProps, useState } from 'react'
 import { ImageSourcePropType } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { usePlayerLangMutation } from 'services/playerApi'
 
 const LANGUAGE_TO_FLAG_ICON = {
@@ -26,8 +25,7 @@ interface ProfileLanguageProps {
 const ProfileLanguage = ({ isAuthRequired = true }: ProfileLanguageProps) => {
   const dispatch = useDispatch()
 
-  const lang = useSelector((s: RootState) => s.setting.locale)
-  const [activeLang, setActiveLang] = useState(lang)
+  const lang = useAppSelector((state) => state.setting.locale)
 
   const [updateState, setUpdateState] = useState(UPDATE_STATE.COMPLETED)
   const [updateLanguage] = usePlayerLangMutation()
@@ -55,7 +53,6 @@ const ProfileLanguage = ({ isAuthRequired = true }: ProfileLanguageProps) => {
   }
 
   const setLanguage = (value: LANGUAGE_CODE) => {
-    setActiveLang(value)
     dispatch(SettingActions.setLocale(value))
   }
 
@@ -70,13 +67,13 @@ const ProfileLanguage = ({ isAuthRequired = true }: ProfileLanguageProps) => {
 
   return (
     <StyledView>
-      <StyledSelectedView isActive={activeLang === LANGUAGE_CODE.ENGLISH}>
+      <StyledSelectedView isActive={lang === LANGUAGE_CODE.ENGLISH}>
         <FlagButton
           onPress={() => onChangeLanguage(LANGUAGE_CODE.ENGLISH)}
-          disabled={activeLang === LANGUAGE_CODE.ENGLISH}
+          disabled={lang === LANGUAGE_CODE.ENGLISH}
           loading={
             updateState === UPDATE_STATE.UPDATING &&
-            activeLang === LANGUAGE_CODE.VIETNAM
+            lang === LANGUAGE_CODE.VIETNAM
           }
           imageSource={LANGUAGE_TO_FLAG_ICON[LANGUAGE_CODE.ENGLISH]}
         />
@@ -84,13 +81,13 @@ const ProfileLanguage = ({ isAuthRequired = true }: ProfileLanguageProps) => {
 
       <View sx={{ mx: '$1' }} />
 
-      <StyledSelectedView isActive={activeLang === LANGUAGE_CODE.VIETNAM}>
+      <StyledSelectedView isActive={lang === LANGUAGE_CODE.VIETNAM}>
         <FlagButton
           onPress={() => onChangeLanguage(LANGUAGE_CODE.VIETNAM)}
-          disabled={activeLang === LANGUAGE_CODE.VIETNAM}
+          disabled={lang === LANGUAGE_CODE.VIETNAM}
           loading={
             updateState === UPDATE_STATE.UPDATING &&
-            activeLang === LANGUAGE_CODE.ENGLISH
+            lang === LANGUAGE_CODE.ENGLISH
           }
           imageSource={LANGUAGE_TO_FLAG_ICON[LANGUAGE_CODE.VIETNAM]}
         />
@@ -116,7 +113,7 @@ const FlagButton = ({ imageSource, ...props }: FlagButtonProps) => {
       }}
       fill={{ type: 'ghost', color: 'transparent' }}
       loadingIndicator={{
-        color: '$blue',
+        color: '$background',
       }}
       {...props}
     >
