@@ -17,6 +17,7 @@
     "branch-sdk": "^2.63.0",
     "expo-font": "^10.1.0",
     "framer-motion": "^6.3.10",
+    "htmlparser2": "^8.0.1",
     "moti": "^0.18.0",
     "next": "12.2.5",
     "next-fonts": "^1.5.1",
