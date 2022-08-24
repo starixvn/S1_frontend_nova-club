@@ -1,6 +1,7 @@
 import AlertDialogModal from 'app/components/modal/AlertDialogModal'
 import AlertModal from 'app/components/modal/AlertModal'
 import DepositConfirmationModal from 'app/components/modal/DepositConfirmationModal'
+import NoticeModal from 'app/components/modal/NoticeModal'
 import PinModal from 'app/components/modal/PinModal'
 import PlayerBankDeleteModal from 'app/components/modal/PlayerBankDeleteModal'
 import ReferralModal from 'app/components/modal/ReferralModal'
@@ -26,6 +27,7 @@ export interface ModalStackParams {
   AlertModal: undefined
   AlertDialogModal: { message: string; callback(...args: any): any }
   DepositConfirmationModal: { amount: number; callback(...args: any): any }
+  NoticeModal: { notice: [] }
   PinModal: { onConfirm(...args: any): any; onForgotPin(...args: any): any }
   PlayerBankDeleteModal: { bank: Record<any, any> }
   ReferralModal: undefined
@@ -45,6 +47,7 @@ const modalConfig: ModalConfigType = {
   AlertModal: AlertModal,
   AlertDialogModal: AlertDialogModal,
   DepositConfirmationModal: DepositConfirmationModal,
+  NoticeModal: NoticeModal,
   PinModal: {
     modal: PinModal,
     position: 'bottom',

@@ -259,6 +259,21 @@
     "qr": {
       "n1": "Quét bằng ứng dụng để chuyển số dư"
     },
+    "rewards": {
+      "n1": "",
+      "n2": "",
+      "n3": "",
+      "n4": "",
+      "n5": "",
+      "n6": ""
+    },
+    "topUpCard": {
+      "n1": "Vui lòng chọn đúng mệnh giá và nhà mạng, nếu quý khách nhập sai, Vui123 không chịu trách nhiệm.",
+      "n2": "Phí gạch thẻ rẻ nhất thị trường, 25% cho tất cả các nhà mạng."
+    },
+    "transfer": {
+      "n1": ""
+    },
     "withdrawal": {
       "n1": "Vui lòng liên hệ bộ phận LIVECHAT 24/7 nếu lệnh rút bị chậm trễ quá 10 phút.",
       "n2": "Tên tài khoản rút tiền phải trùng với họ tên đăng ký, thành viên không được phép rút tiền vào tài khoản bên thứ ba.",
@@ -351,7 +366,7 @@
   "validation": {
     "alphanumeric": "6-18 ký tự chữ và số (A-Z, a-z, 0-9)",
     "amount": "%{amount} ngoài hạn mức",
-    "amount0": "",
+    "amount0": "Số tiền không được bằng 0",
     "amountLessThan": "Số tiền không thể nhỏ hơn %{min}",
     "dailyLimitReached": "Bạn Đã Sử Dụng Hết Hạn Mức Trong Ngày",
     "email": "Định dạng email chưa đúng",

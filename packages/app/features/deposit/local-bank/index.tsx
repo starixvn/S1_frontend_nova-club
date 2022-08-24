@@ -1,3 +1,4 @@
+import MenuNotice from 'app/components/common/MenuNotice'
 import { FilePickerForwardRef } from 'app/components/FilePicker'
 import { Button } from 'app/components/form/Button'
 import IconButton from 'app/components/form/IconButton'
@@ -7,6 +8,7 @@ import Select from 'app/components/form/Input/Select'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import PaymentMethod from 'app/config/deposit'
 import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
+import { DEPOSIT_NOTES } from 'app/constant/notes'
 import useLocalBankDeposit from 'app/hooks/deposit/useLocalBankDeposit'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
@@ -148,7 +150,14 @@ const LocalBankScreen = () => {
 
   return (
     <PageWithBackHeader
-      header={{ title: PaymentMethod[0].name ?? t('menu.deposit') }}
+      header={{
+        title: PaymentMethod[0].name ?? t('menu.deposit'),
+        actions: (
+          <MenuNotice
+            onPress={() => openModal('NoticeModal', { notice: DEPOSIT_NOTES })}
+          />
+        ),
+      }}
     >
       <View sx={{ flex: 1 }}>
         <Select

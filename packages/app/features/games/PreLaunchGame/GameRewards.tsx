@@ -1,14 +1,18 @@
+import MenuNotice from 'app/components/common/MenuNotice'
 import { DripsyGradient } from 'app/components/Gradient'
+import { REWARDS_NOTES } from 'app/constant/notes'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Currency } from 'app/utils/constant'
 import { styled, Text, View } from 'dripsy'
 import { useMemo, useRef } from 'react'
+import { useModal } from 'react-native-modalfy'
 import { useCommissionTableQuery } from 'services/contentApi'
 import { usePlayerProfileQuery } from 'services/playerApi'
 
 const GameRewards = () => {
   const { t } = useLocalization()
+  const { openModal } = useModal()
   const ref = useRef<number>(0)
 
   const { data: playerData } = usePlayerProfileQuery()
@@ -60,6 +64,17 @@ const GameRewards = () => {
             sx={{ color: '#FF7070', fontSize: 14 }}
           >{`${getReward()}%`}</Text>
         </Text>
+
+        <View sx={{ position: 'absolute', right: 12 }}>
+          <MenuNotice
+            onPress={() =>
+              openModal('NoticeModal', {
+                notice: REWARDS_NOTES,
+                noticeModule: 'Rewards',
+              })
+            }
+          />
+        </View>
       </DripsyGradient>
     </StyledView>
   )

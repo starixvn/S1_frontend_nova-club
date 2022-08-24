@@ -9,14 +9,6 @@ import { useRouter } from 'solito/router'
 
 type Amount = string | number
 
-interface ProfileOverviewProps {
-  title: string
-  amountWL: Amount
-  amountTO: Amount
-  amountRB: Amount
-  amountDirect?: Amount
-}
-
 const ProfileOverview = () => {
   const { t } = useLocalization()
   const { push } = useRouter()
@@ -108,15 +100,13 @@ const ProfileOverview = () => {
   )
 }
 
-const SmallInfo = ({
-  label,
-  amount,
-  sx,
-}: {
+type SmallInfoProps = {
   label: string
   amount: Amount
   sx?: SxProp
-}) => {
+}
+
+const SmallInfo = ({ label, amount, sx }: SmallInfoProps) => {
   return (
     <StyledBottomContainer sx={sx}>
       <Text

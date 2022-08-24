@@ -9,7 +9,12 @@ import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
 import { AlertActions } from 'app/store/alert.slice'
-import { toCleanAmount, toCurrency, toRealAmount } from 'app/utils'
+import {
+  toCleanAmount,
+  toCurrency,
+  toDisplayAmount,
+  toRealAmount,
+} from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import validation from 'app/utils/validation'
 import { styled, Text, View } from 'dripsy'
@@ -30,6 +35,9 @@ import AvailableBalance from './AvailableBalance'
 import { usePlayerBalanceQuery } from 'services/walletApi'
 import IconButton from 'app/components/form/IconButton'
 import { MARGIN_TEXT_CENTERING } from 'app/constant/sizes'
+import validationRule from 'app/utils/validationRule'
+import MenuNotice from 'app/components/common/MenuNotice'
+import { WITHDRAWAL_NOTES } from 'app/constant/notes'
 
 const actionSheetId = ACTION_SHEET_ID.WITHDRAWAL
 
@@ -39,13 +47,6 @@ type WithdrawalValues = {
   bank: PlayerBankResult | undefined
 }
 
-const NOTES = [
-  'notes.withdrawal.n1',
-  'notes.withdrawal.n2',
-  'notes.withdrawal.n3',
-  'notes.withdrawal.n4',
-  'notes.withdrawal.n5',
-]
 const CONFIRMATION_FIELDS = [
   {
     label: 'withdrawal.withdrawTo',
@@ -135,7 +136,10 @@ const WithdrawalPage = () => {
     },
     validationSchema: Yup.object({
       bank: validation.bank,
-      amount: validation.amount,
+      amount: validationRule.amount({
+        min: toDisplayAmount(1, currency),
+        max: toDisplayAmount(playerBalance, currency),
+      }),
     }),
     onSubmit,
   })
@@ -194,7 +198,18 @@ const WithdrawalPage = () => {
   }
 
   return (
-    <PageWithBackHeader header={{ title: t('menu.withdraw') }}>
+    <PageWithBackHeader
+      header={{
+        title: t('menu.withdraw'),
+        actions: (
+          <MenuNotice
+            onPress={() =>
+              openModal('NoticeModal', { notice: WITHDRAWAL_NOTES })
+            }
+          />
+        ),
+      }}
+    >
       <StyledView>
         <AvailableBalance />
 
@@ -211,7 +226,7 @@ const WithdrawalPage = () => {
             headerTitle: t('bank.bank'),
             actions: [
               {
-                icon: 'card',
+                icon: 'add',
                 onPress: () => push(toBankAccount, '/profile/bank-account'),
               },
             ],
@@ -231,6 +246,11 @@ const WithdrawalPage = () => {
             touched.amount && errors.amount
               ? t(errors.amount, {
                   field: t('common.amount'),
+                  amount: toCurrency(values.realAmount ?? 1, currency, {
+                    forceDecimal: false,
+                    symbol: false,
+                  }),
+                  min: 1,
                 })
               : undefined
           }
@@ -257,7 +277,7 @@ const WithdrawalPage = () => {
           }
         />
 
-        <ImportantNotice keys={NOTES} module="withdrawal" />
+        {/* <ImportantNotice keys={NOTES} module="withdrawal" /> */}
 
         <Button
           rounded

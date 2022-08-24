@@ -8,9 +8,13 @@ import { PageWithBackHeader } from 'app/components/layout/Page'
 import QrcodeScannerTab from './qr-transfer'
 import QrReceiveTab from './receive'
 import TransferScreen from './transfer'
+import MenuNotice from 'app/components/common/MenuNotice'
+import { useModal } from 'react-native-modalfy'
+import { TRANSFER_NOTES } from 'app/constant/notes'
 
 const TransferScannerScreen = () => {
   const { t } = useLocalization()
+  const { openModal } = useModal()
   const layout = useWindowDimensions()
 
   const [index, setIndex] = useState(0)
@@ -41,6 +45,11 @@ const TransferScannerScreen = () => {
     <PageWithBackHeader
       header={{
         title: t('menu.transfer'),
+        actions: (
+          <MenuNotice
+            onPress={() => openModal('NoticeModal', { notice: TRANSFER_NOTES })}
+          />
+        ),
       }}
       disableScrollView
     >

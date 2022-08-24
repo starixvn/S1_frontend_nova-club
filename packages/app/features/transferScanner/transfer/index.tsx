@@ -1,8 +1,11 @@
 import Header from 'app/components/common/Header'
+import MenuNotice from 'app/components/common/MenuNotice'
 import { Button } from 'app/components/form/Button'
 import IconButton from 'app/components/form/IconButton'
 import InputBase from 'app/components/form/Input/InputBase'
 import MoneyInput from 'app/components/form/Input/MoneyInput'
+import Page, { PageWithBackHeader } from 'app/components/layout/Page'
+import { TRANSFER_NOTES } from 'app/constant/notes'
 import { MARGIN_TEXT_CENTERING } from 'app/constant/sizes'
 import AvailableBalance from 'app/features/withdrawal/AvailableBalance'
 import { useIsFocused } from 'app/hooks/isFocus/useIsFocused'
@@ -168,8 +171,17 @@ const TransferScreen = ({
   }
 
   return (
-    <View sx={{ flex: 1, bg: '$secondary' }}>
-      {!isIDTransfer && <Header title={t('menu.transfer')} />}
+    <PageWithBackHeader
+      header={{
+        title: t('menu.transfer'),
+        actions: (
+          <MenuNotice
+            onPress={() => openModal('NoticeModal', { notice: TRANSFER_NOTES })}
+          />
+        ),
+      }}
+      hideHeader={isIDTransfer}
+    >
       <View>
         <AvailableBalance />
 
@@ -288,7 +300,7 @@ const TransferScreen = ({
           )}
         </View>
       </View>
-    </View>
+    </PageWithBackHeader>
   )
 }
 

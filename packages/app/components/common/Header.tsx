@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react'
 import * as ScreenOrientation from 'expo-screen-orientation'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 
-const Header = ({ title }: { title: string }) => {
+const Header = ({ title, actions }: { title: string }) => {
   const isAndroid = Platform.OS === 'android'
   const { t } = useLocalization()
   const { back } = useRouter()
@@ -83,6 +83,14 @@ const Header = ({ title }: { title: string }) => {
               {t(title)}
             </Text>
           </View>
+
+          {actions && (
+            <View
+              sx={{ position: 'absolute', right: isLandscape ? '$0a' : '$2' }}
+            >
+              {actions}
+            </View>
+          )}
         </StyledTop>
       </DripsyGradient>
     </View>

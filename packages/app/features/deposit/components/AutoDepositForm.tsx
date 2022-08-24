@@ -167,7 +167,7 @@ const AutoDepositForm = ({ module, DepositCategoryId }) => {
       />
 
       <View sx={{ flex: 1, justifyContent: 'space-between' }}>
-        <ImportantNotice keys={DEPOSIT_NOTES} module={module} />
+        {/* <ImportantNotice keys={DEPOSIT_NOTES} module={module} /> */}
 
         <Button
           rounded

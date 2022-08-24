@@ -1,11 +1,12 @@
+import MenuNotice from 'app/components/common/MenuNotice'
 import { Button } from 'app/components/form/Button'
 import GradientBox from 'app/components/GradientBox'
 import Icon from 'app/components/Icon'
 import ImportantNotice from 'app/components/ImportantNotice'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import { TextField } from 'app/components/TextField'
+import { DEPOSIT_NOTES } from 'app/constant/notes'
 import useLocalization from 'app/provider/localization'
-import { RootState } from 'app/provider/redux/store'
 import { AlertActions } from 'app/store/alert.slice'
 import {
   toCleanAmount,
@@ -20,11 +21,11 @@ import {
 } from 'app/utils/constant'
 import validation from 'app/utils/validation'
 import validationRule from 'app/utils/validationRule'
-import { Image, styled, Text, TextInput, View } from 'dripsy'
+import { styled, Text, TextInput, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useModal } from 'react-native-modalfy'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import {
   useDepositPaymentListQuery,
   useSubmitManualDepositMutation,
@@ -136,7 +137,16 @@ const CryptoScreen = () => {
   }
 
   return (
-    <PageWithBackHeader header={{ title: t('deposit.depositMethod.crypto') }}>
+    <PageWithBackHeader
+      header={{
+        title: t('deposit.depositMethod.crypto'),
+        actions: (
+          <MenuNotice
+            onPress={() => openModal('NoticeModal', { notice: DEPOSIT_NOTES })}
+          />
+        ),
+      }}
+    >
       <View sx={{ flex: 1, bg: '$secondary' }}>
         <Text sx={{ p: '$2' }}>{t('deposit.selectChannel')}</Text>
         <GradientBox>
@@ -197,7 +207,7 @@ const CryptoScreen = () => {
           />
         </TextField>
 
-        <ImportantNotice keys={NOTES} module="crypto" />
+        {/* <ImportantNotice keys={NOTES} module="crypto" /> */}
 
         <Button
           rounded

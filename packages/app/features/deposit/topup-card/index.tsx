@@ -1,10 +1,10 @@
+import MenuNotice from 'app/components/common/MenuNotice'
 import { Button } from 'app/components/form/Button'
 import InputBase from 'app/components/form/Input/InputBase'
 import { DripsyGradient } from 'app/components/Gradient'
-import ImportantNotice from 'app/components/ImportantNotice'
 import KeyboardView from 'app/components/KeyboardView'
 import { PageWithBackHeader } from 'app/components/layout/Page'
-import { DEPOSIT_NOTES } from 'app/constant/notes'
+import { TOPUP_NOTES } from 'app/constant/notes'
 import useLocalization from 'app/provider/localization'
 import { AlertActions } from 'app/store/alert.slice'
 import { toCleanAmount, toCleanCard, toCurrency, toRealAmount } from 'app/utils'
@@ -187,8 +187,14 @@ const TopUpCardScreen = () => {
 
   return (
     <PageWithBackHeader
-      header={{ title: t('deposit.depositMethod.topUp') }}
-      // disableScrollView
+      header={{
+        title: t('deposit.depositMethod.topUp'),
+        actions: (
+          <MenuNotice
+            onPress={() => openModal('NoticeModal', { notice: TOPUP_NOTES })}
+          />
+        ),
+      }}
     >
       <KeyboardView>
         <View sx={{ flex: 1 }}>
@@ -250,7 +256,7 @@ const TopUpCardScreen = () => {
               }
             />
 
-            <ImportantNotice keys={DEPOSIT_NOTES} module="deposit" />
+            {/* <ImportantNotice keys={DEPOSIT_NOTES} module="deposit" /> */}
           </View>
           <StyledViewButtonWrapper
             colors={
