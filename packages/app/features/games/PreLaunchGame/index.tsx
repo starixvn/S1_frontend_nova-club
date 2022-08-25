@@ -184,6 +184,7 @@ function useGameLauncher(gameLauncherState: LaunchGamePayload) {
   const [isVerifying, setVerifying] = useState(false)
   const [getGameUrl] = useLazyGetGameUrlQuery()
   const dispatch = useDispatch()
+  const authState = useAppSelector((s) => s.auth)
 
   const {
     providerCode,
@@ -192,43 +193,65 @@ function useGameLauncher(gameLauncherState: LaunchGamePayload) {
     desktopMode = false,
   } = gameLauncherState
 
+  async function _launchPT() {
+    if (authState.info) {
+      try {
+        // const ptLaunchUrl = `${DEV_DOMAIN}/launch_pt?code=${gameCode}&t=${authState.info?.token}&username=${authState.info?.playerName}`
+        const ptLaunchUrl = `http://player.zhiyunxianghe.com:3000/launcher_pt?code=${gameCode}&t=${authState.info?.token}&username=${authState.info?.playerName}`
+
+        console.log('Launching PT Url ', ptLaunchUrl)
+        Linking.openURL(ptLaunchUrl)
+      } catch (e) {
+        console.log('Failed to launch PT Game', e)
+      }
+    }
+  }
+
+  async function _launch() {
+    try {
+      setVerifying(true)
+      const { data } = await getGameUrl({
+        game_code: gameCode,
+        is_demo: 0,
+        is_mobile: desktopMode ? 0 : 1,
+        platform_code: providerCode,
+        home_url: DEV_DOMAIN,
+        cashier_url: `${DEV_DOMAIN}/deposit`,
+      }).unwrap()
+
+      const url = data?.url
+
+      if (url) {
+        dispatch(SettingActions.addRecentGame({ ...gameLauncherState }))
+
+        if (
+          Platform.OS === 'web' ||
+          ProviderRunningWithoutIframe.includes(providerCode)
+        ) {
+          Linking.openURL(url)
+        } else {
+          push({
+            pathname: '/games/gameUrl',
+            query: {
+              gameUrl: encodeURIComponent(url),
+              title: gameName,
+            },
+          })
+        }
+      }
+    } catch (e) {
+      throw e
+    } finally {
+      setVerifying(false)
+    }
+  }
+
   async function launchGame() {
     if (providerCode) {
-      try {
-        setVerifying(true)
-        const { data } = await getGameUrl({
-          game_code: gameCode,
-          is_demo: 0,
-          is_mobile: desktopMode ? 0 : 1,
-          platform_code: providerCode,
-          home_url: DEV_DOMAIN,
-        }).unwrap()
-
-        const url = data?.url
-
-        if (url) {
-          dispatch(SettingActions.addRecentGame({ ...gameLauncherState }))
-
-          if (
-            Platform.OS === 'web' ||
-            ProviderRunningWithoutIframe.includes(providerCode)
-          ) {
-            Linking.openURL(url)
-          } else {
-            push({
-              pathname: '/games/gameUrl',
-              query: {
-                gameUrl: encodeURIComponent(url),
-                title: gameName,
-              },
-            })
-          }
-        }
-      } catch (e) {
-        throw e
-      } finally {
-        setVerifying(false)
-      }
+      console.log('providerCode', providerCode)
+      if (providerCode === 'PTV2') {
+        _launchPT()
+      } else _launch()
     }
   }
 

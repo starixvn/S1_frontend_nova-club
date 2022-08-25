@@ -113,7 +113,10 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
   // IOS 13.3 added security where GET request should not have body data ( use query param instead)
   // if config.data is {} on GET method , ios will reject as well.
   // ref: https://stackoverflow.com/a/56973866
-  if (config.data || (requestParams && Object.keys(requestParams).length > 0)) {
+  if (
+    typeof window !== 'undefined' &&
+    (config.data || (requestParams && Object.keys(requestParams).length > 0))
+  ) {
     if (config.data instanceof FormData) {
       for (const param in requestParams) {
         config.data.append(param, requestParams[param])

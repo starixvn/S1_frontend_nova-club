@@ -4,7 +4,7 @@ import { route } from 'next/dist/server/router'
 import { useRouter } from 'next/router'
 import React from 'react'
 
-const guestRoutes = ['/auth', '/profile/commission-table']
+const guestRoutes = ['/auth', '/profile/commission-table', '/launcher']
 
 /* 
     Yet to verify whether manually clearning auth.info will auto redirect to login page or not

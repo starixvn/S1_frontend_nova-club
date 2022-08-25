@@ -1,16 +1,16 @@
 {
   "auth": {
-    "accountReg": "Đăng ký tài khoản",
+    "accountReg": "ĐĂNG KÝ",
     "accountVerification": "Xác minh tài khoản",
     "enterNewPassword": "Vui lòng nhập mật khẩu mới của bạn",
     "enterOtp": "Vui lòng nhập OTP",
     "forgotPassword": "Quên mật khẩu",
     "login": "ĐĂNG NHẬP",
-    "loginToAccount": "Dăng nhập vào tài khoản của bạn",
+    "loginToAccount": "ĐĂNG NHẬP",
     "noReceiveOTP": "Không nhận được OTP?",
     "readAndAgree": "Tôi đã đọc và đồng ý",
     "referrerInfo": "Thông tin người giới thiệu",
-    "register": "Đăng Ký",
+    "register": "ĐĂNG KÝ",
     "table": "Bảng hoa hồng"
   },
   "bank": {
@@ -31,7 +31,7 @@
     "table": "Bảng hoa hồng"
   },
   "common": {
-    "all": "HIỂN THỊ TẤT CẢ",
+    "all": "TẤT CẢ",
     "amount": "Số tiền",
     "balance": "Số dư",
     "bet": "Tiền cược",
@@ -129,7 +129,7 @@
       "yesterday": "Hôm qua"
     },
     "depositStatus": {
-      "all": "Tất cả các",
+      "all": "TẤT CẢ",
       "cancelled": "Hủy",
       "checking": "Đang kiểm tra",
       "declined": "Giảm",
@@ -143,7 +143,7 @@
       "win": "Thắng lợi"
     },
     "genre": {
-      "all": "Tất cả các",
+      "all": "TẤT CẢ",
       "baccarat": "Baccarat",
       "blackjack": "Blackjack",
       "dragonTiger": "Dragon Tiger",
@@ -161,7 +161,7 @@
       "withdrawal": "Rút tiền"
     },
     "withdrawalStatus": {
-      "all": "Tất cả các",
+      "all": "TẤT CẢ",
       "declined": "Suy giảm",
       "paid": "Trả",
       "payment": "Thanh toán",
@@ -197,7 +197,9 @@
     "notFound": "Trò chơi không tìm thấy",
     "quitGame": "Thoát trò chơi",
     "reward": "Phần thưởng trò chơi",
-    "underMaintenance": "Trò chơi đang được bảo trì"
+    "underMaintenance": "Trò chơi đang được bảo trì",
+    "invalidSession": "Invalid Session [%{code}]",
+    "unableToConnect": "Unable to connect [%{code}]"
   },
   "menu": {
     "agentLogin": "Dăng nhập đại lý",

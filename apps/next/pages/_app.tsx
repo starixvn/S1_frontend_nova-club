@@ -41,7 +41,7 @@ function MyApp({ Component, pageProps, router }: SolitoAppProps) {
       <Script src="https://scqa2.detecas.com/activator.ashx" />
       <Script
         id="LiveChat"
-        strategy="afterInteractive"
+        strategy="lazyOnload"
         dangerouslySetInnerHTML={{
           __html: `
           window.__lc = window.__lc || {};
