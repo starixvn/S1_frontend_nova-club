@@ -1,11 +1,7 @@
 import * as htmlparser2 from 'htmlparser2'
-import { NextApiRequest } from 'next'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export const config = {
-  runtime: 'experimental-edge',
-}
-
-const getJackpotValue = async (req: NextApiRequest) => {
+const getJackpotValue = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     let increment = '0'
     let jackpotAmount = '0'
@@ -33,39 +29,23 @@ const getJackpotValue = async (req: NextApiRequest) => {
       }
     }
 
-    return new Response(
-      JSON.stringify({
-        code: 0,
-        data: {
-          increment,
-          jackpotAmount,
-        },
-        message: '',
-        success: true,
-      }),
-      {
-        status: 200,
-        headers: {
-          'content-type': 'application/json',
-        },
-      }
-    )
+    res.status(200).setHeader('content-type', 'application/json').json({
+      code: 0,
+      data: {
+        increment,
+        jackpotAmount,
+      },
+      message: '',
+      success: true,
+    })
   } catch (error) {
     console.error(error)
 
-    return new Response(
-      JSON.stringify({
-        code: 1000,
-        message: 'Unable to retrieve jackpot value',
-        success: false,
-      }),
-      {
-        status: 400,
-        headers: {
-          'content-type': 'application/json',
-        },
-      }
-    )
+    res.status(400).setHeader('content-type', 'application/json').json({
+      code: 1000,
+      message: 'Unable to retrieve jackpot value',
+      success: false,
+    })
   }
 }
 
