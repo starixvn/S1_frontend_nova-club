@@ -90,3 +90,8 @@ export interface GetGameListResult {
   rows: Game[]
   row_count_total: number
 }
+
+export interface JackpotAmountResult {
+  increment: string
+  jackpotAmount: string
+}

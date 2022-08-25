@@ -19,7 +19,7 @@ import {
 const DEFAULT_ANIMATION_DURATION = 3000
 // `DEFAULT_ANIMATION_DURATION` is added here to wait for previous
 // animation to finish
-const DEFAULT_TIMER_INTERVAL = DEFAULT_ANIMATION_DURATION + 2000
+const DEFAULT_TIMER_INTERVAL = 1000
 
 type ViewProps = ComponentProps<typeof View>
 
@@ -42,7 +42,7 @@ const NumberAnimator = ({
   ...props
 }: AnimatedNumberProps) => {
   const [counter, setCounter] = useState(0)
-  const intervalIdRef = useRef<ReturnType<typeof setInterval> | undefined>()
+  const timeoutIdRef = useRef<ReturnType<typeof setTimeout> | undefined>()
   const timerValueRef = useRef(animateToNumber)
   const isFocus = useIsFocused()
 
@@ -52,19 +52,40 @@ const NumberAnimator = ({
     runOnJS(setCounter)(Math.floor(timerSharedValue.value))
   })
 
+  const startTimer = useCallback(() => {
+    if (timerIncrementValue) {
+      timeoutIdRef.current = setTimeout(() => {
+        timerValueRef.current +=
+          typeof timerIncrementValue === 'number'
+            ? timerIncrementValue
+            : timerIncrementValue?.()
+
+        animateNumber(timerValueRef.current)
+      }, timerInterval)
+    }
+  }, [animateNumber, timerIncrementValue, timerInterval])
+
   const animateNumber = useCallback(
     (timerVal: number) => {
-      timerSharedValue.value = withTiming(timerVal, {
-        duration: animationDuration || DEFAULT_ANIMATION_DURATION,
-        easing: Easing.bezier(0.04, 0.87, 0.61, 0.97),
-      })
+      timerSharedValue.value = withTiming(
+        timerVal,
+        {
+          duration: animationDuration || DEFAULT_ANIMATION_DURATION,
+          easing: Easing.bezier(0.04, 0.87, 0.61, 0.97),
+        },
+        (finished) => {
+          if (finished) {
+            runOnJS(startTimer)()
+          }
+        }
+      )
     },
-    [animationDuration, timerSharedValue]
+    [animationDuration, startTimer, timerSharedValue]
   )
 
   const resetTimer = useCallback(() => {
-    if (intervalIdRef.current) {
-      clearInterval(intervalIdRef.current)
+    if (timeoutIdRef.current) {
+      clearTimeout(timeoutIdRef.current)
     }
 
     timerSharedValue.value = 0
@@ -77,28 +98,29 @@ const NumberAnimator = ({
       return
     }
 
-    animateNumber(timerValueRef.current)
-
-    if (timerIncrementValue) {
-      intervalIdRef.current = setInterval(() => {
-        timerValueRef.current =
-          timerValueRef.current +
-          (typeof timerIncrementValue === 'number'
-            ? timerIncrementValue
-            : timerIncrementValue?.())
-
-        animateNumber(timerValueRef.current)
-      }, timerInterval)
-    }
-
     return () => {
       resetTimer()
     }
-  }, [animateNumber, isFocus, resetTimer, timerIncrementValue, timerInterval])
+  }, [isFocus, resetTimer])
+
+  useEffect(() => {
+    if (animateToNumber <= 0) return
+
+    if (isFocus) {
+      timerValueRef.current = animateToNumber
+      animateNumber(timerValueRef.current)
+    }
+  }, [animateNumber, animateToNumber, isFocus])
 
   return (
-    <View {...props}>
-      <Text sx={{ ...fontStyle }}>
+    <View
+      {...props}
+      sx={{
+        ...{ maxWidth: '100%', textAlign: 'center', px: '$3' },
+        ...props.sx,
+      }}
+    >
+      <Text numberOfLines={2} sx={{ ...fontStyle }}>
         {isCommandSeparated ? toThousandSeparator(String(counter)) : counter}
       </Text>
     </View>

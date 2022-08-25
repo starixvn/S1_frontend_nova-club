@@ -4,18 +4,12 @@ import { axiosInstance } from './axiosInstance'
 import { IResponse } from './types'
 
 export function axiosBaseQuery<T>(): BaseQueryFn<
-  {
-    url: string
-    data?: AxiosRequestConfig['data']
-    method?: AxiosRequestConfig['method']
-    headers?: AxiosRequestConfig['headers']
-    _config?: AxiosRequestConfig['_config']
-  },
+  AxiosRequestConfig,
   IResponse<T>,
   IResponse<T>
 > {
   return async (
-    { url, data, method = 'POST', headers, _config = {} },
+    { method = 'POST', _config = {}, url = '', ...axiosConfig },
     { signal }
   ) => {
     try {
@@ -25,11 +19,10 @@ export function axiosBaseQuery<T>(): BaseQueryFn<
       >({
         url,
         method,
-        data,
-        headers,
         signal,
         // @ts-expect-error: Custom `_config` used only in interceptor
         _config,
+        ...axiosConfig,
       })
 
       const { code } = respData

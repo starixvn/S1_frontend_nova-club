@@ -13,9 +13,6 @@ const HomeScreen = () => {
     <ScrollView
       bounces={false}
       sx={{ bg: '$background', flex: 1 }}
-      contentContainerStyle={{
-        paddingBottom: theme.space['$8'],
-      }}
       showsVerticalScrollIndicator={false}
     >
       <BannerSection />

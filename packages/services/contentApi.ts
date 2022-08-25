@@ -11,9 +11,10 @@ import {
   GameListQueryArgs,
   GetGameListQueryArgs,
   GetGameListResult,
+  JackpotAmountResult,
   LeaderboardResult,
 } from './contentApi.type'
-import { MEDIA_DOMAIN } from '@env'
+import { MEDIA_DOMAIN, DEV_DOMAIN } from '@env'
 
 /**
  * @param builder Pass builder from `createApi` *endpoints*
@@ -88,6 +89,13 @@ const contentEndpoints = (builder: EndpointBuilderType) => {
         method: 'GET',
       }),
     }),
+    getJackpotAmount: builder.query<IResponse<JackpotAmountResult>, void>({
+      query: () => ({
+        url: `/api/getJackpotValue`,
+        method: 'GET',
+        baseURL: DEV_DOMAIN,
+      }),
+    }),
   }
 }
 
@@ -115,4 +123,5 @@ export const {
   useGetGameListQuery,
   useLazyGetGameListQuery,
   useFeaturedGameListQuery,
+  useGetJackpotAmountQuery,
 } = contentApi
