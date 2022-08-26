@@ -10,34 +10,39 @@ import React from 'react'
 import { useRouter } from 'solito/router'
 const dummyData = [
   {
-    col: 6,
-    src: home[0]?.image,
-    title: home[0]?.title,
+    col: 4,
+    src: require('../../../assets/images/home/sb_4.jpg'),
+    title: 'game.category.sportsbook',
+    route: '/sportsbook',
+  },
+  {
+    col: 2,
+    src: require('../../../assets/images/home/wc.gif'),
     route: '/sportsbook',
   },
   {
     col: 3,
-    src: home[1]?.image,
-    title: home[1]?.title,
+    src: require('../../../assets/images/home/games.jpg'),
+    title: 'game.category.games',
     route: '/games',
   },
   {
     col: 3,
-    src: home[2]?.image,
-    title: home[2]?.title,
+    src: require('../../../assets/images/home/sl.jpg'),
+    title: 'game.category.slots',
     route: '/slot',
   },
 
   {
     col: 3,
-    src: home[4]?.image,
-    title: home[4]?.title,
+    src: require('../../../assets/images/home/lc.jpg'),
+    title: 'game.category.liveCasino',
     route: '/livecasino',
   },
   {
     col: 3,
-    src: home[5]?.image,
-    title: home[5]?.title,
+    src: require('../../../assets/images/home/lt.jpg'),
+    title: 'game.category.keno/lottery',
     route: '/games',
     urlParam: {
       t: GAME_TYPE_CODE.LOTTERY,
@@ -45,8 +50,8 @@ const dummyData = [
   },
   {
     col: 3,
-    src: home[6]?.image,
-    title: home[6]?.title,
+    src: require('../../../assets/images/home/fishing.jpg'),
+    title: 'game.category.fishing',
     route: '/games',
     urlParam: {
       t: GAME_TYPE_CODE.FISHING,
@@ -68,8 +73,8 @@ const dummyData = [
   // },
   {
     col: 3,
-    src: home[3]?.image,
-    title: home[3]?.title,
+    src: require('../../../assets/images/home/cf.jpg'),
+    title: 'game.category.cockfighting',
     route: '/games',
     urlParam: {
       t: GAME_TYPE_CODE.COCKFIGHTING,
@@ -129,32 +134,34 @@ const GridSection = () => {
           >
             <Image
               sx={{
-                width: width - quarterSpace * 2,
+                width: '100%',
                 height: rowHeight - quarterSpace * 2,
                 borderRadius: 10,
               }}
               source={j.src}
               resizeMode="cover"
             />
-            <StyledTextContainer
-              sx={{
-                bottom: checkTextSpace,
-                left: checkTextSpace,
-                width: width - quarterSpace * 2,
-              }}
-            >
-              <Text
+            {j.title && (
+              <StyledTextContainer
                 sx={{
-                  fontWeight: 'bold',
-                  textTransform: 'uppercase',
-                  fontSize: [14, 16],
-                  py: ['$1', '$2'],
-                  textAlign: 'center',
+                  bottom: checkTextSpace,
+                  left: checkTextSpace,
+                  width: '100%',
                 }}
               >
-                {t(j.title)}
-              </Text>
-            </StyledTextContainer>
+                <Text
+                  sx={{
+                    fontWeight: 'bold',
+                    textTransform: 'uppercase',
+                    fontSize: [14, 16],
+                    py: ['$1', '$2'],
+                    textAlign: 'center',
+                  }}
+                >
+                  {t(j.title)}
+                </Text>
+              </StyledTextContainer>
+            )}
           </BouncePressable>
         )
       })}

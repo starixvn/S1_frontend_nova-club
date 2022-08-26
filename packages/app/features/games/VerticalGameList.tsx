@@ -9,6 +9,9 @@ import React, { forwardRef, useMemo } from 'react'
 import { Game } from 'services/contentApi.type'
 
 import { FlashList, FlashListProps } from '@shopify/flash-list'
+import IconButton from 'app/components/form/IconButton'
+import Icon from 'app/components/Icon'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 type VerticalGameListProps = Omit<FlashListProps<Game>, 'renderItem'> & {
   isLoading?: boolean
@@ -51,12 +54,12 @@ const VerticalGameList = forwardRef<FlashList<Game>, VerticalGameListProps>(
     }
 
     return (
-      <View sx={{ bg: '$background', flex: 1 }}>
+      <View sx={{ bg: '$background', flex: 1, position: 'relative' }}>
         <FlashList<Game>
           ref={ref}
           keyExtractor={(item) => {
-            const { gc, gpc, gtc } = item
-            return `${gc + gpc + gtc}`
+            const { gc, gpc, gtc, img } = item
+            return `${gc?.trim() + gpc + gtc + img}`
           }}
           renderItem={renderItem}
           estimatedItemSize={50}
@@ -67,6 +70,31 @@ const VerticalGameList = forwardRef<FlashList<Game>, VerticalGameListProps>(
           }}
           {...rest}
         />
+        <View
+          sx={{
+            position: 'absolute',
+            right: 0,
+            width: '20%',
+            alignItems: 'center',
+            bottom: 20,
+            zIndex: 1,
+          }}
+        >
+          <IconButton
+            size={15}
+            sx={{
+              backgroundColor: 'rgb(51, 160, 208)',
+              p: '$2',
+            }}
+            onPress={() => {
+              ref?.current?.scrollToOffset({
+                animated: true,
+                offset: 0,
+              })
+            }}
+            name="arrow-up"
+          />
+        </View>
       </View>
     )
   }

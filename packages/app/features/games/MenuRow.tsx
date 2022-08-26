@@ -10,6 +10,7 @@ import {
   useEffect,
   useState,
 } from 'react'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Game } from 'services/contentApi.type'
 import { createParam } from 'solito'
 
@@ -103,12 +104,13 @@ const MenuRow = ({ setFilterGames, gameList }: MenuRowProps) => {
     <StyledListView>
       {DATA.map((i, index) => {
         return (
-          <BouncePressable
+          <TouchableOpacity
             key={i.label}
-            style={{
-              alignItems: 'center',
-            }}
             onPress={() => onFilterGame(index, i)}
+            containerStyle={{
+              flex: 1,
+              margin: 4,
+            }}
           >
             <View sx={{ position: 'relative' }}>
               <MotiView
@@ -118,10 +120,10 @@ const MenuRow = ({ setFilterGames, gameList }: MenuRowProps) => {
                 exit={{
                   scale: 1,
                 }}
+                style={{ alignItems: 'center' }}
               >
                 <StyledImage source={i.img} resizeMode={'contain'} />
               </MotiView>
-
               <StyledBackgroundWrapper>
                 <MotiView
                   transition={{
@@ -150,7 +152,7 @@ const MenuRow = ({ setFilterGames, gameList }: MenuRowProps) => {
             </View>
 
             <StyledText>{t(i.label)}</StyledText>
-          </BouncePressable>
+          </TouchableOpacity>
         )
       })}
     </StyledListView>
@@ -179,7 +181,6 @@ const StyledText = styled(Text)({
   alignSelf: 'center',
   fontSize: 12,
   fontWeight: 'bold',
-  width: '90%',
   mt: '$1',
   mb: '$2',
 })

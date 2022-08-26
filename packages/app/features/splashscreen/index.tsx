@@ -3,24 +3,51 @@ import useCodePushDownload from 'app/integrations/codepush/useCodePush'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Text } from 'dripsy'
 import * as ScreenOrientation from 'expo-screen-orientation'
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ImageBackground } from 'react-native'
 import CodePush from 'react-native-code-push'
 import { getVersion } from 'react-native-device-info'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { useRouter } from 'solito/router'
+import { sleep } from 'utils/common'
 import CodePushUpdateBar from './CodePushUpdateBar'
-import useSplashScreen from './useSplashScreen'
+import useSplashScreen, {
+  SplashScreenTask,
+  SplashScreenHandler,
+  useSplashScreenTaskResolver,
+} from './useSplashScreen'
+
+function useFontInitWithPromise() {
+  const resolver = useSplashScreenTaskResolver(useFontInit)
+  const {
+    hookValue: [fontsLoaded],
+    promiseFactory,
+    resolve,
+  } = resolver
+
+  useEffect(() => {
+    if (fontsLoaded) {
+      resolve({
+        result: true,
+      })
+    }
+  }, [fontsLoaded, resolve])
+
+  return { fontsLoaded, promiseFactory }
+}
 
 const SplashScreen = () => {
-  const [fontsLoaded] = useFontInit()
+  const { fontsLoaded, promiseFactory: fontInitPromiseFactory } =
+    useFontInitWithPromise()
 
   const { replace } = useRouter()
   const currentVersion = getVersion()
   // const { isReady } = useOTA()
   const { status: codePushStatus, progress } = useCodePushDownload()
   const { status } = useSplashScreen(
-    {},
+    {
+      mandatoryAsync: [fontInitPromiseFactory],
+    },
     codePushStatus === CodePush.SyncStatus.UP_TO_DATE,
     { minWaitTime: 2000 }
   )

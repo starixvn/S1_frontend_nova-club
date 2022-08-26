@@ -1,13 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { sleep } from 'utils/common'
 // import { Translate } from './useLocalization'
+export type SplashScreenTask = () => Promise<SplashScreenHandler>
 
 export interface SplashScreenTasks {
-  mandatoryAsync?: (() => Promise<SplashScreenHandler>)[]
-  mandatorySync?: ((
-    context: SplashScreenContext
-  ) => () => Promise<SplashScreenHandler>)[]
-  optionalAsync?: (() => Promise<SplashScreenHandler>)[]
+  mandatoryAsync?: SplashScreenTask[]
+  mandatorySync?: SplashScreenTask[]
+  optionalAsync?: SplashScreenTask[]
 }
 
 export interface SplashScreenContext {
@@ -47,6 +46,7 @@ export default function useSplashScreen(
     }
 
     async function startMandatoryTasks() {
+      console.log('start mandartory')
       const mandatoryAsyncTasks = Promise.all([
         ...mandatoryAsync.map((t) => t()),
         triggerMinWaitTime(),
@@ -65,6 +65,8 @@ export default function useSplashScreen(
         mandatoryAsyncTasks,
         mandatoryTasks,
       ]).catch((e) => console.log('retry'))
+
+      console.log('allMandatory', mandatoryAsyncTasks)
 
       if (!allMandatory) {
         // retryTO = setTimeout(() => {
@@ -88,5 +90,43 @@ export default function useSplashScreen(
 
   return {
     status,
+  }
+}
+
+export function useSplashScreenTaskResolver<T>(hook, hookParams?: T) {
+  const hookValue = hook(hookParams)
+  const [frameLapsed, setFrameLapsed] = useState(false)
+  const [result, setResult] = useState<SplashScreenHandler>()
+
+  const resolver =
+    useRef<
+      (value: SplashScreenHandler | PromiseLike<SplashScreenHandler>) => void
+    >()
+
+  const promise = useRef(
+    new Promise<SplashScreenHandler>((r) =>
+      sleep(100).then(() => {
+        resolver.current = r
+        setFrameLapsed(true)
+      })
+    )
+  )
+
+  useEffect(() => {
+    if (frameLapsed && result && resolver.current) {
+      resolver.current(result)
+    }
+  }, [frameLapsed, result])
+
+  const promiseFactory = useCallback<SplashScreenTask>(() => {
+    return promise.current
+  }, [])
+
+  return {
+    hookValue,
+    resolve: setResult,
+    promise,
+    promiseFactory,
+    frameLapsed,
   }
 }

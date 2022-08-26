@@ -9,8 +9,9 @@ import { MotiView } from 'moti'
 import React, { FC, memo } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux'
-import GameFrame from '../assets/images/games/games_frame.png'
+import Frame from '../assets/images/games/games_frame.png'
 import Image from './common/Image'
+import Gameimage from './GameImage'
 import Icon from './Icon'
 interface GamesProps extends LaunchGamePayload {
   width: number
@@ -62,41 +63,26 @@ const SimpleGridImage: FC<GamesProps> = ({
           dispatch(GameLauncherActions.launchGame(gamePayload))
         }}
       >
-        <MotiView
+        <Gameimage
           key={image}
-          delay={Math.random() * 150}
-          from={{
-            scale: 0.1,
-            opacity: 0.2,
-            translateY: Math.random() * 40 + 50,
-          }}
-          animate={{ scale: 1, opacity: 1, translateY: 0 }}
-          transition={{ damping: 10, mass: 0.75 }}
-        >
+          width={width}
+          height={height ?? width / GAME_IMAGE_RATIO}
+          image={image}
+          frame={gameType === GAME_TYPE_CODE.SLOTS}
+        />
+        {/* {gameType === GAME_TYPE_CODE.SLOTS && (
           <Image
-            // onLoad={() => setLoaded(true)}
-            resizeMode={'contain'}
-            source={img}
+            source={Frame}
+            resizeMode={'stretch'}
             style={{
+              position: 'absolute',
+              zIndex: 1,
               width,
               height: height ?? width / GAME_IMAGE_RATIO,
-              borderRadius: 10,
+              borderRadius: 4,
             }}
           />
-          {gameType === GAME_TYPE_CODE.SLOTS && (
-            <Image
-              source={GameFrame}
-              resizeMode={'stretch'}
-              style={{
-                position: 'absolute',
-                zIndex: 1,
-                width,
-                height: height ?? width / GAME_IMAGE_RATIO,
-                borderRadius: 4,
-              }}
-            />
-          )}
-        </MotiView>
+        )} */}
       </TouchableOpacity>
       {showName && (
         <Text

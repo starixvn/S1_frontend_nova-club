@@ -1,3 +1,4 @@
+import { FlashList } from '@shopify/flash-list'
 import Select from 'app/components/form/Select'
 import SelectButton from 'app/components/form/Select/SelectButton'
 import SelectSquare from 'app/components/form/Select/SelectSquare'
@@ -5,6 +6,7 @@ import useLocalization from 'app/provider/localization'
 import { Row, View } from 'dripsy'
 import React, { useRef, useState } from 'react'
 import ActionSheet from 'react-native-actions-sheet'
+import { Game } from 'services/contentApi.type'
 import useSlotGamesFilter from '../../hooks/game/useSlotGamesFilter'
 import VerticalGameList from '../games/VerticalGameList'
 import ListSectionHeader from '../ListSectionHeader'
@@ -12,6 +14,7 @@ const Slots = () => {
   const { t } = useLocalization()
   const gameTypeRef = useRef<ActionSheet>()
   const slotProviderRef = useRef<ActionSheet>()
+  const list = useRef<FlashList<Game> | null>(null)
   const [providerLogo, setProviderLogo] = useState('')
 
   const {
@@ -23,7 +26,7 @@ const Slots = () => {
     setSelectedProvider,
     setSelectedSlotType,
     isFetching,
-  } = useSlotGamesFilter()
+  } = useSlotGamesFilter(list)
 
   const isGameReady = !isFetching
 
@@ -39,6 +42,7 @@ const Slots = () => {
     <>
       <VerticalGameList
         // showName
+        ref={list}
         isLoading={isFetching}
         data={filteredGames}
         ListHeaderComponent={

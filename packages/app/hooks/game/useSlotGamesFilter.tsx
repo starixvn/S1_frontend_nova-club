@@ -5,14 +5,18 @@ import {
   SlotType,
   SlotTypeOptions,
 } from 'app/utils/constant'
-import { useEffect, useMemo, useState } from 'react'
+import { MutableRefObject, useEffect, useMemo, useState } from 'react'
 import { useGameListQuery, useGetGameListQuery } from 'services/contentApi'
 import { Game } from 'services/contentApi.type'
 import uniqBy from 'lodash/uniqBy'
 import { usePlayerProfileQuery } from 'services/playerApi'
+import { FlashList } from '@shopify/flash-list'
+import { LayoutAnimation } from 'react-native'
 // import groupBy from 'lodash/groupBy'
 const LIMIT = 10
-function useSlotGamesFilter() {
+function useSlotGamesFilter(
+  verticalList: MutableRefObject<FlashList<Game> | null>
+) {
   const [allSlotGames, setAllSlotGames] = useState<Game[]>([])
 
   const { data: playerProfile } = usePlayerProfileQuery()
@@ -20,7 +24,7 @@ function useSlotGamesFilter() {
 
   const { data, isFetching } = useGetGameListQuery({
     currency: currency ?? Currency.VND,
-    game_category: [GAME_TYPE_CODE.SLOTS],
+    game_category: [GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING],
     limit: 2000,
     offset: 0,
   })
@@ -65,32 +69,37 @@ function useSlotGamesFilter() {
     }
 
     // setNumOfVisible(LIMIT)
+
+    // if (verticalList.current) {
+    //   verticalList.current.prepareForLayoutAnimationRender()
+    //   LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+    // }
     return result ?? []
   }, [allSlotGames, selectedProvider, selectedSlotType])
 
-  const displayList = useMemo(() => {
-    // length.current = length.current + LIMIT
+  // const displayList = useMemo(() => {
+  //   // length.current = length.current + LIMIT
 
-    // console.log('filter to ', length.current)
-    return filteredGames.slice(0, numOfVisible)
-  }, [filteredGames, numOfVisible])
+  //   // console.log('filter to ', length.current)
+  //   return filteredGames.slice(0, numOfVisible)
+  // }, [filteredGames, numOfVisible])
 
-  function loadMore() {
-    // length.current = length.current + LIMIT
-    // console.log('set to ', length.current)
-    setNumOfVisible(numOfVisible + LIMIT)
-  }
+  // function loadMore() {
+  //   // length.current = length.current + LIMIT
+  //   // console.log('set to ', length.current)
+  //   setNumOfVisible(numOfVisible + LIMIT)
+  // }
 
   return {
     providerSelection,
     slotTypeSelection,
-    displayList,
+    // displayList,
     filteredGames,
     selectedProvider,
     setSelectedProvider,
     selectedSlotType,
     setSelectedSlotType,
-    loadMore,
+    // loadMore,
     isFetching,
   }
 }
