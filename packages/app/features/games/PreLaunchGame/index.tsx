@@ -1,5 +1,4 @@
 import { DEV_DOMAIN } from '@env'
-import { useFocusEffect, useIsFocused } from '@react-navigation/native'
 import { Button } from 'app/components/form/Button'
 import { DripsyGradient } from 'app/components/Gradient'
 import { useTransferAllToOneMutation } from 'app/custom_services/walletApi'
@@ -12,7 +11,7 @@ import { SettingActions } from 'app/store/setting.slice'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
 import { getErrorMessage } from 'app/utils/validation'
 import { View } from 'dripsy'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Linking, Platform } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { useLazyGetGameUrlQuery } from 'services/gameApi'
@@ -251,8 +250,8 @@ function useGameLauncher(gameLauncherState: LaunchGamePayload) {
     if (providerCode) {
       console.log('providerCode', providerCode)
       if (providerCode === 'PTV2') {
-        _launchPT()
-      } else _launch()
+        await _launchPT()
+      } else await _launch()
     }
   }
 
