@@ -3,8 +3,13 @@ import Icon from 'app/components/Icon'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
+import { toCurrency } from 'app/utils'
+import { Currency } from 'app/utils/constant'
 import { styled, SxProp, Text, useDripsyTheme, View } from 'dripsy'
-import { usePlayerOverviewSummaryQuery } from 'services/playerApi'
+import {
+  usePlayerOverviewSummaryQuery,
+  usePlayerProfileQuery,
+} from 'services/playerApi'
 import { useRouter } from 'solito/router'
 
 type Amount = string | number
@@ -15,6 +20,8 @@ const ProfileOverview = () => {
   const { theme } = useDripsyTheme()
 
   const { data } = usePlayerOverviewSummaryQuery()
+  const { data: playerData } = usePlayerProfileQuery()
+  const currency = playerData?.data?.currency as Currency
 
   const { makeContextualHref } = useContextualRouting()
   const toOverview = makeContextualHref('/profile/overview')
@@ -77,7 +84,10 @@ const ProfileOverview = () => {
       >
         <SmallInfo
           label={t('profile.reward')}
-          amount={data?.data?.accumulate_reward ?? 0}
+          amount={toCurrency(data?.data?.accumulate_reward ?? 0, currency, {
+            symbol: false,
+            hideTruncatedThousand: false,
+          })}
           sx={{
             width: '60%',
             justifyContent: 'center',

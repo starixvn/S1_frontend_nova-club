@@ -1,7 +1,7 @@
 import { Button } from 'app/components/form/Button'
 import TextInput from 'app/components/form/TextInput'
 import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
-import { useAppDispatch } from 'app/provider/redux/store'
+import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { useSendRegistrationOtpMutation } from 'services/authApi'
 import { AlertActions } from 'app/store/alert.slice'
 import { getErrorMessage } from 'app/utils/validation'
@@ -14,6 +14,8 @@ import AuthLayout from '../layout/AuthLayout'
 import { RegisterFormValues } from '../register'
 import useLocalization from 'app/provider/localization'
 import ReceiveOTPContact from '../common/ReceiveOTPContact'
+import { useRouter } from 'solito/router'
+import useContextualRouting from 'app/hooks/useContextualRouting'
 
 interface VerificationFormProps {
   formik: FormikProps<RegisterFormValues>
@@ -44,10 +46,15 @@ const VerificationForm = ({
 
   const { theme } = useDripsyTheme()
   const dispatch = useAppDispatch()
+  const { push } = useRouter()
+  const locale = useAppSelector((s) => s.setting.locale)
 
   const otpFieldRef = useRef<RNTextField>(null)
 
   const [sendRegistrationOtp, { isLoading }] = useSendRegistrationOtpMutation()
+
+  const { makeContextualHref } = useContextualRouting()
+  const toTnc = makeContextualHref('tnc')
 
   const onCheckboxCheck = () => {
     setFieldValue('terms', !values.terms)
@@ -87,6 +94,16 @@ const VerificationForm = ({
     if (isValid) {
       sendOTP()
     }
+  }
+
+  const handlePressTnC = () => {
+    const params = {
+      locale: locale,
+    }
+    push(makeContextualHref('tnc', params), {
+      pathname: '/auth/register/tnc',
+      query: params,
+    })
   }
 
   return (
@@ -186,6 +203,7 @@ const VerificationForm = ({
               <Text
                 variant="sm"
                 sx={{ color: '$orange', textDecorationLine: 'underline' }}
+                onPress={handlePressTnC}
               >
                 {t('common.userAgreement')}
               </Text>

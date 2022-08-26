@@ -19,7 +19,7 @@ const DateTimeCell = ({
   isShowDate = true,
   isShowTime = true,
 }: DateTimeCellProps) => {
-  const dateInstance = dayjsTz(date)
+  const dateInstance = date.includes('Z') ? dayjsTz(date) : dayjs(date)
 
   return (
     <View sx={sx}>

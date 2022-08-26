@@ -40,6 +40,7 @@ const _contextualComponents = {
   'change-pin': () => import('../../features/pin/change-pin'),
   'forgot-pin': () => import('../../features/pin/forgot-pin'),
   '/profile/overview': () => import('../../features/profile/overview'),
+  tnc: () => import('../../../../apps/next/pages/auth/register/tnc'),
 }
 
 function getContextualComponent(key: string) {

@@ -30,6 +30,7 @@ import CreatePinScreen from 'app/features/pin/CreatePinScreen'
 import ChangePinScreen from 'app/features/pin/change-pin'
 import ForgotPinScreen from 'app/features/pin/forgot-pin'
 import ManageCredentialsPage from 'app/features/profile/manage-credentials'
+import TnC from 'app/features/auth/tnc'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -59,6 +60,7 @@ const Stack = createStackNavigator<{
   CreatePin: undefined
   ChangePin: undefined
   ForgotPin: undefined
+  TnC: undefined
 }>()
 
 export function NativeNavigation() {
@@ -185,6 +187,7 @@ export function NativeNavigation() {
       <Stack.Screen name="ForgotPin" component={ForgotPinScreen} />
       <Stack.Screen name="FishingPage" component={FishingPage} />
       <Stack.Screen name="LotteryPage" component={LotteryPage} />
+      <Stack.Screen name="TnC" component={TnC} />
     </Stack.Navigator>
   )
 }

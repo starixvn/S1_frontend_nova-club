@@ -13,9 +13,15 @@ import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
 import { AlertActions } from 'app/store/alert.slice'
 import { SettingActions } from 'app/store/setting.slice'
-import { toCleanAmount, toCurrency, toRealAmount } from 'app/utils'
+import {
+  toCleanAmount,
+  toCurrency,
+  toDisplayAmount,
+  toRealAmount,
+} from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import validation from 'app/utils/validation'
+import validationRule from 'app/utils/validationRule'
 import { Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect } from 'react'
@@ -57,6 +63,7 @@ const TransferScreen = ({
     refetchOnMountOrArgChange: true,
   })
   const playerBalance = balanceData?.data?.main.balance
+  console.log('🚀 ~ file: index.tsx ~ line 66 ~ playerBalance', playerBalance)
 
   const { data: playerData, refetch } = usePlayerProfileQuery(undefined, {
     refetchOnMountOrArgChange: true,
@@ -112,7 +119,13 @@ const TransferScreen = ({
     },
     validationSchema: Yup.object({
       referralId: validation.referralCode,
-      amount: validation.amount,
+      amount: validationRule.amount({
+        min: toDisplayAmount(1, currency),
+        max: toDisplayAmount(
+          playerBalance !== '0' ? playerBalance : 1,
+          currency
+        ),
+      }),
     }),
     onSubmit,
   })
@@ -221,6 +234,11 @@ const TransferScreen = ({
             touched.amount && errors.amount
               ? t(errors.amount, {
                   field: t('common.amount'),
+                  amount: toCurrency(values.realAmount ?? 1, currency, {
+                    forceDecimal: false,
+                    symbol: false,
+                  }),
+                  min: 1,
                 })
               : undefined
           }
