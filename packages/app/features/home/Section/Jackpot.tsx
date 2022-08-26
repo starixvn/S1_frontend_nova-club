@@ -6,6 +6,7 @@ import { Image, styled, Text, useDripsyTheme, View } from 'dripsy'
 import React from 'react'
 import { ImageBackground } from 'react-native'
 import { useGetJackpotAmountQuery } from 'services/contentApi'
+import { useRouter } from 'solito/router'
 
 const IMAGE_HEIGHT = 145
 
@@ -22,6 +23,7 @@ const StyledImageBackground = styled(ImageBackground)({
 const Jackpot = ({}: JackpotProps) => {
   const { t } = useLocalization()
   const { theme } = useDripsyTheme()
+  const { push } = useRouter()
 
   const { data, isLoading } = useGetJackpotAmountQuery()
   const { increment = '0', jackpotAmount = '0' } = data?.data || {}
@@ -67,6 +69,9 @@ const Jackpot = ({}: JackpotProps) => {
                 color: 'yellowOrange',
                 start: { x: 0, y: 0 },
                 end: { x: 0, y: 1 },
+              }}
+              onPress={() => {
+                push('/slot')
               }}
             >
               <Button.Label

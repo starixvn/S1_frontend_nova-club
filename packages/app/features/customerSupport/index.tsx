@@ -17,7 +17,7 @@ const CONTACT_LIST = [
   },
   {
     label: SocialMedia.ZALO,
-    icon: 'zalo',
+    image: require('../../assets/images/social-media/zalo.jpg'),
     bg: ['#51aafd', '#3a62f6'],
   },
   {
@@ -62,6 +62,7 @@ const StyledWrapIcon = styled(DripsyGradient)({
   height: 50,
   aspectRatio: 1,
   justifyContent: 'center',
+  overflow: 'hidden',
 })
 
 interface SupportItemProps {
@@ -120,14 +121,25 @@ const SupportItem = ({ platforms }: SupportItemProps) => {
                 }}
               >
                 <StyledWrapIcon colors={item.bg}>
-                  <Icon
-                    name={item.icon}
-                    size={30}
-                    sx={{
-                      color: 'white',
-                      alignSelf: 'center',
-                    }}
-                  />
+                  {typeof item.icon === 'undefined' ? (
+                    <Image
+                      resizeMode="contain"
+                      source={item.image}
+                      sx={{
+                        width: 47,
+                        height: 47,
+                      }}
+                    />
+                  ) : (
+                    <Icon
+                      name={item.icon}
+                      size={30}
+                      sx={{
+                        color: 'white',
+                        alignSelf: 'center',
+                      }}
+                    />
+                  )}
                 </StyledWrapIcon>
                 <Text
                   sx={{
