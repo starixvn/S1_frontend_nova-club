@@ -89,7 +89,8 @@
     "contactVia": "Contact via",
     "livechat": "Live Chat",
     "telegram": "Telegram",
-    "whatsapp": "WhatsApp"
+    "whatsapp": "WhatsApp",
+    "zalo": "Zalo"
   },
   "deposit": {
     "actualDeposit": "Actual Deposit",

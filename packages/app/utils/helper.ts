@@ -1,11 +1,22 @@
 import { Linking, Platform } from 'react-native'
 
-export async function openSocialPlatform(platform: string) {
+export enum SocialMedia {
+  FACEBOOK = 'facebook',
+  INSTAGRAM = 'instagram',
+  TWITTER = 'twitter',
+  YOUTUBE = 'youtube',
+  TELEGRAM = 'telegram',
+  LIVECHAT = 'livechat',
+  ENVELOPE = 'envelope',
+  ZALO = 'zalo',
+}
+
+export function getSocialMediaScheme(platform: SocialMedia) {
   let scheme: string = ''
   let backUpScheme: string = ''
 
   switch (platform) {
-    case 'facebook':
+    case SocialMedia.FACEBOOK:
       backUpScheme = 'https://www.facebook.com/nova88official/'
       const s = Platform.select({
         ios: 'fb://profile',
@@ -17,31 +28,44 @@ export async function openSocialPlatform(platform: string) {
     // case 'whatsapp':
     //   backUpScheme = 'https://api.whatsapp.com/send?'
     //   scheme = 'https://api.whatsapp.com/send?'
-    case 'instagram':
+    case SocialMedia.INSTAGRAM:
       backUpScheme = 'https://www.instagram.com/nova88_official'
       scheme = `instagram://user?username=nova88_official`
       break
-    case 'twitter':
+    case SocialMedia.TWITTER:
       backUpScheme = 'https://twitter.com/nova88official?s=11'
       scheme = `https://twitter.com/nova88official?s=11`
       break
-    case 'youtube':
+    case SocialMedia.YOUTUBE:
       backUpScheme = 'https://www.youtube.com/channel/UCoUtgrQN2E10oke1Hmj0ATw'
       scheme = 'vnd.youtube://channel/UCoUtgrQN2E10oke1Hmj0ATw'
       break
-    case 'telegram':
-      backUpScheme = 'https://t.me/Nova88Support1'
-      scheme = 'https://t.me/Nova88Support1'
+    case SocialMedia.TELEGRAM:
+      backUpScheme = 'https://t.me/vui123cs'
+      scheme = 'https://t.me/vui123cs'
       break
-    case 'livechat':
-      scheme = 'https://direct.lc.chat/11638088/'
+    case SocialMedia.LIVECHAT:
+      scheme =
+        'https://secure.livechatinc.com/licence/14440122/v2/open_chat.cgi'
       break
-    case 'envelope':
+    case SocialMedia.ENVELOPE:
       scheme = 'mailto:support@nova88.com'
+      break
+    case SocialMedia.ZALO:
+      scheme = 'http://zaloapp.com/qr/p/1s3jitmnw6cp9'
       break
   }
 
+  return {
+    scheme,
+    backUpScheme,
+  }
+}
+
+export async function isURLSupported(platform: SocialMedia) {
+  const { backUpScheme, scheme } = getSocialMediaScheme(platform)
+
   const supported = await Linking.canOpenURL(scheme)
-  if (supported) Linking.openURL(scheme)
-  else Linking.openURL(backUpScheme)
+
+  return supported ? scheme : backUpScheme
 }

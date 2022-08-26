@@ -3,34 +3,33 @@ import Icon from 'app/components/Icon'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
-import { openSocialPlatform } from 'app/utils/helper'
+import { isURLSupported, SocialMedia } from 'app/utils/helper'
 import { Image, styled, Text, View } from 'dripsy'
-import { useMemo } from 'react'
+import { useEffect, useState } from 'react'
+import { Linking, Platform } from 'react-native'
 const HEADER_IMAGE = require('../../assets/images/logo.png')
+
+const CONTACT_LIST = [
+  {
+    label: SocialMedia.TELEGRAM,
+    icon: 'tg',
+    bg: ['#C0E0FD', '#33A0D0'],
+  },
+  {
+    label: SocialMedia.ZALO,
+    icon: 'zalo',
+    bg: ['#51aafd', '#3a62f6'],
+  },
+  {
+    label: SocialMedia.LIVECHAT,
+    icon: 'cs',
+    bg: ['#FC819B', '#E13256'],
+  },
+]
 
 const CustomerSupportPage = () => {
   const { t } = useLocalization()
 
-  const CONTACT_LIST = useMemo(
-    () => [
-      {
-        label: 'whatsapp',
-        icon: 'wa',
-        bg: ['#BFFABC', '#42C73B'],
-      },
-      {
-        label: 'telegram',
-        icon: 'tg',
-        bg: ['#C0E0FD', '#33A0D0'],
-      },
-      {
-        label: 'livechat',
-        icon: 'cs',
-        bg: ['#FC819B', '#E13256'],
-      },
-    ],
-    []
-  )
   return (
     <DripsyGradient colors={['#133351', '#0D2035']} sx={{ flex: 1 }}>
       <PageWithBackHeader header={{ title: t('menu.customerSupport') }}>
@@ -39,7 +38,7 @@ const CustomerSupportPage = () => {
           <Text sx={{ fontSize: 18, fontWeight: 'bold', my: '$4' }}>
             {t('contact.contactVia')}:
           </Text>
-          <SupportItem data={CONTACT_LIST} />
+          <SupportItem platforms={CONTACT_LIST} />
         </View>
       </PageWithBackHeader>
     </DripsyGradient>
@@ -65,49 +64,86 @@ const StyledWrapIcon = styled(DripsyGradient)({
   justifyContent: 'center',
 })
 
-const SupportItem = ({ data }) => {
+interface SupportItemProps {
+  platforms: typeof CONTACT_LIST
+}
+
+const SupportItem = ({ platforms }: SupportItemProps) => {
   const { t } = useLocalization()
-  return data.map((i) => {
-    return (
-      <StyledButton
-        colors={['#33A0D0', '#0B76A5']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-        key={i.label}
-      >
-        <BouncePressable
-          sx={{
-            width: 200,
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-          onPress={() => {
-            openSocialPlatform(i.label)
-          }}
-        >
-          <StyledWrapIcon colors={i.bg}>
-            <Icon
-              name={i.icon}
-              size={30}
-              sx={{
-                color: 'white',
-                alignSelf: 'center',
+  const [socialMediaList, setSocialMediaList] = useState<
+    (SupportItemProps['platforms'][number] & { href: string })[] | []
+  >([])
+
+  useEffect(() => {
+    const getLists = async () => {
+      const lists = platforms.map(async (platform) => {
+        const href = await isURLSupported(platform.label)
+
+        return {
+          ...platform,
+          href,
+        }
+      })
+
+      const result = await Promise.all(lists)
+
+      setSocialMediaList(result)
+    }
+
+    getLists()
+  }, [platforms])
+
+  return (
+    <View>
+      {!!socialMediaList.length &&
+        socialMediaList.map((item) => {
+          return (
+            <BouncePressable
+              key={item.label}
+              onPress={() => {
+                if (Platform.OS !== 'web') Linking.openURL(item.href)
               }}
-            />
-          </StyledWrapIcon>
-          <Text
-            sx={{
-              fontSize: 20,
-              fontWeight: 'bold',
-              pl: '$4',
-            }}
-          >
-            {t('contact.' + i.label)}
-          </Text>
-        </BouncePressable>
-      </StyledButton>
-    )
-  })
+            >
+              <StyledButton
+                colors={['#33A0D0', '#0B76A5']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+                href={item.href}
+                hrefAttrs={{
+                  rel: 'noreferrer',
+                  target: '_blank',
+                }}
+                sx={{
+                  width: 200,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}
+              >
+                <StyledWrapIcon colors={item.bg}>
+                  <Icon
+                    name={item.icon}
+                    size={30}
+                    sx={{
+                      color: 'white',
+                      alignSelf: 'center',
+                    }}
+                  />
+                </StyledWrapIcon>
+                <Text
+                  sx={{
+                    fontSize: 20,
+                    fontWeight: 'bold',
+                    pl: '$4',
+                  }}
+                >
+                  {t('contact.' + item.label)}
+                </Text>
+              </StyledButton>
+            </BouncePressable>
+          )
+        })}
+    </View>
+  )
 }
 
 export default CustomerSupportPage
