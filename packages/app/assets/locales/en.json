@@ -198,7 +198,9 @@
     "notFound": "",
     "quitGame": "Quit Game",
     "reward": "Game rewards",
-    "underMaintenance": "Game Under Maintenance"
+    "underMaintenance": "Game Under Maintenance",
+    "invalidSession": "Invalid Session [%{code}]",
+    "unableToConnect": "Unable to connect [%{code}]"
   },
   "menu": {
     "agentLogin": "Agent Login",

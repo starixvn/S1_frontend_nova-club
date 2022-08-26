@@ -10,21 +10,10 @@ const gameEndpoints = (builder: EndpointBuilderType) => {
   return {
     getGameUrl: builder.query<IResponse<GetGameUrlResult>, GetGameUrlQueryArgs>(
       {
-        query: ({
-          game_code,
-          is_demo,
-          is_mobile,
-          platform_code,
-          home_url,
-        }) => ({
+        query: ({ token, ...params }) => ({
           url: `/player_api/gotogame`,
-          data: {
-            game_code,
-            is_demo,
-            is_mobile,
-            platform_code,
-            home_url,
-          },
+          data: params,
+          headers: token ? { Authorization: `Bearer ${token}` } : {},
         }),
       }
     ),

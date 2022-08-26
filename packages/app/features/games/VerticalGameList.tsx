@@ -62,8 +62,8 @@ const VerticalGameList = forwardRef<FlashList<Game>, VerticalGameListProps>(
           estimatedItemSize={50}
           numColumns={numColumns}
           contentContainerStyle={{
-            paddingTop: containerSpace,
-            paddingBottom: containerSpace * 3,
+            paddingTop: 8,
+            paddingBottom: 16,
           }}
           {...rest}
         />

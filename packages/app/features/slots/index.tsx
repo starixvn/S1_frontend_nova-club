@@ -38,7 +38,7 @@ const Slots = () => {
   return (
     <>
       <VerticalGameList
-        showName
+        // showName
         isLoading={isFetching}
         data={filteredGames}
         ListHeaderComponent={
