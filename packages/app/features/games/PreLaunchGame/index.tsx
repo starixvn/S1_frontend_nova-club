@@ -196,7 +196,8 @@ function useGameLauncher(gameLauncherState: LaunchGamePayload) {
   async function _launchPT() {
     if (authState.info) {
       try {
-        const ptLaunchUrl = `${DEV_DOMAIN}/launch_pt?code=${gameCode}&t=${authState.info?.token}&username=${authState.info?.playerName}`
+        const domain = Platform.OS === 'web' ? '' : DEV_DOMAIN
+        const ptLaunchUrl = `${domain}/launcher_pt?code=${gameCode}&t=${authState.info?.token}&username=${authState.info?.playerName}`
         // const ptLaunchUrl = `http://player.zhiyunxianghe.com:3000/launcher_pt?code=${gameCode}&t=${authState.info?.token}&username=${authState.info?.playerName}`
 
         console.log('Launching PT Url ', ptLaunchUrl)

@@ -25,15 +25,10 @@ const UNABLE_TO_CONNECT = `game.unableToConnect`
   12 - show player error message from the game
 */
 
-const LauncherPT: NextPage<LauncherPTProps> = ({
-  username,
-  password,
-  demo,
-  code,
-  domain,
-  systemIdVar,
-  errorCode,
-}) => {
+const LauncherPT: NextPage<LauncherPTProps> = (props) => {
+  const { username, password, demo, code, domain, systemIdVar, errorCode } =
+    props
+
   const { t } = useLocalization()
 
   const [isScriptReady, setScriptReady] = useState(false)
