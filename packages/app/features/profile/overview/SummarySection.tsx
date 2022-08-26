@@ -1,6 +1,9 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import useLocalization from 'app/provider/localization'
+import { toCurrency } from 'app/utils'
+import { Currency } from 'app/utils/constant'
 import { styled, Text, View } from 'dripsy'
+import { usePlayerProfileQuery } from 'services/playerApi'
 
 type Amount = string | number
 
@@ -56,6 +59,9 @@ const SummarySection = ({
 }
 
 const TopInfo = ({ label, amount }: { label: string; amount: Amount }) => {
+  const { data: playerData } = usePlayerProfileQuery()
+  const currency = playerData?.data?.currency as Currency
+
   return (
     <View
       sx={{
@@ -65,16 +71,29 @@ const TopInfo = ({ label, amount }: { label: string; amount: Amount }) => {
       }}
     >
       <Text sx={{ pt: '$3' }}>{label}</Text>
-      <Text sx={{ pb: '$3' }}>{amount}</Text>
+      <Text sx={{ pb: '$3' }}>
+        {toCurrency(amount ?? 0, currency, {
+          symbol: false,
+          hideTruncatedThousand: false,
+        })}
+      </Text>
     </View>
   )
 }
 
 const BottomInfo = ({ label, amount }: { label: string; amount: Amount }) => {
+  const { data: playerData } = usePlayerProfileQuery()
+  const currency = playerData?.data?.currency as Currency
+
   return (
     <StyledBottomContainer>
       <Text sx={{ pt: '$3' }}>{label}</Text>
-      <Text sx={{ pb: '$3' }}>{amount}</Text>
+      <Text sx={{ pb: '$3' }}>
+        {toCurrency(amount ?? 0, currency, {
+          symbol: false,
+          hideTruncatedThousand: false,
+        })}
+      </Text>
     </StyledBottomContainer>
   )
 }

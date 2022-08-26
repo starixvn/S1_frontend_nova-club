@@ -52,7 +52,7 @@ export function getSocialMediaScheme(platform: SocialMedia) {
       scheme = 'mailto:support@nova88.com'
       break
     case SocialMedia.ZALO:
-      scheme = 'http://zaloapp.com/qr/p/1s3jitmnw6cp9'
+      scheme = 'https://zalo.me/84782801659'
       break
   }
 

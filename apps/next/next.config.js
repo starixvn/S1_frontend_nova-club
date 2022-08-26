@@ -27,6 +27,10 @@ const nextConfig = {
     disableServerWebpackPlugin: true,
     disableClientWebpackPlugin: true,
   },
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'vi'],
+  },
 }
 const { withSentryConfig } = require('@sentry/nextjs')
 const { withExpo } = require('@expo/next-adapter')
@@ -48,7 +52,7 @@ const withTM = require('next-transpile-modules')([
   '@react-native-community/datetimepicker',
   'react-native-share',
   '@shopify/flash-list',
-  'recyclerlistview'
+  'recyclerlistview',
 ])
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',

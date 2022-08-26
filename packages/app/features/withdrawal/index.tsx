@@ -138,7 +138,10 @@ const WithdrawalPage = () => {
       bank: validation.bank,
       amount: validationRule.amount({
         min: toDisplayAmount(1, currency),
-        max: toDisplayAmount(playerBalance, currency),
+        max: toDisplayAmount(
+          playerBalance !== '0' ? playerBalance : 1,
+          currency
+        ),
       }),
     }),
     onSubmit,

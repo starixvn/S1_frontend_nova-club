@@ -158,7 +158,7 @@
       "adjustment": "Adjustment",
       "deposit": "Deposit",
       "game": "Game",
-      "rewards": "Rewards",
+      "rewards": "Reward",
       "withdrawal": "Withdrawal"
     },
     "withdrawalStatus": {
@@ -238,6 +238,7 @@
       "type": "Type",
       "win/loss": "Win/Loss"
     },
+    "tnc": "Terms and Conditions",
     "transactionHistory": "Transaction History",
     "transfer": "Transfer",
     "withdraw": "Withdraw",

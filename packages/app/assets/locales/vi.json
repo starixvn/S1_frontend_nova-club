@@ -177,8 +177,8 @@
       "fishing": "Bắn Cá",
       "fishingGames": "Trò Chơi Câu Cá",
       "games": "Trò Chơi",
-      "hotGames": "Hot Games",
-      "keno/lottery": "Keno / Lottery",
+      "hotGames": "Trò Chơi Hot",
+      "keno/lottery": "Keno / Xổ số",
       "liveCasino": "SÒNG BÀI",
       "poker": "Poker",
       "slots": "Quay hũ",
@@ -203,7 +203,7 @@
     "unableToConnect": "Unable to connect [%{code}]"
   },
   "menu": {
-    "agentLogin": "Dăng nhập đại lý",
+    "agentLogin": "Đăng nhập đại lý",
     "bankAccount": "Tài khoản ngân hàng",
     "changePassword": "Đổi Mật Khẩu",
     "changePin": "Thay đổi mã PIN",
@@ -238,6 +238,7 @@
       "type": "Loại",
       "win/loss": "Thắng/Thua"
     },
+    "tnc": "Điều khoản và Điều kiện",
     "transactionHistory": "Lịch sử giao dịch",
     "transfer": "Chuyển quỹ",
     "withdraw": "Rút tiền",

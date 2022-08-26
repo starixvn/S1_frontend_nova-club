@@ -27,7 +27,7 @@ const DATA = [
     ],
   },
   {
-    label: 'game.category.fishingGames',
+    label: 'game.category.fishing',
     img: require('../../assets/images/games/fishing.png'),
     bgImg: require('../../assets/images/games/games/yellow-ellipse.png'),
     gameType: [GAME_TYPE_CODE.FISHING],

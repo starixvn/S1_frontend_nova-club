@@ -40,6 +40,7 @@ export function NavigationProvider({
               SplashScreen: 'splashscreen',
               LoginPage: '/auth/login',
               RegisterPage: '/auth/register',
+              TnC: '/auth/register/tnc',
               ForgotPassword: '/auth/forget-password',
               CommissionTablePage: '/profile/commission-table',
               DepositPage: {
