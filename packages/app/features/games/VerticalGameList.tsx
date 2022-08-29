@@ -3,7 +3,7 @@ import SimpleGridImage from 'app/components/SimpleGridImage'
 import useGameGridSize from 'app/hooks/useGameGridSize'
 import { useAppSelector } from 'app/provider/redux/store'
 import { GAME_TAGS } from 'app/utils/constant'
-import { useSx, View } from 'dripsy'
+import { styled, useSx, View } from 'dripsy'
 import React, { forwardRef, useMemo } from 'react'
 
 import { Game } from 'services/contentApi.type'
@@ -12,14 +12,16 @@ import { FlashList, FlashListProps } from '@shopify/flash-list'
 import IconButton from 'app/components/form/IconButton'
 import Icon from 'app/components/Icon'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { useFocusEffect } from '@react-navigation/native'
 
 type VerticalGameListProps = Omit<FlashListProps<Game>, 'renderItem'> & {
   isLoading?: boolean
   showName?: boolean
+  showScrollingTop?: boolean
 }
 
 const VerticalGameList = forwardRef<FlashList<Game>, VerticalGameListProps>(
-  ({ numColumns = 3, showName, ...rest }, ref) => {
+  ({ numColumns = 3, showName, showScrollingTop, ...rest }, ref) => {
     const { containerSpace, itemSpace, contentWidth } =
       useGameGridSize(numColumns)
     const locale = useAppSelector((s) => s.setting.locale)
@@ -70,31 +72,24 @@ const VerticalGameList = forwardRef<FlashList<Game>, VerticalGameListProps>(
           }}
           {...rest}
         />
-        <View
-          sx={{
-            position: 'absolute',
-            right: 0,
-            width: '20%',
-            alignItems: 'center',
-            bottom: 20,
-            zIndex: 1,
-          }}
-        >
-          <IconButton
-            size={15}
-            sx={{
-              backgroundColor: 'rgb(51, 160, 208)',
-              p: '$2',
-            }}
-            onPress={() => {
-              ref?.current?.scrollToOffset({
-                animated: true,
-                offset: 0,
-              })
-            }}
-            name="arrow-up"
-          />
-        </View>
+        {showScrollingTop && (
+          <ScrollTopButton>
+            <IconButton
+              size={20}
+              sx={{
+                backgroundColor: 'rgb(51, 160, 208)',
+                p: '$2a',
+              }}
+              onPress={() => {
+                ref?.current?.scrollToOffset({
+                  animated: true,
+                  offset: 0,
+                })
+              }}
+              name="arrow-up"
+            />
+          </ScrollTopButton>
+        )}
       </View>
     )
   }
@@ -103,3 +98,12 @@ const VerticalGameList = forwardRef<FlashList<Game>, VerticalGameListProps>(
 VerticalGameList.displayName = 'VerticalGameList'
 
 export default VerticalGameList
+
+const ScrollTopButton = styled(View)(() => ({
+  position: 'absolute',
+  right: 0,
+  width: '20%',
+  alignItems: 'center',
+  bottom: 30,
+  zIndex: 1,
+}))

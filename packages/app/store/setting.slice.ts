@@ -69,7 +69,7 @@ const settingSlice = createSlice({
 
       if (similarGameIndex > -1) state.recentGames.splice(similarGameIndex, 1)
 
-      state.recentGames.push(recentGame)
+      state.recentGames.unshift(recentGame)
     },
   },
   extraReducers: (builder) => {

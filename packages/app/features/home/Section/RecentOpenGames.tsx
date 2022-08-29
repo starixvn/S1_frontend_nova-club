@@ -12,15 +12,13 @@ const RecentOpenGames = () => {
   // const resources = useAppSelector((s) => s.setting.recentGameResources)
   const { t } = useLocalization()
   const games = useMemo(() => {
-    return recent
-      .map((r) => {
-        return {
-          gc: r.gameCode || '',
-          gpc: r.providerCode || '',
-          img: r.image,
-        } as Game
-      })
-      .reverse()
+    return recent.map((r) => {
+      return {
+        gc: r.gameCode || '',
+        gpc: r.providerCode || '',
+        img: r.image,
+      } as Game
+    })
   }, [])
 
   if (games.length === 0) return null

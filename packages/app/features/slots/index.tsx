@@ -42,6 +42,7 @@ const Slots = () => {
     <>
       <VerticalGameList
         // showName
+        showScrollingTop
         ref={list}
         isLoading={isFetching}
         data={filteredGames}

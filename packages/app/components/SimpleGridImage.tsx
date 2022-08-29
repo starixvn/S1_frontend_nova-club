@@ -68,7 +68,10 @@ const SimpleGridImage: FC<GamesProps> = ({
           width={width}
           height={height ?? width / GAME_IMAGE_RATIO}
           image={image}
-          frame={gameType === GAME_TYPE_CODE.SLOTS}
+          frame={
+            gameType === GAME_TYPE_CODE.SLOTS ||
+            gameType === GAME_TYPE_CODE.FISHING
+          }
         />
         {/* {gameType === GAME_TYPE_CODE.SLOTS && (
           <Image
@@ -124,7 +127,7 @@ const SimpleGridImage: FC<GamesProps> = ({
             left: -15,
           }}
           key={image}
-          delay={1000}
+          delay={Math.random() * 500 + 500}
           from={{
             scale: 0.1,
             opacity: 0.2,
