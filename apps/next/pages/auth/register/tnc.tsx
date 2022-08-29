@@ -11,9 +11,20 @@ const FONT_SIZE = 12
 
 const TnC = () => {
   const router = useRouter()
-  const isEnglish = router.query?.locale === 'en'
 
   console.log('🚀 ~ file: index.tsx ~ line 6 ~ TnC ~ router', router)
+
+  const TnCLanguage = () => {
+    switch (router.query?.locale) {
+      case 'en':
+        return <TncEn />
+      case 'vi':
+        return <TncVi />
+
+      default:
+        return <TncEn />
+    }
+  }
 
   return (
     <PageWithBackHeader header={{ title: 'menu.tnc' }}>
@@ -59,7 +70,7 @@ const TnC = () => {
           }
         `}</style>
 
-        {isEnglish ? <TncEn /> : <TncVi />}
+        <TnCLanguage />
       </main>
     </PageWithBackHeader>
   )

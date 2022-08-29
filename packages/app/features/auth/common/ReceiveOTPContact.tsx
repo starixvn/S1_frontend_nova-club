@@ -1,9 +1,19 @@
+import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
 import { Text, View } from 'dripsy'
 import React from 'react'
+import { useRouter } from 'solito/router'
 
 function ReceiveOTPContact() {
   const { t } = useLocalization()
+  const { push } = useRouter()
+
+  const { makeContextualHref } = useContextualRouting()
+  const to = makeContextualHref('customer-support')
+
+  const handlePressContact = () => {
+    push(to, '/customer-support')
+  }
 
   return (
     <View
@@ -19,6 +29,7 @@ function ReceiveOTPContact() {
         <Text
           variant="xs"
           sx={{ color: '$orange', textDecorationLine: 'underline' }}
+          onPress={handlePressContact}
         >
           {t('common.contactUs')}
         </Text>

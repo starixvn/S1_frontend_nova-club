@@ -6,9 +6,10 @@ import WebView from 'react-native-webview'
 
 const TnC = () => {
   const lang = useAppSelector((state) => state.setting.locale)
-  console.log('🚀 ~ file: index.tsx ~ line 9 ~ TnC ~ lang', lang)
 
-  const TNC_URL = `${DEV_DOMAIN}/auth/tnc?locale=${lang}`
+  const TNC_URL = `${DEV_DOMAIN}/auth/register/tnc?locale=${lang}`
+  console.log('🚀 ~ file: index.tsx ~ line 11 ~ TnC ~ TNC_URL', TNC_URL)
+
   // Used to hide the header inside webview
   const INJECTED_JAVASCRIPT = `
   window.addEventListener('load', () => {

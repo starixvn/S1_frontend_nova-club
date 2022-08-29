@@ -205,7 +205,7 @@ const VerificationForm = ({
                 sx={{ color: '$orange', textDecorationLine: 'underline' }}
                 onPress={handlePressTnC}
               >
-                {t('common.userAgreement')}
+                {t('menu.tnc').toLowerCase()}
               </Text>
             </Text>
           </Pressable>
@@ -216,6 +216,7 @@ const VerificationForm = ({
         <View sx={{ width: '70%' }}>
           <Button
             stretch
+            disabled={!values.terms}
             onPress={submitForm}
             sx={{ mt: '$8' }}
             loading={isSubmitting}
