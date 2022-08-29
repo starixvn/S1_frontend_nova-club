@@ -82,16 +82,12 @@ const LauncherPT: NextPage<LauncherPTProps> = (props) => {
   function onTempTokenCallback(response) {
     console.log('response', response)
 
-    const clientUrl = `https://hub.${domain}.com/igaming/?
-    gameId=${code}&
-    real=${demo ? 0 : 1}&
-    username=${username}&
-    lang=en&
-    tempToken=${response.sessionToken.sessionToken}&
-    lobby=/&
-    support=support.html&
-    logout=logout.html&
-    deposit=/deposit`
+    // launch_alias=newhot is for PT Live Casino default to NEW & HOT tab
+    const clientUrl = `https://hub.${domain}.com/igaming/?gameId=${code}&real=${
+      demo ? 0 : 1
+    }&username=${username}&lang=en&tempToken=${
+      response.sessionToken.sessionToken
+    }&lobby=/&support=support.html&logout=logout.html&deposit=/deposit&launch_alias=newhot`
 
     document.location = clientUrl
   }

@@ -199,7 +199,9 @@ function useGameLauncher(gameLauncherState: LaunchGamePayload) {
         const ptLaunchUrl = `${domain}/launcher_pt?code=${gameCode}&t=${authState.info?.token}&username=${authState.info?.playerName}`
         // const ptLaunchUrl = `http://player.zhiyunxianghe.com:3000/launcher_pt?code=${gameCode}&t=${authState.info?.token}&username=${authState.info?.playerName}`
 
-        console.log('Launching PT Url ', ptLaunchUrl)
+        // console.log('Launching PT Url ', ptLaunchUrl)
+        dispatch(SettingActions.addRecentGame({ ...gameLauncherState }))
+
         Linking.openURL(ptLaunchUrl)
       } catch (e) {
         console.log('Failed to launch PT Game', e)
