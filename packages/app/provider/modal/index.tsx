@@ -64,6 +64,7 @@ const stack = createModalStack(modalConfig, {
   },
   backdropOpacity: 0.6,
   backBehavior: 'pop',
+  disableFlingGesture: true,
   transitionOptions: (animatedValue) => ({
     opacity: animatedValue.interpolate({
       inputRange: [0, 1, 2],

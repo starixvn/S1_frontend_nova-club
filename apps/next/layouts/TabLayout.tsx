@@ -64,6 +64,7 @@ const TabLayout: FC<TabLayoutProps> = ({ children, lockHeight }) => {
         <div style={{ width: 100, height: 100, backgroundColor: 'red' }}></div>
       )} */}
       <HeaderFloat />
+      {/* <QRFloat /> */}
       {children}
       {/* <AnimatePresence
         initial={false}
@@ -108,4 +109,20 @@ const BottomTabFloat = () => {
   )
 }
 
+const QRFloat = () => {
+  return (
+    <View
+      sx={{
+        position: 'fixed',
+        zIndex: 1,
+        maxWidth: 'container',
+        top: '20%',
+        right: 0,
+        bg: 'red',
+      }}
+    >
+      <View sx={{ height: 100, width: 100 }} />
+    </View>
+  )
+}
 export default TabLayout

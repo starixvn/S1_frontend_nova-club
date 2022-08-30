@@ -33,7 +33,6 @@
   "common": {
     "all": "TẤT CẢ",
     "amount": "Số tiền",
-    "android": "",
     "app": "Ứng dụng",
     "balance": "Số dư",
     "bet": "Tiền cược",
@@ -266,19 +265,19 @@
       "n1": "Quét bằng ứng dụng để chuyển số dư"
     },
     "rewards": {
-      "n1": "",
-      "n2": "",
-      "n3": "",
-      "n4": "",
-      "n5": "",
-      "n6": ""
+      "n1": "Các loại games KHÔNG áp dụng cho hoàn trả/hoa hồng bao gồm: doanh thu của các games bàn không trực tiếp (ví dụ Blackjack, Video Poker, Craps, American Roulette, Baccarat, và các loại game bàn không trực tiếp khác) và các game không thuộc quay hũ. Các game này sẽ không được tính vào yêu cầu doanh thu trừ khi được ĐẶC BIỆT nêu rõ điều ngược lại.",
+      "n2": "\nNgoại lệ đặc biệt:",
+      "n3": "[Sportsbook] Chỉ các cược có kết quả thắng thua mới được hoàn trả. Cược hủy, cược trống, cược có tỷ lệ dưới 1.7 (Decimal odd); 0.7 (China odd); 0.7 (Malay Positive odd); -1.43 (Indo odd); -143 (US odd), hoặc cược hai bên trong cùng một trận không được hoàn trả.",
+      "n4": "[Live Casino] Tất cả các video game Blackjack (21) và Roulette TRỰC TIẾP",
+      "n5": "[Quay hũ] Tất cả các game video Poker, Table, Arcade, bắn cá, quay hũ nhiều vòng, Lucky God Progressive 2, Golden Tour, Ugga Bugga, Liu Fu Shou, quay hũ thưởng đôi trong tất cả các phòng quay hũ, và trò trong phòng game xx slot.",
+      "n6": "\n*Lưu ý: Quy định về phần thưởng của công ty có thể thay đổi. Trong bất cứ trường hợp nào, quyết định của Vui123 là cuối cùng."
     },
     "topUpCard": {
       "n1": "Vui lòng chọn đúng mệnh giá và nhà mạng, nếu quý khách nhập sai, Vui123 không chịu trách nhiệm.",
       "n2": "Phí gạch thẻ rẻ nhất thị trường, 25% cho tất cả các nhà mạng."
     },
     "transfer": {
-      "n1": ""
+      "n1": "Tất cả các tiền chuyển quỹ nội bộ đều phải trải qua 1x vòng cược trước khi rút tiền."
     },
     "withdrawal": {
       "n1": "Vui lòng liên hệ bộ phận LIVECHAT 24/7 nếu lệnh rút bị chậm trễ quá 10 phút.",

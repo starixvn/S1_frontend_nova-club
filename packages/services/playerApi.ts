@@ -102,6 +102,7 @@ const playerEndpoints = (builder: EndpointBuilderType) => {
           ...queryArgs,
         },
       }),
+      providesTags: ['Report'],
     }),
     playerLang: builder.mutation<string, PlayerLangArgs>({
       query: ({ lang }) => ({
@@ -118,6 +119,7 @@ const playerEndpoints = (builder: EndpointBuilderType) => {
 const playerApi = createApi({
   reducerPath: 'playerApi',
   baseQuery: axiosBaseQuery(),
+  tagTypes: ['Report'],
   endpoints: (builder) => ({
     ...playerEndpoints(builder),
   }),

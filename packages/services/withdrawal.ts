@@ -2,6 +2,7 @@ import { API_DOMAIN } from '@env'
 import { createApi } from '@reduxjs/toolkit/query/react'
 import { axiosBaseQuery } from './common/axiosBaseQuery'
 import { EndpointBuilderType, IResponse } from './common/types'
+import playerApi from './playerApi'
 import walletApi from './walletApi'
 import { SubmitWithdrawalArgs } from './withdrawal.type'
 
@@ -23,6 +24,7 @@ const withdrawalEndPoints = (builder: EndpointBuilderType) => {
           const { data } = await queryFulfilled
           // `onSuccess` side-effect
           dispatch(dispatch(walletApi.util.invalidateTags(['Balance'])))
+          dispatch(dispatch(playerApi.util.invalidateTags(['Report'])))
         } catch (err) {
           // `onError` side-effect
         }

@@ -107,6 +107,7 @@ const colorGradient = {
   lightGreen: ['#91F5CA', '#24AA3F'],
   lightBlue: ['#8EB0FF', '#2B32F9'],
   lightYellow: ['#F7ED7B', '#F9B32B'],
+  orangeDark: ['#FBC000', '#C26202'],
   wineRed: ['#BF0A31', '#78031D'],
   white: ['#FFF', '#FFF'],
   transparent: ['', ''],

@@ -1,9 +1,12 @@
 import useContextualRouting from 'app/hooks/useContextualRouting'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Flex, View } from 'dripsy'
 import React from 'react'
+import { Platform } from 'react-native'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { useRouter } from 'solito/router'
 import BottomNavIcon from './BottomNavIcon'
+import FloatQr from './FloatQr'
 
 const tabConfig = [
   {
@@ -45,6 +48,7 @@ const tabConfig = [
 
 const BottomNavigation = () => {
   const { push } = useRouter()
+  const { top } = useSafeArea()
 
   const { returnHref } = useContextualRouting()
 
@@ -65,39 +69,53 @@ const BottomNavigation = () => {
   const ICON_HEIGHT = 60
   const MARGIN_TOP = -BAR_HEIGHT * 0.4
   return (
-    <Flex
-      sx={{
-        alignItems: 'flex-end',
-        justifyContent: 'space-evenly',
-        backgroundColor: '#0d2035',
-        width: '100%',
-        height: BAR_HEIGHT + getBottomSpace(),
-        paddingBottom: getBottomSpace(),
-        // paddingX: [12, 'auto'],
-      }}
-    >
-      {tabConfig.map((item, index) => (
-        <View
-          key={item.id}
-          sx={{
-            marginTop: MARGIN_TOP,
-            paddingBottom: 1,
-            flex: 1,
-            overflow: 'visible',
-          }}
-        >
-          <BottomNavIcon
-            name={item.name}
-            iconName={item.iconName}
-            active={isActiveState(index, item)}
-            size={CIRCLE_HEIGHT}
-            onPress={() => {
-              push(item.route, undefined, { scroll: false })
+    <>
+      {/* <View
+        sx={{
+          position: Platform.OS === 'web' ? 'fixed' : 'absolute',
+          // zIndex: 1,
+          maxWidth: 'container',
+          top: 110 + top,
+          right: 0,
+        }}
+      >
+        <FloatQr />
+      </View> */}
+
+      <Flex
+        sx={{
+          alignItems: 'flex-end',
+          justifyContent: 'space-evenly',
+          backgroundColor: '#0d2035',
+          width: '100%',
+          height: BAR_HEIGHT + getBottomSpace(),
+          paddingBottom: getBottomSpace(),
+          // paddingX: [12, 'auto'],
+        }}
+      >
+        {tabConfig.map((item, index) => (
+          <View
+            key={item.id}
+            sx={{
+              marginTop: MARGIN_TOP,
+              paddingBottom: 1,
+              flex: 1,
+              overflow: 'visible',
             }}
-          />
-        </View>
-      ))}
-    </Flex>
+          >
+            <BottomNavIcon
+              name={item.name}
+              iconName={item.iconName}
+              active={isActiveState(index, item)}
+              size={CIRCLE_HEIGHT}
+              onPress={() => {
+                push(item.route, undefined, { scroll: false })
+              }}
+            />
+          </View>
+        ))}
+      </Flex>
+    </>
   )
 }
 

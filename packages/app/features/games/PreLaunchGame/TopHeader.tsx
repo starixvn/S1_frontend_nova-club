@@ -3,6 +3,7 @@ import { getProviderLogo } from 'app/config/games/provider'
 import BouncePressable from 'app/pressable/BouncePressable'
 import { GameLauncherActions } from 'app/store/gameLauncher.slice'
 import { Image, styled, View } from 'dripsy'
+import { useEffect } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'solito/router'
@@ -12,8 +13,14 @@ const TopHeader = ({ providerCode }: { providerCode?: string }) => {
   const dispatch = useDispatch()
   const onGoBack = () => {
     back()
-    dispatch(GameLauncherActions.reset())
+    // dispatch(GameLauncherActions.reset())
   }
+
+  useEffect(() => {
+    return () => {
+      dispatch(GameLauncherActions.reset())
+    }
+  }, [])
 
   return (
     <StyledTop>
