@@ -1,17 +1,20 @@
 import MenuNotice from 'app/components/common/MenuNotice'
 import { FilePickerForwardRef } from 'app/components/FilePicker'
 import { Button } from 'app/components/form/Button'
+import { FileInputValue } from 'app/components/form/FileInput/useFileInputHandler'
 import IconButton from 'app/components/form/IconButton'
-import InputBase from 'app/components/form/Input/InputBase'
+import InputBase, {
+  INPUT_BASE_SPACE,
+} from 'app/components/form/Input/InputBase'
 import MoneyInput from 'app/components/form/Input/MoneyInput'
 import Select from 'app/components/form/Input/Select'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import PaymentMethod from 'app/config/deposit'
 import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
 import { DEPOSIT_NOTES } from 'app/constant/notes'
-import useLocalBankDeposit from 'app/hooks/deposit/useLocalBankDeposit'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
+import { AlertActions } from 'app/store/alert.slice'
 import {
   copyToClipboard,
   toCleanAmount,
@@ -26,35 +29,35 @@ import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect, useRef, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useDispatch } from 'react-redux'
-import { useDepositPaymentListQuery } from 'services/deposit'
+import {
+  useDepositPaymentListQuery,
+  useSubmitManualDepositMutation,
+} from 'services/deposit'
 import { ManualBankItem } from 'services/deposit.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
-import DepositUpload from '../DepositUpload'
+import DepositUpload, { DepositUploadMethods } from '../DepositUpload'
 import DepositTransactions from './DepositTransactions'
 
 export type LocalBankValues = {
   bank: ManualBankItem | null
   amount: string
   realAmount: number
+  receipt?: FileInputValue
 }
 
 const LocalBankScreen = () => {
-  const { makeContextualHref } = useContextualRouting()
-
+  const dispatch = useDispatch()
   const { t } = useLocalization()
   const { openModal } = useModal()
   const [limit, setLimit] = useState({ minAmount: 0, maxAmount: 0 })
-  const [selectedImage, setSelectedImage] = useState('')
-  const filePickerRef = useRef<FilePickerForwardRef>(null)
+  const depositUploadRef = useRef<DepositUploadMethods>(null)
 
   const { data, isLoading, isFetching } = useDepositPaymentListQuery()
 
-  const { postDepositSubmit } = useLocalBankDeposit({
-    selectedImage,
-  })
+  const [submitDeposit] = useSubmitManualDepositMutation()
 
   const { data: playerData } = usePlayerProfileQuery()
   const currency = playerData?.data?.currency as Currency
@@ -83,11 +86,35 @@ const LocalBankScreen = () => {
   }, [data])
 
   const onSubmit = async (
-    values: LocalBankValues,
+    { bank, realAmount }: LocalBankValues,
     actions: FormikHelpers<LocalBankValues>
   ) => {
-    await postDepositSubmit(values, actions)
-    filePickerRef.current?.resetFile()
+    try {
+      const depositResp = await submitDeposit({
+        acc_name: bank?.bank_acc_name ?? '',
+        amount: realAmount,
+        bank_type_id: bank?.bankTypeId ?? 0,
+        payment_account_id: bank?.pay_acc_id ?? 0,
+      })
+        .unwrap()
+        .catch((error) => {
+          dispatch(AlertActions.addError(error.message))
+          return null
+        })
+
+      if (depositResp) {
+        const { success, data, message } = depositResp
+        if (success && data) {
+          if (depositUploadRef.current)
+            await depositUploadRef.current.uploadReceipt(data.secure_id)
+
+          Toast.show({ type: 'success', text1: message })
+          actions.resetForm()
+        }
+      }
+    } catch (e) {
+      dispatch(AlertActions.addError('status.systemError'))
+    }
   }
 
   const formik = useFormik<LocalBankValues>({
@@ -168,7 +195,7 @@ const LocalBankScreen = () => {
           options={sheetData}
           onSelected={handleSelected}
           isHorizontalActionSheet
-          sx={{ my: '$2' }}
+          sx={{ mt: '$2', mb: 0 }}
           _actionSheet={{
             sheetId: ACTION_SHEET_ID.LOCAL_BANK,
             headerTitle: t('bank.bank'),
@@ -183,6 +210,7 @@ const LocalBankScreen = () => {
           editable={false}
           action={
             <IconButton
+              sx={{ p: INPUT_BASE_SPACE }}
               name="copy"
               size={18}
               color={'$lightCyan'}
@@ -198,6 +226,7 @@ const LocalBankScreen = () => {
           editable={false}
           action={
             <IconButton
+              sx={{ p: INPUT_BASE_SPACE }}
               name="copy"
               size={18}
               color={'$lightCyan'}
@@ -239,15 +268,23 @@ const LocalBankScreen = () => {
         />
 
         <DepositUpload
-          onImagePicked={(path) => setSelectedImage(path)}
-          innerRef={filePickerRef}
+          disabled={isSubmitting}
+          sx={{
+            m: '$2',
+            mx: '$4',
+          }}
+          ref={depositUploadRef}
+          value={values.receipt}
+          onSelect={(f) => {
+            setFieldValue('receipt', f)
+          }}
         />
 
         <Button
           rounded
           stretch
           loading={isSubmitting}
-          disabled={!isValid || !dirty || !selectedImage}
+          disabled={!isValid || !dirty}
           variant="lg"
           fill={{
             type: 'gradient',

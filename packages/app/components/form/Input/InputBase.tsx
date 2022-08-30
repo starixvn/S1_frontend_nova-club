@@ -10,9 +10,11 @@ import {
   ViewProps,
   NativeSyntheticEvent,
   TextInputFocusEventData,
+  Platform,
 } from 'react-native'
 
 const MotiText = motify(Text)()
+export const INPUT_BASE_SPACE = 16
 
 export interface InputBaseProps extends TextInputProps {
   label: string
@@ -22,6 +24,7 @@ export interface InputBaseProps extends TextInputProps {
   containerProps?: ViewProps
   inputStyle?: SxProp
   removeBorder?: boolean
+  onPress?: (e?: any) => void
 }
 
 const InputBase = forwardRef<{}, InputBaseProps>(
@@ -39,12 +42,13 @@ const InputBase = forwardRef<{}, InputBaseProps>(
       removeBorder,
       onBlur,
       onFocus,
+      children,
+      onPress,
       ...rest
     },
     ref
   ) => {
     const isEmpty = !(value || placeholder)
-    const space = '$4'
     const inputRef = useRef<typeof TextInput>(null)
     const labelState = useAnimationState({
       from: {
@@ -86,82 +90,103 @@ const InputBase = forwardRef<{}, InputBaseProps>(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value, placeholder])
 
+    function defaultFocus() {
+      inputRef.current?.focus()
+    }
+
+    const gradientBoxStyle: SxProp = {}
+    if (removeBorder) {
+      gradientBoxStyle.borderTopWidth = 0
+      gradientBoxStyle.borderBottomWidth = 0
+    }
+    if (error) gradientBoxStyle.borderColor = '$error'
+
     return (
-      <TouchableWithoutFeedback
-        disabled={!editable}
-        onPress={() => {
-          inputRef.current?.focus()
-        }}
-      >
-        <View sx={{ mb: '$2', ...sx }} {...containerProps}>
-          <View
+      <View sx={{ mb: '$2', ...sx }} {...containerProps}>
+        <View sx={{ flexDirection: 'row', height: 60 }}>
+          <GradientBox
+            containerStyle={gradientBoxStyle}
+            colors={
+              editable ? undefined : ['rgba(0,0,0,0.5)', 'rgba(0,0,0,0.5)']
+            }
             sx={{
-              flexDirection: 'row',
-              height: 60,
-              py: '$2a',
-              px: space,
-              position: 'relative',
+              ...StyleSheet.absoluteFillObject,
+              opacity: editable ? 1 : 0.5,
             }}
+          />
+          <TouchableWithoutFeedback
+            disabled={!editable}
+            onPress={onPress ?? defaultFocus}
           >
-            <GradientBox
-              removeBorder={removeBorder}
-              colors={
-                editable ? undefined : ['rgba(0,0,0,0.5)', 'rgba(0,0,0,0.5)']
-              }
-              sx={{
-                ...StyleSheet.absoluteFillObject,
-                opacity: editable ? 1 : 0.5,
-              }}
-            />
-            <MotiText
-              pointerEvents="none"
-              transition={{ type: 'timing', duration: 300 }}
-              state={labelState}
-              sx={{
-                position: 'absolute',
-                left: space,
-                color: '#999999',
-                lineHeight: 20,
-                right: 40,
-              }}
-              numberOfLines={1}
-            >
-              {label}
-            </MotiText>
             <View
               sx={{
                 flex: 1,
+                position: 'relative',
+                flexDirection: 'row',
+                alignItems: 'center',
+                px: INPUT_BASE_SPACE,
+                cursor: onPress && Platform.OS === 'web' ? 'pointer' : 'none',
               }}
             >
-              <TextInput
-                ref={inputRef}
-                onFocus={(e) => {
-                  _onFocus()
-                  onFocus && onFocus(e)
+              <MotiText
+                transition={{ type: 'timing', duration: 300 }}
+                state={labelState}
+                sx={{
+                  position: 'absolute',
+                  left: INPUT_BASE_SPACE,
+                  color: error ? '$error' : '#999999',
+                  lineHeight: 20,
+                  right: 40,
                 }}
-                onBlur={(e) => {
-                  _onBlur()
-                  onBlur && onBlur(e)
+                numberOfLines={1}
+              >
+                {label}
+              </MotiText>
+              <View
+                pointerEvents={onPress ? 'none' : undefined}
+                sx={{
+                  flex: 1,
+                  py: '$2a',
+                  alignSelf: 'flex-end',
                 }}
-                placeholder={placeholder}
-                style={{ fontSize: 16, marginTop: 'auto' }}
-                editable={editable}
-                sx={inputStyle}
-                value={value}
-                {...rest}
-              />
+              >
+                <TextInput
+                  ref={inputRef}
+                  onFocus={(e) => {
+                    _onFocus()
+                    onFocus && onFocus(e)
+                  }}
+                  onBlur={(e) => {
+                    _onBlur()
+                    onBlur && onBlur(e)
+                  }}
+                  placeholder={placeholder}
+                  style={{ fontSize: 16, marginTop: 'auto' }}
+                  editable={editable && !onPress}
+                  sx={inputStyle}
+                  value={value}
+                  {...rest}
+                />
+              </View>
+              {children}
             </View>
-            {action && (
-              <View sx={{ ml: space, justifyContent: 'center' }}>{action}</View>
-            )}
-          </View>
-          {error && (
-            <Text sx={{ fontSize: 14, ml: space, color: '$error' }}>
-              {error}
-            </Text>
+          </TouchableWithoutFeedback>
+          {action && (
+            <View
+              sx={{
+                justifyContent: 'center',
+              }}
+            >
+              {action}
+            </View>
           )}
         </View>
-      </TouchableWithoutFeedback>
+        {error && (
+          <Text sx={{ fontSize: 14, ml: INPUT_BASE_SPACE, color: '$error' }}>
+            {error}
+          </Text>
+        )}
+      </View>
     )
   }
 )

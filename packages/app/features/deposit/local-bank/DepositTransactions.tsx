@@ -45,8 +45,9 @@ const DepositTransactions = ({ isLocalBank = false }) => {
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          p: '$2',
           mt: '$4',
+          mx: '$4',
+          mb: '$2',
         }}
       >
         <Text sx={{}}>
@@ -62,7 +63,7 @@ const DepositTransactions = ({ isLocalBank = false }) => {
           <DepositHistoryItem key={item.secure_id} item={item} />
         ))
       ) : (
-        <HistoryEmpty />
+        <HistoryEmpty sx={{ mt: '$6' }} />
       )}
     </View>
   )

@@ -1,87 +1,67 @@
 import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
-import { styled, Text, View } from 'dripsy'
-import * as ImagePicker from 'expo-image-picker'
-import { forwardRef, useImperativeHandle, useRef, useState } from 'react'
+import { styled, SxProp, Text, View } from 'dripsy'
+import { forwardRef, useImperativeHandle } from 'react'
 import { Platform } from 'react-native'
+import useFileInputHandler, {
+  FileInputValue,
+} from './form/FileInput/useFileInputHandler'
+import IconButton from './form/IconButton'
 import { DripsyGradient } from './Gradient'
 import Icon from './Icon'
 
-type FilePickerProps = {
-  isActive?: boolean
-  onPress: (File?) => void
+export type FilePickerProps = {
+  loading?: boolean
+  disabled?: boolean
+  onSelect?: (v?: FileInputValue) => void
+  value?: FileInputValue
+  sx?: SxProp
 }
 export interface FilePickerForwardRef {
-  resetFile: () => void
+  clearFile: () => void
 }
 
 const FilePicker = forwardRef<FilePickerForwardRef, FilePickerProps>(
-  ({ isActive = true, onPress }: FilePickerProps, ref) => {
+  ({ loading, disabled, onSelect, value, sx }: FilePickerProps, ref) => {
     const { t } = useLocalization()
-    const webRef = useRef()
-    const [image, setImage] = useState<string | null>()
+
+    const {
+      webInputRef,
+      handleSelect,
+      handleOnChangeWebImage,
+      getName,
+      clearFile,
+    } = useFileInputHandler({
+      onSelect,
+      value,
+    })
 
     useImperativeHandle(ref, () => ({
-      resetFile() {
-        reset()
-      },
+      clearFile,
     }))
 
-    const pickImage = async () => {
-      let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: false,
-        aspect: [4, 3],
-        quality: 1,
-      })
-
-      if (!result.cancelled) {
-        setImage(result.uri.split('/').pop())
-        onPress(result.uri)
-      } else {
-        setImage(null)
-        onPress(null)
-      }
-    }
-
-    const handleChangeWebImage = (event) => {
-      if (event.target.value) {
-        setImage(event.target.files[0].name)
-        onPress(event.target.files[0])
-      }
-    }
-
-    const reset = () => {
-      setImage(null)
-      onPress(null)
-      if (Platform.OS === 'web' && webRef) webRef.current.value = null
-    }
-
-    const pickImageWeb = () => {
-      webRef?.current.click()
-    }
-
-    const fileName = image ? image : null
-    const bgColor = fileName ? ['#132946', '#14455B'] : ['#004EB5', '#007FB7']
-    const bColor = fileName ? '#00283A' : '$borderBlue'
+    const fileName = getName()
+    const bgColor = value ? ['#132946', '#14455B'] : ['#004EB5', '#007FB7']
+    const bColor = value ? '#00283A' : '$borderBlue'
 
     return (
       <View
         sx={{
           flexDirection: 'row',
           alignItems: 'center',
+          ...sx,
         }}
       >
         <StyledGradient
           colors={bgColor}
           sx={{
             borderColor: bColor,
-            opacity: isActive ? 1 : 0.3,
+            opacity: loading || disabled ? 0.3 : 1,
           }}
         >
           <BouncePressable
-            onPress={Platform.OS === 'web' ? pickImageWeb : pickImage}
-            disabled={!isActive}
+            onPress={handleSelect}
+            disabled={disabled || loading}
             sx={{
               flexDirection: 'row',
               height: 40,
@@ -89,46 +69,31 @@ const FilePicker = forwardRef<FilePickerForwardRef, FilePickerProps>(
               alignItems: 'center',
             }}
           >
-            {fileName && <Icon name="lc" size={25} color={'#BDBDBD'} />}
+            {value && <Icon name={'attachment'} size={16} />}
             <Text
               sx={{
                 flex: 1,
-                color: fileName ? '#BDBDBD' : 'white',
+                color: value ? '#BDBDBD' : 'white',
+                mx: value ? '$2' : 0,
               }}
               numberOfLines={1}
             >
-              {fileName ? fileName : t('deposit.upload.files')}
+              {value ? fileName : t('deposit.upload.files')}
             </Text>
-            {!fileName && <Icon name="lc" size={25} />}
-          </BouncePressable>
-        </StyledGradient>
-        {fileName && (
-          <BouncePressable
-            onPress={() => {
-              reset()
-            }}
-            sx={{
-              marginLeft: '$2a',
-              borderRadius: 10,
-            }}
-          >
-            <Icon
-              name="cross"
-              size={20}
-              sx={{
-                color: '#BDBDBD',
-                alignSelf: 'center',
-                px: '$1',
-              }}
+            <IconButton
+              onPress={clearFile}
+              name={value ? 'cross' : 'attachment'}
+              color={value ? '$error' : 'white'}
+              size={16}
             />
           </BouncePressable>
-        )}
+        </StyledGradient>
         {Platform.OS === 'web' && (
           <input
-            ref={webRef}
+            ref={webInputRef}
             type="file"
-            onChange={handleChangeWebImage}
-            style={{ display: 'none' }}
+            onChange={handleOnChangeWebImage}
+            style={{ opacity: 0 }}
           />
         )}
       </View>
@@ -139,9 +104,7 @@ const FilePicker = forwardRef<FilePickerForwardRef, FilePickerProps>(
 const StyledGradient = styled(DripsyGradient)({
   borderRadius: 15,
   borderWidth: 1,
-  mt: '$4',
-  mb: '$4',
-  flex: 1,
+  width: '100%',
 })
 
 FilePicker.displayName = 'FilePicker'

@@ -5,12 +5,12 @@ import HorizontalActionSheet, {
 import ListActionSheet from 'app/components/actionsheet/ListActionSheet'
 import { SquareSelectorForwardRef } from 'app/components/actionsheet/SquareSelectorActionSheet'
 import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
-import { ActivityIndicator } from 'dripsy'
+import { ActivityIndicator, View } from 'dripsy'
 import { useRef } from 'react'
 import { SheetManager } from 'react-native-actions-sheet'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import IconButton from '../IconButton'
-import InputBase, { InputBaseProps } from './InputBase'
+import InputBase, { InputBaseProps, INPUT_BASE_SPACE } from './InputBase'
 
 export interface SelectProps extends InputBaseProps {
   options: any
@@ -56,20 +56,13 @@ export default function Select({
 
   return (
     <>
-      <TouchableWithoutFeedback onPress={onSelect} disabled={loading}>
-        <InputBase
-          editable={!loading}
-          action={
-            loading ? (
-              <ActivityIndicator sx={{ m: '$2' }} />
-            ) : (
-              <IconButton name="chevdown" size={18} />
-            )
-          }
-          containerProps={{ pointerEvents: 'none' }}
-          {...rest}
-        />
-      </TouchableWithoutFeedback>
+      <InputBase onPress={onSelect} editable={!loading} {...rest}>
+        {loading ? (
+          <ActivityIndicator sx={{ m: '$2' }} />
+        ) : (
+          <IconButton name="chevdown" size={18} />
+        )}
+      </InputBase>
       {isHorizontalActionSheet ? (
         <HorizontalActionSheet
           _actionSheet={_actionSheet}

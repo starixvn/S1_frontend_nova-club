@@ -116,7 +116,7 @@
     "pleaseConfirmDeposit": "Vui lòng xác nhận thông tin gửi tiền bên dưới",
     "selectChannel": "Chọn tài khoản nạp",
     "upload": {
-      "description": "Chọn hình ảnh biên lai hoặc hóa đơn để tải lên. Các tệp phải có dung lượng 6MB hoặc tương tự với một trong các định dạng JPG, JPEG",
+      "description": "Chọn hình ảnh biên lai hoặc hóa đơn để tải lên",
       "files": "Tải tệp tin",
       "title": "Tải biên lai ngân hàng"
     },

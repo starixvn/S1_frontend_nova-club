@@ -116,8 +116,8 @@
     "pleaseConfirmDeposit": "Please confirm deposit information below",
     "selectChannel": "Select Channel",
     "upload": {
-      "description": "Browse to select receipt or invoice images to upload. Files must be 6MB or similiar, and in one of these formats JPG,JPEG",
-      "files": "Upload File",
+      "description": "Browse your Bank Transfer Receipt or Invoice",
+      "files": "Select File",
       "title": "Upload Receipt"
     },
     "usdt": "USDT"
