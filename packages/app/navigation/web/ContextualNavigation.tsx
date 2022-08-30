@@ -12,6 +12,8 @@ import {
 import { Platform } from 'react-native'
 
 const _contextualComponents = {
+  login: () => import('../../features/auth/login'),
+  register: () => import('../../features/auth/register'),
   deposit: () => import('../../features/deposit'),
   'deposit-loader': () => import('../../features/deposit/deposit-loader'),
   'local-bank': () => import('../../features/deposit/local-bank'),
@@ -41,6 +43,7 @@ const _contextualComponents = {
   'forgot-pin': () => import('../../features/pin/forgot-pin'),
   '/profile/overview': () => import('../../features/profile/overview'),
   tnc: () => import('../../../../apps/next/pages/auth/register/tnc'),
+  download: () => import('../../features/download/index.web'),
 }
 
 function getContextualComponent(key: string) {

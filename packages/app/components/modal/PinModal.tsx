@@ -44,14 +44,15 @@ const PinModal = ({ modal: { closeModal, getParam } }) => {
         mb: keyboardHeight,
       }}
     >
-      <View sx={{ px: MODAL_PADDING, justifyContent: 'center' }}>
-        <IconButton
-          name="cross"
-          size={24}
-          onPress={() => closeModal()}
-          sx={{ position: 'absolute', right: 0 }}
-        />
+      <View
+        sx={{
+          px: MODAL_PADDING,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        }}
+      >
         <Text sx={{ fontSize: 22 }}>{t('pin.submitTitle')}</Text>
+        <IconButton name="cross" size={24} onPress={() => closeModal()} />
       </View>
       <UnderlinePinField title="" value={value} setValue={setValue} />
 

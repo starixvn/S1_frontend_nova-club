@@ -33,13 +33,24 @@ const TransferHistoryItem = ({ item }) => {
               color: getStatusColor(item.status, theme),
             }}
           >
-            {item.to}
+            {item.is_positive_amount ? item.from : item.to}
           </Text>
         </View>
 
         <View style={{ flex: CELL_AMOUNT_WIDTH }}>
-          <Text sx={{ textAlign: 'right' }}>
+          {/* <Text sx={{ textAlign: 'right' }}>
             {toThousandSeparator(item.amount)}
+          </Text> */}
+
+          <Text
+            sx={{
+              textAlign: 'right',
+              color: item.is_positive_amount ? '#00FF19' : '#BE0A16',
+            }}
+          >
+            {item.is_positive_amount
+              ? `+${toThousandSeparator(item.amount)}`
+              : `-${toThousandSeparator(item.amount)}`}
           </Text>
         </View>
       </View>

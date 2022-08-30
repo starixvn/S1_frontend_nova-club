@@ -24,6 +24,9 @@ const enum PROVIDER_NAME {
   SBO,
   V8PK,
   IM1,
+  SKYW,
+  O789,
+  IMSB,
 }
 
 export const PROVIDER_LOGO: { [key in keyof typeof PROVIDER_NAME] } = {
@@ -125,7 +128,19 @@ export const PROVIDER_LOGO: { [key in keyof typeof PROVIDER_NAME] } = {
   },
   IM1: {
     provider_code: 'IM1',
-    image: require('../../../assets/images/provider/IM.png'),
+    image: require('../../../assets/images/provider/IMSport.png'),
+  },
+  SKYW: {
+    provider_code: 'SKYW',
+    image: require('../../../assets/images/provider/skywind.png'),
+  },
+  O789: {
+    provider_code: 'O789',
+    image: require('../../../assets/images/provider/one789.png'),
+  },
+  IMSB: {
+    provider_code: 'IMSB',
+    image: require('../../../assets/images/provider/IMSport.png'),
   },
 }
 
@@ -155,6 +170,9 @@ const ProviderLogo = [
   PROVIDER_LOGO.SBO,
   PROVIDER_LOGO.V8PK,
   PROVIDER_LOGO.IM1,
+  PROVIDER_LOGO.SKYW,
+  PROVIDER_LOGO.O789,
+  PROVIDER_LOGO.IMSB,
 ]
 
 export const getProviderLogo = (code: string) => {

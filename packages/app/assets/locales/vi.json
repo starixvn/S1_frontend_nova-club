@@ -33,6 +33,8 @@
   "common": {
     "all": "TẤT CẢ",
     "amount": "Số tiền",
+    "android": "",
+    "app": "Ứng dụng",
     "balance": "Số dư",
     "bet": "Tiền cược",
     "cancel": "Hủy",
@@ -185,6 +187,7 @@
       "sportsbook": "THỂ THAO"
     },
     "enterGame": "Vào trò chơi",
+    "invalidSession": "Invalid Session [%{code}]",
     "jackpot": "Giải độc đắc",
     "name": {
       "btiSports": "BTI Sports",
@@ -198,9 +201,8 @@
     "notFound": "Trò chơi không tìm thấy",
     "quitGame": "Thoát trò chơi",
     "reward": "Phần thưởng trò chơi",
-    "underMaintenance": "Trò chơi đang được bảo trì",
-    "invalidSession": "Invalid Session [%{code}]",
-    "unableToConnect": "Unable to connect [%{code}]"
+    "unableToConnect": "Unable to connect [%{code}]",
+    "underMaintenance": "Trò chơi đang được bảo trì"
   },
   "menu": {
     "agentLogin": "Đăng nhập đại lý",

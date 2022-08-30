@@ -71,11 +71,18 @@ const AddBankAccountScreen = () => {
       value: realName,
       verify_code: otp,
     })
+      .unwrap()
+      .catch((error) => {
+        dispatch(AlertActions.addError(error.message))
+        return error
+      })
 
     if (success) {
       Toast.show({ type: 'success', text1: message })
       return
-    } else return message
+    } else {
+      return message
+    }
   }
 
   const onSubmit = async (
@@ -85,8 +92,8 @@ const AddBankAccountScreen = () => {
     try {
       if (!isRealNameAvailable && realName && otp) {
         const error = await updateRealName(realName, otp)
+
         if (error) {
-          dispatch(AlertActions.addError(error))
           return
         }
       }
@@ -196,6 +203,7 @@ const AddBankAccountScreen = () => {
             <InputBase
               label={t('OTP')}
               value={values.otp}
+              maxLength={6}
               onChangeText={handleChange('otp')}
               onBlur={handleBlur('otp')}
               error={
