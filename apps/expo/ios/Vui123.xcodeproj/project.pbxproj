@@ -537,9 +537,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chlgame.staging;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chlgame.app;
 				PRODUCT_NAME = Vui123;
-				PROVISIONING_PROFILE_SPECIFIER = "Vui Staging Distribution Profile";
+				PROVISIONING_PROFILE_SPECIFIER = "Vui Production Distribution";
 				SWIFT_OBJC_BRIDGING_HEADER = "Vui123/Vui123-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -568,9 +568,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chlgame.staging;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chlgame.app;
 				PRODUCT_NAME = Vui123;
-				PROVISIONING_PROFILE_SPECIFIER = "Vui Staging Distribution Profile";
+				PROVISIONING_PROFILE_SPECIFIER = "Vui Production Distribution";
 				SWIFT_OBJC_BRIDGING_HEADER = "Vui123/Vui123-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -604,9 +604,9 @@
 				MARKETING_VERSION = 1.0.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.chlgame.staging.NotifeeNotificationService;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chlgame.app.NotifeeNotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Vui Staging AdHoc Notification Service";
+				PROVISIONING_PROFILE_SPECIFIER = "Vui Notification Service";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -639,9 +639,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 1.0.4;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.chlgame.staging.NotifeeNotificationService;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chlgame.app.NotifeeNotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Vui Staging AdHoc Notification Service";
+				PROVISIONING_PROFILE_SPECIFIER = "Vui Notification Service";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";

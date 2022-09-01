@@ -1,36 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>CLIENT_ID</key>
-	<string>401100497770-csh1nkarb7f0o8en4tje5q1set0qe4o7.apps.googleusercontent.com</string>
-	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.401100497770-csh1nkarb7f0o8en4tje5q1set0qe4o7</string>
-	<key>API_KEY</key>
-	<string>AIzaSyCJzeP1qKLtnpV7KvNzjHPLgumtPjU8DJ8</string>
-	<key>GCM_SENDER_ID</key>
-	<string>401100497770</string>
-	<key>PLIST_VERSION</key>
-	<string>1</string>
-	<key>BUNDLE_ID</key>
-	<string>com.chlgame.staging</string>
-	<key>PROJECT_ID</key>
-	<string>nova-club-staging</string>
-	<key>STORAGE_BUCKET</key>
-	<string>nova-club-staging.appspot.com</string>
-	<key>IS_ADS_ENABLED</key>
-	<false></false>
-	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
-	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
-	<key>IS_GCM_ENABLED</key>
-	<true></true>
-	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
-	<key>GOOGLE_APP_ID</key>
-	<string>1:401100497770:ios:b576fdcc924e99ed4e7b13</string>
-	<key>DATABASE_URL</key>
-	<string>https://nova-club-staging-default-rtdb.asia-southeast1.firebasedatabase.app</string>
-</dict>
+	<dict>
+		<key>CLIENT_ID</key>
+		<string>1015314255459-0i00m625icmomophchd3rs8qvtlte907.apps.googleusercontent.com</string>
+		<key>REVERSED_CLIENT_ID</key>
+		<string>com.googleusercontent.apps.1015314255459-0i00m625icmomophchd3rs8qvtlte907</string>
+		<key>API_KEY</key>
+		<string>AIzaSyBNEYN_A_TeofzUQ_r9wD95VL1sMwwcmk0</string>
+		<key>GCM_SENDER_ID</key>
+		<string>1015314255459</string>
+		<key>PLIST_VERSION</key>
+		<string>1</string>
+		<key>BUNDLE_ID</key>
+		<string>com.chlgame.app</string>
+		<key>PROJECT_ID</key>
+		<string>vui-health</string>
+		<key>STORAGE_BUCKET</key>
+		<string>vui-health.appspot.com</string>
+		<key>IS_ADS_ENABLED</key>
+		<false></false>
+		<key>IS_ANALYTICS_ENABLED</key>
+		<false></false>
+		<key>IS_APPINVITE_ENABLED</key>
+		<true></true>
+		<key>IS_GCM_ENABLED</key>
+		<true></true>
+		<key>IS_SIGNIN_ENABLED</key>
+		<true></true>
+		<key>GOOGLE_APP_ID</key>
+		<string>1:1015314255459:ios:4c5da09c0cdaa64ba17256</string>
+	</dict>
 </plist>

@@ -16,7 +16,7 @@ import {
 Sentry.init({
   dsn: 'https://0782803d4b0a41ff9881ac3d5b4d9898@o1267442.ingest.sentry.io/6453774',
   // enableInExpoDevelopment: true,
-  environment: 'staging',
+  environment: 'production',
   debug: false, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
 })
 
