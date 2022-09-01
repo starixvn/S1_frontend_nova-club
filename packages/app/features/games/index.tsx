@@ -1,17 +1,13 @@
-import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { FlashList } from '@shopify/flash-list'
-import SimpleGridImage from 'app/components/SimpleGridImage'
-import useGameGridSize from 'app/hooks/useGameGridSize'
 import useLocalization from 'app/provider/localization'
-import { Currency, GAME_TAGS, GAME_TYPE_CODE } from 'app/utils/constant'
-import { ActivityIndicator, FlatList, Text, useSx, View } from 'dripsy'
-import { AnimatePresence, MotiView } from 'moti'
+import { useAppSelector } from 'app/provider/redux/store'
+import { Currency, GAME_TYPE_CODE } from 'app/utils/constant'
+import { View } from 'dripsy'
 import React, { memo, useRef, useState } from 'react'
-import { LayoutAnimation, ListRenderItem } from 'react-native'
+import { LayoutAnimation } from 'react-native'
 import { useGetGameListQuery } from 'services/contentApi'
 import { Game } from 'services/contentApi.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import BannerSection from '../home/Section/BannerSection'
 import ListSectionHeader from '../ListSectionHeader'
 import MenuRow from './MenuRow'
 import VerticalGameList from './VerticalGameList'
@@ -21,6 +17,8 @@ const MemoListSectionHeader = memo(ListSectionHeader)
 
 const Games = () => {
   const { t } = useLocalization()
+  const locale = useAppSelector((s) => s.setting.locale)
+
   const [filterGames, setFilterGames] = useState<Game[]>([])
   const list = useRef<FlashList<Game> | null>(null)
 
@@ -43,12 +41,12 @@ const Games = () => {
   return (
     <VerticalGameList
       ref={list}
+      extraData={locale}
       showName
       estimatedItemSize={50}
       numColumns={3}
       isLoading={isFetchingGameList}
       data={filterGames}
-      extraData
       ListHeaderComponent={
         <>
           <MemoListSectionHeader

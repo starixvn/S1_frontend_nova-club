@@ -1,4 +1,5 @@
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { Currency, GAME_TYPE_CODE } from 'app/utils/constant'
 import React from 'react'
 import { useGetGameListQuery } from 'services/contentApi'
@@ -8,6 +9,7 @@ import ListSectionHeader from '../ListSectionHeader'
 
 const Sportsbook = () => {
   const { t } = useLocalization()
+  const locale = useAppSelector((s) => s.setting.locale)
 
   const { data: playerProfile } = usePlayerProfileQuery()
   const { currency } = playerProfile?.data || {}
@@ -25,6 +27,7 @@ const Sportsbook = () => {
 
   return (
     <VerticalGameList
+      extraData={locale}
       showName
       numColumns={2}
       isLoading={isFetching}
