@@ -21,7 +21,7 @@ const GameImage = ({ frame = false, width, height, image }) => {
 
   return (
     <MotiView
-      delay={Math.random() * 200}
+      // delay={Math.random() * 200}
       state={animationState}
       transition={{ damping: 3, mass: 0.3 }}
     >
