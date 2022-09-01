@@ -71,3 +71,5 @@ build/**
 
 .vscode/settings.json
 .prettierrc.json
+
+.gitlab-ci.yml
