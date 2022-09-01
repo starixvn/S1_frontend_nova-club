@@ -351,6 +351,7 @@
     "qrDownloadSuccess": "Qr code download successfully",
     "qrTransferSelfError": "Transfer to own account is not allowed",
     "receiptRequired": "Receipt is required for deposit submit",
+    "receiptSuccess": "Receipt successfully uploaded",
     "referralError": "Refferal doesn't exist, please try another code",
     "rejected": "Rejected",
     "scanFailed": "Scan Failed!",
@@ -358,6 +359,7 @@
     "systemError": "Oops! Something wrong, please try again."
   },
   "transaction": {
+    "id": "Transaction Id",
     "pending": "Pending Transactions",
     "recent": "Recent Transactions"
   },

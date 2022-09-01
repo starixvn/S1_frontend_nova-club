@@ -1,5 +1,4 @@
 import MenuNotice from 'app/components/common/MenuNotice'
-import { FilePickerForwardRef } from 'app/components/FilePicker'
 import { Button } from 'app/components/form/Button'
 import { FileInputValue } from 'app/components/form/FileInput/useFileInputHandler'
 import IconButton from 'app/components/form/IconButton'
@@ -9,10 +8,10 @@ import InputBase, {
 import MoneyInput from 'app/components/form/Input/MoneyInput'
 import Select from 'app/components/form/Input/Select'
 import { PageWithBackHeader } from 'app/components/layout/Page'
+import { getBankLogo } from 'app/config/bank'
 import PaymentMethod from 'app/config/deposit'
 import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
 import { DEPOSIT_NOTES } from 'app/constant/notes'
-import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
 import { AlertActions } from 'app/store/alert.slice'
 import {
@@ -38,7 +37,7 @@ import {
 import { ManualBankItem } from 'services/deposit.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import * as Yup from 'yup'
-import DepositUpload, { DepositUploadMethods } from '../DepositUpload'
+import ReceiptUpload, { ReceiptUploadMethods } from '../ReceiptUpload'
 import DepositTransactions from './DepositTransactions'
 
 export type LocalBankValues = {
@@ -53,7 +52,7 @@ const LocalBankScreen = () => {
   const { t } = useLocalization()
   const { openModal } = useModal()
   const [limit, setLimit] = useState({ minAmount: 0, maxAmount: 0 })
-  const depositUploadRef = useRef<DepositUploadMethods>(null)
+  const depositUploadRef = useRef<ReceiptUploadMethods>(null)
 
   const { data, isLoading, isFetching } = useDepositPaymentListQuery()
 
@@ -70,7 +69,7 @@ const LocalBankScreen = () => {
     return {
       label: item.bank_acc_name,
       value: item.bankTypeId,
-      // icon: getBankLogo(item.BankCode),
+      icon: getBankLogo(item.bank_code),
     }
   })
 
@@ -267,7 +266,7 @@ const LocalBankScreen = () => {
           }
         />
 
-        <DepositUpload
+        <ReceiptUpload
           disabled={isSubmitting}
           sx={{
             m: '$2',

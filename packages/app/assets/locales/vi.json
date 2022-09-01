@@ -358,6 +358,7 @@
     "systemError": "Rất tiếc! Đã xảy ra lỗi, vui lòng thử lại."
   },
   "transaction": {
+    "id": "",
     "pending": "Đang chờ giao dịch",
     "recent": "Giao Dịch Gần Đây"
   },

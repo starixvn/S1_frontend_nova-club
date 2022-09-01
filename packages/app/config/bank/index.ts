@@ -174,7 +174,7 @@ export const getBankLogo = (bankCode: string) => {
     (el) => el.bank_code.toLowerCase() === bankCode.toLowerCase().trim()
   )?.image
 
-  return logo ?? require('../../assets/images/home/fishing.jpg')
+  return logo ?? require('../../assets/images/empty-result.png')
 }
 
 export default BankLogo

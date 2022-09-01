@@ -16,6 +16,7 @@ import dayjsTz from 'app/utils/dayjs'
 import { ActivityIndicator, styled, Text, useDripsyTheme, View } from 'dripsy'
 import { usePlayerProfileQuery, usePlayerReportQuery } from 'services/playerApi'
 import DateTimeCell from '../profile/history/DateTimeCell'
+import DepositHistoryItem from '../profile/history/DepositHistoryItem'
 
 const RecentTransactions = () => {
   const { t } = useLocalization()
@@ -48,7 +49,7 @@ const RecentTransactions = () => {
         <ActivityIndicator size="large" />
       ) : data?.data?.row_count_total ?? 0 > 0 ? (
         data?.data?.rows.map((item) => (
-          <TableItem key={item.secure_id} item={item} />
+          <DepositHistoryItem key={item.secure_id} item={item} />
         ))
       ) : (
         <HistoryEmpty />

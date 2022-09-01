@@ -1,13 +1,7 @@
-import { getBankLogo } from 'app/config/bank'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useLocalization from 'app/provider/localization'
-import { RootState } from 'app/provider/redux/store'
-import { toCurrency } from 'app/utils'
-import { Currency } from 'app/utils/constant'
 import { Box, Image, Text } from 'dripsy'
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { usePlayerProfileQuery } from 'services/playerApi'
+import React from 'react'
 import ModalContent from './ModalContent'
 
 const WithdrawalConfirmationModal = ({ modal: { closeModal, getParam } }) => {

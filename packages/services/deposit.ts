@@ -10,6 +10,8 @@ import {
   SubmitManualDepositResult,
   UploadDepositSlipArgs,
 } from './deposit.type'
+import playerApi from './playerApi'
+import walletApi from './walletApi'
 import { SubmitWithdrawalArgs } from './withdrawal.type'
 
 const DepositEndPoints = (builder: EndpointBuilderType) => {
@@ -39,6 +41,16 @@ const DepositEndPoints = (builder: EndpointBuilderType) => {
           ...queryArgs,
         },
       }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled
+          // `onSuccess` side-effect
+          dispatch(dispatch(walletApi.util.invalidateTags(['Balance'])))
+          dispatch(dispatch(playerApi.util.invalidateTags(['Report'])))
+        } catch (err) {
+          // `onError` side-effect
+        }
+      },
     }),
     submitManualDeposit: builder.mutation<
       IResponse<SubmitManualDepositResult>,
@@ -51,6 +63,16 @@ const DepositEndPoints = (builder: EndpointBuilderType) => {
           ...queryArgs,
         },
       }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled
+          // `onSuccess` side-effect
+          dispatch(dispatch(walletApi.util.invalidateTags(['Balance'])))
+          dispatch(dispatch(playerApi.util.invalidateTags(['Report'])))
+        } catch (err) {
+          // `onError` side-effect
+        }
+      },
     }),
     uploadDepositSlip: builder.mutation<
       IResponse<string>,
@@ -62,6 +84,15 @@ const DepositEndPoints = (builder: EndpointBuilderType) => {
         headers: { post: { 'Content-Type': 'multipart/form-data' } },
         data: queryArgs,
       }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled
+          // `onSuccess` side-effect
+          dispatch(dispatch(playerApi.util.invalidateTags(['Report'])))
+        } catch (err) {
+          // `onError` side-effect
+        }
+      },
     }),
   }
 }

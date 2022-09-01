@@ -1,14 +1,17 @@
 import IconButton from 'app/components/form/IconButton'
 import GradientBox from 'app/components/GradientBox'
 import Icon from 'app/components/Icon'
-import TransactionFilePicker from 'app/components/TransactionFilePicker'
-import PaymentMethod from 'app/config/deposit'
+import { getBankLogo } from 'app/config/bank'
+import PaymentMethod, { PaymentMethodProps } from 'app/config/deposit'
 import { getStatusColor } from 'app/config/status'
+import { ReceiptUploadMethods } from 'app/features/deposit/ReceiptUpload'
 import useLocalBankDeposit from 'app/hooks/deposit/useLocalBankDeposit'
 import useLocalization from 'app/provider/localization'
 import { copyToClipboard, toThousandSeparator } from 'app/utils'
+import dayjsTz from 'app/utils/dayjs'
 import { styled, Text, useDripsyTheme, View } from 'dripsy'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { useModal } from 'react-native-modalfy'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { ReportDepositItem } from 'services/playerApi.type'
 import DateTimeCell from './DateTimeCell'
@@ -21,23 +24,50 @@ type TransactionHistoryItemProps = {
   item: ReportDepositItem
 }
 
+const CONFIRMATION_FIELDS = [
+  {
+    label: 'transaction.id',
+    value: 'transactionId',
+  },
+  {
+    label: 'deposit.paymentMode',
+    value: 'paymentMethod',
+  },
+  {
+    label: 'menu.tab.date',
+    value: 'date',
+  },
+  {
+    label: 'menu.tab.status',
+    value: 'status',
+  },
+  {
+    label: 'common.amount',
+    value: 'amount',
+  },
+]
+
 const DepositHistoryItem = ({ item }: TransactionHistoryItemProps) => {
   const { theme } = useDripsyTheme()
   const { t } = useLocalization()
-  const { data: playerData } = usePlayerProfileQuery()
-
-  const [selectedImage, setSelectedImage] = useState('')
-  const { uploadSlip } = useLocalBankDeposit({ selectedImage })
+  const { openModal } = useModal()
 
   const category = PaymentMethod.find(
     (el) => el.categoryId === item.second_category_flag
-  )
+  ) as PaymentMethodProps
 
-  useEffect(() => {
-    if (selectedImage) {
-      uploadSlip(item.secure_id, true)
-    }
-  }, [selectedImage])
+  const handleUploadReceipt = () => {
+    openModal('DepositUploadModal', {
+      descInfo: {
+        transactionId: item.secure_id,
+        paymentMethod: t(category.name),
+        date: dayjsTz(item.date).format('YYYY-MM-DD hh:mm a'),
+        status: item.status,
+        amount: item.amount,
+      },
+      fields: CONFIRMATION_FIELDS,
+    })
+  }
 
   return (
     <GradientBox sx={{ py: '$2' }}>
@@ -101,11 +131,20 @@ const DepositHistoryItem = ({ item }: TransactionHistoryItemProps) => {
           >
             {item.status}
           </Text>
-          <TransactionFilePicker
-            // isActive={item.bank_slip_attachment}
-            isActive={false}
-            onPress={setSelectedImage}
-          />
+          {item.bank_slip_attachment && (
+            <Text
+              numberOfLines={1}
+              sx={{
+                fontSize: 12,
+                ml: 4,
+                textDecorationLine: 'underline',
+                color: '$lightCyan',
+              }}
+              onPress={handleUploadReceipt}
+            >
+              {t('deposit.bankSlip')}
+            </Text>
+          )}
         </View>
       </View>
     </GradientBox>

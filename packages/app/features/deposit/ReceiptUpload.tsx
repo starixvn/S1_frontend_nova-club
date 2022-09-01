@@ -10,13 +10,13 @@ import { Platform } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { useUploadDepositSlipMutation } from 'services/deposit'
 export type DepositUploadProps = FilePickerProps & {}
-export interface DepositUploadMethods {
+export interface ReceiptUploadMethods {
   uploadReceipt: (secureId: string) => void
   sx?: SxProp
   disabled?: boolean
 }
 
-const DepositUpload = forwardRef<DepositUploadMethods, DepositUploadProps>(
+const ReceiptUpload = forwardRef<ReceiptUploadMethods, DepositUploadProps>(
   ({ value, sx, disabled, ...rest }: DepositUploadProps, ref) => {
     const { t } = useLocalization()
     const dispatch = useDispatch()
@@ -86,7 +86,7 @@ const DepositUpload = forwardRef<DepositUploadMethods, DepositUploadProps>(
   }
 )
 
-DepositUpload.displayName = 'DepositUpload'
+ReceiptUpload.displayName = 'ReceiptUpload'
 
 const StyledTop = styled(DripsyGradient)({
   maxWidth: 400,
@@ -96,4 +96,4 @@ const StyledTop = styled(DripsyGradient)({
   borderWidth: 1,
 })
 
-export default DepositUpload
+export default ReceiptUpload

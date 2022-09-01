@@ -79,7 +79,17 @@ export const PAYMENT_METHOD: { [key in keyof typeof PAYMENT_METHOD_CATEGORY] } =
     },
   }
 
-export const PaymentMethod = [
+export type PaymentMethodProps = {
+  id: number
+  type: string
+  categoryId: number
+  name: string
+  icon: string
+  color: string
+  active: boolean
+}
+
+export const PaymentMethod: PaymentMethodProps[] = [
   PAYMENT_METHOD.LOCAL_BANK,
   PAYMENT_METHOD.ONLINE_BANK,
   PAYMENT_METHOD.MOMO,
