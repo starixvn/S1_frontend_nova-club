@@ -2,7 +2,9 @@ import Header from 'app/components/common/Header'
 import MenuNotice from 'app/components/common/MenuNotice'
 import { Button } from 'app/components/form/Button'
 import IconButton from 'app/components/form/IconButton'
-import InputBase from 'app/components/form/Input/InputBase'
+import InputBase, {
+  INPUT_BASE_SPACE,
+} from 'app/components/form/Input/InputBase'
 import MoneyInput from 'app/components/form/Input/MoneyInput'
 import Page, { PageWithBackHeader } from 'app/components/layout/Page'
 import { TRANSFER_NOTES } from 'app/constant/notes'
@@ -243,25 +245,13 @@ const TransferScreen = ({
               : undefined
           }
           action={
-            <View sx={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Text
-                numberOfLines={1}
-                sx={{
-                  fontWeight: 'bold',
-                  color: '#FFFBAE',
-                  mr: '$2',
-                  mb: MARGIN_TEXT_CENTERING,
-                }}
-              >
-                {`= ${values.amount ? values.amount : 0}K`}
-              </Text>
-              <IconButton
-                name="ac"
-                size={18}
-                color={'$lightCyan'}
-                onPress={handleMax}
-              />
-            </View>
+            <IconButton
+              sx={{ pr: INPUT_BASE_SPACE }}
+              name="ac"
+              size={18}
+              color={'$lightCyan'}
+              onPress={handleMax}
+            />
           }
         />
 

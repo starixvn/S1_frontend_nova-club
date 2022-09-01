@@ -125,7 +125,7 @@ const InputBase = forwardRef<{}, InputBaseProps>(
                 flexDirection: 'row',
                 alignItems: 'center',
                 px: INPUT_BASE_SPACE,
-                cursor: onPress && Platform.OS === 'web' ? 'pointer' : 'none',
+                cursor: onPress && Platform.OS === 'web' ? 'pointer' : 'auto',
               }}
             >
               <MotiText
