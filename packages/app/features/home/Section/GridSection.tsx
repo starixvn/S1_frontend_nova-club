@@ -129,6 +129,7 @@ const GridSection = () => {
               p: quarterSpace,
               width,
               height: rowHeight,
+              position: 'relative',
             }}
             onPress={() => action(j)}
           >
@@ -146,7 +147,7 @@ const GridSection = () => {
                 sx={{
                   bottom: checkTextSpace,
                   left: checkTextSpace,
-                  width: '100%',
+                  right: checkTextSpace,
                 }}
               >
                 <Text

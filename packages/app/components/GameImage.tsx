@@ -29,7 +29,7 @@ const GameImage = ({ frame = false, width, height, image }) => {
         onLoad={() => {
           animationState.transitionTo('loaded')
         }}
-        resizeMode={'cover'}
+        resizeMode={'contain'} // using cover will have JILI's frame's title covered, recommended using "cover" but must fix the jili image dimension first
         source={{ uri: image }}
         style={{
           width,
