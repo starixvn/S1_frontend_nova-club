@@ -1,6 +1,4 @@
 import { NavigationContainer } from '@react-navigation/native'
-import AlertModal from 'app/components/modal/AlertModal'
-import * as Linking from 'expo-linking'
 import { useMemo } from 'react'
 
 /**

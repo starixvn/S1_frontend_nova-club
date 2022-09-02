@@ -1,12 +1,13 @@
 import { useAppSelector } from 'app/provider/redux/store'
 import { useEffect, useRef } from 'react'
-import { AppState, NativeEventSubscription } from 'react-native'
+import { AppState } from 'react-native'
 import { useLazyPlayerBalanceQuery } from 'services/walletApi'
 
 export default function useAppState() {
   const appState = useRef(AppState.currentState)
-  const appStateInstance = useRef<NativeEventSubscription>()
+  const currentToken = useRef<string>()
   const { token } = useAppSelector((state) => state.auth.info) || {}
+
   const [getPlayerBalance] = useLazyPlayerBalanceQuery()
 
   const _handleAppStateChange = async (nextAppState) => {
@@ -15,7 +16,7 @@ export default function useAppState() {
         appState.current.match(/inactive|background/) &&
         nextAppState === 'active'
       ) {
-        if (token) {
+        if (currentToken.current) {
           getPlayerBalance()
         }
       }
@@ -27,14 +28,19 @@ export default function useAppState() {
   }
 
   useEffect(() => {
+    currentToken.current = token
+  }, [token])
+
+  useEffect(() => {
     const appStateListener = AppState.addEventListener(
       'change',
       _handleAppStateChange
     )
-    appStateInstance.current = appStateListener
 
     return () => {
-      appStateInstance.current?.remove()
+      if (appStateListener) {
+        appStateListener.remove()
+      }
     }
   }, [])
 

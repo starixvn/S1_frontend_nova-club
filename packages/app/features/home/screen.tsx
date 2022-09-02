@@ -1,4 +1,4 @@
-import { ScrollView, useDripsyTheme } from 'dripsy'
+import { ScrollView } from 'dripsy'
 import { default as React } from 'react'
 import AnnoucementMarquee from './Section/AnnouncementMarquee'
 import BannerSection from './Section/BannerSection'
@@ -8,7 +8,6 @@ import Jackpot from './Section/Jackpot'
 import RecentOpenGames from './Section/RecentOpenGames'
 
 const HomeScreen = () => {
-  const { theme } = useDripsyTheme()
   return (
     <ScrollView
       bounces={false}
