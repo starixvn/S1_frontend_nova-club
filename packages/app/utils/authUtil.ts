@@ -2,10 +2,11 @@ import { LOGOUT_ACTION } from 'app/constant/redux'
 import { store } from 'app/provider/redux/store'
 import authApi from 'services/authApi'
 
-export async function logOut() {
+export async function logOut({ isTokenExpired = false } = {}) {
   try {
     const { playerName } = store.getState().auth.info || {}
-    if (playerName) {
+
+    if (playerName && !isTokenExpired) {
       await store.dispatch(
         authApi.endpoints.logout.initiate({ username: playerName })
       )

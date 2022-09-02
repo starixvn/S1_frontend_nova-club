@@ -1,5 +1,7 @@
 import { NavigationContext } from '@react-navigation/core'
+import { useNavigation } from '@react-navigation/native'
 import { ContextualComponentType } from 'app/navigation/web/ContextualNavigation'
+import { getCurrentNavigationRoute } from 'app/utils/navigation'
 import { useContext } from 'react'
 
 const useContextualRouting: () => {
@@ -7,25 +9,15 @@ const useContextualRouting: () => {
   makeContextualHref: (to: ContextualComponentType, params?: any) => string
 } = function () {
   const navigationContext = useContext(NavigationContext)
-  const navigationState = navigationContext?.getState()
+  const navigation = useNavigation()
 
-  /**
-   * Solution comes from here to get url path eg: /games
-   * https://github.com/nandorojo/solito/pull/45
-   */
-  const getPathName = () => {
-    return (
-      navigationState?.routes?.[navigationState?.index]?.path ??
-      navigationState?.routes?.[navigationState?.index]?.params?.path ??
-      navigationState?.routes?.[navigationState?.index]?.state?.routes[0]
-        ?.path ??
-      '/'
-    )
-  }
+  const navigationState = navigationContext
+    ? navigationContext.getState()
+    : navigation.getState()
 
   return {
     makeContextualHref: (to) => '',
-    returnHref: getPathName(),
+    returnHref: getCurrentNavigationRoute(navigationState),
   }
 }
 

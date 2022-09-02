@@ -13,7 +13,7 @@ const DEFAULT_TIMEOUT = 25000
 
 interface CustomConfig {
   store?: EnhancedStore<RootState>
-  onTokenExpired?: () => void
+  onTokenExpired?: () => Promise<void>
 }
 
 let customConfig: CustomConfig = {}
@@ -146,18 +146,22 @@ const onResponseFullfilled = (response: AxiosResponse) => {
 }
 
 const onResponseError = (error: AxiosError) => {
-  if (error.response) {
-    if (error.response.status === RESPONSE_STATUS.TOKEN_EXPIRED) {
-      const state = customConfig.store?.getState()
-      const currentLoginInfo = state?.auth.info
+  try {
+    if (error.response) {
+      if (error.response.status === RESPONSE_STATUS.TOKEN_EXPIRED) {
+        const state = customConfig.store?.getState()
+        const currentLoginInfo = state?.auth.info
 
-      if (currentLoginInfo) {
-        customConfig.onTokenExpired?.()
+        if (currentLoginInfo) {
+          customConfig.onTokenExpired?.()
+        }
       }
     }
+  } catch (error) {
+    console.error(error)
+  } finally {
+    return Promise.reject(error)
   }
-
-  return Promise.reject(error)
 }
 
 axiosInstance.defaults.headers.post['Content-Type'] = 'application/json'

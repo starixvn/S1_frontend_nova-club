@@ -1,36 +1,38 @@
+import { CommonActions, useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import SplashScreen from 'app/features/splashscreen'
-import { fadeScaleIn } from 'app/transitions/fade'
-import ProfileScreen from 'app/features/profile'
-import TabNavigation from './TabNavigation'
+import ForgotPassword from 'app/features/auth/forgotPassword'
 import LoginPage from 'app/features/auth/login'
 import RegisterPage from 'app/features/auth/register'
+import TnC from 'app/features/auth/tnc'
 import RegisterVerificationPage from 'app/features/auth/verification'
-import { Easing } from 'react-native'
-import { useSelector } from 'react-redux'
-import { RootState } from 'app/provider/redux/store'
-import PreLaunchGame from 'app/features/games/PreLaunchGame'
-import FishingPage from 'app/features/fishing'
-import WithdrawalPage from 'app/features/withdrawal'
-import ForgotPassword from 'app/features/auth/forgotPassword'
-import DepositNavigation from './DepositNavigation'
 import CustomerSupportPage from 'app/features/customerSupport'
+import FishingPage from 'app/features/fishing'
 import GameLoaderPage from 'app/features/games/GameLoaderPage'
-import OverviewScreen from 'app/features/profile/overview'
-import ProfileDetails from 'app/features/profile/profile-details'
+import PreLaunchGame from 'app/features/games/PreLaunchGame'
+import LotteryPage from 'app/features/lottery'
+import MessagesPage from 'app/features/messages'
+import ChangePinScreen from 'app/features/pin/change-pin'
+import CreatePinScreen from 'app/features/pin/CreatePinScreen'
+import ForgotPinScreen from 'app/features/pin/forgot-pin'
+import ProfileScreen from 'app/features/profile'
 import BankAccountScreen from 'app/features/profile/bank-account'
 import AddBankAccountScreen from 'app/features/profile/bank-account/add-bank-account'
 import CommissionTablePage from 'app/features/profile/commission-table'
 import HistoryScreen from 'app/features/profile/history'
-import MessagesPage from 'app/features/messages'
-import LotteryPage from 'app/features/lottery'
-import TransferScreen from 'app/features/transferScanner/transfer'
-import TransferScannerScreen from 'app/features/transferScanner'
-import CreatePinScreen from 'app/features/pin/CreatePinScreen'
-import ChangePinScreen from 'app/features/pin/change-pin'
-import ForgotPinScreen from 'app/features/pin/forgot-pin'
 import ManageCredentialsPage from 'app/features/profile/manage-credentials'
-import TnC from 'app/features/auth/tnc'
+import OverviewScreen from 'app/features/profile/overview'
+import ProfileDetails from 'app/features/profile/profile-details'
+import SplashScreen from 'app/features/splashscreen'
+import TransferScannerScreen from 'app/features/transferScanner'
+import TransferScreen from 'app/features/transferScanner/transfer'
+import WithdrawalPage from 'app/features/withdrawal'
+import useResetRTKQState from 'app/hooks/useResetRTKQState'
+import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
+import { AuthActions } from 'app/store/authReducer'
+import { fadeScaleIn } from 'app/transitions/fade'
+import { Easing } from 'react-native'
+import DepositNavigation from './DepositNavigation'
+import TabNavigation from './TabNavigation'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -64,12 +66,48 @@ const Stack = createStackNavigator<{
 }>()
 
 export function NativeNavigation() {
-  const loginInfo = useSelector((s: RootState) => s.auth.info)
+  const navigation = useNavigation()
+  const { resetRTKQState } = useResetRTKQState()
+  const dispatch = useAppDispatch()
+  const isLogoutActionTriggered = useAppSelector(
+    (state) => state.auth.isLogoutActionTriggered
+  )
 
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
+      }}
+      screenListeners={{
+        transitionEnd: (e) => {
+          if (isLogoutActionTriggered) {
+            /**
+             * `setTimeout` is used here to move the logic inside to macroTask (event loop)
+             * so the main thread umount component first before run the logic inside `setTimeout`
+             */
+            setTimeout(() => {
+              /**
+               * Reset current React Navigation stack and maintain current screen
+               * to prevent RTKQ hook from triggered after `resetApiState()` in
+               * `resetRTKQState` function
+               */
+              navigation.dispatch((state) => {
+                const routes = state.routes.filter(
+                  (r) => r.name === 'LoginPage'
+                )
+
+                return CommonActions.reset({
+                  ...state,
+                  routes,
+                  index: routes.length - 1,
+                })
+              })
+
+              resetRTKQState()
+              dispatch(AuthActions.setIsLogoutActionTriggered(false))
+            })
+          }
+        },
       }}
     >
       <Stack.Screen

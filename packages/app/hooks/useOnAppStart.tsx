@@ -1,12 +1,14 @@
 import { ContextualNavigationContext } from 'app/navigation/web/ContextualNavigation'
-import { store } from 'app/provider/redux/store'
+import { store, useAppSelector } from 'app/provider/redux/store'
 import { logOut } from 'app/utils/authUtil'
-import { useCallback, useContext, useEffect } from 'react'
+import { useCallback, useContext, useEffect, useRef } from 'react'
 import { configureAxios } from 'services/common/axiosInstance'
 import { useRouter } from 'solito/router'
 
 const useOnAppStart = () => {
   const { replace } = useRouter()
+  const { token } = useAppSelector((state) => state.auth.info) || {}
+  const isLogoutTriggered = useRef(false)
 
   const { stacks, clear: clearNavigationStack } = useContext(
     ContextualNavigationContext
@@ -24,11 +26,24 @@ const useOnAppStart = () => {
     configureAxios({
       store,
       onTokenExpired: async () => {
-        await logOut()
-        redirectToLoginPage()
+        try {
+          if (token && !isLogoutTriggered.current) {
+            isLogoutTriggered.current = true
+
+            await logOut({
+              isTokenExpired: true,
+            })
+
+            redirectToLoginPage()
+          }
+        } catch (error) {
+          console.log(error)
+        } finally {
+          isLogoutTriggered.current = false
+        }
       },
     })
-  }, [redirectToLoginPage])
+  }, [redirectToLoginPage, token])
 }
 
 export default useOnAppStart
