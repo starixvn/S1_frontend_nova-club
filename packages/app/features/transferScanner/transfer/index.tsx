@@ -246,7 +246,7 @@ const TransferScreen = ({
           }
           action={
             <IconButton
-              sx={{ pr: INPUT_BASE_SPACE }}
+              sx={{ p: INPUT_BASE_SPACE }}
               name="ac"
               size={18}
               color={'$lightCyan'}
