@@ -202,14 +202,22 @@ function useGameLauncher(gameLauncherState: LaunchGamePayload) {
         // console.log('Launching PT Url ', ptLaunchUrl)
         dispatch(SettingActions.addRecentGame({ ...gameLauncherState }))
 
-        Linking.openURL(ptLaunchUrl)
+        if (window?.gameWindow) {
+          window.gameWindow.location = ptLaunchUrl
+          window.gameWindow.focus()
+        } else Linking.openURL(ptLaunchUrl)
       } catch (e) {
         console.log('Failed to launch PT Game', e)
+        throw e
       }
     }
   }
 
   async function _launch() {
+    const isRunningAtWeb =
+      Platform.OS === 'web' ||
+      (providerCode && ProviderRunningWithoutIframe.includes(providerCode))
+
     try {
       setVerifying(true)
       const { data } = await getGameUrl({
@@ -226,11 +234,11 @@ function useGameLauncher(gameLauncherState: LaunchGamePayload) {
       if (url) {
         dispatch(SettingActions.addRecentGame({ ...gameLauncherState }))
 
-        if (
-          Platform.OS === 'web' ||
-          ProviderRunningWithoutIframe.includes(providerCode)
-        ) {
-          Linking.openURL(url)
+        if (isRunningAtWeb) {
+          if (window?.gameWindow) {
+            window.gameWindow.location = url
+            window.gameWindow.focus()
+          } else Linking.openURL(url)
         } else {
           push({
             pathname: '/games/gameUrl',
@@ -250,7 +258,6 @@ function useGameLauncher(gameLauncherState: LaunchGamePayload) {
 
   async function launchGame() {
     if (providerCode) {
-      console.log('providerCode', providerCode)
       if (providerCode === 'PTV2') {
         await _launchPT()
       } else await _launch()
@@ -273,8 +280,8 @@ const PreLaunchGame = ({}) => {
   const [isGameStateEmpty, setIsGameStateEmpty] = useState(false)
   const dispatch = useAppDispatch()
 
-  const { launchGame, isVerifying, back, gameName } =
-    useGameLauncher(gameLauncherState)
+  const { gameType } = gameLauncherState
+  const { launchGame, isVerifying, back } = useGameLauncher(gameLauncherState)
   const {
     currentProvider,
     isSeamless,
@@ -291,10 +298,16 @@ const PreLaunchGame = ({}) => {
   } = useGameBalanceRule()
 
   const { top } = useSafeArea()
-  const isSport = gameLauncherState.gameType === GAME_TYPE_CODE.SPORTS
+  const isSport = gameType === GAME_TYPE_CODE.SPORTS
 
   async function onLauchGame() {
     setIsLaunchingGame(true)
+    /* Open window must be executed before any await, to prevent pop up blocker on Mobile browser */
+    if (Platform.OS === 'web') {
+      if (!window.gameWindow || window.gameWindow.closed) {
+        window.gameWindow = window.open('/launcher')
+      }
+    }
 
     try {
       await transferToGame()
@@ -307,6 +320,9 @@ const PreLaunchGame = ({}) => {
           message: errorMessage,
         })
       )
+
+      if (window?.gameWindow && !window.gameWindow.closed)
+        window.gameWindow.close()
     } finally {
       setIsLaunchingGame(false)
     }
