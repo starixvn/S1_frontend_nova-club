@@ -1,18 +1,9 @@
 import BottomNavigation from 'app/navigation/BottomNavigation'
 import MainHeader from 'app/navigation/MainHeader'
-import React, {
-  createContext,
-  FC,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react'
-import { View, useSx } from 'dripsy'
+import { ActivityIndicator, useSx, View } from 'dripsy'
+import { AnimatePresence, MotiView } from 'moti'
 import { useRouter } from 'next/router'
-import { AnimatePresence } from 'framer-motion'
-import { Platform } from 'react-native'
+import React, { FC, useEffect, useState } from 'react'
 
 export type TabLayoutProps = {
   children: React.ReactElement
@@ -28,8 +19,6 @@ const TabLayout: FC<TabLayoutProps> = ({ children, lockHeight }) => {
   useEffect(() => {
     const handleStart = (url) => url !== router.asPath && setLoading(true)
     const handleComplete = (url) => {
-      // console.log('completed', url, router.asPath)
-      // setUrl(url)
       return setLoading(false)
     }
 
@@ -60,11 +49,7 @@ const TabLayout: FC<TabLayoutProps> = ({ children, lockHeight }) => {
         position: 'relative',
       }}
     >
-      {/* {loading && (
-        <div style={{ width: 100, height: 100, backgroundColor: 'red' }}></div>
-      )} */}
       <HeaderFloat />
-      {/* <QRFloat /> */}
       {children}
       {/* <AnimatePresence
         initial={false}
@@ -73,6 +58,32 @@ const TabLayout: FC<TabLayoutProps> = ({ children, lockHeight }) => {
         {children}
       </AnimatePresence> */}
       <BottomTabFloat />
+      <AnimatePresence>
+        {loading && (
+          <MotiView
+            from={{ opacity: 0, translateY: 250 }}
+            animate={{ opacity: 1, translateY: 0 }}
+            exit={{ opacity: 0, translateY: 250 }}
+            transition={{ type: 'timing' }}
+            style={{
+              zIndex: 1,
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+              position: 'fixed',
+              left: 0,
+              right: 0,
+              height: 250,
+              bottom: 0,
+              backgroundImage:
+                'linear-gradient(to top,rgb(13, 32, 53), transparent)',
+              // backgroundImage:
+              //   'radial-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.4), transparent, transparent)',
+            }}
+          >
+            <ActivityIndicator color="white" size={40} sx={{ m: '$5' }} />
+          </MotiView>
+        )}
+      </AnimatePresence>
     </View>
   )
 }
