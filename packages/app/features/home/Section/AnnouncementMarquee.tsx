@@ -15,7 +15,7 @@ interface MarqueeItem<T> {
   item: T
 }
 
-const AnnoucementMarquee = () => {
+const AnnouncementMarquee = () => {
   const { push } = useRouter()
   const { makeContextualHref } = useContextualRouting()
   const toMessages = makeContextualHref('messages', {
@@ -85,4 +85,4 @@ const StyledContainer = styled(View)({
   borderBottomWidth: 1,
 })
 
-export default AnnoucementMarquee
+export default AnnouncementMarquee

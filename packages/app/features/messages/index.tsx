@@ -25,7 +25,7 @@ const Messages = () => {
   const [index, setIndex] = useState(getTab)
   const [routes] = useState([
     { key: 'first', title: t('message.personalMessage'), index: 0 },
-    { key: 'second', title: t('message.annoucement'), index: 1 },
+    { key: 'second', title: t('message.announcement'), index: 1 },
   ])
   const layout = useWindowDimensions()
   const { width } = useContainerDimension()

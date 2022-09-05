@@ -1,6 +1,6 @@
 import { ScrollView } from 'dripsy'
 import { default as React } from 'react'
-import AnnoucementMarquee from './Section/AnnouncementMarquee'
+import AnnouncementMarquee from './Section/AnnouncementMarquee'
 import BannerSection from './Section/BannerSection'
 import GridSection from './Section/GridSection'
 import HotGamesSection from './Section/HotGamesSection'
@@ -15,7 +15,7 @@ const HomeScreen = () => {
       showsVerticalScrollIndicator={false}
     >
       <BannerSection />
-      <AnnoucementMarquee />
+      <AnnouncementMarquee />
       <GridSection />
       <RecentOpenGames />
       <HotGamesSection />

@@ -1,17 +1,20 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
+import { SettingActions } from 'app/store/setting.slice'
 import { ActivityIndicator, Image, styled, Text, View } from 'dripsy'
 import { memo, useEffect } from 'react'
 import { skipToken } from '@reduxjs/toolkit/query/react'
 import { motify } from 'moti'
 import { useAffiliateUsernameQuery } from 'services/contentApi'
+import { useDispatch } from 'react-redux'
 const HEADER_IMAGE = require('../../../assets/images/register/referral-avatar.png')
 const MotifiedView = motify(View)()
 function ReferrerInformation({ sx = {}, ...rest }) {
+  const dispatch = useDispatch()
   const { t } = useLocalization()
   const referral = useAppSelector((s) => s.setting.referral)
-  const { error } = useAffiliateUsernameQuery(
+  const { error, isLoading } = useAffiliateUsernameQuery(
     !referral || referral.username ? skipToken : referral.trackingCode,
     {
       // only retry when trackingCode is there but no username
@@ -19,7 +22,11 @@ function ReferrerInformation({ sx = {}, ...rest }) {
     }
   )
 
-  const display = error?.message || referral?.username
+  useEffect(() => {
+    if (error?.code === 20019) {
+      dispatch(SettingActions.setReferral(null))
+    }
+  }, [dispatch, error])
 
   return (
     <MotifiedView
@@ -65,13 +72,7 @@ function ReferrerInformation({ sx = {}, ...rest }) {
               justifyContent: 'center',
             }}
           >
-            {display ? (
-              <Text sx={{ color: error ? '$error' : undefined }}>
-                {display}
-              </Text>
-            ) : (
-              <ActivityIndicator color="$lightCyan" size={'small'} />
-            )}
+            {referral && !isLoading && <Text>{referral.trackingCode}</Text>}
           </View>
         </View>
       </DripsyGradient>

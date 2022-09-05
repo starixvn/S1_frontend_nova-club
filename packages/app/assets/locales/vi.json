@@ -247,7 +247,7 @@
     "withdrawalConfirmation": "Xác nhận Rút tiền"
   },
   "message": {
-    "annoucement": "Thông Báo",
+    "announcement": "Thông Báo",
     "empty": "Không có bất kỳ tin nhắn nào được nêu ra!",
     "personalMessage": "Tin nhắn khách hàng"
   },
@@ -324,7 +324,7 @@
     "timeline": "UTC/GMT +7"
   },
   "qr": {
-    "downloadQrCode": "Tải mã QR thành công",
+    "downloadQrCode": "Tải Mã QR",
     "noCameraAccess": "Không có quyền truy cập vào máy ảnh",
     "requestCameraPermissions": "Yêu cầu quyền truy cập vào máy ảnh",
     "scanGallery": "Quét từ thư viện"
@@ -363,7 +363,7 @@
     "recent": "Giao Dịch Gần Đây"
   },
   "transfer": {
-    "avaiableAmount": "Số tiền có sẵn",
+    "avaiableAmount": "Số tiền có thể rút",
     "transferTo": "Chuyển tới"
   },
   "userAgreement": {
