@@ -15,5 +15,6 @@ export async function logOut({ isTokenExpired = false } = {}) {
     await store.dispatch({ type: LOGOUT_ACTION })
   } catch (error) {
     console.error(error)
+    return error
   }
 }

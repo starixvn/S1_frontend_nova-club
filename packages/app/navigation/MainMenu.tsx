@@ -78,9 +78,14 @@ const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
         icon: 'logout',
         label: 'menu.logout',
         onPress: async () => {
-          await logOut()
-          // TODO: add loading to prevent spamming
-          replace('/auth/login')
+          try {
+            await logOut()
+
+            // TODO: add loading to prevent spamming
+            replace('/auth/login')
+          } catch (error) {
+            console.error(error)
+          }
         },
       },
     ],

@@ -4,6 +4,7 @@ import { LANGUAGE_CODE } from 'app/constant/language'
 import { RootState } from 'app/provider/redux/store'
 import { generateFPSParams } from 'app/utils/fps/fpsGenerator'
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
+import { AuthURL } from '../authApi'
 
 enum RESPONSE_STATUS {
   TOKEN_EXPIRED = 401,
@@ -152,7 +153,7 @@ const onResponseError = (error: AxiosError) => {
         const state = customConfig.store?.getState()
         const currentLoginInfo = state?.auth.info
 
-        if (currentLoginInfo) {
+        if (currentLoginInfo && error.config.url !== AuthURL.LOGOUT) {
           customConfig.onTokenExpired?.()
         }
       }

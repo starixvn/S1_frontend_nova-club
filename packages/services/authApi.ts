@@ -17,6 +17,10 @@ import {
   IResponse,
 } from './common/types'
 
+export enum AuthURL {
+  LOGOUT = '/player_api/logout',
+}
+
 /**
  * @param builder Pass builder from `createApi` *endpoints*
  */
@@ -49,7 +53,7 @@ const authEndpoints = (builder: EndpointBuilderType) => {
     }),
     logout: builder.query<IResponse<string>, LogoutQueryArgs>({
       query: ({ username }) => ({
-        url: `/player_api/logout`,
+        url: `${AuthURL.LOGOUT}`,
         data: {
           username,
         },
