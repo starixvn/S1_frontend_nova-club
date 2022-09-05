@@ -38,6 +38,7 @@ import { MARGIN_TEXT_CENTERING } from 'app/constant/sizes'
 import validationRule from 'app/utils/validationRule'
 import MenuNotice from 'app/components/common/MenuNotice'
 import { WITHDRAWAL_NOTES } from 'app/constant/notes'
+import { INPUT_BASE_SPACE } from 'app/components/form/Input/InputBase'
 
 const actionSheetId = ACTION_SHEET_ID.WITHDRAWAL
 
@@ -258,25 +259,13 @@ const WithdrawalPage = () => {
               : undefined
           }
           action={
-            <View sx={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Text
-                numberOfLines={1}
-                sx={{
-                  fontWeight: 'bold',
-                  color: '#FFFBAE',
-                  mr: '$2',
-                  mb: MARGIN_TEXT_CENTERING,
-                }}
-              >
-                {`= ${values.amount ? values.amount : 0}K`}
-              </Text>
-              <IconButton
-                name="ac"
-                size={18}
-                color={'$lightCyan'}
-                onPress={handleMaxAmount}
-              />
-            </View>
+            <IconButton
+              sx={{ pr: INPUT_BASE_SPACE }}
+              name="ac"
+              size={18}
+              color={'$lightCyan'}
+              onPress={handleMaxAmount}
+            />
           }
         />
 
