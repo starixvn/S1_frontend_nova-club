@@ -1,3 +1,4 @@
+import { REFERRAL_DOMAIN } from '@env'
 import Image from 'app/components/common/Image'
 import { Button } from 'app/components/form/Button'
 import Icon from 'app/components/Icon'
@@ -7,22 +8,25 @@ import { ContextualNavigationContext } from 'app/navigation/web/ContextualNaviga
 import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
 import React, { useContext } from 'react'
+import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 const LOGO_IMAGE = require('../../assets/images/auth-logo.png')
 const CONTENT_IMAGE = require('../../assets/images/download.png')
 
+const { useParam } = createParam()
+
 const DownloadScreen = () => {
+  const [ref] = useParam('ref')
   const { t } = useLocalization()
   const { push } = useRouter()
-
-  const { makeContextualHref } = useContextualRouting()
-  const toRegister = makeContextualHref('register')
 
   const { clear: clearNavigationStack } = useContext(
     ContextualNavigationContext
   )
 
-  const handlePressDownload = () => {}
+  const handlePressDownload = () => {
+    window.open(`${REFERRAL_DOMAIN}${ref ? '?ref=' + ref : ''}`)
+  }
   const handlePressLogin = () => {
     clearNavigationStack()
     push('/auth/login')
@@ -35,41 +39,37 @@ const DownloadScreen = () => {
   return (
     <PageWithBackHeader header={{}} hideHeader>
       <View sx={{ mt: '$8', alignItems: 'center' }}>
-        <Image
-          source={LOGO_IMAGE}
-          style={{ height: 100, width: 100, aspectRatio: 1 }}
-        />
+        <Image source={LOGO_IMAGE} style={{ height: 175, width: 175 }} />
         <Image
           source={CONTENT_IMAGE}
           style={{
-            width: '70%',
+            width: '65%',
             minHeight: 200,
             aspectRatio: 1,
             marginVertical: 24,
           }}
         />
-        <View sx={{ width: '70%' }}>
+        <View sx={{ width: '65%' }}>
           <Button
             stretch
             onPress={handlePressDownload}
             sx={{ mt: '$8' }}
             containerStyle={{
               justifyContent: 'space-between',
-              minHeight: 80,
+              minHeight: 60,
             }}
           >
             <Icon name="mobile" />
             <View sx={{ alignItems: 'center' }}>
-              <Button.Label>{t('common.app').toUpperCase()}</Button.Label>
-              <Button.Label>{t('common.download').toUpperCase()}</Button.Label>
+              <Button.Label>
+                {t('common.app').toUpperCase() +
+                  '\n' +
+                  t('common.download').toUpperCase()}
+              </Button.Label>
             </View>
             <Icon name="dl-circle" />
           </Button>
-        </View>
-      </View>
 
-      <View sx={{ alignItems: 'center' }}>
-        <View sx={{ width: '70%' }}>
           <GrayButton
             label={t('auth.login')}
             icon="login"
@@ -99,7 +99,7 @@ const GrayButton = ({ label, icon, onPress }) => {
       }}
       onPress={onPress}
       containerStyle={{
-        mt: '$8',
+        mt: '$5',
         justifyContent: 'space-between',
         height: 60,
       }}

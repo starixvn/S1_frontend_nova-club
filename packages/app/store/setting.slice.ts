@@ -46,8 +46,8 @@ const settingSlice = createSlice({
     setPopUpExpiry: (state, action: PayloadAction<string>) => {
       state.popUpExpiry[action.payload] = dayjs().add(1, 'day')
     },
-    setReferral: (state, action: PayloadAction<Referral>) => {
-      state.referral = action.payload
+    setReferral: (state, action: PayloadAction<Referral | void>) => {
+      state.referral = action.payload ?? undefined
     },
     setLog: (state, action: PayloadAction<string>) => {
       state.log = action.payload
@@ -73,14 +73,14 @@ const settingSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addMatcher(
-      contentApi.endpoints.affiliateUsername.matchFulfilled,
-      (state, { payload }) => {
-        if (state.referral && payload.data) {
-          state.referral.username = payload.data.username
-        }
-      }
-    )
+    // builder.addMatcher(
+    //   contentApi.endpoints.affiliateUsername.matchFulfilled,
+    //   (state, { payload }) => {
+    //     if (state.referral && payload.data) {
+    //       state.referral.username = payload.data.username
+    //     }
+    //   }
+    // )
     // builder.addCase(GameLauncherActions.launchGame, (state, { payload }) => {})
   },
 })

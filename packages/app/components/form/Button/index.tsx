@@ -186,7 +186,9 @@ function ButtonLabel({
       variants={variants}
       sx={{
         px: '$1',
+        textAlign: 'center',
         fontWeight: 'bold',
+        lineHeight: '1.1em',
         textTransform,
         color: textColor,
         opacity: loading ? 0 : 1,

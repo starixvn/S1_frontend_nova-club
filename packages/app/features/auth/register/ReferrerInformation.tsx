@@ -14,19 +14,17 @@ function ReferrerInformation({ sx = {}, ...rest }) {
   const dispatch = useDispatch()
   const { t } = useLocalization()
   const referral = useAppSelector((s) => s.setting.referral)
-  const { error, isLoading } = useAffiliateUsernameQuery(
-    !referral || referral.username ? skipToken : referral.trackingCode,
-    {
-      // only retry when trackingCode is there but no username
-      pollingInterval: referral && !referral.username ? 15000 : 0,
-    }
+  const { error, isSuccess } = useAffiliateUsernameQuery(
+    referral ? referral.trackingCode : skipToken
   )
 
   useEffect(() => {
     if (error?.code === 20019) {
-      dispatch(SettingActions.setReferral(null))
+      dispatch(SettingActions.setReferral())
     }
   }, [dispatch, error])
+
+  if (!isSuccess) return null
 
   return (
     <MotifiedView
@@ -72,7 +70,7 @@ function ReferrerInformation({ sx = {}, ...rest }) {
               justifyContent: 'center',
             }}
           >
-            {referral && !isLoading && <Text>{referral.trackingCode}</Text>}
+            <Text>{referral?.trackingCode}</Text>
           </View>
         </View>
       </DripsyGradient>

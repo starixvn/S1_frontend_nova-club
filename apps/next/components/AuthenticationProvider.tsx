@@ -9,7 +9,7 @@ const guestRoutes = [
   '/profile/commission-table',
   '/launcher',
   '/customer-support',
-  '/url/download',
+  '/download',
 ]
 
 /* 
