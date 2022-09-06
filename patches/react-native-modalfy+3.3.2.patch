@@ -8,7 +8,7 @@ index fa3dedb..ae4372a 100644
  
 -    const currentItem = [...stack.openedItems].slice(-1)[0]
 +    const currentItem = [...stack.openedItems].slice(-1)[0];
-+    if (currentItem.params.persistent) return
++    if (currentItem.params?.persistent) return
  
      if (stack.openedItemsSize === 1) hideBackdrop()
  

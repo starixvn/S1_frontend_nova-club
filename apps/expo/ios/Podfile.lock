@@ -1071,7 +1071,7 @@ PODS:
     - React-Core
   - react-native-safe-area-context (3.3.2):
     - React-Core
-  - react-native-view-shot (3.3.0):
+  - react-native-view-shot (3.4.0):
     - React-Core
   - react-native-webview (11.15.0):
     - React-Core
@@ -1145,7 +1145,7 @@ PODS:
     - React-Core
   - RNDeviceInfo (10.0.2):
     - React-Core
-  - RNFastImage (8.5.11):
+  - RNFastImage (8.6.1):
     - React-Core
     - SDWebImage (~> 5.11.1)
     - SDWebImageWebPCoder (~> 0.8.4)
@@ -1168,18 +1168,18 @@ PODS:
     - Firebase/Messaging (= 8.15.0)
     - React-Core
     - RNFBApp
-  - RNFlashList (1.2.1):
+  - RNFlashList (1.2.2):
     - React-Core
   - RNFS (2.20.0):
     - React-Core
   - RNGestureHandler (2.1.3):
     - React-Core
-  - RNNotifee (5.6.0):
+  - RNNotifee (5.7.0):
     - React-Core
     - RNNotifeeCore
-  - RNNotifeeCore (5.6.0):
-    - RNNotifeeCore/NotifeeCore (= 5.6.0)
-  - RNNotifeeCore/NotifeeCore (5.6.0)
+  - RNNotifeeCore (5.7.0):
+    - RNNotifeeCore/NotifeeCore (= 5.7.0)
+  - RNNotifeeCore/NotifeeCore (5.7.0)
   - RNReanimated (2.3.3):
     - DoubleConversion
     - FBLazyVector
@@ -1214,7 +1214,7 @@ PODS:
   - RNSentry (3.4.2):
     - React-Core
     - Sentry (= 7.11.0)
-  - RNShare (7.8.0):
+  - RNShare (7.9.0):
     - React-Core
   - RNSVG (12.1.1):
     - React
@@ -1560,7 +1560,7 @@ SPEC CHECKSUMS:
   react-native-branch: 9348e18c5d37de6bf12a6c562123ba265ffbc2b0
   react-native-pager-view: 3ee7d4c7697fb3ef788346e834a60cca97ed8540
   react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
-  react-native-view-shot: da768466e1cd371de50a3a5c722d1e95456b5b2c
+  react-native-view-shot: a60a98a18c72bcaaaf2138f9aab960ae9b0d96c7
   react-native-webview: e89bf2dba26a04cda967814df3ed1be99f291233
   React-perflogger: cc76a4254d19640f1d8ad1c66fdee800414b805c
   React-RCTActionSheet: 7448f049318d8d7e8a9a1ebb742ada721757eea8
@@ -1577,21 +1577,21 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: 6bd5a7ba3dde1c3facba418aa273f449bdc5437a
   RNDateTimePicker: 2224ee77a86b7123377597a015502435e2e49957
   RNDeviceInfo: 0a7c1d2532aa7691f9b9925a27e43af006db4dae
-  RNFastImage: 1f2cab428712a4baaf78d6169eaec7f622556dd7
+  RNFastImage: 3207b9eb17c2425d574ca40db35185db6e324f4e
   RNFBAnalytics: e332a2d0b4c28884dbeacbe21fe68688abdf34b9
   RNFBApp: 9646e09d041ea159b84584865212e4cf33acd179
   RNFBCrashlytics: f2b5e456c4969bdec60482e83d973d873ff17f1d
   RNFBFirestore: 70f47946084f6ce68c827c4a770613e0adb46da3
   RNFBMessaging: 3e2682ea5e15fe86da24d16d16019395a881f33c
-  RNFlashList: 5318fc0772902ffa55170b35caa95ad5a69da3ef
+  RNFlashList: 13d14d9502661134ad3ba892f81d76bdcbd79755
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
   RNGestureHandler: e1099204721a17a89c81fcd1cc2e92143dc040fb
-  RNNotifee: 42ae201bfe590e3a9a926057cab04d0faaf90c57
-  RNNotifeeCore: 57b860fe5d91c88b3ab880c0a1d8ff7cf3546135
+  RNNotifee: 40cc97ddc290e102894ea5381e90905f50598cfe
+  RNNotifeeCore: 2d6233c6e9cf7755b8f460061c7811113043d2d3
   RNReanimated: 0e5ef4a7e4e79f84efbe5b40771c31044c51e7d0
   RNScreens: d6da2b9e29cf523832c2542f47bf1287318b1868
   RNSentry: 2cd1daa124b0d9fd0dfc2cb6094fdd168cb579bc
-  RNShare: 31b418e3ff2084712f0f39618bafa5f97a322c0e
+  RNShare: be91a5c149585affb02c25b351bd07ba927c7006
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
