@@ -1,3 +1,4 @@
+import { useFocusEffect } from '@react-navigation/native'
 import lottery from 'app/config/games/lottery'
 import HorizontalGameList from 'app/features/games/HorizontalGameList'
 import useLocalization from 'app/provider/localization'
@@ -14,12 +15,14 @@ const RecentOpenGames = () => {
   const games = useMemo(() => {
     return recent.map((r) => {
       return {
+        gtc: r.gameType,
         gc: r.gameCode || '',
         gpc: r.providerCode || '',
         img: r.image,
+        name: r.gameName,
       } as Game
     })
-  }, [])
+  }, [recent])
 
   if (games.length === 0) return null
 

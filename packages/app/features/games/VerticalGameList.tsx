@@ -37,7 +37,12 @@ const VerticalGameList = forwardRef<FlashList<Game>, VerticalGameListProps>(
       const isNewGame = tags.includes(GAME_TAGS.NEW)
       const isHotGame = tags.includes(GAME_TAGS.HOT)
       const isDesktop = tags.includes(GAME_TAGS.DESKTOP)
-      const gameName = name[locale]
+      const formattedName = name
+        ? typeof name === 'string'
+          ? name
+          : name[locale]
+        : undefined
+
       return (
         <SimpleGridImage
           showName={showName}
@@ -48,7 +53,7 @@ const VerticalGameList = forwardRef<FlashList<Game>, VerticalGameListProps>(
           width={contentWidth}
           isNewGame={isNewGame}
           isHotGame={isHotGame}
-          gameName={gameName}
+          gameName={formattedName}
           gameType={gtc}
           desktopMode={isDesktop}
         />

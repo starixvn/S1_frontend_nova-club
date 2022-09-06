@@ -82,7 +82,7 @@ export interface Game {
   gpc: string
   gtc: GAME_TYPE_CODE
   img: string
-  name: Record<LANGUAGE_CODE, string>
+  name: Record<LANGUAGE_CODE, string> | string
   tags: string[]
 }
 

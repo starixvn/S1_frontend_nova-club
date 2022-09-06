@@ -19,6 +19,7 @@
     "buffer": "^6.0.3",
     "dayjs": "^1.11.2",
     "dripsy": "^3.6.0",
+    "expo-av": "~10.2.0",
     "expo-barcode-scanner": "11.2.1",
     "expo-camera": "^12.2.0",
     "expo-checkbox": "^2.1.0",

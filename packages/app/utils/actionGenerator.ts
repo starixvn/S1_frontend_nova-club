@@ -1,6 +1,8 @@
+import { GAMES } from 'app/config/games/games.type'
+import i18n from 'app/provider/localization/i18n'
 import { store } from 'app/provider/redux/store'
 import { GameLauncherActions } from 'app/store/gameLauncher.slice'
-import { GameConfig } from 'services/contentApi.type'
+import { Game, GameConfig } from 'services/contentApi.type'
 
 export enum ActionType {
   GAME = 'game',
@@ -9,12 +11,12 @@ export enum ActionType {
 
 export interface ActionLaunchGame {
   type: ActionType.GAME
-  payload: GameConfig
+  payload: Game
 }
 
 export interface ActionRedirect {
   type: ActionType.REDIRECT
-  payload: GameConfig
+  payload: Game
 }
 
 export type Action = ActionLaunchGame | ActionRedirect
@@ -25,10 +27,11 @@ export function getAction(action: Action): () => void {
       return () => {
         store.dispatch(
           GameLauncherActions.launchGame({
-            gameCode: action.payload.game_code,
-            gameName: action.payload.game_name,
-            providerCode: action.payload.game_provider_code,
-            image: action.payload.image,
+            gameCode: action.payload.gc,
+            gameName: action.payload.name[i18n.locale],
+            gameType: action.payload.gtc,
+            providerCode: action.payload.gpc,
+            image: action.payload.img,
           })
         )
       }

@@ -100,7 +100,14 @@ export default function VerticalGameList({
       const isNewGame = tags.includes(GAME_TAGS.NEW)
       const isHotGame = tags.includes(GAME_TAGS.HOT)
       const isDesktop = tags.includes(GAME_TAGS.DESKTOP)
-      const gameName = showName ? name[locale] : undefined
+
+      const formattedName =
+        name && showName
+          ? typeof name === 'string'
+            ? name
+            : name[locale]
+          : undefined
+
       return (
         <SimpleGridImage
           sx={memoSpace}
@@ -110,7 +117,7 @@ export default function VerticalGameList({
           width={contentWidth}
           isNewGame={isNewGame}
           isHotGame={isHotGame}
-          gameName={gameName}
+          gameName={formattedName}
           gameType={gtc}
           desktopMode={isDesktop}
         />

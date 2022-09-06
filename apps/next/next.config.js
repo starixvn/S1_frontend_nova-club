@@ -19,8 +19,8 @@ const nextConfig = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
+  output: "standalone",
   experimental: {
-    outputStandalone: true,
     outputFileTracingRoot: path.join(__dirname, '../../'),
   },
   sentry: {
@@ -36,6 +36,7 @@ const { withSentryConfig } = require('@sentry/nextjs')
 const { withExpo } = require('@expo/next-adapter')
 const withPlugins = require('next-compose-plugins')
 const withFonts = require('next-fonts')
+const withVideos = require('next-videos')
 const withImages = require('next-images')
 const withTM = require('next-transpile-modules')([
   'solito',
@@ -77,7 +78,10 @@ const sentryWebpackPluginOptions = {
 const moduleExports = withPlugins(
   [
     withTM,
-    [withImages, { inlineImageLimit: 0 }],
+    [withImages, {
+      inlineImageLimit: 0,
+    }],
+    [withVideos],
     [withExpo, { projectRoot: __dirname }],
     [withFonts, { projectRoot: __dirname }],
     (nextConfig) => withSentryConfig(nextConfig, sentryWebpackPluginOptions),
