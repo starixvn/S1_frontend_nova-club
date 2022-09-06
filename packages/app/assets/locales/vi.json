@@ -173,6 +173,11 @@
       "request": "Yêu cầu"
     }
   },
+  "forceDownload": {
+    "download": "Tải về",
+    "title": "Cập nhật phiên bản mới",
+    "message": "Vui lòng tải bản mới với những nâng cấp sau:"
+  },
   "game": {
     "category": {
       "cockfighting": "Chọi Gà",

@@ -119,7 +119,7 @@ const StyledViewClose = styled(View)(() => ({
 }))
 const StyledViewButton = styled(View)(() => ({
   flexDirection: 'row',
-  justifyContent: 'flex-end',
+  justifyContent: 'center',
 }))
 
 export default ModalContent

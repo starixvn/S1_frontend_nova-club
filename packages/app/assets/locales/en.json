@@ -173,6 +173,11 @@
       "request": "Request"
     }
   },
+  "forceDownload": {
+    "title": "New version available",
+    "download": "Download",
+    "message": "Please update app to the latest version which includes:"
+  },
   "game": {
     "category": {
       "cockfighting": "Cockfighting",

@@ -1,5 +1,7 @@
+import { useNavigation } from '@react-navigation/native'
 import useFontInit from 'app/hooks/useFontInit'
 import useCodePushDownload from 'app/integrations/codepush/useCodePush'
+import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Text } from 'dripsy'
 import * as ScreenOrientation from 'expo-screen-orientation'
@@ -8,9 +10,11 @@ import { ImageBackground } from 'react-native'
 import CodePush from 'react-native-code-push'
 import { getVersion } from 'react-native-device-info'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
+import { useDispatch } from 'react-redux'
 import { useRouter } from 'solito/router'
 import { sleep } from 'utils/common'
 import CodePushUpdateBar from './CodePushUpdateBar'
+import { checkMaintenance, checkVersionUpdated } from './splashScreenChecks'
 import useSplashScreen, {
   SplashScreenTask,
   SplashScreenHandler,
@@ -39,17 +43,27 @@ function useFontInitWithPromise() {
 const SplashScreen = () => {
   const { fontsLoaded, promiseFactory: fontInitPromiseFactory } =
     useFontInitWithPromise()
-
+  const { t } = useLocalization()
+  const navigation = useNavigation()
+  const dispatch = useDispatch()
   const { replace } = useRouter()
   const currentVersion = getVersion()
   // const { isReady } = useOTA()
   const { status: codePushStatus, progress } = useCodePushDownload()
   const { status } = useSplashScreen(
     {
+      mandatorySync: [checkVersionUpdated, checkMaintenance], // TODO : implement check maintenane logic
       mandatoryAsync: [fontInitPromiseFactory],
     },
     codePushStatus === CodePush.SyncStatus.UP_TO_DATE,
-    { minWaitTime: 2000 }
+    {
+      minWaitTime: 2000,
+      context: {
+        dispatch,
+        t,
+        navigation,
+      },
+    }
   )
 
   const loginResult = useAppSelector((state) => state.auth.info)

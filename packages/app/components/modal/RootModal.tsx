@@ -14,7 +14,7 @@ const RootModal = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      isVisible && openModal('AlertModal')
+      isVisible && openModal('AlertModal', { persistent: alert.persistent })
     }, 350)
   }, [alert])
 
