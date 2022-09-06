@@ -57,7 +57,7 @@ const DepositTransactions = ({ isLocalBank = false }) => {
       </View>
 
       {isLoading ? (
-        <ActivityIndicator size="large" />
+        <ActivityIndicator />
       ) : data?.data?.row_count_total ?? 0 > 0 ? (
         data?.data?.rows.map((item) => (
           <DepositHistoryItem key={item.secure_id} item={item} />
