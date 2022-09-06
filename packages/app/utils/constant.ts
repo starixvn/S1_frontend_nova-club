@@ -278,6 +278,7 @@ export enum SlotType {
   ALL = 'all',
   NEW = 'new',
   HOT = 'hot',
+  JACKPOT = 'jackpot',
 }
 export const SlotTypeOptions = [
   {
@@ -291,6 +292,10 @@ export const SlotTypeOptions = [
   {
     value: SlotType.HOT,
     label: 'filter.genre.hot',
+  },
+  {
+    value: SlotType.JACKPOT,
+    label: 'filter.genre.jackpot',
   },
 ]
 

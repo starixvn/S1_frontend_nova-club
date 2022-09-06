@@ -49,25 +49,28 @@ const DepositUploadModal = ({ modal: { closeModal, getParam } }) => {
           {
             label: t('common.submit'),
             onPress: handleSubmit,
+            disabled: !receipt,
           },
         ]}
       >
-        {isShowingFields &&
-          fields.map((field) => {
-            return (
-              <Box sx={{ p: '$2' }} key={field.value?.toString()}>
-                <Text sx={{ fontWeight: 'bold' }}>
-                  {t(field.label?.toString())} :
-                </Text>
-                <Box sx={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Box sx={{ flexDirection: 'row', flexWrap: 'wrap', mb: '$4' }}>
+          {isShowingFields &&
+            fields.map((field) => {
+              return (
+                <Box
+                  sx={{ width: '50%', my: '$2', pr: '$4' }}
+                  key={field.value?.toString()}
+                >
+                  <Text sx={{ fontWeight: 'bold' }}>
+                    {t(field.label?.toString())} :
+                  </Text>
                   <Text sx={{ mt: '$1' }}>
                     {descInfo[field.value]?.toString() ?? ''}
                   </Text>
                 </Box>
-              </Box>
-            )
-          })}
-
+              )
+            })}
+        </Box>
         <ReceiptUpload
           ref={depositUploadRef}
           value={receipt}

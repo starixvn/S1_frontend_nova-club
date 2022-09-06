@@ -89,7 +89,6 @@ const ReceiptUpload = forwardRef<ReceiptUploadMethods, DepositUploadProps>(
 ReceiptUpload.displayName = 'ReceiptUpload'
 
 const StyledTop = styled(DripsyGradient)({
-  maxWidth: 400,
   p: '$3',
   borderRadius: 10,
   borderColor: '$borderBlue',

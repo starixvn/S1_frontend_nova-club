@@ -85,7 +85,7 @@ const LocalBankScreen = () => {
   }, [data])
 
   const onSubmit = async (
-    { bank, realAmount }: LocalBankValues,
+    { bank, realAmount, receipt }: LocalBankValues,
     actions: FormikHelpers<LocalBankValues>
   ) => {
     try {
@@ -104,7 +104,7 @@ const LocalBankScreen = () => {
       if (depositResp) {
         const { success, data, message } = depositResp
         if (success && data) {
-          if (depositUploadRef.current)
+          if (depositUploadRef.current && receipt)
             await depositUploadRef.current.uploadReceipt(data.secure_id)
 
           Toast.show({ type: 'success', text1: message })

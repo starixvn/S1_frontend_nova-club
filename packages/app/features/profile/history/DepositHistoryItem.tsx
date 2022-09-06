@@ -131,7 +131,7 @@ const DepositHistoryItem = ({ item }: TransactionHistoryItemProps) => {
           >
             {item.status}
           </Text>
-          {item.bank_slip_attachment && (
+          {!item.bank_slip_attachment && (
             <Text
               numberOfLines={1}
               sx={{
