@@ -189,7 +189,8 @@
       "liveCasino": "SÒNG BÀI",
       "poker": "Poker",
       "slots": "Quay hũ",
-      "sportsbook": "THỂ THAO"
+      "sportsbook": "THỂ THAO",
+      "localGame": "Trò chơi địa phương"
     },
     "enterGame": "Vào trò chơi",
     "invalidSession": "Invalid Session [%{code}]",

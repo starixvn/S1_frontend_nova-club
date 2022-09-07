@@ -1,8 +1,8 @@
 import Icon from 'app/components/Icon'
 import useContextualRouting from 'app/hooks/useContextualRouting'
+import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import useLocalization from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { logOut } from 'app/utils/authUtil'
 import { Image, styled, Sx, View } from 'dripsy'
 import { useMemo } from 'react'
 import { Platform, Text, TouchableOpacity } from 'react-native'
@@ -22,6 +22,7 @@ const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
   const { x: parentWidth, y: parentHeight } = parentPosition
 
   const { makeContextualHref } = useContextualRouting()
+  const { logout } = useOnAppLogout()
 
   const isWeb = Platform.OS === 'web'
   const isAndroid = Platform.OS === 'android'
@@ -79,17 +80,14 @@ const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
         label: 'menu.logout',
         onPress: async () => {
           try {
-            await logOut()
-
-            // TODO: add loading to prevent spamming
-            replace('/auth/login')
+            await logout()
           } catch (error) {
             console.error(error)
           }
         },
       },
     ],
-    [makeContextualHref, push, replace]
+    [logout, makeContextualHref, push]
   )
 
   const handleDismiss = () => {

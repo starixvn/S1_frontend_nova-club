@@ -1,9 +1,8 @@
 import GradientBox from 'app/components/GradientBox'
 import Icon from 'app/components/Icon'
 import useContextualRouting from 'app/hooks/useContextualRouting'
-import { ContextualNavigationContext } from 'app/navigation/web/ContextualNavigation'
+import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import useLocalization from 'app/provider/localization'
-import { logOut } from 'app/utils/authUtil'
 import {
   ActivityIndicator,
   Pressable,
@@ -12,7 +11,7 @@ import {
   useDripsyTheme,
   View,
 } from 'dripsy'
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'solito/router'
 
 const enum LOADING_STATE {
@@ -24,7 +23,7 @@ const ProfileOptions = () => {
   const { t } = useLocalization()
   const [loadingState, setLoadingState] = useState(LOADING_STATE.COMPLETE)
 
-  const { push, replace } = useRouter()
+  const { push } = useRouter()
   const { theme } = useDripsyTheme()
 
   const { makeContextualHref } = useContextualRouting()
@@ -36,9 +35,7 @@ const ProfileOptions = () => {
   const toManageCredentials = makeContextualHref('manage-credentials')
   const toCommissionTable = makeContextualHref('commission-table')
 
-  const { clear: clearNavigationStack } = useContext(
-    ContextualNavigationContext
-  )
+  const { logout } = useOnAppLogout()
 
   const optionsRoute = [
     {
@@ -99,9 +96,7 @@ const ProfileOptions = () => {
         if (loadingState === LOADING_STATE.LOADING) return
 
         setLoadingState(LOADING_STATE.LOADING)
-        await logOut()
-        replace('/auth/login')
-        clearNavigationStack()
+        await logout()
         setLoadingState(LOADING_STATE.COMPLETE)
       },
       appendIcon: () => {

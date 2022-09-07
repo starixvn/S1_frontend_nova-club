@@ -2,8 +2,10 @@ import { ContextualNavigationContext } from 'app/navigation/web/ContextualNaviga
 import { store, useAppSelector } from 'app/provider/redux/store'
 import { logOut } from 'app/utils/authUtil'
 import { useCallback, useContext, useEffect, useRef } from 'react'
+import { Platform } from 'react-native'
 import { configureAxios } from 'services/common/axiosInstance'
 import { useRouter } from 'solito/router'
+import useResetRTKQState from './useResetRTKQState'
 
 const useOnAppStart = () => {
   const { replace } = useRouter()
@@ -13,6 +15,7 @@ const useOnAppStart = () => {
   const { stacks, clear: clearNavigationStack } = useContext(
     ContextualNavigationContext
   )
+  const { resetRTKQState } = useResetRTKQState()
 
   const redirectToLoginPage = useCallback(() => {
     replace('/auth/login')
@@ -35,6 +38,10 @@ const useOnAppStart = () => {
             })
 
             redirectToLoginPage()
+
+            if (Platform.OS == 'web') {
+              resetRTKQState()
+            }
           }
         } catch (error) {
           console.log(error)
@@ -43,7 +50,7 @@ const useOnAppStart = () => {
         }
       },
     })
-  }, [redirectToLoginPage, token])
+  }, [redirectToLoginPage, resetRTKQState, token])
 }
 
 export default useOnAppStart

@@ -1,4 +1,3 @@
-import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
 import { Image, styled, Text, View } from 'dripsy'
@@ -21,10 +20,15 @@ const DATA = [
     bgImg: require('../../assets/images/games/games/red-ellipse.png'),
     gameType: [
       GAME_TYPE_CODE.GAMES,
-      GAME_TYPE_CODE.COCKFIGHTING,
       GAME_TYPE_CODE.FISHING,
       GAME_TYPE_CODE.LOTTERY,
     ],
+  },
+  {
+    label: 'game.category.localGame',
+    img: require('../../assets/images/games/localgames.png'),
+    bgImg: require('../../assets/images/games/games/purple-ellipse.png'),
+    gameType: [GAME_TYPE_CODE.GAMES],
   },
   {
     label: 'game.category.fishing',
@@ -37,12 +41,6 @@ const DATA = [
     img: require('../../assets/images/games/lottery.png'),
     bgImg: require('../../assets/images/games/games/green-ellipse.png'),
     gameType: [GAME_TYPE_CODE.LOTTERY],
-  },
-  {
-    label: 'game.category.cockfighting',
-    img: require('../../assets/images/games/cockfighting.png'),
-    bgImg: require('../../assets/images/games/games/light-green-ellipse.png'),
-    gameType: [GAME_TYPE_CODE.COCKFIGHTING],
   },
 ]
 

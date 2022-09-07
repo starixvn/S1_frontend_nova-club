@@ -189,7 +189,8 @@
       "liveCasino": "Live Casino",
       "poker": "Poker",
       "slots": "Slots",
-      "sportsbook": "Sportsbook"
+      "sportsbook": "Sportsbook",
+      "localGame": "Local Game"
     },
     "enterGame": "Enter Game",
     "invalidSession": "Invalid Session [%{code}]",
