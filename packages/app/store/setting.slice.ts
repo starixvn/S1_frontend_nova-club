@@ -46,8 +46,16 @@ const settingSlice = createSlice({
     setPopUpExpiry: (state, action: PayloadAction<string>) => {
       state.popUpExpiry[action.payload] = dayjs().add(1, 'day')
     },
-    setReferral: (state, action: PayloadAction<Referral | void>) => {
-      state.referral = action.payload ?? undefined
+    setReferral: (state, action: PayloadAction<Referral>) => {
+      if (action.payload) {
+        state.referral = {
+          trackingCode: action.payload.trackingCode?.replace(
+            /[^0-9a-zA-Z]/g,
+            ''
+          ),
+          username: action.payload.username ?? state.referral?.username,
+        }
+      }
     },
     setLog: (state, action: PayloadAction<string>) => {
       state.log = action.payload

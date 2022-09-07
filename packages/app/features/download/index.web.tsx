@@ -6,8 +6,10 @@ import { PageWithBackHeader } from 'app/components/layout/Page'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import { ContextualNavigationContext } from 'app/navigation/web/ContextualNavigation'
 import useLocalization from 'app/provider/localization'
+import { SettingActions } from 'app/store/setting.slice'
 import { View } from 'dripsy'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 const LOGO_IMAGE = require('../../assets/images/auth-logo.png')
@@ -19,10 +21,21 @@ const DownloadScreen = () => {
   const [ref] = useParam('ref')
   const { t } = useLocalization()
   const { push } = useRouter()
+  const dispatch = useDispatch()
 
   const { clear: clearNavigationStack } = useContext(
     ContextualNavigationContext
   )
+
+  useEffect(() => {
+    if (typeof ref === 'string') {
+      dispatch(
+        SettingActions.setReferral({
+          trackingCode: ref,
+        })
+      )
+    }
+  }, [dispatch, ref])
 
   const handlePressDownload = () => {
     window.open(`${REFERRAL_DOMAIN}${ref ? '?ref=' + ref : ''}`)
