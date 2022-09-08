@@ -1,12 +1,15 @@
+import { MEDIA_DOMAIN } from '@env'
+import Fab from 'app/components/button/Fab'
+import { getProviderLogo, PROVIDER_LOGO } from 'app/config/games/provider'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { Flex, View } from 'dripsy'
+import { ActionType, getAction } from 'app/utils/actionGenerator'
+import { Flex, Image, View } from 'dripsy'
 import React from 'react'
-import { Platform } from 'react-native'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
+import { Game } from 'services/contentApi.type'
 import { useRouter } from 'solito/router'
 import BottomNavIcon from './BottomNavIcon'
-import FloatQr from './FloatQr'
 
 const tabConfig = [
   {
@@ -50,7 +53,7 @@ const BottomNavigation = () => {
   const { push } = useRouter()
   const { top } = useSafeArea()
 
-  const { returnHref } = useContextualRouting()
+  const { returnHref, makeContextualHref } = useContextualRouting()
 
   const isActiveState = (index: number, item: typeof tabConfig[number]) => {
     let isSamePath = false
@@ -64,23 +67,69 @@ const BottomNavigation = () => {
     return isSamePath
   }
 
+  const toCustomerSupport = makeContextualHref('customer-support')
+
+  const navigateToCustomerSupportPage = () => {
+    push(toCustomerSupport, '/customer-support')
+  }
+
+  const launchVGaming = () => {
+    const action = {
+      type: ActionType.GAME,
+      payload: {
+        tags: [],
+        name: {
+          en: 'Fish Prawn Crab',
+          vi: 'Fish Prawn Crab',
+        },
+        gc: 'Vgaming',
+        gpc: 'SABA',
+        gtc: 'games',
+        img: `${MEDIA_DOMAIN}/nvclub/nova-club/content/games/hotgames/Vgaming-FishPrawnCrabl.jpg`,
+      } as Game,
+    }
+
+    getAction(action)()
+  }
+
   const BAR_HEIGHT = 60
   const CIRCLE_HEIGHT = BAR_HEIGHT
   const ICON_HEIGHT = 60
   const MARGIN_TOP = -BAR_HEIGHT * 0.4
+  const BOTTOM_NAV_HEIGHT = BAR_HEIGHT + getBottomSpace()
+
   return (
     <>
-      {/* <View
+      <Fab
+        placement="bottom-left"
+        iconProp={{
+          name: 'cs',
+        }}
+        buttonProps={{
+          onPress: navigateToCustomerSupportPage,
+        }}
         sx={{
-          position: Platform.OS === 'web' ? 'fixed' : 'absolute',
-          // zIndex: 1,
-          maxWidth: 'container',
-          top: 110 + top,
-          right: 0,
+          bottom: BOTTOM_NAV_HEIGHT + 85,
+          left: 15,
+        }}
+      />
+
+      <Fab
+        buttonProps={{
+          onPress: launchVGaming,
+        }}
+        placement="bottom-left"
+        sx={{
+          bottom: BOTTOM_NAV_HEIGHT + 25,
+          left: 15,
         }}
       >
-        <FloatQr />
-      </View> */}
+        <Image
+          source={getProviderLogo(PROVIDER_LOGO['V8PK'].provider_code)}
+          sx={{ height: 35, width: 40 }}
+          resizeMode="contain"
+        />
+      </Fab>
 
       <Flex
         sx={{

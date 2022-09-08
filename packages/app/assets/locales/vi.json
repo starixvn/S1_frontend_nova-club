@@ -190,7 +190,8 @@
       "poker": "Poker",
       "slots": "Quay hũ",
       "sportsbook": "THỂ THAO",
-      "localGame": "Trò chơi địa phương"
+      "localGame": "Trò chơi địa phương",
+      "cardGame": "Chơi Bài"
     },
     "enterGame": "Vào trò chơi",
     "invalidSession": "Invalid Session [%{code}]",

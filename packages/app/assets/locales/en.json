@@ -190,7 +190,8 @@
       "poker": "Poker",
       "slots": "Slots",
       "sportsbook": "Sportsbook",
-      "localGame": "Local Game"
+      "localGame": "Local Game",
+      "cardGame": "Card Game"
     },
     "enterGame": "Enter Game",
     "invalidSession": "Invalid Session [%{code}]",

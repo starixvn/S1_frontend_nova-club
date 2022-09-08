@@ -29,7 +29,7 @@ const enum PROVIDER_NAME {
   IMSB,
 }
 
-export const PROVIDER_LOGO: { [key in keyof typeof PROVIDER_NAME] } = {
+export const PROVIDER_LOGO = {
   ALL: {
     provider_code: 'ALL',
     image: require('../../../assets/images/provider/ALL.png'),

@@ -42,6 +42,12 @@ const DATA = [
     bgImg: require('../../assets/images/games/games/green-ellipse.png'),
     gameType: [GAME_TYPE_CODE.LOTTERY],
   },
+  {
+    label: 'game.category.cardGame',
+    img: require('../../assets/images/games/card_games.png'),
+    bgImg: require('../../assets/images/games/games/blue-ellipse.png'),
+    gameType: [GAME_TYPE_CODE.LOTTERY],
+  },
 ]
 
 interface MenuRowProps {
