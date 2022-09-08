@@ -182,7 +182,13 @@ const InputBase = forwardRef<{}, InputBaseProps>(
           )}
         </View>
         {error && (
-          <Text sx={{ fontSize: 14, ml: INPUT_BASE_SPACE, color: '$error' }}>
+          <Text
+            sx={{
+              fontSize: 14,
+              mx: INPUT_BASE_SPACE,
+              color: '$error',
+            }}
+          >
             {error}
           </Text>
         )}

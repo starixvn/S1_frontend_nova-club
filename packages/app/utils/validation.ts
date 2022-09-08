@@ -87,6 +87,20 @@ const validation = {
     .min(6, 'validation.otpLength')
     .max(6, 'validation.otpLength'),
   stringRequired: Yup.string().required('validation.required'),
+  vietnameseCharacter: Yup.string()
+    .trim()
+    .required('validation.required')
+    .test({
+      name: 'is-valid-vietnamese',
+      test: (value) => {
+        if (!value) return false
+
+        return /^[\sa-z0-9A-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/u.test(
+          value
+        )
+      },
+      message: 'validation.invalidAccountName',
+    }),
 }
 
 export const getErrorMessage = (error: any) => {

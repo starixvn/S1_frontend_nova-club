@@ -390,6 +390,7 @@
     "insufficientBalance": "Insufficient balance",
     "invalidOTPCode": "Invalid OTP Code",
     "invalidPhone": "Phone number is invalid",
+    "invalidAccountName": "Account name is invalid, special characters are not allowed (!@#$%^&*.).",
     "minMaxLimit": "Min/Max Limit %{min}/%{max}",
     "needAccountNo": "Need Account Number",
     "numberOnly": "Only number is allowed",

@@ -91,7 +91,8 @@ const AddBankAccountScreen = () => {
   ) => {
     try {
       if (!isRealNameAvailable && realName && otp) {
-        const error = await updateRealName(realName, otp)
+        const sanitizedRealName = realName.trim().replace(/\s\s+/g, ' ')
+        const error = await updateRealName(sanitizedRealName, otp)
 
         if (error) {
           return
@@ -147,7 +148,9 @@ const AddBankAccountScreen = () => {
     validationSchema: Yup.object({
       bank: validation.bank,
       accountNo: validation.accountNo,
-      realName: !isRealNameAvailable ? validation.stringRequired : undefined,
+      realName: !isRealNameAvailable
+        ? validation.vietnameseCharacter
+        : undefined,
       otp: !isRealNameAvailable ? validation.stringRequired : undefined,
     }),
     onSubmit,
@@ -190,6 +193,9 @@ const AddBankAccountScreen = () => {
             <InputBase
               label={t('bank.accountName')}
               value={values.realName}
+              autoComplete="off"
+              autoCorrect={false}
+              spellCheck={false}
               onChangeText={handleChange('realName')}
               onBlur={handleBlur('realName')}
               error={
