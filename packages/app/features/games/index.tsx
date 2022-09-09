@@ -30,7 +30,7 @@ const Games = () => {
       currency: currency ?? Currency.VND,
       game_category: [
         GAME_TYPE_CODE.GAMES,
-        GAME_TYPE_CODE.COCKFIGHTING,
+        GAME_TYPE_CODE.CARD_GAME,
         GAME_TYPE_CODE.FISHING,
         GAME_TYPE_CODE.LOTTERY,
       ],

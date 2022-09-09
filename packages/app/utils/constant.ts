@@ -366,6 +366,7 @@ export enum GAME_TYPE_CODE {
   VIRTUAL_SPORTS = 'virtual_sports',
   GAMES = 'games',
   COCKFIGHTING = 'cockfighting',
+  CARD_GAME = 'card_game',
 }
 
 export enum GAME_TAGS {

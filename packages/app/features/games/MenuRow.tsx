@@ -19,6 +19,7 @@ const DATA = [
     img: require('../../assets/images/games/all-icon.png'),
     bgImg: require('../../assets/images/games/games/red-ellipse.png'),
     gameType: [
+      GAME_TYPE_CODE.CARD_GAME,
       GAME_TYPE_CODE.GAMES,
       GAME_TYPE_CODE.FISHING,
       GAME_TYPE_CODE.LOTTERY,
@@ -28,7 +29,7 @@ const DATA = [
     label: 'game.category.cardGame',
     img: require('../../assets/images/games/card_games.png'),
     bgImg: require('../../assets/images/games/games/blue-ellipse.png'),
-    gameType: ['TODO'],
+    gameType: [GAME_TYPE_CODE.CARD_GAME],
   },
   {
     label: 'game.category.localGame',

@@ -142,6 +142,14 @@ export const PROVIDER_LOGO = {
     provider_code: 'IMSB',
     image: require('../../../assets/images/provider/IMSport.png'),
   },
+  NERT: {
+    provider_code: 'NERT',
+    image: require('../../../assets/images/provider/ALL.png'),
+  },
+  NESP: {
+    provider_code: 'NESP',
+    image: require('../../../assets/images/provider/NESP.png'),
+  },
 }
 
 const ProviderLogo = [
@@ -173,6 +181,8 @@ const ProviderLogo = [
   PROVIDER_LOGO.SKYW,
   PROVIDER_LOGO.O789,
   PROVIDER_LOGO.IMSB,
+  PROVIDER_LOGO.NERT,
+  PROVIDER_LOGO.NESP,
 ]
 
 export const getProviderLogo = (code: string) => {
