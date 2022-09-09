@@ -1,10 +1,10 @@
 import { MEDIA_DOMAIN } from '@env'
 import Fab from 'app/components/button/Fab'
-import { getProviderLogo, PROVIDER_LOGO } from 'app/config/games/provider'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { ActionType, getAction } from 'app/utils/actionGenerator'
-import { Flex, Image, View } from 'dripsy'
+import { Flex, View } from 'dripsy'
+import { Video } from 'expo-av'
 import React from 'react'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { Game } from 'services/contentApi.type'
@@ -82,7 +82,7 @@ const BottomNavigation = () => {
           en: 'Fish Prawn Crab',
           vi: 'Fish Prawn Crab',
         },
-        gc: 'Vgaming',
+        gc: '3804',
         gpc: 'SABA',
         gtc: 'games',
         img: `${MEDIA_DOMAIN}/nvclub/nova-club/content/games/hotgames/Vgaming-FishPrawnCrabl.jpg`,
@@ -117,6 +117,10 @@ const BottomNavigation = () => {
       <Fab
         buttonProps={{
           onPress: launchVGaming,
+          fill: { type: 'ghost', color: 'transparent' },
+          containerStyle: {
+            px: 0,
+          },
         }}
         placement="bottom-left"
         sx={{
@@ -124,10 +128,17 @@ const BottomNavigation = () => {
           left: 15,
         }}
       >
-        <Image
-          source={getProviderLogo(PROVIDER_LOGO['V8PK'].provider_code)}
-          sx={{ height: 35, width: 40 }}
-          resizeMode="contain"
+        <Video
+          isMuted
+          isLooping
+          shouldPlay
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
+          source={require('app/assets/videos/vgaming.mp4')}
+          resizeMode="cover"
+          useNativeControls={false}
         />
       </Fab>
 

@@ -25,6 +25,12 @@ const DATA = [
     ],
   },
   {
+    label: 'game.category.cardGame',
+    img: require('../../assets/images/games/card_games.png'),
+    bgImg: require('../../assets/images/games/games/blue-ellipse.png'),
+    gameType: ['TODO'],
+  },
+  {
     label: 'game.category.localGame',
     img: require('../../assets/images/games/localgames.png'),
     bgImg: require('../../assets/images/games/games/purple-ellipse.png'),
@@ -40,12 +46,6 @@ const DATA = [
     label: 'game.category.keno/lottery',
     img: require('../../assets/images/games/lottery.png'),
     bgImg: require('../../assets/images/games/games/green-ellipse.png'),
-    gameType: [GAME_TYPE_CODE.LOTTERY],
-  },
-  {
-    label: 'game.category.cardGame',
-    img: require('../../assets/images/games/card_games.png'),
-    bgImg: require('../../assets/images/games/games/blue-ellipse.png'),
     gameType: [GAME_TYPE_CODE.LOTTERY],
   },
 ]
