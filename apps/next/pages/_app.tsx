@@ -13,6 +13,7 @@ import TabLayout from '../layouts/TabLayout'
 import AuthenticationProvider from '../components/AuthenticationProvider'
 import useFontInit from 'app/hooks/useFontInit'
 import Branch from '../integrations/Branch'
+import Shield from '../scripts/Shield'
 
 function MyApp({ Component, pageProps, router }: SolitoAppProps) {
   const getLayout = Component.getLayout || layouts.COMMON()
@@ -31,6 +32,8 @@ function MyApp({ Component, pageProps, router }: SolitoAppProps) {
       </Head>
       <Provider>
         <Branch />
+        <Shield />
+
         <Container sx={{ flex: 1 }}>
           <AuthenticationProvider>
             {getLayout(<Component {...pageProps} />)}

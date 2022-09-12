@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { LANGUAGE_CODE } from 'app/constant/language'
 import dayjs, { Dayjs } from 'dayjs'
+import { REHYDRATE } from 'redux-persist'
 import contentApi from 'services/contentApi'
 import { Game } from 'services/contentApi.type'
 import { boolean } from 'yup'
@@ -18,6 +19,7 @@ interface Referral {
 export interface Setting {
   locale: LANGUAGE_CODE
   referral?: Referral
+  shieldSessionID?: string
   popUpExpiry: PopUpExpire
   recentGames: LaunchGamePayload[]
   recentGameResources: Record<string, string>
@@ -45,6 +47,9 @@ const settingSlice = createSlice({
     },
     setPopUpExpiry: (state, action: PayloadAction<string>) => {
       state.popUpExpiry[action.payload] = dayjs().add(1, 'day')
+    },
+    setShieldSessionID: (state, action: PayloadAction<string>) => {
+      state.shieldSessionID = action.payload
     },
     setReferral: (state, action: PayloadAction<Referral>) => {
       if (action.payload) {
@@ -81,6 +86,10 @@ const settingSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    // reset sessionID every restart
+    builder.addCase(REHYDRATE, (state, action) => {
+      state.shieldSessionID = undefined
+    })
     // builder.addMatcher(
     //   contentApi.endpoints.affiliateUsername.matchFulfilled,
     //   (state, { payload }) => {
