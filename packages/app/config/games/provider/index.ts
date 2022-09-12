@@ -144,7 +144,7 @@ export const PROVIDER_LOGO = {
   },
   NERT: {
     provider_code: 'NERT',
-    image: require('../../../assets/images/provider/ALL.png'),
+    image: require('../../../assets/images/provider/NERT.png'),
   },
   NESP: {
     provider_code: 'NESP',

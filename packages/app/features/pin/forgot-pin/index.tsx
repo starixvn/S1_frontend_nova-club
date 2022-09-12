@@ -20,6 +20,9 @@ import {
 } from 'services/pinApi'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
+import InputBase, {
+  INPUT_BASE_SPACE,
+} from 'app/components/form/Input/InputBase'
 
 interface ForgotPinFormValues {
   confirmPin: string
@@ -172,23 +175,13 @@ const ForgotPinScreen = () => {
 
   return (
     <PageWithBackHeader header={{ title: t('pin.forgotPin') }}>
-      <View sx={{ p: 24 }}>
-        <TextInput
-          _icon="avatar"
-          prefix="+84"
-          _input={{
-            maxLength: 9,
-            placeholder: '',
-            value: values.contactNumber,
-            onChangeText: handleChange('contactNumber'),
-            onBlur: handleBlur('contactNumber'),
-            autoCapitalize: 'none',
-            onSubmitEditing: () => {
-              otpFieldRef.current?.focus()
-            },
-            keyboardType: 'number-pad',
-          }}
-          endIcon={
+      <View>
+        <InputBase
+          sx={{ mt: '$2' }}
+          label={t('profile.details.phone')}
+          value={values.contactNumber}
+          editable={false}
+          action={
             <TimerButton
               accessibilityRole="button"
               ref={OTPRef}
@@ -201,40 +194,30 @@ const ForgotPinScreen = () => {
                 m: 0,
                 px: '$3',
                 minWidth: 53,
+                marginRight: INPUT_BASE_SPACE,
               }}
               _text={{
                 sx: {
                   color: theme.colors.$black,
                 },
               }}
-            ></TimerButton>
-          }
-          error={
-            touched.contactNumber && errors.contactNumber
-              ? t(errors.contactNumber, { field: t('profile.details.phone') })
-              : undefined
+            />
           }
         />
-
-        <TextInput
-          _icon="lock"
-          prefix="OTP"
-          _input={{
-            placeholder: t('auth.enterOtp'),
-            value: values.verifyCode,
-            onChangeText: handleChange('verifyCode'),
-            onBlur: handleBlur('verifyCode'),
-            ref: otpFieldRef,
-            onSubmitEditing: checkInitialForm,
-            keyboardType: 'number-pad',
-            maxLength: 6,
-          }}
+        <InputBase
+          label={'OTP'}
+          placeholder={t('auth.enterOtp')}
+          value={values.verifyCode}
+          keyboardType={'number-pad'}
+          maxLength={6}
+          onChangeText={handleChange('verifyCode')}
+          onBlur={handleBlur('verifyCode')}
+          onSubmitEditing={checkInitialForm}
           error={
             touched.verifyCode && errors.verifyCode
               ? t(errors.verifyCode, { field: t('common.otp') })
               : undefined
           }
-          sx={{ mt: '$3' }}
         />
       </View>
 

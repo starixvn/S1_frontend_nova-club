@@ -23,7 +23,7 @@ const SummarySection = ({
   amountDirect,
 }: SummarySectionProps) => {
   const { t } = useLocalization()
-
+  console.log('amountDirect', amountDirect, typeof amountDirect)
   return (
     <StyledContainer>
       <View
@@ -43,7 +43,11 @@ const SummarySection = ({
       </View>
       <TopInfo label={t('profile.overview.w/l')} amount={amountWL} />
       {amountDirect !== undefined && (
-        <TopInfo label={t('profile.overview.direct')} amount={amountDirect} />
+        <TopInfo
+          label={t('profile.overview.direct')}
+          amount={amountDirect}
+          isCurrency={false}
+        />
       )}
       <View
         sx={{
@@ -58,10 +62,17 @@ const SummarySection = ({
   )
 }
 
-const TopInfo = ({ label, amount }: { label: string; amount: Amount }) => {
+const TopInfo = ({
+  label,
+  amount,
+  isCurrency = true,
+}: {
+  label: string
+  amount: Amount
+  isCurrency?: boolean
+}) => {
   const { data: playerData } = usePlayerProfileQuery()
   const currency = playerData?.data?.currency as Currency
-
   return (
     <View
       sx={{
@@ -72,10 +83,12 @@ const TopInfo = ({ label, amount }: { label: string; amount: Amount }) => {
     >
       <Text sx={{ pt: '$3' }}>{label}</Text>
       <Text sx={{ pb: '$3' }}>
-        {toCurrency(amount ?? 0, currency, {
-          symbol: false,
-          hideTruncatedThousand: false,
-        })}
+        {isCurrency
+          ? toCurrency(amount ?? 0, currency, {
+              symbol: false,
+              hideTruncatedThousand: false,
+            })
+          : amount}
       </Text>
     </View>
   )
@@ -110,8 +123,6 @@ const StyledContainer = styled(View)({
 const StyledTitle = styled(Text)({
   p: '$3',
   fontWeight: 'bold',
-  pt: '$6',
-  pb: '$3',
   fontSize: 18,
 })
 

@@ -92,7 +92,7 @@ const Fab = ({
         containerStyle={mergedButtonContainerStyle}
         {...restButtonProps}
       >
-        {children ?? <Icon name="cross" size={25} {...iconProp} />}
+        {children ?? <Icon name="cross" size={30} {...iconProp} />}
       </Button>
     </View>
   )

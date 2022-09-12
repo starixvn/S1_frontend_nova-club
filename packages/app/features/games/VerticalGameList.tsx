@@ -106,7 +106,9 @@ export default VerticalGameList
 
 const ScrollTopButton = styled(View)(() => ({
   position: 'absolute',
+  left: 0,
   right: 0,
+  mx: 'auto',
   width: '20%',
   alignItems: 'center',
   bottom: 30,

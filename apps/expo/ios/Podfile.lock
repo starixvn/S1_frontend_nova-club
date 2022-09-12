@@ -654,6 +654,8 @@ PODS:
     - ExpoModulesCore
   - EXLinearGradient (10.0.3):
     - ExpoModulesCore
+  - EXLocalAuthentication (12.1.1):
+    - ExpoModulesCore
   - EXMediaLibrary (14.2.0):
     - ExpoModulesCore
     - React-Core
@@ -1071,6 +1073,9 @@ PODS:
     - React-Core
   - react-native-safe-area-context (3.3.2):
     - React-Core
+  - react-native-shield (1.0.0):
+    - React
+    - ShieldFraud
   - react-native-view-shot (3.4.0):
     - React-Core
   - react-native-webview (11.15.0):
@@ -1227,6 +1232,7 @@ PODS:
   - Sentry (7.11.0):
     - Sentry/Core (= 7.11.0)
   - Sentry/Core (7.11.0)
+  - ShieldFraud (1.5.15)
   - SSZipArchive (2.2.3)
   - Yoga (1.14.0)
   - ZXingObjC/Core (3.6.5)
@@ -1253,6 +1259,7 @@ DEPENDENCIES:
   - EXImagePicker (from `../../../node_modules/expo-image-picker/ios`)
   - EXKeepAwake (from `../../../node_modules/expo-keep-awake/ios`)
   - EXLinearGradient (from `../../../node_modules/expo-linear-gradient/ios`)
+  - EXLocalAuthentication (from `../../../node_modules/expo-local-authentication/ios`)
   - EXMediaLibrary (from `../../../node_modules/expo-media-library/ios`)
   - Expo (from `../../../node_modules/expo/ios`)
   - ExpoLocalization (from `../../../node_modules/expo-localization/ios`)
@@ -1277,6 +1284,7 @@ DEPENDENCIES:
   - react-native-branch (from `../../../node_modules/react-native-branch`)
   - react-native-pager-view (from `../../../node_modules/react-native-pager-view`)
   - react-native-safe-area-context (from `../../../node_modules/react-native-safe-area-context`)
+  - react-native-shield (from `../../../node_modules/react-native-shield`)
   - react-native-view-shot (from `../../../node_modules/react-native-view-shot`)
   - react-native-webview (from `../../../node_modules/react-native-webview`)
   - React-perflogger (from `../../../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -1343,6 +1351,7 @@ SPEC REPOS:
     - SDWebImage
     - SDWebImageWebPCoder
     - Sentry
+    - ShieldFraud
     - SSZipArchive
     - ZXingObjC
 
@@ -1381,6 +1390,8 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/expo-keep-awake/ios"
   EXLinearGradient:
     :path: "../../../node_modules/expo-linear-gradient/ios"
+  EXLocalAuthentication:
+    :path: "../../../node_modules/expo-local-authentication/ios"
   EXMediaLibrary:
     :path: "../../../node_modules/expo-media-library/ios"
   Expo:
@@ -1425,6 +1436,8 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/react-native-pager-view"
   react-native-safe-area-context:
     :path: "../../../node_modules/react-native-safe-area-context"
+  react-native-shield:
+    :path: "../../../node_modules/react-native-shield"
   react-native-view-shot:
     :path: "../../../node_modules/react-native-view-shot"
   react-native-webview:
@@ -1519,6 +1532,7 @@ SPEC CHECKSUMS:
   EXImagePicker: bf4d62532cc2bf217edbe4abbb0014e73e079eac
   EXKeepAwake: bf48d7f740a5cd2befed6cf9a49911d385c6c47d
   EXLinearGradient: 4d727eacb53d19ef25b02dd810e0199b453489ce
+  EXLocalAuthentication: 3c5f368ee954b79c3778158eb8000cbce4e2f8a2
   EXMediaLibrary: e8c8a365701629b7b21dd29769b86e8320610f18
   Expo: 534e51e607aba8229293297da5585f4b26f50fa1
   ExpoLocalization: 72b4524c167da6c4e2a0bbe09176ff8b2c4eddbe
@@ -1560,6 +1574,7 @@ SPEC CHECKSUMS:
   react-native-branch: 9348e18c5d37de6bf12a6c562123ba265ffbc2b0
   react-native-pager-view: 3ee7d4c7697fb3ef788346e834a60cca97ed8540
   react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
+  react-native-shield: 083a7f5b208b93a21c51e6a4b40e3e5e106cc163
   react-native-view-shot: a60a98a18c72bcaaaf2138f9aab960ae9b0d96c7
   react-native-webview: e89bf2dba26a04cda967814df3ed1be99f291233
   React-perflogger: cc76a4254d19640f1d8ad1c66fdee800414b805c
@@ -1596,6 +1611,7 @@ SPEC CHECKSUMS:
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
   Sentry: 0c5cd63d714187b4a39c331c1f0eb04ba7868341
+  ShieldFraud: 7325376548508c07e3615ffe755d139595d19253
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   Yoga: e6ecf3fa25af9d4c87e94ad7d5d292eedef49749
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb

@@ -49,6 +49,12 @@ const tabConfig = [
   },
 ]
 
+const BAR_HEIGHT = 60
+const CIRCLE_HEIGHT = BAR_HEIGHT
+const ICON_HEIGHT = 60
+const MARGIN_TOP = -BAR_HEIGHT * 0.4
+export const BOTTOM_NAV_HEIGHT = BAR_HEIGHT + getBottomSpace()
+
 const BottomNavigation = () => {
   const { push } = useRouter()
   const { top } = useSafeArea()
@@ -67,81 +73,8 @@ const BottomNavigation = () => {
     return isSamePath
   }
 
-  const toCustomerSupport = makeContextualHref('customer-support')
-
-  const navigateToCustomerSupportPage = () => {
-    push(toCustomerSupport, '/customer-support')
-  }
-
-  const launchVGaming = () => {
-    const action = {
-      type: ActionType.GAME,
-      payload: {
-        tags: [],
-        name: {
-          en: 'Fish Prawn Crab',
-          vi: 'Fish Prawn Crab',
-        },
-        gc: '3804',
-        gpc: 'SABA',
-        gtc: 'games',
-        img: `${MEDIA_DOMAIN}/nvclub/nova-club/content/games/hotgames/Vgaming-FishPrawnCrabl.jpg`,
-      } as Game,
-    }
-
-    getAction(action)()
-  }
-
-  const BAR_HEIGHT = 60
-  const CIRCLE_HEIGHT = BAR_HEIGHT
-  const ICON_HEIGHT = 60
-  const MARGIN_TOP = -BAR_HEIGHT * 0.4
-  const BOTTOM_NAV_HEIGHT = BAR_HEIGHT + getBottomSpace()
-
   return (
     <>
-      <Fab
-        placement="bottom-left"
-        iconProp={{
-          name: 'cs',
-        }}
-        buttonProps={{
-          onPress: navigateToCustomerSupportPage,
-        }}
-        sx={{
-          bottom: BOTTOM_NAV_HEIGHT + 85,
-          left: 15,
-        }}
-      />
-
-      <Fab
-        buttonProps={{
-          onPress: launchVGaming,
-          fill: { type: 'ghost', color: 'transparent' },
-          containerStyle: {
-            px: 0,
-          },
-        }}
-        placement="bottom-left"
-        sx={{
-          bottom: BOTTOM_NAV_HEIGHT + 25,
-          left: 15,
-        }}
-      >
-        <Video
-          isMuted
-          isLooping
-          shouldPlay
-          style={{
-            width: '100%',
-            height: '100%',
-          }}
-          source={require('app/assets/videos/vgaming.mp4')}
-          resizeMode="cover"
-          useNativeControls={false}
-        />
-      </Fab>
-
       <Flex
         sx={{
           alignItems: 'flex-end',

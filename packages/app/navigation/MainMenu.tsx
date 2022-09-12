@@ -1,3 +1,4 @@
+import { AGENT_URL } from '@env'
 import Icon from 'app/components/Icon'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
@@ -5,7 +6,7 @@ import useLocalization from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Image, styled, Sx, View } from 'dripsy'
 import { useMemo } from 'react'
-import { Platform, Text, TouchableOpacity } from 'react-native'
+import { Linking, Platform, Text, TouchableOpacity } from 'react-native'
 import Modal from 'react-native-modal'
 import { useRouter } from 'solito/router'
 
@@ -46,6 +47,13 @@ const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
       {
         label: 'menu.agentLogin',
         icon: 'profile',
+        onPress: () => {
+          try {
+            Linking.openURL(AGENT_URL)
+          } catch (e) {
+            console.log('Failed to open Agent url')
+          }
+        },
       },
       {
         icon: 'dac',

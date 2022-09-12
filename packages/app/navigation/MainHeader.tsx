@@ -1,4 +1,5 @@
 import { useTransferAllToOneMutation } from 'app/custom_services/walletApi'
+import FloatingContent from 'app/features/FloatingContent'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import BouncePressable from 'app/pressable/BouncePressable'
@@ -105,19 +106,8 @@ const MainHeader = () => {
 
   return (
     <>
-      <View
-        sx={{
-          position: Platform.OS === 'web' ? 'fixed' : 'absolute',
-          // zIndex: 1,
-          maxWidth: 'container',
-          top: 110 + insets.top,
-          right: 0,
-        }}
-      >
-        <FloatQr />
-      </View>
-
       <View sx={{ paddingTop: insets.top, bg: '$primary' }}>
+        <FloatingContent />
         <StyledContainer sx={{ height: headerHeight }}>
           <View>
             <BouncePressable

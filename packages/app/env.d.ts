@@ -6,4 +6,5 @@ declare module '@env' {
   export const CONTENT_URI: string
   export const CMS_CONTENT_URI: string
   export const REFERRAL_DOMAIN: string
+  export const AGENT_URL: string
 }
