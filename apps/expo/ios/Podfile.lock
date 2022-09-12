@@ -1143,7 +1143,7 @@ PODS:
     - React-Core
   - RNDateTimePicker (4.0.0):
     - React-Core
-  - RNDeviceInfo (10.0.2):
+  - RNDeviceInfo (10.1.1):
     - React-Core
   - RNFastImage (8.6.1):
     - React-Core
@@ -1525,7 +1525,7 @@ SPEC CHECKSUMS:
   ExpoModulesCore: 32c0ccb47f477d330ee93db72505380adf0de09a
   EXScreenOrientation: ca9375ec57e5706128062867516da0b03a97ef64
   FBLazyVector: c71c5917ec0ad2de41d5d06a5855f6d5eda06971
-  FBReactNativeSpec: 834ffdf5e8bac48bd21402612c9734a7dca2008e
+  FBReactNativeSpec: 285d2eb701ec7aa856b9e5737389e5d4bcabff2f
   Firebase: 5f8193dff4b5b7c5d5ef72ae54bb76c08e2b841d
   FirebaseAnalytics: 7761cbadb00a717d8d0939363eb46041526474fa
   FirebaseCore: 5743c5785c074a794d35f2fff7ecc254a91e08b1
@@ -1576,7 +1576,7 @@ SPEC CHECKSUMS:
   ReactCommon: 8fea6422328e2fc093e25c9fac67adbcf0f04fb4
   RNCAsyncStorage: 6bd5a7ba3dde1c3facba418aa273f449bdc5437a
   RNDateTimePicker: 2224ee77a86b7123377597a015502435e2e49957
-  RNDeviceInfo: 0a7c1d2532aa7691f9b9925a27e43af006db4dae
+  RNDeviceInfo: 89bc4fe36cf4c8955965609b140d29a335d5350d
   RNFastImage: 3207b9eb17c2425d574ca40db35185db6e324f4e
   RNFBAnalytics: e332a2d0b4c28884dbeacbe21fe68688abdf34b9
   RNFBApp: 9646e09d041ea159b84584865212e4cf33acd179
