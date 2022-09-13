@@ -1,3 +1,4 @@
+import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import { useAppDispatch } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
 import { memo, useEffect } from 'react'
@@ -5,8 +6,23 @@ import branch, { BranchError } from 'react-native-branch'
 
 function Branch() {
   const dispatch = useAppDispatch()
+  const { getItem } = useAsyncStorage('@ref')
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
+    async function getRefFromKeepFit() {
+      try {
+        const ref = await getItem()
+        if (ref)
+          dispatch(
+            SettingActions.setReferral({
+              trackingCode: ref.replace(/[^0-9a-zA-Z]/g, ''),
+            })
+          )
+      } catch (e) {
+        console.log('getRefFromKeepFit error', e)
+      }
+    }
+
     branch.subscribe(({ error, params, uri }) => {
       // params will never be null if error is null
       if (error) {
@@ -22,7 +38,7 @@ function Branch() {
             trackingCode: trackingCode.replace(/[^0-9a-zA-Z]/g, ''),
           })
         )
-      }
+      } else getRefFromKeepFit()
       // if (params && params['+non_branch_link']) {
       //   const nonBranchUrl = params['+non_branch_link']
       //   // Route non-Branch URL if appropriate.
