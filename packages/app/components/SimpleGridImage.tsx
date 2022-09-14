@@ -9,10 +9,8 @@ import { MotiView } from 'moti'
 import React, { FC, memo } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux'
-import Frame from '../assets/images/games/games_frame.png'
 import Image from './common/Image'
 import Gameimage from './GameImage'
-import Icon from './Icon'
 interface GamesProps extends LaunchGamePayload {
   width: number
   height?: number
@@ -20,6 +18,7 @@ interface GamesProps extends LaunchGamePayload {
   isHotGame?: boolean
   isNewGame?: boolean
   showName?: boolean
+  showPlaynow?: boolean
 }
 
 export const GAME_IMAGE_RATIO = 325 / 315
@@ -37,6 +36,7 @@ const SimpleGridImage: FC<GamesProps> = ({
   desktopMode,
   isHotGame,
   isNewGame,
+  showPlaynow,
 }) => {
   // const [isLoaded, setLoaded] = useState(false)
   const dispatch = useDispatch()
@@ -86,6 +86,49 @@ const SimpleGridImage: FC<GamesProps> = ({
             }}
           />
         )} */}
+
+        {(desktopMode || showPlaynow) && (
+          <BottomRightSlot>
+            {showPlaynow && (
+              <TouchableOpacity
+                onPress={() => {
+                  dispatch(GameLauncherActions.launchGame(gamePayload))
+                }}
+              >
+                <Image
+                  resizeMode="contain"
+                  source={require('app/assets/images/games/sports/play-now.png')}
+                  style={{
+                    width: width * 0.5,
+                    height: height ?? (width / GAME_IMAGE_RATIO) * 0.14,
+                    marginBottom: desktopMode ? 8 : 0,
+                  }}
+                />
+              </TouchableOpacity>
+            )}
+            {desktopMode && (
+              <TouchableOpacity
+                onPress={() => {
+                  dispatch(
+                    GameLauncherActions.launchGame({
+                      ...gamePayload,
+                      desktopMode,
+                    })
+                  )
+                }}
+              >
+                <Image
+                  resizeMode="contain"
+                  source={require('app/assets/images/games/sports/desktop.png')}
+                  style={{
+                    width: width * 0.5,
+                    height: height ?? (width / GAME_IMAGE_RATIO) * 0.14,
+                  }}
+                />
+              </TouchableOpacity>
+            )}
+          </BottomRightSlot>
+        )}
       </TouchableOpacity>
       {showName && (
         <Text
@@ -99,25 +142,6 @@ const SimpleGridImage: FC<GamesProps> = ({
         >
           {t(gameName)}
         </Text>
-      )}
-      {desktopMode && (
-        <DesktopMode
-          onPress={() => {
-            dispatch(
-              GameLauncherActions.launchGame({
-                ...gamePayload,
-                desktopMode,
-              })
-            )
-          }}
-        >
-          <View sx={{ bg: '#e71701', p: '$1a' }}>
-            <Icon name="desktop" size={20} />
-          </View>
-          <Text sx={{ fontSize: 12, color: '#e71701', mx: '$2' }}>
-            {t('common.desktop')}
-          </Text>
-        </DesktopMode>
       )}
       {isHotGame && (
         <MotiView
@@ -162,18 +186,12 @@ const SimpleGridImage: FC<GamesProps> = ({
   )
 }
 
-const DesktopMode = styled(TouchableOpacity)(() => ({
-  borderRadius: 5,
-  borderColor: 'red',
-  borderWidth: 2,
+const BottomRightSlot = styled(View)(() => ({
   position: 'absolute',
   zIndex: 1,
   alignSelf: 'center',
-  right: '10%',
-  bottom: 50,
-  backgroundColor: 'white',
-  flexDirection: 'row',
-  alignItems: 'center',
+  right: '5%',
+  bottom: 12,
 }))
 
 export default memo(SimpleGridImage)

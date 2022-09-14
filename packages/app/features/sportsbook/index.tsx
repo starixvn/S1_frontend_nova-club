@@ -29,6 +29,7 @@ const Sportsbook = () => {
     <VerticalGameList
       extraData={locale}
       showName
+      showPlaynow
       numColumns={2}
       isLoading={isFetching}
       data={gameList?.data?.rows ?? []}

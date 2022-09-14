@@ -3,25 +3,26 @@ import SimpleGridImage from 'app/components/SimpleGridImage'
 import useGameGridSize from 'app/hooks/useGameGridSize'
 import { useAppSelector } from 'app/provider/redux/store'
 import { GAME_TAGS } from 'app/utils/constant'
-import { styled, useSx, View } from 'dripsy'
+import { styled, View } from 'dripsy'
 import React, { forwardRef, useMemo } from 'react'
 
 import { Game } from 'services/contentApi.type'
 
 import { FlashList, FlashListProps } from '@shopify/flash-list'
 import IconButton from 'app/components/form/IconButton'
-import Icon from 'app/components/Icon'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import { useFocusEffect } from '@react-navigation/native'
 
 type VerticalGameListProps = Omit<FlashListProps<Game>, 'renderItem'> & {
   isLoading?: boolean
   showName?: boolean
+  showPlaynow?: boolean
   showScrollingTop?: boolean
 }
 
 const VerticalGameList = forwardRef<FlashList<Game>, VerticalGameListProps>(
-  ({ numColumns = 3, showName, showScrollingTop, ...rest }, ref) => {
+  (
+    { numColumns = 3, showName, showPlaynow, showScrollingTop, ...rest },
+    ref
+  ) => {
     const { containerSpace, itemSpace, contentWidth } =
       useGameGridSize(numColumns)
     const locale = useAppSelector((s) => s.setting.locale)
@@ -45,6 +46,7 @@ const VerticalGameList = forwardRef<FlashList<Game>, VerticalGameListProps>(
 
       return (
         <SimpleGridImage
+          showPlaynow={showPlaynow}
           showName={showName}
           sx={memoSpace}
           providerCode={gpc}
