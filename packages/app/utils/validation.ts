@@ -95,9 +95,10 @@ const validation = {
       test: (value) => {
         if (!value) return false
 
-        return /^[\sa-z0-9A-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/u.test(
-          value
-        )
+        const isContainSpecialCharacter =
+          /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/\d]+/g.test(value)
+
+        return !isContainSpecialCharacter
       },
       message: 'validation.invalidAccountName',
     }),
