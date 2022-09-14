@@ -4,7 +4,7 @@ import { styled } from 'dripsy'
 import { StatusBar } from 'expo-status-bar'
 import 'react-native-gesture-handler'
 import Branch from './integrations/branch/Branch'
-import Shield from './integrations/shield/Shield'
+// import Shield from './integrations/shield/Shield'
 import * as Sentry from '@sentry/react-native'
 import {
   Keyboard,
@@ -34,7 +34,7 @@ export default function App() {
       >
         <Provider>
           <Branch />
-          <Shield />
+          {/* <Shield /> */}
           {/* StatusBar backgroundColor only affects Android, IOS refers to MainHeader */}
           <StatusBar backgroundColor="#0E2B46" style="light" />
           <NativeNavigation />
