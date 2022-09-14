@@ -1,0 +1,20 @@
+stages:
+    - Production
+
+.prod-n88club-h5: &prod-n88club-h5
+    stage: Production
+    tags:
+      - twidc-bot-123
+    script:
+      - echo "deploy prod-n88club-h5"
+      - sudo sh ${_workDir}/ezdeployStg.sh ${_yamlName} ${_ProjectGroup} ${_FolderName} ${_gitBranch} ${_dockerfile}
+    when: manual
+prod-n88club-h5:
+  <<: *prod-n88club-h5
+  variables:
+    _workDir: "/mnt/infra/deployProd"
+    _yamlName: "prod-n88club-h5"
+    _ProjectGroup: "Frontend"
+    _FolderName: "nova-club"
+    _gitBranch: "prod"
+    _dockerfile: "Dockerfile"
