@@ -19,6 +19,7 @@ const FloatingContent = () => {
   const insets = useSafeArea()
 
   const { width } = useWindowDimensions()
+  const { width: containerWidth } = useContainerDimension()
   const { theme } = useDripsyTheme()
 
   const { push } = useRouter()
@@ -47,50 +48,56 @@ const FloatingContent = () => {
 
     getAction(action)()
   }
+
+  const vGamingSize = Math.min(110, width * 0.2)
+
   return (
     <>
       <View
         sx={{
           position: Platform.OS === 'web' ? 'fixed' : 'absolute',
-          top: 140 + insets.top,
+          top: 120 + insets.top,
           right: Math.max(0, (width - theme.sizes.container) / 2),
         }}
       >
         <FloatQr />
       </View>
+
       <View
         sx={{
+          right:
+            Math.max(0, (width - theme.sizes.container) / 2) +
+            Math.max(containerWidth * 0.2 - vGamingSize, 0) / 2,
           position: Platform.OS === 'web' ? 'fixed' : 'absolute',
-          bottom: BOTTOM_NAV_HEIGHT + 40,
-          width: '100%',
-          maxWidth: 'container',
-          alignItems: 'flex-end',
-          // right: Math.max(0, (width - theme.sizes.container) / 2),
+          bottom: BOTTOM_NAV_HEIGHT + 25,
+          alignItems: 'center',
         }}
       >
-        <View sx={{ width: '20%', alignItems: 'center' }}>
-          <TouchableOpacity onPress={launchVGaming}>
-            <Image
-              source={require('app/assets/images/Vgaming-icon.gif')}
-              style={{ width: 100, height: 100, marginBottom: 10 }}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-          <Button
-            onPress={navigateToCustomerSupportPage}
-            rounded
-            variant="lg"
-            fill={{
-              type: 'gradient',
-              color: 'secondary',
-              start: { x: 0, y: 0 },
-              end: { x: 1, y: 0 },
+        <TouchableOpacity onPress={launchVGaming}>
+          <Image
+            source={require('app/assets/images/Vgaming-icon.gif')}
+            style={{
+              width: vGamingSize,
+              height: vGamingSize,
+              marginBottom: 10,
             }}
-            containerStyle={{ width: 50, height: 50, px: 12 }}
-          >
-            {<Icon name="cs" size={30} />}
-          </Button>
-        </View>
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+        <Button
+          onPress={navigateToCustomerSupportPage}
+          rounded
+          variant="lg"
+          fill={{
+            type: 'gradient',
+            color: 'secondary',
+            start: { x: 0, y: 0 },
+            end: { x: 1, y: 0 },
+          }}
+          containerStyle={{ width: 50, height: 50, px: 12 }}
+        >
+          {<Icon name="cs" size={30} />}
+        </Button>
 
         {/* <Fab
           placement="bottom-right"

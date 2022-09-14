@@ -107,7 +107,6 @@ const MainHeader = () => {
   return (
     <>
       <View sx={{ paddingTop: insets.top, bg: '$primary' }}>
-        <FloatingContent />
         <StyledContainer sx={{ height: headerHeight }}>
           <View>
             <BouncePressable

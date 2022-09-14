@@ -1,5 +1,6 @@
 import { MEDIA_DOMAIN } from '@env'
 import Fab from 'app/components/button/Fab'
+import FloatingContent from 'app/features/FloatingContent'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { ActionType, getAction } from 'app/utils/actionGenerator'
@@ -75,6 +76,8 @@ const BottomNavigation = () => {
 
   return (
     <>
+      <FloatingContent />
+
       <Flex
         sx={{
           alignItems: 'flex-end',
