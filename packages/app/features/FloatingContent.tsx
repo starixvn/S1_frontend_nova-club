@@ -39,7 +39,7 @@ const FloatingContent = () => {
           en: 'VGaming',
           vi: 'Fish Prawn Crab',
         },
-        gc: '3804',
+        gc: 'Vgaming:3804',
         gpc: 'SABA',
         gtc: 'games',
         img: `${MEDIA_DOMAIN}/nvclub/nova-club/content/games/hotgames/Vgaming-FishPrawnCrabl.jpg`,

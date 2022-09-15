@@ -13,7 +13,7 @@ const validation = {
   username: Yup.string()
     .min(6, 'validation.userNameMinMaxLength')
     .max(USERNAME_MAX_LENGTH, 'validation.userNameMinMaxLength')
-    .matches(ALPHANUMERIC_REGEX, 'validation.username')
+    .matches(ALPHANUMERIC_REGEX, 'validation.alphanumeric')
     .required('validation.required'),
 
   password: Yup.string()

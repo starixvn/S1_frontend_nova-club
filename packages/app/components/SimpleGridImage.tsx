@@ -51,9 +51,7 @@ const SimpleGridImage: FC<GamesProps> = ({
     gameName,
     gameType,
   }
-  // useEffect(() => {
-  //   setLoaded(false)
-  // }, [image])
+
   return (
     <View sx={{ ...{ flexShrink: 1 }, ...sx }}>
       <TouchableOpacity
@@ -99,9 +97,9 @@ const SimpleGridImage: FC<GamesProps> = ({
                   resizeMode="contain"
                   source={require('app/assets/images/games/sports/play-now.png')}
                   style={{
-                    width: width * 0.5,
-                    height: height ?? (width / GAME_IMAGE_RATIO) * 0.14,
-                    marginBottom: desktopMode ? 8 : 0,
+                    width: Math.min(width * 0.45, 130),
+                    aspectRatio: 180 / 48,
+                    marginBottom: desktopMode ? '8%' : 0,
                   }}
                 />
               </TouchableOpacity>
@@ -121,8 +119,8 @@ const SimpleGridImage: FC<GamesProps> = ({
                   resizeMode="contain"
                   source={require('app/assets/images/games/sports/desktop.png')}
                   style={{
-                    width: width * 0.5,
-                    height: height ?? (width / GAME_IMAGE_RATIO) * 0.14,
+                    width: Math.min(width * 0.45, 130),
+                    aspectRatio: 180 / 48,
                   }}
                 />
               </TouchableOpacity>
@@ -191,7 +189,7 @@ const BottomRightSlot = styled(View)(() => ({
   zIndex: 1,
   alignSelf: 'center',
   right: '5%',
-  bottom: 12,
+  bottom: '6%',
 }))
 
 export default memo(SimpleGridImage)
