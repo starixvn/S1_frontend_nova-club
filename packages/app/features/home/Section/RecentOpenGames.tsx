@@ -9,7 +9,7 @@ import { Game } from 'services/contentApi.type'
 import SectionHeader from './SectionHeader'
 
 const RecentOpenGames = () => {
-  const recent = useAppSelector((s) => s.setting.recentGames)
+  const recent = useAppSelector((s) => s.setting.recentGames) ?? []
   // const resources = useAppSelector((s) => s.setting.recentGameResources)
   const { t } = useLocalization()
   const games = useMemo(() => {
