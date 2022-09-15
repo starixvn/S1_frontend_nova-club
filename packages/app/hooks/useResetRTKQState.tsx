@@ -1,3 +1,4 @@
+import { SettingActions } from 'app/store/setting.slice'
 import { useCallback } from 'react'
 import authApi from 'services/authApi'
 import bankApi from 'services/bank'
@@ -15,6 +16,8 @@ const useResetRTKQState = () => {
     dispatch(authApi.util.resetApiState())
     dispatch(bankApi.util.resetApiState())
     dispatch(contentApi.util.resetApiState())
+
+    dispatch(SettingActions.removeReferral())
   }, [dispatch])
 
   return {

@@ -51,6 +51,9 @@ const settingSlice = createSlice({
     setShieldSessionID: (state, action: PayloadAction<string>) => {
       state.shieldSessionID = action.payload
     },
+    removeReferral: (state) => {
+      state.referral = undefined
+    },
     setReferral: (state, action: PayloadAction<Referral>) => {
       if (action.payload) {
         state.referral = {
