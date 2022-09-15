@@ -1,13 +1,21 @@
 import { Button } from 'app/components/form/Button'
 import TextInput, { DripsyTextInputProps } from 'app/components/form/TextInput'
-import { useLazyCheckUsernameQuery } from 'services/authApi'
+import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { getErrorMessage, PASSWORD_MAX_LENGTH } from 'app/utils/validation'
 import { ActivityIndicator, useDripsyTheme, View } from 'dripsy'
 import { FormikProps } from 'formik'
-import React, { memo, useCallback, useMemo, useRef, useState } from 'react'
-import { RegisterFormValues } from '.'
+import React, {
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { TextInput as RNTextInput } from 'react-native'
-import useLocalization from 'app/provider/localization'
+import { useLazyCheckUsernameQuery } from 'services/authApi'
+import { RegisterFormValues } from '.'
 
 interface RegisterFormProps {
   formik: FormikProps<RegisterFormValues>
@@ -30,6 +38,7 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
 
   const { t } = useLocalization()
   const [checkUsername] = useLazyCheckUsernameQuery()
+  const lang = useAppSelector((state) => state.setting.locale)
 
   const [usernameErrorMsg, setUsernameErrorMsg] = useState('')
   const [isCheckingUsername, setIsCheckingUsername] = useState(false)
@@ -63,20 +72,15 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
     validateForm,
   ])
 
-  const onUsernameBlur = useCallback(async () => {
-    const newUsername = values.username
-    setTouched({ username: true })
-
-    if (oldUsernameRef.current === newUsername) return
-
-    oldUsernameRef.current = newUsername
+  const handleCheckingUsername = useCallback(async () => {
+    if (isCheckingUsername) return
 
     if (!errors.username) {
       setIsCheckingUsername(true)
 
       try {
         const { success } = await checkUsername({
-          username: newUsername,
+          username: values.username,
         }).unwrap()
 
         isUsernameCheckedRef.current = true
@@ -94,15 +98,29 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
   }, [
     checkUsername,
     errors.username,
-    setTouched,
+    isCheckingUsername,
     usernameErrorMsg,
     values.username,
   ])
 
+  const onUsernameBlur = useCallback(async () => {
+    const newUsername = values.username
+    setTouched({ username: true })
+
+    if (oldUsernameRef.current === newUsername) return
+
+    oldUsernameRef.current = newUsername
+
+    handleCheckingUsername()
+  }, [handleCheckingUsername, setTouched, values.username])
+
   const onUsernameChange = useCallback(
     (e) => {
       if (isUsernameCheckedRef.current) isUsernameCheckedRef.current = false
-      if (usernameErrorMsg) setUsernameErrorMsg('')
+      if (usernameErrorMsg) {
+        oldUsernameRef.current = ''
+        setUsernameErrorMsg('')
+      }
 
       setFieldValue('username', e)
     },
@@ -146,6 +164,17 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
     ],
     [isCheckingUsername, theme.activityIndicator.primary.color]
   )
+
+  useEffect(() => {
+    if (usernameErrorMsg) {
+      /**
+       * On changing language, retrigger checking username api to get the corresponding
+       * error message translation
+       */
+      handleCheckingUsername()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lang, usernameErrorMsg])
 
   return (
     <>
