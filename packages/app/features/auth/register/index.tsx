@@ -58,7 +58,7 @@ const RegisterPage = () => {
         // WIP: Prefix should not be hardcoded
         contactNumber: '84' + contactNumber,
         terms,
-        tracking_code: referral?.trackingCode ?? '0jsgrfAFC',
+        tracking_code: referral?.trackingCode,
         verify_code: verifyCode,
       }).unwrap()
 

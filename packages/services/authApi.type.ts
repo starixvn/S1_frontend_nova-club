@@ -21,7 +21,7 @@ export interface RegisterQueryArgs {
   cpassword: string
   password: string
   terms: boolean
-  tracking_code: string
+  tracking_code?: string
   username: string
   verify_code: string
 }
