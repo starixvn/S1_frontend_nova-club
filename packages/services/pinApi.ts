@@ -1,6 +1,4 @@
-import { createApi } from '@reduxjs/toolkit/dist/query/react'
-import { ChangePasswordResult, ChangePasswordArgs } from './changePassword.type'
-import { axiosBaseQuery } from './common/axiosBaseQuery'
+import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
   CreateTransferPinArgs,
@@ -8,8 +6,8 @@ import {
   UpdateTransferPinArgs,
 } from './pinApi.type'
 
-const pinEndpoints = (builder: EndpointBuilderType) => {
-  return {
+const pinApi = baseApiWithTag.injectEndpoints({
+  endpoints: (builder: EndpointBuilderType) => ({
     createTransferPin: builder.mutation<
       IResponse<string>,
       CreateTransferPinArgs
@@ -52,19 +50,9 @@ const pinEndpoints = (builder: EndpointBuilderType) => {
         },
       }),
     }),
-  }
-}
-
-const pinApi = createApi({
-  reducerPath: 'pinApi',
-  baseQuery: axiosBaseQuery(),
-  endpoints: (builder) => ({
-    ...pinEndpoints(builder),
   }),
 })
 
-export default pinApi
-export { pinEndpoints }
 export const {
   useUpdateTransferPinMutation,
   useCreateTransferPinMutation,

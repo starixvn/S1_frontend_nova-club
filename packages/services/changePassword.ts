@@ -1,10 +1,9 @@
-import { createApi } from '@reduxjs/toolkit/dist/query/react'
-import { ChangePasswordResult, ChangePasswordArgs } from './changePassword.type'
-import { axiosBaseQuery } from './common/axiosBaseQuery'
+import { baseApiWithTag } from './baseApi'
+import { ChangePasswordArgs, ChangePasswordResult } from './changePassword.type'
 import { EndpointBuilderType, IResponse } from './common/types'
 
-const changePasswordEndpoints = (builder: EndpointBuilderType) => {
-  return {
+const changePasswordApi = baseApiWithTag.injectEndpoints({
+  endpoints: (builder: EndpointBuilderType) => ({
     changePassword: builder.mutation<
       IResponse<ChangePasswordResult>,
       ChangePasswordArgs
@@ -17,17 +16,7 @@ const changePasswordEndpoints = (builder: EndpointBuilderType) => {
         },
       }),
     }),
-  }
-}
-
-const changePasswordApi = createApi({
-  reducerPath: 'changePasswordApi',
-  baseQuery: axiosBaseQuery(),
-  endpoints: (builder) => ({
-    ...changePasswordEndpoints(builder),
   }),
 })
 
-export default changePasswordApi
-export { changePasswordEndpoints }
 export const { useChangePasswordMutation } = changePasswordApi

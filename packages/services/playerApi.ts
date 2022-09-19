@@ -1,21 +1,18 @@
-import { createApi } from '@reduxjs/toolkit/query/react'
-import { axiosBaseQuery } from './common/axiosBaseQuery'
+import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
-  OverviewArgs,
   OverviewResult,
   OverviewSummaryResult,
   PlayerLangArgs,
   PlayerOverviewArgs,
-  ProfileQueryArgs,
   ProfileResult,
   ProfileUpdateArgs,
   ReportArgs,
   ReportResult,
 } from './playerApi.type'
 
-const playerEndpoints = (builder: EndpointBuilderType) => {
-  return {
+const playerApi = baseApiWithTag.injectEndpoints({
+  endpoints: (builder: EndpointBuilderType) => ({
     playerProfile: builder.query<IResponse<ProfileResult>, void>({
       query: (queryArgs) => ({
         url: `/player_api/getPlayerProfile`,
@@ -113,20 +110,9 @@ const playerEndpoints = (builder: EndpointBuilderType) => {
         },
       }),
     }),
-  }
-}
-
-const playerApi = createApi({
-  reducerPath: 'playerApi',
-  baseQuery: axiosBaseQuery(),
-  tagTypes: ['Report'],
-  endpoints: (builder) => ({
-    ...playerEndpoints(builder),
   }),
 })
 
-export default playerApi
-export { playerEndpoints }
 export const {
   usePlayerProfileQuery,
   usePlayerReportQuery,

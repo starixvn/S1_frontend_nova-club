@@ -1,31 +1,28 @@
-import { createApi } from '@reduxjs/toolkit/query/react'
 import {
   CheckUsernameQueryArgs,
+  ForgotPasswordOtpQueryArgs,
   LoginQueryArgs,
   LoginResult,
   LogoutQueryArgs,
   PasswordRecoveryQeuryArgs,
+  RegisterOtpQueryArgs,
   RegisterQueryArgs,
   RegisterResult,
-  RegisterOtpQueryArgs,
-  ForgotPasswordOtpQueryArgs,
 } from './authApi.type'
-import { axiosBaseQuery } from './common/axiosBaseQuery'
-import {
-  ConvertResponseType,
-  EndpointBuilderType,
-  IResponse,
-} from './common/types'
+import { baseApiWithTag } from './baseApi'
+import { AuthURL } from './common/axiosInstance'
+import { EndpointBuilderType, IResponse } from './common/types'
 
-export enum AuthURL {
-  LOGOUT = '/player_api/logout',
-}
+// export enum AuthURL {
+//   LOGOUT = '/player_api/logout',
+// }
 
 /**
  * @param builder Pass builder from `createApi` *endpoints*
  */
-const authEndpoints = (builder: EndpointBuilderType) => {
-  return {
+
+export const authApi = baseApiWithTag.injectEndpoints({
+  endpoints: (builder: EndpointBuilderType) => ({
     login: builder.mutation<IResponse<LoginResult>, LoginQueryArgs>({
       query: ({ username, password }) => ({
         url: `/player_api/login`,
@@ -96,22 +93,9 @@ const authEndpoints = (builder: EndpointBuilderType) => {
         },
       }),
     }),
-  }
-}
-
-/**
- * `endpoints` has to rewrite here for proper typescript inference
- */
-const authApi = createApi({
-  reducerPath: 'authApi',
-  baseQuery: axiosBaseQuery(),
-  endpoints: (builder) => ({
-    ...authEndpoints(builder),
   }),
 })
 
-export default authApi
-export { authEndpoints }
 export const {
   useLoginMutation,
   useRegisterMutation,
@@ -129,29 +113,29 @@ export const {
 /**
  * Use this as a way to enhance endpoints for additional features
  */
-const dummyAuthApi = authApi as ConvertResponseType<
-  typeof authApi,
-  'endpoints',
-  {
-    login: string
-  }
->
+// const dummyAuthApi = authApi as ConvertResponseType<
+//   typeof authApi,
+//   'endpoints',
+//   {
+//     login: string
+//   }
+// >
 
-const addTagAuthApi = dummyAuthApi.enhanceEndpoints({
-  addTagTypes: ['Login', 'Register'],
-  endpoints: {
-    login: {
-      transformResponse: (resp: string) => {
-        return resp
-      },
-    },
-    register: {
-      invalidatesTags: ['Register'],
-      transformResponse: (resp: IResponse<RegisterResult>) => {
-        return resp
-      },
-    },
-  },
-})
+// const addTagAuthApi = dummyAuthApi.enhanceEndpoints({
+//   addTagTypes: ['Login', 'Register'],
+//   endpoints: {
+//     login: {
+//       transformResponse: (resp: string) => {
+//         return resp
+//       },
+//     },
+//     register: {
+//       invalidatesTags: ['Register'],
+//       transformResponse: (resp: IResponse<RegisterResult>) => {
+//         return resp
+//       },
+//     },
+//   },
+// })
 
 // const { useLoginQuery: useLoginQueryTag } = addTagAuthApi

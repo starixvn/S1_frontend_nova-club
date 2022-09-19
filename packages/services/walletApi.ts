@@ -1,5 +1,4 @@
-import { createApi } from '@reduxjs/toolkit/query/react'
-import { axiosBaseQuery } from './common/axiosBaseQuery'
+import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
   PlayerBalanceArgs,
@@ -14,8 +13,8 @@ import {
   TransferResult,
 } from './wallet.type'
 
-const walletEndPoints = (builder: EndpointBuilderType) => {
-  return {
+export const walletApi = baseApiWithTag.injectEndpoints({
+  endpoints: (builder: EndpointBuilderType) => ({
     playerBalance: builder.query<
       IResponse<PlayerBalanceResult>,
       PlayerBalanceArgs | void
@@ -77,20 +76,9 @@ const walletEndPoints = (builder: EndpointBuilderType) => {
       }),
       invalidatesTags: ['Balance'],
     }),
-  }
-}
-
-const walletApi = createApi({
-  reducerPath: 'walletApi',
-  baseQuery: axiosBaseQuery(),
-  tagTypes: ['Balance'],
-  endpoints: (builder) => ({
-    ...walletEndPoints(builder),
   }),
 })
 
-export default walletApi
-export { walletEndPoints }
 export const {
   usePlayerBalanceQuery,
   useLazyPlayerBalanceQuery,

@@ -1,6 +1,6 @@
 import { LOGOUT_ACTION } from 'app/constant/redux'
 import { store } from 'app/provider/redux/store'
-import authApi from 'services/authApi'
+import { authApi } from 'services/authApi'
 
 export async function logOut({ isTokenExpired = false } = {}) {
   try {

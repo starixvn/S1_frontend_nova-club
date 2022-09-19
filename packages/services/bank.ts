@@ -1,4 +1,3 @@
-import { createApi } from '@reduxjs/toolkit/query/react'
 import {
   addPlayerBankAccArgs,
   addPlayerBankAccResult,
@@ -9,11 +8,11 @@ import {
   WithdrawalBankArgs,
   WithdrawalBankResult,
 } from './bank.type'
-import { axiosBaseQuery } from './common/axiosBaseQuery'
+import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 
-const bankEndpoints = (builder: EndpointBuilderType) => {
-  return {
+const bankApi = baseApiWithTag.injectEndpoints({
+  endpoints: (builder: EndpointBuilderType) => ({
     /**
      * *Player Bank Get, Add, Delete
      */
@@ -28,7 +27,7 @@ const bankEndpoints = (builder: EndpointBuilderType) => {
           ...queryArgs,
         },
       }),
-      providesTags: ['playerBank'],
+      providesTags: ['PlayerBank'],
     }),
     addPlayerBankAcc: builder.mutation<
       IResponse<addPlayerBankAccResult>,
@@ -41,7 +40,7 @@ const bankEndpoints = (builder: EndpointBuilderType) => {
           ...queryArgs,
         },
       }),
-      invalidatesTags: ['playerBank'],
+      invalidatesTags: ['PlayerBank'],
     }),
     deletePlayerBankAcc: builder.mutation<
       IResponse<DeletePlayerBankAccResult>,
@@ -54,7 +53,7 @@ const bankEndpoints = (builder: EndpointBuilderType) => {
           ...queryArgs,
         },
       }),
-      invalidatesTags: ['playerBank'],
+      invalidatesTags: ['PlayerBank'],
     }),
 
     /**
@@ -72,20 +71,9 @@ const bankEndpoints = (builder: EndpointBuilderType) => {
         },
       }),
     }),
-  }
-}
-
-const bankApi = createApi({
-  reducerPath: 'bankApi',
-  baseQuery: axiosBaseQuery(),
-  tagTypes: ['playerBank'],
-  endpoints: (builder) => ({
-    ...bankEndpoints(builder),
   }),
 })
 
-export default bankApi
-export { bankEndpoints }
 export const {
   usePlayerBankQuery,
   useWithdrawalBankQuery,

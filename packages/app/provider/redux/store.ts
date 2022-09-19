@@ -3,16 +3,6 @@ import { alertReducer } from 'app/store/alert.slice'
 import authReducer, { authInitialState, AuthState } from 'app/store/authReducer'
 import bankReducer from 'app/store/bankReducer'
 import { gameLauncherReducer } from 'app/store/gameLauncher.slice'
-import authApi from 'services/authApi'
-import bankApi from 'services/bank'
-import changePasswordApi from 'services/changePassword'
-import contentApi from 'services/contentApi'
-import depositApi from 'services/deposit'
-import gameApi from 'services/gameApi'
-import messageApi from 'services/messageApi'
-import playerApi from 'services/playerApi'
-import walletApi from 'services/walletApi'
-import withdrawalApi from 'services/withdrawal'
 import { depositReducer } from 'app/store/deposit.slice'
 import { settingReducer } from 'app/store/setting.slice'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
@@ -26,6 +16,7 @@ import {
 } from 'redux-persist'
 import { storage } from './persistStorage/index'
 import pinApi from 'services/pinApi'
+import { baseApi } from 'services/baseApi'
 
 const migrations = {
   2: (s: PersistedState) => {},
@@ -55,31 +46,33 @@ const persistConfig: PersistConfig<any> = {
 }
 
 const middlerwares = [
-  authApi.middleware,
-  bankApi.middleware,
-  changePasswordApi.middleware,
-  contentApi.middleware,
-  depositApi.middleware,
-  gameApi.middleware,
-  playerApi.middleware,
-  walletApi.middleware,
-  withdrawalApi.middleware,
-  pinApi.middleware,
-  messageApi.middleware,
+  baseApi.middleware,
+  // authApi.middleware,
+  // bankApi.middleware,
+  // changePasswordApi.middleware,
+  // contentApi.middleware,
+  // depositApi.middleware,
+  // gameApi.middleware,
+  // playerApi.middleware,
+  // walletApi.middleware,
+  // withdrawalApi.middleware,
+  // pinApi.middleware,
+  // messageApi.middleware,
 ]
 
 const rootReducer = combineReducers({
-  [authApi.reducerPath]: authApi.reducer,
-  [bankApi.reducerPath]: bankApi.reducer,
-  [changePasswordApi.reducerPath]: changePasswordApi.reducer,
-  [contentApi.reducerPath]: contentApi.reducer,
-  [depositApi.reducerPath]: depositApi.reducer,
-  [gameApi.reducerPath]: gameApi.reducer,
-  [playerApi.reducerPath]: playerApi.reducer,
-  [walletApi.reducerPath]: walletApi.reducer,
-  [withdrawalApi.reducerPath]: withdrawalApi.reducer,
-  [pinApi.reducerPath]: pinApi.reducer,
-  [messageApi.reducerPath]: messageApi.reducer,
+  [baseApi.reducerPath]: baseApi.reducer,
+  // [authApi.reducerPath]: authApi.reducer,
+  // [bankApi.reducerPath]: bankApi.reducer,
+  // [changePasswordApi.reducerPath]: changePasswordApi.reducer,
+  // [contentApi.reducerPath]: contentApi.reducer,
+  // [depositApi.reducerPath]: depositApi.reducer,
+  // [gameApi.reducerPath]: gameApi.reducer,
+  // [playerApi.reducerPath]: playerApi.reducer,
+  // [walletApi.reducerPath]: walletApi.reducer,
+  // [withdrawalApi.reducerPath]: withdrawalApi.reducer,
+  // [pinApi.reducerPath]: pinApi.reducer,
+  // [messageApi.reducerPath]: messageApi.reducer,
   alert: alertReducer,
   auth: authReducer,
   bank: bankReducer,

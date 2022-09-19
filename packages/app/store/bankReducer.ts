@@ -1,9 +1,13 @@
 import { createSlice, current, PayloadAction } from '@reduxjs/toolkit'
+import { PaymentMethodProps } from 'app/config/deposit'
 import { LOGOUT_ACTION } from 'app/constant/redux'
-import { DepositPaymentCategoriesResult } from 'services/dummyDeposit.type'
 
+type DepositPaymentProps = PaymentMethodProps & {
+  categoryText: string
+  list: []
+}
 export type BankState = {
-  depositPayment: DepositPaymentCategoriesResult
+  depositPayment: DepositPaymentProps | null
 }
 
 export const bankInitialState: BankState = {
@@ -14,10 +18,7 @@ const bankSlice = createSlice({
   name: 'bank',
   initialState: bankInitialState,
   reducers: {
-    setDepositPayment: (
-      state,
-      action: PayloadAction<DepositPaymentCategoriesResult>
-    ) => {
+    setDepositPayment: (state, action: PayloadAction<DepositPaymentProps>) => {
       state.depositPayment = action.payload
     },
   },
