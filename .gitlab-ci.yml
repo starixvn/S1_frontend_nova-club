@@ -4,7 +4,7 @@ stages:
 .prod-nova-club: &prod-nova-club
     stage: Production
     tags:
-      - twidc-bot-123
+      - global-bot-twrun017
     script:
       - echo "deploy prod-nova-club"
       - sudo sh ${_workDir}/ezdeployStg.sh ${_yamlName} ${_ProjectGroup} ${_FolderName} ${_gitBranch} ${_dockerfile}
