@@ -359,7 +359,7 @@
     "qrDownloadSuccess": "Tải mã QR thành công",
     "qrTransferSelfError": "Chuyển khoản vào tài khoản riêng không được phép",
     "receiptRequired": "Vui lòng tải biên lai gửi tiền",
-    "receiptSuccess": "",
+    "receiptSuccess": "Biên nhận đã được tải lên thành công",
     "referralError": "Mã giới thiệu không đúng, vui lòng thử mã khác",
     "rejected": "Từ chối",
     "scanFailed": "Quét không thành công!",
@@ -367,7 +367,7 @@
     "systemError": "Rất tiếc! Đã xảy ra lỗi, vui lòng thử lại."
   },
   "transaction": {
-    "id": "",
+    "id": "ID giao dịch",
     "pending": "Đang chờ giao dịch",
     "recent": "Giao Dịch Gần Đây"
   },
