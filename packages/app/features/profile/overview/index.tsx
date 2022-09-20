@@ -2,6 +2,7 @@ import { DripsyGradient } from 'app/components/Gradient'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import useLocalization from 'app/provider/localization'
 import dayjsTz from 'app/utils/dayjs'
+import dayjs from 'dayjs'
 import { ActivityIndicator, ScrollView, useDripsyTheme } from 'dripsy'
 import { useState } from 'react'
 import { Platform, RefreshControl } from 'react-native'
@@ -11,11 +12,11 @@ import SummarySection from './SummarySection'
 
 const OverviewScreen = () => {
   const { t } = useLocalization()
-  const [endDate, setEndDate] = useState(dayjsTz().startOf('date').toDate())
-  const [startDate, setStartDate] = useState(dayjsTz().startOf('date').toDate())
+  const [endDate, setEndDate] = useState(dayjs().startOf('date').toDate())
+  const [startDate, setStartDate] = useState(dayjs().startOf('date').toDate())
 
   const formatDate = (date: Date) => {
-    return dayjsTz(date).format('YYYY-MM-DD')
+    return dayjs(date).format('YYYY-MM-DD')
   }
 
   const {
