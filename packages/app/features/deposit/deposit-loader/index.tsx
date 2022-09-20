@@ -13,15 +13,15 @@ const DepositLoaderScreen = () => {
   const url = depositUrl && decodeURIComponent(depositUrl)
 
   return (
-    <View sx={{ flex: 1 }}>
-      <PageWithBackHeader header={{ title: title }} disableScrollView>
+    <PageWithBackHeader header={{ title: title }} disableScrollView>
+      <View sx={{ flex: 1 }}>
         {Platform.OS === 'web' ? (
-          <iframe src={url} height="100%" />
+          <iframe src={url} height="100%" style={{ flex: 1 }} />
         ) : (
           <WebView url={url} />
         )}
-      </PageWithBackHeader>
-    </View>
+      </View>
+    </PageWithBackHeader>
   )
 }
 

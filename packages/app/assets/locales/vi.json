@@ -150,8 +150,8 @@
       "blackjack": "Blackjack",
       "dragonTiger": "Dragon Tiger",
       "hot": "NỔI BẬT",
-      "new": "Mới",
       "jackpot": "NỔ HŨ",
+      "new": "Mới",
       "poker": "Poker",
       "roulette": "Roulette",
       "sicbo": "Sicbo"
@@ -175,11 +175,12 @@
   },
   "forceDownload": {
     "download": "Tải về",
-    "title": "Cập nhật phiên bản mới",
-    "message": "Vui lòng tải bản mới với những nâng cấp sau:"
+    "message": "Vui lòng tải bản mới với những nâng cấp sau:",
+    "title": "Cập nhật phiên bản mới"
   },
   "game": {
     "category": {
+      "cardGame": "Chơi Bài",
       "cockfighting": "Chọi Gà",
       "fishing": "Bắn Cá",
       "fishingGames": "Trò Chơi Câu Cá",
@@ -187,11 +188,10 @@
       "hotGames": "Trò Chơi Hot",
       "keno/lottery": "Keno / Xổ số",
       "liveCasino": "SÒNG BÀI",
+      "localGame": "Trò chơi địa phương",
       "poker": "Poker",
       "slots": "Quay hũ",
-      "sportsbook": "THỂ THAO",
-      "localGame": "Trò chơi địa phương",
-      "cardGame": "Chơi Bài"
+      "sportsbook": "THỂ THAO"
     },
     "enterGame": "Vào trò chơi",
     "invalidSession": "Invalid Session [%{code}]",
@@ -359,6 +359,7 @@
     "qrDownloadSuccess": "Tải mã QR thành công",
     "qrTransferSelfError": "Chuyển khoản vào tài khoản riêng không được phép",
     "receiptRequired": "Vui lòng tải biên lai gửi tiền",
+    "receiptSuccess": "",
     "referralError": "Mã giới thiệu không đúng, vui lòng thử mã khác",
     "rejected": "Từ chối",
     "scanFailed": "Quét không thành công!",
@@ -388,9 +389,9 @@
     "erc20Format": "Địa chỉ ví phải tương thích với chuẩn ERC20",
     "exceedAvailableTransferBalance": "Vượt quá số dư khả dụng %{balance}",
     "insufficientBalance": "Số dư không đủ",
+    "invalidAccountName": "Tên tài khoản không hợp lệ, chỉ có ký tự trong bảng chữ cái",
     "invalidOTPCode": "Mã OTP không hợp lệ",
     "invalidPhone": "Số điện thoại không hợp lệ",
-    "invalidAccountName": "Tên tài khoản không hợp lệ, các ký tự đặc biệt không được phép (eg: !@#$%^&*).",
     "minMaxLimit": "Tối thiểu/Tối đa %{min}/%{max}",
     "needAccountNo": "Cần nhập số tài khoản",
     "numberOnly": "Chỉ nhập số",

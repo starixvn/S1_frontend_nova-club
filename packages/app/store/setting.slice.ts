@@ -1,11 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { LANGUAGE_CODE } from 'app/constant/language'
 import dayjs, { Dayjs } from 'dayjs'
-import { REHYDRATE } from 'redux-persist'
-import contentApi from 'services/contentApi'
-import { Game } from 'services/contentApi.type'
-import { boolean } from 'yup'
-import { GameLauncherActions, LaunchGamePayload } from './gameLauncher.slice'
+import { LaunchGamePayload } from './gameLauncher.slice'
 
 interface PopUpExpire {
   [key: string]: Dayjs | null
@@ -90,9 +86,9 @@ const settingSlice = createSlice({
   },
   extraReducers: (builder) => {
     // reset sessionID every restart
-    builder.addCase(REHYDRATE, (state, action) => {
-      state.shieldSessionID = undefined
-    })
+    // builder.addCase(REHYDRATE, (state, action) => {
+    //   state.shieldSessionID = undefined
+    // })
     // builder.addMatcher(
     //   contentApi.endpoints.affiliateUsername.matchFulfilled,
     //   (state, { payload }) => {

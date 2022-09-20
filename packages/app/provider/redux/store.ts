@@ -14,7 +14,7 @@ import playerApi from 'services/playerApi'
 import walletApi from 'services/walletApi'
 import withdrawalApi from 'services/withdrawal'
 import { depositReducer } from 'app/store/deposit.slice'
-import { settingReducer } from 'app/store/setting.slice'
+import { Setting, settingReducer } from 'app/store/setting.slice'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import {
   createMigrate,
@@ -49,7 +49,21 @@ const persistConfig: PersistConfig<any> = {
       (outboundState, key) => {
         return { ...authInitialState, ...outboundState }
       },
-      { whitelist: ['auth', 'setting'] }
+      { whitelist: ['auth'] }
+    ),
+    createTransform<Setting, Setting>(
+      (inboundState, key) => {
+        return inboundState
+      },
+      (outboundState, key) => {
+        const clearShieldId = {
+          ...outboundState,
+          shieldSessionID: undefined,
+        }
+
+        return clearShieldId
+      },
+      { whitelist: ['setting'] }
     ),
   ],
 }
