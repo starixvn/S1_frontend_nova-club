@@ -8,6 +8,13 @@
     ["@babel/plugin-proposal-private-methods", { "loose": true }],
     ["@babel/plugin-proposal-private-property-in-object", { "loose": true }],
     "react-native-reanimated/plugin",
-    ["module:react-native-dotenv"]
+    [
+      "module:react-native-dotenv",
+      {
+        "envName": "APP_ENV",
+        "allowUndefined": true,
+        "path": "../../.env"
+      }
+    ]
   ]
 }
