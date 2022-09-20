@@ -1,4 +1,4 @@
-import walletApi from 'services/walletApi'
+import { walletApi } from 'services/walletApi'
 
 const enhancedWalletApi = walletApi.enhanceEndpoints({
   endpoints: {

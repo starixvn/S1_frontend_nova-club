@@ -1,8 +1,6 @@
-import { createApi } from '@reduxjs/toolkit/query/react'
-import { axiosBaseQuery } from './common/axiosBaseQuery'
+import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
-  DepositPaymentListArgs,
   DepositPaymentListResult,
   SubmitDepositArgs,
   SubmitDepositResult,
@@ -10,12 +8,9 @@ import {
   SubmitManualDepositResult,
   UploadDepositSlipArgs,
 } from './deposit.type'
-import playerApi from './playerApi'
-import walletApi from './walletApi'
-import { SubmitWithdrawalArgs } from './withdrawal.type'
 
-const DepositEndPoints = (builder: EndpointBuilderType) => {
-  return {
+const depositApi = baseApiWithTag.injectEndpoints({
+  endpoints: (builder: EndpointBuilderType) => ({
     /**
      * *Deposit Payment List
      */
@@ -41,12 +36,13 @@ const DepositEndPoints = (builder: EndpointBuilderType) => {
           ...queryArgs,
         },
       }),
+      invalidatesTags: ['Balance', 'Report'],
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled
           // `onSuccess` side-effect
-          dispatch(dispatch(walletApi.util.invalidateTags(['Balance'])))
-          dispatch(dispatch(playerApi.util.invalidateTags(['Report'])))
+          // dispatch(dispatch(walletApi.util.invalidateTags(['Balance'])))
+          // dispatch(dispatch(playerApi.util.invalidateTags(['Report'])))
         } catch (err) {
           // `onError` side-effect
         }
@@ -63,12 +59,13 @@ const DepositEndPoints = (builder: EndpointBuilderType) => {
           ...queryArgs,
         },
       }),
+      invalidatesTags: ['Balance', 'Report'],
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled
           // `onSuccess` side-effect
-          dispatch(dispatch(walletApi.util.invalidateTags(['Balance'])))
-          dispatch(dispatch(playerApi.util.invalidateTags(['Report'])))
+          // dispatch(dispatch(walletApi.util.invalidateTags(['Balance'])))
+          // dispatch(dispatch(playerApi.util.invalidateTags(['Report'])))
         } catch (err) {
           // `onError` side-effect
         }
@@ -84,29 +81,20 @@ const DepositEndPoints = (builder: EndpointBuilderType) => {
         headers: { post: { 'Content-Type': 'multipart/form-data' } },
         data: queryArgs,
       }),
+      invalidatesTags: ['Report'],
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled
           // `onSuccess` side-effect
-          dispatch(dispatch(playerApi.util.invalidateTags(['Report'])))
+          // dispatch(dispatch(playerApi.util.invalidateTags(['Report'])))
         } catch (err) {
           // `onError` side-effect
         }
       },
     }),
-  }
-}
-
-const depositApi = createApi({
-  reducerPath: 'depositApi',
-  baseQuery: axiosBaseQuery(),
-  endpoints: (builder) => ({
-    ...DepositEndPoints(builder),
   }),
 })
 
-export default depositApi
-export { DepositEndPoints }
 export const {
   useDepositPaymentListQuery,
   useSubmitDepositMutation,

@@ -6,9 +6,9 @@ import Script from 'next/script'
 import { ParsedUrlQuery } from 'querystring'
 import { useEffect, useState } from 'react'
 import { ActivityIndicator, Text, View } from 'react-native'
-import gameApi from 'services/gameApi'
 import { MotiView } from 'moti'
 import useLocalization from 'app/provider/localization'
+import { gameApi } from 'services/gameApi'
 
 const DEFAULT_ERROR = `game.invalidSession`
 const UNABLE_TO_CONNECT = `game.unableToConnect`

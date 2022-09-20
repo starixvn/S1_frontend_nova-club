@@ -1,6 +1,5 @@
-import { createApi } from '@reduxjs/toolkit/query/react'
-import { LANGUAGE_CODE } from 'app/constant/language'
-import { axiosBaseQuery } from './common/axiosBaseQuery'
+import { DEV_DOMAIN, MEDIA_DOMAIN } from '@env'
+import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
   AnnouncementResult,
@@ -14,13 +13,12 @@ import {
   JackpotAmountResult,
   LeaderboardResult,
 } from './contentApi.type'
-import { MEDIA_DOMAIN, DEV_DOMAIN } from '@env'
 
 /**
  * @param builder Pass builder from `createApi` *endpoints*
  */
-const contentEndpoints = (builder: EndpointBuilderType) => {
-  return {
+const contentApi = baseApiWithTag.injectEndpoints({
+  endpoints: (builder: EndpointBuilderType) => ({
     banner: builder.query<BannerResult[], void>({
       query: () => ({
         url: `${MEDIA_DOMAIN}/nvclub/nova-club/content/banners/banner.json`,
@@ -96,22 +94,9 @@ const contentEndpoints = (builder: EndpointBuilderType) => {
         baseURL: DEV_DOMAIN,
       }),
     }),
-  }
-}
-
-/**
- * `endpoints` has to rewrite here for proper typescript inference
- */
-const contentApi = createApi({
-  reducerPath: 'content',
-  baseQuery: axiosBaseQuery(),
-  endpoints: (builder) => ({
-    ...contentEndpoints(builder),
   }),
 })
 
-export default contentApi
-export { contentEndpoints }
 export const {
   useBannerQuery,
   useLeaderboardQuery,
