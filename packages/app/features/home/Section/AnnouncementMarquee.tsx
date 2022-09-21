@@ -27,7 +27,7 @@ const AnnouncementMarquee = () => {
     useState<MarqueeItem<AnnouncementListItems>[]>()
 
   useEffect(() => {
-    if (data?.data && isSuccess) {
+    if (data?.data && data.data.list && isSuccess) {
       setMarquees(
         data.data.list.map((annc) => {
           return {

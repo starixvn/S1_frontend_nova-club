@@ -32,18 +32,23 @@ const DepositPage = () => {
       const activeMethod = paymentMethodList.filter(
         (item) => item.active === true
       )
-      const convertData = activeMethod.map((item, index) => {
-        const res = data?.data.result[item.type].find(
-          (el) => el.category_id === item.categoryId
-        )
+      const convertData = activeMethod
+        .map((item) => {
+          const method = data?.data?.result[item.type]
+          if (method) {
+            const res = method[item.type].find(
+              (el) => el.category_id === item.categoryId
+            )
 
-        if (!res) return item
-        return {
-          ...item,
-          categoryText: res.category_text,
-          list: res.list,
-        }
-      })
+            if (res)
+              return {
+                ...item,
+                categoryText: res.category_text,
+                list: res.list,
+              }
+          }
+        })
+        .filter((x) => x != null)
 
       setPaymentMethodList(convertData)
 
@@ -78,34 +83,35 @@ const DepositPage = () => {
 
   return (
     <PageWithBackHeader header={{ title: t('menu.deposit') }}>
-      <Text sx={{ my: '$6', mx: '$4' }}>{t('deposit.choose')}</Text>
       {isLoading ? (
-        <ActivityIndicator />
-      ) : (
-        <View
-          sx={{
-            position: 'relative',
-            mx: '$4',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-          }}
-        >
-          {paymentMethodList &&
-            paymentMethodList.map((item, index) => (
-              <DepositMethodCard
-                key={item.id}
-                item={item}
-                sx={{
-                  mb: paymentMethodList.length - index <= 1 ? 0 : '$4',
-                }}
-                onPress={() => handlePress(item.id)}
-              />
-            ))}
-          <Seperator />
-        </View>
-      )}
-
+        <ActivityIndicator sx={{ my: '$6' }} />
+      ) : paymentMethodList.length > 0 ? (
+        <>
+          <Text sx={{ my: '$6', mx: '$4' }}>{t('deposit.choose')}</Text>
+          <View
+            sx={{
+              position: 'relative',
+              mx: '$4',
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              justifyContent: 'space-between',
+            }}
+          >
+            {paymentMethodList &&
+              paymentMethodList.map((item, index) => (
+                <DepositMethodCard
+                  key={item.id}
+                  item={item}
+                  sx={{
+                    mb: paymentMethodList.length - index <= 1 ? 0 : '$4',
+                  }}
+                  onPress={() => handlePress(item.id)}
+                />
+              ))}
+            <Seperator />
+          </View>
+        </>
+      ) : null}
       <DepositTransactions />
     </PageWithBackHeader>
   )
