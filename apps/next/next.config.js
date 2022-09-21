@@ -3,6 +3,7 @@ const path = require('path')
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  webpack5: true,
   swcMinify: true,
   images: {
     disableStaticImages: true,
@@ -19,7 +20,7 @@ const nextConfig = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
-  output: "standalone",
+  output: 'standalone',
   experimental: {
     outputFileTracingRoot: path.join(__dirname, '../../'),
   },
@@ -78,9 +79,12 @@ const sentryWebpackPluginOptions = {
 const moduleExports = withPlugins(
   [
     withTM,
-    [withImages, {
-      inlineImageLimit: 0,
-    }],
+    [
+      withImages,
+      {
+        inlineImageLimit: 0,
+      },
+    ],
     [withVideos],
     [withExpo, { projectRoot: __dirname }],
     [withFonts, { projectRoot: __dirname }],
