@@ -1,4 +1,5 @@
 import SkeletonPlaceholder from 'app/components/skeleton/SkeletonPlaceholder'
+import banners from 'app/config/banner'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { Image, styled, View } from 'dripsy'
 import React, { FC } from 'react'
@@ -11,13 +12,17 @@ import Animated, {
 import Carousel from 'react-native-reanimated-carousel'
 import { useBannerQuery } from 'services/contentApi'
 import { BannerResult } from 'services/contentApi.type'
+import { useDummyRtk } from 'utils/rtk'
 
 const BANNER_RATIO = 768 / 350
 
 const BannerSection = () => {
   const { width, height } = useContainerDimension()
 
-  const { data, isFetching } = useBannerQuery()
+  // const { data, isFetching } = useBannerQuery()
+  const data = banners
+  const isFetching = false
+
   const selectedColor = '#99ECFE'
   const progressValue = useSharedValue<number>(0)
 
