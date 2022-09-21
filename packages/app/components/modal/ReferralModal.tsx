@@ -1,4 +1,4 @@
-import { REFERRAL_DOMAIN } from '@env'
+import { DEV_DOMAIN } from '@env'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useDownload from 'app/hooks/useDownload'
 import useShare from 'app/hooks/useShare'
@@ -23,7 +23,7 @@ const ReferralModal = ({ modal: { closeModal } }) => {
   const player = usePlayerProfileQuery()
   const ref = useRef()
 
-  const referralLink = `${REFERRAL_DOMAIN}?ref=${player.data?.data?.referral_code}`
+  const referralLink = `${DEV_DOMAIN}/download?ref=${player.data?.data?.referral_code}`
   const { width, height } = useContainerDimension()
 
   const { data } = usePlayerProfileQuery()

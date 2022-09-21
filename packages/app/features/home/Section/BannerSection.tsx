@@ -75,7 +75,7 @@ const BannerItem = ({ item }: { item: BannerResult }) => {
   return (
     <View key={image}>
       <Image
-        source={{ uri: image }}
+        source={image}
         resizeMode="cover"
         sx={{ width, height: width / BANNER_RATIO }}
       />

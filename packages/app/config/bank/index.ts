@@ -170,11 +170,14 @@ const BankLogo = [
 ]
 
 export const getBankLogo = (bankCode: string) => {
-  const logo = BankLogo.find(
-    (el) => el.bank_code.toLowerCase() === bankCode.toLowerCase().trim()
-  )?.image
-
-  return logo ?? require('../../assets/images/empty-result.png')
+  try {
+    const logo = BankLogo.find(
+      (el) => el.bank_code.toLowerCase() === bankCode.toLowerCase().trim()
+    )?.image
+    return logo ?? require('../../assets/images/empty-result.png')
+  } catch (e) {
+    return require('../../assets/images/empty-result.png')
+  }
 }
 
 export default BankLogo

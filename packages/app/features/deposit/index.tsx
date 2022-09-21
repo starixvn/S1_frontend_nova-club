@@ -36,9 +36,7 @@ const DepositPage = () => {
         .map((item) => {
           const method = data?.data?.result[item.type]
           if (method) {
-            const res = method[item.type].find(
-              (el) => el.category_id === item.categoryId
-            )
+            const res = method.find((el) => el.category_id === item.categoryId)
 
             if (res)
               return {

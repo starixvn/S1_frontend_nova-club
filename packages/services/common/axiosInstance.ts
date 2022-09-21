@@ -4,6 +4,7 @@ import { LANGUAGE_CODE } from 'app/constant/language'
 import { RootState } from 'app/provider/redux/store'
 import { generateFPSParams } from 'app/utils/fps/fpsGenerator'
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
+import { Platform } from 'react-native'
 
 export enum AuthURL {
   LOGOUT = '/player_api/logout',
@@ -30,7 +31,9 @@ export const configureAxios = (newConfig: CustomConfig) => {
 }
 
 const axiosInstance = axios.create({
-  baseURL: `${API_DOMAIN}`,
+  baseURL: `${
+    __DEV__ || Platform.OS !== 'web' ? API_DOMAIN : '/api/nv88_api/v1'
+  }`,
   timeout: DEFAULT_TIMEOUT,
   transformRequest: [
     (data, headers) => {
