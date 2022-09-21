@@ -12,6 +12,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native'
+import Shield from './integrations/shield/Shield'
 
 Sentry.init({
   dsn: 'https://0782803d4b0a41ff9881ac3d5b4d9898@o1267442.ingest.sentry.io/6453774',
@@ -34,7 +35,7 @@ export default function App() {
       >
         <Provider>
           <Branch />
-          {/* <Shield /> */}
+          <Shield />
           {/* StatusBar backgroundColor only affects Android, IOS refers to MainHeader */}
           <StatusBar backgroundColor="#0E2B46" style="light" />
           <NativeNavigation />
