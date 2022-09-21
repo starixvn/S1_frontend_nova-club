@@ -4,3 +4,5 @@
 !packages
 !package.json
 !yarn.lock
+!.env
+!.env.*

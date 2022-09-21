@@ -15,11 +15,11 @@ export default function Shield() {
   return (
     <Script
       id="shield.com"
-      src={`https://d1cr9zxt7u0sgu.cloudfront.net/shdfp.js?SITE_ID=${process.env.SHIELD_SITE_ID}&TYPE=JS&DE=1&AUTO=0`}
+      src={`https://d1cr9zxt7u0sgu.cloudfront.net/shdfp.js?SITE_ID=${process.env.NEXT_PUBLIC_SHIELD_SITE_ID}&TYPE=JS&DE=1&AUTO=0`}
       onLoad={() => {
         window.getDeviceResult().then(
           function (res) {
-            // console.log('Shield Response', res)
+            console.log('Shield Response', res)
             let sessionId = res.result.session_id
             dispatch(SettingActions.setShieldSessionID(sessionId))
 
@@ -30,7 +30,7 @@ export default function Shield() {
             // ... rest of the code
           },
           function (error) {
-            console.log(error.message)
+            console.log('shield error', error.message)
           }
         )
       }}
