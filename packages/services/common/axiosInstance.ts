@@ -29,7 +29,8 @@ export const configureAxios = (newConfig: CustomConfig) => {
     ...newConfig,
   }
 }
-const isUsingRootDomain = Platform.OS === 'web' && !__DEV__
+// const isUsingRootDomain = Platform.OS === 'web' && !__DEV__
+const isUsingRootDomain = false
 
 const axiosInstance = axios.create({
   baseURL: `${isUsingRootDomain ? '/api/nv88_api/v1' : API_DOMAIN}`,
