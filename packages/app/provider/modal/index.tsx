@@ -1,14 +1,6 @@
-import AlertDialogModal from 'app/components/modal/AlertDialogModal'
-import AlertModal from 'app/components/modal/AlertModal'
-import DepositConfirmationModal from 'app/components/modal/DepositConfirmationModal'
-import DepositUploadModal from 'app/components/modal/DepositUploadModal'
-import NoticeModal from 'app/components/modal/NoticeModal'
-import PinModal from 'app/components/modal/PinModal'
-import PlayerBankDeleteModal from 'app/components/modal/PlayerBankDeleteModal'
-import ReferralModal from 'app/components/modal/ReferralModal'
-import WithdrawalConfirmationModal from 'app/components/modal/WithdrawalConfirmationModal'
-import UserAgreementModal from 'app/features/games/PreLaunchGame/UserAgreementModal'
-
+import ModalWrapper from 'app/components/modal/ModalWrapper'
+import { ActivityIndicator } from 'dripsy'
+import dynamic from 'next/dynamic'
 import React from 'react'
 import { Easing } from 'react-native'
 import {
@@ -49,21 +41,71 @@ export interface ModalStackParams {
 
 type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
 
+const _dynamicModal = {
+  AlertDialogModal: () => import('app/components/modal/AlertDialogModal'),
+  AlertModal: () => import('app/components/modal/AlertModal'),
+  DepositConfirmationModal: () =>
+    import('app/components/modal/DepositConfirmationModal'),
+  DepositUploadModal: () => import('app/components/modal/DepositUploadModal'),
+  NoticeModal: () => import('app/components/modal/NoticeModal'),
+  PinModal: () => import('app/components/modal/PinModal'),
+  PlayerBankDeleteModal: () =>
+    import('app/components/modal/PlayerBankDeleteModal'),
+  ReferralModal: () => import('app/components/modal/ReferralModal'),
+  WithdrawalConfirmationModal: () =>
+    import('app/components/modal/WithdrawalConfirmationModal'),
+  UserAgreementModal: () =>
+    import('app/features/games/PreLaunchGame/UserAgreementModal'),
+}
+
+function getDynamicComponent(key: string) {
+  const LazyComponent = dynamic(_dynamicModal[key], {
+    loading: (props) => {
+      return (
+        <ModalWrapper>
+          <ActivityIndicator sx={{ mt: '$10' }} color={'$lightCyan'} />
+        </ModalWrapper>
+      )
+    },
+  })
+
+  // eslint-disable-next-line react/display-name
+  return (props) => <LazyComponent {...props} />
+}
+
 /* Consider using this modal for other temporarily / not fullscreen modal  */
 const modalConfig: ModalConfigType = {
-  AlertModal: AlertModal,
-  AlertDialogModal: AlertDialogModal,
-  DepositConfirmationModal: DepositConfirmationModal,
-  DepositUploadModal: DepositUploadModal,
-  NoticeModal: NoticeModal,
+  AlertModal: {
+    modal: getDynamicComponent('AlertModal'),
+  },
+  AlertDialogModal: {
+    modal: getDynamicComponent('AlertDialogModal'),
+  },
+  DepositConfirmationModal: {
+    modal: getDynamicComponent('DepositConfirmationModal'),
+  },
+  DepositUploadModal: {
+    modal: getDynamicComponent('DepositUploadModal'),
+  },
+  NoticeModal: {
+    modal: getDynamicComponent('NoticeModal'),
+  },
   PinModal: {
-    modal: PinModal,
+    modal: getDynamicComponent('PinModal'),
     position: 'bottom',
   },
-  PlayerBankDeleteModal: PlayerBankDeleteModal,
-  ReferralModal: ReferralModal,
-  WithdrawalConfirmationModal: WithdrawalConfirmationModal,
-  UserAgreementModal,
+  PlayerBankDeleteModal: {
+    modal: getDynamicComponent('PlayerBankDeleteModal'),
+  },
+  ReferralModal: {
+    modal: getDynamicComponent('ReferralModal'),
+  },
+  WithdrawalConfirmationModal: {
+    modal: getDynamicComponent('WithdrawalConfirmationModal'),
+  },
+  UserAgreementModal: {
+    modal: getDynamicComponent('UserAgreementModal'),
+  },
 }
 
 const stack = createModalStack(modalConfig, {
