@@ -29,11 +29,11 @@ export const configureAxios = (newConfig: CustomConfig) => {
     ...newConfig,
   }
 }
+const isUsingRootDomain =
+  Platform.OS === 'web' && window?.location.hostname !== 'localhost' && !__DEV__
 
 const axiosInstance = axios.create({
-  baseURL: `${
-    __DEV__ || Platform.OS !== 'web' ? API_DOMAIN : '/api/nv88_api/v1'
-  }`,
+  baseURL: `${isUsingRootDomain ? '/api/nv88_api/v1' : API_DOMAIN}`,
   timeout: DEFAULT_TIMEOUT,
   transformRequest: [
     (data, headers) => {

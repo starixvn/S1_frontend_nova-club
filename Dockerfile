@@ -76,11 +76,11 @@ COPY --from=builder --chown=nextjs:nodejs /app/apps/next/public ./public
 #   mount -t nfs -o nolock -o vers=4 nfs.n88club-stage.local:/mnt/k8sdata/em/www/web_static/static/nvclub/nova-club /app/public/images \
 #   cp -fr /app/.next/static/* /app/public/images
 
-RUN chmod 777 /app/.next/static -R
-RUN chown nobody.nobody /app/.next/static -R
-RUN echo "SYNCvtXQwsmUcH" > /app/.rsyncd.secrets
-RUN chmod 600 /app/.rsyncd.secrets
-RUN rsync -av --password-file=/app/.rsyncd.secrets /app/.next/static/ root@nfs-next.n88club.local::web_static/nova-club/next
+# RUN chmod 777 /app/.next/static -R
+# RUN chown nobody.nobody /app/.next/static -R
+# RUN echo "SYNCvtXQwsmUcH" > /app/.rsyncd.secrets
+# RUN chmod 600 /app/.rsyncd.secrets
+# RUN rsync -av --password-file=/app/.rsyncd.secrets /app/.next/static/ root@nfs-next.n88club.local::web_static/nova-club/next
 
 USER nextjs
 

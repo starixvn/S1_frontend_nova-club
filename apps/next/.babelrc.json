@@ -13,7 +13,7 @@
       {
         "envName": "APP_ENV",
         "allowUndefined": true,
-        "path": "../../.env"
+        "path": "../../env/.env"
       }
     ]
   ]

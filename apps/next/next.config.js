@@ -4,7 +4,6 @@ const path = require('path')
 const nextConfig = {
   reactStrictMode: true,
   webpack5: true,
-  swcMinify: true,
   images: {
     disableStaticImages: true,
   },
