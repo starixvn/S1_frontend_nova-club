@@ -12,8 +12,8 @@
       "module:react-native-dotenv",
       {
         "envName": "APP_ENV",
-        "allowUndefined": true,
-        "path": "../../env/.env"
+        "allowUndefined": true
+        // "path": "../../env/.env"
       }
     ]
   ]
