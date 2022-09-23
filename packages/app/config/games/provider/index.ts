@@ -27,6 +27,7 @@ const enum PROVIDER_NAME {
   SKYW,
   O789,
   IMSB,
+  EZGI,
 }
 
 export const PROVIDER_LOGO = {
@@ -150,6 +151,10 @@ export const PROVIDER_LOGO = {
     provider_code: 'NESP',
     image: require('../../../assets/images/provider/NESP.png'),
   },
+  EZGI: {
+    provider_code: 'EZGI',
+    image: require('../../../assets/images/provider/EZGI.png'),
+  },
 }
 
 const ProviderLogo = [
@@ -183,6 +188,7 @@ const ProviderLogo = [
   PROVIDER_LOGO.IMSB,
   PROVIDER_LOGO.NERT,
   PROVIDER_LOGO.NESP,
+  PROVIDER_LOGO.EZGI,
 ]
 
 export const getProviderLogo = (code: string) => {
