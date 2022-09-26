@@ -20,6 +20,7 @@ import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import AuthLayout from '../layout/AuthLayout'
 import ReceiveOTPContact from '../common/ReceiveOTPContact'
+import { useModal } from 'react-native-modalfy'
 
 interface ForgotPasswordFormValues {
   contactNumber: string
@@ -42,13 +43,14 @@ const ForgotPassword = () => {
   const { theme } = useDripsyTheme()
   const dispatch = useAppDispatch()
   const { push, replace } = useRouter()
+  const { openModal } = useModal()
 
   const [currentAction, setCurrentAction] = useState(CURRENT_ACTION.GET_OTP)
   const otpFieldRef = useRef<RNTextField>(null)
   const confirmPasswordFieldRef = useRef<RNTextField>(null)
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
 
-  const [sendForgotPasswordOtp, { isLoading: isOtpLoading }] =
+  const [sendForgotPasswordOtp, { isLoading: isOtpLoading, isSuccess }] =
     useSendPasswordRecoveryOtpMutation()
   const [recoverPassword] = usePasswordRecoveryMutation()
 
@@ -62,15 +64,20 @@ const ForgotPassword = () => {
     actions: FormikHelpers<ForgotPasswordFormValues>
   ) => {
     try {
-      const { success } = await recoverPassword({
+      const data = await recoverPassword({
         password,
         cpassword: confirmPassword,
         // WIP: Prefix should not be hardcoded
         contactNumber: '84' + contactNumber,
         verify_code: verifyCode,
-      }).unwrap()
+      })
+        .unwrap()
+        .catch((errors) => {
+          openModal('AlertDialogModal', { message: errors.message })
+          return
+        })
 
-      if (success) {
+      if (data?.success) {
         actions.resetForm()
         replace('/auth/login')
       }
@@ -84,7 +91,7 @@ const ForgotPassword = () => {
             break
 
           default:
-            dispatch(AlertActions.addAlert({ message: errorMessage }))
+            // dispatch(AlertActions.addAlert({ message: errorMessage }))
             break
         }
       }
@@ -114,6 +121,8 @@ const ForgotPassword = () => {
     values,
     errors,
     touched,
+    dirty,
+    isValid,
     submitForm,
     validateForm,
     setFieldValue,
@@ -143,11 +152,11 @@ const ForgotPassword = () => {
       OTPRef.current?.startOtpTimer()
 
       if (success) {
-        dispatch(AlertActions.addSuccess(message))
+        openModal('AlertDialogModal', { message: message })
       }
     } catch (error) {
       const errorMessage = getErrorMessage(error)
-      dispatch(AlertActions.addAlert({ message: errorMessage }))
+      openModal('AlertDialogModal', { message: errorMessage })
     }
   }
 
@@ -233,6 +242,8 @@ const ForgotPassword = () => {
           ref: otpFieldRef,
           onSubmitEditing: checkInitialForm,
           keyboardType: 'number-pad',
+          maxLength: 6,
+          editable: isSuccess,
         }}
         error={
           touched.verifyCode && errors.verifyCode
@@ -296,12 +307,18 @@ const ForgotPassword = () => {
       <View sx={{ mt: '$8', alignItems: 'center' }}>
         <View sx={{ width: '70%' }}>
           {currentAction === CURRENT_ACTION.GET_OTP ? (
-            <Button stretch onPress={checkInitialForm} sx={{ mt: '$8' }}>
+            <Button
+              stretch
+              disabled={!isSuccess || !!errors.verifyCode}
+              onPress={checkInitialForm}
+              sx={{ mt: '$8' }}
+            >
               <Button.Label>{t('common.submit')}</Button.Label>
             </Button>
           ) : (
             <Button
               stretch
+              disabled={!isValid || !dirty}
               onPress={submitForm}
               sx={{ mt: '$8' }}
               loading={isSubmitting}
