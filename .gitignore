@@ -73,3 +73,5 @@ build/**
 .prettierrc.json
 
 .gitlab-ci.yml
+
+apps/expo/CodePush/*
