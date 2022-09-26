@@ -369,6 +369,10 @@ export enum GAME_TYPE_CODE {
   CARD_GAME = 'card_game',
 }
 
+export enum GDC_GAME_CATEGORY {
+  CARDGAME = 'cardgame',
+}
+
 export enum GAME_TAGS {
   NEW = 'new',
   HOT = 'hot',

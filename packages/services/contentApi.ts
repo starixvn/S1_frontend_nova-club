@@ -58,7 +58,14 @@ const contentApi = baseApiWithTag.injectEndpoints({
       IResponse<GetGameListResult>,
       GetGameListQueryArgs
     >({
-      query: ({ currency, game_category, limit, offset }) => ({
+      query: ({
+        currency,
+        game_category,
+        limit,
+        offset,
+        gdc_game_category,
+        gdc_tag,
+      }) => ({
         url: `/static_api/getGameList`,
         method: 'POST',
         data: {
@@ -66,6 +73,8 @@ const contentApi = baseApiWithTag.injectEndpoints({
           game_category,
           limit,
           offset,
+          gdc_game_category,
+          gdc_tag,
         },
         _config: {
           isStaticApi: true,

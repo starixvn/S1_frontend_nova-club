@@ -75,6 +75,8 @@ export interface GetGameListQueryArgs {
   game_category: string[]
   limit: number
   offset: number
+  gdc_game_category?: string[]
+  gdc_tag?: string[]
 }
 
 export interface Game {
@@ -84,6 +86,7 @@ export interface Game {
   img: string
   name: Record<LANGUAGE_CODE, string> | string
   tags: string[]
+  gdc_cat: string
 }
 
 export interface GetGameListResult {

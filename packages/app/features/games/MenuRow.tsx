@@ -1,5 +1,5 @@
 import useLocalization from 'app/provider/localization'
-import { GAME_TYPE_CODE } from 'app/utils/constant'
+import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'app/utils/constant'
 import { Image, styled, Text, View } from 'dripsy'
 import { MotiView } from 'moti'
 import {
@@ -13,13 +13,16 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Game } from 'services/contentApi.type'
 import { createParam } from 'solito'
 
+const enum FILTER_CATEGORY {
+  GDC = 'gdc',
+}
+
 const DATA = [
   {
     label: 'common.all',
     img: require('../../assets/images/games/all-icon.png'),
     bgImg: require('../../assets/images/games/games/red-ellipse.png'),
     gameType: [
-      GAME_TYPE_CODE.CARD_GAME,
       GAME_TYPE_CODE.GAMES,
       GAME_TYPE_CODE.FISHING,
       GAME_TYPE_CODE.LOTTERY,
@@ -29,7 +32,8 @@ const DATA = [
     label: 'game.category.cardGame',
     img: require('../../assets/images/games/card_games.png'),
     bgImg: require('../../assets/images/games/games/blue-ellipse.png'),
-    gameType: [GAME_TYPE_CODE.CARD_GAME],
+    gameType: [GDC_GAME_CATEGORY.CARDGAME],
+    filterCategory: FILTER_CATEGORY.GDC,
   },
   {
     label: 'game.category.localGame',
@@ -74,10 +78,16 @@ const MenuRow = ({ setFilterGames, gameList }: MenuRowProps) => {
       return
 
     const gameType = item.gameType
+    const filterCategory = item.filterCategory
 
-    const filteredGames = gameList.filter((gamesLists) =>
-      gameType.includes(gamesLists.gtc as GAME_TYPE_CODE)
-    )
+    const filteredGames = gameList.filter((gamesLists) => {
+      const category =
+        filterCategory === FILTER_CATEGORY.GDC
+          ? gamesLists.gdc_cat
+          : gamesLists.gtc
+
+      return gameType.includes(category)
+    })
 
     setFilterGames(filteredGames)
     setSelectedIndex(index)

@@ -3,7 +3,7 @@ import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Currency, GAME_TYPE_CODE } from 'app/utils/constant'
 import { View } from 'dripsy'
-import React, { memo, useRef, useState } from 'react'
+import React, { memo, useMemo, useRef, useState } from 'react'
 import { LayoutAnimation } from 'react-native'
 import { useGetGameListQuery } from 'services/contentApi'
 import { Game } from 'services/contentApi.type'
@@ -25,18 +25,55 @@ const Games = () => {
   const { data: playerProfile } = usePlayerProfileQuery()
   const { currency } = playerProfile?.data || {}
 
-  const { data: gameList, isFetching: isFetchingGameList } =
+  const {
+    data: gameListByGameCategory,
+    isFetching: isFetchingGameListByGameCategory,
+  } = useGetGameListQuery({
+    currency: currency ?? Currency.VND,
+    game_category: [
+      GAME_TYPE_CODE.GAMES,
+      GAME_TYPE_CODE.FISHING,
+      GAME_TYPE_CODE.LOTTERY,
+    ],
+    limit: 100,
+    offset: 0,
+  })
+
+  const { data: gameListByGdc, isFetching: isFetchingGameListByGdc } =
     useGetGameListQuery({
       currency: currency ?? Currency.VND,
-      game_category: [
-        GAME_TYPE_CODE.GAMES,
-        GAME_TYPE_CODE.CARD_GAME,
-        GAME_TYPE_CODE.FISHING,
-        GAME_TYPE_CODE.LOTTERY,
-      ],
+      game_category: [],
       limit: 100,
       offset: 0,
+      gdc_game_category: ['cardgame'],
+      gdc_tag: [],
     })
+
+  const concatGameList = (lists?: (Game[] | undefined)[]) => {
+    if (!lists) return []
+
+    const concatList = lists.reduce((concatList, currentList) => {
+      return (concatList || []).concat(currentList || [])
+    }, [])
+
+    return concatList
+  }
+
+  const isFetchingGameList =
+    isFetchingGameListByGameCategory || isFetchingGameListByGdc
+
+  const gameListByGameCategoryRows = gameListByGameCategory?.data?.rows
+  const gameListByGdcRows = gameListByGdc?.data?.rows
+  const gameList = useMemo(() => {
+    if (isFetchingGameList) return []
+
+    const gameList = concatGameList([
+      gameListByGameCategoryRows,
+      gameListByGdcRows,
+    ])
+
+    return gameList
+  }, [gameListByGameCategoryRows, gameListByGdcRows, isFetchingGameList])
 
   return (
     <VerticalGameList
@@ -56,7 +93,7 @@ const Games = () => {
           />
           {/* <BannerSection /> */}
           <MenuRow
-            gameList={gameList?.data?.rows}
+            gameList={gameList}
             setFilterGames={(games) => {
               // console.log('set new list', games.length)
               setFilterGames(games)
