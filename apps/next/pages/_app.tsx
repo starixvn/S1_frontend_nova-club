@@ -7,13 +7,21 @@ import type { SolitoAppProps } from 'solito'
 import '../global.css'
 import { Container } from 'dripsy'
 
-import { AnimatePresence } from 'framer-motion'
 import layouts from '../layouts'
-import TabLayout from '../layouts/TabLayout'
 import AuthenticationProvider from '../components/AuthenticationProvider'
 import useFontInit from 'app/hooks/useFontInit'
 import Branch from '../integrations/Branch'
 import Shield from '../scripts/Shield'
+import {
+  SEO_DESCRIPTION,
+  SEO_DOMAIN,
+  SEO_IMAGE,
+  SEO_KEYWORD,
+  SEO_TITLE,
+  SEO_TWITTER_CARD,
+  SEO_TYPE,
+  SEO_URL,
+} from 'app/constant/seo'
 
 function MyApp({ Component, pageProps, router }: SolitoAppProps) {
   const getLayout = Component.getLayout || layouts.COMMON()
@@ -22,8 +30,20 @@ function MyApp({ Component, pageProps, router }: SolitoAppProps) {
   return (
     <>
       <Head>
-        <title>Vui 123</title>
-        <meta name="description" content="Vui 123" />
+        <title>{SEO_TITLE}</title>
+        <meta name="description" content={SEO_DESCRIPTION} />
+        <meta name="keywords" content={SEO_KEYWORD} />
+        <meta property="og:url" content={SEO_URL} />
+        <meta property="og:type" content={SEO_TYPE} />
+        <meta property="og:title" content={SEO_TITLE} />
+        <meta property="og:description" content={SEO_DESCRIPTION} />
+        <meta property="og:image" content={SEO_IMAGE} />
+        <meta name="twitter:card" content={SEO_TWITTER_CARD} />
+        <meta property="twitter:domain" content={SEO_DOMAIN} />
+        <meta property="twitter:url" content={SEO_URL} />
+        <meta name="twitter:title" content={SEO_TITLE} />
+        <meta name="twitter:description" content={SEO_DESCRIPTION} />
+        <meta name="twitter:image" content={SEO_IMAGE} />
         <meta
           name="viewport"
           content="width=375, initial-scale=1.0, user-scalable=no, maximum-scale=1"
