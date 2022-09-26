@@ -63,6 +63,11 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
+    "bundle": "rm -rf CodePush/* && node node_modules/.bin/react-native bundle --platform ios --entry-file index.js --bundle-output ./CodePush/main.jsbundle --assets-dest ./CodePush --dev false --reset-cache",
+    "codepush:ios:staging": "APP_ENV=stag yarn bundle && appcenter codepush release -a app_team/NClub-ios -d Staging -m -t 1.0.6 -c ./CodePush",
+    "codepush:android:staging": "APP_ENV=stag yarn bundle && appcenter codepush release -a app_team/NClub-android -d Staging -m -t 1.0.6 -c ./CodePush",
+    "codepush:ios:prod": "yarn bundle && appcenter codepush release -a app_team/NClub-ios -d Production -m -t 1.0.6 -c ./CodePush",
+    "codepush:android:prod": "yarn bundle && appcenter codepush release -a app_team/NClub-android -d Production -m -t 1.0.6 -c ./CodePush",
     "build:all:staging": "eas build --profile staging --platform all",
     "build:android:staging": "eas build --profile staging --platform android",
     "build:ios:staging": "eas build --profile staging --platform ios"
