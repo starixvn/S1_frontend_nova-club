@@ -238,14 +238,6 @@ const AutoDepositForm = ({ module, DepositCategoryId }) => {
         >
           <Button.Label>{t('common.next')}</Button.Label>
         </Button>
-
-        <Button
-          onPress={() => {
-            openModal('AlertModal', { message: getErrorMessage('error') })
-          }}
-        >
-          <Button.Label>Modal</Button.Label>
-        </Button>
       </View>
     </TextField>
   )
