@@ -1,4 +1,3 @@
-import Header from 'app/components/common/Header'
 import MenuNotice from 'app/components/common/MenuNotice'
 import { Button } from 'app/components/form/Button'
 import IconButton from 'app/components/form/IconButton'
@@ -6,14 +5,13 @@ import InputBase, {
   INPUT_BASE_SPACE,
 } from 'app/components/form/Input/InputBase'
 import MoneyInput from 'app/components/form/Input/MoneyInput'
-import Page, { PageWithBackHeader } from 'app/components/layout/Page'
+import { PageWithBackHeader } from 'app/components/layout/Page'
 import { TRANSFER_NOTES } from 'app/constant/notes'
-import { MARGIN_TEXT_CENTERING } from 'app/constant/sizes'
 import AvailableBalance from 'app/features/withdrawal/AvailableBalance'
 import { useIsFocused } from 'app/hooks/isFocus/useIsFocused'
+import useAlert from 'app/hooks/useAlert'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
-import { AlertActions } from 'app/store/alert.slice'
 import { SettingActions } from 'app/store/setting.slice'
 import {
   toCleanAmount,
@@ -22,14 +20,14 @@ import {
   toRealAmount,
 } from 'app/utils'
 import { Currency } from 'app/utils/constant'
-import validation from 'app/utils/validation'
+import validation, { getErrorMessage } from 'app/utils/validation'
 import validationRule from 'app/utils/validationRule'
 import { Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect } from 'react'
 import { useModal } from 'react-native-modalfy'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useDispatch } from 'react-redux'
-import { useAffiliateUsernameQuery } from 'services/contentApi'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import {
   usePlayerBalanceQuery,
@@ -54,6 +52,7 @@ const TransferScreen = ({
 }) => {
   const dispatch = useDispatch()
   const { openModal } = useModal()
+  const { showAlert } = useAlert()
   const { push, back } = useRouter()
   const { t } = useLocalization()
   const isFocus = useIsFocused()
@@ -81,7 +80,7 @@ const TransferScreen = ({
   useEffect(() => {
     setFieldValue('referralId', referralCode)
     if (referralCode === playerData?.data?.referral_code)
-      openModal('AlertDialogModal', {
+      openModal('AlertModal', {
         message: t('status.qrTransferSelfError'),
         onClose: () => back(),
       })
@@ -100,14 +99,18 @@ const TransferScreen = ({
         to_invitation_code: referralId,
       })
         .unwrap()
-        .catch((error) => dispatch(AlertActions.addError(error.message)))
+        .catch((error) => {
+          showAlert(error)
+          return error
+        })
 
       if (success) {
-        dispatch(AlertActions.addSuccess(message))
+        Toast.show({ type: 'success', text1: message })
         actions.resetForm()
+        back()
       }
-    } catch (e) {
-      dispatch(AlertActions.addError('status.systemError'))
+    } catch (error) {
+      showAlert(error)
     } finally {
       actions.setSubmitting(false)
     }

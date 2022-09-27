@@ -1,26 +1,15 @@
+import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
+import { Text } from 'dripsy'
+import React, { useState } from 'react'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useDeletePlayerBankAccMutation } from 'services/bank'
-import { PlayerBankResult } from 'services/bank.type'
-import { Text, View } from 'dripsy'
-import React, { forwardRef, useImperativeHandle, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import Modal from 'app/components/modal'
 import ModalContent from './ModalContent'
 import ModalWrapper from './ModalWrapper'
-import { AlertActions } from 'app/store/alert.slice'
-import { Toast } from 'react-native-toast-message/lib/src/Toast'
-
-type PlayerBankDeleteModalProps = {
-  //   bank: PlayerBankResult
-}
-
-export type PlayerBankDeleteModalForwardRef = {
-  showDialog: (bank: PlayerBankResult) => void
-}
 
 const PlayerBankDeleteModal = ({ modal: { closeModal, getParam } }) => {
   const { t } = useLocalization()
-  const dispatch = useDispatch()
+  const { showAlert } = useAlert()
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const bank = getParam('bank')
@@ -38,19 +27,16 @@ const PlayerBankDeleteModal = ({ modal: { closeModal, getParam } }) => {
         bank_type_id: bank?.BankTypeId ?? 0,
       })
         .unwrap()
-        .catch((result) => {
-          dispatch(AlertActions.addError(result.message))
-          return result
+        .catch((error) => {
+          showAlert(error)
+          return error
         })
 
       if (success) {
-        Toast.show({
-          type: 'success',
-          text1: message,
-        })
+        Toast.show({ type: 'success', text1: message })
       }
     } catch (e) {
-      dispatch(AlertActions.addError('status.systemError'))
+      showAlert(t('status.systemError'))
     } finally {
       setIsSubmitting(false)
       handleDismiss()

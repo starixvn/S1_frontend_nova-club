@@ -14,9 +14,8 @@ const ManageCredentialsPage = () => {
   const { t } = useLocalization()
   const layout = useWindowDimensions()
 
-  const { data: playerData, refetch } = usePlayerProfileQuery(undefined, {
+  const { data: playerData } = usePlayerProfileQuery(undefined, {
     refetchOnMountOrArgChange: true,
-    refetchOnFocus: true,
   })
   const isPinExist = playerData?.data?.pin_exist
 

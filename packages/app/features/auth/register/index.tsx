@@ -1,9 +1,9 @@
+import useAlert from 'app/hooks/useAlert'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
-import { AlertActions } from 'app/store/alert.slice'
 import { AuthActions } from 'app/store/authReducer'
-import validation, { getErrorMessage } from 'app/utils/validation'
+import validation from 'app/utils/validation'
 import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { AnimatePresence, MotiView, useDynamicAnimation } from 'moti'
@@ -30,6 +30,7 @@ const RegisterPage = () => {
   const [register] = useRegisterMutation()
   const dispatch = useAppDispatch()
   const { push, replace } = useRouter()
+  const { showAlert } = useAlert()
   const { width } = useContainerDimension()
   const { t } = useLocalization()
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -68,8 +69,7 @@ const RegisterPage = () => {
         replace('/')
       }
     } catch (error) {
-      const errorMessage = getErrorMessage(error)
-      dispatch(AlertActions.addAlert({ message: errorMessage }))
+      showAlert(error)
       setIsSubmitting(false)
     }
   }

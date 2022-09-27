@@ -1,55 +1,21 @@
-import useContainerDimension from 'app/hooks/useContainerDimension'
-import { RootState } from 'app/provider/redux/store'
-import { AlertActions } from 'app/store/alert.slice'
+import useLocalization from 'app/provider/localization'
 import { Text } from 'dripsy'
-import React, { useCallback, useEffect, useRef } from 'react'
-import {
-  ModalEventListener,
-  ModalOnCloseEventCallback,
-  useModal,
-} from 'react-native-modalfy'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
 import ModalContent from './ModalContent'
 import ModalWrapper from './ModalWrapper'
 
-const AlertModal = ({ modal: { addListener, closeModal, closeAllModals } }) => {
-  const dispatch = useDispatch()
-  const onCloseListener = useRef<ModalEventListener | undefined>()
-  const alertList = useSelector((s: RootState) => s.alert.data)
-  const alert = alertList ? alertList[0] : undefined
+const AlertModal = ({ modal: { closeModal, getParam } }) => {
+  const { t } = useLocalization()
 
-  const isVisible = alert != null && !alert.isDismissed
+  const title = getParam('title', t('notes.importantNotice'))
+  const message = getParam('message', '')
+  const onClose = getParam('onClose')
 
-  const handleClose: ModalOnCloseEventCallback = useCallback(
-    (closingAction) => {
-      _onDismiss()
-    },
-    []
-  )
-
-  useEffect(() => {
-    onCloseListener.current = addListener('onClose', handleClose)
-
-    return () => {
-      onCloseListener.current?.remove()
-    }
-  }, [addListener, handleClose])
-
-  if (alert === undefined) return null
-  let {
-    title = 'common.importantNote',
-    message,
-    onDismiss,
-    actions,
-    persistent,
-    hideCloseButton,
-  } = alert
-
-  function _onDismiss() {
-    if (typeof onDismiss === 'function') onDismiss()
-    else dispatch(AlertActions.dismiss())
-
-    dispatch(AlertActions.next())
+  function onDismiss() {
+    closeModal()
+    setTimeout(() => {
+      onClose && onClose()
+    }, 500)
   }
 
   return (
@@ -57,8 +23,13 @@ const AlertModal = ({ modal: { addListener, closeModal, closeAllModals } }) => {
       <ModalContent
         title={title}
         closeModal={closeModal}
-        actions={actions}
-        hideCloseButton={true}
+        hideCloseButton
+        actions={[
+          {
+            label: t('common.close'),
+            onPress: onDismiss,
+          },
+        ]}
       >
         <Text>{message}</Text>
       </ModalContent>

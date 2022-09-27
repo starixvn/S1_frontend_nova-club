@@ -1,14 +1,13 @@
-import React, { useCallback } from 'react'
-import { Alert, PermissionsAndroid, Platform } from 'react-native'
-import { captureRef } from 'react-native-view-shot'
-import * as MediaLibrary from 'expo-media-library'
-import { createFileName } from 'app/utils'
-import * as htmlToImage from 'html-to-image'
-import { usePlayerProfileQuery } from 'services/playerApi'
-import { useDispatch } from 'react-redux'
-import { AlertActions } from 'app/store/alert.slice'
 import useLocalization from 'app/provider/localization'
-import Toast from 'react-native-toast-message'
+import { createFileName } from 'app/utils'
+import * as MediaLibrary from 'expo-media-library'
+import * as htmlToImage from 'html-to-image'
+import React, { useCallback } from 'react'
+import { PermissionsAndroid, Platform } from 'react-native'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
+import { captureRef } from 'react-native-view-shot'
+import { useDispatch } from 'react-redux'
+import { usePlayerProfileQuery } from 'services/playerApi'
 
 type useDownloadProps = {
   ref: React.RefObject<any>

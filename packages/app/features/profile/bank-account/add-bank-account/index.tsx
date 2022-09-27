@@ -5,17 +5,16 @@ import { PageWithBackHeader } from 'app/components/layout/Page'
 import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
 import { getBankLogo } from 'app/config/bank'
 import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
+import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
-import { AlertActions } from 'app/store/alert.slice'
 import { toCleanCard } from 'app/utils'
 import { MaxLength } from 'app/utils/constant'
-import validation, { getErrorMessage } from 'app/utils/validation'
+import validation from 'app/utils/validation'
 import { styled, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useRef } from 'react'
 import { TextInput } from 'react-native'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
-import { useDispatch } from 'react-redux'
 import {
   useAddPlayerBankAccMutation,
   useWithdrawalBankQuery,
@@ -38,9 +37,9 @@ type AddBankAccountValues = {
 }
 
 const AddBankAccountScreen = () => {
-  const dispatch = useDispatch()
   const { t } = useLocalization()
   const { back } = useRouter()
+  const { showAlert } = useAlert()
   const {
     data: bankData,
     isLoading,
@@ -73,7 +72,7 @@ const AddBankAccountScreen = () => {
     })
       .unwrap()
       .catch((error) => {
-        dispatch(AlertActions.addError(error.message))
+        showAlert(error)
         return error
       })
 
@@ -109,7 +108,10 @@ const AddBankAccountScreen = () => {
         province: bank?.bank_code ?? '',
       })
         .unwrap()
-        .catch((error) => dispatch(AlertActions.addError(error.message)))
+        .catch((error) => {
+          showAlert(error)
+          return error
+        })
 
       if (success) {
         Toast.show({ type: 'success', text1: message })
@@ -119,8 +121,8 @@ const AddBankAccountScreen = () => {
           back()
         }, 150)
       }
-    } catch (e) {
-      dispatch(AlertActions.addError('status.systemError'))
+    } catch (error) {
+      showAlert(error)
     }
   }
 
@@ -134,8 +136,7 @@ const AddBankAccountScreen = () => {
         Toast.show({ type: 'success', text1: message })
       }
     } catch (error) {
-      const errorMessage = getErrorMessage(error)
-      dispatch(AlertActions.addAlert({ message: errorMessage }))
+      showAlert(error)
     }
   }
 

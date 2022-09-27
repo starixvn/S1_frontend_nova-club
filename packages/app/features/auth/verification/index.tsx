@@ -1,21 +1,21 @@
 import { Button } from 'app/components/form/Button'
 import TextInput from 'app/components/form/TextInput'
 import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
+import useAlert from 'app/hooks/useAlert'
+import useContextualRouting from 'app/hooks/useContextualRouting'
+import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
-import { useSendRegistrationOtpMutation } from 'services/authApi'
-import { AlertActions } from 'app/store/alert.slice'
-import { getErrorMessage } from 'app/utils/validation'
 import { Pressable, Text, useDripsyTheme, View } from 'dripsy'
 import Checkbox from 'expo-checkbox'
 import { FormikProps } from 'formik'
 import React, { useRef } from 'react'
 import { TextInput as RNTextField } from 'react-native'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
+import { useSendRegistrationOtpMutation } from 'services/authApi'
+import { useRouter } from 'solito/router'
+import ReceiveOTPContact from '../common/ReceiveOTPContact'
 import AuthLayout from '../layout/AuthLayout'
 import { RegisterFormValues } from '../register'
-import useLocalization from 'app/provider/localization'
-import ReceiveOTPContact from '../common/ReceiveOTPContact'
-import { useRouter } from 'solito/router'
-import useContextualRouting from 'app/hooks/useContextualRouting'
 
 interface VerificationFormProps {
   formik: FormikProps<RegisterFormValues>
@@ -29,6 +29,7 @@ const VerificationForm = ({
   isSubmitting,
 }: VerificationFormProps) => {
   const { t } = useLocalization()
+  const { showAlert } = useAlert()
 
   const {
     handleChange,
@@ -80,11 +81,10 @@ const VerificationForm = ({
       OTPRef.current?.startOtpTimer()
 
       if (success) {
-        dispatch(AlertActions.addSuccess(message))
+        Toast.show({ type: 'success', text1: message })
       }
     } catch (error) {
-      const errorMessage = getErrorMessage(error)
-      dispatch(AlertActions.addAlert({ message: errorMessage }))
+      showAlert(error)
     }
   }
 

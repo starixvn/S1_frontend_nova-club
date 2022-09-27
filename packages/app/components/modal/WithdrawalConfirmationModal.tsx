@@ -21,9 +21,9 @@ const WithdrawalConfirmationModal = ({ modal: { closeModal, getParam } }) => {
   }
 
   function onWithdrawalConfirmed() {
-    onConfirm && onConfirm()
+    onDismiss()
     setTimeout(() => {
-      onDismiss()
+      onConfirm && onConfirm()
     }, 150)
   }
 

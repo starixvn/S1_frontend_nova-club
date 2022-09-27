@@ -1,25 +1,26 @@
-import React, { useEffect, useState } from 'react'
-import * as ImagePicker from 'expo-image-picker'
-import { Platform } from 'react-native'
-import jsQR from 'jsqr'
-import { Buffer } from 'buffer'
-import jpeg from 'jpeg-js'
-import { useDispatch, useSelector } from 'react-redux'
-import { AlertActions } from 'app/store/alert.slice'
 import useLocalization from 'app/provider/localization'
-import { useLazyAffiliateUsernameQuery } from 'services/contentApi'
-import useContextualRouting from '../useContextualRouting'
-import { useRouter } from 'solito/router'
-import { useIsFocused } from '../isFocus/useIsFocused'
 import { RootState } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
+import { Buffer } from 'buffer'
+import * as ImagePicker from 'expo-image-picker'
+import jpeg from 'jpeg-js'
+import jsQR from 'jsqr'
+import { useEffect, useState } from 'react'
+import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLazyAffiliateUsernameQuery } from 'services/contentApi'
+import { useRouter } from 'solito/router'
+import { useIsFocused } from '../isFocus/useIsFocused'
+import useAlert from '../useAlert'
+import useContextualRouting from '../useContextualRouting'
 const PNG = require('pngjs/browser').PNG
 
 const useImagePicker = () => {
   const { t } = useLocalization()
   const { push } = useRouter()
   const { openModal } = useModal()
+  const { showAlert } = useAlert()
   const dispatch = useDispatch()
   const isScanning = useSelector(
     (state: RootState) => state.setting.transferScan
@@ -50,6 +51,10 @@ const useImagePicker = () => {
       base64: true,
       quality: 1,
     })
+    console.log(
+      '🚀 ~ file: useImagePicker.ts ~ line 54 ~ pickImageFromGallery ~ result',
+      result
+    )
 
     if (!result.cancelled) {
       try {
@@ -72,18 +77,22 @@ const useImagePicker = () => {
             imageParse = jpeg.decode(imageBuffer, { useTArray: true })
             break
           default:
-            dispatch(AlertActions.addError(t('status.imageNotSupported')))
+            showAlert(t('status.imageNotSupported'))
             return
         }
         const imageData = imageParse.data
         const data = Uint8ClampedArray.from(imageData)
         const code = jsQR(data, result.width, result.height)
+        console.log(
+          '🚀 ~ file: useImagePicker.ts ~ line 88 ~ pickImageFromGallery ~ code',
+          code
+        )
 
         code
           ? handleGoToTransfer(code?.data)
-          : dispatch(AlertActions.addError(t('status.scanFailed')))
+          : showAlert(t('status.scanFailed'))
       } catch (error) {
-        dispatch(AlertActions.addError(t('status.imageNotSupported')))
+        showAlert(t('status.imageNotSupported'))
       } finally {
         setLoading(false)
       }
@@ -100,8 +109,7 @@ const useImagePicker = () => {
     const data = await fetchUsername(cleanText)
       .unwrap()
       .catch((error) => {
-        // dispatch(AlertActions.addError(error.message))
-        openModal('AlertDialogModal', {
+        openModal('AlertModal', {
           message: error.message,
           onClose: () => handleScan(true),
         })
