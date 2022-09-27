@@ -99,6 +99,7 @@
     "cardCode": "Mã số thẻ",
     "cardSerialNo": "Số sê-ri thẻ.",
     "cardValue": "Mệnh giá thẻ",
+    "channel": "Tài khoản nạp",
     "choose": "Chọn phương thức nạp tiền",
     "cryptoAmount": "123,456 đồng",
     "deduction": "Khấu trừ",
@@ -111,6 +112,7 @@
       "qrCode": "QR Pay",
       "topUp": "Thẻ cào"
     },
+    "minMaxLimit": "Tối thiểu/Tối đa",
     "paymentMode": "Chọn cổng thanh toán",
     "pleaseConfirmDeposit": "Vui lòng xác nhận thông tin gửi tiền bên dưới",
     "selectChannel": "Chọn tài khoản nạp",

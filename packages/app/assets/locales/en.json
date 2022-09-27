@@ -99,6 +99,7 @@
     "cardCode": "Card Code",
     "cardSerialNo": "Card serial no.",
     "cardValue": "Card Value",
+    "channel": "Channel",
     "choose": "Choose your Deposit Options",
     "cryptoAmount": "123,456 VND",
     "deduction": "Deduction",
@@ -111,6 +112,7 @@
       "qrCode": "QR Pay",
       "topUp": "Top Up Card"
     },
+    "minMaxLimit": "Min/Max Limit",
     "paymentMode": "Payment Mode",
     "pleaseConfirmDeposit": "Please confirm deposit information below",
     "selectChannel": "Select Channel",

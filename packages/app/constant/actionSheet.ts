@@ -5,4 +5,5 @@ export enum ACTION_SHEET_ID {
   AUTO_DEPOSIT = 'autoDeposit',
   LOCAL_BANK = 'localBank',
   ADD_BANK_ACCOUNT = 'addBankAccount',
+  CHANNEL = 'channel',
 }
