@@ -69,7 +69,7 @@ const GameLoaderPage = () => {
   return (
     <View sx={{ flex: 1, bg: '$background' }}>
       <PageWithBackHeader header={{ title: title ?? 'Game' }} disableScrollView>
-        {gameUrl && <WebView url={url ?? ''} />}
+        {gameUrl && <WebView url={url?.trim() ?? ''} />}
       </PageWithBackHeader>
     </View>
   )
