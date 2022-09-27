@@ -155,6 +155,7 @@ const AutoDepositForm = ({ module, DepositCategoryId }) => {
 
   const handleSelected = (value) => {
     setSelectedValues(value)
+    formik.resetForm()
   }
 
   return (
@@ -169,7 +170,7 @@ const AutoDepositForm = ({ module, DepositCategoryId }) => {
         sx={{ mt: '$2', mb: 0 }}
         _actionSheet={{
           sheetId: ACTION_SHEET_ID.CHANNEL,
-          headerTitle: t('bank.bank'),
+          headerTitle: t('deposit.channel'),
         }}
       />
 
