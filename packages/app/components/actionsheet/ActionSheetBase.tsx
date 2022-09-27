@@ -87,7 +87,7 @@ const ActionSheetBase = ({
       <View
         sx={{
           backgroundColor: 'white',
-          minHeight: 100,
+          // minHeight: 100,
           maxHeight: height / 2 + 48,
         }}
       >
@@ -96,10 +96,12 @@ const ActionSheetBase = ({
           onMomentumScrollEnd={() =>
             actionSheetRef.current?.handleChildScrollEnd()
           }
-          contentContainerStyle={{
-            paddingBottom: getBottomSpace(),
-            height: '100%',
-          }}
+          contentContainerStyle={
+            {
+              // paddingBottom: getBottomSpace(),
+              // height: '100%',
+            }
+          }
         >
           {children ?? <HistoryEmpty sx={{ my: '$4' }} />}
         </ScrollView>

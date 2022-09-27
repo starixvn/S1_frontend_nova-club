@@ -2,12 +2,11 @@ import MenuNotice from 'app/components/common/MenuNotice'
 import { Button } from 'app/components/form/Button'
 import GradientBox from 'app/components/GradientBox'
 import Icon from 'app/components/Icon'
-import ImportantNotice from 'app/components/ImportantNotice'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import { TextField } from 'app/components/TextField'
 import { DEPOSIT_NOTES } from 'app/constant/notes'
+import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
-import { AlertActions } from 'app/store/alert.slice'
 import {
   toCleanAmount,
   toCurrency,
@@ -25,7 +24,7 @@ import { styled, Text, TextInput, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React from 'react'
 import { useModal } from 'react-native-modalfy'
-import { useDispatch } from 'react-redux'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import {
   useDepositPaymentListQuery,
   useSubmitManualDepositMutation,
@@ -47,7 +46,7 @@ type CryptoValues = {
 }
 const CryptoScreen = () => {
   const { t } = useLocalization()
-  const dispatch = useDispatch()
+  const { showAlert } = useAlert()
   const { openModal } = useModal()
   const [postSubmitManualDeposit] = useSubmitManualDepositMutation()
   const { data, isLoading, isFetching } = useDepositPaymentListQuery()
@@ -75,14 +74,14 @@ const CryptoScreen = () => {
         bank_type_id: bank?.bankTypeId ?? 0,
       })
         .unwrap()
-        .catch((error) => dispatch(AlertActions.addError(error.message)))
+        .catch((error) => showAlert(error))
 
       if (success) {
-        dispatch(AlertActions.addSuccess(message))
+        Toast.show({ type: 'success', text1: message })
         actions.resetForm()
       }
-    } catch (e) {
-      dispatch(AlertActions.addError('status.systemError'))
+    } catch (error) {
+      showAlert(error)
     } finally {
       actions.setSubmitting(false)
     }

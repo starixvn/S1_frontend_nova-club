@@ -112,6 +112,7 @@ function HistoryListing<T, FetchParamsType>(
         renderItem={onRenderItem}
         onEndReached={onLoadMore}
         onEndReachedThreshold={0.5}
+        extraData={displayList}
       />
     </View>
   )

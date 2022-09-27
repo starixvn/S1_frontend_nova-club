@@ -1,8 +1,19 @@
+import { DEV_DOMAIN } from '@env'
+import { Button } from 'app/components/form/Button'
+import InputBase from 'app/components/form/Input/InputBase'
+import Select from 'app/components/form/Input/Select'
 import { TextField } from 'app/components/TextField'
-import { AlertActions } from 'app/store/alert.slice'
+import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
+import useAlert from 'app/hooks/useAlert'
+import useContextualRouting from 'app/hooks/useContextualRouting'
+import useLocalization from 'app/provider/localization'
+import { toCurrency, toDisplayAmount } from 'app/utils'
+import { Currency } from 'app/utils/constant'
+import validation from 'app/utils/validation'
+import validationRule from 'app/utils/validationRule'
+import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { SelectOptions } from 'services/common/types'
 import {
   useDepositPaymentListQuery,
@@ -13,26 +24,11 @@ import {
   PlayerInputFieldsAmount,
   PlayerInputFieldsBank,
 } from 'services/deposit.type'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
+import * as Yup from 'yup'
 import FieldAmount from './FieldAmount'
 import FieldSelectBank from './FieldSelectBank'
-import * as Yup from 'yup'
-import validation, { getErrorMessage } from 'app/utils/validation'
-import { View } from 'dripsy'
-import ImportantNotice from 'app/components/ImportantNotice'
-import { Button } from 'app/components/form/Button'
-import useLocalization from 'app/provider/localization'
-import validationRule from 'app/utils/validationRule'
-import { toCurrency, toDisplayAmount } from 'app/utils'
-import { Currency } from 'app/utils/constant'
-import useContextualRouting from 'app/hooks/useContextualRouting'
-import { useModal } from 'react-native-modalfy'
-import { usePlayerProfileQuery } from 'services/playerApi'
-import { DEPOSIT_NOTES } from 'app/constant/notes'
-import Select from 'app/components/form/Input/Select'
-import InputBase from 'app/components/form/Input/InputBase'
-import { DEV_DOMAIN } from '@env'
-import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
 
 export type AutoDepositValues = {
   bank: SelectOptions | null
@@ -43,12 +39,9 @@ export type AutoDepositValues = {
 
 const AutoDepositForm = ({ module, DepositCategoryId }) => {
   const { makeContextualHref } = useContextualRouting()
-  const to = makeContextualHref('deposit-loader')
-
   const { t } = useLocalization()
   const { push } = useRouter()
-  const dispatch = useDispatch()
-  const { openModal, closeModal } = useModal()
+  const { showAlert } = useAlert()
   const [postSubmitDeposit] = useSubmitDepositMutation()
   const { data: playerData } = usePlayerProfileQuery()
   const currency = playerData?.data?.currency as Currency
@@ -109,9 +102,7 @@ const AutoDepositForm = ({ module, DepositCategoryId }) => {
         success_url: DEV_DOMAIN,
       })
         .unwrap()
-        .catch((error) =>
-          openModal('AlertModal', { message: getErrorMessage(error) })
-        )
+        .catch((error) => showAlert(error))
 
       if (success) {
         const params = {
@@ -125,7 +116,7 @@ const AutoDepositForm = ({ module, DepositCategoryId }) => {
         })
       }
     } catch (error) {
-      openModal('AlertModal', { message: getErrorMessage(error) })
+      showAlert(error)
     } finally {
       actions.setSubmitting(false)
     }
@@ -162,17 +153,9 @@ const AutoDepositForm = ({ module, DepositCategoryId }) => {
     setFieldValue,
   } = formik
 
-  function handleConfirmDeposit() {
-    openModal('DepositConfirmationModal', {
-      amount: values.realAmount,
-      callback: () => onSubmit(values, formik),
-    })
-  }
-
   const handleSelected = (value) => {
     setSelectedValues(value)
-    // setSelectedChannel(depositPayment?.list[value])
-    console.log('value', depositPayment?.list[value])
+    formik.resetForm()
   }
 
   return (
@@ -187,7 +170,7 @@ const AutoDepositForm = ({ module, DepositCategoryId }) => {
         sx={{ mt: '$2', mb: 0 }}
         _actionSheet={{
           sheetId: ACTION_SHEET_ID.CHANNEL,
-          headerTitle: t('bank.bank'),
+          headerTitle: t('deposit.channel'),
         }}
       />
 

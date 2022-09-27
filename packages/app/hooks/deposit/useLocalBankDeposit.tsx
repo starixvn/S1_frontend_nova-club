@@ -1,16 +1,13 @@
-import { FilePickerForwardRef } from 'app/components/FilePicker'
 import { LocalBankValues } from 'app/features/deposit/local-bank'
 import useLocalization from 'app/provider/localization'
-import { AlertActions } from 'app/store/alert.slice'
 import { FormikHelpers } from 'formik'
-import React, { RefObject, useRef } from 'react'
 import { Platform } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import {
   useSubmitManualDepositMutation,
   useUploadDepositSlipMutation,
 } from 'services/deposit'
-import { Toast } from 'react-native-toast-message/lib/src/Toast'
+import useAlert from '../useAlert'
 
 type useLocalBankDepositProps = {
   selectedImage: any
@@ -18,7 +15,7 @@ type useLocalBankDepositProps = {
 
 const useLocalBankDeposit = ({ selectedImage }: useLocalBankDepositProps) => {
   const { t } = useLocalization()
-  const dispatch = useDispatch()
+  const { showAlert } = useAlert()
   const [postSubmitManualDeposit] = useSubmitManualDepositMutation()
   const [postUploadReceipt] = useUploadDepositSlipMutation()
 
@@ -29,8 +26,8 @@ const useLocalBankDeposit = ({ selectedImage }: useLocalBankDepositProps) => {
     try {
       actions.setSubmitting(true)
 
-      if (!selectedImage)
-        return dispatch(AlertActions.addError(t('status.receiptRequired')))
+      if (!selectedImage) return
+      showAlert(t('status.receiptRequired'))
 
       const { data, success, message } = await postSubmitManualDeposit({
         acc_name: bank?.bank_acc_name ?? '',
@@ -39,15 +36,18 @@ const useLocalBankDeposit = ({ selectedImage }: useLocalBankDepositProps) => {
         payment_account_id: bank?.pay_acc_id ?? 0,
       })
         .unwrap()
-        .catch((error) => dispatch(AlertActions.addError(error.message)))
+        .catch((error) => {
+          showAlert(error)
+          return error
+        })
 
       if (success) {
         await uploadSlip(data.secure_id)
         Toast.show({ type: 'success', text1: message })
         actions.resetForm()
       }
-    } catch (e) {
-      dispatch(AlertActions.addError('status.systemError'))
+    } catch (error) {
+      showAlert(error)
     } finally {
       actions.setSubmitting(false)
     }
@@ -67,10 +67,12 @@ const useLocalBankDeposit = ({ selectedImage }: useLocalBankDepositProps) => {
               },
       })
         .unwrap()
-        .catch(({ message }) => dispatch(AlertActions.addError(message)))
+        .catch((error) => {
+          showAlert(error)
+          return error
+        })
 
       if (success) {
-        // dispatch(AlertActions.addSuccess(message))
         isToast &&
           Toast.show({
             type: 'success',
@@ -78,8 +80,9 @@ const useLocalBankDeposit = ({ selectedImage }: useLocalBankDepositProps) => {
           })
         return
       }
-    } catch (e) {
-      return dispatch(AlertActions.addError('status.systemError'))
+    } catch (error) {
+      showAlert(error)
+      return error
     }
   }
 

@@ -1,12 +1,12 @@
 import { Button } from 'app/components/form/Button'
 import InputBase from 'app/components/form/Input/InputBase'
+import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
-import { AlertActions } from 'app/store/alert.slice'
 import validation, { PASSWORD_MAX_LENGTH } from 'app/utils/validation'
 import { styled, Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useChangePasswordMutation } from 'services/changePassword'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
@@ -20,8 +20,8 @@ type PasswordFormValues = {
 const ChangePasswordScreen = () => {
   const { t } = useLocalization()
   const [postChangePassword] = useChangePasswordMutation()
-  const dispatch = useDispatch()
   const { back } = useRouter()
+  const { showAlert } = useAlert()
 
   const onSubmit = async (
     { oldPassword, password, confirmPassword }: PasswordFormValues,
@@ -34,16 +34,19 @@ const ChangePasswordScreen = () => {
         cpassword: confirmPassword,
       })
         .unwrap()
-        .catch((error) => dispatch(AlertActions.addError(error.message)))
+        .catch((error) => {
+          showAlert(error)
+          return error
+        })
 
       if (success) {
-        dispatch(AlertActions.addSuccess(message))
+        Toast.show({ type: 'success', text1: message })
         actions.resetForm()
 
         back()
       }
-    } catch (e) {
-      dispatch(AlertActions.addError('status.systemError'))
+    } catch (error) {
+      showAlert(error)
     }
   }
 

@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
+import useAlert from 'app/hooks/useAlert'
 import useFontInit from 'app/hooks/useFontInit'
 import useCodePushDownload from 'app/integrations/codepush/useCodePush'
 import useLocalization from 'app/provider/localization'
@@ -46,6 +47,7 @@ const SplashScreen = () => {
   const { t } = useLocalization()
   const navigation = useNavigation()
   const dispatch = useDispatch()
+  const { showAlert } = useAlert()
   const { replace } = useRouter()
   const currentVersion = getVersion()
   // const { isReady } = useOTA()
@@ -62,6 +64,7 @@ const SplashScreen = () => {
         dispatch,
         t,
         navigation,
+        showAlert,
       },
     }
   )

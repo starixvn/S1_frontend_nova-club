@@ -16,6 +16,7 @@ export interface SplashScreenContext {
   dispatch: any
   t: Translate
   navigation: any
+  showAlert: any
 }
 
 interface useSplashScreenConfig {

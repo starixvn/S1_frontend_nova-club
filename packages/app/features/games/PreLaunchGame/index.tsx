@@ -2,14 +2,13 @@ import { DEV_DOMAIN } from '@env'
 import { Button } from 'app/components/form/Button'
 import { DripsyGradient } from 'app/components/Gradient'
 import { useTransferAllToOneMutation } from 'app/custom_services/walletApi'
+import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
-import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
+import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { AlertActions } from 'app/store/alert.slice'
 import { LaunchGamePayload } from 'app/store/gameLauncher.slice'
 import { SettingActions } from 'app/store/setting.slice'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
-import { getErrorMessage } from 'app/utils/validation'
 import { View } from 'dripsy'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Linking, Platform } from 'react-native'
@@ -278,7 +277,7 @@ const PreLaunchGame = ({}) => {
   const [agree, setAgree] = useState(true)
   const [isLaunchingGame, setIsLaunchingGame] = useState(false)
   const [isGameStateEmpty, setIsGameStateEmpty] = useState(false)
-  const dispatch = useAppDispatch()
+  const { showAlert } = useAlert()
 
   const { gameType } = gameLauncherState
   const { launchGame, isVerifying, back } = useGameLauncher(gameLauncherState)
@@ -313,13 +312,7 @@ const PreLaunchGame = ({}) => {
       await transferToGame()
       await launchGame()
     } catch (error) {
-      console.error(error)
-      const errorMessage = getErrorMessage(error)
-      dispatch(
-        AlertActions.addError({
-          message: errorMessage,
-        })
-      )
+      showAlert(error)
 
       if (window?.gameWindow && !window.gameWindow.closed)
         window.gameWindow.close()
@@ -331,13 +324,7 @@ const PreLaunchGame = ({}) => {
     try {
       await transferAllToMain()
     } catch (error) {
-      console.error(error)
-      const errorMessage = getErrorMessage(error)
-      dispatch(
-        AlertActions.addError({
-          message: errorMessage,
-        })
-      )
+      showAlert(error)
     }
   }
 
