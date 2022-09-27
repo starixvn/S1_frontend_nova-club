@@ -15,7 +15,7 @@ import validation, {
 import { Text, useDripsyTheme, View } from 'dripsy'
 import { FormikHelpers, FormikTouched, useFormik } from 'formik'
 import { useRef, useState } from 'react'
-import { TextInput as RNTextField } from 'react-native'
+import { Platform, TextInput as RNTextField } from 'react-native'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import AuthLayout from '../layout/AuthLayout'
@@ -244,6 +244,7 @@ const ForgotPassword = () => {
           keyboardType: 'number-pad',
           maxLength: 6,
           editable: isSuccess,
+          ...(Platform.OS === 'web' && { disabled: !isSuccess }),
         }}
         error={
           touched.verifyCode && errors.verifyCode
