@@ -74,4 +74,5 @@ build/**
 
 .gitlab-ci.yml
 
-apps/expo/CodePush/*
+apps/expo/CodePush/android/*
+apps/expo/CodePush/ios/*
