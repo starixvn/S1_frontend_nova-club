@@ -7,35 +7,25 @@ RUN apk add --no-cache libc6-compat
 RUN apk add --no-cache rsync
 RUN apk add git
 WORKDIR /workspace-install
-COPY package.json yarn.lock ./
-
-RUN --mount=type=bind,target=/docker-context \
-    rsync -amv --delete \
-    --exclude='node_modules' \
-    --exclude='*/node_modules' \
-    --include='package.json' \
-    --include='schema.prisma' \
-    --include='*/' --exclude='*' \
-    /docker-context/ /workspace-install/;
+COPY package.json ./
+COPY yarn.lock ./
+COPY apps/next/package.json ./apps/next/
+COPY apps/expo/package.json ./apps/expo/
+COPY packages/app/package.json ./packages/app/
+COPY packages/services/package.json ./packages/services/
+COPY packages/utils/package.json ./packages/utils/
 
 RUN yarn install
 
-# If using npm with a `package-lock.json` comment out above and use below instead
-# COPY package.json package-lock.json ./ 
-# RUN npm ci
-
 # Rebuild the source code only when needed
-FROM node:16-alpine AS builder
+FROM node:16-alpine AS builder 
 
 WORKDIR /app
 
 COPY . .
 COPY --from=deps /workspace-install/node_modules ./node_modules
 
-# Next.js collects completely anonymous telemetry data about general usage.
-# Learn more here: https://nextjs.org/telemetry
-# Uncomment the following line in case you want to disable telemetry during the build.
-# ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN yarn build:web
 
