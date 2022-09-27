@@ -1,5 +1,4 @@
 import { PortalProvider } from '@gorhom/portal'
-import RootModal from 'app/components/modal/RootModal'
 import RootToast from 'app/components/RootToast'
 import App from 'app/features/App'
 import GameLauncher from 'app/features/games/GameLauncher'
@@ -39,7 +38,6 @@ export function Provider({ children }: { children: React.ReactNode }) {
                   <ContextualNavigationProvider>
                     <PortalProvider>{children}</PortalProvider>
                     <GameLauncher />
-                    <RootModal />
                     <App />
                     <RootToast />
                   </ContextualNavigationProvider>

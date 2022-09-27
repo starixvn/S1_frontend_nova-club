@@ -1,17 +1,17 @@
 import { Button } from 'app/components/form/Button'
+import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
+import validation, { getErrorMessage } from 'app/utils/validation'
 import { View } from 'dripsy'
-import React from 'react'
-import UnderlinePinField from '../UnderlinePinField'
-
-import { AlertActions } from 'app/store/alert.slice'
-import validation from 'app/utils/validation'
 import { FormikHelpers, useFormik } from 'formik'
+import React from 'react'
+import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useDispatch } from 'react-redux'
 import { useUpdateTransferPinMutation } from 'services/pinApi'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
+import UnderlinePinField from '../UnderlinePinField'
 
 type ChangePinFormValues = {
   oldPin: string
@@ -22,7 +22,7 @@ type ChangePinFormValues = {
 const ChangePinScreen = () => {
   const { t } = useLocalization()
   const { back } = useRouter()
-  const dispatch = useDispatch()
+  const { showAlert } = useAlert()
   const [updateTransferPin] = useUpdateTransferPinMutation()
 
   const onSubmit = async (
@@ -37,15 +37,18 @@ const ChangePinScreen = () => {
         cpin: confirmPin,
       })
         .unwrap()
-        .catch((error) => dispatch(AlertActions.addError(error.message)))
+        .catch((error) => {
+          showAlert(error)
+          return error
+        })
 
       if (success) {
         Toast.show({ type: 'success', text1: message })
 
         back()
       }
-    } catch (e) {
-      dispatch(AlertActions.addError('status.systemError'))
+    } catch (error) {
+      showAlert(error)
     } finally {
       actions.setSubmitting(false)
     }

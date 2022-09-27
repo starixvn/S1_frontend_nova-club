@@ -25,15 +25,8 @@ const ProfileScreen = () => {
   }, [data, dispatch, isFetching, isLoading])
 
   const inset = useSafeArea()
-  const sx = useSx()
+
   return (
-    // <ScrollView
-    //   sx={{ bg: '$background', flex: 1, pt: 2 }}
-    //   showsVerticalScrollIndicator={false}
-    //   refreshControl={
-    //     <RefreshControl refreshing={refreshing} onRefresh={refetch} />
-    //   }
-    // >
     <Page sx={{ paddingTop: inset.top, flex: 1 }}>
       <ProfileUser username={data?.data?.username || ''} />
 

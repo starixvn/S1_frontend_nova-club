@@ -12,8 +12,8 @@ import { getBankLogo } from 'app/config/bank'
 import PaymentMethod from 'app/config/deposit'
 import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
 import { DEPOSIT_NOTES } from 'app/constant/notes'
+import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
-import { AlertActions } from 'app/store/alert.slice'
 import {
   copyToClipboard,
   toCleanAmount,
@@ -29,7 +29,6 @@ import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect, useRef, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
-import { useDispatch } from 'react-redux'
 import {
   useDepositPaymentListQuery,
   useSubmitManualDepositMutation,
@@ -48,7 +47,7 @@ export type LocalBankValues = {
 }
 
 const LocalBankScreen = () => {
-  const dispatch = useDispatch()
+  const { showAlert } = useAlert()
   const { t } = useLocalization()
   const { openModal } = useModal()
   const [limit, setLimit] = useState({ minAmount: 0, maxAmount: 0 })
@@ -97,7 +96,7 @@ const LocalBankScreen = () => {
       })
         .unwrap()
         .catch((error) => {
-          dispatch(AlertActions.addError(error.message))
+          showAlert(error)
           return null
         })
 
@@ -112,8 +111,8 @@ const LocalBankScreen = () => {
           actions.resetForm()
         }
       }
-    } catch (e) {
-      dispatch(AlertActions.addError('status.systemError'))
+    } catch (error) {
+      showAlert(error)
     }
   }
 

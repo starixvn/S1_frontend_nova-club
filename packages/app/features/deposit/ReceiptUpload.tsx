@@ -1,13 +1,14 @@
 import FilePicker, { FilePickerProps } from 'app/components/FilePicker'
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
+import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
-import { AlertActions } from 'app/store/alert.slice'
+import { getErrorMessage } from 'app/utils/validation'
 import { styled, SxProp, Text, View } from 'dripsy'
 import * as ImagePicker from 'expo-image-picker'
 import { forwardRef, useImperativeHandle } from 'react'
 import { Platform } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { useModal } from 'react-native-modalfy'
 import { useUploadDepositSlipMutation } from 'services/deposit'
 export type DepositUploadProps = FilePickerProps & {}
 export interface ReceiptUploadMethods {
@@ -19,7 +20,8 @@ export interface ReceiptUploadMethods {
 const ReceiptUpload = forwardRef<ReceiptUploadMethods, DepositUploadProps>(
   ({ value, sx, disabled, ...rest }: DepositUploadProps, ref) => {
     const { t } = useLocalization()
-    const dispatch = useDispatch()
+    const { openModal } = useModal()
+    const { showAlert } = useAlert()
 
     const [postUploadReceipt] = useUploadDepositSlipMutation()
 
@@ -43,11 +45,16 @@ const ReceiptUpload = forwardRef<ReceiptUploadMethods, DepositUploadProps>(
           file,
         })
           .unwrap()
-          .catch(({ message }) => dispatch(AlertActions.addError(message)))
+          .catch((error) => showAlert(error))
 
         return uploadResp
-      } catch (e) {
-        return dispatch(AlertActions.addError('status.systemError'))
+      } catch (error) {
+        return openModal('AlertModal', {
+          message: getErrorMessage(error),
+          onClose: () => {
+            return false
+          },
+        })
       }
     }
 

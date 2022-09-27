@@ -1,5 +1,6 @@
 import Header from 'app/components/common/Header'
 import CustomTabBar from 'app/components/CustomTabBar'
+import { PageWithBackHeader } from 'app/components/layout/Page'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
@@ -35,18 +36,20 @@ const Messages = () => {
   }
 
   return (
-    // <PageWithBackHeader header={{ title: t('menu.message/announcement') }}>
-    <View style={{ flex: 1 }}>
-      <Header title={t('menu.message/announcement')} />
-      <TabView
-        navigationState={{ index, routes }}
-        renderScene={renderScene}
-        onIndexChange={setIndex}
-        initialLayout={{ width: layout.width }}
-        renderTabBar={renderTabBar}
-      />
-    </View>
-    // </PageWithBackHeader>
+    <PageWithBackHeader
+      header={{ title: t('menu.message/announcement') }}
+      disableScrollView
+    >
+      <View style={{ flex: 1 }}>
+        <TabView
+          navigationState={{ index, routes }}
+          renderScene={renderScene}
+          onIndexChange={setIndex}
+          initialLayout={{ width: layout.width }}
+          renderTabBar={renderTabBar}
+        />
+      </View>
+    </PageWithBackHeader>
   )
 }
 

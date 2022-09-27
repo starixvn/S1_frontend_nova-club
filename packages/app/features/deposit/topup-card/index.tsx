@@ -1,3 +1,4 @@
+import { DEV_DOMAIN } from '@env'
 import MenuNotice from 'app/components/common/MenuNotice'
 import { Button } from 'app/components/form/Button'
 import InputBase from 'app/components/form/Input/InputBase'
@@ -5,8 +6,8 @@ import { DripsyGradient } from 'app/components/Gradient'
 import KeyboardView from 'app/components/KeyboardView'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import { TOPUP_NOTES } from 'app/constant/notes'
+import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
-import { AlertActions } from 'app/store/alert.slice'
 import { toCleanAmount, toCleanCard, toCurrency, toRealAmount } from 'app/utils'
 import {
   DepositPaymentMethodCategoryId,
@@ -18,13 +19,12 @@ import { styled, Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React from 'react'
 import { useModal } from 'react-native-modalfy'
-import { useDispatch } from 'react-redux'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import {
   useDepositPaymentListQuery,
   useSubmitDepositMutation,
 } from 'services/deposit'
 import { AutoBankItem, PlayerInputFieldsBank } from 'services/deposit.type'
-import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import ValueCard from '../ValueCard'
 
@@ -40,8 +40,7 @@ type TopupValues = {
 
 const TopUpCardScreen = () => {
   const { t } = useLocalization()
-  const dispatch = useDispatch()
-  const { back } = useRouter()
+  const { showAlert } = useAlert()
   const { openModal } = useModal()
   const [postSubmitDeposit] = useSubmitDepositMutation()
   const { data, isLoading, isFetching } = useDepositPaymentListQuery()
@@ -89,7 +88,7 @@ const TopUpCardScreen = () => {
     actions: FormikHelpers<TopupValues>
   ) => {
     try {
-      const { data, success, message } = await postSubmitDeposit({
+      const { data, message, success } = await postSubmitDeposit({
         amount: realAmount,
         bank: '',
         bank_type_id: paymentGateway?.bankTypeId ?? 0,
@@ -97,22 +96,25 @@ const TopUpCardScreen = () => {
         card_seri: parseInt(cardSerialNo.replaceAll(' ', '')),
         card_type: cardType,
         deposit_from: paymentGateway?.deposit_from ?? 0,
-        fail_url: 'https://stage.gball8.com/',
-        home_url: 'https://stage.gball8.com/',
-        process_url: 'https://stage.gball8.com/',
+        fail_url: DEV_DOMAIN,
+        home_url: DEV_DOMAIN,
+        process_url: DEV_DOMAIN,
         payment_account_id: paymentGateway?.pay_acc_id ?? 0,
         name: '',
-        success_url: 'https://stage.gball8.com/',
+        success_url: DEV_DOMAIN,
       })
         .unwrap()
-        .catch(({ message }) => dispatch(AlertActions.addError(message)))
+        .catch((error) => {
+          showAlert(error)
+          return error
+        })
 
       if (success) {
-        dispatch(AlertActions.addSuccess(message))
+        Toast.show({ type: 'success', text1: message })
         actions.resetForm()
       }
-    } catch (e) {
-      dispatch(AlertActions.addError('status.systemError'))
+    } catch (error) {
+      showAlert(error)
     }
   }
 

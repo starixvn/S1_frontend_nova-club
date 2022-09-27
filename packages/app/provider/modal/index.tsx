@@ -17,8 +17,7 @@ type ModalStackConfigValueType = ModalStackConfig extends Record<
   : never
 
 export interface ModalStackParams {
-  AlertModal: undefined
-  AlertDialogModal: { message: string; callback(...args: any): any }
+  AlertModal: { message: string; onClose(...args: any): any }
   DepositConfirmationModal: { amount: number; callback(...args: any): any }
   DepositUploadModal: {
     descInfo: Record<any, any>
@@ -42,7 +41,6 @@ export interface ModalStackParams {
 type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
 
 const _dynamicModal = {
-  AlertDialogModal: () => import('app/components/modal/AlertDialogModal'),
   AlertModal: () => import('app/components/modal/AlertModal'),
   DepositConfirmationModal: () =>
     import('app/components/modal/DepositConfirmationModal'),
@@ -77,9 +75,6 @@ function getDynamicComponent(key: string) {
 const modalConfig: ModalConfigType = {
   AlertModal: {
     modal: getDynamicComponent('AlertModal'),
-  },
-  AlertDialogModal: {
-    modal: getDynamicComponent('AlertDialogModal'),
   },
   DepositConfirmationModal: {
     modal: getDynamicComponent('DepositConfirmationModal'),

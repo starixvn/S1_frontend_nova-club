@@ -1,17 +1,17 @@
+import { Button } from 'app/components/form/Button'
 import { PageWithBackHeader } from 'app/components/layout/Page'
+import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
+import validation from 'app/utils/validation'
 import { Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect } from 'react'
-import UnderlinePinField from './UnderlinePinField'
-import * as Yup from 'yup'
-import validation from 'app/utils/validation'
-import { Button } from 'app/components/form/Button'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useCreateTransferPinMutation } from 'services/pinApi'
-import { useDispatch } from 'react-redux'
-import { AlertActions } from 'app/store/alert.slice'
-import { useRouter } from 'solito/router'
 import { useLazyPlayerProfileQuery } from 'services/playerApi'
+import { useRouter } from 'solito/router'
+import * as Yup from 'yup'
+import UnderlinePinField from './UnderlinePinField'
 
 type PinFormValues = {
   pin: string
@@ -20,7 +20,7 @@ type PinFormValues = {
 const CreatePinScreen = ({ hideHeader = false }) => {
   const { t } = useLocalization()
   const { back } = useRouter()
-  const dispatch = useDispatch()
+  const { showAlert } = useAlert()
   const [fetchProfile] = useLazyPlayerProfileQuery()
   const [postCreateTransferPin] = useCreateTransferPinMutation()
 
@@ -41,16 +41,19 @@ const CreatePinScreen = ({ hideHeader = false }) => {
         cpin: confirmPin,
       })
         .unwrap()
-        .catch((error) => dispatch(AlertActions.addError(error.message)))
+        .catch((error) => {
+          showAlert(error)
+          return error
+        })
 
       if (success) {
-        dispatch(AlertActions.addSuccess(message))
+        Toast.show({ type: 'success', text1: message })
         await fetchProfile()
         actions.resetForm()
         back()
       }
-    } catch (e) {
-      dispatch(AlertActions.addError('status.systemError'))
+    } catch (error) {
+      showAlert(error)
     } finally {
       actions.setSubmitting(false)
     }

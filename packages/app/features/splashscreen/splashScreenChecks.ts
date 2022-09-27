@@ -1,15 +1,10 @@
 import firestore from '@react-native-firebase/firestore'
-import { AlertActions } from 'app/store/alert.slice'
 import { isNewVersionAvailable, Version } from 'app/utils/rn-helper'
 import { Linking, Platform } from 'react-native'
-import {
-  SplashScreenContext,
-  SplashScreenHandler,
-  SplashScreenTask,
-} from './useSplashScreen'
+import { SplashScreenHandler, SplashScreenTask } from './useSplashScreen'
 
 export const checkVersionUpdated: SplashScreenTask = (context) => async () => {
-  const { dispatch, t } = context
+  const { t, showAlert } = context
   let isUptoDate = true
   let handler = () => {}
 
@@ -27,33 +22,31 @@ export const checkVersionUpdated: SplashScreenTask = (context) => async () => {
 
     handler = () => {
       if (!isUptoDate)
-        dispatch(
-          AlertActions.addAlert({
-            title: t('forceDownload.title', {
-              version: `${major}.${minor}.${patch}`,
-            }),
-            message:
-              `${t('forceDownload.message')}\n\n` +
-              latestVersion.changes.reduce((c, s) => `${c}- ${s}\n`, ''),
-            actions: [
-              {
-                label: t('forceDownload.download'),
-                onPress: () => {
-                  try {
-                    Linking.openURL(
-                      Platform.OS === 'android'
-                        ? latestVersion.androidUrl
-                        : latestVersion.iosUrl
-                    )
-                  } catch (e) {}
-                },
-                disableAutoClose: true,
+        showAlert({
+          title: t('forceDownload.title', {
+            version: `${major}.${minor}.${patch}`,
+          }),
+          message:
+            `${t('forceDownload.message')}\n\n` +
+            latestVersion.changes.reduce((c, s) => `${c}- ${s}\n`, ''),
+          actions: [
+            {
+              label: t('forceDownload.download'),
+              onPress: () => {
+                try {
+                  Linking.openURL(
+                    Platform.OS === 'android'
+                      ? latestVersion.androidUrl
+                      : latestVersion.iosUrl
+                  )
+                } catch (e) {}
               },
-            ],
-            persistent: true,
-            hideCloseButton: true,
-          })
-        )
+              disableAutoClose: true,
+            },
+          ],
+          persistent: true,
+          hideCloseButton: true,
+        })
     }
   }
 

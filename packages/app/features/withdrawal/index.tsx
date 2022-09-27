@@ -1,14 +1,16 @@
+import MenuNotice from 'app/components/common/MenuNotice'
 import { Button } from 'app/components/form/Button'
+import IconButton from 'app/components/form/IconButton'
+import { INPUT_BASE_SPACE } from 'app/components/form/Input/InputBase'
 import MoneyInput from 'app/components/form/Input/MoneyInput'
 import Select from 'app/components/form/Input/Select'
-import ImportantNotice from 'app/components/ImportantNotice'
 import { PageWithBackHeader } from 'app/components/layout/Page'
-import { TextField } from 'app/components/TextField'
 import { getBankLogo } from 'app/config/bank'
 import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
+import { WITHDRAWAL_NOTES } from 'app/constant/notes'
+import useAlert from 'app/hooks/useAlert'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
-import { AlertActions } from 'app/store/alert.slice'
 import {
   toCleanAmount,
   toCurrency,
@@ -17,28 +19,22 @@ import {
 } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import validation from 'app/utils/validation'
-import { styled, Text, View } from 'dripsy'
+import validationRule from 'app/utils/validationRule'
+import { styled, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React from 'react'
-import { SheetManager } from 'react-native-actions-sheet'
 import { useModal } from 'react-native-modalfy'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useDispatch } from 'react-redux'
 import { usePlayerBankQuery } from 'services/bank'
 import { PlayerBankResult } from 'services/bank.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
+import { usePlayerBalanceQuery } from 'services/walletApi'
 import { useSubmitWithdrawalMutation } from 'services/withdrawal'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
-import WithdrawalTransactions from './WithdrawalTransactions'
-import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import AvailableBalance from './AvailableBalance'
-import { usePlayerBalanceQuery } from 'services/walletApi'
-import IconButton from 'app/components/form/IconButton'
-import { MARGIN_TEXT_CENTERING } from 'app/constant/sizes'
-import validationRule from 'app/utils/validationRule'
-import MenuNotice from 'app/components/common/MenuNotice'
-import { WITHDRAWAL_NOTES } from 'app/constant/notes'
-import { INPUT_BASE_SPACE } from 'app/components/form/Input/InputBase'
+import WithdrawalTransactions from './WithdrawalTransactions'
 
 const actionSheetId = ACTION_SHEET_ID.WITHDRAWAL
 
@@ -71,6 +67,7 @@ const WithdrawalPage = () => {
   const { t } = useLocalization()
   const dispatch = useDispatch()
   const { push } = useRouter()
+  const { showAlert } = useAlert()
   const { openModal } = useModal()
   const { data: bankData, isLoading, isFetching } = usePlayerBankQuery()
   const [postSubmitWithdrawal] = useSubmitWithdrawalMutation()
@@ -116,14 +113,17 @@ const WithdrawalPage = () => {
         exchange_rate: 1,
       })
         .unwrap()
-        .catch((error) => dispatch(AlertActions.addError(error.message)))
+        .catch((error) => {
+          showAlert(error)
+          return error
+        })
 
       if (success) {
         Toast.show({ type: 'success', text1: message })
         actions.resetForm()
       }
-    } catch (e) {
-      dispatch(AlertActions.addError('status.systemError'))
+    } catch (error) {
+      showAlert(error)
     } finally {
       actions.setSubmitting(false)
     }

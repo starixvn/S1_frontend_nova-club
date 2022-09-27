@@ -1,13 +1,9 @@
 import { Button } from 'app/components/form/Button'
 import TextInput from 'app/components/form/TextInput'
 import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
+import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch } from 'app/provider/redux/store'
-import {
-  usePasswordRecoveryMutation,
-  useSendPasswordRecoveryOtpMutation,
-} from 'services/authApi'
-import { AlertActions } from 'app/store/alert.slice'
 import validation, {
   getErrorMessage,
   PASSWORD_MAX_LENGTH,
@@ -16,11 +12,15 @@ import { Text, useDripsyTheme, View } from 'dripsy'
 import { FormikHelpers, FormikTouched, useFormik } from 'formik'
 import { useRef, useState } from 'react'
 import { TextInput as RNTextField } from 'react-native'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
+import {
+  usePasswordRecoveryMutation,
+  useSendPasswordRecoveryOtpMutation,
+} from 'services/authApi'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
-import AuthLayout from '../layout/AuthLayout'
 import ReceiveOTPContact from '../common/ReceiveOTPContact'
-import { useModal } from 'react-native-modalfy'
+import AuthLayout from '../layout/AuthLayout'
 
 interface ForgotPasswordFormValues {
   contactNumber: string
@@ -43,7 +43,7 @@ const ForgotPassword = () => {
   const { theme } = useDripsyTheme()
   const dispatch = useAppDispatch()
   const { push, replace } = useRouter()
-  const { openModal } = useModal()
+  const { showAlert } = useAlert()
 
   const [currentAction, setCurrentAction] = useState(CURRENT_ACTION.GET_OTP)
   const otpFieldRef = useRef<RNTextField>(null)
@@ -72,12 +72,13 @@ const ForgotPassword = () => {
         verify_code: verifyCode,
       })
         .unwrap()
-        .catch((errors) => {
-          openModal('AlertDialogModal', { message: errors.message })
-          return
+        .catch((error) => {
+          showAlert(error)
+          return error
         })
 
       if (data?.success) {
+        Toast.show({ type: 'success', text1: data?.message })
         actions.resetForm()
         replace('/auth/login')
       }
@@ -91,7 +92,7 @@ const ForgotPassword = () => {
             break
 
           default:
-            // dispatch(AlertActions.addAlert({ message: errorMessage }))
+            showAlert(error)
             break
         }
       }
@@ -147,16 +148,20 @@ const ForgotPassword = () => {
       const { data, message, success } = await sendForgotPasswordOtp({
         // WIP: Prefix should not be hardcoded
         contactNumber: '84' + values.contactNumber,
-      }).unwrap()
+      })
+        .unwrap()
+        .catch((error) => {
+          showAlert(error)
+          return error
+        })
 
       OTPRef.current?.startOtpTimer()
 
       if (success) {
-        openModal('AlertDialogModal', { message: message })
+        Toast.show({ type: 'success', text1: message })
       }
     } catch (error) {
-      const errorMessage = getErrorMessage(error)
-      openModal('AlertDialogModal', { message: errorMessage })
+      showAlert(error)
     }
   }
 

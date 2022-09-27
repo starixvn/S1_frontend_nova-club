@@ -55,7 +55,6 @@ const ListActionSheet = ({
           selectedIndex={activeIndex}
           setSelectedValue={(item) => onSelect(item.value)}
           setSelectedIndex={(el) => {
-            console.log('el index', el)
             setActiveIndex(el)
           }}
         />

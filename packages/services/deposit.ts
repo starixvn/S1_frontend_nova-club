@@ -37,16 +37,6 @@ const depositApi = baseApiWithTag.injectEndpoints({
         },
       }),
       invalidatesTags: ['Balance', 'Report'],
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled
-          // `onSuccess` side-effect
-          // dispatch(dispatch(walletApi.util.invalidateTags(['Balance'])))
-          // dispatch(dispatch(playerApi.util.invalidateTags(['Report'])))
-        } catch (err) {
-          // `onError` side-effect
-        }
-      },
     }),
     submitManualDeposit: builder.mutation<
       IResponse<SubmitManualDepositResult>,
@@ -60,16 +50,6 @@ const depositApi = baseApiWithTag.injectEndpoints({
         },
       }),
       invalidatesTags: ['Balance', 'Report'],
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled
-          // `onSuccess` side-effect
-          // dispatch(dispatch(walletApi.util.invalidateTags(['Balance'])))
-          // dispatch(dispatch(playerApi.util.invalidateTags(['Report'])))
-        } catch (err) {
-          // `onError` side-effect
-        }
-      },
     }),
     uploadDepositSlip: builder.mutation<
       IResponse<string>,
@@ -82,15 +62,6 @@ const depositApi = baseApiWithTag.injectEndpoints({
         data: queryArgs,
       }),
       invalidatesTags: ['Report'],
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled
-          // `onSuccess` side-effect
-          // dispatch(dispatch(playerApi.util.invalidateTags(['Report'])))
-        } catch (err) {
-          // `onError` side-effect
-        }
-      },
     }),
   }),
 })

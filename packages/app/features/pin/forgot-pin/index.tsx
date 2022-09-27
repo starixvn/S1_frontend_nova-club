@@ -1,28 +1,26 @@
 import { Button } from 'app/components/form/Button'
-import TextInput from 'app/components/form/TextInput'
+import InputBase, {
+  INPUT_BASE_SPACE,
+} from 'app/components/form/Input/InputBase'
+import { PageWithBackHeader } from 'app/components/layout/Page'
 import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
+import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
-import { useAppDispatch } from 'app/provider/redux/store'
-import { usePasswordRecoveryMutation } from 'services/authApi'
-import { AlertActions } from 'app/store/alert.slice'
-import validation, { getErrorMessage } from 'app/utils/validation'
-import { Text, useDripsyTheme, View } from 'dripsy'
+import validation from 'app/utils/validation'
+import { useDripsyTheme, View } from 'dripsy'
 import { FormikHelpers, FormikTouched, useFormik } from 'formik'
 import { useEffect, useRef, useState } from 'react'
 import { TextInput as RNTextField } from 'react-native'
-import { useRouter } from 'solito/router'
-import * as Yup from 'yup'
-import { PageWithBackHeader } from 'app/components/layout/Page'
-import UnderlinePinField from '../UnderlinePinField'
+import { useModal } from 'react-native-modalfy'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import {
   useTransferPinRecoveryMutation,
   useTransferPinRecoveryOtpMutation,
 } from 'services/pinApi'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import { Toast } from 'react-native-toast-message/lib/src/Toast'
-import InputBase, {
-  INPUT_BASE_SPACE,
-} from 'app/components/form/Input/InputBase'
+import { useRouter } from 'solito/router'
+import * as Yup from 'yup'
+import UnderlinePinField from '../UnderlinePinField'
 
 interface ForgotPinFormValues {
   confirmPin: string
@@ -43,8 +41,9 @@ const enum ERROR_CODE {
 const ForgotPinScreen = () => {
   const { t } = useLocalization()
   const { theme } = useDripsyTheme()
-  const dispatch = useAppDispatch()
-  const { back, replace } = useRouter()
+  const { openModal } = useModal()
+  const { showAlert } = useAlert()
+  const { back } = useRouter()
 
   const [currentAction, setCurrentAction] = useState(CURRENT_ACTION.GET_OTP)
   const otpFieldRef = useRef<RNTextField>(null)
@@ -71,17 +70,16 @@ const ForgotPinScreen = () => {
         verify_code: verifyCode,
       })
         .unwrap()
-        .catch((error) => dispatch(AlertActions.addError(error.message)))
-
-      if (success) {
-        Toast.show({
-          type: 'success',
-          text1: message,
+        .catch((error) => {
+          showAlert(error)
+          return error
         })
+      if (success) {
+        Toast.show({ type: 'success', text1: message })
         back()
       }
     } catch (error) {
-      dispatch(AlertActions.addError('status.systemError'))
+      showAlert(error)
     }
   }
 
@@ -136,19 +134,17 @@ const ForgotPinScreen = () => {
         contactNumber: '84' + values.contactNumber,
       })
         .unwrap()
-        .catch((error) => dispatch(AlertActions.addError(error.message)))
-
+        .catch((error) => {
+          showAlert(error)
+          return error
+        })
       OTPRef.current?.startOtpTimer()
 
       if (success) {
-        Toast.show({
-          type: 'success',
-          text1: message,
-        })
+        Toast.show({ type: 'success', text1: message })
       }
     } catch (error) {
-      const errorMessage = getErrorMessage(error)
-      dispatch(AlertActions.addAlert({ message: errorMessage }))
+      showAlert(error)
     }
   }
 

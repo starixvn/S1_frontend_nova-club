@@ -1,13 +1,12 @@
 import { Button } from 'app/components/form/Button'
 import TextInput from 'app/components/form/TextInput'
+import useAlert from 'app/hooks/useAlert'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch } from 'app/provider/redux/store'
-import { AlertActions } from 'app/store/alert.slice'
 import { AuthActions } from 'app/store/authReducer'
 import { SettingActions } from 'app/store/setting.slice'
 import validation, {
-  getErrorMessage,
   PASSWORD_MAX_LENGTH,
   USERNAME_MAX_LENGTH,
 } from 'app/utils/validation'
@@ -34,7 +33,7 @@ type LoginFormValues = {
 const LoginForm = () => {
   const [login] = useLoginMutation()
   const { t } = useLocalization()
-
+  const { showAlert } = useAlert()
   const [errorMsg, setErrorMsg] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { replace } = useRouter()
@@ -84,12 +83,7 @@ const LoginForm = () => {
         throw new Error(message)
       }
     } catch (error) {
-      const errorMessage = getErrorMessage(error)
-      dispatch(
-        AlertActions.addError({
-          message: errorMessage,
-        })
-      )
+      showAlert(error)
 
       setIsSubmitting(false)
     }
