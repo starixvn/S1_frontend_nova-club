@@ -1,7 +1,14 @@
-import React from 'react'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import React, { ComponentProps } from 'react'
+import {
+  KeyboardAwareScrollView,
+  KeyboardAwareScrollViewProps,
+} from 'react-native-keyboard-aware-scroll-view'
 
-const KeyboardView = ({ children, ...rest }) => {
+interface KeyboardViewProps extends KeyboardAwareScrollViewProps {
+  children?: React.ReactNode
+}
+
+const KeyboardView = ({ children, ...rest }: KeyboardViewProps) => {
   return (
     <KeyboardAwareScrollView extraScrollHeight={60} enableOnAndroid {...rest}>
       {children}

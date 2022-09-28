@@ -194,8 +194,11 @@ const TopUpCardScreen = () => {
           />
         ),
       }}
+      contentContainerStyle={{
+        flex: 1,
+      }}
     >
-      <KeyboardView>
+      <KeyboardView contentContainerStyle={{ flex: 1 }}>
         <View sx={{ flex: 1 }}>
           <View>
             <StyledTextTitle>{t('deposit.paymentMode')}</StyledTextTitle>
@@ -257,55 +260,58 @@ const TopUpCardScreen = () => {
 
             {/* <ImportantNotice keys={DEPOSIT_NOTES} module="deposit" /> */}
           </View>
-          <StyledViewButtonWrapper
-            colors={
-              values.realAmount !== 0
-                ? ['#066D9A', '#05232E']
-                : ['#00000000', '#00000000']
-            }
-            isValid={values.realAmount !== 0}
-          >
-            {values.realAmount !== 0 && (
-              <View sx={{ mb: '$3' }}>
-                <StyledViewTextWrapper>
-                  <Text sx={{ flex: 1 }}>{t('deposit.deduction')}</Text>
-                  <Text>
-                    {toCurrency(
-                      -Math.round(values.realAmount * (vendorFee / 100))
-                    )}
-                  </Text>
-                </StyledViewTextWrapper>
-                <StyledViewTextWrapper>
-                  <Text sx={{ flex: 1 }}>{t('deposit.actualDeposit')}</Text>
-                  <Text>
-                    {toCurrency(
-                      Math.round(values.realAmount * (1 - vendorFee / 100))
-                    )}
-                  </Text>
-                </StyledViewTextWrapper>
-              </View>
-            )}
-
-            <Button
-              rounded
-              stretch
-              loading={isSubmitting}
-              disabled={!isValid || !dirty}
-              variant="lg"
-              fill={{
-                type: 'gradient',
-                color: 'secondary',
-                start: { x: 0, y: 0 },
-                end: { x: 1, y: 0 },
-              }}
-              sx={{
-                my: '$10',
-              }}
-              onPress={submitForm}
+          {/* `minHeight: 220` to make smaller screen some padding top alike effect */}
+          <View sx={{ flex: 1, justifyContent: 'flex-end', minHeight: 220 }}>
+            <StyledViewButtonWrapper
+              colors={
+                values.realAmount !== 0
+                  ? ['#066D9A', '#05232E']
+                  : ['#00000000', '#00000000']
+              }
+              isValid={values.realAmount !== 0}
             >
-              <Button.Label>{t('common.next')}</Button.Label>
-            </Button>
-          </StyledViewButtonWrapper>
+              {values.realAmount !== 0 && (
+                <View sx={{ mb: '$3' }}>
+                  <StyledViewTextWrapper>
+                    <Text sx={{ flex: 1 }}>{t('deposit.deduction')}</Text>
+                    <Text>
+                      {toCurrency(
+                        -Math.round(values.realAmount * (vendorFee / 100))
+                      )}
+                    </Text>
+                  </StyledViewTextWrapper>
+                  <StyledViewTextWrapper>
+                    <Text sx={{ flex: 1 }}>{t('deposit.actualDeposit')}</Text>
+                    <Text>
+                      {toCurrency(
+                        Math.round(values.realAmount * (1 - vendorFee / 100))
+                      )}
+                    </Text>
+                  </StyledViewTextWrapper>
+                </View>
+              )}
+
+              <Button
+                rounded
+                stretch
+                loading={isSubmitting}
+                disabled={!isValid || !dirty}
+                variant="lg"
+                fill={{
+                  type: 'gradient',
+                  color: 'secondary',
+                  start: { x: 0, y: 0 },
+                  end: { x: 1, y: 0 },
+                }}
+                sx={{
+                  my: '$10',
+                }}
+                onPress={submitForm}
+              >
+                <Button.Label>{t('common.next')}</Button.Label>
+              </Button>
+            </StyledViewButtonWrapper>
+          </View>
         </View>
       </KeyboardView>
     </PageWithBackHeader>
