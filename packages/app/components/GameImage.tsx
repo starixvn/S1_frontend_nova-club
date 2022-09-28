@@ -37,7 +37,7 @@ const GameImage = ({
     >
       {!skeleton || loaded ? (
         <MotiView
-          delay={Math.random() * 200}
+          // delay={Math.random() * 200}
           state={animationState}
           transition={{ damping: 3, mass: 0.3 }}
         >

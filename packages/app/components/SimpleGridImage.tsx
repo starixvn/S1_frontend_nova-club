@@ -148,8 +148,8 @@ const SimpleGridImage: FC<GamesProps> = ({
         <MotiView
           style={{
             position: 'absolute',
-            top: -20,
-            left: -15,
+            top: '-15%',
+            right: '-10%',
           }}
           key={image}
           delay={Math.random() * 500 + 500}
@@ -164,8 +164,8 @@ const SimpleGridImage: FC<GamesProps> = ({
             resizeMode="contain"
             source={require('../assets/images/games/common/icon-hot.png')}
             style={{
-              width: width * 0.5,
-              height: (height ?? width / GAME_IMAGE_RATIO) * 0.5,
+              width: width * 0.4,
+              aspectRatio: 1,
             }}
           />
         </MotiView>
@@ -174,12 +174,12 @@ const SimpleGridImage: FC<GamesProps> = ({
         <Image
           resizeMode="contain"
           source={require('../assets/images/games/common/icon-new.png')}
-          sx={{
+          style={{
             width: width * 0.5,
-            height: (height ?? width / GAME_IMAGE_RATIO) * 0.5,
+            aspectRatio: 130 / 78,
             position: 'absolute',
-            top: 0,
-            left: -2,
+            top: '3%',
+            left: '-6%',
           }}
         />
       )}
