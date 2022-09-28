@@ -49,10 +49,6 @@ const DepositPage = () => {
         .filter((x) => x != null)
 
       setPaymentMethodList(convertData)
-      console.log(
-        '🚀 ~ file: index.tsx ~ line 52 ~ useEffect ~ convertData',
-        convertData
-      )
 
       dispatch(BankActions.setDepositPayment(convertData))
     }
@@ -105,7 +101,11 @@ const DepositPage = () => {
                   key={item.id}
                   item={item}
                   sx={{
-                    mb: paymentMethodList.length - index <= 1 ? 0 : '$4',
+                    mb:
+                      paymentMethodList.length - index <= 1 &&
+                      (index + 1) % 2 === 1
+                        ? 0
+                        : '$4',
                   }}
                   onPress={() => handlePress(item.id)}
                 />
