@@ -2,6 +2,7 @@ import { PageWithBackHeader } from 'app/components/layout/Page'
 import WebView from 'app/components/WebView'
 import { useTransferAllToOneMutation } from 'app/custom_services/walletApi'
 import { useAppSelector } from 'app/provider/redux/store'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { View } from 'dripsy'
 import * as ScreenOrientation from 'expo-screen-orientation'
 import { useEffect } from 'react'
@@ -13,6 +14,7 @@ import { createParam } from 'solito'
 
 const { useParam } = createParam<{ gameUrl: string; title: string }>()
 const GameLoaderPage = () => {
+  const { left, right } = useSafeArea()
   const [gameUrl] = useParam('gameUrl')
   const [title] = useParam('title')
   const url = gameUrl && decodeURIComponent(gameUrl)
@@ -67,7 +69,14 @@ const GameLoaderPage = () => {
   }, [])
 
   return (
-    <View sx={{ flex: 1, bg: '$background' }}>
+    <View
+      sx={{
+        flex: 1,
+        bg: 'black',
+        paddingLeft: left,
+        paddingRight: right,
+      }}
+    >
       <PageWithBackHeader header={{ title: title ?? 'Game' }} disableScrollView>
         {gameUrl && <WebView url={url?.trim() ?? ''} />}
       </PageWithBackHeader>

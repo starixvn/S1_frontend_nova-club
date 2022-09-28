@@ -31,7 +31,7 @@ export default function App() {
       <ScrollView
         bounces={false}
         style={{ flex: 1 }}
-        contentContainerStyle={{ flex: 1 }}
+        contentContainerStyle={{ flex: 1, backgroundColor: 'black' }}
       >
         <Provider>
           <Branch />
