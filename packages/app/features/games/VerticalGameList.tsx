@@ -4,13 +4,14 @@ import useGameGridSize from 'app/hooks/useGameGridSize'
 import { useAppSelector } from 'app/provider/redux/store'
 import { GAME_TAGS } from 'app/utils/constant'
 import { styled, View } from 'dripsy'
-import React, { forwardRef, useEffect, useMemo } from 'react'
+import React, { forwardRef, useEffect, useMemo, useState } from 'react'
 
 import { Game } from 'services/contentApi.type'
 
 import { FlashList, FlashListProps } from '@shopify/flash-list'
 import IconButton from 'app/components/form/IconButton'
 import FastImage from 'react-native-fast-image'
+import { AnimatePresence, MotiView } from 'moti'
 
 type VerticalGameListProps = Omit<FlashListProps<Game>, 'renderItem'> & {
   isLoading?: boolean
@@ -32,6 +33,7 @@ const VerticalGameList = forwardRef<FlashList<Game>, VerticalGameListProps>(
     },
     ref
   ) => {
+    const [isScrolled, setScrolled] = useState(false)
     const { containerSpace, itemSpace, contentWidth } =
       useGameGridSize(numColumns)
     const locale = useAppSelector((s) => s.setting.locale)
@@ -76,6 +78,12 @@ const VerticalGameList = forwardRef<FlashList<Game>, VerticalGameListProps>(
       <View sx={{ bg: '$background', flex: 1, position: 'relative' }}>
         <FlashList<Game>
           ref={ref}
+          onScroll={({ nativeEvent }) => {
+            if (isScrolled && nativeEvent?.contentOffset?.y === 0)
+              setScrolled(false)
+            else if (!isScrolled && nativeEvent?.contentOffset?.y > 0)
+              setScrolled(true)
+          }}
           keyExtractor={(item) => {
             const { gc, gpc, gtc, img } = item
             return `${gc?.trim() + gpc + gtc + img}`
@@ -89,24 +97,30 @@ const VerticalGameList = forwardRef<FlashList<Game>, VerticalGameListProps>(
           }}
           {...rest}
         />
-        {showScrollingTop && (
-          <ScrollTopButton>
-            <IconButton
-              size={20}
-              sx={{
-                backgroundColor: 'rgb(51, 160, 208)',
-                p: '$2a',
-              }}
-              onPress={() => {
-                ref?.current?.scrollToOffset({
-                  animated: true,
-                  offset: 0,
-                })
-              }}
-              name="arrow-up"
-            />
-          </ScrollTopButton>
-        )}
+        <AnimatePresence>
+          {showScrollingTop && isScrolled && (
+            <ScrollTopButton
+              exit={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              from={{ scale: 0 }}
+            >
+              <IconButton
+                size={20}
+                sx={{
+                  backgroundColor: 'rgb(51, 160, 208)',
+                  p: '$2a',
+                }}
+                onPress={() => {
+                  ref?.current?.scrollToOffset({
+                    animated: true,
+                    offset: 0,
+                  })
+                }}
+                name="arrow-up"
+              />
+            </ScrollTopButton>
+          )}
+        </AnimatePresence>
       </View>
     )
   }
@@ -116,7 +130,7 @@ VerticalGameList.displayName = 'VerticalGameList'
 
 export default VerticalGameList
 
-const ScrollTopButton = styled(View)(() => ({
+const ScrollTopButton = styled(MotiView)(() => ({
   position: 'absolute',
   alignSelf: 'center',
   alignItems: 'center',
