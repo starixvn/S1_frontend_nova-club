@@ -85,7 +85,7 @@ const LauncherPT: NextPage<LauncherPTProps> = (props) => {
     // launch_alias=newhot is for PT Live Casino default to NEW & HOT tab
     const clientUrl = `https://hub.${domain}.com/igaming/?gameId=${code}&real=${
       demo ? 0 : 1
-    }&username=${username}&lang=en&tempToken=${
+    }&username=${username}&lang=vi&tempToken=${
       response.sessionToken.sessionToken
     }&lobby=/&support=support.html&logout=logout.html&deposit=/deposit&launch_alias=newhot`
 

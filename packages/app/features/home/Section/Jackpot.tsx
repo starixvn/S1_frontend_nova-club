@@ -8,7 +8,7 @@ import { ImageBackground } from 'react-native'
 import { useGetJackpotAmountQuery } from 'services/contentApi'
 import { useRouter } from 'solito/router'
 
-const IMAGE_HEIGHT = 145
+const IMAGE_HEIGHT = 180
 
 interface JackpotProps {}
 
@@ -32,21 +32,21 @@ const Jackpot = ({}: JackpotProps) => {
     <SkeletonPlaceholder show={isLoading} height={330}>
       {data && (
         <StyledImageBackground
-          source={require('../../../assets/images/home/gradient-bg.jpg')}
+          source={require('../../../assets/images/home/jackpot-bg.jpg')}
         >
           <Image
             resizeMode="contain"
-            source={require('../../../assets/images/home/jackpot.png')}
+            source={require('../../../assets/images/home/jackpot-animated.gif')}
             sx={{
-              width: 200,
-              height: IMAGE_HEIGHT,
-              mt: -(IMAGE_HEIGHT / 2.5),
+              width: 250,
+              height: 180,
+              marginTop: '-15%',
             }}
           />
 
-          <Text sx={{ fontWeight: 'bold', fontSize: '$4' }}>
+          {/* <Text sx={{ fontWeight: 'bold', fontSize: '$4' }}>
             {t('game.jackpot')}
-          </Text>
+          </Text> */}
 
           <NumberAnimator
             animateToNumber={parseInt(jackpotAmount)}
@@ -55,9 +55,6 @@ const Jackpot = ({}: JackpotProps) => {
               fontWeight: 'bold',
               fontSize: theme.space['$10'],
               color: '$yellowOrange',
-            }}
-            sx={{
-              mt: '$3a',
             }}
           />
 

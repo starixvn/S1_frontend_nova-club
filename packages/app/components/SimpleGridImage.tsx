@@ -1,3 +1,4 @@
+import { Gradient } from '@dripsy/gradient'
 import useLocalization from 'app/provider/localization'
 import {
   GameLauncherActions,
@@ -11,6 +12,7 @@ import { TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux'
 import Image from './common/Image'
 import Gameimage from './GameImage'
+import SimpleGridImageButton from './SimpleGridImageButton'
 interface GamesProps extends LaunchGamePayload {
   width: number
   height?: number
@@ -91,24 +93,28 @@ const SimpleGridImage: FC<GamesProps> = ({
         {(desktopMode || showPlaynow) && (
           <BottomRightSlot>
             {showPlaynow && (
-              <TouchableOpacity
+              <SimpleGridImageButton
+                colors={['#62eff9', '#d1fdfc', '#1b9c98']}
+                label={t('common.playNow')}
+                sx={{ borderColor: 'white', mb: desktopMode ? '8%' : 0 }}
+                textStyle={{
+                  color: '#062440',
+                  textShadowColor: 'rgba(255, 255, 255, 0.45)',
+                }}
                 onPress={() => {
                   dispatch(GameLauncherActions.launchGame(gamePayload))
                 }}
-              >
-                <Image
-                  resizeMode="contain"
-                  source={require('app/assets/images/games/sports/play-now.png')}
-                  style={{
-                    width: Math.min(width * 0.45, 130),
-                    aspectRatio: 180 / 48,
-                    marginBottom: desktopMode ? '8%' : 0,
-                  }}
-                />
-              </TouchableOpacity>
+              />
             )}
             {desktopMode && (
-              <TouchableOpacity
+              <SimpleGridImageButton
+                colors={['#eacd31', '#b35e11', '#dcb413']}
+                label={t('common.desktop')}
+                sx={{ borderColor: '#ffdd01' }}
+                textStyle={{
+                  color: 'white',
+                  textShadowColor: 'rgba(0, 0, 0, 0.45)',
+                }}
                 onPress={() => {
                   dispatch(
                     GameLauncherActions.launchGame({
@@ -117,16 +123,7 @@ const SimpleGridImage: FC<GamesProps> = ({
                     })
                   )
                 }}
-              >
-                <Image
-                  resizeMode="contain"
-                  source={require('app/assets/images/games/sports/desktop.png')}
-                  style={{
-                    width: Math.min(width * 0.45, 130),
-                    aspectRatio: 180 / 48,
-                  }}
-                />
-              </TouchableOpacity>
+              />
             )}
           </BottomRightSlot>
         )}
