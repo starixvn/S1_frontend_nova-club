@@ -9,7 +9,9 @@ import MoneyInput from 'app/components/form/Input/MoneyInput'
 import Select from 'app/components/form/Input/Select'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import { getBankLogo } from 'app/config/bank'
-import PaymentMethod from 'app/config/deposit'
+import PaymentMethod, {
+  DepositPaymentMethodCategoryId,
+} from 'app/config/deposit'
 import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
 import { DEPOSIT_NOTES } from 'app/constant/notes'
 import useAlert from 'app/hooks/useAlert'
@@ -21,7 +23,7 @@ import {
   toDisplayAmount,
   toRealAmount,
 } from 'app/utils'
-import { Currency, DepositPaymentMethodCategoryId } from 'app/utils/constant'
+import { Currency } from 'app/utils/constant'
 import validation from 'app/utils/validation'
 import validationRule from 'app/utils/validationRule'
 import { View } from 'dripsy'

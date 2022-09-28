@@ -5,15 +5,12 @@ import InputBase from 'app/components/form/Input/InputBase'
 import { DripsyGradient } from 'app/components/Gradient'
 import KeyboardView from 'app/components/KeyboardView'
 import { PageWithBackHeader } from 'app/components/layout/Page'
+import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
 import { TOPUP_NOTES } from 'app/constant/notes'
 import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
 import { toCleanAmount, toCleanCard, toCurrency, toRealAmount } from 'app/utils'
-import {
-  DepositPaymentMethodCategoryId,
-  MaxLength,
-  TopUpCard,
-} from 'app/utils/constant'
+import { MaxLength, TopUpCard } from 'app/utils/constant'
 import validation from 'app/utils/validation'
 import { styled, Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'

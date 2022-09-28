@@ -3,10 +3,10 @@ import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
 import React from 'react'
 import AutoDepositForm from '../components/AutoDepositForm'
-import { DepositPaymentMethodCategoryId } from 'app/utils/constant'
 import MenuNotice from 'app/components/common/MenuNotice'
 import { DEPOSIT_NOTES } from 'app/constant/notes'
 import { useModal } from 'react-native-modalfy'
+import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
 
 const OnlineBankScreen = () => {
   const { t } = useLocalization()

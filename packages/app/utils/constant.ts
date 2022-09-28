@@ -256,24 +256,6 @@ export enum GameProvider {
   SG = 'Skywind Group',
 }
 
-export enum DepositPaymentMethodCategoryId {
-  LOCAL_BANK = 1,
-  ONLINE_BANK = 1,
-  MOMO = 26,
-  QR_CODE = 27,
-  TOP_UP = 25,
-  CRYPTO = 13,
-}
-
-export enum DepositPaymentMethodCategoryType {
-  LOCAL_BANK = 'manual',
-  ONLINE_BANK = 'auto',
-  MOMO = 'auto',
-  QR_CODE = 'auto',
-  TOP_UP = 'auto',
-  CRYPTO = 'manual',
-}
-
 export enum SlotType {
   ALL = 'all',
   NEW = 'new',
