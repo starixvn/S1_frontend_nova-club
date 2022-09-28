@@ -55,6 +55,7 @@ const LiveCasino = () => {
 
   return (
     <VerticalGameList
+      showSkeleton
       numColumns={2}
       isLoading={isFetching}
       data={gameList}

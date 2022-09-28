@@ -30,6 +30,7 @@ const Sportsbook = () => {
       extraData={locale}
       showName
       showPlaynow
+      showSkeleton
       numColumns={2}
       isLoading={isFetching}
       data={gameList?.data?.rows ?? []}

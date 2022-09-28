@@ -80,6 +80,7 @@ const Games = () => {
       ref={list}
       extraData={locale}
       showName
+      // showSkeleton
       estimatedItemSize={50}
       numColumns={3}
       isLoading={isFetchingGameList}

@@ -19,6 +19,7 @@ interface GamesProps extends LaunchGamePayload {
   isNewGame?: boolean
   showName?: boolean
   showPlaynow?: boolean
+  skeleton?: boolean
 }
 
 export const GAME_IMAGE_RATIO = 325 / 315
@@ -37,6 +38,7 @@ const SimpleGridImage: FC<GamesProps> = ({
   isHotGame,
   isNewGame,
   showPlaynow,
+  skeleton,
 }) => {
   // const [isLoaded, setLoaded] = useState(false)
   const dispatch = useDispatch()
@@ -70,6 +72,7 @@ const SimpleGridImage: FC<GamesProps> = ({
             gameType === GAME_TYPE_CODE.SLOTS ||
             gameType === GAME_TYPE_CODE.FISHING
           }
+          skeleton={skeleton}
         />
         {/* {gameType === GAME_TYPE_CODE.SLOTS && (
           <Image

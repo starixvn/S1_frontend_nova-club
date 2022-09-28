@@ -41,6 +41,7 @@ const HorizontalGameList = ({ data }: { data: Game[] }) => {
             sx={{ mr: leftRightSpace * 0.5 }}
             gameType={gtc}
             gameName={formattedName}
+            skeleton
           />
         )
       })}

@@ -4,23 +4,32 @@ import useGameGridSize from 'app/hooks/useGameGridSize'
 import { useAppSelector } from 'app/provider/redux/store'
 import { GAME_TAGS } from 'app/utils/constant'
 import { styled, View } from 'dripsy'
-import React, { forwardRef, useMemo } from 'react'
+import React, { forwardRef, useEffect, useMemo } from 'react'
 
 import { Game } from 'services/contentApi.type'
 
 import { FlashList, FlashListProps } from '@shopify/flash-list'
 import IconButton from 'app/components/form/IconButton'
+import FastImage from 'react-native-fast-image'
 
 type VerticalGameListProps = Omit<FlashListProps<Game>, 'renderItem'> & {
   isLoading?: boolean
   showName?: boolean
   showPlaynow?: boolean
   showScrollingTop?: boolean
+  showSkeleton?: boolean
 }
 
 const VerticalGameList = forwardRef<FlashList<Game>, VerticalGameListProps>(
   (
-    { numColumns = 3, showName, showPlaynow, showScrollingTop, ...rest },
+    {
+      numColumns = 3,
+      showName,
+      showPlaynow,
+      showScrollingTop,
+      showSkeleton,
+      ...rest
+    },
     ref
   ) => {
     const { containerSpace, itemSpace, contentWidth } =
@@ -48,6 +57,7 @@ const VerticalGameList = forwardRef<FlashList<Game>, VerticalGameListProps>(
         <SimpleGridImage
           showPlaynow={showPlaynow}
           showName={showName}
+          skeleton={showSkeleton}
           sx={memoSpace}
           providerCode={gpc}
           gameCode={gc}

@@ -1,14 +1,20 @@
 import { MotiView, useAnimationState } from 'moti'
 import Image from './common/Image'
 import Frame from '../assets/images/games/games_frame.png'
-import { memo, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import SkeletonPlaceholder from './skeleton/SkeletonPlaceholder'
 
-const GameImage = ({ frame = false, width, height, image }) => {
-  //   const [loaded, setLoaded] = useState(false)
+const GameImage = ({
+  frame = false,
+  skeleton = false,
+  width,
+  height,
+  image,
+}) => {
+  const [loaded, setLoaded] = useState(false)
   const animationState = useAnimationState({
     from: {
-      scale: 0.8,
+      scale: 1.1,
       opacity: 0.2,
       //   translateY: Math.random() * 40 + 50,
     },
@@ -19,38 +25,62 @@ const GameImage = ({ frame = false, width, height, image }) => {
     },
   })
 
+  useEffect(() => {
+    if (skeleton) setLoaded(false)
+  }, [image, skeleton])
+
   return (
-    <MotiView
-      // delay={Math.random() * 200}
-      state={animationState}
-      transition={{ damping: 3, mass: 0.3 }}
+    <SkeletonPlaceholder
+      show={!loaded && skeleton}
+      width={width}
+      height={height}
     >
-      <Image
-        onLoad={() => {
-          animationState.transitionTo('loaded')
-        }}
-        resizeMode={'contain'} // using cover will have JILI's frame's title covered, recommended using "cover" but must fix the jili image dimension first
-        source={{ uri: image }}
-        style={{
-          width,
-          height,
-          borderRadius: 10,
-        }}
-      />
-      {frame && (
+      {!skeleton || loaded ? (
+        <MotiView
+          delay={Math.random() * 200}
+          state={animationState}
+          transition={{ damping: 3, mass: 0.3 }}
+        >
+          <Image
+            onLoad={() => {
+              animationState.transitionTo('loaded')
+            }}
+            resizeMode={'contain'} // using cover will have JILI's frame's title covered, recommended using "cover" but must fix the jili image dimension first
+            source={{ uri: image }}
+            style={{
+              width,
+              height,
+              borderRadius: 10,
+            }}
+          />
+          {frame && (
+            <Image
+              source={Frame}
+              resizeMode={'stretch'}
+              style={{
+                position: 'absolute',
+                zIndex: 1,
+                width,
+                height,
+                borderRadius: 4,
+              }}
+            />
+          )}
+        </MotiView>
+      ) : (
         <Image
-          source={Frame}
-          resizeMode={'stretch'}
+          onLoad={() => {
+            setLoaded(true)
+          }}
+          source={{ uri: image }}
           style={{
-            position: 'absolute',
-            zIndex: 1,
             width,
             height,
-            borderRadius: 4,
+            opacity: 0,
           }}
         />
       )}
-    </MotiView>
+    </SkeletonPlaceholder>
   )
 }
 

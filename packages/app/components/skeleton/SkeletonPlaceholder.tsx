@@ -14,16 +14,10 @@ const SkeletonPlaceholder = ({
     <Skeleton
       radius="square"
       colors={[
-        theme.colors.$transparent,
-        theme.colors.$gray,
-        theme.colors.$transparent,
+        'rgba(216,216,216, 0.5)',
+        'rgba(0,0,0,0)',
+        'rgba(216,216,216, 0.5)',
       ]}
-      transition={{
-        translateX: {
-          type: 'timing',
-          duration: 1000,
-        },
-      }}
       width="100%"
       {...restProps}
     >
