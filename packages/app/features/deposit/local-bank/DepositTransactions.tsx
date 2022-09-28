@@ -1,12 +1,9 @@
 import RefreshIconButton from 'app/components/form/IconButton/RefreshButton'
 import HistoryEmpty from 'app/components/history/HistoryEmpty'
+import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
 import DepositHistoryItem from 'app/features/profile/history/DepositHistoryItem'
 import useLocalization from 'app/provider/localization'
-import {
-  DepositPaymentMethodCategoryId,
-  ReportDepositStatus,
-  ReportTransactionType,
-} from 'app/utils/constant'
+import { ReportDepositStatus, ReportTransactionType } from 'app/utils/constant'
 import dayjsTz from 'app/utils/dayjs'
 import { ActivityIndicator, Text, View } from 'dripsy'
 import React from 'react'

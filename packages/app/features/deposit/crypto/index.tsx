@@ -4,6 +4,7 @@ import GradientBox from 'app/components/GradientBox'
 import Icon from 'app/components/Icon'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import { TextField } from 'app/components/TextField'
+import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
 import { DEPOSIT_NOTES } from 'app/constant/notes'
 import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
@@ -13,11 +14,7 @@ import {
   toDisplayAmount,
   toRealAmount,
 } from 'app/utils'
-import {
-  Currency,
-  DepositPaymentMethodCategoryId,
-  MaxLength,
-} from 'app/utils/constant'
+import { Currency, MaxLength } from 'app/utils/constant'
 import validation from 'app/utils/validation'
 import validationRule from 'app/utils/validationRule'
 import { styled, Text, TextInput, View } from 'dripsy'

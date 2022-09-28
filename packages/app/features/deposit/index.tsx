@@ -49,6 +49,10 @@ const DepositPage = () => {
         .filter((x) => x != null)
 
       setPaymentMethodList(convertData)
+      console.log(
+        '🚀 ~ file: index.tsx ~ line 52 ~ useEffect ~ convertData',
+        convertData
+      )
 
       dispatch(BankActions.setDepositPayment(convertData))
     }

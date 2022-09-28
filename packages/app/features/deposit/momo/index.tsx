@@ -1,12 +1,12 @@
+import MenuNotice from 'app/components/common/MenuNotice'
 import { PageWithBackHeader } from 'app/components/layout/Page'
+import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
+import { DEPOSIT_NOTES } from 'app/constant/notes'
 import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
 import React from 'react'
-import AutoDepositForm from '../components/AutoDepositForm'
-import { DepositPaymentMethodCategoryId } from 'app/utils/constant'
-import MenuNotice from 'app/components/common/MenuNotice'
 import { useModal } from 'react-native-modalfy'
-import { DEPOSIT_NOTES } from 'app/constant/notes'
+import AutoDepositForm from '../components/AutoDepositForm'
 
 const MomoScreen = () => {
   const { t } = useLocalization()
