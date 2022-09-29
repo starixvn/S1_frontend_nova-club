@@ -1,24 +1,32 @@
+import {
+  addOrientationChangeListener,
+  getOrientationAsync,
+  Orientation,
+  removeOrientationChangeListener,
+} from 'expo-screen-orientation'
 import { useEffect, useState } from 'react'
-import * as ScreenOrientation from 'expo-screen-orientation'
 
 export default function useOrientation() {
-  const [currentOrientation, setCurrentOrientation] =
-    useState<ScreenOrientation.Orientation>()
+  const [currentOrientation, setCurrentOrientation] = useState<Orientation>()
 
   useEffect(() => {
     async function getCurrent() {
-      const orientation = await ScreenOrientation.getOrientationAsync()
+      const orientation = await getOrientationAsync()
       setCurrentOrientation(orientation)
     }
 
     getCurrent()
 
-    const subs = ScreenOrientation.addOrientationChangeListener((s) => {
+    const subs = addOrientationChangeListener((s) => {
       setCurrentOrientation(s.orientationInfo.orientation)
     })
 
-    return () => ScreenOrientation.removeOrientationChangeListener(subs)
+    return () => removeOrientationChangeListener(subs)
   }, [])
 
-  return currentOrientation
+  const isLandscape =
+    currentOrientation === Orientation.LANDSCAPE_LEFT ||
+    currentOrientation === Orientation.LANDSCAPE_RIGHT
+
+  return { orientation: currentOrientation, isLandscape }
 }

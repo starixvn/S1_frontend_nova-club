@@ -108,10 +108,7 @@ const dummyData = [
 const GridSection = () => {
   const { push } = useRouter()
   const { t } = useLocalization()
-  const orientation = useOrientation()
-  const isLandscape =
-    orientation === Orientation.LANDSCAPE_LEFT ||
-    orientation === Orientation.LANDSCAPE_RIGHT
+  const { orientation, isLandscape } = useOrientation()
 
   const { width } = useContainerDimension()
   const borderedWidth = width - 4

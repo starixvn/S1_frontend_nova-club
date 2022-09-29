@@ -19,10 +19,7 @@ const Header = ({ title, actions }: { title: string }) => {
     back()
   }
 
-  const orientation = useOrientation()
-  const isLandscape =
-    orientation === ScreenOrientation.Orientation.LANDSCAPE_LEFT ||
-    orientation === ScreenOrientation.Orientation.LANDSCAPE_RIGHT
+  const { orientation, isLandscape } = useOrientation()
 
   const { top, right } = useSafeArea()
 

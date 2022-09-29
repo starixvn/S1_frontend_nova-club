@@ -11,12 +11,8 @@ interface MenuNoticeProps {
   onPress: () => void
 }
 const MenuNotice = ({ onPress, sx }: MenuNoticeProps) => {
-  const orientation = useOrientation()
+  const { orientation, isLandscape } = useOrientation()
   const { left } = useSafeArea()
-
-  const isLandscape =
-    orientation === ScreenOrientation.Orientation.LANDSCAPE_LEFT ||
-    orientation === ScreenOrientation.Orientation.LANDSCAPE_RIGHT
 
   return (
     <BouncePressable onPress={onPress} sx={{ px: '$4', mx: left, ...sx }}>

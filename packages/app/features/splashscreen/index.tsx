@@ -1,13 +1,14 @@
 import { useNavigation } from '@react-navigation/native'
 import useAlert from 'app/hooks/useAlert'
 import useFontInit from 'app/hooks/useFontInit'
+import useOrientation from 'app/hooks/useOrientation'
 import useCodePushDownload from 'app/integrations/codepush/useCodePush'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { Text } from 'dripsy'
+import { Text, View } from 'dripsy'
 import * as ScreenOrientation from 'expo-screen-orientation'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { ImageBackground } from 'react-native'
+import { Image, ImageBackground, useWindowDimensions } from 'react-native'
 import CodePush from 'react-native-code-push'
 import { getVersion } from 'react-native-device-info'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
@@ -85,17 +86,11 @@ const SplashScreen = () => {
     }
   }, [status, replace, loginResult])
 
+  const { isLandscape } = useOrientation()
+  const { width, height } = useWindowDimensions()
+
   return (
-    <ImageBackground
-      source={require('../../assets/images/splashscreen.jpg')}
-      resizeMode="cover"
-      style={{
-        width: '100%',
-        height: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
+    <View sx={{ flex: 1 }}>
       {fontsLoaded && (
         <>
           {codePushStatus === CodePush.SyncStatus.DOWNLOADING_PACKAGE && (
@@ -109,13 +104,31 @@ const SplashScreen = () => {
               right: getBottomSpace() || 10,
               fontWeight: 'bold',
               opacity: 0.8,
+              zIndex: 2,
             }}
           >
             {currentVersion}
           </Text>
         </>
       )}
-    </ImageBackground>
+      <Image
+        source={
+          isLandscape
+            ? require('../../assets/images/splashscreen_tablet.jpg')
+            : require('../../assets/images/splashscreen.jpg')
+        }
+        resizeMode="cover"
+        style={{
+          position: 'absolute',
+          zIndex: 1,
+          width: '100%',
+          height: Math.max(
+            width / (isLandscape ? 2047 / 2732 : 1242 / 2208),
+            height
+          ),
+        }}
+      />
+    </View>
   )
 }
 

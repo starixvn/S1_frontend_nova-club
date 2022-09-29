@@ -11,14 +11,14 @@ import Jackpot from './Section/Jackpot'
 import RecentOpenGames from './Section/RecentOpenGames'
 
 const HomeScreen = () => {
-  const orientation = useOrientation()
+  const { isLandscape } = useOrientation()
   return (
     <ScrollView
       bounces={false}
       sx={{ bg: '$background', flex: 1 }}
       showsVerticalScrollIndicator={false}
     >
-      {orientation === Orientation.PORTRAIT_UP && <BannerSection />}
+      {!isLandscape && <BannerSection />}
       <AnnouncementMarquee />
       <GridSection />
       <RecentOpenGames />

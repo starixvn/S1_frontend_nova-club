@@ -62,7 +62,7 @@ const BottomNavigation = () => {
   const { push } = useRouter()
   const { top } = useSafeArea()
 
-  const orientation = useOrientation()
+  const { isLandscape } = useOrientation()
 
   const { returnHref, makeContextualHref } = useContextualRouting()
 
@@ -78,10 +78,9 @@ const BottomNavigation = () => {
     return isSamePath
   }
 
-  const isPortrait = orientation === Orientation.PORTRAIT_UP
   return (
     <>
-      {isPortrait && <FloatingContent />}
+      {!isLandscape && <FloatingContent />}
 
       <Flex
         sx={{
@@ -89,8 +88,8 @@ const BottomNavigation = () => {
           justifyContent: 'space-evenly',
           backgroundColor: '#0d2035',
           width: '100%',
-          height: BAR_HEIGHT + (isPortrait ? getBottomSpace() : 0),
-          paddingBottom: isPortrait ? getBottomSpace() : 10,
+          height: BAR_HEIGHT + (isLandscape ? 0 : getBottomSpace()),
+          paddingBottom: isLandscape ? 10 : getBottomSpace(),
           // paddingX: [12, 'auto'],
         }}
       >

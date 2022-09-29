@@ -37,10 +37,7 @@ const VerticalGameList = forwardRef<FlashList<Game>, VerticalGameListProps>(
   ) => {
     const [isScrolled, setScrolled] = useState(false)
 
-    const orientation = useOrientation()
-    const isLandscape =
-      orientation === Orientation.LANDSCAPE_LEFT ||
-      orientation === Orientation.LANDSCAPE_RIGHT
+    const { isLandscape } = useOrientation()
 
     const modifiedCols = numColumns + (isLandscape ? 1 : 0)
     const { containerSpace, itemSpace, contentWidth } =
