@@ -5,7 +5,7 @@ import useImagePicker from 'app/hooks/transfer/useImagePicker'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import BarcodeMask from 'react-native-barcode-mask'
 import { QrReader } from 'react-qr-reader'
 
@@ -14,13 +14,10 @@ function QrcodeScannerTab({ isActive }) {
   const isFocus = useIsFocused()
   const { width, height } = useContainerDimension()
 
-  const {
-    loading,
-    isScanning,
-    handleScan,
-    handleGoToTransfer,
-    pickImageFromGallery,
-  } = useImagePicker()
+  const [loading, setLoading] = useState(false)
+
+  const { isScanning, handleScan, handleGoToTransfer, pickImageFromGallery } =
+    useImagePicker()
 
   useEffect(() => {
     handleScan(isActive)
@@ -64,6 +61,29 @@ function QrcodeScannerTab({ isActive }) {
     [isScanning]
   )
 
+  const onScanFromGallery = async () => {
+    setLoading(true)
+    await pickImageFromGallery()
+  }
+
+  useEffect(() => {
+    /**
+     * `document.body.onfocus` is a hacky way to solve `pickImageFromGallery` bug
+     * where on web, if user cancel from gallery, the promise will not resolved and
+     * the `loading` state from `useImagePicker` hook will always true.
+     *
+     * Root cause: Inside `useImagePicker` hook, the `expo-image-picker` library missing
+     * `FileReader.onAbort` event listener
+     */
+    document.body.onfocus = () => {
+      setLoading(false)
+    }
+
+    return () => {
+      document.body.onfocus = null
+    }
+  }, [])
+
   return (
     <View sx={{ flex: 1, bg: '$secondary' }}>
       {isScanning && QrScannerComponent}
@@ -86,7 +106,7 @@ function QrcodeScannerTab({ isActive }) {
             start: { x: 0, y: 0 },
             end: { x: 1, y: 0 },
           }}
-          onPress={pickImageFromGallery}
+          onPress={onScanFromGallery}
         >
           <Button.Label>{t('qr.scanGallery')}</Button.Label>
         </Button>
