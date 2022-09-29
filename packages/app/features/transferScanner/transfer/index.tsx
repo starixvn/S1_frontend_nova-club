@@ -77,15 +77,6 @@ const TransferScreen = ({
   const toCreatePin = makeContextualHref('create-pin')
   const toForgotPin = makeContextualHref('forgot-pin')
 
-  useEffect(() => {
-    setFieldValue('referralId', referralCode)
-    if (referralCode === playerData?.data?.referral_code)
-      openModal('AlertModal', {
-        message: t('status.qrTransferSelfError'),
-        onClose: () => back(),
-      })
-  }, [referralCode])
-
   const onSubmit = async (
     { referralId, realAmount }: TransferValues,
     transferPin: string,
@@ -147,7 +138,21 @@ const TransferScreen = ({
     submitForm,
     setFieldValue,
     setValues,
+    resetForm,
   } = formik
+
+  useEffect(() => {
+    setFieldValue('referralId', referralCode)
+    if (referralCode === playerData?.data?.referral_code)
+      openModal('AlertModal', {
+        message: t('status.qrTransferSelfError'),
+        onClose: () => back(),
+      })
+
+    if (!referralCode) {
+      resetForm()
+    }
+  }, [referralCode])
 
   useEffect(() => {
     !isPinExist && push(toCreatePin, '/pin/create-pin')
