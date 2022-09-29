@@ -9,6 +9,7 @@ import useLocalization from 'app/provider/localization'
 import { useEffect, useState } from 'react'
 import * as ScreenOrientation from 'expo-screen-orientation'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import useOrientation from 'app/hooks/useOrientation'
 
 const Header = ({ title, actions }: { title: string }) => {
   const isAndroid = Platform.OS === 'android'
@@ -18,22 +19,12 @@ const Header = ({ title, actions }: { title: string }) => {
     back()
   }
 
-  const [currentOrientation, setCurrentOrientation] = useState(
-    ScreenOrientation.Orientation.PORTRAIT_DOWN
-  )
-  useEffect(() => {
-    const subs = ScreenOrientation.addOrientationChangeListener((s) => {
-      setCurrentOrientation(s.orientationInfo.orientation)
-    })
-
-    return () => ScreenOrientation.removeOrientationChangeListener(subs)
-  }, [])
-
-  const { top } = useSafeArea()
-
+  const orientation = useOrientation()
   const isLandscape =
-    currentOrientation === ScreenOrientation.Orientation.LANDSCAPE_LEFT ||
-    currentOrientation === ScreenOrientation.Orientation.LANDSCAPE_RIGHT
+    orientation === ScreenOrientation.Orientation.LANDSCAPE_LEFT ||
+    orientation === ScreenOrientation.Orientation.LANDSCAPE_RIGHT
+
+  const { top, right } = useSafeArea()
 
   const sx = useSx()
 
@@ -64,7 +55,7 @@ const Header = ({ title, actions }: { title: string }) => {
         >
           <BouncePressable
             onPress={onGoBack}
-            sx={{ p: isLandscape ? '$0a' : '$2' }}
+            sx={{ p: '$2', px: '$4', paddingLeft: right }}
           >
             <Icon
               name="chevleft"
@@ -86,7 +77,7 @@ const Header = ({ title, actions }: { title: string }) => {
 
           {actions && (
             <View
-              sx={{ position: 'absolute', right: isLandscape ? '$0a' : '$2' }}
+              sx={{ position: 'absolute', right: isLandscape ? right : '$2' }}
             >
               {actions}
             </View>

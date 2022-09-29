@@ -4,6 +4,7 @@ import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { ActivityIndicator, styled, Text, View } from 'dripsy'
 import { useCallback, useState } from 'react'
 import { FlatList, TouchableOpacity } from 'react-native'
@@ -12,6 +13,7 @@ import MessageCard from './MessageCard'
 
 const PersonalMessagePage = () => {
   const { t } = useLocalization()
+  const { left } = useSafeArea()
   const { data, isSuccess, refetch, isFetching } = useMessageQuery()
 
   const [deleteMessages, { isLoading: isDeleting }] =
@@ -64,7 +66,7 @@ const PersonalMessagePage = () => {
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
       >
-        <StyledView>
+        <StyledView sx={{ px: left }}>
           <TouchableOpacity onPress={selectAll}>
             <View sx={{ flexDirection: 'row', alignItems: 'center' }}>
               <CheckBox isCheck={isAllSelected} />

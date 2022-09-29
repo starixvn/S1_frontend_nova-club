@@ -9,9 +9,10 @@ import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { LaunchGamePayload } from 'app/store/gameLauncher.slice'
 import { SettingActions } from 'app/store/setting.slice'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
-import { View } from 'dripsy'
+import { ScrollView, View } from 'dripsy'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Linking, Platform } from 'react-native'
+import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { useDispatch } from 'react-redux'
 import { useLazyGetGameUrlQuery } from 'services/gameApi'
 import {
@@ -296,7 +297,7 @@ const PreLaunchGame = ({}) => {
     transferToGame,
   } = useGameBalanceRule()
 
-  const { top } = useSafeArea()
+  const { top, left, right } = useSafeArea()
   const isSport = gameType === GAME_TYPE_CODE.SPORTS
 
   async function onLauchGame() {
@@ -354,43 +355,51 @@ const PreLaunchGame = ({}) => {
     <DripsyGradient colors={['#164672', '#0D2035']} sx={{ flex: 1, pt: top }}>
       <TopHeader providerCode={currentProvider} />
       <GameRewards />
-      {isSport && (
-        <UserAgreement
-          onAgree={(e) => {
-            setAgree(e)
-          }}
-          isAgree={agree}
-        />
-      )}
-      <GameAmount playerBalance={playerBalance} isSeamless={isSeamless} />
-      <View sx={{ mt: '$10', mx: '$5' }}>
-        <Button
-          loading={
-            isCheckingBalance ||
-            isTransferringToMain ||
-            !isWalletDetailsAvailable ||
-            isLaunchingGame
-          }
-          disabled={
-            (isSport && !agree) ||
-            isVerifying ||
-            !isBalanceReady ||
-            isGameMaintenance
-          }
-          rounded
-          stretch
-          variant="lg"
-          fill={{
-            type: 'gradient',
-            color: ['#33A0D0', '#0B76A5'],
-            start: { x: 0, y: 0 },
-            end: { x: 1, y: 0 },
-          }}
-          onPress={isGameRunning ? quitGame : onLauchGame}
-        >
-          <Button.Label sx={{ fontSize: [15, 16] }}>{label}</Button.Label>
-        </Button>
-      </View>
+      <ScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={{
+          paddingBottom: getBottomSpace(),
+          paddingHorizontal: right,
+        }}
+      >
+        {isSport && (
+          <UserAgreement
+            onAgree={(e) => {
+              setAgree(e)
+            }}
+            isAgree={agree}
+          />
+        )}
+        <GameAmount playerBalance={playerBalance} isSeamless={isSeamless} />
+        <View sx={{ mt: '$10', mx: '$5' }}>
+          <Button
+            loading={
+              isCheckingBalance ||
+              isTransferringToMain ||
+              !isWalletDetailsAvailable ||
+              isLaunchingGame
+            }
+            disabled={
+              (isSport && !agree) ||
+              isVerifying ||
+              !isBalanceReady ||
+              isGameMaintenance
+            }
+            rounded
+            stretch
+            variant="lg"
+            fill={{
+              type: 'gradient',
+              color: ['#33A0D0', '#0B76A5'],
+              start: { x: 0, y: 0 },
+              end: { x: 1, y: 0 },
+            }}
+            onPress={isGameRunning ? quitGame : onLauchGame}
+          >
+            <Button.Label sx={{ fontSize: [15, 16] }}>{label}</Button.Label>
+          </Button>
+        </View>
+      </ScrollView>
     </DripsyGradient>
   )
 }

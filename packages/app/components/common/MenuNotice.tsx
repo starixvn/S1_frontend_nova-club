@@ -1,26 +1,25 @@
+import useOrientation from 'app/hooks/useOrientation'
 import BouncePressable from 'app/pressable/BouncePressable'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { SxProp } from 'dripsy'
 import * as ScreenOrientation from 'expo-screen-orientation'
 import React, { useEffect, useState } from 'react'
 import Icon from '../Icon'
 
-const MenuNotice = ({ onPress }) => {
-  const [currentOrientation, setCurrentOrientation] = useState(
-    ScreenOrientation.Orientation.PORTRAIT_DOWN
-  )
-  useEffect(() => {
-    const subs = ScreenOrientation.addOrientationChangeListener((s) => {
-      setCurrentOrientation(s.orientationInfo.orientation)
-    })
-
-    return () => ScreenOrientation.removeOrientationChangeListener(subs)
-  }, [])
+interface MenuNoticeProps {
+  sx?: SxProp
+  onPress: () => void
+}
+const MenuNotice = ({ onPress, sx }: MenuNoticeProps) => {
+  const orientation = useOrientation()
+  const { left } = useSafeArea()
 
   const isLandscape =
-    currentOrientation === ScreenOrientation.Orientation.LANDSCAPE_LEFT ||
-    currentOrientation === ScreenOrientation.Orientation.LANDSCAPE_RIGHT
+    orientation === ScreenOrientation.Orientation.LANDSCAPE_LEFT ||
+    orientation === ScreenOrientation.Orientation.LANDSCAPE_RIGHT
 
   return (
-    <BouncePressable onPress={onPress} sx={{ p: isLandscape ? '$0a' : '$2' }}>
+    <BouncePressable onPress={onPress} sx={{ px: '$4', mx: left, ...sx }}>
       <Icon name="alert" size={isLandscape ? 14 : 20} color="#9CD9FA" />
     </BouncePressable>
   )

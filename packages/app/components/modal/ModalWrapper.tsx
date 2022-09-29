@@ -1,5 +1,6 @@
 import useContainerDimension from 'app/hooks/useContainerDimension'
-import { Sx, View } from 'dripsy'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { ScrollView, Sx, View } from 'dripsy'
 import React from 'react'
 
 interface ModalWrapperProps {
@@ -8,8 +9,20 @@ interface ModalWrapperProps {
 }
 
 const ModalWrapper = ({ children, sx }: ModalWrapperProps) => {
-  const { width } = useContainerDimension()
-  return <View sx={{ width, p: '$4', ...sx }}>{children}</View>
+  const { width, height } = useContainerDimension()
+  const { left, right } = useSafeArea() //Landscape
+  return (
+    <View
+      sx={{
+        p: '$4',
+        width: Math.min(500, width * 0.9),
+        justifyContent: 'center',
+        ...sx,
+      }}
+    >
+      {children}
+    </View>
+  )
 }
 
 export default ModalWrapper

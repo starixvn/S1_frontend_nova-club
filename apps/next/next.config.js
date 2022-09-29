@@ -31,6 +31,10 @@ const nextConfig = {
     defaultLocale: 'en',
     locales: ['en', 'vi'],
   },
+  // webpack: (config) => {
+  //   config.optimization.minimize = false
+  //   return config
+  // },
 }
 const { withSentryConfig } = require('@sentry/nextjs')
 const { withExpo } = require('@expo/next-adapter')

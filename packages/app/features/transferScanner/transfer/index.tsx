@@ -288,7 +288,7 @@ const TransferScreen = ({
           </View>
         )}
 
-        <View sx={{ mx: '$10' }}>
+        <View sx={{ mx: '$10', mb: '$10' }}>
           <Button
             rounded
             stretch

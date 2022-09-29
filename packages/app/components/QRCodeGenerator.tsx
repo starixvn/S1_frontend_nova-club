@@ -24,20 +24,22 @@ const QRCodeGenerator = ({
       sx={{
         alignItems: 'center',
         bg: 'white',
-        aspectRatio: 1,
         justifyContent: 'space-evenly',
+        my: '$2',
       }}
     >
-      <QRCode
-        value={isTransfer ? referralCode : referralLink}
-        size={width * 0.5}
-        logo={require('../assets/images/auth-logo.png')}
-        ecl="H"
-        quietZone={12}
-        logoBackgroundColor="white"
-        // logoMargin={4}
-        logoBorderRadius={100}
-      />
+      <View sx={{ py: '$4' }}>
+        <QRCode
+          value={isTransfer ? referralCode : referralLink}
+          size={Math.min(width * 0.7, 250)}
+          logo={require('../assets/images/auth-logo.png')}
+          ecl="H"
+          quietZone={12}
+          logoBackgroundColor="white"
+          // logoMargin={4}
+          logoBorderRadius={100}
+        />
+      </View>
       {isTransfer && (
         <Text sx={{ color: '$black', textAlign: 'center' }}>
           {t('notes.qr.n1')}

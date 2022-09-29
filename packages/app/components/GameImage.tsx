@@ -25,62 +25,62 @@ const GameImage = ({
     },
   })
 
-  useEffect(() => {
-    if (skeleton) setLoaded(false)
-  }, [image, skeleton])
+  // useEffect(() => {
+  //   if (skeleton) setLoaded(false)
+  // }, [image, skeleton])
 
   return (
-    <SkeletonPlaceholder
-      show={!loaded && skeleton}
-      width={width}
-      height={height}
+    // <SkeletonPlaceholder
+    //   show={!loaded && skeleton}
+    //   width={width}
+    //   height={height}
+    // >
+    //   {!skeleton || loaded ? (
+    <MotiView
+      // delay={Math.random() * 200}
+      state={animationState}
+      transition={{ damping: 3, mass: 0.3 }}
     >
-      {!skeleton || loaded ? (
-        <MotiView
-          // delay={Math.random() * 200}
-          state={animationState}
-          transition={{ damping: 3, mass: 0.3 }}
-        >
-          <Image
-            onLoad={() => {
-              animationState.transitionTo('loaded')
-            }}
-            resizeMode={'contain'} // using cover will have JILI's frame's title covered, recommended using "cover" but must fix the jili image dimension first
-            source={{ uri: image }}
-            style={{
-              width,
-              height,
-              borderRadius: 10,
-            }}
-          />
-          {frame && (
-            <Image
-              source={Frame}
-              resizeMode={'stretch'}
-              style={{
-                position: 'absolute',
-                zIndex: 1,
-                width,
-                height,
-                borderRadius: 4,
-              }}
-            />
-          )}
-        </MotiView>
-      ) : (
+      <Image
+        onLoad={() => {
+          animationState.transitionTo('loaded')
+        }}
+        resizeMode={'contain'} // using cover will have JILI's frame's title covered, recommended using "cover" but must fix the jili image dimension first
+        source={{ uri: image }}
+        style={{
+          width,
+          height,
+          borderRadius: 10,
+        }}
+      />
+      {frame && (
         <Image
-          onLoad={() => {
-            setLoaded(true)
-          }}
-          source={{ uri: image }}
+          source={Frame}
+          resizeMode={'stretch'}
           style={{
+            position: 'absolute',
+            zIndex: 1,
             width,
             height,
-            opacity: 0,
+            borderRadius: 4,
           }}
         />
       )}
-    </SkeletonPlaceholder>
+    </MotiView>
+    //   ) : (
+    //     <Image
+    //       onLoad={() => {
+    //         setLoaded(true)
+    //       }}
+    //       source={{ uri: image }}
+    //       style={{
+    //         width,
+    //         height,
+    //         opacity: 0,
+    //       }}
+    //     />
+    //   )}
+    // </SkeletonPlaceholder>
   )
 }
 

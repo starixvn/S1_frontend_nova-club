@@ -1,6 +1,6 @@
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useLocalization from 'app/provider/localization'
-import { View } from 'dripsy'
+import { ScrollView, View } from 'dripsy'
 import React, { useRef } from 'react'
 import ViewShot from 'react-native-view-shot'
 import useDownload from 'app/hooks/useDownload'
@@ -21,7 +21,7 @@ const QrReceiveTab = () => {
   const { appScreenshotDownload } = useDownload({ ref })
 
   return (
-    <ModalWrapper sx={{ width, p: '10%' }}>
+    <ScrollView contentContainerStyle={{ padding: '10%' }}>
       <View
         sx={{
           bg: 'white',
@@ -56,7 +56,7 @@ const QrReceiveTab = () => {
           <Button.Label>{t('qr.downloadQrCode')}</Button.Label>
         </Button>
       </View>
-    </ModalWrapper>
+    </ScrollView>
   )
 }
 

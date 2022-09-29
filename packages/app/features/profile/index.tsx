@@ -30,43 +30,37 @@ const ProfileScreen = () => {
     <Page sx={{ paddingTop: inset.top, flex: 1 }}>
       <ProfileUser username={data?.data?.username || ''} />
 
-      <View
-        sx={{
-          width: 500,
-          maxWidth: '90%',
-          marginRight: 'auto',
-          marginLeft: 'auto',
-        }}
-      >
-        <ProfileBalance />
-        <Text variant="xs" sx={{ textAlign: 'center' }}>
-          {t('profile.timeline')}
-        </Text>
-        <ProfileAction />
-      </View>
-      <View
-        sx={{
-          borderBottomWidth: 2,
-          borderColor: '$lightNavyBlue',
-        }}
-      />
       <ScrollView
+        // scrollEnabled={false}
+        style={{ flex: 1 }}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 40 }}
-        sx={{
-          ...Platform.select({
-            web: {
-              flexBasis: 0, // Web need to put `flexBasis: 0` else `overFlowY` not working for flex container
-            },
-          }),
-        }}
       >
+        <View
+          sx={{
+            width: 500,
+            maxWidth: '90%',
+            marginRight: 'auto',
+            marginLeft: 'auto',
+          }}
+        >
+          <ProfileBalance />
+          <Text variant="xs" sx={{ textAlign: 'center' }}>
+            {t('profile.timeline')}
+          </Text>
+          <ProfileAction />
+        </View>
+        <View
+          sx={{
+            borderBottomWidth: 2,
+            borderColor: '$lightNavyBlue',
+          }}
+        />
+
         <ProfileOverview />
         <View sx={{ borderTopWidth: 1, borderColor: '$lightNavyBlue' }} />
         <ProfileOptions />
         <ProfileLanguage />
       </ScrollView>
-      {/* </ScrollView> */}
     </Page>
   )
 }

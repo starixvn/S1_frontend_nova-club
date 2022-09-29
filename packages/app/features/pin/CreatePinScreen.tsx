@@ -86,7 +86,7 @@ const CreatePinScreen = ({ hideHeader = false }) => {
       header={{ title: t('menu.createPin') }}
       hideHeader={hideHeader}
     >
-      <View sx={{ flex: 1, p: '$4' }}>
+      <View sx={{ flex: 1, p: '$4', mb: '$10' }}>
         <Text sx={{ fontSize: 24 }}>{t('pin.headerText1')}</Text>
         <Text>{t('pin.headerText2')}</Text>
         <UnderlinePinField

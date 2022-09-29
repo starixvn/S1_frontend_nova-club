@@ -2,10 +2,12 @@ import { MEDIA_DOMAIN } from '@env'
 import Fab from 'app/components/button/Fab'
 import FloatingContent from 'app/features/FloatingContent'
 import useContextualRouting from 'app/hooks/useContextualRouting'
+import useOrientation from 'app/hooks/useOrientation'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { ActionType, getAction } from 'app/utils/actionGenerator'
 import { Flex, View } from 'dripsy'
 import { Video } from 'expo-av'
+import { Orientation } from 'expo-screen-orientation'
 import React from 'react'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { Game } from 'services/contentApi.type'
@@ -60,6 +62,8 @@ const BottomNavigation = () => {
   const { push } = useRouter()
   const { top } = useSafeArea()
 
+  const orientation = useOrientation()
+
   const { returnHref, makeContextualHref } = useContextualRouting()
 
   const isActiveState = (index: number, item: typeof tabConfig[number]) => {
@@ -74,9 +78,10 @@ const BottomNavigation = () => {
     return isSamePath
   }
 
+  const isPortrait = orientation === Orientation.PORTRAIT_UP
   return (
     <>
-      <FloatingContent />
+      {isPortrait && <FloatingContent />}
 
       <Flex
         sx={{
@@ -84,8 +89,8 @@ const BottomNavigation = () => {
           justifyContent: 'space-evenly',
           backgroundColor: '#0d2035',
           width: '100%',
-          height: BAR_HEIGHT + getBottomSpace(),
-          paddingBottom: getBottomSpace(),
+          height: BAR_HEIGHT + (isPortrait ? getBottomSpace() : 0),
+          paddingBottom: isPortrait ? getBottomSpace() : 10,
           // paddingX: [12, 'auto'],
         }}
       >

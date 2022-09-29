@@ -3,7 +3,7 @@ import InputBase from 'app/components/form/Input/InputBase'
 import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
 import validation, { PASSWORD_MAX_LENGTH } from 'app/utils/validation'
-import { styled, Text, View } from 'dripsy'
+import { ScrollView, styled, Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React from 'react'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
@@ -77,7 +77,7 @@ const ChangePasswordScreen = () => {
   } = formik
 
   return (
-    <StyledViewPage>
+    <StyledScrollView contentContainerStyle={{ paddingBottom: 20 }}>
       <InputBase
         label={t('common.oldPassword')}
         placeholder={t('common.enterOldPassword')}
@@ -146,11 +146,11 @@ const ChangePasswordScreen = () => {
       >
         <Button.Label>{t('common.ok')}</Button.Label>
       </Button>
-    </StyledViewPage>
+    </StyledScrollView>
   )
 }
 
-const StyledViewPage = styled(View)(() => ({
+const StyledScrollView = styled(ScrollView)(() => ({
   flex: 1,
   bg: '$secondary',
   pt: '$3',

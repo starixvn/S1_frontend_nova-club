@@ -1,5 +1,5 @@
 import useLocalization from 'app/provider/localization'
-import { styled, Sx, Text, View } from 'dripsy'
+import { ScrollView, styled, Sx, Text, View } from 'dripsy'
 import React from 'react'
 import { Button } from '../form/Button'
 import IconButton from '../form/IconButton'
@@ -49,41 +49,43 @@ const ModalContent = ({
           )}
         </StyledViewHeader>
       )}
-      <StyledViewBody {..._body}>{children}</StyledViewBody>
-      <StyledViewFooter {..._footer}>
-        {renderFooter ? (
-          renderFooter({})
-        ) : (
-          <StyledViewButton>
-            {actions ? (
-              actions.map((a) => (
-                <Button
-                  disabled={a.disabled ?? false}
-                  loading={a.loading}
-                  key={a.label}
-                  onPress={() => {
-                    if (!a.disableAutoClose && closeModal) closeModal()
+      <ScrollView>
+        <StyledViewBody {..._body}>{children}</StyledViewBody>
+        <StyledViewFooter {..._footer}>
+          {renderFooter ? (
+            renderFooter({})
+          ) : (
+            <StyledViewButton>
+              {actions ? (
+                actions.map((a) => (
+                  <Button
+                    disabled={a.disabled ?? false}
+                    loading={a.loading}
+                    key={a.label}
+                    onPress={() => {
+                      if (!a.disableAutoClose && closeModal) closeModal()
 
-                    a.onPress && a.onPress()
+                      a.onPress && a.onPress()
+                    }}
+                    containerStyle={{ ml: '$3' }}
+                    {...a.props}
+                  >
+                    <Button.Label>{a.label}</Button.Label>
+                  </Button>
+                ))
+              ) : (
+                <Button
+                  onPress={() => {
+                    closeModal()
                   }}
-                  containerStyle={{ ml: '$3' }}
-                  {...a.props}
                 >
-                  <Button.Label>{a.label}</Button.Label>
+                  <Button.Label>{t('common.close')}</Button.Label>
                 </Button>
-              ))
-            ) : (
-              <Button
-                onPress={() => {
-                  closeModal()
-                }}
-              >
-                <Button.Label>{t('common.close')}</Button.Label>
-              </Button>
-            )}
-          </StyledViewButton>
-        )}
-      </StyledViewFooter>
+              )}
+            </StyledViewButton>
+          )}
+        </StyledViewFooter>
+      </ScrollView>
     </StyledViewModal>
   )
 }
@@ -92,6 +94,8 @@ const StyledViewModal = styled(View)(() => ({
   bg: '$background',
   borderRadius: 12,
   borderColor: 'rgba(0, 0, 0, 0.1)',
+  maxHeight: '100%',
+  // flex: 1
 }))
 const StyledViewHeader = styled(View)(() => ({
   flexDirection: 'row',

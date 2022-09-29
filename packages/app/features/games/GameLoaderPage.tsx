@@ -57,10 +57,10 @@ const GameLoaderPage = () => {
   }
 
   useEffect(() => {
-    ScreenOrientation.unlockAsync()
+    // ScreenOrientation.unlockAsync()
 
     return () => {
-      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP)
+      // ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP)
       const isSeamless = isSeamlessTransfer()
 
       if (isSeamless) refreshWallet()

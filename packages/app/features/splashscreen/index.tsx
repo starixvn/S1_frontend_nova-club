@@ -72,7 +72,7 @@ const SplashScreen = () => {
   const loginResult = useAppSelector((state) => state.auth.info)
 
   useEffect(() => {
-    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP)
+    ScreenOrientation.unlockAsync()
   }, [])
 
   useEffect(() => {

@@ -1,8 +1,11 @@
 import MenuNotice from 'app/components/common/MenuNotice'
 import { DripsyGradient } from 'app/components/Gradient'
+import Icon from 'app/components/Icon'
 import { REWARDS_NOTES } from 'app/constant/notes'
+import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Currency } from 'app/utils/constant'
 import { styled, Text, View } from 'dripsy'
 import { useMemo, useRef } from 'react'
@@ -50,12 +53,15 @@ const GameRewards = () => {
     return ref.current
   }
 
+  const { left } = useSafeArea()
+
   return (
     <StyledView>
       <DripsyGradient
         colors={['#133351', '#0D2035']}
         sx={{
           alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
         <Text sx={{ color: '#6397B7', py: '$2a', fontSize: 14 }}>
@@ -65,7 +71,12 @@ const GameRewards = () => {
           >{`${getReward()}%`}</Text>
         </Text>
 
-        <View sx={{ position: 'absolute', right: 12 }}>
+        <View
+          sx={{
+            position: 'absolute',
+            right: 0,
+          }}
+        >
           <MenuNotice
             onPress={() =>
               openModal('NoticeModal', {

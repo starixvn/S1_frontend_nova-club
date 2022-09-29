@@ -12,6 +12,8 @@ import { FlashList, FlashListProps } from '@shopify/flash-list'
 import IconButton from 'app/components/form/IconButton'
 import FastImage from 'react-native-fast-image'
 import { AnimatePresence, MotiView } from 'moti'
+import useOrientation from 'app/hooks/useOrientation'
+import { Orientation } from 'expo-screen-orientation'
 
 type VerticalGameListProps = Omit<FlashListProps<Game>, 'renderItem'> & {
   isLoading?: boolean
@@ -34,8 +36,15 @@ const VerticalGameList = forwardRef<FlashList<Game>, VerticalGameListProps>(
     ref
   ) => {
     const [isScrolled, setScrolled] = useState(false)
+
+    const orientation = useOrientation()
+    const isLandscape =
+      orientation === Orientation.LANDSCAPE_LEFT ||
+      orientation === Orientation.LANDSCAPE_RIGHT
+
+    const modifiedCols = numColumns + (isLandscape ? 1 : 0)
     const { containerSpace, itemSpace, contentWidth } =
-      useGameGridSize(numColumns)
+      useGameGridSize(modifiedCols)
     const locale = useAppSelector((s) => s.setting.locale)
     const memoSpace = useMemo(() => {
       return {
@@ -77,6 +86,7 @@ const VerticalGameList = forwardRef<FlashList<Game>, VerticalGameListProps>(
     return (
       <View sx={{ bg: '$background', flex: 1, position: 'relative' }}>
         <FlashList<Game>
+          key={modifiedCols}
           ref={ref}
           onScroll={({ nativeEvent }) => {
             if (isScrolled && nativeEvent?.contentOffset?.y === 0)
@@ -90,7 +100,7 @@ const VerticalGameList = forwardRef<FlashList<Game>, VerticalGameListProps>(
           }}
           renderItem={renderItem}
           estimatedItemSize={50}
-          numColumns={numColumns}
+          numColumns={modifiedCols}
           contentContainerStyle={{
             paddingTop: 8,
             paddingBottom: 16,

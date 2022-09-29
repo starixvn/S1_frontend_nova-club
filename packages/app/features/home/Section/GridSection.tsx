@@ -11,6 +11,8 @@ import { useRouter } from 'solito/router'
 import { Video } from 'expo-av'
 import { Platform } from 'react-native'
 import { Game } from 'services/contentApi.type'
+import useOrientation from 'app/hooks/useOrientation'
+import { Orientation } from 'expo-screen-orientation'
 const dummyData = [
   {
     col: 4,
@@ -106,12 +108,18 @@ const dummyData = [
 const GridSection = () => {
   const { push } = useRouter()
   const { t } = useLocalization()
+  const orientation = useOrientation()
+  const isLandscape =
+    orientation === Orientation.LANDSCAPE_LEFT ||
+    orientation === Orientation.LANDSCAPE_RIGHT
+
   const { width } = useContainerDimension()
   const borderedWidth = width - 4
   const containerSpace = borderedWidth * HOME_PADDING
   const itemSpace = containerSpace * 0.33
   const columnWidth =
-    (borderedWidth - containerSpace * 2 + itemSpace * 2) / GRID_TOTAL_COL
+    (borderedWidth - containerSpace * 2 + itemSpace * 2) /
+    (GRID_TOTAL_COL * (isLandscape ? 1.5 : 1))
   const rowHeight = columnWidth * 1.98
 
   const action = (data: typeof dummyData[number]) => {

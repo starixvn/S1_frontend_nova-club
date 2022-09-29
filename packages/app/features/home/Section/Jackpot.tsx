@@ -40,7 +40,7 @@ const Jackpot = ({}: JackpotProps) => {
             sx={{
               width: 250,
               height: 180,
-              marginTop: '-15%',
+              marginTop: '-5%',
             }}
           />
 
@@ -58,7 +58,7 @@ const Jackpot = ({}: JackpotProps) => {
             }}
           />
 
-          <View sx={{ mt: '$3a' }}>
+          <View sx={{ mt: '$3a', mb: '$10' }}>
             <Button
               variant="md"
               fill={{

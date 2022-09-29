@@ -1,4 +1,7 @@
+import useOrientation from 'app/hooks/useOrientation'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { ScrollView } from 'dripsy'
+import { Orientation } from 'expo-screen-orientation'
 import { default as React } from 'react'
 import AnnouncementMarquee from './Section/AnnouncementMarquee'
 import BannerSection from './Section/BannerSection'
@@ -8,13 +11,14 @@ import Jackpot from './Section/Jackpot'
 import RecentOpenGames from './Section/RecentOpenGames'
 
 const HomeScreen = () => {
+  const orientation = useOrientation()
   return (
     <ScrollView
       bounces={false}
       sx={{ bg: '$background', flex: 1 }}
       showsVerticalScrollIndicator={false}
     >
-      <BannerSection />
+      {orientation === Orientation.PORTRAIT_UP && <BannerSection />}
       <AnnouncementMarquee />
       <GridSection />
       <RecentOpenGames />

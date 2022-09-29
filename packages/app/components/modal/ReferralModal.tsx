@@ -5,7 +5,7 @@ import useShare from 'app/hooks/useShare'
 import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
 import { copyToClipboard } from 'app/utils'
-import { Text, View } from 'dripsy'
+import { ScrollView, Text, View } from 'dripsy'
 import React, { useRef } from 'react'
 import { Platform } from 'react-native'
 import ViewShot from 'react-native-view-shot'
@@ -46,20 +46,22 @@ const ReferralModal = ({ modal: { closeModal } }) => {
   }
 
   return (
-    <ModalWrapper sx={{ width: width * 0.8, p: 0 }}>
+    <ModalWrapper>
       <View
         sx={{
           bg: 'white',
           borderRadius: 12,
-          width: '100%',
-          overflow: 'hidden',
+          width: Math.min(width * 0.8, 400),
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          maxHeight: '100%',
         }}
       >
         <DripsyGradient gradient="PaleBlue" sx={{ p: '$4' }}>
           <Text sx={{ textAlign: 'center' }}>{t('referral.friend')}</Text>
         </DripsyGradient>
 
-        <View sx={{ p: '5%' }}>
+        <ScrollView contentContainerStyle={{ padding: '5%' }}>
           <Text sx={{ color: 'black' }}>{t('referral.earn')}</Text>
           <View>
             <ViewScreenShot innerRef={ref} name={`Vui123-${referralCode}`}>
@@ -164,7 +166,7 @@ const ReferralModal = ({ modal: { closeModal } }) => {
               <Button.Label>{t('common.close')}</Button.Label>
             </Button>
           </View>
-        </View>
+        </ScrollView>
       </View>
     </ModalWrapper>
   )
