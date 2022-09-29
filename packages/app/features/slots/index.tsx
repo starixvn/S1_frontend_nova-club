@@ -1,21 +1,19 @@
 import { FlashList } from '@shopify/flash-list'
-import Select from 'app/components/form/Select'
+import Select, {
+  SelectButtonComponentProps,
+} from 'app/components/form/Input/Select'
 import SelectButton from 'app/components/form/Select/SelectButton'
-import SelectSquare from 'app/components/form/Select/SelectSquare'
 import useLocalization from 'app/provider/localization'
 import { Row, View } from 'dripsy'
-import React, { useRef, useState } from 'react'
-import ActionSheet from 'react-native-actions-sheet'
+import React, { useRef } from 'react'
 import { Game } from 'services/contentApi.type'
 import useSlotGamesFilter from '../../hooks/game/useSlotGamesFilter'
 import VerticalGameList from '../games/VerticalGameList'
 import ListSectionHeader from '../ListSectionHeader'
+
 const Slots = () => {
   const { t } = useLocalization()
-  const gameTypeRef = useRef<ActionSheet>()
-  const slotProviderRef = useRef<ActionSheet>()
   const list = useRef<FlashList<Game> | null>(null)
-  const [providerLogo, setProviderLogo] = useState('')
 
   const {
     providerSelection,
@@ -29,14 +27,6 @@ const Slots = () => {
   } = useSlotGamesFilter(list)
 
   const isGameReady = !isFetching
-
-  const openGameTypeActionSheet = () => {
-    gameTypeRef.current?.show()
-  }
-
-  const openSlotProviderActionSheet = () => {
-    slotProviderRef.current?.show()
-  }
 
   return (
     <>
@@ -54,41 +44,46 @@ const Slots = () => {
           >
             {isGameReady ? (
               <Row sx={{ flex: 1, justifyContent: 'flex-end' }}>
-                <SelectButton
-                  onOpen={openGameTypeActionSheet}
-                  title={selectedSlotType?.label ?? 'Click here to open'}
-                  isActive={false}
-                  buttonContentProps={{
-                    gradient: 'plainLightBlue',
-                    sx: {
-                      borderRadius: 20,
-                      minHeight: 40,
-                    },
+                <Select
+                  options={slotTypeSelection}
+                  onSelected={setSelectedSlotType}
+                  buttonComponent={(props: SelectButtonComponentProps) => (
+                    <SelectButton
+                      variants="slot"
+                      label={selectedSlotType?.label ?? ''}
+                      containerStyle={{
+                        flex: 0.3,
+                      }}
+                      {...props}
+                    />
+                  )}
+                  _actionSheet={{
+                    sheetId: 'slot type',
+                    headerTitle: t('menu.tab.gameType'),
+                    variants: 'provider',
                   }}
-                  iconProps={{
-                    size: 16,
-                  }}
-                  sx={{ flex: 0.3 }}
                 />
 
-                <SelectButton
-                  onOpen={openSlotProviderActionSheet}
-                  title={selectedProvider.label ?? 'Click here to open'}
-                  icon={providerLogo}
-                  sx={{
-                    mx: '$2',
-                    flex: 0.45,
-                  }}
-                  isActive={false}
-                  buttonContentProps={{
-                    gradient: 'plainLightBlue',
-                    sx: {
-                      borderRadius: 20,
-                      minHeight: 40,
-                    },
-                  }}
-                  iconProps={{
-                    size: 16,
+                <Select
+                  options={providerSelection}
+                  onSelected={setSelectedProvider}
+                  buttonComponent={(props: SelectButtonComponentProps) => (
+                    <SelectButton
+                      variants="slot"
+                      label={selectedProvider?.label}
+                      logo={selectedProvider?.icon}
+                      containerStyle={{
+                        mx: '$2',
+                        flex: 0.45,
+                      }}
+                      {...props}
+                    />
+                  )}
+                  isHorizontalActionSheet
+                  _actionSheet={{
+                    sheetId: 'slot provider',
+                    headerTitle: t('menu.tab.provider'),
+                    variants: 'provider',
                   }}
                 />
               </Row>
@@ -97,40 +92,6 @@ const Slots = () => {
             )}
           </ListSectionHeader>
         }
-      />
-
-      <Select
-        ref={gameTypeRef}
-        button={() => null}
-        actionSheetProps={{ id: 'slotType' }}
-        headerTitle={t('menu.tab.gameType')}
-        data={slotTypeSelection}
-        setSelectedValue={setSelectedSlotType}
-      />
-
-      <SelectSquare
-        isShowButton={false}
-        ref={slotProviderRef}
-        setIcon={setProviderLogo}
-        _dataList={{
-          data: providerSelection,
-          setSelectedValue: setSelectedProvider,
-        }}
-        _actionSheet={{
-          id: 'slot provider',
-          headerTitle: t('menu.tab.provider'),
-        }}
-        actionSheetProps={{
-          actionSheetItemProps: {
-            containerStyle: {
-              bg: '$primary',
-              p: '$2',
-            },
-            imageStyle: {
-              bg: '$transparent',
-            },
-          },
-        }}
       />
     </>
   )

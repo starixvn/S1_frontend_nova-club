@@ -1,40 +1,54 @@
-import { DripsyGradient, DripsyGradientProps } from 'app/components/Gradient'
+import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import useLocalization from 'app/provider/localization'
 import { ReportGameStatusOptions } from 'app/utils/constant'
 import { Image, Pressable, SxProp, Text } from 'dripsy'
-import { ComponentProps } from 'react'
+import { ReactNode } from 'react'
 
-interface ButtonProps {
-  onOpen: () => any
-  title: string
-  icon?: string
-  isActive?: boolean
-  buttonContentProps?: DripsyGradientProps
-  iconProps?: Partial<ComponentProps<typeof Icon>>
+export type SelectButtonProps = {
+  onPress: () => any
+  variants: 'slot' | 'history'
+  isSelecting?: boolean
+  label: string
+  logo?: string
+  containerStyle?: SxProp
+  disabled?: boolean
+  children?: ReactNode
 }
 
-type SelectButtonProps = ButtonProps & ComponentProps<typeof Pressable>
-
 const SelectButton = ({
-  onOpen,
-  title,
-  icon,
-  isActive = true,
-  buttonContentProps,
-  iconProps,
-  ...restButtonProps
+  onPress,
+  variants = 'history',
+  isSelecting = true,
+  label,
+  logo,
+  containerStyle,
+  disabled,
+  children,
+  ...rest
 }: SelectButtonProps) => {
   const { t } = useLocalization()
-  const { sx, disabled, ...pressableProps } = restButtonProps || {}
-  const { sx: buttonContentSx, ...dripsyGradientProp } =
-    buttonContentProps || {}
 
-  const mergedButtonSx: SxProp = {
-    ...{
-      position: 'relative',
-    },
-    ...sx,
+  let gradient
+  let buttonContentSx
+
+  switch (variants) {
+    case 'slot':
+      gradient = 'plainLightBlue'
+      buttonContentSx = {
+        borderRadius: 20,
+        minHeight: 40,
+      }
+      break
+
+    case 'history':
+    default:
+      gradient = isSelecting
+        ? 'oceanBlue'
+        : disabled
+        ? 'disabledSecondary'
+        : 'darkNavyBlue'
+      break
   }
 
   const mergedGradientSx: SxProp = {
@@ -47,33 +61,27 @@ const SelectButton = ({
       borderWidth: 1,
       borderColor: '$lightNavyBlue',
       minHeight: 42,
+      minWidth: 72,
     },
     ...buttonContentSx,
   }
 
   return (
     <Pressable
-      onPress={onOpen}
-      sx={mergedButtonSx}
+      onPress={onPress}
+      sx={{ position: 'relative', ...containerStyle }}
       disabled={disabled}
-      {...pressableProps}
     >
       <DripsyGradient
-        gradient={
-          isActive
-            ? 'oceanBlue'
-            : disabled
-            ? 'disabledSecondary'
-            : 'darkNavyBlue'
-        }
+        gradient={gradient}
         sx={mergedGradientSx}
-        start={isActive ? { x: 0.5, y: 0 } : { x: 0, y: 0.5 }}
-        end={isActive ? { x: 0.5, y: 1 } : { x: 1, y: 0.5 }}
-        {...dripsyGradientProp}
+        start={isSelecting ? { x: 0.5, y: 0 } : { x: 0, y: 0.5 }}
+        end={isSelecting ? { x: 0.5, y: 1 } : { x: 1, y: 0.5 }}
+        {...rest}
       >
-        {icon && title !== ReportGameStatusOptions[0].label ? (
+        {logo && label !== ReportGameStatusOptions[0].label ? (
           <Image
-            source={icon}
+            source={logo}
             sx={{
               height: '100%',
               width: '80%',
@@ -82,14 +90,13 @@ const SelectButton = ({
           />
         ) : (
           <Text sx={{ flex: 0.8 }} numberOfLines={1}>
-            {t(title)}
+            {t(label)}
           </Text>
         )}
         <Icon
           name={'chevdown'}
           size={20}
           sx={{ position: 'absolute', right: '$2' }}
-          {...iconProps}
         />
       </DripsyGradient>
     </Pressable>

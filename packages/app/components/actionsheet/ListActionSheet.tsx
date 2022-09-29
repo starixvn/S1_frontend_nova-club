@@ -4,27 +4,14 @@ import { Dimensions } from 'react-native'
 import { SheetManager } from 'react-native-actions-sheet'
 import SelectLists from '../form/Select/SelectLists'
 import { DripsyGradient } from '../Gradient'
-import ActionSheetBase, { ActionSheetBaseProps } from './ActionSheetBase'
-import { ActionSheetItemProps } from './ActionSheetItem'
-
-type SheetDataProps = {
-  label: string
-  value: string
-  icon: string
-}
-
-export type HorizontalActionSheetProps = {
-  data: SheetDataProps[]
-  onSelect: (value) => void
-  _actionSheet: ActionSheetBaseProps
-  actionSheetItemProps?: ActionSheetItemProps
-}
+import ActionSheetBase from './ActionSheetBase'
+import { HorizontalActionSheetProps } from './HorizontalActionSheet'
 
 const ListActionSheet = ({
   data,
   onSelect,
-  actionSheetItemProps,
   _actionSheet,
+  ...rest
 }: HorizontalActionSheetProps) => {
   const { sheetId, headerTitle, actions } = _actionSheet
   const { bottom } = useSafeArea()
@@ -38,6 +25,7 @@ const ListActionSheet = ({
       sheetId={sheetId}
       headerTitle={headerTitle}
       actions={actions}
+      {...rest}
     >
       <DripsyGradient
         gradient="darkNavyBlue"
@@ -53,7 +41,7 @@ const ListActionSheet = ({
           data={data}
           onPress={handleClose}
           selectedIndex={activeIndex}
-          setSelectedValue={(item) => onSelect(item.value)}
+          setSelectedValue={(item) => onSelect(item)}
           setSelectedIndex={(el) => {
             setActiveIndex(el)
           }}

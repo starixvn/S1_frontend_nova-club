@@ -154,7 +154,7 @@ const AutoDepositForm = ({ module, DepositCategoryId }) => {
   } = formik
 
   const handleSelected = (value) => {
-    setSelectedValues(value)
+    setSelectedValues(value.value)
     formik.resetForm()
   }
 

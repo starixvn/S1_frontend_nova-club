@@ -7,7 +7,6 @@ import {
   SxProp,
   Text,
   TextInput as DripsyTextInput,
-  TextInput,
   useDripsyTheme,
   View,
 } from 'dripsy'
@@ -15,23 +14,13 @@ import { AnimatePresence, MotiText } from 'moti'
 import React, {
   ComponentProps,
   createContext,
-  createRef,
   memo,
   useContext,
   useRef,
 } from 'react'
 import { TouchableWithoutFeedback } from 'react-native'
-import { SheetManager } from 'react-native-actions-sheet'
-import SquareSelectorActionSheet, {
-  DEFAULT_SQUARE_ACTION_SHEET_ID,
-  SquareSelectorActionSheetProps,
-  SquareSelectorFlatListProps,
-} from './actionsheet/SquareSelectorActionSheet'
-import { Button } from './form/Button'
-import GradientBox from './GradientBox'
-import Icon from './Icon'
-import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import IconButton from './form/IconButton'
+import GradientBox from './GradientBox'
 
 const GradientTextBoxContext = createContext<{ labelWidth: number }>({
   labelWidth: 0.8,
@@ -59,16 +48,6 @@ type TextFieldInputProps = {
   containerStyle?: SxProp
   sx?: SxProp
   right: React.ReactNode
-}
-
-type TextFieldSelectProps = {
-  label: string
-  error?: string
-  containerStyle?: SxProp
-  _actionSheet: SquareSelectorActionSheetProps
-  _dataList: SquareSelectorFlatListProps
-  onPress: (object) => void
-  _input?: DripsyTextInputProps
 }
 
 const TextField = ({ labelWidth = 0.8, children }: TextFieldProps) => {
@@ -192,87 +171,6 @@ const TextFieldInput = ({
   )
 }
 
-/**
- * @example
- * <TextField.Select
- *   label=""
- *   _input={{
- *     placeholder: t('bank.selectBank'),
- *     value: values.bank?.bank_acc_name ?? '',
- *   }}
- *   _dataList={{
- *     data: depositPayment?.list ?? [],
- *     isLoading: isLoading || isFetching,
- *     titleType: 'bank_acc_name',
- *     onPress: (item) => setFieldValue('bank', item),
- *   }}
- *   _actionSheet={{
- *     id: actionSheetId,
- *     headerTitle: t('bank.bank'),
- *   }}
- * />
- */
-const TextFieldSelect = ({
-  label,
-  error,
-  containerStyle,
-  _input,
-  _dataList,
-  _actionSheet,
-}: TextFieldSelectProps) => {
-  const { t } = useLocalization()
-  const { labelWidth } = useContext(GradientTextBoxContext)
-  const actionSheetRef = createRef()
-
-  const { id: actionSheetId } = _actionSheet || {}
-
-  const handleActionSheetOpen = () => {
-    SheetManager.show(actionSheetId || DEFAULT_SQUARE_ACTION_SHEET_ID)
-  }
-
-  return (
-    <View>
-      <GradientBox sx={{ my: '$1', ...containerStyle }}>
-        <TouchableWithoutFeedback onPress={handleActionSheetOpen}>
-          <StyledViewRow sx={{ color: 'white' }}>
-            <StyledTextLabel sx={{ flex: labelWidth }} numberOfLines={1}>
-              {t(label)}
-            </StyledTextLabel>
-            <View
-              sx={{
-                flexDirection: 'row',
-                flex: 1,
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <StyledTextInput
-                editable={false}
-                placeholderTextColor={'#FFFF00'}
-                numberOfLines={1}
-                selection={{ start: 0 }}
-                {..._input}
-              />
-              <Icon name="chevdown" size={18} />
-            </View>
-          </StyledViewRow>
-        </TouchableWithoutFeedback>
-      </GradientBox>
-
-      <SquareSelectorActionSheet
-        ref={actionSheetRef}
-        _dataList={_dataList}
-        _actionSheet={_actionSheet}
-      />
-      {error && (
-        <TextInputHints>
-          <MemoErrorText error={error} />
-        </TextInputHints>
-      )}
-    </View>
-  )
-}
-
 const ErrorText = ({ error }: { error?: string }) => {
   const { t } = useLocalization()
   const { theme } = useDripsyTheme()
@@ -328,7 +226,6 @@ const TextInputHints = styled(View)(() => ({
 
 TextField.Label = TextFieldLabel
 TextField.TextInput = TextFieldInput
-TextField.Select = TextFieldSelect
 TextField.Error = ErrorText
 
 export { TextField }

@@ -1,3 +1,6 @@
+import { FlashList } from '@shopify/flash-list'
+import { getProviderLogo } from 'app/config/games/provider'
+import { OPTIONS_ALL } from 'app/constant/actionSheet'
 import useLocalization from 'app/provider/localization'
 import {
   Currency,
@@ -5,15 +8,14 @@ import {
   SlotType,
   SlotTypeOptions,
 } from 'app/utils/constant'
-import { MutableRefObject, useEffect, useMemo, useState } from 'react'
-import { useGameListQuery, useGetGameListQuery } from 'services/contentApi'
-import { Game } from 'services/contentApi.type'
 import uniqBy from 'lodash/uniqBy'
+import { MutableRefObject, useEffect, useMemo, useState } from 'react'
+import { useGetGameListQuery } from 'services/contentApi'
+import { Game } from 'services/contentApi.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import { FlashList } from '@shopify/flash-list'
-import { LayoutAnimation } from 'react-native'
 // import groupBy from 'lodash/groupBy'
 const LIMIT = 10
+
 function useSlotGamesFilter(
   verticalList: MutableRefObject<FlashList<Game> | null>
 ) {
@@ -38,20 +40,18 @@ function useSlotGamesFilter(
 
   const { t } = useLocalization()
   /* State */
-  const [selectedProvider, setSelectedProvider] = useState({
-    label: t('common.all'),
-    value: 'all',
-  })
+  const [selectedProvider, setSelectedProvider] = useState(OPTIONS_ALL)
   const [selectedSlotType, setSelectedSlotType] = useState(SlotTypeOptions[0])
   const [numOfVisible, setNumOfVisible] = useState(LIMIT)
 
   /* Filters */
   const slotTypeSelection = SlotTypeOptions
   const providerSelection = useMemo(() => {
-    return [{ label: 'common.all', value: 'all' }].concat(
+    return [OPTIONS_ALL].concat(
       uniqBy(allSlotGames, 'gpc').map((g) => ({
         label: g.gpc,
         value: g.gpc,
+        icon: getProviderLogo(g.gpc),
       }))
     )
   }, [allSlotGames])
