@@ -1,24 +1,31 @@
-import { ActionSheetBaseProps } from 'app/components/actionsheet/ActionSheetBase'
 import HorizontalActionSheet, {
-  HorizontalActionSheetProps,
+  ActionSheetProps,
 } from 'app/components/actionsheet/HorizontalActionSheet'
 import ListActionSheet from 'app/components/actionsheet/ListActionSheet'
-import { SquareSelectorForwardRef } from 'app/components/actionsheet/SquareSelectorActionSheet'
-import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
-import { ActivityIndicator, View } from 'dripsy'
-import { useRef } from 'react'
+import { ActivityIndicator } from 'dripsy'
+import { useReducer } from 'react'
 import { SheetManager } from 'react-native-actions-sheet'
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import IconButton from '../IconButton'
-import InputBase, { InputBaseProps, INPUT_BASE_SPACE } from './InputBase'
+import InputBase, { InputBaseProps } from './InputBase'
+import { SelectButtonProps } from '../Select/SelectButton'
 
 export interface SelectProps extends InputBaseProps {
   options: any
   loading?: boolean
   isHorizontalActionSheet?: boolean
   onSelected: (value) => void
-  _actionSheet: ActionSheetBaseProps
+  _actionSheet: ActionSheetProps
+  buttonComponent: (SelectButtonComponentProps) => JSX.Element
 }
+
+export type SelectButtonComponentProps = Omit<
+  SelectProps,
+  | 'options'
+  | 'loading'
+  | 'isHorizontalActionSheet'
+  | 'onSelected'
+  | '_actionsSheet'
+>
 
 /**
  * @example
@@ -46,34 +53,50 @@ export default function Select({
   isHorizontalActionSheet = false,
   onSelected,
   _actionSheet,
+  buttonComponent,
   ...rest
 }: SelectProps) {
   const { sheetId } = _actionSheet
 
+  const [isActive, toggleIsActive] = useReducer((state) => {
+    return !state
+  }, false)
+
   function onSelect() {
     SheetManager.show(sheetId)
   }
+  const BtnComponent = buttonComponent ?? InputBase
 
   return (
     <>
-      <InputBase onPress={onSelect} editable={!loading} {...rest}>
+      <BtnComponent
+        onPress={onSelect}
+        editable={!loading}
+        isSelecting={isActive}
+        {...rest}
+      >
         {loading ? (
           <ActivityIndicator sx={{ m: '$2' }} />
         ) : (
           <IconButton name="chevdown" size={18} />
         )}
-      </InputBase>
+      </BtnComponent>
+
       {isHorizontalActionSheet ? (
         <HorizontalActionSheet
           _actionSheet={_actionSheet}
           data={options}
           onSelect={onSelected}
+          onOpen={toggleIsActive}
+          onClose={toggleIsActive}
         />
       ) : (
         <ListActionSheet
           _actionSheet={_actionSheet}
           data={options}
           onSelect={onSelected}
+          onOpen={toggleIsActive}
+          onClose={toggleIsActive}
         />
       )}
     </>

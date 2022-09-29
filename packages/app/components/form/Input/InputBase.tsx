@@ -17,7 +17,7 @@ const MotiText = motify(Text)()
 export const INPUT_BASE_SPACE = 16
 
 export interface InputBaseProps extends TextInputProps {
-  label: string
+  label?: string
   error?: string
   sx?: SxProp
   action?: React.ReactNode

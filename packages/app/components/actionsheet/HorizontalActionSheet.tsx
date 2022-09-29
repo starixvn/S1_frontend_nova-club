@@ -1,4 +1,3 @@
-import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
@@ -6,10 +5,7 @@ import React, { ComponentProps } from 'react'
 import ActionSheet, { SheetManager } from 'react-native-actions-sheet'
 import { useRouter } from 'solito/router'
 import { Button } from '../form/Button'
-import ActionSheetBase, {
-  ActionSheetBaseProps,
-  HeaderActionsProps,
-} from './ActionSheetBase'
+import ActionSheetBase, { ActionSheetBaseProps } from './ActionSheetBase'
 import ActionSheetItem, { ActionSheetItemProps } from './ActionSheetItem'
 
 type SheetDataProps = {
@@ -18,20 +14,25 @@ type SheetDataProps = {
   icon: string
 }
 
+export type ActionSheetProps = ActionSheetBaseProps & {
+  variants?: 'provider' | 'bank'
+  actionSheetItemProps?: Omit<ActionSheetItemProps, 'icon' | 'onPress'>
+}
+
 export type HorizontalActionSheetProps = {
   data: SheetDataProps[]
   onSelect: (value) => void
-  _actionSheet: ActionSheetBaseProps
-  actionSheetItemProps?: ActionSheetItemProps
-}
+  _actionSheet: ActionSheetProps
+} & Omit<ComponentProps<typeof ActionSheet>, 'children'>
 
 const HorizontalActionSheet = ({
   data,
   onSelect,
-  actionSheetItemProps,
   _actionSheet,
+  ...rest
 }: HorizontalActionSheetProps) => {
-  const { sheetId, headerTitle, actions } = _actionSheet
+  const { sheetId, headerTitle, actions, variants, actionSheetItemProps } =
+    _actionSheet
 
   const { t } = useLocalization()
   const { push } = useRouter()
@@ -40,11 +41,23 @@ const HorizontalActionSheet = ({
 
   const handleClose = () => SheetManager.hide(sheetId)
 
+  let containerStyle
+  let imageStyle
+  switch (variants) {
+    case 'provider':
+      containerStyle = { bg: '$primary', p: '$2' }
+      imageStyle = { bg: '$transparent' }
+      break
+
+    default:
+      break
+  }
   return (
     <ActionSheetBase
       sheetId={sheetId}
       headerTitle={headerTitle}
       actions={actions}
+      {...rest}
     >
       <View
         sx={{
@@ -60,9 +73,11 @@ const HorizontalActionSheet = ({
               key={item.value}
               icon={item.icon}
               onPress={() => {
-                onSelect(item.value)
+                onSelect(item)
                 handleClose()
               }}
+              containerStyle={containerStyle}
+              imageStyle={imageStyle}
               {...actionSheetItemProps}
             />
           ))

@@ -1,11 +1,13 @@
 import DatePicker from 'app/components/form/DatePicker/DatePicker'
-import Select from 'app/components/form/Select'
-import SelectSquare from 'app/components/form/Select/SelectSquare'
+import Select, {
+  SelectButtonComponentProps,
+} from 'app/components/form/Input/Select'
+import SelectButton from 'app/components/form/Select/SelectButton'
+import { getProviderLogo } from 'app/config/games/provider'
 import useLocalization from 'app/provider/localization'
 import {
   DateFilter,
   DateFilterOptions,
-  GameProvider,
   ReportCommonStatusOptions,
   ReportDepositStatusOptions,
   ReportGameStatusOptions,
@@ -36,6 +38,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
         return {
           value: item.system_code,
           label: item.system_name,
+          icon: getProviderLogo(item.system_code),
         }
       }) ?? []
 
@@ -93,70 +96,60 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
       <View sx={{ flexDirection: 'row' }}>
         {isTransaction ? (
           <Select
-            actionSheetProps={{ id: t('menu.tab.transactionType') }}
-            headerTitle={t('menu.tab.transactionType')}
-            buttonTitle={selected.selectedTransType.label}
-            buttonProps={{
-              sx: {
-                mr: 10,
-                flex: 1,
-              },
-            }}
-            data={TypeList.slice(0, -1)}
-            setSelectedValue={(value) =>
+            options={TypeList.slice(0, -1)}
+            onSelected={(value) =>
               setSelected({
                 ...selected,
                 selectedTransType: value,
                 selectedStatus: ReportDepositStatusOptions[0],
               })
             }
+            buttonComponent={(props: SelectButtonComponentProps) => (
+              <SelectButton
+                variants="history"
+                label={selected.selectedTransType.label}
+                containerStyle={{
+                  mr: 10,
+                  flex: 1,
+                }}
+                {...props}
+              />
+            )}
+            _actionSheet={{
+              sheetId: t('menu.tab.transactionType') + 1,
+              headerTitle: t('menu.tab.transactionType'),
+            }}
           />
         ) : (
-          <SelectSquare
-            buttonTitle={selected.selectedGame.label}
-            buttonProps={{
-              sx: {
-                mr: 10,
-                flex: 1,
-              },
-            }}
-            _dataList={{
-              data: providerList,
-              setSelectedValue: (value) =>
-                setSelected({ ...selected, selectedGame: value }),
-            }}
+          <Select
+            isHorizontalActionSheet
+            options={providerList}
+            onSelected={(value) =>
+              setSelected({ ...selected, selectedGame: value })
+            }
+            buttonComponent={(props: SelectButtonComponentProps) => (
+              <SelectButton
+                variants="history"
+                label={selected.selectedGame.label}
+                logo={selected.selectedGame.icon}
+                containerStyle={{
+                  mr: 10,
+                  flex: 1,
+                }}
+                {...props}
+              />
+            )}
             _actionSheet={{
-              id: t('menu.tab.provider'),
+              sheetId: t('menu.tab.provider') + 1,
               headerTitle: t('menu.tab.provider'),
-            }}
-            actionSheetProps={{
-              actionSheetItemProps: {
-                containerStyle: {
-                  bg: '$primary',
-                  p: '$2',
-                },
-                imageStyle: {
-                  bg: '$transparent',
-                },
-              },
+              variants: 'provider',
             }}
           />
         )}
 
         <Select
-          actionSheetProps={{
-            id: isTransaction ? t('menu.tab.date') : t('menu.tab.game'),
-          }}
-          headerTitle={t('menu.tab.date')}
-          buttonTitle={selected.selectedDate.label}
-          buttonProps={{
-            sx: {
-              mr: 10,
-              flex: 1,
-            },
-          }}
-          data={isTransaction ? DateFilterList : DateFilterList.slice(0, 4)}
-          setSelectedValue={(value) => {
+          options={isTransaction ? DateFilterList : DateFilterList.slice(0, 4)}
+          onSelected={(value) => {
             const { startDate, endDate } = handleDateRange(value.value)
 
             setSelected({
@@ -166,47 +159,76 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
               endDate,
             })
           }}
+          buttonComponent={(props: SelectButtonComponentProps) => (
+            <SelectButton
+              variants="history"
+              label={selected.selectedDate.label}
+              containerStyle={{
+                mr: 10,
+                flex: 1,
+              }}
+              {...props}
+            />
+          )}
+          _actionSheet={{
+            sheetId: isTransaction
+              ? t('menu.tab.date') + 1
+              : t('menu.tab.game') + 1,
+            headerTitle: t('menu.tab.date'),
+          }}
         />
 
         {isTransaction ? (
           <Select
-            key={selected.selectedTransType.value}
-            actionSheetProps={{ id: t('menu.tab.statusType') }}
-            headerTitle={t('menu.tab.statusType')}
-            buttonTitle={selected.selectedStatus.label}
-            buttonProps={{
-              sx: {
-                flex: 1,
-              },
-              disabled:
-                selected.selectedTransType.value !==
-                  ReportTransactionType.DEPOSIT &&
-                selected.selectedTransType.value !==
-                  ReportTransactionType.WITHDRAWAL,
-            }}
-            data={
+            options={
               selected.selectedTransType === ReportTransactionType.DEPOSIT
                 ? DepositStatusList
                 : WithdrawalStatusList
             }
-            setSelectedValue={(value) =>
+            onSelected={(value) =>
               setSelected({ ...selected, selectedStatus: value })
             }
+            buttonComponent={(props: SelectButtonComponentProps) => (
+              <SelectButton
+                variants="history"
+                label={selected.selectedStatus.label}
+                containerStyle={{
+                  flex: 1,
+                }}
+                disabled={
+                  selected.selectedTransType.value !==
+                    ReportTransactionType.DEPOSIT &&
+                  selected.selectedTransType.value !==
+                    ReportTransactionType.WITHDRAWAL
+                }
+                {...props}
+              />
+            )}
+            _actionSheet={{
+              sheetId: t('menu.tab.statusType') + 1,
+              headerTitle: t('menu.tab.statusType'),
+            }}
           />
         ) : (
           <Select
-            actionSheetProps={{ id: t('menu.tab.win/loss') }}
-            headerTitle={t('menu.tab.win/loss')}
-            buttonTitle={selected.selectedGameStatus.label}
-            buttonProps={{
-              sx: {
-                flex: 1,
-              },
-            }}
-            data={GameStatusList}
-            setSelectedValue={(value) =>
+            options={GameStatusList}
+            onSelected={(value) =>
               setSelected({ ...selected, selectedGameStatus: value })
             }
+            buttonComponent={(props: SelectButtonComponentProps) => (
+              <SelectButton
+                variants="history"
+                label={selected.selectedGameStatus.label}
+                containerStyle={{
+                  flex: 1,
+                }}
+                {...props}
+              />
+            )}
+            _actionSheet={{
+              sheetId: t('menu.tab.win/loss') + 1,
+              headerTitle: t('menu.tab.win/loss'),
+            }}
           />
         )}
       </View>

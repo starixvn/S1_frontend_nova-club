@@ -75,7 +75,9 @@ const LocalBankScreen = () => {
   })
 
   const handleSelected = (value) => {
-    const item = depositPayment?.list?.find((el) => el.bankTypeId === value)
+    const item = depositPayment?.list?.find(
+      (el) => el.bankTypeId === value.value
+    )
     setFieldValue('bank', item)
   }
 

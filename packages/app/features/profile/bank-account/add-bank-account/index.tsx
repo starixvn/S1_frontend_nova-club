@@ -182,7 +182,7 @@ const AddBankAccountScreen = () => {
   }
 
   const handleSelected = (value) => {
-    const item = bankData?.data?.find((el) => el.bank_code === value)
+    const item = bankData?.data?.find((el) => el.bank_code === value.value)
     setFieldValue('bank', item)
   }
 

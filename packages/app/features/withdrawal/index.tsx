@@ -23,6 +23,7 @@ import validationRule from 'app/utils/validationRule'
 import { styled, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React from 'react'
+import { SheetManager } from 'react-native-actions-sheet'
 import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useDispatch } from 'react-redux'
@@ -92,7 +93,7 @@ const WithdrawalPage = () => {
   })
 
   const handleSelected = (value) => {
-    const item = bankData?.data?.find((el) => el.BankTypeId === value)
+    const item = bankData?.data?.find((el) => el.BankTypeId === value.value)
     setFieldValue('bank', item)
   }
 
@@ -231,7 +232,10 @@ const WithdrawalPage = () => {
             actions: [
               {
                 icon: 'add',
-                onPress: () => push(toBankAccount, '/profile/bank-account'),
+                onPress: () => {
+                  SheetManager.hide(ACTION_SHEET_ID.WITHDRAWAL)
+                  push(toBankAccount, '/profile/bank-account')
+                },
               },
             ],
           }}

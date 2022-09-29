@@ -1,3 +1,5 @@
+import { getProviderLogo } from 'app/config/games/provider'
+
 export const currencyListMapper: { [key: number]: string } = {
   2: 'MYR',
   4: 'THB',
@@ -226,6 +228,7 @@ export const ReportGameStatusOptions = [
   {
     value: ReportGameStatus.ALL,
     label: 'common.all',
+    icon: getProviderLogo(ReportGameStatus.ALL),
   },
   {
     value: ReportGameStatus.WIN,

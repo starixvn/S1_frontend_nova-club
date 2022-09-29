@@ -157,7 +157,7 @@ export const PROVIDER_LOGO = {
   },
 }
 
-const ProviderLogo = [
+export const ProviderLogo = [
   PROVIDER_LOGO.ALL,
   PROVIDER_LOGO.ADVP,
   PROVIDER_LOGO.ARG,
