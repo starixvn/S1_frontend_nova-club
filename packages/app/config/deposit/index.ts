@@ -88,7 +88,7 @@ export const PAYMENT_METHOD: { [key in keyof typeof PAYMENT_METHOD_CATEGORY] } =
       name: 'deposit.depositMethod.crypto',
       icon: 'cp',
       color: '#36A07B',
-      active: false,
+      active: true,
     },
   }
 
