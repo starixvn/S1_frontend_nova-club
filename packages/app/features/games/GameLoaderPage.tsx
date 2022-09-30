@@ -17,7 +17,7 @@ const GameLoaderPage = () => {
   const { left, right } = useSafeArea()
   const [gameUrl] = useParam('gameUrl')
   const [title] = useParam('title')
-  const url = gameUrl && decodeURIComponent(gameUrl)
+  const url = gameUrl // && decodeURIComponent(gameUrl) // decode will cause %3d%3d in the token value to become ==
   const targetProvider = useAppSelector((s) => s.gameLauncher.providerCode)
 
   const { data: walletDetails, isFetching } =

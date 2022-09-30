@@ -74,11 +74,7 @@ const DownloadScreen = () => {
           >
             <Icon name="mobile" />
             <View sx={{ alignItems: 'center' }}>
-              <Button.Label>
-                {t('common.app').toUpperCase() +
-                  '\n' +
-                  t('common.download').toUpperCase()}
-              </Button.Label>
+              <Button.Label>{t('common.download').toUpperCase()}</Button.Label>
             </View>
             <Icon name="dl-circle" />
           </Button>
