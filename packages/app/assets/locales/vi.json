@@ -82,9 +82,9 @@
     "share": "Chia sẻ",
     "submit": "Gửi",
     "turnover": "Doanh số",
-    "userAgreement": "thỏa thuận người dùng",
+    "userAgreement": "Thỏa thuận người dùng",
     "username": "Tên đăng nhập",
-    "win": "Thắng lợi"
+    "win": "Thắng"
   },
   "contact": {
     "contactVia": "Liên hệ qua",
@@ -144,7 +144,7 @@
     },
     "gameStatus": {
       "loss": "Thua",
-      "win": "Thắng lợi"
+      "win": "Thắng"
     },
     "genre": {
       "all": "TẤT CẢ",
@@ -185,7 +185,7 @@
       "cardGame": "Game Bài",
       "cockfighting": "Chọi Gà",
       "fishing": "Bắn Cá",
-      "fishingGames": "Trò Chơi Câu Cá",
+      "fishingGames": "Bắn Cá",
       "games": "Trò Chơi",
       "hotGames": "Trò Chơi Hot",
       "keno/lottery": "Keno / Xổ số",
@@ -197,7 +197,7 @@
     },
     "enterGame": "Vào trò chơi",
     "invalidSession": "Invalid Session [%{code}]",
-    "jackpot": "Giải độc đắc",
+    "jackpot": "NỔ HŨ",
     "name": {
       "btiSports": "BTI Sports",
       "esports": "SABA E-Sports",
@@ -210,7 +210,7 @@
     "notFound": "Trò chơi không tìm thấy",
     "quitGame": "Thoát trò chơi",
     "reward": "Phần thưởng trò chơi",
-    "unableToConnect": "Unable to connect [%{code}]",
+    "unableToConnect": "Không kết nối được [%{code}]",
     "underMaintenance": "Trò chơi đang được bảo trì"
   },
   "menu": {
@@ -335,8 +335,8 @@
   },
   "qr": {
     "downloadQrCode": "Tải Mã QR",
-    "noCameraAccess": "Không có quyền truy cập vào máy ảnh",
-    "requestCameraPermissions": "Yêu cầu quyền truy cập vào máy ảnh",
+    "noCameraAccess": "Không có quyền truy cập vào camera",
+    "requestCameraPermissions": "Yêu cầu quyền truy cập vào camera",
     "scanGallery": "Quét từ thư viện"
   },
   "referral": {
@@ -357,7 +357,7 @@
     "imageNotSupported": "Định dạng hình ảnh không được hỗ trợ",
     "pending": "Đang chờ",
     "processing": "Đang xử lý",
-    "qrCodeNotDetected": "Không thể phát hiện mã QR trong hình ảnh",
+    "qrCodeNotDetected": "Không phát hiện mã QR trong hình ảnh",
     "qrDownloadSuccess": "Tải mã QR thành công",
     "qrTransferSelfError": "Chuyển khoản vào tài khoản riêng không được phép",
     "receiptRequired": "Vui lòng tải biên lai gửi tiền",
@@ -406,8 +406,8 @@
     "realName": "Vui lòng nhập họ tên thật",
     "required": "%{field} là bắt buộc",
     "usdtFormat": "Địa chỉ ví phải tương thích với chuẩn ERC20 / TRC20",
-    "userNameMinMaxLength": "Mật khẩu phải có 6-15 ký tự",
-    "username": "Mật khẩu phải có 6-15 ký tự"
+    "userNameMinMaxLength": "Tên đăng nhập phải có 6-15 ký tự",
+    "username": "Tên đăng nhập phải có 6-15 ký tự"
   },
   "withdrawal": {
     "withdrawTo": "Rút tiền về"
