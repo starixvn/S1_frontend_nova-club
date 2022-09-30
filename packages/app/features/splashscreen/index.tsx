@@ -104,7 +104,6 @@ const SplashScreen = () => {
               right: getBottomSpace() || 10,
               fontWeight: 'bold',
               opacity: 0.8,
-              zIndex: 2,
             }}
           >
             {currentVersion}
@@ -120,7 +119,7 @@ const SplashScreen = () => {
         resizeMode="cover"
         style={{
           position: 'absolute',
-          zIndex: 1,
+          zIndex: -1,
           width: '100%',
           height: Math.max(
             width / (isLandscape ? 2047 / 2732 : 1242 / 2208),
