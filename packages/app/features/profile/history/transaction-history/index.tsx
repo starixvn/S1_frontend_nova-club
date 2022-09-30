@@ -1,5 +1,6 @@
 import HistoryListing from 'app/components/history/HistoryListing'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import {
   DateFilterOptions,
   ReportDepositStatusOptions,
@@ -30,7 +31,11 @@ type HistoryListingDataType = Exclude<
 const TransactionHistoryTab = () => {
   const { t } = useLocalization()
   const [fetchData, result] = useLazyPlayerReportQuery()
-  const { data: playerData } = usePlayerProfileQuery()
+  const updatedSlipId = useAppSelector((state) => state.deposit.updatedSlipId)
+  console.log(
+    '🚀 ~ file: index.tsx ~ line 35 ~ TransactionHistoryTab ~ updatedSlipId',
+    updatedSlipId
+  )
 
   const [selected, setSelected] = useState({
     selectedStatus: ReportDepositStatusOptions[0],
@@ -113,6 +118,7 @@ const TransactionHistoryTab = () => {
         ]}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
+        updatedSlipId={updatedSlipId}
       />
     </View>
   )

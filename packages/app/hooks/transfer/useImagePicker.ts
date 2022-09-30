@@ -1,3 +1,4 @@
+import { useFocusEffect } from '@react-navigation/native'
 import useLocalization from 'app/provider/localization'
 import { RootState } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
@@ -5,7 +6,7 @@ import { Buffer } from 'buffer'
 import * as ImagePicker from 'expo-image-picker'
 import jpeg from 'jpeg-js'
 import jsQR from 'jsqr'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useDispatch, useSelector } from 'react-redux'
@@ -38,6 +39,17 @@ const useImagePicker = () => {
       setLoading(false)
     }
   }, [isFocus])
+
+  useFocusEffect(
+    useCallback(() => {
+      console.log('Screen was focused')
+
+      return () => {
+        console.log('Screen was unfocused')
+        // Useful for cleanup functions
+      }
+    }, [])
+  )
 
   const handleScan = (value: boolean) => {
     dispatch(SettingActions.toogleScan(value))

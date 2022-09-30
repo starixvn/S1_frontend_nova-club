@@ -8,9 +8,12 @@ import { FileInputValue } from '../form/FileInput/useFileInputHandler'
 import ModalContent from './ModalContent'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import ModalWrapper from './ModalWrapper'
+import { useDispatch } from 'react-redux'
+import { DepositActions } from 'app/store/deposit.slice'
 
 const DepositUploadModal = ({ modal: { closeModal, getParam } }) => {
   const { t } = useLocalization()
+  const dispatch = useDispatch()
   const depositUploadRef = useRef<ReceiptUploadMethods>(null)
   const [receipt, setReceipt] = useState<FileInputValue>()
 
@@ -30,8 +33,10 @@ const DepositUploadModal = ({ modal: { closeModal, getParam } }) => {
         descInfo.transactionId
       )
 
-      if (uploadResp.success)
+      if (uploadResp.success) {
+        dispatch(DepositActions.setUpdatedSlipId(descInfo.transactionId))
         Toast.show({ type: 'success', text1: t('status.receiptSuccess') })
+      }
       closeModal()
     }
   }

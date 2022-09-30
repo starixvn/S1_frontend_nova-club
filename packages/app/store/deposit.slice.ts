@@ -8,6 +8,7 @@ export interface DepositConfirmation {
 }
 
 export interface DepositState {
+  updatedSlipId?: string
   confirmation?: DepositConfirmation
 }
 
@@ -17,6 +18,10 @@ const depositSlice = createSlice({
   name: 'deposit',
   initialState: initialState,
   reducers: {
+    setUpdatedSlipId: (state, action) => {
+      console.log('🚀 ~ file: deposit.slice.ts ~ line 22 ~ action', action)
+      state.updatedSlipId = action.payload
+    },
     setConfirmation: (
       state,
       action: PayloadAction<Omit<DepositConfirmation, 'isVisible'>>

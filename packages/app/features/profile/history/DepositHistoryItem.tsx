@@ -1,18 +1,17 @@
 import IconButton from 'app/components/form/IconButton'
 import GradientBox from 'app/components/GradientBox'
 import Icon from 'app/components/Icon'
-import { getBankLogo } from 'app/config/bank'
-import PaymentMethod, { PaymentMethodProps } from 'app/config/deposit'
+import PaymentMethod, {
+  DepositPaymentMethodCategoryId,
+  PaymentMethodProps,
+} from 'app/config/deposit'
 import { getStatusColor } from 'app/config/status'
-import { ReceiptUploadMethods } from 'app/features/deposit/ReceiptUpload'
-import useLocalBankDeposit from 'app/hooks/deposit/useLocalBankDeposit'
 import useLocalization from 'app/provider/localization'
 import { copyToClipboard, toThousandSeparator } from 'app/utils'
 import dayjsTz from 'app/utils/dayjs'
 import { styled, Text, useDripsyTheme, View } from 'dripsy'
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 import { useModal } from 'react-native-modalfy'
-import { usePlayerProfileQuery } from 'services/playerApi'
 import { ReportDepositItem } from 'services/playerApi.type'
 import DateTimeCell from './DateTimeCell'
 
@@ -131,20 +130,22 @@ const DepositHistoryItem = ({ item }: TransactionHistoryItemProps) => {
           >
             {item.status}
           </Text>
-          {!item.bank_slip_attachment && (
-            <Text
-              numberOfLines={1}
-              sx={{
-                fontSize: 12,
-                ml: 4,
-                textDecorationLine: 'underline',
-                color: '$lightCyan',
-              }}
-              onPress={handleUploadReceipt}
-            >
-              {t('deposit.bankSlip')}
-            </Text>
-          )}
+          {!item.bank_slip_attachment &&
+            item.second_category_flag ===
+              DepositPaymentMethodCategoryId.LOCAL_BANK && (
+              <Text
+                numberOfLines={1}
+                sx={{
+                  fontSize: 12,
+                  ml: 4,
+                  textDecorationLine: 'underline',
+                  color: '$lightCyan',
+                }}
+                onPress={handleUploadReceipt}
+              >
+                {t('deposit.bankSlip')}
+              </Text>
+            )}
         </View>
       </View>
     </GradientBox>

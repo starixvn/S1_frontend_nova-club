@@ -1,3 +1,4 @@
+import { FlashList } from '@shopify/flash-list'
 import { ActivityIndicator, FlatList } from 'dripsy'
 import React, { useEffect, useRef, useState } from 'react'
 import {
@@ -6,6 +7,7 @@ import {
   Platform,
   View,
 } from 'react-native'
+import { ReportDepositItem } from 'services/playerApi.type'
 import HistoryEmpty from './HistoryEmpty'
 import HistoryHeader, { HeaderProps } from './HistoryHeader'
 
@@ -16,19 +18,41 @@ interface HistoryListingProps<T, FetchParamsType> {
   header: HeaderProps['data']
   keyExtractor?: (item: T, index: number) => string
   renderItem: ListRenderItem<T>
+  updatedSlipId?: string
 }
 
 function HistoryListing<T, FetchParamsType>(
   props: HistoryListingProps<T, FetchParamsType>
 ) {
-  const { fetchParams, trigger, result, header, keyExtractor, renderItem } =
-    props
-  const { isFetching, isSuccess, isUninitialized } = result
+  const {
+    fetchParams,
+    trigger,
+    result,
+    header,
+    keyExtractor,
+    renderItem,
+    updatedSlipId,
+  } = props
+  const { data, isFetching, isSuccess, isUninitialized } = result
   const [limit, setLimit] = useState<number>(10)
   const [totalOffset, setTotalOffset] = useState<number>(0)
   const [displayList, setDisplayList] = useState<T[]>([])
   const [totalRow, setTotalRow] = useState(0)
   const [allLoaded, setAllLoaded] = useState(false)
+
+  useEffect(() => {
+    console.log('updatedSlipId', updatedSlipId)
+    if (updatedSlipId) {
+      setDisplayList(
+        displayList.map((item) => {
+          if (item.secure_id === updatedSlipId)
+            return { ...item, bank_slip_attachment: true }
+
+          return item
+        })
+      )
+    }
+  }, [updatedSlipId])
 
   useEffect(() => {
     if (displayList.length) setDisplayList([])
@@ -53,8 +77,11 @@ function HistoryListing<T, FetchParamsType>(
         .catch((error) => console.log('error', error))
 
       if (data?.rows) {
-        if (offset > 0) setDisplayList(displayList.concat(data?.rows || []))
-        else setDisplayList(data?.rows || [])
+        if (offset > 0) {
+          setDisplayList(displayList.concat(data?.rows || []))
+        } else {
+          setDisplayList(data?.rows || [])
+        }
 
         setTotalRow(data.row_count_total)
         setTotalOffset(offset + limit)
@@ -103,7 +130,19 @@ function HistoryListing<T, FetchParamsType>(
   return (
     <View style={{ flex: 1 }}>
       <HistoryHeader data={header} />
-      <FlatList
+      <FlashList
+        data={displayList}
+        keyExtractor={keyExtractor}
+        renderItem={onRenderItem}
+        estimatedItemSize={10}
+        onRefresh={onRefresh}
+        refreshing={isFetching ?? false}
+        ListEmptyComponent={onListEmpty}
+        onEndReached={onLoadMore}
+        onEndReachedThreshold={0.2}
+        extraData={isFetching}
+      />
+      {/* <FlatList
         onRefresh={onRefresh}
         refreshing={isFetching ?? false}
         ListEmptyComponent={onListEmpty}
@@ -113,7 +152,7 @@ function HistoryListing<T, FetchParamsType>(
         onEndReached={onLoadMore}
         onEndReachedThreshold={0.5}
         extraData={displayList}
-      />
+      /> */}
     </View>
   )
 }

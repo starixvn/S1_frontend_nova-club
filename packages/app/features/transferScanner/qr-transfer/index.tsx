@@ -3,7 +3,7 @@ import LoadingScreen from 'app/components/LoadingScreen'
 import useImagePicker from 'app/hooks/transfer/useImagePicker'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useLocalization from 'app/provider/localization'
-import { View } from 'dripsy'
+import { ActivityIndicator, Text, View } from 'dripsy'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 import React, { useEffect, useMemo, useState } from 'react'
 import { StyleSheet } from 'react-native'
@@ -36,10 +36,12 @@ function QrcodeScannerTab({ isActive }) {
   }, [isActive])
 
   useEffect(() => {
-    ;(async () => {
+    const getBarCodeScannerPermissions = async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync()
       setHasPermission(status === 'granted')
-    })()
+    }
+
+    getBarCodeScannerPermissions()
   }, [])
 
   const handleBarCodeScanned = ({ type, data, bounds: { origin } }) => {
@@ -72,6 +74,14 @@ function QrcodeScannerTab({ isActive }) {
     ),
     [isScanning]
   )
+
+  if (hasPermission === null) {
+    return <Text></Text>
+  }
+
+  // if (hasPermission === false) {
+  //   return <Text>No access to camera</Text>
+  // }
 
   return (
     <View sx={{ flex: 1, bg: '$secondary' }}>

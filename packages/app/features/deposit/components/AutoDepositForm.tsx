@@ -86,7 +86,7 @@ const AutoDepositForm = ({ module, DepositCategoryId }) => {
   ) => {
     try {
       actions.setSubmitting(true)
-      const { data, success, message } = await postSubmitDeposit({
+      const result = await postSubmitDeposit({
         amount: realAmount,
         bank: bank?.value ?? '',
         bank_type_id: selectedChannel?.bankTypeId ?? 0,
@@ -104,10 +104,10 @@ const AutoDepositForm = ({ module, DepositCategoryId }) => {
         .unwrap()
         .catch((error) => showAlert(error))
 
-      if (success) {
+      if (result?.success) {
         const params = {
           title: depositPayment?.category_text,
-          depositUrl: data.url,
+          depositUrl: result?.data?.url,
         }
 
         push(makeContextualHref('deposit-loader', params), {
