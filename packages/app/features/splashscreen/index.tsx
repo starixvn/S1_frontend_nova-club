@@ -1,27 +1,21 @@
 import { useNavigation } from '@react-navigation/native'
 import useAlert from 'app/hooks/useAlert'
 import useFontInit from 'app/hooks/useFontInit'
-import useOrientation from 'app/hooks/useOrientation'
+import useOrientation, { unlockAsync } from 'app/hooks/useOrientation'
 import useCodePushDownload from 'app/integrations/codepush/useCodePush'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Text, View } from 'dripsy'
-import * as ScreenOrientation from 'expo-screen-orientation'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Image, ImageBackground, useWindowDimensions } from 'react-native'
+import React, { useEffect } from 'react'
+import { Image, useWindowDimensions } from 'react-native'
 import CodePush from 'react-native-code-push'
 import { getVersion } from 'react-native-device-info'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'solito/router'
-import { sleep } from 'utils/common'
 import CodePushUpdateBar from './CodePushUpdateBar'
 import { checkMaintenance, checkVersionUpdated } from './splashScreenChecks'
-import useSplashScreen, {
-  SplashScreenTask,
-  SplashScreenHandler,
-  useSplashScreenTaskResolver,
-} from './useSplashScreen'
+import useSplashScreen, { useSplashScreenTaskResolver } from './useSplashScreen'
 
 function useFontInitWithPromise() {
   const resolver = useSplashScreenTaskResolver(useFontInit)
@@ -73,7 +67,7 @@ const SplashScreen = () => {
   const loginResult = useAppSelector((state) => state.auth.info)
 
   useEffect(() => {
-    ScreenOrientation.unlockAsync()
+    unlockAsync()
   }, [])
 
   useEffect(() => {

@@ -1,18 +1,15 @@
-import home from 'app/config/home'
 import { GRID_TOTAL_COL, HOME_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
+import useOrientation from 'app/hooks/useOrientation'
 import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
 import { ActionType, getAction } from 'app/utils/actionGenerator'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
 import { Image, styled, Text, View } from 'dripsy'
-import React from 'react'
-import { useRouter } from 'solito/router'
 import { Video } from 'expo-av'
-import { Platform } from 'react-native'
+import React from 'react'
 import { Game } from 'services/contentApi.type'
-import useOrientation from 'app/hooks/useOrientation'
-import { Orientation } from 'expo-screen-orientation'
+import { useRouter } from 'solito/router'
 const dummyData = [
   {
     col: 4,

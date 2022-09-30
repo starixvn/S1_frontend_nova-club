@@ -193,10 +193,15 @@ export function toThousandSeparator(
   if (!text) return
 
   const separatorSymbol = CURRENCY_SEPARATOR[language].thousands
-
-  return parseFloat(text)
+  const significants = text.toString().split('.')
+  const wholeNum = parseFloat(significants[0] ?? '0')
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, separatorSymbol)
+
+  const decimal =
+    significants.length > 1 ? significants[1]?.substring(0, 2) : undefined
+
+  return `${wholeNum}${decimal ? '.' + decimal : ''}`
 }
 
 export interface CleanAmount {

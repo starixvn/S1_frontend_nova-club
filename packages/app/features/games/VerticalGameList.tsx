@@ -4,16 +4,14 @@ import useGameGridSize from 'app/hooks/useGameGridSize'
 import { useAppSelector } from 'app/provider/redux/store'
 import { GAME_TAGS } from 'app/utils/constant'
 import { styled, View } from 'dripsy'
-import React, { forwardRef, useEffect, useMemo, useState } from 'react'
+import React, { forwardRef, useMemo, useState } from 'react'
 
 import { Game } from 'services/contentApi.type'
 
 import { FlashList, FlashListProps } from '@shopify/flash-list'
 import IconButton from 'app/components/form/IconButton'
-import FastImage from 'react-native-fast-image'
-import { AnimatePresence, MotiView } from 'moti'
 import useOrientation from 'app/hooks/useOrientation'
-import { Orientation } from 'expo-screen-orientation'
+import { AnimatePresence, MotiView } from 'moti'
 
 type VerticalGameListProps = Omit<FlashListProps<Game>, 'renderItem'> & {
   isLoading?: boolean

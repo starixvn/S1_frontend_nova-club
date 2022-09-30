@@ -4,7 +4,6 @@ import { useTransferAllToOneMutation } from 'app/custom_services/walletApi'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { View } from 'dripsy'
-import * as ScreenOrientation from 'expo-screen-orientation'
 import { useEffect } from 'react'
 import {
   useLazyPlayerBalanceQuery,

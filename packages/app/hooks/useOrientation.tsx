@@ -3,8 +3,11 @@ import {
   getOrientationAsync,
   Orientation,
   removeOrientationChangeListener,
+  unlockAsync as unlockAsyncESO,
 } from 'expo-screen-orientation'
 import { useEffect, useState } from 'react'
+
+export const unlockAsync = unlockAsyncESO
 
 export default function useOrientation() {
   const [currentOrientation, setCurrentOrientation] = useState<Orientation>()

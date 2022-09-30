@@ -2,8 +2,7 @@ import useOrientation from 'app/hooks/useOrientation'
 import BouncePressable from 'app/pressable/BouncePressable'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { SxProp } from 'dripsy'
-import * as ScreenOrientation from 'expo-screen-orientation'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Icon from '../Icon'
 
 interface MenuNoticeProps {
