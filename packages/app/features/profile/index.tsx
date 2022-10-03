@@ -27,7 +27,17 @@ const ProfileScreen = () => {
   const inset = useSafeArea()
 
   return (
-    <Page sx={{ paddingTop: inset.top, flex: 1 }}>
+    <Page
+      sx={{
+        flex: 1,
+        ...Platform.select({
+          web: {
+            maxHeight: '100vh',
+          },
+          default: { paddingTop: inset.top },
+        }),
+      }}
+    >
       <ProfileUser username={data?.data?.username || ''} />
 
       <ScrollView
