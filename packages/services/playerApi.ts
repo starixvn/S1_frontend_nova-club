@@ -114,15 +114,16 @@ const playerApi = baseApiWithTag.injectEndpoints({
   }),
 })
 
-type usePlayerProfileQueryArgs = Parameters<
+type PlayerProfileQuerySubscriptionOptions = Parameters<
   typeof playerApi.usePlayerProfileQuery
->
+>[1]
 
 export const usePlayerProfileQuery = (
-  _?: void,
-  options?: usePlayerProfileQueryArgs[1]
+  _: void,
+  options?: PlayerProfileQuerySubscriptionOptions
 ) => {
   return playerApi.usePlayerProfileQuery(undefined, {
+    ...options,
     selectFromResult: (s) => {
       return {
         ...s,
@@ -130,7 +131,6 @@ export const usePlayerProfileQuery = (
         isCreditMember: s.data?.data?.member_type === MEMBER_TYPE.CREDIT,
       }
     },
-    ...options,
   })
 }
 
