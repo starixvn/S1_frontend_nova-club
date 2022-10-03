@@ -109,10 +109,8 @@ const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
       backdropOpacity={0}
       animationIn={'fadeIn'}
       animationOut={'fadeOut'}
-      coverScreen={isWeb ? false : true}
-      style={{
-        margin: 0,
-      }}
+      coverScreen
+      style={{ margin: 0 }}
     >
       <StyledContainer
         sx={{

@@ -3,7 +3,7 @@ import useContextualRouting from 'app/hooks/useContextualRouting'
 import useOrientation from 'app/hooks/useOrientation'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Flex, View } from 'dripsy'
-import React from 'react'
+import React, { useState } from 'react'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { useRouter } from 'solito/router'
 import BottomNavIcon from './BottomNavIcon'
@@ -55,10 +55,13 @@ export const BOTTOM_NAV_HEIGHT = BAR_HEIGHT + getBottomSpace()
 const BottomNavigation = () => {
   const { push } = useRouter()
   const { top } = useSafeArea()
-
   const { isLandscape } = useOrientation()
-
   const { returnHref, makeContextualHref } = useContextualRouting()
+  const [delay, setDelay] = useState(false)
+  console.log(
+    '🚀 ~ file: BottomNavigation.tsx ~ line 61 ~ BottomNavigation ~ delay',
+    delay
+  )
 
   const isActiveState = (index: number, item: typeof tabConfig[number]) => {
     let isSamePath = false
@@ -70,6 +73,14 @@ const BottomNavigation = () => {
     }
 
     return isSamePath
+  }
+
+  const handleNavigationClick = (route) => {
+    push(route, undefined, { scroll: false })
+    setDelay(true)
+    setTimeout(() => {
+      setDelay(false)
+    }, 500)
   }
 
   return (
@@ -102,9 +113,7 @@ const BottomNavigation = () => {
               iconName={item.iconName}
               active={isActiveState(index, item)}
               size={CIRCLE_HEIGHT}
-              onPress={() => {
-                push(item.route, undefined, { scroll: false })
-              }}
+              onPress={() => !delay && handleNavigationClick(item.route)}
             />
           </View>
         ))}

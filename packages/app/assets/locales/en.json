@@ -335,7 +335,7 @@
   },
   "qr": {
     "downloadQrCode": "Download QR code",
-    "noCameraAccess": "No access to camera",
+    "noCameraAccess": "Your camera is required to scan QR code for transfer. Please enable permission to continue using this feature",
     "requestCameraPermissions": "Requesting for camera permission",
     "scanGallery": "Scan from gallery"
   },
