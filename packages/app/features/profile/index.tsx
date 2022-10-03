@@ -3,9 +3,10 @@ import useLocalization from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { ScrollView, Text, useSx, View } from 'dripsy'
 import React, { useEffect } from 'react'
-import { Platform } from 'react-native'
+import { Platform, RefreshControl } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { usePlayerProfileQuery } from 'services/playerApi'
+import { MEMBER_TYPE } from 'services/playerApi.type'
 import ProfileAction from './ProfileAction'
 import ProfileBalance from './ProfileBalance'
 import ProfileLanguage from './ProfileLanguage'
@@ -18,7 +19,8 @@ const ProfileScreen = () => {
   const [refreshing, setRefreshing] = React.useState(false)
   const dispatch = useDispatch()
 
-  const { data, isFetching, isLoading, refetch } = usePlayerProfileQuery()
+  const { data, isFetching, isLoading, isCreditMember, refetch } =
+    usePlayerProfileQuery()
 
   useEffect(() => {
     !isLoading && setRefreshing(isFetching)
@@ -38,10 +40,9 @@ const ProfileScreen = () => {
         }),
       }}
     >
-      <ProfileUser username={data?.data?.username || ''} />
-
+      <ProfileUser username={data?.username} referral={data?.referral_code} />
       <ScrollView
-        // scrollEnabled={false}
+        bounces={false}
         style={{ flex: 1 }}
         showsVerticalScrollIndicator={false}
       >
@@ -57,7 +58,7 @@ const ProfileScreen = () => {
           <Text variant="xs" sx={{ textAlign: 'center' }}>
             {t('profile.timeline')}
           </Text>
-          <ProfileAction />
+          {data && <ProfileAction isCreditMember={isCreditMember} />}
         </View>
         <View
           sx={{
@@ -66,9 +67,9 @@ const ProfileScreen = () => {
           }}
         />
 
-        <ProfileOverview />
+        {!isCreditMember && <ProfileOverview />}
         <View sx={{ borderTopWidth: 1, borderColor: '$lightNavyBlue' }} />
-        <ProfileOptions />
+        <ProfileOptions isCreditMember={isCreditMember} />
         <ProfileLanguage />
       </ScrollView>
     </Page>

@@ -8,10 +8,7 @@ import {
 import dayjsTz from 'app/utils/dayjs'
 import { View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
-import {
-  useLazyPlayerReportQuery,
-  usePlayerProfileQuery,
-} from 'services/playerApi'
+import { useLazyPlayerReportQuery } from 'services/playerApi'
 import { ReportGameItem, ReportResult } from 'services/playerApi.type'
 import FilterSelection from '../FilterSelection'
 import GameHistoryItem from '../GameHistoryItem'

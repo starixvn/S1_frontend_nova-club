@@ -16,7 +16,7 @@ const QrReceiveTab = () => {
   const { width, height } = useContainerDimension()
 
   const { data } = usePlayerProfileQuery()
-  const username = data?.data?.username
+  const username = data?.username
 
   const { appScreenshotDownload } = useDownload({ ref })
 

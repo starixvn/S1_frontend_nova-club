@@ -1,5 +1,4 @@
 import Avatar from 'app/components/Avatar'
-import { Button } from 'app/components/form/Button'
 import IconButton from 'app/components/form/IconButton'
 import Icon from 'app/components/Icon'
 import useContextualRouting from 'app/hooks/useContextualRouting'
@@ -11,15 +10,13 @@ import React from 'react'
 import { useModal } from 'react-native-modalfy'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
-import { Toast } from 'react-native-toast-message/lib/src/Toast'
-
 const ProfileUser = () => {
   const { t } = useLocalization()
   const { push, back } = useRouter()
   const { openModal } = useModal()
   const { data } = usePlayerProfileQuery()
-  const username = data?.data?.username
-  const referralCode = data?.data?.referral_code
+  const username = data?.username
+  const referralCode = data?.referral_code
 
   const { makeContextualHref } = useContextualRouting()
   const toQrcodeScanner = makeContextualHref('qrcode-scanner')

@@ -44,7 +44,7 @@ const AutoDepositForm = ({ module, DepositCategoryId }) => {
   const { showAlert } = useAlert()
   const [postSubmitDeposit] = useSubmitDepositMutation()
   const { data: playerData } = usePlayerProfileQuery()
-  const currency = playerData?.data?.currency as Currency
+  const currency = playerData?.currency as Currency
 
   const { data, isLoading, isFetching } = useDepositPaymentListQuery()
 

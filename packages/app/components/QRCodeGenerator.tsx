@@ -17,7 +17,7 @@ const QRCodeGenerator = ({
   const { width, height } = useContainerDimension()
 
   const { data } = usePlayerProfileQuery()
-  const referralCode = data?.data?.referral_code
+  const referralCode = data?.referral_code
 
   return (
     <View

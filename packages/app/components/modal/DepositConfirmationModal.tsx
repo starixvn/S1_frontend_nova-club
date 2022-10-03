@@ -19,7 +19,7 @@ const DepositConfirmationModal = ({ modal: { closeModal, getParam } }) => {
   const callback = getParam('callback')
 
   const { data: playerData } = usePlayerProfileQuery()
-  const currency = playerData?.data?.currency as Currency
+  const currency = playerData?.currency as Currency
 
   function onDismiss() {
     closeModal()

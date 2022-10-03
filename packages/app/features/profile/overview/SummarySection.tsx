@@ -72,7 +72,7 @@ const TopInfo = ({
   isCurrency?: boolean
 }) => {
   const { data: playerData } = usePlayerProfileQuery()
-  const currency = playerData?.data?.currency as Currency
+  const currency = playerData?.currency as Currency
   return (
     <View
       sx={{
@@ -96,7 +96,7 @@ const TopInfo = ({
 
 const BottomInfo = ({ label, amount }: { label: string; amount: Amount }) => {
   const { data: playerData } = usePlayerProfileQuery()
-  const currency = playerData?.data?.currency as Currency
+  const currency = playerData?.currency as Currency
 
   return (
     <StyledBottomContainer>

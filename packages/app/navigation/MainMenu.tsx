@@ -8,6 +8,7 @@ import { Image, styled, Sx, View } from 'dripsy'
 import { useMemo } from 'react'
 import { Linking, Platform, Text, TouchableOpacity } from 'react-native'
 import Modal from 'react-native-modal'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 
 interface MainMenuProps {
@@ -41,9 +42,11 @@ const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
     ? tooltipArrowHeight.map((height) => -height)
     : tooltipArrowHeight.map((height) => -(height / 1.2))
 
+  const { isCreditMember } = usePlayerProfileQuery()
+
   //change to icon
-  const MENU_LIST = useMemo(
-    () => [
+  const MENU_LIST = useMemo(() => {
+    const menuList = [
       {
         label: 'menu.agentLogin',
         icon: 'profile',
@@ -53,20 +56,6 @@ const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
           } catch (e) {
             console.log('Failed to open Agent url')
           }
-        },
-      },
-      {
-        icon: 'dac',
-        label: 'menu.deposit',
-        onPress: () => {
-          push(makeContextualHref('deposit'), '/deposit')
-        },
-      },
-      {
-        icon: 'wda',
-        label: 'menu.withdrawal',
-        onPress: () => {
-          push(makeContextualHref('withdrawal'), '/withdrawal')
         },
       },
       {
@@ -94,9 +83,31 @@ const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
           }
         },
       },
-    ],
-    [logout, makeContextualHref, push]
-  )
+    ]
+
+    if (!isCreditMember) {
+      menuList.splice(
+        1,
+        0,
+        {
+          icon: 'dac',
+          label: 'menu.deposit',
+          onPress: () => {
+            push(makeContextualHref('deposit'), '/deposit')
+          },
+        },
+        {
+          icon: 'wda',
+          label: 'menu.withdrawal',
+          onPress: () => {
+            push(makeContextualHref('withdrawal'), '/withdrawal')
+          },
+        }
+      )
+    }
+
+    return menuList
+  }, [logout, makeContextualHref, push, isCreditMember])
 
   const handleDismiss = () => {
     onMenu(false)

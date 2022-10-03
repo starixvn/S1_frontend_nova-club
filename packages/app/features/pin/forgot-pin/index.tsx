@@ -55,7 +55,7 @@ const ForgotPinScreen = () => {
   const [recoverTransferPin] = useTransferPinRecoveryMutation()
 
   useEffect(() => {
-    setFieldValue('contactNumber', playerData?.data?.contractNumber)
+    setFieldValue('contactNumber', playerData?.contractNumber)
   }, [playerData])
 
   const onSubmit = async (

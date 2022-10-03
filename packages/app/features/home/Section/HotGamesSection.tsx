@@ -124,7 +124,7 @@ const games: Game[] = [
 
 const HotGamesSection = () => {
   const { data: playerProfile } = usePlayerProfileQuery()
-  const { currency } = playerProfile?.data || {}
+  const { currency } = playerProfile || {}
   const { data } = useFeaturedGameListQuery({ currency })
   const featuredList = data?.data?.rows.map((item) => {
     return {

@@ -14,7 +14,7 @@ const AvailableBalance = () => {
   const playerBalance = balanceData?.data?.main.balance
 
   const { data: playerData } = usePlayerProfileQuery()
-  const currency = playerData?.data?.currency as Currency
+  const currency = playerData?.currency as Currency
 
   return (
     <View

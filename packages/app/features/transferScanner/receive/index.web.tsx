@@ -1,13 +1,11 @@
-import useContainerDimension from 'app/hooks/useContainerDimension'
-import useLocalization from 'app/provider/localization'
-import { Text, View } from 'dripsy'
-import React, { createRef } from 'react'
-import QRCode from 'react-native-qrcode-svg'
-import { usePlayerProfileQuery } from 'services/playerApi'
-import useDownload from 'app/hooks/useDownload'
-import ModalWrapper from 'app/components/modal/ModalWrapper'
 import { Button } from 'app/components/form/Button'
+import ModalWrapper from 'app/components/modal/ModalWrapper'
 import QRCodeGenerator from 'app/components/QRCodeGenerator'
+import useContainerDimension from 'app/hooks/useContainerDimension'
+import useDownload from 'app/hooks/useDownload'
+import useLocalization from 'app/provider/localization'
+import { View } from 'dripsy'
+import React, { createRef } from 'react'
 
 const QrReceiveTab = () => {
   const { t } = useLocalization()

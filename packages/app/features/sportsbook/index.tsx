@@ -12,7 +12,7 @@ const Sportsbook = () => {
   const locale = useAppSelector((s) => s.setting.locale)
 
   const { data: playerProfile } = usePlayerProfileQuery()
-  const { currency } = playerProfile?.data || {}
+  const { currency } = playerProfile || {}
 
   const { data: gameList, isFetching } = useGetGameListQuery({
     currency: currency ?? Currency.VND,

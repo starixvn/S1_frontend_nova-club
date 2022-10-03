@@ -17,7 +17,7 @@ const useDownload = ({ ref, closeModal }: useDownloadProps) => {
   const dispatch = useDispatch()
   const { t } = useLocalization()
   const { data } = usePlayerProfileQuery()
-  const username = data?.data?.username
+  const username = data?.username
 
   const hasAndroidPermission = async () => {
     const permission = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE

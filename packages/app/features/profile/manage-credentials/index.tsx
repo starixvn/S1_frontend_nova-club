@@ -17,7 +17,7 @@ const ManageCredentialsPage = () => {
   const { data: playerData } = usePlayerProfileQuery(undefined, {
     refetchOnMountOrArgChange: true,
   })
-  const isPinExist = playerData?.data?.pin_exist
+  const isPinExist = playerData?.pin_exist
 
   const [index, setIndex] = useState(0)
   const [routes] = useState([

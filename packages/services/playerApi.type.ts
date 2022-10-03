@@ -4,6 +4,11 @@ import {
   ReportTransactionType,
 } from 'app/utils/constant'
 
+export enum MEMBER_TYPE {
+  CASH = 'CASH',
+  CREDIT = 'CREDIT',
+}
+
 export interface ProfileResult {
   auto_transfer_status: number
   birthdate: string
@@ -23,6 +28,7 @@ export interface ProfileResult {
   vip_group: string
   vip_level: string
   vip_level_display: string
+  member_type: MEMBER_TYPE
 }
 
 export interface ProfileQueryArgs {

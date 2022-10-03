@@ -23,7 +23,7 @@ const FieldAmount = ({
 }: FieldAmountProps) => {
   const { t } = useLocalization()
   const { data: playerData } = usePlayerProfileQuery()
-  const currency = playerData?.data?.currency as Currency
+  const currency = playerData?.currency as Currency
 
   const { handleBlur, values, errors, touched, setValues } = formik
 

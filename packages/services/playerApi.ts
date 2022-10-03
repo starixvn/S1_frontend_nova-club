@@ -1,6 +1,7 @@
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
+  MEMBER_TYPE,
   OverviewResult,
   OverviewSummaryResult,
   PlayerLangArgs,
@@ -113,8 +114,27 @@ const playerApi = baseApiWithTag.injectEndpoints({
   }),
 })
 
+type usePlayerProfileQueryArgs = Parameters<
+  typeof playerApi.usePlayerProfileQuery
+>
+
+export const usePlayerProfileQuery = (
+  _?: void,
+  options?: usePlayerProfileQueryArgs[1]
+) => {
+  return playerApi.usePlayerProfileQuery(undefined, {
+    selectFromResult: (s) => {
+      return {
+        ...s,
+        data: s.data?.data,
+        isCreditMember: true, // s.data?.data?.member_type === MEMBER_TYPE.CREDIT,
+      }
+    },
+    ...options,
+  })
+}
+
 export const {
-  usePlayerProfileQuery,
   usePlayerReportQuery,
   usePlayerOverviewQuery,
   usePlayerOverviewSummaryQuery,

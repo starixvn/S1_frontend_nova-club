@@ -79,6 +79,7 @@ const commonColors = {
 }
 
 const colorGradient = {
+  grey: ['#CCCCCC', '#666666'],
   maroon: ['rgb(160,50,100)', 'rgb(112,27,42)'],
   lightPurple: ['rgb(174,98,206)', 'rgb(115,54,124)'],
   purple: ['rgb(71,82,200)', 'rgb(40,47,120)'],

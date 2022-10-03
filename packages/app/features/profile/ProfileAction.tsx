@@ -2,22 +2,20 @@ import { GradientList } from 'app/components/Gradient'
 import RoundedIcon from 'app/components/RoundedIcon'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
-import { Pressable, styled, Text, View } from 'dripsy'
+import { styled, Text, View } from 'dripsy'
 import React from 'react'
 import { useRouter } from 'solito/router'
 type IconActionProps = {
   gradient: GradientList
   icon: string
   title?: string
+  disabled?: boolean
   onPress: () => void
 }
 
-const ProfileAction = () => {
+const ProfileAction = ({ isCreditMember }) => {
+  console.log('isCreditMember', isCreditMember)
   const { push } = useRouter()
-
-  const handleOnPress = () => {
-    console.log('Profile action click')
-  }
 
   const { makeContextualHref } = useContextualRouting()
   const toTransferScanner = makeContextualHref('transfer-scanner')
@@ -29,6 +27,7 @@ const ProfileAction = () => {
   return (
     <StyledView>
       <IconAction
+        disabled={isCreditMember}
         gradient="lightPurple"
         icon="tf-user"
         title="menu.transfer"
@@ -37,6 +36,7 @@ const ProfileAction = () => {
         }}
       />
       <IconAction
+        disabled={isCreditMember}
         gradient="lightRed"
         icon="dac"
         title="menu.deposit"
@@ -45,12 +45,14 @@ const ProfileAction = () => {
         }}
       />
       <IconAction
+        disabled={isCreditMember}
         gradient="lightGreen"
         icon="wda"
         title="menu.withdraw"
         onPress={() => push(toWithdrawal, '/withdrawal')}
       />
       <IconAction
+        disabled={isCreditMember}
         gradient="lightBlue"
         icon="card"
         title="menu.bankAccount"
@@ -71,13 +73,25 @@ const IconAction = ({
   icon,
   title,
   onPress,
+  disabled,
   ...rest
 }: IconActionProps) => {
   const { t } = useLocalization()
 
   return (
-    <View sx={{ justifyContent: 'flex-start', alignItems: 'center', flex: 1 }}>
-      <RoundedIcon gradient={gradient} icon={icon} onPress={onPress} />
+    <View
+      sx={{
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        flex: 1,
+      }}
+    >
+      <RoundedIcon
+        disabled={disabled}
+        gradient={gradient}
+        icon={icon}
+        onPress={onPress}
+      />
       {title && <StyledTextIcon>{t(title)}</StyledTextIcon>}
     </View>
   )

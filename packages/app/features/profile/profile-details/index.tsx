@@ -17,24 +17,24 @@ const ProfileDetails = () => {
         <TextField>
           <TextField.Label
             label={t('profile.details.realname')}
-            value={userProfile?.data?.firstName || ''}
+            value={userProfile?.firstName || ''}
           />
           <TextField.Label
             label={t('profile.details.username')}
-            value={userProfile?.data?.username || ''}
+            value={userProfile?.username || ''}
           />
           <TextField.Label
             label={t('profile.details.phone')}
-            value={userProfile?.data?.contractNumber || ''}
+            value={userProfile?.contractNumber || ''}
           />
           <TextField.Label
             label={t('profile.playerId')}
-            value={userProfile?.data?.referral_code || ''}
+            value={userProfile?.referral_code || ''}
             copy
           />
           <TextField.Label
             label={t('profile.details.currency')}
-            value={userProfile?.data?.currency || ''}
+            value={userProfile?.currency || ''}
           />
         </TextField>
       </StyledViewPage>

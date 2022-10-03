@@ -16,8 +16,7 @@
     "typescript": "^4.6.2"
   },
   "scripts": {
-    "native": "cd apps/expo && expo start",
-    "native:start": "cd apps/expo && yarn start",
+    "native": "cd apps/expo && yarn start",
     "ios": "cd apps/expo && yarn ios",
     "android": "cd apps/expo && yarn android",
     "web": "cd apps/next && yarn next",

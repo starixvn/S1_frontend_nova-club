@@ -48,7 +48,7 @@ const AddBankAccountScreen = () => {
   } = useWithdrawalBankQuery()
   const [postAddWithdrawalBankAcc] = useAddPlayerBankAccMutation()
   const { data: playerData } = usePlayerProfileQuery()
-  const isRealNameAvailable = playerData?.data?.firstName?.length > 0
+  const isRealNameAvailable = playerData?.firstName?.length > 0
   const [sendOtp, { isLoading: isOtpLoading }] =
     useSendUpdateProfileOTPMutation()
   const [updateProfile] = useUpdateProfileMutation()
@@ -189,7 +189,7 @@ const AddBankAccountScreen = () => {
   return (
     <PageWithBackHeader header={{ title: t('bank.addBankAccount') }}>
       <StyledView>
-        {playerData?.data?.firstName.length === 0 && (
+        {playerData?.firstName.length === 0 && (
           <>
             <InputBase
               label={t('bank.accountName')}

@@ -27,7 +27,7 @@ const ProfileBalance = () => {
   const [isExtend, setIsExtend] = useState(false)
 
   const { data: playerData } = usePlayerProfileQuery()
-  const currency = playerData?.data?.currency as Currency
+  const currency = playerData?.currency as Currency
 
   const { data, isFetching } = usePlayerBalanceQuery()
   const cash = parseInt(data?.data?.main?.balance ?? '0')

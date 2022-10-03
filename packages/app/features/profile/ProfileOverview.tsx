@@ -21,7 +21,7 @@ const ProfileOverview = () => {
 
   const { data } = usePlayerOverviewSummaryQuery()
   const { data: playerData } = usePlayerProfileQuery()
-  const currency = playerData?.data?.currency as Currency
+  const currency = playerData?.currency as Currency
 
   const { makeContextualHref } = useContextualRouting()
   const toOverview = makeContextualHref('/profile/overview')

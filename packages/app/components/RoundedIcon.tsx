@@ -13,6 +13,7 @@ type RoundedIconProps = {
   containerStyle?: SxProp
   imageStyle?: SxProp
   onPress?: () => void
+  disabled?: boolean
 }
 
 const RoundedIcon = ({
@@ -23,6 +24,7 @@ const RoundedIcon = ({
   containerStyle,
   imageStyle,
   onPress,
+  disabled,
 }: RoundedIconProps) => {
   let iconSize, shapeRadius, shapeSize
 
@@ -48,9 +50,12 @@ const RoundedIcon = ({
   }
 
   return (
-    <BouncePressable onPress={onPress} sx={sx}>
+    <BouncePressable onPress={onPress} sx={sx} disabled={disabled}>
       {gradient ? (
-        <StyledGradient gradient={gradient} size={shapeSize}>
+        <StyledGradient
+          gradient={disabled ? 'grey' : gradient}
+          size={shapeSize}
+        >
           <Icon name={icon} size={iconSize} />
         </StyledGradient>
       ) : (

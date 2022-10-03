@@ -22,7 +22,7 @@ function useSlotGamesFilter(
   const [allSlotGames, setAllSlotGames] = useState<Game[]>([])
 
   const { data: playerProfile } = usePlayerProfileQuery()
-  const { currency } = playerProfile?.data || {}
+  const { currency } = playerProfile || {}
 
   const { data, isFetching } = useGetGameListQuery({
     currency: currency ?? Currency.VND,

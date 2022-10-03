@@ -82,7 +82,7 @@ const WithdrawalPage = () => {
   const playerBalance = balanceData?.data?.main.balance
 
   const { data: playerData } = usePlayerProfileQuery()
-  const currency = playerData?.data?.currency as Currency
+  const currency = playerData?.currency as Currency
 
   const sheetData = bankData?.data?.map((item) => {
     return {

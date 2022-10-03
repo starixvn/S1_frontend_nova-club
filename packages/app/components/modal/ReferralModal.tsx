@@ -20,14 +20,12 @@ import ModalWrapper from './ModalWrapper'
 
 const ReferralModal = ({ modal: { closeModal } }) => {
   const { t } = useLocalization()
-  const player = usePlayerProfileQuery()
-  const ref = useRef()
-
-  const referralLink = `${DEV_DOMAIN}/download?ref=${player.data?.data?.referral_code}`
-  const { width, height } = useContainerDimension()
-
   const { data } = usePlayerProfileQuery()
-  const referralCode = data?.data?.referral_code
+  const ref = useRef()
+  const referralCode = data?.referral_code
+
+  const referralLink = `${DEV_DOMAIN}/download?ref=${referralCode}`
+  const { width, height } = useContainerDimension()
 
   const { appScreenshotDownload, webScreenshotDownload } = useDownload({
     ref,

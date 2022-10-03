@@ -15,6 +15,7 @@ import { Linking, Platform } from 'react-native'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { useDispatch } from 'react-redux'
 import { useLazyGetGameUrlQuery } from 'services/gameApi'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import {
   usePlayerBalanceQuery,
   usePlayerWalletDetailQuery,

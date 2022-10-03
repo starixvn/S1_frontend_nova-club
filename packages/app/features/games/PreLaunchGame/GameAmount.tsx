@@ -7,6 +7,7 @@ import { PlayerBalanceResult } from 'services/wallet.type'
 import { toCurrency, toDisplayAmount } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import useLocalization from 'app/provider/localization'
+import { usePlayerProfileQuery } from 'services/playerApi'
 
 interface GameAmountProps {
   playerBalance: PlayerBalanceResult | undefined
@@ -44,6 +45,7 @@ const GameAmount = ({ playerBalance, isSeamless }: GameAmountProps) => {
   const handleOnPress = () => {
     push(to, `/deposit`)
   }
+  const { isCreditMember } = usePlayerProfileQuery()
 
   const cashInAmount = isSeamless
     ? Number(main?.balance) + Number(main?.reward)
@@ -82,20 +84,22 @@ const GameAmount = ({ playerBalance, isSeamless }: GameAmountProps) => {
         <View
           sx={{
             flex: 1,
-            borderRightWidth: 1,
-            mr: '$4',
+            mr: isCreditMember ? 0 : '$4',
+            borderRightWidth: isCreditMember ? 0 : 1,
             borderColor: '#00C5D4',
           }}
         >
           <ListItem data={fieldData} balance={main} />
         </View>
-        <RoundedIcon
-          sx={{ mr: '$2' }}
-          size={'sm'}
-          gradient="lightRed"
-          icon="dac"
-          onPress={handleOnPress}
-        />
+        {!isCreditMember && (
+          <RoundedIcon
+            sx={{ mr: '$2' }}
+            size={'sm'}
+            gradient="lightRed"
+            icon="dac"
+            onPress={handleOnPress}
+          />
+        )}
       </View>
     </View>
   )

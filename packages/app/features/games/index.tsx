@@ -23,7 +23,7 @@ const Games = () => {
   const list = useRef<FlashList<Game> | null>(null)
 
   const { data: playerProfile } = usePlayerProfileQuery()
-  const { currency } = playerProfile?.data || {}
+  const { currency } = playerProfile || {}
 
   const {
     data: gameListByGameCategory,

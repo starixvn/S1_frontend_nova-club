@@ -20,7 +20,7 @@ const LiveCasino = () => {
   // const actionSheetRef = useRef<ActionSheet>(null)
 
   const { data: playerProfile } = usePlayerProfileQuery()
-  const { currency } = playerProfile?.data || {}
+  const { currency } = playerProfile || {}
   // const {
   //   genreSelection,
   //   selectedGenre,

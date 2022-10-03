@@ -70,8 +70,8 @@ const TransferScreen = ({
     refetchOnMountOrArgChange: true,
     refetchOnFocus: true,
   })
-  const currency = playerData?.data?.currency as Currency
-  const isPinExist = playerData?.data?.pin_exist
+  const currency = playerData?.currency as Currency
+  const isPinExist = playerData?.pin_exist
 
   const { makeContextualHref } = useContextualRouting()
   const toCreatePin = makeContextualHref('create-pin')
@@ -143,7 +143,7 @@ const TransferScreen = ({
 
   useEffect(() => {
     setFieldValue('referralId', referralCode)
-    if (referralCode === playerData?.data?.referral_code)
+    if (referralCode === playerData?.referral_code)
       openModal('AlertModal', {
         message: t('status.qrTransferSelfError'),
         onClose: () => back(),

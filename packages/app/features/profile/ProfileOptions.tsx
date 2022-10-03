@@ -19,7 +19,7 @@ const enum LOADING_STATE {
   COMPLETE = 'complete',
 }
 
-const ProfileOptions = () => {
+const ProfileOptions = ({ isCreditMember }: { isCreditMember: boolean }) => {
   const { t } = useLocalization()
   const [loadingState, setLoadingState] = useState(LOADING_STATE.COMPLETE)
 
@@ -51,6 +51,7 @@ const ProfileOptions = () => {
       title: 'menu.manageCredentials',
       routeWeb: toManageCredentials,
       route: '/profile/manage-credentials',
+      isCashMemberOnly: true,
     },
     {
       id: 3,
@@ -121,30 +122,32 @@ const ProfileOptions = () => {
 
   return (
     <View>
-      {optionsRoute.map((item) => (
-        <StyledGradientBox
-          key={item.id}
-          gradient={item.gradient ?? 'darkNavyBlue'}
-        >
-          <StyledPressable onPress={() => onOptionPress(item)}>
-            <StyledIcon
-              name={item.iconName}
-              size={26}
-              sx={{ color: item.fontColor ?? '$PastelBlue' }}
-            />
-            <StyledText
-              sx={{
-                color: item.fontColor ?? '$PastelBlue',
-                fontWeight: item.id === 7 ? 'bold' : 'normal',
-              }}
-            >
-              {t(item.title)}
-            </StyledText>
+      {optionsRoute.map((item) =>
+        item.isCashMemberOnly && isCreditMember ? null : (
+          <StyledGradientBox
+            key={item.id}
+            gradient={item.gradient ?? 'darkNavyBlue'}
+          >
+            <StyledPressable onPress={() => onOptionPress(item)}>
+              <StyledIcon
+                name={item.iconName}
+                size={26}
+                sx={{ color: item.fontColor ?? '$PastelBlue' }}
+              />
+              <StyledText
+                sx={{
+                  color: item.fontColor ?? '$PastelBlue',
+                  fontWeight: item.id === 7 ? 'bold' : 'normal',
+                }}
+              >
+                {t(item.title)}
+              </StyledText>
 
-            {Boolean(item.appendIcon) && item.appendIcon?.()}
-          </StyledPressable>
-        </StyledGradientBox>
-      ))}
+              {Boolean(item.appendIcon) && item.appendIcon?.()}
+            </StyledPressable>
+          </StyledGradientBox>
+        )
+      )}
     </View>
   )
 }
