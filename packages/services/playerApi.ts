@@ -127,7 +127,7 @@ export const usePlayerProfileQuery = (
       return {
         ...s,
         data: s.data?.data,
-        isCreditMember: true, // s.data?.data?.member_type === MEMBER_TYPE.CREDIT,
+        isCreditMember: s.data?.data?.member_type === MEMBER_TYPE.CREDIT,
       }
     },
     ...options,
