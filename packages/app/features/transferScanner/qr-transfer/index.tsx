@@ -85,7 +85,14 @@ function QrcodeScannerTab({ isActive }) {
 
   return (
     <View sx={{ flex: 1, bg: '$secondary' }}>
-      {BarcodeComponent}
+      {hasPermission === true ? (
+        BarcodeComponent
+      ) : (
+        <View sx={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Text sx={{ textAlign: 'center' }}>{t('qr.noCameraAccess')}</Text>
+        </View>
+      )}
+
       <View
         sx={{
           m: '$4',

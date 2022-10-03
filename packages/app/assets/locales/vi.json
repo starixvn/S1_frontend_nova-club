@@ -335,7 +335,7 @@
   },
   "qr": {
     "downloadQrCode": "Tải Mã QR",
-    "noCameraAccess": "Không có quyền truy cập vào camera",
+    "noCameraAccess": "Máy ảnh của bạn được yêu cầu quét mã QR để chuyển. \nVui lòng cho phép để tiếp tục sử dụng tính năng này",
     "requestCameraPermissions": "Yêu cầu quyền truy cập vào camera",
     "scanGallery": "Quét từ thư viện"
   },
