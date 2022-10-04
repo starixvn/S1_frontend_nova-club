@@ -21,6 +21,7 @@ export interface Setting {
   recentGameResources: Record<string, string>
   log?: string
   transferScan: boolean
+  platformUUID?: string
 }
 // export const DomainListHintPostfix = '-DomainListHint'
 // export const DepositListHintPostfix = '-DepositListHint'
@@ -46,6 +47,9 @@ const settingSlice = createSlice({
     },
     setShieldSessionID: (state, action: PayloadAction<string>) => {
       state.shieldSessionID = action.payload
+    },
+    setPlatformUUID: (state, action: PayloadAction<string>) => {
+      state.platformUUID = action.payload
     },
     removeReferral: (state) => {
       state.referral = undefined

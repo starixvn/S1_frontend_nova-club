@@ -24,6 +24,7 @@ export interface RegisterQueryArgs {
   tracking_code?: string
   username: string
   verify_code: string
+  platform_uuid: string
 }
 
 export type LogoutQueryArgs = Pick<LoginQueryArgs, 'username'>

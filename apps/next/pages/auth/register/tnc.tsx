@@ -12,8 +12,6 @@ const FONT_SIZE = 12
 const TnC = () => {
   const router = useRouter()
 
-  console.log('🚀 ~ file: index.tsx ~ line 6 ~ TnC ~ router', router)
-
   const TnCLanguage = () => {
     switch (router.query?.locale) {
       case 'en':

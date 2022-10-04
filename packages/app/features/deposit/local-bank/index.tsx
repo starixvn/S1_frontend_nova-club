@@ -193,7 +193,7 @@ const LocalBankScreen = () => {
         <Select
           label={t('bank.bank')}
           placeholder={t('bank.selectBank')}
-          value={values.bank?.bank_acc_name ?? ''}
+          value={values.bank?.bank_branch ?? ''}
           loading={isLoading || isFetching}
           options={sheetData}
           onSelected={handleSelected}

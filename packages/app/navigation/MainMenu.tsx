@@ -4,9 +4,15 @@ import useContextualRouting from 'app/hooks/useContextualRouting'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import useLocalization from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { Image, styled, Sx, View } from 'dripsy'
+import { Image, styled, Sx, useDripsyTheme, View } from 'dripsy'
 import { useMemo } from 'react'
-import { Linking, Platform, Text, TouchableOpacity } from 'react-native'
+import {
+  Linking,
+  Platform,
+  Text,
+  TouchableOpacity,
+  useWindowDimensions,
+} from 'react-native'
 import Modal from 'react-native-modal'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
@@ -20,6 +26,8 @@ interface MainMenuProps {
 const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
   const { t } = useLocalization()
   const { push, replace } = useRouter()
+  const { width } = useWindowDimensions()
+  const { theme } = useDripsyTheme()
   const { top: safeAreaTopHeight } = useSafeArea()
   const { x: parentWidth, y: parentHeight } = parentPosition
 
@@ -126,7 +134,8 @@ const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
       <StyledContainer
         sx={{
           top: TOP_HEIGHT,
-          right: modalRightPosition,
+          // right: modalRightPosition,
+          right: Math.max(0, (width - theme.sizes.container) / 2),
         }}
       >
         <View

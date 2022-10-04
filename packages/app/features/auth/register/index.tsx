@@ -1,5 +1,6 @@
 import useAlert from 'app/hooks/useAlert'
 import useContainerDimension from 'app/hooks/useContainerDimension'
+import useUniqueId from 'app/hooks/useUniqueId'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { AuthActions } from 'app/store/authReducer'
@@ -34,6 +35,7 @@ const RegisterPage = () => {
   const { width } = useContainerDimension()
   const { t } = useLocalization()
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const { uuid } = useUniqueId()
 
   // referral value is obtained asynchronously, do not assign to initialValues of form.
   // consume it on onSubmit
@@ -61,6 +63,7 @@ const RegisterPage = () => {
         terms,
         tracking_code: referral?.trackingCode,
         verify_code: verifyCode,
+        platform_uuid: uuid ?? '',
       }).unwrap()
 
       if (success) {

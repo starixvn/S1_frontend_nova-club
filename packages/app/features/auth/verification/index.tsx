@@ -9,7 +9,7 @@ import { Pressable, Text, useDripsyTheme, View } from 'dripsy'
 import Checkbox from 'expo-checkbox'
 import { FormikProps } from 'formik'
 import React, { useRef } from 'react'
-import { TextInput as RNTextField } from 'react-native'
+import { Platform, TextInput as RNTextField } from 'react-native'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useSendRegistrationOtpMutation } from 'services/authApi'
 import { useRouter } from 'solito/router'
@@ -52,7 +52,8 @@ const VerificationForm = ({
 
   const otpFieldRef = useRef<RNTextField>(null)
 
-  const [sendRegistrationOtp, { isLoading }] = useSendRegistrationOtpMutation()
+  const [sendRegistrationOtp, { isLoading, isSuccess }] =
+    useSendRegistrationOtpMutation()
 
   const { makeContextualHref } = useContextualRouting()
   const toTnc = makeContextualHref('tnc')
@@ -143,6 +144,8 @@ const VerificationForm = ({
           onSubmitEditing: submitForm,
           keyboardType: 'number-pad',
           maxLength: 6,
+          editable: isSuccess,
+          ...(Platform.OS === 'web' && { disabled: !isSuccess }),
         }}
         error={
           touched.verifyCode && errors.verifyCode
@@ -216,7 +219,7 @@ const VerificationForm = ({
         <View sx={{ width: '70%' }}>
           <Button
             stretch
-            disabled={!values.terms}
+            disabled={!values.terms || !isSuccess || !!errors.verifyCode}
             onPress={submitForm}
             sx={{ mt: '$8' }}
             loading={isSubmitting}

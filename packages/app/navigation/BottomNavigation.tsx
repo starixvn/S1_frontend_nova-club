@@ -1,7 +1,6 @@
 import FloatingContent from 'app/features/FloatingContent'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useOrientation from 'app/hooks/useOrientation'
-import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Flex, View } from 'dripsy'
 import React, { useState } from 'react'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
@@ -48,20 +47,14 @@ const tabConfig = [
 
 const BAR_HEIGHT = 60
 const CIRCLE_HEIGHT = BAR_HEIGHT
-const ICON_HEIGHT = 60
 const MARGIN_TOP = -BAR_HEIGHT * 0.4
 export const BOTTOM_NAV_HEIGHT = BAR_HEIGHT + getBottomSpace()
 
 const BottomNavigation = () => {
   const { push } = useRouter()
-  const { top } = useSafeArea()
   const { isLandscape } = useOrientation()
-  const { returnHref, makeContextualHref } = useContextualRouting()
+  const { returnHref } = useContextualRouting()
   const [delay, setDelay] = useState(false)
-  console.log(
-    '🚀 ~ file: BottomNavigation.tsx ~ line 61 ~ BottomNavigation ~ delay',
-    delay
-  )
 
   const isActiveState = (index: number, item: typeof tabConfig[number]) => {
     let isSamePath = false
