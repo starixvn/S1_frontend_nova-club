@@ -22,6 +22,7 @@ import {
   useSubmitDepositMutation,
 } from 'services/deposit'
 import { AutoBankItem, PlayerInputFieldsBank } from 'services/deposit.type'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import * as Yup from 'yup'
 import ValueCard from '../ValueCard'
 
@@ -40,6 +41,7 @@ const TopUpCardScreen = () => {
   const { showAlert } = useAlert()
   const { openModal } = useModal()
   const [postSubmitDeposit] = useSubmitDepositMutation()
+  const { currency } = usePlayerProfileQuery()
   const { data, isLoading, isFetching } = useDepositPaymentListQuery()
 
   const depositPayment = data?.data?.result.auto.find(
@@ -177,13 +179,6 @@ const TopUpCardScreen = () => {
     }
   }
 
-  function handleConfirmDeposit() {
-    openModal('DepositConfirmationModal', {
-      amount: values.realAmount,
-      callback: () => submitForm(),
-    })
-  }
-
   return (
     <PageWithBackHeader
       header={{
@@ -276,7 +271,9 @@ const TopUpCardScreen = () => {
                     <Text sx={{ flex: 1 }}>{t('deposit.deduction')}</Text>
                     <Text>
                       {toCurrency(
-                        -Math.round(values.realAmount * (vendorFee / 100))
+                        Math.round(values.realAmount * (vendorFee / 100)),
+                        currency,
+                        { negative: true }
                       )}
                     </Text>
                   </StyledViewTextWrapper>

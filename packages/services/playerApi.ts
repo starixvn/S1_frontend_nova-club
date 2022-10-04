@@ -128,6 +128,7 @@ export const usePlayerProfileQuery = (
       return {
         ...s,
         data: s.data?.data,
+        currency: s.data?.data?.currency,
         isCreditMember: s.data?.data?.member_type === MEMBER_TYPE.CREDIT,
       }
     },
