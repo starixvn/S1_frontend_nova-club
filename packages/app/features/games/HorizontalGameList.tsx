@@ -3,10 +3,18 @@ import SimpleGridImage from 'app/components/SimpleGridImage'
 import { HOME_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useAppSelector } from 'app/provider/redux/store'
+import { ComponentProps } from 'react'
+import { ScrollView, StyleProp, View, ViewStyle } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { Game } from 'services/contentApi.type'
 
-const HorizontalGameList = ({ data }: { data: Game[] }) => {
+const HorizontalGameList = ({
+  data,
+  containerStyle,
+}: {
+  data: Game[]
+  containerStyle: StyleProp<ViewStyle>
+}) => {
   const { width, height } = useContainerDimension()
   const borderedWidth = width - 4
   const leftRightSpace = borderedWidth * HOME_PADDING
@@ -18,9 +26,12 @@ const HorizontalGameList = ({ data }: { data: Game[] }) => {
     <DraggableScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
-      contentContainerStyle={{
-        paddingHorizontal: leftRightSpace,
-      }}
+      contentContainerStyle={[
+        {
+          paddingHorizontal: leftRightSpace,
+        },
+        containerStyle,
+      ]}
     >
       {data.map((item, index) => {
         const { gc, gpc, gtc, img, name } = item

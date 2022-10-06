@@ -74,7 +74,7 @@ const LoginForm = () => {
 
       if (success && data) {
         dispatch(AuthActions.setAuthInfo(data))
-        await updateLanguage(data.playerName)
+        // await updateLanguage(data.playerName)
         actions.resetForm()
         if (errorMsg) setErrorMsg('')
 

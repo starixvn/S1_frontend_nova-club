@@ -39,6 +39,7 @@ export function toCurrency(
     skipThousandTruncate?: boolean
     hideTruncatedThousand?: boolean
     withSIPrefix?: boolean
+    negative?: boolean
   }
 ): string {
   if (!amount) amount = 0.0
@@ -57,6 +58,7 @@ export function toCurrency(
     skipThousandTruncate = true,
     hideTruncatedThousand = true,
     withSIPrefix = true,
+    negative = false,
   } = options
 
   // contain multiplier
@@ -104,6 +106,7 @@ export function toCurrency(
   if (multiplier) {
     joined += multiplier
   }
+  if (negative) joined = `- ${joined}`
   return symbol ? `${currencySymbol} ${joined}` : joined
 }
 

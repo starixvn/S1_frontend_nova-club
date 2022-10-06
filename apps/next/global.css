@@ -69,3 +69,24 @@ input[type='date']::-webkit-calendar-picker-indicator {
   justify-content: center;
   z-index: -1;
 }
+
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(33 104 136);
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 4px;
+  -webkit-appearance: none;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgb(3, 52, 84);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgb(33 104 136);
+  border-radius: 12px;
+}

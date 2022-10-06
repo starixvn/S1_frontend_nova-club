@@ -7,6 +7,7 @@ import React from 'react'
 import { ImageBackground } from 'react-native'
 import { useGetJackpotAmountQuery } from 'services/contentApi'
 import { useRouter } from 'solito/router'
+import JackpotGamesSection from './JackpotGamesSection'
 
 const IMAGE_HEIGHT = 180
 
@@ -14,7 +15,7 @@ interface JackpotProps {}
 
 const StyledImageBackground = styled(ImageBackground)({
   backgroundColor: '$blue',
-  minHeight: 300,
+  minHeight: 400,
   width: '100%',
   mt: '$9',
   alignItems: 'center',
@@ -29,7 +30,7 @@ const Jackpot = ({}: JackpotProps) => {
   const { increment = '0', jackpotAmount = '0' } = data?.data || {}
 
   return (
-    <SkeletonPlaceholder show={isLoading} height={330}>
+    <SkeletonPlaceholder show={isLoading} height={430}>
       {data && (
         <StyledImageBackground
           source={require('../../../assets/images/home/jackpot-bg.jpg')}
@@ -84,6 +85,7 @@ const Jackpot = ({}: JackpotProps) => {
           </View>
         </StyledImageBackground>
       )}
+      {!isLoading && <JackpotGamesSection />}
     </SkeletonPlaceholder>
   )
 }

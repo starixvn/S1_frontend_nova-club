@@ -12,11 +12,13 @@ import { ActionType, getAction } from 'app/utils/actionGenerator'
 import { useDripsyTheme, View } from 'dripsy'
 import { Platform, TouchableOpacity, useWindowDimensions } from 'react-native'
 import { Game } from 'services/contentApi.type'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 
 const FloatingContent = () => {
   // Google Pixel 5a require this insets to get accurate value
   const insets = useSafeArea()
+  const { isCreditMember } = usePlayerProfileQuery()
 
   const { width } = useWindowDimensions()
   const { width: containerWidth } = useContainerDimension()
@@ -53,15 +55,17 @@ const FloatingContent = () => {
 
   return (
     <>
-      <View
-        sx={{
-          position: Platform.OS === 'web' ? 'fixed' : 'absolute',
-          top: 120 + insets.top,
-          right: Math.max(0, (width - theme.sizes.container) / 2),
-        }}
-      >
-        <FloatQr />
-      </View>
+      {!isCreditMember && (
+        <View
+          sx={{
+            position: Platform.OS === 'web' ? 'fixed' : 'absolute',
+            top: 120 + insets.top,
+            right: Math.max(0, (width - theme.sizes.container) / 2),
+          }}
+        >
+          <FloatQr />
+        </View>
+      )}
 
       <View
         sx={{
