@@ -7,6 +7,7 @@ export interface LoginResult {
   // playerId: string
   playerName: string
   token: string
+  note?: string
 }
 
 export interface RegisterInvalidResult {

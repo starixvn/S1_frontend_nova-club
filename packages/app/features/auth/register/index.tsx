@@ -9,8 +9,9 @@ import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { AnimatePresence, MotiView, useDynamicAnimation } from 'moti'
 import React, { useEffect, useState } from 'react'
+import { useModal } from 'react-native-modalfy'
 import { useRegisterMutation } from 'services/authApi'
-import { LoginResult } from 'services/authApi.type'
+import { LoginResult, RegisterResult } from 'services/authApi.type'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import AuthLayout from '../layout/AuthLayout'
@@ -32,6 +33,7 @@ const RegisterPage = () => {
   const dispatch = useAppDispatch()
   const { push, replace } = useRouter()
   const { showAlert } = useAlert()
+  const { openModal } = useModal()
   const { width } = useContainerDimension()
   const { t } = useLocalization()
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -40,6 +42,20 @@ const RegisterPage = () => {
   // referral value is obtained asynchronously, do not assign to initialValues of form.
   // consume it on onSubmit
   const referral = useAppSelector((s) => s.setting.referral)
+
+  const handleOnSuccessRegister = (data?: RegisterResult) => {
+    if (data) {
+      if ('note' in data) {
+        const note = data.note
+
+        openModal('AlertModal', {
+          message: note,
+        })
+      }
+    }
+
+    replace('/')
+  }
 
   const onSubmit = async (
     {
@@ -69,7 +85,8 @@ const RegisterPage = () => {
       if (success) {
         dispatch(AuthActions.setAuthInfo(data as LoginResult))
         actions.resetForm()
-        replace('/')
+
+        handleOnSuccessRegister(data)
       }
     } catch (error) {
       showAlert(error)
