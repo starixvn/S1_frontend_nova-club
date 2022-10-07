@@ -1,6 +1,7 @@
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
+  DepositPaymentListArgs,
   DepositPaymentListResult,
   SubmitDepositArgs,
   SubmitDepositResult,
@@ -16,12 +17,12 @@ const depositApi = baseApiWithTag.injectEndpoints({
      */
     depositPaymentList: builder.query<
       IResponse<DepositPaymentListResult>,
-      void
+      DepositPaymentListArgs
     >({
-      query: () => ({
+      query: (queryArgs) => ({
         url: `/player_api/depositPaymentList`,
         method: 'POST',
-        data: {},
+        data: { ...queryArgs },
       }),
     }),
 

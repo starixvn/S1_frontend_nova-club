@@ -8,6 +8,7 @@ import { PageWithBackHeader } from 'app/components/layout/Page'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
 import { TOPUP_NOTES } from 'app/constant/notes'
 import useAlert from 'app/hooks/useAlert'
+import useCheckMobile from 'app/hooks/useCheckMobile'
 import useLocalization from 'app/provider/localization'
 import { toCleanAmount, toCleanCard, toCurrency, toRealAmount } from 'app/utils'
 import { MaxLength, TopUpCard } from 'app/utils/constant'
@@ -15,6 +16,7 @@ import validation from 'app/utils/validation'
 import { styled, Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React from 'react'
+import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import {
@@ -42,7 +44,10 @@ const TopUpCardScreen = () => {
   const { openModal } = useModal()
   const [postSubmitDeposit] = useSubmitDepositMutation()
   const { currency } = usePlayerProfileQuery()
-  const { data, isLoading, isFetching } = useDepositPaymentListQuery()
+  const { isMobile } = useCheckMobile()
+  const { data } = useDepositPaymentListQuery({
+    is_mobile: isMobile ? 0 : 1,
+  })
 
   const depositPayment = data?.data?.result.auto.find(
     (el) => el.category_id === DepositPaymentMethodCategoryId.TOP_UP

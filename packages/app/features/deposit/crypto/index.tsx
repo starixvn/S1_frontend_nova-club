@@ -7,6 +7,7 @@ import { TextField } from 'app/components/TextField'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
 import { DEPOSIT_NOTES } from 'app/constant/notes'
 import useAlert from 'app/hooks/useAlert'
+import useCheckMobile from 'app/hooks/useCheckMobile'
 import useLocalization from 'app/provider/localization'
 import {
   toCleanAmount,
@@ -20,6 +21,7 @@ import validationRule from 'app/utils/validationRule'
 import { styled, Text, TextInput, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React from 'react'
+import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import {
@@ -46,7 +48,10 @@ const CryptoScreen = () => {
   const { showAlert } = useAlert()
   const { openModal } = useModal()
   const [postSubmitManualDeposit] = useSubmitManualDepositMutation()
-  const { data, isLoading, isFetching } = useDepositPaymentListQuery()
+  const { isMobile } = useCheckMobile()
+  const { data, isLoading, isFetching } = useDepositPaymentListQuery({
+    is_mobile: isMobile ? 0 : 1,
+  })
 
   const { data: playerData } = usePlayerProfileQuery()
   const currency = playerData?.currency as Currency

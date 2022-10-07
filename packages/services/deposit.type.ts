@@ -47,9 +47,13 @@ export type UploadDepositSlipArgs = {
 
 /**
  * *Deposit Payment List
+ * is_mobile
+ * 0: pc
+ * 1: mobile
  */
 export type DepositPaymentListArgs = {
-  username: string
+  username?: string
+  is_mobile: 0 | 1
 }
 
 export type DepositPaymentListResult = {

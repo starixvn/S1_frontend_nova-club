@@ -15,6 +15,7 @@ import PaymentMethod, {
 import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
 import { DEPOSIT_NOTES } from 'app/constant/notes'
 import useAlert from 'app/hooks/useAlert'
+import useCheckMobile from 'app/hooks/useCheckMobile'
 import useLocalization from 'app/provider/localization'
 import {
   copyToClipboard,
@@ -29,6 +30,7 @@ import validationRule from 'app/utils/validationRule'
 import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect, useRef, useState } from 'react'
+import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import {
@@ -55,7 +57,10 @@ const LocalBankScreen = () => {
   const [limit, setLimit] = useState({ minAmount: 0, maxAmount: 0 })
   const depositUploadRef = useRef<ReceiptUploadMethods>(null)
 
-  const { data, isLoading, isFetching } = useDepositPaymentListQuery()
+  const { isMobile } = useCheckMobile()
+  const { data, isLoading, isFetching } = useDepositPaymentListQuery({
+    is_mobile: isMobile ? 0 : 1,
+  })
 
   const [submitDeposit] = useSubmitManualDepositMutation()
 

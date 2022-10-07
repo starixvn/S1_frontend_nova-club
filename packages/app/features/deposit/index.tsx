@@ -1,10 +1,12 @@
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import PaymentMethod, { DepositMethodId } from 'app/config/deposit'
+import useCheckMobile from 'app/hooks/useCheckMobile'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
 import { BankActions } from 'app/store/bankReducer'
 import { ActivityIndicator, styled, Text, View } from 'dripsy'
 import { useEffect, useState } from 'react'
+import { Platform } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { useDepositPaymentListQuery } from 'services/deposit'
 import { useRouter } from 'solito/router'
@@ -16,7 +18,10 @@ const DepositPage = () => {
   const { t } = useLocalization()
   const dispatch = useDispatch()
   const [paymentMethodList, setPaymentMethodList] = useState(PaymentMethod)
-  const { data, isLoading } = useDepositPaymentListQuery()
+  const { isMobile } = useCheckMobile()
+  const { data, isLoading } = useDepositPaymentListQuery({
+    is_mobile: isMobile ? 0 : 1,
+  })
 
   const { makeContextualHref } = useContextualRouting()
   const toLocalBank = makeContextualHref('local-bank')

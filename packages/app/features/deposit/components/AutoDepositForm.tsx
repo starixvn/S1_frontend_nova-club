@@ -5,6 +5,7 @@ import Select from 'app/components/form/Input/Select'
 import { TextField } from 'app/components/TextField'
 import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
 import useAlert from 'app/hooks/useAlert'
+import useCheckMobile from 'app/hooks/useCheckMobile'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
 import { toCurrency, toDisplayAmount } from 'app/utils'
@@ -14,6 +15,7 @@ import validationRule from 'app/utils/validationRule'
 import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect, useState } from 'react'
+import { Platform } from 'react-native'
 import { SelectOptions } from 'services/common/types'
 import {
   useDepositPaymentListQuery,
@@ -46,7 +48,10 @@ const AutoDepositForm = ({ module, DepositCategoryId }) => {
   const { data: playerData } = usePlayerProfileQuery()
   const currency = playerData?.currency as Currency
 
-  const { data, isLoading, isFetching } = useDepositPaymentListQuery()
+  const { isMobile } = useCheckMobile()
+  const { data, isLoading, isFetching } = useDepositPaymentListQuery({
+    is_mobile: isMobile ? 0 : 1,
+  })
 
   const depositPayment = data?.data?.result.auto.find(
     (el) => el.category_id === DepositCategoryId
