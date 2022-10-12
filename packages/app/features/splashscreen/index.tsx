@@ -129,25 +129,16 @@ const SplashScreen = () => {
         shouldPlay
         style={{
           position: 'absolute',
-          top: 0,
-          bottom: 0,
-          left: 0,
-          right: 0,
           zIndex: -1,
-          // width: '100%',
-          // height: Math.max(
-          //   width / (isLandscape ? 2047 / 2732 : 1242 / 2208),
-          //   height
-          // ),
+          width: '100%',
+          height: Math.max(
+            width / (isLandscape ? 2047 / 2732 : 1242 / 2208),
+            height
+          ),
         }}
         source={require('app/assets/videos/vui123-splash.mp4')}
         resizeMode="cover"
         useNativeControls={false}
-        posterSource={
-          isLandscape
-            ? require('../../assets/images/splashscreen_tablet.jpg')
-            : require('../../assets/images/splashscreen.jpg')
-        }
       />
     </View>
   )
