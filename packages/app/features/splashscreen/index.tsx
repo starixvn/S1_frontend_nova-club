@@ -56,7 +56,7 @@ const SplashScreen = () => {
     },
     codePushStatus === CodePush.SyncStatus.UP_TO_DATE,
     {
-      minWaitTime: 2000,
+      minWaitTime: 0,
       context: {
         dispatch,
         t,
