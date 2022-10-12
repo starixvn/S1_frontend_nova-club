@@ -7,7 +7,6 @@ import useCodePushDownload from 'app/integrations/codepush/useCodePush'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Text, View } from 'dripsy'
-import { Video } from 'expo-av'
 import React, { useEffect } from 'react'
 import { Image, useWindowDimensions } from 'react-native'
 import CodePush from 'react-native-code-push'
@@ -106,7 +105,7 @@ const SplashScreen = () => {
           </Text>
         </>
       )}
-      {/* <Image
+      <Image
         source={
           isLandscape
             ? require('../../assets/images/splashscreen_tablet.jpg')
@@ -122,23 +121,6 @@ const SplashScreen = () => {
             height
           ),
         }}
-      /> */}
-      <Video
-        isMuted
-        isLooping
-        shouldPlay
-        style={{
-          position: 'absolute',
-          zIndex: -1,
-          width: '100%',
-          height: Math.max(
-            width / (isLandscape ? 2047 / 2732 : 1242 / 2208),
-            height
-          ),
-        }}
-        source={require('app/assets/videos/vui123-splash.mp4')}
-        resizeMode="cover"
-        useNativeControls={false}
       />
     </View>
   )
