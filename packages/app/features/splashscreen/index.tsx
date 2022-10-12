@@ -125,7 +125,6 @@ const SplashScreen = () => {
       /> */}
       <Video
         isMuted
-        isLooping
         shouldPlay
         style={{
           position: 'absolute',
