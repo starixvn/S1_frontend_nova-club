@@ -1,21 +1,31 @@
 import { MEDIA_DOMAIN } from '@env'
-import Fab from 'app/components/button/Fab'
 import Image from 'app/components/common/Image'
 import { Button } from 'app/components/form/Button'
+import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import useContainerDimension from 'app/hooks/useContainerDimension'
-import useContextualRouting from 'app/hooks/useContextualRouting'
 import { BOTTOM_NAV_HEIGHT } from 'app/navigation/BottomNavigation'
 import FloatQr from 'app/navigation/FloatQr'
+import TouchableOpacity from 'app/pressable/TouchableOpacity'
+import useLocalization from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { ActionType, getAction } from 'app/utils/actionGenerator'
-import { useDripsyTheme, View } from 'dripsy'
-import { Platform, TouchableOpacity, useWindowDimensions } from 'react-native'
+import { styled, Text, useDripsyTheme, View } from 'dripsy'
+import { AnimatePresence, MotiView } from 'moti'
+import { useState } from 'react'
+import {
+  Linking,
+  Platform,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  useWindowDimensions,
+} from 'react-native'
 import { Game } from 'services/contentApi.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import { useRouter } from 'solito/router'
+import useSupportItemList from './customerSupport/useSupportItemList'
 
 const FloatingContent = () => {
+  const [isSupportMenuVisible, setSupportMenuVisible] = useState(false)
   // Google Pixel 5a require this insets to get accurate value
   const insets = useSafeArea()
   const { isCreditMember } = usePlayerProfileQuery()
@@ -23,14 +33,6 @@ const FloatingContent = () => {
   const { width } = useWindowDimensions()
   const { width: containerWidth } = useContainerDimension()
   const { theme } = useDripsyTheme()
-
-  const { push } = useRouter()
-  const { returnHref, makeContextualHref } = useContextualRouting()
-  const toCustomerSupport = makeContextualHref('customer-support')
-
-  const navigateToCustomerSupportPage = () => {
-    push(toCustomerSupport, '/customer-support')
-  }
 
   const launchVGaming = () => {
     const action = {
@@ -89,7 +91,10 @@ const FloatingContent = () => {
           />
         </TouchableOpacity>
         <Button
-          onPress={navigateToCustomerSupportPage}
+          onPress={() => {
+            console.log('clicked')
+            setSupportMenuVisible(true)
+          }}
           rounded
           variant="lg"
           fill={{
@@ -102,52 +107,120 @@ const FloatingContent = () => {
         >
           {<Icon name="cs" size={30} />}
         </Button>
-
-        {/* <Fab
-          placement="bottom-right"
-          iconProp={{
-            name: 'cs',
-          }}
-          buttonProps={{
-            onPress: navigateToCustomerSupportPage,
-          }}
-          sx={{
-            bottom: BOTTOM_NAV_HEIGHT + 35,
-            right: Math.max(0, (width - theme.sizes.container) / 2) + 10,
-          }}
-        /> */}
-        {/* 
-
-        <Fab
-          buttonProps={{
-            onPress: launchVGaming,
-            fill: { type: 'ghost', color: 'transparent' },
-            containerStyle: {
-              px: 0,
-            },
-          }}
-          placement="bottom-left"
-          sx={{
-            bottom: BOTTOM_NAV_HEIGHT + 25,
-            left: 15,
-          }}
-        >
-          <Video
-            isMuted
-            isLooping
-            shouldPlay
-            style={{
-              width: '100%',
-              height: '100%',
-            }}
-            source={require('app/assets/videos/vgaming.mp4')}
-            resizeMode="cover"
-            useNativeControls={false}
-          />
-        </Fab> */}
       </View>
+      <AnimatePresence>
+        {isSupportMenuVisible && (
+          <SupportMenu setSupportMenuVisible={setSupportMenuVisible} />
+        )}
+      </AnimatePresence>
     </>
   )
 }
 
 export default FloatingContent
+
+const SupportMenu = ({ setSupportMenuVisible }) => {
+  const { width } = useWindowDimensions()
+  const mediaList = useSupportItemList()
+  const { theme } = useDripsyTheme()
+  const { t } = useLocalization()
+  return (
+    <MotiView
+      from={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      style={[
+        StyleSheet.absoluteFillObject,
+        {
+          backgroundColor: 'rgba(0,0,0,0.8)',
+          position: Platform.OS === 'web' ? 'fixed' : 'absolute',
+        },
+      ]}
+    >
+      <TouchableWithoutFeedback
+        onPress={() => {
+          setSupportMenuVisible(false)
+        }}
+      >
+        <View sx={{ width: '100%', height: '100%' }}>
+          <View
+            sx={{
+              alignSelf: 'flex-end',
+              mt: 'auto',
+              mr: Math.max(0, (width - theme.sizes.container) / 2),
+              mb: BOTTOM_NAV_HEIGHT + 25,
+              pr: '$2',
+            }}
+          >
+            <AnimatePresence>
+              {mediaList.map((c, i) => {
+                return (
+                  <MotiView
+                    delay={i * 100}
+                    from={{ translateX: 100, opacity: 0 }}
+                    animate={{ translateX: 0, opacity: 1 }}
+                    key={c.label}
+                  >
+                    <TouchableOpacity
+                      onPress={() => {
+                        if (Platform.OS !== 'web') Linking.openURL(c.href)
+                      }}
+                      sx={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'flex-end',
+                        mb: '$3',
+                      }}
+                      href={c.href}
+                      hrefAttrs={{
+                        rel: 'noreferrer',
+                        target: '_blank',
+                      }}
+                    >
+                      <Text sx={{ mr: '$2', fontSize: 16 }}>
+                        {t('contact.' + c.label)}
+                      </Text>
+                      <View
+                        sx={{
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          mx: '$2',
+                        }}
+                      >
+                        <SupportIconWrap colors={c.bg}>
+                          {c.icon ? (
+                            <Icon name={c.icon} />
+                          ) : (
+                            <Image
+                              source={c.image}
+                              sx={{
+                                width: 40,
+                                height: 40,
+                              }}
+                            />
+                          )}
+                        </SupportIconWrap>
+                      </View>
+                    </TouchableOpacity>
+                  </MotiView>
+                )
+              })}
+            </AnimatePresence>
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    </MotiView>
+  )
+}
+
+const SupportIconWrap = styled(DripsyGradient)(({ size = 45 }) => ({
+  borderRadius: size * 0.5,
+  borderWidth: 2,
+  borderColor: '$PaleBlue',
+  m: 1,
+  height: size,
+  aspectRatio: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+  overflow: 'hidden',
+}))
