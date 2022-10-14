@@ -6,6 +6,7 @@ import BannerSection from './Section/BannerSection'
 import GridSection from './Section/GridSection'
 import HotGamesSection from './Section/HotGamesSection'
 import Jackpot from './Section/Jackpot'
+import MatchesSection from './Section/MatchesSection'
 import RecentOpenGames from './Section/RecentOpenGames'
 
 const HomeScreen = () => {
@@ -18,6 +19,7 @@ const HomeScreen = () => {
     >
       {!isLandscape && <BannerSection />}
       <AnnouncementMarquee />
+      <MatchesSection />
       <GridSection />
       <RecentOpenGames />
       <HotGamesSection />

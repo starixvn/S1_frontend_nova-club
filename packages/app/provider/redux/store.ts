@@ -17,6 +17,7 @@ import {
 import { storage } from './persistStorage/index'
 import pinApi from 'services/pinApi'
 import { baseApi } from 'services/baseApi'
+import { matchApi } from 'services/matchApi'
 
 const migrations = {
   2: (s: PersistedState) => {},
@@ -59,34 +60,11 @@ const persistConfig: PersistConfig<any> = {
   ],
 }
 
-const middlerwares = [
-  baseApi.middleware,
-  // authApi.middleware,
-  // bankApi.middleware,
-  // changePasswordApi.middleware,
-  // contentApi.middleware,
-  // depositApi.middleware,
-  // gameApi.middleware,
-  // playerApi.middleware,
-  // walletApi.middleware,
-  // withdrawalApi.middleware,
-  // pinApi.middleware,
-  // messageApi.middleware,
-]
+const middlerwares = [baseApi.middleware, matchApi.middleware]
 
 const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
-  // [authApi.reducerPath]: authApi.reducer,
-  // [bankApi.reducerPath]: bankApi.reducer,
-  // [changePasswordApi.reducerPath]: changePasswordApi.reducer,
-  // [contentApi.reducerPath]: contentApi.reducer,
-  // [depositApi.reducerPath]: depositApi.reducer,
-  // [gameApi.reducerPath]: gameApi.reducer,
-  // [playerApi.reducerPath]: playerApi.reducer,
-  // [walletApi.reducerPath]: walletApi.reducer,
-  // [withdrawalApi.reducerPath]: withdrawalApi.reducer,
-  // [pinApi.reducerPath]: pinApi.reducer,
-  // [messageApi.reducerPath]: messageApi.reducer,
+  [matchApi.reducerPath]: matchApi.reducer,
   alert: alertReducer,
   auth: authReducer,
   bank: bankReducer,
