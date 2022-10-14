@@ -5,7 +5,7 @@ import { Match } from './matchApi.type'
 export const matchApi = createApi({
   reducerPath: 'matchApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:3000',
+    baseUrl: '/',
   }),
   endpoints: (builder) => ({
     matches: builder.query<Match[], void>({
