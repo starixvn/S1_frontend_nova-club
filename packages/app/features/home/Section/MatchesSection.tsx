@@ -1,7 +1,7 @@
 import Image from 'app/components/common/Image'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useInterval from 'app/hooks/useInterval'
-import dayjs from 'dayjs'
+import dayjsTz from 'app/utils/dayjs'
 import { styled, Text, View } from 'dripsy'
 import { AnimatePresence, motify } from 'moti'
 import { useState } from 'react'
@@ -17,7 +17,7 @@ const animationState = {
 
 const MatchesSection = () => {
   const { width } = useContainerDimension()
-  const [activeIndex, setActiveIndex] = useState<number>(12)
+  const [activeIndex, setActiveIndex] = useState<number>(0)
 
   const { matches, data } = useMatchesQuery(undefined, {
     selectFromResult: (s) => {
@@ -52,7 +52,7 @@ const MatchesSection = () => {
 }
 
 const MatchItem = ({ match }: { match: Match }) => {
-  const date = dayjs(match.datetime)
+  const date = dayjsTz(match.datetime)
   const homeFlag = getFlagPath(match.home_team.name)
   const awayFlag = getFlagPath(match.away_team.name)
 
@@ -79,7 +79,7 @@ const MatchItem = ({ match }: { match: Match }) => {
         <View
           sx={{
             mt: '55%',
-            height: '20%',
+            height: '18%',
             alignItems: 'center',
             justifyContent: 'center',
             position: 'relative',
