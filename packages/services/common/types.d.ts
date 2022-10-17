@@ -19,6 +19,7 @@ export interface IResponse<T = void> {
   code: number
   message: string
   success: boolean
+  statusCode?: number
 }
 
 export type SelectOptions = {

@@ -1,6 +1,7 @@
 import firestore from '@react-native-firebase/firestore'
 import { isNewVersionAvailable, Version } from 'app/utils/rn-helper'
 import { Linking, Platform } from 'react-native'
+import { contentApi } from 'services/contentApi'
 import { SplashScreenHandler, SplashScreenTask } from './useSplashScreen'
 
 export const checkVersionUpdated: SplashScreenTask = (context) => async () => {
@@ -58,21 +59,27 @@ export const checkVersionUpdated: SplashScreenTask = (context) => async () => {
 
 export const checkMaintenance: SplashScreenTask = (context) => async () => {
   const { dispatch, navigation } = context
+
   let isMaintenance = false
+  let isForbidden = false
 
   try {
-    // const result = await dispatch(bannerApi.endpoints.banners.initiate('vn'))
-    // isMaintenance = result.error?.httpResponse?.status === 403
+    const result = await dispatch(contentApi.endpoints.banner.initiate())
+    isForbidden = result.error?.statusCode === 403
+    isMaintenance = result.error?.statusCode === 404
   } catch (e) {
     console.log('failed to check for maintenance', e)
   }
 
   console.log('SPLASHSCREEN - maintenance status', isMaintenance)
+  console.log('SPLASHSCREEN - forbidden status', isForbidden)
   return {
-    result: !isMaintenance,
+    result: !isMaintenance && !isForbidden,
     handler: () => {
       if (isMaintenance) {
-        navigation.navigate('MaintenancePage')
+        navigation.navigate('Maintenance')
+      } else if (isForbidden) {
+        navigation.navigate('Forbidden')
       }
     },
   }

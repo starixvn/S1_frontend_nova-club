@@ -5,6 +5,8 @@ import LoginPage from 'app/features/auth/login'
 import RegisterPage from 'app/features/auth/register'
 import TnC from 'app/features/auth/tnc'
 import RegisterVerificationPage from 'app/features/auth/verification'
+import Maintenance from 'app/features/common/Maintenance'
+import Forbidden from 'app/features/common/Forbidden'
 import CustomerSupportPage from 'app/features/customerSupport'
 import FishingPage from 'app/features/fishing'
 import GameLoaderPage from 'app/features/games/GameLoaderPage'
@@ -63,6 +65,8 @@ const Stack = createStackNavigator<{
   ChangePin: undefined
   ForgotPin: undefined
   TnC: undefined
+  Forbidden: undefined
+  Maintenance: undefined
 }>()
 
 export function NativeNavigation() {
@@ -226,6 +230,8 @@ export function NativeNavigation() {
       <Stack.Screen name="FishingPage" component={FishingPage} />
       <Stack.Screen name="LotteryPage" component={LotteryPage} />
       <Stack.Screen name="TnC" component={TnC} />
+      <Stack.Screen name="Forbidden" component={Forbidden} />
+      <Stack.Screen name="Maintenance" component={Maintenance} />
     </Stack.Navigator>
   )
 }

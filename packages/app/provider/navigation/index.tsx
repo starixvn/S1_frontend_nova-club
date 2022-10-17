@@ -36,6 +36,8 @@ export function NavigationProvider({
           config: {
             screens: {
               SplashScreen: 'splashscreen',
+              Forbidden: '/forbidden',
+              Maintenance: '/maintenance',
               LoginPage: '/auth/login',
               RegisterPage: '/auth/register',
               TnC: '/auth/register/tnc',

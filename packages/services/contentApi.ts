@@ -17,7 +17,7 @@ import {
 /**
  * @param builder Pass builder from `createApi` *endpoints*
  */
-const contentApi = baseApiWithTag.injectEndpoints({
+export const contentApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
     banner: builder.query<BannerResult[], void>({
       query: () => ({
@@ -101,6 +101,13 @@ const contentApi = baseApiWithTag.injectEndpoints({
         url: `/api/getJackpotValue`,
         method: 'GET',
         baseURL: DEV_DOMAIN,
+      }),
+    }),
+    getMaintenance: builder.query<IResponse<JackpotAmountResult>, void>({
+      query: () => ({
+        url: `/api/getMaintenance`,
+        method: 'GET',
+        baseURL: 'http://localhost:3000',
       }),
     }),
   }),

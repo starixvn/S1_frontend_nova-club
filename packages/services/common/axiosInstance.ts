@@ -1,10 +1,9 @@
-import { API_DOMAIN, API_KEY, MEDIA_DOMAIN } from '@env'
+import { API_DOMAIN, API_KEY } from '@env'
 import { EnhancedStore } from '@reduxjs/toolkit'
 import { LANGUAGE_CODE } from 'app/constant/language'
 import { RootState } from 'app/provider/redux/store'
 import { generateFPSParams } from 'app/utils/fps/fpsGenerator'
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
-import { Platform } from 'react-native'
 
 export enum AuthURL {
   LOGOUT = '/player_api/logout',

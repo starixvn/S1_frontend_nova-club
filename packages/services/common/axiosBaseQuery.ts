@@ -40,9 +40,10 @@ export function axiosBaseQuery<T>(): BaseQueryFn<
       console.error('axiosBaseQuery error', url, error)
 
       if (axios.isAxiosError(error)) {
-        const errorMessage = error.response?.data as undefined | IResponse<T>
+        let errorMessage = error.response?.data as undefined | IResponse<T>
 
         if (errorMessage) {
+          errorMessage.statusCode = error.response?.status
           return {
             error: errorMessage,
           }
