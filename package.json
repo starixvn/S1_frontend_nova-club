@@ -17,6 +17,9 @@
   },
   "scripts": {
     "native": "cd apps/expo && yarn start",
+    "native:staging": "cd apps/expo && yarn start",
+    "native:soft": "cd apps/expo && yarn start",
+    "native:pre": "cd apps/expo && yarn start",
     "ios": "cd apps/expo && yarn ios",
     "android": "cd apps/expo && yarn android",
     "web": "cd apps/next && yarn next",
