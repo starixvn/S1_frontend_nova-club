@@ -50,6 +50,7 @@ type ButtonProps = {
   loadingIndicator?: ComponentProps<typeof ActivityIndicator>
   textColor?: string | keyof DripsyCustomTheme['colors']
   containerStyle?: SxProp
+  sx?: SxProp
 } & Omit<StyledProps<'buttons'>, 'themeKey'>
 
 type ButtonColorContextType = Pick<
@@ -90,6 +91,7 @@ function Button({
   variants,
   textColor,
   containerStyle,
+  sx,
 }: ButtonProps) {
   if (__DEV__ && typeof children == 'string') {
     throw new Error(
@@ -136,6 +138,7 @@ function Button({
       <BouncePressable
         sx={{
           alignItems: 'center',
+          ...sx,
         }}
         disabled={disabled || loading}
         onPress={onPress}
