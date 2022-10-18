@@ -1,6 +1,7 @@
 import useOrientation from 'app/hooks/useOrientation'
 import { ScrollView } from 'dripsy'
-import { default as React } from 'react'
+import { default as React, useEffect } from 'react'
+import { useModal } from 'react-native-modalfy'
 import AnnouncementMarquee from './Section/AnnouncementMarquee'
 import BannerSection from './Section/BannerSection'
 import GridSection from './Section/GridSection'
@@ -11,6 +12,13 @@ import RecentOpenGames from './Section/RecentOpenGames'
 
 const HomeScreen = () => {
   const { isLandscape } = useOrientation()
+  const { openModal } = useModal()
+
+  useEffect(() => {
+    setTimeout(() => {
+      openModal('LuckyDrawModal')
+    }, 1000)
+  }, [])
   return (
     <ScrollView
       bounces={false}
