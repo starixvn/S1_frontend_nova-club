@@ -43,6 +43,10 @@
     "codepush:android:staging": "cd apps/expo && yarn codepush:android:staging",
     "codepush:ios:prod": "cd apps/expo && yarn codepush:ios:prod",
     "codepush:android:prod": "cd apps/expo && yarn codepush:android:prod",
+    "codepush:ios:pre": "cd apps/expo && yarn codepush:ios:pre",
+    "codepush:android:pre": "cd apps/expo && yarn codepush:android:pre",
+    "codepush:ios:soft": "cd apps/expo && yarn codepush:ios:soft",
+    "codepush:android:soft": "cd apps/expo && yarn codepush:android:soft",
     "postinstall": "patch-package"
   },
   "resolutions": {

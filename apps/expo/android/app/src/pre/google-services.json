@@ -1,0 +1,118 @@
+{
+  "project_info": {
+    "project_number": "1015314255459",
+    "project_id": "vui-health",
+    "storage_bucket": "vui-health.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1015314255459:android:c726a5d43ce74f7da17256",
+        "android_client_info": {
+          "package_name": "com.chlgame.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1015314255459-nek6mlbo858shfmvjou4soof7ncg0jad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAulZ7QFKteHs7EHM-OSL-eRZjqqfq-baE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1015314255459-nek6mlbo858shfmvjou4soof7ncg0jad.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1015314255459-0i00m625icmomophchd3rs8qvtlte907.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.chlgame.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1015314255459:android:070acab1820e2c9ca17256",
+        "android_client_info": {
+          "package_name": "com.chlgame.pre"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1015314255459-nek6mlbo858shfmvjou4soof7ncg0jad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAulZ7QFKteHs7EHM-OSL-eRZjqqfq-baE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1015314255459-nek6mlbo858shfmvjou4soof7ncg0jad.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1015314255459-0i00m625icmomophchd3rs8qvtlte907.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.chlgame.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1015314255459:android:7fe44841e497e169a17256",
+        "android_client_info": {
+          "package_name": "com.chlgame.soft"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1015314255459-nek6mlbo858shfmvjou4soof7ncg0jad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAulZ7QFKteHs7EHM-OSL-eRZjqqfq-baE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1015314255459-nek6mlbo858shfmvjou4soof7ncg0jad.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1015314255459-0i00m625icmomophchd3rs8qvtlte907.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.chlgame.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

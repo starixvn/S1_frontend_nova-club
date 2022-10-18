@@ -198,6 +198,22 @@ android {
             manifestPlaceholders.appLink = "s2syf.app.link"
             manifestPlaceholders.appLinkAlt = "s2syf-alternate.app.link"
         }
+        pre {
+            dimension "env"
+            applicationId 'com.chlgame.pre'
+            manifestPlaceholders.scheme1 = "chlgame"
+            manifestPlaceholders.scheme2 = "com.chlgame.app"
+            manifestPlaceholders.appLink = "s2syf.app.link"
+            manifestPlaceholders.appLinkAlt = "s2syf-alternate.app.link"
+        }
+        soft {
+            dimension "env"
+            applicationId 'com.chlgame.soft'
+            manifestPlaceholders.scheme1 = "chlgame"
+            manifestPlaceholders.scheme2 = "com.chlgame.app"
+            manifestPlaceholders.appLink = "s2syf.app.link"
+            manifestPlaceholders.appLinkAlt = "s2syf-alternate.app.link"
+        }
         staging {
             dimension "env"
             applicationId 'com.chlgame.staging'
