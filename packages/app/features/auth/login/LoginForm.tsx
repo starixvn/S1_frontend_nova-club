@@ -49,15 +49,10 @@ const LoginForm = () => {
 
   const dispatch = useAppDispatch()
 
-  const {
-    isBioLoading,
-    isBiometricSupported,
-    isCredentialsSaved,
-    enableBiometricDialog,
-    startBiometricLogin,
-  } = useBioAuth()
+  const { isBioLoading, showBiometric, normalLogin, startBiometricLogin } =
+    useBioAuth()
 
-  const isBiometricLogin = useAppSelector((s) => s.setting.isBiometricLogin)
+  const isBiometricLogin = useAppSelector((s) => s.setting.biometricCredentials)
 
   const updateLanguage = async (username: string) => {
     try {
@@ -85,11 +80,7 @@ const LoginForm = () => {
       }).unwrap()
 
       if (success && data) {
-        isBiometricSupported && !isCredentialsSaved
-          ? enableBiometricDialog(username, password, () =>
-              handleProceedLogin(data, actions)
-            )
-          : handleProceedLogin(data, actions)
+        normalLogin(username, password, () => handleProceedLogin(data, actions))
       } else {
         throw new Error(message)
       }
@@ -239,23 +230,20 @@ const LoginForm = () => {
         </View>
       </View>
 
-      {Platform.OS !== 'web' &&
-        isBiometricSupported &&
-        isCredentialsSaved &&
-        isBiometricLogin && (
-          <View
-            sx={{
-              flex: 1,
-              alignItems: 'center',
-              justifyContent: 'flex-end',
-            }}
-          >
-            <IconButton
-              name={Platform.OS === 'ios' ? 'face-id' : 'fingerprint'}
-              onPress={() => startBiometricLogin()}
-            />
-          </View>
-        )}
+      {Platform.OS !== 'web' && showBiometric && !!isBiometricLogin && (
+        <View
+          sx={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+          }}
+        >
+          <IconButton
+            name={Platform.OS === 'ios' ? 'face-id' : 'fingerprint'}
+            onPress={() => startBiometricLogin()}
+          />
+        </View>
+      )}
     </>
   )
 }

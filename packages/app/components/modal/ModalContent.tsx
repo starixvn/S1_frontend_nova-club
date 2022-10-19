@@ -67,7 +67,7 @@ const ModalContent = ({
 
                       a.onPress && a.onPress()
                     }}
-                    containerStyle={{ ml: '$3' }}
+                    containerStyle={{ mx: '$1', ...a?.buttonStyle }}
                     {...a.props}
                   >
                     <Button.Label>{a.label}</Button.Label>

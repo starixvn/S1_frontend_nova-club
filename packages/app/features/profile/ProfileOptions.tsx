@@ -1,5 +1,6 @@
 import GradientBox from 'app/components/GradientBox'
 import Icon from 'app/components/Icon'
+import useBioAuth from 'app/hooks/useBioAuth'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import useLocalization from 'app/provider/localization'
@@ -14,8 +15,9 @@ import {
   View,
 } from 'dripsy'
 import React, { useState } from 'react'
-import { Switch } from 'react-native'
+import { Platform, Switch } from 'react-native'
 import { useDispatch } from 'react-redux'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 
 const enum LOADING_STATE {
@@ -26,11 +28,12 @@ const enum LOADING_STATE {
 const ProfileOptions = ({ isCreditMember }: { isCreditMember: boolean }) => {
   const { t } = useLocalization()
   const dispatch = useDispatch()
-  const isBiometricLogin = useAppSelector((s) => s.setting.isBiometricLogin)
-  console.log(
-    '🚀 ~ file: ProfileOptions.tsx ~ line 30 ~ ProfileOptions ~ isBiometricLogin',
-    isBiometricLogin
+  const { data } = usePlayerProfileQuery()
+  const biometricCredentials = useAppSelector(
+    (s) => s.setting.biometricCredentials
   )
+  const isBioLogin =
+    !!biometricCredentials && biometricCredentials.username === data?.username
 
   const [loadingState, setLoadingState] = useState(LOADING_STATE.COMPLETE)
 
@@ -47,6 +50,7 @@ const ProfileOptions = ({ isCreditMember }: { isCreditMember: boolean }) => {
   const toCommissionTable = makeContextualHref('commission-table')
 
   const { logout } = useOnAppLogout()
+  const { enableBiometric } = useBioAuth()
 
   const optionsRoute = [
     {
@@ -93,20 +97,18 @@ const ProfileOptions = ({ isCreditMember }: { isCreditMember: boolean }) => {
     {
       id: 6,
       title: 'biometric.label',
-      iconName: 'fingerprint',
+      iconName: Platform.OS === 'ios' ? 'face-id' : 'fingerprint',
       onClick: async () => {
-        dispatch(SettingActions.toogleBiometricLogin())
+        toogleBiometricLogin()
       },
       appendIcon: () => {
         return (
           <Switch
-            trackColor={{ false: '#767577', true: theme.colors.$lightNavyBlue }}
-            thumbColor={isBiometricLogin ? theme.colors.$PastelBlue : '#f4f3f4'}
+            trackColor={{ false: '#3e3e3e', true: theme.colors.$PaleBlue }}
+            thumbColor={isBioLogin ? theme.colors.$lightNavyBlue : '#f4f3f4'}
             ios_backgroundColor="#3e3e3e"
-            onValueChange={() =>
-              dispatch(SettingActions.toogleBiometricLogin())
-            }
-            value={isBiometricLogin}
+            onValueChange={() => toogleBiometricLogin()}
+            value={isBioLogin}
           />
         )
       },
@@ -141,6 +143,12 @@ const ProfileOptions = ({ isCreditMember }: { isCreditMember: boolean }) => {
     }
 
     onClick?.()
+  }
+
+  const toogleBiometricLogin = () => {
+    isBioLogin
+      ? dispatch(SettingActions.toogleBiometricLogin(false))
+      : enableBiometric(() => {})
   }
 
   return (

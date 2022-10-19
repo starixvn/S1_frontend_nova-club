@@ -22,9 +22,14 @@ export interface Setting {
   log?: string
   transferScan: boolean
   platformUUID?: string
-  username: string
-  password: string
-  isBiometricLogin: boolean
+  currentSession: {
+    username: string
+    password: string
+  }
+  biometricCredentials: {
+    username?: string
+    password?: string
+  } | null
 }
 // export const DomainListHintPostfix = '-DomainListHint'
 // export const DepositListHintPostfix = '-DepositListHint'
@@ -36,6 +41,8 @@ const initialState: Setting = {
   recentGames: [],
   recentGameResources: {},
   transferScan: false,
+  currentSession: {},
+  biometricCredentials: null,
 }
 
 const settingSlice = createSlice({
@@ -94,12 +101,15 @@ const settingSlice = createSlice({
       state,
       action: PayloadAction<{ username: string; password: string }>
     ) => {
-      state.username = action.payload.username
-      state.password = action.payload.password
-      state.isBiometricLogin = true
+      console.log('state', state)
+      state.currentSession.username = action.payload.username
+      state.currentSession.password = action.payload.password
+      console.log('state 2', state)
     },
-    toogleBiometricLogin: (state) => {
-      state.isBiometricLogin = !state.isBiometricLogin
+    toogleBiometricLogin: (state, action: PayloadAction<boolean>) => {
+      state.biometricCredentials === null || action.payload
+        ? (state.biometricCredentials = state.currentSession)
+        : (state.biometricCredentials = null)
     },
   },
   extraReducers: (builder) => {

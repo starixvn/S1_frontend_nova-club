@@ -22,9 +22,10 @@ const useBioAuth = () => {
   const [isBiometricEnabled, setIsBiometricEnabled] = useState(false)
   const isBiometricSupported = isBiometricHardware && isBiometricEnabled
 
-  const username = useAppSelector((s) => s.setting.username)
-  const password = useAppSelector((s) => s.setting.password)
-  const isCredentialsSaved = !!username && !!password
+  const biometricCredentials = useAppSelector(
+    (s) => s.setting.biometricCredentials
+  )
+  const isCredentialsSaved = !!biometricCredentials
 
   useEffect(() => {
     checkBiometricSupported()
@@ -69,8 +70,8 @@ const useBioAuth = () => {
         setIsBioLoading(true)
 
         const { data, success, message } = await login({
-          username,
-          password,
+          username: biometricCredentials?.username,
+          password: biometricCredentials?.password,
         }).unwrap()
 
         if (success && data) {
@@ -91,37 +92,48 @@ const useBioAuth = () => {
     }
   }
 
-  const enableBiometricDialog = async (username, password, callback) => {
+  const normalLogin = (username, password, callback) => {
+    isBiometricSupported &&
+    (!isCredentialsSaved || biometricCredentials.username !== username)
+      ? showBiometricDialog(username, password, callback)
+      : callback()
+  }
+
+  const showBiometricDialog = async (username, password, callback) => {
+    dispatch(SettingActions.addCredentials({ username, password }))
+
     openModal('AlertModal', {
       message: t('biometric.message'),
       actions: [
         {
           label: t('common.cancel'),
           onPress: callback,
+          buttonStyle: { px: 0, minWidth: 120 },
         },
         {
           label: t('common.yes'),
-          onPress: () => storeCredentials(username, password, callback),
+          onPress: () => enableBiometric(callback),
+          buttonStyle: { px: 0, minWidth: 120 },
         },
       ],
     })
   }
 
-  const storeCredentials = async (username, password, callback) => {
+  const enableBiometric = async (callback) => {
     const success = await authentication()
 
     callback()
     if (success) {
-      dispatch(SettingActions.addCredentials({ username, password }))
+      dispatch(SettingActions.toogleBiometricLogin(true))
     }
   }
 
   return {
     isBioLoading,
-    isBiometricSupported,
-    isCredentialsSaved,
-    enableBiometricDialog,
+    showBiometric: isBiometricSupported && isCredentialsSaved,
+    normalLogin,
     startBiometricLogin,
+    enableBiometric,
   }
 }
 
