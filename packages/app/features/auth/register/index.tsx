@@ -45,22 +45,20 @@ const RegisterPage = () => {
   // consume it on onSubmit
   const referral = useAppSelector((s) => s.setting.referral)
 
-  const handleOnSuccessRegister = (
-    username,
-    password,
-    data?: RegisterResult
-  ) => {
-    normalLogin(username, password, () => replace('/'))
-
+  const handleOnSuccessRegister = (data?: RegisterResult) => {
     if (data) {
       if ('note' in data) {
         const note = data.note
 
-        openModal('AlertModal', {
-          message: note,
-        })
+        setTimeout(() => {
+          openModal('AlertModal', {
+            message: note,
+          })
+        }, 1000)
       }
     }
+
+    replace('/')
   }
 
   const onSubmit = async (
@@ -92,7 +90,7 @@ const RegisterPage = () => {
         dispatch(AuthActions.setAuthInfo(data as LoginResult))
         actions.resetForm()
 
-        handleOnSuccessRegister(username, password, data)
+        normalLogin(username, password, () => handleOnSuccessRegister(data))
       }
     } catch (error) {
       showAlert(error)
