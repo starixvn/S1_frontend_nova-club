@@ -126,6 +126,10 @@ def jscFlavor = 'org.webkit:android-jsc:+'
  */
 def enableHermes = project.ext.react.get("enableHermes", false);
 
+ext.versionMajor = 1
+ext.versionMinor = 0
+ext.versionPatch = 7
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -144,8 +148,8 @@ android {
         applicationId 'com.chlgame.app'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0.6"
+        versionCode generateVersionCode()
+        versionName generateVersionName()
     }
     splits {
         abi {
@@ -232,11 +236,24 @@ android {
             def abi = output.getFilter(OutputFile.ABI)
             if (abi != null) {  // null for the universal-debug, universal-release variants
                 output.versionCodeOverride =
-                        versionCodes.get(abi) * 1048576 + defaultConfig.versionCode
+                        defaultConfig.versionCode * 1000 + versionCodes.get(abi)
             }
 
         }
     }
+}
+
+private Integer generateVersionCode() {
+	return ext.versionMajor * 10000 + ext.versionMinor * 100 + ext.versionPatch
+}
+
+private String generateVersionName() {
+	String versionName = "${ext.versionMajor}.${ext.versionMinor}.${ext.versionPatch}"
+	
+	// if (ext.versionClassifier != null) {
+	// 	versionName += "-" + ext.versionClassifier
+	// }
+	return versionName;
 }
 
 dependencies {
