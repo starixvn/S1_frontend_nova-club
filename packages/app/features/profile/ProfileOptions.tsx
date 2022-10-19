@@ -3,6 +3,8 @@ import Icon from 'app/components/Icon'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
+import { SettingActions } from 'app/store/setting.slice'
 import {
   ActivityIndicator,
   Pressable,
@@ -12,6 +14,8 @@ import {
   View,
 } from 'dripsy'
 import React, { useState } from 'react'
+import { Switch } from 'react-native'
+import { useDispatch } from 'react-redux'
 import { useRouter } from 'solito/router'
 
 const enum LOADING_STATE {
@@ -21,6 +25,13 @@ const enum LOADING_STATE {
 
 const ProfileOptions = ({ isCreditMember }: { isCreditMember: boolean }) => {
   const { t } = useLocalization()
+  const dispatch = useDispatch()
+  const isBiometricLogin = useAppSelector((s) => s.setting.isBiometricLogin)
+  console.log(
+    '🚀 ~ file: ProfileOptions.tsx ~ line 30 ~ ProfileOptions ~ isBiometricLogin',
+    isBiometricLogin
+  )
+
   const [loadingState, setLoadingState] = useState(LOADING_STATE.COMPLETE)
 
   const { push } = useRouter()
@@ -79,15 +90,27 @@ const ProfileOptions = ({ isCreditMember }: { isCreditMember: boolean }) => {
       routeWeb: toSupport,
       route: '/customer-support',
     },
-    // {
-    //   id: 6,
-    //   title: 'Switch Account',
-    //   iconName: 'lt',
-    //   routeWeb: toProfileDetails,
-    //   route: '/switch-account',
-    //   gradient: 'wineRed',
-    //   fontColor: 'white',
-    // },
+    {
+      id: 6,
+      title: 'biometric.label',
+      iconName: 'fingerprint',
+      onClick: async () => {
+        dispatch(SettingActions.toogleBiometricLogin())
+      },
+      appendIcon: () => {
+        return (
+          <Switch
+            trackColor={{ false: '#767577', true: theme.colors.$lightNavyBlue }}
+            thumbColor={isBiometricLogin ? theme.colors.$PastelBlue : '#f4f3f4'}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={() =>
+              dispatch(SettingActions.toogleBiometricLogin())
+            }
+            value={isBiometricLogin}
+          />
+        )
+      },
+    },
     {
       id: 7,
       iconName: 'logout',

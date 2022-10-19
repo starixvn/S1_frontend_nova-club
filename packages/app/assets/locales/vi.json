@@ -23,6 +23,11 @@
     "noBankAccount": "Không có tài khoản ngân hàng",
     "selectBank": "Vui lòng chọn ngân hàng"
   },
+  "biometric": {
+    "label": "Đăng nhập bằng Sinh trắc học",
+    "message": "Bạn có muốn kích hoạt đăng nhập sinh trắc học không?",
+    "notFound": "Sinh trắc học không được hỗ trợ / không được bật trên thiết bị của bạn"
+  },
   "commission": {
     "cashPlayer": "Người chơi trả trước",
     "cashPlayerReferral": "Giới thiệu người chơi trả trước",
@@ -84,7 +89,8 @@
     "turnover": "Doanh số",
     "userAgreement": "Thỏa thuận người dùng",
     "username": "Tên đăng nhập",
-    "win": "Thắng"
+    "win": "Thắng",
+    "yes": "Đồng Ý"
   },
   "contact": {
     "contactVia": "Liên hệ qua",

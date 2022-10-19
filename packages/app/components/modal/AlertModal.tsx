@@ -9,6 +9,13 @@ const AlertModal = ({ modal: { closeModal, getParam } }) => {
 
   const title = getParam('title', t('notes.importantNotice'))
   const message = getParam('message', '')
+  const actions = getParam('actions', [
+    {
+      label: t('common.close'),
+      onPress: onDismiss,
+    },
+  ])
+
   const onClose = getParam('onClose')
 
   function onDismiss() {
@@ -24,12 +31,7 @@ const AlertModal = ({ modal: { closeModal, getParam } }) => {
         title={title}
         closeModal={closeModal}
         hideCloseButton
-        actions={[
-          {
-            label: t('common.close'),
-            onPress: onDismiss,
-          },
-        ]}
+        actions={actions}
       >
         <Text>{message}</Text>
       </ModalContent>

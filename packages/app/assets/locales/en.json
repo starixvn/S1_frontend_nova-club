@@ -23,6 +23,11 @@
     "noBankAccount": "No Bank Account",
     "selectBank": "Please select bank"
   },
+  "biometric": {
+    "label": "Login with Biometrics",
+    "message": "Would you like to enable biometric login?",
+    "notFound": "Biometric is not supported / not enabled on your device"
+  },
   "commission": {
     "cashPlayer": "Cash Player",
     "cashPlayerReferral": "Cash Player Referral",
@@ -84,7 +89,8 @@
     "turnover": "Turnover",
     "userAgreement": "user agreement",
     "username": "Username",
-    "win": "Win"
+    "win": "Win",
+    "yes": "Yes"
   },
   "contact": {
     "contactVia": "Contact via",

@@ -22,6 +22,9 @@ export interface Setting {
   log?: string
   transferScan: boolean
   platformUUID?: string
+  username: string
+  password: string
+  isBiometricLogin: boolean
 }
 // export const DomainListHintPostfix = '-DomainListHint'
 // export const DepositListHintPostfix = '-DepositListHint'
@@ -86,6 +89,17 @@ const settingSlice = createSlice({
       if (similarGameIndex > -1) state.recentGames.splice(similarGameIndex, 1)
 
       state.recentGames.unshift(recentGame)
+    },
+    addCredentials: (
+      state,
+      action: PayloadAction<{ username: string; password: string }>
+    ) => {
+      state.username = action.payload.username
+      state.password = action.payload.password
+      state.isBiometricLogin = true
+    },
+    toogleBiometricLogin: (state) => {
+      state.isBiometricLogin = !state.isBiometricLogin
     },
   },
   extraReducers: (builder) => {
