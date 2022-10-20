@@ -112,7 +112,8 @@ const ProfileOptions = ({ isCreditMember }: { isCreditMember: boolean }) => {
           />
         )
       },
-      isMobileOnly: Platform.OS !== 'web',
+      isMobileOnly: Platform.OS === 'android',
+      // isMobileOnly: Platform.OS !== 'web',
     },
     {
       id: 7,
