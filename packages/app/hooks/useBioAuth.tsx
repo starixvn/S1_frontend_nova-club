@@ -41,16 +41,17 @@ const useBioAuth = () => {
 
   const checkBiometricEnabled = async () => {
     const savedBiometrics = await LocalAuthentication.isEnrolledAsync()
+
     setIsBiometricEnabled(savedBiometrics)
 
     return savedBiometrics
   }
 
   const authentication = async () => {
-    if (!checkBiometricEnabled()) {
-      setTimeout(() => {
-        openModal('AlertModal', { message: t('biometric.notFound') })
-      }, 500)
+    const check = await checkBiometricEnabled()
+
+    if (!check) {
+      openModal('AlertModal', { message: t('biometric.notFound') })
     } else {
       const biometricAuth = await LocalAuthentication.authenticateAsync({
         promptMessage: t('biometric.label'),
