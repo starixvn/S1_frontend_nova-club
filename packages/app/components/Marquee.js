@@ -4,12 +4,12 @@
 /* eslint-disable eqeqeq */
 import React, { PureComponent } from 'react'
 import {
-  View,
   Animated,
   Easing,
+  Platform,
   Text,
   TouchableWithoutFeedback,
-  Platform,
+  View,
 } from 'react-native'
 
 const styles = {
@@ -42,7 +42,7 @@ export default class MarqueeText extends PureComponent {
       viewWidth: 0,
     }
 
-    this.animatedTransformX = new Animated.Value(1999)
+    this.animatedTransformX = new Animated.Value(0)
   }
 
   static defaultProps = {
@@ -171,7 +171,7 @@ export default class MarqueeText extends PureComponent {
         }}
         onLayout={(event) => this.viewOnLayout(event)}
       >
-        {itemView}
+        {!!this.state.animation && itemView}
       </Animated.View>
     )
   }
@@ -192,9 +192,9 @@ export default class MarqueeText extends PureComponent {
           style={{
             ...styles.textMeasuringTextStyle,
             ...textStyle,
+            position: Platform.OS === 'web' ? 'relative' : 'absolute',
           }}
           onLayout={(event) => this.textOnLayout(event)}
-          numberOfLines={1}
         >
           {text}
         </Text>
