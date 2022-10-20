@@ -1,4 +1,5 @@
 import useAlert from 'app/hooks/useAlert'
+import useBioAuth from 'app/hooks/useBioAuth'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useUniqueId from 'app/hooks/useUniqueId'
 import useLocalization from 'app/provider/localization'
@@ -39,6 +40,7 @@ const RegisterPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { uuid } = useUniqueId()
 
+  const { normalLogin } = useBioAuth()
   // referral value is obtained asynchronously, do not assign to initialValues of form.
   // consume it on onSubmit
   const referral = useAppSelector((s) => s.setting.referral)
@@ -48,9 +50,11 @@ const RegisterPage = () => {
       if ('note' in data) {
         const note = data.note
 
-        openModal('AlertModal', {
-          message: note,
-        })
+        setTimeout(() => {
+          openModal('AlertModal', {
+            message: note,
+          })
+        }, 1000)
       }
     }
 
@@ -86,7 +90,7 @@ const RegisterPage = () => {
         dispatch(AuthActions.setAuthInfo(data as LoginResult))
         actions.resetForm()
 
-        handleOnSuccessRegister(data)
+        normalLogin(username, password, () => handleOnSuccessRegister(data))
       }
     } catch (error) {
       showAlert(error)

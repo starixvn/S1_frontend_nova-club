@@ -4,6 +4,7 @@ import { AuthActions } from 'app/store/authReducer'
 import { SettingActions } from 'app/store/setting.slice'
 import * as LocalAuthentication from 'expo-local-authentication'
 import { useEffect, useState } from 'react'
+import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useDispatch } from 'react-redux'
 import { useLoginMutation } from 'services/authApi'
@@ -40,16 +41,17 @@ const useBioAuth = () => {
 
   const checkBiometricEnabled = async () => {
     const savedBiometrics = await LocalAuthentication.isEnrolledAsync()
+
     setIsBiometricEnabled(savedBiometrics)
 
     return savedBiometrics
   }
 
   const authentication = async () => {
-    if (!checkBiometricEnabled()) {
-      setTimeout(() => {
-        openModal('AlertModal', { message: t('biometric.notFound') })
-      }, 500)
+    const check = await checkBiometricEnabled()
+
+    if (!check) {
+      openModal('AlertModal', { message: t('biometric.notFound') })
     } else {
       const biometricAuth = await LocalAuthentication.authenticateAsync({
         promptMessage: t('biometric.label'),
@@ -93,6 +95,9 @@ const useBioAuth = () => {
   }
 
   const normalLogin = (username, password, callback) => {
+    Platform.OS !== 'web' &&
+      dispatch(SettingActions.addCredentials({ username, password }))
+
     isBiometricSupported &&
     (!isCredentialsSaved || biometricCredentials.username !== username)
       ? showBiometricDialog(username, password, callback)
@@ -100,8 +105,6 @@ const useBioAuth = () => {
   }
 
   const showBiometricDialog = async (username, password, callback) => {
-    dispatch(SettingActions.addCredentials({ username, password }))
-
     openModal('AlertModal', {
       message: t('biometric.message'),
       actions: [
@@ -116,6 +119,7 @@ const useBioAuth = () => {
           buttonStyle: { px: 0, minWidth: 120 },
         },
       ],
+      persistent: true,
     })
   }
 

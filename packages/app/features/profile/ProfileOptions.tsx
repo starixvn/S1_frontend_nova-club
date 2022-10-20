@@ -112,6 +112,7 @@ const ProfileOptions = ({ isCreditMember }: { isCreditMember: boolean }) => {
           />
         )
       },
+      isMobileOnly: Platform.OS !== 'web',
     },
     {
       id: 7,
@@ -154,7 +155,8 @@ const ProfileOptions = ({ isCreditMember }: { isCreditMember: boolean }) => {
   return (
     <View>
       {optionsRoute.map((item) =>
-        item.isCashMemberOnly && isCreditMember ? null : (
+        item.isCashMemberOnly && isCreditMember ? null : item.id === 6 &&
+          !item.isMobileOnly ? null : (
           <StyledGradientBox
             key={item.id}
             gradient={item.gradient ?? 'darkNavyBlue'}
