@@ -2,9 +2,9 @@ import { combineReducers, configureStore, Reducer } from '@reduxjs/toolkit'
 import { alertReducer } from 'app/store/alert.slice'
 import authReducer, { authInitialState, AuthState } from 'app/store/authReducer'
 import bankReducer from 'app/store/bankReducer'
-import { gameLauncherReducer } from 'app/store/gameLauncher.slice'
 import { depositReducer } from 'app/store/deposit.slice'
-import { Setting, settingReducer } from 'app/store/setting.slice'
+import { gameLauncherReducer } from 'app/store/gameLauncher.slice'
+import { settingReducer } from 'app/store/setting.slice'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import {
   createMigrate,
@@ -14,10 +14,9 @@ import {
   persistReducer,
   persistStore,
 } from 'redux-persist'
-import { storage } from './persistStorage/index'
-import pinApi from 'services/pinApi'
 import { baseApi } from 'services/baseApi'
 import { matchApi } from 'services/matchApi'
+import { storage } from './persistStorage/index'
 
 const migrations = {
   3: (s: PersistedState) => {},
@@ -43,20 +42,20 @@ const persistConfig: PersistConfig<any> = {
       },
       { whitelist: ['auth'] }
     ),
-    createTransform<Setting, Setting>(
-      (inboundState, key) => {
-        return inboundState
-      },
-      (outboundState, key) => {
-        const clearShieldId = {
-          ...outboundState,
-          shieldSessionID: undefined,
-        }
+    // createTransform<Setting, Setting>(
+    //   (inboundState, key) => {
+    //     return inboundState
+    //   },
+    //   (outboundState, key) => {
+    //     const clearShieldId = {
+    //       ...outboundState,
+    //       shieldSessionID: undefined,
+    //     }
 
-        return clearShieldId
-      },
-      { whitelist: ['setting'] }
-    ),
+    //     return clearShieldId
+    //   },
+    //   { whitelist: ['setting'] }
+    // ),
   ],
 }
 
