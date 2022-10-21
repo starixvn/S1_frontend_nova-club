@@ -1,3 +1,4 @@
+import useAlert from 'app/hooks/useAlert'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useOrientation from 'app/hooks/useOrientation'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
@@ -7,25 +8,58 @@ import { useState } from 'react'
 import { ImageBackground, PixelRatio, Platform, StyleSheet } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { Easing } from 'react-native-reanimated'
+import { useLuckySpinMutation } from 'services/playerApi'
 import { sleep } from 'utils/common'
 import { useDummyRtk } from 'utils/rtk'
 import Image, { MotifiedImage } from '../common/Image'
 import { Button } from '../form/Button'
 import IconButton from '../form/IconButton'
 
-const LuckyDrawModal = () => {
+const LuckyDrawModal = ({ modal: { getParam } }) => {
   const { closeModal } = useModal()
+  const totalSpin = getParam('totalSpin', 0)
+
   const { width, height } = useContainerDimension()
-  const { data, isFetching } = useDummyRtk({
-    isLuckySpin: true,
-  })
+
+  const { showAlert } = useAlert()
+
+  const [spinLuckyWheel, { isLoading }] = useLuckySpinMutation()
 
   const [targetIndex, setTargetIndex] = useState(0)
+  const [spinBalance, setSpinBalance] = useState(0)
+  const [startAnimate, setStartAnimate] = useState(false)
+
+  const canSpin = totalSpin > spinBalance
 
   const { isLandscape } = useOrientation()
 
-  function spin() {
-    setTargetIndex(Math.floor(Math.random() * (6 - 0.1)))
+  const spin = async () => {
+    setStartAnimate(true)
+
+    const { data, success } = await spinLuckyWheel()
+      .unwrap()
+      .catch((error) => {
+        showAlert(error)
+        return error
+      })
+
+    if (success) {
+      setTargetIndex(handleSpinMapping(data.code))
+      setSpinBalance((prev) => prev + 1)
+    }
+  }
+
+  const handleSpinMapping = (code: number) => {
+    switch (code) {
+      case 1:
+        return 3
+      case 2:
+        return 1
+      case 3:
+        return 5
+      default:
+        return 1
+    }
   }
 
   function onResultSpinned() {}
@@ -89,8 +123,8 @@ const LuckyDrawModal = () => {
             {isLandscape && (
               <Button
                 onPress={spin}
-                loading={isFetching}
-                disabled={data?.isLuckySpin != true}
+                loading={isLoading}
+                disabled={!canSpin}
                 sx={{ mt: '10%' }}
               >
                 <Button.Label>SPIN NOW</Button.Label>
@@ -124,7 +158,7 @@ const LuckyDrawModal = () => {
                 }}
                 onDidAnimate={onResultSpinned}
                 transition={{
-                  duration: 5000,
+                  duration: startAnimate ? 5000 : 0,
                   type: 'timing',
                   easing: Easing.bezier(0, 0.62, 0.19, 1.01),
                 }}
@@ -165,8 +199,8 @@ const LuckyDrawModal = () => {
               <Button
                 sx={{ mb: '$10' }}
                 onPress={spin}
-                loading={isFetching}
-                disabled={data?.isLuckySpin != true}
+                loading={isLoading}
+                disabled={!canSpin}
               >
                 <Button.Label>SPIN NOW</Button.Label>
               </Button>
@@ -213,7 +247,7 @@ function getRadianByIndex(
   const degreePerItem = 360 / numberOfItems
   const offset = -degreePerItem * Math.random() + degreePerItem / 2
   const deg = (loopCount - 1) * 360 + index * degreePerItem + offset
-  const rad = (deg * Math.PI) / 180
+  const rad = -(deg * Math.PI) / 180
   return Platform.OS === 'web' ? `${rad}rad` : rad
 }
 

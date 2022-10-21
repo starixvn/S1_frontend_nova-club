@@ -2,6 +2,8 @@ import useOrientation from 'app/hooks/useOrientation'
 import { ScrollView } from 'dripsy'
 import { default as React, useEffect } from 'react'
 import { useModal } from 'react-native-modalfy'
+import { WheelInfo } from 'services/authApi.type'
+import { createParam } from 'solito'
 import AnnouncementMarquee from './Section/AnnouncementMarquee'
 import BannerSection from './Section/BannerSection'
 import GridSection from './Section/GridSection'
@@ -10,15 +12,25 @@ import Jackpot from './Section/Jackpot'
 import MatchesSection from './Section/MatchesSection'
 import RecentOpenGames from './Section/RecentOpenGames'
 
+type Query = {
+  luckySpinBalance: number
+}
+
+const { useParam } = createParam<Query>()
 const HomeScreen = () => {
   const { isLandscape } = useOrientation()
   const { openModal } = useModal()
 
+  const [luckySpinBalance] = useParam('luckySpinBalance')
+
   useEffect(() => {
-    setTimeout(() => {
-      openModal('LuckyDrawModal')
-    }, 1000)
+    if (luckySpinBalance) {
+      setTimeout(() => {
+        openModal('LuckyDrawModal', { totalSpin: luckySpinBalance })
+      }, 100)
+    }
   }, [])
+
   return (
     <ScrollView
       bounces={false}

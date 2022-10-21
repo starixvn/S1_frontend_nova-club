@@ -15,7 +15,15 @@ export interface RegisterInvalidResult {
   message: string
 }
 
-export type RegisterResult = LoginResult | RegisterInvalidResult[]
+export type WheelInfo = {
+  totalBalance: number
+  totalSpin: number
+  totalUsed: number
+}
+
+export type RegisterResult =
+  | (LoginResult & { wheel_info: WheelInfo })
+  | RegisterInvalidResult[]
 
 export interface RegisterQueryArgs {
   contactNumber: string
