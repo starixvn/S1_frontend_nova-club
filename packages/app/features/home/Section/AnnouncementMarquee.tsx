@@ -32,7 +32,7 @@ const AnnouncementMarquee = () => {
         data.data.list.map((annc) => {
           return {
             label: annc.newsId,
-            value: annc.title + ' ' + annc.content,
+            value: annc.title,
             item: annc,
           }
         })

@@ -3,7 +3,7 @@ import { isNewVersionAvailable, Version } from 'app/utils/rn-helper'
 import { Linking, Platform } from 'react-native'
 import { contentApi } from 'services/contentApi'
 import { SplashScreenHandler, SplashScreenTask } from './useSplashScreen'
-
+import { CommonActions } from '@react-navigation/native'
 export const checkVersionUpdated: SplashScreenTask = (context) => async () => {
   const { t, showAlert } = context
   let isUptoDate = true
@@ -64,9 +64,11 @@ export const checkMaintenance: SplashScreenTask = (context) => async () => {
   let isForbidden = false
 
   try {
-    const result = await dispatch(contentApi.endpoints.banner.initiate())
-    isForbidden = result.error?.statusCode === 403
-    isMaintenance = result.error?.statusCode === 404
+    const { error, data } = await dispatch(
+      contentApi.endpoints.announcement.initiate()
+    )
+    isForbidden = error?.statusCode === 403
+    isMaintenance = typeof data === 'string'
   } catch (e) {
     console.log('failed to check for maintenance', e)
   }
@@ -77,9 +79,19 @@ export const checkMaintenance: SplashScreenTask = (context) => async () => {
     result: !isMaintenance && !isForbidden,
     handler: () => {
       if (isMaintenance) {
-        navigation.navigate('Maintenance')
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: 'Maintenance' }],
+          })
+        )
       } else if (isForbidden) {
-        navigation.navigate('Forbidden')
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: 'Forbidden' }],
+          })
+        )
       }
     },
   }

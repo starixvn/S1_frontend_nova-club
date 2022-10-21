@@ -1,8 +1,11 @@
 import GradientBox from 'app/components/GradientBox'
 import Icon from 'app/components/Icon'
+import useBioAuth from 'app/hooks/useBioAuth'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
+import { SettingActions } from 'app/store/setting.slice'
 import {
   ActivityIndicator,
   Pressable,
@@ -12,6 +15,9 @@ import {
   View,
 } from 'dripsy'
 import React, { useState } from 'react'
+import { Platform, Switch } from 'react-native'
+import { useDispatch } from 'react-redux'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 
 const enum LOADING_STATE {
@@ -21,6 +27,14 @@ const enum LOADING_STATE {
 
 const ProfileOptions = ({ isCreditMember }: { isCreditMember: boolean }) => {
   const { t } = useLocalization()
+  const dispatch = useDispatch()
+  const { data } = usePlayerProfileQuery()
+  const biometricCredentials = useAppSelector(
+    (s) => s.setting.biometricCredentials
+  )
+  const isBioLogin =
+    !!biometricCredentials && biometricCredentials.username === data?.username
+
   const [loadingState, setLoadingState] = useState(LOADING_STATE.COMPLETE)
 
   const { push } = useRouter()
@@ -36,6 +50,7 @@ const ProfileOptions = ({ isCreditMember }: { isCreditMember: boolean }) => {
   const toCommissionTable = makeContextualHref('commission-table')
 
   const { logout } = useOnAppLogout()
+  const { enableBiometric } = useBioAuth()
 
   const optionsRoute = [
     {
@@ -79,15 +94,26 @@ const ProfileOptions = ({ isCreditMember }: { isCreditMember: boolean }) => {
       routeWeb: toSupport,
       route: '/customer-support',
     },
-    // {
-    //   id: 6,
-    //   title: 'Switch Account',
-    //   iconName: 'lt',
-    //   routeWeb: toProfileDetails,
-    //   route: '/switch-account',
-    //   gradient: 'wineRed',
-    //   fontColor: 'white',
-    // },
+    {
+      id: 6,
+      title: 'biometric.label',
+      iconName: Platform.OS === 'ios' ? 'face-id' : 'fingerprint',
+      onClick: async () => {
+        toogleBiometricLogin()
+      },
+      appendIcon: () => {
+        return (
+          <Switch
+            trackColor={{ false: '#3e3e3e', true: theme.colors.$PaleBlue }}
+            thumbColor={isBioLogin ? theme.colors.$lightNavyBlue : '#f4f3f4'}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={() => toogleBiometricLogin()}
+            value={isBioLogin}
+          />
+        )
+      },
+      isMobileOnly: Platform.OS !== 'web',
+    },
     {
       id: 7,
       iconName: 'logout',
@@ -120,10 +146,17 @@ const ProfileOptions = ({ isCreditMember }: { isCreditMember: boolean }) => {
     onClick?.()
   }
 
+  const toogleBiometricLogin = () => {
+    isBioLogin
+      ? dispatch(SettingActions.toogleBiometricLogin(false))
+      : enableBiometric(() => {})
+  }
+
   return (
     <View>
       {optionsRoute.map((item) =>
-        item.isCashMemberOnly && isCreditMember ? null : (
+        item.isCashMemberOnly && isCreditMember ? null : item.id === 6 &&
+          !item.isMobileOnly ? null : (
           <StyledGradientBox
             key={item.id}
             gradient={item.gradient ?? 'darkNavyBlue'}

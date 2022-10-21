@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import codePush, { DownloadProgress } from 'react-native-code-push'
 
 export default function useCodePushDownload(

@@ -2,14 +2,15 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-did-update-set-state */
 /* eslint-disable eqeqeq */
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from 'react'
 import {
-  View,
   Animated,
   Easing,
+  Platform,
   Text,
   TouchableWithoutFeedback,
-} from 'react-native';
+  View,
+} from 'react-native'
 
 const styles = {
   bgContainerStyle: {
@@ -29,19 +30,19 @@ const styles = {
     fontSize: 16,
     color: '#000000',
   },
-};
+}
 
 export default class MarqueeText extends PureComponent {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       animation: null,
       textList: this.props.textList || [],
       textWidth: 0,
       viewWidth: 0,
-    };
+    }
 
-    this.animatedTransformX = new Animated.Value(0);
+    this.animatedTransformX = new Animated.Value(0)
   }
 
   static defaultProps = {
@@ -54,19 +55,19 @@ export default class MarqueeText extends PureComponent {
     reverse: false,
     separator: 20,
     onTextClick: undefined,
-  };
+  }
 
   componentDidUpdate() {
-    let { textWidth, viewWidth } = this.state;
-    let { duration, speed, width, direction } = this.props;
-    let mDuration = duration;
+    let { textWidth, viewWidth } = this.state
+    let { duration, speed, width, direction } = this.props
+    let mDuration = duration
     if (speed && speed > 0) {
-      mDuration = ((width + textWidth) / speed) * 1000;
+      mDuration = ((width + textWidth) / speed) * 1000
     }
     if (!this.state.animation && textWidth && viewWidth) {
       this.animatedTransformX.setValue(
-        direction == 'left' ? width : direction == 'right' ? -textWidth : width,
-      );
+        direction == 'left' ? width : direction == 'right' ? -textWidth : width
+      )
       this.setState(
         {
           animation: Animated.timing(this.animatedTransformX, {
@@ -74,8 +75,8 @@ export default class MarqueeText extends PureComponent {
               direction == 'left'
                 ? -textWidth
                 : direction == 'right'
-                  ? width
-                  : -textWidth,
+                ? width
+                : -textWidth,
             duration: mDuration,
             useNativeDriver: true,
             easing: Easing.linear,
@@ -86,76 +87,80 @@ export default class MarqueeText extends PureComponent {
             this.state.animation.start(() => {
               this.setState({
                 animation: null,
-              });
-            });
-        },
-      );
+              })
+            })
+        }
+      )
     }
   }
 
   static getDerivedStateFromProps(props, state) {
-    let newText = props.textList || [];
-    let oldText = state.textList || [];
+    let newText = props.textList || []
+    let oldText = state.textList || []
     if (newText !== oldText) {
-      state.animation && state.animation.stop();
+      state.animation && state.animation.stop()
       return {
         textList: newText,
         // animation: null,
-      };
-    } else return null;
+      }
+    } else return null
   }
 
   componentWillUnmount() {
-    this.state.animation && this.state.animation.stop();
+    this.state.animation && this.state.animation.stop()
   }
 
-  textOnLayout = e => {
-    let width = e.nativeEvent.layout.width;
-    let { textList, separator } = this.props;
+  textOnLayout = (e) => {
+    let width = e.nativeEvent.layout.width
+    let { textList, separator } = this.props
     this.setState({
       textWidth: width + (textList.length - 1) * separator,
-    });
-  };
+    })
+  }
 
-  viewOnLayout = e => {
-    let width = e.nativeEvent.layout.width;
+  viewOnLayout = (e) => {
+    let width = e.nativeEvent.layout.width
     this.setState({
       viewWidth: width,
-    });
-  };
+    })
+  }
 
   textView(list) {
-    let { textStyle, onTextClick, reverse, separator } = this.props;
-    let itemView = [];
+    let { textStyle, onTextClick, reverse, separator } = this.props
+    let itemView = []
     for (let i = 0; i < list.length; i++) {
-      let item = list[i];
+      let item = list[i]
       if (reverse) {
-        item.value = item.value.split('').reverse().join('');
+        item.value = item.value.split('').reverse().join('')
       }
       itemView.push(
         <View key={'' + i} activeOpacity={0.9}>
           <TouchableWithoutFeedback
             disabled={!onTextClick}
             onPress={() => {
-              onTextClick();
-            }}>
+              onTextClick()
+            }}
+          >
             <View
               style={{
                 flexDirection: 'row',
                 marginRight: i < list.length - 1 ? separator : 0,
-              }}>
+              }}
+            >
               <Text
                 style={{
                   ...styles.textStyle,
                   ...textStyle,
+                  ...(Platform.OS === 'web' && { whiteSpace: 'normal' }),
                 }}
-                numberOfLines={1}>
+                numberOfLines={1}
+              >
                 {item.value}
               </Text>
             </View>
           </TouchableWithoutFeedback>
-        </View>,
-      );
+        </View>
+      )
     }
     return (
       <Animated.View
@@ -164,40 +169,42 @@ export default class MarqueeText extends PureComponent {
           width: this.state.textWidth,
           transform: [{ translateX: this.animatedTransformX }],
         }}
-        onLayout={event => this.viewOnLayout(event)}>
-        {itemView}
+        onLayout={(event) => this.viewOnLayout(event)}
+      >
+        {!!this.state.animation && itemView}
       </Animated.View>
-    );
+    )
   }
 
   textLengthView(list) {
-    let { textStyle } = this.props;
-    let text = '';
+    let { textStyle } = this.props
+    let text = ''
     for (let i = 0; i < list.length; i++) {
-      text += list[i].value;
+      text += list[i].value
     }
     return (
       <View
         style={{
           ...styles.textMeasuringViewStyle,
-          width: list.length * 1024,
-        }}>
+        }}
+      >
         <Text
           style={{
             ...styles.textMeasuringTextStyle,
             ...textStyle,
+            position: Platform.OS === 'web' ? 'relative' : 'absolute',
           }}
-          onLayout={event => this.textOnLayout(event)}
-          numberOfLines={1}>
+          onLayout={(event) => this.textOnLayout(event)}
+        >
           {text}
         </Text>
       </View>
-    );
+    )
   }
 
   render() {
-    let { width, height, bgContainerStyle } = this.props;
-    let { textList } = this.state;
+    let { width, height, bgContainerStyle } = this.props
+    let { textList } = this.state
     return (
       <View
         style={{
@@ -206,10 +213,11 @@ export default class MarqueeText extends PureComponent {
           height: height,
           ...bgContainerStyle,
         }}
-        opacity={this.state.animation ? 1 : 0}>
+        opacity={this.state.animation ? 1 : 0}
+      >
         {this.textView(textList)}
         {this.textLengthView(textList)}
       </View>
-    );
+    )
   }
 }

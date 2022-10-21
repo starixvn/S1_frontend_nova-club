@@ -20,13 +20,13 @@ import { baseApi } from 'services/baseApi'
 import { matchApi } from 'services/matchApi'
 
 const migrations = {
-  2: (s: PersistedState) => {},
   3: (s: PersistedState) => {},
+  4: (s: PersistedState) => {},
 }
 
 const persistConfig: PersistConfig<any> = {
   key: 'root',
-  version: 3,
+  version: 4,
   storage,
   whitelist: ['auth', 'setting'],
   migrate: createMigrate(migrations, { debug: true }),

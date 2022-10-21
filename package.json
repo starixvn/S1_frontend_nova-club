@@ -17,6 +17,10 @@
   },
   "scripts": {
     "native": "cd apps/expo && yarn start",
+    "native:staging": "cd apps/expo && yarn start:staging",
+    "native:soft": "cd apps/expo && start:soft",
+    "native:pre": "cd apps/expo && start:pre",
+    "native:prod": "yarn workspace expo-app start:prod",
     "ios": "cd apps/expo && yarn ios",
     "android": "cd apps/expo && yarn android",
     "web": "cd apps/next && yarn next",
@@ -25,7 +29,7 @@
     "reset": "find . -type dir -name node_modules | xargs rm -rf && rm -rf yarn.lock",
     "copy-assets": "node ./apps/next/scripts/copy-assets.js",
     "build:web": "yarn workspace next-app build",
-    "build:web:stag": "APP_ENV=stag yarn build:web",
+    "build:web:staging": "APP_ENV=stag yarn build:web",
     "build:web:pre": "APP_ENV=pre yarn build:web",
     "build:web:soft": "APP_ENV=soft yarn build:web",
     "docker:web": "docker build -t chlgame .",
@@ -40,6 +44,10 @@
     "codepush:android:staging": "cd apps/expo && yarn codepush:android:staging",
     "codepush:ios:prod": "cd apps/expo && yarn codepush:ios:prod",
     "codepush:android:prod": "cd apps/expo && yarn codepush:android:prod",
+    "codepush:ios:pre": "cd apps/expo && yarn codepush:ios:pre",
+    "codepush:android:pre": "cd apps/expo && yarn codepush:android:pre",
+    "codepush:ios:soft": "cd apps/expo && yarn codepush:ios:soft",
+    "codepush:android:soft": "cd apps/expo && yarn codepush:android:soft",
     "postinstall": "patch-package"
   },
   "resolutions": {

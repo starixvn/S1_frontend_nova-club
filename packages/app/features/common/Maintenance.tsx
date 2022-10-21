@@ -1,13 +1,44 @@
+import { CommonActions, useNavigation } from '@react-navigation/native'
 import Image from 'app/components/common/Image'
 import { PageWithBackHeader } from 'app/components/layout/Page'
+import useAlert from 'app/hooks/useAlert'
+import useInterval from 'app/hooks/useInterval'
+import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { checkMaintenance } from '../splashscreen/splashScreenChecks'
 import ResponseContent from './ResponseContent'
 
 const LOGO_IMAGE = require('../../assets/images/logo.png')
 const ICON = require('../../assets/images/ic_maintenance.png')
 
-const Maintenance = () => {
+const Maintenance = ({}) => {
+  const navigation = useNavigation()
+  const dispatch = useDispatch()
+  const { t } = useLocalization()
+  const { showAlert } = useAlert()
+  async function checkAlive() {
+    const result = await checkMaintenance({
+      navigation,
+      dispatch,
+      t,
+      showAlert,
+    })()
+
+    if (result.result) {
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: 'SplashScreen' }],
+        })
+      )
+    }
+  }
+  useInterval(() => {
+    checkAlive()
+  }, 5000)
+
   return (
     <PageWithBackHeader
       header={{ title: 'Maintenance' }}

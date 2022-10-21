@@ -1,9 +1,11 @@
 import { Button } from 'app/components/form/Button'
+import IconButton from 'app/components/form/IconButton'
 import TextInput from 'app/components/form/TextInput'
 import useAlert from 'app/hooks/useAlert'
+import useBioAuth from 'app/hooks/useBioAuth'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
-import { useAppDispatch } from 'app/provider/redux/store'
+import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { AuthActions } from 'app/store/authReducer'
 import { SettingActions } from 'app/store/setting.slice'
 import validation, {
@@ -13,7 +15,7 @@ import validation, {
 import { styled, Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useRef, useState } from 'react'
-import { TextInput as RNTextField } from 'react-native'
+import { Platform, TextInput as RNTextField } from 'react-native'
 import { useLoginMutation } from 'services/authApi'
 import { useLazyPlayerProfileQuery } from 'services/playerApi'
 import { createParam } from 'solito'
@@ -47,6 +49,11 @@ const LoginForm = () => {
 
   const dispatch = useAppDispatch()
 
+  const { isBioLoading, showBiometric, normalLogin, startBiometricLogin } =
+    useBioAuth()
+
+  const isBiometricLogin = useAppSelector((s) => s.setting.biometricCredentials)
+
   const updateLanguage = async (username: string) => {
     try {
       const { data } = await getPlayerProfile().unwrap()
@@ -73,12 +80,7 @@ const LoginForm = () => {
       }).unwrap()
 
       if (success && data) {
-        dispatch(AuthActions.setAuthInfo(data))
-        // await updateLanguage(data.playerName)
-        actions.resetForm()
-        if (errorMsg) setErrorMsg('')
-
-        replace(afterLoginRedirection)
+        normalLogin(username, password, () => handleProceedLogin(data, actions))
       } else {
         throw new Error(message)
       }
@@ -87,6 +89,16 @@ const LoginForm = () => {
 
       setIsSubmitting(false)
     }
+  }
+
+  const handleProceedLogin = (data, actions) => {
+    dispatch(AuthActions.setAuthInfo(data))
+    // await updateLanguage(data.playerName)
+
+    actions.resetForm()
+    if (errorMsg) setErrorMsg('')
+
+    replace(afterLoginRedirection)
   }
 
   const formik = useFormik<LoginFormValues>({
@@ -187,7 +199,7 @@ const LoginForm = () => {
             stretch
             onPress={submitForm}
             sx={{ mt: '$4' }}
-            loading={isSubmitting}
+            loading={isSubmitting || isBioLoading}
           >
             <Button.Label>{t('auth.login')}</Button.Label>
           </Button>
@@ -217,6 +229,21 @@ const LoginForm = () => {
           {/* {log && <Text>{log}</Text>} */}
         </View>
       </View>
+
+      {Platform.OS !== 'web' && showBiometric && !!isBiometricLogin && (
+        <View
+          sx={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+          }}
+        >
+          <IconButton
+            name={Platform.OS === 'ios' ? 'face-id' : 'fingerprint'}
+            onPress={() => startBiometricLogin()}
+          />
+        </View>
+      )}
     </>
   )
 }
