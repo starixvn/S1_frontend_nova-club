@@ -98,7 +98,6 @@ const useBioAuth = () => {
     Platform.OS !== 'web' &&
       dispatch(SettingActions.addCredentials({ username, password }))
 
-    Platform.OS === 'android' &&
     isBiometricSupported &&
     (!isCredentialsSaved || biometricCredentials.username !== username)
       ? showBiometricDialog(username, password, callback)

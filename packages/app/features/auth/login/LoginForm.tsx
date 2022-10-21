@@ -230,23 +230,20 @@ const LoginForm = () => {
         </View>
       </View>
 
-      {Platform.OS === 'android' &&
-        // Platform.OS !== 'web' &&
-        showBiometric &&
-        !!isBiometricLogin && (
-          <View
-            sx={{
-              flex: 1,
-              alignItems: 'center',
-              justifyContent: 'flex-end',
-            }}
-          >
-            <IconButton
-              name={Platform.OS === 'ios' ? 'face-id' : 'fingerprint'}
-              onPress={() => startBiometricLogin()}
-            />
-          </View>
-        )}
+      {Platform.OS !== 'web' && showBiometric && !!isBiometricLogin && (
+        <View
+          sx={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+          }}
+        >
+          <IconButton
+            name={Platform.OS === 'ios' ? 'face-id' : 'fingerprint'}
+            onPress={() => startBiometricLogin()}
+          />
+        </View>
+      )}
     </>
   )
 }
