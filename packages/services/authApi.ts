@@ -8,6 +8,7 @@ import {
   RegisterOtpQueryArgs,
   RegisterQueryArgs,
   RegisterResult,
+  UpdateShieldQueryArgs,
 } from './authApi.type'
 import { baseApiWithTag } from './baseApi'
 import { AuthURL } from './common/axiosInstance'
@@ -93,6 +94,16 @@ export const authApi = baseApiWithTag.injectEndpoints({
         },
       }),
     }),
+    updateShield: builder.mutation<IResponse<void>, UpdateShieldQueryArgs>({
+      query: ({ platform, session_id, username }) => ({
+        url: `/player_api/updateShield`,
+        data: {
+          platform,
+          session_id,
+          username,
+        },
+      }),
+    }),
   }),
 })
 
@@ -104,6 +115,7 @@ export const {
   useSendRegistrationOtpMutation,
   useSendPasswordRecoveryOtpMutation,
   usePasswordRecoveryMutation,
+  useUpdateShieldMutation,
 } = authApi
 
 /**

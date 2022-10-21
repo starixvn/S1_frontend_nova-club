@@ -1,6 +1,7 @@
 import useAlert from 'app/hooks/useAlert'
 import useBioAuth from 'app/hooks/useBioAuth'
 import useContainerDimension from 'app/hooks/useContainerDimension'
+import useShield from 'app/hooks/useShield'
 import useUniqueId from 'app/hooks/useUniqueId'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
@@ -39,6 +40,7 @@ const RegisterPage = () => {
   const { t } = useLocalization()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { uuid } = useUniqueId()
+  const { submitShield } = useShield()
 
   const { normalLogin } = useBioAuth()
   // referral value is obtained asynchronously, do not assign to initialValues of form.
@@ -87,6 +89,7 @@ const RegisterPage = () => {
       }).unwrap()
 
       if (success) {
+        submitShield(username)
         dispatch(AuthActions.setAuthInfo(data as LoginResult))
         actions.resetForm()
 

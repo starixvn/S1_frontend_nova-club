@@ -10,6 +10,7 @@ import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
 import { WITHDRAWAL_NOTES } from 'app/constant/notes'
 import useAlert from 'app/hooks/useAlert'
 import useContextualRouting from 'app/hooks/useContextualRouting'
+import useShield from 'app/hooks/useShield'
 import useLocalization from 'app/provider/localization'
 import {
   toCleanAmount,
@@ -72,6 +73,7 @@ const WithdrawalPage = () => {
   const { openModal } = useModal()
   const { data: bankData, isLoading, isFetching } = usePlayerBankQuery()
   const [postSubmitWithdrawal] = useSubmitWithdrawalMutation()
+  const { submitShield } = useShield()
 
   const { makeContextualHref } = useContextualRouting()
   const toBankAccount = makeContextualHref('bank-account')
@@ -120,6 +122,9 @@ const WithdrawalPage = () => {
         })
 
       if (success) {
+        if (playerData?.username) {
+          submitShield(playerData.username)
+        }
         Toast.show({ type: 'success', text1: message })
         actions.resetForm()
       }

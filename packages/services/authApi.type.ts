@@ -1,3 +1,8 @@
+export enum Shield_Platform {
+  WEB = 'WEB',
+  APP = 'APP',
+}
+
 export interface LoginQueryArgs {
   username: string
   password: string
@@ -46,4 +51,10 @@ export interface PasswordRecoveryQeuryArgs {
   cpassword: string
   password: string
   verify_code: string
+}
+
+export interface UpdateShieldQueryArgs {
+  platform: Shield_Platform
+  session_id: string
+  username: string
 }
