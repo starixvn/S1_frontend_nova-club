@@ -1,20 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Platform } from 'react-native'
+import { useEffect, useState } from 'react'
 import codePush, { DownloadProgress } from 'react-native-code-push'
-
-/*  
-  Due to vui fit mistakenly using its own deployment key on the info.plist instead of vui 123's. 
-  This is to forcefully inform codepush to pull from vui123 deployment key instead of vui fit's deployment key embedded on info.plist
-  TODO: until vui fit released another version and reverted the deployment key on info plist on vui fit to vui123's deployment key. then only this can be removed
-*/
-
-const CODEPUSH_DEPLOYMENT_KEY =
-  Platform.OS === 'ios' &&
-  (!process.env.APP_ENV || process.env.APP_ENV === 'prod')
-    ? '7Z3-B9JPV61mEugXeyoQ3LnBCZg3-Sjk2T0dp'
-    : undefined
-
-console.log('CODEPUSH_DEPLOYMENT_KEY', CODEPUSH_DEPLOYMENT_KEY)
 
 export default function useCodePushDownload(
   autoDownload = true,
@@ -50,9 +35,7 @@ export default function useCodePushDownload(
     setStatus(status)
 
     // This is to force update the release
-    const availableUpdate = await codePush.checkForUpdate(
-      CODEPUSH_DEPLOYMENT_KEY
-    )
+    const availableUpdate = await codePush.checkForUpdate()
     if (availableUpdate) {
       const downloadedPackage = await availableUpdate.download(
         onDownloadProgress
@@ -68,9 +51,7 @@ export default function useCodePushDownload(
 
   useEffect(() => {
     async function codePushChecking() {
-      const remotePackage = await codePush.checkForUpdate(
-        CODEPUSH_DEPLOYMENT_KEY
-      )
+      const remotePackage = await codePush.checkForUpdate()
       console.log('remote package', remotePackage)
       if (remotePackage) {
         if (autoDownload) {
@@ -108,7 +89,7 @@ export async function checkCodePushDownloadable(
   try {
     if (__DEV__) return false
 
-    const remotePackage = await codePush.checkForUpdate(CODEPUSH_DEPLOYMENT_KEY)
+    const remotePackage = await codePush.checkForUpdate()
     if (remotePackage != null && (!isMandatory || remotePackage.isMandatory)) {
       return true
     }
