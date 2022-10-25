@@ -1,9 +1,9 @@
 # ![image](./images/logo.png =200x)
 
-|             | Production                                 | Staging                                  | Pre                                       | Softlaunch                          |
-| ----------- | ------------------------------------------ | ---------------------------------------- | ----------------------------------------- | ----------------------------------- |
-| **IOS**     | ![image info](./qr/ios/prod.png =200x)     | ![image](./qr/ios/staging.png =200x)     | ![image info](./qr/ios/pre.png =200x)     | ![image](./qr/ios/sl.png =200x)     |
-| **Android** | ![image info](./qr/android/prod.png =200x) | ![image](./qr/android/staging.png =200x) | ![image info](./qr/android/pre.png =200x) | ![image](./qr/android/sl.png =200x) |
+|             | Production                               | Staging                                | Pre                                     | Softlaunch                        |
+| ----------- | ---------------------------------------- | -------------------------------------- | --------------------------------------- | --------------------------------- |
+| **IOS**     | ![image info](qr/ios/prod.png =200x)     | ![image](qr/ios/staging.png =200x)     | ![image info](qr/ios/pre.png =200x)     | ![image](qr/ios/sl.png =200x)     |
+| **Android** | ![image info](qr/android/prod.png =200x) | ![image](qr/android/staging.png =200x) | ![image info](qr/android/pre.png =200x) | ![image](qr/android/sl.png =200x) |
 
 ## IOS
 
