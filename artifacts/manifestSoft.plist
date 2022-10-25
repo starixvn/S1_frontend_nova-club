@@ -31,7 +31,7 @@
 					<key>bundle-identifier</key>
 					<string>com.chlgame.soft</string>
 					<key>bundle-version</key>
-					<string>1.0.0</string>
+					<string>1.0.8</string>
 					<key>kind</key>
 					<string>software</string>
 					<key>platform-identifier</key>
