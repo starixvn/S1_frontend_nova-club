@@ -56,5 +56,4 @@ export interface PasswordRecoveryQeuryArgs {
 export interface UpdateShieldQueryArgs {
   platform: Shield_Platform
   session_id: string
-  username: string
 }

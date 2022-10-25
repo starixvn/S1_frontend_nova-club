@@ -4,14 +4,13 @@ import TextInput from 'app/components/form/TextInput'
 import useAlert from 'app/hooks/useAlert'
 import useBioAuth from 'app/hooks/useBioAuth'
 import useContextualRouting from 'app/hooks/useContextualRouting'
-import useShield from 'app/hooks/useShield'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { AuthActions } from 'app/store/authReducer'
 import { SettingActions } from 'app/store/setting.slice'
 import validation, {
   PASSWORD_MAX_LENGTH,
-  USERNAME_MAX_LENGTH,
+  USERNAME_MAX_LENGTH
 } from 'app/utils/validation'
 import { styled, Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
@@ -49,7 +48,6 @@ const LoginForm = () => {
   const [getPlayerProfile] = useLazyPlayerProfileQuery()
 
   const dispatch = useAppDispatch()
-  const { submitShield } = useShield()
 
   const { isBioLoading, showBiometric, normalLogin, startBiometricLogin } =
     useBioAuth()
@@ -82,7 +80,6 @@ const LoginForm = () => {
       }).unwrap()
 
       if (success && data) {
-        submitShield(username)
         normalLogin(username, password, () => handleProceedLogin(data, actions))
       } else {
         throw new Error(message)

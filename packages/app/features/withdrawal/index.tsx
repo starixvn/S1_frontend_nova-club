@@ -73,7 +73,7 @@ const WithdrawalPage = () => {
   const { openModal } = useModal()
   const { data: bankData, isLoading, isFetching } = usePlayerBankQuery()
   const [postSubmitWithdrawal] = useSubmitWithdrawalMutation()
-  const { submitShield } = useShield()
+  const { syncShield } = useShield()
 
   const { makeContextualHref } = useContextualRouting()
   const toBankAccount = makeContextualHref('bank-account')
@@ -123,7 +123,7 @@ const WithdrawalPage = () => {
 
       if (success) {
         if (playerData?.username) {
-          submitShield(playerData.username)
+          syncShield()
         }
         Toast.show({ type: 'success', text1: message })
         actions.resetForm()

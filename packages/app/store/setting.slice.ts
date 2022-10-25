@@ -12,6 +12,11 @@ interface Referral {
   username?: string
 }
 
+interface LastSyncShield {
+  username: string
+  token: string
+}
+
 export interface Setting {
   locale: LANGUAGE_CODE
   referral?: Referral
@@ -30,6 +35,7 @@ export interface Setting {
     username?: string
     password?: string
   } | null
+  lastSyncShield?: LastSyncShield
 }
 // export const DomainListHintPostfix = '-DomainListHint'
 // export const DepositListHintPostfix = '-DepositListHint'
@@ -110,6 +116,9 @@ const settingSlice = createSlice({
       state.biometricCredentials === null || action.payload
         ? (state.biometricCredentials = state.currentSession)
         : (state.biometricCredentials = null)
+    },
+    setLastSyncShieldInfo: (state, action: PayloadAction<LastSyncShield>) => {
+      state.lastSyncShield = action.payload
     },
   },
   extraReducers: (builder) => {

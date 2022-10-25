@@ -1,8 +1,9 @@
-import { useAppDispatch } from 'app/provider/redux/store'
+import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
 import Script from 'next/script'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ShieldDeviceResultResponse } from 'app/integrations/shield/type'
+import useShield from 'app/hooks/useShield'
 
 declare global {
   interface Window {
@@ -12,6 +13,13 @@ declare global {
 
 export default function Shield() {
   const dispatch = useAppDispatch()
+
+  const { autoSyncShield } = useShield()
+
+  useEffect(() => {
+    autoSyncShield()
+  }, [autoSyncShield])
+
   return (
     <Script
       id="shield.com"
