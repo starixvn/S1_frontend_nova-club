@@ -34,20 +34,6 @@ const LuckyDrawModal = ({ modal: { getParam } }) => {
 
   const { isLandscape } = useOrientation()
 
-  const getRadianByIndex = useCallback(
-    (index, loopCount = Math.floor(Math.random() * 20) + 10) => {
-      {
-        const numberOfItems = 6
-        const degreePerItem = 360 / numberOfItems
-        const offset = -degreePerItem * Math.random() + degreePerItem / 2
-        const deg = (loopCount - 1) * 360 + index * degreePerItem + offset
-        const rad = -(deg * Math.PI) / 180
-        return Platform.OS === 'web' ? `${rad}rad` : rad
-      }
-    },
-    []
-  )
-
   const spin = async () => {
     setStartAnimate(true)
     setLoading(true)
@@ -303,16 +289,16 @@ const shinyAnimationState = {
   ],
 }
 
-// function getRadianByIndex(
-//   index,
-//   loopCount = Math.floor(Math.random() * 20) + 10
-// ) {
-//   const numberOfItems = 6
-//   const degreePerItem = 360 / numberOfItems
-//   const offset = -degreePerItem * Math.random() + degreePerItem / 2
-//   const deg = (loopCount - 1) * 360 + index * degreePerItem + offset
-//   const rad = -(deg * Math.PI) / 180
-//   return Platform.OS === 'web' ? `${rad}rad` : rad
-// }
+function getRadianByIndex(
+  index,
+  loopCount = Math.floor(Math.random() * 20) + 10
+) {
+  const numberOfItems = 6
+  const degreePerItem = 360 / numberOfItems
+  const offset = -degreePerItem * Math.random() + degreePerItem / 2
+  const deg = (loopCount - 1) * 360 + index * degreePerItem + offset
+  const rad = -(deg * Math.PI) / 180
+  return Platform.OS === 'web' ? `${rad}rad` : rad
+}
 
 export default LuckyDrawModal
