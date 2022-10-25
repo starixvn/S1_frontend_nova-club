@@ -9,6 +9,7 @@ const enum BANK_NAME {
   GPBank,
   HDB,
   MB,
+  MSB,
   NamABank,
   Oceanbank,
   PGBank,
@@ -68,6 +69,10 @@ export const BANK_LOGO: { [key in keyof typeof BANK_NAME] } = {
   MB: {
     bank_code: 'MB',
     image: require('../../assets/images/bank/MB.jpg'),
+  },
+  MSB: {
+    bank_code: 'MSB',
+    image: require('../../assets/images/bank/MSB.jpg'),
   },
   NamABank: {
     bank_code: 'NamABank',
@@ -150,6 +155,7 @@ const BankLogo = [
   BANK_LOGO.GPBank,
   BANK_LOGO.HDB,
   BANK_LOGO.MB,
+  BANK_LOGO.MSB,
   BANK_LOGO.NamABank,
   BANK_LOGO.Oceanbank,
   BANK_LOGO.PGBank,
