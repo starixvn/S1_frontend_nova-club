@@ -361,6 +361,7 @@
     "expired": "Expired",
     "failed": "Failed",
     "imageNotSupported": "Image format not supported",
+    "luckyWin": "Congratulations, you won VND",
     "pending": "Pending",
     "processing": "Processing",
     "qrCodeNotDetected": "Cannot detect QR code in image",

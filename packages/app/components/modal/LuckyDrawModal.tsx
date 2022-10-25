@@ -1,10 +1,11 @@
 import useAlert from 'app/hooks/useAlert'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useOrientation from 'app/hooks/useOrientation'
+import useLocalization from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { ScrollView, View } from 'dripsy'
 import { MotiView } from 'moti'
-import { useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { Platform, StyleSheet } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { Easing } from 'react-native-reanimated'
@@ -15,28 +16,46 @@ import IconButton from '../form/IconButton'
 
 const LuckyDrawModal = ({ modal: { getParam } }) => {
   const { closeModal } = useModal()
+  const { t } = useLocalization()
   const totalSpin = getParam('totalSpin', 0)
 
   const { width, height } = useContainerDimension()
 
   const { showAlert } = useAlert()
 
-  const [spinLuckyWheel, { isLoading }] = useLuckySpinMutation()
+  const [spinLuckyWheel] = useLuckySpinMutation()
 
   const [targetIndex, setTargetIndex] = useState(0)
   const [spinBalance, setSpinBalance] = useState(0)
   const [startAnimate, setStartAnimate] = useState(false)
+  const [isLoading, setLoading] = useState(false)
 
   const canSpin = totalSpin > spinBalance
 
   const { isLandscape } = useOrientation()
 
+  const getRadianByIndex = useCallback(
+    (index, loopCount = Math.floor(Math.random() * 20) + 10) => {
+      {
+        const numberOfItems = 6
+        const degreePerItem = 360 / numberOfItems
+        const offset = -degreePerItem * Math.random() + degreePerItem / 2
+        const deg = (loopCount - 1) * 360 + index * degreePerItem + offset
+        const rad = -(deg * Math.PI) / 180
+        return Platform.OS === 'web' ? `${rad}rad` : rad
+      }
+    },
+    []
+  )
+
   const spin = async () => {
     setStartAnimate(true)
+    setLoading(true)
 
     const { data, success } = await spinLuckyWheel()
       .unwrap()
       .catch((error) => {
+        setLoading(false)
         showAlert(error)
         return error
       })
@@ -44,7 +63,20 @@ const LuckyDrawModal = ({ modal: { getParam } }) => {
     if (success) {
       setTargetIndex(handleSpinMapping(data.code))
       setSpinBalance((prev) => prev + 1)
+
+      setTimeout(() => {
+        showAlert({
+          message: `${t('status.luckyWin')} ${handlePrize(data.code)}`,
+          onClose: handleClose,
+          persistent: true,
+        })
+        setLoading(false)
+      }, 5500)
     }
+  }
+
+  const handleClose = () => {
+    if (totalSpin - (spinBalance + 1) === 0) closeModal('LuckyDrawModal')
   }
 
   const handleSpinMapping = (code: number) => {
@@ -60,12 +92,45 @@ const LuckyDrawModal = ({ modal: { getParam } }) => {
     }
   }
 
+  const handlePrize = (code: number) => {
+    switch (code) {
+      case 1:
+        return '38K'
+      case 2:
+        return '58K'
+      case 3:
+        return '88K'
+
+      default:
+        return '38K'
+    }
+  }
+
   function onResultSpinned() {}
 
   const shinyWidth = isLandscape ? height * 0.21 : width * 0.21
   const shinyHeight = shinyWidth / (130 / 35)
 
   const { top } = useSafeArea()
+
+  const MemoizedWheel = useMemo(() => {
+    return (
+      <MotifiedImage
+        from={{ rotate: 0 }}
+        animate={{
+          rotate: getRadianByIndex(targetIndex),
+        }}
+        onDidAnimate={onResultSpinned}
+        transition={{
+          duration: startAnimate ? 5000 : 0,
+          type: 'timing',
+          easing: Easing.bezier(0, 0.62, 0.19, 1.01),
+        }}
+        source={require('app/assets/images/luckydraw/prizes.png')}
+        sx={{ width: '90%', height: '90%' }}
+      />
+    )
+  }, [spinBalance])
 
   return (
     <View
@@ -149,7 +214,7 @@ const LuckyDrawModal = ({ modal: { getParam } }) => {
                 top: 0,
               }}
             >
-              <MotifiedImage
+              {/* <MotifiedImage
                 from={{ rotate: 0 }}
                 animate={{
                   rotate: getRadianByIndex(targetIndex),
@@ -162,7 +227,8 @@ const LuckyDrawModal = ({ modal: { getParam } }) => {
                 }}
                 source={require('app/assets/images/luckydraw/prizes.png')}
                 sx={{ width: '90%', height: '90%' }}
-              />
+              /> */}
+              {MemoizedWheel}
               <MotifiedImage
                 source={require('app/assets/images/luckydraw/frame.png')}
                 sx={{ ...StyleSheet.absoluteFillObject }}
@@ -237,16 +303,16 @@ const shinyAnimationState = {
   ],
 }
 
-function getRadianByIndex(
-  index,
-  loopCount = Math.floor(Math.random() * 20) + 10
-) {
-  const numberOfItems = 6
-  const degreePerItem = 360 / numberOfItems
-  const offset = -degreePerItem * Math.random() + degreePerItem / 2
-  const deg = (loopCount - 1) * 360 + index * degreePerItem + offset
-  const rad = -(deg * Math.PI) / 180
-  return Platform.OS === 'web' ? `${rad}rad` : rad
-}
+// function getRadianByIndex(
+//   index,
+//   loopCount = Math.floor(Math.random() * 20) + 10
+// ) {
+//   const numberOfItems = 6
+//   const degreePerItem = 360 / numberOfItems
+//   const offset = -degreePerItem * Math.random() + degreePerItem / 2
+//   const deg = (loopCount - 1) * 360 + index * degreePerItem + offset
+//   const rad = -(deg * Math.PI) / 180
+//   return Platform.OS === 'web' ? `${rad}rad` : rad
+// }
 
 export default LuckyDrawModal

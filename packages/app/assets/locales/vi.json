@@ -361,6 +361,7 @@
     "expired": "Hết hạn",
     "failed": "Không thành công",
     "imageNotSupported": "Định dạng hình ảnh không được hỗ trợ",
+    "luckyWin": "Xin chúc mừng, bạn đã thắng VND",
     "pending": "Đang chờ",
     "processing": "Đang xử lý",
     "qrCodeNotDetected": "Không phát hiện mã QR trong hình ảnh",
