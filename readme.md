@@ -1,12 +1,16 @@
-# Branch Implementation:
+# VUI123
+
+## Branch Implementation
+
 branch.json at root is linked to IOS xcodeproj
 branch.json on android folder is based on product flavor folder
 
-# Code Push Implementation:
-Android : CodePushDeploymentKey is based on product flavor folder
-IOS: CodePushDeploymentKey is using Info.plist config, and staging's config is changed at staging branch
+## Code Push Implementation
 
-# Blank Solito Example Monorepo 🕴
+Android : CodePushDeploymentKey is based on product flavor folder
+IOS: CodePushDeploymentKey is using Info.plist config, and staging's config is changed at staging branch (pre/sl too)
+
+## Blank Solito Example Monorepo 🕴
 
 ```sh
 npx create-solito-app@latest my-solito-app
