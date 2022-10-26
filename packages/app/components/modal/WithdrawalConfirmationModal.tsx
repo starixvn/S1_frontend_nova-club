@@ -3,6 +3,7 @@ import useLocalization from 'app/provider/localization'
 import { Box, Image, Text } from 'dripsy'
 import React from 'react'
 import ModalContent from './ModalContent'
+import ModalWrapper from './ModalWrapper'
 
 const WithdrawalConfirmationModal = ({ modal: { closeModal, getParam } }) => {
   const { t } = useLocalization()
@@ -28,37 +29,39 @@ const WithdrawalConfirmationModal = ({ modal: { closeModal, getParam } }) => {
   }
 
   return (
-    <ModalContent
-      title={t('menu.withdrawalConfirmation')}
-      closeModal={closeModal}
-      actions={[
-        {
-          label: t('common.cancel'),
-          onPress: onDismiss,
-        },
-        {
-          label: t('common.submit'),
-          onPress: onWithdrawalConfirmed,
-        },
-      ]}
-    >
-      <Image source={bankLogo} sx={{ mx: '$2', width: 100, height: 100 }} />
-      {isShowingFields &&
-        fields.map((field) => {
-          return (
-            <Box sx={{ p: '$2' }} key={field.value?.toString()}>
-              <Text sx={{ fontWeight: 'bold' }}>
-                {t(field.label?.toString())} :
-              </Text>
-              <Box sx={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Text sx={{ mt: '$1' }}>
-                  {withdrawalInfo[field.value]?.toString() ?? ''}
+    <ModalWrapper>
+      <ModalContent
+        title={t('menu.withdrawalConfirmation')}
+        closeModal={closeModal}
+        actions={[
+          {
+            label: t('common.cancel'),
+            onPress: onDismiss,
+          },
+          {
+            label: t('common.submit'),
+            onPress: onWithdrawalConfirmed,
+          },
+        ]}
+      >
+        <Image source={bankLogo} sx={{ mx: '$2', width: 100, height: 100 }} />
+        {isShowingFields &&
+          fields.map((field) => {
+            return (
+              <Box sx={{ p: '$2' }} key={field.value?.toString()}>
+                <Text sx={{ fontWeight: 'bold' }}>
+                  {t(field.label?.toString())} :
                 </Text>
+                <Box sx={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Text sx={{ mt: '$1' }}>
+                    {withdrawalInfo[field.value]?.toString() ?? ''}
+                  </Text>
+                </Box>
               </Box>
-            </Box>
-          )
-        })}
-    </ModalContent>
+            )
+          })}
+      </ModalContent>
+    </ModalWrapper>
   )
 }
 

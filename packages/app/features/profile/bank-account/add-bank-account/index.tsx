@@ -100,7 +100,7 @@ const AddBankAccountScreen = () => {
 
       const { data, success, message } = await postAddWithdrawalBankAcc({
         bank_acc_name: bank?.bank_name ?? '',
-        bank_acc_num: accountNo.replaceAll(' ', ''),
+        bank_acc_num: accountNo.replace(/[^0-9]/g, ''),
         bank_address: bank?.bank_code ?? '',
         bank_type_id: bank?.id ?? 0,
         branch: bank?.bank_code ?? '',

@@ -128,7 +128,7 @@ def enableHermes = project.ext.react.get("enableHermes", false);
 
 ext.versionMajor = 1
 ext.versionMinor = 0
-ext.versionPatch = 7
+ext.versionPatch = 8
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
