@@ -23,7 +23,7 @@ const HomeScreen = () => {
   const [luckySpinBalance] = useParam('luckySpinBalance')
 
   useEffect(() => {
-    if (luckySpinBalance) {
+    if (luckySpinBalance && luckySpinBalance > 0) {
       setTimeout(() => {
         openModal('LuckyDrawModal', { totalSpin: luckySpinBalance })
       }, 100)
