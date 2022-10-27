@@ -1,3 +1,5 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import { ROUNDED_LOGO } from 'app/constant/imagePath'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useLocalization from 'app/provider/localization'
 import { Text, View } from 'dripsy'
@@ -32,7 +34,7 @@ const QRCodeGenerator = ({
         <QRCode
           value={isTransfer ? referralCode : referralLink}
           size={Math.min(width * 0.7, 250)}
-          logo={require('../assets/images/auth-logo.png')}
+          logo={ROUNDED_LOGO}
           ecl="H"
           quietZone={12}
           logoBackgroundColor="white"

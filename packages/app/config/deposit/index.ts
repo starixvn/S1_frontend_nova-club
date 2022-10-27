@@ -114,7 +114,7 @@ export const PaymentMethod: PaymentMethodProps[] = [
 export const getPaymentMethodLogo = (bankCode: string) => {
   const logo = PaymentMethod.find((el) => el.bank_code === bankCode)?.image
 
-  return logo ?? require('../../assets/images/home/fishing.jpg')
+  return logo ?? require('../../assets/images/empty-result.png')
 }
 
 export default PaymentMethod

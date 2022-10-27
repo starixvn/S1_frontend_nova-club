@@ -1,21 +1,18 @@
+import { CMS_CONTENT_URI, CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import Image from 'app/components/common/Image'
 import IconButton from 'app/components/form/IconButton'
 import { DripsyGradient } from 'app/components/Gradient'
 import KeyboardView from 'app/components/KeyboardView'
+import { ROUNDED_LOGO } from 'app/constant/imagePath'
 import ProfileLanguage from 'app/features/profile/ProfileLanguage'
 import { useIsFocused } from 'app/hooks/isFocus/useIsFocused'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { Image, styled, Text, View } from 'dripsy'
+import { Text, View } from 'dripsy'
 import React, { useCallback, useEffect } from 'react'
 import { useRouter } from 'solito/router'
 
-const HEADER_IMAGE = require('../../../assets/images/auth-logo.png')
 const BACK_ICON_SIZE = 30
-
-const StyledImage = styled(Image)({
-  height: 120,
-  width: 120,
-})
 
 interface AuthLayoutProps {
   showBackButton?: boolean
@@ -75,8 +72,9 @@ const AuthLayout = ({
               pb: '$1a',
             }}
           >
-            <StyledImage
-              source={HEADER_IMAGE}
+            <Image
+              source={{ uri: ROUNDED_LOGO }}
+              sx={{ width: 120, height: 120 }}
               // accessibilityLabel="n88 app logo"
             />
 

@@ -141,11 +141,6 @@ const SplashScreen = () => {
         source={require('app/assets/videos/vui123-splash.mp4')}
         resizeMode="cover"
         useNativeControls={false}
-        posterSource={
-          isLandscape
-            ? require('../../assets/images/splashscreen_tablet.jpg')
-            : require('../../assets/images/splashscreen.jpg')
-        }
       />
     </View>
   )
