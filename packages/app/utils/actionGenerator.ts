@@ -44,6 +44,7 @@ export function getAction(action: Action): () => void {
             gameType: action.payload.gtc,
             providerCode: action.payload.gpc,
             image: action.payload.img,
+            params: action.payload.params,
           })
         )
       }

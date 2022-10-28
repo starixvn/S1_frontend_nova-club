@@ -12,6 +12,7 @@ import {
   GetGameListResult,
   JackpotAmountResult,
   LeaderboardResult,
+  MatchResult,
 } from './contentApi.type'
 
 /**
@@ -111,6 +112,12 @@ export const contentApi = baseApiWithTag.injectEndpoints({
         baseURL: 'http://localhost:3000',
       }),
     }),
+    getRecoMatch: builder.query<IResponse<MatchResult>, void>({
+      query: () => ({
+        url: `/static_api/getRecoMatch`,
+        method: 'GET',
+      }),
+    }),
   }),
 })
 
@@ -126,4 +133,5 @@ export const {
   useLazyGetGameListQuery,
   useFeaturedGameListQuery,
   useGetJackpotAmountQuery,
+  useGetRecoMatchQuery,
 } = contentApi
