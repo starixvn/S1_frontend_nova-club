@@ -40,17 +40,6 @@ const useImagePicker = () => {
     }
   }, [isFocus])
 
-  useFocusEffect(
-    useCallback(() => {
-      console.log('Screen was focused')
-
-      return () => {
-        console.log('Screen was unfocused')
-        // Useful for cleanup functions
-      }
-    }, [])
-  )
-
   const handleScan = (value: boolean) => {
     dispatch(SettingActions.toogleScan(value))
   }
