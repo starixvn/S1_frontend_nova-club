@@ -133,9 +133,12 @@ const ContextualNavigationProvider = ({
 
   useEffect(() => {
     if (Platform.OS === 'web') {
-      if (stacks.length > 0)
+      if (stacks.length > 0) {
+        /**
+         * TODO: overflow-y hidden not working on ios browser
+         */
         document.documentElement.classList.add('overflow-y-hidden')
-      else {
+      } else {
         document.documentElement.classList.remove('overflow-y-hidden')
       }
     }

@@ -90,3 +90,11 @@ input[type='date']::-webkit-calendar-picker-indicator {
   background-color: rgb(33 104 136);
   border-radius: 12px;
 }
+
+video::-webkit-media-controls {
+  display: none !important;
+}
+
+video::-webkit-media-controls-mute-button {
+  display: none !important;
+}
