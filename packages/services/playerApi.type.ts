@@ -154,4 +154,5 @@ export interface PlayerOverviewArgs {
 
 export type LuckySpinArgs = {
   code: number
+  note: string
 }

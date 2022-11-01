@@ -9,7 +9,7 @@ import { useCallback, useMemo, useState } from 'react'
 import { Platform, StyleSheet } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { Easing } from 'react-native-reanimated'
-import { useLuckySpinMutation } from 'services/playerApi'
+import { useLuckySpinMutation, usePlayerProfileQuery } from 'services/playerApi'
 import { MotifiedImage } from '../common/Image'
 import { Button } from '../form/Button'
 import IconButton from '../form/IconButton'
@@ -17,6 +17,7 @@ import IconButton from '../form/IconButton'
 const LuckyDrawModal = ({ modal: { getParam } }) => {
   const { closeModal } = useModal()
   const { t } = useLocalization()
+  const { data } = usePlayerProfileQuery()
   const totalSpin = getParam('totalSpin', 0)
 
   const { width, height } = useContainerDimension()
@@ -52,7 +53,7 @@ const LuckyDrawModal = ({ modal: { getParam } }) => {
 
       setTimeout(() => {
         showAlert({
-          message: `${t('status.luckyWin')} ${handlePrize(data.code)}`,
+          message: data.note,
           onClose: handleClose,
           persistent: true,
         })
@@ -74,21 +75,7 @@ const LuckyDrawModal = ({ modal: { getParam } }) => {
       case 3:
         return 5
       default:
-        return 1
-    }
-  }
-
-  const handlePrize = (code: number) => {
-    switch (code) {
-      case 1:
-        return '38K'
-      case 2:
-        return '58K'
-      case 3:
-        return '88K'
-
-      default:
-        return '38K'
+        return 3
     }
   }
 
