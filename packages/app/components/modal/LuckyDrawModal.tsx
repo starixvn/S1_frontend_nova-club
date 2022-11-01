@@ -30,12 +30,14 @@ const LuckyDrawModal = ({ modal: { getParam } }) => {
   const [spinBalance, setSpinBalance] = useState(0)
   const [startAnimate, setStartAnimate] = useState(false)
   const [isLoading, setLoading] = useState(false)
+  const [loopCount, setLoopCount] = useState(1)
 
   const canSpin = totalSpin > spinBalance
 
   const { isLandscape } = useOrientation()
 
   const spin = async () => {
+    setLoopCount((prev) => prev + 20)
     setStartAnimate(true)
     setLoading(true)
 
@@ -91,7 +93,7 @@ const LuckyDrawModal = ({ modal: { getParam } }) => {
       <MotifiedImage
         from={{ rotate: 0 }}
         animate={{
-          rotate: getRadianByIndex(targetIndex),
+          rotate: getRadianByIndex(targetIndex, loopCount),
         }}
         onDidAnimate={onResultSpinned}
         transition={{
