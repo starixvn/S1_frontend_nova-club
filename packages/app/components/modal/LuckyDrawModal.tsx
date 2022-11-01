@@ -241,7 +241,7 @@ const LuckyDrawModal = ({ modal: { getParam } }) => {
                 loading={isLoading}
                 disabled={!canSpin}
               >
-                <Button.Label>SPIN NOW</Button.Label>
+                <Button.Label>{t('common.spin')}</Button.Label>
               </Button>
             )}
           </View>
