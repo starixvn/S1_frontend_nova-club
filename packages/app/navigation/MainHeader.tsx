@@ -1,17 +1,16 @@
 import { useTransferAllToOneMutation } from 'app/custom_services/walletApi'
-import FloatingContent from 'app/features/FloatingContent'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import BouncePressable from 'app/pressable/BouncePressable'
+import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import { ActivityIndicator, Image, styled, Text, useSx, View } from 'dripsy'
-import React, { useEffect, useState } from 'react'
-import { LayoutChangeEvent, Platform } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
+import { LayoutChangeEvent } from 'react-native'
 import { usePlayerBalanceQuery } from 'services/walletApi'
 import { useRouter } from 'solito/router'
-import FloatQr from './FloatQr'
 import MainMenu from './MainMenu'
 
 const MainHeader = () => {
@@ -24,9 +23,12 @@ const MainHeader = () => {
   const [showMenu, setShowMenu] = useState(false)
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: headerHeight })
 
+  const lastDifBalanceRef = useRef(0)
   const { makeContextualHref } = useContextualRouting()
-  const [mainWalletBalance, setMainWalletBalance] = useState('0')
+  const [totalBalance, setTotalBalance] = useState('0')
   const { push } = useRouter()
+  const token = useAppSelector((s) => s.auth.info?.token)
+  const lastTransferredToMainWalletToken = useRef('')
 
   const {
     data: playerBalance,
@@ -34,9 +36,10 @@ const MainHeader = () => {
     refetch,
   } = usePlayerBalanceQuery()
 
-  const [_, { isLoading: isTransferringToMain }] = useTransferAllToOneMutation({
-    fixedCacheKey: 'transfer-all-to-one',
-  })
+  const [transferAllToOne, { isLoading: isTransferringToMain }] =
+    useTransferAllToOneMutation({
+      fixedCacheKey: 'transfer-all-to-one',
+    })
 
   const refreshWallet = () => {
     if (isTransferringToMain) return
@@ -87,22 +90,51 @@ const MainHeader = () => {
   const iconHeight = headerHeight.map((x) => x * 0.7)
 
   useEffect(() => {
-    const mainWallet = playerBalance?.data?.main
+    const wallets = playerBalance?.data
+    if (wallets) {
+      const total = Object.values(wallets).reduce(
+        (total, w) => total + (Number(w.balance) ?? 0),
+        0
+      )
 
-    if (mainWallet) {
-      const { balance, reward } = mainWallet
-      const totalBalance = Number(balance) + Number(reward)
-      const formattedBalance = toCurrency(totalBalance, Currency.VND, {
+      const formattedBalance = toCurrency(total, Currency.VND, {
         symbol: false,
       })
 
-      setMainWalletBalance(formattedBalance)
+      setTotalBalance(formattedBalance)
+
+      /* To Trigger transfer all to main wallet when player login on multiple platform
+          and there are some balance remained in vendor wallets.
+
+        - avoid trigger again when balance is fetched on other places lastTransferredToMainWalletToken
+        - as for now only trigger 1 time per token per session 
+
+      */
+      if (token) {
+        const dif =
+          total - Number(wallets.main.balance) + Number(wallets.main.reward)
+        if (dif > 0) {
+          if (
+            token !== lastTransferredToMainWalletToken.current &&
+            !isTransferringToMain
+          ) {
+            lastTransferredToMainWalletToken.current = token
+            transferAllToOne({
+              transfer_from: 999,
+              transfer_to: 0,
+            })
+          }
+        } else {
+          lastTransferredToMainWalletToken.current = token
+        }
+      }
     }
 
     return () => {
-      setMainWalletBalance('0')
+      setTotalBalance('0')
     }
-  }, [playerBalance])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [playerBalance, token])
 
   return (
     <>
@@ -187,7 +219,7 @@ const MainHeader = () => {
                           numberOfLines={1}
                           sx={{ color: '$yellow', fontSize: [14, 16] }}
                         >
-                          {mainWalletBalance}
+                          {totalBalance}
                         </Text>
                       </StyledSearchBox>
                     </BouncePressable>
