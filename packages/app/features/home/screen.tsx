@@ -26,7 +26,7 @@ const HomeScreen = () => {
     if (luckySpinBalance && luckySpinBalance > 0) {
       setTimeout(() => {
         openModal('LuckyDrawModal', { totalSpin: luckySpinBalance })
-      }, 100)
+      }, 500)
     }
   }, [])
 
