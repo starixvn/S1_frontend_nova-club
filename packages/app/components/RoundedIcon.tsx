@@ -60,7 +60,10 @@ const RoundedIcon = ({
         </StyledGradient>
       ) : (
         <StyledView size={shapeSize} sx={{ ...containerStyle }}>
-          <StyledImage source={icon} sx={{ ...imageStyle }} />
+          <StyledImage
+            source={typeof icon === 'string' ? { uri: icon } : icon}
+            sx={{ ...imageStyle }}
+          />
         </StyledView>
       )}
     </BouncePressable>

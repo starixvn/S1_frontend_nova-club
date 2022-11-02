@@ -1,3 +1,4 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { Button } from 'app/components/form/Button'
 import InputBase from 'app/components/form/Input/InputBase'
 import Select from 'app/components/form/Input/Select'
@@ -40,12 +41,16 @@ const AddBankAccountScreen = () => {
   const { t } = useLocalization()
   const { back } = useRouter()
   const { showAlert } = useAlert()
-  const {
-    data: bankData,
-    isLoading,
-    isFetching,
-    isSuccess,
-  } = useWithdrawalBankQuery()
+  const { bankData, isLoading, isFetching, isSuccess } = useWithdrawalBankQuery(
+    undefined,
+    {
+      selectFromResult: (s) => ({
+        ...s,
+        bankData: s.data?.data?.filter((b) => b.bank_code),
+      }),
+    }
+  )
+
   const [postAddWithdrawalBankAcc] = useAddPlayerBankAccMutation()
   const { data: playerData } = usePlayerProfileQuery()
   const isRealNameAvailable = playerData?.firstName?.length > 0
@@ -55,8 +60,7 @@ const AddBankAccountScreen = () => {
 
   const otpFieldRef = useRef<TextInput>(null)
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
-
-  const sheetData = bankData?.data?.map((item) => {
+  const sheetData = bankData?.map((item) => {
     return {
       label: item.bank_name,
       value: item.bank_code,
@@ -182,7 +186,7 @@ const AddBankAccountScreen = () => {
   }
 
   const handleSelected = (value) => {
-    const item = bankData?.data?.find((el) => el.bank_code === value.value)
+    const item = bankData?.find((el) => el.bank_code === value.value)
     setFieldValue('bank', item)
   }
 

@@ -44,7 +44,16 @@ const WithdrawalConfirmationModal = ({ modal: { closeModal, getParam } }) => {
           },
         ]}
       >
-        <Image source={bankLogo} sx={{ mx: '$2', width: 100, height: 100 }} />
+        <Image
+          source={
+            typeof bankLogo === 'string'
+              ? {
+                  uri: bankLogo,
+                }
+              : bankLogo
+          }
+          sx={{ mx: '$2', width: 100, height: 100 }}
+        />
         {isShowingFields &&
           fields.map((field) => {
             return (
