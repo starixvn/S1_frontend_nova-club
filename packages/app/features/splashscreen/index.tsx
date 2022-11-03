@@ -7,11 +7,13 @@ import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Text, View } from 'dripsy'
 import { Video } from 'expo-av'
+import { MotiView } from 'moti'
 import React, { useEffect } from 'react'
-import { useWindowDimensions } from 'react-native'
+import { StyleSheet, useWindowDimensions } from 'react-native'
 import CodePush from 'react-native-code-push'
 import { getVersion } from 'react-native-device-info'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
+import { Easing } from 'react-native-reanimated'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'solito/router'
 import CodePushUpdateBar from './CodePushUpdateBar'
@@ -55,7 +57,7 @@ const SplashScreen = () => {
     },
     codePushStatus === CodePush.SyncStatus.UP_TO_DATE,
     {
-      minWaitTime: 0,
+      minWaitTime: 2000,
       context: {
         dispatch,
         t,
@@ -81,8 +83,8 @@ const SplashScreen = () => {
     }
   }, [status, replace, loginResult])
 
-  const { isLandscape } = useOrientation()
-  const { width, height } = useWindowDimensions()
+  // const { isLandscape } = useOrientation()
+  // const { width, height } = useWindowDimensions()
 
   return (
     <View sx={{ flex: 1 }}>
@@ -103,6 +105,7 @@ const SplashScreen = () => {
           >
             {currentVersion}
           </Text>
+          <PromoText />
         </>
       )}
       {/* <Image
@@ -123,6 +126,7 @@ const SplashScreen = () => {
         }}
       /> */}
       <Video
+        isLooping={false}
         isMuted
         shouldPlay
         style={{
@@ -147,3 +151,41 @@ const SplashScreen = () => {
 }
 
 export default SplashScreen
+
+const PromoText = () => {
+  return (
+    <MotiView
+      from={{
+        opacity: 0,
+        translateY: 100,
+      }}
+      animate={{ translateY: 0, opacity: 1 }}
+      transition={{
+        type: 'timing',
+        duration: 2000,
+        easing: Easing.bezier(0.25, 1, 0.5, 1),
+      }}
+      style={{
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: '20%',
+      }}
+    >
+      <Text style={styles.promoLabel}>Hệ thống cổ đông đầu tiên</Text>
+      <Text style={styles.promoLabel}>
+        Lên đến <Text sx={{ color: 'gold', fontSize: 30 }}>85%</Text> lợi nhuận
+        được chia
+      </Text>
+    </MotiView>
+  )
+}
+
+const styles = StyleSheet.create({
+  promoLabel: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: 'bold',
+  },
+})
