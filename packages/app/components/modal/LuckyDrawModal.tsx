@@ -55,7 +55,7 @@ const LuckyDrawModal = ({ modal: { getParam } }) => {
 
       setTimeout(() => {
         showAlert({
-          message: data.code === 4 ? 'Thank you' : data.note,
+          message: data.code === 4 ? t('status.luckyThankYou') : data.note,
           onClose: handleClose,
           persistent: true,
         })

@@ -61,7 +61,7 @@ const RegisterPage = () => {
     replace({
       pathname: '/',
       query: {
-        luckySpinBalance: data.wheel_info.totalSpin,
+        luckySpinBalance: data?.wheel_info?.totalSpin,
       },
     })
   }
