@@ -55,7 +55,7 @@ const LuckyDrawModal = ({ modal: { getParam } }) => {
 
       setTimeout(() => {
         showAlert({
-          message: data.note,
+          message: data.code === 4 ? 'Thank you' : data.note,
           onClose: handleClose,
           persistent: true,
         })
@@ -76,8 +76,10 @@ const LuckyDrawModal = ({ modal: { getParam } }) => {
         return 1
       case 3:
         return 5
+      case 4:
+        return 4
       default:
-        return 3
+        return 4
     }
   }
 
