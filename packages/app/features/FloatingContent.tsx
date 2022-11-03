@@ -3,12 +3,15 @@ import Image from 'app/components/common/Image'
 import { Button } from 'app/components/form/Button'
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
+import TextStroke from 'app/components/TextStroke'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { BOTTOM_NAV_HEIGHT } from 'app/navigation/BottomNavigation'
 import FloatQr from 'app/navigation/FloatQr'
 import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { SettingActions } from 'app/store/setting.slice'
 import { ActionType, getAction } from 'app/utils/actionGenerator'
 import { styled, Text, useDripsyTheme, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
@@ -20,16 +23,24 @@ import {
   TouchableWithoutFeedback,
   useWindowDimensions,
 } from 'react-native'
+import { useModal } from 'react-native-modalfy'
+import Svg, { SvgUri } from 'react-native-svg'
+import { useDispatch } from 'react-redux'
 import { Game } from 'services/contentApi.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import useSupportItemList from './customerSupport/useSupportItemList'
 
 const FloatingContent = () => {
+  const isSuggestions = useAppSelector((s) => s.setting.suggestions)
+
   const [isSupportMenuVisible, setSupportMenuVisible] = useState(false)
   // Google Pixel 5a require this insets to get accurate value
   const insets = useSafeArea()
   const { isCreditMember } = usePlayerProfileQuery()
 
+  const dispatch = useDispatch()
+  const { t } = useLocalization()
+  const { openModal } = useModal()
   const { width } = useWindowDimensions()
   const { width: containerWidth } = useContainerDimension()
   const { theme } = useDripsyTheme()
@@ -55,18 +66,61 @@ const FloatingContent = () => {
 
   const vGamingSize = Math.min(110, width * 0.2)
 
+  const handleSuggestions = () => {
+    openModal('ReferralModal')
+    dispatch(SettingActions.disableSuggestions(false))
+  }
+
   return (
     <>
       {!isCreditMember && (
-        <View
-          sx={{
-            position: Platform.OS === 'web' ? 'fixed' : 'absolute',
-            top: 120 + insets.top,
-            right: Math.max(0, (width - theme.sizes.container) / 2),
-          }}
-        >
-          <FloatQr />
-        </View>
+        <>
+          {isSuggestions && (
+            <TouchableOpacity
+              sx={{
+                position: Platform.OS === 'web' ? 'fixed' : 'absolute',
+                top: 75 + insets.top,
+                right: Math.max(0, (width - theme.sizes.container) / 2),
+                pb: 60,
+                flexDirection: 'row',
+                alignItems: 'flex-end',
+                zIndex: 10,
+              }}
+              onPress={handleSuggestions}
+            >
+              <TextStroke>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    color: 'red',
+                    textAlign: 'center',
+                  }}
+                >
+                  {t('referral.refer')}
+                </Text>
+              </TextStroke>
+              <Image
+                source={{
+                  uri: `${MEDIA_DOMAIN}/${CONTENT_URI}/ic_suggestions_arrow.png`,
+                }}
+                style={{
+                  width: 48,
+                  height: 48,
+                }}
+                resizeMode="contain"
+              />
+            </TouchableOpacity>
+          )}
+          <View
+            sx={{
+              position: Platform.OS === 'web' ? 'fixed' : 'absolute',
+              top: 120 + insets.top,
+              right: Math.max(0, (width - theme.sizes.container) / 2),
+            }}
+          >
+            <FloatQr onPress={() => openModal('ReferralModal')} />
+          </View>
+        </>
       )}
 
       <View

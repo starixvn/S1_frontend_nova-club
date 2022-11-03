@@ -1,5 +1,4 @@
 import { useTransferAllToOneMutation } from 'app/custom_services/walletApi'
-import FloatingContent from 'app/features/FloatingContent'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import BouncePressable from 'app/pressable/BouncePressable'
@@ -8,10 +7,9 @@ import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import { ActivityIndicator, Image, styled, Text, useSx, View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
-import { LayoutChangeEvent, Platform } from 'react-native'
+import { LayoutChangeEvent } from 'react-native'
 import { usePlayerBalanceQuery } from 'services/walletApi'
 import { useRouter } from 'solito/router'
-import FloatQr from './FloatQr'
 import MainMenu from './MainMenu'
 
 const MainHeader = () => {

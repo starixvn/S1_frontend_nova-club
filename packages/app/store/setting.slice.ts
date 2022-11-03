@@ -36,6 +36,7 @@ export interface Setting {
     password?: string
   } | null
   lastSyncShield?: LastSyncShield
+  suggestions: boolean
 }
 // export const DomainListHintPostfix = '-DomainListHint'
 // export const DepositListHintPostfix = '-DepositListHint'
@@ -49,6 +50,7 @@ const initialState: Setting = {
   transferScan: false,
   currentSession: {},
   biometricCredentials: null,
+  suggestions: true,
 }
 
 const settingSlice = createSlice({
@@ -117,6 +119,9 @@ const settingSlice = createSlice({
     },
     setLastSyncShieldInfo: (state, action: PayloadAction<LastSyncShield>) => {
       state.lastSyncShield = action.payload
+    },
+    disableSuggestions: (state, actions: PayloadAction<boolean>) => {
+      state.suggestions = actions.payload
     },
   },
   extraReducers: (builder) => {
