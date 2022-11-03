@@ -1,7 +1,9 @@
 import SkeletonPlaceholder from 'app/components/skeleton/SkeletonPlaceholder'
 import useContainerDimension from 'app/hooks/useContainerDimension'
+import { getAction } from 'app/utils/actionGenerator'
 import { Image, styled, View } from 'dripsy'
 import React, { FC } from 'react'
+import { TouchableWithoutFeedback } from 'react-native'
 import Animated, {
   Extrapolate,
   interpolate,
@@ -68,14 +70,15 @@ const BannerSection = () => {
 const BannerItem = ({ item }: { item: BannerResult }) => {
   const { width } = useContainerDimension()
   const { image } = item
+  const onPress = item.action ? getAction(item.action) : undefined
   return (
-    <View key={image}>
+    <TouchableWithoutFeedback key={image} onPress={onPress}>
       <Image
         source={{ uri: image }}
         resizeMode="cover"
         sx={{ width, height: width / BANNER_RATIO }}
       />
-    </View>
+    </TouchableWithoutFeedback>
   )
 }
 

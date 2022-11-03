@@ -1,9 +1,11 @@
 import { LANGUAGE_CODE } from 'app/constant/language'
+import { Action } from 'app/utils/actionGenerator'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
 import { ImageSourcePropType } from 'react-native'
 
 export interface BannerResult {
   image: string
+  action?: Action
   // bannerName: string
   // bannerLink: string
   // bannerType: number

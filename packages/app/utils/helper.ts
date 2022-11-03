@@ -1,3 +1,4 @@
+import { LIVECHAT_URL } from '@env'
 import { Linking, Platform } from 'react-native'
 
 export enum SocialMedia {
@@ -45,8 +46,7 @@ export function getSocialMediaScheme(platform: SocialMedia) {
       scheme = 'https://t.me/vui123cs'
       break
     case SocialMedia.LIVECHAT:
-      scheme =
-        'https://secure.livechatinc.com/licence/14440122/v2/open_chat.cgi'
+      scheme = LIVECHAT_URL
       break
     case SocialMedia.ENVELOPE:
       scheme = 'mailto:support@nova88.com'
