@@ -11,7 +11,6 @@ import CustomerSupportPage from 'app/features/customerSupport'
 import FishingPage from 'app/features/fishing'
 import GameLoaderPage from 'app/features/games/GameLoaderPage'
 import PreLaunchGame from 'app/features/games/PreLaunchGame'
-import LotteryPage from 'app/features/lottery'
 import MessagesPage from 'app/features/messages'
 import ChangePinScreen from 'app/features/pin/change-pin'
 import CreatePinScreen from 'app/features/pin/CreatePinScreen'
@@ -60,7 +59,6 @@ const Stack = createStackNavigator<{
   TransferScanner: undefined
   Transfer: undefined
   FishingPage: undefined
-  LotteryPage: undefined
   CreatePin: undefined
   ChangePin: undefined
   ForgotPin: undefined
@@ -228,7 +226,6 @@ export function NativeNavigation() {
       <Stack.Screen name="ChangePin" component={ChangePinScreen} />
       <Stack.Screen name="ForgotPin" component={ForgotPinScreen} />
       <Stack.Screen name="FishingPage" component={FishingPage} />
-      <Stack.Screen name="LotteryPage" component={LotteryPage} />
       <Stack.Screen name="TnC" component={TnC} />
       <Stack.Screen name="Forbidden" component={Forbidden} />
       <Stack.Screen name="Maintenance" component={Maintenance} />

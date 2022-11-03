@@ -1,3 +1,4 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import NumberAnimator from 'app/components/animated/numberAnimator'
 import { Button } from 'app/components/form/Button'
 import SkeletonPlaceholder from 'app/components/skeleton/SkeletonPlaceholder'
@@ -33,11 +34,13 @@ const Jackpot = ({}: JackpotProps) => {
     <SkeletonPlaceholder show={isLoading} height={430}>
       {data && (
         <StyledImageBackground
-          source={require('../../../assets/images/home/jackpot-bg.jpg')}
+          source={{ uri: `${MEDIA_DOMAIN}/${CONTENT_URI}/home/jackpot-bg.jpg` }}
         >
           <Image
             resizeMode="contain"
-            source={require('../../../assets/images/home/jackpot-animated.gif')}
+            source={{
+              uri: `${MEDIA_DOMAIN}/${CONTENT_URI}/home/jackpot-animated.gif`,
+            }}
             sx={{
               width: 250,
               height: 180,

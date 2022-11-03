@@ -1,3 +1,5 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import Image from 'app/components/common/Image'
 import { GRID_TOTAL_COL, HOME_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useOrientation from 'app/hooks/useOrientation'
@@ -5,12 +7,14 @@ import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
 import { ActionType, getAction } from 'app/utils/actionGenerator'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
-import { Image, styled, Text, View } from 'dripsy'
+import { styled, Text, View } from 'dripsy'
 import { Video } from 'expo-av'
 import React from 'react'
 import { Game } from 'services/contentApi.type'
 import { useRouter } from 'solito/router'
-const dummyData = [
+export const WORLD_CUP_IMG = `${MEDIA_DOMAIN}/${CONTENT_URI}/home/wc.gif?v=1`
+export const SABA_PROMO_IMG = `${MEDIA_DOMAIN}/${CONTENT_URI}/videos/saba-sportsbook.mp4?v=1`
+export const HOME_GRID = [
   {
     col: 4,
     src: require('../../../assets/images/home/sb_4.jpg'),
@@ -19,12 +23,12 @@ const dummyData = [
   },
   {
     col: 2,
-    src: require('../../../assets/images/home/wc.gif'),
+    src: { uri: WORLD_CUP_IMG },
     route: '/sportsbook',
   },
   {
     col: 3,
-    src: require('app/assets/videos/saba-sportsbook.mp4'),
+    src: { uri: SABA_PROMO_IMG },
     type: 'video',
     action: {
       type: ActionType.GAME,
@@ -35,7 +39,7 @@ const dummyData = [
           vi: 'SABA Sports',
         },
         gtc: 'sports',
-        img: 'https://static-stage.gball8.com/nvclub/sbe/cms/game/saba/sport-saba_1659947637.png',
+        img: 'https://static.zzspeed.site/nvclub/sbe/cms/game/saba/sport-saba_1659947637.png',
         gpc: 'SABA',
       } as Game,
     },
@@ -77,29 +81,6 @@ const dummyData = [
       t: GAME_TYPE_CODE.FISHING,
     },
   },
-  // {
-  //   col: 3,
-  //   src: home[7]?.image,
-  //   title: home[7]?.title,
-  //   action: {
-  //     type: ActionType.GAME,
-  //     payload: {
-  //       game_provider_code: 'V8PK',
-  //       game_name: 'game.category.poker',
-  //       game_code: '0',
-  //       game_type_code: 'LIVE_DEALER',
-  //     },
-  //   },
-  // },
-  // {
-  //   col: 3,
-  //   src: require('../../../assets/images/home/cf.jpg'),
-  //   title: 'game.category.cockfighting',
-  //   route: '/games',
-  //   urlParam: {
-  //     t: GAME_TYPE_CODE.COCKFIGHTING,
-  //   },
-  // },
 ]
 
 const GridSection = () => {
@@ -116,7 +97,7 @@ const GridSection = () => {
     (GRID_TOTAL_COL * (isLandscape ? 1.5 : 1))
   const rowHeight = columnWidth * 1.98
 
-  const action = (data: typeof dummyData[number]) => {
+  const action = (data: typeof HOME_GRID[number]) => {
     if (data.action) {
       getAction(data.action)()
       return
@@ -141,7 +122,7 @@ const GridSection = () => {
         mx: -itemSpace,
       }}
     >
-      {dummyData.map((j) => {
+      {HOME_GRID.map((j) => {
         const width = Math.floor(columnWidth * j.col)
         const picHeight = rowHeight - itemSpace * 2
         const checkTextSpace = picHeight / 30

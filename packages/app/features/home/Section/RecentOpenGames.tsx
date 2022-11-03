@@ -1,5 +1,3 @@
-import { useFocusEffect } from '@react-navigation/native'
-import lottery from 'app/config/games/lottery'
 import HorizontalGameList from 'app/features/games/HorizontalGameList'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'

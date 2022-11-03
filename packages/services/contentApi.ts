@@ -1,4 +1,4 @@
-import { DEV_DOMAIN, MEDIA_DOMAIN } from '@env'
+import { CONTENT_URI, DEV_DOMAIN, MEDIA_DOMAIN } from '@env'
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
@@ -21,7 +21,7 @@ export const contentApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
     banner: builder.query<BannerResult[], void>({
       query: () => ({
-        url: `${MEDIA_DOMAIN}/nvclub/nova-club/content/banners/banner.json`,
+        url: `${MEDIA_DOMAIN}/${CONTENT_URI}/banners/banner.json`,
         method: 'GET',
       }),
     }),

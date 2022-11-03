@@ -1,9 +1,8 @@
 import { DripsyGradient } from 'app/components/Gradient'
-import Icon from 'app/components/Icon'
-import lottery from 'app/config/games/lottery'
-import { Image, ScrollView, styled, Text, View } from 'dripsy'
-import React from 'react'
 import GradientIcon from 'app/components/GradientIcon'
+import Icon from 'app/components/Icon'
+import { styled, Text, View } from 'dripsy'
+import React from 'react'
 
 const MENU = [
   {

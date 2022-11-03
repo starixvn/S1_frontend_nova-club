@@ -1,9 +1,9 @@
-import { REFERRAL_DOMAIN } from '@env'
+import { CONTENT_URI, MEDIA_DOMAIN, REFERRAL_DOMAIN } from '@env'
 import Image from 'app/components/common/Image'
 import { Button } from 'app/components/form/Button'
 import Icon from 'app/components/Icon'
 import { PageWithBackHeader } from 'app/components/layout/Page'
-import useContextualRouting from 'app/hooks/useContextualRouting'
+import { ROUNDED_LOGO } from 'app/constant/imagePath'
 import { ContextualNavigationContext } from 'app/navigation/web/ContextualNavigation'
 import useLocalization from 'app/provider/localization'
 import { SettingActions } from 'app/store/setting.slice'
@@ -12,8 +12,8 @@ import React, { useContext, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
-const LOGO_IMAGE = require('../../assets/images/auth-logo.png')
-const CONTENT_IMAGE = require('../../assets/images/download.png')
+
+const CONTENT_IMAGE = `${MEDIA_DOMAIN}/${CONTENT_URI}/download-gadget.png`
 
 const { useParam } = createParam()
 
@@ -52,9 +52,12 @@ const DownloadScreen = () => {
   return (
     <PageWithBackHeader header={{}} hideHeader>
       <View sx={{ mt: '$8', alignItems: 'center' }}>
-        <Image source={LOGO_IMAGE} style={{ height: 175, width: 175 }} />
         <Image
-          source={CONTENT_IMAGE}
+          source={{ uri: ROUNDED_LOGO }}
+          style={{ height: 175, width: 175 }}
+        />
+        <Image
+          source={{ uri: CONTENT_IMAGE }}
           style={{
             width: '65%',
             minHeight: 200,

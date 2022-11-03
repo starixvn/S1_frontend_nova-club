@@ -1,4 +1,4 @@
-import { MEDIA_DOMAIN } from '@env'
+import { CMS_CONTENT_URI, CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Image from 'app/components/common/Image'
 import { Button } from 'app/components/form/Button'
 import { DripsyGradient } from 'app/components/Gradient'
@@ -81,7 +81,9 @@ const FloatingContent = () => {
       >
         <TouchableOpacity onPress={launchVGaming}>
           <Image
-            source={require('app/assets/images/Vgaming-icon.gif')}
+            source={{
+              uri: `${MEDIA_DOMAIN}/${CONTENT_URI}/Vgaming-icon.gif`,
+            }}
             style={{
               width: vGamingSize,
               height: vGamingSize,
