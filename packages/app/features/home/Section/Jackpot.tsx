@@ -34,12 +34,12 @@ const Jackpot = ({}: JackpotProps) => {
     <SkeletonPlaceholder show={isLoading} height={430}>
       {data && (
         <StyledImageBackground
-          source={{ uri: `${MEDIA_DOMAIN}/${CONTENT_URI}/home/jackpot-bg.jpg` }}
+          source={{ uri: `${MEDIA_DOMAIN}${CONTENT_URI}/home/jackpot-bg.jpg` }}
         >
           <Image
             resizeMode="contain"
             source={{
-              uri: `${MEDIA_DOMAIN}/${CONTENT_URI}/home/jackpot-animated.gif`,
+              uri: `${MEDIA_DOMAIN}${CONTENT_URI}/home/jackpot-animated.gif`,
             }}
             sx={{
               width: 250,

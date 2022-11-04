@@ -12,8 +12,8 @@ import { Video } from 'expo-av'
 import React from 'react'
 import { Game } from 'services/contentApi.type'
 import { useRouter } from 'solito/router'
-export const WORLD_CUP_IMG = `${MEDIA_DOMAIN}/${CONTENT_URI}/home/wc.gif?v=1`
-export const SABA_PROMO_IMG = `${MEDIA_DOMAIN}/${CONTENT_URI}/videos/saba-sportsbook.mp4?v=1`
+export const WORLD_CUP_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/wc.gif?v=1`
+export const SABA_PROMO_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/videos/saba-sportsbook.mp4?v=1`
 export const HOME_GRID = [
   {
     col: 4,

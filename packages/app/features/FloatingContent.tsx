@@ -82,7 +82,7 @@ const FloatingContent = () => {
         <TouchableOpacity onPress={launchVGaming}>
           <Image
             source={{
-              uri: `${MEDIA_DOMAIN}/${CONTENT_URI}/Vgaming-icon.gif`,
+              uri: `${MEDIA_DOMAIN}${CONTENT_URI}/Vgaming-icon.gif`,
             }}
             style={{
               width: vGamingSize,

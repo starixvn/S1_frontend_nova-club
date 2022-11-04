@@ -1,4 +1,3 @@
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { Button } from 'app/components/form/Button'
 import InputBase from 'app/components/form/Input/InputBase'
 import Select from 'app/components/form/Input/Select'

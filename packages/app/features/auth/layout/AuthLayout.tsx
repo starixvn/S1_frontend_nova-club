@@ -1,4 +1,3 @@
-import { CMS_CONTENT_URI, CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Image from 'app/components/common/Image'
 import IconButton from 'app/components/form/IconButton'
 import { DripsyGradient } from 'app/components/Gradient'
