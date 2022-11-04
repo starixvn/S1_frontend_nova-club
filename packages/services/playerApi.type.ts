@@ -147,3 +147,12 @@ export interface PlayerOverviewArgs {
   date_from: string
   date_to: string
 }
+
+/**
+ * Lucky spin
+ */
+
+export type LuckySpinArgs = {
+  code: number
+  note: string
+}

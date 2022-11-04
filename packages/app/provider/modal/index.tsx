@@ -29,6 +29,7 @@ export interface ModalStackParams {
   PinModal: { onConfirm(...args: any): any; onForgotPin(...args: any): any }
   PlayerBankDeleteModal: { bank: Record<any, any> }
   ReferralModal: undefined
+  LuckyDrawModal: undefined
   WithdrawalConfirmationModal: {
     withdrawalInfo: Record<any, any>
     bankLogo: any
@@ -41,6 +42,7 @@ export interface ModalStackParams {
 type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
 
 const _dynamicModal = {
+  LuckyDrawModal: () => import('app/components/modal/LuckyDrawModal'),
   AlertModal: () => import('app/components/modal/AlertModal'),
   DepositConfirmationModal: () =>
     import('app/components/modal/DepositConfirmationModal'),
@@ -73,6 +75,9 @@ function getDynamicComponent(key: string) {
 
 /* Consider using this modal for other temporarily / not fullscreen modal  */
 const modalConfig: ModalConfigType = {
+  LuckyDrawModal: {
+    modal: getDynamicComponent('LuckyDrawModal'),
+  },
   AlertModal: {
     modal: getDynamicComponent('AlertModal'),
   },

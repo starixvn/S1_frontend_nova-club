@@ -58,7 +58,12 @@ const RegisterPage = () => {
       }
     }
 
-    replace('/')
+    replace({
+      pathname: '/',
+      query: {
+        luckySpinBalance: data?.wheel_info?.totalSpin,
+      },
+    })
   }
 
   const onSubmit = async (

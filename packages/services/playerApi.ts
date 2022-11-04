@@ -1,6 +1,7 @@
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
+  LuckySpinArgs,
   MEMBER_TYPE,
   OverviewResult,
   OverviewSummaryResult,
@@ -111,6 +112,12 @@ const playerApi = baseApiWithTag.injectEndpoints({
         },
       }),
     }),
+    luckySpin: builder.mutation<IResponse<LuckySpinArgs>, void>({
+      query: (queryArgs) => ({
+        url: `/player_api/registerFreeWheelSpin`,
+        method: 'POST',
+      }),
+    }),
   }),
 })
 
@@ -144,4 +151,5 @@ export const {
   usePlayerLangMutation,
   useUpdateProfileMutation,
   useSendUpdateProfileOTPMutation,
+  useLuckySpinMutation,
 } = playerApi
