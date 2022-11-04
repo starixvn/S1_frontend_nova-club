@@ -6,7 +6,7 @@ import { AnimateHeight } from 'app/transitions/animate-height'
 import { ActivityIndicator, styled, SxProp, Text, View } from 'dripsy'
 import { AnimatePresence, motify } from 'moti'
 import { MotiPressable } from 'moti/interactions'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import { usePlayerProfileQuery } from 'services/playerApi'
@@ -29,10 +29,29 @@ const ProfileBalance = () => {
   const { data: playerData } = usePlayerProfileQuery()
   const currency = playerData?.currency as Currency
 
-  const { data, isFetching } = usePlayerBalanceQuery()
-  const cash = parseInt(data?.data?.main?.balance ?? '0')
-  const reward = parseInt(data?.data?.main?.reward ?? '0')
-  const balance = cash + reward
+  const { isFetching, wallets } = usePlayerBalanceQuery(undefined, {
+    selectFromResult: (s) => ({
+      ...s,
+      wallets: s.data?.data,
+    }),
+  })
+
+  const walletInfo = useMemo(() => {
+    const sum = {
+      cash: 0,
+      reward: 0,
+    }
+
+    if (wallets)
+      Object.values(wallets).forEach((v) => {
+        sum.cash += v.balance ? Number(v.balance) : 0
+        sum.reward += v.reward ? Number(v.reward) : 0
+      })
+
+    return sum
+  }, [wallets])
+
+  const balance = walletInfo.cash + walletInfo.reward
 
   const handlePress = () => {
     setIsExtend(!isExtend)
@@ -99,7 +118,7 @@ const ProfileBalance = () => {
                 >
                   <BalanceItem
                     title={t('common.cash')}
-                    value={cash ?? 0}
+                    value={walletInfo.cash}
                     currency={currency}
                     isLoading={isFetching}
                     _sx={{
@@ -111,7 +130,7 @@ const ProfileBalance = () => {
 
                   <BalanceItem
                     title={t('common.reward')}
-                    value={reward ?? 0}
+                    value={walletInfo.reward}
                     currency={currency}
                     isLoading={isFetching}
                     _sx={{
