@@ -172,10 +172,12 @@ const PromoText = () => {
         top: '20%',
       }}
     >
-      <Text style={styles.promoLabel}>Hệ thống cổ đông đầu tiên</Text>
+      <Text style={styles.promoLabel}>Đăng ký làm đại lý,</Text>
       <Text style={styles.promoLabel}>
-        Lên đến <Text sx={{ color: 'gold', fontSize: 30 }}>85%</Text> lợi nhuận
-        được chia
+        <Text>
+          nhận hoa hồng đến
+          <Text sx={{ color: 'gold', fontSize: 30 }}> 0.5%</Text>
+        </Text>
       </Text>
     </MotiView>
   )
