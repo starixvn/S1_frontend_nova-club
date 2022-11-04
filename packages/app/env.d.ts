@@ -9,4 +9,5 @@ declare module '@env' {
   export const AGENT_URL: string
   export const SHIELD_SITE_ID: string
   export const SHIELD_KEY: string
+  export const LIVECHAT_URL: string
 }
