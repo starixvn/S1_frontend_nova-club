@@ -47,6 +47,7 @@ export const contentApi = baseApiWithTag.injectEndpoints({
         url: `/static_api/announcement`,
         method: 'GET',
       }),
+      providesTags: ['Announcement'],
     }),
     gameList: builder.query<IResponse<GameConfig[]>, GameListQueryArgs>({
       query: (data) => ({

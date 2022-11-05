@@ -111,6 +111,7 @@ const playerApi = baseApiWithTag.injectEndpoints({
           lang,
         },
       }),
+      invalidatesTags: ['Announcement'],
     }),
     luckySpin: builder.mutation<IResponse<LuckySpinArgs>, void>({
       query: (queryArgs) => ({

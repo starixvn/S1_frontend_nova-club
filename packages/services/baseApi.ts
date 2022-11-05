@@ -9,5 +9,5 @@ export const baseApi = createApi({
 })
 
 export const baseApiWithTag = baseApi.enhanceEndpoints({
-  addTagTypes: ['Balance', 'PlayerBank', 'Report'],
+  addTagTypes: ['Balance', 'PlayerBank', 'Report', 'Announcement'],
 })

@@ -5,6 +5,7 @@ import useUniqueId from 'app/hooks/useUniqueId'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { AuthActions } from 'app/store/authReducer'
+import { SettingActions } from 'app/store/setting.slice'
 import validation from 'app/utils/validation'
 import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
@@ -56,13 +57,22 @@ const RegisterPage = () => {
           })
         }, 1000)
       }
+
+      try {
+        if (data?.wheel_info?.totalSpin) {
+          dispatch(
+            SettingActions.setLuckyDrawBalance(
+              Number(data?.wheel_info?.totalSpin)
+            )
+          )
+        }
+      } catch (e) {
+        console.log('Error setting total spin')
+      }
     }
 
     replace({
       pathname: '/',
-      query: {
-        luckySpinBalance: data?.wheel_info?.totalSpin,
-      },
     })
   }
 

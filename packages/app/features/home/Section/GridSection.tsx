@@ -126,9 +126,11 @@ const GridSection = () => {
         const width = Math.floor(columnWidth * j.col)
         const picHeight = rowHeight - itemSpace * 2
         const checkTextSpace = picHeight / 30
-
         return (
-          <BouncePressable key={j.src.toString()} onPress={() => action(j)}>
+          <BouncePressable
+            key={j.title + (j.route ?? '')}
+            onPress={() => action(j)}
+          >
             <View
               sx={{
                 p: itemSpace,

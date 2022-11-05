@@ -2,13 +2,16 @@ import useAlert from 'app/hooks/useAlert'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useOrientation from 'app/hooks/useOrientation'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { SettingActions } from 'app/store/setting.slice'
 import { ScrollView, View } from 'dripsy'
 import { MotiView } from 'moti'
 import { useCallback, useMemo, useState } from 'react'
 import { Platform, StyleSheet } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { Easing } from 'react-native-reanimated'
+import { useDispatch } from 'react-redux'
 import { useLuckySpinMutation, usePlayerProfileQuery } from 'services/playerApi'
 import { MotifiedImage } from '../common/Image'
 import { Button } from '../form/Button'
@@ -17,22 +20,24 @@ import IconButton from '../form/IconButton'
 const LuckyDrawModal = ({ modal: { getParam } }) => {
   const { closeModal } = useModal()
   const { t } = useLocalization()
-  const { data } = usePlayerProfileQuery()
-  const totalSpin = getParam('totalSpin', 0)
+  const dispatch = useDispatch()
+  // const { data } = usePlayerProfileQuery()
+  // const totalSpin = getParam('totalSpin', 0)
 
   const { width, height } = useContainerDimension()
 
   const { showAlert } = useAlert()
 
   const [spinLuckyWheel] = useLuckySpinMutation()
+  const luckyDrawBalance = useAppSelector((s) => s.setting.luckyDrawBalance)
 
   const [targetIndex, setTargetIndex] = useState(0)
-  const [spinBalance, setSpinBalance] = useState(0)
+  // const [spinBalance, setSpinBalance] = useState(0)
   const [startAnimate, setStartAnimate] = useState(false)
   const [isLoading, setLoading] = useState(false)
   const [loopCount, setLoopCount] = useState(1)
 
-  const canSpin = totalSpin > spinBalance
+  const canSpin = luckyDrawBalance > 0
 
   const { isLandscape } = useOrientation()
 
@@ -51,7 +56,8 @@ const LuckyDrawModal = ({ modal: { getParam } }) => {
 
     if (success) {
       setTargetIndex(handleSpinMapping(data.code))
-      setSpinBalance((prev) => prev + 1)
+      dispatch(SettingActions.setLuckyDrawBalance(luckyDrawBalance - 1))
+      // setSpinBalance((prev) => prev + 1)
 
       setTimeout(() => {
         showAlert({
@@ -65,7 +71,7 @@ const LuckyDrawModal = ({ modal: { getParam } }) => {
   }
 
   const handleClose = () => {
-    if (totalSpin - (spinBalance + 1) === 0) closeModal('LuckyDrawModal')
+    if (luckyDrawBalance <= 1) closeModal('LuckyDrawModal')
   }
 
   const handleSpinMapping = (code: number) => {
@@ -107,7 +113,7 @@ const LuckyDrawModal = ({ modal: { getParam } }) => {
         sx={{ width: '90%', height: '90%' }}
       />
     )
-  }, [spinBalance])
+  }, [luckyDrawBalance])
 
   return (
     <View
