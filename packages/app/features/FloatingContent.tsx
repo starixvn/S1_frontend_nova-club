@@ -42,7 +42,8 @@ const FloatingContent = () => {
   const { t } = useLocalization()
   const { openModal } = useModal()
   const { width } = useWindowDimensions()
-  const { width: containerWidth } = useContainerDimension()
+  const { width: containerWidth, height: containerHeight } =
+    useContainerDimension()
   const { theme } = useDripsyTheme()
 
   const launchVGaming = () => {
@@ -67,62 +68,16 @@ const FloatingContent = () => {
   const vGamingSize = Math.min(110, width * 0.2)
 
   const handleSuggestions = () => {
-    openModal('ReferralModal')
     dispatch(SettingActions.disableSuggestions(false))
+  }
+
+  const handleQr = () => {
+    openModal('ReferralModal')
+    handleSuggestions()
   }
 
   return (
     <>
-      {!isCreditMember && (
-        <>
-          {isSuggestions && (
-            <TouchableOpacity
-              sx={{
-                position: Platform.OS === 'web' ? 'fixed' : 'absolute',
-                top: 75 + insets.top,
-                right: Math.max(0, (width - theme.sizes.container) / 2),
-                pb: 60,
-                flexDirection: 'row',
-                alignItems: 'flex-end',
-                zIndex: 10,
-              }}
-              onPress={handleSuggestions}
-            >
-              <TextStroke>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    color: 'red',
-                    textAlign: 'center',
-                  }}
-                >
-                  {t('referral.refer')}
-                </Text>
-              </TextStroke>
-              <Image
-                source={{
-                  uri: `${MEDIA_DOMAIN}/${CONTENT_URI}/ic_suggestions_arrow.png`,
-                }}
-                style={{
-                  width: 48,
-                  height: 48,
-                }}
-                resizeMode="contain"
-              />
-            </TouchableOpacity>
-          )}
-          <View
-            sx={{
-              position: Platform.OS === 'web' ? 'fixed' : 'absolute',
-              top: 120 + insets.top,
-              right: Math.max(0, (width - theme.sizes.container) / 2),
-            }}
-          >
-            <FloatQr onPress={() => openModal('ReferralModal')} />
-          </View>
-        </>
-      )}
-
       <View
         sx={{
           right:
@@ -169,6 +124,69 @@ const FloatingContent = () => {
           <SupportMenu setSupportMenuVisible={setSupportMenuVisible} />
         )}
       </AnimatePresence>
+
+      {!isCreditMember && (
+        <>
+          {isSuggestions && (
+            <TouchableOpacity
+              sx={{
+                position: Platform.OS === 'web' ? 'fixed' : 'absolute',
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                width: containerWidth,
+                height: containerHeight,
+                bg: '#000000CC',
+              }}
+              onPress={handleSuggestions}
+            >
+              <View
+                sx={{
+                  position: Platform.OS === 'web' ? 'fixed' : 'absolute',
+                  top: 75 + insets.top,
+                  right: Math.max(0, (width - theme.sizes.container) / 2),
+                  pb: 60,
+                  flexDirection: 'row',
+                  alignItems: 'flex-end',
+                  zIndex: 10,
+                }}
+              >
+                <TextStroke>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      color: 'red',
+                      textAlign: 'center',
+                    }}
+                  >
+                    {t('referral.refer')}
+                  </Text>
+                </TextStroke>
+                <Image
+                  source={{
+                    uri: `${MEDIA_DOMAIN}/${CONTENT_URI}/ic_suggestions_arrow.png`,
+                  }}
+                  style={{
+                    width: 48,
+                    height: 48,
+                  }}
+                  resizeMode="contain"
+                />
+              </View>
+            </TouchableOpacity>
+          )}
+          <View
+            sx={{
+              position: Platform.OS === 'web' ? 'fixed' : 'absolute',
+              top: 120 + insets.top,
+              right: Math.max(0, (width - theme.sizes.container) / 2),
+            }}
+          >
+            <FloatQr onPress={handleQr} />
+          </View>
+        </>
+      )}
     </>
   )
 }
