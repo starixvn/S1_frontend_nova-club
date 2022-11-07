@@ -1,8 +1,7 @@
 import LoginPage from 'app/features/auth/login'
 import { useAppSelector } from 'app/provider/redux/store'
-import { route } from 'next/dist/server/router'
 import { useRouter } from 'next/router'
-import React from 'react'
+import useLoginWithToken from '../hooks/useLoginWithToken'
 
 const guestRoutes = [
   '/auth',
@@ -29,6 +28,12 @@ export function serialize(obj) {
 const AuthenticationProvider = ({ children }) => {
   const { push, route, asPath, query } = useRouter()
   const loginInfo = useAppSelector((s) => s.auth.info)
+
+  const isLoggedInWithToken = useLoginWithToken(!!loginInfo)
+  if (isLoggedInWithToken) {
+    push('/', '/', { shallow: true })
+    return children
+  }
 
   // After login success, push will take sometimes to redirect to after login page
   // persisting the LoginPage with query.r detection will prevent empty pages being shown
