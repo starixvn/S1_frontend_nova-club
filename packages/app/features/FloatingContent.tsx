@@ -29,7 +29,6 @@ import { useDispatch } from 'react-redux'
 import { Game } from 'services/contentApi.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import useSupportItemList from './customerSupport/useSupportItemList'
-import { BlurView } from 'expo-blur'
 
 const FloatingContent = () => {
   const isSuggestions = useAppSelector((s) => s.setting.suggestions)
@@ -130,58 +129,51 @@ const FloatingContent = () => {
         <>
           {isSuggestions && (
             <TouchableOpacity
-              onPress={handleSuggestions}
               sx={{
                 position: Platform.OS === 'web' ? 'fixed' : 'absolute',
                 top: 0,
                 bottom: 0,
                 left: 0,
                 right: 0,
+                width: containerWidth,
+                height: containerHeight,
+                bg: '#000000CC',
               }}
+              onPress={handleSuggestions}
             >
-              <BlurView
-                intensity={10}
-                tint="dark"
-                style={{
-                  width: containerWidth,
-                  height: containerHeight,
+              <View
+                sx={{
+                  position: Platform.OS === 'web' ? 'fixed' : 'absolute',
+                  top: 75 + insets.top,
+                  right: Math.max(0, (width - theme.sizes.container) / 2),
+                  pb: 60,
+                  flexDirection: 'row',
+                  alignItems: 'flex-end',
+                  zIndex: 10,
                 }}
               >
-                <View
-                  sx={{
-                    position: Platform.OS === 'web' ? 'fixed' : 'absolute',
-                    top: 75 + insets.top,
-                    right: Math.max(0, (width - theme.sizes.container) / 2),
-                    pb: 60,
-                    flexDirection: 'row',
-                    alignItems: 'flex-end',
-                    zIndex: 10,
-                  }}
-                >
+                <TextStroke>
                   <Text
-                    sx={{
+                    style={{
                       fontSize: 14,
-                      fontWeight: 'bold',
-                      color: 'white',
+                      color: 'red',
                       textAlign: 'center',
                     }}
                   >
                     {t('referral.refer')}
                   </Text>
-
-                  <Image
-                    source={{
-                      uri: `${MEDIA_DOMAIN}${CONTENT_URI}/ic_suggestions_arrow.png`,
-                    }}
-                    style={{
-                      width: 36,
-                      height: 36,
-                      marginHorizontal: 12,
-                    }}
-                    resizeMode="contain"
-                  />
-                </View>
-              </BlurView>
+                </TextStroke>
+                <Image
+                  source={{
+                    uri: `${MEDIA_DOMAIN}/${CONTENT_URI}/ic_suggestions_arrow.png`,
+                  }}
+                  style={{
+                    width: 48,
+                    height: 48,
+                  }}
+                  resizeMode="contain"
+                />
+              </View>
             </TouchableOpacity>
           )}
           <View

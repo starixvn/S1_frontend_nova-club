@@ -21,7 +21,6 @@
     "dripsy": "^3.6.0",
     "expo-av": "~10.2.0",
     "expo-barcode-scanner": "11.2.1",
-    "expo-blur": "^11.2.0",
     "expo-camera": "^12.2.0",
     "expo-checkbox": "^2.1.0",
     "expo-clipboard": "2.1.1",
