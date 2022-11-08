@@ -3,23 +3,17 @@ import Icon from 'app/components/Icon'
 import BouncePressable from 'app/pressable/BouncePressable'
 import { View } from 'dripsy'
 import React from 'react'
-import { useModal } from 'react-native-modalfy'
 
-const FloatQr = () => {
-  const { openModal } = useModal()
-
-  const handlePressReferral = () => {
-    openModal('ReferralModal')
-  }
+const FloatQr = ({ onPress }) => {
   return (
     <View
-      sx={{
+      style={{
         borderTopLeftRadius: 50,
         borderBottomLeftRadius: 50,
         overflow: 'hidden',
       }}
     >
-      <BouncePressable onPress={handlePressReferral}>
+      <BouncePressable onPress={onPress}>
         <DripsyGradient
           sx={{
             p: '$3',

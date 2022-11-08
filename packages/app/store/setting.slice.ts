@@ -37,6 +37,7 @@ export interface Setting {
   } | null
   lastSyncShield?: LastSyncShield
   luckyDrawBalance: number
+  suggestions: boolean
 }
 // export const DomainListHintPostfix = '-DomainListHint'
 // export const DepositListHintPostfix = '-DepositListHint'
@@ -50,6 +51,7 @@ const initialState: Setting = {
   transferScan: false,
   currentSession: {},
   biometricCredentials: null,
+  suggestions: true,
   luckyDrawBalance: 0,
 }
 
@@ -122,6 +124,9 @@ const settingSlice = createSlice({
     },
     setLuckyDrawBalance: (state, action: PayloadAction<number>) => {
       state.luckyDrawBalance = action.payload
+    },
+    disableSuggestions: (state, actions: PayloadAction<boolean>) => {
+      state.suggestions = actions.payload
     },
   },
   extraReducers: (builder) => {

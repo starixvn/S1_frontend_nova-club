@@ -19,13 +19,13 @@ import { matchApi } from 'services/matchApi'
 import { storage } from './persistStorage/index'
 
 const migrations = {
-  3: (s: PersistedState) => {},
   4: (s: PersistedState) => {},
+  5: (s: PersistedState) => {},
 }
 
 const persistConfig: PersistConfig<any> = {
   key: 'root',
-  version: 4,
+  version: 5,
   storage,
   whitelist: ['auth', 'setting'],
   migrate: createMigrate(migrations, { debug: true }),
