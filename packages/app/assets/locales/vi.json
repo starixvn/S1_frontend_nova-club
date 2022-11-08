@@ -183,7 +183,9 @@
     }
   },
   "forceDownload": {
+    "downloadApp": "Tải APP",
     "download": "Tải về",
+    "promoText": "Cược mọi lúc mọi nơi",
     "message": "Vui lòng tải bản mới với những nâng cấp sau:",
     "title": "Cập nhật phiên bản mới"
   },

@@ -38,6 +38,7 @@ export interface Setting {
   lastSyncShield?: LastSyncShield
   luckyDrawBalance: number
   suggestions: boolean
+  appDownloadSuggestion?: Date
 }
 // export const DomainListHintPostfix = '-DomainListHint'
 // export const DepositListHintPostfix = '-DepositListHint'
@@ -127,6 +128,9 @@ const settingSlice = createSlice({
     },
     disableSuggestions: (state, actions: PayloadAction<boolean>) => {
       state.suggestions = actions.payload
+    },
+    setAppDownloadSuggestionDate: (state, action: PayloadAction<Date>) => {
+      state.appDownloadSuggestion = action.payload
     },
   },
   extraReducers: (builder) => {

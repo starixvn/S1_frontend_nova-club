@@ -4,6 +4,9 @@ import { ActivityIndicator, useSx, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
 import { useRouter } from 'next/router'
 import React, { FC, useEffect, useState } from 'react'
+import AppDownloadSuggestion from 'app/components/AppDownloadSuggestion'
+import { useAppSelector } from 'app/provider/redux/store'
+import dayjsTz from 'app/utils/dayjs'
 
 export type TabLayoutProps = {
   children: React.ReactElement
@@ -99,6 +102,7 @@ const HeaderFloat = ({}) => {
         top: 0,
       }}
     >
+      <AppDownloadSuggestion />
       <MainHeader />
     </View>
   )

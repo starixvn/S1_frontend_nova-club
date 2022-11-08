@@ -183,7 +183,9 @@
     }
   },
   "forceDownload": {
+    "downloadApp": "Download APP",
     "download": "Download",
+    "promoText": "Bet Anytime Anywhere",
     "message": "Please update app to the latest version which includes:",
     "title": "New version available"
   },
