@@ -17,6 +17,7 @@ import { styled, Text, useDripsyTheme, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
 import { useState } from 'react'
 import {
+  ImageBackground,
   Linking,
   Platform,
   StyleSheet,
@@ -73,7 +74,7 @@ const FloatingContent = () => {
 
   const handleQr = () => {
     openModal('ReferralModal')
-    handleSuggestions()
+    dispatch(SettingActions.disableSuggestions(false))
   }
 
   return (
@@ -137,10 +138,15 @@ const FloatingContent = () => {
                 right: 0,
                 width: containerWidth,
                 height: containerHeight,
-                bg: '#000000CC',
               }}
               onPress={handleSuggestions}
             >
+              <ImageBackground
+                source={{
+                  uri: `${MEDIA_DOMAIN}${CONTENT_URI}/blur.png`,
+                }}
+                style={{ flex: 1 }}
+              />
               <View
                 sx={{
                   position: Platform.OS === 'web' ? 'fixed' : 'absolute',
@@ -152,24 +158,25 @@ const FloatingContent = () => {
                   zIndex: 10,
                 }}
               >
-                <TextStroke>
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      color: 'red',
-                      textAlign: 'center',
-                    }}
-                  >
-                    {t('referral.refer')}
-                  </Text>
-                </TextStroke>
+                <Text
+                  sx={{
+                    fontSize: 14,
+                    fontWeight: '900',
+                    color: 'white',
+                    textAlign: 'center',
+                  }}
+                >
+                  {t('referral.refer')}
+                </Text>
+
                 <Image
                   source={{
-                    uri: `${MEDIA_DOMAIN}/${CONTENT_URI}/ic_suggestions_arrow.png`,
+                    uri: `${MEDIA_DOMAIN}${CONTENT_URI}/ic_suggestions_arrow.png`,
                   }}
                   style={{
-                    width: 48,
-                    height: 48,
+                    width: 36,
+                    height: 36,
+                    marginHorizontal: 12,
                   }}
                   resizeMode="contain"
                 />
