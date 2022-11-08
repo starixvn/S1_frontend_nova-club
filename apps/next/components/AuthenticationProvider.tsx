@@ -2,6 +2,7 @@ import LoginPage from 'app/features/auth/login'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useRouter } from 'next/router'
 import useLoginWithToken from '../hooks/useLoginWithToken'
+import React from 'react'
 
 const guestRoutes = [
   '/auth',
