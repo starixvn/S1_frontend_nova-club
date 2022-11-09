@@ -44,6 +44,7 @@ const _contextualComponents = {
   '/profile/overview': () => import('../../features/profile/overview'),
   tnc: () => import('../../../../apps/next/pages/auth/register/tnc'),
   download: () => import('../../features/download/index.web'),
+  'wc-rediction': () => import('../../features/events/worldCupPrediction'),
 }
 
 function getContextualComponent(key: string) {

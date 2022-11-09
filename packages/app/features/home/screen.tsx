@@ -10,6 +10,7 @@ import GridSection from './Section/GridSection'
 import HotGamesSection from './Section/HotGamesSection'
 import Jackpot from './Section/Jackpot'
 import MatchesSection from './Section/MatchesSection'
+import Prediction from './Section/Prediction'
 import RecentOpenGames from './Section/RecentOpenGames'
 const HomeScreen = () => {
   const { isLandscape } = useOrientation()
@@ -28,6 +29,7 @@ const HomeScreen = () => {
       <HotGamesSection />
       <Jackpot />
       <LuckyDrawTrigger />
+      <Prediction />
     </ScrollView>
   )
 }

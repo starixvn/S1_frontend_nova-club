@@ -5,6 +5,7 @@ import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import TextStroke from 'app/components/TextStroke'
 import useContainerDimension from 'app/hooks/useContainerDimension'
+import useContextualRouting from 'app/hooks/useContextualRouting'
 import { BOTTOM_NAV_HEIGHT } from 'app/navigation/BottomNavigation'
 import FloatQr from 'app/navigation/FloatQr'
 import TouchableOpacity from 'app/pressable/TouchableOpacity'
@@ -29,6 +30,7 @@ import Svg, { SvgUri } from 'react-native-svg'
 import { useDispatch } from 'react-redux'
 import { Game } from 'services/contentApi.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
+import { useRouter } from 'solito/router'
 import useSupportItemList from './customerSupport/useSupportItemList'
 
 const FloatingContent = () => {
@@ -40,12 +42,16 @@ const FloatingContent = () => {
   const { isCreditMember } = usePlayerProfileQuery()
 
   const dispatch = useDispatch()
+  const { push } = useRouter()
   const { t } = useLocalization()
   const { openModal } = useModal()
   const { width } = useWindowDimensions()
   const { width: containerWidth, height: containerHeight } =
     useContainerDimension()
   const { theme } = useDripsyTheme()
+
+  const { makeContextualHref } = useContextualRouting()
+  const to = makeContextualHref('wc-rediction')
 
   const launchVGaming = () => {
     const action = {
@@ -77,6 +83,10 @@ const FloatingContent = () => {
     dispatch(SettingActions.disableSuggestions(false))
   }
 
+  const handlePrediction = () => {
+    push(to, '/event/wcprediction')
+  }
+
   return (
     <>
       <View
@@ -89,6 +99,21 @@ const FloatingContent = () => {
           alignItems: 'center',
         }}
       >
+        <Button
+          onPress={handlePrediction}
+          rounded
+          variant="lg"
+          fill={{
+            type: 'gradient',
+            color: 'secondary',
+            start: { x: 0, y: 0 },
+            end: { x: 1, y: 0 },
+          }}
+          containerStyle={{ width: 50, height: 50, px: 12 }}
+        >
+          {<Icon name="alert" size={30} />}
+        </Button>
+
         <TouchableOpacity onPress={launchVGaming}>
           <Image
             source={{
@@ -294,6 +319,9 @@ const SupportMenu = ({ setSupportMenuVisible }) => {
   )
 }
 
+const PredictionMenu = () => {
+  return <></>
+}
 const SupportIconWrap = styled(DripsyGradient)(({ size = 45 }) => ({
   borderRadius: size * 0.5,
   borderWidth: 2,
