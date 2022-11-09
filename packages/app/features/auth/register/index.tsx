@@ -1,3 +1,4 @@
+import { APP_DEVICE_ANDROID, APP_DEVICE_IOS } from 'app/constant/redux'
 import useAlert from 'app/hooks/useAlert'
 import useBioAuth from 'app/hooks/useBioAuth'
 import useContainerDimension from 'app/hooks/useContainerDimension'
@@ -11,6 +12,7 @@ import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { AnimatePresence, MotiView, useDynamicAnimation } from 'moti'
 import React, { useEffect, useState } from 'react'
+import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useRegisterMutation } from 'services/authApi'
 import { LoginResult, RegisterResult } from 'services/authApi.type'
@@ -99,6 +101,13 @@ const RegisterPage = () => {
         tracking_code: referral?.trackingCode,
         verify_code: verifyCode,
         platform_uuid: uuid ?? '',
+        device_os:
+          Platform.OS !== 'web'
+            ? Platform.OS === 'ios'
+              ? APP_DEVICE_IOS
+              : APP_DEVICE_ANDROID
+            : '',
+        registered_by: Platform.OS !== 'web' ? 'APP' : '',
       }).unwrap()
 
       if (success) {
