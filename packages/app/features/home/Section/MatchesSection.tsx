@@ -6,6 +6,7 @@ import { GameLauncherActions } from 'app/store/gameLauncher.slice'
 import { ActionType, getAction } from 'app/utils/actionGenerator'
 import dayjsTz from 'app/utils/dayjs'
 import dayjs from 'dayjs'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { styled, Text, View } from 'dripsy'
 import { AnimatePresence, motify } from 'moti'
 import { useCallback, useState } from 'react'
@@ -14,6 +15,8 @@ import { useDispatch } from 'react-redux'
 import { useGetRecoMatchQuery } from 'services/contentApi'
 import { Game, Match } from 'services/contentApi.type'
 import FifaTeam from '../../../config/fifa'
+
+dayjs.extend(customParseFormat)
 
 const animationState = {
   from: { translateY: -50 },
@@ -63,7 +66,7 @@ const MatchesSection = () => {
         tags: [],
         params: {
           leaguekey: match.LeagueId.toString(),
-          matchid: match.selection?.a?.MarketID.toString(),
+          matchid: match.selection?.x?.MarketID.toString(),
         },
       } as Game,
     }
@@ -73,11 +76,14 @@ const MatchesSection = () => {
 
   return (
     <ImageBackground
-      style={{ width: '100%', height: width / 2.56, alignItems: 'center' }}
+      style={{ width: '100%', height: width / 2.56 }}
       source={require('../../../assets/images/home/matches-bg.jpg')}
     >
       {selectedMatch && (
-        <TouchableOpacity onPress={() => onPress(selectedMatch)}>
+        <TouchableOpacity
+          onPress={() => onPress(selectedMatch)}
+          sx={{ width: '100%', height: '100%', alignItems: 'center' }}
+        >
           <MatchItem match={selectedMatch} />
         </TouchableOpacity>
       )}
@@ -110,6 +116,7 @@ const MatchItem = ({ match }: { match: Match }) => {
         name={match.HomeName}
         image={homeFlag}
         nameFontSize={nameFontSize}
+        odd={match.selection['1'].Price}
       />
       <View sx={{ width: '26%' }}>
         <View
@@ -134,17 +141,21 @@ const MatchItem = ({ match }: { match: Match }) => {
             </TimeLabel>
           </AnimatePresence>
         </View>
+        <View sx={{ mt: '60%', height: '7.5%', overflow: 'hidden' }}>
+          <OddLabel>{match.selection.x.Price}</OddLabel>
+        </View>
       </View>
       <MatchCol
         name={match.AwayName}
         image={awayFlag}
         nameFontSize={nameFontSize}
+        odd={match.selection['2'].Price}
       />
     </View>
   )
 }
 
-const MatchCol = ({ image, name, nameFontSize }) => {
+const MatchCol = ({ image, name, nameFontSize, odd }) => {
   return (
     <View
       sx={{
@@ -162,7 +173,6 @@ const MatchCol = ({ image, name, nameFontSize }) => {
       >
         <Flag image={image} />
       </View>
-
       <View
         sx={{
           height: '11%',
@@ -180,6 +190,15 @@ const MatchCol = ({ image, name, nameFontSize }) => {
             {name}
           </CountryLabel>
         </AnimatePresence>
+      </View>
+      <View
+        sx={{
+          height: '6%',
+          mt: '3%',
+          justifyContent: 'center',
+        }}
+      >
+        <OddLabel>{odd}</OddLabel>
       </View>
     </View>
   )
@@ -218,6 +237,13 @@ const Flag = ({ image }) => {
     </View>
   )
 }
+
+const OddLabel = styled(Text)({
+  fontSize: 11,
+  textAlign: 'center',
+  color: 'black',
+  fontWeight: 'bold',
+})
 
 const TimeLabel = styled(motify(Text)())({
   color: '#660032',

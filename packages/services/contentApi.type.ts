@@ -117,8 +117,9 @@ export interface Match {
   SportID: number
   globalshowtime: string
   selection: {
-    a: MatchOdd
-    h: MatchOdd
+    1: MatchOdd
+    2: MatchOdd
+    x: MatchOdd
   }
 }
 
