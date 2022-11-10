@@ -16,6 +16,7 @@ import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useRegisterMutation } from 'services/authApi'
 import { LoginResult, RegisterResult } from 'services/authApi.type'
+import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import AuthLayout from '../layout/AuthLayout'
@@ -32,7 +33,10 @@ export type RegisterFormValues = {
   terms: boolean
 }
 
+const { useParam } = createParam()
+
 const RegisterPage = () => {
+  const [ref] = useParam('ref')
   const [register] = useRegisterMutation()
   const dispatch = useAppDispatch()
   const { push, replace } = useRouter()
@@ -42,6 +46,17 @@ const RegisterPage = () => {
   const { t } = useLocalization()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { uuid } = useUniqueId()
+
+  /* allow /auth/register to pass in ref code from query string, same as /download page */
+  useEffect(() => {
+    if (typeof ref === 'string') {
+      dispatch(
+        SettingActions.setReferral({
+          trackingCode: ref,
+        })
+      )
+    }
+  }, [dispatch, ref])
 
   const { normalLogin } = useBioAuth()
   // referral value is obtained asynchronously, do not assign to initialValues of form.
