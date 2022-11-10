@@ -47,6 +47,9 @@ const FloatingContent = () => {
     useContainerDimension()
   const { theme } = useDripsyTheme()
 
+  let right = Math.max(0, (width - theme.sizes.container) / 2)
+  right = width > theme.sizes.container ? right - 2 : right
+
   const launchVGaming = () => {
     const action = {
       type: ActionType.GAME,
@@ -134,8 +137,7 @@ const FloatingContent = () => {
                 position: Platform.OS === 'web' ? 'fixed' : 'absolute',
                 top: 0,
                 bottom: 0,
-                left: 0,
-                right: 0,
+                right,
                 width: containerWidth,
                 height: containerHeight,
               }}
@@ -151,7 +153,7 @@ const FloatingContent = () => {
                 sx={{
                   position: Platform.OS === 'web' ? 'fixed' : 'absolute',
                   top: 75 + insets.top,
-                  right: Math.max(0, (width - theme.sizes.container) / 2),
+                  right,
                   pb: 60,
                   flexDirection: 'row',
                   alignItems: 'flex-end',
@@ -187,7 +189,7 @@ const FloatingContent = () => {
             sx={{
               position: Platform.OS === 'web' ? 'fixed' : 'absolute',
               top: 120 + insets.top,
-              right: Math.max(0, (width - theme.sizes.container) / 2),
+              right,
             }}
           >
             <FloatQr onPress={handleQr} />
