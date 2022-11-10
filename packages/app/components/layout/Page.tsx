@@ -1,6 +1,9 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { SafeAreaView, ScrollView, styled, Sx, View } from 'dripsy'
+import { isValidElement } from 'react'
 import { Platform } from 'react-native'
 import Header from '../common/Header'
+import Image from '../common/Image'
 const pageStyles: Sx = {
   bg: '$background',
   flex: 1,
@@ -37,9 +40,11 @@ export const PageWithBackHeader = ({
   header,
   hideHeader = false,
   disableScrollView = false,
+  background,
   ...rest
 }) => {
   const PageComponent = disableScrollView ? Page : Page.ScrollView
+
   return (
     <View
       sx={{
@@ -52,11 +57,27 @@ export const PageWithBackHeader = ({
         minHeight: 0,
       }}
     >
-      {!hideHeader && <Header style={{ flex: 1, flexBasis: 50 }} {...header} />}
+      {background && (
+        <Image
+          source={{
+            uri: background,
+          }}
+          sx={{
+            width: '100%',
+            position: 'absolute',
+            height: Platform.select({ web: '100vh', default: '100%' }),
+          }}
+        />
+      )}
+      {hideHeader || !header ? null : typeof header === 'function' ? (
+        header()
+      ) : (
+        <Header style={{ flex: 1, flexBasis: 50 }} {...header} />
+      )}
       <PageComponent
         sx={{
           minHeight: 0,
-          bg: '$secondary',
+          bg: background ? 'transparent' : '$secondary',
           flex: 1,
         }}
         showsVerticalScrollIndicator={false}

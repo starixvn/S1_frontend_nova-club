@@ -423,5 +423,9 @@
   },
   "withdrawal": {
     "withdrawTo": "Rút tiền về"
+  },
+  "event": {
+    "youHave": "Bạn có",
+    "ticket": "vé dự đoán"
   }
 }
