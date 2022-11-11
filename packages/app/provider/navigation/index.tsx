@@ -84,7 +84,7 @@ export function NavigationProvider({
               ChangePin: 'pin/change-pin',
               ForgotPin: 'pin/forgot-pin',
               WcPrediction: '/event/wcprediction',
-              WcTnc: '/event/tnc',
+              WcTnc: '/event/wctnc',
             },
           },
         }),

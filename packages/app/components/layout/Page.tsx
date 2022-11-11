@@ -40,7 +40,7 @@ export const PageWithBackHeader = ({
   header,
   hideHeader = false,
   disableScrollView = false,
-  background,
+  background = undefined,
   ...rest
 }) => {
   const PageComponent = disableScrollView ? Page : Page.ScrollView

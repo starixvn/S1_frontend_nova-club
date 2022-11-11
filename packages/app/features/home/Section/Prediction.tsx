@@ -24,7 +24,7 @@ const Prediction = () => {
       locale,
     }
     push(makeContextualHref('wc-tnc', params), {
-      pathname: '/event/tnc',
+      pathname: '/event/wctnc',
       query: params,
     })
   }

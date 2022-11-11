@@ -23,8 +23,13 @@ const TnC = () => {
     }
   }
 
+  const isHideHeader = window?.ReactNativeWebView
+
   return (
-    <PageWithBackHeader header={{ title: 'menu.tnc' }}>
+    <PageWithBackHeader
+      header={{ title: 'menu.tnc' }}
+      hideHeader={!!isHideHeader}
+    >
       <main
         style={{
           padding: 12,

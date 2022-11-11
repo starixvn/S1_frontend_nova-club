@@ -8,9 +8,7 @@ import WebView from 'react-native-webview'
 const WcTnC = () => {
   const lang = useAppSelector((state) => state.setting.locale)
 
-  // const TNC_URL = `${DEV_DOMAIN}/event/tnc?locale=${lang}`
-  const TNC_URL = `http://localhost:3000/event/tnc?locale=${lang}`
-  console.log('🚀 ~ file: tnc.tsx ~ line 12 ~ WcTnC ~ TNC_URL', TNC_URL)
+  const TNC_URL = `${DEV_DOMAIN}/event/wctnc?locale=${lang}`
 
   // Used to hide the header inside webview
   const INJECTED_JAVASCRIPT = `
