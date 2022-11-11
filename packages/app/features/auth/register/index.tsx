@@ -64,7 +64,13 @@ const RegisterPage = () => {
   const referral = useAppSelector((s) => s.setting.referral)
 
   const handleOnSuccessRegister = (data?: RegisterResult) => {
-    if (data) {
+    /*
+      currently only :
+      - freespin will have note on response,
+      - freebet's note has been removed at backend
+      - freespin should be disabled on Web
+    */
+    if (data && Platform.OS !== 'web') {
       if ('note' in data) {
         const note = data.note
 
