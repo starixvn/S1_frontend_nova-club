@@ -43,13 +43,14 @@ const PredictionHeader = () => {
             position: 'relative',
           }}
         >
-          <IconButton
-            size={22}
-            onPress={onGoBack}
-            name="chevleft"
-            sx={{ position: 'absolute', left: '3%', zIndex: 1 }}
-            color="#9CD9FA"
-          />
+          <View sx={{ position: 'absolute', left: '3%', zIndex: 1 }}>
+            <IconButton
+              size={22}
+              onPress={onGoBack}
+              name="chevleft"
+              color="#9CD9FA"
+            />
+          </View>
           <Image
             source={{
               uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/wc/predict-logo.png`,

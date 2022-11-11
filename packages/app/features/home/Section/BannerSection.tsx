@@ -1,8 +1,10 @@
 import SkeletonPlaceholder from 'app/components/skeleton/SkeletonPlaceholder'
 import useContainerDimension from 'app/hooks/useContainerDimension'
+import useContextualRouting from 'app/hooks/useContextualRouting'
+import { useAppSelector } from 'app/provider/redux/store'
 import { getAction } from 'app/utils/actionGenerator'
 import { Image, styled, View } from 'dripsy'
-import React, { FC } from 'react'
+import React, { FC, useCallback, useMemo } from 'react'
 import { TouchableWithoutFeedback } from 'react-native'
 import Animated, {
   Extrapolate,
@@ -13,6 +15,7 @@ import Animated, {
 import Carousel from 'react-native-reanimated-carousel'
 import { useBannerQuery } from 'services/contentApi'
 import { BannerResult } from 'services/contentApi.type'
+import { useRouter } from 'solito/router'
 
 const BANNER_RATIO = 768 / 350
 
@@ -70,9 +73,19 @@ const BannerSection = () => {
 const BannerItem = ({ item }: { item: BannerResult }) => {
   const { width } = useContainerDimension()
   const { image } = item
-  const onPress = item.action ? getAction(item.action) : undefined
+  const { push } = useRouter()
+  const locale = useAppSelector((s) => s.setting.locale)
+  const { makeContextualHref } = useContextualRouting()
+
+  const onPressCallback = useCallback(() => {
+    if (item.action) {
+      const action = getAction(item.action)
+      action({ push, locale, makeContextualHref })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [item.action, locale])
   return (
-    <TouchableWithoutFeedback key={image} onPress={onPress}>
+    <TouchableWithoutFeedback key={image} onPress={onPressCallback}>
       <Image
         source={{ uri: image }}
         resizeMode="cover"
