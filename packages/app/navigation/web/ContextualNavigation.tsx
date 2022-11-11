@@ -43,8 +43,9 @@ const _contextualComponents = {
   'forgot-pin': () => import('../../features/pin/forgot-pin'),
   '/profile/overview': () => import('../../features/profile/overview'),
   tnc: () => import('../../../../apps/next/pages/auth/register/tnc'),
+  'wc-tnc': () => import('../../../../apps/next/pages/event/tnc'),
   download: () => import('../../features/download/index.web'),
-  'wc-rediction': () => import('../../features/events/worldCupPrediction'),
+  'wc-prediction': () => import('../../features/events/worldCupPrediction'),
 }
 
 function getContextualComponent(key: string) {
