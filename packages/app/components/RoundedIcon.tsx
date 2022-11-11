@@ -1,7 +1,9 @@
 import BouncePressable from 'app/pressable/BouncePressable'
-import { Image, styled, SxProp, View } from 'dripsy'
+import { styled, SxProp, View } from 'dripsy'
 import React from 'react'
 import { ImageSourcePropType } from 'react-native'
+import Image from './common/Image'
+
 import { DripsyGradient, GradientList } from './Gradient'
 import Icon from './Icon'
 
@@ -94,7 +96,7 @@ const StyledView = styled(View)(({ size }: { size: number }) => ({
 const StyledImage = styled(Image)(() => ({
   aspectRatio: 1,
   height: '100%',
-  resizeMode: 'contain',
+  resizeMode: 'cover',
   bg: 'transparent',
 }))
 
