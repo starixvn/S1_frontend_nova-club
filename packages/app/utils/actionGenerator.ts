@@ -1,4 +1,4 @@
-import { LIVECHAT_URL } from '@env'
+import { LIVECHAT_URL, REFERRAL_DOMAIN } from '@env'
 import { GAMES } from 'app/config/games/games.type'
 import i18n from 'app/provider/localization/i18n'
 import { store } from 'app/provider/redux/store'
@@ -10,6 +10,8 @@ export enum ActionType {
   GAME = 'game',
   REDIRECT = 'redirect',
   LIVECHAT = 'livechat',
+  DOWNLOAD_APP = 'downloadApp',
+  EXTERNAL_REDIRECT = 'externalRedirect',
 }
 
 export interface ActionLaunchGame {
@@ -22,17 +24,38 @@ export interface ActionRedirect {
   payload: Game
 }
 
+export interface ActionExternalRedirect {
+  type: ActionType.EXTERNAL_REDIRECT
+  payload: {
+    uri: string
+  }
+}
+
 export interface ActionLivechat {
   type: ActionType.LIVECHAT
 }
 
-export type Action = ActionLaunchGame | ActionRedirect | ActionLivechat
+export interface ActionDownloadApp {
+  type: ActionType.DOWNLOAD_APP
+}
+
+export type Action =
+  | ActionLaunchGame
+  | ActionRedirect
+  | ActionLivechat
+  | ActionExternalRedirect
+  | ActionDownloadApp
 
 export function getAction(action: Action): () => void {
   switch (action.type) {
     case ActionType.LIVECHAT: {
       return () => {
         Linking.openURL(LIVECHAT_URL)
+      }
+    }
+    case ActionType.DOWNLOAD_APP: {
+      return () => {
+        Linking.openURL(REFERRAL_DOMAIN)
       }
     }
     case ActionType.GAME: {
@@ -46,6 +69,13 @@ export function getAction(action: Action): () => void {
             image: action.payload.img,
           })
         )
+      }
+    }
+    case ActionType.EXTERNAL_REDIRECT: {
+      if (!action.payload || !action.payload.uri) return () => {}
+      const { uri } = action.payload
+      return () => {
+        Linking.openURL(uri)
       }
     }
     default:

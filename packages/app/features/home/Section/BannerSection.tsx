@@ -1,3 +1,4 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import SkeletonPlaceholder from 'app/components/skeleton/SkeletonPlaceholder'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { getAction } from 'app/utils/actionGenerator'
@@ -74,7 +75,7 @@ const BannerItem = ({ item }: { item: BannerResult }) => {
   return (
     <TouchableWithoutFeedback key={image} onPress={onPress}>
       <Image
-        source={{ uri: image }}
+        source={{ uri: `${MEDIA_DOMAIN}${CONTENT_URI}/banners/${image}` }}
         resizeMode="cover"
         sx={{ width, height: width / BANNER_RATIO }}
       />
