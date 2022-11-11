@@ -7,7 +7,7 @@ import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { SettingActions } from 'app/store/setting.slice'
 import { ScrollView, View } from 'dripsy'
 import { MotiView } from 'moti'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Platform, StyleSheet } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { Easing } from 'react-native-reanimated'
@@ -17,10 +17,11 @@ import { MotifiedImage } from '../common/Image'
 import { Button } from '../form/Button'
 import IconButton from '../form/IconButton'
 
-const LuckyDrawModal = ({ modal: { getParam } }) => {
+const LuckyDrawModal = ({ modal: { addListener } }) => {
   const { closeModal } = useModal()
   const { t } = useLocalization()
   const dispatch = useDispatch()
+
   // const { data } = usePlayerProfileQuery()
   // const totalSpin = getParam('totalSpin', 0)
 
@@ -114,6 +115,22 @@ const LuckyDrawModal = ({ modal: { getParam } }) => {
       />
     )
   }, [luckyDrawBalance])
+
+  /* Make sure on closed, reset the luckydraw chance */
+  const onCloseListener = useRef()
+  const onModalClosed = useCallback((closingAction) => {
+    console.log('on closed-----------')
+    dispatch(SettingActions.setLuckyDrawBalance(0))
+  }, [])
+
+  useEffect(() => {
+    onCloseListener.current = addListener('onClose', onModalClosed)
+
+    return () => {
+      onCloseListener.current?.remove()
+    }
+  }, [])
+  /**/
 
   return (
     <View
@@ -258,6 +275,7 @@ const LuckyDrawModal = ({ modal: { getParam } }) => {
       <View sx={{ position: 'absolute', top: '8%', right: '10%' }}>
         <IconButton
           onPress={() => {
+            dispatch(SettingActions.setLuckyDrawBalance(0))
             closeModal('LuckyDrawModal')
           }}
           name="cross"
