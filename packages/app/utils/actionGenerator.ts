@@ -1,4 +1,4 @@
-import { LIVECHAT_URL } from '@env'
+import { LIVECHAT_URL, REFERRAL_DOMAIN } from '@env'
 import { GAMES } from 'app/config/games/games.type'
 import { ContextualComponentType } from 'app/navigation/web/ContextualNavigation'
 import i18n from 'app/provider/localization/i18n'
@@ -11,6 +11,8 @@ export enum ActionType {
   GAME = 'game',
   INTERNAL_REDIRECT = 'internalRedirect',
   LIVECHAT = 'livechat',
+  DOWNLOAD_APP = 'downloadApp',
+  EXTERNAL_REDIRECT = 'externalRedirect',
 }
 
 export interface InternalRedirectPayload {
@@ -34,11 +36,27 @@ export type ActionRedirectParams = {
   makeContextualHref: (to: ContextualComponentType, params?: any) => string
 }
 
+export interface ActionExternalRedirect {
+  type: ActionType.EXTERNAL_REDIRECT
+  payload: {
+    uri: string
+  }
+}
+
 export interface ActionLivechat {
   type: ActionType.LIVECHAT
 }
 
-export type Action = ActionLaunchGame | ActionRedirect | ActionLivechat
+export interface ActionDownloadApp {
+  type: ActionType.DOWNLOAD_APP
+}
+
+export type Action =
+  | ActionLaunchGame
+  | ActionRedirect
+  | ActionLivechat
+  | ActionExternalRedirect
+  | ActionDownloadApp
 
 export function getAction(
   action: Action
@@ -47,6 +65,11 @@ export function getAction(
     case ActionType.LIVECHAT: {
       return () => {
         Linking.openURL(LIVECHAT_URL)
+      }
+    }
+    case ActionType.DOWNLOAD_APP: {
+      return () => {
+        Linking.openURL(REFERRAL_DOMAIN)
       }
     }
     case ActionType.GAME: {
@@ -62,8 +85,8 @@ export function getAction(
         )
       }
     }
+
     case ActionType.INTERNAL_REDIRECT: {
-      console.log('generate internal red', action.payload)
       const payload = action.payload
       if (!payload || !payload.uri) return () => {}
 
@@ -89,6 +112,13 @@ export function getAction(
         } catch (e) {
           console.log('Internal Redirection error', e)
         }
+      }
+    }
+    case ActionType.EXTERNAL_REDIRECT: {
+      if (!action.payload || !action.payload.uri) return () => {}
+      const { uri } = action.payload
+      return () => {
+        Linking.openURL(uri)
       }
     }
     default:

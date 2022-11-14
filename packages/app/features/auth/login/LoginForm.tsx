@@ -10,7 +10,7 @@ import { AuthActions } from 'app/store/authReducer'
 import { SettingActions } from 'app/store/setting.slice'
 import validation, {
   PASSWORD_MAX_LENGTH,
-  USERNAME_MAX_LENGTH
+  USERNAME_MAX_LENGTH,
 } from 'app/utils/validation'
 import { styled, Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
@@ -93,6 +93,8 @@ const LoginForm = () => {
 
   const handleProceedLogin = (data, actions) => {
     dispatch(AuthActions.setAuthInfo(data))
+    /* clear off lucky draw */
+    dispatch(SettingActions.setLuckyDrawBalance(0))
     // await updateLanguage(data.playerName)
 
     actions.resetForm()

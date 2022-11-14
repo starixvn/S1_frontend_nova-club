@@ -1,3 +1,4 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import SkeletonPlaceholder from 'app/components/skeleton/SkeletonPlaceholder'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouting from 'app/hooks/useContextualRouting'
@@ -87,7 +88,7 @@ const BannerItem = ({ item }: { item: BannerResult }) => {
   return (
     <TouchableWithoutFeedback key={image} onPress={onPressCallback}>
       <Image
-        source={{ uri: image }}
+        source={{ uri: `${MEDIA_DOMAIN}${CONTENT_URI}/banners/${image}` }}
         resizeMode="cover"
         sx={{ width, height: width / BANNER_RATIO }}
       />
