@@ -1,19 +1,14 @@
-import { Gradient } from '@dripsy/gradient'
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Image from 'app/components/common/Image'
 import { Button } from 'app/components/form/Button'
-import Page, { PageWithBackHeader } from 'app/components/layout/Page'
+import { PageWithBackHeader } from 'app/components/layout/Page'
 import useAlert from 'app/hooks/useAlert'
-import useContainerDimension from 'app/hooks/useContainerDimension'
 import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import useLocalization from 'app/provider/localization'
-import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { ActivityIndicator, Text, View } from 'dripsy'
 import { useState } from 'react'
-import { Platform, StyleSheet } from 'react-native'
 import { IResponse } from 'services/common/types'
 import { useWcPredictMutation, useWcTicketCountQuery } from 'services/eventApi'
-import { useDummyMutation } from 'utils/rtk'
 import PredictionHeader from './PredictionHeader'
 
 const FifaTeams = {
@@ -74,6 +69,7 @@ const WorldCupPrediction = () => {
 
         if (success) {
           setSelected(null)
+          showAlert(t('event.ticketSubmitted'))
         } else {
           showAlert(message)
         }
@@ -133,7 +129,7 @@ const WorldCupPrediction = () => {
       >
         {Object.keys(FifaTeams).map((k) => {
           const active = selected === k
-          const available = predictCount && playingTeams.includes(k)
+          const available = predictCount && true // playingTeams.includes(k)
           return (
             <TouchableOpacity
               onPress={() => setSelected(k)}

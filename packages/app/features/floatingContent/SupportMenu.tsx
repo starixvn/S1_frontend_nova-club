@@ -23,7 +23,7 @@ const SupportMenu = ({ setSupportMenuVisible }) => {
 
   const { width } = useWindowDimensions()
   let right = Math.max(0, (width - theme.sizes.container) / 2)
-  right = width > theme.sizes.container ? right - 2 : right
+  // right = width > theme.sizes.container ? right - 2 : right
 
   return (
     <MotiView

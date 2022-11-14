@@ -426,6 +426,7 @@
   },
   "event": {
     "youHave": "Bạn có",
-    "ticket": "vé dự đoán"
+    "ticket": "vé dự đoán",
+    "ticketSubmitted": "Gửi vé dự đoán thành công"
   }
 }

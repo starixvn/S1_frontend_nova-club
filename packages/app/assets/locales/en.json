@@ -426,6 +426,7 @@
   },
   "event": {
     "youHave": "You Have",
-    "ticket": "Ticket/s"
+    "ticket": "Ticket/s",
+    "ticketSubmitted": "Successfully submitted your prediction ticket"
   }
 }

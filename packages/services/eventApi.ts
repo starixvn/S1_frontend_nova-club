@@ -16,7 +16,7 @@ export const eventApi = baseApiWithTag.injectEndpoints({
       query: (teamId) => ({
         url: `/player_api/submitWcTicket`,
         method: 'POST',
-        params: {
+        data: {
           team_code: teamId,
         },
       }),

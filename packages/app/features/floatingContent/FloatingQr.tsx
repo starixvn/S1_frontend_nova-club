@@ -27,7 +27,7 @@ const FloatingQr = () => {
     useContainerDimension()
 
   let right = Math.max(0, (width - theme.sizes.container) / 2)
-  right = width > theme.sizes.container ? right - 2 : right
+  // right = width > theme.sizes.container ? right - 2 : right
 
   const handleSuggestions = () => {
     dispatch(SettingActions.disableSuggestions(false))
@@ -46,8 +46,6 @@ const FloatingQr = () => {
             position: Platform.OS === 'web' ? 'fixed' : 'absolute',
             top: 0,
             bottom: 0,
-            left: 0,
-            right,
             width: containerWidth,
             height: containerHeight,
           }}
