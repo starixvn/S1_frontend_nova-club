@@ -2,6 +2,7 @@ import { APP_DEVICE_ANDROID, APP_DEVICE_IOS } from 'app/constant/redux'
 import useAlert from 'app/hooks/useAlert'
 import useBioAuth from 'app/hooks/useBioAuth'
 import useContainerDimension from 'app/hooks/useContainerDimension'
+import useShield from 'app/hooks/useShield'
 import useUniqueId from 'app/hooks/useUniqueId'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
@@ -15,7 +16,11 @@ import React, { useEffect, useState } from 'react'
 import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useRegisterMutation } from 'services/authApi'
-import { LoginResult, RegisterResult } from 'services/authApi.type'
+import {
+  LoginResult,
+  RegisterResult,
+  Shield_Action,
+} from 'services/authApi.type'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
@@ -46,6 +51,7 @@ const RegisterPage = () => {
   const { t } = useLocalization()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { uuid } = useUniqueId()
+  const { syncShield } = useShield()
 
   /* allow /auth/register to pass in ref code from query string, same as /download page */
   useEffect(() => {
@@ -132,6 +138,7 @@ const RegisterPage = () => {
       }).unwrap()
 
       if (success) {
+        syncShield(Shield_Action.REGISTER)
         dispatch(AuthActions.setAuthInfo(data as LoginResult))
         actions.resetForm()
 

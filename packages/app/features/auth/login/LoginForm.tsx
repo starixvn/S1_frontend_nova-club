@@ -4,6 +4,7 @@ import TextInput from 'app/components/form/TextInput'
 import useAlert from 'app/hooks/useAlert'
 import useBioAuth from 'app/hooks/useBioAuth'
 import useContextualRouting from 'app/hooks/useContextualRouting'
+import useShield from 'app/hooks/useShield'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { AuthActions } from 'app/store/authReducer'
@@ -17,6 +18,7 @@ import { FormikHelpers, useFormik } from 'formik'
 import React, { useRef, useState } from 'react'
 import { Platform, TextInput as RNTextField } from 'react-native'
 import { useLoginMutation } from 'services/authApi'
+import { Shield_Action } from 'services/authApi.type'
 import { useLazyPlayerProfileQuery } from 'services/playerApi'
 import { createParam } from 'solito'
 import { MotiLink } from 'solito/moti'
@@ -51,6 +53,7 @@ const LoginForm = () => {
 
   const { isBioLoading, showBiometric, normalLogin, startBiometricLogin } =
     useBioAuth()
+  const { syncShield } = useShield()
 
   const isBiometricLogin = useAppSelector((s) => s.setting.biometricCredentials)
 
@@ -80,6 +83,7 @@ const LoginForm = () => {
       }).unwrap()
 
       if (success && data) {
+        syncShield(Shield_Action.LOGIN)
         normalLogin(username, password, () => handleProceedLogin(data, actions))
       } else {
         throw new Error(message)
