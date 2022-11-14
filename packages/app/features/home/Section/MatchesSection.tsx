@@ -102,6 +102,7 @@ const MatchItem = ({ match }: { match: Match }) => {
   const nameFontSize = width * 0.03
 
   const dateDisplay = date.format('DD MMM YYYY') + '\n' + date.format('hh:mmA')
+  const oddFontSize = width * 0.02
 
   return (
     <View
@@ -117,6 +118,7 @@ const MatchItem = ({ match }: { match: Match }) => {
         image={homeFlag}
         nameFontSize={nameFontSize}
         odd={match.selection['1'].Price}
+        oddFontSize={oddFontSize}
       />
       <View sx={{ width: '26%' }}>
         <View
@@ -141,8 +143,10 @@ const MatchItem = ({ match }: { match: Match }) => {
             </TimeLabel>
           </AnimatePresence>
         </View>
-        <View sx={{ mt: '60%', height: '7.5%', overflow: 'hidden' }}>
-          <OddLabel>{match.selection.x.Price}</OddLabel>
+        <View sx={{ mt: '61%', height: '7.5%', overflow: 'hidden' }}>
+          <OddLabel sx={{ fontSize: oddFontSize }}>
+            {match.selection.x.Price}
+          </OddLabel>
         </View>
       </View>
       <MatchCol
@@ -150,12 +154,13 @@ const MatchItem = ({ match }: { match: Match }) => {
         image={awayFlag}
         nameFontSize={nameFontSize}
         odd={match.selection['2'].Price}
+        oddFontSize={oddFontSize}
       />
     </View>
   )
 }
 
-const MatchCol = ({ image, name, nameFontSize, odd }) => {
+const MatchCol = ({ image, name, nameFontSize, odd, oddFontSize }) => {
   return (
     <View
       sx={{
@@ -193,12 +198,12 @@ const MatchCol = ({ image, name, nameFontSize, odd }) => {
       </View>
       <View
         sx={{
-          height: '6%',
+          height: '7.3%',
           mt: '3%',
           justifyContent: 'center',
         }}
       >
-        <OddLabel>{odd}</OddLabel>
+        <OddLabel sx={{ fontSize: oddFontSize }}>{odd}</OddLabel>
       </View>
     </View>
   )
