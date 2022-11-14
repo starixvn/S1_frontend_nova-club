@@ -15,7 +15,7 @@ const JackpotGamesSection = () => {
   })
 
   return (
-    <View sx={{ mt: -100, mb: '$7a' }}>
+    <View sx={{ mt: 0 }}>
       {jackpotList && jackpotList.length > 0 && (
         <>
           {/* <SectionHeader
