@@ -1,5 +1,6 @@
 import { useAppSelector } from 'app/provider/redux/store'
 import { useEffect } from 'react'
+import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 
 const LuckyDrawTrigger = () => {
@@ -7,7 +8,7 @@ const LuckyDrawTrigger = () => {
   const luckyDrawBalance = useAppSelector((s) => s.setting.luckyDrawBalance)
 
   useEffect(() => {
-    if (luckyDrawBalance && luckyDrawBalance > 0) {
+    if (luckyDrawBalance && luckyDrawBalance > 0 && Platform.OS !== 'web') {
       setTimeout(() => {
         openModal('LuckyDrawModal')
       }, 500)

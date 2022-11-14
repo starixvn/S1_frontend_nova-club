@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 
-const CONTENT_IMAGE = `${MEDIA_DOMAIN}/${CONTENT_URI}/download-gadget.png`
+const CONTENT_IMAGE = `${MEDIA_DOMAIN}${CONTENT_URI}/download-gadget.png`
 
 const { useParam } = createParam()
 

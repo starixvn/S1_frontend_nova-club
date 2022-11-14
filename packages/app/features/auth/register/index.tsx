@@ -1,3 +1,4 @@
+import { APP_DEVICE_ANDROID, APP_DEVICE_IOS } from 'app/constant/redux'
 import useAlert from 'app/hooks/useAlert'
 import useBioAuth from 'app/hooks/useBioAuth'
 import useContainerDimension from 'app/hooks/useContainerDimension'
@@ -11,9 +12,11 @@ import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { AnimatePresence, MotiView, useDynamicAnimation } from 'moti'
 import React, { useEffect, useState } from 'react'
+import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useRegisterMutation } from 'services/authApi'
 import { LoginResult, RegisterResult } from 'services/authApi.type'
+import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import AuthLayout from '../layout/AuthLayout'
@@ -30,7 +33,10 @@ export type RegisterFormValues = {
   terms: boolean
 }
 
+const { useParam } = createParam()
+
 const RegisterPage = () => {
+  const [ref] = useParam('ref')
   const [register] = useRegisterMutation()
   const dispatch = useAppDispatch()
   const { push, replace } = useRouter()
@@ -41,13 +47,30 @@ const RegisterPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { uuid } = useUniqueId()
 
+  /* allow /auth/register to pass in ref code from query string, same as /download page */
+  useEffect(() => {
+    if (typeof ref === 'string') {
+      dispatch(
+        SettingActions.setReferral({
+          trackingCode: ref,
+        })
+      )
+    }
+  }, [dispatch, ref])
+
   const { normalLogin } = useBioAuth()
   // referral value is obtained asynchronously, do not assign to initialValues of form.
   // consume it on onSubmit
   const referral = useAppSelector((s) => s.setting.referral)
 
   const handleOnSuccessRegister = (data?: RegisterResult) => {
-    if (data) {
+    /*
+      currently only :
+      - freespin will have note on response,
+      - freebet's note has been removed at backend
+      - freespin should be disabled on Web
+    */
+    if (data && Platform.OS !== 'web') {
       if ('note' in data) {
         const note = data.note
 
@@ -99,6 +122,13 @@ const RegisterPage = () => {
         tracking_code: referral?.trackingCode,
         verify_code: verifyCode,
         platform_uuid: uuid ?? '',
+        device_os:
+          Platform.OS !== 'web'
+            ? Platform.OS === 'ios'
+              ? APP_DEVICE_IOS
+              : APP_DEVICE_ANDROID
+            : '',
+        registered_by: Platform.OS !== 'web' ? 'APP' : '',
       }).unwrap()
 
       if (success) {

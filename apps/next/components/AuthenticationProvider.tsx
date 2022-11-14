@@ -10,6 +10,7 @@ const guestRoutes = [
   '/launcher',
   '/customer-support',
   '/download',
+  '/event/wctnc',
 ]
 
 /* 

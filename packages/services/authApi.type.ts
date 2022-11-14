@@ -33,7 +33,9 @@ export type RegisterResult =
 export interface RegisterQueryArgs {
   contactNumber: string
   cpassword: string
+  device_os: string
   password: string
+  registered_by: string
   terms: boolean
   tracking_code?: string
   username: string

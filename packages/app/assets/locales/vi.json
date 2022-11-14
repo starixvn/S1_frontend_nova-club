@@ -423,5 +423,10 @@
   },
   "withdrawal": {
     "withdrawTo": "Rút tiền về"
+  },
+  "event": {
+    "youHave": "Bạn có",
+    "ticket": "vé dự đoán",
+    "ticketSubmitted": "Gửi vé dự đoán thành công"
   }
 }
