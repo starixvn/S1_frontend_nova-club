@@ -6,6 +6,7 @@ import { styled, Text, View } from 'dripsy'
 import React from 'react'
 import { toCleanCard } from 'app/utils'
 import { getBankLogo } from 'app/config/bank'
+import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 type BankAccCardProps = {
   item: PlayerBankResult
@@ -17,7 +18,10 @@ const BankAccCard = ({ item, onPressRemove }: BankAccCardProps) => {
 
   return (
     <StyledBox>
-      <RoundedIcon size="lg" icon={getBankLogo(item.BankCode)} />
+      <RoundedIcon
+        size="lg"
+        icon={`${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.BankIcon}`}
+      />
       <StyledViewV>
         <Text sx={{ color: '$PaleBlue', fontWeight: 'bold' }}>
           {item.BankCode}
