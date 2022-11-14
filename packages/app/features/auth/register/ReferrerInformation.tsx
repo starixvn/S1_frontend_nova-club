@@ -8,14 +8,16 @@ import { skipToken } from '@reduxjs/toolkit/query/react'
 import { motify } from 'moti'
 import { useAffiliateUsernameQuery } from 'services/contentApi'
 import { useDispatch } from 'react-redux'
+import { isBannedTrackingCode } from 'app/utils'
 const HEADER_IMAGE = require('../../../assets/images/header/avatar.png')
 const MotifiedView = motify(View)()
 function ReferrerInformation({ sx = {}, ...rest }) {
   const dispatch = useDispatch()
   const { t } = useLocalization()
   const referral = useAppSelector((s) => s.setting.referral)
+  const isBanned = isBannedTrackingCode(referral?.trackingCode)
   const { error, isSuccess } = useAffiliateUsernameQuery(
-    referral ? referral.trackingCode : skipToken
+    referral && !isBanned ? referral.trackingCode : skipToken
   )
 
   useEffect(() => {
@@ -24,7 +26,7 @@ function ReferrerInformation({ sx = {}, ...rest }) {
     }
   }, [dispatch, error])
 
-  if (!isSuccess) return null
+  if (!isSuccess || isBanned) return null
 
   return (
     <MotifiedView

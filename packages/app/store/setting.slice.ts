@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { LANGUAGE_CODE } from 'app/constant/language'
+import { isBannedTrackingCode } from 'app/utils'
 import dayjs, { Dayjs } from 'dayjs'
 import { LaunchGamePayload } from './gameLauncher.slice'
 
@@ -77,6 +78,12 @@ const settingSlice = createSlice({
     },
     setReferral: (state, action: PayloadAction<Referral>) => {
       if (action.payload) {
+        /* Ignore this trackingCode, assign empty instead */
+        if (isBannedTrackingCode(action.payload.trackingCode)) {
+          state.referral = undefined
+          return
+        }
+
         state.referral = {
           trackingCode: action.payload.trackingCode?.replace(
             /[^0-9a-zA-Z]/g,

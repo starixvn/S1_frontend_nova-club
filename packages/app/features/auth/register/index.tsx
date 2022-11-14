@@ -7,6 +7,7 @@ import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { AuthActions } from 'app/store/authReducer'
 import { SettingActions } from 'app/store/setting.slice'
+import { isBannedTrackingCode } from 'app/utils'
 import validation from 'app/utils/validation'
 import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
@@ -62,7 +63,7 @@ const RegisterPage = () => {
   // referral value is obtained asynchronously, do not assign to initialValues of form.
   // consume it on onSubmit
   const referral = useAppSelector((s) => s.setting.referral)
-
+  const trackingCode = referral?.trackingCode
   const handleOnSuccessRegister = (data?: RegisterResult) => {
     /*
       currently only :
@@ -119,7 +120,10 @@ const RegisterPage = () => {
         // WIP: Prefix should not be hardcoded
         contactNumber: '84' + contactNumber,
         terms,
-        tracking_code: referral?.trackingCode,
+        tracking_code:
+          trackingCode && !isBannedTrackingCode(trackingCode)
+            ? trackingCode
+            : undefined,
         verify_code: verifyCode,
         platform_uuid: uuid ?? '',
         device_os:
