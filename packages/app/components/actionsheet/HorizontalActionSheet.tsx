@@ -46,7 +46,7 @@ const HorizontalActionSheet = ({
   switch (variants) {
     case 'provider':
       containerStyle = { bg: '$primary', p: '$2' }
-      imageStyle = { bg: '$transparent' }
+      imageStyle = { bg: '$transparent', resizeMode: 'contain' }
       break
 
     default:

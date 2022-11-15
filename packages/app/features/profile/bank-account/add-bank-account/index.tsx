@@ -1,3 +1,4 @@
+import { CMS_CONTENT_URI, DEV_DOMAIN, MEDIA_DOMAIN } from '@env'
 import { Button } from 'app/components/form/Button'
 import InputBase from 'app/components/form/Input/InputBase'
 import Select from 'app/components/form/Input/Select'
@@ -63,7 +64,7 @@ const AddBankAccountScreen = () => {
     return {
       label: item.bank_name,
       value: item.bank_code,
-      icon: getBankLogo(item.bank_code),
+      icon: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.bank_icon}`,
     }
   })
 

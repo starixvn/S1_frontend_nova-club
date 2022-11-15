@@ -1,3 +1,4 @@
+import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import MenuNotice from 'app/components/common/MenuNotice'
 import { Button } from 'app/components/form/Button'
 import IconButton from 'app/components/form/IconButton'
@@ -91,7 +92,7 @@ const WithdrawalPage = () => {
     return {
       label: item.BankAccountFullName,
       value: item.BankTypeId,
-      icon: getBankLogo(item.BankCode),
+      icon: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.BankIcon}`,
     }
   })
 
@@ -189,7 +190,7 @@ const WithdrawalPage = () => {
             hideTruncatedThousand: false,
           }) ?? '',
       },
-      bankLogo: getBankLogo(values.bank?.BankCode),
+      bankLogo: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${values.bank?.BankIcon}`,
       fields: CONFIRMATION_FIELDS,
       onConfirm: () => onSubmit(values, formik),
     })
