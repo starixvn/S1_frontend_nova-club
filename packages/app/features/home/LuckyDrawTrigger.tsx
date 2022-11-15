@@ -11,7 +11,7 @@ const LuckyDrawTrigger = () => {
     if (luckyDrawBalance && luckyDrawBalance > 0 && Platform.OS !== 'web') {
       setTimeout(() => {
         openModal('LuckyDrawModal')
-      }, 500)
+      }, 1500)
     }
   }, [])
 

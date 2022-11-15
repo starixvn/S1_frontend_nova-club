@@ -16,7 +16,7 @@ const Prediction = () => {
     setTimeout(() => {
       dayjs().isBefore(dayjs('2022-12-12')) &&
         openModal('PredictionModal', { onPress: handleNavigate })
-    }, 100)
+    }, 1000)
   }, [])
 
   const handleNavigate = () => {
