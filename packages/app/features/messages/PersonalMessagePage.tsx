@@ -68,14 +68,14 @@ const PersonalMessagePage = () => {
       >
         <StyledView sx={{ px: left }}>
           <TouchableOpacity onPress={selectAll}>
-            <View sx={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View sx={{ flexDirection: 'row', alignItems: 'center', mx: '$4' }}>
               <CheckBox isCheck={isAllSelected} />
               <Text sx={{ color: '#7DD7FF', pl: '$2' }}>
                 {t('common.selectAll')}
               </Text>
             </View>
           </TouchableOpacity>
-          <View sx={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View sx={{ flexDirection: 'row', alignItems: 'center', mx: '$4' }}>
             {isDeleting ? (
               <ActivityIndicator size={25} color={'$lightCyan'} />
             ) : (

@@ -4,7 +4,7 @@ import MarqueeText from 'app/components/Marquee'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import { useAnnouncementQuery } from 'services/contentApi'
 import { AnnouncementListItems } from 'services/contentApi.type'
-import { styled, View } from 'dripsy'
+import { ActivityIndicator, styled, View } from 'dripsy'
 import { useEffect, useState } from 'react'
 import { TouchableOpacity, useWindowDimensions } from 'react-native'
 import { useRouter } from 'solito/router'
@@ -22,9 +22,10 @@ const AnnouncementMarquee = () => {
     tab: 1,
   })
   const { width } = useWindowDimensions()
-  const { data, isSuccess } = useAnnouncementQuery()
-  const [marquees, setMarquees] =
-    useState<MarqueeItem<AnnouncementListItems>[]>()
+  const { data, isSuccess, isUninitialized } = useAnnouncementQuery()
+  const [marquees, setMarquees] = useState<
+    MarqueeItem<AnnouncementListItems>[]
+  >([])
 
   useEffect(() => {
     if (data?.data && data.data.list && isSuccess) {
@@ -56,23 +57,32 @@ const AnnouncementMarquee = () => {
           gradient="darkBlue"
           sx={{
             flexDirection: 'row',
+            alignItems: 'center',
+            ml: '$2',
+            height: 25,
           }}
         >
-          <Icon
-            name="annoucement"
-            sx={{ color: '#97FFF4', alignSelf: 'center', mx: '$2' }}
-            size={18}
-          />
-          <MarqueeText
-            textList={marquees}
-            speed={60}
-            width={width}
-            height={25}
-            direction={'left'}
-            reverse={false}
-            textStyle={{ fontSize: 12, color: '#97FFF4' }}
-            // onTextClick={onClick}
-          />
+          {!isUninitialized ? (
+            <ActivityIndicator color={'$lightCyan'} size={14} />
+          ) : (
+            <Icon
+              name="annoucement"
+              sx={{ color: '#97FFF4', mr: '$2' }}
+              size={18}
+            />
+          )}
+          {marquees.length > 0 && (
+            <MarqueeText
+              textList={marquees}
+              speed={60}
+              width={width}
+              height={25}
+              direction={'left'}
+              reverse={false}
+              textStyle={{ fontSize: 12, color: '#97FFF4' }}
+              // onTextClick={onClick}
+            />
+          )}
         </DripsyGradient>
       </TouchableOpacity>
     </StyledContainer>

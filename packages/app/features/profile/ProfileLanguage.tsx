@@ -6,6 +6,7 @@ import { Image, styled, useDripsyTheme, View } from 'dripsy'
 import React, { ComponentProps, useState } from 'react'
 import { ImageSourcePropType } from 'react-native'
 import { useDispatch } from 'react-redux'
+import { baseApiWithTag } from 'services/baseApi'
 import { usePlayerLangMutation } from 'services/playerApi'
 
 const LANGUAGE_TO_FLAG_ICON = {
@@ -44,6 +45,7 @@ const ProfileLanguage = ({ isAuthRequired = true }: ProfileLanguageProps) => {
 
       if (success) {
         setLanguage(value)
+        baseApiWithTag.util.invalidateTags(['Announcement'])
       }
     } catch (e) {
       console.error(e)
