@@ -66,7 +66,7 @@ const MatchesSection = () => {
         tags: [],
         params: {
           leaguekey: match.LeagueId.toString(),
-          matchid: match.selection?.x?.MarketID.toString(),
+          matchid: match.EventId.toString(),
         },
       } as Game,
     }
