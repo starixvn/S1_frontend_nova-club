@@ -62,7 +62,7 @@ const AnnouncementMarquee = () => {
             height: 25,
           }}
         >
-          {!isUninitialized ? (
+          {isUninitialized ? (
             <ActivityIndicator color={'$lightCyan'} size={14} />
           ) : (
             <Icon
