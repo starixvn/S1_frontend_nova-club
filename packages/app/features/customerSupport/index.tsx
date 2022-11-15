@@ -7,7 +7,7 @@ import { isURLSupported } from 'app/utils/helper'
 import { Image, styled, Text, View } from 'dripsy'
 import { useEffect, useState } from 'react'
 import { Linking, Platform } from 'react-native'
-import { CONTACT_LIST } from '../FloatingContent'
+import { CONTACT_LIST } from '../floatingContent'
 import useSupportItemList from './useSupportItemList'
 const HEADER_IMAGE = require('../../assets/images/logo.png')
 

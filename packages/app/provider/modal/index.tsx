@@ -28,6 +28,7 @@ export interface ModalStackParams {
   NoticeModal: { notice: [] }
   PinModal: { onConfirm(...args: any): any; onForgotPin(...args: any): any }
   PlayerBankDeleteModal: { bank: Record<any, any> }
+  PredictionModal: undefined
   ReferralModal: undefined
   LuckyDrawModal: undefined
   WithdrawalConfirmationModal: {
@@ -51,6 +52,7 @@ const _dynamicModal = {
   PinModal: () => import('app/components/modal/PinModal'),
   PlayerBankDeleteModal: () =>
     import('app/components/modal/PlayerBankDeleteModal'),
+  PredictionModal: () => import('app/components/modal/PredictionModal'),
   ReferralModal: () => import('app/components/modal/ReferralModal'),
   WithdrawalConfirmationModal: () =>
     import('app/components/modal/WithdrawalConfirmationModal'),
@@ -96,6 +98,9 @@ const modalConfig: ModalConfigType = {
   },
   PlayerBankDeleteModal: {
     modal: getDynamicComponent('PlayerBankDeleteModal'),
+  },
+  PredictionModal: {
+    modal: getDynamicComponent('PredictionModal'),
   },
   ReferralModal: {
     modal: getDynamicComponent('ReferralModal'),

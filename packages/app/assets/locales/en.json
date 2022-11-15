@@ -423,5 +423,10 @@
   },
   "withdrawal": {
     "withdrawTo": "Withdraw To"
+  },
+  "event": {
+    "youHave": "You Have",
+    "ticket": "Ticket/s",
+    "ticketSubmitted": "Successfully submitted your prediction ticket"
   }
 }

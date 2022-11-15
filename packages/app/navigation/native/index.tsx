@@ -34,6 +34,8 @@ import { fadeScaleIn } from 'app/transitions/fade'
 import { Easing } from 'react-native'
 import DepositNavigation from './DepositNavigation'
 import TabNavigation from './TabNavigation'
+import WorldCupPrediction from 'app/features/events/worldCupPrediction'
+import WcTnC from 'app/features/events/worldCupPrediction/tnc'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -65,6 +67,8 @@ const Stack = createStackNavigator<{
   TnC: undefined
   Forbidden: undefined
   Maintenance: undefined
+  WcPrediction: undefined
+  WcTnc: undefined
 }>()
 
 export function NativeNavigation() {
@@ -229,6 +233,8 @@ export function NativeNavigation() {
       <Stack.Screen name="TnC" component={TnC} />
       <Stack.Screen name="Forbidden" component={Forbidden} />
       <Stack.Screen name="Maintenance" component={Maintenance} />
+      <Stack.Screen name="WcPrediction" component={WorldCupPrediction} />
+      <Stack.Screen name="WcTnc" component={WcTnC} />
     </Stack.Navigator>
   )
 }

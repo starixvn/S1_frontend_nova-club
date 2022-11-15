@@ -1,4 +1,4 @@
-import FloatingContent from 'app/features/FloatingContent'
+import FloatingContent from 'app/features/floatingContent'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useOrientation from 'app/hooks/useOrientation'
 import { Flex, View } from 'dripsy'

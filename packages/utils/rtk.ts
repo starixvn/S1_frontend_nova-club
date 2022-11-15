@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from 'react'
+import { useCallback, useEffect, useReducer, useState } from 'react'
 import { sleep } from './common'
 
 const dummyRtkState = {
@@ -50,6 +50,18 @@ export function useDummyRtk(dummyData): DummyRTKType {
     ...state,
     refetch: dummyApiRequest,
   }
+}
+
+export function useDummyMutation() {
+  const dummyRequest = useCallback(() => {
+    return {
+      unwrap: async function () {
+        await sleep(2000)
+      },
+    }
+  }, [])
+
+  return [dummyRequest]
 }
 
 export function TestDummyRTK() {

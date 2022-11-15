@@ -1,5 +1,6 @@
 import { LIVECHAT_URL, REFERRAL_DOMAIN } from '@env'
 import { GAMES } from 'app/config/games/games.type'
+import { ContextualComponentType } from 'app/navigation/web/ContextualNavigation'
 import i18n from 'app/provider/localization/i18n'
 import { store } from 'app/provider/redux/store'
 import { GameLauncherActions } from 'app/store/gameLauncher.slice'
@@ -8,10 +9,15 @@ import { Game, GameConfig } from 'services/contentApi.type'
 
 export enum ActionType {
   GAME = 'game',
-  REDIRECT = 'redirect',
+  INTERNAL_REDIRECT = 'internalRedirect',
   LIVECHAT = 'livechat',
   DOWNLOAD_APP = 'downloadApp',
   EXTERNAL_REDIRECT = 'externalRedirect',
+}
+
+export interface InternalRedirectPayload {
+  uri: string
+  params: Record<string, string>
 }
 
 export interface ActionLaunchGame {
@@ -20,8 +26,14 @@ export interface ActionLaunchGame {
 }
 
 export interface ActionRedirect {
-  type: ActionType.REDIRECT
-  payload: Game
+  type: ActionType.INTERNAL_REDIRECT
+  payload: InternalRedirectPayload
+}
+
+export type ActionRedirectParams = {
+  push: any
+  locale: string
+  makeContextualHref: (to: ContextualComponentType, params?: any) => string
 }
 
 export interface ActionExternalRedirect {
@@ -46,7 +58,9 @@ export type Action =
   | ActionExternalRedirect
   | ActionDownloadApp
 
-export function getAction(action: Action): () => void {
+export function getAction(
+  action: Action
+): (p?: ActionRedirectParams | void) => void {
   switch (action.type) {
     case ActionType.LIVECHAT: {
       return () => {
@@ -69,6 +83,35 @@ export function getAction(action: Action): () => void {
             image: action.payload.img,
           })
         )
+      }
+    }
+
+    case ActionType.INTERNAL_REDIRECT: {
+      const payload = action.payload
+      if (!payload || !payload.uri) return () => {}
+
+      const { uri, params } = payload
+
+      return (p) => {
+        try {
+          if (p?.makeContextualHref) {
+            const { push, makeContextualHref, locale } = p
+            if (params) {
+              let replacedParams = { ...params }
+              if (replacedParams.locale) {
+                replacedParams.locale = locale
+              }
+
+              // TODO: check for type of uri redirectable with makeContextualHref
+              push(makeContextualHref(uri, replacedParams), {
+                pathname: uri,
+                query: replacedParams,
+              })
+            } else push(makeContextualHref(uri))
+          }
+        } catch (e) {
+          console.log('Internal Redirection error', e)
+        }
       }
     }
     case ActionType.EXTERNAL_REDIRECT: {

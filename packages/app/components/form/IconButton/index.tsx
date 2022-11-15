@@ -1,5 +1,6 @@
 import Icon, { IconComponentProps } from 'app/components/Icon'
 import BouncePressable from 'app/pressable/BouncePressable'
+import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import { styled, SxProp } from 'dripsy'
 
 interface IIconButtonProps {
@@ -26,7 +27,7 @@ const IconButton = ({
   if (color) iconOverride.color = color
 
   return (
-    <StyledMotiPressable
+    <TouchableOpacity
       disabled={disabled || loading}
       onPress={onPress}
       size={size}
@@ -34,7 +35,7 @@ const IconButton = ({
       {...rest}
     >
       <Icon {...iconOverride} />
-    </StyledMotiPressable>
+    </TouchableOpacity>
   )
 }
 
