@@ -79,9 +79,8 @@ const VerificationForm = ({
         contactNumber: '84' + values.contactNumber,
       }).unwrap()
 
-      OTPRef.current?.startOtpTimer()
-
       if (success) {
+        OTPRef.current?.startOtpTimer()
         Toast.show({ type: 'success', text1: message })
       }
     } catch (error) {
