@@ -28,6 +28,7 @@ import { SheetManager } from 'react-native-actions-sheet'
 import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useDispatch } from 'react-redux'
+import { Shield_Action } from 'services/authApi.type'
 import { usePlayerBankQuery } from 'services/bank'
 import { PlayerBankResult } from 'services/bank.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
@@ -123,7 +124,7 @@ const WithdrawalPage = () => {
 
       if (success) {
         if (playerData?.username) {
-          syncShield()
+          syncShield(Shield_Action.WITHDRAWAL)
         }
         Toast.show({ type: 'success', text1: message })
         actions.resetForm()

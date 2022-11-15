@@ -11,11 +11,11 @@ import { useDispatch } from 'react-redux'
 const Shield = () => {
   const dispatch = useDispatch()
 
-  const { autoSyncShield } = useShield()
+  // const { autoSyncShield } = useShield()
 
-  useEffect(() => {
-    autoSyncShield()
-  }, [autoSyncShield])
+  // useEffect(() => {
+  //   autoSyncShield()
+  // }, [autoSyncShield])
 
   useEffect(() => {
     ShieldFD.initShield(

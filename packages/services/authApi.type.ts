@@ -3,6 +3,11 @@ export enum Shield_Platform {
   APP = 'APP',
 }
 
+export enum Shield_Action {
+  LOGIN = 'login',
+  REGISTER = 'register',
+  WITHDRAWAL = 'withdrawal',
+}
 export interface LoginQueryArgs {
   username: string
   password: string
@@ -64,6 +69,7 @@ export interface PasswordRecoveryQeuryArgs {
 }
 
 export interface UpdateShieldQueryArgs {
+  action_type: Shield_Action
   platform: Shield_Platform
   session_id: string
 }

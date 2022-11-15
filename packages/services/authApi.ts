@@ -95,9 +95,10 @@ export const authApi = baseApiWithTag.injectEndpoints({
       }),
     }),
     updateShield: builder.mutation<IResponse<void>, UpdateShieldQueryArgs>({
-      query: ({ platform, session_id }) => ({
+      query: ({ action_type, platform, session_id }) => ({
         url: `/player_api/updateShield`,
         data: {
+          action_type,
           platform,
           session_id,
         },

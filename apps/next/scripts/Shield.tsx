@@ -14,11 +14,11 @@ declare global {
 export default function Shield() {
   const dispatch = useAppDispatch()
 
-  const { autoSyncShield } = useShield()
+  // const { autoSyncShield } = useShield()
 
-  useEffect(() => {
-    autoSyncShield()
-  }, [autoSyncShield])
+  // useEffect(() => {
+  //   autoSyncShield()
+  // }, [autoSyncShield])
 
   return (
     <Script
