@@ -25,6 +25,7 @@
     "android": "cd apps/expo && yarn android",
     "web": "APP_ENV=prod yarn workspace next-app dev",
     "web:staging": "cd apps/next && APP_ENV=stag yarn next",
+    "web:pre": "cd apps/next && APP_ENV=pre yarn next",
     "plus": "yarn lernaupdate --lazy",
     "reset": "find . -type dir -name node_modules | xargs rm -rf && rm -rf yarn.lock",
     "copy-assets": "node ./apps/next/scripts/copy-assets.js",
