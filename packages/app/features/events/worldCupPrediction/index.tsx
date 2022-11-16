@@ -6,8 +6,10 @@ import useAlert from 'app/hooks/useAlert'
 import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import useLocalization from 'app/provider/localization'
 import { ActivityIndicator, Text, View } from 'dripsy'
-import { useState } from 'react'
+import uniq from 'lodash/uniq'
+import { useMemo, useState } from 'react'
 import { IResponse } from 'services/common/types'
+import { useGetRecoMatchQuery } from 'services/contentApi'
 import { useWcPredictMutation, useWcTicketCountQuery } from 'services/eventApi'
 import PredictionHeader from './PredictionHeader'
 
@@ -46,7 +48,6 @@ const FifaTeams = {
   '18958': 'Mexico',
 }
 
-const playingTeams = ['18955', '7078']
 const WorldCupPrediction = () => {
   const [predict, { isLoading: isSubmitting }] = useWcPredictMutation()
   const { predictCount, isFetching } = useWcTicketCountQuery(undefined, {
@@ -57,6 +58,35 @@ const WorldCupPrediction = () => {
   const maxWidth = 600
   const colSize = Math.min(Math.floor(maxWidth / 4), 90)
   const { showAlert } = useAlert()
+
+  const { matches } = useGetRecoMatchQuery(undefined, {
+    selectFromResult: (s) => {
+      const matches = s.data?.data?.rows
+
+      return {
+        ...s,
+        matches,
+      }
+    },
+  })
+
+  const playingTeams = useMemo(() => {
+    if (matches) {
+      let teams = [] as string[]
+      if (matches) {
+        matches.forEach((m) => {
+          teams.push(m.HomeKey.toString())
+          teams.push(m.AwayKey.toString())
+        })
+
+        teams = uniq(teams)
+      }
+
+      console.log('teams', teams, teams.length)
+
+      return teams
+    }
+  }, [matches])
 
   async function onPredict() {
     if (selected) {
@@ -129,7 +159,8 @@ const WorldCupPrediction = () => {
       >
         {Object.keys(FifaTeams).map((k) => {
           const active = selected === k
-          const available = predictCount && true // playingTeams.includes(k)
+          const available =
+            predictCount && playingTeams && playingTeams.includes(k)
           return (
             <TouchableOpacity
               onPress={() => setSelected(k)}

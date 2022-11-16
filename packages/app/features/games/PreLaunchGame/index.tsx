@@ -237,7 +237,7 @@ function useGameLauncher(gameLauncherState: LaunchGamePayload) {
         paramsToAppend = urlParams.toString()
       }
 
-      const url = data?.url + paramsToAppend
+      const url = `${data?.url}&${paramsToAppend}`
 
       if (url) {
         dispatch(SettingActions.addRecentGame({ ...gameLauncherState }))
