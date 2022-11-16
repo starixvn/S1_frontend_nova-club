@@ -1,5 +1,6 @@
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import { useAppSelector } from 'app/provider/redux/store'
+import dayjsTz from 'app/utils/dayjs'
 import dayjs from 'dayjs'
 import React, { useEffect } from 'react'
 import { useModal } from 'react-native-modalfy'
@@ -14,7 +15,7 @@ const Prediction = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      dayjs().isBefore(dayjs('2022-12-12')) &&
+      dayjs().isBefore(dayjsTz('2022-12-13')) &&
         openModal('PredictionModal', { onPress: handleNavigate })
     }, 100)
   }, [])
