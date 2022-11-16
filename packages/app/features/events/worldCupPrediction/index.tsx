@@ -194,7 +194,7 @@ const WorldCupPrediction = () => {
                       width: '100%',
                       height: '100%',
                       borderRadius: 200,
-                      borderWidth: 1,
+                      borderWidth: 2,
                       borderColor: available ? 'white' : 'transparent',
                       overflow: 'hidden',
                     }}
