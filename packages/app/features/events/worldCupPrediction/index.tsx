@@ -82,8 +82,6 @@ const WorldCupPrediction = () => {
         teams = uniq(teams)
       }
 
-      console.log('teams', teams, teams.length)
-
       return teams
     }
   }, [matches])
@@ -207,6 +205,7 @@ const WorldCupPrediction = () => {
                         )}.png`,
                       }}
                       sx={{
+                        borderRadius: 200,
                         width: '100%',
                         height: '100%',
                       }}

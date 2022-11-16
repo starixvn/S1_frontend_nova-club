@@ -45,7 +45,7 @@ const ProfileLanguage = ({ isAuthRequired = true }: ProfileLanguageProps) => {
 
       if (success) {
         setLanguage(value)
-        baseApiWithTag.util.invalidateTags(['Announcement'])
+        // baseApiWithTag.util.invalidateTags(['Announcement'])
       }
     } catch (e) {
       console.error(e)

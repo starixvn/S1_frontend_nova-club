@@ -14,7 +14,6 @@ type IconActionProps = {
 }
 
 const ProfileAction = ({ isCreditMember }) => {
-  console.log('isCreditMember', isCreditMember)
   const { push } = useRouter()
 
   const { makeContextualHref } = useContextualRouting()

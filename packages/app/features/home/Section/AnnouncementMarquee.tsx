@@ -8,6 +8,7 @@ import { ActivityIndicator, styled, View } from 'dripsy'
 import { useEffect, useState } from 'react'
 import { TouchableOpacity, useWindowDimensions } from 'react-native'
 import { useRouter } from 'solito/router'
+import { useAppSelector } from 'app/provider/redux/store'
 
 interface MarqueeItem<T> {
   label: number
@@ -21,8 +22,9 @@ const AnnouncementMarquee = () => {
   const toMessages = makeContextualHref('messages', {
     tab: 1,
   })
+  const locale = useAppSelector((s) => s.setting.locale)
   const { width } = useWindowDimensions()
-  const { data, isSuccess, isUninitialized } = useAnnouncementQuery()
+  const { data, isSuccess, isUninitialized } = useAnnouncementQuery(locale)
   const [marquees, setMarquees] = useState<
     MarqueeItem<AnnouncementListItems>[]
   >([])

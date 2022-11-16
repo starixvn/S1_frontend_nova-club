@@ -44,11 +44,13 @@ export const contentApi = baseApiWithTag.injectEndpoints({
       }),
     }),
     announcement: builder.query<IResponse<AnnouncementResult>, void>({
-      query: () => ({
+      query: (lang) => ({
         url: `/static_api/announcement`,
         method: 'GET',
       }),
-      providesTags: ['Announcement'],
+      providesTags: (result, error, arg) => {
+        return [{ type: 'Announcement', lang: arg }]
+      },
     }),
     gameList: builder.query<IResponse<GameConfig[]>, GameListQueryArgs>({
       query: (data) => ({
