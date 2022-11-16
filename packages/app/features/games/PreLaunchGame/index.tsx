@@ -191,6 +191,7 @@ function useGameLauncher(gameLauncherState: LaunchGamePayload) {
     gameCode,
     gameName,
     desktopMode = false,
+    params,
   } = gameLauncherState
 
   async function _launchPT() {
@@ -230,7 +231,13 @@ function useGameLauncher(gameLauncherState: LaunchGamePayload) {
         cashier_url: `${DEV_DOMAIN}/deposit`,
       }).unwrap()
 
-      const url = data?.url
+      let paramsToAppend = ''
+      if (params) {
+        const urlParams = new URLSearchParams(params)
+        paramsToAppend = urlParams.toString()
+      }
+
+      const url = data?.url + paramsToAppend
 
       if (url) {
         dispatch(SettingActions.addRecentGame({ ...gameLauncherState }))

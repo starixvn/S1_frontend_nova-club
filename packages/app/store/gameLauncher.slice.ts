@@ -8,6 +8,7 @@ export interface LaunchGamePayload {
   desktopMode?: boolean
   image?: string
   gameType?: GAME_TYPE_CODE
+  params?: Record<string, string> // Params will turn to query parameters, it must be casted to string
 }
 export type GameLauncherState = LaunchGamePayload & {}
 // export const DomainListHintPostfix = '-DomainListHint'

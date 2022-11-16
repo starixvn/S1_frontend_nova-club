@@ -1,13 +1,22 @@
 import Image from 'app/components/common/Image'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useInterval from 'app/hooks/useInterval'
+import TouchableOpacity from 'app/pressable/TouchableOpacity'
+import { GameLauncherActions } from 'app/store/gameLauncher.slice'
+import { ActionType, getAction } from 'app/utils/actionGenerator'
 import dayjsTz from 'app/utils/dayjs'
+import dayjs from 'dayjs'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { styled, Text, View } from 'dripsy'
 import { AnimatePresence, motify } from 'moti'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { ImageBackground, StyleSheet } from 'react-native'
-import { useMatchesQuery } from 'services/matchApi'
-import { Match } from 'services/matchApi.type'
+import { useDispatch } from 'react-redux'
+import { useGetRecoMatchQuery } from 'services/contentApi'
+import { Game, Match } from 'services/contentApi.type'
+import FifaTeam from '../../../config/fifa'
+
+dayjs.extend(customParseFormat)
 
 const animationState = {
   from: { translateY: -50 },
@@ -18,12 +27,13 @@ const animationState = {
 const MatchesSection = () => {
   const { width } = useContainerDimension()
   const [activeIndex, setActiveIndex] = useState<number>(0)
+  const dispatch = useDispatch()
 
-  const { matches, data } = useMatchesQuery(undefined, {
+  const { matches } = useGetRecoMatchQuery(undefined, {
     selectFromResult: (s) => {
       return {
         ...s,
-        matches: s.data ? s.data.filter((s) => s.home_team_country) : undefined,
+        matches: s.data?.data?.rows,
       }
     },
   })
@@ -41,20 +51,52 @@ const MatchesSection = () => {
     matches && matches.length > 0 ? 6000 : null
   )
 
+  const onPress = (match: Match) => {
+    const launchAction = {
+      type: ActionType.GAME,
+      payload: {
+        gc: '1',
+        name: {
+          en: 'SABA Sports',
+          vi: 'SABA Sports',
+        },
+        gtc: 'sports',
+        img: 'https://static-stage.gball8.com/nvclub/sbe/cms/game/saba/sport-saba_1659947637.png',
+        gpc: 'SABA',
+        tags: [],
+        params: {
+          leaguekey: match.LeagueId.toString(),
+          matchid: match.selection?.x?.MarketID.toString(),
+        },
+      } as Game,
+    }
+
+    getAction(launchAction)()
+  }
+
   return (
     <ImageBackground
-      style={{ width: '100%', height: width / 2.56, alignItems: 'center' }}
+      style={{ width: '100%', height: width / 2.56 }}
       source={require('../../../assets/images/home/matches-bg.jpg')}
     >
-      {selectedMatch && <MatchItem match={selectedMatch} />}
+      {selectedMatch && (
+        <TouchableOpacity
+          onPress={() => onPress(selectedMatch)}
+          sx={{ width: '100%', height: '100%', alignItems: 'center' }}
+        >
+          <MatchItem match={selectedMatch} />
+        </TouchableOpacity>
+      )}
     </ImageBackground>
   )
 }
 
 const MatchItem = ({ match }: { match: Match }) => {
-  const date = dayjsTz(match.datetime)
-  const homeFlag = getFlagPath(match.home_team.name)
-  const awayFlag = getFlagPath(match.away_team.name)
+  const date = dayjsTz(
+    dayjs(match.globalshowtime, 'MM/DD hh:mmA').tz('Asia/Hong_Kong')
+  )
+  const homeFlag = FifaTeam[match.HomeKey]
+  const awayFlag = FifaTeam[match.AwayKey]
 
   const { width } = useContainerDimension()
   const nameFontSize = width * 0.03
@@ -71,9 +113,10 @@ const MatchItem = ({ match }: { match: Match }) => {
       }}
     >
       <MatchCol
-        name={match.home_team.name}
+        name={match.HomeName}
         image={homeFlag}
         nameFontSize={nameFontSize}
+        odd={match.selection['1'].Price}
       />
       <View sx={{ width: '26%' }}>
         <View
@@ -98,17 +141,21 @@ const MatchItem = ({ match }: { match: Match }) => {
             </TimeLabel>
           </AnimatePresence>
         </View>
+        <View sx={{ mt: '60%', height: '7.5%', overflow: 'hidden' }}>
+          <OddLabel>{match.selection.x.Price}</OddLabel>
+        </View>
       </View>
       <MatchCol
-        name={match.away_team.name}
+        name={match.AwayName}
         image={awayFlag}
         nameFontSize={nameFontSize}
+        odd={match.selection['2'].Price}
       />
     </View>
   )
 }
 
-const MatchCol = ({ image, name, nameFontSize }) => {
+const MatchCol = ({ image, name, nameFontSize, odd }) => {
   return (
     <View
       sx={{
@@ -126,7 +173,6 @@ const MatchCol = ({ image, name, nameFontSize }) => {
       >
         <Flag image={image} />
       </View>
-
       <View
         sx={{
           height: '11%',
@@ -144,6 +190,15 @@ const MatchCol = ({ image, name, nameFontSize }) => {
             {name}
           </CountryLabel>
         </AnimatePresence>
+      </View>
+      <View
+        sx={{
+          height: '6%',
+          mt: '3%',
+          justifyContent: 'center',
+        }}
+      >
+        <OddLabel>{odd}</OddLabel>
       </View>
     </View>
   )
@@ -182,6 +237,13 @@ const Flag = ({ image }) => {
     </View>
   )
 }
+
+const OddLabel = styled(Text)({
+  fontSize: 11,
+  textAlign: 'center',
+  color: 'black',
+  fontWeight: 'bold',
+})
 
 const TimeLabel = styled(motify(Text)())({
   color: '#660032',

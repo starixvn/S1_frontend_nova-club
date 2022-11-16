@@ -4,7 +4,7 @@ import authReducer, { authInitialState, AuthState } from 'app/store/authReducer'
 import bankReducer from 'app/store/bankReducer'
 import { depositReducer } from 'app/store/deposit.slice'
 import { gameLauncherReducer } from 'app/store/gameLauncher.slice'
-import { settingReducer } from 'app/store/setting.slice'
+import { Setting, settingReducer } from 'app/store/setting.slice'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import {
   createMigrate,
@@ -15,7 +15,6 @@ import {
   persistStore,
 } from 'redux-persist'
 import { baseApi } from 'services/baseApi'
-import { matchApi } from 'services/matchApi'
 import { storage } from './persistStorage/index'
 
 const migrations = {
@@ -59,11 +58,10 @@ const persistConfig: PersistConfig<any> = {
   ],
 }
 
-const middlerwares = [baseApi.middleware, matchApi.middleware]
+const middlerwares = [baseApi.middleware]
 
 const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
-  [matchApi.reducerPath]: matchApi.reducer,
   alert: alertReducer,
   auth: authReducer,
   bank: bankReducer,

@@ -89,6 +89,7 @@ export interface Game {
   name: Record<LANGUAGE_CODE, string> | string
   tags: string[]
   gdc_cat?: string
+  params?: Record<string, string>
 }
 
 export interface GetGameListResult {
@@ -99,4 +100,40 @@ export interface GetGameListResult {
 export interface JackpotAmountResult {
   increment: string
   jackpotAmount: string
+}
+
+export interface Match {
+  AwayKey: number
+  AwayLang: string
+  AwayName: string
+  EventId: number
+  HomeKey: number
+  HomeLang: string
+  HomeName: string
+  LeagueId: number
+  LeagueLang: string
+  LeagueName: string
+  MarketType: string
+  SportID: number
+  globalshowtime: string
+  selection: {
+    1: MatchOdd
+    2: MatchOdd
+    x: MatchOdd
+  }
+}
+
+export interface MatchOdd {
+  MarketID: number
+  Point: string
+  PointOri: number
+  Point_text: string
+  Price: string
+  PriceOri: number
+  Price_type: string
+}
+
+export interface MatchResult {
+  row_count_total: number
+  rows: Match[]
 }
