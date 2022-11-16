@@ -5,7 +5,7 @@ const TncEn = () => {
     <div>
       <h2>VUI123 FIFA WORLD CUP QATAR 2022 WINNER PREDICTIONS</h2>
       <p>
-        Campaign Period: 21 November 2022 – 12 December 2022
+        Campaign Period: 18 November 2022 – 13 December 2022
         <br /> Last submission date: 13 December 2022
         <br /> Lucky Draw result announcement: 22 December 2022
       </p>
@@ -26,10 +26,10 @@ const TncEn = () => {
           will be given 2 tickets for prediction.
         </li>
         <li>
-          If you make deposit everyday from 21 Nov 2022 to 12 Dec 2022, you will
-          be given a total of 22 of tickets for submission.
+          If you make deposit everyday from 18 Nov 2022 to 13 Dec 2022, you will
+          be given a total of 26 tickets for submission.
         </li>
-        <li>Each deposited account will be given max1 ticket per day only.</li>
+        <li>Each deposited account will be given max 1 ticket per day only.</li>
       </ol>
 
       <br />
@@ -38,9 +38,7 @@ const TncEn = () => {
       </div>
       <ol>
         <li>Predict the FIFA WORLD CUP 2022 Champion!</li>
-        <li>
-          All tickets need to be submitted before 13 December 2022, 12pm (GMT+7)
-        </li>
+        <li>All tickets need to be submitted by 13 December 2022</li>
         <li>
           If the team you predicted became Champion, you will be entitled to
           enroll our lucky draw.
@@ -59,12 +57,21 @@ const TncEn = () => {
       </ol>
 
       <br />
+      <strong>Lucky Draw Prizes</strong>
+      <ol>
+        <li>5 x iPhone 14 Pro (512GB)</li>
+        <li>10 x VND2,000,000 Cash</li>
+        <li>20 x VND1,000,000 Cash</li>
+      </ol>
+      <br />
 
       <div>
         <strong>Terms & Conditions</strong>
       </div>
       <ol>
-        <li>This Campaign is open for ALL Vui123’s players.</li>
+        <li>This Campaign is open for ALL Vui123’s players</li>
+        <li>All cash prizes will be credited to player's wallet</li>
+        <li>All cash prizes are subject to 1x rollover condition</li>
         <li>
           Vui123 reserves the right to amend or withdraw the event at any time
         </li>

@@ -15,7 +15,7 @@ const Prediction = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      dayjs().isBefore(dayjs('2022-12-14T00:00:00+07')) &&
+      dayjs().isBefore(dayjs('2022-12-14T00:00:00+07:00')) &&
         openModal('PredictionModal', { onPress: handleNavigate })
     }, 1000)
   }, [])

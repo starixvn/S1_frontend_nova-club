@@ -34,7 +34,7 @@ const PredictionModal = ({ modal: { closeModal, getParam } }) => {
           <>
             <Image
               source={{
-                uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/wc/wc-prediction.png`,
+                uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/wc/wc-prediction.png?v=1`,
               }}
               style={{
                 flex: 1,

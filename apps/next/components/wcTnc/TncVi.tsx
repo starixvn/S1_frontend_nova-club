@@ -5,7 +5,7 @@ const TncVi = () => {
     <div>
       <h2>TRỞ THÀNH THÁNH DỰ ĐOÁN FIFA WORLD CUP QATAR 2022</h2>
       <p>
-        Thời gian: 21 tháng 11 2022 – 12 tháng 12 2022
+        Thời gian: 18 tháng 11 2022 – 13 tháng 12 2022
         <br /> Ngày gửi vé dự đoán cuối: 13 tháng 12 2022
         <br /> Ngày công bố kết quả Rút thăm may mắn: 22 tháng 12 2022
       </p>
@@ -26,8 +26,8 @@ const TncVi = () => {
           dự đoán.
         </li>
         <li>
-          Nếu nạp tiền mỗi ngày từ 21/11 - 12/12/2022, bạn sẽ nhận được tổng
-          cộng 22 vé dự đoán.
+          Nếu nạp tiền mỗi ngày từ 18/11/2022 - 13/12/2022, bạn sẽ nhận được
+          tổng cộng 26 vé dự đoán.
         </li>
         <li>Mỗi tài khoản chỉ được nhận tối đa 1 vé dự đoán/ngày.</li>
       </ol>
@@ -39,10 +39,7 @@ const TncVi = () => {
       </div>
       <ol>
         <li>Dự đoán nhà vô địch FIFA WORLD CUP 2022!</li>
-        <li>
-          Tất cả các vé dự đoán phải được gửi trước 12pm (GMT+7), ngày
-          13/12/2022
-        </li>
+        <li>Tất cả các vé dự đoán phải được gửi trước ngày 13/12/2022</li>
         <li>
           Nếu đội bạn chọn trở thành nhà vô địch, bạn sẽ được tham gia vòng rút
           thăm may mắn.
@@ -61,12 +58,23 @@ const TncVi = () => {
       </ol>
 
       <br />
+      <strong>giải thưởng</strong>
+      <ol>
+        <li>5 giải iphone 14 Pro (512GB)</li>
+        <li>10 giải thưởng tiền mặt : 2,000,000 VNĐ</li>
+        <li>20 giải thưởng tiền mặt : 1,000,000 VNĐ</li>
+      </ol>
+      <br />
 
       <div>
         <strong>Điều khoản & Điều kiện</strong>
       </div>
       <ol>
         <li>Khuyến mãi này dành cho tất cả người chơi của Vui123.</li>
+        <li>Giải thưởng tiền mặt sẽ được ghi có trong ví của người chơi.</li>
+        <li>
+          Giải thưởng tiền mặt cần trải qua một vòng cược trước khi rút tiền.
+        </li>
         <li>Vui123 có quyền hoãn và hủy Khuyến Mãi bất cứ lúc nào.</li>
         <li>
           Vui123 có quyền đưa ra quyết định duy nhất và quyết định của Vui123 là
