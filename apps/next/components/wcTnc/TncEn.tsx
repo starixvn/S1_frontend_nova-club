@@ -59,7 +59,11 @@ const TncEn = () => {
       <br />
       <strong>Lucky Draw Prizes</strong>
       <ol>
-        <li>5 x iPhone 14 Pro (512GB)</li>
+        <li>1 x VND150,000,000 Cash</li>
+        <li>1 x VND100,000,000 Cash</li>
+        <li>10 x iPhone 14 Pro Max (256 GB)</li>
+        <li>20 x apple watch 8</li>
+        <li>30 x air pods pro</li>
         <li>10 x VND2,000,000 Cash</li>
         <li>20 x VND1,000,000 Cash</li>
       </ol>

@@ -58,11 +58,15 @@ const TncVi = () => {
       </ol>
 
       <br />
-      <strong>giải thưởng</strong>
+      <strong>Giải thưởng Rút thăm may mắn</strong>
       <ol>
-        <li>5 giải iphone 14 Pro (512GB)</li>
-        <li>10 giải thưởng tiền mặt : 2,000,000 VNĐ</li>
-        <li>20 giải thưởng tiền mặt : 1,000,000 VNĐ</li>
+        <li>Giải nhất: 150,000,000 VNĐ</li>
+        <li>Giải nhì: 100,000,000 VNĐ</li>
+        <li>10 giải iPhone 14 Pro Max (256GB)</li>
+        <li>20 giải Apple Watch 8</li>
+        <li>30 giải Airpod Pro</li>
+        <li>10 giải tiền mặt : 2,000,000 VNĐ</li>
+        <li>20 giải tiền mặt : 1,000,000 VNĐ</li>
       </ol>
       <br />
 
