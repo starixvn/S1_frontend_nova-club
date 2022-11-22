@@ -259,6 +259,6 @@ export const createFileName = (extension = '', ...names) => {
 }
 
 export function isBannedTrackingCode(tc?: string) {
-  const bannerCode = ['guzmtvf72', 'wyza958413']
+  const bannerCode = ['guzmtvf72', 'wyza958413', 'zmla227708', 'kqvvodl2w']
   return !tc ? false : bannerCode.includes(tc.toLowerCase())
 }
