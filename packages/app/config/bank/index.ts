@@ -182,7 +182,6 @@ export const getBankLogo = (bankCode: string) => {
     .trim()
     .replace(/\s+/g, '-')}.jpg`
 
-  console.log('get bank url ', bankUrl)
   return bankUrl
   // try {
   //   const logo = BankLogo.find(
