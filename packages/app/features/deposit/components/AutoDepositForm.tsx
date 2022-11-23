@@ -112,7 +112,7 @@ const AutoDepositForm = ({ module, DepositCategoryId }) => {
       if (result?.success) {
         const params = {
           title: depositPayment?.category_text,
-          depositUrl: result?.data?.url,
+          depositUrl: encodeURIComponent(result?.data?.url),
         }
 
         push(makeContextualHref('deposit-loader', params), {

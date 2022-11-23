@@ -10,7 +10,7 @@ const DepositLoaderScreen = () => {
   const [depositUrl] = useParam('depositUrl', { initial: '' })
   const [title] = useParam('title')
 
-  const url = depositUrl && decodeURIComponent(depositUrl)
+  const url = depositUrl // decodeURIComponent(depositUrl)
 
   return (
     <PageWithBackHeader header={{ title: title }} disableScrollView>
