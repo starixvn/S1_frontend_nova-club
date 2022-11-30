@@ -2,14 +2,13 @@ import Image from 'app/components/common/Image'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useInterval from 'app/hooks/useInterval'
 import TouchableOpacity from 'app/pressable/TouchableOpacity'
-import { GameLauncherActions } from 'app/store/gameLauncher.slice'
 import { ActionType, getAction } from 'app/utils/actionGenerator'
 import dayjsTz from 'app/utils/dayjs'
-import dayjs from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { styled, Text, View } from 'dripsy'
 import { AnimatePresence, motify } from 'moti'
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import { ImageBackground, StyleSheet } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { useGetRecoMatchQuery } from 'services/contentApi'
@@ -92,16 +91,25 @@ const MatchesSection = () => {
 }
 
 const MatchItem = ({ match }: { match: Match }) => {
-  const date = dayjsTz(
-    dayjs(match.globalshowtime, 'MM/DD hh:mmA').tz('Asia/Hong_Kong')
-  )
+  const gmt8 = dayjs.tz(match.globalshowtime, 'MM/DD hh:mmA', 'Asia/Hong_Kong')
+  let gmt7: Dayjs
+
+  try {
+    gmt7 = dayjsTz(gmt8)
+  } catch (e) {
+    // Android Hermes will hit error if using dayjsTz
+    console.log('gmt7 error', e)
+  }
   const homeFlag = FifaTeam[match.HomeKey]
   const awayFlag = FifaTeam[match.AwayKey]
 
   const { width } = useContainerDimension()
   const nameFontSize = width * 0.03
 
-  const dateDisplay = date.format('DD MMM YYYY') + '\n' + date.format('hh:mmA')
+  const dateDisplay =
+    gmt7 && gmt7.isValid()
+      ? gmt7.format('DD MMM YYYY') + '\n' + gmt7.format('hh:mmA')
+      : ''
   const oddFontSize = width * 0.02
 
   return (
@@ -144,7 +152,12 @@ const MatchItem = ({ match }: { match: Match }) => {
           </AnimatePresence>
         </View>
         <View sx={{ mt: '61%', height: '7.5%', overflow: 'hidden' }}>
-          <OddLabel sx={{ fontSize: oddFontSize }}>
+          <OddLabel
+            sx={{
+              fontSize: oddFontSize,
+              lineHeight: oddFontSize * 1.4,
+            }}
+          >
             {match.selection.x.Price}
           </OddLabel>
         </View>
@@ -190,7 +203,7 @@ const MatchCol = ({ image, name, nameFontSize, odd, oddFontSize }) => {
           <CountryLabel
             key={name}
             {...animationState}
-            sx={{ fontSize: nameFontSize }}
+            sx={{ fontSize: nameFontSize, lineHeight: nameFontSize * 1.2 }}
           >
             {name}
           </CountryLabel>
@@ -203,7 +216,9 @@ const MatchCol = ({ image, name, nameFontSize, odd, oddFontSize }) => {
           justifyContent: 'center',
         }}
       >
-        <OddLabel sx={{ fontSize: oddFontSize }}>{odd}</OddLabel>
+        <OddLabel sx={{ fontSize: oddFontSize, lineHeight: oddFontSize * 1.2 }}>
+          {odd}
+        </OddLabel>
       </View>
     </View>
   )

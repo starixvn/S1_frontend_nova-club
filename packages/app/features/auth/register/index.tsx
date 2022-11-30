@@ -78,32 +78,38 @@ const RegisterPage = () => {
       - freespin should be disabled on Web
     */
     if (data && Platform.OS !== 'web') {
+      function setLuckySpinAndNavigate() {
+        try {
+          if (data?.wheel_info?.totalSpin) {
+            dispatch(
+              SettingActions.setLuckyDrawBalance(
+                Number(data?.wheel_info?.totalSpin)
+              )
+            )
+          }
+        } catch (e) {
+          console.log('Error setting total spin')
+        } finally {
+          replace({
+            pathname: '/',
+          })
+        }
+      }
+
       if ('note' in data) {
         const note = data.note
-
-        setTimeout(() => {
-          openModal('AlertModal', {
-            message: note,
-          })
-        }, 1000)
+        openModal('AlertModal', {
+          message: note,
+          onClose: () => setLuckySpinAndNavigate(),
+        })
+      } else {
+        setLuckySpinAndNavigate()
       }
-
-      try {
-        if (data?.wheel_info?.totalSpin) {
-          dispatch(
-            SettingActions.setLuckyDrawBalance(
-              Number(data?.wheel_info?.totalSpin)
-            )
-          )
-        }
-      } catch (e) {
-        console.log('Error setting total spin')
-      }
+    } else {
+      replace({
+        pathname: '/',
+      })
     }
-
-    replace({
-      pathname: '/',
-    })
   }
 
   const onSubmit = async (
@@ -115,7 +121,7 @@ const RegisterPage = () => {
       terms,
       contactNumber,
     }: RegisterFormValues,
-    actions: FormikHelpers<RegisterFormValues>
+    { setStatus }: FormikHelpers<RegisterFormValues>
   ) => {
     try {
       setIsSubmitting(true)
@@ -144,9 +150,10 @@ const RegisterPage = () => {
       if (success) {
         syncShield(Shield_Action.REGISTER)
         dispatch(AuthActions.setAuthInfo(data as LoginResult))
-        actions.resetForm()
 
         normalLogin(username, password, () => handleOnSuccessRegister(data))
+        /* to indicate the register is successfull and used to persist loading on submit button */
+        setStatus(true)
       }
     } catch (error) {
       showAlert(error)

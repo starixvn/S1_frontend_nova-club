@@ -73,6 +73,5 @@
     "utils": "*",
     "yup": "^0.32.11"
   },
-  "sideEffects": false,
-  "devDependencies": {}
+  "sideEffects": false
 }

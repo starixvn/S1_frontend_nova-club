@@ -233,6 +233,7 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
           <Button
             sx={{ mt: '$4' }}
             containerStyle={{ alignSelf: 'stretch' }}
+            loading={formik.isSubmitting || formik.status}
             onPress={onSubmit}
           >
             <Button.Label>{t('auth.register')}</Button.Label>
