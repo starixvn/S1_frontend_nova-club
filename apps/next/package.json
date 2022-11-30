@@ -14,7 +14,7 @@
     "@next/bundle-analyzer": "^12.2.2",
     "@sentry/nextjs": "^7.7.0",
     "app": "*",
-    "branch-sdk": "^2.63.0",
+    "branch-sdk": "2.64.0",
     "expo-font": "10.0.5",
     "framer-motion": "^6.3.10",
     "htmlparser2": "^8.0.1",
