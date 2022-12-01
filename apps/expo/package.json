@@ -8,7 +8,7 @@
     "@react-native-firebase/crashlytics": "14.11.1",
     "@react-native-firebase/firestore": "14.11.1",
     "@react-native-firebase/messaging": "14.11.1",
-    "@sentry/react-native": "3.4.3",
+    "@sentry/react-native": "3.4.2",
     "@sentry/wizard": "1.2.17",
     "@shopify/flash-list": "1.2.2",
     "app": "*",
