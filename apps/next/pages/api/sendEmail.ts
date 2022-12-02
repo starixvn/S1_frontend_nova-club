@@ -1,31 +1,44 @@
-const sgMail = require('@sendgrid/mail')
-sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function handler(req, res) {
-  const { name, email } = req.param
-  const msg = {
-    to: 'test@example.com',
-    from: email,
-    subject: 'Applying for VUI123 Agent',
+const nodemailer = require('nodemailer')
 
-    text: 'and easy to do anywhere, even with Node.js',
-    html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-  }
-  //ES6
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   try {
-    const resp = await sgMail.send(msg)
-    console.log('email sent')
+    if (req.method === 'POST') {
+      const { name, email, phone } = req.body
+      // create reusable transporter object using the default SMTP transport
+      let transporter = nodemailer.createTransport({
+        host: 'mail.gandi.net',
+        port: 587,
+        secure: false, // true for 465, false for other ports
+        auth: {
+          user: 'business@vui123.net', // generated ethereal user
+          pass: '!!Welcome123!!', // generated ethereal password
+        },
+      })
 
-    res
-      .status(200)
-      .json({ status: 0, message: 'Successfully submitted your request' })
-  } catch (e) {
-    console.error(e)
+      // send mail with defined transport object
+      let info = await transporter.sendMail({
+        from: 'business@vui123.net', // sender address
+        to: 'contact@vui123.net, wilsonlimcrr@gmail.com, mobile.beacora@gmail.com', // list of receivers
+        subject: 'New Agent Application', // Subject line
+        text: `Name : ${name}\nPhone : ${phone}\nEmail : ${email}`, // plain text body
+      })
 
-    if (e?.response) {
-      console.error(e?.response.body)
+      console.log('Message sent: %s', info.messageId)
+      // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+      // Preview only available when sending through an Ethereal account
+      res.status(200).json({ success: true, message: 'Email sent' })
+      // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+    } else {
+      res.status(404)
     }
-
-    res.status(200).json({ status: 0, message: 'System Error' })
+  } catch (e) {
+    console.warn('Sending Email Error', e)
+    res.status(500).json({ success: false, message: 'System error' })
   }
 }

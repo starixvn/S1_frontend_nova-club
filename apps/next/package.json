@@ -24,6 +24,7 @@
     "next-fonts": "^1.5.1",
     "next-images": "^1.8.4",
     "next-videos": "1.5.0",
+    "nodemailer": "^6.8.0",
     "raf": "^3.4.1",
     "react-merge-refs": "^2.0.0"
   },
