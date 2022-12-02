@@ -23,7 +23,7 @@ export default async function handler(
       // send mail with defined transport object
       let info = await transporter.sendMail({
         from: 'business@vui123.net', // sender address
-        to: 'contact@vui123.net, wilsonlimcrr@gmail.com, mobile.beacora@gmail.com', // list of receivers
+        to: 'contact@vui123.net, mobile.beacora@gmail.com', // list of receivers
         subject: 'New Agent Application', // Subject line
         text: `Name : ${name}\nPhone : ${phone}\nEmail : ${email}`, // plain text body
       })
