@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import NextCors from 'nextjs-cors'
 
 const nodemailer = require('nodemailer')
 
@@ -7,6 +8,13 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
+    await NextCors(req, res, {
+      // Options
+      methods: ['PUT', 'POST'],
+      origin: '*',
+      optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+    })
+
     if (req.method === 'POST') {
       const { name, email, phone } = req.body
       // create reusable transporter object using the default SMTP transport
@@ -32,13 +40,18 @@ export default async function handler(
       // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
       // Preview only available when sending through an Ethereal account
-      res.status(200).json({ success: true, message: 'Email sent' })
+      res
+        .status(200)
+        .json({ success: true, message: 'Đăng ký đã được ghi nhận' })
       // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
     } else {
       res.status(404)
     }
   } catch (e) {
     console.warn('Sending Email Error', e)
-    res.status(500).json({ success: false, message: 'System error' })
+    res.status(500).json({
+      success: false,
+      message: 'Rất tiếc! Đã xảy ra lỗi, vui lòng thử lại.',
+    })
   }
 }
