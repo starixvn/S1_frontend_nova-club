@@ -5,6 +5,7 @@ import bankReducer from 'app/store/bankReducer'
 import { depositReducer } from 'app/store/deposit.slice'
 import { gameLauncherReducer } from 'app/store/gameLauncher.slice'
 import { Setting, settingReducer } from 'app/store/setting.slice'
+import { tempSettingReducer } from 'app/store/tempSetting.slice'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import {
   createMigrate,
@@ -18,13 +19,13 @@ import { baseApi } from 'services/baseApi'
 import { storage } from './persistStorage/index'
 
 const migrations = {
-  4: (s: PersistedState) => {},
   5: (s: PersistedState) => {},
+  6: (s: PersistedState) => {},
 }
 
 const persistConfig: PersistConfig<any> = {
   key: 'root',
-  version: 5,
+  version: 6,
   storage,
   whitelist: ['auth', 'setting'],
   migrate: createMigrate(migrations, { debug: true }),
@@ -67,6 +68,7 @@ const rootReducer = combineReducers({
   bank: bankReducer,
   deposit: depositReducer,
   setting: settingReducer,
+  tempSetting: tempSettingReducer,
   gameLauncher: gameLauncherReducer,
 })
 
