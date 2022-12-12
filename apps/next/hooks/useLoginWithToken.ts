@@ -3,7 +3,7 @@ import { AuthActions } from 'app/store/authReducer'
 import { SettingActions } from 'app/store/setting.slice'
 import { useRouter } from 'next/router'
 
-export default function useLoginWithToken(skip: boolean) {
+export default function useLoginWithToken(skip?: boolean) {
   const dispatch = useAppDispatch()
   const { push } = useRouter()
   if (!skip) {
