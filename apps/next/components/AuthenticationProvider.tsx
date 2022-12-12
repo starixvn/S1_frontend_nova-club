@@ -28,12 +28,12 @@ export function serialize(obj) {
 }
 
 const AuthenticationProvider = ({ children }) => {
-  const { push, route, asPath, query } = useRouter()
+  const { push, route, asPath, query, replace } = useRouter()
   const loginInfo = useAppSelector((s) => s.auth.info)
 
-  const isLoggedInWithToken = useLoginWithToken()
+  const isLoggedInWithToken = useLoginWithToken(loginInfo?.token)
   if (isLoggedInWithToken) {
-    push('/', '/', { shallow: true })
+    replace('/', '/', { shallow: true })
     return children
   }
 
