@@ -31,7 +31,7 @@ const AuthenticationProvider = ({ children }) => {
   const { push, route, asPath, query } = useRouter()
   const loginInfo = useAppSelector((s) => s.auth.info)
 
-  const isLoggedInWithToken = useLoginWithToken(!!loginInfo)
+  const isLoggedInWithToken = useLoginWithToken()
   if (isLoggedInWithToken) {
     push('/', '/', { shallow: true })
     return children
