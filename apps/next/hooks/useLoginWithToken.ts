@@ -21,7 +21,7 @@ export default function useLoginWithToken(
     if (username && token) {
       dispatch(AuthActions.setAuthInfo({ playerName: username, token }))
 
-      if (luckySpin) {
+      if (luckySpin && Number(luckySpin) > 0) {
         dispatch(SettingActions.setLuckyDrawBalance(1))
       }
 
