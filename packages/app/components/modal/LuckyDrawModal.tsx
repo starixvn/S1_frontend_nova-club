@@ -83,15 +83,15 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
   const handleSpinMapping = (code: number) => {
     switch (code) {
       case 1:
-        return 3
-      case 2:
         return 1
+      case 2:
+        return 4
       case 3:
         return 5
       case 4:
-        return 4
+        return 2
       default:
-        return 4
+        return 3
     }
   }
 
