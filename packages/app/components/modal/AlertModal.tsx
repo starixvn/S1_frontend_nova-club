@@ -1,29 +1,25 @@
 import useLocalization from 'app/provider/localization'
+import { ModalStackParams } from 'app/provider/modal'
 import { Text } from 'dripsy'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { ModalComponentProp } from 'react-native-modalfy'
 import ModalContent from './ModalContent'
 import ModalWrapper from './ModalWrapper'
 
-const AlertModal = ({ modal: { closeModal, getParam } }) => {
+type AlertModalProps = ModalComponentProp<ModalStackParams, void, 'AlertModal'>
+const AlertModal = ({ modal: { closeModal, getParam } }: AlertModalProps) => {
   const { t } = useLocalization()
 
   const title = getParam('title', t('notes.importantNotice'))
   const message = getParam('message', '')
-  const actions = getParam('actions', [
-    {
-      label: t('common.close'),
-      onPress: onDismiss,
-    },
-  ])
-
+  const actions = getParam('actions')
   const onClose = getParam('onClose')
 
-  function onDismiss() {
-    closeModal()
-    setTimeout(() => {
+  useEffect(() => {
+    return () => {
       onClose && onClose()
-    }, 500)
-  }
+    }
+  }, [])
 
   return (
     <ModalWrapper>

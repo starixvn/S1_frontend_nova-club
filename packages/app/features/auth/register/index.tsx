@@ -75,19 +75,8 @@ const RegisterPage = () => {
       currently only :
       - freespin will have note on response,
       - freebet's note has been removed at backend
-      - freespin should be disabled on Web
     */
-    if (data && Platform.OS !== 'web') {
-      if ('note' in data) {
-        const note = data.note
-
-        setTimeout(() => {
-          openModal('AlertModal', {
-            message: note,
-          })
-        }, 1000)
-      }
-
+    function setLuckySpinAndNavigate() {
       try {
         if (data?.wheel_info?.totalSpin) {
           dispatch(
@@ -98,12 +87,22 @@ const RegisterPage = () => {
         }
       } catch (e) {
         console.log('Error setting total spin')
+      } finally {
+        replace({
+          pathname: '/',
+        })
       }
     }
 
-    replace({
-      pathname: '/',
-    })
+    if ('note' in data) {
+      const note = data.note
+      openModal('AlertModal', {
+        message: note,
+        onClose: () => setLuckySpinAndNavigate(),
+      })
+    } else {
+      setLuckySpinAndNavigate()
+    }
   }
 
   const onSubmit = async (
@@ -115,7 +114,7 @@ const RegisterPage = () => {
       terms,
       contactNumber,
     }: RegisterFormValues,
-    actions: FormikHelpers<RegisterFormValues>
+    { setStatus }: FormikHelpers<RegisterFormValues>
   ) => {
     try {
       setIsSubmitting(true)
@@ -144,9 +143,10 @@ const RegisterPage = () => {
       if (success) {
         syncShield(Shield_Action.REGISTER)
         dispatch(AuthActions.setAuthInfo(data as LoginResult))
-        actions.resetForm()
 
         normalLogin(username, password, () => handleOnSuccessRegister(data))
+        /* to indicate the register is successfull and used to persist loading on submit button */
+        setStatus(true)
       }
     } catch (error) {
       showAlert(error)

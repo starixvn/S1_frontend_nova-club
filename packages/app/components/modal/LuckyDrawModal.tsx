@@ -6,19 +6,18 @@ import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { SettingActions } from 'app/store/setting.slice'
 import { ScrollView, View } from 'dripsy'
+import debounce from 'lodash/debounce'
 import { MotiView } from 'moti'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { Platform, StyleSheet } from 'react-native'
-import { useModal } from 'react-native-modalfy'
 import { Easing } from 'react-native-reanimated'
 import { useDispatch } from 'react-redux'
-import { useLuckySpinMutation, usePlayerProfileQuery } from 'services/playerApi'
+import { useLuckySpinMutation } from 'services/playerApi'
 import { MotifiedImage } from '../common/Image'
 import { Button } from '../form/Button'
 import IconButton from '../form/IconButton'
 
-const LuckyDrawModal = ({ modal: { addListener } }) => {
-  const { closeModal } = useModal()
+const LuckyDrawModal = ({ modal: { closeModal } }) => {
   const { t } = useLocalization()
   const dispatch = useDispatch()
 
@@ -71,6 +70,12 @@ const LuckyDrawModal = ({ modal: { addListener } }) => {
     }
   }
 
+  const debounceSpin = useCallback(debounce(spin, 500), [])
+  const triggerDebounceSpin = () => {
+    setLoading(true)
+    debounceSpin()
+  }
+
   const handleClose = () => {
     if (luckyDrawBalance <= 1) closeModal('LuckyDrawModal')
   }
@@ -100,11 +105,11 @@ const LuckyDrawModal = ({ modal: { addListener } }) => {
   const MemoizedWheel = useMemo(() => {
     return (
       <MotifiedImage
-        from={{ rotate: 0 }}
+        from={{ rotate: parseRotationValue(0) }}
         animate={{
           rotate: getRadianByIndex(targetIndex, loopCount),
         }}
-        onDidAnimate={onResultSpinned}
+        // onDidAnimate={onResultSpinned}
         transition={{
           duration: startAnimate ? 5000 : 0,
           type: 'timing',
@@ -115,22 +120,6 @@ const LuckyDrawModal = ({ modal: { addListener } }) => {
       />
     )
   }, [luckyDrawBalance])
-
-  /* Make sure on closed, reset the luckydraw chance */
-  const onCloseListener = useRef()
-  const onModalClosed = useCallback((closingAction) => {
-    console.log('on closed-----------')
-    dispatch(SettingActions.setLuckyDrawBalance(0))
-  }, [])
-
-  useEffect(() => {
-    onCloseListener.current = addListener('onClose', onModalClosed)
-
-    return () => {
-      onCloseListener.current?.remove()
-    }
-  }, [])
-  /**/
 
   return (
     <View
@@ -185,7 +174,7 @@ const LuckyDrawModal = ({ modal: { addListener } }) => {
             />
             {isLandscape && (
               <Button
-                onPress={spin}
+                onPress={triggerDebounceSpin}
                 loading={isLoading}
                 disabled={!canSpin}
                 sx={{ mt: '10%' }}
@@ -233,7 +222,8 @@ const LuckyDrawModal = ({ modal: { addListener } }) => {
                 source={require('app/assets/images/luckydraw/frame.png')}
                 sx={{ ...StyleSheet.absoluteFillObject }}
               />
-              {Platform.OS !== 'web' && (
+              {/* Android will crash with the rotation value supplied */}
+              {Platform.OS === 'ios' && (
                 <MotiView
                   animate={shinyAnimationState}
                   transition={{
@@ -262,7 +252,7 @@ const LuckyDrawModal = ({ modal: { addListener } }) => {
             {!isLandscape && (
               <Button
                 sx={{ mb: '$10' }}
-                onPress={spin}
+                onPress={triggerDebounceSpin}
                 loading={isLoading}
                 disabled={!canSpin}
               >
@@ -275,8 +265,9 @@ const LuckyDrawModal = ({ modal: { addListener } }) => {
       <View sx={{ position: 'absolute', top: '8%', right: '10%' }}>
         <IconButton
           onPress={() => {
-            dispatch(SettingActions.setLuckyDrawBalance(0))
-            closeModal('LuckyDrawModal')
+            closeModal('LuckyDrawModal', () => {
+              dispatch(SettingActions.setLuckyDrawBalance(0))
+            })
           }}
           name="cross"
           color="white"
@@ -313,7 +304,12 @@ function getRadianByIndex(
   const offset = -degreePerItem * Math.random() + degreePerItem / 2
   const deg = (loopCount - 1) * 360 + index * degreePerItem + offset
   const rad = -(deg * Math.PI) / 180
-  return Platform.OS === 'web' ? `${rad}rad` : rad
+
+  return parseRotationValue(rad)
+}
+
+function parseRotationValue(radian: number = 0) {
+  return `${radian}rad`
 }
 
 export default LuckyDrawModal

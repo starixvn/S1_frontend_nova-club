@@ -1,6 +1,8 @@
 import useLocalization from 'app/provider/localization'
+import { ModalStackParams } from 'app/provider/modal'
 import { ScrollView, styled, Sx, Text, View } from 'dripsy'
 import React from 'react'
+import { ModalComponentProp, ModalfyParams } from 'react-native-modalfy'
 import { Button } from '../form/Button'
 import IconButton from '../form/IconButton'
 import { ModalAction } from './Modal.type'
@@ -17,7 +19,7 @@ type ModalProps = {
   isShowHeader?: boolean
   hideCloseButton?: boolean
   headerStyle?: Sx
-  closeModal: () => void
+  closeModal: ModalComponentProp<ModalStackParams>['modal']['closeModal']
 }
 
 const ModalContent = ({
@@ -63,9 +65,8 @@ const ModalContent = ({
                     loading={a.loading}
                     key={a.label}
                     onPress={() => {
-                      if (!a.disableAutoClose && closeModal) closeModal()
-
-                      a.onPress && a.onPress()
+                      if (!a.disableAutoClose && closeModal)
+                        closeModal(undefined, () => a.onPress && a.onPress())
                     }}
                     containerStyle={{ mx: '$1', ...a?.buttonStyle }}
                     {...a.props}

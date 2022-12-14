@@ -1,3 +1,4 @@
+import { ModalAction } from 'app/components/modal/Modal.type'
 import ModalWrapper from 'app/components/modal/ModalWrapper'
 import { ActivityIndicator } from 'dripsy'
 import dynamic from 'next/dynamic'
@@ -17,7 +18,12 @@ type ModalStackConfigValueType = ModalStackConfig extends Record<
   : never
 
 export interface ModalStackParams {
-  AlertModal: { message: string; onClose(...args: any): any }
+  AlertModal: {
+    message: string
+    title?: string
+    actions: ModalAction[]
+    onClose(...args: any): any
+  }
   DepositConfirmationModal: { amount: number; callback(...args: any): any }
   DepositUploadModal: {
     descInfo: Record<any, any>

@@ -8,7 +8,7 @@ const LuckyDrawTrigger = () => {
   const luckyDrawBalance = useAppSelector((s) => s.setting.luckyDrawBalance)
 
   useEffect(() => {
-    if (luckyDrawBalance && luckyDrawBalance > 0 && Platform.OS !== 'web') {
+    if (luckyDrawBalance && luckyDrawBalance > 0) {
       setTimeout(() => {
         openModal('LuckyDrawModal')
       }, 1500)
