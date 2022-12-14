@@ -62,7 +62,7 @@ const Maintenance = ({}) => {
           title="HỆ THỐNG ĐANG BẢO TRÌ"
           subtitle="Trang web hiện không truy cập được do bảo trì"
           content={`Quý khách hàng thân mến,
-Hệ thống của chúng tôi hiện đang bảo trì đểnâng cấp trải nghiệm cho quý khách. Vui lòng truy cập lại sau.
+Hệ thống của chúng tôi hiện đang bảo trì để nâng cấp trải nghiệm cho quý khách. Vui lòng truy cập lại sau.
 Sự kiên nhẫn, thông cảm, và ủng hộ của quý khách là món quà quý giá với chúng tôi.`}
         />
       </View>
