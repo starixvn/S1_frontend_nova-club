@@ -1,7 +1,7 @@
 import useLocalization from 'app/provider/localization'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Text, useDripsyTheme, View } from 'dripsy'
 import React from 'react'
-import { getBottomSpace } from 'react-native-iphone-x-helper'
 import ProgressBar from './ProgressBar'
 
 interface CodePushUpdateBar {
@@ -13,12 +13,13 @@ function CodePushUpdateBar<CodePushUpdateBar>({ progress = 0, ...rest }) {
 
   const { theme } = useDripsyTheme()
   const { t } = useLocalization()
+  const { bottom } = useSafeArea()
 
   return (
     <View
       sx={{
         position: 'absolute',
-        bottom: getBottomSpace() + 10,
+        bottom: bottom + 10,
         left: 0,
         right: 0,
         mx: '20%',

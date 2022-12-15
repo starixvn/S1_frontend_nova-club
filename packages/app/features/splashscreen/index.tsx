@@ -5,6 +5,7 @@ import useOrientation, { unlockAsync } from 'app/hooks/useOrientation'
 import useCodePushDownload from 'app/integrations/codepush/useCodePush'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Text, View } from 'dripsy'
 import { Video } from 'expo-av'
 import { MotiView } from 'moti'
@@ -12,7 +13,6 @@ import React, { useEffect } from 'react'
 import { StyleSheet, useWindowDimensions } from 'react-native'
 import CodePush from 'react-native-code-push'
 import { getVersion } from 'react-native-device-info'
-import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { Easing } from 'react-native-reanimated'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'solito/router'
@@ -83,6 +83,8 @@ const SplashScreen = () => {
     }
   }, [status, replace, loginResult])
 
+  const { bottom } = useSafeArea()
+
   // const { isLandscape } = useOrientation()
   // const { width, height } = useWindowDimensions()
 
@@ -97,8 +99,8 @@ const SplashScreen = () => {
             sx={{
               color: 'white',
               position: 'absolute',
-              bottom: getBottomSpace() || 10,
-              right: getBottomSpace() || 10,
+              bottom: bottom || 10,
+              right: bottom || 10,
               fontWeight: 'bold',
               opacity: 0.8,
             }}

@@ -2,6 +2,7 @@ import { Button } from 'app/components/form/Button'
 import Icon from 'app/components/Icon'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { BOTTOM_NAV_HEIGHT } from 'app/navigation/BottomNavigation'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { useDripsyTheme, View } from 'dripsy'
 import { AnimatePresence } from 'moti'
 import { useState } from 'react'
@@ -24,6 +25,8 @@ const FloatingContent = () => {
 
   const vGamingSize = Math.min(110, width * 0.2)
 
+  const { bottom } = useSafeArea()
+
   return (
     <>
       <View
@@ -32,7 +35,7 @@ const FloatingContent = () => {
             Math.max(0, (width - theme.sizes.container) / 2) +
             Math.max(containerWidth * 0.2 - vGamingSize, 0) / 2,
           position: Platform.OS === 'web' ? 'fixed' : 'absolute',
-          bottom: BOTTOM_NAV_HEIGHT + 25,
+          bottom: BOTTOM_NAV_HEIGHT + bottom + 25,
           alignItems: 'center',
         }}
       >

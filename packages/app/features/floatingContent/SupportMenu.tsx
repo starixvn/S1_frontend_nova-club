@@ -15,6 +15,7 @@ import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import Image from 'app/components/common/Image'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 
 const SupportMenu = ({ setSupportMenuVisible }) => {
   const { t } = useLocalization()
@@ -24,7 +25,7 @@ const SupportMenu = ({ setSupportMenuVisible }) => {
   const { width } = useWindowDimensions()
   let right = Math.max(0, (width - theme.sizes.container) / 2)
   // right = width > theme.sizes.container ? right - 2 : right
-
+  const { bottom } = useSafeArea()
   return (
     <MotiView
       from={{ opacity: 0 }}
@@ -49,7 +50,7 @@ const SupportMenu = ({ setSupportMenuVisible }) => {
               alignSelf: 'flex-end',
               mt: 'auto',
               mr: right,
-              mb: BOTTOM_NAV_HEIGHT + 25,
+              mb: BOTTOM_NAV_HEIGHT + bottom + 25,
               pr: '$2',
             }}
           >
