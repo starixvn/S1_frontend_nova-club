@@ -75,40 +75,33 @@ const RegisterPage = () => {
       currently only :
       - freespin will have note on response,
       - freebet's note has been removed at backend
-      - freespin should be disabled on Web
     */
-    if (data && Platform.OS !== 'web') {
-      function setLuckySpinAndNavigate() {
-        try {
-          if (data?.wheel_info?.totalSpin) {
-            dispatch(
-              SettingActions.setLuckyDrawBalance(
-                Number(data?.wheel_info?.totalSpin)
-              )
+    function setLuckySpinAndNavigate() {
+      try {
+        if (data?.wheel_info?.totalSpin) {
+          dispatch(
+            SettingActions.setLuckyDrawBalance(
+              Number(data?.wheel_info?.totalSpin)
             )
-          }
-        } catch (e) {
-          console.log('Error setting total spin')
-        } finally {
-          replace({
-            pathname: '/',
-          })
+          )
         }
-      }
-
-      if ('note' in data) {
-        const note = data.note
-        openModal('AlertModal', {
-          message: note,
-          onClose: () => setLuckySpinAndNavigate(),
+      } catch (e) {
+        console.log('Error setting total spin')
+      } finally {
+        replace({
+          pathname: '/',
         })
-      } else {
-        setLuckySpinAndNavigate()
       }
-    } else {
-      replace({
-        pathname: '/',
+    }
+
+    if ('note' in data) {
+      const note = data.note
+      openModal('AlertModal', {
+        message: note,
+        onClose: () => setLuckySpinAndNavigate(),
       })
+    } else {
+      setLuckySpinAndNavigate()
     }
   }
 
