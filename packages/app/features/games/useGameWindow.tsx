@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux'
 import { useRouter } from 'solito/router'
 
 export default function useGameWindow() {
-  const navigation = useNavigation()
   const dispatch = useDispatch()
   const { push } = useRouter()
 

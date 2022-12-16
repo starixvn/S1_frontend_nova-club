@@ -1,3 +1,4 @@
+import { useTransferAllToOneMutation } from 'app/custom_services/walletApi'
 import { GameLauncherActions } from 'app/store/gameLauncher.slice'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
@@ -6,13 +7,21 @@ import { useLazyPlayerBalanceQuery } from 'services/walletApi'
 export default function useGameWindow() {
   const dispatch = useDispatch()
   const [refreshWallet] = useLazyPlayerBalanceQuery()
+  const [transferAllToOne] = useTransferAllToOneMutation({
+    fixedCacheKey: 'transfer-all-to-one',
+  })
 
   function _refreshWallet() {
-    if (!window.gameWindow || window.gameWindow.closed) {
-      window.removeEventListener('focus', _refreshWallet)
-    }
-
-    refreshWallet()
+    // When window is instantly closed and auto focused to main window, the .closed indicator will remain false until a few ms.
+    setTimeout(() => {
+      if (!window.gameWindow || window.gameWindow.closed) {
+        window.removeEventListener('focus', _refreshWallet)
+        transferAllToOne({
+          transfer_from: 999,
+          transfer_to: 0,
+        })
+      } else refreshWallet()
+    }, 100)
   }
 
   function openGame(

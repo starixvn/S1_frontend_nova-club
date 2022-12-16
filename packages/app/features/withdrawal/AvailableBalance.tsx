@@ -8,10 +8,21 @@ import { usePlayerBalanceQuery } from 'services/walletApi'
 
 const AvailableBalance = () => {
   const { t } = useLocalization()
-  const { data: balanceData } = usePlayerBalanceQuery(undefined, {
+  const { totalBalance } = usePlayerBalanceQuery(undefined, {
     refetchOnMountOrArgChange: true,
+    selectFromResult: (s) => {
+      return {
+        ...s,
+        totalBalance: s.data?.data
+          ? Object.values(s.data?.data).reduce(
+              (total, w) =>
+                total + (Number(w.balance) ?? 0) + (Number(w.reward) ?? 0),
+              0
+            )
+          : 0,
+      }
+    },
   })
-  const playerBalance = balanceData?.data?.main.balance
 
   const { data: playerData } = usePlayerProfileQuery()
   const currency = playerData?.currency as Currency
@@ -26,7 +37,7 @@ const AvailableBalance = () => {
     >
       <Text>{t('transfer.avaiableAmount')}:</Text>
       <Text>
-        {toCurrency(Number(playerBalance), currency, {
+        {toCurrency(totalBalance, currency, {
           symbol: false,
           hideTruncatedThousand: false,
         })}
