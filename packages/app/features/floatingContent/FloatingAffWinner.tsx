@@ -15,9 +15,9 @@ const FloatingAffWinner = () => {
   const { width } = useWindowDimensions()
 
   const { makeContextualHref } = useContextualRouting()
-  const to = makeContextualHref('wc-prediction')
+  const to = makeContextualHref('affcup')
   const goto = () => {
-    push(to, '/event/wcprediction')
+    push(to, '/event/affcup')
   }
 
   const iconSize = Math.min(110, width * 0.2)
