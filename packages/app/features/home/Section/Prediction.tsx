@@ -33,8 +33,8 @@ const Prediction = () => {
     const params = {
       locale,
     }
-    push(makeContextualHref('/event/wc-winner', params), {
-      pathname: '/event/wc-winner',
+    push(makeContextualHref('/event/wcwinner', params), {
+      pathname: '/event/wcwinner',
       query: params,
     })
   }

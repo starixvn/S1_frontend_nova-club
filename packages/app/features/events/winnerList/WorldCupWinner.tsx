@@ -20,9 +20,7 @@ const WorldCupWinner = () => {
         }}
         style={{
           maxWidth: '100%',
-          backgroundColor: 'hsl(0, 50%, 50%)',
-          // aspectRatio: 800 / 1161,
-          height: 100,
+          aspectRatio: 800 / 1161,
         }}
       />
     </PageWithBackHeader>
