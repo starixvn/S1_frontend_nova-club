@@ -34,14 +34,14 @@ const GameLauncher = () => {
     params,
   } = gameLauncherState
 
-  async function launchGamePT() {
+  async function launchGamePT(providerCode: string) {
     const domain = Platform.OS === 'web' ? '' : DEV_DOMAIN
     const ptLaunchUrl = `${domain}/launcher_pt?code=${gameCode}&t=${authState.info?.token}&username=${authState.info?.playerName}`
 
-    openGame(ptLaunchUrl, true)
+    openGame(ptLaunchUrl, providerCode, { external: true })
   }
 
-  async function launchGame() {
+  async function launchGame(providerCode: string) {
     try {
       toggleLoading(true)
 
@@ -68,13 +68,12 @@ const GameLauncher = () => {
 
         const url = `${data?.url}&${paramsToAppend}`
 
-        openGame(
-          url,
-          !!(
+        openGame(url, providerCode, {
+          title: gameName,
+          external: !!(
             providerCode && ProviderRunningWithoutIframe.includes(providerCode)
           ),
-          gameName
-        )
+        })
       } else cleanUpGame()
     } catch (e) {
       throw e
@@ -83,13 +82,13 @@ const GameLauncher = () => {
     }
   }
 
-  async function launchGameProcess() {
+  async function launchGameProcess(providerCode: string) {
     dispatch(SettingActions.addRecentGame({ ...gameLauncherState }))
 
     try {
       if (providerCode === 'PTV2') {
-        await launchGamePT()
-      } else await launchGame()
+        await launchGamePT(providerCode)
+      } else await launchGame(providerCode)
     } catch (e) {
       console.log('Launch game error', e)
       cleanUpGame()
@@ -106,7 +105,7 @@ const GameLauncher = () => {
         return
       }
 
-      launchGameProcess()
+      launchGameProcess(providerCode)
     }
 
     return () => {

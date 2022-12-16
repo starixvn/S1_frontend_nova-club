@@ -9,20 +9,23 @@ export default function useGameWindow() {
   const dispatch = useDispatch()
   const { push } = useRouter()
 
-  function openGame(url?: string, external?: boolean, title?: string) {
-    if (url) {
-      if (external) {
-        Linking.openURL(url)
-      } else {
-        push({
-          pathname: '/games/gameUrl',
-          query: {
-            gameUrl: encodeURIComponent(url),
-            title,
-          },
-        })
-      }
-    }
+  function openGame(
+    url: string,
+    providerCode: string,
+    options?: { external?: boolean; title?: string }
+  ) {
+    const { external = false, title = '' } = options || {}
+    if (external) {
+      Linking.openURL(url)
+    } else
+      push({
+        pathname: '/games/gameUrl',
+        query: {
+          gameUrl: encodeURIComponent(url),
+          title: options?.title,
+          providerCode,
+        },
+      })
   }
 
   function cleanUpGame() {

@@ -74,7 +74,6 @@ export function NavigationProvider({
               BankAccount: '/profile/bank-account',
               AddBankAccount: '/profile/bank-account/add-bank-account',
               History: '/profile/history',
-              PreLaunchGame: '/games/prelaunch',
               CustomerSupportPage: '/customer-support',
               GameLoaderPage: '/games/gameUrl',
               MessagesPage: '/messages',

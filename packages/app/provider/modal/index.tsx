@@ -45,7 +45,6 @@ export interface ModalStackParams {
     fields: Record<any, any>[]
     onConfirm(...args: any): any
   }
-  UserAgreementModal: undefined
 }
 
 type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
@@ -65,8 +64,6 @@ const _dynamicModal = {
   ReferralModal: () => import('app/components/modal/ReferralModal'),
   WithdrawalConfirmationModal: () =>
     import('app/components/modal/WithdrawalConfirmationModal'),
-  UserAgreementModal: () =>
-    import('app/features/games/PreLaunchGame/UserAgreementModal'),
 }
 
 function getDynamicComponent(key: string) {
@@ -119,9 +116,6 @@ const modalConfig: ModalConfigType = {
   },
   WithdrawalConfirmationModal: {
     modal: getDynamicComponent('WithdrawalConfirmationModal'),
-  },
-  UserAgreementModal: {
-    modal: getDynamicComponent('UserAgreementModal'),
   },
 }
 

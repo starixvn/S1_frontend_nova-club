@@ -31,7 +31,6 @@ const _contextualComponents = {
   profile: () => import('app/features/profile'),
   'manage-credentials': () => import('app/features/profile/manage-credentials'),
   'forget-password': () => import('../../features/auth/forgotPassword'),
-  '/games/prelaunch': () => import('../../features/games/PreLaunchGame'),
   'game-url': () => import('../../features/games/GameLoaderPage'),
   'commission-table': () => import('../../features/profile/commission-table'),
   messages: () => import('../../features/messages'),
