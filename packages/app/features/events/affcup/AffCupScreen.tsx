@@ -1,9 +1,10 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Image from 'app/components/common/Image'
 import { PageWithBackHeader } from 'app/components/layout/Page'
-import { useAppSelector } from 'app/provider/redux/store'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { ActivityIndicator, styled, Text, View } from 'dripsy'
 import React from 'react'
+import { Platform } from 'react-native'
 import { useAffcupWinnerListQuery } from 'services/eventApi'
 
 const BoldText = styled(Text)({
@@ -42,6 +43,7 @@ const AffCupList = () => {
                     borderRadius: 20,
                     backgroundColor: '#fff',
                     my: '$2',
+                    maxWidth: '100%',
                   }}
                 >
                   <View>
@@ -50,9 +52,18 @@ const AffCupList = () => {
                     </BoldText>
                   </View>
 
-                  <View>
+                  <View sx={{ flexShrink: 1 }}>
                     <BoldText
-                      sx={{ color: '#000000', pl: '$4', flexShrink: 1 }}
+                      sx={{
+                        color: '#000000',
+                        pl: '$4',
+                        flexShrink: 1,
+                        ...Platform.select({
+                          web: {
+                            wordBreak: 'break-all',
+                          },
+                        }),
+                      }}
                     >
                       {winner.username}
                     </BoldText>
@@ -169,7 +180,8 @@ const AffTermAndCondition = () => {
 }
 
 const AffCupScreen = () => {
-  const lang = useAppSelector((state) => state.setting.locale)
+  const { bottom } = useSafeArea()
+  const PADDING_BOTTOM = 16
 
   return (
     <>
@@ -177,7 +189,11 @@ const AffCupScreen = () => {
         background={`${MEDIA_DOMAIN}${CONTENT_URI}/event/aff-cup/affcup-bg.jpg`}
         header={{ title: '' }}
         contentContainerStyle={{
-          paddingBottom: 16,
+          paddingBottom: Platform.select({
+            ios: bottom,
+            android: bottom + PADDING_BOTTOM,
+            default: PADDING_BOTTOM,
+          }),
         }}
         sx={{ minHeight: 0, backgroundColor: 'rgba(0,0,0,0.5)', flex: 1 }}
       >
