@@ -63,6 +63,7 @@ const RoundedIcon = ({
       ) : (
         <StyledView size={shapeSize} sx={{ ...containerStyle }}>
           <StyledImage
+            resizeMode="contain"
             source={typeof icon === 'string' ? { uri: icon } : icon}
             sx={{ ...imageStyle }}
           />
@@ -96,7 +97,7 @@ const StyledView = styled(View)(({ size }: { size: number }) => ({
 const StyledImage = styled(Image)(() => ({
   aspectRatio: 1,
   height: '100%',
-  resizeMode: 'cover',
+  resizeMode: 'contain',
   bg: 'transparent',
 }))
 
