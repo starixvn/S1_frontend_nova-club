@@ -37,6 +37,7 @@ import TabNavigation from './TabNavigation'
 import WorldCupPrediction from 'app/features/events/worldCupPrediction'
 import WcTnC from 'app/features/events/worldCupPrediction/tnc'
 import AffCupScreen from 'app/features/events/affcup/AffCupScreen'
+import WorldCupWinner from 'app/features/events/winnerList/WorldCupWinner'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -71,6 +72,7 @@ const Stack = createStackNavigator<{
   WcPrediction: undefined
   WcTnc: undefined
   AffCup: undefined
+  WcWinnerList: undefined
 }>()
 
 export function NativeNavigation() {
@@ -238,6 +240,7 @@ export function NativeNavigation() {
       <Stack.Screen name="WcPrediction" component={WorldCupPrediction} />
       <Stack.Screen name="AffCup" component={AffCupScreen} />
       <Stack.Screen name="WcTnc" component={WcTnC} />
+      <Stack.Screen name="WcWinnerList" component={WorldCupWinner} />
     </Stack.Navigator>
   )
 }

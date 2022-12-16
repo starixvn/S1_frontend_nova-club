@@ -20,7 +20,7 @@ const Prediction = () => {
   useEffect(() => {
     setTimeout(() => {
       if (
-        dayjs().isBefore(dayjs('2022-12-14T00:00:00+07:00')) &&
+        dayjs().isBefore(dayjs('2022-12-23T00:00:00+07:00')) &&
         showPrediction
       ) {
         openModal('PredictionModal', { onPress: handleNavigate })
@@ -33,8 +33,8 @@ const Prediction = () => {
     const params = {
       locale,
     }
-    push(makeContextualHref('/event/wctnc', params), {
-      pathname: '/event/wctnc',
+    push(makeContextualHref('/event/wc-winner', params), {
+      pathname: '/event/wc-winner',
       query: params,
     })
   }
