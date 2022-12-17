@@ -44,6 +44,14 @@ const AffCupList = () => {
                     backgroundColor: '#fff',
                     my: '$2',
                     maxWidth: '100%',
+                    shadowColor: '#000000',
+                    shadowOffset: {
+                      width: 0,
+                      height: 3,
+                    },
+                    shadowOpacity: 0.25,
+                    shadowRadius: 3.84,
+                    elevation: 5,
                   }}
                 >
                   <View>
@@ -52,9 +60,11 @@ const AffCupList = () => {
                     </BoldText>
                   </View>
 
-                  <View sx={{ flexShrink: 1 }}>
+                  <View sx={{ flexShrink: 1, flexGrow: 1 }}>
                     <BoldText
+                      numberOfLines={2}
                       sx={{
+                        textAlign: 'center',
                         color: '#000000',
                         pl: '$4',
                         flexShrink: 1,
@@ -189,6 +199,7 @@ const AffCupScreen = () => {
         background={`${MEDIA_DOMAIN}${CONTENT_URI}/event/aff-cup/affcup-bg.jpg`}
         header={{ title: '' }}
         contentContainerStyle={{
+          paddingTop: PADDING_BOTTOM,
           paddingBottom: Platform.select({
             ios: bottom,
             android: bottom + PADDING_BOTTOM,
