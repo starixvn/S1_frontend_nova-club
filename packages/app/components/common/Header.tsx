@@ -3,12 +3,21 @@ import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { styled, Text, useSx, View } from 'dripsy'
+import { ComponentProps } from 'react'
 import { Platform } from 'react-native'
 import { useRouter } from 'solito/router'
 import { DripsyGradient } from '../Gradient'
 import Icon from '../Icon'
 
-const Header = ({ title, actions }: { title: string }) => {
+const Header = ({
+  title,
+  actions,
+  titleProps = {},
+}: {
+  title: string
+  titleProps: ComponentProps<typeof Text>
+}) => {
+  const { sx: textSx = {}, ...restTitleProps } = titleProps
   const isAndroid = Platform.OS === 'android'
   const { t } = useLocalization()
   const { back } = useRouter()
@@ -63,7 +72,9 @@ const Header = ({ title, actions }: { title: string }) => {
                 fontSize: isLandscape ? 14 : 20,
                 color: 'white',
                 fontWeight: 'bold',
+                ...textSx,
               }}
+              {...restTitleProps}
             >
               {t(title)}
             </Text>

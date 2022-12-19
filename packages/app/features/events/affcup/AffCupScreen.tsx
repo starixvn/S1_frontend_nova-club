@@ -2,7 +2,7 @@ import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Image from 'app/components/common/Image'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { ActivityIndicator, styled, Text, View } from 'dripsy'
+import { ActivityIndicator, styled, SxProp, Text, View } from 'dripsy'
 import React from 'react'
 import { Platform } from 'react-native'
 import { useAffcupWinnerListQuery } from 'services/eventApi'
@@ -10,6 +10,19 @@ import { useAffcupWinnerListQuery } from 'services/eventApi'
 const BoldText = styled(Text)({
   fontWeight: 'bold',
 })
+
+const CommonDropShadow: SxProp = {
+  shadowColor: '#000000',
+  shadowOffset: {
+    width: 0,
+    height: 3,
+  },
+  shadowOpacity: 0.25,
+  shadowRadius: 3.84,
+  elevation: 5,
+}
+
+const DropShadowBox = styled(View)(CommonDropShadow)
 
 const AffCupList = () => {
   const { data, error, isLoading } = useAffcupWinnerListQuery()
@@ -44,14 +57,7 @@ const AffCupList = () => {
                     backgroundColor: '#fff',
                     my: '$2',
                     maxWidth: '100%',
-                    shadowColor: '#000000',
-                    shadowOffset: {
-                      width: 0,
-                      height: 3,
-                    },
-                    shadowOpacity: 0.25,
-                    shadowRadius: 3.84,
-                    elevation: 5,
+                    ...CommonDropShadow,
                   }}
                 >
                   <View>
@@ -121,7 +127,7 @@ const AffCupRule = () => {
         const ruleText = rule.text
 
         return (
-          <View
+          <DropShadowBox
             key={rule.key}
             sx={{
               flexDirection: 'row',
@@ -142,7 +148,7 @@ const AffCupRule = () => {
             ) : (
               ruleText
             )}
-          </View>
+          </DropShadowBox>
         )
       })}
     </View>
@@ -196,8 +202,16 @@ const AffCupScreen = () => {
   return (
     <>
       <PageWithBackHeader
-        background={`${MEDIA_DOMAIN}${CONTENT_URI}/event/aff-cup/affcup-bg.jpg`}
-        header={{ title: '' }}
+        background={`${MEDIA_DOMAIN}${CONTENT_URI}/event/aff-cup/affcup-bg.png`}
+        header={{
+          title: 'HÒA MÌNH CÙNG AFF CUP 2022',
+          titleProps: {
+            numberOfLines: 1,
+            sx: {
+              fontSize: '$2',
+            },
+          },
+        }}
         contentContainerStyle={{
           paddingTop: PADDING_BOTTOM,
           paddingBottom: Platform.select({
@@ -206,7 +220,7 @@ const AffCupScreen = () => {
             default: PADDING_BOTTOM,
           }),
         }}
-        sx={{ minHeight: 0, backgroundColor: 'rgba(0,0,0,0.5)', flex: 1 }}
+        sx={{ minHeight: 0, backgroundColor: 'rgba(0,0,0,0.2)', flex: 1 }}
       >
         <View sx={{ alignItems: 'center' }}>
           <Image
@@ -223,7 +237,7 @@ const AffCupScreen = () => {
           </BoldText>
 
           <BoldText sx={{ fontSize: '$1' }}>Sự kiện</BoldText>
-          <View
+          <DropShadowBox
             sx={{
               backgroundColor: '#fff',
               width: '100%',
@@ -234,10 +248,10 @@ const AffCupScreen = () => {
             <BoldText sx={{ color: '#FF0000', fontSize: '$2' }}>
               Mỗi ngày tặng 1 iPhone 14 Pro Max
             </BoldText>
-          </View>
+          </DropShadowBox>
 
           <BoldText sx={{ fontSize: '$1' }}>Thời gian</BoldText>
-          <View
+          <DropShadowBox
             sx={{
               backgroundColor: '#fff',
               width: '100%',
@@ -248,7 +262,7 @@ const AffCupScreen = () => {
             <BoldText sx={{ color: '#FF0000', fontSize: '$2' }}>
               20/12/2022 tới 16/01/2023
             </BoldText>
-          </View>
+          </DropShadowBox>
 
           <AffCupList />
         </View>
