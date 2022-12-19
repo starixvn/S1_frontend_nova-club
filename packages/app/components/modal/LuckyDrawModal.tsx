@@ -56,7 +56,7 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
 
     if (success) {
       setTargetIndex(handleSpinMapping(data.code))
-      // dispatch(SettingActions.setLuckyDrawBalance(luckyDrawBalance - 1))
+      dispatch(SettingActions.setLuckyDrawBalance(luckyDrawBalance - 1)) // this is to trigger the memoized wheel
       // setSpinBalance((prev) => prev + 1)
 
       setTimeout(() => {
