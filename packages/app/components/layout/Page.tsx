@@ -41,6 +41,7 @@ export const PageWithBackHeader = ({
   hideHeader = false,
   disableScrollView = false,
   background = undefined,
+  wrapperStyle,
   ...rest
 }) => {
   const PageComponent = disableScrollView ? Page : Page.ScrollView
@@ -55,6 +56,7 @@ export const PageWithBackHeader = ({
           },
         }),
         minHeight: 0,
+        ...wrapperStyle,
       }}
     >
       {background && (

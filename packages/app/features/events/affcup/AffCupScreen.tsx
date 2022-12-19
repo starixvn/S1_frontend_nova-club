@@ -221,6 +221,9 @@ const AffCupScreen = () => {
           }),
         }}
         sx={{ minHeight: 0, backgroundColor: 'rgba(0,0,0,0.2)', flex: 1 }}
+        wrapperStyle={{
+          backgroundColor: '#212121',
+        }}
       >
         <View sx={{ alignItems: 'center' }}>
           <Image
