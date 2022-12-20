@@ -15,7 +15,7 @@ type HeaderProps = {
   titleProps: ComponentProps<typeof Text>
 } & React.ComponentProps<typeof View>
 
-const Header = ({ title, actions, ...rest }: HeaderProps) => {
+const Header = ({ title, actions, titleProps }: HeaderProps) => {
   const isAndroid = Platform.OS === 'android'
   const { t } = useLocalization()
   const { back } = useRouter()
@@ -70,9 +70,9 @@ const Header = ({ title, actions, ...rest }: HeaderProps) => {
                 fontSize: isLandscape ? 14 : 20,
                 color: 'white',
                 fontWeight: 'bold',
-                ...textSx,
+                ...titleProps?.sx,
               }}
-              {...restTitleProps}
+              {...titleProps}
             >
               {t(title)}
             </Text>

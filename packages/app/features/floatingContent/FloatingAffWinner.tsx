@@ -15,7 +15,7 @@ const FloatingAffWinner = () => {
   const { width } = useWindowDimensions()
 
   const { makeContextualHref } = useContextualRouting()
-  const to = makeContextualHref('affcup')
+  const to = makeContextualHref('/event/affcup')
   const goto = () => {
     push(to, '/event/affcup')
   }

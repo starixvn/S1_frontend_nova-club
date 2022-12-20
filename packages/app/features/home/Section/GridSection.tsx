@@ -16,14 +16,9 @@ export const WORLD_CUP_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/wc.gif?v=1`
 export const SABA_PROMO_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/videos/saba-sportsbook.mp4?v=1`
 export const HOME_GRID = [
   {
-    col: 4,
-    src: require('../../../assets/images/home/sb_4.jpg'),
+    col: 6,
+    src: require('../../../assets/images/home/sb.jpg'),
     title: 'game.category.sportsbook',
-    route: '/sportsbook',
-  },
-  {
-    col: 2,
-    src: { uri: WORLD_CUP_IMG },
     route: '/sportsbook',
   },
   {

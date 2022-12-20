@@ -66,6 +66,7 @@ const WinnerGroup = ({ name, list }) => {
       {list.map((l, index) => {
         return (
           <View
+            key={l}
             sx={{
               bg: '#30011E',
               borderRadius: 20,

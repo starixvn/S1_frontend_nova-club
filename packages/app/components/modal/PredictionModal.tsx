@@ -16,14 +16,14 @@ const PredictionModal = ({ modal: { closeModal, getParam } }) => {
   }
 
   const imageWidth = Math.min(500, width * 0.8)
-  const imageHeight = imageWidth / (64 / 75)
+  const imageHeight = imageWidth / (782 / 900)
   return (
     <View
       sx={{
         height: Math.min(height * 0.9, imageHeight),
       }}
     >
-      <ScrollView>
+      <ScrollView bounces={false}>
         <TouchableOpacity
           onPress={handlePress}
           sx={{
