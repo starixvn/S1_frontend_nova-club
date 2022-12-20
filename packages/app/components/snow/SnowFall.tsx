@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Dimensions, StyleSheet, View } from 'react-native'
 import Snowflake from './Snowflake'
 
@@ -27,18 +27,23 @@ export default function SnowFall({
     }
   }
 
+  const getSnowFall = useMemo(
+    () =>
+      new Array(snowflakesCount)
+        .fill(true)
+        .map((_, i) => (
+          <Snowflake key={i} scene={scene} fallSpeed={fallSpeed} />
+        )),
+    [scene, fallSpeed]
+  )
+
   return (
     <View
       style={[styles.container, dimensionsStyle]}
       onLayout={onLayout}
       pointerEvents="box-none"
     >
-      {!!scene &&
-        new Array(snowflakesCount)
-          .fill(true)
-          .map((_, i) => (
-            <Snowflake key={i} scene={scene} fallSpeed={fallSpeed} />
-          ))}
+      {!!scene && getSnowFall}
     </View>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, Easing, StyleSheet } from 'react-native'
 const styles = StyleSheet.create({
   snowflake: {
@@ -24,7 +24,7 @@ export default function Snowflake({ scene, fallSpeed }) {
   const animatedRotation = useRef(new Animated.Value(0)).current
   const animatedSideMovement = useRef(new Animated.Value(0)).current
 
-  const runAnimation = () => {
+  const runAnimation = useCallback(() => {
     animatedY.setValue(START_Y_POSITION)
     animatedRotation.setValue(0)
     animatedSideMovement.setValue(0)
@@ -67,7 +67,7 @@ export default function Snowflake({ scene, fallSpeed }) {
       const newConfig = getConfig({ scene, fallSpeed })
       setConfig(newConfig)
     })
-  }
+  }, [fallSpeed, scene])
 
   useEffect(() => {
     if (config) {
