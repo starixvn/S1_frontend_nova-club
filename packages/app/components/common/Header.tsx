@@ -12,10 +12,10 @@ import Icon from '../Icon'
 type HeaderProps = {
   title?: string
   actions?: React.ReactNode
-  titleProps: ComponentProps<typeof Text>
+  titleProps?: ComponentProps<typeof Text>
 } & React.ComponentProps<typeof View>
 
-const Header = ({ title, actions, titleProps }: HeaderProps) => {
+const Header = ({ title, actions, titleProps = {} }: HeaderProps) => {
   const isAndroid = Platform.OS === 'android'
   const { t } = useLocalization()
   const { back } = useRouter()
