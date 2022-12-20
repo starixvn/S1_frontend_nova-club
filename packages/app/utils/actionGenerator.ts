@@ -1,11 +1,10 @@
 import { LIVECHAT_URL, REFERRAL_DOMAIN } from '@env'
-import { GAMES } from 'app/config/games/games.type'
 import { ContextualComponentType } from 'app/navigation/web/ContextualNavigation'
 import i18n from 'app/provider/localization/i18n'
 import { store } from 'app/provider/redux/store'
 import { GameLauncherActions } from 'app/store/gameLauncher.slice'
-import { Linking } from 'react-native'
-import { Game, GameConfig } from 'services/contentApi.type'
+import { Linking, Platform } from 'react-native'
+import { Game } from 'services/contentApi.type'
 
 export enum ActionType {
   GAME = 'game',
@@ -58,9 +57,7 @@ export type Action =
   | ActionExternalRedirect
   | ActionDownloadApp
 
-export function getAction(
-  action: Action
-): (p?: ActionRedirectParams | void) => void {
+export function getAction(action: Action): (p?: ActionRedirectParams) => void {
   switch (action.type) {
     case ActionType.LIVECHAT: {
       return () => {
@@ -91,24 +88,29 @@ export function getAction(
       const payload = action.payload
       if (!payload || !payload.uri) return () => {}
 
-      const { uri, params } = payload
+      const { uri, params = {} } = payload
 
-      return (p) => {
+      return (p?: ActionRedirectParams) => {
         try {
-          if (p?.makeContextualHref) {
+          if (p) {
             const { push, makeContextualHref, locale } = p
-            if (params) {
-              let replacedParams = { ...params }
-              if (replacedParams.locale) {
-                replacedParams.locale = locale
-              }
 
-              // TODO: check for type of uri redirectable with makeContextualHref
+            let replacedParams = { ...params }
+            if (replacedParams.locale) {
+              replacedParams.locale = locale
+            }
+
+            if (Platform.OS === 'web' && makeContextualHref) {
               push(makeContextualHref(uri, replacedParams), {
                 pathname: uri,
                 query: replacedParams,
               })
-            } else push(makeContextualHref(uri))
+            } else {
+              push(uri, {
+                pathname: uri,
+                query: replacedParams,
+              })
+            }
           }
         } catch (e) {
           console.log('Internal Redirection error', e)
