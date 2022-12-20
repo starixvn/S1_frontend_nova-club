@@ -46,7 +46,9 @@ const _contextualComponents = {
   '/event/wctnc': () => import('../../../../apps/next/pages/event/wctnc'),
   download: () => import('../../features/download/index.web'),
   'wc-prediction': () => import('../../features/events/worldCupPrediction'),
-  affcup: () => import('../../features/events/affcup/AffCupScreen'),
+  '/event/wcwinner': () =>
+    import('../../features/events/winnerList/WorldCupWinner'),
+  '/event/affcup': () => import('../../features/events/affcup/AffCupScreen'),
 }
 
 function getContextualComponent(key: string) {

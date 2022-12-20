@@ -86,6 +86,7 @@ export function NavigationProvider({
               WcPrediction: '/event/wcprediction',
               WcTnc: '/event/wctnc',
               AffCup: '/event/affcup',
+              WcWinnerList: '/event/wcwinner',
             },
           },
         }),
