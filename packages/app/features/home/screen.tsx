@@ -18,7 +18,11 @@ const HomeScreen = () => {
   return (
     <ScrollView
       bounces={false}
-      sx={{ bg: '$background', flex: 1 }}
+      sx={{
+        bg: '$background',
+        flex: 1,
+        'overflow-y': 'hidden', // This Fix web scrolling sometimes stuck and require 2nd touch to scroll
+      }}
       showsVerticalScrollIndicator={false}
     >
       {!isLandscape && <BannerSection />}
