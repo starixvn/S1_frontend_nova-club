@@ -116,7 +116,7 @@ function getConfig({ scene, initialDelay = false, fallSpeed } = {}) {
     speed = fallSpeed
   }
 
-  const size = randomInt(10, 18)
+  const size = randomInt(20, 40)
   const opacity = randomInt(4, 10) / 10
   const type = SNOWFLAKE_TYPES[randomInt(0, 2)]
   const xPosition = randomInt(0, width)

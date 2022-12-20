@@ -3,7 +3,7 @@ import { Dimensions, StyleSheet, View } from 'react-native'
 import Snowflake from './Snowflake'
 
 export default function SnowFall({
-  snowflakesCount = 50,
+  snowflakesCount = 15,
   fallSpeed = 'medium',
   fullScreen = false,
 }) {
@@ -41,7 +41,7 @@ export default function SnowFall({
     <View
       style={[styles.container, dimensionsStyle]}
       onLayout={onLayout}
-      pointerEvents="box-none"
+      pointerEvents="none"
     >
       {!!scene && getSnowFall}
     </View>
