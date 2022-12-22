@@ -19,12 +19,26 @@ const Prediction = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      if (
-        dayjs().isBefore(dayjs('2022-12-14T00:00:00+07:00')) &&
-        showPrediction
-      ) {
-        openModal('PredictionModal', { onPress: handleNavigate })
-        dispatch(TempSettingActions.toggleShowPrediction(false))
+      if (showPrediction) {
+        if (dayjs().isBefore(dayjs('2022-12-23T00:00:00+07:00'))) {
+          openModal('PredictionModal', {
+            onPress: () => {
+              push(makeContextualHref('/event/wcwinner'), {
+                pathname: '/event/wcwinner',
+              })
+            },
+          })
+          dispatch(TempSettingActions.toggleShowPrediction(false))
+        } else if (dayjs().isBefore(dayjs('2023-01-17T00:00:00+07:00'))) {
+          openModal('AffCupModal', {
+            onPress: () => {
+              push(makeContextualHref('/event/affcup'), {
+                pathname: '/event/affcup',
+              })
+            },
+          })
+          dispatch(TempSettingActions.toggleShowPrediction(false))
+        }
       }
     }, 1000)
   }, [])
@@ -33,9 +47,9 @@ const Prediction = () => {
     const params = {
       locale,
     }
-    push(makeContextualHref('/event/wctnc', params), {
-      pathname: '/event/wctnc',
-      query: params,
+    push(makeContextualHref('/event/affcup', params), {
+      pathname: '/event/affcup',
+      query: { params },
     })
   }
   return <></>

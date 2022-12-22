@@ -1,7 +1,7 @@
 // https://world-cup-json-2022.fly.dev/matches
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
-import { WcTicketCountResp } from './eventApi.type'
+import { AffCupWinnerList, WcTicketCountResp } from './eventApi.type'
 
 export const eventApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
@@ -22,7 +22,17 @@ export const eventApi = baseApiWithTag.injectEndpoints({
       }),
       invalidatesTags: ['PredictCount'],
     }),
+    affcupWinnerList: builder.query<IResponse<AffCupWinnerList>, void>({
+      query: () => ({
+        url: `/static_api/getWinnerList`,
+        method: 'GET',
+      }),
+    }),
   }),
 })
 
-export const { useWcTicketCountQuery, useWcPredictMutation } = eventApi
+export const {
+  useWcTicketCountQuery,
+  useWcPredictMutation,
+  useAffcupWinnerListQuery,
+} = eventApi

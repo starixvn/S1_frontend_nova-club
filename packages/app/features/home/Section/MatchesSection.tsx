@@ -1,3 +1,4 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Image from 'app/components/common/Image'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useInterval from 'app/hooks/useInterval'
@@ -13,7 +14,6 @@ import { ImageBackground, StyleSheet } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { useGetRecoMatchQuery } from 'services/contentApi'
 import { Game, Match } from 'services/contentApi.type'
-import FifaTeam from '../../../config/fifa'
 
 dayjs.extend(customParseFormat)
 
@@ -100,8 +100,8 @@ const MatchItem = ({ match }: { match: Match }) => {
     // Android Hermes will hit error if using dayjsTz
     console.log('gmt7 error', e)
   }
-  const homeFlag = FifaTeam[match.HomeKey]
-  const awayFlag = FifaTeam[match.AwayKey]
+  const homeFlag = getFlagPath(match.HomeName)
+  const awayFlag = getFlagPath(match.AwayName)
 
   const { width } = useContainerDimension()
   const nameFontSize = width * 0.03
@@ -285,23 +285,10 @@ const CountryLabel = styled(motify(Text)())({
 
 const FlagIcon = motify(Image)()
 
-function getFlagPath(name) {
-  let mappedName = name
-  switch (mappedName) {
-    case 'United States': {
-      mappedName = 'united-states-of-america'
-      break
-    }
-
-    case 'Korea Republic': {
-      mappedName = 'south-korea'
-      break
-    }
-  }
-
-  return `https://cdn.countryflags.com/thumbs/${mappedName
-    .replace(/\s+/g, '-')
-    .toLowerCase()}/flag-square-250.png`
+function getFlagPath(country: string) {
+  return `${MEDIA_DOMAIN}/${CONTENT_URI}/flags/${country
+    .toLowerCase()
+    .replace(/\s/g, '')}.png`
 }
 
 export default MatchesSection

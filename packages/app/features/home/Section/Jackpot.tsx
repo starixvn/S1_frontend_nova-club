@@ -98,8 +98,6 @@ const Jackpot = ({}: JackpotProps) => {
 }
 
 const StyledImageBackground = styled(View)({
-  backgroundColor: '$blue',
-  // minHeight: 400,
   width: '100%',
   mt: '$9',
   alignItems: 'center',

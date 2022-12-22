@@ -1,3 +1,4 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { useTransferAllToOneMutation } from 'app/custom_services/walletApi'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouting from 'app/hooks/useContextualRouting'
@@ -7,8 +8,9 @@ import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import { ActivityIndicator, Image, styled, Text, useSx, View } from 'dripsy'
+import { Video } from 'expo-av'
 import React, { useEffect, useRef, useState } from 'react'
-import { LayoutChangeEvent } from 'react-native'
+import { LayoutChangeEvent, Platform } from 'react-native'
 import { usePlayerBalanceQuery } from 'services/walletApi'
 import { useRouter } from 'solito/router'
 import MainMenu from './MainMenu'
@@ -139,117 +141,137 @@ const MainHeader = () => {
 
   return (
     <>
-      <View sx={{ paddingTop: insets.top, bg: '$primary' }}>
-        <StyledContainer sx={{ height: headerHeight }}>
-          <View>
-            <BouncePressable
-              onPress={() => {
-                push('/')
+      <View sx={{ bg: '$primary' }}>
+        <Video
+          isMuted
+          isLooping
+          shouldPlay
+          style={{
+            width: '100%',
+            height: '100%',
+            left: 0,
+            right: 0,
+            bottom: 0,
+            position: 'absolute',
+          }}
+          source={{
+            uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/christmas/header-christmas.mp4`,
+          }}
+          resizeMode="cover"
+          useNativeControls={false}
+        />
+        <View sx={{ paddingTop: insets.top }}>
+          <StyledContainer sx={{ height: headerHeight }}>
+            <View>
+              <BouncePressable
+                onPress={() => {
+                  push('/')
+                }}
+                sx={{ px: '$2', mb: 5 }}
+              >
+                <StyledLogo
+                  sx={sx({
+                    height: iconHeight,
+                    width: iconHeight.map((x) => x * (519 / 186)),
+                  })}
+                  source={require('../assets/images/logo.png')}
+                  resizeMode="contain"
+                />
+              </BouncePressable>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'flex-end',
               }}
-              sx={{ px: '$2', mb: 5 }}
             >
-              <StyledLogo
-                sx={sx({
-                  height: iconHeight,
-                  width: iconHeight.map((x) => x * (519 / 186)),
-                })}
-                source={require('../assets/images/logo.png')}
-                resizeMode="contain"
-              />
-            </BouncePressable>
-          </View>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'flex-end',
-            }}
-          >
-            {MENU_ROW.map((i, index) => {
-              if (index === 1) {
-                return (
-                  <View sx={{ flex: 1, maxWidth: width * 0.3 }} key={index}>
-                    <BouncePressable onPress={i.action} key={index}>
-                      <StyledSearchBox
-                        sx={{
-                          height: iconHeight,
-                        }}
-                      >
-                        <View
+              {MENU_ROW.map((i, index) => {
+                if (index === 1) {
+                  return (
+                    <View sx={{ flex: 1, maxWidth: width * 0.3 }} key={index}>
+                      <BouncePressable onPress={i.action} key={index}>
+                        <StyledSearchBox
                           sx={{
-                            position: 'relative',
-                            width: [35, 40],
-                            alignItems: 'center',
-                            justifyContent: 'center',
+                            height: iconHeight,
                           }}
                         >
-                          {isMainWalletLoading ? (
-                            <ActivityIndicator
-                              color={'$lightCyan'}
-                              sx={{ px: '$1' }}
-                            />
-                          ) : (
-                            <>
-                              <StyledBgImage
-                                source={require('../assets/images/header/walletbg.png')}
-                                resizeMode="contain"
+                          <View
+                            sx={{
+                              position: 'relative',
+                              width: [35, 40],
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            {isMainWalletLoading ? (
+                              <ActivityIndicator
+                                color={'$lightCyan'}
+                                sx={{ px: '$1' }}
                               />
-
-                              <View
-                                sx={{
-                                  position: 'absolute',
-                                  left: 0,
-                                  right: 0,
-                                  top: 0,
-                                  bottom: 0,
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                }}
-                              >
-                                <StyledWalletImg
-                                  source={i.img}
+                            ) : (
+                              <>
+                                <StyledBgImage
+                                  source={require('../assets/images/header/walletbg.png')}
                                   resizeMode="contain"
                                 />
-                              </View>
-                            </>
-                          )}
-                        </View>
 
-                        <Text
-                          variant="sm"
-                          numberOfLines={1}
-                          sx={{ color: '$yellow', fontSize: [14, 16] }}
-                        >
-                          {totalBalance}
-                        </Text>
-                      </StyledSearchBox>
-                    </BouncePressable>
-                  </View>
+                                <View
+                                  sx={{
+                                    position: 'absolute',
+                                    left: 0,
+                                    right: 0,
+                                    top: 0,
+                                    bottom: 0,
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                  }}
+                                >
+                                  <StyledWalletImg
+                                    source={i.img}
+                                    resizeMode="contain"
+                                  />
+                                </View>
+                              </>
+                            )}
+                          </View>
+
+                          <Text
+                            variant="sm"
+                            numberOfLines={1}
+                            sx={{ color: '$yellow', fontSize: [14, 16] }}
+                          >
+                            {totalBalance}
+                          </Text>
+                        </StyledSearchBox>
+                      </BouncePressable>
+                    </View>
+                  )
+                }
+                return (
+                  <BouncePressable
+                    onPress={i.action}
+                    key={index}
+                    {...(i.props || {})}
+                  >
+                    <StyledImg
+                      sx={{ width: iconHeight, height: iconHeight }}
+                      source={i.img}
+                      resizeMode="contain"
+                    />
+                  </BouncePressable>
                 )
-              }
-              return (
-                <BouncePressable
-                  onPress={i.action}
-                  key={index}
-                  {...(i.props || {})}
-                >
-                  <StyledImg
-                    sx={{ width: iconHeight, height: iconHeight }}
-                    source={i.img}
-                    resizeMode="contain"
-                  />
-                </BouncePressable>
-              )
-            })}
-          </View>
-        </StyledContainer>
-        <MainMenu
-          isShow={showMenu}
-          onMenu={(e) => {
-            return setShowMenu(e)
-          }}
-          parentPosition={menuPosition}
-        />
+              })}
+            </View>
+          </StyledContainer>
+          <MainMenu
+            isShow={showMenu}
+            onMenu={(e) => {
+              return setShowMenu(e)
+            }}
+            parentPosition={menuPosition}
+          />
+        </View>
       </View>
     </>
   )
@@ -257,7 +279,7 @@ const MainHeader = () => {
 
 const StyledContainer = styled(View)({
   flexDirection: 'row',
-  bg: '$primary',
+  // bg: '$primary',
   alignItems: 'center',
   px: '$2',
 })

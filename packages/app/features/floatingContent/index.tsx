@@ -8,7 +8,7 @@ import { AnimatePresence } from 'moti'
 import { useState } from 'react'
 import { Platform, useWindowDimensions } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import FloatingPrediction from './FloatingPrediction'
+import FloatingAffWinner from './FloatingAffWinner'
 import FloatingQr from './FloatingQr'
 import SupportMenu from './SupportMenu'
 import VGaming from './VGaming'
@@ -39,7 +39,7 @@ const FloatingContent = () => {
           alignItems: 'center',
         }}
       >
-        <FloatingPrediction />
+        <FloatingAffWinner />
 
         <VGaming />
 

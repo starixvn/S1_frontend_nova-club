@@ -1,7 +1,8 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { SafeAreaView, ScrollView, styled, Sx, View } from 'dripsy'
-import { isValidElement } from 'react'
+import { ComponentProps, isValidElement } from 'react'
 import { Platform } from 'react-native'
+import { Source } from 'react-native-fast-image'
 import Header from '../common/Header'
 import Image from '../common/Image'
 const pageStyles: Sx = {
@@ -19,8 +20,6 @@ const Page = Object.assign(styled(View, {})(pageStyles), {
   )({ ...pageStyles, minHeight: Platform.OS === 'web' ? '100vh' : 0 }),
 })
 
-// Page.ScrollView
-
 export const PageSafeArea = ({
   children,
   disableScrollView = false,
@@ -35,14 +34,30 @@ export const PageSafeArea = ({
   )
 }
 
+type PageScrollViewProps = {
+  disableScrollView?: false
+} & ComponentProps<typeof Page.ScrollView>
+
+type PageViewProps = {
+  disableScrollView: true
+} & ComponentProps<typeof Page>
+
+type PageWithBackHeaderProps = {
+  children?: React.ReactNode
+  header?: (() => React.ReactNode) | ComponentProps<typeof Header>
+  hideHeader?: boolean
+  background?: Source['uri']
+} & (PageScrollViewProps | PageViewProps)
+
 export const PageWithBackHeader = ({
   children,
   header,
   hideHeader = false,
   disableScrollView = false,
   background = undefined,
+  wrapperStyle,
   ...rest
-}) => {
+}: PageWithBackHeaderProps) => {
   const PageComponent = disableScrollView ? Page : Page.ScrollView
 
   return (
@@ -55,6 +70,7 @@ export const PageWithBackHeader = ({
           },
         }),
         minHeight: 0,
+        ...wrapperStyle,
       }}
     >
       {background && (
@@ -81,7 +97,7 @@ export const PageWithBackHeader = ({
           flex: 1,
         }}
         showsVerticalScrollIndicator={false}
-        {...rest}
+        {...(rest as any)}
       >
         {children}
       </PageComponent>
