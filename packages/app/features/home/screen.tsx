@@ -1,6 +1,7 @@
 import useOrientation from 'app/hooks/useOrientation'
 import { ScrollView } from 'dripsy'
 import { default as React } from 'react'
+import { Platform } from 'react-native'
 import LuckyDrawTrigger from './LuckyDrawTrigger'
 import AnnouncementMarquee from './Section/AnnouncementMarquee'
 import BannerSection from './Section/BannerSection'
@@ -19,7 +20,7 @@ const HomeScreen = () => {
       sx={{
         bg: '$background',
         flex: 1,
-        'overflow-y': 'hidden', // This Fix web scrolling sometimes stuck and require 2nd touch to scroll
+        ...(Platform.OS === 'web' && { 'overflow-y': 'hidden' }),
       }}
       showsVerticalScrollIndicator={false}
     >
