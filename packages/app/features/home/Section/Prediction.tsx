@@ -3,9 +3,10 @@ import { useAppSelector } from 'app/provider/redux/store'
 import { AlertActions } from 'app/store/alert.slice'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
 import dayjs from 'dayjs'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useModal } from 'react-native-modalfy'
 import { useDispatch } from 'react-redux'
+import { LoginResult } from 'services/authApi.type'
 import { useRouter } from 'solito/router'
 
 const Prediction = () => {
@@ -18,18 +19,9 @@ const Prediction = () => {
   const showPrediction = useAppSelector((s) => s.tempSetting.showPrediction)
 
   useEffect(() => {
-    setTimeout(() => {
+    const setTimeoutId = setTimeout(() => {
       if (showPrediction) {
-        if (dayjs().isBefore(dayjs('2022-12-23T00:00:00+07:00'))) {
-          openModal('PredictionModal', {
-            onPress: () => {
-              push(makeContextualHref('/event/wcwinner'), {
-                pathname: '/event/wcwinner',
-              })
-            },
-          })
-          dispatch(TempSettingActions.toggleShowPrediction(false))
-        } else if (dayjs().isBefore(dayjs('2023-01-17T00:00:00+07:00'))) {
+        if (dayjs().isBefore(dayjs('2023-01-17T00:00:00+07:00'))) {
           openModal('AffCupModal', {
             onPress: () => {
               push(makeContextualHref('/event/affcup'), {
@@ -41,17 +33,12 @@ const Prediction = () => {
         }
       }
     }, 1000)
+
+    return () => {
+      clearTimeout(setTimeoutId)
+    }
   }, [])
 
-  const handleNavigate = () => {
-    const params = {
-      locale,
-    }
-    push(makeContextualHref('/event/affcup', params), {
-      pathname: '/event/affcup',
-      query: { params },
-    })
-  }
   return <></>
 }
 

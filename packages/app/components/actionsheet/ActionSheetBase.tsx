@@ -5,7 +5,6 @@ import React, { ComponentProps, ReactNode, useRef } from 'react'
 import { Platform } from 'react-native'
 import ActionSheet, { SheetProps } from 'react-native-actions-sheet'
 import { ScrollView } from 'react-native-gesture-handler'
-import { getBottomSpace } from 'react-native-iphone-x-helper'
 import IconButton from '../form/IconButton'
 import { DripsyGradient } from '../Gradient'
 import HistoryEmpty from '../history/HistoryEmpty'
@@ -95,12 +94,6 @@ const ActionSheetBase = ({
           nestedScrollEnabled={true}
           onMomentumScrollEnd={() =>
             actionSheetRef.current?.handleChildScrollEnd()
-          }
-          contentContainerStyle={
-            {
-              // paddingBottom: getBottomSpace(),
-              // height: '100%',
-            }
           }
         >
           {children ?? <HistoryEmpty sx={{ my: '$4' }} />}

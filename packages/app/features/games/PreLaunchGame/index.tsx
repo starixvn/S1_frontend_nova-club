@@ -12,10 +12,8 @@ import { GAME_TYPE_CODE } from 'app/utils/constant'
 import { ScrollView, View } from 'dripsy'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Linking, Platform } from 'react-native'
-import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { useDispatch } from 'react-redux'
 import { useLazyGetGameUrlQuery } from 'services/gameApi'
-import { usePlayerProfileQuery } from 'services/playerApi'
 import {
   usePlayerBalanceQuery,
   usePlayerWalletDetailQuery,
@@ -305,7 +303,7 @@ const PreLaunchGame = ({}) => {
     transferToGame,
   } = useGameBalanceRule()
 
-  const { top, left, right } = useSafeArea()
+  const { top, left, right, bottom } = useSafeArea()
   const isSport = gameType === GAME_TYPE_CODE.SPORTS
 
   async function onLauchGame() {
@@ -366,7 +364,7 @@ const PreLaunchGame = ({}) => {
       <ScrollView
         style={{ flex: 1 }}
         contentContainerStyle={{
-          paddingBottom: getBottomSpace(),
+          paddingBottom: bottom,
           paddingHorizontal: right,
         }}
       >
