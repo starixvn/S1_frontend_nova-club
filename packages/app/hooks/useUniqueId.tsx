@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Platform } from 'react-native'
 import { getUniqueId, getManufacturer } from 'react-native-device-info'
 import { useDispatch } from 'react-redux'
+import { uuidv4 } from 'utils/common'
 
 const useUniqueId = () => {
   const dispatch = useDispatch()
@@ -16,7 +17,13 @@ const useUniqueId = () => {
   }
 
   const getWebUniqueId = () => {
-    let uuid = self.crypto.randomUUID()
+    let uuid = ''
+
+    try {
+      uuid = self.crypto.randomUUID()
+    } catch (e) {
+      uuid = uuidv4()
+    }
 
     dispatch(SettingActions.setPlatformUUID(uuid))
   }
