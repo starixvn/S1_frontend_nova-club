@@ -67,6 +67,9 @@ const ModalContent = ({
                     onPress={() => {
                       if (!a.disableAutoClose && closeModal)
                         closeModal(undefined, () => a.onPress && a.onPress())
+                      else {
+                        a.onPress && a.onPress()
+                      }
                     }}
                     containerStyle={{ mx: '$1', ...a?.buttonStyle }}
                     {...a.props}
