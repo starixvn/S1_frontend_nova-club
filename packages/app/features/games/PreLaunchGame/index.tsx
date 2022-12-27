@@ -229,13 +229,12 @@ function useGameLauncher(gameLauncherState: LaunchGamePayload) {
         cashier_url: `${DEV_DOMAIN}/deposit`,
       }).unwrap()
 
-      let paramsToAppend = ''
+      let url = `${data?.url}`
       if (params) {
         const urlParams = new URLSearchParams(params)
-        paramsToAppend = urlParams.toString()
+        const paramsToAppend = urlParams.toString()
+        url += `&${paramsToAppend}`
       }
-
-      const url = `${data?.url}&${paramsToAppend}`
 
       if (url) {
         dispatch(SettingActions.addRecentGame({ ...gameLauncherState }))
