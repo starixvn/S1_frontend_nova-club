@@ -1,6 +1,6 @@
+import { useTransferAllToOneMutation } from 'app/custom_services/walletApi'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import WebView from 'app/components/WebView'
-import { useTransferAllToOneMutation } from 'app/custom_services/walletApi'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { View } from 'dripsy'
@@ -11,17 +11,20 @@ import {
 } from 'services/walletApi'
 import { createParam } from 'solito'
 
-const { useParam } = createParam<{ gameUrl: string; title: string }>()
-const GameLoaderPage = () => {
+const { useParam } = createParam<{
+  gameUrl: string
+  title: string
+  providerCode: string
+}>()
+const GameLoaderPage = ({}) => {
   const { left, right } = useSafeArea()
   const [gameUrl] = useParam('gameUrl')
   const [title] = useParam('title')
-  const url = gameUrl // && decodeURIComponent(gameUrl) // decode will cause %3d%3d in the token value to become ==
-  const targetProvider = useAppSelector((s) => s.gameLauncher.providerCode)
+  const [providerCode] = useParam('providerCode')
 
-  const { data: walletDetails, isFetching } =
-    usePlayerWalletDetailQuery(undefined)
-
+  const { walletDetails } = usePlayerWalletDetailQuery(undefined, {
+    selectFromResult: ({ data }) => ({ ...data, walletDetails: data?.data }),
+  })
   const [refreshWallet] = useLazyPlayerBalanceQuery()
 
   const [transferAllToOne] = useTransferAllToOneMutation({
@@ -29,19 +32,15 @@ const GameLoaderPage = () => {
   })
 
   const isSeamlessTransfer = () => {
-    if (walletDetails && walletDetails.data) {
-      const walletDetailsList = walletDetails.data
-
-      for (const walletKey in walletDetailsList) {
-        const detail = walletDetailsList[walletKey]
-
-        if (detail?.system_code === targetProvider) {
-          if (detail?.seamless) return true
-        }
-      }
-    }
-
-    return false
+    if (walletDetails) {
+      console.log('walletDetails', walletDetails['12'], providerCode)
+      return Object.keys(walletDetails).some((k) => {
+        const wallet = walletDetails[k]
+        return (
+          wallet && wallet.system_code === providerCode && wallet.seamless === 1
+        )
+      })
+    } else return false
   }
 
   async function transferAllToMain() {
@@ -56,14 +55,8 @@ const GameLoaderPage = () => {
   }
 
   useEffect(() => {
-    // ScreenOrientation.unlockAsync()
-
     return () => {
-      // ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP)
-      const isSeamless = isSeamlessTransfer()
-
-      if (isSeamless) refreshWallet()
-      else transferAllToMain()
+      isSeamlessTransfer() ? refreshWallet() : transferAllToMain()
     }
   }, [])
 
@@ -77,7 +70,7 @@ const GameLoaderPage = () => {
       }}
     >
       <PageWithBackHeader header={{ title: title ?? 'Game' }} disableScrollView>
-        {gameUrl && <WebView url={url?.trim() ?? ''} />}
+        {gameUrl && <WebView url={gameUrl.trim() ?? ''} />}
       </PageWithBackHeader>
     </View>
   )

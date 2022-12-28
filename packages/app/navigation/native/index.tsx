@@ -10,7 +10,6 @@ import Forbidden from 'app/features/common/Forbidden'
 import CustomerSupportPage from 'app/features/customerSupport'
 import FishingPage from 'app/features/fishing'
 import GameLoaderPage from 'app/features/games/GameLoaderPage'
-import PreLaunchGame from 'app/features/games/PreLaunchGame'
 import MessagesPage from 'app/features/messages'
 import ChangePinScreen from 'app/features/pin/change-pin'
 import CreatePinScreen from 'app/features/pin/CreatePinScreen'
@@ -45,7 +44,6 @@ const Stack = createStackNavigator<{
   LoginPage: undefined
   RegisterPage: undefined
   DepositPage: undefined
-  PreLaunchGame: undefined
   WithdrawalPage: undefined
   ForgotPassword: undefined
   CustomerSupportPage: undefined
@@ -197,7 +195,6 @@ export function NativeNavigation() {
         }}
       />
 
-      <Stack.Screen name="PreLaunchGame" component={PreLaunchGame} />
       <Stack.Screen name="WithdrawalPage" component={WithdrawalPage} />
       <Stack.Screen
         name="CustomerSupportPage"

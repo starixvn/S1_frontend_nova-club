@@ -101,7 +101,6 @@ const SplashScreen = () => {
               position: 'absolute',
               bottom: bottom || 10,
               right: bottom || 10,
-
               fontWeight: 'bold',
               opacity: 0.8,
             }}

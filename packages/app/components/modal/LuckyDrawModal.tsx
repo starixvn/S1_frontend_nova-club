@@ -56,13 +56,15 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
 
     if (success) {
       setTargetIndex(handleSpinMapping(data.code))
-      dispatch(SettingActions.setLuckyDrawBalance(luckyDrawBalance - 1))
+      dispatch(SettingActions.setLuckyDrawBalance(luckyDrawBalance - 1)) // this is to trigger the memoized wheel
       // setSpinBalance((prev) => prev + 1)
 
       setTimeout(() => {
         showAlert({
           message: data.code === 4 ? t('status.luckyThankYou') : data.note,
-          onClose: handleClose,
+          onClose: () => {
+            setTimeout(() => handleClose(), 500)
+          },
           persistent: true,
         })
         setLoading(false)
@@ -77,7 +79,9 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
   }
 
   const handleClose = () => {
-    if (luckyDrawBalance <= 1) closeModal('LuckyDrawModal')
+    closeModal('LuckyDrawModal', () => {
+      dispatch(SettingActions.setLuckyDrawBalance(0))
+    })
   }
 
   const handleSpinMapping = (code: number) => {
@@ -264,11 +268,7 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
       </ScrollView>
       <View sx={{ position: 'absolute', top: '8%', right: '10%' }}>
         <IconButton
-          onPress={() => {
-            closeModal('LuckyDrawModal', () => {
-              dispatch(SettingActions.setLuckyDrawBalance(0))
-            })
-          }}
+          onPress={handleClose}
           name="cross"
           color="white"
           sx={{

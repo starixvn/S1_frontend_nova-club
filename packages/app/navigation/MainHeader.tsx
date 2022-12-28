@@ -95,7 +95,8 @@ const MainHeader = () => {
     const wallets = playerBalance?.data
     if (wallets) {
       const total = Object.values(wallets).reduce(
-        (total, w) => total + (Number(w.balance) ?? 0),
+        (total, w) =>
+          total + (Number(w.balance) ?? 0) + (Number(w.reward) ?? 0),
         0
       )
 

@@ -1,3 +1,4 @@
+import LoadingModal from 'app/components/modal/LoadingModal'
 import { ModalAction } from 'app/components/modal/Modal.type'
 import ModalWrapper from 'app/components/modal/ModalWrapper'
 import { ActivityIndicator } from 'dripsy'
@@ -18,6 +19,7 @@ type ModalStackConfigValueType = ModalStackConfig extends Record<
   : never
 
 export interface ModalStackParams {
+  LoadingModal: undefined
   AlertModal: {
     message: string
     title?: string
@@ -44,7 +46,6 @@ export interface ModalStackParams {
     fields: Record<any, any>[]
     onConfirm(...args: any): any
   }
-  UserAgreementModal: undefined
 }
 
 type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
@@ -52,6 +53,7 @@ type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
 const _dynamicModal = {
   LuckyDrawModal: () => import('app/components/modal/LuckyDrawModal'),
   AlertModal: () => import('app/components/modal/AlertModal'),
+  LoadingModal: () => import('app/components/modal/LoadingModal'),
   DepositConfirmationModal: () =>
     import('app/components/modal/DepositConfirmationModal'),
   DepositUploadModal: () => import('app/components/modal/DepositUploadModal'),
@@ -64,8 +66,6 @@ const _dynamicModal = {
   ReferralModal: () => import('app/components/modal/ReferralModal'),
   WithdrawalConfirmationModal: () =>
     import('app/components/modal/WithdrawalConfirmationModal'),
-  UserAgreementModal: () =>
-    import('app/features/games/PreLaunchGame/UserAgreementModal'),
 }
 
 function getDynamicComponent(key: string) {
@@ -83,10 +83,13 @@ function getDynamicComponent(key: string) {
   return (props) => <LazyComponent {...props} />
 }
 
-/* Consider using this modal for other temporarily / not fullscreen modal  */
 const modalConfig: ModalConfigType = {
   LuckyDrawModal: {
     modal: getDynamicComponent('LuckyDrawModal'),
+  },
+  LoadingModal: {
+    modal: LoadingModal,
+    backBehavior: 'none',
   },
   AlertModal: {
     modal: getDynamicComponent('AlertModal'),
@@ -118,9 +121,6 @@ const modalConfig: ModalConfigType = {
   },
   WithdrawalConfirmationModal: {
     modal: getDynamicComponent('WithdrawalConfirmationModal'),
-  },
-  UserAgreementModal: {
-    modal: getDynamicComponent('UserAgreementModal'),
   },
 }
 
