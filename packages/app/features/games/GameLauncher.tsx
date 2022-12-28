@@ -59,14 +59,13 @@ const GameLauncher = () => {
           return e
         })
 
-      if (success) {
-        let paramsToAppend = ''
+      if (success && data) {
+        let url = data.url
         if (params) {
           const urlParams = new URLSearchParams(params)
-          paramsToAppend = urlParams.toString()
+          const paramsToAppend = urlParams.toString()
+          url += `&${paramsToAppend}`
         }
-
-        const url = `${data?.url}&${paramsToAppend}`
 
         openGame(url, providerCode, {
           title: gameName,
