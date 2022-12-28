@@ -7,16 +7,17 @@ import { GetGameUrlQueryArgs, GetGameUrlResult } from './gameApi.type'
  */
 export const gameApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
-    getGameUrl: builder.query<IResponse<GetGameUrlResult>, GetGameUrlQueryArgs>(
-      {
-        query: ({ token, ...params }) => ({
-          url: `/player_api/gotogame`,
-          data: params,
-          headers: token ? { Authorization: `Bearer ${token}` } : {},
-        }),
-      }
-    ),
+    goToGame: builder.mutation<
+      IResponse<GetGameUrlResult>,
+      GetGameUrlQueryArgs
+    >({
+      query: ({ token, ...params }) => ({
+        url: `/player_api/gotogame`,
+        data: params,
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      }),
+    }),
   }),
 })
 
-export const { useGetGameUrlQuery, useLazyGetGameUrlQuery } = gameApi
+export const { useGoToGameMutation } = gameApi

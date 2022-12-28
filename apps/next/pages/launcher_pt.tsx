@@ -191,8 +191,8 @@ export const getServerSideProps: GetServerSideProps<
     try {
       const { data } = await store
         .dispatch(
-          gameApi.endpoints.getGameUrl.initiate({
-            game_code: code,
+          gameApi.endpoints.goToGame.initiate({
+            game_code: typeof code === 'string' ? code : code[0],
             is_demo: 0,
             is_mobile: 1,
             platform_code: 'PTV2',

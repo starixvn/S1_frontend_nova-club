@@ -9,7 +9,7 @@ import { useEffect } from 'react'
 import { Platform } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { IResponse } from 'services/common/types'
-import { useLazyGetGameUrlQuery } from 'services/gameApi'
+import { useGoToGameMutation } from 'services/gameApi'
 import { GetGameUrlResult } from 'services/gameApi.type'
 import useGameWindow from './useGameWindow'
 import { useMaintenanceStatus } from './useMaintenanceStatus'
@@ -21,11 +21,10 @@ const GameLauncher = () => {
   const { showAlert } = useAlert()
   const authState = useAppSelector((s) => s.auth)
   const dispatch = useDispatch()
-  const [getGameUrl] = useLazyGetGameUrlQuery()
+  const [goToGame] = useGoToGameMutation()
   const { openGame, cleanUpGame } = useGameWindow()
   const { checkMaintenance } = useMaintenanceStatus()
   const { toggleLoading } = useLoading()
-
   const {
     providerCode,
     gameCode,
@@ -45,7 +44,7 @@ const GameLauncher = () => {
     try {
       toggleLoading(true)
 
-      const { data, success } = await getGameUrl({
+      const { data, success } = await goToGame({
         game_code: gameCode,
         is_demo: 0,
         is_mobile: desktopMode ? 0 : 1,
