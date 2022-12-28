@@ -4,12 +4,15 @@ import WebView from 'app/components/WebView'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { View } from 'dripsy'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import {
   useLazyPlayerBalanceQuery,
+  usePlayerBalanceQuery,
   usePlayerWalletDetailQuery,
 } from 'services/walletApi'
 import { createParam } from 'solito'
+import useLoading from 'app/hooks/useLoading'
+import useGameWalletSummary from './useGameWalletSummary'
 
 const { useParam } = createParam<{
   gameUrl: string
@@ -22,41 +25,36 @@ const GameLoaderPage = ({}) => {
   const [title] = useParam('title')
   const [providerCode] = useParam('providerCode')
 
-  const { walletDetails } = usePlayerWalletDetailQuery(undefined, {
-    selectFromResult: ({ data }) => ({ ...data, walletDetails: data?.data }),
-  })
-  const [refreshWallet] = useLazyPlayerBalanceQuery()
+  const { toggleLoading } = useLoading()
+
+  const {
+    refetch: refreshWallet,
+    isSeamless,
+    isTransferRequired,
+  } = useGameWalletSummary(providerCode)
 
   const [transferAllToOne] = useTransferAllToOneMutation({
     fixedCacheKey: 'transfer-all-to-one',
   })
 
-  const isSeamlessTransfer = () => {
-    if (walletDetails) {
-      console.log('walletDetails', walletDetails['12'], providerCode)
-      return Object.keys(walletDetails).some((k) => {
-        const wallet = walletDetails[k]
-        return (
-          wallet && wallet.system_code === providerCode && wallet.seamless === 1
-        )
-      })
-    } else return false
-  }
-
   async function transferAllToMain() {
     try {
+      toggleLoading(true)
       await transferAllToOne({
         transfer_from: 999,
         transfer_to: 0,
       }).unwrap()
     } catch (error) {
       console.error(error)
+    } finally {
+      toggleLoading(false)
     }
   }
 
   useEffect(() => {
     return () => {
-      isSeamlessTransfer() ? refreshWallet() : transferAllToMain()
+      if (isSeamless) refreshWallet()
+      else if (isTransferRequired) transferAllToMain()
     }
   }, [])
 

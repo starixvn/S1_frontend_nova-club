@@ -11,7 +11,9 @@ export interface LaunchGamePayload {
   gameType?: GAME_TYPE_CODE
   params?: Record<string, string> // Params will turn to query parameters, it must be casted to string
 }
-export type GameLauncherState = LaunchGamePayload & {}
+export type GameLauncherState = LaunchGamePayload & {
+  lastLaunchedProvider?: string
+}
 // export const DomainListHintPostfix = '-DomainListHint'
 // export const DepositListHintPostfix = '-DepositListHint'
 // export const PromoPopHint = 'PromoPopHint'
@@ -30,10 +32,15 @@ const gameLauncherSlice = createSlice({
         }
       }
 
-      Object.assign(state, action.payload)
+      Object.assign(state, action.payload, {
+        lastLaunchedProvider: action.payload.providerCode,
+      })
     },
-    reset: () => {
-      return initialState
+    reset: (state) => {
+      return {
+        ...initialState,
+        lastLaunchedProvider: state.lastLaunchedProvider,
+      }
     },
   },
 })
