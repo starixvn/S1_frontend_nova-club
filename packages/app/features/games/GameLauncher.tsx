@@ -15,6 +15,10 @@ import useGameWindow from './useGameWindow'
 import { useMaintenanceStatus } from './useMaintenanceStatus'
 
 const ProviderRunningWithoutIframe = ['PRGP']
+const ProviderRunningWithoutIframePlatformBased = Platform.select({
+  android: ['SKYW'],
+  default: [],
+})
 const GameLauncher = () => {
   const gameLauncherState = useAppSelector((s) => s.gameLauncher)
   const { t } = useLocalization()
@@ -69,7 +73,9 @@ const GameLauncher = () => {
         openGame(url, providerCode, {
           title: gameName,
           external: !!(
-            providerCode && ProviderRunningWithoutIframe.includes(providerCode)
+            providerCode &&
+            (ProviderRunningWithoutIframe.includes(providerCode) ||
+              ProviderRunningWithoutIframePlatformBased.includes(providerCode))
           ),
         })
       } else cleanUpGame()
