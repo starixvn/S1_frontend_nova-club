@@ -13,6 +13,7 @@ import { View } from 'dripsy'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useLazyPlayerReportQuery } from 'services/playerApi'
 import { ReportGameItem, ReportResult } from 'services/playerApi.type'
+import BonusHistoryItem from '../BonusHistoryItem'
 import DepositHistoryItem from '../DepositHistoryItem'
 import FilterSelection from '../FilterSelection'
 import ReferralHistoryItem from '../ReferralHistoryItem'
@@ -90,6 +91,8 @@ const TransactionHistoryTab = () => {
           return <ReferralHistoryItem item={item} />
         case ReportTransactionType.TRANSFER:
           return <TransferHistoryItem item={item} />
+        case ReportTransactionType.BONUS:
+          return <BonusHistoryItem item={item} />
 
         default:
           return <WithdrawalHistoryItem item={item} />

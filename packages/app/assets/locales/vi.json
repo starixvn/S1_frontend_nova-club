@@ -169,8 +169,9 @@
       "adjustment": "Điều chỉnh",
       "deposit": "Nạp tiền",
       "game": "Trò Chơi",
-      "rewards": "Phần thưởng",
-      "withdrawal": "Rút tiền"
+      "rebate": "Hoàn Trả",
+      "withdrawal": "Rút tiền",
+      "bonus": "Thưởng"
     },
     "withdrawalStatus": {
       "all": "TẤT CẢ",

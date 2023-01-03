@@ -169,8 +169,9 @@
       "adjustment": "Adjustment",
       "deposit": "Deposit",
       "game": "Game",
-      "rewards": "Reward",
-      "withdrawal": "Withdrawal"
+      "rebate": "Rebate",
+      "withdrawal": "Withdrawal",
+      "bonus": "Bonus"
     },
     "withdrawalStatus": {
       "all": "All",

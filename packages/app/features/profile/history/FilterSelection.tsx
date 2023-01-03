@@ -96,7 +96,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
       <View sx={{ flexDirection: 'row' }}>
         {isTransaction ? (
           <Select
-            options={TypeList.slice(0, -1)}
+            options={TypeList}
             onSelected={(value) =>
               setSelected({
                 ...selected,
