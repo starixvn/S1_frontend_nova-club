@@ -42,7 +42,7 @@ export function Provider({ children }: { children: React.ReactNode }) {
                     <GameLauncher />
                     <App />
                     <RootToast />
-                    <SnowFall />
+                    {/* <SnowFall /> */}
                   </ContextualNavigationProvider>
                 </ModalProvider>
               </NavigationProvider>
