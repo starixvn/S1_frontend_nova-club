@@ -30,10 +30,19 @@ const Modal = ({
   _footer,
   isShowHeader = true,
   hideCloseButton,
-  closeModal,
+  onModalHide,
   ...modalProps
 }: ModalProps) => {
   const { t } = useLocalization()
+
+  /* 
+    this is a replacement for the modalfy closeModal, 
+    this component is deprecated
+  */
+  function _closeModal(_, callback) {
+    onModalHide && onModalHide()
+    callback && callback()
+  }
 
   return (
     <ReactNativeModal
@@ -43,7 +52,7 @@ const Modal = ({
     >
       <ModalContent
         title={title}
-        closeModal={modalProps.onModalHide}
+        closeModal={_closeModal}
         _body={_body}
         _footer={_footer}
         renderFooter={renderFooter}

@@ -3,7 +3,7 @@ import ReceiptUpload, {
 } from 'app/features/deposit/ReceiptUpload'
 import useLocalization from 'app/provider/localization'
 import { Box, Image, Text } from 'dripsy'
-import React, { useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { FileInputValue } from '../form/FileInput/useFileInputHandler'
 import ModalContent from './ModalContent'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
@@ -16,23 +16,22 @@ const DepositUploadModal = ({ modal: { closeModal, getParam } }) => {
   const dispatch = useDispatch()
   const depositUploadRef = useRef<ReceiptUploadMethods>(null)
   const [receipt, setReceipt] = useState<FileInputValue>()
+  const [isUploading, setUploading] = useState(false)
 
   const descInfo = getParam('descInfo', '')
   const fields = getParam('fields', '')
 
   const isShowingFields = descInfo && fields
 
-  function onDismiss() {
-    closeModal()
-  }
-
-  const handleSubmit = async () => {
+  async function handleSubmit() {
     let uploadResp
+
     if (depositUploadRef.current) {
+      setUploading(true)
       uploadResp = await depositUploadRef.current.uploadReceipt(
         descInfo.transactionId
       )
-
+      setUploading(false)
       if (uploadResp.success) {
         dispatch(DepositActions.setUpdatedSlipId(descInfo.transactionId))
         Toast.show({ type: 'success', text1: t('status.receiptSuccess') })
@@ -49,12 +48,13 @@ const DepositUploadModal = ({ modal: { closeModal, getParam } }) => {
         actions={[
           {
             label: t('common.cancel'),
-            onPress: onDismiss,
           },
           {
             label: t('common.submit'),
             onPress: handleSubmit,
             disabled: !receipt,
+            loading: isUploading,
+            disableAutoClose: true,
           },
         ]}
       >
