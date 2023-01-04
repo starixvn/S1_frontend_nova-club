@@ -69,7 +69,7 @@ const DepositHistoryItem = ({ item }: TransactionHistoryItemProps) => {
   }
 
   return (
-    <GradientBox sx={{ py: '$2' }}>
+    <GradientBox sx={{ py: '$1' }}>
       <View
         sx={{
           flex: 1,
@@ -130,22 +130,25 @@ const DepositHistoryItem = ({ item }: TransactionHistoryItemProps) => {
           >
             {item.status}
           </Text>
-          {!item.bank_slip_attachment &&
-            item.second_category_flag ===
-              DepositPaymentMethodCategoryId.LOCAL_BANK && (
-              <Text
-                numberOfLines={1}
-                sx={{
-                  fontSize: 12,
-                  ml: 4,
-                  textDecorationLine: 'underline',
-                  color: '$lightCyan',
-                }}
-                onPress={handleUploadReceipt}
-              >
-                {t('deposit.bankSlip')}
-              </Text>
-            )}
+          {true && (
+            <Text
+              numberOfLines={1}
+              sx={{
+                fontSize: 12,
+                /* widen click bank upload area */
+                py: 5,
+                pl: 5,
+                my: -5,
+                /* */
+                ml: 4,
+                textDecorationLine: 'underline',
+                color: '$lightCyan',
+              }}
+              onPress={handleUploadReceipt}
+            >
+              {t('deposit.bankSlip')}
+            </Text>
+          )}
         </View>
       </View>
     </GradientBox>
