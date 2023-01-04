@@ -43,13 +43,15 @@ const DatePickerIOS: FC<DatePickerModalIOSProps> = ({
     >
       <DateTimePicker
         themeVariant="dark"
-        timeZoneOffsetInMinutes={0}
         is24Hour
         maximumDate={maximumDate}
         minimumDate={minimumDate}
-        display="spinner"
+        display="inline"
         value={localValue}
-        onChange={(e, d) => d && setLocalValue(d)}
+        onChange={(e, d) => {
+          console.log('on change', d)
+          d && setLocalValue(d)
+        }}
       />
     </Modal>
   )

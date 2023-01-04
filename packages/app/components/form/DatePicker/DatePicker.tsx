@@ -2,7 +2,7 @@ import DateTimePicker, {
   AndroidNativeProps,
 } from '@react-native-community/datetimepicker'
 import Icon from 'app/components/Icon'
-import dayjs from 'app/utils/dayjs'
+import dayjs from 'dayjs'
 import { styled, Text, View } from 'dripsy'
 import React, { useState } from 'react'
 import {
