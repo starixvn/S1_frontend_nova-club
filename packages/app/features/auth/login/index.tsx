@@ -1,3 +1,4 @@
+import SlotMachine from 'app/features/events/cny/SlotMachine'
 import useLocalization from 'app/provider/localization'
 import React from 'react'
 import AuthLayout from '../layout/AuthLayout'
@@ -7,9 +8,10 @@ const LoginPage = () => {
   const { t } = useLocalization()
 
   return (
-    <AuthLayout showBackButton={false} headerDesc={t('auth.loginToAccount')}>
-      <LoginForm />
-    </AuthLayout>
+    <SlotMachine />
+    // <AuthLayout showBackButton={false} headerDesc={t('auth.loginToAccount')}>
+    //   <LoginForm />
+    // </AuthLayout>
   )
 }
 
