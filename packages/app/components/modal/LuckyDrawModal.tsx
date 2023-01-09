@@ -37,7 +37,7 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
   const [isLoading, setLoading] = useState(false)
   const [loopCount, setLoopCount] = useState(1)
 
-  const canSpin = luckyDrawBalance > 0
+  const canSpin = true // luckyDrawBalance > 0
 
   const { isLandscape } = useOrientation()
 

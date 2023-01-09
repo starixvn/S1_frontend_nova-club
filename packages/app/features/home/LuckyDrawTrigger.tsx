@@ -8,9 +8,9 @@ const LuckyDrawTrigger = () => {
   const luckyDrawBalance = useAppSelector((s) => s.setting.luckyDrawBalance)
 
   useEffect(() => {
-    if (luckyDrawBalance && luckyDrawBalance > 0) {
+    if (true) {
       setTimeout(() => {
-        openModal('LuckyDrawModal')
+        openModal('CnyLuckyDrawModal')
       }, 1500)
     }
   }, [])

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="210" height="280" viewBox="0 0 210 280">
+  <defs>
+    <filter id="_1" x="0" y="0" width="210" height="280" filterUnits="userSpaceOnUse">
+      <feOffset dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-color="#950000" flood-opacity="0.384"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="_1-2" x="0" y="0" width="210" height="280" filterUnits="userSpaceOnUse">
+      <feOffset dy="-5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur-2"/>
+      <feFlood flood-color="#950000" flood-opacity="0.482" result="color"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur-2"/>
+      <feComposite operator="in" in="color"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="ANGPAO" transform="translate(-74 -439)">
+    <g data-type="innerShadowGroup">
+      <g transform="matrix(1, 0, 0, 1, 74, 439)" filter="url(#_1)">
+        <rect id="_1-3" data-name="1" width="180" height="250" rx="10" transform="translate(15 10)" fill="red"/>
+      </g>
+      <g transform="matrix(1, 0, 0, 1, 74, 439)" filter="url(#_1-2)">
+        <rect id="_1-4" data-name="1" width="180" height="250" rx="10" transform="translate(15 10)" fill="#fff"/>
+      </g>
+    </g>
+    <path id="_1-5" data-name="1" d="M9.125-4h93.75A13.14,13.14,0,0,1,116,9.125v93.75A13.14,13.14,0,0,1,102.875,116H9.125A13.14,13.14,0,0,1-4,102.875V9.125A13.14,13.14,0,0,1,9.125-4Zm93.75,112.5a5.631,5.631,0,0,0,5.625-5.625V9.125A5.631,5.631,0,0,0,102.875,3.5H9.125A5.631,5.631,0,0,0,3.5,9.125v93.75A5.631,5.631,0,0,0,9.125,108.5Z" transform="translate(178.853 483) rotate(45)" fill="#fc0"/>
+  </g>
+</svg>

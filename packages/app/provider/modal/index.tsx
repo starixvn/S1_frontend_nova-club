@@ -40,6 +40,7 @@ export interface ModalStackParams {
   AffCupModal: undefined
   ReferralModal: undefined
   LuckyDrawModal: undefined
+  CnyLuckyDrawModal: undefined
   WithdrawalConfirmationModal: {
     withdrawalInfo: Record<any, any>
     bankLogo: any
@@ -51,6 +52,7 @@ export interface ModalStackParams {
 type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
 
 const _dynamicModal = {
+  CnyLuckyDrawModal: () => import('app/components/modal/CnyLuckyDrawModal'),
   LuckyDrawModal: () => import('app/components/modal/LuckyDrawModal'),
   AlertModal: () => import('app/components/modal/AlertModal'),
   LoadingModal: () => import('app/components/modal/LoadingModal'),
@@ -84,6 +86,9 @@ function getDynamicComponent(key: string) {
 }
 
 const modalConfig: ModalConfigType = {
+  CnyLuckyDrawModal: {
+    modal: getDynamicComponent('CnyLuckyDrawModal'),
+  },
   LuckyDrawModal: {
     modal: getDynamicComponent('LuckyDrawModal'),
   },
