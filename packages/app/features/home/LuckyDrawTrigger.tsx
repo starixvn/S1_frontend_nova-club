@@ -11,7 +11,7 @@ const LuckyDrawTrigger = () => {
     if (true) {
       setTimeout(() => {
         openModal('CnyLuckyDrawModal')
-      }, 1500)
+      }, 1000)
     }
   }, [])
 
