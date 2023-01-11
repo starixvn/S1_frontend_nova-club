@@ -84,14 +84,14 @@ const SlotMachineRoll = () => {
             itemSize={wrapperWidth * 0.16}
             value={dummyValue}
             style={{
-              left: '13%',
+              left: '12.5%',
             }}
           />
           <SlotMachineColumn
             itemSize={wrapperWidth * 0.16}
             value={dummyValue}
             style={{
-              left: '40%',
+              left: '39%',
             }}
             delay={300}
           />
@@ -130,7 +130,7 @@ const SlotMachineItem = ({ image, animValue, positionIndex, size }) => {
     <Animated.View
       style={[
         {
-          backgroundColor: 'white',
+          backgroundColor: '#ebe9da',
           position: 'absolute',
           height: size,
           width: '100%',
@@ -145,7 +145,7 @@ const SlotMachineItem = ({ image, animValue, positionIndex, size }) => {
         style={[
           {
             //   borderWidth: 1,
-            height: '80%',
+            height: '90%',
             aspectRatio: 1,
             //   transform: [
             //     // {
@@ -192,7 +192,7 @@ const SlotMachineColumn = ({
       style={{
         position: 'absolute',
         top: '28%',
-        backgroundColor: 'white',
+        backgroundColor: '#ebe9da',
         width: '22%',
         height: '100%',
         ...style,

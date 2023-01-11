@@ -13,11 +13,13 @@ const Lantern = () => {
       pointerEvents="none"
       sx={{
         position: 'absolute',
-        top: 0,
+        top: -2,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '100%',
+        zIndex: 2,
+        elevation: 2,
       }}
     >
       <MotifiedImage

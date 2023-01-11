@@ -29,7 +29,7 @@ const SlotMachine = () => {
               pt: top,
               pb: bottom,
               alignItems: 'center',
-              marginTop: '5%',
+              marginTop: '25%',
               justifyContent: 'center',
               marginBottom: 300,
             }}
