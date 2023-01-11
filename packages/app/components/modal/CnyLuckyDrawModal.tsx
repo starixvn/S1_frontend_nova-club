@@ -1,28 +1,14 @@
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useOrientation from 'app/hooks/useOrientation'
 import TouchableOpacity from 'app/pressable/TouchableOpacity'
-import useLocalization from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { SettingActions } from 'app/store/setting.slice'
 import { styled, View } from 'dripsy'
-import debounce from 'lodash/debounce'
 
-import {
-  AnimatePresence,
-  MotiImage,
-  MotiView,
-  StyleValueWithReplacedTransforms,
-  Text,
-} from 'moti'
-import { useCallback, useReducer, useState } from 'react'
-import {
-  ActivityIndicator,
-  Image,
-  ImageBackground,
-  StyleSheet,
-  ViewStyle,
-} from 'react-native'
-import { AnimateStyle, timing } from 'react-native-reanimated'
+import { AnimatePresence, MotiImage, MotiView, Text } from 'moti'
+import { memo, useCallback, useEffect, useState } from 'react'
+import { ActivityIndicator, Image, ImageBackground } from 'react-native'
+import { useEvent } from 'react-native-reanimated'
 import { useDispatch } from 'react-redux'
 import { useLuckySpinMutation } from 'services/playerApi'
 import { MotifiedImage } from '../common/Image'
@@ -67,37 +53,23 @@ const RedPacket = ({ prize }) => {
           delay: 3000,
         }}
       >
-        <RedCoverContainer
-          sx={{ zIndex: 3 }}
-          animate={{
-            transform: [{ translateY: [0, -50] }, { scaleY: [1, 0] }],
-          }}
-          transition={{
-            type: 'timing',
-            duration: 2800,
-          }}
-        >
-          <RedCover
-            source={require('app/assets/images/events/cny/cover.png')}
-          />
-        </RedCoverContainer>
-        <YellowContent
-          from={{
-            transform: [{ translateY: 0 }],
-            opacity: 0,
-          }}
-          animate={{
-            transform: [{ translateY: -70 }],
-            opacity: 1,
-          }}
-          transition={{
-            type: 'timing',
-            duration: 3200,
-            delay: 8000,
-          }}
+        <YellowImage
+          from={{ height: 0, transform: [{ translateY: 0 }] }}
+          animate={{ height: [0, 70], transform: [{ translateY: [0, -70] }] }}
+          transition={{ type: 'timing', duration: 1000, delay: 2000 }}
+          exit={{ height: 0 }}
+          exitTransition={{ type: 'timing', duration: 5000 }}
+          source={require('app/assets/images/events/cny/win.png')}
+        />
+        <MotiView
+          style={{ zIndex: 12, alignItems: 'center' }}
+          from={{ transform: [{ translateY: 0 }] }}
+          animate={{ transform: [{ translateY: [0, -70] }] }}
+          transition={{ type: 'timing', duration: 1000, delay: 2000 }}
         >
           <Text
             style={{
+              position: 'absolute',
               textAlign: 'center',
               color: 'red',
               fontWeight: '900',
@@ -105,9 +77,10 @@ const RedPacket = ({ prize }) => {
               marginTop: 20,
             }}
           >
-            {prize}
+            {winCredit} K
           </Text>
-        </YellowContent>
+        </MotiView>
+
         <RedCoverContainer
           sx={{ zIndex: 1 }}
           animate={{
@@ -120,7 +93,7 @@ const RedPacket = ({ prize }) => {
           }}
           transition={{
             type: 'timing',
-            duration: 2500,
+            duration: 2000,
           }}
         >
           <RedCover
@@ -133,7 +106,7 @@ const RedPacket = ({ prize }) => {
           transition={{
             type: 'timing',
             duration: 2500,
-            delay: 9000,
+            delay: 8000,
           }}
         >
           <Text
@@ -156,154 +129,175 @@ const RedPacket = ({ prize }) => {
   )
 }
 
-const DrawRedPacket = ({ handleAngpao, visible, loading }) => {
+const DrawRedPacket = memo(({ handleAngpao, visible, key }: any) => {
   let timingDelay = 2000
-  console.log('Rerender redpacket')
+  console.log('Rerender Draw Red Packet')
+
+  useEffect(() => {
+    console.log('Re-Create Draw rED')
+  }, [])
 
   return (
-    <>
+    <MotiView
+      style={{
+        position: 'absolute',
+        top: '28%',
+        alignItems: 'center',
+      }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{
+        opacity: 0,
+        scale: 0.9,
+      }}
+      transition={{
+        type: 'timing',
+        duration: 3000,
+      }}
+    >
+      <ScrollFixTop>
+        <LionContainer>
+          <LionImage
+            source={require('app/assets/images/events/cny/LION.png')}
+          />
+        </LionContainer>
+        <ScrollFixTopImage
+          source={require('app/assets/images/events/cny/SCROLL_TOP.png')}
+        />
+      </ScrollFixTop>
       <MotiView
         style={{
+          zIndex: 1,
           position: 'absolute',
-          top: '28%',
-          alignItems: 'center',
+          top: '27%',
+          marginHorizontal: 'auto',
         }}
-        animate={{ opacity: 1, scale: 1 }}
+        animate={{
+          transform: [{ translateY: [0, 365] }],
+        }}
         exit={{
-          opacity: 0,
-          scale: 0.9,
+          transform: [{ translateY: 0 }],
         }}
-        transition={{
-          type: 'timing',
-          duration: 4000,
-        }}
+        transition={{ type: 'timing', duration: 1500 }}
+        exitTransition={{ type: 'timing', duration: 3000 }}
       >
-        <ScrollFixTop>
-          <LionContainer>
-            <LionImage
-              source={require('app/assets/images/events/cny/LION.png')}
-            />
-          </LionContainer>
-          <ScrollFixTopImage
-            source={require('app/assets/images/events/cny/SCROLL_TOP.png')}
-          />
-        </ScrollFixTop>
-        <MotiView
+        <ScrollFixTopImage
+          source={require('app/assets/images/events/cny/SCROLL_TOP.png')}
+        />
+      </MotiView>
+      <ScrollContentContainer
+        animate={{ height: [0, 400] }}
+        transition={{ type: 'timing', duration: 1500 }}
+      >
+        <View
           style={{
-            zIndex: 1,
             position: 'absolute',
-            top: '27%',
-            marginHorizontal: 'auto',
+            zIndex: 5,
           }}
-          animate={ScrollTopAnimation.animate}
-          transition={ScrollTopAnimation.transition}
         >
-          <ScrollFixTopImage
-            source={require('app/assets/images/events/cny/SCROLL_TOP.png')}
-          />
-        </MotiView>
-        <ScrollContentContainer
-          animate={ScrollContentContainerAnimation.animate}
-          transition={ScrollContentContainerAnimation.transition}
-        >
-          <View
-            style={{
-              position: 'absolute',
-              zIndex: 5,
+          <MotiView
+            from={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            exitTransition={{ duration: 500, type: 'timing', delay: 0 }}
+            transition={{
+              type: 'timing',
+              duration: 2500,
+              delay: 2000,
             }}
           >
-            <MotiView
-              from={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{
-                type: 'timing',
-                duration: 2500,
-                delay: 2000,
+            <Text
+              style={{
+                textAlign: 'center',
+                paddingTop: 30,
+                color: '#932222',
+                fontWeight: 'bold',
+                fontSize: 25,
               }}
+              numberOfLines={2}
             >
-              <Text
-                style={{
-                  textAlign: 'center',
-                  paddingTop: 30,
-                  color: '#932222',
-                  fontWeight: 'bold',
-                  fontSize: 25,
-                }}
-                numberOfLines={2}
-              >
-                Chọn Bao Lì Xì May
-              </Text>
-              <Text
-                style={{
-                  textAlign: 'center',
-                  paddingBottom: 10,
-                  color: '#932222',
-                  fontWeight: 'bold',
-                  fontSize: 25,
-                }}
-                numberOfLines={2}
-              >
-                Mắn Của Bạn
-              </Text>
-            </MotiView>
-            <ScrollAngpaoListContainer>
-              {AngpaoList?.map((d, index) => {
-                timingDelay = timingDelay + 200
-                return (
-                  <TouchableOpacity
-                    key={d.text}
-                    onPress={() => handleAngpao(!visible)}
-                    disabled={visible}
+              Chọn Bao Lì Xì May
+            </Text>
+            <Text
+              style={{
+                textAlign: 'center',
+                paddingBottom: 10,
+                color: '#932222',
+                fontWeight: 'bold',
+                fontSize: 25,
+              }}
+              numberOfLines={2}
+            >
+              Mắn Của Bạn
+            </Text>
+          </MotiView>
+
+          <ScrollAngpaoListContainer>
+            {AngpaoList?.map((d, index) => {
+              timingDelay = timingDelay + 200
+              return (
+                <TouchableOpacity
+                  key={d.text}
+                  onPress={() => handleAngpao()}
+                  disabled={visible}
+                >
+                  <MotiView
+                    from={{
+                      opacity: 0,
+                    }}
+                    animate={{
+                      opacity: 1,
+                    }}
+                    transition={{
+                      type: 'timing',
+                      duration: 2000,
+                      delay: timingDelay,
+                    }}
+                    exit={{ opacity: 0 }}
+                    exitTransition={{
+                      duration: 500,
+                      type: 'timing',
+                      delay: 0,
+                    }}
                   >
-                    <MotiView
-                      from={{
-                        opacity: 0,
-                      }}
-                      animate={{
-                        opacity: 1,
-                      }}
-                      transition={{
-                        type: 'timing',
-                        duration: 2000,
-                        delay: timingDelay,
+                    <ImageBackground
+                      resizeMode="cover"
+                      source={require('app/assets/images/events/cny/ANGPAO.png')}
+                      style={{
+                        aspectRatio: 7 / 10,
+                        height: 110,
+                        justifyContent: 'center',
+                        alignItems: 'center',
                       }}
                     >
-                      <ImageBackground
-                        resizeMode="cover"
-                        source={require('app/assets/images/events/cny/ANGPAO.png')}
-                        style={{
-                          aspectRatio: 7 / 10,
-                          height: 110,
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                        }}
-                      >
-                        <MotifiedImage
-                          style={{ aspectRatio: 10 / 7, height: 23 }}
-                          source={d.image}
-                        />
-                      </ImageBackground>
-                    </MotiView>
-                  </TouchableOpacity>
-                )
-              })}
-            </ScrollAngpaoListContainer>
-          </View>
-          <ScrollBody
-            animate={ScrollBodyAnimation.animate}
-            transition={ScrollBodyAnimation.transition}
-            source={require('app/assets/images/events/cny/SCROLL_BODY.jpg')}
-          />
-        </ScrollContentContainer>
-      </MotiView>
-    </>
+                      <MotifiedImage
+                        style={{ aspectRatio: 10 / 7, height: 23 }}
+                        source={d.image}
+                      />
+                    </ImageBackground>
+                  </MotiView>
+                </TouchableOpacity>
+              )
+            })}
+          </ScrollAngpaoListContainer>
+        </View>
+        <ScrollBody
+          animate={ScrollBodyAnimation.animate}
+          transition={ScrollBodyAnimation.transition}
+          exit={{ height: 0 }}
+          exitTransition={{ type: 'timing', duration: 3000 }}
+          source={require('app/assets/images/events/cny/SCROLL_BODY.jpg')}
+        />
+      </ScrollContentContainer>
+    </MotiView>
   )
-}
+})
+DrawRedPacket.displayName = 'DrawRedpacket'
 
-const LoadingAngpaoView = () => {
+const LoadingAngpaoView = ({ loading }) => {
   const { height } = useContainerDimension()
   const loadingHeight = height
-  return (
+  console.log('loadingAngpaoViewm:', loading)
+  return loading ? (
     <AnimatePresence>
       <MotiView
         from={{ opacity: 0, translateY: 250 }}
@@ -327,7 +321,7 @@ const LoadingAngpaoView = () => {
         </MotiView>
       </MotiView>
     </AnimatePresence>
-  )
+  ) : null
 }
 const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
   const dispatch = useDispatch()
@@ -338,32 +332,31 @@ const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
   const [loading, setLoading] = useState(false)
   const [spinLuckyWheel] = useLuckySpinMutation()
   const [prize, setPrize] = useState('')
+  const [first, setfirst] = useState(false)
 
-  const spin = async (visible) => {
+  const spin = useCallback(async () => {
+    console.log('spin')
+    // setLoading(true)
     const { data, success } = await spinLuckyWheel()
       .unwrap()
       .catch((error) => {
-        // setVisible(visible)
         setLoading(false)
-        // setVisible(visible)
-
-        console.log(visible)
-        // showAlert(error)
+        setVisible(true)
         return error
       })
-    console.log('what data:', data?.data)
-    // setVisible(visible)
 
+    console.log('what data:', data?.data)
+    // setLoading(false)
+    // setVisible(true)
     if (success) {
       console.log('success')
-      setPrize(handleSpinMapping(data.code))
       dispatch(SettingActions.setLuckyDrawBalance(0)) // this is to trigger the memoized wheel
       // setSpinBalance((prev) => prev + 1)
 
       setTimeout(() => {
         // showAlert({
         //   message: data.code === 4 ? t('status.luckyThankYou') : data.note,
-        //   onClose: () => {
+        //   onClose: () => {R
         //     setTimeout(() => handleClose(), 500)
         //   },
         //   persistent: true,
@@ -372,7 +365,7 @@ const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
         // setVisible(visible)
       }, 5500)
     }
-  }
+  }, [dispatch, spinLuckyWheel])
   const handleSpinMapping = (code: number) => {
     switch (code) {
       case 1:
@@ -386,21 +379,24 @@ const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
     }
   }
 
-  // const debounceSpin = useCallback(debounce(spin, 500), [])
-
   const handleClose = () => {
     closeModal('CnyLuckyDrawModal', () => {
       dispatch(SettingActions.setLuckyDrawBalance(0))
     })
   }
-  const debounceSpin = useCallback(debounce(spin, 500), [])
 
-  const handleAngpao = (visible) => {
-    setVisible(visible)
+  const handleAngpao = useCallback(() => {
     setLoading(true)
-    debounceSpin(visible)
-  }
+    // setVisible(true)
+    spin()
+    // setLoading(false)
+  }, [])
 
+  useEffect(() => {
+    console.log('Modal Recreate')
+  }, [])
+
+  console.log('Rerender Modal', visible)
   const { top } = useSafeArea()
   return (
     <OverlayContainer sx={{ width, height, paddingTop: top }}>
@@ -412,20 +408,26 @@ const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
           alignItems: 'center',
         }}
       >
+        <TouchableOpacity
+          style={{ backgroundColor: 'red' }}
+          onPress={() => {
+            setfirst((dummy) => !dummy)
+          }}
+        >
+          <Text>Press jhere</Text>
+        </TouchableOpacity>
         <AnimatePresence>
           {!visible ? (
             <DrawRedPacket
               key={'DrawRedPacket'}
               handleAngpao={handleAngpao}
               visible={visible}
-              loading={loading}
             />
-          ) : loading ? (
-            <LoadingAngpaoView />
           ) : (
             <RedPacket key={'redPacket'} prize={prize} />
           )}
         </AnimatePresence>
+        <LoadingAngpaoView loading={loading} />
       </View>
 
       {!loading ? (
@@ -509,14 +511,11 @@ const AngpaoBody = styled(MotifiedImage)({
   width: 200,
 })
 
-const YellowContent = styled(MotiView)({
-  zIndex: 2,
+const YellowImage = styled(MotiImage)({
+  zIndex: 12,
   position: 'absolute',
-  marginX: 'auto',
-  height: 90,
   width: 180,
-  backgroundColor: '#ffcc02',
-  borderRadius: 10,
+  height: 0,
 })
 
 const CongratulationTextContainer = styled(MotiView)({
