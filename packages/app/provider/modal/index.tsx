@@ -26,6 +26,7 @@ export interface ModalStackParams {
     actions: ModalAction[]
     onClose(...args: any): any
   }
+  CnyWinModal: { amount: number }
   DepositConfirmationModal: { amount: number; callback(...args: any): any }
   DepositUploadModal: {
     descInfo: Record<any, any>
@@ -66,6 +67,7 @@ const _dynamicModal = {
   ReferralModal: () => import('app/components/modal/ReferralModal'),
   WithdrawalConfirmationModal: () =>
     import('app/components/modal/WithdrawalConfirmationModal'),
+  CnyWinModal: () => import('app/components/modal/CnyWinModal'),
 }
 
 function getDynamicComponent(key: string) {
@@ -121,6 +123,10 @@ const modalConfig: ModalConfigType = {
   },
   WithdrawalConfirmationModal: {
     modal: getDynamicComponent('WithdrawalConfirmationModal'),
+  },
+  CnyWinModal: {
+    modal: getDynamicComponent('CnyWinModal'),
+    // backdropOpacity: 0,
   },
 }
 

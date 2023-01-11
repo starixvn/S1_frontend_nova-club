@@ -76,6 +76,7 @@ const commonColors = {
   $black: '#062646',
   $dim: '#FFFFFFBF', //opacity 75%
   $dim1: '#FFFFFF80', // opacity 50%
+  $yellowGold: '#FFDB6D',
 }
 
 const colorGradient = {
