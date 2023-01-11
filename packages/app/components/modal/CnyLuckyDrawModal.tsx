@@ -50,22 +50,22 @@ const RedPacket = ({ prize }) => {
         transition={{
           type: 'timing',
           duration: 1500,
-          delay: 3000,
+          delay: 2000,
         }}
       >
         <YellowImage
           from={{ height: 0, transform: [{ translateY: 0 }] }}
-          animate={{ height: [0, 70], transform: [{ translateY: [0, -70] }] }}
-          transition={{ type: 'timing', duration: 1000, delay: 2000 }}
+          animate={{ height: 70, transform: [{ translateY: -70 }] }}
+          transition={{ type: 'timing', duration: 1000, delay: 4000 }}
           exit={{ height: 0 }}
-          exitTransition={{ type: 'timing', duration: 5000 }}
+          // exitTransition={{ type: 'timing', duration: 5000 }}
           source={require('app/assets/images/events/cny/win.png')}
         />
         <MotiView
           style={{ zIndex: 12, alignItems: 'center' }}
           from={{ transform: [{ translateY: 0 }] }}
-          animate={{ transform: [{ translateY: [0, -70] }] }}
-          transition={{ type: 'timing', duration: 1000, delay: 2000 }}
+          animate={{ transform: [{ translateY: -70 }] }}
+          transition={{ type: 'timing', duration: 1000, delay: 4000 }}
         >
           <Text
             style={{
@@ -77,7 +77,7 @@ const RedPacket = ({ prize }) => {
               marginTop: 20,
             }}
           >
-            {winCredit} K
+            {winCredit}
           </Text>
         </MotiView>
 
@@ -93,7 +93,7 @@ const RedPacket = ({ prize }) => {
           }}
           transition={{
             type: 'timing',
-            duration: 2000,
+            duration: 500,
           }}
         >
           <RedCover
@@ -106,16 +106,17 @@ const RedPacket = ({ prize }) => {
           transition={{
             type: 'timing',
             duration: 2500,
-            delay: 8000,
+            delay: 4500,
           }}
         >
           <Text
             style={{
               textAlign: 'center',
               paddingTop: 10,
+              fontSize: 20,
               color: '#ffcc02',
               fontWeight: '900',
-              marginHorizontal: 30,
+              marginHorizontal: 5,
             }}
           >
             Xin chúc mừng! VND{winCredit}K đã được thêm vào ví của bạn
@@ -129,8 +130,8 @@ const RedPacket = ({ prize }) => {
   )
 }
 
-const DrawRedPacket = memo(({ handleAngpao, visible, key }: any) => {
-  let timingDelay = 2000
+const DrawRedPacket = memo(({ handleAngpao, visible }: any) => {
+  let timingDelay = 1000
   console.log('Rerender Draw Red Packet')
 
   useEffect(() => {
@@ -151,7 +152,7 @@ const DrawRedPacket = memo(({ handleAngpao, visible, key }: any) => {
       }}
       transition={{
         type: 'timing',
-        duration: 3000,
+        duration: 2000,
       }}
     >
       <ScrollFixTop>
@@ -171,21 +172,26 @@ const DrawRedPacket = memo(({ handleAngpao, visible, key }: any) => {
           top: '27%',
           marginHorizontal: 'auto',
         }}
+        from={{
+          transform: [{ translateY: 0 }],
+        }}
         animate={{
-          transform: [{ translateY: [0, 365] }],
+          transform: [{ translateY: 365 }],
         }}
         exit={{
           transform: [{ translateY: 0 }],
         }}
         transition={{ type: 'timing', duration: 1500 }}
-        exitTransition={{ type: 'timing', duration: 3000 }}
+        exitTransition={{ type: 'timing', duration: 2000 }}
       >
         <ScrollFixTopImage
           source={require('app/assets/images/events/cny/SCROLL_TOP.png')}
         />
       </MotiView>
       <ScrollContentContainer
-        animate={{ height: [0, 400] }}
+        from={{ height: 0 }}
+        animate={{ height: 400 }}
+        exit={{ height: 0 }}
         transition={{ type: 'timing', duration: 1500 }}
       >
         <View
@@ -202,7 +208,7 @@ const DrawRedPacket = memo(({ handleAngpao, visible, key }: any) => {
             transition={{
               type: 'timing',
               duration: 2500,
-              delay: 2000,
+              delay: 1000,
             }}
           >
             <Text
@@ -239,6 +245,7 @@ const DrawRedPacket = memo(({ handleAngpao, visible, key }: any) => {
                   key={d.text}
                   onPress={() => handleAngpao()}
                   disabled={visible}
+                  style={{ zIndex: 10 }}
                 >
                   <MotiView
                     from={{
@@ -284,7 +291,8 @@ const DrawRedPacket = memo(({ handleAngpao, visible, key }: any) => {
           animate={ScrollBodyAnimation.animate}
           transition={ScrollBodyAnimation.transition}
           exit={{ height: 0 }}
-          exitTransition={{ type: 'timing', duration: 3000 }}
+          from={{ height: 0 }}
+          exitTransition={{ type: 'timing', duration: 2000 }}
           source={require('app/assets/images/events/cny/SCROLL_BODY.jpg')}
         />
       </ScrollContentContainer>
@@ -336,7 +344,6 @@ const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
 
   const spin = useCallback(async () => {
     console.log('spin')
-    // setLoading(true)
     const { data, success } = await spinLuckyWheel()
       .unwrap()
       .catch((error) => {
@@ -387,13 +394,7 @@ const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
 
   const handleAngpao = useCallback(() => {
     setLoading(true)
-    // setVisible(true)
     spin()
-    // setLoading(false)
-  }, [])
-
-  useEffect(() => {
-    console.log('Modal Recreate')
   }, [])
 
   console.log('Rerender Modal', visible)
@@ -408,14 +409,14 @@ const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
           alignItems: 'center',
         }}
       >
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{ backgroundColor: 'red' }}
           onPress={() => {
             setfirst((dummy) => !dummy)
           }}
         >
           <Text>Press jhere</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <AnimatePresence>
           {!visible ? (
             <DrawRedPacket
@@ -433,7 +434,7 @@ const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
       {!loading ? (
         <CloseButtonContainer>
           <IconButton
-            onPress={handleClose}
+            onPress={handleAngpao}
             name="cross"
             color="white"
             sx={{
@@ -450,7 +451,7 @@ const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
 
 const ScrollBodyAnimation = {
   animate: {
-    height: [0, 350],
+    height: 350,
   },
   transition: {
     type: 'timing',
@@ -515,7 +516,6 @@ const YellowImage = styled(MotiImage)({
   zIndex: 12,
   position: 'absolute',
   width: 180,
-  height: 0,
 })
 
 const CongratulationTextContainer = styled(MotiView)({
