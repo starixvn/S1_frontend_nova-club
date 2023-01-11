@@ -10,6 +10,7 @@ const ROTATE_WIDTH = SWING_WIDTH * 0.5
 const Lantern = () => {
   return (
     <View
+      pointerEvents="none"
       sx={{
         position: 'absolute',
         top: 0,

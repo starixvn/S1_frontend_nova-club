@@ -22,6 +22,7 @@ const SlotMachine = () => {
         source={require('../../../assets/images/events/cny/bg.png')}
         style={{ flex: 1 }}
       >
+        <Lantern />
         <ScrollView showsVerticalScrollIndicator={false}>
           <View
             sx={{
@@ -30,11 +31,11 @@ const SlotMachine = () => {
               alignItems: 'center',
               marginTop: '5%',
               justifyContent: 'center',
+              marginBottom: 300,
             }}
           >
             <SlotMachineRoll />
           </View>
-          <Lantern />
           <Button title="Roll" onPress={handlePress} />
         </ScrollView>
         <Cloud />

@@ -13,6 +13,7 @@ const SWING_WIDTH = 30
 const Cloud = () => {
   return (
     <View
+      pointerEvents="none"
       sx={{
         position: 'absolute',
         bottom: 0,
