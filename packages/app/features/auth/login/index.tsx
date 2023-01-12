@@ -8,10 +8,10 @@ const LoginPage = () => {
   const { t } = useLocalization()
 
   return (
-    <SlotMachine />
-    // <AuthLayout showBackButton={false} headerDesc={t('auth.loginToAccount')}>
-    //   <LoginForm />
-    // </AuthLayout>
+    // <SlotMachine />
+    <AuthLayout showBackButton={false} headerDesc={t('auth.loginToAccount')}>
+      <LoginForm />
+    </AuthLayout>
   )
 }
 

@@ -48,6 +48,8 @@ const _contextualComponents = {
   '/event/wcwinner': () =>
     import('../../features/events/winnerList/WorldCupWinner'),
   '/event/affcup': () => import('../../features/events/affcup/AffCupScreen'),
+  '/event/cny': () => import('../../features/events/cny/SlotMachine'),
+  '/event/cnytnc': () => import('../../../../apps/next/pages/event/cnytnc'),
 }
 
 function getContextualComponent(key: string) {
