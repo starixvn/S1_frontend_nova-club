@@ -1,7 +1,8 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Image from 'app/components/common/Image'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { ScrollView, Text, View } from 'dripsy'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   ImageBackground,
   TextInput,
@@ -105,7 +106,9 @@ const SlotMachine = () => {
           >
             <Image
               style={{ width: 300, aspectRatio: 2 }}
-              source={require('../../../assets/images/events/cny/board-ani.gif')}
+              source={{
+                uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/cny/board-ani.gif`,
+              }}
             />
           </View>
           <View
