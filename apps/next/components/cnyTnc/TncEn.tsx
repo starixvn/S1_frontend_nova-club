@@ -1,4 +1,5 @@
 import React from 'react'
+import Cat from 'app/assets/images/events/cny/zodiac/cat.png'
 
 const TncEn = () => {
   return (
@@ -29,9 +30,16 @@ const TncEn = () => {
       <br />
       <strong>LUCKY SPIN PRIZES</strong>
       <ol>
-        <li>1 x cat = VND38,000</li>
-        <li>2 x cat = VND388,000</li>
-        <li>3 x cat = VND3,888,000</li>
+        <li className="catList">
+          1 x
+          <img className="cat" src={Cat} alt="cat" />= VND38,000
+        </li>
+        <li className="catList">
+          2 x <img className="cat" src={Cat} alt="cat" /> = VND388,000
+        </li>
+        <li className="catList">
+          3 x <img className="cat" src={Cat} alt="cat" /> = VND3,888,000
+        </li>
       </ol>
 
       <br />

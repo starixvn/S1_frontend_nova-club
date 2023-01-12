@@ -2,16 +2,16 @@ import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Image from 'app/components/common/Image'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import TouchableOpacity from 'app/pressable/TouchableOpacity'
-import { ActionType, getAction } from 'app/utils/actionGenerator'
 import { Text } from 'dripsy'
 import React from 'react'
 import { useWindowDimensions } from 'react-native'
-import { Game } from 'services/contentApi.type'
+import { useCheckCnySpinQuery } from 'services/eventApi'
 import { useRouter } from 'solito/router'
 
 const FloatingCny = () => {
   const { push } = useRouter()
   const { width } = useWindowDimensions()
+  const { data } = useCheckCnySpinQuery()
 
   const { makeContextualHref } = useContextualRouting()
   const to = makeContextualHref('/event/cny')
@@ -46,7 +46,7 @@ const FloatingCny = () => {
           color: 'red',
         }}
       >
-        12
+        {data?.data?.totalSpin && 0}
       </Text>
     </TouchableOpacity>
   )

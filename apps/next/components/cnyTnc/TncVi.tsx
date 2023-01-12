@@ -1,4 +1,5 @@
 import React from 'react'
+import Cat from 'app/assets/images/events/cny/zodiac/cat.png'
 
 const TncVi = () => {
   return (
@@ -24,9 +25,20 @@ const TncVi = () => {
       <br />
       <strong>GIẢI THƯỞNG VÒNG QUAY LỘC ĐẦU NĂM</strong>
       <ol>
-        <li>1 mèo = 38,000đ</li>
-        <li>2 mèo = 388,000đ</li>
-        <li>3 mèo = 3,888,000đ</li>
+        <li className="catList">
+          1 x
+          <img className="cat" src={Cat} alt="cat" />= 38,000đ
+        </li>
+
+        <li className="catList">
+          2 x
+          <img className="cat" src={Cat} alt="cat" />= 388,000đ
+        </li>
+
+        <li className="catList">
+          3 x
+          <img className="cat" src={Cat} alt="cat" />= 3,888,000đ
+        </li>
       </ol>
       <br />
 

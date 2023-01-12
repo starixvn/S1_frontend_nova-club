@@ -70,6 +70,17 @@ const CnyTnC = () => {
           li div {
             margin-bottom: 0.6em;
           }
+
+          .catList {
+            display: flex;
+            align-items: center;
+          }
+
+          .cat {
+            width: 36px;
+            height: 36px;
+            margin: 0 8px 0 8px;
+          }
         `}</style>
 
         <TnCLanguage />

@@ -41,7 +41,7 @@ const FloatingContent = () => {
         }}
       >
         <FloatingCny />
-        <FloatingAffWinner />
+        {/* <FloatingAffWinner /> */}
 
         <VGaming />
 
