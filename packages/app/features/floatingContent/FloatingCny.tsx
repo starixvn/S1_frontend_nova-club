@@ -11,7 +11,9 @@ import { useRouter } from 'solito/router'
 const FloatingCny = () => {
   const { push } = useRouter()
   const { width } = useWindowDimensions()
-  const { data } = useCheckCnySpinQuery()
+  const { balance } = useCheckCnySpinQuery(undefined, {
+    selectFromResult: (s) => ({ ...s, balance: s.data?.data }),
+  })
 
   const { makeContextualHref } = useContextualRouting()
   const to = makeContextualHref('/event/cny')
@@ -20,7 +22,7 @@ const FloatingCny = () => {
     push(to, '/event/cny')
   }
 
-  const iconSize = Math.min(110, width * 0.25)
+  const iconSize = Math.min(100, width * 0.2)
 
   return (
     <TouchableOpacity onPress={handlePress}>
@@ -35,19 +37,21 @@ const FloatingCny = () => {
         }}
         resizeMode="contain"
       />
-      <Text
-        sx={{
-          position: 'absolute',
-          bottom: 32,
-          left: 0,
-          right: 0,
-          textAlign: 'center',
-          fontWeight: 'bold',
-          color: 'red',
-        }}
-      >
-        {data?.data?.totalSpin && 0}
-      </Text>
+      {balance && (
+        <Text
+          sx={{
+            position: 'absolute',
+            bottom: 32,
+            left: 0,
+            right: 0,
+            textAlign: 'center',
+            fontWeight: 'bold',
+            color: 'red',
+          }}
+        >
+          {balance.totalBalance}
+        </Text>
+      )}
     </TouchableOpacity>
   )
 }

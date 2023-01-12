@@ -193,7 +193,7 @@ export function toThousandSeparator(
   text: string,
   language: LANGUAGE_CODE = LANGUAGE_CODE.VIETNAM
 ) {
-  if (!text) return
+  if (!text) return 0
 
   const separatorSymbol = CURRENCY_SEPARATOR[language].thousands
   const significants = text.toString().split('.')

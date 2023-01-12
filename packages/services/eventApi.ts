@@ -37,11 +37,13 @@ export const eventApi = baseApiWithTag.injectEndpoints({
       query: () => ({
         url: `/player_api/checkCnyElegibleSpin`,
       }),
+      providesTags: ['CNYSpinBalance'],
     }),
-    cnySpin: builder.query<IResponse<CNYRollResult[]>, void>({
+    cnySpin: builder.mutation<IResponse<CNYRollResult[]>, void>({
       query: () => ({
         url: `/player_api/cnyFreeWheelSpin`,
       }),
+      invalidatesTags: ['CNYSpinBalance'],
     }),
   }),
 })
@@ -51,5 +53,5 @@ export const {
   useWcPredictMutation,
   useAffcupWinnerListQuery,
   useCheckCnySpinQuery,
-  useCnySpinQuery,
+  useCnySpinMutation,
 } = eventApi

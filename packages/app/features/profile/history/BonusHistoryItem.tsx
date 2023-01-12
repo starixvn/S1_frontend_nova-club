@@ -16,6 +16,7 @@ const BonusHistoryItem = ({ item }) => {
   const { t } = useLocalization()
 
   const isPositive = item.amount > 0
+  const displayAmount = toThousandSeparator(item.amount)
   return (
     <GradientBox>
       <View
@@ -50,10 +51,17 @@ const BonusHistoryItem = ({ item }) => {
           <Text
             sx={{
               textAlign: 'right',
-              color: isPositive ? '#00FF19' : '#BE0A16',
+              color:
+                item.amount === 0
+                  ? 'white'
+                  : isPositive
+                  ? '#00FF19'
+                  : '#BE0A16',
             }}
           >
-            {isPositive
+            {item.amount === 0
+              ? displayAmount
+              : isPositive
               ? `+${toThousandSeparator(item.amount)}`
               : `-${toThousandSeparator(item.amount)}`}
           </Text>

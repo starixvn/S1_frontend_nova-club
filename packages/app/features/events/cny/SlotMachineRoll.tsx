@@ -13,22 +13,31 @@ import Animated, {
 } from 'react-native-reanimated'
 import { CNYRollResult } from 'services/eventApi.type'
 import cat from '../../../assets/images/events/cny/zodiac/cat.png'
+import rat from '../../../assets/images/events/cny/zodiac/rat.png'
+import buffalo from '../../../assets/images/events/cny/zodiac/buffalo.png'
+import tiger from '../../../assets/images/events/cny/zodiac/tiger.png'
 import dragon from '../../../assets/images/events/cny/zodiac/dragon.png'
 import snake from '../../../assets/images/events/cny/zodiac/snake.png'
-import tiger from '../../../assets/images/events/cny/zodiac/tiger.png'
+import horse from '../../../assets/images/events/cny/zodiac/horse.png'
+import goat from '../../../assets/images/events/cny/zodiac/goat.png'
+import monkey from '../../../assets/images/events/cny/zodiac/monkey.png'
+import rooster from '../../../assets/images/events/cny/zodiac/rooster.png'
+import dog from '../../../assets/images/events/cny/zodiac/dog.png'
+import pig from '../../../assets/images/events/cny/zodiac/pig.png'
+
 const COL = [
   cat,
+  rat,
+  buffalo,
+  tiger,
   dragon,
   snake,
-  tiger,
-  snake,
-  dragon,
-  snake,
-  tiger,
-  snake,
-  dragon,
-  snake,
-  tiger,
+  horse,
+  goat,
+  monkey,
+  rooster,
+  dog,
+  pig,
 ]
 
 const EXTRA_ITEM = 2

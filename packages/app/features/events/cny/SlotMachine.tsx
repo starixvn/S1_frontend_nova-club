@@ -1,14 +1,13 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Image from 'app/components/common/Image'
+import IconButton from 'app/components/form/IconButton'
+import useAlert from 'app/hooks/useAlert'
+import useLocalization from 'app/provider/localization'
+import { useAppDispatch } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { ActivityIndicator, ScrollView, Text, View } from 'dripsy'
 import { useState } from 'react'
-import {
-  ImageBackground,
-  TextInput,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-} from 'react-native'
+import { ImageBackground, TextInput, TouchableOpacity } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import Animated, {
   runOnJS,
@@ -16,8 +15,13 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
-import { useCheckCnySpinQuery } from 'services/eventApi'
+import {
+  eventApi,
+  useCheckCnySpinQuery,
+  useCnySpinMutation,
+} from 'services/eventApi'
 import { CNYRollResult } from 'services/eventApi.type'
+import { useRouter } from 'solito/router'
 import Cloud from './Cloud'
 import Lantern from './Latern'
 
@@ -25,44 +29,70 @@ import SlotMachineRoll from './SlotMachineRoll'
 
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput)
 
-const testResuls = [
-  {
-    code: '2',
-    note: 'Congratulation! VND 0 has been added to your wallet. ',
-    amount: '38000',
-    formatted_amount: '0',
-    err: 'ok',
-  },
-  {
-    code: '2',
-    note: 'Congratulation! VND 0 has been added to your wallet. ',
-    amount: '38000',
-    formatted_amount: '0',
-    err: 'ok',
-  },
-  {
-    code: '1',
-    note: 'Congratulation! VND 0 has been added to your wallet. ',
-    amount: '18000',
-    formatted_amount: '0',
-    err: 'ok',
-  },
-]
+// const testResuls = [
+//   {
+//     code: '2',
+//     note: 'Congratulation! VND 0 has been added to your wallet. ',
+//     amount: '38000',
+//     formatted_amount: '0',
+//     err: 'ok',
+//   },
+//   {
+//     code: '2',
+//     note: 'Congratulation! VND 0 has been added to your wallet. ',
+//     amount: '38000',
+//     formatted_amount: '0',
+//     err: 'ok',
+//   },
+//   {
+//     code: '1',
+//     note: 'Congratulation! VND 0 has been added to your wallet. ',
+//     amount: '18000',
+//     formatted_amount: '0',
+//     err: 'ok',
+//   },
+// ]
 
 const SlotMachine = () => {
+  const dispatch = useAppDispatch()
+  const { back } = useRouter()
   const { top, bottom } = useSafeArea()
   const { openModal } = useModal()
   const progressAmount = useSharedValue(0)
+  const [lastCompletedRound, setLastCompletedRound] = useState(0)
+  const [isSubmitting, setSubmitting] = useState(false)
+  const [isAnimating, setAnimating] = useState(false)
   const [results, setResults] = useState<CNYRollResult[]>()
+  const { showAlert } = useAlert()
+  const { t } = useLocalization()
 
   const { balance } = useCheckCnySpinQuery(undefined, {
+    refetchOnMountOrArgChange: true,
     selectFromResult: (s) => ({ ...s, balance: s.data?.data }),
   })
 
-  console.log('balance', balance)
+  const [spin] = useCnySpinMutation()
+
+  async function roll() {
+    try {
+      setSubmitting(true)
+      const { data, success, message } = await spin().unwrap()
+
+      if (success) {
+        setAnimating(true)
+        setResults(data)
+      } else {
+        showAlert(message)
+      }
+    } catch (e) {
+      showAlert(t('status.systemError'))
+    } finally {
+      setSubmitting(false)
+    }
+  }
 
   function onResultComplete() {
-    if (results)
+    if (results) {
       openModal(
         'CnyWinModal',
         {
@@ -72,10 +102,24 @@ const SlotMachine = () => {
           progressAmount.value = 0
         }
       )
+
+      dispatch(
+        eventApi.util.updateQueryData(
+          'checkCnySpin',
+          undefined,
+          (draftPosts) => {
+            if (draftPosts.data) draftPosts.data.totalBalance = 0
+          }
+        )
+      )
+
+      setAnimating(false)
+    }
   }
 
   function onRoundComplete(completedIndex, next) {
-    if (results)
+    if (results) {
+      setLastCompletedRound(completedIndex + 1)
       progressAmount.value = withTiming(
         progressAmount.value + Number(results[completedIndex]?.amount),
         {
@@ -87,12 +131,15 @@ const SlotMachine = () => {
           }
         }
       )
+    }
   }
 
   const animatedProps = useAnimatedProps(
     () =>
       ({
-        text: Math.round(progressAmount.value / 1000) + 'K',
+        text:
+          Math.round(progressAmount.value / 1000) +
+          (progressAmount.value > 1000 ? 'K' : ''),
       } as any)
   )
 
@@ -102,6 +149,31 @@ const SlotMachine = () => {
         source={require('../../../assets/images/events/cny/bg.png')}
         style={{ flex: 1 }}
       >
+        <IconButton
+          onPress={() => back()}
+          name="chevleft"
+          size={20}
+          color={'$darkNavyBlue'}
+          sx={{
+            top: top + 50,
+            left: 20,
+            zIndex: 3,
+            width: 40,
+            height: 40,
+            position: 'absolute',
+            bg: 'white',
+            borderRadius: 100,
+            shadowColor: '#000',
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.23,
+            shadowRadius: 2.62,
+
+            elevation: 4,
+          }}
+        />
         <Lantern />
         <Cloud />
         <ScrollView
@@ -115,7 +187,7 @@ const SlotMachine = () => {
           {
             <View
               sx={{
-                marginTop: '25%',
+                marginTop: '15%',
                 position: 'relative',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -130,8 +202,8 @@ const SlotMachine = () => {
               <View
                 sx={{
                   position: 'absolute',
-                  left: '10%',
-                  right: '10%',
+                  left: '5%',
+                  right: '5%',
                   flexDirection: 'row',
                   alignItems: 'center',
                 }}
@@ -142,20 +214,23 @@ const SlotMachine = () => {
                     source={require('../../../assets/images/events/cny/ticket.png')}
                   />
                 </View>
-                {balance ? (
-                  <Text
-                    style={{
-                      flex: 1,
-                      textAlign: 'center',
-                      fontSize: 30,
-                      color: 'yellow',
-                    }}
-                  >
-                    {`${balance.totalBalance}/${balance.totalSpin}`}
-                  </Text>
-                ) : (
-                  <ActivityIndicator />
-                )}
+                <View sx={{ flex: 1, alignItems: 'center' }}>
+                  {balance ? (
+                    <Text
+                      style={{
+                        fontSize: 40,
+                      }}
+                    >
+                      {`${
+                        isAnimating && results
+                          ? results.length - lastCompletedRound
+                          : balance.totalBalance
+                      }/${balance.totalSpin}`}
+                    </Text>
+                  ) : (
+                    <ActivityIndicator />
+                  )}
+                </View>
               </View>
             </View>
           }
@@ -163,7 +238,7 @@ const SlotMachine = () => {
             sx={{
               alignItems: 'center',
               justifyContent: 'center',
-              borderWidth: 1,
+              // borderWidth: 1,
             }}
           >
             <SlotMachineRoll
@@ -173,16 +248,30 @@ const SlotMachine = () => {
             />
           </View>
           <View style={{ marginBottom: 20 }}>
-            <TouchableOpacity
-              onPress={() => {
-                setResults(testResuls)
+            <View
+              sx={{
+                width: 75,
+                height: 75,
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
-              <Image
-                source={require('../../../assets/images/events/cny/spin-btn.png')}
-                style={{ width: 75, aspectRatio: 1 }}
-              />
-            </TouchableOpacity>
+              {isSubmitting || isAnimating ? (
+                <ActivityIndicator />
+              ) : (
+                <TouchableOpacity
+                  onPress={roll}
+                  disabled={
+                    !(balance && balance.totalBalance > 0) || isSubmitting
+                  }
+                >
+                  <Image
+                    source={require('../../../assets/images/events/cny/spin-btn.png')}
+                    style={{ width: '100%', aspectRatio: 1 }}
+                  />
+                </TouchableOpacity>
+              )}
+            </View>
           </View>
           <View
             sx={{
