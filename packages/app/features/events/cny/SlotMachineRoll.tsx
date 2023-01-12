@@ -12,10 +12,10 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated'
 import { CNYRollResult } from 'services/eventApi.type'
-import cat from '../../../assets/images/events/cny/cat.png'
-import dragon from '../../../assets/images/events/cny/dragon.png'
-import snake from '../../../assets/images/events/cny/snake.png'
-import tiger from '../../../assets/images/events/cny/tiger.png'
+import cat from '../../../assets/images/events/cny/zodiac/cat.png'
+import dragon from '../../../assets/images/events/cny/zodiac/dragon.png'
+import snake from '../../../assets/images/events/cny/zodiac/snake.png'
+import tiger from '../../../assets/images/events/cny/zodiac/tiger.png'
 const COL = [
   cat,
   dragon,

@@ -1,10 +1,11 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useOrientation from 'app/hooks/useOrientation'
 import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import { Image, Text, View } from 'dripsy'
 import { MotiImage, MotiView } from 'moti'
-import React from 'react'
+import React, { useState } from 'react'
 import { ImageBackground } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import IconButton from '../form/IconButton'
@@ -13,6 +14,7 @@ const CnyWinModal = ({ modal: { closeModal, getParam } }) => {
   const amount = getParam('amount')
   const { width, height } = useContainerDimension()
   const { isLandscape } = useOrientation()
+  const [gifOpacity, setGifOpacity] = useState(1)
 
   const textTitle = isLandscape ? 24 : [24, 48]
   const textSubtitle = isLandscape ? 18 : [16, 28]
@@ -106,7 +108,16 @@ const CnyWinModal = ({ modal: { closeModal, getParam } }) => {
         </MotiView>
 
         <MotiImage
-          source={require('app/assets/images/events/cny/ribbon-falldown.gif')}
+          source={{
+            uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/cny/ribbon-falldown.gif`,
+          }}
+          onLoad={() => {
+            //Hide gif looping twice in app
+            setGifOpacity(1)
+            setTimeout(() => {
+              setGifOpacity(0)
+            }, 2000)
+          }}
           resizeMode="cover"
           style={{
             position: 'absolute',
@@ -115,7 +126,7 @@ const CnyWinModal = ({ modal: { closeModal, getParam } }) => {
             height,
           }}
           from={{ opacity: 0 }}
-          animate={{ opacity: [1, 1, 1, 1, 0] }}
+          animate={{ opacity: gifOpacity }}
           transition={{
             type: 'timing',
             delay: 250,

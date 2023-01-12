@@ -1,3 +1,4 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Image from 'app/components/common/Image'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { ActivityIndicator, ScrollView, Text, View } from 'dripsy'
@@ -122,7 +123,9 @@ const SlotMachine = () => {
             >
               <Image
                 style={{ width: 300, aspectRatio: 2 }}
-                source={require('../../../assets/images/events/cny/board-ani.gif')}
+                source={{
+                  uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/cny/board-ani.gif`,
+                }}
               />
               <View
                 sx={{

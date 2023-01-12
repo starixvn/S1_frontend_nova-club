@@ -25,7 +25,9 @@ const FloatingCny = () => {
   return (
     <TouchableOpacity onPress={handlePress}>
       <Image
-        source={require(`app/assets/images/events/cny/lucky-cat.gif`)}
+        source={{
+          uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/cny/lucky-cat.gif`,
+        }}
         style={{
           width: iconSize,
           height: iconSize,
