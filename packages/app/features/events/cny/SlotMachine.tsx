@@ -264,6 +264,7 @@ const SlotMachine = () => {
                   disabled={
                     !(balance && balance.totalBalance > 0) || isSubmitting
                   }
+                  style={{ width: '100%' }}
                 >
                   <Image
                     source={require('../../../assets/images/events/cny/spin-btn.png')}
@@ -297,12 +298,16 @@ const SlotMachine = () => {
               style={{ width: '100%', height: '100%', position: 'absolute' }}
             />
             <AnimatedTextInput
+              pointerEvents={'none'}
               animatedProps={animatedProps}
+              editable={false}
               style={{
                 color: '#ebe9da',
                 fontSize: 30,
                 lineHeight: 32,
                 fontWeight: 'bold',
+                textAlign: 'center',
+                zIndex: 2,
               }}
             />
           </View>
