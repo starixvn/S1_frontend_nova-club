@@ -23,6 +23,7 @@ const SlotMachine = () => {
         style={{ flex: 1 }}
       >
         <Lantern />
+        <Cloud />
         <ScrollView showsVerticalScrollIndicator={false}>
           <View
             sx={{
@@ -32,13 +33,13 @@ const SlotMachine = () => {
               marginTop: '25%',
               justifyContent: 'center',
               marginBottom: 300,
+              zIndex: 100,
             }}
           >
             <SlotMachineRoll />
           </View>
           <Button title="Roll" onPress={handlePress} />
         </ScrollView>
-        <Cloud />
       </ImageBackground>
     </View>
   )

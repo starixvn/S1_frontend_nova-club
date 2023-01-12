@@ -1,4 +1,5 @@
 import useContainerDimension from 'app/hooks/useContainerDimension'
+import useOrientation from 'app/hooks/useOrientation'
 import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import { Image, Text, View } from 'dripsy'
@@ -11,6 +12,12 @@ import IconButton from '../form/IconButton'
 const CnyWinModal = ({ modal: { closeModal, getParam } }) => {
   const amount = getParam('amount')
   const { width, height } = useContainerDimension()
+  const { isLandscape } = useOrientation()
+
+  const textTitle = isLandscape ? 24 : [24, 48]
+  const textSubtitle = isLandscape ? 18 : [16, 28]
+  const textAmount = isLandscape ? 48 : [48, 72]
+  const textSubtitleMargin = isLandscape ? 0 : [0, 24]
 
   const { currency } = usePlayerProfileQuery(undefined, {
     selectFromResult: (data) => ({
@@ -23,25 +30,23 @@ const CnyWinModal = ({ modal: { closeModal, getParam } }) => {
   }
 
   return (
-    <>
+    <View sx={{ width, alignItems: 'center', justifyContent: 'center' }}>
       <View
         sx={{
-          width: width,
+          width: isLandscape ? width * 0.5 : width,
           height: height,
-          // backgroundColor: 'red',
           alignItems: 'center',
           justifyContent: 'center',
         }}
       >
         <MotiImage
           source={require('app/assets/images/events/cny/ribbon.png')}
-          resizeMode="contain"
-          resizeMethod="resize"
+          resizeMode={isLandscape ? 'cover' : 'cover'}
           style={{
             position: 'absolute',
-            top: '7%',
-            width: undefined,
-            height: '75%',
+            top: isLandscape ? undefined : '7%',
+            width: isLandscape ? '150%' : undefined,
+            height: isLandscape ? undefined : '75%',
             aspectRatio: 2694 / 2956,
             opacity: 0.7,
           }}
@@ -49,7 +54,7 @@ const CnyWinModal = ({ modal: { closeModal, getParam } }) => {
           animate={{ scale: 1 }}
         />
         <MotiView
-          style={{ width: width, aspectRatio: 1 / 1, height: width }}
+          style={{ width: '100%', aspectRatio: 1 / 1 }}
           from={{ scale: 0.1 }}
           animate={{ scale: 1 }}
         >
@@ -68,7 +73,7 @@ const CnyWinModal = ({ modal: { closeModal, getParam } }) => {
               <Text
                 sx={{
                   textAlign: 'center',
-                  fontSize: [24, 48],
+                  fontSize: textTitle,
                   fontWeight: 'bold',
                   color: '$yellowGold',
                 }}
@@ -77,9 +82,9 @@ const CnyWinModal = ({ modal: { closeModal, getParam } }) => {
               </Text>
               <Text
                 sx={{
-                  mb: [0, 24],
+                  mb: textSubtitleMargin,
                   textAlign: 'center',
-                  fontSize: [16, 28],
+                  fontSize: textSubtitle,
                   fontWeight: 'bold',
                   color: '$yellowGold',
                 }}
@@ -89,7 +94,7 @@ const CnyWinModal = ({ modal: { closeModal, getParam } }) => {
               <Text
                 sx={{
                   textAlign: 'center',
-                  fontSize: [48, 72],
+                  fontSize: textAmount,
                   fontWeight: 'bold',
                   color: '$yellowGold',
                 }}
@@ -110,26 +115,27 @@ const CnyWinModal = ({ modal: { closeModal, getParam } }) => {
             height,
           }}
           from={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          animate={{ opacity: [1, 1, 1, 1, 0] }}
           transition={{
             type: 'timing',
-            delay: 500,
+            delay: 250,
           }}
         />
-        <View sx={{ position: 'absolute', top: '8%', right: '10%' }}>
-          <IconButton
-            onPress={handleClose}
-            name="cross"
-            color="white"
-            sx={{
-              right: 0,
-              zIndex: 10,
-            }}
-            size={30}
-          />
-        </View>
       </View>
-    </>
+
+      <View sx={{ position: 'absolute', top: '8%', right: '5%' }}>
+        <IconButton
+          onPress={handleClose}
+          name="cross"
+          color="white"
+          sx={{
+            right: 0,
+            zIndex: 10,
+          }}
+          size={30}
+        />
+      </View>
+    </View>
   )
 }
 
