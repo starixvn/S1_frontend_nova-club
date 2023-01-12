@@ -1,13 +1,18 @@
 import Image from 'app/components/common/Image'
 import useContainerDimension from 'app/hooks/useContainerDimension'
-import { View } from 'dripsy'
-import { useEffect, useState } from 'react'
-import { Button, ScrollView } from 'react-native'
+import { P, View } from 'dripsy'
+import shuffle from 'lodash/shuffle'
+import times from 'lodash/times'
+import { useCallback, useEffect, useState } from 'react'
+import { Button, TextInput } from 'react-native'
 import Animated, {
+  runOnJS,
+  useAnimatedProps,
   useAnimatedStyle,
   useSharedValue,
   withDelay,
   withSpring,
+  withTiming,
 } from 'react-native-reanimated'
 import cat from '../../../assets/images/events/cny/cat.png'
 import dragon from '../../../assets/images/events/cny/dragon.png'
@@ -18,40 +23,108 @@ const COL = [
   dragon,
   snake,
   tiger,
-  cat,
+  snake,
   dragon,
   snake,
   tiger,
-  cat,
+  snake,
   dragon,
   snake,
   tiger,
 ]
 
 const EXTRA_ITEM = 2
+export interface RollResult {
+  code: string
+  note: string
+  amount: string
+  formatted_amount: string
+  err: string
+}
 
-const SlotMachineRoll = () => {
-  const [dummyValue, setDummyValue] = useState(0)
+export interface SlotMachineRollProps {
+  results?: RollResult[]
+  onRoundComplete: (index: number, next: (currentIndex: number) => void) => void
+  onResultComplete: () => void
+}
+
+const SlotMachineRoll = ({
+  results,
+  onRoundComplete,
+  onResultComplete,
+}: SlotMachineRollProps) => {
+  const [currentRound, setCurrentRound] = useState(-1)
+  const [targetResults, setTargetResults] = useState<number[]>([0, 0, 0])
+  const [currentRoundCompleteCount, setCurrentRoundCompleteCount] = useState(0)
+  const progressAmount = useSharedValue(0)
+
+  useEffect(() => {
+    // Reset / start off when new Result passed in
+    if (results && results.length > 0) {
+      setCurrentRound(0)
+      progressAmount.value = 0
+
+      console.log('results changed', results, currentRound)
+    }
+  }, [results])
+
+  useEffect(() => {
+    // Trigger next round
+
+    console.log('trigger next round check')
+    if (results && currentRound <= results.length - 1) {
+      const roundDetail = results[currentRound]
+      if (roundDetail) {
+        const { code } = roundDetail
+        const codeInt = Number(code)
+        let columnIndexWithCat: number[] = []
+        if (!isNaN(codeInt) && codeInt > 0 && codeInt < 4) {
+          columnIndexWithCat = shuffle([0, 1, 2]).splice(0, codeInt)
+        }
+
+        const offset = currentRound * (10 * COL.length) + COL.length * 2
+
+        let answers = times(3, (index) =>
+          columnIndexWithCat.includes(index)
+            ? 0 + offset
+            : Math.floor(Math.random() * (COL.length - 1) + 1) + offset
+        )
+
+        setTargetResults(answers)
+      }
+    }
+  }, [currentRound])
+
+  useEffect(() => {
+    // On 3 columns animateed
+    console.log('currentRoundCompleteCount', currentRoundCompleteCount)
+    if (currentRoundCompleteCount >= 3) {
+      onRoundComplete(currentRound, () => {
+        if (results && currentRound < results.length - 1) {
+          setCurrentRound((prev) => prev + 1)
+        } else {
+          console.log('ended')
+          onResultComplete && onResultComplete()
+        }
+        setCurrentRoundCompleteCount(0)
+      })
+    }
+  }, [currentRoundCompleteCount])
+
   const { width } = useContainerDimension()
 
   const wrapperWidth = Math.min(0.9 * width, 450)
+  const onColumnComplete = useCallback(() => {
+    setCurrentRoundCompleteCount((prev) => prev + 1)
+  }, [])
 
   return (
     <View style={{}}>
-      <Button
-        title="test121231212331233"
-        onPress={() => {
-          const a = Math.floor(Math.random() * COL.length + 300)
-          console.log('to', a)
-          setDummyValue(dummyValue + a)
-        }}
-        // onPress={() => setDummyValue(dummyValue + 1)}
-      />
       <View
         pointerEvents="none"
         style={{
           position: 'relative',
-          borderWidth: 1,
+          // borderWidth: 1,
           width: wrapperWidth,
           aspectRatio: 659 / 386,
         }}
@@ -71,7 +144,7 @@ const SlotMachineRoll = () => {
         <View
           pointerEvents="none"
           sx={{
-            borderWidth: 1,
+            // borderWidth: 1,
             width: '93%',
             height: '69%',
             top: '8%',
@@ -82,26 +155,29 @@ const SlotMachineRoll = () => {
         >
           <SlotMachineColumn
             itemSize={wrapperWidth * 0.16}
-            value={dummyValue}
+            value={targetResults ? targetResults[0] : 0}
             style={{
               left: '12.5%',
             }}
+            onComplete={onColumnComplete}
           />
           <SlotMachineColumn
             itemSize={wrapperWidth * 0.16}
-            value={dummyValue}
+            value={targetResults ? targetResults[1] : 0}
             style={{
               left: '39%',
             }}
             delay={300}
+            onComplete={onColumnComplete}
           />
           <SlotMachineColumn
             itemSize={wrapperWidth * 0.16}
-            value={dummyValue}
+            value={targetResults ? targetResults[2] : 0}
             style={{
               left: '66%',
             }}
             delay={500}
+            onComplete={onColumnComplete}
           />
         </View>
       </View>
@@ -111,7 +187,7 @@ const SlotMachineRoll = () => {
 
 const SlotMachineItem = ({ image, animValue, positionIndex, size }) => {
   const animatedStyles = useAnimatedStyle(() => {
-    const normalizeValue = animValue.value % COL.length // 0
+    const normalizeValue = animValue.value % COL.length
     const dif = positionIndex - normalizeValue
     const inversedUnit = COL.length - positionIndex + normalizeValue
     const isInverse = normalizeValue < EXTRA_ITEM && inversedUnit <= EXTRA_ITEM
@@ -167,24 +243,35 @@ const SlotMachineColumn = ({
   style,
   delay = 0,
   itemSize,
+  onComplete,
   ...rest
 }) => {
   const sharedVal = useSharedValue(0)
 
   useEffect(() => {
-    sharedVal.value = withDelay(
-      delay,
-      withSpring(value, {
-        // damping: 7.5,
-        // mass: 4,
-        // stiffness: 5,
-        damping: 18 + Math.random() * 10,
-        mass: 6,
-        stiffness: 20,
-        //   duration: 10000,
-        //   easing: Easing.bezier(0.25, 0.1, 0.25, 1),
-      })
-    )
+    if (value > 0)
+      sharedVal.value = withDelay(
+        delay,
+        withSpring(
+          value,
+          {
+            // damping: 7.5,
+            // mass: 4,
+            // stiffness: 5,
+            damping: 18 + Math.random() * 10,
+            mass: 6,
+            stiffness: 20,
+            //   duration: 10000,
+            //   easing: Easing.bezier(0.25, 0.1, 0.25, 1),
+          },
+          (completed, b) => {
+            if (completed) {
+              console.log('on col completer')
+              runOnJS(onComplete)()
+            }
+          }
+        )
+      )
   }, [value])
 
   return (
@@ -209,6 +296,7 @@ const SlotMachineColumn = ({
         {COL.map((c, i) => {
           return (
             <SlotMachineItem
+              key={i}
               image={c}
               size={itemSize}
               animValue={sharedVal}
