@@ -69,10 +69,10 @@ const Stack = createStackNavigator<{
   TnC: undefined
   Forbidden: undefined
   Maintenance: undefined
-  WcPrediction: undefined
+  // WcPrediction: undefined
   WcTnc: undefined
   AffCup: undefined
-  WcWinnerList: undefined
+  // WcWinnerList: undefined
   Cny: undefined
   CnyTnc: undefined
 }>()
@@ -238,10 +238,9 @@ export function NativeNavigation() {
       <Stack.Screen name="TnC" component={TnC} />
       <Stack.Screen name="Forbidden" component={Forbidden} />
       <Stack.Screen name="Maintenance" component={Maintenance} />
-      <Stack.Screen name="WcPrediction" component={WorldCupPrediction} />
       <Stack.Screen name="AffCup" component={AffCupScreen} />
-      <Stack.Screen name="WcTnc" component={WcTnC} />
-      <Stack.Screen name="WcWinnerList" component={WorldCupWinner} />
+      {/* <Stack.Screen name="WcTnc" component={WcTnC} />
+      <Stack.Screen name="WcWinnerList" component={WorldCupWinner} /> */}
       <Stack.Screen name="Cny" component={SlotMachine} />
       <Stack.Screen name="CnyTnc" component={CnyTnC} />
     </Stack.Navigator>

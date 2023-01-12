@@ -1,19 +1,17 @@
 import Image from 'app/components/common/Image'
 import useContainerDimension from 'app/hooks/useContainerDimension'
-import { P, View } from 'dripsy'
+import { View } from 'dripsy'
 import shuffle from 'lodash/shuffle'
 import times from 'lodash/times'
 import { useCallback, useEffect, useState } from 'react'
-import { Button, TextInput } from 'react-native'
 import Animated, {
   runOnJS,
-  useAnimatedProps,
   useAnimatedStyle,
   useSharedValue,
   withDelay,
   withSpring,
-  withTiming,
 } from 'react-native-reanimated'
+import { CNYRollResult } from 'services/eventApi.type'
 import cat from '../../../assets/images/events/cny/cat.png'
 import dragon from '../../../assets/images/events/cny/dragon.png'
 import snake from '../../../assets/images/events/cny/snake.png'
@@ -34,16 +32,9 @@ const COL = [
 ]
 
 const EXTRA_ITEM = 2
-export interface RollResult {
-  code: string
-  note: string
-  amount: string
-  formatted_amount: string
-  err: string
-}
 
 export interface SlotMachineRollProps {
-  results?: RollResult[]
+  results?: CNYRollResult[]
   onRoundComplete: (index: number, next: (currentIndex: number) => void) => void
   onResultComplete: () => void
 }
@@ -90,7 +81,7 @@ const SlotMachineRoll = ({
   }, [currentRound])
 
   useEffect(() => {
-    // On 3 columns animateed
+    // On 3 columns animated
     if (currentRoundCompleteCount >= 3) {
       onRoundComplete(currentRound, () => {
         if (results && currentRound < results.length - 1) {

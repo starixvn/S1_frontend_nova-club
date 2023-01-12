@@ -1,6 +1,6 @@
 import Image from 'app/components/common/Image'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { ScrollView, Text, View } from 'dripsy'
+import { ActivityIndicator, ScrollView, Text, View } from 'dripsy'
 import { useState } from 'react'
 import {
   ImageBackground,
@@ -15,10 +15,12 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
+import { useCheckCnySpinQuery } from 'services/eventApi'
+import { CNYRollResult } from 'services/eventApi.type'
 import Cloud from './Cloud'
 import Lantern from './Latern'
 
-import SlotMachineRoll, { RollResult } from './SlotMachineRoll'
+import SlotMachineRoll from './SlotMachineRoll'
 
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput)
 
@@ -50,14 +52,25 @@ const SlotMachine = () => {
   const { top, bottom } = useSafeArea()
   const { openModal } = useModal()
   const progressAmount = useSharedValue(0)
-  const [results, setResults] = useState<RollResult[]>()
+  const [results, setResults] = useState<CNYRollResult[]>()
+
+  const { balance } = useCheckCnySpinQuery(undefined, {
+    selectFromResult: (s) => ({ ...s, balance: s.data?.data }),
+  })
+
+  console.log('balance', balance)
 
   function onResultComplete() {
     if (results)
-      openModal('CnyWinModal', {
-        amount: results.reduce((t, c) => t + Number(c.amount), 0),
-      })
-    progressAmount.value = 0
+      openModal(
+        'CnyWinModal',
+        {
+          amount: results.reduce((t, c) => t + Number(c.amount), 0),
+        },
+        () => {
+          progressAmount.value = 0
+        }
+      )
   }
 
   function onRoundComplete(completedIndex, next) {
@@ -98,16 +111,51 @@ const SlotMachine = () => {
             paddingBottom: bottom,
           }}
         >
-          <View
-            sx={{
-              marginTop: '25%',
-            }}
-          >
-            <Image
-              style={{ width: 300, aspectRatio: 2 }}
-              source={require('../../../assets/images/events/cny/board-ani.gif')}
-            />
-          </View>
+          {
+            <View
+              sx={{
+                marginTop: '25%',
+                position: 'relative',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Image
+                style={{ width: 300, aspectRatio: 2 }}
+                source={require('../../../assets/images/events/cny/board-ani.gif')}
+              />
+              <View
+                sx={{
+                  position: 'absolute',
+                  left: '10%',
+                  right: '10%',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}
+              >
+                <View sx={{ flex: 1, alignItems: 'center' }}>
+                  <Image
+                    style={{ width: 50, aspectRatio: 168 / 181 }}
+                    source={require('../../../assets/images/events/cny/ticket.png')}
+                  />
+                </View>
+                {balance ? (
+                  <Text
+                    style={{
+                      flex: 1,
+                      textAlign: 'center',
+                      fontSize: 30,
+                      color: 'yellow',
+                    }}
+                  >
+                    {`${balance.totalBalance}/${balance.totalSpin}`}
+                  </Text>
+                ) : (
+                  <ActivityIndicator />
+                )}
+              </View>
+            </View>
+          }
           <View
             sx={{
               alignItems: 'center',

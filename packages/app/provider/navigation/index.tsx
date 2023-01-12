@@ -21,6 +21,7 @@ interface NavigationParamList {
   MessagePage: undefined
   FishingPage: undefined
   LotteryPage: undefined
+  CNYCatSpinPage: undefined
 }
 
 export function NavigationProvider({
@@ -82,12 +83,12 @@ export function NavigationProvider({
               CreatePin: '/pin/create-pin',
               ChangePin: 'pin/change-pin',
               ForgotPin: 'pin/forgot-pin',
-              WcPrediction: '/event/wcprediction',
+              // WcPrediction: '/event/wcprediction',
               WcTnc: '/event/wctnc',
               AffCup: '/event/affcup',
-              WcWinnerList: '/event/wcwinner',
               Cny: '/event/cny',
               CnyTnc: '/event/cnytnc',
+              // WcWinnerList: '/event/wcwinner',
             },
           },
         }),

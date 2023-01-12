@@ -1,7 +1,12 @@
 // https://world-cup-json-2022.fly.dev/matches
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
-import { AffCupWinnerList, WcTicketCountResp } from './eventApi.type'
+import {
+  AffCupWinnerList,
+  CNYRollResult,
+  CNYSpinBalance,
+  WcTicketCountResp,
+} from './eventApi.type'
 
 export const eventApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
@@ -28,6 +33,16 @@ export const eventApi = baseApiWithTag.injectEndpoints({
         method: 'GET',
       }),
     }),
+    checkCnySpin: builder.query<IResponse<CNYSpinBalance>, void>({
+      query: () => ({
+        url: `/player_api/checkCnyElegibleSpin`,
+      }),
+    }),
+    cnySpin: builder.query<IResponse<CNYRollResult[]>, void>({
+      query: () => ({
+        url: `/player_api/cnyFreeWheelSpin`,
+      }),
+    }),
   }),
 })
 
@@ -35,4 +50,6 @@ export const {
   useWcTicketCountQuery,
   useWcPredictMutation,
   useAffcupWinnerListQuery,
+  useCheckCnySpinQuery,
+  useCnySpinQuery,
 } = eventApi
