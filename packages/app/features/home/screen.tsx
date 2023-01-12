@@ -32,7 +32,7 @@ const HomeScreen = () => {
       <HotGamesSection />
       <Jackpot />
       <LuckyDrawTrigger />
-      {/* <Prediction /> */}
+      <Prediction />
     </ScrollView>
   )
 }

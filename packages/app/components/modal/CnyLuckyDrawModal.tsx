@@ -1,16 +1,17 @@
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useOrientation from 'app/hooks/useOrientation'
-import TouchableOpacity from 'app/pressable/TouchableOpacity'
+import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { SettingActions } from 'app/store/setting.slice'
 import { styled, View } from 'dripsy'
 
 import { AnimatePresence, MotiImage, MotiView, Text } from 'moti'
-import { memo, useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { ActivityIndicator, Image, ImageBackground } from 'react-native'
-import { useEvent } from 'react-native-reanimated'
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { useDispatch } from 'react-redux'
 import { useLuckySpinMutation } from 'services/playerApi'
+import { useLazyPlayerBalanceQuery } from 'services/walletApi'
 import { MotifiedImage } from '../common/Image'
 import IconButton from '../form/IconButton'
 
@@ -40,8 +41,7 @@ const AngpaoList = [
     image: require('app/assets/images/events/cny/loc.png'),
   },
 ]
-const RedPacket = ({ prize }) => {
-  const winCredit = 38
+const RedPacket = ({ prize, winNote }) => {
   return (
     <>
       <RedPacketContainer
@@ -63,9 +63,9 @@ const RedPacket = ({ prize }) => {
         />
         <MotiView
           style={{ zIndex: 12, alignItems: 'center' }}
-          from={{ transform: [{ translateY: 0 }] }}
-          animate={{ transform: [{ translateY: -70 }] }}
-          transition={{ type: 'timing', duration: 1000, delay: 4000 }}
+          from={{ transform: [{ translateY: 0 }], opacity: 0 }}
+          animate={{ transform: [{ translateY: -70 }], opacity: 1 }}
+          transition={{ type: 'timing', duration: 1000, delay: 4500 }}
         >
           <Text
             style={{
@@ -77,23 +77,22 @@ const RedPacket = ({ prize }) => {
               marginTop: 20,
             }}
           >
-            {winCredit}
+            {prize}
           </Text>
         </MotiView>
 
         <RedCoverContainer
           sx={{ zIndex: 1 }}
+          from={{
+            transform: [{ translateY: 0 }, { scaleY: 1 }],
+          }}
           animate={{
-            transform: [
-              {
-                translateY: [0, -100],
-              },
-              { scaleY: [1, -1] },
-            ],
+            transform: [{ translateY: -100 }, { scaleY: -1 }],
           }}
           transition={{
             type: 'timing',
-            duration: 500,
+            duration: 1000,
+            delay: 3000,
           }}
         >
           <RedCover
@@ -105,8 +104,8 @@ const RedPacket = ({ prize }) => {
           animate={{ opacity: 1 }}
           transition={{
             type: 'timing',
-            duration: 2500,
-            delay: 4500,
+            duration: 1500,
+            delay: 5000,
           }}
         >
           <Text
@@ -119,7 +118,7 @@ const RedPacket = ({ prize }) => {
               marginHorizontal: 5,
             }}
           >
-            Xin chúc mừng! VND{winCredit}K đã được thêm vào ví của bạn
+            {winNote}
           </Text>
         </CongratulationTextContainer>
         <AngpaoBody
@@ -130,13 +129,8 @@ const RedPacket = ({ prize }) => {
   )
 }
 
-const DrawRedPacket = memo(({ handleAngpao, visible }: any) => {
+const DrawRedPacket = ({ handleAngpao, disablePacket }: any) => {
   let timingDelay = 1000
-  console.log('Rerender Draw Red Packet')
-
-  useEffect(() => {
-    console.log('Re-Create Draw rED')
-  }, [])
 
   return (
     <MotiView
@@ -241,11 +235,10 @@ const DrawRedPacket = memo(({ handleAngpao, visible }: any) => {
             {AngpaoList?.map((d, index) => {
               timingDelay = timingDelay + 200
               return (
-                <TouchableOpacity
+                <TouchableWithoutFeedback
                   key={d.text}
                   onPress={() => handleAngpao()}
-                  disabled={visible}
-                  style={{ zIndex: 10 }}
+                  disabled={disablePacket}
                 >
                   <MotiView
                     from={{
@@ -282,7 +275,7 @@ const DrawRedPacket = memo(({ handleAngpao, visible }: any) => {
                       />
                     </ImageBackground>
                   </MotiView>
-                </TouchableOpacity>
+                </TouchableWithoutFeedback>
               )
             })}
           </ScrollAngpaoListContainer>
@@ -298,13 +291,12 @@ const DrawRedPacket = memo(({ handleAngpao, visible }: any) => {
       </ScrollContentContainer>
     </MotiView>
   )
-})
-DrawRedPacket.displayName = 'DrawRedpacket'
+}
+// DrawRedPacket.displayName = 'DrawRedpacket'
 
 const LoadingAngpaoView = ({ loading }) => {
   const { height } = useContainerDimension()
   const loadingHeight = height
-  console.log('loadingAngpaoViewm:', loading)
   return loading ? (
     <AnimatePresence>
       <MotiView
@@ -338,12 +330,15 @@ const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
   const { isLandscape } = useOrientation()
   const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [disablePacket, setDisablePacket] = useState(false)
   const [spinLuckyWheel] = useLuckySpinMutation()
   const [prize, setPrize] = useState('')
-  const [first, setfirst] = useState(false)
+  const [winNote, setWinNote] = useState('')
+  const luckyDrawBalance =
+    useAppSelector((s) => s.setting.luckyDrawBalance) ?? ''
+  const [getPlayerBalance] = useLazyPlayerBalanceQuery()
 
   const spin = useCallback(async () => {
-    console.log('spin')
     const { data, success } = await spinLuckyWheel()
       .unwrap()
       .catch((error) => {
@@ -352,37 +347,30 @@ const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
         return error
       })
 
-    console.log('what data:', data?.data)
-    // setLoading(false)
-    // setVisible(true)
     if (success) {
       console.log('success')
-      dispatch(SettingActions.setLuckyDrawBalance(0)) // this is to trigger the memoized wheel
-      // setSpinBalance((prev) => prev + 1)
+      setLoading(false)
+      setVisible(true)
+      dispatch(SettingActions.setLuckyDrawBalance(luckyDrawBalance - 1)) // this is to trigger the memoized wheel
 
       setTimeout(() => {
-        // showAlert({
-        //   message: data.code === 4 ? t('status.luckyThankYou') : data.note,
-        //   onClose: () => {R
-        //     setTimeout(() => handleClose(), 500)
-        //   },
-        //   persistent: true,
-        // })
+        setPrize(handleSpinMapping(data.code))
+        setWinNote(data.note)
         setLoading(false)
-        // setVisible(visible)
+        getPlayerBalance()
       }, 5500)
     }
-  }, [dispatch, spinLuckyWheel])
+  }, [dispatch, getPlayerBalance, luckyDrawBalance, spinLuckyWheel])
   const handleSpinMapping = (code: number) => {
     switch (code) {
       case 1:
-        return '5'
+        return '18K'
       case 2:
-        return '10'
+        return '38K'
       case 3:
-        return '18'
+        return '58K'
       default:
-        return '0'
+        return 'None'
     }
   }
 
@@ -393,11 +381,11 @@ const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
   }
 
   const handleAngpao = useCallback(() => {
+    setDisablePacket(true)
     setLoading(true)
     spin()
   }, [])
 
-  console.log('Rerender Modal', visible)
   const { top } = useSafeArea()
   return (
     <OverlayContainer sx={{ width, height, paddingTop: top }}>
@@ -409,23 +397,15 @@ const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
           alignItems: 'center',
         }}
       >
-        {/* <TouchableOpacity
-          style={{ backgroundColor: 'red' }}
-          onPress={() => {
-            setfirst((dummy) => !dummy)
-          }}
-        >
-          <Text>Press jhere</Text>
-        </TouchableOpacity> */}
         <AnimatePresence>
           {!visible ? (
             <DrawRedPacket
               key={'DrawRedPacket'}
               handleAngpao={handleAngpao}
-              visible={visible}
+              disablePacket={disablePacket}
             />
           ) : (
-            <RedPacket key={'redPacket'} prize={prize} />
+            <RedPacket key={'redPacket'} prize={prize} winNote={winNote} />
           )}
         </AnimatePresence>
         <LoadingAngpaoView loading={loading} />
@@ -434,7 +414,7 @@ const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
       {!loading ? (
         <CloseButtonContainer>
           <IconButton
-            onPress={handleAngpao}
+            onPress={handleClose}
             name="cross"
             color="white"
             sx={{
