@@ -53,23 +53,26 @@ const SlotMachine = () => {
   const [results, setResults] = useState<RollResult[]>()
 
   function onResultComplete() {
-    openModal('CnyWinModal', {
-      amount: results.reduce((t, c) => t + Number(c.amount), 0),
-    })
+    if (results)
+      openModal('CnyWinModal', {
+        amount: results.reduce((t, c) => t + Number(c.amount), 0),
+      })
+    progressAmount.value = 0
   }
 
   function onRoundComplete(completedIndex, next) {
-    progressAmount.value = withTiming(
-      progressAmount.value + Number(results[completedIndex]?.amount),
-      {
-        duration: 500,
-      },
-      (completed) => {
-        if (completed) {
-          runOnJS(next)()
+    if (results)
+      progressAmount.value = withTiming(
+        progressAmount.value + Number(results[completedIndex]?.amount),
+        {
+          duration: 500,
+        },
+        (completed) => {
+          if (completed) {
+            runOnJS(next)()
+          }
         }
-      }
-    )
+      )
   }
 
   const animatedProps = useAnimatedProps(
@@ -86,6 +89,7 @@ const SlotMachine = () => {
         style={{ flex: 1 }}
       >
         <Lantern />
+        <Cloud />
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
@@ -163,7 +167,6 @@ const SlotMachine = () => {
             />
           </View>
         </ScrollView>
-        <Cloud />
       </ImageBackground>
     </View>
   )

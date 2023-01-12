@@ -1,8 +1,7 @@
-import { MotifiedImage } from 'app/components/common/Image'
+import useOrientation from 'app/hooks/useOrientation'
 import { View } from 'dripsy'
 import { MotiImage } from 'moti'
 import React from 'react'
-import { Easing } from 'react-native-reanimated'
 
 const CLOUD_DURATION_01 = 9750
 const CLOUD_DURATION_02 = 9500
@@ -11,12 +10,13 @@ const CLOUD_DURATION_04 = 10000
 const SWING_WIDTH = 30
 
 const Cloud = () => {
+  const { isLandscape } = useOrientation()
   return (
     <View
       pointerEvents="none"
       sx={{
         position: 'absolute',
-        bottom: 0,
+        bottom: isLandscape ? '-25%' : 0,
         alignItems: 'center',
         justifyContent: 'flex-end',
         width: '100%',

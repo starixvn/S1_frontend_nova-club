@@ -56,22 +56,16 @@ const SlotMachineRoll = ({
   const [currentRound, setCurrentRound] = useState(-1)
   const [targetResults, setTargetResults] = useState<number[]>([0, 0, 0])
   const [currentRoundCompleteCount, setCurrentRoundCompleteCount] = useState(0)
-  const progressAmount = useSharedValue(0)
 
   useEffect(() => {
     // Reset / start off when new Result passed in
     if (results && results.length > 0) {
       setCurrentRound(0)
-      progressAmount.value = 0
-
-      console.log('results changed', results, currentRound)
     }
   }, [results])
 
   useEffect(() => {
     // Trigger next round
-
-    console.log('trigger next round check')
     if (results && currentRound <= results.length - 1) {
       const roundDetail = results[currentRound]
       if (roundDetail) {
@@ -97,13 +91,11 @@ const SlotMachineRoll = ({
 
   useEffect(() => {
     // On 3 columns animateed
-    console.log('currentRoundCompleteCount', currentRoundCompleteCount)
     if (currentRoundCompleteCount >= 3) {
       onRoundComplete(currentRound, () => {
         if (results && currentRound < results.length - 1) {
           setCurrentRound((prev) => prev + 1)
         } else {
-          console.log('ended')
           onResultComplete && onResultComplete()
         }
         setCurrentRoundCompleteCount(0)
@@ -266,7 +258,6 @@ const SlotMachineColumn = ({
           },
           (completed, b) => {
             if (completed) {
-              console.log('on col completer')
               runOnJS(onComplete)()
             }
           }
