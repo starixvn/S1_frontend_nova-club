@@ -1,13 +1,14 @@
 import { MotifiedImage } from 'app/components/common/Image'
 import useOrientation from 'app/hooks/useOrientation'
 import { View } from 'dripsy'
-import React, { useMemo } from 'react'
+import React, { memo, useMemo } from 'react'
 
 const Lantern = () => {
   const { isLandscape } = useOrientation()
 
-  const PADDING_LANTERN = '10%'
-  const LANTERN_WIDTH = isLandscape ? '10%' : '25%'
+  const LEFT_PADDING_LANTERN = '10%'
+  const RIGHT_PADDING_LANTERN = '5%'
+  const LANTERN_WIDTH = isLandscape ? '10%' : '23%'
   const SWING_WIDTH = isLandscape ? 5 : 10
   const ROTATE_WIDTH = isLandscape ? SWING_WIDTH * 1.25 : SWING_WIDTH * 0.5
 
@@ -17,7 +18,7 @@ const Lantern = () => {
       resizeMode="contain"
       style={{
         alignSelf: 'flex-start',
-        marginLeft: PADDING_LANTERN,
+        marginLeft: LEFT_PADDING_LANTERN,
         width: LANTERN_WIDTH,
         aspectRatio: 200 / 340,
       }}
@@ -43,7 +44,7 @@ const Lantern = () => {
       source={require('app/assets/images/events/cny/lantern01.png')}
       resizeMode="contain"
       style={{
-        marginRight: PADDING_LANTERN,
+        marginRight: RIGHT_PADDING_LANTERN,
         width: LANTERN_WIDTH,
         aspectRatio: 200 / 420,
       }}
@@ -84,4 +85,4 @@ const Lantern = () => {
   )
 }
 
-export default Lantern
+export default memo(Lantern)

@@ -1,7 +1,7 @@
 import useOrientation from 'app/hooks/useOrientation'
 import { View } from 'dripsy'
 import { MotiImage } from 'moti'
-import React from 'react'
+import React, { memo } from 'react'
 
 const CLOUD_DURATION_01 = 9750
 const CLOUD_DURATION_02 = 9500
@@ -115,4 +115,4 @@ const Cloud = () => {
   )
 }
 
-export default Cloud
+export default memo(Cloud)

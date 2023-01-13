@@ -5,9 +5,16 @@ import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { getErrorMessage } from 'app/utils/validation'
 import { ActivityIndicator, ScrollView, Text, View } from 'dripsy'
 import { useState } from 'react'
-import { ImageBackground, TextInput, TouchableOpacity } from 'react-native'
+import {
+  ImageBackground,
+  Platform,
+  TextInput,
+  TouchableOpacity,
+  useWindowDimensions,
+} from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import Animated, {
   runOnJS,
@@ -65,6 +72,7 @@ const SlotMachine = () => {
   const [results, setResults] = useState<CNYRollResult[]>()
   const { showAlert } = useAlert()
   const { t } = useLocalization()
+  const { width: screenWidth } = useWindowDimensions()
 
   const { balance } = useCheckCnySpinQuery(undefined, {
     refetchOnMountOrArgChange: true,
@@ -85,7 +93,8 @@ const SlotMachine = () => {
         showAlert(message)
       }
     } catch (e) {
-      showAlert(t('status.systemError'))
+      const error = getErrorMessage(e)
+      showAlert(error)
     } finally {
       setSubmitting(false)
     }
@@ -137,7 +146,7 @@ const SlotMachine = () => {
   const animatedProps = useAnimatedProps(
     () =>
       ({
-        text:
+        value:
           Math.round(progressAmount.value / 1000) +
           (progressAmount.value > 1000 ? 'K' : ''),
       } as any)
@@ -183,62 +192,75 @@ const SlotMachine = () => {
             paddingTop: top,
             paddingBottom: bottom,
           }}
+          sx={Platform.select({
+            web: {
+              height: 1, // Hacky way to make overflow works
+            },
+          })}
         >
-          {
+          <View
+            sx={{
+              marginTop: '18%',
+              position: 'relative',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Image
+              style={{ width: 300, aspectRatio: 2 }}
+              source={{
+                uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/cny/board-ani.gif`,
+              }}
+            />
             <View
               sx={{
-                marginTop: '15%',
-                position: 'relative',
+                position: 'absolute',
+                left: '5%',
+                right: '5%',
+                flexDirection: 'row',
                 alignItems: 'center',
-                justifyContent: 'center',
               }}
             >
-              <Image
-                style={{ width: 300, aspectRatio: 2 }}
-                source={{
-                  uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/cny/board-ani.gif`,
-                }}
-              />
               <View
                 sx={{
-                  position: 'absolute',
-                  left: '5%',
-                  right: '5%',
-                  flexDirection: 'row',
+                  flexBasis: '30%',
+                  alignItems: 'flex-end',
+                  flexGrow: 1,
+                }}
+              >
+                <Image
+                  style={{ width: 50, aspectRatio: 168 / 181 }}
+                  source={require('../../../assets/images/events/cny/ticket.png')}
+                />
+              </View>
+              <View
+                sx={{
+                  flexBasis: '70%',
                   alignItems: 'center',
                 }}
               >
-                <View sx={{ flex: 1, alignItems: 'center' }}>
-                  <Image
-                    style={{ width: 50, aspectRatio: 168 / 181 }}
-                    source={require('../../../assets/images/events/cny/ticket.png')}
-                  />
-                </View>
-                <View sx={{ flex: 1, alignItems: 'center' }}>
-                  {balance ? (
-                    <Text
-                      style={{
-                        fontSize: 40,
-                      }}
-                    >
-                      {`${
-                        isAnimating && results
-                          ? results.length - lastCompletedRound
-                          : balance.totalBalance
-                      }/${balance.totalSpin}`}
-                    </Text>
-                  ) : (
-                    <ActivityIndicator />
-                  )}
-                </View>
+                {balance ? (
+                  <Text
+                    style={{
+                      fontSize: 40,
+                    }}
+                  >
+                    {`${
+                      isAnimating && results
+                        ? results.length - lastCompletedRound
+                        : balance.totalBalance
+                    }/${balance.totalSpin}`}
+                  </Text>
+                ) : (
+                  <ActivityIndicator />
+                )}
               </View>
             </View>
-          }
+          </View>
           <View
             sx={{
               alignItems: 'center',
               justifyContent: 'center',
-              // borderWidth: 1,
             }}
           >
             <SlotMachineRoll
@@ -277,10 +299,11 @@ const SlotMachine = () => {
           <View
             sx={{
               position: 'relative',
-              width: 200,
+              width: Math.min(230, screenWidth * 0.6),
               aspectRatio: 333 / 119,
               alignItems: 'center',
               justifyContent: 'center',
+              marginTop: '3%',
             }}
           >
             <Text
