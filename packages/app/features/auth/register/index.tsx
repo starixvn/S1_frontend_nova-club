@@ -144,8 +144,9 @@ const RegisterPage = () => {
       }).unwrap()
 
       if (success) {
-        console.log('TOKEN!!!!: ', data as LoginResult)
-        syncShield(Shield_Action.REGISTER)
+        // console.log('TOKEN: ', data as LoginResult)
+        // syncShield(Shield_Action.REGISTER)
+        dispatch(AuthActions.setSyncShieldActionType('register'))
         dispatch(AuthActions.setAuthInfo(data as LoginResult))
 
         normalLogin(username, password, () => handleOnSuccessRegister(data))

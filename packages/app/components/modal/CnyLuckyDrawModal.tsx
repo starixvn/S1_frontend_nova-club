@@ -1,11 +1,12 @@
+import useAlert from 'app/hooks/useAlert'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useOrientation from 'app/hooks/useOrientation'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { SettingActions } from 'app/store/setting.slice'
-import { styled, View } from 'dripsy'
+import { styled, View, Text } from 'dripsy'
 
-import { AnimatePresence, MotiImage, MotiView, Text } from 'moti'
+import { AnimatePresence, MotiImage, MotiView } from 'moti'
 import { useCallback, useState } from 'react'
 import { ActivityIndicator, Image, ImageBackground } from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
@@ -58,28 +59,15 @@ const RedPacket = ({ prize, winNote }) => {
           animate={{ height: 70, transform: [{ translateY: -70 }] }}
           transition={{ type: 'timing', duration: 1000, delay: 4000 }}
           exit={{ height: 0 }}
-          // exitTransition={{ type: 'timing', duration: 5000 }}
           source={require('app/assets/images/events/cny/win.png')}
         />
-        <MotiView
-          style={{ zIndex: 12, alignItems: 'center' }}
+        <AngpaoWinAmountContainer
           from={{ transform: [{ translateY: 0 }], opacity: 0 }}
           animate={{ transform: [{ translateY: -70 }], opacity: 1 }}
           transition={{ type: 'timing', duration: 1000, delay: 4500 }}
         >
-          <Text
-            style={{
-              position: 'absolute',
-              textAlign: 'center',
-              color: 'red',
-              fontWeight: '900',
-              fontSize: 30,
-              marginTop: 20,
-            }}
-          >
-            {prize}
-          </Text>
-        </MotiView>
+          <AngpaoWinAmount>{prize}</AngpaoWinAmount>
+        </AngpaoWinAmountContainer>
 
         <RedCoverContainer
           sx={{ zIndex: 1 }}
@@ -108,18 +96,7 @@ const RedPacket = ({ prize, winNote }) => {
             delay: 5000,
           }}
         >
-          <Text
-            style={{
-              textAlign: 'center',
-              paddingTop: 10,
-              fontSize: 20,
-              color: '#ffcc02',
-              fontWeight: '900',
-              marginHorizontal: 5,
-            }}
-          >
-            {winNote}
-          </Text>
+          <AngpaoWinNote>{winNote}</AngpaoWinNote>
         </CongratulationTextContainer>
         <AngpaoBody
           source={require('app/assets/images/events/cny/front.png')}
@@ -133,12 +110,7 @@ const DrawRedPacket = ({ handleAngpao, disablePacket }: any) => {
   let timingDelay = 1000
 
   return (
-    <MotiView
-      style={{
-        position: 'absolute',
-        top: '28%',
-        alignItems: 'center',
-      }}
+    <DrawAngpaoContainer
       animate={{ opacity: 1, scale: 1 }}
       exit={{
         opacity: 0,
@@ -159,13 +131,7 @@ const DrawRedPacket = ({ handleAngpao, disablePacket }: any) => {
           source={require('app/assets/images/events/cny/SCROLL_TOP.png')}
         />
       </ScrollFixTop>
-      <MotiView
-        style={{
-          zIndex: 1,
-          position: 'absolute',
-          top: '27%',
-          marginHorizontal: 'auto',
-        }}
+      <ScrollTopDown
         from={{
           transform: [{ translateY: 0 }],
         }}
@@ -181,7 +147,7 @@ const DrawRedPacket = ({ handleAngpao, disablePacket }: any) => {
         <ScrollFixTopImage
           source={require('app/assets/images/events/cny/SCROLL_TOP.png')}
         />
-      </MotiView>
+      </ScrollTopDown>
       <ScrollContentContainer
         from={{ height: 0 }}
         animate={{ height: 400 }}
@@ -205,30 +171,12 @@ const DrawRedPacket = ({ handleAngpao, disablePacket }: any) => {
               delay: 1000,
             }}
           >
-            <Text
-              style={{
-                textAlign: 'center',
-                paddingTop: 30,
-                color: '#932222',
-                fontWeight: 'bold',
-                fontSize: 25,
-              }}
-              numberOfLines={2}
-            >
+            <DrawAngpaoWelcomeText sx={{ paddingTop: 30 }} numberOfLines={2}>
               Chọn Bao Lì Xì May
-            </Text>
-            <Text
-              style={{
-                textAlign: 'center',
-                paddingBottom: 10,
-                color: '#932222',
-                fontWeight: 'bold',
-                fontSize: 25,
-              }}
-              numberOfLines={2}
-            >
+            </DrawAngpaoWelcomeText>
+            <DrawAngpaoWelcomeText sx={{ paddingBottom: 10 }} numberOfLines={2}>
               Mắn Của Bạn
-            </Text>
+            </DrawAngpaoWelcomeText>
           </MotiView>
 
           <ScrollAngpaoListContainer>
@@ -281,45 +229,34 @@ const DrawRedPacket = ({ handleAngpao, disablePacket }: any) => {
           </ScrollAngpaoListContainer>
         </View>
         <ScrollBody
-          animate={ScrollBodyAnimation.animate}
-          transition={ScrollBodyAnimation.transition}
-          exit={{ height: 0 }}
           from={{ height: 0 }}
+          animate={{ height: 350 }}
+          transition={{ type: 'timing', duration: 1500 }}
+          exit={{ height: 0 }}
           exitTransition={{ type: 'timing', duration: 2000 }}
           source={require('app/assets/images/events/cny/SCROLL_BODY.jpg')}
         />
       </ScrollContentContainer>
-    </MotiView>
+    </DrawAngpaoContainer>
   )
 }
-// DrawRedPacket.displayName = 'DrawRedpacket'
 
 const LoadingAngpaoView = ({ loading }) => {
   const { height } = useContainerDimension()
   const loadingHeight = height
   return loading ? (
     <AnimatePresence>
-      <MotiView
+      <LoadingAngpaoContainer
         from={{ opacity: 0, translateY: 250 }}
         animate={{ opacity: 1, translateY: 0 }}
         exit={{ opacity: 0, translateY: 250 }}
         transition={{ type: 'timing' }}
-        style={{
-          zIndex: 1,
-          alignItems: 'center',
-          justifyContent: 'flex-end',
-          position: 'absolute',
-          left: 0,
-          right: 0,
-          height: loadingHeight,
-          bottom: 0,
-          backgroundColor: 'rgba(18, 55, 88, 0.7)',
-        }}
+        style={{ height: loadingHeight }}
       >
         <MotiView style={{ transform: [{ translateY: -loadingHeight / 2 }] }}>
           <ActivityIndicator color="white" size={100} sx={{ m: '$5' }} />
         </MotiView>
-      </MotiView>
+      </LoadingAngpaoContainer>
     </AnimatePresence>
   ) : null
 }
@@ -337,13 +274,15 @@ const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
   const luckyDrawBalance =
     useAppSelector((s) => s.setting.luckyDrawBalance) ?? ''
   const [getPlayerBalance] = useLazyPlayerBalanceQuery()
+  const { showAlert } = useAlert()
 
   const spin = useCallback(async () => {
     const { data, success } = await spinLuckyWheel()
       .unwrap()
       .catch((error) => {
         setLoading(false)
-        setVisible(true)
+        setVisible(false)
+        showAlert(error)
         return error
       })
 
@@ -356,11 +295,10 @@ const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
       setTimeout(() => {
         setPrize(handleSpinMapping(data.code))
         setWinNote(data.note)
-        setLoading(false)
         getPlayerBalance()
-      }, 5500)
+      }, 4000)
     }
-  }, [dispatch, getPlayerBalance, luckyDrawBalance, spinLuckyWheel])
+  }, [dispatch, getPlayerBalance, luckyDrawBalance, showAlert, spinLuckyWheel])
   const handleSpinMapping = (code: number) => {
     switch (code) {
       case 1:
@@ -429,39 +367,6 @@ const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
   )
 }
 
-const ScrollBodyAnimation = {
-  animate: {
-    height: 350,
-  },
-  transition: {
-    type: 'timing',
-    duration: 1500,
-  },
-}
-const ScrollTopAnimation = {
-  animate: {
-    transform: [
-      {
-        translateY: [0, 365],
-      },
-    ],
-  },
-  transition: {
-    type: 'timing',
-    duration: 1500,
-  },
-}
-
-const ScrollContentContainerAnimation = {
-  animate: {
-    height: [0, 400],
-  },
-  transition: {
-    type: 'timing',
-    duration: 1500,
-  },
-}
-
 const OverlayContainer = styled(View)({
   bg: 'rgba(18, 55, 88, 0.2)',
   position: 'relative',
@@ -496,6 +401,31 @@ const YellowImage = styled(MotiImage)({
   zIndex: 12,
   position: 'absolute',
   width: 180,
+  borderTopLeftRadius: 20,
+  borderTopRightRadius: 20,
+})
+
+const AngpaoWinAmountContainer = styled(MotiView)({
+  zIndex: 12,
+  alignItems: 'center',
+})
+
+const AngpaoWinNote = styled(Text)({
+  textAlign: 'center',
+  paddingTop: 10,
+  fontSize: 20,
+  color: '#ffcc02',
+  fontWeight: 'bold',
+  marginX: 5,
+})
+
+const AngpaoWinAmount = styled(Text)({
+  position: 'absolute',
+  textAlign: 'center',
+  color: 'red',
+  fontWeight: 'bold',
+  fontSize: 30,
+  marginTop: 20,
 })
 
 const CongratulationTextContainer = styled(MotiView)({
@@ -508,6 +438,12 @@ const CongratulationTextContainer = styled(MotiView)({
 })
 
 // Angpao Picker Style
+const DrawAngpaoContainer = styled(MotiView)({
+  position: 'absolute',
+  top: '28%',
+  alignItems: 'center',
+})
+
 const LionContainer = styled(View)({
   zIndex: 10,
   position: 'absolute',
@@ -530,9 +466,24 @@ const ScrollFixTopImage = styled(Image)({
   aspectRatio: 10 / 1,
 })
 
+const ScrollTopDown = styled(MotiView)({
+  zIndex: 1,
+  position: 'absolute',
+  top: '27%',
+  marginX: 'auto',
+})
+
 const ScrollBody = styled(MotiImage)({
   minWidth: 280,
   aspectRatio: 7 / 9,
+  backgroundColor: 'red',
+})
+
+const DrawAngpaoWelcomeText = styled(Text)({
+  textAlign: 'center',
+  color: '#932222',
+  fontWeight: 'bold',
+  fontSize: 25,
 })
 
 const ScrollContentContainer = styled(MotiView)({
@@ -552,6 +503,18 @@ const ScrollAngpaoListContainer = styled(View)({
   flexWrap: 'wrap',
   paddingX: 10,
 })
+
+const LoadingAngpaoContainer = styled(MotiView)({
+  zIndex: 1,
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  position: 'absolute',
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: 'rgba(18, 55, 88, 0.7)',
+})
+
 const CloseButtonContainer = styled(View)({
   position: 'absolute',
   top: '8%',
