@@ -50,21 +50,21 @@ const RedPacket = ({ prize, winNote }) => {
         animate={{ opacity: 1 }}
         transition={{
           type: 'timing',
-          duration: 1500,
-          delay: 2000,
+          duration: 500,
+          delay: 1500,
         }}
       >
         <YellowImage
           from={{ height: 0, transform: [{ translateY: 0 }] }}
           animate={{ height: 70, transform: [{ translateY: -70 }] }}
-          transition={{ type: 'timing', duration: 1000, delay: 4000 }}
+          transition={{ type: 'timing', duration: 750, delay: 2500 }}
           exit={{ height: 0 }}
           source={require('app/assets/images/events/cny/win.png')}
         />
         <AngpaoWinAmountContainer
           from={{ transform: [{ translateY: 0 }], opacity: 0 }}
           animate={{ transform: [{ translateY: -70 }], opacity: 1 }}
-          transition={{ type: 'timing', duration: 1000, delay: 4500 }}
+          transition={{ type: 'timing', duration: 1000, delay: 3500 }}
         >
           <AngpaoWinAmount>{prize}</AngpaoWinAmount>
         </AngpaoWinAmountContainer>
@@ -80,7 +80,7 @@ const RedPacket = ({ prize, winNote }) => {
           transition={{
             type: 'timing',
             duration: 1000,
-            delay: 3000,
+            delay: 1500,
           }}
         >
           <RedCover
@@ -92,8 +92,8 @@ const RedPacket = ({ prize, winNote }) => {
           animate={{ opacity: 1 }}
           transition={{
             type: 'timing',
-            duration: 1500,
-            delay: 5000,
+            duration: 1000,
+            delay: 3500,
           }}
         >
           <AngpaoWinNote>{winNote}</AngpaoWinNote>
@@ -111,6 +111,7 @@ const DrawRedPacket = ({ handleAngpao, disablePacket }: any) => {
 
   return (
     <DrawAngpaoContainer
+      from={{ opacity: 0.5, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{
         opacity: 0,
@@ -118,7 +119,7 @@ const DrawRedPacket = ({ handleAngpao, disablePacket }: any) => {
       }}
       transition={{
         type: 'timing',
-        duration: 2000,
+        duration: 1000,
       }}
     >
       <ScrollFixTop>
@@ -273,6 +274,7 @@ const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
   const [winNote, setWinNote] = useState('')
   const luckyDrawBalance =
     useAppSelector((s) => s.setting.luckyDrawBalance) ?? ''
+  const locale = useAppSelector((s) => s.setting.locale) ?? ''
   const [getPlayerBalance] = useLazyPlayerBalanceQuery()
   const { showAlert } = useAlert()
 
@@ -293,24 +295,24 @@ const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
       dispatch(SettingActions.setLuckyDrawBalance(luckyDrawBalance - 1)) // this is to trigger the memoized wheel
 
       setTimeout(() => {
-        setPrize(handleSpinMapping(data.code))
+        const prizePositionNote = locale === 'en' ? 2 : 4
+        const splitNote = data.note.split(' ')
+        setPrize(splitNote[prizePositionNote])
         setWinNote(data.note)
         getPlayerBalance()
       }, 4000)
     }
   }, [dispatch, getPlayerBalance, luckyDrawBalance, showAlert, spinLuckyWheel])
-  const handleSpinMapping = (code: number) => {
-    switch (code) {
-      case 1:
-        return '18K'
-      case 2:
-        return '38K'
-      case 3:
-        return '58K'
-      default:
-        return 'None'
-    }
-  }
+  // const handleSpinMapping = (code: number) => {
+  //   switch (code) {
+  //     case 1:
+  //       return '18K'
+  //     case 2:
+  //       return '38K'
+  //     default:
+  //       return 'Error'
+  //   }
+  // }
 
   const handleClose = () => {
     closeModal('CnyLuckyDrawModal', () => {
@@ -378,7 +380,7 @@ const RedPacketContainer = styled(MotiView)({
   zIndex: 2,
   alignItems: 'center',
   position: 'absolute',
-  top: '30%',
+  top: '35%',
   marginX: 'auto',
 })
 const RedCoverContainer = styled(MotiView)({
@@ -406,7 +408,7 @@ const YellowImage = styled(MotiImage)({
 })
 
 const AngpaoWinAmountContainer = styled(MotiView)({
-  zIndex: 12,
+  zIndex: 20,
   alignItems: 'center',
 })
 

@@ -27,7 +27,7 @@ const HomeScreen = () => {
 
   const checkSyncShield = async () => {
     const { data } = await syncShield(syncShieldActionType)
-    console.log('Async Success Status', data.success)
+    // console.log('Async Success Status', data.success)
     if (data.success === true) {
       dispatch(AuthActions.setSyncShieldStatus(true))
 
@@ -38,15 +38,18 @@ const HomeScreen = () => {
       setStatus(false)
     }
   }
+
   useEffect(() => {
-    checkSyncShield()
+    syncShieldActionType === Shield_Action.REGISTER && checkSyncShield()
+  }, [])
+  useEffect(() => {
     if (syncShieldActionType === Shield_Action.REGISTER && status === false) {
       // const interval = setInterval(() => {
       checkSyncShield()
       // console.log(temp)
       // }, 5000)
       // return () => clearInterval(interval)
-    } else checkSyncShield()
+    }
 
     // Todo Set interval aync await 5 second Refetch
     // around 5 second wait and request
