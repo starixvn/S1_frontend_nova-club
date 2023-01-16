@@ -205,7 +205,7 @@ const MatchCol = ({ image, name, nameFontSize, odd, oddFontSize }) => {
             {...animationState}
             sx={{ fontSize: nameFontSize, lineHeight: nameFontSize * 1.2 }}
           >
-            {MatchNameMapping[name]}
+            {formatName(name)}
           </CountryLabel>
         </AnimatePresence>
       </View>
@@ -291,6 +291,12 @@ function getFlagPath(country: string) {
   return `${MEDIA_DOMAIN}${CONTENT_URI}/flags/${country
     .toLowerCase()
     .replace(/[^a-zA-Z0-9]/g, '')}.png`
+}
+
+function formatName(name) {
+  const removedMultiSpace = name.replace(/\s{2,}/g, ' ')
+
+  return MatchNameMapping[removedMultiSpace] ?? removedMultiSpace
 }
 
 export default MatchesSection
