@@ -1,5 +1,6 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Image from 'app/components/common/Image'
+import MatchNameMapping from 'app/config/matches/MatchNameMapping'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useInterval from 'app/hooks/useInterval'
 import TouchableOpacity from 'app/pressable/TouchableOpacity'
@@ -26,7 +27,6 @@ const animationState = {
 const MatchesSection = () => {
   const { width } = useContainerDimension()
   const [activeIndex, setActiveIndex] = useState<number>(0)
-  const dispatch = useDispatch()
 
   const { matches } = useGetRecoMatchQuery(undefined, {
     selectFromResult: (s) => {
@@ -205,7 +205,7 @@ const MatchCol = ({ image, name, nameFontSize, odd, oddFontSize }) => {
             {...animationState}
             sx={{ fontSize: nameFontSize, lineHeight: nameFontSize * 1.2 }}
           >
-            {name}
+            {MatchNameMapping[name]}
           </CountryLabel>
         </AnimatePresence>
       </View>
@@ -243,10 +243,12 @@ const Flag = ({ image }) => {
           from={{ scaleX: 0 }}
           animate={{ scaleX: 1, opacity: 1 }}
           exit={{ scaleX: 0 }}
+          resizeMode="contain"
           style={{
-            height: '100%',
+            margin: '5%',
+            height: '90%',
             aspectRatio: 1,
-            width: '100%',
+            width: '90%',
             ...StyleSheet.absoluteFillObject,
           }}
           source={{
@@ -286,9 +288,9 @@ const CountryLabel = styled(motify(Text)())({
 const FlagIcon = motify(Image)()
 
 function getFlagPath(country: string) {
-  return `${MEDIA_DOMAIN}/${CONTENT_URI}/flags/${country
+  return `${MEDIA_DOMAIN}${CONTENT_URI}/flags/${country
     .toLowerCase()
-    .replace(/\s/g, '')}.png`
+    .replace(/[^a-zA-Z0-9]/g, '')}.png`
 }
 
 export default MatchesSection
