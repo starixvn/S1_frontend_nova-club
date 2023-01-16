@@ -5,7 +5,13 @@ import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { getErrorMessage } from 'app/utils/validation'
-import { ActivityIndicator, ScrollView, Text, View } from 'dripsy'
+import {
+  ActivityIndicator,
+  ScrollView,
+  Text,
+  useDripsyTheme,
+  View,
+} from 'dripsy'
 import { useRef, useState } from 'react'
 import {
   ImageBackground,
@@ -71,6 +77,7 @@ const SlotMachine = () => {
   const { width: screenWidth } = useWindowDimensions()
   const inputRef = useRef(null)
   const redeemPrizeError = useRef('')
+  const { theme } = useDripsyTheme()
 
   const { balance } = useCheckCnySpinQuery(undefined, {
     refetchOnMountOrArgChange: true,
@@ -328,7 +335,7 @@ const SlotMachine = () => {
               }}
             >
               {isSubmitting || isAnimating ? (
-                <ActivityIndicator />
+                <ActivityIndicator color={theme.colors.$yellowOrange} />
               ) : (
                 <TouchableOpacity
                   onPress={roll}
