@@ -3,11 +3,10 @@ import Image from 'app/components/common/Image'
 import IconButton from 'app/components/form/IconButton'
 import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
-import { useAppDispatch } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { getErrorMessage } from 'app/utils/validation'
 import { ActivityIndicator, ScrollView, Text, View } from 'dripsy'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import {
   ImageBackground,
   Platform,
@@ -19,14 +18,11 @@ import { useModal } from 'react-native-modalfy'
 import Animated, {
   runOnJS,
   useAnimatedProps,
+  useAnimatedReaction,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
-import {
-  eventApi,
-  useCheckCnySpinQuery,
-  useCnySpinMutation,
-} from 'services/eventApi'
+import { useCheckCnySpinQuery, useCnySpinMutation } from 'services/eventApi'
 import { CNYRollResult } from 'services/eventApi.type'
 import { useRouter } from 'solito/router'
 import Cloud from './Cloud'
@@ -34,6 +30,7 @@ import Lantern from './Latern'
 
 import SlotMachineRoll from './SlotMachineRoll'
 
+Animated.addWhitelistedNativeProps({ value: true })
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput)
 
 // const testResuls = [
@@ -61,7 +58,6 @@ const AnimatedTextInput = Animated.createAnimatedComponent(TextInput)
 // ]
 
 const SlotMachine = () => {
-  const dispatch = useAppDispatch()
   const { back } = useRouter()
   const { top, bottom } = useSafeArea()
   const { openModal } = useModal()
@@ -73,6 +69,8 @@ const SlotMachine = () => {
   const { showAlert } = useAlert()
   const { t } = useLocalization()
   const { width: screenWidth } = useWindowDimensions()
+  const inputRef = useRef(null)
+  const redeemPrizeError = useRef('')
 
   const { balance } = useCheckCnySpinQuery(undefined, {
     refetchOnMountOrArgChange: true,
@@ -81,14 +79,41 @@ const SlotMachine = () => {
 
   const [spin] = useCnySpinMutation()
 
+  const handlePrizeEmpty = (prizeList?: CNYRollResult[]) => {
+    if (!prizeList || prizeList.length <= 0) return []
+
+    const validPrizeList = prizeList.filter((prize) => {
+      if (prize.code === '') {
+        redeemPrizeError.current = prize.err
+
+        return false
+      }
+
+      return true
+    })
+
+    return validPrizeList
+  }
+
   async function roll() {
     try {
       setSubmitting(true)
       const { data, success, message } = await spin().unwrap()
 
       if (success) {
-        setAnimating(true)
-        setResults(data)
+        const validPrize = handlePrizeEmpty(data)
+
+        if (validPrize.length) {
+          setAnimating(true)
+          setResults(validPrize)
+        } else {
+          openModal('AlertModal', {
+            message: getErrorMessage(redeemPrizeError.current),
+            onClose: () => {
+              return false
+            },
+          })
+        }
       } else {
         showAlert(message)
       }
@@ -101,6 +126,21 @@ const SlotMachine = () => {
   }
 
   function onResultComplete() {
+    if (redeemPrizeError.current) {
+      openModal('AlertModal', {
+        message: getErrorMessage(redeemPrizeError.current),
+        onClose: () => {
+          openCnySuccessModal()
+        },
+      })
+
+      return
+    }
+
+    openCnySuccessModal()
+  }
+
+  function openCnySuccessModal() {
     if (results) {
       openModal(
         'CnyWinModal',
@@ -112,16 +152,7 @@ const SlotMachine = () => {
         }
       )
 
-      dispatch(
-        eventApi.util.updateQueryData(
-          'checkCnySpin',
-          undefined,
-          (draftPosts) => {
-            if (draftPosts.data) draftPosts.data.totalBalance = 0
-          }
-        )
-      )
-
+      redeemPrizeError.current = ''
       setAnimating(false)
     }
   }
@@ -143,13 +174,31 @@ const SlotMachine = () => {
     }
   }
 
-  const animatedProps = useAnimatedProps(
-    () =>
-      ({
-        value:
-          Math.round(progressAmount.value / 1000) +
-          (progressAmount.value > 1000 ? 'K' : ''),
-      } as any)
+  const animatedProps = useAnimatedProps(() => {
+    return {
+      text:
+        Math.round(progressAmount.value / 1000) +
+        (progressAmount.value > 1000 ? 'K' : ''),
+    } as any
+  })
+
+  // https://github.com/software-mansion/react-native-reanimated/issues/1808
+  useAnimatedReaction(
+    () => {
+      return (
+        Platform.OS === 'web' &&
+        Math.round(progressAmount.value / 1000) +
+          (progressAmount.value > 1000 ? 'K' : '')
+      )
+    },
+    (data, prevData) => {
+      if (Platform.OS === 'web' && data !== prevData && inputRef.current) {
+        inputRef.current.setNativeProps({
+          value: data,
+        })
+      }
+    },
+    []
   )
 
   return (
@@ -321,6 +370,7 @@ const SlotMachine = () => {
               style={{ width: '100%', height: '100%', position: 'absolute' }}
             />
             <AnimatedTextInput
+              ref={Platform.select({ web: inputRef })}
               pointerEvents={'none'}
               animatedProps={animatedProps}
               editable={false}
