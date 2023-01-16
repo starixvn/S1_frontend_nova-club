@@ -279,28 +279,30 @@ const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
   const { showAlert } = useAlert()
 
   const spin = useCallback(async () => {
-    const { data, success } = await spinLuckyWheel()
-      .unwrap()
-      .catch((error) => {
+    try {
+      const { data, success, message } = await spinLuckyWheel().unwrap()
+
+      if (success && data?.[0]) {
+        console.log('success')
+        setLoading(false)
+        setVisible(true)
+        dispatch(SettingActions.setLuckyDrawBalance(luckyDrawBalance - 1)) // this is to trigger the memoized wheel
+        setTimeout(() => {
+          const prizePositionNote = locale === 'en' ? 2 : 4
+          const splitNote = data.note.split(' ')
+          setPrize(splitNote[prizePositionNote] ?? '')
+          setWinNote(data.note)
+          getPlayerBalance()
+        }, 4000)
+      } else {
         setLoading(false)
         setVisible(false)
-        showAlert(error)
-        return error
-      })
-
-    if (success) {
-      console.log('success')
+        showAlert(message)
+      }
+    } catch (err) {
       setLoading(false)
-      setVisible(true)
-      dispatch(SettingActions.setLuckyDrawBalance(luckyDrawBalance - 1)) // this is to trigger the memoized wheel
-
-      setTimeout(() => {
-        const prizePositionNote = locale === 'en' ? 2 : 4
-        const splitNote = data.note.split(' ')
-        setPrize(splitNote[prizePositionNote])
-        setWinNote(data.note)
-        getPlayerBalance()
-      }, 4000)
+      setVisible(false)
+      showAlert(err)
     }
   }, [dispatch, getPlayerBalance, luckyDrawBalance, showAlert, spinLuckyWheel])
   // const handleSpinMapping = (code: number) => {
