@@ -299,16 +299,6 @@ const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
       showAlert(err)
     }
   }, [dispatch, getPlayerBalance, luckyDrawBalance, showAlert, spinLuckyWheel])
-  // const handleSpinMapping = (code: number) => {
-  //   switch (code) {
-  //     case 1:
-  //       return '18K'
-  //     case 2:
-  //       return '38K'
-  //     default:
-  //       return 'Error'
-  //   }
-  // }
 
   const handleClose = () => {
     closeModal('CnyLuckyDrawModal', () => {
