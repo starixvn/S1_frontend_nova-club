@@ -277,8 +277,7 @@ const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
     try {
       const { data, success, message } = await spinLuckyWheel().unwrap()
 
-      if (success && data?.[0]) {
-        console.log('success')
+      if (success && data) {
         setLoading(false)
         setVisible(true)
         dispatch(SettingActions.setLuckyDrawBalance(luckyDrawBalance - 1)) // this is to trigger the memoized wheel
@@ -343,7 +342,6 @@ const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
           alignItems: 'center',
           justifyContent: 'center',
           paddingBottom: bottom + BODY_PADDING,
-          backgroundColor: 'hsla(250, 50%, 50%, 0.5)',
         }}
         showsVerticalScrollIndicator={false}
         bounces={false}

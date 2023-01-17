@@ -90,7 +90,7 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
       api_key: API_KEY,
     }
 
-    // console.log(`Request ${config.url} : `, config.data)
+    console.log(`Request ${config.url} : `, config.data)
   }
 
   // const cacheControlNeeded = ['/player_api/transfer']
