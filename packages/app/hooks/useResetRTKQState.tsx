@@ -12,6 +12,7 @@ const useResetRTKQState = () => {
     dispatch(baseApi.util.resetApiState())
 
     dispatch(TempSettingActions.toggleShowPrediction(true))
+    dispatch(TempSettingActions.setLuckyDrawTriggered(false))
     dispatch(SettingActions.removeReferral())
     dispatch(SettingActions.setLocale(LANGUAGE_CODE.VIETNAM))
   }, [dispatch])

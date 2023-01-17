@@ -2,10 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface settingStateProps {
   showPrediction: boolean
+  luckyDrawTriggered: boolean
 }
 
 const initialState: settingStateProps = {
   showPrediction: true,
+  luckyDrawTriggered: false,
 }
 
 const tempSettingSlice = createSlice({
@@ -14,6 +16,9 @@ const tempSettingSlice = createSlice({
   reducers: {
     toggleShowPrediction: (state, action: PayloadAction<boolean>) => {
       state.showPrediction = action.payload
+    },
+    setLuckyDrawTriggered: (state, action: PayloadAction<boolean>) => {
+      state.luckyDrawTriggered = action.payload
     },
   },
 })

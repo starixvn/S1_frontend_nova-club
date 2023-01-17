@@ -6,7 +6,6 @@ import { ScrollView } from 'dripsy'
 import { default as React, useEffect, useState } from 'react'
 import { Platform } from 'react-native'
 import { useDispatch } from 'react-redux'
-import { Shield_Action } from 'services/authApi.type'
 import LuckyDrawTrigger from './LuckyDrawTrigger'
 import AnnouncementMarquee from './Section/AnnouncementMarquee'
 import BannerSection from './Section/BannerSection'
@@ -19,43 +18,36 @@ import RecentOpenGames from './Section/RecentOpenGames'
 const HomeScreen = () => {
   const { isLandscape } = useOrientation()
   const dispatch = useDispatch()
-  const [status, setStatus] = useState(false)
   const syncShieldActionType =
     useAppSelector((s) => s.auth.syncShieldActionType) ?? ''
-  // console.log('Shield: ', syncShieldActionType)
+  const syncShieldStatus = useAppSelector(
+    (state) => state.auth.syncShieldStatus
+  )
+
   const { syncShield } = useShield()
 
   const checkSyncShield = async () => {
-    const { data } = await syncShield(syncShieldActionType)
-    // console.log('Async Success Status', data.success)
-    if (data.success === true) {
+    try {
+      const _ = await syncShield(syncShieldActionType)
+
+      // Dont care abou sync shield success or not as long as it ad triggered
       dispatch(AuthActions.setSyncShieldStatus(true))
-
-      setStatus(true)
-    } else {
-      dispatch(AuthActions.setSyncShieldStatus(false))
-
-      setStatus(false)
+    } catch (error) {
+      console.error(error)
     }
   }
 
-  useEffect(() => {
-    syncShieldActionType === Shield_Action.REGISTER && checkSyncShield()
-  }, [])
-  useEffect(() => {
-    if (syncShieldActionType === Shield_Action.REGISTER && status === false) {
-      // const interval = setInterval(() => {
-      checkSyncShield()
-      // console.log(temp)
-      // }, 5000)
-      // return () => clearInterval(interval)
+  function handleCheckShield() {
+    if (syncShieldStatus) {
+      return
     }
 
-    // Todo Set interval aync await 5 second Refetch
-    // around 5 second wait and request
-    // if shield action type is  register, must wait syncshield done first, then only trigger luckydraw
-    // if is login, then no need check syncshield.
-  }, [status])
+    checkSyncShield()
+  }
+
+  useEffect(() => {
+    handleCheckShield()
+  }, [])
 
   return (
     <ScrollView
