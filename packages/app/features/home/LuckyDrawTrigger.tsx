@@ -1,4 +1,5 @@
 import { useAppSelector } from 'app/provider/redux/store'
+import { AuthActions } from 'app/store/authReducer'
 import { SettingActions } from 'app/store/setting.slice'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
 import { memo, useEffect } from 'react'
@@ -31,13 +32,17 @@ const LuckyDrawTrigger = () => {
 
     const responseData = data?.data
     if (responseData && 'note' in responseData) {
-      const note = responseData.note
-      openModal('AlertModal', {
-        message: note,
-        onClose: () => {
-          return false
-        },
-      })
+      if (syncShieldActionType === Shield_Action.REGISTER) {
+        dispatch(AuthActions.setSyncShieldActionType(''))
+
+        const note = responseData.note
+        openModal('AlertModal', {
+          message: note,
+          onClose: () => {
+            return false
+          },
+        })
+      }
     }
 
     dispatch(SettingActions.setLuckyDrawBalance(freeSpinBalance))
