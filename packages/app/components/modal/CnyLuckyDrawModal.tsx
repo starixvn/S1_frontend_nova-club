@@ -4,7 +4,7 @@ import useOrientation from 'app/hooks/useOrientation'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { SettingActions } from 'app/store/setting.slice'
-import { styled, View, Text } from 'dripsy'
+import { styled, View, Text, ScrollView } from 'dripsy'
 
 import { AnimatePresence, MotiImage, MotiView } from 'moti'
 import { useCallback, useState } from 'react'
@@ -15,6 +15,11 @@ import { useLuckySpinMutation } from 'services/playerApi'
 import { useLazyPlayerBalanceQuery } from 'services/walletApi'
 import { MotifiedImage } from '../common/Image'
 import IconButton from '../form/IconButton'
+
+const LION_HEAD_HEIGHT = 100
+const BODY_HEIGHT = 350
+const BODY_PADDING = 12
+const SCROLL_ROD_HEIGHT = 30
 
 const AngpaoList = [
   {
@@ -132,26 +137,10 @@ const DrawRedPacket = ({ handleAngpao, disablePacket }: any) => {
           source={require('app/assets/images/events/cny/SCROLL_TOP.png')}
         />
       </ScrollFixTop>
-      <ScrollTopDown
-        from={{
-          transform: [{ translateY: 0 }],
-        }}
-        animate={{
-          transform: [{ translateY: 365 }],
-        }}
-        exit={{
-          transform: [{ translateY: 0 }],
-        }}
-        transition={{ type: 'timing', duration: 1500 }}
-        exitTransition={{ type: 'timing', duration: 2000 }}
-      >
-        <ScrollFixTopImage
-          source={require('app/assets/images/events/cny/SCROLL_TOP.png')}
-        />
-      </ScrollTopDown>
+
       <ScrollContentContainer
         from={{ height: 0 }}
-        animate={{ height: 400 }}
+        animate={{ height: BODY_HEIGHT }}
         exit={{ height: 0 }}
         transition={{ type: 'timing', duration: 1500 }}
       >
@@ -231,13 +220,19 @@ const DrawRedPacket = ({ handleAngpao, disablePacket }: any) => {
         </View>
         <ScrollBody
           from={{ height: 0 }}
-          animate={{ height: 350 }}
+          animate={{ height: BODY_HEIGHT }}
           transition={{ type: 'timing', duration: 1500 }}
           exit={{ height: 0 }}
           exitTransition={{ type: 'timing', duration: 2000 }}
           source={require('app/assets/images/events/cny/SCROLL_BODY.jpg')}
         />
       </ScrollContentContainer>
+
+      <ScrollTopDown>
+        <ScrollFixTopImage
+          source={require('app/assets/images/events/cny/SCROLL_TOP.png')}
+        />
+      </ScrollTopDown>
     </DrawAngpaoContainer>
   )
 }
@@ -328,16 +323,30 @@ const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
     spin()
   }, [])
 
-  const { top } = useSafeArea()
+  const { top, bottom } = useSafeArea()
   return (
-    <OverlayContainer sx={{ width, height, paddingTop: top }}>
-      <View
-        sx={{
-          flexDirection: isLandscape ? 'row' : 'column',
+    <OverlayContainer
+      sx={{
+        width,
+        height,
+        paddingTop: top,
+      }}
+    >
+      <ScrollView
+        style={{
           flex: 1,
+        }}
+        contentContainerStyle={{
+          flexDirection: isLandscape ? 'row' : 'column',
+          flexGrow: 1,
           width: '100%',
           alignItems: 'center',
+          justifyContent: 'center',
+          paddingBottom: bottom + BODY_PADDING,
+          backgroundColor: 'hsla(250, 50%, 50%, 0.5)',
         }}
+        showsVerticalScrollIndicator={false}
+        bounces={false}
       >
         <AnimatePresence>
           {!visible ? (
@@ -351,7 +360,7 @@ const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
           )}
         </AnimatePresence>
         <LoadingAngpaoView loading={loading} />
-      </View>
+      </ScrollView>
 
       {!loading ? (
         <CloseButtonContainer>
@@ -443,15 +452,13 @@ const CongratulationTextContainer = styled(MotiView)({
 
 // Angpao Picker Style
 const DrawAngpaoContainer = styled(MotiView)({
-  position: 'absolute',
-  top: '28%',
   alignItems: 'center',
 })
 
 const LionContainer = styled(View)({
   zIndex: 10,
   position: 'absolute',
-  top: -100,
+  top: -LION_HEAD_HEIGHT,
 })
 const LionImage = styled(Image)({
   height: 120,
@@ -459,22 +466,20 @@ const LionImage = styled(Image)({
   zIndex: 10,
 })
 const ScrollFixTop = styled(View)({
-  position: 'absolute',
-  top: '27%',
   marginX: 'auto',
   alignItems: 'center',
   zIndex: 5,
+  marginTop: LION_HEAD_HEIGHT + BODY_PADDING,
 })
 const ScrollFixTopImage = styled(Image)({
-  height: 30,
+  height: SCROLL_ROD_HEIGHT,
   aspectRatio: 10 / 1,
 })
 
 const ScrollTopDown = styled(MotiView)({
-  zIndex: 1,
-  position: 'absolute',
-  top: '27%',
+  zIndex: 2,
   marginX: 'auto',
+  marginTop: -4,
 })
 
 const ScrollBody = styled(MotiImage)({
@@ -493,9 +498,9 @@ const DrawAngpaoWelcomeText = styled(Text)({
 const ScrollContentContainer = styled(MotiView)({
   zIndex: 2,
   alignItems: 'center',
-  position: 'absolute',
-  top: 25,
   marginX: 'auto',
+  marginTop: -6,
+  overflow: 'hidden',
 })
 
 const ScrollAngpaoListContainer = styled(View)({
