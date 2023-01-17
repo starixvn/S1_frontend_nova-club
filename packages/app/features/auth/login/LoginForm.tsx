@@ -83,7 +83,8 @@ const LoginForm = () => {
       }).unwrap()
 
       if (success && data) {
-        syncShield(Shield_Action.LOGIN)
+        // syncShield(Shield_Action.LOGIN)
+        dispatch(AuthActions.setSyncShieldActionType('login'))
         normalLogin(username, password, () => handleProceedLogin(data, actions))
       } else {
         throw new Error(message)
@@ -98,7 +99,7 @@ const LoginForm = () => {
   const handleProceedLogin = (data, actions) => {
     dispatch(AuthActions.setAuthInfo(data))
     /* clear off lucky draw */
-    dispatch(SettingActions.setLuckyDrawBalance(0))
+    // dispatch(SettingActions.setLuckyDrawBalance(0))
     // await updateLanguage(data.playerName)
 
     actions.resetForm()

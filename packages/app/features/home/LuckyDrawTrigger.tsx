@@ -1,21 +1,72 @@
 import { useAppSelector } from 'app/provider/redux/store'
-import { useEffect } from 'react'
-import { Platform } from 'react-native'
+import { AuthActions } from 'app/store/authReducer'
+import { SettingActions } from 'app/store/setting.slice'
+import { TempSettingActions } from 'app/store/tempSetting.slice'
+import { memo, useEffect } from 'react'
 import { useModal } from 'react-native-modalfy'
+import { useDispatch } from 'react-redux'
+import { Shield_Action } from 'services/authApi.type'
+import { useLazyFreeSpinQuery } from 'services/playerApi'
 
 const LuckyDrawTrigger = () => {
+  const username = useAppSelector((s) => s.auth.info?.playerName) ?? ''
+  const shieldStatus = useAppSelector((s) => s.auth.syncShieldStatus) ?? ''
+  const syncShieldActionType =
+    useAppSelector((s) => s.auth.syncShieldActionType) ?? ''
+  const luckyDrawTriggered = useAppSelector(
+    (state) => state.tempSetting.luckyDrawTriggered
+  )
+  const [getFreeSpinInfo] = useLazyFreeSpinQuery()
+  const dispatch = useDispatch()
   const { openModal } = useModal()
-  const luckyDrawBalance = useAppSelector((s) => s.setting.luckyDrawBalance)
+
+  const CheckLuckyDrawBalance = async () => {
+    const { data } = await getFreeSpinInfo({ username })
+    const freeSpinBalance = data?.data?.wheel_info.totalBalance ?? 0
+
+    if (freeSpinBalance > 0) {
+      setTimeout(() => {
+        openModal('CnyLuckyDrawModal')
+      }, 1000)
+    }
+
+    const responseData = data?.data
+    if (responseData && 'note' in responseData) {
+      if (syncShieldActionType === Shield_Action.REGISTER) {
+        dispatch(AuthActions.setSyncShieldActionType(''))
+
+        const note = responseData.note
+        openModal('AlertModal', {
+          message: note,
+          onClose: () => {
+            return false
+          },
+        })
+      }
+    }
+
+    dispatch(SettingActions.setLuckyDrawBalance(freeSpinBalance))
+    dispatch(TempSettingActions.setLuckyDrawTriggered(true))
+  }
 
   useEffect(() => {
-    if (luckyDrawBalance && luckyDrawBalance > 0) {
-      setTimeout(() => {
-        openModal('LuckyDrawModal')
-      }, 1500)
+    console.log('Shield Action Type is: ', syncShieldActionType)
+    console.log('Shield Status is: ', shieldStatus)
+
+    if (!shieldStatus || luckyDrawTriggered) {
+      return
     }
-  }, [])
+
+    if (
+      syncShieldActionType === Shield_Action.LOGIN ||
+      syncShieldActionType === Shield_Action.NONE ||
+      syncShieldActionType === Shield_Action.REGISTER
+    ) {
+      CheckLuckyDrawBalance()
+    }
+  }, [shieldStatus])
 
   return null
 }
 
-export default LuckyDrawTrigger
+export default memo(LuckyDrawTrigger)

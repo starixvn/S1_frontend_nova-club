@@ -71,38 +71,41 @@ const RegisterPage = () => {
   const referral = useAppSelector((s) => s.setting.referral)
   const trackingCode = referral?.trackingCode
   const handleOnSuccessRegister = (data?: RegisterResult) => {
+    replace({
+      pathname: '/',
+    })
     /*
       currently only :
       - freespin will have note on response,
       - freebet's note has been removed at backend
     */
-    function setLuckySpinAndNavigate() {
-      try {
-        if (data?.wheel_info?.totalSpin) {
-          dispatch(
-            SettingActions.setLuckyDrawBalance(
-              Number(data?.wheel_info?.totalSpin)
-            )
-          )
-        }
-      } catch (e) {
-        console.log('Error setting total spin')
-      } finally {
-        replace({
-          pathname: '/',
-        })
-      }
-    }
+    // function setLuckySpinAndNavigate() {
+    //   try {
+    //     if (data?.wheel_info?.totalSpin) {
+    //       dispatch(
+    //         SettingActions.setLuckyDrawBalance(
+    //           Number(data?.wheel_info?.totalSpin)
+    //         )
+    //       )
+    //     }
+    //   } catch (e) {
+    //     console.log('Error setting total spin')
+    //   } finally {
+    //     replace({
+    //       pathname: '/',
+    //     })
+    //   }
+    // }
 
-    if ('note' in data) {
-      const note = data.note
-      openModal('AlertModal', {
-        message: note,
-        onClose: () => setLuckySpinAndNavigate(),
-      })
-    } else {
-      setLuckySpinAndNavigate()
-    }
+    // if ('note' in data) {
+    //   const note = data.note
+    //   openModal('AlertModal', {
+    //     message: note,
+    //     onClose: () => setLuckySpinAndNavigate(),
+    //   })
+    // } else {
+    //   setLuckySpinAndNavigate()
+    // }
   }
 
   const onSubmit = async (
@@ -141,7 +144,9 @@ const RegisterPage = () => {
       }).unwrap()
 
       if (success) {
-        syncShield(Shield_Action.REGISTER)
+        // console.log('TOKEN: ', data as LoginResult)
+        // syncShield(Shield_Action.REGISTER)
+        dispatch(AuthActions.setSyncShieldActionType('register'))
         dispatch(AuthActions.setAuthInfo(data as LoginResult))
 
         normalLogin(username, password, () => handleOnSuccessRegister(data))

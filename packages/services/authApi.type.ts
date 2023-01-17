@@ -7,6 +7,7 @@ export enum Shield_Action {
   LOGIN = 'login',
   REGISTER = 'register',
   WITHDRAWAL = 'withdrawal',
+  NONE = '',
 }
 export interface LoginQueryArgs {
   username: string

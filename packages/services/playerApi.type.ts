@@ -3,6 +3,7 @@ import {
   ReportWithdrawalStatus,
   ReportTransactionType,
 } from 'app/utils/constant'
+import { WheelInfo } from './authApi.type'
 
 export enum MEMBER_TYPE {
   CASH = 'CASH',
@@ -155,4 +156,13 @@ export interface PlayerOverviewArgs {
 export type LuckySpinArgs = {
   code: number
   note: string
+}
+
+export type FreeSpinArgs = {
+  username: string
+}
+
+export type FreeSpinResult = {
+  playerName: string
+  wheel_info: WheelInfo
 }
