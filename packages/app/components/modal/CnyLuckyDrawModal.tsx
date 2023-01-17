@@ -201,8 +201,8 @@ const DrawRedPacket = ({ handleAngpao, disablePacket }: any) => {
                       resizeMode="cover"
                       source={require('app/assets/images/events/cny/ANGPAO.png')}
                       style={{
-                        aspectRatio: 7 / 10,
-                        height: 110,
+                        aspectRatio: 3 / 4,
+                        height: 100,
                         justifyContent: 'center',
                         alignItems: 'center',
                       }}
@@ -282,7 +282,8 @@ const CnyLuckyDrawModal = ({ modal: { closeModal } }) => {
         setVisible(true)
         dispatch(SettingActions.setLuckyDrawBalance(luckyDrawBalance - 1)) // this is to trigger the memoized wheel
         setTimeout(() => {
-          const prizePositionNote = locale === 'en' ? 2 : 4
+          // const prizePositionNote = locale === 'en' ? 2 : 4
+          const prizePositionNote = 4
           const splitNote = data.note.split(' ')
           setPrize(splitNote[prizePositionNote] ?? '')
           setWinNote(data.note)
@@ -493,8 +494,8 @@ const ScrollContentContainer = styled(MotiView)({
 
 const ScrollAngpaoListContainer = styled(View)({
   minWidth: 280,
-  maxHeight: 250,
-  aspectRatio: 7 / 9,
+  maxHeight: 210,
+  aspectRatio: 7 / 19,
   flexDirection: 'row',
   justifyContent: 'space-around',
   flexWrap: 'wrap',
