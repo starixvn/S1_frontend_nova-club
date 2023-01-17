@@ -37,6 +37,8 @@ import WorldCupPrediction from 'app/features/events/worldCupPrediction'
 import WcTnC from 'app/features/events/worldCupPrediction/tnc'
 import AffCupScreen from 'app/features/events/affcup/AffCupScreen'
 import WorldCupWinner from 'app/features/events/winnerList/WorldCupWinner'
+import SlotMachine from 'app/features/events/cny/SlotMachine'
+import CnyTnC from 'app/features/events/cny/tnc'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -67,10 +69,12 @@ const Stack = createStackNavigator<{
   TnC: undefined
   Forbidden: undefined
   Maintenance: undefined
-  WcPrediction: undefined
+  // WcPrediction: undefined
   WcTnc: undefined
   AffCup: undefined
-  WcWinnerList: undefined
+  // WcWinnerList: undefined
+  Cny: undefined
+  CnyTnc: undefined
 }>()
 
 export function NativeNavigation() {
@@ -234,10 +238,11 @@ export function NativeNavigation() {
       <Stack.Screen name="TnC" component={TnC} />
       <Stack.Screen name="Forbidden" component={Forbidden} />
       <Stack.Screen name="Maintenance" component={Maintenance} />
-      <Stack.Screen name="WcPrediction" component={WorldCupPrediction} />
       <Stack.Screen name="AffCup" component={AffCupScreen} />
-      <Stack.Screen name="WcTnc" component={WcTnC} />
-      <Stack.Screen name="WcWinnerList" component={WorldCupWinner} />
+      {/* <Stack.Screen name="WcTnc" component={WcTnC} />
+      <Stack.Screen name="WcWinnerList" component={WorldCupWinner} /> */}
+      <Stack.Screen name="Cny" component={SlotMachine} />
+      <Stack.Screen name="CnyTnc" component={CnyTnC} />
     </Stack.Navigator>
   )
 }

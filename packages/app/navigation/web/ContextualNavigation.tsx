@@ -44,10 +44,12 @@ const _contextualComponents = {
   tnc: () => import('../../../../apps/next/pages/auth/register/tnc'),
   '/event/wctnc': () => import('../../../../apps/next/pages/event/wctnc'),
   download: () => import('../../features/download/index.web'),
-  'wc-prediction': () => import('../../features/events/worldCupPrediction'),
-  '/event/wcwinner': () =>
-    import('../../features/events/winnerList/WorldCupWinner'),
+  // 'wc-prediction': () => import('../../features/events/worldCupPrediction'),
+  // '/event/wcwinner': () =>
+  //   import('../../features/events/winnerList/WorldCupWinner'),
   '/event/affcup': () => import('../../features/events/affcup/AffCupScreen'),
+  '/event/cny': () => import('../../features/events/cny/SlotMachine'),
+  '/event/cnytnc': () => import('../../../../apps/next/pages/event/cnytnc'),
 }
 
 function getContextualComponent(key: string) {

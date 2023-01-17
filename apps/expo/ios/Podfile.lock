@@ -1574,7 +1574,7 @@ SPEC CHECKSUMS:
   react-native-branch: 9348e18c5d37de6bf12a6c562123ba265ffbc2b0
   react-native-pager-view: 3ee7d4c7697fb3ef788346e834a60cca97ed8540
   react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
-  react-native-shield: 2edd1841c1c812c1c93b75f2b0569c5ab6de028e
+  react-native-shield: 083a7f5b208b93a21c51e6a4b40e3e5e106cc163
   react-native-view-shot: a60a98a18c72bcaaaf2138f9aab960ae9b0d96c7
   react-native-webview: e771bc375f789ebfa02a26939a57dbc6fa897336
   React-perflogger: cc76a4254d19640f1d8ad1c66fdee800414b805c

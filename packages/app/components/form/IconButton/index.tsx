@@ -31,7 +31,7 @@ const IconButton = ({
       disabled={disabled || loading}
       onPress={onPress}
       size={size}
-      sx={{ p: '$1', ...sx }}
+      sx={{ p: '$1', alignItems: 'center', justifyContent: 'center', ...sx }}
       {...rest}
     >
       <Icon {...iconOverride} />

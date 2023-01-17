@@ -9,6 +9,7 @@ import { useState } from 'react'
 import { Platform, useWindowDimensions } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import FloatingAffWinner from './FloatingAffWinner'
+import FloatingCny from './FloatingCny'
 import FloatingQr from './FloatingQr'
 import SupportMenu from './SupportMenu'
 import VGaming from './VGaming'
@@ -39,7 +40,8 @@ const FloatingContent = () => {
           alignItems: 'center',
         }}
       >
-        <FloatingAffWinner />
+        <FloatingCny />
+        {/* <FloatingAffWinner /> */}
 
         <VGaming />
 

@@ -15,9 +15,9 @@ const FloatingAffWinner = () => {
   const { width } = useWindowDimensions()
 
   const { makeContextualHref } = useContextualRouting()
-  const to = makeContextualHref('/event/affcup')
+  const to = makeContextualHref('/event/cny')
   const goto = () => {
-    push(to, '/event/affcup')
+    push(to, '/event/cny')
   }
 
   const iconSize = Math.min(110, width * 0.2)

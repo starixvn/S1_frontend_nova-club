@@ -155,7 +155,7 @@ const MainHeader = () => {
             position: 'absolute',
           }}
           source={{
-            uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/newyear/header.mp4`,
+            uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/cny/header.mp4`,
           }}
           resizeMode="cover"
           useNativeControls={false}
