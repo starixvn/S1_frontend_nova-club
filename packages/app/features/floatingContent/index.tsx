@@ -32,6 +32,7 @@ const FloatingContent = () => {
     <>
       <View
         sx={{
+          zIndex: 9,
           right:
             Math.max(0, (width - theme.sizes.container) / 2) +
             Math.max(containerWidth * 0.2 - vGamingSize, 0) / 2,
