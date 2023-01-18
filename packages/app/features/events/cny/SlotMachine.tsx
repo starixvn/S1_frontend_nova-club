@@ -88,7 +88,7 @@ const SlotMachine = () => {
   const redeemPrizeError = useRef('')
   const { theme } = useDripsyTheme()
 
-  const { balance } = useCheckCnySpinQuery(undefined, {
+  const { balance, isFetching } = useCheckCnySpinQuery(undefined, {
     refetchOnMountOrArgChange: true,
     selectFromResult: (s) => ({ ...s, balance: s.data?.data }),
   })
@@ -217,6 +217,15 @@ const SlotMachine = () => {
     []
   )
 
+  let ticketLabel = `0/0`
+  if (balance) {
+    ticketLabel = `${
+      isAnimating && results
+        ? results.length - lastCompletedRound
+        : balance.totalBalance
+    }/${balance.totalSpin}`
+  }
+
   return (
     <View sx={{ flex: 1 }}>
       <ImageBackground
@@ -307,20 +316,16 @@ const SlotMachine = () => {
                   alignItems: 'center',
                 }}
               >
-                {balance ? (
+                {isFetching ? (
+                  <ActivityIndicator color={'white'} size="large" />
+                ) : (
                   <Text
                     style={{
                       fontSize: 40,
                     }}
                   >
-                    {`${
-                      isAnimating && results
-                        ? results.length - lastCompletedRound
-                        : balance.totalBalance
-                    }/${balance.totalSpin}`}
+                    {ticketLabel}
                   </Text>
-                ) : (
-                  <ActivityIndicator />
                 )}
               </View>
             </View>
