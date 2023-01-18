@@ -6,15 +6,11 @@ import 'react-native-gesture-handler'
 import Branch from './integrations/branch/Branch'
 // import Shield from './integrations/shield/Shield'
 import * as Sentry from '@sentry/react-native'
-import { Keyboard, ScrollView, TouchableWithoutFeedback } from 'react-native'
-import Shield from './integrations/shield/Shield'
-import FastImage from 'react-native-fast-image'
-import {
-  SABA_PROMO_IMG,
-  WORLD_CUP_IMG,
-} from 'app/features/home/Section/GridSection'
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { ROUNDED_LOGO } from 'app/constant/imagePath'
+import { SABA_PROMO_IMG } from 'app/features/home/Section/GridSection'
+import { Keyboard, ScrollView, TouchableWithoutFeedback } from 'react-native'
+import FastImage from 'react-native-fast-image'
+import Shield from './integrations/shield/Shield'
 
 Sentry.init({
   dsn: 'https://0782803d4b0a41ff9881ac3d5b4d9898@o1267442.ingest.sentry.io/6453774',
@@ -26,9 +22,6 @@ Sentry.init({
 FastImage.preload([
   {
     uri: ROUNDED_LOGO,
-  },
-  {
-    uri: WORLD_CUP_IMG,
   },
   {
     uri: SABA_PROMO_IMG,
