@@ -12,13 +12,14 @@ import {
   useDripsyTheme,
   View,
 } from 'dripsy'
-import { useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import {
   ImageBackground,
   Platform,
   TextInput,
   TouchableOpacity,
   useWindowDimensions,
+  Pressable,
 } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import Animated, {
@@ -76,10 +77,18 @@ const SlotMachine = () => {
   const { t } = useLocalization()
   const { width: screenWidth } = useWindowDimensions()
   const inputRef = useRef(null)
+
+  const imageBackgroundref = useCallback((node) => {
+    if (!node) return
+
+    const backgroundImage = node.childNodes
+    backgroundImage[0].style.backgroundPosition = 'top'
+  }, [])
+
   const redeemPrizeError = useRef('')
   const { theme } = useDripsyTheme()
 
-  const { balance } = useCheckCnySpinQuery(undefined, {
+  const { balance, isFetching } = useCheckCnySpinQuery(undefined, {
     refetchOnMountOrArgChange: true,
     selectFromResult: (s) => ({ ...s, balance: s.data?.data }),
   })
@@ -208,11 +217,23 @@ const SlotMachine = () => {
     []
   )
 
+  let ticketLabel = `0/0`
+  if (balance) {
+    ticketLabel = `${
+      isAnimating && results
+        ? results.length - lastCompletedRound
+        : balance.totalBalance
+    }/${balance.totalSpin}`
+  }
+
   return (
     <View sx={{ flex: 1 }}>
       <ImageBackground
+        imageRef={Platform.select({ web: imageBackgroundref })}
         source={require('../../../assets/images/events/cny/bg.png')}
-        style={{ flex: 1 }}
+        style={{
+          flex: 1,
+        }}
       >
         <IconButton
           onPress={() => back()}
@@ -295,20 +316,16 @@ const SlotMachine = () => {
                   alignItems: 'center',
                 }}
               >
-                {balance ? (
+                {isFetching ? (
+                  <ActivityIndicator color={'white'} size="large" />
+                ) : (
                   <Text
                     style={{
                       fontSize: 40,
                     }}
                   >
-                    {`${
-                      isAnimating && results
-                        ? results.length - lastCompletedRound
-                        : balance.totalBalance
-                    }/${balance.totalSpin}`}
+                    {ticketLabel}
                   </Text>
-                ) : (
-                  <ActivityIndicator />
                 )}
               </View>
             </View>

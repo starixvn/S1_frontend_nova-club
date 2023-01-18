@@ -7,19 +7,31 @@ import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
 import { ActionType, getAction } from 'app/utils/actionGenerator'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
+import { getSocialMediaScheme, SocialMedia } from 'app/utils/helper'
 import { styled, Text, View } from 'dripsy'
 import { Video } from 'expo-av'
 import React from 'react'
 import { Game } from 'services/contentApi.type'
 import { useRouter } from 'solito/router'
-export const WORLD_CUP_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/wc.gif?v=1`
+export const SHAREHOLDER_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/shareholder.mp4?v=1`
 export const SABA_PROMO_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/videos/saba-sportsbook.mp4?v=1`
 export const HOME_GRID = [
   {
-    col: 6,
-    src: require('../../../assets/images/home/sb.jpg'),
+    col: 4,
+    src: require('../../../assets/images/home/sb_4.jpg'),
     title: 'game.category.sportsbook',
     route: '/sportsbook',
+  },
+  {
+    col: 2,
+    src: { uri: SHAREHOLDER_IMG },
+    type: 'video',
+    action: {
+      type: ActionType.EXTERNAL_REDIRECT,
+      payload: {
+        uri: getSocialMediaScheme(SocialMedia.ZALO).scheme,
+      },
+    },
   },
   {
     col: 3,
