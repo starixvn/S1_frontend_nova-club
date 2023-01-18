@@ -24,6 +24,11 @@ import monkey from '../../../assets/images/events/cny/zodiac/monkey.png'
 import rooster from '../../../assets/images/events/cny/zodiac/rooster.png'
 import dog from '../../../assets/images/events/cny/zodiac/dog.png'
 import pig from '../../../assets/images/events/cny/zodiac/pig.png'
+import { Action, getAction } from 'app/utils/actionGenerator'
+import { ImageBackground, Pressable, TouchableOpacity } from 'react-native'
+import { useAppSelector } from 'app/provider/redux/store'
+import { useRouter } from 'solito/router'
+import useContextualRouting from 'app/hooks/useContextualRouting'
 
 const COL = [
   cat,
@@ -42,6 +47,12 @@ const COL = [
 
 const EXTRA_ITEM = 2
 
+const tncData: Action = {
+  type: 'internalRedirect',
+  payload: {
+    uri: '/event/cnytnc',
+  },
+}
 export interface SlotMachineRollProps {
   results?: CNYRollResult[]
   onRoundComplete: (index: number, next: (currentIndex: number) => void) => void
@@ -56,6 +67,9 @@ const SlotMachineRoll = ({
   const [currentRound, setCurrentRound] = useState(-1)
   const [targetResults, setTargetResults] = useState<number[]>([0, 0, 0])
   const [currentRoundCompleteCount, setCurrentRoundCompleteCount] = useState(0)
+  const { push } = useRouter()
+  const locale = useAppSelector((s) => s.setting.locale)
+  const { makeContextualHref } = useContextualRouting()
 
   useEffect(() => {
     // Reset / start off when new Result passed in
@@ -110,10 +124,15 @@ const SlotMachineRoll = ({
     setCurrentRoundCompleteCount((prev) => prev + 1)
   }, [])
 
+  const handleTncButton = useCallback(() => {
+    const action = getAction(tncData)
+    console.log(action)
+    action({ push, locale, makeContextualHref })
+  }, [locale])
   return (
     <View style={{}}>
       <View
-        pointerEvents="none"
+        // pointerEvents="none"
         style={{
           position: 'relative',
           // borderWidth: 1,
@@ -133,6 +152,23 @@ const SlotMachineRoll = ({
             zIndex: 1,
           }}
         />
+        <TouchableOpacity
+          onPress={() => handleTncButton()}
+          style={{
+            width: '20%',
+            height: '20%',
+            position: 'absolute',
+            right: '4%',
+            top: '-4%',
+            zIndex: 1,
+          }}
+        >
+          <Image
+            source={require('../../../assets/images/events/cny/tnc-btn.png')}
+            resizeMode="contain"
+            style={{ width: '100%', height: '100%', zIndex: 1 }}
+          />
+        </TouchableOpacity>
         <View
           pointerEvents="none"
           sx={{
