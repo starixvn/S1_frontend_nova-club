@@ -129,15 +129,12 @@ const GridSection = () => {
         mx: -itemSpace,
       }}
     >
-      {HOME_GRID.map((j) => {
+      {HOME_GRID.map((j, index) => {
         const width = Math.floor(columnWidth * j.col)
         const picHeight = rowHeight - itemSpace * 2
         const checkTextSpace = picHeight / 30
         return (
-          <BouncePressable
-            key={j.title + (j.route ?? '')}
-            onPress={() => action(j)}
-          >
+          <BouncePressable key={index} onPress={() => action(j)}>
             <View
               sx={{
                 p: itemSpace,

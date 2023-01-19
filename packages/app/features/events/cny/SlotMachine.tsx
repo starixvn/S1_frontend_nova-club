@@ -12,6 +12,7 @@ import {
   useDripsyTheme,
   View,
 } from 'dripsy'
+import { Audio, AVPlaybackStatusToSet } from 'expo-av'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import {
   ImageBackground,
@@ -19,7 +20,6 @@ import {
   TextInput,
   TouchableOpacity,
   useWindowDimensions,
-  Pressable,
 } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import Animated, {
@@ -64,6 +64,8 @@ const AnimatedTextInput = Animated.createAnimatedComponent(TextInput)
 //   },
 // ]
 
+type SoundType = 'bg' | 'spin' | 'won'
+
 const SlotMachine = () => {
   const { back } = useRouter()
   const { top, bottom } = useSafeArea()
@@ -77,6 +79,11 @@ const SlotMachine = () => {
   const { t } = useLocalization()
   const { width: screenWidth } = useWindowDimensions()
   const inputRef = useRef(null)
+  const [backgroundMusicSound, setbackgroundMusicSound] =
+    useState<Audio.Sound>()
+  const [spinSound, setSpinSound] = useState<Audio.Sound>()
+  const [wonSound, setwonSound] = useState<Audio.Sound>()
+  const isUnmount = useRef(false)
 
   const imageBackgroundref = useCallback((node) => {
     if (!node) return
@@ -122,6 +129,7 @@ const SlotMachine = () => {
         if (validPrize.length) {
           setAnimating(true)
           setResults(validPrize)
+          playSpinMusic()
         } else {
           openModal('AlertModal', {
             message: getErrorMessage(redeemPrizeError.current),
@@ -153,6 +161,7 @@ const SlotMachine = () => {
       return
     }
 
+    playWonMusic()
     openCnySuccessModal()
   }
 
@@ -184,10 +193,78 @@ const SlotMachine = () => {
         (completed) => {
           if (completed) {
             runOnJS(next)()
+
+            if (results.length !== completedIndex + 1) {
+              runOnJS(playSpinMusic)()
+            }
           }
         }
       )
     }
+  }
+
+  const playWonMusic = useCallback(async () => {
+    if (wonSound) {
+      await wonSound.playAsync()
+      return
+    }
+
+    const wonAudio = await createAudioInstance('won')
+
+    setwonSound(wonAudio)
+
+    await wonAudio.playAsync()
+  }, [wonSound])
+
+  const playSpinMusic = useCallback(async () => {
+    if (spinSound && Platform.OS === 'web') {
+      await spinSound.playAsync()
+      return
+    }
+
+    const spinAudio = await createAudioInstance('spin', {
+      volume: 0.5,
+    })
+
+    setSpinSound(spinAudio)
+
+    await spinAudio.playAsync()
+  }, [spinSound])
+
+  const playBackgroundMusic = useCallback(async () => {
+    if (backgroundMusicSound) {
+      return
+    }
+
+    const backgroundAudio = await createAudioInstance()
+
+    setbackgroundMusicSound(backgroundAudio)
+
+    await backgroundAudio.playAsync()
+    await backgroundAudio.setIsLoopingAsync(true)
+  }, [backgroundMusicSound])
+
+  async function createAudioInstance(
+    type: SoundType = 'bg',
+    initialStatus?: AVPlaybackStatusToSet
+  ) {
+    const soundMap: Record<SoundType, string> = {
+      bg: 'newyear_bg',
+      spin: 'spin',
+      won: 'won',
+    }
+
+    const { sound: audio } = await Audio.Sound.createAsync(
+      {
+        uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/cny/${soundMap[type]}.mp3`,
+      },
+      {
+        ...initialStatus,
+        shouldPlay: true,
+      }
+    )
+
+    return audio
   }
 
   const animatedProps = useAnimatedProps(() => {
@@ -225,6 +302,47 @@ const SlotMachine = () => {
         : balance.totalBalance
     }/${balance.totalSpin}`
   }
+
+  useEffect(() => {
+    return () => {
+      isUnmount.current = true
+    }
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      if (!isUnmount.current) {
+        return
+      }
+
+      if (spinSound) {
+        spinSound
+          .unloadAsync()
+          .then(() => {})
+          .catch(() => {})
+      }
+
+      if (wonSound) {
+        wonSound
+          .unloadAsync()
+          .then(() => {})
+          .catch(() => {})
+      }
+
+      if (backgroundMusicSound) {
+        console.log(`first backgroundMusicSound`, spinSound)
+
+        backgroundMusicSound
+          .unloadAsync()
+          .then(() => {})
+          .catch(() => {})
+      }
+    }
+  }, [backgroundMusicSound, spinSound, wonSound])
+
+  useEffect(() => {
+    playBackgroundMusic()
+  }, [playBackgroundMusic])
 
   return (
     <View sx={{ flex: 1 }}>
