@@ -184,7 +184,10 @@ const SlotMachine = () => {
 
   function onRoundComplete(completedIndex, next) {
     if (results) {
-      setLastCompletedRound(completedIndex + 1)
+      const nextIndex = completedIndex + 1
+      const resultLength = results.length
+
+      setLastCompletedRound(nextIndex)
       progressAmount.value = withTiming(
         progressAmount.value + Number(results[completedIndex]?.amount),
         {
@@ -194,7 +197,7 @@ const SlotMachine = () => {
           if (completed) {
             runOnJS(next)()
 
-            if (results.length !== completedIndex + 1) {
+            if (resultLength !== nextIndex) {
               runOnJS(playSpinMusic)()
             }
           }
@@ -217,9 +220,13 @@ const SlotMachine = () => {
   }, [wonSound])
 
   const playSpinMusic = useCallback(async () => {
-    if (spinSound && Platform.OS === 'web') {
-      await spinSound.playAsync()
-      return
+    if (spinSound) {
+      if (Platform.OS === 'web') {
+        await spinSound.playAsync()
+        return
+      } else {
+        await spinSound.unloadAsync()
+      }
     }
 
     const spinAudio = await createAudioInstance('spin', {
