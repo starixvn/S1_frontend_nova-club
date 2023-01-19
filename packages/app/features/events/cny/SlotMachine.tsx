@@ -330,8 +330,6 @@ const SlotMachine = () => {
       }
 
       if (backgroundMusicSound) {
-        console.log(`first backgroundMusicSound`, spinSound)
-
         backgroundMusicSound
           .unloadAsync()
           .then(() => {})
