@@ -1,12 +1,11 @@
+import AppDownloadSuggestion from 'app/components/AppDownloadSuggestion'
 import BottomNavigation from 'app/navigation/BottomNavigation'
 import MainHeader from 'app/navigation/MainHeader'
 import { ActivityIndicator, useSx, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
 import { useRouter } from 'next/router'
 import React, { FC, useEffect, useState } from 'react'
-import AppDownloadSuggestion from 'app/components/AppDownloadSuggestion'
-import { useAppSelector } from 'app/provider/redux/store'
-import dayjsTz from 'app/utils/dayjs'
+import { Platform } from 'react-native'
 
 export type TabLayoutProps = {
   children: React.ReactElement
@@ -117,6 +116,11 @@ const BottomTabFloat = () => {
         width: '100%',
         bottom: 0,
         maxWidth: 'container',
+        ...Platform.select({
+          web: {
+            overflowX: 'clip',
+          },
+        }),
       }}
     >
       <BottomNavigation />
