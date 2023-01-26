@@ -40,6 +40,10 @@ export interface Setting {
   luckyDrawBalance: number
   suggestions: boolean
   appDownloadSuggestion?: Date
+  rememberMeCredentials: {
+    username?: string
+    password?: string
+  } | null
 }
 // export const DomainListHintPostfix = '-DomainListHint'
 // export const DepositListHintPostfix = '-DepositListHint'
@@ -55,6 +59,7 @@ const initialState: Setting = {
   biometricCredentials: null,
   suggestions: true,
   luckyDrawBalance: 0,
+  rememberMeCredentials: null,
 }
 
 const settingSlice = createSlice({
@@ -138,6 +143,11 @@ const settingSlice = createSlice({
     },
     setAppDownloadSuggestionDate: (state, action: PayloadAction<Date>) => {
       state.appDownloadSuggestion = action.payload
+    },
+    setRememberMe: (state, action: PayloadAction<boolean>) => {
+      state.rememberMeCredentials === null || action.payload
+        ? (state.rememberMeCredentials = state.currentSession)
+        : (state.rememberMeCredentials = null)
     },
   },
   extraReducers: (builder) => {

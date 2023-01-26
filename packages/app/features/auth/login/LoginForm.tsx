@@ -1,3 +1,4 @@
+import Checkbox from 'expo-checkbox'
 import { Button } from 'app/components/form/Button'
 import IconButton from 'app/components/form/IconButton'
 import TextInput from 'app/components/form/TextInput'
@@ -57,6 +58,15 @@ const LoginForm = () => {
 
   const isBiometricLogin = useAppSelector((s) => s.setting.biometricCredentials)
 
+  const rememberMeCredential = useAppSelector(
+    (s) => s.setting.rememberMeCredentials
+  )
+
+  const [isRemember, setIsRemember] = useState(() => {
+    if (rememberMeCredential) return true
+    else return false
+  })
+
   const updateLanguage = async (username: string) => {
     try {
       const { data } = await getPlayerProfile().unwrap()
@@ -85,6 +95,7 @@ const LoginForm = () => {
       if (success && data) {
         // syncShield(Shield_Action.LOGIN)
         dispatch(AuthActions.setSyncShieldActionType('login'))
+        dispatch(SettingActions.setRememberMe(isRemember))
         normalLogin(username, password, () => handleProceedLogin(data, actions))
       } else {
         throw new Error(message)
@@ -108,10 +119,14 @@ const LoginForm = () => {
     replace(afterLoginRedirection)
   }
 
+  const onCheckboxCheck = () => {
+    setIsRemember(!isRemember)
+  }
+
   const formik = useFormik<LoginFormValues>({
     initialValues: {
-      username: '',
-      password: '',
+      username: rememberMeCredential?.username || '',
+      password: rememberMeCredential?.password || '',
     },
     validationSchema: Yup.object({
       username: validation.username,
@@ -173,27 +188,52 @@ const LoginForm = () => {
         sx={{ mt: '$3' }}
       />
 
-      <View sx={{ alignItems: 'flex-end', mt: '$2' }}>
-        <MotiLink
-          href={to}
-          as={`/auth/forget-password`}
-          animate={({ hovered, pressed }) => {
-            'worklet'
-            return {
-              scale: pressed ? 0.9 : hovered ? 1.1 : 1,
-            }
+      <View
+        sx={{
+          position: 'relative',
+          flexDirection: 'row',
+          mt: '$4',
+        }}
+      >
+        <View
+          sx={{
+            backgroundColor: 'white',
+            borderRadius: 2,
+            borderWidth: 0,
           }}
         >
-          <Text
-            variant="md"
-            sx={{
-              fontSize: [14, 16],
-              opacity: 0.43,
+          <Checkbox value={isRemember} onValueChange={onCheckboxCheck} />
+        </View>
+        <View sx={{ flexShrink: 1, pl: '$2' }}>
+          <Text>Remember Me</Text>
+        </View>
+        <View
+          sx={{
+            position: 'absolute',
+            right: 0,
+          }}
+        >
+          <MotiLink
+            href={to}
+            as={`/auth/forget-password`}
+            animate={({ hovered, pressed }) => {
+              'worklet'
+              return {
+                scale: pressed ? 0.9 : hovered ? 1.1 : 1,
+              }
             }}
           >
-            {t('auth.forgotPassword') + '?'}
-          </Text>
-        </MotiLink>
+            <Text
+              variant="md"
+              sx={{
+                fontSize: [14, 16],
+                opacity: 0.43,
+              }}
+            >
+              {t('auth.forgotPassword') + '?'}
+            </Text>
+          </MotiLink>
+        </View>
       </View>
 
       <Text variant="error" sx={{ mt: '$3' }}>
