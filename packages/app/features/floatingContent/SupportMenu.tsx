@@ -36,6 +36,7 @@ const SupportMenu = ({ setSupportMenuVisible }) => {
       style={[
         StyleSheet.absoluteFillObject,
         {
+          zIndex: 9,
           backgroundColor: 'rgba(0,0,0,0.8)',
           position: Platform.OS === 'web' ? 'fixed' : 'absolute',
         },
