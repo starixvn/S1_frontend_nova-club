@@ -1,4 +1,4 @@
-import Checkbox from 'expo-checkbox'
+import CheckBox from 'app/components/CheckBox'
 import { Button } from 'app/components/form/Button'
 import IconButton from 'app/components/form/IconButton'
 import TextInput from 'app/components/form/TextInput'
@@ -17,7 +17,7 @@ import validation, {
 import { styled, Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useRef, useState } from 'react'
-import { Platform, TextInput as RNTextField } from 'react-native'
+import { Platform, StyleSheet, TextInput as RNTextField } from 'react-native'
 import { useLoginMutation } from 'services/authApi'
 import { Shield_Action } from 'services/authApi.type'
 import { useLazyPlayerProfileQuery } from 'services/playerApi'
@@ -202,10 +202,17 @@ const LoginForm = () => {
             borderWidth: 0,
           }}
         >
-          <Checkbox value={isRemember} onValueChange={onCheckboxCheck} />
+          <CheckBox
+            isCheck={isRemember}
+            onCheck={onCheckboxCheck}
+            tickColor="$orange"
+            sx={isRemember ? styles.boxChecked : styles.boxUncheck}
+          />
         </View>
         <View sx={{ flexShrink: 1, pl: '$2' }}>
-          <Text>Remember Me</Text>
+          <Text style={!isRemember ? styles.checked : styles.uncheck}>
+            Remember Me
+          </Text>
         </View>
         <View
           sx={{
@@ -294,5 +301,20 @@ const LoginForm = () => {
     </>
   )
 }
+
+const styles = StyleSheet.create({
+  checked: {
+    color: '#F15D12',
+  },
+  uncheck: {
+    opacity: 0.43,
+  },
+  boxChecked: {
+    backgroundColor: '#062243',
+  },
+  boxUncheck: {
+    backgroundColor: '#fff',
+  },
+})
 
 export default LoginForm

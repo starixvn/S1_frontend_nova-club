@@ -7,11 +7,13 @@ const CheckBox = ({
   isCheck,
   sx,
   _icon,
+  tickColor,
 }: {
   onCheck?: (boolean) => any
   isCheck?: boolean
   sx?: SxProp
   _icon?: IconComponentProps
+  tickColor?: string
 }) => {
   return (
     <StyledBouncePressable
@@ -24,7 +26,7 @@ const CheckBox = ({
       {isCheck && (
         <Icon
           name="tick"
-          color="green"
+          color={tickColor ? tickColor : 'green'}
           sx={{ alignSelf: 'center' }}
           size={15}
           {..._icon}
