@@ -202,22 +202,21 @@ const LoginForm = () => {
           mt: '$4',
         }}
       >
-        <View
-          sx={{
-            backgroundColor: 'white',
-            borderRadius: 2,
-            borderWidth: 0,
-          }}
+        <TouchableOpacity
+          sx={{ flexDirection: 'row', alignItems: 'center' }}
+          onPress={onCheckboxCheck}
         >
           <CheckBox
             isCheck={isRemember}
-            onCheck={onCheckboxCheck}
             tickColor="$orange"
-            sx={isRemember ? styles.boxChecked : styles.boxUncheck}
+            sx={{
+              bg: isRemember ? '#062243' : '#fff',
+            }}
           />
-        </View>
-        <TouchableOpacity sx={{ paddingLeft: 8 }} onPress={onCheckboxCheck}>
-          <Text style={!isRemember ? styles.checked : styles.uncheck}>
+          <Text
+            sx={{ ml: '$2' }}
+            style={isRemember ? styles.checked : styles.uncheck}
+          >
             {t('auth.rememberMe')}
           </Text>
         </TouchableOpacity>
@@ -311,16 +310,10 @@ const LoginForm = () => {
 
 const styles = StyleSheet.create({
   checked: {
-    color: '#F15D12',
-  },
-  uncheck: {
     opacity: 0.43,
   },
-  boxChecked: {
-    backgroundColor: '#062243',
-  },
-  boxUncheck: {
-    backgroundColor: '#fff',
+  uncheck: {
+    color: '#F15D12',
   },
 })
 
