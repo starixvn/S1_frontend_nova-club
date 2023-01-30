@@ -94,8 +94,12 @@ const LoginForm = () => {
 
       if (success && data) {
         // syncShield(Shield_Action.LOGIN)
-        dispatch(AuthActions.setSyncShieldActionType('login'))
-        dispatch(SettingActions.setRememberMe(isRemember))
+        dispatch(AuthActions.setSyncShieldActionType(Shield_Action.LOGIN))
+        dispatch(
+          SettingActions.setRememberMe(
+            isRemember ? { username, password } : undefined
+          )
+        )
         normalLogin(username, password, () => handleProceedLogin(data, actions))
       } else {
         throw new Error(message)
@@ -213,7 +217,7 @@ const LoginForm = () => {
         </View>
         <View sx={{ flexShrink: 1, pl: '$2' }}>
           <Text style={!isRemember ? styles.checked : styles.uncheck}>
-            Remember Me
+            {t('auth.rememberMe')}
           </Text>
         </View>
         <View

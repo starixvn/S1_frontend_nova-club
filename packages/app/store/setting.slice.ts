@@ -144,9 +144,12 @@ const settingSlice = createSlice({
     setAppDownloadSuggestionDate: (state, action: PayloadAction<Date>) => {
       state.appDownloadSuggestion = action.payload
     },
-    setRememberMe: (state, action: PayloadAction<boolean>) => {
-      state.rememberMeCredentials === null || action.payload
-        ? (state.rememberMeCredentials = state.currentSession)
+    setRememberMe: (
+      state,
+      action: PayloadAction<{ username: string; password: string } | undefined>
+    ) => {
+      action?.payload
+        ? (state.rememberMeCredentials = action.payload)
         : (state.rememberMeCredentials = null)
     },
   },
