@@ -6,6 +6,7 @@ import useAlert from 'app/hooks/useAlert'
 import useBioAuth from 'app/hooks/useBioAuth'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useShield from 'app/hooks/useShield'
+import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { AuthActions } from 'app/store/authReducer'
@@ -215,11 +216,11 @@ const LoginForm = () => {
             sx={isRemember ? styles.boxChecked : styles.boxUncheck}
           />
         </View>
-        <View sx={{ flexShrink: 1, pl: '$2' }}>
+        <TouchableOpacity sx={{ paddingLeft: 8 }} onPress={onCheckboxCheck}>
           <Text style={!isRemember ? styles.checked : styles.uncheck}>
             {t('auth.rememberMe')}
           </Text>
-        </View>
+        </TouchableOpacity>
         <View
           sx={{
             position: 'absolute',
