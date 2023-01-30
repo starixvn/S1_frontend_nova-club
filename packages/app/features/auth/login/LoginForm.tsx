@@ -146,6 +146,7 @@ const LoginForm = () => {
       <TextInput
         _icon="avatar"
         _input={{
+          textContentType: 'username',
           placeholder: t('common.username'),
           value: values.username,
           onChangeText: handleChange('username'),
@@ -169,6 +170,7 @@ const LoginForm = () => {
       <TextInput
         _icon="lock"
         _input={{
+          textContentType: 'password',
           placeholder: t('common.password'),
           value: values.password,
           onChangeText: handleChange('password'),
