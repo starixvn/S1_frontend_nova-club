@@ -33,7 +33,7 @@ export default async function handler(
         from: 'business@vui123.net', // sender address
         to: 'contact@vui123.net, mobile.beacora@gmail.com', // list of receivers
         subject: `New Agent Application (${email})`, // Subject line
-        text: `Name : ${name}\nPhone : +84 ${phone}\nEmail : ${email}`, // plain text body
+        text: `Name : ${name}\nPhone : ${phone}\nEmail : ${email}`, // plain text body
       })
 
       console.log('Message sent: %s', info.messageId)
