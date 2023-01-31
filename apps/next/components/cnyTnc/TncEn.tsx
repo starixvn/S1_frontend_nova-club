@@ -5,7 +5,7 @@ const TncEn = () => {
   return (
     <div>
       <h2>CNY LUCKY CAT SPIN</h2>
-      <p>Campaign Period: 20 January 2023 - 31 January 2023</p>
+      <p>Campaign Period: 20 January 2023 - 15 February 2023</p>
 
       <br />
       <div>

@@ -5,7 +5,7 @@ const TncVi = () => {
   return (
     <div>
       <h2>MÈO MAY MẮN PHÁT LỘC ĐẦU NĂM</h2>
-      <p>Thời gian: 20/01 - 31/01/2023</p>
+      <p>Thời gian: 20/01 - 15/02/2023</p>
 
       <br />
       <div>
