@@ -12,6 +12,7 @@ import { FlashList, FlashListProps } from '@shopify/flash-list'
 import IconButton from 'app/components/form/IconButton'
 import useOrientation from 'app/hooks/useOrientation'
 import { AnimatePresence, MotiView } from 'moti'
+import useSeamlessList from './useSeamlessList'
 
 type VerticalGameListProps = Omit<FlashListProps<Game>, 'renderItem'> & {
   isLoading?: boolean
@@ -46,6 +47,7 @@ const VerticalGameList = forwardRef<FlashList<Game>, VerticalGameListProps>(
         m: itemSpace,
       }
     }, [itemSpace])
+    const { seamlessProviderList } = useSeamlessList()
 
     const renderItem = ({ item }) => {
       const { gc, gpc, img, tags, name, gtc } = item
@@ -58,7 +60,6 @@ const VerticalGameList = forwardRef<FlashList<Game>, VerticalGameListProps>(
           ? name
           : name[locale]
         : undefined
-
       return (
         <SimpleGridImage
           showPlaynow={showPlaynow}
@@ -74,6 +75,7 @@ const VerticalGameList = forwardRef<FlashList<Game>, VerticalGameListProps>(
           gameName={formattedName}
           gameType={gtc}
           desktopMode={isDesktop}
+          isSeamless={seamlessProviderList.includes(gpc)}
         />
       )
     }

@@ -3,10 +3,9 @@ import SimpleGridImage from 'app/components/SimpleGridImage'
 import { HOME_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useAppSelector } from 'app/provider/redux/store'
-import { ComponentProps } from 'react'
-import { ScrollView, StyleProp, View, ViewStyle } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { StyleProp, ViewStyle } from 'react-native'
 import { Game } from 'services/contentApi.type'
+import useSeamlessList from './useSeamlessList'
 
 const HorizontalGameList = ({
   data,
@@ -21,6 +20,7 @@ const HorizontalGameList = ({
   const columnWidth = Math.min((borderedWidth - leftRightSpace * 2) / 4.5, 120)
 
   const locale = useAppSelector((s) => s.setting.locale)
+  const { seamlessProviderList } = useSeamlessList()
 
   return (
     <DraggableScrollView
@@ -53,6 +53,7 @@ const HorizontalGameList = ({
             gameType={gtc}
             gameName={formattedName}
             skeleton
+            isSeamless={seamlessProviderList.includes(gpc)}
           />
         )
       })}

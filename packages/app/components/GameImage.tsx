@@ -1,8 +1,7 @@
-import { MotiView, useAnimationState } from 'moti'
-import Image from './common/Image'
+import { MotiImage, MotiView, useAnimationState } from 'moti'
+import { memo, useState } from 'react'
 import Frame from '../assets/images/games/games_frame.png'
-import { memo, useEffect, useState } from 'react'
-import SkeletonPlaceholder from './skeleton/SkeletonPlaceholder'
+import Image from './common/Image'
 
 const GameImage = ({
   frame = false,
@@ -10,6 +9,7 @@ const GameImage = ({
   width,
   height,
   image,
+  rewardIcon,
 }) => {
   const [loaded, setLoaded] = useState(false)
   const animationState = useAnimationState({
@@ -53,6 +53,26 @@ const GameImage = ({
           borderRadius: 10,
         }}
       />
+      {rewardIcon && (
+        <MotiImage
+          from={{ transform: [{ scale: 1 }] }}
+          animate={{ transform: [{ scale: 1.1 }] }}
+          transition={{
+            loop: true,
+            duration: 500,
+            type: 'timing',
+          }}
+          resizeMode="contain"
+          source={require('../assets/images/games/common/reward-icon.png')}
+          style={{
+            width: width * 0.17,
+            height: width * 0.15,
+            position: 'absolute',
+            left: 0,
+            top: 0,
+          }}
+        />
+      )}
       {frame && (
         <Image
           source={Frame}
