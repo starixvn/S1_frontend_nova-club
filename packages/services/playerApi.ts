@@ -1,3 +1,4 @@
+import { useAppSelector } from 'app/provider/redux/store'
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
@@ -98,11 +99,10 @@ const playerApi = baseApiWithTag.injectEndpoints({
         method: 'POST',
       }),
     }),
-    freeSpin: builder.query<IResponse<FreeSpinResult>, FreeSpinArgs>({
-      query: (queryArgs) => ({
+    freeSpin: builder.query<IResponse<FreeSpinResult>, void>({
+      query: () => ({
         url: `/player_api/getRegisterFreeWheelSpin`,
         method: 'POST',
-        data: { ...queryArgs },
       }),
     }),
     playerRealName: builder.mutation<IResponse, PlayerRealNameArgs>({
@@ -127,8 +127,10 @@ export const usePlayerProfileQuery = (
   _: void,
   options?: PlayerProfileQuerySubscriptionOptions
 ) => {
+  const { token } = useAppSelector((state) => state.auth.info) || {}
   return playerApi.usePlayerProfileQuery(undefined, {
     ...options,
+    skip: !token,
     selectFromResult: (s) => {
       return {
         ...s,

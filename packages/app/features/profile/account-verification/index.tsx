@@ -2,11 +2,12 @@ import { Button } from 'app/components/form/Button'
 import InputBase from 'app/components/form/Input/InputBase'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import useAlert from 'app/hooks/useAlert'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import validation from 'app/utils/validation'
 import { styled, Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Platform } from 'react-native'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { IResponse } from 'services/common/types'
@@ -14,7 +15,6 @@ import {
   usePlayerProfileQuery,
   usePlayerRealNameMutation,
 } from 'services/playerApi'
-import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 
 type UpdateNameValueProps = {
@@ -26,7 +26,7 @@ const AccountVerification = () => {
   const { data: playerData } = usePlayerProfileQuery()
   const [updatePlayerName] = usePlayerRealNameMutation()
   const { showAlert } = useAlert()
-  const { replace, back } = useRouter()
+  const { replace, back } = useContextualRouter()
 
   async function updateRealName(realName) {
     const { success, message } = await updatePlayerName({
@@ -62,9 +62,9 @@ const AccountVerification = () => {
 
           setTimeout(() => {
             if (Platform.OS === 'web') {
-              replace('/', '/')
+              replace('/deposit', undefined, { shallow: true })
             } else {
-              back()
+              replace('/deposit')
             }
           }, 150)
         }

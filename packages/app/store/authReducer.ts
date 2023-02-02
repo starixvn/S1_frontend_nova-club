@@ -33,7 +33,8 @@ const playerSlice = createSlice({
   },
   extraReducers: {
     [LOGOUT_ACTION]: () => {
-      return { ...authInitialState, isLogoutActionTriggered: true }
+      // return { ...authInitialState, isLogoutActionTriggered: true }
+      return { ...authInitialState }
     },
   },
 })

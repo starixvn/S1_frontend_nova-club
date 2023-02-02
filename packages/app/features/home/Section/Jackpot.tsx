@@ -1,16 +1,14 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import NumberAnimator from 'app/components/animated/numberAnimator'
-import { Button } from 'app/components/form/Button'
 import SkeletonPlaceholder from 'app/components/skeleton/SkeletonPlaceholder'
 import useContainerDimension from 'app/hooks/useContainerDimension'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import useLocalization from 'app/provider/localization'
-import { Image, styled, Text, useDripsyTheme, View } from 'dripsy'
+import { Image, styled, useDripsyTheme, View } from 'dripsy'
 import { Video } from 'expo-av'
 import React from 'react'
-import { ImageBackground } from 'react-native'
 import { useGetJackpotAmountQuery } from 'services/contentApi'
-import { useRouter } from 'solito/router'
 import JackpotGamesSection from './JackpotGamesSection'
 
 const IMAGE_HEIGHT = 180
@@ -20,7 +18,7 @@ interface JackpotProps {}
 const Jackpot = ({}: JackpotProps) => {
   const { t } = useLocalization()
   const { theme } = useDripsyTheme()
-  const { push } = useRouter()
+  const { push } = useContextualRouter()
   const { width } = useContainerDimension()
 
   const { data, isLoading } = useGetJackpotAmountQuery()

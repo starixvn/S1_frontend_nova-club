@@ -78,49 +78,49 @@ const Stack = createStackNavigator<{
 }>()
 
 export function NativeNavigation() {
-  const navigation = useNavigation()
-  const { resetRTKQState } = useResetRTKQState()
-  const dispatch = useAppDispatch()
-  const isLogoutActionTriggered = useAppSelector(
-    (state) => state.auth.isLogoutActionTriggered
-  )
+  // const navigation = useNavigation()
+  // const { resetRTKQState } = useResetRTKQState()
+  // const dispatch = useAppDispatch()
+  // const isLogoutActionTriggered = useAppSelector(
+  //   (state) => state.auth.isLogoutActionTriggered
+  // )
 
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
       }}
-      screenListeners={{
-        transitionEnd: (e) => {
-          if (isLogoutActionTriggered) {
-            /**
-             * `setTimeout` is used here to move the logic inside to macroTask (event loop)
-             * so the main thread umount component first before run the logic inside `setTimeout`
-             */
-            setTimeout(() => {
-              /**
-               * Reset current React Navigation stack and maintain current screen
-               * to prevent RTKQ hook from triggered after `resetApiState()` in
-               * `resetRTKQState` function
-               */
-              navigation.dispatch((state) => {
-                const routes = state.routes.filter(
-                  (r) => r.name === 'LoginPage'
-                )
+      // screenListeners={{
+      //   transitionEnd: (e) => {
+      //     if (isLogoutActionTriggered) {
+      //       /**
+      //        * `setTimeout` is used here to move the logic inside to macroTask (event loop)
+      //        * so the main thread umount component first before run the logic inside `setTimeout`
+      //        */
+      //       setTimeout(() => {
+      //         /**
+      //          * Reset current React Navigation stack and maintain current screen
+      //          * to prevent RTKQ hook from triggered after `resetApiState()` in
+      //          * `resetRTKQState` function
+      //          */
+      //         navigation.dispatch((state) => {
+      //           const routes = state.routes.filter(
+      //             (r) => r.name === 'LoginPage'
+      //           )
 
-                return CommonActions.reset({
-                  ...state,
-                  routes,
-                  index: routes.length - 1,
-                })
-              })
+      //           return CommonActions.reset({
+      //             ...state,
+      //             routes,
+      //             index: routes.length - 1,
+      //           })
+      //         })
 
-              resetRTKQState()
-              dispatch(AuthActions.setIsLogoutActionTriggered(false))
-            })
-          }
-        },
-      }}
+      //         resetRTKQState()
+      //         dispatch(AuthActions.setIsLogoutActionTriggered(false))
+      //       })
+      //     }
+      //   },
+      // }}
     >
       <Stack.Screen
         name="SplashScreen"
@@ -155,23 +155,23 @@ export function NativeNavigation() {
         name="LoginPage"
         component={LoginPage}
         options={{
-          cardStyleInterpolator: fadeScaleIn,
-          transitionSpec: {
-            open: {
-              animation: 'timing',
-              config: {
-                duration: 500,
-                easing: Easing.ease,
-              },
-            },
-            close: {
-              animation: 'timing',
-              config: {
-                duration: 2000,
-                easing: Easing.ease,
-              },
-            },
-          },
+          // cardStyleInterpolator: fadeScaleIn,
+          // transitionSpec: {
+          //   open: {
+          //     animation: 'timing',
+          //     config: {
+          //       duration: 500,
+          //       easing: Easing.ease,
+          //     },
+          //   },
+          //   close: {
+          //     animation: 'timing',
+          //     config: {
+          //       duration: 2000,
+          //       easing: Easing.ease,
+          //     },
+          //   },
+          // },
           headerShown: false,
         }}
       />

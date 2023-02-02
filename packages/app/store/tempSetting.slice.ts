@@ -28,6 +28,7 @@ const tempSettingSlice = createSlice({
     setSyncShieldActionType: (state, action: PayloadAction<Shield_Action>) => {
       state.syncShieldActionType = action.payload
       state.syncShieldStatus = false
+      state.luckyDrawTriggered = false
     },
     setSyncShieldStatus: (state, action: PayloadAction<boolean>) => {
       state.syncShieldStatus = action.payload

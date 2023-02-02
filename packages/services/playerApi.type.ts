@@ -159,10 +159,6 @@ export type LuckySpinArgs = {
   note: string
 }
 
-export type FreeSpinArgs = {
-  username: string
-}
-
 export type FreeSpinResult = {
   playerName: string
   wheel_info: WheelInfo

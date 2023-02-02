@@ -1,8 +1,7 @@
 import { LIVECHAT_URL, REFERRAL_DOMAIN } from '@env'
-import { ContextualComponentType } from 'app/navigation/web/ContextualNavigation'
+import { LaunchGame } from 'app/features/games/GameLauncher'
+import { ContextualComponentType } from 'app/navigation/contextual/ContextualComponents'
 import i18n from 'app/provider/localization/i18n'
-import { store } from 'app/provider/redux/store'
-import { GameLauncherActions } from 'app/store/gameLauncher.slice'
 import { Linking, Platform } from 'react-native'
 import { Game } from 'services/contentApi.type'
 
@@ -16,7 +15,7 @@ export enum ActionType {
 
 export interface InternalRedirectPayload {
   uri: string
-  params: Record<string, string>
+  params?: Record<string, string>
 }
 
 export interface ActionLaunchGame {
@@ -32,7 +31,6 @@ export interface ActionRedirect {
 export type ActionRedirectParams = {
   push: any
   locale: string
-  makeContextualHref: (to: ContextualComponentType, params?: any) => string
 }
 
 export interface ActionExternalRedirect {
@@ -71,16 +69,14 @@ export function getAction(action: Action): (p?: ActionRedirectParams) => void {
     }
     case ActionType.GAME: {
       return () => {
-        store.dispatch(
-          GameLauncherActions.launchGame({
-            gameCode: action.payload.gc,
-            gameName: action.payload.name[i18n.locale],
-            gameType: action.payload.gtc,
-            providerCode: action.payload.gpc,
-            image: action.payload.img,
-            params: action.payload.params,
-          })
-        )
+        LaunchGame({
+          gameCode: action.payload.gc,
+          gameName: action.payload.name[i18n.locale],
+          gameType: action.payload.gtc,
+          providerCode: action.payload.gpc,
+          image: action.payload.img,
+          params: action.payload.params,
+        })
       }
     }
 
@@ -93,24 +89,14 @@ export function getAction(action: Action): (p?: ActionRedirectParams) => void {
       return (p?: ActionRedirectParams) => {
         try {
           if (p) {
-            const { push, makeContextualHref, locale } = p
+            const { push, locale } = p
 
             let replacedParams = { ...params }
             if (replacedParams.locale) {
               replacedParams.locale = locale
             }
-
-            if (Platform.OS === 'web' && makeContextualHref) {
-              push(makeContextualHref(uri, replacedParams), {
-                pathname: uri,
-                query: replacedParams,
-              })
-            } else {
-              push(uri, {
-                pathname: uri,
-                query: replacedParams,
-              })
-            }
+            console.log('pushing', uri, replacedParams)
+            push(uri, replacedParams)
           }
         } catch (e) {
           console.log('Internal Redirection error', e)

@@ -6,12 +6,11 @@ import { INPUT_BASE_SPACE } from 'app/components/form/Input/InputBase'
 import MoneyInput from 'app/components/form/Input/MoneyInput'
 import Select from 'app/components/form/Input/Select'
 import { PageWithBackHeader } from 'app/components/layout/Page'
-import { getBankLogo } from 'app/config/bank'
 import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
 import { WITHDRAWAL_NOTES } from 'app/constant/notes'
 import useAlert from 'app/hooks/useAlert'
-import useContextualRouting from 'app/hooks/useContextualRouting'
 import useShield from 'app/hooks/useShield'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import {
   toCleanAmount,
@@ -28,14 +27,12 @@ import React from 'react'
 import { SheetManager } from 'react-native-actions-sheet'
 import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
-import { useDispatch } from 'react-redux'
 import { Shield_Action } from 'services/authApi.type'
 import { usePlayerBankQuery } from 'services/bank'
 import { PlayerBankResult } from 'services/bank.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { usePlayerBalanceQuery } from 'services/walletApi'
 import { useSubmitWithdrawalMutation } from 'services/withdrawal'
-import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import AvailableBalance from './AvailableBalance'
 import WithdrawalTransactions from './WithdrawalTransactions'
@@ -69,20 +66,17 @@ const CONFIRMATION_FIELDS = [
 
 const WithdrawalPage = () => {
   const { t } = useLocalization()
-  const dispatch = useDispatch()
-  const { push } = useRouter()
+  const { push } = useContextualRouter()
   const { showAlert } = useAlert()
   const { openModal } = useModal()
   const { data: bankData, isLoading, isFetching } = usePlayerBankQuery()
   const [postSubmitWithdrawal] = useSubmitWithdrawalMutation()
   const { syncShield } = useShield()
 
-  const { makeContextualHref } = useContextualRouting()
-  const toBankAccount = makeContextualHref('bank-account')
-
   const { data: balanceData } = usePlayerBalanceQuery(undefined, {
     refetchOnMountOrArgChange: true,
   })
+
   const playerBalance = balanceData?.data?.main.balance
 
   const { data: playerData } = usePlayerProfileQuery()
@@ -241,7 +235,7 @@ const WithdrawalPage = () => {
                 icon: 'add',
                 onPress: () => {
                   SheetManager.hide(ACTION_SHEET_ID.WITHDRAWAL)
-                  push(toBankAccount, '/profile/bank-account')
+                  push('/profile/bank-account')
                 },
               },
             ],

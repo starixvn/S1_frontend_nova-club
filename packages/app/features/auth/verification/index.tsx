@@ -2,7 +2,7 @@ import { Button } from 'app/components/form/Button'
 import TextInput from 'app/components/form/TextInput'
 import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
 import useAlert from 'app/hooks/useAlert'
-import useContextualRouting from 'app/hooks/useContextualRouting'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { Pressable, Text, useDripsyTheme, View } from 'dripsy'
@@ -12,7 +12,6 @@ import React, { useRef } from 'react'
 import { Platform, TextInput as RNTextField } from 'react-native'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useSendRegistrationOtpMutation } from 'services/authApi'
-import { useRouter } from 'solito/router'
 import ReceiveOTPContact from '../common/ReceiveOTPContact'
 import AuthLayout from '../layout/AuthLayout'
 import { RegisterFormValues } from '../register'
@@ -47,16 +46,13 @@ const VerificationForm = ({
 
   const { theme } = useDripsyTheme()
   const dispatch = useAppDispatch()
-  const { push } = useRouter()
+  const { push } = useContextualRouter()
   const locale = useAppSelector((s) => s.setting.locale)
 
   const otpFieldRef = useRef<RNTextField>(null)
 
   const [sendRegistrationOtp, { isLoading, isSuccess }] =
     useSendRegistrationOtpMutation()
-
-  const { makeContextualHref } = useContextualRouting()
-  const toTnc = makeContextualHref('tnc')
 
   const onCheckboxCheck = () => {
     setFieldValue('terms', !values.terms)
@@ -100,14 +96,16 @@ const VerificationForm = ({
     const params = {
       locale: locale,
     }
-    push(makeContextualHref('tnc', params), {
-      pathname: '/auth/register/tnc',
-      query: params,
-    })
+    push('/auth/register/tnc', params)
   }
 
   return (
-    <AuthLayout headerDesc={t('auth.accountVerification')} onBack={onBack}>
+    <AuthLayout
+      headerDesc={t('auth.accountVerification')}
+      headerColor="#ffffff"
+      gradientColor={['#a60102', '#b30303', '#cc0707', '#fe3434', '#fc9e9e']}
+      onBack={onBack}
+    >
       <TextInput
         _icon="avatar"
         // WIP: Prefix should not be hardcoded

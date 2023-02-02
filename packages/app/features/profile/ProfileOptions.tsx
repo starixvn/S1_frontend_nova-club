@@ -1,8 +1,8 @@
 import GradientBox from 'app/components/GradientBox'
 import Icon from 'app/components/Icon'
 import useBioAuth from 'app/hooks/useBioAuth'
-import useContextualRouting from 'app/hooks/useContextualRouting'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
@@ -18,7 +18,6 @@ import React, { useState } from 'react'
 import { Platform, Switch } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import { useRouter } from 'solito/router'
 
 const enum LOADING_STATE {
   LOADING = 'loading',
@@ -37,17 +36,8 @@ const ProfileOptions = ({ isCreditMember }: { isCreditMember: boolean }) => {
 
   const [loadingState, setLoadingState] = useState(LOADING_STATE.COMPLETE)
 
-  const { push } = useRouter()
+  const { push } = useContextualRouter()
   const { theme } = useDripsyTheme()
-
-  const { makeContextualHref } = useContextualRouting()
-  const toProfileDetails = makeContextualHref('profile-details')
-  const toSupport = makeContextualHref('customer-support')
-  const toMessages = makeContextualHref('messages', {
-    tab: 0,
-  })
-  const toManageCredentials = makeContextualHref('manage-credentials')
-  const toCommissionTable = makeContextualHref('commission-table')
 
   const { logout } = useOnAppLogout()
   const { enableBiometric } = useBioAuth()
@@ -57,14 +47,12 @@ const ProfileOptions = ({ isCreditMember }: { isCreditMember: boolean }) => {
       id: 1,
       iconName: 'avatar',
       title: 'menu.profile',
-      routeWeb: toProfileDetails,
       route: '/profile/profile-details',
     },
     {
       id: 2,
       iconName: 'lock',
       title: 'menu.manageCredentials',
-      routeWeb: toManageCredentials,
       route: '/profile/manage-credentials',
       isCashMemberOnly: true,
     },
@@ -72,26 +60,21 @@ const ProfileOptions = ({ isCreditMember }: { isCreditMember: boolean }) => {
       id: 3,
       iconName: 'ct',
       title: 'menu.commisionTable',
-      routeWeb: toCommissionTable,
       route: '/profile/commission-table',
     },
     {
       id: 4,
       iconName: 'annoucement',
       title: 'menu.message/announcement',
-      routeWeb: toMessages,
-      route: {
-        pathname: '/messages',
-        query: {
-          tab: 0,
-        },
+      route: '/messages',
+      params: {
+        tab: 0,
       },
     },
     {
       id: 5,
       iconName: 'cs',
       title: 'menu.customerSupport',
-      routeWeb: toSupport,
       route: '/customer-support',
     },
     {
@@ -118,7 +101,6 @@ const ProfileOptions = ({ isCreditMember }: { isCreditMember: boolean }) => {
       id: 7,
       iconName: 'logout',
       title: 'menu.logout',
-      route: 'logout',
       onClick: async () => {
         if (loadingState === LOADING_STATE.LOADING) return
 
@@ -136,10 +118,10 @@ const ProfileOptions = ({ isCreditMember }: { isCreditMember: boolean }) => {
   ]
 
   const onOptionPress = (item: typeof optionsRoute[number]) => {
-    const { routeWeb, route, onClick } = item
+    const { route, params, onClick } = item
 
-    if (typeof routeWeb !== 'undefined') {
-      push(routeWeb, route)
+    if (typeof route !== 'undefined') {
+      push(route, params)
       return
     }
 

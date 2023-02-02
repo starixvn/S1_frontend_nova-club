@@ -1,19 +1,18 @@
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import PaymentMethod, { DepositMethodId } from 'app/config/deposit'
 import useCheckMobile from 'app/hooks/useCheckMobile'
-import useContextualRouting from 'app/hooks/useContextualRouting'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import { BankActions } from 'app/store/bankReducer'
 import { ActivityIndicator, styled, Text, View } from 'dripsy'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useDepositPaymentListQuery } from 'services/deposit'
-import { useRouter } from 'solito/router'
 import DepositMethodCard from './DepositMethodCard'
 import DepositTransactions from './local-bank/DepositTransactions'
 
 const DepositPage = () => {
-  const { push } = useRouter()
+  const { push } = useContextualRouter()
   const { t } = useLocalization()
   const dispatch = useDispatch()
   const [paymentMethodList, setPaymentMethodList] = useState(PaymentMethod)
@@ -21,14 +20,6 @@ const DepositPage = () => {
   const { data, isLoading } = useDepositPaymentListQuery({
     is_mobile: isMobile ? 0 : 1,
   })
-
-  const { makeContextualHref } = useContextualRouting()
-  const toLocalBank = makeContextualHref('local-bank')
-  const toOnlineBank = makeContextualHref('online-bank')
-  const toMomo = makeContextualHref('momo')
-  const toQR = makeContextualHref('qr-transfer')
-  const to = makeContextualHref('topup-card')
-  const toCrypto = makeContextualHref('crypto')
 
   useEffect(() => {
     if (data?.success) {
@@ -60,22 +51,22 @@ const DepositPage = () => {
   const handlePress = (id) => {
     switch (id) {
       case DepositMethodId.LOCAL_BANK:
-        push(toLocalBank, `/deposit/local-bank`)
+        push(`/deposit/local-bank`)
         break
       case DepositMethodId.ONLINE_BANK:
-        push(toOnlineBank, `/deposit/online-bank`)
+        push(`/deposit/online-bank`)
         break
       case DepositMethodId.MOMO:
-        push(toMomo, `/deposit/momo`)
+        push(`/deposit/momo`)
         break
       case DepositMethodId.QR_CODE:
-        push(toQR, `/deposit/qr-transfer`)
+        push(`/deposit/qr-transfer`)
         break
       case DepositMethodId.TOP_UP:
-        push(to, `/deposit/topup-card`)
+        push(`/deposit/topup-card`)
         break
       case DepositMethodId.CRYPTO:
-        push(toCrypto, `/deposit/crypto`)
+        push(`/deposit/crypto`)
         break
       default:
         break

@@ -4,7 +4,7 @@ import IconButton from 'app/components/form/IconButton'
 import TextInput from 'app/components/form/TextInput'
 import useAlert from 'app/hooks/useAlert'
 import useBioAuth from 'app/hooks/useBioAuth'
-import useContextualRouting from 'app/hooks/useContextualRouting'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
@@ -15,21 +15,16 @@ import validation, {
   PASSWORD_MAX_LENGTH,
   USERNAME_MAX_LENGTH,
 } from 'app/utils/validation'
-import { styled, Text, View } from 'dripsy'
+import { Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useRef, useState } from 'react'
 import { Platform, StyleSheet, TextInput as RNTextField } from 'react-native'
 import { useLoginMutation } from 'services/authApi'
 import { Shield_Action } from 'services/authApi.type'
-import { useLazyPlayerProfileQuery } from 'services/playerApi'
 import { createParam } from 'solito'
-import { MotiLink } from 'solito/moti'
-import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 
 const { useParam } = createParam()
-
-const StyledLink = styled(MotiLink)({})
 
 type LoginFormValues = {
   username: string
@@ -42,14 +37,13 @@ const LoginForm = () => {
   const { showAlert } = useAlert()
   const [errorMsg, setErrorMsg] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const { replace } = useRouter()
+  const { replace, push, back } = useContextualRouter()
   const [afterLoginRedirection] = useParam('r', {
     initial: '/',
   })
+
   const passwordFieldRef = useRef<RNTextField>(null)
   const usernameFieldRef = useRef<RNTextField>(null)
-
-  const [getPlayerProfile] = useLazyPlayerProfileQuery()
 
   const dispatch = useAppDispatch()
 
@@ -110,7 +104,17 @@ const LoginForm = () => {
     actions.resetForm()
     if (errorMsg) setErrorMsg('')
 
-    replace(afterLoginRedirection)
+    if (Platform.OS === 'web') {
+      let replaceRoute = afterLoginRedirection
+
+      const urlParams = new URLSearchParams(window.location.search)
+      const redirect = urlParams.get('r')
+      if (redirect) replaceRoute = redirect
+
+      replace(replaceRoute)
+    } else {
+      back()
+    }
   }
 
   const onCheckboxCheck = () => {
@@ -128,9 +132,6 @@ const LoginForm = () => {
     }),
     onSubmit,
   })
-
-  const { makeContextualHref } = useContextualRouting()
-  const to = makeContextualHref('forget-password')
 
   const { handleChange, handleBlur, values, errors, touched, submitForm } =
     formik
@@ -214,16 +215,7 @@ const LoginForm = () => {
           alignItems: 'flex-end',
         }}
       >
-        <MotiLink
-          href={to}
-          as={`/auth/forget-password`}
-          animate={({ hovered, pressed }) => {
-            'worklet'
-            return {
-              scale: pressed ? 0.9 : hovered ? 1.1 : 1,
-            }
-          }}
-        >
+        <TouchableOpacity onPress={() => push('/auth/forget-password')}>
           <Text
             sx={{
               opacity: 0.43,
@@ -231,7 +223,7 @@ const LoginForm = () => {
           >
             {t('auth.forgotPassword') + '?'}
           </Text>
-        </MotiLink>
+        </TouchableOpacity>
       </View>
 
       <Text variant="error" sx={{ mt: '$3' }}>
@@ -251,15 +243,7 @@ const LoginForm = () => {
         </View>
 
         <View sx={{ mt: '$5' }}>
-          <StyledLink
-            href={'/auth/register'}
-            animate={({ hovered, pressed }) => {
-              'worklet'
-              return {
-                scale: pressed ? 0.9 : hovered ? 1.1 : 1,
-              }
-            }}
-          >
+          <TouchableOpacity onPress={() => push('/auth/register')}>
             <Text
               sx={{
                 textAlign: 'center',
@@ -269,9 +253,7 @@ const LoginForm = () => {
             >
               {t('auth.register')}
             </Text>
-          </StyledLink>
-
-          {/* {log && <Text>{log}</Text>} */}
+          </TouchableOpacity>
         </View>
       </View>
 

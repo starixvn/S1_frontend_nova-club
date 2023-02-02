@@ -1,11 +1,10 @@
 import useContainerDimension from 'app/hooks/useContainerDimension'
-import useContextualRouting from 'app/hooks/useContextualRouting'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { Row, View } from 'dripsy'
+import { View } from 'dripsy'
 import React, { ComponentProps } from 'react'
 import ActionSheet, { SheetManager } from 'react-native-actions-sheet'
-import { useRouter } from 'solito/router'
 import { Button } from '../form/Button'
 import ActionSheetBase, { ActionSheetBaseProps } from './ActionSheetBase'
 import ActionSheetItem, { ActionSheetItemProps } from './ActionSheetItem'
@@ -37,9 +36,7 @@ const HorizontalActionSheet = ({
     _actionSheet
 
   const { t } = useLocalization()
-  const { push } = useRouter()
-  const { makeContextualHref } = useContextualRouting()
-  const toAddBankAccount = makeContextualHref('add-bank-account')
+  const { push } = useContextualRouter()
   const { bottom } = useSafeArea()
   const handleClose = () => SheetManager.hide(sheetId)
   const { width } = useContainerDimension()
@@ -110,7 +107,7 @@ const HorizontalActionSheet = ({
               }}
               onPress={() => {
                 handleClose()
-                push(toAddBankAccount, '/profile/bank-account/add-bank-account')
+                push('/profile/bank-account/add-bank-account')
               }}
             >
               <Button.Label>{t('bank.addBankAccount')}</Button.Label>

@@ -1,9 +1,13 @@
 import { DEV_DOMAIN } from '@env'
 import useAlert from 'app/hooks/useAlert'
 import useLoading from 'app/hooks/useLoading'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { GameLauncherActions } from 'app/store/gameLauncher.slice'
+import {
+  GameLauncherActions,
+  LaunchGamePayload,
+} from 'app/store/gameLauncher.slice'
 import { SettingActions } from 'app/store/setting.slice'
 import { useEffect } from 'react'
 import { Platform } from 'react-native'
@@ -19,6 +23,8 @@ const ProviderRunningWithoutIframePlatformBased = Platform.select({
   android: ['SKYW'],
   default: [],
 })
+
+export let LaunchGame
 const GameLauncher = () => {
   const gameLauncherState = useAppSelector((s) => s.gameLauncher)
   const { t } = useLocalization()
@@ -29,6 +35,17 @@ const GameLauncher = () => {
   const { openGame, cleanUpGame } = useGameWindow()
   const { checkMaintenance } = useMaintenanceStatus()
   const { toggleLoading } = useLoading()
+  const { push, replace } = useContextualRouter()
+
+  const isLoggedIn = !!authState.info
+
+  useEffect(() => {
+    LaunchGame = (payload: LaunchGamePayload) => {
+      if (isLoggedIn) dispatch(GameLauncherActions.launchGame(payload))
+      else push('/auth/login')
+    }
+  }, [dispatch, isLoggedIn, replace])
+
   const {
     providerCode,
     gameCode,

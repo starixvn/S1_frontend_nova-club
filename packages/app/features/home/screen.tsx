@@ -20,9 +20,11 @@ import RecentOpenGames from './Section/RecentOpenGames'
 const HomeScreen = () => {
   const { isLandscape } = useOrientation()
   const dispatch = useDispatch()
+  const username = useAppSelector((s) => s.auth.info?.playerName)
   const syncShieldActionType = useAppSelector(
     (s) => s.tempSetting.syncShieldActionType
   )
+
   const syncShieldStatus = useAppSelector(
     (state) => state.tempSetting.syncShieldStatus
   )
@@ -53,8 +55,8 @@ const HomeScreen = () => {
   }
 
   useEffect(() => {
-    handleCheckShield()
-  }, [])
+    if (username) handleCheckShield()
+  }, [username])
 
   return (
     <ScrollView

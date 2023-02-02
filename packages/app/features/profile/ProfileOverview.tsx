@@ -1,6 +1,6 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
-import useContextualRouting from 'app/hooks/useContextualRouting'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
 import { toCurrency } from 'app/utils'
@@ -10,21 +10,17 @@ import {
   usePlayerOverviewSummaryQuery,
   usePlayerProfileQuery,
 } from 'services/playerApi'
-import { useRouter } from 'solito/router'
 
 type Amount = string | number
 
 const ProfileOverview = () => {
   const { t } = useLocalization()
-  const { push } = useRouter()
+  const { push } = useContextualRouter()
   const { theme } = useDripsyTheme()
 
   const { data } = usePlayerOverviewSummaryQuery()
   const { data: playerData } = usePlayerProfileQuery()
   const currency = playerData?.currency as Currency
-
-  const { makeContextualHref } = useContextualRouting()
-  const toOverview = makeContextualHref('/profile/overview')
 
   return (
     <StyledContainer>
@@ -55,7 +51,7 @@ const ProfileOverview = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
-              onPress={() => push(toOverview, '/profile/overview')}
+              onPress={() => push('/profile/overview')}
             >
               <Text
                 sx={{

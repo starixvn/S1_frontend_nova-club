@@ -143,4 +143,6 @@ const ScrollTopButton = styled(MotiView)(() => ({
   alignItems: 'center',
   bottom: 30,
   zIndex: 1,
+  borderRadius: 50,
+  overflow: 'hidden',
 }))

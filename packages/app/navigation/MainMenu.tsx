@@ -1,6 +1,5 @@
 import { AGENT_URL } from '@env'
 import Icon from 'app/components/Icon'
-import useContextualRouting from 'app/hooks/useContextualRouting'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import useLocalization from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
@@ -15,7 +14,7 @@ import {
 } from 'react-native'
 import Modal from 'react-native-modal'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import { useRouter } from 'solito/router'
+import useContextualRouter from './contextual/useContextualRouter'
 
 interface MainMenuProps {
   isShow: boolean
@@ -25,13 +24,12 @@ interface MainMenuProps {
 
 const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
   const { t } = useLocalization()
-  const { push, replace } = useRouter()
+  const { push } = useContextualRouter()
   const { width } = useWindowDimensions()
   const { theme } = useDripsyTheme()
   const { top: safeAreaTopHeight } = useSafeArea()
   const { x: parentWidth, y: parentHeight } = parentPosition
 
-  const { makeContextualHref } = useContextualRouting()
   const { logout } = useOnAppLogout()
 
   const isWeb = Platform.OS === 'web'
@@ -72,7 +70,7 @@ const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
         label: 'menu.customerSupport',
         icon: 'cs',
         onPress: () => {
-          push(makeContextualHref('customer-support'), '/customer-support')
+          push('/customer-support')
         },
       },
       // {
@@ -104,25 +102,22 @@ const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
           label: 'menu.deposit',
           onPress: () => {
             isPlayerName
-              ? push(makeContextualHref('deposit'), '/deposit')
-              : push(
-                  makeContextualHref('/profile/account-verification'),
-                  `/profile/account-verification`
-                )
+              ? push('/deposit')
+              : push(`/profile/account-verification`)
           },
         },
         {
           icon: 'wda',
           label: 'menu.withdrawal',
           onPress: () => {
-            push(makeContextualHref('withdrawal'), '/withdrawal')
+            push('/withdrawal')
           },
         }
       )
     }
 
     return menuList
-  }, [logout, makeContextualHref, push, isCreditMember])
+  }, [logout, push, isCreditMember])
 
   const handleDismiss = () => {
     onMenu(false)

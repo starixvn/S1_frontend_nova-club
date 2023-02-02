@@ -1,4 +1,4 @@
-import { useFocusEffect } from '@react-navigation/native'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import { RootState } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
@@ -6,20 +6,18 @@ import { Buffer } from 'buffer'
 import * as ImagePicker from 'expo-image-picker'
 import jpeg from 'jpeg-js'
 import jsQR from 'jsqr'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLazyAffiliateUsernameQuery } from 'services/contentApi'
-import { useRouter } from 'solito/router'
 import { useIsFocused } from '../isFocus/useIsFocused'
 import useAlert from '../useAlert'
-import useContextualRouting from '../useContextualRouting'
 const PNG = require('pngjs/browser').PNG
 
 const useImagePicker = () => {
   const { t } = useLocalization()
-  const { push } = useRouter()
+  const { push } = useContextualRouter()
   const { openModal } = useModal()
   const { showAlert } = useAlert()
   const dispatch = useDispatch()
@@ -27,7 +25,6 @@ const useImagePicker = () => {
     (state: RootState) => state.setting.transferScan
   )
   const [loading, setLoading] = useState(false)
-  const { makeContextualHref, returnHref } = useContextualRouting()
   const [fetchUsername, { isError, error }] = useLazyAffiliateUsernameQuery()
 
   const isFocus = useIsFocused()
@@ -122,10 +119,7 @@ const useImagePicker = () => {
         referralCode: cleanText,
       }
 
-      push(makeContextualHref('transfer', params), {
-        pathname: '/transfer',
-        query: params,
-      })
+      push('/transfer', params)
     }
   }
 

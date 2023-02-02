@@ -5,6 +5,7 @@ import InputBase, {
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
 import useAlert from 'app/hooks/useAlert'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import validation from 'app/utils/validation'
 import { useDripsyTheme, View } from 'dripsy'
@@ -18,7 +19,6 @@ import {
   useTransferPinRecoveryOtpMutation,
 } from 'services/pinApi'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import UnderlinePinField from '../UnderlinePinField'
 
@@ -43,7 +43,7 @@ const ForgotPinScreen = () => {
   const { theme } = useDripsyTheme()
   const { openModal } = useModal()
   const { showAlert } = useAlert()
-  const { back } = useRouter()
+  const { back } = useContextualRouter()
 
   const [currentAction, setCurrentAction] = useState(CURRENT_ACTION.GET_OTP)
   const otpFieldRef = useRef<RNTextField>(null)

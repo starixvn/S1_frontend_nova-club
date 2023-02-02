@@ -2,8 +2,8 @@ import { Button } from 'app/components/form/Button'
 import TextInput from 'app/components/form/TextInput'
 import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
 import useAlert from 'app/hooks/useAlert'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
-import { useAppDispatch } from 'app/provider/redux/store'
 import validation, {
   getErrorMessage,
   PASSWORD_MAX_LENGTH,
@@ -17,7 +17,6 @@ import {
   usePasswordRecoveryMutation,
   useSendPasswordRecoveryOtpMutation,
 } from 'services/authApi'
-import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import ReceiveOTPContact from '../common/ReceiveOTPContact'
 import AuthLayout from '../layout/AuthLayout'
@@ -41,8 +40,7 @@ const enum ERROR_CODE {
 const ForgotPassword = () => {
   const { t } = useLocalization()
   const { theme } = useDripsyTheme()
-  const dispatch = useAppDispatch()
-  const { push, replace } = useRouter()
+  const { push, replace } = useContextualRouter()
   const { showAlert } = useAlert()
 
   const [currentAction, setCurrentAction] = useState(CURRENT_ACTION.GET_OTP)
@@ -80,7 +78,8 @@ const ForgotPassword = () => {
       if (data?.success) {
         Toast.show({ type: 'success', text1: data?.message })
         actions.resetForm()
-        replace('/auth/login')
+        if (Platform.OS === 'web') replace('/auth/login')
+        else push('/auth/login')
       }
     } catch (error) {
       const errorMessage = getErrorMessage(error)
@@ -189,9 +188,8 @@ const ForgotPassword = () => {
   return (
     <AuthLayout
       headerDesc={t('auth.forgotPassword')}
-      onBack={() => {
-        push('/auth/login')
-      }}
+      headerColor="#000000"
+      gradientColor={['#18d2e8', '#6afcf7']}
     >
       <TextInput
         _icon="avatar"

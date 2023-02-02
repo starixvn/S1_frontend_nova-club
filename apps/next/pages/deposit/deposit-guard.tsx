@@ -1,7 +1,6 @@
-import useContextualRouting from 'app/hooks/useContextualRouting'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import React, { useEffect } from 'react'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import { useRouter } from 'solito/router'
 
 const DepositGuard = (
   WrappedComponent: React.ComponentType,
@@ -10,21 +9,17 @@ const DepositGuard = (
   const HOC = () => {
     const { data, isFetching } = usePlayerProfileQuery()
     const isPlayerName = !!data?.firstName
-    const { replace } = useRouter()
-    const { makeContextualHref } = useContextualRouting()
+    const { replace } = useContextualRouter()
 
     useEffect(() => {
       if (data && guardType === 'deposit') {
         if (!isPlayerName) {
-          replace(
-            makeContextualHref('/profile/account-verification'),
-            `/profile/account-verification`
-          )
+          replace('/profile/account-verification')
         }
       }
       if (data && guardType === 'account-verification') {
         if (isPlayerName) {
-          replace('/', '/')
+          replace('/')
         }
       }
     }, [isFetching])

@@ -1,8 +1,6 @@
+import { LaunchGame } from 'app/features/games/GameLauncher'
 import useLocalization from 'app/provider/localization'
-import {
-  GameLauncherActions,
-  LaunchGamePayload,
-} from 'app/store/gameLauncher.slice'
+import { LaunchGamePayload } from 'app/store/gameLauncher.slice'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
 import { styled, SxProp, Text, useSx, View } from 'dripsy'
 import { MotiView } from 'moti'
@@ -66,7 +64,7 @@ const SimpleGridImage: FC<GamesProps> = ({
         style={_sx({ width, position: 'relative' })}
         onPress={() => {
           console.log('gamePayload', gamePayload)
-          dispatch(GameLauncherActions.launchGame(gamePayload))
+          LaunchGame(gamePayload)
         }}
       >
         <Gameimage
@@ -107,7 +105,7 @@ const SimpleGridImage: FC<GamesProps> = ({
                   textShadowColor: 'rgba(255, 255, 255, 0.45)',
                 }}
                 onPress={() => {
-                  dispatch(GameLauncherActions.launchGame(gamePayload))
+                  LaunchGame(gamePayload)
                 }}
               />
             )}
@@ -121,12 +119,10 @@ const SimpleGridImage: FC<GamesProps> = ({
                   textShadowColor: 'rgba(0, 0, 0, 0.45)',
                 }}
                 onPress={() => {
-                  dispatch(
-                    GameLauncherActions.launchGame({
-                      ...gamePayload,
-                      desktopMode,
-                    })
-                  )
+                  LaunchGame({
+                    ...gamePayload,
+                    desktopMode,
+                  })
                 }}
               />
             )}

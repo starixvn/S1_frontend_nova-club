@@ -1,7 +1,8 @@
+import BorderButton from 'app/components/BorderButton'
 import { useTransferAllToOneMutation } from 'app/custom_services/walletApi'
 import useContainerDimension from 'app/hooks/useContainerDimension'
-import useContextualRouting from 'app/hooks/useContextualRouting'
 import BouncePressable from 'app/pressable/BouncePressable'
+import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
@@ -10,11 +11,12 @@ import { useEffect, useRef, useState } from 'react'
 import { LayoutChangeEvent } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { usePlayerBalanceQuery } from 'services/walletApi'
-import { useRouter } from 'solito/router'
+import useContextualRouter from './contextual/useContextualRouter'
 import MainMenu from './MainMenu'
 
 const MainHeaderMenu = () => {
   const { width } = useContainerDimension()
+  const { t } = useLocalization()
   const sx = useSx()
   const headerHeight = sx({
     height: 'header',
@@ -23,8 +25,7 @@ const MainHeaderMenu = () => {
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: headerHeight })
   const [totalBalance, setTotalBalance] = useState('0')
   const lastTransferredToMainWalletToken = useRef('')
-  const { makeContextualHref } = useContextualRouting()
-  const { push } = useRouter()
+  const { push } = useContextualRouter()
   const token = useAppSelector((s) => s.auth.info?.token)
 
   const {
@@ -49,24 +50,13 @@ const MainHeaderMenu = () => {
   //change to icon
   const MENU_ROW = [
     {
-      img: require('../assets/images/header/deposit.png'),
-      action: () => {
-        isPlayerName
-          ? push(makeContextualHref('deposit'), '/deposit')
-          : push(
-              makeContextualHref('/profile/account-verification'),
-              `/profile/account-verification`
-            )
-      },
-    },
-    {
       img: require('../assets/images/header/wallet.png'),
       action: () => refreshWallet(),
     },
     {
       img: require('../assets/images/header/avatar.png'),
       action: () => {
-        push(makeContextualHref('profile'), '/profile')
+        push('/profile')
       },
     },
     {
@@ -146,8 +136,23 @@ const MainHeaderMenu = () => {
         justifyContent: 'flex-end',
       }}
     >
+      <BorderButton
+        sx={{
+          borderColor: '$lightNavyBlue2',
+          backgroundColor: '$darkOcean',
+        }}
+        text={t('menu.deposit')}
+        textColor={'$black'}
+        size={18}
+        innerGradientColor={['$cyan', '$lightNavyBlue']}
+        onPress={() =>
+          isPlayerName
+            ? push('/deposit')
+            : push(`/profile/account-verification`)
+        }
+      />
       {MENU_ROW.map((i, index) => {
-        if (index === 1) {
+        if (index === 0) {
           return (
             <View sx={{ flex: 1, maxWidth: width * 0.3 }} key={index}>
               <BouncePressable onPress={i.action} key={index}>

@@ -4,6 +4,8 @@ import useBioAuth from 'app/hooks/useBioAuth'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useShield from 'app/hooks/useShield'
 import useUniqueId from 'app/hooks/useUniqueId'
+import { ContextualNavigationContext } from 'app/navigation/contextual/ContextualNavigation'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { AuthActions } from 'app/store/authReducer'
@@ -14,7 +16,7 @@ import validation from 'app/utils/validation'
 import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { AnimatePresence, MotiView, useDynamicAnimation } from 'moti'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useRegisterMutation } from 'services/authApi'
@@ -24,7 +26,6 @@ import {
   Shield_Action,
 } from 'services/authApi.type'
 import { createParam } from 'solito'
-import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import AuthLayout from '../layout/AuthLayout'
 import VerificationPage from '../verification'
@@ -46,9 +47,8 @@ const RegisterPage = () => {
   const [ref] = useParam('ref')
   const [register] = useRegisterMutation()
   const dispatch = useAppDispatch()
-  const { push, replace } = useRouter()
+  const { replace, back } = useContextualRouter()
   const { showAlert } = useAlert()
-  const { openModal } = useModal()
   const { width } = useContainerDimension()
   const { t } = useLocalization()
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -71,42 +71,11 @@ const RegisterPage = () => {
   // consume it on onSubmit
   const referral = useAppSelector((s) => s.setting.referral)
   const trackingCode = referral?.trackingCode
-  const handleOnSuccessRegister = (data?: RegisterResult) => {
-    replace({
-      pathname: '/',
-    })
-    /*
-      currently only :
-      - freespin will have note on response,
-      - freebet's note has been removed at backend
-    */
-    // function setLuckySpinAndNavigate() {
-    //   try {
-    //     if (data?.wheel_info?.totalSpin) {
-    //       dispatch(
-    //         SettingActions.setLuckyDrawBalance(
-    //           Number(data?.wheel_info?.totalSpin)
-    //         )
-    //       )
-    //     }
-    //   } catch (e) {
-    //     console.log('Error setting total spin')
-    //   } finally {
-    //     replace({
-    //       pathname: '/',
-    //     })
-    //   }
-    // }
 
-    // if ('note' in data) {
-    //   const note = data.note
-    //   openModal('AlertModal', {
-    //     message: note,
-    //     onClose: () => setLuckySpinAndNavigate(),
-    //   })
-    // } else {
-    //   setLuckySpinAndNavigate()
-    // }
+  const handleOnSuccessRegister = (data?: RegisterResult) => {
+    if (Platform.OS === 'web') {
+      replace('/')
+    } else back()
   }
 
   const onSubmit = async (
@@ -232,7 +201,14 @@ const RegisterPage = () => {
             </AnimatePresence>
           }
           headerDesc={t('auth.accountReg')}
-          onBack={() => push('/auth/login')}
+          headerColor="#ffffff"
+          gradientColor={[
+            '#a60102',
+            '#b30303',
+            '#cc0707',
+            '#fe3434',
+            '#fc9e9e',
+          ]}
         >
           <RegisterForm formik={formik} onSuccess={onRegisterSuccess} />
         </AuthLayout>

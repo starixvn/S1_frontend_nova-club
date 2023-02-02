@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/native'
 import useAlert from 'app/hooks/useAlert'
 import useFontInit from 'app/hooks/useFontInit'
-import useOrientation, { unlockAsync } from 'app/hooks/useOrientation'
+import { unlockAsync } from 'app/hooks/useOrientation'
 import useCodePushDownload from 'app/integrations/codepush/useCodePush'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
@@ -10,12 +11,11 @@ import { Text, View } from 'dripsy'
 import { Video } from 'expo-av'
 import { MotiView } from 'moti'
 import React, { useEffect } from 'react'
-import { StyleSheet, useWindowDimensions } from 'react-native'
+import { StyleSheet } from 'react-native'
 import CodePush from 'react-native-code-push'
 import { getVersion } from 'react-native-device-info'
 import { Easing } from 'react-native-reanimated'
 import { useDispatch } from 'react-redux'
-import { useRouter } from 'solito/router'
 import CodePushUpdateBar from './CodePushUpdateBar'
 import { checkMaintenance, checkVersionUpdated } from './splashScreenChecks'
 import useSplashScreen, { useSplashScreenTaskResolver } from './useSplashScreen'
@@ -46,7 +46,7 @@ const SplashScreen = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
   const { showAlert } = useAlert()
-  const { replace } = useRouter()
+  const { replace } = useContextualRouter()
   const currentVersion = getVersion()
   // const { isReady } = useOTA()
   const { status: codePushStatus, progress } = useCodePushDownload()
@@ -75,11 +75,11 @@ const SplashScreen = () => {
 
   useEffect(() => {
     if (status) {
-      if (loginResult) {
-        replace('/')
-        return
-      }
-      replace('/auth/login')
+      // if (loginResult) {
+      //   replace('/')
+      //   return
+      // }
+      replace('/')
     }
   }, [status, replace, loginResult])
 

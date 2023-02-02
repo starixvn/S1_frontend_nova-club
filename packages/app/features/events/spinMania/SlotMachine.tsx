@@ -2,6 +2,7 @@ import Image from 'app/components/common/Image'
 import IconButton from 'app/components/form/IconButton'
 import useAlert from 'app/hooks/useAlert'
 import useOrientation from 'app/hooks/useOrientation'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { toCurrency } from 'app/utils'
@@ -27,7 +28,6 @@ import {
   useTicketSpinMutation,
 } from 'services/eventApi'
 import { CNYRollResult } from 'services/eventApi.type'
-import { useRouter } from 'solito/router'
 
 import SlotMachineRoll from './SlotMachineRoll'
 import useSoundController from './useSoundController'
@@ -57,7 +57,7 @@ const testResuls = [
 ]
 
 const SlotMachine = () => {
-  const { back } = useRouter()
+  const { back } = useContextualRouter()
   const { top, bottom } = useSafeArea()
   const { openModal } = useModal()
   const isLandscape = useOrientation()

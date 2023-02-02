@@ -1,7 +1,10 @@
+import { useAppSelector } from 'app/provider/redux/store'
 import { usePlayerWalletDetailQuery } from 'services/walletApi'
 
 export function useMaintenanceStatus() {
+  const { token } = useAppSelector((state) => state.auth.info) || {}
   const { gameMaintenanceStatus } = usePlayerWalletDetailQuery(undefined, {
+    skip: !token,
     selectFromResult: (d) => {
       const detailResponse = d.data?.data
       return detailResponse

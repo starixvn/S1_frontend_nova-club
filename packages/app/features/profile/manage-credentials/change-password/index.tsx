@@ -1,14 +1,14 @@
 import { Button } from 'app/components/form/Button'
 import InputBase from 'app/components/form/Input/InputBase'
 import useAlert from 'app/hooks/useAlert'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import validation, { PASSWORD_MAX_LENGTH } from 'app/utils/validation'
-import { ScrollView, styled, Text, View } from 'dripsy'
+import { ScrollView, styled, Text } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React from 'react'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useChangePasswordMutation } from 'services/changePassword'
-import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 
 type PasswordFormValues = {
@@ -20,7 +20,7 @@ type PasswordFormValues = {
 const ChangePasswordScreen = () => {
   const { t } = useLocalization()
   const [postChangePassword] = useChangePasswordMutation()
-  const { back } = useRouter()
+  const { back } = useContextualRouter()
   const { showAlert } = useAlert()
 
   const onSubmit = async (

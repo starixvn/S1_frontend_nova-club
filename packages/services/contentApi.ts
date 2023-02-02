@@ -43,7 +43,7 @@ export const contentApi = baseApiWithTag.injectEndpoints({
         },
       }),
     }),
-    announcement: builder.query<IResponse<AnnouncementResult>, void>({
+    announcement: builder.query<IResponse<AnnouncementResult>, string>({
       query: (lang) => ({
         url: `/static_api/announcement`,
         method: 'GET',

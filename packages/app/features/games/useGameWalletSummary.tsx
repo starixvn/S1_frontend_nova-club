@@ -1,3 +1,4 @@
+import { useAppSelector } from 'app/provider/redux/store'
 import { useMemo } from 'react'
 import {
   usePlayerBalanceQuery,
@@ -5,11 +6,14 @@ import {
 } from 'services/walletApi'
 
 export default function useGameWalletSummary(providerCode?: string) {
+  const { token } = useAppSelector((state) => state.auth.info) || {}
   const { walletDetails } = usePlayerWalletDetailQuery(undefined, {
+    skip: !token,
     selectFromResult: ({ data }) => ({ ...data, walletDetails: data?.data }),
   })
 
   const { wallets, ...rest } = usePlayerBalanceQuery(undefined, {
+    skip: !token,
     selectFromResult: (s) => ({
       ...s,
       wallets: s.data?.data,

@@ -6,6 +6,7 @@ import { PageWithBackHeader } from 'app/components/layout/Page'
 import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
 import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
 import useAlert from 'app/hooks/useAlert'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import { toCleanCard } from 'app/utils'
 import { MaxLength } from 'app/utils/constant'
@@ -24,7 +25,6 @@ import {
   useSendUpdateProfileOTPMutation,
   useUpdateProfileMutation,
 } from 'services/playerApi'
-import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 
 type AddBankAccountValues = {
@@ -36,7 +36,7 @@ type AddBankAccountValues = {
 
 const AddBankAccountScreen = () => {
   const { t } = useLocalization()
-  const { back } = useRouter()
+  const { back } = useContextualRouter()
   const { showAlert } = useAlert()
   const { bankData, isLoading, isFetching } = useWithdrawalBankQuery(
     undefined,

@@ -6,7 +6,7 @@ import { TextField } from 'app/components/TextField'
 import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
 import useAlert from 'app/hooks/useAlert'
 import useCheckMobile from 'app/hooks/useCheckMobile'
-import useContextualRouting from 'app/hooks/useContextualRouting'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import { toCurrency, toDisplayAmount } from 'app/utils'
 import { Currency } from 'app/utils/constant'
@@ -15,7 +15,6 @@ import validationRule from 'app/utils/validationRule'
 import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect, useState } from 'react'
-import { Platform } from 'react-native'
 import { SelectOptions } from 'services/common/types'
 import {
   useDepositPaymentListQuery,
@@ -27,7 +26,6 @@ import {
   PlayerInputFieldsBank,
 } from 'services/deposit.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import FieldAmount from './FieldAmount'
 import FieldSelectBank from './FieldSelectBank'
@@ -40,9 +38,8 @@ export type AutoDepositValues = {
 }
 
 const AutoDepositForm = ({ module, DepositCategoryId }) => {
-  const { makeContextualHref } = useContextualRouting()
   const { t } = useLocalization()
-  const { push } = useRouter()
+  const { push } = useContextualRouter()
   const { showAlert } = useAlert()
   const [postSubmitDeposit] = useSubmitDepositMutation()
   const { data: playerData } = usePlayerProfileQuery()
@@ -115,10 +112,7 @@ const AutoDepositForm = ({ module, DepositCategoryId }) => {
           depositUrl: encodeURIComponent(result?.data?.url),
         }
 
-        push(makeContextualHref('deposit-loader', params), {
-          pathname: '/deposit/deposit-loader',
-          query: params,
-        })
+        push('/deposit/deposit-loader', params)
       }
     } catch (error) {
       showAlert(error)
@@ -144,19 +138,7 @@ const AutoDepositForm = ({ module, DepositCategoryId }) => {
     onSubmit,
   })
 
-  const {
-    handleChange,
-    handleBlur,
-    isSubmitting,
-    values,
-    errors,
-    touched,
-    isValid,
-    dirty,
-    submitForm,
-    setValues,
-    setFieldValue,
-  } = formik
+  const { isSubmitting, isValid, dirty, submitForm, setFieldValue } = formik
 
   const handleSelected = (value) => {
     setSelectedValues(value.value)

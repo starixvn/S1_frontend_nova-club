@@ -54,6 +54,10 @@ input[type='date']::-webkit-calendar-picker-indicator {
   right: 0;
 }
 
+.overflow-hidden {
+  overflow: hidden;
+}
+
 .overflow-y-hidden {
   overflow-y: hidden;
 }
@@ -70,6 +74,11 @@ input[type='date']::-webkit-calendar-picker-indicator {
   z-index: -1;
 }
 
+.root-modal-padding {
+  padding-right: 4px !important;
+  box-sizing: border-box;
+}
+
 /* Works on Firefox */
 * {
   scrollbar-width: thin;
@@ -77,7 +86,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
 }
 
 /* Works on Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
+/* *::-webkit-scrollbar {
   width: 4px;
   -webkit-appearance: none;
 }
@@ -89,6 +98,11 @@ input[type='date']::-webkit-calendar-picker-indicator {
 *::-webkit-scrollbar-thumb {
   background-color: rgb(33 104 136);
   border-radius: 12px;
+} */
+
+/* hide scrollbar */
+*::-webkit-scrollbar {
+  display: none;
 }
 
 video::-webkit-media-controls {

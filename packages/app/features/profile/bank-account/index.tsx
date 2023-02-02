@@ -2,7 +2,7 @@ import { Button } from 'app/components/form/Button'
 import Icon from 'app/components/Icon'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import useContainerDimension from 'app/hooks/useContainerDimension'
-import useContextualRouting from 'app/hooks/useContextualRouting'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import {
   ActivityIndicator,
@@ -16,18 +16,14 @@ import React from 'react'
 import { useModal } from 'react-native-modalfy'
 import { usePlayerBankQuery } from 'services/bank'
 import { PlayerBankResult } from 'services/bank.type'
-import { useRouter } from 'solito/router'
 import BankAccCard from './BankAccCard'
 
 const BankAccountScreen = () => {
   const { t } = useLocalization()
-  const { push } = useRouter()
+  const { push } = useContextualRouter()
   const { openModal } = useModal()
   const { width } = useContainerDimension()
   const { data, isLoading } = usePlayerBankQuery()
-
-  const { makeContextualHref } = useContextualRouting()
-  const toAddBankAccount = makeContextualHref('add-bank-account')
 
   const handleRemove = async (item: PlayerBankResult) => {
     openModal('PlayerBankDeleteModal', { bank: item })
@@ -73,9 +69,7 @@ const BankAccountScreen = () => {
               start: { x: 0, y: 0 },
               end: { x: 1, y: 0 },
             }}
-            onPress={() =>
-              push(toAddBankAccount, '/profile/bank-account/add-bank-account')
-            }
+            onPress={() => push('/profile/bank-account/add-bank-account')}
           >
             <Icon name="add" size={25} />
             <Button.Label>{t('bank.addBankAccount')}</Button.Label>

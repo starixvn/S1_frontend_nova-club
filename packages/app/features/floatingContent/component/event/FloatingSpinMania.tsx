@@ -1,23 +1,19 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Image from 'app/components/common/Image'
-import useContextualRouting from 'app/hooks/useContextualRouting'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import { Text } from 'dripsy'
 import React from 'react'
 import { useCheckTicketSpinQuery } from 'services/eventApi'
-import { useRouter } from 'solito/router'
 
-const FloatingValentine = ({ size }: { size: number }) => {
-  const { push } = useRouter()
+const FloatingSpinMania = ({ size }: { size: number }) => {
+  const { push } = useContextualRouter()
   const { balance } = useCheckTicketSpinQuery(undefined, {
     selectFromResult: (s) => ({ ...s, balance: s.data?.data }),
   })
 
-  const { makeContextualHref } = useContextualRouting()
-  const to = makeContextualHref('/event/spin-mania')
-
   const handlePress = () => {
-    push(to, '/event/spin-mania')
+    push('/event/spin-mania')
   }
 
   return (
@@ -57,4 +53,4 @@ const FloatingValentine = ({ size }: { size: number }) => {
   )
 }
 
-export default FloatingValentine
+export default FloatingSpinMania

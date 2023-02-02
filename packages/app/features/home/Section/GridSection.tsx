@@ -2,6 +2,7 @@ import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { GRID_TOTAL_COL, HOME_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useOrientation from 'app/hooks/useOrientation'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import { ActionType, getAction } from 'app/utils/actionGenerator'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
@@ -9,7 +10,6 @@ import { getSocialMediaScheme, SocialMedia } from 'app/utils/helper'
 import { styled, View } from 'dripsy'
 import React from 'react'
 import { Game } from 'services/contentApi.type'
-import { useRouter } from 'solito/router'
 import GridSectionItem from './GridSectionItem'
 export const SHAREHOLDER_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/shareholder.mp4?v=1`
 export const FISHING_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/fishing.mp4?v=1`
@@ -102,7 +102,7 @@ export const HOME_GRID = [
 ]
 
 const GridSection = () => {
-  const { push } = useRouter()
+  const { push } = useContextualRouter()
   const { t } = useLocalization()
   const { orientation, isLandscape } = useOrientation()
 
@@ -122,10 +122,7 @@ const GridSection = () => {
     }
 
     if (data.urlParam) {
-      push({
-        pathname: data.route,
-        query: data.urlParam,
-      })
+      push(data.route, data.urlParam)
       return
     }
 

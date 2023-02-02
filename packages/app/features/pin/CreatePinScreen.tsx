@@ -1,6 +1,7 @@
 import { Button } from 'app/components/form/Button'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import useAlert from 'app/hooks/useAlert'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import validation from 'app/utils/validation'
 import { Text, View } from 'dripsy'
@@ -9,7 +10,6 @@ import React, { useEffect } from 'react'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useCreateTransferPinMutation } from 'services/pinApi'
 import { useLazyPlayerProfileQuery } from 'services/playerApi'
-import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import UnderlinePinField from './UnderlinePinField'
 
@@ -19,7 +19,7 @@ type PinFormValues = {
 }
 const CreatePinScreen = ({ hideHeader = false }) => {
   const { t } = useLocalization()
-  const { back } = useRouter()
+  const { back } = useContextualRouter()
   const { showAlert } = useAlert()
   const [fetchProfile] = useLazyPlayerProfileQuery()
   const [postCreateTransferPin] = useCreateTransferPinMutation()

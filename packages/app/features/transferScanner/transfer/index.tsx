@@ -8,9 +8,9 @@ import MoneyInput from 'app/components/form/Input/MoneyInput'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import { TRANSFER_NOTES } from 'app/constant/notes'
 import AvailableBalance from 'app/features/withdrawal/AvailableBalance'
-import { useIsFocused } from 'app/hooks/isFocus/useIsFocused'
 import useAlert from 'app/hooks/useAlert'
-import useContextualRouting from 'app/hooks/useContextualRouting'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
+import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import useLocalization from 'app/provider/localization'
 import { SettingActions } from 'app/store/setting.slice'
 import {
@@ -20,7 +20,7 @@ import {
   toRealAmount,
 } from 'app/utils'
 import { Currency } from 'app/utils/constant'
-import validation, { getErrorMessage } from 'app/utils/validation'
+import validation from 'app/utils/validation'
 import validationRule from 'app/utils/validationRule'
 import { Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
@@ -35,7 +35,6 @@ import {
 } from 'services/walletApi'
 import { createParam } from 'solito'
 import { MotiLink } from 'solito/moti'
-import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 
 type TransferValues = {
@@ -53,9 +52,8 @@ const TransferScreen = ({
   const dispatch = useDispatch()
   const { openModal } = useModal()
   const { showAlert } = useAlert()
-  const { push, back } = useRouter()
+  const { push, back } = useContextualRouter()
   const { t } = useLocalization()
-  const isFocus = useIsFocused()
   const [referralCode] = useParam('referralCode')
 
   const [postTransferMemberToMember] = useTransferMemberToMemberMutation()
@@ -64,18 +62,13 @@ const TransferScreen = ({
     refetchOnMountOrArgChange: true,
   })
   const playerBalance = balanceData?.data?.main.balance
-  console.log('🚀 ~ file: index.tsx ~ line 66 ~ playerBalance', playerBalance)
 
-  const { data: playerData, refetch } = usePlayerProfileQuery(undefined, {
+  const { data: playerData } = usePlayerProfileQuery(undefined, {
     refetchOnMountOrArgChange: true,
     refetchOnFocus: true,
   })
   const currency = playerData?.currency as Currency
   const isPinExist = playerData?.pin_exist
-
-  const { makeContextualHref } = useContextualRouting()
-  const toCreatePin = makeContextualHref('create-pin')
-  const toForgotPin = makeContextualHref('forgot-pin')
 
   const onSubmit = async (
     { referralId, realAmount }: TransferValues,
@@ -155,7 +148,7 @@ const TransferScreen = ({
   }, [referralCode])
 
   useEffect(() => {
-    !isPinExist && push(toCreatePin, '/pin/create-pin')
+    !isPinExist && push('/pin/create-pin')
 
     return () => {
       !isIDTransfer && dispatch(SettingActions.toogleScan(true))
@@ -189,7 +182,7 @@ const TransferScreen = ({
   const handleSubmit = () => {
     openModal('PinModal', {
       onConfirm: (value) => onSubmit(values, value, formik),
-      onForgotPin: () => push(toForgotPin, '/pin/forgot-pin'),
+      onForgotPin: () => push('/pin/forgot-pin'),
     })
   }
 
@@ -265,16 +258,7 @@ const TransferScreen = ({
 
         {!isPinExist && (
           <View sx={{ alignItems: 'flex-end', mx: '$4', my: '$6' }}>
-            <MotiLink
-              href={toCreatePin}
-              as={`/pin/create-pin`}
-              animate={({ hovered, pressed }) => {
-                'worklet'
-                return {
-                  scale: pressed ? 0.9 : hovered ? 1.1 : 1,
-                }
-              }}
-            >
+            <TouchableOpacity onPress={() => push(`/pin/create-pin`)}>
               <Text
                 variant="md"
                 sx={{
@@ -284,7 +268,7 @@ const TransferScreen = ({
               >
                 {t('menu.createPin')}
               </Text>
-            </MotiLink>
+            </TouchableOpacity>
           </View>
         )}
 

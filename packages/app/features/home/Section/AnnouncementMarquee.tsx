@@ -1,13 +1,12 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
-import useContextualRouting from 'app/hooks/useContextualRouting'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAppSelector } from 'app/provider/redux/store'
 import { ActivityIndicator, styled, View } from 'dripsy'
 import { useEffect, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { useAnnouncementQuery } from 'services/contentApi'
 import { AnnouncementListItems } from 'services/contentApi.type'
-import { useRouter } from 'solito/router'
 import MarqueeFlip from './MarqueeFlip'
 
 export interface MarqueeItem<T> {
@@ -20,11 +19,7 @@ const ANNOUNCEMENT_HEIGHT = 25
 const ANNOUNCEMENT_CONTEXT_COLOR = '#97FFF4'
 
 const AnnouncementMarquee = () => {
-  const { push } = useRouter()
-  const { makeContextualHref } = useContextualRouting()
-  const toMessages = makeContextualHref('messages', {
-    tab: 1,
-  })
+  const { push } = useContextualRouter()
   const locale = useAppSelector((s) => s.setting.locale)
   const { data, isSuccess, isUninitialized } = useAnnouncementQuery(locale)
   const [marquees, setMarquees] = useState<
@@ -46,11 +41,8 @@ const AnnouncementMarquee = () => {
   }, [data, isSuccess])
 
   const onPress = () => {
-    push(toMessages, {
-      pathname: '/messages',
-      query: {
-        tab: 1,
-      },
+    push('/messages', {
+      tab: 1,
     })
   }
   return (

@@ -1,3 +1,4 @@
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import React from 'react'
 import AuthLayout from '../layout/AuthLayout'
@@ -7,7 +8,10 @@ const LoginPage = () => {
   const { t } = useLocalization()
 
   return (
-    <AuthLayout showBackButton={false} headerDesc={t('auth.loginToAccount')}>
+    <AuthLayout
+      headerDesc={t('auth.loginToAccount')}
+      gradientColor={['#e9a717', '#ecb625', '#f5d646', '#fdf169']}
+    >
       <LoginForm />
     </AuthLayout>
   )

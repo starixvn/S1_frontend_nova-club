@@ -59,10 +59,10 @@ const ProfileLanguage = ({ isAuthRequired = true }: ProfileLanguageProps) => {
   }
 
   const onChangeLanguage = (value: LANGUAGE_CODE) => {
-    if (isAuthRequired) {
-      submitLanguage(value)
-      return
-    }
+    // if (isAuthRequired) {
+    //   submitLanguage(value)
+    //   return
+    // }
 
     setLanguage(value)
   }

@@ -1,3 +1,4 @@
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { AuthActions } from 'app/store/authReducer'
@@ -8,14 +9,13 @@ import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useDispatch } from 'react-redux'
 import { useLoginMutation } from 'services/authApi'
-import { useRouter } from 'solito/router'
 
 const useBioAuth = () => {
   // wherever the useState is located
   const dispatch = useDispatch()
   const { t } = useLocalization()
   const [login] = useLoginMutation()
-  const { replace } = useRouter()
+  const { replace } = useContextualRouter()
 
   const { openModal } = useModal()
   const [isBioLoading, setIsBioLoading] = useState(false)

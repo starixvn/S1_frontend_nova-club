@@ -3,9 +3,11 @@ import { AnnouncementListItems } from 'services/contentApi.type'
 import { FlatList, Text, View } from 'dripsy'
 import { ListRenderItem } from 'react-native'
 import MessageCard from './MessageCard'
+import { useAppSelector } from 'app/provider/redux/store'
 
 const AnnouncementPage = () => {
-  const { data, refetch, isLoading } = useAnnouncementQuery()
+  const locale = useAppSelector((s) => s.setting.locale)
+  const { data, refetch, isLoading } = useAnnouncementQuery(locale)
 
   return (
     <View sx={{ backgroundColor: '$secondary', flex: 1, flexBasis: 0 }}>

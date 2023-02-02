@@ -1,6 +1,5 @@
 import useAlert from 'app/hooks/useAlert'
 import { useAppSelector } from 'app/provider/redux/store'
-import { AuthActions } from 'app/store/authReducer'
 import { SettingActions } from 'app/store/setting.slice'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
 import { memo, useEffect } from 'react'
@@ -27,12 +26,12 @@ const LuckyDrawTrigger = () => {
 
   const CheckLuckyDrawBalance = async () => {
     try {
-      const { success, data } = await getFreeSpinInfo({ username })
+      const { success, data } = await getFreeSpinInfo()
         .unwrap()
         .catch((e: IResponse<FreeSpinResult>) => {
           // only show the finish claim error on register success
           if (
-            syncShieldActionType === Shield_Action.REGISTER &&
+            syncShieldActionType === Shield_Action.REGISTER && // Dont show freespin error message if player is not from register flow
             e.code !== 28004 // 28004 code = no event is active, ignore the message
           ) {
             showAlert(e.message)
@@ -71,6 +70,8 @@ const LuckyDrawTrigger = () => {
   }
 
   useEffect(() => {
+    // Do not trigger before shield is synced
+    // luckyDrawTriggered help prevent on web navigation reenter on home page causing lucky spin to appear again.
     if (!shieldStatus || luckyDrawTriggered) {
       return
     }

@@ -1,7 +1,7 @@
 import { HOME_PADDING } from 'app/constant/sizes'
+import { LaunchGame } from 'app/features/games/GameLauncher'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import BouncePressable from 'app/pressable/BouncePressable'
-import { GameLauncherActions } from 'app/store/gameLauncher.slice'
 import { Image } from 'dripsy'
 import { useDispatch } from 'react-redux'
 import { GameConfig } from 'services/contentApi.type'
@@ -27,13 +27,11 @@ const ListImage = ({ data }: { data: GameConfig[] }) => {
           <BouncePressable
             key={item.game_code + `'${index}'`}
             onPress={() => {
-              dispatch(
-                GameLauncherActions.launchGame({
-                  gameCode: item.game_code,
-                  providerCode: item.game_provider_code,
-                  image: item.image,
-                })
-              )
+              LaunchGame({
+                gameCode: item.game_code,
+                providerCode: item.game_provider_code,
+                image: item.image,
+              })
             }}
           >
             <Image

@@ -66,7 +66,7 @@ const MatchesSection = () => {
   )
 
   const onPress = (match: MatchResult) => {
-    const launchAction = {
+    getAction({
       type: ActionType.GAME,
       payload: {
         gc: '1',
@@ -83,9 +83,7 @@ const MatchesSection = () => {
           matchid: match.EventId.toString(),
         },
       } as Game,
-    }
-
-    getAction(launchAction)()
+    })()
   }
 
   return (

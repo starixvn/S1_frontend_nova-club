@@ -1,8 +1,9 @@
+import React from 'react'
 import LoginPage from 'app/features/auth/login'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useRouter } from 'next/router'
 import useLoginWithToken from '../hooks/useLoginWithToken'
-import React from 'react'
 
 const guestRoutes = [
   '/auth',
@@ -11,6 +12,11 @@ const guestRoutes = [
   '/customer-support',
   '/download',
   '/event',
+  '/slot',
+  '/livecasino',
+  '/sportsbook',
+  '/games',
+  '/messages',
 ]
 
 /* 
@@ -28,30 +34,25 @@ export function serialize(obj) {
 }
 
 const AuthenticationProvider = ({ children }) => {
-  const { push, route, asPath, query, replace } = useRouter()
+  const router = useRouter()
+  const { asPath, query, replace: nextJsReplace } = router
   const loginInfo = useAppSelector((s) => s.auth.info)
 
   const isLoggedInWithToken = useLoginWithToken(loginInfo?.token)
   if (isLoggedInWithToken) {
-    replace('/', '/', { shallow: true })
+    nextJsReplace('/', '/', { shallow: true })
     return children
   }
 
   // After login success, push will take sometimes to redirect to after login page
-  // persisting the LoginPage with query.r detection will prevent empty pages being shown
+  // persisting the LoginPage with query.r detection will prevent empty page being shown
 
   // if route doesnt exists in guestRoutes
-  if (!guestRoutes.some((r) => asPath.startsWith(r))) {
+  if (!guestRoutes.some((r) => asPath === '/' || asPath.startsWith(r))) {
     if (!loginInfo) {
-      let serializedQuery = serialize(query)
-
-      push(
-        `${route}?r=${route}&${serializedQuery}`,
-        `/auth/login?r=${route}&${serializedQuery}`,
-        {
-          shallow: true,
-        }
-      )
+      nextJsReplace('/auth/login', '/auth/login?r=' + asPath, {
+        shallow: true,
+      })
 
       return <LoginPage />
     }

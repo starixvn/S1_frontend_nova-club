@@ -8,7 +8,6 @@ export default function useLoginWithToken(
   skip?: boolean
 ) {
   const dispatch = useAppDispatch()
-  const { push } = useRouter()
 
   if (!skip) {
     const url = new URLSearchParams(window.location.search)

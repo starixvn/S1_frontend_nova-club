@@ -1,15 +1,13 @@
 import { Button } from 'app/components/form/Button'
 import useAlert from 'app/hooks/useAlert'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
-import validation, { getErrorMessage } from 'app/utils/validation'
+import validation from 'app/utils/validation'
 import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React from 'react'
-import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
-import { useDispatch } from 'react-redux'
 import { useUpdateTransferPinMutation } from 'services/pinApi'
-import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import UnderlinePinField from '../UnderlinePinField'
 
@@ -21,7 +19,7 @@ type ChangePinFormValues = {
 
 const ChangePinScreen = () => {
   const { t } = useLocalization()
-  const { back } = useRouter()
+  const { back } = useContextualRouter()
   const { showAlert } = useAlert()
   const [updateTransferPin] = useUpdateTransferPinMutation()
 

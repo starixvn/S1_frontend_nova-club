@@ -13,7 +13,7 @@ import PersonalMessagePage from './PersonalMessagePage'
 
 const { useParam } = createParam<{ tab: string }>()
 const Messages = () => {
-  const [tab] = useParam('tab')
+  const [tab = 0] = useParam('tab')
   const { t } = useLocalization()
 
   const renderScene = SceneMap({

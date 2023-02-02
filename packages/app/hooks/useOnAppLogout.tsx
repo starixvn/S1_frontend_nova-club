@@ -1,26 +1,24 @@
-import { ContextualNavigationContext } from 'app/navigation/web/ContextualNavigation'
+import { CommonActions, useNavigation } from '@react-navigation/native'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { logOut } from 'app/utils/authUtil'
-import { useContext } from 'react'
 import { Platform } from 'react-native'
-import { useRouter } from 'solito/router'
 import useResetRTKQState from './useResetRTKQState'
 
 const useOnAppLogout = () => {
-  const { replace } = useRouter()
-  const { clear: clearNavigationStack } = useContext(
-    ContextualNavigationContext
-  )
+  const { replace, push } = useContextualRouter()
   const { resetRTKQState } = useResetRTKQState()
 
   const logout = async () => {
     try {
       await logOut()
-      replace('/auth/login')
 
       if (Platform.OS === 'web') {
-        clearNavigationStack()
-        resetRTKQState()
+        replace('/')
+      } else {
+        push('/')
       }
+
+      setTimeout(resetRTKQState, 1000)
     } catch (error) {
       console.error(error)
       throw error

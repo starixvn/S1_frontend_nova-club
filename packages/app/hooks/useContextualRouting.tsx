@@ -1,6 +1,6 @@
 import { NavigationContext } from '@react-navigation/core'
 import { useNavigation } from '@react-navigation/native'
-import { ContextualComponentType } from 'app/navigation/web/ContextualNavigation'
+import { ContextualComponentType } from 'app/navigation/contextual/ContextualComponents'
 import { getCurrentNavigationRoute } from 'app/utils/navigation'
 import { useContext } from 'react'
 

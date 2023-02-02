@@ -1,27 +1,23 @@
 import { Gradient } from '@dripsy/gradient'
 import Image from 'app/components/common/Image'
 import useContainerDimension from 'app/hooks/useContainerDimension'
-import useContextualRouting from 'app/hooks/useContextualRouting'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Action, ActionType, getAction } from 'app/utils/actionGenerator'
 import { View } from 'dripsy'
-import shuffle from 'lodash/shuffle'
-import times from 'lodash/times'
+import sample from 'lodash/sample'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Text, TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import Animated, {
   Easing,
   runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withDelay,
-  withSpring,
   withTiming,
 } from 'react-native-reanimated'
 import { CNYRollResult } from 'services/eventApi.type'
-import { useRouter } from 'solito/router'
 import SlotMachineFrame from './SlotMachineFrame'
-import sample from 'lodash/sample'
 import { SoundController } from './useSoundController'
 
 const SPIN_ITEM_LENGTH = 10
@@ -81,9 +77,8 @@ const SlotMachineRoll = ({
 }: SlotMachineRollProps) => {
   const [currentRound, setCurrentRound] = useState(-1)
   const [currentRoundCompleteCount, setCurrentRoundCompleteCount] = useState(0)
-  const { push } = useRouter()
+  const { push } = useContextualRouter()
   const locale = useAppSelector((s) => s.setting.locale)
-  const { makeContextualHref } = useContextualRouting()
 
   useEffect(() => {
     // Reset / start off when new Result passed in
@@ -172,7 +167,7 @@ const SlotMachineRoll = ({
   const handleTncButton = useCallback(() => {
     const action = getAction(tncData)
     console.log(action)
-    action({ push, locale, makeContextualHref })
+    action({ push, locale })
   }, [locale])
 
   const yellowShading = [

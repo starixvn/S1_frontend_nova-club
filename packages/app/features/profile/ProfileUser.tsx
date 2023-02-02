@@ -1,25 +1,19 @@
 import Avatar from 'app/components/Avatar'
 import IconButton from 'app/components/form/IconButton'
 import Icon from 'app/components/Icon'
-import useContextualRouting from 'app/hooks/useContextualRouting'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import BouncePressable from 'app/pressable/BouncePressable'
-import useLocalization from 'app/provider/localization'
 import { copyToClipboard } from 'app/utils'
 import { styled, Text, View } from 'dripsy'
 import React from 'react'
 import { useModal } from 'react-native-modalfy'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import { useRouter } from 'solito/router'
 const ProfileUser = () => {
-  const { t } = useLocalization()
-  const { push, back } = useRouter()
+  const { back } = useContextualRouter()
   const { openModal } = useModal()
   const { data } = usePlayerProfileQuery()
   const username = data?.username
   const referralCode = data?.referral_code
-
-  const { makeContextualHref } = useContextualRouting()
-  const toQrcodeScanner = makeContextualHref('qrcode-scanner')
 
   const handleCopy = () => {
     copyToClipboard(referralCode)

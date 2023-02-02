@@ -4,14 +4,13 @@ import { Button } from 'app/components/form/Button'
 import Icon from 'app/components/Icon'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import { ROUNDED_LOGO } from 'app/constant/imagePath'
-import { ContextualNavigationContext } from 'app/navigation/web/ContextualNavigation'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import { SettingActions } from 'app/store/setting.slice'
 import { View } from 'dripsy'
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { createParam } from 'solito'
-import { useRouter } from 'solito/router'
 
 const CONTENT_IMAGE = `${MEDIA_DOMAIN}${CONTENT_URI}/app-download.png`
 
@@ -20,12 +19,8 @@ const { useParam } = createParam()
 const DownloadScreen = () => {
   const [ref] = useParam('ref')
   const { t } = useLocalization()
-  const { push } = useRouter()
+  const { push } = useContextualRouter()
   const dispatch = useDispatch()
-
-  const { clear: clearNavigationStack } = useContext(
-    ContextualNavigationContext
-  )
 
   useEffect(() => {
     if (typeof ref === 'string') {
@@ -41,12 +36,10 @@ const DownloadScreen = () => {
     window.open(`${REFERRAL_DOMAIN}${ref ? '?ref=' + ref : ''}`)
   }
   const handlePressLogin = () => {
-    clearNavigationStack()
     push('/auth/login')
   }
 
   const handlePressRegister = () => {
-    clearNavigationStack()
     push('/auth/register')
   }
   return (

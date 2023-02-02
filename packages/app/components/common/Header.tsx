@@ -1,11 +1,11 @@
 import useOrientation from 'app/hooks/useOrientation'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { styled, Text, useSx, View } from 'dripsy'
 import { ComponentProps } from 'react'
 import { Platform } from 'react-native'
-import { useRouter } from 'solito/router'
 import { DripsyGradient } from '../Gradient'
 import Icon from '../Icon'
 
@@ -18,7 +18,7 @@ type HeaderProps = {
 const Header = ({ title, actions, titleProps = {} }: HeaderProps) => {
   const isAndroid = Platform.OS === 'android'
   const { t } = useLocalization()
-  const { back } = useRouter()
+  const { back } = useContextualRouter()
   const onGoBack = () => {
     back()
   }

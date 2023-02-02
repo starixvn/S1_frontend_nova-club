@@ -2,12 +2,13 @@ import { BOTTOM_NAV_HEIGHT } from 'app/constant/sizes'
 import FloatingContent from 'app/features/floatingContent'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useOrientation from 'app/hooks/useOrientation'
+import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Flex, View } from 'dripsy'
 import React, { useState } from 'react'
 import { Platform } from 'react-native'
-import { useRouter } from 'solito/router'
 import BottomNavIcon from './BottomNavIcon'
+import useContextualRouter from './contextual/useContextualRouter'
 
 const tabConfig = [
   {
@@ -52,7 +53,7 @@ const CIRCLE_HEIGHT = BAR_HEIGHT
 const MARGIN_TOP = -BAR_HEIGHT * 0.4
 
 const BottomNavigation = () => {
-  const { push } = useRouter()
+  const { push } = useContextualRouter()
   const { isLandscape } = useOrientation()
   const { returnHref } = useContextualRouting()
   const [delay, setDelay] = useState(false)
@@ -71,7 +72,7 @@ const BottomNavigation = () => {
   }
 
   const handleNavigationClick = (route) => {
-    push(route, undefined, { scroll: false })
+    push(route)
     setDelay(true)
     setTimeout(() => {
       setDelay(false)

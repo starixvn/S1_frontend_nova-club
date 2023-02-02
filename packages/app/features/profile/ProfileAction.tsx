@@ -1,11 +1,10 @@
 import { GradientList } from 'app/components/Gradient'
 import RoundedIcon from 'app/components/RoundedIcon'
-import useContextualRouting from 'app/hooks/useContextualRouting'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import { styled, Text, View } from 'dripsy'
 import React from 'react'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import { useRouter } from 'solito/router'
 type IconActionProps = {
   gradient: GradientList
   icon: string
@@ -15,14 +14,8 @@ type IconActionProps = {
 }
 
 const ProfileAction = ({ isCreditMember }) => {
-  const { push } = useRouter()
+  const { push } = useContextualRouter()
 
-  const { makeContextualHref } = useContextualRouting()
-  const toTransferScanner = makeContextualHref('transfer-scanner')
-  const toDeposit = makeContextualHref('deposit')
-  const toWithdrawal = makeContextualHref('withdrawal')
-  const toBankAccount = makeContextualHref('bank-account')
-  const toHistory = makeContextualHref('history')
   const { data: playerData } = usePlayerProfileQuery()
   const isPlayerName = !!playerData?.firstName
 
@@ -34,7 +27,7 @@ const ProfileAction = ({ isCreditMember }) => {
         icon="tf-user"
         title="menu.transfer"
         onPress={() => {
-          push(toTransferScanner, `/transfer-scanner`)
+          push(`/transfer-scanner`)
         }}
       />
       <IconAction
@@ -44,11 +37,8 @@ const ProfileAction = ({ isCreditMember }) => {
         title="menu.deposit"
         onPress={() => {
           isPlayerName
-            ? push(toDeposit, `/deposit`)
-            : push(
-                makeContextualHref('/profile/account-verification'),
-                `/profile/account-verification`
-              )
+            ? push(`/deposit`)
+            : push(`/profile/account-verification`)
         }}
       />
       <IconAction
@@ -56,20 +46,20 @@ const ProfileAction = ({ isCreditMember }) => {
         gradient="lightGreen"
         icon="wda"
         title="menu.withdraw"
-        onPress={() => push(toWithdrawal, '/withdrawal')}
+        onPress={() => push('/withdrawal')}
       />
       <IconAction
         disabled={isCreditMember}
         gradient="lightBlue"
         icon="card"
         title="menu.bankAccount"
-        onPress={() => push(toBankAccount, '/profile/bank-account')}
+        onPress={() => push('/profile/bank-account')}
       />
       <IconAction
         gradient="lightYellow"
         icon="history"
         title="menu.history"
-        onPress={() => push(toHistory, '/profile/history')}
+        onPress={() => push('/profile/history')}
       />
     </StyledView>
   )
