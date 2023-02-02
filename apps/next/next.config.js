@@ -54,11 +54,13 @@ const withTM = require('next-transpile-modules')([
   'app',
   'utils',
   'services',
+  'agent',
   '@gorhom/portal',
   '@react-native-community/datetimepicker',
   'react-native-share',
   '@shopify/flash-list',
   'recyclerlistview',
+  'i18n-js',
 ])
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',

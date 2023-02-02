@@ -1,4 +1,3 @@
-import { CommonActions, useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import ForgotPassword from 'app/features/auth/forgotPassword'
 import LoginPage from 'app/features/auth/login'
@@ -29,17 +28,14 @@ import SplashScreen from 'app/features/splashscreen'
 import TransferScannerScreen from 'app/features/transferScanner'
 import TransferScreen from 'app/features/transferScanner/transfer'
 import WithdrawalPage from 'app/features/withdrawal'
-import useResetRTKQState from 'app/hooks/useResetRTKQState'
-import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
-import { AuthActions } from 'app/store/authReducer'
 import { fadeScaleIn } from 'app/transitions/fade'
 import { Easing } from 'react-native'
 import DepositNavigation from './DepositNavigation'
-import TabNavigation from './TabNavigation'
+import MemberAgentNavigation from './MemberAgentNavigation'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
-  BottomNav: undefined
+  MemberAgent: undefined
   LoginPage: undefined
   RegisterPage: undefined
   DepositPage: undefined
@@ -176,8 +172,8 @@ export function NativeNavigation() {
         }}
       />
       <Stack.Screen
-        name="BottomNav"
-        component={TabNavigation}
+        name="MemberAgent"
+        component={MemberAgentNavigation}
         options={{
           cardStyleInterpolator: fadeScaleIn,
           transitionSpec: {

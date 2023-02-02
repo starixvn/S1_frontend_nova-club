@@ -1,0 +1,33 @@
+{
+  "version": "0.0.0",
+  "name": "agent",
+  "sideEffects": false,
+  "peerDependencies": {
+    "@dripsy/gradient": "*",
+    "@react-native-async-storage/async-storage": "*",
+    "react-native-chart-kit": "*",
+    "@react-navigation/bottom-tabs": "*",
+    "@react-navigation/native": "*",
+    "@react-navigation/native-stack": "*",
+    "@react-navigation/stack": "*",
+    "@reduxjs/toolkit": "*",
+    "dayjs": "*",
+    "dripsy": "*",
+    "expo-font": "*",
+    "formik": "*",
+    "moti": "*",
+    "react-native-actions-sheet": "*",
+    "react-native-gesture-handler": "*",
+    "react-native-modal": "*",
+    "react-native-modalfy": "*",
+    "react-native-reanimated": "*",
+    "react-native-svg": "*",
+    "react-redux": "*",
+    "solito": "*",
+    "yup": "*",
+    "react-native-qrcode-svg": "*",
+    "react-native-toast-message/lib/src/Toast": "*",
+    "expo-clipboard": "*"
+  },
+  "dependencies": {}
+}

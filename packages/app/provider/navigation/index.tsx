@@ -23,6 +23,8 @@ interface NavigationParamList {
   LotteryPage: undefined
   CNYCatSpinPage: undefined
 }
+
+// TODO Do we need theme on nav provider ?
 const MyTheme = {
   ...DefaultTheme,
   colors: {
@@ -38,13 +40,45 @@ export function NavigationProvider({
 }) {
   return (
     <NavigationContainer<NavigationParamList>
-      theme={MyTheme}
+      // theme={MyTheme}
       linking={useMemo(
         () => ({
           prefixes: ['http://localhost:3000'],
           config: {
             screens: {
               SplashScreen: 'splashscreen',
+              MemberAgent: {
+                screens: {
+                  Member: {
+                    screens: {
+                      BottomNav: {
+                        screens: {
+                          Home: '',
+                          Sportsbook: 'sportsbook',
+                          Games: '/games',
+                          Slots: '/slot',
+                          Casino: '/livecasino',
+                        },
+                      },
+                    },
+                  },
+                  Agent: {
+                    screens: {
+                      AgentMainTabNavigation: {
+                        screens: {
+                          AgentProfile: '/agent',
+                          Wallet: '/agent/wallet',
+                        },
+                      },
+                      ShareholderDetails: '/agent/shareholder-details',
+                      AgentDetails: '/agent/agent-details',
+                      AgentCommission: '/agent/commission',
+                      AgentCreatePin: '/agent/create-pin',
+                      AgentResetPin: '/agent/reset-pin',
+                    },
+                  },
+                },
+              },
               Forbidden: '/forbidden',
               Maintenance: '/maintenance',
               LoginPage: '/auth/login',
@@ -65,15 +99,7 @@ export function NavigationProvider({
                 },
               },
               WithdrawalPage: '/withdrawal',
-              BottomNav: {
-                screens: {
-                  Home: '',
-                  Sportsbook: 'sportsbook',
-                  Games: '/games',
-                  Slots: '/slot',
-                  Casino: '/livecasino',
-                },
-              },
+
               Profile: '/profile',
               FishingPage: '/games/fishing',
               LotteryPage: '/games/lottery',

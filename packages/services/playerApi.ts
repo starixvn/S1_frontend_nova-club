@@ -116,6 +116,34 @@ const playerApi = baseApiWithTag.injectEndpoints({
       }),
       invalidatesTags: ['PlayerProfile'],
     }),
+    listItems: builder.query<IResponse<ReportResult> | undefined, ReportArgs>({
+      query: (queryArgs) => ({
+        url: `/player_api/getPlayerReport`,
+        method: 'POST',
+        data: {
+          ...queryArgs,
+        },
+      }),
+      // Only have one cache entry because the arg always maps to one string
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName
+      },
+      // Always merge incoming data to the cache entry
+      merge: (currentCache, newItems, { arg }) => {
+        if (arg.offset > 1) {
+          newItems?.data?.rows &&
+            currentCache?.data?.rows.push(...newItems?.data?.rows)
+
+          return currentCache
+        }
+        return newItems
+      },
+      // Refetch when the page arg changes
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg !== previousArg
+      },
+      providesTags: ['Report'],
+    }),
   }),
 })
 
@@ -154,4 +182,5 @@ export const {
   useLuckySpinMutation,
   useLazyFreeSpinQuery,
   usePlayerRealNameMutation,
+  useListItemsQuery,
 } = playerApi

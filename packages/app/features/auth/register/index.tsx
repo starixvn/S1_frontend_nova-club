@@ -2,9 +2,7 @@ import { APP_DEVICE_ANDROID, APP_DEVICE_IOS } from 'app/constant/redux'
 import useAlert from 'app/hooks/useAlert'
 import useBioAuth from 'app/hooks/useBioAuth'
 import useContainerDimension from 'app/hooks/useContainerDimension'
-import useShield from 'app/hooks/useShield'
 import useUniqueId from 'app/hooks/useUniqueId'
-import { ContextualNavigationContext } from 'app/navigation/contextual/ContextualNavigation'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
@@ -16,15 +14,10 @@ import validation from 'app/utils/validation'
 import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { AnimatePresence, MotiView, useDynamicAnimation } from 'moti'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Platform } from 'react-native'
-import { useModal } from 'react-native-modalfy'
 import { useRegisterMutation } from 'services/authApi'
-import {
-  LoginResult,
-  RegisterResult,
-  Shield_Action,
-} from 'services/authApi.type'
+import { LoginResult, RegisterResult } from 'services/authApi.type'
 import { createParam } from 'solito'
 import * as Yup from 'yup'
 import AuthLayout from '../layout/AuthLayout'
@@ -210,7 +203,11 @@ const RegisterPage = () => {
             '#fc9e9e',
           ]}
         >
-          <RegisterForm formik={formik} onSuccess={onRegisterSuccess} />
+          <View sx={{ alignItems: 'center', pt: '$8', flex: 1 }}>
+            <View sx={{ width: '75%', flex: 1 }}>
+              <RegisterForm formik={formik} onSuccess={onRegisterSuccess} />
+            </View>
+          </View>
         </AuthLayout>
       </MotiView>
 

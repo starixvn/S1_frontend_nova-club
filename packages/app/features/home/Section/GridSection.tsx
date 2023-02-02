@@ -148,7 +148,7 @@ const GridSection = () => {
             itemSpace={itemSpace}
             type={j.type}
             itemSource={j.src}
-            title={t(j.title)}
+            title={j.title && t(j.title)}
             key={index}
             width={width}
           />

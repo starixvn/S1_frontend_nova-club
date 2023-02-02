@@ -1,0 +1,148 @@
+import DataTable from 'agent/components/DataTable/DataTable'
+import { DateTimeField } from 'agent/components/DataTable/DataTableCell'
+import TableListing from 'agent/components/DataTable/TableListing'
+import Icon from 'agent/components/Icon'
+import Text from 'agent/components/Text'
+import { DateFilter, DateFilterOptions } from 'agent/constant/select'
+import { useShareholderCommissionListQuery } from 'agent/services/reportApi'
+import { ShareholderCommissionListResult } from 'agent/services/reportApi.type'
+import useLocalization from 'app/provider/localization'
+import { toThousandSeparator } from 'app/utils'
+import dayjs from 'dayjs'
+import { View } from 'dripsy'
+import React, { useState } from 'react'
+import { useModal } from 'react-native-modalfy'
+import AgentFloatingContent from '../floatingContent'
+
+export type CommissionFilterOptions = {
+  date: DateFilter | string | undefined
+  startDate: Date
+  endDate: Date
+}
+
+const LIMIT = 10
+const ShareholderCommissionScreen = () => {
+  const { openModal } = useModal()
+  const { t } = useLocalization()
+  const [filter, setFilter] = useState<CommissionFilterOptions>({
+    date: DateFilterOptions[0]?.value,
+    startDate: dayjs().startOf('date').toDate(),
+    endDate: dayjs().endOf('date').toDate(),
+  })
+
+  const [offset, setOffset] = useState(0)
+
+  const { reportData, totalData, hasMorePage, isFetching, refetch } =
+    useShareholderCommissionListQuery(
+      {
+        start: offset * LIMIT,
+        length: LIMIT,
+        date_from: `${dayjs(filter.startDate).format(
+          'YYYY-MM-DD HH:mm:ss'
+        )} to ${dayjs(filter.endDate).format('YYYY-MM-DD HH:mm:ss')}`,
+      },
+      {
+        selectFromResult: ({ data, isFetching }) => ({
+          isFetching,
+          reportData: data?.result?.data ?? [],
+          totalData: data?.result?.recordsFiltered ?? 0,
+          hasMorePage: data?.result?.recordsTotal ?? 0 >= offset * LIMIT,
+        }),
+      }
+    )
+
+  const fourthCellStyle = { flex: 1 / 2 }
+
+  const onRenderHeader = () => (
+    <DataTable.Header>
+      <DataTable.Title bordered center>
+        {t('common.date')}
+      </DataTable.Title>
+      <DataTable.Title bordered>{t('common.username')}</DataTable.Title>
+      <DataTable.Cell bordered center>
+        <View
+          sx={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Text sx={{ fontWeight: 'bold', mr: 2 }}>{t('common.turnover')}</Text>
+          <Icon name="info" color="red" size={16} />
+        </View>
+      </DataTable.Cell>
+      <DataTable.Title bordered center containerStyle={fourthCellStyle}>
+        PT %
+      </DataTable.Title>
+      <DataTable.Title center>{t('report.commission')}</DataTable.Title>
+    </DataTable.Header>
+  )
+
+  const onRenderItem = ({
+    item,
+  }: {
+    item: ShareholderCommissionListResult
+  }) => (
+    <DataTable.Row size="big">
+      <DataTable.Cell bordered center>
+        <DateTimeField
+          from={dayjs(item.rpt_date).format('YYYY-MM-DD')}
+          to={dayjs(item.rpt_date).format('HH:mm:ss')}
+        />
+      </DataTable.Cell>
+      <DataTable.Cell bordered>{item.username}</DataTable.Cell>
+      <DataTable.Cell bordered center textStyle={{ fontSize: 10 }}>
+        {toThousandSeparator(item.turnover_amt)}
+      </DataTable.Cell>
+      <DataTable.Cell bordered center style={fourthCellStyle}>
+        {item.shareholding_perc}
+      </DataTable.Cell>
+      <DataTable.Cell center textStyle={{ fontSize: 10 }}>
+        {toThousandSeparator(item.earning_amt)}
+      </DataTable.Cell>
+    </DataTable.Row>
+  )
+
+  const onFilter = () => {
+    openModal('FilterCommissionReportModal', {
+      filterOptions: filter,
+      onConfirm: (value: CommissionFilterOptions) => {
+        setFilter({
+          date: value.date,
+          endDate: value.endDate,
+          startDate: value.startDate,
+        })
+        setOffset(0)
+      },
+    })
+  }
+
+  const onLoadMore = () => {
+    hasMorePage && !isFetching && setOffset((prev) => prev + 1)
+  }
+
+  const onRefresh = () => {
+    if (!offset) return refetch()
+    setOffset(0)
+  }
+
+  return (
+    <View sx={{ flex: 1 }}>
+      <TableListing
+        title={t('report.reportNote')}
+        data={reportData}
+        renderHeader={onRenderHeader}
+        renderItem={onRenderItem}
+        keyExtractor={(item, index) => `${index} Table ${item.username}`}
+        onLoadMore={onLoadMore}
+        // onRefresh={onRefresh}
+        isFetching={isFetching}
+        containerStyle={{ flex: 1 }}
+      />
+
+      <AgentFloatingContent onPress={onFilter} />
+    </View>
+  )
+}
+
+export default ShareholderCommissionScreen

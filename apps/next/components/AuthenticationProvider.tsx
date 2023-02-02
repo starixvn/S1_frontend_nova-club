@@ -1,6 +1,4 @@
-import React from 'react'
 import LoginPage from 'app/features/auth/login'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useRouter } from 'next/router'
 import useLoginWithToken from '../hooks/useLoginWithToken'
@@ -36,6 +34,7 @@ export function serialize(obj) {
 const AuthenticationProvider = ({ children }) => {
   const router = useRouter()
   const { asPath, query, replace: nextJsReplace } = router
+
   const loginInfo = useAppSelector((s) => s.auth.info)
 
   const isLoggedInWithToken = useLoginWithToken(loginInfo?.token)

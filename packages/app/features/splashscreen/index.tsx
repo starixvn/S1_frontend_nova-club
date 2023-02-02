@@ -68,6 +68,7 @@ const SplashScreen = () => {
   )
 
   const loginResult = useAppSelector((state) => state.auth.info)
+  const agentToken = useAppSelector((state) => state.agent.access_token)
 
   useEffect(() => {
     unlockAsync()
@@ -75,11 +76,9 @@ const SplashScreen = () => {
 
   useEffect(() => {
     if (status) {
-      // if (loginResult) {
-      //   replace('/')
-      //   return
-      // }
-      replace('/')
+      if (agentToken) {
+        replace('/agent')
+      } else replace('/')
     }
   }, [status, replace, loginResult])
 

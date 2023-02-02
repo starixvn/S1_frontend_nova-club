@@ -1,25 +1,28 @@
 {
   "accountVerification": {
-    "title": "Account Verification",
-    "secondaryTitle": "Fill in your real name to continue:",
+    "placeHolder": "Please enter your full name",
     "realName": "Real Name",
     "remark": "Please ensure the real name is match your own account name to avoid any delay or cancelled transaction",
-    "placeHolder": "Please enter your full name"
+    "secondaryTitle": "Fill in your real name to continue:",
+    "title": "Account Verification"
   },
   "auth": {
     "accountReg": "Account Registration",
     "accountVerification": "Account Verification",
+    "agentLogin": "Agent Login",
     "enterNewPassword": "Please enter your New Password",
     "enterOtp": "Please enter OTP",
     "forgotPassword": "Forgot Password",
     "login": "Login",
     "loginToAccount": "Login to your account",
+    "memberLogin": "Member Login",
     "noReceiveOTP": "Didn't receive OTP?",
     "readAndAgree": "I have read & agree the",
     "referrerInfo": "Referrer information",
     "register": "Register",
     "rememberMe": "Remember Me",
-    "table": "Commission Table"
+    "table": "Commission Table",
+    "welcome": "Welcome Back"
   },
   "bank": {
     "accountName": "Account name",
@@ -31,23 +34,36 @@
     "noBankAccount": "No Bank Account",
     "selectBank": "Please select bank"
   },
+  "barcode": {
+    "title": ""
+  },
   "biometric": {
     "label": "Login with Biometrics",
     "message": "Would you like to enable biometric login?",
     "notFound": "Biometric is not supported / not enabled on your device"
   },
   "commission": {
+    "cAgent": "",
+    "cPlayer": "",
+    "cPlayerReferrer": "",
     "cashPlayer": "Cash Player",
     "cashPlayerReferral": "Cash Player Referral",
     "creditPlayer": "Credit player",
     "productLists": "Products List",
-    "table": "Commission Table"
+    "table": "Commission Table",
+    "title": "",
+    "type": ""
   },
   "common": {
+    "accountName": "",
+    "accountNumber": "",
+    "active": "",
+    "agent": "",
     "all": "All",
     "amount": "Amount",
     "app": "App",
     "balance": "Balance",
+    "bankCard": "",
     "bet": "Bet",
     "cancel": "Cancel",
     "cash": "Cash",
@@ -59,14 +75,22 @@
     "contactUs": "Contact Us",
     "copied": "Copied to clipboard",
     "copy": "Copy",
+    "countryCode": "",
+    "create": "",
+    "date": "",
     "desktop": "Desktop",
     "download": "Download",
     "emptyResult": "Empty Result",
     "enter": "Enter",
+    "enterAccountName": "",
+    "enterAccountNumber": "",
     "enterAmount": "Please enter your %{field} amount",
     "enterConfirmPassword": "Please confirm password",
     "enterNewPassword": "Please enter new password",
     "enterOldPassword": "Please enter old password",
+    "enterUsername": "",
+    "failedOtp": "",
+    "from": "",
     "hello": "Hello!!",
     "home": "Home",
     "id": "ID",
@@ -74,6 +98,8 @@
     "importantNotes": "Important Notes",
     "loading": "Loading",
     "lose": "Lose",
+    "member": "",
+    "mobileNumber": "",
     "more": "More",
     "newPassword": "New Password",
     "next": "Next",
@@ -89,12 +115,19 @@
     "referenceId": "Reference ID",
     "reward": "Reward",
     "rewards": "Rewards",
+    "search": "",
     "selectAll": "Select All",
+    "selectBank": "",
     "selectDate": "Select A Date",
     "send": "Send",
+    "sendOtp": "",
     "share": "Share",
+    "shareholder": "",
     "spin": "SPIN NOW",
+    "status": "",
     "submit": "Submit",
+    "suspended": "",
+    "to": "",
     "turnover": "Turnover",
     "userAgreement": "user agreement",
     "username": "Username",
@@ -189,6 +222,12 @@
       "rebate": "Rebate",
       "withdrawal": "Withdrawal"
     },
+    "type": {
+      "adjustment": "",
+      "commission": "",
+      "transfer": "",
+      "withdraw": ""
+    },
     "withdrawalStatus": {
       "all": "All",
       "declined": "Declined",
@@ -240,9 +279,13 @@
     "underMaintenance": "Game Under Maintenance"
   },
   "maintenance": "The System is under maintenance",
+  "member": {
+    "title": ""
+  },
   "menu": {
     "agentLogin": "Agent Login",
     "bankAccount": "Bank Account",
+    "changePass": "",
     "changePassword": "Change Password",
     "changePin": "Change PIN",
     "commisionTable": "Commission Table",
@@ -250,6 +293,7 @@
     "customerSupport": "Customer Support",
     "deposit": "Deposit",
     "depositConfirmation": "Deposit Confirmation",
+    "desktopVersion": "",
     "gameHistory": "Game History",
     "history": "History",
     "logout": "Logout",
@@ -257,7 +301,9 @@
     "message/announcement": "Message/Announcement",
     "profile": "Profile",
     "referral": "Referral",
+    "resetPin": "",
     "switchAccount": "Switch Account",
+    "switchMember": "",
     "tab": {
       "bets": "Bet",
       "date": "Date",
@@ -326,6 +372,8 @@
   },
   "pin": {
     "confirmPin": "Confirm PIN",
+    "createPin": "",
+    "enterPin": "",
     "forgotPin": "Forgot PIN",
     "headerText1": "Create 6-digit PIN",
     "headerText2": "Secure your transfer with PIN",
@@ -333,12 +381,16 @@
     "note1": "Pin is required for transfer",
     "oldPin": "Old Pin",
     "pin": "PIN",
+    "pinConfirmation": "",
+    "resetPin": "",
     "submitNote": "All your transactions are processed in a safe and secured environment.",
     "submitTitle": "Enter 6-digit PIN to confirm"
   },
   "profile": {
     "accumulateReward": "Accumulate Reward",
     "active": "Active Player",
+    "createdDate": "",
+    "currency": "",
     "details": {
       "currency": "Currency",
       "phone": "Phone Number",
@@ -346,6 +398,12 @@
       "referrer": "Referrer",
       "username": "Username"
     },
+    "direct": "",
+    "email": "",
+    "indirect": "",
+    "lastLogin": "",
+    "mobile": "",
+    "name": "",
     "overview": {
       "circle": "Circle",
       "direct": "Direct",
@@ -356,9 +414,13 @@
       "w/l": "Win/Lose (VND)"
     },
     "playerId": "Player ID",
+    "realName": "",
     "registered": "Registered",
     "reward": "Monthly Reward",
-    "timeline": "UTC/GMT +7"
+    "subShareholder": "",
+    "timeline": "UTC/GMT +7",
+    "title": "",
+    "totalDownline": ""
   },
   "qr": {
     "downloadQrCode": "Download QR code",
@@ -372,6 +434,26 @@
     "link": "Referral Link",
     "refer": "Refer your friends now \nto earn more commission",
     "shareMessage": "Share this referral link to receive rewards"
+  },
+  "report": {
+    "bet": "",
+    "commission": "",
+    "earning": "",
+    "lastLogin": "",
+    "reportNote": "",
+    "title": "",
+    "transaction": "",
+    "transactionDate": "",
+    "transactionFilter": "",
+    "transactionType": "",
+    "type": ""
+  },
+  "shAgent": {
+    "add": "",
+    "filter": "",
+    "regDate": "",
+    "title": "",
+    "totalMember": ""
   },
   "status": {
     "alert": "Alert",
@@ -405,6 +487,9 @@
   },
   "transfer": {
     "avaiableAmount": "Available Amount",
+    "playerId": "",
+    "playerName": "",
+    "transferConfirmation": "",
     "transferTo": "Transfer To"
   },
   "userAgreement": {
@@ -414,7 +499,9 @@
     "alphanumeric": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only",
     "amount": "%{amount} not in range",
     "amount0": "Amount must not be 0",
+    "amount500k": "",
     "amountLessThan": "Amount cannot be less than %{min}",
+    "amountNumber": "",
     "dailyLimitReached": "Your Daily Limit Reached",
     "email": "Mail format is wrong",
     "enterId": "Please enter ID",
@@ -438,6 +525,26 @@
     "usdtFormat": "Must be ERC-20 / TRC-20 compatible wallet address",
     "userNameMinMaxLength": "6-18 characters only",
     "username": "6-18 characters only"
+  },
+  "wallet": {
+    "addBank": "",
+    "addNew": "",
+    "declined": "",
+    "enterPlayerId": "",
+    "enterTransferAmount": "",
+    "enterWithdrawalAmount": "",
+    "fundTransfer": "",
+    "nettPayout": "",
+    "paid": "",
+    "payment": "",
+    "pending": "",
+    "recentTransaction": "",
+    "referralId": "",
+    "title": "",
+    "withdrawal": "",
+    "withdrawalAmountNote": "",
+    "withdrawalConfirmation": "",
+    "withdrawalTo": ""
   },
   "withdrawal": {
     "withdrawTo": "Withdraw To"

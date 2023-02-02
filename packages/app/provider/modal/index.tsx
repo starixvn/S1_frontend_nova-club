@@ -1,3 +1,4 @@
+import { agentModalConfig } from 'agent/provider/agentModal'
 import LoadingModal from 'app/components/modal/LoadingModal'
 import { ModalAction } from 'app/components/modal/Modal.type'
 import ModalWrapper from 'app/components/modal/ModalWrapper'
@@ -138,6 +139,7 @@ const modalConfig: ModalConfigType = {
   SpinManiaWinModal: {
     modal: getDynamicComponent('SpinManiaWinModal'),
   },
+  ...agentModalConfig,
 }
 
 const stack = createModalStack(modalConfig, {

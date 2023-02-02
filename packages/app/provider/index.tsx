@@ -1,6 +1,5 @@
 import { PortalProvider } from '@gorhom/portal'
 import RootToast from 'app/components/RootToast'
-import SnowFall from 'app/components/snow/SnowFall'
 import App from 'app/features/App'
 import GameLauncher from 'app/features/games/GameLauncher'
 import useNotification from 'app/hooks/notification/useNotification'

@@ -8,13 +8,10 @@ import { useIsFocused } from 'app/hooks/isFocus/useIsFocused'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import BouncePressable from 'app/pressable/BouncePressable'
-import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { ScrollView, Text, View } from 'dripsy'
-import React, { useCallback, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Platform } from 'react-native'
-
-const BACK_ICON_SIZE = 30
 
 const BANNER_RATIO = 768 / 350
 
@@ -40,24 +37,16 @@ const AuthLayout = ({
   const isFocus = useIsFocused()
   const { top, bottom } = useSafeArea()
   const { width } = useContainerDimension()
-  const { replace, back } = useContextualRouter()
-  const { token } = useAppSelector((state) => state.auth.info) || {}
+  const { back } = useContextualRouter()
 
   const onPressBack = () => {
     if (onBack) onBack()
     else back()
   }
 
-  const checkIfUserLoggedIn = useCallback(() => {
-    return Boolean(token)
-  }, [token])
-
   useEffect(() => {
     if (!isFocus) return
 
-    // if (checkIfUserLoggedIn()) {
-    //   replace('/')
-    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocus])
 
@@ -141,14 +130,9 @@ const AuthLayout = ({
                 resizeMode="cover"
                 sx={{ width, height: width / BANNER_RATIO }}
               />
-
               {formHeader}
-
-              <View sx={{ alignItems: 'center', pt: '$8', flex: 1 }}>
-                <View sx={{ width: '75%', flex: 1 }}>{children}</View>
-              </View>
+              {children}
             </View>
-
             <View sx={{ alignItems: 'center', mb: bottom + 8, mt: 40 }}>
               <ProfileLanguage isAuthRequired={false} />
             </View>

@@ -1,3 +1,7 @@
+import useAfterLogin from 'agent/hooks/useAfterLogin'
+import { useLoginMutation as useAgentLoginMutation } from 'agent/services/authApi'
+import { AgentAuthActions } from 'agent/store/agentAuthReducer'
+import { ROLE } from 'agent/utils/helper'
 import CheckBox from 'app/components/CheckBox'
 import { Button } from 'app/components/form/Button'
 import IconButton from 'app/components/form/IconButton'
@@ -17,7 +21,8 @@ import validation, {
 } from 'app/utils/validation'
 import { Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import React, { useRef, useState } from 'react'
+import { AnimatePresence, MotiText } from 'moti'
+import React, { useContext, useRef, useState } from 'react'
 import { Platform, StyleSheet, TextInput as RNTextField } from 'react-native'
 import { useLoginMutation } from 'services/authApi'
 import { Shield_Action } from 'services/authApi.type'
@@ -31,8 +36,13 @@ type LoginFormValues = {
   password: string
 }
 
-const LoginForm = () => {
+type LoginFormProps = {
+  isAgent: boolean
+}
+
+const LoginForm = ({ isAgent }: LoginFormProps) => {
   const [login] = useLoginMutation()
+  const [agentLogin] = useAgentLoginMutation()
   const { t } = useLocalization()
   const { showAlert } = useAlert()
   const [errorMsg, setErrorMsg] = useState('')
@@ -41,6 +51,8 @@ const LoginForm = () => {
   const [afterLoginRedirection] = useParam('r', {
     initial: '/',
   })
+
+  const { handleAgentLogin } = useAfterLogin()
 
   const passwordFieldRef = useRef<RNTextField>(null)
   const usernameFieldRef = useRef<RNTextField>(null)
@@ -68,25 +80,43 @@ const LoginForm = () => {
     try {
       setIsSubmitting(true)
 
-      const { data, success, message } = await login({
-        username,
-        password,
-      }).unwrap()
+      if (isAgent) {
+        //handle agent login
+        const { result, success, message } = await agentLogin({
+          username,
+          password,
+        }).unwrap()
 
-      if (success && data) {
-        // syncShield(Shield_Action.LOGIN)
-        dispatch(
-          SettingActions.setRememberMe(
-            isRemember ? { username, password } : undefined
-          )
-        )
-
-        dispatch(
-          TempSettingActions.setSyncShieldActionType(Shield_Action.LOGIN)
-        )
-        normalLogin(username, password, () => handleProceedLogin(data, actions))
+        if (success && result) {
+          dispatch(AgentAuthActions.setAgentAuthToken(result.data.access_token))
+          handleAgentLogin()
+        } else {
+          throw new Error(message)
+        }
       } else {
-        throw new Error(message)
+        //handle member login
+        const { data, success, message } = await login({
+          username,
+          password,
+        }).unwrap()
+
+        if (success && data) {
+          // syncShield(Shield_Action.LOGIN)
+          dispatch(
+            SettingActions.setRememberMe(
+              isRemember ? { username, password } : undefined
+            )
+          )
+
+          dispatch(
+            TempSettingActions.setSyncShieldActionType(Shield_Action.LOGIN)
+          )
+          normalLogin(username, password, () =>
+            handleProceedLogin(data, actions)
+          )
+        } else {
+          throw new Error(message)
+        }
       }
     } catch (error) {
       showAlert(error)
@@ -123,8 +153,8 @@ const LoginForm = () => {
 
   const formik = useFormik<LoginFormValues>({
     initialValues: {
-      username: rememberMeCredential?.username || '',
-      password: rememberMeCredential?.password || '',
+      username: 'shlouis8',
+      password: 'aloha123',
     },
     validationSchema: Yup.object({
       username: validation.username,
@@ -242,17 +272,28 @@ const LoginForm = () => {
           </Button>
         </View>
 
-        <View sx={{ mt: '$5' }}>
+        <View
+          sx={{ mt: '$5', minHeight: 20 }}
+          pointerEvents={isAgent ? 'none' : 'auto'}
+        >
           <TouchableOpacity onPress={() => push('/auth/register')}>
-            <Text
-              sx={{
-                textAlign: 'center',
-                fontWeight: 'bold',
-                color: '$orange',
-              }}
-            >
-              {t('auth.register')}
-            </Text>
+            <AnimatePresence>
+              {!isAgent && (
+                <MotiText
+                  from={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ type: 'timing', duration: 250 }}
+                  style={{
+                    textAlign: 'center',
+                    fontWeight: 'bold',
+                    color: '#F15D12',
+                  }}
+                >
+                  {t('auth.register')}
+                </MotiText>
+              )}
+            </AnimatePresence>
           </TouchableOpacity>
         </View>
       </View>

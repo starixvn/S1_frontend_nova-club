@@ -13,6 +13,7 @@ import { FontSource, useFonts } from 'expo-font'
 import { Platform } from 'react-native'
 import { fontName, NotoSansBold, NotoSansBoldItalic } from 'app/provider/dripsy'
 import ICON_FILE from 'app/assets/fonts/icomoon.ttf'
+import AGENT_FILE from 'agent/assets/fonts/icomoon.ttf'
 import NormalFont from 'app/assets/fonts/NotoSans.ttf'
 import BoldFont from 'app/assets/fonts/NotoSansBold.ttf'
 import BoldItalic from 'app/assets/fonts/NotoSansBoldItalic.ttf'
@@ -25,6 +26,10 @@ interface UseFontArgs {
 
 export const DEFAULT_ICON = {
   FAMILY: 'Icomoon',
+  FILENAME: Platform.OS === 'web' ? '/fonts/icomoon.ttf' : 'icomoon.ttf',
+}
+export const AGENT_ICON = {
+  FAMILY: 'Agent Icomoon',
   FILENAME: Platform.OS === 'web' ? '/fonts/icomoon.ttf' : 'icomoon.ttf',
 }
 
@@ -43,6 +48,7 @@ export default function useFontInit({ iconUrl, fontFamily }: UseFontArgs = {}) {
   const defaultFont = {
     ...(Platform.OS !== 'web' && {
       [DEFAULT_ICON.FAMILY]: ICON_FILE,
+      [AGENT_ICON.FAMILY]: AGENT_FILE,
     }),
   }
 

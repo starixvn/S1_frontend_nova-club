@@ -54,7 +54,7 @@
   "resolutions": {
     "@types/react": "18.0.1",
     "@types/react-native": "0.67.6",
-    "react-devtools-core": "4.14.0",
+    "react-devtools-core": "4.25.0",
     "ts-toolbelt": "^9.6.0",
     "axios": "0.27.2"
   }

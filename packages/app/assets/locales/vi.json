@@ -1,25 +1,28 @@
 {
   "accountVerification": {
-    "title": "Xác thực tài khoản",
-    "secondaryTitle": "Điền tên thật của bạn để tiếp tục: ",
+    "placeHolder": "Vui lòng điền họ tên đầy đủ",
     "realName": "Tên thật",
     "remark": "Vui lòng kiểm tra tên tài khoản của bạn là tên thật để giao dịch không bị hoãn/hủy",
-    "placeHolder": "Vui lòng điền họ tên đầy đủ"
+    "secondaryTitle": "Điền tên thật của bạn để tiếp tục: ",
+    "title": "Xác thực tài khoản"
   },
   "auth": {
     "accountReg": "ĐĂNG KÝ",
     "accountVerification": "Xác minh tài khoản",
+    "agentLogin": "Agent Login",
     "enterNewPassword": "Vui lòng nhập mật khẩu mới của bạn",
     "enterOtp": "Vui lòng nhập OTP",
     "forgotPassword": "Quên mật khẩu",
     "login": "ĐĂNG NHẬP",
     "loginToAccount": "ĐĂNG NHẬP",
+    "memberLogin": "Member Login",
     "noReceiveOTP": "Không nhận được OTP?",
     "readAndAgree": "Tôi đã đọc và đồng ý",
     "referrerInfo": "Thông tin người giới thiệu",
     "register": "ĐĂNG KÝ",
     "rememberMe": "Lưu để đăng nhập lần sau",
-    "table": "Bảng hoa hồng"
+    "table": "Bảng hoa hồng",
+    "welcome": "Welcome Back"
   },
   "bank": {
     "accountName": "Tên tài khoản",
@@ -31,23 +34,36 @@
     "noBankAccount": "Không có tài khoản ngân hàng",
     "selectBank": "Vui lòng chọn ngân hàng"
   },
+  "barcode": {
+    "title": ""
+  },
   "biometric": {
     "label": "Đăng nhập bằng Sinh trắc học",
     "message": "Bạn có muốn kích hoạt đăng nhập sinh trắc học không?",
     "notFound": "Sinh trắc học không được hỗ trợ / không được bật trên thiết bị của bạn"
   },
   "commission": {
+    "cAgent": "",
+    "cPlayer": "",
+    "cPlayerReferrer": "",
     "cashPlayer": "Người chơi trả trước",
     "cashPlayerReferral": "Giới thiệu người chơi trả trước",
     "creditPlayer": "Người chơi tín dụng",
     "productLists": "Danh sách sản phẩm",
-    "table": "Bảng hoa hồng"
+    "table": "Bảng hoa hồng",
+    "title": "",
+    "type": ""
   },
   "common": {
+    "accountName": "",
+    "accountNumber": "",
+    "active": "",
+    "agent": "",
     "all": "TẤT CẢ",
     "amount": "Số tiền",
     "app": "Ứng dụng",
     "balance": "Số dư",
+    "bankCard": "",
     "bet": "Tiền cược",
     "cancel": "Hủy",
     "cash": "VÍ",
@@ -59,14 +75,22 @@
     "contactUs": "Liên hệ",
     "copied": "Đã sao chép đường dẫn",
     "copy": "Sao chép",
+    "countryCode": "",
+    "create": "",
+    "date": "",
     "desktop": "Bản máy tính",
     "download": "Tải ứng dụng",
     "emptyResult": "Không có kết quả",
     "enter": "Nhập",
+    "enterAccountName": "",
+    "enterAccountNumber": "",
     "enterAmount": "Vui lòng nhập số tiền %{field} của bạn",
     "enterConfirmPassword": "Vui lòng xác nhận mật khẩu",
     "enterNewPassword": "Vui lòng nhập mật khẩu mới",
     "enterOldPassword": "Vui lòng nhập mật khẩu cũ",
+    "enterUsername": "",
+    "failedOtp": "",
+    "from": "",
     "hello": "Xin chào!!",
     "home": "Trang Chủ",
     "id": "Mã ID",
@@ -74,6 +98,8 @@
     "importantNotes": "Lưu Ý Quan Trọng",
     "loading": "Đang tải",
     "lose": "Thua",
+    "member": "",
+    "mobileNumber": "",
     "more": "Thêm",
     "newPassword": "Mật khẩu mới",
     "next": "Tiếp theo",
@@ -89,12 +115,19 @@
     "referenceId": "ID tham chiếu",
     "reward": "THƯỞNG",
     "rewards": "THƯỞNG",
+    "search": "",
     "selectAll": "Chọn tất cả",
+    "selectBank": "",
     "selectDate": "Chọn ngày",
     "send": "Gởi",
+    "sendOtp": "",
     "share": "Chia sẻ",
+    "shareholder": "",
     "spin": "Quay ngay bây giờ",
+    "status": "",
     "submit": "Gửi",
+    "suspended": "",
+    "to": "",
     "turnover": "Doanh số",
     "userAgreement": "Thỏa thuận người dùng",
     "username": "Tên đăng nhập",
@@ -189,6 +222,12 @@
       "rebate": "Hoàn Trả",
       "withdrawal": "Rút tiền"
     },
+    "type": {
+      "adjustment": "",
+      "commission": "",
+      "transfer": "",
+      "withdraw": ""
+    },
     "withdrawalStatus": {
       "all": "TẤT CẢ",
       "declined": "Suy giảm",
@@ -240,9 +279,13 @@
     "underMaintenance": "Trò chơi đang được bảo trì"
   },
   "maintenance": "HỆ THỐNG ĐANG BẢO TRÌ",
+  "member": {
+    "title": ""
+  },
   "menu": {
     "agentLogin": "Đăng nhập đại lý",
     "bankAccount": "Tài khoản ngân hàng",
+    "changePass": "",
     "changePassword": "Đổi Mật Khẩu",
     "changePin": "Thay đổi mã PIN",
     "commisionTable": "Bảng hoa hồng",
@@ -250,6 +293,7 @@
     "customerSupport": "Hỗ trợ khách hàng",
     "deposit": "Nạp tiền",
     "depositConfirmation": "Xác nhận thông tin gửi tiền",
+    "desktopVersion": "",
     "gameHistory": "Lịch sử trò chơi",
     "history": "Lịch sử",
     "logout": "Thoát",
@@ -257,7 +301,9 @@
     "message/announcement": "Tin Nhắn/Thông Báo",
     "profile": "Hồ sơ",
     "referral": "Giới thiệu",
+    "resetPin": "",
     "switchAccount": "Chuyển tài khoản",
+    "switchMember": "",
     "tab": {
       "bets": "Cá cược",
       "date": "Ngày",
@@ -326,6 +372,8 @@
   },
   "pin": {
     "confirmPin": "Xác nhận mã PIN",
+    "createPin": "",
+    "enterPin": "",
     "forgotPin": "Quên mã PIN",
     "headerText1": "Tạo mã PIN 6 số",
     "headerText2": "Bảo mật chuyển khoản của bạn bằng mã PIN",
@@ -333,12 +381,16 @@
     "note1": "Vui lòng nhập mã PIN để chuyển khoản",
     "oldPin": "Mã PIN cũ",
     "pin": "Mã PIN",
+    "pinConfirmation": "",
+    "resetPin": "",
     "submitNote": "Tất cả các giao dịch của bạn đều được xử lý trong một môi trường an toàn và bảo mật.",
     "submitTitle": "Nhập mã PIN 6 số để xác nhận"
   },
   "profile": {
     "accumulateReward": "Tích lũy phần thưởng",
     "active": "Người chơi đang hoạt động",
+    "createdDate": "",
+    "currency": "",
     "details": {
       "currency": "Tiền tệ",
       "phone": "Số ĐT",
@@ -346,6 +398,12 @@
       "referrer": "Người giới thiệu",
       "username": "Tên đăng nhập"
     },
+    "direct": "",
+    "email": "",
+    "indirect": "",
+    "lastLogin": "",
+    "mobile": "",
+    "name": "",
     "overview": {
       "circle": "Vòng tròn",
       "direct": "Trực tiếp",
@@ -356,9 +414,13 @@
       "w/l": "Thắng/Thua (đồng)"
     },
     "playerId": "ID người chơi",
+    "realName": "",
     "registered": "Đăng ký",
     "reward": "Phần thưởng hàng tháng",
-    "timeline": "UTC/GMT +7"
+    "subShareholder": "",
+    "timeline": "UTC/GMT +7",
+    "title": "",
+    "totalDownline": ""
   },
   "qr": {
     "downloadQrCode": "Tải Mã QR",
@@ -372,6 +434,26 @@
     "link": "Đường dẫn để giới thiệu",
     "refer": "Giới thiệu bạn bè của bạn ngay bây giờ \nđể kiếm thêm hoa hồng",
     "shareMessage": "Chia sẻ liên kết giới thiệu này để nhận phần thưởng"
+  },
+  "report": {
+    "bet": "",
+    "commission": "",
+    "earning": "",
+    "lastLogin": "",
+    "reportNote": "",
+    "title": "",
+    "transaction": "",
+    "transactionDate": "",
+    "transactionFilter": "",
+    "transactionType": "",
+    "type": ""
+  },
+  "shAgent": {
+    "add": "",
+    "filter": "",
+    "regDate": "",
+    "title": "",
+    "totalMember": ""
   },
   "status": {
     "alert": "Cảnh báo",
@@ -405,6 +487,9 @@
   },
   "transfer": {
     "avaiableAmount": " Số dư khả dụng",
+    "playerId": "",
+    "playerName": "",
+    "transferConfirmation": "",
     "transferTo": "Chuyển tới"
   },
   "userAgreement": {
@@ -414,7 +499,9 @@
     "alphanumeric": "6-18 ký tự chữ và số (A-Z, a-z, 0-9)",
     "amount": "%{amount} ngoài hạn mức",
     "amount0": "Số tiền không được bằng 0",
+    "amount500k": "",
     "amountLessThan": "Số tiền không thể nhỏ hơn %{min}",
+    "amountNumber": "",
     "dailyLimitReached": "Bạn Đã Sử Dụng Hết Hạn Mức Trong Ngày",
     "email": "Định dạng email chưa đúng",
     "enterId": "Vui lòng nhập ID giới thiệu",
@@ -438,6 +525,26 @@
     "usdtFormat": "Địa chỉ ví phải tương thích với chuẩn ERC20 / TRC20",
     "userNameMinMaxLength": "Tên đăng nhập phải có 6-15 ký tự",
     "username": "Tên đăng nhập phải có 6-15 ký tự"
+  },
+  "wallet": {
+    "addBank": "",
+    "addNew": "",
+    "declined": "",
+    "enterPlayerId": "",
+    "enterTransferAmount": "",
+    "enterWithdrawalAmount": "",
+    "fundTransfer": "",
+    "nettPayout": "",
+    "paid": "",
+    "payment": "",
+    "pending": "",
+    "recentTransaction": "",
+    "referralId": "",
+    "title": "",
+    "withdrawal": "",
+    "withdrawalAmountNote": "",
+    "withdrawalConfirmation": "",
+    "withdrawalTo": ""
   },
   "withdrawal": {
     "withdrawTo": "Rút tiền về"

@@ -1,4 +1,4 @@
-import { Scope, TranslateOptions } from 'i18n-js'
+import { I18n, Scope, TranslateOptions } from 'i18n-js'
 import React, { createContext, useContext, useMemo } from 'react'
 import { useAppSelector } from '../redux/store'
 import i18n from './i18n'
@@ -10,21 +10,25 @@ const LocalizationContext = createContext<{
 export type Translate = (scope: Scope, options?: TranslateOptions) => string
 
 interface LocalizationProviderProps {
+  children: React.ReactNode
   locale: string
-  i18n: {
-    translate: Translate
-  }
+  module?: string
+  i18n: I18n
 }
 
 export const LocalizationProvider: React.FC<LocalizationProviderProps> = ({
   children,
   locale,
   i18n,
+  module,
 }) => {
   const localizationContext = useMemo(
     () => ({
-      t: (scope: Scope, options?: TranslateOptions) =>
-        i18n.translate(scope, { locale, ...options }),
+      t: (scope: Scope = '', options?: TranslateOptions) =>
+        i18n.translate(module ? `${module}.${scope}` : scope, {
+          locale,
+          ...options,
+        }),
     }),
     [locale, i18n]
   )
@@ -38,6 +42,15 @@ export const LocalizationProvider: React.FC<LocalizationProviderProps> = ({
 
 export default function useLocalization() {
   return useContext(LocalizationContext)
+}
+
+export function useAgentTranslation() {
+  const { t } = useLocalization()
+  function agentT(scope: Scope) {
+    return t(`agent.${scope}`)
+  }
+
+  return { t: agentT }
 }
 
 export const LocalizationProviderRedux = ({ children }) => {
