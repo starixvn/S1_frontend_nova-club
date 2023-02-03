@@ -2,12 +2,11 @@ import HorizontalActionSheet, {
   ActionSheetProps,
 } from 'app/components/actionsheet/HorizontalActionSheet'
 import ListActionSheet from 'app/components/actionsheet/ListActionSheet'
+import Icon from 'app/components/Icon'
 import { ActivityIndicator } from 'dripsy'
 import { useReducer } from 'react'
 import { SheetManager } from 'react-native-actions-sheet'
-import IconButton from '../IconButton'
 import InputBase, { InputBaseProps } from './InputBase'
-import { SelectButtonProps } from '../Select/SelectButton'
 
 export interface SelectProps extends InputBaseProps {
   options: any
@@ -78,7 +77,7 @@ export default function Select({
         {loading ? (
           <ActivityIndicator sx={{ m: '$2' }} />
         ) : (
-          <IconButton name="chevdown" size={18} />
+          <Icon name="chevdown" size={18} />
         )}
       </BtnComponent>
 
