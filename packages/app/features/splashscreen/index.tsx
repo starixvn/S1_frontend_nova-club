@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native'
-import Image from 'app/components/common/Image'
 import useAlert from 'app/hooks/useAlert'
 import useFontInit from 'app/hooks/useFontInit'
 import useOrientation, { unlockAsync } from 'app/hooks/useOrientation'
@@ -108,44 +107,52 @@ const SplashScreen = () => {
           >
             {currentVersion}
           </Text>
-          {/* <PromoText /> */}
+          <PromoText />
         </>
       )}
-      <Image
-        source={require('app/assets/images/cny-splash.gif')}
-        sx={{
+      {/* <Image
+        source={
+          isLandscape
+            ? require('../../assets/images/splashscreen_tablet.jpg')
+            : require('../../assets/images/splashscreen.jpg')
+        }
+        resizeMode="cover"
+        style={{
+          position: 'absolute',
+          zIndex: -1,
+          width: '100%',
+          height: Math.max(
+            width / (isLandscape ? 2047 / 2732 : 1242 / 2208),
+            height
+          ),
+        }}
+      /> */}
+      <Video
+        isLooping={false}
+        isMuted
+        shouldPlay
+        style={{
           position: 'absolute',
           top: 0,
           bottom: 0,
           left: 0,
           right: 0,
           zIndex: -1,
+          // width: '100%',
+          // height: Math.max(
+          //   width / (isLandscape ? 2047 / 2732 : 1242 / 2208),
+          //   height
+          // ),
         }}
+        source={require('app/assets/videos/vui123-splash.mp4')}
+        resizeMode="cover"
+        useNativeControls={false}
       />
     </View>
   )
 }
 
 export default SplashScreen
-
-const DefaultSplash = () => (
-  <Video
-    isLooping={false}
-    isMuted
-    shouldPlay
-    style={{
-      position: 'absolute',
-      top: 0,
-      bottom: 0,
-      left: 0,
-      right: 0,
-      zIndex: -1,
-    }}
-    source={require('app/assets/videos/vui123-splash.mp4')}
-    resizeMode="cover"
-    useNativeControls={false}
-  />
-)
 
 const PromoText = () => {
   return (
@@ -169,7 +176,7 @@ const PromoText = () => {
     >
       <Text style={styles.promoLabel}>Đăng ký làm đại lý,</Text>
       <Text style={styles.promoLabel}>
-        <Text style={styles.promoLabel}>
+        <Text>
           nhận hoa hồng đến
           <Text sx={{ color: 'gold', fontSize: 30 }}> 0.5%</Text>
         </Text>
@@ -177,26 +184,6 @@ const PromoText = () => {
     </MotiView>
   )
 }
-
-// const OldSplash = () => (
-//   <Image
-//     source={
-//       isLandscape
-//         ? require('../../assets/images/splashscreen_tablet.jpg')
-//         : require('../../assets/images/splashscreen.jpg')
-//     }
-//     resizeMode="cover"
-//     style={{
-//       position: 'absolute',
-//       zIndex: -1,
-//       width: '100%',
-//       height: Math.max(
-//         width / (isLandscape ? 2047 / 2732 : 1242 / 2208),
-//         height
-//       ),
-//     }}
-//   />
-// )
 
 const styles = StyleSheet.create({
   promoLabel: {
