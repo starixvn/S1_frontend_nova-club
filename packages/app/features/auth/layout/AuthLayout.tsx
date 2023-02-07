@@ -3,7 +3,6 @@ import IconButton from 'app/components/form/IconButton'
 import { DripsyGradient } from 'app/components/Gradient'
 import KeyboardView from 'app/components/KeyboardView'
 import { ROUNDED_LOGO } from 'app/constant/imagePath'
-import CnyAuthDeco from 'app/features/events/cny/CnyAuthDeco'
 import ProfileLanguage from 'app/features/profile/ProfileLanguage'
 import { useIsFocused } from 'app/hooks/isFocus/useIsFocused'
 import { useAppSelector } from 'app/provider/redux/store'
@@ -62,7 +61,6 @@ const AuthLayout = ({
         pt: top,
       }}
     >
-      <CnyAuthDeco />
       <KeyboardView bounces={false} contentContainerStyle={{ flexGrow: 1 }}>
         <View sx={{ flex: 1 }}>
           <View

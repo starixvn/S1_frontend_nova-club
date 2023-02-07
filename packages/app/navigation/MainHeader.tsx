@@ -1,4 +1,3 @@
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { useTransferAllToOneMutation } from 'app/custom_services/walletApi'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouting from 'app/hooks/useContextualRouting'
@@ -8,9 +7,8 @@ import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import { ActivityIndicator, Image, styled, Text, useSx, View } from 'dripsy'
-import { Video } from 'expo-av'
 import React, { useEffect, useRef, useState } from 'react'
-import { LayoutChangeEvent, Platform } from 'react-native'
+import { LayoutChangeEvent } from 'react-native'
 import { usePlayerBalanceQuery } from 'services/walletApi'
 import { useRouter } from 'solito/router'
 import MainMenu from './MainMenu'
@@ -142,7 +140,7 @@ const MainHeader = () => {
   return (
     <>
       <View sx={{ bg: '$primary' }}>
-        <Video
+        {/* <Video
           isMuted
           isLooping
           shouldPlay
@@ -159,7 +157,7 @@ const MainHeader = () => {
           }}
           resizeMode="cover"
           useNativeControls={false}
-        />
+        /> */}
         <View sx={{ paddingTop: insets.top }}>
           <StyledContainer sx={{ height: headerHeight }}>
             <View>

@@ -1,11 +1,10 @@
-import CnyHomeDeco from 'app/features/events/cny/CnyHomeDeco'
 import FloatingContent from 'app/features/floatingContent'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useOrientation from 'app/hooks/useOrientation'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { Flex, View, Image } from 'dripsy'
+import { Flex, View } from 'dripsy'
 import React, { useState } from 'react'
-import { Platform, useWindowDimensions } from 'react-native'
+import { useWindowDimensions } from 'react-native'
 import { useRouter } from 'solito/router'
 import BottomNavIcon from './BottomNavIcon'
 
@@ -83,8 +82,6 @@ const BottomNavigation = () => {
   return (
     <>
       {!isLandscape && <FloatingContent />}
-
-      <CnyHomeDeco />
 
       <Flex
         sx={{
