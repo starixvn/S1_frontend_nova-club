@@ -1,24 +1,30 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import Image from 'app/components/common/Image'
 import { GRID_TOTAL_COL, HOME_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useOrientation from 'app/hooks/useOrientation'
-import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
 import { ActionType, getAction } from 'app/utils/actionGenerator'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
 import { getSocialMediaScheme, SocialMedia } from 'app/utils/helper'
-import { styled, Text, View } from 'dripsy'
-import { Video } from 'expo-av'
+import { styled, View } from 'dripsy'
 import React from 'react'
 import { Game } from 'services/contentApi.type'
 import { useRouter } from 'solito/router'
+import GridSectionItem from './GridSectionItem'
 export const SHAREHOLDER_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/shareholder.mp4?v=1`
+export const FISHING_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/fishing.mp4?v=1`
+export const LOTTERY_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/lottery.mp4?v=1`
+export const GAME_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/game.mp4?v=1`
+export const LIVE_CASINO_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/live-casino.mp4?v=1`
+export const SPORT_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/sport.mp4?v=1`
+export const SLOT_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/slot.mp4?v=1`
+
 export const SABA_PROMO_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/videos/saba-sportsbook.mp4?v=1`
 export const HOME_GRID = [
   {
     col: 4,
-    src: require('../../../assets/images/home/sb_4.jpg'),
+    src: { uri: SPORT_IMG },
+    type: 'video',
     title: 'game.category.sportsbook',
     route: '/sportsbook',
   },
@@ -53,26 +59,30 @@ export const HOME_GRID = [
   },
   {
     col: 3,
-    src: require('../../../assets/images/home/games.jpg'),
+    src: { uri: GAME_IMG },
+    type: 'video',
     title: 'game.category.games',
     route: '/games',
   },
   {
     col: 3,
-    src: require('../../../assets/images/home/sl.jpg'),
+    src: { uri: SLOT_IMG },
+    type: 'video',
     title: 'game.category.slots',
     route: '/slot',
   },
 
   {
     col: 3,
-    src: require('../../../assets/images/home/lc.jpg'),
+    src: { uri: LIVE_CASINO_IMG },
+    type: 'video',
     title: 'game.category.liveCasino',
     route: '/livecasino',
   },
   {
     col: 3,
-    src: require('../../../assets/images/home/lt.jpg'),
+    src: { uri: LOTTERY_IMG },
+    type: 'video',
     title: 'game.category.keno/lottery',
     route: '/games',
     urlParam: {
@@ -81,7 +91,8 @@ export const HOME_GRID = [
   },
   {
     col: 3,
-    src: require('../../../assets/images/home/fishing.jpg'),
+    src: { uri: FISHING_IMG },
+    type: 'video',
     title: 'game.category.fishing',
     route: '/games',
     urlParam: {
@@ -131,67 +142,19 @@ const GridSection = () => {
     >
       {HOME_GRID.map((j, index) => {
         const width = Math.floor(columnWidth * j.col)
-        const picHeight = rowHeight - itemSpace * 2
-        const checkTextSpace = picHeight / 30
+        // const picHeight = rowHeight - itemSpace * 2
+        // const checkTextSpace = picHeight / 70
         return (
-          <BouncePressable key={index} onPress={() => action(j)}>
-            <View
-              sx={{
-                p: itemSpace,
-                width,
-                position: 'relative',
-                height: rowHeight,
-              }}
-            >
-              {j.type === 'video' ? (
-                <Video
-                  isMuted
-                  isLooping
-                  shouldPlay
-                  style={{
-                    width: '100%',
-                    height: rowHeight - itemSpace * 2,
-                    borderRadius: 10,
-                  }}
-                  source={j.src}
-                  resizeMode="cover"
-                  useNativeControls={false}
-                />
-              ) : (
-                <Image
-                  sx={{
-                    width: '100%',
-                    height: rowHeight - itemSpace * 2,
-                    borderRadius: 10,
-                  }}
-                  source={j.src}
-                  resizeMode="cover"
-                />
-              )}
-              {j.title && (
-                <StyledTextContainer
-                  sx={{
-                    bottom: checkTextSpace,
-                    left: 0,
-                    right: 0,
-                    mx: itemSpace,
-                  }}
-                >
-                  <Text
-                    sx={{
-                      fontWeight: 'bold',
-                      textTransform: 'uppercase',
-                      fontSize: [14, 16],
-                      py: ['$1', '$2'],
-                      textAlign: 'center',
-                    }}
-                  >
-                    {t(j.title)}
-                  </Text>
-                </StyledTextContainer>
-              )}
-            </View>
-          </BouncePressable>
+          <GridSectionItem
+            action={() => action(j)}
+            rowHeight={rowHeight}
+            itemSpace={itemSpace}
+            type={j.type}
+            itemSource={j.src}
+            title={t(j.title)}
+            key={index}
+            width={width}
+          />
         )
       })}
     </StyledContainer>
