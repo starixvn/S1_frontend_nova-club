@@ -170,6 +170,7 @@ const TextInputFocusArea: FC<TextInputProps> = ({
         sx={{
           flexDirection: 'row',
           alignItems: 'center',
+          zIndex: 1,
         }}
         onLayout={(event) => {
           var { x, y, width, height } = event.nativeEvent.layout

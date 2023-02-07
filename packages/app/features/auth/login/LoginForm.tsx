@@ -1,3 +1,4 @@
+import CheckBox from 'app/components/CheckBox'
 import { Button } from 'app/components/form/Button'
 import IconButton from 'app/components/form/IconButton'
 import TextInput from 'app/components/form/TextInput'
@@ -5,6 +6,7 @@ import useAlert from 'app/hooks/useAlert'
 import useBioAuth from 'app/hooks/useBioAuth'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useShield from 'app/hooks/useShield'
+import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { AuthActions } from 'app/store/authReducer'
@@ -16,7 +18,7 @@ import validation, {
 import { styled, Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useRef, useState } from 'react'
-import { Platform, TextInput as RNTextField } from 'react-native'
+import { Platform, StyleSheet, TextInput as RNTextField } from 'react-native'
 import { useLoginMutation } from 'services/authApi'
 import { Shield_Action } from 'services/authApi.type'
 import { useLazyPlayerProfileQuery } from 'services/playerApi'
@@ -57,6 +59,15 @@ const LoginForm = () => {
 
   const isBiometricLogin = useAppSelector((s) => s.setting.biometricCredentials)
 
+  const rememberMeCredential = useAppSelector(
+    (s) => s.setting.rememberMeCredentials
+  )
+
+  const [isRemember, setIsRemember] = useState(() => {
+    if (rememberMeCredential) return true
+    else return false
+  })
+
   const updateLanguage = async (username: string) => {
     try {
       const { data } = await getPlayerProfile().unwrap()
@@ -84,7 +95,12 @@ const LoginForm = () => {
 
       if (success && data) {
         // syncShield(Shield_Action.LOGIN)
-        dispatch(AuthActions.setSyncShieldActionType('login'))
+        dispatch(AuthActions.setSyncShieldActionType(Shield_Action.LOGIN))
+        dispatch(
+          SettingActions.setRememberMe(
+            isRemember ? { username, password } : undefined
+          )
+        )
         normalLogin(username, password, () => handleProceedLogin(data, actions))
       } else {
         throw new Error(message)
@@ -108,10 +124,14 @@ const LoginForm = () => {
     replace(afterLoginRedirection)
   }
 
+  const onCheckboxCheck = () => {
+    setIsRemember(!isRemember)
+  }
+
   const formik = useFormik<LoginFormValues>({
     initialValues: {
-      username: '',
-      password: '',
+      username: rememberMeCredential?.username || '',
+      password: rememberMeCredential?.password || '',
     },
     validationSchema: Yup.object({
       username: validation.username,
@@ -131,6 +151,7 @@ const LoginForm = () => {
       <TextInput
         _icon="avatar"
         _input={{
+          textContentType: 'username',
           placeholder: t('common.username'),
           value: values.username,
           onChangeText: handleChange('username'),
@@ -154,6 +175,7 @@ const LoginForm = () => {
       <TextInput
         _icon="lock"
         _input={{
+          textContentType: 'password',
           placeholder: t('common.password'),
           value: values.password,
           onChangeText: handleChange('password'),
@@ -173,7 +195,36 @@ const LoginForm = () => {
         sx={{ mt: '$3' }}
       />
 
-      <View sx={{ alignItems: 'flex-end', mt: '$2' }}>
+      <View
+        sx={{
+          flexDirection: 'row',
+          mt: '$4',
+        }}
+      >
+        <TouchableOpacity
+          sx={{ flexDirection: 'row', alignItems: 'center' }}
+          onPress={onCheckboxCheck}
+        >
+          <CheckBox
+            isCheck={isRemember}
+            tickColor="$orange"
+            sx={{
+              bg: isRemember ? '#062243' : '#fff',
+            }}
+          />
+          <Text
+            sx={{ ml: '$2' }}
+            style={isRemember ? styles.checked : styles.uncheck}
+          >
+            {t('auth.rememberMe')}
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <View
+        sx={{
+          alignItems: 'flex-end',
+        }}
+      >
         <MotiLink
           href={to}
           as={`/auth/forget-password`}
@@ -254,5 +305,14 @@ const LoginForm = () => {
     </>
   )
 }
+
+const styles = StyleSheet.create({
+  checked: {
+    opacity: 0.43,
+  },
+  uncheck: {
+    color: '#F15D12',
+  },
+})
 
 export default LoginForm
