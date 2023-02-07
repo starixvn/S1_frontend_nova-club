@@ -197,7 +197,6 @@ const LoginForm = () => {
 
       <View
         sx={{
-          position: 'relative',
           flexDirection: 'row',
           mt: '$4',
         }}
@@ -220,33 +219,32 @@ const LoginForm = () => {
             {t('auth.rememberMe')}
           </Text>
         </TouchableOpacity>
-        <View
-          sx={{
-            position: 'absolute',
-            right: 0,
+      </View>
+      <View
+        sx={{
+          alignItems: 'flex-end',
+        }}
+      >
+        <MotiLink
+          href={to}
+          as={`/auth/forget-password`}
+          animate={({ hovered, pressed }) => {
+            'worklet'
+            return {
+              scale: pressed ? 0.9 : hovered ? 1.1 : 1,
+            }
           }}
         >
-          <MotiLink
-            href={to}
-            as={`/auth/forget-password`}
-            animate={({ hovered, pressed }) => {
-              'worklet'
-              return {
-                scale: pressed ? 0.9 : hovered ? 1.1 : 1,
-              }
+          <Text
+            variant="md"
+            sx={{
+              fontSize: [14, 16],
+              opacity: 0.43,
             }}
           >
-            <Text
-              variant="md"
-              sx={{
-                fontSize: [14, 16],
-                opacity: 0.43,
-              }}
-            >
-              {t('auth.forgotPassword') + '?'}
-            </Text>
-          </MotiLink>
-        </View>
+            {t('auth.forgotPassword') + '?'}
+          </Text>
+        </MotiLink>
       </View>
 
       <Text variant="error" sx={{ mt: '$3' }}>
