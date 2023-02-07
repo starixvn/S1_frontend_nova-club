@@ -1,4 +1,3 @@
-import { Gradient } from '@dripsy/gradient'
 import useLocalization from 'app/provider/localization'
 import {
   GameLauncherActions,
@@ -22,6 +21,7 @@ interface GamesProps extends LaunchGamePayload {
   showName?: boolean
   showPlaynow?: boolean
   skeleton?: boolean
+  isSeamless?: boolean
 }
 
 export const GAME_IMAGE_RATIO = 325 / 315
@@ -41,6 +41,7 @@ const SimpleGridImage: FC<GamesProps> = ({
   isNewGame,
   showPlaynow,
   skeleton,
+  isSeamless,
 }) => {
   // const [isLoaded, setLoaded] = useState(false)
   const dispatch = useDispatch()
@@ -55,6 +56,9 @@ const SimpleGridImage: FC<GamesProps> = ({
     gameName,
     gameType,
   }
+
+  const newGameIconWidth = Math.min(24, width * 0.15)
+  const hotGameIconWidth = Math.min(55, width * 0.4)
 
   return (
     <View sx={{ ...{ flexShrink: 1 }, ...sx }}>
@@ -75,6 +79,7 @@ const SimpleGridImage: FC<GamesProps> = ({
             gameType === GAME_TYPE_CODE.FISHING
           }
           skeleton={skeleton}
+          rewardIcon={isSeamless}
         />
         {/* {gameType === GAME_TYPE_CODE.SLOTS && (
           <Image
@@ -145,7 +150,7 @@ const SimpleGridImage: FC<GamesProps> = ({
         <MotiView
           style={{
             position: 'absolute',
-            top: '-15%',
+            top: '-10%',
             right: '-10%',
           }}
           key={image}
@@ -159,9 +164,9 @@ const SimpleGridImage: FC<GamesProps> = ({
         >
           <Image
             resizeMode="contain"
-            source={require('../assets/images/games/common/icon-hot.png')}
+            source={require('../assets/images/games/common/hot-icon.png')}
             style={{
-              width: width * 0.4,
+              width: hotGameIconWidth,
               aspectRatio: 1,
             }}
           />
@@ -170,13 +175,13 @@ const SimpleGridImage: FC<GamesProps> = ({
       {isNewGame && (
         <Image
           resizeMode="contain"
-          source={require('../assets/images/games/common/icon-new.png')}
+          source={require('../assets/images/games/common/new-icon.png')}
           style={{
-            width: width * 0.5,
-            aspectRatio: 130 / 78,
+            width: newGameIconWidth,
+            aspectRatio: 4 / 15,
             position: 'absolute',
-            top: '3%',
-            left: '-6%',
+            top: width * 0.15,
+            left: -width * 0.03,
           }}
         />
       )}
