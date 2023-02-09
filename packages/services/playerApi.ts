@@ -42,31 +42,7 @@ const playerApi = baseApiWithTag.injectEndpoints({
           ...queryArgs,
         },
       }),
-      async onQueryStarted(
-        { field, value, ...patch },
-        { dispatch, queryFulfilled }
-      ) {
-        try {
-          const { data } = await queryFulfilled
-          if (data.code == 0) {
-            dispatch(
-              playerApi.util.updateQueryData(
-                'playerProfile',
-                undefined,
-                (draft) => {
-                  if (draft.data) {
-                    Object.assign(draft.data, { [field]: value })
-                    console.log(
-                      'Profile Data Pessimistically updated to : ',
-                      draft.data
-                    )
-                  }
-                }
-              )
-            )
-          }
-        } catch {}
-      },
+      invalidatesTags: ['PlayerProfile'],
     }),
     playerOverview: builder.query<
       OverviewResult | undefined,
