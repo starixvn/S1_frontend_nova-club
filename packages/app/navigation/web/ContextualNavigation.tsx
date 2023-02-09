@@ -21,6 +21,8 @@ const _contextualComponents = {
   momo: () => import('../../features/deposit/momo'),
   'qr-transfer': () => import('../../features/deposit/qr-transfer'),
   'topup-card': () => import('../../features/deposit/topup-card'),
+  '/profile/account-verification': () =>
+    import('app/features/profile/account-verification'),
   crypto: () => import('app/features/deposit/crypto'),
   withdrawal: () => import('app/features/withdrawal'),
   'bank-account': () => import('app/features/profile/bank-account'),

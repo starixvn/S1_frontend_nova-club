@@ -68,6 +68,7 @@ const commonColors = {
   $PastelBlue: '#6397B7',
   $yellowLight: '#F6FF7A',
   $taupeGray: '#8B8787',
+  $placeholder: '#8B8787',
   placeholderTextColor: 'this string is ignored but must be declared',
   $orange: '#F15D12',
   $accent: '#F15D12',

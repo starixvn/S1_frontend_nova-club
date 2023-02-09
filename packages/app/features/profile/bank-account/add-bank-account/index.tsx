@@ -1,10 +1,9 @@
-import { CMS_CONTENT_URI, DEV_DOMAIN, MEDIA_DOMAIN } from '@env'
+import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { Button } from 'app/components/form/Button'
 import InputBase from 'app/components/form/Input/InputBase'
 import Select from 'app/components/form/Input/Select'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
-import { getBankLogo } from 'app/config/bank'
 import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
 import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
@@ -14,7 +13,6 @@ import validation from 'app/utils/validation'
 import { styled, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useRef } from 'react'
-import { TextInput } from 'react-native'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import {
   useAddPlayerBankAccMutation,
@@ -58,7 +56,6 @@ const AddBankAccountScreen = () => {
     useSendUpdateProfileOTPMutation()
   const [updateProfile] = useUpdateProfileMutation()
 
-  const otpFieldRef = useRef<TextInput>(null)
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
   const sheetData = bankData?.map((item) => {
     return {
@@ -93,7 +90,7 @@ const AddBankAccountScreen = () => {
     actions: FormikHelpers<AddBankAccountValues>
   ) => {
     try {
-      if (!isRealNameAvailable && realName && otp) {
+      if (realName && otp) {
         const sanitizedRealName = realName.trim().replace(/\s\s+/g, ' ')
         const error = await updateRealName(sanitizedRealName, otp)
 
@@ -149,6 +146,7 @@ const AddBankAccountScreen = () => {
     initialValues: {
       bank: undefined,
       accountNo: '',
+      realName: playerData?.firstName,
     },
     validationSchema: Yup.object({
       bank: validation.bank,
@@ -193,62 +191,31 @@ const AddBankAccountScreen = () => {
   return (
     <PageWithBackHeader header={{ title: t('bank.addBankAccount') }}>
       <StyledView>
-        {playerData?.firstName.length === 0 && (
-          <>
-            <InputBase
-              label={t('bank.accountName')}
-              value={values.realName}
-              autoComplete="off"
-              autoCorrect={false}
-              spellCheck={false}
-              onChangeText={handleChange('realName')}
-              onBlur={handleBlur('realName')}
-              error={
-                touched.realName && errors.realName
-                  ? t(errors.realName, {
-                      field: t('bank.accountName'),
-                    })
-                  : undefined
-              }
-            />
-            <InputBase
-              label={t('OTP')}
-              value={values.otp}
-              maxLength={6}
-              onChangeText={handleChange('otp')}
-              onBlur={handleBlur('otp')}
-              error={
-                touched.otp && errors.otp
-                  ? t(errors.otp, {
-                      field: t('OTP'),
-                    })
-                  : undefined
-              }
-              action={
-                <TimerButton
-                  accessibilityRole="button"
-                  ref={OTPRef}
-                  title={t('common.send')}
-                  loading={isOtpLoading}
-                  onPress={sendOTP}
-                  sx={{
-                    width: 'auto',
-                    backgroundColor: '$gray',
-                    m: 0,
-                    px: '$3',
-                    minWidth: 53,
-                  }}
-                  _text={{
-                    sx: {
-                      color: '$black',
-                    },
-                  }}
-                />
-              }
-            />
-          </>
+        {playerData?.firstName.length !== 0 && (
+          <InputBase
+            label={t('profile.details.realname')}
+            value={playerData?.firstName || ''}
+            editable={false}
+          />
         )}
-
+        {playerData?.firstName.length === 0 && (
+          <InputBase
+            label={t('bank.accountName')}
+            value={values.realName}
+            autoComplete="off"
+            autoCorrect={false}
+            spellCheck={false}
+            onChangeText={handleChange('realName')}
+            onBlur={handleBlur('realName')}
+            error={
+              touched.realName && errors.realName
+                ? t(errors.realName, {
+                    field: t('bank.accountName'),
+                  })
+                : undefined
+            }
+          />
+        )}
         <Select
           label={t('bank.bank')}
           value={values.bank?.bank_name ?? ''}
@@ -278,6 +245,43 @@ const AddBankAccountScreen = () => {
               : undefined
           }
         />
+        {playerData?.verified_phone === 0 && (
+          <InputBase
+            label={t('OTP')}
+            value={values.otp}
+            maxLength={6}
+            onChangeText={handleChange('otp')}
+            onBlur={handleBlur('otp')}
+            error={
+              touched.otp && errors.otp
+                ? t(errors.otp, {
+                    field: t('OTP'),
+                  })
+                : undefined
+            }
+            action={
+              <TimerButton
+                accessibilityRole="button"
+                ref={OTPRef}
+                title={t('common.send')}
+                loading={isOtpLoading}
+                onPress={sendOTP}
+                sx={{
+                  width: 'auto',
+                  backgroundColor: '$gray',
+                  m: 0,
+                  px: '$3',
+                  minWidth: 53,
+                }}
+                _text={{
+                  sx: {
+                    color: '$black',
+                  },
+                }}
+              />
+            }
+          />
+        )}
 
         <StyledButtonWrapper>
           <Button

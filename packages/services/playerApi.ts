@@ -9,6 +9,7 @@ import {
   OverviewSummaryResult,
   PlayerLangArgs,
   PlayerOverviewArgs,
+  PlayerRealNameArgs,
   ProfileResult,
   ProfileUpdateArgs,
   ReportArgs,
@@ -22,6 +23,7 @@ const playerApi = baseApiWithTag.injectEndpoints({
         url: `/player_api/getPlayerProfile`,
         method: 'POST',
       }),
+      providesTags: ['PlayerProfile'],
     }),
     sendUpdateProfileOTP: builder.mutation<IResponse<string>, void>({
       query: (queryArgs) => ({
@@ -127,6 +129,17 @@ const playerApi = baseApiWithTag.injectEndpoints({
         data: { ...queryArgs },
       }),
     }),
+    playerRealName: builder.mutation<IResponse, PlayerRealNameArgs>({
+      query: ({ username, realName }) => ({
+        url: `/player_api/playerRealName`,
+        method: 'PUT',
+        data: {
+          username,
+          realName,
+        },
+      }),
+      invalidatesTags: ['PlayerProfile'],
+    }),
   }),
 })
 
@@ -162,4 +175,5 @@ export const {
   useSendUpdateProfileOTPMutation,
   useLuckySpinMutation,
   useLazyFreeSpinQuery,
+  usePlayerRealNameMutation,
 } = playerApi

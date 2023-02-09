@@ -39,6 +39,7 @@ import AffCupScreen from 'app/features/events/affcup/AffCupScreen'
 import WorldCupWinner from 'app/features/events/winnerList/WorldCupWinner'
 import SlotMachine from 'app/features/events/cny/SlotMachine'
 import CnyTnC from 'app/features/events/cny/tnc'
+import AccountVerification from 'app/features/profile/account-verification'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -75,6 +76,7 @@ const Stack = createStackNavigator<{
   // WcWinnerList: undefined
   Cny: undefined
   CnyTnc: undefined
+  AccountVerification: undefined
 }>()
 
 export function NativeNavigation() {
@@ -220,6 +222,10 @@ export function NativeNavigation() {
       <Stack.Screen
         name="ManageCredentials"
         component={ManageCredentialsPage}
+      />
+      <Stack.Screen
+        name="AccountVerification"
+        component={AccountVerification}
       />
       <Stack.Screen name="BankAccount" component={BankAccountScreen} />
       <Stack.Screen name="AddBankAccount" component={AddBankAccountScreen} />

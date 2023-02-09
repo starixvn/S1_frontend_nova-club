@@ -4,6 +4,7 @@ import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
 import { styled, Text, View } from 'dripsy'
 import React from 'react'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 type IconActionProps = {
   gradient: GradientList
@@ -22,6 +23,8 @@ const ProfileAction = ({ isCreditMember }) => {
   const toWithdrawal = makeContextualHref('withdrawal')
   const toBankAccount = makeContextualHref('bank-account')
   const toHistory = makeContextualHref('history')
+  const { data: playerData } = usePlayerProfileQuery()
+  const isPlayerName = !!playerData?.firstName
 
   return (
     <StyledView>
@@ -40,7 +43,12 @@ const ProfileAction = ({ isCreditMember }) => {
         icon="dac"
         title="menu.deposit"
         onPress={() => {
-          push(toDeposit, `/deposit`)
+          isPlayerName
+            ? push(toDeposit, `/deposit`)
+            : push(
+                makeContextualHref('/profile/account-verification'),
+                `/profile/account-verification`
+              )
         }}
       />
       <IconAction

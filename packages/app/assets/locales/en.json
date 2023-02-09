@@ -1,4 +1,11 @@
 {
+  "accountVerification": {
+    "title": "Account Verification",
+    "secondaryTitle": "Fill in your real name to continue:",
+    "realName": "Real Name",
+    "remark": "Please ensure the real name is match your own account name to avoid any delay or cancelled transaction",
+    "placeHolder": "Please enter your full name"
+  },
   "auth": {
     "accountReg": "Account Registration",
     "accountVerification": "Account Verification",

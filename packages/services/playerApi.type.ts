@@ -29,6 +29,7 @@ export interface ProfileResult {
   vip_group: string
   vip_level: string
   vip_level_display: string
+  verified_phone: number
   member_type: MEMBER_TYPE
 }
 
@@ -165,4 +166,9 @@ export type FreeSpinArgs = {
 export type FreeSpinResult = {
   playerName: string
   wheel_info: WheelInfo
+}
+
+export type PlayerRealNameArgs = {
+  username: string
+  realName: string
 }

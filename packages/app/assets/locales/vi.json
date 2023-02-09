@@ -1,4 +1,11 @@
 {
+  "accountVerification": {
+    "title": "Xác thực tài khoản",
+    "secondaryTitle": "Điền tên thật của bạn để tiếp tục: ",
+    "realName": "Tên thật",
+    "remark": "Vui lòng kiểm tra tên tài khoản của bạn là tên thật để giao dịch không bị hoãn/hủy",
+    "placeHolder": "Vui lòng điền họ tên đầy đủ"
+  },
   "auth": {
     "accountReg": "ĐĂNG KÝ",
     "accountVerification": "Xác minh tài khoản",

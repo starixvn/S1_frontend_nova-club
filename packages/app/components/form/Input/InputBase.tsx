@@ -161,6 +161,7 @@ const InputBase = forwardRef<{}, InputBaseProps>(
                     onBlur && onBlur(e)
                   }}
                   placeholder={placeholder}
+                  placeholderTextColor={'$placeholder'}
                   style={{ fontSize: 16, marginTop: 'auto' }}
                   editable={editable && !onPress}
                   sx={inputStyle}

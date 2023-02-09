@@ -88,6 +88,7 @@ export function NavigationProvider({
               AffCup: '/event/affcup',
               Cny: '/event/cny',
               CnyTnc: '/event/cnytnc',
+              AccountVerification: '/profile/account-verification',
               // WcWinnerList: '/event/wcwinner',
             },
           },
