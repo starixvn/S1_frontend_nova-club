@@ -26,7 +26,6 @@ import {
 } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
-const actionSheetId = ACTION_SHEET_ID.ADD_BANK_ACCOUNT
 
 type AddBankAccountValues = {
   realName?: string
@@ -39,7 +38,7 @@ const AddBankAccountScreen = () => {
   const { t } = useLocalization()
   const { back } = useRouter()
   const { showAlert } = useAlert()
-  const { bankData, isLoading, isFetching, isSuccess } = useWithdrawalBankQuery(
+  const { bankData, isLoading, isFetching } = useWithdrawalBankQuery(
     undefined,
     {
       selectFromResult: (s) => ({

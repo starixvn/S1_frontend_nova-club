@@ -395,7 +395,7 @@
     "recent": "Giao Dịch Gần Đây"
   },
   "transfer": {
-    "avaiableAmount": "Số tiền có thể rút",
+    "avaiableAmount": " Số dư khả dụng",
     "transferTo": "Chuyển tới"
   },
   "userAgreement": {
