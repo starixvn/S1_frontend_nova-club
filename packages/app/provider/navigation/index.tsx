@@ -88,6 +88,8 @@ export function NavigationProvider({
               AffCup: '/event/affcup',
               Cny: '/event/cny',
               CnyTnc: '/event/cnytnc',
+              Valentine: '/event/valentine',
+              ValentineTnc: '/event/valentinetnc',
               // WcWinnerList: '/event/wcwinner',
             },
           },

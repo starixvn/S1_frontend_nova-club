@@ -11,8 +11,8 @@
     "readAndAgree": "I have read & agree the",
     "referrerInfo": "Referrer information",
     "register": "Register",
-    "table": "Commission Table",
-    "rememberMe": "Remember Me"
+    "rememberMe": "Remember Me",
+    "table": "Commission Table"
   },
   "bank": {
     "accountName": "Account name",
@@ -131,6 +131,14 @@
     },
     "usdt": "USDT"
   },
+  "event": {
+    "claim": "CLAIM YOUR BONUS TICKET NOW",
+    "ticket": "Ticket/s",
+    "ticketSubmitted": "Successfully submitted your prediction ticket",
+    "winText1": "CONGRATULATIONS!",
+    "winText2": "YOU HAVE RECEIVED THE LOVE GIFT OF",
+    "youHave": "You Have"
+  },
   "filter": {
     "date": {
       "custom": "Custom",
@@ -168,11 +176,11 @@
     },
     "transactionType": {
       "adjustment": "Adjustment",
+      "bonus": "Bonus",
       "deposit": "Deposit",
       "game": "Game",
       "rebate": "Rebate",
-      "withdrawal": "Withdrawal",
-      "bonus": "Bonus"
+      "withdrawal": "Withdrawal"
     },
     "withdrawalStatus": {
       "all": "All",
@@ -185,10 +193,10 @@
     }
   },
   "forceDownload": {
-    "downloadApp": "Download APP",
     "download": "Download",
-    "promoText": "Bet Anytime Anywhere",
+    "downloadApp": "Download APP",
     "message": "Please update app to the latest version which includes:",
+    "promoText": "Bet Anytime Anywhere",
     "title": "New version available"
   },
   "game": {
@@ -425,10 +433,5 @@
   },
   "withdrawal": {
     "withdrawTo": "Withdraw To"
-  },
-  "event": {
-    "youHave": "You Have",
-    "ticket": "Ticket/s",
-    "ticketSubmitted": "Successfully submitted your prediction ticket"
   }
 }
