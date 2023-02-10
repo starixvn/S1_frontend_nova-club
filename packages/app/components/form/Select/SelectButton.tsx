@@ -12,6 +12,7 @@ export type SelectButtonProps = {
   label: string
   logo?: string
   containerStyle?: SxProp
+  chevelonButtonSize?: number
   disabled?: boolean
   children?: ReactNode
 }
@@ -25,6 +26,7 @@ const SelectButton = ({
   containerStyle,
   disabled,
   children,
+  chevelonButtonSize = 20,
   ...rest
 }: SelectButtonProps) => {
   const { t } = useLocalization()
@@ -89,13 +91,13 @@ const SelectButton = ({
             }}
           />
         ) : (
-          <Text sx={{ flex: 0.8 }} numberOfLines={1}>
+          <Text sx={{ flex: 0.6 }} numberOfLines={1}>
             {t(label)}
           </Text>
         )}
         <Icon
           name={'chevdown'}
-          size={20}
+          size={chevelonButtonSize}
           sx={{ position: 'absolute', right: '$2' }}
         />
       </DripsyGradient>

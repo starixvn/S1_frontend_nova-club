@@ -50,9 +50,11 @@ const Slots = () => {
                   buttonComponent={(props: SelectButtonComponentProps) => (
                     <SelectButton
                       variants="slot"
+                      chevelonButtonSize={15}
                       label={selectedSlotType?.label ?? ''}
                       containerStyle={{
                         flex: 0.3,
+                        minWidth: 30,
                       }}
                       {...props}
                     />
@@ -70,6 +72,7 @@ const Slots = () => {
                   buttonComponent={(props: SelectButtonComponentProps) => (
                     <SelectButton
                       variants="slot"
+                      chevelonButtonSize={15}
                       label={selectedProvider?.label}
                       logo={selectedProvider?.icon}
                       containerStyle={{

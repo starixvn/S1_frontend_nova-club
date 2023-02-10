@@ -48,7 +48,7 @@ const ProfileScreen = () => {
         <View
           sx={{
             width: 500,
-            maxWidth: '90%',
+            maxWidth: '95%',
             marginRight: 'auto',
             marginLeft: 'auto',
           }}

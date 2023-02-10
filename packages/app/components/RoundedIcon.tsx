@@ -54,12 +54,14 @@ const RoundedIcon = ({
   return (
     <BouncePressable onPress={onPress} sx={sx} disabled={disabled}>
       {gradient ? (
-        <StyledGradient
-          gradient={disabled ? 'grey' : gradient}
-          size={shapeSize}
-        >
-          <Icon name={icon} size={iconSize} />
-        </StyledGradient>
+        <GradientContainer size={shapeSize}>
+          <StyledGradient
+            gradient={disabled ? 'grey' : gradient}
+            size={shapeSize}
+          >
+            <Icon name={icon} size={iconSize} />
+          </StyledGradient>
+        </GradientContainer>
       ) : (
         <StyledView size={shapeSize} sx={{ ...containerStyle }}>
           <StyledImage
@@ -73,15 +75,22 @@ const RoundedIcon = ({
   )
 }
 
-const StyledGradient = styled(DripsyGradient)(({ size }: { size: number }) => ({
+const GradientContainer = styled(View)(({ size }: { size: number }) => ({
   height: size,
   width: size,
-  borderRadius: size * 0.25,
+  borderRadius: 15,
   borderWidth: 2,
   borderColor: '$PaleBlue',
   alignItems: 'center',
   justifyContent: 'center',
   aspectRatio: 1,
+  overflow: 'hidden',
+}))
+const StyledGradient = styled(DripsyGradient)(({ size }: { size: number }) => ({
+  height: size,
+  width: size,
+  alignItems: 'center',
+  justifyContent: 'center',
 }))
 
 const StyledView = styled(View)(({ size }: { size: number }) => ({
