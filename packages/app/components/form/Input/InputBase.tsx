@@ -1,16 +1,14 @@
 /* eslint-disable react/display-name */
 import GradientBox from 'app/components/GradientBox'
-import { TextInput, SxProp, Text, View } from 'dripsy'
+import { SxProp, Text, TextInput, View } from 'dripsy'
 import { motify, useAnimationState } from 'moti'
 import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react'
 import {
-  TouchableWithoutFeedback,
-  TextInputProps,
-  StyleSheet,
-  ViewProps,
-  NativeSyntheticEvent,
-  TextInputFocusEventData,
   Platform,
+  StyleSheet,
+  TextInputProps,
+  TouchableWithoutFeedback,
+  ViewProps,
 } from 'react-native'
 
 const MotiText = motify(Text)()
@@ -150,6 +148,8 @@ const InputBase = forwardRef<{}, InputBaseProps>(
                   alignSelf: 'flex-end',
                 }}
               >
+                {/* https://github.com/facebook/react-native/issues/14845 - Inconsistent text behavior in TextInput between iOS and Android 
+                - Elipsis (...) not working on android when text is overflow the width */}
                 <TextInput
                   ref={inputRef}
                   onFocus={(e) => {
@@ -164,6 +164,9 @@ const InputBase = forwardRef<{}, InputBaseProps>(
                   placeholderTextColor={'$placeholder'}
                   style={{ fontSize: 16, marginTop: 'auto' }}
                   editable={editable && !onPress}
+                  selection={{
+                    start: 0,
+                  }}
                   sx={inputStyle}
                   value={value}
                   {...rest}

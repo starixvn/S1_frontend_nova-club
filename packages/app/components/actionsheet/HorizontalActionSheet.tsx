@@ -1,6 +1,8 @@
+import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
-import { View } from 'dripsy'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { Row, View } from 'dripsy'
 import React, { ComponentProps } from 'react'
 import ActionSheet, { SheetManager } from 'react-native-actions-sheet'
 import { useRouter } from 'solito/router'
@@ -38,8 +40,10 @@ const HorizontalActionSheet = ({
   const { push } = useRouter()
   const { makeContextualHref } = useContextualRouting()
   const toAddBankAccount = makeContextualHref('add-bank-account')
-
+  const { bottom } = useSafeArea()
   const handleClose = () => SheetManager.hide(sheetId)
+  const { width } = useContainerDimension()
+  const itemWidth = Math.min(90, width * 0.25)
 
   let containerStyle
   let imageStyle
@@ -64,7 +68,10 @@ const HorizontalActionSheet = ({
           width: '100%',
           flexDirection: 'row',
           flexWrap: 'wrap',
-          justifyContent: 'flex-start',
+          justifyContent: 'center',
+          pt: '$3',
+          px: 2,
+          pb: bottom ? bottom : '$3',
         }}
       >
         {data && data.length > 0 ? (
@@ -78,6 +85,7 @@ const HorizontalActionSheet = ({
               }}
               containerStyle={containerStyle}
               imageStyle={imageStyle}
+              itemWidth={itemWidth}
               {...actionSheetItemProps}
             />
           ))
@@ -85,7 +93,7 @@ const HorizontalActionSheet = ({
           <View
             sx={{
               width: '100%',
-              minHeight: 100,
+              minHeight: 150,
               justifyContent: 'center',
               alignItems: 'center',
             }}

@@ -86,7 +86,7 @@ const ActionSheetBase = ({
       <View
         sx={{
           backgroundColor: 'white',
-          // minHeight: 100,
+          minHeight: 150,
           maxHeight: height / 2 + 48,
         }}
       >

@@ -7,6 +7,7 @@ export type ActionSheetItemProps = {
   onPress: () => void
   containerStyle?: SxProp
   imageStyle?: SxProp
+  itemWidth: number
 }
 
 const ActionSheetItem = ({
@@ -14,10 +15,11 @@ const ActionSheetItem = ({
   onPress,
   containerStyle,
   imageStyle,
+  itemWidth,
 }: ActionSheetItemProps) => {
   const mergedContainerStyle = {
     ...{
-      m: '$0a',
+      // m: '$0a',
     },
     ...containerStyle,
   }
@@ -30,7 +32,13 @@ const ActionSheetItem = ({
   }
 
   return (
-    <View sx={{ alignItems: 'center', width: '25%' }}>
+    <View
+      sx={{
+        alignItems: 'center',
+        width: itemWidth,
+        m: '$1',
+      }}
+    >
       <RoundedIcon
         size="lg"
         icon={icon}
