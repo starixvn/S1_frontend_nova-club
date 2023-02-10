@@ -2,10 +2,12 @@ import useOrientation from 'app/hooks/useOrientation'
 import useShield from 'app/hooks/useShield'
 import { useAppSelector } from 'app/provider/redux/store'
 import { AuthActions } from 'app/store/authReducer'
+import { TempSettingActions } from 'app/store/tempSetting.slice'
 import { ScrollView } from 'dripsy'
 import { default as React, useEffect, useState } from 'react'
 import { Platform } from 'react-native'
 import { useDispatch } from 'react-redux'
+import { Shield_Action } from 'services/authApi.type'
 import LuckyDrawTrigger from './LuckyDrawTrigger'
 import AnnouncementMarquee from './Section/AnnouncementMarquee'
 import BannerSection from './Section/BannerSection'
@@ -19,9 +21,10 @@ const HomeScreen = () => {
   const { isLandscape } = useOrientation()
   const dispatch = useDispatch()
   const syncShieldActionType =
-    useAppSelector((s) => s.auth.syncShieldActionType) ?? ''
+    useAppSelector((s) => s.tempSetting.syncShieldActionType) ??
+    Shield_Action.NONE
   const syncShieldStatus = useAppSelector(
-    (state) => state.auth.syncShieldStatus
+    (state) => state.tempSetting.syncShieldStatus
   )
 
   const { syncShield } = useShield()
@@ -31,7 +34,7 @@ const HomeScreen = () => {
       const _ = await syncShield(syncShieldActionType)
 
       // Dont care abou sync shield success or not as long as it ad triggered
-      dispatch(AuthActions.setSyncShieldStatus(true))
+      dispatch(TempSettingActions.setSyncShieldStatus(true))
     } catch (error) {
       console.error(error)
     }

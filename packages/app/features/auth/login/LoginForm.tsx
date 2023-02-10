@@ -5,12 +5,12 @@ import TextInput from 'app/components/form/TextInput'
 import useAlert from 'app/hooks/useAlert'
 import useBioAuth from 'app/hooks/useBioAuth'
 import useContextualRouting from 'app/hooks/useContextualRouting'
-import useShield from 'app/hooks/useShield'
 import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { AuthActions } from 'app/store/authReducer'
 import { SettingActions } from 'app/store/setting.slice'
+import { TempSettingActions } from 'app/store/tempSetting.slice'
 import validation, {
   PASSWORD_MAX_LENGTH,
   USERNAME_MAX_LENGTH,
@@ -55,7 +55,6 @@ const LoginForm = () => {
 
   const { isBioLoading, showBiometric, normalLogin, startBiometricLogin } =
     useBioAuth()
-  const { syncShield } = useShield()
 
   const isBiometricLogin = useAppSelector((s) => s.setting.biometricCredentials)
 
@@ -67,19 +66,6 @@ const LoginForm = () => {
     if (rememberMeCredential) return true
     else return false
   })
-
-  const updateLanguage = async (username: string) => {
-    try {
-      const { data } = await getPlayerProfile().unwrap()
-
-      if (data) {
-        const { language } = data
-        dispatch(SettingActions.setLocale(language))
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
 
   const onSubmit = async (
     { username, password }: LoginFormValues,
@@ -95,11 +81,14 @@ const LoginForm = () => {
 
       if (success && data) {
         // syncShield(Shield_Action.LOGIN)
-        dispatch(AuthActions.setSyncShieldActionType(Shield_Action.LOGIN))
         dispatch(
           SettingActions.setRememberMe(
             isRemember ? { username, password } : undefined
           )
+        )
+
+        dispatch(
+          TempSettingActions.setSyncShieldActionType(Shield_Action.LOGIN)
         )
         normalLogin(username, password, () => handleProceedLogin(data, actions))
       } else {
