@@ -1,3 +1,4 @@
+import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useLocalization from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
@@ -41,6 +42,8 @@ const HorizontalActionSheet = ({
   const toAddBankAccount = makeContextualHref('add-bank-account')
   const { bottom } = useSafeArea()
   const handleClose = () => SheetManager.hide(sheetId)
+  const { width } = useContainerDimension()
+  const itemWidth = Math.min(90, width * 0.25)
 
   let containerStyle
   let imageStyle
@@ -82,6 +85,7 @@ const HorizontalActionSheet = ({
               }}
               containerStyle={containerStyle}
               imageStyle={imageStyle}
+              itemWidth={itemWidth}
               {...actionSheetItemProps}
             />
           ))

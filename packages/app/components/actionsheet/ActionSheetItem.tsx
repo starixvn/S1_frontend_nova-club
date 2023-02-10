@@ -1,6 +1,5 @@
 import { SxProp, View } from 'dripsy'
 import React from 'react'
-import { useWindowDimensions } from 'react-native'
 import RoundedIcon from '../RoundedIcon'
 
 export type ActionSheetItemProps = {
@@ -8,6 +7,7 @@ export type ActionSheetItemProps = {
   onPress: () => void
   containerStyle?: SxProp
   imageStyle?: SxProp
+  itemWidth: number
 }
 
 const ActionSheetItem = ({
@@ -15,9 +15,8 @@ const ActionSheetItem = ({
   onPress,
   containerStyle,
   imageStyle,
+  itemWidth,
 }: ActionSheetItemProps) => {
-  const { width } = useWindowDimensions()
-  const itemWidth = Math.min(90, width * 0.25)
   const mergedContainerStyle = {
     ...{
       // m: '$0a',
