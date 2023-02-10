@@ -77,7 +77,7 @@ export default function Select({
         {loading ? (
           <ActivityIndicator sx={{ m: '$2' }} />
         ) : (
-          <Icon name="chevdown" size={18} />
+          <Icon name="chevdown" size={18} sx={{ ml: '$2' }} />
         )}
       </BtnComponent>
 

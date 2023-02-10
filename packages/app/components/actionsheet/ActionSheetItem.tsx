@@ -1,5 +1,6 @@
 import { SxProp, View } from 'dripsy'
 import React from 'react'
+import { useWindowDimensions } from 'react-native'
 import RoundedIcon from '../RoundedIcon'
 
 export type ActionSheetItemProps = {
@@ -15,9 +16,11 @@ const ActionSheetItem = ({
   containerStyle,
   imageStyle,
 }: ActionSheetItemProps) => {
+  const { width } = useWindowDimensions()
+  const itemWidth = Math.min(90, width * 0.25)
   const mergedContainerStyle = {
     ...{
-      m: '$0a',
+      // m: '$0a',
     },
     ...containerStyle,
   }
@@ -30,7 +33,13 @@ const ActionSheetItem = ({
   }
 
   return (
-    <View sx={{ alignItems: 'center', width: '25%' }}>
+    <View
+      sx={{
+        alignItems: 'center',
+        width: itemWidth,
+        m: '$1',
+      }}
+    >
       <RoundedIcon
         size="lg"
         icon={icon}
