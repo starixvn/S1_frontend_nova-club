@@ -4,8 +4,8 @@ import Cat from 'app/assets/images/events/cny/zodiac/cat.png'
 const TncEn = () => {
   return (
     <div>
-      <h2>Valentine LUCKY SPIN</h2>
-      <p>Campaign Period: 20/01 - 18/02/2023</p>
+      <h2>CUPID LUCKY SPIN</h2>
+      <p>Campaign Period: 20/01 - 28/02/2023</p>
 
       <br />
       <div>
