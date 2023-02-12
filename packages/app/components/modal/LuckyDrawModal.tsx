@@ -24,7 +24,8 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
   // const { data } = usePlayerProfileQuery()
   // const totalSpin = getParam('totalSpin', 0)
 
-  const { width, height } = useContainerDimension()
+  const { width: fullWidth, height } = useContainerDimension()
+  const width = Platform.OS === 'web' ? Math.min(450, fullWidth) : fullWidth
 
   const { showAlert } = useAlert()
 
@@ -46,7 +47,7 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
     setStartAnimate(true)
     setLoading(true)
 
-    const { data, success } = await spinLuckyWheel()
+    const { data, success, message } = await spinLuckyWheel()
       .unwrap()
       .catch((error) => {
         setLoading(false)
@@ -67,8 +68,11 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
           },
           persistent: true,
         })
-        setLoading(false)
+        // setLoading(false) // since can only spin 1 time, retain the loading until its auto closed
       }, 5500)
+    } else {
+      setLoading(false)
+      showAlert(message)
     }
   }
 
@@ -87,9 +91,9 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
   const handleSpinMapping = (code: number) => {
     switch (code) {
       case 1:
-        return 1
-      case 2:
         return 4
+      case 2:
+        return 0
       case 3:
         return 5
       case 4:
@@ -104,7 +108,7 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
   const shinyWidth = isLandscape ? height * 0.21 : width * 0.21
   const shinyHeight = shinyWidth / (130 / 35)
 
-  const { top } = useSafeArea()
+  const { top, left, right } = useSafeArea()
 
   const MemoizedWheel = useMemo(() => {
     return (
@@ -129,7 +133,7 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
     <View
       sx={{
         bg: 'rgba(18, 55, 88, 0.6)',
-        width,
+        width: fullWidth,
         height,
         position: 'relative',
         top: 0,
@@ -147,13 +151,21 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
       <ScrollView
         bounces={false}
         sx={{ width: '100%', height: '100%' }}
-        contentContainerStyle={{ alignItems: 'center' }}
+        contentContainerStyle={{
+          width,
+          alignItems: 'center',
+          paddingLeft: left,
+          paddingRight: right,
+          marginLeft: 'auto',
+          marginRight: 'auto',
+        }}
       >
         <View
           sx={{
             flexDirection: isLandscape ? 'row' : 'column',
             flex: 1,
             width: '100%',
+            height: Platform.OS !== 'web' ? height : 'auto',
           }}
         >
           <View
@@ -204,7 +216,7 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 mb: isLandscape ? 0 : '10%',
-                top: 0,
+                top: Platform.OS === 'web' ? '5%' : 0,
               }}
             >
               {/* <MotifiedImage

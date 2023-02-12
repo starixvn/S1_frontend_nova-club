@@ -10,15 +10,11 @@ export type AuthState = {
   tokenList?: TokenType[]
   user: ProfileResult | undefined
   isLogoutActionTriggered: boolean
-  syncShieldActionType: Shield_Action
-  syncShieldStatus: boolean
 }
 
 export const authInitialState: AuthState = {
   user: undefined,
   isLogoutActionTriggered: false,
-  syncShieldActionType: Shield_Action.NONE,
-  syncShieldStatus: false,
 }
 
 const playerSlice = createSlice({
@@ -33,12 +29,6 @@ const playerSlice = createSlice({
     },
     setIsLogoutActionTriggered: (state, action: PayloadAction<boolean>) => {
       state.isLogoutActionTriggered = action.payload
-    },
-    setSyncShieldActionType: (state, action: PayloadAction<Shield_Action>) => {
-      state.syncShieldActionType = action.payload
-    },
-    setSyncShieldStatus: (state, action: PayloadAction<boolean>) => {
-      state.syncShieldStatus = action.payload
     },
   },
   extraReducers: {
