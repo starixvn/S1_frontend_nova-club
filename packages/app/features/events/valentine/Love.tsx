@@ -2,28 +2,24 @@ import Image, { MotifiedImage } from 'app/components/common/Image'
 import useOrientation from 'app/hooks/useOrientation'
 import { scales, View } from 'dripsy'
 import { useAnimationState } from 'moti'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { isLandscape } from 'react-native-device-info'
+
+const SCALE_FROM = 0.8
+const SCALE_TO = 1
 
 export const LoveLeft = () => {
   const { isLandscape } = useOrientation()
 
   const scale = useAnimationState({
     from: {
-      scale: 0.9,
+      scale: SCALE_FROM,
     },
-    to: { scale: 1 },
+    to: { scale: SCALE_TO },
   })
 
-  return (
-    <View
-      sx={{
-        position: 'absolute',
-        left: 0,
-        bottom: isLandscape ? '0%' : '35%',
-        alignItems: 'flex-start',
-      }}
-    >
+  const MemoLove1 = useMemo(
+    () => (
       <MotifiedImage
         source={require('app/assets/images/events/valentine/love-left-01.png')}
         sx={{
@@ -41,6 +37,12 @@ export const LoveLeft = () => {
           duration: 1000,
         }}
       />
+    ),
+    [scale]
+  )
+
+  const MemoLove2 = useMemo(
+    () => (
       <MotifiedImage
         source={require('app/assets/images/events/valentine/love-left-02.png')}
         sx={{
@@ -58,6 +60,11 @@ export const LoveLeft = () => {
           duration: 1000,
         }}
       />
+    ),
+    [scale]
+  )
+  const MemoLove3 = useMemo(
+    () => (
       <MotifiedImage
         source={require('app/assets/images/events/valentine/love-left-03.png')}
         sx={{
@@ -75,6 +82,22 @@ export const LoveLeft = () => {
           duration: 1000,
         }}
       />
+    ),
+    [scale]
+  )
+
+  return (
+    <View
+      sx={{
+        position: 'absolute',
+        left: 0,
+        bottom: isLandscape ? '0%' : '35%',
+        alignItems: 'flex-start',
+      }}
+    >
+      {MemoLove1}
+      {MemoLove2}
+      {MemoLove3}
     </View>
   )
 }
@@ -83,20 +106,13 @@ export const LoveRight = () => {
   const { isLandscape } = useOrientation()
   const scale = useAnimationState({
     from: {
-      scale: 0.9,
+      scale: SCALE_FROM,
     },
-    to: { scale: 1 },
+    to: { scale: SCALE_TO },
   })
 
-  return (
-    <View
-      sx={{
-        position: 'absolute',
-        right: isLandscape ? 15 : 0,
-        bottom: '10%',
-        alignItems: 'flex-end',
-      }}
-    >
+  const MemoLove1 = useMemo(
+    () => (
       <MotifiedImage
         source={require('app/assets/images/events/valentine/love-right-01.png')}
         sx={{
@@ -112,8 +128,14 @@ export const LoveRight = () => {
           loop: true,
           type: 'timing',
           duration: 1000,
+          delay: 100,
         }}
       />
+    ),
+    [scale]
+  )
+  const MemoLove2 = useMemo(
+    () => (
       <MotifiedImage
         source={require('app/assets/images/events/valentine/love-right-02.png')}
         sx={{
@@ -131,6 +153,11 @@ export const LoveRight = () => {
           duration: 1000,
         }}
       />
+    ),
+    [scale]
+  )
+  const MemoLove3 = useMemo(
+    () => (
       <MotifiedImage
         source={require('app/assets/images/events/valentine/love-right-03.png')}
         sx={{
@@ -148,6 +175,11 @@ export const LoveRight = () => {
           duration: 1000,
         }}
       />
+    ),
+    [scale]
+  )
+  const MemoLove4 = useMemo(
+    () => (
       <MotifiedImage
         source={require('app/assets/images/events/valentine/love-right-04.png')}
         sx={{
@@ -164,6 +196,23 @@ export const LoveRight = () => {
           duration: 1000,
         }}
       />
+    ),
+    [scale]
+  )
+
+  return (
+    <View
+      sx={{
+        position: 'absolute',
+        right: isLandscape ? 15 : 0,
+        bottom: '10%',
+        alignItems: 'flex-end',
+      }}
+    >
+      {MemoLove1}
+      {MemoLove2}
+      {MemoLove3}
+      {MemoLove4}
     </View>
   )
 }

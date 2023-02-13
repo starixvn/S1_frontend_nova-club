@@ -9,19 +9,8 @@ const Lantern = () => {
   const TO_ROTATE = '45deg'
   const ROTATE_DURATION = 2000
 
-  return (
-    <View
-      pointerEvents="none"
-      sx={{
-        position: 'absolute',
-        top: -2,
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-        width: '100%',
-        zIndex: 2,
-        elevation: 2,
-      }}
-    >
+  const MemoLantern1 = useMemo(
+    () => (
       <MotifiedImage
         source={require('app/assets/images/events/valentine/lovelantern-left.png')}
         sx={{
@@ -42,6 +31,11 @@ const Lantern = () => {
           delay: 100,
         }}
       />
+    ),
+    []
+  )
+  const MemoLantern2 = useMemo(
+    () => (
       <MotifiedImage
         source={require('app/assets/images/events/valentine/lovelantern-middle.png')}
         sx={{
@@ -62,6 +56,11 @@ const Lantern = () => {
           delay: 300,
         }}
       />
+    ),
+    []
+  )
+  const MemoLantern3 = useMemo(
+    () => (
       <MotifiedImage
         source={require('app/assets/images/events/valentine/lovelantern-right.png')}
         sx={{
@@ -82,6 +81,11 @@ const Lantern = () => {
           delay: 200,
         }}
       />
+    ),
+    []
+  )
+  const MemoLantern4 = useMemo(
+    () => (
       <MotifiedImage
         source={require('app/assets/images/events/valentine/cupid.png')}
         sx={{
@@ -89,7 +93,7 @@ const Lantern = () => {
           aspectRatio: 497 / 327,
           position: 'absolute',
           top: '10%',
-          right: isLandscape ? 0 : '-10%',
+          right: isLandscape ? 0 : ['-10%', 0],
         }}
         resizeMode="contain"
         from={{
@@ -101,9 +105,31 @@ const Lantern = () => {
         transition={{
           loop: true,
           type: 'timing',
-          duration: 3000,
+          duration: 1000,
+          delay: 100,
         }}
       />
+    ),
+    [isLandscape]
+  )
+
+  return (
+    <View
+      pointerEvents="none"
+      sx={{
+        position: 'absolute',
+        top: -2,
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        width: '100%',
+        zIndex: 2,
+        elevation: 2,
+      }}
+    >
+      {MemoLantern1}
+      {MemoLantern2}
+      {MemoLantern3}
+      {MemoLantern4}
     </View>
   )
 }
