@@ -1,3 +1,5 @@
+import { useNavigation } from '@react-navigation/native'
+import useContextualRouting from 'app/hooks/useContextualRouting'
 import { Button } from 'app/components/form/Button'
 import InputBase from 'app/components/form/Input/InputBase'
 import { PageWithBackHeader } from 'app/components/layout/Page'
@@ -7,6 +9,7 @@ import validation from 'app/utils/validation'
 import { styled, Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React from 'react'
+import { Platform } from 'react-native'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { IResponse } from 'services/common/types'
 import {
@@ -25,7 +28,8 @@ const AccountVerification = () => {
   const { data: playerData } = usePlayerProfileQuery()
   const [updatePlayerName] = usePlayerRealNameMutation()
   const { showAlert } = useAlert()
-  const { back } = useRouter()
+  const { replace, back } = useRouter()
+  const { makeContextualHref } = useContextualRouting()
 
   async function updateRealName(realName) {
     const { success, message } = await updatePlayerName({
@@ -60,7 +64,11 @@ const AccountVerification = () => {
           actions.resetForm()
 
           setTimeout(() => {
-            back()
+            if (Platform.OS === 'web') {
+              replace(makeContextualHref('profile'), `/profile`)
+            } else {
+              back()
+            }
           }, 150)
         }
       }

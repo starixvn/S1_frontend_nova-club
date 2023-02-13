@@ -1,3 +1,4 @@
 import CrypstoScreen from 'app/features/deposit/crypto'
+import DepositGuard from '../depositGuard'
 
-export default CrypstoScreen
+export default DepositGuard(CrypstoScreen)

@@ -164,10 +164,6 @@ const InputBase = forwardRef<{}, InputBaseProps>(
                   placeholderTextColor={'$placeholder'}
                   style={{ fontSize: 16, marginTop: 'auto' }}
                   editable={editable && !onPress}
-                  selection={{
-                    start: 0,
-                  }}
-                  sx={inputStyle}
                   value={value}
                   {...rest}
                 />

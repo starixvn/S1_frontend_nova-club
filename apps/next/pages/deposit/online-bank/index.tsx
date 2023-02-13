@@ -1,3 +1,4 @@
 import OnlineBankScreen from 'app/features/deposit/online-bank'
+import DepositGuard from '../depositGuard'
 
-export default OnlineBankScreen
+export default DepositGuard(OnlineBankScreen)

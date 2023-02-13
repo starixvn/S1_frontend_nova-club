@@ -50,7 +50,9 @@ const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
     ? tooltipArrowHeight.map((height) => -height)
     : tooltipArrowHeight.map((height) => -(height / 1.2))
 
-  const { isCreditMember } = usePlayerProfileQuery()
+  const { isCreditMember, data: playerData } = usePlayerProfileQuery()
+
+  const isPlayerName = !!playerData?.firstName
 
   //change to icon
   const MENU_LIST = useMemo(() => {
@@ -101,7 +103,12 @@ const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
           icon: 'dac',
           label: 'menu.deposit',
           onPress: () => {
-            push(makeContextualHref('deposit'), '/deposit')
+            isPlayerName
+              ? push(makeContextualHref('deposit'), '/deposit')
+              : push(
+                  makeContextualHref('/profile/account-verification'),
+                  `/profile/account-verification`
+                )
           },
         },
         {

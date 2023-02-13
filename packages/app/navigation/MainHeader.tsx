@@ -9,6 +9,7 @@ import { Currency } from 'app/utils/constant'
 import { ActivityIndicator, Image, styled, Text, useSx, View } from 'dripsy'
 import React, { useEffect, useRef, useState } from 'react'
 import { LayoutChangeEvent } from 'react-native'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import { usePlayerBalanceQuery } from 'services/walletApi'
 import { useRouter } from 'solito/router'
 import MainMenu from './MainMenu'
@@ -41,6 +42,9 @@ const MainHeader = () => {
       fixedCacheKey: 'transfer-all-to-one',
     })
 
+  const { data: playerData } = usePlayerProfileQuery()
+  const isPlayerName = !!playerData?.firstName
+
   const refreshWallet = () => {
     if (isTransferringToMain) return
 
@@ -52,7 +56,12 @@ const MainHeader = () => {
     {
       img: require('../assets/images/header/deposit.png'),
       action: () => {
-        push(makeContextualHref('deposit'), '/deposit')
+        isPlayerName
+          ? push(makeContextualHref('deposit'), '/deposit')
+          : push(
+              makeContextualHref('/profile/account-verification'),
+              `/profile/account-verification`
+            )
       },
     },
     {

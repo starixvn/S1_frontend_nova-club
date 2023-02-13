@@ -1,3 +1,4 @@
 import Deposit from 'app/features/deposit'
+import DepositGuard from './depositGuard'
 
-export default Deposit
+export default DepositGuard(Deposit)

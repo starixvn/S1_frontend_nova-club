@@ -270,6 +270,7 @@ const AddBankAccountScreen = () => {
                   backgroundColor: '$gray',
                   m: 0,
                   px: '$3',
+                  mr: '$3',
                   minWidth: 53,
                 }}
                 _text={{

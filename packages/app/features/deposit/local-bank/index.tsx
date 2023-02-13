@@ -225,6 +225,7 @@ const LocalBankScreen = () => {
               onPress={() => copyToClipboard(values.bank?.bank_acc_name)}
             />
           }
+          selection={{ start: 0 }}
         />
         <InputBase
           removeBorder
