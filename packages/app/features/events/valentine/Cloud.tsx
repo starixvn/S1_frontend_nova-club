@@ -1,17 +1,19 @@
 import useOrientation from 'app/hooks/useOrientation'
 import { View } from 'dripsy'
-import { MotiImage } from 'moti'
+import { MotiImage, useAnimationState } from 'moti'
 import React, { memo } from 'react'
 
 const CLOUD_DURATION_01 = 9750
 const CLOUD_DURATION_02 = 9500
 const CLOUD_DURATION_03 = 9750
 const CLOUD_DURATION_04 = 10000
-const SWING_WIDTH = 30
 const BOTTOM_CLOUD = -20
 
 const Cloud = () => {
   const { isLandscape } = useOrientation()
+  const CLOUD_MOVE_WITDH = 30
+  const SWING_WIDTH = isLandscape ? 5 : 2
+  const ROTATE_WIDTH = isLandscape ? SWING_WIDTH * 1.25 : SWING_WIDTH * 0.5
 
   return (
     <View
@@ -37,17 +39,20 @@ const Cloud = () => {
           bottom: 30,
           aspectRatio: 280 / 184,
         }}
-        // from={{
-        //   translateX: -SWING_WIDTH,
-        // }}
-        // animate={{
-        //   translateX: SWING_WIDTH,
-        // }}
-        // transition={{
-        //   loop: true,
-        //   type: 'timing',
-        //   duration: CLOUD_DURATION_04,
-        // }}
+        from={{
+          translateX: -SWING_WIDTH,
+          rotate: `-${ROTATE_WIDTH}deg`,
+        }}
+        animate={{
+          rotate: `${ROTATE_WIDTH}deg`,
+          translateX: SWING_WIDTH,
+        }}
+        transition={{
+          loop: true,
+          type: 'timing',
+          duration: 1000,
+          delay: 25,
+        }}
       />
 
       <MotiImage
@@ -62,17 +67,20 @@ const Cloud = () => {
           bottom: isLandscape ? 150 : 90,
           aspectRatio: 53 / 131,
         }}
-        // from={{
-        //   translateX: -SWING_WIDTH,
-        // }}
-        // animate={{
-        //   translateX: SWING_WIDTH,
-        // }}
-        // transition={{
-        //   loop: true,
-        //   type: 'timing',
-        //   duration: CLOUD_DURATION_03,
-        // }}
+        from={{
+          translateX: -SWING_WIDTH,
+          rotate: `-${ROTATE_WIDTH}deg`,
+        }}
+        animate={{
+          rotate: `${ROTATE_WIDTH}deg`,
+          translateX: SWING_WIDTH,
+        }}
+        transition={{
+          loop: true,
+          type: 'timing',
+          duration: 1000,
+          delay: 100,
+        }}
       />
       <MotiImage
         source={require('app/assets/images/events/valentine/grass-left.png')}
@@ -85,17 +93,20 @@ const Cloud = () => {
           bottom: 30,
           aspectRatio: 281 / 157,
         }}
-        // from={{
-        //   translateX: SWING_WIDTH,
-        // }}
-        // animate={{
-        //   translateX: -SWING_WIDTH,
-        // }}
-        // transition={{
-        //   loop: true,
-        //   type: 'timing',
-        //   duration: CLOUD_DURATION_02,
-        // }}
+        from={{
+          translateX: SWING_WIDTH,
+          rotate: `${ROTATE_WIDTH}deg`,
+        }}
+        animate={{
+          rotate: `-${ROTATE_WIDTH}deg`,
+          translateX: -SWING_WIDTH,
+        }}
+        transition={{
+          loop: true,
+          type: 'timing',
+          duration: 1000,
+          delay: 25,
+        }}
       />
 
       <MotiImage
@@ -110,17 +121,20 @@ const Cloud = () => {
           bottom: isLandscape ? 150 : 40,
           aspectRatio: 82 / 225,
         }}
-        // from={{
-        //   translateX: -SWING_WIDTH,
-        // }}
-        // animate={{
-        //   translateX: SWING_WIDTH,
-        // }}
-        // transition={{
-        //   loop: true,
-        //   type: 'timing',
-        //   duration: CLOUD_DURATION_03,
-        // }}
+        from={{
+          translateX: SWING_WIDTH,
+          rotate: `${ROTATE_WIDTH}deg`,
+        }}
+        animate={{
+          rotate: `-${ROTATE_WIDTH}deg`,
+          translateX: -SWING_WIDTH,
+        }}
+        transition={{
+          loop: true,
+          type: 'timing',
+          duration: 1000,
+          delay: 25,
+        }}
       />
       <MotiImage
         source={require('app/assets/images/events/valentine/cloud-back.png')}
@@ -133,17 +147,17 @@ const Cloud = () => {
           width: '200%',
           aspectRatio: 1123 / 350,
         }}
-        // from={{
-        //   translateX: -SWING_WIDTH,
-        // }}
-        // animate={{
-        //   translateX: SWING_WIDTH,
-        // }}
-        // transition={{
-        //   loop: true,
-        //   type: 'timing',
-        //   duration: CLOUD_DURATION_03,
-        // }}
+        from={{
+          translateX: -CLOUD_MOVE_WITDH,
+        }}
+        animate={{
+          translateX: CLOUD_MOVE_WITDH,
+        }}
+        transition={{
+          loop: true,
+          type: 'timing',
+          duration: CLOUD_DURATION_03,
+        }}
       />
 
       <MotiImage
@@ -158,17 +172,20 @@ const Cloud = () => {
           width: 110,
           aspectRatio: 208 / 448,
         }}
-        // from={{
-        //   translateX: -SWING_WIDTH,
-        // }}
-        // animate={{
-        //   translateX: SWING_WIDTH,
-        // }}
-        // transition={{
-        //   loop: true,
-        //   type: 'timing',
-        //   duration: CLOUD_DURATION_03,
-        // }}
+        from={{
+          translateX: SWING_WIDTH,
+          rotate: `${ROTATE_WIDTH}deg`,
+        }}
+        animate={{
+          rotate: `-${ROTATE_WIDTH}deg`,
+          translateX: -SWING_WIDTH,
+        }}
+        transition={{
+          loop: true,
+          type: 'timing',
+          duration: 1000,
+          delay: 25,
+        }}
       />
       <MotiImage
         source={require('app/assets/images/events/valentine/cloud.png')}
@@ -182,17 +199,17 @@ const Cloud = () => {
           width: '100%',
           aspectRatio: 687 / 236,
         }}
-        // from={{
-        //   translateX: SWING_WIDTH,
-        // }}
-        // animate={{
-        //   translateX: -SWING_WIDTH,
-        // }}
-        // transition={{
-        //   loop: true,
-        //   type: 'timing',
-        //   duration: CLOUD_DURATION_01,
-        // }}
+        from={{
+          translateX: CLOUD_MOVE_WITDH,
+        }}
+        animate={{
+          translateX: -CLOUD_MOVE_WITDH,
+        }}
+        transition={{
+          loop: true,
+          type: 'timing',
+          duration: CLOUD_DURATION_01,
+        }}
       />
       <MotiImage
         source={require('app/assets/images/events/valentine/cloud.png')}
@@ -206,17 +223,17 @@ const Cloud = () => {
           width: '100%',
           aspectRatio: 687 / 236,
         }}
-        // from={{
-        //   translateX: SWING_WIDTH,
-        // }}
-        // animate={{
-        //   translateX: -SWING_WIDTH,
-        // }}
-        // transition={{
-        //   loop: true,
-        //   type: 'timing',
-        //   duration: CLOUD_DURATION_01,
-        // }}
+        from={{
+          translateX: CLOUD_MOVE_WITDH,
+        }}
+        animate={{
+          translateX: -CLOUD_MOVE_WITDH,
+        }}
+        transition={{
+          loop: true,
+          type: 'timing',
+          duration: CLOUD_DURATION_01,
+        }}
       />
     </View>
   )

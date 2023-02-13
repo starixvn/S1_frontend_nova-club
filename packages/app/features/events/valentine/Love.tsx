@@ -1,11 +1,20 @@
-import Image from 'app/components/common/Image'
+import Image, { MotifiedImage } from 'app/components/common/Image'
 import useOrientation from 'app/hooks/useOrientation'
-import { View } from 'dripsy'
+import { scales, View } from 'dripsy'
+import { useAnimationState } from 'moti'
 import React from 'react'
 import { isLandscape } from 'react-native-device-info'
 
 export const LoveLeft = () => {
   const { isLandscape } = useOrientation()
+
+  const scale = useAnimationState({
+    from: {
+      scale: 0.9,
+    },
+    to: { scale: 1 },
+  })
+
   return (
     <View
       sx={{
@@ -15,7 +24,7 @@ export const LoveLeft = () => {
         alignItems: 'flex-start',
       }}
     >
-      <Image
+      <MotifiedImage
         source={require('app/assets/images/events/valentine/love-left-01.png')}
         sx={{
           width: 80,
@@ -25,8 +34,14 @@ export const LoveLeft = () => {
           ml: '-30%',
         }}
         resizeMode="contain"
+        state={scale}
+        transition={{
+          loop: true,
+          type: 'timing',
+          duration: 1000,
+        }}
       />
-      <Image
+      <MotifiedImage
         source={require('app/assets/images/events/valentine/love-left-02.png')}
         sx={{
           width: 120,
@@ -36,8 +51,14 @@ export const LoveLeft = () => {
           ml: '-25%',
         }}
         resizeMode="contain"
+        state={scale}
+        transition={{
+          loop: true,
+          type: 'timing',
+          duration: 1000,
+        }}
       />
-      <Image
+      <MotifiedImage
         source={require('app/assets/images/events/valentine/love-left-03.png')}
         sx={{
           width: 60,
@@ -47,6 +68,12 @@ export const LoveLeft = () => {
           ml: '-20%',
         }}
         resizeMode="contain"
+        state={scale}
+        transition={{
+          loop: true,
+          type: 'timing',
+          duration: 1000,
+        }}
       />
     </View>
   )
@@ -54,6 +81,13 @@ export const LoveLeft = () => {
 
 export const LoveRight = () => {
   const { isLandscape } = useOrientation()
+  const scale = useAnimationState({
+    from: {
+      scale: 0.9,
+    },
+    to: { scale: 1 },
+  })
+
   return (
     <View
       sx={{
@@ -63,7 +97,7 @@ export const LoveRight = () => {
         alignItems: 'flex-end',
       }}
     >
-      <Image
+      <MotifiedImage
         source={require('app/assets/images/events/valentine/love-right-01.png')}
         sx={{
           width: 100,
@@ -73,8 +107,14 @@ export const LoveRight = () => {
           mr: '-30%',
         }}
         resizeMode="contain"
+        state={scale}
+        transition={{
+          loop: true,
+          type: 'timing',
+          duration: 1000,
+        }}
       />
-      <Image
+      <MotifiedImage
         source={require('app/assets/images/events/valentine/love-right-02.png')}
         sx={{
           width: 150,
@@ -84,8 +124,14 @@ export const LoveRight = () => {
           mr: '-30%',
         }}
         resizeMode="contain"
+        state={scale}
+        transition={{
+          loop: true,
+          type: 'timing',
+          duration: 1000,
+        }}
       />
-      <Image
+      <MotifiedImage
         source={require('app/assets/images/events/valentine/love-right-03.png')}
         sx={{
           width: 60,
@@ -95,8 +141,14 @@ export const LoveRight = () => {
           mr: 12,
         }}
         resizeMode="contain"
+        state={scale}
+        transition={{
+          loop: true,
+          type: 'timing',
+          duration: 1000,
+        }}
       />
-      <Image
+      <MotifiedImage
         source={require('app/assets/images/events/valentine/love-right-04.png')}
         sx={{
           width: 100,
@@ -105,6 +157,12 @@ export const LoveRight = () => {
           mr: 24,
         }}
         resizeMode="contain"
+        state={scale}
+        transition={{
+          loop: true,
+          type: 'timing',
+          duration: 1000,
+        }}
       />
     </View>
   )
