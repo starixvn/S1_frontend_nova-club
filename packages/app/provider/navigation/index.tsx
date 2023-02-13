@@ -1,4 +1,4 @@
-import { NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native'
 import { useMemo } from 'react'
 
 /**
@@ -23,6 +23,13 @@ interface NavigationParamList {
   LotteryPage: undefined
   CNYCatSpinPage: undefined
 }
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme,
+    background: '#033454',
+  },
+}
 
 export function NavigationProvider({
   children,
@@ -31,6 +38,7 @@ export function NavigationProvider({
 }) {
   return (
     <NavigationContainer<NavigationParamList>
+      theme={MyTheme}
       linking={useMemo(
         () => ({
           prefixes: ['http://localhost:3000'],
