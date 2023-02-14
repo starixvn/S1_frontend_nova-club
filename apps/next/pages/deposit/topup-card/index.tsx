@@ -1,4 +1,4 @@
 import TopUpCardScreen from 'app/features/deposit/topup-card'
-import DepositGuard from '../depositGuard'
+import DepositGuard from '../deposit-guard'
 
-export default DepositGuard(TopUpCardScreen)
+export default DepositGuard(TopUpCardScreen, 'deposit')

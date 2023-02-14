@@ -1,4 +1,4 @@
 import DepositLoaderScreen from 'app/features/deposit/deposit-loader'
-import DepositGuard from '../depositGuard'
+import DepositGuard from '../deposit-guard'
 
-export default DepositGuard(DepositLoaderScreen)
+export default DepositGuard(DepositLoaderScreen, 'deposit')

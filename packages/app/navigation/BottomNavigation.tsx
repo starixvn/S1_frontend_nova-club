@@ -4,7 +4,7 @@ import useOrientation from 'app/hooks/useOrientation'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Flex, View } from 'dripsy'
 import React, { useState } from 'react'
-import { useWindowDimensions } from 'react-native'
+import { Platform } from 'react-native'
 import { useRouter } from 'solito/router'
 import BottomNavIcon from './BottomNavIcon'
 
@@ -56,7 +56,6 @@ const BottomNavigation = () => {
   const { isLandscape } = useOrientation()
   const { returnHref } = useContextualRouting()
   const [delay, setDelay] = useState(false)
-  const { height } = useWindowDimensions()
   const { bottom } = useSafeArea()
 
   const isActiveState = (index: number, item: typeof tabConfig[number]) => {
@@ -91,7 +90,17 @@ const BottomNavigation = () => {
           backgroundColor: '#0d2035',
           width: '100%',
           height: BAR_HEIGHT + (isLandscape ? 0 : bottom),
-          paddingBottom: isLandscape ? 10 : bottom,
+          ...Platform.select({
+            ios: {
+              paddingBottom: isLandscape ? 10 : bottom,
+            },
+            android: {
+              paddingBottom: isLandscape ? 10 : bottom ? bottom : 10,
+            },
+            default: {
+              paddingBottom: 10,
+            },
+          }),
           // paddingX: [12, 'auto'],
         }}
       >

@@ -1,4 +1,4 @@
 import MomoScreen from 'app/features/deposit/momo'
-import DepositGuard from '../depositGuard'
+import DepositGuard from '../deposit-guard'
 
-export default DepositGuard(MomoScreen)
+export default DepositGuard(MomoScreen, 'deposit')

@@ -2,7 +2,7 @@ import AnimateCrossFadeIn from 'app/components/AnimateCrossFadeIn'
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import useLocalization from 'app/provider/localization'
-import { Flex } from 'dripsy'
+import { Flex, useDripsyTheme } from 'dripsy'
 import { MotiText, MotiView, useAnimationState } from 'moti'
 import React, { FC, useEffect } from 'react'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
@@ -22,11 +22,16 @@ const BottomNavIcon: FC<BottomNavTabProps> = ({
   onPress,
 }) => {
   const { t } = useLocalization()
+  const { theme } = useDripsyTheme()
 
-  const color = active ? '#29badf' : '#0D2035'
-  const borderColor = active ? '#33A0D0' : '#133351'
-  const colorGradient = active ? ['#24C0E3', '#3799CC'] : ['#0D2035', '#0B76A5']
-  const fontColor = active ? '#26BCE0' : '#0B76A5'
+  const color = active ? theme.colors.$cyan : '#0D2035'
+  const borderColor = active
+    ? theme.colors.$lightNavyBlue
+    : theme.colors.$darkNavyBlue
+  const colorGradient = active
+    ? [theme.colors.$cyan, theme.colors.$lightNavyBlue]
+    : [theme.colors.$cyan, theme.colors.$lightNavyBlue]
+  const fontColor = active ? theme.colors.$cyan : 'white'
 
   // const MotiIcon = motify(<TextInput style={{backgroundColor: 'red', height:100, width: 100}} />)()
   // const MotiIcon = motify(<TabIcon active={active} iconName={iconName} />)()
@@ -46,26 +51,26 @@ const BottomNavIcon: FC<BottomNavTabProps> = ({
   const innerAnimationState = useAnimationState({
     from: {
       opacity: 0.8,
-      background: '#0B76A5',
     },
     to: {
       opacity: 0.8,
-      background: '#0B76A5',
     },
     active: {
       opacity: 1,
-      background: '#24C0E3',
     },
   })
 
   const textState = useAnimationState({
     from: {
+      paddingTop: 0,
       fontSize: 12,
     },
     to: {
+      paddingTop: 0,
       fontSize: 12,
     },
     active: {
+      paddingTop: 5,
       fontSize: 13,
     },
   })
@@ -101,7 +106,7 @@ const BottomNavIcon: FC<BottomNavTabProps> = ({
             borderRadius: size * 0.5,
             borderWidth: 2,
             borderColor: borderColor,
-            backgroundColor: '#0D2035',
+            backgroundColor: theme.colors.$darkOcean,
             alignItems: 'center',
             justifyContent: 'center',
           }}

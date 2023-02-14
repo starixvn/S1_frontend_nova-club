@@ -1,4 +1,4 @@
 import QrTransferScreen from 'app/features/deposit/qr-transfer'
-import DepositGuard from '../depositGuard'
+import DepositGuard from '../deposit-guard'
 
-export default DepositGuard(QrTransferScreen)
+export default DepositGuard(QrTransferScreen, 'deposit')
