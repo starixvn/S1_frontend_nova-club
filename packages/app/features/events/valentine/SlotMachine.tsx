@@ -407,7 +407,11 @@ const SlotMachine = () => {
           <View
             sx={{
               marginTop:
-                Platform.OS === 'web' ? '35%' : isLandscape ? '18%' : '35%',
+                Platform.OS === 'web'
+                  ? ['35%', '18%']
+                  : isLandscape
+                  ? '18%'
+                  : '35%',
               position: 'relative',
               alignItems: 'center',
               justifyContent: 'center',
