@@ -22,7 +22,7 @@ const HomeScreen = () => {
   const dispatch = useDispatch()
   const syncShieldActionType =
     useAppSelector((s) => s.tempSetting.syncShieldActionType) ??
-    Shield_Action.NONE
+    Shield_Action.LOGIN
   const syncShieldStatus = useAppSelector(
     (state) => state.tempSetting.syncShieldStatus
   )
