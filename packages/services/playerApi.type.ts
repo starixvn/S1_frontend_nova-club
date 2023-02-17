@@ -2,12 +2,19 @@ import {
   ReportDepositStatus,
   ReportWithdrawalStatus,
   ReportTransactionType,
+  ReportCommonStatus,
 } from 'app/utils/constant'
 import { WheelInfo } from './authApi.type'
 
 export enum MEMBER_TYPE {
   CASH = 'CASH',
   CREDIT = 'CREDIT',
+}
+
+export enum WITHDRAWAL_TYPE {
+  ALL = 0,
+  BANK = 1,
+  CRYPTO = 2,
 }
 
 export interface ProfileResult {
@@ -74,12 +81,13 @@ export type ReportArgs = {
   is_reward_group_by?: boolean
   limit: number
   offset: number
-  status: ReportDepositStatus | ReportWithdrawalStatus
+  status: ReportDepositStatus | ReportWithdrawalStatus | ReportCommonStatus
   game_provider_code?: string
   time_from: string
   time_to: string
   trans_type: ReportTransactionType
   username?: string
+  withdrawal_type?: WITHDRAWAL_TYPE
 }
 
 export type ReportResult = {

@@ -14,7 +14,7 @@ export interface SelectProps extends InputBaseProps {
   isHorizontalActionSheet?: boolean
   onSelected: (value) => void
   _actionSheet: ActionSheetProps
-  buttonComponent: (SelectButtonComponentProps) => JSX.Element
+  buttonComponent?: (SelectButtonComponentProps) => JSX.Element
 }
 
 export type SelectButtonComponentProps = Omit<

@@ -1,3 +1,3 @@
-import BankAccountScreen from 'app/features/profile/bank-account'
+import BankScreen from 'app/features/profile/bank-account'
 
-export default BankAccountScreen
+export default BankScreen

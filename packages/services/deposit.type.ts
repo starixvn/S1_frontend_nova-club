@@ -20,6 +20,20 @@ export type SubmitDepositArgs = {
 
 export type SubmitDepositResult = {
   result: boolean
+  type: number
+  url: string
+}
+
+export type SubmitDepositCryptoItem = {
+  invoice_amount: string
+  invoice_currency: string
+  message: string
+  payment_address: string
+  payment_amount: string
+  payment_token: string
+  rates: string
+  transaction_id: string
+  type: number
 }
 
 /**

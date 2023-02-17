@@ -3,7 +3,9 @@ import { Button } from 'app/components/form/Button'
 import InputBase from 'app/components/form/Input/InputBase'
 import Select from 'app/components/form/Input/Select'
 import { TextField } from 'app/components/TextField'
+import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
 import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
+import { MAP_CRYPTO_PROTOCOL } from 'app/constant/bank'
 import useAlert from 'app/hooks/useAlert'
 import useCheckMobile from 'app/hooks/useCheckMobile'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
@@ -15,6 +17,7 @@ import validationRule from 'app/utils/validationRule'
 import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect, useState } from 'react'
+import { useModal } from 'react-native-modalfy'
 import { SelectOptions } from 'services/common/types'
 import {
   useDepositPaymentListQuery,
@@ -41,6 +44,7 @@ const AutoDepositForm = ({ module, DepositCategoryId }) => {
   const { t } = useLocalization()
   const { push } = useContextualRouter()
   const { showAlert } = useAlert()
+  const { openModal } = useModal()
   const [postSubmitDeposit] = useSubmitDepositMutation()
   const { data: playerData } = usePlayerProfileQuery()
   const currency = playerData?.currency as Currency
@@ -53,17 +57,20 @@ const AutoDepositForm = ({ module, DepositCategoryId }) => {
   const depositPayment = data?.data?.result.auto.find(
     (el) => el.category_id === DepositCategoryId
   )
-  const channelOptions = depositPayment?.list.map((_, index) => {
-    return {
-      label: `${t('deposit.channel')} ${index + 1}`,
-      value: index,
+
+  const channelOptions = depositPayment?.list.map(
+    (item: AutoBankItem, index: number) => {
+      return {
+        label:
+          depositPayment.category_id === DepositPaymentMethodCategoryId.CRYPTO
+            ? MAP_CRYPTO_PROTOCOL[item.bankTypeId]
+            : `${t('deposit.channel')} ${index + 1}`,
+        value: index,
+      }
     }
-  })
+  )
 
   const [selectedValues, setSelectedValues] = useState(0)
-  // const [selectedChannel, setSelectedChannel] = useState(
-  //   depositPayment?.list[0]
-  // )
   const selectedChannel = depositPayment?.list[selectedValues]
   const inputFields = Object.values(selectedChannel?.player_input_fields ?? {})
 
@@ -107,12 +114,19 @@ const AutoDepositForm = ({ module, DepositCategoryId }) => {
         .catch((error) => showAlert(error))
 
       if (result?.success) {
-        const params = {
-          title: depositPayment?.category_text,
-          depositUrl: encodeURIComponent(result?.data?.url),
-        }
+        if (DepositCategoryId === DepositPaymentMethodCategoryId.CRYPTO) {
+          openModal('DepositCryptoModal', {
+            data: result.data,
+            persistent: true,
+          })
+        } else {
+          const params = {
+            title: depositPayment?.category_text,
+            depositUrl: encodeURIComponent(result?.data?.url),
+          }
 
-        push('/deposit/deposit-loader', params)
+          push('/deposit/deposit-loader', params)
+        }
       }
     } catch (error) {
       showAlert(error)
@@ -144,6 +158,21 @@ const AutoDepositForm = ({ module, DepositCategoryId }) => {
     setSelectedValues(value.value)
     formik.resetForm()
   }
+
+  // useEffect(() => {
+  //   const cryptoData = {
+  //     invoice_amount: '122000',
+  //     invoice_currency: 'VND',
+  //     message: 'Successfully created payment record',
+  //     payment_address: 'TAagYfEtVwA1VUDR3dn2tmEfv3QRYbutus',
+  //     payment_amount: '5.148302',
+  //     payment_token: 'TRC20-USDT',
+  //     rates: '0.00004219919672',
+  //     transaction_id: 'D856250278715',
+  //     type: 8,
+  //   }
+  //   openModal('DepositCryptoModal', { data: cryptoData, persistent: true })
+  // }, [])
 
   return (
     <TextField labelWidth={0}>
@@ -187,8 +216,6 @@ const AutoDepositForm = ({ module, DepositCategoryId }) => {
       />
 
       <View sx={{ flex: 1, justifyContent: 'space-between' }}>
-        {/* <ImportantNotice keys={DEPOSIT_NOTES} module={module} /> */}
-
         <Button
           rounded
           stretch

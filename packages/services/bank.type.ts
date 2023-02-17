@@ -56,6 +56,7 @@ export type addPlayerBankAccArgs = {
   city: string
   province: string
   username?: string
+  protocol?: string
 }
 
 /**
@@ -82,5 +83,15 @@ export type WithdrawalBankResult = {
 }
 
 export type WithdrawalBankArgs = {
+  username: string
+}
+
+// Crypto bank list
+export type CryptoWithdrawalBankResult = WithdrawalBankResult & {
+  min_withdrawal_trans: string
+  max_withdrawal_trans: string
+}
+
+export type CryptoWithdrawalBankArgs = {
   username: string
 }

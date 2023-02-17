@@ -7,6 +7,7 @@ import { FlatList } from 'react-native-gesture-handler'
 
 interface SelectListsProps {
   actionSheetRef: MutableRefObject<any>
+  actionSheetId?: string
   data: any[]
   onPress?: () => any
   selectedIndex: number
@@ -16,6 +17,7 @@ interface SelectListsProps {
 
 const SelectLists = ({
   actionSheetRef,
+  emptyResultComponent,
   data,
   onPress: onClose,
   selectedIndex,
@@ -23,6 +25,7 @@ const SelectLists = ({
   setSelectedValue,
 }: SelectListsProps) => {
   const { t } = useLocalization()
+
   const handleSelectedOption = (index: number) => {
     const selectedValue = data[index]
 
@@ -107,6 +110,7 @@ const SelectLists = ({
       data={data}
       keyExtractor={keyExtractor}
       renderItem={renderItem}
+      ListEmptyComponent={emptyResultComponent && emptyResultComponent}
       onMomentumScrollEnd={() => actionSheetRef.current.handleChildScrollEnd}
     />
   )

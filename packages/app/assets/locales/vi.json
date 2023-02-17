@@ -1,10 +1,10 @@
 {
   "accountVerification": {
-    "title": "Xác thực tài khoản",
-    "secondaryTitle": "Điền tên thật của bạn để tiếp tục: ",
+    "placeHolder": "Vui lòng điền họ tên đầy đủ",
     "realName": "Tên thật",
     "remark": "Vui lòng kiểm tra tên tài khoản của bạn là tên thật để giao dịch không bị hoãn/hủy",
-    "placeHolder": "Vui lòng điền họ tên đầy đủ"
+    "secondaryTitle": "Điền tên thật của bạn để tiếp tục: ",
+    "title": "Xác thực tài khoản"
   },
   "auth": {
     "accountReg": "ĐĂNG KÝ",
@@ -26,10 +26,12 @@
     "accountNo": "Số tài khoản",
     "accountNumber": "Số tài khoản",
     "addBankAccount": "Thêm tài khoản",
+    "addCryptoAccount": "Thêm ví tiền ảo",
     "bank": "Ngân hàng",
     "enterAccountNo": "Vui lòng nhập số tài khoản",
     "noBankAccount": "Không có tài khoản ngân hàng",
-    "selectBank": "Vui lòng chọn ngân hàng"
+    "selectBank": "Vui lòng chọn ngân hàng",
+    "walletAddress": "Địa chỉ ví"
   },
   "biometric": {
     "label": "Đăng nhập bằng Sinh trắc học",
@@ -243,10 +245,12 @@
   "menu": {
     "agentLogin": "Đăng nhập đại lý",
     "bankAccount": "Tài khoản ngân hàng",
+    "bankWithdraw": "Rút tiền qua ngân hàng",
     "changePassword": "Đổi Mật Khẩu",
     "changePin": "Thay đổi mã PIN",
     "commisionTable": "Bảng hoa hồng",
     "createPin": "Tạo mã PIN",
+    "cryptoWithdraw": "Rút bằng tiền ảo",
     "customerSupport": "Hỗ trợ khách hàng",
     "deposit": "Nạp tiền",
     "depositConfirmation": "Xác nhận thông tin gửi tiền",
@@ -260,6 +264,7 @@
     "switchAccount": "Chuyển tài khoản",
     "tab": {
       "bets": "Cá cược",
+      "cryptoWallet": "Ví tiền ảo",
       "date": "Ngày",
       "game": "Trò Chơi",
       "gameType": "Loại trò chơi",
@@ -415,6 +420,7 @@
     "amount": "%{amount} ngoài hạn mức",
     "amount0": "Số tiền không được bằng 0",
     "amountLessThan": "Số tiền không thể nhỏ hơn %{min}",
+    "cryptoAddress": "Chọn phương thức rút tiền",
     "dailyLimitReached": "Bạn Đã Sử Dụng Hết Hạn Mức Trong Ngày",
     "email": "Định dạng email chưa đúng",
     "enterId": "Vui lòng nhập ID giới thiệu",
@@ -440,6 +446,9 @@
     "username": "Tên đăng nhập phải có 6-15 ký tự"
   },
   "withdrawal": {
+    "cryptoExchangeRates": "Tỉ giá %{crypto}",
+    "guarantee": "Tỉ giá không đổi đến : 11:14",
+    "options": "Địa chỉ ví không hợp lệ",
     "withdrawTo": "Rút tiền về"
   }
 }

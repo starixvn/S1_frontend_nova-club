@@ -1,95 +1,53 @@
-import { Button } from 'app/components/form/Button'
-import Icon from 'app/components/Icon'
+import CustomTabBar from 'app/components/CustomTabBar'
 import { PageWithBackHeader } from 'app/components/layout/Page'
-import useContainerDimension from 'app/hooks/useContainerDimension'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
-import {
-  ActivityIndicator,
-  Image,
-  ScrollView,
-  styled,
-  Text,
-  View,
-} from 'dripsy'
-import React from 'react'
-import { useModal } from 'react-native-modalfy'
-import { usePlayerBankQuery } from 'services/bank'
-import { PlayerBankResult } from 'services/bank.type'
-import BankAccCard from './BankAccCard'
+import { View } from 'dripsy'
+import { useState } from 'react'
+import { useWindowDimensions } from 'react-native'
+import { SceneMap, TabView } from 'react-native-tab-view'
+import { createParam } from 'solito'
+import BankAccountScreen from './BankAccountScreen'
+import CryptoWalletScreen from './CryptoWalletScreen'
 
-const BankAccountScreen = () => {
+const { useParam } = createParam<{ tab: string }>()
+const BankScreen = () => {
+  const [tab] = useParam('tab')
   const { t } = useLocalization()
-  const { push } = useContextualRouter()
-  const { openModal } = useModal()
-  const { width } = useContainerDimension()
-  const { data, isLoading } = usePlayerBankQuery()
 
-  const handleRemove = async (item: PlayerBankResult) => {
-    openModal('PlayerBankDeleteModal', { bank: item })
+  const renderScene = SceneMap({
+    first: BankAccountScreen,
+    second: CryptoWalletScreen,
+  })
+
+  const getTab = tab && parseInt(tab)
+
+  const [index, setIndex] = useState(getTab || 0)
+  const [routes] = useState([
+    { key: 'first', title: t('menu.bankAccount'), index: 0 },
+    { key: 'second', title: t('menu.tab.cryptoWallet'), index: 1 },
+  ])
+  const layout = useWindowDimensions()
+
+  const renderTabBar = (props) => {
+    return <CustomTabBar {...props} />
   }
 
   return (
-    <PageWithBackHeader header={{ title: t('menu.bankAccount') }}>
-      <StyledView>
-        {isLoading ? (
-          <ActivityIndicator size={'large'} color={'$lightCyan'} />
-        ) : data?.data?.length > 0 ? (
-          data?.data.map((item: PlayerBankResult) => (
-            <BankAccCard
-              key={item.PlayerBankDetailsId}
-              item={item}
-              onPressRemove={handleRemove}
-            />
-          ))
-        ) : (
-          <StyledViewNoResult>
-            <Image
-              source={require('../../../assets/images/empty-result.png')}
-              style={{
-                aspectRatio: 1,
-                marginBottom: 12,
-                width: width * 0.5,
-                height: width * 0.5,
-              }}
-            />
-            <Text sx={{ color: '#72859A' }}>{t('bank.noBankAccount')}</Text>
-          </StyledViewNoResult>
-        )}
-
-        <View sx={{ m: '$10' }}>
-          <Button
-            rounded
-            stretch
-            variant="lg"
-            disabled={data?.data && data?.data.length >= 3}
-            fill={{
-              type: 'gradient',
-              color: 'secondary',
-              start: { x: 0, y: 0 },
-              end: { x: 1, y: 0 },
-            }}
-            onPress={() => push('/profile/bank-account/add-bank-account')}
-          >
-            <Icon name="add" size={25} />
-            <Button.Label>{t('bank.addBankAccount')}</Button.Label>
-          </Button>
-        </View>
-      </StyledView>
+    <PageWithBackHeader
+      header={{ title: t('menu.bankAccount') }}
+      disableScrollView
+    >
+      <View style={{ flex: 1 }}>
+        <TabView
+          navigationState={{ index, routes }}
+          renderScene={renderScene}
+          onIndexChange={setIndex}
+          initialLayout={{ width: layout.width }}
+          renderTabBar={renderTabBar}
+        />
+      </View>
     </PageWithBackHeader>
   )
 }
 
-const StyledView = styled(ScrollView)(() => ({
-  flex: 1,
-  bg: '$secondary',
-  pt: '$6',
-}))
-
-const StyledViewNoResult = styled(View)(() => ({
-  textAlign: 'center',
-  p: '$6',
-  alignItems: 'center',
-}))
-
-export default BankAccountScreen
+export default BankScreen

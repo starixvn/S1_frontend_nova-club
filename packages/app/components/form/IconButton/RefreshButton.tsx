@@ -15,7 +15,7 @@ import Animated, {
 
 interface RefreshButtonProps {
   onPress?: (event: GestureResponderEvent) => void
-  _icon?: IconComponentProps
+  _icon?: Partial<IconComponentProps>
   loading?: boolean
 }
 

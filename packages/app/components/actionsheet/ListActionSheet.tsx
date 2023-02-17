@@ -13,7 +13,7 @@ const ListActionSheet = ({
   _actionSheet,
   ...rest
 }: HorizontalActionSheetProps) => {
-  const { sheetId, headerTitle, actions } = _actionSheet
+  const { sheetId, headerTitle, actions, emptyResultComponent } = _actionSheet
   const { bottom } = useSafeArea()
   const _ref = useRef(null)
   const [activeIndex, setActiveIndex] = useState(0)
@@ -39,6 +39,7 @@ const ListActionSheet = ({
         <SelectLists
           actionSheetRef={_ref}
           data={data}
+          emptyResultComponent={emptyResultComponent}
           onPress={handleClose}
           selectedIndex={activeIndex}
           setSelectedValue={(item) => onSelect(item)}

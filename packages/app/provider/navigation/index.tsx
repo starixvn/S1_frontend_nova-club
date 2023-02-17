@@ -65,6 +65,8 @@ export function NavigationProvider({
                 },
               },
               WithdrawalPage: '/withdrawal',
+              BankWithdrawalPage: '/withdrawal/bank',
+              CryptoWithdrawalPage: '/withdrawal/crypto',
               BottomNav: {
                 screens: {
                   Home: '',
@@ -82,6 +84,7 @@ export function NavigationProvider({
               ManageCredentials: '/profile/manage-credentials',
               BankAccount: '/profile/bank-account',
               AddBankAccount: '/profile/bank-account/add-bank-account',
+              AddCryptoAccount: '/profile/bank-account/add-crypto-account',
               History: '/profile/history',
               CustomerSupportPage: '/customer-support',
               GameLoaderPage: '/games/gameUrl',

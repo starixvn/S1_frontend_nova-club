@@ -2,6 +2,7 @@ import useContainerDimension from 'app/hooks/useContainerDimension'
 import useLocalization from 'app/provider/localization'
 import { Box, Image, Text } from 'dripsy'
 import React from 'react'
+import { Platform } from 'react-native'
 import ModalContent from './ModalContent'
 import ModalWrapper from './ModalWrapper'
 
@@ -11,6 +12,10 @@ const WithdrawalConfirmationModal = ({ modal: { closeModal, getParam } }) => {
 
   const withdrawalInfo = getParam('withdrawalInfo', '')
   const bankLogo = getParam('bankLogo', '')
+  console.log(
+    '🚀 ~ file: WithdrawalConfirmationModal.tsx:15 ~ WithdrawalConfirmationModal ~ bankLogo',
+    bankLogo
+  )
 
   const fields = getParam('fields', '')
   const onConfirm = getParam('onConfirm')
@@ -44,16 +49,18 @@ const WithdrawalConfirmationModal = ({ modal: { closeModal, getParam } }) => {
           },
         ]}
       >
-        <Image
-          source={
-            typeof bankLogo === 'string'
-              ? {
-                  uri: bankLogo,
-                }
-              : bankLogo
-          }
-          sx={{ mx: '$2', width: 100, height: 100 }}
-        />
+        {bankLogo ? (
+          <Image
+            source={
+              typeof bankLogo === 'string'
+                ? {
+                    uri: bankLogo,
+                  }
+                : bankLogo
+            }
+            sx={{ mx: '$2', width: 100, height: 100 }}
+          />
+        ) : null}
         {isShowingFields &&
           fields.map((field) => {
             return (
@@ -62,7 +69,16 @@ const WithdrawalConfirmationModal = ({ modal: { closeModal, getParam } }) => {
                   {t(field.label?.toString())} :
                 </Text>
                 <Box sx={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <Text sx={{ mt: '$1' }}>
+                  <Text
+                    sx={{
+                      mt: '$1',
+                      ...Platform.select({
+                        web: {
+                          wordBreak: 'break-word',
+                        },
+                      }),
+                    }}
+                  >
                     {withdrawalInfo[field.value]?.toString() ?? ''}
                   </Text>
                 </Box>

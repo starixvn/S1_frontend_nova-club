@@ -16,6 +16,7 @@ const DepositPage = () => {
   const { t } = useLocalization()
   const dispatch = useDispatch()
   const [paymentMethodList, setPaymentMethodList] = useState(PaymentMethod)
+
   const { isMobile } = useCheckMobile()
   const { data, isLoading } = useDepositPaymentListQuery({
     is_mobile: isMobile ? 0 : 1,
@@ -23,9 +24,8 @@ const DepositPage = () => {
 
   useEffect(() => {
     if (data?.success) {
-      const activeMethod = paymentMethodList.filter(
-        (item) => item.active === true
-      )
+      const activeMethod = PaymentMethod.filter((item) => item.active === true)
+
       const convertData = activeMethod
         .map((item) => {
           const method = data?.data?.result[item.type]

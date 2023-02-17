@@ -11,23 +11,31 @@ import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 type BankAccCardProps = {
   item: PlayerBankResult
   onPressRemove: (item) => void
+  isCrypto: boolean
 }
 
-const BankAccCard = ({ item, onPressRemove }: BankAccCardProps) => {
-  const cleanText = toCleanCard(item.BankAccountNumber)
+const BankAccCard = ({
+  item,
+  onPressRemove,
+  isCrypto = false,
+}: BankAccCardProps) => {
+  const cleanText = isCrypto
+    ? item.BankAccountNumber
+    : toCleanCard(item.BankAccountNumber)
 
   return (
     <StyledBox>
       <RoundedIcon
         size="lg"
         icon={`${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.BankIcon}`}
+        imageStyle={{ alignItems: 'center', justifyContent: 'center' }}
       />
       <StyledViewV>
         <Text sx={{ color: '$PaleBlue', fontWeight: 'bold' }}>
           {item.BankCode}
         </Text>
         <Text>{cleanText}</Text>
-        <Text>{item.BankAccountFullName}</Text>
+        {isCrypto ? null : <Text>{item.BankAccountFullName}</Text>}
       </StyledViewV>
       <View sx={{ alignItems: 'center', mt: 'auto', mb: 'auto' }}>
         <IconButton

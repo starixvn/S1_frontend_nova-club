@@ -37,7 +37,7 @@ export default function useNotification() {
       await messaging().requestPermission()
       // await messaging().registerDeviceForRemoteMessages()
       const token = await messaging().getToken()
-      console.log('FCM TOKEN : ', token)
+      console.log('>>>>>>FCM TOKEN : ', token)
     }
 
     configureNotification()

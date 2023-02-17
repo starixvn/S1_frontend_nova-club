@@ -1,10 +1,10 @@
 {
   "accountVerification": {
-    "title": "Account Verification",
-    "secondaryTitle": "Fill in your real name to continue:",
+    "placeHolder": "Please enter your full name",
     "realName": "Real Name",
     "remark": "Please ensure the real name is match your own account name to avoid any delay or cancelled transaction",
-    "placeHolder": "Please enter your full name"
+    "secondaryTitle": "Fill in your real name to continue:",
+    "title": "Account Verification"
   },
   "auth": {
     "accountReg": "Account Registration",
@@ -26,10 +26,12 @@
     "accountNo": "Account no",
     "accountNumber": "Account number",
     "addBankAccount": "Add Bank Account",
+    "addCryptoAccount": "Add Crypto Wallet",
     "bank": "Bank",
     "enterAccountNo": "Please enter account no",
     "noBankAccount": "No Bank Account",
-    "selectBank": "Please select bank"
+    "selectBank": "Please select bank",
+    "walletAddress": "Wallet Address"
   },
   "biometric": {
     "label": "Login with Biometrics",
@@ -243,10 +245,12 @@
   "menu": {
     "agentLogin": "Agent Login",
     "bankAccount": "Bank Account",
+    "bankWithdraw": "Bank Withdrawal",
     "changePassword": "Change Password",
     "changePin": "Change PIN",
     "commisionTable": "Commission Table",
     "createPin": "Create PIN",
+    "cryptoWithdraw": "Crypto Withdrawal",
     "customerSupport": "Customer Support",
     "deposit": "Deposit",
     "depositConfirmation": "Deposit Confirmation",
@@ -260,6 +264,7 @@
     "switchAccount": "Switch Account",
     "tab": {
       "bets": "Bet",
+      "cryptoWallet": "Crypto Wallet",
       "date": "Date",
       "game": "Game",
       "gameType": "Game Type",
@@ -415,6 +420,7 @@
     "amount": "%{amount} not in range",
     "amount0": "Amount must not be 0",
     "amountLessThan": "Amount cannot be less than %{min}",
+    "cryptoAddress": "Invalid wallet address",
     "dailyLimitReached": "Your Daily Limit Reached",
     "email": "Mail format is wrong",
     "enterId": "Please enter ID",
@@ -440,6 +446,9 @@
     "username": "6-18 characters only"
   },
   "withdrawal": {
+    "cryptoExchangeRates": "CHAIN: %{crypto} Current exchange rate",
+    "guarantee": "Guaranteed until : 11:14",
+    "options": "Choose your Withdrawal Options",
     "withdrawTo": "Withdraw To"
   }
 }
