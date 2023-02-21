@@ -60,7 +60,7 @@ const AnnouncementMarquee = () => {
           sx={{
             flexDirection: 'row',
             alignItems: 'center',
-            ml: '$2',
+            pl: '$2',
             height: 25,
           }}
         >

@@ -20,9 +20,9 @@ import RecentOpenGames from './Section/RecentOpenGames'
 const HomeScreen = () => {
   const { isLandscape } = useOrientation()
   const dispatch = useDispatch()
-  const syncShieldActionType =
-    useAppSelector((s) => s.tempSetting.syncShieldActionType) ??
-    Shield_Action.LOGIN
+  const syncShieldActionType = useAppSelector(
+    (s) => s.tempSetting.syncShieldActionType
+  )
   const syncShieldStatus = useAppSelector(
     (state) => state.tempSetting.syncShieldStatus
   )
@@ -31,7 +31,11 @@ const HomeScreen = () => {
 
   const checkSyncShield = async () => {
     try {
-      const _ = await syncShield(syncShieldActionType)
+      const _ = await syncShield(
+        syncShieldActionType === Shield_Action.NONE
+          ? Shield_Action.LOGIN
+          : syncShieldActionType
+      )
 
       // Dont care abou sync shield success or not as long as it ad triggered
       dispatch(TempSettingActions.setSyncShieldStatus(true))
@@ -64,7 +68,7 @@ const HomeScreen = () => {
     >
       {!isLandscape && <BannerSection />}
       <AnnouncementMarquee />
-      <MatchesSection />
+      {/* <MatchesSection /> */}
       <GridSection />
       <RecentOpenGames />
       <HotGamesSection />
