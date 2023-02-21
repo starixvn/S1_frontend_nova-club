@@ -97,6 +97,8 @@ export function NavigationProvider({
               Cny: '/event/cny',
               CnyTnc: '/event/cnytnc',
               AccountVerification: '/profile/account-verification',
+              Valentine: '/event/valentine',
+              ValentineTnc: '/event/valentinetnc',
               // WcWinnerList: '/event/wcwinner',
             },
           },

@@ -1,13 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { Shield_Action } from 'services/authApi.type'
 
 interface settingStateProps {
   showPrediction: boolean
   luckyDrawTriggered: boolean
+  syncShieldActionType: Shield_Action
+  syncShieldStatus: boolean
 }
 
 const initialState: settingStateProps = {
   showPrediction: true,
   luckyDrawTriggered: false,
+  syncShieldActionType: Shield_Action.NONE,
+  syncShieldStatus: false,
 }
 
 const tempSettingSlice = createSlice({
@@ -19,6 +24,13 @@ const tempSettingSlice = createSlice({
     },
     setLuckyDrawTriggered: (state, action: PayloadAction<boolean>) => {
       state.luckyDrawTriggered = action.payload
+    },
+    setSyncShieldActionType: (state, action: PayloadAction<Shield_Action>) => {
+      state.syncShieldActionType = action.payload
+      state.syncShieldStatus = false
+    },
+    setSyncShieldStatus: (state, action: PayloadAction<boolean>) => {
+      state.syncShieldStatus = action.payload
     },
   },
 })

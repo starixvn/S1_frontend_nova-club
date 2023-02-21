@@ -18,8 +18,8 @@
     "readAndAgree": "Tôi đã đọc và đồng ý",
     "referrerInfo": "Thông tin người giới thiệu",
     "register": "ĐĂNG KÝ",
-    "table": "Bảng hoa hồng",
-    "rememberMe": "Lưu để đăng nhập lần sau"
+    "rememberMe": "Lưu để đăng nhập lần sau",
+    "table": "Bảng hoa hồng"
   },
   "bank": {
     "accountName": "Tên tài khoản",
@@ -138,6 +138,14 @@
     },
     "usdt": "USDT"
   },
+  "event": {
+    "claim": "ĐỔI VÉ THƯỞNG CỦA BẠN NGAY",
+    "ticket": "vé dự đoán",
+    "ticketSubmitted": "Gửi vé dự đoán thành công",
+    "winText1": "CHÚC MỪNG!",
+    "winText2": "BẠN ĐÃ NHẬN QUÀ TÌNH YÊU",
+    "youHave": "Bạn có"
+  },
   "filter": {
     "date": {
       "custom": "Tùy chọn",
@@ -175,11 +183,11 @@
     },
     "transactionType": {
       "adjustment": "Điều chỉnh",
+      "bonus": "Thưởng",
       "deposit": "Nạp tiền",
       "game": "Trò Chơi",
       "rebate": "Hoàn Trả",
-      "withdrawal": "Rút tiền",
-      "bonus": "Thưởng"
+      "withdrawal": "Rút tiền"
     },
     "withdrawalStatus": {
       "all": "TẤT CẢ",
@@ -192,10 +200,10 @@
     }
   },
   "forceDownload": {
-    "downloadApp": "Tải APP",
     "download": "Tải về",
-    "promoText": "Cược mọi lúc mọi nơi",
+    "downloadApp": "Tải APP",
     "message": "Vui lòng tải bản mới với những nâng cấp sau:",
+    "promoText": "Cược mọi lúc mọi nơi",
     "title": "Cập nhật phiên bản mới"
   },
   "game": {
@@ -432,10 +440,5 @@
   },
   "withdrawal": {
     "withdrawTo": "Rút tiền về"
-  },
-  "event": {
-    "youHave": "Bạn có",
-    "ticket": "vé dự đoán",
-    "ticketSubmitted": "Gửi vé dự đoán thành công"
   }
 }

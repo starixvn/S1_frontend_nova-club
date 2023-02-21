@@ -11,6 +11,7 @@ import { usePlayerProfileQuery } from 'services/playerApi'
 import FloatingAffWinner from './FloatingAffWinner'
 import FloatingCny from './FloatingCny'
 import FloatingQr from './FloatingQr'
+import FloatingValentine from './FloatingValentine'
 import SupportMenu from './SupportMenu'
 import VGaming from './VGaming'
 
@@ -41,7 +42,8 @@ const FloatingContent = () => {
           alignItems: 'center',
         }}
       >
-        <FloatingCny />
+        <FloatingValentine />
+        {/* <FloatingCny /> */}
         {/* <FloatingAffWinner /> */}
 
         <VGaming />

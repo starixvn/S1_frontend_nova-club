@@ -40,6 +40,8 @@ import WorldCupWinner from 'app/features/events/winnerList/WorldCupWinner'
 import SlotMachine from 'app/features/events/cny/SlotMachine'
 import CnyTnC from 'app/features/events/cny/tnc'
 import AccountVerification from 'app/features/profile/account-verification'
+import ValentineSlotMachine from 'app/features/events/valentine/SlotMachine'
+import ValentineTnc from 'app/features/events/valentine/tnc'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -77,6 +79,8 @@ const Stack = createStackNavigator<{
   Cny: undefined
   CnyTnc: undefined
   AccountVerification: undefined
+  Valentine: undefined
+  ValentineTnc: undefined
 }>()
 
 export function NativeNavigation() {
@@ -249,6 +253,8 @@ export function NativeNavigation() {
       <Stack.Screen name="WcWinnerList" component={WorldCupWinner} /> */}
       <Stack.Screen name="Cny" component={SlotMachine} />
       <Stack.Screen name="CnyTnc" component={CnyTnC} />
+      <Stack.Screen name="Valentine" component={ValentineSlotMachine} />
+      <Stack.Screen name="ValentineTnc" component={ValentineTnc} />
     </Stack.Navigator>
   )
 }

@@ -41,7 +41,8 @@ export interface ModalStackParams {
   AffCupModal: undefined
   ReferralModal: undefined
   LuckyDrawModal: undefined
-  CnyLuckyDrawModal: undefined
+  // CnyLuckyDrawModal: undefined
+  ValentineWinModal: undefined
   WithdrawalConfirmationModal: {
     withdrawalInfo: Record<any, any>
     bankLogo: any
@@ -53,7 +54,7 @@ export interface ModalStackParams {
 type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
 
 const _dynamicModal = {
-  CnyLuckyDrawModal: () => import('app/components/modal/CnyLuckyDrawModal'),
+  // CnyLuckyDrawModal: () => import('app/components/modal/CnyLuckyDrawModal'),
   LuckyDrawModal: () => import('app/components/modal/LuckyDrawModal'),
   AlertModal: () => import('app/components/modal/AlertModal'),
   LoadingModal: () => import('app/components/modal/LoadingModal'),
@@ -70,6 +71,7 @@ const _dynamicModal = {
   WithdrawalConfirmationModal: () =>
     import('app/components/modal/WithdrawalConfirmationModal'),
   CnyWinModal: () => import('app/components/modal/CnyWinModal'),
+  ValentineWinModal: () => import('app/components/modal/ValentineWinModal'),
 }
 
 function getDynamicComponent(key: string) {
@@ -88,9 +90,9 @@ function getDynamicComponent(key: string) {
 }
 
 const modalConfig: ModalConfigType = {
-  CnyLuckyDrawModal: {
-    modal: getDynamicComponent('CnyLuckyDrawModal'),
-  },
+  // CnyLuckyDrawModal: {
+  //   modal: getDynamicComponent('CnyLuckyDrawModal'),
+  // },
   LuckyDrawModal: {
     modal: getDynamicComponent('LuckyDrawModal'),
   },
@@ -132,6 +134,9 @@ const modalConfig: ModalConfigType = {
   CnyWinModal: {
     modal: getDynamicComponent('CnyWinModal'),
     // backdropOpacity: 0,
+  },
+  ValentineWinModal: {
+    modal: getDynamicComponent('ValentineWinModal'),
   },
 }
 

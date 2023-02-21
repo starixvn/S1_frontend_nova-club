@@ -8,6 +8,7 @@ import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { AuthActions } from 'app/store/authReducer'
 import { SettingActions } from 'app/store/setting.slice'
+import { TempSettingActions } from 'app/store/tempSetting.slice'
 import { isBannedTrackingCode } from 'app/utils'
 import validation from 'app/utils/validation'
 import { View } from 'dripsy'
@@ -52,7 +53,7 @@ const RegisterPage = () => {
   const { t } = useLocalization()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { uuid } = useUniqueId()
-  const { syncShield } = useShield()
+  // const { syncShield } = useShield()
 
   /* allow /auth/register to pass in ref code from query string, same as /download page */
   useEffect(() => {
@@ -146,7 +147,9 @@ const RegisterPage = () => {
       if (success) {
         // console.log('TOKEN: ', data as LoginResult)
         // syncShield(Shield_Action.REGISTER)
-        dispatch(AuthActions.setSyncShieldActionType('register'))
+        dispatch(
+          TempSettingActions.setSyncShieldActionType(Shield_Action.REGISTER)
+        )
         dispatch(AuthActions.setAuthInfo(data as LoginResult))
 
         normalLogin(username, password, () => handleOnSuccessRegister(data))
