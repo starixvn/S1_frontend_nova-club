@@ -1,9 +1,11 @@
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Image from 'app/components/common/Image'
 import IconButton from 'app/components/form/IconButton'
 import useAlert from 'app/hooks/useAlert'
+import useOrientation from 'app/hooks/useOrientation'
 import useLocalization from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { toCurrency } from 'app/utils'
+import { Currency } from 'app/utils/constant'
 import { getErrorMessage } from 'app/utils/validation'
 import {
   ActivityIndicator,
@@ -12,65 +14,51 @@ import {
   useDripsyTheme,
   View,
 } from 'dripsy'
-import { Audio, AVPlaybackStatusToSet } from 'expo-av'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import {
   ImageBackground,
   Platform,
-  TextInput,
   TouchableOpacity,
   useWindowDimensions,
 } from 'react-native'
 import { useModal } from 'react-native-modalfy'
-import Animated, {
-  runOnJS,
-  useAnimatedProps,
-  useAnimatedReaction,
-  useSharedValue,
-  withTiming,
-} from 'react-native-reanimated'
 import { useCheckCnySpinQuery, useCnySpinMutation } from 'services/eventApi'
 import { CNYRollResult } from 'services/eventApi.type'
 import { useRouter } from 'solito/router'
-import Cloud from './Cloud'
-import Lantern from './Latern'
 
 import SlotMachineRoll from './SlotMachineRoll'
+import useSoundController from './useSoundController'
 
-Animated.addWhitelistedNativeProps({ value: true })
-const AnimatedTextInput = Animated.createAnimatedComponent(TextInput)
-
-// const testResuls = [
-//   {
-//     code: '2',
-//     note: 'Congratulation! VND 0 has been added to your wallet. ',
-//     amount: '38000',
-//     formatted_amount: '0',
-//     err: 'ok',
-//   },
-//   {
-//     code: '2',
-//     note: 'Congratulation! VND 0 has been added to your wallet. ',
-//     amount: '38000',
-//     formatted_amount: '0',
-//     err: 'ok',
-//   },
-//   {
-//     code: '1',
-//     note: 'Congratulation! VND 0 has been added to your wallet. ',
-//     amount: '18000',
-//     formatted_amount: '0',
-//     err: 'ok',
-//   },
-// ]
-
-type SoundType = 'bg' | 'spin' | 'won'
+const testResuls = [
+  {
+    code: '2',
+    note: 'Congratulation! VND 0 has been added to your wallet. ',
+    amount: '38000',
+    formatted_amount: '38K',
+    err: 'ok',
+  },
+  {
+    code: '2',
+    note: 'Congratulation! VND 0 has been added to your wallet. ',
+    amount: '999000',
+    formatted_amount: '999K',
+    err: 'ok',
+  },
+  {
+    code: '1',
+    note: 'Congratulation! VND 0 has been added to your wallet. ',
+    amount: '18000',
+    formatted_amount: '18K',
+    err: 'ok',
+  },
+]
 
 const SlotMachine = () => {
   const { back } = useRouter()
   const { top, bottom } = useSafeArea()
   const { openModal } = useModal()
-  const progressAmount = useSharedValue(0)
+  const isLandscape = useOrientation()
+  const [progressAmount, setProgressAmount] = useState(0)
   const [lastCompletedRound, setLastCompletedRound] = useState(0)
   const [isSubmitting, setSubmitting] = useState(false)
   const [isAnimating, setAnimating] = useState(false)
@@ -78,12 +66,8 @@ const SlotMachine = () => {
   const { showAlert } = useAlert()
   const { t } = useLocalization()
   const { width: screenWidth } = useWindowDimensions()
-  const inputRef = useRef(null)
-  const [backgroundMusicSound, setbackgroundMusicSound] =
-    useState<Audio.Sound>()
-  const [spinSound, setSpinSound] = useState<Audio.Sound>()
-  const [wonSound, setwonSound] = useState<Audio.Sound>()
-  const isUnmount = useRef(false)
+  const soundController = useSoundController()
+  const { play } = soundController
 
   const imageBackgroundref = useCallback((node) => {
     if (!node) return
@@ -121,6 +105,9 @@ const SlotMachine = () => {
   async function roll() {
     try {
       setSubmitting(true)
+      // const success = true
+      // const data = testResuls
+      // const message = 'test'
       const { data, success, message } = await spin().unwrap()
 
       if (success) {
@@ -129,7 +116,7 @@ const SlotMachine = () => {
         if (validPrize.length) {
           setAnimating(true)
           setResults(validPrize)
-          playSpinMusic()
+          // playSpin()
         } else {
           openModal('AlertModal', {
             message: getErrorMessage(redeemPrizeError.current),
@@ -161,19 +148,19 @@ const SlotMachine = () => {
       return
     }
 
-    playWonMusic()
+    play('won')
     openCnySuccessModal()
   }
 
   function openCnySuccessModal() {
     if (results) {
       openModal(
-        'CnyWinModal',
+        'SpinManiaWinModal',
         {
           amount: results.reduce((t, c) => t + Number(c.amount), 0),
         },
         () => {
-          progressAmount.value = 0
+          setProgressAmount(0)
         }
       )
 
@@ -186,120 +173,13 @@ const SlotMachine = () => {
     if (results) {
       const nextIndex = completedIndex + 1
       const resultLength = results.length
-
       setLastCompletedRound(nextIndex)
-      progressAmount.value = withTiming(
-        progressAmount.value + Number(results[completedIndex]?.amount),
-        {
-          duration: 500,
-        },
-        (completed) => {
-          if (completed) {
-            runOnJS(next)()
-
-            if (resultLength !== nextIndex) {
-              runOnJS(playSpinMusic)()
-            }
-          }
-        }
-      )
+      setProgressAmount((p) => p + Number(results[completedIndex]?.amount))
+      setTimeout(() => {
+        next()
+      }, 1000)
     }
   }
-
-  const playWonMusic = useCallback(async () => {
-    if (wonSound) {
-      await wonSound.playAsync()
-      return
-    }
-
-    const wonAudio = await createAudioInstance('won')
-
-    setwonSound(wonAudio)
-
-    await wonAudio.playAsync()
-  }, [wonSound])
-
-  const playSpinMusic = useCallback(async () => {
-    if (spinSound) {
-      if (Platform.OS === 'web') {
-        await spinSound.playAsync()
-        return
-      } else {
-        await spinSound.unloadAsync()
-      }
-    }
-
-    const spinAudio = await createAudioInstance('spin', {
-      volume: 0.5,
-    })
-
-    setSpinSound(spinAudio)
-
-    await spinAudio.playAsync()
-  }, [spinSound])
-
-  const playBackgroundMusic = useCallback(async () => {
-    if (backgroundMusicSound) {
-      return
-    }
-
-    const backgroundAudio = await createAudioInstance()
-
-    setbackgroundMusicSound(backgroundAudio)
-
-    await backgroundAudio.playAsync()
-    await backgroundAudio.setIsLoopingAsync(true)
-  }, [backgroundMusicSound])
-
-  async function createAudioInstance(
-    type: SoundType = 'bg',
-    initialStatus?: AVPlaybackStatusToSet
-  ) {
-    const soundMap: Record<SoundType, string> = {
-      bg: 'newyear_bg',
-      spin: 'spin',
-      won: 'won',
-    }
-
-    const { sound: audio } = await Audio.Sound.createAsync(
-      {
-        uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/cny/${soundMap[type]}.mp3`,
-      },
-      {
-        ...initialStatus,
-        shouldPlay: true,
-      }
-    )
-
-    return audio
-  }
-
-  const animatedProps = useAnimatedProps(() => {
-    return {
-      text:
-        Math.round(progressAmount.value / 1000) +
-        (progressAmount.value > 1000 ? 'K' : ''),
-    } as any
-  })
-
-  // https://github.com/software-mansion/react-native-reanimated/issues/1808
-  useAnimatedReaction(
-    () => {
-      return (
-        Platform.OS === 'web' &&
-        Math.round(progressAmount.value / 1000) +
-          (progressAmount.value > 1000 ? 'K' : '')
-      )
-    },
-    (data, prevData) => {
-      if (Platform.OS === 'web' && data !== prevData && inputRef.current) {
-        inputRef.current.setNativeProps({
-          value: data,
-        })
-      }
-    },
-    []
-  )
 
   let ticketLabel = `0/0`
   if (balance) {
@@ -310,50 +190,11 @@ const SlotMachine = () => {
     }/${balance.totalSpin}`
   }
 
-  useEffect(() => {
-    return () => {
-      isUnmount.current = true
-    }
-  }, [])
-
-  useEffect(() => {
-    return () => {
-      if (!isUnmount.current) {
-        return
-      }
-
-      if (spinSound) {
-        spinSound
-          .unloadAsync()
-          .then(() => {})
-          .catch(() => {})
-      }
-
-      if (wonSound) {
-        wonSound
-          .unloadAsync()
-          .then(() => {})
-          .catch(() => {})
-      }
-
-      if (backgroundMusicSound) {
-        backgroundMusicSound
-          .unloadAsync()
-          .then(() => {})
-          .catch(() => {})
-      }
-    }
-  }, [backgroundMusicSound, spinSound, wonSound])
-
-  useEffect(() => {
-    playBackgroundMusic()
-  }, [playBackgroundMusic])
-
   return (
-    <View sx={{ flex: 1 }}>
+    <View sx={{ flex: 1, bg: '$background' }}>
       <ImageBackground
         imageRef={Platform.select({ web: imageBackgroundref })}
-        source={require('../../../assets/images/events/cny/bg.png')}
+        source={require('../../../assets/images/events/spinMania/bg.jpg')}
         style={{
           flex: 1,
         }}
@@ -383,8 +224,6 @@ const SlotMachine = () => {
             elevation: 4,
           }}
         />
-        <Lantern />
-        <Cloud />
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
@@ -400,17 +239,20 @@ const SlotMachine = () => {
         >
           <View
             sx={{
-              marginTop: '18%',
+              marginTop:
+                Platform.OS === 'web'
+                  ? ['35%', '18%']
+                  : isLandscape
+                  ? '18%'
+                  : '35%',
               position: 'relative',
               alignItems: 'center',
               justifyContent: 'center',
             }}
           >
             <Image
-              style={{ width: 300, aspectRatio: 2 }}
-              source={{
-                uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/cny/board-ani.gif`,
-              }}
+              style={{ width: 250, aspectRatio: 2.5 }}
+              source={require('app/assets/images/events/spinMania/ticketFrame.png')}
             />
             <View
               sx={{
@@ -427,12 +269,7 @@ const SlotMachine = () => {
                   alignItems: 'flex-end',
                   flexGrow: 1,
                 }}
-              >
-                <Image
-                  style={{ width: 50, aspectRatio: 168 / 181 }}
-                  source={require('../../../assets/images/events/cny/ticket.png')}
-                />
-              </View>
+              />
               <View
                 sx={{
                   flexBasis: '70%',
@@ -453,6 +290,7 @@ const SlotMachine = () => {
               </View>
             </View>
           </View>
+
           <View
             sx={{
               alignItems: 'center',
@@ -461,15 +299,16 @@ const SlotMachine = () => {
           >
             <SlotMachineRoll
               results={results}
+              soundController={soundController}
               onRoundComplete={onRoundComplete}
               onResultComplete={onResultComplete}
             />
           </View>
-          <View style={{ marginBottom: 20 }}>
+          <View style={{ marginBottom: 20, marginTop: 25 }}>
             <View
               sx={{
-                width: 75,
-                height: 75,
+                width: 85,
+                height: 85,
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
@@ -485,7 +324,7 @@ const SlotMachine = () => {
                   style={{ width: '100%' }}
                 >
                   <Image
-                    source={require('../../../assets/images/events/cny/spin-btn.png')}
+                    source={require('../../../assets/images/events/spinMania/spin-btn.png')}
                     style={{ width: '100%', aspectRatio: 1 }}
                   />
                 </TouchableOpacity>
@@ -495,41 +334,53 @@ const SlotMachine = () => {
           <View
             sx={{
               position: 'relative',
-              width: Math.min(230, screenWidth * 0.6),
-              aspectRatio: 333 / 119,
+              width: Math.min(594, screenWidth * 0.8),
+              aspectRatio: 594 / 256,
               alignItems: 'center',
-              justifyContent: 'center',
-              marginTop: '3%',
             }}
           >
-            <Text
-              style={{
+            <View
+              sx={{
                 zIndex: 1,
-                color: '#ebe9da',
-                fontSize: 20,
-                fontWeight: 'bold',
+                height: '25%',
+                mt: '8%',
+                justifyContent: 'center',
               }}
             >
-              LỘC BẠN NHẬN
-            </Text>
+              <Text
+                sx={{
+                  color: 'white',
+                  fontSize: [18, 25],
+                  fontWeight: 'bold',
+                }}
+              >
+                BẠN ĐÃ TRÚNG THƯỞNG
+              </Text>
+            </View>
             <Image
-              source={require('../../../assets/images/events/cny/amount-bg.png')}
+              source={require('../../../assets/images/events/spinMania/amount-bg.png')}
               style={{ width: '100%', height: '100%', position: 'absolute' }}
             />
-            <AnimatedTextInput
-              ref={Platform.select({ web: inputRef })}
-              pointerEvents={'none'}
-              animatedProps={animatedProps}
-              editable={false}
-              style={{
-                color: '#ebe9da',
-                fontSize: 30,
-                lineHeight: 32,
-                fontWeight: 'bold',
-                textAlign: 'center',
-                zIndex: 2,
+            <View
+              sx={{
+                zIndex: 6,
+                height: '25%',
+                mt: '2.5%',
+                justifyContent: 'center',
               }}
-            />
+            >
+              <Text
+                sx={{
+                  fontSize: [25, 30, 40],
+                  fontWeight: 'bold',
+                  textAlign: 'center',
+                }}
+              >
+                {toCurrency(progressAmount, Currency.VND, {
+                  symbol: false,
+                })}
+              </Text>
+            </View>
           </View>
         </ScrollView>
       </ImageBackground>

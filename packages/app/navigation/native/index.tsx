@@ -5,9 +5,11 @@ import LoginPage from 'app/features/auth/login'
 import RegisterPage from 'app/features/auth/register'
 import TnC from 'app/features/auth/tnc'
 import RegisterVerificationPage from 'app/features/auth/verification'
-import Maintenance from 'app/features/common/Maintenance'
 import Forbidden from 'app/features/common/Forbidden'
+import Maintenance from 'app/features/common/Maintenance'
 import CustomerSupportPage from 'app/features/customerSupport'
+import SlotMachine from 'app/features/events/spinMania/SlotMachine'
+import SpinManiaTnc from 'app/features/events/spinMania/SpinManiaTnc'
 import FishingPage from 'app/features/fishing'
 import GameLoaderPage from 'app/features/games/GameLoaderPage'
 import MessagesPage from 'app/features/messages'
@@ -15,6 +17,7 @@ import ChangePinScreen from 'app/features/pin/change-pin'
 import CreatePinScreen from 'app/features/pin/CreatePinScreen'
 import ForgotPinScreen from 'app/features/pin/forgot-pin'
 import ProfileScreen from 'app/features/profile'
+import AccountVerification from 'app/features/profile/account-verification'
 import BankAccountScreen from 'app/features/profile/bank-account'
 import AddBankAccountScreen from 'app/features/profile/bank-account/add-bank-account'
 import CommissionTablePage from 'app/features/profile/commission-table'
@@ -33,15 +36,6 @@ import { fadeScaleIn } from 'app/transitions/fade'
 import { Easing } from 'react-native'
 import DepositNavigation from './DepositNavigation'
 import TabNavigation from './TabNavigation'
-import WorldCupPrediction from 'app/features/events/worldCupPrediction'
-import WcTnC from 'app/features/events/worldCupPrediction/tnc'
-import AffCupScreen from 'app/features/events/affcup/AffCupScreen'
-import WorldCupWinner from 'app/features/events/winnerList/WorldCupWinner'
-import SlotMachine from 'app/features/events/cny/SlotMachine'
-import CnyTnC from 'app/features/events/cny/tnc'
-import AccountVerification from 'app/features/profile/account-verification'
-import ValentineSlotMachine from 'app/features/events/valentine/SlotMachine'
-import ValentineTnc from 'app/features/events/valentine/tnc'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -79,8 +73,8 @@ const Stack = createStackNavigator<{
   Cny: undefined
   CnyTnc: undefined
   AccountVerification: undefined
-  Valentine: undefined
-  ValentineTnc: undefined
+  SpinMania: undefined
+  SpinManiaTnc: undefined
 }>()
 
 export function NativeNavigation() {
@@ -248,13 +242,8 @@ export function NativeNavigation() {
       <Stack.Screen name="TnC" component={TnC} />
       <Stack.Screen name="Forbidden" component={Forbidden} />
       <Stack.Screen name="Maintenance" component={Maintenance} />
-      <Stack.Screen name="AffCup" component={AffCupScreen} />
-      {/* <Stack.Screen name="WcTnc" component={WcTnC} />
-      <Stack.Screen name="WcWinnerList" component={WorldCupWinner} /> */}
-      <Stack.Screen name="Cny" component={SlotMachine} />
-      <Stack.Screen name="CnyTnc" component={CnyTnC} />
-      <Stack.Screen name="Valentine" component={ValentineSlotMachine} />
-      <Stack.Screen name="ValentineTnc" component={ValentineTnc} />
+      <Stack.Screen name="SpinMania" component={SlotMachine} />
+      <Stack.Screen name="SpinManiaTnc" component={SpinManiaTnc} />
     </Stack.Navigator>
   )
 }

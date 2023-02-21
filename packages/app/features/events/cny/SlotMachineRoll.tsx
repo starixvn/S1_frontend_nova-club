@@ -104,8 +104,8 @@ const SlotMachineRoll = ({
   }, [currentRound])
 
   useEffect(() => {
-    // On 3 columns animated
-    if (currentRoundCompleteCount >= 3) {
+    // On 4 columns animated
+    if (currentRoundCompleteCount >= 4) {
       onRoundComplete(currentRound, () => {
         if (results && currentRound < results.length - 1) {
           setCurrentRound((prev) => prev + 1)

@@ -11,7 +11,7 @@ import { ImageBackground } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import IconButton from '../form/IconButton'
 
-const ValentineWinModal = ({ modal: { closeModal, getParam } }) => {
+const SpinManiaWinModal = ({ modal: { closeModal, getParam } }) => {
   const { t } = useLocalization()
   const amount = getParam('amount')
   const { width, height } = useContainerDimension()
@@ -58,21 +58,22 @@ const ValentineWinModal = ({ modal: { closeModal, getParam } }) => {
           animate={{ scale: 1 }}
         /> */}
         <MotiView
-          style={{ width: '100%', aspectRatio: 1 / 1 }}
+          style={{
+            width: '100%',
+            aspectRatio: 1 / 1,
+          }}
           from={{ scale: 0.1 }}
           animate={{ scale: 1 }}
         >
           <ImageBackground
-            source={{
-              uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/valentine/winner-board.png`,
-            }}
+            source={require('app/assets/images/events/spinMania/winner-board.png')}
             resizeMode="contain"
             style={{
               width: '100%',
               aspectRatio: 1 / 1,
               alignItems: 'center',
               justifyContent: 'center',
-              paddingVertical: '12%',
+              paddingTop: '20%',
             }}
           >
             <View sx={{ width: '55%' }}>
@@ -154,4 +155,4 @@ const ValentineWinModal = ({ modal: { closeModal, getParam } }) => {
   )
 }
 
-export default ValentineWinModal
+export default SpinManiaWinModal
