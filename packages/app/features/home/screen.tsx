@@ -68,7 +68,7 @@ const HomeScreen = () => {
     >
       {!isLandscape && <BannerSection />}
       <AnnouncementMarquee />
-      {/* <MatchesSection /> */}
+      <MatchesSection />
       <GridSection />
       <RecentOpenGames />
       <HotGamesSection />
