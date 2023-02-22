@@ -232,6 +232,7 @@
     "unableToConnect": "Unable to connect [%{code}]",
     "underMaintenance": "Game Under Maintenance"
   },
+  "maintenance": "The System is under maintenance",
   "menu": {
     "agentLogin": "Agent Login",
     "bankAccount": "Bank Account",

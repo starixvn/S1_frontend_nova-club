@@ -232,6 +232,7 @@
     "unableToConnect": "Không kết nối được [%{code}]",
     "underMaintenance": "Trò chơi đang được bảo trì"
   },
+  "maintenance": "HỆ THỐNG ĐANG BẢO TRÌ",
   "menu": {
     "agentLogin": "Đăng nhập đại lý",
     "bankAccount": "Tài khoản ngân hàng",

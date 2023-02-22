@@ -29,7 +29,7 @@ const AlertModal = ({ modal: { closeModal, getParam } }: AlertModalProps) => {
         hideCloseButton
         actions={actions}
       >
-        <Text>{message}</Text>
+        <Text>{t(message)}</Text>
       </ModalContent>
     </ModalWrapper>
   )

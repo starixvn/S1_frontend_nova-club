@@ -37,25 +37,34 @@ export function axiosBaseQuery<T>(): BaseQueryFn<
 
       return { data: respData }
     } catch (error) {
-      console.error('axiosBaseQuery error', url, error)
+      console.error('axiosBaseQuery error', url, JSON.stringify(error))
+      let errorObj: IResponse<T> = {
+        code: -999,
+        message: error.message === '' ? 'status.systemError' : error.message,
+        success: false,
+        statusCode: error.response?.status,
+      }
 
       if (axios.isAxiosError(error)) {
-        let errorMessage = error.response?.data as undefined | IResponse<T>
+        let errorMessage = error.response?.data
 
         if (errorMessage) {
-          errorMessage.statusCode = error.response?.status
-          return {
-            error: errorMessage,
+          // if HTML string
+          if (typeof errorMessage === 'string') {
+            if (errorObj.statusCode === 405) {
+              errorObj.message = 'maintenance'
+            } else if (errorObj.statusCode === 404) {
+              // 404 we flag as forbidden, as infra team block the request at CDN and return 404 with HTML string
+              errorObj.statusCode = 403
+            }
+          } else {
+            Object.assign(errorObj, errorMessage)
           }
         }
       }
 
       return {
-        error: {
-          code: -999,
-          message: error.message === '' ? 'status.systemError' : error.message,
-          success: false,
-        },
+        error: errorObj,
       }
     }
   }
