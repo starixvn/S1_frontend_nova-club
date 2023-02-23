@@ -24,6 +24,8 @@ const GameImage = ({
       //   translateY: 0,
     },
   })
+  const rewardIconWidth = Math.min(35, width * 0.17)
+  const rewardIconHeight = Math.min(33, width * 0.15)
 
   // useEffect(() => {
   //   if (skeleton) setLoaded(false)
@@ -65,8 +67,8 @@ const GameImage = ({
           resizeMode="contain"
           source={require('../assets/images/games/common/reward-icon.png')}
           style={{
-            width: width * 0.17,
-            height: width * 0.15,
+            width: rewardIconWidth,
+            height: rewardIconHeight,
             position: 'absolute',
             left: 0,
             top: 0,

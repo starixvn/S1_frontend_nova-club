@@ -38,7 +38,7 @@ const FloatingContent = () => {
             Math.max(0, (width - theme.sizes.container) / 2) +
             Math.max(containerWidth * 0.2 - vGamingSize, 0) / 2,
           position: Platform.OS === 'web' ? 'fixed' : 'absolute',
-          bottom: BOTTOM_NAV_HEIGHT + bottom + 25,
+          bottom: BOTTOM_NAV_HEIGHT + bottom + 40,
           alignItems: 'center',
         }}
       >
