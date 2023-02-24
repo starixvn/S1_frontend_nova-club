@@ -95,6 +95,10 @@ export const PROVIDER_LOGO = {
     provider_code: 'PTV2',
     image: require('../../../assets/images/provider/PT.png'),
   },
+  PTEC: {
+    provider_code: 'PTEC',
+    image: require('../../../assets/images/provider/PTEC.png'),
+  },
   SABA: {
     provider_code: 'SABA',
     image: require('../../../assets/images/provider/SABA_SPORT.png'),
@@ -174,6 +178,7 @@ export const ProviderLogo = [
   PROVIDER_LOGO.PGSF,
   PROVIDER_LOGO.PRGP,
   PROVIDER_LOGO.PTV2,
+  PROVIDER_LOGO.PTEC,
   PROVIDER_LOGO.SABA,
   PROVIDER_LOGO.SEXY,
   PROVIDER_LOGO.SPGM,

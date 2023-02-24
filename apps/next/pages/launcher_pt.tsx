@@ -113,7 +113,7 @@ const LauncherPT: NextPage<LauncherPTProps> = (props) => {
         }}
       >
         <Image
-          src={require('app/assets/images/provider/PT.png')}
+          src={require('app/assets/images/provider/PTEC.png')}
           width={251}
           height={56}
         />
