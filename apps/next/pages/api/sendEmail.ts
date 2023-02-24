@@ -23,15 +23,15 @@ export default async function handler(
         port: 587,
         secure: false, // true for 465, false for other ports
         auth: {
-          user: 'business@vui123.net', // generated ethereal user
+          user: 'system@vui123.net', // generated ethereal user
           pass: '!!Welcome123!!', // generated ethereal password
         },
       })
 
       // send mail with defined transport object
       let info = await transporter.sendMail({
-        from: 'business@vui123.net', // sender address
-        to: 'contact@vui123.net, mobile.beacora@gmail.com', // list of receivers
+        from: 'system@vui123.net', // sender address
+        to: 'contact@vui123.net', // list of receivers
         subject: `New Agent Application (${email})`, // Subject line
         text: `Name : ${name}\nPhone : ${phone}\nEmail : ${email}`, // plain text body
       })
