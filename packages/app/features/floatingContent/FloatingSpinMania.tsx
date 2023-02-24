@@ -4,14 +4,14 @@ import useContextualRouting from 'app/hooks/useContextualRouting'
 import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import { Text } from 'dripsy'
 import React from 'react'
-import { Platform, useWindowDimensions } from 'react-native'
-import { useCheckCnySpinQuery } from 'services/eventApi'
+import { useWindowDimensions } from 'react-native'
+import { useCheckTicketSpinQuery } from 'services/eventApi'
 import { useRouter } from 'solito/router'
 
 const FloatingValentine = () => {
   const { push } = useRouter()
   const { width } = useWindowDimensions()
-  const { balance } = useCheckCnySpinQuery(undefined, {
+  const { balance } = useCheckTicketSpinQuery(undefined, {
     selectFromResult: (s) => ({ ...s, balance: s.data?.data }),
   })
   console.log(
