@@ -22,7 +22,10 @@ import {
   useWindowDimensions,
 } from 'react-native'
 import { useModal } from 'react-native-modalfy'
-import { useCheckCnySpinQuery, useCnySpinMutation } from 'services/eventApi'
+import {
+  useCheckTicketSpinQuery,
+  useTicketSpinMutation,
+} from 'services/eventApi'
 import { CNYRollResult } from 'services/eventApi.type'
 import { useRouter } from 'solito/router'
 
@@ -79,12 +82,12 @@ const SlotMachine = () => {
   const redeemPrizeError = useRef('')
   const { theme } = useDripsyTheme()
 
-  const { balance, isFetching } = useCheckCnySpinQuery(undefined, {
+  const { balance, isFetching } = useCheckTicketSpinQuery(undefined, {
     refetchOnMountOrArgChange: true,
     selectFromResult: (s) => ({ ...s, balance: s.data?.data }),
   })
 
-  const [spin] = useCnySpinMutation()
+  const [spin] = useTicketSpinMutation()
 
   const handlePrizeEmpty = (prizeList?: CNYRollResult[]) => {
     if (!prizeList || prizeList.length <= 0) return []
