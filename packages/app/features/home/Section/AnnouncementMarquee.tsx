@@ -1,20 +1,23 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
-import MarqueeText from 'app/components/Marquee'
 import useContextualRouting from 'app/hooks/useContextualRouting'
-import { useAnnouncementQuery } from 'services/contentApi'
-import { AnnouncementListItems } from 'services/contentApi.type'
+import { useAppSelector } from 'app/provider/redux/store'
 import { ActivityIndicator, styled, View } from 'dripsy'
 import { useEffect, useState } from 'react'
-import { TouchableOpacity, useWindowDimensions } from 'react-native'
+import { TouchableOpacity } from 'react-native'
+import { useAnnouncementQuery } from 'services/contentApi'
+import { AnnouncementListItems } from 'services/contentApi.type'
 import { useRouter } from 'solito/router'
-import { useAppSelector } from 'app/provider/redux/store'
+import MarqueeFlip from './MarqueeFlip'
 
-interface MarqueeItem<T> {
+export interface MarqueeItem<T> {
   label: number
   value: string
   item: T
 }
+
+const ANNOUNCEMENT_HEIGHT = 25
+const ANNOUNCEMENT_CONTEXT_COLOR = '#97FFF4'
 
 const AnnouncementMarquee = () => {
   const { push } = useRouter()
@@ -23,7 +26,6 @@ const AnnouncementMarquee = () => {
     tab: 1,
   })
   const locale = useAppSelector((s) => s.setting.locale)
-  const { width } = useWindowDimensions()
   const { data, isSuccess, isUninitialized } = useAnnouncementQuery(locale)
   const [marquees, setMarquees] = useState<
     MarqueeItem<AnnouncementListItems>[]
@@ -51,7 +53,6 @@ const AnnouncementMarquee = () => {
       },
     })
   }
-
   return (
     <StyledContainer>
       <TouchableOpacity onPress={onPress}>
@@ -60,8 +61,8 @@ const AnnouncementMarquee = () => {
           sx={{
             flexDirection: 'row',
             alignItems: 'center',
-            pl: '$2',
-            height: 25,
+            height: ANNOUNCEMENT_HEIGHT,
+            px: '$2',
           }}
         >
           {isUninitialized ? (
@@ -69,20 +70,15 @@ const AnnouncementMarquee = () => {
           ) : (
             <Icon
               name="annoucement"
-              sx={{ color: '#97FFF4', mr: '$2' }}
+              sx={{ color: ANNOUNCEMENT_CONTEXT_COLOR, mr: '$2' }}
               size={18}
             />
           )}
           {marquees.length > 0 && (
-            <MarqueeText
-              textList={marquees}
-              speed={60}
-              width={width}
-              height={25}
-              direction={'left'}
-              reverse={false}
-              textStyle={{ fontSize: 12, color: '#97FFF4' }}
-              // onTextClick={onClick}
+            <MarqueeFlip
+              announcementList={marquees}
+              announcementHeight={ANNOUNCEMENT_HEIGHT}
+              color={ANNOUNCEMENT_CONTEXT_COLOR}
             />
           )}
         </DripsyGradient>

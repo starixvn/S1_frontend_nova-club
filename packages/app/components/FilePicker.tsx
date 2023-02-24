@@ -74,19 +74,22 @@ const FilePicker = forwardRef<FilePickerForwardRef, FilePickerProps>(
               sx={{
                 flex: 1,
                 color: value ? '#BDBDBD' : 'white',
-                mx: value ? '$2' : 0,
+                ml: value ? '$2' : 0,
+                mr: value ? '$6' : 0,
               }}
               numberOfLines={1}
             >
               {value ? fileName : t('deposit.upload.files')}
             </Text>
+          </BouncePressable>
+          <View sx={{ position: 'absolute', right: 0, my: 8, mr: '$4' }}>
             <IconButton
-              onPress={clearFile}
+              onPress={value ? clearFile : handleSelect}
               name={value ? 'cross' : 'attachment'}
               color={value ? '$error' : 'white'}
               size={16}
             />
-          </BouncePressable>
+          </View>
         </StyledGradient>
         {Platform.OS === 'web' && (
           <input
