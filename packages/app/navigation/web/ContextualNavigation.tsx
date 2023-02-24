@@ -44,7 +44,6 @@ const _contextualComponents = {
   'forgot-pin': () => import('../../features/pin/forgot-pin'),
   '/profile/overview': () => import('../../features/profile/overview'),
   tnc: () => import('../../../../apps/next/pages/auth/register/tnc'),
-  '/event/wctnc': () => import('../../../../apps/next/pages/event/wctnc'),
   download: () => import('../../features/download/index.web'),
   '/event/spin-mania': () =>
     import('../../features/events/spinMania/SlotMachine'),
