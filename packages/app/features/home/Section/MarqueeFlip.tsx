@@ -1,6 +1,6 @@
-import { Text, View } from 'dripsy'
+import { View } from 'dripsy'
+import { AnimatePresence, MotiText } from 'moti'
 import React, { useEffect, useState } from 'react'
-import Animated, { FlipInXDown, FlipOutXUp } from 'react-native-reanimated'
 import { AnnouncementListItems } from 'services/contentApi.type'
 import { MarqueeItem } from './AnnouncementMarquee'
 
@@ -34,22 +34,39 @@ const MarqueeFlip = ({
         justifyContent: 'center',
       }}
     >
-      <Animated.View
-        entering={FlipInXDown.duration(300).springify().damping(10)}
-        exiting={FlipOutXUp.duration(250)}
-        key={announcementList[currentIndex]?.item?.title}
-      >
-        <Text
+      <AnimatePresence>
+        <MotiText
+          key={announcementList[currentIndex]?.item?.title}
           numberOfLines={1}
+          from={{
+            transform: [{ translateY: 10 }, { rotateX: '90deg' }],
+          }}
+          animate={{
+            transform: [{ translateY: 0 }, { rotateX: '0deg' }],
+          }}
+          exit={{
+            transform: [{ translateY: -10 }, { rotateX: '90deg' }],
+          }}
+          transition={{
+            duration: 250,
+            type: 'timing',
+            delay: 0,
+          }}
+          exitTransition={{
+            duration: 250,
+            type: 'timing',
+            delay: 0,
+          }}
           style={{
             color,
             fontSize: 14,
             lineHeight: 20,
+            position: 'absolute',
           }}
         >
           {announcementList[currentIndex]?.item?.title}
-        </Text>
-      </Animated.View>
+        </MotiText>
+      </AnimatePresence>
     </View>
   )
 }
