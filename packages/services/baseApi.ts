@@ -16,6 +16,7 @@ export const baseApiWithTag = baseApi.enhanceEndpoints({
     'Announcement',
     'PredictCount',
     'CNYSpinBalance',
+    'TicketBalance',
     'PlayerProfile',
   ],
 })
