@@ -59,7 +59,7 @@ const MarqueeFlip = ({
           }}
           style={{
             color,
-            fontSize: 14,
+            fontSize: 12,
             lineHeight: 20,
             position: 'absolute',
           }}
