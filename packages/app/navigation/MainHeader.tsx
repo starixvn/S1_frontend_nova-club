@@ -3,6 +3,7 @@ import { useTransferAllToOneMutation } from 'app/custom_services/walletApi'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import BouncePressable from 'app/pressable/BouncePressable'
+import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { toCurrency } from 'app/utils'
@@ -40,6 +41,7 @@ const MainHeader = () => {
   const token = useAppSelector((s) => s.auth.info?.token)
   const lastTransferredToMainWalletToken = useRef('')
   const { theme } = useDripsyTheme()
+  const { t } = useLocalization()
 
   const {
     data: playerBalance,
@@ -207,7 +209,7 @@ const MainHeader = () => {
               <BorderButton
                 borderColor={theme.colors.$lightNavyBlue2}
                 backgroundColor={theme.colors.$darkOcean}
-                text="Deposit"
+                text={t('menu.deposit')}
                 textColor={theme.colors.$black}
                 size={18}
                 innerGradientColor={[
