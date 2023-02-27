@@ -32,7 +32,7 @@ const TncVi = () => {
       </ol>
 
       <br />
-      <strong>GIẢI THƯỞNG VÒNG QUAY LỘC ĐẦU NĂM</strong>
+      <strong>CÁCH THỨC TÍNH THƯỞNG</strong>
       <ol>
         <li className="catList">
           <img className="cat" src={Green} alt="vuix1" />= 1x bội số tiền thưởng

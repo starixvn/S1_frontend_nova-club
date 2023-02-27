@@ -14,10 +14,6 @@ const FloatingValentine = () => {
   const { balance } = useCheckTicketSpinQuery(undefined, {
     selectFromResult: (s) => ({ ...s, balance: s.data?.data }),
   })
-  console.log(
-    '🚀 ~ file: FloatingValentine.tsx:17 ~ FloatingValentine ~ balance',
-    balance
-  )
 
   const { makeContextualHref } = useContextualRouting()
   const to = makeContextualHref('/event/spin-mania')
