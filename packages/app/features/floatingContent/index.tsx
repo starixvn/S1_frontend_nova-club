@@ -60,7 +60,7 @@ const FloatingContent = () => {
             start: { x: 0, y: 0 },
             end: { x: 1, y: 0 },
           }}
-          containerStyle={{ width: 50, height: 50, px: 12 }}
+          containerStyle={{ width: 50, height: 50, px: 2 }}
         >
           {<Icon name="cs" size={30} />}
         </Button>
