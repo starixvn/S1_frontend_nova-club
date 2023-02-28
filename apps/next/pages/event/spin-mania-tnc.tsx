@@ -2,13 +2,13 @@ import React from 'react'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import { fontName } from 'app/provider/dripsy'
 import { useRouter } from 'next/router'
-import TncEn from '../../components/wcTnc/TncEn'
-import TncVi from '../../components/wcTnc/TncVi'
+import TncEn from '../../components/spinManiaTnc/TncEn'
+import TncVi from '../../components/spinManiaTnc/TncVi'
 
 const FONT_COLOR = '#FFF'
 const FONT_SIZE = 12
 
-const TnC = () => {
+const SpinManiaTnC = () => {
   const router = useRouter()
 
   const TnCLanguage = () => {
@@ -19,7 +19,7 @@ const TnC = () => {
         return <TncVi />
 
       default:
-        return <TncEn />
+        return <TncVi />
     }
   }
 
@@ -70,6 +70,17 @@ const TnC = () => {
           li div {
             margin-bottom: 0.6em;
           }
+
+          .catList {
+            display: flex;
+            align-items: center;
+          }
+
+          .cat {
+            width: 50px;
+            height: 50px;
+            margin: 0 8px 0 8px;
+          }
         `}</style>
 
         <TnCLanguage />
@@ -78,4 +89,4 @@ const TnC = () => {
   )
 }
 
-export default TnC
+export default SpinManiaTnC

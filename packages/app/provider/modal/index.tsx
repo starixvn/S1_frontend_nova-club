@@ -42,7 +42,7 @@ export interface ModalStackParams {
   ReferralModal: undefined
   LuckyDrawModal: undefined
   // CnyLuckyDrawModal: undefined
-  ValentineWinModal: undefined
+  SpinManiaWinModal: undefined
   WithdrawalConfirmationModal: {
     withdrawalInfo: Record<any, any>
     bankLogo: any
@@ -71,7 +71,7 @@ const _dynamicModal = {
   WithdrawalConfirmationModal: () =>
     import('app/components/modal/WithdrawalConfirmationModal'),
   CnyWinModal: () => import('app/components/modal/CnyWinModal'),
-  ValentineWinModal: () => import('app/components/modal/ValentineWinModal'),
+  SpinManiaWinModal: () => import('app/components/modal/SpinManiaWinModal'),
 }
 
 function getDynamicComponent(key: string) {
@@ -135,8 +135,8 @@ const modalConfig: ModalConfigType = {
     modal: getDynamicComponent('CnyWinModal'),
     // backdropOpacity: 0,
   },
-  ValentineWinModal: {
-    modal: getDynamicComponent('ValentineWinModal'),
+  SpinManiaWinModal: {
+    modal: getDynamicComponent('SpinManiaWinModal'),
   },
 }
 

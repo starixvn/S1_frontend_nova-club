@@ -5,6 +5,8 @@ import {
   AffCupWinnerList,
   CNYRollResult,
   CNYSpinBalance,
+  TicketSpinBalance,
+  TicketSpinResult,
   WcTicketCountResp,
 } from './eventApi.type'
 
@@ -45,6 +47,18 @@ export const eventApi = baseApiWithTag.injectEndpoints({
       }),
       invalidatesTags: ['CNYSpinBalance'],
     }),
+    checkTicketSpin: builder.query<IResponse<TicketSpinBalance>, void>({
+      query: () => ({
+        url: `/player_api/checkTicEligibleSpin`,
+      }),
+      providesTags: ['TicketBalance'],
+    }),
+    ticketSpin: builder.mutation<IResponse<TicketSpinResult[]>, void>({
+      query: () => ({
+        url: `/player_api/ticFreeWheelSpin`,
+      }),
+      invalidatesTags: ['TicketBalance'],
+    }),
   }),
 })
 
@@ -54,4 +68,6 @@ export const {
   useAffcupWinnerListQuery,
   useCheckCnySpinQuery,
   useCnySpinMutation,
+  useCheckTicketSpinQuery,
+  useTicketSpinMutation,
 } = eventApi

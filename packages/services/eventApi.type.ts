@@ -25,3 +25,17 @@ export interface CNYRollResult {
   formatted_amount: string
   err: string
 }
+
+export type TicketSpinBalance = {
+  totalBalance: number
+  totalSpin: number
+  totalUsed: number
+}
+
+export interface TicketSpinResult {
+  code: string
+  note: string
+  amount: string
+  formatted_amount: string
+  err: string
+}

@@ -28,7 +28,7 @@ const VGaming = () => {
     getAction(action)()
   }
 
-  const vGamingSize = Math.min(110, width * 0.2)
+  const vGamingSize = Math.min(80, width * 0.15)
 
   return (
     <TouchableOpacity onPress={launchVGaming}>

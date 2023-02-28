@@ -8,10 +8,8 @@ import { AnimatePresence } from 'moti'
 import { useState } from 'react'
 import { Platform, useWindowDimensions } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import FloatingAffWinner from './FloatingAffWinner'
-import FloatingCny from './FloatingCny'
 import FloatingQr from './FloatingQr'
-import FloatingValentine from './FloatingValentine'
+import FloatingSpinMania from './FloatingSpinMania'
 import SupportMenu from './SupportMenu'
 import VGaming from './VGaming'
 
@@ -42,10 +40,7 @@ const FloatingContent = () => {
           alignItems: 'center',
         }}
       >
-        <FloatingValentine />
-        {/* <FloatingCny /> */}
-        {/* <FloatingAffWinner /> */}
-
+        <FloatingSpinMania />
         <VGaming />
 
         <Button

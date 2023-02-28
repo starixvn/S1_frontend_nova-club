@@ -1,11 +1,11 @@
 import useOrientation from 'app/hooks/useOrientation'
 import useShield from 'app/hooks/useShield'
 import { useAppSelector } from 'app/provider/redux/store'
-import { AuthActions } from 'app/store/authReducer'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
 import { ScrollView } from 'dripsy'
-import { default as React, useEffect, useState } from 'react'
-import { Platform } from 'react-native'
+import { default as React, useEffect } from 'react'
+import { Platform, TextInput } from 'react-native'
+import Animated from 'react-native-reanimated'
 import { useDispatch } from 'react-redux'
 import { Shield_Action } from 'services/authApi.type'
 import LuckyDrawTrigger from './LuckyDrawTrigger'
@@ -15,8 +15,8 @@ import GridSection from './Section/GridSection'
 import HotGamesSection from './Section/HotGamesSection'
 import Jackpot from './Section/Jackpot'
 import MatchesSection from './Section/MatchesSection'
-import Prediction from './Section/Prediction'
 import RecentOpenGames from './Section/RecentOpenGames'
+
 const HomeScreen = () => {
   const { isLandscape } = useOrientation()
   const dispatch = useDispatch()
