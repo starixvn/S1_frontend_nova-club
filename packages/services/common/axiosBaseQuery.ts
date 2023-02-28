@@ -51,12 +51,7 @@ export function axiosBaseQuery<T>(): BaseQueryFn<
         if (errorMessage) {
           // if HTML string
           if (typeof errorMessage === 'string') {
-            if (errorObj.statusCode === 405) {
-              errorObj.message = 'maintenance'
-            } else if (errorObj.statusCode === 404) {
-              // 404 we flag as forbidden, as infra team block the request at CDN and return 404 with HTML string
-              errorObj.statusCode = 403
-            }
+            errorObj.message = 'maintenance'
           } else {
             Object.assign(errorObj, errorMessage)
           }

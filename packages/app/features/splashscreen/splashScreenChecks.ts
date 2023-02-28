@@ -68,7 +68,7 @@ export const checkMaintenance: SplashScreenTask = (context) => async () => {
       contentApi.endpoints.announcement.initiate()
     )
     isForbidden = error?.statusCode === 403
-    isMaintenance = typeof data === 'string'
+    isMaintenance = error?.statusCode === 404
   } catch (e) {
     console.log('failed to check for maintenance', e)
   }
