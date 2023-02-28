@@ -207,8 +207,10 @@ const MainHeader = () => {
               }}
             >
               <BorderButton
-                borderColor={theme.colors.$lightNavyBlue2}
-                backgroundColor={theme.colors.$darkOcean}
+                sx={{
+                  borderColor: theme.colors.$lightNavyBlue2,
+                  backgroundColor: theme.colors.$darkOcean,
+                }}
                 text={t('menu.deposit')}
                 textColor={theme.colors.$black}
                 size={18}

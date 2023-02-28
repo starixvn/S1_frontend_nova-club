@@ -1,10 +1,10 @@
-import { Text, View } from 'dripsy'
+import { Text, View, SxProp } from 'dripsy'
+import { ComponentProps } from 'react'
+import { Platform } from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { DripsyGradient } from './Gradient'
 
-interface BorderButtonProps {
-  borderColor: string
-  backgroundColor: string
+type BorderButtonProps = {
   text: string
   textColor: string
   height?: number
@@ -12,11 +12,9 @@ interface BorderButtonProps {
   size: number
   innerGradientColor: string[]
   onPress?: () => void
-}
+} & ComponentProps<typeof View>
 
 const BorderButton = ({
-  borderColor,
-  backgroundColor,
   text,
   textColor,
   height,
@@ -24,28 +22,34 @@ const BorderButton = ({
   size,
   innerGradientColor,
   onPress,
+  ...rest
 }: BorderButtonProps) => {
   const h = height ? height : size
   const w = width ? width : size
+  const scale = Platform.OS === 'web' ? 1.5 : 1
+
+  const { sx, ...restProp } = rest
+
+  const defaultSxStyle: SxProp = {
+    height: h * 1.1 * scale,
+    borderRadius: size,
+    borderWidth: 1 * scale,
+    alignSelf: 'center',
+    marginX: 5,
+  }
+  const viewSx = {
+    ...defaultSxStyle,
+    ...sx,
+  }
 
   return (
     <>
-      <View
-        sx={{
-          height: h * 1.1,
-          borderRadius: size,
-          borderWidth: 1,
-          borderColor: borderColor,
-          backgroundColor: backgroundColor,
-          alignSelf: 'center',
-          marginX: 5,
-        }}
-      >
+      <View sx={viewSx} {...restProp}>
         <TouchableWithoutFeedback onPress={onPress}>
           <View
             sx={{
-              height: h,
-              borderWidth: 2,
+              height: h * scale,
+              borderWidth: 2 * scale,
               borderRadius: size,
               alignSelf: 'center',
               overflow: 'hidden',
@@ -56,7 +60,7 @@ const BorderButton = ({
               sx={{
                 height: '100%',
                 width: '100%',
-                paddingX: 2,
+                paddingX: Platform.OS === 'web' ? 10 : 5,
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
@@ -65,7 +69,7 @@ const BorderButton = ({
                 sx={{
                   color: textColor,
                   fontWeight: 'bold',
-                  fontSize: size * 0.45,
+                  fontSize: size * 0.45 * scale,
                 }}
               >
                 {text}
