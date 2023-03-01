@@ -11,20 +11,19 @@ import FloatingSpinMania from './FloatingSpinMania'
 import SupportMenu from './SupportMenu'
 import ToggleFloatingButton from './ToggleFloatingButton'
 import VGaming from './VGaming'
+
 const FloatingContentSwitch = () => {
   const [isSupportMenuVisible, setSupportMenuVisible] = useState(false)
-  // Google Pixel 5a require this insets to get accurate value
   const [isOpen, setIsOpen] = useState(true)
 
   const { width } = useWindowDimensions()
-  const { width: containerWidth, height: containerHeight } =
-    useContainerDimension()
+  const { width: containerWidth } = useContainerDimension()
   const { theme } = useDripsyTheme()
-  let right = Math.max(0, (width - theme.sizes.container) / 2)
 
   const vGamingSize = Math.min(110, width * 0.2)
 
   const { bottom } = useSafeArea()
+
   return (
     <>
       <AnimatePresence>
@@ -39,8 +38,6 @@ const FloatingContentSwitch = () => {
               right: 0,
               bottom: BOTTOM_NAV_HEIGHT + bottom + 40,
               position: 'absolute',
-              flexDirection: 'row',
-              alignItems: 'center',
               overflow: Platform.OS === 'web' ? 'hidden' : 'visible',
               backgroundColor: 'rgba(30,30,30,0.4)',
               borderTopLeftRadius: 10,
@@ -91,13 +88,7 @@ const FloatingContentSwitch = () => {
           bottom: BOTTOM_NAV_HEIGHT + bottom + 110,
         }}
       >
-        <View
-          sx={{
-            justifyContent: 'center',
-          }}
-        >
-          <ToggleFloatingButton setIsOpen={setIsOpen} isOpen={isOpen} />
-        </View>
+        <ToggleFloatingButton setIsOpen={setIsOpen} isOpen={isOpen} />
       </View>
 
       <AnimatePresence>

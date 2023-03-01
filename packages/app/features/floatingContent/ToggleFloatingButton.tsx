@@ -11,7 +11,6 @@ const ToggleFloatingButton = ({ setIsOpen, isOpen }) => {
         width: 25,
         alignItems: 'flex-end',
         justifyContent: 'center',
-        zIndex: 10,
       }}
     >
       <View
@@ -21,7 +20,6 @@ const ToggleFloatingButton = ({ setIsOpen, isOpen }) => {
           borderTopLeftRadius: 10,
           borderBottomLeftRadius: 10,
           width: 20,
-          right: 0,
           justifyContent: 'center',
           alignItems: 'center',
         }}
