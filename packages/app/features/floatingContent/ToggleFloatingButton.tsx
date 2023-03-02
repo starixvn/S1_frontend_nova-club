@@ -1,14 +1,24 @@
 import Icon from 'app/components/Icon'
 import { View } from 'dripsy'
 import { MotiView } from 'moti'
+import { Dispatch, SetStateAction } from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-const ToggleFloatingButton = ({ setIsOpen, isOpen }) => {
+
+interface ToggleFloatingButtonProps {
+  setIsOpen: Dispatch<SetStateAction<boolean>>
+  isOpen: boolean
+}
+
+const ToggleFloatingButton = ({
+  setIsOpen,
+  isOpen,
+}: ToggleFloatingButtonProps) => {
   return (
     <TouchableOpacity
       onPress={() => setIsOpen(!isOpen)}
       style={{
-        height: 80,
-        width: 25,
+        height: 100,
+        width: 30,
         alignItems: 'flex-end',
         justifyContent: 'center',
       }}

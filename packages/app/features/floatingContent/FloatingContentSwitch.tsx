@@ -23,7 +23,8 @@ const FloatingContentSwitch = () => {
   const vGamingSize = Math.min(110, width * 0.2)
 
   const { bottom } = useSafeArea()
-
+  const iconSize = Math.min(90, width * 0.18)
+  const floatButtonOffset = iconSize * 1.25
   return (
     <>
       <AnimatePresence>
@@ -83,9 +84,9 @@ const FloatingContentSwitch = () => {
       <View
         sx={{
           position: 'absolute',
-          zIndex: 10,
+          zIndex: 9,
           right: 0,
-          bottom: BOTTOM_NAV_HEIGHT + bottom + 110,
+          bottom: BOTTOM_NAV_HEIGHT + bottom + floatButtonOffset,
         }}
       >
         <ToggleFloatingButton setIsOpen={setIsOpen} isOpen={isOpen} />
