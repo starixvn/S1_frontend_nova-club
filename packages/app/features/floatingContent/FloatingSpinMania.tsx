@@ -4,13 +4,11 @@ import useContextualRouting from 'app/hooks/useContextualRouting'
 import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import { Text } from 'dripsy'
 import React from 'react'
-import { useWindowDimensions } from 'react-native'
 import { useCheckTicketSpinQuery } from 'services/eventApi'
 import { useRouter } from 'solito/router'
 
-const FloatingValentine = () => {
+const FloatingValentine = ({ iconSize }: { iconSize: number }) => {
   const { push } = useRouter()
-  const { width } = useWindowDimensions()
   const { balance } = useCheckTicketSpinQuery(undefined, {
     selectFromResult: (s) => ({ ...s, balance: s.data?.data }),
   })
@@ -21,8 +19,6 @@ const FloatingValentine = () => {
   const handlePress = () => {
     push(to, '/event/spin-mania')
   }
-
-  const iconSize = Math.min(90, width * 0.18)
 
   return (
     <TouchableOpacity

@@ -3,12 +3,9 @@ import Image from 'app/components/common/Image'
 import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import { ActionType, getAction } from 'app/utils/actionGenerator'
 import React from 'react'
-import { useWindowDimensions } from 'react-native'
 import { Game } from 'services/contentApi.type'
 
-const VGaming = () => {
-  const { width } = useWindowDimensions()
-
+const VGaming = ({ iconSize }: { iconSize: number }) => {
   const launchVGaming = () => {
     const action = {
       type: ActionType.GAME,
@@ -28,8 +25,6 @@ const VGaming = () => {
     getAction(action)()
   }
 
-  const vGamingSize = Math.min(80, width * 0.15)
-
   return (
     <TouchableOpacity onPress={launchVGaming}>
       <Image
@@ -37,8 +32,8 @@ const VGaming = () => {
           uri: `${MEDIA_DOMAIN}${CONTENT_URI}/Vgaming-icon.gif`,
         }}
         style={{
-          width: vGamingSize,
-          height: vGamingSize,
+          width: iconSize,
+          height: iconSize,
           marginBottom: 10,
         }}
         resizeMode="contain"

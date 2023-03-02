@@ -1,64 +1,53 @@
 import { Button } from 'app/components/form/Button'
 import Icon from 'app/components/Icon'
-import useContainerDimension from 'app/hooks/useContainerDimension'
-import { BOTTOM_NAV_HEIGHT } from 'app/navigation/BottomNavigation'
-import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { useDripsyTheme, View } from 'dripsy'
+import { View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
-import { useState } from 'react'
-import { Platform, useWindowDimensions } from 'react-native'
+import { useContext } from 'react'
+import { FloatingContext } from './FloatingContext'
 import FloatingSpinMania from './FloatingSpinMania'
-import SupportMenu from './SupportMenu'
-import ToggleFloatingButton from './ToggleFloatingButton'
 import VGaming from './VGaming'
 
-const FloatingContentSwitch = () => {
-  const [isSupportMenuVisible, setSupportMenuVisible] = useState(false)
-  const [isOpen, setIsOpen] = useState(true)
+interface FloatingContentSwitchProps {
+  isOpen: boolean
+  iconSize: number
+}
 
-  const { width } = useWindowDimensions()
-  const { width: containerWidth } = useContainerDimension()
-  const { theme } = useDripsyTheme()
-
-  const vGamingSize = Math.min(110, width * 0.2)
-
-  const { bottom } = useSafeArea()
-  const iconSize = Math.min(90, width * 0.18)
-  const floatButtonOffset = iconSize * 1.25
+const FloatingContentSwitch = ({
+  isOpen,
+  iconSize,
+}: FloatingContentSwitchProps) => {
+  const { toggleLiveChat } = useContext(FloatingContext)
   return (
     <>
       <AnimatePresence>
         {isOpen && (
           <MotiView
             from={{ transform: [{ translateX: 100 }], opacity: 0 }}
-            transition={{ type: 'timing', duration: 800 }}
+            transition={{ type: 'timing', duration: 500 }}
             animate={{ transform: [{ translateX: 0 }], opacity: 1 }}
             exit={{ transform: [{ translateX: 100 }], opacity: 0 }}
             style={{
-              zIndex: 9,
-              right: 0,
-              bottom: BOTTOM_NAV_HEIGHT + bottom + 40,
-              position: 'absolute',
-              overflow: Platform.OS === 'web' ? 'hidden' : 'visible',
               backgroundColor: 'rgba(30,30,30,0.4)',
               borderTopLeftRadius: 10,
               borderBottomLeftRadius: 10,
+              height: '100%',
+              justifyContent: 'center',
             }}
           >
             <View
               sx={{
                 py: '$2',
-                pl: '$2',
+                pl: '$1',
                 alignItems: 'center',
                 paddingRight: '$6',
               }}
             >
-              <FloatingSpinMania />
-              <VGaming />
+              <FloatingSpinMania iconSize={iconSize} />
+              <VGaming iconSize={iconSize} />
 
               <Button
                 onPress={() => {
-                  setSupportMenuVisible(true)
+                  toggleLiveChat(true)
                 }}
                 rounded
                 variant="lg"
@@ -74,23 +63,6 @@ const FloatingContentSwitch = () => {
               </Button>
             </View>
           </MotiView>
-        )}
-      </AnimatePresence>
-      {/* Position Absolute on the first parent of Touchable Opacity will cause clicked through */}
-      <View
-        sx={{
-          position: 'absolute',
-          zIndex: 9,
-          right: 0,
-          bottom: BOTTOM_NAV_HEIGHT + bottom + floatButtonOffset,
-        }}
-      >
-        <ToggleFloatingButton setIsOpen={setIsOpen} isOpen={isOpen} />
-      </View>
-
-      <AnimatePresence>
-        {isSupportMenuVisible && (
-          <SupportMenu setSupportMenuVisible={setSupportMenuVisible} />
         )}
       </AnimatePresence>
     </>

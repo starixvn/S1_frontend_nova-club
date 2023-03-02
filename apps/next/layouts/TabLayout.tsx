@@ -116,11 +116,6 @@ const BottomTabFloat = () => {
         width: '100%',
         bottom: 0,
         maxWidth: 'container',
-        ...Platform.select({
-          web: {
-            overflowX: 'clip',
-          },
-        }),
       }}
     >
       <BottomNavigation />
