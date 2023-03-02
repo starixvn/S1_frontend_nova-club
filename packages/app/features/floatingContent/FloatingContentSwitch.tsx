@@ -50,11 +50,7 @@ const FloatingContentSwitch = () => {
                 py: '$2',
                 pl: '$2',
                 alignItems: 'center',
-                paddingRight:
-                  Platform.OS === 'web'
-                    ? '$5'
-                    : Math.max(0, (width - theme.sizes.container) / 2) +
-                      Math.max(containerWidth * 0.35 - vGamingSize, 0) / 2,
+                paddingRight: '$6',
               }}
             >
               <FloatingSpinMania />
