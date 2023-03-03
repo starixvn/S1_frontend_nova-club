@@ -5,7 +5,7 @@ import { ActionType, getAction } from 'app/utils/actionGenerator'
 import React from 'react'
 import { Game } from 'services/contentApi.type'
 
-const VGaming = ({ iconSize }: { iconSize: number }) => {
+const VGaming = ({ size }: { size: number }) => {
   const launchVGaming = () => {
     const action = {
       type: ActionType.GAME,
@@ -32,8 +32,8 @@ const VGaming = ({ iconSize }: { iconSize: number }) => {
           uri: `${MEDIA_DOMAIN}${CONTENT_URI}/Vgaming-icon.gif`,
         }}
         style={{
-          width: iconSize,
-          height: iconSize,
+          width: size,
+          height: size,
           marginBottom: 10,
         }}
         resizeMode="contain"

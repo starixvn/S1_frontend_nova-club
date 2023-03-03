@@ -7,7 +7,7 @@ import React from 'react'
 import { useCheckTicketSpinQuery } from 'services/eventApi'
 import { useRouter } from 'solito/router'
 
-const FloatingValentine = ({ iconSize }: { iconSize: number }) => {
+const FloatingValentine = ({ size }: { size: number }) => {
   const { push } = useRouter()
   const { balance } = useCheckTicketSpinQuery(undefined, {
     selectFromResult: (s) => ({ ...s, balance: s.data?.data }),
@@ -30,8 +30,8 @@ const FloatingValentine = ({ iconSize }: { iconSize: number }) => {
           uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/spinMania/floating.gif`,
         }}
         style={{
-          width: iconSize,
-          height: iconSize,
+          width: size,
+          height: size,
         }}
         resizeMode="contain"
       />

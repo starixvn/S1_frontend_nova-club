@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { useWcTicketCountQuery } from 'services/eventApi'
 import { useRouter } from 'solito/router'
-import BubbleEdge from './Bubble/BubbleEdge'
+import BubbleEdge from '../../Bubble/BubbleEdge'
 
 const FloatingAffWinner = () => {
   const { push } = useRouter()
