@@ -1,6 +1,11 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Image from 'app/components/common/Image'
-import MatchNameMapping from 'app/config/matches/MatchNameMapping'
+import {
+  MatchLeagueColorMapping,
+  MatchLeagueLogoMapping,
+  MatchNameMapping,
+} from 'app/config/matches/MatchNameMapping'
+
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useInterval from 'app/hooks/useInterval'
 import TouchableOpacity from 'app/pressable/TouchableOpacity'
@@ -8,11 +13,10 @@ import { ActionType, getAction } from 'app/utils/actionGenerator'
 import dayjsTz from 'app/utils/dayjs'
 import dayjs, { Dayjs } from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
-import { styled, Text, View } from 'dripsy'
-import { AnimatePresence, motify } from 'moti'
+import { Flex, styled, Text, View } from 'dripsy'
+import { AnimatePresence, motify, MotiView } from 'moti'
 import { useState } from 'react'
-import { ImageBackground, StyleSheet } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { Button, ImageBackground, StyleSheet } from 'react-native'
 import { useGetRecoMatchQuery } from 'services/contentApi'
 import { Game, Match } from 'services/contentApi.type'
 
@@ -39,6 +43,11 @@ const MatchesSection = () => {
 
   const selectedMatch =
     matches && matches.length > activeIndex ? matches?.[activeIndex] : undefined
+
+  const selectedBgColor =
+    matches && matches.length > activeIndex
+      ? MatchLeagueColorMapping[matches?.[activeIndex]?.LeagueId ?? 0]
+      : null
 
   useInterval(
     () => {
@@ -74,19 +83,52 @@ const MatchesSection = () => {
   }
 
   return (
-    <ImageBackground
-      style={{ width: '100%', height: width / 2.56 }}
-      source={require('../../../assets/images/home/matches-bg.jpg')}
+    <View sx={{ position: 'relative' }}>
+      <MatchesBackground bgColor={selectedBgColor} />
+      <ImageBackground
+        style={{ width: '100%', height: width / 2.56 }}
+        source={{
+          uri: `${MEDIA_DOMAIN}${CONTENT_URI}/home/matches/matches-bg.png`,
+        }}
+      >
+        {selectedMatch && (
+          <TouchableOpacity
+            onPress={() => onPress(selectedMatch)}
+            sx={{ width: '100%', height: '100%', alignItems: 'center' }}
+          >
+            <MatchItem match={selectedMatch} />
+          </TouchableOpacity>
+        )}
+      </ImageBackground>
+    </View>
+  )
+}
+
+const MatchesBackground = ({ bgColor }) => {
+  return (
+    <View
+      sx={{
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+      }}
     >
-      {selectedMatch && (
-        <TouchableOpacity
-          onPress={() => onPress(selectedMatch)}
-          sx={{ width: '100%', height: '100%', alignItems: 'center' }}
-        >
-          <MatchItem match={selectedMatch} />
-        </TouchableOpacity>
-      )}
-    </ImageBackground>
+      <AnimatePresence>
+        <MotiView
+          key={bgColor}
+          from={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ type: 'timing', duration: 800 }}
+          style={{
+            backgroundColor: bgColor,
+            ...StyleSheet.absoluteFillObject,
+          }}
+        />
+      </AnimatePresence>
+    </View>
   )
 }
 
@@ -102,6 +144,7 @@ const MatchItem = ({ match }: { match: Match }) => {
   }
   const homeFlag = getFlagPath(match.HomeName)
   const awayFlag = getFlagPath(match.AwayName)
+  const leagueLogo = getLeagueLogo(match.LeagueId)
 
   const { width } = useContainerDimension()
   const nameFontSize = width * 0.03
@@ -121,6 +164,8 @@ const MatchItem = ({ match }: { match: Match }) => {
         flexDirection: 'row',
       }}
     >
+      <LeagueLogo image={leagueLogo} />
+
       <MatchCol
         name={match.HomeName}
         image={homeFlag}
@@ -230,7 +275,7 @@ const Flag = ({ image }) => {
       sx={{
         width: '40%',
         aspectRatio: 1,
-        borderRadius: 100,
+        borderRadius: 150,
         borderWidth: 3,
         borderColor: 'rgba(255,255,255,1)',
         overflow: 'hidden',
@@ -257,6 +302,48 @@ const Flag = ({ image }) => {
         />
       </AnimatePresence>
     </View>
+  )
+}
+
+const LeagueLogo = ({ image }) => {
+  return (
+    <Flex
+      sx={{
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        left: 0,
+        mt: '1.8%',
+        height: '18%',
+      }}
+    >
+      <View
+        sx={{
+          width: '25%',
+          height: '80%',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <AnimatePresence>
+          <FlagIcon
+            key={image}
+            from={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            resizeMode="contain"
+            style={{
+              ...StyleSheet.absoluteFillObject,
+            }}
+            source={{
+              uri: image,
+            }}
+          />
+        </AnimatePresence>
+      </View>
+    </Flex>
   )
 }
 
@@ -288,9 +375,13 @@ const CountryLabel = styled(motify(Text)())({
 const FlagIcon = motify(Image)()
 
 function getFlagPath(country: string) {
-  return `${MEDIA_DOMAIN}${CONTENT_URI}/flags/${country
-    .toLowerCase()
-    .replace(/[^a-zA-Z0-9]/g, '')}.png`
+  const cleanFileName = country.toLowerCase().replace(/[^a-zA-Z0-9]/g, '')
+
+  return `${MEDIA_DOMAIN}${CONTENT_URI}/flags/${cleanFileName}.png`
+}
+
+function getLeagueLogo(leagueId: number) {
+  return `${MEDIA_DOMAIN}${CONTENT_URI}/home/matches/${MatchLeagueLogoMapping[leagueId]}`
 }
 
 function formatName(name) {
