@@ -1,74 +1,48 @@
-import { Button } from 'app/components/form/Button'
-import Icon from 'app/components/Icon'
-import useContainerDimension from 'app/hooks/useContainerDimension'
 import { BOTTOM_NAV_HEIGHT } from 'app/navigation/BottomNavigation'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { useDripsyTheme, View } from 'dripsy'
-import { AnimatePresence } from 'moti'
-import { useState } from 'react'
-import { Platform, useWindowDimensions } from 'react-native'
+import { useMemo, useState } from 'react'
+import { useWindowDimensions } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import FloatingQr from './FloatingQr'
-import FloatingSpinMania from './FloatingSpinMania'
-import SupportMenu from './SupportMenu'
-import VGaming from './VGaming'
+import { FloatingContext } from './FloatingContext'
+import FloatingDrawer from './component/FloatingDrawer'
+import SupportMenu from './component/SupportMenu'
+import ToggleFloatingDrawerButton from './component/ToggleFloatingDrawerButton'
+import FloatingQr from './component/FloatingQr'
 
 const FloatingContent = () => {
-  const [isSupportMenuVisible, setSupportMenuVisible] = useState(false)
-  // Google Pixel 5a require this insets to get accurate value
+  const [activeLiveChat, setActiveLiveChat] = useState(false)
+  const [isOpen, setIsOpen] = useState(true)
   const { isCreditMember } = usePlayerProfileQuery()
-
   const { width } = useWindowDimensions()
-  const { width: containerWidth, height: containerHeight } =
-    useContainerDimension()
-  const { theme } = useDripsyTheme()
-
-  const vGamingSize = Math.min(110, width * 0.2)
-
   const { bottom } = useSafeArea()
 
+  const iconSize = Math.min(80, width * 0.18)
+  const floatButtonOffset = iconSize * 1.3
+  const drawerButtonOffset = BOTTOM_NAV_HEIGHT + bottom + floatButtonOffset
+  const floatingDrawerOffset = BOTTOM_NAV_HEIGHT + bottom + 30
+
+  const MemoizedFloatingContext = useMemo(
+    () => ({ activeLiveChat, toggleLiveChat: setActiveLiveChat }),
+    [activeLiveChat]
+  )
   return (
-    <>
-      <View
-        sx={{
-          zIndex: 9,
-          right:
-            Math.max(0, (width - theme.sizes.container) / 2) +
-            Math.max(containerWidth * 0.2 - vGamingSize, 0) / 2,
-          position: Platform.OS === 'web' ? 'fixed' : 'absolute',
-          bottom: BOTTOM_NAV_HEIGHT + bottom + 40,
-          alignItems: 'center',
-        }}
-      >
-        <FloatingSpinMania />
-        <VGaming />
-
-        <Button
-          onPress={() => {
-            setSupportMenuVisible(true)
-          }}
-          rounded
-          variant="lg"
-          fill={{
-            type: 'gradient',
-            color: 'secondary',
-            start: { x: 0, y: 0 },
-            end: { x: 1, y: 0 },
-          }}
-          containerStyle={{ width: 50, height: 50, px: 2 }}
-        >
-          {<Icon name="cs" size={30} />}
-        </Button>
-      </View>
-
-      <AnimatePresence>
-        {isSupportMenuVisible && (
-          <SupportMenu setSupportMenuVisible={setSupportMenuVisible} />
-        )}
-      </AnimatePresence>
-
+    <FloatingContext.Provider value={MemoizedFloatingContext}>
+      <FloatingDrawer
+        visible={isOpen}
+        size={iconSize}
+        floatingDrawerOffset={floatingDrawerOffset}
+      />
+      <ToggleFloatingDrawerButton
+        toggleFloatingDrawer={setIsOpen}
+        visible={isOpen}
+        drawerButtonOffset={drawerButtonOffset}
+      />
       {!isCreditMember && <FloatingQr />}
-    </>
+      <SupportMenu
+        setSupportMenuVisible={setActiveLiveChat}
+        visible={activeLiveChat}
+      />
+    </FloatingContext.Provider>
   )
 }
 
