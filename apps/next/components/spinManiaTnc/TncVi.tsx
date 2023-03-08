@@ -7,7 +7,7 @@ const TncVi = () => {
   return (
     <div>
       <h2>QUAY SỐ MAY MẮN</h2>
-      <p>Thời gian: 1 - 31 March 2023</p>
+      <p>Thời gian: 01 đến 31 tháng 3, 2023</p>
 
       <br />
       <div>
