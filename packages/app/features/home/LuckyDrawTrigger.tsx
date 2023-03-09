@@ -62,10 +62,11 @@ const LuckyDrawTrigger = () => {
         }
 
         dispatch(SettingActions.setLuckyDrawBalance(freeSpinBalance))
-        dispatch(TempSettingActions.setLuckyDrawTriggered(true))
       }
     } catch (e) {
       console.log('e', e)
+    } finally {
+      dispatch(TempSettingActions.setLuckyDrawTriggered(true))
     }
   }
 
