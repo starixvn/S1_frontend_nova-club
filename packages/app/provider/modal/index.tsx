@@ -38,7 +38,7 @@ export interface ModalStackParams {
   PinModal: { onConfirm(...args: any): any; onForgotPin(...args: any): any }
   PlayerBankDeleteModal: { bank: Record<any, any> }
   PredictionModal: undefined
-  AffCupModal: undefined
+  EventPopupModal: undefined
   ReferralModal: undefined
   LuckyDrawModal: undefined
   // CnyLuckyDrawModal: undefined
@@ -66,7 +66,7 @@ const _dynamicModal = {
   PlayerBankDeleteModal: () =>
     import('app/components/modal/PlayerBankDeleteModal'),
   PredictionModal: () => import('app/components/modal/PredictionModal'),
-  AffCupModal: () => import('app/components/modal/AffCupModal'),
+  EventPopupModal: () => import('app/components/modal/EventPopupModal'),
   ReferralModal: () => import('app/components/modal/ReferralModal'),
   WithdrawalConfirmationModal: () =>
     import('app/components/modal/WithdrawalConfirmationModal'),
@@ -122,8 +122,8 @@ const modalConfig: ModalConfigType = {
   PredictionModal: {
     modal: getDynamicComponent('PredictionModal'),
   },
-  AffCupModal: {
-    modal: getDynamicComponent('AffCupModal'),
+  EventPopupModal: {
+    modal: getDynamicComponent('EventPopupModal'),
   },
   ReferralModal: {
     modal: getDynamicComponent('ReferralModal'),

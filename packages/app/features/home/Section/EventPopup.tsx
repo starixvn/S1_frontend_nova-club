@@ -10,15 +10,12 @@ const EventPopup = () => {
   const dispatch = useDispatch()
   const { openModal } = useModal()
 
-  const { push } = useRouter()
-  const { makeContextualHref } = useContextualRouting()
-  const locale = useAppSelector((s) => s.setting.locale)
   const showPrediction = useAppSelector((s) => s.tempSetting.showPrediction)
 
   useEffect(() => {
     const setTimeoutId = setTimeout(() => {
       if (showPrediction) {
-        openModal('AffCupModal')
+        openModal('EventPopupModal')
         dispatch(TempSettingActions.toggleShowPrediction(true))
       }
     }, 1000)
