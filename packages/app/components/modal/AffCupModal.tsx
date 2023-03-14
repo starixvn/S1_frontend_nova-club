@@ -5,13 +5,11 @@ import { ActivityIndicator, ScrollView, View } from 'dripsy'
 import React, { useState } from 'react'
 import Image from '../common/Image'
 
-const AffCupModal = ({ modal: { closeModal, getParam } }) => {
+const AffCupModal = ({ modal: { closeModal } }) => {
   const { width, height } = useContainerDimension()
-  const onPress = getParam('onPress')
   const [isLoading, setLoading] = useState(true)
 
   const handlePress = () => {
-    onPress()
     closeModal()
   }
 
