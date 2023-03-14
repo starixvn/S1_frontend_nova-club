@@ -2,14 +2,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Shield_Action } from 'services/authApi.type'
 
 interface settingStateProps {
-  showPrediction: boolean
+  triggerPopupEvent: boolean
   luckyDrawTriggered: boolean
   syncShieldActionType: Shield_Action
   syncShieldStatus: boolean
 }
 
 const initialState: settingStateProps = {
-  showPrediction: true,
+  triggerPopupEvent: true,
   luckyDrawTriggered: false,
   syncShieldActionType: Shield_Action.NONE,
   syncShieldStatus: false,
@@ -19,8 +19,8 @@ const tempSettingSlice = createSlice({
   name: 'tempSetting',
   initialState,
   reducers: {
-    toggleShowPrediction: (state, action: PayloadAction<boolean>) => {
-      state.showPrediction = action.payload
+    toggleTriggerPopupEvent: (state, action: PayloadAction<boolean>) => {
+      state.triggerPopupEvent = action.payload
     },
     setLuckyDrawTriggered: (state, action: PayloadAction<boolean>) => {
       state.luckyDrawTriggered = action.payload
