@@ -1,3 +1,4 @@
+import { BOTTOM_NAV_HEIGHT } from 'app/constant/sizes'
 import FloatingContent from 'app/features/floatingContent'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useOrientation from 'app/hooks/useOrientation'
@@ -46,10 +47,9 @@ const tabConfig = [
   },
 ]
 
-const BAR_HEIGHT = 60
+const BAR_HEIGHT = BOTTOM_NAV_HEIGHT
 const CIRCLE_HEIGHT = BAR_HEIGHT
 const MARGIN_TOP = -BAR_HEIGHT * 0.4
-export const BOTTOM_NAV_HEIGHT = BAR_HEIGHT
 
 const BottomNavigation = () => {
   const { push } = useRouter()

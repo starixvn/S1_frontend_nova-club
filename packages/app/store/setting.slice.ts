@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { LANGUAGE_CODE } from 'app/constant/language'
-import { isBannedTrackingCode } from 'app/utils'
+import { isBannedTrackingCode } from 'app/utils/referralUtil'
 import dayjs, { Dayjs } from 'dayjs'
 import { LaunchGamePayload } from './gameLauncher.slice'
 

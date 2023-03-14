@@ -1,4 +1,3 @@
-import { BOTTOM_NAV_HEIGHT } from 'app/navigation/BottomNavigation'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { useMemo, useState } from 'react'
 import { useWindowDimensions } from 'react-native'
@@ -8,6 +7,7 @@ import FloatingDrawer from './component/FloatingDrawer'
 import SupportMenu from './component/SupportMenu'
 import ToggleFloatingDrawerButton from './component/ToggleFloatingDrawerButton'
 import FloatingQr from './component/FloatingQr'
+import { BOTTOM_NAV_HEIGHT } from 'app/constant/sizes'
 
 const FloatingContent = () => {
   const [activeLiveChat, setActiveLiveChat] = useState(false)

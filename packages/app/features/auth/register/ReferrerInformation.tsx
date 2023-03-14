@@ -8,7 +8,7 @@ import { skipToken } from '@reduxjs/toolkit/query/react'
 import { motify } from 'moti'
 import { useAffiliateUsernameQuery } from 'services/contentApi'
 import { useDispatch } from 'react-redux'
-import { isBannedTrackingCode } from 'app/utils'
+import { isBannedTrackingCode } from 'app/utils/referralUtil'
 const HEADER_IMAGE = require('../../../assets/images/header/avatar.png')
 const MotifiedView = motify(View)()
 function ReferrerInformation({ sx = {}, ...rest }) {

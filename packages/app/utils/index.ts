@@ -257,8 +257,3 @@ export const createFileName = (extension = '', ...names) => {
 
   return `${names.join('')}.${extension}`
 }
-
-export function isBannedTrackingCode(tc?: string) {
-  const bannerCode = ['guzmtvf72', 'wyza958413', 'zmla227708', 'kqvvodl2w']
-  return !tc ? false : bannerCode.includes(tc.toLowerCase())
-}

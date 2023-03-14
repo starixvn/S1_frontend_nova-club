@@ -9,13 +9,13 @@ import {
   TouchableWithoutFeedback,
   useWindowDimensions,
 } from 'react-native'
-import { BOTTOM_NAV_HEIGHT } from 'app/navigation/BottomNavigation'
 import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import Image from 'app/components/common/Image'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import useSupportItemList from 'app/features/customerSupport/useSupportItemList'
+import { BOTTOM_NAV_HEIGHT } from 'app/constant/sizes'
 interface SupportMenuProps {
   setSupportMenuVisible: Dispatch<SetStateAction<boolean>>
   visible: boolean
