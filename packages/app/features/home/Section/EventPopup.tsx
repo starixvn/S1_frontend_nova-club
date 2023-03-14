@@ -16,7 +16,7 @@ const EventPopup = () => {
     const setTimeoutId = setTimeout(() => {
       if (showPrediction) {
         openModal('EventPopupModal')
-        dispatch(TempSettingActions.toggleShowPrediction(true))
+        dispatch(TempSettingActions.toggleShowPrediction(false))
       }
     }, 1000)
 
