@@ -5,17 +5,15 @@ import { ActivityIndicator, ScrollView, View } from 'dripsy'
 import React, { useState } from 'react'
 import Image from '../common/Image'
 
-const AffCupModal = ({ modal: { closeModal, getParam } }) => {
+const EventPopupModal = ({ modal: { closeModal } }) => {
   const { width, height } = useContainerDimension()
-  const onPress = getParam('onPress')
   const [isLoading, setLoading] = useState(true)
 
   const handlePress = () => {
-    onPress()
     closeModal()
   }
 
-  const imageWidth = Math.min(500, width * 0.9)
+  const imageWidth = Math.min(300, width * 0.7)
   const imageHeight = imageWidth / (800 / 1100)
   return (
     <View
@@ -29,12 +27,13 @@ const AffCupModal = ({ modal: { closeModal, getParam } }) => {
           sx={{
             width: imageWidth,
             height: imageHeight,
+            alignItems: 'center',
           }}
         >
           <>
             <Image
               source={{
-                uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/aff-cup/aff-cup-modal.png?v=1`,
+                uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/popup_event.jpg?v=1`,
               }}
               style={{
                 flex: 1,
@@ -68,4 +67,4 @@ const AffCupModal = ({ modal: { closeModal, getParam } }) => {
   )
 }
 
-export default AffCupModal
+export default EventPopupModal

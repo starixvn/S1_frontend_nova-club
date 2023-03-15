@@ -4,13 +4,13 @@ import { useAppSelector } from 'app/provider/redux/store'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
 import { ScrollView } from 'dripsy'
 import { default as React, useEffect } from 'react'
-import { Platform, TextInput } from 'react-native'
-import Animated from 'react-native-reanimated'
+import { Platform } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { Shield_Action } from 'services/authApi.type'
 import LuckyDrawTrigger from './LuckyDrawTrigger'
 import AnnouncementMarquee from './Section/AnnouncementMarquee'
 import BannerSection from './Section/BannerSection'
+import EventPopup from './Section/EventPopup'
 import GridSection from './Section/GridSection'
 import HotGamesSection from './Section/HotGamesSection'
 import Jackpot from './Section/Jackpot'
@@ -74,7 +74,7 @@ const HomeScreen = () => {
       <HotGamesSection />
       <Jackpot />
       <LuckyDrawTrigger />
-      {/* <Prediction /> */}
+      <EventPopup />
     </ScrollView>
   )
 }
