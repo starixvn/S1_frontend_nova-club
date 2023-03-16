@@ -4,7 +4,7 @@ import { useAppSelector } from 'app/provider/redux/store'
 import { Currency, GAME_TYPE_CODE } from 'app/utils/constant'
 import { View } from 'dripsy'
 import React, { memo, useMemo, useRef, useState } from 'react'
-import { LayoutAnimation } from 'react-native'
+import { LayoutAnimation, Platform } from 'react-native'
 import { useGetGameListQuery } from 'services/contentApi'
 import { Game } from 'services/contentApi.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
@@ -98,11 +98,13 @@ const Games = () => {
             setFilterGames={(games) => {
               // console.log('set new list', games.length)
               setFilterGames(games)
-              if (list.current) {
-                list.current.prepareForLayoutAnimationRender()
-                LayoutAnimation.configureNext(
-                  LayoutAnimation.Presets.easeInEaseOut
-                )
+              if (Platform.OS === 'ios') {
+                if (list.current) {
+                  list.current.prepareForLayoutAnimationRender()
+                  LayoutAnimation.configureNext(
+                    LayoutAnimation.Presets.easeInEaseOut
+                  )
+                }
               }
             }}
           />
