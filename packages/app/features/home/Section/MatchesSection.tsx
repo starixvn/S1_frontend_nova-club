@@ -16,9 +16,9 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { Flex, styled, Text, View } from 'dripsy'
 import { AnimatePresence, motify, MotiView } from 'moti'
 import { useState } from 'react'
-import { Button, ImageBackground, StyleSheet } from 'react-native'
+import { ImageBackground, StyleSheet } from 'react-native'
 import { useGetRecoMatchQuery } from 'services/contentApi'
-import { Game, Match } from 'services/contentApi.type'
+import { Game, MatchResult } from 'services/contentApi.type'
 
 dayjs.extend(customParseFormat)
 
@@ -36,7 +36,7 @@ const MatchesSection = () => {
     selectFromResult: (s) => {
       return {
         ...s,
-        matches: s.data?.data?.rows,
+        matches: s.data?.data,
       }
     },
   })
@@ -59,7 +59,7 @@ const MatchesSection = () => {
     matches && matches.length > 0 ? 6000 : null
   )
 
-  const onPress = (match: Match) => {
+  const onPress = (match: MatchResult) => {
     const launchAction = {
       type: ActionType.GAME,
       payload: {
@@ -170,7 +170,10 @@ const MatchItem = ({ match }: { match: Match }) => {
         name={match.HomeName}
         image={homeFlag}
         nameFontSize={nameFontSize}
-        odd={match.selection['1'].Price}
+        odd={
+          match.selection.find((el) => el.Key === 'h')?.Price ??
+          match.selection[0].Price
+        }
         oddFontSize={oddFontSize}
       />
       <View sx={{ width: '26%' }}>
@@ -196,22 +199,25 @@ const MatchItem = ({ match }: { match: Match }) => {
             </TimeLabel>
           </AnimatePresence>
         </View>
-        <View sx={{ mt: '61%', height: '7.5%', overflow: 'hidden' }}>
+        {/* <View sx={{ mt: '61%', height: '7.5%', overflow: 'hidden' }}>
           <OddLabel
             sx={{
               fontSize: oddFontSize,
               lineHeight: oddFontSize * 1.4,
             }}
           >
-            {match.selection.x.Price}
+            {`${match.selection[0].Point} | ${match.selection[1].Point}`}
           </OddLabel>
-        </View>
+        </View> */}
       </View>
       <MatchCol
         name={match.AwayName}
         image={awayFlag}
         nameFontSize={nameFontSize}
-        odd={match.selection['2'].Price}
+        odd={
+          match.selection.find((el) => el.Key === 'a')?.Price ??
+          match.selection[1].Price
+        }
         oddFontSize={oddFontSize}
       />
     </View>

@@ -102,7 +102,7 @@ export interface JackpotAmountResult {
   jackpotAmount: string
 }
 
-export interface Match {
+export interface MatchResult {
   AwayKey: number
   AwayLang: string
   AwayName: string
@@ -116,24 +116,13 @@ export interface Match {
   MarketType: string
   SportID: number
   globalshowtime: string
-  selection: {
-    1: MatchOdd
-    2: MatchOdd
-    x: MatchOdd
-  }
+  selection: MatchOdd[]
 }
 
 export interface MatchOdd {
-  MarketID: number
-  Point: string
-  PointOri: number
-  Point_text: string
-  Price: string
-  PriceOri: number
-  Price_type: string
-}
-
-export interface MatchResult {
-  row_count_total: number
-  rows: Match[]
+  Key: string
+  KeyName: string
+  Point: number
+  Point2: string
+  Price: number
 }

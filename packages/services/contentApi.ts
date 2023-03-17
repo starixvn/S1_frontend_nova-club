@@ -114,7 +114,7 @@ export const contentApi = baseApiWithTag.injectEndpoints({
         baseURL: 'http://localhost:3000',
       }),
     }),
-    getRecoMatch: builder.query<IResponse<MatchResult>, void>({
+    getRecoMatch: builder.query<IResponse<MatchResult[]>, void>({
       query: () => ({
         url: `/static_api/getRecoMatch`,
         method: 'GET',
