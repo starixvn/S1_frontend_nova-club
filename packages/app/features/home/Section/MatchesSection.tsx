@@ -145,6 +145,12 @@ const MatchItem = ({ match }: { match: Match }) => {
   const homeFlag = getFlagPath(match.HomeName)
   const awayFlag = getFlagPath(match.AwayName)
   const leagueLogo = getLeagueLogo(match.LeagueId)
+  const homeOdd =
+    match.selection.find((el) => el.Key === 'h')?.Price ??
+    match.selection[0].Price
+  const awayOdd =
+    match.selection.find((el) => el.Key === 'a')?.Price ??
+    match.selection[1].Price
 
   const { width } = useContainerDimension()
   const nameFontSize = width * 0.03
@@ -170,10 +176,7 @@ const MatchItem = ({ match }: { match: Match }) => {
         name={match.HomeName}
         image={homeFlag}
         nameFontSize={nameFontSize}
-        odd={
-          match.selection.find((el) => el.Key === 'h')?.Price ??
-          match.selection[0].Price
-        }
+        odd={formatOdd(homeOdd)}
         oddFontSize={oddFontSize}
       />
       <View sx={{ width: '26%' }}>
@@ -214,10 +217,7 @@ const MatchItem = ({ match }: { match: Match }) => {
         name={match.AwayName}
         image={awayFlag}
         nameFontSize={nameFontSize}
-        odd={
-          match.selection.find((el) => el.Key === 'a')?.Price ??
-          match.selection[1].Price
-        }
+        odd={formatOdd(awayOdd)}
         oddFontSize={oddFontSize}
       />
     </View>
@@ -394,6 +394,10 @@ function formatName(name) {
   const removedMultiSpace = name.replace(/\s{2,}/g, ' ')
 
   return MatchNameMapping[removedMultiSpace] ?? removedMultiSpace
+}
+
+function formatOdd(price) {
+  return price > 0 ? `+${price}` : price
 }
 
 export default MatchesSection
