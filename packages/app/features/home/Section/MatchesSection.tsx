@@ -23,9 +23,15 @@ import { Game, MatchResult } from 'services/contentApi.type'
 dayjs.extend(customParseFormat)
 
 const animationState = {
-  from: { translateY: -50 },
-  animate: { translateY: 0 },
-  exit: { translateY: 50 },
+  from: { translateY: -50, opacity: 0 },
+  animate: { translateY: 0, opacity: 1 },
+  exit: { translateY: 50, opacity: 0 },
+}
+
+const horizontalAnimationState = {
+  from: { scaleX: 0 },
+  animate: { scaleX: 1, opacity: 1 },
+  exit: { scaleX: 0 },
 }
 
 const MatchesSection = () => {
@@ -88,7 +94,7 @@ const MatchesSection = () => {
       <ImageBackground
         style={{ width: '100%', height: width / 2.56 }}
         source={{
-          uri: `${MEDIA_DOMAIN}${CONTENT_URI}/home/matches/matches-bg.png`,
+          uri: `${MEDIA_DOMAIN}${CONTENT_URI}/home/matches/matches-bg.png?v=2`,
         }}
       >
         {selectedMatch && (
@@ -145,12 +151,12 @@ const MatchItem = ({ match }: { match: Match }) => {
   const homeFlag = getFlagPath(match.HomeName)
   const awayFlag = getFlagPath(match.AwayName)
   const leagueLogo = getLeagueLogo(match.LeagueId)
-  const homeOdd =
-    match.selection.find((el) => el.Key === 'h')?.Price ??
-    match.selection[0].Price
-  const awayOdd =
-    match.selection.find((el) => el.Key === 'a')?.Price ??
-    match.selection[1].Price
+  const homeSelection = match.selection.find((el) => el.Key === 'h')
+  const awaySelection = match.selection.find((el) => el.Key === 'a')
+  const homeOdd = homeSelection?.Point ?? match.selection[0].Point
+  const awayOdd = awaySelection?.Point ?? match.selection[1].Point
+  const homePrice = homeSelection?.Price ?? match.selection[0].Price
+  const awayPrice = awaySelection?.Price ?? match.selection[1].Price
 
   const { width } = useContainerDimension()
   const nameFontSize = width * 0.03
@@ -177,6 +183,7 @@ const MatchItem = ({ match }: { match: Match }) => {
         image={homeFlag}
         nameFontSize={nameFontSize}
         odd={formatOdd(homeOdd)}
+        price={homePrice}
         oddFontSize={oddFontSize}
       />
       <View sx={{ width: '26%' }}>
@@ -218,13 +225,14 @@ const MatchItem = ({ match }: { match: Match }) => {
         image={awayFlag}
         nameFontSize={nameFontSize}
         odd={formatOdd(awayOdd)}
+        price={awayPrice}
         oddFontSize={oddFontSize}
       />
     </View>
   )
 }
 
-const MatchCol = ({ image, name, nameFontSize, odd, oddFontSize }) => {
+const MatchCol = ({ image, name, nameFontSize, odd, oddFontSize, price }) => {
   return (
     <View
       sx={{
@@ -265,11 +273,23 @@ const MatchCol = ({ image, name, nameFontSize, odd, oddFontSize }) => {
           height: '7.3%',
           mt: '3%',
           justifyContent: 'center',
+          flexDirection: 'row',
         }}
       >
-        <OddLabel sx={{ fontSize: oddFontSize, lineHeight: oddFontSize * 1.2 }}>
+        <OddLabel
+          key={odd}
+          {...horizontalAnimationState}
+          sx={{ fontSize: oddFontSize, lineHeight: oddFontSize * 1.2 }}
+        >
           {odd}
         </OddLabel>
+        <PriceLabel
+          key={price}
+          {...horizontalAnimationState}
+          sx={{ fontSize: oddFontSize, lineHeight: oddFontSize * 1.2 }}
+        >
+          {price}
+        </PriceLabel>
       </View>
     </View>
   )
@@ -353,10 +373,17 @@ const LeagueLogo = ({ image }) => {
   )
 }
 
-const OddLabel = styled(Text)({
+const OddLabel = styled(motify(Text)())({
   fontSize: 11,
   textAlign: 'center',
   color: 'black',
+  fontWeight: 'bold',
+  mr: 12,
+})
+const PriceLabel = styled(motify(Text)())({
+  fontSize: 11,
+  textAlign: 'center',
+  color: '$accent',
   fontWeight: 'bold',
 })
 
