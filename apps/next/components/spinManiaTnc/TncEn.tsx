@@ -7,7 +7,7 @@ const TncEn = () => {
   return (
     <div>
       <h2>Daily Spin Mania</h2>
-      <p>Campaign Period: 1 - 31 March 2023</p>
+      <p>Campaign Period: 01/03/2023 - 30/04/2023</p>
 
       <br />
       <div>
