@@ -49,13 +49,13 @@ export const eventApi = baseApiWithTag.injectEndpoints({
     }),
     checkTicketSpin: builder.query<IResponse<TicketSpinBalance>, void>({
       query: () => ({
-        url: `/player_api/checkTicEligibleSpin`,
+        url: `/player_api/checkPlayerTicEligibleSpin`,
       }),
       providesTags: ['TicketBalance'],
     }),
     ticketSpin: builder.mutation<IResponse<TicketSpinResult[]>, void>({
       query: () => ({
-        url: `/player_api/ticFreeWheelSpin`,
+        url: `/player_api/playerTicFreeWheelSpin`,
       }),
       invalidatesTags: ['TicketBalance'],
     }),
