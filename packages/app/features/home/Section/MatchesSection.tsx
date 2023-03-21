@@ -151,12 +151,12 @@ const MatchItem = ({ match }: { match: Match }) => {
   const homeFlag = getFlagPath(match.HomeName)
   const awayFlag = getFlagPath(match.AwayName)
   const leagueLogo = getLeagueLogo(match.LeagueId)
-  const homeSelection = match.selection.find((el) => el.Key === 'h')
-  const awaySelection = match.selection.find((el) => el.Key === 'a')
-  const homeOdd = homeSelection?.Point ?? match.selection[0].Point
-  const awayOdd = awaySelection?.Point ?? match.selection[1].Point
-  const homePrice = homeSelection?.Price ?? match.selection[0].Price
-  const awayPrice = awaySelection?.Price ?? match.selection[1].Price
+  const homeSelection = match.selection?.find((el) => el.Key === 'h')
+  const awaySelection = match.selection?.find((el) => el.Key === 'a')
+  const homeOdd = homeSelection?.Point ?? match.selection?.[0].Point
+  const awayOdd = awaySelection?.Point ?? match.selection?.[1].Point
+  const homePrice = homeSelection?.Price ?? match.selection?.[0].Price
+  const awayPrice = awaySelection?.Price ?? match.selection?.[1].Price
 
   const { width } = useContainerDimension()
   const nameFontSize = width * 0.03
