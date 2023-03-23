@@ -13,7 +13,7 @@ const VGaming = ({ size }: { size: number }) => {
         tags: [],
         name: {
           en: 'VGaming',
-          vi: 'Fish Prawn Crab',
+          vi: 'VGaming',
         },
         gc: 'Vgaming:3804',
         gpc: 'SABA',

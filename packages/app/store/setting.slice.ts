@@ -107,7 +107,7 @@ const settingSlice = createSlice({
     addRecentGame: (state, action: PayloadAction<LaunchGamePayload>) => {
       const recentGame = action.payload
       if (state.recentGames.length >= 20) {
-        state.recentGames.shift()
+        state.recentGames.pop()
       }
 
       const similarGameIndex = state.recentGames.findIndex(

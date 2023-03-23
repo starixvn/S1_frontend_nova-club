@@ -353,7 +353,7 @@ const SlotMachine = () => {
               <Text
                 sx={{
                   color: 'white',
-                  fontSize: [18, 25],
+                  fontSize: [16, 25],
                   fontWeight: 'bold',
                 }}
               >
@@ -374,7 +374,7 @@ const SlotMachine = () => {
             >
               <Text
                 sx={{
-                  fontSize: [25, 30, 40],
+                  fontSize: [22, 30, 40],
                   fontWeight: 'bold',
                   textAlign: 'center',
                 }}
