@@ -19,7 +19,7 @@ const DepositGuard = (
       }
       if (data && guardType === 'account-verification') {
         if (isPlayerName) {
-          replace('/')
+          replace('/deposit')
         }
       }
     }, [isFetching])

@@ -31,12 +31,7 @@ const ProfileScreen = () => {
     <Page
       sx={{
         flex: 1,
-        ...Platform.select({
-          web: {
-            maxHeight: '100vh',
-          },
-          default: { paddingTop: inset.top },
-        }),
+        paddingTop: inset.top,
       }}
     >
       <ProfileUser username={data?.username} referral={data?.referral_code} />

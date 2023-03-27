@@ -1,17 +1,5 @@
 import 'raf/polyfill'
-import { Provider } from 'app/provider'
-import Head from 'next/head'
-import Script from 'next/script'
 import React from 'react'
-import type { SolitoAppProps } from 'solito'
-import '../global.css'
-import { Container } from 'dripsy'
-
-import layouts from '../layouts'
-import AuthenticationProvider from '../components/AuthenticationProvider'
-import useFontInit from 'app/hooks/useFontInit'
-import Branch from '../integrations/Branch'
-import Shield from '../scripts/Shield'
 import {
   SEO_DESCRIPTION,
   SEO_DOMAIN,
@@ -22,6 +10,17 @@ import {
   SEO_TYPE,
   SEO_URL,
 } from 'app/constant/seo'
+import useFontInit from 'app/hooks/useFontInit'
+import { Provider } from 'app/provider'
+import { Container } from 'dripsy'
+import Head from 'next/head'
+import Script from 'next/script'
+import type { SolitoAppProps } from 'solito'
+import AuthenticationProvider from '../components/AuthenticationProvider'
+import '../global.css'
+import Branch from '../integrations/Branch'
+import layouts from '../layouts'
+import Shield from '../scripts/Shield'
 
 function MyApp({ Component, pageProps, router }: SolitoAppProps) {
   const getLayout = Component.getLayout || layouts.COMMON()
@@ -66,7 +65,9 @@ function MyApp({ Component, pageProps, router }: SolitoAppProps) {
 
         <Container sx={{ flex: 1 }}>
           <AuthenticationProvider>
+            {/* <AnimatePresence exitBeforeEnter={false} initial={false}> */}
             {getLayout(<Component {...pageProps} />)}
+            {/* </AnimatePresence> */}
           </AuthenticationProvider>
         </Container>
       </Provider>

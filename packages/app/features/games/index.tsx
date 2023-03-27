@@ -98,14 +98,12 @@ const Games = () => {
             setFilterGames={(games) => {
               // console.log('set new list', games.length)
               setFilterGames(games)
-              if (Platform.OS === 'ios') {
-                if (list.current) {
-                  list.current.prepareForLayoutAnimationRender()
-                  LayoutAnimation.configureNext(
-                    LayoutAnimation.Presets.easeInEaseOut
-                  )
-                }
-              }
+              // if (Platform.OS === 'ios' && list.current) {
+              //   list.current.prepareForLayoutAnimationRender()
+              //   LayoutAnimation.configureNext(
+              //     LayoutAnimation.Presets.easeInEaseOut
+              //   )
+              // }
             }}
           />
           <View sx={{ bg: '$lightNavyBlue', height: 1, mb: '$4' }} />

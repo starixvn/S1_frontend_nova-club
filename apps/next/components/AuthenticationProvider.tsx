@@ -40,7 +40,7 @@ const AuthenticationProvider = ({ children }) => {
 
   const isLoggedInWithToken = useLoginWithToken(loginInfo?.token)
   if (isLoggedInWithToken) {
-    nextJsReplace('/', '/', { shallow: true })
+    nextJsReplace('/', '/')
     return children
   }
 
@@ -50,9 +50,7 @@ const AuthenticationProvider = ({ children }) => {
   // if route doesnt exists in guestRoutes
   if (!guestRoutes.some((r) => asPath === '/' || asPath.startsWith(r))) {
     if (!loginInfo) {
-      nextJsReplace('/auth/login', '/auth/login?r=' + asPath, {
-        shallow: true,
-      })
+      nextJsReplace('/auth/login', '/auth/login?r=' + asPath, {})
 
       return <LoginPage />
     }

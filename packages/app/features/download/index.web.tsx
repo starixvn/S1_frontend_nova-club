@@ -44,7 +44,7 @@ const DownloadScreen = () => {
   }
   return (
     <PageWithBackHeader header={{}} hideHeader>
-      <View sx={{ mt: '$8', alignItems: 'center' }}>
+      <View sx={{ my: '$8', alignItems: 'center' }}>
         <Image
           source={{ uri: ROUNDED_LOGO }}
           style={{ height: 175, width: 175 }}

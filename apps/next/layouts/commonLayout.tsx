@@ -1,7 +1,4 @@
-import BottomNavigation from 'app/navigation/BottomNavigation'
-import MainHeader from 'app/navigation/MainHeader'
-import React, { ReactElement, ReactNode } from 'react'
-import { motion } from 'framer-motion'
+import { ReactElement } from 'react'
 // // https:github.com/james-wallis/wallis.dev/blob/master/components/Layout.tsx
 // type Props = {
 //   children: ReactNode

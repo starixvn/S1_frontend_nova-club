@@ -1,15 +1,11 @@
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { SafeAreaView, ScrollView, styled, Sx, View } from 'dripsy'
-import { ComponentProps, isValidElement } from 'react'
+import { ComponentProps } from 'react'
 import { Platform } from 'react-native'
 import { Source } from 'react-native-fast-image'
 import Header from '../common/Header'
 import Image from '../common/Image'
 const pageStyles: Sx = {
   bg: '$background',
-  flex: 1,
-  // minHeight: Platform.OS === 'web' ? '100vh' : 0,
-  flexDirection: 'column',
 }
 
 const Page = Object.assign(styled(View, {})(pageStyles), {
@@ -17,7 +13,7 @@ const Page = Object.assign(styled(View, {})(pageStyles), {
   FillView: styled(
     ScrollView,
     {}
-  )({ ...pageStyles, minHeight: Platform.OS === 'web' ? '100vh' : 0 }),
+  )({ ...pageStyles, minHeight: Platform.OS === 'web' ? '100dvh' : 0 }),
 })
 
 export const PageSafeArea = ({
@@ -63,13 +59,8 @@ export const PageWithBackHeader = ({
   return (
     <View
       sx={{
+        flex: 1,
         ...pageStyles,
-        ...Platform.select({
-          web: {
-            maxHeight: '100vh',
-          },
-        }),
-        minHeight: 0,
         ...wrapperStyle,
       }}
     >

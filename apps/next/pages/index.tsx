@@ -1,11 +1,6 @@
 import HomeScreen from 'app/features/home/screen'
-import TabLayout from '../layouts/TabLayout'
-import React from 'react'
-import { Text } from 'moti'
+import layouts from '../layouts'
 
 // @ts-expect-error: To be fix
-HomeScreen.getLayout = function getLayout(page: ReactElement) {
-  return <TabLayout>{page}</TabLayout>
-}
-
+HomeScreen.getLayout = layouts.TAB()
 export default HomeScreen

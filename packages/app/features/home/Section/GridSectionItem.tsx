@@ -30,7 +30,9 @@ const GridSectionItem = ({
           <>
             {type === 'video' ? (
               <Video
-                onLoad={() => setIsFetching(false)}
+                onReadyForDisplay={(e) => {
+                  setIsFetching(false)
+                }}
                 isMuted
                 isLooping
                 shouldPlay
