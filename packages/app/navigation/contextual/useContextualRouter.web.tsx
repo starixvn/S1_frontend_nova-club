@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie'
 import { useRouter } from 'solito/router'
 
 // type NavigateTo = ContextualComponentType | string

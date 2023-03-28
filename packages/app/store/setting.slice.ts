@@ -40,6 +40,7 @@ export interface Setting {
   luckyDrawBalance: number
   suggestions: boolean
   appDownloadSuggestion?: Date
+  floatingDrawer: boolean
   rememberMeCredentials: {
     username?: string
     password?: string
@@ -60,6 +61,7 @@ const initialState: Setting = {
   suggestions: true,
   luckyDrawBalance: 0,
   rememberMeCredentials: null,
+  floatingDrawer: true,
 }
 
 const settingSlice = createSlice({
@@ -143,6 +145,9 @@ const settingSlice = createSlice({
     },
     setAppDownloadSuggestionDate: (state, action: PayloadAction<Date>) => {
       state.appDownloadSuggestion = action.payload
+    },
+    setFloatingDrawer: (state, action: PayloadAction<boolean>) => {
+      state.floatingDrawer = action.payload
     },
     setRememberMe: (
       state,
