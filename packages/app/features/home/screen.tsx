@@ -74,7 +74,7 @@ const HomeScreen = () => {
       <HotGamesSection />
       <Jackpot />
       <LuckyDrawTrigger />
-      <EventPopup />
+      {/* <EventPopup /> */}
     </ScrollView>
   )
 }
