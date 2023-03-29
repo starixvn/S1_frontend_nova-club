@@ -136,7 +136,7 @@ const MatchesBackground = ({ bgColor }) => {
   )
 }
 
-const MatchItem = ({ match }: { match: Match }) => {
+const MatchItem = ({ match }: { match: MatchResult }) => {
   const gmt8 = dayjs.tz(match.globalshowtime, 'MM/DD hh:mmA', 'Asia/Hong_Kong')
   let gmt7: Dayjs
 
@@ -151,10 +151,10 @@ const MatchItem = ({ match }: { match: Match }) => {
   const leagueLogo = getLeagueLogo(match.LeagueId)
   const homeSelection = match.selection?.find((el) => el.Key === 'h')
   const awaySelection = match.selection?.find((el) => el.Key === 'a')
-  const homeOdd = homeSelection?.Point ?? match.selection?.[0].Point
-  const awayOdd = awaySelection?.Point ?? match.selection?.[1].Point
-  const homePrice = homeSelection?.Price ?? match.selection?.[0].Price
-  const awayPrice = awaySelection?.Price ?? match.selection?.[1].Price
+  const homeOdd = homeSelection?.Point ?? match.selection?.[0].Point ?? 0
+  const awayOdd = awaySelection?.Point ?? match.selection?.[1].Point ?? 0
+  const homePrice = homeSelection?.Price ?? match.selection?.[0].Price ?? 0
+  const awayPrice = awaySelection?.Price ?? match.selection?.[1].Price ?? 0
 
   const { width } = useContainerDimension()
   const nameFontSize = width * 0.03
@@ -275,14 +275,14 @@ const MatchCol = ({ image, name, nameFontSize, odd, oddFontSize, price }) => {
         }}
       >
         <OddLabel
-          key={odd}
+          key={'odd' + odd}
           {...horizontalAnimationState}
           sx={{ fontSize: oddFontSize, lineHeight: oddFontSize * 1.2 }}
         >
           {odd}
         </OddLabel>
         <PriceLabel
-          key={price}
+          key={'price' + price}
           {...horizontalAnimationState}
           sx={{ fontSize: oddFontSize, lineHeight: oddFontSize * 1.2 }}
         >
