@@ -175,7 +175,7 @@ const TransferScreen = ({
     setValues({
       ...values,
       amount: value.slice(0, -1),
-      realAmount: toRealAmount(value.replaceAll(',', '')),
+      realAmount: toRealAmount(value.replace(/,/g, '')),
     })
   }
 
