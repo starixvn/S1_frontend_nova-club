@@ -3,7 +3,7 @@ import SkeletonPlaceholder from 'app/components/skeleton/SkeletonPlaceholder'
 import BouncePressable from 'app/pressable/BouncePressable'
 import { styled, Text, View } from 'dripsy'
 import { Video } from 'expo-av'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 const GridSectionItem = ({
   rowHeight,
@@ -15,6 +15,20 @@ const GridSectionItem = ({
   action,
 }) => {
   const [isFetching, setIsFetching] = useState(true)
+  const [videoStatus, setVideoStatus] = useState(true)
+
+  const videoRef = useRef()
+
+  useEffect(() => {
+    try {
+      if (!videoStatus) videoRef?.current?.playAsync()
+    } catch (error) {
+      console.log(
+        '🚀 ~ file: GridSectionItem.tsx:28 ~ useEffect ~ error:',
+        error
+      )
+    }
+  }, [videoStatus])
 
   return (
     <BouncePressable onPress={action}>
@@ -30,6 +44,7 @@ const GridSectionItem = ({
           <>
             {type === 'video' ? (
               <Video
+                ref={videoRef}
                 onReadyForDisplay={(e) => {
                   setIsFetching(false)
                 }}
@@ -45,6 +60,10 @@ const GridSectionItem = ({
                 source={itemSource}
                 resizeMode="cover"
                 useNativeControls={false}
+                onPlaybackStatusUpdate={(val) =>
+                  videoStatus !== val?.isPlaying &&
+                  setVideoStatus(val?.isPlaying)
+                }
               />
             ) : (
               <Image
