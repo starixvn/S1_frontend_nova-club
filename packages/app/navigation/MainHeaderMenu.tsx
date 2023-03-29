@@ -104,7 +104,8 @@ const MainHeaderMenu = () => {
       */
       if (token) {
         const dif =
-          total - Number(wallets.main.balance) + Number(wallets.main.reward)
+          total - (Number(wallets.main.balance) + Number(wallets.main.reward))
+
         if (dif > 0) {
           if (
             token !== lastTransferredToMainWalletToken.current &&

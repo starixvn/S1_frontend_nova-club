@@ -47,7 +47,7 @@ const RegisterPage = () => {
   const [ref] = useParam('ref')
   const [register] = useRegisterMutation()
   const dispatch = useAppDispatch()
-  const { replace, back } = useContextualRouter()
+  const { replace, clear } = useContextualRouter()
   const { showAlert } = useAlert()
   const { width } = useContainerDimension()
   const { t } = useLocalization()
@@ -75,7 +75,7 @@ const RegisterPage = () => {
   const handleOnSuccessRegister = (data?: RegisterResult) => {
     if (Platform.OS === 'web') {
       replace('/')
-    } else back()
+    } else clear()
   }
 
   const onSubmit = async (
