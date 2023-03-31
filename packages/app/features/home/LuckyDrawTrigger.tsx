@@ -3,6 +3,7 @@ import { useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
 import { memo, useEffect } from 'react'
+import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useDispatch } from 'react-redux'
 import { Shield_Action } from 'services/authApi.type'
@@ -72,7 +73,12 @@ const LuckyDrawTrigger = () => {
   useEffect(() => {
     // Do not trigger before shield is synced
     // luckyDrawTriggered help prevent on web navigation reenter on home page causing lucky spin to appear again.
-    if (!shieldStatus || luckyDrawTriggered) {
+    if (
+      !shieldStatus ||
+      luckyDrawTriggered ||
+      Platform.OS === 'web' ||
+      syncShieldActionType !== Shield_Action.REGISTER
+    ) {
       return
     }
 
