@@ -3,7 +3,7 @@ import AgentProvider from 'agent/provider'
 import {
   AgentStackParamList,
   AgentStackScreens,
-} from './components/AgentStackScreen'
+} from '../components/AgentStackScreen'
 
 const Stack = createStackNavigator<AgentStackParamList>()
 

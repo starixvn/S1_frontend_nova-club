@@ -1,9 +1,8 @@
-import type { Route } from '@react-navigation/native'
 import React from 'react'
 import { StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native'
 
 type Props = {
-  route: Route<string>
+  defaultSize?: number
   activeOpacity: number
   inactiveOpacity: number
   activeTintColor: string
@@ -17,16 +16,14 @@ type Props = {
 }
 
 export function NavIcon({
-  route: _,
   activeOpacity,
   inactiveOpacity,
   activeTintColor,
   inactiveTintColor,
   renderIcon,
+  defaultSize = 24,
   style,
 }: Props) {
-  const size = 30
-
   // We render the icon twice at the same position on top of each other:
   // active and inactive one, so we can fade between them.
   return (
@@ -34,14 +31,14 @@ export function NavIcon({
       <View style={[styles.icon, { opacity: activeOpacity }]}>
         {renderIcon({
           focused: true,
-          size,
+          size: defaultSize,
           color: activeTintColor,
         })}
       </View>
       <View style={[styles.icon, { opacity: inactiveOpacity }]}>
         {renderIcon({
           focused: false,
-          size,
+          size: defaultSize,
           color: inactiveTintColor,
         })}
       </View>

@@ -15,11 +15,28 @@ import {
 
 export const userApi = agentBaseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
-    userInfo: builder.query<IResponse<UserInfo>, void>({
+    userInfo: builder.query<UserInfo, void>({
       query: () => ({
         url: '/user/info',
       }),
       providesTags: ['WalletAmount'],
+      transformResponse: (res: IResponse<UserInfo>): UserInfo => {
+        return (
+          res.result?.data ?? {
+            name: '-',
+            role: 'agent',
+            username: '-',
+            wallet: {
+              currency: 'VND',
+              balance: 0,
+            },
+            has_logged_in: 1,
+            has_pin: 1,
+            mobile_no: '-',
+            id: 0,
+          }
+        )
+      },
     }),
     userRefreshBalance: builder.query<IResponse<RefreshBalance>, void>({
       query: () => ({

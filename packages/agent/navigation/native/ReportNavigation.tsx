@@ -5,7 +5,7 @@ import TransactionScreen from 'agent/features/report/Transaction'
 import { useUserInfoQuery } from 'agent/services/userApi'
 import { useDripsyTheme } from 'dripsy'
 import React from 'react'
-import { createMyCustomNestedNavigator } from './components/CustomNestedTabBar'
+import { createMyCustomNestedNavigator } from '../components/CustomNestedTabBar'
 
 const Tab = createMyCustomNestedNavigator()
 
@@ -13,7 +13,7 @@ const ReportNavigation = () => {
   const { theme } = useDripsyTheme()
   const { isShareHolder } = useUserInfoQuery(undefined, {
     selectFromResult: ({ data }) => ({
-      isShareHolder: data?.result?.data.role === 'shareholder' ? true : false,
+      isShareHolder: data?.role === 'shareholder' ? true : false,
     }),
   })
 

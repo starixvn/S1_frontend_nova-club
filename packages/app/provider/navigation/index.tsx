@@ -65,16 +65,39 @@ export function NavigationProvider({
                   Agent: {
                     screens: {
                       AgentMainTabNavigation: {
+                        path: '/agent',
                         screens: {
-                          AgentProfile: '/agent',
-                          Wallet: '/agent/wallet',
+                          AgentProfile: '/profile',
+                          Add: {
+                            path: '/add',
+                            initialRouteName: 'AddShareholder',
+                            screens: {
+                              AddShareholder: '/shareholder',
+                              AddAgent: '/agent',
+                            },
+                          },
+                          Wallet: {
+                            path: '/wallet',
+                            initialRouteName: 'Withdrawal',
+                            screens: {
+                              Withdrawal: '/withdrawal',
+                              Transfer: '/transfer',
+                            },
+                          },
+                          List: {
+                            path: '/list',
+                            initialRouteName: 'ListShareholder',
+                            screens: {
+                              ListShareholder: '/shareholder',
+                              ListAgent: '/agent',
+                            },
+                          },
                         },
                       },
-                      ShareholderDetails: '/agent/shareholder-details',
-                      AgentDetails: '/agent/agent-details',
-                      AgentCommission: '/agent/commission',
-                      AgentCreatePin: '/agent/create-pin',
-                      AgentResetPin: '/agent/reset-pin',
+                      ShareholderDetails: '/shareholder-details',
+                      AgentDetails: '/agent-details',
+                      AgentCommission: '/commission',
+                      AddBankInfo: '/wallet/withdrawal/account',
                     },
                   },
                 },
@@ -99,7 +122,6 @@ export function NavigationProvider({
                 },
               },
               WithdrawalPage: '/withdrawal',
-
               Profile: '/profile',
               FishingPage: '/games/fishing',
               LotteryPage: '/games/lottery',

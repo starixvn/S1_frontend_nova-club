@@ -15,7 +15,7 @@ export const getCurrentNavigationRoute = (
     return (
       navigationRoutes?.path ??
       navigationRoutes?.params?.path ??
-      navigationRoutes?.state?.routes[0]?.path ??
+      navigationRoutes?.params?.params?.path ??
       '/'
     )
   } else {

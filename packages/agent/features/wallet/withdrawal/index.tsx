@@ -7,12 +7,11 @@ import AgentWithdrawalHistory from './AgentWithdrawalHistory'
 import EmptyBankCard from './EmptyBankCard'
 
 const AgentWithdrawalPage = () => {
-  const { balance, currency } = useUserInfoQuery(undefined, {
-    selectFromResult: ({ data }) => ({
-      balance: data?.result?.data.wallet.balance,
-      currency: data?.result?.data.wallet.currency as Currency,
-    }),
-  })
+  const { data: userData } = useUserInfoQuery()
+
+  // console.log("userData', ", userData)
+  const currency = userData?.wallet.currency as Currency
+  const balance = userData?.wallet.balance
   const { data: bankListData, isLoading: bankListLoading } =
     useBankAccountListQuery()
 

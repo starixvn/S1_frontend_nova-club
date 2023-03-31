@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { AgentStackNavigation } from 'agent/navigation/AgentStackNavigation'
+import { AgentStackNavigation } from 'agent/navigation/native/AgentStackNavigation'
 import Icon from 'app/components/Icon'
 import TabNavigation from './TabNavigation'
 

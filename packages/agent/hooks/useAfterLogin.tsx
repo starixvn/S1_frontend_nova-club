@@ -1,18 +1,9 @@
-import { StackActions, useNavigation } from '@react-navigation/native'
-import { skipToken } from '@reduxjs/toolkit/dist/query'
-import {
-  useAgentProfileQuery,
-  useLazyAgentProfileQuery,
-} from 'agent/services/agentApi'
-import {
-  useLazyShareholderProfileQuery,
-  useShareholderProfileQuery,
-} from 'agent/services/shareholderApi'
-import { useLazyUserInfoQuery, useUserInfoQuery } from 'agent/services/userApi'
+import { useLazyAgentProfileQuery } from 'agent/services/agentApi'
+import { useLazyShareholderProfileQuery } from 'agent/services/shareholderApi'
+import { useLazyUserInfoQuery } from 'agent/services/userApi'
 import { UserInfo } from 'agent/services/userApi.type'
 import { ROLE } from 'agent/utils/helper'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter.web'
-import { useEffect, useState } from 'react'
 
 const useAfterLogin = () => {
   const [getUserInfo] = useLazyUserInfoQuery()
@@ -20,22 +11,19 @@ const useAfterLogin = () => {
   const [getShareholderProfile] = useLazyShareholderProfileQuery()
 
   const { replace } = useContextualRouter()
-  const navigation = useNavigation()
+  // const navigation = useNavigation()
 
   async function handleAgentLogin() {
     try {
-      const { result, message, success } = await getUserInfo().unwrap()
+      const resp = await getUserInfo().unwrap()
 
-      if (success && result) {
-        // let userRole = result.data.role
-        // const isFirstTimer = await getProfileBasedOnRole(userRole)
-        if (result.data.has_logged_in === 0) {
-          navigation.dispatch(StackActions.push('AgentChangePassword')) //TODO change new route
-        }
+      if (resp.has_logged_in === 0) {
+        // navigation.dispatch(StackActions.push('AgentChangePassword')) //TODO change new route
 
         replace('/agent')
       } else {
-        console.log(message)
+        replace('/agent')
+        // console.log(message)
       }
     } catch (e) {
       console.log(e)

@@ -7,7 +7,7 @@ import AgentResetPin from 'agent/features/pin/AgentResetPin'
 import ShareholderDetailsScreen from 'agent/features/shareholder/ShareholderDetails'
 import AddBankInfo from 'agent/features/wallet/withdrawal/AddBankInfo'
 import { FC } from 'react'
-import AgentMainTabNavigation from '../AgentMainTabNavigation'
+import AgentMainTabNavigation from '../native/AgentMainTabNavigation'
 import CommonBackHeader from './CommonBackHeader'
 
 export type AgentStackParamList = {

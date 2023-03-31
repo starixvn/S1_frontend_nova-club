@@ -1,4 +1,3 @@
-import { StackActions, useNavigation } from '@react-navigation/native'
 import Icon from 'agent/components/Icon'
 import Text from 'agent/components/Text'
 import useOnAgentLogout from 'agent/hooks/useOnAgentLogout'
@@ -23,12 +22,10 @@ const MainMenuTest = ({
 }: MainMenuTestProps) => {
   const { t } = useLocalization()
   const { top: safeAreaTopHeight } = useSafeArea()
-  const navigation = useNavigation()
   const { logout } = useOnAgentLogout()
 
   const { push } = useContextualRouter()
 
-  const pushAction = StackActions.push('AgentResetPin')
   const { x: parentWidth, y: parentHeight } = parentPosition
 
   const isWeb = Platform.OS === 'web'

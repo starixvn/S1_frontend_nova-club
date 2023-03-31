@@ -4,6 +4,7 @@ import useAgentLoading from 'agent/hooks/useAgentLoading'
 import { useDeleteBankAccountMutation } from 'agent/services/accountApi'
 import { DeleteBankAccount } from 'agent/services/accountApi.type'
 import { IResponse } from 'agent/services/common/agentAxiosBaseQuery'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { Image, styled, View } from 'dripsy'
 import React, { useRef } from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
@@ -22,8 +23,9 @@ export type SelectWithdrawalBank<T> = Omit<
 export default function SelectWithdrawalBank<T>(
   props: SelectWithdrawalBank<T>
 ) {
-  const navigation = useNavigation()
-  const pushAction = StackActions.push('AddBankInfo')
+  // const navigation = useNavigation()
+
+  const { push } = useContextualRouter()
   const [DeleteBankAccount] = useDeleteBankAccountMutation()
   const selectRef = useRef<CloseSelectForwardRef>(null)
   const { showAlert } = useAgentAlert()
@@ -111,7 +113,7 @@ export default function SelectWithdrawalBank<T>(
                   key={`addBankCard-${i}`}
                   onPress={() => {
                     selectRef.current?.closeActionSheet()
-                    navigation.dispatch(pushAction)
+                    push('/agent/wallet/withdrawal/account')
                   }}
                 >
                   <Icon name={'add'} color={'grey'} size={25} />

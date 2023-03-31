@@ -52,6 +52,7 @@ const withTM = require('next-transpile-modules')([
   '@motify/core',
   '@motify/components',
   'app',
+  'agent',
   'utils',
   'services',
   'agent',

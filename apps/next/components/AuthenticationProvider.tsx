@@ -15,6 +15,7 @@ const guestRoutes = [
   '/sportsbook',
   '/games',
   '/messages',
+  '/agent',
 ]
 
 /* 
