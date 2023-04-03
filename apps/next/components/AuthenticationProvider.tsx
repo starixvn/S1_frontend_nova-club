@@ -1,3 +1,4 @@
+import React from 'react'
 import LoginPage from 'app/features/auth/login'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useRouter } from 'next/router'

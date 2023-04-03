@@ -46,7 +46,6 @@ const extendGuessStrategy: MissingTranslationStrategy = (
 }
 
 i18n.missingTranslation.register('empty', extendGuessStrategy)
-
 i18n.missingBehavior = 'empty'
 
 export default i18n

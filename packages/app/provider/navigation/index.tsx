@@ -43,15 +43,18 @@ export function NavigationProvider({
       // theme={MyTheme}
       linking={useMemo(
         () => ({
-          prefixes: ['http://localhost:3000'],
+          prefixes: ['http://localhost:3000', 'https://vui123vn.com'],
           config: {
             screens: {
               SplashScreen: 'splashscreen',
               MemberAgent: {
+                // Tab
                 screens: {
                   Member: {
+                    // Stack
                     screens: {
                       BottomNav: {
+                        // Tab
                         screens: {
                           Home: '',
                           Sportsbook: 'sportsbook',
@@ -63,12 +66,15 @@ export function NavigationProvider({
                     },
                   },
                   Agent: {
+                    // Stack
                     screens: {
                       AgentMainTabNavigation: {
+                        // Tab
                         path: '/agent',
                         screens: {
                           AgentProfile: '/profile',
                           Add: {
+                            // Tab
                             path: '/add',
                             initialRouteName: 'AddShareholder',
                             screens: {
