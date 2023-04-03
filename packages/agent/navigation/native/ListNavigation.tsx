@@ -6,7 +6,7 @@ import ListRoutes, { ListRoutesParamList } from '../routes/ListRoutes'
 
 const Tab = createAgentNestedTabNavigator<ListRoutesParamList>(ListRoutes)
 
-const AgentShareholderListingNavigation = () => {
+const ListNavigation = () => {
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen name="ListShareholder" component={ShareholderListing} />
@@ -15,4 +15,4 @@ const AgentShareholderListingNavigation = () => {
   )
 }
 
-export default AgentShareholderListingNavigation
+export default ListNavigation

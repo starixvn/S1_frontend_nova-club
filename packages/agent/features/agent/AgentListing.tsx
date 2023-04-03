@@ -123,7 +123,7 @@ const AgentListing = () => {
   }
 
   const onNavigate = (id) => {
-    push('/agent/agent-details', { detailId: id })
+    push('/agent/list/agent/:id', { detailId: id })
   }
 
   const onFilter = () => {

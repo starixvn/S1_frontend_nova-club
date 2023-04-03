@@ -5,7 +5,7 @@ import AgentBarcodeCard from './AgentBarcodeCard'
 const AgentBarcodePage = () => {
   const { userId, isUserInfoLoading } = useUserInfoQuery(undefined, {
     selectFromResult: ({ data, isLoading }) => ({
-      userId: data?.result?.data.id,
+      userId: data?.id,
       isUserInfoLoading: isLoading,
     }),
   })
