@@ -4,7 +4,7 @@ import {
   ShareholderStatusFilterOptions,
 } from 'agent/constant/select'
 import { ShareholderListingFilterOptions } from 'agent/features/shareholder/ShareholderListing'
-import { useAgentTranslation } from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { Flex } from 'dripsy'
 import React, { useState } from 'react'
 import Button from '../Button'
@@ -14,7 +14,7 @@ import Select from '../Select/Select'
 import ModalWrapper from './ModalWrapper'
 
 const FilterShareholderListingModal = ({ modal: { closeModal, getParam } }) => {
-  const { t } = useAgentTranslation()
+  const { t } = useAgentLocalization()
   const filterOptions = getParam(
     'filterOptions'
   ) as ShareholderListingFilterOptions

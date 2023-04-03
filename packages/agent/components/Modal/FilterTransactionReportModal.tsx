@@ -4,8 +4,7 @@ import {
   TypeFilterOptions,
 } from 'agent/constant/select'
 import { TransactionFilterOptions } from 'agent/features/report/Transaction'
-import { useAgentTranslation } from 'app/provider/localization'
-
+import { useAgentLocalization } from 'app/provider/localization'
 import { Flex } from 'dripsy'
 import React, { useState } from 'react'
 import Button from '../Button'
@@ -14,7 +13,7 @@ import Select from '../Select/Select'
 import ModalWrapper from './ModalWrapper'
 
 const FilterTransactionReportModal = ({ modal: { closeModal, getParam } }) => {
-  const { t } = useAgentTranslation()
+  const { t } = useAgentLocalization()
   const filterOptions = getParam('filterOptions') as TransactionFilterOptions
   const onConfirm = getParam('onConfirm')
 
