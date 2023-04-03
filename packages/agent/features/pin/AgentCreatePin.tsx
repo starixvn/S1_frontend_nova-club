@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native'
 import Button from 'agent/components/Button'
 import Input from 'agent/components/Input'
 import Text from 'agent/components/Text'
@@ -16,8 +15,9 @@ import {
 } from 'agent/services/userApi'
 import { ROLE } from 'agent/utils/helper'
 import validation, { getErrorMessage } from 'agent/utils/validation'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
-import { ScrollView, View, useDripsyTheme } from 'dripsy'
+import { ScrollView, useDripsyTheme, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { useRef, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
@@ -33,6 +33,7 @@ interface AddBankInfoValues {
 
 const AgentCreatePin = () => {
   const { theme } = useDripsyTheme()
+  const { back } = useContextualRouter()
   const { isAgent, mobile_no } = useUserInfoQuery(undefined, {
     selectFromResult: ({ data }) => ({
       isAgent: data?.role === ROLE.AGENT,
@@ -40,13 +41,11 @@ const AgentCreatePin = () => {
     }),
   })
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
-
   const [isLoading, setIsLoading] = useState(false)
   const [otpField, setOtpField] = useState(false)
   const { showAlert } = useAgentAlert()
   const { openModal } = useModal()
   const { t } = useAgentLocalization()
-  const navigation = useNavigation()
   const [sendOtp] = useCreatePinOtpMutation()
 
   const [agentCreatePin] = useAgentCreatePinMutation()
@@ -72,7 +71,7 @@ const AgentCreatePin = () => {
         })
       if (success) {
         showAlert(message)
-        navigation.goBack()
+        back()
       }
       setIsLoading(false)
     } catch (err) {
