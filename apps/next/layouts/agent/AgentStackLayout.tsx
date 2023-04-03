@@ -13,37 +13,11 @@ export type TabLayoutProps = {
 const AgentStackLayout: FC<TabLayoutProps> = ({ children, lockHeight }) => {
   return (
     <AgentProvider>
-      <View
-        sx={{
-          paddingTop: TAB_HEIGHT,
-          position: 'relative',
-          backgroundColor: 'rgb(224,237,254)',
-        }}
-      >
-        <HeaderFloat />
+      <View sx={{ paddingTop: TAB_HEIGHT / 2 }}>
         {children}
         <NavigationLoading />
-        {/* <BottomTabFloat /> */}
       </View>
     </AgentProvider>
-  )
-}
-
-const HeaderFloat = ({}) => {
-  return (
-    <View
-      sx={{
-        position: 'fixed',
-        zIndex: 1,
-        width: '100%',
-        maxWidth: 'container',
-        top: 0,
-      }}
-    >
-      {/* <Header /> */}
-      <CommonBackHeader />
-      {/* <AgentShareholderTab /> */}
-    </View>
   )
 }
 

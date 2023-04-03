@@ -47,6 +47,7 @@ const AgentResetPin = () => {
   const { showAlert } = useAgentAlert()
   const { openModal } = useModal()
   const { t } = useLocalization()
+  // const navigation = useNavigation()
   const { back } = useContextualRouter()
   const [sendOtp] = useResetPinOtpMutation()
 
@@ -138,6 +139,7 @@ const AgentResetPin = () => {
         contentContainerStyle={{
           paddingHorizontal: 20,
           paddingTop: 50,
+          backgroundColor: 'white',
         }}
       >
         <View sx={{ alignItems: 'center', minHeight: height }}>

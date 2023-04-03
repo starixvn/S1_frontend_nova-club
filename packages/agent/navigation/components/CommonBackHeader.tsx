@@ -48,7 +48,7 @@ const CommonBackHeader = ({ title, actions, titleProps = {} }: HeaderProps) => {
         }}
       >
         {/* specifyBackRoute ? replace('/agent/wallet') : */}
-        <IconButton name="cash" size={25} onPress={() => back()} />
+        <IconButton name="bin" size={25} onPress={() => back()} />
         <Text sx={{ fontWeight: 'bold', fontSize: '$2', color: 'white' }}>
           {t(`${title}`)}
         </Text>
