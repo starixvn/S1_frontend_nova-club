@@ -113,7 +113,7 @@ export default function SelectWithdrawalBank<T>(
                   key={`addBankCard-${i}`}
                   onPress={() => {
                     selectRef.current?.closeActionSheet()
-                    push('/agent/wallet/withdrawal/account')
+                    push('/agent/wallet/withdrawal/add-bank')
                   }}
                 >
                   <Icon name={'add'} color={'grey'} size={25} />

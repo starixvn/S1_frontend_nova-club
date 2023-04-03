@@ -14,7 +14,7 @@ import ProfileDetails from './ProfileDetails'
 import ProfileTitle from './ProfileTitle'
 
 const AgentProfile = () => {
-  const { width } = useContainerDimension()
+  const { height } = useContainerDimension()
   const { data: userInfoData } = useUserInfoQuery()
   const isAgent = userInfoData?.result?.data.role === ROLE.AGENT
   const userRole = isAgent ? ROLE.AGENT : ROLE.SHAREHOLDER
@@ -33,7 +33,10 @@ const AgentProfile = () => {
     : shareholderData?.result?.data.total_downline
 
   return (
-    <DripsyGradient colors={['rgb(224,237,254)', '#ffffff']}>
+    <DripsyGradient
+      colors={['rgb(224,237,254)', '#ffffff']}
+      sx={{ minHeight: height }}
+    >
       <ScrollView contentContainerStyle={{}} sx={{ px: '$3', pt: '$1' }}>
         <ProfileTitle userRole={userRole} />
         <Card isLoading={loading} sx={{ mb: 30 }}>

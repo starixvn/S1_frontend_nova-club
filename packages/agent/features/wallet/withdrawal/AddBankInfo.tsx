@@ -5,18 +5,27 @@ import Input from 'agent/components/Input'
 import SelectWithCardGrid from 'agent/components/Select/SelectWithCardGrid'
 import Text from 'agent/components/Text'
 import useAgentAlert from 'agent/hooks/useAgentAlert'
+import CommonBackHeader from 'agent/navigation/components/CommonBackHeader'
 import {
   useAddBankAccountMutation,
   useLookupBankCodeQuery,
   useSendOTPMutation,
 } from 'agent/services/accountApi'
 import { IResponse } from 'agent/services/common/agentAxiosBaseQuery'
+import { useUserInfoQuery } from 'agent/services/userApi'
 import validation, { getErrorMessage } from 'agent/utils/validation'
+import {
+  AGENT_STACK_CONTENT_PADDING,
+  AGENT_STACK_CONTENT_PADDING_WEB,
+} from 'app/constant/sizes'
+import useContainerDimension from 'app/hooks/useContainerDimension'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import { Currency } from 'app/utils/constant'
 import { ActivityIndicator, ScrollView, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { useState } from 'react'
+import { Platform } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useModal } from 'react-native-modalfy'
 import * as Yup from 'yup'
@@ -29,7 +38,12 @@ interface AddBankInfoValues {
   otp?: string
 }
 
-const AddBankInfoForm = ({ currency }: { currency: Currency }) => {
+const AddBankInfoForm = () => {
+  const { currency } = useUserInfoQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      currency: data?.wallet.currency as Currency,
+    }),
+  })
   const [isLoading, setIsLoading] = useState(false)
   const [otpField, setOtpField] = useState(false)
   const [otpLoading, setOtpLoading] = useState(false)
@@ -40,7 +54,8 @@ const AddBankInfoForm = ({ currency }: { currency: Currency }) => {
     useLookupBankCodeQuery()
   const [newBankAccount] = useAddBankAccountMutation()
   const [sendOtp] = useSendOTPMutation()
-  const navigation = useNavigation()
+  const { back } = useContextualRouter()
+  const { height } = useContainerDimension()
 
   const onSubmit = async (
     {
@@ -69,7 +84,7 @@ const AddBankInfoForm = ({ currency }: { currency: Currency }) => {
 
       if (success) {
         showAlert(message)
-        navigation.goBack()
+        back()
       }
     } catch (err) {
       console.log('error')
@@ -147,137 +162,145 @@ const AddBankInfoForm = ({ currency }: { currency: Currency }) => {
       }
     }) ?? []
   return (
-    <ScrollView
-      contentContainerStyle={{
-        paddingHorizontal: 20,
-        paddingTop: 20,
-      }}
-    >
-      <View sx={{ alignItems: 'center' }}>
-        <SelectWithCardGrid
-          label={t('common.bankCard')}
-          placeholder={t('common.selectBank')}
-          loading={bankListLoading}
-          options={sheetData}
-          value={values.bankCard}
-          sx={{ width: '100%', mb: '$3' }}
-          onSelected={(e) => handleSelected(e)}
-        />
-        <Input
-          label={t('common.accountNumber')}
-          containerProps={{
-            sx: { mb: '$3' },
-          }}
-          placeholder={t('common.enterAccountNumber')}
-          error={
-            touched.accountNumber && errors.accountNumber
-              ? t(errors.accountNumber, {
-                  field: 'accountNumber',
-                })
-              : undefined
-          }
-          onChangeText={handleChange('accountNumber')}
-          onBlur={handleBlur('accountNumber')}
-          keyboardType={'numeric'}
-          value={values.accountNumber}
-        />
-        <Input
-          label={t('common.accountName')}
-          containerProps={{
-            sx: { mb: '$3' },
-          }}
-          placeholder={t('common.enterAccountName')}
-          error={
-            touched.accountName && errors.accountName
-              ? t(errors.accountName, {
-                  field: 'accountName',
-                })
-              : undefined
-          }
-          onChangeText={handleChange('accountName')}
-          onBlur={handleBlur('accountName')}
-          value={values.accountName}
-        />
-        <Input
-          leftOuterElementProps={{
-            sx: { backgroundColor: '$secondaryAgent', marginRight: 1 },
-          }}
-          leftOuterElement={
-            <Text sx={{ paddingX: '$4', color: 'black' }}>
-              {t('common.countryCode')}
-            </Text>
-          }
-          rightOuterElementProps={{
-            sx: { bg: !values.mobileNumber ? '$disabled' : '$primary' },
-          }}
-          rightOuterElement={
-            <>
-              {otpLoading ? (
-                <View sx={{ minWidth: 100 }}>
-                  <ActivityIndicator color={'white'} />
-                </View>
-              ) : (
-                <TouchableOpacity
-                  disabled={!values.mobileNumber ? true : false}
-                  onPress={() => handleSendOtp(values.mobileNumber)}
-                  style={{ minWidth: 100 }}
-                >
-                  <Text sx={{ paddingX: '$4', color: 'white' }}>
-                    {t('common.send') + ' ' + t('common.otp')}
-                  </Text>
-                </TouchableOpacity>
-              )}
-            </>
-          }
-          label={t('common.mobileNumber')}
-          containerProps={{
-            sx: { mb: '$3' },
-          }}
-          isRequired
-          error={
-            touched.mobileNumber && errors.mobileNumber
-              ? t(errors.mobileNumber, {
-                  field: 'mobileNumber',
-                })
-              : undefined
-          }
-          onChangeText={handleChange('mobileNumber')}
-          onBlur={handleBlur('mobileNumber')}
-          keyboardType={'numeric'}
-          value={values.mobileNumber}
-        />
-        <Input
-          label={t('common.enter') + ' ' + t('common.otp')}
-          editable={otpField}
-          containerProps={{
-            sx: { mb: '$10' },
-          }}
-          isRequired
-          error={
-            touched.otp && errors.otp
-              ? t(errors.otp, {
-                  field: 'otp',
-                })
-              : undefined
-          }
-          onChangeText={handleChange('otp')}
-          onBlur={handleBlur('otp')}
-          keyboardType={'numeric'}
-          value={values.otp}
-        />
+    <>
+      <CommonBackHeader title="wallet.addBank" />
+      <ScrollView
+        contentContainerStyle={{
+          backgroundColor: 'white',
+          paddingHorizontal: 20,
+          paddingTop:
+            Platform.OS === 'web'
+              ? AGENT_STACK_CONTENT_PADDING_WEB
+              : AGENT_STACK_CONTENT_PADDING,
+          minHeight: height,
+        }}
+      >
+        <View sx={{ alignItems: 'center' }}>
+          <SelectWithCardGrid
+            label={t('common.bankCard')}
+            placeholder={t('common.selectBank')}
+            loading={bankListLoading}
+            options={sheetData}
+            value={values.bankCard}
+            sx={{ width: '100%', mb: '$3' }}
+            onSelected={(e) => handleSelected(e)}
+          />
+          <Input
+            label={t('common.accountNumber')}
+            containerProps={{
+              sx: { mb: '$3' },
+            }}
+            placeholder={t('common.enterAccountNumber')}
+            error={
+              touched.accountNumber && errors.accountNumber
+                ? t(errors.accountNumber, {
+                    field: 'accountNumber',
+                  })
+                : undefined
+            }
+            onChangeText={handleChange('accountNumber')}
+            onBlur={handleBlur('accountNumber')}
+            keyboardType={'numeric'}
+            value={values.accountNumber}
+          />
+          <Input
+            label={t('common.accountName')}
+            containerProps={{
+              sx: { mb: '$3' },
+            }}
+            placeholder={t('common.enterAccountName')}
+            error={
+              touched.accountName && errors.accountName
+                ? t(errors.accountName, {
+                    field: 'accountName',
+                  })
+                : undefined
+            }
+            onChangeText={handleChange('accountName')}
+            onBlur={handleBlur('accountName')}
+            value={values.accountName}
+          />
+          <Input
+            leftOuterElementProps={{
+              sx: { backgroundColor: '$secondaryAgent', marginRight: 1 },
+            }}
+            leftOuterElement={
+              <Text sx={{ paddingX: '$4', color: 'black' }}>
+                {t('common.countryCode')}
+              </Text>
+            }
+            rightOuterElementProps={{
+              sx: { bg: !values.mobileNumber ? '$disabled' : '$primary' },
+            }}
+            rightOuterElement={
+              <>
+                {otpLoading ? (
+                  <View sx={{ minWidth: 100 }}>
+                    <ActivityIndicator color={'white'} />
+                  </View>
+                ) : (
+                  <TouchableOpacity
+                    disabled={!values.mobileNumber ? true : false}
+                    onPress={() => handleSendOtp(values.mobileNumber)}
+                    style={{ minWidth: 100 }}
+                  >
+                    <Text sx={{ paddingX: '$4', color: 'white' }}>
+                      {t('common.send') + ' ' + t('common.otp')}
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              </>
+            }
+            label={t('common.mobileNumber')}
+            containerProps={{
+              sx: { mb: '$3' },
+            }}
+            isRequired
+            error={
+              touched.mobileNumber && errors.mobileNumber
+                ? t(errors.mobileNumber, {
+                    field: 'mobileNumber',
+                  })
+                : undefined
+            }
+            onChangeText={handleChange('mobileNumber')}
+            onBlur={handleBlur('mobileNumber')}
+            keyboardType={'numeric'}
+            value={values.mobileNumber}
+          />
+          <Input
+            label={t('common.enter') + ' ' + t('common.otp')}
+            editable={otpField}
+            containerProps={{
+              sx: { mb: '$10' },
+            }}
+            isRequired
+            error={
+              touched.otp && errors.otp
+                ? t(errors.otp, {
+                    field: 'otp',
+                  })
+                : undefined
+            }
+            onChangeText={handleChange('otp')}
+            onBlur={handleBlur('otp')}
+            keyboardType={'numeric'}
+            value={values.otp}
+          />
 
-        <Button
-          onPress={submitForm}
-          loading={isLoading}
-          sx={{ width: 150 }}
-          disabled={!isValid || !dirty}
-        >
-          <Text sx={{ fontWeight: 'bold', py: '$1', color: 'white' }}>
-            {t('common.submit')}
-          </Text>
-        </Button>
-      </View>
-    </ScrollView>
+          <Button
+            onPress={submitForm}
+            loading={isLoading}
+            sx={{ width: 150 }}
+            disabled={!isValid || !dirty}
+          >
+            <Text sx={{ fontWeight: 'bold', py: '$1', color: 'white' }}>
+              {t('common.submit')}
+            </Text>
+          </Button>
+        </View>
+      </ScrollView>
+    </>
   )
 }
 

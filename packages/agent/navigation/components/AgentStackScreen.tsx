@@ -44,8 +44,6 @@ export const AgentStackScreens: AgentStackScreen[] = [
     options: {
       title: 'wallet.addBank',
       icon: 'withdrawal',
-      headerShown: true,
-      header: (props) => <CommonBackHeader {...props} />,
     },
   },
   {

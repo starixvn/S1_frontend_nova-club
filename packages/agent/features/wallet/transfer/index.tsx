@@ -11,10 +11,10 @@ const AgentFundTransferPage = () => {
 
   const { isAgent, currency, balance, hasPin } = useUserInfoQuery(undefined, {
     selectFromResult: ({ data }) => ({
-      isAgent: data?.result?.data.role === ROLE.AGENT,
-      currency: data?.result?.data.wallet.currency as Currency,
-      balance: data?.result?.data.wallet.balance,
-      hasPin: data?.result?.data.has_pin,
+      isAgent: data?.role === ROLE.AGENT,
+      currency: data?.wallet.currency as Currency,
+      balance: data?.wallet.balance,
+      hasPin: data?.has_pin,
     }),
   })
   // const hasPin = false
