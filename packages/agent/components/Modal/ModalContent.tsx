@@ -1,5 +1,5 @@
 import Text from 'agent/components/Text'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { ModalStackParams } from 'app/provider/modal'
 import { ScrollView, styled, Sx, View } from 'dripsy'
 import React from 'react'
@@ -36,7 +36,7 @@ const ModalContent = ({
   headerStyle,
   ...modalProps
 }: ModalProps) => {
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   return (
     <StyledViewModal {...modalProps}>
       {isShowHeader && (

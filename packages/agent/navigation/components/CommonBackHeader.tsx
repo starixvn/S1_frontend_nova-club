@@ -1,7 +1,7 @@
 import IconButton from 'agent/components/Icon/IconButton'
 import Text from 'agent/components/Text'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { useSx, View } from 'dripsy'
 import { ComponentProps } from 'react'
@@ -21,8 +21,8 @@ const CommonBackHeader = ({
   customRoute,
 }: HeaderProps) => {
   const isAndroid = Platform.OS === 'android'
-  const { t } = useLocalization()
-  const { back, push } = useContextualRouter()
+  const { t } = useAgentLocalization()
+  const { back } = useContextualRouter()
 
   const { top, right } = useSafeArea()
 

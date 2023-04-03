@@ -6,7 +6,7 @@ import Text from 'agent/components/Text'
 import { DateFilter, DateFilterOptions } from 'agent/constant/select'
 import { useShareholderCommissionListQuery } from 'agent/services/reportApi'
 import { ShareholderCommissionListResult } from 'agent/services/reportApi.type'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { toThousandSeparator } from 'app/utils'
 import dayjs from 'dayjs'
 import { View } from 'dripsy'
@@ -23,7 +23,7 @@ export type CommissionFilterOptions = {
 const LIMIT = 10
 const ShareholderCommissionScreen = () => {
   const { openModal } = useModal()
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   const [filter, setFilter] = useState<CommissionFilterOptions>({
     date: DateFilterOptions[0]?.value,
     startDate: dayjs().startOf('date').toDate(),

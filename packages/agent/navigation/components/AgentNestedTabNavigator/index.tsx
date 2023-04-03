@@ -12,6 +12,8 @@ import { AgentRoute } from 'agent/navigation/NavigationType'
 import { useUserInfoQuery } from 'agent/services/userApi'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
+import { useAgentLocalization } from 'app/provider/localization'
+import { useDripsyTheme } from 'dripsy'
 import * as React from 'react'
 import { useEffect } from 'react'
 import { Platform, StyleSheet, View } from 'react-native'
@@ -58,6 +60,8 @@ function AgentNestedTabNavigator({
   backBehavior,
   routes,
 }: Props) {
+  const { theme } = useDripsyTheme()
+  const { t } = useAgentLocalization()
   const { state, navigation, descriptors, NavigationContent } =
     useNavigationBuilder(TabRouter, {
       initialRouteName,

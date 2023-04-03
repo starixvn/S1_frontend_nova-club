@@ -3,6 +3,7 @@ import LoginPage from 'app/features/auth/login'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useRouter } from 'next/router'
 import useLoginWithToken from '../hooks/useLoginWithToken'
+import AgentGuard from './agent/AgentGuard'
 
 const guestRoutes = [
   '/auth',
@@ -58,6 +59,8 @@ const AuthenticationProvider = ({ children }) => {
   }
 
   if (query.r) return <LoginPage />
+
+  if (asPath.startsWith('/agent')) return <AgentGuard>{children}</AgentGuard>
 
   return children
 }

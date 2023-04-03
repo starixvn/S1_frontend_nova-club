@@ -1,9 +1,9 @@
 import Text from 'agent/components/Text'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { styled, View } from 'dripsy'
 
 const ProfileChartLegend = () => {
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   return (
     <LegendContainer>
       <LegendRow>

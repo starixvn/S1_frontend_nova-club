@@ -2,7 +2,7 @@ import Icon from 'agent/components/Icon'
 import Text from 'agent/components/Text'
 import useOnAgentLogout from 'agent/hooks/useOnAgentLogout'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { styled, Sx, useDripsyTheme, View } from 'dripsy'
 import { Platform, TouchableOpacity, useWindowDimensions } from 'react-native'
@@ -20,7 +20,7 @@ const MainMenuTest = ({
   onMenu,
   parentPosition,
 }: MainMenuTestProps) => {
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   const { top: safeAreaTopHeight } = useSafeArea()
   const { logout } = useOnAgentLogout()
 
@@ -44,6 +44,13 @@ const MainMenuTest = ({
     : tooltipArrowHeight.map((height) => -(height / 1.2))
 
   const mainMenuList = [
+    {
+      label: 'menu.commissionTable',
+      icon: 'table',
+      onPress: () => {
+        push('/agent/commission')
+      },
+    },
     {
       label: 'menu.desktopVersion',
       icon: 'desktop',

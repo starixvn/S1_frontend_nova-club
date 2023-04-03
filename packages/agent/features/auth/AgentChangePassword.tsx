@@ -14,7 +14,7 @@ import validation, {
 } from 'agent/utils/validation'
 import { AGENT_STACK_CONTENT_PADDING } from 'app/constant/sizes'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { Flex, ScrollView, Text, useDripsyTheme } from 'dripsy'
 import { useFormik } from 'formik'
 import { useRef, useState } from 'react'
@@ -29,7 +29,7 @@ interface ResetPasswordValues {
 }
 
 const AgentChangePassword = () => {
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   const { theme } = useDripsyTheme()
   const { openModal } = useModal()
   const { showAlert } = useAgentAlert()

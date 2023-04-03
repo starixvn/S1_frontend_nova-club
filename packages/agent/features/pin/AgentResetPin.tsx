@@ -18,7 +18,7 @@ import validation, { getErrorMessage } from 'agent/utils/validation'
 import { AGENT_STACK_CONTENT_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { ScrollView, useDripsyTheme, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { useRef, useState } from 'react'
@@ -47,7 +47,8 @@ const AgentResetPin = () => {
   const [otpField, setOtpField] = useState(false)
   const { showAlert } = useAgentAlert()
   const { openModal } = useModal()
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
+  // const navigation = useNavigation()
   const { back } = useContextualRouter()
   const [sendOtp] = useResetPinOtpMutation()
 

@@ -50,18 +50,14 @@ export const AgentStackScreens: AgentStackScreen[] = [
     name: 'ShareholderDetails',
     component: ShareholderDetailsScreen,
     options: {
-      title: 'Shareholder Details',
-      headerShown: true,
-      header: (props) => <CommonBackHeader {...props} />,
+      title: 'shAgent.shareholderDetails',
     },
   },
   {
     name: 'AgentDetails',
     component: AgentDetailsScreen,
     options: {
-      title: 'Agent Details',
-      headerShown: true,
-      header: (props) => <CommonBackHeader {...props} />,
+      title: 'shAgent.agentDetails',
     },
   },
   {

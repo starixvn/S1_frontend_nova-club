@@ -5,7 +5,7 @@ import Input from 'agent/components/Input'
 import Select from 'agent/components/Select/Select'
 import { EarningOptions } from 'agent/constant/select'
 import { PASSWORD_MAX_LENGTH } from 'agent/utils/validation'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { Flex } from 'dripsy'
 import { FormikProps } from 'formik'
 import React from 'react'
@@ -26,7 +26,7 @@ const CreateForm = <T,>({
   isLoading,
   formik,
 }: CreateFormProps<T>) => {
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   const isCheck = true
   const isShareholder = screen === ShareholderAgent.Shareholder
   const inputWidth = isShareholder ? '48%' : '32%'

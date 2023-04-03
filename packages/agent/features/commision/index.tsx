@@ -2,7 +2,7 @@ import DataTable from 'agent/components/DataTable/DataTable'
 import CommonBackHeader from 'agent/navigation/components/CommonBackHeader'
 import { useUserCommissionListQuery } from 'agent/services/userApi'
 import { UserCommissionListResult } from 'agent/services/userApi.type'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { Currency } from 'app/utils/constant'
 import { ScrollView, useDripsyTheme } from 'dripsy'
 import React from 'react'
@@ -12,7 +12,7 @@ const CommissionTable = () => {
   const { commissionList } = useUserCommissionListQuery(Currency.VND, {
     selectFromResult: ({ data }) => ({ commissionList: data?.result?.data }),
   })
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
 
   const { theme } = useDripsyTheme()
   return (

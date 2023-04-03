@@ -1,9 +1,9 @@
 import Text from 'agent/components/Text'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { styled, View } from 'dripsy'
 
 const ProfileDetails = ({ data }) => {
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   return (
     <View sx={{ paddingX: '$2', pt: '$1', pb: '$5' }}>
       <ProfileRow>

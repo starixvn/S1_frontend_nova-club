@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import Button from 'agent/components/Button'
 import Input from 'agent/components/Input'
 import Text from 'agent/components/Text'
@@ -15,8 +16,8 @@ import {
 } from 'agent/services/userApi'
 import { ROLE } from 'agent/utils/helper'
 import validation, { getErrorMessage } from 'agent/utils/validation'
-import useLocalization from 'app/provider/localization'
-import { ScrollView, useDripsyTheme, View } from 'dripsy'
+import { useAgentLocalization } from 'app/provider/localization'
+import { ScrollView, View, useDripsyTheme } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { useRef, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
@@ -44,7 +45,8 @@ const AgentCreatePin = () => {
   const [otpField, setOtpField] = useState(false)
   const { showAlert } = useAgentAlert()
   const { openModal } = useModal()
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
+  const navigation = useNavigation()
   const [sendOtp] = useCreatePinOtpMutation()
 
   const [agentCreatePin] = useAgentCreatePinMutation()

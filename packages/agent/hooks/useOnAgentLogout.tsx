@@ -1,6 +1,6 @@
 import { agentBaseApi } from 'agent/services/agentBaseApi'
 import { AgentAuthActions } from 'agent/store/agentAuthReducer'
-import { LoginType } from 'app/features/auth/login'
+import { LoginType } from 'app/features/auth/type'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useDispatch } from 'react-redux'
 import { sleep } from 'utils/common'

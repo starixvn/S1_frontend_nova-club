@@ -1,5 +1,6 @@
 import useAfterLogin from 'agent/hooks/useAfterLogin'
 import { useLoginMutation as useAgentLoginMutation } from 'agent/services/authApi'
+import { useLazyUserInfoQuery } from 'agent/services/userApi'
 import { AgentAuthActions } from 'agent/store/agentAuthReducer'
 import { ROLE } from 'agent/utils/helper'
 import CheckBox from 'app/components/CheckBox'
@@ -43,16 +44,16 @@ type LoginFormProps = {
 const LoginForm = ({ isAgent }: LoginFormProps) => {
   const [login] = useLoginMutation()
   const [agentLogin] = useAgentLoginMutation()
+  const [getUserInfo] = useLazyUserInfoQuery()
+
   const { t } = useLocalization()
   const { showAlert } = useAlert()
   const [errorMsg, setErrorMsg] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { replace, push, back } = useContextualRouter()
-  const [afterLoginRedirection] = useParam('r', {
-    initial: '/',
-  })
+  const [afterLoginRedirection] = useParam('r')
 
-  const { handleAgentLogin } = useAfterLogin()
+  // const { handleAgentLogin } = useAfterLogin()
 
   const passwordFieldRef = useRef<RNTextField>(null)
   const usernameFieldRef = useRef<RNTextField>(null)
@@ -73,6 +74,23 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
     else return false
   })
 
+  const navigateAfterLogin = Platform.select({
+    web: (base) => {
+      let replaceRoute = afterLoginRedirection ?? base
+
+      const urlParams = new URLSearchParams(window.location.search)
+      const redirect = urlParams.get('r')
+      if (redirect) replaceRoute = redirect
+
+      replace(replaceRoute)
+    },
+    default: (base) => {
+      console.log('base', base)
+      if (base) push(base)
+      else back()
+    },
+  })
+
   const onSubmit = async (
     { username, password }: LoginFormValues,
     actions: FormikHelpers<LoginFormValues>
@@ -89,7 +107,22 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
 
         if (success && result) {
           dispatch(AgentAuthActions.setAgentAuthToken(result.data.access_token))
-          handleAgentLogin()
+          const resp = await getUserInfo().unwrap()
+
+          if (resp.has_logged_in === 0) {
+            // navigation.dispatch(StackActions.push('AgentChangePassword'))
+            //TODO change to using push()
+            Platform.select({
+              web: function () {
+                replace('/agent')
+              },
+              default: function () {
+                push('/agent')
+              },
+            })()
+          } else {
+            navigateAfterLogin('/agent')
+          }
         } else {
           throw new Error(message)
         }
@@ -134,17 +167,7 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
     actions.resetForm()
     if (errorMsg) setErrorMsg('')
 
-    if (Platform.OS === 'web') {
-      let replaceRoute = afterLoginRedirection
-
-      const urlParams = new URLSearchParams(window.location.search)
-      const redirect = urlParams.get('r')
-      if (redirect) replaceRoute = redirect
-
-      replace(replaceRoute)
-    } else {
-      back()
-    }
+    navigateAfterLogin('/')
   }
 
   const onCheckboxCheck = () => {

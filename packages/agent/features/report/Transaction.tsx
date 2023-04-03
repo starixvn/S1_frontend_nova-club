@@ -4,7 +4,7 @@ import TableListing from 'agent/components/DataTable/TableListing'
 import { DateFilter, DateFilterOptions } from 'agent/constant/select'
 import { useTransactionReportQuery } from 'agent/services/reportApi'
 import { TransactionReportResult } from 'agent/services/reportApi.type'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { toThousandSeparator } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import dayjs from 'dayjs'
@@ -22,7 +22,7 @@ export type TransactionFilterOptions = {
 }
 
 const TransactionScreen = () => {
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   const [offset, setOffset] = useState(0)
   const [filter, setFilter] = useState<TransactionFilterOptions>({
     date: DateFilterOptions[0]?.value,

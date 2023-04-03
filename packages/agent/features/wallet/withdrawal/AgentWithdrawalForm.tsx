@@ -18,7 +18,7 @@ import {
 } from 'agent/services/withdrawalApi.type'
 import validation from 'agent/utils/validation'
 import useContainerDimension from 'app/hooks/useContainerDimension'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { toCurrency, toThousandSeparator } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import { ActivityIndicator, styled, useDripsyTheme, View } from 'dripsy'
@@ -76,7 +76,7 @@ const AgentWithdrawalForm = ({
   balance,
 }: AgentWithdrawalFormProps) => {
   const { theme } = useDripsyTheme()
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   const { openModal } = useModal()
   const [isLoading, setIsLoading] = useState(false)
   const [isNettPayoutLoading, setIsNettPayoutLoading] = useState(false)

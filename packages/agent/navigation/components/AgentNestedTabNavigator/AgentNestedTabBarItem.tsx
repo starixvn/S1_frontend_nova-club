@@ -1,8 +1,7 @@
-import React, { ComponentProps } from 'react'
-import { Pressable, SxProp, View } from 'dripsy'
-import { NavIcon } from '../NavIcon'
-import { TAB_HEIGHT } from 'app/constant/sizes'
 import Text from 'agent/components/Text'
+import { Pressable, SxProp, View } from 'dripsy'
+import React, { ComponentProps } from 'react'
+import { NavIcon } from '../NavIcon'
 
 type PressableProps = ComponentProps<typeof Pressable>
 export interface AgentTabBarItemProps extends PressableProps {
@@ -39,15 +38,17 @@ export default function AgentNestedTabBarItem({
       }}
       {...rest}
     >
-      <NavIcon
-        defaultSize={20}
-        activeOpacity={isActive ? 1 : 0}
-        inactiveOpacity={isActive ? 0 : 1}
-        activeTintColor={'white'}
-        inactiveTintColor={'white'}
-        renderIcon={renderIcon}
-        style={{ maxWidth: 30, marginRight: 5 }}
-      />
+      {renderIcon({}) && (
+        <NavIcon
+          defaultSize={20}
+          activeOpacity={isActive ? 1 : 0}
+          inactiveOpacity={isActive ? 0 : 1}
+          activeTintColor={'white'}
+          inactiveTintColor={'white'}
+          renderIcon={renderIcon}
+          style={{ maxWidth: 30, marginRight: 5 }}
+        />
+      )}
       <View style={{ justifyContent: 'center', alignItems: 'center' }}>
         <Text numberOfLines={2} style={[{ color: 'white' }]}>
           {label}

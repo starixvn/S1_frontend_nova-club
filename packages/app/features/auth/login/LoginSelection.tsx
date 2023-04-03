@@ -1,14 +1,15 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import useLocalization from 'app/provider/localization'
 import { Text, View } from 'dripsy'
-import React, { useState } from 'react'
+import React from 'react'
 import { TouchableOpacity } from 'react-native'
+import { LoginType } from '../type'
 
 type LoginSelectionProps = {
-  setAgent: (s: boolean) => void
+  setType: (s: LoginType) => void
   isAgent: boolean
 }
-const LoginSelection = ({ setAgent, isAgent = false }: LoginSelectionProps) => {
+const LoginSelection = ({ setType, isAgent = false }: LoginSelectionProps) => {
   const { t } = useLocalization()
 
   return (
@@ -38,7 +39,7 @@ const LoginSelection = ({ setAgent, isAgent = false }: LoginSelectionProps) => {
             height: '100%',
             justifyContent: 'center',
           }}
-          onPress={() => setAgent(false)}
+          onPress={() => setType(LoginType.Member)}
         >
           <Text
             sx={{
@@ -72,7 +73,7 @@ const LoginSelection = ({ setAgent, isAgent = false }: LoginSelectionProps) => {
             height: '100%',
             justifyContent: 'center',
           }}
-          onPress={() => setAgent(true)}
+          onPress={() => setType(LoginType.Agent)}
         >
           <Text
             sx={{

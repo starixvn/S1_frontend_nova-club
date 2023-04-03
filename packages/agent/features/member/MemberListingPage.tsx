@@ -5,7 +5,7 @@ import Text from 'agent/components/Text'
 import { DateFilter, ShareholderStatusFilter } from 'agent/constant/select'
 import { useMemberListQuery } from 'agent/services/agentApi'
 import { MemberListResult } from 'agent/services/agentApi.type'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { Currency } from 'app/utils/constant'
 import dayjs from 'dayjs'
 import { styled, View } from 'dripsy'
@@ -24,7 +24,7 @@ export type MemberListFilterOptions = {
 
 const LIMIT = 10
 const MemberListScreen = () => {
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   const { openModal } = useModal()
   const [offset, setOffset] = useState(0)
   const [filter, setFilter] = useState<MemberListFilterOptions>({

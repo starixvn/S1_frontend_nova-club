@@ -10,7 +10,7 @@ import { TAB_HEIGHT } from 'app/constant/sizes'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import BouncePressable from 'app/pressable/BouncePressable'
 import TouchableOpacity from 'app/pressable/TouchableOpacity'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { SettingActions } from 'app/store/setting.slice'
@@ -30,7 +30,7 @@ const Header = () => {
   const { top } = useSafeArea()
   const sx = useSx()
   const { push } = useContextualRouter()
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
 
   const { data } = useUserInfoQuery()
   //get user info here
@@ -75,7 +75,7 @@ const Header = () => {
                   height: iconHeight,
                   width: iconHeight * (519 / 186),
                 })}
-                source={require('app/assets/images/logo.png')}
+                source={require('app/assets/images/Vui123-agent-logo.png')}
                 resizeMode="contain"
               />
             </BouncePressable>
@@ -130,7 +130,7 @@ const Header = () => {
                     onPress={() => testActionWithTimeout()}
                     size={16}
                   />
-                  <IconButton
+                  {/* <IconButton
                     name="table"
                     size={16}
                     sx={{ ml: '$2', mr: '$2' }}
@@ -138,7 +138,7 @@ const Header = () => {
                       push('/agent/commission')
                       // navigation.dispatch(StackActions.push('AgentCommission'))
                     }}
-                  />
+                  /> */}
                 </View>
 
                 <TouchableOpacity

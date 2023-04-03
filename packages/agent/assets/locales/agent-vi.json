@@ -139,8 +139,10 @@
   },
   "shAgent": {
     "add": "",
+    "agentDetails": "",
     "filter": "Lọc",
     "regDate": "Ngày đăng ký",
+    "shareholderDetails": "",
     "title": "Cổ đông / Đại lý",
     "totalMember": "Tổng số thành viên"
   },

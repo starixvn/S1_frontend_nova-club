@@ -16,7 +16,7 @@ import validation, { getErrorMessage } from 'agent/utils/validation'
 import { AGENT_STACK_CONTENT_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { Currency } from 'app/utils/constant'
 import { ActivityIndicator, ScrollView, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
@@ -44,7 +44,7 @@ const AddBankInfoForm = () => {
   const [otpLoading, setOtpLoading] = useState(false)
   const { showAlert } = useAgentAlert()
   const { openModal } = useModal()
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   const { data: bankList, isLoading: bankListLoading } =
     useLookupBankCodeQuery()
   const [newBankAccount] = useAddBankAccountMutation()

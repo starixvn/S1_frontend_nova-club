@@ -3,7 +3,7 @@ import Text from 'agent/components/Text'
 import IconButton from 'app/components/form/IconButton'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { useDripsyTheme, View } from 'dripsy'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
@@ -12,7 +12,12 @@ const EmptyBankCard = () => {
   const { width } = useContainerDimension()
   const cardWidth = Math.min(400, width * 0.9)
   const { push } = useContextualRouter()
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
+
+  const handleAddBank = () => {
+    push('/agent/wallet/withdrawal/add-bank')
+  }
+
   return (
     <Card sx={{ mx: '3%', my: '$2' }}>
       <View
@@ -32,7 +37,7 @@ const EmptyBankCard = () => {
             alignItems: 'center',
             borderRadius: 10,
           }}
-          onPress={() => push('/agent/wallet/withdrawal/add-bank')}
+          onPress={handleAddBank}
         >
           <IconButton name="add-round" size={16} sx={{ mx: '$2' }} disabled />
           <Text sx={{ color: 'white' }}>{t('wallet.addNew')}</Text>

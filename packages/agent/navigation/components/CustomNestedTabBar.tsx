@@ -11,7 +11,7 @@ import {
 } from '@react-navigation/native'
 import Text from 'agent/components/Text'
 import { DripsyGradient } from 'app/components/Gradient'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { useDripsyTheme } from 'dripsy'
 import * as React from 'react'
 import {
@@ -64,7 +64,7 @@ function CustomNestedTabBar({
   contentStyle,
 }: Props) {
   const { theme } = useDripsyTheme()
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   const { state, navigation, descriptors, NavigationContent } =
     useNavigationBuilder(TabRouter, {
       children,

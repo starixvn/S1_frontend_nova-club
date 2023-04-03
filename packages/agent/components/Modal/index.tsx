@@ -1,5 +1,5 @@
 import Text from 'agent/components/Text'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { styled, View } from 'dripsy'
 import React, { ComponentProps } from 'react'
 import ReactNativeModal from 'react-native-modal'
@@ -32,7 +32,7 @@ const Modal = ({
   onModalHide,
   ...modalProps
 }: ModalProps) => {
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
 
   /* 
     this is a replacement for the modalfy closeModal, 

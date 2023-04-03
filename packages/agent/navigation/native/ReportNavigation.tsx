@@ -5,12 +5,12 @@ import TransactionScreen from 'agent/features/report/Transaction'
 import { useUserInfoQuery } from 'agent/services/userApi'
 import { useDripsyTheme } from 'dripsy'
 import React from 'react'
-import { createMyCustomNestedNavigator } from '../components/CustomNestedTabBar'
+import { createAgentNestedTabNavigator } from '../components/AgentNestedTabNavigator'
+import ReportRoutes, { ReportRoutesParamList } from '../routes/ReportRoutes'
 
-const Tab = createMyCustomNestedNavigator()
+const Tab = createAgentNestedTabNavigator<ReportRoutesParamList>(ReportRoutes)
 
 const ReportNavigation = () => {
-  const { theme } = useDripsyTheme()
   const { isShareHolder } = useUserInfoQuery(undefined, {
     selectFromResult: ({ data }) => ({
       isShareHolder: data?.role === 'shareholder' ? true : false,
@@ -24,25 +24,8 @@ const ReportNavigation = () => {
         component={
           isShareHolder ? ShareholderCommissionScreen : AgentCommissionScreen
         }
-        options={{
-          title: 'report.commission',
-          tabBarIcon: () => (
-            <Icon name="shareholder" color={'white'} size={20} />
-          ),
-          tabBarActiveTintColor: theme.colors.$primaryAgent,
-          tabBarInactiveTintColor: theme.colors.$inactivePrimaryAgent,
-        }}
       />
-      <Tab.Screen
-        name="TransactionReport"
-        component={TransactionScreen}
-        options={{
-          title: 'report.transaction',
-          tabBarIcon: () => <Icon name="agent" color={'white'} size={20} />,
-          tabBarActiveTintColor: theme.colors.$primaryAgent,
-          tabBarInactiveTintColor: theme.colors.$inactivePrimaryAgent,
-        }}
-      />
+      <Tab.Screen name="Transaction" component={TransactionScreen} />
     </Tab.Navigator>
   )
 }

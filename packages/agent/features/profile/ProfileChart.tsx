@@ -1,5 +1,5 @@
 import { UserTotalDownline } from 'agent/services/userApi.type'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { styled, View } from 'dripsy'
 import { PieChart } from 'react-native-chart-kit'
 import { ParseDownlineChart } from './ParseDownlineChart'
@@ -27,7 +27,7 @@ const ProfileChart = ({ downline }: ProfileChartProps) => {
 }
 
 const Chart = ({ data, type }) => {
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   return (
     <View sx={{ alignItems: 'center' }}>
       <PieChart
