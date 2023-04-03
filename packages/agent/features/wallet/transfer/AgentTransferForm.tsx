@@ -20,7 +20,7 @@ import {
 import { useUserInfoQuery } from 'agent/services/userApi'
 import { ROLE } from 'agent/utils/helper'
 import validation from 'agent/utils/validation'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { toThousandSeparator } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import { ActivityIndicator, useDripsyTheme, View } from 'dripsy'
@@ -70,7 +70,7 @@ const AgentTransferForm = ({
   const [isLoading, setIsLoading] = useState(false)
   const [isUserNameLoading, setIsUserNameLoading] = useState(false)
   const [isUserName, setIsUserName] = useState(true)
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   const { showAlert } = useAgentAlert()
   const { openModal } = useModal()
   const { push, replace } = useContextualRouter()

@@ -7,7 +7,7 @@ import { DateFilter, ShareholderStatusFilter } from 'agent/constant/select'
 import { useAgentListQuery } from 'agent/services/agentApi'
 import { AgentListResult } from 'agent/services/agentApi.type'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import dayjs from 'dayjs'
 import { Pressable, View } from 'dripsy'
 import { useState } from 'react'
@@ -32,7 +32,7 @@ const AgentListing = () => {
     status: '',
     username: '',
   })
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
 
   const { push } = useContextualRouter()
   const { openModal } = useModal()

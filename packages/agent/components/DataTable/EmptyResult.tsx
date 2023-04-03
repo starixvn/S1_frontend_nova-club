@@ -1,6 +1,6 @@
 import Text from 'agent/components/Text'
 import useContainerDimension from 'app/hooks/useContainerDimension'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { Image, View } from 'dripsy'
 import React, { ComponentProps } from 'react'
 
@@ -10,7 +10,7 @@ export type IHistoryEmpty = ComponentProps<typeof View> & {
 }
 
 const EmptyResult = ({ text, _text, ...props }: IHistoryEmpty) => {
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   const { sx: containerStyle, ...restProps } = props
   const { width } = useContainerDimension()
 

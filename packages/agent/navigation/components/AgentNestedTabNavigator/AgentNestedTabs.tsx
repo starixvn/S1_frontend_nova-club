@@ -2,7 +2,7 @@ import Icon from 'agent/components/Icon'
 import { AgentRoute } from 'agent/navigation/NavigationType'
 import useContextualRouting from 'app/hooks/useContextualRouting'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import React from 'react'
 import AgentNestedTabBar from './AgentNestedTabBar'
 import AgentNestedTabBarItem from './AgentNestedTabBarItem'
@@ -14,7 +14,7 @@ export default function AgentNestedTabs({
 }) {
   const { push } = useContextualRouter()
   const { returnHref } = useContextualRouting()
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
 
   return (
     <AgentNestedTabBar>

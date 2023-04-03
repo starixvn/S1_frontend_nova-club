@@ -3,7 +3,7 @@ import DateTimePicker, {
   Event,
 } from '@react-native-community/datetimepicker'
 import Modal from 'app/components/modal'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import React, { FC, useEffect, useState } from 'react'
 
 interface DatePickerModalIOSProps extends IOSNativeProps {
@@ -24,7 +24,7 @@ const DatePickerIOS: FC<DatePickerModalIOSProps> = ({
   onClose,
   ...rest
 }) => {
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
 
   const [localValue, setLocalValue] = useState<{ event?: Event; date: Date }>({
     event: undefined,

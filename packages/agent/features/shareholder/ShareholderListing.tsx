@@ -8,7 +8,7 @@ import { DateFilter, ShareholderStatusFilter } from 'agent/constant/select'
 import { useShareholderListQuery } from 'agent/services/shareholderApi'
 import { ShareholderListResult } from 'agent/services/shareholderApi.type'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import dayjs from 'dayjs'
 import { Pressable, View } from 'dripsy'
 import { useState } from 'react'
@@ -25,7 +25,7 @@ export type ShareholderListingFilterOptions = {
 
 const LIMIT = 10
 const ShareholderListing = () => {
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   const [offset, setOffset] = useState(0)
   const [filter, setFilter] = useState<ShareholderListingFilterOptions>({
     date: '',

@@ -10,7 +10,7 @@ import {
   useNavigationBuilder,
 } from '@react-navigation/native'
 import { AgentRoute } from 'agent/navigation/NavigationType'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { useDripsyTheme } from 'dripsy'
 import * as React from 'react'
 import { Platform, StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
@@ -58,7 +58,7 @@ function AgentNestedTabNavigator({
   routes,
 }: Props) {
   const { theme } = useDripsyTheme()
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   const { state, navigation, descriptors, NavigationContent } =
     useNavigationBuilder(TabRouter, {
       initialRouteName,

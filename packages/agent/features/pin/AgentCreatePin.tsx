@@ -16,7 +16,7 @@ import {
 } from 'agent/services/userApi'
 import { ROLE } from 'agent/utils/helper'
 import validation, { getErrorMessage } from 'agent/utils/validation'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { ScrollView, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { useRef, useState } from 'react'
@@ -44,7 +44,7 @@ const AgentCreatePin = () => {
   const [otpField, setOtpField] = useState(false)
   const { showAlert } = useAgentAlert()
   const { openModal } = useModal()
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   const navigation = useNavigation()
   const [sendOtp] = useCreatePinOtpMutation()
 

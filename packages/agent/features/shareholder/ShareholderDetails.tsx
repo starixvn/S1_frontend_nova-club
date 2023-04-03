@@ -2,7 +2,7 @@ import Card from 'agent/components/Card'
 import DataTable from 'agent/components/DataTable/DataTable'
 import DataTableRefresh from 'agent/components/DataTable/DataTableRefresh'
 import { useShareholderDetailsQuery } from 'agent/services/shareholderApi'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import dayjs from 'dayjs'
 import { View } from 'dripsy'
 import React from 'react'
@@ -12,7 +12,7 @@ import DetailsField from './components/DetailsField'
 
 const { useParam } = createParam<{ detailId: string }>()
 const ShareholderDetailsScreen = () => {
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   const [detailId] = useParam('detailId', { initial: '' })
 
   const { shareholderData, downlineTable, success } =

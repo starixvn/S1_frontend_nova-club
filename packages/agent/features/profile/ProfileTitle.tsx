@@ -1,10 +1,10 @@
 import Text from 'agent/components/Text'
 import { ROLE } from 'agent/utils/helper'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { View } from 'dripsy'
 
 const ProfileTitle = ({ userRole }: { userRole: string }) => {
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   return (
     <View
       sx={{

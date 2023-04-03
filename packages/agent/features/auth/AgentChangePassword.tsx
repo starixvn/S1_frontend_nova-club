@@ -13,7 +13,7 @@ import validation, {
   PASSWORD_MAX_LENGTH,
 } from 'agent/utils/validation'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import {
   ActivityIndicator,
   Flex,
@@ -37,7 +37,7 @@ interface ResetPasswordValues {
 }
 
 const AgentChangePassword = () => {
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   const { theme } = useDripsyTheme()
   const { openModal } = useModal()
   const { showAlert } = useAgentAlert()

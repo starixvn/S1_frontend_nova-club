@@ -8,7 +8,7 @@ import {
   TabRouterOptions,
   useNavigationBuilder,
 } from '@react-navigation/native'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import * as React from 'react'
 import { Platform, StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
 import AgentShareholderTabs from './AgentShareholderTabs'
@@ -50,7 +50,7 @@ function AgentTabNavigator({
   children,
   screenOptions,
 }: Props) {
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   const { state, navigation, descriptors, NavigationContent } =
     useNavigationBuilder(TabRouter, {
       children,

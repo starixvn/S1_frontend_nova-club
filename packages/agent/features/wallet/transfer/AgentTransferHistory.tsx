@@ -3,7 +3,7 @@ import Text from 'agent/components/Text'
 import { useAgentRecentTransactionListQuery } from 'agent/services/agentApi'
 import { useShareholderRecentTransactionListQuery } from 'agent/services/shareholderApi'
 import { TransferListItemResult } from 'agent/services/transferApi.type'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { toThousandSeparator } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import dayjsTz from 'app/utils/dayjs'
@@ -23,7 +23,7 @@ const AgentTransferHistory = ({
   isAgent,
 }: AgentTransferHistoryProps) => {
   const { theme } = useDripsyTheme()
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   const { data: agentHistoryData } = useAgentRecentTransactionListQuery(
     {
       currency,

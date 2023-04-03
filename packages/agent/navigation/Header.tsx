@@ -10,7 +10,7 @@ import { TAB_HEIGHT } from 'app/constant/sizes'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import BouncePressable from 'app/pressable/BouncePressable'
 import TouchableOpacity from 'app/pressable/TouchableOpacity'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { SettingActions } from 'app/store/setting.slice'
@@ -30,7 +30,7 @@ const Header = () => {
   const { top } = useSafeArea()
   const sx = useSx()
   const { push } = useContextualRouter()
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
 
   const { data } = useUserInfoQuery()
   //get user info here

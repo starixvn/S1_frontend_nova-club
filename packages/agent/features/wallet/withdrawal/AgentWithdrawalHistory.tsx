@@ -2,7 +2,7 @@ import DataTable from 'agent/components/DataTable/DataTable'
 import Text from 'agent/components/Text'
 import { useWithdrawalListQuery } from 'agent/services/withdrawalApi'
 import { WithdrawalItem } from 'agent/services/withdrawalApi.type'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { toThousandSeparator } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import dayjsTz from 'app/utils/dayjs'
@@ -22,7 +22,7 @@ const date =
   dayjsTz().endOf('date').format('YYYY-MM-DD HH:mm:ss')
 
 const AgentWithdrawalHistory = ({ currency }: { currency: Currency }) => {
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   const { theme } = useDripsyTheme()
   const { data } = useWithdrawalListQuery({
     currency,

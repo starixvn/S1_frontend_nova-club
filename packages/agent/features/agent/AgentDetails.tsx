@@ -4,7 +4,7 @@ import DataTableRefresh from 'agent/components/DataTable/DataTableRefresh'
 import { ParseDownlineTable } from 'agent/features/profile/ParseDownlineChart'
 import DetailsField from 'agent/features/shareholder/components/DetailsField'
 import { useAgentDetailsQuery } from 'agent/services/agentApi'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import dayjs from 'dayjs'
 import { View } from 'dripsy'
 import React from 'react'
@@ -12,7 +12,7 @@ import { createParam } from 'solito'
 
 const { useParam } = createParam<{ detailId: string }>()
 const AgentDetailsScreen = () => {
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   const [detailId] = useParam('detailId', { initial: '' })
 
   const { agentData, downlineTable, success } = useAgentDetailsQuery(

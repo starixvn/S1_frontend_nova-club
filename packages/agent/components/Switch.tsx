@@ -1,8 +1,7 @@
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { ActivityIndicator, Pressable, View } from 'dripsy'
 import { AnimatePresence, MotiView, Text } from 'moti'
 import React, { useEffect, useReducer, useState } from 'react'
-import { sleep } from 'utils/common'
 
 type SwitchProps = {
   isActive: boolean
@@ -42,7 +41,7 @@ const Switch = ({
 }: SwitchProps) => {
   const [active, toggle] = useReducer((s) => !s, isActive)
   const [isLoading, setIsLoading] = useState(false)
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   const WIDTH = width
   const THUMB_SIZE = size
   const TRACK_PADDING = 4

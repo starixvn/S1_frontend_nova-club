@@ -3,7 +3,7 @@ import TableListing from 'agent/components/DataTable/TableListing'
 import { DateFilter, DateFilterOptions } from 'agent/constant/select'
 import { useAgentCommissionListQuery } from 'agent/services/reportApi'
 import { AgentCommissionListResult } from 'agent/services/reportApi.type'
-import useLocalization from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { toThousandSeparator } from 'app/utils'
 import dayjs from 'dayjs'
 import { View } from 'dripsy'
@@ -19,7 +19,7 @@ export type CommissionFilterOptions = {
 
 const LIMIT = 10
 const AgentCommissionScreen = () => {
-  const { t } = useLocalization()
+  const { t } = useAgentLocalization()
   const { openModal } = useModal()
   const [filter, setFilter] = useState<CommissionFilterOptions>({
     date: DateFilterOptions[0]?.value,
