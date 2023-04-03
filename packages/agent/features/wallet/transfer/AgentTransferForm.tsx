@@ -4,7 +4,6 @@ import IconButton from 'agent/components/Icon/IconButton'
 import Input from 'agent/components/Input'
 import Text from 'agent/components/Text'
 import useAgentAlert from 'agent/hooks/useAgentAlert'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import {
   useAgentChangeReferralToUserDetailMutation,
   useAgentNewTransferMutation,
@@ -13,20 +12,16 @@ import {
   useShareholderChangeReferralToUserDetailMutation,
   useShareholderNewTransferMutation,
 } from 'agent/services/shareholderApi'
-import {
-  useChangeReferralToUserDetailMutation,
-  useNewTransferMutation,
-} from 'agent/services/transferApi'
-import { useUserInfoQuery } from 'agent/services/userApi'
 import { ROLE } from 'agent/utils/helper'
 import validation from 'agent/utils/validation'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import { toThousandSeparator } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import { ActivityIndicator, useDripsyTheme, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import debounce from 'lodash/debounce'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import * as Yup from 'yup'
 

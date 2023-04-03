@@ -18,11 +18,7 @@ const CommissionTable = () => {
   return (
     <>
       <CommonBackHeader title="commission.title" />
-      <DataTable
-        sx={{
-          pt: Platform.OS === 'web' ? 19 : 0,
-        }}
-      >
+      <DataTable>
         <DataTable.Header
           size="small"
           sx={{

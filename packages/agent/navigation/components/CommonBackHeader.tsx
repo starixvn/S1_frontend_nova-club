@@ -1,4 +1,3 @@
-import { StackHeaderProps } from '@react-navigation/stack'
 import IconButton from 'agent/components/Icon/IconButton'
 import Text from 'agent/components/Text'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
@@ -12,12 +11,18 @@ type HeaderProps = {
   title?: string
   actions?: React.ReactNode
   titleProps?: ComponentProps<typeof Text>
+  customRoute?: string
 } & React.ComponentProps<typeof View>
 
-const CommonBackHeader = ({ title, actions, titleProps = {} }: HeaderProps) => {
+const CommonBackHeader = ({
+  title,
+  actions,
+  titleProps = {},
+  customRoute,
+}: HeaderProps) => {
   const isAndroid = Platform.OS === 'android'
   const { t } = useLocalization()
-  const { back } = useContextualRouter()
+  const { back, push } = useContextualRouter()
 
   const { top, right } = useSafeArea()
 
@@ -51,7 +56,7 @@ const CommonBackHeader = ({ title, actions, titleProps = {} }: HeaderProps) => {
           name="arrow-down"
           sx={{ transform: [{ rotateZ: '90deg' }] }}
           size={25}
-          onPress={() => back()}
+          onPress={() => (customRoute ? push(customRoute) : back())}
         />
         <Text sx={{ fontWeight: 'bold', fontSize: '$2', color: 'white' }}>
           {t(`${title}`)}

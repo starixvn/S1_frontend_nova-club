@@ -33,7 +33,13 @@ const AgentProfile = () => {
     : shareholderData?.result?.data.total_downline
 
   return (
-    <DripsyGradient colors={['rgb(224,237,254)', '#ffffff']}>
+    // rgb(224,237,254)
+    // Todo: Andy- gradient not working on web
+    <DripsyGradient
+      start={{ x: 0.2, y: 0 }}
+      end={{ x: 0.2, y: 0.05 }}
+      colors={['rgb(224,237,254)', '#ffffff']}
+    >
       <ScrollView contentContainerStyle={{}} sx={{ px: '$3', pt: '$1' }}>
         <ProfileTitle userRole={userRole} />
         <Card isLoading={loading} sx={{ mb: 30 }}>

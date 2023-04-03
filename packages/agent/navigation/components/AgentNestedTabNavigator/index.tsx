@@ -3,17 +3,18 @@ import {
   createNavigatorFactory,
   DefaultNavigatorOptions,
   ParamListBase,
-  TabActionHelpers,
   TabNavigationState,
   TabRouter,
   TabRouterOptions,
   useNavigationBuilder,
 } from '@react-navigation/native'
 import { AgentRoute } from 'agent/navigation/NavigationType'
-import useLocalization from 'app/provider/localization'
-import { useDripsyTheme } from 'dripsy'
+import { useUserInfoQuery } from 'agent/services/userApi'
+import useContextualRouting from 'app/hooks/useContextualRouting'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import * as React from 'react'
-import { Platform, StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
+import { useEffect } from 'react'
+import { Platform, StyleSheet, View } from 'react-native'
 import AgentNestedTabs from './AgentNestedTabs'
 
 // Props accepted by the view
@@ -57,8 +58,6 @@ function AgentNestedTabNavigator({
   backBehavior,
   routes,
 }: Props) {
-  const { theme } = useDripsyTheme()
-  const { t } = useLocalization()
   const { state, navigation, descriptors, NavigationContent } =
     useNavigationBuilder(TabRouter, {
       initialRouteName,
@@ -66,9 +65,21 @@ function AgentNestedTabNavigator({
       children,
       screenOptions,
     })
+  const { hasPin } = useUserInfoQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      hasPin: data?.has_pin,
+    }),
+  })
+  const { returnHref } = useContextualRouting()
+  const { push } = useContextualRouter()
 
-  const focusedRouteKey = state.routes[state.index].key
+  const focusedRouteKey = state.routes[state.index]?.key
   const [loaded, setLoaded] = React.useState([focusedRouteKey])
+  useEffect(() => {
+    if (!hasPin && returnHref === '/agent/wallet/transfer') {
+      push('/agent/create-pin')
+    }
+  }, [hasPin, push, returnHref])
 
   if (!loaded.includes(focusedRouteKey)) {
     setLoaded([...loaded, focusedRouteKey])

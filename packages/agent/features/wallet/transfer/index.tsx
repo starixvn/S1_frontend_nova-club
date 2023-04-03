@@ -2,12 +2,14 @@ import { useUserInfoQuery } from 'agent/services/userApi'
 import { ROLE } from 'agent/utils/helper'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { Currency } from 'app/utils/constant'
-import { ScrollView, View } from 'dripsy'
+import { ScrollView } from 'dripsy'
+import { useEffect } from 'react'
 import AgentTransferForm from './AgentTransferForm'
 import AgentTransferHistory from './AgentTransferHistory'
 
 const AgentFundTransferPage = () => {
   const { push } = useContextualRouter()
+  // const testHasPin = false
 
   const { isAgent, currency, balance, hasPin } = useUserInfoQuery(undefined, {
     selectFromResult: ({ data }) => ({
@@ -17,13 +19,16 @@ const AgentFundTransferPage = () => {
       hasPin: data?.has_pin,
     }),
   })
-  // const hasPin = false
 
-  // useEffect(() => {
-  //   if (!hasPin) {
-  //     push('/agent/create-pin')
-  //   }
-  // }, [hasPin, push])
+  useEffect(() => {
+    if (!hasPin) {
+      push('/agent/create-pin')
+    }
+  }, [hasPin])
+
+  if (!hasPin) {
+    return null
+  }
 
   return (
     <ScrollView>

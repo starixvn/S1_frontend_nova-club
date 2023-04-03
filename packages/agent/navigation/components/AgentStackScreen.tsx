@@ -82,9 +82,7 @@ export const AgentStackScreens: AgentStackScreen[] = [
     name: 'AgentChangePassword',
     component: AgentChangePassword,
     options: {
-      title: 'pin.resetPin',
-      headerShown: false,
-      header: (props) => <CommonBackHeader {...props} />,
+      title: 'menu.changePass',
     },
   },
   {
@@ -92,8 +90,6 @@ export const AgentStackScreens: AgentStackScreen[] = [
     component: AgentCreatePin,
     options: {
       title: 'pin.createPin',
-      headerShown: true,
-      header: (props) => <CommonBackHeader {...props} />,
     },
   },
 ]
