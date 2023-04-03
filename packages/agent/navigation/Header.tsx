@@ -133,7 +133,7 @@ const Header = () => {
                   <IconButton
                     name="table"
                     size={16}
-                    sx={{ mr: '$2' }}
+                    sx={{ ml: '$2', mr: '$2' }}
                     onPress={() => {
                       push('/agent/commission')
                       // navigation.dispatch(StackActions.push('AgentCommission'))
@@ -211,7 +211,7 @@ const Header = () => {
               }}
             >
               <StyledImg
-                sx={{ width: iconHeight, height: iconHeight }}
+                sx={{ width: smallIconHeight, height: smallIconHeight }}
                 source={require('app/assets/images/header/menu.png')}
                 resizeMode="contain"
               />

@@ -4,8 +4,8 @@ import useOnAgentLogout from 'agent/hooks/useOnAgentLogout'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { styled, Sx, View } from 'dripsy'
-import { Platform, TouchableOpacity } from 'react-native'
+import { styled, Sx, useDripsyTheme, View } from 'dripsy'
+import { Platform, TouchableOpacity, useWindowDimensions } from 'react-native'
 import Modal from 'react-native-modal'
 import Svg, { Path } from 'react-native-svg'
 
@@ -26,6 +26,8 @@ const MainMenuTest = ({
 
   const { push } = useContextualRouter()
 
+  const { width } = useWindowDimensions()
+  const { theme } = useDripsyTheme()
   const { x: parentWidth, y: parentHeight } = parentPosition
 
   const isWeb = Platform.OS === 'web'
@@ -94,7 +96,7 @@ const MainMenuTest = ({
           position: 'absolute',
           // width: width,
           top: TOP_HEIGHT,
-          right: 0,
+          right: Math.max(0, (width - theme.sizes.container) / 2),
           // justifyContent: 'center',
           // alignItems: 'center',
         }}

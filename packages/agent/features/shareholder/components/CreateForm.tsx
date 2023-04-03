@@ -102,7 +102,7 @@ const CreateForm = <T,>({
           }
           value="Credit"
           containerProps={{
-            sx: { width: inputWidth },
+            sx: { width: inputWidth, mb: 12 },
           }}
         />
       </Flex>
