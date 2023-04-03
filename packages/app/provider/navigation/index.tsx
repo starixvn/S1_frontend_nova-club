@@ -73,6 +73,8 @@ export function NavigationProvider({
                         path: '/agent',
                         screens: {
                           AgentProfile: '/profile',
+                          Member: '/member',
+                          Barcode: '/barcode',
                           Add: {
                             // Tab
                             path: '/add',
@@ -98,13 +100,23 @@ export function NavigationProvider({
                               ListAgent: '/agent',
                             },
                           },
+                          Report: {
+                            path: '/report',
+                            initialRouteName: 'Commission',
+                            screens: {
+                              Commission: '/commission',
+                              Transaction: '/transaction',
+                            },
+                          },
                         },
                       },
-                      ShareholderDetails: '/shareholder-details',
-                      AgentDetails: '/agent-details',
+                      ShareholderDetails: '/agent/list/shareholder/:id',
+                      AgentDetails: '/agent/list/agent/:id',
                       AgentCommission: '/agent/commission',
-                      AddBankInfo: '/wallet/withdrawal/account',
+                      AddBankInfo: '/agent/wallet/withdrawal/add-bank',
+                      AgentCreatePin: '/agent/create-pin',
                       AgentResetPin: '/agent/reset-pin',
+                      AgentChangePassword: '/agent/change-password',
                     },
                   },
                 },

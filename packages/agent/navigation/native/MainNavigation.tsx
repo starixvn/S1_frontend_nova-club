@@ -1,12 +1,9 @@
-import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
+import React from 'react'
 import AgentMainTabNavigation from './AgentMainTabNavigation'
-import Icon from 'agent/components/Icon'
-import FilterScreen from 'agent/features/floatingContent/Filter'
 
 const Stack = createStackNavigator<{
   Agent: undefined
-  FilterScreen: undefined
 }>()
 
 const MainNavigation = () => {
@@ -17,13 +14,6 @@ const MainNavigation = () => {
         component={AgentMainTabNavigation}
         options={{
           headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="FilterScreen"
-        component={FilterScreen}
-        options={{
-          title: 'Filter',
         }}
       />
     </Stack.Navigator>

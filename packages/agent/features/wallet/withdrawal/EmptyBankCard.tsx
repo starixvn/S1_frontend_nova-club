@@ -13,6 +13,11 @@ const EmptyBankCard = () => {
   const cardWidth = Math.min(400, width * 0.9)
   const { push } = useContextualRouter()
   const { t } = useAgentLocalization()
+
+  const handleAddBank = () => {
+    push('/agent/wallet/withdrawal/add-bank')
+  }
+
   return (
     <Card sx={{ mx: '3%', my: '$2' }}>
       <View
@@ -32,7 +37,7 @@ const EmptyBankCard = () => {
             alignItems: 'center',
             borderRadius: 10,
           }}
-          onPress={() => push('/agent/wallet/withdrawal/add-bank')}
+          onPress={handleAddBank}
         >
           <IconButton name="add-round" size={16} sx={{ mx: '$2' }} disabled />
           <Text sx={{ color: 'white' }}>{t('wallet.addNew')}</Text>

@@ -59,9 +59,7 @@ const MainMenuTest = ({
     {
       label: 'menu.changePass',
       icon: 'password',
-      onPress: () => {
-        console.log('first')
-      },
+      onPress: () => push('/agent/change-password'),
     },
     {
       label: 'menu.switchMember',

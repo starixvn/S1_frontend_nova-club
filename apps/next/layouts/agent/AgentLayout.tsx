@@ -5,6 +5,7 @@ import React, { FC } from 'react'
 import AgentShareholderTab from 'agent/navigation/components/AgentTabNavigator/AgentShareholderTabs'
 import NavigationLoading from './NavigationLoading'
 import AgentProvider from 'agent/provider'
+import useContainerDimension from 'app/hooks/useContainerDimension'
 
 export type TabLayoutProps = {
   children: React.ReactElement
@@ -12,13 +13,15 @@ export type TabLayoutProps = {
 }
 
 const AgentLayout: FC<TabLayoutProps> = ({ children, lockHeight }) => {
+  const { height } = useContainerDimension()
   return (
     <AgentProvider>
       <View
         sx={{
           paddingTop: TAB_HEIGHT * 2,
           position: 'relative',
-          backgroundColor: 'rgb(224,237,254)',
+          backgroundColor: 'white',
+          minHeight: height,
         }}
       >
         <HeaderFloat />

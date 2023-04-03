@@ -30,9 +30,9 @@ export default function AgentNestedTabs({
                 push(r.route)
               }}
               label={t(r.title)}
-              renderIcon={({ color, size }) => (
-                <Icon name={r.icon} color={color} size={size} />
-              )}
+              renderIcon={({ color, size }) =>
+                r.icon ? <Icon name={r.icon} color={color} size={size} /> : null
+              }
             />
           )
         })}

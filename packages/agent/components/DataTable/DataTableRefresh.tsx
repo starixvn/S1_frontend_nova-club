@@ -27,7 +27,7 @@ const DataTableRefresh = ({
         minHeight: 36,
         py: 8,
         pl: 12,
-        pr: 24,
+        pr: center ? 0 : 24,
         alignItems: center ? 'center' : 'flex-start',
         ...containerStyle,
       }}

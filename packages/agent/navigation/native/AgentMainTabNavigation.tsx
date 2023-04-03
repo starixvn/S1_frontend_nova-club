@@ -1,11 +1,11 @@
-import CommissionTable from 'agent/features/commision'
+import AgentBarcodePage from 'agent/features/barcode/AgentBarcodePage'
 import MemberListingPage from 'agent/features/member/MemberListingPage'
 import Profile from 'agent/features/profile'
 import Header from 'agent/navigation/Header'
 import React from 'react'
 import { createAgentTabNavigator } from '../components/AgentTabNavigator'
-import AddAgentShareholderNavigation from './AddAgentShareholderNavigation'
-import AgentShareholderListingNavigation from './AgentShareholderListingNavigation'
+import AddNavigation from './AddNavigation'
+import ListNavigation from './ListNavigation'
 import ReportNavigation from './ReportNavigation'
 import WalletNavigation from './WalletNavigation'
 
@@ -26,12 +26,12 @@ const AgentMainTabNavigation = () => {
         }}
       >
         <Tab.Screen name="AgentProfile" component={Profile} />
-        <Tab.Screen name="Add" component={AddAgentShareholderNavigation} />
-        <Tab.Screen name="List" component={AgentShareholderListingNavigation} />
-        <Tab.Screen name="Report" component={ReportNavigation} />
+        <Tab.Screen name="Add" component={AddNavigation} />
         <Tab.Screen name="Wallet" component={WalletNavigation} />
+        <Tab.Screen name="List" component={ListNavigation} />
+        <Tab.Screen name="Report" component={ReportNavigation} />
         <Tab.Screen name="Member" component={MemberListingPage} />
-        <Tab.Screen name="Barcode" component={CommissionTable} />
+        <Tab.Screen name="Barcode" component={AgentBarcodePage} />
       </Tab.Navigator>
     </>
   )

@@ -139,8 +139,10 @@
   },
   "shAgent": {
     "add": "Add/Create",
+    "agentDetails": "Agent Details",
     "filter": "Filter",
     "regDate": "Register Date",
+    "shareholderDetails": "Shareholder Details",
     "title": "Shareholder/Agent",
     "totalMember": "Total Member"
   },

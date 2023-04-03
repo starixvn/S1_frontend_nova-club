@@ -20,7 +20,7 @@ const _Routes: Readonly<AgentRoute[]> = [
     key: 'Report',
   },
   {
-    route: '/agent/code',
+    route: '/agent/barcode',
     title: 'barcode.title',
     icon: 'qr-code',
     key: 'QR',

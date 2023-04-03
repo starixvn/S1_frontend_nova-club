@@ -50,18 +50,14 @@ export const AgentStackScreens: AgentStackScreen[] = [
     name: 'ShareholderDetails',
     component: ShareholderDetailsScreen,
     options: {
-      title: 'Shareholder Details',
-      headerShown: true,
-      header: (props) => <CommonBackHeader {...props} />,
+      title: 'shAgent.shareholderDetails',
     },
   },
   {
     name: 'AgentDetails',
     component: AgentDetailsScreen,
     options: {
-      title: 'Agent Details',
-      headerShown: true,
-      header: (props) => <CommonBackHeader {...props} />,
+      title: 'shAgent.agentDetails',
     },
   },
   {
@@ -82,9 +78,7 @@ export const AgentStackScreens: AgentStackScreen[] = [
     name: 'AgentChangePassword',
     component: AgentChangePassword,
     options: {
-      title: 'pin.resetPin',
-      headerShown: false,
-      header: (props) => <CommonBackHeader {...props} />,
+      title: 'menu.changePass',
     },
   },
   {
@@ -92,8 +86,6 @@ export const AgentStackScreens: AgentStackScreen[] = [
     component: AgentCreatePin,
     options: {
       title: 'pin.createPin',
-      headerShown: true,
-      header: (props) => <CommonBackHeader {...props} />,
     },
   },
 ]
