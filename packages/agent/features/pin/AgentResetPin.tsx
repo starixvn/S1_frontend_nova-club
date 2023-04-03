@@ -15,17 +15,13 @@ import {
 } from 'agent/services/userApi'
 import { ROLE } from 'agent/utils/helper'
 import validation, { getErrorMessage } from 'agent/utils/validation'
-import {
-  AGENT_STACK_CONTENT_PADDING,
-  AGENT_STACK_CONTENT_PADDING_WEB,
-} from 'app/constant/sizes'
+import { AGENT_STACK_CONTENT_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import { ScrollView, useDripsyTheme, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { useRef, useState } from 'react'
-import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import * as Yup from 'yup'
 import AgentUnderlinePinField from './AgentUnderlinePinField'
@@ -42,8 +38,8 @@ const AgentResetPin = () => {
   const { height } = useContainerDimension()
   const { isAgent, mobile_no } = useUserInfoQuery(undefined, {
     selectFromResult: ({ data }) => ({
-      isAgent: data?.result?.data.role === ROLE.AGENT,
-      mobile_no: data?.result?.data.mobile_no,
+      isAgent: data?.role === ROLE.AGENT,
+      mobile_no: data?.mobile_no,
     }),
   })
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
@@ -52,7 +48,6 @@ const AgentResetPin = () => {
   const { showAlert } = useAgentAlert()
   const { openModal } = useModal()
   const { t } = useLocalization()
-  // const navigation = useNavigation()
   const { back } = useContextualRouter()
   const [sendOtp] = useResetPinOtpMutation()
 
@@ -143,11 +138,7 @@ const AgentResetPin = () => {
       <ScrollView
         contentContainerStyle={{
           paddingHorizontal: 20,
-          paddingTop:
-            Platform.OS === 'web'
-              ? AGENT_STACK_CONTENT_PADDING_WEB
-              : AGENT_STACK_CONTENT_PADDING,
-          backgroundColor: 'white',
+          paddingTop: AGENT_STACK_CONTENT_PADDING,
         }}
       >
         <View sx={{ alignItems: 'center', minHeight: height }}>

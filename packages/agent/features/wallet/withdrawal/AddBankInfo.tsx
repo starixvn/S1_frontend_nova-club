@@ -1,5 +1,4 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { useNavigation } from '@react-navigation/native'
 import Button from 'agent/components/Button'
 import Input from 'agent/components/Input'
 import SelectWithCardGrid from 'agent/components/Select/SelectWithCardGrid'
@@ -14,10 +13,7 @@ import {
 import { IResponse } from 'agent/services/common/agentAxiosBaseQuery'
 import { useUserInfoQuery } from 'agent/services/userApi'
 import validation, { getErrorMessage } from 'agent/utils/validation'
-import {
-  AGENT_STACK_CONTENT_PADDING,
-  AGENT_STACK_CONTENT_PADDING_WEB,
-} from 'app/constant/sizes'
+import { AGENT_STACK_CONTENT_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
@@ -25,7 +21,6 @@ import { Currency } from 'app/utils/constant'
 import { ActivityIndicator, ScrollView, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { useState } from 'react'
-import { Platform } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useModal } from 'react-native-modalfy'
 import * as Yup from 'yup'
@@ -168,10 +163,7 @@ const AddBankInfoForm = () => {
         contentContainerStyle={{
           backgroundColor: 'white',
           paddingHorizontal: 20,
-          paddingTop:
-            Platform.OS === 'web'
-              ? AGENT_STACK_CONTENT_PADDING_WEB
-              : AGENT_STACK_CONTENT_PADDING,
+          paddingTop: AGENT_STACK_CONTENT_PADDING,
           minHeight: height,
         }}
       >
