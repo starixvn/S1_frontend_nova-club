@@ -1,16 +1,13 @@
-import { useLazyAgentProfileQuery } from 'agent/services/agentApi'
-import { useLazyShareholderProfileQuery } from 'agent/services/shareholderApi'
 import { useLazyUserInfoQuery } from 'agent/services/userApi'
-import { UserInfo } from 'agent/services/userApi.type'
-import { ROLE } from 'agent/utils/helper'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter.web'
+import { Platform } from 'react-native'
 
 const useAfterLogin = () => {
   const [getUserInfo] = useLazyUserInfoQuery()
-  const [getAgentProfile] = useLazyAgentProfileQuery()
-  const [getShareholderProfile] = useLazyShareholderProfileQuery()
+  // const [getAgentProfile] = useLazyAgentProfileQuery()
+  // const [getShareholderProfile] = useLazyShareholderProfileQuery()
 
-  const { replace } = useContextualRouter()
+  const { replace, push } = useContextualRouter()
   // const navigation = useNavigation()
 
   async function handleAgentLogin() {
@@ -22,7 +19,15 @@ const useAfterLogin = () => {
 
         replace('/agent')
       } else {
-        replace('/agent')
+        // if (Platform.OS === 'web') {
+        //   let replaceRoute = afterLoginRedirection
+        //   const urlParams = new URLSearchParams(window.location.search)
+        //   const redirect = urlParams.get('r')
+        //   if (redirect) replaceRoute = redirect
+        //   replace(replaceRoute)
+        // } else {
+        //   push('/agent')
+        // }
         // console.log(message)
       }
     } catch (e) {
@@ -30,32 +35,32 @@ const useAfterLogin = () => {
     }
   }
 
-  async function getProfileBasedOnRole(userRole: UserInfo['role']) {
-    try {
-      if (userRole === 'shareholder') {
-        const {
-          result: shareholderResult,
-          success,
-          message,
-        } = await getShareholderProfile().unwrap()
+  // async function getProfileBasedOnRole(userRole: UserInfo['role']) {
+  //   try {
+  //     if (userRole === 'shareholder') {
+  //       const {
+  //         result: shareholderResult,
+  //         success,
+  //         message,
+  //       } = await getShareholderProfile().unwrap()
 
-        if (success && shareholderResult?.data.has_logged_in === 0) return true
-      }
-      if (userRole === ROLE.AGENT) {
-        const {
-          result: agentResult,
-          success,
-          message,
-        } = await getAgentProfile().unwrap()
+  //       if (success && shareholderResult?.data.has_logged_in === 0) return true
+  //     }
+  //     if (userRole === ROLE.AGENT) {
+  //       const {
+  //         result: agentResult,
+  //         success,
+  //         message,
+  //       } = await getAgentProfile().unwrap()
 
-        if (success && agentResult?.data.has_logged_in === 0) return true
-      }
-      return false
-    } catch (e) {
-      console.log(e)
-      return false
-    }
-  }
+  //       if (success && agentResult?.data.has_logged_in === 0) return true
+  //     }
+  //     return false
+  //   } catch (e) {
+  //     console.log(e)
+  //     return false
+  //   }
+  // }
 
   return {
     handleAgentLogin,
