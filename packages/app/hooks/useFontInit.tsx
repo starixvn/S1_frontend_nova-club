@@ -26,11 +26,11 @@ interface UseFontArgs {
 
 export const DEFAULT_ICON = {
   FAMILY: 'Icomoon',
-  FILENAME: Platform.OS === 'web' ? '/fonts/icomoon.ttf' : 'icomoon.ttf',
+  FILENAME: Platform.OS === 'web' ? ICON_FILE : 'icomoon.ttf',
 }
 export const AGENT_ICON = {
   FAMILY: 'Agent Icomoon',
-  FILENAME: Platform.OS === 'web' ? '/fonts/icomoon.ttf' : 'icomoon.ttf',
+  FILENAME: Platform.OS === 'web' ? AGENT_FILE : 'icomoon.ttf',
 }
 
 /**

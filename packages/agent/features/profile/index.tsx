@@ -32,15 +32,12 @@ const AgentProfile = () => {
     ? agentData?.result?.data.total_downline
     : shareholderData?.result?.data.total_downline
 
-  // const cardWidth = Math.min(400, width * 0.9)
-
   return (
     <DripsyGradient colors={['rgb(224,237,254)', '#ffffff']}>
       <ScrollView contentContainerStyle={{}} sx={{ px: '$3', pt: '$1' }}>
         <ProfileTitle userRole={userRole} />
         <Card isLoading={loading} sx={{ mb: 30 }}>
           <ProfileContentContainer
-            // cardWidth={cardWidth}
             userRole={userRole}
             from={{ opacity: 0, height: 0 }}
             animate={{
@@ -50,7 +47,6 @@ const AgentProfile = () => {
             transition={{ type: 'timing', duration: 1000 }}
           >
             <ProfileDetails data={data} />
-            {/* Andy tofix typescript downline */}
             <>
               <ProfileChartLegend />
               {downline && <ProfileChart downline={downline} />}
@@ -63,7 +59,6 @@ const AgentProfile = () => {
 }
 const ProfileContentContainer = styled(MotiView)(
   ({ userRole }: { userRole: string }) => ({
-    // width: cardWidth,
     minHeight: userRole === ROLE.AGENT ? 450 : 800,
     paddingBottom: '$5',
   })
