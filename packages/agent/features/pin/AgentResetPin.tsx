@@ -15,12 +15,17 @@ import {
 } from 'agent/services/userApi'
 import { ROLE } from 'agent/utils/helper'
 import validation, { getErrorMessage } from 'agent/utils/validation'
+import {
+  AGENT_STACK_CONTENT_PADDING,
+  AGENT_STACK_CONTENT_PADDING_WEB,
+} from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import { ScrollView, useDripsyTheme, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { useRef, useState } from 'react'
+import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import * as Yup from 'yup'
 import AgentUnderlinePinField from './AgentUnderlinePinField'
@@ -138,7 +143,10 @@ const AgentResetPin = () => {
       <ScrollView
         contentContainerStyle={{
           paddingHorizontal: 20,
-          paddingTop: 50,
+          paddingTop:
+            Platform.OS === 'web'
+              ? AGENT_STACK_CONTENT_PADDING_WEB
+              : AGENT_STACK_CONTENT_PADDING,
           backgroundColor: 'white',
         }}
       >

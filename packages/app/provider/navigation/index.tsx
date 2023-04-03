@@ -102,7 +102,7 @@ export function NavigationProvider({
                       },
                       ShareholderDetails: '/shareholder-details',
                       AgentDetails: '/agent-details',
-                      AgentCommission: '/commission',
+                      AgentCommission: '/agent/commission',
                       AddBankInfo: '/wallet/withdrawal/account',
                       AgentResetPin: '/agent/reset-pin',
                     },

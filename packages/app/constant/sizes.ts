@@ -10,3 +10,7 @@ export const GRID_TOTAL_COL = 6
 export const MARGIN_TEXT_CENTERING = 0 // previously using value 4, the new font no longer have spacing issue
 
 export const TAB_HEIGHT = 60
+
+export const AGENT_STACK_CONTENT_PADDING_WEB = 50
+
+export const AGENT_STACK_CONTENT_PADDING = 25

@@ -78,8 +78,6 @@ export const AgentStackScreens: AgentStackScreen[] = [
     component: CommissionTable,
     options: {
       title: 'commission.title',
-      headerShown: true,
-      header: (props) => <CommonBackHeader {...props} />,
     },
   },
   {
