@@ -104,6 +104,7 @@ export function NavigationProvider({
                       AgentDetails: '/agent-details',
                       AgentCommission: '/commission',
                       AddBankInfo: '/wallet/withdrawal/account',
+                      AgentResetPin: '/agent/reset-pin',
                     },
                   },
                 },

@@ -71,8 +71,6 @@ export const AgentStackScreens: AgentStackScreen[] = [
     component: AgentResetPin,
     options: {
       title: 'pin.resetPin',
-      headerShown: true,
-      header: (props) => <CommonBackHeader {...props} />,
     },
   },
   {
@@ -99,9 +97,7 @@ export const AgentStackScreens: AgentStackScreen[] = [
     options: {
       title: 'pin.createPin',
       headerShown: true,
-      header: (props) => (
-        <CommonBackHeader {...props} specifyBackRoutes="/agent/wallet" />
-      ),
+      header: (props) => <CommonBackHeader {...props} />,
     },
   },
 ]
