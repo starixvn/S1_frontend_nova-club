@@ -45,6 +45,13 @@ const MainMenuTest = ({
 
   const mainMenuList = [
     {
+      label: 'menu.commissionTable',
+      icon: 'table',
+      onPress: () => {
+        push('/agent/commission')
+      },
+    },
+    {
       label: 'menu.desktopVersion',
       icon: 'desktop',
       onPress: () => {
