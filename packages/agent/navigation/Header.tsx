@@ -75,7 +75,7 @@ const Header = () => {
                   height: iconHeight,
                   width: iconHeight * (519 / 186),
                 })}
-                source={require('app/assets/images/logo.png')}
+                source={require('app/assets/images/Vui123-agent-logo.png')}
                 resizeMode="contain"
               />
             </BouncePressable>
@@ -130,7 +130,7 @@ const Header = () => {
                     onPress={() => testActionWithTimeout()}
                     size={16}
                   />
-                  <IconButton
+                  {/* <IconButton
                     name="table"
                     size={16}
                     sx={{ ml: '$2', mr: '$2' }}
@@ -138,7 +138,7 @@ const Header = () => {
                       push('/agent/commission')
                       // navigation.dispatch(StackActions.push('AgentCommission'))
                     }}
-                  />
+                  /> */}
                 </View>
 
                 <TouchableOpacity
