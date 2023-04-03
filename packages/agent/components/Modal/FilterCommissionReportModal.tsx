@@ -1,6 +1,6 @@
 import { DateFilterOptions, getDateRange } from 'agent/constant/select'
 import { CommissionFilterOptions } from 'agent/features/report/ShareholderCommissionReport'
-import { useAgentTranslation } from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { Flex } from 'dripsy'
 import React, { useState } from 'react'
 import Button from '../Button'
@@ -9,7 +9,7 @@ import Select from '../Select/Select'
 import ModalWrapper from './ModalWrapper'
 
 const FilterCommissionReportModal = ({ modal: { closeModal, getParam } }) => {
-  const { t } = useAgentTranslation()
+  const { t } = useAgentLocalization()
   const filterOptions = getParam('filterOptions') as CommissionFilterOptions
   const onConfirm = getParam('onConfirm')
 

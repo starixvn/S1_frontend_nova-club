@@ -4,7 +4,7 @@ import {
   ShareholderStatusFilterOptions,
 } from 'agent/constant/select'
 import { AgentListingFilterOptions } from 'agent/features/agent/AgentListing'
-import { useAgentTranslation } from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { Flex } from 'dripsy'
 import React, { useState } from 'react'
 import Button from '../Button'
@@ -14,7 +14,7 @@ import Select from '../Select/Select'
 import ModalWrapper from './ModalWrapper'
 
 const FilterAgentListingModal = ({ modal: { closeModal, getParam } }) => {
-  const { t } = useAgentTranslation()
+  const { t } = useAgentLocalization()
   const filterOptions = getParam('filterOptions') as AgentListingFilterOptions
   const onConfirm = getParam('onConfirm')
 

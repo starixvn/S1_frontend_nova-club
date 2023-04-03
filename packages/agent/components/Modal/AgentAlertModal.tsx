@@ -1,6 +1,6 @@
 import Text from 'agent/components/Text'
 import { ModalStackParams } from 'agent/provider/agentModal'
-import { useAgentTranslation } from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import React, { useEffect } from 'react'
 import { ModalComponentProp } from 'react-native-modalfy'
 import ModalContent from './ModalContent'
@@ -14,7 +14,7 @@ type AgentAlertModalProps = ModalComponentProp<
 const AgentAlertModal = ({
   modal: { closeModal, getParam },
 }: AgentAlertModalProps) => {
-  const { t } = useAgentTranslation()
+  const { t } = useAgentLocalization()
 
   const title = getParam('title', t('notes.importantNotice'))
   const message = getParam('message', '')

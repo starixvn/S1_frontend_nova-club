@@ -44,13 +44,10 @@ export default function useLocalization() {
   return useContext(LocalizationContext)
 }
 
-export function useAgentTranslation() {
+export function useAgentLocalization() {
   const { t } = useLocalization()
-  function agentT(scope: Scope) {
-    return t(`agent.${scope}`)
-  }
 
-  return { t: agentT }
+  return { t: (scope: Scope) => t(`agent.${scope}`) }
 }
 
 export const LocalizationProviderRedux = ({ children }) => {

@@ -1,5 +1,5 @@
 import { ModalStackParams } from 'agent/provider/agentModal'
-import { useAgentTranslation } from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { copyToClipboard } from 'app/utils'
 import { styled, Text } from 'dripsy'
 import React from 'react'
@@ -15,7 +15,7 @@ type NewRegistrationModalProps = ModalComponentProp<
 const NewRegistrationModal = ({
   modal: { closeModal, getParam },
 }: NewRegistrationModalProps) => {
-  const { t } = useAgentTranslation()
+  const { t } = useAgentLocalization()
   const SBO_LINK = 'https://sbo-stage.gball8.com/login'
 
   const username = getParam('username', '')

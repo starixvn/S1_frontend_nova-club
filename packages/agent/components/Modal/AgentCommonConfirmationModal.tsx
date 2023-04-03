@@ -1,12 +1,12 @@
 import Text from 'agent/components/Text'
-import { useAgentTranslation } from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { Image, styled, View } from 'dripsy'
 import React from 'react'
 import ModalContent from './ModalContent'
 import ModalWrapper from './ModalWrapper'
 
 const AgentCommonConfirmationModal = ({ modal: { closeModal, getParam } }) => {
-  const { t } = useAgentTranslation()
+  const { t } = useAgentLocalization()
 
   const info = getParam('info', '')
   const bankLogo = getParam('bankLogo', '')

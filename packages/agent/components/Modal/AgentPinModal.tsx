@@ -1,12 +1,13 @@
 import AgentUnderlinePinField from 'agent/features/pin/AgentUnderlinePinField'
 import useAgentAlert from 'agent/hooks/useAgentAlert'
+import { ModalStackParams } from 'agent/provider/agentModal'
 import { useAgentVerifyTransferPinMutation } from 'agent/services/agentApi'
 import { AgentVerifyTransferPinResult } from 'agent/services/agentApi.type'
 import { IResponse } from 'agent/services/common/agentAxiosBaseQuery'
 import { useShareholderVerifyTransferPinMutation } from 'agent/services/shareholderApi'
 import { ShareholderVerifyTransferPinResult } from 'agent/services/shareholderApi.type'
 import validation from 'agent/utils/validation'
-import { useAgentTranslation } from 'app/provider/localization'
+import { useAgentLocalization } from 'app/provider/localization'
 import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React from 'react'
@@ -30,7 +31,7 @@ interface ModalType {
 const AgentPinModal = ({ modal: { closeModal, getParam } }) => {
   const isAgent = getParam('isAgent', false)
   const onConfirm = getParam('onConfirm')
-  const { t } = useAgentTranslation()
+  const { t } = useAgentLocalization()
   const { showAlert } = useAgentAlert()
   const [agentVerifyPin] = useAgentVerifyTransferPinMutation()
   const [shareholderVerifyPin] = useShareholderVerifyTransferPinMutation()
