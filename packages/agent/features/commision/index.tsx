@@ -2,6 +2,7 @@ import DataTable from 'agent/components/DataTable/DataTable'
 import CommonBackHeader from 'agent/navigation/components/CommonBackHeader'
 import { useUserCommissionListQuery } from 'agent/services/userApi'
 import { UserCommissionListResult } from 'agent/services/userApi.type'
+import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useAgentLocalization } from 'app/provider/localization'
 import { Currency } from 'app/utils/constant'
 import { ScrollView, useDripsyTheme } from 'dripsy'
@@ -13,7 +14,7 @@ const CommissionTable = () => {
     selectFromResult: ({ data }) => ({ commissionList: data?.result?.data }),
   })
   const { t } = useAgentLocalization()
-
+  const { width } = useContainerDimension()
   const { theme } = useDripsyTheme()
   return (
     <>
@@ -27,7 +28,7 @@ const CommissionTable = () => {
             borderTopWidth: StyleSheet.hairlineWidth,
             borderColor: '#8EC0FF',
             zIndex: 2,
-            width: '100%',
+            width,
             position: Platform.OS === 'web' ? 'fixed' : 'relative',
           }}
         >

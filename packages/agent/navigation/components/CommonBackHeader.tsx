@@ -22,7 +22,7 @@ const CommonBackHeader = ({
 }: HeaderProps) => {
   const isAndroid = Platform.OS === 'android'
   const { t } = useAgentLocalization()
-  const { back } = useContextualRouter()
+  const { back, push } = useContextualRouter()
 
   const { top, right } = useSafeArea()
 
