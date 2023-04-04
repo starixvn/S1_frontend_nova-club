@@ -5,7 +5,6 @@ import { useShareholderProfileQuery } from 'agent/services/shareholderApi'
 import { useUserInfoQuery } from 'agent/services/userApi'
 import { ROLE } from 'agent/utils/helper'
 import { DripsyGradient } from 'app/components/Gradient'
-import useContainerDimension from 'app/hooks/useContainerDimension'
 import { ScrollView, styled } from 'dripsy'
 import { MotiView } from 'moti'
 import ProfileChart from './ProfileChart'
@@ -14,7 +13,6 @@ import ProfileDetails from './ProfileDetails'
 import ProfileTitle from './ProfileTitle'
 
 const AgentProfile = () => {
-  const { height } = useContainerDimension()
   const { data: userInfoData } = useUserInfoQuery()
   const isAgent = userInfoData?.role === ROLE.AGENT
   const userRole = isAgent ? ROLE.AGENT : ROLE.SHAREHOLDER
@@ -33,18 +31,34 @@ const AgentProfile = () => {
     : shareholderData?.result?.data.total_downline
 
   return (
-    // rgb(224,237,254)
-    // Todo: Andy- gradient not working on web
     <DripsyGradient
-      start={{ x: 0.2, y: 0 }}
-      end={{ x: 0.2, y: 0.05 }}
-      colors={['rgb(224,237,254)', '#ffffff']}
+      colors={[
+        'rgb(224,237,254)',
+        '#ffffff',
+        '#ffffff',
+        '#ffffff',
+        '#ffffff',
+        '#ffffff',
+        '#ffffff',
+        '#ffffff',
+        '#ffffff',
+        '#ffffff',
+        '#ffffff',
+        '#ffffff',
+        '#ffffff',
+        '#ffffff',
+        '#ffffff',
+        '#ffffff',
+        '#ffffff',
+        '#ffffff',
+        '#ffffff',
+        '#ffffff',
+      ]}
     >
       <ScrollView contentContainerStyle={{}} sx={{ px: '$3', pt: '$1' }}>
         <ProfileTitle userRole={userRole} />
         <Card isLoading={loading} sx={{ mb: 30 }}>
           <ProfileContentContainer
-            userRole={userRole}
             from={{ opacity: 0, height: 0 }}
             animate={{
               opacity: 1,
@@ -63,10 +77,8 @@ const AgentProfile = () => {
     </DripsyGradient>
   )
 }
-const ProfileContentContainer = styled(MotiView)(
-  ({ userRole }: { userRole: string }) => ({
-    minHeight: userRole === ROLE.AGENT ? 450 : 800,
-    paddingBottom: '$5',
-  })
-)
+const ProfileContentContainer = styled(MotiView)({
+  minHeight: 800,
+  paddingBottom: '$5',
+})
 export default AgentProfile

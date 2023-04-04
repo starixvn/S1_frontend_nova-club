@@ -149,7 +149,8 @@
   "transfer": {
     "playerId": "Player ID",
     "playerName": "Player Name",
-    "transferConfirmation": "Transfer Confirmation"
+    "transferConfirmation": "Transfer Confirmation",
+    "errorId": "waiting to translate"
   },
   "validation": {
     "alphanumeric": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only",

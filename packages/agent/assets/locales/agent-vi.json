@@ -149,7 +149,8 @@
   "transfer": {
     "playerId": "ID người chơi",
     "playerName": "Tên người chơi",
-    "transferConfirmation": "Xác nhận Chuyển quỹ"
+    "transferConfirmation": "Xác nhận Chuyển quỹ",
+    "errorId": "waiting to translate"
   },
   "validation": {
     "alphanumeric": "6-18 ký tự chữ và số (A-Z, a-z, 0-9)",

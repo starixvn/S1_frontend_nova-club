@@ -1,8 +1,4 @@
-import {
-  DateFilterOptions,
-  getDateRange,
-  TypeFilterOptions,
-} from 'agent/constant/select'
+import { DateFilterOptions, getDateRange } from 'agent/constant/select'
 import { TransactionFilterOptions } from 'agent/features/report/Transaction'
 import { useAgentLocalization } from 'app/provider/localization'
 import dayjs from 'dayjs'
