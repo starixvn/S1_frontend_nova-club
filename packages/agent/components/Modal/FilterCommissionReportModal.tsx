@@ -1,11 +1,12 @@
 import { DateFilterOptions, getDateRange } from 'agent/constant/select'
 import { CommissionFilterOptions } from 'agent/features/report/ShareholderCommissionReport'
 import { useAgentLocalization } from 'app/provider/localization'
+import dayjs from 'dayjs'
 import { Flex } from 'dripsy'
 import React, { useState } from 'react'
-import Button from '../Button'
 import DatePicker from '../DatePicker/DatePicker'
 import Select from '../Select/Select'
+import FilterButtonSelection from './components/FilterButtonSelection'
 import ModalWrapper from './ModalWrapper'
 
 const FilterCommissionReportModal = ({ modal: { closeModal, getParam } }) => {
@@ -13,10 +14,11 @@ const FilterCommissionReportModal = ({ modal: { closeModal, getParam } }) => {
   const filterOptions = getParam('filterOptions') as CommissionFilterOptions
   const onConfirm = getParam('onConfirm')
 
+  const { date, startDate, endDate } = filterOptions
   const [selected, setSelected] = useState({
-    date: filterOptions.date,
-    startDate: filterOptions.startDate,
-    endDate: filterOptions.endDate,
+    date,
+    startDate,
+    endDate,
   })
 
   const dateOptions = DateFilterOptions.map((item) => {
@@ -31,16 +33,22 @@ const FilterCommissionReportModal = ({ modal: { closeModal, getParam } }) => {
     onDismiss()
     onConfirm(selected)
   }
-
+  function resetFilter() {
+    onDismiss()
+    onConfirm({
+      date: DateFilterOptions[0]?.value,
+      startDate: dayjs().startOf('date').toDate(),
+      endDate: dayjs().endOf('date').toDate(),
+    })
+  }
   return (
     <ModalWrapper title={t('report.transactionFilter')} onClose={onDismiss}>
       <Select
         options={dateOptions}
         placeholder={t('report.transactionDate')}
         value={selected.date}
-        onSelected={(val) => {
+        onSelected={(val: string) => {
           const { startDate, endDate } = getDateRange(val)
-
           setSelected({
             ...selected,
             date: val,
@@ -90,20 +98,10 @@ const FilterCommissionReportModal = ({ modal: { closeModal, getParam } }) => {
         />
       </Flex>
 
-      <Button
-        elevation={1}
-        leftIcon={{
-          name: 'search',
-        }}
-        titleProps={{
-          sx: {
-            fontWeight: 'bold',
-          },
-        }}
-        onPress={handleConfirm}
-      >
-        {t('common.search')}
-      </Button>
+      <FilterButtonSelection
+        resetFilter={resetFilter}
+        handleConfirm={handleConfirm}
+      />
     </ModalWrapper>
   )
 }

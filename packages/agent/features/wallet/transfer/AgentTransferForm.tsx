@@ -177,7 +177,7 @@ const AgentTransferForm = ({
   const handleChangeAmount = (value: string, field: string) => {
     const amount = value.replace(/,/g, '')
     const formattedAmount = toThousandSeparator(amount)
-    formik.setFieldValue(field, formattedAmount)
+    formik.setFieldValue(field, formattedAmount.toString())
   }
 
   const debounceGetUserByReferralCode = useCallback(
@@ -227,7 +227,7 @@ const AgentTransferForm = ({
           ) : isUserName ? (
             <View />
           ) : (
-            <Text sx={{ color: '$errorAgent' }}>Player ID NOT FOUND</Text>
+            <Text sx={{ color: '$errorAgent' }}>{t('transfer.errorId')}</Text>
           )
         }
       />
@@ -259,13 +259,6 @@ const AgentTransferForm = ({
             }}
           />
         }
-        // rightInnerElement={
-        //   <Text sx={{ color: 'red' }}>
-        //     {!values.amount
-        //       ? '=0K'
-        //       : `=${toThousandSeparator(values.amount ?? '')}K`}
-        //   </Text>
-        // }
         error={
           errors.amount
             ? t(errors.amount, {

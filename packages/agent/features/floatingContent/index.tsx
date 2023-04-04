@@ -23,7 +23,7 @@ const AgentFloatingContent = ({ onPress }) => {
           Math.max(12, (width - theme.sizes.container) / 2) +
           Math.max(containerWidth * 0.2 - iconSize, 0) / 2,
         position: Platform.OS === 'web' ? 'fixed' : 'absolute',
-        bottom: bottom,
+        bottom: bottom ? bottom : 20,
         alignItems: 'center',
       }}
     >
@@ -35,6 +35,13 @@ const AgentFloatingContent = ({ onPress }) => {
           borderRadius: 150,
           justifyContent: 'center',
           alignItems: 'center',
+          shadowColor: '$darkBlueAgent',
+          shadowOffset: {
+            width: 0,
+            height: 0,
+          },
+          shadowOpacity: 0.8,
+          shadowRadius: 5,
         }}
         contentProps={{ sx: {} }}
       >

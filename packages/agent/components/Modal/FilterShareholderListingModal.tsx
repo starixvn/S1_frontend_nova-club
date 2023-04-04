@@ -5,12 +5,13 @@ import {
 } from 'agent/constant/select'
 import { ShareholderListingFilterOptions } from 'agent/features/shareholder/ShareholderListing'
 import { useAgentLocalization } from 'app/provider/localization'
+import dayjs from 'dayjs'
 import { Flex } from 'dripsy'
 import React, { useState } from 'react'
-import Button from '../Button'
 import DatePicker from '../DatePicker/DatePicker'
 import Input from '../Input'
 import Select from '../Select/Select'
+import FilterButtonSelection from './components/FilterButtonSelection'
 import ModalWrapper from './ModalWrapper'
 
 const FilterShareholderListingModal = ({ modal: { closeModal, getParam } }) => {
@@ -20,12 +21,13 @@ const FilterShareholderListingModal = ({ modal: { closeModal, getParam } }) => {
   ) as ShareholderListingFilterOptions
   const onConfirm = getParam('onConfirm')
 
+  const { date, username, startDate, endDate, status } = filterOptions
   const [selected, setSelected] = useState({
-    date: filterOptions.date,
-    username: filterOptions.username,
-    startDate: filterOptions.startDate,
-    endDate: filterOptions.endDate,
-    status: filterOptions.status,
+    date,
+    username,
+    startDate,
+    endDate,
+    status,
   })
 
   const dateOptions = DateFilterOptions.map((item) => {
@@ -44,6 +46,16 @@ const FilterShareholderListingModal = ({ modal: { closeModal, getParam } }) => {
     onDismiss()
     onConfirm(selected)
   }
+  function resetFilter() {
+    onDismiss()
+    onConfirm({
+      date: '',
+      startDate: dayjs().startOf('month').toDate(),
+      endDate: dayjs().endOf('date').toDate(),
+      status: '',
+      username: '',
+    })
+  }
 
   return (
     <ModalWrapper title={t('report.transactionFilter')} onClose={onDismiss}>
@@ -51,9 +63,8 @@ const FilterShareholderListingModal = ({ modal: { closeModal, getParam } }) => {
         options={dateOptions}
         placeholder={t('report.transactionDate')}
         value={selected.date}
-        onSelected={(val) => {
+        onSelected={(val: string) => {
           const { startDate, endDate } = getDateRange(val)
-
           setSelected({
             ...selected,
             date: val,
@@ -74,7 +85,11 @@ const FilterShareholderListingModal = ({ modal: { closeModal, getParam } }) => {
         <DatePicker
           label={t('common.from')}
           isRequired
-          value={selected.startDate}
+          value={
+            selected.startDate instanceof Date
+              ? selected.startDate
+              : new Date(selected.startDate)
+          }
           rightIcon="calendar"
           _rightIcon={{ size: 20 }}
           onChange={(value) => {
@@ -89,7 +104,11 @@ const FilterShareholderListingModal = ({ modal: { closeModal, getParam } }) => {
         <DatePicker
           label={t('common.to')}
           isRequired
-          value={selected.endDate}
+          value={
+            selected.endDate instanceof Date
+              ? selected.endDate
+              : new Date(selected.endDate)
+          }
           rightIcon="calendar"
           _rightIcon={{ size: 20 }}
           onChange={(value) => {
@@ -116,7 +135,7 @@ const FilterShareholderListingModal = ({ modal: { closeModal, getParam } }) => {
         options={statusOptions}
         placeholder={t('common.status')}
         value={selected.status}
-        onSelected={(val) => {
+        onSelected={(val: string) => {
           setSelected({ ...selected, status: val })
         }}
         label={t('common.status')}
@@ -124,20 +143,10 @@ const FilterShareholderListingModal = ({ modal: { closeModal, getParam } }) => {
         sx={{ mb: 12 }}
       />
 
-      <Button
-        elevation={1}
-        leftIcon={{
-          name: 'search',
-        }}
-        titleProps={{
-          sx: {
-            fontWeight: 'bold',
-          },
-        }}
-        onPress={handleConfirm}
-      >
-        {t('common.search')}
-      </Button>
+      <FilterButtonSelection
+        resetFilter={resetFilter}
+        handleConfirm={handleConfirm}
+      />
     </ModalWrapper>
   )
 }

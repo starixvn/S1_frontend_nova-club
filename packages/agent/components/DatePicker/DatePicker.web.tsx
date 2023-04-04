@@ -97,7 +97,9 @@ const DatePickerWeb = ({
           }}
         />
 
-        {rightIcon && <Icon name={rightIcon} {..._rightIcon} />}
+        {rightIcon && (
+          <Icon color="$grayAgent" name={rightIcon} {..._rightIcon} />
+        )}
       </View>
 
       {error && <Text sx={{ color: 'red' }}>{error}</Text>}

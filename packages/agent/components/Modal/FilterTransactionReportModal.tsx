@@ -5,11 +5,12 @@ import {
 } from 'agent/constant/select'
 import { TransactionFilterOptions } from 'agent/features/report/Transaction'
 import { useAgentLocalization } from 'app/provider/localization'
+import dayjs from 'dayjs'
 import { Flex } from 'dripsy'
 import React, { useState } from 'react'
-import Button from '../Button'
 import DatePicker from '../DatePicker/DatePicker'
 import Select from '../Select/Select'
+import FilterButtonSelection from './components/FilterButtonSelection'
 import ModalWrapper from './ModalWrapper'
 
 const FilterTransactionReportModal = ({ modal: { closeModal, getParam } }) => {
@@ -17,18 +18,14 @@ const FilterTransactionReportModal = ({ modal: { closeModal, getParam } }) => {
   const filterOptions = getParam('filterOptions') as TransactionFilterOptions
   const onConfirm = getParam('onConfirm')
 
+  const { date, startDate, endDate, type } = filterOptions
   const [selected, setSelected] = useState({
-    date: filterOptions.date,
-    type: filterOptions.type,
-    startDate: filterOptions.startDate,
-    endDate: filterOptions.endDate,
+    date,
+    startDate,
+    endDate,
   })
 
   const dateOptions = DateFilterOptions.map((item) => {
-    return { ...item, label: t(item.label) }
-  })
-
-  const typeOptions = TypeFilterOptions.map((item) => {
     return { ...item, label: t(item.label) }
   })
 
@@ -41,15 +38,23 @@ const FilterTransactionReportModal = ({ modal: { closeModal, getParam } }) => {
     onConfirm(selected)
   }
 
+  function resetFilter() {
+    onDismiss()
+    onConfirm({
+      date: DateFilterOptions[0]?.value,
+      startDate: dayjs().startOf('date').toDate(),
+      endDate: dayjs().endOf('date').toDate(),
+    })
+  }
+
   return (
     <ModalWrapper title={t('report.transactionFilter')} onClose={onDismiss}>
       <Select
         options={dateOptions}
         placeholder={t('report.transactionDate')}
         value={selected.date}
-        onSelected={(val) => {
+        onSelected={(val: string) => {
           const { startDate, endDate } = getDateRange(val)
-
           setSelected({
             ...selected,
             date: val,
@@ -70,7 +75,11 @@ const FilterTransactionReportModal = ({ modal: { closeModal, getParam } }) => {
         <DatePicker
           label={t('common.from')}
           isRequired
-          value={selected.startDate}
+          value={
+            selected.startDate instanceof Date
+              ? selected.startDate
+              : new Date(selected.startDate)
+          }
           rightIcon="calendar"
           _rightIcon={{ size: 20 }}
           onChange={(value) => {
@@ -85,7 +94,11 @@ const FilterTransactionReportModal = ({ modal: { closeModal, getParam } }) => {
         <DatePicker
           label={t('common.to')}
           isRequired
-          value={selected.endDate}
+          value={
+            selected.endDate instanceof Date
+              ? selected.endDate
+              : new Date(selected.endDate)
+          }
           rightIcon="calendar"
           _rightIcon={{ size: 20 }}
           onChange={(value) => {
@@ -99,32 +112,10 @@ const FilterTransactionReportModal = ({ modal: { closeModal, getParam } }) => {
         />
       </Flex>
 
-      <Select
-        options={typeOptions}
-        placeholder={t('report.type')}
-        value={selected.type}
-        onSelected={(val) => {
-          setSelected({ ...selected, type: val })
-        }}
-        label={t('report.type')}
-        isRequired
-        sx={{ mb: 12 }}
+      <FilterButtonSelection
+        resetFilter={resetFilter}
+        handleConfirm={handleConfirm}
       />
-
-      <Button
-        elevation={1}
-        leftIcon={{
-          name: 'search',
-        }}
-        titleProps={{
-          sx: {
-            fontWeight: 'bold',
-          },
-        }}
-        onPress={handleConfirm}
-      >
-        {t('common.search')}
-      </Button>
     </ModalWrapper>
   )
 }

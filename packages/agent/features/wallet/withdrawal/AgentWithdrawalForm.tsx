@@ -161,7 +161,7 @@ const AgentWithdrawalForm = ({
   const handleChangeAmount = (value: string, field: string) => {
     const amount = value.replace(/,/g, '')
     const formattedAmount = toThousandSeparator(amount)
-    formik.setFieldValue(field, formattedAmount)
+    formik.setFieldValue(field, formattedAmount.toString())
   }
 
   const computeNettPayout = async (amt: number) => {
@@ -294,13 +294,6 @@ const AgentWithdrawalForm = ({
             }}
           />
         }
-        // rightInnerElement={
-        //   <Text sx={{ color: 'red' }}>
-        //     {!values.amount
-        //       ? '=0K'
-        //       : `=${toThousandSeparator(values.amount ?? '')}K`}
-        //   </Text>
-        // }
         error={
           errors.amount
             ? t(errors.amount, {
