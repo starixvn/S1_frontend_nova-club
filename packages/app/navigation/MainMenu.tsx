@@ -1,14 +1,12 @@
-import { AGENT_URL } from '@env'
 import Icon from 'app/components/Icon'
-import { LoginType } from 'app/features/auth/login'
+import { LoginType } from 'app/features/auth/type'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import useLocalization from 'app/provider/localization'
-import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
+import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Image, styled, Sx, useDripsyTheme, View } from 'dripsy'
 import { useMemo } from 'react'
 import {
-  Linking,
   Platform,
   Text,
   TouchableOpacity,

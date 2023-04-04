@@ -1,6 +1,6 @@
 import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import { createParam } from 'solito'
 import AuthLayout from '../layout/AuthLayout'
 import { LoginType } from '../type'
