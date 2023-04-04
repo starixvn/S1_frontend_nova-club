@@ -30,7 +30,7 @@ const AgentMainTabNavigation = () => {
         <Tab.Screen name="Wallet" component={WalletNavigation} />
         <Tab.Screen name="List" component={ListNavigation} />
         <Tab.Screen name="Report" component={ReportNavigation} />
-        <Tab.Screen name="Member" component={MemberListingPage} />
+        <Tab.Screen name="MemberList" component={MemberListingPage} />
         <Tab.Screen name="Barcode" component={AgentBarcodePage} />
       </Tab.Navigator>
     </>

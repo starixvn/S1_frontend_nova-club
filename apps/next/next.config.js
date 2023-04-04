@@ -36,6 +36,30 @@ const nextConfig = {
   //   config.optimization.minimize = false
   //   return config
   // },
+  async redirects() {
+    return [
+      {
+        source: '/agent/add',
+        destination: '/agent/add/shareholder',
+        permanent: true,
+      },
+      {
+        source: '/agent/wallet',
+        destination: '/agent/wallet/withdrawal',
+        permanent: true,
+      },
+      {
+        source: '/agent/list',
+        destination: '/agent/list/shareholder',
+        permanent: true,
+      },
+      {
+        source: '/agent/report',
+        destination: '/agent/report/commission',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 const { withExpo } = require('@expo/next-adapter')

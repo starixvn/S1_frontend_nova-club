@@ -73,7 +73,7 @@ export function NavigationProvider({
                         path: '/agent',
                         screens: {
                           AgentProfile: '/profile',
-                          Member: '/member',
+                          MemberList: '/member',
                           Barcode: '/barcode',
                           Add: {
                             // Tab

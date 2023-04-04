@@ -4,7 +4,7 @@ import AddAgentPage from 'agent/features/agent/AddAgent'
 import AgentNestedTabs from 'agent/navigation/components/AgentNestedTabNavigator/AgentNestedTabs'
 import AddRoutes from 'agent/navigation/routes/AddRoutes'
 
-const AddShareholder = () => {
+const AddAgent = () => {
   return (
     <AgentLayout>
       <>
@@ -15,4 +15,4 @@ const AddShareholder = () => {
   )
 }
 
-export default AddShareholder
+export default AddAgent

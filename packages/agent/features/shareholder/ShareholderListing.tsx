@@ -134,7 +134,7 @@ const ShareholderListing = () => {
   }
 
   const onNavigate = (id) => {
-    push('/agent/list/shareholder/:id', { detailId: id })
+    push(`/agent/list/shareholder/${id}`)
   }
 
   const onFilter = () => {

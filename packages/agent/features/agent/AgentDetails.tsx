@@ -11,13 +11,13 @@ import { View } from 'dripsy'
 import React from 'react'
 import { createParam } from 'solito'
 
-const { useParam } = createParam<{ detailId: string }>()
+const { useParam } = createParam<{ id: string }>()
 const AgentDetailsScreen = () => {
   const { t } = useAgentLocalization()
-  const [detailId] = useParam('detailId', { initial: '' })
+  const [id] = useParam('id', { initial: '' })
 
   const { agentData, downlineTable, success } = useAgentDetailsQuery(
-    { id: detailId },
+    { id: id },
     {
       selectFromResult: ({ data }) => ({
         agentData: data?.result?.data,

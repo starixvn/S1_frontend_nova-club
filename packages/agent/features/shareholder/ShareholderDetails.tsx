@@ -11,14 +11,14 @@ import { createParam } from 'solito'
 import { ParseDownlineTable } from '../profile/ParseDownlineChart'
 import DetailsField from './components/DetailsField'
 
-const { useParam } = createParam<{ detailId: string }>()
+const { useParam } = createParam<{ id: string }>()
 const ShareholderDetailsScreen = () => {
   const { t } = useAgentLocalization()
-  const [detailId] = useParam('detailId', { initial: '' })
+  const [id] = useParam('id', { initial: '' })
 
   const { shareholderData, downlineTable, success } =
     useShareholderDetailsQuery(
-      { id: detailId },
+      { id: id },
       {
         selectFromResult: ({ data }) => ({
           shareholderData: data?.result?.data,

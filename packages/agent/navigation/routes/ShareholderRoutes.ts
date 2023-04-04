@@ -23,7 +23,8 @@ const _Routes: Readonly<AgentRoute[]> = [
     key: 'List',
   },
   {
-    route: '/agent/report',
+    route: '/agent/report/commission',
+    base: '/agent/report',
     title: 'report.title',
     icon: 'report',
     key: 'Report',
