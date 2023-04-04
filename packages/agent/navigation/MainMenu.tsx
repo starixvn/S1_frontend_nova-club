@@ -45,10 +45,10 @@ const MainMenuTest = ({
 
   const mainMenuList = [
     {
-      label: 'menu.commissionTable',
+      label: 'commission.title',
       icon: 'table',
       onPress: () => {
-        push('/agent/commission')
+        push('/agent/commission-table')
       },
     },
     {

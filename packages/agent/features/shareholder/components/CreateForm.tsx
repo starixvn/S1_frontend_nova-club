@@ -115,6 +115,7 @@ const CreateForm = <T,>({
         onChangeText={handleChange('username')}
         onBlur={handleBlur('username')}
         containerProps={{ sx: { mb: 12 } }}
+        autoComplete="new-password"
         error={
           touched.username && errors.username
             ? t(errors.username, {
@@ -133,6 +134,7 @@ const CreateForm = <T,>({
         maxLength={PASSWORD_MAX_LENGTH}
         secureTextEntry
         containerProps={{ sx: { mb: 12 } }}
+        autoComplete="new-password"
         error={
           touched.password && errors.password
             ? t(errors.password, {
@@ -150,6 +152,7 @@ const CreateForm = <T,>({
         maxLength={PASSWORD_MAX_LENGTH}
         secureTextEntry
         containerProps={{ sx: { mb: 12 } }}
+        autoComplete="new-password"
         error={
           touched.confirmPassword && errors.confirmPassword
             ? t(errors.confirmPassword, {
