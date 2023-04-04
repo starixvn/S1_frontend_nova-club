@@ -19,7 +19,7 @@ import {
 import validation from 'agent/utils/validation'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useAgentLocalization } from 'app/provider/localization'
-import { toCurrency, toThousandSeparator } from 'app/utils'
+import { toThousandSeparator } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import { ActivityIndicator, styled, useDripsyTheme, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
@@ -67,8 +67,6 @@ interface AgentWithdrawalFormProps {
   balance: number
 }
 
-const TO_THOUSAND = 1000
-
 const AgentWithdrawalForm = ({
   currency,
   bankListData,
@@ -103,7 +101,7 @@ const AgentWithdrawalForm = ({
         bank_card: bankCardId,
         account_number: accountNumber,
         account_name: accountName,
-        amount: (parseInt(amount) * TO_THOUSAND).toString(),
+        amount,
       })
         .unwrap()
         .catch((error): IResponse<WithdrawalSubmissionInfo> => {
@@ -124,7 +122,7 @@ const AgentWithdrawalForm = ({
       bankCard: '',
       accountNumber: '',
       accountName: '',
-      amount: '',
+      amount: '0',
     },
     validationSchema: Yup.object({
       bankCard: Yup.string().required('validation.required'),
@@ -153,25 +151,33 @@ const AgentWithdrawalForm = ({
         bankName: values.bankCard,
         accountName: values.accountName,
         accountNumber: values.accountNumber,
-        amount: currency + ' ' + toThousandSeparator(values.amount) + 'K',
+        amount: currency + ' ' + values.amount,
       },
       bankLogo: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${selectedBankIcon}`,
       fields: CONFIRMATION_FIELDS,
       onConfirm: () => onSubmit(values, formik),
     })
   }
+  const handleChangeAmount = (value: string, field: string) => {
+    const amount = value.replace(/,/g, '')
+    const formattedAmount = toThousandSeparator(amount)
+    formik.setFieldValue(field, formattedAmount)
+  }
+
   const computeNettPayout = async (amt: number) => {
+    if (amt < 1000) return null
     setIsNettPayoutLoading(true)
     const { result } = await newNettPayout({
       currency,
-      amount: amt * TO_THOUSAND,
+      amount: amt,
     })
       .unwrap()
       .catch((err): IResponse<NettPayout> => {
         showAlert(err)
         return err
       })
-    formik.setFieldValue('nettPayout', result?.data.value.toString())
+
+    handleChangeAmount(result?.data.value.toString() ?? '0', 'nettPayout')
     setIsNettPayoutLoading(false)
   }
 
@@ -265,11 +271,9 @@ const AgentWithdrawalForm = ({
         label={t('common.amount')}
         value={values.amount}
         placeholder={t('wallet.enterWithdrawalAmount')}
-        containerProps={{}}
         onChangeText={(e) => {
-          isNettPayoutLoading === false && setIsNettPayoutLoading(true)
-          debounceNettPayout(parseInt(e))
-          handleChange('amount')(e)
+          handleChangeAmount(e, 'amount')
+          debounceNettPayout(parseInt(e.replace(/,/g, '')))
         }}
         onBlur={handleBlur('amount')}
         keyboardType={'number-pad'}
@@ -280,26 +284,23 @@ const AgentWithdrawalForm = ({
         rightOuterElement={
           <IconButton
             name="cash"
-            color={balance <= 0 ? '$disabled' : 'black'}
+            color={balance <= 0 ? '$disabled' : '#4e4f50'}
             size={25}
             disabled={balance <= 0}
             sx={{ mr: '$4' }}
             onPress={() => {
-              formik.setValues({
-                ...values,
-                amount: (balance / TO_THOUSAND).toString(),
-              })
+              handleChangeAmount(balance.toString(), 'amount')
               debounceNettPayout(balance)
             }}
           />
         }
-        rightInnerElement={
-          <Text sx={{ color: 'red' }}>
-            {!values.amount
-              ? '=0K'
-              : `=${toThousandSeparator(values.amount ?? '')}K`}
-          </Text>
-        }
+        // rightInnerElement={
+        //   <Text sx={{ color: 'red' }}>
+        //     {!values.amount
+        //       ? '=0K'
+        //       : `=${toThousandSeparator(values.amount ?? '')}K`}
+        //   </Text>
+        // }
         error={
           errors.amount
             ? t(errors.amount, {
@@ -317,13 +318,7 @@ const AgentWithdrawalForm = ({
       <Input
         editable={false}
         label={t('wallet.nettPayout')}
-        value={
-          values.nettPayout
-            ? toCurrency(values.nettPayout, Currency.VND, {
-                skipThousandTruncate: true,
-              })
-            : ''
-        }
+        value={values.nettPayout ? values.nettPayout : '0'}
         onChangeText={handleChange('nettPayout')}
         onBlur={handleBlur('nettPayout')}
         keyboardType={'numeric'}

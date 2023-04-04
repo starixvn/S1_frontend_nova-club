@@ -8,6 +8,7 @@ const ALPHANUMERIC_REGEX = RegExp(/^[0-9A-Za-z]*$/g)
 const PASSWORD_REGEX = RegExp(/^([a-zA-Z0-9!@#$%^&*]+)$/g)
 const NUMERIC_REGEX = RegExp(/^[0-9]*$/)
 const AMOUNT_REGEX = RegExp(/^(?!0$).*/)
+const NUMERIC_SEPERATOR_REGEX = RegExp(/^[0-9,]*$/)
 
 const validation = {
   username: Yup.string()
@@ -53,15 +54,15 @@ const validation = {
 
   amount: Yup.string()
     .required('validation.required')
-    .matches(AMOUNT_REGEX, 'validation.amount0'),
+    .matches(NUMERIC_SEPERATOR_REGEX, 'validation.amountNumber'),
 
   amount500k: Yup.string()
     .required('validation.required')
-    .matches(/^\d+$/, 'validation.amountNumber')
+    .matches(NUMERIC_SEPERATOR_REGEX, 'validation.amountNumber')
     .test({
       name: 'greaterThan500',
       test: (value) => {
-        return Number(value) > 500
+        return Number(parseInt(value?.replace(/,/g, '') ?? '0')) > 500000
       },
       message: 'validation.amount500k',
     }),

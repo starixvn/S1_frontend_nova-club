@@ -15,7 +15,6 @@ import {
 import { ROLE } from 'agent/utils/helper'
 import validation from 'agent/utils/validation'
 import { useAgentLocalization } from 'app/provider/localization'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 
 import { toThousandSeparator } from 'app/utils'
 import { Currency } from 'app/utils/constant'
@@ -69,7 +68,6 @@ const AgentTransferForm = ({
   const { t } = useAgentLocalization()
   const { showAlert } = useAgentAlert()
   const { openModal } = useModal()
-  const { push, replace } = useContextualRouter()
 
   const [agentNewTransfer] = useAgentNewTransferMutation()
   const [shareholderNewTransfer] = useShareholderNewTransferMutation()
@@ -85,22 +83,19 @@ const AgentTransferForm = ({
     ? agentReferralToUserDetail
     : shareholderReferralToUserDetail
 
-  const currentBalance = (balance ?? 0) / TO_THOUSAND
-
   const onSubmit = async (
-    { playerId, username }: BankInfoValues,
-    amount,
+    { playerId, username, amount }: BankInfoValues,
     action: FormikHelpers<BankInfoValues>
   ) => {
+    console.log('Amount', amount)
     setIsLoading(true)
-    action.setSubmitting(true)
     try {
       //use transfer function
       if (values.username && values.amount) {
         const { success, message, result } = await newTransfer({
           memberCode: values.username,
           currency: Currency.VND,
-          balance_transfer: (parseInt(values.amount) * TO_THOUSAND).toString(),
+          balance_transfer: amount?.replace(/,/g, '') ?? '0',
           remark: `${values.username} - ${values.amount}`,
         }).unwrap()
 
@@ -115,9 +110,8 @@ const AgentTransferForm = ({
       }
     } catch (e) {
       console.log(e)
+      setIsLoading(false)
     } finally {
-      action.resetForm()
-      action.setSubmitting(false)
       setIsLoading(false)
     }
   }
@@ -127,7 +121,7 @@ const AgentTransferForm = ({
       //IAJF465573
       playerId: 'IAJF465573',
       username: '',
-      amount: '',
+      amount: '0',
     },
     validationSchema: Yup.object({
       playerId: validation.stringRequired,
@@ -153,7 +147,6 @@ const AgentTransferForm = ({
       } else {
         setFieldValue('username', '')
         setIsUserName(false)
-        console.log(result?.data.message)
       }
     } catch (e) {
       console.log(e)
@@ -161,18 +154,6 @@ const AgentTransferForm = ({
       setIsUserNameLoading(false)
     }
   }
-
-  // function transferConfirmation() {
-  //   openModal('AgentCommonConfirmationModal', {
-  //     info: {
-  //       playerId: values.playerId,
-  //       username: values.username,
-  //       amount: currency + ' ' + toThousandSeparator(values.amount ?? '') + 'K',
-  //     },
-  //     fields: CONFIRMATION_FIELDS,
-  //     onConfirm: () => onSubmit(values, ROLE.SHAREHOLDER, formik),
-  //   })
-  // }
   function transferPinConfirmation() {
     openModal('AgentPinModal', {
       isAgent,
@@ -192,6 +173,13 @@ const AgentTransferForm = ({
     dirty,
     submitForm,
   } = formik
+
+  const handleChangeAmount = (value: string, field: string) => {
+    const amount = value.replace(/,/g, '')
+    const formattedAmount = toThousandSeparator(amount)
+    formik.setFieldValue(field, formattedAmount)
+  }
+
   const debounceGetUserByReferralCode = useCallback(
     debounce(getUserDetailByReferralCode, 1000),
     []
@@ -247,7 +235,9 @@ const AgentTransferForm = ({
         label={t('common.amount')}
         placeholder={t('wallet.enterWithdrawalAmount')}
         containerProps={{ sx: { mb: '$8' } }}
-        onChangeText={handleChange('amount')}
+        onChangeText={(e) => {
+          handleChangeAmount(e.replace(/,/g, ''), 'amount')
+        }}
         onBlur={() => {
           handleBlur('amount')
         }}
@@ -260,27 +250,24 @@ const AgentTransferForm = ({
         rightOuterElement={
           <IconButton
             name="cash"
-            color={currentBalance <= 0 ? '$disabled' : 'black'}
+            color={balance <= 0 ? '$disabled' : '#4e4f50'}
             size={25}
+            disabled={balance <= 0}
             sx={{ mr: '$4' }}
-            disabled={currentBalance <= 0}
             onPress={() => {
-              formik.setValues({
-                ...values,
-                amount: currentBalance.toString(),
-              })
+              handleChangeAmount(balance.toString(), 'amount')
             }}
           />
         }
-        rightInnerElement={
-          <Text sx={{ color: 'red' }}>
-            {!values.amount
-              ? '=0K'
-              : `=${toThousandSeparator(values.amount ?? '')}K`}
-          </Text>
-        }
+        // rightInnerElement={
+        //   <Text sx={{ color: 'red' }}>
+        //     {!values.amount
+        //       ? '=0K'
+        //       : `=${toThousandSeparator(values.amount ?? '')}K`}
+        //   </Text>
+        // }
         error={
-          touched.amount && errors.amount
+          errors.amount
             ? t(errors.amount, {
                 field: 'Amount',
               })
