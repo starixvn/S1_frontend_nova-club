@@ -73,6 +73,8 @@ const RegisterPage = () => {
   const trackingCode = referral?.trackingCode
 
   const handleOnSuccessRegister = (data?: RegisterResult) => {
+    dispatch(AuthActions.setAuthInfo(data as LoginResult))
+
     if (Platform.OS === 'web') {
       replace('/')
     } else clear()
@@ -119,7 +121,6 @@ const RegisterPage = () => {
         dispatch(
           TempSettingActions.setSyncShieldActionType(Shield_Action.REGISTER)
         )
-        dispatch(AuthActions.setAuthInfo(data as LoginResult))
 
         normalLogin(username, password, () => handleOnSuccessRegister(data))
         /* to indicate the register is successfull and used to persist loading on submit button */

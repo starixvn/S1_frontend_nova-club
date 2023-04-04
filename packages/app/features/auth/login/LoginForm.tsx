@@ -97,9 +97,6 @@ const LoginForm = () => {
 
   const handleProceedLogin = (data, actions) => {
     dispatch(AuthActions.setAuthInfo(data))
-    /* clear off lucky draw */
-    // dispatch(SettingActions.setLuckyDrawBalance(0))
-    // await updateLanguage(data.playerName)
 
     actions.resetForm()
     if (errorMsg) setErrorMsg('')
