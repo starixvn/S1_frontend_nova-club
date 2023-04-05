@@ -92,7 +92,7 @@ const AgentWithdrawalForm = ({
       amount,
       nettPayout,
     }: AgentWithdrawalInfoValue,
-    { setStatus }: FormikHelpers<AgentWithdrawalInfoValue>
+    { resetForm }: FormikHelpers<AgentWithdrawalInfoValue>
   ) => {
     try {
       setIsLoading(true)
@@ -101,15 +101,17 @@ const AgentWithdrawalForm = ({
         bank_card: bankCardId,
         account_number: accountNumber,
         account_name: accountName,
-        amount,
+        amount: amount.replace(/,/g, ''),
       })
         .unwrap()
-        .catch((error): IResponse<WithdrawalSubmissionInfo> => {
+        .catch((error: IResponse<WithdrawalSubmissionInfo>) => {
           showAlert(error)
           return error
         })
       if (success) {
         showAlert(message)
+        formik.setFieldValue('amount', '0')
+        formik.setFieldValue('nettPayout', '0')
       }
       setIsLoading(false)
     } catch (err) {
@@ -153,6 +155,7 @@ const AgentWithdrawalForm = ({
         accountNumber: values.accountNumber,
         amount: currency + ' ' + values.amount,
       },
+      title: 'wallet.withdrawalConfirmation',
       bankLogo: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${selectedBankIcon}`,
       fields: CONFIRMATION_FIELDS,
       onConfirm: () => onSubmit(values, formik),
@@ -216,6 +219,8 @@ const AgentWithdrawalForm = ({
         accountName: bankListData.result.data[0]?.acc_name ?? 'N/A',
         accountNumber: bankListData.result.data[0]?.acc_no ?? 'N/A',
       })
+      setSelectedBankIcon(bankListData.result.data[0].bank_icon ?? '')
+      setBankCardId(bankListData.result.data[0].bank_card_id ?? '')
     }
   }, [bankListData])
   return (

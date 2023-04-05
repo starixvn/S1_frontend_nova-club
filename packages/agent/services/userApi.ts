@@ -47,10 +47,9 @@ export const userApi = agentBaseApiWithTag.injectEndpoints({
           const { data } = await queryFulfilled
           const updateBalance = dispatch(
             userApi.util.updateQueryData('userInfo', _, (draft) => {
-              if (draft?.result?.data?.wallet) {
+              if (draft?.wallet) {
                 // Update the balance of the user's wallet
-                draft.result.data.wallet.balance =
-                  data.result?.data.balance.VND ?? 0
+                draft.wallet.balance = data.result?.data.balance.VND ?? 0
               }
               return draft
             })
@@ -58,6 +57,7 @@ export const userApi = agentBaseApiWithTag.injectEndpoints({
           console.log(updateBalance)
         } catch {}
       },
+      providesTags: ['WalletAmount'],
     }),
     userProfile: builder.query<IResponse<UserProfile>, string>({
       query: (args) => ({
