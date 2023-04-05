@@ -1,7 +1,9 @@
 import RefreshButton from 'agent/components/Icon/RefreshButton'
 import Text from 'agent/components/Text'
-import { SxProp, useDripsyTheme, View } from 'dripsy'
-import React from 'react'
+import { styled, SxProp, useDripsyTheme, View } from 'dripsy'
+import React, { ComponentProps } from 'react'
+
+const StyleText = styled(Text)({ color: 'white' })
 
 type DataTableRefreshProps = {
   title: string
@@ -9,9 +11,11 @@ type DataTableRefreshProps = {
   isLoading?: boolean
   onRefresh?: () => void
   containerStyle?: SxProp
+  titleProps?: ComponentProps<typeof StyleText>
 }
 const DataTableRefresh = ({
   title,
+  titleProps,
   center = false,
   isLoading,
   onRefresh,
@@ -32,7 +36,7 @@ const DataTableRefresh = ({
         ...containerStyle,
       }}
     >
-      <Text sx={{ color: 'white' }}>{title}</Text>
+      <StyleText {...titleProps}>{title}</StyleText>
       {onRefresh ? (
         <View sx={{ position: 'absolute', right: 12 }}>
           <RefreshButton loading={isLoading} onPress={onRefresh} />

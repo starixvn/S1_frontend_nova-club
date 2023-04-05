@@ -167,28 +167,21 @@ const AgentTransferHistory = ({
   return (
     <>
       <View sx={{ py: '$5' }}>
-        <DataTable>
-          <>
-            {onRenderHeader && onRenderHeader()}
-            <View sx={{ flex: 1 }}>
-              <FlashList
-                data={data}
-                // ListHeaderComponent={renderHeader}
-                keyExtractor={(item, index) =>
-                  `${index} Table ${item.create_date}`
-                }
-                renderItem={onRenderItem}
-                estimatedItemSize={10}
-                // onRefresh={onRefresh}
-                refreshing={isFetching ?? false}
-                // ListEmptyComponent={onListEmpty}
-                onEndReached={onLoadMore}
-                onEndReachedThreshold={0.3}
-                extraData={isFetching}
-              />
-            </View>
-          </>
-        </DataTable>
+        <TableListing
+          title={t('wallet.recentTransaction')}
+          data={data}
+          renderItem={onRenderItem}
+          keyExtractor={(item, index) => `${index} Table ${item.create_date}`}
+          onLoadMore={onLoadMore}
+          // onRefresh={onRefresh}
+          isFetching={isFetching}
+          containerStyle={{ flex: 1 }}
+          refreshProps={{
+            titleProps: {
+              sx: { fontWeight: 'bold', fontSize: 14 },
+            },
+          }}
+        />
       </View>
     </>
   )

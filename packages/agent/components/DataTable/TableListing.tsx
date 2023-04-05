@@ -1,7 +1,7 @@
 import { FlashList, ListRenderItem } from '@shopify/flash-list'
 import EmptyResult from 'agent/components/DataTable/EmptyResult'
 import { ActivityIndicator, SxProp, View } from 'dripsy'
-import React, { useRef } from 'react'
+import React, { ComponentProps, useRef } from 'react'
 import { Platform } from 'react-native'
 import DataTable from './DataTable'
 import DataTableRefresh from './DataTableRefresh'
@@ -31,12 +31,13 @@ interface TableListingProps<T> {
   data: T
   onRefresh: () => void
   keyExtractor?: (item: T, index: number) => string
-  renderHeader: () => JSX.Element
+  renderHeader?: () => JSX.Element
   renderItem: ListRenderItem<T>
   onLoadMore: () => void
   isFetching: boolean
   innerRef?: React.RefObject<any>
   containerStyle: SxProp
+  refreshProps?: Partial<ComponentProps<typeof DataTableRefresh>>
 }
 
 const TableListing = <T, FetchParamsType>({
@@ -50,6 +51,7 @@ const TableListing = <T, FetchParamsType>({
   onLoadMore,
   isFetching,
   containerStyle,
+  refreshProps,
 }: TableListingProps<T>) => {
   const tableRef = useRef()
 
@@ -88,9 +90,10 @@ const TableListing = <T, FetchParamsType>({
             isLoading={isFetching}
             onRefresh={!!onRefresh && handleRefresh}
             center={titleCenter}
+            {...refreshProps}
           />
           {renderHeader && renderHeader()}
-          <View sx={{ flex: 1 }}>
+          <View sx={{ height: 500 }}>
             <FlashList
               ref={tableRef}
               data={data}
