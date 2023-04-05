@@ -186,10 +186,11 @@ const AddBankInfoForm = () => {
             error={
               touched.accountNumber && errors.accountNumber
                 ? t(errors.accountNumber, {
-                    field: 'accountNumber',
+                    field: t('common.accountNumber'),
                   })
                 : undefined
             }
+            isRequired
             onChangeText={handleChange('accountNumber')}
             onBlur={handleBlur('accountNumber')}
             keyboardType={'numeric'}
@@ -251,7 +252,7 @@ const AddBankInfoForm = () => {
             error={
               touched.mobileNumber && errors.mobileNumber
                 ? t(errors.mobileNumber, {
-                    field: 'mobileNumber',
+                    field: t('common.mobileNumber'),
                   })
                 : undefined
             }
