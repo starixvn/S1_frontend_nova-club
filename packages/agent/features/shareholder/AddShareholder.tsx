@@ -1,4 +1,7 @@
-import { useAddNewShareholderMutation } from 'agent/services/shareholderApi'
+import {
+  useAddNewShareholderMutation,
+  useShareholderGetEarnPtQuery,
+} from 'agent/services/shareholderApi'
 import validation from 'agent/utils/validation'
 import { ScrollView, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
@@ -18,7 +21,19 @@ const AddShareholder = () => {
   const { openModal } = useModal()
 
   const [postAddNewShareholder, { isLoading }] = useAddNewShareholderMutation()
+  const { ptList } = useShareholderGetEarnPtQuery(
+    { id: 0 },
+    {
+      selectFromResult: ({ data }) => ({
+        ptList: data?.result?.data.earnPercList.VND ?? {},
+      }),
+    }
+  )
 
+  console.log(
+    '🚀 ~ file: AddShareholder.tsx:22 ~ AddShareholder ~ ptList:',
+    ptList
+  )
   const onSubmit = async (
     { earning, username, password, confirmPassword }: NewShareholderFormValues,
     { resetForm }: FormikHelpers<NewShareholderFormValues>

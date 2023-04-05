@@ -1,4 +1,8 @@
-import { DateFilterOptions, getDateRange } from 'agent/constant/select'
+import {
+  DateFilterOptions,
+  getDateRange,
+  TypeFilterOptions,
+} from 'agent/constant/select'
 import { TransactionFilterOptions } from 'agent/features/report/Transaction'
 import { useAgentLocalization } from 'app/provider/localization'
 import dayjs from 'dayjs'
@@ -19,9 +23,14 @@ const FilterTransactionReportModal = ({ modal: { closeModal, getParam } }) => {
     date,
     startDate,
     endDate,
+    type,
   })
 
   const dateOptions = DateFilterOptions.map((item) => {
+    return { ...item, label: t(item.label) }
+  })
+
+  const typeOptions = TypeFilterOptions.map((item) => {
     return { ...item, label: t(item.label) }
   })
 
@@ -107,6 +116,18 @@ const FilterTransactionReportModal = ({ modal: { closeModal, getParam } }) => {
           sx={{ width: '48%' }}
         />
       </Flex>
+
+      <Select
+        options={typeOptions}
+        placeholder={t('report.type')}
+        value={selected.type}
+        onSelected={(val: string) => {
+          setSelected({ ...selected, type: val })
+        }}
+        label={t('report.type')}
+        isRequired
+        sx={{ mb: 12 }}
+      />
 
       <FilterButtonSelection
         resetFilter={resetFilter}

@@ -38,7 +38,7 @@ const ShareholderListing = () => {
   const { push } = useContextualRouter()
   const { openModal } = useModal()
 
-  const { shareholderData, totalData, hasMorePage, isFetching, refetch } =
+  const { shareholderData, totalData, isFetching, refetch } =
     useShareholderListQuery(
       {
         start: offset * LIMIT,
@@ -56,13 +56,20 @@ const ShareholderListing = () => {
           isFetching,
           shareholderData: isSuccess ? data?.result?.data : [],
           totalData: data?.result?.recordsTotal ?? 0,
-          hasMorePage: data?.result?.recordsTotal ?? 0 >= offset * LIMIT,
+          hasMorePage: Boolean(
+            data?.result?.recordsTotal ?? 0 >= (offset + 1) * LIMIT
+          ),
         }),
       }
     )
+  const hasMorePage = totalData >= (offset + 1) * LIMIT
 
   const firstCellStyle = { flex: 1 / 3 }
   const thirdCellStyle = { flex: 1 / 2 }
+
+  const handleEdit = (id, pt) => {
+    openModal('EditPTModal', { id, pt })
+  }
 
   const onRenderHeader = () => (
     <DataTable.Header>
@@ -110,6 +117,7 @@ const ShareholderListing = () => {
           size={16}
           color="$primaryAgent"
           sx={{ ml: 8 }}
+          onPress={() => handleEdit(item.id, item.earning_perc)}
         />
       </DataTable.Cell>
       <DataTable.Cell bordered center>

@@ -160,3 +160,19 @@ export interface ShareholderRecentTransactionListResult {
   amount: string
   created_date: string
 }
+
+export type ShareholderGetEarnPtArgs = {
+  id: string
+}
+export type ShareholderGetEarnPtResult = {
+  earnPercList: object
+}
+
+export type ShareholderUpdatePtArgs = {
+  id: string
+  currency: {
+    [Currency.VND]: {
+      EARNP: string
+    }
+  }
+}
