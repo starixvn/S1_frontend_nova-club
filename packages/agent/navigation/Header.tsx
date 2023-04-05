@@ -150,7 +150,7 @@ const Header = () => {
                   <Text
                     sx={{ fontWeight: 'bold', fontSize: 10, color: 'white' }}
                   >
-                    {data?.name}
+                    {data?.username}
                   </Text>
                   <View
                     sx={{
