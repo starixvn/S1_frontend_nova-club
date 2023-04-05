@@ -303,4 +303,6 @@ const Select = <T,>(
 
 Select.displayName = 'AgentSelect'
 
-export default forwardRef(Select)
+export default forwardRef(Select) as <T>(
+  props: SelectProps<T> & { ref?: React.ForwardedRef<CloseSelectForwardRef> }
+) => ReturnType<typeof Select>
