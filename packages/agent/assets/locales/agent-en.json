@@ -56,6 +56,7 @@
     "password": "Password",
     "passwordNote": "1. Password length must be 6-15 characters. \n2. Password can not be the same to old pass",
     "referenceId": "Reference ID",
+    "reset": "Reset",
     "search": "Search",
     "selectAll": "Select All",
     "selectBank": "Select Bank",
@@ -141,16 +142,20 @@
     "add": "Add/Create",
     "agentDetails": "Agent Details",
     "filter": "Filter",
+    "newNote1": "Hi, \nThis is your account information",
+    "newNote2": "Visit the page",
+    "newNote3": "Please change your password upon next login Have a great day!",
+    "newRegis": "New Registration Info",
     "regDate": "Register Date",
     "shareholderDetails": "Shareholder Details",
     "title": "Shareholder/Agent",
     "totalMember": "Total Member"
   },
   "transfer": {
+    "errorId": "waiting to translate",
     "playerId": "Player ID",
     "playerName": "Player Name",
-    "transferConfirmation": "Transfer Confirmation",
-    "errorId": "waiting to translate"
+    "transferConfirmation": "Transfer Confirmation"
   },
   "validation": {
     "alphanumeric": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only",

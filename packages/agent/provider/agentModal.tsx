@@ -36,6 +36,10 @@ export interface ModalStackParams {
     withdrawalInfo: Record<any, any>
     bankLogo?: string
   }
+  EditPTModal: {
+    id: string
+    pt: string
+  }
   AgentPinModal: {
     isAgent: boolean
     onConfirm(...args: any): any
@@ -74,6 +78,7 @@ const _dynamicModal = {
   AgentCommonConfirmationModal: () =>
     import('../components/Modal/AgentCommonConfirmationModal'),
   AgentLoadingModal: () => import('../components/Modal/AgentLoadingModal'),
+  EditPTModal: () => import('../components/Modal/EditPTModal'),
 }
 
 function getDynamicComponent(key: string) {
@@ -118,6 +123,9 @@ export const agentModalConfig: ModalConfigType = {
   },
   AgentLoadingModal: {
     modal: getDynamicComponent('AgentLoadingModal'),
+  },
+  EditPTModal: {
+    modal: getDynamicComponent('EditPTModal'),
   },
 }
 

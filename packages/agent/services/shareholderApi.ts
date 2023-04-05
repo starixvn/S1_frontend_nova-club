@@ -1,5 +1,6 @@
+import { store } from 'app/provider/redux/store'
 import { EndpointBuilderType } from 'services/common/types'
-import { AgentNewTransferResult, AgentNewTransferArgs } from './agentApi.type'
+import { AgentNewTransferArgs, AgentNewTransferResult } from './agentApi.type'
 import { agentBaseApiWithTag } from './agentBaseApi'
 import { IResponse } from './common/agentAxiosBaseQuery'
 import {
@@ -12,14 +13,15 @@ import {
   ShareholderCreatePinResult,
   ShareholderDetailsArgs,
   ShareholderDetailsResult,
+  ShareholderGetEarnPtArgs,
+  ShareholderGetEarnPtResult,
   ShareholderListArgs,
   ShareholderListResult,
   ShareholderProfile,
   ShareholderRecentTransactionListArgs,
   ShareholderRecentTransactionListResult,
   ShareholderResetPinArgs,
-  ShareholderTransferListArgs,
-  ShareholderTransferListItemResult,
+  ShareholderUpdatePtArgs,
   ShareholderVerifyTransferPinArgs,
   ShareholderVerifyTransferPinResult,
 } from './shareholderApi.type'
@@ -177,6 +179,79 @@ export const shareholderApi = agentBaseApiWithTag.injectEndpoints({
       },
       providesTags: ['ShareholderTransferHistory'],
     }),
+    shareholderGetEarnPt: builder.query<
+      IResponse<ShareholderGetEarnPtResult>,
+      ShareholderGetEarnPtArgs
+    >({
+      query: (queryArgs) => ({
+        url: `/sh/earnPercEdit`,
+        data: {
+          ...queryArgs,
+        },
+      }),
+    }),
+    shareholderUpdatePt: builder.mutation<
+      IResponse<void>,
+      ShareholderUpdatePtArgs
+    >({
+      query: (queryArgs) => ({
+        url: `/sh/updatePt`,
+        data: {
+          ...queryArgs,
+        },
+      }),
+      // async onQueryStarted({ id, ...patch }, { dispatch, queryFulfilled }) {
+      //   try {
+      //     const { data: updatedPost } = await queryFulfilled
+      //     console.log(
+      //       '🚀 ~ file: shareholderApi.ts:204 ~ onQueryStarted ~ updatedPost:',
+      //       updatedPost
+      //     )
+      //     if (updatedPost.success) {
+      //       const ca = shareholderApi.endpoints.shareholderList.select()(
+      //         store.getState()
+      //       )
+      //       console.log(
+      //         '🚀 ~ file: shareholderApi.ts:203 ~ onQueryStarted ~ ca:',
+      //         ca
+      //       )
+      //       const patchResult = dispatch(
+      //         shareholderApi.util.updateQueryData(
+      //           'shareholderList',
+      //           undefined,
+      //           (draft) => {
+      //             console.log(
+      //               '🚀 ~ file: shareholderApi.ts:207 ~ shareholderApi.util.updateQueryData ~ draft:',
+      //               draft
+      //             )
+      //             const update = {
+      //               id: 203,
+      //               username: 'Agent015',
+      //               earning_perc: '90',
+      //               created_at: '2023-04-05T02:51:10Z',
+      //               active: '1',
+      //             }
+      //             Object.assign(draft, update)
+      //           }
+      //         )
+      //       )
+      //       console.log(
+      //         '🚀 ~ file: shareholderApi.ts:227 ~ onQueryStarted ~ patchResult:',
+      //         patchResult
+      //       )
+
+      //       dispatch(
+      //         shareholderApi.util.patchQueryData(
+      //           'shareholderList',
+      //           undefined,
+      //           patchResult.patches
+      //         )
+      //       )
+      //     }
+      //   } catch {}
+      // },
+      // invalidatesTags: ['ShareholderList'],
+    }),
   }),
 })
 
@@ -193,4 +268,6 @@ export const {
   useShareholderCreatePinMutation,
   useShareholderVerifyTransferPinMutation,
   useShareholderRecentTransactionListQuery,
+  useShareholderGetEarnPtQuery,
+  useShareholderUpdatePtMutation,
 } = shareholderApi

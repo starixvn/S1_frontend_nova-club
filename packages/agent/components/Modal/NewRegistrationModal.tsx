@@ -26,11 +26,14 @@ const NewRegistrationModal = ({
   }
 
   return (
-    <ModalWrapper title="New Registration Info" onClose={closeModal}>
-      <StyledText>{`Hi, \nThis is your account information`}</StyledText>
-      <Text>{`Username: ${username}`}</Text>
-      <StyledText>{`Password: ${password}`}</StyledText>
-      <Text>{`Visit the page >>> ${SBO_LINK} \nPlease change your password upon next login Have a great day!`}</Text>
+    <ModalWrapper title={t('shAgent.newRegis')} onClose={closeModal}>
+      <StyledText>{t('shAgent.newNote1')}</StyledText>
+      <StyledText sx={{ mb: 0 }}>{`${t(
+        'common.username'
+      )}: ${username}`}</StyledText>
+      <StyledText>{`${t('common.password')}: ${password}`}</StyledText>
+      <StyledText>{`${t('shAgent.newNote2')} >>> ${SBO_LINK}`}</StyledText>
+      <StyledText>{t('shAgent.newNote3')}</StyledText>
       <Button onPress={handleCopy} sx={{ mt: 24 }}>
         {t('common.copy')}
       </Button>
@@ -40,6 +43,7 @@ const NewRegistrationModal = ({
 
 const StyledText = styled(Text)({
   mb: 12,
+  color: 'black',
 })
 
 export default NewRegistrationModal
