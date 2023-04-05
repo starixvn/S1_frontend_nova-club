@@ -19,13 +19,7 @@ export interface ShareholderListResult {
 
 export interface NewEarnPercentage {
   earnPercList: {
-    VND: {
-      55: number
-      60: number
-      65: number
-      70: number
-      75: number
-    }
+    VND: NewEarnPercentagePercList
   }
   earnPerc: {
     VND: number
@@ -37,6 +31,17 @@ export interface NewEarnPercentage {
   currency: {
     VND: string
   }
+}
+
+export interface NewEarnPercentagePercList {
+  [key: number]: number
+  55: number
+  60: number
+  65: number
+  70: number
+  75: number
+  80: number
+  85: number
 }
 
 export interface ShareholderProfile {

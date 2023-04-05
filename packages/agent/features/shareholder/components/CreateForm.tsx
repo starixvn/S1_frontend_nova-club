@@ -3,7 +3,7 @@ import Card from 'agent/components/Card'
 import CheckBox from 'agent/components/CheckBox'
 import Input from 'agent/components/Input'
 import Select from 'agent/components/Select/Select'
-import { EarningOptions } from 'agent/constant/select'
+import { NewEarnPercentagePercList } from 'agent/services/shareholderApi.type'
 import { PASSWORD_MAX_LENGTH } from 'agent/utils/validation'
 import { useAgentLocalization } from 'app/provider/localization'
 import { Flex } from 'dripsy'
@@ -19,12 +19,14 @@ type CreateFormProps<T> = {
   screen: ShareholderAgent
   isLoading: boolean
   formik: FormikProps<T>
+  earningPt?: NewEarnPercentagePercList
 }
 
 const CreateForm = <T,>({
   screen = ShareholderAgent.Shareholder,
   isLoading,
   formik,
+  earningPt,
 }: CreateFormProps<T>) => {
   const { t } = useAgentLocalization()
   const isCheck = true
@@ -44,6 +46,16 @@ const CreateForm = <T,>({
     submitForm,
   } = formik
 
+  const parseEarningList = () => {
+    if (earningPt) {
+      return Object.entries(earningPt).map(([key, value]) => ({
+        label: key,
+        value: value,
+      }))
+    }
+    return []
+  }
+
   return (
     <Card>
       <Flex
@@ -62,10 +74,10 @@ const CreateForm = <T,>({
             sx: { width: inputWidth, mb: 12 },
           }}
         />
-        {isShareholder && (
+        {isShareholder && earningPt && (
           <Select
             label={t('report.earning') + ' %'}
-            options={EarningOptions}
+            options={parseEarningList()}
             placeholder={t('report.earning')}
             value={values.earning}
             onSelected={(val) => {

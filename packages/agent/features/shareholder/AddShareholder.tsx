@@ -1,5 +1,6 @@
 import {
   useAddNewShareholderMutation,
+  useNewEarnPercentageQuery,
   useShareholderGetEarnPtQuery,
 } from 'agent/services/shareholderApi'
 import validation from 'agent/utils/validation'
@@ -21,6 +22,11 @@ const AddShareholder = () => {
   const { openModal } = useModal()
 
   const [postAddNewShareholder, { isLoading }] = useAddNewShareholderMutation()
+  const { earningPtList } = useNewEarnPercentageQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      earningPtList: data?.result?.data.earnPercList,
+    }),
+  })
   const { ptList } = useShareholderGetEarnPtQuery(
     { id: 0 },
     {
@@ -86,6 +92,7 @@ const AddShareholder = () => {
           screen={initialScreen}
           isLoading={isLoading}
           formik={formik}
+          earningPt={earningPtList?.VND}
         />
       </View>
     </ScrollView>
