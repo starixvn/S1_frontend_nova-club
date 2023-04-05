@@ -146,7 +146,7 @@ export interface AgentRecentTransactionListArgs {
 }
 export interface AgentRecentTransactionListResult {
   currency: string
-  reference_id: string
+  referrer_code: string
   amount: string
   created_date: string
 }

@@ -18,6 +18,23 @@ export const transferApi = agentBaseApiWithTag.injectEndpoints({
           date_from,
         },
       }),
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName
+      },
+      merge: (currentCache, newItems, { arg }) => {
+        if (arg.start > 0) {
+          newItems?.result?.data &&
+            currentCache.result?.data.push(...newItems.result.data)
+
+          return currentCache
+        }
+
+        return newItems
+      },
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg !== previousArg
+      },
+      providesTags: ['TransferHistory'],
     }),
   }),
 })

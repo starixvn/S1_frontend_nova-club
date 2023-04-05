@@ -156,7 +156,7 @@ export interface ShareholderRecentTransactionListArgs {
 }
 export interface ShareholderRecentTransactionListResult {
   currency: string
-  reference_id: string
+  referrer_code: string
   amount: string
   created_date: string
 }
