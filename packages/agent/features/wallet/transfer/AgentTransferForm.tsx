@@ -87,7 +87,6 @@ const AgentTransferForm = ({
     { playerId, username, amount }: BankInfoValues,
     action: FormikHelpers<BankInfoValues>
   ) => {
-    console.log('Amount', amount)
     setIsLoading(true)
     try {
       //use transfer function
@@ -104,6 +103,7 @@ const AgentTransferForm = ({
           showAlert(
             `${result.data.message} - ${result.data.data?.request_secure_id}`
           )
+          resetForm()
         } else {
           showAlert(`${result?.data.message}`)
         }
@@ -119,7 +119,7 @@ const AgentTransferForm = ({
   const formik = useFormik<BankInfoValues>({
     initialValues: {
       //IAJF465573
-      playerId: 'IAJF465573',
+      playerId: '',
       username: '',
       amount: '0',
     },
@@ -172,6 +172,7 @@ const AgentTransferForm = ({
     isValid,
     dirty,
     submitForm,
+    resetForm,
   } = formik
 
   const handleChangeAmount = (value: string, field: string) => {
@@ -195,7 +196,7 @@ const AgentTransferForm = ({
         error={
           touched.playerId && errors.playerId
             ? t(errors.playerId, {
-                field: 'Player Id',
+                field: t('transfer.playerID'),
               })
             : undefined
         }
@@ -217,7 +218,7 @@ const AgentTransferForm = ({
         error={
           touched.username && errors.username
             ? t(errors.username, {
-                field: 'Username',
+                field: t('common.username'),
               })
             : undefined
         }
@@ -260,9 +261,9 @@ const AgentTransferForm = ({
           />
         }
         error={
-          errors.amount
+          errors.amount && touched.amount
             ? t(errors.amount, {
-                field: 'Amount',
+                field: t('common.amount'),
               })
             : undefined
         }

@@ -1,5 +1,6 @@
 import Text from 'agent/components/Text'
-import { SxProp, View } from 'dripsy'
+import useContainerDimension from 'app/hooks/useContainerDimension'
+import { styled, SxProp, View } from 'dripsy'
 import React, { useEffect } from 'react'
 import { Platform, StyleSheet } from 'react-native'
 import {
@@ -31,11 +32,13 @@ const AgentUnderlinePinField = ({
   autoFocus,
   cellContainerSx,
 }: AgentUnderlinePinFieldProps) => {
+  const { width } = useContainerDimension()
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT })
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
   })
+  const cellSize = Math.min(40, width * 0.2)
 
   useEffect(() => {
     if (autoFocus) ref.current?.focus()
@@ -58,19 +61,16 @@ const AgentUnderlinePinField = ({
     }
 
     return (
-      <View
+      <Cell
         key={index}
-        style={[
-          styles.cell,
-          isFocused && styles.focusCell,
-          errorMsg && styles.error,
-        ]}
+        size={cellSize}
+        style={[isFocused && styles.focusCell, errorMsg && styles.error]}
         onLayout={getCellOnLayoutHandler(index)}
       >
         <Text style={[styles.text, errorMsg ? styles.error : {}]}>
           {textChild}
         </Text>
-      </View>
+      </Cell>
     )
   }
 
@@ -106,25 +106,27 @@ const AgentUnderlinePinField = ({
   )
 }
 
+const Cell = styled(View)(({ size }: { size: number }) => ({
+  marginHorizontal: 2,
+  height: size,
+  width: size,
+  aspectRatio: 1,
+  borderRadius: CELL_BORDER_RADIUS,
+  backgroundColor: 'rgba(255,255,255,0.9)',
+  borderColor: '#8E9A9E',
+  borderWidth: 1,
+  my: 2,
+}))
+
 const styles = StyleSheet.create({
   root: { flex: 1, padding: 20 },
   title: { textAlign: 'center', fontSize: 30 },
   codeFieldRoot: {
     height: CELL_SIZE,
-    // marginTop: 12,
-    justifyContent: 'space-between',
-  },
-  cell: {
-    marginHorizontal: 4,
-    height: CELL_SIZE,
-    width: CELL_SIZE,
-    aspectRatio: 1,
-    // borderTopLeftRadius: CELL_BORDER_RADIUS,
-    // borderTopRightRadius: CELL_BORDER_RADIUS,
-    borderRadius: CELL_BORDER_RADIUS,
-    backgroundColor: 'rgba(255,255,255,0.9)',
-    borderColor: '#8E9A9E',
-    borderWidth: 1,
+    marginTop: 10,
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    flexWrap: 'wrap',
   },
   text: {
     lineHeight: CELL_SIZE - 5,

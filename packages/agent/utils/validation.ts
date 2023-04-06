@@ -54,7 +54,14 @@ const validation = {
 
   amount: Yup.string()
     .required('validation.required')
-    .matches(NUMERIC_SEPERATOR_REGEX, 'validation.amountNumber'),
+    .matches(NUMERIC_SEPERATOR_REGEX, 'validation.amountNumber')
+    .test({
+      name: 'greaterThan0',
+      test: (value) => {
+        return Number(parseInt(value?.replace(/,/g, '') ?? '0')) > 0
+      },
+      message: 'validation.amount0',
+    }),
 
   amount500k: Yup.string()
     .required('validation.required')
@@ -62,7 +69,7 @@ const validation = {
     .test({
       name: 'greaterThan500',
       test: (value) => {
-        return Number(parseInt(value?.replace(/,/g, '') ?? '0')) > 500000
+        return Number(parseInt(value?.replace(/,/g, '') ?? '0')) >= 500000
       },
       message: 'validation.amount500k',
     }),

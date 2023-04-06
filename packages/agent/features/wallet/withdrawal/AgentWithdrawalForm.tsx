@@ -42,8 +42,8 @@ const CONFIRMATION_FIELDS = [
     value: 'accountNumber',
   },
   {
-    label: 'common.amount',
-    value: 'amount',
+    label: 'wallet.nettPayout',
+    value: 'nettPayout',
   },
 ]
 export interface AgentWithdrawalInfoValue {
@@ -153,7 +153,7 @@ const AgentWithdrawalForm = ({
         bankName: values.bankCard,
         accountName: values.accountName,
         accountNumber: values.accountNumber,
-        amount: currency + ' ' + values.amount,
+        nettPayout: currency + ' ' + values.nettPayout,
       },
       title: 'wallet.withdrawalConfirmation',
       bankLogo: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${selectedBankIcon}`,
