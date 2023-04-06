@@ -76,9 +76,9 @@ const CreateForm = <T,>({
         />
         {isShareholder && earningPt && (
           <Select
-            label={t('report.earning') + ' %'}
+            label={t('report.pt') + ' %'}
             options={parseEarningList()}
-            placeholder={t('report.earning')}
+            placeholder={t('report.pt')}
             value={values.earning}
             onSelected={(val) => {
               setFieldValue('earning', val)

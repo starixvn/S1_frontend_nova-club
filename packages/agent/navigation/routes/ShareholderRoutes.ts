@@ -4,7 +4,7 @@ const _Routes: Readonly<AgentRoute[]> = [
   {
     route: '/agent/add/shareholder',
     base: '/agent/add',
-    title: 'Add/Create',
+    title: 'shAgent.add',
     icon: 'add-agent',
     key: 'Add',
   },

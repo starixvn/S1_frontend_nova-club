@@ -1,6 +1,6 @@
 {
   "i18n-ally.localesPaths": [
-    "packages/app/assets/locales",
+    // "packages/app/assets/locales",
     "packages/agent/assets/locales"
   ],
   "editor.formatOnSave": true,

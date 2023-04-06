@@ -1,8 +1,8 @@
 import { FlashList, ListRenderItem } from '@shopify/flash-list'
 import EmptyResult from 'agent/components/DataTable/EmptyResult'
-import { ActivityIndicator, SxProp, View } from 'dripsy'
+import { ActivityIndicator, FlatList, SxProp, View } from 'dripsy'
 import React, { ComponentProps, useRef } from 'react'
-import { Platform } from 'react-native'
+import { FlatListProps, Platform } from 'react-native'
 import DataTable from './DataTable'
 import DataTableRefresh from './DataTableRefresh'
 
@@ -52,6 +52,7 @@ const TableListing = <T, FetchParamsType>({
   isFetching,
   containerStyle,
   refreshProps,
+  ...rest
 }: TableListingProps<T>) => {
   const tableRef = useRef()
 
@@ -93,7 +94,7 @@ const TableListing = <T, FetchParamsType>({
             {...refreshProps}
           />
           {renderHeader && renderHeader()}
-          <View sx={{ height: 500 }}>
+          <View sx={{ flex: 1 }}>
             <FlashList
               ref={tableRef}
               data={data}
@@ -107,6 +108,7 @@ const TableListing = <T, FetchParamsType>({
               onEndReached={onLoadMore}
               onEndReachedThreshold={0.3}
               extraData={isFetching}
+              {...rest}
             />
           </View>
         </>

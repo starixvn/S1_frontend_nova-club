@@ -130,6 +130,7 @@
     "commission": "Hoa hồng",
     "earning": "Doanh thu",
     "lastLogin": "Đăng nhập lần cuối lúc :",
+    "pt": "Lợi nhuận",
     "reportNote": "Lưu ý: vui lòng truy cập phiên bản máy tính để xem báo cáo đầy đủ",
     "title": "Báo cáo",
     "transaction": "Giao dịch",
@@ -139,7 +140,7 @@
     "type": "Loại"
   },
   "shAgent": {
-    "add": "Thêm/Tạo mới",
+    "add": "Thêm / Tạo mới",
     "agentDetails": "",
     "filter": "Lọc",
     "newNote1": "Xin chào, \nđây là thông tin tài khoản của bạn",
@@ -158,7 +159,8 @@
     "transferConfirmation": "Xác nhận Chuyển quỹ"
   },
   "validation": {
-    "alphanumeric": "6-18 ký tự chữ và số (A-Z, a-z, 0-9)",
+    "accountNo": "1-16 digits only",
+    "alphanumeric": "ký tự chữ và số (A-Z, a-z, 0-9)",
     "amount": "%{amount} ngoài hạn mức",
     "amount0": "Số tiền không được bằng 0",
     "amount500k": "Số tiền rút phải từ 500K VND",
@@ -177,18 +179,17 @@
     "needAccountNo": "Cần nhập số tài khoản",
     "numberOnly": "Chỉ nhập số",
     "otpLength": "OTP phải là số có 6 chữ số",
-    "password": "Mật khẩu phải dài 6-15 ký tự, chứa cả chữ và số và ký tự đặc biệt (!@#$%^&*).",
-    "passwordMinMaxLength": "Mật khẩu phải có 6-15 ký tự",
+    "password": "Mật khẩu phải dài 6 ký tự, chứa cả chữ và số và ký tự đặc biệt (!@#$%^&*).",
+    "passwordMinMaxLength": "Mật khẩu phải có 6 ký tự",
     "passwordNotMatch": "Xác nhận mật khẩu không khớp",
+    "phoneNumber": "9 digits only",
     "pin": "ID chỉ gồm số",
     "pinNotMatch": "Mã PIN phải giống nhau",
     "realName": "Vui lòng nhập họ tên thật",
     "required": "%{field} là bắt buộc",
     "usdtFormat": "Địa chỉ ví phải tương thích với chuẩn ERC20 / TRC20",
-    "userNameMinMaxLength": "Tên đăng nhập phải có 6-15 ký tự",
-    "username": "Tên đăng nhập phải có 6-15 ký tự",
-    "accountNo": "1-16 digits only",
-    "phoneNumber": "9 digits only"
+    "userNameMinMaxLength": "Tên đăng nhập phải có 1-20 ký tự",
+    "username": "Tên đăng nhập phải có 1-20 ký tự"
   },
   "wallet": {
     "addBank": "Thêm tài khoản",

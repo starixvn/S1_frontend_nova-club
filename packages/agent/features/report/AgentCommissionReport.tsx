@@ -59,7 +59,7 @@ const AgentCommissionScreen = () => {
       <DataTable.Title bordered center>
         {t('report.bet')}
       </DataTable.Title>
-      <DataTable.Title center>{t('report.earning')}</DataTable.Title>
+      <DataTable.Title center>{t('report.pt')}</DataTable.Title>
     </DataTable.Header>
   )
 

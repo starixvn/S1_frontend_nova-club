@@ -26,7 +26,7 @@
     "solito": "*",
     "yup": "*",
     "react-native-qrcode-svg": "*",
-    "react-native-toast-message/lib/src/Toast": "*",
+    "react-native-toast-message": "*",
     "expo-clipboard": "*"
   },
   "dependencies": {}

@@ -1,5 +1,6 @@
 import { Currency } from 'app/utils/constant'
 import { UserTotalDownline } from './userApi.type'
+import { ShareholderStatusFilter } from 'agent/constant/select'
 
 export interface ShareholderListArgs {
   start: number
@@ -180,4 +181,9 @@ export type ShareholderUpdatePtArgs = {
       EARNP: string
     }
   }
+}
+
+export type ShareholderSetStatusArgs = {
+  shareholder_id: string
+  status: ShareholderStatusFilter
 }

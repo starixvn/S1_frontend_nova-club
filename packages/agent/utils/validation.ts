@@ -1,7 +1,8 @@
 import * as Yup from 'yup'
 
-export const USERNAME_MAX_LENGTH = 18
+export const USERNAME_MAX_LENGTH = 20
 export const PASSWORD_MAX_LENGTH = 15
+export const AGENT_PASSWORD_MAX_LENGTH = 6
 
 // const ALPHANUMERIC_REGEX = RegExp(/^(?=.*[0-9])(?=.*[a-z])([a-z0-9]+)$/)
 const ALPHANUMERIC_REGEX = RegExp(/^[0-9A-Za-z]*$/g)
@@ -12,7 +13,7 @@ const NUMERIC_SEPERATOR_REGEX = RegExp(/^[0-9,]*$/)
 
 const validation = {
   username: Yup.string()
-    .min(6, 'validation.userNameMinMaxLength')
+    .min(1, 'validation.userNameMinMaxLength')
     .max(USERNAME_MAX_LENGTH, 'validation.userNameMinMaxLength')
     .matches(ALPHANUMERIC_REGEX, 'validation.alphanumeric')
     .required('validation.required'),
@@ -20,14 +21,14 @@ const validation = {
   password: Yup.string()
     .required('validation.required')
     .min(6, 'validation.passwordMinMaxLength')
-    .max(PASSWORD_MAX_LENGTH, 'validation.passwordMinMaxLength')
-    .matches(PASSWORD_REGEX, 'validation.password'),
+    .max(AGENT_PASSWORD_MAX_LENGTH, 'validation.passwordMinMaxLength')
+    .matches(ALPHANUMERIC_REGEX, 'validation.password'),
 
   confirmPassword: Yup.string()
     .required('validation.required')
     .min(6, 'validation.passwordMinMaxLength')
-    .max(PASSWORD_MAX_LENGTH, 'validation.passwordMinMaxLength')
-    .matches(PASSWORD_REGEX, 'validation.password')
+    .max(AGENT_PASSWORD_MAX_LENGTH, 'validation.passwordMinMaxLength')
+    .matches(ALPHANUMERIC_REGEX, 'validation.password')
     .oneOf([Yup.ref('password'), null], 'validation.passwordNotMatch'),
 
   passwordRestrict: Yup.string()

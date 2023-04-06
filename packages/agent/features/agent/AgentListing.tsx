@@ -13,6 +13,9 @@ import { Pressable, View } from 'dripsy'
 import { useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import AgentFloatingContent from '../floatingContent'
+import { useShareholderSetStatusMutation } from 'agent/services/shareholderApi'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
+import useTableListing from 'agent/hooks/useTableListing'
 
 export type AgentListingFilterOptions = {
   date: DateFilter | string | undefined
@@ -24,7 +27,12 @@ export type AgentListingFilterOptions = {
 
 const LIMIT = 10
 const AgentListing = () => {
+  const { t } = useAgentLocalization()
+  const { push } = useContextualRouter()
+  const { openModal } = useModal()
+
   const [offset, setOffset] = useState(0)
+  const [isLoadingIndex, setIsLoadingIndex] = useState(0)
   const [filter, setFilter] = useState<AgentListingFilterOptions>({
     date: '',
     startDate: dayjs().startOf('month').toDate(),
@@ -32,11 +40,8 @@ const AgentListing = () => {
     status: '',
     username: '',
   })
-  const { t } = useAgentLocalization()
 
-  const { push } = useContextualRouter()
-  const { openModal } = useModal()
-
+  const [updateStatus, { isLoading }] = useShareholderSetStatusMutation()
   const { agentData, totalData, hasMorePage, isFetching, refetch } =
     useAgentListQuery(
       {
@@ -62,8 +67,16 @@ const AgentListing = () => {
       }
     )
 
+  const { onLoadMore, onRefresh } = useTableListing({
+    offset,
+    setOffset,
+    LIMIT,
+    totalData,
+    isFetching,
+    refetch,
+  })
+
   const firstCellStyle = { flex: 1 / 3 }
-  const thirdCellStyle = { flex: 1 / 2 }
 
   const onRenderHeader = () => (
     <DataTable.Header>
@@ -71,7 +84,9 @@ const AgentListing = () => {
         #
       </DataTable.Title>
       <DataTable.Title bordered>{t('common.username')}</DataTable.Title>
-      <DataTable.Title bordered>{t('shAgent.regDate')}</DataTable.Title>
+      <DataTable.Title bordered center>
+        {t('shAgent.regDate')}
+      </DataTable.Title>
       <DataTable.Title center>{t('shAgent.filter')}</DataTable.Title>
     </DataTable.Header>
   )
@@ -108,18 +123,30 @@ const AgentListing = () => {
         />
       </DataTable.Cell>
       <DataTable.Cell center>
-        <Switch isActive={!!item.active} />
+        <Switch
+          isActive={!Number(item.active)}
+          isLoading={index === isLoadingIndex ? isLoading : false}
+          onPress={() => handleToggle(item.id, item.active, index)}
+        />
       </DataTable.Cell>
     </DataTable.Row>
   )
 
-  const onLoadMore = () => {
-    hasMorePage && !isFetching && setOffset((prev) => prev + 1)
-  }
+  const handleToggle = async (id, status, loadingIndex) => {
+    let activeStatus = status === '0' ? '1' : '0'
+    setIsLoadingIndex(loadingIndex)
 
-  const onRefresh = async () => {
-    if (!offset) return refetch()
-    setOffset(0)
+    const { success, message } = await updateStatus({
+      shareholder_id: id,
+      status: activeStatus,
+    })
+      .unwrap()
+      .catch((error) => {
+        Toast.show({ type: 'error', text1: error?.message })
+        return error
+      })
+
+    if (success) Toast.show({ type: 'success', text1: message })
   }
 
   const onNavigate = (id) => {

@@ -1,3 +1,4 @@
+import { current } from '@reduxjs/toolkit'
 import { store } from 'app/provider/redux/store'
 import { EndpointBuilderType } from 'services/common/types'
 import { AgentNewTransferArgs, AgentNewTransferResult } from './agentApi.type'
@@ -21,6 +22,7 @@ import {
   ShareholderRecentTransactionListArgs,
   ShareholderRecentTransactionListResult,
   ShareholderResetPinArgs,
+  ShareholderSetStatusArgs,
   ShareholderUpdatePtArgs,
   ShareholderVerifyTransferPinArgs,
   ShareholderVerifyTransferPinResult,
@@ -201,57 +203,63 @@ export const shareholderApi = agentBaseApiWithTag.injectEndpoints({
           ...queryArgs,
         },
       }),
-      // async onQueryStarted({ id, ...patch }, { dispatch, queryFulfilled }) {
-      //   try {
-      //     const { data: updatedPost } = await queryFulfilled
-      //     console.log(
-      //       '🚀 ~ file: shareholderApi.ts:204 ~ onQueryStarted ~ updatedPost:',
-      //       updatedPost
-      //     )
-      //     if (updatedPost.success) {
-      //       const ca = shareholderApi.endpoints.shareholderList.select()(
-      //         store.getState()
-      //       )
-      //       console.log(
-      //         '🚀 ~ file: shareholderApi.ts:203 ~ onQueryStarted ~ ca:',
-      //         ca
-      //       )
-      //       const patchResult = dispatch(
-      //         shareholderApi.util.updateQueryData(
-      //           'shareholderList',
-      //           undefined,
-      //           (draft) => {
-      //             console.log(
-      //               '🚀 ~ file: shareholderApi.ts:207 ~ shareholderApi.util.updateQueryData ~ draft:',
-      //               draft
-      //             )
-      //             const update = {
-      //               id: 203,
-      //               username: 'Agent015',
-      //               earning_perc: '90',
-      //               created_at: '2023-04-05T02:51:10Z',
-      //               active: '1',
-      //             }
-      //             Object.assign(draft, update)
-      //           }
-      //         )
-      //       )
-      //       console.log(
-      //         '🚀 ~ file: shareholderApi.ts:227 ~ onQueryStarted ~ patchResult:',
-      //         patchResult
-      //       )
+      async onQueryStarted(
+        { id, currency },
+        { dispatch, queryFulfilled, getState }
+      ) {
+        const { originalArgs } =
+          shareholderApi.endpoints.shareholderList.select()(getState())
 
-      //       dispatch(
-      //         shareholderApi.util.patchQueryData(
-      //           'shareholderList',
-      //           undefined,
-      //           patchResult.patches
-      //         )
-      //       )
-      //     }
-      //   } catch {}
-      // },
+        const patchResult = dispatch(
+          shareholderApi.util.updateQueryData(
+            'shareholderList',
+            originalArgs,
+            (draft) => {
+              let selected = draft?.result?.data.find((el) => el.id === id)
+              if (selected) selected.earning_perc = currency.VND.EARNP
+            }
+          )
+        )
+
+        try {
+          await queryFulfilled
+        } catch {
+          patchResult.undo()
+        }
+      },
       // invalidatesTags: ['ShareholderList'],
+    }),
+    shareholderSetStatus: builder.mutation<
+      IResponse<void>,
+      ShareholderSetStatusArgs
+    >({
+      query: (queryArgs) => ({
+        url: `/sh/setStatus`,
+        data: {
+          ...queryArgs,
+        },
+      }),
+      async onQueryStarted(
+        { shareholder_id, status },
+        { dispatch, queryFulfilled, getState }
+      ) {
+        const { originalArgs } =
+          shareholderApi.endpoints.shareholderList.select()(getState())
+
+        await queryFulfilled
+        dispatch(
+          shareholderApi.util.updateQueryData(
+            'shareholderList',
+            originalArgs,
+            (draft) => {
+              let selected = draft?.result?.data.find(
+                (el) => el.id === shareholder_id
+              )
+              if (selected) selected.active = status
+            }
+          )
+        )
+      },
     }),
   }),
 })
@@ -271,4 +279,5 @@ export const {
   useShareholderRecentTransactionListQuery,
   useShareholderGetEarnPtQuery,
   useShareholderUpdatePtMutation,
+  useShareholderSetStatusMutation,
 } = shareholderApi

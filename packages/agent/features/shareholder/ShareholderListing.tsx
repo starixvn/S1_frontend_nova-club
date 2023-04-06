@@ -5,7 +5,11 @@ import IconButton from 'agent/components/Icon/IconButton'
 import Switch from 'agent/components/Switch'
 import Text from 'agent/components/Text'
 import { DateFilter, ShareholderStatusFilter } from 'agent/constant/select'
-import { useShareholderListQuery } from 'agent/services/shareholderApi'
+import useTableListing from 'agent/hooks/useTableListing'
+import {
+  useShareholderListQuery,
+  useShareholderSetStatusMutation,
+} from 'agent/services/shareholderApi'
 import { ShareholderListResult } from 'agent/services/shareholderApi.type'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
@@ -13,6 +17,7 @@ import dayjs from 'dayjs'
 import { Pressable, View } from 'dripsy'
 import { useState } from 'react'
 import { useModal } from 'react-native-modalfy'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import AgentFloatingContent from '../floatingContent'
 
 export type ShareholderListingFilterOptions = {
@@ -23,10 +28,19 @@ export type ShareholderListingFilterOptions = {
   status: ShareholderStatusFilter | string | undefined
 }
 
+type RenderItemProps = {
+  item: ShareholderListResult
+  index: number
+}
+
 const LIMIT = 10
 const ShareholderListing = () => {
   const { t } = useAgentLocalization()
+  const { push } = useContextualRouter()
+  const { openModal } = useModal()
+
   const [offset, setOffset] = useState(0)
+  const [isLoadingIndex, setIsLoadingIndex] = useState(0)
   const [filter, setFilter] = useState<ShareholderListingFilterOptions>({
     date: '',
     startDate: dayjs().startOf('month').toDate(),
@@ -35,8 +49,7 @@ const ShareholderListing = () => {
     username: '',
   })
 
-  const { push } = useContextualRouter()
-  const { openModal } = useModal()
+  const [updateStatus, { isLoading }] = useShareholderSetStatusMutation()
 
   const { shareholderData, totalData, isFetching, refetch } =
     useShareholderListQuery(
@@ -56,14 +69,18 @@ const ShareholderListing = () => {
           isFetching,
           shareholderData: isSuccess ? data?.result?.data : [],
           totalData: data?.result?.recordsTotal ?? 0,
-          hasMorePage: Boolean(
-            data?.result?.recordsTotal ?? 0 >= (offset + 1) * LIMIT
-          ),
         }),
       }
     )
-  const hasMorePage = totalData >= (offset + 1) * LIMIT
 
+  const { onLoadMore, onRefresh } = useTableListing({
+    offset,
+    setOffset,
+    LIMIT,
+    totalData,
+    isFetching,
+    refetch,
+  })
   const firstCellStyle = { flex: 1 / 3 }
   const thirdCellStyle = { flex: 1 / 2 }
 
@@ -80,65 +97,79 @@ const ShareholderListing = () => {
       <DataTable.Title bordered center style={thirdCellStyle}>
         PT %
       </DataTable.Title>
-      <DataTable.Title bordered>{t('shAgent.regDate')}</DataTable.Title>
+      <DataTable.Title bordered center>
+        {t('shAgent.regDate')}
+      </DataTable.Title>
       <DataTable.Title center>{t('shAgent.filter')}</DataTable.Title>
     </DataTable.Header>
   )
 
-  const onRenderItem = ({
-    item,
-    index,
-  }: {
-    item: ShareholderListResult
-    index: number
-  }) => (
-    <DataTable.Row size="big" sx={{ bg: 'transparent' }}>
-      <DataTable.Cell bordered center style={firstCellStyle}>
-        {item.id}
-      </DataTable.Cell>
-      <DataTable.Cell bordered>
-        <Pressable
-          sx={{
-            width: '100%',
-            height: '100%',
-            justifyContent: 'center',
-          }}
-          onPress={() => onNavigate(item.id)}
-        >
-          <Text sx={{ textDecorationLine: 'underline', color: 'blue' }}>
-            {item.username}
-          </Text>
-        </Pressable>
-      </DataTable.Cell>
-      <DataTable.Cell bordered center style={thirdCellStyle}>
-        <Text sx={{ color: 'black' }}>{item.earning_perc}</Text>
-        <IconButton
-          name="edit"
-          size={16}
-          color="$primaryAgent"
-          sx={{ ml: 8 }}
-          onPress={() => handleEdit(item.id, item.earning_perc)}
-        />
-      </DataTable.Cell>
-      <DataTable.Cell bordered center>
-        <DateTimeField
-          from={dayjs(item.created_at).format('YYYY-MM-DD')}
-          to={dayjs(item.created_at).format('HH:mm:ss')}
-        />
-      </DataTable.Cell>
-      <DataTable.Cell center>
-        <Switch isActive={!!item.active} />
-      </DataTable.Cell>
-    </DataTable.Row>
-  )
-
-  const onLoadMore = () => {
-    hasMorePage && !isFetching && setOffset((prev) => prev + 1)
+  const onRenderItem = ({ item, index }: RenderItemProps) => {
+    return (
+      <DataTable.Row size="big" sx={{ bg: 'transparent' }}>
+        <DataTable.Cell bordered center style={firstCellStyle}>
+          {item.id}
+        </DataTable.Cell>
+        <DataTable.Cell bordered>
+          <Pressable
+            sx={{
+              width: '100%',
+              height: '100%',
+              justifyContent: 'center',
+            }}
+            onPress={() => onNavigate(item.id)}
+          >
+            <Text sx={{ textDecorationLine: 'underline', color: 'blue' }}>
+              {item.username}
+            </Text>
+          </Pressable>
+        </DataTable.Cell>
+        <DataTable.Cell bordered center style={thirdCellStyle}>
+          <Text sx={{ color: 'black' }}>{item.earning_perc}</Text>
+          <IconButton
+            name="edit"
+            size={16}
+            color="$primaryAgent"
+            sx={{ ml: 8 }}
+            onPress={() => handleEdit(item.id, item.earning_perc)}
+          />
+        </DataTable.Cell>
+        <DataTable.Cell bordered center>
+          <DateTimeField
+            from={dayjs(item.created_at).format('YYYY-MM-DD')}
+            to={dayjs(item.created_at).format('HH:mm:ss')}
+          />
+        </DataTable.Cell>
+        <DataTable.Cell center>
+          <Switch
+            isActive={!Number(item.active)}
+            isLoading={index === isLoadingIndex ? isLoading : false}
+            onPress={() => handleToggle(item.id, item.active, index)}
+          />
+        </DataTable.Cell>
+      </DataTable.Row>
+    )
   }
 
-  const onRefresh = async () => {
-    if (!offset) return refetch()
-    setOffset(0)
+  const handleToggle = async (id, status, loadingIndex) => {
+    let activeStatus =
+      status === ShareholderStatusFilter.ACTIVE
+        ? ShareholderStatusFilter.INACTIVE
+        : ShareholderStatusFilter.ACTIVE
+
+    setIsLoadingIndex(loadingIndex)
+
+    const { success, message } = await updateStatus({
+      shareholder_id: id,
+      status: activeStatus,
+    })
+      .unwrap()
+      .catch((error) => {
+        Toast.show({ type: 'error', text1: error?.message })
+        return error
+      })
+
+    if (success) Toast.show({ type: 'success', text1: message })
   }
 
   const onNavigate = (id) => {
@@ -173,6 +204,7 @@ const ShareholderListing = () => {
         onRefresh={onRefresh}
         isFetching={isFetching}
         containerStyle={{ flex: 1 }}
+        extraData={isLoading}
       />
 
       <AgentFloatingContent onPress={onFilter} />

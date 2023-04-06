@@ -5,12 +5,14 @@ import React, { useEffect, useReducer, useState } from 'react'
 
 type SwitchProps = {
   isActive: boolean
+  isLoading: boolean
   width?: number
   size?: number
   activeThumbColor?: string
   inActiveThumbColor?: string
   activeTrackColor?: string
   inActiveTrackColor?: string
+  onPress: () => void
 }
 
 /**
@@ -32,34 +34,21 @@ type SwitchProps = {
 
 const Switch = ({
   isActive = false,
+  isLoading = false,
   width = 90,
   size = 16,
   activeThumbColor = '#047600',
   inActiveThumbColor = '#FFCED2',
   activeTrackColor = '#65FE00',
   inActiveTrackColor = '#CC000F',
+  onPress,
 }: SwitchProps) => {
-  const [active, toggle] = useReducer((s) => !s, isActive)
-  const [isLoading, setIsLoading] = useState(false)
   const { t } = useAgentLocalization()
   const WIDTH = width
   const THUMB_SIZE = size
   const TRACK_PADDING = 4
-  const trackColor = active ? activeTrackColor : inActiveTrackColor
-  const borderColor = active ? activeThumbColor : inActiveThumbColor
-
-  const handleToggle = () => {
-    setIsLoading(true)
-  }
-
-  useEffect(() => {
-    if (isLoading) {
-      setTimeout(() => {
-        setIsLoading(false)
-        toggle()
-      }, 1000)
-    }
-  }, [isLoading])
+  const trackColor = isActive ? activeTrackColor : inActiveTrackColor
+  const borderColor = isActive ? activeThumbColor : inActiveThumbColor
 
   return (
     <View
@@ -72,7 +61,11 @@ const Switch = ({
         borderWidth: 1,
       }}
     >
-      <Pressable onPress={handleToggle} sx={{ justifyContent: 'center' }}>
+      <Pressable
+        onPress={onPress}
+        sx={{ justifyContent: 'center' }}
+        disabled={isLoading}
+      >
         <AnimatePresence exitBeforeEnter>
           {isLoading ? (
             <ActivityIndicator size={16} />
@@ -86,7 +79,7 @@ const Switch = ({
                 animate={{
                   opacity: 1,
                   scale: 1,
-                  transform: active
+                  transform: isActive
                     ? [{ translateX: WIDTH - THUMB_SIZE - TRACK_PADDING * 2 }]
                     : [{ translateX: 0 }],
                 }}
@@ -99,24 +92,24 @@ const Switch = ({
                   height: THUMB_SIZE,
                   width: THUMB_SIZE,
                   borderRadius: 100,
-                  backgroundColor: active
+                  backgroundColor: isActive
                     ? activeThumbColor
                     : inActiveThumbColor,
                 }}
               />
               <AnimatePresence exitBeforeEnter>
-                {active && (
+                {isActive && (
                   <SwitchLabel
                     label={t('common.active')}
                     color="#043B02"
-                    isActive={active}
+                    isActive={isActive}
                   />
                 )}
-                {!active && (
+                {!isActive && (
                   <SwitchLabel
                     label={t('common.suspended')}
                     color="white"
-                    isActive={active}
+                    isActive={isActive}
                   />
                 )}
               </AnimatePresence>
@@ -148,7 +141,7 @@ export const SwitchLabel = ({ isActive, label, color = 'white' }) => {
         position: 'absolute',
         left: isActive ? 4 : undefined,
         right: !isActive ? 4 : undefined,
-        fontSize: 12,
+        fontSize: 10,
         color,
       }}
     >

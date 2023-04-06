@@ -1,23 +1,13 @@
 import {
-  DateFilterOptions,
-  EarningOptions,
-  getDateRange,
-} from 'agent/constant/select'
-import { CommissionFilterOptions } from 'agent/features/report/ShareholderCommissionReport'
-import {
-  useShareholderEditPTMutation,
   useShareholderGetEarnPtQuery,
   useShareholderUpdatePtMutation,
 } from 'agent/services/shareholderApi'
-import RootToast from 'app/components/RootToast'
 import { useAgentLocalization } from 'app/provider/localization'
-import { Flex } from 'dripsy'
 import React, { useState } from 'react'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import Button from '../Button'
-import DatePicker from '../DatePicker/DatePicker'
 import Select from '../Select/Select'
 import ModalWrapper from './ModalWrapper'
-import { Toast } from 'react-native-toast-message/lib/src/Toast'
 
 const EditPTModal = ({ modal: { closeModal, getParam } }) => {
   const { t } = useAgentLocalization()
@@ -60,10 +50,6 @@ const EditPTModal = ({ modal: { closeModal, getParam } }) => {
     })
       .unwrap()
       .catch((error) => {
-        console.log(
-          '🚀 ~ file: EditPTModal.tsx:59 ~ handleConfirm ~ error:',
-          error
-        )
         Toast.show({ type: 'error', text1: error?.message })
         return error
       })
@@ -76,11 +62,11 @@ const EditPTModal = ({ modal: { closeModal, getParam } }) => {
   }
 
   return (
-    <ModalWrapper title={t('report.earning')} onClose={onDismiss}>
+    <ModalWrapper title={t('report.pt')} onClose={onDismiss}>
       <Select
-        label={t('report.earning') + ' %'}
+        label={t('report.pt') + ' %'}
         options={ptOptions}
-        placeholder={t('report.earning')}
+        placeholder={t('report.pt')}
         value={selected}
         onSelected={(val) => setSelected(val)}
         isRequired
