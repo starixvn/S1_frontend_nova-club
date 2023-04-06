@@ -9,6 +9,18 @@ import { ScrollView, useDripsyTheme } from 'dripsy'
 import React from 'react'
 import { Platform, StyleSheet } from 'react-native'
 
+const TitleContentAlignmentMap = {
+  LOTTERY: 'flex-start',
+  SPORTSBOOK: 'flex-start',
+  ESPORTS: 'flex-start',
+  'VIRTUAL SPORTS': 'flex-start',
+  CASINO: 'flex-start',
+  'LIVE CASINO': 'flex-start',
+  GAMES: 'flex-start',
+  FISHING: 'flex-start',
+  COCKFIGHTING: 'flex-start',
+}
+
 const CommissionTable = () => {
   const { commissionList } = useUserCommissionListQuery(Currency.VND, {
     selectFromResult: ({ data }) => ({ commissionList: data?.result?.data }),
@@ -50,47 +62,53 @@ const CommissionTable = () => {
           }}
         >
           {commissionList?.map(
-            (item: UserCommissionListResult, index: number) => (
-              <DataTable.Row
-                key={`${index} ${item.gametype}`}
-                size={item.cashagent ? 'small' : 'big'}
-              >
-                <DataTable.Cell
-                  bordered
-                  containerStyle={{
-                    flex: 0.4,
-                    justifyContent: item.cashagent ? 'flex-end' : 'flex-start',
-                  }}
-                  textStyle={{ fontWeight: 'bold', px: 12 }}
+            (item: UserCommissionListResult, index: number) => {
+              // Map and check for item.gametype
+              const justifyContent =
+                TitleContentAlignmentMap[item.gametype] ?? 'flex-end'
+
+              return (
+                <DataTable.Row
+                  key={`${index} ${item.gametype}`}
+                  size={item.cashagent ? 'small' : 'big'}
                 >
-                  {item.gametype}
-                </DataTable.Cell>
-                <DataTable.Cell
-                  bordered
-                  center
-                  containerStyle={{ flex: 0.2 }}
-                  textStyle={{ color: '#8D0016' }}
-                >
-                  {item.cashagent ? item.cashagent : '⎯'}
-                </DataTable.Cell>
-                <DataTable.Cell
-                  bordered
-                  center
-                  containerStyle={{ flex: 0.2 }}
-                  textStyle={{ color: '#00058D' }}
-                >
-                  {item.cashplayer ? item.cashplayer : '⎯'}
-                </DataTable.Cell>
-                <DataTable.Cell
-                  bordered
-                  center
-                  containerStyle={{ flex: 0.2 }}
-                  textStyle={{ color: '#066506' }}
-                >
-                  {item.cashreferralplayer ? item.cashreferralplayer : '⎯'}
-                </DataTable.Cell>
-              </DataTable.Row>
-            )
+                  <DataTable.Cell
+                    bordered
+                    containerStyle={{
+                      flex: 0.4,
+                      justifyContent,
+                    }}
+                    textStyle={{ fontWeight: 'bold', px: 12 }}
+                  >
+                    {item.gametype}
+                  </DataTable.Cell>
+                  <DataTable.Cell
+                    bordered
+                    center
+                    containerStyle={{ flex: 0.2 }}
+                    textStyle={{ color: '#8D0016' }}
+                  >
+                    {item.cashagent ? item.cashagent : '⎯'}
+                  </DataTable.Cell>
+                  <DataTable.Cell
+                    bordered
+                    center
+                    containerStyle={{ flex: 0.2 }}
+                    textStyle={{ color: '#00058D' }}
+                  >
+                    {item.cashplayer ? item.cashplayer : '⎯'}
+                  </DataTable.Cell>
+                  <DataTable.Cell
+                    bordered
+                    center
+                    containerStyle={{ flex: 0.2 }}
+                    textStyle={{ color: '#066506' }}
+                  >
+                    {item.cashreferralplayer ? item.cashreferralplayer : '⎯'}
+                  </DataTable.Cell>
+                </DataTable.Row>
+              )
+            }
           )}
         </ScrollView>
       </DataTable>
