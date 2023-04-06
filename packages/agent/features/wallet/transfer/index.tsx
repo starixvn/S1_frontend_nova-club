@@ -12,24 +12,32 @@ const AgentFundTransferPage = () => {
   const { push } = useContextualRouter()
   const isFocus = useIsFocused()
 
-  const { isAgent, currency, balance, hasPin } = useUserInfoQuery(undefined, {
-    selectFromResult: ({ data }) => ({
-      isAgent: data?.role === ROLE.AGENT,
-      currency: data?.wallet.currency as Currency,
-      balance: data?.wallet.balance,
-      hasPin: data?.has_pin,
-    }),
-  })
-  useEffect(() => {
-    if (!hasPin) {
-      push('/agent/create-pin')
+  const { isAgent, currency, balance, hasPin, isFetching } = useUserInfoQuery(
+    undefined,
+    {
+      selectFromResult: ({ data, isFetching }) => ({
+        isAgent: data?.role === ROLE.AGENT,
+        currency: data?.wallet.currency as Currency,
+        balance: data?.wallet.balance,
+        hasPin: data?.has_pin,
+        isFetching,
+      }),
     }
-  }, [isFocus])
+  )
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!hasPin && !isFetching) {
+        push('/agent/create-pin')
+      } else {
+        push('/agent/wallet/transfer')
+      }
+    }, 500)
+    return () => clearTimeout(timeout)
+  }, [isFocus, isFetching])
 
   if (!hasPin) {
     return null
   }
-
   return (
     <ScrollView>
       <AgentTransferForm
