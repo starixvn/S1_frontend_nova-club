@@ -1,5 +1,6 @@
 import { useUserInfoQuery } from 'agent/services/userApi'
 import { ROLE } from 'agent/utils/helper'
+import { useIsFocused } from 'app/hooks/isFocus/useIsFocused'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { Currency } from 'app/utils/constant'
 import { ScrollView } from 'dripsy'
@@ -9,7 +10,7 @@ import AgentTransferHistory from './AgentTransferHistory'
 
 const AgentFundTransferPage = () => {
   const { push } = useContextualRouter()
-  // const testHasPin = false
+  const isFocus = useIsFocused()
 
   const { isAgent, currency, balance, hasPin } = useUserInfoQuery(undefined, {
     selectFromResult: ({ data }) => ({
@@ -19,12 +20,11 @@ const AgentFundTransferPage = () => {
       hasPin: data?.has_pin,
     }),
   })
-
   useEffect(() => {
     if (!hasPin) {
       push('/agent/create-pin')
     }
-  }, [hasPin])
+  }, [isFocus])
 
   if (!hasPin) {
     return null

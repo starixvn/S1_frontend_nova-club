@@ -162,6 +162,7 @@ export const agentApi = agentBaseApiWithTag.injectEndpoints({
           ...queryArgs,
         },
       }),
+      invalidatesTags: ['UserInfo'],
     }),
     agentVerifyTransferPin: builder.mutation<
       IResponse<AgentVerifyTransferPinResult>,

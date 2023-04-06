@@ -19,7 +19,7 @@ export const userApi = agentBaseApiWithTag.injectEndpoints({
       query: () => ({
         url: '/user/info',
       }),
-      providesTags: ['WalletAmount'],
+      providesTags: ['WalletAmount', 'UserInfo'],
       transformResponse: (res: IResponse<UserInfo>): UserInfo => {
         return (
           res.result?.data ?? {

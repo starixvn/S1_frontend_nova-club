@@ -21,5 +21,6 @@ export const agentBaseApiWithTag = agentBaseApi.enhanceEndpoints({
     'ShareholderTransferHistory',
     'AgentTransferHistory',
     'WithdrawalHistory',
+    'UserInfo',
   ],
 })

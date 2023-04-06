@@ -139,6 +139,7 @@ export const shareholderApi = agentBaseApiWithTag.injectEndpoints({
           ...queryArgs,
         },
       }),
+      invalidatesTags: ['UserInfo'],
     }),
     shareholderVerifyTransferPin: builder.mutation<
       IResponse<ShareholderVerifyTransferPinResult>,
