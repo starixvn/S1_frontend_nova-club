@@ -75,6 +75,7 @@ const SplashScreen = () => {
   }, [])
 
   useEffect(() => {
+    replace('/agent')
     if (status) {
       if (agentToken) {
         replace('/agent')

@@ -2,7 +2,7 @@ import { EndpointBuilderType } from 'services/common/types'
 import { agentBaseApiWithTag } from './agentBaseApi'
 import { IResponse } from './common/agentAxiosBaseQuery'
 import {
-  ChangePasswordArgs,
+  ResetPasswordArgs,
   CreatePinOtpArgs,
   RefreshBalance,
   ResetPinOtpArgs,
@@ -11,6 +11,7 @@ import {
   UserCommissionListResult,
   UserInfo,
   UserProfile,
+  ChangePasswordArgs,
 } from './userApi.type'
 
 export const userApi = agentBaseApiWithTag.injectEndpoints({
@@ -90,7 +91,7 @@ export const userApi = agentBaseApiWithTag.injectEndpoints({
         },
       }),
     }),
-    resetPassword: builder.mutation<IResponse<[]>, ChangePasswordArgs>({
+    resetPassword: builder.mutation<IResponse<[]>, ResetPasswordArgs>({
       query: (queryArgs) => ({
         url: '/user/resetPwd',
         data: {
@@ -103,7 +104,15 @@ export const userApi = agentBaseApiWithTag.injectEndpoints({
       query: (queryArgs) => ({
         url: '/user/sendOtp',
         data: {
-          queryArgs,
+          ...queryArgs,
+        },
+      }),
+    }),
+    changePassword: builder.mutation<IResponse<[]>, ChangePasswordArgs>({
+      query: (queryArgs) => ({
+        url: '/user/changePwd',
+        data: {
+          ...queryArgs,
         },
       }),
     }),
@@ -121,4 +130,5 @@ export const {
   useCreatePinOtpMutation,
   useResetPasswordMutation,
   useSendOtpMutation,
+  useChangePasswordMutation,
 } = userApi

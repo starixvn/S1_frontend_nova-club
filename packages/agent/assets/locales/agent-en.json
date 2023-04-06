@@ -137,7 +137,8 @@
     "transactionDate": "Transaction Date",
     "transactionFilter": "Transaction Filter",
     "transactionType": "Transaction Type",
-    "type": "Type"
+    "type": "Type",
+    "pt": "PT"
   },
   "shAgent": {
     "add": "Add / Create",

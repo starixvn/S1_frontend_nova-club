@@ -7,6 +7,7 @@ import {
   ComponentProps,
   ForwardedRef,
   forwardRef,
+  RefObject,
   useImperativeHandle,
   useMemo,
   useReducer,

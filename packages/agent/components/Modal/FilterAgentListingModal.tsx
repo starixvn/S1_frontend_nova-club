@@ -7,7 +7,7 @@ import { AgentListingFilterOptions } from 'agent/features/agent/AgentListing'
 import { useAgentLocalization } from 'app/provider/localization'
 import dayjs from 'dayjs'
 import { Flex } from 'dripsy'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import DatePicker from '../DatePicker/DatePicker'
 import Input from '../Input'
 import Select from '../Select/Select'
@@ -61,7 +61,8 @@ const FilterAgentListingModal = ({ modal: { closeModal, getParam } }) => {
         options={dateOptions}
         placeholder={t('report.transactionDate')}
         value={selected.date}
-        onSelected={(val: string) => {
+        onSelected={(val) => {
+          if (!val) return
           const { startDate, endDate } = getDateRange(val)
           setSelected({
             ...selected,

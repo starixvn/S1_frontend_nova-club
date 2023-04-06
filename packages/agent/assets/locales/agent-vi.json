@@ -137,7 +137,8 @@
     "transactionDate": "Ngày giao dịch",
     "transactionFilter": "Lọc giao dịch",
     "transactionType": "Loại giao dịch",
-    "type": "Loại"
+    "type": "Loại",
+    "pt": "PT"
   },
   "shAgent": {
     "add": "Thêm / Tạo mới",

@@ -1,6 +1,7 @@
 import { StackNavigationOptions } from '@react-navigation/stack'
 import AgentDetailsScreen from 'agent/features/agent/AgentDetails'
 import AgentChangePassword from 'agent/features/auth/AgentChangePassword'
+import AgentResetPassword from 'agent/features/auth/AgentResetPassword'
 import CommissionTable from 'agent/features/commision'
 import AgentCreatePin from 'agent/features/pin/AgentCreatePin'
 import AgentResetPin from 'agent/features/pin/AgentResetPin'
@@ -17,6 +18,7 @@ export type AgentStackParamList = {
   AgentDetails: undefined
   AgentResetPin: undefined
   AgentCommission: undefined
+  AgentResetPassword: undefined
   AgentChangePassword: undefined
   AgentCreatePin: undefined
 }
@@ -72,6 +74,13 @@ export const AgentStackScreens: AgentStackScreen[] = [
     component: CommissionTable,
     options: {
       title: 'commission.title',
+    },
+  },
+  {
+    name: 'AgentResetPassword',
+    component: AgentResetPassword,
+    options: {
+      title: 'menu.resetPass',
     },
   },
   {

@@ -1,58 +1,43 @@
 import Button from 'agent/components/Button'
 import Input from 'agent/components/Input'
-import TimerButton, {
-  ITimerButtonForwardRef,
-} from 'agent/components/TimerButton'
 import useAgentAlert from 'agent/hooks/useAgentAlert'
 import CommonBackHeader from 'agent/navigation/components/CommonBackHeader'
-import { useSendOTPMutation } from 'agent/services/accountApi'
 import { IResponse } from 'agent/services/common/agentAxiosBaseQuery'
-import { useResetPasswordMutation } from 'agent/services/userApi'
-import validation, {
-  getErrorMessage,
-  PASSWORD_MAX_LENGTH,
-} from 'agent/utils/validation'
+import { useChangePasswordMutation } from 'agent/services/userApi'
+import validation, { PASSWORD_MAX_LENGTH } from 'agent/utils/validation'
 import { AGENT_STACK_CONTENT_PADDING } from 'app/constant/sizes'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
-import { Flex, ScrollView, Text, useDripsyTheme } from 'dripsy'
+import { Flex, ScrollView } from 'dripsy'
 import { useFormik } from 'formik'
-import { useRef, useState } from 'react'
-import { useModal } from 'react-native-modalfy'
+import { useState } from 'react'
 import * as Yup from 'yup'
 
-interface ResetPasswordValues {
+interface ChangePasswordValues {
+  oldPwd: string
   password: string
   confirmpassword: string
-  mobile_no: string
-  OTP: string
 }
 
 const AgentChangePassword = () => {
   const { t } = useAgentLocalization()
-  const { theme } = useDripsyTheme()
-  const { openModal } = useModal()
-  const { showAlert } = useAgentAlert()
-  const { replace } = useContextualRouter()
-  const OTPRef = useRef<ITimerButtonForwardRef>(null)
   const [isLoading, setIsLoading] = useState(false)
-  const [isOtpLoading, setIsOtpLoading] = useState(false)
-
-  const [sendOtp] = useSendOTPMutation()
-  const [resetPassword] = useResetPasswordMutation()
+  const { showAlert } = useAgentAlert()
+  const [changePassword] = useChangePasswordMutation()
+  const { replace } = useContextualRouter()
 
   const onSubmit = async ({
+    oldPwd,
     password,
     confirmpassword,
-    mobile_no,
-    OTP,
-  }: ResetPasswordValues) => {
+  }: ChangePasswordValues) => {
+    setIsLoading(true)
+    console.log(oldPwd, password, confirmpassword)
     try {
-      const { success, message, result } = await resetPassword({
+      const { success, message, result } = await changePassword({
+        oldPwd,
         password,
         confirmpassword,
-        mobile_no,
-        OTP,
       })
         .unwrap()
         .catch((e): IResponse<[]> => {
@@ -60,7 +45,7 @@ const AgentChangePassword = () => {
           return e
         })
 
-      if (success) {
+      if (success && message) {
         showAlert(message)
         replace('/agent')
       }
@@ -71,18 +56,16 @@ const AgentChangePassword = () => {
     }
   }
 
-  const formik = useFormik<ResetPasswordValues>({
+  const formik = useFormik<ChangePasswordValues>({
     initialValues: {
+      oldPwd: '',
       password: '',
       confirmpassword: '',
-      mobile_no: '',
-      OTP: '',
     },
     validationSchema: Yup.object({
+      oldPwd: validation.password,
       password: validation.password,
       confirmpassword: validation.confirmPassword,
-      mobile_no: validation.phoneNumber,
-      OTP: validation.stringRequired,
     }),
     onSubmit,
   })
@@ -97,30 +80,6 @@ const AgentChangePassword = () => {
     dirty,
     submitForm,
   } = formik
-
-  async function handleSendOtp() {
-    try {
-      setIsOtpLoading(true)
-
-      const { message, success } = await sendOtp({
-        mobile_no: values.mobile_no,
-      })
-        .unwrap()
-        .catch((e) => {
-          showAlert(e)
-          return e
-        })
-
-      if (success) {
-        showAlert(message)
-        OTPRef.current?.startOtpTimer()
-      }
-    } catch (e) {
-      openModal('AgentAlertModal', { message: getErrorMessage(e) })
-    } finally {
-      setIsOtpLoading(false)
-    }
-  }
 
   return (
     <>
@@ -139,6 +98,26 @@ const AgentChangePassword = () => {
             justifyContent: 'center',
           }}
         >
+          <Input
+            label={t('common.oldPassword')}
+            isRequired
+            secureTextEntry
+            placeholder={t('common.enterOldPassword')}
+            maxLength={PASSWORD_MAX_LENGTH}
+            containerProps={{
+              sx: { mb: '$3' },
+            }}
+            onChangeText={handleChange('oldPwd')}
+            onBlur={handleBlur('oldPwd')}
+            value={values.oldPwd}
+            error={
+              values.oldPwd.length === 6 && errors.oldPwd
+                ? t(errors.oldPwd, {
+                    field: t('common.oldPassword'),
+                  })
+                : undefined
+            }
+          />
           <Input
             label={t('common.newPassword')}
             isRequired
@@ -178,73 +157,12 @@ const AgentChangePassword = () => {
                 : undefined
             }
           />
-          <Input
-            leftOuterElementProps={{
-              sx: { backgroundColor: '$secondaryAgent', marginRight: 1 },
-            }}
-            leftOuterElement={
-              <Text sx={{ paddingX: '$4', color: 'black' }}>+84</Text>
-            }
-            rightOuterElement={
-              <TimerButton
-                accessibilityRole="button"
-                ref={OTPRef}
-                title={t('common.send') + ' ' + t('common.otp')}
-                loading={isLoading}
-                onPress={handleSendOtp}
-                sx={{
-                  width: 'auto',
-                  backgroundColor: theme.colors.$primaryAgent,
-                  m: 0,
-                  px: '$3',
-                  minWidth: 75,
-                }}
-                _text={{
-                  sx: {
-                    color: theme.colors.$white,
-                  },
-                }}
-              />
-            }
-            label={t('common.mobileNumber')}
-            containerProps={{
-              sx: { mb: '$3' },
-            }}
-            isRequired
-            error={
-              touched.mobile_no && errors.mobile_no
-                ? t(errors.mobile_no, {
-                    field: 'mobile_no',
-                  })
-                : undefined
-            }
-            onChangeText={handleChange('mobile_no')}
-            onBlur={handleBlur('mobile_no')}
-            keyboardType={'numeric'}
-            value={values.mobile_no}
-          />
-          <Input
-            label={t('common.enter') + ' ' + t('common.otp')}
-            containerProps={{
-              sx: { mb: '$3' },
-            }}
-            isRequired
-            error={
-              touched.OTP && errors.OTP
-                ? t(errors.OTP, {
-                    field: 'OTP',
-                  })
-                : undefined
-            }
-            onChangeText={handleChange('OTP')}
-            onBlur={handleBlur('OTP')}
-            keyboardType={'numeric'}
-          />
+
           <Button
             onPress={submitForm}
             loading={isLoading}
             sx={{ marginY: 20 }}
-            disabled={!isValid || !dirty}
+            disabled={!dirty}
           >
             {t('common.submit')}
           </Button>

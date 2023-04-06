@@ -117,6 +117,7 @@ export function NavigationProvider({
                       AgentCreatePin: '/agent/create-pin',
                       AgentResetPin: '/agent/reset-pin',
                       AgentChangePassword: '/agent/change-password',
+                      AgentResetPassword: '/agent/reset-password',
                     },
                   },
                 },

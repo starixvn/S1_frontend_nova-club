@@ -63,7 +63,7 @@ export interface CreatePinOtpArgs {
   mobile_no: string
 }
 
-export interface ChangePasswordArgs {
+export interface ResetPasswordArgs {
   password: string
   confirmpassword: string
   mobile_no: string
@@ -72,4 +72,10 @@ export interface ChangePasswordArgs {
 
 export interface SendOtpArgs {
   mobile_no: string
+}
+
+export interface ChangePasswordArgs {
+  oldPwd: string
+  password: string
+  confirmpassword: string
 }
