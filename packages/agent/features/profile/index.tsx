@@ -32,28 +32,8 @@ const AgentProfile = () => {
 
   return (
     <DripsyGradient
-      colors={[
-        'rgb(224,237,254)',
-        '#ffffff',
-        '#ffffff',
-        '#ffffff',
-        '#ffffff',
-        '#ffffff',
-        '#ffffff',
-        '#ffffff',
-        '#ffffff',
-        '#ffffff',
-        '#ffffff',
-        '#ffffff',
-        '#ffffff',
-        '#ffffff',
-        '#ffffff',
-        '#ffffff',
-        '#ffffff',
-        '#ffffff',
-        '#ffffff',
-        '#ffffff',
-      ]}
+      locations={[0.0, 0.1]}
+      colors={['rgb(224,237,254)', '#ffffff']}
     >
       <ScrollView contentContainerStyle={{}} sx={{ px: '$3', pt: '$1' }}>
         <ProfileTitle userRole={userRole} />
