@@ -337,7 +337,11 @@ const AgentWithdrawalForm = ({
         onPress={withdrawalConfirmation}
         loading={isLoading}
         sx={{ width: 150 }}
-        disabled={!isValid || !dirty}
+        disabled={
+          !isValid ||
+          !dirty ||
+          parseInt(values.amount.replace(/,/g, '')) > balance
+        }
       >
         <Text sx={{ fontWeight: 'bold', py: '$1', color: 'white' }}>
           {t('common.submit')}

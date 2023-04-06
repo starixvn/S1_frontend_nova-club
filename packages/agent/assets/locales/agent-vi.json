@@ -154,7 +154,7 @@
     "totalMember": "Tổng số thành viên"
   },
   "transfer": {
-    "errorId": "waiting to translate",
+    "errorId": "Không tìm thấy mã người dùng",
     "playerId": "ID người chơi",
     "playerName": "Tên người chơi",
     "transferConfirmation": "Xác nhận Chuyển quỹ"

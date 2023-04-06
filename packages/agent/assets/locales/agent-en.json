@@ -154,7 +154,7 @@
     "totalMember": "Total Member"
   },
   "transfer": {
-    "errorId": "waiting to translate",
+    "errorId": "Player ID not found",
     "playerId": "Player ID",
     "playerName": "Player Name",
     "transferConfirmation": "Transfer Confirmation"

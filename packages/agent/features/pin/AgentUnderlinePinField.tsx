@@ -64,7 +64,11 @@ const AgentUnderlinePinField = ({
       <Cell
         key={index}
         size={cellSize}
-        style={[isFocused && styles.focusCell, errorMsg && styles.error]}
+        style={[
+          isFocused && styles.focusCell,
+          errorMsg && styles.error,
+          { alignItems: 'center', justifyContent: 'center' },
+        ]}
         onLayout={getCellOnLayoutHandler(index)}
       >
         <Text style={[styles.text, errorMsg ? styles.error : {}]}>
@@ -131,7 +135,7 @@ const styles = StyleSheet.create({
   text: {
     lineHeight: CELL_SIZE - 5,
     ...Platform.select({ web: { lineHeight: 50 } }),
-    fontSize: 30,
+    fontSize: 20,
     textAlign: 'center',
     color: '#3557b7',
   },
