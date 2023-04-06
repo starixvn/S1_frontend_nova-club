@@ -176,8 +176,8 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
 
   const formik = useFormik<LoginFormValues>({
     initialValues: {
-      username: 'shlouis8',
-      password: 'aloha123',
+      username: '',
+      password: '',
     },
     validationSchema: Yup.object({
       username: validation.username,

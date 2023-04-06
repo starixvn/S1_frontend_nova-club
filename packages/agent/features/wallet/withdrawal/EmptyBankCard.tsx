@@ -36,8 +36,6 @@ const EmptyBankCard = () => {
           elevation={1}
           leftIcon={{
             name: 'add-round',
-            size: 20,
-            sx: { mr: '$2' },
           }}
           titleProps={{
             sx: {
