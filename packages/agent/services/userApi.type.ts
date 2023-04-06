@@ -9,6 +9,7 @@ export interface UserInfo {
   mobile_no: string
   has_logged_in: number
   has_pin: number
+  has_verified_wd: number
 }
 
 export interface WalletBalance {

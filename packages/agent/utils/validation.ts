@@ -48,9 +48,10 @@ const validation = {
   email: Yup.string().email('validation.email').required('validation.required'),
 
   accountName: Yup.string().required('validation.realName'),
-  accountNo: Yup.number()
-    .typeError('validation.numberOnly')
-    .required('validation.required'),
+  accountNo: Yup.string()
+    .required('validation.required')
+    .matches(NUMERIC_REGEX, 'validation.amountNumber')
+    .max(16, 'validation.accountNo'),
 
   amount: Yup.string()
     .required('validation.required')
@@ -87,6 +88,8 @@ const validation = {
   referralCode: Yup.string().required('validation.required'),
   phoneNumber: Yup.string()
     .required('validation.required')
+    .min(1, 'validation.phoneNumber')
+    .max(9, 'validation.phoneNumber')
     .test({
       name: 'is-number',
       test: (value) => {

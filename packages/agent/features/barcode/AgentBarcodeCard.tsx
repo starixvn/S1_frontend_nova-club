@@ -11,6 +11,7 @@ import QRCode from 'react-native-qrcode-svg'
 
 const AgentBarcodeCard = ({ userId }: { userId: number }) => {
   const { width } = useWindowDimensions()
+  const cardWidth = Math.min(500, width * 0.8)
 
   const { domain, userName, cash, isLoading } = useAgentReferralDetailsQuery(
     { agentId: userId.toString() },
@@ -26,7 +27,7 @@ const AgentBarcodeCard = ({ userId }: { userId: number }) => {
   )
   return (
     <Card
-      sx={{ mx: '3%', my: '$2', py: '$10', px: '$5' }}
+      sx={{ my: '$2', py: '$10', px: '$5', width: cardWidth }}
       isLoading={isLoading}
     >
       <MotiView

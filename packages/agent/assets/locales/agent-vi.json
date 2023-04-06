@@ -186,7 +186,9 @@
     "required": "%{field} là bắt buộc",
     "usdtFormat": "Địa chỉ ví phải tương thích với chuẩn ERC20 / TRC20",
     "userNameMinMaxLength": "Tên đăng nhập phải có 6-15 ký tự",
-    "username": "Tên đăng nhập phải có 6-15 ký tự"
+    "username": "Tên đăng nhập phải có 6-15 ký tự",
+    "accountNo": "1-16 digits only",
+    "phoneNumber": "9 digits only"
   },
   "wallet": {
     "addBank": "Thêm tài khoản",

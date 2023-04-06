@@ -186,7 +186,9 @@
     "required": "%{field} is required",
     "usdtFormat": "Must be ERC-20 / TRC-20 compatible wallet address",
     "userNameMinMaxLength": "6-18 characters only",
-    "username": "6-18 characters only"
+    "username": "6-18 characters only",
+    "accountNo": "1-16 digits only",
+    "phoneNumber": "9 digits only"
   },
   "wallet": {
     "addBank": "Add Bank Info",

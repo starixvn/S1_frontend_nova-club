@@ -34,6 +34,7 @@ export const userApi = agentBaseApiWithTag.injectEndpoints({
             has_pin: 1,
             mobile_no: '-',
             id: 0,
+            has_verified_wd: 1,
           }
         )
       },

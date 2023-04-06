@@ -1,13 +1,10 @@
 import Button from 'agent/components/Button'
 import Card from 'agent/components/Card'
-import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
-import { useDripsyTheme, View } from 'dripsy'
+import { View } from 'dripsy'
 
 const EmptyBankCard = () => {
-  const { theme } = useDripsyTheme()
-  const { width } = useContainerDimension()
   const { push } = useContextualRouter()
   const { t } = useAgentLocalization()
 
@@ -37,12 +34,9 @@ const EmptyBankCard = () => {
           leftIcon={{
             name: 'add-round',
             size: 20,
-            sx: { mr: '$2' },
           }}
           titleProps={{
-            sx: {
-              fontWeight: 'bold',
-            },
+            sx: { fontWeight: 'bold' },
           }}
           sx={{
             shadowColor: '$darkBlueAgent',

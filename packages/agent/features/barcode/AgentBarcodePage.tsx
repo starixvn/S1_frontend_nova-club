@@ -12,7 +12,12 @@ const AgentBarcodePage = () => {
 
   return (
     <DripsyGradient
-      sx={{ justifyContent: 'center', pt: 0, height: '80%' }}
+      sx={{
+        justifyContent: 'center',
+        pt: 0,
+        height: '80%',
+        alignItems: 'center',
+      }}
       colors={['rgb(224,237,254)', '#ffffff']}
     >
       <AgentBarcodeCard userId={userId ?? 0} />

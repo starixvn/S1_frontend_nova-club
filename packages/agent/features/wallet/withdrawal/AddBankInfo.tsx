@@ -31,12 +31,14 @@ interface AddBankInfoValues {
   accountName: string
   mobileNumber: string
   otp?: string
+  hasVerified: number
 }
 
 const AddBankInfoForm = () => {
-  const { currency } = useUserInfoQuery(undefined, {
+  const { currency, hasVerified } = useUserInfoQuery(undefined, {
     selectFromResult: ({ data }) => ({
       currency: data?.wallet.currency as Currency,
+      hasVerified: data?.has_verified_wd,
     }),
   })
   const [isLoading, setIsLoading] = useState(false)
@@ -87,6 +89,28 @@ const AddBankInfoForm = () => {
       setIsLoading(false)
     }
   }
+  const validationSchema = Yup.object({
+    bankCard: validation.stringRequired,
+    accountNumber: validation.accountNo,
+    accountName: validation.accountName,
+    mobileNumber: Yup.string().when('hasVerified', {
+      is: (hasVerified) => {
+        return hasVerified === 1
+      },
+      then: Yup.string(),
+      otherwise: validation.phoneNumber,
+    }),
+    otp: Yup.string().when('hasVerified', {
+      is: (hasVerified) => {
+        return hasVerified === 1
+      },
+      then: Yup.string(),
+      otherwise: validation.stringRequired,
+    }),
+  }).shape({
+    hasVerified: Yup.number(),
+  })
+
   const formik = useFormik<AddBankInfoValues>({
     initialValues: {
       bankCard: '',
@@ -94,14 +118,9 @@ const AddBankInfoForm = () => {
       accountName: '',
       mobileNumber: '',
       otp: '',
+      hasVerified: hasVerified ?? 0,
     },
-    validationSchema: Yup.object({
-      bankCard: validation.stringRequired,
-      accountNumber: validation.accountNo,
-      accountName: validation.accountName,
-      mobileNumber: validation.phoneNumber,
-      otp: validation.stringRequired,
-    }),
+    validationSchema,
     onSubmit,
   })
 
@@ -199,7 +218,7 @@ const AddBankInfoForm = () => {
           <Input
             label={t('common.accountName')}
             containerProps={{
-              sx: { mb: '$3' },
+              sx: { mb: hasVerified ? '$10' : '$3' },
             }}
             placeholder={t('common.enterAccountName')}
             error={
@@ -213,73 +232,79 @@ const AddBankInfoForm = () => {
             onBlur={handleBlur('accountName')}
             value={values.accountName}
           />
-          <Input
-            leftOuterElementProps={{
-              sx: { backgroundColor: '$secondaryAgent', marginRight: 1 },
-            }}
-            leftOuterElement={
-              <Text sx={{ paddingX: '$4', color: 'black' }}>
-                {t('common.countryCode')}
-              </Text>
-            }
-            rightOuterElementProps={{
-              sx: { bg: !values.mobileNumber ? '$disabled' : '$primary' },
-            }}
-            rightOuterElement={
-              <>
-                {otpLoading ? (
-                  <View sx={{ minWidth: 100 }}>
-                    <ActivityIndicator color={'white'} />
-                  </View>
-                ) : (
-                  <TouchableOpacity
-                    disabled={!values.mobileNumber ? true : false}
-                    onPress={() => handleSendOtp(values.mobileNumber)}
-                    style={{ minWidth: 100 }}
-                  >
-                    <Text sx={{ paddingX: '$4', color: 'white' }}>
-                      {t('common.send') + ' ' + t('common.otp')}
-                    </Text>
-                  </TouchableOpacity>
-                )}
-              </>
-            }
-            label={t('common.mobileNumber')}
-            containerProps={{
-              sx: { mb: '$3' },
-            }}
-            isRequired
-            error={
-              touched.mobileNumber && errors.mobileNumber
-                ? t(errors.mobileNumber, {
-                    field: t('common.mobileNumber'),
-                  })
-                : undefined
-            }
-            onChangeText={handleChange('mobileNumber')}
-            onBlur={handleBlur('mobileNumber')}
-            keyboardType={'numeric'}
-            value={values.mobileNumber}
-          />
-          <Input
-            label={t('common.enter') + ' ' + t('common.otp')}
-            editable={otpField}
-            containerProps={{
-              sx: { mb: '$10' },
-            }}
-            isRequired
-            error={
-              touched.otp && errors.otp
-                ? t(errors.otp, {
-                    field: 'otp',
-                  })
-                : undefined
-            }
-            onChangeText={handleChange('otp')}
-            onBlur={handleBlur('otp')}
-            keyboardType={'numeric'}
-            value={values.otp}
-          />
+          {hasVerified ? null : (
+            <>
+              <Input
+                leftOuterElementProps={{
+                  sx: { backgroundColor: '$secondaryAgent', marginRight: 1 },
+                }}
+                leftOuterElement={
+                  <Text sx={{ paddingX: '$4', color: 'black' }}>
+                    {t('common.countryCode')}
+                  </Text>
+                }
+                rightOuterElementProps={{
+                  sx: {
+                    bg: !values.mobileNumber ? '$disabled' : '$primaryAgent',
+                  },
+                }}
+                rightOuterElement={
+                  <>
+                    {otpLoading ? (
+                      <View sx={{ minWidth: 100 }}>
+                        <ActivityIndicator color={'white'} />
+                      </View>
+                    ) : (
+                      <TouchableOpacity
+                        disabled={!values.mobileNumber ? true : false}
+                        onPress={() => handleSendOtp(values.mobileNumber)}
+                        style={{ minWidth: 100 }}
+                      >
+                        <Text sx={{ paddingX: '$4', color: 'white' }}>
+                          {t('common.send') + ' ' + t('common.otp')}
+                        </Text>
+                      </TouchableOpacity>
+                    )}
+                  </>
+                }
+                label={t('common.mobileNumber')}
+                containerProps={{
+                  sx: { mb: '$3' },
+                }}
+                isRequired
+                error={
+                  touched.mobileNumber && errors.mobileNumber
+                    ? t(errors.mobileNumber, {
+                        field: t('common.mobileNumber'),
+                      })
+                    : undefined
+                }
+                onChangeText={handleChange('mobileNumber')}
+                onBlur={handleBlur('mobileNumber')}
+                keyboardType={'numeric'}
+                value={values.mobileNumber}
+              />
+              <Input
+                label={t('common.enter') + ' ' + t('common.otp')}
+                editable={otpField}
+                containerProps={{
+                  sx: { mb: '$10' },
+                }}
+                isRequired
+                error={
+                  touched.otp && errors.otp
+                    ? t(errors.otp, {
+                        field: 'otp',
+                      })
+                    : undefined
+                }
+                onChangeText={handleChange('otp')}
+                onBlur={handleBlur('otp')}
+                keyboardType={'numeric'}
+                value={values.otp}
+              />
+            </>
+          )}
 
           <Button
             onPress={submitForm}
