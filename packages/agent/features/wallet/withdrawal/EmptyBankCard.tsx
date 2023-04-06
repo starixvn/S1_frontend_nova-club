@@ -1,16 +1,13 @@
+import Button from 'agent/components/Button'
 import Card from 'agent/components/Card'
-import Text from 'agent/components/Text'
-import IconButton from 'app/components/form/IconButton'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
 import { useDripsyTheme, View } from 'dripsy'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 
 const EmptyBankCard = () => {
   const { theme } = useDripsyTheme()
   const { width } = useContainerDimension()
-  const cardWidth = Math.min(400, width * 0.9)
   const { push } = useContextualRouter()
   const { t } = useAgentLocalization()
 
@@ -19,29 +16,47 @@ const EmptyBankCard = () => {
   }
 
   return (
-    <Card sx={{ mx: '3%', my: '$2' }}>
+    <Card
+      sx={{
+        mx: '3%',
+        my: '$2',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
       <View
         sx={{
-          width: cardWidth,
+          width: 200,
           height: 150,
           alignItems: 'center',
           justifyContent: 'center',
         }}
       >
-        <TouchableOpacity
-          style={{
-            flexDirection: 'row',
-            backgroundColor: theme.colors.$primaryAgent,
-            paddingHorizontal: 20,
-            paddingVertical: 7,
-            alignItems: 'center',
-            borderRadius: 10,
+        <Button
+          elevation={1}
+          leftIcon={{
+            name: 'add-round',
+            size: 20,
+            sx: { mr: '$2' },
+          }}
+          titleProps={{
+            sx: {
+              fontWeight: 'bold',
+            },
+          }}
+          sx={{
+            shadowColor: '$darkBlueAgent',
+            shadowOffset: {
+              width: 0,
+              height: 0,
+            },
+            shadowOpacity: 0.5,
+            shadowRadius: 5,
           }}
           onPress={handleAddBank}
         >
-          <IconButton name="add-round" size={16} sx={{ mx: '$2' }} disabled />
-          <Text sx={{ color: 'white' }}>{t('wallet.addNew')}</Text>
-        </TouchableOpacity>
+          {t('wallet.addNew')}
+        </Button>
       </View>
     </Card>
   )
