@@ -26,8 +26,8 @@ const Dashboard = () => {
   async function handleLogin() {
     try {
       const { success, message, result } = await login({
-        username: 'shlouis8',
-        password: 'aloha123',
+        username: '',
+        password: '',
       }).unwrap()
 
       if (success && result) {

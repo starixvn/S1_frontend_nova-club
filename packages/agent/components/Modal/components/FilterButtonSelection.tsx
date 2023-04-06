@@ -19,9 +19,8 @@ const FilterButtonSelection = ({
       <Button
         elevation={1}
         leftIcon={{
-          name: 'refresh',
+          name: 'remove-filter',
           color: theme.colors.$primaryAgent,
-          size: 20,
         }}
         titleProps={{
           sx: {
@@ -49,7 +48,6 @@ const FilterButtonSelection = ({
         elevation={1}
         leftIcon={{
           name: 'search',
-          size: 20,
         }}
         titleProps={{
           sx: {

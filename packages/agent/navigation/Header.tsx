@@ -21,6 +21,7 @@ import { useState } from 'react'
 import { LayoutChangeEvent } from 'react-native'
 import { useDispatch } from 'react-redux'
 import MainMenuTest from './MainMenu'
+import Icon from 'agent/components/Icon'
 
 const Header = () => {
   const dispatch = useDispatch()
@@ -210,11 +211,7 @@ const Header = () => {
                 }))
               }}
             >
-              <StyledImg
-                sx={{ width: smallIconHeight, height: smallIconHeight }}
-                source={require('app/assets/images/header/menu.png')}
-                resizeMode="contain"
-              />
+              <Icon name="menu" size={smallIconHeight} />
             </BouncePressable>
 
             <MainMenuTest
@@ -240,7 +237,7 @@ const StyledContainer = styled(View)({
 const StyledLogo = styled(Image)({})
 
 const StyledImg = styled(Image)({
-  ml: '$2',
+  mx: '$2',
 })
 
 export default Header

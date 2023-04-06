@@ -118,7 +118,7 @@ const Button = (props: ButtonProps) => {
   const defaultIconProps: IconComponentProps = {
     name: '',
     color: 'white',
-    size: theme.space.$6,
+    size: theme.space.$4,
   }
   const startIconProps = Object.assign(defaultIconProps, passedStartIconProps)
   const endIconProps = Object.assign(defaultIconProps, passedEndIconProps)
@@ -171,8 +171,8 @@ const Button = (props: ButtonProps) => {
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
-              py: theme.space.$2,
-              px: theme.space.$10,
+              py: '$2',
+              px: '$10',
             }}
             style={contentStyle}
             {...contentProps}
@@ -180,7 +180,7 @@ const Button = (props: ButtonProps) => {
             {leftIcon && !loading ? (
               <Icon
                 sx={{
-                  mr: theme.space.$1,
+                  mr: '$2',
                 }}
                 style={startIconStyle}
                 {...startIconProps}
@@ -192,7 +192,7 @@ const Button = (props: ButtonProps) => {
             {rightIcon && !loading ? (
               <Icon
                 sx={{
-                  ml: theme.space.$1,
+                  ml: '$2',
                 }}
                 style={startIconStyle}
                 {...endIconProps}
