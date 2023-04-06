@@ -47,6 +47,7 @@ const AgentCreatePin = () => {
   const { openModal } = useModal()
   const { t } = useAgentLocalization()
   const [sendOtp] = useCreatePinOtpMutation()
+  const [isOtpLoading, setIsOtpLoading] = useState(false)
 
   const [agentCreatePin] = useAgentCreatePinMutation()
   const [shCreatePin] = useShareholderCreatePinMutation()
@@ -88,7 +89,7 @@ const AgentCreatePin = () => {
     },
     validationSchema: Yup.object({
       mobileNumber: validation.phoneNumber,
-      otp: validation.stringRequired,
+      otp: validation.verifyCode,
       pin: validation.pin,
       confirmPin: validation.confirmPin,
     }),
@@ -109,6 +110,8 @@ const AgentCreatePin = () => {
   } = formik
 
   const handleSendOtp = async (mobile_no: string) => {
+    setIsLoading(true)
+
     try {
       const { message, success } = await sendOtp({
         mobile_no,
@@ -119,13 +122,15 @@ const AgentCreatePin = () => {
           return error
         })
       if (success) {
-        showAlert(message)
+        OTPRef.current?.startOtpTimer()
         setOtpField(true)
       }
     } catch (err) {
       openModal('AgentAlertModal', {
         message: getErrorMessage(err),
       })
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -198,7 +203,7 @@ const AgentCreatePin = () => {
             error={
               touched.otp && errors.otp
                 ? t(errors.otp, {
-                    field: 'otp',
+                    field: t('common.otp'),
                   })
                 : undefined
             }

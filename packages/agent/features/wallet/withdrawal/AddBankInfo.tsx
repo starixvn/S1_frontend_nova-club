@@ -3,6 +3,9 @@ import Button from 'agent/components/Button'
 import Input from 'agent/components/Input'
 import SelectWithCardGrid from 'agent/components/Select/SelectWithCardGrid'
 import Text from 'agent/components/Text'
+import TimerButton, {
+  ITimerButtonForwardRef,
+} from 'agent/components/TimerButton'
 import useAgentAlert from 'agent/hooks/useAgentAlert'
 import CommonBackHeader from 'agent/navigation/components/CommonBackHeader'
 import {
@@ -20,7 +23,7 @@ import { useAgentLocalization } from 'app/provider/localization'
 import { Currency } from 'app/utils/constant'
 import { ActivityIndicator, ScrollView, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useModal } from 'react-native-modalfy'
 import * as Yup from 'yup'
@@ -35,12 +38,14 @@ interface AddBankInfoValues {
 }
 
 const AddBankInfoForm = () => {
-  const { currency, hasVerified } = useUserInfoQuery(undefined, {
+  const { currency, hasVerified, phoneNo } = useUserInfoQuery(undefined, {
     selectFromResult: ({ data }) => ({
       currency: data?.wallet.currency as Currency,
       hasVerified: data?.has_verified_wd,
+      phoneNo: data?.mobile_no,
     }),
   })
+  const OTPRef = useRef<ITimerButtonForwardRef>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [otpField, setOtpField] = useState(false)
   const [otpLoading, setOtpLoading] = useState(false)
@@ -116,7 +121,7 @@ const AddBankInfoForm = () => {
       bankCard: '',
       accountNumber: '',
       accountName: '',
-      mobileNumber: '',
+      mobileNumber: phoneNo ?? '',
       otp: '',
       hasVerified: hasVerified ?? 0,
     },
@@ -137,26 +142,27 @@ const AddBankInfoForm = () => {
     setFieldValue,
   } = formik
 
-  const handleSendOtp = async (mobile_no: string) => {
+  async function handleSendOtp() {
     try {
-      setOtpLoading(true)
+      setIsLoading(true)
       const { message, success } = await sendOtp({
-        mobile_no,
+        mobile_no: values.mobileNumber,
       })
         .unwrap()
         .catch((error): IResponse<void> => {
           showAlert(error)
           return error
         })
-      setOtpLoading(false)
       if (success) {
-        showAlert(message)
+        OTPRef.current?.startOtpTimer()
         setOtpField(true)
       }
     } catch (err) {
       openModal('AgentAlertModal', {
         message: getErrorMessage(err),
       })
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -235,6 +241,7 @@ const AddBankInfoForm = () => {
           {hasVerified ? null : (
             <>
               <Input
+                editable={phoneNo ? false : true}
                 leftOuterElementProps={{
                   sx: { backgroundColor: '$secondaryAgent', marginRight: 1 },
                 }}
@@ -249,23 +256,25 @@ const AddBankInfoForm = () => {
                   },
                 }}
                 rightOuterElement={
-                  <>
-                    {otpLoading ? (
-                      <View sx={{ minWidth: 100 }}>
-                        <ActivityIndicator color={'white'} />
-                      </View>
-                    ) : (
-                      <TouchableOpacity
-                        disabled={!values.mobileNumber ? true : false}
-                        onPress={() => handleSendOtp(values.mobileNumber)}
-                        style={{ minWidth: 100 }}
-                      >
-                        <Text sx={{ paddingX: '$4', color: 'white' }}>
-                          {t('common.send') + ' ' + t('common.otp')}
-                        </Text>
-                      </TouchableOpacity>
-                    )}
-                  </>
+                  <TimerButton
+                    accessibilityRole="button"
+                    ref={OTPRef}
+                    title={t('common.send') + ' ' + t('common.otp')}
+                    loading={isLoading}
+                    onPress={handleSendOtp}
+                    sx={{
+                      width: 'auto',
+                      backgroundColor: '$primaryAgent',
+                      m: 0,
+                      px: '$3',
+                      minWidth: 75,
+                    }}
+                    _text={{
+                      sx: {
+                        color: '$white',
+                      },
+                    }}
+                  />
                 }
                 label={t('common.mobileNumber')}
                 containerProps={{
