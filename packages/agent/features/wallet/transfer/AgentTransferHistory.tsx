@@ -15,6 +15,7 @@ import dayjsTz from 'app/utils/dayjs'
 import dayjs from 'dayjs'
 import { View } from 'dripsy'
 import { useState } from 'react'
+import { Platform } from 'react-native'
 
 interface AgentTransferHistoryProps {
   currency: Currency
@@ -131,23 +132,21 @@ const AgentTransferHistory = ({
   )
 
   return (
-    <>
-      <View sx={{ py: '$5' }}>
-        <TableListing
-          title={t('wallet.recentTransaction')}
-          data={data}
-          renderItem={onRenderItem}
-          keyExtractor={(item, index) => `${index} Table ${item.create_date}`}
-          onLoadMore={onLoadMore}
-          isFetching={isFetching}
-          refreshProps={{
-            titleProps: {
-              sx: { fontWeight: 'bold', fontSize: 14 },
-            },
-          }}
-        />
-      </View>
-    </>
+    <View sx={{ py: '$5', height: Platform.OS !== 'web' ? 500 : null }}>
+      <TableListing
+        title={t('wallet.recentTransaction')}
+        data={data}
+        renderItem={onRenderItem}
+        keyExtractor={(item, index) => `${index} Table ${item.create_date}`}
+        onLoadMore={onLoadMore}
+        isFetching={isFetching}
+        refreshProps={{
+          titleProps: {
+            sx: { fontWeight: 'bold', fontSize: 14 },
+          },
+        }}
+      />
+    </View>
   )
 }
 export default AgentTransferHistory

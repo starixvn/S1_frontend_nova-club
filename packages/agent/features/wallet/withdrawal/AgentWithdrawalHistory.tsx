@@ -3,6 +3,8 @@ import TableListing from 'agent/components/DataTable/TableListing'
 import Text from 'agent/components/Text'
 import useTableListing from 'agent/hooks/useTableListing'
 import { useWithdrawalListQuery } from 'agent/services/withdrawalApi'
+import { TAB_HEIGHT } from 'app/constant/sizes'
+import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useAgentLocalization } from 'app/provider/localization'
 import { toThousandSeparator } from 'app/utils'
 import { Currency } from 'app/utils/constant'
@@ -10,6 +12,7 @@ import dayjsTz from 'app/utils/dayjs'
 import dayjs from 'dayjs'
 import { View } from 'dripsy'
 import React, { useState } from 'react'
+import { Platform } from 'react-native'
 
 enum WithdrawalStatus {
   Pending = '0',
@@ -25,6 +28,7 @@ const date =
 const LIMIT = 10
 const AgentWithdrawalHistory = ({ currency }: { currency: Currency }) => {
   const { t } = useAgentLocalization()
+  const { height } = useContainerDimension()
 
   const [offset, setOffset] = useState(0)
   const { withdrawalData, totalData, isFetching } = useWithdrawalListQuery(
@@ -104,20 +108,18 @@ const AgentWithdrawalHistory = ({ currency }: { currency: Currency }) => {
   )
 
   return (
-    <>
-      <View sx={{ py: '$5', flex: 1 }}>
-        <TableListing
-          title={t('wallet.recentTransaction')}
-          refreshProps={{ titleProps: { sx: { fontWeight: 'bold' } } }}
-          data={withdrawalData}
-          renderItem={onRenderItem}
-          keyExtractor={(item, index) => `${index} Table ${item.username}`}
-          onLoadMore={onLoadMore}
-          isFetching={isFetching}
-          containerStyle={{ flex: 1 }}
-        />
-      </View>
-    </>
+    <View sx={{ py: '$5', height: Platform.OS !== 'web' ? 500 : null }}>
+      <TableListing
+        title={t('wallet.recentTransaction')}
+        refreshProps={{ titleProps: { sx: { fontWeight: 'bold' } } }}
+        data={withdrawalData}
+        renderItem={onRenderItem}
+        keyExtractor={(item, index) => `${index} Table ${item.username}`}
+        onLoadMore={onLoadMore}
+        isFetching={isFetching}
+        containerStyle={{ flex: 1 }}
+      />
+    </View>
   )
 }
 
