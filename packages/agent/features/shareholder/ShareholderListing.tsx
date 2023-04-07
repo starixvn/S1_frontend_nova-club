@@ -16,6 +16,7 @@ import { useAgentLocalization } from 'app/provider/localization'
 import dayjs from 'dayjs'
 import { Pressable, View } from 'dripsy'
 import { useState } from 'react'
+import { ListRenderItemInfo } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import AgentFloatingContent from '../floatingContent'
@@ -104,11 +105,14 @@ const ShareholderListing = () => {
     </DataTable.Header>
   )
 
-  const onRenderItem = ({ item, index }: RenderItemProps) => {
+  const onRenderItem = ({
+    item,
+    index,
+  }: ListRenderItemInfo<ShareholderListResult>) => {
     return (
       <DataTable.Row size="big" sx={{ bg: 'transparent' }}>
         <DataTable.Cell bordered center style={firstCellStyle}>
-          {item.id}
+          {index + 1}
         </DataTable.Cell>
         <DataTable.Cell bordered>
           <Pressable
@@ -203,7 +207,6 @@ const ShareholderListing = () => {
         onLoadMore={onLoadMore}
         onRefresh={onRefresh}
         isFetching={isFetching}
-        containerStyle={{ flex: 1 }}
         extraData={isLoading}
       />
 

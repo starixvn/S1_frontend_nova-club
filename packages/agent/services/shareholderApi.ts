@@ -1,15 +1,10 @@
-import { current } from '@reduxjs/toolkit'
-import { store } from 'app/provider/redux/store'
 import { EndpointBuilderType } from 'services/common/types'
-import { AgentNewTransferArgs, AgentNewTransferResult } from './agentApi.type'
 import { agentBaseApiWithTag } from './agentBaseApi'
 import { IResponse } from './common/agentAxiosBaseQuery'
 import {
   AddNewShareholderArgs,
   AddNewShareholderResult,
   NewEarnPercentage,
-  ShareholderChangeReferralArgs,
-  ShareholderChangeReferralResult,
   ShareholderCreatePinArgs,
   ShareholderCreatePinResult,
   ShareholderDetailsArgs,
@@ -19,8 +14,6 @@ import {
   ShareholderListArgs,
   ShareholderListResult,
   ShareholderProfile,
-  ShareholderRecentTransactionListArgs,
-  ShareholderRecentTransactionListResult,
   ShareholderResetPinArgs,
   ShareholderSetStatusArgs,
   ShareholderUpdatePtArgs,
@@ -105,32 +98,6 @@ export const shareholderApi = agentBaseApiWithTag.injectEndpoints({
         },
       }),
     }),
-    shareholderNewTransfer: builder.mutation<
-      IResponse<AgentNewTransferResult>,
-      AgentNewTransferArgs
-    >({
-      query: ({ balance_transfer, currency, memberCode, remark }) => ({
-        url: `/sh/transfer`,
-        data: {
-          balance_transfer,
-          currency,
-          memberCode,
-          remark,
-        },
-      }),
-      invalidatesTags: ['ShareholderTransferHistory', 'WalletAmount'],
-    }),
-    shareholderChangeReferralToUserDetail: builder.mutation<
-      IResponse<ShareholderChangeReferralResult>,
-      ShareholderChangeReferralArgs
-    >({
-      query: ({ referralCode }) => ({
-        url: `/sh/transfer/change/referralCode`,
-        data: {
-          referralCode,
-        },
-      }),
-    }),
     shareholderCreatePin: builder.mutation<
       IResponse<ShareholderCreatePinResult>,
       ShareholderCreatePinArgs
@@ -153,34 +120,6 @@ export const shareholderApi = agentBaseApiWithTag.injectEndpoints({
           ...queryArgs,
         },
       }),
-    }),
-    shareholderRecentTransactionList: builder.query<
-      IResponse<ShareholderRecentTransactionListResult[]>,
-      ShareholderRecentTransactionListArgs
-    >({
-      query: (queryArgs) => ({
-        url: `/sh/transferList`,
-        data: {
-          ...queryArgs,
-        },
-      }),
-      serializeQueryArgs: ({ endpointName }) => {
-        return endpointName
-      },
-      merge: (currentCache, newItems, { arg }) => {
-        if (arg.start > 0) {
-          newItems?.result?.data &&
-            currentCache.result?.data.push(...newItems.result.data)
-
-          return currentCache
-        }
-
-        return newItems
-      },
-      forceRefetch({ currentArg, previousArg }) {
-        return currentArg !== previousArg
-      },
-      providesTags: ['ShareholderTransferHistory'],
     }),
     shareholderGetEarnPt: builder.query<
       IResponse<ShareholderGetEarnPtResult>,
@@ -272,11 +211,8 @@ export const {
   useShareholderDetailsQuery,
   useShareholderResetPinMutation,
   useAddNewShareholderMutation,
-  useShareholderChangeReferralToUserDetailMutation,
-  useShareholderNewTransferMutation,
   useShareholderCreatePinMutation,
   useShareholderVerifyTransferPinMutation,
-  useShareholderRecentTransactionListQuery,
   useShareholderGetEarnPtQuery,
   useShareholderUpdatePtMutation,
   useShareholderSetStatusMutation,

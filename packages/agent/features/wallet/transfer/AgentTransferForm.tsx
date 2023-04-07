@@ -8,18 +8,15 @@ import useAgentAlert from 'agent/hooks/useAgentAlert'
 import {
   useAgentChangeReferralToUserDetailMutation,
   useAgentNewTransferMutation,
-} from 'agent/services/agentApi'
-import {
   useShareholderChangeReferralToUserDetailMutation,
   useShareholderNewTransferMutation,
-} from 'agent/services/shareholderApi'
+} from 'agent/services/transferApi'
 import { ROLE } from 'agent/utils/helper'
 import validation from 'agent/utils/validation'
 import { useAgentLocalization } from 'app/provider/localization'
-
 import { agentToThousandSeparator } from 'app/utils'
 import { Currency } from 'app/utils/constant'
-import { ActivityIndicator, useDripsyTheme, View } from 'dripsy'
+import { ActivityIndicator, View, useDripsyTheme } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import debounce from 'lodash/debounce'
 import { useCallback, useState } from 'react'
@@ -97,6 +94,7 @@ const AgentTransferForm = ({
           currency: Currency.VND,
           balance_transfer: amount?.replace(/,/g, '') ?? '0',
           remark: `${values.username} - ${values.amount}`,
+          referrer_code: playerId,
         }).unwrap()
 
         if (success && result) {

@@ -67,7 +67,7 @@ const DataTableCell = ({
   return (
     <CellView center={center} bordered={bordered} {...rest} sx={containerStyle}>
       {typeof children === 'string' || typeof children === 'number' ? (
-        <Text sx={{ ...textStyle }} numberOfLines={1}>
+        <Text sx={{ ...textStyle }} numberOfLines={2}>
           {children}
         </Text>
       ) : (

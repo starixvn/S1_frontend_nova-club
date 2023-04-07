@@ -2,19 +2,13 @@ import { EndpointBuilderType } from 'services/common/types'
 import {
   AddNewAgentArgs,
   AddNewAgentResult,
-  AgentChangeReferralArgs,
-  AgentChangeReferralResult,
   AgentCreatePinArgs,
   AgentCreatePinResult,
   AgentDetailsArgs,
   AgentDetailsResult,
   AgentListArgs,
   AgentListResult,
-  AgentNewTransferArgs,
-  AgentNewTransferResult,
   AgentProfile,
-  AgentRecentTransactionListArgs,
-  AgentRecentTransactionListResult,
   AgentReferralDetailsArgs,
   AgentReferralDetailsResult,
   AgentResetPinArgs,
@@ -126,32 +120,7 @@ export const agentApi = agentBaseApiWithTag.injectEndpoints({
         },
       }),
     }),
-    agentNewTransfer: builder.mutation<
-      IResponse<AgentNewTransferResult>,
-      AgentNewTransferArgs
-    >({
-      query: ({ balance_transfer, currency, memberCode, remark }) => ({
-        url: `/agent/transfer`,
-        data: {
-          balance_transfer,
-          currency,
-          memberCode,
-          remark,
-        },
-      }),
-      invalidatesTags: ['AgentTransferHistory', 'WalletAmount'],
-    }),
-    agentChangeReferralToUserDetail: builder.mutation<
-      IResponse<AgentChangeReferralResult>,
-      AgentChangeReferralArgs
-    >({
-      query: ({ referralCode }) => ({
-        url: `/agent/transfer/change/referralCode`,
-        data: {
-          referralCode,
-        },
-      }),
-    }),
+
     agentCreatePin: builder.mutation<
       IResponse<AgentCreatePinResult>,
       AgentCreatePinArgs
@@ -175,34 +144,7 @@ export const agentApi = agentBaseApiWithTag.injectEndpoints({
         },
       }),
     }),
-    agentRecentTransactionList: builder.query<
-      IResponse<AgentRecentTransactionListResult[]>,
-      AgentRecentTransactionListArgs
-    >({
-      query: (queryArgs) => ({
-        url: `/agent/transferList`,
-        data: {
-          ...queryArgs,
-        },
-      }),
-      serializeQueryArgs: ({ endpointName }) => {
-        return endpointName
-      },
-      merge: (currentCache, newItems, { arg }) => {
-        if (arg.start > 0) {
-          newItems?.result?.data &&
-            currentCache.result?.data.push(...newItems.result.data)
 
-          return currentCache
-        }
-
-        return newItems
-      },
-      forceRefetch({ currentArg, previousArg }) {
-        return currentArg !== previousArg
-      },
-      providesTags: ['AgentTransferHistory'],
-    }),
     agentReferralDetails: builder.query<
       IResponse<AgentReferralDetailsResult>,
       AgentReferralDetailsArgs
@@ -225,10 +167,7 @@ export const {
   useAgentResetPinMutation,
   useAddNewAgentMutation,
   useMemberListQuery,
-  useAgentChangeReferralToUserDetailMutation,
-  useAgentNewTransferMutation,
   useAgentCreatePinMutation,
   useAgentVerifyTransferPinMutation,
-  useAgentRecentTransactionListQuery,
   useAgentReferralDetailsQuery,
 } = agentApi

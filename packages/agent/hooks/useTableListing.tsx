@@ -1,3 +1,14 @@
+import { Dispatch, SetStateAction } from 'react'
+
+type useTableListingProps = {
+  offset: number
+  setOffset: Dispatch<SetStateAction<number>>
+  LIMIT: number
+  totalData: number
+  isFetching: boolean
+  refetch?: any
+}
+
 const useTableListing = ({
   offset,
   setOffset,
@@ -5,7 +16,7 @@ const useTableListing = ({
   totalData,
   isFetching,
   refetch,
-}) => {
+}: useTableListingProps) => {
   const hasMorePage = totalData >= (offset + 1) * LIMIT
 
   const onLoadMore = () => {

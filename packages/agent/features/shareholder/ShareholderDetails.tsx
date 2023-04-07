@@ -99,7 +99,7 @@ const ShareholderDetailsScreen = () => {
           </DataTable>
 
           <DetailsField
-            label={t('report.lastLogin')}
+            label={t('profile.lastLogin')}
             value={`${dayjs(shareholderData?.lastlogin_at).format(
               'YYYY-MM-DD HH:mm:ss'
             )} \n(IP: ${shareholderData?.lastlogin_ip})`}

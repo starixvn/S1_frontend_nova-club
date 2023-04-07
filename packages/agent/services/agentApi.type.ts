@@ -92,33 +92,6 @@ export type MemberListResult = {
   register_date: string
   status: string
 }
-export interface AgentNewTransferResult {
-  code: number
-  message: string
-  data?: {
-    request_secure_id: string
-  }
-  success: boolean
-}
-
-export interface AgentNewTransferArgs {
-  memberCode: string
-  currency: Currency
-  balance_transfer: string
-  remark: string
-}
-
-export interface AgentChangeReferralResult {
-  value: string
-  currency: string
-  balance: number
-  currency_postfix?: string
-  message?: string
-}
-
-export interface AgentChangeReferralArgs {
-  referralCode: string
-}
 
 export interface AgentCreatePinArgs {
   OTP_1: string
@@ -136,19 +109,6 @@ export interface AgentVerifyTransferPinArgs {
 
 export interface AgentVerifyTransferPinResult {
   key: number
-}
-
-export interface AgentRecentTransactionListArgs {
-  start: number
-  length: number
-  date_from: string
-  currency: string
-}
-export interface AgentRecentTransactionListResult {
-  currency: string
-  referrer_code: string
-  amount: string
-  created_date: string
 }
 
 export interface AgentReferralDetailsArgs {
