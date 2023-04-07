@@ -3,6 +3,7 @@ import Button from 'agent/components/Button'
 import Card from 'agent/components/Card'
 import IconButton from 'agent/components/Icon/IconButton'
 import Input from 'agent/components/Input'
+import NumberInput from 'agent/components/NumberInput'
 import SelectWithdrawalBank from 'agent/components/Select/SelectWithdrawalBank'
 import Text from 'agent/components/Text'
 import useAgentAlert from 'agent/hooks/useAgentAlert'
@@ -19,7 +20,7 @@ import {
 import validation from 'agent/utils/validation'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useAgentLocalization } from 'app/provider/localization'
-import { toThousandSeparator } from 'app/utils'
+import { agentToThousandSeparator } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import { ActivityIndicator, styled, useDripsyTheme, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
@@ -101,7 +102,7 @@ const AgentWithdrawalForm = ({
         bank_card: bankCardId,
         account_number: accountNumber,
         account_name: accountName,
-        amount: amount.replace(/,/g, ''),
+        amount: amount.replace(/[^\d]/g, ''),
       })
         .unwrap()
         .catch((error: IResponse<WithdrawalSubmissionInfo>) => {
@@ -124,7 +125,7 @@ const AgentWithdrawalForm = ({
       bankCard: '',
       accountNumber: '',
       accountName: '',
-      amount: '0',
+      amount: '',
     },
     validationSchema: Yup.object({
       bankCard: Yup.string().required('validation.required'),
@@ -162,13 +163,13 @@ const AgentWithdrawalForm = ({
     })
   }
   const handleChangeAmount = (value: string, field: string) => {
-    const amount = value.replace(/,/g, '')
-    const formattedAmount = toThousandSeparator(amount)
-    formik.setFieldValue(field, formattedAmount.toString())
+    const amount = value.replace(/[^\d]/g, '')
+    const formattedAmount = agentToThousandSeparator(amount.toString())
+    formik.setFieldValue(field, formattedAmount)
   }
 
   const computeNettPayout = async (amt: number) => {
-    if (amt < 1000) return null
+    if (amt < 1000 || null) return null
     setIsNettPayoutLoading(true)
     const { result } = await newNettPayout({
       currency,
@@ -272,13 +273,13 @@ const AgentWithdrawalForm = ({
         />
       </RowInputContainer>
 
-      <Input
-        label={t('common.amount')}
+      <NumberInput
         value={values.amount}
+        label={t('common.amount')}
         placeholder={t('wallet.enterWithdrawalAmount')}
         onChangeText={(e) => {
-          handleChangeAmount(e, 'amount')
-          debounceNettPayout(parseInt(e.replace(/,/g, '')))
+          formik.setFieldValue('amount', e)
+          debounceNettPayout(parseInt(e.replace(/[^\d]/g, '')))
         }}
         onBlur={handleBlur('amount')}
         keyboardType={'number-pad'}

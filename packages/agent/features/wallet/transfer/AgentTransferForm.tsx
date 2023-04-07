@@ -2,6 +2,7 @@ import Button from 'agent/components/Button'
 import Card from 'agent/components/Card'
 import IconButton from 'agent/components/Icon/IconButton'
 import Input from 'agent/components/Input'
+import NumberInput from 'agent/components/NumberInput'
 import Text from 'agent/components/Text'
 import useAgentAlert from 'agent/hooks/useAgentAlert'
 import {
@@ -16,7 +17,7 @@ import { ROLE } from 'agent/utils/helper'
 import validation from 'agent/utils/validation'
 import { useAgentLocalization } from 'app/provider/localization'
 
-import { toThousandSeparator } from 'app/utils'
+import { agentToThousandSeparator } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import { ActivityIndicator, useDripsyTheme, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
@@ -121,7 +122,7 @@ const AgentTransferForm = ({
       //IAJF465573
       playerId: '',
       username: '',
-      amount: '0',
+      amount: '',
     },
     validationSchema: Yup.object({
       playerId: validation.stringRequired,
@@ -176,8 +177,8 @@ const AgentTransferForm = ({
   } = formik
 
   const handleChangeAmount = (value: string, field: string) => {
-    const amount = value.replace(/,/g, '')
-    const formattedAmount = toThousandSeparator(amount)
+    const amount = value.replace(/[^\d]/g, '')
+    const formattedAmount = agentToThousandSeparator(amount)
     formik.setFieldValue(field, formattedAmount.toString())
   }
 
@@ -232,22 +233,18 @@ const AgentTransferForm = ({
           )
         }
       />
-      <Input
+      <NumberInput
+        value={values.amount?.toString()}
+        onChangeText={(e) => formik.setFieldValue('amount', e)}
         label={t('common.amount')}
         placeholder={t('wallet.enterWithdrawalAmount')}
         containerProps={{ sx: { mb: '$8' } }}
-        onChangeText={(e) => {
-          handleChangeAmount(e.replace(/,/g, ''), 'amount')
-        }}
         onBlur={() => {
           handleBlur('amount')
         }}
-        value={values.amount?.toString()}
         keyboardType={'numeric'}
         isRequired
-        rightOuterElementProps={{
-          sx: { bg: theme.colors.$secondaryAgent },
-        }}
+        rightOuterElementProps={{ sx: { bg: theme.colors.$secondaryAgent } }}
         rightOuterElement={
           <IconButton
             name="cash"
@@ -255,9 +252,7 @@ const AgentTransferForm = ({
             size={25}
             disabled={balance <= 0}
             sx={{ mr: '$4' }}
-            onPress={() => {
-              handleChangeAmount(balance.toString(), 'amount')
-            }}
+            onPress={() => handleChangeAmount(balance.toString(), 'amount')}
           />
         }
         error={
