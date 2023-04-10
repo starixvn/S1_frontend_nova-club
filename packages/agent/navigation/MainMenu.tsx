@@ -1,6 +1,7 @@
 import Icon from 'agent/components/Icon'
 import Text from 'agent/components/Text'
 import useOnAgentLogout from 'agent/hooks/useOnAgentLogout'
+import { useUserInfoQuery } from 'agent/services/userApi'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
@@ -28,6 +29,13 @@ const MainMenuTest = ({
 
   const { width } = useWindowDimensions()
   const { theme } = useDripsyTheme()
+
+  const { hasPin } = useUserInfoQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      hasPin: data?.has_pin,
+    }),
+  })
+
   const { x: parentWidth, y: parentHeight } = parentPosition
 
   const isWeb = Platform.OS === 'web'
@@ -59,9 +67,10 @@ const MainMenuTest = ({
       },
     },
     {
-      label: 'menu.resetPin',
+      label: hasPin ? 'menu.resetPin' : 'pin.createPin',
       icon: 'change-pin',
-      onPress: () => push('/agent/reset-pin'),
+      onPress: () =>
+        hasPin ? push('/agent/reset-pin') : push('/agent/create-pin'),
     },
     {
       label: 'menu.changePass',

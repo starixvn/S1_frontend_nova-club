@@ -20,7 +20,7 @@ import validation, {
 } from 'agent/utils/validation'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
-import { ScrollView, useDripsyTheme, View } from 'dripsy'
+import { ActivityIndicator, ScrollView, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { useEffect, useRef, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
@@ -35,14 +35,16 @@ interface AddBankInfoValues {
 }
 
 const AgentCreatePin = () => {
-  const { theme } = useDripsyTheme()
-  const { back } = useContextualRouter()
-  const { isAgent, mobile_no } = useUserInfoQuery(undefined, {
-    selectFromResult: ({ data }) => ({
-      isAgent: data?.role === ROLE.AGENT,
-      mobile_no: data?.mobile_no,
-    }),
-  })
+  const { back, replace } = useContextualRouter()
+  const { isAgent, mobile_no, hasPin, isUninitialized, isFetching } =
+    useUserInfoQuery(undefined, {
+      selectFromResult: ({ data, ...rest }) => ({
+        isAgent: data?.role === ROLE.AGENT,
+        mobile_no: data?.mobile_no,
+        hasPin: data?.has_pin,
+        ...rest,
+      }),
+    })
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [otpField, setOtpField] = useState(false)
@@ -113,7 +115,7 @@ const AgentCreatePin = () => {
   } = formik
 
   const handleSendOtp = async (mobile_no: string) => {
-    setIsLoading(true)
+    setIsOtpLoading(true)
 
     try {
       const { message, success } = await sendOtp({
@@ -125,6 +127,7 @@ const AgentCreatePin = () => {
           return error
         })
       if (success) {
+        setIsOtpLoading(false)
         OTPRef.current?.startOtpTimer()
         setOtpField(true)
       }
@@ -133,7 +136,7 @@ const AgentCreatePin = () => {
         message: getErrorMessage(err),
       })
     } finally {
-      setIsLoading(false)
+      setIsOtpLoading(false)
     }
   }
 
@@ -142,129 +145,140 @@ const AgentCreatePin = () => {
       const formattedPhoneNum = removeAgentPhoneNumPrefix(mobile_no)
       setFieldValue('mobileNumber', formattedPhoneNum, false)
     }
+    if (hasPin) {
+      replace('/agent')
+    }
   }, [mobile_no, setFieldValue])
 
   return (
     <>
-      <CommonBackHeader
-        title="pin.createPin"
-        customRoute="/agent/wallet/withdrawal"
-      />
-      <ScrollView
-        contentContainerStyle={{
-          paddingHorizontal: 20,
-          paddingTop: 20,
-        }}
-      >
-        <View sx={{ alignItems: 'center' }}>
-          <Input
-            leftOuterElementProps={{
-              sx: { backgroundColor: '$secondaryAgent', marginRight: 1 },
+      {!hasPin || isFetching || isUninitialized ? (
+        <ActivityIndicator />
+      ) : (
+        <>
+          <CommonBackHeader
+            title="pin.createPin"
+            customRoute="/agent/wallet/withdrawal"
+          />
+          <ScrollView
+            contentContainerStyle={{
+              paddingHorizontal: 20,
+              paddingTop: 20,
             }}
-            leftOuterElement={
-              <Text sx={{ paddingX: '$4', color: 'black' }}>+84</Text>
-            }
-            rightOuterElement={
-              <TimerButton
-                accessibilityRole="button"
-                ref={OTPRef}
-                title={t('common.send') + ' ' + t('common.otp')}
-                loading={isLoading}
-                onPress={() => handleSendOtp(values.mobileNumber)}
-                sx={{
-                  width: 'auto',
-                  backgroundColor: theme.colors.$primaryAgent,
-                  m: 0,
-                  px: '$3',
-                  minWidth: 75,
+          >
+            <View sx={{ alignItems: 'center' }}>
+              <Input
+                leftOuterElementProps={{
+                  sx: { backgroundColor: '$secondaryAgent', marginRight: 1 },
                 }}
-                _text={{
-                  sx: {
-                    color: theme.colors.$white,
-                  },
+                leftOuterElement={
+                  <Text sx={{ paddingX: '$4', color: 'black' }}>+84</Text>
+                }
+                rightOuterElement={
+                  isOtpLoading ? (
+                    <ActivityIndicator color="white" sx={{ minWidth: 79 }} />
+                  ) : (
+                    <TimerButton
+                      accessibilityRole="button"
+                      ref={OTPRef}
+                      title={t('common.send') + ' ' + t('common.otp')}
+                      loading={isLoading}
+                      onPress={() => handleSendOtp(values.mobileNumber)}
+                      sx={{
+                        width: 'auto',
+                        backgroundColor: '$primaryAgent',
+                        m: 0,
+                        px: '$3',
+                        minWidth: 75,
+                      }}
+                      _text={{
+                        sx: { color: '$white' },
+                      }}
+                    />
+                  )
+                }
+                label={t('common.mobileNumber')}
+                containerProps={{
+                  sx: { mb: '$3' },
+                }}
+                isRequired
+                editable={false}
+                error={
+                  touched.mobileNumber && errors.mobileNumber
+                    ? t(errors.mobileNumber, {
+                        field: 'mobileNumber',
+                      })
+                    : undefined
+                }
+                onChangeText={handleChange('mobileNumber')}
+                onBlur={handleBlur('mobileNumber')}
+                keyboardType={'numeric'}
+                value={values.mobileNumber}
+              />
+              <Input
+                label={t('common.enter') + ' ' + t('common.otp')}
+                editable={otpField}
+                containerProps={{
+                  sx: { mb: '$4' },
+                }}
+                isRequired
+                error={
+                  touched.otp && errors.otp
+                    ? t(errors.otp, {
+                        field: t('common.mobileNumber') + ' ' + t('common.otp'),
+                      })
+                    : undefined
+                }
+                onChangeText={handleChange('otp')}
+                onBlur={handleBlur('otp')}
+                keyboardType={'numeric'}
+                value={values.otp}
+              />
+              <AgentUnderlinePinField
+                title={t('pin.newPin')}
+                value={values.pin}
+                setValue={handleChange('pin')}
+                cellContainerSx={{
+                  width: '100%',
+                  mb: '$3',
+                  bg: '#dbebff',
+                  paddingX: '$2',
+                  paddingY: '$3',
+                  borderRadius: 10,
                 }}
               />
-            }
-            label={t('common.mobileNumber')}
-            containerProps={{
-              sx: { mb: '$3' },
-            }}
-            isRequired
-            editable={false}
-            error={
-              touched.mobileNumber && errors.mobileNumber
-                ? t(errors.mobileNumber, {
-                    field: 'mobileNumber',
-                  })
-                : undefined
-            }
-            onChangeText={handleChange('mobileNumber')}
-            onBlur={handleBlur('mobileNumber')}
-            keyboardType={'numeric'}
-            value={values.mobileNumber}
-          />
-          <Input
-            label={t('common.enter') + ' ' + t('common.otp')}
-            editable={otpField}
-            containerProps={{
-              sx: { mb: '$4' },
-            }}
-            isRequired
-            error={
-              touched.otp && errors.otp
-                ? t(errors.otp, {
-                    field: t('common.mobileNumber') + ' ' + t('common.otp'),
-                  })
-                : undefined
-            }
-            onChangeText={handleChange('otp')}
-            onBlur={handleBlur('otp')}
-            keyboardType={'numeric'}
-            value={values.otp}
-          />
-          <AgentUnderlinePinField
-            title={t('pin.newPin')}
-            value={values.pin}
-            setValue={handleChange('pin')}
-            cellContainerSx={{
-              width: '100%',
-              mb: '$3',
-              bg: '#dbebff',
-              paddingX: '$2',
-              paddingY: '$3',
-              borderRadius: 10,
-            }}
-          />
-          <AgentUnderlinePinField
-            title={t('pin.confirmPin')}
-            value={values.confirmPin}
-            cellContainerSx={{
-              width: '100%',
-              mb: '$3',
-              bg: '#dbebff',
-              paddingX: '$2',
-              paddingY: '$3',
-              borderRadius: 10,
-            }}
-            setValue={handleChange('confirmPin')}
-            errorMsg={
-              values.confirmPin.length === 6 && errors.confirmPin
-                ? t(errors.confirmPin, {
-                    field: t('pin.newPin'),
-                  })
-                : undefined
-            }
-          />
-          <Button
-            onPress={submitForm}
-            loading={isLoading}
-            sx={{ width: 150, justifyContent: 'center', minHeight: 37.5 }}
-            disabled={!isValid || !dirty}
-          >
-            {t('common.submit')}
-          </Button>
-        </View>
-      </ScrollView>
+              <AgentUnderlinePinField
+                title={t('pin.confirmPin')}
+                value={values.confirmPin}
+                cellContainerSx={{
+                  width: '100%',
+                  mb: '$3',
+                  bg: '#dbebff',
+                  paddingX: '$2',
+                  paddingY: '$3',
+                  borderRadius: 10,
+                }}
+                setValue={handleChange('confirmPin')}
+                errorMsg={
+                  values.confirmPin.length === 6 && errors.confirmPin
+                    ? t(errors.confirmPin, {
+                        field: t('pin.newPin'),
+                      })
+                    : undefined
+                }
+              />
+              <Button
+                onPress={submitForm}
+                loading={isLoading}
+                sx={{ width: 150, justifyContent: 'center', minHeight: 37.5 }}
+                disabled={!isValid || !dirty}
+              >
+                {t('common.submit')}
+              </Button>
+            </View>
+          </ScrollView>
+        </>
+      )}
     </>
   )
 }
