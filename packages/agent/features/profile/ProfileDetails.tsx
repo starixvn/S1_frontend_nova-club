@@ -1,6 +1,7 @@
 import Text from 'agent/components/Text'
 import { useAgentLocalization } from 'app/provider/localization'
 import { styled, View } from 'dripsy'
+import dayjs from 'dayjs'
 
 const ProfileDetails = ({ data }) => {
   const { t } = useAgentLocalization()
@@ -30,16 +31,18 @@ const ProfileDetails = ({ data }) => {
       </ProfileRow>
       <ProfileRow>
         <ProfileLabel>{t('profile.createdDate')}:</ProfileLabel>
-        <ProfileData>{data?.result?.data.created_at}</ProfileData>
         <ProfileData>
-          {'(IP: ' + data?.result?.data.lastlogin_ip + ')'}
+          {dayjs(data?.result?.data.created_at).format('DD-MM-YYYY') +
+            '   (IP: ' +
+            data?.result?.data.lastlogin_ip +
+            ')'}
         </ProfileData>
       </ProfileRow>
       <ProfileRow>
         <ProfileLabel>{t('profile.lastLogin')}:</ProfileLabel>
         <ProfileData>
-          {data?.result?.data.lastlogin_at +
-            ' (IP: ' +
+          {dayjs(data?.result?.data.lastlogin_at).format('DD-MM-YYYY') +
+            '   (IP: ' +
             data?.result?.data.lastlogin_ip +
             ')'}
         </ProfileData>
