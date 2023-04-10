@@ -213,7 +213,7 @@ const AgentCreatePin = () => {
             error={
               touched.otp && errors.otp
                 ? t(errors.otp, {
-                    field: t('common.otp'),
+                    field: t('common.mobileNumber') + ' ' + t('common.otp'),
                   })
                 : undefined
             }

@@ -22,7 +22,7 @@ import { AGENT_STACK_CONTENT_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
-import { ScrollView, useDripsyTheme, View } from 'dripsy'
+import { ActivityIndicator, ScrollView, useDripsyTheme, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { useEffect, useRef, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
@@ -45,6 +45,7 @@ const AgentResetPin = () => {
       mobile_no: data?.mobile_no,
     }),
   })
+  const [isOtpButtonLoading, setIsOtpButtonLoading] = useState(false)
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [otpField, setOtpField] = useState(false)
@@ -116,6 +117,7 @@ const AgentResetPin = () => {
   } = formik
 
   const handleSendOtp = async (mobile_no: string) => {
+    setIsOtpButtonLoading(true)
     try {
       const { message, success } = await sendOtp({
         mobile_no,
@@ -126,6 +128,7 @@ const AgentResetPin = () => {
           return error
         })
       if (success) {
+        setIsOtpButtonLoading(false)
         OTPRef.current?.startOtpTimer()
         setOtpField(true)
       }
@@ -133,6 +136,8 @@ const AgentResetPin = () => {
       openModal('AgentAlertModal', {
         message: getErrorMessage(err),
       })
+    } finally {
+      setIsOtpButtonLoading(false)
     }
   }
 
@@ -161,25 +166,27 @@ const AgentResetPin = () => {
               <Text sx={{ paddingX: '$4', color: 'black' }}>+84</Text>
             }
             rightOuterElement={
-              <TimerButton
-                accessibilityRole="button"
-                ref={OTPRef}
-                title={t('common.send') + ' ' + t('common.otp')}
-                loading={isLoading}
-                onPress={() => handleSendOtp(values.mobileNumber)}
-                sx={{
-                  width: 'auto',
-                  backgroundColor: theme.colors.$primaryAgent,
-                  m: 0,
-                  px: '$3',
-                  minWidth: 75,
-                }}
-                _text={{
-                  sx: {
-                    color: theme.colors.$white,
-                  },
-                }}
-              />
+              isOtpButtonLoading ? (
+                <ActivityIndicator color="white" sx={{ minWidth: 79 }} />
+              ) : (
+                <TimerButton
+                  accessibilityRole="button"
+                  ref={OTPRef}
+                  title={t('common.send') + ' ' + t('common.otp')}
+                  loading={isLoading}
+                  onPress={() => handleSendOtp(values.mobileNumber)}
+                  sx={{
+                    width: 'auto',
+                    backgroundColor: theme.colors.$primaryAgent,
+                    m: 0,
+                    px: '$3',
+                    minWidth: 75,
+                  }}
+                  _text={{
+                    sx: { color: '$white' },
+                  }}
+                />
+              )
             }
             label={t('common.mobileNumber')}
             containerProps={{
@@ -209,7 +216,7 @@ const AgentResetPin = () => {
             error={
               touched.otp && errors.otp
                 ? t(errors.otp, {
-                    field: 'otp',
+                    field: t('common.mobileNumber') + ' ' + t('common.otp'),
                   })
                 : undefined
             }
