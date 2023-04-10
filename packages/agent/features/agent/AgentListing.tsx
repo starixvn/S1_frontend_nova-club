@@ -16,6 +16,8 @@ import AgentFloatingContent from '../floatingContent'
 import { useShareholderSetStatusMutation } from 'agent/services/shareholderApi'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import useTableListing from 'agent/hooks/useTableListing'
+import { ListRenderItemInfo } from 'react-native'
+import { ShareholderListResult } from 'agent/services/shareholderApi.type'
 
 export type AgentListingFilterOptions = {
   date: DateFilter | string | undefined
@@ -23,6 +25,11 @@ export type AgentListingFilterOptions = {
   endDate: Date | string
   username: string
   status: ShareholderStatusFilter | string | undefined
+}
+
+type AgentListProps = {
+  item: AgentListResult
+  index: number
 }
 
 const LIMIT = 10
@@ -94,13 +101,10 @@ const AgentListing = () => {
   const onRenderItem = ({
     item,
     index,
-  }: {
-    item: AgentListResult
-    index: number
-  }) => (
+  }: ListRenderItemInfo<AgentListResult>) => (
     <DataTable.Row size="big" sx={{ bg: 'transparent' }}>
       <DataTable.Cell bordered center style={firstCellStyle}>
-        {item.id}
+        {index + 1}
       </DataTable.Cell>
       <DataTable.Cell bordered>
         <Pressable
@@ -133,7 +137,10 @@ const AgentListing = () => {
   )
 
   const handleToggle = async (id, status, loadingIndex) => {
-    let activeStatus = status === '0' ? '1' : '0'
+    let activeStatus =
+      status === ShareholderStatusFilter.ACTIVE
+        ? ShareholderStatusFilter.INACTIVE
+        : ShareholderStatusFilter.ACTIVE
     setIsLoadingIndex(loadingIndex)
 
     const { success, message } = await updateStatus({

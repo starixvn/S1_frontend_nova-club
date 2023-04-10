@@ -5,6 +5,8 @@ import React, { ComponentProps, useRef } from 'react'
 import { FlatListProps, Platform } from 'react-native'
 import DataTable from './DataTable'
 import DataTableRefresh from './DataTableRefresh'
+import useContainerDimension from 'app/hooks/useContainerDimension'
+import { TAB_HEIGHT } from 'app/constant/sizes'
 
 /**
  * ### Usage
@@ -29,7 +31,7 @@ interface TableListingProps<T> {
   title: string
   titleCenter?: boolean
   data: T
-  onRefresh: () => void
+  onRefresh?: () => void
   keyExtractor?: (item: T, index: number) => string
   renderHeader?: () => JSX.Element
   renderItem: ListRenderItem<T>
@@ -55,12 +57,13 @@ const TableListing = <T, FetchParamsType>({
   ...rest
 }: TableListingProps<T>) => {
   const tableRef = useRef()
+  const { height } = useContainerDimension()
 
   const handleRefresh = () => {
     // Platform.OS === 'web' &&
 
     tableRef?.current?.scrollToOffset({ animated: true, offset: 0 })
-    onRefresh()
+    onRefresh && onRefresh()
   }
 
   function onListEmpty() {
@@ -82,38 +85,39 @@ const TableListing = <T, FetchParamsType>({
 
     return <EmptyResult sx={{ mt: '$5' }} />
   }
+
+  const viewStyle =
+    Platform.OS === 'web' ? { height: height - TAB_HEIGHT * 3 } : { flex: 1 }
   return (
-    <>
-      <DataTable style={{ flex: 1 }}>
-        <>
-          <DataTableRefresh
-            title={title}
-            isLoading={isFetching}
-            onRefresh={!!onRefresh && handleRefresh}
-            center={titleCenter}
-            {...refreshProps}
+    <DataTable style={{ flex: 1 }}>
+      <>
+        <DataTableRefresh
+          title={title}
+          isLoading={isFetching}
+          onRefresh={onRefresh && handleRefresh}
+          center={titleCenter}
+          {...refreshProps}
+        />
+        {renderHeader && renderHeader()}
+        <View sx={viewStyle}>
+          <FlashList
+            ref={tableRef}
+            data={data}
+            // ListHeaderComponent={renderHeader}
+            keyExtractor={keyExtractor}
+            renderItem={renderItem}
+            estimatedItemSize={10}
+            onRefresh={onRefresh}
+            refreshing={isFetching ?? false}
+            ListEmptyComponent={onListEmpty}
+            onEndReached={onLoadMore}
+            onEndReachedThreshold={0.3}
+            extraData={isFetching}
+            {...rest}
           />
-          {renderHeader && renderHeader()}
-          <View sx={{ flex: 1 }}>
-            <FlashList
-              ref={tableRef}
-              data={data}
-              // ListHeaderComponent={renderHeader}
-              keyExtractor={keyExtractor}
-              renderItem={renderItem}
-              estimatedItemSize={10}
-              onRefresh={onRefresh}
-              refreshing={isFetching ?? false}
-              ListEmptyComponent={onListEmpty}
-              onEndReached={onLoadMore}
-              onEndReachedThreshold={0.3}
-              extraData={isFetching}
-              {...rest}
-            />
-          </View>
-        </>
-      </DataTable>
-    </>
+        </View>
+      </>
+    </DataTable>
   )
 }
 

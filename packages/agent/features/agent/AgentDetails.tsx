@@ -91,7 +91,7 @@ const AgentDetailsScreen = () => {
           </DataTable>
 
           <DetailsField
-            label={t('report.lastLogin')}
+            label={t('profile.lastLogin')}
             value={`${dayjs(agentData?.lastlogin_at).format(
               'YYYY-MM-DD HH:mm:ss'
             )} \n(IP: ${agentData?.lastlogin_ip})`}

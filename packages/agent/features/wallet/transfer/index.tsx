@@ -24,7 +24,7 @@ const AgentFundTransferPage = () => {
       }),
     })
   useEffect(() => {
-    if (isFetching || isUninitialized) return
+    if (isFetching || isUninitialized || !isFocus) return
     if (!hasPin) {
       push('/agent/create-pin')
     } else {

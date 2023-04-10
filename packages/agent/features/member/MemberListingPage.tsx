@@ -13,6 +13,7 @@ import { useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import { AgentListingFilterOptions } from '../agent/AgentListing'
 import AgentFloatingContent from '../floatingContent'
+import useTableListing from 'agent/hooks/useTableListing'
 
 export type MemberListFilterOptions = {
   date: DateFilter | string | undefined
@@ -20,6 +21,11 @@ export type MemberListFilterOptions = {
   endDate: Date | string
   username: string
   status: ShareholderStatusFilter | string | undefined
+}
+
+type MemberListProps = {
+  item: MemberListResult
+  index: number
 }
 
 const LIMIT = 10
@@ -35,31 +41,38 @@ const MemberListScreen = () => {
     username: '',
   })
 
-  const { agentData, totalData, hasMorePage, isFetching, refetch } =
-    useMemberListQuery(
-      {
-        start: offset * LIMIT,
-        length: LIMIT,
-        currency: Currency.VND,
-        registerdate_start: filter.date
-          ? `${dayjs(filter.startDate).format(
-              'YYYY-MM-DD HH:mm:ss'
-            )} to ${dayjs(filter.endDate).format('YYYY-MM-DD HH:mm:ss')}`
-          : '',
-        username: filter.username,
-        status: filter.status,
+  const { agentData, totalData, isFetching, refetch } = useMemberListQuery(
+    {
+      start: offset * LIMIT,
+      length: LIMIT,
+      currency: Currency.VND,
+      registerdate_start: filter.date
+        ? `${dayjs(filter.startDate).format('YYYY-MM-DD HH:mm:ss')} to ${dayjs(
+            filter.endDate
+          ).format('YYYY-MM-DD HH:mm:ss')}`
+        : '',
+      username: filter.username,
+      status: filter.status,
+    },
+    {
+      selectFromResult: ({ data, isFetching, isSuccess }) => {
+        return {
+          isFetching,
+          agentData: isSuccess ? data?.result?.data : [],
+          totalData: data?.result?.recordsTotal ?? 0,
+        }
       },
-      {
-        selectFromResult: ({ data, isFetching, isSuccess }) => {
-          return {
-            isFetching,
-            agentData: isSuccess ? data?.result?.data : [],
-            totalData: data?.result?.recordsTotal ?? 0,
-            hasMorePage: data?.result?.recordsTotal ?? 0 >= offset * LIMIT,
-          }
-        },
-      }
-    )
+    }
+  )
+
+  const { onLoadMore, onRefresh } = useTableListing({
+    offset,
+    setOffset,
+    LIMIT,
+    totalData,
+    isFetching,
+    refetch,
+  })
 
   const firstCellStyle = { flex: 1 / 2 }
 
@@ -74,16 +87,10 @@ const MemberListScreen = () => {
     </DataTable.Header>
   )
 
-  const onRenderItem = ({
-    item,
-    index,
-  }: {
-    item: MemberListResult
-    index: number
-  }) => (
+  const onRenderItem = ({ item, index }: MemberListProps) => (
     <DataTable.Row size="big" sx={{ bg: 'transparent' }}>
       <DataTable.Cell bordered center style={firstCellStyle}>
-        {item.player_id}
+        {index + 1}
       </DataTable.Cell>
       <DataTable.Cell bordered>{item.username}</DataTable.Cell>
       <DataTable.Cell bordered center>
@@ -93,28 +100,19 @@ const MemberListScreen = () => {
         />
       </DataTable.Cell>
       <DataTable.Cell center>
-        <SwitchView active={!!item.status}>
+        <SwitchView active={!Number(item.status)}>
           <Text
             sx={{
               textAlign: 'center',
-              color: !!item.status ? '#043B02' : 'white',
+              color: !Number(item.status) ? '#043B02' : 'white',
             }}
           >
-            {!!item.status ? t('common.active') : t('common.suspended')}
+            {!Number(item.status) ? t('common.active') : t('common.suspended')}
           </Text>
         </SwitchView>
       </DataTable.Cell>
     </DataTable.Row>
   )
-
-  const onLoadMore = () => {
-    hasMorePage && !isFetching && setOffset((prev) => prev + 1)
-  }
-
-  const onRefresh = async () => {
-    if (!offset) return refetch()
-    setOffset(0)
-  }
 
   const onFilter = () => {
     openModal('FilterAgentListingModal', {

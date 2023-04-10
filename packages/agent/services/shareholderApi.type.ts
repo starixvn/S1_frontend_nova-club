@@ -108,34 +108,6 @@ export type AddNewShareholderResult = {
   password: string
   username: string
 }
-export interface ShareholderNewTransferResult {
-  code: number
-  message: string
-  data?: {
-    request_secure_id: string
-  }
-  success: boolean
-}
-
-export interface ShareholderNewTransferArgs {
-  memberCode: string
-  currency: Currency
-  balance_transfer: string
-  remark: string
-}
-
-export interface ShareholderChangeReferralResult {
-  value: string
-  currency: string
-  balance: number
-  currency_postfix?: string
-  message?: string
-}
-
-export interface ShareholderChangeReferralArgs {
-  referralCode: string
-}
-
 export interface ShareholderCreatePinArgs {
   OTP_1: string
   new_pin: string
