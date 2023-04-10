@@ -312,7 +312,7 @@ const AddBankInfoForm = () => {
                 error={
                   touched.otp && errors.otp
                     ? t(errors.otp, {
-                        field: 'otp',
+                        field: t('common.mobileNumber') + ' ' + t('common.otp'),
                       })
                     : undefined
                 }

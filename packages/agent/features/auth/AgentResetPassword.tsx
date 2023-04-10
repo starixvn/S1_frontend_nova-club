@@ -232,7 +232,7 @@ const AgentResetPassword = () => {
             error={
               touched.OTP && errors.OTP
                 ? t(errors.OTP, {
-                    field: 'OTP',
+                    field: t('common.mobileNumber') + ' ' + t('common.otp'),
                   })
                 : undefined
             }
