@@ -21,10 +21,9 @@ import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
 import { Currency } from 'app/utils/constant'
-import { ActivityIndicator, ScrollView, View } from 'dripsy'
+import { ScrollView, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { useRef, useState } from 'react'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useModal } from 'react-native-modalfy'
 import * as Yup from 'yup'
 
@@ -48,7 +47,6 @@ const AddBankInfoForm = () => {
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [otpField, setOtpField] = useState(false)
-  const [otpLoading, setOtpLoading] = useState(false)
   const { showAlert } = useAgentAlert()
   const { openModal } = useModal()
   const { t } = useAgentLocalization()
@@ -112,8 +110,6 @@ const AddBankInfoForm = () => {
       then: Yup.string(),
       otherwise: validation.stringRequired,
     }),
-  }).shape({
-    hasVerified: Yup.number(),
   })
 
   const formik = useFormik<AddBankInfoValues>({
@@ -123,7 +119,7 @@ const AddBankInfoForm = () => {
       accountName: '',
       mobileNumber: phoneNo?.substring(3) ?? '',
       otp: '',
-      hasVerified: hasVerified ?? 0,
+      hasVerified: 0,
     },
     validationSchema,
     onSubmit,
@@ -238,7 +234,7 @@ const AddBankInfoForm = () => {
             onBlur={handleBlur('accountName')}
             value={values.accountName}
           />
-          {hasVerified ? null : (
+          {!hasVerified ? null : (
             <>
               <Input
                 editable={phoneNo ? false : true}
@@ -297,7 +293,7 @@ const AddBankInfoForm = () => {
               />
               <Input
                 label={t('common.enter') + ' ' + t('common.otp')}
-                editable={otpField}
+                editable={!otpField}
                 containerProps={{
                   sx: { mb: '$10' },
                 }}

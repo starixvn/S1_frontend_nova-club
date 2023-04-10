@@ -280,6 +280,7 @@ const AgentWithdrawalForm = ({
         onChangeText={(e) => {
           formik.setFieldValue('amount', e)
           debounceNettPayout(parseInt(e.replace(/[^\d]/g, '')))
+          isNettPayoutLoading === false && setIsNettPayoutLoading(true)
         }}
         onBlur={handleBlur('amount')}
         keyboardType={'number-pad'}
@@ -341,7 +342,8 @@ const AgentWithdrawalForm = ({
         disabled={
           !isValid ||
           !dirty ||
-          parseInt(values.amount.replace(/,/g, '')) > balance
+          parseInt(values.amount.replace(/,/g, '')) > balance ||
+          isNettPayoutLoading
         }
       >
         <Text sx={{ fontWeight: 'bold', py: '$1', color: 'white' }}>

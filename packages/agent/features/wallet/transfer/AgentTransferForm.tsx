@@ -24,9 +24,9 @@ import { useModal } from 'react-native-modalfy'
 import * as Yup from 'yup'
 
 interface BankInfoValues {
-  playerId?: string
-  username?: string
-  amount?: string
+  playerId: string
+  username: string
+  amount: string
 }
 
 interface AgentTransferFormProps {
@@ -266,7 +266,12 @@ const AgentTransferForm = ({
         onPress={transferPinConfirmation}
         loading={isLoading}
         sx={{ width: 150 }}
-        disabled={!isValid || !dirty}
+        disabled={
+          !isValid ||
+          !dirty ||
+          parseInt(values.amount.replace(/,/g, '')) > balance ||
+          isUserNameLoading
+        }
       >
         <Text sx={{ fontWeight: 'bold', py: '$1', color: 'white' }}>
           {t('common.submit')}
