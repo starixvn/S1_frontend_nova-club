@@ -147,4 +147,8 @@ export const getErrorMessage = (error: any) => {
   return errorMessage
 }
 
+export const removeAgentPhoneNumPrefix = (phoneNo: string) => {
+  return phoneNo.substring(3)
+}
+
 export default validation

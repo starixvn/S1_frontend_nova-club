@@ -15,7 +15,10 @@ import {
 } from 'agent/services/accountApi'
 import { IResponse } from 'agent/services/common/agentAxiosBaseQuery'
 import { useUserInfoQuery } from 'agent/services/userApi'
-import validation, { getErrorMessage } from 'agent/utils/validation'
+import validation, {
+  getErrorMessage,
+  removeAgentPhoneNumPrefix,
+} from 'agent/utils/validation'
 import { AGENT_STACK_CONTENT_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
@@ -23,7 +26,7 @@ import { useAgentLocalization } from 'app/provider/localization'
 import { Currency } from 'app/utils/constant'
 import { ScrollView, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import * as Yup from 'yup'
 
@@ -117,9 +120,9 @@ const AddBankInfoForm = () => {
       bankCard: '',
       accountNumber: '',
       accountName: '',
-      mobileNumber: phoneNo?.substring(3) ?? '',
+      mobileNumber: '',
       otp: '',
-      hasVerified: 0,
+      hasVerified: hasVerified ?? 0,
     },
     validationSchema,
     onSubmit,
@@ -177,6 +180,14 @@ const AddBankInfoForm = () => {
         icon: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.bank_icon}`,
       }
     }) ?? []
+
+  useEffect(() => {
+    if (phoneNo) {
+      const formattedPhoneNum = removeAgentPhoneNumPrefix(phoneNo)
+      setFieldValue('mobileNumber', formattedPhoneNum, false)
+    }
+  }, [phoneNo, setFieldValue])
+
   return (
     <>
       <CommonBackHeader title="wallet.addBank" />
@@ -234,7 +245,7 @@ const AddBankInfoForm = () => {
             onBlur={handleBlur('accountName')}
             value={values.accountName}
           />
-          {!hasVerified ? null : (
+          {hasVerified ? null : (
             <>
               <Input
                 editable={phoneNo ? false : true}
@@ -293,7 +304,7 @@ const AddBankInfoForm = () => {
               />
               <Input
                 label={t('common.enter') + ' ' + t('common.otp')}
-                editable={!otpField}
+                editable={otpField}
                 containerProps={{
                   sx: { mb: '$10' },
                 }}

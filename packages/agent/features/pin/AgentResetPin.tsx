@@ -14,14 +14,17 @@ import {
   useUserInfoQuery,
 } from 'agent/services/userApi'
 import { ROLE } from 'agent/utils/helper'
-import validation, { getErrorMessage } from 'agent/utils/validation'
+import validation, {
+  getErrorMessage,
+  removeAgentPhoneNumPrefix,
+} from 'agent/utils/validation'
 import { AGENT_STACK_CONTENT_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
 import { ScrollView, useDripsyTheme, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import * as Yup from 'yup'
 import AgentUnderlinePinField from './AgentUnderlinePinField'
@@ -85,7 +88,7 @@ const AgentResetPin = () => {
   }
   const formik = useFormik<AddBankInfoValues>({
     initialValues: {
-      mobileNumber: mobile_no?.substring(3) ?? '',
+      mobileNumber: '',
       otp: '',
       pin: '',
       confirmPin: '',
@@ -132,6 +135,13 @@ const AgentResetPin = () => {
       })
     }
   }
+
+  useEffect(() => {
+    if (mobile_no) {
+      const formattedPhoneNum = removeAgentPhoneNumPrefix(mobile_no)
+      setFieldValue('mobileNumber', formattedPhoneNum, false)
+    }
+  }, [mobile_no, setFieldValue])
 
   return (
     <>

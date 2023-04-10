@@ -14,12 +14,15 @@ import {
   useUserInfoQuery,
 } from 'agent/services/userApi'
 import { ROLE } from 'agent/utils/helper'
-import validation, { getErrorMessage } from 'agent/utils/validation'
+import validation, {
+  getErrorMessage,
+  removeAgentPhoneNumPrefix,
+} from 'agent/utils/validation'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
 import { ScrollView, useDripsyTheme, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import * as Yup from 'yup'
 import AgentUnderlinePinField from './AgentUnderlinePinField'
@@ -133,6 +136,13 @@ const AgentCreatePin = () => {
       setIsLoading(false)
     }
   }
+
+  useEffect(() => {
+    if (mobile_no) {
+      const formattedPhoneNum = removeAgentPhoneNumPrefix(mobile_no)
+      setFieldValue('mobileNumber', formattedPhoneNum, false)
+    }
+  }, [mobile_no, setFieldValue])
 
   return (
     <>
