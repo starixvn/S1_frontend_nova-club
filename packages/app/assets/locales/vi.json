@@ -140,6 +140,19 @@
   },
   "event": {
     "claim": "ĐỔI VÉ THƯỞNG CỦA BẠN NGAY",
+    "catEvent": {
+      "miniGame": {
+        "matchThree": "BỘ BA TÀI LỘC",
+        "won": "XIN CHÚC MỪNG!",
+        "won2": "BẠN ĐÃ TRÚNG THƯỞNG",
+        "lose": "RẤT TIẾC!",
+        "lose2": "CHÚC BẠN MAY MẮN LẦN SAU.",
+        "next": "CHƠI TIẾP",
+        "ticketLeft": "LƯỢT CHƠI CÒN LẠI",
+        "tryAgain": "THỬ LẠI"
+      },
+      "tnc": {}
+    },
     "ticket": "vé dự đoán",
     "ticketSubmitted": "Gửi vé dự đoán thành công",
     "winText1": "XIN CHÚC MỪNG!",

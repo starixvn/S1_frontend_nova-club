@@ -34,6 +34,7 @@ import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { AuthActions } from 'app/store/authReducer'
 import { fadeScaleIn } from 'app/transitions/fade'
 import { Easing } from 'react-native'
+import SummerCat from '../../../../apps/next/pages/event/summer-cat'
 import DepositNavigation from './DepositNavigation'
 import TabNavigation from './TabNavigation'
 
@@ -75,6 +76,7 @@ const Stack = createStackNavigator<{
   AccountVerification: undefined
   SpinMania: undefined
   SpinManiaTnc: undefined
+  SummerCat: undefined
 }>()
 
 export function NativeNavigation() {
@@ -244,6 +246,7 @@ export function NativeNavigation() {
       <Stack.Screen name="Maintenance" component={Maintenance} />
       <Stack.Screen name="SpinMania" component={SlotMachine} />
       <Stack.Screen name="SpinManiaTnc" component={SpinManiaTnc} />
+      <Stack.Screen name="SummerCat" component={SummerCat} />
     </Stack.Navigator>
   )
 }

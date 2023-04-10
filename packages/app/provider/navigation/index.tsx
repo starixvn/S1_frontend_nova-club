@@ -94,6 +94,7 @@ export function NavigationProvider({
               AccountVerification: '/profile/account-verification',
               SpinMania: '/event/spin-mania',
               SpinManiaTnc: '/event/spin-mania-tnc',
+              SummerCat: '/event/summer-cat',
             },
           },
         }),
