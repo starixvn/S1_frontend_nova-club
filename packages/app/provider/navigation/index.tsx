@@ -53,16 +53,11 @@ export function NavigationProvider({
                   Member: {
                     // Stack
                     screens: {
-                      BottomNav: {
-                        // Tab
-                        screens: {
-                          Home: '',
-                          Sportsbook: 'sportsbook',
-                          Games: '/games',
-                          Slots: '/slot',
-                          Casino: '/livecasino',
-                        },
-                      },
+                      Home: '',
+                      Sportsbook: 'sportsbook',
+                      Games: '/games',
+                      Slots: '/slot',
+                      Casino: '/livecasino',
                     },
                   },
                   Agent: {
