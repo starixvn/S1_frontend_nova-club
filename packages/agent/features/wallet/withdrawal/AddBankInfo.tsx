@@ -40,13 +40,17 @@ interface AddBankInfoValues {
 }
 
 const AddBankInfoForm = () => {
-  const { currency, hasVerified, phoneNo } = useUserInfoQuery(undefined, {
-    selectFromResult: ({ data }) => ({
-      currency: data?.wallet.currency as Currency,
-      hasVerified: data?.has_verified_wd,
-      phoneNo: data?.mobile_no,
-    }),
-  })
+  const { currency, hasVerified, phoneNo, realName } = useUserInfoQuery(
+    undefined,
+    {
+      selectFromResult: ({ data }) => ({
+        currency: data?.wallet.currency as Currency,
+        hasVerified: data?.has_verified_wd,
+        phoneNo: data?.mobile_no,
+        realName: data?.name,
+      }),
+    }
+  )
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [otpField, setOtpField] = useState(false)
@@ -119,7 +123,7 @@ const AddBankInfoForm = () => {
     initialValues: {
       bankCard: '',
       accountNumber: '',
-      accountName: '',
+      accountName: realName ?? '',
       mobileNumber: '',
       otp: '',
       hasVerified: hasVerified ?? 0,
@@ -186,7 +190,10 @@ const AddBankInfoForm = () => {
       const formattedPhoneNum = removeAgentPhoneNumPrefix(phoneNo)
       setFieldValue('mobileNumber', formattedPhoneNum, false)
     }
-  }, [phoneNo, setFieldValue])
+    if (realName) {
+      setFieldValue('accountName', realName, false)
+    }
+  }, [phoneNo, realName, setFieldValue])
 
   return (
     <>
@@ -229,10 +236,9 @@ const AddBankInfoForm = () => {
             value={values.accountNumber}
           />
           <Input
+            editable={realName ? false : true}
             label={t('common.accountName')}
-            containerProps={{
-              sx: { mb: hasVerified ? '$10' : '$3' },
-            }}
+            containerProps={{ sx: { mb: hasVerified ? '$10' : '$3' } }}
             placeholder={t('common.enterAccountName')}
             error={
               touched.accountName && errors.accountName
@@ -278,11 +284,7 @@ const AddBankInfoForm = () => {
                       flexGrow: 1,
                       borderRadius: 0,
                     }}
-                    _text={{
-                      sx: {
-                        color: '$white',
-                      },
-                    }}
+                    _text={{ sx: { color: '$white' } }}
                   />
                 }
                 label={t('common.mobileNumber')}

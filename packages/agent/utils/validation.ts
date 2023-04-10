@@ -52,7 +52,7 @@ const validation = {
   accountNo: Yup.string()
     .required('validation.required')
     .matches(NUMERIC_REGEX, 'validation.amountNumber')
-    .max(16, 'validation.accountNo'),
+    .max(16, 'validation.16maxDigit'),
 
   amount: Yup.string()
     .required('validation.required')
