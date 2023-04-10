@@ -121,7 +121,7 @@ const AddBankInfoForm = () => {
       bankCard: '',
       accountNumber: '',
       accountName: '',
-      mobileNumber: phoneNo ?? '',
+      mobileNumber: phoneNo?.substring(3) ?? '',
       otp: '',
       hasVerified: hasVerified ?? 0,
     },
@@ -268,6 +268,8 @@ const AddBankInfoForm = () => {
                       m: 0,
                       px: '$3',
                       minWidth: 75,
+                      flexGrow: 1,
+                      borderRadius: 0,
                     }}
                     _text={{
                       sx: {
