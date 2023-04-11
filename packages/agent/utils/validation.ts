@@ -21,13 +21,11 @@ const validation = {
   password: Yup.string()
     .required('validation.required')
     .min(6, 'validation.passwordMinMaxLength')
-    .max(AGENT_PASSWORD_MAX_LENGTH, 'validation.passwordMinMaxLength')
     .matches(ALPHANUMERIC_REGEX, 'validation.password'),
 
   confirmPassword: Yup.string()
     .required('validation.required')
     .min(6, 'validation.passwordMinMaxLength')
-    .max(AGENT_PASSWORD_MAX_LENGTH, 'validation.passwordMinMaxLength')
     .matches(ALPHANUMERIC_REGEX, 'validation.password')
     .oneOf([Yup.ref('password'), null], 'validation.passwordNotMatch'),
 

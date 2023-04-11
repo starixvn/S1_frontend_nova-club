@@ -81,6 +81,8 @@ const AgentChangePassword = () => {
     submitForm,
   } = formik
 
+  console.log(errors)
+
   return (
     <>
       <CommonBackHeader title={'menu.changePass'} />
@@ -142,6 +144,7 @@ const AgentChangePassword = () => {
             label={t('common.confirmPassword')}
             isRequired
             secureTextEntry
+            placeholder={t('common.confirmPassword')}
             maxLength={PASSWORD_MAX_LENGTH}
             containerProps={{
               sx: { mb: '$3' },
