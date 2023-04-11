@@ -147,14 +147,21 @@ const AgentResetPin = () => {
       const formattedPhoneNum = removeAgentPhoneNumPrefix(mobile_no)
       setFieldValue('mobileNumber', formattedPhoneNum, false)
     }
+  }, [mobile_no, setFieldValue])
+
+  useEffect(() => {
+    if (isUninitialized || typeof hasPin === 'undefined') {
+      return
+    }
+
     if (!hasPin) {
       replace('/agent')
     }
-  }, [mobile_no, setFieldValue])
+  }, [hasPin, isUninitialized, replace])
 
   return (
     <>
-      {!hasPin || isFetching || isUninitialized ? (
+      {isFetching || isUninitialized ? (
         <ActivityIndicator />
       ) : (
         <>
@@ -185,7 +192,7 @@ const AgentResetPin = () => {
                       onPress={() => handleSendOtp(values.mobileNumber)}
                       sx={{
                         width: 'auto',
-                        backgroundColor: ' $primaryAgent',
+                        backgroundColor: '$primaryAgent',
                         m: 0,
                         px: '$3',
                         minWidth: 75,
