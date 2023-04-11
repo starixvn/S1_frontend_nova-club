@@ -189,7 +189,8 @@
     "required": "%{field} là bắt buộc",
     "usdtFormat": "Địa chỉ ví phải tương thích với chuẩn ERC20 / TRC20",
     "userNameMinMaxLength": "Tên đăng nhập phải có 1-20 ký tự",
-    "username": "Tên đăng nhập phải có 1-20 ký tự"
+    "username": "Tên đăng nhập phải có 1-20 ký tự",
+    "16maxDigit": "Only allow key in max 16 digits"
   },
   "wallet": {
     "addBank": "Thêm tài khoản",
