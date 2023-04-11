@@ -1,22 +1,23 @@
-import BouncePressable from 'app/pressable/BouncePressable'
 import { Pressable, styled, SxProp, Text, View } from 'dripsy'
-import { MotiPressableProps } from 'moti/interactions'
 import Icon, { IconComponentProps } from './Icon'
+import { ComponentProps } from 'react'
 
-export interface CheckBoxProps extends MotiPressableProps {
+export interface CheckBoxProps extends ComponentProps<typeof Pressable> {
   onCheck?: (boolean) => any
   isCheck?: boolean
   label?: string
-  sx?: SxProp
+  checkboxStyle?: SxProp
   _icon?: IconComponentProps
   tickColor?: string
 }
+
 const CheckBox = ({
   onCheck,
   isCheck = false,
   label,
   _icon,
   tickColor,
+  checkboxStyle,
   ...rest
 }: CheckBoxProps) => {
   return (
@@ -29,7 +30,7 @@ const CheckBox = ({
       label={!!label}
       {...rest}
     >
-      <StyledBox label={!!label}>
+      <StyledBox label={!!label} sx={checkboxStyle}>
         {isCheck && (
           <Icon
             name="tick"

@@ -43,6 +43,7 @@ function SelectTransactionType<T>(props: SelectTransactionType<T>) {
                 label={item.label}
                 isCheck={check.includes(item.value)}
                 onCheck={() => handlePressCheck(item.value)}
+                // checkboxStyle={{ bg: 'white' }}
                 sx={{
                   borderTopWidth: index === 0 ? 2 : 0,
                   borderBottomWidth: 2,
