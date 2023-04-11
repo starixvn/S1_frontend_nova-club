@@ -67,7 +67,7 @@
     "status": "Trạng thái",
     "submit": "Gửi",
     "suspended": "Bị tạm khóa",
-    "to": "To",
+    "to": "",
     "turnover": "Doanh số",
     "userAgreement": "Thỏa thuận người dùng",
     "username": "Tên đăng nhập",
@@ -136,8 +136,7 @@
     "transactionDate": "Ngày giao dịch",
     "transactionFilter": "Lọc giao dịch",
     "transactionType": "Loại giao dịch",
-    "type": "Loại",
-    "pt": "PT"
+    "type": "Loại"
   },
   "shAgent": {
     "add": "Thêm / Tạo mới",
@@ -159,7 +158,7 @@
     "transferConfirmation": "Xác nhận Chuyển quỹ"
   },
   "validation": {
-    "accountNo": "1-16 digits only",
+    "accountNo": "",
     "alphanumeric": "ký tự chữ và số (A-Z, a-z, 0-9)",
     "amount": "%{amount} ngoài hạn mức",
     "amount0": "Số tiền không được bằng 0",
@@ -182,7 +181,7 @@
     "password": "Mật khẩu phải dài 6 ký tự, chứa cả chữ và số và ký tự đặc biệt (!@#$%^&*).",
     "passwordMinMaxLength": "Mật khẩu phải có 6 ký tự",
     "passwordNotMatch": "Xác nhận mật khẩu không khớp",
-    "phoneNumber": "9 digits only",
+    "phoneNumber": "",
     "pin": "ID chỉ gồm số",
     "pinNotMatch": "Mã PIN phải giống nhau",
     "realName": "Vui lòng nhập họ tên thật",
@@ -190,7 +189,7 @@
     "usdtFormat": "Địa chỉ ví phải tương thích với chuẩn ERC20 / TRC20",
     "userNameMinMaxLength": "Tên đăng nhập phải có 1-20 ký tự",
     "username": "Tên đăng nhập phải có 1-20 ký tự",
-    "16maxDigit": "Only allow key in max 16 digits"
+    "16maxDigit": ""
   },
   "wallet": {
     "addBank": "Thêm tài khoản",
