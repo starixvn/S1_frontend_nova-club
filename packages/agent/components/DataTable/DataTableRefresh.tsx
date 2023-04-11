@@ -1,9 +1,14 @@
+import { AGENT_URL } from '@env'
 import RefreshButton from 'agent/components/Icon/RefreshButton'
 import Text from 'agent/components/Text'
-import { styled, SxProp, useDripsyTheme, View } from 'dripsy'
+import { Pressable, styled, SxProp, useDripsyTheme, View } from 'dripsy'
 import React, { ComponentProps } from 'react'
+import { Linking } from 'react-native'
 
-const StyleText = styled(Text)({ color: 'white' })
+const StyleText = styled(Text)(({ isHyperlink }: { isHyperlink: boolean }) => ({
+  color: 'white',
+  textDecorationLine: isHyperlink ? 'underline' : null,
+}))
 
 type DataTableRefreshProps = {
   title: string
@@ -12,6 +17,7 @@ type DataTableRefreshProps = {
   onRefresh?: () => void
   containerStyle?: SxProp
   titleProps?: ComponentProps<typeof StyleText>
+  isHyperlink?: boolean
 }
 const DataTableRefresh = ({
   title,
@@ -20,8 +26,13 @@ const DataTableRefresh = ({
   isLoading,
   onRefresh,
   containerStyle,
+  isHyperlink = false,
 }: DataTableRefreshProps) => {
   const { theme } = useDripsyTheme()
+
+  const handleDesktop = () => {
+    Linking.openURL(AGENT_URL)
+  }
 
   return (
     <View
@@ -36,7 +47,11 @@ const DataTableRefresh = ({
         ...containerStyle,
       }}
     >
-      <StyleText {...titleProps}>{title}</StyleText>
+      <Pressable onPress={handleDesktop} disabled={!isHyperlink}>
+        <StyleText isHyperlink={isHyperlink} {...titleProps}>
+          {title}
+        </StyleText>
+      </Pressable>
       {onRefresh ? (
         <View sx={{ position: 'absolute', right: 12 }}>
           <RefreshButton loading={isLoading} onPress={onRefresh} />

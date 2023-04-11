@@ -75,7 +75,7 @@ interface CommonHeaderProps {
   label?: InputLabelProps['children']
 }
 
-const CommonHeader = (props: CommonHeaderProps) => {
+export const CommonHeader = (props: CommonHeaderProps) => {
   const { label } = props
 
   return (
@@ -222,10 +222,10 @@ const Select = <T,>(
               <Icon name="arrow-down" color="$grayAgent" size={18} />
             </MotiView>
           }
+          value={selectedItem ? selectedItem.label : value}
           {..._input}
           importantForAccessibility="no"
           placeholder={placeholder}
-          value={selectedItem ? selectedItem.label : undefined}
           editable={false}
           pointerEvents="none"
           clickableInputContainerProps={{

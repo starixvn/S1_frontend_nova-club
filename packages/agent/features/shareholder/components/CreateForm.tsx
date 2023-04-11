@@ -143,7 +143,6 @@ const CreateForm = <T,>({
         value={values.password}
         onChangeText={handleChange('password')}
         onBlur={handleBlur('password')}
-        maxLength={PASSWORD_MAX_LENGTH}
         secureTextEntry
         containerProps={{ sx: { mb: 12 } }}
         autoComplete="new-password"
@@ -161,7 +160,6 @@ const CreateForm = <T,>({
         value={values.confirmPassword}
         onChangeText={handleChange('confirmPassword')}
         onBlur={handleBlur('confirmPassword')}
-        maxLength={PASSWORD_MAX_LENGTH}
         secureTextEntry
         containerProps={{ sx: { mb: 12 } }}
         autoComplete="new-password"

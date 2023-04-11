@@ -32,7 +32,6 @@ const validation = {
   passwordRestrict: Yup.string()
     .required('validation.required')
     .min(6, 'validation.passwordMinMaxLength')
-    .max(PASSWORD_MAX_LENGTH, 'validation.passwordMinMaxLength')
     .matches(PASSWORD_REGEX, 'validation.password'),
 
   pin: Yup.string()

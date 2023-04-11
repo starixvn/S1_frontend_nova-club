@@ -94,8 +94,8 @@ export const TypeFilterOptions = [
     label: 'common.all',
   },
   {
-    value: TypeFilter.COMMISSION,
-    label: 'filter.type.commission',
+    value: TypeFilter.ADJUSTMENT,
+    label: 'filter.type.adjustment',
   },
   {
     value: TypeFilter.TRANSFER,
@@ -106,16 +106,16 @@ export const TypeFilterOptions = [
     label: 'filter.type.withdraw',
   },
   {
-    value: TypeFilter.ADJUSTMENT,
-    label: 'filter.type.adjustment',
+    value: TypeFilter.COMMISSION,
+    label: 'filter.type.commission',
   },
 ]
 
 // Shareholder Type
 export enum ShareholderStatusFilter {
   ALL = '',
-  ACTIVE = '0',
-  INACTIVE = '1',
+  ACTIVE = '1',
+  INACTIVE = '0',
 }
 
 export const ShareholderStatusFilterOptions = [

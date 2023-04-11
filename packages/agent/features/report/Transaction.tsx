@@ -1,24 +1,29 @@
 import DataTable from 'agent/components/DataTable/DataTable'
 import { DateTimeField } from 'agent/components/DataTable/DataTableCell'
 import TableListing from 'agent/components/DataTable/TableListing'
-import { DateFilter, DateFilterOptions } from 'agent/constant/select'
+import {
+  DateFilter,
+  DateFilterOptions,
+  TypeFilter,
+} from 'agent/constant/select'
 import { useTransactionReportQuery } from 'agent/services/reportApi'
 import { TransactionReportResult } from 'agent/services/reportApi.type'
 import { useAgentLocalization } from 'app/provider/localization'
 import { toThousandSeparator } from 'app/utils'
 import { Currency } from 'app/utils/constant'
-import dayjs from 'dayjs'
+import dayjs, { utc } from 'dayjs'
 import { View } from 'dripsy'
 import React, { useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import AgentFloatingContent from '../floatingContent'
+import useTableListing from 'agent/hooks/useTableListing'
 
 const LIMIT = 10
 export type TransactionFilterOptions = {
   date: DateFilter | string | undefined
   startDate: Date | string
   endDate: Date | string
-  type: string | string
+  type: TypeFilter[]
 }
 
 const TransactionScreen = () => {
@@ -28,31 +33,43 @@ const TransactionScreen = () => {
     date: DateFilterOptions[0]?.value,
     startDate: dayjs().startOf('date').toDate(),
     endDate: dayjs().endOf('date').toDate(),
-    type: '',
+    type: [1, 2, 3, 4],
   })
 
   const { openModal } = useModal()
 
-  const { reportData, totalData, hasMorePage, isFetching } =
+  const { reportData, totalData, isFetching, refetch } =
     useTransactionReportQuery(
       {
         start: offset * LIMIT,
         length: LIMIT,
-        date_from: `${dayjs(filter.startDate).format(
-          'YYYY-MM-DD HH:mm:ss'
-        )} to ${dayjs(filter.endDate).format('YYYY-MM-DD HH:mm:ss')}`,
+        date_from: `${dayjs(filter.startDate)
+          .utc()
+          .startOf('date')
+          .format('YYYY-MM-DD HH:mm:ss')} to ${dayjs(filter.endDate)
+          .utc()
+          .endOf('date')
+          .format('YYYY-MM-DD HH:mm:ss')}`,
         currency: Currency.VND,
-        transaction_type: '',
+        transaction_type: filter.type.toString(),
       },
       {
         selectFromResult: ({ data, isFetching }) => ({
           isFetching,
           reportData: data?.result?.data ?? [],
           totalData: data?.result?.recordsFiltered ?? 0,
-          hasMorePage: data?.result?.recordsTotal ?? 0 >= offset * LIMIT,
         }),
       }
     )
+
+  const { onLoadMore, onRefresh } = useTableListing({
+    offset,
+    setOffset,
+    LIMIT,
+    totalData,
+    isFetching,
+    refetch,
+  })
 
   const onRenderHeader = () => (
     <DataTable.Header>
@@ -87,14 +104,6 @@ const TransactionScreen = () => {
     </DataTable.Row>
   )
 
-  const onLoadMore = () => {
-    hasMorePage && !isFetching && setOffset((prev) => prev + 1)
-  }
-
-  const onRefresh = async () => {
-    setOffset(0)
-  }
-
   const handleNavigate = () => {
     openModal('FilterTransactionReportModal', {
       filterOptions: filter,
@@ -114,6 +123,7 @@ const TransactionScreen = () => {
     <View sx={{ flex: 1 }}>
       <TableListing
         title={t('report.reportNote')}
+        refreshProps={{ isHyperlink: true }}
         data={reportData}
         renderHeader={onRenderHeader}
         renderItem={onRenderItem}

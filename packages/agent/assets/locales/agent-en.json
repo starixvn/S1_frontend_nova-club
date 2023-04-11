@@ -43,6 +43,7 @@
     "id": "ID",
     "importantNote": "Important Note",
     "importantNotes": "Important Notes",
+    "inactive": "Inactive",
     "loading": "Loading",
     "member": "Member",
     "mobileNumber": "Mobile Number",
@@ -128,6 +129,7 @@
   "report": {
     "bet": "Bet",
     "commission": "Commission",
+    "commissionFilter": "Commission Filter",
     "earning": "Earning",
     "pt": "PT",
     "reportNote": "Note: Full report please refer to \"Desktop Version\"",
@@ -141,6 +143,7 @@
   "shAgent": {
     "add": "Add / Create",
     "agentDetails": "Agent Details",
+    "agentFilter": "Agent Filter",
     "filter": "Filter",
     "newNote1": "Hi, \nThis is your account information",
     "newNote2": "Visit the page",
@@ -148,6 +151,7 @@
     "newRegis": "New Registration Info",
     "regDate": "Register Date",
     "shareholderDetails": "Shareholder Details",
+    "shareholderFilter": "Shareholder Filter",
     "title": "Shareholder / Agent",
     "totalMember": "Total Member"
   },

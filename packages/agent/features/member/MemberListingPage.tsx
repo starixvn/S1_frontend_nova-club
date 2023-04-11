@@ -47,9 +47,13 @@ const MemberListScreen = () => {
       length: LIMIT,
       currency: Currency.VND,
       registerdate_start: filter.date
-        ? `${dayjs(filter.startDate).format('YYYY-MM-DD HH:mm:ss')} to ${dayjs(
-            filter.endDate
-          ).format('YYYY-MM-DD HH:mm:ss')}`
+        ? `${dayjs(filter.startDate)
+            .utc()
+            .startOf('date')
+            .format('YYYY-MM-DD HH:mm:ss')} to ${dayjs(filter.endDate)
+            .utc()
+            .endOf('date')
+            .format('YYYY-MM-DD HH:mm:ss')}`
         : '',
       username: filter.username,
       status: filter.status,
@@ -100,14 +104,14 @@ const MemberListScreen = () => {
         />
       </DataTable.Cell>
       <DataTable.Cell center>
-        <SwitchView active={!Number(item.status)}>
+        <SwitchView active={!!Number(item.status)}>
           <Text
             sx={{
               textAlign: 'center',
-              color: !Number(item.status) ? '#043B02' : 'white',
+              color: !!Number(item.status) ? '#043B02' : 'white',
             }}
           >
-            {!Number(item.status) ? t('common.active') : t('common.suspended')}
+            {!!Number(item.status) ? t('common.active') : t('common.suspended')}
           </Text>
         </SwitchView>
       </DataTable.Cell>

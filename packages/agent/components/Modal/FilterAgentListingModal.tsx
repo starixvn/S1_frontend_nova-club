@@ -7,7 +7,7 @@ import { AgentListingFilterOptions } from 'agent/features/agent/AgentListing'
 import { useAgentLocalization } from 'app/provider/localization'
 import dayjs from 'dayjs'
 import { Flex } from 'dripsy'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import DatePicker from '../DatePicker/DatePicker'
 import Input from '../Input'
 import Select from '../Select/Select'
@@ -55,11 +55,17 @@ const FilterAgentListingModal = ({ modal: { closeModal, getParam } }) => {
     })
   }
 
+  useEffect(() => {
+    if (selected.startDate > selected.endDate) {
+      setSelected({ ...selected, startDate: selected.endDate })
+    }
+  }, [selected.endDate])
+
   return (
-    <ModalWrapper title={t('report.transactionFilter')} onClose={onDismiss}>
+    <ModalWrapper title={t('shAgent.agentFilter')} onClose={onDismiss}>
       <Select
         options={dateOptions}
-        placeholder={t('report.transactionDate')}
+        placeholder={t('shAgent.regDate')}
         value={selected.date}
         onSelected={(val) => {
           if (!val) return
@@ -71,7 +77,7 @@ const FilterAgentListingModal = ({ modal: { closeModal, getParam } }) => {
             endDate: endDate ? endDate : selected.endDate,
           })
         }}
-        label={t('report.transactionDate')}
+        label={t('shAgent.regDate')}
         isRequired
       />
       <Flex
@@ -91,6 +97,7 @@ const FilterAgentListingModal = ({ modal: { closeModal, getParam } }) => {
           }
           rightIcon="calendar"
           _rightIcon={{ size: 20 }}
+          _dateTime={{ maximumDate: selected.endDate as Date }}
           onChange={(value) => {
             setSelected({
               ...selected,

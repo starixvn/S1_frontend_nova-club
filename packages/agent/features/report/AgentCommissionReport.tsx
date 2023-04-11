@@ -1,6 +1,7 @@
 import DataTable from 'agent/components/DataTable/DataTable'
 import TableListing from 'agent/components/DataTable/TableListing'
 import { DateFilter, DateFilterOptions } from 'agent/constant/select'
+import useTableListing from 'agent/hooks/useTableListing'
 import { useAgentCommissionListQuery } from 'agent/services/reportApi'
 import { AgentCommissionListResult } from 'agent/services/reportApi.type'
 import { useAgentLocalization } from 'app/provider/localization'
@@ -29,14 +30,18 @@ const AgentCommissionScreen = () => {
 
   const [offset, setOffset] = useState(0)
 
-  const { reportData, totalData, hasMorePage, isFetching, refetch } =
+  const { reportData, totalData, isFetching, refetch } =
     useAgentCommissionListQuery(
       {
         start: offset * LIMIT,
         length: LIMIT,
-        date_from: `${dayjs(filter.startDate).format(
-          'YYYY-MM-DD HH:mm:ss'
-        )} to ${dayjs(filter.endDate).format('YYYY-MM-DD HH:mm:ss')}`,
+        date_from: `${dayjs(filter.startDate)
+          .utc()
+          .startOf('date')
+          .format('YYYY-MM-DD HH:mm:ss')} to ${dayjs(filter.endDate)
+          .utc()
+          .endOf('date')
+          .format('YYYY-MM-DD HH:mm:ss')}`,
       },
       {
         selectFromResult: ({ data, isFetching }) => ({
@@ -47,6 +52,15 @@ const AgentCommissionScreen = () => {
         }),
       }
     )
+
+  const { onLoadMore, onRefresh } = useTableListing({
+    offset,
+    setOffset,
+    LIMIT,
+    totalData,
+    isFetching,
+    refetch,
+  })
 
   const secondCellStyle = { flex: 1 / 2 }
 
@@ -94,25 +108,17 @@ const AgentCommissionScreen = () => {
     })
   }
 
-  const onLoadMore = () => {
-    hasMorePage && !isFetching && setOffset((prev) => prev + 1)
-  }
-
-  const onRefresh = () => {
-    if (!offset) return refetch()
-    setOffset(0)
-  }
-
   return (
     <View sx={{ flex: 1 }}>
       <TableListing
         title={t('report.reportNote')}
+        refreshProps={{ isHyperlink: true }}
         data={reportData}
         renderHeader={onRenderHeader}
         renderItem={onRenderItem}
         keyExtractor={(item, index) => `${index} Table ${item.username}`}
         onLoadMore={onLoadMore}
-        // onRefresh={onRefresh}
+        onRefresh={onRefresh}
         isFetching={isFetching}
         containerStyle={{ flex: 1 }}
       />

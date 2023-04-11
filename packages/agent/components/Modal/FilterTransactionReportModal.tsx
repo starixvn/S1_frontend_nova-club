@@ -1,17 +1,19 @@
 import {
   DateFilterOptions,
   getDateRange,
+  TypeFilter,
   TypeFilterOptions,
 } from 'agent/constant/select'
 import { TransactionFilterOptions } from 'agent/features/report/Transaction'
 import { useAgentLocalization } from 'app/provider/localization'
 import dayjs from 'dayjs'
 import { Flex } from 'dripsy'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DatePicker from '../DatePicker/DatePicker'
 import Select from '../Select/Select'
 import FilterButtonSelection from './components/FilterButtonSelection'
 import ModalWrapper from './ModalWrapper'
+import SelectTransactionType from '../Select/SelectTransactionType'
 
 const FilterTransactionReportModal = ({ modal: { closeModal, getParam } }) => {
   const { t } = useAgentLocalization()
@@ -26,6 +28,19 @@ const FilterTransactionReportModal = ({ modal: { closeModal, getParam } }) => {
     type,
   })
 
+  const getTypeValue = () => {
+    let value = ''
+    if (selected.type.length === 4) return (value = '4 items selected')
+    selected.type
+      .sort((a, b) => Number(a) - Number(b))
+      .map((item) => {
+        const label = TypeFilterOptions.find((el) => el.value === item)?.label
+        if (label) value += t(label).concat(', ')
+      })
+    return value.slice(0, -2)
+  }
+
+  console.log('typeValue', getTypeValue())
   const dateOptions = DateFilterOptions.map((item) => {
     return { ...item, label: t(item.label) }
   })
@@ -49,8 +64,15 @@ const FilterTransactionReportModal = ({ modal: { closeModal, getParam } }) => {
       date: DateFilterOptions[0]?.value,
       startDate: dayjs().startOf('date').toDate(),
       endDate: dayjs().endOf('date').toDate(),
+      type: [1, 2, 3, 4],
     })
   }
+
+  useEffect(() => {
+    if (selected.startDate > selected.endDate) {
+      setSelected({ ...selected, startDate: selected.endDate })
+    }
+  }, [selected.endDate])
 
   return (
     <ModalWrapper title={t('report.transactionFilter')} onClose={onDismiss}>
@@ -87,6 +109,7 @@ const FilterTransactionReportModal = ({ modal: { closeModal, getParam } }) => {
           }
           rightIcon="calendar"
           _rightIcon={{ size: 20 }}
+          _dateTime={{ maximumDate: selected.endDate as Date }}
           onChange={(value) => {
             setSelected({
               ...selected,
@@ -117,16 +140,18 @@ const FilterTransactionReportModal = ({ modal: { closeModal, getParam } }) => {
         />
       </Flex>
 
-      <Select
-        options={typeOptions}
+      <SelectTransactionType
         placeholder={t('report.type')}
-        value={selected.type}
-        onSelected={(val: string) => {
-          setSelected({ ...selected, type: val })
-        }}
+        value={getTypeValue()}
+        check={selected.type}
+        setCheck={(value: TypeFilter[]) =>
+          setSelected({
+            ...selected,
+            type: value,
+          })
+        }
         label={t('report.type')}
-        isRequired
-        sx={{ mb: 12 }}
+        options={dateOptions}
       />
 
       <FilterButtonSelection

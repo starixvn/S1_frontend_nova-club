@@ -3,11 +3,12 @@ import { CommissionFilterOptions } from 'agent/features/report/ShareholderCommis
 import { useAgentLocalization } from 'app/provider/localization'
 import dayjs from 'dayjs'
 import { Flex } from 'dripsy'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DatePicker from '../DatePicker/DatePicker'
 import Select from '../Select/Select'
-import FilterButtonSelection from './components/FilterButtonSelection'
 import ModalWrapper from './ModalWrapper'
+import FilterButtonSelection from './components/FilterButtonSelection'
+import dayjsTz from 'app/utils/dayjs'
 
 const FilterCommissionReportModal = ({ modal: { closeModal, getParam } }) => {
   const { t } = useAgentLocalization()
@@ -41,8 +42,15 @@ const FilterCommissionReportModal = ({ modal: { closeModal, getParam } }) => {
       endDate: dayjs().endOf('date').toDate(),
     })
   }
+
+  useEffect(() => {
+    if (selected.startDate > selected.endDate) {
+      setSelected({ ...selected, startDate: selected.endDate })
+    }
+  }, [selected.endDate])
+
   return (
-    <ModalWrapper title={t('report.transactionFilter')} onClose={onDismiss}>
+    <ModalWrapper title={t('report.commissionFilter')} onClose={onDismiss}>
       <Select
         options={dateOptions}
         placeholder={t('report.transactionDate')}
@@ -72,6 +80,7 @@ const FilterCommissionReportModal = ({ modal: { closeModal, getParam } }) => {
           value={selected.startDate}
           rightIcon="calendar"
           _rightIcon={{ size: 20 }}
+          _dateTime={{ maximumDate: selected.endDate as Date }}
           onChange={(value) => {
             setSelected({
               ...selected,

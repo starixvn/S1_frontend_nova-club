@@ -35,7 +35,7 @@ type SwitchProps = {
 const Switch = ({
   isActive = false,
   isLoading = false,
-  width = 90,
+  width = 84,
   size = 16,
   activeThumbColor = '#047600',
   inActiveThumbColor = '#FFCED2',
@@ -107,7 +107,7 @@ const Switch = ({
                 )}
                 {!isActive && (
                   <SwitchLabel
-                    label={t('common.suspended')}
+                    label={t('common.inactive')}
                     color="white"
                     isActive={isActive}
                   />

@@ -43,6 +43,7 @@
     "id": "Mã ID",
     "importantNote": "Lưu Ý Quan Trọng",
     "importantNotes": "Lưu Ý Quan Trọng",
+    "inactive": "",
     "loading": "Đang tải",
     "member": "Thành viên",
     "mobileNumber": "Số điện thoại",
@@ -128,8 +129,9 @@
   "report": {
     "bet": "Cược",
     "commission": "Hoa hồng",
+    "commissionFilter": "",
     "earning": "Doanh thu",
-    "pt": "Lợi nhuận",
+    "pt": "PT",
     "reportNote": "Lưu ý: vui lòng truy cập phiên bản máy tính để xem báo cáo đầy đủ",
     "title": "Báo cáo",
     "transaction": "Giao dịch",
@@ -141,6 +143,7 @@
   "shAgent": {
     "add": "Thêm / Tạo mới",
     "agentDetails": "",
+    "agentFilter": "",
     "filter": "Lọc",
     "newNote1": "Xin chào, \nđây là thông tin tài khoản của bạn",
     "newNote2": "Ghé thăm trang",
@@ -148,6 +151,7 @@
     "newRegis": "Thông tin đăng ký mới",
     "regDate": "Ngày đăng ký",
     "shareholderDetails": "",
+    "shareholderFilter": "",
     "title": "Cổ đông / Đại lý",
     "totalMember": "Tổng số thành viên"
   },

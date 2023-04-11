@@ -32,7 +32,7 @@ const AgentChangePassword = () => {
     confirmpassword,
   }: ChangePasswordValues) => {
     setIsLoading(true)
-    console.log(oldPwd, password, confirmpassword)
+
     try {
       const { success, message, result } = await changePassword({
         oldPwd,
@@ -81,8 +81,6 @@ const AgentChangePassword = () => {
     submitForm,
   } = formik
 
-  console.log(errors)
-
   return (
     <>
       <CommonBackHeader title={'menu.changePass'} />
@@ -105,7 +103,6 @@ const AgentChangePassword = () => {
             isRequired
             secureTextEntry
             placeholder={t('common.enterOldPassword')}
-            maxLength={PASSWORD_MAX_LENGTH}
             containerProps={{
               sx: { mb: '$3' },
             }}
@@ -125,7 +122,6 @@ const AgentChangePassword = () => {
             isRequired
             secureTextEntry
             placeholder={t('common.enterNewPassword')}
-            maxLength={PASSWORD_MAX_LENGTH}
             containerProps={{
               sx: { mb: '$3' },
             }}
@@ -145,7 +141,6 @@ const AgentChangePassword = () => {
             isRequired
             secureTextEntry
             placeholder={t('common.confirmPassword')}
-            maxLength={PASSWORD_MAX_LENGTH}
             containerProps={{
               sx: { mb: '$3' },
             }}

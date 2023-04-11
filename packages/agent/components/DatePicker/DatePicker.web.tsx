@@ -80,7 +80,7 @@ const DatePickerWeb = ({
           type={'date'}
           onChange={onDateTimePickerChange}
           max={maxDate || dayjs(currentDate).format('YYYY-MM-DD')}
-          min={minDate}
+          // min={minDate}
           style={{
             width: '100%',
             height: '100%',

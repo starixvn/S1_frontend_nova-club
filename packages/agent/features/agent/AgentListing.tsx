@@ -55,9 +55,13 @@ const AgentListing = () => {
         start: offset * LIMIT,
         length: LIMIT,
         created_at: filter.date
-          ? `${dayjs(filter.startDate).format(
-              'YYYY-MM-DD HH:mm:ss'
-            )} to ${dayjs(filter.endDate).format('YYYY-MM-DD HH:mm:ss')}`
+          ? `${dayjs(filter.startDate)
+              .utc()
+              .startOf('date')
+              .format('YYYY-MM-DD HH:mm:ss')} to ${dayjs(filter.endDate)
+              .utc()
+              .endOf('date')
+              .format('YYYY-MM-DD HH:mm:ss')}`
           : '',
         username: filter.username,
         active: filter.status,
@@ -128,7 +132,7 @@ const AgentListing = () => {
       </DataTable.Cell>
       <DataTable.Cell center>
         <Switch
-          isActive={!Number(item.active)}
+          isActive={!!Number(item.active)}
           isLoading={index === isLoadingIndex ? isLoading : false}
           onPress={() => handleToggle(item.id, item.active, index)}
         />
