@@ -13,7 +13,7 @@ export interface CheckBoxProps extends MotiPressableProps {
 }
 const CheckBox = ({
   onCheck,
-  isCheck,
+  isCheck = false,
   label,
   _icon,
   tickColor,
@@ -26,9 +26,10 @@ const CheckBox = ({
         onCheck && onCheck(!isCheck)
       }}
       isCheck={isCheck}
+      label={!!label}
       {...rest}
     >
-      <StyledBox>
+      <StyledBox label={!!label}>
         {isCheck && (
           <Icon
             name="tick"
@@ -45,14 +46,14 @@ const CheckBox = ({
 }
 
 const StyledPressable = styled(Pressable)(
-  ({ isCheck }: { isCheck: boolean }) => ({
+  ({ isCheck, label }: { isCheck: boolean; label: boolean }) => ({
     flexDirection: 'row',
-    p: 12,
+    p: label ? 12 : 0,
     backgroundColor: isCheck ? '$primaryAgent' : '$secondaryAgent',
   })
 )
 
-const StyledBox = styled(View)({
+const StyledBox = styled(View)(({ label }: { label: boolean }) => ({
   bg: '#818384',
   flexDirection: 'row',
   alignItems: 'center',
@@ -60,7 +61,7 @@ const StyledBox = styled(View)({
   borderRadius: 2,
   height: 20,
   aspectRatio: 1,
-  mr: 12,
-})
+  mr: label ? 12 : 0,
+}))
 
 export default CheckBox
