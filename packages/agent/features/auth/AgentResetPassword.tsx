@@ -181,7 +181,7 @@ const AgentResetPassword = () => {
             onBlur={handleBlur('password')}
             value={values.password}
             error={
-              values.password.length === 6 && errors.password
+              touched.password && errors.password
                 ? t(errors.password, {
                     field: t('common.newPassword'),
                   })
@@ -192,6 +192,7 @@ const AgentResetPassword = () => {
             label={t('common.confirmPassword')}
             isRequired
             secureTextEntry
+            placeholder={t('common.confirmPassword')}
             containerProps={{
               sx: { mb: '$3' },
             }}
@@ -199,7 +200,7 @@ const AgentResetPassword = () => {
             onBlur={handleBlur('confirmpassword')}
             value={values.confirmpassword}
             error={
-              values.confirmpassword.length === 6 && errors.confirmpassword
+              touched.confirmpassword && errors.confirmpassword
                 ? t(errors.confirmpassword, {
                     field: t('common.confirmPassword'),
                   })
@@ -242,7 +243,7 @@ const AgentResetPassword = () => {
             error={
               touched.mobile_no && errors.mobile_no
                 ? t(errors.mobile_no, {
-                    field: 'mobile_no',
+                    field: t('common.mobileNumber'),
                   })
                 : undefined
             }
