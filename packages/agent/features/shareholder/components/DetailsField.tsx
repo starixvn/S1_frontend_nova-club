@@ -17,7 +17,7 @@ const DetailsField = ({ label, value }) => {
             : 'black',
         }}
       >
-        {value ? value : 'N/A'}
+        {value !== '' || null || undefined ? value : 'N/A'}
       </Text>
     </Flex>
   )

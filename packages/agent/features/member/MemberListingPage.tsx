@@ -2,7 +2,11 @@ import DataTable from 'agent/components/DataTable/DataTable'
 import { DateTimeField } from 'agent/components/DataTable/DataTableCell'
 import TableListing from 'agent/components/DataTable/TableListing'
 import Text from 'agent/components/Text'
-import { DateFilter, ShareholderStatusFilter } from 'agent/constant/select'
+import {
+  DateFilter,
+  ShareholderStatusFilter,
+  getMemberStatus,
+} from 'agent/constant/select'
 import { useMemberListQuery } from 'agent/services/agentApi'
 import { MemberListResult } from 'agent/services/agentApi.type'
 import { useAgentLocalization } from 'app/provider/localization'
@@ -35,7 +39,7 @@ const MemberListScreen = () => {
   const [offset, setOffset] = useState(0)
   const [filter, setFilter] = useState<MemberListFilterOptions>({
     date: '',
-    startDate: dayjs().startOf('month').toDate(),
+    startDate: dayjs().startOf('date').toDate(),
     endDate: dayjs().endOf('date').toDate(),
     status: '',
     username: '',
@@ -47,13 +51,9 @@ const MemberListScreen = () => {
       length: LIMIT,
       currency: Currency.VND,
       registerdate_start: filter.date
-        ? `${dayjs(filter.startDate)
-            .utc()
-            .startOf('date')
-            .format('YYYY-MM-DD HH:mm:ss')} to ${dayjs(filter.endDate)
-            .utc()
-            .endOf('date')
-            .format('YYYY-MM-DD HH:mm:ss')}`
+        ? `${dayjs(filter.startDate).format(
+            'YYYY-MM-DD HH:mm:ss Z'
+          )} to ${dayjs(filter.endDate).format('YYYY-MM-DD HH:mm:ss Z')}`
         : '',
       username: filter.username,
       status: filter.status,
@@ -99,19 +99,20 @@ const MemberListScreen = () => {
       <DataTable.Cell bordered>{item.username}</DataTable.Cell>
       <DataTable.Cell bordered center>
         <DateTimeField
-          from={dayjs(item.register_date).format('YYYY-MM-DD')}
-          to={dayjs(item.register_date).format('HH:mm:ss')}
+          date={dayjs(item.register_date).format('YYYY-MM-DD')}
+          time={dayjs(item.register_date).format('HH:mm:ss')}
         />
       </DataTable.Cell>
       <DataTable.Cell center>
-        <SwitchView active={!!Number(item.status)}>
+        <SwitchView active={item.status === '0'}>
           <Text
+            numberOfLines={1}
             sx={{
               textAlign: 'center',
-              color: !!Number(item.status) ? '#043B02' : 'white',
+              color: item.status === '0' ? '#043B02' : 'white',
             }}
           >
-            {!!Number(item.status) ? t('common.active') : t('common.suspended')}
+            {t(getMemberStatus(item.status))}
           </Text>
         </SwitchView>
       </DataTable.Cell>

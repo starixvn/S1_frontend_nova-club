@@ -35,13 +35,9 @@ const AgentCommissionScreen = () => {
       {
         start: offset * LIMIT,
         length: LIMIT,
-        date_from: `${dayjs(filter.startDate)
-          .utc()
-          .startOf('date')
-          .format('YYYY-MM-DD HH:mm:ss')} to ${dayjs(filter.endDate)
-          .utc()
-          .endOf('date')
-          .format('YYYY-MM-DD HH:mm:ss')}`,
+        rpt_date: `${dayjs(filter.startDate).format(
+          'YYYY-MM-DD HH:mm:ss Z'
+        )} to ${dayjs(filter.endDate).format('YYYY-MM-DD HH:mm:ss Z')}`,
       },
       {
         selectFromResult: ({ data, isFetching }) => ({
