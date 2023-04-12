@@ -79,8 +79,19 @@ const DataTableCell = ({
 
 export const DateTimeField = ({ from, to }) => (
   <View sx={{ flexDirection: 'column' }}>
-    <Text sx={{ color: 'black', textAlign: 'center' }}>{from}</Text>
-    <Text sx={{ color: '$taupeGray', textAlign: 'center' }}>{to}</Text>
+    <Text sx={{ color: 'black', textAlign: 'center', fontSize: 14 }}>
+      {from}
+    </Text>
+    <Text
+      sx={{
+        color: '$taupeGray',
+        textAlign: 'center',
+        fontSize: 13,
+        lineHeight: 14,
+      }}
+    >
+      {to}
+    </Text>
   </View>
 )
 
@@ -94,7 +105,8 @@ const CellView = styled(View)(
     justifyContent: center ? 'center' : 'flex-start',
     borderRightWidth: bordered ? StyleSheet.hairlineWidth : 0,
     borderColor: '#AEAFAF',
-    px: 4,
+    px: '$2',
+    py: '$1',
   })
 )
 

@@ -23,6 +23,9 @@ import { useDispatch } from 'react-redux'
 import MainMenuTest from './MainMenu'
 import Icon from 'agent/components/Icon'
 
+const iconHeight = TAB_HEIGHT * 0.6
+const smallIconHeight = TAB_HEIGHT * 0.5
+
 const Header = () => {
   const dispatch = useDispatch()
   const lang = useAppSelector((state) => state.setting?.locale)
@@ -41,9 +44,6 @@ const Header = () => {
 
   const headerHeight = TAB_HEIGHT
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: headerHeight })
-
-  const iconHeight = TAB_HEIGHT * 0.7
-  const smallIconHeight = TAB_HEIGHT * 0.5
 
   async function testActionWithTimeout() {
     setIsLoading(true)
@@ -69,12 +69,12 @@ const Header = () => {
               onPress={() => {
                 console.log('logo pressed')
               }}
-              sx={{ px: '$2', mb: 5 }}
+              sx={{ pr: '$2', mb: 5 }}
             >
               <StyledLogo
                 sx={sx({
                   height: iconHeight,
-                  width: iconHeight * (519 / 186),
+                  width: iconHeight * (200 / 90),
                 })}
                 source={require('app/assets/images/Vui123-agent-logo.png')}
                 resizeMode="contain"
@@ -127,9 +127,10 @@ const Header = () => {
                   </View>
 
                   <RefreshButton
+                    sx={{ mx: 2 }}
                     loading={isLoading}
                     onPress={() => testActionWithTimeout()}
-                    size={16}
+                    size={18}
                   />
                   {/* <IconButton
                     name="table"

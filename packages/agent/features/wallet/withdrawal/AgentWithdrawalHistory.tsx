@@ -79,16 +79,24 @@ const AgentWithdrawalHistory = ({ currency }: { currency: Currency }) => {
         }}
         textStyle={{}}
       >
-        <View
-          sx={{
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Text sx={{ color: 'black', textAlign: 'center' }}>
+        <View>
+          <Text
+            sx={{
+              color: 'black',
+              textAlign: 'center',
+              fontSize: 14,
+            }}
+          >
             {dayjs(item.created_at).format('DD-MM-YYYY')}
           </Text>
-          <Text sx={{ color: '$taupeGray', textAlign: 'center' }}>
+          <Text
+            sx={{
+              color: '$taupeGray',
+              textAlign: 'center',
+              fontSize: 13,
+              lineHeight: 14,
+            }}
+          >
             {dayjs(item.created_at).format('HH:mm a')}
           </Text>
         </View>
