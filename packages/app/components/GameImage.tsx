@@ -55,7 +55,7 @@ const GameImage = ({
           borderRadius: 10,
         }}
       />
-      {rewardIcon && (
+      {/* {rewardIcon && (
         <MotiImage
           from={{ transform: [{ scale: 1 }] }}
           animate={{ transform: [{ scale: 1.1 }] }}
@@ -74,7 +74,7 @@ const GameImage = ({
             top: 0,
           }}
         />
-      )}
+      )} */}
       {frame && (
         <Image
           source={Frame}
