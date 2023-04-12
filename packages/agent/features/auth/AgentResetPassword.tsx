@@ -15,9 +15,11 @@ import validation, {
 import { AGENT_STACK_CONTENT_PADDING } from 'app/constant/sizes'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
-import { Flex, ScrollView, Text, useDripsyTheme } from 'dripsy'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { Flex, Image, ScrollView, Text, useDripsyTheme, View } from 'dripsy'
 import { useFormik } from 'formik'
 import { useRef, useState } from 'react'
+import { useWindowDimensions } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import * as Yup from 'yup'
 
@@ -37,6 +39,8 @@ const AgentResetPassword = () => {
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [isOtpLoading, setIsOtpLoading] = useState(false)
+  const { width } = useWindowDimensions()
+  const { top } = useSafeArea()
 
   const [sendOtp] = useSendOTPMutation()
   const [resetPassword] = useResetPasswordMutation()
@@ -124,11 +128,37 @@ const AgentResetPassword = () => {
 
   return (
     <>
-      <CommonBackHeader title={'menu.changePass'} />
+      <View>
+        <Image
+          source={require('app/assets/images/auth/pwd.jpg')}
+          sx={{
+            height: 350 + top,
+            width: Math.min(width, theme.sizes.container),
+          }}
+          resizeMode={'cover'}
+        />
+        <Image
+          source={require('app/assets/images/logo.png')}
+          sx={{
+            position: 'absolute',
+            height: 100,
+            width: Math.min(width, theme.sizes.container),
+            top: top,
+          }}
+          resizeMode={'contain'}
+        />
+      </View>
+
       <ScrollView
         contentContainerStyle={{
           paddingHorizontal: 20,
           paddingTop: AGENT_STACK_CONTENT_PADDING,
+        }}
+        sx={{
+          borderRadius: 10,
+          bg: 'transparent',
+          backgroundColor: 'white',
+          top: -top + -10,
         }}
       >
         <Flex

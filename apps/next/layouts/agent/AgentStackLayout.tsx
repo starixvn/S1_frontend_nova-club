@@ -6,31 +6,30 @@ import {
   TAB_HEIGHT,
 } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
-import { View } from 'dripsy'
-import React, { FC } from 'react'
+import { View, styled } from 'dripsy'
+import React, { ComponentProps, FC } from 'react'
 import { Platform } from 'react-native'
 import NavigationLoading from './NavigationLoading'
 
 export type TabLayoutProps = {
   children: React.ReactElement
-  lockHeight?: boolean
-}
+} & ComponentProps<typeof View>
 
-const AgentStackLayout: FC<TabLayoutProps> = ({ children, lockHeight }) => {
+const StyledView = styled(View)(({ height }: { height: number }) => ({
+  paddingTop: AGENT_STACK_CONTENT_PADDING_WEB,
+  minHeight: height,
+  bg: 'white',
+}))
+
+const AgentStackLayout: FC<TabLayoutProps> = ({ children, ...props }) => {
   const { height } = useContainerDimension()
 
   return (
     <AgentProvider>
-      <View
-        sx={{
-          paddingTop: AGENT_STACK_CONTENT_PADDING_WEB,
-          minHeight: height,
-          bg: 'white',
-        }}
-      >
+      <StyledView {...props} height={height}>
         {children}
         <NavigationLoading />
-      </View>
+      </StyledView>
     </AgentProvider>
   )
 }
