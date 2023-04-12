@@ -44,7 +44,7 @@ const ShareholderListing = () => {
   const [isLoadingIndex, setIsLoadingIndex] = useState(0)
   const [filter, setFilter] = useState<ShareholderListingFilterOptions>({
     date: '',
-    startDate: dayjs().startOf('month').toDate(),
+    startDate: dayjs().startOf('date').toDate(),
     endDate: dayjs().endOf('date').toDate(),
     status: '',
     username: '',
@@ -58,13 +58,9 @@ const ShareholderListing = () => {
         start: offset * LIMIT,
         length: LIMIT,
         created_at: filter.date
-          ? `${dayjs(filter.startDate)
-              .utc()
-              .startOf('date')
-              .format('YYYY-MM-DD HH:mm:ss')} to ${dayjs(filter.endDate)
-              .utc()
-              .endOf('date')
-              .format('YYYY-MM-DD HH:mm:ss')}`
+          ? `${dayjs(filter.startDate).format(
+              'YYYY-MM-DD HH:mm:ss Z'
+            )} to ${dayjs(filter.endDate).format('YYYY-MM-DD HH:mm:ss Z')}`
           : '',
         username: filter.username,
         active: filter.status,
@@ -144,8 +140,8 @@ const ShareholderListing = () => {
         </DataTable.Cell>
         <DataTable.Cell bordered center>
           <DateTimeField
-            from={dayjs(item.created_at).format('YYYY-MM-DD')}
-            to={dayjs(item.created_at).format('HH:mm:ss')}
+            date={dayjs(item.created_at).format('YYYY-MM-DD')}
+            time={dayjs(item.created_at).format('HH:mm:ss')}
           />
         </DataTable.Cell>
         <DataTable.Cell center>

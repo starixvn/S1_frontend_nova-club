@@ -6,6 +6,7 @@ import { copyToClipboard } from 'agent/utils/agentCopyToClipboard'
 import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import { styled, View } from 'dripsy'
 import { MotiView } from 'moti'
+import { useMemo } from 'react'
 import { useWindowDimensions } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
 
@@ -25,11 +26,9 @@ const AgentBarcodeCard = ({ userId }: { userId: number }) => {
       skip: userId ? false : true,
     }
   )
-  return (
-    <Card
-      sx={{ my: '$2', py: '$10', px: '$5', width: cardWidth }}
-      isLoading={isLoading}
-    >
+
+  const BarcodeCard = useMemo(
+    () => (
       <MotiView
         style={{ justifyContent: 'center' }}
         from={{ opacity: 0, height: 0 }}
@@ -37,7 +36,7 @@ const AgentBarcodeCard = ({ userId }: { userId: number }) => {
           opacity: 1,
           height: 350,
         }}
-        transition={{ type: 'timing', duration: 1000 }}
+        transition={{ type: 'timing', duration: 500 }}
       >
         <View sx={{ alignItems: 'center' }}>
           <QRCode
@@ -61,6 +60,16 @@ const AgentBarcodeCard = ({ userId }: { userId: number }) => {
           </BarcodeDomain>
         </BarcodeInfo>
       </MotiView>
+    ),
+    [cash, domain, userName, width]
+  )
+
+  return (
+    <Card
+      sx={{ my: '$2', py: '$10', px: '$5', width: cardWidth }}
+      isLoading={isLoading}
+    >
+      {domain ? BarcodeCard : null}
     </Card>
   )
 }

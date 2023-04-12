@@ -22,9 +22,12 @@ interface AgentTransferHistoryProps {
   isAgent: boolean
 }
 const date =
-  dayjsTz().subtract(2, 'month').startOf('date').format('YYYY-MM-DD HH:mm:ss') +
+  dayjsTz()
+    .subtract(3, 'month')
+    .startOf('date')
+    .format('YYYY-MM-DD HH:mm:ss Z') +
   ' to ' +
-  dayjsTz().endOf('date').format('YYYY-MM-DD HH:mm:ss')
+  dayjsTz().endOf('date').format('YYYY-MM-DD HH:mm:ss Z')
 
 const LIMIT = 10
 const AgentTransferHistory = ({

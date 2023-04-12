@@ -12,6 +12,7 @@ import {
   AgentReferralDetailsArgs,
   AgentReferralDetailsResult,
   AgentResetPinArgs,
+  AgentSetStatusArgs,
   AgentVerifyTransferPinArgs,
   AgentVerifyTransferPinResult,
   MemberListArgs,
@@ -101,6 +102,18 @@ export const agentApi = agentBaseApiWithTag.injectEndpoints({
         },
       }),
     }),
+    agentBalance: builder.query<
+      IResponse<AgentDetailsResult>,
+      AgentDetailsArgs
+    >({
+      query: (queryArgs) => ({
+        url: `/agent/balance`,
+        method: 'POST',
+        data: {
+          ...queryArgs,
+        },
+      }),
+    }),
     agentResetPin: builder.mutation<IResponse<[]>, AgentResetPinArgs>({
       query: (queryArgs) => ({
         url: `/agent/resetPin`,
@@ -156,6 +169,30 @@ export const agentApi = agentBaseApiWithTag.injectEndpoints({
         },
       }),
     }),
+    agentSetStatus: builder.mutation<IResponse<void>, AgentSetStatusArgs>({
+      query: (queryArgs) => ({
+        url: `/agent/setStatus`,
+        data: {
+          ...queryArgs,
+        },
+      }),
+      async onQueryStarted(
+        { agent_id, status },
+        { dispatch, queryFulfilled, getState }
+      ) {
+        const { originalArgs } = agentApi.endpoints.agentList.select()(
+          getState()
+        )
+
+        await queryFulfilled
+        dispatch(
+          agentApi.util.updateQueryData('agentList', originalArgs, (draft) => {
+            let selected = draft?.result?.data.find((el) => el.id === agent_id)
+            if (selected) selected.active = status
+          })
+        )
+      },
+    }),
   }),
 })
 
@@ -170,4 +207,6 @@ export const {
   useAgentCreatePinMutation,
   useAgentVerifyTransferPinMutation,
   useAgentReferralDetailsQuery,
+  useAgentBalanceQuery,
+  useAgentSetStatusMutation,
 } = agentApi

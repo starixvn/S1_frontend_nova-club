@@ -4,7 +4,10 @@ import DataTableRefresh from 'agent/components/DataTable/DataTableRefresh'
 import { ParseDownlineTable } from 'agent/features/profile/ParseDownlineChart'
 import DetailsField from 'agent/features/shareholder/components/DetailsField'
 import CommonBackHeader from 'agent/navigation/components/CommonBackHeader'
-import { useAgentDetailsQuery } from 'agent/services/agentApi'
+import {
+  useAgentBalanceQuery,
+  useAgentDetailsQuery,
+} from 'agent/services/agentApi'
 import { useAgentLocalization } from 'app/provider/localization'
 import dayjs from 'dayjs'
 import { View } from 'dripsy'
@@ -29,6 +32,19 @@ const AgentDetailsScreen = () => {
     }
   )
 
+  const { agentBalance } = useAgentBalanceQuery(
+    { id },
+    {
+      selectFromResult: ({ data }) => ({
+        agentBalance: data?.result?.data.wallet_bal_amt?.VND,
+      }),
+    }
+  )
+
+  console.log(
+    '🚀 ~ file: AgentDetails.tsx:36 ~ AgentDetailsScreen ~ agentBalance:',
+    agentBalance
+  )
   const firstCellStyle = { flex: 0.4 }
   const secondCellStyle = { flex: 0.3 }
   const thirdCellStyle = { flex: 0.3 }
@@ -45,9 +61,14 @@ const AgentDetailsScreen = () => {
             label={t('profile.createdDate')}
             value={dayjs(agentData?.created_at).format('YYYY-MM-DD HH:mm:ss')}
           />
+          <DetailsField label={t('profile.name')} value={agentData?.name} />
           <DetailsField
             label={t('profile.mobile')}
             value={agentData?.mobile_no}
+          />
+          <DetailsField
+            label={t('profile.walletBalance')}
+            value={agentBalance}
           />
 
           <DataTable

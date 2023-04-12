@@ -38,13 +38,9 @@ const ShareholderCommissionScreen = () => {
       {
         start: offset * LIMIT,
         length: LIMIT,
-        date_from: `${dayjs(filter.startDate)
-          .utc()
-          .startOf('date')
-          .format('YYYY-MM-DD HH:mm:ss')} to ${dayjs(filter.endDate)
-          .utc()
-          .endOf('date')
-          .format('YYYY-MM-DD HH:mm:ss')}`,
+        rpt_date: `${dayjs(filter.startDate).format(
+          'YYYY-MM-DD HH:mm:ss Z'
+        )} to ${dayjs(filter.endDate).format('YYYY-MM-DD HH:mm:ss Z')}`,
       },
       {
         selectFromResult: ({ data, isFetching }) => ({
@@ -99,10 +95,7 @@ const ShareholderCommissionScreen = () => {
   }) => (
     <DataTable.Row size="big">
       <DataTable.Cell bordered center>
-        <DateTimeField
-          from={dayjs(item.rpt_date).format('YYYY-MM-DD')}
-          to={dayjs(item.rpt_date).format('HH:mm:ss')}
-        />
+        <DateTimeField date={dayjs(item.rpt_date).format('YYYY-MM-DD')} />
       </DataTable.Cell>
       <DataTable.Cell bordered>{item.username}</DataTable.Cell>
       <DataTable.Cell bordered center textStyle={{ fontSize: 10 }}>

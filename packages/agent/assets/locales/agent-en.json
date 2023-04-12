@@ -84,6 +84,12 @@
       "today": "Today",
       "yesterday": "Yesterday"
     },
+    "member": {
+      "block": "Block",
+      "exclusion": "Self Exclusion",
+      "failLogin": "Fail Login Attempt",
+      "normal": "Normal"
+    },
     "type": {
       "adjustment": "Adjustment",
       "commission": "Commission",
@@ -124,7 +130,8 @@
     "realName": "Real Name",
     "subShareholder": "Sub-Shareholder",
     "title": "Profile",
-    "totalDownline": "Total Downline"
+    "totalDownline": "Total Downline",
+    "walletBalance": "Wallet Balance"
   },
   "report": {
     "bet": "Bet",
@@ -162,6 +169,7 @@
     "transferConfirmation": "Transfer Confirmation"
   },
   "validation": {
+    "16maxDigit": "Only allow key in max 16 digits",
     "accountNo": "1-16 digits only",
     "alphanumeric": "alphanumeric (A-Z, a-z, 0-9) characters only",
     "amount": "%{amount} not in range",
@@ -192,8 +200,7 @@
     "required": "%{field} is required",
     "usdtFormat": "Must be ERC-20 / TRC-20 compatible wallet address",
     "userNameMinMaxLength": "1-20 characters only",
-    "username": "1-20 characters only",
-    "16maxDigit": "Only allow key in max 16 digits"
+    "username": "1-20 characters only"
   },
   "wallet": {
     "addBank": "Add Bank Info",

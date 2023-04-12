@@ -43,13 +43,9 @@ const TransactionScreen = () => {
       {
         start: offset * LIMIT,
         length: LIMIT,
-        date_from: `${dayjs(filter.startDate)
-          .utc()
-          .startOf('date')
-          .format('YYYY-MM-DD HH:mm:ss')} to ${dayjs(filter.endDate)
-          .utc()
-          .endOf('date')
-          .format('YYYY-MM-DD HH:mm:ss')}`,
+        date_from: `${dayjs(filter.startDate).format(
+          'YYYY-MM-DD HH:mm:ss Z'
+        )} to ${dayjs(filter.endDate).format('YYYY-MM-DD HH:mm:ss Z')}`,
         currency: Currency.VND,
         transaction_type: filter.type.toString(),
       },
@@ -93,8 +89,8 @@ const TransactionScreen = () => {
     <DataTable.Row size="big">
       <DataTable.Cell bordered center>
         <DateTimeField
-          from={dayjs(item.created_date).format('YYYY-MM-DD')}
-          to={dayjs(item.created_date).format('HH:mm:ss')}
+          date={dayjs(item.created_date).format('YYYY-MM-DD')}
+          time={dayjs(item.created_date).format('HH:mm:ss')}
         />
       </DataTable.Cell>
       <DataTable.Cell bordered textStyle={{ px: 12 }}>
