@@ -8,12 +8,14 @@ import useTableListing from 'agent/hooks/useTableListing'
 import { useShareholderCommissionListQuery } from 'agent/services/reportApi'
 import { ShareholderCommissionListResult } from 'agent/services/reportApi.type'
 import { useAgentLocalization } from 'app/provider/localization'
-import { toThousandSeparator } from 'app/utils'
+import { toCurrency, toThousandSeparator } from 'app/utils'
 import dayjs from 'dayjs'
 import { View } from 'dripsy'
 import React, { useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import AgentFloatingContent from '../floatingContent'
+import { Currency } from 'app/utils/constant'
+import { useUserInfoQuery } from 'agent/services/userApi'
 
 export type CommissionFilterOptions = {
   date: DateFilter | string | undefined
@@ -33,6 +35,11 @@ const ShareholderCommissionScreen = () => {
 
   const [offset, setOffset] = useState(0)
 
+  const { currency } = useUserInfoQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      currency: (data?.wallet.currency ?? Currency.VND) as Currency,
+    }),
+  })
   const { reportData, totalData, hasMorePage, isFetching, refetch } =
     useShareholderCommissionListQuery(
       {
@@ -98,14 +105,14 @@ const ShareholderCommissionScreen = () => {
         <DateTimeField date={dayjs(item.rpt_date).format('YYYY-MM-DD')} />
       </DataTable.Cell>
       <DataTable.Cell bordered>{item.username}</DataTable.Cell>
-      <DataTable.Cell bordered center textStyle={{ fontSize: 10 }}>
-        {toThousandSeparator(item.turnover_amt)}
+      <DataTable.Cell bordered center textStyle={{ fontSize: 12 }}>
+        {toCurrency(item.turnover_amt, currency, { symbol: false })}
       </DataTable.Cell>
       <DataTable.Cell bordered center style={fourthCellStyle}>
         {item.shareholding_perc}
       </DataTable.Cell>
-      <DataTable.Cell center textStyle={{ fontSize: 10 }}>
-        {toThousandSeparator(item.earning_amt)}
+      <DataTable.Cell center textStyle={{ fontSize: 12 }}>
+        {toCurrency(item.earning_amt, currency, { symbol: false })}
       </DataTable.Cell>
     </DataTable.Row>
   )
