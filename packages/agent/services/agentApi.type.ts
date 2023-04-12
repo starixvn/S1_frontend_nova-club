@@ -1,5 +1,6 @@
 import { Currency } from 'app/utils/constant'
 import { UserTotalDownline } from './userApi.type'
+import { ShareholderStatusFilter } from 'agent/constant/select'
 
 export interface AgentProfile {
   username: string
@@ -51,6 +52,9 @@ export type AgentDetailsResult = {
   lastlogin_at: string
   lastlogin_ip: string
   total_downline: UserTotalDownline
+  wallet_bal_amt: {
+    VND: string
+  }
 }
 
 export interface AgentResetPinArgs {
@@ -130,4 +134,9 @@ export interface AgentQrDetails {
   code: string
   domain: string
   agent_type: string
+}
+
+export type AgentSetStatusArgs = {
+  agent_id: string
+  status: ShareholderStatusFilter
 }

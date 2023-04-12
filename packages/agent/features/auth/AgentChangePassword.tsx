@@ -110,7 +110,7 @@ const AgentChangePassword = () => {
             onBlur={handleBlur('oldPwd')}
             value={values.oldPwd}
             error={
-              values.oldPwd.length === 6 && errors.oldPwd
+              touched.oldPwd && errors.oldPwd
                 ? t(errors.oldPwd, {
                     field: t('common.oldPassword'),
                   })
@@ -129,7 +129,7 @@ const AgentChangePassword = () => {
             onBlur={handleBlur('password')}
             value={values.password}
             error={
-              values.password.length === 6 && errors.password
+              touched.password && errors.password
                 ? t(errors.password, {
                     field: t('common.newPassword'),
                   })
@@ -148,7 +148,7 @@ const AgentChangePassword = () => {
             onBlur={handleBlur('confirmpassword')}
             value={values.confirmpassword}
             error={
-              values.confirmpassword.length === 6 && errors.confirmpassword
+              touched.confirmpassword && errors.confirmpassword
                 ? t(errors.confirmpassword, {
                     field: t('common.confirmPassword'),
                   })
@@ -160,7 +160,7 @@ const AgentChangePassword = () => {
             onPress={submitForm}
             loading={isLoading}
             sx={{ marginY: 20 }}
-            disabled={!dirty}
+            disabled={!isValid || !dirty}
           >
             {t('common.submit')}
           </Button>

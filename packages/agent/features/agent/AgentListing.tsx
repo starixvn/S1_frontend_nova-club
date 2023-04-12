@@ -4,7 +4,10 @@ import TableListing from 'agent/components/DataTable/TableListing'
 import Switch from 'agent/components/Switch'
 import Text from 'agent/components/Text'
 import { DateFilter, ShareholderStatusFilter } from 'agent/constant/select'
-import { useAgentListQuery } from 'agent/services/agentApi'
+import {
+  useAgentListQuery,
+  useAgentSetStatusMutation,
+} from 'agent/services/agentApi'
 import { AgentListResult } from 'agent/services/agentApi.type'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
@@ -42,26 +45,22 @@ const AgentListing = () => {
   const [isLoadingIndex, setIsLoadingIndex] = useState(0)
   const [filter, setFilter] = useState<AgentListingFilterOptions>({
     date: '',
-    startDate: dayjs().startOf('month').toDate(),
+    startDate: dayjs().startOf('date').toDate(),
     endDate: dayjs().endOf('date').toDate(),
     status: '',
     username: '',
   })
 
-  const [updateStatus, { isLoading }] = useShareholderSetStatusMutation()
+  const [updateStatus, { isLoading }] = useAgentSetStatusMutation()
   const { agentData, totalData, hasMorePage, isFetching, refetch } =
     useAgentListQuery(
       {
         start: offset * LIMIT,
         length: LIMIT,
         created_at: filter.date
-          ? `${dayjs(filter.startDate)
-              .utc()
-              .startOf('date')
-              .format('YYYY-MM-DD HH:mm:ss')} to ${dayjs(filter.endDate)
-              .utc()
-              .endOf('date')
-              .format('YYYY-MM-DD HH:mm:ss')}`
+          ? `${dayjs(filter.startDate).format(
+              'YYYY-MM-DD HH:mm:ss Z'
+            )} to ${dayjs(filter.endDate).format('YYYY-MM-DD HH:mm:ss Z')}`
           : '',
         username: filter.username,
         active: filter.status,
@@ -126,8 +125,8 @@ const AgentListing = () => {
       </DataTable.Cell>
       <DataTable.Cell bordered center>
         <DateTimeField
-          from={dayjs(item.created_at).format('YYYY-MM-DD')}
-          to={dayjs(item.created_at).format('HH:mm:ss')}
+          date={dayjs(item.created_at).format('YYYY-MM-DD')}
+          time={dayjs(item.created_at).format('HH:mm:ss')}
         />
       </DataTable.Cell>
       <DataTable.Cell center>
@@ -148,7 +147,7 @@ const AgentListing = () => {
     setIsLoadingIndex(loadingIndex)
 
     const { success, message } = await updateStatus({
-      shareholder_id: id,
+      agent_id: id,
       status: activeStatus,
     })
       .unwrap()

@@ -21,9 +21,12 @@ enum WithdrawalStatus {
   Paid = '5',
 }
 const date =
-  dayjsTz().subtract(3, 'month').startOf('date').format('YYYY-MM-DD HH:mm:ss') +
+  dayjsTz()
+    .subtract(3, 'month')
+    .startOf('date')
+    .format('YYYY-MM-DD HH:mm:ss Z') +
   ' to ' +
-  dayjsTz().endOf('date').format('YYYY-MM-DD HH:mm:ss')
+  dayjsTz().endOf('date').format('YYYY-MM-DD HH:mm:ss Z')
 
 const LIMIT = 10
 const AgentWithdrawalHistory = ({ currency }: { currency: Currency }) => {

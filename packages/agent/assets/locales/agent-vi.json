@@ -43,7 +43,7 @@
     "id": "Mã ID",
     "importantNote": "Lưu Ý Quan Trọng",
     "importantNotes": "Lưu Ý Quan Trọng",
-    "inactive": "",
+    "inactive": "Không hoạt động",
     "loading": "Đang tải",
     "member": "Thành viên",
     "mobileNumber": "Số điện thoại",
@@ -83,6 +83,12 @@
       "thisWeek": "Tuần này",
       "today": "Hôm nay",
       "yesterday": "Hôm qua"
+    },
+    "member": {
+      "block": "filter.member.block",
+      "exclusion": "",
+      "failLogin": "KHÓA VÌ ĐĂNG NHẬP KHÔNG THÀNH CÔNG",
+      "normal": "Bình thường"
     },
     "type": {
       "adjustment": "Điều chỉnh",
@@ -124,7 +130,8 @@
     "realName": "Tên thật",
     "subShareholder": "Cổ đông phụ",
     "title": "Hồ sơ",
-    "totalDownline": "Tổng số cấp dưới"
+    "totalDownline": "Tổng số cấp dưới",
+    "walletBalance": ""
   },
   "report": {
     "bet": "Cược",
@@ -162,6 +169,7 @@
     "transferConfirmation": "Xác nhận Chuyển quỹ"
   },
   "validation": {
+    "16maxDigit": "",
     "accountNo": "",
     "alphanumeric": "ký tự chữ và số (A-Z, a-z, 0-9)",
     "amount": "%{amount} ngoài hạn mức",
@@ -192,8 +200,7 @@
     "required": "%{field} là bắt buộc",
     "usdtFormat": "Địa chỉ ví phải tương thích với chuẩn ERC20 / TRC20",
     "userNameMinMaxLength": "Tên đăng nhập phải có 1-20 ký tự",
-    "username": "Tên đăng nhập phải có 1-20 ký tự",
-    "16maxDigit": ""
+    "username": "Tên đăng nhập phải có 1-20 ký tự"
   },
   "wallet": {
     "addBank": "Thêm tài khoản",

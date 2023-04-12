@@ -77,21 +77,29 @@ const DataTableCell = ({
   )
 }
 
-export const DateTimeField = ({ from, to }) => (
+export const DateTimeField = ({
+  date,
+  time,
+}: {
+  date: string
+  time?: string
+}) => (
   <View sx={{ flexDirection: 'column' }}>
     <Text sx={{ color: 'black', textAlign: 'center', fontSize: 14 }}>
-      {from}
+      {date}
     </Text>
-    <Text
-      sx={{
-        color: '$taupeGray',
-        textAlign: 'center',
-        fontSize: 13,
-        lineHeight: 14,
-      }}
-    >
-      {to}
-    </Text>
+    {time && (
+      <Text
+        sx={{
+          color: '$taupeGray',
+          textAlign: 'center',
+          fontSize: 13,
+          lineHeight: 14,
+        }}
+      >
+        {time}
+      </Text>
+    )}
   </View>
 )
 
