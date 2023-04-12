@@ -3,6 +3,7 @@ import * as Yup from 'yup'
 export const USERNAME_MAX_LENGTH = 20
 export const PASSWORD_MAX_LENGTH = 15
 export const AGENT_PASSWORD_MAX_LENGTH = 6
+export const ACCOUNT_NUMBER_MAX_LENGTH = 16
 
 // const ALPHANUMERIC_REGEX = RegExp(/^(?=.*[0-9])(?=.*[a-z])([a-z0-9]+)$/)
 const ALPHANUMERIC_REGEX = RegExp(/^[0-9A-Za-z]*$/g)
@@ -49,7 +50,7 @@ const validation = {
   accountNo: Yup.string()
     .required('validation.required')
     .matches(NUMERIC_REGEX, 'validation.amountNumber')
-    .max(16, 'validation.16maxDigit'),
+    .max(ACCOUNT_NUMBER_MAX_LENGTH, 'validation.16maxDigit'),
 
   amount: Yup.string()
     .required('validation.required')
