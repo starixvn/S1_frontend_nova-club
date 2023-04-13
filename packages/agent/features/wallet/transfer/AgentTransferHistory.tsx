@@ -116,11 +116,24 @@ const AgentTransferHistory = ({
   }) => (
     <DataTable.Row>
       <DataTable.Cell center style={{ flex: 0.35 }}>
-        <View sx={{ alignItems: 'center', justifyContent: 'center' }}>
-          <Text sx={{ color: 'black', textAlign: 'center' }}>
+        <View>
+          <Text
+            sx={{
+              color: 'black',
+              textAlign: 'center',
+              fontSize: 14,
+            }}
+          >
             {dayjs(item.created_date).format('DD-MM-YYYY')}
           </Text>
-          <Text sx={{ color: '$taupeGray', textAlign: 'center' }}>
+          <Text
+            sx={{
+              color: '$taupeGray',
+              textAlign: 'center',
+              fontSize: 13,
+              lineHeight: 13,
+            }}
+          >
             {dayjs(item.created_date).format('HH:mm a')}
           </Text>
         </View>
@@ -135,7 +148,7 @@ const AgentTransferHistory = ({
   )
 
   return (
-    <View sx={{ py: '$5', height: Platform.OS !== 'web' ? 500 : null }}>
+    <View sx={{ mt: '$5' }}>
       <TableListing
         title={t('wallet.recentTransaction')}
         data={data}

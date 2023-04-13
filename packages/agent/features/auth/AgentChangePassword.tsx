@@ -102,7 +102,7 @@ const AgentChangePassword = () => {
             label={t('common.oldPassword')}
             isRequired
             secureTextEntry
-            placeholder={t('common.enterOldPassword')}
+            placeholder={t('placeholder.enterOldPassword')}
             containerProps={{
               sx: { mb: '$3' },
             }}
@@ -121,7 +121,7 @@ const AgentChangePassword = () => {
             label={t('common.newPassword')}
             isRequired
             secureTextEntry
-            placeholder={t('common.enterNewPassword')}
+            placeholder={t('placeholder.enterNewPassword')}
             containerProps={{
               sx: { mb: '$3' },
             }}
@@ -140,7 +140,7 @@ const AgentChangePassword = () => {
             label={t('common.confirmPassword')}
             isRequired
             secureTextEntry
-            placeholder={t('common.enterConfirmPassword')}
+            placeholder={t('placeholder.enterConfirmPassword')}
             containerProps={{
               sx: { mb: '$3' },
             }}

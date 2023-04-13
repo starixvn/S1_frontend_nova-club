@@ -190,7 +190,7 @@ const AgentTransferForm = ({
       <Input
         label={t('wallet.referralId')}
         containerProps={{ sx: { mb: '$3' } }}
-        placeholder={t('wallet.enterPlayerId')}
+        placeholder={t('placeholder.enterPlayerId')}
         value={values.playerId}
         error={
           touched.playerId && errors.playerId
@@ -235,7 +235,7 @@ const AgentTransferForm = ({
         value={values.amount?.toString()}
         onChangeText={(e) => formik.setFieldValue('amount', e)}
         label={t('common.amount')}
-        placeholder={t('wallet.enterWithdrawalAmount')}
+        placeholder={t('placeholder.enterWithdrawalAmount')}
         containerProps={{ sx: { mb: '$8' } }}
         onBlur={() => {
           handleBlur('amount')

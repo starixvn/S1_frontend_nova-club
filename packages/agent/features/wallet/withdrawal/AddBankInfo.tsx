@@ -223,7 +223,7 @@ const AddBankInfoForm = () => {
             containerProps={{
               sx: { mb: '$3' },
             }}
-            placeholder={t('common.enterAccountNumber')}
+            placeholder={t('placeholder.enterAccountName')}
             error={
               touched.accountNumber && errors.accountNumber
                 ? t(errors.accountNumber, {
@@ -241,7 +241,7 @@ const AddBankInfoForm = () => {
             editable={realName ? false : true}
             label={t('common.accountName')}
             containerProps={{ sx: { mb: hasVerified ? '$10' : '$3' } }}
-            placeholder={t('common.enterAccountName')}
+            placeholder={t('placeholder.enterAccountName')}
             error={
               touched.accountName && errors.accountName
                 ? t(errors.accountName, {

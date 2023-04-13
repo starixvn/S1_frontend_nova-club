@@ -117,7 +117,7 @@ const AgentPinModal = ({ modal: { closeModal, getParam } }) => {
       >
         <View sx={{ py: '$5' }}>
           <AgentUnderlinePinField
-            title={t('pin.enterPin')}
+            title={t('placeholder.enterPin')}
             value={values.pin}
             setValue={handleChange('pin')}
           />
