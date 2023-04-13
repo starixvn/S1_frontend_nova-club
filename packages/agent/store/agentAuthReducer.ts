@@ -5,10 +5,12 @@ import { LoginResult } from 'agent/services/authApi.type'
 
 interface AgentAuthState {
   access_token?: string
+  has_logged_in?: number
 }
 
 const agentAuthInitialState: AgentAuthState = {
   access_token: undefined,
+  has_logged_in: undefined,
   // token_type: undefined,
 }
 
@@ -19,6 +21,12 @@ export const agentSlice = createSlice({
     setAgentAuthToken: (state, action: PayloadAction<string | undefined>) => {
       state.access_token = action.payload
       // state.token_type = action.payload.token_type
+    },
+    setAgentIsFirstTimeLogin: (
+      state,
+      action: PayloadAction<AgentAuthState['has_logged_in']>
+    ) => {
+      state.has_logged_in = action.payload
     },
   },
 })

@@ -22,7 +22,7 @@ import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
 import { ActivityIndicator, ScrollView, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import * as Yup from 'yup'
 import AgentUnderlinePinField from './AgentUnderlinePinField'
@@ -145,14 +145,21 @@ const AgentCreatePin = () => {
       const formattedPhoneNum = removeAgentPhoneNumPrefix(mobile_no)
       setFieldValue('mobileNumber', formattedPhoneNum, false)
     }
+  }, [mobile_no, setFieldValue])
+
+  useEffect(() => {
+    if (isUninitialized || typeof hasPin === 'undefined') {
+      return
+    }
+
     if (hasPin) {
       replace('/agent')
     }
-  }, [mobile_no, setFieldValue])
+  }, [hasPin, isUninitialized, replace])
 
   return (
     <>
-      {!hasPin || isFetching || isUninitialized ? (
+      {isFetching || isUninitialized ? (
         <ActivityIndicator />
       ) : (
         <>

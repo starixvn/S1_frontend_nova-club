@@ -95,6 +95,19 @@ const MainMenuTest = ({
     onMenu(false)
   }
 
+  const onSelectMenuItem = (item: typeof mainMenuList[number]) => {
+    item.onPress && item.onPress()
+
+    /**
+     * Only mobile app need to close the menu manually.
+     * For website, due to navigation to other page will unmount current page,
+     * so `handleDismiss` update state after page unmounted will trigger error.
+     */
+    if (Platform.OS === 'android' || Platform.OS === 'ios') {
+      handleDismiss()
+    }
+  }
+
   return (
     <Modal
       isVisible={isShow}
@@ -143,13 +156,7 @@ const MainMenuTest = ({
             const lastItem = index === mainMenuList.length - 1
             const isSwitchAcc = index === mainMenuList.length - 2
             return (
-              <StyledWrapList
-                onPress={() => {
-                  i.onPress && i.onPress()
-                  handleDismiss()
-                }}
-                key={i.label}
-              >
+              <StyledWrapList onPress={() => onSelectMenuItem(i)} key={i.label}>
                 <Icon
                   name={i.icon}
                   size={23}

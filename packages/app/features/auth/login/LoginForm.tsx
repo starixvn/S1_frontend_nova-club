@@ -110,8 +110,6 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
           const resp = await getUserInfo().unwrap()
 
           if (resp.has_logged_in === 0) {
-            // navigation.dispatch(StackActions.push('AgentChangePassword'))
-            //TODO change to using push()
             Platform.select({
               web: function () {
                 replace('/agent/reset-password')
