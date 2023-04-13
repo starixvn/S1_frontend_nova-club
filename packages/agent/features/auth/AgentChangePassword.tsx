@@ -140,7 +140,7 @@ const AgentChangePassword = () => {
             label={t('common.confirmPassword')}
             isRequired
             secureTextEntry
-            placeholder={t('common.confirmPassword')}
+            placeholder={t('common.enterConfirmPassword')}
             containerProps={{
               sx: { mb: '$3' },
             }}

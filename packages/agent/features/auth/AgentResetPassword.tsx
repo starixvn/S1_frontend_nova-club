@@ -19,7 +19,7 @@ import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Flex, Image, ScrollView, Text, useDripsyTheme, View } from 'dripsy'
 import { useFormik } from 'formik'
 import { useRef, useState } from 'react'
-import { useWindowDimensions } from 'react-native'
+import { Platform, useWindowDimensions } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import * as Yup from 'yup'
 
@@ -35,7 +35,7 @@ const AgentResetPassword = () => {
   const { theme } = useDripsyTheme()
   const { openModal } = useModal()
   const { showAlert } = useAgentAlert()
-  const { replace } = useContextualRouter()
+  const { push, replace } = useContextualRouter()
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [isOtpLoading, setIsOtpLoading] = useState(false)
@@ -66,7 +66,14 @@ const AgentResetPassword = () => {
 
       if (success) {
         showAlert(message)
-        replace('/agent')
+        Platform.select({
+          web: function () {
+            replace('/agent')
+          },
+          default: function () {
+            push('/agent')
+          },
+        })()
       }
     } catch (e) {
       showAlert(e)
@@ -192,7 +199,7 @@ const AgentResetPassword = () => {
             label={t('common.confirmPassword')}
             isRequired
             secureTextEntry
-            placeholder={t('common.confirmPassword')}
+            placeholder={t('common.enterConfirmPassword')}
             containerProps={{
               sx: { mb: '$3' },
             }}

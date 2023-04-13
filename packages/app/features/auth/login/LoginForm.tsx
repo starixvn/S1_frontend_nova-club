@@ -50,7 +50,7 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
   const { showAlert } = useAlert()
   const [errorMsg, setErrorMsg] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const { replace, push, back } = useContextualRouter()
+  const { replace, push, back, clear } = useContextualRouter()
   const [afterLoginRedirection] = useParam('r')
 
   // const { handleAgentLogin } = useAfterLogin()
@@ -114,10 +114,11 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
             //TODO change to using push()
             Platform.select({
               web: function () {
-                replace('/agent')
+                replace('/agent/reset-password')
               },
               default: function () {
-                push('/agent')
+                back()
+                push('/agent/reset-password')
               },
             })()
           } else {
