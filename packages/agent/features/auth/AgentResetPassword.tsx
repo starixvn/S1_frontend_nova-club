@@ -8,6 +8,8 @@ import CommonBackHeader from 'agent/navigation/components/CommonBackHeader'
 import { useSendOTPMutation } from 'agent/services/accountApi'
 import { IResponse } from 'agent/services/common/agentAxiosBaseQuery'
 import { useResetPasswordMutation } from 'agent/services/userApi'
+import { AgentAuthActions } from 'agent/store/agentAuthReducer'
+import { HAS_LOG_IN_MAP } from 'agent/utils/authUtil'
 import validation, {
   getErrorMessage,
   PASSWORD_MAX_LENGTH,
@@ -21,6 +23,7 @@ import { useFormik } from 'formik'
 import { useRef, useState } from 'react'
 import { Platform, useWindowDimensions } from 'react-native'
 import { useModal } from 'react-native-modalfy'
+import { useDispatch } from 'react-redux'
 import * as Yup from 'yup'
 
 interface ResetPasswordValues {
@@ -41,6 +44,7 @@ const AgentResetPassword = () => {
   const [isOtpLoading, setIsOtpLoading] = useState(false)
   const { width } = useWindowDimensions()
   const { top } = useSafeArea()
+  const dispatch = useDispatch()
 
   const [sendOtp] = useSendOTPMutation()
   const [resetPassword] = useResetPasswordMutation()
@@ -74,6 +78,11 @@ const AgentResetPassword = () => {
             push('/agent')
           },
         })()
+        dispatch(
+          AgentAuthActions.setAgentIsFirstTimeLogin(
+            HAS_LOG_IN_MAP.HAS_LOGIN_BEFORE
+          )
+        )
       }
     } catch (e) {
       showAlert(e)

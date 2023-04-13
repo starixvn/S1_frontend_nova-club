@@ -13,6 +13,7 @@ import {
   UserProfile,
   ChangePasswordArgs,
 } from './userApi.type'
+import { AgentAuthActions } from 'agent/store/agentAuthReducer'
 
 export const userApi = agentBaseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
@@ -38,6 +39,19 @@ export const userApi = agentBaseApiWithTag.injectEndpoints({
             has_verified_wd: 1,
           }
         )
+      },
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        try {
+          const { data } = await queryFulfilled
+
+          if (data) {
+            dispatch(
+              AgentAuthActions.setAgentIsFirstTimeLogin(data.has_logged_in)
+            )
+          }
+        } catch (error) {
+          console.error(error)
+        }
       },
     }),
     userRefreshBalance: builder.query<IResponse<RefreshBalance>, void>({
