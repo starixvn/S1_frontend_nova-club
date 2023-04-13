@@ -212,7 +212,7 @@ const AgentResetPin = () => {
                 error={
                   touched.mobileNumber && errors.mobileNumber
                     ? t(errors.mobileNumber, {
-                        field: 'mobileNumber',
+                        field: t('common.mobileNumber'),
                       })
                     : undefined
                 }

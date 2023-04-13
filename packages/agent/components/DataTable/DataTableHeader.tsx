@@ -62,7 +62,7 @@ DataTableHeader.displayName = 'DataTable.Header'
 const HeaderView = styled(View)(({ size }: { size: 'big' | 'small' }) => ({
   // flexDirection: 'row',
   // alignItems: 'center',
-  height: size === 'small' ? 48 : 60,
+  height: size === 'small' ? 36 : 48,
   borderBottomWidth: StyleSheet.hairlineWidth,
   borderBottomColor: '#AEAFAF',
   backgroundColor: '#D1D1D1',

@@ -70,7 +70,7 @@ const RowView = styled(View)(({ size }: { size: 'big' | 'small' }) => ({
   borderStyle: 'solid',
   borderBottomWidth: StyleSheet.hairlineWidth,
   borderBottomColor: '#AEAFAF',
-  minHeight: size === 'small' ? 48 : 60,
+  minHeight: size === 'small' ? 36 : 48,
 }))
 
 const ContentView = styled(View)({

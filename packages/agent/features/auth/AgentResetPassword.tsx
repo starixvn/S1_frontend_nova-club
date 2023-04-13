@@ -15,9 +15,11 @@ import validation, {
 import { AGENT_STACK_CONTENT_PADDING } from 'app/constant/sizes'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
-import { Flex, ScrollView, Text, useDripsyTheme } from 'dripsy'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { Flex, Image, ScrollView, Text, useDripsyTheme, View } from 'dripsy'
 import { useFormik } from 'formik'
 import { useRef, useState } from 'react'
+import { Platform, useWindowDimensions } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import * as Yup from 'yup'
 
@@ -33,10 +35,12 @@ const AgentResetPassword = () => {
   const { theme } = useDripsyTheme()
   const { openModal } = useModal()
   const { showAlert } = useAgentAlert()
-  const { replace } = useContextualRouter()
+  const { push, replace } = useContextualRouter()
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [isOtpLoading, setIsOtpLoading] = useState(false)
+  const { width } = useWindowDimensions()
+  const { top } = useSafeArea()
 
   const [sendOtp] = useSendOTPMutation()
   const [resetPassword] = useResetPasswordMutation()
@@ -62,7 +66,14 @@ const AgentResetPassword = () => {
 
       if (success) {
         showAlert(message)
-        replace('/agent')
+        Platform.select({
+          web: function () {
+            replace('/agent')
+          },
+          default: function () {
+            push('/agent')
+          },
+        })()
       }
     } catch (e) {
       showAlert(e)
@@ -124,11 +135,37 @@ const AgentResetPassword = () => {
 
   return (
     <>
-      <CommonBackHeader title={'menu.changePass'} />
+      <View>
+        <Image
+          source={require('app/assets/images/auth/pwd.jpg')}
+          sx={{
+            height: 350 + top,
+            width: Math.min(width, theme.sizes.container),
+          }}
+          resizeMode={'cover'}
+        />
+        <Image
+          source={require('app/assets/images/logo.png')}
+          sx={{
+            position: 'absolute',
+            height: 100,
+            width: Math.min(width, theme.sizes.container),
+            top: top,
+          }}
+          resizeMode={'contain'}
+        />
+      </View>
+
       <ScrollView
         contentContainerStyle={{
           paddingHorizontal: 20,
           paddingTop: AGENT_STACK_CONTENT_PADDING,
+        }}
+        sx={{
+          borderRadius: 10,
+          bg: 'transparent',
+          backgroundColor: 'white',
+          top: -top + -10,
         }}
       >
         <Flex
@@ -143,7 +180,7 @@ const AgentResetPassword = () => {
             label={t('common.newPassword')}
             isRequired
             secureTextEntry
-            placeholder={t('common.enterNewPassword')}
+            placeholder={t('placeholder.enterNewPassword')}
             containerProps={{
               sx: { mb: '$3' },
             }}
@@ -151,7 +188,7 @@ const AgentResetPassword = () => {
             onBlur={handleBlur('password')}
             value={values.password}
             error={
-              values.password.length === 6 && errors.password
+              touched.password && errors.password
                 ? t(errors.password, {
                     field: t('common.newPassword'),
                   })
@@ -162,6 +199,7 @@ const AgentResetPassword = () => {
             label={t('common.confirmPassword')}
             isRequired
             secureTextEntry
+            placeholder={t('placeholder.enterConfirmPassword')}
             containerProps={{
               sx: { mb: '$3' },
             }}
@@ -169,7 +207,7 @@ const AgentResetPassword = () => {
             onBlur={handleBlur('confirmpassword')}
             value={values.confirmpassword}
             error={
-              values.confirmpassword.length === 6 && errors.confirmpassword
+              touched.confirmpassword && errors.confirmpassword
                 ? t(errors.confirmpassword, {
                     field: t('common.confirmPassword'),
                   })
@@ -212,7 +250,7 @@ const AgentResetPassword = () => {
             error={
               touched.mobile_no && errors.mobile_no
                 ? t(errors.mobile_no, {
-                    field: 'mobile_no',
+                    field: t('common.mobileNumber'),
                   })
                 : undefined
             }

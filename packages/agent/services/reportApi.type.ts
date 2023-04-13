@@ -17,7 +17,7 @@ export type TransactionReportResult = {
 export type ShareholderCommissionListArgs = {
   start: number
   length: number
-  date_from: string
+  rpt_date: string
 }
 
 export type ShareholderCommissionListResult = {
@@ -32,6 +32,7 @@ export type ShareholderCommissionListResult = {
 export type AgentCommissionListArgs = {
   start: number
   length: number
+  rpt_date: string
 }
 
 export type AgentCommissionListResult = {

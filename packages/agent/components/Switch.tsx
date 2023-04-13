@@ -125,6 +125,7 @@ export const SwitchLabel = ({ isActive, label, color = 'white' }) => {
   return (
     <Text
       key={label}
+      numberOfLines={1}
       from={{
         opacity: 0,
         scale: 0.5,
@@ -139,7 +140,8 @@ export const SwitchLabel = ({ isActive, label, color = 'white' }) => {
       }}
       style={{
         position: 'absolute',
-        left: isActive ? 4 : undefined,
+        textAlign: 'right',
+        left: isActive ? 4 : 18,
         right: !isActive ? 4 : undefined,
         fontSize: 10,
         color,

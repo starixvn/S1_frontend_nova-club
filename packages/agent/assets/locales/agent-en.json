@@ -33,7 +33,7 @@
     "enterAccountName": "Enter Account Name",
     "enterAccountNumber": "Enter Account Number",
     "enterAmount": "Please enter your %{field} amount",
-    "enterConfirmPassword": "Please confirm password",
+    "enterConfirmPassword": "Please enter confirm password",
     "enterNewPassword": "Please enter new password",
     "enterOldPassword": "Please enter old password",
     "enterUsername": "Enter Username",
@@ -84,6 +84,12 @@
       "today": "Today",
       "yesterday": "Yesterday"
     },
+    "member": {
+      "block": "Block",
+      "exclusion": "Self Exclusion",
+      "failLogin": "Fail Login Attempt",
+      "normal": "Normal"
+    },
     "type": {
       "adjustment": "Adjustment",
       "commission": "Commission",
@@ -107,10 +113,25 @@
   "pin": {
     "confirmPin": "Confirm Pin",
     "createPin": "Create Pin",
-    "enterPin": "Please enter Pin to transfer",
+    "enterPin": "",
     "newPin": "New Pin",
     "pinConfirmation": "Pin Confirmation",
     "resetPin": "Reset Pin"
+  },
+  "placeholder": {
+    "enterAccountName": "Please enter account name",
+    "enterAccountNumber": "Please enter account number",
+    "enterAmount": "Please enter your %{field} amount",
+    "enterConfirmPassword": "Please enter confirm password",
+    "enterId": "Please enter ID",
+    "enterNewPassword": "Please enter new password",
+    "enterOldPassword": "Please enter old password",
+    "enterPin": "Please enter pin to transfer",
+    "enterPlayerId": "Please enter player ID",
+    "enterRealName": "Please enter your real name",
+    "enterTransferAmount": "Please enter your transfer amount",
+    "enterUsername": "Please enter username",
+    "enterWithdrawalAmount": "Please enter withdrawal amount"
   },
   "profile": {
     "createdDate": "Created Date",
@@ -124,7 +145,8 @@
     "realName": "Real Name",
     "subShareholder": "Sub-Shareholder",
     "title": "Profile",
-    "totalDownline": "Total Downline"
+    "totalDownline": "Total Downline",
+    "walletBalance": "Wallet Balance"
   },
   "report": {
     "bet": "Bet",
@@ -157,11 +179,13 @@
   },
   "transfer": {
     "errorId": "Player ID not found",
-    "playerId": "Player ID",
+    "playerID": "Player ID",
+    "playerId": "",
     "playerName": "Player Name",
     "transferConfirmation": "Transfer Confirmation"
   },
   "validation": {
+    "16maxDigit": "Only allow key in max 16 digits",
     "accountNo": "1-16 digits only",
     "alphanumeric": "alphanumeric (A-Z, a-z, 0-9) characters only",
     "amount": "%{amount} not in range",
@@ -171,7 +195,6 @@
     "amountNumber": "Amount must be a number",
     "dailyLimitReached": "Your Daily Limit Reached",
     "email": "Mail format is wrong",
-    "enterId": "Please enter ID",
     "erc20Format": "Must be ERC-20 compatible wallet address",
     "exceedAvailableTransferBalance": "Exceed available transfer balance %{balance}",
     "insufficientBalance": "Insufficient balance",
@@ -192,16 +215,12 @@
     "required": "%{field} is required",
     "usdtFormat": "Must be ERC-20 / TRC-20 compatible wallet address",
     "userNameMinMaxLength": "1-20 characters only",
-    "username": "1-20 characters only",
-    "16maxDigit": "Only allow key in max 16 digits"
+    "username": "1-20 characters only"
   },
   "wallet": {
     "addBank": "Add Bank Info",
     "addNew": "Add New",
     "declined": "Declined",
-    "enterPlayerId": "Please enter Player ID",
-    "enterTransferAmount": "Please enter your transfer amount",
-    "enterWithdrawalAmount": "Enter Withdrawal Amount",
     "fundTransfer": "Fund Transfer",
     "nettPayout": "Nett Payout",
     "paid": "Paid",

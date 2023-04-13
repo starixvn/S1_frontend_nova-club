@@ -30,20 +30,13 @@
     "desktop": "Bản máy tính",
     "emptyResult": "Không có kết quả",
     "enter": "Nhập",
-    "enterAccountName": "Nhập tên tài khoản",
-    "enterAccountNumber": "Nhập số tài khoản",
-    "enterAmount": "Vui lòng nhập số tiền %{field} của bạn",
-    "enterConfirmPassword": "Vui lòng xác nhận mật khẩu",
-    "enterNewPassword": "Vui lòng nhập mật khẩu mới",
-    "enterOldPassword": "Vui lòng nhập mật khẩu cũ",
-    "enterUsername": "Nhập tên người dùng",
     "failedOtp": "Không gửi được OTP",
     "from": "Từ",
     "home": "Trang Chủ",
     "id": "Mã ID",
     "importantNote": "Lưu Ý Quan Trọng",
     "importantNotes": "Lưu Ý Quan Trọng",
-    "inactive": "",
+    "inactive": "Không hoạt động",
     "loading": "Đang tải",
     "member": "Thành viên",
     "mobileNumber": "Số điện thoại",
@@ -84,6 +77,12 @@
       "today": "Hôm nay",
       "yesterday": "Hôm qua"
     },
+    "member": {
+      "block": "filter.member.block",
+      "exclusion": "",
+      "failLogin": "KHÓA VÌ ĐĂNG NHẬP KHÔNG THÀNH CÔNG",
+      "normal": "Bình thường"
+    },
     "type": {
       "adjustment": "Điều chỉnh",
       "commission": "Hoàn trả",
@@ -112,6 +111,21 @@
     "pinConfirmation": "Xác nhận mã PIN",
     "resetPin": "Cài lại mã PIN"
   },
+  "placeholder": {
+    "enterAccountName": "Nhập tên tài khoản",
+    "enterAccountNumber": "Nhập số tài khoản",
+    "enterAmount": "Vui lòng nhập số tiền %{field} của bạn",
+    "enterConfirmPassword": "Vui lòng xác nhận mật khẩu",
+    "enterId": "Vui lòng nhập ID giới thiệu",
+    "enterNewPassword": "Vui lòng nhập mật khẩu mới",
+    "enterOldPassword": "Vui lòng nhập mật khẩu cũ",
+    "enterPin": "",
+    "enterPlayerId": "Vui lòng điền mã người chơi",
+    "enterRealName": "",
+    "enterTransferAmount": "Vui lòng điền số tiền muốn chuyển",
+    "enterUsername": "Nhập tên người dùng",
+    "enterWithdrawalAmount": ""
+  },
   "profile": {
     "createdDate": "Tạo lúc",
     "currency": "Tiền tệ",
@@ -124,7 +138,8 @@
     "realName": "Tên thật",
     "subShareholder": "Cổ đông phụ",
     "title": "Hồ sơ",
-    "totalDownline": "Tổng số cấp dưới"
+    "totalDownline": "Tổng số cấp dưới",
+    "walletBalance": ""
   },
   "report": {
     "bet": "Cược",
@@ -157,11 +172,13 @@
   },
   "transfer": {
     "errorId": "Không tìm thấy mã người dùng",
+    "playerID": "ID người chơi",
     "playerId": "ID người chơi",
     "playerName": "Tên người chơi",
     "transferConfirmation": "Xác nhận Chuyển quỹ"
   },
   "validation": {
+    "16maxDigit": "",
     "accountNo": "",
     "alphanumeric": "ký tự chữ và số (A-Z, a-z, 0-9)",
     "amount": "%{amount} ngoài hạn mức",
@@ -171,7 +188,6 @@
     "amountNumber": "Số tiền phải là số.",
     "dailyLimitReached": "Bạn Đã Sử Dụng Hết Hạn Mức Trong Ngày",
     "email": "Định dạng email chưa đúng",
-    "enterId": "Vui lòng nhập ID giới thiệu",
     "erc20Format": "Địa chỉ ví phải tương thích với chuẩn ERC20",
     "exceedAvailableTransferBalance": "Vượt quá số dư khả dụng %{balance}",
     "insufficientBalance": "Số dư không đủ",
@@ -192,16 +208,12 @@
     "required": "%{field} là bắt buộc",
     "usdtFormat": "Địa chỉ ví phải tương thích với chuẩn ERC20 / TRC20",
     "userNameMinMaxLength": "Tên đăng nhập phải có 1-20 ký tự",
-    "username": "Tên đăng nhập phải có 1-20 ký tự",
-    "16maxDigit": ""
+    "username": "Tên đăng nhập phải có 1-20 ký tự"
   },
   "wallet": {
     "addBank": "Thêm tài khoản",
     "addNew": "Thêm mới",
     "declined": "Từ chối",
-    "enterPlayerId": "Vui lòng điền mã người chơi",
-    "enterTransferAmount": "Vui lòng điền số tiền muốn chuyển",
-    "enterWithdrawalAmount": "Nhập số tiền muốn rút",
     "fundTransfer": "Chuyển quỹ",
     "nettPayout": "Số tiền thanh toán cuối cùng",
     "paid": "Đã thanh toán",

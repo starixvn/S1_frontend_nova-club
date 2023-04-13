@@ -102,7 +102,7 @@ const AgentChangePassword = () => {
             label={t('common.oldPassword')}
             isRequired
             secureTextEntry
-            placeholder={t('common.enterOldPassword')}
+            placeholder={t('placeholder.enterOldPassword')}
             containerProps={{
               sx: { mb: '$3' },
             }}
@@ -110,7 +110,7 @@ const AgentChangePassword = () => {
             onBlur={handleBlur('oldPwd')}
             value={values.oldPwd}
             error={
-              values.oldPwd.length === 6 && errors.oldPwd
+              touched.oldPwd && errors.oldPwd
                 ? t(errors.oldPwd, {
                     field: t('common.oldPassword'),
                   })
@@ -121,7 +121,7 @@ const AgentChangePassword = () => {
             label={t('common.newPassword')}
             isRequired
             secureTextEntry
-            placeholder={t('common.enterNewPassword')}
+            placeholder={t('placeholder.enterNewPassword')}
             containerProps={{
               sx: { mb: '$3' },
             }}
@@ -129,7 +129,7 @@ const AgentChangePassword = () => {
             onBlur={handleBlur('password')}
             value={values.password}
             error={
-              values.password.length === 6 && errors.password
+              touched.password && errors.password
                 ? t(errors.password, {
                     field: t('common.newPassword'),
                   })
@@ -140,7 +140,7 @@ const AgentChangePassword = () => {
             label={t('common.confirmPassword')}
             isRequired
             secureTextEntry
-            placeholder={t('common.confirmPassword')}
+            placeholder={t('placeholder.enterConfirmPassword')}
             containerProps={{
               sx: { mb: '$3' },
             }}
@@ -148,7 +148,7 @@ const AgentChangePassword = () => {
             onBlur={handleBlur('confirmpassword')}
             value={values.confirmpassword}
             error={
-              values.confirmpassword.length === 6 && errors.confirmpassword
+              touched.confirmpassword && errors.confirmpassword
                 ? t(errors.confirmpassword, {
                     field: t('common.confirmPassword'),
                   })
@@ -160,7 +160,7 @@ const AgentChangePassword = () => {
             onPress={submitForm}
             loading={isLoading}
             sx={{ marginY: 20 }}
-            disabled={!dirty}
+            disabled={!isValid || !dirty}
           >
             {t('common.submit')}
           </Button>

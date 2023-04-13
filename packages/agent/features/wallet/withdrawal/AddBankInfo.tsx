@@ -16,6 +16,7 @@ import {
 import { IResponse } from 'agent/services/common/agentAxiosBaseQuery'
 import { useUserInfoQuery } from 'agent/services/userApi'
 import validation, {
+  ACCOUNT_NUMBER_MAX_LENGTH,
   getErrorMessage,
   removeAgentPhoneNumPrefix,
 } from 'agent/utils/validation'
@@ -36,21 +37,10 @@ interface AddBankInfoValues {
   accountName: string
   mobileNumber: string
   otp?: string
-  hasVerified: number
+  hasVerified: boolean
 }
 
 const AddBankInfoForm = () => {
-  const { currency, hasVerified, phoneNo, realName } = useUserInfoQuery(
-    undefined,
-    {
-      selectFromResult: ({ data }) => ({
-        currency: data?.wallet.currency as Currency,
-        hasVerified: data?.has_verified_wd,
-        phoneNo: data?.mobile_no,
-        realName: data?.name,
-      }),
-    }
-  )
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [otpField, setOtpField] = useState(false)
@@ -63,6 +53,22 @@ const AddBankInfoForm = () => {
   const [sendOtp] = useSendOTPMutation()
   const { back } = useContextualRouter()
   const { height } = useContainerDimension()
+
+  const { currency, hasVerified, phoneNo, realName } = useUserInfoQuery(
+    undefined,
+    {
+      selectFromResult: ({ data }) => ({
+        currency: data?.wallet.currency as Currency,
+        hasVerified: data?.has_verified_wd,
+        phoneNo: data?.mobile_no,
+        realName: data?.name,
+      }),
+    }
+  )
+
+  useEffect(() => {
+    setFieldValue('hasVerified', hasVerified === 1)
+  }, [hasVerified])
 
   const onSubmit = async (
     {
@@ -104,16 +110,12 @@ const AddBankInfoForm = () => {
     accountNumber: validation.accountNo,
     accountName: validation.accountName,
     mobileNumber: Yup.string().when('hasVerified', {
-      is: (hasVerified) => {
-        return hasVerified === 1
-      },
+      is: true,
       then: Yup.string(),
       otherwise: validation.phoneNumber,
     }),
     otp: Yup.string().when('hasVerified', {
-      is: (hasVerified) => {
-        return hasVerified === 1
-      },
+      is: true,
       then: Yup.string(),
       otherwise: validation.stringRequired,
     }),
@@ -126,7 +128,7 @@ const AddBankInfoForm = () => {
       accountName: realName ?? '',
       mobileNumber: '',
       otp: '',
-      hasVerified: hasVerified ?? 0,
+      hasVerified: hasVerified === 1 ?? false,
     },
     validationSchema,
     onSubmit,
@@ -221,7 +223,7 @@ const AddBankInfoForm = () => {
             containerProps={{
               sx: { mb: '$3' },
             }}
-            placeholder={t('common.enterAccountNumber')}
+            placeholder={t('placeholder.enterAccountName')}
             error={
               touched.accountNumber && errors.accountNumber
                 ? t(errors.accountNumber, {
@@ -239,7 +241,7 @@ const AddBankInfoForm = () => {
             editable={realName ? false : true}
             label={t('common.accountName')}
             containerProps={{ sx: { mb: hasVerified ? '$10' : '$3' } }}
-            placeholder={t('common.enterAccountName')}
+            placeholder={t('placeholder.enterAccountName')}
             error={
               touched.accountName && errors.accountName
                 ? t(errors.accountName, {
@@ -251,7 +253,7 @@ const AddBankInfoForm = () => {
             onBlur={handleBlur('accountName')}
             value={values.accountName}
           />
-          {hasVerified ? null : (
+          {hasVerified ?? true ? null : (
             <>
               <Input
                 editable={phoneNo ? false : true}

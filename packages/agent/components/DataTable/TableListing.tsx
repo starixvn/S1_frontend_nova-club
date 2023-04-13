@@ -1,12 +1,13 @@
 import { FlashList, ListRenderItem } from '@shopify/flash-list'
 import EmptyResult from 'agent/components/DataTable/EmptyResult'
-import { ActivityIndicator, FlatList, SxProp, View } from 'dripsy'
+import { ActivityIndicator, FlatList, SxProp, View, useSx } from 'dripsy'
 import React, { ComponentProps, useRef } from 'react'
 import { FlatListProps, Platform } from 'react-native'
 import DataTable from './DataTable'
 import DataTableRefresh from './DataTableRefresh'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { TAB_HEIGHT } from 'app/constant/sizes'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 
 /**
  * ### Usage
@@ -58,6 +59,8 @@ const TableListing = <T, FetchParamsType>({
 }: TableListingProps<T>) => {
   const tableRef = useRef()
   const { height } = useContainerDimension()
+  const { bottom } = useSafeArea()
+  const sx = useSx()
 
   const handleRefresh = () => {
     // Platform.OS === 'web' &&
@@ -113,6 +116,10 @@ const TableListing = <T, FetchParamsType>({
             onEndReached={onLoadMore}
             onEndReachedThreshold={0.3}
             extraData={isFetching}
+            contentContainerStyle={{
+              paddingBottom: bottom,
+              ...sx(containerStyle),
+            }}
             {...rest}
           />
         </View>
