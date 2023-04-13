@@ -42,7 +42,13 @@ const MatchesSection = () => {
     selectFromResult: (s) => {
       return {
         ...s,
-        matches: s.data?.data,
+        matches: s.data?.data
+          ?.slice()
+          .sort(
+            (a, b) =>
+              dayjs(a.globalshowtime, 'MM/DD hh:mm a').unix() -
+              dayjs(b.globalshowtime, 'MM/DD hh:mm a').unix()
+          ),
       }
     },
   })
