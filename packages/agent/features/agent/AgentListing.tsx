@@ -97,7 +97,7 @@ const AgentListing = () => {
       <DataTable.Title bordered center>
         {t('shAgent.regDate')}
       </DataTable.Title>
-      <DataTable.Title center>{t('shAgent.filter')}</DataTable.Title>
+      <DataTable.Title center>{t('common.status')}</DataTable.Title>
     </DataTable.Header>
   )
 

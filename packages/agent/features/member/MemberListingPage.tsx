@@ -87,7 +87,7 @@ const MemberListScreen = () => {
       </DataTable.Title>
       <DataTable.Title bordered>{t('common.username')}</DataTable.Title>
       <DataTable.Title bordered>{t('shAgent.regDate')}</DataTable.Title>
-      <DataTable.Title center>{t('shAgent.filter')}</DataTable.Title>
+      <DataTable.Title center>{t('common.status')}</DataTable.Title>
     </DataTable.Header>
   )
 

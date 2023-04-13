@@ -38,6 +38,7 @@
     "enterOldPassword": "Please enter old password",
     "enterUsername": "Enter Username",
     "failedOtp": "Failed to send OTP",
+    "filter": "Filter",
     "from": "From",
     "home": "Home",
     "id": "ID",
@@ -90,6 +91,7 @@
       "failLogin": "Fail Login Attempt",
       "normal": "Normal"
     },
+    "selectedItem": "4 items selected",
     "type": {
       "adjustment": "Adjustment",
       "commission": "Commission",
@@ -151,29 +153,24 @@
   "report": {
     "bet": "Bet",
     "commission": "Commission",
-    "commissionFilter": "Commission Filter",
     "earning": "Earning",
     "pt": "PT",
     "reportNote": "Note: Full report please refer to \"Desktop Version\"",
     "title": "Report",
     "transaction": "Transaction",
     "transactionDate": "Transaction Date",
-    "transactionFilter": "Transaction Filter",
     "transactionType": "Transaction Type",
     "type": "Type"
   },
   "shAgent": {
     "add": "Add / Create",
     "agentDetails": "Agent Details",
-    "agentFilter": "Agent Filter",
-    "filter": "Filter",
     "newNote1": "Hi, \nThis is your account information",
     "newNote2": "Visit the page",
     "newNote3": "Please change your password upon next login Have a great day!",
     "newRegis": "New Registration Info",
     "regDate": "Register Date",
     "shareholderDetails": "Shareholder Details",
-    "shareholderFilter": "Shareholder Filter",
     "title": "Shareholder / Agent",
     "totalMember": "Total Member"
   },

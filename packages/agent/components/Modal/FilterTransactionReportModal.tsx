@@ -30,7 +30,7 @@ const FilterTransactionReportModal = ({ modal: { closeModal, getParam } }) => {
 
   const getTypeValue = () => {
     let value = ''
-    if (selected.type.length === 4) return (value = '4 items selected')
+    if (selected.type.length === 4) return (value = t('filter.selectedItem'))
     selected.type
       .sort((a, b) => Number(a) - Number(b))
       .map((item) => {
@@ -75,7 +75,7 @@ const FilterTransactionReportModal = ({ modal: { closeModal, getParam } }) => {
   }, [selected.endDate])
 
   return (
-    <ModalWrapper title={t('report.transactionFilter')} onClose={onDismiss}>
+    <ModalWrapper title={t('common.filter')} onClose={onDismiss}>
       <Select
         options={dateOptions}
         placeholder={t('report.transactionDate')}

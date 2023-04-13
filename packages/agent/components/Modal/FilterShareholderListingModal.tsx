@@ -64,7 +64,7 @@ const FilterShareholderListingModal = ({ modal: { closeModal, getParam } }) => {
   }, [selected.endDate])
 
   return (
-    <ModalWrapper title={t('shAgent.shareholderFilter')} onClose={onDismiss}>
+    <ModalWrapper title={t('common.filter')} onClose={onDismiss}>
       <Select
         options={dateOptions}
         placeholder={t('shAgent.regDate')}

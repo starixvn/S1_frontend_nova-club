@@ -50,7 +50,7 @@ const FilterCommissionReportModal = ({ modal: { closeModal, getParam } }) => {
   }, [selected.endDate])
 
   return (
-    <ModalWrapper title={t('report.commissionFilter')} onClose={onDismiss}>
+    <ModalWrapper title={t('common.filter')} onClose={onDismiss}>
       <Select
         options={dateOptions}
         placeholder={t('report.transactionDate')}

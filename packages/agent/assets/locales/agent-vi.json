@@ -61,12 +61,13 @@
     "status": "Trạng thái",
     "submit": "Gửi",
     "suspended": "Bị tạm khóa",
-    "to": "",
+    "to": "Đến",
     "turnover": "Doanh số",
     "userAgreement": "Thỏa thuận người dùng",
     "username": "Tên đăng nhập",
     "win": "Thắng",
-    "yes": "Đồng Ý"
+    "yes": "Đồng Ý",
+    "filter": "Lọc"
   },
   "filter": {
     "date": {
@@ -78,11 +79,12 @@
       "yesterday": "Hôm qua"
     },
     "member": {
-      "block": "filter.member.block",
-      "exclusion": "",
+      "block": "",
+      "exclusion": "Loại ra",
       "failLogin": "KHÓA VÌ ĐĂNG NHẬP KHÔNG THÀNH CÔNG",
       "normal": "Bình thường"
     },
+    "selectedItem": "%{field} mục đã chọn",
     "type": {
       "adjustment": "Điều chỉnh",
       "commission": "Hoàn trả",
@@ -119,12 +121,12 @@
     "enterId": "Vui lòng nhập ID giới thiệu",
     "enterNewPassword": "Vui lòng nhập mật khẩu mới",
     "enterOldPassword": "Vui lòng nhập mật khẩu cũ",
-    "enterPin": "",
+    "enterPin": "Vui lòng nhập mã PIN để chuyển khoản ",
     "enterPlayerId": "Vui lòng điền mã người chơi",
-    "enterRealName": "",
+    "enterRealName": "Vui lòng nhập tên thật ",
     "enterTransferAmount": "Vui lòng điền số tiền muốn chuyển",
     "enterUsername": "Nhập tên người dùng",
-    "enterWithdrawalAmount": ""
+    "enterWithdrawalAmount": "Vui lòng nhập số tiền muốn rút"
   },
   "profile": {
     "createdDate": "Tạo lúc",
@@ -139,34 +141,29 @@
     "subShareholder": "Cổ đông phụ",
     "title": "Hồ sơ",
     "totalDownline": "Tổng số cấp dưới",
-    "walletBalance": ""
+    "walletBalance": "Số dư ví"
   },
   "report": {
     "bet": "Cược",
     "commission": "Hoa hồng",
-    "commissionFilter": "",
     "earning": "Doanh thu",
     "pt": "PT",
     "reportNote": "Lưu ý: vui lòng truy cập phiên bản máy tính để xem báo cáo đầy đủ",
     "title": "Báo cáo",
     "transaction": "Giao dịch",
     "transactionDate": "Ngày giao dịch",
-    "transactionFilter": "Lọc giao dịch",
     "transactionType": "Loại giao dịch",
     "type": "Loại"
   },
   "shAgent": {
     "add": "Thêm / Tạo mới",
-    "agentDetails": "",
-    "agentFilter": "",
-    "filter": "Lọc",
+    "agentDetails": "Thông tin đại lý ",
     "newNote1": "Xin chào, \nđây là thông tin tài khoản của bạn",
     "newNote2": "Ghé thăm trang",
     "newNote3": "Vui lòng đổi mật khẩu trong lần đăng nhập tới Chúc bạn một ngày tốt lành!",
     "newRegis": "Thông tin đăng ký mới",
     "regDate": "Ngày đăng ký",
-    "shareholderDetails": "",
-    "shareholderFilter": "",
+    "shareholderDetails": "Thông tin cổ đông",
     "title": "Cổ đông / Đại lý",
     "totalMember": "Tổng số thành viên"
   },
@@ -178,8 +175,8 @@
     "transferConfirmation": "Xác nhận Chuyển quỹ"
   },
   "validation": {
-    "16maxDigit": "",
-    "accountNo": "",
+    "16maxDigit": "Chỉ cho phép nhập tối đa 16 số",
+    "accountNo": "Chỉ 1-16 số",
     "alphanumeric": "ký tự chữ và số (A-Z, a-z, 0-9)",
     "amount": "%{amount} ngoài hạn mức",
     "amount0": "Số tiền không được bằng 0",
@@ -201,7 +198,7 @@
     "password": "Mật khẩu phải dài 6 ký tự, chứa cả chữ và số và ký tự đặc biệt (!@#$%^&*).",
     "passwordMinMaxLength": "Mật khẩu phải có 6 ký tự",
     "passwordNotMatch": "Xác nhận mật khẩu không khớp",
-    "phoneNumber": "",
+    "phoneNumber": "Chỉ 9 số",
     "pin": "ID chỉ gồm số",
     "pinNotMatch": "Mã PIN phải giống nhau",
     "realName": "Vui lòng nhập họ tên thật",

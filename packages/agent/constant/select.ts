@@ -132,7 +132,6 @@ export const ShareholderStatusFilterOptions = [
     label: 'common.inactive',
   },
 ]
-
 // Member Status
 export enum MemberStatus {
   NORMAL = '0',
@@ -141,6 +140,29 @@ export enum MemberStatus {
   SELF_EXCLUSION = '7',
   FAIL_LOGIN_ATTEMPT = '8',
 }
+
+export const MemberStatusFilterOptions = [
+  {
+    value: MemberStatus.NORMAL,
+    label: 'filter.member.normal',
+  },
+  {
+    value: MemberStatus.BLOCK,
+    label: 'filter.member.block',
+  },
+  {
+    value: MemberStatus.FAIL_LOGIN_ATTEMPT,
+    label: 'filter.member.failLogin',
+  },
+  {
+    value: MemberStatus.SELF_EXCLUSION,
+    label: 'filter.member.exclusion',
+  },
+  {
+    value: MemberStatus.SUSPENDED,
+    label: 'common.suspended',
+  },
+]
 
 export const getMemberStatus = (status) => {
   switch (status) {
