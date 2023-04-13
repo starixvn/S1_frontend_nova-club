@@ -122,7 +122,7 @@ const CreateForm = <T,>({
       <Input
         label={t('common.username')}
         isRequired
-        placeholder={t('common.enterUsername')}
+        placeholder={t('placeholder.enterUsername')}
         value={values.username}
         onChangeText={handleChange('username')}
         onBlur={handleBlur('username')}
@@ -139,7 +139,7 @@ const CreateForm = <T,>({
       <Input
         label={t('common.password')}
         isRequired
-        placeholder={t('common.enterNewPassword')}
+        placeholder={t('placeholder.enterNewPassword')}
         value={values.password}
         onChangeText={handleChange('password')}
         onBlur={handleBlur('password')}
@@ -157,6 +157,7 @@ const CreateForm = <T,>({
       <Input
         label={t('common.confirmPassword')}
         isRequired
+        placeholder={t('placeholder.enterConfirmPassword')}
         value={values.confirmPassword}
         onChangeText={handleChange('confirmPassword')}
         onBlur={handleBlur('confirmPassword')}
