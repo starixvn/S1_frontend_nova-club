@@ -1,8 +1,8 @@
 export const MAP_CRYPTO_PROTOCOL = {
-  52: 'USDT ERC20',
-  53: 'USDT TRC20',
-  54: 'BTC',
-  55: 'ETH',
+  95: 'USDT ERC20',
+  97: 'USDT TRC20',
+  99: 'BTC',
+  101: 'ETH',
   0: 'ETH',
 }
 
