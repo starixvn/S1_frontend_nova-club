@@ -1,4 +1,4 @@
-import IconButton from 'agent/components/Icon/IconButton'
+import Icon from 'agent/components/Icon'
 import RefreshButton from 'agent/components/Icon/RefreshButton'
 import Text from 'agent/components/Text'
 import {
@@ -16,12 +16,11 @@ import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { SettingActions } from 'app/store/setting.slice'
 import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
-import { ActivityIndicator, Image, styled, useSx, View } from 'dripsy'
+import { ActivityIndicator, Image, View, styled, useSx } from 'dripsy'
 import { useState } from 'react'
 import { LayoutChangeEvent } from 'react-native'
 import { useDispatch } from 'react-redux'
 import MainMenuTest from './MainMenu'
-import Icon from 'agent/components/Icon'
 
 const iconHeight = TAB_HEIGHT * 0.6
 const smallIconHeight = TAB_HEIGHT * 0.5
@@ -81,39 +80,13 @@ const Header = () => {
               />
             </BouncePressable>
           </View>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'flex-end',
-              alignItems: 'center',
-            }}
-          >
+          <HeaderContentContainer>
             {data ? (
               <>
-                <View
-                  sx={{ flexDirection: 'row', alignItems: 'center', mx: 4 }}
-                >
+                <BalanceContainer>
                   <View>
-                    <Text
-                      sx={{
-                        color: '#95C4FF',
-                        textAlign: 'center',
-                        lineHeight: 12,
-                        fontSize: 12,
-                        fontWeight: 'bold',
-                      }}
-                    >
-                      VND
-                    </Text>
-                    <Text
-                      sx={{
-                        mr: '$2',
-                        color: 'white',
-                        lineHeight: 14,
-                        fontSize: 14,
-                      }}
-                    >
+                    <CurrencyText>VND</CurrencyText>
+                    <BalanceText>
                       {toCurrency(
                         data?.wallet.balance.toString() ?? 0,
                         currency,
@@ -123,25 +96,16 @@ const Header = () => {
                           symbol: false,
                         }
                       )}
-                    </Text>
+                    </BalanceText>
                   </View>
 
                   <RefreshButton
                     sx={{ mx: 2 }}
                     loading={isLoading}
-                    onPress={() => testActionWithTimeout()}
+                    onPress={testActionWithTimeout}
                     size={18}
                   />
-                  {/* <IconButton
-                    name="table"
-                    size={16}
-                    sx={{ ml: '$2', mr: '$2' }}
-                    onPress={() => {
-                      push('/agent/commission')
-                      // navigation.dispatch(StackActions.push('AgentCommission'))
-                    }}
-                  /> */}
-                </View>
+                </BalanceContainer>
 
                 <TouchableOpacity
                   sx={{ flexDirection: 'column', alignItems: 'center' }}
@@ -149,29 +113,12 @@ const Header = () => {
                     push('/agent/profile')
                   }}
                 >
-                  <Text
-                    sx={{ fontWeight: 'bold', fontSize: 10, color: 'white' }}
-                  >
-                    {data?.username}
-                  </Text>
-                  <View
-                    sx={{
-                      borderRadius: 10,
-                      paddingX: isShareHolder ? 10 : 20,
-                      backgroundColor: isShareHolder ? '#ffd900' : '#d02fa9',
-                    }}
-                  >
-                    <Text
-                      sx={{
-                        color: isShareHolder ? '#000' : '#fff',
-                        fontStyle: 'italic',
-                        fontSize: 10,
-                        marginBottom: 3,
-                      }}
-                    >
+                  <UserNameText>{data?.username}</UserNameText>
+                  <RoleTextContainer isShareHolder={isShareHolder}>
+                    <RoleText isShareHolder={isShareHolder}>
                       {t(`common.${data?.role}`)}
-                    </Text>
-                  </View>
+                    </RoleText>
+                  </RoleTextContainer>
                 </TouchableOpacity>
 
                 <View>
@@ -222,7 +169,7 @@ const Header = () => {
               }}
               parentPosition={menuPosition}
             />
-          </View>
+          </HeaderContentContainer>
         </StyledContainer>
       </View>
     </View>
@@ -240,5 +187,56 @@ const StyledLogo = styled(Image)({})
 const StyledImg = styled(Image)({
   mx: '$2',
 })
+
+const HeaderContentContainer = styled(View)({
+  flex: 1,
+  flexDirection: 'row',
+  justifyContent: 'flex-end',
+  alignItems: 'center',
+})
+
+const BalanceContainer = styled(View)({
+  flexDirection: 'row',
+  alignItems: 'center',
+  mx: 4,
+})
+
+const CurrencyText = styled(Text)({
+  color: '#95C4FF',
+  textAlign: 'center',
+  lineHeight: 12,
+  fontSize: 12,
+  fontWeight: 'bold',
+})
+
+const BalanceText = styled(Text)({
+  mr: '$2',
+  color: 'white',
+  lineHeight: 14,
+  fontSize: 14,
+})
+
+const UserNameText = styled(Text)({
+  fontWeight: 'bold',
+  fontSize: 10,
+  color: 'white',
+})
+
+const RoleTextContainer = styled(View)(
+  ({ isShareHolder }: { isShareHolder: boolean }) => ({
+    borderRadius: 10,
+    paddingX: isShareHolder ? 10 : 20,
+    backgroundColor: isShareHolder ? '#ffd900' : '#d02fa9',
+  })
+)
+
+const RoleText = styled(Text)(
+  ({ isShareHolder }: { isShareHolder: boolean }) => ({
+    color: isShareHolder ? '#000' : '#fff',
+    fontStyle: 'italic',
+    fontSize: 10,
+    marginBottom: 3,
+  })
+)
 
 export default Header
