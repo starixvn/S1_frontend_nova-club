@@ -3,42 +3,19 @@ import { Button } from 'app/components/form/Button'
 import InputBase from 'app/components/form/Input/InputBase'
 import Select from 'app/components/form/Input/Select'
 import { PageWithBackHeader } from 'app/components/layout/Page'
-import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
 import { ACTION_SHEET_ID } from 'app/constant/actionSheet'
-import useAlert from 'app/hooks/useAlert'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
+import useAddBank from 'app/hooks/bank/useAddBank'
 import useLocalization from 'app/provider/localization'
 import { toCleanCard } from 'app/utils'
 import { MaxLength } from 'app/utils/constant'
-import validation from 'app/utils/validation'
 import { styled, View } from 'dripsy'
-import { FormikHelpers, useFormik } from 'formik'
-import React, { useRef } from 'react'
-import { Toast } from 'react-native-toast-message/lib/src/Toast'
-import {
-  useAddPlayerBankAccMutation,
-  useWithdrawalBankQuery,
-} from 'services/bank'
-import { WithdrawalBankResult } from 'services/bank.type'
-import {
-  usePlayerProfileQuery,
-  useSendUpdateProfileOTPMutation,
-  useUpdateProfileMutation,
-} from 'services/playerApi'
-import * as Yup from 'yup'
-
-type AddBankAccountValues = {
-  realName?: string
-  otp?: string
-  bank: WithdrawalBankResult | undefined
-  accountNo: string
-}
+import React from 'react'
+import { useWithdrawalBankQuery } from 'services/bank'
+import RealNameForm from '../components/RealNameForm'
 
 const AddBankAccountScreen = () => {
   const { t } = useLocalization()
-  const { back } = useContextualRouter()
-  const { showAlert } = useAlert()
-  const { bankData, isLoading, isFetching } = useWithdrawalBankQuery(
+  const { bankData, isLoading, isFetching, isSuccess } = useWithdrawalBankQuery(
     undefined,
     {
       selectFromResult: (s) => ({
@@ -48,14 +25,6 @@ const AddBankAccountScreen = () => {
     }
   )
 
-  const [postAddWithdrawalBankAcc] = useAddPlayerBankAccMutation()
-  const { data: playerData } = usePlayerProfileQuery()
-  const isRealNameAvailable = playerData?.firstName?.length > 0
-  const [sendOtp, { isLoading: isOtpLoading }] =
-    useSendUpdateProfileOTPMutation()
-  const [updateProfile] = useUpdateProfileMutation()
-
-  const OTPRef = useRef<ITimerButtonForwardRef>(null)
   const sheetData = bankData?.map((item) => {
     return {
       label: item.bank_name,
@@ -64,99 +33,7 @@ const AddBankAccountScreen = () => {
     }
   })
 
-  async function updateRealName(realName, otp) {
-    const { data, success, message } = await updateProfile({
-      field: 'firstName',
-      value: realName,
-      verify_code: otp,
-    })
-      .unwrap()
-      .catch((error) => {
-        showAlert(error)
-        return error
-      })
-
-    if (success) {
-      Toast.show({ type: 'success', text1: message })
-      return
-    } else {
-      return message
-    }
-  }
-
-  const onSubmit = async (
-    { bank, accountNo, realName, otp }: AddBankAccountValues,
-    actions: FormikHelpers<AddBankAccountValues>
-  ) => {
-    try {
-      if (realName && otp) {
-        const sanitizedRealName = realName.trim().replace(/\s\s+/g, ' ')
-        const error = await updateRealName(sanitizedRealName, otp)
-
-        if (error) {
-          return
-        }
-      }
-
-      const { data, success, message } = await postAddWithdrawalBankAcc({
-        bank_acc_name: bank?.bank_name ?? '',
-        bank_acc_num: accountNo.replace(/[^0-9]/g, ''),
-        bank_address: bank?.bank_code ?? '',
-        bank_type_id: bank?.id ?? 0,
-        branch: bank?.bank_code ?? '',
-        city: bank?.bank_code ?? '',
-        province: bank?.bank_code ?? '',
-      })
-        .unwrap()
-        .catch((error) => {
-          showAlert(error)
-          return error
-        })
-
-      if (success) {
-        Toast.show({ type: 'success', text1: message })
-        actions.resetForm()
-
-        setTimeout(() => {
-          back()
-        }, 150)
-      }
-    } catch (error) {
-      showAlert(error)
-    }
-  }
-
-  const sendOTP = async () => {
-    try {
-      const { data, message, success } = await sendOtp().unwrap()
-
-      OTPRef.current?.startOtpTimer()
-
-      if (success) {
-        Toast.show({ type: 'success', text1: message })
-      }
-    } catch (error) {
-      showAlert(error)
-    }
-  }
-
-  const formik = useFormik<AddBankAccountValues>({
-    enableReinitialize: true,
-    initialValues: {
-      bank: undefined,
-      accountNo: '',
-      realName: playerData?.firstName,
-    },
-    validationSchema: Yup.object({
-      bank: validation.bank,
-      accountNo: validation.accountNo,
-      realName: !isRealNameAvailable
-        ? validation.vietnameseCharacter
-        : undefined,
-      otp: !isRealNameAvailable ? validation.stringRequired : undefined,
-    }),
-    onSubmit,
-  })
+  const { formik } = useAddBank({ BankType: 'bank' })
 
   const {
     handleChange,
@@ -190,99 +67,37 @@ const AddBankAccountScreen = () => {
   return (
     <PageWithBackHeader header={{ title: t('bank.addBankAccount') }}>
       <StyledView>
-        {playerData?.firstName.length !== 0 && (
-          <InputBase
-            label={t('profile.details.realname')}
-            value={playerData?.firstName || ''}
-            editable={false}
+        <RealNameForm formik={formik}>
+          <Select
+            label={t('bank.bank')}
+            value={values.bank?.bank_name ?? ''}
+            loading={isLoading || isFetching}
+            options={sheetData}
+            onSelected={handleSelected}
+            isHorizontalActionSheet
+            sx={{ mb: '$2' }}
+            _actionSheet={{
+              sheetId: ACTION_SHEET_ID.ADD_BANK_ACCOUNT,
+              headerTitle: t('bank.bank'),
+            }}
           />
-        )}
-        {playerData?.firstName.length === 0 && (
+
           <InputBase
-            label={t('bank.accountName')}
-            value={values.realName}
-            autoComplete="off"
-            autoCorrect={false}
-            spellCheck={false}
-            onChangeText={handleChange('realName')}
-            onBlur={handleBlur('realName')}
+            label={t('bank.accountNo')}
+            value={values.accountNo}
+            onChangeText={onCardChanged}
+            onBlur={handleBlur('accountNo')}
+            keyboardType="number-pad"
+            maxLength={MaxLength.CARD}
             error={
-              touched.realName && errors.realName
-                ? t(errors.realName, {
-                    field: t('bank.accountName'),
+              touched.accountNo && errors.accountNo
+                ? t(errors.accountNo, {
+                    field: t('bank.accountNo'),
                   })
                 : undefined
             }
           />
-        )}
-        <Select
-          label={t('bank.bank')}
-          value={values.bank?.bank_name ?? ''}
-          loading={isLoading || isFetching}
-          options={sheetData}
-          onSelected={handleSelected}
-          isHorizontalActionSheet
-          sx={{ mb: '$2' }}
-          _actionSheet={{
-            sheetId: ACTION_SHEET_ID.ADD_BANK_ACCOUNT,
-            headerTitle: t('bank.bank'),
-          }}
-        />
-
-        <InputBase
-          label={t('bank.accountNo')}
-          value={values.accountNo}
-          onChangeText={onCardChanged}
-          onBlur={handleBlur('accountNo')}
-          keyboardType="number-pad"
-          maxLength={MaxLength.CARD}
-          error={
-            touched.accountNo && errors.accountNo
-              ? t(errors.accountNo, {
-                  field: t('bank.accountNo'),
-                })
-              : undefined
-          }
-        />
-        {playerData?.verified_phone === 0 && (
-          <InputBase
-            label={t('OTP')}
-            value={values.otp}
-            maxLength={6}
-            onChangeText={handleChange('otp')}
-            onBlur={handleBlur('otp')}
-            error={
-              touched.otp && errors.otp
-                ? t(errors.otp, {
-                    field: t('OTP'),
-                  })
-                : undefined
-            }
-            action={
-              <TimerButton
-                accessibilityRole="button"
-                ref={OTPRef}
-                title={t('common.send')}
-                loading={isOtpLoading}
-                onPress={sendOTP}
-                sx={{
-                  width: 'auto',
-                  backgroundColor: '$gray',
-                  m: 0,
-                  px: '$3',
-                  mr: '$3',
-                  minWidth: 53,
-                }}
-                _text={{
-                  sx: {
-                    color: '$black',
-                  },
-                }}
-              />
-            }
-          />
-        )}
-
+        </RealNameForm>
         <StyledButtonWrapper>
           <Button
             rounded

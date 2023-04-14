@@ -1,6 +1,10 @@
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
-import { SubmitWithdrawalArgs } from './withdrawal.type'
+import {
+  CryptoExchangeRateArgs,
+  CryptoExchangeRateResult,
+  SubmitWithdrawalArgs,
+} from './withdrawal.type'
 
 const withdrawalApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
@@ -27,7 +31,20 @@ const withdrawalApi = baseApiWithTag.injectEndpoints({
         }
       },
     }),
+    cryptoExchangeRate: builder.query<
+      IResponse<CryptoExchangeRateResult>,
+      CryptoExchangeRateArgs
+    >({
+      query: (queryArgs) => ({
+        url: `/player_api/getCryptoExchangeRate`,
+        method: 'POST',
+        data: {
+          ...queryArgs,
+        },
+      }),
+    }),
   }),
 })
 
-export const { useSubmitWithdrawalMutation } = withdrawalApi
+export const { useSubmitWithdrawalMutation, useLazyCryptoExchangeRateQuery } =
+  withdrawalApi

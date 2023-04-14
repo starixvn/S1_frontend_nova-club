@@ -1,6 +1,8 @@
 import {
   addPlayerBankAccArgs,
   addPlayerBankAccResult,
+  CryptoWithdrawalBankArgs,
+  CryptoWithdrawalBankResult,
   DeletePlayerBankAccArgs,
   DeletePlayerBankAccResult,
   PlayerBankArgs,
@@ -71,12 +73,25 @@ const bankApi = baseApiWithTag.injectEndpoints({
         },
       }),
     }),
+    cryptoBank: builder.query<
+      IResponse<CryptoWithdrawalBankResult[]>,
+      CryptoWithdrawalBankArgs | void
+    >({
+      query: (queryArgs) => ({
+        url: `/player_api/getCryptoWithdrawalBankList`,
+        method: 'POST',
+        data: {
+          ...queryArgs,
+        },
+      }),
+    }),
   }),
 })
 
 export const {
   usePlayerBankQuery,
   useWithdrawalBankQuery,
+  useCryptoBankQuery,
   useAddPlayerBankAccMutation,
   useDeletePlayerBankAccMutation,
 } = bankApi

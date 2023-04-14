@@ -1,11 +1,18 @@
 export type SubmitWithdrawalArgs = {
   amount: number
-  bank_acc_name: string
-  bank_acc_num: string
   bank_details_id: number
-  bank_type_id: number
-  crypto_address: string
-  crypto_protocol: string
-  exchange_rate: number
   username?: string
+}
+
+export type CryptoExchangeRateArgs = {
+  from_currency: string
+  to_currency: string
+  type: string
+  Amount: string
+}
+
+export type CryptoExchangeRateResult = {
+  converted_amount: string
+  currency: string
+  success: boolean
 }

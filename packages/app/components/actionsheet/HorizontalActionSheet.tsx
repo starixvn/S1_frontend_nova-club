@@ -18,6 +18,7 @@ type SheetDataProps = {
 export type ActionSheetProps = ActionSheetBaseProps & {
   variants?: 'provider' | 'bank'
   actionSheetItemProps?: Omit<ActionSheetItemProps, 'icon' | 'onPress'>
+  emptyResultComponent?: () => JSX.Element
 }
 
 export type HorizontalActionSheetProps = {

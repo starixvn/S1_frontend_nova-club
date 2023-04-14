@@ -10,6 +10,7 @@ import {
   ModalProvider as RNMModalProvider,
   ModalStackConfig,
 } from 'react-native-modalfy'
+import { SubmitDepositCryptoItem } from 'services/deposit.type'
 
 type ModalStackConfigValueType = ModalStackConfig extends Record<
   any,
@@ -28,6 +29,7 @@ export interface ModalStackParams {
   }
   CnyWinModal: { amount: number }
   DepositConfirmationModal: { amount: number; callback(...args: any): any }
+  DepositCryptoModal: { data: SubmitDepositCryptoItem }
   DepositUploadModal: {
     descInfo: Record<any, any>
     bankLogo: any
@@ -60,6 +62,7 @@ const _dynamicModal = {
   LoadingModal: () => import('app/components/modal/LoadingModal'),
   DepositConfirmationModal: () =>
     import('app/components/modal/DepositConfirmationModal'),
+  DepositCryptoModal: () => import('app/components/modal/DepositCryptoModal'),
   DepositUploadModal: () => import('app/components/modal/DepositUploadModal'),
   NoticeModal: () => import('app/components/modal/NoticeModal'),
   PinModal: () => import('app/components/modal/PinModal'),
@@ -105,6 +108,9 @@ const modalConfig: ModalConfigType = {
   },
   DepositConfirmationModal: {
     modal: getDynamicComponent('DepositConfirmationModal'),
+  },
+  DepositCryptoModal: {
+    modal: getDynamicComponent('DepositCryptoModal'),
   },
   DepositUploadModal: {
     modal: getDynamicComponent('DepositUploadModal'),

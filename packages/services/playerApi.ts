@@ -1,8 +1,8 @@
 import { useAppSelector } from 'app/provider/redux/store'
+import { Currency } from 'app/utils/constant'
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
-  FreeSpinArgs,
   FreeSpinResult,
   LuckySpinArgs,
   MEMBER_TYPE,
@@ -135,7 +135,8 @@ export const usePlayerProfileQuery = (
       return {
         ...s,
         data: s.data?.data,
-        currency: s.data?.data?.currency,
+        username: s.data?.data?.username,
+        currency: s.data?.data?.currency as Currency,
         isCreditMember: s.data?.data?.member_type === MEMBER_TYPE.CREDIT,
       }
     },

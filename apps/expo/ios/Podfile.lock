@@ -1516,7 +1516,7 @@ SPEC CHECKSUMS:
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   BoringSSL-GRPC: 3175b25143e648463a56daeaaa499c6cb86dad33
-  Branch: a6f1d597dc7c027360f386d05e8d109043b207d8
+  Branch: 51ba097058416ed106f2c28ec7386b4f9ac387d5
   CodePush: ef496b6fd053012e985e3d4a0ab9f9dbf2739eac
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   EXApplication: 54fe5bd6268d697771645e8f1aef8b806a65247a

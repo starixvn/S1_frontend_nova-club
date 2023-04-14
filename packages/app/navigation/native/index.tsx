@@ -1,4 +1,3 @@
-import { CommonActions, useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import ForgotPassword from 'app/features/auth/forgotPassword'
 import LoginPage from 'app/features/auth/login'
@@ -13,13 +12,14 @@ import SpinManiaTnc from 'app/features/events/spinMania/SpinManiaTnc'
 import FishingPage from 'app/features/fishing'
 import GameLoaderPage from 'app/features/games/GameLoaderPage'
 import MessagesPage from 'app/features/messages'
-import ChangePinScreen from 'app/features/pin/change-pin'
 import CreatePinScreen from 'app/features/pin/CreatePinScreen'
+import ChangePinScreen from 'app/features/pin/change-pin'
 import ForgotPinScreen from 'app/features/pin/forgot-pin'
 import ProfileScreen from 'app/features/profile'
 import AccountVerification from 'app/features/profile/account-verification'
-import BankAccountScreen from 'app/features/profile/bank-account'
+import BankScreen from 'app/features/profile/bank-account'
 import AddBankAccountScreen from 'app/features/profile/bank-account/add-bank-account'
+import AddCryptoAccountScreen from 'app/features/profile/bank-account/add-crypto-account'
 import CommissionTablePage from 'app/features/profile/commission-table'
 import HistoryScreen from 'app/features/profile/history'
 import ManageCredentialsPage from 'app/features/profile/manage-credentials'
@@ -29,9 +29,8 @@ import SplashScreen from 'app/features/splashscreen'
 import TransferScannerScreen from 'app/features/transferScanner'
 import TransferScreen from 'app/features/transferScanner/transfer'
 import WithdrawalPage from 'app/features/withdrawal'
-import useResetRTKQState from 'app/hooks/useResetRTKQState'
-import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
-import { AuthActions } from 'app/store/authReducer'
+import BankWithdrawalPage from 'app/features/withdrawal/BankWithdrawalPage'
+import CryptoWithdrawalPage from 'app/features/withdrawal/CryptoWithdrawalPage'
 import { fadeScaleIn } from 'app/transitions/fade'
 import { Easing } from 'react-native'
 import DepositNavigation from './DepositNavigation'
@@ -44,6 +43,8 @@ const Stack = createStackNavigator<{
   RegisterPage: undefined
   DepositPage: undefined
   WithdrawalPage: undefined
+  BankWithdrawalPage: undefined
+  CryptoWithdrawalPage: undefined
   ForgotPassword: undefined
   CustomerSupportPage: undefined
   RegisterVerificationPage: undefined
@@ -54,6 +55,7 @@ const Stack = createStackNavigator<{
   ManageCredentials: undefined
   BankAccount: undefined
   AddBankAccount: undefined
+  AddCryptoAccount: undefined
   History: undefined
   CommissionTablePage: undefined
   MessagesPage: undefined
@@ -200,6 +202,11 @@ export function NativeNavigation() {
       />
 
       <Stack.Screen name="WithdrawalPage" component={WithdrawalPage} />
+      <Stack.Screen name="BankWithdrawalPage" component={BankWithdrawalPage} />
+      <Stack.Screen
+        name="CryptoWithdrawalPage"
+        component={CryptoWithdrawalPage}
+      />
       <Stack.Screen
         name="CustomerSupportPage"
         component={CustomerSupportPage}
@@ -225,8 +232,12 @@ export function NativeNavigation() {
         name="AccountVerification"
         component={AccountVerification}
       />
-      <Stack.Screen name="BankAccount" component={BankAccountScreen} />
+      <Stack.Screen name="BankAccount" component={BankScreen} />
       <Stack.Screen name="AddBankAccount" component={AddBankAccountScreen} />
+      <Stack.Screen
+        name="AddCryptoAccount"
+        component={AddCryptoAccountScreen}
+      />
       <Stack.Screen name="History" component={HistoryScreen} />
       <Stack.Screen
         name="CommissionTablePage"
