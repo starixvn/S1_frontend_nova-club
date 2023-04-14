@@ -79,7 +79,7 @@
       "yesterday": "Hôm qua"
     },
     "member": {
-      "block": "",
+      "block": "Đã khóa",
       "exclusion": "Loại ra",
       "failLogin": "KHÓA VÌ ĐĂNG NHẬP KHÔNG THÀNH CÔNG",
       "normal": "Bình thường"
