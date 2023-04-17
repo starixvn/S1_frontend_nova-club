@@ -1,6 +1,6 @@
 import DataTable from 'agent/components/DataTable/DataTable'
 import { DateTimeField } from 'agent/components/DataTable/DataTableCell'
-import TableListing from 'agent/components/DataTable/TableListing'
+import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
 import IconButton from 'agent/components/Icon/IconButton'
 import Switch from 'agent/components/Switch'
 import Text from 'agent/components/Text'
@@ -34,7 +34,6 @@ type RenderItemProps = {
   index: number
 }
 
-const LIMIT = 10
 const ShareholderListing = () => {
   const { t } = useAgentLocalization()
   const { push } = useContextualRouter()

@@ -1,5 +1,5 @@
 import DataTable from 'agent/components/DataTable/DataTable'
-import TableListing from 'agent/components/DataTable/TableListing'
+import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
 import Text from 'agent/components/Text'
 import useTableListing from 'agent/hooks/useTableListing'
 import { useWithdrawalListQuery } from 'agent/services/withdrawalApi'
@@ -28,7 +28,6 @@ const date =
   ' to ' +
   dayjsTz().endOf('date').format('YYYY-MM-DD HH:mm:ss Z')
 
-const LIMIT = 10
 const AgentWithdrawalHistory = ({ currency }: { currency: Currency }) => {
   const { t } = useAgentLocalization()
   const { height } = useContainerDimension()

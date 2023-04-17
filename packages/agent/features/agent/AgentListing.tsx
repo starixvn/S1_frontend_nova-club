@@ -1,6 +1,6 @@
 import DataTable from 'agent/components/DataTable/DataTable'
 import { DateTimeField } from 'agent/components/DataTable/DataTableCell'
-import TableListing from 'agent/components/DataTable/TableListing'
+import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
 import Switch from 'agent/components/Switch'
 import Text from 'agent/components/Text'
 import { DateFilter, ShareholderStatusFilter } from 'agent/constant/select'
@@ -33,7 +33,6 @@ type AgentListProps = {
   index: number
 }
 
-const LIMIT = 10
 const AgentListing = () => {
   const { t } = useAgentLocalization()
   const { push } = useContextualRouter()

@@ -1,6 +1,6 @@
 import DataTable from 'agent/components/DataTable/DataTable'
 import { DateTimeField } from 'agent/components/DataTable/DataTableCell'
-import TableListing from 'agent/components/DataTable/TableListing'
+import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
 import {
   DateFilter,
   DateFilterOptions,
@@ -18,7 +18,6 @@ import { useModal } from 'react-native-modalfy'
 import AgentFloatingContent from '../floatingContent'
 import useTableListing from 'agent/hooks/useTableListing'
 
-const LIMIT = 10
 export type TransactionFilterOptions = {
   date: DateFilter | string | undefined
   startDate: Date | string

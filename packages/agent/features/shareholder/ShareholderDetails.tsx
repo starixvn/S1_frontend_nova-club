@@ -74,7 +74,12 @@ const ShareholderDetailsScreen = () => {
             label={t('profile.walletBalance')}
             value={shareholderBalance}
           />
-          <DetailsField label={t('report.pt')} value={''} />
+          <DetailsField
+            label={t('report.pt')}
+            value={
+              shareholderData ? `${shareholderData?.earning_perc?.VND}%` : ' '
+            }
+          />
 
           <DataTable
             sx={{

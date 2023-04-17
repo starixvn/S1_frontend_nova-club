@@ -83,6 +83,9 @@ export interface ShareholderDetailsResult {
   lastlogin_at: string
   lastlogin_ip: string
   total_downline: UserTotalDownline
+  earning_perc: {
+    [key in Currency]: string
+  }
 }
 
 export interface ShareholderResetPinArgs {

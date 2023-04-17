@@ -1,6 +1,6 @@
 import DataTable from 'agent/components/DataTable/DataTable'
 import { DateTimeField } from 'agent/components/DataTable/DataTableCell'
-import TableListing from 'agent/components/DataTable/TableListing'
+import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
 import Text from 'agent/components/Text'
 import {
   DateFilter,
@@ -31,7 +31,6 @@ type MemberListProps = {
   index: number
 }
 
-const LIMIT = 10
 const MemberListScreen = () => {
   const { t } = useAgentLocalization()
   const { openModal } = useModal()

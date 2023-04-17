@@ -33,8 +33,8 @@ const CommissionTable = () => {
       <CommonBackHeader title="commission.title" />
       <DataTable>
         <DataTable.Header
-          size="small"
-          sx={{
+          size="big"
+          containerStyle={{
             bg: theme.colors.$primaryAgent,
             color: 'white',
             borderTopWidth: StyleSheet.hairlineWidth,
@@ -119,7 +119,7 @@ const CommissionTable = () => {
 const TitleCell = ({ border = true, children, ...rest }) => (
   <DataTable.Title
     bordered={border}
-    numberOfLines={2}
+    numberOfLines={3}
     textStyle={{ color: 'white', textAlign: 'center', lineHeight: 15 }}
     style={{ flex: 0.2, borderColor: '#8EC0FF' }}
     {...rest}

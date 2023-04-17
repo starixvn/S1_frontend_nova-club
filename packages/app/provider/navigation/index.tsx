@@ -107,7 +107,7 @@ export function NavigationProvider({
                       },
                       ShareholderDetails: '/agent/list/shareholder/:id',
                       AgentDetails: '/agent/list/agent/:id',
-                      AgentCommission: '/agent/commission',
+                      AgentCommission: '/agent/commission-table',
                       AddBankInfo: '/agent/wallet/withdrawal/add-bank',
                       AgentCreatePin: '/agent/create-pin',
                       AgentResetPin: '/agent/reset-pin',

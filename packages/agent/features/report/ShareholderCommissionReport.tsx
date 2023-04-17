@@ -1,6 +1,6 @@
 import DataTable from 'agent/components/DataTable/DataTable'
 import { DateTimeField } from 'agent/components/DataTable/DataTableCell'
-import TableListing from 'agent/components/DataTable/TableListing'
+import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
 import Icon from 'agent/components/Icon'
 import Text from 'agent/components/Text'
 import { DateFilter, DateFilterOptions } from 'agent/constant/select'
@@ -23,7 +23,6 @@ export type CommissionFilterOptions = {
   endDate: Date
 }
 
-const LIMIT = 10
 const ShareholderCommissionScreen = () => {
   const { openModal } = useModal()
   const { t } = useAgentLocalization()

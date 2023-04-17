@@ -27,7 +27,7 @@ import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
  *```
  */
 
-export const LIMIT = 10
+export const LIMIT = 20
 interface TableListingProps<T> {
   title: string
   titleCenter?: boolean

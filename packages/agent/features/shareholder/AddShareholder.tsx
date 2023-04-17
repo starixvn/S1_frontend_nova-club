@@ -36,10 +36,6 @@ const AddShareholder = () => {
     }
   )
 
-  console.log(
-    '🚀 ~ file: AddShareholder.tsx:22 ~ AddShareholder ~ ptList:',
-    ptList
-  )
   const onSubmit = async (
     { earning, username, password, confirmPassword }: NewShareholderFormValues,
     { resetForm }: FormikHelpers<NewShareholderFormValues>

@@ -1,5 +1,5 @@
 import DataTable from 'agent/components/DataTable/DataTable'
-import TableListing from 'agent/components/DataTable/TableListing'
+import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
 import { DateFilter, DateFilterOptions } from 'agent/constant/select'
 import useTableListing from 'agent/hooks/useTableListing'
 import { useAgentCommissionListQuery } from 'agent/services/reportApi'
@@ -18,7 +18,6 @@ export type CommissionFilterOptions = {
   endDate: Date
 }
 
-const LIMIT = 10
 const AgentCommissionScreen = () => {
   const { t } = useAgentLocalization()
   const { openModal } = useModal()
