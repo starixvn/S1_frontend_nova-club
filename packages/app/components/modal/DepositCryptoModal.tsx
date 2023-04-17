@@ -7,6 +7,7 @@ import { SubmitDepositCryptoItem } from 'services/deposit.type'
 import CopyField from '../CopyField'
 import ModalContent from './ModalContent'
 import ModalWrapper from './ModalWrapper'
+import Timer from '../Timer'
 
 const DepositCryptoModal = ({ modal: { closeModal, getParam } }) => {
   const { t } = useLocalization()
@@ -16,21 +17,21 @@ const DepositCryptoModal = ({ modal: { closeModal, getParam } }) => {
 
   const FIELDS = [
     {
-      label: 'Transaction Id',
+      label: 'deposit.transactionId',
       value: data.transaction_id,
       copy: true,
     },
     {
-      label: 'Crypto Channel',
+      label: 'deposit.cryptoChannel',
       value: data.payment_token,
     },
     {
-      label: 'Crypto Address',
+      label: 'deposit.cryptoAddress',
       value: data.payment_address,
       copy: true,
     },
     {
-      label: 'Crypto Amount',
+      label: 'deposit.cryptoAmount',
       value: data.payment_amount,
     },
   ]
@@ -47,7 +48,7 @@ const DepositCryptoModal = ({ modal: { closeModal, getParam } }) => {
           },
         ]}
       >
-        <Box sx={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+        <Box sx={{ flexDirection: 'column', flexWrap: 'wrap' }}>
           <Box sx={{ width: '100%', alignItems: 'center', mb: '$4' }}>
             <QRCode
               value={data.payment_address}
@@ -80,6 +81,15 @@ const DepositCryptoModal = ({ modal: { closeModal, getParam } }) => {
           <Text sx={{ fontWeight: 'bold', color: '$accent', mt: '$2' }}>
             {`${data.payment_amount} = ${data.invoice_currency} ${data.invoice_amount}`}
           </Text>
+
+          <Box sx={{ width: '100%', alignItems: 'center', mt: '$6' }}>
+            <Text
+              sx={{ textAlign: 'center', fontWeight: 'bold', color: '$error' }}
+            >
+              {t('deposit.paymentTime')}
+            </Text>
+            <Timer seconds={600} onEnded={closeModal} />
+          </Box>
         </Box>
       </ModalContent>
     </ModalWrapper>
