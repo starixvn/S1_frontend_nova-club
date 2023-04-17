@@ -100,7 +100,8 @@
     "desktopVersion": "Phiên bản máy tính",
     "logout": "Đăng xuất",
     "resetPin": "Cài lại mã PIN",
-    "switchMember": "Chuyển sang trang Thành Viên"
+    "switchMember": "Chuyển sang trang Thành Viên",
+    "switchMemberNote": ""
   },
   "notes": {
     "importantNotice": "THÔNG BÁO QUAN TRỌNG"

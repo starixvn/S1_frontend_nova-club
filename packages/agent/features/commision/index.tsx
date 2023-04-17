@@ -58,7 +58,7 @@ const CommissionTable = () => {
         </DataTable.Header>
         <ScrollView
           contentContainerStyle={{
-            paddingTop: Platform.OS === 'web' ? 45 : 0,
+            paddingTop: Platform.OS === 'web' ? 35 : 0,
           }}
         >
           {commissionList?.map(
@@ -120,7 +120,7 @@ const TitleCell = ({ border = true, children, ...rest }) => (
   <DataTable.Title
     bordered={border}
     numberOfLines={2}
-    textStyle={{ color: 'white', textAlign: 'center' }}
+    textStyle={{ color: 'white', textAlign: 'center', lineHeight: 15 }}
     style={{ flex: 0.2, borderColor: '#8EC0FF' }}
     {...rest}
   >

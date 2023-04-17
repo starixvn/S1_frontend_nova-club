@@ -179,8 +179,8 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
       password: '',
     },
     validationSchema: Yup.object({
-      username: validation.username,
-      password: validation.password,
+      username: validation.stringRequired,
+      password: validation.stringRequired,
     }),
     onSubmit,
   })

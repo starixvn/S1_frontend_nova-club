@@ -58,6 +58,7 @@ export interface ModalStackParams {
     onConfirm(...args: any): any
   }
   AgentLoadingModal: undefined
+  AgentSwitchConfirmationModal: undefined
 }
 
 type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
@@ -79,6 +80,8 @@ const _dynamicModal = {
     import('../components/Modal/AgentCommonConfirmationModal'),
   AgentLoadingModal: () => import('../components/Modal/AgentLoadingModal'),
   EditPTModal: () => import('../components/Modal/EditPTModal'),
+  AgentSwitchConfirmationModal: () =>
+    import('../components/Modal/AgentSwitchConfirmationModal'),
 }
 
 function getDynamicComponent(key: string) {
@@ -126,6 +129,9 @@ export const agentModalConfig: ModalConfigType = {
   },
   EditPTModal: {
     modal: getDynamicComponent('EditPTModal'),
+  },
+  AgentSwitchConfirmationModal: {
+    modal: getDynamicComponent('AgentSwitchConfirmationModal'),
   },
 }
 

@@ -53,8 +53,16 @@ const AgentBarcodeCard = ({ userId }: { userId: number }) => {
         <BarcodeInfo>
           <BarcodeTitle>{`${cash}: ${userName}`}</BarcodeTitle>
           <BarcodeDomain onPress={() => copyToClipboard(domain)}>
-            <Icon name="copy" color={'black'} size={20} sx={{ pr: '$2' }} />
-            <Text numberOfLines={1} sx={{ fontSize: 14, py: '$1' }}>
+            <Icon
+              name="copy"
+              color={'$primaryAgent'}
+              size={20}
+              sx={{
+                p: 5,
+                backgroundColor: 'white',
+              }}
+            />
+            <Text numberOfLines={1} sx={{ fontSize: 14, py: '$1', ml: '$1' }}>
               {domain}
             </Text>
           </BarcodeDomain>

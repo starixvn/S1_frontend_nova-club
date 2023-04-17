@@ -1,5 +1,6 @@
 import Icon from 'agent/components/Icon'
 import Text from 'agent/components/Text'
+import useAgentAlert from 'agent/hooks/useAgentAlert'
 import useOnAgentLogout from 'agent/hooks/useOnAgentLogout'
 import { useUserInfoQuery } from 'agent/services/userApi'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
@@ -8,6 +9,7 @@ import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { styled, Sx, useDripsyTheme, View } from 'dripsy'
 import { Platform, TouchableOpacity, useWindowDimensions } from 'react-native'
 import Modal from 'react-native-modal'
+import { useModal } from 'react-native-modalfy'
 import Svg, { Path } from 'react-native-svg'
 
 interface MainMenuTestProps {
@@ -35,6 +37,8 @@ const MainMenuTest = ({
       hasPin: data?.has_pin,
     }),
   })
+  const { showAlert } = useAgentAlert()
+  const { openModal } = useModal()
 
   const { x: parentWidth, y: parentHeight } = parentPosition
 
@@ -51,6 +55,12 @@ const MainMenuTest = ({
     ? tooltipArrowHeight.map((height) => -height)
     : tooltipArrowHeight.map((height) => -(height / 1.2))
 
+  function AgentSwitchConfirmation() {
+    onMenu(false)
+    openModal('AgentSwitchConfirmationModal', {
+      onConfirm: () => push('/'),
+    })
+  }
   const mainMenuList = [
     {
       label: 'commission.title',
@@ -80,9 +90,7 @@ const MainMenuTest = ({
     {
       label: 'menu.switchMember',
       icon: 'switch',
-      onPress: () => {
-        push('/')
-      },
+      onPress: () => AgentSwitchConfirmation(),
     },
     {
       label: 'menu.logout',

@@ -107,7 +107,8 @@
     "desktopVersion": "Desktop Version",
     "logout": "Logout",
     "resetPin": "Reset Pin",
-    "switchMember": "Switch to Member"
+    "switchMember": "Switch to Member",
+    "switchMemberNote": "Are you sure want to switch to member site?"
   },
   "notes": {
     "importantNotice": "Important Notice"
