@@ -60,7 +60,8 @@ const RefreshButton = ({ loading, onPress, ...rest }: RefreshButtonProps) => {
           }
         }
       )
-    } else {
+    }
+    if (isRefresh && !loading) {
       animation.value = withTiming(
         ROTATION_DEG,
         {
