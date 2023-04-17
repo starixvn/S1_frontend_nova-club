@@ -2,7 +2,10 @@ import Card from 'agent/components/Card'
 import DataTable from 'agent/components/DataTable/DataTable'
 import DataTableRefresh from 'agent/components/DataTable/DataTableRefresh'
 import CommonBackHeader from 'agent/navigation/components/CommonBackHeader'
-import { useShareholderDetailsQuery } from 'agent/services/shareholderApi'
+import {
+  useShareholderBalanceQuery,
+  useShareholderDetailsQuery,
+} from 'agent/services/shareholderApi'
 import { useAgentLocalization } from 'app/provider/localization'
 import dayjs from 'dayjs'
 import { View } from 'dripsy'
@@ -27,6 +30,15 @@ const ShareholderDetailsScreen = () => {
         }),
       }
     )
+
+  const { shareholderBalance } = useShareholderBalanceQuery(
+    { id },
+    {
+      selectFromResult: ({ data }) => ({
+        shareholderBalance: data?.result?.data.wallet_bal_amt?.VND,
+      }),
+    }
+  )
 
   const firstCellStyle = { flex: 0.4 }
   const secondCellStyle = { flex: 0.3 }
@@ -58,6 +70,11 @@ const ShareholderDetailsScreen = () => {
             label={t('profile.email')}
             value={shareholderData?.email}
           />
+          <DetailsField
+            label={t('profile.walletBalance')}
+            value={shareholderBalance}
+          />
+          <DetailsField label={t('report.pt')} value={''} />
 
           <DataTable
             sx={{

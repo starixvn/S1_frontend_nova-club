@@ -45,7 +45,10 @@ const FilterCommissionReportModal = ({ modal: { closeModal, getParam } }) => {
 
   useEffect(() => {
     if (selected.startDate > selected.endDate) {
-      setSelected({ ...selected, startDate: selected.endDate })
+      setSelected({
+        ...selected,
+        startDate: dayjs(selected.endDate).startOf('date').toDate(),
+      })
     }
   }, [selected.endDate])
 
@@ -85,7 +88,7 @@ const FilterCommissionReportModal = ({ modal: { closeModal, getParam } }) => {
             setSelected({
               ...selected,
               date: DateFilterOptions[5]?.value,
-              startDate: value,
+              startDate: dayjs(value).startOf('date').toDate(),
             })
           }}
           sx={{ width: '48%' }}
@@ -100,7 +103,7 @@ const FilterCommissionReportModal = ({ modal: { closeModal, getParam } }) => {
             setSelected({
               ...selected,
               date: DateFilterOptions[5]?.value,
-              endDate: value,
+              endDate: dayjs(value).endOf('date').toDate(),
             })
           }}
           sx={{ width: '48%' }}

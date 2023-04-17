@@ -5,6 +5,8 @@ import {
   AddNewShareholderArgs,
   AddNewShareholderResult,
   NewEarnPercentage,
+  ShareholderBalanceArgs,
+  ShareholderBalanceResult,
   ShareholderCreatePinArgs,
   ShareholderCreatePinResult,
   ShareholderDetailsArgs,
@@ -70,6 +72,18 @@ export const shareholderApi = agentBaseApiWithTag.injectEndpoints({
     >({
       query: (queryArgs) => ({
         url: `/sh/detail`,
+        method: 'POST',
+        data: {
+          ...queryArgs,
+        },
+      }),
+    }),
+    shareholderBalance: builder.query<
+      IResponse<ShareholderBalanceResult>,
+      ShareholderBalanceArgs
+    >({
+      query: (queryArgs) => ({
+        url: `/sh/balance`,
         method: 'POST',
         data: {
           ...queryArgs,
@@ -216,4 +230,5 @@ export const {
   useShareholderGetEarnPtQuery,
   useShareholderUpdatePtMutation,
   useShareholderSetStatusMutation,
+  useShareholderBalanceQuery,
 } = shareholderApi

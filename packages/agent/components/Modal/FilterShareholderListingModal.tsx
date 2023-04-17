@@ -50,7 +50,7 @@ const FilterShareholderListingModal = ({ modal: { closeModal, getParam } }) => {
     onDismiss()
     onConfirm({
       date: '',
-      startDate: dayjs().startOf('month').toDate(),
+      startDate: dayjs().startOf('date').toDate(),
       endDate: dayjs().endOf('date').toDate(),
       status: '',
       username: '',
@@ -59,7 +59,10 @@ const FilterShareholderListingModal = ({ modal: { closeModal, getParam } }) => {
 
   useEffect(() => {
     if (selected.startDate > selected.endDate) {
-      setSelected({ ...selected, startDate: selected.endDate })
+      setSelected({
+        ...selected,
+        startDate: dayjs(selected.endDate).startOf('date').toDate(),
+      })
     }
   }, [selected.endDate])
 
@@ -103,7 +106,7 @@ const FilterShareholderListingModal = ({ modal: { closeModal, getParam } }) => {
             setSelected({
               ...selected,
               date: DateFilterOptions[5]?.value,
-              startDate: value,
+              startDate: dayjs(value).startOf('date').toDate(),
             })
           }}
           sx={{ width: '48%' }}
@@ -122,7 +125,7 @@ const FilterShareholderListingModal = ({ modal: { closeModal, getParam } }) => {
             setSelected({
               ...selected,
               date: DateFilterOptions[5]?.value,
-              endDate: value,
+              endDate: dayjs(value).endOf('date').toDate(),
             })
           }}
           sx={{ width: '48%' }}
@@ -131,6 +134,7 @@ const FilterShareholderListingModal = ({ modal: { closeModal, getParam } }) => {
 
       <Input
         label={t('common.username')}
+        placeholder={t('placeholder.enterUsername')}
         containerProps={{
           sx: { mb: 12 },
         }}

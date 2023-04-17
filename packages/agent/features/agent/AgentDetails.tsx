@@ -41,10 +41,6 @@ const AgentDetailsScreen = () => {
     }
   )
 
-  console.log(
-    '🚀 ~ file: AgentDetails.tsx:36 ~ AgentDetailsScreen ~ agentBalance:',
-    agentBalance
-  )
   const firstCellStyle = { flex: 0.4 }
   const secondCellStyle = { flex: 0.3 }
   const thirdCellStyle = { flex: 0.3 }

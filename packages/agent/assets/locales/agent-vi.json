@@ -18,6 +18,7 @@
     "amount": "Số tiền",
     "bankCard": "Thẻ ngân hàng",
     "cancel": "Hủy",
+    "cash": "Trả trước",
     "clickMore": "Xem thêm",
     "close": "Đóng",
     "confirm": "Xác nhận",
@@ -26,11 +27,13 @@
     "copy": "Sao chép",
     "countryCode": "+84",
     "create": "Tạo mã",
+    "credit": "Trả sau",
     "date": "Ngày",
     "desktop": "Bản máy tính",
     "emptyResult": "Không có kết quả",
     "enter": "Nhập",
     "failedOtp": "Không gửi được OTP",
+    "filter": "Lọc",
     "from": "Từ",
     "home": "Trang Chủ",
     "id": "Mã ID",
@@ -66,8 +69,7 @@
     "userAgreement": "Thỏa thuận người dùng",
     "username": "Tên đăng nhập",
     "win": "Thắng",
-    "yes": "Đồng Ý",
-    "filter": "Lọc"
+    "yes": "Đồng Ý"
   },
   "filter": {
     "date": {
@@ -84,7 +86,7 @@
       "failLogin": "KHÓA VÌ ĐĂNG NHẬP KHÔNG THÀNH CÔNG",
       "normal": "Bình thường"
     },
-    "selectedItem": "%{field} mục đã chọn",
+    "selectedItem": "%{total} mục đã chọn",
     "type": {
       "adjustment": "Điều chỉnh",
       "commission": "Hoàn trả",

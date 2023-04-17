@@ -133,7 +133,7 @@ export const ShareholderStatusFilterOptions = [
   },
 ]
 // Member Status
-export enum MemberStatus {
+export enum MemberStatusFilter {
   NORMAL = '0',
   BLOCK = '1',
   SUSPENDED = '5',
@@ -143,38 +143,38 @@ export enum MemberStatus {
 
 export const MemberStatusFilterOptions = [
   {
-    value: MemberStatus.NORMAL,
+    value: MemberStatusFilter.NORMAL,
     label: 'filter.member.normal',
   },
   {
-    value: MemberStatus.BLOCK,
+    value: MemberStatusFilter.BLOCK,
     label: 'filter.member.block',
   },
   {
-    value: MemberStatus.FAIL_LOGIN_ATTEMPT,
+    value: MemberStatusFilter.FAIL_LOGIN_ATTEMPT,
     label: 'filter.member.failLogin',
   },
   {
-    value: MemberStatus.SELF_EXCLUSION,
+    value: MemberStatusFilter.SELF_EXCLUSION,
     label: 'filter.member.exclusion',
   },
   {
-    value: MemberStatus.SUSPENDED,
+    value: MemberStatusFilter.SUSPENDED,
     label: 'common.suspended',
   },
 ]
 
 export const getMemberStatus = (status) => {
   switch (status) {
-    case MemberStatus.NORMAL:
+    case MemberStatusFilter.NORMAL:
       return 'filter.member.normal'
-    case MemberStatus.BLOCK:
+    case MemberStatusFilter.BLOCK:
       return 'filter.member.block'
-    case MemberStatus.SUSPENDED:
+    case MemberStatusFilter.SUSPENDED:
       return 'common.suspended'
-    case MemberStatus.SELF_EXCLUSION:
+    case MemberStatusFilter.SELF_EXCLUSION:
       return 'filter.member.exclusion'
-    case MemberStatus.FAIL_LOGIN_ATTEMPT:
+    case MemberStatusFilter.FAIL_LOGIN_ATTEMPT:
       return 'filter.member.failLogin'
 
     default:

@@ -20,17 +20,17 @@ export interface ShareholderListResult {
 
 export interface NewEarnPercentage {
   earnPercList: {
-    VND: NewEarnPercentagePercList
+    [key in Currency]: NewEarnPercentagePercList
   }
   earnPerc: {
-    VND: number
+    [key in Currency]: number
   }
   cashDefault: string[]
   creditDEfault: string[]
   userCash: string[]
   userCredit: string[]
   currency: {
-    VND: string
+    [key in Currency]: string
   }
 }
 
@@ -93,7 +93,7 @@ export interface ShareholderResetPinArgs {
 
 export type AddNewShareholderArgs = {
   currency: {
-    [Currency.VND]: {
+    [key in Currency]: {
       EARNP: string
       CASH: string
       CREDIT: string
@@ -149,7 +149,7 @@ export type ShareholderGetEarnPtResult = {
 export type ShareholderUpdatePtArgs = {
   id: string
   currency: {
-    [Currency.VND]: {
+    [key in Currency]: {
       EARNP: string
     }
   }
@@ -158,4 +158,14 @@ export type ShareholderUpdatePtArgs = {
 export type ShareholderSetStatusArgs = {
   shareholder_id: string
   status: ShareholderStatusFilter
+}
+
+export type ShareholderBalanceArgs = {
+  id: string
+}
+
+export type ShareholderBalanceResult = {
+  wallet_bal_amt: {
+    [key in Currency]: string
+  }
 }

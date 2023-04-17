@@ -1,3 +1,4 @@
+import { AGENT_URL } from '@env'
 import Icon from 'agent/components/Icon'
 import Text from 'agent/components/Text'
 import useAgentAlert from 'agent/hooks/useAgentAlert'
@@ -7,7 +8,12 @@ import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { styled, Sx, useDripsyTheme, View } from 'dripsy'
-import { Platform, TouchableOpacity, useWindowDimensions } from 'react-native'
+import {
+  Linking,
+  Platform,
+  TouchableOpacity,
+  useWindowDimensions,
+} from 'react-native'
 import Modal from 'react-native-modal'
 import { useModal } from 'react-native-modalfy'
 import Svg, { Path } from 'react-native-svg'
@@ -73,7 +79,7 @@ const MainMenuTest = ({
       label: 'menu.desktopVersion',
       icon: 'desktop',
       onPress: () => {
-        console.log('first')
+        Linking.openURL(AGENT_URL)
       },
     },
     {

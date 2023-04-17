@@ -82,8 +82,8 @@ const ShareholderListing = () => {
     isFetching,
     refetch,
   })
-  const firstCellStyle = { flex: 1 / 3 }
-  const thirdCellStyle = { flex: 1 / 2 }
+  const firstCellStyle = { flexGrow: 0, flexBasis: 40, px: '$1' }
+  const thirdCellStyle = { flexGrow: 0, flexBasis: 60 }
 
   const handleEdit = (id, pt) => {
     openModal('EditPTModal', { id, pt })
@@ -91,11 +91,13 @@ const ShareholderListing = () => {
 
   const onRenderHeader = () => (
     <DataTable.Header>
-      <DataTable.Title bordered center style={firstCellStyle}>
+      <DataTable.Title bordered center containerStyle={firstCellStyle}>
         #
       </DataTable.Title>
-      <DataTable.Title bordered>{t('common.username')}</DataTable.Title>
-      <DataTable.Title bordered center style={thirdCellStyle}>
+      <DataTable.Title bordered center>
+        {t('common.username')}
+      </DataTable.Title>
+      <DataTable.Title bordered center containerStyle={thirdCellStyle}>
         PT %
       </DataTable.Title>
       <DataTable.Title bordered center>
@@ -111,7 +113,7 @@ const ShareholderListing = () => {
   }: ListRenderItemInfo<ShareholderListResult>) => {
     return (
       <DataTable.Row size="big" sx={{ bg: 'transparent' }}>
-        <DataTable.Cell bordered center style={firstCellStyle}>
+        <DataTable.Cell bordered center containerStyle={firstCellStyle}>
           {index + 1}
         </DataTable.Cell>
         <DataTable.Cell bordered>
@@ -128,7 +130,7 @@ const ShareholderListing = () => {
             </Text>
           </Pressable>
         </DataTable.Cell>
-        <DataTable.Cell bordered center style={thirdCellStyle}>
+        <DataTable.Cell bordered center containerStyle={thirdCellStyle}>
           <Text sx={{ color: 'black' }}>{item.earning_perc}</Text>
           <IconButton
             name="edit"

@@ -75,7 +75,9 @@ const ShareholderCommissionScreen = () => {
       <DataTable.Title bordered center>
         {t('common.date')}
       </DataTable.Title>
-      <DataTable.Title bordered>{t('common.username')}</DataTable.Title>
+      <DataTable.Title bordered center>
+        {t('common.username')}
+      </DataTable.Title>
       <DataTable.Cell bordered center>
         <View
           sx={{

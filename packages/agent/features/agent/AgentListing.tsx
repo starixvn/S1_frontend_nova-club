@@ -4,6 +4,7 @@ import TableListing from 'agent/components/DataTable/TableListing'
 import Switch from 'agent/components/Switch'
 import Text from 'agent/components/Text'
 import { DateFilter, ShareholderStatusFilter } from 'agent/constant/select'
+import useTableListing from 'agent/hooks/useTableListing'
 import {
   useAgentListQuery,
   useAgentSetStatusMutation,
@@ -14,13 +15,10 @@ import { useAgentLocalization } from 'app/provider/localization'
 import dayjs from 'dayjs'
 import { Pressable, View } from 'dripsy'
 import { useState } from 'react'
-import { useModal } from 'react-native-modalfy'
-import AgentFloatingContent from '../floatingContent'
-import { useShareholderSetStatusMutation } from 'agent/services/shareholderApi'
-import { Toast } from 'react-native-toast-message/lib/src/Toast'
-import useTableListing from 'agent/hooks/useTableListing'
 import { ListRenderItemInfo } from 'react-native'
-import { ShareholderListResult } from 'agent/services/shareholderApi.type'
+import { useModal } from 'react-native-modalfy'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
+import AgentFloatingContent from '../floatingContent'
 
 export type AgentListingFilterOptions = {
   date: DateFilter | string | undefined
@@ -86,14 +84,16 @@ const AgentListing = () => {
     refetch,
   })
 
-  const firstCellStyle = { flex: 1 / 3 }
+  const firstCellStyle = { flexGrow: 0, flexBasis: 40, px: '$1' }
 
   const onRenderHeader = () => (
     <DataTable.Header>
-      <DataTable.Title bordered center style={firstCellStyle}>
+      <DataTable.Title bordered center containerStyle={firstCellStyle}>
         #
       </DataTable.Title>
-      <DataTable.Title bordered>{t('common.username')}</DataTable.Title>
+      <DataTable.Title bordered center>
+        {t('common.username')}
+      </DataTable.Title>
       <DataTable.Title bordered center>
         {t('shAgent.regDate')}
       </DataTable.Title>
@@ -106,7 +106,7 @@ const AgentListing = () => {
     index,
   }: ListRenderItemInfo<AgentListResult>) => (
     <DataTable.Row size="big" sx={{ bg: 'transparent' }}>
-      <DataTable.Cell bordered center style={firstCellStyle}>
+      <DataTable.Cell bordered center containerStyle={firstCellStyle}>
         {index + 1}
       </DataTable.Cell>
       <DataTable.Cell bordered>

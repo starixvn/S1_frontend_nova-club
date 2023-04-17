@@ -27,6 +27,10 @@ export interface ModalStackParams {
     filterOptions: Record<any, any>
     onConfirm(...args: any): any
   }
+  FilterMemberListingModal: {
+    filterOptions: Record<any, any>
+    onConfirm(...args: any): any
+  }
   FilterAgentListingModal: {
     filterOptions: Record<any, any>
     onConfirm(...args: any): any
@@ -69,6 +73,8 @@ const _dynamicModal = {
     import('agent/components/Modal/FilterCommissionReportModal'),
   FilterTransactionReportModal: () =>
     import('agent/components/Modal/FilterTransactionReportModal'),
+  FilterMemberListingModal: () =>
+    import('agent/components/Modal/FilterMemberListingModal'),
   FilterAgentListingModal: () =>
     import('agent/components/Modal/FilterAgentListingModal'),
   FilterShareholderListingModal: () =>
@@ -108,6 +114,9 @@ export const agentModalConfig: ModalConfigType = {
   },
   FilterTransactionReportModal: {
     modal: getDynamicComponent('FilterTransactionReportModal'),
+  },
+  FilterMemberListingModal: {
+    modal: getDynamicComponent('FilterMemberListingModal'),
   },
   FilterAgentListingModal: {
     modal: getDynamicComponent('FilterAgentListingModal'),

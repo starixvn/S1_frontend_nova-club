@@ -4,27 +4,26 @@ import TableListing from 'agent/components/DataTable/TableListing'
 import Text from 'agent/components/Text'
 import {
   DateFilter,
-  ShareholderStatusFilter,
+  MemberStatusFilter,
   getMemberStatus,
 } from 'agent/constant/select'
+import useTableListing from 'agent/hooks/useTableListing'
 import { useMemberListQuery } from 'agent/services/agentApi'
 import { MemberListResult } from 'agent/services/agentApi.type'
 import { useAgentLocalization } from 'app/provider/localization'
 import { Currency } from 'app/utils/constant'
 import dayjs from 'dayjs'
-import { styled, View } from 'dripsy'
+import { View, styled } from 'dripsy'
 import { useState } from 'react'
 import { useModal } from 'react-native-modalfy'
-import { AgentListingFilterOptions } from '../agent/AgentListing'
 import AgentFloatingContent from '../floatingContent'
-import useTableListing from 'agent/hooks/useTableListing'
 
 export type MemberListFilterOptions = {
   date: DateFilter | string | undefined
   startDate: Date | string
   endDate: Date | string
   username: string
-  status: ShareholderStatusFilter | string | undefined
+  status: MemberStatusFilter | string | undefined
 }
 
 type MemberListProps = {
@@ -78,22 +77,26 @@ const MemberListScreen = () => {
     refetch,
   })
 
-  const firstCellStyle = { flex: 1 / 2 }
+  const firstCellStyle = { flexGrow: 0, flexBasis: 40, px: '$1' }
 
   const onRenderHeader = () => (
     <DataTable.Header>
-      <DataTable.Title bordered center style={firstCellStyle}>
+      <DataTable.Title bordered center containerStyle={firstCellStyle}>
         #
       </DataTable.Title>
-      <DataTable.Title bordered>{t('common.username')}</DataTable.Title>
-      <DataTable.Title bordered>{t('shAgent.regDate')}</DataTable.Title>
+      <DataTable.Title bordered center>
+        {t('common.username')}
+      </DataTable.Title>
+      <DataTable.Title bordered center>
+        {t('shAgent.regDate')}
+      </DataTable.Title>
       <DataTable.Title center>{t('common.status')}</DataTable.Title>
     </DataTable.Header>
   )
 
   const onRenderItem = ({ item, index }: MemberListProps) => (
     <DataTable.Row size="big" sx={{ bg: 'transparent' }}>
-      <DataTable.Cell bordered center style={firstCellStyle}>
+      <DataTable.Cell bordered center containerStyle={firstCellStyle}>
         {index + 1}
       </DataTable.Cell>
       <DataTable.Cell bordered>{item.username}</DataTable.Cell>
@@ -120,9 +123,9 @@ const MemberListScreen = () => {
   )
 
   const onFilter = () => {
-    openModal('FilterAgentListingModal', {
+    openModal('FilterMemberListingModal', {
       filterOptions: filter,
-      onConfirm: (value: AgentListingFilterOptions) => {
+      onConfirm: (value: MemberListFilterOptions) => {
         setFilter({
           date: value.date,
           endDate: value.endDate,

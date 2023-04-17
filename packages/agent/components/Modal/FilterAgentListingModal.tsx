@@ -1,7 +1,7 @@
 import {
   DateFilterOptions,
   getDateRange,
-  MemberStatusFilterOptions,
+  ShareholderStatusFilterOptions,
 } from 'agent/constant/select'
 import { AgentListingFilterOptions } from 'agent/features/agent/AgentListing'
 import { useAgentLocalization } from 'app/provider/localization'
@@ -32,7 +32,7 @@ const FilterAgentListingModal = ({ modal: { closeModal, getParam } }) => {
     return { ...item, label: t(item.label) }
   })
 
-  const statusOptions = MemberStatusFilterOptions.map((item) => {
+  const statusOptions = ShareholderStatusFilterOptions.map((item) => {
     return { ...item, label: t(item.label) }
   })
 
@@ -48,7 +48,7 @@ const FilterAgentListingModal = ({ modal: { closeModal, getParam } }) => {
     onDismiss()
     onConfirm({
       date: '',
-      startDate: dayjs().startOf('month').toDate(),
+      startDate: dayjs().startOf('date').toDate(),
       endDate: dayjs().endOf('date').toDate(),
       status: '',
       username: '',
@@ -57,7 +57,10 @@ const FilterAgentListingModal = ({ modal: { closeModal, getParam } }) => {
 
   useEffect(() => {
     if (selected.startDate > selected.endDate) {
-      setSelected({ ...selected, startDate: selected.endDate })
+      setSelected({
+        ...selected,
+        startDate: dayjs(selected.endDate).startOf('date').toDate(),
+      })
     }
   }, [selected.endDate])
 
@@ -102,7 +105,7 @@ const FilterAgentListingModal = ({ modal: { closeModal, getParam } }) => {
             setSelected({
               ...selected,
               date: DateFilterOptions[5]?.value,
-              startDate: value,
+              startDate: dayjs(value).startOf('date').toDate(),
             })
           }}
           sx={{ width: '48%' }}
@@ -121,7 +124,7 @@ const FilterAgentListingModal = ({ modal: { closeModal, getParam } }) => {
             setSelected({
               ...selected,
               date: DateFilterOptions[5]?.value,
-              endDate: value,
+              endDate: dayjs(value).endOf('date').toDate(),
             })
           }}
           sx={{ width: '48%' }}
@@ -130,6 +133,7 @@ const FilterAgentListingModal = ({ modal: { closeModal, getParam } }) => {
 
       <Input
         label={t('common.username')}
+        placeholder={t('placeholder.enterUsername')}
         containerProps={{
           sx: { mb: 12 },
         }}

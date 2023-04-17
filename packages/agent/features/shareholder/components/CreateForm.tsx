@@ -97,7 +97,7 @@ const CreateForm = <T,>({
               sx={{ bg: '#818384' }}
             />
           }
-          value="Cash"
+          value={t('common.cash')}
           containerProps={{
             sx: { width: inputWidth, mb: 12 },
           }}
@@ -112,7 +112,7 @@ const CreateForm = <T,>({
               sx={{ bg: '#818384' }}
             />
           }
-          value="Credit"
+          value={t('common.credit')}
           containerProps={{
             sx: { width: inputWidth, mb: 12 },
           }}
