@@ -6,13 +6,12 @@ import AgentLayout from '../../../../layouts/agent/AgentLayout'
 
 const ListShareholder = () => {
   return (
-    <AgentLayout>
-      <>
-        <AgentNestedTabs routes={ListRoutes} />
-        <ShareholderListing />
-      </>
-    </AgentLayout>
+    <>
+      <AgentNestedTabs routes={ListRoutes} />
+      <ShareholderListing />
+    </>
   )
 }
+ListShareholder.getLayout = AgentLayout
 
 export default ListShareholder

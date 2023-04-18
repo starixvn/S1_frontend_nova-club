@@ -14,17 +14,17 @@ const CommissionPage = () => {
   })
 
   return (
-    <AgentLayout>
-      <>
-        <AgentNestedTabs routes={ReportRoutes} />
-        {isShareHolder ? (
-          <ShareholderCommissionScreen />
-        ) : (
-          <AgentCommissionScreen />
-        )}
-      </>
-    </AgentLayout>
+    <>
+      <AgentNestedTabs routes={ReportRoutes} />
+      {isShareHolder ? (
+        <ShareholderCommissionScreen />
+      ) : (
+        <AgentCommissionScreen />
+      )}
+    </>
   )
 }
+
+CommissionPage.getLayout = AgentLayout
 
 export default CommissionPage

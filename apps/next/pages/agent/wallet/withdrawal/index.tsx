@@ -1,16 +1,18 @@
 import React from 'react'
-import AgentLayout from '../../../../layouts/agent/AgentLayout'
 import WithdrawalPage from 'agent/features/wallet/withdrawal'
 import AgentNestedTabs from 'agent/navigation/components/AgentNestedTabNavigator/AgentNestedTabs'
 import WalletRoutes from 'agent/navigation/routes/WalletRoutes'
+import AgentLayout from '../../../../layouts/agent/AgentLayout'
 
-export default function Withdrawal() {
+const Withdrawal = () => {
   return (
-    <AgentLayout>
-      <>
-        <AgentNestedTabs routes={WalletRoutes} />
-        <WithdrawalPage />
-      </>
-    </AgentLayout>
+    <>
+      <AgentNestedTabs routes={WalletRoutes} />
+      <WithdrawalPage />
+    </>
   )
 }
+
+Withdrawal.getLayout = AgentLayout
+
+export default Withdrawal

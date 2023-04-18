@@ -6,13 +6,12 @@ import TransactionScreen from 'agent/features/report/Transaction'
 
 const TransactionPage = () => {
   return (
-    <AgentLayout>
-      <>
-        <AgentNestedTabs routes={ReportRoutes} />
-        <TransactionScreen />
-      </>
-    </AgentLayout>
+    <>
+      <AgentNestedTabs routes={ReportRoutes} />
+      <TransactionScreen />
+    </>
   )
 }
+TransactionPage.getLayout = AgentLayout
 
 export default TransactionPage

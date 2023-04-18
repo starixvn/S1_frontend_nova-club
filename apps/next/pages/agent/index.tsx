@@ -3,11 +3,9 @@ import React from 'react'
 import AgentLayout from '../../layouts/agent/AgentLayout'
 
 const Agent = () => {
-  return (
-    <AgentLayout>
-      <AgentProfile />
-    </AgentLayout>
-  )
+  return <AgentProfile />
 }
+
+Agent.getLayout = AgentLayout
 
 export default Agent

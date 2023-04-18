@@ -6,13 +6,12 @@ import AddRoutes from 'agent/navigation/routes/AddRoutes'
 
 const AddAgent = () => {
   return (
-    <AgentLayout>
-      <>
-        <AgentNestedTabs routes={AddRoutes} />
-        <AddAgentPage />
-      </>
-    </AgentLayout>
+    <>
+      <AgentNestedTabs routes={AddRoutes} />
+      <AddAgentPage />
+    </>
   )
 }
+AddAgent.getLayout = AgentLayout
 
 export default AddAgent

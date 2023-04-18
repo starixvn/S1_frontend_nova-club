@@ -3,11 +3,9 @@ import AgentLayout from '../../layouts/agent/AgentLayout'
 import MemberListingPage from 'agent/features/member/MemberListingPage'
 
 const Member = () => {
-  return (
-    <AgentLayout>
-      <MemberListingPage />
-    </AgentLayout>
-  )
+  return <MemberListingPage />
 }
+
+Member.getLayout = AgentLayout
 
 export default Member

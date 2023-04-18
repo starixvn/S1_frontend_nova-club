@@ -4,16 +4,10 @@ import AgentProvider from 'agent/provider'
 import { TAB_HEIGHT } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { View } from 'dripsy'
-import React, { FC, useEffect } from 'react'
+import React, { ReactElement, ReactNode, useEffect } from 'react'
 import NavigationLoading from './NavigationLoading'
 
-export type TabLayoutProps = {
-  children: React.ReactElement
-  lockHeight?: boolean
-}
-
-const AgentLayout: FC<TabLayoutProps> = ({ children, lockHeight }) => {
-  const { height } = useContainerDimension()
+const AgentLayout = (page: ReactElement) => {
   useEffect(() => {
     //todo fix recreate of component which cause many other component to mount again
     console.log('recreate')
@@ -25,11 +19,11 @@ const AgentLayout: FC<TabLayoutProps> = ({ children, lockHeight }) => {
           paddingTop: TAB_HEIGHT * 2,
           position: 'relative',
           backgroundColor: 'white',
-          minHeight: height,
+          minHeight: '100dvh',
         }}
       >
         <HeaderFloat />
-        {children}
+        {page}
         <NavigationLoading />
         <BottomTabFloat />
       </View>

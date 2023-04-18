@@ -6,13 +6,12 @@ import AgentListing from 'agent/features/agent/AgentListing'
 
 const ListAgent = () => {
   return (
-    <AgentLayout>
-      <>
-        <AgentNestedTabs routes={ListRoutes} />
-        <AgentListing />
-      </>
-    </AgentLayout>
+    <>
+      <AgentNestedTabs routes={ListRoutes} />
+      <AgentListing />
+    </>
   )
 }
+ListAgent.getLayout = AgentLayout
 
 export default ListAgent

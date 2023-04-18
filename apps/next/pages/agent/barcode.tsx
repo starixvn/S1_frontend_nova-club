@@ -3,11 +3,9 @@ import AgentLayout from '../../layouts/agent/AgentLayout'
 import AgentBarcodePage from 'agent/features/barcode/AgentBarcodePage'
 
 const Barcode = () => {
-  return (
-    <AgentLayout>
-      <AgentBarcodePage />
-    </AgentLayout>
-  )
+  return <AgentBarcodePage />
 }
+
+Barcode.getLayout = AgentLayout
 
 export default Barcode

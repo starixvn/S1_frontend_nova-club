@@ -6,13 +6,12 @@ import TransferPage from 'agent/features/wallet/transfer'
 
 const Transfer = () => {
   return (
-    <AgentLayout>
-      <>
-        <AgentNestedTabs routes={WalletRoutes} />
-        <TransferPage />
-      </>
-    </AgentLayout>
+    <>
+      <AgentNestedTabs routes={WalletRoutes} />
+      <TransferPage />
+    </>
   )
 }
+Transfer.getLayout = AgentLayout
 
 export default Transfer

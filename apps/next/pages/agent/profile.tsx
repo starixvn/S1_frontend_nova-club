@@ -3,11 +3,8 @@ import React from 'react'
 import AgentLayout from '../../layouts/agent/AgentLayout'
 
 const Profile = () => {
-  return (
-    <AgentLayout>
-      <AgentProfile />
-    </AgentLayout>
-  )
+  return <AgentProfile />
 }
+Profile.getLayout = AgentLayout
 
 export default Profile
