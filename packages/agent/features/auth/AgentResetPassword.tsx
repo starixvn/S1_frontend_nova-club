@@ -1,5 +1,4 @@
 import Button from 'agent/components/Button'
-import Icon from 'agent/components/Icon'
 import IconButton from 'agent/components/Icon/IconButton'
 import Input from 'agent/components/Input'
 import TimerButton, {
@@ -7,16 +6,12 @@ import TimerButton, {
 } from 'agent/components/TimerButton'
 import useAgentAlert from 'agent/hooks/useAgentAlert'
 import useOnAgentLogout from 'agent/hooks/useOnAgentLogout'
-import CommonBackHeader from 'agent/navigation/components/CommonBackHeader'
 import { useSendOTPMutation } from 'agent/services/accountApi'
 import { IResponse } from 'agent/services/common/agentAxiosBaseQuery'
 import { useResetPasswordMutation } from 'agent/services/userApi'
 import { AgentAuthActions } from 'agent/store/agentAuthReducer'
 import { HAS_LOG_IN_MAP } from 'agent/utils/authUtil'
-import validation, {
-  getErrorMessage,
-  PASSWORD_MAX_LENGTH,
-} from 'agent/utils/validation'
+import validation, { getErrorMessage } from 'agent/utils/validation'
 import { AGENT_STACK_CONTENT_PADDING } from 'app/constant/sizes'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
@@ -159,7 +154,7 @@ const AgentResetPassword = () => {
           }}
           sx={{
             zIndex: 2,
-            top,
+            top: top ? top : 15,
             position: 'absolute',
             transform: [{ rotateZ: '90deg' }],
             left: 15,
@@ -168,7 +163,7 @@ const AgentResetPassword = () => {
         <Image
           source={require('app/assets/images/auth/pwd.jpg')}
           sx={{
-            height: 350 + top,
+            height: 350 + (top ? top : 15),
             width: Math.min(width, theme.sizes.container),
           }}
           resizeMode={'cover'}
@@ -179,7 +174,7 @@ const AgentResetPassword = () => {
             position: 'absolute',
             height: 100,
             width: Math.min(width, theme.sizes.container),
-            top: top,
+            top: top ? top : 15,
           }}
           resizeMode={'contain'}
         />
