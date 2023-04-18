@@ -2,16 +2,11 @@ import Header from 'agent/navigation/Header'
 import AgentShareholderTab from 'agent/navigation/components/AgentTabNavigator/AgentShareholderTabs'
 import AgentProvider from 'agent/provider'
 import { TAB_HEIGHT } from 'app/constant/sizes'
-import useContainerDimension from 'app/hooks/useContainerDimension'
 import { View } from 'dripsy'
-import React, { ReactElement, ReactNode, useEffect } from 'react'
+import React, { ReactElement } from 'react'
 import NavigationLoading from './NavigationLoading'
 
 const AgentLayout = (page: ReactElement) => {
-  useEffect(() => {
-    //todo fix recreate of component which cause many other component to mount again
-    console.log('recreate')
-  }, [])
   return (
     <AgentProvider>
       <View
