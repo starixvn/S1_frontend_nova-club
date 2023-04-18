@@ -78,11 +78,11 @@ const DepositCryptoModal = ({ modal: { closeModal, getParam } }) => {
                 </Box>
               )
             })}
-          <Text sx={{ fontWeight: 'bold', color: '$accent', mt: '$2' }}>
+          <Text sx={{ fontWeight: 'bold', color: '$accent' }}>
             {`${data.payment_amount} = ${data.invoice_currency} ${data.invoice_amount}`}
           </Text>
 
-          <Box sx={{ width: '100%', alignItems: 'center', mt: '$6' }}>
+          <Box sx={{ alignItems: 'center', mt: '$1' }}>
             <Text
               sx={{ textAlign: 'center', fontWeight: 'bold', color: '$error' }}
             >
