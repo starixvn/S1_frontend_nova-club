@@ -19,6 +19,7 @@ import { useDispatch } from 'react-redux'
 import CodePushUpdateBar from './CodePushUpdateBar'
 import { checkMaintenance, checkVersionUpdated } from './splashScreenChecks'
 import useSplashScreen, { useSplashScreenTaskResolver } from './useSplashScreen'
+import { useLazyUserInfoQuery } from 'agent/services/userApi'
 
 function useFontInitWithPromise() {
   const resolver = useSplashScreenTaskResolver(useFontInit)
@@ -50,6 +51,7 @@ const SplashScreen = () => {
   const currentVersion = getVersion()
   // const { isReady } = useOTA()
   const { status: codePushStatus, progress } = useCodePushDownload()
+  const [getUserInfo] = useLazyUserInfoQuery()
   const { status } = useSplashScreen(
     {
       mandatorySync: [checkVersionUpdated, checkMaintenance], // TODO : implement check maintenane logic
@@ -73,11 +75,23 @@ const SplashScreen = () => {
   useEffect(() => {
     unlockAsync()
   }, [])
+  async function handleAgentLogin() {
+    try {
+      const resp = await getUserInfo().unwrap()
 
+      if (resp.has_verified_wd) {
+        replace('/agent')
+      } else {
+        replace('/agent/reset-password')
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
   useEffect(() => {
     if (status) {
       if (agentToken) {
-        replace('/agent')
+        handleAgentLogin()
       } else replace('/')
     }
   }, [status, replace, loginResult])

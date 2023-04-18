@@ -1,9 +1,12 @@
 import Button from 'agent/components/Button'
+import Icon from 'agent/components/Icon'
+import IconButton from 'agent/components/Icon/IconButton'
 import Input from 'agent/components/Input'
 import TimerButton, {
   ITimerButtonForwardRef,
 } from 'agent/components/TimerButton'
 import useAgentAlert from 'agent/hooks/useAgentAlert'
+import useOnAgentLogout from 'agent/hooks/useOnAgentLogout'
 import CommonBackHeader from 'agent/navigation/components/CommonBackHeader'
 import { useSendOTPMutation } from 'agent/services/accountApi'
 import { IResponse } from 'agent/services/common/agentAxiosBaseQuery'
@@ -45,6 +48,7 @@ const AgentResetPassword = () => {
   const { width } = useWindowDimensions()
   const { top } = useSafeArea()
   const dispatch = useDispatch()
+  const { logout } = useOnAgentLogout()
 
   const [sendOtp] = useSendOTPMutation()
   const [resetPassword] = useResetPasswordMutation()
@@ -145,6 +149,22 @@ const AgentResetPassword = () => {
   return (
     <>
       <View>
+        <IconButton
+          name="arrow-down"
+          color={'white'}
+          size={30}
+          onPress={() => {
+            logout()
+            replace('/auth/login')
+          }}
+          sx={{
+            zIndex: 2,
+            top,
+            position: 'absolute',
+            transform: [{ rotateZ: '90deg' }],
+            left: 15,
+          }}
+        />
         <Image
           source={require('app/assets/images/auth/pwd.jpg')}
           sx={{
