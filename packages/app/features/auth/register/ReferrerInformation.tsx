@@ -1,14 +1,15 @@
+import { skipToken } from '@reduxjs/toolkit/query/react'
 import { DripsyGradient } from 'app/components/Gradient'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
-import { ActivityIndicator, Image, styled, Text, View } from 'dripsy'
-import { memo, useEffect } from 'react'
-import { skipToken } from '@reduxjs/toolkit/query/react'
-import { motify } from 'moti'
-import { useAffiliateUsernameQuery } from 'services/contentApi'
-import { useDispatch } from 'react-redux'
 import { isBannedTrackingCode } from 'app/utils/referralUtil'
+import { Image, Text, View } from 'dripsy'
+import { motify } from 'moti'
+import { memo, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { useAffiliateUsernameQuery } from 'services/contentApi'
+
 const HEADER_IMAGE = require('../../../assets/images/header/avatar.png')
 const MotifiedView = motify(View)()
 function ReferrerInformation({ sx = {}, ...rest }) {
@@ -17,12 +18,12 @@ function ReferrerInformation({ sx = {}, ...rest }) {
   const referral = useAppSelector((s) => s.setting.referral)
   const isBanned = isBannedTrackingCode(referral?.trackingCode)
   const { error, isSuccess } = useAffiliateUsernameQuery(
-    referral && !isBanned ? referral.trackingCode : skipToken
+    referral?.trackingCode && !isBanned ? referral.trackingCode : skipToken
   )
 
   useEffect(() => {
-    if (error?.code === 20019) {
-      dispatch(SettingActions.setReferral())
+    if (!error?.success) {
+      dispatch(SettingActions.setReferral({ trackingCode: '' }))
     }
   }, [dispatch, error])
 
