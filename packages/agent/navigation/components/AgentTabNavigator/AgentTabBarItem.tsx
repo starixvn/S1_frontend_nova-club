@@ -1,5 +1,5 @@
 import React, { ComponentProps } from 'react'
-import { Pressable, SxProp } from 'dripsy'
+import { Pressable, SxProp, View } from 'dripsy'
 import { NavIcon } from '../NavIcon'
 import { TAB_HEIGHT } from 'app/constant/sizes'
 import Text from 'agent/components/Text'
@@ -27,7 +27,9 @@ export default function AgentTabBarItem({
     <Pressable
       sx={{
         flex: 1,
-        height: TAB_HEIGHT,
+        height: TAB_HEIGHT * 1.25,
+        alignItems: 'center',
+        py: 5,
         ...sx,
       }}
       {...rest}
@@ -38,21 +40,31 @@ export default function AgentTabBarItem({
         activeTintColor={activeColor}
         inactiveTintColor={inactiveColor}
         renderIcon={renderIcon}
+        defaultSize={28}
       />
-      <Text
-        numberOfLines={2}
+      <View
         sx={{
-          textAlign: 'center',
-          minHeight: 18,
-          fontSize: 11,
-          lineHeight: 11,
-          textTransform: 'none',
-          color: isActive ? activeColor : inactiveColor,
-          ...labelStyle,
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
-        {label}
-      </Text>
+        <Text
+          numberOfLines={2}
+          sx={{
+            textAlign: 'center',
+            fontSize: 11,
+            lineHeight: 15,
+            textTransform: 'none',
+            fontWeight: isActive ? 'bold' : '300',
+            color: isActive ? activeColor : inactiveColor,
+            ...labelStyle,
+            maxWidth: 100,
+          }}
+        >
+          {label}
+        </Text>
+      </View>
     </Pressable>
   )
 }

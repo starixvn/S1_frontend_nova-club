@@ -7,7 +7,7 @@ export default function AgentTabBar({ children }) {
     <View
       style={[
         {
-          height: TAB_HEIGHT,
+          height: TAB_HEIGHT * 1.25,
           flexDirection: 'row',
           backgroundColor: 'white',
           shadowColor: '#000',
