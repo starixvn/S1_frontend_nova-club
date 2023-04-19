@@ -6,6 +6,7 @@ import TimerButton, {
 } from 'agent/components/TimerButton'
 import useAgentAlert from 'agent/hooks/useAgentAlert'
 import useOnAgentLogout from 'agent/hooks/useOnAgentLogout'
+import CommonBackHeader from 'agent/navigation/components/CommonBackHeader'
 import { useSendOTPMutation } from 'agent/services/accountApi'
 import { IResponse } from 'agent/services/common/agentAxiosBaseQuery'
 import { useResetPasswordMutation } from 'agent/services/userApi'
@@ -13,6 +14,7 @@ import { AgentAuthActions } from 'agent/store/agentAuthReducer'
 import { HAS_LOG_IN_MAP } from 'agent/utils/authUtil'
 import validation, { getErrorMessage } from 'agent/utils/validation'
 import { AGENT_STACK_CONTENT_PADDING } from 'app/constant/sizes'
+import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
@@ -34,14 +36,14 @@ interface ResetPasswordValues {
 const AgentResetPassword = () => {
   const { t } = useAgentLocalization()
   const { theme } = useDripsyTheme()
+  const { width } = useContainerDimension()
   const { openModal } = useModal()
   const { showAlert } = useAgentAlert()
   const { push, replace } = useContextualRouter()
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [isOtpLoading, setIsOtpLoading] = useState(false)
-  const { width } = useWindowDimensions()
-  const { top } = useSafeArea()
+  const { top, bottom } = useSafeArea()
   const dispatch = useDispatch()
   const { logout } = useOnAgentLogout()
 
@@ -140,30 +142,47 @@ const AgentResetPassword = () => {
       setIsOtpLoading(false)
     }
   }
-
   return (
     <>
-      <View>
-        <IconButton
-          name="arrow-down"
-          color={'white'}
-          size={30}
-          onPress={() => {
-            logout()
-            replace('/auth/login')
-          }}
+      <View
+        sx={{
+          position: Platform.OS === 'web' ? 'fixed' : 'relative',
+          zIndex: 1,
+          width: '100%',
+          maxWidth: 'container',
+          top: 0,
+          backgroundColor: '#0a2143',
+          paddingTop: top,
+        }}
+      >
+        <View
           sx={{
-            zIndex: 2,
-            top: top ? top : 15,
-            position: 'absolute',
-            transform: [{ rotateZ: '90deg' }],
-            left: 15,
+            flexDirection: 'row',
+            py: '$3',
+            px: '$3',
           }}
-        />
+        >
+          <IconButton
+            name="arrow-down"
+            sx={{ transform: [{ rotateZ: '90deg' }] }}
+            size={25}
+            onPress={() => {
+              logout()
+              replace('/auth/login')
+            }}
+          />
+        </View>
+      </View>
+      <View
+        sx={{
+          alignItems: 'center',
+          paddingTop: Platform.OS === 'web' ? 45 : 0,
+        }}
+      >
         <Image
           source={require('app/assets/images/auth/pwd.jpg')}
           sx={{
-            height: 350 + (top ? top : 15),
+            height: 325,
             width: Math.min(width, theme.sizes.container),
           }}
           resizeMode={'cover'}
@@ -172,24 +191,24 @@ const AgentResetPassword = () => {
           source={require('app/assets/images/logo.png')}
           sx={{
             position: 'absolute',
-            height: 100,
-            width: Math.min(width, theme.sizes.container),
-            top: top ? top : 15,
+            height: Math.min(75, width * 0.25),
+            // width: Math.min(width, theme.sizes.container),
+            aspectRatio: 67 / 24,
+            // top:,
           }}
           resizeMode={'contain'}
         />
       </View>
-
       <ScrollView
         contentContainerStyle={{
           paddingHorizontal: 20,
           paddingTop: AGENT_STACK_CONTENT_PADDING,
+          zIndex: 5,
         }}
         sx={{
           borderRadius: 10,
-          bg: 'transparent',
           backgroundColor: 'white',
-          top: -top + -10,
+          marginTop: -25,
         }}
       >
         <Flex
