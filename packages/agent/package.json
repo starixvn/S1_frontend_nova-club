@@ -5,6 +5,7 @@
   "peerDependencies": {
     "@dripsy/gradient": "*",
     "@react-native-async-storage/async-storage": "*",
+    "@shopify/flash-list": "*",
     "react-native-chart-kit": "*",
     "@react-navigation/bottom-tabs": "*",
     "@react-navigation/native": "*",

@@ -84,9 +84,9 @@ export const userApi = agentBaseApiWithTag.injectEndpoints({
       IResponse<UserCommissionListResult[]>,
       UserCommissionListArgs
     >({
-      query: (currency) => ({
+      query: (queryArgs) => ({
         url: '/user/commList',
-        data: { currency },
+        data: { ...queryArgs },
       }),
     }),
     resetPinOtp: builder.mutation<IResponse<[]>, ResetPinOtpArgs>({
