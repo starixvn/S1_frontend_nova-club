@@ -114,7 +114,7 @@ export const userApi = agentBaseApiWithTag.injectEndpoints({
       }),
     }),
     //send otp for reset password
-    sendOtp: builder.mutation<IResponse<[]>, SendOtpArgs>({
+    resetPasswordOTP: builder.mutation<IResponse<[]>, SendOtpArgs>({
       query: (queryArgs) => ({
         url: '/user/sendOtp',
         data: {
@@ -143,6 +143,6 @@ export const {
   useResetPinOtpMutation,
   useCreatePinOtpMutation,
   useResetPasswordMutation,
-  useSendOtpMutation,
+  useResetPasswordOTPMutation,
   useChangePasswordMutation,
 } = userApi

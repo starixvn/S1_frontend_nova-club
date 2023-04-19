@@ -6,9 +6,11 @@ import TimerButton, {
 } from 'agent/components/TimerButton'
 import useAgentAlert from 'agent/hooks/useAgentAlert'
 import useOnAgentLogout from 'agent/hooks/useOnAgentLogout'
-import { useSendOTPMutation } from 'agent/services/accountApi'
 import { IResponse } from 'agent/services/common/agentAxiosBaseQuery'
-import { useResetPasswordMutation } from 'agent/services/userApi'
+import {
+  useResetPasswordMutation,
+  useResetPasswordOTPMutation,
+} from 'agent/services/userApi'
 import { AgentAuthActions } from 'agent/store/agentAuthReducer'
 import { HAS_LOG_IN_MAP } from 'agent/utils/authUtil'
 import validation, {
@@ -50,7 +52,7 @@ const AgentResetPassword = () => {
   const dispatch = useDispatch()
   const { logout } = useOnAgentLogout()
 
-  const [sendOtp] = useSendOTPMutation()
+  const [sendOtp] = useResetPasswordOTPMutation()
   const [resetPassword] = useResetPasswordMutation()
 
   const onSubmit = async ({
@@ -124,7 +126,7 @@ const AgentResetPassword = () => {
 
   async function handleSendOtp() {
     try {
-      setIsOtpLoading(true)
+      setIsLoading(true)
 
       const { message, success } = await sendOtp({
         mobile_no: values.mobile_no,
@@ -136,13 +138,12 @@ const AgentResetPassword = () => {
         })
 
       if (success) {
-        showAlert(message)
         OTPRef.current?.startOtpTimer()
       }
     } catch (e) {
       openModal('AgentAlertModal', { message: getErrorMessage(e) })
     } finally {
-      setIsOtpLoading(false)
+      setIsLoading(false)
     }
   }
   return (
