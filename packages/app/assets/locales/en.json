@@ -118,7 +118,9 @@
     "cardValue": "Card Value",
     "channel": "Channel",
     "choose": "Choose your Deposit Options",
-    "cryptoAmount": "123,456 VND",
+    "cryptoAddress": "Crypto Address",
+    "cryptoAmount": "Crypto Amount",
+    "cryptoChannel": "Crypto Channel",
     "deduction": "Deduction",
     "depositAmount": "Deposit Amount",
     "depositMethod": {
@@ -131,8 +133,10 @@
     },
     "minMaxLimit": "Min/Max Limit",
     "paymentMode": "Payment Mode",
+    "paymentTime": "PAYMENT TIME LEFT",
     "pleaseConfirmDeposit": "Please confirm deposit information below",
     "selectChannel": "Select Channel",
+    "transactionId": "Transaction Id",
     "upload": {
       "description": "Browse your Bank Transfer Receipt or Invoice",
       "files": "Select File",

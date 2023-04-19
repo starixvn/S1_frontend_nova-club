@@ -118,7 +118,9 @@
     "cardValue": "Mệnh giá thẻ",
     "channel": "Tài khoản nạp",
     "choose": "Chọn phương thức nạp tiền",
-    "cryptoAmount": "123,456 đồng",
+    "cryptoAddress": "Địa chỉ ví tiền ảo",
+    "cryptoAmount": "Số tiền ảo muốn nạp",
+    "cryptoChannel": "Kênh nạp tiền ảo",
     "deduction": "Khấu trừ",
     "depositAmount": "Số tiền nạp",
     "depositMethod": {
@@ -131,8 +133,10 @@
     },
     "minMaxLimit": "Tối thiểu/Tối đa",
     "paymentMode": "Chọn cổng thanh toán",
+    "paymentTime": "THỜI GIAN THANH TOÁN CÒN LẠI",
     "pleaseConfirmDeposit": "Vui lòng xác nhận thông tin gửi tiền bên dưới",
     "selectChannel": "Chọn tài khoản nạp",
+    "transactionId": "Mã giao dịch ",
     "upload": {
       "description": "Chọn hình ảnh biên lai hoặc hóa đơn để tải lên",
       "files": "Tải tệp tin",
