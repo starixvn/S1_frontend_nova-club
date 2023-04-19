@@ -17,6 +17,8 @@ import { IResponse } from 'agent/services/common/agentAxiosBaseQuery'
 import { useUserInfoQuery } from 'agent/services/userApi'
 import validation, {
   ACCOUNT_NUMBER_MAX_LENGTH,
+  MAX_OTP_DIGIT,
+  MAX_PHONE_DIGIT,
   getErrorMessage,
   removeAgentPhoneNumPrefix,
 } from 'agent/utils/validation'
@@ -117,7 +119,7 @@ const AddBankInfoForm = () => {
     otp: Yup.string().when('hasVerified', {
       is: true,
       then: Yup.string(),
-      otherwise: validation.stringRequired,
+      otherwise: validation.verifyCode,
     }),
   })
 
@@ -236,6 +238,7 @@ const AddBankInfoForm = () => {
             onBlur={handleBlur('accountNumber')}
             keyboardType={'numeric'}
             value={values.accountNumber}
+            maxLength={ACCOUNT_NUMBER_MAX_LENGTH}
           />
           <Input
             editable={realName ? false : true}
@@ -301,6 +304,7 @@ const AddBankInfoForm = () => {
                       })
                     : undefined
                 }
+                maxLength={MAX_PHONE_DIGIT}
                 onChangeText={handleChange('mobileNumber')}
                 onBlur={handleBlur('mobileNumber')}
                 keyboardType={'numeric'}
@@ -320,6 +324,7 @@ const AddBankInfoForm = () => {
                       })
                     : undefined
                 }
+                maxLength={MAX_OTP_DIGIT}
                 onChangeText={handleChange('otp')}
                 onBlur={handleBlur('otp')}
                 keyboardType={'numeric'}

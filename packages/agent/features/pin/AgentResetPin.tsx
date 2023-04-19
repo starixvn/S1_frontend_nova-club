@@ -15,6 +15,8 @@ import {
 } from 'agent/services/userApi'
 import { ROLE } from 'agent/utils/helper'
 import validation, {
+  MAX_OTP_DIGIT,
+  MAX_PHONE_DIGIT,
   getErrorMessage,
   removeAgentPhoneNumPrefix,
 } from 'agent/utils/validation'
@@ -23,7 +25,7 @@ import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
 import { ActivityIndicator, ScrollView, View } from 'dripsy'
-import { FormikHelpers, replace, useFormik } from 'formik'
+import { FormikHelpers, useFormik } from 'formik'
 import { useEffect, useRef, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import * as Yup from 'yup'
@@ -97,7 +99,7 @@ const AgentResetPin = () => {
     },
     validationSchema: Yup.object({
       mobileNumber: validation.phoneNumber,
-      otp: validation.stringRequired,
+      otp: validation.verifyCode,
       pin: validation.pin,
       confirmPin: validation.confirmPin,
     }),
@@ -203,6 +205,7 @@ const AgentResetPin = () => {
                     />
                   )
                 }
+                maxLength={MAX_PHONE_DIGIT}
                 label={t('common.mobileNumber')}
                 containerProps={{
                   sx: { mb: '$3' },
@@ -239,6 +242,7 @@ const AgentResetPin = () => {
                 onBlur={handleBlur('otp')}
                 keyboardType={'numeric'}
                 value={values.otp}
+                maxLength={MAX_OTP_DIGIT}
               />
               <AgentUnderlinePinField
                 title={t('pin.newPin')}

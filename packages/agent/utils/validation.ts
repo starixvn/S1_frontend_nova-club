@@ -4,6 +4,8 @@ export const USERNAME_MAX_LENGTH = 20
 export const PASSWORD_MAX_LENGTH = 15
 export const AGENT_PASSWORD_MAX_LENGTH = 6
 export const ACCOUNT_NUMBER_MAX_LENGTH = 16
+export const MAX_PHONE_DIGIT = 9
+export const MAX_OTP_DIGIT = 6
 
 // const ALPHANUMERIC_REGEX = RegExp(/^(?=.*[0-9])(?=.*[a-z])([a-z0-9]+)$/)
 const ALPHANUMERIC_REGEX = RegExp(/^[0-9A-Za-z]*$/g)
@@ -88,7 +90,7 @@ const validation = {
   phoneNumber: Yup.string()
     .required('validation.required')
     .min(1, 'validation.phoneNumber')
-    .max(9, 'validation.phoneNumber')
+    .max(MAX_PHONE_DIGIT, 'validation.phoneNumber')
     .test({
       name: 'is-number',
       test: (value) => {
@@ -109,8 +111,8 @@ const validation = {
 
   verifyCode: Yup.string()
     .required('validation.required')
-    .min(6, 'validation.otpLength')
-    .max(6, 'validation.otpLength'),
+    .min(MAX_OTP_DIGIT, 'validation.otpLength')
+    .max(MAX_OTP_DIGIT, 'validation.otpLength'),
   stringRequired: Yup.string().required('validation.required'),
   vietnameseCharacter: Yup.string()
     .trim()

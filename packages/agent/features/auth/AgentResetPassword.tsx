@@ -6,13 +6,16 @@ import TimerButton, {
 } from 'agent/components/TimerButton'
 import useAgentAlert from 'agent/hooks/useAgentAlert'
 import useOnAgentLogout from 'agent/hooks/useOnAgentLogout'
-import CommonBackHeader from 'agent/navigation/components/CommonBackHeader'
 import { useSendOTPMutation } from 'agent/services/accountApi'
 import { IResponse } from 'agent/services/common/agentAxiosBaseQuery'
 import { useResetPasswordMutation } from 'agent/services/userApi'
 import { AgentAuthActions } from 'agent/store/agentAuthReducer'
 import { HAS_LOG_IN_MAP } from 'agent/utils/authUtil'
-import validation, { getErrorMessage } from 'agent/utils/validation'
+import validation, {
+  getErrorMessage,
+  MAX_OTP_DIGIT,
+  MAX_PHONE_DIGIT,
+} from 'agent/utils/validation'
 import { AGENT_STACK_CONTENT_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
@@ -21,7 +24,7 @@ import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Flex, Image, ScrollView, Text, useDripsyTheme, View } from 'dripsy'
 import { useFormik } from 'formik'
 import { useRef, useState } from 'react'
-import { Platform, useWindowDimensions } from 'react-native'
+import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useDispatch } from 'react-redux'
 import * as Yup from 'yup'
@@ -43,7 +46,7 @@ const AgentResetPassword = () => {
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [isOtpLoading, setIsOtpLoading] = useState(false)
-  const { top, bottom } = useSafeArea()
+  const { top } = useSafeArea()
   const dispatch = useDispatch()
   const { logout } = useOnAgentLogout()
 
@@ -103,7 +106,7 @@ const AgentResetPassword = () => {
       password: validation.password,
       confirmpassword: validation.confirmPassword,
       mobile_no: validation.phoneNumber,
-      OTP: validation.stringRequired,
+      OTP: validation.verifyCode,
     }),
     onSubmit,
   })
@@ -289,6 +292,7 @@ const AgentResetPassword = () => {
             containerProps={{
               sx: { mb: '$3' },
             }}
+            maxLength={MAX_PHONE_DIGIT}
             isRequired
             error={
               touched.mobile_no && errors.mobile_no
@@ -318,6 +322,7 @@ const AgentResetPassword = () => {
             onChangeText={handleChange('OTP')}
             onBlur={handleBlur('OTP')}
             keyboardType={'numeric'}
+            maxLength={MAX_OTP_DIGIT}
           />
           <Button
             onPress={submitForm}

@@ -4,7 +4,7 @@ import CheckBox from 'agent/components/CheckBox'
 import Input from 'agent/components/Input'
 import Select from 'agent/components/Select/Select'
 import { NewEarnPercentagePercList } from 'agent/services/shareholderApi.type'
-import { PASSWORD_MAX_LENGTH } from 'agent/utils/validation'
+import { USERNAME_MAX_LENGTH } from 'agent/utils/validation'
 import { useAgentLocalization } from 'app/provider/localization'
 import { Flex } from 'dripsy'
 import { FormikProps } from 'formik'
@@ -122,6 +122,7 @@ const CreateForm = <T,>({
       <Input
         label={t('common.username')}
         isRequired
+        maxLength={USERNAME_MAX_LENGTH}
         placeholder={t('placeholder.enterUsername')}
         value={values.username}
         onChangeText={handleChange('username')}

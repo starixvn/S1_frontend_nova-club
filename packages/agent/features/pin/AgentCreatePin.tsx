@@ -15,6 +15,8 @@ import {
 } from 'agent/services/userApi'
 import { ROLE } from 'agent/utils/helper'
 import validation, {
+  MAX_OTP_DIGIT,
+  MAX_PHONE_DIGIT,
   getErrorMessage,
   removeAgentPhoneNumPrefix,
 } from 'agent/utils/validation'
@@ -22,7 +24,7 @@ import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
 import { ActivityIndicator, ScrollView, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import * as Yup from 'yup'
 import AgentUnderlinePinField from './AgentUnderlinePinField'
@@ -221,6 +223,7 @@ const AgentCreatePin = () => {
                 onBlur={handleBlur('mobileNumber')}
                 keyboardType={'numeric'}
                 value={values.mobileNumber}
+                maxLength={MAX_PHONE_DIGIT}
               />
               <Input
                 label={t('common.enter') + ' ' + t('common.otp')}
@@ -236,6 +239,7 @@ const AgentCreatePin = () => {
                       })
                     : undefined
                 }
+                maxLength={MAX_OTP_DIGIT}
                 onChangeText={handleChange('otp')}
                 onBlur={handleBlur('otp')}
                 keyboardType={'numeric'}
