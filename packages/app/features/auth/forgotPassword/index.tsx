@@ -10,7 +10,7 @@ import validation, {
 } from 'app/utils/validation'
 import { Text, useDripsyTheme, View } from 'dripsy'
 import { FormikHelpers, FormikTouched, useFormik } from 'formik'
-import { useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { Platform, TextInput as RNTextField } from 'react-native'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import {
@@ -20,12 +20,18 @@ import {
 import * as Yup from 'yup'
 import ReceiveOTPContact from '../common/ReceiveOTPContact'
 import AuthLayout from '../layout/AuthLayout'
+import { USERNAME_MAX_LENGTH } from 'agent/utils/validation'
+import { LoginType } from '../type'
+import { createParam } from 'solito'
+import useAgentForgotPassword from './hooks/useAgentForgotPassword'
 
-interface ForgotPasswordFormValues {
+export interface ForgotPasswordFormValues {
+  username: string
   contactNumber: string
   verifyCode: string
   password: string
   confirmPassword: string
+  isAgent: boolean
 }
 
 const enum CURRENT_ACTION {
@@ -37,13 +43,19 @@ const enum ERROR_CODE {
   INVALID_OTP = 10021,
 }
 
+const { useParam } = createParam<{ t: LoginType }>()
 const ForgotPassword = () => {
+  const [type] = useParam('t', { initial: LoginType.Member })
+  const isAgent = useMemo(() => type === LoginType.Agent, [type])
+
   const { t } = useLocalization()
   const { theme } = useDripsyTheme()
   const { push, replace } = useContextualRouter()
   const { showAlert } = useAlert()
 
   const [currentAction, setCurrentAction] = useState(CURRENT_ACTION.GET_OTP)
+  const usernameFieldRef = useRef<RNTextField>(null)
+  const contactNumberFieldRef = useRef<RNTextField>(null)
   const otpFieldRef = useRef<RNTextField>(null)
   const confirmPasswordFieldRef = useRef<RNTextField>(null)
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
@@ -52,34 +64,38 @@ const ForgotPassword = () => {
     useSendPasswordRecoveryOtpMutation()
   const [recoverPassword] = usePasswordRecoveryMutation()
 
+  const { agentResetPassword, agentSendOTP, isAgentLoading, isAgentSuccess } =
+    useAgentForgotPassword()
+
   const onSubmit = async (
-    {
-      password,
-      confirmPassword,
-      verifyCode,
-      contactNumber,
-    }: ForgotPasswordFormValues,
+    formValues: ForgotPasswordFormValues,
     actions: FormikHelpers<ForgotPasswordFormValues>
   ) => {
     try {
-      const data = await recoverPassword({
-        password,
-        cpassword: confirmPassword,
-        // WIP: Prefix should not be hardcoded
-        contactNumber: '84' + contactNumber,
-        verify_code: verifyCode,
-      })
-        .unwrap()
-        .catch((error) => {
-          showAlert(error)
-          return error
+      if (isAgent) {
+        agentResetPassword(formValues, actions)
+      } else {
+        const { password, confirmPassword, verifyCode, contactNumber } =
+          formValues
+        const data = await recoverPassword({
+          password,
+          cpassword: confirmPassword,
+          // WIP: Prefix should not be hardcoded
+          contactNumber: '84' + contactNumber,
+          verify_code: verifyCode,
         })
+          .unwrap()
+          .catch((error) => {
+            showAlert(error)
+            return error
+          })
 
-      if (data?.success) {
-        Toast.show({ type: 'success', text1: data?.message })
-        actions.resetForm()
-        if (Platform.OS === 'web') replace('/auth/login')
-        else push('/auth/login')
+        if (data?.success) {
+          Toast.show({ type: 'success', text1: data?.message })
+          actions.resetForm()
+          if (Platform.OS === 'web') replace('/auth/login')
+          else push('/auth/login')
+        }
       }
     } catch (error) {
       const errorMessage = getErrorMessage(error)
@@ -100,12 +116,18 @@ const ForgotPassword = () => {
 
   const formik = useFormik<ForgotPasswordFormValues>({
     initialValues: {
+      username: '',
       password: '',
       confirmPassword: '',
       contactNumber: '',
       verifyCode: '',
+      isAgent: isAgent ? true : false,
     },
     validationSchema: Yup.object({
+      username: Yup.string().when('isAgent', {
+        is: true,
+        then: validation.username,
+      }),
       password: validation.password,
       confirmPassword: validation.confirmPassword,
       contactNumber: validation.phoneNumber,
@@ -129,6 +151,7 @@ const ForgotPassword = () => {
     setTouched,
     setFieldError,
   } = formik
+  console.log('🚀 ~ file: index.tsx:154 ~ ForgotPassword ~ errors:', errors)
 
   const isFormFieldValid = async (
     fields: FormikTouched<ForgotPasswordFormValues>
@@ -166,11 +189,14 @@ const ForgotPassword = () => {
 
   const onSendOtp = async () => {
     const isValid = await isFormFieldValid({
+      username: true,
       contactNumber: true,
     })
 
     if (isValid) {
-      sendOTP()
+      isAgent
+        ? agentSendOTP(OTPRef, values.username, values.contactNumber)
+        : sendOTP()
     }
   }
 
@@ -184,13 +210,38 @@ const ForgotPassword = () => {
       setCurrentAction(CURRENT_ACTION.SET_PASSWORD)
     }
   }
-
+  console.log('editable', !isSuccess, !isAgentSuccess)
   return (
     <AuthLayout
       headerDesc={t('auth.forgotPassword')}
       headerColor="#000000"
       gradientColor={['#18d2e8', '#6afcf7']}
     >
+      {isAgent && (
+        <TextInput
+          _icon="avatar"
+          _input={{
+            textContentType: 'username',
+            placeholder: t('common.username'),
+            value: values.username,
+            onChangeText: handleChange('username'),
+            onBlur: handleBlur('username'),
+            autoCapitalize: 'none',
+            ref: usernameFieldRef,
+            onSubmitEditing: () => {
+              contactNumberFieldRef.current?.focus()
+            },
+            maxLength: USERNAME_MAX_LENGTH,
+          }}
+          error={
+            touched.username && errors.username
+              ? t(errors.username, {
+                  field: t('common.username'),
+                })
+              : undefined
+          }
+        />
+      )}
       <TextInput
         _icon="avatar"
         prefix="+84"
@@ -211,7 +262,7 @@ const ForgotPassword = () => {
             accessibilityRole="button"
             ref={OTPRef}
             title={t('common.send')}
-            loading={isOtpLoading}
+            loading={isOtpLoading || isAgentLoading}
             onPress={onSendOtp}
             sx={{
               width: 'auto',
@@ -246,8 +297,10 @@ const ForgotPassword = () => {
           onSubmitEditing: checkInitialForm,
           keyboardType: 'number-pad',
           maxLength: 6,
-          editable: isSuccess,
-          ...(Platform.OS === 'web' && { disabled: !isSuccess }),
+          editable: isSuccess || isAgentSuccess,
+          ...(Platform.OS === 'web' && {
+            disabled: !isSuccess && !isAgentSuccess,
+          }),
         }}
         error={
           touched.verifyCode && errors.verifyCode
@@ -313,7 +366,7 @@ const ForgotPassword = () => {
           {currentAction === CURRENT_ACTION.GET_OTP ? (
             <Button
               stretch
-              disabled={!isSuccess || !!errors.verifyCode}
+              disabled={(!isSuccess && !isAgentSuccess) || !!errors.verifyCode}
               onPress={checkInitialForm}
               sx={{ mt: '$8' }}
             >

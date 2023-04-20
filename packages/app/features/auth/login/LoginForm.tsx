@@ -27,6 +27,7 @@ import { useLoginMutation } from 'services/authApi'
 import { Shield_Action } from 'services/authApi.type'
 import { createParam } from 'solito'
 import * as Yup from 'yup'
+import { LoginType } from '../type'
 
 const { useParam } = createParam()
 
@@ -265,7 +266,13 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
           alignItems: 'flex-end',
         }}
       >
-        <TouchableOpacity onPress={() => push('/auth/forget-password')}>
+        <TouchableOpacity
+          onPress={() =>
+            push('/auth/forget-password', {
+              t: isAgent ? LoginType.Agent : LoginType.Member,
+            })
+          }
+        >
           <Text
             sx={{
               opacity: 0.43,

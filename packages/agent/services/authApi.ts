@@ -1,6 +1,11 @@
 import { EndpointBuilderType } from 'services/common/types'
 import { agentBaseApiWithTag } from './agentBaseApi'
-import { LoginQueryArgs, LoginResult, UserInfo } from './authApi.type'
+import {
+  LoginQueryArgs,
+  LoginResult,
+  ResetPwArgs,
+  ResetPwSendOtpArgs,
+} from './authApi.type'
 import { IResponse } from './common/agentAxiosBaseQuery'
 
 export const authApi = agentBaseApiWithTag.injectEndpoints({
@@ -14,7 +19,23 @@ export const authApi = agentBaseApiWithTag.injectEndpoints({
         },
       }),
     }),
+    resetPwSendOtp: builder.mutation<IResponse<void>, ResetPwSendOtpArgs>({
+      query: (queryArgs) => ({
+        url: '/forgetPw/sendOtp',
+        data: { ...queryArgs },
+      }),
+    }),
+    resetPw: builder.mutation<IResponse<LoginResult>, ResetPwArgs>({
+      query: (queryArgs) => ({
+        url: '/forgetPw/resetPw',
+        data: { ...queryArgs },
+      }),
+    }),
   }),
 })
 
-export const { useLoginMutation } = authApi
+export const {
+  useLoginMutation,
+  useResetPwMutation,
+  useResetPwSendOtpMutation,
+} = authApi
