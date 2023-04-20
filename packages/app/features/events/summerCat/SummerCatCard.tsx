@@ -8,7 +8,7 @@ const COIN_IMG = require('../../../assets/images/events/summerCat/coin.png')
 interface SummerCatCardProps {
   value: number
   img: any
-  prizeImg: any
+  prizeImg?: any
   resetCard: boolean
   disabled: boolean
   flipSound: SoundController
@@ -44,6 +44,8 @@ const SummerCatCard = ({
     },
   })
 
+  console.log(prizeImg)
+
   return (
     <>
       <Pressable
@@ -65,6 +67,11 @@ const SummerCatCard = ({
         <MotiView state={opened} style={[styles.shape, styles.shape2]}>
           <>
             <MotiImage
+              animate={{ scale: resetCard && prizeImg ? [1.2, 1] : undefined }}
+              from={{ scale: 1 }}
+              transition={{
+                loop: resetCard && prizeImg ? true : false,
+              }}
               style={{
                 height: 90,
                 width: 100,
@@ -72,6 +79,11 @@ const SummerCatCard = ({
               source={img}
             />
             <MotiImage
+              animate={{ scale: resetCard && prizeImg ? [1.2, 1] : undefined }}
+              from={{ scale: 1 }}
+              transition={{
+                loop: resetCard && prizeImg ? true : false,
+              }}
               style={{
                 height: 155,
                 width: 170,
@@ -79,7 +91,7 @@ const SummerCatCard = ({
                 top: -28,
                 left: -35,
                 zIndex: -100,
-                opacity: !resetCard ? 0 : 1,
+                opacity: resetCard ? 1 : 0,
               }}
               source={prizeImg}
             />

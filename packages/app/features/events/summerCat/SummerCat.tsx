@@ -1,9 +1,9 @@
 import IconButton from 'app/components/form/IconButton'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { ActivityIndicator, ScrollView, Text, View } from 'dripsy'
+import { ActivityIndicator, Image, ScrollView, Text, View } from 'dripsy'
 import _ from 'lodash'
-import { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { ImageBackground, Platform } from 'react-native'
 import CoinBox from './CoinBox'
 import Result from './Result'
@@ -11,11 +11,13 @@ import SummerCatCard from './SummerCatCard'
 import useSoundController from './useSoundController'
 import {
   useCheckTicketSpinQuery,
-  useTicketSpinMutation,
+  useLuckyDrawMutation,
 } from 'services/eventApi'
 import useAlert from 'app/hooks/useAlert'
 import { getErrorMessage } from 'app/utils/validation'
 import useLocalization from 'app/provider/localization'
+import TouchableOpacity from 'app/pressable/TouchableOpacity'
+import StartNow from './StartNow'
 
 const possibleResult = [0, 38000, 388000, 3888000]
 
@@ -38,13 +40,11 @@ const SummerCat = () => {
   const { top, bottom } = useSafeArea()
 
   const [buttonMap, setButtoMap] = useState<Array<number>>([])
-  const [result, setResult] = useState(
-    possibleResult[Math.floor(Math.random() * possibleResult.length)]
-  )
+  const [result, setResult] = useState<number>() || undefined
   const [flipPage, setFlipPage] = useState(true)
   const [resetCard, setResetCard] = useState(false)
   const [prizePress, setPrizePress] = useState(0)
-  const [disabledButtons, setDisabledButtons] = useState<Array<Number>>([])
+  const [disabledButtons, setDisabledButtons] = useState<Array<number>>([])
   const [isSubmitting, setSubmitting] = useState(false)
 
   const soundController = useSoundController()
@@ -59,24 +59,23 @@ const SummerCat = () => {
     selectFromResult: (s) => ({ ...s, balance: s.data?.data }),
   })
 
-  const [spin] = useTicketSpinMutation()
+  const [draw] = useLuckyDrawMutation()
 
   const imageBackgroundref = useCallback((node) => {
     if (!node) return
 
     const backgroundImage = node.childNodes
-    backgroundImage[0].style.backgroundPosition = 'top'
+    backgroundImage[0].style.backgroundPosition = 'bottom'
   }, [])
 
   async function getResult() {
     try {
       setSubmitting(true)
-      // const success = true
-      // const data = testResuls
-      // const message = 'test'
-      const { data, success, message } = await spin().unwrap()
+      const { data, success, message } = await draw().unwrap()
 
-      if (success) {
+      if (success && data) {
+        console.log('res', data)
+        setResult(parseInt(data[0]?.amount))
       } else {
         showAlert(message)
       }
@@ -89,6 +88,7 @@ const SummerCat = () => {
   }
 
   function handleSetReward() {
+    if (!(result || result! >= 0)) return
     const randoms: typeof buttonMap = []
     const frequencyCounter = {}
     const filteredArray = possibleResult.filter((value) => value !== result)
@@ -113,6 +113,7 @@ const SummerCat = () => {
       randoms.push(result)
     }
 
+    console.log('handle set reward result', randoms)
     return shuffle(randoms)
   }
 
@@ -133,9 +134,12 @@ const SummerCat = () => {
   }
 
   useEffect(() => {
-    setButtoMap(handleSetReward)
+    console.log('check flip page props', result)
+    if (result! >= 0) {
+      setButtoMap(handleSetReward)
+    }
     setResetCard(false)
-  }, [flipPage])
+  }, [flipPage, result])
 
   useEffect(() => {
     if (prizePress === 3) {
@@ -148,18 +152,18 @@ const SummerCat = () => {
 
       setTimeout(() => {
         setFlipPage(false)
-      }, 5000)
+      }, 1600)
     }
 
     if (flipPage && prizePress === 3) {
       setDisabledButtons([])
       setPrizePress(0)
-      // setButtoMap(handleSetReward)
       //reset new result
       //enable all button
     }
-    //onpress shall set index? disabled on which condition? need study through
   }, [prizePress, flipPage])
+
+  console.log(balance?.totalBalance)
 
   return (
     <View sx={{ flex: 1 }}>
@@ -167,9 +171,6 @@ const SummerCat = () => {
         imageRef={Platform.select({ web: imageBackgroundref })}
         source={require('../../../assets/images/events/summerCat/sea_bg.jpg')}
         resizeMode={Platform.OS === 'web' ? 'cover' : 'cover'}
-        // imageStyle={Platform.select({
-        //   web: { backgroundPosition: '0px 100px' },
-        // })}
         style={{
           flex: 1,
         }}
@@ -204,9 +205,9 @@ const SummerCat = () => {
           contentContainerStyle={{
             flex: 1,
             alignItems: 'center',
-            // paddingTop: top,
             paddingBottom: bottom,
             justifyContent: 'center',
+            minWidth: 400,
           }}
           sx={Platform.select({
             web: {
@@ -214,45 +215,49 @@ const SummerCat = () => {
             },
           })}
         >
-          <View sx={{ margin: 20 }}>
+          <View>
             {flipPage ? (
               <CoinBox title={t('event.catEvent.miniGame.matchThree')}>
-                {groupedData.map((group, i) => (
-                  <View key={i} sx={{ flexDirection: 'row' }}>
-                    {group.map((e, j) => {
-                      const counter = j + i * 3
-                      const isDisabled = disabledButtons.includes(counter)
-                      return (
-                        <SummerCatCard
-                          key={counter}
-                          value={e}
-                          img={catDict[e]}
-                          prizeImg={e === result && prizeDict[e]}
-                          resetCard={resetCard}
-                          disabled={isDisabled}
-                          flipSound={soundController}
-                          onPress={() => {
-                            if (result === e) {
-                              setPrizePress(prizePress + 1)
-                            }
-                            setDisabledButtons([...disabledButtons, counter])
-                          }}
-                        />
-                      )
-                    })}
-                  </View>
-                ))}
+                {result || result! >= 0 ? (
+                  groupedData.map((group, i) => (
+                    <View key={i} sx={{ flexDirection: 'row' }}>
+                      {group.map((e, j) => {
+                        const counter = j + i * 3
+                        const isDisabled = disabledButtons.includes(counter)
+                        return (
+                          <SummerCatCard
+                            key={counter}
+                            value={e}
+                            img={catDict[e]}
+                            prizeImg={e === result && prizeDict[e]}
+                            resetCard={resetCard}
+                            disabled={isDisabled}
+                            flipSound={soundController}
+                            onPress={() => {
+                              if (result === e) {
+                                setPrizePress(prizePress + 1)
+                              }
+                              setDisabledButtons([...disabledButtons, counter])
+                            }}
+                          />
+                        )
+                      })}
+                    </View>
+                  ))
+                ) : (
+                  <StartNow
+                    disable={balance?.totalBalance === 0}
+                    isSubmitting={isSubmitting}
+                    onPress={() => getResult()}
+                  />
+                )}
               </CoinBox>
             ) : (
               <Result
                 result={result!}
                 onPress={() => {
                   setFlipPage(true)
-                  setResult(
-                    possibleResult[
-                      Math.floor(Math.random() * possibleResult.length)
-                    ]
-                  )
+                  setResult(undefined)
                 }}
               />
             )}
@@ -260,7 +265,7 @@ const SummerCat = () => {
               sx={{
                 alignSelf: 'flex-start',
                 marginTop: 20,
-                bg: 'rgba(255,255,255,0.3)',
+                bg: 'rgba(37,89,139,0.7)',
                 borderRadius: 30,
                 borderWidth: 6,
                 borderColor: 'white',
@@ -268,30 +273,24 @@ const SummerCat = () => {
                 width: 150,
               }}
             >
-              {isFetching ? (
-                <ActivityIndicator color={'white'} size="large" />
-              ) : (
-                <>
-                  <Text
-                    sx={{
-                      textAlign: 'center',
-                      fontWeight: '900',
-                      fontSize: 20,
-                    }}
-                  >
-                    {balance ? balance.totalSpin : 0}
-                  </Text>
-                  <Text
-                    sx={{
-                      textAlign: 'center',
-                      fontWeight: '900',
-                      fontSize: 10,
-                    }}
-                  >
-                    {t('event.catEvent.miniGame.ticketLeft')}
-                  </Text>
-                </>
-              )}
+              <Text
+                sx={{
+                  textAlign: 'center',
+                  fontWeight: '900',
+                  fontSize: 20,
+                }}
+              >
+                {balance ? balance.totalBalance : 0}
+              </Text>
+              <Text
+                sx={{
+                  textAlign: 'center',
+                  fontWeight: '900',
+                  fontSize: 10,
+                }}
+              >
+                {t('event.catEvent.miniGame.ticketLeft')}
+              </Text>
             </View>
           </View>
         </ScrollView>
