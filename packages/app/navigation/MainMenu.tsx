@@ -59,7 +59,7 @@ const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
         onPress: () => {
           try {
             if (isAgentLoggedIn) {
-              push('/agent')
+              push('/agent/profile')
             } else {
               push('/auth/login', {
                 t: LoginType.Agent,

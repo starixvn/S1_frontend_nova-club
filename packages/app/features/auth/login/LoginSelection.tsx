@@ -4,6 +4,10 @@ import { Text, View } from 'dripsy'
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import { LoginType } from '../type'
+import { useSelector } from 'react-redux'
+import { RootState, useAppSelector } from 'app/provider/redux/store'
+import { replace } from 'formik'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 
 type LoginSelectionProps = {
   setType: (s: LoginType) => void
@@ -11,6 +15,10 @@ type LoginSelectionProps = {
 }
 const LoginSelection = ({ setType, isAgent = false }: LoginSelectionProps) => {
   const { t } = useLocalization()
+  const agentToken = useSelector((s: RootState) => s.agent.access_token)
+  const { token: memberToken } =
+    useAppSelector((state) => state.auth.info) || {}
+  const { replace } = useContextualRouter()
 
   return (
     <View
@@ -21,38 +29,42 @@ const LoginSelection = ({ setType, isAgent = false }: LoginSelectionProps) => {
         flexDirection: 'row',
       }}
     >
-      <DripsyGradient
-        colors={
-          !isAgent ? ['#69E1FC', '#008CD5'] : ['#33B4D4', '#1F99C7', '#0F84BB']
-        }
-        sx={{
-          width: '50%',
-          height: '100%',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <TouchableOpacity
-          disabled={!isAgent}
-          style={{
-            width: '100%',
+      {memberToken ? null : (
+        <DripsyGradient
+          colors={
+            !isAgent
+              ? ['#69E1FC', '#008CD5']
+              : ['#33B4D4', '#1F99C7', '#0F84BB']
+          }
+          sx={{
+            flexGrow: 1,
             height: '100%',
             justifyContent: 'center',
+            alignItems: 'center',
           }}
-          onPress={() => setType(LoginType.Member)}
         >
-          <Text
-            sx={{
-              color: !isAgent ? 'white' : '#004e65',
-              fontSize: 14,
-              fontWeight: 'bold',
-              textAlign: 'center',
+          <TouchableOpacity
+            disabled={!isAgent}
+            style={{
+              width: '100%',
+              height: '100%',
+              justifyContent: 'center',
             }}
+            onPress={() => setType(LoginType.Member)}
           >
-            {t('auth.memberLogin')}
-          </Text>
-        </TouchableOpacity>
-      </DripsyGradient>
+            <Text
+              sx={{
+                color: !isAgent ? 'white' : '#004e65',
+                fontSize: 14,
+                fontWeight: 'bold',
+                textAlign: 'center',
+              }}
+            >
+              {t('auth.memberLogin')}
+            </Text>
+          </TouchableOpacity>
+        </DripsyGradient>
+      )}
 
       {/* <View sx={{ borderWidth: 1, borderColor: 'white' }} /> */}
       <DripsyGradient
@@ -60,7 +72,7 @@ const LoginSelection = ({ setType, isAgent = false }: LoginSelectionProps) => {
           isAgent ? ['#69E1FC', '#008CD5'] : ['#33B4D4', '#1F99C7', '#0F84BB']
         }
         sx={{
-          width: '50%',
+          flexGrow: 1,
           height: '100%',
           justifyContent: 'center',
           alignItems: 'center',
@@ -73,7 +85,12 @@ const LoginSelection = ({ setType, isAgent = false }: LoginSelectionProps) => {
             height: '100%',
             justifyContent: 'center',
           }}
-          onPress={() => setType(LoginType.Agent)}
+          onPress={() => {
+            if (agentToken) {
+              replace('/agent/profile')
+            }
+            setType(LoginType.Agent)
+          }}
         >
           <Text
             sx={{
