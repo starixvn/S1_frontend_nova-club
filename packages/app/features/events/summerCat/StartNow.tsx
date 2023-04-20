@@ -54,7 +54,7 @@ const StartNow = ({ disable, isSubmitting, onPress }: StartNowProps) => {
 
     return coinLoopContainers
   }
-  console.log(disable)
+
   return (
     <>
       {renderCoinLoopContainer()}
@@ -76,7 +76,7 @@ const StartNow = ({ disable, isSubmitting, onPress }: StartNowProps) => {
             justifyContent: 'center',
             alignItems: 'center',
           }}
-          //   disabled={disable || true}
+          disabled={disable ?? true}
           onPress={onPress}
         >
           {isSubmitting ? (

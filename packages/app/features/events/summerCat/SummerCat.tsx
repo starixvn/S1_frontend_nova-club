@@ -1,23 +1,22 @@
 import IconButton from 'app/components/form/IconButton'
+import useAlert from 'app/hooks/useAlert'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
+import useLocalization from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { ActivityIndicator, Image, ScrollView, Text, View } from 'dripsy'
+import { getErrorMessage } from 'app/utils/validation'
+import { ScrollView, Text, View } from 'dripsy'
 import _ from 'lodash'
 import React, { useCallback, useEffect, useState } from 'react'
 import { ImageBackground, Platform } from 'react-native'
-import CoinBox from './CoinBox'
-import Result from './Result'
-import SummerCatCard from './SummerCatCard'
-import useSoundController from './useSoundController'
 import {
   useCheckTicketSpinQuery,
   useLuckyDrawMutation,
 } from 'services/eventApi'
-import useAlert from 'app/hooks/useAlert'
-import { getErrorMessage } from 'app/utils/validation'
-import useLocalization from 'app/provider/localization'
-import TouchableOpacity from 'app/pressable/TouchableOpacity'
+import CoinBox from './CoinBox'
+import Result from './Result'
 import StartNow from './StartNow'
+import SummerCatCard from './SummerCatCard'
+import useSoundController from './useSoundController'
 
 const possibleResult = [0, 38000, 388000, 3888000]
 
@@ -109,7 +108,6 @@ const SummerCat = () => {
     }
 
     for (let i = 0; i < 3; i++) {
-      // Add result into array
       randoms.push(result)
     }
 
@@ -158,12 +156,8 @@ const SummerCat = () => {
     if (flipPage && prizePress === 3) {
       setDisabledButtons([])
       setPrizePress(0)
-      //reset new result
-      //enable all button
     }
   }, [prizePress, flipPage])
-
-  console.log(balance?.totalBalance)
 
   return (
     <View sx={{ flex: 1 }}>
