@@ -1,28 +1,44 @@
+import EmptyResult from 'agent/components/DataTable/EmptyResult'
+import Text from 'agent/components/Text'
 import { UserTotalDownline } from 'agent/services/userApi.type'
 import { useAgentLocalization } from 'app/provider/localization'
 import { styled, View } from 'dripsy'
+import { useEffect, useState } from 'react'
 import { PieChart } from 'react-native-chart-kit'
 import { ParseDownlineChart } from './ParseDownlineChart'
-import Text from 'agent/components/Text'
 
 interface ProfileChartProps {
   downline: UserTotalDownline
 }
 
 const ProfileChart = ({ downline }: ProfileChartProps) => {
+  const [hasChart, setHasChart] = useState(true)
   const data = ParseDownlineChart({
     downline,
   })
+
+  const checkHasChart = () => {
+    const allFalse = data.every((d) => !d.showChart)
+    setHasChart(!allFalse)
+  }
+
+  useEffect(() => {
+    checkHasChart()
+  }, [data])
+
   return (
-    <>
-      {data.map((d, index) => {
-        return d.showChart ? (
-          <ChartRow key={d.chartName}>
-            <Chart data={d.chart} type={d.chartName} />
-          </ChartRow>
-        ) : null
-      })}
-    </>
+    <View sx={{ pt: '$5', pb: '$5' }}>
+      <>
+        {data.map((d, index) => {
+          return d.showChart ? (
+            <ChartRow key={d.chartName}>
+              <Chart data={d.chart} type={d.chartName} />
+            </ChartRow>
+          ) : null
+        })}
+        {!hasChart && <EmptyResult />}
+      </>
+    </View>
   )
 }
 

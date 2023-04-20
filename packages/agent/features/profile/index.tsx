@@ -35,7 +35,10 @@ const AgentProfile = () => {
       locations={[0.0, 0.1]}
       colors={['rgb(224,237,254)', '#ffffff']}
     >
-      <ScrollView contentContainerStyle={{}} sx={{ px: '$3', pt: '$1' }}>
+      <ScrollView
+        contentContainerStyle={{}}
+        sx={{ px: '$3', pt: '$4', mb: '$5' }}
+      >
         <ProfileTitle userRole={userRole} />
         <Card isLoading={loading} sx={{ mb: 30 }}>
           <ProfileContentContainer
@@ -58,7 +61,8 @@ const AgentProfile = () => {
   )
 }
 const ProfileContentContainer = styled(MotiView)({
-  minHeight: 800,
+  minHeight: 475,
   paddingBottom: '$5',
+  justifyContent: 'center',
 })
 export default AgentProfile

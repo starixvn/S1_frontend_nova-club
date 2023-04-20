@@ -109,7 +109,7 @@ export const userApi = agentBaseApiWithTag.injectEndpoints({
       query: (queryArgs) => ({
         url: '/user/resetPwd',
         data: {
-          queryArgs,
+          ...queryArgs,
         },
       }),
     }),
