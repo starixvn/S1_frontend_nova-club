@@ -198,7 +198,6 @@ const AddBankInfoForm = () => {
       setFieldValue('accountName', realName, false)
     }
   }, [phoneNo, realName, setFieldValue])
-  console.log(values.accountNumber)
 
   return (
     <>
