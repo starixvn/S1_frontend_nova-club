@@ -20,9 +20,13 @@ const NewRegistrationModal = ({
 
   const username = getParam('username', '')
   const password = getParam('password', '')
-
+  const textToCopy = `${t('shAgent.newNote1')}\n\n${t(
+    'common.username'
+  )}: ${username}\n${t('common.password')}: ${password}\n\n${t(
+    'shAgent.newNote2'
+  )} >>> ${SBO_LINK}\n\n${t('shAgent.newNote3')}`
   const handleCopy = () => {
-    copyToClipboard(SBO_LINK)
+    copyToClipboard(textToCopy)
   }
 
   return (

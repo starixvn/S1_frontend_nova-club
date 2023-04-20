@@ -20,7 +20,7 @@ export interface AddBankAccount {
 export interface AddBankAccountArgs {
   currency: Currency
   bank_code: string
-  acc_no: number
+  acc_no: string
   acc_name: string
   OTP: string
 }

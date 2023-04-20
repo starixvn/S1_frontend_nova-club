@@ -87,7 +87,7 @@ const AddBankInfoForm = () => {
       const { result, message, success } = await newBankAccount({
         currency,
         bank_code: bankCard,
-        acc_no: parseInt(accountNumber),
+        acc_no: accountNumber,
         acc_name: accountName,
         OTP: otp ?? '',
       })
@@ -198,6 +198,7 @@ const AddBankInfoForm = () => {
       setFieldValue('accountName', realName, false)
     }
   }, [phoneNo, realName, setFieldValue])
+  console.log(values.accountNumber)
 
   return (
     <>
