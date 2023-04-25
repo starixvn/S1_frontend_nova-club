@@ -2,7 +2,7 @@ import { AgentRoute } from '../NavigationType'
 
 const _Routes: Readonly<AgentRoute[]> = [
   {
-    route: '/agent/wallet/transfer',
+    route: '/agent/wallet/withdrawal',
     base: '/agent/wallet',
     title: 'wallet.title',
     icon: 'withdrawal-transfer',
