@@ -22,7 +22,7 @@ function ReferrerInformation({ sx = {}, ...rest }) {
   )
 
   useEffect(() => {
-    if (!error?.success) {
+    if (error && !error?.success) {
       dispatch(SettingActions.setReferral({ trackingCode: '' }))
     }
   }, [dispatch, error])
