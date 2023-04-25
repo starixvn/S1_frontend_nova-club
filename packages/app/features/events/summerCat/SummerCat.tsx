@@ -287,7 +287,9 @@ const SummerCat = () => {
                   ))
                 ) : (
                   <StartNow
-                    disable={balance?.totalBalance === 0}
+                    disable={
+                      !balance?.totalBalance || balance?.totalBalance === 0
+                    }
                     isSubmitting={isSubmitting}
                     onPress={() => getResult()}
                   />
