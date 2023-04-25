@@ -95,6 +95,7 @@ export function NavigationProvider({
               SpinMania: '/event/spin-mania',
               SpinManiaTnc: '/event/spin-mania-tnc',
               SummerCat: '/event/summer-cat',
+              CatEventTnc: '/event/cat-event-tnc',
             },
           },
         }),

@@ -1,6 +1,6 @@
-import { Pressable } from 'dripsy'
+import { Pressable, View } from 'dripsy'
 import { MotiImage, MotiView, useAnimationState } from 'moti'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, useWindowDimensions } from 'react-native'
 import useSoundController, { SoundController } from './useSoundController'
 
 const COIN_IMG = require('../../../assets/images/events/summerCat/coin.png')
@@ -24,6 +24,7 @@ const SummerCatCard = ({
   flipSound,
   onPress,
 }: SummerCatCardProps) => {
+  const { height, width } = useWindowDimensions()
   const closed = useAnimationState({
     from: {
       opacity: 1,
@@ -44,61 +45,75 @@ const SummerCatCard = ({
     },
   })
 
-  console.log(prizeImg)
-
   return (
     <>
-      <Pressable
-        onPress={() => {
-          if (!disabled && !resetCard) {
-            flipSound.play('flip')
-            closed.transitionTo('end')
-            opened.transitionTo('end')
-            onPress()
-            // setAnimate(true)
-          }
+      <View
+        sx={{
+          padding: 10,
         }}
       >
-        <MotiView state={closed} style={styles.shape}>
-          <MotiImage style={{ height: 100, width: 100 }} source={COIN_IMG} />
-          {/* <Text sx={{ textAlign: 'center' }}>Closed</Text> */}
-        </MotiView>
+        <Pressable
+          onPress={() => {
+            if (!disabled && !resetCard) {
+              flipSound.play('flip')
+              closed.transitionTo('end')
+              opened.transitionTo('end')
+              onPress()
+              // setAnimate(true)
+            }
+          }}
+        >
+          <MotiView state={closed} style={styles.shape}>
+            <MotiImage
+              style={{ aspectRatio: 1, width: Math.min(90, width * 0.2) }}
+              resizeMode={'contain'}
+              source={COIN_IMG}
+            />
+            {/* <Text sx={{ textAlign: 'center' }}>Closed</Text> */}
+          </MotiView>
+        </Pressable>
 
         <MotiView state={opened} style={[styles.shape, styles.shape2]}>
-          <>
+          <View>
             <MotiImage
-              animate={{ scale: resetCard && prizeImg ? [1.2, 1] : undefined }}
+              animate={{
+                scale: resetCard && prizeImg ? [1.2, 1] : undefined,
+              }}
               from={{ scale: 1 }}
               transition={{
                 loop: resetCard && prizeImg ? true : false,
               }}
               style={{
-                height: 90,
-                width: 100,
+                aspectRatio: 10 / 9,
+                width: Math.min(90, width * 0.2),
               }}
+              resizeMode={'contain'}
               source={img}
             />
             <MotiImage
-              animate={{ scale: resetCard && prizeImg ? [1.2, 1] : undefined }}
-              from={{ scale: 1 }}
+              animate={{
+                scale: resetCard && prizeImg ? [1.8, 1.55] : undefined,
+              }}
+              from={{ scale: 1.55 }}
               transition={{
                 loop: resetCard && prizeImg ? true : false,
               }}
               style={{
-                height: 155,
-                width: 170,
+                aspectRatio: 25 / 22,
+                width: Math.min(100, width * 0.225),
                 position: 'absolute',
-                top: -28,
-                left: -35,
+                left: -5,
+                top: -4,
                 zIndex: -100,
                 opacity: resetCard ? 1 : 0,
               }}
+              resizeMode={'contain'}
               source={prizeImg}
             />
-          </>
+          </View>
           {/* <Text sx={{ textAlign: 'center' }}>{value}</Text> */}
         </MotiView>
-      </Pressable>
+      </View>
     </>
   )
 }
@@ -108,10 +123,7 @@ export default SummerCatCard
 const styles = StyleSheet.create({
   shape: {
     justifyContent: 'center',
-    height: 100,
-    width: 100,
     borderRadius: 25,
-    margin: 10,
   },
   shape2: {
     position: 'absolute',

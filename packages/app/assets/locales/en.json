@@ -149,7 +149,8 @@
         "lose2": " BETTER LUCK NEXT TIME.",
         "next": "PLAY NEXT",
         "ticketLeft": "TICKET LEFT",
-        "tryAgain": "TRY AGAIN"
+        "tryAgain": "TRY AGAIN",
+        "start": "START"
       },
       "tnc": {}
     },

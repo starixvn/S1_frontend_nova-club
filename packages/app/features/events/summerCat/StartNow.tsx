@@ -1,7 +1,8 @@
 import Image from 'app/components/common/Image'
 import TouchableOpacity from 'app/pressable/TouchableOpacity'
+import useLocalization from 'app/provider/localization'
 import { ActivityIndicator, Text, View } from 'dripsy'
-import { Platform } from 'react-native'
+import { Platform, useWindowDimensions } from 'react-native'
 
 const COIN_IMG = require('../../../assets/images/events/summerCat/coin.png')
 
@@ -12,6 +13,8 @@ interface StartNowProps {
 }
 
 const StartNow = ({ disable, isSubmitting, onPress }: StartNowProps) => {
+  const { height, width } = useWindowDimensions()
+  const { t } = useLocalization()
   function renderCoinLoop() {
     const coinElement: React.ReactNode[] = []
     for (let i = 0; i < 3; i++) {
@@ -20,17 +23,13 @@ const StartNow = ({ disable, isSubmitting, onPress }: StartNowProps) => {
           key={i}
           style={{
             justifyContent: 'center',
-            height: 100,
-            width: 100,
             borderRadius: 25,
             margin: 10,
           }}
         >
           <Image
-            style={{
-              height: 100,
-              width: 100,
-            }}
+            style={{ aspectRatio: 1, width: Math.min(90, width * 0.2) }}
+            resizeMode={'contain'}
             source={COIN_IMG}
           />
           {/* <Text sx={{ textAlign: 'center' }}>Closed</Text> */}
@@ -104,7 +103,7 @@ const StartNow = ({ disable, isSubmitting, onPress }: StartNowProps) => {
                       : undefined,
                 }}
               >
-                START
+                {t('event.catEvent.miniGame.start')}
               </Text>
             </>
           )}

@@ -17,19 +17,17 @@ const Result = ({ result, onPress }: ResultProps) => {
     <View sx={{ marginTop: 70 }}>
       <ImageBackground
         source={require('../../../assets/images/events/summerCat/filter-blue.png')}
-        resizeMode="stretch"
-        style={{
-          width: 400,
-        }}
-        imageStyle={{ borderRadius: 35 }}
+        style={{}}
+        imageStyle={{ borderRadius: 45 }}
       >
         <ImageBackground
           source={require('../../../assets/images/events/summerCat/frame.png')}
           style={{}}
+          resizeMode={'stretch'}
         >
           <View
             sx={{
-              height: 400,
+              maxHeight: 370,
               padding: 20,
               borderRadius: 33,
               // backdropFilter: 'blur',
@@ -39,7 +37,7 @@ const Result = ({ result, onPress }: ResultProps) => {
               <View
                 sx={{
                   height: 160,
-                  marginTop: 70,
+                  marginTop: 60,
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}
@@ -112,17 +110,18 @@ const Result = ({ result, onPress }: ResultProps) => {
           <View
             sx={{
               position: 'absolute',
-              minWidth: 400,
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
               top: -40,
+              left: 0,
+              right: 0,
             }}
           >
             <Image
               sx={{
-                height: 100,
-                width: 300,
+                aspectRatio: 3 / 1,
+                width: Math.min(300, width * 0.7),
               }}
               resizeMode={'contain'}
               source={require('../../../assets/images/events/summerCat/lights.png')}

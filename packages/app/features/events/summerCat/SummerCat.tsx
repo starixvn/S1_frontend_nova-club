@@ -17,6 +17,10 @@ import Result from './Result'
 import StartNow from './StartNow'
 import SummerCatCard from './SummerCatCard'
 import useSoundController from './useSoundController'
+import Image from 'app/components/common/Image'
+import TouchableOpacity from 'app/pressable/TouchableOpacity'
+import { Action, ActionType, getAction } from 'app/utils/actionGenerator'
+import { useAppSelector } from 'app/provider/redux/store'
 
 const possibleResult = [0, 38000, 388000, 3888000]
 
@@ -34,8 +38,18 @@ const prizeDict = {
   3888000: require('../../../assets/images/events/summerCat/win3888.png'),
 }
 
+const tncData: Action = {
+  type: ActionType.INTERNAL_REDIRECT,
+  payload: {
+    uri: '/event/cat-event-tnc',
+    params: {
+      locale: 'vn',
+    },
+  },
+}
+
 const SummerCat = () => {
-  const { back } = useContextualRouter()
+  const { back, push } = useContextualRouter()
   const { top, bottom } = useSafeArea()
 
   const [buttonMap, setButtoMap] = useState<Array<number>>([])
@@ -50,6 +64,7 @@ const SummerCat = () => {
   const { play } = soundController
   const { showAlert } = useAlert()
   const { t } = useLocalization()
+  const locale = useAppSelector((s) => s.setting.locale)
 
   const groupedData = _.chunk(buttonMap, 3)
 
@@ -159,6 +174,12 @@ const SummerCat = () => {
     }
   }, [prizePress, flipPage])
 
+  const handleTncButton = useCallback(() => {
+    const action = getAction(tncData)
+    console.log(action)
+    action({ push, locale })
+  }, [locale])
+
   return (
     <View sx={{ flex: 1 }}>
       <ImageBackground
@@ -194,6 +215,33 @@ const SummerCat = () => {
             elevation: 4,
           }}
         />
+        <TouchableOpacity
+          onPress={() => handleTncButton()}
+          sx={{
+            top: top + 50,
+            right: 20,
+            zIndex: 3,
+            width: 40,
+            height: 40,
+            position: 'absolute',
+            borderRadius: 100,
+            shadowColor: '#000',
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.23,
+            shadowRadius: 2.62,
+
+            elevation: 4,
+          }}
+        >
+          <Image
+            source={require('app/assets/images/events/summerCat/btnTnC.png')}
+            resizeMode="contain"
+            style={{ width: '100%', height: '100%', zIndex: 1 }}
+          />
+        </TouchableOpacity>
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
@@ -201,7 +249,6 @@ const SummerCat = () => {
             alignItems: 'center',
             paddingBottom: bottom,
             justifyContent: 'center',
-            minWidth: 400,
           }}
           sx={Platform.select({
             web: {
@@ -209,7 +256,7 @@ const SummerCat = () => {
             },
           })}
         >
-          <View>
+          <View sx={{ width: '80%', maxWidth: 400 }}>
             {flipPage ? (
               <CoinBox title={t('event.catEvent.miniGame.matchThree')}>
                 {result || result! >= 0 ? (

@@ -37,6 +37,7 @@ import { Easing } from 'react-native'
 import SummerCat from '../../../../apps/next/pages/event/summer-cat'
 import DepositNavigation from './DepositNavigation'
 import TabNavigation from './TabNavigation'
+import CatEventTnc from 'app/features/events/summerCat/CatTnc'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -77,6 +78,7 @@ const Stack = createStackNavigator<{
   SpinMania: undefined
   SpinManiaTnc: undefined
   SummerCat: undefined
+  CatEventTnc: undefined
 }>()
 
 export function NativeNavigation() {
@@ -247,6 +249,7 @@ export function NativeNavigation() {
       <Stack.Screen name="SpinMania" component={SlotMachine} />
       <Stack.Screen name="SpinManiaTnc" component={SpinManiaTnc} />
       <Stack.Screen name="SummerCat" component={SummerCat} />
+      <Stack.Screen name="CatEventTnc" component={CatEventTnc} />
     </Stack.Navigator>
   )
 }

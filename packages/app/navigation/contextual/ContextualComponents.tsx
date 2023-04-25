@@ -39,8 +39,10 @@ const ContextualComponents = {
     import('app/features/events/spinMania/SlotMachine'),
   '/event/spin-mania-tnc': () =>
     import('../../../../apps/next/pages/event/spin-mania-tnc'),
-  '/event/summer-cat': () =>
+  '/event/cat-event': () =>
     import('../../../../apps/next/pages/event/summer-cat'),
+  '/event/cat-event-tnc': () =>
+    import('../../../../apps/next/pages/event/cat-event-tnc'),
 }
 
 export type ContextualComponentType = keyof typeof ContextualComponents
