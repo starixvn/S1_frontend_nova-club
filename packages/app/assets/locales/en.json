@@ -298,6 +298,10 @@
     "personalMessage": "Personal Message"
   },
   "notes": {
+    "crypto": {
+      "n1": "This is a one-time address. Please do not save this address for future use",
+      "n2": "Please complete your transaction within the time frame given."
+    },
     "deposit": {
       "n1": "Kindly please check for the latest active deposit bank details before you making a deposit.",
       "n2": "For using Bank Transfer deposit option, please make the transfer done before submit the transaction to avoid the transaction delay.",

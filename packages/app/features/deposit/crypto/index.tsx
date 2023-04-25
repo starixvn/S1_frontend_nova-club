@@ -1,7 +1,7 @@
 import MenuNotice from 'app/components/common/MenuNotice'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
-import { DEPOSIT_NOTES } from 'app/constant/notes'
+import { CRYPTO_NOTES } from 'app/constant/notes'
 import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
 import React from 'react'
@@ -18,7 +18,7 @@ const CryptoScreen = () => {
         title: t('deposit.depositMethod.crypto'),
         actions: (
           <MenuNotice
-            onPress={() => openModal('NoticeModal', { notice: DEPOSIT_NOTES })}
+            onPress={() => openModal('NoticeModal', { notice: CRYPTO_NOTES })}
           />
         ),
       }}

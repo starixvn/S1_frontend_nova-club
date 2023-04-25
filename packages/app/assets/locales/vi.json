@@ -298,6 +298,10 @@
     "personalMessage": "Tin nhắn khách hàng"
   },
   "notes": {
+    "crypto": {
+      "n1": "Địa chỉ là được cung cấp một lần. Vui lòng không lưu lại thông tin địa chỉ để sử dụng thêm",
+      "n2": "Hoàn thành giao dịch nhanh chóng"
+    },
     "deposit": {
       "n1": "Vui lòng luôn cập nhật thông tin tài khoản ngân hàng đang hoạt động trước khi gửi tiền.",
       "n2": "Nếu chọn “Chuyển khoản”, vui lòng thực hiện chuyển khoản trước khi thực hiện lệnh gửi để tránh giao dịch bị chậm.",
