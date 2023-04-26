@@ -19,14 +19,14 @@ class CustomDocument extends Document {
           />
 
           {/* Detecas input Must be server rendered and local script must be executed before the external detecas script is loaded  */}
-          <input
+          {/* <input
             id="detecas-analysis"
             name="detecas-analysis"
             value="{}"
             type="hidden"
           />
-          <input id="__tk" name="__tk" value="" type="hidden" />
-          <script
+          <input id="__tk" name="__tk" value="" type="hidden" /> */}
+          {/* <script
             dangerouslySetInnerHTML={{
               __html: `
               var analysis = document.getElementById("detecas-analysis")
@@ -35,7 +35,7 @@ class CustomDocument extends Document {
                   "js-enabled" + String.fromCharCode(64) + new Date().getTime()
               }
         
-              /* Copyright(c) 2018, iovation, inc. All rights reserved. */
+              /* Copyright(c) 2018, iovation, inc. All rights reserved. 
               window.IGLOO = window.IGLOO || {
                 enable_flash: false,
                 loader: {
@@ -45,7 +45,7 @@ class CustomDocument extends Document {
               }
                   `,
             }}
-          />
+          /> */}
           {/* ====== */}
         </body>
       </Html>
