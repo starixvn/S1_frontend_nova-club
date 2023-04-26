@@ -2,16 +2,15 @@ import React, { useEffect } from 'react'
 import LoginPage from 'app/features/auth/login'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useRouter } from 'next/router'
-import { HAS_LOG_IN_MAP } from 'agent/utils/authUtil'
 
 const AgentGuard = ({ children }) => {
   const router = useRouter()
   const { asPath, query, replace: nextJsReplace } = router
 
   const isLoggedIn = useAppSelector((s) => !!s.agent.access_token)
-  const hasLogIn = useAppSelector((s) => s.agent.has_logged_in)
+  const { has_logged_in, has_otp } = useAppSelector((s) => s.agent)
 
-  const isFirstTimeLogin = hasLogIn === HAS_LOG_IN_MAP.FIRST_TIME_LOGIN
+  const isFirstTimeLogin = !has_logged_in || !has_otp
 
   if (!isLoggedIn) {
     nextJsReplace('/auth/login?t=agent&r=' + asPath)

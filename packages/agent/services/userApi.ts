@@ -33,6 +33,7 @@ export const userApi = agentBaseApiWithTag.injectEndpoints({
               balance: 0,
             },
             has_logged_in: 1,
+            has_otp: 1,
             has_pin: 1,
             mobile_no: '-',
             id: 0,
@@ -45,9 +46,7 @@ export const userApi = agentBaseApiWithTag.injectEndpoints({
           const { data } = await queryFulfilled
 
           if (data) {
-            dispatch(
-              AgentAuthActions.setAgentIsFirstTimeLogin(data.has_logged_in)
-            )
+            dispatch(AgentAuthActions.setAgentHasLoginBefore(data))
           }
         } catch (error) {
           console.error(error)

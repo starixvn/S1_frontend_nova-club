@@ -6,11 +6,13 @@ import { LoginResult } from 'agent/services/authApi.type'
 interface AgentAuthState {
   access_token?: string
   has_logged_in?: number
+  has_otp?: 0 | 1
 }
 
 const agentAuthInitialState: AgentAuthState = {
   access_token: undefined,
   has_logged_in: undefined,
+  has_otp: undefined,
   // token_type: undefined,
 }
 
@@ -22,11 +24,32 @@ export const agentSlice = createSlice({
       state.access_token = action.payload
       // state.token_type = action.payload.token_type
     },
-    setAgentIsFirstTimeLogin: (
+    setAgentHasLoginBefore: (
       state,
-      action: PayloadAction<AgentAuthState['has_logged_in']>
+      action: PayloadAction<
+        | boolean
+        | {
+            has_logged_in: AgentAuthState['has_logged_in']
+            has_otp: AgentAuthState['has_otp']
+          }
+      >
     ) => {
-      state.has_logged_in = action.payload
+      const payload = action.payload
+
+      if (typeof payload === 'boolean') {
+        if (payload) {
+          state.has_logged_in = 1
+          state.has_otp = 1
+        } else {
+          state.has_logged_in = 0
+          state.has_otp = 0
+        }
+
+        return
+      }
+
+      state.has_logged_in = payload.has_logged_in
+      state.has_otp = payload.has_otp
     },
   },
 })

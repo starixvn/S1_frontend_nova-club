@@ -10,6 +10,7 @@ export interface UserInfo {
   has_logged_in: number
   has_pin: number
   has_verified_wd: number
+  has_otp: 0 | 1
 }
 
 export interface WalletBalance {

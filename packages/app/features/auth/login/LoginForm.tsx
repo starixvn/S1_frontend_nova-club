@@ -108,7 +108,7 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
           dispatch(AgentAuthActions.setAgentAuthToken(result.data.access_token))
           const resp = await getUserInfo().unwrap()
 
-          if (resp.has_logged_in === 0) {
+          if (!resp.has_logged_in || !resp.has_otp) {
             Platform.select({
               web: function () {
                 replace('/agent/reset-password')

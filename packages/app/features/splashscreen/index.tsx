@@ -79,7 +79,7 @@ const SplashScreen = () => {
     try {
       const resp = await getUserInfo().unwrap()
 
-      if (resp.has_logged_in) {
+      if (resp.has_logged_in && resp.has_otp) {
         replace('/agent')
       } else {
         replace('/agent/reset-password')

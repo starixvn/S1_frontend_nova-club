@@ -12,7 +12,6 @@ import {
   useResetPasswordOTPMutation,
 } from 'agent/services/userApi'
 import { AgentAuthActions } from 'agent/store/agentAuthReducer'
-import { HAS_LOG_IN_MAP } from 'agent/utils/authUtil'
 import validation, {
   getErrorMessage,
   MAX_OTP_DIGIT,
@@ -47,12 +46,11 @@ const AgentResetPassword = () => {
   const { push, replace } = useContextualRouter()
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
   const [isLoading, setIsLoading] = useState(false)
-  const [isOtpLoading, setIsOtpLoading] = useState(false)
   const { top } = useSafeArea()
   const dispatch = useDispatch()
   const { logout } = useOnAgentLogout()
 
-  const [sendOtp] = useResetPasswordOTPMutation()
+  const [sendOtp, { isLoading: isOtpLoading }] = useResetPasswordOTPMutation()
   const [resetPassword] = useResetPasswordMutation()
 
   const onSubmit = async ({
@@ -62,6 +60,8 @@ const AgentResetPassword = () => {
     OTP,
   }: ResetPasswordValues) => {
     try {
+      setIsLoading(true)
+
       const { success, message, result } = await resetPassword({
         password,
         confirmpassword,
@@ -84,11 +84,7 @@ const AgentResetPassword = () => {
             push('/agent')
           },
         })()
-        dispatch(
-          AgentAuthActions.setAgentIsFirstTimeLogin(
-            HAS_LOG_IN_MAP.HAS_LOGIN_BEFORE
-          )
-        )
+        dispatch(AgentAuthActions.setAgentHasLoginBefore(true))
       }
     } catch (e) {
       showAlert(e)
@@ -122,14 +118,27 @@ const AgentResetPassword = () => {
     isValid,
     dirty,
     submitForm,
+    setTouched,
   } = formik
 
   async function handleSendOtp() {
     try {
-      setIsLoading(true)
+      const inputValidationResult = await setTouched(
+        {
+          password: touched.password,
+          confirmpassword: touched.confirmpassword,
+          OTP: touched.OTP,
+          mobile_no: true,
+        },
+        true
+      )
+
+      if (inputValidationResult?.mobile_no) {
+        return
+      }
 
       const { message, success } = await sendOtp({
-        mobile_no: values.mobile_no,
+        mobile_no: '+84' + values.mobile_no,
       })
         .unwrap()
         .catch((e) => {
@@ -142,8 +151,6 @@ const AgentResetPassword = () => {
       }
     } catch (e) {
       openModal('AgentAlertModal', { message: getErrorMessage(e) })
-    } finally {
-      setIsLoading(false)
     }
   }
   return (
@@ -273,7 +280,7 @@ const AgentResetPassword = () => {
                 accessibilityRole="button"
                 ref={OTPRef}
                 title={t('common.send') + ' ' + t('common.otp')}
-                loading={isLoading}
+                loading={isOtpLoading}
                 onPress={handleSendOtp}
                 sx={{
                   width: 'auto',
@@ -325,10 +332,11 @@ const AgentResetPassword = () => {
             keyboardType={'numeric'}
             maxLength={MAX_OTP_DIGIT}
           />
+
           <Button
             onPress={submitForm}
             loading={isLoading}
-            sx={{ marginY: 20 }}
+            sx={{ marginY: 20, minHeight: 38, width: '100%', maxWidth: 135 }}
             disabled={!isValid || !dirty}
           >
             {t('common.submit')}
