@@ -217,176 +217,182 @@ const ForgotPassword = () => {
       headerColor="#000000"
       gradientColor={['#18d2e8', '#6afcf7']}
     >
-      {isAgent && (
-        <TextInput
-          _icon="avatar"
-          _input={{
-            textContentType: 'username',
-            placeholder: t('common.username'),
-            value: values.username,
-            onChangeText: handleChange('username'),
-            onBlur: handleBlur('username'),
-            autoCapitalize: 'none',
-            ref: usernameFieldRef,
-            onSubmitEditing: () => {
-              contactNumberFieldRef.current?.focus()
-            },
-            maxLength: USERNAME_MAX_LENGTH,
-          }}
-          error={
-            touched.username && errors.username
-              ? t(errors.username, {
-                  field: t('common.username'),
-                })
-              : undefined
-          }
-        />
-      )}
-      <TextInput
-        _icon="avatar"
-        prefix="+84"
-        _input={{
-          maxLength: 9,
-          placeholder: '',
-          value: values.contactNumber,
-          onChangeText: handleChange('contactNumber'),
-          onBlur: handleBlur('contactNumber'),
-          autoCapitalize: 'none',
-          onSubmitEditing: () => {
-            otpFieldRef.current?.focus()
-          },
-          keyboardType: 'number-pad',
-        }}
-        endIcon={
-          <TimerButton
-            accessibilityRole="button"
-            ref={OTPRef}
-            title={t('common.send')}
-            loading={isOtpLoading || isAgentLoading}
-            onPress={onSendOtp}
-            sx={{
-              width: 'auto',
-              backgroundColor: theme.colors.$gray,
-              m: 0,
-              px: '$3',
-              minWidth: 53,
-            }}
-            _text={{
-              sx: {
-                color: theme.colors.$black,
+      <View sx={{ alignItems: 'center', pt: '$8', flex: 1 }}>
+        <View sx={{ width: '75%', flex: 1 }}>
+          {isAgent && (
+            <TextInput
+              _icon="avatar"
+              _input={{
+                textContentType: 'username',
+                placeholder: t('common.username'),
+                value: values.username,
+                onChangeText: handleChange('username'),
+                onBlur: handleBlur('username'),
+                autoCapitalize: 'none',
+                ref: usernameFieldRef,
+                onSubmitEditing: () => {
+                  contactNumberFieldRef.current?.focus()
+                },
+                maxLength: USERNAME_MAX_LENGTH,
+              }}
+              error={
+                touched.username && errors.username
+                  ? t(errors.username, {
+                      field: t('common.username'),
+                    })
+                  : undefined
+              }
+            />
+          )}
+          <TextInput
+            _icon="avatar"
+            prefix="+84"
+            _input={{
+              maxLength: 9,
+              placeholder: '',
+              value: values.contactNumber,
+              onChangeText: handleChange('contactNumber'),
+              onBlur: handleBlur('contactNumber'),
+              autoCapitalize: 'none',
+              onSubmitEditing: () => {
+                otpFieldRef.current?.focus()
               },
+              keyboardType: 'number-pad',
             }}
-          ></TimerButton>
-        }
-        error={
-          touched.contactNumber && errors.contactNumber
-            ? t(errors.contactNumber, { field: t('profile.details.phone') })
-            : undefined
-        }
-      />
-
-      <TextInput
-        _icon="lock"
-        prefix="OTP"
-        _input={{
-          placeholder: t('auth.enterOtp'),
-          value: values.verifyCode,
-          onChangeText: handleChange('verifyCode'),
-          onBlur: handleBlur('verifyCode'),
-          ref: otpFieldRef,
-          onSubmitEditing: checkInitialForm,
-          keyboardType: 'number-pad',
-          maxLength: 6,
-          editable: isSuccess || isAgentSuccess,
-          ...(Platform.OS === 'web' && {
-            disabled: !isSuccess && !isAgentSuccess,
-          }),
-        }}
-        error={
-          touched.verifyCode && errors.verifyCode
-            ? t(errors.verifyCode, { field: t('common.otp') })
-            : undefined
-        }
-        sx={{ mt: '$3' }}
-      />
-
-      {currentAction === CURRENT_ACTION.SET_PASSWORD && (
-        <View sx={{ mt: '$8' }}>
-          <Text sx={{ color: '$border', opacity: 0.52 }}>
-            {t('auth.enterNewPassword')}
-          </Text>
+            endIcon={
+              <TimerButton
+                accessibilityRole="button"
+                ref={OTPRef}
+                title={t('common.send')}
+                loading={isOtpLoading || isAgentLoading}
+                onPress={onSendOtp}
+                sx={{
+                  width: 'auto',
+                  backgroundColor: theme.colors.$gray,
+                  m: 0,
+                  px: '$3',
+                  minWidth: 53,
+                }}
+                _text={{
+                  sx: {
+                    color: theme.colors.$black,
+                  },
+                }}
+              ></TimerButton>
+            }
+            error={
+              touched.contactNumber && errors.contactNumber
+                ? t(errors.contactNumber, { field: t('profile.details.phone') })
+                : undefined
+            }
+          />
 
           <TextInput
             _icon="lock"
+            prefix="OTP"
             _input={{
-              placeholder: t('common.newPassword'),
-              value: values.password,
-              onChangeText: handleChange('password'),
-              onBlur: handleBlur('password'),
-              secureTextEntry: true,
-              onSubmitEditing: () => {
-                confirmPasswordFieldRef.current?.focus()
-              },
-              maxLength: PASSWORD_MAX_LENGTH,
+              placeholder: t('auth.enterOtp'),
+              value: values.verifyCode,
+              onChangeText: handleChange('verifyCode'),
+              onBlur: handleBlur('verifyCode'),
+              ref: otpFieldRef,
+              onSubmitEditing: checkInitialForm,
+              keyboardType: 'number-pad',
+              maxLength: 6,
+              editable: isSuccess || isAgentSuccess,
+              ...(Platform.OS === 'web' && {
+                disabled: !isSuccess && !isAgentSuccess,
+              }),
             }}
             error={
-              touched.password && errors.password
-                ? t(errors.password, { field: t('common.newPassword') })
+              touched.verifyCode && errors.verifyCode
+                ? t(errors.verifyCode, { field: t('common.otp') })
                 : undefined
             }
             sx={{ mt: '$3' }}
           />
 
-          <TextInput
-            _icon="lock-check"
-            _input={{
-              placeholder: t('common.confirmPassword'),
-              value: values.confirmPassword,
-              onChangeText: handleChange('confirmPassword'),
-              onBlur: handleBlur('confirmPassword'),
-              secureTextEntry: true,
-              ref: confirmPasswordFieldRef,
-              onSubmitEditing: submitForm,
-              maxLength: PASSWORD_MAX_LENGTH,
-            }}
-            error={
-              touched.confirmPassword && errors.confirmPassword
-                ? t(errors.confirmPassword, {
-                    field: t('common.confirmPassword'),
-                  })
-                : undefined
-            }
-            sx={{ mt: '$3' }}
-          />
-        </View>
-      )}
+          {currentAction === CURRENT_ACTION.SET_PASSWORD && (
+            <View sx={{ mt: '$8' }}>
+              <Text sx={{ color: '$border', opacity: 0.52 }}>
+                {t('auth.enterNewPassword')}
+              </Text>
 
-      <View sx={{ mt: '$8', alignItems: 'center' }}>
-        <View sx={{ width: '70%' }}>
-          {currentAction === CURRENT_ACTION.GET_OTP ? (
-            <Button
-              stretch
-              disabled={(!isSuccess && !isAgentSuccess) || !!errors.verifyCode}
-              onPress={checkInitialForm}
-              sx={{ mt: '$8' }}
-            >
-              <Button.Label>{t('common.submit')}</Button.Label>
-            </Button>
-          ) : (
-            <Button
-              stretch
-              disabled={!isValid || !dirty}
-              onPress={submitForm}
-              sx={{ mt: '$8' }}
-              loading={isSubmitting}
-            >
-              <Button.Label>{t('common.enter')}</Button.Label>
-            </Button>
+              <TextInput
+                _icon="lock"
+                _input={{
+                  placeholder: t('common.newPassword'),
+                  value: values.password,
+                  onChangeText: handleChange('password'),
+                  onBlur: handleBlur('password'),
+                  secureTextEntry: true,
+                  onSubmitEditing: () => {
+                    confirmPasswordFieldRef.current?.focus()
+                  },
+                  maxLength: PASSWORD_MAX_LENGTH,
+                }}
+                error={
+                  touched.password && errors.password
+                    ? t(errors.password, { field: t('common.newPassword') })
+                    : undefined
+                }
+                sx={{ mt: '$3' }}
+              />
+
+              <TextInput
+                _icon="lock-check"
+                _input={{
+                  placeholder: t('common.confirmPassword'),
+                  value: values.confirmPassword,
+                  onChangeText: handleChange('confirmPassword'),
+                  onBlur: handleBlur('confirmPassword'),
+                  secureTextEntry: true,
+                  ref: confirmPasswordFieldRef,
+                  onSubmitEditing: submitForm,
+                  maxLength: PASSWORD_MAX_LENGTH,
+                }}
+                error={
+                  touched.confirmPassword && errors.confirmPassword
+                    ? t(errors.confirmPassword, {
+                        field: t('common.confirmPassword'),
+                      })
+                    : undefined
+                }
+                sx={{ mt: '$3' }}
+              />
+            </View>
           )}
+
+          <View sx={{ mt: '$8', alignItems: 'center' }}>
+            <View sx={{ width: '70%' }}>
+              {currentAction === CURRENT_ACTION.GET_OTP ? (
+                <Button
+                  stretch
+                  disabled={
+                    (!isSuccess && !isAgentSuccess) || !!errors.verifyCode
+                  }
+                  onPress={checkInitialForm}
+                  sx={{ mt: '$8' }}
+                >
+                  <Button.Label>{t('common.submit')}</Button.Label>
+                </Button>
+              ) : (
+                <Button
+                  stretch
+                  disabled={!isValid || !dirty}
+                  onPress={submitForm}
+                  sx={{ mt: '$8' }}
+                  loading={isSubmitting}
+                >
+                  <Button.Label>{t('common.enter')}</Button.Label>
+                </Button>
+              )}
+            </View>
+          </View>
+
+          {currentAction === CURRENT_ACTION.GET_OTP && <ReceiveOTPContact />}
         </View>
       </View>
-
-      {currentAction === CURRENT_ACTION.GET_OTP && <ReceiveOTPContact />}
     </AuthLayout>
   )
 }
