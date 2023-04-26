@@ -7,7 +7,7 @@ import Cat_3888 from 'app/assets/images/events/summerCat/cat_3888.png'
 const TncVi = () => {
   return (
     <div>
-      <h2>MÈO MAY MẮN PHÁT LỘC ĐẦU NĂM</h2>
+      <h2>CHÚ MÈO TÀI LỘC</h2>
       <p>Thời gian: 01/05 - 30/06/2023</p>
 
       <br />
