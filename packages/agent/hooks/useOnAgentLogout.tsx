@@ -14,9 +14,9 @@ const useOnAgentLogout = () => {
       replace('/auth/login', {
         t: LoginType.Agent,
       })
-      await sleep(1500)
       dispatch(AgentAuthActions.setAgentAuthToken())
       dispatch(AgentAuthActions.setAgentHasLoginBefore(false))
+      await sleep(1500)
       clearRTK()
     } catch (error) {
       console.error(error)

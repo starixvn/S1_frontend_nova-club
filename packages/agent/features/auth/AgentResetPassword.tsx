@@ -179,7 +179,6 @@ const AgentResetPassword = () => {
             size={25}
             onPress={() => {
               logout()
-              replace('/auth/login')
             }}
           />
         </View>
