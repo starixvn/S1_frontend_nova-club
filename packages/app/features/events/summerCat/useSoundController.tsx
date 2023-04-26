@@ -51,9 +51,11 @@ const useSoundController = () => {
 
   async function playBGM() {
     const sound = await createAudioInstance('bgm', {
+      isMuted: true,
       isLooping: true,
       volume: 0.1,
     })
+    sound?.setIsMutedAsync(false)
     sound?.playAsync()
   }
 

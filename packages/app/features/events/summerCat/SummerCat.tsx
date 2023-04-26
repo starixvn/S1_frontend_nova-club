@@ -88,7 +88,6 @@ const SummerCat = () => {
       const { data, success, message } = await draw().unwrap()
 
       if (success && data) {
-        console.log('res', data)
         setResult(parseInt(data[0]?.amount))
       } else {
         showAlert(message)
@@ -126,7 +125,6 @@ const SummerCat = () => {
       randoms.push(result)
     }
 
-    console.log('handle set reward result', randoms)
     return shuffle(randoms)
   }
 
@@ -147,7 +145,12 @@ const SummerCat = () => {
   }
 
   useEffect(() => {
-    console.log('check flip page props', result)
+    setTimeout(() => {
+      play('bgm')
+    }, 2000)
+  }, [])
+
+  useEffect(() => {
     if (result! >= 0) {
       setButtoMap(handleSetReward)
     }
@@ -176,7 +179,6 @@ const SummerCat = () => {
 
   const handleTncButton = useCallback(() => {
     const action = getAction(tncData)
-    console.log(action)
     action({ push, locale })
   }, [locale])
 
