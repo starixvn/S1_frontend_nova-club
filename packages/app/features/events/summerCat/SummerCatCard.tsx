@@ -59,17 +59,19 @@ const SummerCatCard = ({
               closed.transitionTo('end')
               opened.transitionTo('end')
               onPress()
-              // setAnimate(true)
             }
           }}
         >
           <MotiView state={closed} style={styles.shape}>
             <MotiImage
-              style={{ aspectRatio: 1, width: Math.min(90, width * 0.2) }}
+              style={{
+                aspectRatio: 1,
+                width: Math.min(90, width * 0.2),
+                height: Platform.OS === 'web' ? 'auto' : 90,
+              }}
               resizeMode={'contain'}
               source={COIN_IMG}
             />
-            {/* <Text sx={{ textAlign: 'center' }}>Closed</Text> */}
           </MotiView>
           <MotiView state={opened} style={[styles.shape, styles.shape2]}>
             <View>
@@ -101,7 +103,6 @@ const SummerCatCard = ({
                 style={{
                   aspectRatio: 25 / 22,
                   height: '100%',
-                  // width: Math.min(100, width * 0.225),
                   width:
                     Platform.OS === 'web'
                       ? Math.min(100, width * 0.225)
@@ -110,7 +111,7 @@ const SummerCatCard = ({
                   left: -5,
                   top: Platform.OS === 'web' ? 0 : -2,
                   zIndex: -100,
-                  opacity: resetCard ? 1 : 0,
+                  opacity: resetCard ? 1 : 1,
                 }}
                 resizeMode={'contain'}
                 source={prizeImg}
@@ -133,12 +134,5 @@ const styles = StyleSheet.create({
   shape2: {
     position: 'absolute',
     zIndex: -100,
-  },
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    backgroundColor: 'cyan',
   },
 })

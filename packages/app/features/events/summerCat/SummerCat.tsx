@@ -145,12 +145,6 @@ const SummerCat = () => {
   }
 
   useEffect(() => {
-    setTimeout(() => {
-      play('bgm')
-    }, 2000)
-  }, [])
-
-  useEffect(() => {
     if (result! >= 0) {
       setButtoMap(handleSetReward)
     }
