@@ -1,9 +1,10 @@
 import IconButton from 'agent/components/Icon/IconButton'
 import Text from 'agent/components/Text'
+import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { useSx, View } from 'dripsy'
+import { View } from 'dripsy'
 import { ComponentProps } from 'react'
 import { Platform } from 'react-native'
 
@@ -11,7 +12,7 @@ type HeaderProps = {
   title?: string
   actions?: React.ReactNode
   titleProps?: ComponentProps<typeof Text>
-  customRoute?: string
+  customRoute?: Function
 } & React.ComponentProps<typeof View>
 
 const CommonBackHeader = ({
@@ -19,30 +20,25 @@ const CommonBackHeader = ({
   actions,
   titleProps = {},
   customRoute,
+  ...rest
 }: HeaderProps) => {
-  const isAndroid = Platform.OS === 'android'
   const { t } = useAgentLocalization()
-  const { back, push } = useContextualRouter()
+  const { back } = useContextualRouter()
+  const { width } = useContainerDimension()
 
-  const { top, right } = useSafeArea()
-
-  const sx = useSx()
-
-  const headerHeight = sx({
-    height: 'header',
-  })
+  const { top } = useSafeArea()
 
   return (
     <View
       sx={{
         position: Platform.OS === 'web' ? 'fixed' : 'relative',
         zIndex: 1,
-        width: '100%',
-        maxWidth: 'container',
+        width: Platform.OS === 'web' ? width : '100%',
         top: 0,
         backgroundColor: '$primaryAgent',
         paddingTop: top,
       }}
+      {...rest}
     >
       <View
         sx={{
@@ -56,7 +52,7 @@ const CommonBackHeader = ({
           name="arrow-down"
           sx={{ transform: [{ rotateZ: '90deg' }] }}
           size={25}
-          onPress={() => (customRoute ? push(customRoute) : back())}
+          onPress={() => (customRoute ? customRoute() : back())}
         />
         <Text sx={{ fontWeight: 'bold', fontSize: '$2', color: 'white' }}>
           {t(`${title}`)}

@@ -28,6 +28,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import * as Yup from 'yup'
 import AgentUnderlinePinField from './AgentUnderlinePinField'
+import useContextualRouting from 'app/hooks/useContextualRouting'
 
 interface AddBankInfoValues {
   mobileNumber: string
@@ -47,6 +48,7 @@ const AgentCreatePin = () => {
         ...rest,
       }),
     })
+  const { push } = useContextualRouting()
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [otpField, setOtpField] = useState(false)
@@ -167,7 +169,7 @@ const AgentCreatePin = () => {
         <>
           <CommonBackHeader
             title="pin.createPin"
-            customRoute="/agent/wallet/withdrawal"
+            customRoute={() => push('/agent/wallet/withdrawal')}
           />
           <ScrollView
             contentContainerStyle={{
