@@ -17,6 +17,7 @@ import validation, {
   MAX_OTP_DIGIT,
   MAX_PHONE_DIGIT,
 } from 'agent/utils/validation'
+import KeyboardView from 'app/components/KeyboardView'
 import { AGENT_STACK_CONTENT_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
@@ -162,12 +163,10 @@ const AgentResetPassword = () => {
         sx={{ bg: '#0a2143', paddingTop: top }}
         customRoute={() => logout()}
       />
-      <ScrollView
+      <KeyboardView
         bounces={false}
         contentContainerStyle={{
           zIndex: 5,
-        }}
-        sx={{
           backgroundColor: '#0a2143',
         }}
       >
@@ -328,7 +327,7 @@ const AgentResetPassword = () => {
             </Button>
           </Flex>
         </View>
-      </ScrollView>
+      </KeyboardView>
     </>
   )
 }
