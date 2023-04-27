@@ -1,7 +1,6 @@
 import { styled, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
 import { memo } from 'react'
-import FloatingSpinMania from './event/FloatingSpinMania'
 import SummerMeowMeow from './event/SummerMeowMeow'
 import LiveChatButton from './LiveChatButton'
 import VGaming from './VGaming'
@@ -38,7 +37,6 @@ const FloatingDrawer = ({
           >
             <ContentOffset>
               <SummerMeowMeow size={size} />
-              <FloatingSpinMania size={size} />
               <VGaming size={size} />
               <LiveChatButton />
             </ContentOffset>

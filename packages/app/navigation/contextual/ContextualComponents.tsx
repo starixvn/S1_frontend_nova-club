@@ -35,10 +35,6 @@ const ContextualComponents = {
   '/pin/change-pin': () => import('app/features/pin/change-pin'),
   '/pin/forgot-pin': () => import('app/features/pin/forgot-pin'),
   '/profile/overview': () => import('app/features/profile/overview'),
-  '/event/spin-mania': () =>
-    import('app/features/events/spinMania/SlotMachine'),
-  '/event/spin-mania-tnc': () =>
-    import('../../../../apps/next/pages/event/spin-mania-tnc'),
   '/event/cat-event': () =>
     import('../../../../apps/next/pages/event/summer-cat'),
   '/event/cat-event-tnc': () =>
