@@ -37,7 +37,6 @@ const FloatingDrawer = ({
           >
             <ContentOffset>
               <SummerMeowMeow size={size} />
-              {/* <FloatingSpinMania size={size} /> */}
               <VGaming size={size} />
               <LiveChatButton />
             </ContentOffset>

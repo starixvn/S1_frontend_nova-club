@@ -92,8 +92,6 @@ export function NavigationProvider({
               ChangePin: 'pin/change-pin',
               ForgotPin: 'pin/forgot-pin',
               AccountVerification: '/profile/account-verification',
-              SpinMania: '/event/spin-mania',
-              SpinManiaTnc: '/event/spin-mania-tnc',
               SummerCat: '/event/summer-cat',
               CatEventTnc: '/event/cat-event-tnc',
             },
