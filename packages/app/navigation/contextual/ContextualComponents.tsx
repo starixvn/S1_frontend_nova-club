@@ -36,7 +36,7 @@ const ContextualComponents = {
   '/pin/forgot-pin': () => import('app/features/pin/forgot-pin'),
   '/profile/overview': () => import('app/features/profile/overview'),
   '/event/cat-event': () =>
-    import('../../../../apps/next/pages/event/summer-cat'),
+    import('../../../../apps/next/pages/event/sea-game'),
   '/event/cat-event-tnc': () =>
     import('../../../../apps/next/pages/event/cat-event-tnc'),
 }

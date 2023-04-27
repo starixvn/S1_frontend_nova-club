@@ -33,7 +33,7 @@ import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { AuthActions } from 'app/store/authReducer'
 import { fadeScaleIn } from 'app/transitions/fade'
 import { Easing } from 'react-native'
-import SummerCat from '../../../../apps/next/pages/event/summer-cat'
+import SummerCat from '../../../../apps/next/pages/event/sea-game'
 import DepositNavigation from './DepositNavigation'
 import TabNavigation from './TabNavigation'
 
