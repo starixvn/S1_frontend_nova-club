@@ -6,8 +6,6 @@ import { Text } from 'dripsy'
 import React from 'react'
 import { useCheckTicketSpinQuery } from 'services/eventApi'
 
-const FLOATING_GIF = require('../../../../assets/images/events/summerCat/seagame_floating.gif')
-
 const SummerMeowMeow = ({ size }: { size: number }) => {
   const { push } = useContextualRouter()
   const { balance } = useCheckTicketSpinQuery(undefined, {
@@ -24,7 +22,9 @@ const SummerMeowMeow = ({ size }: { size: number }) => {
       sx={{ justifyContent: 'center', mb: 10 }}
     >
       <Image
-        source={FLOATING_GIF}
+        source={{
+          uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/sea-game/seagame_floating.gif`,
+        }}
         style={{
           width: size,
           height: size,
