@@ -46,6 +46,7 @@ const AgentResetPassword = () => {
   const { push, replace } = useContextualRouter()
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [isEnableOtp, setEnableOtp] = useState(false)
   const { top } = useSafeArea()
   const dispatch = useDispatch()
   const { logout } = useOnAgentLogout()
@@ -65,7 +66,7 @@ const AgentResetPassword = () => {
       const { success, message, result } = await resetPassword({
         password,
         confirmpassword,
-        mobile_no,
+        mobile_no: '+84' + mobile_no,
         OTP,
       })
         .unwrap()
@@ -148,6 +149,7 @@ const AgentResetPassword = () => {
 
       if (success) {
         OTPRef.current?.startOtpTimer()
+        setEnableOtp(true)
       }
     } catch (e) {
       openModal('AgentAlertModal', { message: getErrorMessage(e) })
@@ -330,6 +332,7 @@ const AgentResetPassword = () => {
             onBlur={handleBlur('OTP')}
             keyboardType={'numeric'}
             maxLength={MAX_OTP_DIGIT}
+            editable={isEnableOtp}
           />
 
           <Button

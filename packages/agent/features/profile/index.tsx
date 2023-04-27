@@ -61,9 +61,7 @@ const AgentProfile = () => {
   )
 }
 const ProfileContentContainer = styled(MotiView)({
-  minHeight: 475,
-  paddingBottom: '$5',
-  paddingTop: '$10',
-  justifyContent: 'center',
+  minHeight: 525,
+  paddingBottom: '$8',
 })
 export default AgentProfile
