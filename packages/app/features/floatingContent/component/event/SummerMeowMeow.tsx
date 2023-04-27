@@ -13,7 +13,7 @@ const SummerMeowMeow = ({ size }: { size: number }) => {
   })
 
   const handlePress = () => {
-    push('/event/summer-cat')
+    push('/event/sea-game')
   }
 
   return (

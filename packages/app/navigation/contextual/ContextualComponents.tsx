@@ -35,10 +35,9 @@ const ContextualComponents = {
   '/pin/change-pin': () => import('app/features/pin/change-pin'),
   '/pin/forgot-pin': () => import('app/features/pin/forgot-pin'),
   '/profile/overview': () => import('app/features/profile/overview'),
-  '/event/cat-event': () =>
-    import('../../../../apps/next/pages/event/sea-game'),
-  '/event/cat-event-tnc': () =>
-    import('../../../../apps/next/pages/event/cat-event-tnc'),
+  '/event/sea-game': () => import('../../../../apps/next/pages/event/sea-game'),
+  '/event/sea-game-event-tnc': () =>
+    import('../../../../apps/next/pages/event/sea-game-event-tnc'),
 }
 
 export type ContextualComponentType = keyof typeof ContextualComponents

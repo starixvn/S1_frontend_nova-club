@@ -41,7 +41,7 @@ const prizeDict = {
 const tncData: Action = {
   type: ActionType.INTERNAL_REDIRECT,
   payload: {
-    uri: '/event/cat-event-tnc',
+    uri: '/event/sea-game-event-tnc',
     params: {
       locale: 'vn',
     },
