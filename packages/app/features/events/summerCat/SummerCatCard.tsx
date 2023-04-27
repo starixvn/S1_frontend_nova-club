@@ -111,7 +111,7 @@ const SummerCatCard = ({
                   left: -5,
                   top: Platform.OS === 'web' ? 0 : -2,
                   zIndex: -100,
-                  opacity: resetCard ? 1 : 1,
+                  opacity: resetCard ? 1 : 0,
                 }}
                 resizeMode={'contain'}
                 source={prizeImg}

@@ -213,6 +213,7 @@ const SummerCat = () => {
         />
         <TouchableOpacity
           onPress={() => handleTncButton()}
+          disabled={Platform.OS === 'web' && result ? true : false}
           sx={{
             top: top + 50,
             right: 20,

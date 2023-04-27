@@ -46,7 +46,7 @@ const Result = ({ result, onPress }: ResultProps) => {
                   sx={{
                     textAlign: 'center',
                     fontWeight: 'bold',
-                    fontSize: 30,
+                    fontSize: 28,
                   }}
                 >
                   {result && result > 0
@@ -58,7 +58,7 @@ const Result = ({ result, onPress }: ResultProps) => {
                     marginTop: 20,
                     textAlign: 'center',
                     fontWeight: 'bold',
-                    fontSize: 30,
+                    fontSize: 28,
                   }}
                 >
                   {result && result > 0
