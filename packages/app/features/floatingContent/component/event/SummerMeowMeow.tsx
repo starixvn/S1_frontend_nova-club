@@ -19,7 +19,7 @@ const SummerMeowMeow = ({ size }: { size: number }) => {
   return (
     <TouchableOpacity
       onPress={handlePress}
-      sx={{ justifyContent: 'center', mb: 10 }}
+      sx={{ justifyContent: 'center', mb: 10, ml: -5 }}
     >
       <Image
         source={{

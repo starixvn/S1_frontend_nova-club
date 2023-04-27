@@ -20,7 +20,7 @@ const FloatingDrawer = ({
   size,
   floatingDrawerOffset,
 }: FloatingContentSwitchProps) => {
-  const floatingDrawerHeight = size * 4 + 20
+  const floatingDrawerHeight = size * 3 + 20
   return (
     <FloatingContentContainer
       pointerEvents={visible ? 'auto' : 'none'}
