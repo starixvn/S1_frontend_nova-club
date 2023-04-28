@@ -21,6 +21,7 @@ import Image from 'app/components/common/Image'
 import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import { Action, ActionType, getAction } from 'app/utils/actionGenerator'
 import { useAppSelector } from 'app/provider/redux/store'
+import { Gradient } from '@dripsy/gradient'
 
 const possibleResult = [0, 38000, 388000, 3888000]
 
@@ -301,17 +302,19 @@ const SummerCat = () => {
                 }}
               />
             )}
-            <View
+            <Gradient
               sx={{
                 alignSelf: 'flex-start',
                 marginTop: 20,
-                bg: 'rgba(37,89,139,0.7)',
                 borderRadius: 30,
                 borderWidth: 6,
                 borderColor: 'white',
                 height: 60,
                 width: 150,
               }}
+              start={[0, 0]}
+              end={[0.5, 0.5]}
+              colors={['rgba(255,144,104,0.95)', 'rgba(255,75,31,0.95)']}
             >
               <Text
                 sx={{
@@ -331,7 +334,7 @@ const SummerCat = () => {
               >
                 {t('event.catEvent.miniGame.ticketLeft')}
               </Text>
-            </View>
+            </Gradient>
           </View>
         </ScrollView>
       </ImageBackground>
