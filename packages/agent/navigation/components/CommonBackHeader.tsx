@@ -26,7 +26,7 @@ const CommonBackHeader = ({
   const { back } = useContextualRouter()
   const { width } = useContainerDimension()
 
-  const { top } = useSafeArea()
+  const { top, left, right } = useSafeArea()
 
   return (
     <View
@@ -35,8 +35,10 @@ const CommonBackHeader = ({
         zIndex: 1,
         width: Platform.OS === 'web' ? width : '100%',
         top: 0,
-        backgroundColor: '$primaryAgent',
-        paddingTop: top,
+        bg: '$primaryAgent',
+        pt: top,
+        pl: left,
+        pr: right,
       }}
       {...rest}
     >
@@ -44,7 +46,7 @@ const CommonBackHeader = ({
         sx={{
           flexDirection: 'row',
           justifyContent: 'space-between',
-          py: '$3',
+          py: '$5',
           px: '$6',
         }}
       >

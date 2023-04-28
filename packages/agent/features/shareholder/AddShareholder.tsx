@@ -9,6 +9,7 @@ import { FormikHelpers, useFormik } from 'formik'
 import { useModal } from 'react-native-modalfy'
 import * as Yup from 'yup'
 import CreateForm, { ShareholderAgent } from './components/CreateForm'
+import KeyboardView from 'app/components/KeyboardView'
 
 export type NewShareholderFormValues = {
   earning: string
@@ -82,7 +83,7 @@ const AddShareholder = () => {
   })
 
   return (
-    <ScrollView>
+    <KeyboardView>
       <View sx={{ p: 12 }}>
         <CreateForm<NewShareholderFormValues>
           screen={initialScreen}
@@ -91,7 +92,7 @@ const AddShareholder = () => {
           earningPt={earningPtList?.VND}
         />
       </View>
-    </ScrollView>
+    </KeyboardView>
   )
 }
 

@@ -81,7 +81,9 @@ const AgentBarcodeCard = ({ userId }: { userId: number }) => {
     </Card>
   )
 }
-const BarcodeInfo = styled(View)({})
+const BarcodeInfo = styled(View)({
+  width: '90%',
+})
 const BarcodeTitle = styled(Text)({
   fontSize: 20,
   pt: '$5',

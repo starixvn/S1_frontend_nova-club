@@ -3,6 +3,7 @@ import { Platform } from 'react-native'
 export const fontName = 'Noto Sans'
 export const NotoSansBold = 'Noto Sans Bold'
 export const NotoSansBoldItalic = 'Noto Sans Bold Italic'
+export const NotoSansItalic = 'Noto Sans Italic'
 
 const webFont = (font: string) =>
   Platform.select({
@@ -244,6 +245,7 @@ const theme = makeTheme({
       bold: webFont(NotoSansBold),
       default: webFont(fontName),
       normal: webFont(fontName),
+      italic: webFont(NotoSansItalic),
       // 500: 'arialMedium',
       // 600: 'arialBold',
       // 700: HelveticaBold,

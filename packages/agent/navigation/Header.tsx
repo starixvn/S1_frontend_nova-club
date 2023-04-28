@@ -10,6 +10,7 @@ import { TAB_HEIGHT } from 'app/constant/sizes'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import BouncePressable from 'app/pressable/BouncePressable'
 import TouchableOpacity from 'app/pressable/TouchableOpacity'
+import { NotoSansItalic } from 'app/provider/dripsy'
 import { useAgentLocalization } from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
@@ -18,7 +19,7 @@ import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import { ActivityIndicator, Image, View, styled, useSx } from 'dripsy'
 import { useState } from 'react'
-import { LayoutChangeEvent } from 'react-native'
+import { ColorValue, LayoutChangeEvent } from 'react-native'
 import { useDispatch } from 'react-redux'
 import MainMenuTest from './MainMenu'
 
@@ -30,15 +31,27 @@ const Header = () => {
   const lang = useAppSelector((state) => state.setting?.locale)
   const [isLoading, setIsLoading] = useState(false)
   const [showMenu, setShowMenu] = useState(false)
-  const { top } = useSafeArea()
+  const { top, left, right } = useSafeArea()
   const sx = useSx()
   const { push } = useContextualRouter()
   const { t } = useAgentLocalization()
 
-  const { data } = useUserInfoQuery()
+  const { balance, currency, role, userName, data } = useUserInfoQuery(
+    undefined,
+    {
+      selectFromResult: ({ data }) => ({
+        currency: data?.wallet.currency as Currency,
+        userName: data?.username,
+        balance: data?.wallet?.balance ?? 0,
+        role: data?.role,
+        data,
+      }),
+    }
+  )
   //get user info here
-  const currency = data?.wallet.currency as Currency
-  const isShareHolder = data?.role === 'shareholder'
+  const isShareHolder = role === 'shareholder'
+  const balanceColor =
+    balance === 0 ? 'white' : balance < 0 ? '#ff2736' : '#00ECA4'
   const [getBalance] = useLazyUserRefreshBalanceQuery()
 
   const headerHeight = TAB_HEIGHT
@@ -60,15 +73,15 @@ const Header = () => {
   }
 
   return (
-    <View sx={{ bg: '#004fd0' }}>
-      <View sx={{ paddingTop: top }}>
+    <View sx={{ bg: '#004fd0', pt: top, pl: left, pr: right }}>
+      <View sx={{ py: '$1' }}>
         <StyledContainer sx={{ height: headerHeight }}>
           <View>
             <BouncePressable
               onPress={() => {
                 console.log('logo pressed')
               }}
-              sx={{ pr: '$2', mb: 5 }}
+              sx={{ pr: '$2' }}
             >
               <StyledLogo
                 sx={sx({
@@ -85,17 +98,13 @@ const Header = () => {
               <>
                 <BalanceContainer>
                   <View>
-                    <CurrencyText>VND</CurrencyText>
-                    <BalanceText>
-                      {toCurrency(
-                        data?.wallet.balance.toString() ?? 0,
-                        currency,
-                        {
-                          hideTruncatedThousand: false,
-                          forceDecimal: false,
-                          symbol: false,
-                        }
-                      )}
+                    <CurrencyText color={balanceColor}>VND</CurrencyText>
+                    <BalanceText color={balanceColor}>
+                      {toCurrency(balance?.toString() ?? 0, currency, {
+                        hideTruncatedThousand: false,
+                        forceDecimal: false,
+                        symbol: false,
+                      })}
                     </BalanceText>
                   </View>
 
@@ -113,10 +122,10 @@ const Header = () => {
                     push('/agent/profile')
                   }}
                 >
-                  <UserNameText>{data?.username}</UserNameText>
+                  <UserNameText>{userName}</UserNameText>
                   <RoleTextContainer isShareHolder={isShareHolder}>
                     <RoleText isShareHolder={isShareHolder}>
-                      {t(`common.${data?.role}`)}
+                      {t(`common.${role}`)}
                     </RoleText>
                   </RoleTextContainer>
                 </TouchableOpacity>
@@ -201,30 +210,33 @@ const BalanceContainer = styled(View)({
   mx: 4,
 })
 
-const CurrencyText = styled(Text)({
-  color: '#95C4FF',
+const CurrencyText = styled(Text)(({ color }: { color: ColorValue }) => ({
+  color,
   textAlign: 'center',
-  lineHeight: 12,
-  fontSize: 12,
-  fontWeight: 'bold',
-})
-
-const BalanceText = styled(Text)({
-  mr: '$2',
-  color: 'white',
-  lineHeight: 14,
+  lineHeight: 20,
   fontSize: 14,
-})
+  fontWeight: 'bold',
+}))
+
+const BalanceText = styled(Text)(({ color }: { color: ColorValue }) => ({
+  mr: '$2',
+  color,
+  lineHeight: 20,
+  fontSize: 16,
+  fontWeight: 'bold',
+}))
 
 const UserNameText = styled(Text)({
   fontWeight: 'bold',
-  fontSize: 10,
+  fontSize: 12,
+  my: 2,
   color: 'white',
 })
 
 const RoleTextContainer = styled(View)(
   ({ isShareHolder }: { isShareHolder: boolean }) => ({
     borderRadius: 10,
+    my: 1,
     paddingX: isShareHolder ? 10 : 20,
     backgroundColor: isShareHolder ? '#ffd900' : '#d02fa9',
   })
@@ -233,9 +245,9 @@ const RoleTextContainer = styled(View)(
 const RoleText = styled(Text)(
   ({ isShareHolder }: { isShareHolder: boolean }) => ({
     color: isShareHolder ? '#000' : '#fff',
-    fontStyle: 'italic',
     fontSize: 10,
     marginBottom: 3,
+    fontFamily: NotoSansItalic,
   })
 )
 

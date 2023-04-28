@@ -17,6 +17,7 @@ import { View, styled } from 'dripsy'
 import { useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import AgentFloatingContent from '../floatingContent'
+import { Platform } from 'react-native'
 
 export type MemberListFilterOptions = {
   date: DateFilter | string | undefined
@@ -138,7 +139,7 @@ const MemberListScreen = () => {
   }
 
   return (
-    <View sx={{ flex: 1 }}>
+    <View sx={{ flex: 1, mt: Platform.OS === 'web' ? 22 : 0 }}>
       <TableListing
         title={`${t('shAgent.totalMember')} : ${totalData}`}
         titleCenter

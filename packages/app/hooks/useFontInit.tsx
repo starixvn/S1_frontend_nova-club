@@ -11,12 +11,18 @@
 
 import { FontSource, useFonts } from 'expo-font'
 import { Platform } from 'react-native'
-import { fontName, NotoSansBold, NotoSansBoldItalic } from 'app/provider/dripsy'
+import {
+  fontName,
+  NotoSansBold,
+  NotoSansBoldItalic,
+  NotoSansItalic,
+} from 'app/provider/dripsy'
 import ICON_FILE from 'app/assets/fonts/icomoon.ttf'
 import AGENT_FILE from 'agent/assets/fonts/icomoon.ttf'
 import NormalFont from 'app/assets/fonts/NotoSans.ttf'
 import BoldFont from 'app/assets/fonts/NotoSansBold.ttf'
 import BoldItalic from 'app/assets/fonts/NotoSansBoldItalic.ttf'
+import ItalicFont from 'app/assets/fonts/NotoSans-Italic.ttf'
 
 type FontFamilyMap = Exclude<Parameters<typeof useFonts>[0], string>
 interface UseFontArgs {
@@ -42,6 +48,7 @@ export default function useFontInit({ iconUrl, fontFamily }: UseFontArgs = {}) {
     [fontName]: NormalFont,
     [NotoSansBold]: BoldFont,
     [NotoSansBoldItalic]: BoldItalic,
+    [NotoSansItalic]: ItalicFont,
     ...fontFamily,
   }
 

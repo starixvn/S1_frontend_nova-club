@@ -7,6 +7,7 @@ import * as Yup from 'yup'
 import CreateForm, {
   ShareholderAgent,
 } from '../shareholder/components/CreateForm'
+import KeyboardView from 'app/components/KeyboardView'
 
 export type NewAgentFormValues = {
   username: string
@@ -63,7 +64,7 @@ const AddAgent = () => {
   })
 
   return (
-    <ScrollView>
+    <KeyboardView>
       <View sx={{ p: 12 }}>
         <CreateForm<NewAgentFormValues>
           screen={initialScreen}
@@ -71,7 +72,7 @@ const AddAgent = () => {
           formik={formik}
         />
       </View>
-    </ScrollView>
+    </KeyboardView>
   )
 }
 

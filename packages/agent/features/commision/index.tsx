@@ -90,7 +90,7 @@ const CommissionTable = () => {
             borderColor: '#8EC0FF',
             zIndex: 2,
             width,
-            mt: Platform.OS === 'web' ? -1 : 0,
+            mt: Platform.OS === 'web' ? 15 : 0,
             position: Platform.OS === 'web' ? 'fixed' : 'relative',
           }}
         >
@@ -109,7 +109,7 @@ const CommissionTable = () => {
       </DataTable>
 
       <View
-        sx={{ flex: 1, zIndex: -1, marginTop: Platform.OS === 'web' ? 48 : 0 }}
+        sx={{ flex: 1, zIndex: -1, marginTop: Platform.OS === 'web' ? 60 : 0 }}
       >
         <FlashList
           data={commissionList}
