@@ -22,6 +22,7 @@ import validation, {
   getErrorMessage,
   removeAgentPhoneNumPrefix,
 } from 'agent/utils/validation'
+import KeyboardView from 'app/components/KeyboardView'
 import { AGENT_STACK_CONTENT_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
@@ -202,7 +203,7 @@ const AddBankInfoForm = () => {
   return (
     <>
       <CommonBackHeader title="wallet.addBank" />
-      <ScrollView
+      <KeyboardView
         contentContainerStyle={{
           backgroundColor: 'white',
           paddingHorizontal: 20,
@@ -344,7 +345,7 @@ const AddBankInfoForm = () => {
             </Text>
           </Button>
         </View>
-      </ScrollView>
+      </KeyboardView>
     </>
   )
 }

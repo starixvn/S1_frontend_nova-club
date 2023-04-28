@@ -74,7 +74,7 @@ const Header = () => {
 
   return (
     <View sx={{ bg: '#004fd0', pt: top, pl: left, pr: right }}>
-      <View sx={{ py: '$1' }}>
+      <View sx={{ py: '$1', px: '$1' }}>
         <StyledContainer sx={{ height: headerHeight }}>
           <View>
             <BouncePressable
@@ -97,7 +97,7 @@ const Header = () => {
             {data ? (
               <>
                 <BalanceContainer>
-                  <View>
+                  <View sx={{ mr: '$3' }}>
                     <CurrencyText color={balanceColor}>VND</CurrencyText>
                     <BalanceText color={balanceColor}>
                       {toCurrency(balance?.toString() ?? 0, currency, {
@@ -109,10 +109,10 @@ const Header = () => {
                   </View>
 
                   <RefreshButton
-                    sx={{ mx: 2 }}
+                    sx={{ mr: '$3' }}
                     loading={isLoading}
                     onPress={testActionWithTimeout}
-                    size={18}
+                    size={20}
                   />
                 </BalanceContainer>
 
@@ -207,7 +207,6 @@ const HeaderContentContainer = styled(View)({
 const BalanceContainer = styled(View)({
   flexDirection: 'row',
   alignItems: 'center',
-  mx: 4,
 })
 
 const CurrencyText = styled(Text)(({ color }: { color: ColorValue }) => ({
@@ -219,11 +218,11 @@ const CurrencyText = styled(Text)(({ color }: { color: ColorValue }) => ({
 }))
 
 const BalanceText = styled(Text)(({ color }: { color: ColorValue }) => ({
-  mr: '$2',
   color,
   lineHeight: 20,
   fontSize: 16,
   fontWeight: 'bold',
+  textAlign: 'right',
 }))
 
 const UserNameText = styled(Text)({
