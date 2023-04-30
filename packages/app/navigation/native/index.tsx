@@ -7,8 +7,7 @@ import RegisterVerificationPage from 'app/features/auth/verification'
 import Forbidden from 'app/features/common/Forbidden'
 import Maintenance from 'app/features/common/Maintenance'
 import CustomerSupportPage from 'app/features/customerSupport'
-import SlotMachine from 'app/features/events/spinMania/SlotMachine'
-import SpinManiaTnc from 'app/features/events/spinMania/SpinManiaTnc'
+import CatEventTnc from 'app/features/events/summerCat/CatTnc'
 import FishingPage from 'app/features/fishing'
 import GameLoaderPage from 'app/features/games/GameLoaderPage'
 import MessagesPage from 'app/features/messages'
@@ -33,6 +32,7 @@ import BankWithdrawalPage from 'app/features/withdrawal/BankWithdrawalPage'
 import CryptoWithdrawalPage from 'app/features/withdrawal/CryptoWithdrawalPage'
 import { fadeScaleIn } from 'app/transitions/fade'
 import { Easing } from 'react-native'
+import SummerCat from '../../../../apps/next/pages/event/sea-game'
 import DepositNavigation from './DepositNavigation'
 import TabNavigation from './TabNavigation'
 
@@ -75,8 +75,8 @@ const Stack = createStackNavigator<{
   Cny: undefined
   CnyTnc: undefined
   AccountVerification: undefined
-  SpinMania: undefined
-  SpinManiaTnc: undefined
+  SummerCat: undefined
+  CatEventTnc: undefined
 }>()
 
 export function NativeNavigation() {
@@ -253,8 +253,8 @@ export function NativeNavigation() {
       <Stack.Screen name="TnC" component={TnC} />
       <Stack.Screen name="Forbidden" component={Forbidden} />
       <Stack.Screen name="Maintenance" component={Maintenance} />
-      <Stack.Screen name="SpinMania" component={SlotMachine} />
-      <Stack.Screen name="SpinManiaTnc" component={SpinManiaTnc} />
+      <Stack.Screen name="SummerCat" component={SummerCat} />
+      <Stack.Screen name="CatEventTnc" component={CatEventTnc} />
     </Stack.Navigator>
   )
 }

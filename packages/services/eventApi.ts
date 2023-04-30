@@ -59,6 +59,12 @@ export const eventApi = baseApiWithTag.injectEndpoints({
       }),
       invalidatesTags: ['TicketBalance'],
     }),
+    luckyDraw: builder.mutation<IResponse<TicketSpinResult>, void>({
+      query: () => ({
+        url: `/player_api/playerTicFreeWheelSpin`,
+      }),
+      invalidatesTags: ['TicketBalance'],
+    }),
   }),
 })
 
@@ -70,4 +76,5 @@ export const {
   useCnySpinMutation,
   useCheckTicketSpinQuery,
   useTicketSpinMutation,
+  useLuckyDrawMutation,
 } = eventApi

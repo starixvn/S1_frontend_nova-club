@@ -6,24 +6,24 @@ import { Text } from 'dripsy'
 import React from 'react'
 import { useCheckTicketSpinQuery } from 'services/eventApi'
 
-const FloatingSpinMania = ({ size }: { size: number }) => {
+const SummerMeowMeow = ({ size }: { size: number }) => {
   const { push } = useContextualRouter()
   const { balance } = useCheckTicketSpinQuery(undefined, {
     selectFromResult: (s) => ({ ...s, balance: s.data?.data }),
   })
 
   const handlePress = () => {
-    push('/event/spin-mania')
+    push('/event/sea-game')
   }
 
   return (
     <TouchableOpacity
       onPress={handlePress}
-      sx={{ justifyContent: 'center', mb: 10 }}
+      sx={{ justifyContent: 'center', mb: 10, ml: -5 }}
     >
       <Image
         source={{
-          uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/spinMania/floating.gif`,
+          uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/sea-game/seagame_floating.gif`,
         }}
         style={{
           width: size,
@@ -37,12 +37,12 @@ const FloatingSpinMania = ({ size }: { size: number }) => {
             fontSize: 14,
             lineHeight: 16,
             position: 'absolute',
-            top: '58%',
-            left: 0,
+            top: '78%',
+            left: 13,
             right: 0,
             textAlign: 'center',
             fontWeight: 'bold',
-            color: 'white',
+            color: 'black',
             zIndex: 99,
           }}
         >
@@ -52,5 +52,4 @@ const FloatingSpinMania = ({ size }: { size: number }) => {
     </TouchableOpacity>
   )
 }
-
-export default FloatingSpinMania
+export default SummerMeowMeow

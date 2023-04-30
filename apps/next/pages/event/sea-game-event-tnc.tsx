@@ -2,13 +2,13 @@ import React from 'react'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import { fontName } from 'app/provider/dripsy'
 import { useRouter } from 'next/router'
-import TncEn from '../../components/spinManiaTnc/TncEn'
-import TncVi from '../../components/spinManiaTnc/TncVi'
+import TncEn from '../../components/catTnc/TncEn'
+import TncVi from '../../components/catTnc/TncVi'
 
 const FONT_COLOR = '#FFF'
 const FONT_SIZE = 12
 
-const SpinManiaTnC = () => {
+const CatEventTnC = () => {
   const router = useRouter()
 
   const TnCLanguage = () => {
@@ -89,4 +89,4 @@ const SpinManiaTnC = () => {
   )
 }
 
-export default SpinManiaTnC
+export default CatEventTnC

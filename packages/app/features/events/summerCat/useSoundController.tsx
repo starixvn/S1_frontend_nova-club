@@ -3,7 +3,7 @@ import { Audio, AVPlaybackStatusToSet } from 'expo-av'
 import { Sound } from 'expo-av/build/Audio'
 import { useEffect, useRef, useState } from 'react'
 
-export type SoundType = 'bgm' | 'spin' | 'won' | 'multiplier'
+export type SoundType = 'bgm' | 'flip' | 'won' | 'lose'
 
 export interface SoundController {
   play: (s: SoundType) => void
@@ -13,8 +13,8 @@ export interface SoundController {
 const useSoundController = () => {
   const sounds = useRef<Record<SoundType, Sound | null>>({
     bgm: null,
-    multiplier: null,
-    spin: null,
+    flip: null,
+    lose: null,
     won: null,
   })
 
@@ -31,14 +31,14 @@ const useSoundController = () => {
 
     const soundMap: Record<SoundType, string> = {
       bgm: 'bgm',
-      spin: 'spin',
+      flip: 'flip',
       won: 'won',
-      multiplier: 'multiplier',
+      lose: 'lose',
     }
 
     const { sound: audio } = await Audio.Sound.createAsync(
       {
-        uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/spinMania/${soundMap[type]}.mp3`,
+        uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/sea-game/${soundMap[type]}.mp3`,
       },
       {
         ...initialStatus,
@@ -52,7 +52,7 @@ const useSoundController = () => {
   async function playBGM() {
     const sound = await createAudioInstance('bgm', {
       isLooping: true,
-      volume: 0.4,
+      volume: 0.1,
     })
     sound?.playAsync()
   }
@@ -65,8 +65,8 @@ const useSoundController = () => {
 
     sounds.current = {
       bgm: null,
-      multiplier: null,
-      spin: null,
+      flip: null,
+      lose: null,
       won: null,
     }
   }
@@ -83,9 +83,9 @@ const useSoundController = () => {
   }
 
   async function preloadSounds() {
-    createAudioInstance('spin', { isLooping: true, volume: 0.2 })
+    createAudioInstance('flip', { volume: 1 })
     createAudioInstance('won')
-    createAudioInstance('multiplier', { volume: 1 })
+    createAudioInstance('lose', { volume: 1 })
   }
 
   useEffect(() => {
