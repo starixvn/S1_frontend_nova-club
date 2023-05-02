@@ -14,10 +14,12 @@ const useOnAgentLogout = () => {
       replace('/auth/login', {
         t: LoginType.Agent,
       })
-      dispatch(AgentAuthActions.setAgentAuthToken())
-      dispatch(AgentAuthActions.setAgentHasLoginBefore(false))
-      await sleep(1500)
-      clearRTK()
+      setTimeout(() => {
+        dispatch(AgentAuthActions.setAgentAuthToken())
+        dispatch(AgentAuthActions.setAgentHasLoginBefore(false))
+        clearRTK()
+      }, 0)
+      sleep(1500)
     } catch (error) {
       console.error(error)
       throw error

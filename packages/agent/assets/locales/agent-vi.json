@@ -103,7 +103,7 @@
     "logout": "Đăng xuất",
     "resetPin": "Cài lại mã PIN",
     "switchMember": "Chuyển sang trang Thành Viên",
-    "switchMemberNote": ""
+    "switchMemberNote": "Bạn muốn chuyển sang trang thành viên?"
   },
   "notes": {
     "importantNotice": "THÔNG BÁO QUAN TRỌNG"
@@ -199,7 +199,7 @@
     "numberOnly": "Chỉ nhập số",
     "otpLength": "OTP phải là số có 6 chữ số",
     "password": "Mật khẩu phải dài 6 ký tự, chứa cả chữ và số và ký tự đặc biệt (!@#$%^&*).",
-    "passwordMinMaxLength": "Mật khẩu phải có 6 ký tự",
+    "passwordMinMaxLength": "Mật khẩu phải có tối thiểu 6 ký tự",
     "passwordNotMatch": "Xác nhận mật khẩu không khớp",
     "phoneNumber": "Chỉ 9 số",
     "pin": "ID chỉ gồm số",

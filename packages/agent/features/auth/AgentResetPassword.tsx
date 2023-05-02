@@ -159,14 +159,7 @@ const AgentResetPassword = () => {
   }
   //Todo: Bad Fix - Andy
   const customRouteFunction = () => {
-    if (Platform.OS === 'web') {
-      replace('/auth/login', {
-        t: LoginType.Agent,
-      })
-    }
-    setTimeout(() => {
-      logout()
-    }, 250)
+    logout()
   }
   return (
     <>
