@@ -119,7 +119,7 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
               },
             })()
           } else {
-            navigateAfterLogin('/agent')
+            navigateAfterLogin('/agent/profile')
           }
         } else {
           throw new Error(message)

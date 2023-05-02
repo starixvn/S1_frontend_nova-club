@@ -19,6 +19,7 @@ import validation, {
 } from 'agent/utils/validation'
 import KeyboardView from 'app/components/KeyboardView'
 import { AGENT_STACK_CONTENT_PADDING } from 'app/constant/sizes'
+import { LoginType } from 'app/features/auth/type'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
@@ -156,12 +157,23 @@ const AgentResetPassword = () => {
       openModal('AgentAlertModal', { message: getErrorMessage(e) })
     }
   }
+  //Todo: Bad Fix - Andy
+  const customRouteFunction = () => {
+    if (Platform.OS === 'web') {
+      replace('/auth/login', {
+        t: LoginType.Agent,
+      })
+    }
+    setTimeout(() => {
+      logout()
+    }, 250)
+  }
   return (
     <>
       <CommonBackHeader
         title=""
         sx={{ bg: '#0a2143', paddingTop: top }}
-        customRoute={() => logout()}
+        customRoute={() => customRouteFunction()}
       />
       <KeyboardView
         bounces={false}
