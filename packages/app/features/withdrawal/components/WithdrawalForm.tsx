@@ -91,7 +91,7 @@ const WithdrawalForm = ({
   const { playerBalance } = usePlayerBalanceQuery(undefined, {
     refetchOnMountOrArgChange: true,
     selectFromResult: ({ data }) => ({
-      playerBalance: Number(data?.data?.main.balance),
+      playerBalance: data?.data?.main.balance,
     }),
   })
 
@@ -160,9 +160,9 @@ const WithdrawalForm = ({
       amount: validationRule.amount({
         min: toDisplayAmount((minMax && minMax.min) ?? 1, currency),
         max: toDisplayAmount(
-          playerBalance !== 0
+          Number(playerBalance) > 0
             ? minMax
-              ? Math.min(minMax.max, playerBalance)
+              ? Math.min(minMax.max, Number(playerBalance))
               : playerBalance
             : 1,
           currency
@@ -291,8 +291,15 @@ const WithdrawalForm = ({
 
       <MoneyInput
         label={t('common.amount')}
-        placeholder={t('common.enterAmount', {
-          field: t('menu.withdraw').toLowerCase(),
+        placeholder={t('validation.minMaxLimit', {
+          min: toCurrency(minMax?.min ?? 0, currency, {
+            symbol: false,
+            forceDecimal: false,
+          }),
+          max: toCurrency(minMax?.max ?? 0, currency, {
+            symbol: false,
+            forceDecimal: false,
+          }),
         })}
         keyboardType="number-pad"
         onChangeText={onAmountChanged}
