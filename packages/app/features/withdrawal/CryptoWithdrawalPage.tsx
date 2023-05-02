@@ -69,10 +69,8 @@ const CryptoWithdrawalPage = () => {
         color: '#F4521B',
         labelStyle: { color: 'white', fontWeight: 'bold' },
         minMax: {
-          // min: Number(item.min_withdrawal_trans),
-          // max: Number(item.max_withdrawal_trans),
-          min: 100000,
-          max: 300000000000,
+          min: Number(item.min_withdrawal_trans),
+          max: Number(item.max_withdrawal_trans),
         },
       }
     })
