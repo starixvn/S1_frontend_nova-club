@@ -33,7 +33,7 @@ const EventPopupModal = ({ modal: { closeModal } }) => {
           <>
             <Image
               source={{
-                uri: `${MEDIA_DOMAIN}${CONTENT_URI}/popup-agent-recruitment.jpg?v=2`,
+                uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/popup_event.jpg?v=1`,
               }}
               style={{
                 flex: 1,
