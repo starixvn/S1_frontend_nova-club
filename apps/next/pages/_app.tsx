@@ -72,7 +72,7 @@ function MyApp({ Component, pageProps, router }: SolitoAppProps) {
         </Container>
       </Provider>
       {/* <Script src="/js/iovation_static.js" /> */}
-      <Script src="https://scqa2.detecas.com/activator.ashx" />
+      {/* <Script src="https://scqa2.detecas.com/activator.ashx" /> */}
       {/* <Script
         id="LiveChat"
         strategy="lazyOnload"

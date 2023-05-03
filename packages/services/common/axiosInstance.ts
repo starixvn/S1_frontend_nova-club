@@ -106,7 +106,7 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
       'Content-Type': 'application/json',
     }
 
-    Object.assign(requestParams, generateFPSParams())
+    // Object.assign(requestParams, generateFPSParams())
 
     try {
       const black_b = window.IGLOO?.getBlackbox?.()?.blackbox
