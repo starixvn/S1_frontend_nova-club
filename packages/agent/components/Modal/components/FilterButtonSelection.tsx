@@ -39,6 +39,9 @@ const FilterButtonSelection = ({
           },
           shadowOpacity: 0.5,
           shadowRadius: 5,
+          my: '$1',
+          mx: '$5',
+          flexGrow: 1,
         }}
         onPress={resetFilter}
       >
@@ -62,6 +65,9 @@ const FilterButtonSelection = ({
           },
           shadowOpacity: 0.8,
           shadowRadius: 5,
+          my: '$1',
+          mx: '$5',
+          flexGrow: 1,
         }}
         onPress={handleConfirm}
       >
@@ -75,6 +81,7 @@ const FilterButtonContainer = styled(View)({
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'space-around',
+  flexWrap: 'wrap',
   py: '$4',
 })
 

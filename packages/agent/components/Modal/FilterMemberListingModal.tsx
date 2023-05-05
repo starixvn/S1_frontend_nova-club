@@ -82,6 +82,9 @@ const FilterMemberListingModal = ({ modal: { closeModal, getParam } }) => {
         }}
         label={t('shAgent.regDate')}
         isRequired
+        sx={{
+          mb: 12,
+        }}
       />
       <Flex
         sx={{
