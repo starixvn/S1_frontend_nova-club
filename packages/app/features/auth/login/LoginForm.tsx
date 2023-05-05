@@ -20,7 +20,7 @@ import validation, {
 } from 'app/utils/validation'
 import { Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import { AnimatePresence, MotiText } from 'moti'
+import { AnimatePresence, MotiText, MotiView } from 'moti'
 import React, { useRef, useState } from 'react'
 import { Platform, TextInput as RNTextField, StyleSheet } from 'react-native'
 import { useLoginMutation } from 'services/authApi'
@@ -30,6 +30,8 @@ import * as Yup from 'yup'
 import { LoginType } from '../type'
 
 const { useParam } = createParam()
+
+const REMEMBER_ME_HEIGHT = 40
 
 type LoginFormValues = {
   username: string
@@ -174,8 +176,8 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
 
   const formik = useFormik<LoginFormValues>({
     initialValues: {
-      username: '',
-      password: '',
+      username: rememberMeCredential?.username || '',
+      password: rememberMeCredential?.password || '',
     },
     validationSchema: Yup.object({
       username: validation.stringRequired,
@@ -239,28 +241,41 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
       <View
         sx={{
           flexDirection: 'row',
-          mt: '$4',
+          height: REMEMBER_ME_HEIGHT,
         }}
       >
-        <TouchableOpacity
-          sx={{ flexDirection: 'row', alignItems: 'center' }}
-          onPress={onCheckboxCheck}
-        >
-          <CheckBox
-            isCheck={isRemember}
-            tickColor="$orange"
-            sx={{
-              bg: isRemember ? '#062243' : '#fff',
-            }}
-          />
-          <Text
-            sx={{ ml: '$2' }}
-            style={isRemember ? styles.checked : styles.uncheck}
-          >
-            {t('auth.rememberMe')}
-          </Text>
-        </TouchableOpacity>
+        <AnimatePresence>
+          {!isAgent ? (
+            <MotiView
+              from={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ type: 'timing', duration: 250 }}
+              style={{ justifyContent: 'center' }}
+            >
+              <TouchableOpacity
+                sx={{ flexDirection: 'row', alignItems: 'center' }}
+                onPress={onCheckboxCheck}
+              >
+                <CheckBox
+                  isCheck={isRemember}
+                  tickColor="$orange"
+                  sx={{
+                    bg: isRemember ? '#062243' : '#fff',
+                  }}
+                />
+                <Text
+                  sx={{ ml: '$2' }}
+                  style={isRemember ? styles.checked : styles.uncheck}
+                >
+                  {t('auth.rememberMe')}
+                </Text>
+              </TouchableOpacity>
+            </MotiView>
+          ) : null}
+        </AnimatePresence>
       </View>
+
       <View
         sx={{
           alignItems: 'flex-end',
