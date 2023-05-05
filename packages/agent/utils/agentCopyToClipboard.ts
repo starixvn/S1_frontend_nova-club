@@ -1,6 +1,7 @@
 import * as Clipboard from 'expo-clipboard'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import i18n from 'app/provider/localization/i18n'
+import { store } from 'app/provider/redux/store'
 /**
  * `expo-clipboard` version 2.1.1 is used due to v3 above need Expo SDK45
  * to support, and `setStringAsync` can't be used in IOS
@@ -16,7 +17,9 @@ export async function copyToClipboard(
 
     Toast.show({
       type: 'info',
-      text1: i18n.translate('common.copied'),
+      text1: i18n.translate('common.copied', {
+        locale: store.getState().setting.locale,
+      }),
     })
   } catch (error) {
     console.error(error)
