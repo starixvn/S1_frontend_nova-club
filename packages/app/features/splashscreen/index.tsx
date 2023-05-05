@@ -94,7 +94,8 @@ const SplashScreen = () => {
         handleAgentLogin()
       } else replace('/')
     }
-  }, [status, replace, loginResult])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [status])
 
   const { bottom } = useSafeArea()
 
