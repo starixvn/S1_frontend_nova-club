@@ -11,13 +11,14 @@ import useTableListing from 'agent/hooks/useTableListing'
 import { useMemberListQuery } from 'agent/services/agentApi'
 import { MemberListResult } from 'agent/services/agentApi.type'
 import { useAgentLocalization } from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { Currency } from 'app/utils/constant'
 import dayjs from 'dayjs'
 import { View, styled } from 'dripsy'
 import { useState } from 'react'
+import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import AgentFloatingContent from '../floatingContent'
-import { Platform } from 'react-native'
 
 export type MemberListFilterOptions = {
   date: DateFilter | string | undefined
@@ -146,11 +147,12 @@ const MemberListScreen = () => {
         data={agentData}
         renderHeader={onRenderHeader}
         renderItem={onRenderItem}
-        keyExtractor={(item, index) => `${index} Table ${item.username}`}
+        keyExtractor={(item, index) => item.player_id}
         onLoadMore={onLoadMore}
         onRefresh={onRefresh}
         isFetching={isFetching}
         containerStyle={{ flex: 1 }}
+        extraData={t}
       />
 
       <AgentFloatingContent onPress={onFilter} />

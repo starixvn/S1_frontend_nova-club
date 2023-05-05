@@ -1,4 +1,4 @@
-import { FlashList, ListRenderItem } from '@shopify/flash-list'
+import { FlashList, ListRenderItem, FlashListProps } from '@shopify/flash-list'
 import EmptyResult from 'agent/components/DataTable/EmptyResult'
 import { ActivityIndicator, FlatList, SxProp, View, useSx } from 'dripsy'
 import React, { ComponentProps, useRef } from 'react'
@@ -28,10 +28,9 @@ import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
  */
 
 export const LIMIT = 20
-interface TableListingProps<T> {
+interface TableListingProps<T> extends FlashListProps<T> {
   title: string
   titleCenter?: boolean
-  data: T
   onRefresh?: () => void
   keyExtractor?: (item: T, index: number) => string
   renderHeader?: () => JSX.Element
