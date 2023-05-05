@@ -1,14 +1,14 @@
-import { Image, styled, View } from 'dripsy'
+import TouchableOpacity from 'app/pressable/TouchableOpacity'
+import { View } from 'dripsy'
 import React from 'react'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 import Select, { SelectProps } from './Select'
-
-const StyledTouchableOpacity = styled(TouchableOpacity)()
+import Image from 'app/components/common/Image'
 
 export type SelectWithCardGrid<T> = Omit<SelectProps<T>, '_actionSheetContent'>
 
 export default function SelectWithCardGrid<T>(props: SelectWithCardGrid<T>) {
   const { onSelected } = props
+
   return (
     <Select
       {...props}
@@ -24,7 +24,7 @@ export default function SelectWithCardGrid<T>(props: SelectWithCardGrid<T>) {
           >
             {props.options.map((option, index) => {
               return (
-                <StyledTouchableOpacity
+                <TouchableOpacity
                   key={index}
                   sx={{
                     borderColor: '#0c7dff',
@@ -37,6 +37,7 @@ export default function SelectWithCardGrid<T>(props: SelectWithCardGrid<T>) {
                     p: '$2',
                   }}
                   onPress={() => {
+                    console.log('topion', option)
                     onSelected(option.value)
                     closeActionSheet()
                   }}
@@ -54,7 +55,7 @@ export default function SelectWithCardGrid<T>(props: SelectWithCardGrid<T>) {
                       sx={{ width: '100%', height: '100%' }}
                     />
                   )}
-                </StyledTouchableOpacity>
+                </TouchableOpacity>
               )
             })}
           </View>

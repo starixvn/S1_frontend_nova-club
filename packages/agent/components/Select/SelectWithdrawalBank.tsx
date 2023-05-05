@@ -1,18 +1,16 @@
-import { StackActions, useNavigation } from '@react-navigation/native'
 import useAgentAlert from 'agent/hooks/useAgentAlert'
 import useAgentLoading from 'agent/hooks/useAgentLoading'
 import { useDeleteBankAccountMutation } from 'agent/services/accountApi'
 import { DeleteBankAccount } from 'agent/services/accountApi.type'
 import { IResponse } from 'agent/services/common/agentAxiosBaseQuery'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
-import { Image, styled, View } from 'dripsy'
+import { Image, View, styled } from 'dripsy'
 import React, { useRef } from 'react'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { TouchableOpacity } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import Icon from '../Icon'
 import IconButton from '../Icon/IconButton'
 import Select, { CloseSelectForwardRef, Options, SelectProps } from './Select'
-const StyledTouchableOpacity = styled(TouchableOpacity)()
 const TOTAL_CARD = 3
 
 export type SelectWithdrawalBank<T> = Omit<
@@ -126,7 +124,7 @@ export default function SelectWithdrawalBank<T>(
     />
   )
 }
-const AddBankContainer = styled(StyledTouchableOpacity)({
+const AddBankContainer = styled(TouchableOpacity)({
   borderColor: 'grey',
   borderRadius: 15,
   m: '$2',
@@ -170,7 +168,7 @@ const BankIconOuterContainer = styled(View)({
   shadowRadius: 10,
 })
 
-const BankIconInnerContainer = styled(StyledTouchableOpacity)({
+const BankIconInnerContainer = styled(TouchableOpacity)({
   shadowColor: '#0c7dff',
   backgroundColor: 'white',
   shadowOffset: {
