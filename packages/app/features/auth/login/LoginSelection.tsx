@@ -25,7 +25,6 @@ const LoginSelection = ({ setType, isAgent = false }: LoginSelectionProps) => {
       sx={{
         width: '100%',
         height: 50,
-        // flex: 1,
         flexDirection: 'row',
       }}
     >
@@ -37,8 +36,8 @@ const LoginSelection = ({ setType, isAgent = false }: LoginSelectionProps) => {
               : ['#33B4D4', '#1F99C7', '#0F84BB']
           }
           sx={{
-            width: '100%',
-            maxWidth: '50%',
+            flex: 1,
+            flexGrow: 1,
             px: '$2',
             height: '100%',
             justifyContent: 'center',
@@ -74,8 +73,8 @@ const LoginSelection = ({ setType, isAgent = false }: LoginSelectionProps) => {
           isAgent ? ['#69E1FC', '#008CD5'] : ['#33B4D4', '#1F99C7', '#0F84BB']
         }
         sx={{
-          width: '100%',
-          maxWidth: '50%',
+          flex: 1,
+          flexGrow: 1,
           px: '$2',
           height: '100%',
           justifyContent: 'center',
