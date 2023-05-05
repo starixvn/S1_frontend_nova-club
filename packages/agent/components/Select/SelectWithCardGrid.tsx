@@ -27,8 +27,14 @@ export default function SelectWithCardGrid<T>(props: SelectWithCardGrid<T>) {
                 <StyledTouchableOpacity
                   key={index}
                   sx={{
-                    borderColor: '$grayAgent',
+                    borderColor: '#0c7dff',
                     m: '$2',
+                    borderRadius: 15,
+                    borderWidth: 2,
+                    overflow: 'hidden',
+                    width: 100,
+                    height: 100,
+                    p: '$2',
                   }}
                   onPress={() => {
                     onSelected(option.value)
@@ -45,13 +51,7 @@ export default function SelectWithCardGrid<T>(props: SelectWithCardGrid<T>) {
                           : option.icon
                       }
                       resizeMode={'contain'}
-                      sx={{
-                        width: 100,
-                        height: 100,
-                        borderRadius: 15,
-                        borderColor: '#0c7dff',
-                        borderWidth: 2,
-                      }}
+                      sx={{ width: '100%', height: '100%' }}
                     />
                   )}
                 </StyledTouchableOpacity>
