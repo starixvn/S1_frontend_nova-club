@@ -1,5 +1,7 @@
 import DataTable from 'agent/components/DataTable/DataTable'
 import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
+import Icon from 'agent/components/Icon'
+import Text from 'agent/components/Text'
 import { DateFilter, DateFilterOptions } from 'agent/constant/select'
 import useTableListing from 'agent/hooks/useTableListing'
 import { useAgentCommissionListQuery } from 'agent/services/reportApi'
@@ -7,10 +9,11 @@ import { AgentCommissionListResult } from 'agent/services/reportApi.type'
 import { useAgentLocalization } from 'app/provider/localization'
 import { toThousandSeparator } from 'app/utils'
 import dayjs from 'dayjs'
-import { View } from 'dripsy'
+import { Pressable, View } from 'dripsy'
 import React, { useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import AgentFloatingContent from '../floatingContent'
+import { DateTimeField } from 'agent/components/DataTable/DataTableCell'
 
 export type CommissionFilterOptions = {
   date: DateFilter | string | undefined
@@ -61,25 +64,36 @@ const AgentCommissionScreen = () => {
 
   const onRenderHeader = () => (
     <DataTable.Header>
-      <DataTable.Title bordered>{t('common.username')}</DataTable.Title>
-      <DataTable.Title bordered center containerStyle={secondCellStyle}>
-        {t('report.type')}
+      <DataTable.Title bordered center>
+        {t('common.date')}
       </DataTable.Title>
       <DataTable.Title bordered center>
-        {t('report.bet')}
+        {t('common.username')}
       </DataTable.Title>
-      <DataTable.Title center>{t('report.pt')}</DataTable.Title>
+      <DataTable.Cell bordered center>
+        <View
+          sx={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Text sx={{ fontWeight: 'bold', mr: 2 }}>{t('common.turnover')}</Text>
+          <Pressable onPress={() => openModal('TurnoverModal')}>
+            <Icon name="info" color="red" size={16} />
+          </Pressable>
+        </View>
+      </DataTable.Cell>
+      <DataTable.Title center>{t('report.commission')}</DataTable.Title>
     </DataTable.Header>
   )
 
   const onRenderItem = ({ item }: { item: AgentCommissionListResult }) => (
     <DataTable.Row size="big">
-      <DataTable.Cell bordered textStyle={{ fontSize: 13 }}>
-        {item.player_username}
+      <DataTable.Cell bordered center>
+        <DateTimeField date={dayjs(item.rpt_date).format('YYYY-MM-DD')} />
       </DataTable.Cell>
-      <DataTable.Cell bordered center containerStyle={secondCellStyle}>
-        {item.player_type}
-      </DataTable.Cell>
+      <DataTable.Cell bordered>{item.player_username}</DataTable.Cell>
       <DataTable.Cell bordered center textStyle={{ fontSize: 13 }}>
         {toThousandSeparator(item.inhouse_bet_total_amt)}
       </DataTable.Cell>

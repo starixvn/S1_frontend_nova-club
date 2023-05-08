@@ -7,15 +7,15 @@ import { DateFilter, DateFilterOptions } from 'agent/constant/select'
 import useTableListing from 'agent/hooks/useTableListing'
 import { useShareholderCommissionListQuery } from 'agent/services/reportApi'
 import { ShareholderCommissionListResult } from 'agent/services/reportApi.type'
+import { useUserInfoQuery } from 'agent/services/userApi'
 import { useAgentLocalization } from 'app/provider/localization'
-import { toCurrency, toThousandSeparator } from 'app/utils'
+import { toThousandSeparator } from 'app/utils'
+import { Currency } from 'app/utils/constant'
 import dayjs from 'dayjs'
 import { Pressable, View } from 'dripsy'
 import React, { useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import AgentFloatingContent from '../floatingContent'
-import { Currency } from 'app/utils/constant'
-import { useUserInfoQuery } from 'agent/services/userApi'
 
 export type CommissionFilterOptions = {
   date: DateFilter | string | undefined
@@ -109,13 +109,13 @@ const ShareholderCommissionScreen = () => {
       </DataTable.Cell>
       <DataTable.Cell bordered>{item.username}</DataTable.Cell>
       <DataTable.Cell bordered center textStyle={{ fontSize: 12 }}>
-        {toCurrency(item.turnover_amt, currency, { symbol: false })}
+        {toThousandSeparator(item.turnover_amt)}
       </DataTable.Cell>
       <DataTable.Cell bordered center style={fourthCellStyle}>
         {item.shareholding_perc}
       </DataTable.Cell>
       <DataTable.Cell center textStyle={{ fontSize: 12 }}>
-        {toCurrency(item.earning_amt, currency, { symbol: false })}
+        {toThousandSeparator(item.earning_amt)}
       </DataTable.Cell>
     </DataTable.Row>
   )
