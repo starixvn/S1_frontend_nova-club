@@ -46,6 +46,7 @@ const AgentCreatePin = () => {
         hasPin: data?.has_pin,
         ...rest,
       }),
+      refetchOnMountOrArgChange: true,
     })
   const { push } = useContextualRouter()
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
