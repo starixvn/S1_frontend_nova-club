@@ -63,6 +63,7 @@ export interface ModalStackParams {
   }
   AgentLoadingModal: undefined
   AgentSwitchConfirmationModal: undefined
+  TurnoverModal: undefined
 }
 
 type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
@@ -88,6 +89,7 @@ const _dynamicModal = {
   EditPTModal: () => import('../components/Modal/EditPTModal'),
   AgentSwitchConfirmationModal: () =>
     import('../components/Modal/AgentSwitchConfirmationModal'),
+  TurnoverModal: () => import('../components/Modal/TurnoverModal'),
 }
 
 function getDynamicComponent(key: string) {
@@ -141,6 +143,9 @@ export const agentModalConfig: ModalConfigType = {
   },
   AgentSwitchConfirmationModal: {
     modal: getDynamicComponent('AgentSwitchConfirmationModal'),
+  },
+  TurnoverModal: {
+    modal: getDynamicComponent('TurnoverModal'),
   },
 }
 

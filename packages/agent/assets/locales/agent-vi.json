@@ -106,7 +106,13 @@
     "switchMemberNote": "Bạn muốn chuyển sang trang thành viên?"
   },
   "notes": {
-    "importantNotice": "THÔNG BÁO QUAN TRỌNG"
+    "importantNotice": "THÔNG BÁO QUAN TRỌNG",
+    "turnover": {
+      "n1": "Các loại games KHÔNG áp dụng cho hoàn trả/hoa hồng bao gồm: doanh thu của các games bàn không trực tiếp (ví dụ Blackjack, Video Poker, Craps, American Roulette, Baccarat, và các loại game bàn không trực tiếp khác) và các game không thuộc quay hũ. Các game này sẽ không được tính vào yêu cầu doanh thu trừ khi được ĐẶC BIỆT nêu rõ điều ngược lại.",
+      "n2": "Ngoại lệ đặc biệt: [Sportsbook] Chỉ các cược có kết quả thắng thua mới được hoàn trả/hoa hồng. Cược hủy, cược trống, cược có tỷ lệ dưới 1.7 (Decimal odd); 0.7 (China odd); 0.7 (Malay Positive odd); -1.43 (Indo odd); -143 (US odd), hoặc cược hai bên trong cùng một trận không được hoàn trả/hoa hồng.",
+      "n3": "[Sòng bài] Tất cả các trò sòng bài của Playtech \n[Quay hũ] Tất cả các trò rồng hổ và baccarat của Jili, baccarat của Netend và RedTiger, tất cả trò game bàn/game thẻ/poker của Playtech, tất cả các trò baccarat của Skywin, tất cả các trò baccarat, rồng hổ của Habanero",
+      "n4": "*Lưu ý: Quy định về doanh thu cược của công ty có thể thay đổi. Trong bất cứ trường hợp nào, quyết định của Vui123 là cuối cùng."
+    }
   },
   "pin": {
     "confirmPin": "Xác nhận mã PIN",

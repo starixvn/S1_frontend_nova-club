@@ -27,3 +27,10 @@ export const REWARDS_NOTES = [
   'notes.rewards.n5',
   'notes.rewards.n6',
 ]
+
+export const TURNOVER_NOTES = [
+  'notes.turnover.n1',
+  'notes.turnover.n2',
+  'notes.turnover.n3',
+  'notes.turnover.n4',
+]

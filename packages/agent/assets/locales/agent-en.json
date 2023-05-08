@@ -106,7 +106,13 @@
     "switchMemberNote": "Are you sure want to switch to member site?"
   },
   "notes": {
-    "importantNotice": "Important Notice"
+    "importantNotice": "Important Notice",
+    "turnover": {
+      "n1": "Games that are NOT eligible for the Rebate/Commission include: Turnover on all types of non-live table games (e.g. Blackjack, Video Poker, Craps, American Roulette, Baccarat, and other non-live table games) and non-slot games, will not count towards this turnover requirement unless SPECIFICALLY stated.",
+      "n2": "Special exclusion: [Sportsbookl] Only wagers that generate a win/loss return will entitle for rebate/commission. Cancelled or void wagers, wagers on odds less than 1.7 (Decimal odd); 0.7 (China odd); 0.7 (Malay Positive odd); -1.43 (Indo odd); -143 (US odd), or wagers on both even chances during a single game will not entitle for rebate/commission.",
+      "n3": "[Live Casino] all Playtech Live Casino games \n[Slots] all Dragon Tiger and Baccarat by Jili, all baccarat game by NetEnt and RedTiger, all table games/card games/poker games by Playtech, all baccarat game by Skywind, all bacarrat and dragon tiger games by Habanero",
+      "n4": "*Notes: Turnover rule of the company will change from time to time, In any event, the decision of Vui123 is final."
+    }
   },
   "pin": {
     "confirmPin": "Confirm Pin",

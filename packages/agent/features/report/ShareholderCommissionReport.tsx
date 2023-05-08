@@ -10,7 +10,7 @@ import { ShareholderCommissionListResult } from 'agent/services/reportApi.type'
 import { useAgentLocalization } from 'app/provider/localization'
 import { toCurrency, toThousandSeparator } from 'app/utils'
 import dayjs from 'dayjs'
-import { View } from 'dripsy'
+import { Pressable, View } from 'dripsy'
 import React, { useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import AgentFloatingContent from '../floatingContent'
@@ -86,7 +86,9 @@ const ShareholderCommissionScreen = () => {
           }}
         >
           <Text sx={{ fontWeight: 'bold', mr: 2 }}>{t('common.turnover')}</Text>
-          <Icon name="info" color="red" size={16} />
+          <Pressable onPress={() => openModal('TurnoverModal')}>
+            <Icon name="info" color="red" size={16} />
+          </Pressable>
         </View>
       </DataTable.Cell>
       <DataTable.Title bordered center containerStyle={fourthCellStyle}>
