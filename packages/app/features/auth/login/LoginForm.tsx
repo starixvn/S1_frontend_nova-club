@@ -314,13 +314,16 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
           </Button>
         </View>
 
-        <View
-          sx={{ mt: '$5', minHeight: 20 }}
-          pointerEvents={isAgent ? 'none' : 'auto'}
-        >
-          <TouchableOpacity onPress={() => push('/auth/register')}>
+        <View sx={{ mt: '$5', minHeight: 20 }}>
+          <TouchableOpacity
+            onPress={() =>
+              push('/auth/register', {
+                t: isAgent ? LoginType.Agent : LoginType.Member,
+              })
+            }
+          >
             <AnimatePresence>
-              {!isAgent && (
+              {
                 <MotiText
                   from={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -334,7 +337,7 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
                 >
                   {t('auth.register')}
                 </MotiText>
-              )}
+              }
             </AnimatePresence>
           </TouchableOpacity>
         </View>
