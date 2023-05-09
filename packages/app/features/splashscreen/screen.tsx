@@ -1,5 +1,5 @@
-import { Box, Text, View, styled } from 'dripsy'
-import React, { ComponentProps } from 'react'
+import { Box, ScrollView, Text, View, styled } from 'dripsy'
+import React, { ComponentProps, useMemo } from 'react'
 
 import { Button, Text as TextRN } from 'react-native'
 
@@ -8,6 +8,9 @@ import { useFonts } from 'expo-font'
 import { Link } from 'solito/link'
 import * as DropdownMenu from 'zeego/dropdown-menu'
 import * as ContextMenu from 'zeego/context-menu'
+import Icon from 'app/components/icon'
+import selection from '../../assets/fonts/icon/selection.json'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 
 const DropdownMenuLabel = DropdownMenu.create(
   (props: ComponentProps<typeof DropdownMenu.Label>) => (
@@ -31,17 +34,23 @@ export default function SplashScreen() {
   const [loaded] = useFonts({
     ...AvertaStdUseFont,
   })
-
+  const { top, bottom } = useSafeArea()
+  const memoList = useMemo(() => {
+    return selection.icons.map((x) => x.properties.name)
+  }, [])
   console.log('font loaded', loaded)
   if (!loaded) return null
 
   return (
-    <View
-      sx={{
+    <ScrollView
+      contentContainerStyle={{
         alignItems: 'center',
         justifyContent: 'center',
+        paddingTop: top,
+        paddingBottom: bottom,
+      }}
+      sx={{
         bg: '$primary.700',
-        flex: 1,
       }}
     >
       <Text>AvertaStd</Text>
@@ -90,6 +99,22 @@ export default function SplashScreen() {
           </DropdownMenuContent>
         </DropdownMenuRoot>
       </Box>
-    </View>
+      <View
+        sx={{
+          flexWrap: 'wrap',
+          flexDirection: 'row',
+          justifyContent: 'center',
+        }}
+      >
+        {memoList.map((i) => (
+          <>
+            <View sx={{ width: 100, alignItems: 'center' }}>
+              <Icon key={i} name={i} color={'white'} size={30} sx={{ p: 10 }} />
+              <Text style={{ textAlign: 'center' }}>{i}</Text>
+            </View>
+          </>
+        ))}
+      </View>
+    </ScrollView>
   )
 }
