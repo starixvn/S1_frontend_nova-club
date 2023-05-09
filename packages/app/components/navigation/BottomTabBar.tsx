@@ -28,7 +28,7 @@ function BottomTabBar() {
       }}
     >
       <Gradient
-        gradient={'bar'}
+        gradient={'surface'}
         sx={{
           height: 50 + bottom,
           paddingBottom: bottom,

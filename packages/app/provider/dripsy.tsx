@@ -52,7 +52,7 @@ const theme = makeTheme({
   },
   linearGradients: {
     // nesteed color not working for now, https://github.com/nandorojo/dripsy/issues/286
-    bar: ['#50509E', '#32325A'],
+    surface: ['#50509E', '#32325A'],
     ball: ['$success', '$error'],
   },
 })
