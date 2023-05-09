@@ -18,13 +18,14 @@ import { useLazyCheckUsernameQuery } from 'services/authApi'
 import { RegisterFormValues } from '.'
 
 interface RegisterFormProps {
+  isAgent: boolean
   formik: FormikProps<RegisterFormValues>
   onSuccess: () => void
 }
 
 const MemoTextInput = memo(TextInput)
 
-const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
+const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
   const {
     handleChange,
     handleBlur,
@@ -73,7 +74,13 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
   ])
 
   const handleCheckingUsername = useCallback(async () => {
-    if (isCheckingUsername) return
+    if (isAgent) {
+      setIsCheckingUsername(false)
+      isUsernameCheckedRef.current = true
+      setUsernameErrorMsg('')
+    }
+
+    if (isCheckingUsername || isAgent) return
 
     if (!errors.username) {
       setIsCheckingUsername(true)
