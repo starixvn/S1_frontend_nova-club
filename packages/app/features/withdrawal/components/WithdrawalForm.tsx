@@ -291,16 +291,22 @@ const WithdrawalForm = ({
 
       <MoneyInput
         label={t('common.amount')}
-        placeholder={t('validation.minMaxLimit', {
-          min: toCurrency(minMax?.min ?? 0, currency, {
-            symbol: false,
-            forceDecimal: false,
-          }),
-          max: toCurrency(minMax?.max ?? 0, currency, {
-            symbol: false,
-            forceDecimal: false,
-          }),
-        })}
+        placeholder={
+          isCrypto
+            ? t('validation.minMaxLimit', {
+                min: toCurrency(minMax?.min ?? 0, currency, {
+                  symbol: false,
+                  forceDecimal: false,
+                }),
+                max: toCurrency(minMax?.max ?? 0, currency, {
+                  symbol: false,
+                  forceDecimal: false,
+                }),
+              })
+            : t('common.enterAmount', {
+                field: t('menu.withdraw').toLowerCase(),
+              })
+        }
         keyboardType="number-pad"
         onChangeText={onAmountChanged}
         onBlur={handleBlur('amount')}
