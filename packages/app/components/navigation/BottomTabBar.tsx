@@ -1,42 +1,14 @@
 import usePathname from 'app/hooks/usePathname'
-import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { Box, Text, View, useDripsyTheme } from 'dripsy'
-import { Gradient } from 'dripsy/gradient'
-import React, { useEffect } from 'react'
+import { Box, View } from 'dripsy'
+import React from 'react'
 import { Link } from 'solito/link'
-import { Route } from './type'
 import GradientButton from '../GradientButton'
-
-export const BOTTOM_ROUTE: Route[] = [
-  {
-    label: 'Sportsbook',
-    path: '/sportsbook',
-    icon: 'sportbook',
-  },
-  {
-    label: 'Games',
-    path: '/games',
-    icon: 'games-2',
-  },
-  {
-    label: 'Home',
-    path: '/',
-    icon: 'home',
-  },
-  {
-    label: 'Slots',
-    path: '/slots',
-    icon: 'sl',
-  },
-  {
-    label: 'Live Casino',
-    path: '/livecasino',
-    icon: 'casino',
-  },
-]
+import { BOTTOM_ROUTE } from './RoutePath'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 
 function BottomTabBar() {
   const pathname = usePathname()
+  const { bottom } = useSafeArea()
   const isActiveState = (
     index: number,
     item: (typeof BOTTOM_ROUTE)[number]
@@ -62,7 +34,7 @@ function BottomTabBar() {
       <View
         // colors={theme.linearGradients.surface}
         sx={{
-          height: 70,
+          height: 50 + bottom,
           // overflow: 'visible',
           flexDirection: 'row',
           justifyContent: 'space-evenly',
@@ -76,7 +48,12 @@ function BottomTabBar() {
                 toggleState={isActiveState(index, r)}
                 label={r.label}
                 iconProps={{ name: r.icon ?? 'notice', size: 30 }}
-                textStyle={{ fontSize: 14 }}
+                textProps={{
+                  numberOfLines: 1,
+                  sx: {
+                    fontSize: 13,
+                  },
+                }}
                 routePath={r.path}
                 enableToggle={true}
               />

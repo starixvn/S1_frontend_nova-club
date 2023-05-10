@@ -1,8 +1,8 @@
 import { Text, View, styled, useDripsyTheme } from 'dripsy'
 import { Gradient } from 'dripsy/gradient'
 import { MotiView } from 'moti/build'
-import React from 'react'
-import { TextStyle, TouchableOpacity } from 'react-native'
+import React, { ComponentProps } from 'react'
+import { TouchableOpacity } from 'react-native'
 import { useRouter } from 'solito/router'
 import Icon, { IconComponentProps } from './icon'
 
@@ -15,10 +15,15 @@ interface GradientButtonProps {
   touchableFeedback?: boolean
   iconProps: IconComponentProps
   label?: string
-  textStyle?: TextStyle
+  textProps?: Omit<ComponentProps<typeof IconLabel>, keyof IconLabelProps>
   routePath?: string
   active?: boolean
   enableToggle?: boolean
+}
+
+interface IconLabelProps {
+  toggleState: boolean
+  enableToggle: boolean
 }
 
 const GradientButton = ({
@@ -26,7 +31,7 @@ const GradientButton = ({
   iconProps,
   label,
   buttonSize = ICON_SIZE,
-  textStyle,
+  textProps,
   routePath,
   enableToggle = false,
 }: GradientButtonProps) => {
@@ -68,18 +73,13 @@ const GradientButton = ({
             </IconBorderView>
           </Gradient>
 
-          <Text
-            style={[
-              textStyle,
-              {
-                textAlign: 'center',
-                fontWeight: toggleState && enableToggle ? 'bold' : '100',
-                paddingTop: 5,
-              },
-            ]}
+          <IconLabel
+            toggleState={toggleState ?? false}
+            enableToggle={enableToggle ?? false}
+            {...textProps}
           >
             {label}
-          </Text>
+          </IconLabel>
         </MotiView>
       </TouchableOpacity>
     </>
@@ -88,12 +88,20 @@ const GradientButton = ({
 
 const IconBorderView = styled(View)({
   borderRadius: 100,
-  borderColor: '$primary.700',
-  borderWidth: 3,
+  borderColor: '#32325A',
+  borderWidth: 3.5,
   width: '95%',
   height: '95%',
   alignItems: 'center',
   justifyContent: 'center',
 })
+
+const IconLabel = styled(Text)(
+  ({ toggleState, enableToggle }: IconLabelProps) => ({
+    textAlign: 'center',
+    fontWeight: toggleState && enableToggle ? 'bold' : '100',
+    paddingTop: 5,
+  })
+)
 
 export default GradientButton
