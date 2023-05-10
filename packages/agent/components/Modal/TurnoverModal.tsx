@@ -21,7 +21,6 @@ const TurnoverModal = ({ modal: { closeModal, getParam } }) => {
               key={`Turnover ${i}`}
               sx={{
                 fontSize: FONT_SIZE,
-                flex: 1,
                 color: i === 2 ? 'red' : 'black',
               }}
             >
