@@ -1,6 +1,7 @@
 import { EndpointBuilderType } from 'services/common/types'
 import { agentBaseApiWithTag } from './agentBaseApi'
 import {
+  AgentCheckUsername,
   AgentRegisterResult,
   LoginQueryArgs,
   LoginResult,
@@ -19,6 +20,14 @@ export const authApi = agentBaseApiWithTag.injectEndpoints({
         data: {
           username,
           password,
+        },
+      }),
+    }),
+    agentCheckUsername: builder.query<IResponse<string>, AgentCheckUsername>({
+      query: ({ username }) => ({
+        url: `/agent/checkUsername`,
+        data: {
+          username,
         },
       }),
     }),
@@ -54,6 +63,7 @@ export const authApi = agentBaseApiWithTag.injectEndpoints({
 
 export const {
   useLoginMutation,
+  useLazyAgentCheckUsernameQuery,
   useAgentRegisterMutation,
   useAgentRegisterOtpMutation,
   useResetPwMutation,

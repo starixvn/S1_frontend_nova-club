@@ -16,6 +16,7 @@ import React, {
 import { TextInput as RNTextInput } from 'react-native'
 import { useLazyCheckUsernameQuery } from 'services/authApi'
 import { RegisterFormValues } from '.'
+import { useLazyAgentCheckUsernameQuery } from 'agent/services/authApi'
 
 interface RegisterFormProps {
   isAgent: boolean
@@ -39,6 +40,7 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
 
   const { t } = useLocalization()
   const [checkUsername] = useLazyCheckUsernameQuery()
+  const [agentCheckUsername] = useLazyAgentCheckUsernameQuery()
   const lang = useAppSelector((state) => state.setting.locale)
 
   const [usernameErrorMsg, setUsernameErrorMsg] = useState('')
@@ -74,26 +76,32 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
   ])
 
   const handleCheckingUsername = useCallback(async () => {
-    if (isAgent) {
-      setIsCheckingUsername(false)
-      isUsernameCheckedRef.current = true
-      setUsernameErrorMsg('')
-    }
-
-    if (isCheckingUsername || isAgent) return
+    if (isCheckingUsername) return
 
     if (!errors.username) {
       setIsCheckingUsername(true)
 
       try {
-        const { success } = await checkUsername({
-          username: values.username,
-        }).unwrap()
+        if (isAgent) {
+          const { success } = await agentCheckUsername({
+            username: values.username,
+          }).unwrap()
 
-        isUsernameCheckedRef.current = true
+          isUsernameCheckedRef.current = true
 
-        if (success) {
-          if (usernameErrorMsg) setUsernameErrorMsg('')
+          if (success) {
+            if (usernameErrorMsg) setUsernameErrorMsg('')
+          }
+        } else {
+          const { success } = await checkUsername({
+            username: values.username,
+          }).unwrap()
+
+          isUsernameCheckedRef.current = true
+
+          if (success) {
+            if (usernameErrorMsg) setUsernameErrorMsg('')
+          }
         }
       } catch (error) {
         const errorMessage = getErrorMessage(error)
