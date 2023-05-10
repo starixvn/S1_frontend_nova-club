@@ -11,6 +11,7 @@ import * as ContextMenu from 'zeego/context-menu'
 import Icon from 'app/components/icon'
 import selection from '../../assets/fonts/icon/selection.json'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import GradientButton from 'app/components/GradientButton'
 
 const DropdownMenuLabel = DropdownMenu.create(
   (props: ComponentProps<typeof DropdownMenu.Label>) => (
@@ -70,6 +71,9 @@ export default function SplashScreen() {
           <Text>Home</Text>
         </Link>
       </Box>
+      <View sx={{}}>
+        <GradientButton iconProps={{ name: 'tiktok' }} />
+      </View>
       <Box>
         <DropdownMenuRoot>
           <DropdownMenuTrigger>
