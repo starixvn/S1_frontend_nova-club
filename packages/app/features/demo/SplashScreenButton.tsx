@@ -39,11 +39,19 @@ const SplashScreenButton = () => {
         // bg: 'red',
       }}
     >
-      <View sx={{ width: '30%' }}>
+      <View sx={{ width: '25%' }}>
         <GradientButton
           iconProps={{ name: 'tiktok' }}
           routePath="/demoIconScreen"
           label="Demo Button"
+        />
+      </View>
+
+      <View sx={{ width: '25%' }}>
+        <GradientButton
+          iconProps={{ name: 'file' }}
+          routePath="/demo/input"
+          label="demo input"
         />
       </View>
       {/* <Link

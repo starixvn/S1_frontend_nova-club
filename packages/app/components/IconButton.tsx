@@ -1,6 +1,6 @@
 import { Pressable, SxProp } from 'dripsy'
 import React from 'react'
-import Icon, { IconProps } from './Icon'
+import Icon, { IconProps } from './icon'
 export interface IconButtonProps extends IconProps {
   onPress?: () => void
   disabled?: boolean

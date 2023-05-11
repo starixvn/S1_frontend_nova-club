@@ -2,8 +2,8 @@ import dayjs from 'dayjs'
 import { DatePickerProps as RNDatePickerProps } from 'react-native-date-picker'
 import Input, { InputProps } from '../Input'
 import { ChangeEvent, useRef } from 'react'
-import Icon from 'app/components/Icon'
 import InputClearActionRow from '../InputClearActionRow'
+import Icon from 'app/components/icon'
 
 export interface DatePickerProps
   extends Omit<RNDatePickerProps, 'date' | 'onConfirm'>,

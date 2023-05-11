@@ -6,9 +6,9 @@ import {
   GestureResponderEvent,
   TouchableOpacity,
 } from 'react-native'
-import Icon from '../Icon'
 import { mergeRefs } from 'utils/mergeRefs'
 import { DripsyTextInputProps } from 'dripsy/build/core/components/TextInput'
+import Icon from '../icon'
 
 export interface InputProps extends DripsyTextInputProps {
   label?: string

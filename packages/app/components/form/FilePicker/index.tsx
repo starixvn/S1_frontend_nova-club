@@ -1,10 +1,10 @@
 import React, { useRef } from 'react'
 import Input, { InputProps } from '../Input'
-import Icon from '../../Icon'
 import * as ImagePicker from 'expo-image-picker'
 import { Image, Row, View, styled } from 'dripsy'
 import IconButton from 'app/components/IconButton'
 import InputClearActionRow from '../InputClearActionRow'
+import Icon from 'app/components/icon'
 
 export interface FilePickerProps
   extends Omit<InputProps, 'value' | 'onChange'> {
