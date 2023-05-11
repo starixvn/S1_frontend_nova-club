@@ -1,17 +1,13 @@
-import { Box, ScrollView, Text, View, styled } from 'dripsy'
-import React, { ComponentProps, useMemo } from 'react'
+import { Box, ScrollView, Text, styled } from 'dripsy'
+import React, { ComponentProps } from 'react'
 
 import { Button, Text as TextRN } from 'react-native'
 
 import { AvertaStdUseFont } from 'app/assets/fonts/Averta'
-import { useFonts } from 'expo-font'
-import { Link } from 'solito/link'
-import * as DropdownMenu from 'zeego/dropdown-menu'
-import * as ContextMenu from 'zeego/context-menu'
-import Icon from 'app/components/icon'
-import selection from '../../assets/fonts/icon/selection.json'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import GradientButton from 'app/components/GradientButton'
+import { useFonts } from 'expo-font'
+import * as DropdownMenu from 'zeego/dropdown-menu'
+import SplashScreenButton from '../demo/SplashScreenButton'
 
 const DropdownMenuLabel = DropdownMenu.create(
   (props: ComponentProps<typeof DropdownMenu.Label>) => (
@@ -36,10 +32,8 @@ export default function SplashScreen() {
     ...AvertaStdUseFont,
   })
   const { top, bottom } = useSafeArea()
-  const memoList = useMemo(() => {
-    return selection.icons.map((x) => x.properties.name)
-  }, [])
-  console.log('font loaded', loaded)
+
+  // console.log('font loaded', loaded)
   if (!loaded) return null
 
   return (
@@ -59,21 +53,7 @@ export default function SplashScreen() {
       <Text sx={{ fontWeight: 'bold' }}>AvertaStd Bold</Text>
       <Text sx={{ fontWeight: '900' }}>AvertaStd Black</Text>
       <TextRN>RN Original Text</TextRN>
-      <Box sx={{ mt: 20 }}>
-        <Link
-          href="/?splashscreen=true"
-          replace
-          experimental={{
-            nativeBehavior: 'stack-replace',
-            isNestedNavigator: false,
-          }}
-        >
-          <Text>Home</Text>
-        </Link>
-      </Box>
-      <View sx={{}}>
-        <GradientButton iconProps={{ name: 'tiktok' }} />
-      </View>
+      <SplashScreenButton />
       <Box>
         <DropdownMenuRoot>
           <DropdownMenuTrigger>
@@ -103,22 +83,7 @@ export default function SplashScreen() {
           </DropdownMenuContent>
         </DropdownMenuRoot>
       </Box>
-      <View
-        sx={{
-          flexWrap: 'wrap',
-          flexDirection: 'row',
-          justifyContent: 'center',
-        }}
-      >
-        {memoList.map((i) => (
-          <>
-            <View sx={{ width: 100, alignItems: 'center' }}>
-              <Icon key={i} name={i} color={'white'} size={30} sx={{ p: 10 }} />
-              <Text style={{ textAlign: 'center' }}>{i}</Text>
-            </View>
-          </>
-        ))}
-      </View>
+      {/* <DemoIcon /> */}
     </ScrollView>
   )
 }

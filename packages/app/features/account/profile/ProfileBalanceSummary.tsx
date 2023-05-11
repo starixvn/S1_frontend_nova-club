@@ -1,5 +1,7 @@
 import Icon from 'app/components/icon'
-import { Text, View, styled, useDripsyTheme } from 'dripsy'
+import { toCurrency } from 'app/utils'
+import { Currency } from 'app/utils/constant'
+import { ActivityIndicator, Text, View, styled, useDripsyTheme } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti/build'
 import { useState } from 'react'
 import { TouchableOpacity } from 'react-native'
@@ -7,7 +9,8 @@ import { TouchableOpacity } from 'react-native'
 interface HiddenItemProps {
   color: string
   iconName: string
-  value: string
+  value: number
+  currency?: Currency
   label: string
 }
 
@@ -17,7 +20,19 @@ interface ProfileSummaryTextProps {
   color?: string
 }
 
-const ProfileBalanceSummary = () => {
+interface ProfileBalanceSummaryProps {
+  reward: number
+  cash: number
+  isLoading: boolean
+  currency: Currency
+}
+
+const ProfileBalanceSummary = ({
+  reward,
+  cash,
+  isLoading,
+  currency,
+}: ProfileBalanceSummaryProps) => {
   const { theme } = useDripsyTheme()
   const [isExtend, setIsExtend] = useState(false)
 
@@ -36,9 +51,16 @@ const ProfileBalanceSummary = () => {
           <ProfileSummaryText px={5}>Balance</ProfileSummaryText>
         </BalanceItem>
         <BalanceItem>
-          <ProfileSummaryText px={5} color={theme.colors.$secondary[100]}>
-            6,854.4K
-          </ProfileSummaryText>
+          {isLoading ? (
+            <ActivityIndicator />
+          ) : (
+            <ProfileSummaryText px={5} color={theme.colors.$secondary[100]}>
+              {toCurrency(reward + cash, currency, {
+                symbol: false,
+                hideTruncatedThousand: false,
+              })}
+            </ProfileSummaryText>
+          )}
 
           <MotiView
             from={{ transform: [{ rotate: '0deg' }] }}
@@ -70,14 +92,15 @@ const ProfileBalanceSummary = () => {
               color={theme.colors.$secondary[100]}
               iconName="ac"
               label="cash"
-              value="6,854.3K"
+              value={cash}
+              currency={currency}
             />
             <View sx={{ backgroundColor: '$primary.100', width: 1 }} />
             <HiddenItem
               color={theme.colors.$secondary[100]}
               iconName="gift"
               label="reward"
-              value="3"
+              value={reward}
             />
           </MotiView>
         )}
@@ -86,7 +109,13 @@ const ProfileBalanceSummary = () => {
   )
 }
 
-const HiddenItem = ({ color, iconName, value, label }: HiddenItemProps) => {
+const HiddenItem = ({
+  color,
+  iconName,
+  value,
+  label,
+  currency,
+}: HiddenItemProps) => {
   return (
     <HiddenItemContainer>
       <View sx={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -102,7 +131,14 @@ const HiddenItem = ({ color, iconName, value, label }: HiddenItemProps) => {
           alignItems: 'center',
         }}
       >
-        <ProfileSummaryText fontSize={20}>{value}</ProfileSummaryText>
+        <ProfileSummaryText fontSize={20}>
+          {currency
+            ? toCurrency(value, currency, {
+                symbol: false,
+                hideTruncatedThousand: false,
+              })
+            : value}
+        </ProfileSummaryText>
       </View>
     </HiddenItemContainer>
   )
