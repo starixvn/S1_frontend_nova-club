@@ -1,4 +1,4 @@
-import Icon from 'app/components/Icon'
+import Icon from '../../components/Icon'
 import DatePicker from 'app/components/form/DatePicker'
 import FilePicker from 'app/components/form/FilePicker'
 import Input from 'app/components/form/Input'
@@ -18,11 +18,19 @@ export default function InputScreen() {
       sx={{
         flex: 1,
         bg: '$primary.700',
+        paddingTop: 100,
       }}
       contentContainerSx={{ px: '$2', paddingTop: top, paddingBottom: bottom }}
     >
-      <DatePicker date={d} onConfirm={setD} placeholder="Select Date" />
-      <FilePicker value={file} onChange={setFile} placeholder="Select File" />
+      <DatePicker value={d} onChange={setD} placeholder="Select Date" />
+      <FilePicker
+        value={file}
+        onChange={(e) => {
+          console.log('e', e)
+          setFile(e)
+        }}
+        placeholder="Select File"
+      />
       <Input />
       <Input label="Bank" placeholder="Please enter bank account" />
       <Input icon="profile-rounded" placeholder="Username" />

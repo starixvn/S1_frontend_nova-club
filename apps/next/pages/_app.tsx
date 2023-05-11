@@ -1,12 +1,18 @@
 import 'raf/polyfill'
 import 'setimmediate'
 
+import { AvertaStdUseFont } from 'app/assets/fonts/Averta'
 import { Provider } from 'app/provider'
+import { useFonts } from 'expo-font'
 import Head from 'next/head'
-import React from 'react'
 import type { SolitoAppProps } from 'solito'
+import '../global.css'
 
 function MyApp({ Component, pageProps }: SolitoAppProps) {
+  useFonts({
+    ...AvertaStdUseFont,
+  })
+
   return (
     <>
       <Head>

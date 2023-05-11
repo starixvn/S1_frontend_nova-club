@@ -17,36 +17,33 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  output: 'standalone',
-  experimental: {
-    outputFileTracingRoot: path.join(__dirname, '../../'),
-  },
+  // compiler: {
+  //   removeConsole: {
+  //     exclude: ['error'],
+  //   },
+  // },
   transpilePackages: [
     'react-native',
     'react-native-web',
+    /* https://github.com/expo/expo/issues/21623 */
+    '@react-native/assets',
+    'expo-asset',
+    'expo-font',
+    'expo-modules-core',
+    /* */
+    'expo-image-picker',
     'solito',
     'dripsy',
     'moti',
     'app',
+    'utils',
     'react-native-reanimated',
     '@expo/html-elements',
+    '@expo/vector-icons',
     'react-native-gesture-handler',
   ],
 }
 
-const moduleExports = withPlugins(
-  [
-    [
-      withImages,
-      {
-        inlineImageLimit: 0,
-      },
-    ],
-    [withVideos],
-    [withExpo, { projectRoot: __dirname }],
-    [withFonts, { projectRoot: __dirname }],
-  ],
-  nextConfig
-)
+const moduleExports = withExpo(withFonts(nextConfig))
 
 module.exports = moduleExports

@@ -1,0 +1,19 @@
+input:focus {
+  outline: none !important;
+}
+
+input[type='date'],
+input[type='time'],
+input[type='date']::-webkit-calendar-picker-indicator {
+  background: transparent;
+  bottom: 0;
+  color: transparent;
+  cursor: pointer;
+  height: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  position: absolute;
+  width: auto;
+  opacity: 0;
+}

@@ -1,22 +1,24 @@
-import Icon from 'app/components/Icon'
+import Icon from '../../Icon'
 import dayjs from 'dayjs'
 import React, { useState } from 'react'
 import RNDatePicker, {
   DatePickerProps as RNDatePickerProps,
 } from 'react-native-date-picker'
 import Input, { InputProps } from '../Input'
+import InputClearActionRow from '../InputClearActionRow'
 
 export interface DatePickerProps
-  extends Omit<RNDatePickerProps, 'date'>,
+  extends Omit<RNDatePickerProps, 'date' | 'onConfirm'>,
     Pick<InputProps, 'editable' | 'placeholder'> {
-  date?: Date
+  value?: Date
+  onChange?: (date?: Date) => void
 }
 
 export default function DatePicker({
-  onConfirm,
+  onChange,
   editable,
   placeholder,
-  date,
+  value,
   mode = 'date',
   onCancel,
   ...rest
@@ -26,17 +28,26 @@ export default function DatePicker({
     <>
       <Input
         icon="date"
-        action={<Icon name="down" />}
+        action={
+          <InputClearActionRow
+            isClearable={!!value}
+            onPress={() => {
+              onChange && onChange()
+            }}
+          >
+            <Icon name="down" />
+          </InputClearActionRow>
+        }
         onPress={() => {
           setFocus(true)
         }}
         editable={editable}
         placeholder={placeholder}
-        value={date ? dayjs(date).format('YYYY-MM-DD').toString() : undefined}
+        value={value ? dayjs(value).format('YYYY-MM-DD').toString() : ''}
       />
       <RNDatePicker
         modal
-        date={date ?? new Date()}
+        date={value ?? new Date()}
         mode={mode}
         open={isFocus}
         onCancel={() => {
@@ -45,7 +56,7 @@ export default function DatePicker({
         }}
         onConfirm={(e) => {
           //   console.log('selected date', e)
-          onConfirm && onConfirm(e)
+          onChange && onChange(e)
           setFocus(false)
         }}
         {...rest}

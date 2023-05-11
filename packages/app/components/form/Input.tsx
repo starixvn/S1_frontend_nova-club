@@ -18,6 +18,7 @@ export interface InputProps extends DripsyTextInputProps {
   sx?: SxProp
   inputSx?: SxProp
   onPress?: (e?: GestureResponderEvent) => void
+  children?: ReactNode
 }
 
 const Input = forwardRef<NativeTextInput, InputProps>(
@@ -32,6 +33,7 @@ const Input = forwardRef<NativeTextInput, InputProps>(
       editable = true,
       secureTextEntry,
       onPress,
+      children,
       ...rest
     },
     ref
@@ -49,13 +51,11 @@ const Input = forwardRef<NativeTextInput, InputProps>(
     const mergedInputRef = mergeRefs([inputRef, ref])
 
     function handleOnPress(event: GestureResponderEvent) {
-      console.log('dhenld press')
-      inputRef.current?.focus()
       onPress?.(event)
     }
 
     return (
-      <RootView sx={sx}>
+      <RootView sx={{ cursor: onPress ? 'pointer' : 'initial', ...sx }}>
         {label && <Label>{`${label} :`}</Label>}
         <FocusArea onPress={handleOnPress}>
           <InputContainer>
@@ -85,6 +85,7 @@ const Input = forwardRef<NativeTextInput, InputProps>(
                 {...rest}
               />
             </View>
+            {children}
             {secureTextEntry && (
               <Container>
                 <TouchableOpacity
@@ -123,6 +124,7 @@ const InputContainer = styled(Row)({
   px: '2%',
   borderWidth: 1,
   alignItems: 'center',
+  position: 'relative',
 })
 
 const Container = styled(View)({
