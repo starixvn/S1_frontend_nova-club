@@ -1,8 +1,0 @@
-diff --git a/node_modules/dripsy/gradient/index.native.js b/node_modules/dripsy/gradient/index.native.js
-new file mode 100644
-index 0000000..83755ef
---- /dev/null
-+++ b/node_modules/dripsy/gradient/index.native.js
-@@ -0,0 +1 @@
-+export * from '../src/gradient'
-\ No newline at end of file

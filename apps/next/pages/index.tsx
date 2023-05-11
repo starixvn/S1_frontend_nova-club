@@ -1,3 +1,3 @@
-import { HomeScreen } from 'app/features/home/screen'
+import InputScreen from 'app/features/demo/InputScreen'
 
-export default HomeScreen
+export default InputScreen

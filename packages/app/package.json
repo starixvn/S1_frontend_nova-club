@@ -4,9 +4,13 @@
   "main": "index.ts",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
+    "dayjs": "^1.11.7",
     "dripsy": "^4",
+    "expo-image-picker": "^14.1.1",
     "moti": "latest",
+    "react-native-date-picker": "^4.2.13",
     "solito": "3.0.0",
+    "utils": "*",
     "zeego": "^1.5.1"
   },
   "sideEffects": false

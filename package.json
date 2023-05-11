@@ -14,17 +14,13 @@
   },
   "scripts": {
     "native": "cd apps/expo && yarn start",
-    "web": "cd apps/next && yarn next",
-    "postinstall": "patch-package"
+    "web": "cd apps/next && yarn next"
   },
   "resolutions": {
     "metro": "^0.73.1",
     "metro-resolver": "^0.73.1",
-    "@babel/preset-typescript": "^7.21.0",
-    "@babel/core": "^7.21.0",
-    "@babel/plugin-transform-typescript": "^7.21.0",
-    "@typescript-eslint/eslint-plugin": "5.57.0",
-    "@typescript-eslint/parser": "5.57.0"
+    "dripsy@^4": "patch:dripsy@npm%3A4.1.0#./.yarn/patches/dripsy-npm-4.1.0-709be8c3fb.patch",
+    "@react-native/assets@1.0.0": "patch:@react-native/assets@npm%3A1.0.0#./.yarn/patches/@react-native-assets-npm-1.0.0-2165b2ba43.patch"
   },
   "nohoist": [
     "**/expo-router",
@@ -33,9 +29,5 @@
   "engines": {
     "node": "^16.0.0"
   },
-  "packageManager": "yarn@3.4.1",
-  "dependencies": {
-    "patch-package": "^7.0.0",
-    "postinstall-postinstall": "^2.1.0"
-  }
+  "packageManager": "yarn@3.4.1"
 }

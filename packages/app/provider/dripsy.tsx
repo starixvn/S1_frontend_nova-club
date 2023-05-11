@@ -8,6 +8,20 @@ const webFont = (font: string) =>
     default: font,
   })
 
+/* sizes, space, radii
+  https://github.com/nandorojo/dripsy/blob/master/packages/dripsy/src/core/css/scales.ts
+
+  $0: 0,
+  $1: 4,
+  $2: 8,
+  $3: 16,
+  $4: 32,
+  $5: 64,
+  $6: 128,
+  $7: 256,
+  $8: 512,
+*/
+
 const theme = makeTheme({
   // https://www.dripsy.xyz/usage/theming/create
   customFonts: {
@@ -25,6 +39,17 @@ const theme = makeTheme({
   },
   fonts: {
     root: AvertaStd.Regular.name,
+  },
+  forms: {
+    input: {
+      fontSize: 16,
+      color: '$text',
+      fontFamily: AvertaStd.Regular.name,
+    },
+    icon: {
+      size: 16,
+      color: '$text',
+    },
   },
   text: {
     body: {
@@ -49,6 +74,8 @@ const theme = makeTheme({
     $tertiary: '#80CEFF',
     $success: '#0DBF00',
     $error: '#E43221',
+    $placeholder: '#ffffff80',
+    // selectionColor: '$tertiary',
   },
   linearGradients: {
     // nesteed color not working for now, https://github.com/nandorojo/dripsy/issues/286
