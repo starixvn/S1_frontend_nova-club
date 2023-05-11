@@ -28,9 +28,15 @@ const TncEn = () => {
         <li>Player has min deposit of VND100k</li>
         <li>Player has min turnover of VND500k</li>
         <li>
-          Fulfill the condition of 1-3 will entitle of VND50k headcount fee
+          Vui123 will review and decide the distribution of head count fee to
+          qualified players only
         </li>
-        <li>Headcount fee given during promotion period only</li>
+        <li>
+          Fulfill the condition of 1-4 will entitle of VND50k headcount fee
+        </li>
+        <li>
+          Headcount fee will be computed and given on first week of June 2023
+        </li>
         <li>
           Vui123 reserves the right to change or modify the T&C at any time
         </li>

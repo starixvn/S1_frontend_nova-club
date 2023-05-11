@@ -31,9 +31,14 @@ const TncVi = () => {
         <li>Chỉ dành cho khách đăng ký lần đầu</li>
         <li>Người chơi phải nạp tối thiểu 100kVND</li>
         <li>Người chơi phải có doanh thu tối thiểu 500k VND</li>
+        <li>
+          Vui123 sẽ đánh giá và chi trả tiền thưởng tuyển dụng cho các tài khoản
+          hợp lệ
+        </li>
         <li>Nhận thưởng thêm 50k cho mỗi khách thỏa các điều kiện trên</li>
         <li>
-          Thưởng trên đầu người chơi chỉ diễn ra trong thời gian khuyến mãi
+          Tiền thưởng tuyển dụng này sẽ được tính và gửi vào tuần đầu tiên của
+          tháng 6/2023
         </li>
         <li>
           Vui123 bảo lưu quyền thay đổi và điều chỉnh các điều kiện và điều
