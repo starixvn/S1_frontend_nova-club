@@ -1,5 +1,5 @@
 import Icon from 'app/components/icon'
-import { P, Text, View, styled, useDripsyTheme } from 'dripsy'
+import { Text, View, styled, useDripsyTheme } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti/build'
 import { useState } from 'react'
 import { TouchableOpacity } from 'react-native'

@@ -5,6 +5,7 @@ import { Gradient } from 'dripsy/gradient'
 import { Link } from 'solito/link'
 
 const CARD_PER_ROW = 4
+const CARD_SIZE = 80
 
 const ProfileQuickNavigation = () => {
   const { theme } = useDripsyTheme()
@@ -19,8 +20,8 @@ const ProfileQuickNavigation = () => {
           borderRadius: 15,
           alignItems: 'center',
           justifyContent: 'center',
-          width: 80,
-          height: 100,
+          width: CARD_SIZE,
+          height: CARD_SIZE,
         }}
       />
     )
@@ -35,18 +36,20 @@ const ProfileQuickNavigation = () => {
             borderRadius: 15,
             alignItems: 'center',
             justifyContent: 'center',
-            width: 80,
-            height: 100,
+            width: CARD_SIZE,
+            height: CARD_SIZE,
           }}
         >
           <Icon
             name={r.icon ?? 'notice'}
             color={'white'}
-            size={30}
+            size={24}
             sx={{ p: 10 }}
           />
           <Text
+            numberOfLines={2}
             sx={{
+              fontWeight: '500',
               px: 5,
               lineHeight: 12,
               textAlign: 'center',
@@ -63,12 +66,10 @@ const ProfileQuickNavigation = () => {
   }
 
   return (
-    <>
-      <ProfileQuickNavigationContainer>
-        {Profile_Quick_Navigation_Path.map(renderNavigationCard)}
-        {Array.from({ length: numEmptyCard }, (_, i) => i).map(renderEmptyCard)}
-      </ProfileQuickNavigationContainer>
-    </>
+    <ProfileQuickNavigationContainer>
+      {Profile_Quick_Navigation_Path.map(renderNavigationCard)}
+      {Array.from({ length: numEmptyCard }, (_, i) => i).map(renderEmptyCard)}
+    </ProfileQuickNavigationContainer>
   )
 }
 

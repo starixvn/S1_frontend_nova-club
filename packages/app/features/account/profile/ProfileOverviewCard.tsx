@@ -1,5 +1,5 @@
 import Icon from 'app/components/icon'
-import { View, Text, styled, SxProp } from 'dripsy'
+import { Text, View, styled } from 'dripsy'
 import { TouchableOpacity } from 'react-native'
 
 interface ProfileOverviewTextProps {
