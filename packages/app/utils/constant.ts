@@ -1,5 +1,3 @@
-import { getProviderLogo } from 'app/config/games/provider'
-
 export enum LANGUAGE_CODE {
   ENGLISH = 'en',
   VIETNAM = 'vi',
@@ -265,21 +263,21 @@ export enum ReportGameStatus {
   LOSS = 'loss',
 }
 
-export const ReportGameStatusOptions = [
-  {
-    value: ReportGameStatus.ALL,
-    label: 'common.all',
-    icon: getProviderLogo(ReportGameStatus.ALL),
-  },
-  {
-    value: ReportGameStatus.WIN,
-    label: 'filter.gameStatus.win',
-  },
-  {
-    value: ReportGameStatus.LOSS,
-    label: 'filter.gameStatus.loss',
-  },
-]
+// export const ReportGameStatusOptions = [
+//   {
+//     value: ReportGameStatus.ALL,
+//     label: 'common.all',
+//     icon: getProviderLogo(ReportGameStatus.ALL),
+//   },
+//   {
+//     value: ReportGameStatus.WIN,
+//     label: 'filter.gameStatus.win',
+//   },
+//   {
+//     value: ReportGameStatus.LOSS,
+//     label: 'filter.gameStatus.loss',
+//   },
+// ]
 
 export enum GameProvider {
   AG = 'Asia Gaming',
