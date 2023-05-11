@@ -19,11 +19,6 @@
   "resolutions": {
     "metro": "^0.73.1",
     "metro-resolver": "^0.73.1",
-    "@babel/preset-typescript": "^7.21.0",
-    "@babel/core": "^7.21.0",
-    "@babel/plugin-transform-typescript": "^7.21.0",
-    "@typescript-eslint/eslint-plugin": "5.57.0",
-    "@typescript-eslint/parser": "5.57.0",
     "dripsy@^4": "patch:dripsy@npm%3A4.1.0#./.yarn/patches/dripsy-npm-4.1.0-709be8c3fb.patch"
   },
   "nohoist": [

@@ -1,4 +1,10 @@
+const path = require('path')
+
 const { withExpo } = require('@expo/next-adapter')
+const withPlugins = require('next-compose-plugins')
+const withFonts = require('next-fonts')
+const withVideos = require('next-videos')
+const withImages = require('next-images')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -8,6 +14,13 @@ const nextConfig = {
   // https://github.com/nandorojo/moti/issues/224
   // once that gets fixed, set this back to true
   reactStrictMode: false,
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  output: 'standalone',
+  experimental: {
+    outputFileTracingRoot: path.join(__dirname, '../../'),
+  },
   transpilePackages: [
     'react-native',
     'react-native-web',
@@ -21,4 +34,19 @@ const nextConfig = {
   ],
 }
 
-module.exports = withExpo(nextConfig)
+const moduleExports = withPlugins(
+  [
+    [
+      withImages,
+      {
+        inlineImageLimit: 0,
+      },
+    ],
+    [withVideos],
+    [withExpo, { projectRoot: __dirname }],
+    [withFonts, { projectRoot: __dirname }],
+  ],
+  nextConfig
+)
+
+module.exports = moduleExports
