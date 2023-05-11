@@ -1,25 +1,29 @@
 import usePathname from 'app/hooks/usePathname'
-import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { Box, Text } from 'dripsy'
-import { Gradient } from 'dripsy/gradient'
+import { Box, View } from 'dripsy'
 import React from 'react'
 import { Link } from 'solito/link'
-import { Route } from './type'
-
-export const BOTTOM_ROUTE: Route[] = [
-  {
-    label: 'Sportsbook',
-    path: '/sportsbook',
-  },
-  {
-    label: 'Games',
-    path: '/games',
-  },
-]
+import GradientButton from '../GradientButton'
+import { BOTTOM_ROUTE } from './RoutePath'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 
 function BottomTabBar() {
   const pathname = usePathname()
   const { bottom } = useSafeArea()
+  const isActiveState = (
+    index: number,
+    item: (typeof BOTTOM_ROUTE)[number]
+  ) => {
+    let isSamePath = false
+
+    if (item.path === '/') {
+      isSamePath = pathname === item.path
+    } else {
+      isSamePath = pathname === item.path
+    }
+
+    return isSamePath
+  }
+
   return (
     <Box
       sx={{
@@ -27,28 +31,36 @@ function BottomTabBar() {
         borderColor: '#9696FF',
       }}
     >
-      <Gradient
-        gradient={'surface'}
+      <View
+        // colors={theme.linearGradients.surface}
         sx={{
           height: 50 + bottom,
-          paddingBottom: bottom,
+          // overflow: 'visible',
           flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-around',
+          justifyContent: 'space-evenly',
+          top: -25,
         }}
       >
-        {BOTTOM_ROUTE.map((r) => {
+        {BOTTOM_ROUTE.map((r, index) => {
           return (
             <Link key={r.label} href={r.path ?? '/'}>
-              <Text
-                sx={{ color: pathname === r.path ? '$primary.100' : undefined }}
-              >
-                {r.label}
-              </Text>
+              <GradientButton
+                toggleState={isActiveState(index, r)}
+                label={r.label}
+                iconProps={{ name: r.icon ?? 'notice', size: 30 }}
+                textProps={{
+                  numberOfLines: 1,
+                  sx: {
+                    fontSize: 13,
+                  },
+                }}
+                routePath={r.path}
+                enableToggle={true}
+              />
             </Link>
           )
         })}
-      </Gradient>
+      </View>
     </Box>
   )
 }
