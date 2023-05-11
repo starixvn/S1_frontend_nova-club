@@ -8,7 +8,7 @@ import { useFonts } from 'expo-font'
 import { Link } from 'solito/link'
 import * as DropdownMenu from 'zeego/dropdown-menu'
 import * as ContextMenu from 'zeego/context-menu'
-import Icon from 'app/components/icon'
+import Icon from 'app/components/Icon'
 import selection from '../../assets/fonts/icon/selection.json'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 
@@ -58,7 +58,7 @@ export default function SplashScreen() {
       <Text sx={{ fontWeight: 'bold' }}>AvertaStd Bold</Text>
       <Text sx={{ fontWeight: '900' }}>AvertaStd Black</Text>
       <TextRN>RN Original Text</TextRN>
-      <Box sx={{ mt: 20 }}>
+      <Box sx={{ mb: 20 }}>
         <Link
           href="/?splashscreen=true"
           replace
@@ -68,6 +68,11 @@ export default function SplashScreen() {
           }}
         >
           <Text>Home</Text>
+        </Link>
+      </Box>
+      <Box sx={{ mb: 20 }}>
+        <Link href="/demo/input">
+          <Text>Input</Text>
         </Link>
       </Box>
       <Box>

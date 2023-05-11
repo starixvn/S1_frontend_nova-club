@@ -8,20 +8,14 @@ const IconComponent = createIconSetFromIcoMoon(
   require('../assets/fonts/icon/icomoon.ttf')
 )
 
-export const DripsyIcon = styled(IconComponent)()
+export const DripsyIcon = styled(IconComponent)({
+  color: '$text',
+})
 
-export type IconComponentProps = ComponentProps<typeof IconComponent> &
-  ComponentProps<typeof DripsyIcon>
+export type IconComponentProps = ComponentProps<typeof DripsyIcon>
 
 const Icon = (iconProps: IconComponentProps) => {
-  //   const { theme } = useDripsyTheme()
-  //   const sx = useSx()
-
-  //   const themedProps = sx({
-  //     color: iconProps.color,
-  //   })
-
-  return <DripsyIcon size={25} {...iconProps} />
+  return <DripsyIcon size={20} {...iconProps} />
 }
 
 export default Icon

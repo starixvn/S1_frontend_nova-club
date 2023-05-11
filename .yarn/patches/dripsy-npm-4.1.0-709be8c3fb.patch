@@ -1,0 +1,38 @@
+diff --git a/build/core/components/TextInput.js b/build/core/components/TextInput.js
+index 80b14780ff103ddb135d43b91b92f733a82f1733..1700328755d373a547c8585b91310ab5fd3dc5fc 100644
+--- a/build/core/components/TextInput.js
++++ b/build/core/components/TextInput.js
+@@ -16,7 +16,7 @@ const colorKeys = {
+ export const TextInput = forwardRef(function TextInput({ ...props }, ref) {
+     const { theme } = useDripsyTheme();
+     Object.keys(colorKeys).forEach((key) => {
+-        if (props[key] && theme?.colors && key in theme.colors) {
++        if (props[key] && theme?.colors && props[key] in theme.colors) {
+             props[key] = theme.colors[props[key]];
+         }
+     });
+diff --git a/package.json b/package.json
+index c0f7ad966420014c18567e59c94b0429fc6f0695..c54e6d2a7f34b61da4d382080dc8d0e3a9ae7ca4 100644
+--- a/package.json
++++ b/package.json
+@@ -4,7 +4,6 @@
+   "description": "🍷 A super-simple responsive design system for React Native Web.",
+   "main": "build/index.js",
+   "types": "index.d.ts",
+-  "react-native": "src/index.ts",
+   "source": "src/index.ts",
+   "files": [
+     "src",
+diff --git a/src/core/components/TextInput.tsx b/src/core/components/TextInput.tsx
+index be453689647305bcc84277839c5428241cd52cfb..704a1c94de763612cd253347af0a71e25eea4864 100644
+--- a/src/core/components/TextInput.tsx
++++ b/src/core/components/TextInput.tsx
+@@ -34,7 +34,7 @@ export const TextInput = forwardRef<rTextInput, DripsyTextInputProps>(
+   function TextInput({ ...props }, ref) {
+     const { theme } = useDripsyTheme()
+     Object.keys(colorKeys).forEach((key) => {
+-      if (props[key] && theme?.colors && key in theme.colors) {
++      if (props[key] && theme?.colors && props[key] in theme.colors) {
+         props[key] = theme.colors[props[key]]
+       }
+     })
