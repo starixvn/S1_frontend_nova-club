@@ -5,6 +5,7 @@ import Icon from 'app/components/Icon'
 import { AnimatePresence, MotiView } from 'moti/build'
 import { useState } from 'react'
 import { TouchableOpacity } from 'react-native'
+import useLocalization from 'app/provider/localization'
 
 interface HiddenItemProps {
   color: string
@@ -36,6 +37,7 @@ const ProfileBalanceSummary = ({
 }: ProfileBalanceSummaryProps) => {
   const { theme } = useDripsyTheme()
   const [isExtend, setIsExtend] = useState(false)
+  const { t } = useLocalization()
 
   const handlePress = () => {
     setIsExtend(!isExtend)
@@ -49,7 +51,7 @@ const ProfileBalanceSummary = ({
             color={theme.colors.$secondary[100]}
             sx={{ px: 5 }}
           />
-          <ProfileSummaryText px={5}>Balance</ProfileSummaryText>
+          <ProfileSummaryText px={5}>{t('common.balance')}</ProfileSummaryText>
         </BalanceItem>
         <BalanceItem>
           {isLoading ? (
