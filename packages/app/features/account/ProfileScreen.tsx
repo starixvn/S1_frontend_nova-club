@@ -10,6 +10,7 @@ import ProfileBalanceSummary from './profile/ProfileBalanceSummary'
 import ProfileOverviewCard from './profile/ProfileOverviewCard'
 import ProfileQuickNavigation from './profile/ProfileQuickNavigation'
 import WalletButton from './profile/WalletButton'
+import ProfileHeader from './profile/ProfileHeader'
 
 export default function ProfileScreen() {
   const { top, bottom } = useSafeArea()
@@ -43,11 +44,11 @@ export default function ProfileScreen() {
   return (
     <Screen
       contentContainerSx={{
-        pt: top,
         alignItems: 'center',
         minHeight: '100%',
       }}
     >
+      <ProfileHeader data={playerData} />
       <ProfileBalanceSummary
         cash={walletInfo.cash}
         reward={walletInfo.reward}

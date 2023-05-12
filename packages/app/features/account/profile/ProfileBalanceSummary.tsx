@@ -48,10 +48,13 @@ const ProfileBalanceSummary = ({
         <BalanceItem>
           <Icon
             name={'wallet'}
+            size={26}
             color={theme.colors.$secondary[100]}
             sx={{ px: 5 }}
           />
-          <ProfileSummaryText px={5}>{t('common.balance')}</ProfileSummaryText>
+          <ProfileSummaryText px={8} fontSize={14}>
+            {t('common.balance')}
+          </ProfileSummaryText>
         </BalanceItem>
         <BalanceItem>
           {isLoading ? (
@@ -82,7 +85,7 @@ const ProfileBalanceSummary = ({
         {isExtend && (
           <MotiView
             from={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 100 }}
+            animate={{ opacity: 1, height: 80 }}
             exit={{ opacity: 0, height: 0 }}
             style={{
               height: 0,
@@ -167,7 +170,7 @@ const ProfileBalanceSummaryContainer = styled(View)({
 const BalanceSection = styled(View)({
   flexDirection: 'row',
   px: 15,
-  py: 20,
+  py: 10,
   justifyContent: 'space-between',
 })
 
