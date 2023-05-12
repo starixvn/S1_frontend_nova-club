@@ -1,0 +1,108 @@
+import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
+import { SettingActions } from 'app/store/setting.slice'
+import { LANGUAGE_CODE } from 'app/utils/constant'
+import { Image, View, useDripsyTheme } from 'dripsy'
+import React, { useState } from 'react'
+import { Pressable, ViewProps } from 'react-native'
+import { usePlayerLangMutation } from '../../services/playerApi'
+
+const LANGUAGE_BUTTON_SIZE = 25
+
+const LANGUAGE_TO_FLAG_ICON = {
+  [LANGUAGE_CODE.ENGLISH]: require('../assets/images/common/en.jpg'),
+  [LANGUAGE_CODE.VIETNAM]: require('../assets/images/common/vn.jpg'),
+}
+
+const enum UPDATE_STATE {
+  UPDATING = 'updating',
+  COMPLETED = 'completed',
+}
+
+interface LanguageButtonProps {
+  languageCode: LANGUAGE_CODE
+  onPress: () => void
+  active: boolean
+}
+
+function LanguageButton({
+  languageCode,
+  onPress,
+  active,
+}: LanguageButtonProps) {
+  const { theme } = useDripsyTheme()
+  return (
+    <Pressable
+      onPress={onPress}
+      style={{
+        margin: 10,
+        borderRadius: 100,
+        borderWidth: 3,
+        borderColor: active ? theme.colors.$primary[100] : 'transparent',
+      }}
+    >
+      <Image
+        sx={{
+          width: LANGUAGE_BUTTON_SIZE,
+          height: LANGUAGE_BUTTON_SIZE,
+          borderRadius: 100,
+          borderWidth: 2,
+          borderColor: 'white',
+        }}
+        source={LANGUAGE_TO_FLAG_ICON[languageCode]}
+        resizeMode="contain"
+        alt=""
+      />
+    </Pressable>
+  )
+}
+
+export default function LanguageSwitch({ ...rest }: ViewProps) {
+  const dispatch = useAppDispatch()
+  const lang = useAppSelector((state) => state.setting.locale)
+  const [updateState, setUpdateState] = useState(UPDATE_STATE.COMPLETED)
+  const [updateLanguage] = usePlayerLangMutation()
+
+  const submitLanguage = async (value: LANGUAGE_CODE) => {
+    if (updateState === UPDATE_STATE.UPDATING) return
+
+    setUpdateState(UPDATE_STATE.UPDATING)
+
+    try {
+      const { success, message } = await updateLanguage({ lang: value })
+        .unwrap()
+        .catch((error) => {
+          return error
+        })
+
+      if (success) {
+        setLanguage(value)
+        // baseApiWithTag.util.invalidateTags(['Announcement'])
+      }
+    } catch (e) {
+      console.error(e)
+    } finally {
+      setUpdateState(UPDATE_STATE.COMPLETED)
+    }
+  }
+
+  const setLanguage = (value: LANGUAGE_CODE) => {
+    dispatch(SettingActions.setLocale(value))
+  }
+
+  const onChangeLanguage = (value: LANGUAGE_CODE) => {
+    setLanguage(value)
+  }
+
+  return (
+    <View sx={{ flexDirection: 'row' }} {...rest}>
+      {Object.values(LANGUAGE_CODE).map((languageCode) => (
+        <LanguageButton
+          key={languageCode}
+          languageCode={languageCode}
+          onPress={() => onChangeLanguage(languageCode)}
+          active={languageCode === lang}
+        />
+      ))}
+    </View>
+  )
+}
