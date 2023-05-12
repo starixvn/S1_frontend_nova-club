@@ -12,6 +12,7 @@ interface HiddenItemProps {
   value: number
   currency?: Currency
   label: string
+  isLoading: boolean
 }
 
 interface ProfileSummaryTextProps {
@@ -93,6 +94,7 @@ const ProfileBalanceSummary = ({
               iconName="ac"
               label="cash"
               value={cash}
+              isLoading={isLoading}
               currency={currency}
             />
             <View sx={{ backgroundColor: '$primary.100', width: 1 }} />
@@ -100,6 +102,7 @@ const ProfileBalanceSummary = ({
               color={theme.colors.$secondary[100]}
               iconName="gift"
               label="reward"
+              isLoading={isLoading}
               value={reward}
             />
           </MotiView>
@@ -115,6 +118,7 @@ const HiddenItem = ({
   value,
   label,
   currency,
+  isLoading,
 }: HiddenItemProps) => {
   return (
     <HiddenItemContainer>
@@ -131,14 +135,18 @@ const HiddenItem = ({
           alignItems: 'center',
         }}
       >
-        <ProfileSummaryText fontSize={20}>
-          {currency
-            ? toCurrency(value, currency, {
-                symbol: false,
-                hideTruncatedThousand: false,
-              })
-            : value}
-        </ProfileSummaryText>
+        {isLoading ? (
+          <ActivityIndicator />
+        ) : (
+          <ProfileSummaryText fontSize={20}>
+            {currency
+              ? toCurrency(value, currency, {
+                  symbol: false,
+                  hideTruncatedThousand: false,
+                })
+              : value}
+          </ProfileSummaryText>
+        )}
       </View>
     </HiddenItemContainer>
   )

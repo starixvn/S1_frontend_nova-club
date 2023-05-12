@@ -1,5 +1,4 @@
 import { combineReducers, configureStore, Reducer } from '@reduxjs/toolkit'
-import { baseApi } from 'app/services/baseApi'
 // import { alertReducer } from 'app/store/alert.slice'
 import authReducer, { authInitialState, AuthState } from 'app/store/authReducer'
 // import bankReducer from 'app/store/bankReducer'
@@ -19,6 +18,7 @@ import {
 
 import { storage } from './persistStorage/index'
 import { Setting, settingReducer } from 'app/store/setting.slice'
+import { baseApi } from '../../../services/baseApi'
 
 const migrations = {
   5: (s: PersistedState) => {},

@@ -5,10 +5,10 @@ import WalletButton from './profile/WalletButton'
 import ProfileBalanceSummary from './profile/ProfileBalanceSummary'
 import ProfileOverviewCard from './profile/ProfileOverviewCard'
 import ProfileQuickNavigation from './profile/ProfileQuickNavigation'
-import { usePlayerProfileQuery } from 'app/services/playerApi'
-import { usePlayerBalanceQuery } from 'app/services/walletApi'
 import { Currency } from 'app/utils/constant'
 import { useAppSelector } from 'app/provider/redux/store'
+import { usePlayerProfileQuery } from '../../../services/playerApi'
+import { usePlayerBalanceQuery } from '../../../services/walletApi'
 
 export default function ProfileScreen() {
   const { top } = useSafeArea()

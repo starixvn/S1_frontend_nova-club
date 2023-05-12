@@ -4,7 +4,7 @@ import * as ImagePicker from 'expo-image-picker'
 import { Image, Row, View, styled } from 'dripsy'
 import IconButton from 'app/components/IconButton'
 import InputClearActionRow from '../InputClearActionRow'
-import Icon from 'app/components/icon'
+import Icon from 'app/components/Icon'
 
 export interface FilePickerProps
   extends Omit<InputProps, 'value' | 'onChange'> {

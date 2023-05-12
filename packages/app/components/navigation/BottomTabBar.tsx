@@ -5,9 +5,11 @@ import { Link } from 'solito/link'
 import GradientButton from '../GradientButton'
 import { BOTTOM_ROUTE } from './RoutePath'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { useRouter } from 'solito/router'
 
 function BottomTabBar() {
   const pathname = usePathname()
+  const { push } = useRouter()
   const { bottom } = useSafeArea()
   const isActiveState = (
     index: number,
@@ -45,17 +47,16 @@ function BottomTabBar() {
           return (
             <Link key={r.label} href={r.path ?? '/'}>
               <GradientButton
-                toggleState={isActiveState(index, r)}
+                active={isActiveState(index, r)}
                 label={r.label}
                 iconProps={{ name: r.icon ?? 'notice', size: 30 }}
-                textProps={{
+                labelProps={{
                   numberOfLines: 1,
                   sx: {
                     fontSize: 13,
                   },
                 }}
-                routePath={r.path}
-                enableToggle={true}
+                onPress={() => push(r.path ?? '/')}
               />
             </Link>
           )

@@ -3759,7 +3759,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "app@workspace:packages/app"
   dependencies:
-    "@reduxjs/toolkit": ^1.9.5
     dayjs: ^1.11.7
     dripsy: ^4
     expo-image-picker: ^14.1.1
@@ -11299,6 +11298,14 @@ __metadata:
   checksum: af57fc13be40d90a12562e98c0b7855cf6e8bd4c107fe9a45c212bf023058d54a1871b1c89511c3958f70626fff47faeb795f5d83f8cf88514dbaeb2b724464d
   languageName: node
   linkType: hard
+
+"services@workspace:packages/services":
+  version: 0.0.0-use.local
+  resolution: "services@workspace:packages/services"
+  peerDependencies:
+    "@reduxjs/toolkit": ^1.9.5
+  languageName: unknown
+  linkType: soft
 
 "set-blocking@npm:^2.0.0":
   version: 2.0.0

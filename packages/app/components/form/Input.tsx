@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 import { mergeRefs } from 'utils/mergeRefs'
 import { DripsyTextInputProps } from 'dripsy/build/core/components/TextInput'
-import Icon from '../icon'
+import Icon from '../Icon'
 
 export interface InputProps extends DripsyTextInputProps {
   label?: string

@@ -1,4 +1,4 @@
-import Icon from 'app/components/icon'
+import Icon from 'app/components/Icon'
 import { View, Text, ScrollView } from 'dripsy'
 import { useMemo } from 'react'
 import selection from '../../assets/fonts/icon/selection.json'

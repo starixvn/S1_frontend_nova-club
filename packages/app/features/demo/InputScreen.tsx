@@ -1,7 +1,7 @@
 import DatePicker from 'app/components/form/DatePicker'
 import FilePicker from 'app/components/form/FilePicker'
 import Input from 'app/components/form/Input'
-import Icon from 'app/components/icon'
+import Icon from 'app/components/Icon'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Row, ScrollView, Text } from 'dripsy'
 import { ImagePickerAsset } from 'expo-image-picker'

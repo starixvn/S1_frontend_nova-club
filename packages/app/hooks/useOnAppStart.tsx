@@ -4,8 +4,8 @@ import { useCallback, useEffect, useRef } from 'react'
 import { Platform } from 'react-native'
 
 // import useResetRTKQState from './useResetRTKQState'
-import { configureAxios } from 'app/services/common/axiosInstance'
 import { useRouter } from 'solito/router'
+import { configureAxios } from '../../services/common/axiosInstance'
 
 const useOnAppStart = () => {
   const { replace, push } = useRouter()

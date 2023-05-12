@@ -3,8 +3,10 @@ import { Profile_Wallet_Route } from 'app/components/navigation/RoutePath'
 import { View } from 'dripsy'
 
 import { Link } from 'solito/link'
+import { useRouter } from 'solito/router'
 
 const WalletButton = () => {
+  const { push } = useRouter()
   return (
     <View
       sx={{
@@ -25,14 +27,15 @@ const WalletButton = () => {
                 size: 30,
                 color: 'white',
               }}
-              textProps={{
+              labelProps={{
                 numberOfLines: 1,
                 sx: {
                   fontSize: 13,
                 },
               }}
-              routePath={r.path}
-              enableToggle={true}
+              onPress={() => {
+                push(r.path ?? '/')
+              }}
             />
           </Link>
         )

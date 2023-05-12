@@ -3,7 +3,6 @@
   "name": "app",
   "main": "index.ts",
   "dependencies": {
-    "@reduxjs/toolkit": "^1.9.5",
     "dayjs": "^1.11.7",
     "dripsy": "^4",
     "expo-image-picker": "^14.1.1",

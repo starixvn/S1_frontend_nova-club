@@ -1,10 +1,9 @@
-import { Pressable, SxProp, Text, View, styled, useDripsyTheme } from 'dripsy'
+import { Pressable, SxProp, Text, View, styled } from 'dripsy'
 import { Gradient } from 'dripsy/gradient'
 import { MotiView } from 'moti/build'
 import React from 'react'
 import { TextProps, TouchableOpacityProps } from 'react-native'
 import Icon, { IconProps } from './Icon'
-
 const ICON_SIZE = 60
 const ICON_ACTIVE_SIZE_SCALE = 1.1
 
@@ -27,13 +26,11 @@ const GradientButton = ({
   size = ICON_SIZE,
   labelProps,
   onPress,
-  active,
+  active = false,
   ...rest
 }: GradientButtonProps) => {
-  const { theme } = useDripsyTheme()
-
   const scaledSize = active ? size * ICON_ACTIVE_SIZE_SCALE : size
-
+  const translateYValue = active ? -(scaledSize - size) : 0
   return (
     <Pressable onPress={onPress} {...rest}>
       <MotiView
@@ -45,7 +42,7 @@ const GradientButton = ({
         animate={{
           height: scaledSize,
           width: scaledSize,
-          transform: [{ translateY: scaledSize - size }],
+          transform: [{ translateY: translateYValue }],
         }}
         transition={{ type: 'timing' }}
       >

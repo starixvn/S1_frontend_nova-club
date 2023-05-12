@@ -1,15 +1,15 @@
 import GradientButton from 'app/components/GradientButton'
-import Icon from 'app/components/icon'
+import Icon from 'app/components/Icon'
 import { useAppDispatch } from 'app/provider/redux/store'
-import { useLoginMutation } from 'app/services/authApi'
 import { AuthActions } from 'app/store/authReducer'
 import { Text, View } from 'dripsy'
 import { TouchableOpacity } from 'react-native'
 import { useRouter } from 'solito/router'
+import { useLoginMutation } from '../../../services/authApi'
 
 const SplashScreenButton = () => {
   const [login] = useLoginMutation()
-  const { replace } = useRouter()
+  const { replace, push } = useRouter()
   const dispatch = useAppDispatch()
 
   const TestLogin = async () => {
@@ -42,7 +42,7 @@ const SplashScreenButton = () => {
       <View sx={{ width: '25%' }}>
         <GradientButton
           iconProps={{ name: 'tiktok' }}
-          routePath="/demoIconScreen"
+          onPress={() => push('/demoIconScreen')}
           label="Demo Button"
         />
       </View>
@@ -50,7 +50,7 @@ const SplashScreenButton = () => {
       <View sx={{ width: '25%' }}>
         <GradientButton
           iconProps={{ name: 'file' }}
-          routePath="/demo/input"
+          onPress={() => push('/demo/input')}
           label="demo input"
         />
       </View>
@@ -64,7 +64,7 @@ const SplashScreenButton = () => {
       > */}
       <GradientButton
         iconProps={{ name: 'home' }}
-        routePath="/?splashscreen=true"
+        onPress={() => push('/?splashscreen=true')}
       />
       {/* <Text>Home</Text> */}
       {/* </Link> */}

@@ -3,7 +3,7 @@ import { DatePickerProps as RNDatePickerProps } from 'react-native-date-picker'
 import Input, { InputProps } from '../Input'
 import { ChangeEvent, useRef } from 'react'
 import InputClearActionRow from '../InputClearActionRow'
-import Icon from 'app/components/icon'
+import Icon from 'app/components/Icon'
 
 export interface DatePickerProps
   extends Omit<RNDatePickerProps, 'date' | 'onConfirm'>,
