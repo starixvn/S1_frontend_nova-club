@@ -1,6 +1,6 @@
 import { Provider } from 'app/provider'
-import { Stack, Tabs } from 'expo-router'
-import { Text } from 'react-native'
+import { Stack } from 'expo-router'
+import RootPage from './rootPage'
 
 export default function Root() {
   return (
@@ -12,6 +12,7 @@ export default function Root() {
         initialRouteName="splashscreen"
         */
       />
+      <RootPage />
     </Provider>
   )
 }
