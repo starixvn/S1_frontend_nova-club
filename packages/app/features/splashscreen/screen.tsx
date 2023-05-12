@@ -3,9 +3,7 @@ import React, { ComponentProps } from 'react'
 
 import { Button, Text as TextRN } from 'react-native'
 
-import { AvertaStdUseFont } from 'app/assets/fonts/Averta'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { useFonts } from 'expo-font'
 import * as DropdownMenu from 'zeego/dropdown-menu'
 import SplashScreenButton from '../demo/SplashScreenButton'
 
@@ -28,14 +26,7 @@ export const DropdownMenuItem = DropdownMenu.create(
 )
 
 export default function SplashScreen() {
-  const [loaded] = useFonts({
-    ...AvertaStdUseFont,
-  })
   const { top, bottom } = useSafeArea()
-
-  // console.log('font loaded', loaded)
-  if (!loaded) return null
-
   return (
     <ScrollView
       contentContainerStyle={{
