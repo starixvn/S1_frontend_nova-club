@@ -1,20 +1,23 @@
 import { Row, SxProp, Text, TextInput, View, styled } from 'dripsy'
+import { DripsyTextInputProps } from 'dripsy/build/core/components/TextInput'
 import React, { ReactNode, forwardRef, useRef, useState } from 'react'
 import {
-  TouchableWithoutFeedback,
-  TextInput as NativeTextInput,
   GestureResponderEvent,
+  TextInput as NativeTextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
 } from 'react-native'
-import Icon from '../Icon'
 import { mergeRefs } from 'utils/mergeRefs'
-import { DripsyTextInputProps } from 'dripsy/build/core/components/TextInput'
+import Icon from '../Icon'
+
+type InputComponent = ({ color }: { color?: string }) => JSX.Element
 
 export interface InputProps extends DripsyTextInputProps {
   label?: string
   prefix?: string
-  action?: ReactNode
-  icon?: string | ReactNode
+  error?: string
+  action?: InputComponent
+  icon?: string | InputComponent
   sx?: SxProp
   inputSx?: SxProp
   onPress?: (e?: GestureResponderEvent) => void
@@ -26,6 +29,7 @@ const Input = forwardRef<NativeTextInput, InputProps>(
     {
       label,
       prefix,
+      error,
       action,
       icon,
       sx,
@@ -38,13 +42,10 @@ const Input = forwardRef<NativeTextInput, InputProps>(
     },
     ref
   ) => {
-    const IconContainer = !icon ? null : typeof icon === 'string' ? (
-      <Container>
-        <Icon name={icon} size={25} />
-      </Container>
-    ) : (
-      icon
-    )
+    const InputIcon =
+      typeof icon === 'string' ? getDefaultInputIcon(icon) : icon
+
+    const InputAction = action
 
     const [_secureTextEntry, setSecureTextEntry] = useState(secureTextEntry)
     const inputRef = useRef<NativeTextInput>(null)
@@ -54,12 +55,14 @@ const Input = forwardRef<NativeTextInput, InputProps>(
       onPress?.(event)
     }
 
+    const sizeEffectColor = error ? ('$secondary.500' as string) : undefined
+
     return (
       <RootView sx={{ cursor: onPress ? 'pointer' : 'initial', ...sx }}>
         {label && <Label>{`${label} :`}</Label>}
         <FocusArea onPress={handleOnPress}>
-          <InputContainer>
-            {IconContainer}
+          <InputContainer color={sizeEffectColor}>
+            {InputIcon && <InputIcon color={sizeEffectColor ?? 'white'} />}
             {prefix && (
               <Container>
                 <Text>{prefix}</Text>
@@ -77,6 +80,7 @@ const Input = forwardRef<NativeTextInput, InputProps>(
                 placeholderTextColor="$placeholder"
                 secureTextEntry={_secureTextEntry}
                 sx={{
+                  color: sizeEffectColor,
                   minHeight: 30,
                   minWidth: 40,
                   mx: '$2',
@@ -95,9 +99,14 @@ const Input = forwardRef<NativeTextInput, InputProps>(
                 </TouchableOpacity>
               </Container>
             )}
-            {action && <Container>{action}</Container>}
+            {InputAction && (
+              <Container>
+                <InputAction color={sizeEffectColor} />
+              </Container>
+            )}
           </InputContainer>
         </FocusArea>
+        {error && <ErrorLabel>{error}</ErrorLabel>}
       </RootView>
     )
   }
@@ -117,18 +126,39 @@ const Label = styled(Text)({
   mb: '$1',
 })
 
-const InputContainer = styled(Row)({
-  borderColor: '$primary.200',
-  borderRadius: 10,
-  py: '$2',
-  px: '2%',
-  borderWidth: 1,
-  alignItems: 'center',
-  position: 'relative',
-})
+const InputContainer = styled(Row)(
+  ({ color = '$primary.200' }: { color?: string }) => ({
+    borderColor: color,
+    borderRadius: 10,
+    py: '$2',
+    px: '2%',
+    borderWidth: 1,
+    alignItems: 'center',
+    position: 'relative',
+  })
+)
 
 const Container = styled(View)({
   mx: '$2',
+})
+
+const getDefaultInputIcon = (name: string) => {
+  const comp = ({ color }) => {
+    return (
+      <Container>
+        <Icon name={name} size={22} color={color} />
+      </Container>
+    )
+  }
+  return comp
+}
+
+const ErrorLabel = styled(Text)({
+  color: '$secondary.500',
+  fontSize: 14,
+  mx: '2%',
+  px: '$2',
+  mt: '$1',
 })
 
 export default Input

@@ -10,7 +10,7 @@ export default function InputClearActionRow({
   return (
     <Row sx={{ alignItems: 'center', gap: '$2' }}>
       {isClearable && (
-        <IconButton size={15} name="cross" color="$error" onPress={onPress} />
+        <IconButton size={15} name="cross" color="$secondary.500" onPress={onPress} />
       )}
       {children}
     </Row>

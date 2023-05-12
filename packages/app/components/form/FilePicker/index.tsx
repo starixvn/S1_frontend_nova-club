@@ -36,16 +36,16 @@ export default function FilePicker({
 
   return (
     <Input
-      action={
+      action={({ color }) => (
         <InputClearActionRow
           isClearable={!!value}
           onPress={() => {
             onChange && onChange()
           }}
         >
-          <Icon name="attachment" />
+          <Icon name="attachment" color={color} />
         </InputClearActionRow>
-      }
+      )}
       onPress={pickImageAsync}
       value={value ? value.fileName ?? ' ' : ''}
       {...rest}

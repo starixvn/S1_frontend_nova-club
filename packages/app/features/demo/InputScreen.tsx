@@ -23,6 +23,12 @@ export default function InputScreen() {
       contentContainerSx={{ px: '$2', paddingTop: top, paddingBottom: bottom }}
     >
       <DatePicker value={d} onChange={setD} placeholder="Select Date" />
+      <DatePicker
+        value={d}
+        onChange={setD}
+        placeholder="Select Date"
+        error="Invalid Date"
+      />
       <FilePicker
         value={file}
         onChange={(e) => {
@@ -31,25 +37,53 @@ export default function InputScreen() {
         }}
         placeholder="Select File"
       />
-      <Input />
+      <Input
+        icon="date"
+        error="This field is required"
+        action={({ color }) => <Icon name={'down'} color={color} />}
+      />
       <Input label="Bank" placeholder="Please enter bank account" />
       <Input icon="profile-rounded" placeholder="Username" />
       <Input icon="pw" placeholder="Username" />
-      <Input icon={<Icon name="date" />} placeholder="Username" />
+      <Input
+        icon={({ color }) => <Icon name="date" color={color} />}
+        placeholder="Username"
+      />
       <Input placeholder="Username" />
       <Input placeholder="Password" secureTextEntry />
       <Input prefix="OTP" />
-      <Input icon="date" prefix="+84" action={<Icon name="down" />} />
-      <Input action={<Icon name="down" />} />
+      <Input
+        icon="date"
+        prefix="+84"
+        action={({ color }) => <Icon name="down" color={color} />}
+      />
+      <Input action={({ color }) => <Icon name="down" color={color} />} />
       <Row sx={{ justifyContent: 'space-around', gap: '$2' }}>
-        <Input action={<Icon name="down" />} sx={{ flex: 1 }} />
-        <Input action={<Icon name="down" />} sx={{ flex: 1 }} />
-        <Input action={<Icon name="down" />} sx={{ flex: 1 }} />
+        <Input
+          action={({ color }) => <Icon name="down" color={color} />}
+          sx={{ flex: 1 }}
+        />
+        <Input
+          action={({ color }) => <Icon name="down" color={color} />}
+          sx={{ flex: 1 }}
+        />
+        <Input
+          action={({ color }) => <Icon name="down" color={color} />}
+          sx={{ flex: 1 }}
+        />
       </Row>
       <Row sx={{ justifyContent: 'space-around', alignItems: 'center' }}>
-        <Input icon={'date'} action={<Icon name="down" />} sx={{ flex: 1 }} />
+        <Input
+          icon={'date'}
+          action={({ color }) => <Icon name="down" color={color} />}
+          sx={{ flex: 1 }}
+        />
         <Text sx={{ mx: '$3' }}>-</Text>
-        <Input icon={'date'} action={<Icon name="down" />} sx={{ flex: 1 }} />
+        <Input
+          icon={'date'}
+          action={({ color }) => <Icon name="down" color={color} />}
+          sx={{ flex: 1 }}
+        />
       </Row>
     </ScrollView>
   )

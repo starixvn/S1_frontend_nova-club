@@ -9,7 +9,7 @@ import InputClearActionRow from '../InputClearActionRow'
 
 export interface DatePickerProps
   extends Omit<RNDatePickerProps, 'date' | 'onConfirm'>,
-    Pick<InputProps, 'editable' | 'placeholder'> {
+    Pick<InputProps, 'editable' | 'placeholder' | 'error'> {
   value?: Date
   onChange?: (date?: Date) => void
 }
@@ -19,6 +19,7 @@ export default function DatePicker({
   editable,
   placeholder,
   value,
+  error,
   mode = 'date',
   onCancel,
   ...rest
@@ -28,21 +29,22 @@ export default function DatePicker({
     <>
       <Input
         icon="date"
-        action={
+        action={({ color }) => (
           <InputClearActionRow
             isClearable={!!value}
             onPress={() => {
               onChange && onChange()
             }}
           >
-            <Icon name="down" />
+            <Icon name="down" color={color} />
           </InputClearActionRow>
-        }
+        )}
         onPress={() => {
           setFocus(true)
         }}
         editable={editable}
         placeholder={placeholder}
+        error={error}
         value={value ? dayjs(value).format('YYYY-MM-DD').toString() : ''}
       />
       <RNDatePicker

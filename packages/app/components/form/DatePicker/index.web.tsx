@@ -49,7 +49,7 @@ export default function DatePicker({
       icon={'date'}
       editable={false}
       value={dateToString(value)}
-      action={
+      action={({ color }) => (
         <InputClearActionRow
           isClearable={!!value}
           onPress={() => {
@@ -57,9 +57,9 @@ export default function DatePicker({
             _localValue.current = null
           }}
         >
-          <Icon name="down" />
+          <Icon name="down" color={color} />
         </InputClearActionRow>
-      }
+      )}
       {...rest}
     >
       <input
