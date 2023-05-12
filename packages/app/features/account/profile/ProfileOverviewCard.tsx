@@ -1,6 +1,9 @@
 import Icon from 'app/components/Icon'
-import { Text, View, styled } from 'dripsy'
+import { toCurrency } from 'app/utils'
+import { Currency } from 'app/utils/constant'
+import { ActivityIndicator, Text, View, styled } from 'dripsy'
 import { TouchableOpacity } from 'react-native'
+import { usePlayerOverviewSummaryQuery } from '../../../../services/playerApi'
 
 interface ProfileOverviewTextProps {
   px?: number
@@ -8,11 +11,16 @@ interface ProfileOverviewTextProps {
   textTransform?: string
 }
 interface ProfileOverviewHorizontalItemProps {
-  value: string
+  value: number
   label: string
 }
 
-const ProfileOverviewCard = () => {
+interface ProfileOverviewCardProps {
+  currency: Currency
+}
+
+const ProfileOverviewCard = ({ currency }: ProfileOverviewCardProps) => {
+  const { data, isFetching } = usePlayerOverviewSummaryQuery()
   return (
     <>
       <ProfileOverviewCardContainer>
@@ -47,7 +55,16 @@ const ProfileOverviewCard = () => {
                 alignItems: 'center',
               }}
             >
-              <ProfileOverviewText fontSize={20}>0</ProfileOverviewText>
+              {isFetching ? (
+                <ActivityIndicator />
+              ) : (
+                <ProfileOverviewText fontSize={20}>
+                  {toCurrency(data?.data?.accumulate_reward ?? 0, currency, {
+                    symbol: false,
+                    hideTruncatedThousand: false,
+                  })}
+                </ProfileOverviewText>
+              )}
             </View>
           </View>
           <View sx={{ backgroundColor: '$primary.100', width: 1 }} />
@@ -58,11 +75,33 @@ const ProfileOverviewCard = () => {
               justifyContent: 'space-between',
             }}
           >
-            <ProfileOverviewHorizontalItem label="registered" value="0" />
+            {isFetching ? (
+              <ActivityIndicator
+                sx={{
+                  height: '50%',
+                }}
+              />
+            ) : (
+              <ProfileOverviewHorizontalItem
+                label="registered"
+                value={data?.data?.registered ?? 0}
+              />
+            )}
             <View
               sx={{ backgroundColor: '$primary.100', width: '100%', height: 1 }}
             />
-            <ProfileOverviewHorizontalItem label="active player" value="0" />
+            {isFetching ? (
+              <ActivityIndicator
+                sx={{
+                  height: '50%',
+                }}
+              />
+            ) : (
+              <ProfileOverviewHorizontalItem
+                label="active player"
+                value={data?.data?.active_player ?? 0}
+              />
+            )}
           </View>
         </ProfileOverviewDetails>
       </ProfileOverviewCardContainer>

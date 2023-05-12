@@ -53,7 +53,7 @@ export default function ProfileScreen() {
         currency={currency}
       />
       <WalletButton />
-      <ProfileOverviewCard />
+      <ProfileOverviewCard currency={currency} />
       <ProfileQuickNavigation />
     </Screen>
   )
