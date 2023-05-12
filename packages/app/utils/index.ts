@@ -1,4 +1,5 @@
 // import * as Clipboard from 'expo-clipboard'
+import i18n from 'app/provider/localization/i18n'
 import {
   CURRENCY_SEPARATOR,
   CURRENCY_TO_LANGUAGE,
@@ -7,30 +8,33 @@ import {
 } from './constant'
 // import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { store } from 'app/provider/redux/store'
+import * as Clipboard from 'expo-clipboard'
 // import i18n from 'app/provider/localization/i18n'
 /**
  * `expo-clipboard` version 2.1.1 is used due to v3 above need Expo SDK45
  * to support, and `setStringAsync` can't be used in IOS
  * https://github.com/expo/expo/issues/17548
  */
-// export async function copyToClipboard(
-//   message: string = '',
-//   onCopied?: (msg: string) => void
-// ) {
-//   try {
-//     Clipboard.setString(message)
-//     onCopied && onCopied(message)
+export async function copyToClipboard(
+  message: string = '',
+  onCopied?: (msg: string) => void
+) {
+  try {
+    Clipboard.setString(message)
+    onCopied && onCopied(message)
 
-//     Toast.show({
-//       type: 'info',
-//       text1: i18n.translate('common.copied', {
-//         locale: store.getState().setting.locale,
-//       }),
-//     })
-//   } catch (error) {
-//     console.error(error)
-//   }
-// }
+    console.log('copied')
+
+    // Toast.show({
+    //   type: 'info',
+    //   text1: i18n.translate('common.copied', {
+    //     locale: store.getState().setting.locale,
+    //   }),
+    // })
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 export function toCurrency(
   amount: number | string,

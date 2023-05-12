@@ -5939,6 +5939,7 @@ __metadata:
     app: "*"
     axios: ^1.4.0
     expo: ~48.0.15
+    expo-clipboard: ~4.1.2
     expo-device: ^5.2.1
     expo-image-picker: ^14.1.1
     expo-linear-gradient: ~12.1.2
@@ -5986,6 +5987,15 @@ __metadata:
     path-browserify: ^1.0.0
     url-parse: ^1.5.9
   checksum: 1c3ea7959cd59d7d02716ca97732a1dc28729ba75c70b831dd129f06fd04b7c129e470c5c8cfb46b4df6ff629ca609234885bfddd375a9a17b1e29497edf4dde
+  languageName: node
+  linkType: hard
+
+"expo-clipboard@npm:~4.1.2":
+  version: 4.1.2
+  resolution: "expo-clipboard@npm:4.1.2"
+  peerDependencies:
+    expo: "*"
+  checksum: c9f97013b0ea95cfcf34c0e14bf5b35d52b9ebd3a2ce1f9b675db1f94e8cc03040834b5d3b58e3678bd85297dc8a797ec38e353860b4db5c70ae1087698a30ad
   languageName: node
   linkType: hard
 
