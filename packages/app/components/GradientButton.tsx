@@ -5,7 +5,7 @@ import React from 'react'
 import { TextProps, TouchableOpacityProps } from 'react-native'
 import Icon, { IconProps } from './Icon'
 const ICON_SIZE = 60
-const ICON_ACTIVE_SIZE_SCALE = 1.1
+const ICON_ACTIVE_SIZE_SCALE = 1.25
 
 interface GradientButtonProps extends TouchableOpacityProps {
   size?: number
@@ -13,6 +13,7 @@ interface GradientButtonProps extends TouchableOpacityProps {
   label?: string
   labelProps?: IconLabelProps
   active?: boolean
+  toggle?: boolean
 }
 
 interface IconLabelProps extends TextProps {
@@ -27,10 +28,11 @@ const GradientButton = ({
   labelProps,
   onPress,
   active = false,
+  toggle = false,
   ...rest
 }: GradientButtonProps) => {
   const scaledSize = active ? size * ICON_ACTIVE_SIZE_SCALE : size
-  const translateYValue = active ? -(scaledSize - size) : 0
+  const translateYValue = active ? -size * 0.75 : toggle ? -size * 0.5 : 0
   return (
     <Pressable onPress={onPress} {...rest}>
       <MotiView

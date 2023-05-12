@@ -5,6 +5,7 @@ import React from 'react'
 import { ProfileResult } from '../../../../services/playerApi.type'
 import IconButton from 'app/components/IconButton'
 import useLocalization from 'app/provider/localization'
+import { useRouter } from 'solito/router'
 
 const HEADER_HEIGHT = 80
 const AVATAR_SIZE = 30
@@ -15,6 +16,7 @@ interface ProfileHeaderProps {
 
 export default function ProfileHeader({ data }: ProfileHeaderProps) {
   const { top, bottom } = useSafeArea()
+  const { back } = useRouter()
   const { t } = useLocalization()
   return (
     <View
@@ -31,7 +33,12 @@ export default function ProfileHeader({ data }: ProfileHeaderProps) {
       }}
     >
       <View sx={{ alignItems: 'center', flexDirection: 'row' }}>
-        <Icon name={'back'} />
+        <IconButton
+          name={'back'}
+          onPress={() => {
+            back()
+          }}
+        />
         <Image
           sx={{
             width: AVATAR_SIZE,
