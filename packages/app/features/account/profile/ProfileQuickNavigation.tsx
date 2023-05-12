@@ -1,4 +1,4 @@
-import Icon from 'app/components/icon'
+import Icon from 'app/components/Icon'
 import { Profile_Quick_Navigation_Path } from 'app/components/navigation/RoutePath'
 import { Text, View, styled, useDripsyTheme } from 'dripsy'
 import { Gradient } from 'dripsy/gradient'

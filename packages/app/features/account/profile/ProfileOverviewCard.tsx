@@ -1,4 +1,4 @@
-import Icon from 'app/components/icon'
+import Icon from 'app/components/Icon'
 import { Text, View, styled } from 'dripsy'
 import { TouchableOpacity } from 'react-native'
 

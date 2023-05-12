@@ -1,4 +1,4 @@
-import Icon from 'app/components/icon'
+import Icon from 'app/components/Icon'
 import { Text, View, styled, useDripsyTheme } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti/build'
 import { useState } from 'react'
