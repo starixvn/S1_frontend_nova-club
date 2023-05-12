@@ -85,6 +85,7 @@ const theme = makeTheme({
   },
   sizes: {
     container: 768,
+    header: [50, 60],
   },
 })
 
