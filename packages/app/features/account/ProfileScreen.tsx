@@ -1,17 +1,18 @@
+import LanguageSwitch from 'app/components/LanguageSwitch'
 import Screen from 'app/components/layouts/Screen'
+import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { Currency } from 'app/utils/constant'
 import React, { useMemo } from 'react'
-import WalletButton from './profile/WalletButton'
+import { usePlayerProfileQuery } from '../../../services/playerApi'
+import { usePlayerBalanceQuery } from '../../../services/walletApi'
 import ProfileBalanceSummary from './profile/ProfileBalanceSummary'
 import ProfileOverviewCard from './profile/ProfileOverviewCard'
 import ProfileQuickNavigation from './profile/ProfileQuickNavigation'
-import { Currency } from 'app/utils/constant'
-import { useAppSelector } from 'app/provider/redux/store'
-import { usePlayerProfileQuery } from '../../../services/playerApi'
-import { usePlayerBalanceQuery } from '../../../services/walletApi'
+import WalletButton from './profile/WalletButton'
 
 export default function ProfileScreen() {
-  const { top } = useSafeArea()
+  const { top, bottom } = useSafeArea()
   const { token } = useAppSelector((state) => state.auth.info) || {}
 
   const { data: playerData } = usePlayerProfileQuery()
@@ -44,6 +45,7 @@ export default function ProfileScreen() {
       contentContainerSx={{
         pt: top,
         alignItems: 'center',
+        minHeight: '100%',
       }}
     >
       <ProfileBalanceSummary
@@ -55,6 +57,7 @@ export default function ProfileScreen() {
       <WalletButton />
       <ProfileOverviewCard currency={currency} />
       <ProfileQuickNavigation />
+      <LanguageSwitch style={{ position: 'absolute', bottom: 0 + bottom }} />
     </Screen>
   )
 }
