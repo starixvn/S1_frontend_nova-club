@@ -1,88 +1,72 @@
-import { Text, View, styled, useDripsyTheme } from 'dripsy'
+import { Pressable, SxProp, Text, View, styled, useDripsyTheme } from 'dripsy'
 import { Gradient } from 'dripsy/gradient'
 import { MotiView } from 'moti/build'
-import React, { ComponentProps } from 'react'
-import { TouchableOpacity } from 'react-native'
-import { useRouter } from 'solito/router'
-import Icon, { IconComponentProps } from './icon'
+import React from 'react'
+import { TextProps, TouchableOpacityProps } from 'react-native'
+import Icon, { IconProps } from './Icon'
 
 const ICON_SIZE = 60
-const ICON_ACTIVE_SIZE = ICON_SIZE * 1.1
+const ICON_ACTIVE_SIZE_SCALE = 1.1
 
-interface GradientButtonProps {
-  buttonSize?: number
-  toggleState?: boolean
-  touchableFeedback?: boolean
-  iconProps: IconComponentProps
+interface GradientButtonProps extends TouchableOpacityProps {
+  size?: number
+  iconProps: IconProps
   label?: string
-  textProps?: Omit<ComponentProps<typeof IconLabel>, keyof IconLabelProps>
-  routePath?: string
+  labelProps?: IconLabelProps
   active?: boolean
-  enableToggle?: boolean
 }
 
-interface IconLabelProps {
-  toggleState: boolean
-  enableToggle: boolean
+interface IconLabelProps extends TextProps {
+  active?: boolean
+  sx?: SxProp
 }
 
 const GradientButton = ({
-  toggleState = false,
   iconProps,
   label,
-  buttonSize = ICON_SIZE,
-  textProps,
-  routePath,
-  enableToggle = false,
+  size = ICON_SIZE,
+  labelProps,
+  onPress,
+  active,
+  ...rest
 }: GradientButtonProps) => {
   const { theme } = useDripsyTheme()
-  const router = useRouter()
-  return (
-    <>
-      <TouchableOpacity
-        onPress={() => {
-          router.push(routePath ?? '/')
-        }}
-      >
-        <MotiView
-          from={{
-            height: toggleState && enableToggle ? ICON_ACTIVE_SIZE : buttonSize,
-            width: toggleState && enableToggle ? ICON_ACTIVE_SIZE : buttonSize,
-            transform: [{ translateY: toggleState ? 0 : 0 }],
-          }}
-          animate={{
-            height: toggleState && enableToggle ? ICON_ACTIVE_SIZE : buttonSize,
-            width: toggleState && enableToggle ? ICON_ACTIVE_SIZE : buttonSize,
-            transform: [{ translateY: toggleState ? -10 : 0 }],
-          }}
-          transition={{ type: 'timing' }}
-        >
-          <Gradient
-            colors={theme.linearGradients.button}
-            sx={{
-              borderRadius: 100,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <IconBorderView>
-              <Icon
-                color={toggleState && enableToggle ? 'white' : '#0D2035'}
-                {...iconProps}
-              />
-            </IconBorderView>
-          </Gradient>
 
-          <IconLabel
-            toggleState={toggleState ?? false}
-            enableToggle={enableToggle ?? false}
-            {...textProps}
-          >
-            {label}
-          </IconLabel>
-        </MotiView>
-      </TouchableOpacity>
-    </>
+  const scaledSize = active ? size * ICON_ACTIVE_SIZE_SCALE : size
+
+  return (
+    <Pressable onPress={onPress} {...rest}>
+      <MotiView
+        from={{
+          height: size,
+          width: size,
+          transform: [{ translateY: 0 }],
+        }}
+        animate={{
+          height: scaledSize,
+          width: scaledSize,
+          transform: [{ translateY: scaledSize - size }],
+        }}
+        transition={{ type: 'timing' }}
+      >
+        <Gradient
+          gradient={'button'}
+          sx={{
+            borderRadius: 100,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <IconBorderView>
+            <Icon color={active ? 'white' : '#0D2035'} {...iconProps} />
+          </IconBorderView>
+        </Gradient>
+
+        <IconLabel active {...labelProps}>
+          {label}
+        </IconLabel>
+      </MotiView>
+    </Pressable>
   )
 }
 
@@ -96,12 +80,10 @@ const IconBorderView = styled(View)({
   justifyContent: 'center',
 })
 
-const IconLabel = styled(Text)(
-  ({ toggleState, enableToggle }: IconLabelProps) => ({
-    textAlign: 'center',
-    fontWeight: toggleState && enableToggle ? 'bold' : '100',
-    paddingTop: 5,
-  })
-)
+const IconLabel = styled(Text)(({ active }: IconLabelProps) => ({
+  textAlign: 'center',
+  fontWeight: active ? 'bold' : '100',
+  paddingTop: 5,
+}))
 
 export default GradientButton
