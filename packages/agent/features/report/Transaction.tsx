@@ -19,6 +19,7 @@ import AgentFloatingContent from '../floatingContent'
 import useTableListing from 'agent/hooks/useTableListing'
 
 export type TransactionFilterOptions = {
+  initial: boolean
   date: DateFilter | string | undefined
   startDate: Date | string
   endDate: Date | string
@@ -29,9 +30,10 @@ const TransactionScreen = () => {
   const { t } = useAgentLocalization()
   const [offset, setOffset] = useState(0)
   const [filter, setFilter] = useState<TransactionFilterOptions>({
-    date: DateFilterOptions[0]?.value,
-    startDate: dayjs().startOf('date').toDate(),
-    endDate: dayjs().endOf('date').toDate(),
+    initial: true,
+    date: DateFilterOptions[4]?.value,
+    startDate: dayjs().startOf('month').toDate(),
+    endDate: dayjs().endOf('month').toDate(),
     type: [1, 2, 3, 4],
   })
 
@@ -42,17 +44,23 @@ const TransactionScreen = () => {
       {
         start: offset * LIMIT,
         length: LIMIT,
-        date_from: `${dayjs(filter.startDate).format(
-          'YYYY-MM-DD HH:mm:ss Z'
-        )} to ${dayjs(filter.endDate).format('YYYY-MM-DD HH:mm:ss Z')}`,
+        date_from: filter.initial
+          ? `${dayjs()
+              .startOf('date')
+              .format('YYYY-MM-DD HH:mm:ss Z')} to ${dayjs()
+              .endOf('date')
+              .format('YYYY-MM-DD HH:mm:ss Z')}`
+          : `${dayjs(filter.startDate).format(
+              'YYYY-MM-DD HH:mm:ss Z'
+            )} to ${dayjs(filter.endDate).format('YYYY-MM-DD HH:mm:ss Z')}`,
         currency: Currency.VND,
         transaction_type: filter.type.toString(),
       },
       {
         selectFromResult: ({ data, isFetching }) => ({
           isFetching,
-          reportData: data?.result?.data ?? [],
-          totalData: data?.result?.recordsFiltered ?? 0,
+          reportData: data?.result?.data,
+          totalData: data?.result?.recordsFiltered,
         }),
       }
     )
@@ -104,6 +112,7 @@ const TransactionScreen = () => {
       filterOptions: filter,
       onConfirm: (value: TransactionFilterOptions) => {
         setFilter({
+          initial: value.initial,
           date: value.date,
           endDate: value.endDate,
           startDate: value.startDate,
@@ -117,8 +126,8 @@ const TransactionScreen = () => {
   return (
     <View sx={{ flex: 1 }}>
       <TableListing
-        title={t('report.reportNote')}
-        refreshProps={{ isHyperlink: true }}
+        title={t('report.transactionReport')}
+        // refreshProps={{ isHyperlink: true }}
         data={reportData}
         renderHeader={onRenderHeader}
         renderItem={onRenderItem}

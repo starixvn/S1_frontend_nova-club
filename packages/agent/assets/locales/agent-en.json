@@ -155,12 +155,14 @@
   "report": {
     "bet": "Bet",
     "commission": "Commission",
+    "commissionReport": "Commission Report",
     "earning": "Earning",
     "pt": "PT",
     "reportNote": "Note: Full report please refer to \"Desktop Version\"",
     "title": "Report",
     "transaction": "Transaction",
     "transactionDate": "Transaction Date",
+    "transactionReport": "Transaction Report",
     "transactionType": "Transaction Type",
     "type": "Type"
   },

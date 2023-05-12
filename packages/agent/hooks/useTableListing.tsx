@@ -4,7 +4,7 @@ type useTableListingProps = {
   offset: number
   setOffset: Dispatch<SetStateAction<number>>
   LIMIT: number
-  totalData: number
+  totalData: number | undefined
   isFetching: boolean
   refetch?: any
 }
@@ -13,7 +13,7 @@ const useTableListing = ({
   offset,
   setOffset,
   LIMIT,
-  totalData,
+  totalData = 0,
   isFetching,
   refetch,
 }: useTableListingProps) => {

@@ -17,6 +17,7 @@ const FilterCommissionReportModal = ({ modal: { closeModal, getParam } }) => {
 
   const { date, startDate, endDate } = filterOptions
   const [selected, setSelected] = useState({
+    initial: false,
     date,
     startDate,
     endDate,
@@ -37,8 +38,9 @@ const FilterCommissionReportModal = ({ modal: { closeModal, getParam } }) => {
   function resetFilter() {
     onDismiss()
     onConfirm({
-      date: DateFilterOptions[0]?.value,
-      startDate: dayjs().startOf('date').toDate(),
+      initial: true,
+      date: DateFilterOptions[4]?.value,
+      startDate: dayjs().startOf('month').toDate(),
       endDate: dayjs().endOf('date').toDate(),
     })
   }

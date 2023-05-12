@@ -155,12 +155,14 @@
   "report": {
     "bet": "Cược",
     "commission": "Hoa hồng",
+    "commissionReport": "Hoàn trả Báo cáo",
     "earning": "Doanh thu",
     "pt": "PT",
     "reportNote": "Lưu ý: vui lòng truy cập phiên bản máy tính để xem báo cáo đầy đủ",
     "title": "Báo cáo",
     "transaction": "Giao dịch",
     "transactionDate": "Ngày giao dịch",
+    "transactionReport": "Giao dịch Báo cáo",
     "transactionType": "Loại giao dịch",
     "type": "Loại"
   },

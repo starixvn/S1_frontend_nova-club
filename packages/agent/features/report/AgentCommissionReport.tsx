@@ -14,19 +14,15 @@ import React, { useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import AgentFloatingContent from '../floatingContent'
 import { DateTimeField } from 'agent/components/DataTable/DataTableCell'
-
-export type CommissionFilterOptions = {
-  date: DateFilter | string | undefined
-  startDate: Date
-  endDate: Date
-}
+import { CommissionFilterOptions } from './ShareholderCommissionReport'
 
 const AgentCommissionScreen = () => {
   const { t } = useAgentLocalization()
   const { openModal } = useModal()
   const [filter, setFilter] = useState<CommissionFilterOptions>({
-    date: DateFilterOptions[0]?.value,
-    startDate: dayjs().startOf('date').toDate(),
+    initial: true,
+    date: DateFilterOptions[4]?.value,
+    startDate: dayjs().startOf('month').toDate(),
     endDate: dayjs().endOf('date').toDate(),
   })
 
@@ -37,16 +33,21 @@ const AgentCommissionScreen = () => {
       {
         start: offset * LIMIT,
         length: LIMIT,
-        rpt_date: `${dayjs(filter.startDate).format(
-          'YYYY-MM-DD HH:mm:ss Z'
-        )} to ${dayjs(filter.endDate).format('YYYY-MM-DD HH:mm:ss Z')}`,
+        rpt_date: filter.initial
+          ? `${dayjs()
+              .startOf('date')
+              .format('YYYY-MM-DD HH:mm:ss Z')} to ${dayjs()
+              .endOf('date')
+              .format('YYYY-MM-DD HH:mm:ss Z')}`
+          : `${dayjs(filter.startDate).format(
+              'YYYY-MM-DD HH:mm:ss Z'
+            )} to ${dayjs(filter.endDate).format('YYYY-MM-DD HH:mm:ss Z')}`,
       },
       {
         selectFromResult: ({ data, isFetching }) => ({
           isFetching,
-          reportData: data?.result?.data ?? [],
-          totalData: data?.result?.recordsFiltered ?? 0,
-          hasMorePage: data?.result?.recordsTotal ?? 0 >= offset * LIMIT,
+          reportData: data?.result?.data,
+          totalData: data?.result?.recordsFiltered,
         }),
       }
     )
@@ -66,9 +67,6 @@ const AgentCommissionScreen = () => {
     <DataTable.Header>
       <DataTable.Title bordered center>
         {t('common.date')}
-      </DataTable.Title>
-      <DataTable.Title bordered center>
-        {t('common.username')}
       </DataTable.Title>
       <DataTable.Cell bordered center>
         <View
@@ -93,7 +91,6 @@ const AgentCommissionScreen = () => {
       <DataTable.Cell bordered center>
         <DateTimeField date={dayjs(item.rpt_date).format('YYYY-MM-DD')} />
       </DataTable.Cell>
-      <DataTable.Cell bordered>{item.player_username}</DataTable.Cell>
       <DataTable.Cell bordered center textStyle={{ fontSize: 13 }}>
         {toThousandSeparator(item.inhouse_bet_total_amt)}
       </DataTable.Cell>
@@ -108,6 +105,7 @@ const AgentCommissionScreen = () => {
       filterOptions: filter,
       onConfirm: (value: CommissionFilterOptions) => {
         setFilter({
+          initial: value.initial,
           date: value.date,
           endDate: value.endDate,
           startDate: value.startDate,
@@ -120,12 +118,12 @@ const AgentCommissionScreen = () => {
   return (
     <View sx={{ flex: 1 }}>
       <TableListing
-        title={t('report.reportNote')}
-        refreshProps={{ isHyperlink: true }}
+        title={t('report.commissionReport')}
+        // refreshProps={{ isHyperlink: true }}
         data={reportData}
         renderHeader={onRenderHeader}
         renderItem={onRenderItem}
-        keyExtractor={(item, index) => `${index} Table ${item.username}`}
+        keyExtractor={(item, index) => `${index} Table ${item.player_username}`}
         onLoadMore={onLoadMore}
         onRefresh={onRefresh}
         isFetching={isFetching}

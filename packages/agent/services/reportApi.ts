@@ -2,6 +2,8 @@ import { EndpointBuilderType } from 'services/common/types'
 import { agentBaseApiWithTag } from './agentBaseApi'
 import { IResponse } from './common/agentAxiosBaseQuery'
 import {
+  AgentCommissionListArgs,
+  AgentCommissionListResult,
   ShareholderCommissionListArgs,
   ShareholderCommissionListResult,
   TransactionReportArgs,
@@ -43,8 +45,8 @@ export const reportApi = agentBaseApiWithTag.injectEndpoints({
       providesTags: ['TransactionReport'],
     }),
     agentCommissionList: builder.query<
-      IResponse<ShareholderCommissionListResult[]> | undefined,
-      ShareholderCommissionListArgs
+      IResponse<AgentCommissionListResult[]> | undefined,
+      AgentCommissionListArgs
     >({
       query: (queryArgs) => ({
         url: `/agent/commission`,

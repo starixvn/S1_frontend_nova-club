@@ -18,6 +18,7 @@ import { useModal } from 'react-native-modalfy'
 import AgentFloatingContent from '../floatingContent'
 
 export type CommissionFilterOptions = {
+  initial: boolean
   date: DateFilter | string | undefined
   startDate: Date
   endDate: Date
@@ -27,8 +28,9 @@ const ShareholderCommissionScreen = () => {
   const { openModal } = useModal()
   const { t } = useAgentLocalization()
   const [filter, setFilter] = useState<CommissionFilterOptions>({
-    date: DateFilterOptions[0]?.value,
-    startDate: dayjs().startOf('date').toDate(),
+    initial: true,
+    date: DateFilterOptions[4]?.value,
+    startDate: dayjs().startOf('month').toDate(),
     endDate: dayjs().endOf('date').toDate(),
   })
 
@@ -39,21 +41,26 @@ const ShareholderCommissionScreen = () => {
       currency: (data?.wallet.currency ?? Currency.VND) as Currency,
     }),
   })
-  const { reportData, totalData, hasMorePage, isFetching, refetch } =
+  const { reportData, totalData, isFetching, refetch } =
     useShareholderCommissionListQuery(
       {
         start: offset * LIMIT,
         length: LIMIT,
-        rpt_date: `${dayjs(filter.startDate).format(
-          'YYYY-MM-DD HH:mm:ss Z'
-        )} to ${dayjs(filter.endDate).format('YYYY-MM-DD HH:mm:ss Z')}`,
+        rpt_date: filter.initial
+          ? `${dayjs()
+              .startOf('date')
+              .format('YYYY-MM-DD HH:mm:ss Z')} to ${dayjs()
+              .endOf('date')
+              .format('YYYY-MM-DD HH:mm:ss Z')}`
+          : `${dayjs(filter.startDate).format(
+              'YYYY-MM-DD HH:mm:ss Z'
+            )} to ${dayjs(filter.endDate).format('YYYY-MM-DD HH:mm:ss Z')}`,
       },
       {
         selectFromResult: ({ data, isFetching }) => ({
           isFetching,
-          reportData: data?.result?.data ?? [],
-          totalData: data?.result?.recordsFiltered ?? 0,
-          hasMorePage: data?.result?.recordsTotal ?? 0 >= offset * LIMIT,
+          reportData: data?.result?.data,
+          totalData: data?.result?.recordsFiltered,
         }),
       }
     )
@@ -73,9 +80,6 @@ const ShareholderCommissionScreen = () => {
     <DataTable.Header>
       <DataTable.Title bordered center>
         {t('common.date')}
-      </DataTable.Title>
-      <DataTable.Title bordered center>
-        {t('common.username')}
       </DataTable.Title>
       <DataTable.Cell bordered center>
         <View
@@ -107,7 +111,6 @@ const ShareholderCommissionScreen = () => {
       <DataTable.Cell bordered center>
         <DateTimeField date={dayjs(item.rpt_date).format('YYYY-MM-DD')} />
       </DataTable.Cell>
-      <DataTable.Cell bordered>{item.username}</DataTable.Cell>
       <DataTable.Cell bordered center textStyle={{ fontSize: 12 }}>
         {toThousandSeparator(item.turnover_amt)}
       </DataTable.Cell>
@@ -125,6 +128,7 @@ const ShareholderCommissionScreen = () => {
       filterOptions: filter,
       onConfirm: (value: CommissionFilterOptions) => {
         setFilter({
+          initial: value.initial,
           date: value.date,
           endDate: value.endDate,
           startDate: value.startDate,
@@ -137,8 +141,8 @@ const ShareholderCommissionScreen = () => {
   return (
     <View sx={{ flex: 1 }}>
       <TableListing
-        title={t('report.reportNote')}
-        refreshProps={{ isHyperlink: true }}
+        title={t('report.commissionReport')}
+        // refreshProps={{ isHyperlink: true }}
         data={reportData}
         renderHeader={onRenderHeader}
         renderItem={onRenderItem}
