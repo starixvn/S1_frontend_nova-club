@@ -1,3 +1,10 @@
 {
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "i18n-ally.localesPaths": [
+    "apps/expo/ios/Pods/RCT-Folly/folly/lang",
+    "apps/expo/ios/Pods/boost/boost/locale",
+    "apps/expo/ios/Pods/boost/boost/predef/language",
+    "apps/expo/ios/Pods/Headers/Private/RCT-Folly/folly/lang",
+    "apps/expo/ios/Pods/Headers/Public/RCT-Folly/folly/lang"
+  ]
 }

@@ -83,6 +83,9 @@ const theme = makeTheme({
     surface: ['#50509E', '#32325A'],
     ball: ['$success', '$error'],
   },
+  sizes: {
+    container: 768,
+  },
 })
 
 export function Dripsy({ children }: { children: React.ReactNode }) {
