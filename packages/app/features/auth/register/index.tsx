@@ -32,6 +32,7 @@ import { LoginType } from '../type'
 import { useAgentRegisterMutation } from 'agent/services/authApi'
 import { AgentAuthActions } from 'agent/store/agentAuthReducer'
 import { useLazyUserInfoQuery } from 'agent/services/userApi'
+import { usePlayerProfileQuery } from 'services/playerApi'
 
 export type RegisterFormValues = {
   username: string
@@ -58,6 +59,13 @@ const RegisterPage = () => {
   const { t } = useLocalization()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { uuid } = useUniqueId()
+
+  const isLoggedIn = useAppSelector((s) => !!s.auth.info)
+  const { data } = usePlayerProfileQuery(undefined, {
+    skip: !isLoggedIn,
+  })
+  const referralCode = data?.referral_code ?? ''
+
   // const { syncShield } = useShield()
 
   /* allow /auth/register to pass in ref code from query string, same as /download page */
@@ -156,11 +164,9 @@ const RegisterPage = () => {
       // WIP: Prefix should not be hardcoded
       mobile_no: '84' + contactNumber,
       // terms,
-      referral_code:
-        trackingCode && !isBannedTrackingCode(trackingCode) ? trackingCode : '',
+      referral_code: isLoggedIn ? referralCode : '',
       OTP: verifyCode,
     }).unwrap()
-    console.log('🚀 ~ file: index.tsx:158 ~ RegisterPage ~ data:', result)
 
     if (success && result) {
       dispatch(AgentAuthActions.setAgentAuthToken(result.data.access_token))
