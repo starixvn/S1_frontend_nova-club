@@ -51,7 +51,7 @@ const GradientButton = ({
         <Gradient
           gradient={'button'}
           sx={{
-            borderRadius: 100,
+            borderRadius: 50,
             justifyContent: 'center',
             alignItems: 'center',
           }}
