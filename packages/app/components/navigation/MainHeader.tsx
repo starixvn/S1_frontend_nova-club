@@ -1,9 +1,9 @@
+import { useDrawer } from 'app/hooks/useDrawer'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { Box, Pressable, Row, Text } from 'dripsy'
+import { Row, Text } from 'dripsy'
 import React from 'react'
-import { useDrawer } from './Drawer/DrawerProvider'
-import { Link } from 'solito/link'
 import { TouchableOpacity } from 'react-native'
+import { Link } from 'solito/link'
 
 const MainHeader = () => {
   const { top } = useSafeArea()

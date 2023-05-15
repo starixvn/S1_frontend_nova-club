@@ -1,9 +1,9 @@
-import { Pressable, Text, View, styled } from 'dripsy'
-import React, { useContext, useEffect } from 'react'
-import DrawerContent from './DrawerContent'
+import { useDrawer } from 'app/hooks/useDrawer'
+import { Pressable, View, styled } from 'dripsy'
 import { MotiView, useAnimationState } from 'moti/build'
+import React, { useEffect } from 'react'
 import { useWindowDimensions } from 'react-native'
-import { DrawerContext, useDrawer } from './DrawerProvider'
+import DrawerContent from './DrawerContent'
 
 // TODOƒ
 /* Overlay */
