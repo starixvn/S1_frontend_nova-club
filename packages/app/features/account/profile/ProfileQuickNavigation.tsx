@@ -2,20 +2,25 @@ import Icon from 'app/components/Icon'
 import { Profile_Quick_Navigation_Path } from 'app/components/navigation/RoutePath'
 import { Text, View, styled, useDripsyTheme } from 'dripsy'
 import { Gradient } from 'dripsy/gradient'
+import { Platform, useWindowDimensions } from 'react-native'
 import { Link } from 'solito/link'
 
-const CARD_PER_ROW = 4
 const CARD_SIZE = 80
 
 const ProfileQuickNavigation = () => {
   const { theme } = useDripsyTheme()
+  const { width } = useWindowDimensions()
+  const containerWidth = Math.min(500, width * 0.9)
+  const CARD_PER_ROW = Math.floor((Platform.OS, containerWidth / CARD_SIZE - 1))
   const totalCard = Profile_Quick_Navigation_Path.length
   const numEmptyCard = CARD_PER_ROW - (totalCard % CARD_PER_ROW)
 
-  const renderEmptyCard = () => {
+  console.log(Platform.OS, CARD_PER_ROW)
+
+  const renderEmptyCard = (index: number) => {
     return (
       <View
-        key={'empty-card'}
+        key={`empty-card-${index}`}
         sx={{
           borderRadius: 15,
           alignItems: 'center',
@@ -68,7 +73,9 @@ const ProfileQuickNavigation = () => {
   return (
     <ProfileQuickNavigationContainer>
       {Profile_Quick_Navigation_Path.map(renderNavigationCard)}
-      {Array.from({ length: numEmptyCard }, (_, i) => i).map(renderEmptyCard)}
+      {Array.from({ length: numEmptyCard }, (_, i) => i).map((_, index) =>
+        renderEmptyCard(index)
+      )}
     </ProfileQuickNavigationContainer>
   )
 }

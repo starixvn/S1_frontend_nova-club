@@ -11,9 +11,12 @@ import ProfileOverviewCard from './profile/ProfileOverviewCard'
 import ProfileQuickNavigation from './profile/ProfileQuickNavigation'
 import WalletButton from './profile/WalletButton'
 import ProfileHeader from './profile/ProfileHeader'
+import { useWindowDimensions } from 'react-native'
+import { View } from 'dripsy'
 
 export default function ProfileScreen() {
   const { top, bottom } = useSafeArea()
+  const { height, width } = useWindowDimensions()
   const { token } = useAppSelector((state) => state.auth.info) || {}
 
   const { data: playerData } = usePlayerProfileQuery()
@@ -45,20 +48,27 @@ export default function ProfileScreen() {
     <Screen
       contentContainerSx={{
         alignItems: 'center',
-        minHeight: '100%',
+        minHeight: height + bottom,
+        paddingBottom: bottom,
+        justifyContent: 'space-between',
       }}
     >
-      <ProfileHeader data={playerData} />
-      <ProfileBalanceSummary
-        cash={walletInfo.cash}
-        reward={walletInfo.reward}
-        isLoading={isFetching}
-        currency={currency}
-      />
-      <WalletButton />
-      <ProfileOverviewCard currency={currency} />
-      <ProfileQuickNavigation />
-      <LanguageSwitch style={{ position: 'absolute', bottom: 0 + bottom }} />
+      <View sx={{ alignItems: 'center', width }}>
+        <ProfileHeader data={playerData} />
+        <ProfileBalanceSummary
+          cash={walletInfo.cash}
+          reward={walletInfo.reward}
+          isLoading={isFetching}
+          currency={currency}
+        />
+        <WalletButton />
+        <ProfileOverviewCard currency={currency} />
+        <ProfileQuickNavigation />
+      </View>
+      <View sx={{ width, height: 100 }} />
+      <View>
+        <LanguageSwitch />
+      </View>
     </Screen>
   )
 }

@@ -63,9 +63,8 @@ export default function ProfileHeader({ data }: ProfileHeaderProps) {
           <Text sx={{ fontSize: 12 }}>{t('profile.timeline')}</Text>
         </View>
       </View>
-      <View>
-        <Icon name={'qr'} size={30} />
-      </View>
+
+      <Icon name={'qr'} size={30} />
     </View>
   )
 }
