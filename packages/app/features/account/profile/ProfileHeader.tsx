@@ -6,6 +6,7 @@ import { ProfileResult } from '../../../../services/playerApi.type'
 import IconButton from 'app/components/IconButton'
 import useLocalization from 'app/provider/localization'
 import { useRouter } from 'solito/router'
+import { copyToClipboard } from 'app/utils'
 
 const HEADER_HEIGHT = 80
 const AVATAR_SIZE = 30
@@ -58,7 +59,12 @@ export default function ProfileHeader({ data }: ProfileHeaderProps) {
           </Text>
           <View sx={{ flexDirection: 'row', alignItems: 'center' }}>
             <Text sx={{ fontSize: 12 }}>{data?.referral_code}</Text>
-            <IconButton name={'copy'} size={16} sx={{ pl: 10 }} />
+            <IconButton
+              name={'copy'}
+              size={16}
+              sx={{ pl: 10 }}
+              onPress={() => copyToClipboard(data?.referral_code)}
+            />
           </View>
           <Text sx={{ fontSize: 12 }}>{t('profile.timeline')}</Text>
         </View>

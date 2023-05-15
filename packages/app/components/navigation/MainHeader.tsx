@@ -1,21 +1,18 @@
 import { useDrawer } from 'app/hooks/useDrawer'
+import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { toCurrency } from 'app/utils'
+import { Currency } from 'app/utils/constant'
 import { Image, Pressable, Row, Text, View } from 'dripsy'
 import React, { useEffect, useRef, useState } from 'react'
-import { TouchableOpacity } from 'react-native'
-import { Link } from 'solito/link'
-import GradientButton from '../GradientButton'
-import IconButton from '../IconButton'
 import { useRouter } from 'solito/router'
-import Icon from '../Icon'
-import { useAppSelector } from 'app/provider/redux/store'
 import { usePlayerProfileQuery } from '../../../services/playerApi'
 import {
   usePlayerBalanceQuery,
   useTransferAllToOneMutation,
 } from '../../../services/walletApi'
-import { toCurrency } from 'app/utils'
-import { Currency } from 'app/utils/constant'
+import GradientButton from '../GradientButton'
+import Icon from '../Icon'
 
 const MainHeader = () => {
   const { top } = useSafeArea()
@@ -118,7 +115,7 @@ const MainHeader = () => {
             alignItems: 'center',
             justifyContent: 'space-evenly',
             borderRadius: 25,
-            minWidth: 125,
+            minWidth: 100,
           }}
         >
           <View sx={{ p: 2, mr: 5, bg: '$secondary.100', borderRadius: 50 }}>
@@ -130,7 +127,7 @@ const MainHeader = () => {
           <Text sx={{ fontSize: 12, color: '$secondary.100' }}>
             {totalBalance}
           </Text>
-          <IconButton name={'down'} size={14} color={'$secondary.100'} />
+          {/* <IconButton name={'down'} size={14} color={'$secondary.100'} /> */}
         </View>
 
         <Pressable
