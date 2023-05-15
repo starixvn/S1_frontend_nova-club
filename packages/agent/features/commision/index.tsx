@@ -32,47 +32,57 @@ const CommissionTable = () => {
   const { width } = useContainerDimension()
   const { theme } = useDripsyTheme()
 
+  const fillString = (value) => {
+    return value ? value : '⎯'
+  }
+
   const onRender = ({ item, index }) => {
     const justifyContent = TitleContentAlignmentMap[item.gametype] ?? 'flex-end'
+    const isTitle = item.gametype in TitleContentAlignmentMap
+    const paddingLeft = isTitle ? 12 : 24
 
+    ;('⎯')
     return (
       <DataTable.Row
         key={`${index} ${item.gametype}`}
         size={item.cashagent ? 'small' : 'big'}
+        containerStyle={{
+          bg: isTitle ? '#D1D1D1' : 'white',
+        }}
       >
         <DataTable.Cell
-          bordered
+          bordered={isTitle ? false : true}
           containerStyle={{
             flex: 0.4,
-            justifyContent,
+            // justifyContent,
           }}
-          textStyle={{ fontWeight: 'bold', px: 12 }}
+          textStyle={{ fontWeight: 'bold', paddingLeft, px: 12 }}
         >
           {item.gametype}
         </DataTable.Cell>
         <DataTable.Cell
-          bordered
+          bordered={isTitle ? false : true}
           center
           containerStyle={{ flex: 0.2 }}
           textStyle={{ color: '#8D0016' }}
         >
-          {item.cashagent ? item.cashagent : '⎯'}
+          {isTitle ? '' : fillString(item.cashagent)}
         </DataTable.Cell>
         <DataTable.Cell
-          bordered
+          bordered={isTitle ? false : true}
           center
           containerStyle={{ flex: 0.2 }}
           textStyle={{ color: '#00058D' }}
         >
-          {item.cashplayer ? item.cashplayer : '⎯'}
+          {isTitle ? '' : fillString(item.cashplayer)}
         </DataTable.Cell>
         <DataTable.Cell
-          bordered
+          bordered={isTitle ? false : true}
           center
           containerStyle={{ flex: 0.2 }}
           textStyle={{ color: '#066506' }}
         >
-          {item.cashreferralplayer ? item.cashreferralplayer : '⎯'}
+          {isTitle ? '' : fillString(item.cashreferralplayer)}
         </DataTable.Cell>
       </DataTable.Row>
     )

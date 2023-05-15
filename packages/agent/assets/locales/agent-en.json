@@ -125,7 +125,7 @@
   "placeholder": {
     "enterAccountName": "Please enter account name",
     "enterAccountNumber": "Please enter account number",
-    "enterAmount": "Please enter your %{field} amount",
+    "enterAmount": "Please enter amount",
     "enterConfirmPassword": "Please enter confirm password",
     "enterId": "Please enter ID",
     "enterNewPassword": "Please enter new password",
@@ -133,7 +133,7 @@
     "enterPin": "Please enter pin to transfer",
     "enterPlayerId": "Please enter player ID",
     "enterRealName": "Please enter your real name",
-    "enterTransferAmount": "Please enter your transfer amount",
+    "enterTransferAmount": "Please enter transfer amount",
     "enterUsername": "Please enter username",
     "enterWithdrawalAmount": "Please enter withdrawal amount"
   },

@@ -276,7 +276,7 @@ const AgentWithdrawalForm = ({
       <NumberInput
         value={values.amount}
         label={t('common.amount')}
-        placeholder={t('placeholder.enterWithdrawalAmount')}
+        placeholder={t('placeholder.enterAmount')}
         onChangeText={(e) => {
           formik.setFieldValue('amount', e)
           debounceNettPayout(parseInt(e.replace(/[^\d]/g, '')))

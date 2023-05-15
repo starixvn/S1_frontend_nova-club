@@ -125,7 +125,7 @@
   "placeholder": {
     "enterAccountName": "Nhập tên tài khoản",
     "enterAccountNumber": "Nhập số tài khoản",
-    "enterAmount": "Vui lòng nhập số tiền %{field} của bạn",
+    "enterAmount": "Vui lòng nhập số tiền của bạn",
     "enterConfirmPassword": "Vui lòng xác nhận mật khẩu",
     "enterId": "Vui lòng nhập ID giới thiệu",
     "enterNewPassword": "Vui lòng nhập mật khẩu mới",

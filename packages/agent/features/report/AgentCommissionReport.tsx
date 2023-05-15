@@ -33,15 +33,9 @@ const AgentCommissionScreen = () => {
       {
         start: offset * LIMIT,
         length: LIMIT,
-        rpt_date: filter.initial
-          ? `${dayjs()
-              .startOf('date')
-              .format('YYYY-MM-DD HH:mm:ss Z')} to ${dayjs()
-              .endOf('date')
-              .format('YYYY-MM-DD HH:mm:ss Z')}`
-          : `${dayjs(filter.startDate).format(
-              'YYYY-MM-DD HH:mm:ss Z'
-            )} to ${dayjs(filter.endDate).format('YYYY-MM-DD HH:mm:ss Z')}`,
+        rpt_date: `${dayjs(filter.startDate).format(
+          'YYYY-MM-DD HH:mm:ss Z'
+        )} to ${dayjs(filter.endDate).format('YYYY-MM-DD HH:mm:ss Z')}`,
       },
       {
         selectFromResult: ({ data, isFetching }) => ({
@@ -76,7 +70,9 @@ const AgentCommissionScreen = () => {
             justifyContent: 'center',
           }}
         >
-          <Text sx={{ fontWeight: 'bold', mr: 2 }}>{t('common.turnover')}</Text>
+          <Text sx={{ fontSize: 12, fontWeight: 'bold', mr: 2 }}>
+            {t('common.turnover')}
+          </Text>
           <Pressable onPress={() => openModal('TurnoverModal')}>
             <Icon name="info" color="red" size={16} />
           </Pressable>

@@ -226,7 +226,7 @@ const AddBankInfoForm = () => {
             containerProps={{
               sx: { mb: '$3' },
             }}
-            placeholder={t('placeholder.enterAccountName')}
+            placeholder={t('placeholder.enterAccountNumber')}
             error={
               touched.accountNumber && errors.accountNumber
                 ? t(errors.accountNumber, {

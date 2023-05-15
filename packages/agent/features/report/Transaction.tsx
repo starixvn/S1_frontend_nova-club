@@ -33,7 +33,7 @@ const TransactionScreen = () => {
     initial: true,
     date: DateFilterOptions[4]?.value,
     startDate: dayjs().startOf('month').toDate(),
-    endDate: dayjs().endOf('month').toDate(),
+    endDate: dayjs().endOf('date').toDate(),
     type: [1, 2, 3, 4],
   })
 
@@ -44,15 +44,9 @@ const TransactionScreen = () => {
       {
         start: offset * LIMIT,
         length: LIMIT,
-        date_from: filter.initial
-          ? `${dayjs()
-              .startOf('date')
-              .format('YYYY-MM-DD HH:mm:ss Z')} to ${dayjs()
-              .endOf('date')
-              .format('YYYY-MM-DD HH:mm:ss Z')}`
-          : `${dayjs(filter.startDate).format(
-              'YYYY-MM-DD HH:mm:ss Z'
-            )} to ${dayjs(filter.endDate).format('YYYY-MM-DD HH:mm:ss Z')}`,
+        date_from: `${dayjs(filter.startDate).format(
+          'YYYY-MM-DD HH:mm:ss Z'
+        )} to ${dayjs(filter.endDate).format('YYYY-MM-DD HH:mm:ss Z')}`,
         currency: Currency.VND,
         transaction_type: filter.type.toString(),
       },
