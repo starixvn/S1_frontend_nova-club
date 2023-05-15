@@ -15,8 +15,6 @@ const ProfileQuickNavigation = () => {
   const totalCard = Profile_Quick_Navigation_Path.length
   const numEmptyCard = CARD_PER_ROW - (totalCard % CARD_PER_ROW)
 
-  console.log(Platform.OS, CARD_PER_ROW)
-
   const renderEmptyCard = (index: number) => {
     return (
       <View

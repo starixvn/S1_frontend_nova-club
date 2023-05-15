@@ -62,17 +62,17 @@ const SplashScreenButton = () => {
           isNestedNavigator: false,
         }}
       > */}
-      <GradientButton
+      {/* <GradientButton
         iconProps={{ name: 'home' }}
         onPress={() => push('/?splashscreen=true')}
-      />
+      /> */}
       {/* <Text>Home</Text> */}
       {/* </Link> */}
       <TouchableOpacity
         style={{ alignItems: 'center', width: '30%' }}
         onPress={() => TestLogin()}
       >
-        <Icon name={'next'} color={'white'} />
+        <Icon name={'home'} color={'white'} />
         <Text>Test Login</Text>
       </TouchableOpacity>
     </View>

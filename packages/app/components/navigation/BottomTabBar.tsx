@@ -2,20 +2,21 @@ import usePathname from 'app/hooks/usePathname'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { View } from 'dripsy'
 import { Gradient } from 'dripsy/gradient'
-import React from 'react'
+import React, { useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { useRouter } from 'solito/router'
 import GradientButton from '../GradientButton'
 import { BOTTOM_ROUTE } from './RoutePath'
+
+const BOTTOM_TAB_BAR_HEIGHT = 47.5
+const BOTTOM_ICON_ACTIVE = 28
+const BOTTOM_ICON_INACTIVE = 22
 
 function BottomTabBar() {
   const pathname = usePathname()
   const { push } = useRouter()
   const { bottom } = useSafeArea()
   const { width } = useWindowDimensions()
-  const BOTTOM_TAB_BAR_HEIGHT = 47.5
-  const BOTTOM_ICON_ACTIVE = 28
-  const BOTTOM_ICON_INACTIVE = 22
   const ICON_SIZE = Math.min(55, width * 0.15)
 
   const isActiveState = (
@@ -67,7 +68,7 @@ function BottomTabBar() {
               labelProps={{
                 numberOfLines: 1,
                 sx: {
-                  fontSize: 13,
+                  fontSize: 10,
                 },
               }}
               onPress={() => push(r.path ?? '/')}

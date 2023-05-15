@@ -68,7 +68,7 @@ export const Profile_Quick_Navigation_Path: Route[] = [
     icon: 'mng-cred',
   },
   {
-    label: 'message / announcement',
+    label: 'message/\nannouncement',
     path: '/',
     icon: 'announcement',
   },

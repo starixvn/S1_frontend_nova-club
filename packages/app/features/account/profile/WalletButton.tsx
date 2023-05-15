@@ -29,9 +29,6 @@ const WalletButton = () => {
               }}
               labelProps={{
                 numberOfLines: 1,
-                sx: {
-                  fontSize: 13,
-                },
               }}
               onPress={() => {
                 push(r.path ?? '/')
