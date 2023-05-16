@@ -1,4 +1,5 @@
 import DataTable from 'agent/components/DataTable/DataTable'
+import { DateTimeField } from 'agent/components/DataTable/DataTableCell'
 import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
 import Text from 'agent/components/Text'
 import useTableListing from 'agent/hooks/useTableListing'
@@ -81,27 +82,7 @@ const AgentWithdrawalHistory = ({ currency }: { currency: Currency }) => {
         }}
         textStyle={{}}
       >
-        <View>
-          <Text
-            sx={{
-              color: 'black',
-              textAlign: 'center',
-              fontSize: 14,
-            }}
-          >
-            {dayjs(item.created_at).format('DD-MM-YYYY')}
-          </Text>
-          <Text
-            sx={{
-              color: '$taupeGray',
-              textAlign: 'center',
-              fontSize: 13,
-              lineHeight: 14,
-            }}
-          >
-            {dayjs(item.created_at).format('HH:mm a')}
-          </Text>
-        </View>
+        <DateTimeField dateTime={item.created_at} />
       </DataTable.Cell>
       <DataTable.Cell
         style={{
