@@ -54,20 +54,13 @@ const SplashScreenButton = () => {
           label="demo input"
         />
       </View>
-      {/* <Link
-        href="/?splashscreen=true"
-        replace
-        experimental={{
-          nativeBehavior: 'stack-replace',
-          isNestedNavigator: false,
-        }}
-      > */}
-      {/* <GradientButton
+
+      <GradientButton
         iconProps={{ name: 'home' }}
-        onPress={() => push('/?splashscreen=true')}
-      /> */}
-      {/* <Text>Home</Text> */}
-      {/* </Link> */}
+        label="login page"
+        onPress={() => push('/auth/login')}
+      />
+
       <TouchableOpacity
         style={{ alignItems: 'center', width: '30%' }}
         onPress={() => TestLogin()}
