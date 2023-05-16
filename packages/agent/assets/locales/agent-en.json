@@ -176,7 +176,9 @@
     "regDate": "Register Date",
     "shareholderDetails": "Shareholder Details",
     "title": "Shareholder / Agent",
-    "totalMember": "Total Member"
+    "totalAgent": "Total Agent",
+    "totalMember": "Total Member",
+    "totalShareholder": "Total Shareholder"
   },
   "transfer": {
     "errorId": "Player ID not found",
