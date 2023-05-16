@@ -4,7 +4,7 @@ import { MotiView, useAnimationState } from 'moti/build'
 import React, { useEffect } from 'react'
 import { TextProps, TouchableOpacityProps } from 'react-native'
 import Icon, { IconProps } from './Icon'
-const ICON_SIZE = 60
+const ICON_SIZE = 40
 const ICON_ACTIVE_SIZE_SCALE = 1.25
 
 interface GradientButtonProps extends TouchableOpacityProps {

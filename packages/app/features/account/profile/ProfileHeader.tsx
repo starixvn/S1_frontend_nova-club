@@ -7,8 +7,8 @@ import IconButton from 'app/components/IconButton'
 import useLocalization from 'app/provider/localization'
 import { useRouter } from 'solito/router'
 import { copyToClipboard } from 'app/utils'
+import { HEADER_HEIGHT } from 'app/utils/constant'
 
-const HEADER_HEIGHT = 80
 const AVATAR_SIZE = 30
 
 interface ProfileHeaderProps {

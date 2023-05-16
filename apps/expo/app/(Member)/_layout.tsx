@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar'
 import { View } from 'react-native'
 
 import BottomTabBar from 'app/components/navigation/BottomTabBar'
-import MainHeader from 'app/components/navigation/MainHeader'
+import MainHeader from 'app/components/navigation/Header/MainHeader'
 import { Tabs } from 'expo-router'
 import DrawerProvider from 'app/components/navigation/Drawer/DrawerProvider'
 

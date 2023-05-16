@@ -22,9 +22,10 @@ const WalletButton = () => {
           <Link key={r.label} href={r.path ?? '/'}>
             <GradientButton
               label={r.label}
+              size={50}
               iconProps={{
                 name: r.icon ?? 'notice',
-                size: 30,
+                size: 24,
                 color: 'white',
               }}
               labelProps={{

@@ -4,11 +4,9 @@ import React, { ComponentProps, useEffect } from 'react'
 import { Button, Text as TextRN } from 'react-native'
 
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { LogOut } from 'app/utils/authUtil'
 import * as DropdownMenu from 'zeego/dropdown-menu'
 import SplashScreenButton from '../demo/SplashScreenButton'
-import useResetRTKQState from 'app/hooks/useResetRTKQState'
-import { store } from 'app/provider/redux/store'
-import { logOut } from 'app/utils/authUtil'
 
 const DropdownMenuLabel = DropdownMenu.create(
   (props: ComponentProps<typeof DropdownMenu.Label>) => (
@@ -33,7 +31,7 @@ export default function SplashScreen() {
 
   //clear token/logout first
   useEffect(() => {
-    logOut()
+    LogOut()
   }, [])
 
   return (

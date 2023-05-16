@@ -1,3 +1,5 @@
+export const HEADER_HEIGHT = 60
+
 export enum LANGUAGE_CODE {
   ENGLISH = 'en',
   VIETNAM = 'vi',
