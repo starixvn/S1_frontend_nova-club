@@ -19,7 +19,9 @@ export default function ProfileScreen() {
   const { height, width } = useWindowDimensions()
   const { token } = useAppSelector((state) => state.auth.info) || {}
 
-  const { data: playerData } = usePlayerProfileQuery()
+  const { data: playerData } = usePlayerProfileQuery(undefined, {
+    skip: !token,
+  })
   const currency = playerData?.currency as Currency
 
   const { isFetching, wallets } = usePlayerBalanceQuery(undefined, {
@@ -27,6 +29,7 @@ export default function ProfileScreen() {
       ...s,
       wallets: s.data?.data,
     }),
+    skip: !token,
   })
 
   const walletInfo = useMemo(() => {

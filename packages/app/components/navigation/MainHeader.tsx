@@ -21,14 +21,16 @@ const MainHeader = () => {
   const [totalBalance, setTotalBalance] = useState('0')
   const lastTransferredToMainWalletToken = useRef('')
   const token = useAppSelector((s) => s.auth.info?.token)
-
+  console.log(token)
   const {
     data: playerBalance,
     isFetching: isMainWalletLoading,
     refetch,
-  } = usePlayerBalanceQuery()
+  } = usePlayerBalanceQuery(undefined, { skip: !token })
 
-  const { data: playerData } = usePlayerProfileQuery()
+  const { data: playerData } = usePlayerProfileQuery(undefined, {
+    skip: !token,
+  })
   const isPlayerName = !!playerData?.firstName
   const [transferAllToOne, { isLoading: isTransferringToMain }] =
     useTransferAllToOneMutation({

@@ -4,6 +4,7 @@ import { Currency } from 'app/utils/constant'
 import { ActivityIndicator, Text, View, styled } from 'dripsy'
 import { TouchableOpacity } from 'react-native'
 import { usePlayerOverviewSummaryQuery } from '../../../../services/playerApi'
+import { useAppSelector } from 'app/provider/redux/store'
 
 interface ProfileOverviewTextProps {
   px?: number
@@ -20,7 +21,10 @@ interface ProfileOverviewCardProps {
 }
 
 const ProfileOverviewCard = ({ currency }: ProfileOverviewCardProps) => {
-  const { data, isFetching } = usePlayerOverviewSummaryQuery()
+  const { token } = useAppSelector((state) => state.auth.info) || {}
+  const { data, isFetching } = usePlayerOverviewSummaryQuery(undefined, {
+    skip: !token,
+  })
   return (
     <>
       <ProfileOverviewCardContainer>
