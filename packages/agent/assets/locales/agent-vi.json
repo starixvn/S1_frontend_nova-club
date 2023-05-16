@@ -191,7 +191,7 @@
     "alphanumeric": "ký tự chữ và số (A-Z, a-z, 0-9)",
     "amount": "%{amount} ngoài hạn mức",
     "amount0": "Số tiền không được bằng 0",
-    "amount500k": "Số tiền rút phải từ 500K VND",
+    "amount500k": "Số tiền rút phải từ 500,000 VND",
     "amountLessThan": "Số tiền không thể nhỏ hơn %{min}",
     "amountNumber": "Số tiền phải là số.",
     "dailyLimitReached": "Bạn Đã Sử Dụng Hết Hạn Mức Trong Ngày",

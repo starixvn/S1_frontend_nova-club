@@ -191,7 +191,7 @@
     "alphanumeric": "alphanumeric (A-Z, a-z, 0-9) characters only",
     "amount": "%{amount} not in range",
     "amount0": "Amount must not be 0",
-    "amount500k": "Amount must not be less than 500k",
+    "amount500k": "Amount must not be less than 500,000",
     "amountLessThan": "Amount cannot be less than %{min}",
     "amountNumber": "Amount must be a number",
     "dailyLimitReached": "Your Daily Limit Reached",

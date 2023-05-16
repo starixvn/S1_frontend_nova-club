@@ -109,7 +109,7 @@ const Header = () => {
                   </View>
 
                   <RefreshButton
-                    sx={{ mr: '$3' }}
+                    containerStyle={{ mr: '$3' }}
                     loading={isLoading}
                     onPress={testActionWithTimeout}
                     size={20}

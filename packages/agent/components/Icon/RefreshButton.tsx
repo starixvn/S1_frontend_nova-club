@@ -1,5 +1,5 @@
 import IconButton, { IIconButtonProps } from 'agent/components/Icon/IconButton'
-import { View } from 'dripsy'
+import { SxProp, View } from 'dripsy'
 import { MotiView } from 'moti'
 import { useEffect, useState } from 'react'
 import { GestureResponderEvent, Omit } from 'react-native'
@@ -15,12 +15,18 @@ import {
 type RefreshButtonProps = {
   onPress?: (event: GestureResponderEvent) => void
   loading?: boolean
+  containerStyle?: SxProp
 } & Omit<IIconButtonProps, 'name'>
 
 const ROTATION_DEG = 360
 const ANIMATION_DURATION = 500
 
-const RefreshButton = ({ loading, onPress, ...rest }: RefreshButtonProps) => {
+const RefreshButton = ({
+  loading,
+  onPress,
+  containerStyle,
+  ...rest
+}: RefreshButtonProps) => {
   const [isRefresh, setIsRefresh] = useState(false)
 
   const animation = useSharedValue(0)
@@ -80,7 +86,7 @@ const RefreshButton = ({ loading, onPress, ...rest }: RefreshButtonProps) => {
   }, [loading])
 
   return (
-    <View>
+    <View sx={containerStyle}>
       <MotiView style={animationStyle}>
         <IconButton
           onPress={onPressHandler}
