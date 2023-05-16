@@ -1,13 +1,11 @@
+import useOrientation from 'app/hooks/useOrientation'
 import useLocalization from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Pressable, styled, Text, useSx, View } from 'dripsy'
 import { ComponentProps } from 'react'
 import { Platform } from 'react-native'
-import Icon from '../Icon'
 import { useRouter } from 'solito/router'
-import useOrientation from 'app/hooks/useOrientation'
-import { Gradient } from 'dripsy/gradient'
-import { DripsyGradient } from '../Gradient'
+import Icon from '../Icon'
 
 type HeaderProps = {
   title?: string

@@ -36,6 +36,7 @@ const SplashScreenButton = () => {
         alignItems: 'center',
         justifyContent: 'space-evenly',
         flex: 1,
+        mb: 48,
         // bg: 'red',
       }}
     >
@@ -50,7 +51,7 @@ const SplashScreenButton = () => {
       <View sx={{ width: '25%' }}>
         <GradientButton
           iconProps={{ name: 'file' }}
-          onPress={() => push('/demo/input')}
+          onPress={() => push('/account/profile/message')}
           label="demo input"
         />
       </View>

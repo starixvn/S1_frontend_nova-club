@@ -52,6 +52,7 @@ export default function SplashScreen() {
       <Text sx={{ fontWeight: '900' }}>AvertaStd Black</Text>
       <TextRN>RN Original Text</TextRN>
       <SplashScreenButton />
+
       <Box>
         <DropdownMenuRoot>
           <DropdownMenuTrigger>
