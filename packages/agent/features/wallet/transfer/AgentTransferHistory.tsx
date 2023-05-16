@@ -1,4 +1,5 @@
 import DataTable from 'agent/components/DataTable/DataTable'
+import { DateTimeField } from 'agent/components/DataTable/DataTableCell'
 import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
 import Text from 'agent/components/Text'
 import useTableListing from 'agent/hooks/useTableListing'
@@ -115,27 +116,7 @@ const AgentTransferHistory = ({
   }) => (
     <DataTable.Row>
       <DataTable.Cell center style={{ flex: 0.35 }}>
-        <View>
-          <Text
-            sx={{
-              color: 'black',
-              textAlign: 'center',
-              fontSize: 14,
-            }}
-          >
-            {dayjs(item.created_date).format('DD-MM-YYYY')}
-          </Text>
-          <Text
-            sx={{
-              color: '$taupeGray',
-              textAlign: 'center',
-              fontSize: 13,
-              lineHeight: 13,
-            }}
-          >
-            {dayjs(item.created_date).format('HH:mm a')}
-          </Text>
-        </View>
+        <DateTimeField dateTime={item.created_date} />
       </DataTable.Cell>
       <DataTable.Cell style={{ flex: 0.4 }} center>
         {item.referrer_code}

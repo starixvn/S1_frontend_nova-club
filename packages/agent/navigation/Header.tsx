@@ -79,7 +79,7 @@ const Header = () => {
           <View>
             <BouncePressable
               onPress={() => {
-                console.log('logo pressed')
+                push('/agent/profile')
               }}
               sx={{ pr: '$2' }}
             >

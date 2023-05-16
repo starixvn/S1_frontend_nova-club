@@ -157,7 +157,6 @@ const RegisterPage = () => {
       currency: {
         VND: {
           CASH: '1',
-          CREDIT: '1',
         },
       },
       username,

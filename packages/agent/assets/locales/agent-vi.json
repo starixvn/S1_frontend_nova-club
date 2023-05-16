@@ -176,7 +176,9 @@
     "regDate": "Ngày đăng ký",
     "shareholderDetails": "Thông tin cổ đông",
     "title": "Cổ đông / Đại lý",
-    "totalMember": "Tổng số thành viên"
+    "totalAgent": "Tổng số Đại lý",
+    "totalMember": "Tổng số thành viên",
+    "totalShareholder": "Tổng số Cổ đông "
   },
   "transfer": {
     "errorId": "Không tìm thấy mã người dùng",

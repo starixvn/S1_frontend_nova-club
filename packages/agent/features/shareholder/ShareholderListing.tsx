@@ -197,7 +197,7 @@ const ShareholderListing = () => {
   return (
     <View sx={{ flex: 1 }}>
       <TableListing
-        title={`${t('shAgent.totalMember')} : ${totalData}`}
+        title={`${t('shAgent.totalShareholder')} : ${totalData}`}
         data={shareholderData}
         renderHeader={onRenderHeader}
         renderItem={onRenderItem}

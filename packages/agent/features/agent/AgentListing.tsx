@@ -178,8 +178,7 @@ const AgentListing = () => {
   return (
     <View sx={{ flex: 1 }}>
       <TableListing
-        title={`${t('shAgent.totalMember')} : ${totalData}`}
-        titleCenter
+        title={`${t('shAgent.totalAgent')} : ${totalData}`}
         data={agentData}
         renderHeader={onRenderHeader}
         renderItem={onRenderItem}
