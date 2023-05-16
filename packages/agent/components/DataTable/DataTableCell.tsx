@@ -93,7 +93,7 @@ export const DateTimeField = ({
   const gmt7 = dayjs(dateTime).tz('Asia/Jakarta')
 
   const parsedDate = gmt7.format('YYYY-MM-DD')
-  const parsedTime = gmt7.format('HH:mm:ss')
+  const parsedTime = gmt7.format('hh:mm:ss A')
 
   return (
     <View sx={{ flexDirection: 'column' }}>
