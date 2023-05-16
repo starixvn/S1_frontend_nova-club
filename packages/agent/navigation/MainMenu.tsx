@@ -75,13 +75,13 @@ const MainMenuTest = ({
         push('/agent/commission-table')
       },
     },
-    {
-      label: 'menu.desktopVersion',
-      icon: 'desktop',
-      onPress: () => {
-        Linking.openURL(AGENT_URL)
-      },
-    },
+    // {
+    //   label: 'menu.desktopVersion',
+    //   icon: 'desktop',
+    //   onPress: () => {
+    //     Linking.openURL(AGENT_URL)
+    //   },
+    // },
     {
       label: hasPin ? 'menu.resetPin' : 'pin.createPin',
       icon: 'change-pin',
@@ -109,7 +109,7 @@ const MainMenuTest = ({
     onMenu(false)
   }
 
-  const onSelectMenuItem = (item: typeof mainMenuList[number]) => {
+  const onSelectMenuItem = (item: (typeof mainMenuList)[number]) => {
     item.onPress && item.onPress()
 
     /**
