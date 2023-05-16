@@ -1,7 +1,7 @@
 {
   "i18n-ally.localesPaths": [
     // "packages/app/assets/locales",
-    "packages/agent/assets/locales"
+    // "packages/agent/assets/locales"
   ],
   "editor.formatOnSave": true,
   "i18n-ally.keystyle": "nested",
