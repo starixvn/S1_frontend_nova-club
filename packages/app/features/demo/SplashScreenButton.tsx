@@ -40,7 +40,7 @@ const SplashScreenButton = () => {
         // bg: 'red',
       }}
     >
-      <View sx={{ width: '25%' }}>
+      <View sx={{ width: '20%' }}>
         <GradientButton
           iconProps={{ name: 'tiktok' }}
           onPress={() => push('/demoIconScreen')}
@@ -48,10 +48,17 @@ const SplashScreenButton = () => {
         />
       </View>
 
-      <View sx={{ width: '25%' }}>
+      <View sx={{ width: '20%' }}>
+        <GradientButton
+          iconProps={{ name: 'megaway' }}
+          onPress={() => push('/account/profile/message')}
+          label="Custom tab bar"
+        />
+      </View>
+      <View sx={{ width: '20%' }}>
         <GradientButton
           iconProps={{ name: 'file' }}
-          onPress={() => push('/account/profile/message')}
+          onPress={() => push('/demo/input')}
           label="demo input"
         />
       </View>
