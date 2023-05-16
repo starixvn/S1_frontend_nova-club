@@ -123,10 +123,7 @@ const AgentListing = () => {
         </Pressable>
       </DataTable.Cell>
       <DataTable.Cell bordered center>
-        <DateTimeField
-          date={dayjs(item.created_at).format('YYYY-MM-DD')}
-          time={dayjs(item.created_at).format('HH:mm:ss')}
-        />
+        <DateTimeField dateTime={item.created_at} />
       </DataTable.Cell>
       <DataTable.Cell center>
         <Switch

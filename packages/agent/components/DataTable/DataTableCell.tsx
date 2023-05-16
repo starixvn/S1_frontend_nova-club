@@ -1,8 +1,14 @@
+import Text from 'agent/components/Text'
+import dayjs from 'dayjs'
+import timezone from 'dayjs/plugin/timezone'
+import utc from 'dayjs/plugin/utc'
 import { styled, SxProp, View } from 'dripsy'
 import * as React from 'react'
 import { GestureResponderEvent, StyleSheet } from 'react-native'
-import Text from 'agent/components/Text'
 import { $RemoveChildren } from './types'
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
 
 export type Props = $RemoveChildren<typeof View> & {
   /**
@@ -78,31 +84,37 @@ const DataTableCell = ({
 }
 
 export const DateTimeField = ({
-  date,
-  time,
+  dateTime,
+  isTime = true,
 }: {
-  date: string
-  time?: string
-}) => (
-  <View sx={{ flexDirection: 'column' }}>
-    <Text sx={{ color: 'black', textAlign: 'center', fontSize: 14 }}>
-      {date}
-    </Text>
-    {time && (
-      <Text
-        sx={{
-          color: '$taupeGray',
-          textAlign: 'center',
-          fontSize: 13,
-          lineHeight: 14,
-        }}
-      >
-        {time}
-      </Text>
-    )}
-  </View>
-)
+  dateTime: string
+  isTime?: boolean
+}) => {
+  const gmt7 = dayjs(dateTime).tz('Asia/Jakarta')
 
+  const parsedDate = gmt7.format('YYYY-MM-DD')
+  const parsedTime = gmt7.format('HH:mm:ss')
+
+  return (
+    <View sx={{ flexDirection: 'column' }}>
+      <Text sx={{ color: 'black', textAlign: 'center', fontSize: 14 }}>
+        {parsedDate}
+      </Text>
+      {isTime && (
+        <Text
+          sx={{
+            color: '$taupeGray',
+            textAlign: 'center',
+            fontSize: 13,
+            lineHeight: 14,
+          }}
+        >
+          {parsedTime}
+        </Text>
+      )}
+    </View>
+  )
+}
 DataTableCell.displayName = 'DataTable.Cell'
 
 const CellView = styled(View)(

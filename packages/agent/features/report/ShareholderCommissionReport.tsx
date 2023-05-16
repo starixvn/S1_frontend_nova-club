@@ -105,7 +105,7 @@ const ShareholderCommissionScreen = () => {
   }) => (
     <DataTable.Row size="big">
       <DataTable.Cell bordered center>
-        <DateTimeField date={dayjs(item.rpt_date).format('YYYY-MM-DD')} />
+        <DateTimeField dateTime={item.rpt_date} isTime={false} />
       </DataTable.Cell>
       <DataTable.Cell bordered center textStyle={{ fontSize: 12 }}>
         {toThousandSeparator(item.turnover_amt)}

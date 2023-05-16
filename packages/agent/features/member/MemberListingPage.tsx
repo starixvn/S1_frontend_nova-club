@@ -102,10 +102,7 @@ const MemberListScreen = () => {
       </DataTable.Cell>
       <DataTable.Cell bordered>{item.username}</DataTable.Cell>
       <DataTable.Cell bordered center>
-        <DateTimeField
-          date={dayjs(item.register_date).format('YYYY-MM-DD')}
-          time={dayjs(item.register_date).format('HH:mm:ss')}
-        />
+        <DateTimeField dateTime={item.register_date} />
       </DataTable.Cell>
       <DataTable.Cell center>
         <SwitchView active={item.status === '0'}>

@@ -150,18 +150,18 @@ export const MemberStatusFilterOptions = [
     value: MemberStatusFilter.BLOCK,
     label: 'filter.member.block',
   },
-  {
-    value: MemberStatusFilter.FAIL_LOGIN_ATTEMPT,
-    label: 'filter.member.failLogin',
-  },
-  {
-    value: MemberStatusFilter.SELF_EXCLUSION,
-    label: 'filter.member.exclusion',
-  },
-  {
-    value: MemberStatusFilter.SUSPENDED,
-    label: 'common.suspended',
-  },
+  // {
+  //   value: MemberStatusFilter.FAIL_LOGIN_ATTEMPT,
+  //   label: 'filter.member.failLogin',
+  // },
+  // {
+  //   value: MemberStatusFilter.SELF_EXCLUSION,
+  //   label: 'filter.member.exclusion',
+  // },
+  // {
+  //   value: MemberStatusFilter.SUSPENDED,
+  //   label: 'common.suspended',
+  // },
 ]
 
 export const getMemberStatus = (status) => {

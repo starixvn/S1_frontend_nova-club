@@ -89,10 +89,7 @@ const TransactionScreen = () => {
   }) => (
     <DataTable.Row size="big">
       <DataTable.Cell bordered center>
-        <DateTimeField
-          date={dayjs(item.created_date).format('YYYY-MM-DD')}
-          time={dayjs(item.created_date).format('HH:mm:ss')}
-        />
+        <DateTimeField dateTime={item.created_date} />
       </DataTable.Cell>
       <DataTable.Cell bordered textStyle={{ px: 12 }}>
         {item.transaction_type}
