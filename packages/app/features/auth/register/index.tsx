@@ -2,9 +2,7 @@ import { APP_DEVICE_ANDROID, APP_DEVICE_IOS } from 'app/constant/redux'
 import useAlert from 'app/hooks/useAlert'
 import useBioAuth from 'app/hooks/useBioAuth'
 import useContainerDimension from 'app/hooks/useContainerDimension'
-import useShield from 'app/hooks/useShield'
 import useUniqueId from 'app/hooks/useUniqueId'
-import { ContextualNavigationContext } from 'app/navigation/contextual/ContextualNavigation'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
@@ -16,9 +14,8 @@ import validation from 'app/utils/validation'
 import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { AnimatePresence, MotiView, useDynamicAnimation } from 'moti'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Platform } from 'react-native'
-import { useModal } from 'react-native-modalfy'
 import { useRegisterMutation } from 'services/authApi'
 import {
   LoginResult,
@@ -31,6 +28,11 @@ import AuthLayout from '../layout/AuthLayout'
 import VerificationPage from '../verification'
 import ReferrerInformation from './ReferrerInformation'
 import RegisterForm from './RegisterForm'
+import { LoginType } from '../type'
+import { useAgentRegisterMutation } from 'agent/services/authApi'
+import { AgentAuthActions } from 'agent/store/agentAuthReducer'
+import { useLazyUserInfoQuery } from 'agent/services/userApi'
+import { usePlayerProfileQuery } from 'services/playerApi'
 
 export type RegisterFormValues = {
   username: string
@@ -41,11 +43,15 @@ export type RegisterFormValues = {
   terms: boolean
 }
 
-const { useParam } = createParam()
-
+const { useParam } = createParam<{ t: LoginType; ref: string }>()
 const RegisterPage = () => {
   const [ref] = useParam('ref')
+  const [type] = useParam('t', { initial: LoginType.Member })
+  const isAgent = useMemo(() => type === LoginType.Agent, [type])
+
   const [register] = useRegisterMutation()
+  const [agentRegister] = useAgentRegisterMutation()
+  const [getUserInfo] = useLazyUserInfoQuery()
   const dispatch = useAppDispatch()
   const { replace, clear } = useContextualRouter()
   const { showAlert } = useAlert()
@@ -53,6 +59,13 @@ const RegisterPage = () => {
   const { t } = useLocalization()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { uuid } = useUniqueId()
+
+  const isLoggedIn = useAppSelector((s) => !!s.auth.info)
+  const { data } = usePlayerProfileQuery(undefined, {
+    skip: !isLoggedIn,
+  })
+  const referralCode = data?.referral_code ?? ''
+
   // const { syncShield } = useShield()
 
   /* allow /auth/register to pass in ref code from query string, same as /download page */
@@ -80,7 +93,7 @@ const RegisterPage = () => {
     } else clear()
   }
 
-  const onSubmit = async (
+  const handleMemberRegister = async (
     {
       username,
       password,
@@ -91,41 +104,95 @@ const RegisterPage = () => {
     }: RegisterFormValues,
     { setStatus }: FormikHelpers<RegisterFormValues>
   ) => {
+    const { data, success, message } = await register({
+      username,
+      password,
+      cpassword: confirmPassword,
+      // WIP: Prefix should not be hardcoded
+      contactNumber: '84' + contactNumber,
+      terms,
+      tracking_code:
+        trackingCode && !isBannedTrackingCode(trackingCode)
+          ? trackingCode
+          : undefined,
+      verify_code: verifyCode,
+      platform_uuid: uuid ?? '',
+      device_os:
+        Platform.OS !== 'web'
+          ? Platform.OS === 'ios'
+            ? APP_DEVICE_IOS
+            : APP_DEVICE_ANDROID
+          : '',
+      registered_by: Platform.OS !== 'web' ? 'APP' : '',
+    }).unwrap()
+
+    if (success) {
+      // console.log('TOKEN: ', data as LoginResult)
+      // syncShield(Shield_Action.REGISTER)
+      dispatch(
+        TempSettingActions.setSyncShieldActionType(Shield_Action.REGISTER)
+      )
+      dispatch(AuthActions.setAuthInfo(data as LoginResult))
+
+      normalLogin(username, password, () => handleOnSuccessRegister(data))
+      /* to indicate the register is successfull and used to persist loading on submit button */
+      setStatus(true)
+    } else {
+      showAlert(message)
+    }
+    setIsSubmitting(false)
+  }
+
+  const handleAgentRegister = async (
+    {
+      username,
+      password,
+      confirmPassword,
+      verifyCode,
+      contactNumber,
+    }: RegisterFormValues,
+    { setStatus }: FormikHelpers<RegisterFormValues>
+  ) => {
+    const { result, success, message } = await agentRegister({
+      currency: {
+        VND: {
+          CASH: '1',
+          CREDIT: '1',
+        },
+      },
+      username,
+      password,
+      confirmpassword: confirmPassword,
+      // WIP: Prefix should not be hardcoded
+      mobile_no: '84' + contactNumber,
+      // terms,
+      referral_code: isLoggedIn ? referralCode : '',
+      OTP: verifyCode,
+    }).unwrap()
+
+    if (success && result) {
+      dispatch(AgentAuthActions.setAgentAuthToken(result.data.access_token))
+      const resp = await getUserInfo().unwrap()
+
+      replace('/agent/profile')
+
+      /* to indicate the register is successfull and used to persist loading on submit button */
+      setStatus(true)
+    } else {
+      showAlert(message)
+    }
+    setIsSubmitting(false)
+  }
+
+  const onSubmit = async (
+    registerValues: RegisterFormValues,
+    formikHelpers: FormikHelpers<RegisterFormValues>
+  ) => {
     try {
       setIsSubmitting(true)
-      const { data, success, message } = await register({
-        username,
-        password,
-        cpassword: confirmPassword,
-        // WIP: Prefix should not be hardcoded
-        contactNumber: '84' + contactNumber,
-        terms,
-        tracking_code:
-          trackingCode && !isBannedTrackingCode(trackingCode)
-            ? trackingCode
-            : undefined,
-        verify_code: verifyCode,
-        platform_uuid: uuid ?? '',
-        device_os:
-          Platform.OS !== 'web'
-            ? Platform.OS === 'ios'
-              ? APP_DEVICE_IOS
-              : APP_DEVICE_ANDROID
-            : '',
-        registered_by: Platform.OS !== 'web' ? 'APP' : '',
-      }).unwrap()
-
-      if (success) {
-        // console.log('TOKEN: ', data as LoginResult)
-        // syncShield(Shield_Action.REGISTER)
-        dispatch(
-          TempSettingActions.setSyncShieldActionType(Shield_Action.REGISTER)
-        )
-
-        normalLogin(username, password, () => handleOnSuccessRegister(data))
-        /* to indicate the register is successfull and used to persist loading on submit button */
-        setStatus(true)
-      }
+      isAgent
+        ? handleAgentRegister(registerValues, formikHelpers)
+        : handleMemberRegister(registerValues, formikHelpers)
     } catch (error) {
       showAlert(error)
       setIsSubmitting(false)
@@ -211,7 +278,15 @@ const RegisterPage = () => {
             '#fc9e9e',
           ]}
         >
-          <RegisterForm formik={formik} onSuccess={onRegisterSuccess} />
+          <View sx={{ alignItems: 'center', pt: '$8', flex: 1 }}>
+            <View sx={{ width: '75%', flex: 1 }}>
+              <RegisterForm
+                isAgent={isAgent}
+                formik={formik}
+                onSuccess={onRegisterSuccess}
+              />
+            </View>
+          </View>
         </AuthLayout>
       </MotiView>
 
@@ -224,6 +299,7 @@ const RegisterPage = () => {
         }}
       >
         <VerificationPage
+          isAgent={isAgent}
           formik={formik}
           isSubmitting={isSubmitting}
           onBack={onBack}

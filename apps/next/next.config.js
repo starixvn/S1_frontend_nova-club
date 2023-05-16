@@ -36,6 +36,30 @@ const nextConfig = {
   //   config.optimization.minimize = false
   //   return config
   // },
+  async redirects() {
+    return [
+      {
+        source: '/agent/add',
+        destination: '/agent/add/shareholder',
+        permanent: true,
+      },
+      {
+        source: '/agent/wallet',
+        destination: '/agent/wallet/withdrawal',
+        permanent: true,
+      },
+      {
+        source: '/agent/list',
+        destination: '/agent/list/shareholder',
+        permanent: true,
+      },
+      {
+        source: '/agent/report',
+        destination: '/agent/report/commission',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 const { withExpo } = require('@expo/next-adapter')
@@ -52,13 +76,16 @@ const withTM = require('next-transpile-modules')([
   '@motify/core',
   '@motify/components',
   'app',
+  'agent',
   'utils',
   'services',
+  'agent',
   '@gorhom/portal',
   '@react-native-community/datetimepicker',
   'react-native-share',
   '@shopify/flash-list',
   'recyclerlistview',
+  'i18n-js',
 ])
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',

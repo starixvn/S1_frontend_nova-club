@@ -1,10 +1,7 @@
-import { useNavigation } from '@react-navigation/native'
 import useLocalization from 'app/provider/localization'
 import { styled, Text, View } from 'dripsy'
-import React, { FC } from 'react'
-import { Linking, TouchableWithoutFeedback } from 'react-native'
+import React from 'react'
 import Collapse from './Accordian'
-import Icon from './Icon'
 
 interface ImportantNoticeProps {
   keys: string[]

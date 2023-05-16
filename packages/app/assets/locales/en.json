@@ -9,17 +9,20 @@
   "auth": {
     "accountReg": "Account Registration",
     "accountVerification": "Account Verification",
+    "agentLogin": "Agent Login",
     "enterNewPassword": "Please enter your New Password",
     "enterOtp": "Please enter OTP",
     "forgotPassword": "Forgot Password",
     "login": "Login",
     "loginToAccount": "Login to your account",
+    "memberLogin": "Member Login",
     "noReceiveOTP": "Didn't receive OTP?",
     "readAndAgree": "I have read & agree the",
     "referrerInfo": "Referrer information",
     "register": "Register",
     "rememberMe": "Remember Me",
-    "table": "Commission Table"
+    "table": "Commission Table",
+    "welcome": "Welcome Back"
   },
   "bank": {
     "accountName": "Account name",
@@ -253,7 +256,6 @@
       "tfGamingEsports": "TF E-Sports",
       "virtualSports": "SABA Virtual Sports"
     },
-    "notFound": "",
     "quitGame": "Quit Game",
     "reward": "Game rewards",
     "unableToConnect": "Unable to connect [%{code}]",

@@ -74,7 +74,9 @@ const ModalContent = ({
                     containerStyle={{ mx: '$1', ...a?.buttonStyle }}
                     {...a.props}
                   >
-                    <Button.Label>{a.label}</Button.Label>
+                    <Button.Label sx={{ color: 'white' }}>
+                      {a.label}
+                    </Button.Label>
                   </Button>
                 ))
               ) : (
@@ -119,6 +121,7 @@ const StyledTextHeader = styled(Text)(() => ({
   flex: 1,
   fontSize: 20,
   textAlign: 'center',
+  color: 'white',
 }))
 const StyledViewClose = styled(View)(() => ({
   position: 'absolute',

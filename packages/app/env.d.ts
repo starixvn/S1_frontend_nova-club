@@ -10,4 +10,5 @@ declare module '@env' {
   export const SHIELD_SITE_ID: string
   export const SHIELD_KEY: string
   export const LIVECHAT_URL: string
+  export const AGENT_API_DOMAIN: string
 }

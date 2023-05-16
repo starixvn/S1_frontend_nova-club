@@ -34,11 +34,11 @@ import { fadeScaleIn } from 'app/transitions/fade'
 import { Easing } from 'react-native'
 import SummerCat from '../../../../apps/next/pages/event/sea-game'
 import DepositNavigation from './DepositNavigation'
-import TabNavigation from './TabNavigation'
+import MemberAgentNavigation from './MemberAgentNavigation'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
-  BottomNav: undefined
+  MemberAgent: undefined
   LoginPage: undefined
   RegisterPage: undefined
   DepositPage: undefined
@@ -178,8 +178,8 @@ export function NativeNavigation() {
         }}
       />
       <Stack.Screen
-        name="BottomNav"
-        component={TabNavigation}
+        name="MemberAgent"
+        component={MemberAgentNavigation}
         options={{
           cardStyleInterpolator: fadeScaleIn,
           transitionSpec: {

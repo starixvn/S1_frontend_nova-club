@@ -13,6 +13,7 @@
     "@expo/next-adapter": "^3.1.20",
     "@next/bundle-analyzer": "^12.2.2",
     "app": "*",
+    "agent": "*",
     "branch-sdk": "2.64.0",
     "expo-font": "10.0.5",
     "framer-motion": "^6",

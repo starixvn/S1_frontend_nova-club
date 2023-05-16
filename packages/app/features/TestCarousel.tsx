@@ -1,21 +1,51 @@
-import { Text, View } from 'dripsy'
+import { PageWithBackHeader } from 'app/components/layout/Page'
+import { Text } from 'dripsy'
 import React from 'react'
-import Carousel from 'react-native-reanimated-carousel'
 
 const TestCarousel = () => {
+  const [items] = React.useState<ItemsState>([
+    {
+      key: 1,
+      name: 'Cupcake',
+      calories: 356,
+      fat: 16,
+    },
+    {
+      key: 2,
+      name: 'Eclair',
+      calories: 262,
+      fat: 16,
+    },
+    {
+      key: 3,
+      name: 'Frozen yogurt',
+      calories: 159,
+      fat: 6,
+    },
+    {
+      key: 4,
+      name: 'Gingerbread',
+      calories: 305,
+      fat: 3.7,
+    },
+    {
+      key: 5,
+      name: 'Ice cream sandwich',
+      calories: 237,
+      fat: 9,
+    },
+    {
+      key: 6,
+      name: 'Jelly Bean',
+      calories: 375,
+      fat: 0,
+    },
+  ])
+
   return (
-    <Carousel
-      width={300}
-      height={150}
-      data={[1, 2, 3]}
-      renderItem={({ item }) => {
-        return (
-          <View>
-            <Text>{item}</Text>
-          </View>
-        )
-      }}
-    />
+    <PageWithBackHeader header={{ title: 'demo' }}>
+      <Text>Test</Text>
+    </PageWithBackHeader>
   )
 }
 

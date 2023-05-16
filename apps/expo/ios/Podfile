@@ -40,6 +40,9 @@ target 'Vui123' do
           end
         end
       end
+      target.build_configurations.each do |config|
+        config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
+      end
     end
   end
 
