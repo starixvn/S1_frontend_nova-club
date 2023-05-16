@@ -13,10 +13,11 @@ import { toThousandSeparator } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import dayjs, { utc } from 'dayjs'
 import { View } from 'dripsy'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import AgentFloatingContent from '../floatingContent'
 import useTableListing from 'agent/hooks/useTableListing'
+import { useAppSelector } from 'app/provider/redux/store'
 
 export type TransactionFilterOptions = {
   initial: boolean
@@ -28,6 +29,7 @@ export type TransactionFilterOptions = {
 
 const TransactionScreen = () => {
   const { t } = useAgentLocalization()
+  const lang = useAppSelector((state) => state.setting?.locale)
   const [offset, setOffset] = useState(0)
   const [filter, setFilter] = useState<TransactionFilterOptions>({
     initial: true,
@@ -58,6 +60,10 @@ const TransactionScreen = () => {
         }),
       }
     )
+
+  useEffect(() => {
+    refetch()
+  }, [lang])
 
   const { onLoadMore, onRefresh } = useTableListing({
     offset,
