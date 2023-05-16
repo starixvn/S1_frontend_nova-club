@@ -16,6 +16,7 @@ import {
   ReportArgs,
   ReportResult,
 } from './playerApi.type'
+import { walletApi } from './walletApi'
 
 const playerApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
@@ -98,6 +99,17 @@ const playerApi = baseApiWithTag.injectEndpoints({
         url: `/player_api/registerFreeWheelSpin`,
         method: 'POST',
       }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled
+          // `onSuccess` side-effect
+          setTimeout(() => {
+            dispatch(dispatch(walletApi.util.invalidateTags(['Balance'])))
+          }, 6000)
+        } catch (err) {
+          // `onError` side-effect
+        }
+      },
     }),
     freeSpin: builder.query<IResponse<FreeSpinResult>, void>({
       query: () => ({
