@@ -30,19 +30,12 @@ const extendGuessStrategy: MissingTranslationStrategy = (
   console.log('🚫 Missing translation', scope)
 
   // Get only the last portion of the scope.
-  const message = scope.split(i18n.defaultSeparator).slice(-1)[0] ?? ''
+  // const message = scope.split(i18n.defaultSeparator).slice(-1)[0] ?? ''
 
   // Replace underscore with space and camelcase with space and
   // lowercase letter.
-  return (
-    i18n.missingTranslationPrefix +
-    message
-      .replace('_', ' ')
-      .replace(
-        /([a-z])([A-Z])/g,
-        (_match: string, p1: string, p2: string) => `${p1} ${p2.toLowerCase()}`
-      )
-  )
+
+  return scope
 }
 
 i18n.missingTranslation.register('empty', extendGuessStrategy)

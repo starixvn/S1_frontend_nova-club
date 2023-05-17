@@ -189,9 +189,9 @@ const RegisterPage = () => {
   ) => {
     try {
       setIsSubmitting(true)
-      isAgent
+      await (isAgent
         ? handleAgentRegister(registerValues, formikHelpers)
-        : handleMemberRegister(registerValues, formikHelpers)
+        : handleMemberRegister(registerValues, formikHelpers))
     } catch (error) {
       showAlert(error)
       setIsSubmitting(false)
