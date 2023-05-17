@@ -97,6 +97,8 @@ export function NavigationProvider({
               AccountVerification: '/profile/account-verification',
               SummerCat: '/event/sea-game',
               CatEventTnc: '/event/sea-game-event-tnc',
+              DragonBoat: '/event/dragon-boat',
+              DragonBoatTnc: '/event/dragon-boat-event-tnc',
             },
           },
         }),

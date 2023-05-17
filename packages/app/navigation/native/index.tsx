@@ -35,6 +35,7 @@ import { Easing } from 'react-native'
 import SummerCat from '../../../../apps/next/pages/event/sea-game'
 import DepositNavigation from './DepositNavigation'
 import TabNavigation from './TabNavigation'
+import DragonBoat from 'app/features/events/dragonBoat/DragonBoat'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -77,6 +78,7 @@ const Stack = createStackNavigator<{
   AccountVerification: undefined
   SummerCat: undefined
   CatEventTnc: undefined
+  DragonBoat: undefined
 }>()
 
 export function NativeNavigation() {
@@ -255,6 +257,7 @@ export function NativeNavigation() {
       <Stack.Screen name="Maintenance" component={Maintenance} />
       <Stack.Screen name="SummerCat" component={SummerCat} />
       <Stack.Screen name="CatEventTnc" component={CatEventTnc} />
+      <Stack.Screen name="DragonBoat" component={DragonBoat} />
     </Stack.Navigator>
   )
 }
