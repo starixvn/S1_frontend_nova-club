@@ -23,14 +23,14 @@ const WITHDRAWAL_OPTIONS = [
     color: '#ac0102',
     active: true,
   },
-  // {
-  //   id: DepositMethodId.CRYPTO,
-  //   categoryId: DepositPaymentMethodCategoryId.CRYPTO,
-  //   name: 'deposit.depositMethod.crypto',
-  //   icon: 'cp',
-  //   color: '#36A07B',
-  //   active: true,
-  // },
+  {
+    id: DepositMethodId.CRYPTO,
+    categoryId: DepositPaymentMethodCategoryId.CRYPTO,
+    name: 'deposit.depositMethod.crypto',
+    icon: 'cp',
+    color: '#36A07B',
+    active: true,
+  },
 ]
 
 const WithdrawalPage = () => {
