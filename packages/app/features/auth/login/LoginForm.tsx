@@ -21,7 +21,7 @@ import validation, {
 import { Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { AnimatePresence, MotiText, MotiView } from 'moti'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Platform, TextInput as RNTextField, StyleSheet } from 'react-native'
 import { useLoginMutation } from 'services/authApi'
 import { Shield_Action } from 'services/authApi.type'
@@ -69,6 +69,10 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
   const rememberMeCredential = useAppSelector(
     (s) => s.setting.rememberMeCredentials
   )
+
+  useEffect(() => {
+    isAgent && setValues({ username: '', password: '' })
+  }, [isAgent])
 
   const [isRemember, setIsRemember] = useState(() => {
     if (rememberMeCredential) return true
@@ -183,8 +187,15 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
     onSubmit,
   })
 
-  const { handleChange, handleBlur, values, errors, touched, submitForm } =
-    formik
+  const {
+    handleChange,
+    handleBlur,
+    values,
+    errors,
+    touched,
+    setValues,
+    submitForm,
+  } = formik
 
   return (
     <>
@@ -198,6 +209,7 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
           onBlur: handleBlur('username'),
           autoCapitalize: 'none',
           ref: usernameFieldRef,
+          autoComplete: 'new-password',
           onSubmitEditing: () => {
             passwordFieldRef.current?.focus()
           },
