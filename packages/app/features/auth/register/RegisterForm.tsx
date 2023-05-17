@@ -17,6 +17,10 @@ import { TextInput as RNTextInput } from 'react-native'
 import { useLazyCheckUsernameQuery } from 'services/authApi'
 import { RegisterFormValues } from '.'
 import { useLazyAgentCheckUsernameQuery } from 'agent/services/authApi'
+import TouchableOpacity from 'app/pressable/TouchableOpacity'
+import { AnimatePresence, MotiText } from 'moti'
+import { LoginType } from '../type'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 
 interface RegisterFormProps {
   isAgent: boolean
@@ -39,6 +43,7 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
   } = formik
 
   const { t } = useLocalization()
+  const { push } = useContextualRouter()
   const [checkUsername] = useLazyCheckUsernameQuery()
   const [agentCheckUsername] = useLazyAgentCheckUsernameQuery()
   const lang = useAppSelector((state) => state.setting.locale)
@@ -254,6 +259,34 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
             <Button.Label>{t('auth.register')}</Button.Label>
           </Button>
         </View>
+      </View>
+
+      <View sx={{ mt: '$5', minHeight: 20 }}>
+        <TouchableOpacity
+          onPress={() =>
+            push('/auth/login', {
+              t: isAgent ? LoginType.Agent : LoginType.Member,
+            })
+          }
+        >
+          <AnimatePresence>
+            {
+              <MotiText
+                from={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ type: 'timing', duration: 250 }}
+                style={{
+                  textAlign: 'center',
+                  fontWeight: 'bold',
+                  color: '#F15D12',
+                }}
+              >
+                {t('auth.login')}
+              </MotiText>
+            }
+          </AnimatePresence>
+        </TouchableOpacity>
       </View>
     </>
   )
