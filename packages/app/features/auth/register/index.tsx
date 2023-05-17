@@ -33,6 +33,7 @@ import { useAgentRegisterMutation } from 'agent/services/authApi'
 import { AgentAuthActions } from 'agent/store/agentAuthReducer'
 import { useLazyUserInfoQuery } from 'agent/services/userApi'
 import { usePlayerProfileQuery } from 'services/playerApi'
+import RegisterSelection from './RegisterSelection'
 
 export type RegisterFormValues = {
   username: string
@@ -46,7 +47,7 @@ export type RegisterFormValues = {
 const { useParam } = createParam<{ t: LoginType; ref: string }>()
 const RegisterPage = () => {
   const [ref] = useParam('ref')
-  const [type] = useParam('t', { initial: LoginType.Member })
+  const [type, setIsAgentLogin] = useParam('t', { initial: LoginType.Member })
   const isAgent = useMemo(() => type === LoginType.Agent, [type])
 
   const [register] = useRegisterMutation()
@@ -277,6 +278,7 @@ const RegisterPage = () => {
             '#fc9e9e',
           ]}
         >
+          <RegisterSelection isAgent={isAgent} setType={setIsAgentLogin} />
           <View sx={{ alignItems: 'center', pt: '$8', flex: 1 }}>
             <View sx={{ width: '75%', flex: 1 }}>
               <RegisterForm

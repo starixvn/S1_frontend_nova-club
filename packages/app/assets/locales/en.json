@@ -10,12 +10,14 @@
     "accountReg": "Account Registration",
     "accountVerification": "Account Verification",
     "agentLogin": "Agent Login",
+    "agentRegister": "Agent Register",
     "enterNewPassword": "Please enter your New Password",
     "enterOtp": "Please enter OTP",
     "forgotPassword": "Forgot Password",
     "login": "Login",
     "loginToAccount": "Login to your account",
     "memberLogin": "Member Login",
+    "memberRegister": "Member Register",
     "noReceiveOTP": "Didn't receive OTP?",
     "readAndAgree": "I have read & agree the",
     "referrerInfo": "Referrer information",
@@ -148,21 +150,22 @@
     "usdt": "USDT"
   },
   "event": {
-    "claim": "CLAIM YOUR BONUS TICKET NOW",
     "catEvent": {
       "miniGame": {
-        "matchThree": "MATCH 3 TO WIN",
-        "won": "CONGRATULATIONS!",
-        "won2": "YOU'VE WON TOTAL",
         "lose": "SORRY, YOU DIDN'T WIN.",
         "lose2": " BETTER LUCK NEXT TIME.",
+        "matchThree": "MATCH 3 TO WIN",
         "next": "PLAY NEXT",
+        "start": "START",
         "ticketLeft": "TICKET LEFT",
         "tryAgain": "TRY AGAIN",
-        "start": "START"
+        "won": "CONGRATULATIONS!",
+        "won2": "YOU'VE WON TOTAL"
       },
-      "tnc": {}
+      "tnc": {
+      }
     },
+    "claim": "CLAIM YOUR BONUS TICKET NOW",
     "ticket": "Ticket/s",
     "ticketSubmitted": "Successfully submitted your prediction ticket",
     "winText1": "CONGRATULATIONS!",
@@ -256,6 +259,7 @@
       "tfGamingEsports": "TF E-Sports",
       "virtualSports": "SABA Virtual Sports"
     },
+    "notFound": "",
     "quitGame": "Quit Game",
     "reward": "Game rewards",
     "unableToConnect": "Unable to connect [%{code}]",
