@@ -11,7 +11,7 @@ import { styled, View } from 'dripsy'
 import React from 'react'
 import { Game } from 'services/contentApi.type'
 import GridSectionItem from './GridSectionItem'
-export const SHAREHOLDER_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/shareholder.mp4?v=1`
+export const SHAREHOLDER_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/agent-recruitment.mp4?v=2`
 export const FISHING_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/fishing.mp4?v=1`
 export const LOTTERY_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/lottery.mp4?v=1`
 export const GAME_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/game.mp4?v=1`
@@ -115,7 +115,7 @@ const GridSection = () => {
     (GRID_TOTAL_COL * (isLandscape ? 1.5 : 1))
   const rowHeight = columnWidth * 1.98
 
-  const action = (data: typeof HOME_GRID[number]) => {
+  const action = (data: (typeof HOME_GRID)[number]) => {
     if (data.action) {
       getAction(data.action)()
       return
