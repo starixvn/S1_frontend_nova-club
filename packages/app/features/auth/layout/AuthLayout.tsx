@@ -125,7 +125,7 @@ const AuthLayout = ({
               </DripsyGradient>
               <Image
                 source={{
-                  uri: `${MEDIA_DOMAIN}${CONTENT_URI}/banners/${'authBanner.jpg?v=1'}`,
+                  uri: `${MEDIA_DOMAIN}${CONTENT_URI}/banners/${'authBanner-2.jpg?v=2'}`,
                 }}
                 resizeMode="cover"
                 sx={{ width, height: width / BANNER_RATIO }}

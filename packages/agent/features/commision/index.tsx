@@ -45,7 +45,7 @@ const CommissionTable = () => {
     return (
       <DataTable.Row
         key={`${index} ${item.gametype}`}
-        size={item.cashagent ? 'small' : 'big'}
+        size={isTitle ? 'big' : 'small'}
         containerStyle={{
           bg: isTitle ? '#D1D1D1' : 'white',
         }}
