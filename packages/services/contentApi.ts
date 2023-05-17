@@ -22,7 +22,7 @@ export const contentApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
     banner: builder.query<BannerResult[], void>({
       query: () => ({
-        url: `${MEDIA_DOMAIN}${CONTENT_URI}/banners/banner.json?v=13`,
+        url: `${MEDIA_DOMAIN}${CONTENT_URI}/banners/banner.json?v=16`,
         method: 'GET',
       }),
     }),

@@ -4,7 +4,10 @@
     "noUncheckedIndexedAccess": true,
     // "noErrorTruncation": true,
     "paths": {
-      "app/*": ["./packages/app/*"]
+      "app/*": ["./packages/app/*"],
+      "agent/*": ["./packages/agent/*"],
+      "utils/*": ["./packages/utils/*"],
+      "services/*": ["./packages/services/*"],
     },
     "typeRoots": ["./packages/app/env.d.ts"],
     "module": "ES2022"

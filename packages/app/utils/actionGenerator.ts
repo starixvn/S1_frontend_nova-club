@@ -1,8 +1,7 @@
 import { LIVECHAT_URL, REFERRAL_DOMAIN } from '@env'
 import { LaunchGame } from 'app/features/games/GameLauncher'
-import { ContextualComponentType } from 'app/navigation/contextual/ContextualComponents'
 import i18n from 'app/provider/localization/i18n'
-import { Linking, Platform } from 'react-native'
+import { Linking } from 'react-native'
 import { Game } from 'services/contentApi.type'
 
 export enum ActionType {

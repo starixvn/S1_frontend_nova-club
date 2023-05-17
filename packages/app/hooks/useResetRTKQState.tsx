@@ -1,3 +1,4 @@
+import { agentBaseApi } from 'agent/services/agentBaseApi'
 import { LANGUAGE_CODE } from 'app/constant/language'
 import { SettingActions } from 'app/store/setting.slice'
 import { TempSettingActions } from 'app/store/tempSetting.slice'

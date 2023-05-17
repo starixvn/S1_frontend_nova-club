@@ -1,3 +1,6 @@
+import { useLoginMutation as useAgentLoginMutation } from 'agent/services/authApi'
+import { useLazyUserInfoQuery } from 'agent/services/userApi'
+import { AgentAuthActions } from 'agent/store/agentAuthReducer'
 import CheckBox from 'app/components/CheckBox'
 import { Button } from 'app/components/form/Button'
 import IconButton from 'app/components/form/IconButton'
@@ -17,30 +20,41 @@ import validation, {
 } from 'app/utils/validation'
 import { Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
+import { AnimatePresence, MotiText, MotiView } from 'moti'
 import React, { useRef, useState } from 'react'
-import { Platform, StyleSheet, TextInput as RNTextField } from 'react-native'
+import { Platform, TextInput as RNTextField, StyleSheet } from 'react-native'
 import { useLoginMutation } from 'services/authApi'
 import { Shield_Action } from 'services/authApi.type'
 import { createParam } from 'solito'
 import * as Yup from 'yup'
+import { LoginType } from '../type'
 
 const { useParam } = createParam()
+
+const REMEMBER_ME_HEIGHT = 40
 
 type LoginFormValues = {
   username: string
   password: string
 }
 
-const LoginForm = () => {
+type LoginFormProps = {
+  isAgent: boolean
+}
+
+const LoginForm = ({ isAgent }: LoginFormProps) => {
   const [login] = useLoginMutation()
+  const [agentLogin] = useAgentLoginMutation()
+  const [getUserInfo] = useLazyUserInfoQuery()
+
   const { t } = useLocalization()
   const { showAlert } = useAlert()
   const [errorMsg, setErrorMsg] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const { replace, push, back } = useContextualRouter()
-  const [afterLoginRedirection] = useParam('r', {
-    initial: '/',
-  })
+  const { replace, push, back, clear } = useContextualRouter()
+  const [afterLoginRedirection] = useParam('r')
+
+  // const { handleAgentLogin } = useAfterLogin()
 
   const passwordFieldRef = useRef<RNTextField>(null)
   const usernameFieldRef = useRef<RNTextField>(null)
@@ -61,6 +75,23 @@ const LoginForm = () => {
     else return false
   })
 
+  const navigateAfterLogin = Platform.select({
+    web: (base) => {
+      let replaceRoute = afterLoginRedirection ?? base
+
+      const urlParams = new URLSearchParams(window.location.search)
+      const redirect = urlParams.get('r')
+      if (redirect) replaceRoute = redirect
+
+      replace(replaceRoute)
+    },
+    default: (base) => {
+      console.log('base', base)
+      if (base) push(base)
+      else back()
+    },
+  })
+
   const onSubmit = async (
     { username, password }: LoginFormValues,
     actions: FormikHelpers<LoginFormValues>
@@ -68,25 +99,57 @@ const LoginForm = () => {
     try {
       setIsSubmitting(true)
 
-      const { data, success, message } = await login({
-        username,
-        password,
-      }).unwrap()
+      if (isAgent) {
+        //handle agent login
+        const { result, success, message } = await agentLogin({
+          username,
+          password,
+        }).unwrap()
 
-      if (success && data) {
-        // syncShield(Shield_Action.LOGIN)
-        dispatch(
-          SettingActions.setRememberMe(
-            isRemember ? { username, password } : undefined
-          )
-        )
+        if (success && result) {
+          dispatch(AgentAuthActions.setAgentAuthToken(result.data.access_token))
+          const resp = await getUserInfo().unwrap()
 
-        dispatch(
-          TempSettingActions.setSyncShieldActionType(Shield_Action.LOGIN)
-        )
-        normalLogin(username, password, () => handleProceedLogin(data, actions))
+          if (!resp.has_logged_in || !resp.has_otp) {
+            Platform.select({
+              web: function () {
+                replace('/agent/reset-password')
+              },
+              default: function () {
+                back()
+                push('/agent/reset-password')
+              },
+            })()
+          } else {
+            navigateAfterLogin('/agent/profile')
+          }
+        } else {
+          throw new Error(message)
+        }
       } else {
-        throw new Error(message)
+        //handle member login
+        const { data, success, message } = await login({
+          username,
+          password,
+        }).unwrap()
+
+        if (success && data) {
+          // syncShield(Shield_Action.LOGIN)
+          dispatch(
+            SettingActions.setRememberMe(
+              isRemember ? { username, password } : undefined
+            )
+          )
+
+          dispatch(
+            TempSettingActions.setSyncShieldActionType(Shield_Action.LOGIN)
+          )
+          normalLogin(username, password, () =>
+            handleProceedLogin(data, actions)
+          )
+        } else {
+          throw new Error(message)
+        }
       }
     } catch (error) {
       showAlert(error)
@@ -101,17 +164,7 @@ const LoginForm = () => {
     actions.resetForm()
     if (errorMsg) setErrorMsg('')
 
-    if (Platform.OS === 'web') {
-      let replaceRoute = afterLoginRedirection
-
-      const urlParams = new URLSearchParams(window.location.search)
-      const redirect = urlParams.get('r')
-      if (redirect) replaceRoute = redirect
-
-      replace(replaceRoute)
-    } else {
-      back()
-    }
+    navigateAfterLogin('/')
   }
 
   const onCheckboxCheck = () => {
@@ -124,8 +177,8 @@ const LoginForm = () => {
       password: rememberMeCredential?.password || '',
     },
     validationSchema: Yup.object({
-      username: validation.username,
-      password: validation.password,
+      username: validation.stringRequired,
+      password: validation.stringRequired,
     }),
     onSubmit,
   })
@@ -185,34 +238,53 @@ const LoginForm = () => {
       <View
         sx={{
           flexDirection: 'row',
-          mt: '$4',
+          height: REMEMBER_ME_HEIGHT,
         }}
       >
-        <TouchableOpacity
-          sx={{ flexDirection: 'row', alignItems: 'center' }}
-          onPress={onCheckboxCheck}
-        >
-          <CheckBox
-            isCheck={isRemember}
-            tickColor="$orange"
-            sx={{
-              bg: isRemember ? '#062243' : '#fff',
-            }}
-          />
-          <Text
-            sx={{ ml: '$2' }}
-            style={isRemember ? styles.checked : styles.uncheck}
-          >
-            {t('auth.rememberMe')}
-          </Text>
-        </TouchableOpacity>
+        <AnimatePresence>
+          {!isAgent ? (
+            <MotiView
+              from={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ type: 'timing', duration: 250 }}
+              style={{ justifyContent: 'center' }}
+            >
+              <TouchableOpacity
+                sx={{ flexDirection: 'row', alignItems: 'center' }}
+                onPress={onCheckboxCheck}
+              >
+                <CheckBox
+                  isCheck={isRemember}
+                  tickColor="$orange"
+                  sx={{
+                    bg: isRemember ? '#062243' : '#fff',
+                  }}
+                />
+                <Text
+                  sx={{ ml: '$2' }}
+                  style={isRemember ? styles.checked : styles.uncheck}
+                >
+                  {t('auth.rememberMe')}
+                </Text>
+              </TouchableOpacity>
+            </MotiView>
+          ) : null}
+        </AnimatePresence>
       </View>
+
       <View
         sx={{
           alignItems: 'flex-end',
         }}
       >
-        <TouchableOpacity onPress={() => push('/auth/forget-password')}>
+        <TouchableOpacity
+          onPress={() =>
+            push('/auth/forget-password', {
+              t: isAgent ? LoginType.Agent : LoginType.Member,
+            })
+          }
+        >
           <Text
             sx={{
               opacity: 0.43,
@@ -239,17 +311,31 @@ const LoginForm = () => {
           </Button>
         </View>
 
-        <View sx={{ mt: '$5' }}>
-          <TouchableOpacity onPress={() => push('/auth/register')}>
-            <Text
-              sx={{
-                textAlign: 'center',
-                fontWeight: 'bold',
-                color: '$orange',
-              }}
-            >
-              {t('auth.register')}
-            </Text>
+        <View sx={{ mt: '$5', minHeight: 20 }}>
+          <TouchableOpacity
+            onPress={() =>
+              push('/auth/register', {
+                t: isAgent ? LoginType.Agent : LoginType.Member,
+              })
+            }
+          >
+            <AnimatePresence>
+              {
+                <MotiText
+                  from={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ type: 'timing', duration: 250 }}
+                  style={{
+                    textAlign: 'center',
+                    fontWeight: 'bold',
+                    color: '#F15D12',
+                  }}
+                >
+                  {t('auth.register')}
+                </MotiText>
+              }
+            </AnimatePresence>
           </TouchableOpacity>
         </View>
       </View>

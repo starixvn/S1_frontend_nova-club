@@ -19,6 +19,7 @@ import { useDispatch } from 'react-redux'
 import CodePushUpdateBar from './CodePushUpdateBar'
 import { checkMaintenance, checkVersionUpdated } from './splashScreenChecks'
 import useSplashScreen, { useSplashScreenTaskResolver } from './useSplashScreen'
+import { useLazyUserInfoQuery } from 'agent/services/userApi'
 
 function useFontInitWithPromise() {
   const resolver = useSplashScreenTaskResolver(useFontInit)
@@ -50,6 +51,7 @@ const SplashScreen = () => {
   const currentVersion = getVersion()
   // const { isReady } = useOTA()
   const { status: codePushStatus, progress } = useCodePushDownload()
+  const [getUserInfo] = useLazyUserInfoQuery()
   const { status } = useSplashScreen(
     {
       mandatorySync: [checkVersionUpdated, checkMaintenance], // TODO : implement check maintenane logic
@@ -68,20 +70,32 @@ const SplashScreen = () => {
   )
 
   const loginResult = useAppSelector((state) => state.auth.info)
+  const agentToken = useAppSelector((state) => state.agent.access_token)
 
   useEffect(() => {
     unlockAsync()
   }, [])
+  async function handleAgentLogin() {
+    try {
+      const resp = await getUserInfo().unwrap()
 
+      if (resp.has_logged_in && resp.has_otp) {
+        replace('/agent')
+      } else {
+        replace('/agent/reset-password')
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
   useEffect(() => {
     if (status) {
-      // if (loginResult) {
-      //   replace('/')
-      //   return
-      // }
-      replace('/')
+      if (agentToken) {
+        handleAgentLogin()
+      } else replace('/')
     }
-  }, [status, replace, loginResult])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [status])
 
   const { bottom } = useSafeArea()
 

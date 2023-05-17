@@ -29,3 +29,9 @@ export const REWARDS_NOTES = [
 ]
 
 export const CRYPTO_NOTES = ['notes.crypto.n1', 'notes.crypto.n2']
+export const TURNOVER_NOTES = [
+  'notes.turnover.n1',
+  'notes.turnover.n2',
+  'notes.turnover.n3',
+  'notes.turnover.n4',
+]

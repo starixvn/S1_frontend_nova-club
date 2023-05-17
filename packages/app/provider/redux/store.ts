@@ -1,4 +1,6 @@
 import { combineReducers, configureStore, Reducer } from '@reduxjs/toolkit'
+import { agentBaseApi } from 'agent/services/agentBaseApi'
+import agentAuthReducer from 'agent/store/agentAuthReducer'
 import { alertReducer } from 'app/store/alert.slice'
 import authReducer, { authInitialState, AuthState } from 'app/store/authReducer'
 import bankReducer from 'app/store/bankReducer'
@@ -27,7 +29,7 @@ const persistConfig: PersistConfig<any> = {
   key: 'root',
   version: 6,
   storage,
-  whitelist: ['auth', 'setting'],
+  whitelist: ['auth', 'agent', 'setting'],
   migrate: createMigrate(migrations, { debug: true }),
   transforms: [
     createTransform<AuthState, Omit<AuthState, 'isLogoutActionTriggered'>>(
@@ -40,7 +42,7 @@ const persistConfig: PersistConfig<any> = {
       (outboundState, key) => {
         return { ...authInitialState, ...outboundState }
       },
-      { whitelist: ['auth'] }
+      { whitelist: ['auth', 'agent'] }
     ),
     // createTransform<Setting, Setting>(
     //   (inboundState, key) => {
@@ -59,10 +61,11 @@ const persistConfig: PersistConfig<any> = {
   ],
 }
 
-const middlerwares = [baseApi.middleware]
+const middlerwares = [baseApi.middleware, agentBaseApi.middleware]
 
 const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
+  [agentBaseApi.reducerPath]: agentBaseApi.reducer,
   alert: alertReducer,
   auth: authReducer,
   bank: bankReducer,
@@ -70,6 +73,7 @@ const rootReducer = combineReducers({
   setting: settingReducer,
   tempSetting: tempSettingReducer,
   gameLauncher: gameLauncherReducer,
+  agent: agentAuthReducer,
 })
 
 /** Fix typescript issue https://github.com/rt2zz/redux-persist/issues/1184 */
