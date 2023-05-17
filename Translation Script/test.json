@@ -1,0 +1,20 @@
+{
+  "common": {
+    "player": "player",
+    "agent": "agent",
+    "username": "username",
+    "password": "password"
+  },
+  "authentication": {
+    "login": "login",
+    "register": "register",
+    "loginHeader": "login to your account"
+  },
+  "event": {
+    "catevent": {
+      "welcome": "Welcome to meow",
+      "note1": "note that you should do that",
+      "note2": "note that you should do that"
+    }
+  }
+}
