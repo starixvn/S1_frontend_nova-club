@@ -160,6 +160,7 @@ export function NavigationProvider({
               AccountVerification: '/profile/account-verification',
               SummerCat: '/event/sea-game',
               CatEventTnc: '/event/sea-game-event-tnc',
+              AgentRecruitmentTnc: '/banner/agent-tnc',
             },
           },
         }),

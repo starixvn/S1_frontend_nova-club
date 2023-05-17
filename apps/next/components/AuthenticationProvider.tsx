@@ -18,6 +18,7 @@ const guestRoutes = [
   '/games',
   '/messages',
   '/agent',
+  '/banner',
 ]
 
 /* 

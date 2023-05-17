@@ -38,6 +38,8 @@ const ContextualComponents = {
   '/event/sea-game': () => import('../../../../apps/next/pages/event/sea-game'),
   '/event/sea-game-event-tnc': () =>
     import('../../../../apps/next/pages/event/sea-game-event-tnc'),
+  '/banner/agent-tnc': () =>
+    import('../../../../apps/next/pages/banner/agent-tnc'),
 }
 
 export type ContextualComponentType = keyof typeof ContextualComponents
