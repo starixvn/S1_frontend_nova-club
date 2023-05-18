@@ -120,6 +120,7 @@ export const userApi = agentBaseApiWithTag.injectEndpoints({
           ...queryArgs,
         },
       }),
+      invalidatesTags: ['UserInfo'],
     }),
     changePassword: builder.mutation<IResponse<[]>, ChangePasswordArgs>({
       query: (queryArgs) => ({

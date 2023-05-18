@@ -57,7 +57,7 @@ const CommonBackHeader = ({
           onPress={() => (customRoute ? customRoute() : back())}
         />
         <Text sx={{ fontWeight: 'bold', fontSize: '$2', color: 'white' }}>
-          {t(`${title}`)}
+          {title && t(`${title}`)}
         </Text>
         <View sx={{ width: 20 }} />
       </View>
