@@ -1,4 +1,5 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import { skipToken } from '@reduxjs/toolkit/dist/query'
 import Button from 'agent/components/Button'
 import Input from 'agent/components/Input'
 import SelectWithCardGrid from 'agent/components/Select/SelectWithCardGrid'
@@ -13,8 +14,11 @@ import {
   useLookupBankCodeQuery,
   useSendOTPMutation,
 } from 'agent/services/accountApi'
+import { useAgentProfileQuery } from 'agent/services/agentApi'
 import { IResponse } from 'agent/services/common/agentAxiosBaseQuery'
-import { useUserInfoQuery } from 'agent/services/userApi'
+import { useShareholderProfileQuery } from 'agent/services/shareholderApi'
+import { useUserInfoQuery, useUserProfileQuery } from 'agent/services/userApi'
+import { ROLE } from 'agent/utils/helper'
 import validation, {
   ACCOUNT_NUMBER_MAX_LENGTH,
   MAX_OTP_DIGIT,
@@ -57,17 +61,32 @@ const AddBankInfoForm = () => {
   const { back } = useContextualRouter()
   const { height } = useContainerDimension()
 
-  const { currency, hasVerified, phoneNo, realName } = useUserInfoQuery(
-    undefined,
-    {
-      selectFromResult: ({ data }) => ({
-        currency: data?.wallet.currency as Currency,
-        hasVerified: data?.has_verified_wd,
-        phoneNo: data?.mobile_no,
-        realName: data?.name,
-      }),
-    }
-  )
+  const { hasVerified, phoneNo, realName, role } = useUserInfoQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      currency: data?.wallet.currency as Currency,
+      hasVerified: data?.has_verified_wd,
+      phoneNo: data?.mobile_no,
+      realName: data?.name,
+      role: data?.role,
+    }),
+  })
+  const isAgent = role === ROLE.AGENT
+
+  const { shareholderCurrency } = useShareholderProfileQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      shareholderCurrency: data?.result?.data.currency as Currency,
+    }),
+    skip: role ? isAgent : true,
+  })
+
+  const { agentCurrency } = useAgentProfileQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      agentCurrency: data?.result?.data.currency as Currency,
+    }),
+    skip: role ? !isAgent : true,
+  })
+
+  const currency = shareholderCurrency ?? agentCurrency ?? Currency.VND
 
   useEffect(() => {
     setFieldValue('hasVerified', hasVerified === 1)
@@ -86,7 +105,7 @@ const AddBankInfoForm = () => {
     try {
       setIsLoading(true)
       const { result, message, success } = await newBankAccount({
-        currency: currency ?? 'VND',
+        currency: currency,
         bank_code: bankCard,
         acc_no: accountNumber,
         acc_name: accountName,
