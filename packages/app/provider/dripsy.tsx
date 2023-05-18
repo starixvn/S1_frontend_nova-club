@@ -83,6 +83,9 @@ const theme = makeTheme({
     surface: ['#50509E', '#32325A'],
     ball: ['$success', '$error'],
   },
+  space: {
+    $pagePadding: 24,
+  },
   sizes: {
     container: 768,
     header: [50, 60],

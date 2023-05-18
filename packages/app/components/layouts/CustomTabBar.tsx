@@ -1,9 +1,6 @@
-import { MotiText } from 'moti'
-import React from 'react'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import { TabBarProps } from 'react-native-tab-view'
-import { DripsyGradient } from '../Gradient'
 import { Pressable, ScrollView, Text, View } from 'dripsy'
+import React from 'react'
+import { DripsyGradient } from '../Gradient'
 
 export type CustomRoutesProps = {
   key: string

@@ -10834,7 +10834,7 @@ __metadata:
   checksum: f4fe1c9e802d7ea86b9efef74313a80fb75d486f40ca79aaa04d42ffd3f6e462a3f37ee54018fae9fd1efdc2d8b005d1e71b02bb266c0ab8baec70d9a5730892
   languageName: node
   linkType: hard
-  
+
 "react-native-tab-view@npm:^3.5.1":
   version: 3.5.1
   resolution: "react-native-tab-view@npm:3.5.1"

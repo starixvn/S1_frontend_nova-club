@@ -6,12 +6,9 @@ import React, { useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { TabView, SceneMap } from 'react-native-tab-view'
 import { createParam } from 'solito'
+import PersonalMessage from './PersonalMessage'
+import AnnouncementScreen from './Announcement'
 
-const PersonalMessagePage = () => (
-  <View sx={{ bg: 'red', flex: 1 }}>
-    <Text>PersonalMessage</Text>
-  </View>
-)
 const AnnouncementPage = () => (
   <View sx={{ bg: 'blue', flex: 1 }}>
     <Text>Annnouncement</Text>
@@ -25,12 +22,8 @@ const MessagesScreen = () => {
   const { t } = useLocalization()
 
   const renderScene = SceneMap({
-    first: PersonalMessagePage,
-    second: AnnouncementPage,
-    third: PersonalMessagePage,
-    fourth: AnnouncementPage,
-    fifth: PersonalMessagePage,
-    sixth: AnnouncementPage,
+    first: PersonalMessage,
+    second: AnnouncementScreen,
   })
 
   const getTab = tab && parseInt(tab)
@@ -39,10 +32,6 @@ const MessagesScreen = () => {
   const [routes] = useState([
     { key: 'first', title: t('message.personalMessage'), index: 0 },
     { key: 'second', title: t('message.announcement'), index: 1 },
-    { key: 'third', title: t('message.announcement'), index: 2 },
-    { key: 'fourth', title: t('message.announcement'), index: 3 },
-    { key: 'fifth', title: t('message.announcement'), index: 4 },
-    { key: 'sixth', title: t('message.announcement'), index: 5 },
   ])
   const layout = useWindowDimensions()
 
