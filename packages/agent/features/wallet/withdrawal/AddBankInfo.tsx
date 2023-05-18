@@ -262,7 +262,7 @@ const AddBankInfoForm = () => {
             label={t('profile.currency')}
             editable={false}
             containerProps={{
-              sx: { mb: '$10' },
+              sx: { mb: hasVerified ? '$10' : '$3' },
             }}
             value={currency}
           />
