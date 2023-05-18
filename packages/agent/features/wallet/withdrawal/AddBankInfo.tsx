@@ -86,7 +86,7 @@ const AddBankInfoForm = () => {
     try {
       setIsLoading(true)
       const { result, message, success } = await newBankAccount({
-        currency,
+        currency: currency ?? 'VND',
         bank_code: bankCard,
         acc_no: accountNumber,
         acc_name: accountName,
@@ -244,7 +244,7 @@ const AddBankInfoForm = () => {
           <Input
             editable={realName ? false : true}
             label={t('common.accountName')}
-            containerProps={{ sx: { mb: hasVerified ? '$10' : '$3' } }}
+            containerProps={{ sx: { mb: '$3' } }}
             placeholder={t('placeholder.enterAccountName')}
             error={
               touched.accountName && errors.accountName
@@ -257,6 +257,16 @@ const AddBankInfoForm = () => {
             onBlur={handleBlur('accountName')}
             value={values.accountName}
           />
+
+          <Input
+            label={t('profile.currency')}
+            editable={false}
+            containerProps={{
+              sx: { mb: '$10' },
+            }}
+            value={currency}
+          />
+
           {hasVerified ?? true ? null : (
             <>
               <Input
