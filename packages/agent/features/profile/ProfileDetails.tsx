@@ -28,7 +28,7 @@ const ProfileDetails = ({ data }) => {
         </ProfileData>
       </ProfileRow>
       <ProfileRow>
-        <ProfileLabel>{t('profile.realName')}:</ProfileLabel>
+        <ProfileLabel>{t('profile.name')}:</ProfileLabel>
         <ProfileData>{name ? name : 'N/A'}</ProfileData>
       </ProfileRow>
       <ProfileRow>
