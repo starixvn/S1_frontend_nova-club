@@ -43,6 +43,11 @@ const ShareholderDetailsScreen = () => {
   const firstCellStyle = { flex: 0.4 }
   const secondCellStyle = { flex: 0.3 }
   const thirdCellStyle = { flex: 0.3 }
+
+  const mobileNumber = shareholderData?.mobile_no?.startsWith('+')
+    ? shareholderData?.mobile_no
+    : '+' + shareholderData?.mobile_no
+
   return (
     <>
       <CommonBackHeader title="shAgent.shareholderDetails" />
@@ -55,17 +60,14 @@ const ShareholderDetailsScreen = () => {
           <DetailsField
             label={t('profile.createdDate')}
             value={dayjs(shareholderData?.created_at).format(
-              'YYYY-MM-DD HH:mm:ss'
+              'YYYY-MM-DD hh:mm:ss A'
             )}
           />
           <DetailsField
             label={t('profile.name')}
             value={shareholderData?.name}
           />
-          <DetailsField
-            label={t('profile.mobile')}
-            value={shareholderData?.mobile_no}
-          />
+          <DetailsField label={t('profile.mobile')} value={mobileNumber} />
           <DetailsField
             label={t('profile.email')}
             value={shareholderData?.email}
@@ -123,7 +125,7 @@ const ShareholderDetailsScreen = () => {
           <DetailsField
             label={t('profile.lastLogin')}
             value={`${dayjs(shareholderData?.lastlogin_at).format(
-              'YYYY-MM-DD HH:mm:ss'
+              'YYYY-MM-DD hh:mm:ss A'
             )} \n(IP: ${shareholderData?.lastlogin_ip})`}
           />
         </Card>

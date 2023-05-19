@@ -1,5 +1,4 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { skipToken } from '@reduxjs/toolkit/dist/query'
 import Button from 'agent/components/Button'
 import Input from 'agent/components/Input'
 import SelectWithCardGrid from 'agent/components/Select/SelectWithCardGrid'
@@ -8,17 +7,15 @@ import TimerButton, {
   ITimerButtonForwardRef,
 } from 'agent/components/TimerButton'
 import useAgentAlert from 'agent/hooks/useAgentAlert'
+import useGetProfile from 'agent/hooks/useGetProfile'
 import CommonBackHeader from 'agent/navigation/components/CommonBackHeader'
 import {
   useAddBankAccountMutation,
   useLookupBankCodeQuery,
   useSendOTPMutation,
 } from 'agent/services/accountApi'
-import { useAgentProfileQuery } from 'agent/services/agentApi'
 import { IResponse } from 'agent/services/common/agentAxiosBaseQuery'
-import { useShareholderProfileQuery } from 'agent/services/shareholderApi'
-import { useUserInfoQuery, useUserProfileQuery } from 'agent/services/userApi'
-import { ROLE } from 'agent/utils/helper'
+import { useUserInfoQuery } from 'agent/services/userApi'
 import validation, {
   ACCOUNT_NUMBER_MAX_LENGTH,
   MAX_OTP_DIGIT,
@@ -32,7 +29,7 @@ import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
 import { Currency } from 'app/utils/constant'
-import { ScrollView, View } from 'dripsy'
+import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { useEffect, useRef, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
@@ -56,7 +53,8 @@ const AddBankInfoForm = () => {
   const { t } = useAgentLocalization()
   const { data: bankList, isLoading: bankListLoading } =
     useLookupBankCodeQuery()
-  const [newBankAccount] = useAddBankAccountMutation()
+  const [newBankAccount, { isLoading: isNewLoading }] =
+    useAddBankAccountMutation()
   const [sendOtp] = useSendOTPMutation()
   const { back } = useContextualRouter()
   const { height } = useContainerDimension()
@@ -70,23 +68,8 @@ const AddBankInfoForm = () => {
       role: data?.role,
     }),
   })
-  const isAgent = role === ROLE.AGENT
 
-  const { shareholderCurrency } = useShareholderProfileQuery(undefined, {
-    selectFromResult: ({ data }) => ({
-      shareholderCurrency: data?.result?.data.currency as Currency,
-    }),
-    skip: role ? isAgent : true,
-  })
-
-  const { agentCurrency } = useAgentProfileQuery(undefined, {
-    selectFromResult: ({ data }) => ({
-      agentCurrency: data?.result?.data.currency as Currency,
-    }),
-    skip: role ? !isAgent : true,
-  })
-
-  const currency = shareholderCurrency ?? agentCurrency ?? Currency.VND
+  const { currency } = useGetProfile()
 
   useEffect(() => {
     setFieldValue('hasVerified', hasVerified === 1)
@@ -365,7 +348,7 @@ const AddBankInfoForm = () => {
 
           <Button
             onPress={submitForm}
-            loading={isLoading}
+            loading={isNewLoading}
             sx={{ width: 150 }}
             disabled={!isValid || !dirty}
           >

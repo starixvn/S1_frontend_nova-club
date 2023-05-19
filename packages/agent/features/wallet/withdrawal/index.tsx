@@ -5,13 +5,14 @@ import { ActivityIndicator, ScrollView } from 'dripsy'
 import AgentWithdrawalForm from './AgentWithdrawalForm'
 import AgentWithdrawalHistory from './AgentWithdrawalHistory'
 import EmptyBankCard from './EmptyBankCard'
+import useGetProfile from 'agent/hooks/useGetProfile'
 
 const AgentWithdrawalPage = () => {
   const { data: userData } = useUserInfoQuery()
-
-  // console.log("userData', ", userData)
-  const currency = userData?.wallet.currency as Currency
   const balance = userData?.wallet.balance
+
+  const { currency } = useGetProfile()
+
   const { data: bankListData, isLoading: bankListLoading } =
     useBankAccountListQuery()
 

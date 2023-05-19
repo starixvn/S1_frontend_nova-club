@@ -41,7 +41,7 @@ export const accountApi = agentBaseApiWithTag.injectEndpoints({
           ...queryArgs,
         },
       }),
-      invalidatesTags: ['BankAccount', 'UserInfo'],
+      invalidatesTags: ['BankAccount', 'UserInfo', 'Profile'],
     }),
     sendOTP: builder.mutation<IResponse<undefined>, SendOtpArgs>({
       query: (queryArgs) => ({

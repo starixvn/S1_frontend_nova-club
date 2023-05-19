@@ -44,6 +44,11 @@ const AgentDetailsScreen = () => {
   const firstCellStyle = { flex: 0.4 }
   const secondCellStyle = { flex: 0.3 }
   const thirdCellStyle = { flex: 0.3 }
+
+  const mobileNumber = agentData?.mobile_no?.startsWith('+')
+    ? agentData?.mobile_no
+    : '+' + agentData?.mobile_no
+
   return (
     <>
       <CommonBackHeader title="shAgent.agentDetails" />
@@ -55,13 +60,10 @@ const AgentDetailsScreen = () => {
           />
           <DetailsField
             label={t('profile.createdDate')}
-            value={dayjs(agentData?.created_at).format('YYYY-MM-DD HH:mm:ss')}
+            value={dayjs(agentData?.created_at).format('YYYY-MM-DD hh:mm:ss A')}
           />
           <DetailsField label={t('profile.name')} value={agentData?.name} />
-          <DetailsField
-            label={t('profile.mobile')}
-            value={agentData?.mobile_no}
-          />
+          <DetailsField label={t('profile.mobile')} value={mobileNumber} />
           <DetailsField
             label={t('profile.walletBalance')}
             value={agentBalance}
@@ -110,7 +112,7 @@ const AgentDetailsScreen = () => {
           <DetailsField
             label={t('profile.lastLogin')}
             value={`${dayjs(agentData?.lastlogin_at).format(
-              'YYYY-MM-DD HH:mm:ss'
+              'YYYY-MM-DD hh:mm:ss A'
             )} \n(IP: ${agentData?.lastlogin_ip})`}
           />
         </Card>

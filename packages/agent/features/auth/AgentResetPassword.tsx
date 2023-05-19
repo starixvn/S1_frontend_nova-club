@@ -68,7 +68,7 @@ const AgentResetPassword = () => {
       const { success, message, result } = await resetPassword({
         password,
         confirmpassword,
-        mobile_no: '+84' + mobile_no,
+        mobile_no: '84' + mobile_no,
         OTP,
       })
         .unwrap()
@@ -141,7 +141,7 @@ const AgentResetPassword = () => {
       }
 
       const { message, success } = await sendOtp({
-        mobile_no: '+84' + values.mobile_no,
+        mobile_no: '84' + values.mobile_no,
       })
         .unwrap()
         .catch((e) => {
@@ -174,6 +174,7 @@ const AgentResetPassword = () => {
           zIndex: 5,
           backgroundColor: '#0a2143',
         }}
+        showsVerticalScrollIndicator={false}
       >
         <View
           sx={{

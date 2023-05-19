@@ -2,18 +2,25 @@ import { agentBaseApi } from 'agent/services/agentBaseApi'
 import { AgentAuthActions } from 'agent/store/agentAuthReducer'
 import { LoginType } from 'app/features/auth/type'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
+import { Platform } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { sleep } from 'utils/common'
 
 const useOnAgentLogout = () => {
-  const { replace } = useContextualRouter()
+  const { replace, push } = useContextualRouter()
   const dispatch = useDispatch()
 
   const logout = async () => {
     try {
-      replace('/auth/login', {
-        t: LoginType.Agent,
-      })
+      if (Platform.OS === 'web') {
+        replace('/auth/login', {
+          t: LoginType.Agent,
+        })
+      } else {
+        push('/auth/login', {
+          t: LoginType.Agent,
+        })
+      }
       setTimeout(() => {
         dispatch(AgentAuthActions.setAgentAuthToken())
         dispatch(AgentAuthActions.setAgentHasLoginBefore(false))

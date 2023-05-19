@@ -7,12 +7,15 @@ import { ScrollView } from 'dripsy'
 import { useEffect } from 'react'
 import AgentTransferForm from './AgentTransferForm'
 import AgentTransferHistory from './AgentTransferHistory'
+import useGetProfile from 'agent/hooks/useGetProfile'
 
 const AgentFundTransferPage = () => {
   const { push } = useContextualRouter()
   const isFocus = useIsFocused()
 
-  const { isAgent, currency, balance, hasPin, isFetching, isUninitialized } =
+  const { currency } = useGetProfile()
+
+  const { isAgent, balance, hasPin, isFetching, isUninitialized } =
     useUserInfoQuery(undefined, {
       selectFromResult: ({ data, isFetching, isUninitialized }) => ({
         isAgent: data?.role === ROLE.AGENT,

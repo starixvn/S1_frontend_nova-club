@@ -111,6 +111,7 @@ export const userApi = agentBaseApiWithTag.injectEndpoints({
           ...queryArgs,
         },
       }),
+      invalidatesTags: ['Profile', 'UserInfo'],
     }),
     //send otp for reset password
     resetPasswordOTP: builder.mutation<IResponse<[]>, SendOtpArgs>({

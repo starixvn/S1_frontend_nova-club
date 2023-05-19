@@ -27,6 +27,7 @@ export const agentApi = agentBaseApiWithTag.injectEndpoints({
       query: () => ({
         url: `/agent/profile`,
       }),
+      providesTags: ['Profile'],
     }),
     agentList: builder.query<
       IResponse<AgentListResult[]> | undefined,

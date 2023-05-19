@@ -65,6 +65,7 @@ export const shareholderApi = agentBaseApiWithTag.injectEndpoints({
       query: () => ({
         url: `/sh/profile`,
       }),
+      providesTags: ['Profile'],
     }),
     shareholderDetails: builder.query<
       IResponse<ShareholderDetailsResult>,
