@@ -16,8 +16,16 @@ const Title = ({ balance }: TitleProps) => {
         resizeMode="contain"
         style={{ zIndex: 1, top: 15 }}
       >
-        <View sx={{ alignSelf: 'center', paddingX: 30, paddingY: 25 }}>
-          <Text sx={{ color: 'black', fontSize: 32, fontWeight: '900' }}>
+        <View sx={{ alignSelf: 'center', paddingY: 30 }}>
+          <Text
+            sx={{
+              color: 'black',
+              lineHeight: 40,
+              fontSize: 30,
+              fontWeight: '900',
+              fontFamily: 'AvertaStd-ExtraBold',
+            }}
+          >
             {t('event.catEvent.miniGame.matchThree')}
           </Text>
         </View>

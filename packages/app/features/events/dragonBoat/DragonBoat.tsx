@@ -22,11 +22,14 @@ import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import { Action, ActionType, getAction } from 'app/utils/actionGenerator'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Gradient } from '@dripsy/gradient'
-import { useFonts } from 'expo-font'
 import Background from './Background'
 import AnimateBackground from './AnimateBackground'
 import Title from './Title'
 import TicketLeft from './TicketLeft'
+
+import { useFonts } from 'expo-font'
+
+import ExtraBold from 'app/assets/fonts/event/AvertaStd-ExtraBold.ttf'
 
 const possibleResult = [0, 38000, 388000, 3888000]
 
@@ -182,6 +185,14 @@ const DragonBoat = () => {
     const action = getAction(tncData)
     action({ push, locale })
   }, [locale])
+
+  const [fontsLoaded, error] = useFonts({
+    'AvertaStd-ExtraBold': ExtraBold,
+  })
+
+  if (!fontsLoaded) {
+    console.log(error)
+  }
 
   return (
     <View sx={{ flex: 1 }}>

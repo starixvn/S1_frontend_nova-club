@@ -96,6 +96,7 @@ const StartNow = ({ disable, isSubmitting, onPress }: StartNowProps) => {
                 sx={{
                   position: 'absolute',
                   fontWeight: 'bold',
+
                   fontSize: 30,
                   textShadow:
                     Platform.OS === 'web'

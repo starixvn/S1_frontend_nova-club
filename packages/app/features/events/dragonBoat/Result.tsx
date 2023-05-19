@@ -41,6 +41,7 @@ const Result = ({ result, onPress }: ResultProps) => {
                 textAlign: 'center',
                 fontWeight: 'bold',
                 fontSize: 20,
+                fontFamily: 'AvertaStd-ExtraBold',
               }}
             >
               {result && result > 0
@@ -53,6 +54,7 @@ const Result = ({ result, onPress }: ResultProps) => {
                 textAlign: 'center',
                 fontWeight: 'bold',
                 fontSize: 20,
+                fontFamily: 'AvertaStd-ExtraBold',
               }}
             >
               {result && result > 0
@@ -67,6 +69,7 @@ const Result = ({ result, onPress }: ResultProps) => {
                   fontWeight: 'bold',
                   fontSize: 30,
                   color: '#FAFA7F',
+                  fontFamily: 'AvertaStd-ExtraBold',
                 }}
               >
                 {`${result / 1000}K VND`}
@@ -93,6 +96,7 @@ const Result = ({ result, onPress }: ResultProps) => {
                   color: 'black',
                   fontWeight: 'bold',
                   position: 'absolute',
+                  fontFamily: 'AvertaStd-ExtraBold',
                 }}
               >
                 {t('event.catEvent.miniGame.next')}

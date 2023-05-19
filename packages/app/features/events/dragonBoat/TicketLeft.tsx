@@ -9,9 +9,10 @@ interface TitleProps {
 
 const TicketLeft = ({ balance }: TitleProps) => {
   const { t } = useLocalization()
+
   return (
     <View>
-      <Gradient
+      <View
         sx={{
           alignSelf: 'flex-end',
           borderRadius: 30,
@@ -19,17 +20,17 @@ const TicketLeft = ({ balance }: TitleProps) => {
           borderColor: 'white',
           height: 60,
           width: 150,
+          justifyContent: 'center',
           // marginBottom: '5%',
+          bg: 'rgba(255,255,255,0.4)',
         }}
-        start={[0, 0]}
-        end={[0.5, 0.5]}
-        colors={['rgba(255,144,104,0.95)', 'rgba(255,75,31,0.95)']}
       >
         <Text
           sx={{
             textAlign: 'center',
-            fontWeight: '900',
             fontSize: 20,
+            color: 'red',
+            fontFamily: 'AvertaStd-ExtraBold',
           }}
         >
           {balance ? balance.totalBalance : 0}
@@ -38,13 +39,13 @@ const TicketLeft = ({ balance }: TitleProps) => {
           sx={{
             textAlign: 'center',
             fontSize: 10,
-            fontWeight: '900',
-            // fontFamily: 'AvertaStd-ExtraBoldItalic',
+            color: 'red',
+            fontFamily: 'AvertaStd-ExtraBold',
           }}
         >
           {t('event.catEvent.miniGame.ticketLeft')}
         </Text>
-      </Gradient>
+      </View>
     </View>
   )
 }
