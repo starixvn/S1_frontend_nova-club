@@ -7,7 +7,7 @@ import { getErrorMessage } from 'app/utils/validation'
 import { ScrollView, Text, View } from 'dripsy'
 import _ from 'lodash'
 import React, { useCallback, useEffect, useState } from 'react'
-import { ImageBackground, Platform } from 'react-native'
+import { ImageBackground, Platform, useWindowDimensions } from 'react-native'
 import {
   useCheckTicketSpinQuery,
   useLuckyDrawMutation,
@@ -47,7 +47,7 @@ const prizeDict = {
 const tncData: Action = {
   type: ActionType.INTERNAL_REDIRECT,
   payload: {
-    uri: '/event/sea-game-event-tnc',
+    uri: '/event/dragon-boat-event-tnc',
     params: {
       locale: 'vn',
     },
@@ -57,6 +57,7 @@ const tncData: Action = {
 const DragonBoat = () => {
   const { back, push } = useContextualRouter()
   const { top, bottom, left, right } = useSafeArea()
+  const { height, width } = useWindowDimensions()
 
   const [buttonMap, setButtoMap] = useState<Array<number>>([])
   const [result, setResult] = useState<number>() || undefined
@@ -242,12 +243,10 @@ const DragonBoat = () => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-          flex: 1,
           paddingBottom: bottom,
-
           alignItems: 'center',
-          justifyContent: 'center',
-          marginTop: -top,
+          // justifyContent: 'center',
+          // marginTop: top + 80,
         }}
         sx={Platform.select({
           web: {
@@ -255,7 +254,13 @@ const DragonBoat = () => {
           },
         })}
       >
-        <View sx={{ width: '80%', maxWidth: 400 }}>
+        <View
+          sx={{
+            width: '80%',
+            maxWidth: 400,
+            marginTop: top + 80,
+          }}
+        >
           <View>
             <TicketLeft balance={balance} />
           </View>

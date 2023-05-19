@@ -1,7 +1,6 @@
 import { styled, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
 import { memo } from 'react'
-import SummerMeowMeow from './event/SummerMeowMeow'
 import LiveChatButton from './LiveChatButton'
 import VGaming from './VGaming'
 import DragonBoat from './event/DragonBoat'
