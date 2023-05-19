@@ -34,6 +34,7 @@ import { AgentAuthActions } from 'agent/store/agentAuthReducer'
 import { useLazyUserInfoQuery } from 'agent/services/userApi'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import RegisterSelection from './RegisterSelection'
+import { MOBILE_PREFIX } from 'app/constant/country'
 
 export type RegisterFormValues = {
   username: string
@@ -164,7 +165,7 @@ const RegisterPage = () => {
       password,
       confirmpassword: confirmPassword,
       // WIP: Prefix should not be hardcoded
-      mobile_no: '84' + contactNumber,
+      mobile_no: MOBILE_PREFIX.VND + contactNumber,
       // terms,
       referral_code: isLoggedIn ? referralCode : '',
       OTP: verifyCode,

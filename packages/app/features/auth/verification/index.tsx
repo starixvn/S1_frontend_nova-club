@@ -16,6 +16,7 @@ import ReceiveOTPContact from '../common/ReceiveOTPContact'
 import AuthLayout from '../layout/AuthLayout'
 import { RegisterFormValues } from '../register'
 import { useAgentRegisterOtpMutation } from 'agent/services/authApi'
+import { MOBILE_PREFIX } from 'app/constant/country'
 
 interface VerificationFormProps {
   isAgent: boolean
@@ -97,7 +98,7 @@ const VerificationForm = ({
       const { data, message, success } = await sendAgentRegistrationOtp({
         username: values.username,
         // WIP: Prefix should not be hardcoded
-        mobile_no: '84' + values.contactNumber,
+        mobile_no: MOBILE_PREFIX.VND + values.contactNumber,
       }).unwrap()
 
       if (success) {

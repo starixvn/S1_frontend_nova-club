@@ -2,6 +2,7 @@ import {
   useResetPwMutation,
   useResetPwSendOtpMutation,
 } from 'agent/services/authApi'
+import { MOBILE_PREFIX } from 'app/constant/country'
 import useAlert from 'app/hooks/useAlert'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { FormikHelpers } from 'formik'
@@ -32,7 +33,7 @@ const useAgentForgotPassword = () => {
       password,
       confirmpassword: confirmPassword,
       // WIP: Prefix should not be hardcoded
-      mobile_no: '84' + contactNumber,
+      mobile_no: MOBILE_PREFIX.VND + contactNumber,
       OTP: verifyCode,
     })
       .unwrap()
@@ -54,7 +55,7 @@ const useAgentForgotPassword = () => {
       const { data, message, success } = await postSendOtp({
         // WIP: Prefix should not be hardcoded
         username,
-        mobile_no: '84' + contactNumber,
+        mobile_no: MOBILE_PREFIX.VND + contactNumber,
       })
         .unwrap()
         .catch((error) => {

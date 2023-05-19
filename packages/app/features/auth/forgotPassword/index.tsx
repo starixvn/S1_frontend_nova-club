@@ -1,3 +1,4 @@
+import { USERNAME_MAX_LENGTH } from 'agent/utils/validation'
 import { Button } from 'app/components/form/Button'
 import TextInput from 'app/components/form/TextInput'
 import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
@@ -17,12 +18,11 @@ import {
   usePasswordRecoveryMutation,
   useSendPasswordRecoveryOtpMutation,
 } from 'services/authApi'
+import { createParam } from 'solito'
 import * as Yup from 'yup'
 import ReceiveOTPContact from '../common/ReceiveOTPContact'
 import AuthLayout from '../layout/AuthLayout'
-import { USERNAME_MAX_LENGTH } from 'agent/utils/validation'
 import { LoginType } from '../type'
-import { createParam } from 'solito'
 import useAgentForgotPassword from './hooks/useAgentForgotPassword'
 
 export interface ForgotPasswordFormValues {
@@ -151,7 +151,6 @@ const ForgotPassword = () => {
     setTouched,
     setFieldError,
   } = formik
-  console.log('🚀 ~ file: index.tsx:154 ~ ForgotPassword ~ errors:', errors)
 
   const isFormFieldValid = async (
     fields: FormikTouched<ForgotPasswordFormValues>

@@ -13,18 +13,17 @@ import {
 } from 'agent/services/userApi'
 import { AgentAuthActions } from 'agent/store/agentAuthReducer'
 import validation, {
-  getErrorMessage,
   MAX_OTP_DIGIT,
   MAX_PHONE_DIGIT,
+  getErrorMessage,
 } from 'agent/utils/validation'
 import KeyboardView from 'app/components/KeyboardView'
-import { AGENT_STACK_CONTENT_PADDING } from 'app/constant/sizes'
-import { LoginType } from 'app/features/auth/type'
+import { MOBILE_PREFIX } from 'app/constant/country'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { Flex, Image, ScrollView, Text, useDripsyTheme, View } from 'dripsy'
+import { Flex, Image, Text, View, useDripsyTheme } from 'dripsy'
 import { useFormik } from 'formik'
 import { useRef, useState } from 'react'
 import { Platform } from 'react-native'
@@ -68,7 +67,7 @@ const AgentResetPassword = () => {
       const { success, message, result } = await resetPassword({
         password,
         confirmpassword,
-        mobile_no: '84' + mobile_no,
+        mobile_no: MOBILE_PREFIX.VND + mobile_no,
         OTP,
       })
         .unwrap()
@@ -141,7 +140,7 @@ const AgentResetPassword = () => {
       }
 
       const { message, success } = await sendOtp({
-        mobile_no: '84' + values.mobile_no,
+        mobile_no: MOBILE_PREFIX.VND + values.mobile_no,
       })
         .unwrap()
         .catch((e) => {
