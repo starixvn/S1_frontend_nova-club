@@ -30,6 +30,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import * as Yup from 'yup'
 import AgentUnderlinePinField from './AgentUnderlinePinField'
+import { MOBILE_PREFIX } from 'app/constant/country'
 
 interface AddBankInfoValues {
   mobileNumber: string
@@ -123,7 +124,7 @@ const AgentResetPin = () => {
     setIsOtpButtonLoading(true)
     try {
       const { message, success } = await sendOtp({
-        mobile_no,
+        mobile_no: MOBILE_PREFIX.VND + mobile_no,
       })
         .unwrap()
         .catch((error): IResponse<void> => {

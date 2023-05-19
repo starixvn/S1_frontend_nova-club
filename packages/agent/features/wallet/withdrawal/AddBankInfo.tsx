@@ -24,6 +24,7 @@ import validation, {
   removeAgentPhoneNumPrefix,
 } from 'agent/utils/validation'
 import KeyboardView from 'app/components/KeyboardView'
+import { MOBILE_PREFIX } from 'app/constant/country'
 import { AGENT_STACK_CONTENT_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
@@ -156,7 +157,7 @@ const AddBankInfoForm = () => {
     try {
       setIsLoading(true)
       const { message, success } = await sendOtp({
-        mobile_no: values.mobileNumber,
+        mobile_no: MOBILE_PREFIX.VND + values.mobileNumber,
       })
         .unwrap()
         .catch((error): IResponse<void> => {
