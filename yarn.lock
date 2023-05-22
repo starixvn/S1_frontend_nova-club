@@ -3790,7 +3790,7 @@ __metadata:
   resolution: "app@workspace:packages/app"
   dependencies:
     dayjs: ^1.11.7
-    dripsy: ^4
+    dripsy: 4.3.3
     expo-image-picker: ^14.1.1
     moti: latest
     react-native-date-picker: ^4.2.13
@@ -5434,27 +5434,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dripsy@npm:4.1.0":
-  version: 4.1.0
-  resolution: "dripsy@npm:4.1.0"
+"dripsy@npm:4.3.3":
+  version: 4.3.3
+  resolution: "dripsy@npm:4.3.3"
   dependencies:
     "@expo/html-elements": ^0.2.0
     "@theme-ui/css": ^0.4.0-rc.1
     stable-hash: ^0.0.2
     ts-toolbelt: ^9.6.0
-  checksum: 331710a95df341dcbf0bcd9a68cb7d4b25f672c490021b921b2a89b06bb9e375eede85fa64ed945f25187ea2b138518d411a6e9805a3774dfa051e99850e5799
-  languageName: node
-  linkType: hard
-
-"dripsy@patch:dripsy@npm%3A4.1.0#./.yarn/patches/dripsy-npm-4.1.0-709be8c3fb.patch::locator=solito-expo-router%40workspace%3A.":
-  version: 4.1.0
-  resolution: "dripsy@patch:dripsy@npm%3A4.1.0#./.yarn/patches/dripsy-npm-4.1.0-709be8c3fb.patch::version=4.1.0&hash=d9d6ac&locator=solito-expo-router%40workspace%3A."
-  dependencies:
-    "@expo/html-elements": ^0.2.0
-    "@theme-ui/css": ^0.4.0-rc.1
-    stable-hash: ^0.0.2
-    ts-toolbelt: ^9.6.0
-  checksum: 37bb6c65a81ba68a55aa554ffc933213252266a2fb159955e318aa4111a379ef9f8115fc9968e540606f9e7c4f9d86969c8e893f820eb13a8d0cc042ecc05c8c
+  checksum: 59da2af86e425a4673f19c85e128f1c61a55a3433ff5673c8b562bf1d45e2573e408171ccb6572d2fecc1e36a59a42cd9f19a66a0b1e0ae32289362a6b188fe0
   languageName: node
   linkType: hard
 

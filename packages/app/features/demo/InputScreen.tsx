@@ -2,6 +2,7 @@ import DatePicker from 'app/components/form/DatePicker'
 import FilePicker from 'app/components/form/FilePicker'
 import Input from 'app/components/form/Input'
 import Icon from 'app/components/Icon'
+import BottomTabBar from 'app/components/navigation/BottomTabBar'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Row, ScrollView, Text } from 'dripsy'
 import { ImagePickerAsset } from 'expo-image-picker'
@@ -17,7 +18,6 @@ export default function InputScreen() {
       sx={{
         flex: 1,
         bg: '$primary.700',
-        paddingTop: 100,
       }}
       contentContainerSx={{ px: '$2', paddingTop: top, paddingBottom: bottom }}
     >

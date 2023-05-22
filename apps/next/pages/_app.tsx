@@ -7,11 +7,10 @@ import { useFonts } from 'expo-font'
 import Head from 'next/head'
 import type { SolitoAppProps } from 'solito'
 import '../global.css'
+import AdaptiveLayout from '../components/layouts/AdaptiveLayout'
 
 function MyApp({ Component, pageProps }: SolitoAppProps) {
-  useFonts({
-    ...AvertaStdUseFont,
-  })
+  useFonts(AvertaStdUseFont)
 
   return (
     <>
@@ -23,9 +22,9 @@ function MyApp({ Component, pageProps }: SolitoAppProps) {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Provider>
-        <Component {...pageProps} />
-      </Provider>
+      <AdaptiveLayout>
+          <Component {...pageProps} />
+      </AdaptiveLayout>
     </>
   )
 }

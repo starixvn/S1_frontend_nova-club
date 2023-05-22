@@ -24,7 +24,11 @@ const nextConfig = {
   // },
   transpilePackages: [
     'react-native',
+    'react-native-gesture-handler',
+    'react-native-modalfy',
+    'react-native-reanimated',
     'react-native-web',
+    'react-native-shadow-2',
     /* https://github.com/expo/expo/issues/21623 */
     '@react-native/assets',
     'expo-asset',
@@ -32,15 +36,15 @@ const nextConfig = {
     'expo-modules-core',
     /* */
     'expo-image-picker',
+    'expo-linear-gradient',
     'solito',
     'dripsy',
     'moti',
+    'i18n-js',
     'app',
     'utils',
-    'react-native-reanimated',
     '@expo/html-elements',
     '@expo/vector-icons',
-    'react-native-gesture-handler',
   ],
 }
 

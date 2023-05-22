@@ -8,7 +8,7 @@ import { useRouter } from 'solito/router'
 import GradientButton from '../GradientButton'
 import { BOTTOM_ROUTE } from './RoutePath'
 
-const BOTTOM_TAB_BAR_HEIGHT = 47.5
+export const BOTTOM_TAB_BAR_HEIGHT = 47.5
 const BOTTOM_ICON_ACTIVE = 28
 const BOTTOM_ICON_INACTIVE = 22
 
