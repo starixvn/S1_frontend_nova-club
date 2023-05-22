@@ -6,7 +6,6 @@ import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Row, ScrollView, Text } from 'dripsy'
 import { ImagePickerAsset } from 'expo-image-picker'
 import React, { useState } from 'react'
-import { Button } from 'react-native'
 
 export default function InputScreen() {
   const { bottom, top } = useSafeArea()

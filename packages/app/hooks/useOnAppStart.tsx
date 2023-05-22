@@ -1,4 +1,4 @@
-import { store, useAppSelector } from 'app/provider/redux/store'
+import { store, useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 // import { logOut } from 'app/utils/authUtil'
 import { useCallback, useEffect, useRef } from 'react'
 import { Platform } from 'react-native'
@@ -6,6 +6,7 @@ import { Platform } from 'react-native'
 // import useResetRTKQState from './useResetRTKQState'
 import { useRouter } from 'solito/router'
 import { configureAxios } from '../../services/common/axiosInstance'
+import { AuthActions } from 'app/store/authReducer'
 
 const useOnAppStart = () => {
   const { replace, push } = useRouter()
@@ -15,6 +16,9 @@ const useOnAppStart = () => {
   // const { resetRTKQState } = useResetRTKQState()
 
   const redirectToLoginPage = useCallback(() => {}, [replace])
+
+  //temporary replacement for RTKQ reset
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     configureAxios({
@@ -39,6 +43,8 @@ const useOnAppStart = () => {
             // setTimeout(resetRTKQState, 1000)
           }
         } catch (error) {
+          dispatch(AuthActions.setAuthInfo(undefined))
+
           console.log(error)
         } finally {
           isLogoutTriggered.current = false
