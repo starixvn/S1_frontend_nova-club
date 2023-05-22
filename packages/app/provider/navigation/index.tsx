@@ -23,6 +23,8 @@ interface NavigationParamList {
   LotteryPage: undefined
   CNYCatSpinPage: undefined
 }
+
+// TODO Do we need theme on nav provider ?
 const MyTheme = {
   ...DefaultTheme,
   colors: {
@@ -38,13 +40,83 @@ export function NavigationProvider({
 }) {
   return (
     <NavigationContainer<NavigationParamList>
-      theme={MyTheme}
+      // theme={MyTheme}
       linking={useMemo(
         () => ({
-          prefixes: ['http://localhost:3000'],
+          prefixes: ['http://localhost:3000', 'https://vui123vn.com'],
           config: {
             screens: {
               SplashScreen: 'splashscreen',
+              MemberAgent: {
+                // Tab
+                screens: {
+                  Member: {
+                    // Stack
+                    screens: {
+                      Home: '',
+                      Sportsbook: 'sportsbook',
+                      Games: '/games',
+                      Slots: '/slot',
+                      Casino: '/livecasino',
+                    },
+                  },
+                  Agent: {
+                    // Stack
+                    screens: {
+                      AgentMainTabNavigation: {
+                        // Tab
+                        path: '/agent',
+                        screens: {
+                          AgentProfile: '/profile',
+                          MemberList: '/member',
+                          Barcode: '/barcode',
+                          Add: {
+                            // Tab
+                            path: '/add',
+                            initialRouteName: 'AddShareholder',
+                            screens: {
+                              AddShareholder: '/shareholder',
+                              AddAgent: '/agent',
+                            },
+                          },
+                          Wallet: {
+                            path: '/wallet',
+                            initialRouteName: 'Withdrawal',
+                            screens: {
+                              Withdrawal: '/withdrawal',
+                              Transfer: '/transfer',
+                            },
+                          },
+                          List: {
+                            path: '/list',
+                            initialRouteName: 'ListShareholder',
+                            screens: {
+                              ListShareholder: '/shareholder',
+                              ListAgent: '/agent',
+                            },
+                          },
+                          Report: {
+                            path: '/report',
+                            initialRouteName: 'Commission',
+                            screens: {
+                              Commission: '/commission',
+                              Transaction: '/transaction',
+                            },
+                          },
+                        },
+                      },
+                      ShareholderDetails: '/agent/list/shareholder/:id',
+                      AgentDetails: '/agent/list/agent/:id',
+                      AgentCommission: '/agent/commission-table',
+                      AddBankInfo: '/agent/wallet/withdrawal/add-bank',
+                      AgentCreatePin: '/agent/create-pin',
+                      AgentResetPin: '/agent/reset-pin',
+                      AgentChangePassword: '/agent/change-password',
+                      AgentResetPassword: '/agent/reset-password',
+                    },
+                  },
+                },
+              },
               Forbidden: '/forbidden',
               Maintenance: '/maintenance',
               LoginPage: '/auth/login',
@@ -67,15 +139,6 @@ export function NavigationProvider({
               WithdrawalPage: '/withdrawal',
               BankWithdrawalPage: '/withdrawal/bank',
               CryptoWithdrawalPage: '/withdrawal/crypto',
-              BottomNav: {
-                screens: {
-                  Home: '',
-                  Sportsbook: 'sportsbook',
-                  Games: '/games',
-                  Slots: '/slot',
-                  Casino: '/livecasino',
-                },
-              },
               Profile: '/profile',
               FishingPage: '/games/fishing',
               LotteryPage: '/games/lottery',
@@ -95,6 +158,7 @@ export function NavigationProvider({
               ChangePin: 'pin/change-pin',
               ForgotPin: 'pin/forgot-pin',
               AccountVerification: '/profile/account-verification',
+              AgentRecruitmentTnc: '/banner/agent-tnc',
               CatEventTnc: '/event/dragon-boat-event-tnc',
               DragonBoat: '/event/dragon-boat',
             },

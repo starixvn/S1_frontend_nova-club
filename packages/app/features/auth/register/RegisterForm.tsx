@@ -16,15 +16,21 @@ import React, {
 import { TextInput as RNTextInput } from 'react-native'
 import { useLazyCheckUsernameQuery } from 'services/authApi'
 import { RegisterFormValues } from '.'
+import { useLazyAgentCheckUsernameQuery } from 'agent/services/authApi'
+import TouchableOpacity from 'app/pressable/TouchableOpacity'
+import { AnimatePresence, MotiText } from 'moti'
+import { LoginType } from '../type'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 
 interface RegisterFormProps {
+  isAgent: boolean
   formik: FormikProps<RegisterFormValues>
   onSuccess: () => void
 }
 
 const MemoTextInput = memo(TextInput)
 
-const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
+const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
   const {
     handleChange,
     handleBlur,
@@ -37,7 +43,9 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
   } = formik
 
   const { t } = useLocalization()
+  const { push } = useContextualRouter()
   const [checkUsername] = useLazyCheckUsernameQuery()
+  const [agentCheckUsername] = useLazyAgentCheckUsernameQuery()
   const lang = useAppSelector((state) => state.setting.locale)
 
   const [usernameErrorMsg, setUsernameErrorMsg] = useState('')
@@ -79,14 +87,26 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
       setIsCheckingUsername(true)
 
       try {
-        const { success } = await checkUsername({
-          username: values.username,
-        }).unwrap()
+        if (isAgent) {
+          const { success } = await agentCheckUsername({
+            username: values.username,
+          }).unwrap()
 
-        isUsernameCheckedRef.current = true
+          isUsernameCheckedRef.current = true
 
-        if (success) {
-          if (usernameErrorMsg) setUsernameErrorMsg('')
+          if (success) {
+            if (usernameErrorMsg) setUsernameErrorMsg('')
+          }
+        } else {
+          const { success } = await checkUsername({
+            username: values.username,
+          }).unwrap()
+
+          isUsernameCheckedRef.current = true
+
+          if (success) {
+            if (usernameErrorMsg) setUsernameErrorMsg('')
+          }
         }
       } catch (error) {
         const errorMessage = getErrorMessage(error)
@@ -239,6 +259,34 @@ const RegisterForm = ({ formik, onSuccess }: RegisterFormProps) => {
             <Button.Label>{t('auth.register')}</Button.Label>
           </Button>
         </View>
+      </View>
+
+      <View sx={{ mt: '$5', minHeight: 20 }}>
+        <TouchableOpacity
+          onPress={() =>
+            push('/auth/login', {
+              t: isAgent ? LoginType.Agent : LoginType.Member,
+            })
+          }
+        >
+          <AnimatePresence>
+            {
+              <MotiText
+                from={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ type: 'timing', duration: 250 }}
+                style={{
+                  textAlign: 'center',
+                  fontWeight: 'bold',
+                  color: '#F15D12',
+                }}
+              >
+                {t('auth.login')}
+              </MotiText>
+            }
+          </AnimatePresence>
+        </TouchableOpacity>
       </View>
     </>
   )

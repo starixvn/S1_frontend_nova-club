@@ -35,6 +35,8 @@ const ContextualComponents = {
   '/pin/change-pin': () => import('app/features/pin/change-pin'),
   '/pin/forgot-pin': () => import('app/features/pin/forgot-pin'),
   '/profile/overview': () => import('app/features/profile/overview'),
+  '/banner/agent-tnc': () =>
+    import('../../../../apps/next/pages/banner/agent-tnc'),
   '/event/dragon-boat': () =>
     import('app/features/events/dragonBoat/DragonBoat'),
   '/event/dragon-boat-event-tnc': () =>

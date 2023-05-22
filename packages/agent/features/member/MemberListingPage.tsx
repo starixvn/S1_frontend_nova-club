@@ -1,0 +1,169 @@
+import DataTable from 'agent/components/DataTable/DataTable'
+import { DateTimeField } from 'agent/components/DataTable/DataTableCell'
+import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
+import Text from 'agent/components/Text'
+import {
+  DateFilter,
+  MemberStatusFilter,
+  getMemberStatus,
+} from 'agent/constant/select'
+import useTableListing from 'agent/hooks/useTableListing'
+import { useMemberListQuery } from 'agent/services/agentApi'
+import { MemberListResult } from 'agent/services/agentApi.type'
+import { useAgentLocalization } from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
+import { Currency } from 'app/utils/constant'
+import dayjs from 'dayjs'
+import { View, styled } from 'dripsy'
+import { useState } from 'react'
+import { Platform } from 'react-native'
+import { useModal } from 'react-native-modalfy'
+import AgentFloatingContent from '../floatingContent'
+
+export type MemberListFilterOptions = {
+  date: DateFilter | string | undefined
+  startDate: Date | string
+  endDate: Date | string
+  username: string
+  status: MemberStatusFilter | string | undefined
+}
+
+type MemberListProps = {
+  item: MemberListResult
+  index: number
+}
+
+const MemberListScreen = () => {
+  const { t } = useAgentLocalization()
+  const { openModal } = useModal()
+  const [offset, setOffset] = useState(0)
+  const [filter, setFilter] = useState<MemberListFilterOptions>({
+    date: '',
+    startDate: dayjs().startOf('date').toDate(),
+    endDate: dayjs().endOf('date').toDate(),
+    status: '',
+    username: '',
+  })
+
+  const { agentData, totalData, isFetching, refetch } = useMemberListQuery(
+    {
+      start: offset * LIMIT,
+      length: LIMIT,
+      currency: Currency.VND,
+      registerdate_start: filter.date
+        ? `${dayjs(filter.startDate).format(
+            'YYYY-MM-DD HH:mm:ss Z'
+          )} to ${dayjs(filter.endDate).format('YYYY-MM-DD HH:mm:ss Z')}`
+        : '',
+      username: filter.username,
+      status: filter.status,
+    },
+    {
+      selectFromResult: ({ data, isFetching, isSuccess }) => {
+        return {
+          isFetching,
+          agentData: isSuccess ? data?.result?.data : [],
+          totalData: data?.result?.recordsTotal ?? 0,
+        }
+      },
+    }
+  )
+
+  const { onLoadMore, onRefresh } = useTableListing({
+    offset,
+    setOffset,
+    LIMIT,
+    totalData,
+    isFetching,
+    refetch,
+  })
+
+  const firstCellStyle = { flexGrow: 0, flexBasis: 40, px: '$1' }
+
+  const onRenderHeader = () => (
+    <DataTable.Header>
+      <DataTable.Title bordered center containerStyle={firstCellStyle}>
+        #
+      </DataTable.Title>
+      <DataTable.Title bordered center>
+        {t('common.username')}
+      </DataTable.Title>
+      <DataTable.Title bordered center>
+        {t('shAgent.regDate')}
+      </DataTable.Title>
+      <DataTable.Title center>{t('common.status')}</DataTable.Title>
+    </DataTable.Header>
+  )
+
+  const onRenderItem = ({ item, index }: MemberListProps) => (
+    <DataTable.Row size="big" sx={{ bg: 'transparent' }}>
+      <DataTable.Cell bordered center containerStyle={firstCellStyle}>
+        {index + 1}
+      </DataTable.Cell>
+      <DataTable.Cell bordered>{item.username}</DataTable.Cell>
+      <DataTable.Cell bordered center>
+        <DateTimeField dateTime={item.register_date} />
+      </DataTable.Cell>
+      <DataTable.Cell center>
+        <SwitchView active={item.status === '0'}>
+          <Text
+            numberOfLines={1}
+            sx={{
+              textAlign: 'center',
+              color: item.status === '0' ? '#043B02' : 'white',
+            }}
+          >
+            {t(getMemberStatus(item.status))}
+          </Text>
+        </SwitchView>
+      </DataTable.Cell>
+    </DataTable.Row>
+  )
+
+  const onFilter = () => {
+    openModal('FilterMemberListingModal', {
+      filterOptions: filter,
+      onConfirm: (value: MemberListFilterOptions) => {
+        setFilter({
+          date: value.date,
+          endDate: value.endDate,
+          startDate: value.startDate,
+          username: value.username,
+          status: value.status,
+        })
+        setOffset(0)
+      },
+    })
+  }
+
+  return (
+    <View sx={{ flex: 1, mt: Platform.OS === 'web' ? 22 : 0 }}>
+      <TableListing
+        title={`${t('shAgent.totalMember')} : ${totalData}`}
+        titleCenter
+        data={agentData}
+        renderHeader={onRenderHeader}
+        renderItem={onRenderItem}
+        keyExtractor={(item, index) => item.player_id}
+        onLoadMore={onLoadMore}
+        onRefresh={onRefresh}
+        isFetching={isFetching}
+        containerStyle={{ flex: 1 }}
+        extraData={t}
+      />
+
+      <AgentFloatingContent onPress={onFilter} />
+    </View>
+  )
+}
+
+const SwitchView = styled(View)(({ active }: { active: boolean }) => ({
+  width: 90,
+  borderRadius: 100,
+  p: 4,
+  bg: active ? '#65FE00' : '#CC000F',
+  borderColor: active ? '#047600' : '#FFCED2',
+  borderWidth: 1,
+}))
+
+export default MemberListScreen

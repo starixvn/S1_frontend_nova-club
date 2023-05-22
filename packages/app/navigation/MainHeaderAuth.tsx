@@ -7,7 +7,7 @@ import useContextualRouter from './contextual/useContextualRouter'
 
 const MainHeaderAuth = () => {
   const { t } = useLocalization()
-  const { push, replace } = useContextualRouter()
+  const { push } = useContextualRouter()
 
   return (
     <View

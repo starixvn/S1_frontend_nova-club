@@ -9,17 +9,22 @@
   "auth": {
     "accountReg": "ĐĂNG KÝ",
     "accountVerification": "Xác minh tài khoản",
+    "agentLogin": "Đăng nhập đại lý",
+    "agentRegister": "Đăng ký đại lý",
     "enterNewPassword": "Vui lòng nhập mật khẩu mới của bạn",
     "enterOtp": "Vui lòng nhập OTP",
     "forgotPassword": "Quên mật khẩu",
     "login": "ĐĂNG NHẬP",
     "loginToAccount": "ĐĂNG NHẬP",
+    "memberLogin": "Đăng nhập thành viên",
+    "memberRegister": "Đăng ký thành viên",
     "noReceiveOTP": "Không nhận được OTP?",
     "readAndAgree": "Tôi đã đọc và đồng ý",
     "referrerInfo": "Thông tin người giới thiệu",
     "register": "ĐĂNG KÝ",
     "rememberMe": "Lưu để đăng nhập lần sau",
-    "table": "Bảng hoa hồng"
+    "table": "Bảng hoa hồng",
+    "welcome": "Chào mừng bạn trở lại"
   },
   "bank": {
     "accountName": "Tên tài khoản",
@@ -145,21 +150,22 @@
     "usdt": "USDT"
   },
   "event": {
-    "claim": "ĐỔI VÉ THƯỞNG CỦA BẠN NGAY",
     "catEvent": {
       "miniGame": {
-        "matchThree": "BỘ BA TÀI LỘC",
-        "won": "XIN CHÚC MỪNG!",
-        "won2": "BẠN ĐÃ TRÚNG THƯỞNG",
         "lose": "RẤT TIẾC!",
         "lose2": "CHÚC BẠN MAY MẮN LẦN SAU.",
+        "matchThree": "BỘ BA TÀI LỘC",
         "next": "CHƠI TIẾP",
+        "start": "BẮT ĐẦU",
         "ticketLeft": "LƯỢT CHƠI CÒN LẠI",
         "tryAgain": "THỬ LẠI",
-        "start": "BẮT ĐẦU"
+        "won": "XIN CHÚC MỪNG!",
+        "won2": "BẠN ĐÃ TRÚNG THƯỞNG"
       },
-      "tnc": {}
+      "tnc": {
+      }
     },
+    "claim": "ĐỔI VÉ THƯỞNG CỦA BẠN NGAY",
     "ticket": "vé dự đoán",
     "ticketSubmitted": "Gửi vé dự đoán thành công",
     "winText1": "XIN CHÚC MỪNG!",

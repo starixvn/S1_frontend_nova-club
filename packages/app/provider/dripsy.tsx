@@ -3,6 +3,7 @@ import { Platform } from 'react-native'
 export const fontName = 'Noto Sans'
 export const NotoSansBold = 'Noto Sans Bold'
 export const NotoSansBoldItalic = 'Noto Sans Bold Italic'
+export const NotoSansItalic = 'Noto Sans Italic'
 
 const webFont = (font: string) =>
   Platform.select({
@@ -42,6 +43,8 @@ const commonColors = {
   $backgroundSecondary: '#0D2035',
   $shadow: 'rgb(26,64,98)',
   $text: '#FFFFFF',
+  $white: '#FFFFFF',
+  $black: '#000000',
   $primary: '#0E2B46',
   $success: '#00FF19',
   $error: '#F37070',
@@ -74,13 +77,23 @@ const commonColors = {
   $accent: '#F15D12',
   $transparent: '#00000000',
   $gray: '#DBDBDB',
-  $black: '#062646',
   $dim: '#FFFFFFBF', //opacity 75%
   $dim1: '#FFFFFF80', // opacity 50%
   $yellowGold: '#FFDB6D',
   $eth: '#627EEA',
   $btc: '#F6931A',
   $usdt: '#36A07B',
+
+  // Agent Colors
+  $textAgent: '#000000',
+  $primaryAgent: '#0D7DFF',
+  $inactivePrimaryAgent: '#8DC0FF',
+  $secondaryAgent: '#DBEBFF',
+  $successAgent: '#27FF00',
+  $errorAgent: '#FF0000',
+  $darkBlueAgent: '#335DA0',
+  $disabledAgent: '#D1D1D1',
+  $grayAgent: '#505050',
 }
 
 const colorGradient = {
@@ -127,6 +140,9 @@ const colorGradient = {
 const theme = makeTheme({
   // https://www.dripsy.xyz/usage/theming/create
   text: {
+    agent: {
+      color: 'black',
+    },
     body: {
       color: 'white',
     },
@@ -231,6 +247,7 @@ const theme = makeTheme({
       bold: webFont(NotoSansBold),
       default: webFont(fontName),
       normal: webFont(fontName),
+      italic: webFont(NotoSansItalic),
       // 500: 'arialMedium',
       // 600: 'arialBold',
       // 700: HelveticaBold,

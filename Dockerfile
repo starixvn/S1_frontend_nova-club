@@ -14,6 +14,7 @@ COPY apps/expo/package.json ./apps/expo/
 COPY packages/app/package.json ./packages/app/
 COPY packages/services/package.json ./packages/services/
 COPY packages/utils/package.json ./packages/utils/
+COPY packages/agent/package.json ./packages/agent/
 
 RUN yarn install
 

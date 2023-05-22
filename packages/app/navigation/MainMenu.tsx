@@ -1,12 +1,12 @@
-import { AGENT_URL } from '@env'
 import Icon from 'app/components/Icon'
+import { LoginType } from 'app/features/auth/type'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Image, styled, Sx, useDripsyTheme, View } from 'dripsy'
 import { useMemo } from 'react'
 import {
-  Linking,
   Platform,
   Text,
   TouchableOpacity,
@@ -31,12 +31,10 @@ const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
   const { x: parentWidth, y: parentHeight } = parentPosition
 
   const { logout } = useOnAppLogout()
+  const isAgentLoggedIn = useAppSelector((s) => !!s.agent.access_token)
 
   const isWeb = Platform.OS === 'web'
   const isAndroid = Platform.OS === 'android'
-  const modalRightPosition = Array.isArray(parentWidth)
-    ? parentWidth.map((width) => width / 2)
-    : Number(parentWidth) / 2
 
   const iosTopHeight = Array.isArray(parentHeight)
     ? parentHeight.map((height) => height + safeAreaTopHeight)
@@ -60,7 +58,13 @@ const MainMenu = ({ isShow, onMenu, parentPosition }: MainMenuProps) => {
         icon: 'profile',
         onPress: () => {
           try {
-            Linking.openURL(AGENT_URL)
+            if (isAgentLoggedIn) {
+              push('/agent/profile')
+            } else {
+              push('/auth/login', {
+                t: LoginType.Agent,
+              })
+            }
           } catch (e) {
             console.log('Failed to open Agent url')
           }

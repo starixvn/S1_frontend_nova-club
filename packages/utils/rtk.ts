@@ -38,7 +38,7 @@ export function useDummyRtk(dummyData): DummyRTKType {
   async function dummyApiRequest(first?: boolean) {
     if (first) dispatch({ type: 'firstRequest' })
     else dispatch({ type: 'subsequentRequest' })
-    // await sleep(200)
+    await sleep(1000)
     dispatch({ type: 'onSuccess', payload: dummyData })
   }
 

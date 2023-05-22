@@ -8,8 +8,10 @@ import Forbidden from 'app/features/common/Forbidden'
 import Maintenance from 'app/features/common/Maintenance'
 import CustomerSupportPage from 'app/features/customerSupport'
 import CatEventTnc from 'app/features/events/dragonBoat/CatTnc'
+import DragonBoat from 'app/features/events/dragonBoat/DragonBoat'
 import FishingPage from 'app/features/fishing'
 import GameLoaderPage from 'app/features/games/GameLoaderPage'
+import AgentPromoTnC from 'app/features/home/Section/AgentPromoTnC'
 import MessagesPage from 'app/features/messages'
 import CreatePinScreen from 'app/features/pin/CreatePinScreen'
 import ChangePinScreen from 'app/features/pin/change-pin'
@@ -33,12 +35,11 @@ import CryptoWithdrawalPage from 'app/features/withdrawal/CryptoWithdrawalPage'
 import { fadeScaleIn } from 'app/transitions/fade'
 import { Easing } from 'react-native'
 import DepositNavigation from './DepositNavigation'
-import TabNavigation from './TabNavigation'
-import DragonBoat from 'app/features/events/dragonBoat/DragonBoat'
+import MemberAgentNavigation from './MemberAgentNavigation'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
-  BottomNav: undefined
+  MemberAgent: undefined
   LoginPage: undefined
   RegisterPage: undefined
   DepositPage: undefined
@@ -77,6 +78,7 @@ const Stack = createStackNavigator<{
   AccountVerification: undefined
   CatEventTnc: undefined
   DragonBoat: undefined
+  AgentRecruitmentTnc: undefined
 }>()
 
 export function NativeNavigation() {
@@ -178,8 +180,8 @@ export function NativeNavigation() {
         }}
       />
       <Stack.Screen
-        name="BottomNav"
-        component={TabNavigation}
+        name="MemberAgent"
+        component={MemberAgentNavigation}
         options={{
           cardStyleInterpolator: fadeScaleIn,
           transitionSpec: {
@@ -255,6 +257,7 @@ export function NativeNavigation() {
       <Stack.Screen name="Maintenance" component={Maintenance} />
       <Stack.Screen name="CatEventTnc" component={CatEventTnc} />
       <Stack.Screen name="DragonBoat" component={DragonBoat} />
+      <Stack.Screen name="AgentRecruitmentTnc" component={AgentPromoTnC} />
     </Stack.Navigator>
   )
 }

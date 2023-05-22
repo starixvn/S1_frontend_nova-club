@@ -1,4 +1,3 @@
-import { CommonActions, useNavigation } from '@react-navigation/native'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { logOut } from 'app/utils/authUtil'
 import { Platform } from 'react-native'

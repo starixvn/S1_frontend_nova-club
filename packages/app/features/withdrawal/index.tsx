@@ -8,11 +8,12 @@ import { WITHDRAWAL_NOTES } from 'app/constant/notes'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
 import { Text, View, styled } from 'dripsy'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import DepositMethodCard from '../deposit/DepositMethodCard'
 import AvailableBalance from './AvailableBalance'
 import WithdrawalTransactions from './WithdrawalTransactions'
+import { useCryptoBankQuery } from 'services/bank'
 
 const WITHDRAWAL_OPTIONS = [
   {
@@ -23,20 +24,34 @@ const WITHDRAWAL_OPTIONS = [
     color: '#ac0102',
     active: true,
   },
-  {
-    id: DepositMethodId.CRYPTO,
-    categoryId: DepositPaymentMethodCategoryId.CRYPTO,
-    name: 'deposit.depositMethod.crypto',
-    icon: 'cp',
-    color: '#36A07B',
-    active: true,
-  },
 ]
+
+const WITHDRAWAL_OPTIONS_CRYPTO = {
+  id: DepositMethodId.CRYPTO,
+  categoryId: DepositPaymentMethodCategoryId.CRYPTO,
+  name: 'deposit.depositMethod.crypto',
+  icon: 'cp',
+  color: '#36A07B',
+  active: true,
+}
 
 const WithdrawalPage = () => {
   const { t } = useLocalization()
   const { push } = useContextualRouter()
   const { openModal } = useModal()
+  const [withdrawalOptions, setWithdrawalOptions] = useState(WITHDRAWAL_OPTIONS)
+
+  const { cryptoBankList } = useCryptoBankQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      cryptoBankList: data?.data,
+    }),
+  })
+
+  useEffect(() => {
+    cryptoBankList &&
+      cryptoBankList.length !== 0 &&
+      setWithdrawalOptions([...WITHDRAWAL_OPTIONS, WITHDRAWAL_OPTIONS_CRYPTO])
+  }, [cryptoBankList])
 
   const handlePress = (id) => {
     switch (id) {
@@ -78,8 +93,8 @@ const WithdrawalPage = () => {
               justifyContent: 'space-between',
             }}
           >
-            {WITHDRAWAL_OPTIONS &&
-              WITHDRAWAL_OPTIONS.map((item, index) => (
+            {withdrawalOptions &&
+              withdrawalOptions.map((item, index) => (
                 <DepositMethodCard
                   key={item.id}
                   item={item}
