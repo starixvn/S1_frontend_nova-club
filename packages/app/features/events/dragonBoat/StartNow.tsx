@@ -28,7 +28,7 @@ const StartNow = ({ disable, isSubmitting, onPress }: StartNowProps) => {
           }}
         >
           <Image
-            style={{ aspectRatio: 1, width: Math.min(90, width * 0.2) }}
+            style={{ aspectRatio: 1, width: 70, height: 70 }}
             resizeMode={'contain'}
             source={COIN_IMG}
           />

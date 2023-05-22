@@ -8,7 +8,7 @@ const DumplingDrum = () => {
     <View
       sx={{
         position: 'absolute',
-        bottom: '0%',
+        bottom: '10%',
         right: '-58%',
         width: '100%',
       }}

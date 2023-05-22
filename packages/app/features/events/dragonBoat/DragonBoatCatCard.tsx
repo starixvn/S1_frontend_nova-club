@@ -1,4 +1,4 @@
-import { Pressable, View } from 'dripsy'
+import { Image, Pressable, View } from 'dripsy'
 import { MotiImage, MotiView, useAnimationState } from 'moti'
 import { Platform, StyleSheet, useWindowDimensions } from 'react-native'
 import useSoundController, { SoundController } from './useSoundController'
@@ -50,6 +50,8 @@ const DragonBoatCatCard = ({
       <View
         sx={{
           padding: 10,
+          width: 90,
+          height: 90,
         }}
       >
         <Pressable
@@ -63,11 +65,13 @@ const DragonBoatCatCard = ({
           }}
         >
           <MotiView state={closed} style={styles.shape}>
-            <MotiImage
+            <Image
               style={{
-                aspectRatio: 1,
-                width: Math.min(90, width * 0.2),
-                height: Platform.OS === 'web' ? 'auto' : 90,
+                aspectRatio: Platform.OS === 'web' ? 1 : undefined,
+                width: '100%',
+                height: '100%',
+                // width: Math.min(90, width * 0.2),
+                // height: Platform.OS === 'web' ? 'auto' : 90,
               }}
               resizeMode={'contain'}
               source={COIN_IMG}
@@ -86,8 +90,7 @@ const DragonBoatCatCard = ({
                 style={{
                   aspectRatio: 1,
                   height: '100%',
-                  width:
-                    Platform.OS === 'web' ? Math.min(90, width * 0.2) : '100%',
+                  width: '100%',
                 }}
                 resizeMode={'contain'}
                 source={img}
@@ -103,13 +106,10 @@ const DragonBoatCatCard = ({
                 style={{
                   aspectRatio: 25 / 22,
                   height: '100%',
-                  width:
-                    Platform.OS === 'web'
-                      ? Math.min(100, width * 0.225)
-                      : '110%',
+                  width: '110%',
                   position: 'absolute',
-                  left: -5,
-                  top: Platform.OS === 'web' ? 0 : -2,
+                  left: -4,
+                  top: Platform.OS === 'web' ? -1 : -1,
                   zIndex: -100,
                   opacity: resetCard ? 1 : 0,
                 }}
