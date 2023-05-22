@@ -9,7 +9,7 @@ export const BOTTOM_ROUTE: Route[] = [
   {
     label: 'Games',
     path: '/games',
-    icon: 'games-2',
+    icon: 'games1',
   },
   {
     label: 'Home',

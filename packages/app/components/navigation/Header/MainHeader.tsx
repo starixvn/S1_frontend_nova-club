@@ -30,7 +30,7 @@ const MainHeader = () => {
   const [totalBalance, setTotalBalance] = useState('0')
   const lastTransferredToMainWalletToken = useRef('')
   const token = useAppSelector((s) => s.auth.info?.token)
-  console.log(token)
+  console.log('Rerender Header')
   const {
     data: playerBalance,
     isFetching: isMainWalletLoading,
@@ -124,7 +124,7 @@ const MainHeader = () => {
         <GradientButton
           onPress={toggleDrawer}
           size={34}
-          iconProps={{ name: 'btnMenu', color: 'white', size: 12 }}
+          iconProps={{ name: 'burgerMenu', color: 'white', size: 12 }}
         />
       </Row>
     </HeaderContainer>
