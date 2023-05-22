@@ -50,8 +50,6 @@ const DragonBoatCatCard = ({
       <View
         sx={{
           padding: 10,
-          width: 90,
-          height: 90,
         }}
       >
         <Pressable
@@ -67,11 +65,8 @@ const DragonBoatCatCard = ({
           <MotiView state={closed} style={styles.shape}>
             <Image
               style={{
-                aspectRatio: Platform.OS === 'web' ? 1 : undefined,
-                width: '100%',
-                height: '100%',
-                // width: Math.min(90, width * 0.2),
-                // height: Platform.OS === 'web' ? 'auto' : 90,
+                width: 70,
+                height: 70,
               }}
               resizeMode={'contain'}
               source={COIN_IMG}
@@ -88,9 +83,8 @@ const DragonBoatCatCard = ({
                   loop: resetCard && prizeImg ? true : false,
                 }}
                 style={{
-                  aspectRatio: 1,
-                  height: '100%',
-                  width: '100%',
+                  height: 70,
+                  width: 70,
                 }}
                 resizeMode={'contain'}
                 source={img}
@@ -104,12 +98,11 @@ const DragonBoatCatCard = ({
                   loop: resetCard && prizeImg ? true : false,
                 }}
                 style={{
-                  aspectRatio: 25 / 22,
-                  height: '100%',
-                  width: '110%',
+                  height: 75,
+                  width: 75,
                   position: 'absolute',
-                  left: -4,
-                  top: Platform.OS === 'web' ? -1 : -1,
+                  left: -3,
+                  top: -3,
                   zIndex: -100,
                   opacity: resetCard ? 1 : 0,
                 }}
