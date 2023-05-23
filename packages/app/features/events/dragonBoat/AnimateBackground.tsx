@@ -1,19 +1,20 @@
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { Image, View } from 'dripsy'
+import { Image, View, styled } from 'dripsy'
 import { useWindowDimensions } from 'react-native'
 import { View as MotiView, useAnimationState } from 'moti'
 import { useEffect } from 'react'
+import { Easing } from 'react-native-reanimated'
 
 const AnimateBackground = () => {
   const { top } = useSafeArea()
   const { height, width } = useWindowDimensions()
   const wave2 = useAnimationState({
-    from: { translateX: 0 },
-    to: { translateX: 45 },
+    from: { translateX: 10 },
+    to: { translateX: 30 },
   })
   const wave3 = useAnimationState({
-    from: { translateX: 0 },
-    to: { translateX: -45 },
+    from: { translateX: 40 },
+    to: { translateX: 80 },
   })
   const boat = useAnimationState({
     from: { translateX: 0 },
@@ -28,67 +29,65 @@ const AnimateBackground = () => {
         bottom: 0,
       }}
     >
-      <MotiView
+      <StyledMotiView
         state={wave3}
         transition={{
           loop: true,
-          delay: 500,
-          damping: 30,
-          mass: 20,
-          duration: 3000,
+          // damping: 10,
+          mass: 10,
         }}
-        style={{
+        sx={{
           position: 'absolute',
           right: 0,
-          bottom: -70,
-          width: '140%',
+          bottom: -90,
+          width: ['140%', '110%'],
         }}
       >
         <Image
           sx={{
-            height: 200,
+            width: '100%',
+            height: 250,
           }}
           resizeMode="contain"
           source={require('../../../assets/images/events/dragonBoat/wave3.png')}
         />
-      </MotiView>
-      <MotiView
+      </StyledMotiView>
+      <StyledMotiView
         state={wave2}
         transition={{
           loop: true,
-          delay: 300,
-          damping: 30,
-          mass: 30,
-          duration: 3000,
+          // damping: 10,
+          mass: 10,
         }}
-        style={{
+        sx={{
           position: 'absolute',
           right: 0,
-          bottom: -85,
-          width: '140%',
+          bottom: -100,
+          width: ['140%', '110%'],
         }}
       >
         <Image
           sx={{
-            height: 200,
+            height: 250,
+            width: '100%',
           }}
           resizeMode="contain"
           source={require('../../../assets/images/events/dragonBoat/wave2.png')}
         />
-      </MotiView>
+      </StyledMotiView>
 
-      <MotiView
+      <StyledMotiView
         nativeID="dragon_boat"
         state={boat}
         transition={{
           loop: true,
-          damping: 30,
+          // damping: 10,
           mass: 10,
         }}
-        style={{
+        sx={{
           position: 'absolute',
           left: '5%',
-          bottom: -25,
+          bottom: [-25, 30],
           width: '100%',
           transform: [{ rotate: '100deg' }],
         }}
@@ -96,24 +95,27 @@ const AnimateBackground = () => {
         <Image
           sx={{
             height: 250,
-            width: 350,
+            minWidth: 350,
+            width: '50%',
           }}
           resizeMode="contain"
           source={require('../../../assets/images/events/dragonBoat/dragon-boat.png')}
         />
-      </MotiView>
+      </StyledMotiView>
 
       <View
-        style={{
+        sx={{
           position: 'absolute',
-          right: -20,
-          bottom: -105,
-          width: '140%',
+          left: -10,
+          bottom: -115,
+          width: ['140%', '110%'],
+          maxWidth: 1400,
         }}
       >
         <Image
           sx={{
-            height: 200,
+            height: 250,
+            width: '100%',
           }}
           resizeMode="contain"
           source={require('../../../assets/images/events/dragonBoat/wave1.png')}
@@ -122,5 +124,7 @@ const AnimateBackground = () => {
     </View>
   )
 }
+
+const StyledMotiView = styled(MotiView)({})
 
 export default AnimateBackground
