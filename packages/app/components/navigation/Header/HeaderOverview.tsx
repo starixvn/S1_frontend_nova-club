@@ -33,7 +33,7 @@ const HeaderButton = ({
         distance={0.2}
         style={{
           borderRadius: 15,
-          minWidth: 125,
+          minWidth: 135,
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-evenly',
@@ -42,7 +42,7 @@ const HeaderButton = ({
           backgroundColor: theme.colors.$primary[700],
         }}
       >
-        <Icon name={icon} size={12} color={'$secondary.100'} />
+        <Icon name={icon} size={16} color={'$secondary.100'} />
 
         {isLoading ? (
           <ActivityIndicator
@@ -54,7 +54,7 @@ const HeaderButton = ({
         ) : (
           <Text
             sx={{
-              fontSize: 12,
+              fontSize: 14,
               color: '$secondary.100',
               minWidth: 40,
               textAlign: 'right',
