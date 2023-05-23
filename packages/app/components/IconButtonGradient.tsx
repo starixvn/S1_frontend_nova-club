@@ -5,29 +5,19 @@ import { PressableProps, TextProps } from 'react-native'
 import Icon, { IconProps } from './Icon'
 const ICON_SIZE = 40
 
-interface GradientButtonProps extends PressableProps {
+export interface IconButtonGradientProps extends PressableProps {
   size?: number
   icon?: string
   iconProps?: IconProps
-  label?: string
-  labelProps?: IconLabelProps
-  toggle?: boolean
-  sx?: SxProp
-}
-
-interface IconLabelProps extends TextProps {
   sx?: SxProp
 }
 
 const IconButtonGradient = ({
   icon,
   iconProps,
-  label,
   size = ICON_SIZE,
-  labelProps,
-  toggle = false,
   ...rest
-}: GradientButtonProps) => {
+}: IconButtonGradientProps) => {
   const iconName = iconProps?.name ?? icon
 
   return (
