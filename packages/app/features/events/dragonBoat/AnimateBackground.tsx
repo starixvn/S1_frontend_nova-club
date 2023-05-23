@@ -1,13 +1,10 @@
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Image, View, styled } from 'dripsy'
-import { useWindowDimensions } from 'react-native'
 import { View as MotiView, useAnimationState } from 'moti'
-import { useEffect } from 'react'
-import { Easing } from 'react-native-reanimated'
+import { useWindowDimensions } from 'react-native'
 
 const AnimateBackground = () => {
-  const { top } = useSafeArea()
-  const { height, width } = useWindowDimensions()
+  const { width } = useWindowDimensions()
   const wave2 = useAnimationState({
     from: { translateX: 10 },
     to: { translateX: 30 },
@@ -33,8 +30,8 @@ const AnimateBackground = () => {
         state={wave3}
         transition={{
           loop: true,
-          // damping: 10,
-          mass: 10,
+          type: 'timing',
+          duration: 2000,
         }}
         sx={{
           position: 'absolute',
@@ -56,8 +53,8 @@ const AnimateBackground = () => {
         state={wave2}
         transition={{
           loop: true,
-          // damping: 10,
-          mass: 10,
+          type: 'timing',
+          duration: 2000,
         }}
         sx={{
           position: 'absolute',
@@ -81,8 +78,8 @@ const AnimateBackground = () => {
         state={boat}
         transition={{
           loop: true,
-          // damping: 10,
-          mass: 10,
+          type: 'timing',
+          duration: 2000,
         }}
         sx={{
           position: 'absolute',

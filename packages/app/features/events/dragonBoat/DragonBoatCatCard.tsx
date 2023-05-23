@@ -1,7 +1,7 @@
 import { Image, Pressable, View } from 'dripsy'
 import { MotiImage, MotiView, useAnimationState } from 'moti'
-import { Platform, StyleSheet, useWindowDimensions } from 'react-native'
-import useSoundController, { SoundController } from './useSoundController'
+import { StyleSheet } from 'react-native'
+import { SoundController } from './useSoundController'
 
 const COIN_IMG = require('../../../assets/images/events/summerCat/coin.png')
 
@@ -24,7 +24,6 @@ const DragonBoatCatCard = ({
   flipSound,
   onPress,
 }: SummerCatCardProps) => {
-  const { height, width } = useWindowDimensions()
   const closed = useAnimationState({
     from: {
       opacity: 1,
@@ -65,8 +64,8 @@ const DragonBoatCatCard = ({
           <MotiView state={closed} style={styles.shape}>
             <Image
               style={{
-                width: 70,
-                height: 70,
+                width: 90,
+                height: 90,
               }}
               resizeMode={'contain'}
               source={COIN_IMG}
@@ -83,8 +82,8 @@ const DragonBoatCatCard = ({
                   loop: resetCard && prizeImg ? true : false,
                 }}
                 style={{
-                  height: 70,
-                  width: 70,
+                  height: 90,
+                  width: 90,
                 }}
                 resizeMode={'contain'}
                 source={img}
@@ -98,8 +97,8 @@ const DragonBoatCatCard = ({
                   loop: resetCard && prizeImg ? true : false,
                 }}
                 style={{
-                  height: 75,
-                  width: 75,
+                  height: 95,
+                  width: 95,
                   position: 'absolute',
                   left: -3,
                   top: -3,

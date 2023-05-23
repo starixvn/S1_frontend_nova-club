@@ -1,31 +1,30 @@
+import Image from 'app/components/common/Image'
 import IconButton from 'app/components/form/IconButton'
 import useAlert from 'app/hooks/useAlert'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
+import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { Action, ActionType, getAction } from 'app/utils/actionGenerator'
 import { getErrorMessage } from 'app/utils/validation'
-import { ScrollView, Text, View } from 'dripsy'
+import { ScrollView, View } from 'dripsy'
 import _ from 'lodash'
 import React, { useCallback, useEffect, useState } from 'react'
-import { ImageBackground, Platform, useWindowDimensions } from 'react-native'
+import { Platform } from 'react-native'
 import {
   useCheckTicketSpinQuery,
   useLuckyDrawMutation,
 } from 'services/eventApi'
+import AnimateBackground from './AnimateBackground'
+import Background from './Background'
 import CoinBox from './CoinBox'
+import DragonBoatCatCard from './DragonBoatCatCard'
 import Result from './Result'
 import StartNow from './StartNow'
-import DragonBoatCatCard from './DragonBoatCatCard'
-import useSoundController from './useSoundController'
-import Image from 'app/components/common/Image'
-import TouchableOpacity from 'app/pressable/TouchableOpacity'
-import { Action, ActionType, getAction } from 'app/utils/actionGenerator'
-import { useAppSelector } from 'app/provider/redux/store'
-import { Gradient } from '@dripsy/gradient'
-import Background from './Background'
-import AnimateBackground from './AnimateBackground'
-import Title from './Title'
 import TicketLeft from './TicketLeft'
+import Title from './Title'
+import useSoundController from './useSoundController'
 
 import { useFonts } from 'expo-font'
 
@@ -60,7 +59,6 @@ const tncData: Action = {
 const DragonBoat = () => {
   const { back, push } = useContextualRouter()
   const { top, bottom, left, right } = useSafeArea()
-  const { height, width } = useWindowDimensions()
 
   const [buttonMap, setButtoMap] = useState<Array<number>>([])
   const [result, setResult] = useState<number>() || undefined
@@ -84,13 +82,6 @@ const DragonBoat = () => {
   })
 
   const [draw] = useLuckyDrawMutation()
-
-  const imageBackgroundref = useCallback((node) => {
-    if (!node) return
-
-    const backgroundImage = node.childNodes
-    backgroundImage[0].style.backgroundPosition = 'bottom'
-  }, [])
 
   async function getResult() {
     try {
@@ -164,7 +155,7 @@ const DragonBoat = () => {
   useEffect(() => {
     if (prizePress === 3) {
       if (result && result > 0) {
-        play('won')
+        play('win')
       } else {
         play('lose')
       }
@@ -256,8 +247,6 @@ const DragonBoat = () => {
         contentContainerStyle={{
           paddingBottom: bottom,
           alignItems: 'center',
-          // justifyContent: 'center',
-          // marginTop: top + 80,
         }}
         sx={Platform.select({
           web: {
@@ -272,11 +261,11 @@ const DragonBoat = () => {
             marginTop: top + 80,
           }}
         >
-          <View>
-            <TicketLeft balance={balance} />
-          </View>
           {flipPage ? (
             <View>
+              <View>
+                <TicketLeft balance={balance} />
+              </View>
               <Title balance={balance} />
               <CoinBox title={t('event.catEvent.miniGame.matchThree')}>
                 {result || result! >= 0 ? (
@@ -306,18 +295,23 @@ const DragonBoat = () => {
                     </View>
                   ))
                 ) : (
-                  <StartNow
-                    disable={
-                      !balance?.totalBalance || balance?.totalBalance === 0
-                    }
-                    isSubmitting={isSubmitting}
-                    onPress={() => getResult()}
-                  />
+                  <>
+                    <StartNow
+                      disable={
+                        !balance?.totalBalance || balance?.totalBalance === 0
+                      }
+                      isSubmitting={isSubmitting}
+                      onPress={() => getResult()}
+                    />
+                  </>
                 )}
               </CoinBox>
             </View>
           ) : (
-            <View>
+            <View sx={{ marginTop: 100 }}>
+              <View>
+                <TicketLeft balance={balance} />
+              </View>
               <Result
                 result={result!}
                 onPress={() => {

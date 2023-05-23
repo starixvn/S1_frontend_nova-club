@@ -1,7 +1,7 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { Audio, AVPlaybackStatusToSet } from 'expo-av'
+import { AVPlaybackStatusToSet, Audio } from 'expo-av'
 import { Sound } from 'expo-av/build/Audio'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 
 export type SoundType = 'bgm' | 'flip' | 'win' | 'lose'
 

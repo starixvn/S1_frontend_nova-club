@@ -1,7 +1,5 @@
-import { Gradient } from '@dripsy/gradient'
 import useLocalization from 'app/provider/localization'
 import { Text, View } from 'dripsy'
-import { ImageBackground } from 'react-native'
 
 interface TitleProps {
   balance

@@ -1,4 +1,3 @@
-import { Gradient } from '@dripsy/gradient'
 import useLocalization from 'app/provider/localization'
 import { Text, View } from 'dripsy'
 import { ImageBackground } from 'react-native'
@@ -10,7 +9,7 @@ interface TitleProps {
 const Title = ({ balance }: TitleProps) => {
   const { t } = useLocalization()
   return (
-    <View>
+    <View sx={{ opacity: 1, height: 100 }}>
       <ImageBackground
         source={require('../../../assets/images/events/dragonBoat/title-bg.png')}
         resizeMode="contain"

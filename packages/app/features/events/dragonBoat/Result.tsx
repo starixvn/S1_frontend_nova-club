@@ -1,8 +1,7 @@
 import Image from 'app/components/common/Image'
 import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import useLocalization from 'app/provider/localization'
-import { Text, View, useDripsyTheme } from 'dripsy'
-import { ImageBackground, useWindowDimensions } from 'react-native'
+import { Text, View } from 'dripsy'
 import DumplingDrum from './DumplingDrum'
 
 interface ResultProps {
@@ -11,15 +10,13 @@ interface ResultProps {
 }
 
 const Result = ({ result, onPress }: ResultProps) => {
-  const { width } = useWindowDimensions()
-  const { theme } = useDripsyTheme()
   const { t } = useLocalization()
   return (
     <View sx={{ paddingBottom: '10%' }}>
       <View
         sx={{
           maxHeight: 370,
-          padding: 20,
+          padding: 35,
           borderRadius: 33,
           backgroundColor: 'rgba(0,0,0,0.7)',
           marginTop: 15,

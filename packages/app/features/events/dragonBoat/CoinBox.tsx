@@ -1,7 +1,5 @@
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import Image from 'app/components/common/Image'
-import { Text, View, useDripsyTheme } from 'dripsy'
-import { ImageBackground, useWindowDimensions } from 'react-native'
+import { View } from 'dripsy'
+import { ImageBackground } from 'react-native'
 
 interface CoinBoxProps {
   title: string
@@ -9,8 +7,6 @@ interface CoinBoxProps {
 }
 
 const CoinBox = ({ title, children }: CoinBoxProps) => {
-  const { width } = useWindowDimensions()
-  const { theme } = useDripsyTheme()
   return (
     <View sx={{ zIndex: -1 }}>
       <ImageBackground
