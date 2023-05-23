@@ -25,6 +25,7 @@ export const contentApi = baseApiWithTag.injectEndpoints({
         url: `${MEDIA_DOMAIN}${CONTENT_URI}/banners/banner.json?v=17`,
         method: 'GET',
       }),
+      providesTags: ['Banner'],
     }),
     leaderboard: builder.query<IResponse<LeaderboardResult[]>, void>({
       query: () => ({
@@ -106,6 +107,7 @@ export const contentApi = baseApiWithTag.injectEndpoints({
         method: 'GET',
         baseURL: DEV_DOMAIN,
       }),
+      providesTags: ['Jackpot'],
     }),
     getMaintenance: builder.query<IResponse<JackpotAmountResult>, void>({
       query: () => ({
@@ -119,6 +121,7 @@ export const contentApi = baseApiWithTag.injectEndpoints({
         url: `/static_api/getRecoMatch`,
         method: 'GET',
       }),
+      providesTags: ['RecoMatches'],
     }),
   }),
 })
