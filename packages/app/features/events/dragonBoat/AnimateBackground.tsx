@@ -87,7 +87,7 @@ const AnimateBackground = () => {
         sx={{
           position: 'absolute',
           left: '5%',
-          bottom: [-25, 30],
+          bottom: [-25, -10, 0, 30],
           width: '100%',
           transform: [{ rotate: '100deg' }],
         }}
