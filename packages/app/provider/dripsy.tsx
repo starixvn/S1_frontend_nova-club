@@ -79,7 +79,7 @@ const theme = makeTheme({
   },
   linearGradients: {
     // nesteed color not working for now, https://github.com/nandorojo/dripsy/issues/286
-    button: ['#9696E6', '#7fc9fc'],
+    button: ['$primary.100', '$tertiary'],
     // surface: ['$primary.300', '#$primary.500'],
     surface: ['$primary.300', '$primary.500'],
     ball: ['$success', '$error'],
