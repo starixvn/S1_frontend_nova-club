@@ -1,3 +1,3 @@
-import InputScreen from 'app/features/demo/InputScreen'
+import SplashScreen from 'app/features/splashscreen/screen'
 
-export default InputScreen
+export default SplashScreen
