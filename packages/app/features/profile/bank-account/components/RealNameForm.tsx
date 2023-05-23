@@ -2,7 +2,7 @@ import InputBase from 'app/components/form/Input/InputBase'
 import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
 import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import {
   usePlayerProfileQuery,
@@ -17,6 +17,11 @@ const RealNameForm = ({ formik, children }) => {
   const [sendOtp, { isLoading: isOtpLoading }] =
     useSendUpdateProfileOTPMutation()
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
+
+  useEffect(() => {
+    playerData?.firstName.length !== 0 &&
+      setFieldValue('realName', playerData?.firstName)
+  }, [playerData?.firstName])
 
   const {
     handleChange,
