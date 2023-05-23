@@ -8,6 +8,7 @@
     "expo-image-picker": "^14.1.1",
     "moti": "latest",
     "react-native-date-picker": "^4.2.13",
+    "react-native-reanimated-carousel": "^3.3.2",
     "solito": "3.0.0",
     "utils": "*",
     "zeego": "^1.5.1"

@@ -1,11 +1,8 @@
-import { Text, View, styled, useDripsyTheme } from 'dripsy'
-import { Gradient } from 'dripsy/gradient'
+import { Text, useDripsyTheme } from 'dripsy'
 import React, { useEffect } from 'react'
-import ModalWrapper from './ModalWrapper'
-import GradientButton from '../GradientButton'
 import { Button } from 'react-native'
-import Icon from '../icon'
 import ModalContent from './ModalContent'
+import ModalWrapper from './ModalWrapper'
 
 const AlertModal = ({ modal: { closeModal, getParam } }) => {
   const { theme } = useDripsyTheme()

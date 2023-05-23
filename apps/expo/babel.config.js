@@ -6,6 +6,15 @@ module.exports = function (api) {
       'react-native-reanimated/plugin',
       // https://expo.github.io/router/docs/#configure-the-babel-plugin
       require.resolve('expo-router/babel'),
+      [
+        'module:react-native-dotenv',
+        {
+          moduleName: '@env',
+          envName: 'APP_ENV',
+          allowUndefined: true,
+          path: '../../env/.env',
+        },
+      ],
     ],
   }
 }

@@ -2,22 +2,20 @@ import usePathname from 'app/hooks/usePathname'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { View } from 'dripsy'
 import { Gradient } from 'dripsy/gradient'
-import React, { useState } from 'react'
+import React from 'react'
 import { useWindowDimensions } from 'react-native'
 import { useRouter } from 'solito/router'
-import GradientButton from '../GradientButton'
+import IconButtonGradientToggle from '../IconButtonGradientToggle'
 import { BOTTOM_ROUTE } from './RoutePath'
+import IconButtonGradientGroup from '../IconButtonGradientGroup'
 
-export const BOTTOM_TAB_BAR_HEIGHT = 47.5
-const BOTTOM_ICON_ACTIVE = 28
-const BOTTOM_ICON_INACTIVE = 22
+export const BOTTOM_TAB_BAR_HEIGHT = 60
 
 function BottomTabBar() {
   const pathname = usePathname()
   const { push } = useRouter()
   const { bottom } = useSafeArea()
   const { width } = useWindowDimensions()
-  const ICON_SIZE = Math.min(55, width * 0.15)
 
   const isActiveState = (
     index: number,
@@ -41,41 +39,36 @@ function BottomTabBar() {
         borderTopWidth: 1,
         borderColor: '#9696FF',
         overflow: 'visible',
+        height: BOTTOM_TAB_BAR_HEIGHT + Math.min(bottom, 15),
       }}
     >
-      <View
+      <IconButtonGradientGroup
         sx={{
-          flexDirection: 'row',
-          justifyContent: 'space-evenly',
-          height: BOTTOM_TAB_BAR_HEIGHT,
-          marginBottom: bottom,
+          transform: [
+            {
+              translateY: -BOTTOM_TAB_BAR_HEIGHT * 0.6,
+            },
+          ],
         }}
       >
         {BOTTOM_ROUTE.map((r, index) => {
           return (
-            <GradientButton
+            <IconButtonGradientToggle
+              sx={{ flex: 1 }}
+              withTranslate
               key={r.label}
-              toggle={true}
               active={isActiveState(index, r)}
               label={r.label}
-              size={ICON_SIZE}
-              iconProps={{
-                name: r.icon ?? 'notice',
-                size: isActiveState(index, r)
-                  ? BOTTOM_ICON_ACTIVE
-                  : BOTTOM_ICON_INACTIVE,
-              }}
+              size={BOTTOM_TAB_BAR_HEIGHT * 1.2}
+              icon={r.icon ?? 'notice'}
               labelProps={{
                 numberOfLines: 1,
-                sx: {
-                  fontSize: 10,
-                },
               }}
               onPress={() => push(r.path ?? '/')}
             />
           )
         })}
-      </View>
+      </IconButtonGradientGroup>
     </Gradient>
   )
 }
