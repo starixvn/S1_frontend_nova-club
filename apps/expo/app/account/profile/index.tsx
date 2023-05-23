@@ -1,3 +1,3 @@
-import ProfileScreen from 'app/features/account/ProfileScreen'
+import ProfileScreen from 'app/features/profile/index'
 
 export default ProfileScreen

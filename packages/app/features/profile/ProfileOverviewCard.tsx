@@ -3,7 +3,7 @@ import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import { ActivityIndicator, Text, View, styled } from 'dripsy'
 import { TouchableOpacity } from 'react-native'
-import { usePlayerOverviewSummaryQuery } from '../../../../services/playerApi'
+import { usePlayerOverviewSummaryQuery } from 'services/playerApi'
 import { useAppSelector } from 'app/provider/redux/store'
 
 interface ProfileOverviewTextProps {

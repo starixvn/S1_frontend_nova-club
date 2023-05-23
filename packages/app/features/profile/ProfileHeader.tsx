@@ -2,7 +2,7 @@ import Icon from 'app/components/Icon'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { View, Text, Image, Pressable } from 'dripsy'
 import React from 'react'
-import { ProfileResult } from '../../../../services/playerApi.type'
+import { ProfileResult } from 'services/playerApi.type'
 import IconButton from 'app/components/IconButton'
 import useLocalization from 'app/provider/localization'
 import { useRouter } from 'solito/router'
@@ -52,7 +52,7 @@ export default function ProfileHeader({ data }: ProfileHeaderProps) {
             mx: 15,
             borderColor: 'white',
           }}
-          source={require('../../../assets/images/common/en.jpg')}
+          source={require('../../assets/images/common/en.jpg')}
           resizeMode="contain"
           alt=""
         />
