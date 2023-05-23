@@ -13,28 +13,37 @@ const useGetProfile = () => {
   })
   const isAgent = role === ROLE.AGENT
 
-  const { shareholderProfile, shareholderCurrency } =
+  const { shareholderProfile, shareholderCurrency, shareholderLoading } =
     useShareholderProfileQuery(undefined, {
-      selectFromResult: ({ data }) => ({
+      selectFromResult: ({ data, isLoading }) => ({
+        shareholderLoading: isLoading,
         shareholderProfile: data?.result?.data,
         shareholderCurrency: data?.result?.data.currency as Currency,
       }),
+      refetchOnMountOrArgChange: true,
       skip: role ? isAgent : true,
     })
 
-  const { agentProfile, agentCurrency } = useAgentProfileQuery(undefined, {
-    selectFromResult: ({ data }) => ({
-      agentProfile: data?.result?.data,
-      agentCurrency: data?.result?.data.currency as Currency,
-    }),
-    skip: role ? !isAgent : true,
-  })
+  const { agentProfile, agentCurrency, agentLoading } = useAgentProfileQuery(
+    undefined,
+    {
+      selectFromResult: ({ data, isLoading }) => ({
+        agentLoading: isLoading,
+        agentProfile: data?.result?.data,
+        agentCurrency: data?.result?.data.currency as Currency,
+      }),
+      refetchOnMountOrArgChange: true,
+      skip: role ? !isAgent : true,
+    }
+  )
 
   const profile = isAgent ? agentProfile : shareholderProfile
+  const loading = isAgent ? agentLoading : shareholderLoading
   const currency = isAgent ? agentCurrency : shareholderCurrency ?? Currency.VND
 
   return {
     profile,
+    loading,
     currency,
   }
 }
