@@ -1,12 +1,12 @@
-import useContainerDimension from 'app/hooks/useContainerDimension'
 import useDownload from 'app/hooks/useDownload'
 import useShare from 'app/hooks/useShare'
 import useLocalization from 'app/provider/localization'
 import { copyToClipboard } from 'app/utils'
-import { Pressable, ScrollView, Text, View, useDripsyTheme } from 'dripsy'
+import { Pressable, ScrollView, Text, View } from 'dripsy'
 import React, { useRef } from 'react'
 import { Platform } from 'react-native'
 import ViewShot from 'react-native-view-shot'
+import { RWebShare } from 'react-web-share'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { DripsyGradient } from '../Gradient'
 import Icon from '../Icon'
@@ -14,21 +14,16 @@ import IconButton from '../IconButton'
 import QRCodeGenerator from '../QRCodeGenerator'
 import BouncePressable from '../pressable/BouncePressable'
 import ModalWrapper from './ModalWrapper'
-import { RWebShare } from 'react-web-share'
 
 const DEV_DOMAIN = 'https://stage.gball8.com'
 
 const ReferralModal = ({ modal: { closeModal, getParam } }) => {
-  const { theme } = useDripsyTheme()
-  const TITLE = 'Important Notice'
-
   const { t } = useLocalization()
   const { data } = usePlayerProfileQuery()
   const ref = useRef()
   const referralCode = data?.referral_code
 
   const referralLink = `${DEV_DOMAIN}/download?ref=${referralCode}`
-  const { width, height } = useContainerDimension()
 
   const { appScreenshotDownload, webScreenshotDownload } = useDownload({
     ref,
