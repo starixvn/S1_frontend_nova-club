@@ -5369,6 +5369,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dijkstrajs@npm:^1.0.1":
+  version: 1.0.3
+  resolution: "dijkstrajs@npm:1.0.3"
+  checksum: 82ff2c6633f235dd5e6bed04ec62cdfb1f327b4d7534557bd52f18991313f864ee50654543072fff4384a92b643ada4d5452f006b7098dbdfad6c8744a8c9e08
+  languageName: node
+  linkType: hard
+
 "dir-glob@npm:^3.0.1":
   version: 3.0.1
   resolution: "dir-glob@npm:3.0.1"
@@ -5478,6 +5485,13 @@ __metadata:
   version: 3.0.0
   resolution: "emojis-list@npm:3.0.0"
   checksum: ddaaa02542e1e9436c03970eeed445f4ed29a5337dfba0fe0c38dfdd2af5da2429c2a0821304e8a8d1cadf27fdd5b22ff793571fa803ae16852a6975c65e8e70
+  languageName: node
+  linkType: hard
+
+"encode-utf8@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "encode-utf8@npm:1.0.3"
+  checksum: 550224bf2a104b1d355458c8a82e9b4ea07f9fc78387bc3a49c151b940ad26473de8dc9e121eefc4e84561cb0b46de1e4cd2bc766f72ee145e9ea9541482817f
   languageName: node
   linkType: hard
 
@@ -6051,11 +6065,13 @@ __metadata:
     expo-image-picker: ^14.1.1
     expo-linear-gradient: ~12.1.2
     expo-linking: ~4.0.1
+    expo-media-library: ^15.2.3
     expo-router: ^1.0.1
     expo-screen-orientation: ^5.1.1
     expo-splash-screen: ~0.18.2
     expo-status-bar: ~1.4.4
     formik: ^2.2.9
+    html-to-image: ^1.11.11
     i18n-js: latest
     react: 18.2.0
     react-dom: 18.2.0
@@ -6065,14 +6081,19 @@ __metadata:
     react-native-ios-context-menu: ^1.15.3
     react-native-modalfy: ^3.4.0
     react-native-pager-view: ^6.2.0
+    react-native-qrcode-svg: ^6.2.0
     react-native-reanimated: 3.0.2
     react-native-safe-area-context: 4.5.0
     react-native-screens: ~3.20.0
     react-native-shadow-2: ^7.0.8
+    react-native-share: ^8.2.2
     react-native-svg: ^13.9.0
     react-native-tab-view: ^3.5.1
+    react-native-toast-message: ^2.1.6
+    react-native-view-shot: ^3.6.0
     react-native-web: ~0.18.11
     react-redux: ^8.0.5
+    react-web-share: ^2.0.2
     redux-persist: ^6.0.0
     typescript: ^5.0.4
     yup: ^1.1.1
@@ -6205,6 +6226,15 @@ __metadata:
     qs: ^6.11.0
     url-parse: ^1.5.9
   checksum: 631656c9cad78c345b35b7decd8c2bc22014b867321fcbb0c740b15001a492080ee3be26d27a89587eb2736223c82a39c600950930cf44b6dd95d37acb7e1527
+  languageName: node
+  linkType: hard
+
+"expo-media-library@npm:^15.2.3":
+  version: 15.3.0
+  resolution: "expo-media-library@npm:15.3.0"
+  peerDependencies:
+    expo: "*"
+  checksum: b7a31d351ca1811cf2a7008d1b67af29a7525dced44b1d624e8d0f4e99c78c5f64c666c4ea3e1c933ce6a0f35af7aedc82f50090f37c9b612ca2c6aa99829012
   languageName: node
   linkType: hard
 
@@ -7312,6 +7342,13 @@ __metadata:
   dependencies:
     lru-cache: ^6.0.0
   checksum: 5af7a69581acb84206a7b8e009f4680c36396814e92c8a83973dfb3b87e44e44d1f7b8eaf3e4a953686482770ecb78406a4ce4666bfdfe447762434127871d8d
+  languageName: node
+  linkType: hard
+
+"html-to-image@npm:^1.11.11":
+  version: 1.11.11
+  resolution: "html-to-image@npm:1.11.11"
+  checksum: b453beca72a697bf06fae4945e5460d1d9b1751e8569a0d721dda9485df1dde093938cc9bd9172b8df5fc23133a53a4d619777b3d22f7211cd8a67e3197ab4e8
   languageName: node
   linkType: hard
 
@@ -10462,7 +10499,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:*, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:*, prop-types@npm:^15.7.2, prop-types@npm:^15.8.0, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -10517,6 +10554,20 @@ __metadata:
   bin:
     qrcode-terminal: ./bin/qrcode-terminal.js
   checksum: ad146ea1e339e1745402a3ea131631f64f40f0d1ff9cc6bd9c21677feaa1ca6dcd32eadf188fd3febdab8bf6191b3d24d533454903a72543645a72820e4d324c
+  languageName: node
+  linkType: hard
+
+"qrcode@npm:^1.5.1":
+  version: 1.5.3
+  resolution: "qrcode@npm:1.5.3"
+  dependencies:
+    dijkstrajs: ^1.0.1
+    encode-utf8: ^1.0.3
+    pngjs: ^5.0.0
+    yargs: ^15.3.1
+  bin:
+    qrcode: bin/qrcode
+  checksum: 9a8a20a0a9cb1d15de8e7b3ffa214e8b6d2a8b07655f25bd1b1d77f4681488f84d7bae569870c0652872d829d5f8ac4922c27a6bd14c13f0e197bf07b28dead7
   languageName: node
   linkType: hard
 
@@ -10779,6 +10830,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-qrcode-svg@npm:^6.2.0":
+  version: 6.2.0
+  resolution: "react-native-qrcode-svg@npm:6.2.0"
+  dependencies:
+    prop-types: ^15.8.0
+    qrcode: ^1.5.1
+  peerDependencies:
+    react: "*"
+    react-native: ">=0.63.4"
+    react-native-svg: ^13.2.0
+  checksum: e4e8a709900e16cf0116e9c5edd8ff7150cfbbb2c9763a5a7b171ba6efb1f84d8b93b919dedb915d16686d7a8b0c49c905c62dcbd86f98d471b1c0bcec6f1ae3
+  languageName: node
+  linkType: hard
+
 "react-native-reanimated@npm:3.0.2":
   version: 3.0.2
   resolution: "react-native-reanimated@npm:3.0.2"
@@ -10833,6 +10898,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-share@npm:^8.2.2":
+  version: 8.2.2
+  resolution: "react-native-share@npm:8.2.2"
+  checksum: 0f69911fda2ca1856b439d8b4fcc2ac9c74bd92590fb6a7db60282181f0a9612f218985b3c69b0bbe73da5395a3aa197e91ac8de9a05c07c0b0da5a096a0e294
+  languageName: node
+  linkType: hard
+
 "react-native-svg@npm:^13.9.0":
   version: 13.9.0
   resolution: "react-native-svg@npm:13.9.0"
@@ -10856,6 +10928,26 @@ __metadata:
     react-native: "*"
     react-native-pager-view: "*"
   checksum: 22213e8bde3b0e16631d290a3da146789dcad461dbdc424cf6448c683a2d75c12abbae5aa329c83788123f6dd0865b451ba57848856483607327fb5fdad2fe12
+  languageName: node
+  linkType: hard
+
+"react-native-toast-message@npm:^2.1.6":
+  version: 2.1.6
+  resolution: "react-native-toast-message@npm:2.1.6"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 250ce35cf3df05562ac19a0f1dd9ca3b0f4731021cc1f95a6291fe320a1122f8fbc55e6e4185c9bc0303c43b0acf1435861a0a08e05dc69495b06db818f1daa1
+  languageName: node
+  linkType: hard
+
+"react-native-view-shot@npm:^3.6.0":
+  version: 3.6.0
+  resolution: "react-native-view-shot@npm:3.6.0"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 702fecd29aef9a139846e9bf535a2ffec4091091ea1833a4135bedd88376e7b5d45bc2e2af4f5f4d0a83b208adaebf43cd646230799d495536e3bdb0ff71c0b0
   languageName: node
   linkType: hard
 
@@ -11023,6 +11115,16 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 7ee8ef3aab74c7ae1d70ff34a27643d11ba1a8d62d072c767827d9ff9a520905223e567002e0bf6c772929d8ea1c781a3ba0cc4a563e92b1e3dc2eaa817ecbe8
+  languageName: node
+  linkType: hard
+
+"react-web-share@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "react-web-share@npm:2.0.2"
+  peerDependencies:
+    react: ^16 || ^17 || ^18
+    react-dom: ^16 || ^17 || ^18
+  checksum: 11acb007c6ca688e21011388dba8ecdcb19f831e767cc74cbcddfbdbe01ba13bebe06ec232561a5eb67d6962b2e4b95b4279f1c62bc1f512de455763e2e3be8b
   languageName: node
   linkType: hard
 
@@ -13593,7 +13695,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs@npm:^15.1.0":
+"yargs@npm:^15.1.0, yargs@npm:^15.3.1":
   version: 15.4.1
   resolution: "yargs@npm:15.4.1"
   dependencies:

@@ -1,6 +1,6 @@
 import Icon from 'app/components/Icon'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { View, Text, Image } from 'dripsy'
+import { View, Text, Image, Pressable } from 'dripsy'
 import React from 'react'
 import { ProfileResult } from '../../../../services/playerApi.type'
 import IconButton from 'app/components/IconButton'
@@ -8,6 +8,7 @@ import useLocalization from 'app/provider/localization'
 import { useRouter } from 'solito/router'
 import { copyToClipboard } from 'app/utils'
 import { HEADER_HEIGHT } from 'app/utils/constant'
+import { useModal } from 'react-native-modalfy'
 
 const AVATAR_SIZE = 30
 
@@ -19,6 +20,8 @@ export default function ProfileHeader({ data }: ProfileHeaderProps) {
   const { top, bottom } = useSafeArea()
   const { back } = useRouter()
   const { t } = useLocalization()
+  const { openModal } = useModal()
+
   return (
     <View
       sx={{
@@ -69,8 +72,9 @@ export default function ProfileHeader({ data }: ProfileHeaderProps) {
           <Text sx={{ fontSize: 12 }}>{t('profile.timeline')}</Text>
         </View>
       </View>
-
-      <Icon name={'qr'} size={30} />
+      <Pressable onPress={() => openModal('ReferralModal')}>
+        <Icon name={'qr'} size={30} />
+      </Pressable>
     </View>
   )
 }

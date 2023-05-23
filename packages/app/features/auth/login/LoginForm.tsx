@@ -41,10 +41,7 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
   const usernameFieldRef = useRef<TextInput>(null)
 
   const dispatch = useAppDispatch()
-  // console.log('IsAgent:', isAgent)
-  useEffect(() => {
-    // console.warn('Recreate')
-  }, [])
+
   // const { isBioLoading, showBiometric, normalLogin, startBiometricLogin } =
   //   useBioAuth()
 
@@ -82,7 +79,7 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
         //   TempSettingActions.setSyncShieldActionType(Shield_Action.LOGIN)
         // )
         // normalLogin(username, password, () => handleProceedLogin(data, actions))
-        replace('/?splashscreen=true')
+        replace('/account/profile')
         setIsSubmitting(false)
       } else {
         throw new Error(message)

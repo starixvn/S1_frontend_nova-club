@@ -45,6 +45,7 @@ const nextConfig = {
     'utils',
     '@expo/html-elements',
     '@expo/vector-icons',
+    'zeego'
   ],
 }
 
