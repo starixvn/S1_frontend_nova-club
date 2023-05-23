@@ -6,7 +6,7 @@ import { LOGOUT_ACTION } from './constant'
 import { useRouter } from 'solito/router'
 
 export async function LogOut({ isTokenExpired = false } = {}) {
-  const { replace } = useRouter()
+  // const { replace } = useRouter()
   try {
     const { playerName } = store.getState().auth.info || {}
 
@@ -18,7 +18,7 @@ export async function LogOut({ isTokenExpired = false } = {}) {
     // }
 
     await store.dispatch({ type: LOGOUT_ACTION })
-    replace('/')
+    // replace('/')
   } catch (error) {
     console.error(error)
     return error

@@ -9,16 +9,16 @@ import { configureAxios } from '../../services/common/axiosInstance'
 import { AuthActions } from 'app/store/authReducer'
 
 const useOnAppStart = () => {
-  const { replace, push } = useRouter()
+  // const { replace, push } = useRouter()
   const { token } = useAppSelector((state) => state.auth.info) || {}
   const isLogoutTriggered = useRef(false)
 
   // const { resetRTKQState } = useResetRTKQState()
 
-  const redirectToLoginPage = useCallback(() => {}, [replace])
+  const redirectToLoginPage = useCallback(() => {}, [])
 
   //temporary replacement for RTKQ reset
-  const dispatch = useAppDispatch()
+  // const dispatch = useAppDispatch()
 
   useEffect(() => {
     configureAxios({
@@ -33,17 +33,17 @@ const useOnAppStart = () => {
             // })
 
             if (Platform.OS === 'web') {
-              replace('/')
+              // replace('/')
             } else {
               // clear()
-              replace('/')
+              // replace('/')
               // setTimeout(() => push('/auth/login'), 500)
             }
 
             // setTimeout(resetRTKQState, 1000)
           }
         } catch (error) {
-          dispatch(AuthActions.setAuthInfo(undefined))
+          // dispatch(AuthActions.setAuthInfo(undefined))
 
           console.log(error)
         } finally {
