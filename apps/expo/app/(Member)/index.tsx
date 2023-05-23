@@ -1,6 +1,7 @@
 import { Text } from 'react-native'
 import { Redirect } from 'expo-router'
 import { createParam } from 'solito'
+import HomeScreen from 'app/features/home/HomeScreen'
 
 const { useParam } = createParam()
 
@@ -12,5 +13,5 @@ export default function MemberScreen(props) {
     return <Redirect href="/splashscreen" />
   }
 
-  return null
+  return <HomeScreen />
 }

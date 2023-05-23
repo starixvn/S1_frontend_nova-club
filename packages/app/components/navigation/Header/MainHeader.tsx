@@ -1,3 +1,4 @@
+import IconButtonGradient from 'app/components/IconButtonGradient'
 import { useDrawer } from 'app/hooks/useDrawer'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
@@ -11,7 +12,6 @@ import {
   useTransferAllToOneMutation,
 } from 'services/walletApi'
 import { useRouter } from 'solito/router'
-import GradientButton from '../../GradientButton'
 import HeaderDeposit from './HeaderDeposit'
 import HeaderOverview from './HeaderOverview'
 
@@ -121,10 +121,11 @@ const MainHeader = () => {
           />
         </Pressable>
 
-        <GradientButton
-          onPress={toggleDrawer}
-          size={34}
-          iconProps={{ name: 'burgerMenu', color: 'white', size: 12 }}
+        <IconButtonGradient
+          onPress={() => {
+            console.log('click')
+          }}
+          iconProps={{ name: 'burgerMenu', color: 'white' }}
         />
       </Row>
     </HeaderContainer>

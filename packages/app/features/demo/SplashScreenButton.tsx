@@ -6,6 +6,8 @@ import { Text, View } from 'dripsy'
 import { TouchableOpacity } from 'react-native'
 import { useRouter } from 'solito/router'
 import { useLoginMutation } from '../../../services/authApi'
+import { Link } from 'solito/link'
+import IconButtonGradient from 'app/components/IconButtonGradient'
 
 const SplashScreenButton = () => {
   const [login] = useLoginMutation()
@@ -41,11 +43,12 @@ const SplashScreenButton = () => {
       }}
     >
       <View sx={{ width: '20%' }}>
-        <GradientButton
+        <IconButtonGradient
+          icon={'tiktok'}
           iconProps={{ name: 'tiktok' }}
           onPress={() => push('/demoIconScreen')}
-          label="Demo Button"
         />
+        <IconButtonGradient.Label>{"icon"}</IconButtonGradient.Label>
       </View>
 
       <View sx={{ width: '20%' }}>
@@ -75,6 +78,15 @@ const SplashScreenButton = () => {
       >
         <Icon name={'home'} color={'white'} />
         <Text>Test Login</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={{ alignItems: 'center', width: '30%' }}
+        onPress={() => TestLogin()}
+      >
+        <Link href="/?splashscreen=true">
+          <Icon name={'home'} color={'white'} />
+          <Text>Home</Text>
+        </Link>
       </TouchableOpacity>
     </View>
   )

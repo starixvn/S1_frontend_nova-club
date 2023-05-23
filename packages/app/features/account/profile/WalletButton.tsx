@@ -1,4 +1,5 @@
-import GradientButton from 'app/components/GradientButton'
+import IconButtonGradient from 'app/components/IconButtonGradient'
+import IconButtonGradientGroup from 'app/components/IconButtonGradientGroup'
 import { Profile_Wallet_Route } from 'app/components/navigation/RoutePath'
 import { View } from 'dripsy'
 
@@ -8,10 +9,8 @@ import { useRouter } from 'solito/router'
 const WalletButton = () => {
   const { push } = useRouter()
   return (
-    <View
+    <IconButtonGradientGroup
       sx={{
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
         maxWidth: '95%',
         width: 500,
         mb: 20,
@@ -19,26 +18,27 @@ const WalletButton = () => {
     >
       {Profile_Wallet_Route.map((r, index) => {
         return (
-          <Link key={r.label} href={r.path ?? '/'}>
-            <GradientButton
-              label={r.label}
-              size={50}
-              iconProps={{
-                name: r.icon ?? 'notice',
-                size: 24,
-                color: 'white',
-              }}
-              labelProps={{
-                numberOfLines: 1,
-              }}
+          <Link
+            key={r.label}
+            href={r.path ?? '/'}
+            viewProps={{
+              style: { flex: 1, alignItems: 'center' },
+            }}
+          >
+            <IconButtonGradient
+              size={60}
+              icon={r.icon ?? 'notice'}
               onPress={() => {
                 push(r.path ?? '/')
               }}
             />
+            <IconButtonGradient.Label sx={{ fontWeight: '500' }}>
+              {r.label}
+            </IconButtonGradient.Label>
           </Link>
         )
       })}
-    </View>
+    </IconButtonGradientGroup>
   )
 }
 

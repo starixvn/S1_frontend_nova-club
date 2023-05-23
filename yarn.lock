@@ -3794,6 +3794,7 @@ __metadata:
     expo-image-picker: ^14.1.1
     moti: latest
     react-native-date-picker: ^4.2.13
+    react-native-reanimated-carousel: ^3.3.2
     solito: 3.0.0
     utils: "*"
     zeego: ^1.5.1
@@ -5441,6 +5442,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dotenv@npm:^16.0.3":
+  version: 16.0.3
+  resolution: "dotenv@npm:16.0.3"
+  checksum: afcf03f373d7a6d62c7e9afea6328e62851d627a4e73f2e12d0a8deae1cd375892004f3021883f8aec85932cd2834b091f568ced92b4774625b321db83b827f8
+  languageName: node
+  linkType: hard
+
 "dripsy@npm:4.3.3":
   version: 4.3.3
   resolution: "dripsy@npm:4.3.3"
@@ -6062,6 +6070,7 @@ __metadata:
     expo: ~48.0.15
     expo-clipboard: ^4.1.2
     expo-device: ^5.2.1
+    expo-image: ~1.0.1
     expo-image-picker: ^14.1.1
     expo-linear-gradient: ~12.1.2
     expo-linking: ~4.0.1
@@ -6077,6 +6086,7 @@ __metadata:
     react-dom: 18.2.0
     react-native: 0.71.8
     react-native-date-picker: ^4.2.13
+    react-native-dotenv: ^3.4.8
     react-native-gesture-handler: ~2.9.0
     react-native-ios-context-menu: ^1.15.3
     react-native-modalfy: ^3.4.0
@@ -6195,6 +6205,15 @@ __metadata:
   peerDependencies:
     expo: "*"
   checksum: 6132c98eeae92f0c17ea230292cc8dc84300ff11366b1bc33ca5a0157cfb4463932526800a47c5f0827157160988616da97124dfc356dee071e9d913d60e5248
+  languageName: node
+  linkType: hard
+
+"expo-image@npm:~1.0.1":
+  version: 1.0.1
+  resolution: "expo-image@npm:1.0.1"
+  peerDependencies:
+    expo: "*"
+  checksum: 4370c442df51dda577e2e1a5daf67267d9336fd89afb2b8ee6b0f74b4fdffd9a3b71a5f5580583310d1a71610eabba9ec40d5cf007a01ac6d8a6200ac8ee6a21
   languageName: node
   linkType: hard
 
@@ -10770,6 +10789,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-dotenv@npm:^3.4.8":
+  version: 3.4.8
+  resolution: "react-native-dotenv@npm:3.4.8"
+  dependencies:
+    dotenv: ^16.0.3
+  peerDependencies:
+    "@babel/runtime": ^7.20.6
+  checksum: 8443cec44862d3e110f236b1120d8a1f829cb4545a85c8462e6c01935aa216f50b05eb659661db29939d4d293ce7de6212bf877963e3b37f6c900629f6546d67
+  languageName: node
+  linkType: hard
+
 "react-native-gesture-handler@npm:~2.9.0":
   version: 2.9.0
   resolution: "react-native-gesture-handler@npm:2.9.0"
@@ -10841,6 +10871,18 @@ __metadata:
     react-native: ">=0.63.4"
     react-native-svg: ^13.2.0
   checksum: e4e8a709900e16cf0116e9c5edd8ff7150cfbbb2c9763a5a7b171ba6efb1f84d8b93b919dedb915d16686d7a8b0c49c905c62dcbd86f98d471b1c0bcec6f1ae3
+  languageName: node
+  linkType: hard
+
+"react-native-reanimated-carousel@npm:^3.3.2":
+  version: 3.3.2
+  resolution: "react-native-reanimated-carousel@npm:3.3.2"
+  peerDependencies:
+    react: ">=16.8.0"
+    react-native: ">=0.6.0"
+    react-native-gesture-handler: "*"
+    react-native-reanimated: ">=2.7.0"
+  checksum: 20fe13830d4be8850d3fddf29edc87d02b3d1f7e5ef09da70e578d121ecdfd7cb9f3845b70ee3c2ce204e49fd333ab65e656fcdff6420812b581f8b3c18f22a9
   languageName: node
   linkType: hard
 
