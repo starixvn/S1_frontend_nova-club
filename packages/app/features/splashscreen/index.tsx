@@ -90,7 +90,9 @@ const SplashScreen = () => {
   }
   useEffect(() => {
     if (status) {
-      if (agentToken) {
+      if (loginResult?.token) {
+        replace('/')
+      } else if (agentToken) {
         handleAgentLogin()
       } else replace('/')
     }

@@ -13,13 +13,9 @@ const useOnAgentLogout = () => {
   const logout = async () => {
     try {
       if (Platform.OS === 'web') {
-        replace('/auth/login', {
-          t: LoginType.Agent,
-        })
+        replace('/')
       } else {
-        push('/auth/login', {
-          t: LoginType.Agent,
-        })
+        push('/')
       }
       setTimeout(() => {
         dispatch(AgentAuthActions.setAgentAuthToken())
