@@ -69,13 +69,28 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
   const rememberMeCredential = useAppSelector(
     (s) => s.setting.rememberMeCredentials
   )
+  const agentRememberMeCredential = useAppSelector(
+    (s) => s.setting.agentRememberMeCredentials
+  )
 
   useEffect(() => {
-    isAgent && setValues({ username: '', password: '' })
+    isAgent
+      ? setValues({
+          username: agentRememberMeCredential?.username ?? '',
+          password: agentRememberMeCredential?.password ?? '',
+        })
+      : setValues({
+          username: rememberMeCredential?.username ?? '',
+          password: rememberMeCredential?.password ?? '',
+        })
   }, [isAgent])
 
   const [isRemember, setIsRemember] = useState(() => {
     if (rememberMeCredential) return true
+    else return false
+  })
+  const [isRememberAgent, setIsRememberAgent] = useState(() => {
+    if (agentRememberMeCredential) return true
     else return false
   })
 
@@ -112,6 +127,12 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
 
         if (success && result) {
           dispatch(AgentAuthActions.setAgentAuthToken(result.data.access_token))
+          dispatch(
+            SettingActions.setAgentRememberMe(
+              isRememberAgent ? { username, password } : undefined
+            )
+          )
+
           const resp = await getUserInfo().unwrap()
 
           if (!resp.has_logged_in || !resp.has_otp) {
@@ -173,6 +194,9 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
 
   const onCheckboxCheck = () => {
     setIsRemember(!isRemember)
+  }
+  const onAgentCheckboxCheck = () => {
+    setIsRememberAgent(!isRememberAgent)
   }
 
   const formik = useFormik<LoginFormValues>({
@@ -255,33 +279,18 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
       >
         <AnimatePresence>
           {!isAgent ? (
-            <MotiView
-              from={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ type: 'timing', duration: 250 }}
-              style={{ justifyContent: 'center' }}
-            >
-              <TouchableOpacity
-                sx={{ flexDirection: 'row', alignItems: 'center' }}
-                onPress={onCheckboxCheck}
-              >
-                <CheckBox
-                  isCheck={isRemember}
-                  tickColor="$orange"
-                  sx={{
-                    bg: isRemember ? '#062243' : '#fff',
-                  }}
-                />
-                <Text
-                  sx={{ ml: '$2' }}
-                  style={isRemember ? styles.checked : styles.uncheck}
-                >
-                  {t('auth.rememberMe')}
-                </Text>
-              </TouchableOpacity>
-            </MotiView>
-          ) : null}
+            <RememberMe
+              t={t}
+              isRemember={isRemember}
+              onCheck={onCheckboxCheck}
+            />
+          ) : (
+            <RememberMe
+              t={t}
+              isRemember={isRememberAgent}
+              onCheck={onAgentCheckboxCheck}
+            />
+          )}
         </AnimatePresence>
       </View>
 
@@ -369,6 +378,35 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
     </>
   )
 }
+
+const RememberMe = ({ t, isRemember, onCheck }) => (
+  <MotiView
+    from={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    transition={{ type: 'timing', duration: 250 }}
+    style={{ justifyContent: 'center' }}
+  >
+    <TouchableOpacity
+      sx={{ flexDirection: 'row', alignItems: 'center' }}
+      onPress={onCheck}
+    >
+      <CheckBox
+        isCheck={isRemember}
+        tickColor="$orange"
+        sx={{
+          bg: isRemember ? '#062243' : '#fff',
+        }}
+      />
+      <Text
+        sx={{ ml: '$2' }}
+        style={isRemember ? styles.checked : styles.uncheck}
+      >
+        {t('auth.rememberMe')}
+      </Text>
+    </TouchableOpacity>
+  </MotiView>
+)
 
 const styles = StyleSheet.create({
   checked: {

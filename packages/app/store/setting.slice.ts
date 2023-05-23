@@ -45,6 +45,10 @@ export interface Setting {
     username?: string
     password?: string
   } | null
+  agentRememberMeCredentials: {
+    username?: string
+    password?: string
+  } | null
 }
 // export const DomainListHintPostfix = '-DomainListHint'
 // export const DepositListHintPostfix = '-DepositListHint'
@@ -61,6 +65,7 @@ const initialState: Setting = {
   suggestions: true,
   luckyDrawBalance: 0,
   rememberMeCredentials: null,
+  agentRememberMeCredentials: null,
   floatingDrawer: true,
 }
 
@@ -156,6 +161,14 @@ const settingSlice = createSlice({
       action?.payload
         ? (state.rememberMeCredentials = action.payload)
         : (state.rememberMeCredentials = null)
+    },
+    setAgentRememberMe: (
+      state,
+      action: PayloadAction<{ username: string; password: string } | undefined>
+    ) => {
+      action?.payload
+        ? (state.agentRememberMeCredentials = action.payload)
+        : (state.agentRememberMeCredentials = null)
     },
   },
   extraReducers: (builder) => {
