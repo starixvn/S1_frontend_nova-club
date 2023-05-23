@@ -41,12 +41,6 @@ const ReferralModal = ({ modal: { closeModal, getParam } }) => {
     Platform.OS === 'web' ? webScreenshotDownload() : appScreenshotDownload()
   }
 
-  //   useEffect(() => {
-  //     return () => {
-  //       onClose && onClose()
-  //     }
-  //   }, [])
-
   return (
     <ModalWrapper>
       <>

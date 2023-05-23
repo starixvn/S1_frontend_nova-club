@@ -31,6 +31,10 @@ export async function copyToClipboard(
       }),
     })
   } catch (error) {
+    Toast.show({
+      type: 'error',
+      text1: error,
+    })
     console.error(error)
   }
 }

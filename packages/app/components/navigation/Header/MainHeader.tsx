@@ -4,7 +4,7 @@ import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { toCurrency } from 'app/utils'
 import { Currency, HEADER_HEIGHT } from 'app/utils/constant'
 import { Image, Pressable, Row, View, styled } from 'dripsy'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { memo, useEffect, useRef, useState } from 'react'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import {
   usePlayerBalanceQuery,
@@ -25,12 +25,12 @@ const Logo = () => (
 
 const MainHeader = () => {
   const { top } = useSafeArea()
-  const { toggleDrawer } = useDrawer()
+  const { toggleDrawer } = useDrawer() //causing Rerender
   const { push } = useRouter()
   const [totalBalance, setTotalBalance] = useState('0')
   const lastTransferredToMainWalletToken = useRef('')
   const token = useAppSelector((s) => s.auth.info?.token)
-  console.log('Rerender Header')
+  console.log('!!Rerender Header')
   const {
     data: playerBalance,
     isFetching: isMainWalletLoading,
@@ -70,7 +70,7 @@ const MainHeader = () => {
           and there are some balance remained in vendor wallets.
 
         - avoid trigger again when balance is fetched on other places lastTransferredToMainWalletToken
-        - as for now only trigger 1 time per token per session 
+        - as for now only trigger 1 time per token per session
       */
       if (token) {
         const dif =
@@ -98,7 +98,7 @@ const MainHeader = () => {
     }
   }, [playerBalance, token])
   return (
-    <HeaderContainer insetTop={top}>
+    <HeaderContainer insetTop={top} key={'MainHeader'}>
       <Logo />
       <Row sx={{ alignItems: 'center' }}>
         <HeaderDeposit />
