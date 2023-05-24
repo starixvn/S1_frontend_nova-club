@@ -56,6 +56,7 @@ const CommissionTableScreen = () => {
       >
         <DataTable.Cell
           bordered={isTitle ? false : true}
+          center={false}
           containerStyle={{
             flex: isTitle ? 1 : 0.4,
           }}
@@ -107,10 +108,7 @@ const CommissionTableScreen = () => {
             position: Platform.OS === 'web' ? 'fixed' : 'relative',
           }}
         >
-          <TitleCell
-            containerStyle={{ flex: 0.4 }}
-            textStyle={{ px: 12, color: 'white' }}
-          >
+          <TitleCell containerStyle={{ flex: 0.4 }}>
             {t('commission.productLists').toUpperCase()}
           </TitleCell>
           <TitleCell center>
@@ -141,13 +139,14 @@ const CommissionTableScreen = () => {
   )
 }
 
-const TitleCell = ({ border = true, children, ...rest }) => (
+export const TitleCell = ({ border = true, children, ...rest }) => (
   <DataTable.Title
     numberOfLines={4}
     textStyle={{
       color: 'white',
       textAlign: 'center',
       lineHeight: 15,
+      fontSize: 12,
     }}
     containerStyle={{ flex: 0.2 }}
     {...rest}

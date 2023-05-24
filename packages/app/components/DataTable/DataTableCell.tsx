@@ -66,7 +66,7 @@ const DataTableCell = ({
   textStyle,
   containerStyle = {},
   bordered = false,
-  center = false,
+  center = true,
   ...rest
 }: Props) => {
   return (

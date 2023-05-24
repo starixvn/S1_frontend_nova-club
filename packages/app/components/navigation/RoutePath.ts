@@ -94,7 +94,7 @@ export const Profile_Quick_Navigation_Path: Route[] = [
   },
   {
     label: 'leaderboard',
-    path: '/',
+    path: '/account/profile/leaderboard',
     icon: 'crown',
   },
   {

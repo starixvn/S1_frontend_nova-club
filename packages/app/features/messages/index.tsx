@@ -9,12 +9,6 @@ import { createParam } from 'solito'
 import PersonalMessage from './PersonalMessage'
 import AnnouncementScreen from './Announcement'
 
-const AnnouncementPage = () => (
-  <View sx={{ bg: 'blue', flex: 1 }}>
-    <Text>Annnouncement</Text>
-  </View>
-)
-
 const { useParam } = createParam<{ tab: string }>()
 const MessagesScreen = () => {
   const [tab = 0] = useParam('tab')
@@ -50,7 +44,10 @@ const MessagesScreen = () => {
     )
   }
   return (
-    <PageWithBackHeader header={{ title: 'Messages' }} disableScrollView>
+    <PageWithBackHeader
+      header={{ title: t('menu.message/announcement') }}
+      disableScrollView
+    >
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}

@@ -104,7 +104,9 @@
     "win": "Win",
     "yes": "Yes",
     "player": "Player",
-    "agent": "Agent"
+    "agent": "Agent",
+    "points": "Points",
+    "lastUpdated": "Last updated"
   },
   "contact": {
     "contactVia": "Contact via",
@@ -278,14 +280,17 @@
       "transaction": "Transaction",
       "transactionType": "Transaction Type",
       "type": "Type",
-      "win/loss": "Win/Loss"
+      "win/loss": "Win/Loss",
+      "event": "Event",
+      "ranking": "Ranking"
     },
     "tnc": "Terms and Conditions",
     "transactionHistory": "Transaction History",
     "transfer": "Transfer",
     "withdraw": "Withdraw",
     "withdrawal": "Withdrawal",
-    "withdrawalConfirmation": "Withdrawal Confirmation"
+    "withdrawalConfirmation": "Withdrawal Confirmation",
+    "leaderboard": "Leaderboard"
   },
   "message": {
     "announcement": "Announcement",
@@ -445,5 +450,13 @@
   },
   "withdrawal": {
     "withdrawTo": "Withdraw To"
+  },
+  "leaderboard": {
+    "product": "Product",
+    "pointsCalculation": "Points Calculation",
+    "monthlyEvent": "Monthly Event",
+    "minPoints": "Min Points",
+    "top10": "Top 10 Winners",
+    "rank": "Rank"
   }
 }

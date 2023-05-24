@@ -48,13 +48,13 @@ const SplashScreenButton = () => {
           iconProps={{ name: 'tiktok' }}
           onPress={() => push('/demoIconScreen')}
         />
-        <IconButtonGradient.Label>{"icon"}</IconButtonGradient.Label>
+        <IconButtonGradient.Label>{'icon'}</IconButtonGradient.Label>
       </View>
 
       <View sx={{ width: '20%' }}>
         <GradientButton
           iconProps={{ name: 'megaway' }}
-          onPress={() => push('/account/profile/commission')}
+          onPress={() => push('/account/profile/leaderboard')}
           label="Custom"
         />
       </View>

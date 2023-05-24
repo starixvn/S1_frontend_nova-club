@@ -30,6 +30,7 @@ const HeaderView = styled(View)(({ size }: { size: 'big' | 'small' }) => ({
   // flexDirection: 'row',
   // alignItems: 'center',
   minHeight: size === 'small' ? 48 : 60,
+  bg: '$primary.300',
 }))
 
 const ContentView = styled(View)({

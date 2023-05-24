@@ -56,7 +56,7 @@ export type Props = React.ComponentPropsWithRef<typeof View> & {
 const DataTableTitle = ({
   children,
   bordered = false,
-  center = false,
+  center = true,
   textStyle,
   containerStyle,
   numberOfLines = 1,
@@ -97,10 +97,8 @@ const TitleView = styled(View)(
 
 const ContentText = styled(Text)({
   lineHeight: 24,
-  fontSize: 12,
   fontWeight: 'bold',
   alignItems: 'center',
-  color: 'black',
 })
 
 export default DataTableTitle
