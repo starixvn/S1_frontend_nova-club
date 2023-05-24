@@ -23,8 +23,9 @@ const Card = ({ children, padding = 12, isLoading = false, sx }: CardProps) => {
         },
         shadowOpacity: 0.23,
         shadowRadius: 2.62,
-        // elevation: 4,
+        elevation: 4,
         backgroundColor: 'white',
+        m: 4,
         ...sx,
       }}
     >

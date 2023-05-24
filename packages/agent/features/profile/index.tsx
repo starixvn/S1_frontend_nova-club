@@ -31,7 +31,7 @@ const AgentProfile = () => {
             from={{ opacity: 0, height: 0 }}
             animate={{
               opacity: 1,
-              height: userRole === ROLE.AGENT ? 500 : 900,
+              height: userRole === ROLE.AGENT ? 550 : 900,
             }}
             transition={{ type: 'timing', duration: 1000 }}
           >
