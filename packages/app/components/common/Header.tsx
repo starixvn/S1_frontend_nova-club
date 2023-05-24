@@ -32,13 +32,7 @@ const Header = ({ title = '', actions, titleProps = {} }: HeaderProps) => {
   })
 
   return (
-    <View
-      nativeID="pageback-header"
-      // sx={{
-      //   borderBottomWidth: 1,
-      //   borderBottomColor: '#33A0D0',
-      // }}
-    >
+    <View nativeID="pageback-header">
       <View sx={{ paddingTop: top, px: 12, bg: '#32325A' }}>
         <StyledTop
           sx={{

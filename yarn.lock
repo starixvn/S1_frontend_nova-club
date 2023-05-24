@@ -3250,6 +3250,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@shopify/flash-list@npm:^1.4.3":
+  version: 1.4.3
+  resolution: "@shopify/flash-list@npm:1.4.3"
+  dependencies:
+    recyclerlistview: 4.2.0
+    tslib: 2.4.0
+  peerDependencies:
+    "@babel/runtime": "*"
+    react: "*"
+    react-native: "*"
+  checksum: a74010c70d6692b2140540c89ab094e7879066885bf4350f0216605ddbff332304516b20a0cc0f2b3628e14844607a03fd37ef33e4a2fae958e5fb1a85e4bed1
+  languageName: node
+  linkType: hard
+
 "@sideway/address@npm:^4.1.3":
   version: 4.1.4
   resolution: "@sideway/address@npm:4.1.4"
@@ -6070,6 +6084,7 @@ __metadata:
     "@react-native-async-storage/async-storage": ^1.18.1
     "@react-native-menu/menu": ^0.7.3
     "@reduxjs/toolkit": ^1.9.5
+    "@shopify/flash-list": ^1.4.3
     "@types/react": ~18.0.27
     "@types/react-native": ~0.69.1
     app: "*"
@@ -6162,6 +6177,55 @@ __metadata:
   languageName: node
   linkType: hard
 
+"expo-dev-client@npm:^2.2.1":
+  version: 2.3.0
+  resolution: "expo-dev-client@npm:2.3.0"
+  dependencies:
+    expo-dev-launcher: 2.3.0
+    expo-dev-menu: 3.0.0
+    expo-dev-menu-interface: 1.2.0
+    expo-manifests: ~0.6.0
+    expo-updates-interface: ~0.9.0
+  peerDependencies:
+    expo: "*"
+  checksum: 665a6b37c3d09b0773aff4734b9234ef7806b4f888d6cc3b744246650d1730f576ed5cad45bb70b50e44973092007824e890628b9991d53654755585b538730b
+  languageName: node
+  linkType: hard
+
+"expo-dev-launcher@npm:2.3.0":
+  version: 2.3.0
+  resolution: "expo-dev-launcher@npm:2.3.0"
+  dependencies:
+    expo-dev-menu: 3.0.0
+    resolve-from: ^5.0.0
+    semver: ^7.3.5
+  peerDependencies:
+    expo: "*"
+  checksum: 2cb3202dcbc503be93d93b9c9745a15a14e21a18a60eb824beae0f6fa9e994a7f6f6d7576b461459ed3ee71da16aff59a03260a893ce93cf5c11d448ea7f880e
+  languageName: node
+  linkType: hard
+
+"expo-dev-menu-interface@npm:1.2.0":
+  version: 1.2.0
+  resolution: "expo-dev-menu-interface@npm:1.2.0"
+  peerDependencies:
+    expo: "*"
+  checksum: 66077af5a6ce8342f0fa617b944b6cefb7d2a185262775d30ed8b1beeb5a22cbaad6f10b69b117dbe1e404fdd3f84353e5922dda9979e8b46247662ad0a10045
+  languageName: node
+  linkType: hard
+
+"expo-dev-menu@npm:3.0.0":
+  version: 3.0.0
+  resolution: "expo-dev-menu@npm:3.0.0"
+  dependencies:
+    expo-dev-menu-interface: 1.2.0
+    semver: ^7.3.5
+  peerDependencies:
+    expo: "*"
+  checksum: 223dee3da8553e7b42ee23f79f4ab6974472944b547fcc4d0a7b950ecbd4020d213622e80b50a08503239f30458cb2e108ee377500e44bd4180c1fa26fbf1404
+  languageName: node
+  linkType: hard
+
 "expo-device@npm:^5.2.1":
   version: 5.3.0
   resolution: "expo-device@npm:5.3.0"
@@ -6224,6 +6288,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"expo-json-utils@npm:~0.6.0":
+  version: 0.6.0
+  resolution: "expo-json-utils@npm:0.6.0"
+  checksum: 2f7279c1f98d4154941ee8e5f5b83a2724e0b44daa479a63537951f073cb60ebefdee474ca622b5c29f369957686ec7666ed9c8c0d4ec0fbfa1f68982a47ac07
+  languageName: node
+  linkType: hard
+
 "expo-keep-awake@npm:~12.0.1":
   version: 12.0.1
   resolution: "expo-keep-awake@npm:12.0.1"
@@ -6252,6 +6323,15 @@ __metadata:
     qs: ^6.11.0
     url-parse: ^1.5.9
   checksum: 631656c9cad78c345b35b7decd8c2bc22014b867321fcbb0c740b15001a492080ee3be26d27a89587eb2736223c82a39c600950930cf44b6dd95d37acb7e1527
+  languageName: node
+  linkType: hard
+
+"expo-manifests@npm:~0.6.0":
+  version: 0.6.0
+  resolution: "expo-manifests@npm:0.6.0"
+  dependencies:
+    expo-json-utils: ~0.6.0
+  checksum: a37a469e1ca6eb48f93612bae115cb924856cd0ad875bf9c69d1bf4fdce8eb6ca8fa671a3ff9c8d9008e88b624ad71c4975337f8e4c823671dd9de067874a673
   languageName: node
   linkType: hard
 
@@ -6360,6 +6440,15 @@ __metadata:
   version: 1.4.4
   resolution: "expo-status-bar@npm:1.4.4"
   checksum: 8d36b821ff2804aed3158f339cc396f0525f365763913881b9b11e6e85e83f21ddbc3a2ede660ae8ce6d6df1a6cda825ad996c3c45f195cbc89091da7605f7e0
+  languageName: node
+  linkType: hard
+
+"expo-updates-interface@npm:~0.9.0":
+  version: 0.9.3
+  resolution: "expo-updates-interface@npm:0.9.3"
+  peerDependencies:
+    expo: "*"
+  checksum: 02d4309811613d4d51a55de7db1ab78b17df2703e104cc9b562d3495ab56d3a719f733540643533e05f12dd78510bca6c8c6a29b8ebb213e4b42c59259421229
   languageName: node
   linkType: hard
 
@@ -8606,7 +8695,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.debounce@npm:^4.0.8":
+"lodash.debounce@npm:4.0.8, lodash.debounce@npm:^4.0.8":
   version: 4.0.8
   resolution: "lodash.debounce@npm:4.0.8"
   checksum: a3f527d22c548f43ae31c861ada88b2637eb48ac6aa3eb56e82d44917971b8aa96fbb37aa60efea674dc4ee8c42074f90f7b1f772e9db375435f6c83a19b3bc6
@@ -10518,7 +10607,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:*, prop-types@npm:^15.7.2, prop-types@npm:^15.8.0, prop-types@npm:^15.8.1":
+"prop-types@npm:*, prop-types@npm:15.8.1, prop-types@npm:^15.7.2, prop-types@npm:^15.8.0, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -11223,6 +11312,20 @@ __metadata:
     source-map: ~0.6.1
     tslib: ^2.0.1
   checksum: 14c35115cd9965950724cb2968f069a247fa79ce890643ab6dc3795c705b363f7b92a45238e9f765387c306763be9955f72047bb9d15b5d60b0a55f9e7912d5a
+  languageName: node
+  linkType: hard
+
+"recyclerlistview@npm:4.2.0":
+  version: 4.2.0
+  resolution: "recyclerlistview@npm:4.2.0"
+  dependencies:
+    lodash.debounce: 4.0.8
+    prop-types: 15.8.1
+    ts-object-utils: 0.0.5
+  peerDependencies:
+    react: ">= 15.2.1"
+    react-native: ">= 0.30.0"
+  checksum: 6cba6a99fb487067c509112b94e3d4d3905d782bbcb7af2cffbd57c601a4650d670e4eee5fec18d195d58ff6ec01a47288c5510379a2f37da3c5fc0a58860441
   languageName: node
   linkType: hard
 
@@ -12034,9 +12137,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "solito-expo-router@workspace:."
   dependencies:
+    "@shopify/flash-list": ^1.4.3
     "@types/react": ^18.0.17
     "@types/react-native": ^0.69.5
     eslint: ^8.21.0
+    expo-dev-client: ^2.2.1
     patch-package: ^7.0.0
     postinstall-postinstall: ^2.1.0
     react-native-modalfy: ^3.4.0
@@ -12775,6 +12880,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ts-object-utils@npm:0.0.5":
+  version: 0.0.5
+  resolution: "ts-object-utils@npm:0.0.5"
+  checksum: 83c48fbdaba392fb2c01cea53b267ed5538d2bb44fc6c3eecc10bcfabc1780bfa6ec8569b52bbf0140d9b521d9049d5f15884e12286918244d463d854dbc73cb
+  languageName: node
+  linkType: hard
+
 "ts-toolbelt@npm:^9.6.0":
   version: 9.6.0
   resolution: "ts-toolbelt@npm:9.6.0"
@@ -12791,6 +12903,13 @@ __metadata:
     minimist: ^1.2.6
     strip-bom: ^3.0.0
   checksum: a6162eaa1aed680537f93621b82399c7856afd10ec299867b13a0675e981acac4e0ec00896860480efc59fc10fd0b16fdc928c0b885865b52be62cadac692447
+  languageName: node
+  linkType: hard
+
+"tslib@npm:2.4.0":
+  version: 2.4.0
+  resolution: "tslib@npm:2.4.0"
+  checksum: 8c4aa6a3c5a754bf76aefc38026134180c053b7bd2f81338cb5e5ebf96fefa0f417bff221592bf801077f5bf990562f6264fecbc42cd3309b33872cb6fc3b113
   languageName: node
   linkType: hard
 

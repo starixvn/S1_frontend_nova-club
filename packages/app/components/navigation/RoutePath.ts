@@ -69,12 +69,12 @@ export const Profile_Quick_Navigation_Path: Route[] = [
   },
   {
     label: 'message/\nannouncement',
-    path: '/',
+    path: '/account/profile/message',
     icon: 'announcement',
   },
   {
     label: 'commission table',
-    path: '/',
+    path: '/account/profile/commission',
     icon: 'ct',
   },
   {

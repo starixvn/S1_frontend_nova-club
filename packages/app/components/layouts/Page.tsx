@@ -17,7 +17,7 @@ type PageWithBackHeaderProps = {
   header?: (() => React.ReactNode) | ComponentProps<typeof Header>
   hideHeader?: boolean
   background?: string
-  wrapperStyle: SxProp
+  wrapperStyle?: SxProp
 } & (PageScrollViewProps | PageViewProps)
 
 const pageStyles: Sx = {

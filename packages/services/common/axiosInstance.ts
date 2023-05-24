@@ -161,7 +161,7 @@ const onResponseError = (error: AxiosError) => {
         const currentLoginInfo = state?.auth.info
 
         if (currentLoginInfo && error.config.url !== AuthURL.LOGOUT) {
-          customConfig.onTokenExpired?.()
+          // customConfig.onTokenExpired?.()
         }
       }
     }

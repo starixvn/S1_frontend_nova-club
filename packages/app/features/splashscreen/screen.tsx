@@ -30,9 +30,9 @@ export default function SplashScreen() {
   const { top, bottom } = useSafeArea()
 
   //clear token/logout first
-  useEffect(() => {
-    LogOut()
-  }, [])
+  // useEffect(() => {
+  //   LogOut()
+  // }, [])
 
   return (
     <ScrollView
