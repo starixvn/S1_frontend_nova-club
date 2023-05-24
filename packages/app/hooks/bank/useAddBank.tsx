@@ -31,6 +31,7 @@ type AddCryptoValues = {
   walletAddress: string
   isCryptoValidation: boolean
   isRealNameValidation: boolean
+  isPhoneVerified: boolean
 }
 
 const useAddBank = ({ BankType }: BankType) => {
@@ -41,6 +42,7 @@ const useAddBank = ({ BankType }: BankType) => {
   const { data: playerData } = usePlayerProfileQuery()
   const isRealNameAvailable =
     playerData?.firstName && playerData?.firstName?.length > 0
+  const isPhoneVerified = playerData?.verified_phone === 1
   const isCrypto = BankType === 'crypto'
 
   async function updateRealName(realName, otp) {
@@ -75,7 +77,7 @@ const useAddBank = ({ BankType }: BankType) => {
     actions: FormikHelpers<AddCryptoValues & AddBankAccountValues>
   ) => {
     try {
-      if (!isRealNameAvailable && realName && otp) {
+      if ((!isRealNameAvailable || !isPhoneVerified) && realName && otp) {
         const sanitizedRealName = realName.trim().replace(/\s\s+/g, ' ')
         const error = await updateRealName(sanitizedRealName, otp)
 
@@ -122,8 +124,10 @@ const useAddBank = ({ BankType }: BankType) => {
       protocol: '',
       walletAddress: '',
       accountNo: '',
+      realName: playerData?.firstName ?? '',
       isCryptoValidation: isCrypto,
       isRealNameValidation: !!isRealNameAvailable,
+      isPhoneVerified: !!isPhoneVerified,
     },
     validationSchema: Yup.object({
       bank: validation.bank,
@@ -157,7 +161,7 @@ const useAddBank = ({ BankType }: BankType) => {
         is: false,
         then: validation.vietnameseCharacter,
       }),
-      otp: Yup.string().when('isRealNameValidation', {
+      otp: Yup.string().when('isPhoneVerified', {
         is: false,
         then: validation.stringRequired,
       }),
