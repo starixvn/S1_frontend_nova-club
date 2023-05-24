@@ -257,15 +257,14 @@ const DragonBoat = () => {
         <View
           sx={{
             width: '80%',
-            maxWidth: 400,
+            minWidth: 350,
+            maxWidth: 350,
             marginTop: top + 80,
           }}
         >
           {flipPage ? (
-            <View>
-              <View>
-                <TicketLeft balance={balance} />
-              </View>
+            <>
+              <TicketLeft balance={balance} />
               <Title balance={balance} />
               <CoinBox title={t('event.catEvent.miniGame.matchThree')}>
                 {result || result! >= 0 ? (
@@ -295,18 +294,16 @@ const DragonBoat = () => {
                     </View>
                   ))
                 ) : (
-                  <>
-                    <StartNow
-                      disable={
-                        !balance?.totalBalance || balance?.totalBalance === 0
-                      }
-                      isSubmitting={isSubmitting}
-                      onPress={() => getResult()}
-                    />
-                  </>
+                  <StartNow
+                    disable={
+                      !balance?.totalBalance || balance?.totalBalance === 0
+                    }
+                    isSubmitting={isSubmitting}
+                    onPress={() => getResult()}
+                  />
                 )}
               </CoinBox>
-            </View>
+            </>
           ) : (
             <View sx={{ marginTop: 100 }}>
               <View>

@@ -54,7 +54,7 @@ const StartNow = ({ disable, isSubmitting, onPress }: StartNowProps) => {
   }
 
   return (
-    <>
+    <View sx={{ paddingX: 10, paddingBottom: 10 }}>
       {renderCoinLoopContainer()}
       <View
         sx={{
@@ -63,7 +63,7 @@ const StartNow = ({ disable, isSubmitting, onPress }: StartNowProps) => {
           alignItems: 'center',
           justifyContent: 'center',
           borderRadius: 30,
-          top: 0,
+          top: -10,
           left: 0,
           right: 0,
           bottom: 0,
@@ -96,10 +96,10 @@ const StartNow = ({ disable, isSubmitting, onPress }: StartNowProps) => {
                   position: 'absolute',
                   fontWeight: 'bold',
 
-                  fontSize: 30,
+                  fontSize: 28,
                   textShadow:
                     Platform.OS === 'web'
-                      ? '0 1px 0 rgba(0,0,0,.3)'
+                      ? '0 1px 0 rgba(0,0,0,0.3)'
                       : undefined,
                 }}
               >
@@ -109,7 +109,7 @@ const StartNow = ({ disable, isSubmitting, onPress }: StartNowProps) => {
           )}
         </TouchableOpacity>
       </View>
-    </>
+    </View>
   )
 }
 
