@@ -3,18 +3,55 @@
     "player": "player",
     "agent": "agent",
     "username": "username",
-    "password": "password"
+    "password": "password",
+    "transfer": "transfer",
+    "deposit": "deposit",
+    "withdraw": "withdraw",
+    "bankAccount": "bank account",
+    "history": "history",
+    "cash": "cash",
+    "reward": "reward",
+    "balance": "balance",
+    "more": "more",
+    "overview": "overview",
+    "registered": "registered",
+    "activePlayer": "active player",
+    "monthlyReward": "monthly reward",
+    "profile": "profile",
+    "points": "points",
+    "receive": "receive"
   },
   "authentication": {
     "login": "login",
     "register": "register",
     "loginHeader": "login to your account"
   },
-  "event": {
-    "catevent": {
-      "welcome": "Welcome to meow",
-      "note1": "note that you should do that",
-      "note2": "note that you should do that"
+  "leaderboard": {
+    "monthlyEvent": "Monthly Event",
+    "minPoints": "Min Points",
+    "pointsCalculation": "Points calculation",
+    "product": "Product",
+    "top10": "Top 10 Winners"
+  },
+  "menu": {
+    "tab": {
+      "event": "Event",
+      "ranking": "Ranking"
+    }
+  },
+  "transfer": {
+    "transferTitle": "transfer",
+    "idTransfer": "id transfer",
+    "qrTransfer": "qr transfer",
+    "downloadQr": "download qr code"
+  },
+  "notes": {
+    "qr": {
+      "n1": "Scan with your app to transfer balance"
+    },
+    "transfer": {
+      "n1": "All the fund receive via internal transfer are subject to |1x rollover| before the withdrawal",
+      "importantNotice": "important notice"
     }
   }
 }
