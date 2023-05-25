@@ -23,7 +23,8 @@ const NoticeModal = ({ modal: { closeModal, getParam } }) => {
       <ModalContent footer={true}>
         <View>
           {notice.map((content, i) => {
-            const parts = content.split('|')
+            const _content = t(content)
+            const parts = _content.split('|')
             return (
               <View
                 key={`${noticeModule}.row${i}`}

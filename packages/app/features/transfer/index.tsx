@@ -60,7 +60,7 @@ const TransferScreen = () => {
             name="notice"
             onPress={() =>
               openModal('NoticeModal', {
-                notice: [TRANSFER_NOTES],
+                notice: [t(TRANSFER_NOTES)],
               })
             }
           />

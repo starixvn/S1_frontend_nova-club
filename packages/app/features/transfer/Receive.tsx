@@ -1,4 +1,5 @@
 import QRCodeGenerator from 'app/components/QRCodeGenerator'
+import Button from 'app/components/common/Button'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useDownload from 'app/hooks/useDownload'
 import useLocalization from 'app/provider/localization'
@@ -45,17 +46,7 @@ const Receive = () => {
           Scan with your app to transfer balance
         </Text>
       </View>
-      <Pressable
-        sx={{
-          alignItems: 'center',
-          py: '$3',
-          bg: '$secondary.500',
-          borderRadius: 15,
-        }}
-        onPress={appScreenshotDownload}
-      >
-        <Text sx={{ fontSize: 18, fontWeight: 'bold' }}>DOWNLOAD QR CODE</Text>
-      </Pressable>
+      <Button title={'download qr code'} onPress={appScreenshotDownload} />
     </ScrollView>
   )
 }
