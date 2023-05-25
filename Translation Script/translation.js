@@ -32,8 +32,7 @@ rl.question('Select an option: Type 1 for VN, Type 2 for EN\n', (choice) => {
       result[category][label] = en;
     }
   });
-
-  fs.writeFile('test.json', JSON.stringify(result, null, 2), err => {
+  fs.writeFile('../packages/app/assets/locales/en.json', JSON.stringify(result, null, 2), err => {
     if (err) {
       console.error(err);
       return;

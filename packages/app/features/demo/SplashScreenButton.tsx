@@ -17,7 +17,7 @@ const SplashScreenButton = () => {
   const TestLogin = async () => {
     try {
       const { data, success, message } = await login({
-        username: 'andy01stag',
+        username: 'andy06stag',
         password: 'asdf1234',
       }).unwrap()
       if (success && data) {
