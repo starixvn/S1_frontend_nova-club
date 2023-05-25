@@ -42,6 +42,8 @@ import { usePlayerProfileQuery } from 'services/playerApi'
 import * as Yup from 'yup'
 import ReceiptUpload, { ReceiptUploadMethods } from '../ReceiptUpload'
 import DepositTransactions from './DepositTransactions'
+import Image from 'app/components/common/Image'
+import { CMS_CONTENT_URI, CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 export type LocalBankValues = {
   bank: ManualBankItem | null
@@ -275,6 +277,17 @@ const LocalBankScreen = () => {
               : undefined
           }
         />
+
+        {values?.bank?.bankQR && (
+          <View sx={{ justifyContent: 'center', alignItems: 'center', py: 12 }}>
+            <Image
+              source={{
+                uri: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${values?.bank?.bankQR}`,
+              }}
+              sx={{ width: 120, height: 120 }}
+            />
+          </View>
+        )}
 
         <ReceiptUpload
           disabled={isSubmitting}
