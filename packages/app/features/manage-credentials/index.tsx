@@ -6,9 +6,9 @@ import useLocalization from 'app/provider/localization'
 import ChangePasswordPage from './change-password'
 import ChangePinScreen from '../pin/change-pin'
 import CreatePinScreen from '../pin/CreatePinScreen'
-import CustomTabBar from 'app/components/layouts/CustomTabBar'
 import { SceneMap, TabView } from 'react-native-tab-view'
 import { createParam } from 'solito'
+import CustomTabBar from 'app/components/navigation/CustomTabBar'
 
 const { useParam } = createParam<{ tab: string }>()
 const ManageCredentialsPage = () => {
@@ -24,7 +24,7 @@ const ManageCredentialsPage = () => {
 
   const [index, setIndex] = useState(getTab)
   const [routes] = useState([
-    { key: 'first', title: t('changepassword'), index: 0 },
+    { key: 'first', title: t('manageCredentials.pw.changePw'), index: 0 },
     isPinExist
       ? { key: 'second', title: t('manageCredentials.pin.changePin'), index: 1 }
       : {

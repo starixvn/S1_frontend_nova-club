@@ -20,7 +20,9 @@
     "profile": "profile",
     "points": "points",
     "receive": "receive",
-    "submit": "submit"
+    "submit": "submit",
+    "close": "Close",
+    "pin": "Pin"
   },
   "authentication": {
     "login": "login",
@@ -47,12 +49,12 @@
     "downloadQr": "download qr code"
   },
   "notes": {
+    "importantNotice": "Important Notice",
     "qr": {
       "n1": "Scan with your app to transfer balance"
     },
     "transfer": {
-      "n1": "All the fund receive via internal transfer are subject to |1x rollover| before the withdrawal",
-      "importantNotice": "important notice"
+      "n1": "All the fund receive via internal transfer are subject to |1x rollover| before the withdrawal"
     }
   },
   "manageCredentials": {
@@ -63,7 +65,19 @@
       "securePin": "Secure your transfer with PIN",
       "newPin": "New Pin",
       "confirmPin": "Confirm Pin",
-      "changePin": "Change Pin"
+      "changePin": "Change Pin",
+      "oldPin": "Old Pin",
+      "NewPin": "New Pin",
+      "ConfirmPin": "Confirm Pin"
+    },
+    "pw": {
+      "changePw": "Change Password",
+      "oldPw": "Old Password",
+      "newPw": "New Password",
+      "confirmPw": "Confirm Password",
+      "placeholderOldPw": "Please enter old password",
+      "placeholderNewPw": "Please enter new password",
+      "placeholderConfirmPw": "Please confirm password"
     }
   },
   "validation": {

@@ -8,6 +8,7 @@ import { useUpdateTransferPinMutation } from 'services/pinApi'
 import * as Yup from 'yup'
 import UnderlinePinField from '../UnderlinePinField'
 import { useRouter } from 'solito/router'
+import Button from 'app/components/common/Button'
 
 type ChangePinFormValues = {
   oldPin: string
@@ -77,50 +78,38 @@ const ChangePinScreen = () => {
   return (
     <View sx={{ flex: 1 }}>
       <UnderlinePinField
-        title={t('pin.oldPin')}
+        title={t('manageCredentials.pin.oldPin')}
         value={values.oldPin}
         setValue={handleChange('oldPin')}
         errorMsg={
-          errors.oldPin ? t(errors.oldPin, { field: t('pin.pin') }) : undefined
+          errors.oldPin
+            ? t(errors.oldPin, { field: t('common.pin') })
+            : undefined
         }
       />
       <UnderlinePinField
-        title={t('pin.newPin')}
+        title={t('manageCredentials.pin.newPin')}
         value={values.pin}
         setValue={handleChange('pin')}
       />
       <UnderlinePinField
-        title={t('pin.confirmPin')}
+        title={t('manageCredentials.pin.confirmPin')}
         value={values.confirmPin}
         setValue={handleChange('confirmPin')}
         errorMsg={
           values.confirmPin.length === 6 && errors.confirmPin
             ? t(errors.confirmPin, {
-                field: t('pin.pin'),
+                field: t('common.pin'),
               })
             : undefined
         }
       />
-
-      {/* <Button
-        rounded
-        stretch
-        loading={isSubmitting}
-        disabled={!isValid || !dirty}
-        variant="lg"
-        fill={{
-          type: 'gradient',
-          color: 'secondary',
-          start: { x: 0, y: 0 },
-          end: { x: 1, y: 0 },
-        }}
-        containerStyle={{
-          m: '$10',
-        }}
+      <Button
+        title={t('common.submit')}
         onPress={submitForm}
-      >
-        <Button.Label>{t('common.submit')}</Button.Label>
-      </Button> */}
+        disabled={!isValid || !dirty}
+        sx={{ mt: '$4', mx: '$4' }}
+      />
     </View>
   )
 }

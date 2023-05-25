@@ -92,7 +92,7 @@ const UnderlinePinField = ({
         renderCell={renderCell}
       />
       {errorMsg && (
-        <Text sx={{ my: '$2', mx: '$6', color: '$error' }}>{errorMsg}</Text>
+        <Text sx={{ my: '$2', mx: 45, color: '$error' }}>{errorMsg}</Text>
       )}
     </View>
   )
@@ -124,11 +124,11 @@ const styles = StyleSheet.create({
     ...Platform.select({ web: { lineHeight: 50 } }),
     fontSize: 30,
     textAlign: 'center',
-    color: '#3557b7',
+    color: '#32325A',
   },
   focusCell: {
-    borderBottomColor: '#00d9ff',
-    borderBottomWidth: 2,
+    borderBottomColor: '#9696E6',
+    borderBottomWidth: 4,
   },
   error: {
     borderBottomColor: 'red',
