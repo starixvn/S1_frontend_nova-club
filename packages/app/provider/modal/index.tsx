@@ -29,6 +29,7 @@ export type ModalStackParams = {
     // actions: ModalAction[]
     onClose(...args: any): any
   }
+  NoticeModal: { notice: [] }
 }
 
 type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
@@ -37,6 +38,7 @@ type DynamicModalType = keyof typeof _dynamicModal
 const _dynamicModal = {
   AlertModal: () => import('app/components/modal/AlertModal'),
   ReferralModal: () => import('app/components/modal/ReferralModal'),
+  NoticeModal: () => import('app/components/modal/NoticeModal'),
 }
 
 function getDynamicComponent(key: DynamicModalType) {
@@ -60,6 +62,9 @@ const modalConfig: ModalConfigType = {
   },
   ReferralModal: {
     modal: getDynamicComponent('ReferralModal'),
+  },
+  NoticeModal: {
+    modal: getDynamicComponent('NoticeModal'),
   },
 }
 const stack = createModalStack(modalConfig, {

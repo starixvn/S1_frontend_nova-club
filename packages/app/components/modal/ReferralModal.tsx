@@ -14,8 +14,7 @@ import IconButton from '../IconButton'
 import QRCodeGenerator from '../QRCodeGenerator'
 import BouncePressable from '../pressable/BouncePressable'
 import ModalWrapper from './ModalWrapper'
-
-const DEV_DOMAIN = 'https://stage.gball8.com'
+import { DEV_DOMAIN } from '@env'
 
 const ReferralModal = ({ modal: { closeModal, getParam } }) => {
   const { t } = useLocalization()

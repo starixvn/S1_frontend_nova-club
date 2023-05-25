@@ -31,7 +31,7 @@ export const BOTTOM_ROUTE: Route[] = [
 export const Profile_Wallet_Route: Route[] = [
   {
     label: 'Transfer',
-    path: '/wallet/transfer',
+    path: '/wallet/transfer/',
     icon: 'transfer',
   },
   {

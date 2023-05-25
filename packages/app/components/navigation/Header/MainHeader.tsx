@@ -123,7 +123,7 @@ const MainHeader = () => {
 
         <IconButtonGradient
           onPress={() => {
-            console.log('click')
+            toggleDrawer()
           }}
           iconProps={{ name: 'burgerMenu', color: 'white' }}
         />

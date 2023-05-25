@@ -323,7 +323,7 @@
       "n2": "The final deposited amount is subject to 25% deduction from the original card value."
     },
     "transfer": {
-      "n1": "All the fund receive via internal transfer are subject to 1x rollover before the withdrawal"
+      "n1": "All the fund receive via internal transfer are subject to |1x rollover| before the withdrawal"
     },
     "withdrawal": {
       "n1": "Kindly check with our 24/7 LIVE CHAT if your transaction is pending for more than 10 minutes.",

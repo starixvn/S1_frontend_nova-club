@@ -1,58 +1,104 @@
-import { ScrollView, Text, View, styled, useDripsyTheme } from 'dripsy'
-import React from 'react'
+import useLocalization from 'app/provider/localization'
+import { ScrollView, Text, View, styled } from 'dripsy'
 import { Gradient } from 'dripsy/gradient'
-import { Button } from 'react-native'
+import React, { ReactElement } from 'react'
+import { Button, GestureResponderEvent } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import Icon from '../Icon'
+import TouchableOpacity from '../pressable/TouchableOpacity'
 
-const ModalContent = ({ title, isShowHeader = true, actions, children }) => {
-  const { theme } = useDripsyTheme()
+interface ActionsProps {
+  label: string
+  onPress: (e: GestureResponderEvent) => void
+}
+interface ModalContentProps {
+  title?: string
+  isShowHeader?: boolean
+  actions?: ActionsProps[]
+  children: ReactElement
+  footer: boolean
+}
+
+const ModalContent = ({
+  title,
+  isShowHeader = true,
+  actions,
+  children,
+  footer = true,
+}: ModalContentProps) => {
+  const { t } = useLocalization()
   const { closeModal } = useModal()
-  const TITLE = 'Important Notice'
+  const TITLE = t('notes.importantNotice')
 
   return (
     <>
-      <ModalBackground colors={theme.linearGradients.surface}>
-        {isShowHeader &&
-          (title ? (
-            <TextTitle>{title}</TextTitle>
-          ) : (
-            <View
-              sx={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <Icon name="notice" color="white" sx={{ mr: 12 }} />
-              <TextTitle>{TITLE.toUpperCase()}</TextTitle>
-            </View>
-          ))}
-        <ScrollView>
+      <ModalBackground gradient={'surface'}>
+        <ScrollView
+          bounces={true}
+          contentContainerSx={{
+            justifyContent: 'center',
+            minHeight: 225,
+          }}
+        >
+          {isShowHeader &&
+            (title ? (
+              <TextTitle>{title}</TextTitle>
+            ) : (
+              <View
+                sx={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Icon name="notice" size={24} color="white" sx={{ mr: 12 }} />
+                <TextTitle>{TITLE.toUpperCase()}</TextTitle>
+              </View>
+            ))}
           <ViewBody>{children}</ViewBody>
         </ScrollView>
       </ModalBackground>
 
-      <ViewFooter>
-        {actions ? (
-          actions.map((item) => (
-            <Gradient
-              key={item.label}
-              colors={theme.linearGradients.surface}
-              sx={{ borderRadius: 12, mb: 16 }}
+      {footer && (
+        <ViewFooter>
+          {actions ? (
+            actions.map((item) => (
+              <Gradient
+                key={item.label}
+                gradient={'surface'}
+                sx={{ borderRadius: 12, mb: 16 }}
+              >
+                <Button
+                  title={item.label}
+                  color="white"
+                  onPress={item.onPress}
+                />
+              </Gradient>
+            ))
+          ) : (
+            <TouchableOpacity
+              sx={{
+                borderRadius: 12,
+                bg: '$secondary.500',
+                mt: '$4',
+                alignItems: 'center',
+                py: '$3',
+              }}
+              onPress={() => closeModal()}
             >
-              <Button title={item.label} color="white" onPress={item.onPress} />
-            </Gradient>
-          ))
-        ) : (
-          <Gradient
-            colors={theme.linearGradients.surface}
-            sx={{ borderRadius: 12 }}
-          >
-            <Button title="Close" color="white" onPress={() => closeModal()} />
-          </Gradient>
-        )}
-      </ViewFooter>
+              <Text
+                sx={{
+                  textTransform: 'uppercase',
+                  fontWeight: 'bold',
+                  fontSize: 18,
+                }}
+              >
+                {t('common.close')}
+              </Text>
+            </TouchableOpacity>
+          )}
+        </ViewFooter>
+      )}
     </>
   )
 }
@@ -60,20 +106,21 @@ const ModalContent = ({ title, isShowHeader = true, actions, children }) => {
 const ModalBackground = styled(Gradient)({
   borderRadius: 20,
   justifyContent: 'center',
-  p: 24,
-  mb: 24,
+  p: '5%',
+  minHeight: 250,
+  alignItems: 'center',
 })
 
 const TextTitle = styled(Text)({
   color: 'white',
   fontWeight: 'bold',
   textAlign: 'center',
+  fontSize: 18,
 })
 
 const ViewBody = styled(View)({
   mt: 24,
   width: '100%',
-  minHeight: 120,
 })
 const ViewFooter = styled(View)({})
 export default ModalContent
