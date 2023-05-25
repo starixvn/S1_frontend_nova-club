@@ -140,6 +140,7 @@
     "paymentMode": "Payment Mode",
     "paymentTime": "PAYMENT TIME LEFT",
     "pleaseConfirmDeposit": "Please confirm deposit information below",
+    "scanQr": "Scan QR",
     "selectChannel": "Select Channel",
     "transactionId": "Transaction Id",
     "upload": {

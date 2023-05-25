@@ -27,7 +27,7 @@ import {
 import { Currency } from 'app/utils/constant'
 import validation from 'app/utils/validation'
 import validationRule from 'app/utils/validationRule'
-import { View } from 'dripsy'
+import { Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect, useRef, useState } from 'react'
 import { Platform } from 'react-native'
@@ -279,14 +279,19 @@ const LocalBankScreen = () => {
         />
 
         {values?.bank?.bankQR && (
-          <View sx={{ justifyContent: 'center', alignItems: 'center', py: 12 }}>
-            <Image
-              source={{
-                uri: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${values?.bank?.bankQR}`,
-              }}
-              sx={{ width: 120, height: 120 }}
-            />
-          </View>
+          <>
+            <Text sx={{ px: 18, py: 8 }}>{t('deposit.scanQr')}</Text>
+            <View
+              sx={{ justifyContent: 'center', alignItems: 'center', py: 12 }}
+            >
+              <Image
+                source={{
+                  uri: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${values?.bank?.bankQR}`,
+                }}
+                sx={{ width: 120, height: 120 }}
+              />
+            </View>
+          </>
         )}
 
         <ReceiptUpload
