@@ -12,6 +12,7 @@ export type TransactionReportResult = {
   created_date: string
   transaction_type: string
   amount: string
+  actual_amount: string
 }
 
 export type ShareholderCommissionListArgs = {

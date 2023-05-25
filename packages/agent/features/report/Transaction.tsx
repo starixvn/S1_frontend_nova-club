@@ -100,7 +100,14 @@ const TransactionScreen = () => {
       <DataTable.Cell bordered textStyle={{ px: 12 }}>
         {item.transaction_type}
       </DataTable.Cell>
-      <DataTable.Cell center>{toThousandSeparator(item.amount)}</DataTable.Cell>
+      <DataTable.Cell
+        center
+        textStyle={{
+          color: item.actual_amount.startsWith('-') ? '$errorAgent' : 'black',
+        }}
+      >
+        {toThousandSeparator(item.actual_amount)}
+      </DataTable.Cell>
     </DataTable.Row>
   )
 
