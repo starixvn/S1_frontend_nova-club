@@ -1,4 +1,4 @@
-import { Route } from './type'
+import { Route } from '../components/navigation/type'
 
 export const BOTTOM_ROUTE: Route[] = [
   {
@@ -104,7 +104,7 @@ export const Profile_Quick_Navigation_Path: Route[] = [
   },
   {
     label: 'customer support',
-    path: '/',
+    path: '/account/profile/customer-support',
     icon: 'cs',
   },
   {

@@ -1,4 +1,4 @@
-import CustomTabBar from 'app/components/layouts/CustomTabBar'
+import CustomTabBar from 'app/components/navigation/CustomTabBar'
 import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
 import React, { useMemo, useState } from 'react'
