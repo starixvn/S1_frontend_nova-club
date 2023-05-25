@@ -1,6 +1,6 @@
 import IconButtonGradient from 'app/components/IconButtonGradient'
 import IconButtonGradientGroup from 'app/components/IconButtonGradientGroup'
-import { Profile_Wallet_Route } from 'app/components/navigation/RoutePath'
+import { Profile_Wallet_Route } from 'app/navigation/RoutePath'
 import { View } from 'dripsy'
 
 import { Link } from 'solito/link'

@@ -106,6 +106,7 @@ const CommissionTableScreen = () => {
             zIndex: 2,
             mt: Platform.OS === 'web' ? 15 : 0,
             position: Platform.OS === 'web' ? 'fixed' : 'relative',
+            bg: '$background',
           }}
         >
           <TitleCell containerStyle={{ flex: 0.4 }}>

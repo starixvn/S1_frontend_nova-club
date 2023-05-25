@@ -1,5 +1,5 @@
 import Icon from 'app/components/Icon'
-import { Profile_Quick_Navigation_Path } from 'app/components/navigation/RoutePath'
+import { Profile_Quick_Navigation_Path } from 'app/navigation/RoutePath'
 import { Text, View, styled, useDripsyTheme } from 'dripsy'
 import { Gradient } from 'dripsy/gradient'
 import { Platform, useWindowDimensions } from 'react-native'

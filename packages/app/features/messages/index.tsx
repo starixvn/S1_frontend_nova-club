@@ -1,4 +1,4 @@
-import CustomTabBar from 'app/components/layouts/CustomTabBar'
+import CustomTabBar from 'app/components/navigation/CustomTabBar'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import useLocalization from 'app/provider/localization'
 import { Text, View } from 'dripsy'

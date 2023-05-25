@@ -54,7 +54,7 @@ const SplashScreenButton = () => {
       <View sx={{ width: '20%' }}>
         <GradientButton
           iconProps={{ name: 'megaway' }}
-          onPress={() => push('/account/profile/leaderboard')}
+          onPress={() => push('/account/profile/customer-support')}
           label="Custom"
         />
       </View>
