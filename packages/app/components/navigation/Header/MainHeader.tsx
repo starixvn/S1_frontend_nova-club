@@ -103,7 +103,7 @@ const MainHeader = () => {
   return (
     <HeaderContainer insetTop={top} key={'MainHeader'}>
       <Logo />
-      {!token ? (
+      {token ? (
         <Row sx={{ alignItems: 'center' }}>
           <HeaderDeposit />
           <HeaderOverview
