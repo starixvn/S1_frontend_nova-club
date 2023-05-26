@@ -1,6 +1,8 @@
-import { Pressable, ScrollView, Text, View } from 'dripsy'
+import { Pressable, ScrollView, Text, View, useDripsyTheme } from 'dripsy'
 import React from 'react'
 import { DripsyGradient } from '../Gradient'
+import { Shadow } from 'react-native-shadow-2'
+import ShadowButton from '../ShadowButton'
 
 export type CustomRoutesProps = {
   key: string
@@ -35,16 +37,9 @@ const CustomTabBar = ({ routes, currentIndex, onPress }: CustomTabBarProps) => {
           return (
             <View key={route.title} sx={{ flex: 1, py: 12 }}>
               <Pressable onPress={() => handlePress(route.index)}>
-                <View
-                  sx={{
-                    py: 12,
-                    px: 8,
-                    borderRadius: 50,
-                    backgroundColor: isActive ? '#32325A' : '#1E2238',
-                    borderWidth: 1,
-                    borderColor: '#9696E6',
-                    alignItems: 'center',
-                  }}
+                <ShadowButton
+                  isActive={isActive}
+                  containerStyle={{ minWidth: '100%' }}
                 >
                   <Text
                     numberOfLines={2}
@@ -58,7 +53,7 @@ const CustomTabBar = ({ routes, currentIndex, onPress }: CustomTabBarProps) => {
                   >
                     {route.title.toUpperCase()}
                   </Text>
-                </View>
+                </ShadowButton>
               </Pressable>
             </View>
           )

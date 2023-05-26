@@ -79,6 +79,7 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
         //   TempSettingActions.setSyncShieldActionType(Shield_Action.LOGIN)
         // )
         // normalLogin(username, password, () => handleProceedLogin(data, actions))
+        dispatch(AuthActions.setAuthInfo(data))
         replace('/account/profile')
         setIsSubmitting(false)
       } else {

@@ -1,4 +1,4 @@
-import CustomTabBar from 'app/components/layouts/CustomTabBar'
+import CustomTabBar from 'app/components/navigation/CustomTabBar'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import useLocalization from 'app/provider/localization'
 import React, { useState } from 'react'
@@ -54,13 +54,13 @@ const TransferScreen = () => {
   return (
     <PageWithBackHeader
       header={{
-        title: 'Transfer',
+        title: 'transfer.transferTitle',
         actions: (
           <Icon
             name="notice"
             onPress={() =>
               openModal('NoticeModal', {
-                notice: [TRANSFER_NOTES],
+                notice: [t(TRANSFER_NOTES)],
               })
             }
           />

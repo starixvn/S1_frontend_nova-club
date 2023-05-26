@@ -6,8 +6,9 @@ import React from 'react'
 import { useWindowDimensions } from 'react-native'
 import { useRouter } from 'solito/router'
 import IconButtonGradientToggle from '../IconButtonGradientToggle'
-import { BOTTOM_ROUTE } from './RoutePath'
+import { BOTTOM_ROUTE } from 'app/navigation/RoutePath'
 import IconButtonGradientGroup from '../IconButtonGradientGroup'
+import { DripsyGradient } from '../Gradient'
 
 export const BOTTOM_TAB_BAR_HEIGHT = 60
 
@@ -33,8 +34,8 @@ function BottomTabBar() {
   }
 
   return (
-    <Gradient
-      gradient={'surface'}
+    <DripsyGradient
+      gradient="surface"
       sx={{
         borderTopWidth: 1,
         borderColor: '#9696FF',
@@ -55,7 +56,6 @@ function BottomTabBar() {
           return (
             <IconButtonGradientToggle
               sx={{ flex: 1 }}
-              withTranslate
               key={r.label}
               active={isActiveState(index, r)}
               label={r.label}
@@ -69,7 +69,7 @@ function BottomTabBar() {
           )
         })}
       </IconButtonGradientGroup>
-    </Gradient>
+    </DripsyGradient>
   )
 }
 

@@ -2,7 +2,7 @@ import { ScrollView, View } from 'dripsy'
 import React from 'react'
 import MonthlyEvent from './components/MonthlyEvent'
 import PointsCalculation from './components/PointsCalculation'
-import { Button } from 'react-native'
+import Button from 'app/components/common/Button'
 
 const EventScreen = () => {
   return (

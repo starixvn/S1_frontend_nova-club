@@ -2,14 +2,14 @@ import { View } from 'react-native'
 
 import BottomTabBar from 'app/components/navigation/BottomTabBar'
 import DrawerProvider from 'app/components/navigation/Drawer/DrawerProvider'
-import HeaderSelection from 'app/components/navigation/Header/HeaderSelection'
 import { Tabs } from 'expo-router'
+import MainHeader from 'app/components/navigation/Header/MainHeader'
 
 export default function Root() {
   return (
     <DrawerProvider>
       <View style={{ flex: 1 }}>
-        <HeaderSelection />
+        <MainHeader />
         <Tabs
           tabBar={() => <BottomTabBar />}
           screenOptions={{ header: (props) => null }}

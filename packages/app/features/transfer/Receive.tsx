@@ -2,8 +2,9 @@ import QRCodeGenerator from 'app/components/QRCodeGenerator'
 import ViewScreenShot, {
   ViewScreenShotMethods,
 } from 'app/components/ViewScreenShot'
+import Button from 'app/components/common/Button'
 import useLocalization from 'app/provider/localization'
-import { Pressable, ScrollView, Text, View } from 'dripsy'
+import { ScrollView, Text, View } from 'dripsy'
 import React, { useRef } from 'react'
 import { usePlayerProfileQuery } from 'services/playerApi'
 
@@ -33,17 +34,7 @@ const Receive = () => {
           Scan with your app to transfer balance
         </Text>
       </View>
-      <Pressable
-        sx={{
-          alignItems: 'center',
-          py: '$3',
-          bg: '$secondary.500',
-          borderRadius: 15,
-        }}
-        onPress={handleDownload}
-      >
-        <Text sx={{ fontSize: 18, fontWeight: 'bold' }}>DOWNLOAD QR CODE</Text>
-      </Pressable>
+      <Button title={'download qr code'} onPress={handleDownload} />
     </ScrollView>
   )
 }

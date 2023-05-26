@@ -1,11 +1,13 @@
 import IconButtonGradient from 'app/components/IconButtonGradient'
+import Button from 'app/components/common/Button'
 import { useDrawer } from 'app/hooks/useDrawer'
+import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { toCurrency } from 'app/utils'
 import { Currency, HEADER_HEIGHT } from 'app/utils/constant'
 import { Image, Pressable, Row, View, styled } from 'dripsy'
-import React, { memo, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import {
   usePlayerBalanceQuery,
@@ -30,6 +32,7 @@ const MainHeader = () => {
   const [totalBalance, setTotalBalance] = useState('0')
   const lastTransferredToMainWalletToken = useRef('')
   const token = useAppSelector((s) => s.auth.info?.token)
+  const { t } = useLocalization()
   console.log('!!Rerender Header')
   const {
     data: playerBalance,
@@ -100,34 +103,59 @@ const MainHeader = () => {
   return (
     <HeaderContainer insetTop={top} key={'MainHeader'}>
       <Logo />
-      <Row sx={{ alignItems: 'center' }}>
-        <HeaderDeposit />
-        <HeaderOverview
-          onBalancePress={() => null}
-          onRewardPress={() => null}
-          reward={playerBalance?.data?.main.reward}
-          balance={totalBalance}
-          isLoading={isMainWalletLoading}
-        />
-
-        <Pressable
-          sx={{ borderRadius: 50, px: 2.5 }}
-          onPress={() => push('/account/profile')}
-        >
-          <Image
-            alt="user-avatar"
-            source={require('../../../assets/images/common/avatarx2.png')}
-            sx={{ aspectRatio: 1, width: 34, height: 34, borderRadius: 50 }}
+      {token ? (
+        <Row sx={{ alignItems: 'center' }}>
+          <HeaderDeposit />
+          <HeaderOverview
+            onBalancePress={() => null}
+            onRewardPress={() => null}
+            reward={playerBalance?.data?.main.reward}
+            balance={totalBalance}
+            isLoading={isMainWalletLoading}
           />
-        </Pressable>
 
-        <IconButtonGradient
-          onPress={() => {
-            toggleDrawer()
-          }}
-          iconProps={{ name: 'burgerMenu', color: 'white' }}
-        />
-      </Row>
+          <Pressable
+            sx={{ borderRadius: 50, px: 2.5 }}
+            onPress={() => push('/account/profile')}
+          >
+            <Image
+              alt="user-avatar"
+              source={require('../../../assets/images/common/avatarx2.png')}
+              sx={{ aspectRatio: 1, width: 34, height: 34, borderRadius: 50 }}
+            />
+          </Pressable>
+
+          <IconButtonGradient
+            onPress={() => {
+              toggleDrawer()
+            }}
+            iconProps={{ name: 'burgerMenu', color: 'white' }}
+          />
+        </Row>
+      ) : (
+        <View sx={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Button
+            title={t('authentication.login')}
+            sx={{ py: '$1', mx: '$2', minWidth: 100 }}
+            titleSx={{
+              fontSize: 14,
+              //only by setting like this, the text only can be centered
+              height: 16,
+              lineHeight: 18,
+            }}
+          />
+          <Button
+            title={t('authentication.register')}
+            sx={{ py: '$2', bg: '$primary.700', minWidth: 100 }}
+            titleSx={{
+              fontSize: 14,
+              //only by setting like this, the text only can be centered
+              height: 16,
+              lineHeight: 18,
+            }}
+          />
+        </View>
+      )}
     </HeaderContainer>
   )
 }

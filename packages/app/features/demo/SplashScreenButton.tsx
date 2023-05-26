@@ -17,7 +17,7 @@ const SplashScreenButton = () => {
   const TestLogin = async () => {
     try {
       const { data, success, message } = await login({
-        username: 'andy01stag',
+        username: 'andy06stag',
         password: 'asdf1234',
       }).unwrap()
       if (success && data) {
@@ -54,7 +54,7 @@ const SplashScreenButton = () => {
       <View sx={{ width: '20%' }}>
         <GradientButton
           iconProps={{ name: 'megaway' }}
-          onPress={() => push('/account/profile/leaderboard')}
+          onPress={() => push('/account/profile/customer-support')}
           label="Custom"
         />
       </View>
