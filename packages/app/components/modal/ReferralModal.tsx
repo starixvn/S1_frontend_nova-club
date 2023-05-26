@@ -1,43 +1,28 @@
-import useDownload from 'app/hooks/useDownload'
-import useShare from 'app/hooks/useShare'
 import useLocalization from 'app/provider/localization'
 import { copyToClipboard } from 'app/utils'
 import { Pressable, ScrollView, Text, View } from 'dripsy'
 import React, { useRef } from 'react'
-import { Platform } from 'react-native'
-import ViewShot from 'react-native-view-shot'
-import { RWebShare } from 'react-web-share'
+import { DEV_DOMAIN } from '@env'
+import withShare from 'app/hoc/withShare'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { DripsyGradient } from '../Gradient'
 import Icon from '../Icon'
 import IconButton from '../IconButton'
 import QRCodeGenerator from '../QRCodeGenerator'
+import ViewScreenShot, { ViewScreenShotMethods } from '../ViewScreenShot'
 import BouncePressable from '../pressable/BouncePressable'
 import ModalWrapper from './ModalWrapper'
-import { DEV_DOMAIN } from '@env'
 
 const ReferralModal = ({ modal: { closeModal, getParam } }) => {
   const { t } = useLocalization()
   const { data } = usePlayerProfileQuery()
-  const ref = useRef()
-  const referralCode = data?.referral_code
 
+  const ref = useRef<ViewScreenShotMethods>(null)
+  const referralCode = data?.referral_code
   const referralLink = `${DEV_DOMAIN}/download?ref=${referralCode}`
 
-  const { appScreenshotDownload, webScreenshotDownload } = useDownload({
-    ref,
-    closeModal,
-  })
-
-  const shareOptions = {
-    message: t('referral.shareMessage'),
-    url: referralLink,
-    title: t('common.share'),
-  }
-
-  const { onShare } = useShare(shareOptions)
   const handleDownload = () => {
-    Platform.OS === 'web' ? webScreenshotDownload() : appScreenshotDownload()
+    ref?.current?.download()
   }
 
   return (
@@ -53,7 +38,7 @@ const ReferralModal = ({ modal: { closeModal, getParam } }) => {
           contentContainerStyle={{ padding: '5%', backgroundColor: 'white' }}
         >
           <Text sx={{ color: 'black' }}>Share & Earn</Text>
-          <ViewScreenShot innerRef={ref} name={`Vui123-${referralCode}`}>
+          <ViewScreenShot ref={ref} fileName={`Vui123-${referralCode}`}>
             <QRCodeGenerator isTransfer={false} referralLink={referralLink} />
           </ViewScreenShot>
 
@@ -103,33 +88,15 @@ const ReferralModal = ({ modal: { closeModal, getParam } }) => {
               title={t('common.download')}
               onPress={handleDownload}
             />
-            {Platform.OS === 'web' ? (
-              <RWebShare
-                data={shareOptions}
-                onClick={() => console.info('Share successful!')}
-              >
-                <button
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    backgroundColor: 'transparent',
-                    border: 'none',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    fontSize: 12,
-                  }}
-                >
-                  <Icon size={22} name="tf" color="black" sx={{ mb: '$1' }} />
-                  <span>{t('common.share')}</span>
-                </button>
-              </RWebShare>
-            ) : (
-              <ActionButton
-                icon="tf"
-                title={t('common.share')}
-                onPress={onShare}
-              />
-            )}
+            <ShareButton
+              icon="tf"
+              title={t('common.share')}
+              options={{
+                message: t('referral.shareMessage'),
+                url: referralLink,
+                title: t('common.share'),
+              }}
+            />
           </View>
           <Pressable onPress={() => closeModal()}>
             <DripsyGradient
@@ -145,23 +112,6 @@ const ReferralModal = ({ modal: { closeModal, getParam } }) => {
   )
 }
 
-const ViewScreenShot = ({ innerRef, name, children }) => {
-  return Platform.OS === 'web' ? (
-    <View ref={innerRef}>{children}</View>
-  ) : (
-    <ViewShot
-      ref={innerRef}
-      options={{
-        fileName: { name },
-        format: 'png',
-        quality: 0.9,
-      }}
-    >
-      {children}
-    </ViewShot>
-  )
-}
-
 const ActionButton = ({ icon, title, onPress }) => {
   return (
     <BouncePressable
@@ -173,4 +123,7 @@ const ActionButton = ({ icon, title, onPress }) => {
     </BouncePressable>
   )
 }
+
+const ShareButton = withShare(ActionButton)
+
 export default ReferralModal

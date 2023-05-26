@@ -40,6 +40,8 @@ PODS:
   - EXScreenOrientation (5.2.0):
     - ExpoModulesCore
     - React-Core
+  - EXSharing (11.2.2):
+    - ExpoModulesCore
   - EXSplashScreen (0.18.2):
     - ExpoModulesCore
     - React-Core
@@ -461,6 +463,7 @@ DEPENDENCIES:
   - ExpoLinearGradient (from `../../../node_modules/expo-linear-gradient/ios`)
   - ExpoModulesCore (from `../../../node_modules/expo-modules-core`)
   - EXScreenOrientation (from `../../../node_modules/expo-screen-orientation/ios`)
+  - EXSharing (from `../../../node_modules/expo-sharing/ios`)
   - EXSplashScreen (from `../../../node_modules/expo-splash-screen/ios`)
   - FBLazyVector (from `../../../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../../../node_modules/react-native/React/FBReactNativeSpec`)
@@ -555,6 +558,8 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/expo-modules-core"
   EXScreenOrientation:
     :path: "../../../node_modules/expo-screen-orientation/ios"
+  EXSharing:
+    :path: "../../../node_modules/expo-sharing/ios"
   EXSplashScreen:
     :path: "../../../node_modules/expo-splash-screen/ios"
   FBLazyVector:
@@ -664,6 +669,7 @@ SPEC CHECKSUMS:
   ExpoLinearGradient: 8eaab76b7f55c612ed8348c8be8c2a18a9b4529f
   ExpoModulesCore: 653958063a301098b541ae4dfed1ac0b98db607b
   EXScreenOrientation: d6f2277d20a76206f1ec5268d6c727e758e10d05
+  EXSharing: 09839ace249f61bfa13c50c6a28256c31d260355
   EXSplashScreen: 0e0a9ba0cf7553094e93213099bd7b42e6e237e9
   FBLazyVector: f637f31eacba90d4fdeff3fa41608b8f361c173b
   FBReactNativeSpec: 8c29541858a7b6354833ba79e98ccef24fa184f6
@@ -719,6 +725,6 @@ SPEC CHECKSUMS:
   SDWebImageWebPCoder: 18503de6621dd2c420d680e33d46bf8e1d5169b0
   Yoga: 065f0b74dba4832d6e328238de46eb72c5de9556
 
-PODFILE CHECKSUM: c48bfb1d1a843b0b78e0765dc694ce70e3443f42
+PODFILE CHECKSUM: 3a0c5939b19bd6c6a707942cce1ee96c1079a708
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.1

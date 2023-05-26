@@ -18,5 +18,6 @@ export const baseApiWithTag = baseApi.enhanceEndpoints({
     'CNYSpinBalance',
     'TicketBalance',
     'PlayerProfile',
+    'RecoMatches',
   ],
 })

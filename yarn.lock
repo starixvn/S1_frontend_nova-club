@@ -3806,9 +3806,13 @@ __metadata:
     dayjs: ^1.11.7
     dripsy: 4.3.3
     expo-image-picker: ^14.1.1
+    expo-sharing: ~11.2.2
+    modern-screenshot: ^4.4.25
     moti: latest
     react-native-date-picker: ^4.2.13
     react-native-reanimated-carousel: ^3.3.2
+    react-native-svg: ^13.9.0
+    react-web-share: ^2.0.2
     solito: 3.0.0
     utils: "*"
     zeego: ^1.5.1
@@ -6099,6 +6103,7 @@ __metadata:
     expo-media-library: ^15.2.3
     expo-router: ^1.0.1
     expo-screen-orientation: ^5.1.1
+    expo-sharing: ~11.2.2
     expo-splash-screen: ~0.18.2
     expo-status-bar: ~1.4.4
     formik: ^2.2.9
@@ -6409,6 +6414,15 @@ __metadata:
   peerDependencies:
     expo: "*"
   checksum: 05a225c8577a732b24fcf9c590c578d8d8426491964beb557e37b92d89150ebae3fedac05f817a1e3aa0b838584e246cce746a5d494eafb6460f60f99a735b6c
+  languageName: node
+  linkType: hard
+
+"expo-sharing@npm:~11.2.2":
+  version: 11.2.2
+  resolution: "expo-sharing@npm:11.2.2"
+  peerDependencies:
+    expo: "*"
+  checksum: 7ea9e754f047dc17a15d595ac8ab16839475beef802045da72e4cb77dedfff794db7ecdf999b8a9badbcec4171f680f15151e32cdd60d274f1316e730d6add28
   languageName: node
   linkType: hard
 
@@ -9495,6 +9509,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"modern-screenshot@npm:^4.4.25":
+  version: 4.4.25
+  resolution: "modern-screenshot@npm:4.4.25"
+  checksum: 9c7cf7bf27ce16041295c34dbf669e7cbc9939bb17b6f3f478e5bddc950784392adcce020f4855785b9c59347e65af8f0222fd29d871b663ed06850e829f4a08
+  languageName: node
+  linkType: hard
+
 "moti@npm:latest":
   version: 0.24.2
   resolution: "moti@npm:0.24.2"
@@ -11886,7 +11907,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "services@workspace:packages/services"
   peerDependencies:
-    "@reduxjs/toolkit": ^1.9.5
+    "@reduxjs/toolkit": "*"
+    dayjs: "*"
   languageName: unknown
   linkType: soft
 

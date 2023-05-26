@@ -45,7 +45,7 @@ export default function AnnouncementSection() {
             <Icon
               name="announcement"
               color={'$secondary.100'}
-              sx={{ color: '', mr: '$2' }}
+              sx={{ mr: '$2' }}
               size={16}
             />
           )}

@@ -22,6 +22,7 @@ const webFont = (font: string) =>
   $8: 512,
 */
 
+// default breakpoints [0, 576, 768, 992, 1200]
 const theme = makeTheme({
   // https://www.dripsy.xyz/usage/theming/create
   customFonts: {

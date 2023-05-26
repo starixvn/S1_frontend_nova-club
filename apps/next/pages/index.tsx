@@ -1,3 +1,3 @@
-import SplashScreen from 'app/features/splashscreen/screen'
+import HomeScreen from 'app/features/home/HomeScreen'
 
-export default SplashScreen
+export default HomeScreen
