@@ -1,9 +1,9 @@
-import { Pressable, Text, styled } from 'dripsy'
+import { Pressable, SxProp, Text, styled } from 'dripsy'
 import React, { ComponentProps } from 'react'
 
 interface ButtonProps extends ComponentProps<typeof Pressable> {
   title: string
-  titleProps?: ComponentProps<typeof Text>
+  titleSx?: SxProp
   disabled?: boolean
   loading?: boolean
 }
@@ -15,19 +15,22 @@ interface ButtonContainerProps {
 
 const Button = ({
   title,
-  titleProps: titleProps,
+  titleSx,
   disabled = false,
   loading = false,
   ...rest
 }: ButtonProps) => {
+  const defaultTitleSxStyle: SxProp = {
+    fontWeight: 'bold',
+    fontSize: 18,
+    textTransform: 'uppercase',
+    textAlign: 'center',
+  }
+  const titleSxStyle = Object.assign(defaultTitleSxStyle, titleSx)
+
   return (
     <ButtonContainer disabled={disabled} loading={loading} {...rest}>
-      <Text
-        sx={{ fontWeight: 'bold', fontSize: 18, textTransform: 'uppercase' }}
-        {...titleProps}
-      >
-        {title}
-      </Text>
+      <Text sx={titleSxStyle}>{title}</Text>
     </ButtonContainer>
   )
 }
@@ -35,6 +38,7 @@ const Button = ({
 const ButtonContainer = styled(Pressable)(
   ({ disabled, loading }: ButtonContainerProps) => ({
     alignItems: 'center',
+    justifyContent: 'center',
     py: '$3',
     borderRadius: 15,
     bg: '$secondary.500',
