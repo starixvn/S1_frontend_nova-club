@@ -278,7 +278,7 @@ const LocalBankScreen = () => {
           }
         />
 
-        {values?.bank?.bankQR && (
+        {values?.bank?.bankQR ? (
           <>
             <Text sx={{ px: 18, py: 8 }}>{t('deposit.scanQr')}</Text>
             <View
@@ -292,7 +292,7 @@ const LocalBankScreen = () => {
               />
             </View>
           </>
-        )}
+        ) : null}
 
         <ReceiptUpload
           disabled={isSubmitting}
