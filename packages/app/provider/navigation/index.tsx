@@ -161,6 +161,8 @@ export function NavigationProvider({
               SummerCat: '/event/sea-game',
               CatEventTnc: '/event/sea-game-event-tnc',
               AgentRecruitmentTnc: '/banner/agent-tnc',
+              Prediction: '/event/prediction',
+              PredictionTnc: '/event/prediction-tnc',
             },
           },
         }),
