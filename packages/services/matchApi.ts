@@ -6,7 +6,7 @@ import {
 } from '@reduxjs/toolkit'
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
-import { MatchResult } from './matchApi.type'
+import { League, MatchResult } from './matchApi.type'
 import dayjs from 'dayjs'
 import groupBy from 'lodash/groupBy'
 
@@ -43,21 +43,20 @@ const leagueAdapter = createEntityAdapter<MatchResult>({
 })
 
 export const selectMatch = matchApi.endpoints.getRecoMatch.select()
-const selectMatchData = createSelector(selectMatch, (resp) => resp.data)
-const matchGroupByLeague = createSelector(
-  (r) => selectMatchData(r),
+// const selectMatchData = createSelector(selectMatch, (resp) => resp.data)
+export const matchGroupByLeague = createSelector(
+  (r) => r.data,
   (matches) => {
     const entities = groupBy(matches, 'LeagueId')
-    console.log('entities', entities)
     return {
       ids: Object.keys(entities),
       entities,
-    }
+    } as EntityState<League>
   }
 )
 
-export const { selectAll: selectAllLeague, selectById: selectLeagueById } =
-  leagueAdapter.getSelectors((state) => matchGroupByLeague(state))
+// export const { selectAll: selectAllLeague, selectById: selectLeagueById } =
+//   leagueAdapter.getSelectors((state) => matchGroupByLeague(state))
 
 // export const { selectAll: selectAllMatch, selectEntities: selectMatchEntity } =
 //   matchAdapter.getSelectors((state) => selectMatchData(state) ?? initialState)

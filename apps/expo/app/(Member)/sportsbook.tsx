@@ -1,5 +1,3 @@
-import { Text } from 'react-native'
+import SportsbookScreen from 'app/features/sportsbook/SportsbookScreen'
 
-export default function Sportsbook() {
-  return <Text>sportsbook</Text>
-}
+export default SportsbookScreen

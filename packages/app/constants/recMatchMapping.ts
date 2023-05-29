@@ -53,3 +53,11 @@ export const MatchLeagueLogoMapping = {
   [MatchLeagueId.SPAIN_PRIMERA_LALIGA]: 'sl.png',
   [MatchLeagueId.UEFA_CHAMPIONS_LEAGUE]: 'ucl.png',
 }
+
+export const MatchLeagueTabIconMapping = {
+  [MatchLeagueId.ENGLISH_PREMIER_LEAGUE]: 'sport-gbl',
+  [MatchLeagueId.ITALY_SERIE_A]: 'sport-isa',
+  [MatchLeagueId.GERMANY_BUNDESLIGA_I]: 'sport-gb',
+  [MatchLeagueId.SPAIN_PRIMERA_LALIGA]: 'sport-sl',
+  [MatchLeagueId.UEFA_CHAMPIONS_LEAGUE]: 'sport-uefa',
+}

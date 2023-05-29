@@ -1,12 +1,11 @@
-import { toCleanAmount } from 'app/utils'
 import { Text, View } from 'dripsy'
 import React from 'react'
 import { Animated, Platform, StyleSheet } from 'react-native'
 import {
   CodeField,
   Cursor,
-  isLastFilledCell,
   MaskSymbol,
+  isLastFilledCell,
   useBlurOnFulfill,
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field'

@@ -21,12 +21,14 @@ export const SCORE_HEIGHT = 20
 export default function MatchItem({ width, match }: Props) {
   // const leagueLogo = getLeagueLogo(match.LeagueId)
 
-  let gmt7: Dayjs
+  let dateDisplay = '-'
 
   try {
     const gmt8 = dayjs(match.globalshowtime, 'MM/DD hh:mmA')
-    gmt7 = dayjsTz(gmt8)
-    console.log('gmt7', gmt7)
+    const gmt7 = dayjsTz(gmt8)
+
+    if (gmt7.isValid())
+      dateDisplay = gmt7.format('DD MMM YYYY') + '\n' + gmt7.format('hh:mmA')
   } catch (e) {
     // Android Hermes will hit error if using dayjsTz
     console.log('gmt7 error', e)
@@ -40,11 +42,6 @@ export default function MatchItem({ width, match }: Props) {
   const awayPrice = match.selection[1]?.Price ?? 0
   const homeOdd = match.selection[0]?.Point ?? 0
   const awayOdd = match.selection[1]?.Point ?? 0
-
-  const dateDisplay =
-    gmt7 && gmt7.isValid()
-      ? gmt7.format('DD MMM YYYY') + '\n' + gmt7.format('hh:mmA')
-      : ''
 
   return (
     <View

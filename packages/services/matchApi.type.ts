@@ -22,3 +22,5 @@ export interface MatchOdd {
   Point2: string
   Price: number
 }
+
+export type League = MatchResult[]
