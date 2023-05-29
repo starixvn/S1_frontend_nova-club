@@ -40,6 +40,8 @@ export default function MatchSection({}: Props) {
     carouselRef?.current?.prev()
   }
 
+  const isMultiple = data.length > 1
+
   return (
     <View
       sx={{
@@ -49,17 +51,21 @@ export default function MatchSection({}: Props) {
         my: '$3',
       }}
     >
-      <PaginationIconButton
-        sx={{
-          left: 0,
-        }}
-        onPress={prev}
-      >
-        <Icon name="search-no" />
-      </PaginationIconButton>
+      {isMultiple && (
+        <PaginationIconButton
+          sx={{
+            left: 0,
+          }}
+          onPress={prev}
+        >
+          <Icon name="search-no" />
+        </PaginationIconButton>
+      )}
       <Carousel
+        autoPlay={isMultiple}
         ref={carouselRef}
         data={data}
+        windowSize={1}
         renderItem={({ item }) => (
           <MatchItem match={item} width={carouselWidth} />
         )}
@@ -70,14 +76,16 @@ export default function MatchSection({}: Props) {
         }}
         // customAnimation={animationStyle}
       />
-      <PaginationIconButton
-        sx={{
-          right: 0,
-        }}
-        onPress={next}
-      >
-        <Icon name="search-no" />
-      </PaginationIconButton>
+      {isMultiple && (
+        <PaginationIconButton
+          sx={{
+            right: 0,
+          }}
+          onPress={next}
+        >
+          <Icon name="search-no" />
+        </PaginationIconButton>
+      )}
     </View>
   )
 }

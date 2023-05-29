@@ -1,4 +1,4 @@
-// import { API_DOMAIN, API_KEY } from '@env'
+import { API_DOMAIN, API_KEY } from '@env'
 import { EnhancedStore } from '@reduxjs/toolkit'
 
 import { RootState } from 'app/provider/redux/store'
@@ -6,8 +6,8 @@ import { LANGUAGE_CODE } from 'app/utils/constant'
 import { generateFPSParams } from 'app/utils/fps/fpsGenerator'
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 
-const API_DOMAIN = 'https://stage.gball8.com/api/nv88_api/v1'
-const API_KEY = 'zl9oo0vtrtbih1fufvq8pk8stvqprad8'
+// const API_DOMAIN = 'https://stage.gball8.com/api/nv88_api/v1'
+// const API_KEY = 'zl9oo0vtrtbih1fufvq8pk8stvqprad8'
 
 export enum AuthURL {
   LOGOUT = '/player_api/logout',
