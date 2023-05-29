@@ -29,6 +29,12 @@ export type ModalStackParams = {
     // actions: ModalAction[]
     onClose(...args: any): any
   }
+  DeleteBankAccountModal: {
+    message: string
+    title?: string
+    // actions: ModalAction[]
+    onClose(...args: any): any
+  }
   NoticeModal: { notice: [] }
 }
 
@@ -39,6 +45,8 @@ const _dynamicModal = {
   AlertModal: () => import('app/components/modal/AlertModal'),
   ReferralModal: () => import('app/components/modal/ReferralModal'),
   NoticeModal: () => import('app/components/modal/NoticeModal'),
+  DeleteBankAccountModal: () =>
+    import('app/components/modal/DeleteBankAccountModal'),
 }
 
 function getDynamicComponent(key: DynamicModalType) {
@@ -65,6 +73,9 @@ const modalConfig: ModalConfigType = {
   },
   NoticeModal: {
     modal: getDynamicComponent('NoticeModal'),
+  },
+  DeleteBankAccountModal: {
+    modal: getDynamicComponent('DeleteBankAccountModal'),
   },
 }
 const stack = createModalStack(modalConfig, {

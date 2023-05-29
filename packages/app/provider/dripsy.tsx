@@ -76,6 +76,7 @@ const theme = makeTheme({
     $success: '#0DBF00',
     $error: '#E43221',
     $placeholder: '#ffffff80',
+    $otp: '#DEDEDE',
     // selectionColor: '$tertiary',
   },
   linearGradients: {

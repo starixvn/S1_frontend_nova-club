@@ -6,9 +6,11 @@ import { Button, GestureResponderEvent } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import Icon from '../Icon'
 import TouchableOpacity from '../pressable/TouchableOpacity'
+import { DripsyGradient } from '../Gradient'
 
 interface ActionsProps {
   label: string
+  loading?: boolean
   onPress: (e: GestureResponderEvent) => void
 }
 interface ModalContentProps {
@@ -16,7 +18,7 @@ interface ModalContentProps {
   isShowHeader?: boolean
   actions?: ActionsProps[]
   children: ReactElement
-  footer: boolean
+  disableAction?: boolean
 }
 
 const ModalContent = ({
@@ -24,7 +26,7 @@ const ModalContent = ({
   isShowHeader = true,
   actions,
   children,
-  footer = true,
+  disableAction = true,
 }: ModalContentProps) => {
   const { t } = useLocalization()
   const { closeModal } = useModal()
@@ -36,36 +38,39 @@ const ModalContent = ({
         <ScrollView
           bounces={true}
           contentContainerSx={{
-            justifyContent: 'center',
-            minHeight: 225,
+            minHeight: 150,
           }}
         >
-          {isShowHeader &&
-            (title ? (
-              <TextTitle>{title}</TextTitle>
-            ) : (
-              <View
-                sx={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <Icon name="notice" size={24} color="white" sx={{ mr: 12 }} />
-                <TextTitle>{TITLE.toUpperCase()}</TextTitle>
-              </View>
-            ))}
+          {isShowHeader && (
+            <ModalHeader>
+              {title ? (
+                <TextTitle>{title}</TextTitle>
+              ) : (
+                <View
+                  sx={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Icon name="notice" size={24} color="white" sx={{ mr: 12 }} />
+                  <TextTitle>{TITLE.toUpperCase()}</TextTitle>
+                </View>
+              )}
+            </ModalHeader>
+          )}
+
           <ViewBody>{children}</ViewBody>
         </ScrollView>
       </ModalBackground>
 
-      {footer && (
+      {disableAction && (
         <ViewFooter>
           {actions ? (
             actions.map((item) => (
-              <Gradient
+              <DripsyGradient
                 key={item.label}
-                gradient={'surface'}
+                gradient="surface"
                 sx={{ borderRadius: 12, mb: 16 }}
               >
                 <Button
@@ -73,7 +78,7 @@ const ModalContent = ({
                   color="white"
                   onPress={item.onPress}
                 />
-              </Gradient>
+              </DripsyGradient>
             ))
           ) : (
             <TouchableOpacity
@@ -103,12 +108,15 @@ const ModalContent = ({
   )
 }
 
-const ModalBackground = styled(Gradient)({
+const ModalBackground = styled(DripsyGradient)({
   borderRadius: 20,
-  justifyContent: 'center',
-  p: '5%',
-  minHeight: 250,
+  p: '10%',
   alignItems: 'center',
+})
+
+const ModalHeader = styled(View)({
+  pt: 12,
+  pb: 12,
 })
 
 const TextTitle = styled(Text)({
@@ -119,8 +127,10 @@ const TextTitle = styled(Text)({
 })
 
 const ViewBody = styled(View)({
-  mt: 24,
+  flex: 1,
   width: '100%',
 })
-const ViewFooter = styled(View)({})
+const ViewFooter = styled(View)({
+  mt: 12,
+})
 export default ModalContent

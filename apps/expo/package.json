@@ -28,6 +28,7 @@
     "react-native-date-picker": "^4.2.13",
     "react-native-gesture-handler": "~2.9.0",
     "react-native-ios-context-menu": "^1.15.3",
+    "react-native-mask-input": "^1.2.3",
     "react-native-modalfy": "^3.4.0",
     "react-native-pager-view": "^6.2.0",
     "react-native-qrcode-svg": "^6.2.0",

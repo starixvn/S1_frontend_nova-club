@@ -31,33 +31,33 @@ const CustomTabBar = ({ routes, currentIndex, onPress }: CustomTabBarProps) => {
           PageComponent === View ? { flexDirection: 'row', px: 24, gap: 4 } : {}
         }
       >
-        {routes.map((route, index) => {
-          const isActive = currentIndex === index
-
-          return (
-            <View key={route.title} sx={{ flex: 1, py: 12 }}>
-              <Pressable onPress={() => handlePress(route.index)}>
-                <ShadowButton
-                  isActive={isActive}
-                  containerStyle={{ minWidth: '100%' }}
-                >
-                  <Text
-                    numberOfLines={2}
-                    sx={{
-                      fontSize: 12,
-                      fontWeight: 'bold',
-                      color: 'white',
-                      opacity: isActive ? 1 : 0.5,
-                      textAlign: 'center',
-                    }}
+        {routes.length > 0 &&
+          routes.map((route, index) => {
+            const isActive = currentIndex === index
+            return (
+              <View key={route.title} sx={{ flex: 1, py: 12 }}>
+                <Pressable onPress={() => handlePress(route.index)}>
+                  <ShadowButton
+                    isActive={isActive}
+                    containerStyle={{ minWidth: '100%' }}
                   >
-                    {route.title.toUpperCase()}
-                  </Text>
-                </ShadowButton>
-              </Pressable>
-            </View>
-          )
-        })}
+                    <Text
+                      numberOfLines={2}
+                      sx={{
+                        fontSize: 12,
+                        fontWeight: 'bold',
+                        color: 'white',
+                        opacity: isActive ? 1 : 0.5,
+                        textAlign: 'center',
+                      }}
+                    >
+                      {route?.title?.toUpperCase() ?? ''}
+                    </Text>
+                  </ShadowButton>
+                </Pressable>
+              </View>
+            )
+          })}
       </PageComponent>
     </DripsyGradient>
   )

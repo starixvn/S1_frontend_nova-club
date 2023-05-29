@@ -61,7 +61,10 @@ const Input = forwardRef<NativeTextInput, InputProps>(
       <RootView sx={{ cursor: onPress ? 'pointer' : 'initial', ...sx }}>
         {label && <Label>{`${label} :`}</Label>}
         <FocusArea onPress={handleOnPress}>
-          <InputContainer color={sizeEffectColor}>
+          <InputContainer
+            color={sizeEffectColor}
+            sx={editable ? {} : { bg: '$primary.300' }}
+          >
             {InputIcon && <InputIcon color={sizeEffectColor ?? 'white'} />}
             {prefix && (
               <Container>
