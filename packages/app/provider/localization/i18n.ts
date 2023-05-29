@@ -10,8 +10,8 @@ export const i18n = new I18n(
   },
   {
     enableFallback: true,
-    defaultLocale: 'vi',
-    locale: 'vi',
+    defaultLocale: 'en',
+    locale: 'en',
   }
 )
 

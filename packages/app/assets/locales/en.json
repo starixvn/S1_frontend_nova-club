@@ -1,7 +1,7 @@
 {
   "common": {
-    "player": "player",
-    "agent": "agent",
+    "player": "Player",
+    "agent": "Agent",
     "username": "username",
     "password": "password",
     "transfer": "transfer",
@@ -20,9 +20,12 @@
     "profile": "profile",
     "points": "points",
     "receive": "receive",
-    "submit": "submit",
+    "submit": "Submit",
     "close": "Close",
-    "pin": "Pin"
+    "pin": "Pin",
+    "cancel": "Cancel",
+    "confirmDelete": "Confirm Delete",
+    "send": "Send"
   },
   "authentication": {
     "login": "Login",
@@ -40,7 +43,9 @@
     "tab": {
       "event": "Event",
       "ranking": "Ranking"
-    }
+    },
+    "bankAccount": "Bank Account",
+    "cryptoWallet": "Crypto Wallet"
   },
   "transfer": {
     "transferTitle": "transfer",
@@ -108,5 +113,14 @@
     "usdtFormat": "Must be ERC-20 / TRC-20 compatible wallet address",
     "userNameMinMaxLength": "6-18 characters only",
     "username": "6-18 characters only"
+  },
+  "bank": {
+    "addBankAccount": "Add Bank Account",
+    "confirmDelete": "Are you sure you want to delete? It cannot be restored after deletion!",
+    "addCryptoWallet": "Add Crypto Wallet",
+    "walletAddress": "Wallet Address"
+  },
+  "status": {
+    "systemError": "Oops! Something wrong, please try again."
   }
 }

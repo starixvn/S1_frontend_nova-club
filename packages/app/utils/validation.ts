@@ -8,6 +8,9 @@ const ALPHANUMERIC_REGEX = RegExp(/^[0-9A-Za-z]*$/g)
 const PASSWORD_REGEX = RegExp(/^([a-zA-Z0-9!@#$%^&*]+)$/g)
 const NUMERIC_REGEX = RegExp(/^[0-9]*$/)
 const AMOUNT_REGEX = RegExp(/^(?!0$).*/)
+const BTC_REGEX = RegExp(/^(bc1|[13])[a-zA-HJ-NP-Z0-9]{25,39}$/g)
+const ETH_REGEX = RegExp(/^0x[a-fA-F0-9]{40}$/g)
+const USDT_TRC20 = RegExp(/^T[A-Za-z1-9]{33}/g)
 
 const validation = {
   username: Yup.string()
@@ -102,6 +105,19 @@ const validation = {
       },
       message: 'validation.invalidAccountName',
     }),
+
+  usdtErc20: Yup.string()
+    .required('validation.required')
+    .matches(ETH_REGEX, 'validation.cryptoAddress'),
+  usdtTrc20: Yup.string()
+    .required('validation.required')
+    .matches(USDT_TRC20, 'validation.cryptoAddress'),
+  eth: Yup.string()
+    .required('validation.required')
+    .matches(ETH_REGEX, 'validation.cryptoAddress'),
+  btc: Yup.string()
+    .required('validation.required')
+    .matches(BTC_REGEX, 'validation.cryptoAddress'),
 }
 
 export const getErrorMessage = (error: any) => {
