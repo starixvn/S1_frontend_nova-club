@@ -52,6 +52,7 @@ const nextConfig = {
     'react-native-toast-message',
     /* https://github.com/expo/expo/issues/21623 */
     '@react-native/assets',
+    'expo-av',
     'expo-asset',
     'expo-font',
     'expo-modules-core',

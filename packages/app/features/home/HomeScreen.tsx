@@ -17,7 +17,7 @@ export default function HomeScreen() {
       <BannerSection />
       <AnnouncementSection />
       <MatchSection />
-      {/* <GameGridSection /> */}
+      <GameGridSection />
       <RecentlyPlayedSection />
       <TopGameSection />
       <JackpotGameSection />
