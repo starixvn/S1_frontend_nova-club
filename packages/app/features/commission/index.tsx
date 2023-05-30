@@ -1,5 +1,5 @@
 import { FlashList } from '@shopify/flash-list'
-import DataTable from 'app/components/DataTable/DataTable'
+import DataTable from 'app/components/dataTable/DataTable'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import useLocalization from 'app/provider/localization'
 import { Currency } from 'app/utils/constant'
