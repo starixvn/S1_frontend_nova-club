@@ -27,7 +27,7 @@ import {
 import { Currency } from 'app/utils/constant'
 import validation from 'app/utils/validation'
 import validationRule from 'app/utils/validationRule'
-import { View } from 'dripsy'
+import { Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect, useRef, useState } from 'react'
 import { Platform } from 'react-native'
@@ -42,6 +42,8 @@ import { usePlayerProfileQuery } from 'services/playerApi'
 import * as Yup from 'yup'
 import ReceiptUpload, { ReceiptUploadMethods } from '../ReceiptUpload'
 import DepositTransactions from './DepositTransactions'
+import Image from 'app/components/common/Image'
+import { CMS_CONTENT_URI, CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 export type LocalBankValues = {
   bank: ManualBankItem | null
@@ -275,6 +277,22 @@ const LocalBankScreen = () => {
               : undefined
           }
         />
+
+        {values?.bank?.bankQR ? (
+          <>
+            <Text sx={{ px: 18, py: 8 }}>{t('deposit.scanQr')}</Text>
+            <View
+              sx={{ justifyContent: 'center', alignItems: 'center', py: 12 }}
+            >
+              <Image
+                source={{
+                  uri: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${values?.bank?.bankQR}`,
+                }}
+                sx={{ width: 120, height: 120 }}
+              />
+            </View>
+          </>
+        ) : null}
 
         <ReceiptUpload
           disabled={isSubmitting}
