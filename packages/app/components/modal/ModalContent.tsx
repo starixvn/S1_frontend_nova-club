@@ -2,11 +2,12 @@ import useLocalization from 'app/provider/localization'
 import { ScrollView, Text, View, styled } from 'dripsy'
 import { Gradient } from 'dripsy/gradient'
 import React, { ReactElement } from 'react'
-import { Button, GestureResponderEvent } from 'react-native'
+import { GestureResponderEvent } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import Icon from '../Icon'
 import TouchableOpacity from '../pressable/TouchableOpacity'
 import { DripsyGradient } from '../Gradient'
+import Button from '../common/Button'
 
 interface ActionsProps {
   label: string
@@ -68,39 +69,23 @@ const ModalContent = ({
         <ViewFooter>
           {actions ? (
             actions.map((item) => (
-              <DripsyGradient
+              <Button
                 key={item.label}
-                gradient="surface"
-                sx={{ borderRadius: 12, mb: 16 }}
-              >
-                <Button
-                  title={item.label}
-                  color="white"
-                  onPress={item.onPress}
-                />
-              </DripsyGradient>
-            ))
-          ) : (
-            <TouchableOpacity
-              sx={{
-                borderRadius: 12,
-                bg: '$secondary.500',
-                mt: '$4',
-                alignItems: 'center',
-                py: '$3',
-              }}
-              onPress={() => closeModal()}
-            >
-              <Text
+                loading={item?.loading}
+                onPress={item.onPress}
                 sx={{
-                  textTransform: 'uppercase',
-                  fontWeight: 'bold',
-                  fontSize: 18,
+                  mb: '$3',
+                  bg:
+                    item.label === t('common.cancel')
+                      ? '$disabled'
+                      : '$secondary.500',
                 }}
               >
-                {t('common.close')}
-              </Text>
-            </TouchableOpacity>
+                {item.label}
+              </Button>
+            ))
+          ) : (
+            <Button onPress={() => closeModal()}>{t('common.close')}</Button>
           )}
         </ViewFooter>
       )}

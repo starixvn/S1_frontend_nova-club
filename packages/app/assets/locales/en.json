@@ -25,7 +25,10 @@
     "pin": "Pin",
     "cancel": "Cancel",
     "confirmDelete": "Confirm Delete",
-    "send": "Send"
+    "send": "Send",
+    "bank": "Bank",
+    "otp": "OTP",
+    "next": "Next"
   },
   "authentication": {
     "login": "Login",
@@ -118,9 +121,19 @@
     "addBankAccount": "Add Bank Account",
     "confirmDelete": "Are you sure you want to delete? It cannot be restored after deletion!",
     "addCryptoWallet": "Add Crypto Wallet",
-    "walletAddress": "Wallet Address"
+    "walletAddress": "Wallet Address",
+    "accountNumber": "Account Number",
+    "accountName": "Account Name",
+    "channel": "Channel"
   },
   "status": {
     "systemError": "Oops! Something wrong, please try again."
+  },
+  "placeholder": {
+    "selectBank": "Select Bank",
+    "selectChannel": "Select Channel"
+  },
+  "profile": {
+    "realName": "Real Name"
   }
 }

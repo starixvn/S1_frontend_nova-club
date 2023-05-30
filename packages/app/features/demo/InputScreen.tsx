@@ -1,3 +1,4 @@
+import Button from 'app/components/common/Button'
 import DatePicker from 'app/components/form/DatePicker'
 import FilePicker from 'app/components/form/FilePicker'
 import Input from 'app/components/form/Input'
@@ -21,6 +22,12 @@ export default function InputScreen() {
       }}
       contentContainerSx={{ px: '$2', paddingTop: top, paddingBottom: bottom }}
     >
+      <Button>Title</Button>
+      <Button leftIcon={{ name: 'down' }}>Title 2</Button>
+      <Button rightIcon={{ name: 'down', size: 12 }}>Title 3</Button>
+      <Button loading>Title 4</Button>
+      <Button disabled>Title 5</Button>
+
       <DatePicker value={d} onChange={setD} placeholder="Select Date" />
       <DatePicker
         value={d}

@@ -46,7 +46,7 @@ export const Profile_Wallet_Route: Route[] = [
   },
   {
     label: 'Bank Account',
-    path: '/wallet/bankAccount',
+    path: '/account/profile/bank',
     icon: 'card',
   },
   {

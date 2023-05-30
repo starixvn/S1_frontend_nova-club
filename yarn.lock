@@ -6111,6 +6111,7 @@ __metadata:
     react: 18.2.0
     react-dom: 18.2.0
     react-native: 0.71.8
+    react-native-actions-sheet: ^0.8.29
     react-native-confirmation-code-field: ^7.3.1
     react-native-date-picker: ^4.2.13
     react-native-dotenv: ^3.4.8
@@ -10866,6 +10867,15 @@ __metadata:
   version: 17.0.2
   resolution: "react-is@npm:17.0.2"
   checksum: 9d6d111d8990dc98bc5402c1266a808b0459b5d54830bbea24c12d908b536df7883f268a7868cfaedde3dd9d4e0d574db456f84d2e6df9c4526f99bb4b5344d8
+  languageName: node
+  linkType: hard
+
+"react-native-actions-sheet@npm:^0.8.29":
+  version: 0.8.29
+  resolution: "react-native-actions-sheet@npm:0.8.29"
+  peerDependencies:
+    react-native: "*"
+  checksum: e4ea46f6370d25a6fff97de87e4e20799319c2d574cb52e12017b266eeadc869116d443b78d1880999df7bbb13cdfa3df2dae3589d98d9063f62c4122e6e5011
   languageName: node
   linkType: hard
 

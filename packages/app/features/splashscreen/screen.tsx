@@ -45,6 +45,7 @@ export default function SplashScreen() {
       sx={{
         bg: '$primary.700',
       }}
+      nestedScrollEnabled
     >
       <Text>AvertaStd</Text>
       <Text sx={{ fontWeight: '500' }}>AvertaStd Semibold</Text>

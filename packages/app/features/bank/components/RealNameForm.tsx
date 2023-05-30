@@ -57,7 +57,7 @@ const RealNameForm = ({ formik, children }) => {
     <>
       {playerData?.firstName.length !== 0 && (
         <Input
-          label={t('profile.details.realname')}
+          label={t('profile.realName')}
           value={playerData?.firstName || ''}
           editable={false}
         />
@@ -83,9 +83,9 @@ const RealNameForm = ({ formik, children }) => {
 
       {children}
 
-      {true && (
+      {!playerData?.verified_phone && (
         <Input
-          label={t('OTP')}
+          label={t('common.otp')}
           value={values.otp}
           maxLength={6}
           onChangeText={handleChange('otp')}
@@ -93,7 +93,7 @@ const RealNameForm = ({ formik, children }) => {
           error={
             touched.otp && errors.otp
               ? t(errors.otp, {
-                  field: t('OTP'),
+                  field: t('common.otp'),
                 })
               : undefined
           }
