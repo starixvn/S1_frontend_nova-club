@@ -82,6 +82,7 @@ const theme = makeTheme({
     $white: '#fff',
     $transparent: 'rgba(0,0,0,0)',
     $transparentWhite: 'rgba(255,255,255,0)',
+    $disabled: '#7D7D7D',
     // selectionColor: '$tertiary',
   },
   linearGradients: {

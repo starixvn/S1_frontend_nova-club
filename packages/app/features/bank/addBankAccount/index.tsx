@@ -1,15 +1,15 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
+import Button from 'app/components/common/Button'
+import CardInput from 'app/components/form/CardInput'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
+import useAddBank from 'app/hooks/bank/useAddBank'
 import useLocalization from 'app/provider/localization'
+import { MaxLength } from 'app/utils/constant'
 import { View, styled } from 'dripsy'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useWithdrawalBankQuery } from 'services/bank'
 import RealNameForm from '../components/RealNameForm'
-import Input from 'app/components/form/Input'
-import Button from 'app/components/common/Button'
-import useAddBank from 'app/hooks/bank/useAddBank'
-import { MaxLength } from 'app/utils/constant'
-import CardInput from 'app/components/form/CardInput'
 
 const AddBankAccountScreen = () => {
   const { t } = useLocalization()
@@ -18,18 +18,24 @@ const AddBankAccountScreen = () => {
     {
       selectFromResult: (s) => ({
         ...s,
-        bankData: s.data?.data?.filter((b) => b.bank_code),
+        bankData: s.data?.data,
       }),
     }
   )
 
-  const sheetData = bankData?.map((item) => {
-    return {
-      label: item.bank_name,
-      value: item.bank_code,
-      icon: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.bank_icon}`,
-    }
-  })
+  const sheetData = useMemo(
+    () =>
+      bankData
+        ?.filter((b) => b.bank_code)
+        ?.map((item) => {
+          return {
+            label: item.bank_name,
+            value: item.bank_code,
+            icon: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.bank_icon}`,
+          }
+        }) ?? [],
+    [bankData]
+  )
 
   const { formik } = useAddBank({ BankType: 'bank' })
 
@@ -46,13 +52,9 @@ const AddBankAccountScreen = () => {
     setFieldValue,
     setValues,
   } = formik
-  console.log(
-    '🚀 ~ file: index.tsx:48 ~ AddBankAccountScreen ~ values:',
-    values
-  )
 
   const handleSelected = (value) => {
-    const item = bankData?.find((el) => el.bank_code === value.value)
+    const item = bankData?.find((el) => el.bank_code === value)
     setFieldValue('bank', item)
   }
 
@@ -60,22 +62,18 @@ const AddBankAccountScreen = () => {
     <PageWithBackHeader header={{ title: 'Add Bank Account' }}>
       <ContentWrapper>
         <RealNameForm formik={formik}>
-          {/* <Select
-            label={t('bank.bank')}
-            value={values.bank?.bank_name ?? ''}
-            loading={isLoading || isFetching}
+          <SelectWithCardGrid
+            label={t('common.bank')}
+            placeholder={t('placeholder.selectBank')}
             options={sheetData}
-            onSelected={handleSelected}
-            isHorizontalActionSheet
-            sx={{ mb: '$2' }}
-            _actionSheet={{
-              sheetId: ACTION_SHEET_ID.ADD_BANK_ACCOUNT,
-              headerTitle: t('bank.bank'),
-            }}
-          /> */}
+            loading={isLoading || isFetching}
+            value={values.bank?.bank_name}
+            sx={{ width: '100%', mb: '$3' }}
+            onSelected={(e) => handleSelected(e)}
+          />
 
           <CardInput
-            label={t('bank.accountNo')}
+            label={t('bank.accountNumber')}
             value={values.accountNo}
             setValue={handleChange('accountNo')}
             // onChangeText={handleChange('accountNo')}
@@ -85,15 +83,21 @@ const AddBankAccountScreen = () => {
             error={
               touched.accountNo && errors.accountNo
                 ? t(errors.accountNo, {
-                    field: t('bank.accountNo'),
+                    field: t('bank.accountNumber'),
                   })
                 : undefined
             }
           />
         </RealNameForm>
-        <StyledButtonWrapper>
-          <Button title="Add" />
-        </StyledButtonWrapper>
+
+        <Button
+          loading={isSubmitting}
+          disabled={!isValid || !dirty}
+          onPress={submitForm}
+          sx={{ my: 20 }}
+        >
+          {t('common.next')}
+        </Button>
       </ContentWrapper>
     </PageWithBackHeader>
   )
@@ -105,8 +109,4 @@ const ContentWrapper = styled(View)(() => ({
   p: '$pagePadding',
 }))
 
-const StyledButtonWrapper = styled(View)(() => ({
-  my: 20,
-  mx: 12,
-}))
 export default AddBankAccountScreen

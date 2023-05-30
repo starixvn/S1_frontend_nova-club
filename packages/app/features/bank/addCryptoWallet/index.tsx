@@ -9,6 +9,7 @@ import { getCryptoProtocol } from 'app/constants/crypto'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import Input from 'app/components/form/Input'
 import Button from 'app/components/common/Button'
+import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
 
 const AddCryptoWalletScreen = () => {
   const { t } = useLocalization()
@@ -22,13 +23,14 @@ const AddCryptoWalletScreen = () => {
     }
   )
 
-  const sheetData = bankData?.map((item) => {
-    return {
-      label: item.bank_name,
-      value: item.bank_code,
-      icon: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.bank_icon}`,
-    }
-  })
+  const sheetData =
+    bankData?.map((item) => {
+      return {
+        label: item.bank_name,
+        value: item.bank_code,
+        icon: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.bank_icon}`,
+      }
+    }) ?? []
 
   const { formik } = useAddBank({ BankType: 'crypto' })
 
@@ -44,9 +46,13 @@ const AddCryptoWalletScreen = () => {
     submitForm,
     setFieldValue,
   } = formik
+  console.log(
+    '🚀 ~ file: index.tsx:49 ~ AddCryptoWalletScreen ~ errors:',
+    errors
+  )
 
   const handleSelected = (value) => {
-    const item = bankData?.find((el) => el.bank_code === value.value)
+    const item = bankData?.find((el) => el.bank_code === value)
     const bankProtocol = getCryptoProtocol(item?.bank_code)
 
     setFieldValue('bank', item)
@@ -58,18 +64,15 @@ const AddCryptoWalletScreen = () => {
     <PageWithBackHeader header={{ title: t('bank.addCryptoWallet') }}>
       <StyledView>
         <RealNameForm formik={formik}>
-          {/* <Select
-            label={t('deposit.channel')}
-            value={values.bank?.bank_name ?? ''}
-            loading={isLoading || isFetching}
+          <SelectWithCardGrid
+            label={t('bank.channel')}
+            placeholder={t('placeholder.selectChannel')}
             options={sheetData}
-            onSelected={handleSelected}
-            sx={{ mb: '$2' }}
-            _actionSheet={{
-              sheetId: ACTION_SHEET_ID.CHANNEL,
-              headerTitle: t('deposit.channel'),
-            }}
-          /> */}
+            loading={isLoading || isFetching}
+            value={values.bank?.bank_name}
+            sx={{ width: '100%', mb: '$3' }}
+            onSelected={(e) => handleSelected(e)}
+          />
 
           <Input
             label={t('bank.walletAddress')}
@@ -86,25 +89,14 @@ const AddCryptoWalletScreen = () => {
           />
         </RealNameForm>
 
-        <StyledButtonWrapper>
-          {/* <Button
-            rounded
-            stretch
-            loading={isSubmitting}
-            disabled={!isValid || !dirty}
-            variant="lg"
-            fill={{
-              type: 'gradient',
-              color: 'secondary',
-              start: { x: 0, y: 0 },
-              end: { x: 1, y: 0 },
-            }}
-            onPress={submitForm}
-          >
-            <Button.Label>{t('common.next')}</Button.Label>
-          </Button> */}
-          <Button title={t('bank.addCryptoWallet')} />
-        </StyledButtonWrapper>
+        <Button
+          loading={isSubmitting}
+          disabled={!isValid || !dirty}
+          onPress={submitForm}
+          sx={{ my: 20 }}
+        >
+          {t('common.next')}
+        </Button>
       </StyledView>
     </PageWithBackHeader>
   )
@@ -116,8 +108,4 @@ const StyledView = styled(View)(() => ({
   p: '$pagePadding',
 }))
 
-const StyledButtonWrapper = styled(View)(() => ({
-  my: 20,
-  mx: 12,
-}))
 export default AddCryptoWalletScreen
