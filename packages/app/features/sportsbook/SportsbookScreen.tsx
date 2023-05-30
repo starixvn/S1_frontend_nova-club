@@ -52,14 +52,13 @@ export default function SportsbookScreen() {
     return <GameCard name={formattedName} image={imageUrl} />
   }
 
-  console.log('gameList', gameList)
   return (
     <FlashList<Game>
-      // CellRendererComponent={(props) => {
-      //   return (
-      //     <CellContainer {...props} style={[props.style, { padding: 10 }]} />
-      //   )
-      // }}
+      CellRendererComponent={(props) => {
+        return (
+          <CellContainer {...props} style={[props.style, { padding: 10 }]} />
+        )
+      }}
       data={gameList}
       renderItem={renderItem}
       estimatedItemSize={10}

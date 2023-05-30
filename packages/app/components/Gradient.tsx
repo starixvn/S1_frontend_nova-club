@@ -6,7 +6,7 @@ export type GradientList = keyof DripsyCustomTheme['linearGradients']
 
 export type DripsyGradientProps = Override<
   ComponentProps<typeof Gradient>,
-  { gradient: GradientList }
+  { gradient?: GradientList }
 >
 
 export function DripsyGradient(rest: DripsyGradientProps) {

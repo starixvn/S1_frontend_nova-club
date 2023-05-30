@@ -1,16 +1,65 @@
-import { Pressable, Text } from 'dripsy'
-import React from 'react'
+import { Pressable, SxProp, Text, View, styled } from 'dripsy'
+import React, { ComponentType } from 'react'
+import { PressableProps, StyleSheet } from 'react-native'
+import { SolitoImageProps } from 'solito/build/image/image.types'
 import { SolitoImage } from 'solito/image'
 
-export default function GameCard({ name, image }) {
+export interface GameCardProps extends PressableProps {
+  name?: string
+  image: string | number
+  width?: number | number[]
+  height?: number | number[]
+  sx?: SxProp
+}
+
+export default function GameCard({
+  name,
+  image,
+  width,
+  height,
+  sx,
+  ...rest
+}: GameCardProps) {
   return (
-    <Pressable>
-      <SolitoImage
-        style={{ width: '100%', aspectRatio: 1 }}
-        alt={name}
-        src={image}
-      />
-      <Text>{name}</Text>
-    </Pressable>
+    <Root
+      sx={{
+        width,
+        height,
+        ...sx,
+      }}
+      {...rest}
+    >
+      <View sx={{ width: '100%', aspectRatio: 1, position: 'relative' }}>
+        <SolitoImage fill alt={name ?? ''} src={image} />
+      </View>
+      {name && (
+        <LabelContainer>
+          <Text
+            sx={{
+              textAlign: 'center',
+              fontWeight: 'bold',
+              fontSize: [12, 14],
+            }}
+          >
+            {name}
+          </Text>
+        </LabelContainer>
+      )}
+    </Root>
   )
 }
+
+const Root = styled(Pressable)({
+  flex: 1,
+  overflow: 'hidden',
+  borderRadius: 15,
+})
+const LabelContainer = styled(View)({
+  borderTopWidth: StyleSheet.hairlineWidth,
+  borderTopColor: '$primary.100',
+  bg: `rgba(50, 50, 90, 0.8)`,
+  position: 'absolute',
+  bottom: 0,
+  width: '100%',
+  py: '$2',
+})

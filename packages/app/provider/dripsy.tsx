@@ -77,17 +77,35 @@ const theme = makeTheme({
     $error: '#E43221',
     $placeholder: '#ffffff80',
     $otp: '#DEDEDE',
+
+    $black: '#000',
+    $white: '#fff',
+    $transparent: 'rgba(0,0,0,0)',
+    $transparentWhite: 'rgba(255,255,255,0)',
     // selectionColor: '$tertiary',
   },
   linearGradients: {
-    // nesteed color not working for now, https://github.com/nandorojo/dripsy/issues/286
     button: ['$primary.100', '$tertiary'],
     // surface: ['$primary.300', '#$primary.500'],
     surface: ['$primary.300', '$primary.500'],
     ball: ['$success', '$error'],
+    shading: ['$primary.500', '$transparent'],
+  },
+  shadows: {
+    md: {
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.7,
+      shadowRadius: 2.1,
+      elevation: 3,
+    },
   },
   space: {
     $pagePadding: 24,
+    $sectionBottomSpace: 20,
     $0: 0,
     $1: 4,
     $2: 8,

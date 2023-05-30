@@ -25,7 +25,10 @@ const nextConfig = {
   // once that gets fixed, set this back to true
   images: {
     disableStaticImages: true,
-    domains: ['static.zzspeed.site'],
+    domains: [
+      'static.zzspeed.site',
+      'static-global.static-bifrost.com', // delete this before going prod
+    ],
   },
   reactStrictMode: false,
   typescript: {
@@ -67,6 +70,7 @@ const nextConfig = {
     '@expo/vector-icons',
     'zeego',
     '@shopify/flash-list',
+    'recyclerlistview',
   ],
 }
 

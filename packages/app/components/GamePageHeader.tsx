@@ -2,6 +2,7 @@ import { Row, Text, View, styled } from 'dripsy'
 import React from 'react'
 import Icon from './Icon'
 import { MotiView } from 'moti'
+import { FONT_TOP_OFFSET } from 'app/constants/font'
 
 export default function GamePageHeader({ icon, title }) {
   return (
@@ -26,7 +27,14 @@ export default function GamePageHeader({ icon, title }) {
           <Icon sx={{ fontSize: [20, 22, 24] }} name={icon} />
         </MotiView>
       </IndentIconContainer>
-      <Text sx={{ mx: '$2', fontWeight: '700', fontSize: [16, 22] }}>
+      <Text
+        sx={{
+          mx: '$2',
+          mt: FONT_TOP_OFFSET,
+          fontWeight: '700',
+          fontSize: [16, 22],
+        }}
+      >
         {title}
       </Text>
     </Row>
@@ -35,7 +43,7 @@ export default function GamePageHeader({ icon, title }) {
 
 const IndentIconContainer = styled(MotiView)({
   bg: '$primary.700',
-  p: '$2',
+  p: ['$1', '$2'],
   ml: ['$2', '$3'],
   borderRadius: 100,
 })

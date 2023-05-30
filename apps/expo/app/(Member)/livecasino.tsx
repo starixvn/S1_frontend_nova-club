@@ -1,5 +1,3 @@
-import { Text } from 'react-native'
+import LiveCasinoScreen from 'app/features/livecasino/LiveCasinoScreen'
 
-export default function LiveCasino() {
-  return <Text>LiveCasino</Text>
-}
+export default LiveCasinoScreen
