@@ -4,7 +4,7 @@ const TncVi = () => {
   return (
     <div>
       <h2>TUYỂN ĐẠI LÝ </h2>
-      <p>Thời gian khuyến mãi: 17 - 30 June 2023</p>
+      <p>Thời gian khuyến mãi: 17/05 - 30/06/2023</p>
 
       <br />
       <div>
