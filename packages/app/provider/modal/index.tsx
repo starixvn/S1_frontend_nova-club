@@ -6,6 +6,7 @@ import { ActivityIndicator } from 'dripsy'
 import dynamic from 'next/dynamic'
 import React from 'react'
 import { Easing } from 'react-native'
+import { FastImageProps } from 'react-native-fast-image'
 import {
   createModalStack,
   ModalProvider as RNMModalProvider,
@@ -52,6 +53,13 @@ export interface ModalStackParams {
     fields: Record<any, any>[]
     onConfirm(...args: any): any
   }
+  PredictionWhiteBgModal: {
+    imageSource: FastImageProps['source']
+    scoringArrangement: [
+      { teamName: string; score: number },
+      { teamName: string; score: number }
+    ]
+  }
 }
 
 type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
@@ -76,6 +84,8 @@ const _dynamicModal = {
     import('app/components/modal/WithdrawalConfirmationModal'),
   CnyWinModal: () => import('app/components/modal/CnyWinModal'),
   SpinManiaWinModal: () => import('app/components/modal/SpinManiaWinModal'),
+  PredictionWhiteBgModal: () =>
+    import('app/components/modal/PredictionWhiteBgModal'),
 }
 
 function getDynamicComponent(key: string) {
@@ -144,6 +154,9 @@ const modalConfig: ModalConfigType = {
   },
   SpinManiaWinModal: {
     modal: getDynamicComponent('SpinManiaWinModal'),
+  },
+  PredictionWhiteBgModal: {
+    modal: getDynamicComponent('PredictionWhiteBgModal'),
   },
   ...agentModalConfig,
 }

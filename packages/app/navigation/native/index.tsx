@@ -36,6 +36,8 @@ import SummerCat from '../../../../apps/next/pages/event/sea-game'
 import DepositNavigation from './DepositNavigation'
 import MemberAgentNavigation from './MemberAgentNavigation'
 import AgentPromoTnC from 'app/features/home/Section/AgentPromoTnC'
+import Prediction from 'app/features/events/prediction/Prediction'
+import PredictionTnc from 'app/features/events/prediction/components/PredictionTnc'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -79,6 +81,8 @@ const Stack = createStackNavigator<{
   SummerCat: undefined
   CatEventTnc: undefined
   AgentRecruitmentTnc: undefined
+  Prediction: undefined
+  PredictionTnc: undefined
 }>()
 
 export function NativeNavigation() {
@@ -257,7 +261,9 @@ export function NativeNavigation() {
       <Stack.Screen name="Maintenance" component={Maintenance} />
       <Stack.Screen name="SummerCat" component={SummerCat} />
       <Stack.Screen name="CatEventTnc" component={CatEventTnc} />
+      <Stack.Screen name="PredictionTnc" component={PredictionTnc} />
       <Stack.Screen name="AgentRecruitmentTnc" component={AgentPromoTnC} />
+      <Stack.Screen name="Prediction" component={Prediction} />
     </Stack.Navigator>
   )
 }

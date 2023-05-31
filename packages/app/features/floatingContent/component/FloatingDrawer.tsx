@@ -4,6 +4,7 @@ import { memo } from 'react'
 import SummerMeowMeow from './event/SummerMeowMeow'
 import LiveChatButton from './LiveChatButton'
 import VGaming from './VGaming'
+import PredictionEvent from './event/PredictionEvent'
 
 interface FloatingContentSwitchProps {
   visible: boolean
@@ -36,7 +37,8 @@ const FloatingDrawer = ({
             transition={{ type: 'timing', duration: 500 }}
           >
             <ContentOffset>
-              <SummerMeowMeow size={size} />
+              <PredictionEvent size={size} />
+              {/* <SummerMeowMeow size={size} /> */}
               <VGaming size={size} />
               <LiveChatButton />
             </ContentOffset>

@@ -30,6 +30,23 @@ export const eventApi = baseApiWithTag.injectEndpoints({
       }),
       invalidatesTags: ['TicketBalance'],
     }),
+    CLTicketCount: builder.query<IResponse<WcTicketCountResp>, void>({
+      query: () => ({
+        url: `/player_api/getCLTicketCount`,
+        method: 'POST',
+      }),
+      providesTags: ['PredictCount'],
+    }),
+    submitCLTicket: builder.mutation<IResponse<void>, string>({
+      query: (teamScoring) => ({
+        url: `/player_api/submitCLTicket`,
+        method: 'POST',
+        data: {
+          team_code: teamScoring,
+        },
+      }),
+      invalidatesTags: ['PredictCount'],
+    }),
   }),
 })
 
@@ -37,4 +54,6 @@ export const {
   useCheckTicketSpinQuery,
   useTicketSpinMutation,
   useLuckyDrawMutation,
+  useCLTicketCountQuery,
+  useSubmitCLTicketMutation,
 } = eventApi
