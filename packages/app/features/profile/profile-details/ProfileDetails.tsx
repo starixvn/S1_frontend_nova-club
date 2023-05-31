@@ -4,6 +4,7 @@ import { Gradient } from 'dripsy/gradient'
 import { useAppSelector } from 'app/provider/redux/store'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
+import useLocalization from 'app/provider/localization'
 
 type ProfileItemProps = {
   label: string
@@ -39,27 +40,31 @@ const ProfileItem = ({ label, value }: ProfileItemProps) => {
 
 const ProfileDetails = () => {
   const { token } = useAppSelector((state) => state.auth.info) || {}
+  const { t } = useLocalization()
   const { data: playerData } = usePlayerProfileQuery(undefined, {
     skip: !token,
   })
   return (
-    <PageWithBackHeader header={{ title: 'Profile' }} disableScrollView>
+    <PageWithBackHeader header={{ title: 'common.profile' }} disableScrollView>
       <View sx={{ mt: '$2' }}>
         <ProfileItem
-          label="Real Name"
+          label={t('common.realName')}
           value={`${playerData?.firstName || ''} ${playerData?.lastName || ''}`}
         />
-        <ProfileItem label="Username" value={playerData?.username || ''} />
         <ProfileItem
-          label="Phone Number"
+          label={t('common.username')}
+          value={playerData?.username || ''}
+        />
+        <ProfileItem
+          label={t('common.phone')}
           value={'+' + playerData?.contractNumber || ''}
         />
         <ProfileItem
-          label="Player ID"
+          label={t('common.playerId')}
           value={'+' + playerData?.player_id || ''}
         />
         <ProfileItem
-          label="Currency"
+          label={t('common.currency')}
           value={'+' + playerData?.currency || ''}
         />
       </View>

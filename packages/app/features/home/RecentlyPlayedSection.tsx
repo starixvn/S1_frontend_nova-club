@@ -2,6 +2,7 @@ import { DripsyGradient } from 'app/components/Gradient'
 import SectionLabel from 'app/components/SectionLabel'
 import GameCard from 'app/components/game/GameCard'
 import HorizontalGameList from 'app/components/game/HorizontalGameList'
+import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Currency, SlotType } from 'app/utils/constant'
 import { Row, View } from 'dripsy'
@@ -10,6 +11,7 @@ import { useGetGameListQuery } from 'services/contentApi'
 
 export default function RecentlyPlayedSection() {
   const recent = useAppSelector((s) => s.setting.recentGames) ?? []
+  const { t } = useLocalization()
 
   const { gameList = [] } = useGetGameListQuery(
     {
@@ -37,7 +39,7 @@ export default function RecentlyPlayedSection() {
       <View sx={{ ml: '$pagePadding' }}>
         <SectionLabel
           icon="recently"
-          title="RECENTLY PLAYED"
+          title={t('game.recently').toUpperCase()}
           sx={{ p: [6, '$2'], my: ['$1'] }}
           iconProps={{ sx: { fontSize: [12, 14] } }}
         />

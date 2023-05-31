@@ -2,12 +2,14 @@ import { CMS_CONTENT_URI, CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import SectionHeader from 'app/components/SectionHeader'
 import GameCard from 'app/components/game/GameCard'
 import GameListSection from 'app/components/game/GameListSection'
+import useLocalization from 'app/provider/localization'
 import { Currency, SlotType } from 'app/utils/constant'
 import { ScrollView, View } from 'dripsy'
 import React from 'react'
 import { useGetGameListQuery } from 'services/contentApi'
 
 export default function JackpotGameSection() {
+  const { t } = useLocalization()
   const { gameList = [] } = useGetGameListQuery(
     {
       currency: Currency.VND,
@@ -24,5 +26,11 @@ export default function JackpotGameSection() {
     }
   )
 
-  return <GameListSection data={gameList} icon="sl" title="JACKPOT" />
+  return (
+    <GameListSection
+      data={gameList}
+      icon="sl"
+      title={t('game.jackpot').toUpperCase()}
+    />
+  )
 }

@@ -69,7 +69,7 @@ export default function ProfileHeader({ data }: ProfileHeaderProps) {
               onPress={() => copyToClipboard(data?.referral_code)}
             />
           </View>
-          <Text sx={{ fontSize: 12 }}>{t('profile.timeline')}</Text>
+          <Text sx={{ fontSize: 12 }}>{t('common.timeline')}</Text>
         </View>
       </View>
       <Pressable onPress={() => openModal('ReferralModal')}>

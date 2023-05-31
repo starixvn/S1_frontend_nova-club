@@ -1,39 +1,39 @@
 {
   "common": {
-    "player": "Player",
+    "player": "Player ID",
     "agent": "Agent",
-    "username": "username",
-    "password": "password",
-    "transfer": "transfer",
-    "deposit": "deposit",
-    "withdraw": "withdraw",
-    "bankAccount": "bank account",
-    "history": "history",
-    "cash": "cash",
-    "reward": "reward",
-    "balance": "balance",
-    "more": "more",
-    "overview": "overview",
-    "registered": "registered",
-    "activePlayer": "active player",
-    "monthlyReward": "monthly reward",
-    "profile": "profile",
-    "points": "points",
-    "receive": "receive",
+    "username": "Username",
+    "password": "Password",
+    "transfer": "Transfer",
+    "deposit": "Deposit",
+    "withdraw": "Withdraw",
+    "bankAccount": "Bank Account",
+    "history": "History",
+    "cash": "Cash",
+    "reward": "Reward",
+    "balance": "Balance",
+    "more": "More",
+    "overview": "Overview",
+    "registered": "Registered",
+    "activePlayer": "Active Player",
+    "monthlyReward": "Monthly Reward",
+    "profile": "Profile",
+    "points": "Points",
+    "receive": "Receive",
     "submit": "Submit",
     "close": "Close",
     "pin": "Pin",
-    "cancel": "Cancel",
-    "confirmDelete": "Confirm Delete",
-    "send": "Send",
-    "bank": "Bank",
-    "otp": "OTP",
-    "next": "Next"
+    "timeline": "UTC/GMT +7",
+    "download": "Download",
+    "realName": "Real Name",
+    "phone": "Phone Number",
+    "playerId": "Player ID",
+    "currency": "Currency"
   },
   "authentication": {
-    "login": "Login",
-    "register": "Register",
-    "loginHeader": "login to your account"
+    "login": "login to your account",
+    "register": "Registered",
+    "loginHeader": "Login to your account"
   },
   "leaderboard": {
     "monthlyEvent": "Monthly Event",
@@ -46,15 +46,13 @@
     "tab": {
       "event": "Event",
       "ranking": "Ranking"
-    },
-    "bankAccount": "Bank Account",
-    "cryptoWallet": "Crypto Wallet"
+    }
   },
   "transfer": {
-    "transferTitle": "transfer",
-    "idTransfer": "id transfer",
-    "qrTransfer": "qr transfer",
-    "downloadQr": "download qr code"
+    "transferTitle": "Transfer",
+    "idTransfer": "ID Transfer",
+    "qrTransfer": "QR Transfer",
+    "downloadQr": "Download QR Code"
   },
   "notes": {
     "importantNotice": "Important Notice",
@@ -66,9 +64,9 @@
     }
   },
   "manageCredentials": {
-    "title": "manage credentials",
+    "title": "Manage Credentials",
     "pin": {
-      "createPin": "create pin",
+      "createPin": "Create Pin",
       "create6Pin": "Create 6-digit Pin",
       "securePin": "Secure your transfer with PIN",
       "newPin": "New Pin",
@@ -117,23 +115,21 @@
     "userNameMinMaxLength": "6-18 characters only",
     "username": "6-18 characters only"
   },
-  "bank": {
-    "addBankAccount": "Add Bank Account",
-    "confirmDelete": "Are you sure you want to delete? It cannot be restored after deletion!",
-    "addCryptoWallet": "Add Crypto Wallet",
-    "walletAddress": "Wallet Address",
-    "accountNumber": "Account Number",
-    "accountName": "Account Name",
-    "channel": "Channel"
+  "game": {
+    "category": {
+      "sportsbook": "Sportsbook",
+      "games": "Games",
+      "slots": "Slots",
+      "liveCasino": "Live Casino",
+      "lottery": "Keno/Lottery",
+      "fishing": "Fishing"
+    },
+    "recently": "Recently Played",
+    "jackpot": "Jackpot"
   },
-  "status": {
-    "systemError": "Oops! Something wrong, please try again."
-  },
-  "placeholder": {
-    "selectBank": "Select Bank",
-    "selectChannel": "Select Channel"
-  },
-  "profile": {
-    "realName": "Real Name"
+  "referral": {
+    "link": "Link",
+    "share": "Share",
+    "shareMessage": "Share & Earn"
   }
 }

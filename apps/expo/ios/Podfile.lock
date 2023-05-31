@@ -18,7 +18,7 @@ PODS:
   - EXMediaLibrary (15.3.0):
     - ExpoModulesCore
     - React-Core
-  - Expo (48.0.17):
+  - Expo (48.0.18):
     - ExpoModulesCore
   - ExpoClipboard (4.2.0):
     - ExpoModulesCore
@@ -708,7 +708,7 @@ SPEC CHECKSUMS:
   EXFont: 6ea3800df746be7233208d80fe379b8ed74f4272
   EXImageLoader: 9d209a8231962d4aafa60ca40380b02a398f07b9
   EXMediaLibrary: 2e91d1eb14df5c6af1ddfe183a8c8ee7eaf557d8
-  Expo: d351b4546895fb99ae4e5a1bc39df770ab9dc7d1
+  Expo: 3ad7b6c4f91a8d4e661831666952e72294493e80
   ExpoClipboard: 872ae8ea230649404705b7cc09a155531e74b7bb
   ExpoDevice: 516146e17529c3eae3f5c2c09e826efc9ffc6938
   ExpoImage: 55b537a1f50df2f6fc3c2d82552e6d1df397a73d
