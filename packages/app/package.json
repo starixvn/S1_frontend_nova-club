@@ -15,7 +15,8 @@
     "react-web-share": "^2.0.2",
     "solito": "3.0.0",
     "utils": "*",
-    "zeego": "^1.5.1"
+    "zeego": "^1.5.1",
+    "formik": "*"
   },
   "sideEffects": false
 }

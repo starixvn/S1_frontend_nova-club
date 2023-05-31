@@ -203,18 +203,16 @@ export function toThousandSeparator(
   text: string,
   language: LANGUAGE_CODE = LANGUAGE_CODE.VIETNAM
 ) {
-  if (!text) return 0
-
+  if (!text || text === '0') return ''
   const separatorSymbol = CURRENCY_SEPARATOR[language].thousands
-  const significants = text.toString().split('.')
-  const wholeNum = parseFloat(significants[0] ?? '0')
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, separatorSymbol)
-
-  const decimal =
-    significants.length > 1 ? significants[1]?.substring(0, 2) : undefined
-
-  return `${wholeNum}${decimal ? '.' + decimal : ''}`
+  let index = text.search(/[1-9]/)
+  index = index === -1 ? text.length : index
+  return (
+    text.substring(0, index) +
+    text
+      .substring(index, text.length)
+      .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1' + separatorSymbol)
+  )
 }
 
 export interface CleanAmount {
@@ -266,4 +264,21 @@ export const createFileName = (extension = '', ...names) => {
   if (!extension) return ''
 
   return `${names.join('')}.${extension}`
+}
+
+export const ToThousandValue = ({
+  number,
+  decimal = true,
+  floatingPoint = 2,
+}: {
+  number: number
+  decimal?: boolean
+  floatingPoint?: number
+}): string => {
+  const dividedNumber = (number / 1000).toFixed(floatingPoint)
+  if (decimal) {
+    return dividedNumber
+  } else {
+    return dividedNumber?.split('.')[0] ?? ''
+  }
 }

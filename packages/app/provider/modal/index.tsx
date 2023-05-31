@@ -35,6 +35,7 @@ export type ModalStackParams = {
     // actions: ModalAction[]
     onClose(...args: any): any
   }
+  PinModal: { onConfirm(...args: any): any; onForgotPin(...args: any): any }
   NoticeModal: { notice: [] }
 }
 
@@ -47,6 +48,7 @@ const _dynamicModal = {
   NoticeModal: () => import('app/components/modal/NoticeModal'),
   DeleteBankAccountModal: () =>
     import('app/components/modal/DeleteBankAccountModal'),
+  PinModal: () => import('app/components/modal/PinModal'),
 }
 
 function getDynamicComponent(key: DynamicModalType) {
@@ -76,6 +78,10 @@ const modalConfig: ModalConfigType = {
   },
   DeleteBankAccountModal: {
     modal: getDynamicComponent('DeleteBankAccountModal'),
+  },
+  PinModal: {
+    modal: getDynamicComponent('PinModal'),
+    position: 'bottom',
   },
 }
 const stack = createModalStack(modalConfig, {

@@ -7,9 +7,18 @@ export interface IconButtonProps extends IconProps {
   iconSx?: SxProp
 }
 
-const IconButton = ({ sx, onPress, iconSx, ...rest }: IconButtonProps) => {
+const IconButton = ({
+  sx,
+  onPress,
+  iconSx,
+  disabled,
+  ...rest
+}: IconButtonProps) => {
   return (
-    <Pressable sx={{ p: 4, ...sx }} onPress={onPress}>
+    <Pressable
+      sx={{ p: 4, opacity: disabled ? 0.3 : 1, ...sx }}
+      onPress={onPress}
+    >
       <Icon sx={iconSx} {...rest} />
     </Pressable>
   )

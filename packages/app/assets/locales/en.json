@@ -38,10 +38,13 @@
     "currency": "Currency",
     "confirmPassword": "Confirm Password",
     "userAgreement": "user agreement",
-    "otp": "OTP"
+    "otp": "OTP",
+    "copied": "Copied",
+    "amount": "Amount",
+    "confirm": "Confirm"
   },
   "authentication": {
-    "login": "login to your account",
+    "login": "Login to your account",
     "register": "Registered",
     "loginHeader": "Login to your account"
   },
@@ -63,7 +66,9 @@
     "transferTitle": "Transfer",
     "idTransfer": "ID Transfer",
     "qrTransfer": "QR Transfer",
-    "downloadQr": "Download QR Code"
+    "downloadQr": "Download QR Code",
+    "placeholderTransferId": "Please enter ID",
+    "placeholderTransferAmount": "Please enter your transfer amount"
   },
   "notes": {
     "importantNotice": "Important Notice",
@@ -84,8 +89,9 @@
       "confirmPin": "Confirm Pin",
       "changePin": "Change Pin",
       "oldPin": "Old Pin",
-      "NewPin": "New Pin",
-      "ConfirmPin": "Confirm Pin"
+      "forgotPin": "Forgot Pin",
+      "confirmPinTitle": "Enter 6-digit PIN to Confirm",
+      "confirmPinInfo": "All your transactions are processed in a safe and secured environment."
     },
     "pw": {
       "changePw": "Change Password",
@@ -104,7 +110,7 @@
     "amountLessThan": "Amount cannot be less than %{min}",
     "dailyLimitReached": "Your Daily Limit Reached",
     "email": "Mail format is wrong",
-    "enterId": "Please enter ID\"",
+    "enterId": "Please enter ID",
     "erc20Format": "Must be ERC-20 compatible wallet address",
     "exceedAvailableTransferBalance": "Exceed available transfer balance %{balance}",
     "insufficientBalance": "Insufficient balance",
