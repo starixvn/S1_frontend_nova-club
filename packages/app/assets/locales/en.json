@@ -1,4 +1,10 @@
 {
+  "auth": {
+    "noReceiveOTP": "Didn't receive OTP?",
+    "resend": "Resend",
+    "readAndAgree": "I have read & agree the",
+    "enterOtp": "Please enter OTP"
+  },
   "common": {
     "player": "Player ID",
     "agent": "Agent",
@@ -20,6 +26,7 @@
     "profile": "Profile",
     "points": "Points",
     "receive": "Receive",
+    "send": "Send",
     "submit": "Submit",
     "close": "Close",
     "pin": "Pin",
@@ -28,7 +35,10 @@
     "realName": "Real Name",
     "phone": "Phone Number",
     "playerId": "Player ID",
-    "currency": "Currency"
+    "currency": "Currency",
+    "confirmPassword": "Confirm Password",
+    "userAgreement": "user agreement",
+    "otp": "OTP"
   },
   "authentication": {
     "login": "login to your account",
@@ -46,7 +56,8 @@
     "tab": {
       "event": "Event",
       "ranking": "Ranking"
-    }
+    },
+    "tnc": "Terms and Conditions"
   },
   "transfer": {
     "transferTitle": "Transfer",

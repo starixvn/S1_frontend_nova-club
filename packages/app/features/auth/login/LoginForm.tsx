@@ -173,7 +173,7 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
       <ButtonContainer sx={{ bg: '$secondary.500' }} onPress={submitForm}>
         {isSubmitting ? <ActivityIndicator /> : <ButtonText>LOGIN</ButtonText>}
       </ButtonContainer>
-      <ButtonContainer sx={{ bg: '$primary.300' }}>
+      <ButtonContainer sx={{ bg: '$primary.300' }} onPress={() => push('/auth/register')}>
         <ButtonText>Register</ButtonText>
       </ButtonContainer>
     </View>
