@@ -4,7 +4,7 @@ const TncVi = () => {
   return (
     <div>
       <h2>TUYỂN ĐẠI LÝ </h2>
-      <p>Thời gian khuyến mãi: 17 - 31 May 2023</p>
+      <p>Thời gian khuyến mãi: 17 - 30 June 2023</p>
 
       <br />
       <div>
@@ -37,8 +37,8 @@ const TncVi = () => {
         </li>
         <li>Nhận thưởng thêm 50k cho mỗi khách thỏa các điều kiện trên</li>
         <li>
-          Tiền thưởng tuyển dụng này sẽ được tính và gửi vào tuần đầu tiên của
-          tháng 6/2023
+          Tiền hoa hồng tuyển dụng sẽ được gửi vào tuần đầu tiên của tháng tiếp
+          theo.
         </li>
         <li>
           Vui123 bảo lưu quyền thay đổi và điều chỉnh các điều kiện và điều
