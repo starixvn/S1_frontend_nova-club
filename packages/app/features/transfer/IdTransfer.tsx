@@ -189,7 +189,7 @@ const IdTransfer = () => {
                 }}
               >
                 <IconButton
-                  name="ac"
+                  name="cash"
                   sx={{ mr: '$1' }}
                   color={theme.colors.$secondary[100]}
                   disabled={!!!balance}

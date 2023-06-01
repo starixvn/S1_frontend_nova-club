@@ -16,7 +16,7 @@ export default function MatchLeagueSelector({ ids, onChange, value }) {
     >
       <View
         sx={{
-          bg: '#9696FF',
+          bg: '$primary.50',
           height: 1,
           width: '100%',
         }}
