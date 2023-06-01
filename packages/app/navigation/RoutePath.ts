@@ -90,7 +90,7 @@ export const Profile_Quick_Navigation_Path: Route[] = [
   {
     label: 'promotion',
     path: '/',
-    icon: 'notice',
+    icon: 'm_promo',
   },
   {
     label: 'leaderboard',
