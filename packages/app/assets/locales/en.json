@@ -31,12 +31,20 @@
     "currency": "Currency",
     "copied": "Copied",
     "amount": "Amount",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "confirmPassword": "Confirm Password",
+    "userAgreement": "user agreement",
+    "otp": "OTP"
   },
   "authentication": {
     "login": "Login",
     "register": "Register",
-    "loginHeader": "Login to your account"
+    "loginHeader": "Login to your account",
+    "noReceiveOTP": "Didn't receive OTP?",
+    "resend": "Send",
+    "readAndAgree": "I have read & agree the",
+    "enterOtp": "Please enter OTP",
+    "send": "Send"
   },
   "leaderboard": {
     "monthlyEvent": "Monthly Event",
@@ -49,7 +57,8 @@
     "tab": {
       "event": "Event",
       "ranking": "Ranking"
-    }
+    },
+    "tnc": "Terms and Conditions"
   },
   "transfer": {
     "transferTitle": "Transfer",

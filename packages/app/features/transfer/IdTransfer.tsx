@@ -34,6 +34,7 @@ const IdTransfer = () => {
   const { showAlert } = useAlert()
   const { theme } = useDripsyTheme()
   const { openModal } = useModal()
+  const { push } = useRouter()
   const [postTransferMemberToMember] = useTransferMemberToMemberMutation()
 
   const { data: playerData } = usePlayerProfileQuery(undefined, {
@@ -121,7 +122,7 @@ const IdTransfer = () => {
     openModal('PinModal', {
       onConfirm: (value) => onSubmit(values, value, formik),
       onForgotPin: () => {
-        // push('/pin/forgot-pin')
+        push('/account/profile/manage-credentials/forgot-pin')
         console.log('gg')
       },
     })
@@ -190,6 +191,7 @@ const IdTransfer = () => {
               >
                 <IconButton
                   name="cash"
+                  size={16}
                   sx={{ mr: '$1' }}
                   color={theme.colors.$secondary[100]}
                   disabled={!!!balance}

@@ -11,6 +11,7 @@ import { createParam } from 'solito'
 import IdTransfer from './IdTransfer'
 import QrTransfer from './QrTransfer'
 import Receive from './Receive'
+import IconButton from 'app/components/IconButton'
 
 const { useParam } = createParam<{ tab: string }>()
 const TransferScreen = () => {
@@ -55,7 +56,7 @@ const TransferScreen = () => {
       header={{
         title: 'transfer.transferTitle',
         actions: (
-          <Icon
+          <IconButton
             name="notice"
             onPress={() =>
               openModal('NoticeModal', {

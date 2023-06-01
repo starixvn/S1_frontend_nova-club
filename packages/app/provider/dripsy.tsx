@@ -77,7 +77,7 @@ const theme = makeTheme({
     $success: '#0DBF00',
     $error: '#E43221',
     $placeholder: '#ffffff80',
-    $otp: '#DEDEDE',
+    $otp: '#E69B0D',
 
     $black: '#000',
     $white: '#fff',

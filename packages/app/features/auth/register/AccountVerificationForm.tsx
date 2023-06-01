@@ -96,7 +96,7 @@ const AccountVerificationForm = ({
           <TimerButton
             accessibilityRole="button"
             ref={OTPRef}
-            title={t('common.send')}
+            title={t('authentication.send')}
             // loading={isOtpLoading}
             onPress={sendOTP}
             sx={{
@@ -109,7 +109,8 @@ const AccountVerificationForm = ({
             }}
             _text={{
               sx: {
-                color: 'black',
+                color: '$white',
+                fontWeight: 'bold',
               },
             }}
           />
