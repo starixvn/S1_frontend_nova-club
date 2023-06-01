@@ -1,4 +1,3 @@
-import Icon from 'app/components/Icon'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import CustomTabBar from 'app/components/navigation/CustomTabBar'
 import useLocalization from 'app/provider/localization'
@@ -8,10 +7,10 @@ import { useWindowDimensions } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { SceneMap, TabView } from 'react-native-tab-view'
 import { createParam } from 'solito'
-import IdTransfer from './IdTransfer'
-import Receive from './Receive'
 import IconButton from 'app/components/IconButton'
 import QrTransfer from './qr-transfer'
+import QrReceive from './qr-receive'
+import IdTransfer from './id-transfer'
 
 const { useParam } = createParam<{ tab: string }>()
 const TransferScreen = () => {
@@ -21,7 +20,7 @@ const TransferScreen = () => {
   const { t } = useLocalization()
 
   const renderScene = SceneMap({
-    first: Receive,
+    first: QrReceive,
     second: IdTransfer,
     third: QrTransfer,
   })

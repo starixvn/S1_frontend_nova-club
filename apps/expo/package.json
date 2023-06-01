@@ -22,6 +22,7 @@
     "expo-splash-screen": "~0.18.2",
     "expo-status-bar": "~1.4.4",
     "formik": "^2.2.9",
+    "html-to-image": "^1.11.11",
     "i18n-js": "latest",
     "jpeg-js": "^0.4.4",
     "jsqr": "^1.4.0",
