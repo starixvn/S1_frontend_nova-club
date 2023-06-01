@@ -11,6 +11,9 @@ import TimerButton from 'app/components/TimerButton'
 import { ITimerButtonForwardRef } from 'app/components/TimerButton'
 import { useRouter } from 'solito/router'
 import { useAppSelector } from 'app/provider/redux/store'
+import { useSendUpdateProfileOTPMutation } from 'services/playerApi'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
+import useAlert from 'app/hooks/useAlert'
 
 interface AccountVerificationFormProps {
   isAgent: boolean
@@ -27,6 +30,7 @@ const AccountVerificationForm = ({
     values,
     errors,
     touched,
+    submitForm,
     setTouched,
     setFieldValue,
     validateForm,
@@ -34,11 +38,15 @@ const AccountVerificationForm = ({
 
   const { t } = useLocalization()
   const { push } = useRouter()
+  const { showAlert } = useAlert()
   const locale = useAppSelector((s) => s.setting.locale)
 
   const contactNumberFieldRef = useRef<TextInput>(null)
   const otpFieldRef = useRef<TextInput>(null)
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
+
+  const [sendOtp, { isLoading: isOtpLoading }] =
+    useSendUpdateProfileOTPMutation()
 
   const onCheckboxCheck = () => {
     setFieldValue('terms', !values.terms)
@@ -58,22 +66,27 @@ const AccountVerificationForm = ({
 
   const sendOTP = async () => {
     try {
-      console.log('Send OTP')
-    } catch (e) {
-      console.log(e)
+      const { data, message, success } = await sendOtp().unwrap()
+
+      OTPRef.current?.startOtpTimer()
+
+      if (success) {
+        Toast.show({ type: 'success', text1: message })
+      }
+    } catch (error) {
+      showAlert(error)
     }
   }
 
   const handlePressTnC = () => {
-    console.log('tnc pressed')
-    // const params = {
-    //   locale: locale,
-    // }
-    // push('/auth/register/tnc', params)
+    const params = {
+      locale: locale,
+    }
+    push('/auth/register/tnc', params)
   }
 
   const handleResendOTP = () => {
-    console.log('resend pressed')
+    console.log('should be contact us')
     // const params = {
     //   locale: locale,
     // }
@@ -97,7 +110,7 @@ const AccountVerificationForm = ({
             accessibilityRole="button"
             ref={OTPRef}
             title={t('authentication.send')}
-            // loading={isOtpLoading}
+            loading={isOtpLoading}
             onPress={sendOTP}
             sx={{
               width: 'auto',
@@ -174,7 +187,7 @@ const AccountVerificationForm = ({
           <CheckBox isCheck={values.terms} onCheck={onCheckboxCheck} />
           <Pressable sx={{ pl: '$2' }} onPress={onCheckboxCheck}>
             <Text>
-              {t('auth.readAndAgree')}{' '}
+              {t('authentication.readAndAgree')}{' '}
               <Text sx={{ color: '$secondary.500' }} onPress={handlePressTnC}>
                 {t('common.userAgreement')}
               </Text>
@@ -188,17 +201,19 @@ const AccountVerificationForm = ({
             justifyContent: 'center',
           }}
         >
-          <Text>{t('auth.noReceiveOTP')} </Text>
+          <Text>{t('authentication.noReceiveOTP')} </Text>
 
           <Pressable onPress={handleResendOTP}>
-            <Text sx={{ color: '$secondary.500' }}>{t('auth.resend')}</Text>
+            <Text sx={{ color: '$secondary.500' }}>
+              {t('authentication.resend')}
+            </Text>
           </Pressable>
         </View>
       </View>
 
       <ButtonContainer
         sx={{ bg: '$secondary.500', marginTop: 20 }}
-        onPress={() => console.log('done register')}
+        onPress={submitForm}
       >
         <ButtonText>Submit</ButtonText>
       </ButtonContainer>
