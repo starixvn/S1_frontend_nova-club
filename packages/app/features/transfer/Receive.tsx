@@ -32,7 +32,7 @@ const Receive = () => {
       <View sx={{ alignItems: 'center', py: '$3' }}>
         <Text sx={{ fontSize: 16 }}>{t('notes.qr.n1')}</Text>
       </View>
-      <Button onPress={handleDownload}>{t('transfer.downloadQr')}</Button>
+      <Button onPress={handleDownload}>{t('qr.downloadQr')}</Button>
     </ScrollView>
   )
 }

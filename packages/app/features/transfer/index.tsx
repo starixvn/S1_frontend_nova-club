@@ -9,9 +9,9 @@ import { useModal } from 'react-native-modalfy'
 import { SceneMap, TabView } from 'react-native-tab-view'
 import { createParam } from 'solito'
 import IdTransfer from './IdTransfer'
-import QrTransfer from './QrTransfer'
 import Receive from './Receive'
 import IconButton from 'app/components/IconButton'
+import QrTransfer from './qr-transfer'
 
 const { useParam } = createParam<{ tab: string }>()
 const TransferScreen = () => {
