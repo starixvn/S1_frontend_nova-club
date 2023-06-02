@@ -24,7 +24,7 @@ const ShadowButton = ({
     <StyledShadowButton
       offset={[0, 1]}
       startColor={theme.colors.$primary[100]}
-      distance={0.2}
+      distance={1}
       isActive={isActive}
       sx={containerStyle}
       {...rest}

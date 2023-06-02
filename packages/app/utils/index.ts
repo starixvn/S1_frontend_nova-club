@@ -204,13 +204,14 @@ export function toThousandSeparator(
   language: LANGUAGE_CODE = LANGUAGE_CODE.VIETNAM
 ) {
   if (!text || text === '0') return ''
+  const parseText = text.toString()
   const separatorSymbol = CURRENCY_SEPARATOR[language].thousands
-  let index = text.search(/[1-9]/)
-  index = index === -1 ? text.length : index
+  let index = parseText.search(/[1-9]/)
+  index = index === -1 ? parseText.length : index
   return (
-    text.substring(0, index) +
-    text
-      .substring(index, text.length)
+    parseText.substring(0, index) +
+    parseText
+      .substring(index, parseText.length)
       .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1' + separatorSymbol)
   )
 }

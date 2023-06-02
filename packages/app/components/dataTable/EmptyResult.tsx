@@ -38,7 +38,7 @@ const EmptyResult = ({ text, _text, ...props }: IHistoryEmpty) => {
         }}
         {..._text}
       >
-        {text ?? t('common.noInfoAvailable')}
+        {text ?? t('No information is available now')}
       </Text>
     </View>
   )

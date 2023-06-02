@@ -95,8 +95,8 @@ const ModalContent = ({
 
 const ModalBackground = styled(DripsyGradient)({
   borderRadius: 20,
-  p: '10%',
-  alignItems: 'center',
+  p: '5%',
+  // alignItems: 'center',
 })
 
 const ModalHeader = styled(View)({

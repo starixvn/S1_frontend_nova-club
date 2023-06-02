@@ -41,7 +41,7 @@ export const Profile_Wallet_Route: Route[] = [
   },
   {
     label: 'Withdraw',
-    path: '/wallet/withdraw',
+    path: '/withdrawal',
     icon: 'withdraw',
   },
   {

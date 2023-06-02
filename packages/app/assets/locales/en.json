@@ -48,7 +48,13 @@
     "otp": "OTP",
     "realBet": "Real Bet",
     "turnOver": "Turn Over",
-    "tnc": "Terms & Conditions"
+    "tnc": "Terms & Conditions",
+    "cancel": "Cancel",
+    "confirmDelete": "Confirm Delete",
+    "send": "Send",
+    "bank": "Bank",
+    "next": "Next",
+    "noInfoAvailable": "No information is available now"
   },
   "game": {
     "category": {
@@ -68,6 +74,67 @@
     "pointsCalculation": "Points calculation",
     "product": "Product",
     "top10": "Top 10 Winners"
+  },
+  "menu": {
+    "tab": {
+      "event": "Event",
+      "ranking": "Ranking"
+    },
+    "tnc": "Terms and Conditions",
+    "bankAccount": "Bank Account",
+    "cryptoWallet": "Crypto Wallet",
+    "withdraw": "Withdraw",
+    "withdrawalConfirmation": "Withdrawal Confirmation",
+    "cryptoWithdrawal": "Crypto Withdrawal"
+  },
+  "transfer": {
+    "transferTitle": "Transfer",
+    "idTransfer": "ID Transfer",
+    "qrTransfer": "QR Transfer",
+    "placeholderTransferId": "Please enter ID",
+    "placeholderTransferAmount": "Please enter your transfer amount"
+  },
+  "qr": {
+    "scanGallery": "Scan from gallery",
+    "downloadQr": "Download QR Code",
+    "noCameraAccess": "Your camera is required to scan QR code for transfer. Please enable permission to continue using this feature",
+    "requestCameraPermissions": "Requesting for camera permission"
+  },
+  "notes": {
+    "deposit": {
+      "n1": "Kindly please check for the latest active deposit bank details before you making a deposit.",
+      "n2": "For using Bank Transfer deposit option, please make the transfer done before submit the transaction to avoid the transaction delay.",
+      "n3": "Depositor's ACCOUNT NAME must match with your registered full name. We do not encourage transaction made using 3rd party/company account.",
+      "n4": "Please DO NOT fill in 'VUI123' or any sensitive words related to gambling as reference/remark in your online transaction.",
+      "n5": "Please take noted that will be 1x rollover required for all deposit made before any withdrawal can be processed.",
+      "n6": "Kindly please contact our 24/7 LIVECHAT if your transaction is still pending for more than 5 minutes."
+    },
+    "importantNotice": "Important Notice",
+    "qr": {
+      "n1": "Scan with your app to transfer balance"
+    },
+    "rewards": {
+      "n1": "Games that are NOT eligible for the Rebate/Commission include: Turnover on all types of non-live table games (e.g. Blackjack, Video Poker, Craps, American Roulette, Baccarat, and other non-live table games) and non-slot games, will not count towards this turnover requirement unless SPECIFICALLY stated.",
+      "n2": "\nSpecial exclusion: ",
+      "n3": "[Sportsbookl] Only wagers that generate a win/loss return will entitle for rebate. Cancelled or void wagers, wagers on odds less than 1.7 (Decimal odd); 0.7 (China odd); 0.7 (Malay Positive odd); -1.43 (Indo odd); -143 (US odd), or wagers on both even chances during a single game will not entitle for rebate. ",
+      "n4": "[Live Casino] All LIVE Blackjack (21) and Live Roulette video games ",
+      "n5": "[Slots] All Video Poker, Table, Arcade, Fishing, multi-spin Slots, Lucky God Progressive 2, Golden Tour, Ugga Bugga, Liu Fu Shou, and double-bonus Slots offered by any slot game room, plus games in xx slot game rooms. ",
+      "n6": "\n*Notes: Rewards rule of the company will change from time to time, In any event, the decision of Vui123 is final."
+    },
+    "topUpCard": {
+      "n1": "Please ensure you choose the correct telco provider and card value. Vui123 do not bear any responsibility if incorrect information selected and resulted the lost of money",
+      "n2": "The final deposited amount is subject to 25% deduction from the original card value."
+    },
+    "transfer": {
+      "n1": "All the fund receive via internal transfer are subject to |1x rollover| before the withdrawal"
+    },
+    "withdrawal": {
+      "n1": "Kindly check with our 24/7 LIVE CHAT if your transaction is pending for more than 10 minutes.",
+      "n2": "Withdrawal bank account name must match with registered full name, member is not allow withdrawal to 3rd party bank account.",
+      "n3": "Some game provider requires 15 till 30 minutes of report sync time, kindly bear with us during the required sync time.",
+      "n4": "Please make sure your required turnover is achieve, and submit the withdrawal transaction after 30 minutes to avoid system auto reject.",
+      "n5": "If there is any discrepancy or you may have any other further withdrawal inquiries, kindly contact our 24/7 LIVE CHAT. Thank you."
+    }
   },
   "manageCredentials": {
     "title": "Manage Credentials",
@@ -92,48 +159,6 @@
       "placeholderNewPw": "Please enter new password",
       "placeholderConfirmPw": "Please confirm password"
     }
-  },
-  "menu": {
-    "tab": {
-      "event": "Event",
-      "ranking": "Ranking"
-    }
-  },
-  "notes": {
-    "importantNotice": "Important Notice",
-    "qr": {
-      "n1": "Scan with your app to transfer balance"
-    },
-    "transfer": {
-      "n1": "All the fund receive via internal transfer are subject to |1x rollover| before the withdrawal"
-    }
-  },
-  "profile": {
-    "self": "Self",
-    "w/l": "Win/Lose (VND)",
-    "registered": "Registered",
-    "activePlayer": "Active Player",
-    "monthlyReward": "Monthly Reward",
-    "circle": "Circle",
-    "direct": "Direct"
-  },
-  "qr": {
-    "scanGallery": "Scan from gallery",
-    "downloadQr": "Download QR Code",
-    "noCameraAccess": "Your camera is required to scan QR code for transfer. Please enable permission to continue using this feature",
-    "requestCameraPermissions": "Requesting for camera permission"
-  },
-  "referral": {
-    "link": "Link",
-    "share": "Share",
-    "shareMessage": "Share & Earn"
-  },
-  "transfer": {
-    "transferTitle": "Transfer",
-    "idTransfer": "ID Transfer",
-    "qrTransfer": "QR Transfer",
-    "placeholderTransferId": "Please enter ID",
-    "placeholderTransferAmount": "Please enter your transfer amount"
   },
   "validation": {
     "alphanumeric": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only",
@@ -163,5 +188,48 @@
     "usdtFormat": "Must be ERC-20 / TRC-20 compatible wallet address",
     "userNameMinMaxLength": "6-18 characters only",
     "username": "6-18 characters only"
+  },
+  "referral": {
+    "link": "Link",
+    "share": "Share",
+    "shareMessage": "Share & Earn"
+  },
+  "bank": {
+    "addBankAccount": "Add Bank Account",
+    "confirmDelete": "Are you sure you want to delete? It cannot be restored after deletion!",
+    "addCryptoWallet": "Add Crypto Wallet",
+    "walletAddress": "Wallet Address",
+    "accountNumber": "Account Number",
+    "accountName": "Account Name",
+    "channel": "Channel",
+    "noBankAccount": "No Bank Account"
+  },
+  "status": {
+    "systemError": "Oops! Something wrong, please try again."
+  },
+  "placeholder": {
+    "selectBank": "Select Bank",
+    "selectChannel": "Select Channel",
+    "plsSelectBank": "Please select bank",
+    "plsSelectCrypto": "Please select wallet address",
+    "plsEnterFieldAmount": "Please enter your %{field} amount"
+  },
+  "profile": {
+    "realName": "Real Name"
+  },
+  "deposit": {
+    "depositMethod": {
+      "bankTransfer": "Bank Transfer",
+      "crypto": "Crypto"
+    }
+  },
+  "withdrawal": {
+    "eligibleAmount": "Eligible Withdrawal Amount",
+    "options": "Choose your withdrawal options",
+    "exchangeRates": "CHAIN: %{crypto} Current exchange rate",
+    "withdrawTo": "Withdrawal To"
+  },
+  "transaction": {
+    "recent": "Recent Transaction"
   }
 }

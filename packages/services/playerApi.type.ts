@@ -3,6 +3,11 @@
 //   ReportWithdrawalStatus,
 //   ReportTransactionType,
 // } from 'app/utils/constant'
+import {
+  ReportDepositStatus,
+  ReportTransactionType,
+  ReportWithdrawalStatus,
+} from 'app/utils/constant'
 import { WheelInfo } from './authApi.type'
 
 export enum MEMBER_TYPE {
@@ -10,6 +15,11 @@ export enum MEMBER_TYPE {
   CREDIT = 'CREDIT',
 }
 
+export enum WITHDRAWAL_TYPE {
+  ALL = 0,
+  BANK = 1,
+  CRYPTO = 2,
+}
 export interface ProfileResult {
   auto_transfer_status: number
   birthdate: string
@@ -69,18 +79,18 @@ export type OverviewSummaryResult = {
 /**
  * *Player Report
  */
-// export type ReportArgs = {
-//   bank_category_id?: number
-//   is_reward_group_by?: boolean
-//   limit: number
-//   offset: number
-//   status: ReportDepositStatus | ReportWithdrawalStatus
-//   game_provider_code?: string
-//   time_from: string
-//   time_to: string
-//   trans_type: ReportTransactionType
-//   username?: string
-// }
+export type ReportArgs = {
+  bank_category_id?: number
+  is_reward_group_by?: boolean
+  limit: number
+  offset: number
+  status: ReportDepositStatus | ReportWithdrawalStatus
+  game_provider_code?: string
+  time_from: string
+  time_to: string
+  trans_type: ReportTransactionType
+  username?: string
+}
 
 export type ReportResult = {
   row_count_total: number

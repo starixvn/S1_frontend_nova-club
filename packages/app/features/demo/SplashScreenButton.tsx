@@ -93,7 +93,7 @@ const SplashScreenButton = () => {
         <View sx={{ width: '20%' }}>
           <GradientButton
             iconProps={{ name: 'megaway' }}
-            onPress={() => push('/account/profile/bank')}
+            onPress={() => push('/withdrawal')}
             label="Custom"
           />
         </View>

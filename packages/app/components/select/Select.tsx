@@ -15,7 +15,7 @@ import { SheetManager } from 'react-native-actions-sheet'
 import ActionSheet, { ActionSheetProps } from '../actionSheet/ActionSheet'
 import Input, { InputProps } from '../form/Input'
 import Icon from '../Icon'
-import Label, { InputLabelProps } from '../Label'
+import { InputLabelProps } from '../Label'
 
 const StyledPressable = styled(Pressable)({
   borderRadius: 9,
@@ -49,6 +49,7 @@ export type SelectProps<T> = {
   loading?: boolean
   onSelected: (value: T) => void
   onOpen?: () => void
+  subtitle?: string
   selectTriggerProps?: ComponentProps<typeof Pressable>
   contentContainerProps?: ViewProps
   options: Options<T>[]
@@ -146,6 +147,7 @@ const Select = <T,>(
     onSelected,
     _actionSheet,
     label,
+    subtitle,
     labelProps,
     isRequired,
     placeholder,
@@ -167,7 +169,7 @@ const Select = <T,>(
     return passedSheetId ?? uniqueId()
   }, [passedSheetId])
 
-  const selectedItem = options.find((option) => {
+  const selectedItem = options?.find((option) => {
     return option.value === value
   })
 
@@ -204,12 +206,6 @@ const Select = <T,>(
 
   return (
     <View {...rest}>
-      {label ? (
-        <Label isRequired={isRequired} {...labelProps}>
-          {label}
-        </Label>
-      ) : null}
-
       <StyledPressable
         onPress={() => {
           openActionSheet()
@@ -221,6 +217,8 @@ const Select = <T,>(
       >
         <View pointerEvents="none">
           <Input
+            label={label}
+            subtitle={subtitle}
             placeholder={placeholder}
             pointerEvents="none"
             value={selectedItem ? selectedItem.label : (value as string)}

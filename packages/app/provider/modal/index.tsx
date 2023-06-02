@@ -37,6 +37,12 @@ export type ModalStackParams = {
   }
   PinModal: { onConfirm(...args: any): any; onForgotPin(...args: any): any }
   NoticeModal: { notice: [] }
+  WithdrawalConfirmationModal: {
+    withdrawalInfo: Record<any, any>
+    bankLogo: string
+    fields: Record<any, any>[]
+    formik: any
+  }
 }
 
 type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
@@ -49,6 +55,8 @@ const _dynamicModal = {
   DeleteBankAccountModal: () =>
     import('app/components/modal/DeleteBankAccountModal'),
   PinModal: () => import('app/components/modal/PinModal'),
+  WithdrawalConfirmationModal: () =>
+    import('app/components/modal/WithdrawalConfirmationModal'),
 }
 
 function getDynamicComponent(key: DynamicModalType) {
@@ -82,6 +90,9 @@ const modalConfig: ModalConfigType = {
   PinModal: {
     modal: getDynamicComponent('PinModal'),
     position: 'bottom',
+  },
+  WithdrawalConfirmationModal: {
+    modal: getDynamicComponent('WithdrawalConfirmationModal'),
   },
 }
 const stack = createModalStack(modalConfig, {

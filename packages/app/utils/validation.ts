@@ -1,4 +1,5 @@
 import * as Yup from 'yup'
+import { clearThousandSeparator } from '.'
 
 export const USERNAME_MAX_LENGTH = 18
 export const PASSWORD_MAX_LENGTH = 15
@@ -57,6 +58,28 @@ const validation = {
   amount: Yup.string()
     .required('validation.required')
     .matches(AMOUNT_REGEX, 'validation.amount0'),
+
+  amountMinMax: ({ min, max }: { min?: number; max?: number }) => {
+    const minFloat = min ? parseFloat(min.toString().replace(/,/g, '')) : 0
+    const maxFloat = max
+      ? parseFloat(max.toString().replace(/,/g, ''))
+      : 9999999999
+    return Yup.string()
+      .required('validation.amountLessThan')
+      .test('min-max', `validation.amount`, (val) => {
+        if (!val) return false
+        const amountFloat = parseFloat(
+          clearThousandSeparator(val).replace(/,/g, '')
+        )
+
+        return !(
+          isNaN(amountFloat) ||
+          !amountFloat ||
+          amountFloat < minFloat ||
+          amountFloat > maxFloat
+        )
+      })
+  },
 
   bank: Yup.object().required('validation.required'),
   paymentMode: Yup.string().required('validation.required'),

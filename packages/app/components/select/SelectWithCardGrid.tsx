@@ -1,13 +1,17 @@
 import Image from 'app/components/common/Image'
+import BankEmpty from 'app/features/bank/components/BankEmpty'
 import { View } from 'dripsy'
-import React from 'react'
+import React, { ReactNode } from 'react'
 import TouchableOpacity from '../pressable/TouchableOpacity'
 import Select, { SelectProps } from './Select'
 
-export type SelectWithCardGrid<T> = Omit<SelectProps<T>, '_actionSheetContent'>
+export type SelectWithCardGrid<T> = Omit<
+  SelectProps<T>,
+  '_actionSheetContent'
+> & { renderEmpty?: (args) => ReactNode }
 
 function SelectWithCardGrid<T>(props: SelectWithCardGrid<T>) {
-  const { onSelected } = props
+  const { options, renderEmpty, onSelected } = props
 
   return (
     <Select
@@ -22,8 +26,8 @@ function SelectWithCardGrid<T>(props: SelectWithCardGrid<T>) {
               justifyContent: 'center',
             }}
           >
-            {props.options &&
-              props.options.map((option, index) => {
+            {options && options.length > 0 ? (
+              options.map((option, index) => {
                 return (
                   <TouchableOpacity
                     key={index}
@@ -58,7 +62,16 @@ function SelectWithCardGrid<T>(props: SelectWithCardGrid<T>) {
                     )}
                   </TouchableOpacity>
                 )
-              })}
+              })
+            ) : (
+              <View sx={{ height: 100 }}>
+                {renderEmpty ? (
+                  renderEmpty(closeActionSheet)
+                ) : (
+                  <BankEmpty size="small" />
+                )}
+              </View>
+            )}
           </View>
         )
       }}

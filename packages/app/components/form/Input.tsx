@@ -14,6 +14,7 @@ type InputComponent = ({ color }: { color?: string }) => JSX.Element
 
 export interface InputProps extends DripsyTextInputProps {
   label?: string
+  subtitle?: string
   prefix?: string
   error?: string
   action?: InputComponent
@@ -28,6 +29,7 @@ const Input = forwardRef<NativeTextInput, InputProps>(
   (
     {
       label,
+      subtitle,
       prefix,
       error,
       action,
@@ -77,6 +79,9 @@ const Input = forwardRef<NativeTextInput, InputProps>(
                 flex: 1,
               }}
             >
+              {subtitle && (
+                <Subtitle numberOfLines={1}>{`${subtitle}`}</Subtitle>
+              )}
               <TextInput
                 ref={mergedInputRef}
                 editable={editable && !onPress}
@@ -128,6 +133,10 @@ const FocusArea = styled(TouchableWithoutFeedback)({})
 const Label = styled(Text)({
   fontWeight: 'bold',
   mb: '$1',
+})
+const Subtitle = styled(Text)({
+  mx: '$2',
+  color: '$disabled',
 })
 
 const InputContainer = styled(Row)(

@@ -1,3 +1,4 @@
+import { Currency } from 'app/utils/constant'
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
@@ -12,6 +13,7 @@ import {
   PlayerRealNameArgs,
   ProfileResult,
   ProfileUpdateArgs,
+  ReportArgs,
   // ReportArgs,
   ReportResult,
 } from './playerApi.type'
@@ -70,19 +72,19 @@ const playerApi = baseApiWithTag.injectEndpoints({
         method: 'POST',
       }),
     }),
-    // playerReport: builder.query<
-    //   IResponse<ReportResult> | undefined,
-    //   ReportArgs
-    // >({
-    //   query: (queryArgs) => ({
-    //     url: `/player_api/getPlayerReport`,
-    //     method: 'POST',
-    //     data: {
-    //       ...queryArgs,
-    //     },
-    //   }),
-    //   providesTags: ['Report'],
-    // }),
+    playerReport: builder.query<
+      IResponse<ReportResult> | undefined,
+      ReportArgs
+    >({
+      query: (queryArgs) => ({
+        url: `/player_api/getPlayerReport`,
+        method: 'POST',
+        data: {
+          ...queryArgs,
+        },
+      }),
+      providesTags: ['Report'],
+    }),
     playerLang: builder.mutation<string, PlayerLangArgs>({
       query: ({ lang }) => ({
         url: `/player_api/lang`,
@@ -133,7 +135,8 @@ export const usePlayerProfileQuery = (
       return {
         ...s,
         data: s.data?.data,
-        currency: s.data?.data?.currency,
+        username: s.data?.data?.username,
+        currency: s.data?.data?.currency as Currency,
         isCreditMember: s.data?.data?.member_type === MEMBER_TYPE.CREDIT,
       }
     },
@@ -141,11 +144,11 @@ export const usePlayerProfileQuery = (
 }
 
 export const {
-  // usePlayerReportQuery,
+  usePlayerReportQuery,
+  useLazyPlayerReportQuery,
   usePlayerOverviewQuery,
   usePlayerOverviewSummaryQuery,
   useLazyPlayerProfileQuery,
-  // useLazyPlayerReportQuery,
   usePlayerLangMutation,
   useUpdateProfileMutation,
   useSendUpdateProfileOTPMutation,

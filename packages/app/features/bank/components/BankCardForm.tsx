@@ -13,6 +13,7 @@ import React from 'react'
 import { useModal } from 'react-native-modalfy'
 import { PlayerBankResult } from 'services/bank.type'
 import BankAccCard from './BankAccCard'
+import BankEmpty from './BankEmpty'
 
 const BankCardForm = ({
   bankList,
@@ -21,9 +22,7 @@ const BankCardForm = ({
   buttonLabel,
   isCrypto,
 }) => {
-  const { t } = useLocalization()
   const { openModal } = useModal()
-  const { width } = useContainerDimension()
 
   const handleRemove = async (item: PlayerBankResult) => {
     openModal('DeleteBankAccountModal', { bank: item })
@@ -43,18 +42,7 @@ const BankCardForm = ({
           />
         ))
       ) : (
-        <StyledViewNoResult>
-          <Image
-            source={require('app/assets/images/empty-result.png')}
-            style={{
-              aspectRatio: 1,
-              marginBottom: 12,
-              width: width * 0.5,
-              height: width * 0.5,
-            }}
-          />
-          <Text sx={{ color: '#72859A' }}>{t('bank.noBankAccount')}</Text>
-        </StyledViewNoResult>
+        <BankEmpty />
       )}
 
       <View sx={{ m: 20 }}>
