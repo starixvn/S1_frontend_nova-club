@@ -68,7 +68,7 @@ const IconBorderView = styled(View)({
 
 const IconLabel = styled(Text)(() => ({
   textAlign: 'center',
-  fontSize: 14,
+  fontSize: 13,
   mt: 6,
 }))
 

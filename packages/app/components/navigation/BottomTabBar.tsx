@@ -17,7 +17,7 @@ function BottomTabBar() {
   const { push } = useRouter()
   const { bottom } = useSafeArea()
   const { width } = useWindowDimensions()
-
+  console.log(bottom)
   const isActiveState = (
     index: number,
     item: (typeof BOTTOM_ROUTE)[number]
@@ -40,7 +40,7 @@ function BottomTabBar() {
         borderTopWidth: 1,
         borderColor: '$primary.50',
         overflow: 'visible',
-        height: BOTTOM_TAB_BAR_HEIGHT + Math.min(bottom, 15),
+        height: BOTTOM_TAB_BAR_HEIGHT + Math.min(bottom, 40),
       }}
     >
       <IconButtonGradientGroup
