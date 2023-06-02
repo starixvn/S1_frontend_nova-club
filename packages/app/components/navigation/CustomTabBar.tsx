@@ -1,7 +1,6 @@
-import { Pressable, ScrollView, Text, View, useDripsyTheme } from 'dripsy'
+import { Pressable, ScrollView, Text, View } from 'dripsy'
 import React from 'react'
 import { DripsyGradient } from '../Gradient'
-import { Shadow } from 'react-native-shadow-2'
 import ShadowButton from '../ShadowButton'
 
 export type CustomRoutesProps = {
@@ -39,7 +38,10 @@ const CustomTabBar = ({ routes, currentIndex, onPress }: CustomTabBarProps) => {
                 <Pressable onPress={() => handlePress(route.index)}>
                   <ShadowButton
                     isActive={isActive}
-                    containerStyle={{ minWidth: '100%' }}
+                    containerStyle={{
+                      minWidth: '100%',
+                      height: 40, //Set Fixed Height to solve blinking Shadow Issue
+                    }}
                   >
                     <Text
                       numberOfLines={2}

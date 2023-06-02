@@ -133,11 +133,12 @@ const ChangePasswordPage = () => {
         }
       />
       <Button
-        title={t('common.submit')}
         onPress={submitForm}
         disabled={!isValid || !dirty}
         sx={{ mt: '$4', mx: '$4' }}
-      />
+      >
+        {t('common.submit')}
+      </Button>
       {/* <Button
         rounded
         stretch

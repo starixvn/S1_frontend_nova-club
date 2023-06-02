@@ -9,6 +9,8 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactActivityDelegate;
 
 import expo.modules.ReactActivityDelegateWrapper;
+import android.view.WindowManager;
+import androidx.core.view.WindowCompat;
 
 public class MainActivity extends ReactActivity {
   @Override
@@ -17,6 +19,15 @@ public class MainActivity extends ReactActivity {
     // coloring the background, status bar, and navigation bar.
     // This is required for expo-splash-screen.
     setTheme(R.style.AppTheme);
+
+      WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+    
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+        getWindow().setAttributes(layoutParams);
+      }
+
     super.onCreate(null);
   }
 

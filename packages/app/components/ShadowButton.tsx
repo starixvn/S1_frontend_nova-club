@@ -15,7 +15,11 @@ const ShadowButton = ({
   ...rest
 }: ShadowButtonProps) => {
   const { theme } = useDripsyTheme()
-
+  //You can use either the 'borderTopLeftRadius' or 'borderTopStartRadius'
+  //and their variations to define the corners radii, although I recommend the latter as it's the RTL standard.
+  //Having a radius greater than its side will mess the shadow if the sizes aren't defined.
+  //You can use the safeRender property to only show the shadow on the 2nd render and beyond,
+  //when we have the exact component size and the radii are properly limited.
   return (
     <StyledShadowButton
       offset={[0, 1]}
@@ -32,8 +36,7 @@ const ShadowButton = ({
 
 const StyledShadowButton = styled(Shadow)(
   ({ isActive }: { isActive: boolean }) => ({
-    flex: 1,
-    borderRadius: 50,
+    borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',
     p: 12,

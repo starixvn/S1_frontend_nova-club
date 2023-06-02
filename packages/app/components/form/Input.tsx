@@ -87,6 +87,7 @@ const Input = forwardRef<NativeTextInput, InputProps>(
                   minHeight: 30,
                   minWidth: 40,
                   mx: '$2',
+                  fontSize: 14,
                   ...inputSx,
                 }}
                 {...rest}
@@ -148,9 +149,9 @@ const Container = styled(View)({
 const getDefaultInputIcon = (name: string) => {
   const comp = ({ color }) => {
     return (
-      <Container>
-        <Icon name={name} size={22} color={color} />
-      </Container>
+      <View sx={{ ml: '$2', pr: '$1' }}>
+        <Icon name={name} size={18} color={color} />
+      </View>
     )
   }
   return comp

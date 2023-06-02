@@ -30,11 +30,9 @@ const Receive = () => {
         <Text sx={{ fontWeight: 'bold', fontSize: 18 }}>{username}</Text>
       </View>
       <View sx={{ alignItems: 'center', py: '$3' }}>
-        <Text sx={{ fontSize: 16 }}>
-          Scan with your app to transfer balance
-        </Text>
+        <Text sx={{ fontSize: 16 }}>{t('notes.qr.n1')}</Text>
       </View>
-      <Button title={'download qr code'} onPress={handleDownload} />
+      <Button onPress={handleDownload}>{t('qr.downloadQr')}</Button>
     </ScrollView>
   )
 }

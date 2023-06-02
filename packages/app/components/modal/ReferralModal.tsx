@@ -90,11 +90,11 @@ const ReferralModal = ({ modal: { closeModal, getParam } }) => {
             />
             <ShareButton
               icon="tf"
-              title={t('common.share')}
+              title={t('referral.share')}
               options={{
                 message: t('referral.shareMessage'),
                 url: referralLink,
-                title: t('common.share'),
+                title: t('referral.share'),
               }}
             />
           </View>

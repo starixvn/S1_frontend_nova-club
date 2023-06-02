@@ -1,17 +1,18 @@
+import Icon from 'app/components/Icon'
 import dayjs from 'dayjs'
+import { SxProp } from 'dripsy'
 import React, { useState } from 'react'
 import RNDatePicker, {
   DatePickerProps as RNDatePickerProps,
 } from 'react-native-date-picker'
 import Input, { InputProps } from '../Input'
-import InputClearActionRow from '../InputClearActionRow'
-import Icon from 'app/components/Icon'
 
 export interface DatePickerProps
   extends Omit<RNDatePickerProps, 'date' | 'onConfirm'>,
     Pick<InputProps, 'editable' | 'placeholder' | 'error'> {
   value?: Date
   onChange?: (date?: Date) => void
+  inputSx?: SxProp
 }
 
 export default function DatePicker({
@@ -22,6 +23,7 @@ export default function DatePicker({
   error,
   mode = 'date',
   onCancel,
+  inputSx,
   ...rest
 }: DatePickerProps) {
   const [isFocus, setFocus] = useState(false)
@@ -30,18 +32,19 @@ export default function DatePicker({
       <Input
         icon="date"
         action={({ color }) => (
-          <InputClearActionRow
-            isClearable={!!value}
-            onPress={() => {
-              onChange && onChange()
-            }}
-          >
-            <Icon name="down" color={color} />
-          </InputClearActionRow>
+          // <InputClearActionRow
+          //   isClearable={!!value}
+          //   onPress={() => {
+          //     onChange && onChange()
+          //   }}
+          // >
+          <Icon name="down" color={color} size={16} />
+          // </InputClearActionRow>
         )}
         onPress={() => {
           setFocus(true)
         }}
+        sx={inputSx}
         editable={editable}
         placeholder={placeholder}
         error={error}

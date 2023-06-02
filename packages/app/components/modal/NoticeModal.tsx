@@ -6,24 +6,15 @@ import ModalWrapper from './ModalWrapper'
 
 const FONT_SIZE = 16
 const NoticeModal = ({ modal: { closeModal, getParam } }) => {
-  const { t } = useLocalization()
-
   const notice = getParam('notice', [])
   const noticeModule = getParam('noticeModule', '')
 
-  function onDismiss() {
-    closeModal()
-  }
-  //
-
-  console.log(notice)
-
   return (
     <ModalWrapper>
-      <ModalContent footer={true}>
+      <ModalContent>
         <View>
           {notice.map((content, i) => {
-            const _content = t(content)
+            const _content = content
             const parts = _content.split('|')
             return (
               <View

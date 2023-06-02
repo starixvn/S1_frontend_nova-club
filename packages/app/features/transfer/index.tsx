@@ -1,17 +1,16 @@
-import CustomTabBar from 'app/components/navigation/CustomTabBar'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
+import CustomTabBar from 'app/components/navigation/CustomTabBar'
 import useLocalization from 'app/provider/localization'
+import { TRANSFER_NOTES } from 'app/utils/constant'
 import React, { useState } from 'react'
 import { useWindowDimensions } from 'react-native'
+import { useModal } from 'react-native-modalfy'
 import { SceneMap, TabView } from 'react-native-tab-view'
 import { createParam } from 'solito'
-import IdTransfer from './IdTransfer'
-import QrTransfer from './QrTransfer'
-import Receive from './Receive'
-import Icon from 'app/components/Icon'
-import { TRANSFER_NOTES } from 'app/utils/constant'
-import { useModal } from 'react-native-modalfy'
-import { Text } from 'dripsy'
+import IconButton from 'app/components/IconButton'
+import QrTransfer from './qr-transfer'
+import QrReceive from './qr-receive'
+import IdTransfer from './id-transfer'
 
 const { useParam } = createParam<{ tab: string }>()
 const TransferScreen = () => {
@@ -21,7 +20,7 @@ const TransferScreen = () => {
   const { t } = useLocalization()
 
   const renderScene = SceneMap({
-    first: Receive,
+    first: QrReceive,
     second: IdTransfer,
     third: QrTransfer,
   })
@@ -56,7 +55,7 @@ const TransferScreen = () => {
       header={{
         title: 'transfer.transferTitle',
         actions: (
-          <Icon
+          <IconButton
             name="notice"
             onPress={() =>
               openModal('NoticeModal', {

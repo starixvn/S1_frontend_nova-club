@@ -1,39 +1,63 @@
 {
+  "authentication": {
+    "login": {},
+    "register": {},
+    "loginHeader": {},
+    "noReceiveOTP": {},
+    "resend": {},
+    "readAndAgree": {},
+    "enterOtp": {},
+    "send": {},
+    "rememberMe": {},
+    "forgotPassword": {}
+  },
   "common": {
-    "player": "Player",
+    "player": "Player ID",
     "agent": "Agent",
-    "username": "username",
-    "password": "password",
-    "transfer": "transfer",
-    "deposit": "deposit",
-    "withdraw": "withdraw",
-    "bankAccount": "bank account",
-    "history": "history",
-    "cash": "cash",
-    "reward": "reward",
-    "balance": "balance",
-    "more": "more",
-    "overview": "overview",
-    "registered": "registered",
-    "activePlayer": "active player",
-    "monthlyReward": "monthly reward",
-    "profile": "profile",
-    "points": "points",
-    "receive": "receive",
+    "username": "Username",
+    "password": "Password",
+    "transfer": "Transfer",
+    "deposit": "Deposit",
+    "withdraw": "Withdraw",
+    "bankAccount": "Bank Account",
+    "history": "History",
+    "cash": "Cash",
+    "reward": "Reward",
+    "balance": "Balance",
+    "more": "More",
+    "overview": "Overview",
+    "profile": "Profile",
+    "points": "Points",
+    "receive": "Receive",
     "submit": "Submit",
     "close": "Close",
     "pin": "Pin",
-    "cancel": "Cancel",
-    "confirmDelete": "Confirm Delete",
-    "send": "Send",
-    "bank": "Bank",
+    "timeline": "UTC/GMT +7",
+    "download": "Download",
+    "realName": "Real Name",
+    "phone": "Phone Number",
+    "playerId": "Player ID",
+    "currency": "Currency",
+    "copied": "Copied",
+    "amount": "Amount",
+    "confirm": "Confirm",
+    "confirmPassword": "Confirm Password",
+    "userAgreement": "user agreement",
     "otp": "OTP",
-    "next": "Next"
+    "realBet": "Real Bet",
+    "turnOver": "Turn Over"
   },
-  "authentication": {
-    "login": "Login",
-    "register": "Register",
-    "loginHeader": "login to your account"
+  "game": {
+    "category": {
+      "sportsbook": "Sportsbook",
+      "games": "Games",
+      "slots": "Slots",
+      "liveCasino": "Live Casino",
+      "lottery": "Keno/Lottery",
+      "fishing": "Fishing"
+    },
+    "recently": "Recently Played",
+    "jackpot": "Jackpot"
   },
   "leaderboard": {
     "monthlyEvent": "Monthly Event",
@@ -42,41 +66,19 @@
     "product": "Product",
     "top10": "Top 10 Winners"
   },
-  "menu": {
-    "tab": {
-      "event": "Event",
-      "ranking": "Ranking"
-    },
-    "bankAccount": "Bank Account",
-    "cryptoWallet": "Crypto Wallet"
-  },
-  "transfer": {
-    "transferTitle": "transfer",
-    "idTransfer": "id transfer",
-    "qrTransfer": "qr transfer",
-    "downloadQr": "download qr code"
-  },
-  "notes": {
-    "importantNotice": "Important Notice",
-    "qr": {
-      "n1": "Scan with your app to transfer balance"
-    },
-    "transfer": {
-      "n1": "All the fund receive via internal transfer are subject to |1x rollover| before the withdrawal"
-    }
-  },
   "manageCredentials": {
-    "title": "manage credentials",
+    "title": {},
     "pin": {
-      "createPin": "create pin",
+      "createPin": "Create Pin",
       "create6Pin": "Create 6-digit Pin",
       "securePin": "Secure your transfer with PIN",
       "newPin": "New Pin",
       "confirmPin": "Confirm Pin",
       "changePin": "Change Pin",
       "oldPin": "Old Pin",
-      "NewPin": "New Pin",
-      "ConfirmPin": "Confirm Pin"
+      "forgotPin": "Forgot Pin",
+      "confirmPinTitle": "Enter 6-digit PIN to Confirm",
+      "confirmPinInfo": "All your transactions are processed in a safe and secured environment."
     },
     "pw": {
       "changePw": "Change Password",
@@ -88,6 +90,49 @@
       "placeholderConfirmPw": "Please confirm password"
     }
   },
+  "menu": {
+    "tab": {
+      "event": "Event",
+      "ranking": "Ranking"
+    },
+    "tnc": "Terms and Conditions"
+  },
+  "notes": {
+    "importantNotice": "Important Notice",
+    "qr": {
+      "n1": "Scan with your app to transfer balance"
+    },
+    "transfer": {
+      "n1": "All the fund receive via internal transfer are subject to |1x rollover| before the withdrawal"
+    }
+  },
+  "profile": {
+    "self": "Self",
+    "w/l": "Win/Lose (VND)",
+    "registered": "Registered",
+    "activePlayer": "Active Player",
+    "monthlyReward": "Monthly Reward",
+    "circle": "Circle",
+    "direct": "Direct"
+  },
+  "qr": {
+    "scanGallery": "Scan from gallery",
+    "downloadQr": "Download QR Code",
+    "noCameraAccess": "Your camera is required to scan QR code for transfer. Please enable permission to continue using this feature",
+    "requestCameraPermissions": "Requesting for camera permission"
+  },
+  "referral": {
+    "link": "Link",
+    "share": "Share",
+    "shareMessage": "Share & Earn"
+  },
+  "transfer": {
+    "transferTitle": "Transfer",
+    "idTransfer": "ID Transfer",
+    "qrTransfer": "QR Transfer",
+    "placeholderTransferId": "Please enter ID",
+    "placeholderTransferAmount": "Please enter your transfer amount"
+  },
   "validation": {
     "alphanumeric": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only",
     "amount": "%{amount} not in range",
@@ -95,7 +140,7 @@
     "amountLessThan": "Amount cannot be less than %{min}",
     "dailyLimitReached": "Your Daily Limit Reached",
     "email": "Mail format is wrong",
-    "enterId": "Please enter ID\"",
+    "enterId": "Please enter ID",
     "erc20Format": "Must be ERC-20 compatible wallet address",
     "exceedAvailableTransferBalance": "Exceed available transfer balance %{balance}",
     "insufficientBalance": "Insufficient balance",
@@ -116,24 +161,5 @@
     "usdtFormat": "Must be ERC-20 / TRC-20 compatible wallet address",
     "userNameMinMaxLength": "6-18 characters only",
     "username": "6-18 characters only"
-  },
-  "bank": {
-    "addBankAccount": "Add Bank Account",
-    "confirmDelete": "Are you sure you want to delete? It cannot be restored after deletion!",
-    "addCryptoWallet": "Add Crypto Wallet",
-    "walletAddress": "Wallet Address",
-    "accountNumber": "Account Number",
-    "accountName": "Account Name",
-    "channel": "Channel"
-  },
-  "status": {
-    "systemError": "Oops! Something wrong, please try again."
-  },
-  "placeholder": {
-    "selectBank": "Select Bank",
-    "selectChannel": "Select Channel"
-  },
-  "profile": {
-    "realName": "Real Name"
   }
 }

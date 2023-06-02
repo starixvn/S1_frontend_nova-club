@@ -135,25 +135,41 @@ const MainHeader = () => {
       ) : (
         <View sx={{ flexDirection: 'row', alignItems: 'center' }}>
           <Button
-            title={t('authentication.login')}
-            sx={{ py: '$1', mx: '$2', minWidth: 100 }}
-            titleSx={{
-              fontSize: 14,
-              //only by setting like this, the text only can be centered
-              height: 16,
-              lineHeight: 18,
+            sx={{ mx: '$2', minWidth: 100, borderRadius: 15 }}
+            titleProps={{
+              sx: {
+                fontSize: 14,
+                //only by setting like this, the text only can be centered
+                height: 16,
+                lineHeight: 18,
+              },
             }}
-          />
+            contentProps={{
+              sx: {
+                py: '$2',
+              },
+            }}
+          >
+            {t('authentication.login')}
+          </Button>
           <Button
-            title={t('authentication.register')}
-            sx={{ py: '$2', bg: '$primary.700', minWidth: 100 }}
-            titleSx={{
-              fontSize: 14,
-              //only by setting like this, the text only can be centered
-              height: 16,
-              lineHeight: 18,
+            sx={{ bg: '$primary.700', minWidth: 100, borderRadius: 15 }}
+            titleProps={{
+              sx: {
+                fontSize: 14,
+                //only by setting like this, the text only can be centered
+                height: 16,
+                lineHeight: 18,
+              },
             }}
-          />
+            contentProps={{
+              sx: {
+                py: '$2',
+              },
+            }}
+          >
+            {t('authentication.register')}
+          </Button>
         </View>
       )}
     </HeaderContainer>

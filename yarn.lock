@@ -1604,9 +1604,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/cli@npm:0.7.1":
-  version: 0.7.1
-  resolution: "@expo/cli@npm:0.7.1"
+"@expo/cli@npm:0.7.2":
+  version: 0.7.2
+  resolution: "@expo/cli@npm:0.7.2"
   dependencies:
     "@babel/runtime": ^7.20.0
     "@expo/code-signing-certificates": 0.0.5
@@ -1671,7 +1671,7 @@ __metadata:
     ws: ^8.12.1
   bin:
     expo-internal: build/bin/cli
-  checksum: 5b84f3ad6c57fa9c64a0edd99558ada7fca8556d6137213df141b90cd4c93b3605dafce1a72cb11f0448857c220c7be63cde295a2cb13d99ba1f122ea362da05
+  checksum: bb67163e60e0a99c3f089495f549fda984ef4b33222dc8c62dc8c51b5dff12b51ccb1f38e12664b6cf47dfe323f80422b0878c958ddc9b5ef395a8a6286d3227
   languageName: node
   linkType: hard
 
@@ -3607,6 +3607,40 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@zxing/browser@npm:0.0.7":
+  version: 0.0.7
+  resolution: "@zxing/browser@npm:0.0.7"
+  dependencies:
+    "@zxing/text-encoding": ^0.9.0
+  peerDependencies:
+    "@zxing/library": ^0.18.3
+  dependenciesMeta:
+    "@zxing/text-encoding":
+      optional: true
+  checksum: 5f56628382a053436f0fd4163d0853e11f24059655e26e5311a97baae5fce524efe6fc397a82de7634b12585568c714789bca75d9747478d6030d27b907fc3ab
+  languageName: node
+  linkType: hard
+
+"@zxing/library@npm:^0.18.3":
+  version: 0.18.6
+  resolution: "@zxing/library@npm:0.18.6"
+  dependencies:
+    "@zxing/text-encoding": ~0.9.0
+    ts-custom-error: ^3.0.0
+  dependenciesMeta:
+    "@zxing/text-encoding":
+      optional: true
+  checksum: 564a25f6245b4fd81b4ce686116bf1fe577daa2aaee4263b4dea3776676482fd3e063ad43783c6378713a4a3dcefd311b6154b6cd43e7be24bb7e7c3e5fec98a
+  languageName: node
+  linkType: hard
+
+"@zxing/text-encoding@npm:^0.9.0, @zxing/text-encoding@npm:~0.9.0":
+  version: 0.9.0
+  resolution: "@zxing/text-encoding@npm:0.9.0"
+  checksum: c23b12aee7639382e4949961304a1294776afaffa40f579e09ffecd0e5e68cf26ef3edd75009de46da8a536e571448755ca68b3e2ea707d53793c0edb2e2c34a
+  languageName: node
+  linkType: hard
+
 "abbrev@npm:^1.0.0":
   version: 1.1.1
   resolution: "abbrev@npm:1.1.1"
@@ -3807,6 +3841,7 @@ __metadata:
     dripsy: 4.3.3
     expo-image-picker: ^14.1.1
     expo-sharing: ~11.2.2
+    formik: "*"
     modern-screenshot: ^4.4.25
     moti: latest
     react-native-date-picker: ^4.2.13
@@ -6093,8 +6128,9 @@ __metadata:
     "@types/react-native": ~0.69.1
     app: "*"
     axios: ^1.4.0
-    expo: ~48.0.15
+    expo: ~48.0.18
     expo-av: ~13.2.1
+    expo-barcode-scanner: ^12.3.2
     expo-clipboard: ^4.1.2
     expo-device: ^5.2.1
     expo-image: ~1.0.1
@@ -6108,11 +6144,15 @@ __metadata:
     expo-splash-screen: ~0.18.2
     expo-status-bar: ~1.4.4
     formik: ^2.2.9
+    html-to-image: ^1.11.11
     i18n-js: latest
+    jpeg-js: ^0.4.4
+    jsqr: ^1.4.0
     react: 18.2.0
     react-dom: 18.2.0
     react-native: 0.71.8
     react-native-actions-sheet: ^0.8.29
+    react-native-barcode-mask: ^1.2.4
     react-native-confirmation-code-field: ^7.3.1
     react-native-date-picker: ^4.2.13
     react-native-dotenv: ^3.4.8
@@ -6132,6 +6172,7 @@ __metadata:
     react-native-toast-message: ^2.1.6
     react-native-view-shot: ^3.6.0
     react-native-web: ~0.18.11
+    react-qr-reader: ^3.0.0-beta-1
     react-redux: ^8.0.5
     react-web-share: ^2.0.2
     redux-persist: ^6.0.0
@@ -6170,6 +6211,17 @@ __metadata:
   peerDependencies:
     expo: "*"
   checksum: 9bbcbc3ce8336580b12f895346c06d4079a250703cd09a21949aa40e7e9ee41fc25014994a13d9388787466cb797c7fe88d4c74298911f2c195666b5aa83ee4d
+  languageName: node
+  linkType: hard
+
+"expo-barcode-scanner@npm:^12.3.2":
+  version: 12.4.0
+  resolution: "expo-barcode-scanner@npm:12.4.0"
+  dependencies:
+    expo-image-loader: ~4.2.0
+  peerDependencies:
+    expo: "*"
+  checksum: 61883171bf913090da8254bdba53e581da545590b36e2c43040486434ca0d02048e1da82f06b12ac7a7d01718adf455d676747792a10a516fb1973658112cfe6
   languageName: node
   linkType: hard
 
@@ -6478,12 +6530,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo@npm:~48.0.15":
-  version: 48.0.17
-  resolution: "expo@npm:48.0.17"
+"expo@npm:~48.0.18":
+  version: 48.0.18
+  resolution: "expo@npm:48.0.18"
   dependencies:
     "@babel/runtime": ^7.20.0
-    "@expo/cli": 0.7.1
+    "@expo/cli": 0.7.2
     "@expo/config": 8.0.2
     "@expo/config-plugins": 6.0.2
     "@expo/vector-icons": ^13.0.0
@@ -6506,7 +6558,7 @@ __metadata:
     uuid: ^3.4.0
   bin:
     expo: bin/cli.js
-  checksum: 560aaa0da139560d84fea92bce9bc3aa0c32e157b7676f1c80ee3bece43226fe1f44fe41837b91d00a4107a0cf5291f0e042d5f9ca1591d723dbf5a96a168df3
+  checksum: 0506bccb60bc09901e75375d35ea14ea79da0719798fe556f622c43d8ef43d8561e00f814bc7005e3e0913f3f87988bcbad895c502b12f1afbb0d2bcb3f7cde0
   languageName: node
   linkType: hard
 
@@ -6874,6 +6926,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"formik@npm:*":
+  version: 2.4.1
+  resolution: "formik@npm:2.4.1"
+  dependencies:
+    deepmerge: ^2.1.1
+    hoist-non-react-statics: ^3.3.0
+    lodash: ^4.17.21
+    lodash-es: ^4.17.21
+    react-fast-compare: ^2.0.1
+    tiny-warning: ^1.0.2
+    tslib: ^1.10.0
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: c4238b81c7780b3772f2ef2a439f676822f5c4a944de45505fd15eaf8dd84051420c91ce2ccc72da047d89e2ab630a76c992719de643fe3f302fb4af948d4bbc
+  languageName: node
+  linkType: hard
+
 "formik@npm:^2.2.9":
   version: 2.2.9
   resolution: "formik@npm:2.2.9"
@@ -6995,7 +7064,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fsevents@npm:^2.3.2":
+"fsevents@npm:^2.3.2, fsevents@npm:~2.3.2":
   version: 2.3.2
   resolution: "fsevents@npm:2.3.2"
   dependencies:
@@ -7005,7 +7074,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fsevents@patch:fsevents@^2.3.2#~builtin<compat/fsevents>":
+"fsevents@patch:fsevents@^2.3.2#~builtin<compat/fsevents>, fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
   version: 2.3.2
   resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
   dependencies:
@@ -7483,6 +7552,13 @@ __metadata:
   dependencies:
     lru-cache: ^6.0.0
   checksum: 5af7a69581acb84206a7b8e009f4680c36396814e92c8a83973dfb3b87e44e44d1f7b8eaf3e4a953686482770ecb78406a4ce4666bfdfe447762434127871d8d
+  languageName: node
+  linkType: hard
+
+"html-to-image@npm:^1.11.11":
+  version: 1.11.11
+  resolution: "html-to-image@npm:1.11.11"
+  checksum: b453beca72a697bf06fae4945e5460d1d9b1751e8569a0d721dda9485df1dde093938cc9bd9172b8df5fc23133a53a4d619777b3d22f7211cd8a67e3197ab4e8
   languageName: node
   linkType: hard
 
@@ -8375,6 +8451,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jpeg-js@npm:^0.4.4":
+  version: 0.4.4
+  resolution: "jpeg-js@npm:0.4.4"
+  checksum: bd7cb61aa8df40a9ee2c2106839c3df6054891e56cfc22c0ac581402e06c6295f962a4754b0b2ac50a401789131b1c6dc9df8d24400f1352168be1894833c590
+  languageName: node
+  linkType: hard
+
 "js-sdsl@npm:^4.1.4":
   version: 4.4.0
   resolution: "js-sdsl@npm:4.4.0"
@@ -8556,6 +8639,13 @@ __metadata:
     graceful-fs:
       optional: true
   checksum: 7af3b8e1ac8fe7f1eccc6263c6ca14e1966fcbc74b618d3c78a0a2075579487547b94f72b7a1114e844a1e15bb00d440e5d1720bfc4612d790a6f285d5ea8354
+  languageName: node
+  linkType: hard
+
+"jsqr@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "jsqr@npm:1.4.0"
+  checksum: 7c572971f90c42772e30d152bde63b84edf1164bde80c53942e6b2068ea31caf00ad704aa46cacc9e71645f52dbeddebc6e84ba15e883c678ee93cde690de339
   languageName: node
   linkType: hard
 
@@ -10633,7 +10723,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:*, prop-types@npm:15.8.1, prop-types@npm:^15.7.2, prop-types@npm:^15.8.0, prop-types@npm:^15.8.1":
+"prop-types@npm:*, prop-types@npm:15.8.1, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.0, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -10886,6 +10976,15 @@ __metadata:
   peerDependencies:
     react-native: "*"
   checksum: e4ea46f6370d25a6fff97de87e4e20799319c2d574cb52e12017b266eeadc869116d443b78d1880999df7bbb13cdfa3df2dae3589d98d9063f62c4122e6e5011
+  languageName: node
+  linkType: hard
+
+"react-native-barcode-mask@npm:^1.2.4":
+  version: 1.2.4
+  resolution: "react-native-barcode-mask@npm:1.2.4"
+  dependencies:
+    prop-types: ^15.6.2
+  checksum: 1cdf2b3497fdaaa6a39a42393a0265e9a47e9dba82258cc027a7ab3503f6f56a3c4721816cd6adc272c3ee30b5e386bd0be0a1aa76073616c583d9a4de5a883c
   languageName: node
   linkType: hard
 
@@ -11205,6 +11304,20 @@ __metadata:
   bin:
     react-native: cli.js
   checksum: fe887c1b8bded23f9efea9dc10a8a8b2f32147e06418fc9a78294944874797abb0185ebcb0fdc5ce88046280bca72264ae8d119f4ca681a3e0bc502d0f75bfbe
+  languageName: node
+  linkType: hard
+
+"react-qr-reader@npm:^3.0.0-beta-1":
+  version: 3.0.0-beta-1
+  resolution: "react-qr-reader@npm:3.0.0-beta-1"
+  dependencies:
+    "@zxing/browser": 0.0.7
+    "@zxing/library": ^0.18.3
+    rollup: ^2.67.2
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0
+    react-dom: ^16.8.0 || ^17.0.0
+  checksum: f85fc490251cba1b763b9f1eb56ac8fb3cd006fcb189ed2b4e8e59bfb61f9493d96274aeb5e980b6093b9ca5595af76893369ecc00562664d033f37f567bd00d
   languageName: node
   linkType: hard
 
@@ -11757,6 +11870,20 @@ __metadata:
   bin:
     rimraf: ./bin.js
   checksum: 3ea587b981a19016297edb96d1ffe48af7e6af69660e3b371dbfc73722a73a0b0e9be5c88089fbeeb866c389c1098e07f64929c7414290504b855f54f901ab10
+  languageName: node
+  linkType: hard
+
+"rollup@npm:^2.67.2":
+  version: 2.79.1
+  resolution: "rollup@npm:2.79.1"
+  dependencies:
+    fsevents: ~2.3.2
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  bin:
+    rollup: dist/bin/rollup
+  checksum: 6a2bf167b3587d4df709b37d149ad0300692cc5deb510f89ac7bdc77c8738c9546ae3de9322b0968e1ed2b0e984571f5f55aae28fa7de4cfcb1bc5402a4e2be6
   languageName: node
   linkType: hard
 
@@ -12931,6 +13058,13 @@ __metadata:
   version: 0.6.7
   resolution: "traverse@npm:0.6.7"
   checksum: 21018085ab72f717991597e12e2b52446962ed59df591502e4d7e1a709bc0a989f7c3d451aa7d882666ad0634f1546d696c5edecda1f2fc228777df7bb529a1e
+  languageName: node
+  linkType: hard
+
+"ts-custom-error@npm:^3.0.0":
+  version: 3.3.1
+  resolution: "ts-custom-error@npm:3.3.1"
+  checksum: 50a1e825fced68d70049bd8d282379a635e43aa023a370fa8e736b12a6edba7f18a2d731fa194ac35303a8b625be56e121bdb31d8a0318250d1a8b277059fce3
   languageName: node
   linkType: hard
 

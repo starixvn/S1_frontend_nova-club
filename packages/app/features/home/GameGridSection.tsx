@@ -53,7 +53,7 @@ const config = [
     col: 3,
     src: LOTTERY_IMG,
     type: 'video',
-    title: 'game.category.keno/lottery',
+    title: 'game.category.lottery',
   },
   {
     col: 3,

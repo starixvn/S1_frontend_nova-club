@@ -96,7 +96,7 @@ const ProfileBalanceSummary = ({
           >
             <HiddenItem
               color={theme.colors.$secondary[100]}
-              iconName="ac"
+              iconName="cash"
               label="cash"
               value={cash}
               isLoading={isLoading}
@@ -128,7 +128,7 @@ const HiddenItem = ({
   return (
     <HiddenItemContainer>
       <View sx={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Icon name={iconName} color={color} sx={{ px: 5 }} size={24} />
+        <Icon name={iconName} color={color} sx={{ px: 5 }} size={18} />
         <ProfileSummaryText fontSize={12} px={10}>
           {label}
         </ProfileSummaryText>

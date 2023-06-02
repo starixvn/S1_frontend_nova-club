@@ -62,6 +62,7 @@ const theme = makeTheme({
     $text: '#fff',
     $background: '#1E2238',
     $primary: {
+      50: '#9696ff',
       100: '#9696E6',
       200: '#7B7BCF',
       300: '#50509E',
@@ -76,7 +77,7 @@ const theme = makeTheme({
     $success: '#0DBF00',
     $error: '#E43221',
     $placeholder: '#ffffff80',
-    $otp: '#DEDEDE',
+    $otp: '#E69B0D',
 
     $black: '#000',
     $white: '#fff',

@@ -76,7 +76,7 @@ const TimerButton = forwardRef<ITimerButtonForwardRef, ITimerButtonProps>(
         {(disabled || loading) && (
           <ActivityIndicator
             size="small"
-            color={theme.colors.$secondary[500]}
+            color={'$white'}
             sx={{ mr: secDiff ? 2 : 0, fontSize: 12 }}
           />
         )}

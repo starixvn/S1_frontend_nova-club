@@ -5,6 +5,8 @@ import { ActivityIndicator, Text, View, styled } from 'dripsy'
 import { TouchableOpacity } from 'react-native'
 import { usePlayerOverviewSummaryQuery } from 'services/playerApi'
 import { useAppSelector } from 'app/provider/redux/store'
+import useLocalization from 'app/provider/localization'
+import { useRouter } from 'solito/router'
 
 interface ProfileOverviewTextProps {
   px?: number
@@ -21,6 +23,8 @@ interface ProfileOverviewCardProps {
 }
 
 const ProfileOverviewCard = ({ currency }: ProfileOverviewCardProps) => {
+  const { t } = useLocalization()
+  const { push } = useRouter()
   const { token } = useAppSelector((state) => state.auth.info) || {}
   const { data, isFetching } = usePlayerOverviewSummaryQuery(undefined, {
     skip: !token,
@@ -29,10 +33,12 @@ const ProfileOverviewCard = ({ currency }: ProfileOverviewCardProps) => {
     <>
       <ProfileOverviewCardContainer>
         <ProfileOverviewHeader>
-          <ProfileOverviewText fontSize={13}>overview</ProfileOverviewText>
+          <ProfileOverviewText fontSize={13}>
+            {t('common.overview')}
+          </ProfileOverviewText>
 
           <TouchableOpacity
-            onPress={() => null}
+            onPress={() => push('/account/profile/profile-overview')}
             style={{ flexDirection: 'row', alignItems: 'center' }}
           >
             <ProfileOverviewText
@@ -40,7 +46,7 @@ const ProfileOverviewCard = ({ currency }: ProfileOverviewCardProps) => {
               px={10}
               textTransform="capitalize"
             >
-              more
+              {t('common.more')}
             </ProfileOverviewText>
 
             <Icon name="next" color={'white'} size={16} />
@@ -50,7 +56,7 @@ const ProfileOverviewCard = ({ currency }: ProfileOverviewCardProps) => {
         <ProfileOverviewDetails>
           <View sx={{ px: 10, py: 10, width: '50%' }}>
             <ProfileOverviewText fontSize={12}>
-              monthly reward
+              {t('profile.monthlyReward')}
             </ProfileOverviewText>
             <View
               sx={{
@@ -87,7 +93,7 @@ const ProfileOverviewCard = ({ currency }: ProfileOverviewCardProps) => {
               />
             ) : (
               <ProfileOverviewHorizontalItem
-                label="registered"
+                label={t('profile.registered')}
                 value={data?.data?.registered ?? 0}
               />
             )}
@@ -102,7 +108,7 @@ const ProfileOverviewCard = ({ currency }: ProfileOverviewCardProps) => {
               />
             ) : (
               <ProfileOverviewHorizontalItem
-                label="active player"
+                label={t('profile.activePlayer')}
                 value={data?.data?.active_player ?? 0}
               />
             )}
