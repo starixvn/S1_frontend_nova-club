@@ -1,4 +1,16 @@
 {
+  "authentication": {
+    "login": {},
+    "register": {},
+    "loginHeader": {},
+    "noReceiveOTP": {},
+    "resend": {},
+    "readAndAgree": {},
+    "enterOtp": {},
+    "send": {},
+    "rememberMe": {},
+    "forgotPassword": {}
+  },
   "common": {
     "player": "Player ID",
     "agent": "Agent",
@@ -14,9 +26,6 @@
     "balance": "Balance",
     "more": "More",
     "overview": "Overview",
-    "registered": "Registered",
-    "activePlayer": "Active Player",
-    "monthlyReward": "Monthly Reward",
     "profile": "Profile",
     "points": "Points",
     "receive": "Receive",
@@ -34,17 +43,21 @@
     "confirm": "Confirm",
     "confirmPassword": "Confirm Password",
     "userAgreement": "user agreement",
-    "otp": "OTP"
+    "otp": "OTP",
+    "realBet": "Real Bet",
+    "turnOver": "Turn Over"
   },
-  "authentication": {
-    "login": "Login",
-    "register": "Register",
-    "loginHeader": "Login to your account",
-    "noReceiveOTP": "Didn't receive OTP?",
-    "resend": "Send",
-    "readAndAgree": "I have read & agree the",
-    "enterOtp": "Please enter OTP",
-    "send": "Send"
+  "game": {
+    "category": {
+      "sportsbook": "Sportsbook",
+      "games": "Games",
+      "slots": "Slots",
+      "liveCasino": "Live Casino",
+      "lottery": "Keno/Lottery",
+      "fishing": "Fishing"
+    },
+    "recently": "Recently Played",
+    "jackpot": "Jackpot"
   },
   "leaderboard": {
     "monthlyEvent": "Monthly Event",
@@ -53,37 +66,8 @@
     "product": "Product",
     "top10": "Top 10 Winners"
   },
-  "menu": {
-    "tab": {
-      "event": "Event",
-      "ranking": "Ranking"
-    },
-    "tnc": "Terms and Conditions"
-  },
-  "transfer": {
-    "transferTitle": "Transfer",
-    "idTransfer": "ID Transfer",
-    "qrTransfer": "QR Transfer",
-    "placeholderTransferId": "Please enter ID",
-    "placeholderTransferAmount": "Please enter your transfer amount"
-  },
-  "qr": {
-    "scanGallery": "Scan from gallery",
-    "downloadQr": "Download QR Code",
-    "noCameraAccess": "Your camera is required to scan QR code for transfer. Please enable permission to continue using this feature",
-    "requestCameraPermissions": "Requesting for camera permission"
-  },
-  "notes": {
-    "importantNotice": "Important Notice",
-    "qr": {
-      "n1": "Scan with your app to transfer balance"
-    },
-    "transfer": {
-      "n1": "All the fund receive via internal transfer are subject to |1x rollover| before the withdrawal"
-    }
-  },
   "manageCredentials": {
-    "title": "Manage Credentials",
+    "title": {},
     "pin": {
       "createPin": "Create Pin",
       "create6Pin": "Create 6-digit Pin",
@@ -105,6 +89,49 @@
       "placeholderNewPw": "Please enter new password",
       "placeholderConfirmPw": "Please confirm password"
     }
+  },
+  "menu": {
+    "tab": {
+      "event": "Event",
+      "ranking": "Ranking"
+    },
+    "tnc": "Terms and Conditions"
+  },
+  "notes": {
+    "importantNotice": "Important Notice",
+    "qr": {
+      "n1": "Scan with your app to transfer balance"
+    },
+    "transfer": {
+      "n1": "All the fund receive via internal transfer are subject to |1x rollover| before the withdrawal"
+    }
+  },
+  "profile": {
+    "self": "Self",
+    "w/l": "Win/Lose (VND)",
+    "registered": "Registered",
+    "activePlayer": "Active Player",
+    "monthlyReward": "Monthly Reward",
+    "circle": "Circle",
+    "direct": "Direct"
+  },
+  "qr": {
+    "scanGallery": "Scan from gallery",
+    "downloadQr": "Download QR Code",
+    "noCameraAccess": "Your camera is required to scan QR code for transfer. Please enable permission to continue using this feature",
+    "requestCameraPermissions": "Requesting for camera permission"
+  },
+  "referral": {
+    "link": "Link",
+    "share": "Share",
+    "shareMessage": "Share & Earn"
+  },
+  "transfer": {
+    "transferTitle": "Transfer",
+    "idTransfer": "ID Transfer",
+    "qrTransfer": "QR Transfer",
+    "placeholderTransferId": "Please enter ID",
+    "placeholderTransferAmount": "Please enter your transfer amount"
   },
   "validation": {
     "alphanumeric": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only",
@@ -134,22 +161,5 @@
     "usdtFormat": "Must be ERC-20 / TRC-20 compatible wallet address",
     "userNameMinMaxLength": "6-18 characters only",
     "username": "6-18 characters only"
-  },
-  "game": {
-    "category": {
-      "sportsbook": "Sportsbook",
-      "games": "Games",
-      "slots": "Slots",
-      "liveCasino": "Live Casino",
-      "lottery": "Keno/Lottery",
-      "fishing": "Fishing"
-    },
-    "recently": "Recently Played",
-    "jackpot": "Jackpot"
-  },
-  "referral": {
-    "link": "Link",
-    "share": "Share",
-    "shareMessage": "Share & Earn"
   }
 }
