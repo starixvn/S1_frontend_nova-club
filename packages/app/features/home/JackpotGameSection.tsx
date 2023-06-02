@@ -1,11 +1,7 @@
-import { CMS_CONTENT_URI, CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import SectionHeader from 'app/components/SectionHeader'
-import GameCard from 'app/components/game/GameCard'
 import GameListSection from 'app/components/game/GameListSection'
 import { Currency, SlotType } from 'app/utils/constant'
-import { ScrollView, View } from 'dripsy'
 import React from 'react'
-import { useGetGameListQuery } from 'services/contentApi'
+import { useGetGameListQuery } from 'services/gameApi'
 
 export default function JackpotGameSection() {
   const { gameList = [] } = useGetGameListQuery(

@@ -32,6 +32,7 @@ const ShadowButton = ({
 
 const StyledShadowButton = styled(Shadow)(
   ({ isActive }: { isActive: boolean }) => ({
+    flex: 1,
     borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',

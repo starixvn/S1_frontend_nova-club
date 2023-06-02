@@ -16,7 +16,8 @@ export default function GameGridSectionItem({ type, src, title, ...rest }) {
 
   useEffect(() => {
     try {
-      if (!videoStatus) videoRef?.current?.playAsync()
+      if (!videoStatus && videoRef?.current?.playAsync)
+        videoRef?.current?.playAsync()
     } catch (error) {
       console.log(
         '🚀 ~ file: GridSectionItem.tsx:28 ~ useEffect ~ error:',

@@ -1,7 +1,6 @@
 import { ScrollView } from 'dripsy'
 import React from 'react'
 import GameCard from './GameCard'
-import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 export default function HorizontalGameList({ data, ...rest }) {
   return (
@@ -18,7 +17,7 @@ export default function HorizontalGameList({ data, ...rest }) {
             height={[80, 110]}
             key={g.gc}
             // name={g.name['en']}
-            image={`${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${g.img}`}
+            image={g.img}
           />
         )
       })}

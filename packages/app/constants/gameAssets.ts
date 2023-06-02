@@ -1,0 +1,17 @@
+export const ProviderColorImageMapping = {
+  JILI: require('app/assets/images/game/provider/colored/slot/jili.jpg'),
+  HABA: require('app/assets/images/game/provider/colored/slot/haba.jpg'),
+  SKYW: require('app/assets/images/game/provider/colored/games/skyw.jpg'),
+  PRGP: require('app/assets/images/game/provider/colored/slot/prgp.jpg'),
+  O789: require('app/assets/images/game/provider/colored/jili.jpg'),
+  SABA: require('app/assets/images/game/provider/colored/games/saba.jpg'),
+  ARG: require('app/assets/images/game/provider/colored/games/arg.jpg'),
+  CQ9: require('app/assets/images/game/provider/colored/slot/cq9.jpg'),
+  TCG: require('app/assets/images/game/provider/colored/jili.jpg'),
+  PTEC: require('app/assets/images/game/provider/colored/games/ptec.jpg'),
+  NERT: require('app/assets/images/game/provider/colored/games/nert.jpg'),
+  IM1: require('app/assets/images/game/provider/colored/jili.jpg'),
+  JDBG: require('app/assets/images/game/provider/colored/slot/jdbg.jpg'),
+  V8PK: require('app/assets/images/game/provider/colored/games/v8pk.jpg'),
+  SPGM: require('app/assets/images/game/provider/colored/slot/spgm.jpg'),
+}

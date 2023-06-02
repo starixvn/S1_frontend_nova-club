@@ -10,6 +10,7 @@ import GameGridSection from './GameGridSection'
 export default function HomeScreen() {
   return (
     <ScrollView
+      bounces={false}
       showsVerticalScrollIndicator={false}
       sx={{ flex: 1 }}
       contentContainerSx={{ pb: '$5' }}

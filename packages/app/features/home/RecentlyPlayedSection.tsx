@@ -6,7 +6,7 @@ import { useAppSelector } from 'app/provider/redux/store'
 import { Currency, SlotType } from 'app/utils/constant'
 import { Row, View } from 'dripsy'
 import React from 'react'
-import { useGetGameListQuery } from 'services/contentApi'
+import { useGetGameListQuery } from 'services/gameApi'
 
 export default function RecentlyPlayedSection() {
   const recent = useAppSelector((s) => s.setting.recentGames) ?? []
@@ -28,7 +28,8 @@ export default function RecentlyPlayedSection() {
   )
 
   // if (recent.length === 0) return null
-
+  const vgaming = require('app/assets/images/game/vgaming.png')
+  console.log('vgaming', vgaming)
   return (
     <DripsyGradient
       gradient="surface"
@@ -38,7 +39,7 @@ export default function RecentlyPlayedSection() {
         <SectionLabel
           icon="recently"
           title="RECENTLY PLAYED"
-          sx={{ p: [6, '$2'], my: ['$1'] }}
+          sx={{ p: [6, '$2'] }}
           iconProps={{ sx: { fontSize: [12, 14] } }}
         />
       </View>
@@ -61,7 +62,7 @@ export default function RecentlyPlayedSection() {
             sx={{ mx: '$1' }}
             width={[80, 110]}
             height={[80, 110]}
-            image={require('app/assets/images/game/vgaming.png')}
+            image={vgaming}
           />
         </View>
       </Row>

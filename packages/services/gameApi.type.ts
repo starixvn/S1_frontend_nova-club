@@ -1,3 +1,10 @@
+import {
+  GAME_TYPE_CODE,
+  GDC_GAME_CATEGORY,
+  LANGUAGE_CODE,
+} from 'app/utils/constant'
+import { ImageSourcePropType } from 'react-native'
+
 export interface GetGameUrlQueryArgs {
   game_code?: string
   is_demo: number
@@ -11,4 +18,51 @@ export interface GetGameUrlQueryArgs {
 
 export interface GetGameUrlResult {
   url: string
+}
+
+export enum GameCategory {
+  Slot = 'slots',
+  Fishing = 'fishing',
+  LiveCasino = 'live_dealer',
+}
+export interface GameListQueryArgs {
+  currency: string
+  game_category: GameCategory
+}
+
+export interface GameConfig {
+  game_code: string
+  game_name: string
+  game_provider_code: string
+  game_type_code: string
+  image?: ImageSourcePropType
+}
+export interface GetGameListQueryArgs {
+  currency: string
+  game_category: string[]
+  limit: number
+  offset: number
+  gdc_game_category?: string[]
+  gdc_tag?: string[]
+}
+
+export interface Game {
+  gc: string
+  gpc: string
+  gtc: GAME_TYPE_CODE
+  img: string
+  name: Record<LANGUAGE_CODE, string> | string
+  tags: string[]
+  gdc_cat?: string
+  params?: Record<string, string>
+}
+
+export interface GetGameListResult {
+  rows: Game[]
+  row_count_total: number
+}
+
+export interface GameScreenMultipleRequest {
+  game_category?: GAME_TYPE_CODE[]
+  gdc_game_category?: GDC_GAME_CATEGORY[]
 }

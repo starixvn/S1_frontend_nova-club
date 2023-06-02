@@ -15,7 +15,7 @@ export default function GamePageHeader({ icon, title }) {
         px: ['$2', '$3'],
         alignItems: 'center',
         marginRight: 'auto',
-        my: ['$3', '$4'],
+        my: ['$2', '$3'],
       }}
     >
       <IndentIconContainer

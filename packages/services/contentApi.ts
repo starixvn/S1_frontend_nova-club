@@ -6,10 +6,6 @@ import {
   BannerResult,
   CommissionQueryArgs,
   CommissionTableResult,
-  GameConfig,
-  GameListQueryArgs,
-  GetGameListQueryArgs,
-  GetGameListResult,
   JackpotAmountResult,
   LeaderboardResult,
 } from './contentApi.type'
@@ -51,45 +47,6 @@ export const contentApi = baseApiWithTag.injectEndpoints({
         return [{ type: 'Announcement', lang: arg }]
       },
     }),
-    gameList: builder.query<IResponse<GameConfig[]>, GameListQueryArgs>({
-      query: (data) => ({
-        url: `/player_api/getGameList`,
-        data,
-      }),
-    }),
-    getGameList: builder.query<
-      IResponse<GetGameListResult>,
-      GetGameListQueryArgs
-    >({
-      query: ({
-        currency,
-        game_category,
-        limit,
-        offset,
-        gdc_game_category,
-        gdc_tag,
-      }) => ({
-        url: `/static_api/getGameList`,
-        method: 'POST',
-        data: {
-          currency,
-          game_category,
-          limit,
-          offset,
-          gdc_game_category,
-          gdc_tag,
-        },
-        _config: {
-          isStaticApi: true,
-        },
-      }),
-    }),
-    featuredGameList: builder.query<IResponse<GetGameListResult>, string>({
-      query: (data) => ({
-        url: `/static_api/getFeaturedGameList`,
-        data,
-      }),
-    }),
     affiliateUsername: builder.query<
       IResponse<{ username: string; currency: string }>,
       string
@@ -121,11 +78,7 @@ export const {
   useLeaderboardQuery,
   useCommissionTableQuery,
   useAnnouncementQuery,
-  useGameListQuery,
   useAffiliateUsernameQuery,
   useLazyAffiliateUsernameQuery,
-  useGetGameListQuery,
-  useLazyGetGameListQuery,
-  useFeaturedGameListQuery,
   useGetJackpotAmountQuery,
 } = contentApi

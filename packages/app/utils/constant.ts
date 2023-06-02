@@ -442,3 +442,5 @@ export const TURNOVER_NOTES = [
   'notes.turnover.n3',
   'notes.turnover.n4',
 ]
+
+export const ALL = 'all'

@@ -1,3 +1,4 @@
+import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { Pressable, SxProp, Text, View, styled } from 'dripsy'
 import React, { ComponentType } from 'react'
 import { PressableProps, StyleSheet } from 'react-native'
@@ -7,7 +8,7 @@ import { SolitoImage } from 'solito/image'
 export interface GameCardProps extends PressableProps {
   name?: string
   image: string | number
-  width?: number | number[]
+  width?: number | number[] | string | string[]
   height?: number | number[]
   sx?: SxProp
 }
@@ -29,8 +30,18 @@ export default function GameCard({
       }}
       {...rest}
     >
-      <View sx={{ width: '100%', aspectRatio: 1, position: 'relative' }}>
-        <SolitoImage fill alt={name ?? ''} src={image} />
+      <View sx={{ width: '100%', height: '100%', position: 'relative' }}>
+        <SolitoImage
+          fill
+          loading="lazy"
+          alt={name ?? ''}
+          resizeMode="cover"
+          src={
+            typeof image === 'number' || image.startsWith('/_next')
+              ? image
+              : `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${image}`
+          }
+        />
       </View>
       {name && (
         <LabelContainer>
@@ -50,9 +61,9 @@ export default function GameCard({
 }
 
 const Root = styled(Pressable)({
-  flex: 1,
-  overflow: 'hidden',
   borderRadius: 15,
+  position: 'relative',
+  aspectRatio: 1,
 })
 const LabelContainer = styled(View)({
   borderTopWidth: StyleSheet.hairlineWidth,

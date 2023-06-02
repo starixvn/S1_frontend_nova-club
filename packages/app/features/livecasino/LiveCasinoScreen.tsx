@@ -1,13 +1,13 @@
-import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { CellContainer, FlashList } from '@shopify/flash-list'
 import GamePageHeader from 'app/components/GamePageHeader'
 import GameCard from 'app/components/game/GameCard'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Currency, GAME_TYPE_CODE } from 'app/utils/constant'
+import { FlatList, Row, View, useResponsiveValue } from 'dripsy'
 import React from 'react'
-import { useGetGameListQuery } from 'services/contentApi'
-import { Game } from 'services/contentApi.type'
+import { useGetGameListQuery } from 'services/gameApi'
+import { Game } from 'services/gameApi.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
 
 export default function LiveCasinoScreen() {
@@ -31,7 +31,9 @@ export default function LiveCasinoScreen() {
     }
   )
 
-  function renderItem({ item }: { item: Game }) {
+  const numColumns = useResponsiveValue([2, 3, 3, 4])
+
+  function renderItem({ item, index }: { item: Game; index: number }) {
     const { name, img } = item
     async function launchGame() {
       // todo launch game
@@ -42,21 +44,40 @@ export default function LiveCasinoScreen() {
         : name[locale]
       : undefined
 
-    const imageUrl = `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${img}`
-    return <GameCard name={formattedName} image={imageUrl} />
+    const isMostLeft = index % numColumns === 0
+    const isMostRight = index % numColumns === numColumns - 1
+    const isMiddle = !isMostLeft && !isMostRight
+    const spacePercentage = 5
+
+    return (
+      <Row
+        sx={{
+          flex: 1,
+          ml: isMostLeft ? `${spacePercentage}%` : 0,
+          mr: isMostRight ? `${spacePercentage}%` : 0,
+        }}
+      >
+        <GameCard
+          name={formattedName}
+          image={img}
+          sx={{
+            my: `${spacePercentage}%`,
+            flex: 1,
+            mx: isMiddle ? `${spacePercentage * 1.5}%` : `${spacePercentage}%`,
+          }}
+        />
+      </Row>
+    )
   }
 
   return (
-    <FlashList<Game>
-      CellRendererComponent={(props) => {
-        return (
-          <CellContainer {...props} style={[props.style, { padding: 10 }]} />
-        )
-      }}
+    <FlashList
+      key={numColumns}
+      estimatedItemSize={10}
+      showsVerticalScrollIndicator={false}
       data={gameList}
       renderItem={renderItem}
-      estimatedItemSize={10}
-      numColumns={2}
+      numColumns={numColumns}
       contentContainerStyle={{
         paddingBottom: 40,
       }}

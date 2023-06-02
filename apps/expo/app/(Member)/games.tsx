@@ -1,5 +1,3 @@
-import { Text } from 'react-native'
+import GamesScreen from 'app/features/games/GamesScreen'
 
-export default function Games() {
-  return <Text>Games</Text>
-}
+export default GamesScreen
