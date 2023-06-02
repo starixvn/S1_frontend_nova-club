@@ -14,7 +14,8 @@
     "resetPasswordHeader": "Reset Password"
   },
   "common": {
-    "player": "Agent",
+    "player": "Player",
+    "Agent": "Agent",
     "username": "Username",
     "password": "Password",
     "transfer": "Transfer",
@@ -52,7 +53,8 @@
   "game": {
     "category": {
       "sportsbook": "Sportsbook",
-      "games": "Slots",
+      "games": "Games",
+      "slots": "Slots",
       "liveCasino": "Live Casino",
       "lottery": "Keno/Lottery",
       "fishing": "Fishing"
@@ -68,7 +70,7 @@
     "top10": "Top 10 Winners"
   },
   "manageCredentials": {
-    "title": {},
+    "title": "Manage Credentials",
     "pin": {
       "createPin": "Create Pin",
       "create6Pin": "Create 6-digit Pin",
