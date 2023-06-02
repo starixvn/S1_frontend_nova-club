@@ -31,14 +31,6 @@ export type RegisterFormValues = {
   terms: boolean
 }
 
-const onSubmit = async (registerValues: RegisterFormValues) => {
-  try {
-    // handle register
-  } catch (e) {
-    console.log(e)
-  }
-}
-
 const RegisterScreen = () => {
   const { t } = useLocalization()
   const dispatch = useAppDispatch()

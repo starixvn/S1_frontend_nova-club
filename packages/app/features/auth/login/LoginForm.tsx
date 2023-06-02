@@ -1,3 +1,4 @@
+import CheckBox from 'app/components/common/CheckBox'
 import Input from 'app/components/form/Input'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch } from 'app/provider/redux/store'
@@ -170,10 +171,51 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
         }
       />
 
+      <View
+        sx={{
+          minHeight: 50,
+          justifyContent: 'space-between',
+          mb: 10,
+        }}
+      >
+        <View
+          sx={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+          }}
+        >
+          <CheckBox
+            isCheck={false}
+            onCheck={() => console.log('remember me')}
+          />
+          <Pressable
+            sx={{ pl: '$2' }}
+            onPress={() => console.log('remember me')}
+          >
+            <Text>{t('authentication.rememberMe')}</Text>
+          </Pressable>
+        </View>
+
+        <View
+          sx={{
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+          }}
+        >
+          <Pressable onPress={() => push('/auth/forgot-password')}>
+            <Text>{t('authentication.forgotPassword')}</Text>
+          </Pressable>
+        </View>
+      </View>
+
       <ButtonContainer sx={{ bg: '$secondary.500' }} onPress={submitForm}>
         {isSubmitting ? <ActivityIndicator /> : <ButtonText>LOGIN</ButtonText>}
       </ButtonContainer>
-      <ButtonContainer sx={{ bg: '$primary.300' }} onPress={() => push('/auth/register')}>
+      <ButtonContainer
+        sx={{ bg: '$primary.300' }}
+        onPress={() => push('/auth/register')}
+      >
         <ButtonText>Register</ButtonText>
       </ButtonContainer>
     </View>
