@@ -209,9 +209,10 @@ const ForgotPassword = () => {
       setCurrentAction(CURRENT_ACTION.SET_PASSWORD)
     }
   }
-  console.log('editable', !isSuccess, !isAgentSuccess)
+
   return (
     <AuthLayout
+      isAgent={isAgent}
       headerDesc={t('auth.forgotPassword')}
       headerColor="#000000"
       gradientColor={['#18d2e8', '#6afcf7']}

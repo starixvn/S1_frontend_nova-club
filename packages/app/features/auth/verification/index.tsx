@@ -127,6 +127,7 @@ const VerificationForm = ({
 
   return (
     <AuthLayout
+      isAgent={isAgent}
       headerDesc={t('auth.accountVerification')}
       headerColor="#ffffff"
       gradientColor={['#a60102', '#b30303', '#cc0707', '#fe3434', '#fc9e9e']}

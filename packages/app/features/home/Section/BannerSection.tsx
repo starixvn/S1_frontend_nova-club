@@ -21,7 +21,6 @@ const BANNER_RATIO = 768 / 350
 
 const BannerSection = () => {
   const { width, height } = useContainerDimension()
-  const isLoggedIn = useAppSelector((s) => !!s.auth.info)
 
   const { data, isFetching } = useBannerQuery()
 
