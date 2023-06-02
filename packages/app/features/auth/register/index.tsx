@@ -264,6 +264,7 @@ const RegisterPage = () => {
         }}
       >
         <AuthLayout
+          isAgent={isAgent}
           formHeader={
             <AnimatePresence>
               {referral && <ReferrerInformation />}
