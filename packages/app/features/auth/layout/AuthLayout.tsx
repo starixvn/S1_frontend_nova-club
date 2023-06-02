@@ -16,6 +16,7 @@ import { Platform } from 'react-native'
 const BANNER_RATIO = 768 / 350
 
 interface AuthLayoutProps {
+  isAgent: boolean
   showBackButton?: boolean
   headerDesc?: string
   headerColor?: string
@@ -26,6 +27,7 @@ interface AuthLayoutProps {
 }
 
 const AuthLayout = ({
+  isAgent = false,
   showBackButton = true,
   headerDesc,
   headerColor,
@@ -125,7 +127,9 @@ const AuthLayout = ({
               </DripsyGradient>
               <Image
                 source={{
-                  uri: `${MEDIA_DOMAIN}${CONTENT_URI}/banners/${'authBanner-2.jpg?v=2'}`,
+                  uri: isAgent
+                    ? `${MEDIA_DOMAIN}${CONTENT_URI}/banners/b1-agent-recruitment.jpg`
+                    : `${MEDIA_DOMAIN}${CONTENT_URI}/banners/login-banner.jpg`,
                 }}
                 resizeMode="cover"
                 sx={{ width, height: width / BANNER_RATIO }}
