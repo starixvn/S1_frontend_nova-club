@@ -15,7 +15,11 @@
   "scripts": {
     "native": "cd apps/expo && yarn start",
     "native:ios": "cd apps/expo && yarn ios",
-    "web": "cd apps/next && yarn next"
+    "web": "cd apps/next && yarn next",
+    "build:web": "yarn workspace next-app build",
+    "docker:web": "docker build -t chlgame2 .",
+    "docker:verify": "docker run -it chlgame2 sh",
+    "docker:run": "docker run -p 3000:3000 chlgame2"
   },
   "resolutions": {
     "metro": "^0.73.1",

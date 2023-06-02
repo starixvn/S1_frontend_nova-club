@@ -43,12 +43,12 @@ export default function AdaptiveLayout({ children }: { children: ReactNode }) {
   //   } else setBaseLayout(DesktopBaseLayout)
   // }, [])
 
-  const cachedRoot = useMemo(() => children, [])
+  // const cachedRoot = useMemo(() => children, [])
 
   return (
     <div id="al">
       {/* <ActivityIndicator /> */}
-      <Provider>{BaseLayout && <BaseLayout>{cachedRoot}</BaseLayout>}</Provider>
+      <Provider>{BaseLayout && <BaseLayout>{children}</BaseLayout>}</Provider>
     </div>
   )
 }
