@@ -1,19 +1,20 @@
 {
   "authentication": {
-    "login": {},
-    "register": {},
-    "loginHeader": {},
-    "noReceiveOTP": {},
-    "resend": {},
-    "readAndAgree": {},
-    "enterOtp": {},
-    "send": {},
-    "rememberMe": {},
-    "forgotPassword": {}
+    "login": "Login",
+    "register": "Register",
+    "loginHeader": "Login to your account",
+    "noReceiveOTP": "Didn't receive OTP?",
+    "resend": "Send",
+    "readAndAgree": "I have read & agree the",
+    "enterOtp": "Please enter OTP",
+    "send": "Send",
+    "rememberMe": "Remember Me",
+    "forgotPassword": "Forgot Password ?",
+    "forgotPasswordHeader": "Forgot Password",
+    "resetPasswordHeader": "Reset Password"
   },
   "common": {
-    "player": "Player ID",
-    "agent": "Agent",
+    "player": "Agent",
     "username": "Username",
     "password": "Password",
     "transfer": "Transfer",
@@ -45,13 +46,13 @@
     "userAgreement": "user agreement",
     "otp": "OTP",
     "realBet": "Real Bet",
-    "turnOver": "Turn Over"
+    "turnOver": "Turn Over",
+    "tnc": "Terms & Conditions"
   },
   "game": {
     "category": {
       "sportsbook": "Sportsbook",
-      "games": "Games",
-      "slots": "Slots",
+      "games": "Slots",
       "liveCasino": "Live Casino",
       "lottery": "Keno/Lottery",
       "fishing": "Fishing"
@@ -94,8 +95,7 @@
     "tab": {
       "event": "Event",
       "ranking": "Ranking"
-    },
-    "tnc": "Terms and Conditions"
+    }
   },
   "notes": {
     "importantNotice": "Important Notice",

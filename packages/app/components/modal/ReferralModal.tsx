@@ -30,14 +30,24 @@ const ReferralModal = ({ modal: { closeModal, getParam } }) => {
       <>
         <DripsyGradient
           gradient={'surface'}
-          sx={{ alignItems: 'center', py: '$3' }}
+          sx={{
+            alignItems: 'center',
+            py: '$3',
+            borderTopLeftRadius: 5,
+            borderTopRightRadius: 5,
+          }}
         >
           <Text>Friend Referral</Text>
         </DripsyGradient>
-        <ScrollView
-          contentContainerStyle={{ padding: '5%', backgroundColor: 'white' }}
+        <View
+          sx={{
+            p: '5%',
+            bg: 'white',
+            borderBottomLeftRadius: 5,
+            borderBottomRightRadius: 5,
+          }}
         >
-          <Text sx={{ color: 'black' }}>Share & Earn</Text>
+          <Text sx={{ color: 'black' }}>{t('referral.shareMessage')}</Text>
           <ViewScreenShot ref={ref} fileName={`Vui123-${referralCode}`}>
             <QRCodeGenerator isTransfer={false} referralLink={referralLink} />
           </ViewScreenShot>
@@ -103,10 +113,10 @@ const ReferralModal = ({ modal: { closeModal, getParam } }) => {
               gradient={'surface'}
               sx={{ alignItems: 'center', borderRadius: 15, py: '$3' }}
             >
-              <Text sx={{}}>Close</Text>
+              <Text>{t('common.close')}</Text>
             </DripsyGradient>
           </Pressable>
-        </ScrollView>
+        </View>
       </>
     </ModalWrapper>
   )

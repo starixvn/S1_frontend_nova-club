@@ -17,7 +17,6 @@ function BottomTabBar() {
   const { push } = useRouter()
   const { bottom } = useSafeArea()
   const { width } = useWindowDimensions()
-  console.log(bottom)
   const isActiveState = (
     index: number,
     item: (typeof BOTTOM_ROUTE)[number]
