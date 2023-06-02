@@ -37,11 +37,12 @@ export default function RecentlyPlayedSection() {
       gradient="surface"
       sx={{ pb: ['$2'], mb: '$sectionBottomSpace' }}
     >
+      <View sx={{ height: 1, bg: '$primary.100' }} />
       <View sx={{ ml: '$pagePadding' }}>
         <SectionLabel
           icon="recently"
           title={t('game.recently').toUpperCase()}
-          sx={{ p: [6, '$2'], my: ['$1'] }}
+          sx={{ p: [6, '$2'], my: [0] }}
           iconProps={{ sx: { fontSize: [12, 14] } }}
         />
       </View>

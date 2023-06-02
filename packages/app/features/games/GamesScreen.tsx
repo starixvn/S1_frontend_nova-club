@@ -38,7 +38,6 @@ export default function GamesScreen() {
   return (
     <ScrollView>
       <GamePageHeader icon="games1" title="GAMES" />
-      {/* Change to Games Own Banner Section */}
       <BannerSection />
       <GameFilterProvider
         gameCategories={[GDC_GAME_CATEGORY.CARDGAME]}

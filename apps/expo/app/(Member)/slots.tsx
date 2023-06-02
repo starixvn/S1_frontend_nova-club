@@ -1,5 +1,3 @@
-import { Text } from 'react-native'
+import SlotScreen from 'app/features/slot/SlotScreen'
 
-export default function Slots() {
-  return <Text>Slots</Text>
-}
+export default SlotScreen

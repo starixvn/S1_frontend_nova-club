@@ -14,4 +14,9 @@ export const ProviderColorImageMapping = {
   JDBG: require('app/assets/images/game/provider/colored/slot/jdbg.jpg'),
   V8PK: require('app/assets/images/game/provider/colored/games/v8pk.jpg'),
   SPGM: require('app/assets/images/game/provider/colored/slot/spgm.jpg'),
+
+  PGSF: require('app/assets/images/game/provider/colored/slot/pgsf.jpg'),
+  NESP: require('app/assets/images/game/provider/colored/slot/nesp.jpg'),
+  ADVP: require('app/assets/images/game/provider/colored/slot/advp.jpg'),
+  BNG: require('app/assets/images/game/provider/colored/jili.jpg'),
 }

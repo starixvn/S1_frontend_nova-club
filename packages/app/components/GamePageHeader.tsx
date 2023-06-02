@@ -23,9 +23,9 @@ export default function GamePageHeader({ icon, title }) {
         animate={{ scale: 1 }}
         delay={100}
       >
-        <MotiView from={{ scale: 0 }} animate={{ scale: 1 }} delay={500}>
-          <Icon sx={{ fontSize: [20, 22, 24] }} name={icon} />
-        </MotiView>
+        {/* <MotiView from={{ scale: 0 }} animate={{ scale: 1 }} delay={500}> */}
+        <Icon sx={{ fontSize: [20, 22, 24] }} name={icon} />
+        {/* </MotiView> */}
       </IndentIconContainer>
       <Text
         sx={{

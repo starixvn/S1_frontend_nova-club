@@ -1,12 +1,12 @@
 import { Box, ScrollView, Text, styled } from 'dripsy'
-import React, { ComponentProps, useEffect } from 'react'
+import React, { ComponentProps } from 'react'
 
 import { Button, Text as TextRN } from 'react-native'
 
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { LogOut } from 'app/utils/authUtil'
 import * as DropdownMenu from 'zeego/dropdown-menu'
-import SplashScreenButton from '../demo/SplashScreenButton'
+import { Link } from 'solito/link'
+import { useRouter } from 'solito/router'
 
 const DropdownMenuLabel = DropdownMenu.create(
   (props: ComponentProps<typeof DropdownMenu.Label>) => (
@@ -28,6 +28,7 @@ export const DropdownMenuItem = DropdownMenu.create(
 
 export default function SplashScreen() {
   const { top, bottom } = useSafeArea()
+  const { replace } = useRouter()
 
   //clear token/logout first
   // useEffect(() => {
@@ -52,8 +53,19 @@ export default function SplashScreen() {
       <Text sx={{ fontWeight: 'bold' }}>AvertaStd Bold</Text>
       <Text sx={{ fontWeight: '900' }}>AvertaStd Black</Text>
       <TextRN>RN Original Text</TextRN>
-      <SplashScreenButton />
+      {/* <SplashScreenButton /> */}
 
+      <Button
+        title="Home"
+        onPress={() => {
+          replace('/?splashscreen=true', undefined, {
+            experimental: {
+              nativeBehavior: 'stack-replace',
+              isNestedNavigator: false,
+            },
+          })
+        }}
+      />
       <Box>
         <DropdownMenuRoot>
           <DropdownMenuTrigger>

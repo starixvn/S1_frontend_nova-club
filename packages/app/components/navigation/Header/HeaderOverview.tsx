@@ -30,7 +30,7 @@ const HeaderButton = ({
       <Shadow
         offset={[0, 1]}
         startColor={'rgba(255, 255, 255, 0.25)'}
-        distance={0.2}
+        distance={0.5}
         style={{
           borderRadius: 15,
           minWidth: 135,

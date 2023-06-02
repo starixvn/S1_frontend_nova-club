@@ -11,6 +11,7 @@ import {
   GetGameUrlQueryArgs,
   GetGameUrlResult,
 } from './gameApi.type'
+import { sleep } from 'utils/common'
 
 /**
  * @param builder Pass builder from `createApi` *endpoints*
@@ -69,41 +70,47 @@ export const gameApi = baseApiWithTag.injectEndpoints({
     gameListMultiple: builder.query<Game[], GameScreenMultipleRequest>({
       async queryFn(_arg, _queryApi, _extraOptions, fetch) {
         try {
-          const gcFilterResp = await fetch({
-            url: '/static_api/getGameList',
-            method: 'POST',
-            data: {
-              currency: Currency.VND,
-              game_category: _arg.game_category,
-              limit: 999,
-              offset: 0,
-            },
-            _config: {
-              isStaticApi: true,
-            },
-          })
-          console.log('gcFilterResp', gcFilterResp)
+          let results = []
+          if (_arg.game_category) {
+            const gcFilterResp = await fetch({
+              url: '/static_api/getGameList',
+              method: 'POST',
+              data: {
+                currency: Currency.VND,
+                game_category: _arg.game_category,
+                limit: 9999,
+                offset: 0,
+              },
+              _config: {
+                isStaticApi: true,
+              },
+            })
 
-          const gdcFilterResp = await fetch({
-            url: '/static_api/getGameList',
-            method: 'POST',
-            data: {
-              currency: Currency.VND,
-              game_category: [],
-              limit: 999,
-              offset: 0,
-              gdc_game_category: _arg.gdc_game_category,
-            },
-            _config: {
-              isStaticApi: true,
-            },
-          })
-          console.log('gdcFilterResp', gdcFilterResp)
+            results = results.concat(gcFilterResp.data?.data?.rows)
+          }
+          if (_arg.gdc_game_category) {
+            const gdcFilterResp = await fetch({
+              url: '/static_api/getGameList',
+              method: 'POST',
+              data: {
+                currency: Currency.VND,
+                game_category: [],
+                limit: 4000,
+                offset: 0,
+                gdc_game_category: _arg.gdc_game_category,
+              },
+              _config: {
+                isStaticApi: true,
+              },
+            })
+
+            results = results.concat(gdcFilterResp.data?.data?.rows)
+          }
+
+          console.log('results', results.length)
 
           return {
-            data: gdcFilterResp.data?.data?.rows.concat(
-              gcFilterResp.data?.data?.rows
-            ),
+            data: results,
           }
         } catch (e) {
           console.log('error', e)

@@ -9,7 +9,7 @@ import {
   useResponsiveValue,
 } from 'dripsy'
 import union from 'lodash/union'
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Game } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
 import { DripsyGradient } from '../Gradient'
@@ -30,6 +30,7 @@ function GameSectionByProviderItem({
 }) {
   const [filter, setFilter] = useState(ALL)
   const height = useResponsiveValue([20, 30])
+  const count = useResponsiveValue([8, 10, MAX_SHOWN])
 
   const tags = useMemo(() => {
     return games.reduce(
@@ -41,8 +42,12 @@ function GameSectionByProviderItem({
   const filteredGame = useMemo(() => {
     return (
       filter === ALL ? games : games.filter((g) => g.tags.includes(filter))
-    ).slice(0, MAX_SHOWN)
-  }, [filter, games])
+    ).slice(0, count)
+  }, [count, filter, games])
+
+  useEffect(() => {
+    console.log('@@@@@@@@ mounting')
+  }, [])
 
   return (
     <View>
@@ -97,7 +102,7 @@ const GameTypeFilter = ({ filters, filter, setFilter }) => {
               <Shadow
                 style={{ flex: 1, borderRadius: 30, overflow: 'hidden' }}
                 offset={[0, 1]}
-                distance={1}
+                distance={0.5}
                 startColor={theme.colors.$primary[100]}
                 stretch
               >
@@ -133,7 +138,6 @@ const GameTypeFilter = ({ filters, filter, setFilter }) => {
 const width = ['22%', '18%', '15%']
 const spaces = ['1.5%', '1%', '0.83%']
 const GameList = ({ data }: { data: Game[] }) => {
-  const count = useResponsiveValue([8, 10, MAX_SHOWN])
   return (
     <Row
       sx={{
@@ -143,9 +147,9 @@ const GameList = ({ data }: { data: Game[] }) => {
         pb: '$sectionBottomSpace',
       }}
     >
-      {data.slice(0, count).map((g, i) => (
+      {data.map((g, i) => (
         <GameCard
-          key={g.gpc + g.gc + i}
+          key={i}
           image={g.img}
           width={width}
           sx={{

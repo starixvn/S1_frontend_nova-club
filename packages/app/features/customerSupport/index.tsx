@@ -60,7 +60,7 @@ const SupportButton = ({
       <Shadow
         offset={[0, -1]}
         startColor={theme.colors.$primary[100]}
-        distance={0.2}
+        distance={0.5}
         style={{ borderRadius: 100 }}
       >
         <DripsyGradient

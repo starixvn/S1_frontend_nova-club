@@ -78,8 +78,7 @@ export default function SportsbookScreen() {
   return (
     <FlashList
       key={numColumns}
-      estimatedItemSize={10}
-      style={{ flex: 1 }}
+      estimatedItemSize={160}
       showsVerticalScrollIndicator={false}
       data={gameList}
       renderItem={renderItem}

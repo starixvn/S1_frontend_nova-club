@@ -50,14 +50,11 @@ const GameFilterProvider = ({
   const [filteredGames, setFilteredGames] = useState<Game[]>([])
 
   const { data: games = [] } = useGameListMultipleQuery({
-    game_category: [
-      GAME_TYPE_CODE.GAMES,
-      GAME_TYPE_CODE.FISHING,
-      GAME_TYPE_CODE.LOTTERY,
-    ],
-    gdc_game_category: [GDC_GAME_CATEGORY.CARDGAME],
+    game_category: gameTypes,
+    gdc_game_category: gameCategories,
   })
 
+  console.log('games', games.length)
   return (
     <GameFilterContext.Provider
       value={{ games, filteredGames, setFilteredGames }}

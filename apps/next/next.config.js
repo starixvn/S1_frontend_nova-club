@@ -34,6 +34,7 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  output: 'standalone',
   // compiler: {
   //   removeConsole: {
   //     exclude: ['error'],
@@ -41,6 +42,7 @@ const nextConfig = {
   // },
   transpilePackages: [
     'react-native',
+    'react-native-confirmation-code-field',
     'react-native-qrcode-svg',
     'react-native-gesture-handler',
     'react-native-modalfy',

@@ -73,7 +73,7 @@ export default function LiveCasinoScreen() {
   return (
     <FlashList
       key={numColumns}
-      estimatedItemSize={10}
+      estimatedItemSize={160}
       showsVerticalScrollIndicator={false}
       data={gameList}
       renderItem={renderItem}
