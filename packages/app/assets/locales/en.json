@@ -44,6 +44,7 @@
     "notFound": "Biometric is not supported / not enabled on your device"
   },
   "commission": {
+    "cashAgent": "Cash Agent",
     "cashPlayer": "Cash Player",
     "cashPlayerReferral": "Cash Player Referral",
     "creditPlayer": "Credit player",
@@ -163,20 +164,21 @@
         "won": "CONGRATULATIONS!",
         "won2": "YOU'VE WON TOTAL"
       },
-      "tnc": {}
+      "tnc": {
+      }
     },
     "claim": "CLAIM YOUR BONUS TICKET NOW",
+    "prediction": {
+      "event": "Prediction Event",
+      "haveSelected": "You have selected",
+      "score": "Score",
+      "selectTeam": "Please select the team"
+    },
     "ticket": "Ticket/s",
     "ticketSubmitted": "Successfully submitted your prediction ticket",
     "winText1": "CONGRATULATIONS!",
     "winText2": "YOU HAVE RECEIVED THE LOVE GIFT OF",
-    "youHave": "You Have",
-    "prediction": {
-      "event": "Prediction Event",
-      "selectTeam": "Please select the team",
-      "score": "Score",
-      "haveSelected": "You have selected"
-    }
+    "youHave": "You Have"
   },
   "filter": {
     "date": {

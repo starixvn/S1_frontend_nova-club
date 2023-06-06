@@ -20,7 +20,7 @@ type Commission = Pick<
   | 'system_name'
   | 'cash_player'
   | 'cash_player_referrer'
-  | 'credit_player'
+  | 'cash_agent'
   | 'game_type_code'
   | 'is_game_type'
   | 'is_master'
@@ -32,7 +32,7 @@ const enum TABLE_COLUMN {
   SYSTEM_NAME = 'system_name',
   CASH_PLAYER = 'cash_player',
   PLAYER_REFERRAL = 'cash_player_referrer',
-  CREDIT_PLAYER = 'credit_player',
+  CASH_AGENT = 'cash_agent',
 }
 
 const EXCLUDE_MASTER_NAME = 'MASTER'
@@ -67,10 +67,10 @@ const generateTableColumns = (t: Translate) => {
         return convertNegativeValue(props.row.original?.cash_player_referrer)
       },
     }),
-    table.createDataColumn(TABLE_COLUMN.CREDIT_PLAYER, {
-      header: t('commission.creditPlayer'),
+    table.createDataColumn(TABLE_COLUMN.CASH_AGENT, {
+      header: t('commission.cashAgent'),
       cell: (props) => {
-        return convertNegativeValue(props.row.original?.credit_player)
+        return convertNegativeValue(props.row.original?.cash_agent)
       },
     }),
   ]
