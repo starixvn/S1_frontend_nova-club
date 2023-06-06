@@ -14,6 +14,7 @@ import {
   LeaderboardResult,
   MatchResult,
 } from './contentApi.type'
+import dayjs from 'dayjs'
 
 /**
  * @param builder Pass builder from `createApi` *endpoints*
@@ -116,12 +117,21 @@ export const contentApi = baseApiWithTag.injectEndpoints({
         baseURL: 'http://localhost:3000',
       }),
     }),
-    getRecoMatch: builder.query<IResponse<MatchResult[]>, void>({
+    getRecoMatch: builder.query<MatchResult[], void>({
       query: () => ({
         url: `/static_api/getRecoMatch`,
         method: 'GET',
       }),
       providesTags: ['RecoMatches'],
+      transformResponse: (responseData: IResponse<MatchResult[]>) => {
+        return (
+          responseData.data?.sort(
+            (a, b) =>
+              dayjs(a.globalshowtime, 'MM/DD hh:mm a').unix() -
+              dayjs(b.globalshowtime, 'MM/DD hh:mm a').unix()
+          ) ?? []
+        )
+      },
     }),
   }),
 })
