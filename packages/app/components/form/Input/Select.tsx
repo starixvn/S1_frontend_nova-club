@@ -72,7 +72,6 @@ export default function Select({
         onPress={onSelect}
         editable={!loading}
         isSelecting={isActive}
-        selection={{ start: 0 }}
         {...rest}
       >
         {loading ? (
