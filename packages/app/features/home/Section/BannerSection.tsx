@@ -21,8 +21,12 @@ const BANNER_RATIO = 768 / 350
 
 const BannerSection = () => {
   const { width, height } = useContainerDimension()
+  const isLoggedIn = useAppSelector((s) => !!s.auth.info)
 
   const { data, isFetching } = useBannerQuery()
+
+  //TODO: Show last banner after login
+  const banner = isLoggedIn ? data : data?.slice(0, -1)
 
   const selectedColor = '#99ECFE'
   const progressValue = useSharedValue<number>(0)
@@ -30,10 +34,10 @@ const BannerSection = () => {
   // if (Platform.OS === 'ios')
   return (
     <SkeletonPlaceholder show={isFetching} height={width / BANNER_RATIO}>
-      {data && (
+      {banner && (
         <View>
           <Carousel
-            data={data}
+            data={banner}
             width={width}
             height={width / BANNER_RATIO}
             pagingEnabled
@@ -52,14 +56,14 @@ const BannerSection = () => {
             renderItem={BannerItem}
           />
           <StyledContainerPagination>
-            {data.map((r, rindex) => {
+            {banner.map((r, rindex) => {
               return (
                 <PaginationItem
                   backgroundColor={selectedColor}
                   animValue={progressValue}
                   index={rindex}
                   key={rindex}
-                  length={data.length}
+                  length={banner.length}
                 />
               )
             })}
