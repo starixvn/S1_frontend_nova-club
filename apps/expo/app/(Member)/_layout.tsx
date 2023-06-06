@@ -1,9 +1,9 @@
 import { View } from 'react-native'
 
 import BottomTabBar from 'app/components/navigation/BottomTabBar'
-import DrawerProvider from 'app/components/navigation/Drawer/DrawerProvider'
+import DrawerProvider from 'app/components/navigation/drawer/DrawerProvider'
 import { Tabs } from 'expo-router'
-import MainHeader from 'app/components/navigation/Header/MainHeader'
+import MainHeader from 'app/components/navigation/header/MainHeader'
 
 export default function Root() {
   return (
