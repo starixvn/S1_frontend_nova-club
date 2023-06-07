@@ -79,6 +79,8 @@ const Stack = createStackNavigator<{
   CatEventTnc: undefined
   DragonBoat: undefined
   AgentRecruitmentTnc: undefined
+  Prediction: undefined
+  PredictionTnc: undefined
 }>()
 
 export function NativeNavigation() {

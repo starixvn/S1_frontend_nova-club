@@ -44,6 +44,7 @@
     "notFound": "Sinh trắc học không được hỗ trợ / không được bật trên thiết bị của bạn"
   },
   "commission": {
+    "cashAgent": "Đại lý trả trước",
     "cashPlayer": "Người chơi trả trước",
     "cashPlayerReferral": "Giới thiệu người chơi trả trước",
     "creditPlayer": "Người chơi tín dụng",
@@ -140,6 +141,7 @@
     "paymentMode": "Chọn cổng thanh toán",
     "paymentTime": "THỜI GIAN THANH TOÁN CÒN LẠI",
     "pleaseConfirmDeposit": "Vui lòng xác nhận thông tin gửi tiền bên dưới",
+    "scanQr": "Quét QR",
     "selectChannel": "Chọn tài khoản nạp",
     "transactionId": "Mã giao dịch ",
     "upload": {
@@ -166,6 +168,12 @@
       }
     },
     "claim": "ĐỔI VÉ THƯỞNG CỦA BẠN NGAY",
+    "prediction": {
+      "event": "THÁNH DỰ ĐOÁN ",
+      "haveSelected": "Bạn đã chọn",
+      "score": "Tỷ số",
+      "selectTeam": "Chọn đội của bạn "
+    },
     "ticket": "vé dự đoán",
     "ticketSubmitted": "Gửi vé dự đoán thành công",
     "winText1": "XIN CHÚC MỪNG!",

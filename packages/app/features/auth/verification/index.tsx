@@ -79,7 +79,7 @@ const VerificationForm = ({
   const sendOTP = async () => {
     try {
       const { data, message, success } = await sendRegistrationOtp({
-        username: values.username,
+        username: values.username?.toLowerCase(),
         // WIP: Prefix should not be hardcoded
         contactNumber: '84' + values.contactNumber,
       }).unwrap()
@@ -96,7 +96,7 @@ const VerificationForm = ({
   const sendAgentOTP = async () => {
     try {
       const { data, message, success } = await sendAgentRegistrationOtp({
-        username: values.username,
+        username: values.username?.toLowerCase(),
         // WIP: Prefix should not be hardcoded
         mobile_no: MOBILE_PREFIX.VND + values.contactNumber,
       }).unwrap()
@@ -127,6 +127,7 @@ const VerificationForm = ({
 
   return (
     <AuthLayout
+      isAgent={isAgent}
       headerDesc={t('auth.accountVerification')}
       headerColor="#ffffff"
       gradientColor={['#a60102', '#b30303', '#cc0707', '#fe3434', '#fc9e9e']}

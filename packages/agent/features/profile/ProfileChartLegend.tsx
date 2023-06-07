@@ -37,6 +37,7 @@ const LegendContainer = styled(View)({
   },
   shadowOpacity: 0.1,
   shadowRadius: 2.62,
+  elevation: 4,
   bg: 'white',
 })
 

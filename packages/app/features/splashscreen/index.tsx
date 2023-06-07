@@ -90,9 +90,12 @@ const SplashScreen = () => {
   }
   useEffect(() => {
     if (status) {
-      if (agentToken) {
-        handleAgentLogin()
-      } else replace('/')
+      // if (loginResult?.token) {
+      //   replace('/')
+      // } else if (agentToken) {
+      //   handleAgentLogin()
+      // } else
+      replace('/')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status])

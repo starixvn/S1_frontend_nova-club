@@ -4,7 +4,7 @@ const TncEn = () => {
   return (
     <div>
       <h2>AGENT RECRUITMENT</h2>
-      <p>Promotion Period: 17 - 31 May 2023</p>
+      <p>Promotion Period: 17/05 - 30/06/2023</p>
 
       <br />
       <div>
@@ -35,7 +35,8 @@ const TncEn = () => {
           Fulfill the condition of 1-4 will entitle of VND50k headcount fee
         </li>
         <li>
-          Headcount fee will be computed and given on first week of June 2023
+          Headcount fee will be computed and given on first week of the
+          following month.
         </li>
         <li>
           Vui123 reserves the right to change or modify the T&C at any time

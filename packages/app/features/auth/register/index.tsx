@@ -107,7 +107,7 @@ const RegisterPage = () => {
     { setStatus }: FormikHelpers<RegisterFormValues>
   ) => {
     const { data, success, message } = await register({
-      username,
+      username: username?.toLowerCase(),
       password,
       cpassword: confirmPassword,
       // WIP: Prefix should not be hardcoded
@@ -161,7 +161,7 @@ const RegisterPage = () => {
           CASH: '1',
         },
       },
-      username,
+      username: username?.toLowerCase(),
       password,
       confirmpassword: confirmPassword,
       // WIP: Prefix should not be hardcoded
@@ -264,6 +264,7 @@ const RegisterPage = () => {
         }}
       >
         <AuthLayout
+          isAgent={isAgent}
           formHeader={
             <AnimatePresence>
               {referral && <ReferrerInformation />}

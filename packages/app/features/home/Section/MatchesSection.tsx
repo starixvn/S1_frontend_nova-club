@@ -38,20 +38,7 @@ const MatchesSection = () => {
   const { width } = useContainerDimension()
   const [activeIndex, setActiveIndex] = useState<number>(0)
 
-  const { matches } = useGetRecoMatchQuery(undefined, {
-    selectFromResult: (s) => {
-      return {
-        ...s,
-        matches: s.data?.data
-          ?.slice()
-          .sort(
-            (a, b) =>
-              dayjs(a.globalshowtime, 'MM/DD hh:mm a').unix() -
-              dayjs(b.globalshowtime, 'MM/DD hh:mm a').unix()
-          ),
-      }
-    },
-  })
+  const { data: matches } = useGetRecoMatchQuery()
 
   const selectedMatch =
     matches && matches.length > activeIndex ? matches?.[activeIndex] : undefined

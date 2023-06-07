@@ -17,6 +17,7 @@ const LoginPage = () => {
 
   return (
     <AuthLayout
+      isAgent={isAgentLogin}
       headerDesc={t('auth.loginToAccount')}
       gradientColor={['#e9a717', '#ecb625', '#f5d646', '#fdf169']}
     >

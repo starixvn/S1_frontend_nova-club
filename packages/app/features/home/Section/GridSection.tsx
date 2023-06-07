@@ -19,7 +19,7 @@ export const LIVE_CASINO_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/live-casino.m
 export const SPORT_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/sport.mp4?v=1`
 export const SLOT_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/slot.mp4?v=1`
 
-export const SABA_PROMO_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/videos/saba-sportsbook.mp4?v=1`
+export const SABA_PROMO_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/saba-sports.mp4`
 export const HOME_GRID = [
   {
     col: 4,

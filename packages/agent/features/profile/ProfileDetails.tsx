@@ -1,23 +1,19 @@
 import Text from 'agent/components/Text'
 import { useAgentLocalization } from 'app/provider/localization'
-import { styled, View } from 'dripsy'
 import dayjs from 'dayjs'
-import { ProfileResult } from 'services/playerApi.type'
-import { AgentProfile } from 'agent/services/agentApi.type'
-import { ShareholderProfile } from 'agent/services/shareholderApi.type'
-import { IResponse } from 'services/common/types'
+import { styled, View } from 'dripsy'
 
 const ProfileDetails = ({ data }) => {
   const { t } = useAgentLocalization()
 
-  const currency = data?.result?.data.currency
-  const name = data?.result?.data.name
-  const mobile_no = data?.result?.data.mobile_no as String
+  const currency = data?.currency
+  const name = data?.name
+  const mobile_no = data?.mobile_no as String
   const mobileNumber = mobile_no?.startsWith('+') ? mobile_no : '+' + mobile_no
-  const email = data?.result?.data.email
-  const createdDate = data?.result?.data.created_at
-  const lastLoginAt = data?.result?.data.lastlogin_at
-  const lastLoginIp = data?.result?.data.lastlogin_ip
+  const email = data?.email
+  const createdDate = data?.created_at
+  const lastLoginAt = data?.lastlogin_at
+  const lastLoginIp = data?.lastlogin_ip
 
   return (
     <View sx={{ paddingX: '$2', pt: '$1', pb: '$5' }}>
