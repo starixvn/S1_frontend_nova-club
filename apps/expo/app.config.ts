@@ -8,10 +8,12 @@ const expoConfig = ({ config }: ConfigContext): ExpoConfig => ({
   scheme: 'vui123',
   platforms: ['ios', 'android'],
   ios: {
-    bundleIdentifier: 'com.chlgame.staging2',
+    requireFullScreen: true,
+    supportsTablet: true,
+    bundleIdentifier: 'com.anonymous.solitoexporouter',
   },
   android: {
-    package: 'com.chlgame.staging2',
+    package: 'com.anonymous.solitoexporouter',
   },
   plugins: [
     [
@@ -40,6 +42,12 @@ const expoConfig = ({ config }: ConfigContext): ExpoConfig => ({
         ios: {
           CodePushDeploymentKey: 'YOUR_IOS_CODE_PUSH_KEY',
         },
+      },
+    ],
+    [
+      'expo-screen-orientation',
+      {
+        initialOrientation: 'DEFAULT',
       },
     ],
   ],

@@ -19,7 +19,7 @@
     <meta-data android:name="expo.modules.updates.EXPO_SDK_VERSION" android:value="48.0.0"/>
     <meta-data android:name="expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH" android:value="ALWAYS"/>
     <meta-data android:name="expo.modules.updates.EXPO_UPDATES_LAUNCH_WAIT_MS" android:value="0"/>
-    <meta-data android:name="expo.modules.updates.EXPO_UPDATE_URL" android:value="https://exp.host/@anonymous/solito-expo-router"/>
+    <meta-data android:name="expo.modules.updates.EXPO_UPDATE_URL" android:value="https://exp.host/@anonymous/vui123"/>
     <activity android:name=".MainActivity" android:label="@string/app_name" android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode" android:launchMode="singleTask" android:windowSoftInputMode="adjustResize" android:theme="@style/Theme.App.SplashScreen" android:exported="true">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -32,6 +32,9 @@
         <data android:scheme="solito-expo-router"/>
         <data android:scheme="com.anonymous.solitoexporouter"/>
         <data android:scheme="exp+solito-expo-router"/>
+        <data android:scheme="vui123"/>
+        <data android:scheme="com.chlgame.staging2"/>
+        <data android:scheme="exp+vui123"/>
       </intent-filter>
     </activity>
     <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" android:exported="false"/>
