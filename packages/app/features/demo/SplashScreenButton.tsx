@@ -105,6 +105,14 @@ const SplashScreenButton = () => {
           />
         </View>
 
+        <View sx={{ width: '20%' }}>
+          <GradientButton
+            iconProps={{ name: 'bank' }}
+            onPress={() => push('/deposit')}
+            label="deposit layout"
+          />
+        </View>
+
         <GradientButton
           iconProps={{ name: 'home' }}
           label="login page"
