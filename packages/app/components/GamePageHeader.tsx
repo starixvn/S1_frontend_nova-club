@@ -23,7 +23,12 @@ export default function GamePageHeader({ icon, title }) {
       }}
     >
       <ShadowButton
-        containerStyle={{ aspectRatio: 1 / 1, borderRadius: 24, p: '$2' }}
+        containerStyle={{
+          aspectRatio: 1 / 1,
+          borderRadius: 24,
+          px: '$2',
+          py: '$2',
+        }}
       >
         <Icon name={icon} sx={{ fontSize: [18, 20, 22] }} />
       </ShadowButton>

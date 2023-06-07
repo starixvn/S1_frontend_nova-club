@@ -2,18 +2,25 @@ import { ExpoConfig, ConfigContext } from 'expo/config'
 
 const expoConfig = ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  name: 'solito-expo-router',
-  slug: 'solito-expo-router',
-  version: '1.0.0',
-  scheme: 'solito-expo-router',
+  name: 'Vui 123',
+  slug: 'vui123',
+  version: '2.0.0',
+  scheme: 'vui123',
   platforms: ['ios', 'android'],
   ios: {
-    bundleIdentifier: 'com.solito.expo-router',
+    bundleIdentifier: 'com.chlgame.staging2',
   },
   android: {
-    package: 'com.anonymous.solitoexporouter',
+    package: 'com.chlgame.staging2',
   },
   plugins: [
+    [
+      'expo-av',
+      {
+        microphonePermission:
+          'Allow $(PRODUCT_NAME) to access your microphone.',
+      },
+    ],
     [
       'expo-image-picker',
       {
@@ -22,6 +29,17 @@ const expoConfig = ({ config }: ConfigContext): ExpoConfig => ({
 
         '//': 'Disables the microphone permission',
         microphonePermission: false,
+      },
+    ],
+    [
+      './app.plugin',
+      {
+        android: {
+          CodePushDeploymentKey: 'YOUR_ANDROID_CODE_PUSH_KEY',
+        },
+        ios: {
+          CodePushDeploymentKey: 'YOUR_IOS_CODE_PUSH_KEY',
+        },
       },
     ],
   ],

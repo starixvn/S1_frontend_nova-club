@@ -54,7 +54,7 @@ const GAMES_FILTER = [
           .getElementById(`recGame`)
           ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
       } else {
-        scrollRef.current?.scrollToEnd()
+        scrollRef.current?.scrollToEnd({ animated: true })
       }
     },
   },
