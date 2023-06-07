@@ -1,52 +1,80 @@
 import Icon from 'app/components/Icon'
 import IconButton from 'app/components/IconButton'
+import { useDrawer } from 'app/hooks/useDrawer'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { copyToClipboard } from 'app/utils'
 import { Pressable, ScrollView, Text, View } from 'dripsy'
 import React from 'react'
 import { ImageBackground, useWindowDimensions } from 'react-native'
-
-const MENU_LIST = [
-  {
-    iconName: 'agent',
-    text: 'AgentLogin',
-    onPress: '1',
-  },
-  {
-    iconName: 'deposit',
-    text: 'Deposit',
-    onPress: '2',
-  },
-  {
-    iconName: 'withdraw',
-    text: 'Withdrawal',
-    onPress: '3',
-  },
-  {
-    iconName: 'transfer',
-    text: 'Transfer',
-    onPress: '4',
-  },
-  {
-    iconName: 'history',
-    text: 'History',
-    onPress: '5',
-  },
-  {
-    iconName: 'cs',
-    text: 'Customer Support',
-    onPress: '6',
-  },
-  {
-    iconName: 'logout',
-    text: 'Logout',
-    onPress: '7',
-  },
-]
+import { usePlayerProfileQuery } from 'services/playerApi'
+import { useRouter } from 'solito/router'
 
 export default function DrawerContent() {
+  const { push } = useRouter()
   const { top, bottom } = useSafeArea()
   const { height } = useWindowDimensions()
+  const { isOpen, toggleDrawer } = useDrawer()
+
+  const { isCreditMember, data: playerData } = usePlayerProfileQuery()
+
+  const isPlayerName = !!playerData?.firstName
+
+  const MENU_LIST = [
+    {
+      iconName: 'agent',
+      text: 'AgentLogin',
+      onPress: () => {
+        push('/deposit')
+      },
+    },
+    {
+      iconName: 'deposit',
+      text: 'Deposit',
+      onPress: () => {
+        push('/deposit')
+        // isPlayerName ? push('/deposit') : push(`/profile/account-verification`)
+      },
+    },
+    {
+      iconName: 'withdraw',
+      text: 'Withdrawal',
+      onPress: () => {
+        push('/deposit')
+      },
+    },
+    {
+      iconName: 'transfer',
+      text: 'Transfer',
+      onPress: () => {
+        push('/deposit')
+      },
+    },
+    {
+      iconName: 'history',
+      text: 'History',
+      onPress: () => {
+        push('/deposit')
+      },
+    },
+    {
+      iconName: 'cs',
+      text: 'Customer Support',
+      onPress: () => {
+        push('/deposit')
+      },
+    },
+    {
+      iconName: 'logout',
+      text: 'Logout',
+      onPress: () => {
+        push('/deposit')
+      },
+    },
+  ]
+
+  const handleDismiss = () => {
+    toggleDrawer()
+  }
 
   return (
     <ScrollView
@@ -79,7 +107,10 @@ export default function DrawerContent() {
                   alignItems: 'center',
                   paddingHorizontal: 10,
                 }}
-                onPress={() => console.log(item.onPress)}
+                onPress={() => {
+                  item.onPress && item.onPress()
+                  handleDismiss()
+                }}
               >
                 <View sx={{ alignItems: 'flex-start' }}>
                   <Icon
