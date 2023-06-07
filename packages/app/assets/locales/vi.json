@@ -163,20 +163,24 @@
         "won": "XIN CHÚC MỪNG!",
         "won2": "BẠN ĐÃ TRÚNG THƯỞNG"
       },
-      "tnc": {}
+      "tnc": {
+      }
     },
     "claim": "ĐỔI VÉ THƯỞNG CỦA BẠN NGAY",
+    "jackpot": "Jackpot: 100,000,000 VNĐ",
+    "luckyDraw": "Bốc thăm may mắn: 10,000,000 VNĐ",
+    "prediction": {
+      "event": "THÁNH DỰ ĐOÁN ",
+      "haveSelected": "Bạn đã chọn",
+      "score": "Tỷ số",
+      "selectTeam": "Chọn đội của bạn "
+    },
     "ticket": "vé dự đoán",
     "ticketSubmitted": "Gửi vé dự đoán thành công",
     "winText1": "XIN CHÚC MỪNG!",
     "winText2": "BẠN NHẬN LỘC",
-    "youHave": "Bạn có",
-    "prediction": {
-      "event": "THÁNH DỰ ĐOÁN ",
-      "selectTeam": "Chọn đội của bạn ",
-      "score": "Tỷ số",
-      "haveSelected": "Bạn đã chọn"
-    }
+    "winnerList": "DANH SÁCH NGƯỜI CHIẾN THẮNG",
+    "youHave": "Bạn có"
   },
   "filter": {
     "date": {

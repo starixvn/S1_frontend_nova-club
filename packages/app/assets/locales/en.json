@@ -163,20 +163,24 @@
         "won": "CONGRATULATIONS!",
         "won2": "YOU'VE WON TOTAL"
       },
-      "tnc": {}
+      "tnc": {
+      }
     },
     "claim": "CLAIM YOUR BONUS TICKET NOW",
+    "jackpot": "Jackpot: 100,000,000 VNĐ",
+    "luckyDraw": "Lucky Draw - 10,000,000 VNĐ",
+    "prediction": {
+      "event": "Prediction Event",
+      "haveSelected": "You have selected",
+      "score": "Score",
+      "selectTeam": "Please select the team"
+    },
     "ticket": "Ticket/s",
     "ticketSubmitted": "Successfully submitted your prediction ticket",
     "winText1": "CONGRATULATIONS!",
     "winText2": "YOU HAVE RECEIVED THE LOVE GIFT OF",
-    "youHave": "You Have",
-    "prediction": {
-      "event": "Prediction Event",
-      "selectTeam": "Please select the team",
-      "score": "Score",
-      "haveSelected": "You have selected"
-    }
+    "winnerList": "WINNERS LIST",
+    "youHave": "You Have"
   },
   "filter": {
     "date": {

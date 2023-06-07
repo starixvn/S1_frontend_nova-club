@@ -163,6 +163,7 @@ export function NavigationProvider({
               AgentRecruitmentTnc: '/banner/agent-tnc',
               Prediction: '/event/prediction',
               PredictionTnc: '/event/prediction-tnc',
+              PredictionWinner: '/event/prediction-winner',
             },
           },
         }),

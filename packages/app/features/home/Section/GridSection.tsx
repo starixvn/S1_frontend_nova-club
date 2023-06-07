@@ -26,7 +26,7 @@ export const HOME_GRID = [
     src: { uri: SPORT_IMG },
     type: 'video',
     title: 'game.category.sportsbook',
-    route: '/sportsbook',
+    route: '/event/prediction-winner',
   },
   {
     col: 2,
