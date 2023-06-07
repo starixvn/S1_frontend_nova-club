@@ -20,3 +20,21 @@ export const ProviderColorImageMapping = {
   ADVP: require('app/assets/images/game/provider/colored/slot/advp.jpg'),
   BNG: require('app/assets/images/game/provider/colored/jili.jpg'),
 }
+
+export const ProviderImageMapping = {
+  ADVP: require('app/assets/images/game/provider/white/advp.png'),
+  ARG: require('app/assets/images/game/provider/white/arg.png'),
+  CQ9: require('app/assets/images/game/provider/white/cq9.png'),
+  HABA: require('app/assets/images/game/provider/white/haba.png'),
+  JDBG: require('app/assets/images/game/provider/white/jdbg.png'),
+  JILI: require('app/assets/images/game/provider/white/jili.png'),
+  NERT: require('app/assets/images/game/provider/white/nert.png'),
+  PGSF: require('app/assets/images/game/provider/white/pgsf.png'),
+  PRGP: require('app/assets/images/game/provider/white/prgp.png'),
+  PTEC: require('app/assets/images/game/provider/white/ptec.png'),
+  NESP: require('app/assets/images/game/provider/white/nesp.png'),
+  SABA: require('app/assets/images/game/provider/white/saba.png'),
+  SPGM: require('app/assets/images/game/provider/white/spgm.png'),
+  SKYW: require('app/assets/images/game/provider/white/skyw.png'),
+  V8PK: require('app/assets/images/game/provider/white/v8pk.png'),
+}

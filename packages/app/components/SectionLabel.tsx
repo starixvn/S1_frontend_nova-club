@@ -4,25 +4,22 @@ import Icon from './Icon'
 import { MotiView } from 'moti'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
 import { Shadow } from 'react-native-shadow-2'
+import ShadowButton from './ShadowButton'
 
 export default function SectionLabel({ icon, iconProps, title, sx }) {
   const { theme } = useDripsyTheme()
   return (
     <Row sx={{ alignItems: 'center', ...sx }}>
-      <MotiView from={{ scale: 0 }} animate={{ scale: 1 }} delay={100}>
-        <Shadow
-          offset={[0, 1]}
-          startColor={theme.colors.$primary[100]}
-          style={{ borderRadius: 100 }}
-          distance={1}
-        >
-          <IndentIconContainer>
-            {/* <MotiView from={{ scale: 0 }} animate={{ scale: 1 }} delay={500}> */}
-            <Icon sx={{ fontSize: [10, 12] }} name={icon} {...iconProps} />
-            {/* </MotiView> */}
-          </IndentIconContainer>
-        </Shadow>
-      </MotiView>
+      <ShadowButton
+        containerStyle={{
+          aspectRatio: 1 / 1,
+          borderRadius: 24,
+          py: '$1',
+          px: '$1',
+        }}
+      >
+        <Icon sx={{ fontSize: [10, 12] }} name={icon} {...iconProps} />
+      </ShadowButton>
       <Text
         sx={{
           mx: '$2',

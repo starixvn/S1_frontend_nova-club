@@ -9,6 +9,9 @@ import React from 'react'
 import { useGetGameListQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
+import BannerSection from '../home/BannerSection'
+import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
+import SectionHeader from 'app/components/SectionHeader'
 
 export default function LiveCasinoScreen() {
   const { t } = useLocalization()
@@ -84,6 +87,15 @@ export default function LiveCasinoScreen() {
       ListHeaderComponent={
         <>
           <GamePageHeader title={'LIVE CASINO'} icon="casino" />
+          <BannerSection />
+          <RecentlyPlayedSection />
+          <SectionHeader
+            title={'PROVIDERS'}
+            icon="all"
+            sx={{
+              mb: '$sectionBottomSpace',
+            }}
+          />
         </>
       }
     />

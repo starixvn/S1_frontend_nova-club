@@ -37,18 +37,6 @@ export default function GameListByProvider() {
       renderItem={({ item }) => {
         return <GameSectionByProviderItem gpc={item[0].gpc} games={item} />
       }}
-      ListHeaderComponent={
-        <>
-          <GamePageHeader icon="sl" title="SLOTS" />
-          <BannerSection />
-          <RecentlyPlayedSection />
-          <TopGameSection />
-          <JackpotGameSection />
-          <JackpotGameSection />
-          <JackpotGameSection />
-          <ProviderList data={providers} />
-        </>
-      }
     />
     // <GameSectionByProvider data={gamesByProviders} />
   )

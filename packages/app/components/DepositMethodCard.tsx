@@ -25,7 +25,7 @@ const DepositMethodCard = ({ item, onPress }: DepositMethodCardProps) => {
       <Shadow
         offset={[0, -1]}
         startColor={theme.colors.$primary[100]}
-        distance={0.2}
+        distance={1}
         style={{ borderRadius: 12, overflow: 'hidden', width: '100%' }}
       >
         <DripsyGradient

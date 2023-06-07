@@ -47,27 +47,27 @@ export default function RecentlyPlayedSection() {
         />
       </View>
       <Row>
-        <HorizontalGameList data={gameList} />
-        <View>
+        <View sx={{ position: 'relative', zIndex: 1 }}>
           <DripsyGradient
             gradient="shading"
-            start={{ x: 1, y: 0.5 }}
-            end={{ x: 0, y: 0.5 }}
+            end={{ x: 1, y: 0.5 }}
+            start={{ x: 0, y: 0.5 }}
             sx={{
               position: 'absolute',
-              zIndex: 12,
-              height: [80, 110],
+              zIndex: 13,
+              height: [50, 70],
               width: 20,
-              right: '100%',
+              left: '100%',
             }}
           />
           <GameCard
             sx={{ mx: '$1' }}
-            width={[80, 110]}
-            height={[80, 110]}
+            width={[50, 70]}
+            height={[50, 70]}
             image={vgaming}
           />
         </View>
+        <HorizontalGameList data={gameList} size={[50, 70]} />
       </Row>
     </DripsyGradient>
   )

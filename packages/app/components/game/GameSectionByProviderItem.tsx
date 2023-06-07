@@ -19,6 +19,7 @@ import { Shadow } from 'react-native-shadow-2'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
 import { ALL } from 'app/utils/constant'
 import GameCard from './GameCard'
+import { ProviderImageMapping } from 'app/constants/gameAssets'
 
 const MAX_SHOWN = 12
 function GameSectionByProviderItem({
@@ -29,7 +30,6 @@ function GameSectionByProviderItem({
   games: Game[]
 }) {
   const [filter, setFilter] = useState(ALL)
-  const height = useResponsiveValue([20, 30])
   const count = useResponsiveValue([8, 10, MAX_SHOWN])
 
   const tags = useMemo(() => {
@@ -45,17 +45,13 @@ function GameSectionByProviderItem({
     ).slice(0, count)
   }, [count, filter, games])
 
-  useEffect(() => {
-    console.log('@@@@@@@@ mounting')
-  }, [])
-
   return (
-    <View>
+    <View nativeID={`gameSection${gpc}`}>
       <ProviderIconContainer>
         <SolitoImage
-          height={height}
-          width={100}
-          src={require('app/assets/images/game/provider/white/arg.png')}
+          height={20}
+          width={90}
+          src={ProviderImageMapping[gpc]}
           resizeMode="contain"
           alt={gpc}
         />
@@ -69,9 +65,9 @@ function GameSectionByProviderItem({
 const ProviderIconContainer = styled(View)({
   bg: '$primary.100',
   borderTopRightRadius: [15, 20],
-  height: [30, 40],
-  width: [130, 160],
+  width: [120, 130],
   pr: ['2%'],
+  py: ['$2'],
   alignItems: 'flex-end',
   justifyContent: 'center',
 })
@@ -102,7 +98,7 @@ const GameTypeFilter = ({ filters, filter, setFilter }) => {
               <Shadow
                 style={{ flex: 1, borderRadius: 30, overflow: 'hidden' }}
                 offset={[0, 1]}
-                distance={0.5}
+                distance={1}
                 startColor={theme.colors.$primary[100]}
                 stretch
               >

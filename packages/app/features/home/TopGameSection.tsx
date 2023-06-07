@@ -26,10 +26,10 @@ const sampleData = [
   },
 ]
 
-export default function TopGameSection() {
+export default function TopGameSection(props) {
   return (
-    <View sx={{ mb: '$sectionBottomSpace' }}>
-      <SectionHeader icon="crown" title="TOP GAMES" />
+    <View sx={{ mb: '$sectionBottomSpace' }} {...props}>
+      <SectionHeader icon="crown" title="RECOMMENDED GAMES" />
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}

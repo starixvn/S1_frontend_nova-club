@@ -2,7 +2,7 @@ import { View } from 'dripsy'
 import React from 'react'
 import SectionLabel from './SectionLabel'
 
-export default function SectionHeader({ icon, title }) {
+export default function SectionHeader({ icon, title, sx, ...rest }) {
   return (
     <View
       sx={{
@@ -11,7 +11,9 @@ export default function SectionHeader({ icon, title }) {
         borderBottomLeftRadius: 30,
         marginLeft: '$pagePadding',
         p: [6, '$2'],
+        ...sx,
       }}
+      {...rest}
     >
       <SectionLabel icon={icon} title={title} />
     </View>

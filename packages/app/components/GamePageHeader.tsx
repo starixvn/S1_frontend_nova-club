@@ -1,10 +1,13 @@
-import { Row, Text, View, styled } from 'dripsy'
+import { FONT_TOP_OFFSET } from 'app/constants/font'
+import { Row, Text, View, styled, useDripsyTheme } from 'dripsy'
 import React from 'react'
 import Icon from './Icon'
-import { MotiView } from 'moti'
-import { FONT_TOP_OFFSET } from 'app/constants/font'
+
+import { Shadow } from 'react-native-shadow-2'
+import ShadowButton from './ShadowButton'
 
 export default function GamePageHeader({ icon, title }) {
+  const { theme } = useDripsyTheme()
   return (
     <Row
       sx={{
@@ -12,21 +15,19 @@ export default function GamePageHeader({ icon, title }) {
         borderTopRightRadius: 30,
         borderBottomRightRadius: 30,
         py: '$1',
-        px: ['$2', '$3'],
+        pr: ['$2', '$3'],
+        pl: ['$3', '$4'],
         alignItems: 'center',
         marginRight: 'auto',
         my: ['$2', '$3'],
       }}
     >
-      <IndentIconContainer
-        from={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        delay={100}
+      <ShadowButton
+        containerStyle={{ aspectRatio: 1 / 1, borderRadius: 24, p: '$2' }}
       >
-        {/* <MotiView from={{ scale: 0 }} animate={{ scale: 1 }} delay={500}> */}
-        <Icon sx={{ fontSize: [20, 22, 24] }} name={icon} />
-        {/* </MotiView> */}
-      </IndentIconContainer>
+        <Icon name={icon} sx={{ fontSize: [18, 20, 22] }} />
+      </ShadowButton>
+
       <Text
         sx={{
           mx: '$2',
@@ -41,9 +42,8 @@ export default function GamePageHeader({ icon, title }) {
   )
 }
 
-const IndentIconContainer = styled(MotiView)({
+const IndentIconContainer = styled(View)({
   bg: '$primary.700',
-  p: ['$1', '$2'],
-  ml: ['$2', '$3'],
+  p: [6, '$2'],
   borderRadius: 100,
 })

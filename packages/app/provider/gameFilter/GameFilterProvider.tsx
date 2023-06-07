@@ -1,15 +1,27 @@
-import { GDC_GAME_CATEGORY } from 'app/utils/constant'
-import { Currency, GAME_TYPE_CODE } from 'app/utils/constant'
-import { ReactNode, createContext, useContext, useMemo, useState } from 'react'
-import { useGameListMultipleQuery, useGetGameListQuery } from 'services/gameApi'
+import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'app/utils/constant'
+import groupBy from 'lodash/groupBy'
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  useTransition,
+} from 'react'
+import { useGameListMultipleQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 
 const GameFilterContext = createContext<{
   games: Game[]
-  filteredGames: Game[]
+  filteredGames?: Game[]
+  gamesByProviders: Record<string, Game[]>
+  filterKey?: string
+  setFilteredGames: (games: Game[], key: String) => void
 }>({
   games: [],
-  filteredGames: [],
+  gamesByProviders: {},
+  setFilteredGames: (g, k) => {},
 })
 
 export interface GameProviderProps {
@@ -47,21 +59,62 @@ const GameFilterProvider = ({
   gameTypes,
   gameCategories,
 }: GameProviderProps) => {
-  const [filteredGames, setFilteredGames] = useState<Game[]>([])
+  const [filteredGames, _setFilteredGames] = useState<Game[]>()
+  const [filterKey, setFilterKey] = useState<string>()
+  const [isPending, startTransition] = useTransition()
 
   const { data: games = [] } = useGameListMultipleQuery({
     game_category: gameTypes,
     gdc_game_category: gameCategories,
   })
 
-  console.log('games', games.length)
+  const gamesByProviders = useMemo(() => {
+    return groupBy(filteredGames, 'gpc')
+  }, [filteredGames])
+
+  function setFilteredGames(g, keyIndicator?) {
+    setFilterKey(keyIndicator)
+
+    startTransition(() => {
+      _setFilteredGames(g)
+    })
+  }
+
+  useEffect(() => {
+    if (games.length > 0 && !filteredGames) {
+      setFilteredGames(games)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [games])
+
   return (
     <GameFilterContext.Provider
-      value={{ games, filteredGames, setFilteredGames }}
+      value={{
+        games,
+        filteredGames,
+        filterKey,
+        setFilteredGames,
+        gamesByProviders,
+      }}
     >
       {children}
     </GameFilterContext.Provider>
   )
+}
+
+export function withGameFilterProvider(
+  WrappedComponent,
+  setting: Omit<GameProviderProps, 'children'>
+) {
+  const WithShareComponent = (props) => {
+    return (
+      <GameFilterProvider {...setting}>
+        <WrappedComponent {...props} />
+      </GameFilterProvider>
+    )
+  }
+
+  return WithShareComponent
 }
 
 export const useGameFilter = () => {

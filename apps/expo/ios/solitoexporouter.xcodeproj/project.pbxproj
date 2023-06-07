@@ -346,7 +346,7 @@
 					"-lc++",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = com.chlgaming.staging2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chlgame.staging2;
 				PRODUCT_NAME = solitoexporouter;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Wildcard Distribution";
@@ -380,7 +380,7 @@
 					"-lc++",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
-				PRODUCT_BUNDLE_IDENTIFIER = com.chlgaming.staging2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chlgame.staging2;
 				PRODUCT_NAME = solitoexporouter;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Wildcard Distribution";

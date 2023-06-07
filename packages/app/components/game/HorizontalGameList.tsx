@@ -2,7 +2,11 @@ import { ScrollView } from 'dripsy'
 import React from 'react'
 import GameCard from './GameCard'
 
-export default function HorizontalGameList({ data, ...rest }) {
+export default function HorizontalGameList({
+  data,
+  size = [80, 100],
+  ...rest
+}) {
   return (
     <ScrollView
       horizontal
@@ -13,8 +17,8 @@ export default function HorizontalGameList({ data, ...rest }) {
       {data.map((g) => {
         return (
           <GameCard
-            width={[80, 110]}
-            height={[80, 110]}
+            width={size}
+            height={size}
             key={g.gc}
             // name={g.name['en']}
             image={g.img}

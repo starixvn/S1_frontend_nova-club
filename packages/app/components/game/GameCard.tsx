@@ -61,9 +61,10 @@ export default function GameCard({
 }
 
 const Root = styled(Pressable)({
-  borderRadius: 15,
+  borderRadius: 5,
   position: 'relative',
   aspectRatio: 1,
+  overflow: 'hidden',
 })
 const LabelContainer = styled(View)({
   borderTopWidth: StyleSheet.hairlineWidth,
@@ -72,5 +73,5 @@ const LabelContainer = styled(View)({
   position: 'absolute',
   bottom: 0,
   width: '100%',
-  py: '$2',
+  py: [6, '$2'],
 })

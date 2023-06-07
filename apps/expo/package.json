@@ -65,7 +65,10 @@
   "scripts": {
     "start": "expo start --dev-client",
     "android": "expo run:android",
-    "ios": "expo run:ios"
+    "ios": "expo run:ios",
+    "clean-codepush": "rm -rf codepush && mkdir codepush && mkdir codepush/android && mkdir codepush/ios",
+    "bundle-ios": "yarn clean-codepush && node ../..node_modules/.bin/react-native bundle --platform ios --entry-file index.js --bundle-output ./CodePush/ios/main.jsbundle --assets-dest ./CodePush/ios --dev false --reset-cache",
+    "bundle-android": "yarn clean-codepush && node ../..node_modules/.bin/react-native bundle --platform android --entry-file index.js --bundle-output ./CodePush/android/index.android.bundle --assets-dest ./CodePush/android --dev false --reset-cache"
   },
   "version": "1.0.0",
   "private": true,
