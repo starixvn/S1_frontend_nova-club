@@ -7,10 +7,19 @@ const expoConfig = ({ config }: ConfigContext): ExpoConfig => ({
   version: '2.0.0',
   scheme: 'vui123',
   platforms: ['ios', 'android'],
+  updates: {
+    enabled: false,
+  },
+  jsEngine: 'jsc',
   ios: {
     requireFullScreen: true,
     supportsTablet: true,
     bundleIdentifier: 'com.anonymous.solitoexporouter',
+  },
+  androidNavigationBar: {
+    visible: 'leanback',
+    barStyle: 'light-content',
+    backgroundColor: '#00000000',
   },
   android: {
     package: 'com.anonymous.solitoexporouter',
