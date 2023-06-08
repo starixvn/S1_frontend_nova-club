@@ -5,7 +5,7 @@ import useLocalization from 'app/provider/localization'
 import { Text, View, styled } from 'dripsy'
 import React from 'react'
 
-const BUTTON_SIZE = 36
+const BUTTON_SIZE = 42
 const PlaySection = () => {
   const { t } = useLocalization()
   const { push } = useContextualRouter()
@@ -17,23 +17,32 @@ const PlaySection = () => {
   return (
     <RoundContainer>
       <View sx={{ flexDirection: 'row', alignItems: 'center' }}>
-        <StyledText
+        <View
           sx={{
-            p: 8,
-            mr: 8,
-            bg: '#11396E',
             borderRadius: 24,
-            textTransform: 'uppercase',
+            overflow: 'hidden',
+            bg: '#11396E',
+            mr: 4,
           }}
         >
-          {t('game.slotgame')}
-        </StyledText>
-
+          <Text
+            sx={{
+              p: 8,
+              py: 12,
+              fontSize: 13,
+              fontWeight: 'bold',
+              textTransform: 'uppercase',
+            }}
+          >
+            {t('game.slotgame')}
+          </Text>
+        </View>
         <StyledText>
-          {t('game.rebate')}{' '}
-          <StyledText sx={{ color: '#EDDB02' }}>1.2%</StyledText>
+          {t('game.rebate')}
+          <StyledText sx={{ color: '#EDDB02' }}> 1.2%</StyledText>
         </StyledText>
       </View>
+
       <BouncePressable
         sx={{
           width: BUTTON_SIZE,
@@ -53,7 +62,7 @@ const PlaySection = () => {
             borderRadius: 24,
             position: 'absolute',
             textAlign: 'center',
-            fontSize: 8,
+            fontSize: 9,
             color: '#FCF03B',
             fontWeight: 'bold',
           }}
@@ -76,7 +85,7 @@ const RoundContainer = styled(View)({
 })
 
 const StyledText = styled(Text)({
-  fontSize: 13,
+  fontSize: 14,
   fontWeight: 'bold',
 })
 
