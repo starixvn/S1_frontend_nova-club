@@ -13,9 +13,25 @@
     "forgotPasswordHeader": "Forgot Password",
     "resetPasswordHeader": "Reset Password"
   },
+  "bank": {
+    "bank": "Bank",
+    "bankAcc": "Bank Account",
+    "addBankAccount": "Add Bank Account",
+    "channel": "Channel",
+    "selectChannel": "Select Channel",
+    "selectBank": "Select Bank",
+    "accountNumber": "Account Number"
+  },
+  "contact": {
+    "customerSupport": "Customer Support",
+    "contactVia": "Contact via:",
+    "telegram": "Telegram",
+    "zalo": "Zalo",
+    "liveChat": "Live Chat"
+  },
   "common": {
     "player": "Player",
-    "Agent": "Agent",
+    "agent": "Agent",
     "username": "Username",
     "password": "Password",
     "transfer": "Transfer",
@@ -30,7 +46,6 @@
     "overview": "Overview",
     "profile": "Profile",
     "points": "Points",
-    "receive": "Receive",
     "submit": "Submit",
     "close": "Close",
     "pin": "Pin",
@@ -56,7 +71,17 @@
     "noInfoAvailable": "No information is available now",
     "provider": "Provider",
     "bonus": "Bonus",
-    "game": "Game"
+    "historyTitle": "Transaction History",
+    "transaction": "Transaction",
+    "game": "Game",
+    "next": "Next"
+  },
+  "commision": {
+    "title": "Commision Table",
+    "productLists": "Product Lists",
+    "cashPlayer": "Cash Player",
+    "cashPlayerReferral": "Cash Player Referral",
+    "creditPlayer": "Credit Player"
   },
   "withdrawal": {
     "withdrawalTitle": "Withdrawal"
@@ -188,6 +213,7 @@
     "rejected": "Rejected"
   },
   "transfer": {
+    "receive": "Receive",
     "transferTitle": "Transfer",
     "idTransfer": "ID Transfer",
     "qrTransfer": "QR Transfer",
@@ -224,8 +250,8 @@
     "username": "6-18 characters only"
   },
   "wallet": {
-    "historyTitle": "Transaction History",
-    "transaction": "Transaction",
-    "game": "Game"
+    "cryptoWallet": "Crypto Wallet",
+    "addCryptoWallet": "Add Crypto Wallet",
+    "walletAddress": "Wallet Address"
   }
 }

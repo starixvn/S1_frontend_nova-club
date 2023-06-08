@@ -30,7 +30,6 @@ const IconBorder = ({
       >
         <IconButton
           name={IconName ?? 'notice'}
-          // name={'lba'}
           color={IconColor}
           size={IconSize}
           sx={{ p: 10 }}

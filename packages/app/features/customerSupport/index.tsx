@@ -16,14 +16,14 @@ const CustomerSupportScreen = () => {
   const mediaList = useSupportItemList()
 
   return (
-    <PageWithBackHeader header={{ title: t('menu.customerSupport') }}>
+    <PageWithBackHeader header={{ title: 'contact.customerSupport' }}>
       <View sx={{ flex: 1, alignItems: 'center' }}>
         <Image
           source={require('app/assets/images/common/logo-circle.png')}
           alt="logo"
           style={{ height: 150, aspectRatio: 1 / 1, marginVertical: 24 }}
         />
-        <Text sx={{ py: 12 }}>Contact via:</Text>
+        <Text sx={{ py: 12 }}>{t('contact.contactVia')}</Text>
 
         {mediaList.map((item) => (
           <SupportButton

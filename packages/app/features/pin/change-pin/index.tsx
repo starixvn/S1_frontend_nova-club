@@ -9,6 +9,7 @@ import * as Yup from 'yup'
 import UnderlinePinField from '../UnderlinePinField'
 import { useRouter } from 'solito/router'
 import Button from 'app/components/common/Button'
+import useAlert from 'app/hooks/useAlert'
 
 type ChangePinFormValues = {
   oldPin: string
@@ -19,7 +20,7 @@ type ChangePinFormValues = {
 const ChangePinScreen = () => {
   const { t } = useLocalization()
   const { back } = useRouter()
-  // const { showAlert } = useAlert()
+  const { showAlert } = useAlert()
   const [updateTransferPin] = useUpdateTransferPinMutation()
 
   const onSubmit = async (
@@ -35,7 +36,7 @@ const ChangePinScreen = () => {
       })
         .unwrap()
         .catch((error) => {
-          // showAlert(error)
+          showAlert(error)
           return error
         })
 
@@ -45,7 +46,7 @@ const ChangePinScreen = () => {
         back()
       }
     } catch (error) {
-      // showAlert(error)
+      showAlert(error)
     } finally {
       actions.setSubmitting(false)
     }
@@ -105,11 +106,12 @@ const ChangePinScreen = () => {
         }
       />
       <Button
-        title={t('common.submit')}
         onPress={submitForm}
         disabled={!isValid || !dirty}
         sx={{ mt: '$4', mx: '$4' }}
-      />
+      >
+        {t('common.submit')}
+      </Button>
     </View>
   )
 }

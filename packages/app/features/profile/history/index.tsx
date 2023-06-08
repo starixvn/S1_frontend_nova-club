@@ -23,8 +23,8 @@ const History = () => {
 
   const [index, setIndex] = useState(getTab)
   const [routes] = useState([
-    { key: 'first', title: t('wallet.transaction'), index: 0 },
-    { key: 'second', title: t('wallet.game'), index: 1 },
+    { key: 'first', title: t('common.transaction'), index: 0 },
+    { key: 'second', title: t('common.game'), index: 1 },
   ])
   const layout = useWindowDimensions()
 
@@ -44,7 +44,7 @@ const History = () => {
   }
   return (
     <PageWithBackHeader
-      header={{ title: 'wallet.historyTitle' }}
+      header={{ title: 'common.historyTitle' }}
       disableScrollView
     >
       <TabView

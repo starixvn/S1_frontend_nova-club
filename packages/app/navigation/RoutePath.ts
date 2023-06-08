@@ -77,31 +77,31 @@ export const Profile_Quick_Navigation_Path: Route[] = [
     path: '/account/profile/commission',
     icon: 'ct',
   },
-  {
-    label: 'my rewards hub',
-    path: '/',
-    icon: 'gift',
-  },
-  {
-    label: 'friend referral',
-    path: '/',
-    icon: 'friend-ref',
-  },
-  {
-    label: 'promotion',
-    path: '/',
-    icon: 'm_promo',
-  },
+  // {
+  //   label: 'my rewards hub',
+  //   path: '/',
+  //   icon: 'gift',
+  // },
+  // {
+  //   label: 'friend referral',
+  //   path: '/',
+  //   icon: 'friend-ref',
+  // },
+  // {
+  //   label: 'promotion',
+  //   path: '/',
+  //   icon: 'm_promo',
+  // },
   {
     label: 'leaderboard',
     path: '/account/profile/leaderboard',
     icon: 'crown',
   },
-  {
-    label: 'affiliates',
-    path: '/',
-    icon: 'aff',
-  },
+  // {
+  //   label: 'affiliates',
+  //   path: '/',
+  //   icon: 'aff',
+  // },
   {
     label: 'customer support',
     path: '/account/profile/customer-support',
@@ -109,7 +109,7 @@ export const Profile_Quick_Navigation_Path: Route[] = [
   },
   {
     label: 'logout',
-    path: '/',
+    path: '/auth/login',
     icon: 'logout',
   },
 ]

@@ -61,12 +61,12 @@ const AddCryptoWalletScreen = () => {
   }
 
   return (
-    <PageWithBackHeader header={{ title: t('bank.addCryptoWallet') }}>
+    <PageWithBackHeader header={{ title: 'wallet.addCryptoWallet' }}>
       <StyledView>
         <RealNameForm formik={formik}>
           <SelectWithCardGrid
             label={t('bank.channel')}
-            placeholder={t('placeholder.selectChannel')}
+            placeholder={t('bank.selectChannel')}
             options={sheetData}
             loading={isLoading || isFetching}
             value={values.bank?.bank_name}
@@ -75,14 +75,14 @@ const AddCryptoWalletScreen = () => {
           />
 
           <Input
-            label={t('bank.walletAddress')}
+            label={t('wallet.walletAddress')}
             value={values.walletAddress}
             onChangeText={handleChange('walletAddress')}
             onBlur={handleBlur('walletAddress')}
             error={
               touched.walletAddress && errors.walletAddress
                 ? t(errors.walletAddress, {
-                    field: t('bank.walletAddress'),
+                    field: t('wallet.walletAddress'),
                   })
                 : undefined
             }

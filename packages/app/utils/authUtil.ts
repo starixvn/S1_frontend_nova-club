@@ -4,24 +4,32 @@ import { modalfy } from 'react-native-modalfy'
 import { authApi } from 'services/authApi'
 import { LOGOUT_ACTION } from './constant'
 import { useRouter } from 'solito/router'
+import { contentApi } from 'services/contentApi'
 
 export async function LogOut({ isTokenExpired = false } = {}) {
-  // const { replace } = useRouter()
+  const { openModal, closeModal } = modalfy<ModalStackParams>()
+
   try {
     const { playerName } = store.getState().auth.info || {}
 
-    // if (playerName && !isTokenExpired) {
-    //   // store.dispatch()
-    //   await store.dispatch(
-    //     authApi.endpoints.logout.initiate({ username: playerName })
-    //   )
-    // }
+    if (playerName && !isTokenExpired) {
+      // store.dispatch()
+      await store.dispatch(
+        authApi.endpoints.logout.initiate({ username: playerName })
+      )
+    }
 
     await store.dispatch({ type: LOGOUT_ACTION })
     // replace('/')
+    setTimeout(() => {
+      // store.dispatch(contentApi.endpoints.getRecoMatch.initiate())
+      store.dispatch(contentApi.endpoints.banner.initiate())
+      store.dispatch(contentApi.endpoints.getJackpotAmount.initiate())
+    }, 3000)
   } catch (error) {
     console.error(error)
     return error
   } finally {
+    closeModal('LoadingModal')
   }
 }

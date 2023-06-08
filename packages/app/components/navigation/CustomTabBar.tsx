@@ -2,6 +2,7 @@ import { Pressable, ScrollView, Text, View } from 'dripsy'
 import React from 'react'
 import { DripsyGradient } from '../Gradient'
 import ShadowButton from '../ShadowButton'
+import uniqueId from 'lodash/uniqueId'
 
 export type CustomRoutesProps = {
   key: string
@@ -34,7 +35,7 @@ const CustomTabBar = ({ routes, currentIndex, onPress }: CustomTabBarProps) => {
           routes.map((route, index) => {
             const isActive = currentIndex === index
             return (
-              <View key={route.title} sx={{ flex: 1, py: 12 }}>
+              <View key={route.title + uniqueId()} sx={{ flex: 1, py: 12 }}>
                 <Pressable onPress={() => handlePress(route.index)}>
                   <ShadowButton
                     isActive={isActive}

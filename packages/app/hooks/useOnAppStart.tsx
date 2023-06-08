@@ -1,22 +1,19 @@
-import { store, useAppDispatch, useAppSelector } from 'app/provider/redux/store'
-// import { logOut } from 'app/utils/authUtil'
+import { store, useAppSelector } from 'app/provider/redux/store'
+import { LogOut } from 'app/utils/authUtil'
 import { useCallback, useEffect, useRef } from 'react'
 import { Platform } from 'react-native'
-
-// import useResetRTKQState from './useResetRTKQState'
 import { useRouter } from 'solito/router'
 import { configureAxios } from '../../services/common/axiosInstance'
-import { AuthActions } from 'app/store/authReducer'
+import useResetRTKQState from './useResetRTKQState'
 
 const useOnAppStart = () => {
-  // const { replace, push } = useRouter()
+  const { replace, push } = useRouter()
   const { token } = useAppSelector((state) => state.auth.info) || {}
   const isLogoutTriggered = useRef(false)
 
-  // const { resetRTKQState } = useResetRTKQState()
+  const { resetRTKQState } = useResetRTKQState()
 
   const redirectToLoginPage = useCallback(() => {}, [])
-
   //temporary replacement for RTKQ reset
   // const dispatch = useAppDispatch()
 
@@ -28,19 +25,20 @@ const useOnAppStart = () => {
           if (token && !isLogoutTriggered.current) {
             isLogoutTriggered.current = true
 
-            // await logOut({
-            //   isTokenExpired: true,
-            // })
+            await LogOut({
+              isTokenExpired: true,
+            })
 
             if (Platform.OS === 'web') {
-              // replace('/')
+              replace('/')
             } else {
               // clear()
-              // replace('/')
-              // setTimeout(() => push('/auth/login'), 500)
+              console.log('logout')
+              replace('/')
+              setTimeout(() => push('/auth/login'), 500)
             }
 
-            // setTimeout(resetRTKQState, 1000)
+            setTimeout(resetRTKQState, 1000)
           }
         } catch (error) {
           // dispatch(AuthActions.setAuthInfo(undefined))
@@ -51,7 +49,7 @@ const useOnAppStart = () => {
         }
       },
     })
-  }, [redirectToLoginPage, token])
+  }, [redirectToLoginPage, token, resetRTKQState])
 }
 
 export default useOnAppStart

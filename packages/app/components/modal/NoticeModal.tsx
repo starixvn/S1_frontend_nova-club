@@ -27,7 +27,7 @@ const NoticeModal = ({ modal: { closeModal, getParam } }) => {
                     {i + 1 + '.'}
                   </Text>
                 )}
-                <Text sx={{ fontSize: FONT_SIZE, flex: 1 }}>{t(content)}</Text>
+                <Text sx={{ fontSize: FONT_SIZE, flex: 1 }}>{content}</Text>
 
                 {/* <Text sx={{ textAlign: 'center', lineHeight: 20 }}>
                   {parts.map((part, index) =>
