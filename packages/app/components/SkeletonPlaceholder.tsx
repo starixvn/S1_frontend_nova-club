@@ -10,11 +10,11 @@ const SkeletonPlaceholder = ({
 }: SkeletonPlaceholderProps) => {
   return (
     <Skeleton
-      radius="square"
+      radius={5}
       colors={[
-        'rgba(216,216,216, 0.5)',
-        'rgba(0,0,0,0)',
-        'rgba(216,216,216, 0.5)',
+        'rgba(150,150,255,0.7)',
+        'rgba(0,0,0,0.2)',
+        'rgba(150,150,255,0.8)',
       ]}
       width="100%"
       {...restProps}

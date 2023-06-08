@@ -68,4 +68,5 @@ const StyledContainer = styled(View)({
   px: '$1',
   borderColor: '$primary.100',
   mx: '$pagePadding',
+  mb: '$sectionBottomSpace',
 })

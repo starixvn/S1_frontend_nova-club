@@ -1,17 +1,8 @@
-import { useGameFilter } from 'app/provider/gameFilter/GameFilterProvider'
-import { View } from 'dripsy'
-import React, { useMemo } from 'react'
-import ProviderList from './ProviderList'
-import groupBy from 'lodash/groupBy'
-import GameSectionByProvider from './GameSectionByProvider'
 import { FlashList } from '@shopify/flash-list'
-import { useWindowDimensions } from 'react-native'
+import { useGameFilter } from 'app/provider/gameFilter/GameFilterProvider'
+import groupBy from 'lodash/groupBy'
+import React, { useMemo } from 'react'
 import GameSectionByProviderItem from './GameSectionByProviderItem'
-import GamePageHeader from '../GamePageHeader'
-import BannerSection from 'app/features/home/BannerSection'
-import RecentlyPlayedSection from 'app/features/home/RecentlyPlayedSection'
-import TopGameSection from 'app/features/home/TopGameSection'
-import JackpotGameSection from 'app/features/home/JackpotGameSection'
 
 export default function GameListByProvider() {
   const { games } = useGameFilter()

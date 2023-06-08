@@ -28,6 +28,7 @@ const nextConfig = {
     domains: [
       'static.zzspeed.site',
       'static-global.static-bifrost.com', // delete this before going prod
+      'static-stage.gball8.com',
     ],
   },
   reactStrictMode: false,

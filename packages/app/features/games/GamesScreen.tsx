@@ -8,18 +8,39 @@ import {
   useGameFilter,
   withGameFilterProvider,
 } from 'app/provider/gameFilter/GameFilterProvider'
-import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'app/utils/constant'
-import React, { RefObject, useMemo, useRef, useTransition } from 'react'
+import { GAME_TYPE_CODE, GDC_GAME_CATEGORY, SlotType } from 'app/utils/constant'
+import React, {
+  RefObject,
+  useEffect,
+  useMemo,
+  useRef,
+  useTransition,
+} from 'react'
 import { Game } from 'services/gameApi.type'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 import { Platform } from 'react-native'
 import TopGameSection from '../home/TopGameSection'
+import GameListSectionAsyncByTag from 'app/components/game/GameListSectionAsyncByTag'
+import useLocalization from 'app/provider/localization'
 
 const enum FILTER_CATEGORY {
   GDC = 'gdc',
 }
 
 const GAMES_FILTER = [
+  {
+    label: 'Recommended',
+    icon: 'jackpot',
+    onPress: (scrollRef: RefObject<FlashList<Game[]>>) => {
+      if (Platform.OS === 'web') {
+        document
+          .getElementById(`recGame`)
+          ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      } else {
+        scrollRef.current?.scrollToEnd({ animated: true })
+      }
+    },
+  },
   {
     label: 'All',
     icon: 'all',
@@ -45,24 +66,27 @@ const GAMES_FILTER = [
     icon: 'lotto',
     gameType: GAME_TYPE_CODE.LOTTERY,
   },
-  {
-    label: 'Recommended',
-    icon: 'jackpot',
-    onPress: (scrollRef: RefObject<FlashList<Game[]>>) => {
-      if (Platform.OS === 'web') {
-        document
-          .getElementById(`recGame`)
-          ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-      } else {
-        scrollRef.current?.scrollToEnd({ animated: true })
-      }
-    },
-  },
 ]
 
 const _GamesScreen = () => {
   const { games, gamesByProviders, filterKey, setFilteredGames } =
     useGameFilter()
+
+  const { t } = useLocalization()
+
+  useEffect(() => {
+    if (filterKey) {
+      if (Platform.OS === 'web') {
+        document
+          .getElementById(`gameSectionSABA`)
+          ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      } else
+        flashListRef.current?.scrollToIndex({
+          animated: true,
+          index: 0,
+        })
+    }
+  }, [filterKey])
 
   const flashListRef = useRef<FlashList<Game[]>>(null)
 
@@ -105,7 +129,8 @@ const _GamesScreen = () => {
           <GamePageHeader icon="games1" title="GAMES" />
           <IconButtonGradientGroup
             sx={{
-              my: ['$3'],
+              my: ['$2'],
+              width: '100%',
               maxWidth: 550,
               alignSelf: 'center',
             }}
@@ -117,9 +142,9 @@ const _GamesScreen = () => {
                   key={r.label}
                   active={r.gameType === filterKey && !r.onPress}
                   label={r.label}
-                  size={60}
+                  size={50}
                   icon={r.icon ?? 'notice'}
-                  labelProps={{ style: { fontSize: 11 } }}
+                  labelProps={{ style: { fontSize: 11 }, numberOfLines: 2 }}
                   onPress={
                     r.onPress
                       ? () => r.onPress(flashListRef)
@@ -142,10 +167,27 @@ const _GamesScreen = () => {
             })}
           </IconButtonGradientGroup>
           <RecentlyPlayedSection />
+          <TopGameSection />
+
+          <GameListSectionAsyncByTag
+            tag={SlotType.NEW}
+            title={t('game.new').toUpperCase()}
+            icon="star"
+          />
+          <GameListSectionAsyncByTag
+            tag={SlotType.JACKPOT}
+            title={t('game.jackpot').toUpperCase()}
+            icon="jackpot"
+          />
+          <GameListSectionAsyncByTag
+            tag={SlotType.MEGAWAY}
+            title={'MEGAWAY'}
+            icon="megaway"
+          />
           <ProviderList data={providers} onNavigateProvider={onNavigate} />
         </>
       }
-      ListFooterComponent={<TopGameSection nativeID="recGame" />}
+      // ListFooterComponent={}
     />
     // <GameSectionByProvider data={gamesByProviders} />
   )

@@ -1,9 +1,9 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { Pressable, SxProp, Text, View, styled } from 'dripsy'
-import React, { ComponentType } from 'react'
+import React, { useRef, useState, useTransition } from 'react'
 import { PressableProps, StyleSheet } from 'react-native'
-import { SolitoImageProps } from 'solito/build/image/image.types'
 import { SolitoImage } from 'solito/image'
+import SkeletonPlaceholder from '../SkeletonPlaceholder'
 
 export interface GameCardProps extends PressableProps {
   name?: string
@@ -21,6 +21,20 @@ export default function GameCard({
   sx,
   ...rest
 }: GameCardProps) {
+  const lastLoadedRef = useRef(image)
+  const [loaded, setLoaded] = useState(false)
+  const [isPending, startTransition] = useTransition()
+
+  if (lastLoadedRef.current != image) {
+    lastLoadedRef.current = image
+    startTransition(() => setLoaded(false))
+  }
+
+  const imageSrc =
+    typeof image === 'number' || image.startsWith('/_next')
+      ? image
+      : `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${image}`
+
   return (
     <Root
       sx={{
@@ -31,17 +45,22 @@ export default function GameCard({
       {...rest}
     >
       <View sx={{ width: '100%', height: '100%', position: 'relative' }}>
-        <SolitoImage
-          fill
-          loading="lazy"
-          alt={name ?? ''}
-          resizeMode="cover"
-          src={
-            typeof image === 'number' || image.startsWith('/_next')
-              ? image
-              : `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${image}`
-          }
-        />
+        <SkeletonPlaceholder show={!loaded} width={'100%'} height="100%">
+          <SolitoImage
+            unoptimized
+            onLoadingComplete={() => {
+              startTransition(() => setLoaded(true))
+          }}
+            fill
+            // to supporess warning, will be ignored since unoptimized is true
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            loading="lazy"
+            alt={name ?? ''}
+            resizeMode="cover"
+            key={imageSrc}
+            src={imageSrc}
+          />
+        </SkeletonPlaceholder>
       </View>
       {name && (
         <LabelContainer>

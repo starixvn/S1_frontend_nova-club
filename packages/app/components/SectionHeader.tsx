@@ -1,8 +1,20 @@
-import { View } from 'dripsy'
+import { SxProp, View } from 'dripsy'
 import React from 'react'
 import SectionLabel from './SectionLabel'
+import { ViewProps } from 'react-native'
 
-export default function SectionHeader({ icon, title, sx, ...rest }) {
+interface SectionHeaderProps extends ViewProps {
+  sx?: SxProp
+  icon: string
+  title: string
+}
+
+export default function SectionHeader({
+  icon,
+  title,
+  sx,
+  ...rest
+}: SectionHeaderProps) {
   return (
     <View
       sx={{
