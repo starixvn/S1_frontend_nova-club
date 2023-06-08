@@ -1,5 +1,6 @@
 import React from 'react'
 import { Easing } from 'react-native'
+import LoadingModal from 'app/components/modal/LoadingModal'
 import dynamic from 'next/dynamic'
 import {
   ModalStackConfig,
@@ -17,6 +18,7 @@ type ModalStackConfigValueType = ModalStackConfig extends Record<
   : never
 
 export type ModalStackParams = {
+  LoadingModal: undefined
   AlertModal: {
     message: string
     title?: string
@@ -49,6 +51,7 @@ type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
 type DynamicModalType = keyof typeof _dynamicModal
 
 const _dynamicModal = {
+  LoadingModal: () => import('app/components/modal/LoadingModal'),
   AlertModal: () => import('app/components/modal/AlertModal'),
   ReferralModal: () => import('app/components/modal/ReferralModal'),
   NoticeModal: () => import('app/components/modal/NoticeModal'),
@@ -75,6 +78,10 @@ function getDynamicComponent(key: DynamicModalType) {
 }
 
 const modalConfig: ModalConfigType = {
+  LoadingModal: {
+    modal: LoadingModal,
+    backBehavior: 'none',
+  },
   AlertModal: {
     modal: getDynamicComponent('AlertModal'),
   },

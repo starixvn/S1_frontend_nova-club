@@ -2,7 +2,6 @@ import useLocalization from 'app/provider/localization'
 import { Pressable, Text, View, styled } from 'dripsy'
 import { Gradient } from 'dripsy/gradient'
 import React from 'react'
-import { TouchableOpacity } from 'react-native'
 import { useRouter } from 'solito/router'
 
 export enum LoginType {

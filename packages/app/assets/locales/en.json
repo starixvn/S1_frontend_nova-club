@@ -31,7 +31,7 @@
   },
   "common": {
     "player": "Player",
-    "Agent": "Agent",
+    "agent": "Agent",
     "username": "Username",
     "password": "Password",
     "transfer": "Transfer",
