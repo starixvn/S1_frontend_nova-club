@@ -268,8 +268,11 @@
       "virtualSports": "SABA Virtual Sports"
     },
     "notFound": "Trò chơi không tìm thấy",
+    "playNow": "CHƠI NGAY",
     "quitGame": "Thoát trò chơi",
+    "rebate": "Hoàn trả lên đến",
     "reward": "Phần thưởng trò chơi",
+    "slotgame": "Quay hũ & Trò Chơi",
     "unableToConnect": "Không kết nối được [%{code}]",
     "underMaintenance": "Trò chơi đang được bảo trì"
   },

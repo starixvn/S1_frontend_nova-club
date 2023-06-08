@@ -80,24 +80,28 @@ const MatchesSection = () => {
   }
 
   return (
-    <View sx={{ position: 'relative' }}>
-      <MatchesBackground bgColor={selectedBgColor} />
-      <ImageBackground
-        style={{ width: '100%', height: width / 2.56 }}
-        source={{
-          uri: `${MEDIA_DOMAIN}${CONTENT_URI}/home/matches/matches-bg.png?v=2`,
-        }}
-      >
-        {selectedMatch && (
-          <TouchableOpacity
-            onPress={() => onPress(selectedMatch)}
-            sx={{ width: '100%', height: '100%', alignItems: 'center' }}
+    <>
+      {matches && matches?.length > 0 ? (
+        <View sx={{ position: 'relative' }}>
+          <MatchesBackground bgColor={selectedBgColor} />
+          <ImageBackground
+            style={{ width: '100%', height: width / 2.56 }}
+            source={{
+              uri: `${MEDIA_DOMAIN}${CONTENT_URI}/home/matches/matches-bg.png?v=2`,
+            }}
           >
-            <MatchItem match={selectedMatch} />
-          </TouchableOpacity>
-        )}
-      </ImageBackground>
-    </View>
+            {selectedMatch && (
+              <TouchableOpacity
+                onPress={() => onPress(selectedMatch)}
+                sx={{ width: '100%', height: '100%', alignItems: 'center' }}
+              >
+                <MatchItem match={selectedMatch} />
+              </TouchableOpacity>
+            )}
+          </ImageBackground>
+        </View>
+      ) : null}
+    </>
   )
 }
 

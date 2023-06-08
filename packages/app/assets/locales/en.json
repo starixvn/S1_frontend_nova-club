@@ -268,8 +268,11 @@
       "virtualSports": "SABA Virtual Sports"
     },
     "notFound": "",
+    "playNow": "PLAY NOW",
     "quitGame": "Quit Game",
+    "rebate": "Rebate up to",
     "reward": "Game rewards",
+    "slotgame": "Slot & Games",
     "unableToConnect": "Unable to connect [%{code}]",
     "underMaintenance": "Game Under Maintenance"
   },
