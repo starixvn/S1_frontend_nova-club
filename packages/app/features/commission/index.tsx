@@ -94,10 +94,7 @@ const CommissionTableScreen = () => {
   }
 
   return (
-    <PageWithBackHeader
-      header={{ title: t('menu.commisionTable') }}
-      disableScrollView
-    >
+    <PageWithBackHeader header={{ title: 'commision.title' }} disableScrollView>
       <DataTable>
         <DataTable.Header
           size="big"
@@ -110,16 +107,16 @@ const CommissionTableScreen = () => {
           }}
         >
           <TitleCell containerStyle={{ flex: 0.4 }}>
-            {t('commission.productLists').toUpperCase()}
+            {t('commision.productLists').toUpperCase()}
           </TitleCell>
           <TitleCell center>
-            {t('commission.cashPlayer').toUpperCase()}
+            {t('commision.cashPlayer').toUpperCase()}
           </TitleCell>
           <TitleCell center>
-            {t('commission.cashPlayerReferral').toUpperCase()}
+            {t('commision.cashPlayerReferral').toUpperCase()}
           </TitleCell>
           <TitleCell center>
-            {t('commission.creditPlayer').toUpperCase()}
+            {t('commision.creditPlayer').toUpperCase()}
           </TitleCell>
         </DataTable.Header>
       </DataTable>

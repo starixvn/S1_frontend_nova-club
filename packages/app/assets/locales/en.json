@@ -58,6 +58,13 @@
     "bonus": "Bonus",
     "game": "Game"
   },
+  "commision": {
+    "title": "Commision Table",
+    "productLists": "Product Lists",
+    "cashPlayer": "Cash Player",
+    "cashPlayerReferral": "Cash Player Referral",
+    "creditPlayer": "Credit Player"
+  },
   "withdrawal": {
     "withdrawalTitle": "Withdrawal"
   },
@@ -225,7 +232,6 @@
   },
   "wallet": {
     "historyTitle": "Transaction History",
-    "transaction": "Transaction",
-    "game": "Game"
+    "transaction": "Transaction"
   }
 }

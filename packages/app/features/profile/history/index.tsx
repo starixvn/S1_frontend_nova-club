@@ -24,7 +24,7 @@ const History = () => {
   const [index, setIndex] = useState(getTab)
   const [routes] = useState([
     { key: 'first', title: t('wallet.transaction'), index: 0 },
-    { key: 'second', title: t('wallet.game'), index: 1 },
+    { key: 'second', title: t('common.game'), index: 1 },
   ])
   const layout = useWindowDimensions()
 
