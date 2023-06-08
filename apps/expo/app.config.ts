@@ -17,7 +17,7 @@ const expoConfig = ({ config }: ConfigContext): ExpoConfig => ({
     bundleIdentifier: 'com.anonymous.solitoexporouter',
   },
   androidNavigationBar: {
-    visible: 'leanback',
+    visible: 'immersive',
     barStyle: 'light-content',
     backgroundColor: '#00000000',
   },
