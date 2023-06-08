@@ -33,7 +33,7 @@ const Header = ({ title = '', actions, titleProps = {} }: HeaderProps) => {
 
   return (
     <View nativeID="pageback-header">
-      <View sx={{ paddingTop: top, px: 12, bg: '#32325A' }}>
+      <View sx={{ paddingTop: top, px: 12, bg: '$primary.500' }}>
         <StyledTop
           sx={{
             ...(isLandscape ? {} : headerHeight),

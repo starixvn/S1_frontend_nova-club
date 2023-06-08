@@ -1,3 +1,5 @@
+import { getProviderLogo } from 'app/config/games/provider'
+
 export const HEADER_HEIGHT = 60
 
 export enum LANGUAGE_CODE {
@@ -114,11 +116,11 @@ export enum ReportBonusType {
 export const ReportTransactionTypeOptions = [
   {
     value: ReportTransactionType.DEPOSIT,
-    label: 'filter.transactionType.deposit',
+    label: 'deposit.depositTitle',
   },
   {
     value: ReportTransactionType.WITHDRAWAL,
-    label: 'filter.transactionType.withdrawal',
+    label: 'withdrawal.withdrawalTitle',
   },
   {
     value: ReportTransactionType.REWARDS,
@@ -126,11 +128,11 @@ export const ReportTransactionTypeOptions = [
   },
   {
     value: ReportTransactionType.REFERRAL,
-    label: 'menu.referral',
+    label: 'referral.title',
   },
   {
     value: ReportTransactionType.TRANSFER,
-    label: 'menu.transfer',
+    label: 'transfer.transferTitle',
   },
   {
     value: ReportTransactionType.ADJUSTMENT,
@@ -142,7 +144,7 @@ export const ReportTransactionTypeOptions = [
   // },
   {
     value: ReportTransactionType.BONUS,
-    label: 'filter.transactionType.bonus',
+    label: 'common.bonus',
   },
 ]
 
@@ -186,7 +188,7 @@ export const ReportCommonStatusOptions = [
 export const ReportDepositStatusOptions = [
   {
     value: ReportDepositStatus.ALL,
-    label: 'filter.depositStatus.all',
+    label: 'common.all',
   },
   {
     value: ReportDepositStatus.PENDING,
@@ -265,6 +267,21 @@ export enum ReportGameStatus {
   LOSS = 'loss',
 }
 
+export const ReportGameStatusOptions = [
+  {
+    value: ReportGameStatus.ALL,
+    label: 'common.all',
+    icon: getProviderLogo(ReportGameStatus.ALL),
+  },
+  {
+    value: ReportGameStatus.WIN,
+    label: 'filter.gameStatus.win',
+  },
+  {
+    value: ReportGameStatus.LOSS,
+    label: 'filter.gameStatus.loss',
+  },
+]
 // export const ReportGameStatusOptions = [
 //   {
 //     value: ReportGameStatus.ALL,

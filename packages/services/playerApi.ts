@@ -145,10 +145,10 @@ export const usePlayerProfileQuery = (
 
 export const {
   usePlayerReportQuery,
-  useLazyPlayerReportQuery,
   usePlayerOverviewQuery,
   usePlayerOverviewSummaryQuery,
   useLazyPlayerProfileQuery,
+  useLazyPlayerReportQuery,
   usePlayerLangMutation,
   useUpdateProfileMutation,
   useSendUpdateProfileOTPMutation,

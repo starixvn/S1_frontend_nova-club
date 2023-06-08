@@ -1,7 +1,7 @@
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Pressable, styled, Text, View } from 'dripsy'
 import uniqueId from 'lodash/uniqueId'
-import { MotiView } from 'moti'
+import { AnimatePresence, MotiView } from 'moti'
 import {
   ComponentProps,
   ForwardedRef,
@@ -15,7 +15,8 @@ import { SheetManager } from 'react-native-actions-sheet'
 import ActionSheet, { ActionSheetProps } from '../actionSheet/ActionSheet'
 import Input, { InputProps } from '../form/Input'
 import Icon from '../Icon'
-import { InputLabelProps } from '../Label'
+import Label, { InputLabelProps } from '../Label'
+import useLocalization from 'app/provider/localization'
 
 const StyledPressable = styled(Pressable)({
   borderRadius: 9,
@@ -55,6 +56,7 @@ export type SelectProps<T> = {
   options: Options<T>[]
   placeholder: InputProps['placeholder']
   value: T
+  enabledLabel?: boolean
   _input?: Omit<
     InputProps,
     | 'placeholder'
@@ -65,6 +67,7 @@ export type SelectProps<T> = {
     | 'pointerEvents'
     | 'clickableInputContainerProps'
   >
+  inputProps?: ComponentProps<typeof Input>
   _actionSheetFlatlist?: Omit<FlatListProps<Options<T>>, 'data'>
   _actionSheetContent?: (args: {
     closeActionSheet: () => void
@@ -85,7 +88,7 @@ export const CommonHeader = (props: CommonHeaderProps) => {
         justifyContent: 'flex-end',
         alignItems: 'center',
         flexDirection: 'row',
-        backgroundColor: '$primary.100',
+        backgroundColor: '$primary.200',
       }}
     >
       <View
@@ -158,9 +161,12 @@ const Select = <T,>(
     onOpen,
     selectTriggerProps,
     contentContainerProps,
+    enabledLabel = true,
+    inputProps,
     ...rest
   } = props
 
+  const { t } = useLocalization()
   const { sheetId: passedSheetId, ...actionSheetProp } = _actionSheet || {}
   const { bottom } = useSafeArea()
   const [isOpen, toggleIsOpen] = useReducer((state) => !state, false)
@@ -187,25 +193,29 @@ const Select = <T,>(
 
   const memoArrow = useMemo(
     () => (
-      <MotiView
-        from={{
-          rotate: '0deg',
-        }}
-        animate={{
-          rotate: isOpen ? '180deg' : '0deg',
-        }}
-        transition={{
-          type: 'timing',
-        }}
-      >
-        <Icon name="down" color="white" />
-      </MotiView>
+      <AnimatePresence>
+        <MotiView
+          from={{ transform: [{ rotate: '0deg' }] }}
+          animate={{
+            transform: [{ rotate: isOpen ? '-180deg' : '0deg' }],
+          }}
+          transition={{ type: 'timing' }}
+        >
+          <Icon name="down" color="white" />
+        </MotiView>
+      </AnimatePresence>
     ),
     [isOpen]
   )
-
+  console.log(sheetId)
   return (
     <View {...rest}>
+      {/* {selectLabel ? (
+        <Label isRequired={isRequired} {...labelProps}>
+          {label}
+        </Label>
+      ) : null} */}
+
       <StyledPressable
         onPress={() => {
           openActionSheet()
@@ -217,12 +227,13 @@ const Select = <T,>(
       >
         <View pointerEvents="none">
           <Input
-            label={label}
+            label={enabledLabel ? label : undefined}
             subtitle={subtitle}
             placeholder={placeholder}
             pointerEvents="none"
-            value={selectedItem ? selectedItem.label : (value as string)}
+            value={selectedItem ? t(selectedItem.label) : (value as string)}
             action={() => memoArrow}
+            {...inputProps}
           />
         </View>
       </StyledPressable>
@@ -231,7 +242,7 @@ const Select = <T,>(
         key={sheetId}
         sheetId={sheetId}
         CustomHeaderComponent={
-          label ? <CommonHeader label={label} /> : undefined
+          label ? <CommonHeader label={label.toUpperCase()} /> : undefined
         }
         onClose={toggleIsOpen}
         {...actionSheetProp}
@@ -262,7 +273,7 @@ const Select = <T,>(
                       opacity: pressed ? 0.7 : 1,
                     })}
                     onPress={() => {
-                      onSelected(item.value)
+                      onSelected(item)
                       closeActionSheet()
                     }}
                   >
@@ -272,7 +283,7 @@ const Select = <T,>(
                         fontWeight: '500',
                       }}
                     >
-                      {item?.label}
+                      {t(item.label)}
                     </Text>
                   </Pressable>
                 )

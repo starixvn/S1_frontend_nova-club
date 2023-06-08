@@ -19,6 +19,7 @@ import {
 import { storage } from './persistStorage/index'
 import { Setting, settingReducer } from 'app/store/setting.slice'
 import { baseApi } from '../../../services/baseApi'
+import { depositReducer } from 'app/store/deposit.slice'
 
 const migrations = {
   5: (s: PersistedState) => {},
@@ -68,7 +69,7 @@ const rootReducer = combineReducers({
   // alert: alertReducer,
   auth: authReducer,
   // bank: bankReducer,
-  // deposit: depositReducer,
+  deposit: depositReducer,
   setting: settingReducer,
   // tempSetting: tempSettingReducer,
   // gameLauncher: gameLauncherReducer,

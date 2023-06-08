@@ -1,0 +1,512 @@
+[
+  {
+    "gameName": "Jump High",
+    "vi": "Nhảy cao",
+    "providerCode": "CQ9",
+    "gameCode": "52"
+  },
+  {
+    "gameName": "Disco Night M",
+    "vi": "Đêm nhạc disco M",
+    "providerCode": "CQ9",
+    "gameCode": "137"
+  },
+  {
+    "gameName": "Fire Queen",
+    "vi": "NỮ HOÀNG LỬA",
+    "providerCode": "CQ9",
+    "gameCode": "83"
+  },
+  {
+    "gameName": "Fa Cai Shen",
+    "vi": "Trò chơi Fa Cai Shen",
+    "providerCode": "CQ9",
+    "gameCode": "69"
+  },
+  {
+    "gameName": "Fa Cai Shen2",
+    "vi": "Trò chơi Fa Cai Shen 2",
+    "providerCode": "CQ9",
+    "gameCode": "160"
+  },
+  {
+    "gameName": "Jump High 2",
+    "vi": "Nhảy cao 2",
+    "providerCode": "CQ9",
+    "gameCode": "179"
+  },
+  {
+    "gameName": "DiscoNight",
+    "vi": "Đêm nhạc disco",
+    "providerCode": "CQ9",
+    "gameCode": "205"
+  },
+  {
+    "gameName": "Rave Jump",
+    "vi": "Mê sảng",
+    "providerCode": "CQ9",
+    "gameCode": "7"
+  },
+  {
+    "gameName": "Treasure Bowl",
+    "vi": "Chum vàng",
+    "providerCode": "CQ9",
+    "gameCode": "74"
+  },
+  {
+    "gameName": "Dragon Heart",
+    "vi": "Tim rồng",
+    "providerCode": "CQ9",
+    "gameCode": "55"
+  },
+  {
+    "gameName": "Zeus",
+    "vi": "Thần sấm",
+    "providerCode": "CQ9",
+    "gameCode": "64"
+  },
+  {
+    "gameName": "Fly Out",
+    "vi": "Bay lên",
+    "providerCode": "CQ9",
+    "gameCode": "111"
+  },
+  {
+    "gameName": "Lucky Bats",
+    "vi": "Chú dơi may mắn",
+    "providerCode": "CQ9",
+    "gameCode": "10"
+  },
+  {
+    "gameName": "5 God beasts",
+    "vi": "5 Linh vật",
+    "providerCode": "CQ9",
+    "gameCode": "117"
+  },
+  {
+    "gameName": "Dragon Ball",
+    "vi": "Ngọc Rồng",
+    "providerCode": "CQ9",
+    "gameCode": "185"
+  },
+  {
+    "gameName": "Good Fortune",
+    "vi": "Vận mệnh tốt",
+    "providerCode": "CQ9",
+    "gameCode": "50"
+  },
+  {
+    "gameName": "Fire Queen 2",
+    "vi": "NỮ HOÀNG LỬA 2",
+    "providerCode": "CQ9",
+    "gameCode": "186"
+  },
+  {
+    "gameName": "Zuma Wild",
+    "vi": "Inca Ball",
+    "providerCode": "CQ9",
+    "gameCode": "122"
+  },
+  {
+    "gameName": "WaterWorld",
+    "vi": "Thế giới nước",
+    "providerCode": "CQ9",
+    "gameCode": "29"
+  },
+  {
+    "gameName": "Fa Cai Shen M",
+    "vi": "Trò chơi Fa Cai Shen M",
+    "providerCode": "CQ9",
+    "gameCode": "131"
+  },
+  {
+    "gameName": "Super5",
+    "vi": "Super5",
+    "providerCode": "CQ9",
+    "gameCode": "16"
+  },
+  {
+    "gameName": "Rave Jump2",
+    "vi": "Mê sảng 2",
+    "providerCode": "CQ9",
+    "gameCode": "24"
+  },
+  {
+    "gameName": "Snow Queen",
+    "vi": "Nữ hoàng tuyết",
+    "providerCode": "CQ9",
+    "gameCode": "115"
+  },
+  {
+    "gameName": "Flower Fortunes",
+    "vi": "Pháo đài hoa",
+    "providerCode": "CQ9",
+    "gameCode": "147"
+  },
+  {
+    "gameName": "Golden Eggs",
+    "vi": "TRỨNG VÀNG",
+    "providerCode": "CQ9",
+    "gameCode": "67"
+  },
+  {
+    "gameName": "Good Fortune M",
+    "vi": "Vận mệnh tốt M",
+    "providerCode": "CQ9",
+    "gameCode": "133"
+  },
+  {
+    "gameName": "Jump Higher",
+    "vi": "Nhảy Cao Hơn",
+    "providerCode": "CQ9",
+    "gameCode": "99"
+  },
+  {
+    "gameName": "Chameleon",
+    "vi": "Chameleon",
+    "providerCode": "CQ9",
+    "gameCode": "79"
+  },
+  {
+    "gameName": "Flying Cai Shen",
+    "vi": "Thần tài bay",
+    "providerCode": "CQ9",
+    "gameCode": "113"
+  },
+  {
+    "gameName": "888",
+    "vi": "888",
+    "providerCode": "CQ9",
+    "gameCode": "20"
+  },
+  {
+    "gameName": "God of War",
+    "vi": "Thần chiến tranh",
+    "providerCode": "CQ9",
+    "gameCode": "31"
+  },
+  {
+    "gameName": "Hercules",
+    "vi": "Thần Hercules",
+    "providerCode": "CQ9",
+    "gameCode": "161"
+  },
+  {
+    "gameName": "Apollo",
+    "vi": "Apollo",
+    "providerCode": "CQ9",
+    "gameCode": "78"
+  },
+  {
+    "gameName": "All Star Team",
+    "vi": "Đội bóng toàn ngôi sao",
+    "providerCode": "CQ9",
+    "gameCode": "98"
+  },
+  {
+    "gameName": "Money Tree",
+    "vi": "Cây Hái Ra Tiền",
+    "providerCode": "CQ9",
+    "gameCode": "208"
+  },
+  {
+    "gameName": "Poseidon",
+    "vi": "VUA THỦY TỀ",
+    "providerCode": "CQ9",
+    "gameCode": "80"
+  },
+  {
+    "gameName": "Invincible Elephant",
+    "vi": "Voi bất khả chiến bại",
+    "providerCode": "CQ9",
+    "gameCode": "124"
+  },
+  {
+    "gameName": "Six Candy",
+    "vi": "Sáu viên kẹo",
+    "providerCode": "CQ9",
+    "gameCode": "153"
+  },
+  {
+    "gameName": "5 Boxing",
+    "vi": "5 trận chiến",
+    "providerCode": "CQ9",
+    "gameCode": "157"
+  },
+  {
+    "gameName": "The Beast War",
+    "vi": "Cuộc chiến quái thú",
+    "providerCode": "CQ9",
+    "gameCode": "57"
+  },
+  {
+    "gameName": "Thor 2",
+    "vi": "Thor 2",
+    "providerCode": "CQ9",
+    "gameCode": "182"
+  },
+  {
+    "gameName": "Jumping Mobile",
+    "vi": "Nhảy cao Di động",
+    "providerCode": "CQ9",
+    "gameCode": "105"
+  },
+  {
+    "gameName": "Move n' Jump",
+    "vi": "Di chuyển và nhảy",
+    "providerCode": "CQ9",
+    "gameCode": "138"
+  },
+  {
+    "gameName": "Thor",
+    "vi": "Thor",
+    "providerCode": "CQ9",
+    "gameCode": "89"
+  },
+  {
+    "gameName": "777",
+    "vi": "777",
+    "providerCode": "CQ9",
+    "gameCode": "26"
+  },
+  {
+    "gameName": "GuGuGu",
+    "vi": "GuGuGu",
+    "providerCode": "CQ9",
+    "gameCode": "15"
+  },
+  {
+    "gameName": "Hot Spin",
+    "vi": "Quay nóng",
+    "providerCode": "CQ9",
+    "gameCode": "19"
+  },
+  {
+    "gameName": "Aladdin's lamp",
+    "vi": "Aladdin & Cây Đèn Thần",
+    "providerCode": "CQ9",
+    "gameCode": "177"
+  },
+  {
+    "gameName": "Cricket Fever",
+    "vi": "Cơn Sốt Bóng Chày",
+    "providerCode": "CQ9",
+    "gameCode": "188"
+  },
+  {
+    "gameName": "Uproar in Heaven",
+    "vi": "Đại Náo Thiên Cung",
+    "providerCode": "CQ9",
+    "gameCode": "5009"
+  },
+  {
+    "gameName": "All Wilds",
+    "vi": "Tất cả vùng hoang dã",
+    "providerCode": "CQ9",
+    "gameCode": "38"
+  },
+  {
+    "gameName": "God of War M",
+    "vi": "Thần chiến tranh M",
+    "providerCode": "CQ9",
+    "gameCode": "127"
+  },
+  {
+    "gameName": "Fa Cai Fu Wa",
+    "vi": "Fa Cai Fu Wa",
+    "providerCode": "CQ9",
+    "gameCode": "143"
+  },
+  {
+    "gameName": "Red Phoenix",
+    "vi": "Phượng Hoàng Đỏ",
+    "providerCode": "CQ9",
+    "gameCode": "77"
+  },
+  {
+    "gameName": "Apsaras",
+    "vi": "Apsaras",
+    "providerCode": "CQ9",
+    "gameCode": "39"
+  },
+  {
+    "gameName": "Jump Higher Mobile",
+    "vi": "Nhảy Cao Hơn Di động",
+    "providerCode": "CQ9",
+    "gameCode": "108"
+  },
+  {
+    "gameName": "So Sweet",
+    "vi": "Thật ngọt ngào",
+    "providerCode": "CQ9",
+    "gameCode": "8"
+  },
+  {
+    "gameName": "WonWonWon",
+    "vi": "Hoan hô, đã thắng!",
+    "providerCode": "CQ9",
+    "gameCode": "76"
+  },
+  {
+    "gameName": "Kronos",
+    "vi": "Thần Kronos",
+    "providerCode": "CQ9",
+    "gameCode": "154"
+  },
+  {
+    "gameName": "Da Fa Cai",
+    "vi": "Đại Phát Tài",
+    "providerCode": "CQ9",
+    "gameCode": "5007"
+  },
+  {
+    "gameName": "Thai HILO",
+    "vi": "Tài Xỉu Kiểu Thái",
+    "providerCode": "CQ9",
+    "gameCode": "207"
+  },
+  {
+    "gameName": "Xoc Dia",
+    "vi": "Xóc Đĩa",
+    "providerCode": "CQ9",
+    "gameCode": "216"
+  },
+  {
+    "gameName": "Rave Jump Mobile",
+    "vi": "Mê sảng Di động",
+    "providerCode": "CQ9",
+    "gameCode": "109"
+  },
+  {
+    "gameName": "6 Toros",
+    "vi": "6 bò đực",
+    "providerCode": "CQ9",
+    "gameCode": "173"
+  },
+  {
+    "gameName": "Da Hong Zhong",
+    "vi": "Đại Hồng Trung",
+    "providerCode": "CQ9",
+    "gameCode": "5008"
+  },
+  {
+    "gameName": "Pyramid Raider",
+    "vi": "Pyramid Raider",
+    "providerCode": "CQ9",
+    "gameCode": "112"
+  },
+  {
+    "gameName": "Floating Market",
+    "vi": "Chợ Nổi Trái Cây",
+    "providerCode": "CQ9",
+    "gameCode": "220"
+  },
+  {
+    "gameName": "MuayThai",
+    "vi": "Quyền anh Thái",
+    "providerCode": "CQ9",
+    "gameCode": "201"
+  },
+  {
+    "gameName": "Wing Chun",
+    "vi": "Vĩnh Xuân",
+    "providerCode": "CQ9",
+    "gameCode": "187"
+  },
+  {
+    "gameName": "Wolf Moon",
+    "vi": "Trăng sói",
+    "providerCode": "CQ9",
+    "gameCode": "46"
+  },
+  {
+    "gameName": "Happy Rich Year",
+    "vi": "Năm Mới Phát Tài",
+    "providerCode": "CQ9",
+    "gameCode": "72"
+  },
+  {
+    "gameName": "Shou-Xin",
+    "vi": "Shou-Xin",
+    "providerCode": "CQ9",
+    "gameCode": "150"
+  },
+  {
+    "gameName": "Fortune Dragon",
+    "vi": "Phi Long Tại Thiên",
+    "providerCode": "CQ9",
+    "gameCode": "194"
+  },
+  {
+    "gameName": "Vampire Kiss",
+    "vi": "Nụ hôn ma cà rồng",
+    "providerCode": "CQ9",
+    "gameCode": "3"
+  },
+  {
+    "gameName": "Mr. Bean",
+    "vi": "Mr. Bean",
+    "providerCode": "CQ9",
+    "gameCode": "61"
+  },
+  {
+    "gameName": "King Kong Shake",
+    "vi": "Chú Khỉ Bartender",
+    "providerCode": "CQ9",
+    "gameCode": "219"
+  },
+  {
+    "gameName": "Greek Gods",
+    "vi": "Thần Thoại Hy Lạp",
+    "providerCode": "CQ9",
+    "gameCode": "171"
+  },
+  {
+    "gameName": "Acrobatics",
+    "vi": "Xiếc nhào lộn",
+    "providerCode": "CQ9",
+    "gameCode": "223"
+  },
+  {
+    "gameName": "Thai Fish Prawn Crab",
+    "vi": "Bầu Cua Tôm Cá Thái",
+    "providerCode": "CQ9",
+    "gameCode": "GB11"
+  },
+  {
+    "gameName": "Lucky Tigers",
+    "vi": "Lucky Tigers",
+    "providerCode": "CQ9",
+    "gameCode": "226"
+  },
+  {
+    "gameName": "Mr. Miser",
+    "vi": "Yêu Tinh May Mắn",
+    "providerCode": "CQ9",
+    "gameCode": "225"
+  },
+  {
+    "gameName": "K.O. Island",
+    "vi": "Đảo Mạo Hiểm",
+    "providerCode": "CQ9",
+    "gameCode": "224"
+  },
+  {
+    "gameName": "888 Cai Shen",
+    "vi": "Thần Tài 888",
+    "providerCode": "CQ9",
+    "gameCode": "227"
+  },
+  {
+    "gameName": "Football Feve",
+    "vi": "Bóng Đá Cuồng Nhiệt",
+    "providerCode": "CQ9",
+    "gameCode": "GB9"
+  },
+  {
+    "gameName": "Mirror Mirror",
+    "vi": "Gương Thần",
+    "providerCode": "CQ9",
+    "gameCode": "228"
+  }
+]

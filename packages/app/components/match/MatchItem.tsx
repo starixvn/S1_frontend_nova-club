@@ -1,7 +1,7 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { MatchLeagueLogoMapping } from 'app/constants/recMatchMapping'
 import dayjsTz from 'app/utils/dayjs'
-import dayjs, { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
 import { Row, Text, View, styled } from 'dripsy'
 import { MotiView } from 'moti'
 import React, { useState } from 'react'
@@ -31,7 +31,6 @@ export default function MatchItem({ width, match }: Props) {
       dateDisplay = gmt7.format('DD MMM YYYY') + '\n' + gmt7.format('hh:mmA')
   } catch (e) {
     // Android Hermes will hit error if using dayjsTz
-    console.log('gmt7 error', e)
   }
   const homeFlag = getFlagPath(match.HomeName)
   const awayFlag = getFlagPath(match.AwayName)
