@@ -26,7 +26,7 @@ const WinnerList = ({ label, list }) => {
               py: 8,
               px: 24,
               mb: 8,
-              width: ['100%', '70%'],
+              width: ['85%', '60%'],
               justifyContent: 'center',
             }}
           >
