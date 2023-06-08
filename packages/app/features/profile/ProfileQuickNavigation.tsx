@@ -1,9 +1,10 @@
 import Icon from 'app/components/Icon'
+import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import { Profile_Quick_Navigation_Path } from 'app/navigation/RoutePath'
-import { Text, View, styled, useDripsyTheme } from 'dripsy'
+import { Pressable, Text, View, styled, useDripsyTheme } from 'dripsy'
 import { Gradient } from 'dripsy/gradient'
 import { Platform, useWindowDimensions } from 'react-native'
-import { Link } from 'solito/link'
+import { useRouter } from 'solito/router'
 
 const CARD_SIZE = 80
 
@@ -14,6 +15,16 @@ const ProfileQuickNavigation = () => {
   const CARD_PER_ROW = Math.floor((Platform.OS, containerWidth / CARD_SIZE - 1))
   const totalCard = Profile_Quick_Navigation_Path.length
   const numEmptyCard = CARD_PER_ROW - (totalCard % CARD_PER_ROW)
+  const { push } = useRouter()
+  const { logout } = useOnAppLogout()
+
+  const TrigerLogout = async () => {
+    try {
+      await logout()
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   const renderEmptyCard = (index: number) => {
     return (
@@ -32,7 +43,12 @@ const ProfileQuickNavigation = () => {
 
   const renderNavigationCard = (r, index) => {
     return (
-      <Link key={r.label} href={r.path ?? '/'}>
+      <Pressable
+        key={r.label}
+        onPress={() =>
+          r.label === 'logout' ? TrigerLogout() : push(r.path ?? '/')
+        }
+      >
         <Gradient
           colors={theme.linearGradients.surface}
           sx={{
@@ -64,7 +80,7 @@ const ProfileQuickNavigation = () => {
             {r.label}
           </Text>
         </Gradient>
-      </Link>
+      </Pressable>
     )
   }
 
