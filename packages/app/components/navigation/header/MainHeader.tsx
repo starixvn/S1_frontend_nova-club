@@ -168,6 +168,7 @@ const MainHeader = () => {
                 py: '$2',
               },
             }}
+            onPress={() => push('/auth/register')}
           >
             {t('authentication.register')}
           </Button>

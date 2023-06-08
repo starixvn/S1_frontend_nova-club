@@ -14,7 +14,6 @@ const useOnAppStart = () => {
   const { resetRTKQState } = useResetRTKQState()
 
   const redirectToLoginPage = useCallback(() => {}, [])
-  console.log('hailat')
   //temporary replacement for RTKQ reset
   // const dispatch = useAppDispatch()
 
@@ -23,8 +22,6 @@ const useOnAppStart = () => {
       store,
       onTokenExpired: async () => {
         try {
-          console.log('ontoken Expired!~!@#@!#@!#!@#')
-          console.log('Token', token)
           if (token && !isLogoutTriggered.current) {
             isLogoutTriggered.current = true
 
