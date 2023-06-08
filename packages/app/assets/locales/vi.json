@@ -164,8 +164,7 @@
         "won": "XIN CHÚC MỪNG!",
         "won2": "BẠN ĐÃ TRÚNG THƯỞNG"
       },
-      "tnc": {
-      }
+      "tnc": {}
     },
     "claim": "ĐỔI VÉ THƯỞNG CỦA BẠN NGAY",
     "prediction": {
@@ -344,11 +343,10 @@
     },
     "rewards": {
       "n1": "Các loại games KHÔNG áp dụng cho hoàn trả/hoa hồng bao gồm: doanh thu của các games bàn không trực tiếp (ví dụ Blackjack, Video Poker, Craps, American Roulette, Baccarat, và các loại game bàn không trực tiếp khác) và các game không thuộc quay hũ. Các game này sẽ không được tính vào yêu cầu doanh thu trừ khi được ĐẶC BIỆT nêu rõ điều ngược lại.",
-      "n2": "\nNgoại lệ đặc biệt:",
-      "n3": "[Sportsbook] Chỉ các cược có kết quả thắng thua mới được hoàn trả. Cược hủy, cược trống, cược có tỷ lệ dưới 1.7 (Decimal odd); 0.7 (China odd); 0.7 (Malay Positive odd); -1.43 (Indo odd); -143 (US odd), hoặc cược hai bên trong cùng một trận không được hoàn trả.",
-      "n4": "[Live Casino] Tất cả các video game Blackjack (21) và Roulette TRỰC TIẾP",
-      "n5": "[Quay hũ] Tất cả các game video Poker, Table, Arcade, bắn cá, quay hũ nhiều vòng, Lucky God Progressive 2, Golden Tour, Ugga Bugga, Liu Fu Shou, quay hũ thưởng đôi trong tất cả các phòng quay hũ, và trò trong phòng game xx slot.",
-      "n6": "\n*Lưu ý: Quy định về phần thưởng của công ty có thể thay đổi. Trong bất cứ trường hợp nào, quyết định của Vui123 là cuối cùng."
+      "n2": "Ngoại lệ đặc biệt: \n[Sportsbook] Chỉ các cược có kết quả thắng thua mới được hoàn trả. Cược hủy, cược trống, cược có tỷ lệ dưới 1.7 (Decimal odd); 0.7 (China odd); 0.7 (Malay Positive odd); -1.43 (Indo odd); -143 (US odd), hoặc cược hai bên trong cùng một trận không được hoàn trả.",
+      "n3": "[Live Casino] Tất cả các video game Blackjack (21) và Roulette TRỰC TIẾP",
+      "n4": "[Quay hũ] Tất cả các game video Poker, Table, Arcade, bắn cá, quay hũ nhiều vòng, Lucky God Progressive 2, Golden Tour, Ugga Bugga, Liu Fu Shou, quay hũ thưởng đôi trong tất cả các phòng quay hũ, và trò trong phòng game xx slot.",
+      "n5": "*Lưu ý: Quy định về phần thưởng của công ty có thể thay đổi. Trong bất cứ trường hợp nào, quyết định của Vui123 là cuối cùng. \n**Lưu ý: Tiền hoàn trả không bao gồm cược miễn phí và các tiền thưởng khuyến mãi khác."
     },
     "topUpCard": {
       "n1": "Vui lòng chọn đúng mệnh giá và nhà mạng, nếu quý khách nhập sai, Vui123 không chịu trách nhiệm.",
