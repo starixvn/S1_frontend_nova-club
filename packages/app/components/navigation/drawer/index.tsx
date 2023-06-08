@@ -1,6 +1,6 @@
 import { useDrawer } from 'app/hooks/useDrawer'
 import { Pressable, View, styled } from 'dripsy'
-import { MotiView, useAnimationState } from 'moti/build'
+import { MotiView, useAnimationState } from 'moti'
 import React, { useEffect } from 'react'
 import { useWindowDimensions } from 'react-native'
 import DrawerContent from './DrawerContent'
@@ -22,7 +22,7 @@ export default function Drawer({ children }) {
     } else {
       useDrawerAnimation.transitionTo('from')
     }
-  }, [isOpen])
+  }, [isOpen, useDrawerAnimation])
 
   return (
     <View sx={{ flex: 1 }}>
