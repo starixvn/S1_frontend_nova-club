@@ -1,6 +1,7 @@
 import Icon from 'app/components/Icon'
 import IconButton from 'app/components/IconButton'
 import { useDrawer } from 'app/hooks/useDrawer'
+import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { copyToClipboard } from 'app/utils'
 import { Pressable, ScrollView, Text, View } from 'dripsy'
@@ -14,6 +15,7 @@ export default function DrawerContent() {
   const { top, bottom } = useSafeArea()
   const { height } = useWindowDimensions()
   const { isOpen, toggleDrawer } = useDrawer()
+  const { logout } = useOnAppLogout()
 
   const { isCreditMember, data: playerData } = usePlayerProfileQuery()
 
@@ -66,8 +68,12 @@ export default function DrawerContent() {
     {
       iconName: 'logout',
       text: 'Logout',
-      onPress: () => {
-        push('/auth/login')
+      onPress: async () => {
+        try {
+          await logout()
+        } catch (error) {
+          console.error(error)
+        }
       },
     },
   ]
