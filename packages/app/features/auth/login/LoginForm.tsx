@@ -1,5 +1,7 @@
+import Button from 'app/components/common/Button'
 import CheckBox from 'app/components/common/CheckBox'
 import Input from 'app/components/form/Input'
+import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch } from 'app/provider/redux/store'
 import { AuthActions } from 'app/store/authReducer'
@@ -7,9 +9,9 @@ import validation, {
   PASSWORD_MAX_LENGTH,
   USERNAME_MAX_LENGTH,
 } from 'app/utils/validation'
-import { ActivityIndicator, Pressable, Text, View, styled } from 'dripsy'
+import { Pressable, Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { TextInput } from 'react-native'
 import { useLoginMutation } from 'services/authApi'
 import { createParam } from 'solito'
@@ -30,7 +32,7 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
   // const [agentLogin] = useAgentLoginMutation()
 
   const { t } = useLocalization()
-  // const { showAlert } = useAlert()
+  const { showAlert } = useAlert()
   const [errorMsg, setErrorMsg] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { replace, push, back } = useRouter()
@@ -87,7 +89,7 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
         throw new Error(message)
       }
     } catch (error) {
-      // showAlert(error)
+      showAlert(error)
 
       setIsSubmitting(false)
     }
@@ -209,32 +211,17 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
         </View>
       </View>
 
-      <ButtonContainer sx={{ bg: '$secondary.500' }} onPress={submitForm}>
-        {isSubmitting ? <ActivityIndicator /> : <ButtonText>LOGIN</ButtonText>}
-      </ButtonContainer>
-      <ButtonContainer
-        sx={{ bg: '$primary.300' }}
+      <Button onPress={submitForm} sx={{ my: '$2' }}>
+        {t('authentication.login')}
+      </Button>
+      <Button
         onPress={() => push('/auth/register')}
+        sx={{ bg: '$primary.300', my: '$2' }}
       >
-        <ButtonText>Register</ButtonText>
-      </ButtonContainer>
+        {t('authentication.register')}
+      </Button>
     </View>
   )
 }
-
-const ButtonContainer = styled(Pressable)({
-  borderRadius: 15,
-  mb: 20,
-  alignItems: 'center',
-})
-
-const ButtonText = styled(Text)({
-  width: '100%',
-  py: 15,
-  px: 25,
-  textAlign: 'center',
-  textTransform: 'uppercase',
-  fontWeight: 'bold',
-})
 
 export default LoginForm
