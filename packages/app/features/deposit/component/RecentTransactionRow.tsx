@@ -28,7 +28,7 @@ const RecentTransactionRow = ({ item }) => {
   })
 
   return (
-    <View sx={{ bg: '$primary.200', py: 2, mb: 10 }}>
+    <View sx={{ bg: '$primary.200', py: 2, mb: 20 }}>
       <View
         sx={{ bg: '$primary.500', flexDirection: 'row', py: '$3', px: '$3' }}
       >
