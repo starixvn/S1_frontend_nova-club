@@ -26,6 +26,7 @@ const nextConfig = {
   images: {
     disableStaticImages: true,
     domains: [
+      'static-stage.gball8.com',
       'static.zzspeed.site',
       'static-global.static-bifrost.com', // delete this before going prod
       'static-stage.gball8.com',
@@ -75,6 +76,24 @@ const nextConfig = {
     'zeego',
     '@shopify/flash-list',
     'recyclerlistview',
+    'react-native-confirmation-code-field',
+    "react-native-actions-sheet",
+    "react-native-barcode-mask",
+    "react-native-confirmation-code-field",
+    "react-native-date-picker",
+    "react-native-ios-context-menu",
+    "react-native-mask-input",
+    "react-native-modalfy",
+    "react-native-pager-view",
+    "react-native-safe-area-context",
+    "react-native-screens",
+    "react-native-share",
+    "react-native-tab-view",
+    "react-native-view-shot",
+    "react-qr-reader",
+    "react-redux",
+    "react-web-share",
+    "redux-persist",
   ],
 }
 
