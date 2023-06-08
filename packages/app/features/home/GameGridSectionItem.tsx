@@ -1,4 +1,5 @@
 import SkeletonPlaceholder from 'app/components/SkeletonPlaceholder'
+import { FONT_TOP_OFFSET } from 'app/constants/font'
 import useLocalization from 'app/provider/localization'
 import { Pressable, Text, View, styled } from 'dripsy'
 import { Video, ResizeMode } from 'expo-av'
@@ -62,9 +63,10 @@ export default function GameGridSectionItem({ type, src, title, ...rest }) {
               <LabelContainer>
                 <Text
                   sx={{
+                    mt: FONT_TOP_OFFSET,
                     textAlign: 'center',
                     fontWeight: 'bold',
-                    fontSize: [14, 16],
+                    fontSize: [12, 14],
                   }}
                 >
                   {t(title)}
@@ -85,5 +87,5 @@ const LabelContainer = styled(View)({
   position: 'absolute',
   bottom: 0,
   width: '100%',
-  py: '$2',
+  py: '$1',
 })

@@ -1,13 +1,25 @@
-import { Row, Text, View, styled, useDripsyTheme } from 'dripsy'
+import { Row, SxProp, Text, View, styled, useDripsyTheme } from 'dripsy'
 import React from 'react'
-import Icon from './Icon'
+import Icon, { IconProps } from './Icon'
 import { MotiView } from 'moti'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
 import { Shadow } from 'react-native-shadow-2'
 import ShadowButton from './ShadowButton'
+import { ViewProps } from 'react-native'
 
-export default function SectionLabel({ icon, iconProps, title, sx }) {
-  const { theme } = useDripsyTheme()
+interface SectionLabelProps extends ViewProps {
+  sx?: SxProp
+  icon: string
+  title: string
+  iconProps?: IconProps
+}
+
+export default function SectionLabel({
+  icon,
+  iconProps,
+  title,
+  sx,
+}: SectionLabelProps) {
   return (
     <Row sx={{ alignItems: 'center', ...sx }}>
       <ShadowButton
@@ -33,13 +45,3 @@ export default function SectionLabel({ icon, iconProps, title, sx }) {
     </Row>
   )
 }
-
-const IndentIconContainer = styled(View)({
-  width: [20, 25],
-  height: [20, 25],
-  bg: '$primary.700',
-  alignItems: 'center',
-  justifyContent: 'center',
-  p: ['$1'],
-  borderRadius: 100,
-})

@@ -11,11 +11,13 @@ import {
   GetGameUrlQueryArgs,
   GetGameUrlResult,
 } from './gameApi.type'
-import { sleep } from 'utils/common'
 
 /**
  * @param builder Pass builder from `createApi` *endpoints*
  */
+
+const GAME_BY_TAG_LIMIT = 30
+
 export const gameApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
     goToGame: builder.mutation<
@@ -60,6 +62,27 @@ export const gameApi = baseApiWithTag.injectEndpoints({
           isStaticApi: true,
         },
       }),
+    }),
+    getGameListByTags: builder.query<Game[], string[]>({
+      query: (tags) => ({
+        url: `/static_api/getGameList`,
+        method: 'POST',
+        data: {
+          currency: Currency.VND,
+          game_category: [],
+          limit: GAME_BY_TAG_LIMIT,
+          offset: 0,
+          gdc_game_category: [],
+          gdc_tag: tags,
+        },
+        _config: {
+          isStaticApi: true,
+        },
+      }),
+      transformResponse: ({ data }: { data: GetGameListResult }) => {
+        console.log('data', data)
+        return data?.rows ?? []
+      },
     }),
     featuredGameList: builder.query<IResponse<GetGameListResult>, string>({
       query: (data) => ({
@@ -129,4 +152,5 @@ export const {
   useGameListMultipleQuery,
   useGameListQuery,
   useGetGameListQuery,
+  useGetGameListByTagsQuery,
 } = gameApi

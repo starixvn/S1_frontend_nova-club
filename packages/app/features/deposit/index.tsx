@@ -1,12 +1,18 @@
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import useLocalization from 'app/provider/localization'
-import { ActivityIndicator, Text, View } from 'dripsy'
+import { ActivityIndicator, ScrollView, Text, View } from 'dripsy'
 import DepositCard from './component/DepositCard'
 import useCheckMobile from 'app/hooks/useCheckMobile'
 import { useDepositPaymentListQuery } from 'services/deposit'
 import { DepositMethodId, PaymentMethod } from 'app/constants/deposit'
 import { useState } from 'react'
 import { useRouter } from 'solito/router'
+import RecentTransactionRow from './component/RecentTransactionRow'
+import RefreshButton from 'app/components/RefreshButton'
+import EmptyResult from 'app/components/dataTable/EmptyResult'
+import { usePlayerReportQuery } from 'services/playerApi'
+import { ReportDepositStatus, ReportTransactionType } from 'app/utils/constant'
+import dayjsTz from 'app/utils/dayjs'
 
 const Deposit = () => {
   const { t } = useLocalization()
@@ -17,6 +23,23 @@ const Deposit = () => {
   const { data, isLoading } = useDepositPaymentListQuery({
     is_mobile: isMobile ? 0 : 1,
   })
+
+  const {
+    data: transactionData,
+    isFetching,
+    isLoading: transactionIsLoading,
+    refetch,
+  } = usePlayerReportQuery(
+    {
+      limit: 5,
+      offset: 0,
+      status: ReportDepositStatus.ALL,
+      time_from: dayjsTz().subtract(2, 'month').startOf('date').toISOString(),
+      time_to: dayjsTz().endOf('date').toISOString(),
+      trans_type: ReportTransactionType.DEPOSIT,
+    },
+    { refetchOnMountOrArgChange: true }
+  )
 
   const handlePress = (id) => {
     switch (id) {
@@ -75,9 +98,33 @@ const Deposit = () => {
           </View>
         </>
       ) : null}
-      <View>
-        <Text>Recent Transction</Text>
+      <View
+        sx={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          px: '$pagePadding',
+          py: '$2',
+          mt: '$4',
+        }}
+      >
+        <Text>{t('transaction.recent')}</Text>
+        <RefreshButton
+          // loading={isFetching}
+          onPress={refetch}
+        />
       </View>
+      <ScrollView>
+        {transactionIsLoading ? (
+          <ActivityIndicator size="large" />
+        ) : transactionData?.data?.row_count_total ?? 0 > 0 ? (
+          transactionData?.data?.rows.map((item) => (
+            <RecentTransactionRow key={item.tx_code} item={item} />
+          ))
+        ) : (
+          <EmptyResult />
+        )}
+      </ScrollView>
     </PageWithBackHeader>
   )
 }

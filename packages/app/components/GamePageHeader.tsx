@@ -14,7 +14,7 @@ export default function GamePageHeader({ icon, title }) {
         bg: '$primary.300',
         borderTopRightRadius: 30,
         borderBottomRightRadius: 30,
-        py: '$1',
+        py: ['$1', '$2'],
         pr: ['$2', '$3'],
         pl: ['$3', '$4'],
         alignItems: 'center',
@@ -26,11 +26,11 @@ export default function GamePageHeader({ icon, title }) {
         containerStyle={{
           aspectRatio: 1 / 1,
           borderRadius: 24,
-          px: '$2',
-          py: '$2',
+          px: ['$1', 6],
+          py: ['$1', 6],
         }}
       >
-        <Icon name={icon} sx={{ fontSize: [18, 20, 22] }} />
+        <Icon name={icon} sx={{ fontSize: [14, 18] }} />
       </ShadowButton>
 
       <Text
@@ -38,7 +38,7 @@ export default function GamePageHeader({ icon, title }) {
           mx: '$2',
           mt: FONT_TOP_OFFSET,
           fontWeight: '700',
-          fontSize: [16, 22],
+          fontSize: [14, 18],
         }}
       >
         {title}

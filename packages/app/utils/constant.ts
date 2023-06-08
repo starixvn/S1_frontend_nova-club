@@ -322,6 +322,8 @@ export enum SlotType {
   NEW = 'new',
   HOT = 'hot',
   JACKPOT = 'jackpot',
+  MEGAWAY = 'megaway',
+  RECOMMENDED = 'recommended',
 }
 export const SlotTypeOptions = [
   {

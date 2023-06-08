@@ -56,7 +56,7 @@ const Header = ({ title = '', actions, titleProps = {} }: HeaderProps) => {
               }}
               {...titleProps}
             >
-              {t(title).toUpperCase()}
+              {title.toUpperCase()}
             </Text>
           </View>
 
