@@ -1,7 +1,8 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { Pressable, SxProp, Text, View, styled } from 'dripsy'
-import React from 'react'
+import React, { ComponentType } from 'react'
 import { PressableProps, StyleSheet } from 'react-native'
+import { SolitoImageProps } from 'solito/build/image/image.types'
 import { SolitoImage } from 'solito/image'
 
 export interface GameCardProps extends PressableProps {

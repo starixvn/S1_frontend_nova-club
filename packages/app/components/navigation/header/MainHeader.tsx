@@ -33,7 +33,7 @@ const MainHeader = () => {
   const lastTransferredToMainWalletToken = useRef('')
   const token = useAppSelector((s) => s.auth.info?.token)
   const { t } = useLocalization()
-  console.log('!!Rerender Header', token)
+  console.log('!!Rerender Header')
   const {
     data: playerBalance,
     isFetching: isMainWalletLoading,
