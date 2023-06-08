@@ -11,12 +11,19 @@ import RecentTransactionRow from './component/RecentTransactionRow'
 import RefreshButton from 'app/components/RefreshButton'
 import EmptyResult from 'app/components/dataTable/EmptyResult'
 import { usePlayerReportQuery } from 'services/playerApi'
-import { ReportDepositStatus, ReportTransactionType } from 'app/utils/constant'
+import {
+  DEPOSIT_NOTES,
+  ReportDepositStatus,
+  ReportTransactionType,
+} from 'app/utils/constant'
 import dayjsTz from 'app/utils/dayjs'
+import MenuNotice from 'app/components/navigation/MenuNotice'
+import { useModal } from 'react-native-modalfy'
 
 const Deposit = () => {
   const { t } = useLocalization()
   const { push } = useRouter()
+  const { openModal } = useModal()
   const [paymentMethodList, setPaymentMethodList] = useState(PaymentMethod)
 
   const { isMobile } = useCheckMobile()
@@ -44,22 +51,22 @@ const Deposit = () => {
   const handlePress = (id) => {
     switch (id) {
       case DepositMethodId.LOCAL_BANK:
-        push(`/deposit/local-bank`)
+        push(`/deposit/bank-transfer`)
         break
       case DepositMethodId.ONLINE_BANK:
-        push(`/deposit/online-bank`)
+        push(`/deposit/online-banking`)
         break
       case DepositMethodId.MOMO:
-        push(`/deposit/momo`)
+        push(`/deposit/momo-pay`)
         break
       case DepositMethodId.QR_CODE:
-        push(`/deposit/qr-transfer`)
+        push(`/deposit/qr-pay`)
         break
       case DepositMethodId.TOP_UP:
         push(`/deposit/topup-card`)
         break
       case DepositMethodId.CRYPTO:
-        push(`/deposit/crypto`)
+        push(`/deposit/crypto-pay`)
         break
       default:
         break
@@ -67,7 +74,17 @@ const Deposit = () => {
   }
 
   return (
-    <PageWithBackHeader header={{ title: t('menu.deposit') }} disableScrollView>
+    <PageWithBackHeader
+      header={{
+        title: t('menu.deposit'),
+        actions: (
+          <MenuNotice
+            onPress={() => openModal('NoticeModal', { notice: DEPOSIT_NOTES })}
+          />
+        ),
+      }}
+      disableScrollView
+    >
       {isLoading ? (
         <ActivityIndicator sx={{ my: '$6' }} />
       ) : paymentMethodList.length > 0 ? (
