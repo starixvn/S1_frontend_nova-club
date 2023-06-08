@@ -36,7 +36,7 @@ const RefreshButton: FC<RefreshButtonProps> = (props) => {
         },
       ],
     }
-  })
+  }, [])
 
   const onPressHandler = async (event: GestureResponderEvent) => {
     onPress && (await onPress(event))
