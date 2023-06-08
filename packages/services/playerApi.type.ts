@@ -1,8 +1,3 @@
-// import {
-//   ReportDepositStatus,
-//   ReportWithdrawalStatus,
-//   ReportTransactionType,
-// } from 'app/utils/constant'
 import {
   ReportDepositStatus,
   ReportTransactionType,

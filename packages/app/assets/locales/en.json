@@ -53,18 +53,33 @@
     "inactive": "InActive",
     "all": "All",
     "date": "Date",
-    "noInfoAvailable": "No Info Available"
+    "noInfoAvailable": "No information is available now",
+    "provider": "Provider",
+    "bonus": "Bonus",
+    "game": "Game"
+  },
+  "withdrawal": {
+    "withdrawalTitle": "Withdrawal"
+  },
+  "deposit": {
+    "depositTitle": "Deposit",
+    "bankSlip": "Bank Slip",
+    "depositMethod": {
+      "bankTransfer": "Bank Transfer",
+      "crypto": "Crypto",
+      "momo": "MOMO",
+      "onlineBanking": "Online Banking",
+      "qrPay": "QR Pay",
+      "topUp": "Top Up Card"
+    }
   },
   "filter": {
     "statusType": "Status Type",
+    "win/loss": "Win/Loss",
     "transactionType": {
       "title": "Transaction Type",
-      "deposit": "Deposit",
-      "withdrawal": "Withdrawal",
       "rebate": "Rebate",
-      "adjustment": "Adjustment",
-      "bonus": "Bonus",
-      "game": "Game"
+      "adjustment": "Adjustment"
     },
     "date": {
       "custom": "Custom",

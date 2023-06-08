@@ -1,5 +1,3 @@
-import { Text } from 'react-native'
+import History from 'app/features/profile/history/'
 
-export default function History() {
-  return <Text>History</Text>
-}
+export default History

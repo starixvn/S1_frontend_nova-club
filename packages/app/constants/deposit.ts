@@ -57,7 +57,7 @@ export const PAYMENT_METHOD = {
     id: DepositMethodId.QR_CODE,
     type: DepositCategoryType.QR_CODE,
     categoryId: DepositCategoryId.QR_CODE,
-    name: 'deposit.depositMethod.qrCode',
+    name: 'deposit.depositMethod.qrPay',
     icon: 'qr',
     color: '#44BAF9',
     active: true,

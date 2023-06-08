@@ -67,7 +67,7 @@ export default function DrawerContent() {
       iconName: 'logout',
       text: 'Logout',
       onPress: () => {
-        push('/deposit')
+        push('/auth/login')
       },
     },
   ]

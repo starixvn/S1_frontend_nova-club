@@ -10,7 +10,7 @@ import { Link } from 'solito/link'
 import IconButtonGradient from 'app/components/IconButtonGradient'
 import Select from 'app/components/select/Select'
 import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
-import { useState } from 'react'
+import { SetStateAction, useState } from 'react'
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { useWithdrawalBankQuery } from 'services/bank'
 
@@ -55,7 +55,7 @@ const SplashScreenButton = () => {
   const TestLogin = async () => {
     try {
       const { data, success, message } = await login({
-        username: 'andy06stag',
+        username: 'andy01stag',
         password: 'asdf1234',
       }).unwrap()
       if (success && data) {
@@ -142,6 +142,7 @@ const SplashScreenButton = () => {
           placeholder={'Day'}
           value={status}
           onSelected={(val) => {
+            // console.log(val)
             if (!val) return
             setStatus(val)
           }}
@@ -155,7 +156,11 @@ const SplashScreenButton = () => {
           options={sheetData}
           value={selectedBank}
           sx={{ width: '100%', mb: '$3' }}
-          onSelected={(e) => console.log('Selected Bank', e)}
+          onSelected={(e) => {
+            console.log('Selected Bank', e)
+            console.log('2', selectedBank)
+            setSelectedBank(e as SetStateAction<undefined>)
+          }}
         />
       </View>
     </>

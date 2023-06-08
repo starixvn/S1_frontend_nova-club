@@ -81,7 +81,7 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
         // )
         // normalLogin(username, password, () => handleProceedLogin(data, actions))
         dispatch(AuthActions.setAuthInfo(data))
-        replace('/account/profile')
+        replace('/')
         setIsSubmitting(false)
       } else {
         throw new Error(message)

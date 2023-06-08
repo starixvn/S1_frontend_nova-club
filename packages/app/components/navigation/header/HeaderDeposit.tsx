@@ -33,7 +33,7 @@ const HeaderDeposit = () => {
             height: 18,
           }}
         >
-          {t('common.deposit')}
+          {t('deposit.depositTitle')}
         </Text>
       </View>
     </Gradient>
