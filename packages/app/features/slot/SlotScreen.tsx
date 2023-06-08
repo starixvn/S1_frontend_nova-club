@@ -1,20 +1,17 @@
 import { FlashList } from '@shopify/flash-list'
 import GamePageHeader from 'app/components/GamePageHeader'
-import GameListByProvider from 'app/components/game/GameListByProvider'
 import GameSectionByProviderItem from 'app/components/game/GameSectionByProviderItem'
-import GameFilterProvider, {
+import ProviderList from 'app/components/game/ProviderList'
+import {
   useGameFilter,
   withGameFilterProvider,
 } from 'app/provider/gameFilter/GameFilterProvider'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
 import React, { useMemo, useRef } from 'react'
+import { Platform } from 'react-native'
 import { Game } from 'services/gameApi.type'
 import BannerSection from '../home/BannerSection'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
-import TopGameSection from '../home/TopGameSection'
-import JackpotGameSection from '../home/JackpotGameSection'
-import ProviderList from 'app/components/game/ProviderList'
-import { Platform } from 'react-native'
 
 function _SlotScreen() {
   const { games, gamesByProviders, filterKey, setFilteredGames } =
@@ -60,10 +57,10 @@ function _SlotScreen() {
           <GamePageHeader icon="sl" title="SLOTS" />
           <BannerSection />
           <RecentlyPlayedSection />
-          <TopGameSection />
+          {/* <TopGameSection />
           <JackpotGameSection />
           <JackpotGameSection />
-          <JackpotGameSection />
+          <JackpotGameSection /> */}
           <ProviderList data={providers} onNavigateProvider={onNavigate} />
         </>
       }

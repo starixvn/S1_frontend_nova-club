@@ -20,8 +20,12 @@ import { FONT_TOP_OFFSET } from 'app/constants/font'
 import { ALL } from 'app/utils/constant'
 import GameCard from './GameCard'
 import { ProviderImageMapping } from 'app/constants/gameAssets'
+import { LayoutAnimation } from 'react-native'
 
 const MAX_SHOWN = 12
+
+const width = ['22%', '18%', '15%']
+const spaces = ['1.5%', '1%', '0.83%']
 function GameSectionByProviderItem({
   gpc,
   games = [],
@@ -33,6 +37,7 @@ function GameSectionByProviderItem({
   const count = useResponsiveValue([8, 10, MAX_SHOWN])
 
   const tags = useMemo(() => {
+    console.log('changing tags', gpc)
     return games.reduce(
       (distinctTags, currentGame) => union(distinctTags, currentGame.tags),
       [ALL]
@@ -79,10 +84,10 @@ const GameTypeFilter = ({ filters, filter, setFilter }) => {
       <DripsyGradient
         gradient="surface"
         sx={{
-          p: ['$2'],
+          p: '$2',
           flexDirection: 'row',
           // justifyContent: 'center',
-          gap: ['$2'],
+          gap: '$2',
         }}
       >
         {filters.map((f) => {
@@ -91,9 +96,15 @@ const GameTypeFilter = ({ filters, filter, setFilter }) => {
             <Pressable
               onPress={() => {
                 setFilter(f)
+                // This must be called before `LayoutAnimation.configureNext` in order for the animation to run properly.
+                // list.current?.prepareForLayoutAnimationRender()
+                // After removing the item, we can start the animation.
+                // LayoutAnimation.configureNext(
+                //   LayoutAnimation.Presets.easeInEaseOut
+                // )
               }}
               key={f}
-              sx={{ flex: 1, width: '30%', maxWidth: 110, marginBottom: 2 }}
+              sx={{ flex: 1, width: '30%', maxWidth: 100, marginBottom: 2 }}
             >
               <Shadow
                 style={{ flex: 1, borderRadius: 30, overflow: 'hidden' }}
@@ -104,8 +115,8 @@ const GameTypeFilter = ({ filters, filter, setFilter }) => {
               >
                 <View
                   sx={{
-                    px: '$3',
-                    py: 6,
+                    px: ['$2', '$3'],
+                    py: ['$1', 6],
                     bg: '$primary.700',
                   }}
                 >
@@ -131,8 +142,6 @@ const GameTypeFilter = ({ filters, filter, setFilter }) => {
   )
 }
 
-const width = ['22%', '18%', '15%']
-const spaces = ['1.5%', '1%', '0.83%']
 const GameList = ({ data }: { data: Game[] }) => {
   return (
     <Row

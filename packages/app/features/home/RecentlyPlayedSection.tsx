@@ -31,7 +31,7 @@ export default function RecentlyPlayedSection() {
 
   // if (recent.length === 0) return null
   const vgaming = require('app/assets/images/game/vgaming.png')
-  console.log('vgaming', vgaming)
+
   return (
     <DripsyGradient
       gradient="surface"

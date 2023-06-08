@@ -328,7 +328,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.anonymous.solitoexporouter;
-				PRODUCT_NAME = "Vui123";
+				PRODUCT_NAME = Vui123;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Wildcard Distribution";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -362,7 +362,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.anonymous.solitoexporouter;
-				PRODUCT_NAME = "Vui123";
+				PRODUCT_NAME = Vui123;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Wildcard Distribution";
 				SWIFT_VERSION = 5.0;

@@ -13,7 +13,7 @@ export default function JackpotGameSection() {
       limit: 20,
       offset: 0,
       gdc_game_category: [],
-      gdc_tag: [SlotType.JACKPOT],
+      gdc_tag: [SlotType.MEGAWAY],
     },
     {
       selectFromResult: ({ data }) => ({

@@ -59,7 +59,7 @@ const MarqueeFlip = ({
             delay: 0,
           }}
           sx={{
-            fontSize: 14,
+            fontSize: 12,
             lineHeight: 20,
             position: 'absolute',
             ...textSx,

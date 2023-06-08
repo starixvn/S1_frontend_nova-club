@@ -9,7 +9,7 @@ export default function TopGameCard({ image, number }) {
     <View sx={{ position: 'relative' }}>
       <View
         sx={{
-          width: 100,
+          width: [70, 100, 120],
           aspectRatio: 170 / 350,
           borderRadius: 15,
           overflow: 'hidden',

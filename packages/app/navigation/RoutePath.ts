@@ -31,12 +31,12 @@ export const BOTTOM_ROUTE: Route[] = [
 export const Profile_Wallet_Route: Route[] = [
   {
     label: 'Transfer',
-    path: '/wallet/transfer/',
+    path: '/transfer',
     icon: 'transfer',
   },
   {
     label: 'Deposit',
-    path: '/wallet/deposit',
+    path: '/deposit',
     icon: 'deposit',
   },
   {
@@ -46,12 +46,12 @@ export const Profile_Wallet_Route: Route[] = [
   },
   {
     label: 'Bank Account',
-    path: '/account/profile/bank',
+    path: '/bank',
     icon: 'card',
   },
   {
     label: 'History',
-    path: '/wallet/history',
+    path: '/history',
     icon: 'history',
   },
 ]

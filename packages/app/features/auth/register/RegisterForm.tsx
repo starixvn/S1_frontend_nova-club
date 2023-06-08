@@ -1,17 +1,17 @@
+import Button from 'app/components/common/Button'
 import Input from 'app/components/form/Input'
 import useLocalization from 'app/provider/localization'
-import validation, {
+import {
   PASSWORD_MAX_LENGTH,
   USERNAME_MAX_LENGTH,
   getErrorMessage,
 } from 'app/utils/validation'
-import { Pressable, Text, View, styled } from 'dripsy'
+import { View } from 'dripsy'
 import { FormikProps } from 'formik'
 import { useCallback, useRef, useState } from 'react'
 import { TextInput } from 'react-native'
-import * as Yup from 'yup'
-import { RegisterFormValues } from './RegisterScreen'
 import { useLazyCheckUsernameQuery } from 'services/authApi'
+import { RegisterFormValues } from './RegisterScreen'
 
 interface RegisterFormProps {
   isAgent: boolean
@@ -176,28 +176,11 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
         }
       />
 
-      <ButtonContainer
-        sx={{ bg: '$primary.300', marginTop: 65 }}
-        onPress={onSubmit}
-      >
-        <ButtonText>Register</ButtonText>
-      </ButtonContainer>
+      <Button onPress={onSubmit} sx={{ my: '$2', bg: '$primary.300' }}>
+        {t('authentication.login')}
+      </Button>
     </View>
   )
 }
-const ButtonContainer = styled(Pressable)({
-  borderRadius: 15,
-  mb: 20,
-  alignItems: 'center',
-})
-
-const ButtonText = styled(Text)({
-  width: '100%',
-  py: 15,
-  px: 25,
-  textAlign: 'center',
-  textTransform: 'uppercase',
-  fontWeight: 'bold',
-})
 
 export default RegisterForm
