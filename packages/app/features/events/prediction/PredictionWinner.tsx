@@ -1,6 +1,6 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Image from 'app/components/common/Image'
-import { Text, View } from 'dripsy'
+import { Text, View, styled } from 'dripsy'
 import React from 'react'
 import WinnerList from './components/WinnerList'
 import { usePredictionWinnerListQuery } from 'services/eventApi'
@@ -37,23 +37,15 @@ const PredictionWinner = () => {
           width: '100%',
         }}
       >
-        <Image
+        <LogoImage
           source={{
             uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/prediction/ucl.png`,
           }}
-          style={{
-            height: 100,
-            width: 120,
-          }}
           resizeMode="contain"
         />
-        <Image
+        <LogoImage
           source={{
             uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/prediction/istanbul.png`,
-          }}
-          style={{
-            height: 100,
-            width: 120,
           }}
           resizeMode="contain"
         />
@@ -70,5 +62,10 @@ const PredictionWinner = () => {
     </PageWithBackHeader>
   )
 }
+
+const LogoImage = styled(Image)({
+  height: [100],
+  width: ['30%', '20%'],
+})
 
 export default PredictionWinner

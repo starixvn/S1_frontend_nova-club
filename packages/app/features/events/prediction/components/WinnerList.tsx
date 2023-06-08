@@ -7,7 +7,7 @@ const WinnerList = ({ label, list }) => {
       <Text
         sx={{
           fontWeight: 'bold',
-          fontSize: 16,
+          fontSize: 15,
           color: '#F861A0',
           mb: 12,
           textAlign: 'center',
