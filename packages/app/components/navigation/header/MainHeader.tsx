@@ -149,6 +149,7 @@ const MainHeader = () => {
                 py: '$2',
               },
             }}
+            onPress={() => push('/auth/login')}
           >
             {t('authentication.login')}
           </Button>

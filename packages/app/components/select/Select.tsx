@@ -1,11 +1,13 @@
+import useLocalization from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Pressable, styled, Text, View } from 'dripsy'
 import uniqueId from 'lodash/uniqueId'
-import { AnimatePresence, MotiView } from 'moti'
+import { AnimatePresence, MotiView, useAnimationState } from 'moti'
 import {
   ComponentProps,
   ForwardedRef,
   forwardRef,
+  useEffect,
   useImperativeHandle,
   useMemo,
   useReducer,
@@ -15,8 +17,7 @@ import { SheetManager } from 'react-native-actions-sheet'
 import ActionSheet, { ActionSheetProps } from '../actionSheet/ActionSheet'
 import Input, { InputProps } from '../form/Input'
 import Icon from '../Icon'
-import Label, { InputLabelProps } from '../Label'
-import useLocalization from 'app/provider/localization'
+import { InputLabelProps } from '../Label'
 
 const StyledPressable = styled(Pressable)({
   borderRadius: 9,
@@ -139,6 +140,17 @@ export interface CloseSelectForwardRef {
   closeActionSheet: () => void
 }
 
+const useRotateArrow = () => {
+  return useAnimationState({
+    from: {
+      transform: [{ rotate: '0deg' }],
+    },
+    to: {
+      transform: [{ rotate: '-180deg' }],
+    },
+  })
+}
+
 const Select = <T,>(
   props: SelectProps<T>,
   ref: ForwardedRef<CloseSelectForwardRef>
@@ -170,6 +182,7 @@ const Select = <T,>(
   const { sheetId: passedSheetId, ...actionSheetProp } = _actionSheet || {}
   const { bottom } = useSafeArea()
   const [isOpen, toggleIsOpen] = useReducer((state) => !state, false)
+  const rotateArrow = useRotateArrow()
 
   const sheetId = useMemo(() => {
     return passedSheetId ?? uniqueId()
@@ -190,24 +203,27 @@ const Select = <T,>(
   useImperativeHandle(ref, () => ({
     closeActionSheet,
   }))
+  useEffect(() => {
+    rotateArrow.transitionTo((state) => {
+      if (state === 'from') {
+        return 'to'
+      } else {
+        return 'from'
+      }
+    })
+  }, [isOpen])
 
   const memoArrow = useMemo(
     () => (
       <AnimatePresence>
-        <MotiView
-          from={{ transform: [{ rotate: '0deg' }] }}
-          animate={{
-            transform: [{ rotate: isOpen ? '-180deg' : '0deg' }],
-          }}
-          transition={{ type: 'timing' }}
-        >
+        <MotiView state={rotateArrow} transition={{ type: 'timing' }}>
           <Icon name="down" color="white" />
         </MotiView>
       </AnimatePresence>
     ),
     [isOpen]
   )
-  console.log(sheetId)
+
   return (
     <View {...rest}>
       {/* {selectLabel ? (
