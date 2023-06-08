@@ -59,12 +59,12 @@ const AddBankAccountScreen = () => {
   }
 
   return (
-    <PageWithBackHeader header={{ title: 'Add Bank Account' }}>
+    <PageWithBackHeader header={{ title: 'bank.addBankAccount' }}>
       <ContentWrapper>
         <RealNameForm formik={formik}>
           <SelectWithCardGrid
-            label={t('common.bank')}
-            placeholder={t('placeholder.selectBank')}
+            label={t('bank.bank')}
+            placeholder={t('bank.selectBank')}
             options={sheetData}
             loading={isLoading || isFetching}
             value={values.bank?.bank_name}

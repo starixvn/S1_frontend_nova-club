@@ -23,8 +23,8 @@ const BankScreen = () => {
 
   const [index, setIndex] = useState(getTab)
   const [routes] = useState([
-    { key: 'first', title: t('menu.bankAccount'), index: 0 },
-    { key: 'second', title: t('menu.cryptoWallet'), index: 1 },
+    { key: 'first', title: t('bank.bankAcc'), index: 0 },
+    { key: 'second', title: t('wallet.cryptoWallet'), index: 1 },
   ])
   const layout = useWindowDimensions()
 
@@ -43,10 +43,7 @@ const BankScreen = () => {
     )
   }
   return (
-    <PageWithBackHeader
-      header={{ title: t('menu.bankAccount') }}
-      disableScrollView
-    >
+    <PageWithBackHeader header={{ title: 'bank.bankAcc' }} disableScrollView>
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}

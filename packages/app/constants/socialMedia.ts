@@ -7,7 +7,7 @@ export enum SocialMedia {
   TWITTER = 'twitter',
   YOUTUBE = 'youtube',
   TELEGRAM = 'telegram',
-  LIVECHAT = 'livechat',
+  LIVECHAT = 'liveChat',
   ENVELOPE = 'envelope',
   ZALO = 'zalo',
 }

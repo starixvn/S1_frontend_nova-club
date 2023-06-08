@@ -24,7 +24,7 @@ const CryptoWalletScreen = () => {
   return (
     <BankCardForm
       bankList={bankList}
-      buttonLabel={t('bank.addCryptoWallet')}
+      buttonLabel={t('wallet.addCryptoWallet')}
       isLoading={isLoading}
       onPress={handlePress}
       isCrypto={true}

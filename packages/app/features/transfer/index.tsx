@@ -29,9 +29,9 @@ const TransferScreen = () => {
 
   const [index, setIndex] = useState(getTab)
   const [routes] = useState([
-    { key: 'first', title: 'receive', index: 0 },
-    { key: 'second', title: 'id transfer', index: 1 },
-    { key: 'third', title: 'qr transfer', index: 2 },
+    { key: 'first', title: t('transfer.receive'), index: 0 },
+    { key: 'second', title: t('transfer.idTransfer'), index: 1 },
+    { key: 'third', title: t('transfer.qrTransfer'), index: 2 },
   ])
   const layout = useWindowDimensions()
 

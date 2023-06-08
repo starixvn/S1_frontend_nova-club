@@ -57,7 +57,7 @@ const RealNameForm = ({ formik, children }) => {
     <>
       {playerData?.firstName.length !== 0 && (
         <Input
-          label={t('profile.realName')}
+          label={t('common.realName')}
           value={playerData?.firstName || ''}
           editable={false}
         />

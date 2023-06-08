@@ -228,7 +228,7 @@ const WithdrawalForm = ({
 
   const renderEmpty = (closeActionSheet) => (
     <EmptyAccount
-      label={isCrypto ? t('bank.addCryptoWallet') : t('bank.addBankAccount')}
+      label={isCrypto ? t('wallet.addCryptoWallet') : t('bank.addBankAccount')}
       onClose={onGoToBank}
       onCloseActionSheet={closeActionSheet}
     />
@@ -237,7 +237,7 @@ const WithdrawalForm = ({
   return (
     <>
       <SelectWithCardGrid
-        label={isCrypto ? t('bank.walletAddress') : t('common.bank')}
+        label={isCrypto ? t('bank.walletAddress') : t('bank.bankAcc')}
         subtitle={values.bank?.BankName}
         placeholder={
           isCrypto

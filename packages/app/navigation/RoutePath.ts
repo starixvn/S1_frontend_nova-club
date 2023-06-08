@@ -109,7 +109,7 @@ export const Profile_Quick_Navigation_Path: Route[] = [
   },
   {
     label: 'logout',
-    path: '/',
+    path: '/auth/login',
     icon: 'logout',
   },
 ]
