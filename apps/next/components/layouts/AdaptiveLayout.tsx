@@ -6,6 +6,8 @@ import { Provider } from 'app/provider'
 import { MobileBaseLayout } from './mobile'
 import { DesktopBaseLayout } from './desktop'
 import { useRouter } from 'next/router'
+import useOnAppStart from 'app/hooks/useOnAppStart'
+import useAppState from 'app/hooks/appState/useAppState'
 
 export type NavigationOptions = SolitoAppProps['Component']['navigationOptions']
 export type AdaptiveAppProps<P = {}> = Omit<SolitoAppProps<P>, 'Component'> & {
@@ -24,6 +26,8 @@ export default function AdaptiveLayout({
   const router = useRouter()
 
   const { width } = useWindowDimensions()
+  useAppState()
+  useOnAppStart()
 
   /* TODO: Split width and router as 2 seperate rerender */
   const BaseLayout = useMemo(() => {
@@ -53,8 +57,6 @@ export default function AdaptiveLayout({
 
   return (
     <div id="al">
-      {/* <RootPage /> */}
-
       {/* <ActivityIndicator /> */}
       <Provider>
         {BaseLayout && (

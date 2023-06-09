@@ -9,7 +9,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import BarcodeMask from 'react-native-barcode-mask'
 import { QrReader } from 'react-qr-reader'
 
-function QrcodeScannerTab({ isActive }) {
+function QrTransfer({ isActive }) {
   const { t } = useLocalization()
   const isFocus = useIsFocused()
   const { width, height } = useContainerDimension()
@@ -104,4 +104,4 @@ function QrcodeScannerTab({ isActive }) {
   )
 }
 
-export default QrcodeScannerTab
+export default QrTransfer

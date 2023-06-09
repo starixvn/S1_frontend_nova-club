@@ -1,5 +1,6 @@
 body.rendered {
   background-color: #1e2238;
+  overflow-x: hidden;
 }
 
 input:focus {

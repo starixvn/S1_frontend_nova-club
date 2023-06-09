@@ -1,6 +1,6 @@
 import { SafeAreaView, ScrollView, Sx, SxProp, View, styled } from 'dripsy'
 import React, { ComponentProps } from 'react'
-import { Platform } from 'react-native'
+import { Platform, useWindowDimensions } from 'react-native'
 import Image from '../common/Image'
 import Header from '../common/Header'
 
@@ -56,9 +56,11 @@ export const PageWithBackHeader = ({
   ...rest
 }: PageWithBackHeaderProps) => {
   const PageComponent = disableScrollView ? Page : Page.ScrollView
+  const { height } = useWindowDimensions()
   return (
     <View
       sx={{
+        minHeight: height,
         flex: 1,
         ...pageStyles,
         ...wrapperStyle,
@@ -84,7 +86,7 @@ export const PageWithBackHeader = ({
       )}
       <PageComponent
         sx={{
-          minHeight: 0,
+          // minHeight: 0,
           bg: background ? 'transparent' : '$secondary',
           flex: 1,
         }}

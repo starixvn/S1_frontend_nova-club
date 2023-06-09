@@ -1,40 +1,40 @@
-import Button from 'app/components/common/Button'
-import ModalWrapper from 'app/components/modal/ModalWrapper'
 import QRCodeGenerator from 'app/components/QRCodeGenerator'
-import useContainerDimension from 'app/hooks/useContainerDimension'
-import useDownload from 'app/hooks/useDownload'
+import ViewScreenShot, {
+  ViewScreenShotMethods,
+} from 'app/components/ViewScreenShot'
+import Button from 'app/components/common/Button'
 import useLocalization from 'app/provider/localization'
-import { View } from 'dripsy'
-import React, { createRef } from 'react'
+import { ScrollView, Text, View } from 'dripsy'
+import React, { useRef } from 'react'
+import { usePlayerProfileQuery } from 'services/playerApi'
 
-const QrReceiveTab = () => {
+const QrReceive = () => {
   const { t } = useLocalization()
-  const ref = createRef(null)
+  const ref = useRef<ViewScreenShotMethods>(null)
 
-  const { width, height } = useContainerDimension()
+  const { data } = usePlayerProfileQuery()
+  const username = data?.username
 
-  const { webScreenshotDownload } = useDownload({ ref })
+  const handleDownload = () => {
+    ref?.current?.download()
+  }
 
   return (
-    <ModalWrapper sx={{ width, p: '10%' }}>
-      <View
-        sx={{
-          bg: 'white',
-          borderRadius: 12,
-          p: '5%',
-          width: '100%',
-        }}
-      >
-        <View ref={ref}>
+    <ScrollView contentContainerStyle={{ padding: '10%' }}>
+      <View sx={{ p: '2%', borderRadius: 15, bg: 'white' }}>
+        <ViewScreenShot ref={ref} fileName={`Vui123-${username}`}>
           <QRCodeGenerator />
-        </View>
-
-        <Button onPress={webScreenshotDownload}>
-          {t('qr.downloadQrCode')}
-        </Button>
+        </ViewScreenShot>
       </View>
-    </ModalWrapper>
+      <View sx={{ alignItems: 'center', py: '$3' }}>
+        <Text sx={{ fontWeight: 'bold', fontSize: 18 }}>{username}</Text>
+      </View>
+      <View sx={{ alignItems: 'center', py: '$3' }}>
+        <Text sx={{ fontSize: 16 }}>{t('notes.qr.n1')}</Text>
+      </View>
+      <Button onPress={handleDownload}>{t('qr.downloadQr')}</Button>
+    </ScrollView>
   )
 }
 
-export default QrReceiveTab
+export default QrReceive
