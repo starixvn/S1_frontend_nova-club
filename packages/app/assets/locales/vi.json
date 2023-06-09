@@ -152,6 +152,12 @@
     "usdt": "USDT"
   },
   "event": {
+    "lose": "RẤT TIẾC!",
+    "lose2": "CHÚC BẠN MAY MẮN LẦN SAU.",
+    "next": "CHƠI TIẾP",
+    "start": "BẮT ĐẦU",
+    "won": "XIN CHÚC MỪNG!",
+    "won2": "BẠN ĐÃ TRÚNG THƯỞNG",
     "catEvent": {
       "miniGame": {
         "lose": "RẤT TIẾC!",
@@ -164,8 +170,7 @@
         "won": "XIN CHÚC MỪNG!",
         "won2": "BẠN ĐÃ TRÚNG THƯỞNG"
       },
-      "tnc": {
-      }
+      "tnc": {}
     },
     "claim": "ĐỔI VÉ THƯỞNG CỦA BẠN NGAY",
     "prediction": {

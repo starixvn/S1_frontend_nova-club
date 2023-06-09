@@ -163,6 +163,8 @@ export function NavigationProvider({
               AgentRecruitmentTnc: '/banner/agent-tnc',
               Prediction: '/event/prediction',
               PredictionTnc: '/event/prediction-tnc',
+              Plinko: '/event/plinko',
+              PlinkoTnc: '/event/plinko-tnc',
             },
           },
         }),

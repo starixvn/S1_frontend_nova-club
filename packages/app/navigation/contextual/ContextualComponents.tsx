@@ -42,6 +42,8 @@ const ContextualComponents = {
     import('../../../../apps/next/pages/banner/agent-tnc'),
   '/event/prediction': () =>
     import('app/features/events/prediction/Prediction'),
+  '/event/plinko': () => import('app/features/events/plinko/Plinko'),
+  '/event/plinko-tnc': () => import('app/features/events/plinko/PlinkoTnc'),
 }
 
 export type ContextualComponentType = keyof typeof ContextualComponents

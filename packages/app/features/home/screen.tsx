@@ -16,8 +16,11 @@ import HotGamesSection from './Section/HotGamesSection'
 import Jackpot from './Section/Jackpot'
 import MatchesSection from './Section/MatchesSection'
 import RecentOpenGames from './Section/RecentOpenGames'
+import { Button } from 'app/components/form/Button'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 
 const HomeScreen = () => {
+  const { push } = useContextualRouter()
   const { isLandscape } = useOrientation()
   const dispatch = useDispatch()
   const username = useAppSelector((s) => s.auth.info?.playerName)

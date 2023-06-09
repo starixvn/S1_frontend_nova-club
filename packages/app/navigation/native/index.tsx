@@ -38,6 +38,8 @@ import MemberAgentNavigation from './MemberAgentNavigation'
 import AgentPromoTnC from 'app/features/home/Section/AgentPromoTnC'
 import Prediction from 'app/features/events/prediction/Prediction'
 import PredictionTnc from 'app/features/events/prediction/components/PredictionTnc'
+import Plinko from 'app/features/events/plinko/Plinko'
+import PlinkoTnc from 'app/features/events/plinko/PlinkoTnc'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -83,6 +85,8 @@ const Stack = createStackNavigator<{
   AgentRecruitmentTnc: undefined
   Prediction: undefined
   PredictionTnc: undefined
+  Plinko: undefined
+  PlinkoTnc: undefined
 }>()
 
 export function NativeNavigation() {
@@ -264,6 +268,8 @@ export function NativeNavigation() {
       <Stack.Screen name="PredictionTnc" component={PredictionTnc} />
       <Stack.Screen name="AgentRecruitmentTnc" component={AgentPromoTnC} />
       <Stack.Screen name="Prediction" component={Prediction} />
+      <Stack.Screen name="Plinko" component={Plinko} />
+      <Stack.Screen name="PlinkoTnc" component={PlinkoTnc} />
     </Stack.Navigator>
   )
 }
