@@ -19,6 +19,7 @@ import {
 import dayjs from 'dayjs'
 import { Text, View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
+import { useWindowDimensions } from 'react-native'
 import { SelectOptions } from 'services/common/types'
 import { usePlayerWalletDetailQuery } from 'services/walletApi'
 
@@ -34,6 +35,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
   const { t } = useLocalization()
   const { data } = usePlayerWalletDetailQuery()
   const [providerList, setProviderList] = useState<SelectOptions[]>([])
+  const { width } = useWindowDimensions()
 
   useEffect(() => {
     if (!data?.success) return
@@ -95,7 +97,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
     }
   }
   return (
-    <View sx={{ p: '$2' }}>
+    <View sx={{ p: '$2', mx: '$2' }}>
       <View
         sx={{
           flexDirection: 'row',
