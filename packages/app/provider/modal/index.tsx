@@ -45,6 +45,9 @@ export type ModalStackParams = {
     fields: Record<any, any>[]
     formik: any
   }
+  UploadBankSlipModal: {
+    depositInfo: Record<any, any>
+  }
 }
 
 type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
@@ -60,6 +63,8 @@ const _dynamicModal = {
   PinModal: () => import('app/components/modal/PinModal'),
   WithdrawalConfirmationModal: () =>
     import('app/components/modal/WithdrawalConfirmationModal'),
+  UploadBankSlipModal: () =>
+    import('app/features/deposit/component/UploadBankSlipModal'),
 }
 
 function getDynamicComponent(key: DynamicModalType) {
@@ -100,6 +105,9 @@ const modalConfig: ModalConfigType = {
   },
   WithdrawalConfirmationModal: {
     modal: getDynamicComponent('WithdrawalConfirmationModal'),
+  },
+  UploadBankSlipModal: {
+    modal: getDynamicComponent('UploadBankSlipModal'),
   },
 }
 const stack = createModalStack(modalConfig, {
