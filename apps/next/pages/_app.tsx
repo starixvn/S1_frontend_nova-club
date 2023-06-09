@@ -6,9 +6,9 @@ import { Provider } from 'app/provider'
 import { useFonts } from 'expo-font'
 import Head from 'next/head'
 import type { SolitoAppProps } from 'solito'
-import '../global.css'
-import AdaptiveLayout from '../components/layouts/AdaptiveLayout'
 import RootPage from '../../../apps/expo/app/rootPage'
+import AdaptiveLayout from '../components/layouts/AdaptiveLayout'
+import '../global.css'
 
 function MyApp({ Component, pageProps }: SolitoAppProps) {
   useFonts(AvertaStdUseFont)
