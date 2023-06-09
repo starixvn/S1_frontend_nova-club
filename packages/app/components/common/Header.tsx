@@ -15,7 +15,6 @@ type HeaderProps = {
 
 const Header = ({ title = '', actions, titleProps = {} }: HeaderProps) => {
   const isAndroid = Platform.OS === 'android'
-  const { t } = useLocalization()
   const { back } = useRouter()
   const onGoBack = () => {
     back()
@@ -56,7 +55,7 @@ const Header = ({ title = '', actions, titleProps = {} }: HeaderProps) => {
               }}
               {...titleProps}
             >
-              {t(title).toUpperCase()}
+              {title.toUpperCase()}
             </Text>
           </View>
 

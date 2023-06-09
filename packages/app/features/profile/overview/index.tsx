@@ -29,7 +29,7 @@ const ProfileOverview = () => {
   return (
     <PageWithBackHeader
       disableScrollView={Platform.OS === 'ios'}
-      header={{ title: 'common.overview' }}
+      header={{ title: t('common.overview') }}
     >
       <ScrollView
         refreshControl={

@@ -48,7 +48,7 @@ const LeaderboardScreen = () => {
   }
   return (
     <PageWithBackHeader
-      header={{ title: 'menu.leaderboard' }}
+      header={{ title: t('menu.leaderboard') }}
       disableScrollView
     >
       <TabView

@@ -43,7 +43,7 @@ const BankScreen = () => {
     )
   }
   return (
-    <PageWithBackHeader header={{ title: 'bank.bankAcc' }} disableScrollView>
+    <PageWithBackHeader header={{ title: t('bank.bankAcc') }} disableScrollView>
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}

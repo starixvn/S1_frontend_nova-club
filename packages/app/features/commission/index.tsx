@@ -94,7 +94,10 @@ const CommissionTableScreen = () => {
   }
 
   return (
-    <PageWithBackHeader header={{ title: 'commision.title' }} disableScrollView>
+    <PageWithBackHeader
+      header={{ title: t('commision.title') }}
+      disableScrollView
+    >
       <DataTable>
         <DataTable.Header
           size="big"
