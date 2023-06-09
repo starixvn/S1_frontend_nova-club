@@ -4,12 +4,14 @@ import Input, { InputProps } from '../Input'
 import { ChangeEvent, useRef } from 'react'
 import InputClearActionRow from '../InputClearActionRow'
 import Icon from 'app/components/Icon'
+import { SxProp } from 'dripsy'
 
 export interface DatePickerProps
   extends Omit<RNDatePickerProps, 'date' | 'onConfirm'>,
     Pick<InputProps, 'editable' | 'placeholder'> {
   value?: Date
   onChange?: (date?: Date) => void
+  inputSx?: SxProp
 }
 
 const IS_IOS =
@@ -22,6 +24,7 @@ export default function DatePicker({
   onChange,
   maximumDate,
   minimumDate,
+  inputSx,
   ...rest
 }: DatePickerProps) {
   const datePickerRef = useRef<HTMLInputElement>(null)
@@ -46,19 +49,20 @@ export default function DatePicker({
 
   return (
     <Input
+      sx={inputSx}
       icon={'date'}
-      editable={false}
+      editable={true}
       value={dateToString(value)}
       action={({ color }) => (
-        <InputClearActionRow
-          isClearable={!!value}
-          onPress={() => {
-            onChange && onChange()
-            _localValue.current = null
-          }}
-        >
-          <Icon name="down" color={color} />
-        </InputClearActionRow>
+        // <InputClearActionRow
+        //   isClearable={!!value}
+        //   onPress={() => {
+        //     onChange && onChange()
+        //     _localValue.current = null
+        //   }}
+        // >
+        <Icon name="down" color={color} />
+        // </InputClearActionRow>
       )}
       {...rest}
     >
