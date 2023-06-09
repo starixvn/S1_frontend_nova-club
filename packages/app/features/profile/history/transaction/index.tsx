@@ -54,7 +54,6 @@ const TransactionHistory = () => {
   })
 
   useEffect(() => {
-    console.log('@@!@!@!@!@!', dayjsTz(selected.startDate))
     setFetchParams({
       status: selected.selectedStatus?.value,
       time_from: dayjsTz(selected.startDate).toISOString(),

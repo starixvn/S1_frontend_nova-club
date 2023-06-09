@@ -18,7 +18,7 @@ const CryptoWalletScreen = () => {
   })
 
   const handlePress = () => {
-    push('/account/profile/bank/add-crypto-wallet')
+    push('/bank/add-crypto-wallet')
   }
 
   return (

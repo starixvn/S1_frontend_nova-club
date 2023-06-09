@@ -68,7 +68,6 @@ export type SelectProps<T> = {
     | 'pointerEvents'
     | 'clickableInputContainerProps'
   >
-  inputProps?: ComponentProps<typeof Input>
   _actionSheetFlatlist?: Omit<FlatListProps<Options<T>>, 'data'>
   _actionSheetContent?: (args: {
     closeActionSheet: () => void
@@ -174,7 +173,6 @@ const Select = <T,>(
     selectTriggerProps,
     contentContainerProps,
     enabledLabel = true,
-    inputProps,
     ...rest
   } = props
 
@@ -247,9 +245,9 @@ const Select = <T,>(
             subtitle={subtitle}
             placeholder={placeholder}
             pointerEvents="none"
-            value={selectedItem ? t(selectedItem.label) : (value as string)}
+            value={typeof value === 'string' ? (value as string) : undefined}
             action={() => memoArrow}
-            {...inputProps}
+            {..._input}
           />
         </View>
       </StyledPressable>

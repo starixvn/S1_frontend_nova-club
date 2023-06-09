@@ -9,6 +9,7 @@ import BankAccountScreen from './BankAccountScreen'
 import CryptoWalletScreen from './CryptoWalletScreen'
 
 const { useParam } = createParam<{ tab: string }>()
+
 const BankScreen = () => {
   const [tab = 0] = useParam('tab')
 

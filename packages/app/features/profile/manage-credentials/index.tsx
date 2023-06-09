@@ -9,7 +9,6 @@ import { SceneMap, TabView } from 'react-native-tab-view'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { createParam } from 'solito'
 import ChangePasswordPage from './change-password'
-import { View } from 'dripsy'
 
 const { useParam } = createParam<{ tab: string }>()
 const ManageCredentialsPage = () => {
@@ -60,16 +59,14 @@ const ManageCredentialsPage = () => {
       header={{ title: t('manageCredentials.title') }}
       disableScrollView
     >
-      <View style={{ flex: 1 }}>
-        <TabView
-          lazy
-          navigationState={{ index, routes }}
-          renderScene={renderScene}
-          onIndexChange={setIndex}
-          initialLayout={{ width: layout.width }}
-          renderTabBar={renderTabBar}
-        />
-      </View>
+      <TabView
+        lazy
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        initialLayout={{ width: layout.width }}
+        renderTabBar={renderTabBar}
+      />
     </PageWithBackHeader>
   )
 }
