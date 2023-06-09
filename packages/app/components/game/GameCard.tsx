@@ -50,7 +50,7 @@ export default function GameCard({
             unoptimized
             onLoadingComplete={() => {
               startTransition(() => setLoaded(true))
-          }}
+            }}
             fill
             // to supporess warning, will be ignored since unoptimized is true
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

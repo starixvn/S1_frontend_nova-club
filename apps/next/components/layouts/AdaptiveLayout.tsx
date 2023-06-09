@@ -1,33 +1,39 @@
-import React, { ReactNode, useEffect, useMemo, useState } from 'react'
-import { ActivityIndicator, View, useWindowDimensions } from 'react-native'
+import { useEffect, useMemo, useState } from 'react'
+import { useWindowDimensions } from 'react-native'
+import type { SolitoAppProps } from 'solito'
 
-import dynamic from 'next/dynamic'
 import { Provider } from 'app/provider'
-import BottomTabBar from 'app/components/navigation/BottomTabBar'
+import { MobileBaseLayout } from './mobile'
+import { DesktopBaseLayout } from './desktop'
+import { useRouter } from 'next/router'
 
-const DesktopBaseLayout = dynamic(() => import('./DesktopBaseLayout'), {
-  loading: () => <ActivityIndicator />,
-  ssr: false,
-})
+export type NavigationOptions = SolitoAppProps['Component']['navigationOptions']
+export type AdaptiveAppProps<P = {}> = Omit<SolitoAppProps<P>, 'Component'> & {
+  Component: SolitoAppProps<P>['Component'] & {
+    navigationOptions: NavigationOptions
+    MobileLayout?: React.FC
+    DesktopLayout?: React.FC
+  }
+}
 
-const MobileBaseLayout = dynamic(() => import('./MobileBaseLayout'), {
-  loading: () => <ActivityIndicator />,
-  ssr: false,
-})
-
-export default function AdaptiveLayout({ children }: { children: ReactNode }) {
+export default function AdaptiveLayout({
+  Component,
+  pageProps,
+}: AdaptiveAppProps) {
   const [isClientReady, setClientReady] = useState<boolean>()
+  const router = useRouter()
 
   const { width } = useWindowDimensions()
 
+  /* TODO: Split width and router as 2 seperate rerender */
   const BaseLayout = useMemo(() => {
     if (!isClientReady) return
     document.getElementsByTagName('body')[0].classList.add('rendered')
 
     if (window.innerWidth < 1024) {
-      return MobileBaseLayout
-    } else return DesktopBaseLayout
-  }, [isClientReady, width])
+      return Component.MobileLayout || MobileBaseLayout
+    } else return Component.DesktopLayout || DesktopBaseLayout
+  }, [isClientReady, width, router])
 
   useEffect(() => {
     setClientReady(true)
@@ -47,8 +53,16 @@ export default function AdaptiveLayout({ children }: { children: ReactNode }) {
 
   return (
     <div id="al">
+      {/* <RootPage /> */}
+
       {/* <ActivityIndicator /> */}
-      <Provider>{BaseLayout && <BaseLayout>{children}</BaseLayout>}</Provider>
+      <Provider>
+        {BaseLayout && (
+          <BaseLayout>
+            <Component {...pageProps} />
+          </BaseLayout>
+        )}
+      </Provider>
     </div>
   )
 }

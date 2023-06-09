@@ -6,14 +6,18 @@ import {
   useGameFilter,
   withGameFilterProvider,
 } from 'app/provider/gameFilter/GameFilterProvider'
-import { GAME_TYPE_CODE } from 'app/utils/constant'
+import { GAME_TYPE_CODE, SlotType } from 'app/utils/constant'
 import React, { useMemo, useRef } from 'react'
 import { Platform } from 'react-native'
 import { Game } from 'services/gameApi.type'
 import BannerSection from '../home/BannerSection'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
+import GameListSectionAsyncByTag from 'app/components/game/GameListSectionAsyncByTag'
+import useLocalization from 'app/provider/localization'
 
 function _SlotScreen() {
+  const { t } = useLocalization()
+
   const { games, gamesByProviders, filterKey, setFilteredGames } =
     useGameFilter()
 
@@ -57,10 +61,21 @@ function _SlotScreen() {
           <GamePageHeader icon="sl" title="SLOTS" />
           <BannerSection />
           <RecentlyPlayedSection />
-          {/* <TopGameSection />
-          <JackpotGameSection />
-          <JackpotGameSection />
-          <JackpotGameSection /> */}
+          <GameListSectionAsyncByTag
+            tag={SlotType.NEW}
+            title={t('game.new').toUpperCase()}
+            icon="star"
+          />
+          <GameListSectionAsyncByTag
+            tag={SlotType.JACKPOT}
+            title={t('game.jackpot').toUpperCase()}
+            icon="jackpot"
+          />
+          <GameListSectionAsyncByTag
+            tag={SlotType.MEGAWAY}
+            title={'MEGAWAY'}
+            icon="megaway"
+          />
           <ProviderList data={providers} onNavigateProvider={onNavigate} />
         </>
       }

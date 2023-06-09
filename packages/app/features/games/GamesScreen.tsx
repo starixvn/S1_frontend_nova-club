@@ -8,20 +8,17 @@ import {
   useGameFilter,
   withGameFilterProvider,
 } from 'app/provider/gameFilter/GameFilterProvider'
-import { GAME_TYPE_CODE, GDC_GAME_CATEGORY, SlotType } from 'app/utils/constant'
+import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'app/utils/constant'
 import React, {
   RefObject,
   useEffect,
   useMemo,
-  useRef,
-  useTransition,
+  useRef
 } from 'react'
+import { Platform } from 'react-native'
 import { Game } from 'services/gameApi.type'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
-import { Platform } from 'react-native'
 import TopGameSection from '../home/TopGameSection'
-import GameListSectionAsyncByTag from 'app/components/game/GameListSectionAsyncByTag'
-import useLocalization from 'app/provider/localization'
 
 const enum FILTER_CATEGORY {
   GDC = 'gdc',
@@ -72,7 +69,6 @@ const _GamesScreen = () => {
   const { games, gamesByProviders, filterKey, setFilteredGames } =
     useGameFilter()
 
-  const { t } = useLocalization()
 
   useEffect(() => {
     if (filterKey) {
@@ -169,21 +165,6 @@ const _GamesScreen = () => {
           <RecentlyPlayedSection />
           <TopGameSection />
 
-          <GameListSectionAsyncByTag
-            tag={SlotType.NEW}
-            title={t('game.new').toUpperCase()}
-            icon="star"
-          />
-          <GameListSectionAsyncByTag
-            tag={SlotType.JACKPOT}
-            title={t('game.jackpot').toUpperCase()}
-            icon="jackpot"
-          />
-          <GameListSectionAsyncByTag
-            tag={SlotType.MEGAWAY}
-            title={'MEGAWAY'}
-            icon="megaway"
-          />
           <ProviderList data={providers} onNavigateProvider={onNavigate} />
         </>
       }

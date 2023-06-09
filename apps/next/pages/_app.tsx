@@ -5,12 +5,12 @@ import { AvertaStdUseFont } from 'app/assets/fonts/Averta'
 import { Provider } from 'app/provider'
 import { useFonts } from 'expo-font'
 import Head from 'next/head'
-import type { SolitoAppProps } from 'solito'
+import AdaptiveLayout, {
+  AdaptiveAppProps,
+} from '../components/layouts/AdaptiveLayout'
 import '../global.css'
-import AdaptiveLayout from '../components/layouts/AdaptiveLayout'
-import RootPage from '../../../apps/expo/app/rootPage'
 
-function MyApp({ Component, pageProps }: SolitoAppProps) {
+function MyApp({ ...rest }: AdaptiveAppProps) {
   useFonts(AvertaStdUseFont)
 
   return (
@@ -24,10 +24,7 @@ function MyApp({ Component, pageProps }: SolitoAppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Provider>
-        <AdaptiveLayout>
-          <Component {...pageProps} />
-          <RootPage />
-        </AdaptiveLayout>
+        <AdaptiveLayout {...rest} />
       </Provider>
     </>
   )

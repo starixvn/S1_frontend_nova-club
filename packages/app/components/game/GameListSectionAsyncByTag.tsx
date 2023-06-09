@@ -14,8 +14,6 @@ const GameListSectionAsyncByTag = ({
 }: GameListSectionAsyncByTagProps) => {
   const { data } = useGetGameListByTagsQuery([tag])
 
-  console.log('data', data)
-
   return <GameListSection data={data} {...rest} />
 }
 

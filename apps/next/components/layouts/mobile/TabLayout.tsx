@@ -1,12 +1,19 @@
-import React from 'react'
-import { Text } from 'react-native'
 import BottomTabBar, {
   BOTTOM_TAB_BAR_HEIGHT,
 } from 'app/components/navigation/BottomTabBar'
 import MainHeader from 'app/components/navigation/header/MainHeader'
 import { HEADER_HEIGHT } from 'app/utils/constant'
+import { ReactNode, useEffect } from 'react'
 
-export default function MobileBaseLayout({ children }) {
+export default function MobileBaseLayout({
+  children,
+}: {
+  children: ReactNode
+}) {
+  useEffect(() => {
+    console.log('Header Mounted')
+  }, [])
+
   return (
     <div
       style={{
