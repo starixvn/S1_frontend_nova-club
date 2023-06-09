@@ -17,23 +17,17 @@ type CustomTabBarProps = {
 }
 
 const CustomTabBar = ({ routes, currentIndex, onPress }: CustomTabBarProps) => {
-  const PageComponent = routes && routes.length > 3 ? ScrollView : View
   const handlePress = (value) => {
     onPress(value)
   }
 
   return (
     <DripsyGradient gradient="surface">
-      <PageComponent
-        horizontal
-        contentContainerSx={{ px: 24, gap: 12 }}
-        sx={
-          PageComponent === View ? { flexDirection: 'row', px: 24, gap: 4 } : {}
-        }
-      >
+      <View sx={{ flexDirection: 'row', px: 24, gap: 4 }}>
         {routes.length > 0 &&
           routes.map((route, index) => {
             const isActive = currentIndex === index
+
             return (
               <View key={route.title + uniqueId()} sx={{ flex: 1, py: 12 }}>
                 <Pressable onPress={() => handlePress(route.index)}>
@@ -61,7 +55,7 @@ const CustomTabBar = ({ routes, currentIndex, onPress }: CustomTabBarProps) => {
               </View>
             )
           })}
-      </PageComponent>
+      </View>
     </DripsyGradient>
   )
 }

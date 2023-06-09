@@ -174,8 +174,12 @@
   "menu": {
     "tab": {
       "event": "Event",
-      "ranking": "Ranking"
-    }
+      "ranking": "Ranking",
+      "redeem": "Redeem",
+      "how": "How",
+      "rules": "Rules"
+    },
+    "myRewards": "My Rewards Hub"
   },
   "notes": {
     "importantNotice": "Important Notice",
@@ -263,5 +267,8 @@
     "cryptoWallet": "Crypto Wallet",
     "addCryptoWallet": "Add Crypto Wallet",
     "walletAddress": "Wallet Address"
+  },
+  "reward": {
+    "coinRewards": "Vui Coins Rewards"
   }
 }

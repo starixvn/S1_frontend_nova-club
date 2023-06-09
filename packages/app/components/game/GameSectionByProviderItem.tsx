@@ -142,7 +142,7 @@ const GameTypeFilter = ({ filters, filter, setFilter }) => {
   )
 }
 
-const GameList = ({ data }: { data: Game[] }) => {
+export const GameList = ({ data }: { data: Game[] }) => {
   return (
     <Row
       sx={{
