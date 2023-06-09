@@ -7,7 +7,9 @@ import { getStatusColor } from 'app/config/status'
 import { copyToClipboard, toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import dayjsTz from 'app/utils/dayjs'
+import { Pressable } from 'dripsy'
 import { Text, View, useDripsyTheme } from 'dripsy'
+import { useModal } from 'react-native-modalfy'
 import { ReportResult } from 'services/playerApi.type'
 
 type RecentTransactionRowProps = {
@@ -18,6 +20,7 @@ const RecentTransactionRow = ({ item }) => {
   const { theme } = useDripsyTheme()
   const date = dayjsTz(item.date).format('YYYY/MM/DD')
   const time = dayjsTz(item.date).format('hh:mm a')
+  const { openModal } = useModal()
 
   const category = PaymentMethod.find(
     (el) => el.categoryId === item.second_category_flag
@@ -26,6 +29,18 @@ const RecentTransactionRow = ({ item }) => {
   const amount = toCurrency(item.amount, Currency.VND, {
     symbol: false,
   })
+
+  function openUploadBankSlipModal() {
+    openModal('UploadBankSlipModal', {
+      depositInfo: {
+        depositId: item.secure_id,
+        paymentMode: item.pay_type,
+        date: dayjsTz(item.date).format('YYYY/MM/DD hh:mm a'),
+        status: item.status,
+        amount: amount,
+      },
+    })
+  }
 
   return (
     <View sx={{ bg: '$primary.200', py: 2, mb: 20 }}>
@@ -67,11 +82,13 @@ const RecentTransactionRow = ({ item }) => {
           {!item.bank_slip_attachment &&
             item.second_category_flag ===
               DepositPaymentMethodCategoryId.LOCAL_BANK && (
-              <Text
-                sx={{ textDecorationLine: 'underline', color: '$tertiary' }}
-              >
-                Bank Slip
-              </Text>
+              <Pressable onPress={openUploadBankSlipModal}>
+                <Text
+                  sx={{ textDecorationLine: 'underline', color: '$tertiary' }}
+                >
+                  Bank Slip
+                </Text>
+              </Pressable>
             )}
         </View>
       </View>
