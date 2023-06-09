@@ -45,7 +45,10 @@ const ProfileDetails = () => {
     skip: !token,
   })
   return (
-    <PageWithBackHeader header={{ title: 'common.profile' }} disableScrollView>
+    <PageWithBackHeader
+      header={{ title: t('common.profile') }}
+      disableScrollView
+    >
       <View sx={{ mt: '$2' }}>
         <ProfileItem
           label={t('common.realName')}

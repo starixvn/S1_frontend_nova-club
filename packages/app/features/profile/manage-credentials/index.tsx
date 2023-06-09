@@ -57,7 +57,7 @@ const ManageCredentialsPage = () => {
 
   return (
     <PageWithBackHeader
-      header={{ title: 'manageCredentials.title' }}
+      header={{ title: t('manageCredentials.title') }}
       disableScrollView
     >
       <View style={{ flex: 1 }}>

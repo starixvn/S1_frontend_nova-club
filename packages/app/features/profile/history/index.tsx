@@ -44,7 +44,7 @@ const History = () => {
   }
   return (
     <PageWithBackHeader
-      header={{ title: 'common.historyTitle' }}
+      header={{ title: t('common.historyTitle') }}
       disableScrollView
     >
       <TabView

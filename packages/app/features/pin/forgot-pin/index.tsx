@@ -167,7 +167,9 @@ const ForgotPinScreen = () => {
   }
 
   return (
-    <PageWithBackHeader header={{ title: 'manageCredentials.pin.forgotPin' }}>
+    <PageWithBackHeader
+      header={{ title: t('manageCredentials.pin.forgotPin') }}
+    >
       <View sx={{ p: '5%' }}>
         <Input
           sx={{ mt: '$2' }}

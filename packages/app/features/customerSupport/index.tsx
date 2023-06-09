@@ -16,7 +16,7 @@ const CustomerSupportScreen = () => {
   const mediaList = useSupportItemList()
 
   return (
-    <PageWithBackHeader header={{ title: 'contact.customerSupport' }}>
+    <PageWithBackHeader header={{ title: t('contact.customerSupport') }}>
       <View sx={{ flex: 1, alignItems: 'center' }}>
         <Image
           source={require('app/assets/images/common/logo-circle.png')}

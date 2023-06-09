@@ -76,7 +76,7 @@ const Deposit = () => {
   return (
     <PageWithBackHeader
       header={{
-        title: t('menu.deposit'),
+        title: t('deposit.depositTitle'),
         actions: (
           <MenuNotice
             onPress={() => openModal('NoticeModal', { notice: DEPOSIT_NOTES })}

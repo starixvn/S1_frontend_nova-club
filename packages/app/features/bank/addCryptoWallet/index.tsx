@@ -61,7 +61,7 @@ const AddCryptoWalletScreen = () => {
   }
 
   return (
-    <PageWithBackHeader header={{ title: 'wallet.addCryptoWallet' }}>
+    <PageWithBackHeader header={{ title: t('wallet.addCryptoWallet') }}>
       <StyledView>
         <RealNameForm formik={formik}>
           <SelectWithCardGrid

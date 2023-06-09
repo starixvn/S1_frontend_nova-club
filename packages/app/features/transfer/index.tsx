@@ -53,7 +53,7 @@ const TransferScreen = () => {
   return (
     <PageWithBackHeader
       header={{
-        title: 'transfer.transferTitle',
+        title: t('transfer.transferTitle'),
         actions: (
           <IconButton
             name="notice"
