@@ -184,6 +184,16 @@
     },
     "transfer": {
       "n1": "All the fund receive via internal transfer are subject to |1x rollover| before the withdrawal"
+    },
+    "deposit": {
+      "n1": "Kindly please check for the latest active deposit bank details before you making a deposit.",
+      "n3": "Depositor's ACCOUNT NAME must match with your registered full name. We do not encourage transaction made using 3rd party/company account.",
+      "n4": "Please DO NOT fill in 'VUI123' or any sensitive words related to gambling as reference/remark in your online transaction.",
+      "n5": "Please take noted that will be 1x rollover required for all deposit made before any withdrawal can be processed.",
+      "n6": "Kindly please contact our 24/7 LIVECHAT if your transaction is still pending for more than 5 minutes."
+    },
+    "depost": {
+      "n2": "For using Bank Transfer deposit option, please make the transfer done before submit the transaction to avoid the transaction delay."
     }
   },
   "profile": {
