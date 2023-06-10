@@ -2,7 +2,7 @@ import Image from 'app/components/common/Image'
 import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import useLocalization from 'app/provider/localization'
 import { ActivityIndicator, Text, View } from 'dripsy'
-import { Platform, useWindowDimensions } from 'react-native'
+import { Platform } from 'react-native'
 
 const COIN_IMG = require('../../../assets/images/events/summerCat/coin.png')
 
@@ -13,7 +13,6 @@ interface StartNowProps {
 }
 
 const StartNow = ({ disable, isSubmitting, onPress }: StartNowProps) => {
-  const { height, width } = useWindowDimensions()
   const { t } = useLocalization()
   function renderCoinLoop() {
     const coinElement: React.ReactNode[] = []
@@ -28,7 +27,7 @@ const StartNow = ({ disable, isSubmitting, onPress }: StartNowProps) => {
           }}
         >
           <Image
-            style={{ aspectRatio: 1, width: Math.min(90, width * 0.2) }}
+            style={{ aspectRatio: 1, width: 90, height: 90 }}
             resizeMode={'contain'}
             source={COIN_IMG}
           />
@@ -55,7 +54,7 @@ const StartNow = ({ disable, isSubmitting, onPress }: StartNowProps) => {
   }
 
   return (
-    <>
+    <View sx={{ paddingX: 10, paddingBottom: 10 }}>
       {renderCoinLoopContainer()}
       <View
         sx={{
@@ -64,7 +63,7 @@ const StartNow = ({ disable, isSubmitting, onPress }: StartNowProps) => {
           alignItems: 'center',
           justifyContent: 'center',
           borderRadius: 30,
-          top: 0,
+          top: -10,
           left: 0,
           right: 0,
           bottom: 0,
@@ -96,10 +95,11 @@ const StartNow = ({ disable, isSubmitting, onPress }: StartNowProps) => {
                 sx={{
                   position: 'absolute',
                   fontWeight: 'bold',
-                  fontSize: 30,
+
+                  fontSize: 28,
                   textShadow:
                     Platform.OS === 'web'
-                      ? '0 1px 0 rgba(0,0,0,.3)'
+                      ? '0 1px 0 rgba(0,0,0,0.3)'
                       : undefined,
                 }}
               >
@@ -109,7 +109,7 @@ const StartNow = ({ disable, isSubmitting, onPress }: StartNowProps) => {
           )}
         </TouchableOpacity>
       </View>
-    </>
+    </View>
   )
 }
 

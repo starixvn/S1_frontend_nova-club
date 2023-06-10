@@ -1,10 +1,9 @@
 import { styled, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
 import { memo } from 'react'
-import SummerMeowMeow from './event/SummerMeowMeow'
 import LiveChatButton from './LiveChatButton'
 import VGaming from './VGaming'
-import PredictionEvent from './event/PredictionEvent'
+import DragonBoat from './event/DragonBoat'
 
 interface FloatingContentSwitchProps {
   visible: boolean
@@ -37,8 +36,7 @@ const FloatingDrawer = ({
             transition={{ type: 'timing', duration: 500 }}
           >
             <ContentOffset>
-              <PredictionEvent size={size} />
-              {/* <SummerMeowMeow size={size} /> */}
+              <DragonBoat size={size} />
               <VGaming size={size} />
               <LiveChatButton />
             </ContentOffset>

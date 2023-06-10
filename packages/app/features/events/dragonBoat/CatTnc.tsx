@@ -1,14 +1,14 @@
 import { DEV_DOMAIN } from '@env'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import { useAppSelector } from 'app/provider/redux/store'
-import { Text, View } from 'dripsy'
+import { View } from 'dripsy'
 import React from 'react'
 import WebView from 'react-native-webview'
 
 const CatEventTnc = () => {
   const lang = useAppSelector((state) => state.setting.locale)
 
-  const TNC_URL = `${DEV_DOMAIN}/event/sea-game-event-tnc?locale=${lang}`
+  const TNC_URL = `${DEV_DOMAIN}/event/dragon-boat-event-tnc?locale=${lang}`
 
   // Used to hide the header inside webview
   const INJECTED_JAVASCRIPT = `

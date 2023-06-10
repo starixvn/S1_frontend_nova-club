@@ -1,27 +1,34 @@
+import Image from 'app/components/common/Image'
 import IconButton from 'app/components/form/IconButton'
 import useAlert from 'app/hooks/useAlert'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
+import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { Action, ActionType, getAction } from 'app/utils/actionGenerator'
 import { getErrorMessage } from 'app/utils/validation'
-import { ScrollView, Text, View } from 'dripsy'
+import { ScrollView, View } from 'dripsy'
 import _ from 'lodash'
 import React, { useCallback, useEffect, useState } from 'react'
-import { ImageBackground, Platform } from 'react-native'
+import { Platform } from 'react-native'
 import {
   useCheckTicketSpinQuery,
   useLuckyDrawMutation,
 } from 'services/eventApi'
+import AnimateBackground from './AnimateBackground'
+import Background from './Background'
 import CoinBox from './CoinBox'
+import DragonBoatCatCard from './DragonBoatCatCard'
 import Result from './Result'
 import StartNow from './StartNow'
-import SummerCatCard from './SummerCatCard'
+import TicketLeft from './TicketLeft'
+import Title from './Title'
 import useSoundController from './useSoundController'
-import Image from 'app/components/common/Image'
-import TouchableOpacity from 'app/pressable/TouchableOpacity'
-import { Action, ActionType, getAction } from 'app/utils/actionGenerator'
-import { useAppSelector } from 'app/provider/redux/store'
-import { Gradient } from '@dripsy/gradient'
+
+import { useFonts } from 'expo-font'
+
+import ExtraBold from 'app/assets/fonts/event/AvertaStd-ExtraBold.ttf'
 
 const possibleResult = [0, 38000, 388000, 3888000]
 
@@ -42,16 +49,16 @@ const prizeDict = {
 const tncData: Action = {
   type: ActionType.INTERNAL_REDIRECT,
   payload: {
-    uri: '/event/sea-game-event-tnc',
+    uri: '/event/dragon-boat-event-tnc',
     params: {
       locale: 'vn',
     },
   },
 }
 
-const SummerCat = () => {
+const DragonBoat = () => {
   const { back, push } = useContextualRouter()
-  const { top, bottom } = useSafeArea()
+  const { top, bottom, left, right } = useSafeArea()
 
   const [buttonMap, setButtoMap] = useState<Array<number>>([])
   const [result, setResult] = useState<number>() || undefined
@@ -75,13 +82,6 @@ const SummerCat = () => {
   })
 
   const [draw] = useLuckyDrawMutation()
-
-  const imageBackgroundref = useCallback((node) => {
-    if (!node) return
-
-    const backgroundImage = node.childNodes
-    backgroundImage[0].style.backgroundPosition = 'bottom'
-  }, [])
 
   async function getResult() {
     try {
@@ -155,7 +155,7 @@ const SummerCat = () => {
   useEffect(() => {
     if (prizePress === 3) {
       if (result && result > 0) {
-        play('won')
+        play('win')
       } else {
         play('lose')
       }
@@ -177,85 +177,95 @@ const SummerCat = () => {
     action({ push, locale })
   }, [locale])
 
+  const [fontsLoaded, error] = useFonts({
+    'AvertaStd-ExtraBold': ExtraBold,
+  })
+
+  if (!fontsLoaded) {
+    console.log(error)
+  }
+
   return (
     <View sx={{ flex: 1 }}>
-      <ImageBackground
-        imageRef={Platform.select({ web: imageBackgroundref })}
-        source={require('../../../assets/images/events/summerCat/sea_bg.jpg')}
-        resizeMode={Platform.OS === 'web' ? 'cover' : 'cover'}
-        style={{
-          flex: 1,
+      <Background />
+      <AnimateBackground />
+      <IconButton
+        onPress={() => back()}
+        name="chevleft"
+        size={20}
+        color={'$darkNavyBlue'}
+        sx={{
+          top: top + 25,
+          left: left + 20,
+          zIndex: 3,
+          width: 30,
+          height: 30,
+          position: 'absolute',
+          bg: 'white',
+          borderRadius: 100,
+          shadowColor: '#000',
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.23,
+          shadowRadius: 2.62,
+
+          elevation: 4,
+        }}
+      />
+      <TouchableOpacity
+        onPress={() => handleTncButton()}
+        disabled={Platform.OS === 'web' && result ? true : false}
+        sx={{
+          top: top + 25,
+          right: right + 20,
+          zIndex: 3,
+          width: 30,
+          height: 30,
+          position: 'absolute',
+          borderRadius: 100,
+          shadowColor: '#000',
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.23,
+          shadowRadius: 2.62,
+
+          elevation: 4,
         }}
       >
-        <IconButton
-          onPress={() => back()}
-          name="chevleft"
-          size={20}
-          color={'$darkNavyBlue'}
-          sx={{
-            top: top + 50,
-            left: 20,
-            zIndex: 3,
-            width: 40,
-            height: 40,
-            position: 'absolute',
-            bg: 'white',
-            borderRadius: 100,
-            shadowColor: '#000',
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.23,
-            shadowRadius: 2.62,
-
-            elevation: 4,
-          }}
+        <Image
+          source={require('app/assets/images/events/summerCat/btnTnC.png')}
+          resizeMode="contain"
+          style={{ width: '100%', height: '100%', zIndex: 1 }}
         />
-        <TouchableOpacity
-          onPress={() => handleTncButton()}
-          disabled={Platform.OS === 'web' && result ? true : false}
+      </TouchableOpacity>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingBottom: bottom,
+          alignItems: 'center',
+        }}
+        sx={Platform.select({
+          web: {
+            height: 1, // Hacky way to make overflow works
+          },
+        })}
+      >
+        <View
           sx={{
-            top: top + 50,
-            right: 20,
-            zIndex: 3,
-            width: 40,
-            height: 40,
-            position: 'absolute',
-            borderRadius: 100,
-            shadowColor: '#000',
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.23,
-            shadowRadius: 2.62,
-
-            elevation: 4,
+            width: '80%',
+            minWidth: 350,
+            maxWidth: 350,
+            marginTop: top + 80,
           }}
         >
-          <Image
-            source={require('app/assets/images/events/summerCat/btnTnC.png')}
-            resizeMode="contain"
-            style={{ width: '100%', height: '100%', zIndex: 1 }}
-          />
-        </TouchableOpacity>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{
-            flex: 1,
-            alignItems: 'center',
-            paddingBottom: bottom,
-            justifyContent: 'center',
-          }}
-          sx={Platform.select({
-            web: {
-              height: 1, // Hacky way to make overflow works
-            },
-          })}
-        >
-          <View sx={{ width: '80%', maxWidth: 400 }}>
-            {flipPage ? (
+          {flipPage ? (
+            <>
+              <TicketLeft balance={balance} />
+              <Title balance={balance} />
               <CoinBox title={t('event.catEvent.miniGame.matchThree')}>
                 {result || result! >= 0 ? (
                   groupedData.map((group, i) => (
@@ -264,7 +274,7 @@ const SummerCat = () => {
                         const counter = j + i * 3
                         const isDisabled = disabledButtons.includes(counter)
                         return (
-                          <SummerCatCard
+                          <DragonBoatCatCard
                             key={counter}
                             value={e}
                             img={catDict[e]}
@@ -293,7 +303,12 @@ const SummerCat = () => {
                   />
                 )}
               </CoinBox>
-            ) : (
+            </>
+          ) : (
+            <View sx={{ marginTop: 100 }}>
+              <View>
+                <TicketLeft balance={balance} />
+              </View>
               <Result
                 result={result!}
                 onPress={() => {
@@ -301,45 +316,12 @@ const SummerCat = () => {
                   setResult(undefined)
                 }}
               />
-            )}
-            <Gradient
-              sx={{
-                alignSelf: 'flex-start',
-                marginTop: 20,
-                borderRadius: 30,
-                borderWidth: 6,
-                borderColor: 'white',
-                height: 60,
-                width: 150,
-              }}
-              start={[0, 0]}
-              end={[0.5, 0.5]}
-              colors={['rgba(255,144,104,0.95)', 'rgba(255,75,31,0.95)']}
-            >
-              <Text
-                sx={{
-                  textAlign: 'center',
-                  fontWeight: '900',
-                  fontSize: 20,
-                }}
-              >
-                {balance ? balance.totalBalance : 0}
-              </Text>
-              <Text
-                sx={{
-                  textAlign: 'center',
-                  fontWeight: '900',
-                  fontSize: 10,
-                }}
-              >
-                {t('event.catEvent.miniGame.ticketLeft')}
-              </Text>
-            </Gradient>
-          </View>
-        </ScrollView>
-      </ImageBackground>
+            </View>
+          )}
+        </View>
+      </ScrollView>
     </View>
   )
 }
 
-export default SummerCat
+export default DragonBoat

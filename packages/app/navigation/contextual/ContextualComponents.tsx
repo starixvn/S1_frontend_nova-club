@@ -35,13 +35,12 @@ const ContextualComponents = {
   '/pin/change-pin': () => import('app/features/pin/change-pin'),
   '/pin/forgot-pin': () => import('app/features/pin/forgot-pin'),
   '/profile/overview': () => import('app/features/profile/overview'),
-  '/event/sea-game': () => import('../../../../apps/next/pages/event/sea-game'),
-  '/event/sea-game-event-tnc': () =>
-    import('../../../../apps/next/pages/event/sea-game-event-tnc'),
   '/banner/agent-tnc': () =>
     import('../../../../apps/next/pages/banner/agent-tnc'),
-  '/event/prediction': () =>
-    import('app/features/events/prediction/Prediction'),
+  '/event/dragon-boat': () =>
+    import('app/features/events/dragonBoat/DragonBoat'),
+  '/event/dragon-boat-event-tnc': () =>
+    import('../../../../apps/next/pages/event/dragon-boat-event-tnc'),
 }
 
 export type ContextualComponentType = keyof typeof ContextualComponents

@@ -7,9 +7,11 @@ import RegisterVerificationPage from 'app/features/auth/verification'
 import Forbidden from 'app/features/common/Forbidden'
 import Maintenance from 'app/features/common/Maintenance'
 import CustomerSupportPage from 'app/features/customerSupport'
-import CatEventTnc from 'app/features/events/summerCat/CatTnc'
+import CatEventTnc from 'app/features/events/dragonBoat/CatTnc'
+import DragonBoat from 'app/features/events/dragonBoat/DragonBoat'
 import FishingPage from 'app/features/fishing'
 import GameLoaderPage from 'app/features/games/GameLoaderPage'
+import AgentPromoTnC from 'app/features/home/Section/AgentPromoTnC'
 import MessagesPage from 'app/features/messages'
 import CreatePinScreen from 'app/features/pin/CreatePinScreen'
 import ChangePinScreen from 'app/features/pin/change-pin'
@@ -32,12 +34,8 @@ import BankWithdrawalPage from 'app/features/withdrawal/BankWithdrawalPage'
 import CryptoWithdrawalPage from 'app/features/withdrawal/CryptoWithdrawalPage'
 import { fadeScaleIn } from 'app/transitions/fade'
 import { Easing } from 'react-native'
-import SummerCat from '../../../../apps/next/pages/event/sea-game'
 import DepositNavigation from './DepositNavigation'
 import MemberAgentNavigation from './MemberAgentNavigation'
-import AgentPromoTnC from 'app/features/home/Section/AgentPromoTnC'
-import Prediction from 'app/features/events/prediction/Prediction'
-import PredictionTnc from 'app/features/events/prediction/components/PredictionTnc'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -78,8 +76,8 @@ const Stack = createStackNavigator<{
   Cny: undefined
   CnyTnc: undefined
   AccountVerification: undefined
-  SummerCat: undefined
   CatEventTnc: undefined
+  DragonBoat: undefined
   AgentRecruitmentTnc: undefined
   Prediction: undefined
   PredictionTnc: undefined
@@ -259,11 +257,9 @@ export function NativeNavigation() {
       <Stack.Screen name="TnC" component={TnC} />
       <Stack.Screen name="Forbidden" component={Forbidden} />
       <Stack.Screen name="Maintenance" component={Maintenance} />
-      <Stack.Screen name="SummerCat" component={SummerCat} />
       <Stack.Screen name="CatEventTnc" component={CatEventTnc} />
-      <Stack.Screen name="PredictionTnc" component={PredictionTnc} />
+      <Stack.Screen name="DragonBoat" component={DragonBoat} />
       <Stack.Screen name="AgentRecruitmentTnc" component={AgentPromoTnC} />
-      <Stack.Screen name="Prediction" component={Prediction} />
     </Stack.Navigator>
   )
 }

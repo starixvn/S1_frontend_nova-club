@@ -1,7 +1,7 @@
-import { Pressable, View } from 'dripsy'
+import { Image, Pressable, View } from 'dripsy'
 import { MotiImage, MotiView, useAnimationState } from 'moti'
-import { Platform, StyleSheet, useWindowDimensions } from 'react-native'
-import useSoundController, { SoundController } from './useSoundController'
+import { StyleSheet } from 'react-native'
+import { SoundController } from './useSoundController'
 
 const COIN_IMG = require('../../../assets/images/events/summerCat/coin.png')
 
@@ -15,7 +15,7 @@ interface SummerCatCardProps {
   onPress: () => void
 }
 
-const SummerCatCard = ({
+const DragonBoatCatCard = ({
   value,
   img,
   prizeImg,
@@ -24,7 +24,6 @@ const SummerCatCard = ({
   flipSound,
   onPress,
 }: SummerCatCardProps) => {
-  const { height, width } = useWindowDimensions()
   const closed = useAnimationState({
     from: {
       opacity: 1,
@@ -63,11 +62,10 @@ const SummerCatCard = ({
           }}
         >
           <MotiView state={closed} style={styles.shape}>
-            <MotiImage
+            <Image
               style={{
-                aspectRatio: 1,
-                width: Math.min(90, width * 0.2),
-                height: Platform.OS === 'web' ? 'auto' : 90,
+                width: 90,
+                height: 90,
               }}
               resizeMode={'contain'}
               source={COIN_IMG}
@@ -84,10 +82,8 @@ const SummerCatCard = ({
                   loop: resetCard && prizeImg ? true : false,
                 }}
                 style={{
-                  aspectRatio: 1,
-                  height: '100%',
-                  width:
-                    Platform.OS === 'web' ? Math.min(90, width * 0.2) : '100%',
+                  height: 90,
+                  width: 90,
                 }}
                 resizeMode={'contain'}
                 source={img}
@@ -101,15 +97,11 @@ const SummerCatCard = ({
                   loop: resetCard && prizeImg ? true : false,
                 }}
                 style={{
-                  aspectRatio: 25 / 22,
-                  height: '100%',
-                  width:
-                    Platform.OS === 'web'
-                      ? Math.min(100, width * 0.225)
-                      : '110%',
+                  height: 95,
+                  width: 95,
                   position: 'absolute',
-                  left: -5,
-                  top: Platform.OS === 'web' ? 0 : -2,
+                  left: -3,
+                  top: -3,
                   zIndex: -100,
                   opacity: resetCard ? 1 : 0,
                 }}
@@ -124,7 +116,7 @@ const SummerCatCard = ({
   )
 }
 
-export default SummerCatCard
+export default DragonBoatCatCard
 
 const styles = StyleSheet.create({
   shape: {
