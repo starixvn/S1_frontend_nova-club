@@ -219,7 +219,9 @@
     "title": "Referral",
     "link": "Link",
     "share": "Share",
-    "shareMessage": "Share & Earn"
+    "shareMessage": "Share & Earn",
+    "shareContent": "Get exclusive referral bonuses when your friend signs up using your referral code",
+    "code": "Referral Code"
   },
   "status": {
     "pending": "Pending",
