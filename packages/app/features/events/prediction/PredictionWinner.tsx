@@ -19,7 +19,7 @@ const PredictionWinner = () => {
 
   return (
     <PageWithBackHeader
-      header={{ title: 'Prediction Winner' }}
+      header={{ title: 'menu.predictionWinner' }}
       sx={{ bg: '#031051' }}
     >
       <Image

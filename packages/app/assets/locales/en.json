@@ -164,7 +164,8 @@
         "won": "CONGRATULATIONS!",
         "won2": "YOU'VE WON TOTAL"
       },
-      "tnc": {}
+      "tnc": {
+      }
     },
     "claim": "CLAIM YOUR BONUS TICKET NOW",
     "jackpot": "Jackpot (Shared Pool Prize): 100,000,000 VND",
@@ -296,6 +297,7 @@
     "logout": "Logout",
     "manageCredentials": "Manage Credentials",
     "message/announcement": "Message/Announcement",
+    "predictionWinner": "Prediction Winner",
     "profile": "Profile",
     "referral": "Referral",
     "switchAccount": "Switch Account",

@@ -164,7 +164,8 @@
         "won": "XIN CHÚC MỪNG!",
         "won2": "BẠN ĐÃ TRÚNG THƯỞNG"
       },
-      "tnc": {}
+      "tnc": {
+      }
     },
     "claim": "ĐỔI VÉ THƯỞNG CỦA BẠN NGAY",
     "jackpot": "Jackpot (chia phần thưởng): 100,000,000 VND",
@@ -296,6 +297,7 @@
     "logout": "Thoát",
     "manageCredentials": "Quản lý thông tin đăng nhập",
     "message/announcement": "Tin Nhắn/Thông Báo",
+    "predictionWinner": "THÁNH DỰ ĐOÁN",
     "profile": "Hồ sơ",
     "referral": "Giới thiệu",
     "switchAccount": "Chuyển tài khoản",
