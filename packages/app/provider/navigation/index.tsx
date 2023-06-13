@@ -1,4 +1,4 @@
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native'
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native'
 import { useMemo } from 'react'
 
 /**
@@ -161,6 +161,9 @@ export function NavigationProvider({
               AgentRecruitmentTnc: '/banner/agent-tnc',
               CatEventTnc: '/event/dragon-boat-event-tnc',
               DragonBoat: '/event/dragon-boat',
+              Prediction: '/event/prediction',
+              PredictionTnc: '/event/prediction-tnc',
+              PredictionWinner: '/event/prediction-winner',
             },
           },
         }),

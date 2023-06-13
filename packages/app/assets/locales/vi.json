@@ -164,10 +164,11 @@
         "won": "XIN CHÚC MỪNG!",
         "won2": "BẠN ĐÃ TRÚNG THƯỞNG"
       },
-      "tnc": {
-      }
+      "tnc": {}
     },
     "claim": "ĐỔI VÉ THƯỞNG CỦA BẠN NGAY",
+    "jackpot": "Jackpot (chia phần thưởng): 100,000,000 VND",
+    "luckyDraw": "Bốc thăm may mắn: 10,000,000 VNĐ",
     "prediction": {
       "event": "THÁNH DỰ ĐOÁN ",
       "haveSelected": "Bạn đã chọn",
@@ -178,6 +179,7 @@
     "ticketSubmitted": "Gửi vé dự đoán thành công",
     "winText1": "XIN CHÚC MỪNG!",
     "winText2": "BẠN NHẬN LỘC",
+    "winnerList": "DANH SÁCH NGƯỜI CHIẾN THẮNG",
     "youHave": "Bạn có"
   },
   "filter": {

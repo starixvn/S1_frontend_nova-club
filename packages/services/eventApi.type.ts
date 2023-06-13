@@ -39,3 +39,13 @@ export interface TicketSpinResult {
   formatted_amount: string
   err: string
 }
+
+export type PredictionWinnerResult = {
+  row_count_total: number
+  rows: PredictionWinnerItem[]
+}
+
+export type PredictionWinnerItem = {
+  ticket_date: string
+  username: string
+}

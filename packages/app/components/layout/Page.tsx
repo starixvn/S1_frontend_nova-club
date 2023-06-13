@@ -1,4 +1,4 @@
-import { SafeAreaView, ScrollView, styled, Sx, View } from 'dripsy'
+import { SafeAreaView, ScrollView, styled, Sx, SxProp, View } from 'dripsy'
 import { ComponentProps } from 'react'
 import { Platform } from 'react-native'
 import { Source } from 'react-native-fast-image'
@@ -43,6 +43,7 @@ type PageWithBackHeaderProps = {
   header?: (() => React.ReactNode) | ComponentProps<typeof Header>
   hideHeader?: boolean
   background?: Source['uri']
+  wrapperStyle?: SxProp
 } & (PageScrollViewProps | PageViewProps)
 
 export const PageWithBackHeader = ({

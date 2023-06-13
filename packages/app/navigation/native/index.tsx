@@ -9,6 +9,8 @@ import Maintenance from 'app/features/common/Maintenance'
 import CustomerSupportPage from 'app/features/customerSupport'
 import CatEventTnc from 'app/features/events/dragonBoat/CatTnc'
 import DragonBoat from 'app/features/events/dragonBoat/DragonBoat'
+import Prediction from 'app/features/events/prediction/Prediction'
+import PredictionWinner from 'app/features/events/prediction/PredictionWinner'
 import FishingPage from 'app/features/fishing'
 import GameLoaderPage from 'app/features/games/GameLoaderPage'
 import AgentPromoTnC from 'app/features/home/Section/AgentPromoTnC'
@@ -81,6 +83,7 @@ const Stack = createStackNavigator<{
   AgentRecruitmentTnc: undefined
   Prediction: undefined
   PredictionTnc: undefined
+  PredictionWinner: undefined
 }>()
 
 export function NativeNavigation() {
@@ -260,6 +263,8 @@ export function NativeNavigation() {
       <Stack.Screen name="CatEventTnc" component={CatEventTnc} />
       <Stack.Screen name="DragonBoat" component={DragonBoat} />
       <Stack.Screen name="AgentRecruitmentTnc" component={AgentPromoTnC} />
+      <Stack.Screen name="Prediction" component={Prediction} />
+      <Stack.Screen name="PredictionWinner" component={PredictionWinner} />
     </Stack.Navigator>
   )
 }

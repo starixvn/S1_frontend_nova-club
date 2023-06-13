@@ -2,9 +2,7 @@
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
-  AffCupWinnerList,
-  CNYRollResult,
-  CNYSpinBalance,
+  PredictionWinnerResult,
   TicketSpinBalance,
   TicketSpinResult,
   WcTicketCountResp,
@@ -47,6 +45,15 @@ export const eventApi = baseApiWithTag.injectEndpoints({
       }),
       invalidatesTags: ['PredictCount'],
     }),
+    predictionWinnerList: builder.query<
+      IResponse<PredictionWinnerResult>,
+      void
+    >({
+      query: () => ({
+        url: `/static_api/getWinnerList`,
+        method: 'GET',
+      }),
+    }),
   }),
 })
 
@@ -56,4 +63,5 @@ export const {
   useLuckyDrawMutation,
   useCLTicketCountQuery,
   useSubmitCLTicketMutation,
+  usePredictionWinnerListQuery,
 } = eventApi
