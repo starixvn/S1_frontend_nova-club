@@ -74,7 +74,8 @@
     "historyTitle": "Transaction History",
     "transaction": "Transaction",
     "game": "Game",
-    "next": "Next"
+    "next": "Next",
+    "shareholder": "Shareholder"
   },
   "commision": {
     "title": "Commision Table",
@@ -272,5 +273,13 @@
   },
   "reward": {
     "coinRewards": "Vui Coins Rewards"
+  },
+  "footer": {
+    "note1": "Become Our Partner",
+    "note2": "VUI123 is committed to supporting Responsible Gaming",
+    "copyright": "© Copyright 2023 VUI123. All Rights Reserved.",
+    "contactUs": "Contact Us",
+    "responsibleGaming": "Responsible Gaming",
+    "aboutUs": "About Us"
   }
 }

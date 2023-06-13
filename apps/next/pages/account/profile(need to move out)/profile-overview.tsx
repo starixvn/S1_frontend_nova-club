@@ -1,3 +1,3 @@
-import ProfileOverview from 'app/features/profile/overview'
+import ProfileOverview from 'app/features/account/overview'
 
 export default ProfileOverview

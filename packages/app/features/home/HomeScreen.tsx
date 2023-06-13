@@ -10,7 +10,6 @@ import RecentlyPlayedSection from './RecentlyPlayedSection'
 import TopGameSection from './TopGameSection'
 import LeaderboardSection from './LeaderboardSection'
 import ReferralSection from './Referral/ReferralSection'
-import Sponsor from './Footer/Sponsor'
 import Footer from 'app/components/navigation/footer'
 
 export default function HomeScreen() {
@@ -47,6 +46,7 @@ export default function HomeScreen() {
       <MatchSection />
       <LeaderboardSection />
       <ReferralSection />
+      <Footer />
     </ScrollView>
   )
 }
