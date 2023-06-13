@@ -1,9 +1,9 @@
-import React from 'react'
-import BaseLayout from './BaseLayout'
-import { Text, Container, Row, View, styled } from 'dripsy'
-import LeftPanelContainer from 'desktop-ext/components/layout/LeftPanelContainer'
 import AccountMenu from 'desktop-ext/components/layout/AccountMenu'
+import LeftPanelContainer from 'desktop-ext/components/layout/LeftPanelContainer'
 import { HEADER_HEIGHT } from 'desktop-ext/components/layout/MainHeader'
+import PageContainer from 'desktop-ext/components/layout/PageContainer'
+import { Container, Row, Text, View, styled } from 'dripsy'
+import BaseLayout from './BaseLayout'
 
 export default function AccountLayout({ children }) {
   return (
@@ -12,7 +12,7 @@ export default function AccountLayout({ children }) {
         <AccountMenu />
         <Row>
           <LeftMenu />
-          <RightContainer>{children}</RightContainer>
+          <PageContainer>{children}</PageContainer>
         </Row>
       </Container>
     </BaseLayout>
@@ -22,13 +22,8 @@ export default function AccountLayout({ children }) {
 const LeftMenu = () => {
   return (
     <LeftPanelContainer>
-      <Text sx={{ py: '$5' }}>Left Menu</Text>
+      <Text sx={{ py: '$5' }}>Profile</Text>
+      <Text sx={{ py: '$5' }}> Bank Account</Text>
     </LeftPanelContainer>
   )
 }
-
-const RightContainer = styled(View)({
-  borderWidth: 1,
-  flex: 1,
-  borderColor: '$primary.300',
-})
