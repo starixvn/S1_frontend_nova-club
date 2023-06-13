@@ -11,6 +11,7 @@ export default function AccountMenu({}) {
         width: '100%',
         borderColor: '$primary.300',
         borderWidth: 1,
+        borderStyle: 'dashed',
         my: 20,
       }}
     ></View>

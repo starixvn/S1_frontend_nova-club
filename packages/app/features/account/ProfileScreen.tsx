@@ -4,7 +4,7 @@ import { Text } from 'dripsy'
 import React from 'react'
 import { Link } from 'solito/link'
 
-export default function AccountScreen() {
+export default function ProfileScreen() {
   const { top } = useSafeArea()
   return (
     <Screen sx={{ pt: top }}>

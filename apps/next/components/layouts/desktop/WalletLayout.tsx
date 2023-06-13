@@ -1,15 +1,14 @@
-import React from 'react'
-import BaseLayout from './BaseLayout'
-import { Row, View, styled, Container } from 'dripsy'
-import { Text } from 'react-native'
+import { HEADER_HEIGHT } from 'desktop-ext/components/layout/MainHeader'
 import WalletMenu from 'desktop-ext/components/layout/WalletMenu'
+import { Container, View, styled } from 'dripsy'
+import BaseLayout from './BaseLayout'
 
 export default function WalletLayout({ children }) {
   return (
     <BaseLayout>
-      <Container sx={{}}>
+      <Container sx={{ minHeight: `calc(100vh - ${HEADER_HEIGHT}px)` }}>
         <WalletMenu />
-        <RightContainer>{children}</RightContainer>
+        {children}
       </Container>
     </BaseLayout>
   )
