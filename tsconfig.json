@@ -4,6 +4,8 @@
     "noUncheckedIndexedAccess": true,
     "paths": {
       "app/*": ["./packages/app/*"],
+      "services/*": ["./packages/services/*"],
+      "desktop-ext/*": ["./packages/desktop-ext/*"],
       "utils/*": ["./packages/utils/*"]
     },
     "module": "ES2022"

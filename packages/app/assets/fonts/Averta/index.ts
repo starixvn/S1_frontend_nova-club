@@ -20,6 +20,11 @@ const AvertaStd: FontFamilySet = {
   },
 }
 
-export const AvertaStdUseFont = toUseFont(AvertaStd)
+export const AvertaStdUseFont = {
+  [AvertaStd.Regular.name]: {
+    uri: AvertaStd.Regular.file,
+    display: 'swap',
+  },
+}
 
 export default AvertaStd

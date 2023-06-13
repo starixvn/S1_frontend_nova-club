@@ -6,7 +6,7 @@ export const MobileBaseLayout = ({
 }: {
   children: React.ReactNode
 }) => {
-  return <View>{children}</View>
+  return children
 }
 
 export const MobileTabLayout = dynamic(() => import('./TabLayout'), {

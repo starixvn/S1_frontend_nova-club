@@ -70,19 +70,19 @@ const _GamesScreen = () => {
     useGameFilter()
 
 
-  useEffect(() => {
-    if (filterKey) {
-      if (Platform.OS === 'web') {
-        document
-          .getElementById(`gameSectionSABA`)
-          ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-      } else
-        flashListRef.current?.scrollToIndex({
-          animated: true,
-          index: 0,
-        })
-    }
-  }, [filterKey])
+  // useEffect(() => {
+  //   if (filterKey) {
+  //     if (Platform.OS === 'web') {
+  //       document
+  //         .getElementById(`gameSectionSABA`)
+  //         ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  //     } else
+  //       flashListRef.current?.scrollToIndex({
+  //         animated: true,
+  //         index: 0,
+  //       })
+  //   }
+  // }, [filterKey])
 
   const flashListRef = useRef<FlashList<Game[]>>(null)
 

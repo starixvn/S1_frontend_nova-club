@@ -3,7 +3,6 @@ import { FONT_TOP_OFFSET } from 'app/constants/font'
 import useLocalization from 'app/provider/localization'
 import { Pressable, Text, View, styled } from 'dripsy'
 import { Video, ResizeMode } from 'expo-av'
-import { Skeleton } from 'moti/skeleton'
 import React, { useEffect, useRef, useState } from 'react'
 import { Platform, StyleSheet } from 'react-native'
 import { SolitoImage } from 'solito/image'
@@ -28,9 +27,9 @@ export default function GameGridSectionItem({ type, src, title, ...rest }) {
   }, [videoStatus])
 
   return (
-    <View {...rest}>
-      <View sx={{ borderRadius: 10, overflow: 'hidden' }}>
-        <SkeletonPlaceholder show={isFetching}>
+    <Pressable {...rest}>
+      <View sx={{ borderRadius: 10, overflow: 'hidden', height: '100%' }}>
+        <SkeletonPlaceholder show={isFetching} height={'100%'}>
           <>
             {type === 'video' ? (
               <Video
@@ -76,7 +75,7 @@ export default function GameGridSectionItem({ type, src, title, ...rest }) {
           </>
         </SkeletonPlaceholder>
       </View>
-    </View>
+    </Pressable>
   )
 }
 

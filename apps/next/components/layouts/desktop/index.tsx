@@ -5,3 +5,13 @@ export const DesktopBaseLayout = dynamic(() => import('./BaseLayout'), {
   loading: () => <ActivityIndicator />,
   ssr: false,
 })
+
+export const DesktopWalletLayout = dynamic(() => import('./WalletLayout'), {
+  loading: () => <ActivityIndicator />,
+  ssr: false,
+})
+
+export const DesktopAccountLayout = dynamic(() => import('./AccountLayout'), {
+  loading: () => <ActivityIndicator />,
+  ssr: false,
+})

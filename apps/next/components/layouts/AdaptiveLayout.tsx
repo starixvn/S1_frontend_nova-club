@@ -2,10 +2,12 @@ import { useEffect, useMemo, useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import type { SolitoAppProps } from 'solito'
 
-import { Provider } from 'app/provider'
-import { MobileBaseLayout } from './mobile'
-import { DesktopBaseLayout } from './desktop'
+import useOnAppStart from 'app/hooks/useOnAppStart'
 import { useRouter } from 'next/router'
+import { DesktopBaseLayout } from './desktop'
+import { MobileBaseLayout } from './mobile'
+import { useFonts, FontDisplay } from 'expo-font'
+import AvertaStd from 'app/assets/fonts/Averta'
 
 export type NavigationOptions = SolitoAppProps['Component']['navigationOptions']
 export type AdaptiveAppProps<P = {}> = Omit<SolitoAppProps<P>, 'Component'> & {
@@ -20,6 +22,13 @@ export default function AdaptiveLayout({
   Component,
   pageProps,
 }: AdaptiveAppProps) {
+  useOnAppStart()
+  useFonts({
+    AvertaStd: {
+      uri: '/AvertaStd-Regular.ttf',
+      display: FontDisplay.SWAP,
+    },
+  })
   const [isClientReady, setClientReady] = useState<boolean>()
   const router = useRouter()
 
@@ -30,7 +39,7 @@ export default function AdaptiveLayout({
     if (!isClientReady) return
     document.getElementsByTagName('body')[0].classList.add('rendered')
 
-    if (window.innerWidth < 1024) {
+    if (window.innerWidth < 992) {
       return Component.MobileLayout || MobileBaseLayout
     } else return Component.DesktopLayout || DesktopBaseLayout
   }, [isClientReady, width, router])
@@ -56,13 +65,11 @@ export default function AdaptiveLayout({
       {/* <RootPage /> */}
 
       {/* <ActivityIndicator /> */}
-      <Provider>
-        {BaseLayout && (
-          <BaseLayout>
-            <Component {...pageProps} />
-          </BaseLayout>
-        )}
-      </Provider>
+      {BaseLayout && (
+        <BaseLayout>
+          <Component {...pageProps} />
+        </BaseLayout>
+      )}
     </div>
   )
 }
