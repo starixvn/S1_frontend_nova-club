@@ -1,9 +1,5 @@
 import DatePicker from 'app/components/form/DatePicker'
-import SelectButton, {
-  SelectButtonProps,
-} from 'app/components/form/Select/SelectButton'
 import Select from 'app/components/select/Select'
-import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
 import SelectWithProviderCardGrid from 'app/components/select/SelectWithProviderCardGrid'
 import { getProviderLogo } from 'app/config/games/provider'
 import useLocalization from 'app/provider/localization'
@@ -19,6 +15,7 @@ import {
 import dayjs from 'dayjs'
 import { Text, View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
+import { useWindowDimensions } from 'react-native'
 import { SelectOptions } from 'services/common/types'
 import { usePlayerWalletDetailQuery } from 'services/walletApi'
 
@@ -34,6 +31,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
   const { t } = useLocalization()
   const { data } = usePlayerWalletDetailQuery()
   const [providerList, setProviderList] = useState<SelectOptions[]>([])
+  const { width } = useWindowDimensions()
 
   useEffect(() => {
     if (!data?.success) return
@@ -95,7 +93,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
     }
   }
   return (
-    <View sx={{ p: '$2' }}>
+    <View sx={{ p: '$2', mx: '$2' }}>
       <View
         sx={{
           flexDirection: 'row',
@@ -116,9 +114,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
                 selectedStatus: ReportDepositStatusOptions[0],
               })
             }}
-            inputProps={{
-              placeholderTextColor: '$white',
-            }}
+            _input={{ placeholderTextColor: '$white' }}
             // buttonComponent={(props) => (
             //   <SelectButton
             //     variants="history"
@@ -133,7 +129,6 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
             label={t('filter.transactionType.title')}
             _actionSheet={{
               sheetId: t('filter.transactionType.title') + 1,
-              // headerTitle: t('filter.transactionType.title'),
             }}
           />
         ) : (
@@ -151,9 +146,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
             onSelected={(value) =>
               setSelected({ ...selected, selectedGame: value })
             }
-            inputProps={{
-              placeholderTextColor: '$white',
-            }}
+            _input={{ placeholderTextColor: '$white' }}
             label={t('common.provider')}
             // buttonComponent={(props: SelectButtonProps) => (
             //   <SelectButton
@@ -189,9 +182,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
               endDate,
             })
           }}
-          inputProps={{
-            placeholderTextColor: '$white',
-          }}
+          _input={{ placeholderTextColor: '$white' }}
           label={t('common.date')}
           // buttonComponent={(props: SelectButtonComponentProps) => (
           //   <SelectButton
@@ -219,9 +210,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
                 ? DepositStatusList
                 : WithdrawalStatusList
             }
-            inputProps={{
-              placeholderTextColor: '$white',
-            }}
+            _input={{ placeholderTextColor: '$white' }}
             enabledLabel={false}
             sx={{ flex: 1, m: '$1' }}
             onSelected={(value) =>
@@ -256,9 +245,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
             enabledLabel={false}
             placeholder={t(selected.selectedGameStatus.label)}
             sx={{ flex: 1, m: '$1' }}
-            inputProps={{
-              placeholderTextColor: '$white',
-            }}
+            _input={{ placeholderTextColor: '$white' }}
             options={GameStatusList}
             onSelected={(value) =>
               setSelected({ ...selected, selectedGameStatus: value })

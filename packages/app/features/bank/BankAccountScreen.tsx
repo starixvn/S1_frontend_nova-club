@@ -17,7 +17,7 @@ const BankAccountScreen = () => {
   })
 
   const handlePress = () => {
-    push('/account/profile/bank/add-bank-account')
+    push('/bank/add-bank-account')
   }
 
   return (

@@ -90,7 +90,6 @@ const nextConfig = {
     'react-native-screens',
     'react-native-share',
     'react-native-tab-view',
-    'react-native-view-shot',
     'react-qr-reader',
     'react-redux',
     'react-web-share',

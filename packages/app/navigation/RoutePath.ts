@@ -77,11 +77,11 @@ export const Profile_Quick_Navigation_Path: Route[] = [
     path: '/account/profile/commission',
     icon: 'ct',
   },
-  // {
-  //   label: 'my rewards hub',
-  //   path: '/',
-  //   icon: 'gift',
-  // },
+  {
+    label: 'my rewards hub',
+    path: '/account/profile/my-rewards-hub',
+    icon: 'gift',
+  },
   // {
   //   label: 'friend referral',
   //   path: '/',

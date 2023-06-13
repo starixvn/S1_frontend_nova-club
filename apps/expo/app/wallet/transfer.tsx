@@ -1,3 +1,3 @@
-import TransferScreen from 'app/features/transfer/index'
+import TransferScreen from 'app/features/transfer'
 
 export default TransferScreen

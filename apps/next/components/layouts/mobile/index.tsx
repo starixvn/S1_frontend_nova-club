@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import { ActivityIndicator, View } from 'react-native'
+import { ActivityIndicator } from 'react-native'
 
 export const MobileBaseLayout = ({
   children,
