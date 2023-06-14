@@ -48,6 +48,10 @@ export type ModalStackParams = {
   UploadBankSlipModal: {
     depositInfo: Record<any, any>
   }
+  DepositConfirmationModal: {
+    amount: string
+    callback(...args: any): any
+  }
 }
 
 type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
@@ -65,6 +69,8 @@ const _dynamicModal = {
     import('app/components/modal/WithdrawalConfirmationModal'),
   UploadBankSlipModal: () =>
     import('app/features/deposit/component/UploadBankSlipModal'),
+  DepositConfirmationModal: () =>
+    import('app/features/deposit/bank-transfer/DepositConfirmationModal'),
 }
 
 function getDynamicComponent(key: DynamicModalType) {
@@ -108,6 +114,9 @@ const modalConfig: ModalConfigType = {
   },
   UploadBankSlipModal: {
     modal: getDynamicComponent('UploadBankSlipModal'),
+  },
+  DepositConfirmationModal: {
+    modal: getDynamicComponent('DepositConfirmationModal'),
   },
 }
 const stack = createModalStack(modalConfig, {
