@@ -1,3 +1,17 @@
-import AccountScreen from 'app/features/profile/AccountScreen'
+import { DesktopAccountLayout } from 'components/layouts/desktop'
+import withAdaptiveScreen from 'desktop-ext/hoc/withAdaptiveScreen'
+import dynamic from 'next/dynamic'
 
-export default AccountScreen
+const LazyMobileScreen = dynamic(() => import('app/features/account'), {
+  ssr: false,
+})
+
+const LazyDesktopScreen = dynamic(
+  () => import('app/features/account/ProfileScreen'),
+  { ssr: false }
+)
+
+const Account = withAdaptiveScreen(LazyMobileScreen, LazyDesktopScreen)
+
+Account.DesktopLayout = DesktopAccountLayout
+export default Account

@@ -38,6 +38,13 @@ const theme = makeTheme({
       '900': webFont(AvertaStd.Black.name),
     },
   },
+  breakpoints: [576, 768, 992, 1200, 1520],
+  layout: {
+    container: {
+      width: ['100%', '100%', '100%', '95%'],
+      maxWidth: ['100%', '100%', '100%', 1520],
+    },
+  },
   fonts: {
     root: AvertaStd.Regular.name,
   },

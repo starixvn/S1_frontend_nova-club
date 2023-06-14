@@ -12,6 +12,7 @@ import { usePlayerProfileQuery } from 'services/playerApi'
 import BannerSection from '../home/BannerSection'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 import SectionHeader from 'app/components/SectionHeader'
+import { GameToLaunchPayload } from 'app/utils/game'
 
 export default function LiveCasinoScreen() {
   const { t } = useLocalization()
@@ -38,9 +39,7 @@ export default function LiveCasinoScreen() {
 
   function renderItem({ item, index }: { item: Game; index: number }) {
     const { name, img } = item
-    async function launchGame() {
-      // todo launch game
-    }
+
     const formattedName = name
       ? typeof name === 'string'
         ? name
@@ -51,6 +50,7 @@ export default function LiveCasinoScreen() {
     const isMostRight = index % numColumns === numColumns - 1
     const isMiddle = !isMostLeft && !isMostRight
     const spacePercentage = 5
+    const launchPayload = GameToLaunchPayload(item, locale)
 
     return (
       <Row
@@ -68,6 +68,7 @@ export default function LiveCasinoScreen() {
             flex: 1,
             mx: isMiddle ? `${spacePercentage * 1.5}%` : `${spacePercentage}%`,
           }}
+          {...launchPayload}
         />
       </Row>
     )

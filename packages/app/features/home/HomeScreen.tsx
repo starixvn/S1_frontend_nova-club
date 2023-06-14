@@ -8,6 +8,9 @@ import GameGridSection from './GameGridSection'
 import MatchSection from './Match/MatchSection'
 import RecentlyPlayedSection from './RecentlyPlayedSection'
 import TopGameSection from './TopGameSection'
+import LeaderboardSection from './LeaderboardSection'
+import ReferralSection from './Referral/ReferralSection'
+import Footer from 'app/components/navigation/footer'
 
 export default function HomeScreen() {
   const { t } = useLocalization()
@@ -41,6 +44,9 @@ export default function HomeScreen() {
         icon="megaway"
       />
       <MatchSection />
+      <LeaderboardSection />
+      <ReferralSection />
+      <Footer />
     </ScrollView>
   )
 }

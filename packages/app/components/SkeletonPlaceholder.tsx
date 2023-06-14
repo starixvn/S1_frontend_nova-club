@@ -12,9 +12,9 @@ const SkeletonPlaceholder = ({
     <Skeleton
       radius={5}
       colors={[
-        'rgba(150,150,255,0.7)',
+        'rgba(150,150,255,0.3)',
         'rgba(0,0,0,0.2)',
-        'rgba(150,150,255,0.8)',
+        'rgba(150,150,255,0.5)',
       ]}
       width="100%"
       {...restProps}

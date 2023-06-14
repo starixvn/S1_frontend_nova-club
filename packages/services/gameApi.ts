@@ -63,7 +63,7 @@ export const gameApi = baseApiWithTag.injectEndpoints({
         },
       }),
     }),
-    getGameListByTags: builder.query<Game[], string[]>({
+    getGameListByTags: builder.query<Game[],void>({
       query: (tags) => ({
         url: `/static_api/getGameList`,
         method: 'POST',

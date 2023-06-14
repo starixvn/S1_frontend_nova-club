@@ -64,7 +64,7 @@ export default function RecentlyPlayedSection() {
             sx={{ mx: '$1' }}
             width={[50, 70]}
             height={[50, 70]}
-            image={vgaming}
+            // image={vgaming}
           />
         </View>
         <HorizontalGameList data={gameList} size={[50, 70]} />

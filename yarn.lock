@@ -5511,6 +5511,14 @@ __metadata:
   languageName: node
   linkType: hard
 
+"desktop-ext@*, desktop-ext@workspace:packages/desktop-ext":
+  version: 0.0.0-use.local
+  resolution: "desktop-ext@workspace:packages/desktop-ext"
+  peerDependencies:
+    app: "*"
+  languageName: unknown
+  linkType: soft
+
 "destroy@npm:1.2.0":
   version: 1.2.0
   resolution: "destroy@npm:1.2.0"
@@ -10044,6 +10052,7 @@ __metadata:
     "@expo/next-adapter": 5.0.2
     "@types/node": 17.0.21
     app: "*"
+    desktop-ext: "*"
     eslint-config-next: 13.2.0
     next: 13.2.0
     next-compose-plugins: ^2.2.1

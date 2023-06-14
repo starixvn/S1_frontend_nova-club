@@ -1,26 +1,31 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { Pressable, SxProp, Text, View, styled } from 'dripsy'
-import React, { useRef, useState, useTransition } from 'react'
-import { PressableProps, StyleSheet } from 'react-native'
+import React, { memo, useRef, useState, useTransition } from 'react'
+import { GestureResponderEvent, PressableProps, StyleSheet } from 'react-native'
 import { SolitoImage } from 'solito/image'
 import SkeletonPlaceholder from '../SkeletonPlaceholder'
+import { LaunchGamePayload } from 'app/store/gameLauncher.slice'
+import { LaunchGame } from 'app/features/game/GameLauncher'
 
-export interface GameCardProps extends PressableProps {
+export interface GameCardProps
+  extends PressableProps,
+    PressableProps,
+    LaunchGamePayload {
   name?: string
-  image: string | number
   width?: number | number[] | string | string[]
   height?: number | number[]
   sx?: SxProp
 }
 
-export default function GameCard({
+const GameCard = ({
   name,
   image,
   width,
   height,
   sx,
+  onPress,
   ...rest
-}: GameCardProps) {
+}: GameCardProps) => {
   const lastLoadedRef = useRef(image)
   const [loaded, setLoaded] = useState(false)
   const [isPending, startTransition] = useTransition()
@@ -29,11 +34,23 @@ export default function GameCard({
     lastLoadedRef.current = image
     startTransition(() => setLoaded(false))
   }
-
   const imageSrc =
-    typeof image === 'number' || image.startsWith('/_next')
+    image?.startsWith('/_next') || image?.startsWith('http')
       ? image
       : `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${image}`
+
+  function onClick(e: GestureResponderEvent) {
+    if (onPress) onPress(e)
+    else {
+      LaunchGame({
+        gameCode: rest.gameCode,
+        gameName: rest.gameName,
+        gameType: rest.gameType,
+        image: imageSrc,
+        providerCode: rest.providerCode,
+      })
+    }
+  }
 
   return (
     <Root
@@ -42,6 +59,7 @@ export default function GameCard({
         height,
         ...sx,
       }}
+      onPress={onClick}
       {...rest}
     >
       <View sx={{ width: '100%', height: '100%', position: 'relative' }}>
@@ -56,7 +74,7 @@ export default function GameCard({
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             loading="lazy"
             alt={name ?? ''}
-            resizeMode="cover"
+            resizeMode="contain"
             key={imageSrc}
             src={imageSrc}
           />
@@ -78,6 +96,8 @@ export default function GameCard({
     </Root>
   )
 }
+
+export default memo(GameCard)
 
 const Root = styled(Pressable)({
   borderRadius: 5,

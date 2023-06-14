@@ -23,6 +23,7 @@ const CustomTabBar = ({ routes, currentIndex, onPress }: CustomTabBarProps) => {
 
   return (
     <DripsyGradient gradient="surface">
+      <View sx={{ height: 1, bg: '$primary.100' }} />
       <View sx={{ flexDirection: 'row', px: 24, gap: 4 }}>
         {routes.length > 0 &&
           routes.map((route, index) => {

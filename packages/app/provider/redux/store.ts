@@ -1,6 +1,7 @@
 import { combineReducers, configureStore, Reducer } from '@reduxjs/toolkit'
 // import { alertReducer } from 'app/store/alert.slice'
 import authReducer, { authInitialState, AuthState } from 'app/store/authReducer'
+import { gameLauncherReducer } from 'app/store/gameLauncher.slice'
 // import bankReducer from 'app/store/bankReducer'
 // import { depositReducer } from 'app/store/deposit.slice'
 // import { gameLauncherReducer } from 'app/store/gameLauncher.slice'
@@ -72,7 +73,7 @@ const rootReducer = combineReducers({
   deposit: depositReducer,
   setting: settingReducer,
   // tempSetting: tempSettingReducer,
-  // gameLauncher: gameLauncherReducer,
+  gameLauncher: gameLauncherReducer,
 })
 
 /** Fix typescript issue https://github.com/rt2zz/redux-persist/issues/1184 */

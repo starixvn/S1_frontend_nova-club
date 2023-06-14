@@ -21,6 +21,8 @@ import { ALL } from 'app/utils/constant'
 import GameCard from './GameCard'
 import { ProviderImageMapping } from 'app/constants/gameAssets'
 import { LayoutAnimation } from 'react-native'
+import { GameToLaunchPayload } from 'app/utils/game'
+import { useAppSelector } from 'app/provider/redux/store'
 
 const MAX_SHOWN = 12
 
@@ -37,7 +39,6 @@ function GameSectionByProviderItem({
   const count = useResponsiveValue([8, 10, MAX_SHOWN])
 
   const tags = useMemo(() => {
-    console.log('changing tags', gpc)
     return games.reduce(
       (distinctTags, currentGame) => union(distinctTags, currentGame.tags),
       [ALL]
@@ -142,7 +143,8 @@ const GameTypeFilter = ({ filters, filter, setFilter }) => {
   )
 }
 
-export const GameList = ({ data }: { data: Game[] }) => {
+const GameList = ({ data }: { data: Game[] }) => {
+  const locale = useAppSelector((s) => s.setting.locale)
   return (
     <Row
       sx={{
@@ -152,16 +154,19 @@ export const GameList = ({ data }: { data: Game[] }) => {
         pb: '$sectionBottomSpace',
       }}
     >
-      {data.map((g, i) => (
-        <GameCard
-          key={i}
-          image={g.img}
-          width={width}
-          sx={{
-            m: spaces,
-          }}
-        />
-      ))}
+      {data.map((g, i) => {
+        const launchPayload = GameToLaunchPayload(g, locale)
+        return (
+          <GameCard
+            key={i}
+            width={width}
+            sx={{
+              m: spaces,
+            }}
+            {...launchPayload}
+          />
+        )
+      })}
     </Row>
   )
 }

@@ -10,9 +10,9 @@ import { Game } from 'services/gameApi.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import MatchSection from './MatchSection'
 import { FlatList, Row, View, useResponsiveValue } from 'dripsy'
+import { GameToLaunchPayload } from 'app/utils/game'
 
 export default function SportsbookScreen() {
-  const { t } = useLocalization()
   const locale = useAppSelector((s) => s.setting.locale)
 
   const { data: playerProfile } = usePlayerProfileQuery()
@@ -39,10 +39,7 @@ export default function SportsbookScreen() {
   const numColumns = useResponsiveValue([2, 3, 3, 4])
 
   function renderItem({ item, index }: { item: Game; index: number }) {
-    const { name, img } = item
-    async function launchGame() {
-      // todo launch game
-    }
+    const { name } = item
     const formattedName = name
       ? typeof name === 'string'
         ? name
@@ -54,6 +51,8 @@ export default function SportsbookScreen() {
     const isMiddle = !isMostLeft && !isMostRight
     const spacePercentage = 5
 
+    const launchPayload = GameToLaunchPayload(item, locale)
+
     return (
       <Row
         sx={{
@@ -64,12 +63,13 @@ export default function SportsbookScreen() {
       >
         <GameCard
           name={formattedName}
-          image={img}
+          // image={img}
           sx={{
             my: `${spacePercentage}%`,
             flex: 1,
             mx: isMiddle ? `${spacePercentage * 1.5}%` : `${spacePercentage}%`,
           }}
+          {...launchPayload}
         />
       </Row>
     )

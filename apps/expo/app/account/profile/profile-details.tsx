@@ -1,3 +1,3 @@
-import ProfileDetails from 'app/features/profile/profile-details/ProfileDetails'
+import ProfileDetails from 'app/features/account/profile-details/ProfileDetails'
 
 export default ProfileDetails

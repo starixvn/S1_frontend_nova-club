@@ -1,3 +1,3 @@
-import AccountScreen from 'app/features/profile/AccountScreen'
+import AccountScreen from 'app/features/account/index'
 
 export default AccountScreen

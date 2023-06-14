@@ -173,6 +173,7 @@ const WithdrawalForm = ({
 
   const {
     handleBlur,
+    handleChange,
     values,
     errors,
     touched,
@@ -270,6 +271,7 @@ const WithdrawalForm = ({
               })
         }
         keyboardType="number-pad"
+        // setValue={handleChange('amount')}
         onChangeText={onAmountChanged}
         onBlur={handleBlur('amount')}
         value={values.amount}
