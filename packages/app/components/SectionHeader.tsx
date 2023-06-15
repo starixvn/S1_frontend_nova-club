@@ -1,7 +1,8 @@
-import { SxProp, View } from 'dripsy'
+import { SxProp, View, styled, useDripsyTheme } from 'dripsy'
 import React from 'react'
 import SectionLabel from './SectionLabel'
 import { ViewProps } from 'react-native'
+import Shadow from './Shadow'
 
 interface SectionHeaderProps extends ViewProps {
   sx?: SxProp
@@ -15,19 +16,36 @@ export default function SectionHeader({
   sx,
   ...rest
 }: SectionHeaderProps) {
+  const { theme } = useDripsyTheme()
+
   return (
-    <View
-      sx={{
-        bg: '$primary.300',
-        borderTopLeftRadius: 30,
-        borderBottomLeftRadius: 30,
-        marginLeft: '$pagePadding',
-        p: [6, '$2'],
-        ...sx,
-      }}
-      {...rest}
-    >
-      <SectionLabel icon={icon} title={title} />
-    </View>
+    <Root sx={sx}>
+      <Shadow
+        offset={[0, -1]}
+        distance={1}
+        stretch
+        startColor={theme.colors.$primary[100]}
+        style={{
+          borderTopLeftRadius: 30,
+          borderBottomLeftRadius: 30,
+        }}
+      >
+        <View
+          sx={{
+            bg: '$primary.300',
+            borderTopLeftRadius: 30,
+            borderBottomLeftRadius: 30,
+            p: [6, '$2'],
+            ...sx,
+          }}
+          {...rest}
+        >
+          <SectionLabel icon={icon} title={title} />
+        </View>
+      </Shadow>
+    </Root>
   )
 }
+const Root = styled(View)({
+  ml: '$pagePadding',
+})

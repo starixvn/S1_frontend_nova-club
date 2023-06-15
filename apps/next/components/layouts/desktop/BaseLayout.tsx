@@ -1,3 +1,4 @@
+import Footer from 'app/components/navigation/footer'
 import MainHeader, {
   HEADER_HEIGHT,
 } from 'desktop-ext/components/layout/MainHeader'
@@ -34,6 +35,6 @@ const FloatedHeader = () => {
   )
 }
 
-const Footer = () => {
-  return <div style={{ color: 'white' }}>Footer</div>
-}
+// const Footer = () => {
+//   return <div style={{ color: 'white' }}>Footer</div>
+// }

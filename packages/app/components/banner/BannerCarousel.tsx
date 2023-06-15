@@ -1,8 +1,9 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import useContainerWidth from 'app/hooks/useContainerWidth'
 import { Row, SxProp, View, useDripsyTheme } from 'dripsy'
 import { Skeleton } from 'moti/skeleton'
-import React from 'react'
-import { useWindowDimensions } from 'react-native'
+import React, { ComponentType, useLayoutEffect, useRef, useState } from 'react'
+import { View as RNView, useWindowDimensions } from 'react-native'
 import Animated, {
   useAnimatedStyle,
   interpolate,
@@ -12,6 +13,7 @@ import Animated, {
 import Carousel, { TCarouselProps } from 'react-native-reanimated-carousel'
 import { BannerResult } from 'services/contentApi.type'
 import { SolitoImage } from 'solito/image'
+import SkeletonPlaceholder from '../SkeletonPlaceholder'
 
 export interface BannerCarouselProps
   extends Omit<TCarouselProps<BannerResult>, 'data' | 'renderItem'> {
@@ -24,37 +26,49 @@ export default function BannerCarousel({
   sx,
   ...rest
 }: BannerCarouselProps) {
-  const width = useWindowDimensions().width
-  const height = width / (768 / 350)
+  // const width = useWindowDimensions().width
+
   const progressValue = useSharedValue<number>(0)
   const { theme } = useDripsyTheme()
 
+  const rootRef = useRef<RNView>(null)
+
+  const width = useContainerWidth(rootRef)
+
+  const ratio = 1920 / 500
+  const height = width / ratio
+  const showCarousel = data != null && width > 0
   return (
-    <View sx={sx}>
-      <Skeleton show={data == null}>
-        <Carousel
-          loop
-          width={width}
-          height={height}
-          autoPlay={true}
-          autoPlayInterval={5000}
-          data={data}
-          scrollAnimationDuration={1000}
-          onProgressChange={(_, absoluteProgress) =>
-            (progressValue.value = absoluteProgress)
-          }
-          // onSnapToItem={(index) => console.log('current index:', index)}
-          renderItem={({ item }) => (
-            <SolitoImage
-              src={`${MEDIA_DOMAIN}/${CONTENT_URI}/banners/${item.image}`}
-              height={height}
-              width={width}
-              alt={item.alt ?? ''}
-            />
-          )}
-          {...rest}
-        />
-      </Skeleton>
+    <View ref={rootRef} sx={{ width: '100%', aspectRatio: ratio, ...sx }}>
+      <SkeletonPlaceholder width={'100%'} height={'100%'}>
+        {showCarousel ? (
+          <Carousel
+            loop
+            width={width}
+            height={height}
+            autoPlay
+            autoPlayInterval={5000}
+            data={data}
+            scrollAnimationDuration={1000}
+            onProgressChange={(_, absoluteProgress) =>
+              (progressValue.value = absoluteProgress)
+            }
+            // onSnapToItem={(index) => console.log('current index:', index)}
+            renderItem={({ item }) => (
+              <View pointerEvents="none">
+                <SolitoImage
+                  src={`${MEDIA_DOMAIN}/${CONTENT_URI}/banners/${item.image}`}
+                  height={height}
+                  width={width}
+                  alt={item.alt ?? ''}
+                  resizeMode="cover"
+                />
+              </View>
+            )}
+            {...rest}
+          />
+        ) : null}
+      </SkeletonPlaceholder>
       {data && (
         <Row
           sx={{
@@ -62,6 +76,10 @@ export default function BannerCarousel({
             alignItems: 'center',
             justifyContent: 'center',
             gap: 5,
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
           }}
         >
           {data.map((b, index) => {

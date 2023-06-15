@@ -9,6 +9,7 @@ import { MatchResult } from 'services/matchApi.type'
 import { SolitoImage } from 'solito/image'
 
 import customParseFormat from 'dayjs/plugin/customParseFormat'
+import { FONT_TOP_OFFSET } from 'app/constants/font'
 
 dayjs.extend(customParseFormat)
 interface Props {
@@ -16,7 +17,7 @@ interface Props {
   match: MatchResult
 }
 
-export const SCORE_HEIGHT = 20
+export const SCORE_HEIGHT = [20, 30, 40]
 
 export default function MatchItem({ width, match }: Props) {
   // const leagueLogo = getLeagueLogo(match.LeagueId)
@@ -210,16 +211,17 @@ const HandicapColumn = styled(View)({
 const HandicapLabel = styled(Text)(
   ({ color = 'black' }: { color?: string }) => ({
     color,
-    mx: '$1',
-    fontSize: [11, 12],
-    lineHeight: SCORE_HEIGHT,
+    mx: ['$1', '$1', '$2', '$2', '$3'],
+    fontSize: [11, 12, 14, 18, 22],
+    mt: FONT_TOP_OFFSET,
+    // lineHeight: SCORE_HEIGHT,
     fontWeight: '500',
   })
 )
 
 const MatchTime = styled(Text)(() => ({
   pt: 2,
-  fontSize: [10, 12, 14],
+  fontSize: [10, 12, 14, 18, 22],
   fontWeight: '500',
   width: '25%',
   textAlign: 'center',
@@ -227,8 +229,9 @@ const MatchTime = styled(Text)(() => ({
 
 const TeamName = styled(Text)(() => ({
   pt: 2,
-  fontSize: [10, 12, 14],
-  lineHeight: 14,
+  fontSize: [10, 12, 14, 18, 22],
+  // lineHeight: 14,
+  mt: FONT_TOP_OFFSET,
   width: '24%',
   // backgroundColor: 'rgba(255,0,0,0.3)',
   fontWeight: 'bold',

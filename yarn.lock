@@ -5516,6 +5516,7 @@ __metadata:
   resolution: "desktop-ext@workspace:packages/desktop-ext"
   peerDependencies:
     app: "*"
+    dripsy: "*"
   languageName: unknown
   linkType: soft
 
