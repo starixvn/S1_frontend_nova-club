@@ -15,9 +15,9 @@ const MENU = [
   {
     route: '/',
     icon: 'home',
-    style: {
-      marginRight: 'auto',
-    },
+    // style: {
+    //   marginRight: 'auto',
+    // },
   },
   {
     route: '/sportsbook',
