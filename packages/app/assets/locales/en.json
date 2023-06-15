@@ -22,12 +22,12 @@
     "selectBank": "Select Bank",
     "accountNumber": "Account Number"
   },
-  "contact": {
-    "customerSupport": "Customer Support",
-    "contactVia": "Contact via:",
-    "telegram": "Telegram",
-    "zalo": "Zalo",
-    "liveChat": "Live Chat"
+  "commision": {
+    "title": "Commision Table",
+    "productLists": "Product Lists",
+    "cashPlayer": "Cash Player",
+    "cashPlayerReferral": "Cash Player Referral",
+    "creditPlayer": "Credit Player"
   },
   "common": {
     "player": "Player",
@@ -77,15 +77,12 @@
     "next": "Next",
     "shareholder": "Shareholder"
   },
-  "commision": {
-    "title": "Commision Table",
-    "productLists": "Product Lists",
-    "cashPlayer": "Cash Player",
-    "cashPlayerReferral": "Cash Player Referral",
-    "creditPlayer": "Credit Player"
-  },
-  "withdrawal": {
-    "withdrawalTitle": "Withdrawal"
+  "contact": {
+    "customerSupport": "Customer Support",
+    "contactVia": "Contact via:",
+    "telegram": "Telegram",
+    "zalo": "Zalo",
+    "liveChat": "Live Chat"
   },
   "deposit": {
     "depositTitle": "Deposit",
@@ -128,6 +125,14 @@
       "loss": "Loss",
       "win": "Win"
     }
+  },
+  "footer": {
+    "note1": "Become Our Partner",
+    "note2": "VUI123 is committed to supporting Responsible Gaming",
+    "copyright": "© Copyright 2023 VUI123. All Rights Reserved.",
+    "aboutUs": "About Us",
+    "responsibleGaming": "Responsible Gaming",
+    "contactUs": "Contact Us"
   },
   "game": {
     "category": {
@@ -173,14 +178,17 @@
     }
   },
   "menu": {
+    "tnc": "Terms and Conditions",
+    "bankAccount": "Bank Account",
+    "cryptoWallet": "Crypto Wallet",
+    "withdraw": "Withdraw",
+    "withdrawalConfirmation": "Withdrawal Confirmation",
+    "cryptoWithdrawal": "Crypto Withdrawal",
+    "leaderboard": "Leaderboard",
     "tab": {
       "event": "Event",
-      "ranking": "Ranking",
-      "redeem": "Redeem",
-      "how": "How",
-      "rules": "Rules"
-    },
-    "myRewards": "My Rewards Hub"
+      "ranking": "Ranking"
+    }
   },
   "notes": {
     "importantNotice": "Important Notice",
@@ -199,6 +207,25 @@
     },
     "depost": {
       "n2": "For using Bank Transfer deposit option, please make the transfer done before submit the transaction to avoid the transaction delay."
+    },
+    "rewards": {
+      "n1": "Games that are NOT eligible for the Rebate/Commission include: Turnover on all types of non-live table games (e.g. Blackjack, Video Poker, Craps, American Roulette, Baccarat, and other non-live table games) and non-slot games, will not count towards this turnover requirement unless SPECIFICALLY stated.",
+      "n2": "Special exclusion:",
+      "n3": "[Sportsbookl] Only wagers that generate a win/loss return will entitle for rebate. Cancelled or void wagers, wagers on odds less than 1.7 (Decimal odd); 0.7 (China odd); 0.7 (Malay Positive odd); -1.43 (Indo odd); -143 (US odd), or wagers on both even chances during a single game will not entitle for rebate.",
+      "n4": "[Live Casino] All LIVE Blackjack (21) and Live Roulette video games",
+      "n5": "[Slots] All Video Poker, Table, Arcade, Fishing, multi-spin Slots, Lucky God Progressive 2, Golden Tour, Ugga Bugga, Liu Fu Shou, and double-bonus Slots offered by any slot game room, plus games in xx slot game rooms.",
+      "n6": "*Notes: Rewards rule of the company will change from time to time, In any event, the decision of Vui123 is final."
+    },
+    "topUpCard": {
+      "n1": "Please ensure you choose the correct telco provider and card value. Vui123 do not bear any responsibility if incorrect information selected and resulted the lost of money",
+      "n2": "The final deposited amount is subject to 25% deduction from the original card value."
+    },
+    "withdrawal": {
+      "n1": "Kindly check with our 24/7 LIVE CHAT if your transaction is pending for more than 10 minutes.",
+      "n2": "Withdrawal bank account name must match with registered full name, member is not allow withdrawal to 3rd party bank account.",
+      "n3": "Some game provider requires 15 till 30 minutes of report sync time, kindly bear with us during the required sync time.",
+      "n4": "Please make sure your required turnover is achieve, and submit the withdrawal transaction after 30 minutes to avoid system auto reject.",
+      "n5": "If there is any discrepancy or you may have any other further withdrawal inquiries, kindly contact our 24/7 LIVE CHAT. Thank you."
     }
   },
   "profile": {
@@ -228,6 +255,9 @@
     "pending": "Pending",
     "success": "Success",
     "rejected": "Rejected"
+  },
+  "transaction": {
+    "recent": "Recent Transaction"
   },
   "transfer": {
     "receive": "Receive",
@@ -271,15 +301,11 @@
     "addCryptoWallet": "Add Crypto Wallet",
     "walletAddress": "Wallet Address"
   },
-  "reward": {
-    "coinRewards": "Vui Coins Rewards"
-  },
-  "footer": {
-    "note1": "Become Our Partner",
-    "note2": "VUI123 is committed to supporting Responsible Gaming",
-    "copyright": "© Copyright 2023 VUI123. All Rights Reserved.",
-    "contactUs": "Contact Us",
-    "responsibleGaming": "Responsible Gaming",
-    "aboutUs": "About Us"
+  "withdrawal": {
+    "withdrawalTitle": "Withdrawal",
+    "eligibleAmount": "Eligible Withdrawal Amount",
+    "options": "Choose your withdrawal options",
+    "exchangeRates": "CHAIN: %{crypto} Current exchange rate",
+    "withdrawTo": "Withdrawal To"
   }
 }
