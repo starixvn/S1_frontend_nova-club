@@ -36,7 +36,7 @@ const SummarySection = ({
           bg: '$primary.300',
         }}
       >
-        <StyledTitle>{title}</StyledTitle>
+        <StyledTitle>{title.toUpperCase()}</StyledTitle>
       </View>
       <TopInfo label={t('profile.w/l')} amount={amountWL} />
       {amountDirect !== undefined && (
