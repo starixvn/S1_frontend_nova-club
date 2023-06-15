@@ -15,29 +15,63 @@ import MiddleBanner from './MiddleBanner'
 export default function HomeScreen() {
   const { t } = useLocalization()
   return (
-    <View sx={{pb: "$6"}}>
+    <View sx={{ pb: '$6' }}>
       <BannerSection />
+
       <Container>
         <AnnouncementSection />
-        <HireBanner />
-        <MatchSection />
-        <RecentlyPlayedSection />
+
+        <Row>
+          <View sx={{ flex: 1 }}>
+            <HireBanner />
+          </View>
+          <View sx={{ flex: 1 }}>
+            <HireBanner />
+          </View>
+        </Row>
+        {/* <MatchSection /> */}
         <TopGameSection />
-        <GameListSectionAsyncByTag
-          tag={SlotType.NEW}
-          title={t('game.new').toUpperCase()}
-          icon="star"
-        />
-        <GameListSectionAsyncByTag
-          tag={SlotType.JACKPOT}
-          title={t('game.jackpot').toUpperCase()}
-          icon="jackpot"
-        />
+
+        <Row>
+          <View sx={{ flex: 1 }}>
+            <GameListSectionAsyncByTag
+              tag={SlotType.JACKPOT}
+              title={t('game.jackpot').toUpperCase()}
+              icon="jackpot"
+            />
+          </View>
+          <View sx={{ flex: 1 }}>
+            <GameListSectionAsyncByTag
+              tag={SlotType.NEW}
+              title={t('game.new').toUpperCase()}
+              icon="star"
+            />
+          </View>
+        </Row>
+        <Row>
+          <View sx={{ flex: 1 }}>
+            <GameListSectionAsyncByTag
+              tag={SlotType.MEGAWAY}
+              title={t('game.jackpot').toUpperCase()}
+              icon="jackpot"
+            />
+          </View>
+          <View sx={{ flex: 1 }}>
+            <GameListSectionAsyncByTag
+              tag={SlotType.NEW}
+              title={t('game.new').toUpperCase()}
+              icon="star"
+            />
+          </View>
+        </Row>
+{/* 
         <GameListSectionAsyncByTag
           tag={SlotType.MEGAWAY}
           title={'MEGAWAY'}
           icon="megaway"
-        />
+        /> */}
+        <RecentlyPlayedSection />
+
         <Row>
           <MiddleBanner sx={{ flex: 1 }}></MiddleBanner>
           <LeaderboardSection sx={{ flex: 1 }} />
