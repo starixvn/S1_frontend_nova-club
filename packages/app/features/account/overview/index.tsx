@@ -38,7 +38,7 @@ const ProfileOverview = () => {
         contentContainerSx={
           isDesktop()
             ? {
-                px: '$6',
+                px: '$5',
                 py: '$4',
                 borderRadius: 5,
               }

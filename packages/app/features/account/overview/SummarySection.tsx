@@ -23,7 +23,6 @@ const SummarySection = ({
   amountDirect,
 }: SummarySectionProps) => {
   const { t } = useLocalization()
-  // console.log('amountDirect', amountDirect, typeof amountDirect)
   return (
     <StyledContainer>
       <View

@@ -1,25 +1,21 @@
 import Icon from 'app/components/Icon'
-import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { View, Text, Image, Pressable } from 'dripsy'
-import React from 'react'
-import { ProfileResult } from 'services/playerApi.type'
 import IconButton from 'app/components/IconButton'
-import useLocalization from 'app/provider/localization'
-import { useRouter } from 'solito/router'
-import { copyToClipboard } from 'app/utils'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { HEADER_HEIGHT } from 'app/utils/constant'
+import { Pressable, View } from 'dripsy'
+import React from 'react'
 import { useModal } from 'react-native-modalfy'
-
-const AVATAR_SIZE = 30
+import { ProfileResult } from 'services/playerApi.type'
+import { useRouter } from 'solito/router'
+import ProfileHeaderCard from './ProfileHeaderCard'
 
 interface ProfileHeaderProps {
   data?: ProfileResult
 }
 
 export default function ProfileHeader({ data }: ProfileHeaderProps) {
-  const { top, bottom } = useSafeArea()
+  const { top } = useSafeArea()
   const { back } = useRouter()
-  const { t } = useLocalization()
   const { openModal } = useModal()
 
   return (
@@ -43,34 +39,7 @@ export default function ProfileHeader({ data }: ProfileHeaderProps) {
             back()
           }}
         />
-        <Image
-          sx={{
-            width: AVATAR_SIZE,
-            height: AVATAR_SIZE,
-            borderRadius: 100,
-            borderWidth: 2,
-            mx: 15,
-            borderColor: 'white',
-          }}
-          source={require('../../assets/images/common/en.jpg')}
-          resizeMode="contain"
-          alt=""
-        />
-        <View>
-          <Text sx={{ fontSize: 12, fontWeight: 'bold' }}>
-            {data?.username}
-          </Text>
-          <View sx={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text sx={{ fontSize: 12 }}>{data?.referral_code}</Text>
-            <IconButton
-              name={'copy'}
-              size={16}
-              sx={{ pl: 10 }}
-              onPress={() => copyToClipboard(data?.referral_code)}
-            />
-          </View>
-          <Text sx={{ fontSize: 12 }}>{t('common.timeline')}</Text>
-        </View>
+        <ProfileHeaderCard data={data} />
       </View>
       <Pressable onPress={() => openModal('ReferralModal')}>
         <Icon name={'qr'} size={30} />
