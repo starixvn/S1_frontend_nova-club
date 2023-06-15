@@ -38,7 +38,7 @@ const ProfileOverviewCard = ({ currency }: ProfileOverviewCardProps) => {
           </ProfileOverviewText>
 
           <TouchableOpacity
-            onPress={() => push('/account/profile/profile-overview')}
+            onPress={() => push('/account/profile-overview')}
             style={{ flexDirection: 'row', alignItems: 'center' }}
           >
             <ProfileOverviewText
