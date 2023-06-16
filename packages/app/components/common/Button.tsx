@@ -123,7 +123,7 @@ const Button = (props: ButtonProps) => {
   const endIconProps = Object.assign(defaultIconProps, passedEndIconProps)
 
   const defaultTitleSxStyle: SxProp = {
-    fontSize: 18,
+    fontSize: 16,
     textAlign: 'center',
     color: 'white',
     fontWeight: 'bold',

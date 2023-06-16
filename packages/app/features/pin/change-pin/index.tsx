@@ -10,6 +10,7 @@ import UnderlinePinField from '../UnderlinePinField'
 import { useRouter } from 'solito/router'
 import Button from 'app/components/common/Button'
 import useAlert from 'app/hooks/useAlert'
+import isDesktop from 'app/utils/isDesktop'
 
 type ChangePinFormValues = {
   oldPin: string
@@ -22,6 +23,7 @@ const ChangePinScreen = () => {
   const { back } = useRouter()
   const { showAlert } = useAlert()
   const [updateTransferPin] = useUpdateTransferPinMutation()
+  const desktop = isDesktop()
 
   const onSubmit = async (
     { oldPin, pin, confirmPin }: ChangePinFormValues,
@@ -105,13 +107,24 @@ const ChangePinScreen = () => {
             : undefined
         }
       />
-      <Button
-        onPress={submitForm}
-        disabled={!isValid || !dirty}
-        sx={{ mt: '$4', mx: '$4' }}
-      >
-        {t('common.submit')}
-      </Button>
+      <View sx={{ flexDirection: 'row', justifyContent: 'center' }}>
+        {desktop && <View sx={{ width: '20%', minWidth: 100 }} />}
+        <Button
+          onPress={submitForm}
+          disabled={!isValid || !dirty}
+          sx={{
+            mt: '$4',
+            ...(desktop
+              ? {
+                  width: '55%',
+                  maxWidth: 350,
+                }
+              : { width: '80%', maxWidth: 350 }),
+          }}
+        >
+          {t('common.submit')}
+        </Button>
+      </View>
     </View>
   )
 }

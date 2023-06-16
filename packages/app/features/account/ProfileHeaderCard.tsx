@@ -16,8 +16,8 @@ const ProfileHeaderCard = ({ data }: ProfileHeaderCardProps) => {
   const { t } = useLocalization()
   const { openModal } = useModal()
   const desktop = isDesktop()
-  const AVATAR_SIZE = desktop ? 50 : 30
-  const fontSize = desktop ? 16 : 14
+  const AVATAR_SIZE = desktop ? 45 : 30
+  const fontSize = desktop ? 15 : 14
 
   return (
     <View

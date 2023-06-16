@@ -1,3 +1,4 @@
+import isDesktop from 'app/utils/isDesktop'
 import { Text, View } from 'dripsy'
 import React, { useEffect } from 'react'
 import { Platform, StyleSheet } from 'react-native'
@@ -33,6 +34,7 @@ const UnderlinePinField = ({
     value,
     setValue,
   })
+  const desktop = isDesktop()
 
   useEffect(() => {
     if (autoFocus) ref.current?.focus()
@@ -61,6 +63,19 @@ const UnderlinePinField = ({
           styles.cell,
           isFocused && styles.focusCell,
           errorMsg && styles.error,
+          {
+            ...(desktop
+              ? {
+                  backgroundColor: 'transparent',
+                  borderColor: '#9696E6',
+                  borderWidth: 1,
+                }
+              : {
+                  backgroundColor: '#fff',
+                  borderBottomColor: '#000',
+                  borderBottomWidth: 1,
+                }),
+          },
         ]}
         onLayout={getCellOnLayoutHandler(index)}
       >
@@ -76,8 +91,26 @@ const UnderlinePinField = ({
     setValue(cleanText)
   }
   return (
-    <View>
-      <Text sx={{ mx: '$3', mt: '$4' }}>{title}</Text>
+    <View
+      sx={{
+        ...(desktop ? { flexDirection: 'row', justifyContent: 'center' } : {}),
+      }}
+    >
+      <View
+        sx={{
+          ...(desktop ? { minWidth: 100, width: '20%' } : {}),
+        }}
+      >
+        <Text
+          sx={{
+            mx: '$3',
+            mt: '$4',
+            ...(desktop ? { textAlign: 'right', fontWeight: 'bold' } : {}),
+          }}
+        >
+          {title + ' : '}
+        </Text>
+      </View>
       <CodeField
         key={title}
         ref={ref}
@@ -115,9 +148,6 @@ const styles = StyleSheet.create({
     // borderTopLeftRadius: CELL_BORDER_RADIUS,
     // borderTopRightRadius: CELL_BORDER_RADIUS,
     borderRadius: CELL_BORDER_RADIUS,
-    backgroundColor: '#fff',
-    borderBottomColor: '#000',
-    borderBottomWidth: 1,
   },
   text: {
     lineHeight: CELL_SIZE - 5,

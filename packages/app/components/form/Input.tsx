@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 import { mergeRefs } from 'utils/mergeRefs'
 import Icon from '../Icon'
+import isDesktop from 'app/utils/isDesktop'
 
 type InputComponent = ({ color }: { color?: string }) => JSX.Element
 
@@ -52,6 +53,7 @@ const Input = forwardRef<NativeTextInput, InputProps>(
     const [_secureTextEntry, setSecureTextEntry] = useState(secureTextEntry)
     const inputRef = useRef<NativeTextInput>(null)
     const mergedInputRef = mergeRefs([inputRef, ref])
+    const desktop = isDesktop()
 
     function handleOnPress(event: GestureResponderEvent) {
       onPress?.(event)
@@ -60,12 +62,53 @@ const Input = forwardRef<NativeTextInput, InputProps>(
     const sizeEffectColor = error ? ('$secondary.500' as string) : undefined
 
     return (
-      <RootView sx={{ cursor: onPress ? 'pointer' : 'initial', ...sx }}>
-        {label && <Label>{`${label} :`}</Label>}
+      <RootView
+        sx={{
+          cursor: onPress ? 'pointer' : 'initial',
+          ...sx,
+          ...(desktop
+            ? {
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-evenly',
+              }
+            : {}),
+        }}
+      >
+        {label && (
+          <View
+            sx={{
+              ...(desktop
+                ? {
+                    minWidth: 200,
+                    width: '20%',
+                  }
+                : {}),
+            }}
+          >
+            <Label
+              sx={{
+                ...(desktop
+                  ? {
+                      textAlign: 'right',
+                    }
+                  : {}),
+              }}
+            >{`${label} :`}</Label>
+          </View>
+        )}
         <FocusArea onPress={handleOnPress}>
           <InputContainer
             color={sizeEffectColor}
-            sx={editable ? {} : { bg: '$primary.300' }}
+            sx={{
+              ...(desktop
+                ? {
+                    minWidth: 350,
+                    width: '60%',
+                  }
+                : {}),
+              ...(editable ? {} : { bg: '$primary.300' }),
+            }}
           >
             {InputIcon && <InputIcon color={sizeEffectColor ?? 'white'} />}
             {prefix && (

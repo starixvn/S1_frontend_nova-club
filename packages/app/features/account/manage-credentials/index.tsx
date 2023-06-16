@@ -9,6 +9,7 @@ import { SceneMap, TabView } from 'react-native-tab-view'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { createParam } from 'solito'
 import ChangePasswordPage from './change-password'
+import isDesktop from 'app/utils/isDesktop'
 
 const { useParam } = createParam<{ tab: string }>()
 const ManageCredentialsPage = () => {
@@ -58,6 +59,7 @@ const ManageCredentialsPage = () => {
     <PageWithBackHeader
       header={{ title: t('manageCredentials.title') }}
       disableScrollView
+      hideHeader={isDesktop()}
     >
       <TabView
         lazy

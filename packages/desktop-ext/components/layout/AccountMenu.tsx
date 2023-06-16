@@ -44,10 +44,8 @@ export default function AccountMenu({}) {
       sx={{
         height: ACCOUNT_MENU_HEIGHT,
         width: '100%',
-        borderColor: '$primary.300',
+        borderRadius: 15,
         bg: '$primary.200',
-        borderWidth: 1,
-        borderStyle: 'dashed',
         my: 20,
         flexDirection: 'row',
         justifyContent: 'space-around',

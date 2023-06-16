@@ -2,8 +2,9 @@ import Button from 'app/components/common/Button'
 import Input from 'app/components/form/Input'
 import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
+import isDesktop from 'app/utils/isDesktop'
 import validation, { PASSWORD_MAX_LENGTH } from 'app/utils/validation'
-import { ScrollView, styled, Text } from 'dripsy'
+import { ScrollView, styled, Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React from 'react'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
@@ -22,6 +23,7 @@ const ChangePasswordPage = () => {
   const [postChangePassword] = useChangePasswordMutation()
   const { back } = useRouter()
   const { showAlert } = useAlert()
+  const desktop = isDesktop()
 
   const onSubmit = async (
     { oldPassword, password, confirmPassword }: PasswordFormValues,
@@ -132,32 +134,25 @@ const ChangePasswordPage = () => {
             : undefined
         }
       />
-      <Button
-        onPress={submitForm}
-        disabled={!isValid || !dirty}
-        sx={{ mt: '$4', mx: '$4' }}
-      >
-        {t('common.submit')}
-      </Button>
-      {/* <Button
-        rounded
-        stretch
-        loading={isSubmitting}
-        disabled={!isValid || !dirty}
-        variant="lg"
-        fill={{
-          type: 'gradient',
-          color: 'secondary',
-          start: { x: 0, y: 0 },
-          end: { x: 1, y: 0 },
-        }}
-        containerStyle={{
-          m: '$10',
-        }}
-        onPress={submitForm}
-      >
-        <Button.Label>{t('common.ok')}</Button.Label>
-      </Button> */}
+      <View sx={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+        {desktop && <View sx={{ width: '20%', minWidth: 200 }} />}
+
+        <Button
+          onPress={submitForm}
+          disabled={!isValid || !dirty}
+          sx={{
+            mt: '$4',
+            ...(desktop
+              ? {
+                  width: '60%',
+                  minWidth: 350,
+                }
+              : { width: '100%' }),
+          }}
+        >
+          {t('common.submit')}
+        </Button>
+      </View>
     </ScrollView>
   )
 }

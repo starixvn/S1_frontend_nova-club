@@ -15,5 +15,6 @@ const LazyDesktopScreen = dynamic(
 
 const Account = withAdaptiveScreen(LazyMobileScreen, LazyDesktopScreen)
 
-// Account.DesktopLayout = DesktopAccountLayout
+Account.DesktopLayout = DesktopAccountLayout
+
 export default Account
