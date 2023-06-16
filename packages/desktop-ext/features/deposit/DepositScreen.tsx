@@ -5,8 +5,8 @@ import DepositMethodMenu from './DepositMethodMenu'
 
 export default function DepositScreen({}) {
   return (
-    <WalletLayoutContainer leftContent={<DepositMethodMenu />}>
-      <BankTransferScreen />
-    </WalletLayoutContainer>
+    // <WalletLayoutContainer leftContent={<DepositMethodMenu />}>
+    <BankTransferScreen />
+    // </WalletLayoutContainer>
   )
 }

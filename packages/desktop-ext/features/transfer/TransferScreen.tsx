@@ -6,15 +6,15 @@ import ImportantNotice from './ImportantNotice'
 
 export default function TransferScreen() {
   return (
-    <WalletLayoutContainer
-      leftContent={
-        <>
-          <TransferMenu />
-          <ImportantNotice />
-        </>
-      }
-    >
-      <QrReceive />
-    </WalletLayoutContainer>
+    // <WalletLayoutContainer
+    //   leftContent={
+    //     <>
+    //       <TransferMenu />
+    //       <ImportantNotice />
+    //     </>
+    //   }
+    // >
+    <QrReceive />
+    // </WalletLayoutContainer>
   )
 }

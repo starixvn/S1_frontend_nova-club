@@ -41,8 +41,8 @@ const theme = makeTheme({
   breakpoints: [576, 768, 992, 1200, 1520],
   layout: {
     container: {
-      width: ['100%', '100%', '100%', '95%'],
-      maxWidth: ['100%', '100%', '100%', 1520],
+      width: ['100%', '100%', '100%', '100%', '95%'],
+      maxWidth: ['100%', '100%', '100%', '100%', 1520],
     },
   },
   fonts: {
@@ -101,6 +101,7 @@ const theme = makeTheme({
     surface: ['$primary.300', '$primary.500'],
     ball: ['$success', '$error'],
     shading: ['$primary.500', '$transparent'],
+    secondary: ['$secondary.100', '$secondary.500'],
   },
   shadows: {
     md: {

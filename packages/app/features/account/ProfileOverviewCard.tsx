@@ -7,6 +7,7 @@ import { usePlayerOverviewSummaryQuery } from 'services/playerApi'
 import { useAppSelector } from 'app/provider/redux/store'
 import useLocalization from 'app/provider/localization'
 import { useRouter } from 'solito/router'
+import isDesktop from 'app/utils/isDesktop'
 
 interface ProfileOverviewTextProps {
   px?: number
@@ -38,7 +39,7 @@ const ProfileOverviewCard = ({ currency }: ProfileOverviewCardProps) => {
           </ProfileOverviewText>
 
           <TouchableOpacity
-            onPress={() => push('/account/profile/profile-overview')}
+            onPress={() => push('/account/profile-overview')}
             style={{ flexDirection: 'row', alignItems: 'center' }}
           >
             <ProfileOverviewText
@@ -143,13 +144,14 @@ const ProfileOverviewHorizontalItem = ({
 
 const ProfileOverviewCardContainer = styled(View)({
   flexDirection: 'column',
-  maxWidth: '85%',
-  width: 500,
   borderRadius: 15,
   borderColor: '$primary.100',
   borderWidth: 1,
   my: 10,
-  height: 150,
+  height: isDesktop() ? 125 : 150,
+  maxWidth: isDesktop() ? 400 : 375,
+  width: isDesktop() ? '30%' : '100%',
+  bg: isDesktop() ? '$primary.500' : 'transparent',
 })
 const ProfileOverviewHeader = styled(View)({
   flexDirection: 'row',

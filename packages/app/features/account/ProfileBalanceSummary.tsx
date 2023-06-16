@@ -6,6 +6,7 @@ import { AnimatePresence, MotiView } from 'moti/build'
 import { useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import useLocalization from 'app/provider/localization'
+import isDesktop from 'app/utils/isDesktop'
 
 interface HiddenItemProps {
   color: string
@@ -36,7 +37,8 @@ const ProfileBalanceSummary = ({
   currency,
 }: ProfileBalanceSummaryProps) => {
   const { theme } = useDripsyTheme()
-  const [isExtend, setIsExtend] = useState(false)
+  const desktop = isDesktop()
+  const [isExtend, setIsExtend] = useState(desktop)
   const { t } = useLocalization()
 
   const handlePress = () => {
@@ -67,18 +69,19 @@ const ProfileBalanceSummary = ({
               })}
             </ProfileSummaryText>
           )}
-
-          <MotiView
-            from={{ transform: [{ rotate: '0deg' }] }}
-            animate={{
-              transform: [{ rotate: isExtend ? '-180deg' : '0deg' }],
-            }}
-            transition={{ type: 'timing' }}
-          >
-            <TouchableOpacity onPress={handlePress}>
-              <Icon name={'down'} color={'white'} sx={{ p: 10 }} size={16} />
-            </TouchableOpacity>
-          </MotiView>
+          {!desktop && (
+            <MotiView
+              from={{ transform: [{ rotate: '0deg' }] }}
+              animate={{
+                transform: [{ rotate: isExtend ? '-180deg' : '0deg' }],
+              }}
+              transition={{ type: 'timing' }}
+            >
+              <TouchableOpacity onPress={handlePress}>
+                <Icon name={'down'} color={'white'} sx={{ p: 10 }} size={16} />
+              </TouchableOpacity>
+            </MotiView>
+          )}
         </BalanceItem>
       </BalanceSection>
       <AnimatePresence>
@@ -160,11 +163,12 @@ const HiddenItem = ({
 const ProfileBalanceSummaryContainer = styled(View)({
   flexDirection: 'column',
   maxWidth: '85%',
-  width: 500,
   borderRadius: 15,
   borderColor: '$primary.100',
   borderWidth: 1,
   my: 20,
+  bg: isDesktop() ? '$primary.500' : 'transparent',
+  width: isDesktop() ? 300 : 500,
 })
 
 const BalanceSection = styled(View)({

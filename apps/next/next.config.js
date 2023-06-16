@@ -30,6 +30,7 @@ const nextConfig = {
       'static.zzspeed.site',
       'static-global.static-bifrost.com', // delete this before going prod
       'static-stage.gball8.com',
+      'bw88.io',
     ],
   },
   reactStrictMode: false,

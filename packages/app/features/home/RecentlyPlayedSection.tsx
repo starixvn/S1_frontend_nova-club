@@ -35,7 +35,7 @@ export default function RecentlyPlayedSection() {
   return (
     <DripsyGradient
       gradient="surface"
-      sx={{ pb: ['$2'], mb: '$sectionBottomSpace' }}
+      sx={{ pb: ['$2', '$3', '$3'], mb: '$sectionBottomSpace' }}
     >
       <View sx={{ height: 1, bg: '$primary.100' }} />
       <View sx={{ ml: '$pagePadding' }}>
@@ -47,7 +47,7 @@ export default function RecentlyPlayedSection() {
         />
       </View>
       <Row>
-        <View sx={{ position: 'relative', zIndex: 1 }}>
+        <View sx={{ position: 'relative', zIndex: 1, ml: ['$3'] }}>
           <DripsyGradient
             gradient="shading"
             end={{ x: 1, y: 0.5 }}

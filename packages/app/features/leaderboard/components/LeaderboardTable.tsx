@@ -75,10 +75,10 @@ const dummyData = [
   },
 ]
 
-const LeaderboardTable = ({ isHome = false }) => {
+const LeaderboardTable = ({ maxRow }) => {
   const { t } = useLocalization()
 
-  const leaderboardData = isHome ? dummyData.slice(0, 5) : dummyData
+  const leaderboardData = maxRow ? dummyData.slice(0, maxRow) : dummyData
 
   const firstCellStyle = { flex: 2 / 12 }
   const secondCellStyle = { flex: 4 / 12 }
@@ -96,7 +96,7 @@ const LeaderboardTable = ({ isHome = false }) => {
           <DataTableTitle containerStyle={secondCellStyle}>
             {t('profile.playerId').toUpperCase()}
           </DataTableTitle>
-          <DataTableTitle containerStyle={thirdCellStyle}>
+          <DataTableTitle center={false} containerStyle={thirdCellStyle}>
             {t('common.points').toUpperCase()}
           </DataTableTitle>
           <DataTableTitle containerStyle={fourthCellStyle}>

@@ -7,11 +7,13 @@ import { Platform, RefreshControl } from 'react-native'
 import { usePlayerOverviewQuery } from 'services/playerApi'
 import OverviewDateRange from './OverviewDateRange'
 import SummarySection from './SummarySection'
+import isDesktop from 'app/utils/isDesktop'
 
 const ProfileOverview = () => {
   const { t } = useLocalization()
   const [endDate, setEndDate] = useState(dayjs().startOf('date').toDate())
   const [startDate, setStartDate] = useState(dayjs().startOf('date').toDate())
+  const desktop = isDesktop()
 
   const formatDate = (date: Date) => {
     return dayjs(date).format('YYYY-MM-DD')
@@ -30,8 +32,18 @@ const ProfileOverview = () => {
     <PageWithBackHeader
       disableScrollView={Platform.OS === 'ios'}
       header={{ title: t('common.overview') }}
+      hideHeader={desktop}
     >
       <ScrollView
+        contentContainerSx={
+          isDesktop()
+            ? {
+                px: '$5',
+                py: '$4',
+                borderRadius: 5,
+              }
+            : {}
+        }
         refreshControl={
           <RefreshControl
             refreshing={isFetching}

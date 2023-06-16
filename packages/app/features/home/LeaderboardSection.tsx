@@ -1,11 +1,12 @@
 import SectionHeader from 'app/components/SectionHeader'
 import React from 'react'
 import LeaderboardTable from '../leaderboard/components/LeaderboardTable'
-import { View } from 'dripsy'
+import { View, useResponsiveValue } from 'dripsy'
 
-const LeaderboardSection = () => {
+const LeaderboardSection = (props) => {
+  const displayRowCount = useResponsiveValue([5, 5, 5, 10])
   return (
-    <>
+    <View {...props}>
       <SectionHeader icon="crown" title="menu.leaderboard" />
       <View
         sx={{
@@ -16,9 +17,9 @@ const LeaderboardSection = () => {
           borderColor: '$primary.100',
         }}
       >
-        <LeaderboardTable isHome />
+        <LeaderboardTable maxRow={displayRowCount} />
       </View>
-    </>
+    </View>
   )
 }
 

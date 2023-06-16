@@ -1,10 +1,9 @@
+import AnimateHeight from 'app/transitions/animate-height'
 import { styled, useDripsyTheme, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
 import { MotiPressable } from 'moti/interactions'
 import React, { ReactNode, useReducer } from 'react'
-import { DripsyGradient } from './Gradient'
 import Icon from './Icon'
-import AnimateHeight from 'app/transitions/animate-height'
 
 type AccordianProps = {
   isExpandable?: boolean

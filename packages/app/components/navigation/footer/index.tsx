@@ -15,27 +15,10 @@ const Footer = () => {
 
   return (
     <View>
-      {desktop ? (
-        <>
-          <Row sx={{ justifyContent: 'space-between' }}>
-            <Text>{t('footer.note1')}</Text>
-            <Text>{t('footer.note2')}</Text>
-          </Row>
-          <FooterNav />
-          <Channel />
-          <FooterAction />
-
-          <Powered />
-          <Copyright />
-        </>
-      ) : (
-        <>
-          <FooterNav />
-          <Powered />
-          <FooterAction />
-          <Copyright />
-        </>
-      )}
+      <FooterNav />
+      <Powered />
+      <FooterAction />
+      <Copyright />
     </View>
   )
 }

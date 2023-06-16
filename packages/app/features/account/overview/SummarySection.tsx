@@ -23,7 +23,6 @@ const SummarySection = ({
   amountDirect,
 }: SummarySectionProps) => {
   const { t } = useLocalization()
-  // console.log('amountDirect', amountDirect, typeof amountDirect)
   return (
     <StyledContainer>
       <View
@@ -36,7 +35,7 @@ const SummarySection = ({
           bg: '$primary.300',
         }}
       >
-        <StyledTitle>{title}</StyledTitle>
+        <StyledTitle>{title.toUpperCase()}</StyledTitle>
       </View>
       <TopInfo label={t('profile.w/l')} amount={amountWL} />
       {amountDirect !== undefined && (

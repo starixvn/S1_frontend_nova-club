@@ -15,6 +15,7 @@
     "@expo/next-adapter": "5.0.2",
     "app": "*",
     "desktop-ext": "*",
+    "dripsy": "*",
     "next": "13.2.0",
     "next-compose-plugins": "^2.2.1",
     "next-fonts": "^1.5.1",

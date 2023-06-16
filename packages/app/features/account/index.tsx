@@ -15,7 +15,7 @@ import ProfileQuickNavigation from './ProfileQuickNavigation'
 import WalletButton from './WalletButton'
 
 export default function ProfileScreen() {
-  const { top, bottom } = useSafeArea()
+  const { bottom } = useSafeArea()
   const { height, width } = useWindowDimensions()
   const { token } = useAppSelector((state) => state.auth.info) || {}
 

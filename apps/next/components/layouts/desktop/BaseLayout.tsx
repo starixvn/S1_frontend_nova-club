@@ -1,6 +1,8 @@
 import MainHeader, {
   HEADER_HEIGHT,
 } from 'desktop-ext/components/layout/MainHeader'
+import DesktopFooter from 'desktop-ext/features/home/DesktopFooter'
+import { Container } from 'dripsy'
 import { ReactNode } from 'react'
 
 export default function BaseLayout({ children }: { children: ReactNode }) {
@@ -35,5 +37,9 @@ const FloatedHeader = () => {
 }
 
 const Footer = () => {
-  return <div style={{ color: 'white' }}>Footer</div>
+  return (
+    <Container>
+      <DesktopFooter />
+    </Container>
+  )
 }

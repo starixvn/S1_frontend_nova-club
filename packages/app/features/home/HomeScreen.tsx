@@ -11,6 +11,7 @@ import TopGameSection from './TopGameSection'
 import LeaderboardSection from './LeaderboardSection'
 import ReferralSection from './Referral/ReferralSection'
 import Footer from 'app/components/navigation/footer'
+import HireBanner from './HireBanner'
 
 export default function HomeScreen() {
   const { t } = useLocalization()
@@ -19,11 +20,11 @@ export default function HomeScreen() {
       bounces={false}
       showsVerticalScrollIndicator={false}
       sx={{ flex: 1 }}
-      contentContainerSx={{ pb: '$5' }}
+      contentContainerSx={{ pb: '$2' }}
     >
       <BannerSection />
       <AnnouncementSection />
-
+      <HireBanner />
       <GameGridSection />
       <RecentlyPlayedSection />
       <TopGameSection />

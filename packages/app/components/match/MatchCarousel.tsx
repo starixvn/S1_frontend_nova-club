@@ -1,4 +1,4 @@
-import { Pressable, View, styled } from 'dripsy'
+import { Pressable, View, styled, useResponsiveValue } from 'dripsy'
 import React, { forwardRef, useRef } from 'react'
 import { useWindowDimensions } from 'react-native'
 import Carousel, {
@@ -29,11 +29,13 @@ export type MatchCarouselProps = Omit<
 const MatchCarousel = forwardRef<ICarouselInstance, MatchCarouselProps>(
   ({ data, animationKey, ...rest }: MatchCarouselProps, ref) => {
     const width = useWindowDimensions().width
-    const itemWidth = Math.min(700, width * 0.8)
+    const itemWidth = Math.min(1400, width * 0.8)
     const carouselRef = useRef<ICarouselInstance>(null)
 
+    const scoreHeight = useResponsiveValue(SCORE_HEIGHT)
+
     const mergedRef = mergeRefs([carouselRef, ref])
-    const height = itemWidth / ASPECT_RATIO + SCORE_HEIGHT
+    const height = itemWidth / ASPECT_RATIO + scoreHeight
 
     function next() {
       carouselRef?.current?.next()
@@ -75,7 +77,7 @@ const MatchCarousel = forwardRef<ICarouselInstance, MatchCarouselProps>(
         )}
 
         <Carousel
-          autoPlay={isMultiple}
+          // autoPlay={isMultiple}
           autoPlayInterval={5000}
           enabled={isMultiple}
           ref={mergedRef}

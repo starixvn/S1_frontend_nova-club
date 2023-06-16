@@ -59,7 +59,7 @@ export const Profile_Wallet_Route: Route[] = [
 export const Profile_Quick_Navigation_Path: Route[] = [
   {
     label: 'profile',
-    path: '/account/profile/profile-details',
+    path: '/account/profile-details',
     icon: 'profile',
   },
   {

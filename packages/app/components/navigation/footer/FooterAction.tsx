@@ -10,7 +10,7 @@ const FooterAction = () => {
         alignItems: 'center',
         justifyContent: 'space-between',
         height: 48,
-        px: 12,
+        px: '6%',
         mt: 4,
         bg: '$primary.500',
       }}

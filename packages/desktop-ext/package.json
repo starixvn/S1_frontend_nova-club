@@ -3,6 +3,7 @@
   "name": "desktop-ext",
   "sideEffects": false,
   "peerDependencies": {
-    "app": "*"
+    "app": "*",
+    "dripsy": "*"
   }
 }

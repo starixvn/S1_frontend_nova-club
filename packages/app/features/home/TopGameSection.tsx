@@ -24,6 +24,26 @@ const sampleData = [
     image:
       'https://static-global.static-bifrost.com/pwa_statics/games/170x350/pandoraslegacysupremereels/en.jpg',
   },
+  {
+    image:
+      'https://static-global.static-bifrost.com/pwa_statics/games/170x350/steampunkbandits/en.jpg',
+  },
+  {
+    image:
+      'https://static-global.static-bifrost.com/pwa_statics/games/170x350/cosmicboost/en.jpg',
+  },
+  {
+    image:
+      'https://static-global.static-bifrost.com/pwa_statics/games/170x350/gemoireunchainedsupremeways/en.jpg',
+  },
+  {
+    image:
+      'https://static-global.static-bifrost.com/pwa_statics/games/170x350/sweetbaker/en.jpg',
+  },
+  {
+    image:
+      'https://static-global.static-bifrost.com/pwa_statics/games/170x350/vampiretreats/en.jpg',
+  },
 ]
 
 export default function TopGameSection(props) {

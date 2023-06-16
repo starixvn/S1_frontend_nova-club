@@ -7,11 +7,13 @@ const LazyMobileScreen = dynamic(() => import('app/features/account'), {
 })
 
 const LazyDesktopScreen = dynamic(
-  () => import('app/features/account/ProfileScreen'),
-  { ssr: false }
+  () => import('app/features/account/profile-details/ProfileDetails'),
+  {
+    ssr: false,
+  }
 )
 
 const Account = withAdaptiveScreen(LazyMobileScreen, LazyDesktopScreen)
 
-Account.DesktopLayout = DesktopAccountLayout
+// Account.DesktopLayout = DesktopAccountLayout
 export default Account
