@@ -51,10 +51,7 @@ const BankTransferScreen = () => {
           }}
         >
           <Text>{t('transaction.Pending')}</Text>
-          <RefreshButton
-            // loading={isFetching}
-            onPress={refetch}
-          />
+          <RefreshButton loading={isFetching} onPress={refetch} />
         </View>
         <ScrollView>
           {transactionIsLoading ? (

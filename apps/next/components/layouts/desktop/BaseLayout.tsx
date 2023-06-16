@@ -23,7 +23,7 @@ const FloatedHeader = () => {
       style={{
         top: 0,
         position: 'fixed',
-        zIndex: 1,
+        zIndex: 0,
         width: '100%',
         height: HEADER_HEIGHT,
         color: 'white',

@@ -16,6 +16,7 @@ import {
 import { useRouter } from 'solito/router'
 import HeaderDeposit from './HeaderDeposit'
 import HeaderOverview from './HeaderOverview'
+import isDesktop from 'app/utils/isDesktop'
 
 const Logo = () => (
   <Image
@@ -33,6 +34,7 @@ const MainHeader = () => {
   const lastTransferredToMainWalletToken = useRef('')
   const token = useAppSelector((s) => s.auth.info?.token)
   const { t } = useLocalization()
+  const desktop = isDesktop()
 
   const {
     data: playerBalance,
@@ -125,12 +127,14 @@ const MainHeader = () => {
             />
           </Pressable>
 
-          <IconButtonGradient
-            onPress={() => {
-              toggleDrawer()
-            }}
-            iconProps={{ name: 'burgerMenu', color: 'white' }}
-          />
+          {!desktop && (
+            <IconButtonGradient
+              onPress={() => {
+                toggleDrawer()
+              }}
+              iconProps={{ name: 'burgerMenu', color: 'white' }}
+            />
+          )}
         </Row>
       ) : (
         <View sx={{ flexDirection: 'row', alignItems: 'center' }}>

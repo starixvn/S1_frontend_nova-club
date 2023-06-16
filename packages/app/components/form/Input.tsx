@@ -125,7 +125,7 @@ Input.displayName = 'Input'
 
 const RootView = styled(View)({
   mb: '$3',
-  maxWidth: 450,
+  // maxWidth: 450,
 })
 
 const FocusArea = styled(TouchableWithoutFeedback)({})

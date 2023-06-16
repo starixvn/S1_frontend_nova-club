@@ -9,6 +9,7 @@ import {
 } from 'react-native-modalfy'
 import ModalWrapper from 'app/components/modal/ModalWrapper'
 import { ActivityIndicator } from 'dripsy'
+import isDesktop from 'app/utils/isDesktop'
 
 type ModalStackConfigValueType = ModalStackConfig extends Record<
   any,
@@ -52,6 +53,7 @@ export type ModalStackParams = {
     amount: string
     callback(...args: any): any
   }
+  RegisterModal: undefined
 }
 
 type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
@@ -71,6 +73,8 @@ const _dynamicModal = {
     import('app/features/deposit/component/UploadBankSlipModal'),
   DepositConfirmationModal: () =>
     import('app/features/deposit/bank-transfer/DepositConfirmationModal'),
+  RegisterModal: () =>
+    import('../../../../apps/next/components/modal/RegisterModal'),
 }
 
 function getDynamicComponent(key: DynamicModalType) {
@@ -118,42 +122,47 @@ const modalConfig: ModalConfigType = {
   DepositConfirmationModal: {
     modal: getDynamicComponent('DepositConfirmationModal'),
   },
+  RegisterModal: {
+    modal: getDynamicComponent('RegisterModal'),
+  },
 }
-const stack = createModalStack(modalConfig, {
-  containerStyle: {
-    maxWidth: 768,
-  },
-  backdropOpacity: 0.6,
-  backBehavior: 'pop',
-  disableFlingGesture: true,
-  transitionOptions: (animatedValue) => ({
-    opacity: animatedValue.interpolate({
-      inputRange: [0, 1, 2],
-      outputRange: [0, 1, 0.9],
-    }),
-    transform: [
-      {
-        perspective: 2000,
-      },
-      {
-        scale: animatedValue.interpolate({
-          inputRange: [0, 1, 2],
-          outputRange: [1.3, 1, 1],
-        }),
-      },
-    ],
-  }),
-  animateInConfig: {
-    easing: Easing.bezier(0.42, -0.03, 0.27, 0.95),
-    duration: 300,
-  },
-  animateOutConfig: {
-    easing: Easing.bezier(0.42, -0.03, 0.27, 0.95),
-    duration: 300,
-  },
-})
 
 const ModalProvider = ({ children }) => {
+  const desktop = isDesktop()
+  const stack = createModalStack(modalConfig, {
+    containerStyle: {
+      maxWidth: desktop ? undefined : 768,
+    },
+    backdropOpacity: 0.6,
+    backBehavior: 'pop',
+    disableFlingGesture: true,
+    transitionOptions: (animatedValue) => ({
+      opacity: animatedValue.interpolate({
+        inputRange: [0, 1, 2],
+        outputRange: [0, 1, 0.9],
+      }),
+      transform: [
+        {
+          perspective: 2000,
+        },
+        {
+          scale: animatedValue.interpolate({
+            inputRange: [0, 1, 2],
+            outputRange: [1.3, 1, 1],
+          }),
+        },
+      ],
+    }),
+    animateInConfig: {
+      easing: Easing.bezier(0.42, -0.03, 0.27, 0.95),
+      duration: 300,
+    },
+    animateOutConfig: {
+      easing: Easing.bezier(0.42, -0.03, 0.27, 0.95),
+      duration: 300,
+    },
+  })
+
   return <RNMModalProvider stack={stack}>{children}</RNMModalProvider>
 }
 

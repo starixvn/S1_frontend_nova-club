@@ -126,10 +126,7 @@ const Deposit = () => {
         }}
       >
         <Text>{t('transaction.recent')}</Text>
-        <RefreshButton
-          // loading={isFetching}
-          onPress={refetch}
-        />
+        <RefreshButton loading={isFetching} onPress={refetch} />
       </View>
       <ScrollView>
         {transactionIsLoading ? (

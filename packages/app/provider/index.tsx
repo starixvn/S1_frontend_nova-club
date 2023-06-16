@@ -11,12 +11,12 @@ export function Provider({ children }: { children: React.ReactNode }) {
     <Dripsy>
       <ReduxProvider>
         <LocalizationProviderRedux>
-          {/* <DrawerProvider> */}
+          <DrawerProvider>
             <ModalProvider>
               {children}
               <GameLauncher />
             </ModalProvider>
-          {/* </DrawerProvider> */}
+          </DrawerProvider>
           <RootToast />
         </LocalizationProviderRedux>
       </ReduxProvider>

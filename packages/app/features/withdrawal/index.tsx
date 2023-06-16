@@ -80,7 +80,6 @@ const WithdrawalScreen = () => {
               ))}
           </View>
         </View>
-
         <WithdrawalTransactions />
       </StyledView>
     </PageWithBackHeader>
