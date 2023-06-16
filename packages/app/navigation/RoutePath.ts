@@ -64,7 +64,7 @@ export const Profile_Quick_Navigation_Path: Route[] = [
   },
   {
     label: 'manage credentials',
-    path: '/account/profile/manage-credentials',
+    path: '/account/manage-credentials',
     icon: 'mng-cred',
   },
   {

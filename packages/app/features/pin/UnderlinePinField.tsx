@@ -63,23 +63,38 @@ const UnderlinePinField = ({
           styles.cell,
           isFocused && styles.focusCell,
           errorMsg && styles.error,
-          {
-            ...(desktop
-              ? {
-                  backgroundColor: 'transparent',
-                  borderColor: '#9696E6',
-                  borderWidth: 1,
-                }
-              : {
-                  backgroundColor: '#fff',
-                  borderBottomColor: '#000',
-                  borderBottomWidth: 1,
-                }),
-          },
         ]}
+        sx={{
+          ...(desktop
+            ? {
+                backgroundColor: 'transparent',
+                borderColor: '#9696E6',
+                borderWidth: 1,
+              }
+            : {
+                backgroundColor: '#fff',
+                borderBottomColor: '#000',
+                borderBottomWidth: 1,
+              }),
+        }}
         onLayout={getCellOnLayoutHandler(index)}
       >
-        <Text key={index} style={[styles.text, errorMsg ? styles.error : {}]}>
+        <Text
+          key={index}
+          style={[
+            styles.text,
+            errorMsg ? styles.error : {},
+            {
+              ...(desktop
+                ? {
+                    color: 'white',
+                  }
+                : {
+                    color: '#32325A',
+                  }),
+            },
+          ]}
+        >
           {textChild}
         </Text>
       </View>
@@ -93,17 +108,18 @@ const UnderlinePinField = ({
   return (
     <View
       sx={{
-        ...(desktop ? { flexDirection: 'row', justifyContent: 'center' } : {}),
+        ...(desktop
+          ? { flexDirection: 'row', justifyContent: 'space-evenly' }
+          : {}),
       }}
     >
       <View
         sx={{
-          ...(desktop ? { minWidth: 100, width: '20%' } : {}),
+          ...(desktop ? { minWidth: 200, width: '20%' } : {}),
         }}
       >
         <Text
           sx={{
-            mx: '$3',
             mt: '$4',
             ...(desktop ? { textAlign: 'right', fontWeight: 'bold' } : {}),
           }}
@@ -111,22 +127,33 @@ const UnderlinePinField = ({
           {title + ' : '}
         </Text>
       </View>
-      <CodeField
-        key={title}
-        ref={ref}
-        {...props}
-        // Use `caretHidden={false}` when users can't paste a text value, because context menu doesn't appear
-        value={value}
-        onChangeText={onPinChanged}
-        cellCount={CELL_COUNT}
-        rootStyle={styles.codeFieldRoot}
-        keyboardType="number-pad"
-        textContentType="oneTimeCode"
-        renderCell={renderCell}
-      />
-      {errorMsg && (
-        <Text sx={{ my: '$2', mx: 45, color: '$error' }}>{errorMsg}</Text>
-      )}
+      <View
+        sx={{
+          ...(desktop
+            ? {
+                minWidth: 350,
+                width: '60%',
+              }
+            : {}),
+        }}
+      >
+        <CodeField
+          key={title}
+          ref={ref}
+          {...props}
+          // Use `caretHidden={false}` when users can't paste a text value, because context menu doesn't appear
+          value={value}
+          onChangeText={onPinChanged}
+          cellCount={CELL_COUNT}
+          rootStyle={styles.codeFieldRoot}
+          keyboardType="number-pad"
+          textContentType="oneTimeCode"
+          renderCell={renderCell}
+        />
+        {errorMsg && (
+          <Text sx={{ my: '$2', mx: 45, color: '$error' }}>{errorMsg}</Text>
+        )}
+      </View>
     </View>
   )
 }
@@ -154,9 +181,9 @@ const styles = StyleSheet.create({
     ...Platform.select({ web: { lineHeight: 50 } }),
     fontSize: 30,
     textAlign: 'center',
-    color: '#32325A',
   },
   focusCell: {
+    marginBottom: '$2',
     borderBottomColor: '#9696E6',
     borderBottomWidth: 4,
   },

@@ -3,13 +3,13 @@ import CustomTabBar from 'app/components/navigation/CustomTabBar'
 import CreatePinScreen from 'app/features/pin/CreatePinScreen'
 import ChangePinScreen from 'app/features/pin/change-pin'
 import useLocalization from 'app/provider/localization'
-import React, { useState } from 'react'
+import isDesktop from 'app/utils/isDesktop'
+import React, { useEffect, useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { SceneMap, TabView } from 'react-native-tab-view'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { createParam } from 'solito'
 import ChangePasswordPage from './change-password'
-import isDesktop from 'app/utils/isDesktop'
 
 const { useParam } = createParam<{ tab: string }>()
 const ManageCredentialsPage = () => {
@@ -24,7 +24,7 @@ const ManageCredentialsPage = () => {
   const isPinExist = playerData?.pin_exist
 
   const [index, setIndex] = useState(getTab)
-  const [routes] = useState([
+  const [routes, setRoutes] = useState([
     { key: 'first', title: t('manageCredentials.pw.changePw'), index: 0 },
     isPinExist
       ? { key: 'second', title: t('manageCredentials.pin.changePin'), index: 1 }
@@ -37,7 +37,7 @@ const ManageCredentialsPage = () => {
 
   const renderScene = SceneMap({
     first: ChangePasswordPage,
-    second: isPinExist ? ChangePinScreen : CreatePinScreen,
+    second: !isPinExist ? ChangePinScreen : CreatePinScreen,
   })
 
   const handlePress = (value) => {
@@ -54,6 +54,22 @@ const ManageCredentialsPage = () => {
       />
     )
   }
+  useEffect(() => {
+    setRoutes([
+      { key: 'first', title: t('manageCredentials.pw.changePw'), index: 0 },
+      isPinExist
+        ? {
+            key: 'second',
+            title: t('manageCredentials.pin.changePin'),
+            index: 1,
+          }
+        : {
+            key: 'second',
+            title: t('manageCredentials.pin.createPin'),
+            index: 1,
+          },
+    ])
+  }, [isPinExist])
 
   return (
     <PageWithBackHeader

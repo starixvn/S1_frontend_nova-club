@@ -122,7 +122,7 @@ const IdTransfer = () => {
     openModal('PinModal', {
       onConfirm: (value) => onSubmit(values, value, formik),
       onForgotPin: () => {
-        push('/account/profile/manage-credentials/forgot-pin')
+        push('/account/manage-credentials/forgot-pin')
         console.log('gg')
       },
     })

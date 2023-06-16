@@ -1,8 +1,8 @@
-import { Pressable, ScrollView, Text, View } from 'dripsy'
+import { Pressable, Text, View } from 'dripsy'
+import uniqueId from 'lodash/uniqueId'
 import React from 'react'
 import { DripsyGradient } from '../Gradient'
 import ShadowButton from '../ShadowButton'
-import uniqueId from 'lodash/uniqueId'
 
 export type CustomRoutesProps = {
   key: string
@@ -20,7 +20,6 @@ const CustomTabBar = ({ routes, currentIndex, onPress }: CustomTabBarProps) => {
   const handlePress = (value) => {
     onPress(value)
   }
-
   return (
     <DripsyGradient gradient="surface">
       <View sx={{ height: 1, bg: '$primary.100' }} />
@@ -28,7 +27,6 @@ const CustomTabBar = ({ routes, currentIndex, onPress }: CustomTabBarProps) => {
         {routes.length > 0 &&
           routes.map((route, index) => {
             const isActive = currentIndex === index
-
             return (
               <View key={route.title + uniqueId()} sx={{ flex: 1, py: 12 }}>
                 <Pressable onPress={() => handlePress(route.index)}>

@@ -11,17 +11,19 @@ import * as Yup from 'yup'
 import UnderlinePinField from './UnderlinePinField'
 import Button from 'app/components/common/Button'
 import useAlert from 'app/hooks/useAlert'
+import isDesktop from 'app/utils/isDesktop'
 
 type PinFormValues = {
   pin: string
   confirmPin: string
 }
-const CreatePinScreen = ({ hideHeader = false }) => {
+const CreatePinScreen = ({}) => {
   const { t } = useLocalization()
   const { back } = useRouter()
   const { showAlert } = useAlert()
   const [fetchProfile] = useLazyPlayerProfileQuery()
   const [postCreateTransferPin] = useCreateTransferPinMutation()
+  const desktop = isDesktop()
 
   useEffect(() => {
     return () => {
@@ -102,12 +104,24 @@ const CreatePinScreen = ({ hideHeader = false }) => {
         }
       />
 
-      <Button
-        title={t('common.submit')}
-        onPress={submitForm}
-        disabled={!isValid || !dirty}
-        sx={{ mt: '$4', mx: '$4' }}
-      />
+      <View sx={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+        {desktop && <View sx={{ width: '20%', minWidth: 200 }} />}
+        <Button
+          onPress={submitForm}
+          disabled={!isValid || !dirty}
+          sx={{
+            mt: '$4',
+            maxWidth: 350,
+            ...(desktop
+              ? {
+                  width: '55%',
+                }
+              : { width: '100%' }),
+          }}
+        >
+          {t('common.submit')}
+        </Button>
+      </View>
     </View>
   )
 }

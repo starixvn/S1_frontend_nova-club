@@ -1,15 +1,15 @@
+import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
 import Button from 'app/components/common/Button'
 import Input from 'app/components/form/Input'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
-import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
 import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
+import isDesktop from 'app/utils/isDesktop'
 import validation from 'app/utils/validation'
 import { View } from 'dripsy'
 import { FormikHelpers, FormikTouched, useFormik } from 'formik'
 import { useEffect, useRef, useState } from 'react'
 import { TextInput as RNTextField } from 'react-native'
-import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import {
   useTransferPinRecoveryMutation,
@@ -38,9 +38,9 @@ const enum ERROR_CODE {
 
 const ForgotPinScreen = () => {
   const { t } = useLocalization()
-  const { openModal } = useModal()
   const { showAlert } = useAlert()
   const { back } = useRouter()
+  const desktop = isDesktop()
 
   const [currentAction, setCurrentAction] = useState(CURRENT_ACTION.GET_OTP)
   const otpFieldRef = useRef<RNTextField>(null)
@@ -169,6 +169,7 @@ const ForgotPinScreen = () => {
   return (
     <PageWithBackHeader
       header={{ title: t('manageCredentials.pin.forgotPin') }}
+      hideHeader={desktop}
     >
       <View sx={{ p: '5%' }}>
         <Input
@@ -235,13 +236,24 @@ const ForgotPinScreen = () => {
               : undefined
           }
         />
-        <Button
-          onPress={submitForm}
-          disabled={!isValid || !dirty}
-          sx={{ mt: '$4' }}
-        >
-          {t('common.confirm')}
-        </Button>
+        <View sx={{ flexDirection: 'row', justifyContent: 'center' }}>
+          {desktop && <View sx={{ width: '20%', minWidth: 200 }} />}
+          <Button
+            onPress={submitForm}
+            disabled={!isValid || !dirty}
+            sx={{
+              mt: '$4',
+              maxWidth: 350,
+              ...(desktop
+                ? {
+                    width: '55%',
+                  }
+                : { width: '100%' }),
+            }}
+          >
+            {t('common.submit')}
+          </Button>
+        </View>
       </View>
     </PageWithBackHeader>
   )
