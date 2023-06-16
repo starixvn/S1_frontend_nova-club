@@ -75,7 +75,9 @@
     "transaction": "Transaction",
     "game": "Game",
     "next": "Next",
-    "shareholder": "Shareholder"
+    "shareholder": "Shareholder",
+    "hello": "Hello!!",
+    "agentLogin": "Agent Login"
   },
   "contact": {
     "customerSupport": "Customer Support",

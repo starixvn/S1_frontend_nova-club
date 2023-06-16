@@ -5,7 +5,7 @@ import {
   WITHDRAWAL_NOTES,
 } from 'app/utils/constant'
 import LeftPanelContainer from 'desktop-ext/components/layout/LeftPanelContainer'
-import { HEADER_HEIGHT } from 'desktop-ext/components/layout/MainHeader'
+import { HEADER_HEIGHT } from 'desktop-ext/components/layout/NavigationHeader'
 import PageContainer from 'desktop-ext/components/layout/PageContainer'
 import WalletMenu from 'desktop-ext/components/layout/WalletMenu'
 import DepositRoutes from 'desktop-ext/routes/depositRoutes'

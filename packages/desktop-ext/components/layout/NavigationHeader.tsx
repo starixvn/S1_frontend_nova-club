@@ -60,10 +60,10 @@ const MENU = [
   },
 ]
 
-export const HEADER_HEIGHT = 140
-export default function MainHeader({}) {
+export const NAVIGATION_HEIGHT = 60
+export default function NavigationHeader({}) {
   return (
-    <View sx={{ height: HEADER_HEIGHT, bg: '$primary.500' }}>
+    <View sx={{ height: NAVIGATION_HEIGHT, bg: '$primary.500' }}>
       <DripsyGradient gradient="surface" sx={{ height: 60, marginTop: 'auto' }}>
         <Container sx={{ alignItems: 'stretch', flex: 1 }}>
           <Row

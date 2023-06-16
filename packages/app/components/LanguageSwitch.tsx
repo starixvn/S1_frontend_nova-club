@@ -1,9 +1,9 @@
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
 import { LANGUAGE_CODE } from 'app/utils/constant'
-import { Image, View, useDripsyTheme } from 'dripsy'
+import { Image, Pressable, SxProp, View } from 'dripsy'
 import React, { useState } from 'react'
-import { Pressable, ViewProps } from 'react-native'
+import { ViewProps } from 'react-native'
 import { usePlayerLangMutation } from '../../services/playerApi'
 
 const LANGUAGE_BUTTON_SIZE = 25
@@ -21,30 +21,30 @@ const enum UPDATE_STATE {
 interface LanguageButtonProps {
   languageCode: LANGUAGE_CODE
   onPress: () => void
-  active: boolean
+  active?: boolean
+  sx?: SxProp
 }
 
-function LanguageButton({
+export function LanguageButton({
   languageCode,
   onPress,
   active,
+  sx,
 }: LanguageButtonProps) {
-  const { theme } = useDripsyTheme()
+  const defaultButtonStyle: SxProp = {
+    m: 10,
+    borderRadius: 100,
+    borderWidth: 3,
+    borderColor: active ? '$primary[100]' : 'transparent',
+  }
+  const titleSxStyle = Object.assign(defaultButtonStyle, sx)
   return (
-    <Pressable
-      onPress={onPress}
-      style={{
-        margin: 10,
-        borderRadius: 100,
-        borderWidth: 3,
-        borderColor: active ? theme.colors.$primary[100] : 'transparent',
-      }}
-    >
+    <Pressable onPress={onPress} sx={titleSxStyle}>
       <Image
         sx={{
           width: LANGUAGE_BUTTON_SIZE,
           height: LANGUAGE_BUTTON_SIZE,
-          borderRadius: 100,
+          borderRadius: 50,
           borderWidth: 2,
           borderColor: 'white',
         }}

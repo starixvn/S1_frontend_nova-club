@@ -1,12 +1,24 @@
+import IconButton from 'app/components/IconButton'
 import IconButtonGradient from 'app/components/IconButtonGradient'
+import Shadow from 'app/components/Shadow'
 import Button from 'app/components/common/Button'
 import { useDrawer } from 'app/hooks/useDrawer'
+import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import useLocalization from 'app/provider/localization'
-import { useAppSelector } from 'app/provider/redux/store'
+import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { toCurrency } from 'app/utils'
-import { Currency, HEADER_HEIGHT } from 'app/utils/constant'
-import { Image, Pressable, Row, View, styled } from 'dripsy'
+import { Currency, HEADER_HEIGHT, LANGUAGE_CODE } from 'app/utils/constant'
+import isDesktop from 'app/utils/isDesktop'
+import {
+  Image,
+  Pressable,
+  Row,
+  Text,
+  View,
+  styled,
+  useDripsyTheme,
+} from 'dripsy'
 import React, { useEffect, useRef, useState } from 'react'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import {
@@ -16,7 +28,8 @@ import {
 import { useRouter } from 'solito/router'
 import HeaderDeposit from './HeaderDeposit'
 import HeaderOverview from './HeaderOverview'
-import isDesktop from 'app/utils/isDesktop'
+import { LanguageButton } from 'app/components/LanguageSwitch'
+import { SettingActions } from 'app/store/setting.slice'
 
 const Logo = () => (
   <Image
@@ -35,7 +48,25 @@ const MainHeader = () => {
   const token = useAppSelector((s) => s.auth.info?.token)
   const { t } = useLocalization()
   const desktop = isDesktop()
+  const { theme } = useDripsyTheme()
+  const { logout } = useOnAppLogout()
+  const dispatch = useAppDispatch()
+  const lang = useAppSelector((state) => state.setting.locale)
 
+  const setLanguage = (value: LANGUAGE_CODE) => {
+    dispatch(SettingActions.setLocale(value))
+  }
+  const onChangeLanguage = (value: LANGUAGE_CODE) => {
+    setLanguage(value)
+  }
+
+  const TriggerLogout = async () => {
+    try {
+      await logout()
+    } catch (error) {
+      console.error(error)
+    }
+  }
   const {
     data: playerBalance,
     isFetching: isMainWalletLoading,
@@ -115,6 +146,14 @@ const MainHeader = () => {
             balance={totalBalance}
             isLoading={isMainWalletLoading}
           />
+          {desktop && (
+            <View sx={{ mx: '$2', minWidth: 75 }}>
+              <Text sx={{ textAlign: 'right' }}>{t('common.hello')}</Text>
+              <Text sx={{ textAlign: 'right', fontWeight: 'bold' }}>
+                {playerData?.firstName}
+              </Text>
+            </View>
+          )}
 
           <Pressable
             sx={{ borderRadius: 50, px: 2.5 }}
@@ -126,6 +165,75 @@ const MainHeader = () => {
               sx={{ aspectRatio: 1, width: 34, height: 34, borderRadius: 50 }}
             />
           </Pressable>
+          {desktop && (
+            <>
+              <View
+                sx={{
+                  bg: '$primary.300',
+                  borderRadius: 50,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  mx: 5,
+                }}
+              >
+                <View
+                  sx={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: 30,
+                    width: 30,
+                    m: 1,
+                    borderColor: '$primary.700',
+                    borderWidth: 2,
+                    borderRadius: 50,
+                  }}
+                >
+                  <LanguageButton
+                    languageCode={lang}
+                    onPress={() =>
+                      onChangeLanguage(
+                        lang === LANGUAGE_CODE.VIETNAM
+                          ? LANGUAGE_CODE.ENGLISH
+                          : LANGUAGE_CODE.VIETNAM
+                      )
+                    }
+                    sx={{ m: 0 }}
+                  />
+                </View>
+              </View>
+
+              <Shadow
+                offset={[0, -1]}
+                startColor={'rgba(255, 255, 255, 0.5)'}
+                distance={1}
+                style={{
+                  borderRadius: 15,
+                  backgroundColor: theme.colors?.$primary[300],
+                }}
+                containerStyle={{ marginHorizontal: 2.5 }}
+              >
+                <IconButton name="logout" onPress={() => TriggerLogout()} />
+              </Shadow>
+              <Button
+                sx={{
+                  mx: 5,
+                  bg: '$primary.200',
+                  px: '$3',
+                  width: 80,
+                  borderRadius: 15,
+                }}
+                contentProps={{ sx: { py: 2 } }}
+                titleProps={{
+                  sx: {
+                    fontSize: 11,
+                    wordWrap: 'break-word',
+                  },
+                }}
+              >
+                {t('common.agentLogin')}
+              </Button>
+            </>
+          )}
 
           {!desktop && (
             <IconButtonGradient

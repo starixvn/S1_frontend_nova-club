@@ -18,7 +18,7 @@ const ProfileQuickNavigation = () => {
   const { push } = useRouter()
   const { logout } = useOnAppLogout()
 
-  const TrigerLogout = async () => {
+  const TriggerLogout = async () => {
     try {
       await logout()
     } catch (error) {
@@ -46,7 +46,7 @@ const ProfileQuickNavigation = () => {
       <Pressable
         key={r.label}
         onPress={() =>
-          r.label === 'logout' ? TrigerLogout() : push(r.path ?? '/')
+          r.label === 'logout' ? TriggerLogout() : push(r.path ?? '/')
         }
       >
         <Gradient
