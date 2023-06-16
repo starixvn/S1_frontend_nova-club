@@ -14,12 +14,12 @@ const Powered = () => {
         bg: desktop ? '$primary.500' : 'transparent',
       }}
     >
-      <Text>Powered by</Text>
+      <Text sx={{ mr: '$3' }}>Powered by</Text>
       <SolitoImage
         width={100}
         height={60}
-        resizeMode="center"
-        src={`${MEDIA_DOMAIN}${CONTENT_URI}/sponsor/AB.png`}
+        resizeMode="contain"
+        src={`${MEDIA_DOMAIN}${CONTENT_URI}/footer/bong88.png`}
         alt="PoweredBy"
       />
     </Row>

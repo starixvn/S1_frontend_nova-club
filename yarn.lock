@@ -5630,7 +5630,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dripsy@npm:4.3.3":
+"dripsy@npm:*, dripsy@npm:4.3.3":
   version: 4.3.3
   resolution: "dripsy@npm:4.3.3"
   dependencies:
@@ -10054,6 +10054,7 @@ __metadata:
     "@types/node": 17.0.21
     app: "*"
     desktop-ext: "*"
+    dripsy: "*"
     eslint-config-next: 13.2.0
     next: 13.2.0
     next-compose-plugins: ^2.2.1

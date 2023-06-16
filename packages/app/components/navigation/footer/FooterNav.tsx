@@ -1,7 +1,7 @@
 import LinkPressable from 'app/components/pressable/LinkPressable'
 import useLocalization from 'app/provider/localization'
 import isDesktop from 'app/utils/isDesktop'
-import { Row, Text } from 'dripsy'
+import { Row, Text, View } from 'dripsy'
 import React from 'react'
 
 const FooterNav = () => {
@@ -9,21 +9,28 @@ const FooterNav = () => {
   const desktop = isDesktop()
 
   return (
-    <Row
+    <View
       sx={{
+        justifyContent: 'center',
         alignItems: 'center',
-        justifyContent: 'space-evenly',
-        height: desktop ? 60 : 36,
+        height: desktop ? 48 : 36,
         bg: '$primary.500',
       }}
     >
-      <NavLink href="/">{t('footer.aboutUs')}</NavLink>
-      <NavLink href="/">{t('common.shareholder')}</NavLink>
-      <NavLink href="/">{t('common.agent')}</NavLink>
-      <NavLink href="/">{t('footer.responsibleGaming')}</NavLink>
-      <NavLink href="/">{t('footer.contactUs')}</NavLink>
-      <NavLink href="/">{t('common.tnc')}</NavLink>
-    </Row>
+      <Row
+        sx={{
+          width: desktop ? '50%' : '100%',
+          justifyContent: 'space-evenly',
+        }}
+      >
+        <NavLink href="/">{t('footer.aboutUs')}</NavLink>
+        <NavLink href="/">{t('common.shareholder')}</NavLink>
+        <NavLink href="/">{t('common.agent')}</NavLink>
+        <NavLink href="/">{t('footer.responsibleGaming')}</NavLink>
+        <NavLink href="/">{t('footer.contactUs')}</NavLink>
+        <NavLink href="/">{t('common.tnc')}</NavLink>
+      </Row>
+    </View>
   )
 }
 
