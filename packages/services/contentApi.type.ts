@@ -3,6 +3,10 @@ import { Action } from 'app/utils/actionGenerator'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
 import { ImageSourcePropType } from 'react-native'
 
+export enum FEATURED_GAME_CATEGORY {
+  HOT = '1',
+  RECOMMENDED = '2',
+}
 export interface BannerResult {
   image: string
   action?: Action
@@ -83,6 +87,7 @@ export interface GetGameListQueryArgs {
 }
 
 export interface Game {
+  cat: string
   gc: string
   gpc: string
   gtc: GAME_TYPE_CODE

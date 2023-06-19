@@ -134,6 +134,7 @@ const colorGradient = {
   disabledSecondary: ['#666', '#666'],
   background: ['#066D9A', '#014F71'],
   backgroundSecondary: ['#33A0D0', '#0B76A5'],
+  recommended: ['#EA1616', '#E83AB4', '#6F00B4'],
 }
 
 // default breakpoints [0, 576, 768, 992, 1200]

@@ -17,6 +17,7 @@ import Jackpot from './Section/Jackpot'
 import MatchesSection from './Section/MatchesSection'
 import RecentOpenGames from './Section/RecentOpenGames'
 import PlaySection from './Section/PlaySection'
+import RecommendedGamesSection from './Section/RecommendedGamesSection'
 
 const HomeScreen = () => {
   const { isLandscape } = useOrientation()
@@ -72,8 +73,9 @@ const HomeScreen = () => {
       {!isLandscape && <BannerSection />}
       <AnnouncementMarquee />
       <PlaySection />
-      <MatchesSection />
+      <RecommendedGamesSection />
       <GridSection />
+      <MatchesSection />
       <RecentOpenGames />
       <HotGamesSection />
       <Jackpot />

@@ -5,7 +5,7 @@ import HorizontalGameList from 'app/features/games/HorizontalGameList'
 import { View } from 'dripsy'
 import React from 'react'
 import { useFeaturedGameListQuery } from 'services/contentApi'
-import { Game } from 'services/contentApi.type'
+import { FEATURED_GAME_CATEGORY, Game } from 'services/contentApi.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import SectionHeader from './SectionHeader'
 
@@ -126,12 +126,15 @@ const HotGamesSection = () => {
   const { data: playerProfile } = usePlayerProfileQuery()
   const { currency } = playerProfile || {}
   const { data } = useFeaturedGameListQuery({ currency })
-  const featuredList = data?.data?.rows.map((item) => {
-    return {
-      ...item,
-      img: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.img}`,
-    }
-  })
+
+  const featuredList = data?.data?.rows
+    .filter((el) => el.cat === FEATURED_GAME_CATEGORY.HOT)
+    .map((item) => {
+      return {
+        ...item,
+        img: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.img}`,
+      }
+    })
 
   return (
     <View sx={{ mb: '$7a' }}>
