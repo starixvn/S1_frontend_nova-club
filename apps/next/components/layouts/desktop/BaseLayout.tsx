@@ -1,4 +1,5 @@
 import MainHeader from 'app/components/navigation/header/MainHeader'
+import { HEADER_HEIGHT } from 'app/utils/constant'
 import NavigationHeader, {
   NAVIGATION_HEIGHT,
 } from 'desktop-ext/components/layout/NavigationHeader'
@@ -8,11 +9,7 @@ import { ReactNode } from 'react'
 
 export default function BaseLayout({ children }: { children: ReactNode }) {
   return (
-    <div
-      style={{
-        paddingTop: NAVIGATION_HEIGHT,
-      }}
-    >
+    <div style={{ paddingTop: NAVIGATION_HEIGHT + HEADER_HEIGHT }}>
       <FloatedHeader />
       {children}
       <Footer />
