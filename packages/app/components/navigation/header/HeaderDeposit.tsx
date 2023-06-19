@@ -16,6 +16,7 @@ const HeaderDeposit = () => {
         borderRadius: 50,
         justifyContent: 'center',
         alignItems: 'center',
+        mr: 5,
       }}
     >
       <Pressable

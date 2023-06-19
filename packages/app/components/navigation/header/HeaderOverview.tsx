@@ -88,6 +88,7 @@ const HeaderOverview = ({
       sx={{
         alignItems: 'center',
         mx: 5,
+        py: 5,
       }}
     >
       <HeaderButton

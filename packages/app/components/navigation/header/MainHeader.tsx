@@ -1,5 +1,7 @@
+import { DripsyGradient } from 'app/components/Gradient'
 import IconButton from 'app/components/IconButton'
 import IconButtonGradient from 'app/components/IconButtonGradient'
+import { LanguageButton } from 'app/components/LanguageSwitch'
 import Shadow from 'app/components/Shadow'
 import Button from 'app/components/common/Button'
 import { useDrawer } from 'app/hooks/useDrawer'
@@ -7,6 +9,7 @@ import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { SettingActions } from 'app/store/setting.slice'
 import { toCurrency } from 'app/utils'
 import { Currency, HEADER_HEIGHT, LANGUAGE_CODE } from 'app/utils/constant'
 import isDesktop from 'app/utils/isDesktop'
@@ -28,8 +31,7 @@ import {
 import { useRouter } from 'solito/router'
 import HeaderDeposit from './HeaderDeposit'
 import HeaderOverview from './HeaderOverview'
-import { LanguageButton } from 'app/components/LanguageSwitch'
-import { SettingActions } from 'app/store/setting.slice'
+import HeaderAuthentication from './HeaderAuthentication'
 
 const Logo = () => (
   <Image
@@ -149,14 +151,17 @@ const MainHeader = () => {
           {desktop && (
             <View sx={{ mx: '$2', minWidth: 75 }}>
               <Text sx={{ textAlign: 'right' }}>{t('common.hello')}</Text>
-              <Text sx={{ textAlign: 'right', fontWeight: 'bold' }}>
+              <Text
+                sx={{ textAlign: 'right', fontWeight: 'bold' }}
+                numberOfLines={1}
+              >
                 {playerData?.firstName}
               </Text>
             </View>
           )}
 
           <Pressable
-            sx={{ borderRadius: 50, px: 2.5 }}
+            sx={{ borderRadius: 50, px: desktop ? 0 : 5 }}
             onPress={() => push('/account/profile')}
           >
             <Image
@@ -167,28 +172,10 @@ const MainHeader = () => {
           </Pressable>
           {desktop && (
             <>
-              <View
-                sx={{
-                  bg: '$primary.300',
-                  borderRadius: 50,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  mx: 5,
-                }}
-              >
-                <View
-                  sx={{
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    height: 30,
-                    width: 30,
-                    m: 1,
-                    borderColor: '$primary.700',
-                    borderWidth: 2,
-                    borderRadius: 50,
-                  }}
-                >
+              <HeaderLanguageButtonContainer>
+                <HeaderLanguageButtonInnerContainer gradient="button">
                   <LanguageButton
+                    size={26}
                     languageCode={lang}
                     onPress={() =>
                       onChangeLanguage(
@@ -197,10 +184,10 @@ const MainHeader = () => {
                           : LANGUAGE_CODE.VIETNAM
                       )
                     }
-                    sx={{ m: 0 }}
+                    imageSx={{ borderWidth: 1.5 }}
                   />
-                </View>
-              </View>
+                </HeaderLanguageButtonInnerContainer>
+              </HeaderLanguageButtonContainer>
 
               <Shadow
                 offset={[0, -1]}
@@ -212,26 +199,37 @@ const MainHeader = () => {
                 }}
                 containerStyle={{ marginHorizontal: 2.5 }}
               >
-                <IconButton name="logout" onPress={() => TriggerLogout()} />
+                <IconButton
+                  name="logout"
+                  onPress={() => TriggerLogout()}
+                  size={22}
+                />
               </Shadow>
-              <Button
-                sx={{
-                  mx: 5,
-                  bg: '$primary.200',
-                  px: '$3',
-                  width: 80,
-                  borderRadius: 15,
-                }}
-                contentProps={{ sx: { py: 2 } }}
-                titleProps={{
-                  sx: {
-                    fontSize: 11,
-                    wordWrap: 'break-word',
-                  },
-                }}
+              <Shadow
+                offset={[0, -1]}
+                startColor={'rgba(255, 255, 255, 0.8)'}
+                distance={1}
+                style={{ borderRadius: 15 }}
+                containerStyle={{ marginHorizontal: 5 }}
               >
-                {t('common.agentLogin')}
-              </Button>
+                <Button
+                  sx={{
+                    bg: '$primary.100',
+                    px: '$3',
+                    width: 80,
+                    borderRadius: 15,
+                  }}
+                  contentProps={{ sx: { py: 2 } }}
+                  titleProps={{
+                    sx: {
+                      fontSize: 11,
+                      wordWrap: 'break-word',
+                    },
+                  }}
+                >
+                  {t('common.agentLogin')}
+                </Button>
+              </Shadow>
             </>
           )}
 
@@ -245,46 +243,7 @@ const MainHeader = () => {
           )}
         </Row>
       ) : (
-        <View sx={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Button
-            sx={{ mx: '$2', minWidth: 100, borderRadius: 15 }}
-            titleProps={{
-              sx: {
-                fontSize: 14,
-                //only by setting like this, the text only can be centered
-                height: 16,
-                lineHeight: 18,
-              },
-            }}
-            contentProps={{
-              sx: {
-                py: '$2',
-              },
-            }}
-            onPress={() => push('/auth/login')}
-          >
-            {t('authentication.login')}
-          </Button>
-          <Button
-            sx={{ bg: '$primary.700', minWidth: 100, borderRadius: 15 }}
-            titleProps={{
-              sx: {
-                fontSize: 14,
-                //only by setting like this, the text only can be centered
-                height: 16,
-                lineHeight: 18,
-              },
-            }}
-            contentProps={{
-              sx: {
-                py: '$2',
-              },
-            }}
-            onPress={() => push('/auth/register')}
-          >
-            {t('authentication.register')}
-          </Button>
-        </View>
+        <HeaderAuthentication />
       )}
     </HeaderContainer>
   )
@@ -299,5 +258,24 @@ const HeaderContainer = styled(View)(({ insetTop }: { insetTop: number }) => ({
   alignItems: 'center',
   px: 10,
 }))
+
+const HeaderLanguageButtonContainer = styled(View)({
+  bg: '$primary.300',
+  borderRadius: 50,
+  alignItems: 'center',
+  justifyContent: 'center',
+  mx: 5,
+})
+
+const HeaderLanguageButtonInnerContainer = styled(DripsyGradient)({
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: 33,
+  width: 33,
+  m: 1,
+  borderColor: '$primary.700',
+  borderWidth: 2,
+  borderRadius: 50,
+})
 
 export default MainHeader

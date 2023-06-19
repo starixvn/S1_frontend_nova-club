@@ -23,6 +23,8 @@ interface LanguageButtonProps {
   onPress: () => void
   active?: boolean
   sx?: SxProp
+  size?: number
+  imageSx?: SxProp
 }
 
 export function LanguageButton({
@@ -30,6 +32,8 @@ export function LanguageButton({
   onPress,
   active,
   sx,
+  size = LANGUAGE_BUTTON_SIZE,
+  imageSx,
 }: LanguageButtonProps) {
   const defaultButtonStyle: SxProp = {
     m: 10,
@@ -37,17 +41,20 @@ export function LanguageButton({
     borderWidth: 3,
     borderColor: active ? '$primary[100]' : 'transparent',
   }
-  const titleSxStyle = Object.assign(defaultButtonStyle, sx)
+  const defaultImageStyle: SxProp = {
+    width: size,
+    height: size,
+    borderRadius: 50,
+    borderWidth: 2,
+    borderColor: 'white',
+  }
+  const buttonSxStyle = Object.assign(defaultButtonStyle, sx)
+  const imageSxStyle = Object.assign(defaultImageStyle, imageSx)
+
   return (
-    <Pressable onPress={onPress} sx={titleSxStyle}>
+    <Pressable onPress={onPress} sx={buttonSxStyle}>
       <Image
-        sx={{
-          width: LANGUAGE_BUTTON_SIZE,
-          height: LANGUAGE_BUTTON_SIZE,
-          borderRadius: 50,
-          borderWidth: 2,
-          borderColor: 'white',
-        }}
+        sx={imageSxStyle}
         source={LANGUAGE_TO_FLAG_ICON[languageCode]}
         resizeMode="contain"
         alt=""
