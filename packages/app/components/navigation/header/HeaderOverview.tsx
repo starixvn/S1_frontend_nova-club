@@ -1,14 +1,9 @@
-import React from 'react'
-import {
-  Pressable,
-  View,
-  Text,
-  useDripsyTheme,
-  ActivityIndicator,
-} from 'dripsy'
-import { Shadow } from 'react-native-shadow-2'
 import Icon from 'app/components/Icon'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
+import isDesktop from 'app/utils/isDesktop'
+import { ActivityIndicator, Pressable, Text, View } from 'dripsy'
+import React from 'react'
+import { Shadow } from 'react-native-shadow-2'
 
 interface HeaderButtonProps {
   icon: string
@@ -25,7 +20,7 @@ const HeaderButton = ({
   onPress,
   isLoading,
 }: HeaderButtonProps) => {
-  const { theme } = useDripsyTheme()
+  const desktop = isDesktop()
   return (
     <Pressable onPress={onPress}>
       <Shadow
@@ -41,7 +36,7 @@ const HeaderButton = ({
           sx={{
             px: '$2',
             borderRadius: 15,
-            minWidth: 135,
+            minWidth: desktop ? 125 : 100,
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',

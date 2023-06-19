@@ -3,6 +3,7 @@ import React, { ComponentProps } from 'react'
 import { Platform, useWindowDimensions } from 'react-native'
 import Image from '../common/Image'
 import Header from '../common/Header'
+import isDesktop from 'app/utils/isDesktop'
 
 type PageScrollViewProps = {
   disableScrollView?: false
@@ -57,10 +58,11 @@ export const PageWithBackHeader = ({
 }: PageWithBackHeaderProps) => {
   const PageComponent = disableScrollView ? Page : Page.ScrollView
   const { height } = useWindowDimensions()
+  const desktop = isDesktop()
   return (
     <View
       sx={{
-        minHeight: height,
+        minHeight: desktop ? height * 0.5 : height,
         flex: 1,
         ...pageStyles,
         ...wrapperStyle,

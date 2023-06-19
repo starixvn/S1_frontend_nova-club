@@ -4,7 +4,7 @@ import { PageWithBackHeader } from 'app/components/layouts/Page'
 import useLocalization from 'app/provider/localization'
 import { Currency } from 'app/utils/constant'
 import isDesktop from 'app/utils/isDesktop'
-import { View } from 'dripsy'
+import { ScrollView, View } from 'dripsy'
 import React from 'react'
 import { Platform } from 'react-native'
 import { useCommissionTableQuery } from 'services/contentApi'
@@ -131,11 +131,11 @@ const CommissionTableScreen = () => {
           </TitleCell>
         </DataTable.Header>
       </DataTable>
-      <View
+      <ScrollView
         sx={{
-          flex: 1,
           zIndex: -1,
           marginTop: Platform.OS === 'web' ? (desktop ? 0 : 60) : 0,
+          height: desktop ? 500 : '100%',
         }}
       >
         <FlashList
@@ -143,7 +143,7 @@ const CommissionTableScreen = () => {
           renderItem={onRender}
           estimatedItemSize={40}
         />
-      </View>
+      </ScrollView>
     </PageWithBackHeader>
   )
 }

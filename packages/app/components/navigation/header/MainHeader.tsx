@@ -169,7 +169,7 @@ const MainHeader = () => {
 
             <Pressable
               sx={{ borderRadius: 50, px: desktop ? 0 : 5 }}
-              onPress={() => push('/account/profile')}
+              onPress={() => push('/account')}
             >
               <Image
                 alt="user-avatar"

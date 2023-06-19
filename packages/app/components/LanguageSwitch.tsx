@@ -5,6 +5,7 @@ import { Image, Pressable, SxProp, View } from 'dripsy'
 import React, { useState } from 'react'
 import { ViewProps } from 'react-native'
 import { usePlayerLangMutation } from '../../services/playerApi'
+import { AnimatePresence, MotiImage, MotiView } from 'moti'
 
 const LANGUAGE_BUTTON_SIZE = 25
 
@@ -52,14 +53,28 @@ export function LanguageButton({
   const imageSxStyle = Object.assign(defaultImageStyle, imageSx)
 
   return (
-    <Pressable onPress={onPress} sx={buttonSxStyle}>
-      <Image
-        sx={imageSxStyle}
-        source={LANGUAGE_TO_FLAG_ICON[languageCode]}
-        resizeMode="contain"
-        alt=""
-      />
-    </Pressable>
+    <AnimatePresence>
+      <Pressable onPress={onPress} sx={buttonSxStyle}>
+        <MotiView
+          key={LANGUAGE_TO_FLAG_ICON[languageCode]}
+          from={{ opacity: 0, transform: [{ rotateZ: '0deg' }] }}
+          animate={{
+            opacity: 1,
+            transform: [{ rotateZ: '360deg' }],
+          }}
+          exit={{ opacity: 0, transform: [{ rotateZ: '0deg' }] }}
+          transition={{ type: 'timing' }}
+          exitTransition={{ type: 'timing' }}
+        >
+          <Image
+            sx={imageSxStyle}
+            source={LANGUAGE_TO_FLAG_ICON[languageCode]}
+            resizeMode="contain"
+            alt=""
+          />
+        </MotiView>
+      </Pressable>
+    </AnimatePresence>
   )
 }
 

@@ -24,6 +24,7 @@ export interface InputProps extends DripsyTextInputProps {
   inputSx?: SxProp
   onPress?: (e?: GestureResponderEvent) => void
   children?: ReactNode
+  inputContainerSx: SxProp
 }
 
 const Input = forwardRef<NativeTextInput, InputProps>(
@@ -37,6 +38,7 @@ const Input = forwardRef<NativeTextInput, InputProps>(
       icon,
       sx,
       inputSx,
+      inputContainerSx,
       editable = true,
       secureTextEntry,
       onPress,
@@ -103,8 +105,8 @@ const Input = forwardRef<NativeTextInput, InputProps>(
             sx={{
               ...(desktop
                 ? {
-                    // minWidth: 350,
-                    // width: '60%',
+                    width: '60%',
+                    minWidth: 200,
                   }
                 : {}),
               ...(editable ? {} : { bg: '$primary.300' }),
