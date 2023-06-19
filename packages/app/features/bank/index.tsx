@@ -7,11 +7,13 @@ import { SceneMap, TabView } from 'react-native-tab-view'
 import { createParam } from 'solito'
 import BankAccountScreen from './BankAccountScreen'
 import CryptoWalletScreen from './CryptoWalletScreen'
+import isDesktop from 'app/utils/isDesktop'
 
 const { useParam } = createParam<{ tab: string }>()
 
 const BankScreen = () => {
   const [tab = 0] = useParam('tab')
+  const desktop = isDesktop()
 
   const { t } = useLocalization()
 
@@ -44,7 +46,11 @@ const BankScreen = () => {
     )
   }
   return (
-    <PageWithBackHeader header={{ title: t('bank.bankAcc') }} disableScrollView>
+    <PageWithBackHeader
+      header={{ title: t('bank.bankAcc') }}
+      disableScrollView
+      hideHeader={desktop}
+    >
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}

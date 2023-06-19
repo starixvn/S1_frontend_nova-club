@@ -8,7 +8,6 @@ const LeftPanelContainer = styled(View)({
   borderWidth: 1,
   mr: 20,
   mb: 20,
-  borderStyle: 'dashed',
   borderColor: '$primary.300',
   alignSelf: 'flex-start',
 })

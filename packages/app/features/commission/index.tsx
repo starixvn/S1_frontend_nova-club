@@ -3,6 +3,7 @@ import DataTable from 'app/components/dataTable/DataTable'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import useLocalization from 'app/provider/localization'
 import { Currency } from 'app/utils/constant'
+import isDesktop from 'app/utils/isDesktop'
 import { View } from 'dripsy'
 import React from 'react'
 import { Platform } from 'react-native'
@@ -23,6 +24,7 @@ const CommissionTitle = [
 
 const CommissionTableScreen = () => {
   const { t } = useLocalization()
+  const desktop = isDesktop()
   const { commissionList } = useCommissionTableQuery(
     { currency: Currency.VND },
     {
@@ -97,6 +99,7 @@ const CommissionTableScreen = () => {
     <PageWithBackHeader
       header={{ title: t('commision.title') }}
       disableScrollView
+      hideHeader={desktop}
     >
       <DataTable>
         <DataTable.Header
@@ -104,8 +107,13 @@ const CommissionTableScreen = () => {
           containerStyle={{
             color: 'white',
             zIndex: 2,
-            mt: Platform.OS === 'web' ? 15 : 0,
-            position: Platform.OS === 'web' ? 'fixed' : 'relative',
+            mt: Platform.OS === 'web' ? (desktop ? 0 : 15) : 0,
+            position:
+              Platform.OS === 'web'
+                ? desktop
+                  ? 'relative'
+                  : 'fixed'
+                : 'relative',
             bg: '$background',
           }}
         >
@@ -127,7 +135,7 @@ const CommissionTableScreen = () => {
         sx={{
           flex: 1,
           zIndex: -1,
-          marginTop: Platform.OS === 'web' ? 60 : 0,
+          marginTop: Platform.OS === 'web' ? (desktop ? 0 : 60) : 0,
         }}
       >
         <FlashList

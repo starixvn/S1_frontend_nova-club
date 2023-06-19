@@ -77,7 +77,8 @@
     "next": "Next",
     "shareholder": "Shareholder",
     "hello": "Hello!!",
-    "agentLogin": "Agent Login"
+    "agentLogin": "Agent Login",
+    "logout": "Logout"
   },
   "contact": {
     "customerSupport": "Customer Support",
@@ -180,6 +181,10 @@
     }
   },
   "menu": {
+    "rewardsHub": "My Rewards Hub",
+    "friendReferral": "Friend Referral",
+    "msgAnnouncement": "Message / Announcement",
+    "commissionTable": "Commission Table",
     "tnc": "Terms and Conditions",
     "bankAccount": "Bank Account",
     "cryptoWallet": "Crypto Wallet",

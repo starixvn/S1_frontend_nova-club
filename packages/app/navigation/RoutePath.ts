@@ -58,27 +58,27 @@ export const Profile_Wallet_Route: Route[] = [
 
 export const Profile_Quick_Navigation_Path: Route[] = [
   {
-    label: 'profile',
+    label: 'common.profile',
     path: '/account/profile-details',
     icon: 'profile',
   },
   {
-    label: 'manage credentials',
+    label: 'manageCredentials.title',
     path: '/account/manage-credentials',
     icon: 'mng-cred',
   },
   {
-    label: 'message/\nannouncement',
+    label: 'menu.msgAnnouncement',
     path: '/account/profile/message',
     icon: 'announcement',
   },
   {
-    label: 'commission table',
+    label: 'menu.commissionTable',
     path: '/account/profile/commission',
     icon: 'ct',
   },
   {
-    label: 'my rewards hub',
+    label: 'menu.rewardsHub',
     path: '/account/profile/my-rewards-hub',
     icon: 'gift',
   },
@@ -93,7 +93,7 @@ export const Profile_Quick_Navigation_Path: Route[] = [
   //   icon: 'm_promo',
   // },
   {
-    label: 'leaderboard',
+    label: 'menu.leaderboard',
     path: '/account/profile/leaderboard',
     icon: 'crown',
   },
@@ -103,12 +103,12 @@ export const Profile_Quick_Navigation_Path: Route[] = [
   //   icon: 'aff',
   // },
   {
-    label: 'customer support',
+    label: 'contact.customerSupport',
     path: '/account/profile/customer-support',
     icon: 'cs',
   },
   {
-    label: 'logout',
+    label: 'common.logout',
     path: '/auth/login',
     icon: 'logout',
   },

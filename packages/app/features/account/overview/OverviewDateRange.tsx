@@ -30,10 +30,8 @@ const OverviewDateRange = ({
     ...{
       flexDirection: 'row',
       mt: '$4',
-      // alignItems: 'center',
       justifyContent: 'space-between',
       px: '$2',
-      // bg: 'green',
     },
     ...viewSx,
   }
@@ -58,7 +56,7 @@ const OverviewDateRange = ({
     <View sx={rootViewStyle} {...restViewProps}>
       <DatePicker
         value={startDate}
-        inputSx={{ width: '45%' }}
+        inputSx={{ width: '45%', maxWidth: 200 }}
         onChange={(value) => onDateChange('startDate', value)}
       />
 
