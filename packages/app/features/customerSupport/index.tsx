@@ -10,13 +10,18 @@ import React from 'react'
 import { Linking, Platform } from 'react-native'
 import { Shadow } from 'react-native-shadow-2'
 import useSupportItemList from './useSupportItemList'
+import isDesktop from 'app/utils/isDesktop'
 
 const CustomerSupportScreen = () => {
   const { t } = useLocalization()
   const mediaList = useSupportItemList()
+  const desktop = isDesktop()
 
   return (
-    <PageWithBackHeader header={{ title: t('contact.customerSupport') }}>
+    <PageWithBackHeader
+      header={{ title: t('contact.customerSupport') }}
+      hideHeader={desktop}
+    >
       <View sx={{ flex: 1, alignItems: 'center' }}>
         <Image
           source={require('app/assets/images/common/logo-circle.png')}

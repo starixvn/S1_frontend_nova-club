@@ -8,10 +8,12 @@ import { TabView, SceneMap } from 'react-native-tab-view'
 import { createParam } from 'solito'
 import PersonalMessage from './PersonalMessage'
 import AnnouncementScreen from './Announcement'
+import isDesktop from 'app/utils/isDesktop'
 
 const { useParam } = createParam<{ tab: string }>()
 const MessagesScreen = () => {
   const [tab = 0] = useParam('tab')
+  const desktop = isDesktop()
 
   const { t } = useLocalization()
 
@@ -47,6 +49,7 @@ const MessagesScreen = () => {
     <PageWithBackHeader
       header={{ title: t('menu.message/announcement') }}
       disableScrollView
+      hideHeader={desktop}
     >
       <TabView
         navigationState={{ index, routes }}

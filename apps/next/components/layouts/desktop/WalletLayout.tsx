@@ -5,7 +5,7 @@ import {
   WITHDRAWAL_NOTES,
 } from 'app/utils/constant'
 import LeftPanelContainer from 'desktop-ext/components/layout/LeftPanelContainer'
-import { HEADER_HEIGHT } from 'desktop-ext/components/layout/NavigationHeader'
+import { NAVIGATION_HEIGHT } from 'desktop-ext/components/layout/NavigationHeader'
 import PageContainer from 'desktop-ext/components/layout/PageContainer'
 import WalletMenu from 'desktop-ext/components/layout/WalletMenu'
 import DepositRoutes from 'desktop-ext/routes/depositRoutes'
@@ -54,7 +54,7 @@ export default function WalletLayout({
 
   return (
     <BaseLayout>
-      <Container sx={{ minHeight: `calc(100vh - ${HEADER_HEIGHT}px)` }}>
+      <Container sx={{ minHeight: `calc(100vh - ${NAVIGATION_HEIGHT}px)` }}>
         <WalletMenu currentTab={currentTab} setCurrentTab={setCurrentTab} />
         <Row>
           <LeftPanelContainer>

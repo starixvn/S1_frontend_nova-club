@@ -39,7 +39,7 @@ export function LanguageButton({
     m: 10,
     borderRadius: 100,
     borderWidth: 3,
-    borderColor: active ? '$primary[100]' : 'transparent',
+    borderColor: active ? '$primary.100' : 'transparent',
   }
   const defaultImageStyle: SxProp = {
     width: size,

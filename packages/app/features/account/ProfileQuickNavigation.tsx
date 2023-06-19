@@ -1,6 +1,7 @@
 import Icon from 'app/components/Icon'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import { Profile_Quick_Navigation_Path } from 'app/navigation/RoutePath'
+import useLocalization from 'app/provider/localization'
 import { Pressable, Text, View, styled, useDripsyTheme } from 'dripsy'
 import { Gradient } from 'dripsy/gradient'
 import { Platform, useWindowDimensions } from 'react-native'
@@ -17,6 +18,7 @@ const ProfileQuickNavigation = () => {
   const numEmptyCard = CARD_PER_ROW - (totalCard % CARD_PER_ROW)
   const { push } = useRouter()
   const { logout } = useOnAppLogout()
+  const { t } = useLocalization()
 
   const TriggerLogout = async () => {
     try {
@@ -77,7 +79,7 @@ const ProfileQuickNavigation = () => {
               color: 'white',
             }}
           >
-            {r.label}
+            {t(r.label)}
           </Text>
         </Gradient>
       </Pressable>

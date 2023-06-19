@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react'
 
 type TabNavMenuProps = {
   routes: Readonly<DesktopRoute[]>
-  notice: string[]
+  notice?: string[]
 }
 
 type NavMenuItemProps = {
@@ -38,7 +38,7 @@ const TabNavMenu = ({ routes, notice }: TabNavMenuProps) => {
     <View>
       {routes &&
         routes.map((item) => {
-          const isActive = currentMenu?.includes(item.base ?? item.route)
+          const isActive = currentMenu === (item.base ?? item.route)
 
           return (
             <NavMenuItem
@@ -52,8 +52,12 @@ const TabNavMenu = ({ routes, notice }: TabNavMenuProps) => {
           )
         })}
 
-      <View sx={{ mb: '$3' }} />
-      {notice?.length > 0 && <NoticeContent notice={notice} />}
+      {notice && (
+        <>
+          <View sx={{ mb: '$3' }} />
+          <NoticeContent notice={notice ?? []} />
+        </>
+      )}
     </View>
   )
 }
@@ -74,6 +78,7 @@ const NavMenuItem = ({
             p: '$3',
             borderRightWidth: isActive ? 8 : 0,
             borderColor: '$primary.100',
+            borderTopWidth: 1,
           }}
         >
           {icon && <Icon name={icon} sx={{ mr: '$3' }} />}
