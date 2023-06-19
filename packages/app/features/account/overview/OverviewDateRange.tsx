@@ -2,6 +2,8 @@ import { Sx, Text, View } from 'dripsy'
 import { ComponentProps, Dispatch, SetStateAction } from 'react'
 import dayjs from 'dayjs'
 import DatePicker from 'app/components/form/DatePicker'
+import isDesktop from 'app/utils/isDesktop'
+import { useWindowDimensions } from 'react-native'
 
 type DateType = 'startDate' | 'endDate'
 type ViewProps = ComponentProps<typeof View>
@@ -25,12 +27,15 @@ const OverviewDateRange = ({
   ...viewProps
 }: OverviewDateRangeProps) => {
   const { sx: viewSx, ...restViewProps } = viewProps
+  const desktop = isDesktop()
+  const { width } = useWindowDimensions()
+  const desktopDateWidth = Math.min(300, width * 0.25)
 
   const rootViewStyle: Sx = {
     ...{
       flexDirection: 'row',
       mt: '$4',
-      justifyContent: 'space-between',
+      justifyContent: 'space-around',
       px: '$2',
     },
     ...viewSx,
@@ -56,7 +61,7 @@ const OverviewDateRange = ({
     <View sx={rootViewStyle} {...restViewProps}>
       <DatePicker
         value={startDate}
-        inputSx={{ width: '45%', maxWidth: 200 }}
+        inputSx={{ width: desktop ? desktopDateWidth : '45%' }}
         onChange={(value) => onDateChange('startDate', value)}
       />
 
@@ -70,7 +75,7 @@ const OverviewDateRange = ({
         -
       </Text>
       <DatePicker
-        inputSx={{ width: '45%' }}
+        inputSx={{ width: desktop ? desktopDateWidth : '45%' }}
         value={endDate}
         onChange={(value) => onDateChange('endDate', value)}
       />

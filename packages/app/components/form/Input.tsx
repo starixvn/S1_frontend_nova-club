@@ -103,8 +103,8 @@ const Input = forwardRef<NativeTextInput, InputProps>(
             sx={{
               ...(desktop
                 ? {
-                    minWidth: 350,
-                    width: '60%',
+                    // minWidth: 350,
+                    // width: '60%',
                   }
                 : {}),
               ...(editable ? {} : { bg: '$primary.300' }),

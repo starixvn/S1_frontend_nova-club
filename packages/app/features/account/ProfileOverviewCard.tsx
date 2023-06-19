@@ -2,7 +2,7 @@ import Icon from 'app/components/Icon'
 import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import { ActivityIndicator, Text, View, styled } from 'dripsy'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, useWindowDimensions } from 'react-native'
 import { usePlayerOverviewSummaryQuery } from 'services/playerApi'
 import { useAppSelector } from 'app/provider/redux/store'
 import useLocalization from 'app/provider/localization'
@@ -30,9 +30,16 @@ const ProfileOverviewCard = ({ currency }: ProfileOverviewCardProps) => {
   const { data, isFetching } = usePlayerOverviewSummaryQuery(undefined, {
     skip: !token,
   })
+  const desktop = isDesktop()
+  const { width } = useWindowDimensions()
+  const overViewContainerWidth = Math.min(
+    450,
+    desktop ? width * 0.3 : width * 0.85
+  )
+
   return (
     <>
-      <ProfileOverviewCardContainer>
+      <ProfileOverviewCardContainer width={overViewContainerWidth}>
         <ProfileOverviewHeader>
           <ProfileOverviewText fontSize={13}>
             {t('common.overview')}
@@ -141,18 +148,19 @@ const ProfileOverviewHorizontalItem = ({
     </View>
   )
 }
+const ProfileOverviewCardContainer = styled(View)(
+  ({ width }: { width: number }) => ({
+    flexDirection: 'column',
+    borderRadius: 15,
+    borderColor: '$primary.100',
+    borderWidth: 1,
+    my: 10,
+    height: isDesktop() ? 125 : 150,
+    bg: isDesktop() ? '$primary.500' : 'transparent',
+    width,
+  })
+)
 
-const ProfileOverviewCardContainer = styled(View)({
-  flexDirection: 'column',
-  borderRadius: 15,
-  borderColor: '$primary.100',
-  borderWidth: 1,
-  my: 10,
-  height: isDesktop() ? 125 : 150,
-  maxWidth: isDesktop() ? 400 : 375,
-  width: isDesktop() ? '30%' : '100%',
-  bg: isDesktop() ? '$primary.500' : 'transparent',
-})
 const ProfileOverviewHeader = styled(View)({
   flexDirection: 'row',
   bg: '$primary.300',

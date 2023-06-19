@@ -1,12 +1,12 @@
+import Icon from 'app/components/Icon'
+import useLocalization from 'app/provider/localization'
 import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
+import isDesktop from 'app/utils/isDesktop'
 import { ActivityIndicator, Text, View, styled, useDripsyTheme } from 'dripsy'
-import Icon from 'app/components/Icon'
 import { AnimatePresence, MotiView } from 'moti/build'
 import { useState } from 'react'
-import { TouchableOpacity } from 'react-native'
-import useLocalization from 'app/provider/localization'
-import isDesktop from 'app/utils/isDesktop'
+import { TouchableOpacity, useWindowDimensions } from 'react-native'
 
 interface HiddenItemProps {
   color: string
@@ -40,12 +40,17 @@ const ProfileBalanceSummary = ({
   const desktop = isDesktop()
   const [isExtend, setIsExtend] = useState(desktop)
   const { t } = useLocalization()
+  const { width } = useWindowDimensions()
+  const summaryContainerWidth = Math.min(
+    450,
+    desktop ? width * 0.3 : width * 0.85
+  )
 
   const handlePress = () => {
     setIsExtend(!isExtend)
   }
   return (
-    <ProfileBalanceSummaryContainer>
+    <ProfileBalanceSummaryContainer width={summaryContainerWidth}>
       <BalanceSection>
         <BalanceItem>
           <Icon
@@ -160,16 +165,17 @@ const HiddenItem = ({
   )
 }
 
-const ProfileBalanceSummaryContainer = styled(View)({
-  flexDirection: 'column',
-  maxWidth: '85%',
-  borderRadius: 15,
-  borderColor: '$primary.100',
-  borderWidth: 1,
-  my: 20,
-  bg: isDesktop() ? '$primary.500' : 'transparent',
-  width: isDesktop() ? 300 : 500,
-})
+const ProfileBalanceSummaryContainer = styled(View)(
+  ({ width }: { width: number }) => ({
+    flexDirection: 'column',
+    borderRadius: 15,
+    borderColor: '$primary.100',
+    borderWidth: 1,
+    my: 20,
+    bg: isDesktop() ? '$primary.500' : 'transparent',
+    width,
+  })
+)
 
 const BalanceSection = styled(View)({
   flexDirection: 'row',

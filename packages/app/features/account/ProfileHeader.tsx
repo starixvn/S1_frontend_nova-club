@@ -21,7 +21,7 @@ export default function ProfileHeader({ data }: ProfileHeaderProps) {
   return (
     <View
       sx={{
-        height: HEADER_HEIGHT + top,
+        height: HEADER_HEIGHT + (top ? top : 30),
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
