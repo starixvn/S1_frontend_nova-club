@@ -10,7 +10,6 @@ export default function HireBanner() {
   return (
     <Row
       sx={{
-        mt: '$sectionBottomSpace',
         borderRadius: 40,
         bg: '$primary.200',
         p: ['$1', '$1', '$1', '$2'],
@@ -29,7 +28,7 @@ export default function HireBanner() {
           sx={{
             fontWeight: '900',
             pt: FONT_TOP_OFFSET,
-            fontSize: [12, 14, 16],
+            fontSize: [12, 14],
           }}
         >
           HIRE AGENT
@@ -45,7 +44,6 @@ export default function HireBanner() {
         <View
           sx={{
             mx: '$1',
-            flexDirection: direction,
             px: '$2',
             flex: 1,
           }}
@@ -62,7 +60,7 @@ export default function HireBanner() {
               <Icon size={16} name="date" />
               <Label
                 sx={{
-                  mx: ['$1', '$2', '$3'],
+                  mx: ['$1', '$2'],
                 }}
               >
                 1-31/5/2023
@@ -86,7 +84,7 @@ export default function HireBanner() {
 
 const Label = styled(Text)({
   mt: FONT_TOP_OFFSET,
-  fontSize: [12, 14, 16],
+  fontSize: [12, 14],
   fontWeight: 'bold',
 })
 

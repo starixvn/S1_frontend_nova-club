@@ -14,6 +14,7 @@ import { toCurrency } from 'app/utils'
 import { Currency, HEADER_HEIGHT, LANGUAGE_CODE } from 'app/utils/constant'
 import isDesktop from 'app/utils/isDesktop'
 import {
+  Container,
   Image,
   Pressable,
   Row,
@@ -136,128 +137,136 @@ const MainHeader = () => {
     }
   }, [playerBalance, token])
   return (
-    <HeaderContainer insetTop={top} key={'MainHeader'}>
-      <Logo />
-      {token ? (
-        <Row sx={{ alignItems: 'center' }}>
-          <HeaderDeposit />
-          <HeaderOverview
-            onBalancePress={() => null}
-            onRewardPress={() => null}
-            reward={playerBalance?.data?.main.reward}
-            balance={totalBalance}
-            isLoading={isMainWalletLoading}
-          />
-          {desktop && (
-            <View sx={{ mx: '$2', minWidth: 75 }}>
-              <Text sx={{ textAlign: 'right' }}>{t('common.hello')}</Text>
-              <Text
-                sx={{ textAlign: 'right', fontWeight: 'bold' }}
-                numberOfLines={1}
-              >
-                {playerData?.firstName}
-              </Text>
-            </View>
-          )}
-
-          <Pressable
-            sx={{ borderRadius: 50, px: desktop ? 0 : 5 }}
-            onPress={() => push('/account/profile')}
-          >
-            <Image
-              alt="user-avatar"
-              source={require('../../../assets/images/common/avatarx2.png')}
-              sx={{ aspectRatio: 1, width: 34, height: 34, borderRadius: 50 }}
+    <View
+      sx={{
+        bg: '$primary.500',
+        flex: 1,
+      }}
+    >
+      <HeaderContainer insetTop={top} key={'MainHeader'}>
+        <Logo />
+        {token ? (
+          <Row sx={{ alignItems: 'center' }}>
+            <HeaderDeposit />
+            <HeaderOverview
+              onBalancePress={() => null}
+              onRewardPress={() => null}
+              reward={playerBalance?.data?.main.reward}
+              balance={totalBalance}
+              isLoading={isMainWalletLoading}
             />
-          </Pressable>
-          {desktop && (
-            <>
-              <HeaderLanguageButtonContainer>
-                <HeaderLanguageButtonInnerContainer gradient="button">
-                  <LanguageButton
-                    size={26}
-                    languageCode={lang}
-                    onPress={() =>
-                      onChangeLanguage(
-                        lang === LANGUAGE_CODE.VIETNAM
-                          ? LANGUAGE_CODE.ENGLISH
-                          : LANGUAGE_CODE.VIETNAM
-                      )
-                    }
-                    imageSx={{ borderWidth: 1.5 }}
-                  />
-                </HeaderLanguageButtonInnerContainer>
-              </HeaderLanguageButtonContainer>
-
-              <Shadow
-                offset={[0, -1]}
-                startColor={'rgba(255, 255, 255, 0.5)'}
-                distance={1}
-                style={{
-                  borderRadius: 15,
-                  backgroundColor: theme.colors?.$primary[300],
-                }}
-                containerStyle={{ marginHorizontal: 2.5 }}
-              >
-                <IconButton
-                  name="logout"
-                  onPress={() => TriggerLogout()}
-                  size={22}
-                />
-              </Shadow>
-              <Shadow
-                offset={[0, -1]}
-                startColor={'rgba(255, 255, 255, 0.8)'}
-                distance={1}
-                style={{ borderRadius: 15 }}
-                containerStyle={{ marginHorizontal: 5 }}
-              >
-                <Button
-                  sx={{
-                    bg: '$primary.100',
-                    px: '$3',
-                    width: 80,
-                    borderRadius: 15,
-                  }}
-                  contentProps={{ sx: { py: 2 } }}
-                  titleProps={{
-                    sx: {
-                      fontSize: 11,
-                      wordWrap: 'break-word',
-                    },
-                  }}
+            {desktop && (
+              <View sx={{ mx: '$2', minWidth: 75 }}>
+                <Text sx={{ textAlign: 'right' }}>{t('common.hello')}</Text>
+                <Text
+                  sx={{ textAlign: 'right', fontWeight: 'bold' }}
+                  numberOfLines={1}
                 >
-                  {t('common.agentLogin')}
-                </Button>
-              </Shadow>
-            </>
-          )}
+                  {playerData?.firstName}
+                </Text>
+              </View>
+            )}
 
-          {!desktop && (
-            <IconButtonGradient
-              onPress={() => {
-                toggleDrawer()
-              }}
-              iconProps={{ name: 'burgerMenu', color: 'white' }}
-            />
-          )}
-        </Row>
-      ) : (
-        <HeaderAuthentication />
-      )}
-    </HeaderContainer>
+            <Pressable
+              sx={{ borderRadius: 50, px: desktop ? 0 : 5 }}
+              onPress={() => push('/account/profile')}
+            >
+              <Image
+                alt="user-avatar"
+                source={require('../../../assets/images/common/avatarx2.png')}
+                sx={{ aspectRatio: 1, width: 34, height: 34, borderRadius: 50 }}
+              />
+            </Pressable>
+            {desktop && (
+              <>
+                <HeaderLanguageButtonContainer>
+                  <HeaderLanguageButtonInnerContainer gradient="button">
+                    <LanguageButton
+                      size={26}
+                      languageCode={lang}
+                      onPress={() =>
+                        onChangeLanguage(
+                          lang === LANGUAGE_CODE.VIETNAM
+                            ? LANGUAGE_CODE.ENGLISH
+                            : LANGUAGE_CODE.VIETNAM
+                        )
+                      }
+                      imageSx={{ borderWidth: 1.5 }}
+                    />
+                  </HeaderLanguageButtonInnerContainer>
+                </HeaderLanguageButtonContainer>
+
+                <Shadow
+                  offset={[0, -1]}
+                  startColor={'rgba(255, 255, 255, 0.5)'}
+                  distance={1}
+                  style={{
+                    borderRadius: 15,
+                    backgroundColor: theme.colors?.$primary[300],
+                  }}
+                  containerStyle={{ marginHorizontal: 2.5 }}
+                >
+                  <IconButton
+                    name="logout"
+                    onPress={() => TriggerLogout()}
+                    size={22}
+                  />
+                </Shadow>
+                <Shadow
+                  offset={[0, -1]}
+                  startColor={'rgba(255, 255, 255, 0.8)'}
+                  distance={1}
+                  style={{ borderRadius: 15 }}
+                  containerStyle={{ marginHorizontal: 5 }}
+                >
+                  <Button
+                    sx={{
+                      bg: '$primary.100',
+                      px: '$3',
+                      width: 80,
+                      borderRadius: 15,
+                    }}
+                    contentProps={{ sx: { py: 2 } }}
+                    titleProps={{
+                      sx: {
+                        fontSize: 11,
+                        wordWrap: 'break-word',
+                      },
+                    }}
+                  >
+                    {t('common.agentLogin')}
+                  </Button>
+                </Shadow>
+              </>
+            )}
+
+            {!desktop && (
+              <IconButtonGradient
+                onPress={() => {
+                  toggleDrawer()
+                }}
+                iconProps={{ name: 'burgerMenu', color: 'white' }}
+              />
+            )}
+          </Row>
+        ) : (
+          <HeaderAuthentication />
+        )}
+      </HeaderContainer>
+    </View>
   )
 }
 
-const HeaderContainer = styled(View)(({ insetTop }: { insetTop: number }) => ({
-  flexDirection: 'row',
-  bg: '$primary.500',
-  minHeight: HEADER_HEIGHT + insetTop,
-  pt: insetTop,
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  px: 10,
-}))
+const HeaderContainer = styled(Container)(
+  ({ insetTop }: { insetTop: number }) => ({
+    flexDirection: 'row',
+    minHeight: HEADER_HEIGHT + insetTop,
+    pt: insetTop,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    px: 10,
+  })
+)
 
 const HeaderLanguageButtonContainer = styled(View)({
   bg: '$primary.300',

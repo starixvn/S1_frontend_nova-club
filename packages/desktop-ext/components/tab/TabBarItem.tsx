@@ -24,14 +24,13 @@ const TabBarItem = ({ renderIcon, isActive, label, onPress }) => {
         maxWidth: 150,
         marginBottom: 2,
         mx: '$2',
-        borderColor: '$primary.100',
-        borderWidth: isActive ? 2 : 0,
-        borderRadius: 24,
-        mt: isActive ? -1 : 0,
+
+        // borderWidth: isActive ? 2 : 0,
+        // mt: isActive ? -1 : 0,
       }}
     >
       <Shadow
-        style={{ flex: 1, borderRadius: 30, overflow: 'hidden' }}
+        style={{ flex: 1, borderRadius: 24, overflow: 'hidden' }}
         offset={[0, 1]}
         distance={1}
         startColor={theme.colors.$primary[100]}
@@ -39,11 +38,15 @@ const TabBarItem = ({ renderIcon, isActive, label, onPress }) => {
       >
         <Row
           sx={{
+            borderColor: isActive ? '$primary.100' : 'transparent',
+            borderWidth: 2,
             px: ['$2', '$3'],
             py: ['$1', '$2'],
             bg: '$primary.700',
             alignItems: 'center',
             justifyContent: 'center',
+            borderRadius: 24,
+            boxShadow: isActive ? 'inset 0px -3px 6px #9696E6' : 'none',
           }}
         >
           <View sx={{ mr: 12 }}>{renderIcon()}</View>

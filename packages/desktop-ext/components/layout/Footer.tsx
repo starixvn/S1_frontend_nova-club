@@ -8,7 +8,7 @@ import useLocalization from 'app/provider/localization'
 import { Row, Text, View } from 'dripsy'
 import React from 'react'
 
-const DesktopFooter = () => {
+const Footer = () => {
   const { t } = useLocalization()
 
   return (
@@ -27,4 +27,5 @@ const DesktopFooter = () => {
   )
 }
 
-export default DesktopFooter
+export default Footer
+

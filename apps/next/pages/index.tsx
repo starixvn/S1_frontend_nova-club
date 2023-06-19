@@ -1,7 +1,8 @@
-import { DesktopWalletLayout } from 'components/layouts/desktop'
 import { MobileTabLayout } from 'components/layouts/mobile'
 import withAdaptiveScreen from 'desktop-ext/hoc/withAdaptiveScreen'
 import dynamic from 'next/dynamic'
+
+// import Home from "desktop-ext/features/home/HomeScreen"
 
 const LazyMobileScreen = dynamic(() => import('app/features/home/HomeScreen'), {
   ssr: false,

@@ -29,7 +29,7 @@ export type MatchCarouselProps = Omit<
 const MatchCarousel = forwardRef<ICarouselInstance, MatchCarouselProps>(
   ({ data, animationKey, ...rest }: MatchCarouselProps, ref) => {
     const width = useWindowDimensions().width
-    const itemWidth = Math.min(1400, width * 0.8)
+    const itemWidth = Math.min(500, width * 0.8)
     const carouselRef = useRef<ICarouselInstance>(null)
 
     const scoreHeight = useResponsiveValue(SCORE_HEIGHT)
@@ -117,7 +117,7 @@ const Root = styled(View)({
   alignItems: 'center',
   flexDirection: 'row',
   justifyContent: 'space-evenly',
-  my: '$3',
+  mb: '$sectionBottomSpace',
 })
 const PaginationIconButton = styled(Pressable)({
   position: 'absolute',

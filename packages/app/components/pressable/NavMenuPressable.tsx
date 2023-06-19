@@ -18,7 +18,7 @@ const NavMenuPressable = ({ href, children, onPress }) => {
       }}
       transition={{
         type: 'timing',
-        duration: 350,
+        duration: 100,
       }}
       onPress={onPress}
     >

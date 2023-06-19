@@ -6,6 +6,7 @@ import { Container, Row, Text, View, styled } from 'dripsy'
 import { MotiPressable, useMotiPressable } from 'moti/interactions'
 import { MotiView } from 'moti'
 import React from 'react'
+import Divider from 'app/components/Divider'
 
 const MENU = [
   {
@@ -49,11 +50,11 @@ const MENU = [
   },
   {
     route: '/reward',
-    label: 'REWARD',
+    label: 'LEADERBOARD',
   },
   {
     route: '/leaderboard',
-    icon: 'crown',
+    icon: 'gift',
     style: {
       marginLeft: 'auto',
     },
@@ -64,13 +65,17 @@ export const NAVIGATION_HEIGHT = 60
 export default function NavigationHeader({}) {
   return (
     <View sx={{ height: NAVIGATION_HEIGHT, bg: '$primary.500' }}>
-      <DripsyGradient gradient="surface" sx={{ height: 60, marginTop: 'auto' }}>
+      <Divider />
+      <DripsyGradient
+        gradient="surface"
+        sx={{ height: NAVIGATION_HEIGHT, marginTop: 'auto' }}
+      >
         <Container sx={{ alignItems: 'stretch', flex: 1 }}>
           <Row
             sx={{
               flex: 1,
               alignItems: 'stretch',
-              px: [0, 0, 0, '$pagePadding'],
+              // px: [0, 0, 0, '$pagePadding'],
             }}
           >
             {MENU.map((m, i) => {
@@ -108,7 +113,7 @@ const MenuButton = ({ icon, label, route, style }) => {
       {icon ? (
         <Icon name={icon} size={22} />
       ) : (
-        <Text sx={{ fontSize: [12, 12, 12, 12, 14, 15] }}>{label}</Text>
+        <Text sx={{ fontSize: [12, 12, 12, 12, 14] }}>{label}</Text>
       )}
       <Indicator route={route} />
     </DripsyMotiPressable>
