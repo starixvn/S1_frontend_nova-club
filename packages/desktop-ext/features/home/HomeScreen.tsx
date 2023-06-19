@@ -65,7 +65,7 @@ export default function HomeScreen() {
             />
             <GameListSectionAsyncByTag
               tag={SlotType.MEGAWAY}
-              title={t('game.jackpot').toUpperCase()}
+              title={t('game.megaway').toUpperCase()}
               icon="megaway"
             />
           </View>
