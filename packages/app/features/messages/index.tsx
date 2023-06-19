@@ -1,14 +1,13 @@
-import CustomTabBar from 'app/components/navigation/CustomTabBar'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
+import CustomTabBar from 'app/components/navigation/CustomTabBar'
 import useLocalization from 'app/provider/localization'
-import { Text, View } from 'dripsy'
+import isDesktop from 'app/utils/isDesktop'
 import React, { useState } from 'react'
 import { useWindowDimensions } from 'react-native'
-import { TabView, SceneMap } from 'react-native-tab-view'
+import { SceneMap, TabView } from 'react-native-tab-view'
 import { createParam } from 'solito'
-import PersonalMessage from './PersonalMessage'
 import AnnouncementScreen from './Announcement'
-import isDesktop from 'app/utils/isDesktop'
+import PersonalMessage from './PersonalMessage'
 
 const { useParam } = createParam<{ tab: string }>()
 const MessagesScreen = () => {

@@ -1,7 +1,8 @@
 import IconButton from 'app/components/IconButton'
 import CheckBox from 'app/components/common/CheckBox'
 import { ViewRow } from 'app/components/common/ViewRow'
-import { Text, View } from 'dripsy'
+import isDesktop from 'app/utils/isDesktop'
+import { Container, Text, View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import MessageCard from './components/MessageCard'
 
@@ -49,6 +50,7 @@ const PersonalMessage = () => {
   const [isCheckAll, setIsCheckAll] = useState(false)
   const [isCheck, setIsCheck] = useState<number[]>([])
   const [list, setList] = useState<typeof MessageList>([])
+  const desktop = isDesktop()
 
   useEffect(() => {
     setList(MessageList)
@@ -79,25 +81,39 @@ const PersonalMessage = () => {
 
   return (
     <View>
-      <ViewRow sx={{ alignItems: 'center', p: 24, gap: 12 }}>
-        <CheckBox isCheck={isCheckAll} onCheck={handleSelectAll} />
-        <Text sx={{ flex: 1 }}>Select All</Text>
+      <Container
+        sx={{
+          ...(desktop ? { maxWidth: 500 } : {}),
+        }}
+      >
+        <ViewRow sx={{ alignItems: 'center', p: 24, gap: 12 }}>
+          <CheckBox isCheck={isCheckAll} onCheck={handleSelectAll} />
+          <Text sx={{ flex: 1 }}>Select All</Text>
 
-        <ViewRow sx={{ gap: 4 }}>
-          <IconButton name="bin" onPress={handleDelete} />
-          <IconButton name="refresh" onPress={handleRefresh} />
+          <ViewRow sx={{ gap: 4 }}>
+            <IconButton name="bin" onPress={handleDelete} />
+            <IconButton name="refresh" onPress={handleRefresh} />
+          </ViewRow>
         </ViewRow>
-      </ViewRow>
 
-      {list.map((item) => (
-        <View key={item.id} sx={{ mb: 12 }}>
-          <MessageCard
-            item={item}
-            isChecked={isCheck.includes(item.id)}
-            onCheck={(id) => handleClick(id)}
-          />
-        </View>
-      ))}
+        {list.map((item) => (
+          <View
+            key={item.id}
+            sx={{
+              mb: 12,
+              borderWidth: desktop ? 2 : 0,
+              borderTopWidth: 2,
+              borderColor: '$primary.100',
+            }}
+          >
+            <MessageCard
+              item={item}
+              isChecked={isCheck.includes(item.id)}
+              onCheck={(id) => handleClick(id)}
+            />
+          </View>
+        ))}
+      </Container>
     </View>
   )
 }

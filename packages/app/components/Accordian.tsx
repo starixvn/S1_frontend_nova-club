@@ -1,9 +1,9 @@
-import AnimateHeight from 'app/transitions/animate-height'
 import { styled, useDripsyTheme, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
 import { MotiPressable } from 'moti/interactions'
 import React, { ReactNode, useReducer, useState } from 'react'
 import Icon from './Icon'
+import isDesktop from 'app/utils/isDesktop'
 
 type AccordianProps = {
   isExpandable?: boolean
@@ -27,6 +27,7 @@ const Accordian = ({
   const [isExtend, toggleIsExtend] = useReducer((state) => {
     return !state
   }, extended)
+  const desktop = isDesktop()
 
   const handlePress = () => {
     onPress && !isExtend && onPress()
@@ -36,8 +37,7 @@ const Accordian = ({
     <MotiPressable onPress={isExpandable ? handlePress : undefined}>
       <View
         sx={{
-          borderTopWidth: 2,
-          borderBottomWidth: isExtend ? 0 : 2,
+          borderBottomWidth: desktop ? 0 : isExtend ? 0 : 2,
           borderColor: '$primary.100',
         }}
       >
