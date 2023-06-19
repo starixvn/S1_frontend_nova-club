@@ -10,7 +10,8 @@ const LeaderboardSection = (props) => {
       <SectionHeader icon="crown" title="menu.leaderboard" />
       <View
         sx={{
-          m: '$pagePadding',
+           ml: '$pagePadding',
+           my: '$pagePadding',
           overflow: 'hidden',
           borderRadius: 24,
           borderWidth: 1,

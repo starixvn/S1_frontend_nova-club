@@ -38,11 +38,11 @@ const theme = makeTheme({
       '900': webFont(AvertaStd.Black.name),
     },
   },
-  breakpoints: [576, 768, 992, 1200, 1520],
+  breakpoints: [576, 768, 992, 1200, 1400],
   layout: {
     container: {
       width: ['100%', '100%', '100%', '100%', '95%'],
-      maxWidth: ['100%', '100%', '100%', '100%', 1520],
+      maxWidth: ['100%', '100%', '100%', '100%', 1360],
     },
   },
   fonts: {
@@ -118,6 +118,7 @@ const theme = makeTheme({
   space: {
     $pagePadding: 24,
     $sectionBottomSpace: 20,
+    $layoutSpace: 16,
     $0: 0,
     $1: 4,
     $2: 8,

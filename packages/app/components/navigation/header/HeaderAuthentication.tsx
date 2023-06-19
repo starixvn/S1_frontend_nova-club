@@ -1,10 +1,12 @@
 import Button from 'app/components/common/Button'
+import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
 import React from 'react'
 import { useRouter } from 'solito/router'
 
 const HeaderAuthentication = () => {
   const { push } = useRouter()
+  const { t } = useLocalization()
   return (
     <View sx={{ flexDirection: 'row', alignItems: 'center' }}>
       <Button

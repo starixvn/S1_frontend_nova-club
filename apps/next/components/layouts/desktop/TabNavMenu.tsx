@@ -1,3 +1,4 @@
+import Divider from 'app/components/Divider'
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import { NoticeContent } from 'app/components/modal/NoticeModal'
@@ -66,6 +67,7 @@ const NavMenuItem = ({
 }: NavMenuItemProps) => {
   return (
     <NavMenuPressable href={href} onPress={onPress}>
+      <Divider />
       <DripsyGradient gradient="surface">
         <Row
           sx={{

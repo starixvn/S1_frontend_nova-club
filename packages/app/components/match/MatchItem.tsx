@@ -17,7 +17,7 @@ interface Props {
   match: MatchResult
 }
 
-export const SCORE_HEIGHT = [20, 30, 40]
+export const SCORE_HEIGHT = [20, 30]
 
 export default function MatchItem({ width, match }: Props) {
   // const leagueLogo = getLeagueLogo(match.LeagueId)
@@ -208,11 +208,12 @@ const HandicapColumn = styled(View)({
   flexDirection: 'row',
 })
 
+const fontSize = [11, 12, 14]
 const HandicapLabel = styled(Text)(
   ({ color = 'black' }: { color?: string }) => ({
     color,
-    mx: ['$1', '$1', '$2', '$2', '$3'],
-    fontSize: [11, 12, 14, 18, 22],
+    mx: ['$1', '$1', '$2', '$2'],
+    fontSize,
     mt: FONT_TOP_OFFSET,
     // lineHeight: SCORE_HEIGHT,
     fontWeight: '500',
@@ -221,7 +222,7 @@ const HandicapLabel = styled(Text)(
 
 const MatchTime = styled(Text)(() => ({
   pt: 2,
-  fontSize: [10, 12, 14, 18, 22],
+  fontSize,
   fontWeight: '500',
   width: '25%',
   textAlign: 'center',
@@ -229,7 +230,7 @@ const MatchTime = styled(Text)(() => ({
 
 const TeamName = styled(Text)(() => ({
   pt: 2,
-  fontSize: [10, 12, 14, 18, 22],
+  fontSize,
   // lineHeight: 14,
   mt: FONT_TOP_OFFSET,
   width: '24%',

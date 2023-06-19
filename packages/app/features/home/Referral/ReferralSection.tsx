@@ -11,7 +11,7 @@ import ShareCode from './ShareCode'
 const IMAGE_SIZE = 180
 const ReferralSection = () => {
   return (
-    <View sx={{ width: '100%', bg: 'red' }}>
+    <View sx={{ width: '100%' }}>
       <ImageBackground
         source={require('app/assets/images/referral/referral-bg.png')}
         style={{ width: '100%', height: 220 }}

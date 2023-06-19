@@ -3,7 +3,7 @@ import { HEADER_HEIGHT } from 'app/utils/constant'
 import NavigationHeader, {
   NAVIGATION_HEIGHT,
 } from 'desktop-ext/components/layout/NavigationHeader'
-import DesktopFooter from 'desktop-ext/features/home/DesktopFooter'
+import DesktopFooter from 'desktop-ext/components/layout/Footer'
 import { Container } from 'dripsy'
 import { ReactNode } from 'react'
 

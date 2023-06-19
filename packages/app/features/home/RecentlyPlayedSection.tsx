@@ -17,7 +17,7 @@ export default function RecentlyPlayedSection() {
     {
       currency: Currency.VND,
       game_category: [],
-      limit: 20,
+      limit: 1,
       offset: 0,
       gdc_game_category: [],
       gdc_tag: [SlotType.JACKPOT],

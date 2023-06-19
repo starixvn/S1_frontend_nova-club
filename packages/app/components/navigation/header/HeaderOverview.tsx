@@ -8,6 +8,7 @@ import {
 } from 'dripsy'
 import { Shadow } from 'react-native-shadow-2'
 import Icon from 'app/components/Icon'
+import { FONT_TOP_OFFSET } from 'app/constants/font'
 
 interface HeaderButtonProps {
   icon: string
@@ -33,36 +34,39 @@ const HeaderButton = ({
         distance={1}
         style={{
           borderRadius: 15,
-          minWidth: 135,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-evenly',
-          paddingVertical: 4,
           marginBottom: 3,
-          backgroundColor: theme.colors.$primary[700],
         }}
       >
-        <Icon name={icon} size={16} color={'$secondary.100'} />
+        <View
+          sx={{
+            px: '$2',
+            borderRadius: 15,
+            minWidth: 135,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            height: 22,
+            bg: '$primary.700',
+          }}
+        >
+          <Icon name={icon} size={14} color={'$secondary.100'} />
 
-        {isLoading ? (
-          <ActivityIndicator
-            sx={{
-              minWidth: 40,
-              textAlign: 'right',
-            }}
-          />
-        ) : (
-          <Text
-            sx={{
-              fontSize: 14,
-              color: '$secondary.100',
-              minWidth: 40,
-              textAlign: 'right',
-            }}
-          >
-            {value}
-          </Text>
-        )}
+          {isLoading ? (
+            <ActivityIndicator size={14} color={'$secondary.100'} />
+          ) : (
+            <Text
+              sx={{
+                mt: FONT_TOP_OFFSET,
+                fontSize: 14,
+                color: '$secondary.100',
+                minWidth: 40,
+                textAlign: 'right',
+              }}
+            >
+              {value}
+            </Text>
+          )}
+        </View>
       </Shadow>
     </Pressable>
   )
