@@ -2,7 +2,7 @@ import AnimateHeight from 'app/transitions/animate-height'
 import { styled, useDripsyTheme, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
 import { MotiPressable } from 'moti/interactions'
-import React, { ReactNode, useReducer } from 'react'
+import React, { ReactNode, useReducer, useState } from 'react'
 import Icon from './Icon'
 
 type AccordianProps = {
@@ -23,6 +23,7 @@ const Accordian = ({
   onPress,
 }: AccordianProps) => {
   const { theme } = useDripsyTheme()
+  const [expandHeight, setExpandHeight] = useState(0)
   const [isExtend, toggleIsExtend] = useReducer((state) => {
     return !state
   }, extended)
@@ -31,7 +32,6 @@ const Accordian = ({
     onPress && !isExtend && onPress()
     toggleIsExtend()
   }
-
   return (
     <MotiPressable onPress={isExpandable ? handlePress : undefined}>
       <View
@@ -56,9 +56,23 @@ const Accordian = ({
           )}
         </ViewMessageHeader>
       </View>
+      {/* Dummy View to calculate the expandable Height */}
+      <View
+        pointerEvents="none"
+        sx={{ opacity: 0, position: 'absolute' }}
+        onLayout={(e) => {
+          setExpandHeight(e.nativeEvent.layout.height)
+        }}
+      >
+        {children}
+      </View>
       <View sx={{ bg: '$primary.500' }}>{isExtend && <Divider />}</View>
       {isExpandable ? (
-        <AnimateHeight hide={!isExtend}>
+        <MotiView
+          from={{ height: 0 }}
+          animate={{ height: isExtend ? expandHeight : 0 }}
+          transition={{ type: 'timing' }}
+        >
           <AnimatePresence>
             {isExtend && (
               <MotiView
@@ -81,7 +95,7 @@ const Accordian = ({
               </MotiView>
             )}
           </AnimatePresence>
-        </AnimateHeight>
+        </MotiView>
       ) : (
         children
       )}

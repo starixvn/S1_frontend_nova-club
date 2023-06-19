@@ -1,6 +1,6 @@
 import SectionHeader from 'app/components/SectionHeader'
 import GameCard from 'app/components/game/GameCard'
-import { GameList } from 'app/components/game/GameSectionByProviderItem'
+// import { GameList } from 'app/components/game/GameSectionByProviderItem'
 import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
 import React from 'react'
@@ -39,7 +39,7 @@ const RewardsSection = () => {
           mx: ['$2', '$3'],
         }}
       >
-        <GameList data={rewardsGame} />
+        {/* <GameList data={rewardsGame} /> */}
       </View>
     </View>
   )

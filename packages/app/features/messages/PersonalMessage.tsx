@@ -1,10 +1,8 @@
-import Accordian from 'app/components/Accordian'
 import IconButton from 'app/components/IconButton'
 import CheckBox from 'app/components/common/CheckBox'
 import { ViewRow } from 'app/components/common/ViewRow'
-import { Text, View, styled } from 'dripsy'
+import { Text, View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
-import Message from './components/MessageCard'
 import MessageCard from './components/MessageCard'
 
 export const MessageList = [
@@ -12,7 +10,8 @@ export const MessageList = [
     id: 101,
     title: 'Title 1',
     subtitle: 'Subtitle 1',
-    content: 'Content 1 all message content show in here',
+    content:
+      'Content 1 all message content show in here, Content 1 all message content show in here,.Content 1 all message content show in hereContent 1 all message content show in hereContent 1 all message content show in here',
   },
   {
     id: 102,
