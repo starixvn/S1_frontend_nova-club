@@ -23,6 +23,8 @@ const WebView = ({ url, ...restWebViewProps }: WebViewComponentProps) => {
       sharedCookiesEnabled
       thirdPartyCookiesEnabled
       scalesPageToFit
+      javaScriptCanOpenWindowsAutomatically
+      setSupportMultipleWindows={false}
       textZoom={100}
       startInLoadingState={true}
       renderLoading={() => (

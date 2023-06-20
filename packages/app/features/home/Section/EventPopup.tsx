@@ -22,7 +22,7 @@ const EventPopup = () => {
     return () => {
       clearTimeout(setTimeoutId)
     }
-  }, [])
+  }, [isLoggedIn])
 
   return <></>
 }

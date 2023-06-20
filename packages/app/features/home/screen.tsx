@@ -18,6 +18,7 @@ import MatchesSection from './Section/MatchesSection'
 import RecentOpenGames from './Section/RecentOpenGames'
 import PlaySection from './Section/PlaySection'
 import RecommendedGamesSection from './Section/RecommendedGamesSection'
+import MessagePopup from './Section/MessagePopup'
 
 const HomeScreen = () => {
   const { isLandscape } = useOrientation()
@@ -80,6 +81,7 @@ const HomeScreen = () => {
       <HotGamesSection />
       <Jackpot />
       <LuckyDrawTrigger />
+      <MessagePopup />
       <EventPopup />
     </ScrollView>
   )
