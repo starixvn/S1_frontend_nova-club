@@ -3,6 +3,7 @@ import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
 import { Text, View, styled } from 'dripsy'
+import { MotiText, MotiView } from 'moti'
 import React from 'react'
 
 const BUTTON_SIZE = 42
@@ -26,7 +27,7 @@ const PlaySection = () => {
             mr: [4, 12],
           }}
         >
-          <Text
+          <StyledText
             sx={{
               py: 12,
               px: [8, 20],
@@ -36,11 +37,23 @@ const PlaySection = () => {
             }}
           >
             {t('game.slotgame')}
-          </Text>
+          </StyledText>
         </View>
         <StyledText>
           {t('game.rebate')}
-          <StyledText sx={{ color: '#EDDB02' }}> 1.2%</StyledText>
+          <StyledMotiView
+            key="rebate"
+            from={{ scale: 0.8 }}
+            animate={{ scale: 1.2 }}
+            transition={{
+              loop: true,
+              type: 'timing',
+              duration: 500,
+            }}
+            sx={{ ml: [2, 8] }}
+          >
+            <StyledText sx={{ color: '#EDDB02' }}>1.2%</StyledText>
+          </StyledMotiView>
         </StyledText>
       </View>
 
@@ -61,18 +74,31 @@ const PlaySection = () => {
             height: [BUTTON_SIZE, BUTTON_SIZE_BIG],
           }}
         />
-        <StyledText
+        <StyledMotiView
+          key="play"
+          from={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{
+            loop: true,
+            type: 'timing',
+            duration: 500,
+          }}
           sx={{
             borderRadius: 24,
             position: 'absolute',
             textAlign: 'center',
-            fontSize: [9, 11],
-            color: '#FCF03B',
-            fontWeight: 'bold',
           }}
         >
-          {t('game.playNow')}
-        </StyledText>
+          <StyledText
+            sx={{
+              fontSize: [9, 11],
+              color: '#FCF03B',
+              fontWeight: 'bold',
+            }}
+          >
+            {t('game.playNow')}
+          </StyledText>
+        </StyledMotiView>
       </BouncePressable>
     </RoundContainer>
   )
@@ -93,4 +119,5 @@ const StyledText = styled(Text)({
   fontWeight: 'bold',
 })
 
+const StyledMotiView = styled(MotiView)({})
 export default PlaySection

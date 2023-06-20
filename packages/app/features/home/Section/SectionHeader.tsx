@@ -57,7 +57,6 @@ const StyledView = styled(View)({
   borderColor: '$shadow',
   flexDirection: 'row',
   my: '$1a',
-  mt: '$6',
   alignItems: 'center',
 })
 
