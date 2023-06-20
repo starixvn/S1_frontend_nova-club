@@ -9,12 +9,14 @@ import { ImageBackground } from 'react-native'
 
 type RecommendedGamesCardProps = {
   number?: number
+  imageAlt?: string
 } & LaunchGamePayload
 
 const RecommendedGamesCard = ({
   gameCode,
   providerCode,
   image,
+  imageAlt,
   gameType,
   gameName,
   number,
@@ -40,8 +42,7 @@ const RecommendedGamesCard = ({
           }}
         >
           <Image
-            source={{ uri: image }}
-            alt={image}
+            source={{ uri: imageAlt }}
             resizeMode="cover"
             sx={{ width: '100%', height: '100%' }}
           />

@@ -17,7 +17,8 @@ const RecommendedGamesSection = () => {
       const imageName = (imageNumber < 10 ? '0' : '') + imageNumber
       return {
         ...item,
-        img: `${MEDIA_DOMAIN}${CONTENT_URI}/games/recommended/${imageName}.jpg`,
+        img: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.img}`,
+        imgAlt: `${MEDIA_DOMAIN}${CONTENT_URI}/games/recommended/${imageName}.jpg`,
       }
     })
 

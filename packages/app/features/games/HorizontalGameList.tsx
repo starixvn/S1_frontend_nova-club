@@ -8,12 +8,14 @@ import { Game } from 'services/contentApi.type'
 import useSeamlessList from './useSeamlessList'
 import RecommendedGamesCard from '../home/Section/RecommendedGamesCard'
 
+type GameProps = Game & { imgAlt: string }
+
 const HorizontalGameList = ({
   data,
   containerStyle,
   isRankCard = false,
 }: {
-  data: Game[]
+  data: GameProps[]
   containerStyle?: StyleProp<ViewStyle>
   isRankCard?: boolean
 }) => {
@@ -51,6 +53,7 @@ const HorizontalGameList = ({
               <RecommendedGamesCard
                 key={index}
                 image={img}
+                imageAlt={item?.imgAlt}
                 number={index + 1}
                 gameCode={gc}
                 providerCode={gpc}
