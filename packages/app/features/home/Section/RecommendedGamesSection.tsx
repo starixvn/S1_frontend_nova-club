@@ -1,4 +1,4 @@
-import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import { CMS_CONTENT_URI, CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import HorizontalGameList from 'app/features/games/HorizontalGameList'
 import { View } from 'dripsy'
 import React from 'react'
@@ -12,10 +12,12 @@ const RecommendedGamesSection = () => {
   const { data } = useFeaturedGameListQuery({ currency })
   const featuredList = data?.data?.rows
     .filter((el) => el.cat === FEATURED_GAME_CATEGORY.RECOMMENDED)
-    .map((item) => {
+    .map((item, index) => {
+      const imageNumber = index + 1
+      const imageName = (imageNumber < 10 ? '0' : '') + imageNumber
       return {
         ...item,
-        img: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.img}`,
+        img: `${MEDIA_DOMAIN}${CONTENT_URI}/games/recommended/${imageName}.jpg`,
       }
     })
 

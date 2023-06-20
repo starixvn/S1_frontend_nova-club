@@ -3,8 +3,9 @@ import Image from 'app/components/common/Image'
 import { LaunchGame } from 'app/features/games/GameLauncher'
 import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import { LaunchGamePayload } from 'app/store/gameLauncher.slice'
-import { Text, View } from 'dripsy'
+import { Text, View, styled } from 'dripsy'
 import React from 'react'
+import { ImageBackground } from 'react-native'
 
 type RecommendedGamesCardProps = {
   number?: number
@@ -31,9 +32,10 @@ const RecommendedGamesCard = ({
       <View sx={{ position: 'relative', mr: 12 }}>
         <View
           sx={{
-            width: [100, 100, 120],
-            aspectRatio: 3 / 4,
-            borderRadius: 15,
+            mt: 4,
+            width: [70, 100, 120],
+            aspectRatio: 17 / 35,
+            borderRadius: 12,
             overflow: 'hidden',
           }}
         >
@@ -52,27 +54,36 @@ const RecommendedGamesCard = ({
 
 const PaginationItem = ({ children }) => {
   return (
-    <View
+    <StyledImageBackground
       sx={{
         position: 'absolute',
         left: '10%',
-        top: '-1.5%',
-        bg: '#F33043',
-        zIndex: 1,
-        width: '30%',
-        borderBottomRightRadius: 50,
-        borderBottomLeftRadius: 50,
-        aspectRatio: 36 / 44,
-        boxShadow: 'md',
+        width: [32, 48],
+        // bg: '#F33043',
+        // zIndex: 1,
+        // width: '30%',
+        // borderBottomRightRadius: 50,
+        // borderBottomLeftRadius: 50,
+        aspectRatio: 128 / 119,
+        // boxShadow: 'md',
         alignItems: 'center',
         justifyContent: 'center',
       }}
+      source={require('app/assets/images/games/common/rank-icon.png')}
     >
-      <Text sx={{ fontSize: [16, 18], color: 'white', fontWeight: 'bold' }}>
+      <Text
+        sx={{
+          ml: [-8, -12],
+          fontSize: [16, 18],
+          color: 'white',
+          fontWeight: 'bold',
+        }}
+      >
         {children}
       </Text>
-    </View>
+    </StyledImageBackground>
   )
 }
 
+const StyledImageBackground = styled(ImageBackground)({})
 export default RecommendedGamesCard
