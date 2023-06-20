@@ -43,6 +43,7 @@ export interface ModalStackParams {
   PlayerBankDeleteModal: { bank: Record<any, any> }
   PredictionModal: undefined
   EventPopupModal: undefined
+  MessagePopupModal: undefined
   ReferralModal: undefined
   LuckyDrawModal: undefined
   // CnyLuckyDrawModal: undefined
@@ -79,6 +80,7 @@ const _dynamicModal = {
     import('app/components/modal/PlayerBankDeleteModal'),
   PredictionModal: () => import('app/components/modal/PredictionModal'),
   EventPopupModal: () => import('app/components/modal/EventPopupModal'),
+  MessagePopupModal: () => import('app/components/modal/MessagePopupModal'),
   ReferralModal: () => import('app/components/modal/ReferralModal'),
   WithdrawalConfirmationModal: () =>
     import('app/components/modal/WithdrawalConfirmationModal'),
@@ -141,6 +143,9 @@ const modalConfig: ModalConfigType = {
   },
   EventPopupModal: {
     modal: getDynamicComponent('EventPopupModal'),
+  },
+  MessagePopupModal: {
+    modal: getDynamicComponent('MessagePopupModal'),
   },
   ReferralModal: {
     modal: getDynamicComponent('ReferralModal'),

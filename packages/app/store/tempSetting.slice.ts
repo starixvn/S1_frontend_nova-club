@@ -3,6 +3,7 @@ import { Shield_Action } from 'services/authApi.type'
 
 interface settingStateProps {
   triggerPopupEvent: boolean
+  triggerPopupMessage: boolean
   luckyDrawTriggered: boolean
   syncShieldActionType: Shield_Action
   syncShieldStatus: boolean
@@ -10,6 +11,7 @@ interface settingStateProps {
 
 const initialState: settingStateProps = {
   triggerPopupEvent: true,
+  triggerPopupMessage: true,
   luckyDrawTriggered: false,
   syncShieldActionType: Shield_Action.NONE,
   syncShieldStatus: false,
@@ -21,6 +23,9 @@ const tempSettingSlice = createSlice({
   reducers: {
     toggleTriggerPopupEvent: (state, action: PayloadAction<boolean>) => {
       state.triggerPopupEvent = action.payload
+    },
+    toggleTriggerPopupMessage: (state, action: PayloadAction<boolean>) => {
+      state.triggerPopupMessage = action.payload
     },
     setLuckyDrawTriggered: (state, action: PayloadAction<boolean>) => {
       state.luckyDrawTriggered = action.payload
