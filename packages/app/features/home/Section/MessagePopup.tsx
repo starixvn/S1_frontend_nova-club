@@ -8,15 +8,16 @@ import { useMessageQuery } from 'services/messageApi'
 const MessagePopup = () => {
   const dispatch = useDispatch()
   const { openModal } = useModal()
+
+  const isLoggedIn = useAppSelector((s) => !!s.auth.info)
+  const showPopup = useAppSelector((s) => s.tempSetting.triggerPopupEvent)
+
   const { count } = useMessageQuery(undefined, {
     selectFromResult: ({ data }) => ({
       count: data?.data?.count,
     }),
-    refetchOnMountOrArgChange: true,
+    skip: !isLoggedIn,
   })
-
-  const isLoggedIn = useAppSelector((s) => !!s.auth.info)
-  const showPopup = useAppSelector((s) => s.tempSetting.triggerPopupEvent)
 
   useEffect(() => {
     const setTimeoutId = setTimeout(() => {
