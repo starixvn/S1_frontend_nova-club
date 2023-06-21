@@ -2,9 +2,9 @@ import Image from 'app/components/common/Image'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
-import { Text, View, styled } from 'dripsy'
+import { Row, Text, View, styled } from 'dripsy'
 import { MotiText, MotiView } from 'moti'
-import React from 'react'
+import React, { useMemo } from 'react'
 
 const BUTTON_SIZE = 42
 const BUTTON_SIZE_BIG = 52
@@ -15,6 +15,58 @@ const PlaySection = () => {
   const handlePlayNow = () => {
     push('/slot')
   }
+
+  const animatedText = useMemo(
+    () => (
+      <StyledMotiView
+        key="rebate"
+        from={{ scale: 0.8 }}
+        animate={{ scale: 1.2 }}
+        transition={{
+          loop: true,
+          type: 'timing',
+          duration: 500,
+        }}
+        sx={{
+          ml: [4, 8],
+        }}
+      >
+        <StyledText sx={{ fontSize: 14, color: '#EDDB02' }}>1.2%</StyledText>
+      </StyledMotiView>
+    ),
+    []
+  )
+
+  const animatedButton = useMemo(
+    () => (
+      <StyledMotiView
+        key="play"
+        from={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          loop: true,
+          type: 'timing',
+          duration: 500,
+        }}
+        sx={{
+          borderRadius: 24,
+          position: 'absolute',
+          textAlign: 'center',
+        }}
+      >
+        <StyledText
+          sx={{
+            fontSize: [9, 11],
+            color: '#FCF03B',
+            fontWeight: 'bold',
+          }}
+        >
+          {t('game.playNow')}
+        </StyledText>
+      </StyledMotiView>
+    ),
+    []
+  )
 
   return (
     <RoundContainer>
@@ -39,22 +91,10 @@ const PlaySection = () => {
             {t('game.slotgame')}
           </StyledText>
         </View>
-        <StyledText>
-          {t('game.rebate')}
-          <StyledMotiView
-            key="rebate"
-            from={{ scale: 0.8 }}
-            animate={{ scale: 1.2 }}
-            transition={{
-              loop: true,
-              type: 'timing',
-              duration: 500,
-            }}
-            sx={{ ml: [2, 8] }}
-          >
-            <StyledText sx={{ color: '#EDDB02' }}>1.2%</StyledText>
-          </StyledMotiView>
-        </StyledText>
+        <Row>
+          <StyledText>{t('game.rebate')}</StyledText>
+          {animatedText}
+        </Row>
       </View>
 
       <BouncePressable
@@ -74,31 +114,7 @@ const PlaySection = () => {
             height: [BUTTON_SIZE, BUTTON_SIZE_BIG],
           }}
         />
-        <StyledMotiView
-          key="play"
-          from={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{
-            loop: true,
-            type: 'timing',
-            duration: 500,
-          }}
-          sx={{
-            borderRadius: 24,
-            position: 'absolute',
-            textAlign: 'center',
-          }}
-        >
-          <StyledText
-            sx={{
-              fontSize: [9, 11],
-              color: '#FCF03B',
-              fontWeight: 'bold',
-            }}
-          >
-            {t('game.playNow')}
-          </StyledText>
-        </StyledMotiView>
+        {animatedButton}
       </BouncePressable>
     </RoundContainer>
   )
@@ -115,7 +131,7 @@ const RoundContainer = styled(View)({
 })
 
 const StyledText = styled(Text)({
-  fontSize: [14, 24],
+  fontSize: [13, 24],
   fontWeight: 'bold',
 })
 
