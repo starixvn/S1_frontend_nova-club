@@ -135,8 +135,6 @@ const ChangePasswordPage = () => {
         }
       />
       <View sx={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-        {desktop && <View sx={{ width: '20%', minWidth: 200 }} />}
-
         <Button
           onPress={submitForm}
           disabled={!isValid || !dirty}

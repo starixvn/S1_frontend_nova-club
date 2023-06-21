@@ -3,21 +3,24 @@ import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import isDesktop from 'app/utils/isDesktop'
 import { ScrollView, Sx, View } from 'dripsy'
 import React from 'react'
+import { useWindowDimensions } from 'react-native'
 
 interface ModalWrapperProps {
   children?: React.ReactNode
   sx?: Sx
+  isAuthModal?: boolean
 }
 
-const ModalWrapper = ({ children, sx }: ModalWrapperProps) => {
+const ModalWrapper = ({ children, sx, isAuthModal }: ModalWrapperProps) => {
   const { width, height } = useContainerDimension()
+  const { width: WindowWidth } = useWindowDimensions()
   const { left, right } = useSafeArea() //Landscape
-  const desktop = isDesktop()
+  // const desktop = isDesktop()
   return (
     <View
       sx={{
         p: '$4',
-        width: Math.min(500, width * 0.9),
+        width: isAuthModal ? WindowWidth * 0.9 : Math.min(500, width * 0.9),
         justifyContent: 'center',
         ...sx,
       }}

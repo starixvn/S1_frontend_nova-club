@@ -5,6 +5,8 @@ import { View, Image, Text, ScrollView } from 'dripsy'
 import React from 'react'
 import { useWindowDimensions } from 'react-native'
 import { useRouter } from 'solito/router'
+import AuthHeader from './components/AuthHeader'
+import AuthBanner from './components/AuthBanner'
 
 interface AuthLayoutProps {
   showBackButton?: boolean
@@ -29,38 +31,8 @@ export default function AuthLayout({
   const BANNER_RATIO = 768 / 240
   return (
     <>
-      <View
-        sx={{
-          bg: '$primary.500',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          pt: top,
-          px: 20,
-          py: 20,
-        }}
-      >
-        <IconButton onPress={back} name="back" />
-        <View sx={{ alignItems: 'center' }}>
-          <Image
-            source={require('../../assets/images/common/logo.png')}
-            alt="authentication-logo"
-            sx={{ height: 40, aspectRatio: 64 / 24 }}
-          />
-          <Text sx={{ textTransform: 'uppercase', fontWeight: 'bold', pt: 5 }}>
-            {headerDesc}
-          </Text>
-        </View>
-        <IconButton sx={{ opacity: 0 }} name="back" />
-      </View>
-      <View sx={{ width: '100%' }}>
-        <Image
-          source={require('../../assets/images/auth/banner.png')}
-          alt="auth-banner"
-          resizeMode="cover"
-          sx={{ width, height: width / BANNER_RATIO }}
-        />
-      </View>
+      <AuthHeader headerDesc={headerDesc} onPress={back} />
+      <AuthBanner bannerRatio={BANNER_RATIO} />
       <ScrollView
         bounces={false}
         sx={{ bg: '$primary.700' }}

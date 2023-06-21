@@ -10,6 +10,7 @@ import {
 import { mergeRefs } from 'utils/mergeRefs'
 import Icon from '../Icon'
 import isDesktop from 'app/utils/isDesktop'
+import InputLabel from './InputLabel'
 
 type InputComponent = ({ color }: { color?: string }) => JSX.Element
 
@@ -24,7 +25,7 @@ export interface InputProps extends DripsyTextInputProps {
   inputSx?: SxProp
   onPress?: (e?: GestureResponderEvent) => void
   children?: ReactNode
-  inputContainerSx: SxProp
+  inputContainerSx?: SxProp
 }
 
 const Input = forwardRef<NativeTextInput, InputProps>(
@@ -65,6 +66,7 @@ const Input = forwardRef<NativeTextInput, InputProps>(
 
     return (
       <RootView
+        // isDesktop={desktop}
         sx={{
           cursor: onPress ? 'pointer' : 'initial',
           ...sx,
@@ -72,95 +74,70 @@ const Input = forwardRef<NativeTextInput, InputProps>(
             ? {
                 flexDirection: 'row',
                 alignItems: 'center',
-                justifyContent: 'space-evenly',
+                // justifyContent: 'space-evenly',
               }
             : {}),
         }}
       >
-        {label && (
-          <View
-            sx={{
-              ...(desktop
-                ? {
-                    minWidth: 200,
-                    width: '20%',
-                  }
-                : {}),
-            }}
-          >
-            <Label
-              sx={{
-                ...(desktop
-                  ? {
-                      textAlign: 'right',
-                    }
-                  : {}),
-              }}
-            >{`${label} :`}</Label>
-          </View>
-        )}
-        <FocusArea onPress={handleOnPress}>
-          <InputContainer
-            color={sizeEffectColor}
-            sx={{
-              ...(desktop
-                ? {
-                    width: '60%',
-                    minWidth: 200,
-                  }
-                : {}),
-              ...(editable ? {} : { bg: '$primary.300' }),
-            }}
-          >
-            {InputIcon && <InputIcon color={sizeEffectColor ?? 'white'} />}
-            {prefix && (
-              <Container>
-                <Text>{prefix}</Text>
-              </Container>
-            )}
-            <View
-              pointerEvents={onPress ? 'none' : undefined}
-              sx={{
-                flex: 1,
-              }}
+        {label && <InputLabel label={label} desktop={desktop} />}
+        <View sx={{ width: '100%' }}>
+          <FocusArea onPress={handleOnPress}>
+            <InputContainer
+              isDesktop={desktop}
+              editable={editable}
+              color={sizeEffectColor}
+              sx={inputContainerSx}
             >
-              {subtitle && (
-                <Subtitle numberOfLines={1}>{`${subtitle}`}</Subtitle>
+              {InputIcon && <InputIcon color={sizeEffectColor ?? 'white'} />}
+              {prefix && (
+                <Container>
+                  <Text>{prefix}</Text>
+                </Container>
               )}
-              <TextInput
-                ref={mergedInputRef}
-                editable={editable && !onPress}
-                placeholderTextColor="$placeholder"
-                secureTextEntry={_secureTextEntry}
+              <View
+                pointerEvents={onPress ? 'none' : undefined}
                 sx={{
-                  color: sizeEffectColor,
-                  minHeight: 30,
-                  minWidth: 40,
-                  mx: '$2',
-                  fontSize: 14,
-                  ...inputSx,
+                  flex: 1,
                 }}
-                {...rest}
-              />
-            </View>
-            {children}
-            {secureTextEntry && (
-              <Container>
-                <TouchableOpacity
-                  onPress={() => setSecureTextEntry(!_secureTextEntry)}
-                >
-                  <Icon name={_secureTextEntry ? 'invisible' : 'visible'} />
-                </TouchableOpacity>
-              </Container>
-            )}
-            {InputAction && (
-              <Container>
-                <InputAction color={sizeEffectColor} />
-              </Container>
-            )}
-          </InputContainer>
-        </FocusArea>
-        {error && <ErrorLabel>{error}</ErrorLabel>}
+              >
+                {subtitle && (
+                  <Subtitle numberOfLines={1}>{`${subtitle}`}</Subtitle>
+                )}
+                <TextInput
+                  ref={mergedInputRef}
+                  editable={editable && !onPress}
+                  placeholderTextColor="$placeholder"
+                  secureTextEntry={_secureTextEntry}
+                  sx={{
+                    color: sizeEffectColor,
+                    minHeight: 30,
+                    minWidth: 40,
+                    mx: '$2',
+                    fontSize: 14,
+                    ...inputSx,
+                  }}
+                  {...rest}
+                />
+              </View>
+              {children}
+              {secureTextEntry && (
+                <Container>
+                  <TouchableOpacity
+                    onPress={() => setSecureTextEntry(!_secureTextEntry)}
+                  >
+                    <Icon name={_secureTextEntry ? 'invisible' : 'visible'} />
+                  </TouchableOpacity>
+                </Container>
+              )}
+              {InputAction && (
+                <Container>
+                  <InputAction color={sizeEffectColor} />
+                </Container>
+              )}
+            </InputContainer>
+          </FocusArea>
+          {error && <ErrorLabel>{error}</ErrorLabel>}
+        </View>
       </RootView>
     )
   }
@@ -179,21 +156,41 @@ const Label = styled(Text)({
   fontWeight: 'bold',
   mb: '$1',
 })
+
 const Subtitle = styled(Text)({
   mx: '$2',
   color: '$disabled',
 })
 
 const InputContainer = styled(Row)(
-  ({ color = '$primary.200' }: { color?: string }) => ({
-    borderColor: color,
-    borderRadius: 10,
-    py: '$2',
-    px: '2%',
-    borderWidth: 1,
-    alignItems: 'center',
-    position: 'relative',
-  })
+  ({
+    color = '$primary.200',
+    isDesktop = false,
+    editable,
+  }: {
+    color?: string
+    isDesktop?: boolean
+    editable?: boolean
+  }) => {
+    const desktopStyled = {
+      width: '60%',
+      minWidth: 200,
+    }
+    const editableStyled = {
+      bg: '$primary.300',
+    }
+    return {
+      borderColor: color,
+      borderRadius: 10,
+      py: '$2',
+      px: '2%',
+      borderWidth: 1,
+      alignItems: 'center',
+      position: 'relative',
+      ...(editable && editableStyled),
+      ...(isDesktop && desktopStyled),
+    }
+  }
 )
 
 const Container = styled(View)({
@@ -211,7 +208,7 @@ const getDefaultInputIcon = (name: string) => {
   return comp
 }
 
-const ErrorLabel = styled(Text)({
+export const ErrorLabel = styled(Text)({
   color: '$secondary.500',
   fontSize: 14,
   mx: '2%',

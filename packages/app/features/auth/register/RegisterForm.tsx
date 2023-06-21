@@ -36,7 +36,6 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
 
   const [usernameErrorMsg, setUsernameErrorMsg] = useState('')
   const [isCheckingUsername, setIsCheckingUsername] = useState(false)
-
   const oldUsernameRef = useRef('')
   const isUsernameCheckedRef = useRef(false)
   const usernameFieldRef = useRef<TextInput>(null)
@@ -111,11 +110,13 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
   return (
     <View
       sx={{
-        width: '90%',
+        width: '100%',
         py: 20,
+        px: 25,
       }}
     >
       <Input
+        inputContainerSx={{ width: '100%' }}
         icon="profile-rounded"
         placeholder="Username"
         textContentType="username"
@@ -138,6 +139,7 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
         }
       />
       <Input
+        inputContainerSx={{ width: '100%' }}
         icon="pw"
         placeholder="Password"
         secureTextEntry
@@ -157,6 +159,7 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
         }
       />
       <Input
+        inputContainerSx={{ width: '100%' }}
         icon="cpw"
         placeholder="Confirm Password"
         secureTextEntry

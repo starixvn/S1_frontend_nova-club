@@ -29,13 +29,14 @@ const OverviewDateRange = ({
   const { sx: viewSx, ...restViewProps } = viewProps
   const desktop = isDesktop()
   const { width } = useWindowDimensions()
-  const desktopDateWidth = Math.min(300, width * 0.25)
+  const desktopDateWidth = Math.min(200, width * 0.25)
 
   const rootViewStyle: Sx = {
     ...{
       flexDirection: 'row',
       mt: '$4',
-      justifyContent: 'space-around',
+      justifyContent: 'center',
+      // justifyContent: 'space-around',
       px: '$2',
     },
     ...viewSx,
@@ -70,6 +71,7 @@ const OverviewDateRange = ({
           fontSize: 25,
           lineHeight: 50,
           height: 50,
+          px: 10,
         }}
       >
         -
