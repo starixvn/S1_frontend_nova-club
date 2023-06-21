@@ -1,18 +1,20 @@
-import { CellContainer, FlashList } from '@shopify/flash-list'
+import { FlashList } from '@shopify/flash-list'
 import GamePageHeader from 'app/components/GamePageHeader'
+import SectionHeader from 'app/components/SectionHeader'
 import GameCard from 'app/components/game/GameCard'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { Currency, GAME_TYPE_CODE } from 'app/utils/constant'
-import { FlatList, Row, View, useResponsiveValue } from 'dripsy'
+import { GAME_TYPE_CODE } from 'app/utils/constant'
+import { GameToLaunchPayload } from 'app/utils/game'
+import { Row, useResponsiveValue } from 'dripsy'
 import React from 'react'
-import { useGetGameListQuery } from 'services/gameApi'
+import {
+  useGetGameListByCategoryQuery
+} from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import BannerSection from '../home/BannerSection'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
-import SectionHeader from 'app/components/SectionHeader'
-import { GameToLaunchPayload } from 'app/utils/game'
 
 export default function LiveCasinoScreen() {
   const { t } = useLocalization()
@@ -21,19 +23,7 @@ export default function LiveCasinoScreen() {
   const { data: playerProfile } = usePlayerProfileQuery()
   const { currency } = playerProfile || {}
 
-  const { gameList } = useGetGameListQuery(
-    {
-      currency: currency ?? Currency.VND,
-      game_category: [GAME_TYPE_CODE.LIVE_DEALER],
-      limit: 100,
-      offset: 0,
-    },
-    {
-      selectFromResult: (resp) => {
-        return { ...resp, gameList: resp.data?.data?.rows }
-      },
-    }
-  )
+  const { data } = useGetGameListByCategoryQuery([GAME_TYPE_CODE.LIVE_DEALER])
 
   const numColumns = useResponsiveValue([2, 3, 3, 4])
 
@@ -79,7 +69,7 @@ export default function LiveCasinoScreen() {
       key={numColumns}
       estimatedItemSize={160}
       showsVerticalScrollIndicator={false}
-      data={gameList}
+      data={data}
       renderItem={renderItem}
       numColumns={numColumns}
       contentContainerStyle={{

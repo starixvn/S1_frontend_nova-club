@@ -2,11 +2,15 @@ import DripsyMotiView from 'app/components/DripsyMotiView'
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import usePathname from 'app/hooks/usePathname'
-import { Container, Row, Text, View, styled } from 'dripsy'
+import { Container, Pressable, Row, Text, View, styled } from 'dripsy'
 import { MotiPressable, useMotiPressable } from 'moti/interactions'
-import { MotiView } from 'moti'
-import React from 'react'
+import { useLink } from 'solito/link'
+import React, { startTransition } from 'react'
 import Divider from 'app/components/Divider'
+import NavigationHeaderProvider, {
+  NAVIGATION_DROPDOWN_MENU,
+  useNavigationHeader,
+} from './NavigationHeaderProvider'
 
 const MENU = [
   {
@@ -23,10 +27,12 @@ const MENU = [
   {
     route: '/sportsbook',
     label: 'SPORTSBOOK',
+    menu: NAVIGATION_DROPDOWN_MENU.Sportsbook,
   },
   {
     route: '/livecasino',
     label: 'LIVECASINO',
+    menu: NAVIGATION_DROPDOWN_MENU.LiveCasino,
   },
   {
     route: '/slots',
@@ -63,42 +69,51 @@ const MENU = [
 
 export const NAVIGATION_HEIGHT = 60
 export default function NavigationHeader({}) {
+  const setDropdownMenu = useNavigationHeader()
   return (
     <View sx={{ height: NAVIGATION_HEIGHT, bg: '$primary.500' }}>
       <Divider />
-      <DripsyGradient
-        gradient="surface"
-        sx={{ height: NAVIGATION_HEIGHT, marginTop: 'auto' }}
+      <Pressable
+        onHoverOut={() => startTransition(() => setDropdownMenu(undefined))}
       >
-        <Container sx={{ alignItems: 'stretch', flex: 1 }}>
-          <Row
-            sx={{
-              flex: 1,
-              alignItems: 'stretch',
-              // px: [0, 0, 0, '$pagePadding'],
-            }}
-          >
-            {MENU.map((m, i) => {
-              return (
-                <MenuButton
-                  key={i}
-                  label={m.label}
-                  icon={m.icon}
-                  route={m.route}
-                  style={m.style}
-                />
-              )
-            })}
-          </Row>
-        </Container>
-      </DripsyGradient>
+        <DripsyGradient
+          gradient="surface"
+          sx={{ height: NAVIGATION_HEIGHT, marginTop: 'auto' }}
+        >
+          <Container sx={{ alignItems: 'stretch', flex: 1 }}>
+            <Row
+              sx={{
+                flex: 1,
+                alignItems: 'stretch',
+                // px: [0, 0, 0, '$pagePadding'],
+              }}
+            >
+              {MENU.map((m, i) => {
+                return (
+                  <MenuButton
+                    key={i}
+                    label={m.label}
+                    icon={m.icon}
+                    route={m.route}
+                    style={m.style}
+                    menu={m.menu}
+                  />
+                )
+              })}
+            </Row>
+          </Container>
+        </DripsyGradient>
+      </Pressable>
     </View>
   )
 }
 
 const DripsyMotiPressable = styled(MotiPressable)()
 
-const MenuButton = ({ icon, label, route, style }) => {
+const MenuButton = ({ icon, label, route, style, menu }) => {
+  const linkProps = useLink({ href: route })
+  const setDropdownMenu = useNavigationHeader()
+
   return (
     <DripsyMotiPressable
       sx={{
@@ -109,6 +124,10 @@ const MenuButton = ({ icon, label, route, style }) => {
         alignItems: 'center',
       }}
       containerStyle={{ position: 'relative', ...style }}
+      onHoverIn={
+        menu ? () => startTransition(() => setDropdownMenu(menu)) : undefined
+      }
+      {...linkProps}
     >
       {icon ? (
         <Icon name={icon} size={22} />
@@ -122,16 +141,19 @@ const MenuButton = ({ icon, label, route, style }) => {
 
 const Indicator = ({ route }) => {
   const pathname = usePathname()
+  console.log('pathname', pathname)
+  const state = useMotiPressable(
+    ({ pressed, hovered }) => {
+      'worklet'
 
-  const state = useMotiPressable(({ pressed, hovered }) => {
-    'worklet'
-
-    const isActive = pathname === route || pressed || hovered
-    return {
-      opacity: isActive ? 1 : 0,
-      // opacity: true? 1
-    }
-  })
+      const isActive = pathname === route || pressed || hovered
+      return {
+        opacity: isActive ? 1 : 0,
+        // opacity: true? 1
+      }
+    },
+    [pathname]
+  )
 
   return (
     <DripsyMotiView

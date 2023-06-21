@@ -23,6 +23,7 @@ export default function MatchSection() {
         ids={leagues.ids}
         onChange={setSelectedLeague}
         value={leagueId}
+        gradient={'surface'}
       />
 
       <MatchCarousel data={leagues.entities[leagueId]} />
