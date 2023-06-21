@@ -2,10 +2,11 @@ import MainHeader from 'app/components/navigation/header/MainHeader'
 import { HEADER_HEIGHT } from 'app/utils/constant'
 import NavigationHeader, {
   NAVIGATION_HEIGHT,
-} from 'desktop-ext/components/layout/NavigationHeader'
+} from 'desktop-ext/components/layout/navigation/NavigationHeader'
 import DesktopFooter from 'desktop-ext/components/layout/Footer'
 import { Container } from 'dripsy'
 import { ReactNode } from 'react'
+import NavigationHeaderProvider from 'desktop-ext/components/layout/navigation/NavigationHeaderProvider'
 
 export default function BaseLayout({ children }: { children: ReactNode }) {
   return (
@@ -30,7 +31,9 @@ const FloatedHeader = () => {
       }}
     >
       <MainHeader />
-      <NavigationHeader />
+      <NavigationHeaderProvider>
+        <NavigationHeader />
+      </NavigationHeaderProvider>
     </div>
   )
 }

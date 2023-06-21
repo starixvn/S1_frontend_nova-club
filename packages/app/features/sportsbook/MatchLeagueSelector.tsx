@@ -6,21 +6,29 @@ import { MotiView, useAnimationState } from 'moti'
 import React, { memo, useEffect } from 'react'
 import { StyleSheet, useWindowDimensions } from 'react-native'
 
-export default function MatchLeagueSelector({ ids, onChange, value }) {
+export default function MatchLeagueSelector({
+  ids,
+  onChange,
+  value,
+  gradient,
+}) {
   const width = useWindowDimensions().width
   const maxWidth = Math.min(700, width * 0.8)
+
   return (
     <DripsyGradient
-      gradient="surface"
+      gradient={gradient}
       sx={{ justifyContent: 'center', alignItems: 'center' }}
     >
-      <View
-        sx={{
-          bg: '$primary.50',
-          height: 1,
-          width: '100%',
-        }}
-      />
+      {gradient && (
+        <View
+          sx={{
+            bg: '$primary.50',
+            height: 1,
+            width: '100%',
+          }}
+        />
+      )}
       <Row
         sx={{
           alignItems: 'center',

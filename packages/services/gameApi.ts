@@ -17,6 +17,7 @@ import {
  */
 
 const GAME_BY_TAG_LIMIT = 30
+const GAME_BY_CATEGORY_LIMIT = 100
 
 export const gameApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
@@ -63,7 +64,7 @@ export const gameApi = baseApiWithTag.injectEndpoints({
         },
       }),
     }),
-    getGameListByTags: builder.query<Game[],void>({
+    getGameListByTags: builder.query<Game[], string[]>({
       query: (tags) => ({
         url: `/static_api/getGameList`,
         method: 'POST',
@@ -80,7 +81,26 @@ export const gameApi = baseApiWithTag.injectEndpoints({
         },
       }),
       transformResponse: ({ data }: { data: GetGameListResult }) => {
-        console.log('data', data)
+        return data?.rows ?? []
+      },
+    }),
+    getGameListByCategory: builder.query<Game[], string[]>({
+      query: (categories) => ({
+        url: `/static_api/getGameList`,
+        method: 'POST',
+        data: {
+          currency: Currency.VND,
+          game_category: categories,
+          limit: GAME_BY_CATEGORY_LIMIT,
+          offset: 0,
+          gdc_game_category: [],
+          gdc_tag: [],
+        },
+        _config: {
+          isStaticApi: true,
+        },
+      }),
+      transformResponse: ({ data }: { data: GetGameListResult }) => {
         return data?.rows ?? []
       },
     }),
@@ -153,4 +173,5 @@ export const {
   useGameListQuery,
   useGetGameListQuery,
   useGetGameListByTagsQuery,
+  useGetGameListByCategoryQuery,
 } = gameApi

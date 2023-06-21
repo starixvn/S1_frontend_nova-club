@@ -1,6 +1,6 @@
 import AccountMenu from 'desktop-ext/components/layout/AccountMenu'
 import LeftPanelContainer from 'desktop-ext/components/layout/LeftPanelContainer'
-import { NAVIGATION_HEIGHT } from 'desktop-ext/components/layout/NavigationHeader'
+import { NAVIGATION_HEIGHT } from 'desktop-ext/components/layout/navigation/NavigationHeader'
 import PageContainer from 'desktop-ext/components/layout/PageContainer'
 import { Container, Row } from 'dripsy'
 import BaseLayout from './BaseLayout'

@@ -100,7 +100,7 @@ const GameCard = ({
 export default memo(GameCard)
 
 const Root = styled(Pressable)({
-  borderRadius: 5,
+  borderRadius: 10,
   position: 'relative',
   aspectRatio: 1,
   overflow: 'hidden',

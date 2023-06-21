@@ -4,30 +4,16 @@ import GameCard from 'app/components/game/GameCard'
 import HorizontalGameList from 'app/components/game/HorizontalGameList'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { Currency, SlotType } from 'app/utils/constant'
+import { SlotType } from 'app/utils/constant'
 import { Row, View } from 'dripsy'
 import React from 'react'
-import { useGetGameListQuery } from 'services/gameApi'
+import { useGetGameListByTagsQuery } from 'services/gameApi'
 
 export default function RecentlyPlayedSection() {
   const recent = useAppSelector((s) => s.setting.recentGames) ?? []
   const { t } = useLocalization()
 
-  const { gameList = [] } = useGetGameListQuery(
-    {
-      currency: Currency.VND,
-      game_category: [],
-      limit: 1,
-      offset: 0,
-      gdc_game_category: [],
-      gdc_tag: [SlotType.JACKPOT],
-    },
-    {
-      selectFromResult: ({ data }) => ({
-        gameList: data?.data?.rows || [],
-      }),
-    }
-  )
+  const { data = [] } = useGetGameListByTagsQuery([SlotType.JACKPOT])
 
   // if (recent.length === 0) return null
   const vgaming = require('app/assets/images/game/vgaming.png')
@@ -67,7 +53,7 @@ export default function RecentlyPlayedSection() {
             // image={vgaming}
           />
         </View>
-        <HorizontalGameList data={gameList} size={[50, 70]} />
+        <HorizontalGameList data={data} size={[50, 70]} />
       </Row>
     </DripsyGradient>
   )
