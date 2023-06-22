@@ -20,6 +20,7 @@ interface ModalContentProps {
   actions?: ActionsProps[]
   children: ReactElement
   disableAction?: boolean
+  isAuthModal?: boolean
 }
 
 const ModalContent = ({
@@ -28,6 +29,7 @@ const ModalContent = ({
   actions,
   children,
   disableAction = true,
+  isAuthModal = false,
 }: ModalContentProps) => {
   const { t } = useLocalization()
   const { closeModal } = useModal()
@@ -35,7 +37,7 @@ const ModalContent = ({
 
   return (
     <>
-      <ModalBackground gradient={'surface'}>
+      <ModalBackground gradient={'surface'} auth={isAuthModal}>
         <ScrollView
           bounces={true}
           contentContainerSx={{
@@ -93,11 +95,15 @@ const ModalContent = ({
   )
 }
 
-const ModalBackground = styled(DripsyGradient)({
-  borderRadius: 20,
-  p: '5%',
-  // alignItems: 'center',
-})
+const ModalBackground = styled(DripsyGradient)(
+  ({ auth = false }: { auth?: boolean }) => {
+    return {
+      borderRadius: auth ? 0 : 20,
+      p: auth ? undefined : '5%',
+      // alignItems: 'center',
+    }
+  }
+)
 
 const ModalHeader = styled(View)({
   pt: 12,

@@ -101,6 +101,7 @@ const AccountVerificationForm = ({
       }}
     >
       <Input
+        inputContainerSx={{ width: '100%' }}
         icon="icon-hp"
         textContentType="telephoneNumber"
         prefix="+84"
@@ -144,6 +145,7 @@ const AccountVerificationForm = ({
         }
       />
       <Input
+        inputContainerSx={{ width: '100%' }}
         icon="otp"
         placeholder="Please enter OTP"
         textContentType="oneTimeCode"

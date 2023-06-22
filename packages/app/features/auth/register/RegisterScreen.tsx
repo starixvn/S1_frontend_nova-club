@@ -16,7 +16,7 @@ import { useRegisterMutation } from 'services/authApi'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { isBannedTrackingCode } from 'app/utils/referralUtil'
 import useUniqueId from 'app/hooks/useUniqueId'
-import { Platform } from 'react-native'
+import { Platform, useWindowDimensions } from 'react-native'
 import { APP_DEVICE_ANDROID, APP_DEVICE_IOS } from 'app/utils/constant'
 import useAlert from 'app/hooks/useAlert'
 
@@ -35,7 +35,7 @@ const RegisterScreen = () => {
   const { t } = useLocalization()
   const dispatch = useAppDispatch()
   const { showAlert } = useAlert()
-  const { width } = useContainerDimension()
+  const { width } = useWindowDimensions()
   const [routes] = useState([
     { key: 'first', title: t('common.player'), index: 0 },
     { key: 'second', title: t('common.agent'), index: 1 },
