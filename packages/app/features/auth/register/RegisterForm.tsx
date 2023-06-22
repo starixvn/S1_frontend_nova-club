@@ -179,8 +179,11 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
         }
       />
 
-      <Button onPress={onSubmit} sx={{ my: '$2', bg: '$primary.300' }}>
-        {t('authentication.login')}
+      <Button
+        onPress={onSubmit}
+        sx={{ mt: '$6', my: '$2', bg: '$primary.300' }}
+      >
+        {t('authentication.register')}
       </Button>
     </View>
   )
