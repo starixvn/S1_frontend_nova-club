@@ -11,6 +11,7 @@ import {
 } from 'react'
 import { useGameListMultipleQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
+import { createParam } from 'solito'
 
 const GameFilterContext = createContext<{
   games: Game[]
@@ -54,13 +55,19 @@ export const selectByCategories = (
       game.gdc_cat && gameCategories.includes(game.gdc_cat as GDC_GAME_CATEGORY)
   )
 
+type Params = {
+  provider?: string
+}
+const { useParam } = createParam<Params>()
+
 const GameFilterProvider = ({
   children,
   gameTypes,
   gameCategories,
 }: GameProviderProps) => {
+  const [provider] = useParam('provider')
   const [filteredGames, _setFilteredGames] = useState<Game[]>()
-  const [filterKey, setFilterKey] = useState<string>()
+  const [filterKey, setFilterKey] = useState<string | undefined>(provider)
   const [isPending, startTransition] = useTransition()
 
   const { data: games = [] } = useGameListMultipleQuery({
@@ -69,8 +76,8 @@ const GameFilterProvider = ({
   })
 
   const gamesByProviders = useMemo(() => {
-    return groupBy(filteredGames, 'gpc')
-  }, [filteredGames])
+    return groupBy(games, 'gpc')
+  }, [games])
 
   function setFilteredGames(g, keyIndicator?) {
     setFilterKey(keyIndicator)
@@ -80,12 +87,12 @@ const GameFilterProvider = ({
     })
   }
 
-  useEffect(() => {
-    if (games.length > 0 && !filteredGames) {
-      setFilteredGames(games)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [games])
+  // useEffect(() => {
+  //   if (games.length > 0 && !filteredGames) {
+  //     setFilteredGames(games)
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [games])
 
   return (
     <GameFilterContext.Provider

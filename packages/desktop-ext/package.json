@@ -4,6 +4,7 @@
   "sideEffects": false,
   "peerDependencies": {
     "app": "*",
-    "dripsy": "*"
+    "dripsy": "*",
+    "solito": "*"
   }
 }

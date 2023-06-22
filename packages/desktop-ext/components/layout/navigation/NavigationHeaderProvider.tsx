@@ -20,9 +20,7 @@ export enum NAVIGATION_DROPDOWN_MENU {
 }
 
 const NavigationHeaderProvider = ({ children }) => {
-  const [menu, setMenu] = useState<NAVIGATION_DROPDOWN_MENU | undefined>(
-    NAVIGATION_DROPDOWN_MENU.Sportsbook
-  )
+  const [menu, setMenu] = useState<NAVIGATION_DROPDOWN_MENU | undefined>()
 
   const pathname = usePathname()
   const DropDown = useMemo(() => {
