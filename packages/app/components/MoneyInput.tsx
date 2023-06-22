@@ -1,5 +1,5 @@
 import { Text, View } from 'dripsy'
-import { forwardRef } from 'react'
+import { ReactNode, forwardRef } from 'react'
 import Input, { InputProps } from './form/Input'
 import IconButton from './IconButton'
 import {
@@ -9,8 +9,13 @@ import {
 } from 'react-native-mask-input'
 import { toThousandSeparator } from 'app/utils'
 
-const MoneyInput = forwardRef<{}, InputProps & { onIconPress: () => void }>(
-  ({ value, setValue, onIconPress, ...rest }, ref) => {
+type MoneyInputProps = {
+  setValue?: (args) => void
+  actions: ReactNode
+} & InputProps
+
+const MoneyInput = forwardRef<{}, MoneyInputProps>(
+  ({ value, setValue, actions, ...rest }, ref) => {
     const currencyMask = createNumberMask({
       prefix: [''],
       delimiter: ',',
@@ -19,22 +24,19 @@ const MoneyInput = forwardRef<{}, InputProps & { onIconPress: () => void }>(
     })
 
     const maskedInputProps = useMaskedInputProps({
-      value: value,
-      onChangeText: (masked, unmasked) => setValue(unmasked),
+      value: value?.toString(),
+      onChangeText: (masked, unmasked) => {
+        setValue(unmasked)
+      },
       mask: currencyMask,
     })
 
     return (
-      <Input ref={ref} value={value} maxLength={13} {...rest}>
+      <Input ref={ref} maxLength={13} value={value} {...rest}>
         <View
           sx={{ justifyContent: 'center', alignItems: 'flex-end', mx: '$2' }}
         >
-          <IconButton
-            name="cash"
-            size={18}
-            color={'$secondary.100'}
-            onPress={onIconPress}
-          />
+          {actions}
           <Text
             numberOfLines={1}
             sx={{

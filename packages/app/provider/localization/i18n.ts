@@ -25,7 +25,7 @@ const extendGuessStrategy: MissingTranslationStrategy = (
     scope = scope.join(i18n.defaultSeparator)
   }
 
-  console.log('🚫 Missing translation', scope)
+  // console.log('🚫 Missing translation', scope)
 
   // Get only the last portion of the scope.
   const message = scope.split(i18n.defaultSeparator).slice(-1)[0] ?? ''

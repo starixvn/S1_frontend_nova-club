@@ -4,17 +4,10 @@ import { usePlayerBankQuery } from 'services/bank'
 import BankCardForm from './components/BankCardForm'
 import { useRouter } from 'solito/router'
 
-const FLAG_BANK = 1
 const BankAccountScreen = () => {
   const { t } = useLocalization()
   const { push } = useRouter()
-  const { bankList, isLoading } = usePlayerBankQuery(undefined, {
-    selectFromResult: ({ data, isLoading }) => ({
-      bankList:
-        data?.data?.filter((el) => el.PaymentTypeFlag === FLAG_BANK) || [],
-      isLoading,
-    }),
-  })
+  const { playerBankList, isLoading } = usePlayerBankQuery()
 
   const handlePress = () => {
     push('/bank/add-bank-account')
@@ -22,7 +15,7 @@ const BankAccountScreen = () => {
 
   return (
     <BankCardForm
-      bankList={bankList}
+      bankList={playerBankList}
       buttonLabel={t('bank.addBankAccount')}
       isLoading={isLoading}
       onPress={handlePress}

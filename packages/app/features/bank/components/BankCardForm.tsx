@@ -32,7 +32,7 @@ const BankCardForm = ({
     <StyledView>
       {isLoading ? (
         <ActivityIndicator size={'large'} color={'$lightCyan'} />
-      ) : bankList.length > 0 ? (
+      ) : bankList?.length > 0 ? (
         bankList.map((item: PlayerBankResult) => (
           <BankAccCard
             key={item.PlayerBankDetailsId}

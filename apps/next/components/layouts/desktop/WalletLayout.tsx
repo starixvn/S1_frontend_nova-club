@@ -60,7 +60,9 @@ export default function WalletLayout({
           <LeftPanelContainer>
             <TabNavMenu routes={menuRoutes} notice={noticeNotes} />
           </LeftPanelContainer>
-          <PageContainer>{children}</PageContainer>
+          <PageContainer center>
+            <View sx={{ maxWidth: 768, width: '100%' }}>{children}</View>
+          </PageContainer>
         </Row>
       </Container>
     </BaseLayout>

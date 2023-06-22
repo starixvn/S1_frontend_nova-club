@@ -26,6 +26,7 @@ export interface InputProps extends DripsyTextInputProps {
   onPress?: (e?: GestureResponderEvent) => void
   children?: ReactNode
   inputContainerSx?: SxProp
+  isHorizontalLabel?: boolean
 }
 
 const Input = forwardRef<NativeTextInput, InputProps>(
@@ -44,6 +45,7 @@ const Input = forwardRef<NativeTextInput, InputProps>(
       secureTextEntry,
       onPress,
       children,
+      isHorizontalLabel = false,
       ...rest
     },
     ref
@@ -56,7 +58,7 @@ const Input = forwardRef<NativeTextInput, InputProps>(
     const [_secureTextEntry, setSecureTextEntry] = useState(secureTextEntry)
     const inputRef = useRef<NativeTextInput>(null)
     const mergedInputRef = mergeRefs([inputRef, ref])
-    const desktop = isDesktop()
+    // const desktop = isDesktop()
 
     function handleOnPress(event: GestureResponderEvent) {
       onPress?.(event)
@@ -70,7 +72,7 @@ const Input = forwardRef<NativeTextInput, InputProps>(
         sx={{
           cursor: onPress ? 'pointer' : 'initial',
           ...sx,
-          ...(desktop
+          ...(isHorizontalLabel
             ? {
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -79,11 +81,11 @@ const Input = forwardRef<NativeTextInput, InputProps>(
             : {}),
         }}
       >
-        {label && <InputLabel label={label} desktop={desktop} />}
+        {label && <InputLabel label={label} desktop={isHorizontalLabel} />}
         <View sx={{ width: '100%' }}>
           <FocusArea onPress={handleOnPress}>
             <InputContainer
-              isDesktop={desktop}
+              isDesktop={isHorizontalLabel}
               editable={editable}
               color={sizeEffectColor}
               sx={inputContainerSx}
@@ -187,7 +189,7 @@ const InputContainer = styled(Row)(
       borderWidth: 1,
       alignItems: 'center',
       position: 'relative',
-      ...(editable && editableStyled),
+      ...(!editable && editableStyled),
       ...(isDesktop && desktopStyled),
     }
   }

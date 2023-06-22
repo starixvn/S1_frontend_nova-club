@@ -16,6 +16,7 @@
     "native": "cd apps/expo && yarn start",
     "native:ios": "cd apps/expo && yarn ios",
     "web": "cd apps/next && yarn next",
+    "web:staging": "cd apps/next && APP_ENV=stag yarn next",
     "build:web": "yarn workspace next-app build",
     "docker:web": "docker build -t chlgame2 .",
     "docker:verify": "docker run -it chlgame2 sh",

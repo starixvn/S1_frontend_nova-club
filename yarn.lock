@@ -5517,6 +5517,7 @@ __metadata:
   peerDependencies:
     app: "*"
     dripsy: "*"
+    solito: "*"
   languageName: unknown
   linkType: soft
 

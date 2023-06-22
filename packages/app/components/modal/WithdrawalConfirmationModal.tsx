@@ -1,72 +1,29 @@
-import { WithdrawalValues } from 'app/features/withdrawal/components/WithdrawalForm'
-import useAlert from 'app/hooks/useAlert'
-import useShield from 'app/hooks/useShield'
 import useLocalization from 'app/provider/localization'
-import { Box, Image, Text } from 'dripsy'
-import { FormikHelpers } from 'formik'
+import { Box, Text } from 'dripsy'
 import React from 'react'
 import { Platform } from 'react-native'
-import { Toast } from 'react-native-toast-message/lib/src/Toast'
-import { Shield_Action } from 'services/authApi.type'
-import { usePlayerProfileQuery } from 'services/playerApi'
-import { useSubmitWithdrawalMutation } from 'services/withdrawal'
 import { modalDelaySubmission } from 'utils/common'
 import ModalContent from './ModalContent'
 import ModalWrapper from './ModalWrapper'
+import Image from '../common/Image'
 
 const WithdrawalConfirmationModal = ({ modal: { closeModal, getParam } }) => {
   const { t } = useLocalization()
 
-  const { showAlert } = useAlert()
-  const { username } = usePlayerProfileQuery()
-
   const withdrawalInfo = getParam('withdrawalInfo', '')
   const bankLogo = getParam('bankLogo', '')
   const fields = getParam('fields', '')
-  const formik = getParam('formik')
+  const onConfirm = getParam('onConfirm')
 
   const isShowingFields = withdrawalInfo && fields
-
-  const [postSubmitWithdrawal, { isLoading }] = useSubmitWithdrawalMutation()
-  const { syncShield } = useShield()
 
   function onDismiss() {
     closeModal()
   }
 
   function onWithdrawalConfirmed() {
-    modalDelaySubmission(() => onSubmit(formik.values, formik))
+    onConfirm && modalDelaySubmission(() => onConfirm())
     onDismiss()
-  }
-
-  const onSubmit = async (
-    { bank, realAmount }: WithdrawalValues,
-    actions: FormikHelpers<WithdrawalValues>
-  ) => {
-    try {
-      actions.setSubmitting(true)
-      const { data, success, message } = await postSubmitWithdrawal({
-        amount: realAmount,
-        bank_details_id: bank?.PlayerBankDetailsId ?? 0,
-      })
-        .unwrap()
-        .catch((error) => {
-          showAlert(error)
-          return error
-        })
-
-      if (success) {
-        if (username) {
-          syncShield(Shield_Action.WITHDRAWAL)
-        }
-        Toast.show({ type: 'success', text1: message })
-        actions.resetForm()
-      }
-    } catch (error) {
-      showAlert(error)
-    } finally {
-      actions.setSubmitting(false)
-    }
   }
 
   return (
@@ -81,7 +38,6 @@ const WithdrawalConfirmationModal = ({ modal: { closeModal, getParam } }) => {
           {
             label: t('common.submit'),
             onPress: onWithdrawalConfirmed,
-            loading: isLoading,
           },
         ]}
       >
@@ -97,6 +53,7 @@ const WithdrawalConfirmationModal = ({ modal: { closeModal, getParam } }) => {
               }
               resizeMode="contain"
               sx={{ mx: '$2', width: 100, height: 100 }}
+              alt="bank logo"
             />
           ) : null}
           {isShowingFields &&

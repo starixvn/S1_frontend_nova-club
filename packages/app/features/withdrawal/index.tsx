@@ -7,10 +7,11 @@ import { WITHDRAWAL_NOTES } from 'app/utils/constant'
 import { Text, View, styled } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
-import { useCryptoBankQuery } from 'services/bank'
+import { useCryptoBankQuery, usePlayerBankQuery } from 'services/bank'
 import { useRouter } from 'solito/router'
 import AvailableBalance from './components/AvailableBalance'
 import WithdrawalTransactions from './components/WithdrawalTransactions'
+import { FLAG_PAYMENT_TYPE_BANK } from 'app/constants/crypto'
 
 const WithdrawalScreen = () => {
   const { t } = useLocalization()

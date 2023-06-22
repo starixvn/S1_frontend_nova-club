@@ -9,13 +9,7 @@ const CryptoWalletScreen = () => {
   const { t } = useLocalization()
   const { push } = useRouter()
 
-  const { bankList, isLoading } = usePlayerBankQuery(undefined, {
-    selectFromResult: ({ data, isLoading }) => ({
-      bankList:
-        data?.data?.filter((el) => el.PaymentTypeFlag === FLAG_CRYPTO) || [],
-      isLoading,
-    }),
-  })
+  const { playerCryptoList, isLoading } = usePlayerBankQuery()
 
   const handlePress = () => {
     push('/bank/add-crypto-wallet')
@@ -23,7 +17,7 @@ const CryptoWalletScreen = () => {
 
   return (
     <BankCardForm
-      bankList={bankList}
+      bankList={playerCryptoList}
       buttonLabel={t('wallet.addCryptoWallet')}
       isLoading={isLoading}
       onPress={handlePress}

@@ -1,23 +1,30 @@
-import { NoticeContent } from 'app/components/modal/NoticeModal'
-import { WITHDRAWAL_NOTES } from 'app/utils/constant'
-import WalletLayoutContainer from 'desktop-ext/components/layout/WalletLayoutContainer'
+import WithdrawalTransactions from 'app/features/withdrawal/components/WithdrawalTransactions'
+import { ReportCommonStatus } from 'app/utils/constant'
+import DesktopPage from 'desktop-ext/components/layout/DesktopPage'
+import { View, styled } from 'dripsy'
 import React from 'react'
-import WithdrawalMenu from './WithdrawalMenu'
-import BankWithdrawalScreen from 'app/features/withdrawal/BankWithdrawalScreen'
+import { WITHDRAWAL_TYPE } from 'services/playerApi.type'
+import DesktopWithdrawalForm from './components/DesktopWithdrawalForm'
+import AvailableBalance from 'app/features/withdrawal/components/AvailableBalance'
 
 const BankWithdrawalPage = () => {
   return (
-    // <WalletLayoutContainer
-    //   leftContent={
-    //     <>
-    //       <WithdrawalMenu />
-    //       <NoticeContent notice={WITHDRAWAL_NOTES} />
-    //     </>
-    //   }
-    // >
-    <BankWithdrawalScreen />
-    // </WalletLayoutContainer>
+    <DesktopPage>
+      <StyledView>
+        <AvailableBalance />
+        <DesktopWithdrawalForm isCrypto={false} />
+      </StyledView>
+      <WithdrawalTransactions
+        status={ReportCommonStatus.PENDING}
+        withdrawalType={WITHDRAWAL_TYPE.BANK}
+      />
+    </DesktopPage>
   )
 }
+
+const StyledView = styled(View)(() => ({
+  flex: 1,
+  p: '$pagePadding',
+}))
 
 export default BankWithdrawalPage

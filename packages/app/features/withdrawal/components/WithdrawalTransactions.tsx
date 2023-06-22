@@ -32,7 +32,6 @@ const WithdrawalTransactions = ({
     },
     { refetchOnMountOrArgChange: true }
   )
-  console.log('🚀 ~ file: WithdrawalTransactions.tsx:23 ~ data:', data)
 
   return (
     <View sx={{ mb: 12 }}>
