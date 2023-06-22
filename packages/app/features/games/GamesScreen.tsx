@@ -66,9 +66,9 @@ const GAMES_FILTER = [
 ]
 
 const _GamesScreen = () => {
+
   const { games, gamesByProviders, filterKey, setFilteredGames } =
     useGameFilter()
-
 
   // useEffect(() => {
   //   if (filterKey) {

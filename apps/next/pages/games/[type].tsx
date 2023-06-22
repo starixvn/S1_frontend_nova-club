@@ -5,4 +5,3 @@ import { MobileTabLayout } from 'components/layouts/mobile'
 export default GamesScreen
 
 GamesScreen.MobileLayout = MobileTabLayout
-GamesScreen.DesktopLayout = DesktopAccountLayout

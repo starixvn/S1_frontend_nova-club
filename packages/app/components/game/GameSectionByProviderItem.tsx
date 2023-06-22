@@ -1,7 +1,6 @@
 import {
   Pressable,
   Row,
-  ScrollView,
   Text,
   View,
   styled,
@@ -9,34 +8,37 @@ import {
   useResponsiveValue,
 } from 'dripsy'
 import union from 'lodash/union'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { FC, startTransition, useEffect, useMemo, useState } from 'react'
 import { Game } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
 import { DripsyGradient } from '../Gradient'
-import ShadowButton from '../ShadowButton'
 
-import { Shadow } from 'react-native-shadow-2'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
-import { ALL } from 'app/utils/constant'
-import GameCard from './GameCard'
 import { ProviderImageMapping } from 'app/constants/gameAssets'
-import { LayoutAnimation } from 'react-native'
-import { GameToLaunchPayload } from 'app/utils/game'
 import { useAppSelector } from 'app/provider/redux/store'
+import { ALL } from 'app/utils/constant'
+import { GameToLaunchPayload } from 'app/utils/game'
+import { Shadow } from 'react-native-shadow-2'
+import GameCard from './GameCard'
+import GameSectionByProviderItemGameListSummary from './GameSectionByProviderItemGameListSummary'
 
-const MAX_SHOWN = 12
-
-const width = ['22%', '18%', '15%']
-const spaces = ['1.5%', '1%', '0.83%']
 function GameSectionByProviderItem({
   gpc,
   games = [],
+  // GameListComponent = GameSectionByProviderItemGameListSummary,
+  bordered = false,
 }: {
+  bordered: boolean
   gpc: string
   games: Game[]
+  // GameListComponent: FC<{ data: Game[] }>
 }) {
   const [filter, setFilter] = useState(ALL)
-  const count = useResponsiveValue([8, 10, MAX_SHOWN])
+  const count = useResponsiveValue([8, 10, 12, 999, 999])
+
+  useEffect(() => {
+    startTransition(() => setFilter(ALL))
+  }, [gpc])
 
   const tags = useMemo(() => {
     return games.reduce(
@@ -57,13 +59,17 @@ function GameSectionByProviderItem({
         <SolitoImage
           height={20}
           width={90}
-          src={ProviderImageMapping[gpc]}
+          src={ProviderImageMapping[gpc?.toUpperCase()]}
           resizeMode="contain"
           alt={gpc}
         />
       </ProviderIconContainer>
       <GameTypeFilter filters={tags} filter={filter} setFilter={setFilter} />
-      <GameList data={filteredGame} />
+      <GameSectionByProviderItemGameListSummary
+        data={filteredGame}
+        bordered={bordered}
+      />
+      {/* <GameListComponent data={filteredGame} /> */}
     </View>
   )
 }
@@ -108,6 +114,7 @@ const GameTypeFilter = ({ filters, filter, setFilter }) => {
               sx={{ flex: 1, width: '30%', maxWidth: 100, marginBottom: 2 }}
             >
               <Shadow
+                safeRender
                 style={{ flex: 1, borderRadius: 30, overflow: 'hidden' }}
                 offset={[0, 1]}
                 distance={1}
@@ -140,34 +147,6 @@ const GameTypeFilter = ({ filters, filter, setFilter }) => {
         })}
       </DripsyGradient>
     </View>
-  )
-}
-
-const GameList = ({ data }: { data: Game[] }) => {
-  const locale = useAppSelector((s) => s.setting.locale)
-  return (
-    <Row
-      sx={{
-        flexWrap: 'wrap',
-        px: ['$3'],
-        pt: ['$2'],
-        pb: '$sectionBottomSpace',
-      }}
-    >
-      {data.map((g, i) => {
-        const launchPayload = GameToLaunchPayload(g, locale)
-        return (
-          <GameCard
-            key={i}
-            width={width}
-            sx={{
-              m: spaces,
-            }}
-            {...launchPayload}
-          />
-        )
-      })}
-    </Row>
   )
 }
 

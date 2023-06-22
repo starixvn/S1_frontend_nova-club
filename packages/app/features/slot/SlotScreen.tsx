@@ -1,25 +1,24 @@
 import { FlashList } from '@shopify/flash-list'
 import GamePageHeader from 'app/components/GamePageHeader'
+import GameListSectionAsyncByTag from 'app/components/game/GameListSectionAsyncByTag'
 import GameSectionByProviderItem from 'app/components/game/GameSectionByProviderItem'
 import ProviderList from 'app/components/game/ProviderList'
 import {
   useGameFilter,
   withGameFilterProvider,
 } from 'app/provider/gameFilter/GameFilterProvider'
+import useLocalization from 'app/provider/localization'
 import { GAME_TYPE_CODE, SlotType } from 'app/utils/constant'
 import React, { useMemo, useRef } from 'react'
 import { Platform } from 'react-native'
 import { Game } from 'services/gameApi.type'
 import BannerSection from '../home/BannerSection'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
-import GameListSectionAsyncByTag from 'app/components/game/GameListSectionAsyncByTag'
-import useLocalization from 'app/provider/localization'
 
 function _SlotScreen() {
   const { t } = useLocalization()
 
-  const { games, gamesByProviders, filterKey, setFilteredGames } =
-    useGameFilter()
+  const { gamesByProviders } = useGameFilter()
 
   const providers = useMemo(() => {
     return Object.keys(gamesByProviders)
