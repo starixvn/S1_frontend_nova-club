@@ -26,8 +26,8 @@ const MessagePopupModal = ({ modal: { closeModal, closeAllModals } }) => {
 
   const imageUrl =
     lang === LANGUAGE_CODE.ENGLISH
-      ? `${MEDIA_DOMAIN}${CONTENT_URI}/banners/new-mail-en.gif`
-      : `${MEDIA_DOMAIN}${CONTENT_URI}/banners/new-mail-vi.gif`
+      ? `${MEDIA_DOMAIN}${CONTENT_URI}/banners/new-mail-en.gif?v=1`
+      : `${MEDIA_DOMAIN}${CONTENT_URI}/banners/new-mail-vi.gif?v=1`
 
   return (
     <View
