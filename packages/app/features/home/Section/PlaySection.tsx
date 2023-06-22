@@ -29,9 +29,10 @@ const PlaySection = () => {
         }}
         sx={{
           ml: [4, 8],
+          justifyContent: 'center',
         }}
       >
-        <StyledText sx={{ fontSize: 14, color: '#EDDB02' }}>1.2%</StyledText>
+        <StyledText sx={{ color: '#EDDB02' }}>1.2%</StyledText>
       </StyledMotiView>
     ),
     []
