@@ -5,6 +5,7 @@ import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch } from 'app/provider/redux/store'
 import { AuthActions } from 'app/store/authReducer'
+import isDesktop from 'app/utils/isDesktop'
 import validation, {
   PASSWORD_MAX_LENGTH,
   USERNAME_MAX_LENGTH,
@@ -33,6 +34,7 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
 
   const { t } = useLocalization()
   const { showAlert } = useAlert()
+  const desktop = isDesktop()
   const [errorMsg, setErrorMsg] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { replace, push, back } = useRouter()
@@ -131,9 +133,11 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
       sx={{
         width: '90%',
         py: 20,
+        alignSelf: 'center',
       }}
     >
       <Input
+        inputContainerSx={{ width: '100%' }}
         icon="profile-rounded"
         placeholder="Username"
         textContentType="username"
@@ -154,6 +158,7 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
         }
       />
       <Input
+        inputContainerSx={{ width: '100%' }}
         icon="pw"
         placeholder="Password"
         secureTextEntry

@@ -54,6 +54,7 @@ export type ModalStackParams = {
     callback(...args: any): any
   }
   RegisterModal: undefined
+  AgentLoginModal: undefined
 }
 
 type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
@@ -75,6 +76,8 @@ const _dynamicModal = {
     import('app/features/deposit/bank-transfer/DepositConfirmationModal'),
   RegisterModal: () =>
     import('../../../../apps/next/components/modal/RegisterModal'),
+  AgentLoginModal: () =>
+    import('../../../../apps/next/components/modal/AgentLoginModal'),
 }
 
 function getDynamicComponent(key: DynamicModalType) {
@@ -124,6 +127,9 @@ const modalConfig: ModalConfigType = {
   },
   RegisterModal: {
     modal: getDynamicComponent('RegisterModal'),
+  },
+  AgentLoginModal: {
+    modal: getDynamicComponent('AgentLoginModal'),
   },
 }
 

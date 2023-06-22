@@ -133,6 +133,8 @@ const RegisterFormLayout = () => {
     onSubmit,
   })
 
+  console.log('check switch page still exist', formik.values.username)
+
   return (
     <View sx={{ width: '90%', alignSelf: 'center' }}>
       {isStepOne ? (
@@ -144,13 +146,11 @@ const RegisterFormLayout = () => {
               routes={routes}
             />
           </View>
-          <View sx={{}}>
-            <RegisterForm
-              isAgent={isAgentLogin}
-              formik={formik}
-              onSuccess={() => setIsStepOne(!isStepOne)}
-            />
-          </View>
+          <RegisterForm
+            isAgent={isAgentLogin}
+            formik={formik}
+            onSuccess={() => setIsStepOne(!isStepOne)}
+          />
         </>
       ) : (
         <View sx={{ mt: 60 }}>

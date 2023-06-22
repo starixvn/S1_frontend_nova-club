@@ -112,7 +112,6 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
       sx={{
         width: '100%',
         py: 20,
-        px: 25,
       }}
     >
       <Input

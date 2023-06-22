@@ -22,7 +22,7 @@ const CustomTabBar = ({ routes, currentIndex, onPress }: CustomTabBarProps) => {
   }
   return (
     <>
-      <DripsyGradient gradient="surface">
+      <DripsyGradient gradient="surface" sx={{ px: 24 }}>
         {/* <View sx={{ height: 1, bg: '$primary.100' }} /> */}
         <TabBarSelection
           currentIndex={currentIndex}
@@ -43,7 +43,7 @@ export const TabBarSelection = ({
     onPress(value)
   }
   return (
-    <View sx={{ flexDirection: 'row', px: 24, gap: 4 }}>
+    <View sx={{ flexDirection: 'row', gap: 4 }}>
       {routes.length > 0 &&
         routes.map((route, index) => {
           const isActive = currentIndex === index
