@@ -1,4 +1,12 @@
-import { Row, SxProp, Text, TextInput, View, styled } from 'dripsy'
+import {
+  Row,
+  SxProp,
+  Text,
+  TextInput,
+  View,
+  styled,
+  useResponsiveValue,
+} from 'dripsy'
 import { DripsyTextInputProps } from 'dripsy/build/core/components/TextInput'
 import React, { ReactNode, forwardRef, useRef, useState } from 'react'
 import {
@@ -9,8 +17,6 @@ import {
 } from 'react-native'
 import { mergeRefs } from 'utils/mergeRefs'
 import Icon from '../Icon'
-import isDesktop from 'app/utils/isDesktop'
-import InputLabel from './InputLabel'
 
 type InputComponent = ({ color }: { color?: string }) => JSX.Element
 
@@ -26,7 +32,7 @@ export interface InputProps extends DripsyTextInputProps {
   onPress?: (e?: GestureResponderEvent) => void
   children?: ReactNode
   inputContainerSx?: SxProp
-  isHorizontalLabel?: boolean
+  responsive?: boolean
 }
 
 const Input = forwardRef<NativeTextInput, InputProps>(
@@ -45,7 +51,7 @@ const Input = forwardRef<NativeTextInput, InputProps>(
       secureTextEntry,
       onPress,
       children,
-      isHorizontalLabel = false,
+      responsive,
       ...rest
     },
     ref
@@ -58,7 +64,13 @@ const Input = forwardRef<NativeTextInput, InputProps>(
     const [_secureTextEntry, setSecureTextEntry] = useState(secureTextEntry)
     const inputRef = useRef<NativeTextInput>(null)
     const mergedInputRef = mergeRefs([inputRef, ref])
-    // const desktop = isDesktop()
+    const horizontalMode = useResponsiveValue([
+      false,
+      false,
+      false,
+      responsive,
+      responsive,
+    ])
 
     function handleOnPress(event: GestureResponderEvent) {
       onPress?.(event)
@@ -68,27 +80,24 @@ const Input = forwardRef<NativeTextInput, InputProps>(
 
     return (
       <RootView
-        // isDesktop={desktop}
         sx={{
           cursor: onPress ? 'pointer' : 'initial',
           ...sx,
-          ...(isHorizontalLabel
-            ? {
-                flexDirection: 'row',
-                alignItems: 'center',
-                // justifyContent: 'space-evenly',
-              }
-            : {}),
         }}
       >
-        {label && <InputLabel label={label} desktop={isHorizontalLabel} />}
-        <View sx={{ width: '100%' }}>
+        <View
+          sx={{
+            flex: 1,
+            flexDirection: horizontalMode ? 'row' : 'column',
+            alignItems: horizontalMode ? 'center' : 'stretch',
+          }}
+        >
+          {label && <Label sx={{ flex: 1 }}>{label + ' : '}</Label>}
           <FocusArea onPress={handleOnPress}>
             <InputContainer
-              isDesktop={isHorizontalLabel}
               editable={editable}
               color={sizeEffectColor}
-              sx={inputContainerSx}
+              sx={{ flex: 2, ...inputContainerSx }}
             >
               {InputIcon && <InputIcon color={sizeEffectColor ?? 'white'} />}
               {prefix && (
@@ -138,8 +147,17 @@ const Input = forwardRef<NativeTextInput, InputProps>(
               )}
             </InputContainer>
           </FocusArea>
-          {error && <ErrorLabel>{error}</ErrorLabel>}
         </View>
+        <Row>
+          {error && (
+            <>
+              {horizontalMode && <View sx={{ flex: 1 }}></View>}
+              <View sx={{ flex: 2 }}>
+                <ErrorLabel>{error}</ErrorLabel>
+              </View>
+            </>
+          )}
+        </Row>
       </RootView>
     )
   }
@@ -165,22 +183,7 @@ const Subtitle = styled(Text)({
 })
 
 const InputContainer = styled(Row)(
-  ({
-    color = '$primary.200',
-    isDesktop = false,
-    editable,
-  }: {
-    color?: string
-    isDesktop?: boolean
-    editable?: boolean
-  }) => {
-    const desktopStyled = {
-      width: '60%',
-      minWidth: 200,
-    }
-    const editableStyled = {
-      bg: '$primary.300',
-    }
+  ({ color = '$primary.200' }: { color?: string; editable?: boolean }) => {
     return {
       borderColor: color,
       borderRadius: 10,
@@ -189,8 +192,6 @@ const InputContainer = styled(Row)(
       borderWidth: 1,
       alignItems: 'center',
       position: 'relative',
-      ...(!editable && editableStyled),
-      ...(isDesktop && desktopStyled),
     }
   }
 )

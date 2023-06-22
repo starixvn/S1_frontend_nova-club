@@ -3,7 +3,7 @@ import { View, styled } from 'dripsy'
 
 const LeftPanelContainer = styled(View)({
   flexBasis: 200,
-  maxWidth: 320,
+  maxWidth: [280, 280, 280, 280, 320],
   flexGrow: 1,
   mr: '$layoutSpace',
   mb: '$layoutSpace',

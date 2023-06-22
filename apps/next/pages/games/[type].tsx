@@ -1,7 +1,14 @@
-import GamesScreen from 'app/features/games/GamesScreen'
-import { DesktopAccountLayout } from 'components/layouts/desktop'
 import { MobileTabLayout } from 'components/layouts/mobile'
+import withAdaptiveScreen from 'desktop-ext/hoc/withAdaptiveScreen'
+import dynamic from 'next/dynamic'
 
-export default GamesScreen
+const LazyMobileScreen = dynamic(import('app/features/games/GamesScreen'))
+const LazyDesktopScreen = dynamic(
+  import('desktop-ext/features/games/GamesScreen')
+)
 
-GamesScreen.MobileLayout = MobileTabLayout
+const Games = withAdaptiveScreen(LazyMobileScreen, LazyDesktopScreen)
+
+Games.MobileLayout = MobileTabLayout
+
+export default Games

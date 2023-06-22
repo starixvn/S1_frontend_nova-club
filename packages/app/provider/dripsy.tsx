@@ -58,6 +58,11 @@ const theme = makeTheme({
       size: 16,
       color: '$text',
     },
+    body: {
+      alignItems: 'stretch',
+      mx: [0, 0, 0, 'auto'],
+      minWidth: [0, 0, 0, 590],
+    },
   },
   text: {
     body: {

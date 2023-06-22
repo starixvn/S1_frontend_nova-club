@@ -70,7 +70,7 @@ const GameFilterProvider = ({
   const [filterKey, setFilterKey] = useState<string | undefined>(provider)
   const [isPending, startTransition] = useTransition()
 
-  const { data: games = [] } = useGameListMultipleQuery({
+  const { data: games } = useGameListMultipleQuery({
     game_category: gameTypes,
     gdc_game_category: gameCategories,
   })
@@ -87,12 +87,13 @@ const GameFilterProvider = ({
     })
   }
 
-  // useEffect(() => {
-  //   if (games.length > 0 && !filteredGames) {
-  //     setFilteredGames(games)
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [games])
+  useEffect(() => {
+    console.log('on games loaded')
+    if (games && games.length > 0 && !filteredGames) {
+      setFilteredGames(games)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [games])
 
   return (
     <GameFilterContext.Provider

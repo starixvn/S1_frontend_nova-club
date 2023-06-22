@@ -1,8 +1,13 @@
 import { MobileTabLayout } from 'components/layouts/mobile'
 import withAdaptiveScreen from 'desktop-ext/hoc/withAdaptiveScreen'
-import { LazyDesktopSlotScreen, LazyMobileSlotScreen } from 'pages/slots'
+import dynamic from 'next/dynamic'
 
-const Slot = withAdaptiveScreen(LazyMobileSlotScreen, LazyDesktopSlotScreen)
+const LazyMobileScreen = dynamic(import('app/features/slot/SlotScreen'))
+const LazyDesktopScreen = dynamic(
+  import('desktop-ext/features/slot/SlotScreen')
+)
+
+const Slot = withAdaptiveScreen(LazyMobileScreen, LazyDesktopScreen)
 
 Slot.MobileLayout = MobileTabLayout
 

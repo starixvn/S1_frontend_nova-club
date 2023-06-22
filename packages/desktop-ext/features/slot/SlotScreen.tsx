@@ -28,8 +28,6 @@ function SlotScreen({}: Props) {
     game_category: [GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING],
   })
 
-  console.log('')
-
   const gamesByProviders = useMemo(() => {
     return groupBy(games, 'gpc')
   }, [games])
@@ -65,7 +63,7 @@ function SlotScreen({}: Props) {
         </View>
       ) : (
         <Row sx={{ gap: '$3', position: 'relative' }}>
-          <ProviderList data={providers} onNavigateProvider={onNavigate} />(
+          <ProviderList data={providers} onNavigateProvider={onNavigate} />
           <View
             sx={{
               flex: 1,

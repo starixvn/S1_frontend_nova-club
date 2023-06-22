@@ -25,7 +25,7 @@ export default function DropdownContent({ data, menu }: Props) {
   return (
     <Pressable
       onHoverIn={() => startTransition(() => setDropdownMenu(menu))}
-      //   onHoverOut={() => startTransition(() => setDropdownMenu(undefined))}
+      onHoverOut={() => startTransition(() => setDropdownMenu(undefined))}
       sx={{
         width: '100%',
         bg: 'rgba(0,0,0,0.8)',
@@ -48,6 +48,7 @@ export default function DropdownContent({ data, menu }: Props) {
               const launchPayload = GameToLaunchPayload(g, locale)
               return (
                 <GameCard
+                  onHoverIn={() => startTransition(() => setDropdownMenu(menu))}
                   name={g.name[locale]}
                   key={g.gc + g.gpc}
                   sx={{ width: '11%' }}

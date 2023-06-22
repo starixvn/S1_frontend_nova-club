@@ -1,13 +1,14 @@
-import { Text, View, styled } from 'dripsy'
+import { SxProp, Text, View, styled } from 'dripsy'
 
 type InputLabelProps = {
   desktop?: boolean
   label: string
+  sx?: SxProp
 }
 
-const InputLabel = ({ desktop = false, label }: InputLabelProps) => {
+const InputLabel = ({ desktop = false, label, sx }: InputLabelProps) => {
   return (
-    <LabelView isHorizontal={desktop}>
+    <LabelView isHorizontal={desktop} sx={sx}>
       <Label isHorizontal={desktop}>{`${label} :`}</Label>
     </LabelView>
   )

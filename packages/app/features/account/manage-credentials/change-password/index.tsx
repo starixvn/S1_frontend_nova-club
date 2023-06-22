@@ -1,4 +1,5 @@
 import Button from 'app/components/common/Button'
+import FormContainer from 'app/components/form/FormContainer'
 import Input from 'app/components/form/Input'
 import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
@@ -86,71 +87,76 @@ const ChangePasswordPage = () => {
       contentContainerSx={{ pb: 20, px: '$4', pt: '$4' }}
       bounces={false}
     >
-      <Input
-        label={t('manageCredentials.pw.oldPw')}
-        placeholder={t('manageCredentials.pw.placeholderOldPw')}
-        value={values.oldPassword}
-        onChangeText={handleChange('oldPassword')}
-        onBlur={handleBlur('oldPassword')}
-        maxLength={PASSWORD_MAX_LENGTH}
-        secureTextEntry
-        error={
-          touched.oldPassword && errors.oldPassword
-            ? t(errors.oldPassword, {
-                field: t('manageCredentials.pw.oldPw'),
-              })
-            : undefined
-        }
-      />
-      <Input
-        label={t('manageCredentials.pw.newPw')}
-        placeholder={t('manageCredentials.pw.placeholderNewPw')}
-        value={values.password}
-        onChangeText={handleChange('password')}
-        onBlur={handleBlur('password')}
-        maxLength={PASSWORD_MAX_LENGTH}
-        secureTextEntry
-        error={
-          touched.password && errors.password
-            ? t(errors.password, {
-                field: t('manageCredentials.pw.newPw'),
-              })
-            : undefined
-        }
-      />
-      <Input
-        label={t('manageCredentials.pw.confirmPw')}
-        placeholder={t('manageCredentials.pw.placeholderConfirmPw')}
-        value={values.confirmPassword}
-        onChangeText={handleChange('confirmPassword')}
-        onBlur={handleBlur('confirmPassword')}
-        maxLength={PASSWORD_MAX_LENGTH}
-        secureTextEntry
-        error={
-          touched.confirmPassword && errors.confirmPassword
-            ? t(errors.confirmPassword, {
-                field: t('manageCredentials.pw.confirmPw'),
-              })
-            : undefined
-        }
-      />
-      <View sx={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-        <Button
-          onPress={submitForm}
-          disabled={!isValid || !dirty}
-          sx={{
-            mt: '$4',
-            ...(desktop
-              ? {
-                  width: '60%',
-                  minWidth: 350,
-                }
-              : { width: '100%' }),
-          }}
-        >
-          {t('common.submit')}
-        </Button>
-      </View>
+      <FormContainer>
+        <Input
+          responsive
+          label={t('manageCredentials.pw.oldPw')}
+          placeholder={t('manageCredentials.pw.placeholderOldPw')}
+          value={values.oldPassword}
+          onChangeText={handleChange('oldPassword')}
+          onBlur={handleBlur('oldPassword')}
+          maxLength={PASSWORD_MAX_LENGTH}
+          secureTextEntry
+          error={
+            touched.oldPassword && errors.oldPassword
+              ? t(errors.oldPassword, {
+                  field: t('manageCredentials.pw.oldPw'),
+                })
+              : undefined
+          }
+        />
+        <Input
+          responsive
+          label={t('manageCredentials.pw.newPw')}
+          placeholder={t('manageCredentials.pw.placeholderNewPw')}
+          value={values.password}
+          onChangeText={handleChange('password')}
+          onBlur={handleBlur('password')}
+          maxLength={PASSWORD_MAX_LENGTH}
+          secureTextEntry
+          error={
+            touched.password && errors.password
+              ? t(errors.password, {
+                  field: t('manageCredentials.pw.newPw'),
+                })
+              : undefined
+          }
+        />
+        <Input
+          responsive
+          label={t('manageCredentials.pw.confirmPw')}
+          placeholder={t('manageCredentials.pw.placeholderConfirmPw')}
+          value={values.confirmPassword}
+          onChangeText={handleChange('confirmPassword')}
+          onBlur={handleBlur('confirmPassword')}
+          maxLength={PASSWORD_MAX_LENGTH}
+          secureTextEntry
+          error={
+            touched.confirmPassword && errors.confirmPassword
+              ? t(errors.confirmPassword, {
+                  field: t('manageCredentials.pw.confirmPw'),
+                })
+              : undefined
+          }
+        />
+        <View sx={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+          <Button
+            onPress={submitForm}
+            disabled={!isValid || !dirty}
+            sx={{
+              mt: '$4',
+              ...(desktop
+                ? {
+                    width: '60%',
+                    minWidth: 350,
+                  }
+                : { width: '100%' }),
+            }}
+          >
+            {t('common.submit')}
+          </Button>
+        </View>
+      </FormContainer>
     </ScrollView>
   )
 }
