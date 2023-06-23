@@ -21,7 +21,12 @@ type Params = {
 const { useParam } = createParam<Params>()
 
 function SlotScreen({}: Props) {
-  const [provider, setProvider] = useParam('provider')
+  const [provider, setProvider] = useParam('provider', {
+    parse: (templateFromUrl) =>
+      templateFromUrl ? templateFromUrl[0] : undefined,
+    initial: undefined,
+  })
+
   const [filteredGames, setFilteredGames] = useState<Game[]>()
 
   const { data: games } = useGameListMultipleQuery({
