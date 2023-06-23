@@ -81,7 +81,7 @@ const HomeScreen = () => {
       <HotGamesSection />
       <Jackpot />
       <LuckyDrawTrigger />
-      <MessagePopup />
+      {/* <MessagePopup /> */}
       <EventPopup />
     </ScrollView>
   )
