@@ -1,8 +1,8 @@
-import { ProviderColorImageMapping } from 'app/constants/gameAssets'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import { ProviderImageCategory } from 'app/utils/constant'
 import { ActivityIndicator, Pressable, Row, View } from 'dripsy'
 import React from 'react'
 import { SolitoImage } from 'solito/image'
-import SectionLabel from '../SectionLabel'
 import SectionHeader from '../SectionHeader'
 
 // const cols = [3, 3, 4]
@@ -11,9 +11,11 @@ const spaces = ['0.4%', '0.25%', '0.25%', '0.33%']
 
 export default function ProviderList({
   data,
+  imageCategory,
   onNavigateProvider,
 }: {
   data?: string[]
+  imageCategory: ProviderImageCategory
   onNavigateProvider: (index: number, gpc: string) => void
 }) {
   return (
@@ -44,7 +46,7 @@ export default function ProviderList({
                 >
                   <SolitoImage
                     fill
-                    src={ProviderColorImageMapping[gpc]}
+                    src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/colored/${imageCategory}/${gpc?.toLowerCase()}.jpg`}
                     alt={gpc}
                   />
                 </Pressable>

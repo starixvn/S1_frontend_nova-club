@@ -463,3 +463,9 @@ export const TURNOVER_NOTES = [
 ]
 
 export const ALL = 'all'
+
+export enum ProviderImageCategory {
+  LiveCasino = 'livecasino',
+  Games = 'games',
+  Slot = 'slot',
+}

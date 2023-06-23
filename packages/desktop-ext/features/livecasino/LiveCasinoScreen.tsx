@@ -1,6 +1,10 @@
 import GameSectionByProviderItem from 'app/components/game/GameSectionByProviderItem'
 import RecentlyPlayedSection from 'app/features/home/RecentlyPlayedSection'
-import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'app/utils/constant'
+import {
+  GAME_TYPE_CODE,
+  GDC_GAME_CATEGORY,
+  ProviderImageCategory,
+} from 'app/utils/constant'
 import ProviderList from 'desktop-ext/components/game/ProviderList'
 import { ActivityIndicator, Container, Row, View } from 'dripsy'
 import React, { useMemo } from 'react'
@@ -65,7 +69,11 @@ export default function LiveCasinoScreen({}: Props) {
         </View>
       ) : (
         <Row sx={{ gap: '$3', position: 'relative' }}>
-          <ProviderList data={providers} onNavigateProvider={onNavigate} />
+          <ProviderList
+            data={providers}
+            onNavigateProvider={onNavigate}
+            imageCategory={ProviderImageCategory.LiveCasino}
+          />
           <View
             sx={{
               flex: 1,

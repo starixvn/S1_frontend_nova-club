@@ -1,4 +1,4 @@
-import { ProviderColorImageMapping } from 'app/constants/gameAssets'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { Pressable, View } from 'dripsy'
 import React from 'react'
 import { SolitoImage } from 'solito/image'
@@ -7,6 +7,7 @@ type Props = {}
 export default function ProviderList({
   data,
   onNavigateProvider,
+  imageCategory,
   ...rest
 }: Props) {
   return (
@@ -21,7 +22,11 @@ export default function ProviderList({
               aspectRatio: 240 / 80,
             }}
           >
-            <SolitoImage fill src={ProviderColorImageMapping[gpc]} alt={gpc} />
+            <SolitoImage
+              fill
+              src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/colored/${imageCategory}/${gpc?.toLowerCase()}.jpg`}
+              alt={gpc}
+            />
           </Pressable>
         )
       })}

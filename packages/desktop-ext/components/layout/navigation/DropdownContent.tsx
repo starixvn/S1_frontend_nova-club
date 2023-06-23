@@ -12,13 +12,19 @@ import { useNavigationHeader } from './NavigationHeaderProvider'
 import GameCard from 'app/components/game/GameCard'
 import { GameToLaunchPayload } from 'app/utils/game'
 import { useAppSelector } from 'app/provider/redux/store'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 type Props = {
   data?: Game[]
   menu: string
+  useProviderImage?: boolean
 }
 
-export default function DropdownContent({ data, menu }: Props) {
+export default function DropdownContent({
+  data,
+  menu,
+  useProviderImage,
+}: Props) {
   const setDropdownMenu = useNavigationHeader()
   const locale = useAppSelector((s) => s.setting.locale)
 
@@ -53,6 +59,11 @@ export default function DropdownContent({ data, menu }: Props) {
                   key={g.gc + g.gpc}
                   sx={{ width: '11%' }}
                   {...launchPayload}
+                  {...(useProviderImage
+                    ? {
+                        image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/main/${g.gpc?.toLowerCase()}.png`,
+                      }
+                    : {})}
                 />
               )
             })}

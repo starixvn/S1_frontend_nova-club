@@ -1,6 +1,5 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import SectionLabel from 'app/components/SectionLabel'
-import GameCard from 'app/components/game/GameCard'
 import HorizontalGameList from 'app/components/game/HorizontalGameList'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
@@ -33,7 +32,7 @@ export default function RecentlyPlayedSection() {
         />
       </View>
       <Row>
-        <View sx={{ position: 'relative', zIndex: 1, ml: ['$3'] }}>
+        {/* <View sx={{ position: 'relative', zIndex: 1, ml: ['$3'] }}>
           <DripsyGradient
             gradient="shading"
             end={{ x: 1, y: 0.5 }}
@@ -52,7 +51,7 @@ export default function RecentlyPlayedSection() {
             height={[50, 70]}
             // image={vgaming}
           />
-        </View>
+        </View> */}
         <HorizontalGameList data={data} size={[50, 70]} />
       </Row>
     </DripsyGradient>
