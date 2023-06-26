@@ -10,6 +10,10 @@ export default function LiveCasino({}: Props) {
   const { data } = useGetGameListByCategoryQuery([GAME_TYPE_CODE.LIVE_DEALER])
 
   return (
-    <DropdownContent data={data} menu={NAVIGATION_DROPDOWN_MENU.LiveCasino} />
+    <DropdownContent
+      data={data}
+      menu={NAVIGATION_DROPDOWN_MENU.LiveCasino}
+      useProviderImage
+    />
   )
 }

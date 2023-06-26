@@ -8,7 +8,11 @@ import {
   withGameFilterProvider,
 } from 'app/provider/gameFilter/GameFilterProvider'
 import useLocalization from 'app/provider/localization'
-import { GAME_TYPE_CODE, SlotType } from 'app/utils/constant'
+import {
+  GAME_TYPE_CODE,
+  ProviderImageCategory,
+  SlotType,
+} from 'app/utils/constant'
 import React, { useMemo, useRef } from 'react'
 import { Platform } from 'react-native'
 import { Game } from 'services/gameApi.type'
@@ -75,7 +79,11 @@ function _SlotScreen() {
             title={'MEGAWAY'}
             icon="megaway"
           />
-          <ProviderList data={providers} onNavigateProvider={onNavigate} />
+          <ProviderList
+            data={providers}
+            onNavigateProvider={onNavigate}
+            imageCategory={ProviderImageCategory.Slot}
+          />
         </>
       }
     />

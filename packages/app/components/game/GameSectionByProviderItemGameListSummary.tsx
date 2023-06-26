@@ -1,24 +1,11 @@
 import {
-  Pressable,
-  Row,
-  Text,
-  View,
-  styled,
-  useDripsyTheme,
-  useResponsiveValue,
+  Row
 } from 'dripsy'
-import union from 'lodash/union'
-import React, { FC, startTransition, useEffect, useMemo, useState } from 'react'
+import React from 'react'
 import { Game } from 'services/gameApi.type'
-import { SolitoImage } from 'solito/image'
-import { DripsyGradient } from '../Gradient'
 
-import { FONT_TOP_OFFSET } from 'app/constants/font'
-import { ProviderImageMapping } from 'app/constants/gameAssets'
 import { useAppSelector } from 'app/provider/redux/store'
-import { ALL } from 'app/utils/constant'
 import { GameToLaunchPayload } from 'app/utils/game'
-import { Shadow } from 'react-native-shadow-2'
 import GameCard from './GameCard'
 
 const width = ['22%', '18%', '15%', '15%', '12%']

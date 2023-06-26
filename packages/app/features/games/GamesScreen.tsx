@@ -8,13 +8,12 @@ import {
   useGameFilter,
   withGameFilterProvider,
 } from 'app/provider/gameFilter/GameFilterProvider'
-import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'app/utils/constant'
-import React, {
-  RefObject,
-  useEffect,
-  useMemo,
-  useRef
-} from 'react'
+import {
+  GAME_TYPE_CODE,
+  GDC_GAME_CATEGORY,
+  ProviderImageCategory,
+} from 'app/utils/constant'
+import React, { RefObject, useEffect, useMemo, useRef } from 'react'
 import { Platform } from 'react-native'
 import { Game } from 'services/gameApi.type'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
@@ -66,7 +65,6 @@ const GAMES_FILTER = [
 ]
 
 const _GamesScreen = () => {
-
   const { games, gamesByProviders, filterKey, setFilteredGames } =
     useGameFilter()
 
@@ -165,7 +163,11 @@ const _GamesScreen = () => {
           <RecentlyPlayedSection />
           <TopGameSection />
 
-          <ProviderList data={providers} onNavigateProvider={onNavigate} />
+          <ProviderList
+            data={providers}
+            onNavigateProvider={onNavigate}
+            imageCategory={ProviderImageCategory.Games}
+          />
         </>
       }
       // ListFooterComponent={}

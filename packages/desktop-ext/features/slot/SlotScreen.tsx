@@ -4,7 +4,7 @@ import {
   useGameFilter,
   withGameFilterProvider,
 } from 'app/provider/gameFilter/GameFilterProvider'
-import { GAME_TYPE_CODE } from 'app/utils/constant'
+import { GAME_TYPE_CODE, ProviderImageCategory } from 'app/utils/constant'
 import ProviderList from 'desktop-ext/components/game/ProviderList'
 import { ActivityIndicator, Container, Row, View } from 'dripsy'
 import React, { startTransition, useEffect, useMemo, useState } from 'react'
@@ -21,7 +21,12 @@ type Params = {
 const { useParam } = createParam<Params>()
 
 function SlotScreen({}: Props) {
-  const [provider, setProvider] = useParam('provider')
+  const [provider, setProvider] = useParam('provider', {
+    parse: (templateFromUrl) =>
+      templateFromUrl ? templateFromUrl[0] : undefined,
+    initial: undefined,
+  })
+
   const [filteredGames, setFilteredGames] = useState<Game[]>()
 
   const { data: games } = useGameListMultipleQuery({
@@ -63,7 +68,11 @@ function SlotScreen({}: Props) {
         </View>
       ) : (
         <Row sx={{ gap: '$3', position: 'relative' }}>
-          <ProviderList data={providers} onNavigateProvider={onNavigate} />
+          <ProviderList
+            data={providers}
+            onNavigateProvider={onNavigate}
+            imageCategory={ProviderImageCategory.Slot}
+          />
           <View
             sx={{
               flex: 1,

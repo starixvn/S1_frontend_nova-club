@@ -1,22 +1,14 @@
 import {
-  Pressable,
-  Text,
   View,
-  styled,
-  useDripsyTheme,
-  useResponsiveValue,
+  useResponsiveValue
 } from 'dripsy'
 import union from 'lodash/union'
 import React, { startTransition, useEffect, useMemo, useState } from 'react'
 import { Game } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
-import { DripsyGradient } from '../Gradient'
 
-import { FONT_TOP_OFFSET } from 'app/constants/font'
-import { ProviderImageMapping } from 'app/constants/gameAssets'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { ALL } from 'app/utils/constant'
-import { Shadow } from 'react-native-shadow-2'
-import GameSectionByProviderItemGameListSummary from './GameSectionByProviderItemGameListSummary'
 import GameListSectionGrid from './GameListSectionGrid'
 
 function GameSectionByProviderItem({
@@ -56,7 +48,7 @@ function GameSectionByProviderItem({
         <SolitoImage
           height={20}
           width={90}
-          src={ProviderImageMapping[gpc?.toUpperCase()]}
+          src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${gpc?.toLowerCase()}.png`}
           resizeMode="contain"
           alt={gpc}
         />
