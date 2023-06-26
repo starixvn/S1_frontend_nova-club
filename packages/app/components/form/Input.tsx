@@ -172,7 +172,7 @@ const RootView = styled(View)({
 
 const FocusArea = styled(TouchableWithoutFeedback)({})
 
-const Label = styled(Text)({
+export const Label = styled(Text)({
   fontWeight: 'bold',
   mb: '$1',
 })

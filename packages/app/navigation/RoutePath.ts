@@ -69,12 +69,12 @@ export const Profile_Quick_Navigation_Path: Route[] = [
   },
   {
     label: 'menu.msgAnnouncement',
-    path: '/account/profile/message',
+    path: '/account/message',
     icon: 'announcement',
   },
   {
     label: 'menu.commissionTable',
-    path: '/account/profile/commission',
+    path: '/account/commission',
     icon: 'ct',
   },
   // {
@@ -94,7 +94,7 @@ export const Profile_Quick_Navigation_Path: Route[] = [
   // },
   {
     label: 'menu.leaderboard',
-    path: '/account/profile/leaderboard',
+    path: '/account/leaderboard',
     icon: 'crown',
   },
   // {
@@ -104,7 +104,7 @@ export const Profile_Quick_Navigation_Path: Route[] = [
   // },
   {
     label: 'contact.customerSupport',
-    path: '/account/profile/customer-support',
+    path: '/account/customer-support',
     icon: 'cs',
   },
   {

@@ -6,6 +6,7 @@ import { ComponentProps } from 'react'
 import { Platform } from 'react-native'
 import { useRouter } from 'solito/router'
 import Icon from '../Icon'
+import isDesktop from 'app/utils/isDesktop'
 
 type HeaderProps = {
   title?: string
@@ -19,6 +20,7 @@ const Header = ({ title = '', actions, titleProps = {} }: HeaderProps) => {
   const onGoBack = () => {
     back()
   }
+  const desktop = isDesktop()
 
   const { orientation, isLandscape } = useOrientation()
 
@@ -32,7 +34,13 @@ const Header = ({ title = '', actions, titleProps = {} }: HeaderProps) => {
 
   return (
     <View nativeID="pageback-header">
-      <View sx={{ paddingTop: top, px: 12, bg: '$primary.500' }}>
+      <View
+        sx={{
+          paddingTop: top,
+          px: 12,
+          bg: desktop ? 'transparent' : '$primary.500',
+        }}
+      >
         <StyledTop
           sx={{
             ...(isLandscape ? {} : headerHeight),
@@ -45,7 +53,9 @@ const Header = ({ title = '', actions, titleProps = {} }: HeaderProps) => {
           >
             <Icon name="back" size={isLandscape ? 14 : 20} color="white" />
           </Pressable>
-          <View sx={{ alignItems: 'center', flex: 0.9 }}>
+          <View
+            sx={{ alignItems: desktop ? 'flex-start' : 'center', flex: 0.9 }}
+          >
             <Text
               sx={{
                 fontSize: isLandscape ? 14 : 20,

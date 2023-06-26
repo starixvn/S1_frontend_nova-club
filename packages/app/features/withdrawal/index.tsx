@@ -21,11 +21,7 @@ const WithdrawalScreen = () => {
     PAYMENT_METHOD.LOCAL_BANK,
   ])
 
-  const { cryptoBankList } = useCryptoBankQuery(undefined, {
-    selectFromResult: ({ data }) => ({
-      cryptoBankList: data?.data,
-    }),
-  })
+  const { data: cryptoBankList } = useCryptoBankQuery()
 
   useEffect(() => {
     cryptoBankList &&

@@ -5,8 +5,20 @@ import { toCleanAmount, toCurrency, toRealAmount } from 'app/utils'
 import React from 'react'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { usePlayerBalanceQuery } from 'services/walletApi'
+import { MinMax } from '../hooks/useCryptoSelection'
+import { FormikProps } from 'formik'
+import { WithdrawalValues } from '../hooks/useWithdrawalForm'
 
-const WithdrawalAmount = ({ isCrypto, formik, minMax }) => {
+type WithdrawalAmountProps = {
+  isCrypto?: boolean
+  formik: FormikProps<WithdrawalValues>
+} & MinMax
+
+const WithdrawalAmount = ({
+  isCrypto = false,
+  formik,
+  minMax,
+}: WithdrawalAmountProps) => {
   const { t } = useLocalization()
 
   const { currency } = usePlayerProfileQuery()

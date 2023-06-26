@@ -1,40 +1,36 @@
-import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import RefreshButton from 'app/components/RefreshButton'
-import RadioGroup, { RadioButtonProps } from 'app/components/form/RadioButton'
+import RadioGroup from 'app/components/form/RadioButton'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import MenuNotice from 'app/components/navigation/MenuNotice'
-import { FLAG_PAYMENT_TYPE_CRYPTO, getCryptoColor } from 'app/constants/crypto'
 import useLocalization from 'app/provider/localization'
 import { toThousandSeparator } from 'app/utils'
 import { ReportCommonStatus, WITHDRAWAL_NOTES } from 'app/utils/constant'
 import { Text, View, styled } from 'dripsy'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useModal } from 'react-native-modalfy'
-import { useCryptoBankQuery, usePlayerBankQuery } from 'services/bank'
-import { PlayerBankResult } from 'services/bank.type'
-import { usePlayerProfileQuery } from 'services/playerApi'
 import { WITHDRAWAL_TYPE } from 'services/playerApi.type'
-import { useLazyCryptoExchangeRateQuery } from 'services/withdrawal'
-import { useRouter } from 'solito/router'
+import AvailableBalance from './components/AvailableBalance'
 import WithdrawalForm from './components/WithdrawalForm'
 import WithdrawalTransactions from './components/WithdrawalTransactions'
-import AvailableBalance from './components/AvailableBalance'
+import useCryptoRates from './hooks/useCryptoRates'
 import useCryptoSelection from './hooks/useCryptoSelection'
 
 const CryptoWithdrawalScreen = () => {
   const { t } = useLocalization()
   const { openModal } = useModal()
 
-  const { currency } = usePlayerProfileQuery()
   const {
+    channelList,
     bankList,
-    cryptoLoading,
     radioButtons,
-    selectedRadio,
-    convertedAmount,
+    selectedChannel,
+    onPressSelected,
     onPressRadioButton,
-    handleCryptoRates,
   } = useCryptoSelection()
+
+  const { currency, convertedAmount, ratesLoading } = useCryptoRates(
+    selectedChannel?.value
+  )
 
   return (
     <PageWithBackHeader
@@ -71,7 +67,7 @@ const CryptoWithdrawalScreen = () => {
           <Text sx={{ color: 'black' }}>
             <>
               {t(`withdrawal.exchangeRates`, {
-                crypto: selectedRadio?.value,
+                crypto: selectedChannel?.value,
               })}
             </>
           </Text>
@@ -79,26 +75,22 @@ const CryptoWithdrawalScreen = () => {
             sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
           >
             <Text sx={{ color: 'black', fontWeight: 'bold', mr: 8 }}>{`1 ${
-              selectedRadio?.value
+              selectedChannel?.value
             } = ${currency} ${
-              cryptoLoading
+              ratesLoading
                 ? 0
                 : toThousandSeparator(
                     convertedAmount ? (100000 / convertedAmount).toString() : ''
                   )
             }`}</Text>
             <RefreshButton
-              loading={cryptoLoading}
-              onPress={() => handleCryptoRates(selectedRadio)}
+              loading={ratesLoading}
+              // onPress={() => handleCryptoRates(selectedChannel)}
               _icon={{ color: '$accent' }}
             />
           </View>
         </View>
-        <WithdrawalForm
-          bankData={bankList}
-          isCrypto={true}
-          minMax={selectedRadio?.minMax}
-        />
+        <WithdrawalForm isCrypto={true} selectedChannel={selectedChannel} />
       </StyledView>
       <WithdrawalTransactions
         status={ReportCommonStatus.PENDING}

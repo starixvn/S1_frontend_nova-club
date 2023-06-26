@@ -1,112 +1,95 @@
-import React, { useEffect, useState } from 'react'
-import { PlayerBankResult } from 'services/bank.type'
-import RadioGroup, { RadioButtonProps } from 'app/components/form/RadioButton'
-import { useCryptoBankQuery, usePlayerBankQuery } from 'services/bank'
-import { usePlayerProfileQuery } from 'services/playerApi'
-import { useLazyCryptoExchangeRateQuery } from 'services/withdrawal'
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import { RadioButtonProps } from 'app/components/form/RadioButton'
 import { getCryptoColor } from 'app/constants/crypto'
+import { useEffect, useState } from 'react'
+import { useCryptoBankQuery, usePlayerBankQuery } from 'services/bank'
+import { PlayerBankResult } from 'services/bank.type'
 
-type RadioButton = RadioButtonProps & {
-  minMax: { min: number; max: number }
+export type MinMax = {
+  minMax?: { min: number; max: number }
 }
+
+export type ChannelRadioButton = RadioButtonProps & MinMax
+
+export type ChannelList = {
+  icon: string
+  label: string
+  value: string
+} & MinMax
 
 const useCryptoSelection = () => {
   const [bankList, setBankList] = useState<PlayerBankResult[]>([])
-  const [radioButtons, setRadioButtons] = useState<RadioButton[]>([])
-  const [selectedRadio, setSelectedRadio] = useState<RadioButton | undefined>()
-  const [convertedAmount, setConvertedAmount] = useState(0)
+  const [radioButtons, setRadioButtons] = useState<ChannelRadioButton[]>([])
+  const [selectedChannel, setSelectedChannel] = useState<
+    ChannelRadioButton | ChannelList | undefined
+  >()
 
-  const { cryptoBankList } = useCryptoBankQuery(undefined, {
-    selectFromResult: ({ data }) => ({
-      cryptoBankList: data?.data,
-    }),
-  })
-  const { currency } = usePlayerProfileQuery()
+  const { data: cryptoBankList } = useCryptoBankQuery()
   const { playerCryptoList, isFetching, isLoading } = usePlayerBankQuery()
 
-  const [getCryptoRates, { isFetching: cryptoLoading }] =
-    useLazyCryptoExchangeRateQuery()
+  const [channelList, setChannelList] = useState<ChannelList[]>([])
 
+  //Parse crypto list for selection
   useEffect(() => {
-    const bankList = cryptoBankList?.map((item, index) => {
+    const newList = cryptoBankList?.map((item, index) => {
       return {
-        id: `${index + 1}`,
         icon: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.bank_icon}`,
-        iconColor: getCryptoColor(item),
         label: item.bank_name,
         value: item.bank_code,
-        selected: index === 0 ? true : false,
-        borderColor: '#F4521B',
-        color: '#F4521B',
-        labelStyle: { color: 'white', fontWeight: 'bold' },
         minMax: {
           min: Number(item.min_withdrawal_trans),
           max: Number(item.max_withdrawal_trans),
         },
       }
     })
-    setRadioButtons(bankList ?? [])
-    bankList && setSelectedRadio(bankList[0])
+
+    setChannelList(newList ?? [])
+
+    newList && setSelectedChannel(newList[0])
   }, [cryptoBankList])
 
-  //Set bank list according to selected radio button
+  //Parse for radio group
+  useEffect(() => {
+    const radioList = channelList?.map((item, index) => {
+      return {
+        ...item,
+        id: `${index + 1}`,
+        iconColor: getCryptoColor(item),
+        selected: index === 0 ? true : false,
+        borderColor: '#F4521B',
+        color: '#F4521B',
+        labelStyle: { color: 'white', fontWeight: 'bold' },
+      }
+    })
+
+    setRadioButtons(radioList ?? [])
+    radioList && setSelectedChannel(radioList[0])
+  }, [channelList])
+
+  //Set bank list according to selected channel
   useEffect(() => {
     const bank = playerCryptoList?.filter(
-      (el) => el.BankCode === selectedRadio?.value
+      (el) => el.BankCode === selectedChannel?.value
     )
     setBankList(bank ?? [])
+  }, [selectedChannel, isFetching])
 
-    if (selectedRadio) {
-      currency && handleCryptoRates(selectedRadio)
-    }
-  }, [selectedRadio, currency, isFetching])
-
-  const handleCryptoRates = async (selectedRadio) => {
-    let selectedCrypto
-    switch (selectedRadio?.value) {
-      case 'USDT-ERC20':
-        selectedCrypto = 'ERC20-USDT'
-        break
-      case 'USDT-TRC20':
-        selectedCrypto = 'TRC20-USDT'
-        break
-      case 'ETH':
-        selectedCrypto = 'ETH'
-        break
-      case 'BTC':
-        selectedCrypto = 'BTC'
-        break
-      default:
-        break
-    }
-
-    const { data, success } = await getCryptoRates({
-      from_currency: currency,
-      to_currency: selectedCrypto,
-      type: 'sell',
-      Amount: '100000',
-    })
-      .unwrap()
-      .catch((error) => {
-        return error
-      })
-
-    if (success) setConvertedAmount(Number(data?.converted_amount ?? 0))
-    else setConvertedAmount(0)
+  const onPressRadioButton = (radioButtonsArray: ChannelRadioButton[]) => {
+    setRadioButtons(radioButtonsArray)
+    setSelectedChannel(radioButtonsArray.find((el) => el.selected === true))
   }
 
-  const onPressRadioButton = (radioButtonsArray: RadioButton[]) => {
-    setRadioButtons(radioButtonsArray)
-    setSelectedRadio(radioButtonsArray.find((el) => el.selected === true))
+  const onPressSelected = (value) => {
+    const channel = channelList.find((el) => el.value === value)
+    setSelectedChannel(channel)
   }
 
   return {
+    channelList,
     bankList,
     radioButtons,
-    selectedRadio,
-    convertedAmount,
-    cryptoLoading,
+    selectedChannel,
+    onPressSelected,
     onPressRadioButton,
   }
 }
