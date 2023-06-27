@@ -1,27 +1,29 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import Button from 'app/components/common/Button'
+import Input from 'app/components/form/Input'
+import { PageWithBackHeader } from 'app/components/layouts/Page'
+import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
+import SelectWithDropdown from 'app/components/select/SelectWithDropdown'
+import { getCryptoProtocol } from 'app/constants/crypto'
 import useAddBank from 'app/hooks/bank/useAddBank'
 import useLocalization from 'app/provider/localization'
+import isDesktop from 'app/utils/isDesktop'
+import DesktopPageContainer from 'desktop-ext/components/layout/DesktopPage'
 import { View, styled } from 'dripsy'
 import React from 'react'
 import { useCryptoBankQuery } from 'services/bank'
 import RealNameForm from '../components/RealNameForm'
-import { getCryptoProtocol } from 'app/constants/crypto'
-import { PageWithBackHeader } from 'app/components/layouts/Page'
-import Input from 'app/components/form/Input'
-import Button from 'app/components/common/Button'
-import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
 
 const AddCryptoWalletScreen = () => {
   const { t } = useLocalization()
-  const { bankData, isLoading, isFetching, isSuccess } = useCryptoBankQuery(
-    undefined,
-    {
-      selectFromResult: (s) => ({
-        ...s,
-        bankData: s.data?.data?.filter((b) => b.bank_code),
-      }),
-    }
-  )
+  const desktop = isDesktop()
+
+  const {
+    data: bankData,
+    isLoading,
+    isFetching,
+    isSuccess,
+  } = useCryptoBankQuery()
 
   const sheetData =
     bankData?.map((item) => {
@@ -46,10 +48,6 @@ const AddCryptoWalletScreen = () => {
     submitForm,
     setFieldValue,
   } = formik
-  console.log(
-    '🚀 ~ file: index.tsx:49 ~ AddCryptoWalletScreen ~ errors:',
-    errors
-  )
 
   const handleSelected = (value) => {
     const item = bankData?.find((el) => el.bank_code === value)
@@ -62,50 +60,63 @@ const AddCryptoWalletScreen = () => {
 
   return (
     <PageWithBackHeader header={{ title: t('wallet.addCryptoWallet') }}>
-      <StyledView>
-        <RealNameForm formik={formik}>
-          <SelectWithCardGrid
-            label={t('bank.channel')}
-            placeholder={t('bank.selectChannel')}
-            options={sheetData}
-            loading={isLoading || isFetching}
-            value={values.bank?.bank_name}
-            sx={{ width: '100%', mb: '$3' }}
-            onSelected={(e) => handleSelected(e)}
-          />
+      <ContentWrapper desktop={desktop}>
+        <DesktopPageContainer>
+          <RealNameForm formik={formik}>
+            {desktop ? (
+              <View sx={{ marginBottom: '$3' }}>
+                <SelectWithDropdown
+                  label={t('bank.bank')}
+                  options={sheetData}
+                  selected={values.bank?.bank_name}
+                  onSelected={(e) => handleSelected(e)}
+                />
+              </View>
+            ) : (
+              <SelectWithCardGrid
+                label={t('bank.channel')}
+                placeholder={t('bank.selectChannel')}
+                options={sheetData}
+                loading={isLoading || isFetching}
+                value={values.bank?.bank_name}
+                sx={{ width: '100%', mb: '$3' }}
+                onSelected={(e) => handleSelected(e)}
+              />
+            )}
+            <Input
+              label={t('wallet.walletAddress')}
+              value={values.walletAddress}
+              onChangeText={handleChange('walletAddress')}
+              onBlur={handleBlur('walletAddress')}
+              error={
+                touched.walletAddress && errors.walletAddress
+                  ? t(errors.walletAddress, {
+                      field: t('wallet.walletAddress'),
+                    })
+                  : undefined
+              }
+            />
+          </RealNameForm>
 
-          <Input
-            label={t('wallet.walletAddress')}
-            value={values.walletAddress}
-            onChangeText={handleChange('walletAddress')}
-            onBlur={handleBlur('walletAddress')}
-            error={
-              touched.walletAddress && errors.walletAddress
-                ? t(errors.walletAddress, {
-                    field: t('wallet.walletAddress'),
-                  })
-                : undefined
-            }
-          />
-        </RealNameForm>
-
-        <Button
-          loading={isSubmitting}
-          disabled={!isValid || !dirty}
-          onPress={submitForm}
-          sx={{ my: 20 }}
-        >
-          {t('common.next')}
-        </Button>
-      </StyledView>
+          <Button
+            loading={isSubmitting}
+            disabled={!isValid || !dirty}
+            onPress={submitForm}
+            sx={{ my: 20 }}
+          >
+            {t('common.next')}
+          </Button>
+        </DesktopPageContainer>
+      </ContentWrapper>
     </PageWithBackHeader>
   )
 }
 
-const StyledView = styled(View)(() => ({
+const ContentWrapper = styled(View)(({ desktop }: { desktop: boolean }) => ({
   flex: 1,
   bg: '$secondary',
   p: '$pagePadding',
+  px: desktop ? 0 : '$pagePadding',
 }))
 
 export default AddCryptoWalletScreen

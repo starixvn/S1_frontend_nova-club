@@ -132,8 +132,12 @@ const Deposit = () => {
         {transactionIsLoading ? (
           <ActivityIndicator size="large" />
         ) : transactionData?.data?.row_count_total ?? 0 > 0 ? (
-          transactionData?.data?.rows.map((item) => (
-            <RecentTransactionRow key={item.tx_code} item={item} />
+          transactionData?.data?.rows.map((item, index) => (
+            <RecentTransactionRow
+              key={item.tx_code}
+              item={item}
+              index={index}
+            />
           ))
         ) : (
           <EmptyResult />

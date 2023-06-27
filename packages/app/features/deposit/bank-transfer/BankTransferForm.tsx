@@ -11,7 +11,7 @@ import {
 } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import validation from 'app/utils/validation'
-import { Pressable, Text, View, styled } from 'dripsy'
+import { Pressable, Text, View, styled, useResponsiveValue } from 'dripsy'
 import * as ImagePicker from 'expo-image-picker'
 import { FormikHelpers, useFormik } from 'formik'
 import { useEffect, useRef, useState } from 'react'
@@ -30,6 +30,11 @@ import { TextInput } from 'react-native'
 import useAlert from 'app/hooks/useAlert'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useModal } from 'react-native-modalfy'
+import Select from 'app/components/select/Select'
+import Image from 'app/components/common/Image'
+import InputLabel from 'app/components/form/InputLabel'
+import TouchableOpacity from 'app/components/pressable/TouchableOpacity'
+import HorizontalSelectBankCardGrid from '../component/HorizontalSelectBankCardGrid'
 
 type BankTransferValues = {
   bank: ManualBankItem | undefined
@@ -54,6 +59,8 @@ const BankTransferForm = () => {
   const depositPayment = data?.data?.result.manual.find(
     (el) => el.category_id === DepositPaymentMethodCategoryId.LOCAL_BANK
   )
+
+  const horizontalMode = useResponsiveValue([false, false, false, true, true])
 
   const sheetData = depositPayment?.list.map((item) => {
     return {
@@ -162,37 +169,77 @@ const BankTransferForm = () => {
   return (
     <View sx={{ pt: '$3' }}>
       <View sx={{ px: '$4' }}>
-        <SelectWithCardGrid
-          label={t('bank.bankAcc')}
-          placeholder={t('placeholder.plsSelectBank')}
-          options={sheetData}
-          value={values.bank?.bank_branch ?? ''}
-          sx={{
-            width: '100%',
-            mb: '$3',
-          }}
-          onSelected={(e) => {
-            handleSelected(e)
-          }}
-          _input={{
-            error:
-              touched.bank && errors.bank ? (
-                <Text sx={{ color: errors.bank && '$secondary.500' }}>
-                  {t(errors.bank, {
-                    field: t('common.bank'),
+        {horizontalMode ? (
+          <View>
+            <InputLabel label="Bank" />
+            <View
+              sx={{
+                flex: 1,
+                flexDirection: 'column',
+                borderWidth: 1,
+                borderRadius: 15,
+                borderColor: '$primary.200',
+                p: 19,
+              }}
+            >
+              <Text sx={{ m: '$2', fontSize: 20, fontWeight: 'bold' }}>
+                {values.bank?.bank_branch}
+              </Text>
+              <View sx={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                {sheetData &&
+                  sheetData.map((e, i) => {
+                    return (
+                      <HorizontalSelectBankCardGrid
+                        key={i}
+                        item={e}
+                        onPress={() => handleSelected(e.value)}
+                      />
+                    )
                   })}
-                </Text>
-              ) : undefined,
-          }}
-        />
+              </View>
+            </View>
+          </View>
+        ) : (
+          <SelectWithCardGrid
+            label={t('bank.bankAcc')}
+            placeholder={t('placeholder.plsSelectBank')}
+            options={sheetData}
+            value={values.bank?.bank_branch ?? ''}
+            sx={{
+              width: '100%',
+              mb: '$3',
+            }}
+            onSelected={(e) => {
+              handleSelected(e)
+            }}
+            _input={{
+              error:
+                touched.bank && errors.bank ? (
+                  <Text sx={{ color: errors.bank && '$secondary.500' }}>
+                    {t(errors.bank, {
+                      field: t('common.bank'),
+                    })}
+                  </Text>
+                ) : undefined,
+            }}
+          />
+        )}
       </View>
 
-      {values.bank && (
-        <AccountDetail
-          accountName={values.bank.bank_acc_name}
-          accountNumber={values.bank.bank_acc_no}
-        />
-      )}
+      <View
+        sx={{
+          px: horizontalMode ? '$4' : 0,
+          pt: horizontalMode ? '$4' : 0,
+        }}
+      >
+        {values.bank && (
+          <AccountDetail
+            accountName={values.bank.bank_acc_name}
+            accountNumber={values.bank.bank_acc_no}
+            qrCode={values.bank.bankQR}
+          />
+        )}
+      </View>
 
       <View sx={{ px: '$4' }}>
         <Input

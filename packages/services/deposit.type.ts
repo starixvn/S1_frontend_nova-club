@@ -106,6 +106,7 @@ export type ManualBankItem = {
   minDeposit: string
   order: number
   pay_acc_id: number
+  bankQR: string
 }
 
 export type PlayerInputFieldsAmount = {

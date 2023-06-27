@@ -137,7 +137,7 @@ const useAddBank = ({ BankType }: BankType) => {
       walletAddress: Yup.string().when('isCryptoValidation', {
         is: true,
         then: () =>
-          Yup.string().when('bank', (bank) => {
+          Yup.string().when('bank', ([bank]) => {
             switch (bank?.bank_code) {
               case 'USDT-ERC20':
                 return validation.usdtErc20

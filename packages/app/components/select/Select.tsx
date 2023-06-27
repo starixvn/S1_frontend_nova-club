@@ -139,7 +139,7 @@ export interface CloseSelectForwardRef {
   closeActionSheet: () => void
 }
 
-const useRotateArrow = () => {
+export const useRotateArrow = () => {
   return useAnimationState({
     from: {
       transform: [{ rotate: '0deg' }],

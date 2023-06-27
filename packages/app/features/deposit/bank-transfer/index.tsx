@@ -11,6 +11,8 @@ import { DepositMethodId } from 'app/constants/deposit'
 import RecentTransactionRow from '../component/RecentTransactionRow'
 import EmptyResult from 'app/components/dataTable/EmptyResult'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
+import HorizontalTransactionRowList from '../component/HorizontalTransactionRowList'
+import HorizontalTransactionRowListHeader from '../component/HorizontalTransactionRowListHeader'
 
 const BankTransferScreen = () => {
   const { t } = useLocalization()
@@ -53,12 +55,19 @@ const BankTransferScreen = () => {
           <Text>{t('transaction.Pending')}</Text>
           <RefreshButton loading={isFetching} onPress={refetch} />
         </View>
+        <View sx={{ bg: '$primary.200', py: 2, mb: 20 }}>
+          <HorizontalTransactionRowListHeader />
+        </View>
         <ScrollView>
           {transactionIsLoading ? (
             <ActivityIndicator size="large" />
           ) : transactionData?.data?.row_count_total ?? 0 > 0 ? (
-            transactionData?.data?.rows.map((item) => (
-              <RecentTransactionRow key={item.tx_code} item={item} />
+            transactionData?.data?.rows.map((item, index) => (
+              <RecentTransactionRow
+                key={item.tx_code}
+                item={item}
+                index={index + 1}
+              />
             ))
           ) : (
             <EmptyResult />

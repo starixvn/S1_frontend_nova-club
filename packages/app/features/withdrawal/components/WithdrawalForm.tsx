@@ -1,20 +1,27 @@
+import Select from 'app/components/select/Select'
 import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
 import useLocalization from 'app/provider/localization'
 import { toCleanCard } from 'app/utils'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { SelectOptions } from 'services/common/types'
+import { ChannelList, ChannelRadioButton } from '../hooks/useCryptoSelection'
 import useWithdrawalForm from '../hooks/useWithdrawalForm'
 import EmptyAccount from './EmptyAccount'
 import WithdrawalAmount from './WithdrawalAmount'
 import WithdrawalConfirm from './WithdrawalConfirm'
-import AvailableBalance from './AvailableBalance'
+import { View } from 'dripsy'
 
 type WithdrawalFormProps = {
   isCrypto: boolean
-  minMax?: { min: number; max: number }
+  selectedChannel?: ChannelRadioButton | ChannelList | undefined
 }
 
-const WithdrawalForm = ({ isCrypto, minMax }: WithdrawalFormProps) => {
+const WithdrawalForm = ({ isCrypto, selectedChannel }: WithdrawalFormProps) => {
   const { t } = useLocalization()
+
+  const [walletAddressList, setWalletAddressList] = useState<SelectOptions[]>(
+    []
+  )
 
   const {
     formik,
@@ -22,40 +29,92 @@ const WithdrawalForm = ({ isCrypto, minMax }: WithdrawalFormProps) => {
     handleSelected,
     handleGoToBank,
     withdrawalConfirmation,
-  } = useWithdrawalForm({ isCrypto, minMax })
+  } = useWithdrawalForm({ isCrypto, minMax: selectedChannel?.minMax })
 
   const { values, isValid, dirty } = formik
 
-  const renderEmpty = (closeActionSheet) => (
-    <EmptyAccount
-      label={isCrypto ? t('wallet.addCryptoWallet') : t('bank.addBankAccount')}
-      onClose={handleGoToBank}
-      onCloseActionSheet={closeActionSheet}
-    />
-  )
+  useEffect(() => {
+    const list =
+      bankSelectionList
+        ?.filter((el) => el.label === selectedChannel?.value)
+        .map((el) => {
+          return { ...el, label: el.value }
+        }) ?? []
+
+    list && list?.length > 0
+      ? handleSelected(list[0]?.value)
+      : handleSelected(undefined)
+    setWalletAddressList(list)
+  }, [selectedChannel])
+
+  const renderEmpty = (closeActionSheet) => {
+    console.log(
+      '🚀 ~ file: WithdrawalForm.tsx:51 ~ renderEmpty ~ closeActionSheet:',
+      closeActionSheet
+    )
+    return (
+      <View sx={{ p: '$4' }}>
+        <EmptyAccount
+          label={
+            isCrypto ? t('wallet.addCryptoWallet') : t('bank.addBankAccount')
+          }
+          onClose={handleGoToBank}
+          onCloseActionSheet={closeActionSheet}
+        />
+      </View>
+    )
+  }
 
   return (
     <>
-      <SelectWithCardGrid
-        label={isCrypto ? t('bank.walletAddress') : t('bank.bankAcc')}
-        subtitle={values.bank?.BankName}
-        placeholder={
-          isCrypto
-            ? t('placeholder.plsSelectCrypto')
-            : t('placeholder.plsSelectBank')
-        }
-        options={bankSelectionList}
-        value={
-          isCrypto
-            ? values.bank?.BankAccountNumber
-            : toCleanCard(values.bank?.BankAccountNumber ?? '')
-        }
-        sx={{ width: '100%', mb: '$3' }}
-        onSelected={(e) => handleSelected(e)}
-        renderEmpty={renderEmpty}
-      />
+      {isCrypto ? (
+        <Select
+          label={isCrypto ? t('bank.walletAddress') : t('bank.bankAcc')}
+          subtitle={values.bank?.BankName}
+          placeholder={t('placeholder.plsSelectCrypto')}
+          options={walletAddressList}
+          onSelected={(e) => handleSelected(e?.value)}
+          value={values.bank?.BankAccountNumber ?? ''}
+          _input={{
+            placeholderTextColor: '$white',
+            inputSx: { opacity: values.bank?.BankAccountNumber ? 1 : 0.5 },
+          }}
+          _actionSheet={{
+            sheetId: t('filter.transactionType.title') + 1,
+          }}
+          _actionSheetContent={
+            walletAddressList && walletAddressList.length === 0
+              ? ({ closeActionSheet }) => renderEmpty(closeActionSheet)
+              : undefined
+          }
+        />
+      ) : (
+        <SelectWithCardGrid
+          label={isCrypto ? t('bank.walletAddress') : t('bank.bankAcc')}
+          subtitle={values.bank?.BankName}
+          placeholder={
+            isCrypto
+              ? t('placeholder.plsSelectCrypto')
+              : t('placeholder.plsSelectBank')
+          }
+          options={bankSelectionList}
+          value={
+            isCrypto
+              ? values.bank?.BankAccountNumber
+              : toCleanCard(values.bank?.BankAccountNumber ?? '')
+          }
+          sx={{ width: '100%', mb: '$3' }}
+          onSelected={(e) => handleSelected(e)}
+          renderEmpty={renderEmpty}
+          isHorizontalActionSheet
+        />
+      )}
 
-      <WithdrawalAmount isCrypto={isCrypto} formik={formik} minMax={minMax} />
+      <WithdrawalAmount
+        isCrypto={isCrypto}
+        formik={formik}
+        minMax={selectedChannel?.minMax}
+      />
 
       <WithdrawalConfirm
         disabled={!isValid || !dirty}

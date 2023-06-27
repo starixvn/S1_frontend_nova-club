@@ -25,7 +25,9 @@ const HeaderAuthentication = () => {
         contentProps={{
           sx: { py: '$2' },
         }}
-        onPress={() => push('/auth/login')}
+        onPress={() =>
+          desktop ? openModal('AgentLoginModal') : push('/auth/login')
+        }
       >
         {t('authentication.login')}
       </Button>

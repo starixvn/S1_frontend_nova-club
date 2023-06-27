@@ -1,59 +1,97 @@
+import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import IconButton from 'app/components/IconButton'
+import Image from 'app/components/common/Image'
 import { copyToClipboard } from 'app/utils'
-import { Text, View } from 'dripsy'
+import { Text, View, useResponsiveValue } from 'dripsy'
 
 type AccountDefailProps = {
   accountName: string
   accountNumber: string
+  qrCode?: string
 }
 
-const AccountDetail = ({ accountName, accountNumber }: AccountDefailProps) => {
+const AccountDetail = ({
+  accountName,
+  accountNumber,
+  qrCode,
+}: AccountDefailProps) => {
+  const horizontalMode = useResponsiveValue([false, false, false, true, true])
+
   return (
-    <View sx={{ bg: '$primary.200', py: 2, mb: 20 }}>
+    <View
+      sx={{
+        bg: '$primary.200',
+        py: 2,
+        px: horizontalMode ? 2 : 0,
+        mb: 20,
+      }}
+    >
       <View
-        sx={{ bg: '$primary.500', flexDirection: 'column', py: '$3', px: '$4' }}
+        sx={{
+          bg: '$primary.500',
+          flexDirection: 'row',
+          py: '$3',
+          px: '$4',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
       >
         <View>
-          <Text>Account Name :</Text>
-          <View
-            sx={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}
-          >
-            <View>
-              <Text>{accountName}</Text>
-            </View>
+          <View>
+            <Text>Account Name :</Text>
+            <View
+              sx={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}
+            >
+              <View>
+                <Text>{accountName}</Text>
+              </View>
 
-            <View>
+              <View>
+                <IconButton
+                  name={'copy'}
+                  color={'white'}
+                  size={12}
+                  onPress={() => copyToClipboard(accountName)}
+                />
+              </View>
+            </View>
+          </View>
+          <View sx={{ mt: '$2' }}>
+            <Text>Account No :</Text>
+            <View
+              sx={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}
+            >
+              <Text>{accountNumber}</Text>
               <IconButton
                 name={'copy'}
                 color={'white'}
                 size={12}
-                onPress={() => copyToClipboard(accountName)}
+                onPress={() => copyToClipboard(accountNumber)}
               />
             </View>
           </View>
         </View>
 
-        <View sx={{ mt: '$2' }}>
-          <Text>Account No :</Text>
-          <View
-            sx={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Text>{accountNumber}</Text>
-            <IconButton
-              name={'copy'}
-              color={'white'}
-              size={12}
-              onPress={() => copyToClipboard(accountNumber)}
-            />
-          </View>
+        <View>
+          {qrCode && (
+            <View
+              sx={{ justifyContent: 'center', alignItems: 'center', py: 12 }}
+            >
+              <Image
+                alt={qrCode}
+                source={{
+                  uri: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${qrCode}`,
+                }}
+                sx={{ width: 120, height: 120 }}
+              />
+            </View>
+          )}
         </View>
       </View>
     </View>

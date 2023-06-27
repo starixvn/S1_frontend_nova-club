@@ -12,7 +12,7 @@ const CryptoWalletScreen = () => {
   const { playerCryptoList, isLoading } = usePlayerBankQuery()
 
   const handlePress = () => {
-    push('/bank/add-crypto-wallet')
+    push('/account/bank/add-crypto-wallet')
   }
 
   return (

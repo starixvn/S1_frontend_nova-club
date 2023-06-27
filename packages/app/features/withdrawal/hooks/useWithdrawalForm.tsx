@@ -56,7 +56,7 @@ const CRYPTO_CONFIRMATION_FIELDS = [
   },
 ]
 
-const useWithdrawalForm = ({ isCrypto, minMax }) => {
+const useWithdrawalForm = ({ isCrypto = false, minMax }) => {
   const { showAlert } = useAlert()
   const { openModal } = useModal()
   const { push } = useRouter()
@@ -80,13 +80,14 @@ const useWithdrawalForm = ({ isCrypto, minMax }) => {
   const [postSubmitWithdrawal] = useSubmitWithdrawalMutation()
   const { syncShield } = useShield()
 
-  const bankSelectionList = bankData?.map((item) => {
-    return {
-      label: isCrypto ? item.BankCode : toCleanCard(item.BankAccountNumber),
-      value: item.BankAccountNumber,
-      icon: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.BankIcon}`,
-    }
-  })
+  const bankSelectionList =
+    bankData?.map((item) => {
+      return {
+        label: isCrypto ? item.BankCode : toCleanCard(item.BankAccountNumber),
+        value: item.BankAccountNumber,
+        icon: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.BankIcon}`,
+      }
+    }) ?? []
 
   useEffect(() => {
     bankData && bankData?.length > 0
@@ -95,6 +96,14 @@ const useWithdrawalForm = ({ isCrypto, minMax }) => {
   }, [bankData])
 
   const handleSelected = (value) => {
+    console.log(
+      '🚀 ~ file: useWithdrawalForm.tsx:99 ~ handleSelected ~ value:',
+      value
+    )
+    console.log(
+      '🚀 ~ file: useWithdrawalForm.tsx:104 ~ handleSelected ~ bankData:',
+      bankData
+    )
     const item = bankData?.find((el) => el.BankAccountNumber === value)
     setFieldValue('bank', item)
   }
@@ -176,8 +185,8 @@ const useWithdrawalForm = ({ isCrypto, minMax }) => {
 
   const handleGoToBank = () => {
     isCrypto
-      ? push('/profile/bank-account/add-crypto-account')
-      : push('/account/profile/bank/add-bank-account')
+      ? push('/account/bank/add-crypto-wallet')
+      : push('/account/bank/add-bank-account')
   }
 
   return {
