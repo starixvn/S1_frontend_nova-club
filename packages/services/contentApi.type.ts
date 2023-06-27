@@ -92,6 +92,7 @@ export interface Game {
   gpc: string
   gtc: GAME_TYPE_CODE
   img: string
+  xImg: string
   name: Record<LANGUAGE_CODE, string> | string
   tags: string[]
   gdc_cat?: string

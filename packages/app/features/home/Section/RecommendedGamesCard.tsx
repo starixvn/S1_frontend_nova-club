@@ -42,7 +42,7 @@ const RecommendedGamesCard = ({
           }}
         >
           <Image
-            source={{ uri: imageAlt }}
+            source={{ uri: imageAlt ?? image }}
             resizeMode="cover"
             sx={{ width: '100%', height: '100%' }}
           />

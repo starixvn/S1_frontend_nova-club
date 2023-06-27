@@ -14,11 +14,11 @@ const RecommendedGamesSection = () => {
     .filter((el) => el.cat === FEATURED_GAME_CATEGORY.RECOMMENDED)
     .map((item, index) => {
       const imageNumber = index + 1
-      const imageName = (imageNumber < 10 ? '0' : '') + imageNumber
+
       return {
         ...item,
         img: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.img}`,
-        imgAlt: `${MEDIA_DOMAIN}${CONTENT_URI}/games/recommended/${imageName}.jpg`,
+        imgAlt: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.xImg}`,
       }
     })
 
