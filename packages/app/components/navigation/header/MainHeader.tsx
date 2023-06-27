@@ -33,13 +33,25 @@ import { useRouter } from 'solito/router'
 import HeaderDeposit from './HeaderDeposit'
 import HeaderOverview from './HeaderOverview'
 import HeaderAuthentication from './HeaderAuthentication'
+import { Link } from 'solito/link'
+
+const LogoSize = [
+  HEADER_HEIGHT * 0.5,
+  HEADER_HEIGHT * 0.5,
+  HEADER_HEIGHT * 0.75,
+]
 
 const Logo = () => (
-  <Image
-    source={require('../../../assets/images/common/logo.png')}
-    alt="header-logo"
-    sx={{ width: 75, aspectRatio: 67 / 24 }}
-  />
+  <Link href="/">
+    <Image
+      source={require('../../../assets/images/common/logo.png')}
+      alt="header-logo"
+      sx={{
+        height: LogoSize,
+        aspectRatio: 67 / 24,
+      }}
+    />
+  </Link>
 )
 
 const MainHeader = () => {

@@ -12,6 +12,7 @@ import { useCallback, useRef, useState } from 'react'
 import { TextInput } from 'react-native'
 import { useLazyCheckUsernameQuery } from 'services/authApi'
 import { RegisterFormValues } from './RegisterScreen'
+import FormContainer from 'app/components/form/FormContainer'
 
 interface RegisterFormProps {
   isAgent: boolean
@@ -108,10 +109,9 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
   }, [handleCheckingUsername, setTouched, values.username])
 
   return (
-    <View
+    <FormContainer
       sx={{
-        width: '100%',
-        py: 20,
+        py: '$4',
       }}
     >
       <Input
@@ -184,7 +184,7 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
       >
         {t('authentication.register')}
       </Button>
-    </View>
+    </FormContainer>
   )
 }
 

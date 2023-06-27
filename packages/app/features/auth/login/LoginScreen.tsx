@@ -1,6 +1,6 @@
 import CustomTabBar from 'app/components/navigation/CustomTabBar'
 import useLocalization from 'app/provider/localization'
-import { View } from 'dripsy'
+import { Container, View } from 'dripsy'
 import React, { useMemo, useState } from 'react'
 import { createParam } from 'solito'
 import AuthLayout from '../AuthLayout'
@@ -34,7 +34,6 @@ export default function LoginScreen() {
           routes={routes}
         />
       </View>
-
       <LoginForm isAgent={isAgentLogin} />
     </AuthLayout>
   )

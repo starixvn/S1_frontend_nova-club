@@ -36,10 +36,11 @@ const ShadowButton = ({
 
 const StyledShadowButton = styled(Shadow)(
   ({ isActive }: { isActive: boolean }) => ({
-    borderRadius: 15,
+    borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    py: 12,
+    pb: 9,
+    pt: 10, // 1 more unit to balance the shadow at bottom
     px: 8,
     bg: isActive ? '$primary.500' : '$primary.700',
   })

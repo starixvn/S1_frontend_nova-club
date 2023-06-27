@@ -1,8 +1,9 @@
-import { Pressable, Text, View } from 'dripsy'
+import { Container, Pressable, Row, Text, View } from 'dripsy'
 import uniqueId from 'lodash/uniqueId'
 import React from 'react'
 import { DripsyGradient } from '../Gradient'
 import ShadowButton from '../ShadowButton'
+import { FONT_TOP_OFFSET } from 'app/constants/font'
 
 export type CustomRoutesProps = {
   key: string
@@ -21,16 +22,20 @@ const CustomTabBar = ({ routes, currentIndex, onPress }: CustomTabBarProps) => {
     onPress(value)
   }
   return (
-    <>
-      <DripsyGradient gradient="surface" sx={{ px: 24 }}>
+    <DripsyGradient gradient="surface" sx={{}}>
+      <Container
+        sx={{
+          px: 24,
+        }}
+      >
         {/* <View sx={{ height: 1, bg: '$primary.100' }} /> */}
         <TabBarSelection
           currentIndex={currentIndex}
           routes={routes}
           onPress={onPress}
         />
-      </DripsyGradient>
-    </>
+      </Container>
+    </DripsyGradient>
   )
 }
 
@@ -43,38 +48,35 @@ export const TabBarSelection = ({
     onPress(value)
   }
   return (
-    <View sx={{ flexDirection: 'row', gap: 4 }}>
+    <Row sx={{ gap: '$3', justifyContent: 'center' }}>
       {routes.length > 0 &&
         routes.map((route, index) => {
           const isActive = currentIndex === index
           return (
-            <View key={route.title + uniqueId()} sx={{ flex: 1, py: 12 }}>
-              <Pressable onPress={() => handlePress(route.index)}>
-                <ShadowButton
-                  isActive={isActive}
-                  containerStyle={{
-                    minWidth: '100%',
-                    height: 40, //Set Fixed Height to solve blinking Shadow Issue
+            <Pressable
+              sx={{ maxWidth: 200, flex: 1, py: '$3' }}
+              key={route.title}
+              onPress={() => handlePress(route.index)}
+            >
+              <ShadowButton isActive={isActive} safeRender stretch>
+                <Text
+                  numberOfLines={2}
+                  sx={{
+                    mt: FONT_TOP_OFFSET,
+                    fontSize: 12,
+                    fontWeight: '900',
+                    color: 'white',
+                    opacity: isActive ? 1 : 0.5,
+                    textAlign: 'center',
                   }}
                 >
-                  <Text
-                    numberOfLines={2}
-                    sx={{
-                      fontSize: 12,
-                      fontWeight: 'bold',
-                      color: 'white',
-                      opacity: isActive ? 1 : 0.5,
-                      textAlign: 'center',
-                    }}
-                  >
-                    {route?.title?.toUpperCase() ?? ''}
-                  </Text>
-                </ShadowButton>
-              </Pressable>
-            </View>
+                  {route?.title?.toUpperCase() ?? ''}
+                </Text>
+              </ShadowButton>
+            </Pressable>
           )
         })}
-    </View>
+    </Row>
   )
 }
 

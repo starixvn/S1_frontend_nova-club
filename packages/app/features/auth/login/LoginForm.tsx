@@ -1,5 +1,6 @@
 import Button from 'app/components/common/Button'
 import CheckBox from 'app/components/common/CheckBox'
+import FormContainer from 'app/components/form/FormContainer'
 import Input from 'app/components/form/Input'
 import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
@@ -129,11 +130,10 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
     formik
 
   return (
-    <View
+    <FormContainer
       sx={{
-        width: '90%',
+        // width: '90%',
         py: 20,
-        alignSelf: 'center',
       }}
     >
       <Input
@@ -225,7 +225,7 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
       >
         {t('authentication.register')}
       </Button>
-    </View>
+    </FormContainer>
   )
 }
 

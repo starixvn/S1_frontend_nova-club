@@ -62,6 +62,8 @@ const theme = makeTheme({
       alignItems: 'stretch',
       mx: [0, 0, 0, 'auto'],
       minWidth: [0, 0, 0, 590],
+      p: ['$pagePadding'],
+      alignSelf: 'stretch',
     },
   },
   text: {
