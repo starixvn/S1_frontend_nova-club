@@ -11,7 +11,8 @@ import React, { startTransition, useEffect, useMemo, useState } from 'react'
 import { useGameListMultipleQuery } from 'services/gameApi'
 import { createParam } from 'solito'
 import groupBy from 'lodash/groupBy'
-import { Game } from 'services/gameApi.type'
+import { Game, LatestWinnerType } from 'services/gameApi.type'
+import LatestWinnerSection from 'desktop-ext/components/game/LatestWinnerSection'
 
 type Props = {}
 
@@ -58,8 +59,11 @@ function SlotScreen({}: Props) {
   return (
     <Container>
       <Row sx={{ gap: '$3', my: '$sectionBottomSpace' }}>
-        <View sx={{ flex: 3, minHeight: 300, bg: '$secondary.500' }}></View>
-        <View sx={{ flex: 2, minHeight: 300, bg: '$secondary.500' }}></View>
+        <View sx={{ flex: 0.8, minHeight: 300 }}>
+          <LatestWinnerSection type={LatestWinnerType.Slot} />
+        </View>
+        <View sx={{ flex: 1, minHeight: 300, bg: '$secondary.500' }}></View>
+        <View sx={{ flex: 1, minHeight: 300, bg: '$secondary.500' }}></View>
       </Row>
       <RecentlyPlayedSection />
       {!games || filteredGames == null ? (

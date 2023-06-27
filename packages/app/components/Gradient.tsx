@@ -10,5 +10,5 @@ export type DripsyGradientProps = Override<
 >
 
 export function DripsyGradient(rest: DripsyGradientProps) {
-  return <Gradient {...rest} gradient={rest.gradient} />
+  return <Gradient {...rest} />
 }

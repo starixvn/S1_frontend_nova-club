@@ -10,6 +10,8 @@ import {
   GetGameListResult,
   GetGameUrlQueryArgs,
   GetGameUrlResult,
+  LatestWinner,
+  LatestWinnerType,
 } from './gameApi.type'
 
 /**
@@ -163,6 +165,25 @@ export const gameApi = baseApiWithTag.injectEndpoints({
         }
       },
     }),
+    latestWinner: builder.query<LatestWinner[], LatestWinnerType>({
+      async queryFn(_arg, _queryApi, _extraOptions, fetch) {
+        try {
+          const resp = await fetch({
+            baseUrl: '/',
+            url: `${window.location.origin}/api/latestWinner`,
+            method: 'GET',
+          })
+
+          return {
+            data: resp.data,
+          }
+        } catch (e) {
+          return {
+            data: [],
+          }
+        }
+      },
+    }),
   }),
 })
 
@@ -174,4 +195,5 @@ export const {
   useGetGameListQuery,
   useGetGameListByTagsQuery,
   useGetGameListByCategoryQuery,
+  useLatestWinnerQuery,
 } = gameApi

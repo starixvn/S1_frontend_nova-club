@@ -66,3 +66,14 @@ export interface GameScreenMultipleRequest {
   game_category?: GAME_TYPE_CODE[]
   gdc_game_category?: GDC_GAME_CATEGORY[]
 }
+
+export enum LatestWinnerType {
+  Slot = 'slot',
+  Games = 'games',
+}
+
+export interface LatestWinner {
+  game: Game
+  username: string
+  amount: number
+}

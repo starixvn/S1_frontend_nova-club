@@ -1,8 +1,6 @@
 import Icon from 'app/components/Icon'
 import RecentlyPlayedSection from 'app/features/home/RecentlyPlayedSection'
-import {
-  withGameFilterProvider
-} from 'app/provider/gameFilter/GameFilterProvider'
+import { withGameFilterProvider } from 'app/provider/gameFilter/GameFilterProvider'
 import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'app/utils/constant'
 import {
   ActivityIndicator,
@@ -14,11 +12,12 @@ import {
 } from 'dripsy'
 import React, { startTransition, useEffect, useState } from 'react'
 import { useGameListMultipleQuery } from 'services/gameApi'
-import { Game } from 'services/gameApi.type'
+import { Game, LatestWinnerType } from 'services/gameApi.type'
 import { createParam } from 'solito'
 import { SolitoImage } from 'solito/image'
 import { useRouter } from 'solito/router'
 import GameList from './GameList'
+import LatestWinnerSection from 'desktop-ext/components/game/LatestWinnerSection'
 
 type Props = {}
 
@@ -62,8 +61,11 @@ function _GamesScreen({}: Props) {
   return (
     <Container>
       <Row sx={{ gap: '$3', my: '$sectionBottomSpace' }}>
-        <View sx={{ flex: 3, minHeight: 300, bg: '$secondary.500' }}></View>
-        <View sx={{ flex: 2, minHeight: 300, bg: '$secondary.500' }}></View>
+        <View sx={{ flex: 0.8, minHeight: 300 }}>
+          <LatestWinnerSection type={LatestWinnerType.Games} />
+        </View>
+        <View sx={{ flex: 1, minHeight: 300, bg: '$secondary.500' }}></View>
+        <View sx={{ flex: 1, minHeight: 300, bg: '$secondary.500' }}></View>
       </Row>
       <RecentlyPlayedSection />
       {filteredGames == null ? (

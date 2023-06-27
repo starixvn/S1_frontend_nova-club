@@ -83,7 +83,10 @@ const theme = makeTheme({
     },
     $secondary: {
       100: '#FAFA7F',
+      200: '#FFC65D',
+      300: '#F9B32A',
       500: '#E69B0D',
+      600: '#D79535',
     },
     $tertiary: '#7fcfff',
     $success: '#01ff0d',
