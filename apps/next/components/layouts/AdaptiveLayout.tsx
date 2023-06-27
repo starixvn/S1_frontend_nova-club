@@ -36,6 +36,7 @@ export default function AdaptiveLayout({
     if (window.innerWidth < 992) {
       return Component.MobileLayout || MobileBaseLayout
     } else return Component.DesktopLayout || DesktopBaseLayout
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isClientReady, width, router])
 
   useEffect(() => {

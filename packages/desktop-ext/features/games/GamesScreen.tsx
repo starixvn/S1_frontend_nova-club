@@ -1,7 +1,10 @@
 import Icon from 'app/components/Icon'
+import { DesktopGamesFilter, SUB_ROUTES } from 'app/features/games/subroutes'
+import useGameScreen from 'app/features/games/useGameScreen'
 import RecentlyPlayedSection from 'app/features/home/RecentlyPlayedSection'
 import { withGameFilterProvider } from 'app/provider/gameFilter/GameFilterProvider'
 import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'app/utils/constant'
+import LatestWinnerSection from 'desktop-ext/components/game/LatestWinnerSection'
 import {
   ActivityIndicator,
   Container,
@@ -10,53 +13,17 @@ import {
   Text,
   View,
 } from 'dripsy'
-import React, { startTransition, useEffect, useState } from 'react'
-import { useGameListMultipleQuery } from 'services/gameApi'
-import { Game, LatestWinnerType } from 'services/gameApi.type'
-import { createParam } from 'solito'
+import React from 'react'
+import { LatestWinnerType } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
-import { useRouter } from 'solito/router'
 import GameList from './GameList'
-import LatestWinnerSection from 'desktop-ext/components/game/LatestWinnerSection'
 
 type Props = {}
 
-type Params = {
-  type?: string
-}
-const { useParam } = createParam<Params>()
-
 function _GamesScreen({}: Props) {
-  const { data: games } = useGameListMultipleQuery({
-    game_category: [
-      GAME_TYPE_CODE.GAMES,
-      GAME_TYPE_CODE.FISHING,
-      GAME_TYPE_CODE.LOTTERY,
-    ],
-    gdc_game_category: [GDC_GAME_CATEGORY.CARDGAME],
-  })
-
-  const [filteredGames, setFilteredGames] = useState<Game[]>()
-  const { push } = useRouter()
-
-  const [type, setType] = useParam('type')
-  const route = type ? SUB_ROUTES[type] : undefined
-  if (!route) setType(SUB_ROUTES.local.route)
-
-  useEffect(() => {
-    if (route && route.filter && games) {
-      const filtered = route.filter(games)
-      startTransition(() => setFilteredGames(filtered))
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [type, games])
-
-  function onFilterClicked(r, i: number) {
-    if (r.filter) setType(r.route)
-    else if (r.route) {
-      push(r.route)
-    }
-  }
+  const { route, filteredGames, onFilterClicked } = useGameScreen(
+    SUB_ROUTES.local.route
+  )
 
   return (
     <Container>
@@ -86,59 +53,10 @@ function _GamesScreen({}: Props) {
   )
 }
 
-const SUB_ROUTES = {
-  'keno-lottery': {
-    label: 'Keno / Xổ số',
-    icon: 'lotto',
-    route: 'keno-lottery',
-    filter: (games: Game[]) => {
-      return games.filter((g) => g.gtc === GAME_TYPE_CODE.LOTTERY)
-    },
-  },
-  fishing: {
-    label: 'Bắn Cá',
-    icon: 'fishing',
-    route: 'fishing',
-    filter: (games: Game[]) => {
-      return games.filter((g) => g.gtc === GAME_TYPE_CODE.FISHING)
-    },
-  },
-  card: {
-    label: 'Card Game',
-    icon: 'card-game',
-    route: 'card',
-    filter: (games: Game[]) => {
-      return games.filter((g) => g.gdc_cat === GDC_GAME_CATEGORY.CARDGAME)
-    },
-  },
-  local: {
-    label: 'Game Bài',
-    icon: 'games',
-    route: 'local',
-    filter: (games: Game[]) => {
-      return games.filter((g) => g.gtc === GAME_TYPE_CODE.GAMES)
-    },
-  },
-}
-
-const GAMES_FILTER = Object.keys(SUB_ROUTES).reduce(
-  (acc, cur) => {
-    acc.unshift(SUB_ROUTES[cur])
-    return acc
-  },
-  [
-    {
-      label: 'Slots',
-      icon: 'sl',
-      route: '/slots',
-    },
-  ]
-)
-
 const GameTypeFilter = ({ onFilterClicked, ...rest }) => {
   return (
     <View sx={{ gap: '$3', width: [175, 175, 175, 175, 200] }} {...rest}>
-      {GAMES_FILTER.map((r, i) => {
+      {DesktopGamesFilter.map((r, i) => {
         return (
           <Pressable
             key={i}

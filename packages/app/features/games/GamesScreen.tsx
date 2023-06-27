@@ -4,85 +4,43 @@ import IconButtonGradientGroup from 'app/components/IconButtonGradientGroup'
 import IconButtonGradientToggle from 'app/components/IconButtonGradientToggle'
 import GameSectionByProviderItem from 'app/components/game/GameSectionByProviderItem'
 import ProviderList from 'app/components/game/ProviderList'
-import {
-  useGameFilter,
-  withGameFilterProvider,
-} from 'app/provider/gameFilter/GameFilterProvider'
+import { withGameFilterProvider } from 'app/provider/gameFilter/GameFilterProvider'
 import {
   GAME_TYPE_CODE,
   GDC_GAME_CATEGORY,
   ProviderImageCategory,
 } from 'app/utils/constant'
-import React, { RefObject, useEffect, useMemo, useRef } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 import { Platform } from 'react-native'
 import { Game } from 'services/gameApi.type'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 import TopGameSection from '../home/TopGameSection'
+import { MobileGamesFilter } from './subroutes'
+import useGameScreen from './useGameScreen'
+import groupBy from 'lodash/groupBy'
 
-const enum FILTER_CATEGORY {
-  GDC = 'gdc',
-}
+const GamesScreen = () => {
+  const { type, filteredGames, onFilterClicked } = useGameScreen()
 
-const GAMES_FILTER = [
-  {
-    label: 'Recommended',
-    icon: 'jackpot',
-    onPress: (scrollRef: RefObject<FlashList<Game[]>>) => {
+  useEffect(() => {
+    if (type) {
       if (Platform.OS === 'web') {
         document
-          .getElementById(`recGame`)
+          .getElementById(`gameSectionSABA`)
           ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-      } else {
-        scrollRef.current?.scrollToEnd({ animated: true })
-      }
-    },
-  },
-  {
-    label: 'All',
-    icon: 'all',
-  },
-  {
-    label: 'Card Game',
-    icon: 'card-game',
-    gameType: GDC_GAME_CATEGORY.CARDGAME,
-    filterCategory: FILTER_CATEGORY.GDC,
-  },
-  {
-    label: 'Local Game',
-    icon: 'games',
-    gameType: GAME_TYPE_CODE.GAMES,
-  },
-  {
-    label: 'Fishing',
-    icon: 'fishing',
-    gameType: GAME_TYPE_CODE.FISHING,
-  },
-  {
-    label: 'Keno/Lottery',
-    icon: 'lotto',
-    gameType: GAME_TYPE_CODE.LOTTERY,
-  },
-]
-
-const _GamesScreen = () => {
-  const { games, gamesByProviders, filterKey, setFilteredGames } =
-    useGameFilter()
-
-  // useEffect(() => {
-  //   if (filterKey) {
-  //     if (Platform.OS === 'web') {
-  //       document
-  //         .getElementById(`gameSectionSABA`)
-  //         ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-  //     } else
-  //       flashListRef.current?.scrollToIndex({
-  //         animated: true,
-  //         index: 0,
-  //       })
-  //   }
-  // }, [filterKey])
+      } else
+        flashListRef.current?.scrollToIndex({
+          animated: true,
+          index: 0,
+        })
+    }
+  }, [type])
 
   const flashListRef = useRef<FlashList<Game[]>>(null)
+
+  const gamesByProviders = useMemo(() => {
+    return groupBy(filteredGames, 'gpc')
+  }, [filteredGames])
 
   const providers = useMemo(() => {
     return Object.keys(gamesByProviders)
@@ -104,6 +62,8 @@ const _GamesScreen = () => {
       })
     }
   }
+
+  console.log('type', type)
 
   return (
     <FlashList
@@ -129,33 +89,17 @@ const _GamesScreen = () => {
               alignSelf: 'center',
             }}
           >
-            {GAMES_FILTER.map((r, i) => {
+            {MobileGamesFilter.map((r, i) => {
               return (
                 <IconButtonGradientToggle
                   sx={{ flex: 1 }}
                   key={r.label}
-                  active={r.gameType === filterKey && !r.onPress}
+                  active={type ? r.route.includes(type) : r.route === '/games'}
                   label={r.label}
                   size={50}
                   icon={r.icon ?? 'notice'}
                   labelProps={{ style: { fontSize: 11 }, numberOfLines: 2 }}
-                  onPress={
-                    r.onPress
-                      ? () => r.onPress(flashListRef)
-                      : () => {
-                          const filtered = r.gameType
-                            ? games.filter((g) => {
-                                if (r.filterCategory === FILTER_CATEGORY.GDC) {
-                                  return g.gdc_cat === r.gameType
-                                } else {
-                                  return g.gtc === r.gameType
-                                }
-                              })
-                            : games
-
-                          setFilteredGames(filtered, r.gameType)
-                        }
-                  }
+                  onPress={() => onFilterClicked(r, i)}
                 />
               )
             })}
@@ -170,19 +114,8 @@ const _GamesScreen = () => {
           />
         </>
       }
-      // ListFooterComponent={}
     />
-    // <GameSectionByProvider data={gamesByProviders} />
   )
 }
-
-const GamesScreen = withGameFilterProvider(_GamesScreen, {
-  gameTypes: [
-    GAME_TYPE_CODE.GAMES,
-    GAME_TYPE_CODE.FISHING,
-    GAME_TYPE_CODE.LOTTERY,
-  ],
-  gameCategories: [GDC_GAME_CATEGORY.CARDGAME],
-})
 
 export default GamesScreen

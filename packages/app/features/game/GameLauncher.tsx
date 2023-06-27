@@ -17,6 +17,8 @@ import { GetGameUrlResult } from 'services/gameApi.type'
 import useGameWindow from './useGameWindow'
 import { useMaintenanceStatus } from './useMaintenanceStatus'
 import { useRouter } from 'solito/router'
+import { useResponsiveValue } from 'dripsy'
+import { useModal } from 'react-native-modalfy'
 
 const ProviderRunningWithoutIframe = ['PRGP']
 const ProviderRunningWithoutIframePlatformBased = Platform.select({
@@ -37,16 +39,18 @@ const GameLauncher = () => {
   const { checkMaintenance } = useMaintenanceStatus()
   const { toggleLoading } = useLoading()
   const { push, replace } = useRouter()
+  const isDesktop = useResponsiveValue([false, false, false, true])
+  const { openModal } = useModal()
 
   const isLoggedIn = !!authState.info
 
   useEffect(() => {
     LaunchGame = (payload: LaunchGamePayload) => {
-      console.log('is loggin', isLoggedIn)
       if (isLoggedIn) dispatch(GameLauncherActions.launchGame(payload))
-      else push('/auth/login')
+      else
+        isDesktop ? showAlert('Please Login to play game') : push('/auth/login')
     }
-  }, [dispatch, isLoggedIn, push, replace])
+  }, [dispatch, isLoggedIn, push, replace, isDesktop, openModal])
 
   const {
     providerCode,
