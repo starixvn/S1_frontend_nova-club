@@ -152,7 +152,6 @@ const MainHeader = () => {
     <View
       sx={{
         bg: '$primary.500',
-        flex: 1,
       }}
     >
       <HeaderContainer insetTop={top} key={'MainHeader'}>

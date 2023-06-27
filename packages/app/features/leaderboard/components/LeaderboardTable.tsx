@@ -136,7 +136,11 @@ const LeaderboardTable = ({ maxRow }) => {
                 <Icon
                   name="down"
                   color={getRankStatusImage(item.status)}
-                  sx={{ rotate: item.status === 1 ? '180deg' : '0deg' }}
+                  sx={{
+                    transform: [
+                      { rotate: item.status === 1 ? '180deg' : '0deg' },
+                    ],
+                  }}
                 />
               )}
             </DataTableCell>

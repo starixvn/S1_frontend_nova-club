@@ -4,12 +4,10 @@ import IconButtonGradientGroup from 'app/components/IconButtonGradientGroup'
 import IconButtonGradientToggle from 'app/components/IconButtonGradientToggle'
 import GameSectionByProviderItem from 'app/components/game/GameSectionByProviderItem'
 import ProviderList from 'app/components/game/ProviderList'
-import { withGameFilterProvider } from 'app/provider/gameFilter/GameFilterProvider'
 import {
-  GAME_TYPE_CODE,
-  GDC_GAME_CATEGORY,
-  ProviderImageCategory,
+  ProviderImageCategory
 } from 'app/utils/constant'
+import groupBy from 'lodash/groupBy'
 import React, { useEffect, useMemo, useRef } from 'react'
 import { Platform } from 'react-native'
 import { Game } from 'services/gameApi.type'
@@ -17,7 +15,6 @@ import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 import TopGameSection from '../home/TopGameSection'
 import { MobileGamesFilter } from './subroutes'
 import useGameScreen from './useGameScreen'
-import groupBy from 'lodash/groupBy'
 
 const GamesScreen = () => {
   const { type, filteredGames, onFilterClicked } = useGameScreen()
@@ -62,8 +59,6 @@ const GamesScreen = () => {
       })
     }
   }
-
-  console.log('type', type)
 
   return (
     <FlashList

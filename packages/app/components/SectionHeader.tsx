@@ -21,6 +21,7 @@ export default function SectionHeader({
   return (
     <Root sx={sx}>
       <Shadow
+        safeRender
         offset={[0, -1]}
         distance={1}
         stretch
@@ -36,7 +37,6 @@ export default function SectionHeader({
             borderTopLeftRadius: 30,
             borderBottomLeftRadius: 30,
             p: [6, '$2'],
-            ...sx,
           }}
           {...rest}
         >

@@ -7,6 +7,9 @@ const expoConfig = ({ config }: ConfigContext): ExpoConfig => ({
   version: '2.0.0',
   scheme: 'vui123',
   platforms: ['ios', 'android'],
+  splash: {
+    backgroundColor: '#1E2238',
+  },
   updates: {
     enabled: false,
   },

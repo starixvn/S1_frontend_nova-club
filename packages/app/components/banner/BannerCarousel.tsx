@@ -1,6 +1,6 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import useContainerWidth from 'app/hooks/useContainerWidth'
-import { Row, SxProp, View, useDripsyTheme } from 'dripsy'
+import { Row, SxProp, Text, View, useDripsyTheme } from 'dripsy'
 import { Skeleton } from 'moti/skeleton'
 import React, { ComponentType, useLayoutEffect, useRef, useState } from 'react'
 import { View as RNView, useWindowDimensions } from 'react-native'
@@ -38,8 +38,18 @@ export default function BannerCarousel({
   const ratio = 1920 / 500
   const height = width / ratio
   const showCarousel = data != null && width > 0
+
   return (
-    <View ref={rootRef} sx={{ width: '100%', aspectRatio: ratio, ...sx }}>
+    <View
+      ref={rootRef}
+      sx={{
+        width: '100%',
+        aspectRatio: ratio,
+        flexDirection: 'row',
+        alignItems: 'stretch', // for App to be able to use height 100% on skeleton
+        ...sx,
+      }}
+    >
       <SkeletonPlaceholder width={'100%'} height={'100%'}>
         {showCarousel ? (
           <Carousel

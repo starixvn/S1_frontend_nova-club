@@ -1,5 +1,4 @@
 import BannerCarousel from 'app/components/banner/BannerCarousel'
-import Banner from 'app/components/banner/BannerCarousel'
 import React from 'react'
 import { useBannerQuery } from 'services/contentApi'
 

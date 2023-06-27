@@ -39,9 +39,9 @@ const StyledShadowButton = styled(Shadow)(
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    pb: 9,
-    pt: 10, // 1 more unit to balance the shadow at bottom
-    px: 8,
+    pb: [6, 9],
+    pt: [7, 10], // 1 more unit to balance the shadow at bottom
+    px: [6, 8],
     bg: isActive ? '$primary.500' : '$primary.700',
   })
 )
