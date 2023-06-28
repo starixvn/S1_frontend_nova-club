@@ -1,6 +1,7 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Button from 'app/components/common/Button'
 import CardInput from 'app/components/form/CardInput'
+import FormContainer from 'app/components/form/FormContainer'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
 import SelectWithDropdown from 'app/components/select/SelectWithDropdown'
@@ -8,13 +9,11 @@ import useAddBank from 'app/hooks/bank/useAddBank'
 import useLocalization from 'app/provider/localization'
 import { MaxLength } from 'app/utils/constant'
 import isDesktop from 'app/utils/isDesktop'
-import DesktopPage from 'desktop-ext/components/layout/DesktopPage'
 import { View, styled } from 'dripsy'
 import React, { useMemo } from 'react'
 import { useWithdrawalBankQuery } from 'services/bank'
 import RealNameForm from '../components/RealNameForm'
 import DesktopPageContainer from 'desktop-ext/components/layout/DesktopPage'
-import FormContainer from 'app/components/form/FormContainer'
 
 const AddBankAccountScreen = () => {
   const { t } = useLocalization()
@@ -59,10 +58,6 @@ const AddBankAccountScreen = () => {
     setFieldValue,
     setValues,
   } = formik
-  console.log(
-    '🚀 ~ file: index.tsx:62 ~ AddBankAccountScreen ~ errors:',
-    errors
-  )
 
   const handleSelected = (value) => {
     const item = bankData?.find((el) => el.bank_code === value)
@@ -72,14 +67,14 @@ const AddBankAccountScreen = () => {
   return (
     <PageWithBackHeader header={{ title: t('bank.addBankAccount') }}>
       <ContentWrapper desktop={desktop}>
-        <FormContainer>
+        <DesktopPageContainer>
           <RealNameForm formik={formik}>
             {desktop ? (
               <View sx={{ marginBottom: '$3' }}>
                 <SelectWithDropdown
                   label={t('bank.bank')}
                   options={sheetData}
-                  selected={values.bank?.bank_name}
+                  value={values.bank?.bank_name}
                   onSelected={(e) => handleSelected(e)}
                 />
               </View>
@@ -120,7 +115,7 @@ const AddBankAccountScreen = () => {
           >
             {t('common.next')}
           </Button>
-        </FormContainer>
+        </DesktopPageContainer>
       </ContentWrapper>
     </PageWithBackHeader>
   )

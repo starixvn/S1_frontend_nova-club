@@ -42,7 +42,6 @@ function SelectWithCardGrid<T>(props: SelectWithCardGrid<T>) {
                       // p: '$2',
                     }}
                     onPress={() => {
-                      console.log('topion', option)
                       onSelected(option.value)
                       closeActionSheet()
                     }}

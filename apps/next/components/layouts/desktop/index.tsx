@@ -15,3 +15,11 @@ export const DesktopAccountLayout = dynamic(() => import('./AccountLayout'), {
   loading: () => <ActivityIndicator />,
   ssr: false,
 })
+
+export const DesktopLeaderboardLayout = dynamic(
+  () => import('./LeaderboardLayout'),
+  {
+    loading: () => <ActivityIndicator />,
+    ssr: false,
+  }
+)

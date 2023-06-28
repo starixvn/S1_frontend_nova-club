@@ -46,7 +46,7 @@ export const Profile_Wallet_Route: Route[] = [
   },
   {
     label: 'Bank Account',
-    path: '/bank',
+    path: '/account/bank',
     icon: 'card',
   },
   {
@@ -94,7 +94,7 @@ export const Profile_Quick_Navigation_Path: Route[] = [
   // },
   {
     label: 'menu.leaderboard',
-    path: '/account/leaderboard',
+    path: '/account/leaderboard/event',
     icon: 'crown',
   },
   // {

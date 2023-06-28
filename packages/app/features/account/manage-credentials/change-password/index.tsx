@@ -5,6 +5,7 @@ import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
 import isDesktop from 'app/utils/isDesktop'
 import validation, { PASSWORD_MAX_LENGTH } from 'app/utils/validation'
+import DesktopPageContainer from 'desktop-ext/components/layout/DesktopPage'
 import { ScrollView, styled, Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React from 'react'
@@ -87,7 +88,7 @@ const ChangePasswordPage = () => {
       contentContainerSx={{ pb: 20, px: '$4', pt: '$4' }}
       bounces={false}
     >
-      <FormContainer>
+      <DesktopPageContainer>
         <Input
           responsive
           label={t('manageCredentials.pw.oldPw')}
@@ -156,7 +157,7 @@ const ChangePasswordPage = () => {
             {t('common.submit')}
           </Button>
         </View>
-      </FormContainer>
+      </DesktopPageContainer>
     </ScrollView>
   )
 }

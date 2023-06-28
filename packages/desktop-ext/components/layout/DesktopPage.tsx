@@ -1,3 +1,4 @@
+import FormContainer from 'app/components/form/FormContainer'
 import isDesktop from 'app/utils/isDesktop'
 import { View } from 'dripsy'
 import React, { useMemo } from 'react'
@@ -24,7 +25,10 @@ const DesktopPage = ({ center = true, children }) => {
 const DesktopPageContainer = ({ children }) => {
   const desktop = isDesktop()
 
-  const PageComponent = useMemo(() => (desktop ? DesktopPage : View), [desktop])
+  const PageComponent = useMemo(
+    () => (desktop ? FormContainer : View),
+    [desktop]
+  )
   return <PageComponent>{children}</PageComponent>
 }
 

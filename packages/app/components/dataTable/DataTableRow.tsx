@@ -72,7 +72,7 @@ const RowView = styled(View)(({ size }: { size: 'big' | 'small' }) => ({
 }))
 
 const ContentView = styled(View)({
-  flex: 1,
+  flexGrow: 1,
   flexDirection: 'row',
 })
 

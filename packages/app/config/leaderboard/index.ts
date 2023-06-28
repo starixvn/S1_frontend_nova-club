@@ -39,11 +39,11 @@ export const getRankingImage = (rank) => {
 
 export const getRankStatusImage = (status) => {
   switch (status) {
-    case 0:
+    case 'r':
+      return 'white'
+    case 'u':
       return '#56FE66'
-    case 1:
-      return '#56FE66'
-    case 2:
+    case 'd':
       return '#F30106'
 
     default:

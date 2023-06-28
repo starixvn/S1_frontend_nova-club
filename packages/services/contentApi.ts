@@ -7,7 +7,9 @@ import {
   CommissionQueryArgs,
   CommissionTableResult,
   JackpotAmountResult,
+  LeaderboardRankingResult,
   LeaderboardResult,
+  RankingItem,
 } from './contentApi.type'
 
 /**
@@ -26,6 +28,15 @@ export const contentApi = baseApiWithTag.injectEndpoints({
         url: `/static_api/leaderboard`,
         method: 'GET',
       }),
+    }),
+    getLeaderboard: builder.query<RankingItem[], void>({
+      query: () => ({
+        url: `/static_api/getLeaderboard`,
+        method: 'GET',
+      }),
+      transformResponse: ({ data }: { data: LeaderboardRankingResult }) => {
+        return data.rows ?? []
+      },
     }),
     commissionTable: builder.query<
       IResponse<CommissionTableResult[]>,
@@ -76,6 +87,7 @@ export const contentApi = baseApiWithTag.injectEndpoints({
 export const {
   useBannerQuery,
   useLeaderboardQuery,
+  useGetLeaderboardQuery,
   useCommissionTableQuery,
   useAnnouncementQuery,
   useAffiliateUsernameQuery,

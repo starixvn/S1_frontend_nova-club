@@ -59,7 +59,7 @@ const DataTableTitle = ({
   center = true,
   textStyle,
   containerStyle,
-  numberOfLines = 1,
+  numberOfLines = 2,
   ...rest
 }: Props) => {
   return (
@@ -97,8 +97,10 @@ const TitleView = styled(View)(
 
 const ContentText = styled(Text)({
   lineHeight: 24,
+  fontSize: 14,
   fontWeight: 'bold',
   alignItems: 'center',
+  textAlign: 'center',
 })
 
 export default DataTableTitle

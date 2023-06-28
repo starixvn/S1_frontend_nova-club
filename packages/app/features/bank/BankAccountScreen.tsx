@@ -3,6 +3,7 @@ import React from 'react'
 import { usePlayerBankQuery } from 'services/bank'
 import { useRouter } from 'solito/router'
 import BankCardForm from './components/BankCardForm'
+import DesktopPageContainer from 'desktop-ext/components/layout/DesktopPage'
 
 const BankAccountScreen = () => {
   const { t } = useLocalization()
@@ -14,13 +15,15 @@ const BankAccountScreen = () => {
   }
 
   return (
-    <BankCardForm
-      bankList={playerBankList}
-      buttonLabel={t('bank.addBankAccount')}
-      isLoading={isLoading}
-      onPress={handlePress}
-      isCrypto={false}
-    />
+    <DesktopPageContainer>
+      <BankCardForm
+        bankList={playerBankList}
+        buttonLabel={t('bank.addBankAccount')}
+        isLoading={isLoading}
+        onPress={handlePress}
+        isCrypto={false}
+      />
+    </DesktopPageContainer>
   )
 }
 

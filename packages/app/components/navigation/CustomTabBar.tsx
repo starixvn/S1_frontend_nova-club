@@ -18,9 +18,6 @@ export type CustomTabBarProps = {
 }
 
 const CustomTabBar = ({ routes, currentIndex, onPress }: CustomTabBarProps) => {
-  const handlePress = (value) => {
-    onPress(value)
-  }
   return (
     <DripsyGradient gradient="surface" sx={{}}>
       <Container
@@ -51,7 +48,7 @@ export const TabBarSelection = ({
     <Row sx={{ gap: '$3', justifyContent: 'center' }}>
       {routes.length > 0 &&
         routes.map((route, index) => {
-          const isActive = currentIndex === index
+          const isActive = currentIndex === route.index
           return (
             <Pressable
               sx={{ maxWidth: 200, flex: 1, py: '$3' }}

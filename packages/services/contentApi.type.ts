@@ -56,3 +56,15 @@ export interface JackpotAmountResult {
   increment: string
   jackpotAmount: string
 }
+
+export interface LeaderboardRankingResult {
+  row_count_total: number
+  rows: RankingItem[]
+}
+
+export type RankingItem = {
+  rank: number
+  username: string
+  points: string
+  status: string
+}

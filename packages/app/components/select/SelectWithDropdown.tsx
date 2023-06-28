@@ -6,6 +6,7 @@ import * as DropdownMenu from 'zeego/dropdown-menu'
 import Icon from '../Icon'
 import Label from '../Label'
 import { DropdownMenuContent } from './DropMenu'
+import useLocalization from 'app/provider/localization'
 
 export const DropdownMenuRoot = DropdownMenu.Root
 export const DropdownMenuTrigger = DropdownMenu.Trigger
@@ -13,10 +14,10 @@ export const DropdownMenuItemTitle = DropdownMenu.ItemTitle
 export const DropdownMenuItem = DropdownMenu.Item
 
 type SelectWithDropdownProps = {
-  label: string
+  label?: string
   placeholder?: string
   options: SelectOptions[]
-  selected: string | undefined
+  value: string | undefined
   onSelected: (arg0) => void
   renderEmpty?: () => JSX.Element
 }
@@ -25,13 +26,15 @@ const SelectWithDropdown = ({
   label,
   placeholder,
   options,
-  selected,
+  value,
   renderEmpty,
   onSelected,
 }: SelectWithDropdownProps) => {
+  const { t } = useLocalization()
+
   return (
     <View sx={{ mb: '$3' }}>
-      {label && <Label>{label} :</Label>}
+      {label && <Label>{`${label} :`}</Label>}
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
           <Pressable>
@@ -45,8 +48,8 @@ const SelectWithDropdown = ({
                 justifyContent: 'space-between',
               }}
             >
-              <Text sx={{ opacity: selected ? 1 : 0.5 }}>
-                {selected ? selected : placeholder}
+              <Text sx={{ opacity: value ? 1 : 0.5 }}>
+                {value ? value : placeholder}
               </Text>
               <Icon name="down" color="white" />
             </Row>
@@ -68,13 +71,15 @@ const SelectWithDropdown = ({
                       onSelect={() => onSelected(item.value)}
                     >
                       <Row sx={{ alignItems: 'center', gap: 12 }}>
-                        <SolitoImage
-                          src={item.icon ?? ''}
-                          height={60}
-                          width={60}
-                          alt=""
-                        />
-                        <Text>{item.label}</Text>
+                        {item.icon && (
+                          <SolitoImage
+                            src={item.icon ?? ''}
+                            height={60}
+                            width={60}
+                            alt=""
+                          />
+                        )}
+                        <Text sx={{ p: 8 }}>{t(item.label)}</Text>
                       </Row>
                     </DropdownMenuItem>
                   )

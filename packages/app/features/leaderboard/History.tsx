@@ -1,35 +1,58 @@
 import DataTable from 'app/components/dataTable/DataTable'
-import DataTableCell from 'app/components/dataTable/DataTableCell'
 import DataTableHeader from 'app/components/dataTable/DataTableHeader'
-import DataTableRow from 'app/components/dataTable/DataTableRow'
 import DataTableTitle from 'app/components/dataTable/DataTableTitle'
-import Icon from 'app/components/Icon'
-import Input from 'app/components/form/Input'
+import Select from 'app/components/select/Select'
+import SelectWithDropdown from 'app/components/select/SelectWithDropdown'
 import useLocalization from 'app/provider/localization'
-import { toThousandSeparator } from 'app/utils'
+import { DateFilterOptions } from 'app/utils/constant'
+import isDesktop from 'app/utils/isDesktop'
+import DesktopPageContainer from 'desktop-ext/components/layout/DesktopPage'
 import { View } from 'dripsy'
-import React from 'react'
+import React, { useState } from 'react'
 
 const dummyData = []
 const HistoryScreen = () => {
   const { t } = useLocalization()
+  const desktop = isDesktop()
 
+  const [date, setDate] = useState(DateFilterOptions[4]?.value)
+
+  const options = DateFilterOptions.slice(0, -1)
   return (
-    <View sx={{ flex: 1 }}>
-      <View sx={{ p: 12 }}>
-        <Input
-          value="Monthly"
-          action={({ color }) => <Icon name="down" color={color} />}
-        />
-      </View>
-      <DataTable>
-        <DataTableHeader size="small" containerStyle={{}}>
-          <DataTableTitle>{t('leaderboard.rank').toUpperCase()}</DataTableTitle>
-          <DataTableTitle>{t('profile.playerId').toUpperCase()}</DataTableTitle>
-          <DataTableTitle>{t('common.points').toUpperCase()}</DataTableTitle>
-          <DataTableTitle>{t('menu.tab.status').toUpperCase()}</DataTableTitle>
-        </DataTableHeader>
-        {dummyData.map((item) => (
+    <DesktopPageContainer>
+      <View sx={{ flexGrow: 1 }}>
+        <View sx={{ pt: 12, px: [12, 12, 12, 0] }}>
+          {desktop ? (
+            <SelectWithDropdown
+              options={options}
+              value={date}
+              onSelected={setDate}
+            />
+          ) : (
+            <Select
+              label={t('common.date')}
+              placeholder=""
+              enabledLabel={false}
+              options={options}
+              value={date}
+              onSelected={(e) => setDate(e?.value)}
+            />
+          )}
+        </View>
+        <DataTable>
+          <DataTableHeader size="small">
+            <DataTableTitle>
+              {t('leaderboard.rank').toUpperCase()}
+            </DataTableTitle>
+            <DataTableTitle>
+              {t('profile.playerId').toUpperCase()}
+            </DataTableTitle>
+            <DataTableTitle>{t('common.points').toUpperCase()}</DataTableTitle>
+            <DataTableTitle>
+              {t('menu.tab.status').toUpperCase()}
+            </DataTableTitle>
+          </DataTableHeader>
+          {/* {dummyData.map((item) => (
           <DataTableRow key={item.rank}>
             <DataTableCell>{item.rank}</DataTableCell>
             <DataTableCell>{item.playerId}</DataTableCell>
@@ -38,9 +61,10 @@ const HistoryScreen = () => {
             </DataTableCell>
             <DataTableCell>-</DataTableCell>
           </DataTableRow>
-        ))}
-      </DataTable>
-    </View>
+        ))} */}
+        </DataTable>
+      </View>
+    </DesktopPageContainer>
   )
 }
 
