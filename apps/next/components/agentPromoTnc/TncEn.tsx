@@ -4,7 +4,7 @@ const TncEn = () => {
   return (
     <div>
       <h2>AGENT RECRUITMENT</h2>
-      <p>Promotion Period: 17/05 - 30/06/2023</p>
+      <p>Promotion Period: 17/05 - 31/07/2023</p>
 
       <br />
       <div>
