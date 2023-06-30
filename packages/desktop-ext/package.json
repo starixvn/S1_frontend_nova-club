@@ -5,6 +5,7 @@
   "peerDependencies": {
     "app": "*",
     "dripsy": "*",
-    "solito": "*"
+    "solito": "*",
+    "moti": "*"
   }
 }

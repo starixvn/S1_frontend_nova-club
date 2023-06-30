@@ -132,8 +132,7 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
   return (
     <FormContainer
       sx={{
-        // width: '90%',
-        py: 20,
+        py: '$4',
       }}
     >
       <Input

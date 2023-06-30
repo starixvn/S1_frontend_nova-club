@@ -13,13 +13,12 @@ const AuthHeader = ({ headerDesc, onPress }: AuthHeaderProps) => {
     <>
       <View
         sx={{
-          bg: '$primary.700',
+          bg: '$primary.500',
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
-          pt: top,
+          py: top > 0 ? top : 20,
           px: 20,
-          py: 20,
         }}
       >
         <IconButton onPress={onPress} name="back" />

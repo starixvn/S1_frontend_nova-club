@@ -15,11 +15,12 @@ import {
 } from 'react-native'
 import { Elevation, shadowGenerator } from 'utils/common'
 import Icon, { IconProps } from '../Icon'
+import { FONT_TOP_OFFSET } from 'app/constants/font'
 
 type ActivityIndicatorProps = ComponentProps<typeof ActivityIndicator>
 type TextProps = ComponentProps<typeof Text>
 
-interface ButtonProps extends ComponentProps<typeof Pressable> {
+export interface ButtonProps extends ComponentProps<typeof Pressable> {
   loading?: boolean
 
   /** Add shadow style to button */
@@ -128,6 +129,7 @@ const Button = (props: ButtonProps) => {
     color: 'white',
     fontWeight: 'bold',
     textTransform: 'uppercase',
+    mt: FONT_TOP_OFFSET,
   }
   const titleSxStyle = Object.assign(defaultTitleSxStyle, passedTitleSx, {
     ...(disabled && {
