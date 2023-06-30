@@ -1,7 +1,13 @@
 import RefreshButton from 'app/components/RefreshButton'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import useLocalization from 'app/provider/localization'
-import { ActivityIndicator, ScrollView, Text, View } from 'dripsy'
+import {
+  ActivityIndicator,
+  ScrollView,
+  Text,
+  View,
+  useResponsiveValue,
+} from 'dripsy'
 import { Platform } from 'react-native'
 import BankTransferForm from './BankTransferForm'
 import { usePlayerReportQuery } from 'services/playerApi'
@@ -16,6 +22,7 @@ import HorizontalTransactionRowListHeader from '../component/HorizontalTransacti
 
 const BankTransferScreen = () => {
   const { t } = useLocalization()
+  const horizontalMode = useResponsiveValue([false, false, false, true, true])
 
   const {
     data: transactionData,
@@ -44,35 +51,45 @@ const BankTransferScreen = () => {
         <BankTransferForm />
         <View
           sx={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            px: '$pagePadding',
-            py: '$2',
-            mt: '$4',
+            width: horizontalMode ? '90%' : '100%',
+            alignSelf: 'center',
           }}
         >
-          <Text>{t('transaction.Pending')}</Text>
-          <RefreshButton loading={isFetching} onPress={refetch} />
-        </View>
-        <View sx={{ bg: '$primary.200', py: 2, mb: 20 }}>
-          <HorizontalTransactionRowListHeader />
-        </View>
-        <ScrollView>
-          {transactionIsLoading ? (
-            <ActivityIndicator size="large" />
-          ) : transactionData?.data?.row_count_total ?? 0 > 0 ? (
-            transactionData?.data?.rows.map((item, index) => (
-              <RecentTransactionRow
-                key={item.tx_code}
-                item={item}
-                index={index + 1}
-              />
-            ))
-          ) : (
-            <EmptyResult />
+          <View
+            sx={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              px: '$pagePadding',
+              py: '$2',
+              mt: '$4',
+            }}
+          >
+            <Text>{t('transaction.Pending')}</Text>
+            <RefreshButton loading={isFetching} onPress={refetch} />
+          </View>
+          {horizontalMode && (
+            <View sx={{ bg: '$primary.200', py: 2, mb: 20 }}>
+              <HorizontalTransactionRowListHeader />
+            </View>
           )}
-        </ScrollView>
+
+          <ScrollView>
+            {transactionIsLoading ? (
+              <ActivityIndicator size="large" />
+            ) : transactionData?.data?.row_count_total ?? 0 > 0 ? (
+              transactionData?.data?.rows.map((item, index) => (
+                <RecentTransactionRow
+                  key={item.tx_code}
+                  item={item}
+                  index={index + 1}
+                />
+              ))
+            ) : (
+              <EmptyResult />
+            )}
+          </ScrollView>
+        </View>
       </ScrollView>
     </PageWithBackHeader>
   )
