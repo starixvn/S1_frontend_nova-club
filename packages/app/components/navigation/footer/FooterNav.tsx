@@ -13,14 +13,16 @@ const FooterNav = () => {
       sx={{
         justifyContent: 'center',
         alignItems: 'center',
-        height: desktop ? 48 : 36,
         bg: '$primary.500',
       }}
     >
       <Row
         sx={{
-          width: desktop ? '50%' : '100%',
+          flex: 1,
+          flexWrap: 'wrap',
+          width: desktop ? '70%' : '100%',
           justifyContent: 'space-evenly',
+          p: '$3',
         }}
       >
         <NavLink href="/">{t('footer.aboutUs')}</NavLink>
@@ -37,7 +39,7 @@ const FooterNav = () => {
 const NavLink = ({ href, children }) => {
   return (
     <LinkPressable href={href}>
-      <Text sx={{ fontSize: 12 }}>{children}</Text>
+      <Text sx={{ p: '$2', fontSize: 12 }}>{children}</Text>
     </LinkPressable>
   )
 }

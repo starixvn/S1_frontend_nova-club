@@ -102,12 +102,12 @@ const ProfileDetails = () => {
         />
         <ProfileItem
           label={t('common.playerId')}
-          value={'+' + playerData?.player_id || ''}
+          value={playerData?.player_id || ''}
           copy={true}
         />
         <ProfileItem
           label={t('common.currency')}
-          value={'+' + playerData?.currency || ''}
+          value={playerData?.currency || ''}
         />
       </View>
     </PageWithBackHeader>

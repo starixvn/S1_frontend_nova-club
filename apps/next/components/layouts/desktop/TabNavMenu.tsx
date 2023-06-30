@@ -70,7 +70,7 @@ const NavMenuItem = ({
   onPress,
 }: NavMenuItemProps) => {
   return (
-    <NavMenuPressable href={href} onPress={onPress}>
+    <NavMenuPressable href={href} isActive={isActive} onPress={onPress}>
       {/* <Divider /> */}
       <DripsyGradient gradient="surface">
         <Row

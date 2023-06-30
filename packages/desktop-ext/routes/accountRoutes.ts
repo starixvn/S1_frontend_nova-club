@@ -29,7 +29,7 @@ const _Routes: Readonly<DesktopRoute[]> = [
     key: 'FriendReferral',
     title: 'menu.friendReferral',
     icon: 'friend-ref',
-    route: '/transfer/qr-transfer',
+    route: '/account/referral',
   },
   {
     key: 'CommissionTable',
