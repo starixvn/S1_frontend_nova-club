@@ -75,9 +75,8 @@ const _dynamicModal = {
   DepositConfirmationModal: () =>
     import('app/features/deposit/bank-transfer/DepositConfirmationModal'),
   RegisterModal: () =>
-    import('../../../../apps/next/components/modal/RegisterModal'),
-  AgentLoginModal: () =>
-    import('../../../../apps/next/components/modal/AgentLoginModal'),
+    import('desktop-ext/features/auth/register/RegisterScreen'),
+  AgentLoginModal: () => import('desktop-ext/features/auth/login/LoginScreen'),
 }
 
 function getDynamicComponent(key: DynamicModalType) {

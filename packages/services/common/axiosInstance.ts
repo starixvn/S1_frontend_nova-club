@@ -99,23 +99,25 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
   //   config.headers['Cache-Control'] = 'no-cache'
   // }
 
-  const fraudDetectionNeeded = ['/player_api/createPlayer', '/player_api/login']
+  /** FRAUD DETECTION (No longer using FPS and IOVATION) */
+  // const fraudDetectionNeeded = ['/player_api/createPlayer', '/player_api/login']
 
-  if (fraudDetectionNeeded.includes(url!)) {
-    headers = {
-      ...headers,
-      'Content-Type': 'application/json',
-    }
+  // if (fraudDetectionNeeded.includes(url!)) {
+  //   headers = {
+  //     ...headers,
+  //     'Content-Type': 'application/json',
+  //   }
 
-    Object.assign(requestParams, generateFPSParams())
+  //   Object.assign(requestParams, generateFPSParams())
 
-    try {
-      const black_b = window.IGLOO?.getBlackbox?.()?.blackbox
-      requestParams.black_b = black_b
-    } catch (e) {
-      console.error(e, 'Failed to retrieve blackbox')
-    }
-  }
+  //   try {
+  //     const black_b = window.IGLOO?.getBlackbox?.()?.blackbox
+  //     requestParams.black_b = black_b
+  //   } catch (e) {
+  //     console.error(e, 'Failed to retrieve blackbox')
+  //   }
+  // }
+  /** FRAUD DETECTION */
 
   // IOS 13.3 added security where GET request should not have body data ( use query param instead)
   // if config.data is {} on GET method , ios will reject as well.

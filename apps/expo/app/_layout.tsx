@@ -8,7 +8,9 @@ export default function Root() {
   const [loaded] = useFonts({
     ...AvertaStdUseFont,
   })
+
   if (!loaded) return null
+
   return (
     <Provider>
       <Stack

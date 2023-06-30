@@ -1,23 +1,26 @@
-import { Image, View } from 'dripsy'
-import { useWindowDimensions } from 'react-native'
+import useContainerWidth from 'app/hooks/useContainerWidth'
+import { View } from 'dripsy'
+import { useRef } from 'react'
+import { View as RNView } from 'react-native'
+import { SolitoImage } from 'solito/image'
 
 type AuthBannerProps = {
   bannerRatio: number
 }
 
-const AuthBanner = ({ bannerRatio }: AuthBannerProps) => {
-  const { width } = useWindowDimensions()
+const AuthBanner = () => {
+  const rootRef = useRef<RNView>(null)
+  // const width = useContainerWidth(rootRef)
   return (
-    <>
-      <View sx={{ width: '100%' }}>
-        <Image
-          source={require('../../../assets/images/auth/banner.png')}
-          alt="auth-banner"
-          //   resizeMode="stretch"
-          //   sx={{ width, height: width / bannerRatio }}
-        />
-      </View>
-    </>
+    <View ref={rootRef} sx={{ width: '100%', aspectRatio: 1536 / 400 }}>
+      <SolitoImage
+        src={require('app/assets/images/auth/banner.png')}
+        alt="auth-banner"
+        fill
+        resizeMode="cover"
+        //   sx={{ width, height: width / bannerRatio }}
+      />
+    </View>
   )
 }
 

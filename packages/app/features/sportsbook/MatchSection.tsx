@@ -3,7 +3,6 @@ import { View } from 'dripsy'
 import React, { useState } from 'react'
 import { matchGroupByLeague, useGetRecoMatchQuery } from 'services/matchApi'
 import MatchLeagueSelector from './MatchLeagueSelector'
-import { AnimatePresence, MotiView } from 'moti'
 
 export default function MatchSection() {
   const [selectedLeague, setSelectedLeague] = useState<string>()

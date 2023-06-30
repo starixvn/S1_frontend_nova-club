@@ -1,17 +1,13 @@
-import { DripsyGradient } from 'app/components/Gradient'
 import IconButton from 'app/components/IconButton'
 import IconButtonGradient from 'app/components/IconButtonGradient'
-import { LanguageButton } from 'app/components/LanguageSwitch'
 import Shadow from 'app/components/Shadow'
-import Button from 'app/components/common/Button'
 import { useDrawer } from 'app/hooks/useDrawer'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import useLocalization from 'app/provider/localization'
-import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
+import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { SettingActions } from 'app/store/setting.slice'
 import { toCurrency } from 'app/utils'
-import { Currency, HEADER_HEIGHT, LANGUAGE_CODE } from 'app/utils/constant'
+import { Currency, HEADER_HEIGHT } from 'app/utils/constant'
 import isDesktop from 'app/utils/isDesktop'
 import {
   Container,
@@ -29,11 +25,13 @@ import {
   usePlayerBalanceQuery,
   useTransferAllToOneMutation,
 } from 'services/walletApi'
-import { useRouter } from 'solito/router'
-import HeaderDeposit from './HeaderDeposit'
-import HeaderOverview from './HeaderOverview'
-import HeaderAuthentication from './HeaderAuthentication'
 import { Link } from 'solito/link'
+import { useRouter } from 'solito/router'
+import HeaderAuthentication from './HeaderAuthentication'
+import HeaderAuthenticationDesktop from 'desktop-ext/components/navigation/header/HeaderAuthentication'
+import HeaderDeposit from './HeaderDeposit'
+import HeaderLanguageToggle from './HeaderLanguageToggle'
+import HeaderOverview from './HeaderOverview'
 
 const LogoSize = [
   HEADER_HEIGHT * 0.5,
@@ -65,15 +63,6 @@ const MainHeader = () => {
   const desktop = isDesktop()
   const { theme } = useDripsyTheme()
   const { logout } = useOnAppLogout()
-  const dispatch = useAppDispatch()
-  const lang = useAppSelector((state) => state.setting.locale)
-
-  const setLanguage = (value: LANGUAGE_CODE) => {
-    dispatch(SettingActions.setLocale(value))
-  }
-  const onChangeLanguage = (value: LANGUAGE_CODE) => {
-    setLanguage(value)
-  }
 
   const TriggerLogout = async () => {
     try {
@@ -190,22 +179,7 @@ const MainHeader = () => {
             </Pressable>
             {desktop && (
               <>
-                <HeaderLanguageButtonContainer>
-                  <HeaderLanguageButtonInnerContainer gradient="button">
-                    <LanguageButton
-                      size={26}
-                      languageCode={lang}
-                      onPress={() =>
-                        onChangeLanguage(
-                          lang === LANGUAGE_CODE.VIETNAM
-                            ? LANGUAGE_CODE.ENGLISH
-                            : LANGUAGE_CODE.VIETNAM
-                        )
-                      }
-                      imageSx={{ borderWidth: 1.5 }}
-                    />
-                  </HeaderLanguageButtonInnerContainer>
-                </HeaderLanguageButtonContainer>
+                <HeaderLanguageToggle />
 
                 <Shadow
                   offset={[0, -1]}
@@ -223,7 +197,7 @@ const MainHeader = () => {
                     size={22}
                   />
                 </Shadow>
-                <Shadow
+                {/* <Shadow
                   offset={[0, -1]}
                   startColor={'rgba(255, 255, 255, 0.8)'}
                   distance={1}
@@ -247,7 +221,7 @@ const MainHeader = () => {
                   >
                     {t('common.agentLogin')}
                   </Button>
-                </Shadow>
+                </Shadow> */}
               </>
             )}
 
@@ -260,6 +234,8 @@ const MainHeader = () => {
               />
             )}
           </Row>
+        ) : desktop ? (
+          <HeaderAuthenticationDesktop />
         ) : (
           <HeaderAuthentication />
         )}
@@ -278,24 +254,5 @@ const HeaderContainer = styled(Container)(
     px: 10,
   })
 )
-
-const HeaderLanguageButtonContainer = styled(View)({
-  bg: '$primary.300',
-  borderRadius: 50,
-  alignItems: 'center',
-  justifyContent: 'center',
-  mx: 5,
-})
-
-const HeaderLanguageButtonInnerContainer = styled(DripsyGradient)({
-  alignItems: 'center',
-  justifyContent: 'center',
-  height: 33,
-  width: 33,
-  m: 1,
-  borderColor: '$primary.700',
-  borderWidth: 2,
-  borderRadius: 50,
-})
 
 export default MainHeader

@@ -27,25 +27,23 @@ export default function AuthLayout({
 }: AuthLayoutProps) {
   const { top, bottom } = useSafeArea()
   const { back } = useRouter()
-  const { width } = useWindowDimensions()
   const BANNER_RATIO = 768 / 240
   return (
-    <>
-      <AuthHeader headerDesc={headerDesc} onPress={back} />
-      <AuthBanner bannerRatio={BANNER_RATIO} />
+    <View sx={{ alignItems: 'stretch', flex: 1 }}>
+      <AuthHeader headerDesc={headerDesc} onPress={onBack ?? back} />
       <ScrollView
         bounces={false}
-        sx={{ bg: '$primary.700' }}
+        sx={{ bg: '$primary.700', flex: 1 }}
         contentContainerSx={{
-          minHeight: '70%',
           justifyContent: 'space-between',
         }}
       >
+        {/* <AuthBanner bannerRatio={BANNER_RATIO} /> */}
         <View sx={{ alignItems: 'center' }}>{children}</View>
         <View sx={{ alignItems: 'center', mb: bottom + 8 }}>
           <LanguageSwitch />
         </View>
       </ScrollView>
-    </>
+    </View>
   )
 }

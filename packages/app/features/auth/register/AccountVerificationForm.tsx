@@ -14,6 +14,8 @@ import { useAppSelector } from 'app/provider/redux/store'
 import { useSendUpdateProfileOTPMutation } from 'services/playerApi'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import useAlert from 'app/hooks/useAlert'
+import { useSendRegistrationOtpMutation } from 'services/authApi'
+import FormContainer from 'app/components/form/FormContainer'
 
 interface AccountVerificationFormProps {
   isAgent: boolean
@@ -46,7 +48,7 @@ const AccountVerificationForm = ({
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
 
   const [sendOtp, { isLoading: isOtpLoading }] =
-    useSendUpdateProfileOTPMutation()
+    useSendRegistrationOtpMutation()
 
   const onCheckboxCheck = () => {
     setFieldValue('terms', !values.terms)
@@ -66,7 +68,11 @@ const AccountVerificationForm = ({
 
   const sendOTP = async () => {
     try {
-      const { data, message, success } = await sendOtp().unwrap()
+      const { data, message, success } = await sendOtp({
+        username: values.username?.toLowerCase(),
+        // WIP: Prefix should not be hardcoded
+        contactNumber: '84' + values.contactNumber,
+      }).unwrap()
 
       OTPRef.current?.startOtpTimer()
 
@@ -94,9 +100,8 @@ const AccountVerificationForm = ({
   }
 
   return (
-    <View
+    <FormContainer
       sx={{
-        width: '90%',
         py: 20,
       }}
     >
@@ -106,6 +111,7 @@ const AccountVerificationForm = ({
         textContentType="telephoneNumber"
         prefix="+84"
         inputMode="numeric"
+        maxLength={9}
         action={() => (
           <TimerButton
             accessibilityRole="button"
@@ -219,7 +225,7 @@ const AccountVerificationForm = ({
       >
         <ButtonText>Submit</ButtonText>
       </ButtonContainer>
-    </View>
+    </FormContainer>
   )
 }
 

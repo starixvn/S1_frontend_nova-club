@@ -1,39 +1,38 @@
-import CustomTabBar, {
-  TabBarSelection,
-} from 'app/components/navigation/CustomTabBar'
-import { View } from 'dripsy'
-import { useMemo, useState } from 'react'
-import RegisterForm from './RegisterForm'
-import { LoginType } from '../AuthTypeSelection'
-import { createParam } from 'solito'
-import useLocalization from 'app/provider/localization'
-import { FormikHelpers, useFormik } from 'formik'
-import { RegisterFormValues } from './RegisterScreen'
-import * as Yup from 'yup'
-import validation from 'app/utils/validation'
 import useAlert from 'app/hooks/useAlert'
-import { useAppSelector } from 'app/provider/redux/store'
 import useUniqueId from 'app/hooks/useUniqueId'
-import { useRegisterMutation } from 'services/authApi'
+import { useAppSelector } from 'app/provider/redux/store'
+import { APP_DEVICE_IOS, APP_DEVICE_ANDROID } from 'app/utils/constant'
 import { isBannedTrackingCode } from 'app/utils/referralUtil'
+import validation from 'app/utils/validation'
+import { FormikHelpers, useFormik } from 'formik'
+import { useDynamicAnimation } from 'moti'
+import { useState, useMemo, useEffect, RefObject } from 'react'
 import { Platform } from 'react-native'
-import { APP_DEVICE_ANDROID, APP_DEVICE_IOS } from 'app/utils/constant'
-import AccountVerificationForm from './AccountVerificationForm'
+import { useRegisterMutation } from 'services/authApi'
+import { createParam } from 'solito'
+import { LoginType } from '../AuthTypeSelection'
+import { RegisterFormValues } from './RegisterScreen'
+import useContainerWidth from 'app/hooks/useContainerWidth'
+import { View as RNView } from 'react-native'
+import * as Yup from 'yup'
 
 const { useParam } = createParam<{ t: LoginType }>()
 
-const RegisterFormLayout = () => {
-  const [isStepOne, setIsStepOne] = useState(true)
-  const { t } = useLocalization()
+export default function useRegisterScreen(rootView: RefObject<RNView>) {
   const { showAlert } = useAlert()
+  const width = useContainerWidth(rootView)
+
   const [routes] = useState([
-    { key: 'first', title: t('common.player'), index: 0 },
-    { key: 'second', title: t('common.agent'), index: 1 },
+    { key: 'first', title: 'common.player', index: 0 },
+    { key: 'second', title: 'common.agent', index: 1 },
   ])
+
   const [type, setIsAgentLogin] = useParam('t', { initial: LoginType.Member })
   const [index, setIndex] = useState(0)
   const [isSubmitting, setIsSubmitting] = useState(false)
+
   const isAgentLogin = useMemo(() => type === LoginType.Agent, [type])
+
   const referral = useAppSelector((s) => s.setting.referral)
   const trackingCode = referral?.trackingCode
   const { uuid } = useUniqueId()
@@ -133,32 +132,43 @@ const RegisterFormLayout = () => {
     onSubmit,
   })
 
-  console.log('check switch page still exist', formik.values.username)
+  const onRegisterSuccess = () => {
+    animationState.animateTo({
+      translateX: -width,
+    })
+  }
 
-  return (
-    <View sx={{ width: '90%', alignSelf: 'center' }}>
-      {isStepOne ? (
-        <>
-          <View sx={{ width: '100%', minHeight: 60 }}>
-            <TabBarSelection
-              currentIndex={index}
-              onPress={handlePress}
-              routes={routes}
-            />
-          </View>
-          <RegisterForm
-            isAgent={isAgentLogin}
-            formik={formik}
-            onSuccess={() => setIsStepOne(!isStepOne)}
-          />
-        </>
-      ) : (
-        <View sx={{ mt: 60 }}>
-          <AccountVerificationForm isAgent={isAgentLogin} formik={formik} />
-        </View>
-      )}
-    </View>
-  )
+  const onBack = () => {
+    animationState.animateTo({
+      translateX: 0,
+    })
+  }
+
+  const animationState = useDynamicAnimation(() => {
+    return {
+      translateX: 0,
+    }
+  })
+
+  useEffect(() => {
+    const currentX = animationState.current?.translateX
+
+    if (typeof currentX === 'number' && currentX < 0) {
+      animationState.animateTo({
+        translateX: -width,
+      })
+    }
+  }, [width])
+
+  return {
+    animationState,
+    width,
+    routes,
+    index,
+    handlePress,
+    isAgentLogin,
+    formik,
+    onRegisterSuccess,
+    onBack,
+  }
 }
-
-export default RegisterFormLayout

@@ -33,6 +33,7 @@ export interface InputProps extends DripsyTextInputProps {
   children?: ReactNode
   inputContainerSx?: SxProp
   responsive?: boolean
+  tabIndex?: number
 }
 
 const Input = forwardRef<NativeTextInput, InputProps>(
@@ -52,6 +53,7 @@ const Input = forwardRef<NativeTextInput, InputProps>(
       onPress,
       children,
       responsive,
+      tabIndex,
       ...rest
     },
     ref
@@ -80,12 +82,14 @@ const Input = forwardRef<NativeTextInput, InputProps>(
 
     return (
       <RootView
+        focusable={false}
         sx={{
           cursor: onPress ? 'pointer' : 'initial',
           ...sx,
         }}
       >
         <View
+          focusable={false}
           sx={{
             flex: 1,
             flexDirection: horizontalMode ? 'row' : 'column',
@@ -93,8 +97,9 @@ const Input = forwardRef<NativeTextInput, InputProps>(
           }}
         >
           {label && <Label sx={{ flex: 1 }}>{label + ' : '}</Label>}
-          <FocusArea onPress={handleOnPress}>
+          <FocusArea focusable={false} onPress={handleOnPress}>
             <InputContainer
+              focusable={false}
               editable={editable}
               color={sizeEffectColor}
               sx={{ flex: 2, ...inputContainerSx }}
@@ -106,6 +111,7 @@ const Input = forwardRef<NativeTextInput, InputProps>(
                 </Container>
               )}
               <View
+                focusable={false}
                 pointerEvents={onPress ? 'none' : undefined}
                 sx={{
                   flex: 1,

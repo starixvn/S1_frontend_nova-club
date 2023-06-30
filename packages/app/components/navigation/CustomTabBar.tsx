@@ -4,6 +4,7 @@ import React from 'react'
 import { DripsyGradient } from '../Gradient'
 import ShadowButton from '../ShadowButton'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
+import useLocalization from 'app/provider/localization'
 
 export type CustomRoutesProps = {
   key: string
@@ -41,9 +42,11 @@ export const TabBarSelection = ({
   currentIndex,
   onPress,
 }: CustomTabBarProps) => {
+  const { t } = useLocalization()
   const handlePress = (value) => {
     onPress(value)
   }
+
   return (
     <Row sx={{ gap: '$3', justifyContent: 'center' }}>
       {routes.length > 0 &&
@@ -67,7 +70,7 @@ export const TabBarSelection = ({
                     textAlign: 'center',
                   }}
                 >
-                  {route?.title?.toUpperCase() ?? ''}
+                  {t(route?.title) ?? 'abc'}
                 </Text>
               </ShadowButton>
             </Pressable>
