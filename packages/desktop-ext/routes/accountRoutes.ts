@@ -17,13 +17,15 @@ const _Routes: Readonly<DesktopRoute[]> = [
     key: 'ManageCredentials',
     title: 'manageCredentials.title',
     icon: 'mng-cred',
-    route: '/account/manage-credentials',
+    route: '/account/manage-credentials/change-password',
+    base: '/account/manage-credentials',
   },
   {
     key: 'Message',
     title: 'menu.msgAnnouncement',
     icon: 'announcement',
-    route: '/account/message',
+    route: '/account/mail/message',
+    base: '/account/mail',
   },
   {
     key: 'FriendReferral',

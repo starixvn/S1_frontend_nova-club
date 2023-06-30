@@ -69,7 +69,7 @@ export const Profile_Quick_Navigation_Path: Route[] = [
   },
   {
     label: 'menu.msgAnnouncement',
-    path: '/account/message',
+    path: '/account/mail/message',
     icon: 'announcement',
   },
   {

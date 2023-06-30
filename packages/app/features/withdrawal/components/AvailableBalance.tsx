@@ -8,7 +8,7 @@ import React from 'react'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { usePlayerBalanceQuery } from 'services/walletApi'
 
-const AvailableBalance = () => {
+const AvailableBalance = ({ label = 'withdrawal.eligibleAmount' }) => {
   const { t } = useLocalization()
   const desktop = isDesktop()
 
@@ -33,13 +33,13 @@ const AvailableBalance = () => {
 
   return desktop ? (
     <DesktopBalance
-      label={t('withdrawal.eligibleAmount')}
+      label={t(label)}
       totalBalance={totalBalance}
       currency={currency}
     />
   ) : (
     <MobileBalance
-      label={t('withdrawal.eligibleAmount')}
+      label={t(label)}
       totalBalance={totalBalance}
       currency={currency}
     />

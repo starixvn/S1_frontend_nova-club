@@ -20,6 +20,7 @@ import {
   useTransferMemberToMemberMutation,
 } from 'services/walletApi'
 import { useRouter } from 'solito/router'
+import AvailableBalance from 'app/features/withdrawal/components/AvailableBalance'
 
 type IdTransferFormValues = {
   idTransfer: string
@@ -133,18 +134,8 @@ const IdTransfer = () => {
         padding: '10%',
       }}
     >
-      <View
-        sx={{ flexDirection: 'row', justifyContent: 'space-between', pb: '$4' }}
-      >
-        <Text>Available Amount: </Text>
+      <AvailableBalance label={'Available Amount:'} />
 
-        <Text sx={{ fontWeight: 'bold' }}>
-          {toCurrency(balance, playerData?.currency as Currency, {
-            symbol: false,
-            hideTruncatedThousand: false,
-          })}
-        </Text>
-      </View>
       <Input
         label={t('transfer.idTransfer')}
         placeholder={t('transfer.placeholderTransferId')}
