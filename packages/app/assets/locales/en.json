@@ -152,6 +152,12 @@
     "usdt": "USDT"
   },
   "event": {
+    "next": "PLAY NEXT",
+    "start": "START",
+    "won": "CONGRATULATIONS!",
+    "won2": "YOU'VE WON TOTAL",
+    "lose": "SORRY, YOU DIDN'T WIN.",
+    "lose2": " BETTER LUCK NEXT TIME.",
     "catEvent": {
       "miniGame": {
         "lose": "SORRY, YOU DIDN'T WIN.",

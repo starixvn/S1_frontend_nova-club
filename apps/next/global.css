@@ -112,3 +112,10 @@ video::-webkit-media-controls {
 video::-webkit-media-controls-mute-button {
   display: none !important;
 }
+
+/* To remove extra space at the bottom. Common CSS issue whereby
+* if the default element is display: inline.
+*/
+canvas {
+  display: block;
+}

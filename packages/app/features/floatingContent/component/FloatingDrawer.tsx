@@ -3,7 +3,7 @@ import { AnimatePresence, MotiView } from 'moti'
 import { memo } from 'react'
 import LiveChatButton from './LiveChatButton'
 import VGaming from './VGaming'
-import DragonBoat from './event/DragonBoat'
+import PlinkoEvent from './event/PlinkoEvent'
 
 interface FloatingContentSwitchProps {
   visible: boolean
@@ -15,12 +15,14 @@ interface FloatingContentContainerProps {
   height: number
 }
 
+const PlinkoIconAdditionalHeight = 30
+
 const FloatingDrawer = ({
   visible,
   size,
   floatingDrawerOffset,
 }: FloatingContentSwitchProps) => {
-  const floatingDrawerHeight = size * 3 + 20
+  const floatingDrawerHeight = size * 3 + 20 + PlinkoIconAdditionalHeight
   return (
     <FloatingContentContainer
       pointerEvents={visible ? 'auto' : 'none'}
@@ -36,7 +38,7 @@ const FloatingDrawer = ({
             transition={{ type: 'timing', duration: 500 }}
           >
             <ContentOffset>
-              <DragonBoat size={size} />
+              <PlinkoEvent size={size} />
               <VGaming size={size} />
               <LiveChatButton />
             </ContentOffset>

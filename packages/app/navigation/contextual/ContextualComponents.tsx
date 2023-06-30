@@ -37,10 +37,10 @@ const ContextualComponents = {
   '/profile/overview': () => import('app/features/profile/overview'),
   '/banner/agent-tnc': () =>
     import('../../../../apps/next/pages/banner/agent-tnc'),
-  '/event/dragon-boat': () =>
-    import('app/features/events/dragonBoat/DragonBoat'),
-  '/event/dragon-boat-event-tnc': () =>
-    import('../../../../apps/next/pages/event/dragon-boat-event-tnc'),
+  '/event/prediction': () =>
+    import('app/features/events/prediction/Prediction'),
+  '/event/plinko': () => import('app/features/events/plinko/Plinko'),
+  '/event/plinko-tnc': () => import('app/features/events/plinko/PlinkoTnc'),
 }
 
 export type ContextualComponentType = keyof typeof ContextualComponents

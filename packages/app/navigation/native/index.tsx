@@ -38,6 +38,9 @@ import { fadeScaleIn } from 'app/transitions/fade'
 import { Easing } from 'react-native'
 import DepositNavigation from './DepositNavigation'
 import MemberAgentNavigation from './MemberAgentNavigation'
+import PredictionTnc from 'app/features/events/prediction/components/PredictionTnc'
+import Plinko from 'app/features/events/plinko/Plinko'
+import PlinkoTnc from 'app/features/events/plinko/PlinkoTnc'
 
 const Stack = createStackNavigator<{
   SplashScreen: undefined
@@ -84,6 +87,8 @@ const Stack = createStackNavigator<{
   Prediction: undefined
   PredictionTnc: undefined
   PredictionWinner: undefined
+  Plinko: undefined
+  PlinkoTnc: undefined
 }>()
 
 export function NativeNavigation() {
@@ -265,6 +270,8 @@ export function NativeNavigation() {
       <Stack.Screen name="AgentRecruitmentTnc" component={AgentPromoTnC} />
       <Stack.Screen name="Prediction" component={Prediction} />
       <Stack.Screen name="PredictionWinner" component={PredictionWinner} />
+      <Stack.Screen name="Plinko" component={Plinko} />
+      <Stack.Screen name="PlinkoTnc" component={PlinkoTnc} />
     </Stack.Navigator>
   )
 }

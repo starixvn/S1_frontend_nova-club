@@ -18,9 +18,10 @@ import MatchesSection from './Section/MatchesSection'
 import RecentOpenGames from './Section/RecentOpenGames'
 import PlaySection from './Section/PlaySection'
 import RecommendedGamesSection from './Section/RecommendedGamesSection'
-import MessagePopup from './Section/MessagePopup'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 
 const HomeScreen = () => {
+  const { push } = useContextualRouter()
   const { isLandscape } = useOrientation()
   const dispatch = useDispatch()
   const username = useAppSelector((s) => s.auth.info?.playerName)
