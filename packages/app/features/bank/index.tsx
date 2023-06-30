@@ -1,16 +1,14 @@
+import FormContainer from 'app/components/form/FormContainer'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import CustomTabBar from 'app/components/navigation/CustomTabBar'
 import useLocalization from 'app/provider/localization'
-import React, { useMemo, useState } from 'react'
+import isDesktop from 'app/utils/isDesktop'
+import React, { useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { SceneMap, TabView } from 'react-native-tab-view'
 import { createParam } from 'solito'
 import BankAccountScreen from './BankAccountScreen'
 import CryptoWalletScreen from './CryptoWalletScreen'
-import isDesktop from 'app/utils/isDesktop'
-import DesktopPage from 'desktop-ext/components/layout/DesktopPage'
-import { View } from 'dripsy'
-import DesktopPageContainer from 'desktop-ext/components/layout/DesktopPage'
 
 const { useParam } = createParam<{ tab: string }>()
 
@@ -21,16 +19,8 @@ const BankScreen = () => {
   const { t } = useLocalization()
 
   const renderScene = SceneMap({
-    first: () => (
-      <DesktopPageContainer>
-        <BankAccountScreen />
-      </DesktopPageContainer>
-    ),
-    second: () => (
-      <DesktopPageContainer>
-        <CryptoWalletScreen />
-      </DesktopPageContainer>
-    ),
+    first: BankAccountScreen,
+    second: CryptoWalletScreen,
   })
 
   const getTab = tab ? parseInt(tab) : 0

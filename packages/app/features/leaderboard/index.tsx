@@ -1,20 +1,40 @@
-import CustomTabBar from 'app/components/navigation/CustomTabBar'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
+import CustomTabBar from 'app/components/navigation/CustomTabBar'
 import useLocalization from 'app/provider/localization'
-import { Text, View } from 'dripsy'
-import React, { useState } from 'react'
+import isDesktop from 'app/utils/isDesktop'
+import React, { useEffect, useState } from 'react'
 import { useWindowDimensions } from 'react-native'
-import { TabView, SceneMap } from 'react-native-tab-view'
+import { SceneMap, TabView } from 'react-native-tab-view'
 import { createParam } from 'solito'
 import EventScreen from './Event'
-import RankingScreen from './Ranking'
 import HistoryScreen from './History'
+import RankingScreen from './Ranking'
 
-const { useParam } = createParam<{ tab: string }>()
+enum LEADERBOARD_TAB {
+  EVENT = 'event',
+  RANKING = 'ranking',
+  HISTORY = 'history',
+}
+
+const { useParam } = createParam<{ tab?: LEADERBOARD_TAB }>()
+
 const LeaderboardScreen = () => {
-  const [tab = 0] = useParam('tab')
+  const [tab, setTab] = useParam('tab', {
+    initial: LEADERBOARD_TAB.EVENT,
+    parse: (templateFromUrl) => {
+      if (
+        Object.values(LEADERBOARD_TAB).includes(
+          templateFromUrl?.[0] as LEADERBOARD_TAB
+        )
+      ) {
+        return templateFromUrl?.[0]
+      }
+      return LEADERBOARD_TAB.EVENT
+    },
+  })
 
   const { t } = useLocalization()
+  const desktop = isDesktop()
 
   const renderScene = SceneMap({
     first: EventScreen,
@@ -22,9 +42,7 @@ const LeaderboardScreen = () => {
     third: HistoryScreen,
   })
 
-  const getTab = tab ? parseInt(tab) : 0
-
-  const [index, setIndex] = useState<number>(getTab)
+  const [index, setIndex] = useState<number>(0)
   const [routes] = useState([
     { key: 'first', title: t('menu.tab.event'), index: 0 },
     { key: 'second', title: t('menu.tab.ranking'), index: 1 },
@@ -32,12 +50,56 @@ const LeaderboardScreen = () => {
   ])
   const layout = useWindowDimensions()
 
+  useEffect(() => {
+    getIndexFromTab(tab)
+  }, [tab])
+
+  useEffect(() => {
+    getTabfromIndex(index)
+  }, [index])
+
   const handlePress = (value) => {
-    setIndex(value)
+    getTabfromIndex(value)
+  }
+
+  const getTabfromIndex = (value) => {
+    switch (value) {
+      case 0:
+        setTab(LEADERBOARD_TAB.EVENT)
+        break
+      case 1:
+        setTab(LEADERBOARD_TAB.RANKING)
+        break
+      case 2:
+        setTab(LEADERBOARD_TAB.HISTORY)
+        break
+
+      default:
+        setTab(LEADERBOARD_TAB.EVENT)
+        break
+    }
+  }
+
+  const getIndexFromTab = (value) => {
+    switch (value) {
+      case LEADERBOARD_TAB.EVENT:
+        setIndex(0)
+        break
+      case LEADERBOARD_TAB.RANKING:
+        setIndex(1)
+        break
+      case LEADERBOARD_TAB.HISTORY:
+        setIndex(2)
+        break
+
+      default:
+        setIndex(0)
+        break
+    }
   }
 
   const renderTabBar = (props) => {
-    return (
+    return desktop ? null : (
       <CustomTabBar
         routes={props.navigationState.routes}
         currentIndex={index}
@@ -50,6 +112,7 @@ const LeaderboardScreen = () => {
     <PageWithBackHeader
       header={{ title: t('menu.leaderboard') }}
       disableScrollView
+      hideHeader={desktop}
     >
       <TabView
         navigationState={{ index, routes }}

@@ -55,7 +55,7 @@ const MENU = [
     label: 'KENO / LOTTERY',
   },
   {
-    route: '/reward',
+    route: '/account/leaderboard',
     label: 'LEADERBOARD',
   },
   {
