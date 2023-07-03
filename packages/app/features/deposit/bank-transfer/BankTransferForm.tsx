@@ -1,7 +1,9 @@
 import Input from 'app/components/form/Input'
+import InputLabel from 'app/components/form/InputLabel'
 import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
 import { getBankLogo } from 'app/config/bank'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
+import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
 import {
   toCleanAmount,
@@ -15,6 +17,9 @@ import { Pressable, Text, View, styled, useResponsiveValue } from 'dripsy'
 import * as ImagePicker from 'expo-image-picker'
 import { FormikHelpers, useFormik } from 'formik'
 import { useEffect, useRef, useState } from 'react'
+import { TextInput } from 'react-native'
+import { useModal } from 'react-native-modalfy'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import {
   useDepositPaymentListQuery,
   useSubmitManualDepositMutation,
@@ -25,16 +30,8 @@ import * as Yup from 'yup'
 import BankSlipUpload, {
   BankSlipUploadMethod,
 } from '../component/BankSlipUpload'
-import AccountDetail from './AccountDetail'
-import { TextInput } from 'react-native'
-import useAlert from 'app/hooks/useAlert'
-import { Toast } from 'react-native-toast-message/lib/src/Toast'
-import { useModal } from 'react-native-modalfy'
-import Select from 'app/components/select/Select'
-import Image from 'app/components/common/Image'
-import InputLabel from 'app/components/form/InputLabel'
-import TouchableOpacity from 'app/components/pressable/TouchableOpacity'
 import HorizontalSelectBankCardGrid from '../component/HorizontalSelectBankCardGrid'
+import AccountDetail from './AccountDetail'
 
 type BankTransferValues = {
   bank: ManualBankItem | undefined

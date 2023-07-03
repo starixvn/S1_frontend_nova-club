@@ -4,9 +4,12 @@ import useLocalization from 'app/provider/localization'
 import { copyToClipboard } from 'app/utils'
 import { Text, View } from 'dripsy'
 import React from 'react'
+import { usePlayerProfileQuery } from 'services/playerApi'
 
 const ShareCode = () => {
   const { t } = useLocalization()
+
+  const { data } = usePlayerProfileQuery()
 
   return (
     <View sx={{ width: '50%', alignItems: 'center' }}>
@@ -39,7 +42,7 @@ const ShareCode = () => {
           color={'white'}
           size={12}
           sx={{ padding: 5 }}
-          onPress={() => copyToClipboard('123')}
+          onPress={() => copyToClipboard(data?.referral_code)}
         />
       </BouncePressable>
     </View>

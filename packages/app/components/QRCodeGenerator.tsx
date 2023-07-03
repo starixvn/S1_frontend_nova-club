@@ -1,6 +1,6 @@
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useLocalization from 'app/provider/localization'
-import { Text, View } from 'dripsy'
+import { Text, View, useResponsiveValue } from 'dripsy'
 import React from 'react'
 import QRCode from 'react-native-qrcode-svg'
 import { usePlayerProfileQuery } from 'services/playerApi'
@@ -17,29 +17,22 @@ const QRCodeGenerator = ({
 }: QRCodeGeneratorProps) => {
   const { t } = useLocalization()
   const { width, height } = useContainerDimension()
-
+  const widthMultiplier = useResponsiveValue([0.7])
   const { data } = usePlayerProfileQuery()
   const referralCode = data?.referral_code
+
   return (
-    <View
-      sx={{
-        alignItems: 'center',
-        bg: 'white',
-        justifyContent: 'space-evenly',
-      }}
-    >
-      <View sx={{ py: '$3' }}>
-        <QRCode
-          value={isTransfer ? referralCode : referralLink}
-          size={Math.min(width * 0.7, 250)}
-          logo={ROUNDED_LOGO}
-          ecl="H"
-          quietZone={12}
-          logoBackgroundColor="white"
-          // logoMargin={4}
-          logoBorderRadius={100}
-        />
-      </View>
+    <View sx={{ alignItems: 'center', p: '$3' }}>
+      <QRCode
+        value={isTransfer ? referralCode : referralLink}
+        size={Math.min(width * widthMultiplier, 250)}
+        logo={ROUNDED_LOGO}
+        ecl="H"
+        quietZone={12}
+        logoBackgroundColor="white"
+        // logoMargin={4}
+        logoBorderRadius={100}
+      />
     </View>
   )
 }

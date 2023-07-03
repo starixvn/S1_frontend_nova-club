@@ -16,11 +16,13 @@ export interface MatchResult {
 }
 
 export interface MatchOdd {
-  Key: string
-  KeyName: string
-  Point: number
-  Point2: string
-  Price: number
+  [key: string]: {
+    Key: string
+    KeyName: string
+    Point: number
+    Point2: string
+    Price: number
+  }
 }
 
 export type League = MatchResult[]

@@ -1,3 +1,5 @@
-const TopUpCardScreen = () => {}
+const TopUpCardScreen = () => {
+  return <></>
+}
 
 export default TopUpCardScreen

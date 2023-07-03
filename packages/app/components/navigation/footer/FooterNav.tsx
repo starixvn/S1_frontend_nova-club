@@ -34,7 +34,6 @@ const FooterLinks = [
 
 const FooterNav = () => {
   const { t } = useLocalization()
-  const desktop = isDesktop()
 
   return (
     <View
@@ -46,7 +45,6 @@ const FooterNav = () => {
     >
       <Row
         sx={{
-          // width: desktop ? '50%' : '100%',
           py: '$2',
           gap: ['$3', '$3', '$3', '$4'],
           justifyContent: 'center',

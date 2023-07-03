@@ -2,7 +2,7 @@ import { PageWithBackHeader } from 'app/components/layouts/Page'
 import CustomTabBar from 'app/components/navigation/CustomTabBar'
 import useLocalization from 'app/provider/localization'
 import { TRANSFER_NOTES } from 'app/utils/constant'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { SceneMap, TabView } from 'react-native-tab-view'
@@ -11,13 +11,31 @@ import IconButton from 'app/components/IconButton'
 import QrTransfer from './qr-transfer'
 import QrReceive from './qr-receive'
 import IdTransfer from './id-transfer'
+import isDesktop from 'app/utils/isDesktop'
+
+enum SCREEN_TAB {
+  RECEIVE = 'receive',
+  ID_TRANSFER = 'id-transfer',
+  QR_TRANSFER = 'qr-transfer',
+}
 
 const { useParam } = createParam<{ tab: string }>()
 const TransferScreen = () => {
-  const [tab = 0] = useParam('tab')
-  const { openModal } = useModal()
+  const [tab, setTab] = useParam('tab', {
+    initial: undefined,
+    parse: (templateFromUrl) => {
+      if (
+        Object.values(SCREEN_TAB).includes(templateFromUrl?.[0] as SCREEN_TAB)
+      ) {
+        return templateFromUrl?.[0]
+      }
+      return undefined
+    },
+  })
 
+  const { openModal } = useModal()
   const { t } = useLocalization()
+  const desktop = isDesktop()
 
   const renderScene = SceneMap({
     first: QrReceive,
@@ -25,9 +43,21 @@ const TransferScreen = () => {
     third: QrTransfer,
   })
 
-  const getTab = tab && parseInt(tab)
+  const getIndexFromTab = (value) => {
+    switch (value) {
+      case SCREEN_TAB.RECEIVE:
+        return 0
+      case SCREEN_TAB.ID_TRANSFER:
+        return 1
+      case SCREEN_TAB.QR_TRANSFER:
+        return 2
 
-  const [index, setIndex] = useState(getTab)
+      default:
+        return 0
+    }
+  }
+
+  const [index, setIndex] = useState<number>(getIndexFromTab(tab))
   const [routes] = useState([
     { key: 'first', title: t('transfer.receive'), index: 0 },
     { key: 'second', title: t('transfer.idTransfer'), index: 1 },
@@ -35,12 +65,38 @@ const TransferScreen = () => {
   ])
   const layout = useWindowDimensions()
 
+  useEffect(() => {
+    setIndex(getIndexFromTab(tab))
+  }, [tab])
+
+  useEffect(() => {
+    getTabFromIndex(index)
+  }, [index])
+
   const handlePress = (value) => {
-    setIndex(value)
+    getTabFromIndex(value)
+  }
+
+  const getTabFromIndex = (value) => {
+    switch (value) {
+      case 0:
+        setTab(SCREEN_TAB.RECEIVE)
+        break
+      case 1:
+        setTab(SCREEN_TAB.ID_TRANSFER)
+        break
+      case 2:
+        setTab(SCREEN_TAB.QR_TRANSFER)
+        break
+
+      default:
+        setTab(SCREEN_TAB.RECEIVE)
+        break
+    }
   }
 
   const renderTabBar = (props) => {
-    return (
+    return desktop ? null : (
       <CustomTabBar
         routes={props.navigationState.routes}
         currentIndex={index}
@@ -66,6 +122,7 @@ const TransferScreen = () => {
         ),
       }}
       disableScrollView
+      hideHeader={desktop}
     >
       <TabView
         navigationState={{ index, routes }}

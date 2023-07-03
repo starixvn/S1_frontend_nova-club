@@ -11,19 +11,45 @@ import { usePlayerProfileQuery } from 'services/playerApi'
 import { createParam } from 'solito'
 import ChangePasswordPage from './change-password'
 
+enum SCREEN_TAB {
+  CHANGE_PASSWORD = 'change-password',
+  CHANGE_PIN = 'change-pin',
+}
+
 const { useParam } = createParam<{ tab: string }>()
 const ManageCredentialsPage = () => {
+  const [tab, setTab] = useParam('tab', {
+    initial: undefined,
+    parse: (templateFromUrl) => {
+      if (
+        Object.values(SCREEN_TAB).includes(templateFromUrl?.[0] as SCREEN_TAB)
+      ) {
+        return templateFromUrl?.[0]
+      }
+      return undefined
+    },
+  })
   const { t } = useLocalization()
   const layout = useWindowDimensions()
-  const [tab = 0] = useParam('tab')
-  const getTab = tab && parseInt(tab)
 
   const { data: playerData } = usePlayerProfileQuery(undefined, {
     refetchOnMountOrArgChange: true,
   })
   const isPinExist = playerData?.pin_exist
 
-  const [index, setIndex] = useState(getTab)
+  const getIndexFromTab = (value) => {
+    switch (value) {
+      case SCREEN_TAB.CHANGE_PASSWORD:
+        return 0
+      case SCREEN_TAB.CHANGE_PIN:
+        return 1
+
+      default:
+        return 0
+    }
+  }
+
+  const [index, setIndex] = useState<number>(getIndexFromTab(tab))
   const [routes, setRoutes] = useState([
     { key: 'first', title: t('manageCredentials.pw.changePw'), index: 0 },
     isPinExist
@@ -40,8 +66,31 @@ const ManageCredentialsPage = () => {
     second: isPinExist ? ChangePinScreen : CreatePinScreen,
   })
 
+  useEffect(() => {
+    setIndex(getIndexFromTab(tab))
+  }, [tab])
+
+  useEffect(() => {
+    getTabFromIndex(index)
+  }, [index])
+
   const handlePress = (value) => {
-    setIndex(value)
+    getTabFromIndex(value)
+  }
+
+  const getTabFromIndex = (value) => {
+    switch (value) {
+      case 0:
+        setTab(SCREEN_TAB.CHANGE_PASSWORD)
+        break
+      case 1:
+        setTab(SCREEN_TAB.CHANGE_PIN)
+        break
+
+      default:
+        setTab(SCREEN_TAB.CHANGE_PASSWORD)
+        break
+    }
   }
 
   const renderTabBar = (props) => {

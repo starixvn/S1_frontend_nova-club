@@ -10,7 +10,7 @@ const LazyMobileDepositScreen = dynamic(
 )
 
 const LazyDesktopDepositScreen = dynamic(
-  () => import('desktop-ext/features/deposit/DepositScreen'),
+  () => import('desktop-ext/features/deposit/CryptoPayPage'),
   { ssr: false }
 )
 

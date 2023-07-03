@@ -1,8 +1,19 @@
 import { useDripsyTheme } from 'dripsy'
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { MotiLink } from 'solito/moti'
 
-const NavMenuPressable = ({ href, children, onPress }) => {
+type NavMenuPressableProps = {
+  isActive: boolean
+  href: string
+  children: ReactNode
+  onPress: () => void
+}
+const NavMenuPressable = ({
+  isActive,
+  href,
+  children,
+  onPress,
+}: NavMenuPressableProps) => {
   const { theme } = useDripsyTheme()
 
   return (
@@ -12,7 +23,7 @@ const NavMenuPressable = ({ href, children, onPress }) => {
         'worklet'
         return {
           opacity: hovered ? 0.5 : 1,
-          borderRightWidth: hovered ? 8 : 0,
+          borderRightWidth: hovered && !isActive ? 8 : 0,
           borderColor: theme.colors?.$primary[100],
         }
       }}

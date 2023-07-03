@@ -12,12 +12,6 @@ type RecentTransactionRowProps = {
 const RecentTransactionRow = ({ item, index }) => {
   const horizontalMode = useResponsiveValue([false, false, false, true, true])
 
-  const amount = toCurrency(item.amount, Currency.VND, {
-    symbol: false,
-  })
-
-  console.log('first', index)
-
   return (
     <>
       {horizontalMode ? (

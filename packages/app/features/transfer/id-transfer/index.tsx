@@ -20,6 +20,8 @@ import {
   useTransferMemberToMemberMutation,
 } from 'services/walletApi'
 import { useRouter } from 'solito/router'
+import AvailableBalance from 'app/features/withdrawal/components/AvailableBalance'
+import DesktopPageContainer from 'desktop-ext/components/layout/DesktopPage'
 
 type IdTransferFormValues = {
   idTransfer: string
@@ -128,107 +130,99 @@ const IdTransfer = () => {
     })
   }
   return (
-    <ScrollView
-      contentContainerSx={{
-        padding: '10%',
-      }}
-    >
-      <View
-        sx={{ flexDirection: 'row', justifyContent: 'space-between', pb: '$4' }}
+    <DesktopPageContainer>
+      <ScrollView
+        contentContainerSx={{
+          padding: '10%',
+        }}
       >
-        <Text>Available Amount: </Text>
+        <AvailableBalance label={'Available Amount:'} />
 
-        <Text sx={{ fontWeight: 'bold' }}>
-          {toCurrency(balance, playerData?.currency as Currency, {
-            symbol: false,
-            hideTruncatedThousand: false,
-          })}
-        </Text>
-      </View>
-      <Input
-        label={t('transfer.idTransfer')}
-        placeholder={t('transfer.placeholderTransferId')}
-        value={values.idTransfer}
-        onChangeText={handleChange('idTransfer')}
-        onBlur={handleBlur('idTransfer')}
-        error={
-          touched.idTransfer && errors.idTransfer
-            ? t(errors.idTransfer, {
-                field: t('transfer.idTransfer'),
-              })
-            : undefined
-        }
-      />
-      <Input
-        label={t('common.amount')}
-        placeholder={t('transfer.placeholderTransferAmount')}
-        keyboardType="number-pad"
-        value={values.amount}
-        onChangeText={onAmountChanged}
-        onBlur={handleBlur('amount')}
-        error={
-          touched.amount && errors.amount
-            ? t(errors.amount, {
-                field: t('common.amount'),
-                min: 1,
-              })
-            : parseInt(values.realAmount) >
+        <Input
+          label={t('transfer.idTransfer')}
+          placeholder={t('transfer.placeholderTransferId')}
+          value={values.idTransfer}
+          onChangeText={handleChange('idTransfer')}
+          onBlur={handleBlur('idTransfer')}
+          error={
+            touched.idTransfer && errors.idTransfer
+              ? t(errors.idTransfer, {
+                  field: t('transfer.idTransfer'),
+                })
+              : undefined
+          }
+        />
+        <Input
+          label={t('common.amount')}
+          placeholder={t('transfer.placeholderTransferAmount')}
+          keyboardType="number-pad"
+          value={values.amount}
+          onChangeText={onAmountChanged}
+          onBlur={handleBlur('amount')}
+          error={
+            touched.amount && errors.amount
+              ? t(errors.amount, {
+                  field: t('common.amount'),
+                  min: 1,
+                })
+              : parseInt(values.realAmount) >
+                parseInt(
+                  ToThousandValue({ number: parseInt(balance), decimal: false })
+                )
+              ? 'Cannot more than'
+              : undefined
+          }
+          maxLength={13}
+          action={() => {
+            return (
+              <View>
+                <View
+                  sx={{
+                    justifyContent: 'flex-end',
+                    flexDirection: 'row',
+                  }}
+                >
+                  <IconButton
+                    name="cash"
+                    size={16}
+                    sx={{ mr: '$1' }}
+                    color={theme.colors.$secondary[100]}
+                    disabled={!!!balance}
+                    onPress={() => {
+                      onAmountChanged(
+                        ToThousandValue({
+                          number: parseInt(balance),
+                          decimal: false,
+                        })
+                      )
+                    }}
+                  />
+                </View>
+                <Text sx={{ color: '$secondary.100' }}>
+                  {values.realAmount && parseInt(values.realAmount) > 0
+                    ? '= ' + values.amount + 'K'
+                    : '= 0K'}
+                </Text>
+              </View>
+            )
+          }}
+        />
+        <Button
+          onPress={handleSubmit}
+          disabled={
+            !isValid ||
+            !dirty ||
+            parseInt(values.realAmount) >
               parseInt(
                 ToThousandValue({ number: parseInt(balance), decimal: false })
               )
-            ? 'Cannot more than'
-            : undefined
-        }
-        maxLength={13}
-        action={() => {
-          return (
-            <View>
-              <View
-                sx={{
-                  justifyContent: 'flex-end',
-                  flexDirection: 'row',
-                }}
-              >
-                <IconButton
-                  name="cash"
-                  size={16}
-                  sx={{ mr: '$1' }}
-                  color={theme.colors.$secondary[100]}
-                  disabled={!!!balance}
-                  onPress={() => {
-                    onAmountChanged(
-                      ToThousandValue({
-                        number: parseInt(balance),
-                        decimal: false,
-                      })
-                    )
-                  }}
-                />
-              </View>
-              <Text sx={{ color: '$secondary.100' }}>
-                {values.realAmount && parseInt(values.realAmount) > 0
-                  ? '= ' + values.amount + 'K'
-                  : '= 0K'}
-              </Text>
-            </View>
-          )
-        }}
-      />
-      <Button
-        onPress={handleSubmit}
-        disabled={
-          !isValid ||
-          !dirty ||
-          parseInt(values.realAmount) >
-            parseInt(
-              ToThousandValue({ number: parseInt(balance), decimal: false })
-            )
-        }
-        sx={{ mt: '$4' }}
-      >
-        {t('common.confirm')}
-      </Button>
-    </ScrollView>
+          }
+          sx={{ mt: '$4' }}
+        >
+          {t('common.confirm')}
+        </Button>
+      </ScrollView>
+    </DesktopPageContainer>
   )
 }
 
