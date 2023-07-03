@@ -19,9 +19,9 @@ const matchAdapter = createEntityAdapter<MatchResult>({
 
 export const matchApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
-    getRecoMatch: builder.query<MatchResult[], void>({
-      query: () => ({
-        url: `/static_api/getRecoMatch`,
+    getRecoMatch: builder.query<MatchResult[], { isApp: boolean }>({
+      query: ({ isApp }) => ({
+        url: `/static_api/getRecoMatch/${isApp ? 1 : 0}`,
         method: 'GET',
       }),
       transformResponse: (responseData: IResponse<MatchResult[]>) => {
