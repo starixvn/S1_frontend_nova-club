@@ -10,7 +10,7 @@ const LazyMobileScreen = dynamic(
 )
 
 const LazyDesktopScreen = dynamic(
-  () => import('desktop-ext/features/deposit/DepositScreen'),
+  () => import('desktop-ext/features/deposit/QrPayPage'),
   { ssr: false }
 )
 

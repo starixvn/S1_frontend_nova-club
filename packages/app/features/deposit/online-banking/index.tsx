@@ -5,7 +5,6 @@ import {
   View,
   useResponsiveValue,
 } from 'dripsy'
-import OnlineBankingForm from './OnlineBankingForm'
 import RefreshButton from 'app/components/RefreshButton'
 import HorizontalTransactionRowListHeader from '../component/HorizontalTransactionRowListHeader'
 import RecentTransactionRow from '../component/RecentTransactionRow'
@@ -15,6 +14,7 @@ import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
 import { ReportDepositStatus, ReportTransactionType } from 'app/utils/constant'
 import dayjsTz from 'app/utils/dayjs'
 import useLocalization from 'app/provider/localization'
+import DepositForm from '../component/DepositForm'
 
 const OnlineBankingScreen = () => {
   const { t } = useLocalization()
@@ -40,7 +40,9 @@ const OnlineBankingScreen = () => {
 
   return (
     <ScrollView>
-      <OnlineBankingForm />
+      <DepositForm
+        DepositCategoryId={DepositPaymentMethodCategoryId.ONLINE_BANK}
+      />
       <View
         sx={{
           width: horizontalMode ? '90%' : '100%',
