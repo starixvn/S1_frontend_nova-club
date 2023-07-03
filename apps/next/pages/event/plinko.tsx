@@ -496,7 +496,7 @@ const Plinko = () => {
               <PlinkoBackButton scale={scale} />
               <TouchableOpacity
                 onPress={() => getResult()}
-                disabled={!!!balance || isLoading}
+                disabled={!!!balance?.totalBalance || isLoading}
                 sx={{
                   top: enlargedHeight * 0.15,
                   right: enlargedWidth * 0.43,
