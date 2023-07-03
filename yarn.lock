@@ -3861,6 +3861,7 @@ __metadata:
     dayjs: ^1.11.7
     dripsy: 4.3.3
     expo-image-picker: ^14.1.1
+    expo-local-authentication: 13.3.0
     expo-sharing: ~11.2.2
     formik: "*"
     modern-screenshot: ^4.4.25
@@ -6323,7 +6324,7 @@ __metadata:
     expo-image-picker: ^14.1.1
     expo-linear-gradient: ~12.1.2
     expo-linking: ~4.0.1
-    expo-local-authentication: ~13.3.0
+    expo-local-authentication: 13.3.0
     expo-media-library: ^15.2.3
     expo-router: ^1.0.1
     expo-screen-orientation: ^5.1.1
@@ -6584,7 +6585,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-local-authentication@npm:~13.3.0":
+"expo-local-authentication@npm:13.3.0":
   version: 13.3.0
   resolution: "expo-local-authentication@npm:13.3.0"
   dependencies:
