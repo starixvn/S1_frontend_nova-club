@@ -5,8 +5,8 @@ import React, { useMemo, useState } from 'react'
 import union from 'lodash/union'
 import { Game } from 'services/gameApi.type'
 import { ViewProps } from 'react-native'
-import Icon from 'app/components/Icon'
-
+import SelectProvider from 'desktop-ext/components/game/SelectProvider'
+import countBy from 'lodash/countBy'
 interface Props extends ViewProps {
   label: string
   games: Game[]
@@ -15,9 +15,10 @@ interface Props extends ViewProps {
 
 export default function GameList({ label, games, ...rest }: Props) {
   const [filter, setFilter] = useState(ALL)
-  const [provider, setProvider] = useState()
+  const [provider, setProvider] = useState<string | undefined>()
 
   const tags = useMemo(() => {
+    setProvider(undefined)
     return games.reduce(
       (distinctTags, currentGame) => union(distinctTags, currentGame.tags),
       [ALL]
@@ -27,6 +28,14 @@ export default function GameList({ label, games, ...rest }: Props) {
   const filteredGame = useMemo(() => {
     return filter === ALL ? games : games.filter((g) => g.tags.includes(filter))
   }, [filter, games])
+
+  const providerFiltered = useMemo(() => {
+    return provider ? filteredGame.filter((g) => g.gpc == provider) : undefined
+  }, [provider, filteredGame])
+
+  const providers = useMemo(() => {
+    return Object.keys(countBy(filteredGame, (g) => g.gpc))
+  }, [filteredGame])
 
   return (
     <View {...rest}>
@@ -48,10 +57,16 @@ export default function GameList({ label, games, ...rest }: Props) {
             </GameListSectionGrid.TagButton>
           )
         })}
-        <Text>Button</Text>
-        <Icon name="search" sx={{ marginLeft: 'auto' }} />
+        <SelectProvider
+          providers={providers}
+          value={provider}
+          onSelect={setProvider}
+        />
       </GameListSectionGrid.Filter>
-      <GameListSectionGrid.GameList data={filteredGame} bordered />
+      <GameListSectionGrid.GameList
+        data={providerFiltered ?? filteredGame}
+        bordered
+      />
     </View>
   )
 }

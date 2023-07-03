@@ -6,13 +6,15 @@ import {
 } from 'app/provider/gameFilter/GameFilterProvider'
 import { GAME_TYPE_CODE, ProviderImageCategory } from 'app/utils/constant'
 import ProviderList from 'desktop-ext/components/game/ProviderList'
-import { ActivityIndicator, Container, Row, View } from 'dripsy'
+import { ActivityIndicator, Container, Pressable, Row, View } from 'dripsy'
 import React, { startTransition, useEffect, useMemo, useState } from 'react'
 import { useGameListMultipleQuery } from 'services/gameApi'
 import { createParam } from 'solito'
 import groupBy from 'lodash/groupBy'
 import { Game, LatestWinnerType } from 'services/gameApi.type'
 import LatestWinnerSection from 'desktop-ext/components/game/LatestWinnerSection'
+import { SolitoImage } from 'solito/image'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 type Props = {}
 
@@ -76,7 +78,22 @@ function SlotScreen({}: Props) {
             data={providers}
             onNavigateProvider={onNavigate}
             imageCategory={ProviderImageCategory.Slot}
-          />
+          >
+            <Pressable
+              onPress={() => setProvider(undefined)}
+              sx={{
+                width: [175, 175, 175, 175, 200],
+                aspectRatio: 240 / 80,
+              }}
+            >
+              <SolitoImage
+                fill
+                src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/colored/all.jpg`}
+                alt={'all slots'}
+              />
+            </Pressable>
+          </ProviderList>
+
           <View
             sx={{
               flex: 1,

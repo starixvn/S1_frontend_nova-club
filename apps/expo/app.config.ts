@@ -62,6 +62,12 @@ const expoConfig = ({ config }: ConfigContext): ExpoConfig => ({
         initialOrientation: 'DEFAULT',
       },
     ],
+    [
+      'expo-local-authentication',
+      {
+        faceIDPermission: 'Allow $(PRODUCT_NAME) to use Face ID.',
+      },
+    ],
   ],
 })
 

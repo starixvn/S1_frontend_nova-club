@@ -8,10 +8,12 @@ export default function ProviderList({
   data,
   onNavigateProvider,
   imageCategory,
+  children,
   ...rest
 }: Props) {
   return (
     <View sx={{ gap: '$3', width: [175, 175, 175, 175, 200] }} {...rest}>
+      {children}
       {data.map((gpc, i) => {
         return (
           <Pressable

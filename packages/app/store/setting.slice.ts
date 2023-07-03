@@ -129,7 +129,7 @@ const settingSlice = createSlice({
       state.currentSession.username = action.payload.username
       state.currentSession.password = action.payload.password
     },
-    toogleBiometricLogin: (state, action: PayloadAction<boolean>) => {
+    toggleBiometricLogin: (state, action: PayloadAction<boolean>) => {
       state.biometricCredentials === null || action.payload
         ? (state.biometricCredentials = state.currentSession)
         : (state.biometricCredentials = null)

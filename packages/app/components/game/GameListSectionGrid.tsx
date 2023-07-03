@@ -1,13 +1,25 @@
 import { useAppSelector } from 'app/provider/redux/store'
 import { GameToLaunchPayload } from 'app/utils/game'
-import { Pressable, Row, Text, View, styled, useDripsyTheme } from 'dripsy'
-import React from 'react'
+import {
+  Pressable,
+  Row,
+  Text,
+  TextInput,
+  View,
+  styled,
+  useDripsyTheme,
+} from 'dripsy'
+import React, { useState } from 'react'
 import { Game } from 'services/gameApi.type'
 import { DripsyGradient } from '../Gradient'
 import GameCard from './GameCard'
 
 import { FONT_TOP_OFFSET } from 'app/constants/font'
+import { MotiView, useAnimationState } from 'moti'
 import { Shadow } from 'react-native-shadow-2'
+import Icon from '../Icon'
+
+import debounce from 'lodash/debounce'
 type Props = {}
 
 export default function GameListSectionGrid({ children }: Props) {
@@ -26,7 +38,15 @@ const GameListSectionGridHeader = styled(View)({
   marginRight: 'auto',
 })
 
-const GameListSectionGridFilter = ({ children }) => {
+interface GameListSectionGridFilterProps {
+  children: React.ReactNode
+  onSearch: (t?: string) => void
+}
+
+const GameListSectionGridFilter = ({
+  children,
+  onSearch,
+}: GameListSectionGridFilterProps) => {
   return (
     <View sx={{ borderTopWidth: 1, borderColor: '$primary.100' }}>
       <DripsyGradient
@@ -40,7 +60,69 @@ const GameListSectionGridFilter = ({ children }) => {
         }}
       >
         {children}
+        {onSearch && <GameListSectionGridSearch onSearch={onSearch} />}
       </DripsyGradient>
+    </View>
+  )
+}
+
+const GameListSectionGridSearch = ({ onSearch }) => {
+  const [searchValue, setSearchValue] = useState<string>()
+  const animationState = useAnimationState({
+    from: {
+      opacity: 0,
+      width: 0,
+    },
+    active: {
+      opacity: 1,
+      width: 200,
+    },
+  })
+
+  const onToggle = () => {
+    animationState.transitionTo(
+      animationState.current === 'from' ? 'active' : 'from'
+    )
+  }
+
+  const _onSearch = debounce((t) => {
+    onSearch && onSearch(t)
+  }, 1000)
+
+  return (
+    <View sx={{ ml: 'auto', position: 'relative' }}>
+      <MotiView state={animationState}>
+        <View sx={{ width: '100%', borderRadius: 20, bg: '$primary.700' }}>
+          <TextInput
+            value={searchValue}
+            numberOfLines={1}
+            sx={{
+              fontSize: 14,
+              paddingRight: 42,
+              paddingLeft: '$3',
+              height: 30,
+              lineHeight: 30,
+            }}
+            placeholder="Search"
+            onChangeText={(t) => {
+              setSearchValue(t)
+              _onSearch(t)
+            }}
+          />
+        </View>
+      </MotiView>
+      <Pressable
+        onPress={onToggle}
+        sx={{
+          position: 'absolute',
+          right: '$3',
+          justifyContent: 'center',
+          top: 0,
+          bottom: 0,
+        }}
+      >
+        <Icon name="search" />
+      </Pressable>
     </View>
   )
 }
@@ -123,5 +205,6 @@ const TagButton = ({ isActive, children = '', ...rest }) => {
 
 GameListSectionGrid.Header = GameListSectionGridHeader
 GameListSectionGrid.Filter = GameListSectionGridFilter
+GameListSectionGrid.Search = GameListSectionGridSearch
 GameListSectionGrid.GameList = GameListSectionGridList
 GameListSectionGrid.TagButton = TagButton

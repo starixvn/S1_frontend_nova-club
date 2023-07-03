@@ -5540,6 +5540,7 @@ __metadata:
   peerDependencies:
     app: "*"
     dripsy: "*"
+    moti: "*"
     solito: "*"
   languageName: unknown
   linkType: soft
@@ -6322,6 +6323,7 @@ __metadata:
     expo-image-picker: ^14.1.1
     expo-linear-gradient: ~12.1.2
     expo-linking: ~4.0.1
+    expo-local-authentication: ~13.3.0
     expo-media-library: ^15.2.3
     expo-router: ^1.0.1
     expo-screen-orientation: ^5.1.1
@@ -6579,6 +6581,17 @@ __metadata:
     qs: ^6.11.0
     url-parse: ^1.5.9
   checksum: 631656c9cad78c345b35b7decd8c2bc22014b867321fcbb0c740b15001a492080ee3be26d27a89587eb2736223c82a39c600950930cf44b6dd95d37acb7e1527
+  languageName: node
+  linkType: hard
+
+"expo-local-authentication@npm:~13.3.0":
+  version: 13.3.0
+  resolution: "expo-local-authentication@npm:13.3.0"
+  dependencies:
+    invariant: ^2.2.4
+  peerDependencies:
+    expo: "*"
+  checksum: 5526dbb211b25d0e50700658d2afb55c564c47136096bf8835f891f1e97b79c3a9e30cef41f988b4ca163be6d7b16515331baecc7e54d928186566bb40660b41
   languageName: node
   linkType: hard
 
@@ -11615,7 +11628,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-modalfy@npm:^3.4.0":
+"react-native-modalfy@npm:3.4.0":
   version: 3.4.0
   resolution: "react-native-modalfy@npm:3.4.0"
   dependencies:
@@ -11627,6 +11640,21 @@ __metadata:
     react-native: ">=0.59.0"
     react-native-gesture-handler: ">=1.9.0"
   checksum: 5466848b81192c8a061c67c95341199fce21d9ee425dc6ff7ece4922e30e6ef52a7ebb146aecc8759cc5bf94a95f9dabbfa493e280caed3cf71b0e1835a562eb
+  languageName: node
+  linkType: hard
+
+"react-native-modalfy@patch:react-native-modalfy@npm%3A3.4.0#./.yarn/patches/react-native-modalfy-npm-3.4.0-e099e20f8f.patch::locator=vuifit%40workspace%3A.":
+  version: 3.4.0
+  resolution: "react-native-modalfy@patch:react-native-modalfy@npm%3A3.4.0#./.yarn/patches/react-native-modalfy-npm-3.4.0-e099e20f8f.patch::version=3.4.0&hash=4a0d28&locator=vuifit%40workspace%3A."
+  dependencies:
+    hoist-non-react-statics: ^3.3.2
+    react-is: ^17.0.2
+    use-memo-one: ^1.1.2
+  peerDependencies:
+    react: ">=16.8.3"
+    react-native: ">=0.59.0"
+    react-native-gesture-handler: ">=1.9.0"
+  checksum: 70bea63981a22c9291904cdf8e751ee960c5f09da2863cfe769314b95a4c71ef225f5d7d5fee54a9b7c8c32cd1899cba29ecccff9e9fbf31fdcc1848b183e26a
   languageName: node
   linkType: hard
 

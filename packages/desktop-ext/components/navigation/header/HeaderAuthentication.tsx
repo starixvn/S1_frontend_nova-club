@@ -1,62 +1,23 @@
-import Button from 'app/components/common/Button'
 import Input from 'app/components/form/Input'
+import HeaderButton from 'app/components/navigation/header/HeaderButton'
+import HeaderLanguageToggle from 'app/components/navigation/header/HeaderLanguageToggle'
+import useLoginForm from 'app/features/auth/login/useLoginForm'
 import useLocalization from 'app/provider/localization'
-import { useAppDispatch } from 'app/provider/redux/store'
-import { AuthActions } from 'app/store/authReducer'
 import isDesktop from 'app/utils/isDesktop'
-import validation, {
-  PASSWORD_MAX_LENGTH,
-  USERNAME_MAX_LENGTH,
-} from 'app/utils/validation'
+import { PASSWORD_MAX_LENGTH, USERNAME_MAX_LENGTH } from 'app/utils/validation'
 import { View } from 'dripsy'
-import { FormikHelpers, useFormik } from 'formik'
 import React from 'react'
 import { useModal } from 'react-native-modalfy'
-import { useLoginMutation } from 'services/authApi'
 import { useRouter } from 'solito/router'
-import { sleep } from 'utils/common'
-import * as Yup from 'yup'
-import HeaderLanguageToggle from 'app/components/navigation/header/HeaderLanguageToggle'
-import HeaderButton from 'app/components/navigation/header/HeaderButton'
-type LoginFormValues = {
-  username: string
-  password: string
-}
+
 const HeaderAuthentication = () => {
   const { push } = useRouter()
   const { t } = useLocalization()
   const desktop = isDesktop()
-  const dispatch = useAppDispatch()
 
   const { openModal } = useModal()
-  const [login] = useLoginMutation()
 
-  const onSubmit = async (
-    { username, password }: LoginFormValues,
-    actions: FormikHelpers<LoginFormValues>
-  ) => {
-    await sleep(3000)
-    const { data, success, message } = await login({
-      username,
-      password,
-    }).unwrap()
-
-    if (success && data) {
-      dispatch(AuthActions.setAuthInfo(data))
-    }
-  }
-
-  const formik = useFormik<LoginFormValues>({
-    initialValues: {
-      username: '',
-      password: '',
-    },
-    validationSchema: Yup.object({
-      username: validation.stringRequired,
-      password: validation.stringRequired,
-    }),
-    onSubmit,
-  })
+  const { formik } = useLoginForm()
 
   const { handleChange, handleBlur, values, isSubmitting, submitForm } = formik
 
@@ -91,7 +52,7 @@ const HeaderAuthentication = () => {
         contentProps={{
           sx: { py: '$2' },
         }}
-        onPress={() => (desktop ? submitForm : push('/auth/login'))}
+        onPress={() => (desktop ? submitForm() : push('/auth/login'))}
       >
         {t('authentication.login')}
       </HeaderButton>

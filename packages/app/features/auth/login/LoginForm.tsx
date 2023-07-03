@@ -2,23 +2,17 @@ import Button from 'app/components/common/Button'
 import CheckBox from 'app/components/common/CheckBox'
 import FormContainer from 'app/components/form/FormContainer'
 import Input from 'app/components/form/Input'
-import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
-import { useAppDispatch } from 'app/provider/redux/store'
-import { AuthActions } from 'app/store/authReducer'
-import isDesktop from 'app/utils/isDesktop'
-import validation, {
+import {
   PASSWORD_MAX_LENGTH,
   USERNAME_MAX_LENGTH,
 } from 'app/utils/validation'
 import { Pressable, Text, View } from 'dripsy'
-import { FormikHelpers, useFormik } from 'formik'
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { TextInput } from 'react-native'
-import { useLoginMutation } from 'services/authApi'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
-import * as Yup from 'yup'
+import useLoginForm from './useLoginForm'
 
 type LoginFormValues = {
   username: string
@@ -30,101 +24,15 @@ interface LoginFormProps {
 const { useParam } = createParam()
 
 const LoginForm = ({ isAgent }: LoginFormProps) => {
-  const [login] = useLoginMutation()
-  // const [agentLogin] = useAgentLoginMutation()
-
   const { t } = useLocalization()
-  const { showAlert } = useAlert()
-  const desktop = isDesktop()
-  const [errorMsg, setErrorMsg] = useState('')
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const { replace, push, back } = useRouter()
-  const [afterLoginRedirection] = useParam('r')
 
   // const { handleAgentLogin } = useAfterLogin()
 
   const passwordFieldRef = useRef<TextInput>(null)
   const usernameFieldRef = useRef<TextInput>(null)
 
-  const dispatch = useAppDispatch()
-
-  // const { isBioLoading, showBiometric, normalLogin, startBiometricLogin } =
-  //   useBioAuth()
-
-  // const isBiometricLogin = useAppSelector((s) => s.setting.biometricCredentials)
-
-  // const rememberMeCredential = useAppSelector(
-  //   (s) => s.setting.rememberMeCredentials
-  // )
-
-  // const [isRemember, setIsRemember] = useState(() => {
-  //   if (rememberMeCredential) return true
-  //   else return false
-  // })
-  const onSubmit = async (
-    { username, password }: LoginFormValues,
-    actions: FormikHelpers<LoginFormValues>
-  ) => {
-    try {
-      setIsSubmitting(true)
-
-      const { data, success, message } = await login({
-        username,
-        password,
-      }).unwrap()
-
-      if (success && data) {
-        // syncShield(Shield_Action.LOGIN)
-        // dispatch(
-        //   SettingActions.setRememberMe(
-        //     isRemember ? { username, password } : undefined
-        //   )
-        // )
-
-        // dispatch(
-        //   TempSettingActions.setSyncShieldActionType(Shield_Action.LOGIN)
-        // )
-        // normalLogin(username, password, () => handleProceedLogin(data, actions))
-        dispatch(AuthActions.setAuthInfo(data))
-        replace('/')
-        setIsSubmitting(false)
-      } else {
-        throw new Error(message)
-      }
-    } catch (error) {
-      showAlert(error)
-
-      setIsSubmitting(false)
-    }
-  }
-
-  const handleProceedLogin = (data, actions) => {
-    dispatch(AuthActions.setAuthInfo(data))
-    /* clear off lucky draw */
-    // dispatch(SettingActions.setLuckyDrawBalance(0))
-    // await updateLanguage(data.playerName)
-
-    actions.resetForm()
-    if (errorMsg) setErrorMsg('')
-
-    // navigateAfterLogin('/')
-  }
-
-  // const onCheckboxCheck = () => {
-  //   setIsRemember(!isRemember)
-  // }
-
-  const formik = useFormik<LoginFormValues>({
-    initialValues: {
-      username: '',
-      password: '',
-    },
-    validationSchema: Yup.object({
-      username: validation.stringRequired,
-      password: validation.stringRequired,
-    }),
-    onSubmit,
-  })
+  const { formik } = useLoginForm(isAgent)
 
   const { handleChange, handleBlur, values, errors, touched, submitForm } =
     formik

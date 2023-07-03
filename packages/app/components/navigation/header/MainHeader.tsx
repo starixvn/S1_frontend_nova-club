@@ -6,9 +6,9 @@ import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { toCurrency } from 'app/utils'
-import { Currency, HEADER_HEIGHT } from 'app/utils/constant'
+import { HEADER_HEIGHT } from 'app/utils/constant'
 import isDesktop from 'app/utils/isDesktop'
+import HeaderAuthenticationDesktop from 'desktop-ext/components/navigation/header/HeaderAuthentication'
 import {
   Container,
   Image,
@@ -19,16 +19,11 @@ import {
   styled,
   useDripsyTheme,
 } from 'dripsy'
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import {
-  usePlayerBalanceQuery,
-  useTransferAllToOneMutation,
-} from 'services/walletApi'
 import { Link } from 'solito/link'
 import { useRouter } from 'solito/router'
 import HeaderAuthentication from './HeaderAuthentication'
-import HeaderAuthenticationDesktop from 'desktop-ext/components/navigation/header/HeaderAuthentication'
 import HeaderDeposit from './HeaderDeposit'
 import HeaderLanguageToggle from './HeaderLanguageToggle'
 import HeaderOverview from './HeaderOverview'
@@ -56,8 +51,6 @@ const MainHeader = () => {
   const { top } = useSafeArea()
   const { toggleDrawer } = useDrawer() //causing Rerender
   const { push } = useRouter()
-  const [totalBalance, setTotalBalance] = useState('0')
-  const lastTransferredToMainWalletToken = useRef('')
   const token = useAppSelector((s) => s.auth.info?.token)
   const { t } = useLocalization()
   const desktop = isDesktop()
@@ -71,72 +64,11 @@ const MainHeader = () => {
       console.error(error)
     }
   }
-  const {
-    data: playerBalance,
-    isFetching: isMainWalletLoading,
-    refetch,
-  } = usePlayerBalanceQuery(undefined, { skip: !token })
 
   const { data: playerData } = usePlayerProfileQuery(undefined, {
     skip: !token,
   })
-  const isPlayerName = !!playerData?.firstName
-  const [transferAllToOne, { isLoading: isTransferringToMain }] =
-    useTransferAllToOneMutation({
-      fixedCacheKey: 'transfer-all-to-one',
-    })
 
-  const refreshWallet = () => {
-    if (isTransferringToMain) return
-
-    refetch()
-  }
-
-  useEffect(() => {
-    const wallets = playerBalance?.data
-    if (wallets) {
-      const total = Object.values(wallets).reduce(
-        (total, w) =>
-          total + (Number(w.balance) ?? 0) + (Number(w.reward) ?? 0),
-        0
-      )
-
-      const formattedBalance = toCurrency(total, Currency.VND, {
-        symbol: false,
-      })
-      setTotalBalance(formattedBalance)
-
-      /* To Trigger transfer all to main wallet when player login on multiple platform
-          and there are some balance remained in vendor wallets.
-
-        - avoid trigger again when balance is fetched on other places lastTransferredToMainWalletToken
-        - as for now only trigger 1 time per token per session
-      */
-      if (token) {
-        const dif =
-          total - (Number(wallets.main.balance) + Number(wallets.main.reward))
-
-        if (dif > 0) {
-          if (
-            token !== lastTransferredToMainWalletToken.current &&
-            !isTransferringToMain
-          ) {
-            lastTransferredToMainWalletToken.current = token
-            transferAllToOne({
-              transfer_from: 999,
-              transfer_to: 0,
-            })
-          }
-        } else {
-          lastTransferredToMainWalletToken.current = token
-        }
-      }
-    }
-
-    return () => {
-      setTotalBalance('0')
-    }
-  }, [playerBalance, token])
   return (
     <View
       sx={{
@@ -146,23 +78,17 @@ const MainHeader = () => {
       <HeaderContainer insetTop={top} key={'MainHeader'}>
         <Logo />
         {token ? (
-          <Row sx={{ alignItems: 'center' }}>
+          <Row sx={{ alignItems: 'center', gap: ['$2', '$3'] }}>
             <HeaderDeposit />
-            <HeaderOverview
-              onBalancePress={() => null}
-              onRewardPress={() => null}
-              reward={playerBalance?.data?.main.reward}
-              balance={totalBalance}
-              isLoading={isMainWalletLoading}
-            />
+            <HeaderOverview />
             {desktop && (
-              <View sx={{ mx: '$2', minWidth: 75 }}>
+              <View sx={{ minWidth: 75 }}>
                 <Text sx={{ textAlign: 'right' }}>{t('common.hello')}</Text>
                 <Text
                   sx={{ textAlign: 'right', fontWeight: 'bold' }}
                   numberOfLines={1}
                 >
-                  {playerData?.firstName}
+                  {playerData?.username}
                 </Text>
               </View>
             )}

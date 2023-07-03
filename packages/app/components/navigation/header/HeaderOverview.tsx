@@ -1,28 +1,25 @@
 import Icon from 'app/components/Icon'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
+import { useAppSelector } from 'app/provider/redux/store'
+import { toCurrency } from 'app/utils'
+import { Currency } from 'app/utils/constant'
 import isDesktop from 'app/utils/isDesktop'
 import { ActivityIndicator, Pressable, Text, View } from 'dripsy'
 import React from 'react'
 import { Shadow } from 'react-native-shadow-2'
+import { usePlayerBalanceQuery } from 'services/walletApi'
 
 interface HeaderButtonProps {
   icon: string
   label: string
   value?: string
   isLoading: boolean
-  onPress: () => void
 }
 
-const HeaderButton = ({
-  icon,
-  label,
-  value,
-  onPress,
-  isLoading,
-}: HeaderButtonProps) => {
+const HeaderButton = ({ icon, label, value, isLoading }: HeaderButtonProps) => {
   const desktop = isDesktop()
   return (
-    <Pressable onPress={onPress}>
+    <View>
       <Shadow
         offset={[0, 1]}
         startColor={'rgba(255, 255, 255, 0.25)'}
@@ -63,49 +60,50 @@ const HeaderButton = ({
           )}
         </View>
       </Shadow>
-    </Pressable>
+    </View>
   )
 }
 
 interface HeaderOverviewProps {
-  reward?: string
-  balance?: string
-  onBalancePress: () => void
-  onRewardPress: () => void
-  isLoading: boolean
+  // reward?: string
+  // balance?: string
+  // onBalancePress: () => void
+  // onRewardPress: () => void
+  // isLoading: boolean
 }
 
-const HeaderOverview = ({
-  reward,
-  balance,
-  onBalancePress,
-  onRewardPress,
-  isLoading,
-}: HeaderOverviewProps) => {
+const HeaderOverview = ({}: HeaderOverviewProps) => {
+  const token = useAppSelector((s) => s.auth.info?.token)
+  const {
+    data: playerBalance,
+    isFetching: isMainWalletLoading,
+    refetch,
+  } = usePlayerBalanceQuery(undefined, { skip: !token })
+
   return (
-    <View
+    <Pressable
+      onPress={refetch}
       sx={{
         alignItems: 'center',
-        mx: 5,
         py: 5,
       }}
     >
       <HeaderButton
         icon="wallet"
         label="Balance"
-        value={balance}
-        onPress={onBalancePress}
-        isLoading={isLoading}
+        value={toCurrency(playerBalance?.totalBalance ?? '-', Currency.VND, {
+          symbol: false,
+        })}
+        isLoading={isMainWalletLoading}
       />
 
       <HeaderButton
         icon="gift"
         label="Reward"
-        value={reward}
-        onPress={onRewardPress}
-        isLoading={isLoading}
+        value={playerBalance?.totalReward?.toString() ?? '-'}
+        isLoading={isMainWalletLoading}
       />
-    </View>
+    </Pressable>
   )
 }
 

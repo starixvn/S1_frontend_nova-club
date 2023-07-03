@@ -6,6 +6,7 @@
     "dayjs": "^1.11.7",
     "dripsy": "4.3.3",
     "expo-image-picker": "^14.1.1",
+    "expo-local-authentication": "13.3.0",
     "expo-sharing": "~11.2.2",
     "formik": "*",
     "modern-screenshot": "^4.4.25",

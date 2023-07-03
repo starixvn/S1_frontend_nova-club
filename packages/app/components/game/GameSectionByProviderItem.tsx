@@ -1,7 +1,4 @@
-import {
-  View,
-  useResponsiveValue
-} from 'dripsy'
+import { View, useResponsiveValue } from 'dripsy'
 import union from 'lodash/union'
 import React, { startTransition, useEffect, useMemo, useState } from 'react'
 import { Game } from 'services/gameApi.type'
@@ -10,6 +7,8 @@ import { SolitoImage } from 'solito/image'
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { ALL } from 'app/utils/constant'
 import GameListSectionGrid from './GameListSectionGrid'
+import { Text } from 'dripsy'
+import { useAppSelector } from 'app/provider/redux/store'
 
 function GameSectionByProviderItem({
   gpc,
@@ -17,12 +16,14 @@ function GameSectionByProviderItem({
   // GameListComponent = GameSectionByProviderItemGameListSummary,
   bordered = false,
 }: {
-  bordered: boolean
-  gpc: string
+  bordered?: boolean
+  gpc?: string
   games: Game[]
   // GameListComponent: FC<{ data: Game[] }>
 }) {
+  const locale = useAppSelector((s) => s.setting.locale)
   const [filter, setFilter] = useState(ALL)
+  const [search, setSearch] = useState<string | undefined>()
   const count = useResponsiveValue([8, 10, 12, 999, 999])
 
   useEffect(() => {
@@ -42,18 +43,34 @@ function GameSectionByProviderItem({
     ).slice(0, count)
   }, [count, filter, games])
 
+  const searchedGame = useMemo(() => {
+    return search
+      ? filteredGame.filter((g) =>
+          g.name[locale]?.toLowerCase().includes(search)
+        )
+      : undefined
+  }, [search, filteredGame, locale])
+
   return (
     <View nativeID={`gameSection${gpc}`}>
       <GameListSectionGrid.Header>
-        <SolitoImage
-          height={20}
-          width={90}
-          src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${gpc?.toLowerCase()}.png`}
-          resizeMode="contain"
-          alt={gpc}
-        />
+        {gpc ? (
+          <SolitoImage
+            height={20}
+            width={90}
+            src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${gpc?.toLowerCase()}.png`}
+            resizeMode="contain"
+            alt={gpc}
+          />
+        ) : (
+          <Text sx={{ fontWeight: '900' }}>{'ALL'}</Text>
+        )}
       </GameListSectionGrid.Header>
-      <GameListSectionGrid.Filter>
+      <GameListSectionGrid.Filter
+        onSearch={(t) => {
+          startTransition(() => setSearch(t))
+        }}
+      >
         {tags.map((f) => {
           const isActive = filter === f
           return (
@@ -69,7 +86,10 @@ function GameSectionByProviderItem({
           )
         })}
       </GameListSectionGrid.Filter>
-      <GameListSectionGrid.GameList data={filteredGame} bordered={bordered} />
+      <GameListSectionGrid.GameList
+        data={searchedGame ?? filteredGame}
+        bordered={bordered}
+      />
     </View>
   )
 }

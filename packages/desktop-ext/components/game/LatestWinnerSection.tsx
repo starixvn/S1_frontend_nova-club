@@ -10,7 +10,6 @@ import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import { GameToLaunchPayload } from 'app/utils/game'
 import { Row, Text, View, styled } from 'dripsy'
-import { AnimatePresence } from 'moti'
 import React, { startTransition, useEffect, useRef, useState } from 'react'
 import { useLatestWinnerQuery } from 'services/gameApi'
 import { LatestWinner, LatestWinnerType } from 'services/gameApi.type'
@@ -61,13 +60,14 @@ export default function LatestWinnerSection({ type }: Props) {
         borderTopRightRadius: 15,
         borderWidth: 2,
         borderColor: '$primary.300',
-        flex: 1,
         overflow: 'hidden',
+        height: 310,
       }}
     >
       <Header />
       <View
         sx={{
+          flex: 1,
           p: '$2',
           gap: '$2',
         }}

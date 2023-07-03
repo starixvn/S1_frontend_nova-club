@@ -58,13 +58,13 @@ const MENU = [
     route: '/account/leaderboard',
     label: 'LEADERBOARD',
   },
-  {
-    route: '/leaderboard',
-    icon: 'gift',
-    style: {
-      marginLeft: 'auto',
-    },
-  },
+  // {
+  //   route: '/leaderboard',
+  //   icon: 'gift',
+  //   style: {
+  //     marginLeft: 'auto',
+  //   },
+  // },
 ]
 
 export const NAVIGATION_HEIGHT = 60

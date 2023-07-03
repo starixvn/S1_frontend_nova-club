@@ -137,6 +137,7 @@ const ModalProvider = ({ children }) => {
   const stack = createModalStack(modalConfig, {
     containerStyle: {
       maxWidth: desktop ? undefined : 768,
+      zIndex: 2,
     },
     backdropOpacity: 0.6,
     backBehavior: 'pop',

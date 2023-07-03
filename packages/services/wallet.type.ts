@@ -18,6 +18,11 @@ export type PlayerBalanceResult = {
   [key: string]: PlayerBalanceData
 } & PlayerBalanceMainBalance
 
+export type PlayerBalance = {
+  totalBalance: number
+  totalReward: number
+} & PlayerBalanceResult
+
 /**
  * *Player Wallet
  */
