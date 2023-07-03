@@ -15,6 +15,8 @@ export default function MatchLeagueSelector({
   const width = useWindowDimensions().width
   const maxWidth = Math.min(700, width * 0.8)
 
+  console.log(ids)
+
   return (
     <DripsyGradient
       gradient={gradient}
@@ -81,7 +83,7 @@ const MatchLeagueSelectorTab = memo(({ active, id, onPress, ...rest }) => {
     iconRotate.transitionTo(active ? 'active' : 'inactive')
     containerScale.transitionTo(active ? 'active' : 'inactive')
   }, [active, containerScale, iconRotate])
-
+  // console.log(MatchLeagueTabIconMapping[id])
   return (
     <Pressable
       sx={{

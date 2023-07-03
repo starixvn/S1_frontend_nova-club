@@ -1,9 +1,12 @@
 import Divider from 'app/components/Divider'
 import { DripsyGradient } from 'app/components/Gradient'
 import MatchLeagueSelector from 'app/features/sportsbook/MatchLeagueSelector'
-import { Pressable, Text, View } from 'dripsy'
+import isDesktop from 'app/utils/isDesktop'
+import { Pressable, ScrollView, Text, View } from 'dripsy'
 import { useState } from 'react'
 import { matchGroupByLeague, useGetRecoMatchQuery } from 'services/matchApi'
+import MatchListHeader from './MatchListHeader'
+import MatchListTable from './MatchListTable'
 
 type Props = {}
 
@@ -22,15 +25,24 @@ const FIRST_FILTER = [
 const BAR_HEIGHT = 50
 export default function MatchList({}: Props) {
   const [selectedLeague, setSelectedLeague] = useState<string>()
+  const desktop = isDesktop()
+  const { leagues } = useGetRecoMatchQuery(
+    { isApp: !desktop },
+    {
+      selectFromResult: (resp) => ({
+        ...resp,
+        leagues: matchGroupByLeague(resp),
+      }),
+    }
+  )
 
-  const { leagues } = useGetRecoMatchQuery(undefined, {
-    selectFromResult: (resp) => ({
-      ...resp,
-      leagues: matchGroupByLeague(resp),
-    }),
-  })
+  // console.log(leagues.ids)
 
   const leagueId = selectedLeague ?? leagues.ids[0] ?? ''
+
+  // console.log('leagues', leagues.entities[leagueId])
+  // const test = leagues.entities[leagueId]?.[0]
+
   return (
     <View>
       <Divider />
@@ -62,22 +74,13 @@ export default function MatchList({}: Props) {
         onChange={setSelectedLeague}
         value={leagueId}
       />
-      <View
-        sx={{ height: BAR_HEIGHT, width: '100%', bg: '$primary.300' }}
-      ></View>
-      <View
-        sx={{
-          height: 400,
-          borderWidth: 1,
-          borderStyle: 'dashed',
-          borderColor: '$primary.100',
-          alignItems: 'center',
-          justifyContent: 'center',
-          mb: '$sectionBottomSpace',
-        }}
-      >
-        <Text sx={{ fontSize: 30, fontWeight: 'bold' }}>Table</Text>
-      </View>
+
+      <MatchListHeader
+        data={leagues.entities[leagueId]?.[0]}
+        height={BAR_HEIGHT}
+      />
+
+      <MatchListTable data={leagues.entities[leagueId]} />
     </View>
   )
 }

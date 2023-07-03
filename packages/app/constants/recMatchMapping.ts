@@ -61,3 +61,12 @@ export const MatchLeagueTabIconMapping = {
   [MatchLeagueId.SPAIN_PRIMERA_LALIGA]: 'sport-sl',
   [MatchLeagueId.UEFA_CHAMPIONS_LEAGUE]: 'sport-uefa',
 }
+
+export enum MatchHandicapType {
+  FULL_TIME = 1,
+  FULL_TIME_OVER = 3,
+  FULL_TIME_DOUBLE = 5,
+  HALF_TIME = 7,
+  HALF_TIME_OVER = 8,
+  HALF_TIME_DOUBLE = 15,
+}

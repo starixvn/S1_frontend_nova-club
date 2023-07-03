@@ -1,5 +1,8 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { MatchLeagueLogoMapping } from 'app/constants/recMatchMapping'
+import {
+  MatchHandicapType,
+  MatchLeagueLogoMapping,
+} from 'app/constants/recMatchMapping'
 import dayjsTz from 'app/utils/dayjs'
 import dayjs from 'dayjs'
 import { Row, Text, View, styled } from 'dripsy'
@@ -36,13 +39,21 @@ export default function MatchItem({ width, match }: Props) {
   const homeFlag = getFlagPath(match.HomeName)
   const awayFlag = getFlagPath(match.AwayName)
   const leagueLogo = getLeagueLogo(match.LeagueId)
-  const homeName = match.selection[0]?.KeyName
-  const awayName = match.selection[1]?.KeyName
-  const homePrice = match.selection[0]?.Price ?? 0
-  const awayPrice = match.selection[1]?.Price ?? 0
-  const homeOdd = match.selection[0]?.Point ?? 0
-  const awayOdd = match.selection[1]?.Point ?? 0
+  const homeName =
+    match.selection[MatchHandicapType.FULL_TIME]?.[0]?.KeyName ?? 0
+  const awayName =
+    match.selection[MatchHandicapType.FULL_TIME]?.[1]?.KeyName ?? 0
+  const homePrice =
+    match.selection[MatchHandicapType.FULL_TIME]?.[0]?.Price ?? 0
+  const awayPrice =
+    match.selection[MatchHandicapType.FULL_TIME]?.[1]?.Price ?? 0
+  const homeOdd = match.selection[MatchHandicapType.FULL_TIME]?.[0]?.Point ?? 0
+  const awayOdd = match.selection[MatchHandicapType.FULL_TIME]?.[1]?.Point ?? 0
 
+  console.log(match.LeagueName)
+  // console.log(JSON.stringify(match.selection, undefined, 2))
+
+  // console.log(homeFlag)
   return (
     <View
       sx={{
@@ -113,7 +124,7 @@ function formatOdd(price) {
 function getFlagPath(country: string) {
   const cleanFileName = country.toLowerCase().replace(/[^a-zA-Z0-9]/g, '')
 
-  return `${MEDIA_DOMAIN}/${CONTENT_URI}/flags/${cleanFileName}.png`
+  return `${MEDIA_DOMAIN}${CONTENT_URI}/flags/${cleanFileName}.png`
 }
 
 const LeagueLogo = styled(View)({
