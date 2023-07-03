@@ -8,11 +8,14 @@ import Icon from '../Icon'
 import TouchableOpacity from '../pressable/TouchableOpacity'
 import { DripsyGradient } from '../Gradient'
 import Button from '../common/Button'
+import { FONT_TOP_OFFSET } from 'app/constants/font'
 
 interface ActionsProps {
   label: string
   loading?: boolean
   onPress: (e: GestureResponderEvent) => void
+  bg?: string
+  disableAutoClose?: boolean
 }
 interface ModalContentProps {
   title?: string
@@ -20,7 +23,6 @@ interface ModalContentProps {
   actions?: ActionsProps[]
   children: ReactElement
   disableAction?: boolean
-  isAuthModal?: boolean
 }
 
 const ModalContent = ({
@@ -29,7 +31,6 @@ const ModalContent = ({
   actions,
   children,
   disableAction = true,
-  isAuthModal = false,
 }: ModalContentProps) => {
   const { t } = useLocalization()
   const { closeModal } = useModal()
@@ -37,9 +38,9 @@ const ModalContent = ({
 
   return (
     <>
-      <ModalBackground gradient={'surface'} auth={isAuthModal}>
+      <ModalBackground gradient={'surface'}>
         <ScrollView
-          bounces={true}
+          bounces
           contentContainerSx={{
             minHeight: 150,
           }}
@@ -56,13 +57,12 @@ const ModalContent = ({
                     justifyContent: 'center',
                   }}
                 >
-                  <Icon name="notice" size={24} color="white" sx={{ mr: 12 }} />
+                  <Icon name="notice" size={16} color="white" sx={{ mr: 12 }} />
                   <TextTitle>{TITLE.toUpperCase()}</TextTitle>
                 </View>
               )}
             </ModalHeader>
           )}
-
           <ViewBody>{children}</ViewBody>
         </ScrollView>
       </ModalBackground>
@@ -70,17 +70,23 @@ const ModalContent = ({
       {disableAction && (
         <ViewFooter>
           {actions ? (
-            actions.map((item) => (
+            actions.map((item, i) => (
               <Button
                 key={item.label}
                 loading={item?.loading}
-                onPress={item.onPress}
+                onPress={(e) => {
+                  if (!item.disableAutoClose && closeModal)
+                    closeModal(undefined, () => item.onPress && item.onPress(e))
+                  else {
+                    item.onPress && item.onPress(e)
+                  }
+                }}
                 sx={{
-                  mb: '$3',
+                  mb: '$2',
                   bg:
                     item.label === t('common.cancel')
                       ? '$disabled'
-                      : '$secondary.500',
+                      : item.bg ?? '$secondary.500',
                 }}
               >
                 {item.label}
@@ -95,33 +101,35 @@ const ModalContent = ({
   )
 }
 
-const ModalBackground = styled(DripsyGradient)(
-  ({ auth = false }: { auth?: boolean }) => {
-    return {
-      borderRadius: auth ? 0 : 20,
-      p: auth ? undefined : '5%',
-      // alignItems: 'center',
-    }
+const ModalBackground = styled(DripsyGradient)(({}) => {
+  return {
+    borderRadius: 15,
   }
-)
+})
 
 const ModalHeader = styled(View)({
   pt: 12,
   pb: 12,
+  mb: '$2',
 })
 
 const TextTitle = styled(Text)({
   color: 'white',
   fontWeight: 'bold',
   textAlign: 'center',
-  fontSize: 18,
+  fontSize: [14, 14, 16, 16],
+  mt: FONT_TOP_OFFSET,
 })
 
 const ViewBody = styled(View)({
   flex: 1,
   width: '100%',
 })
+
 const ViewFooter = styled(View)({
-  mt: 12,
+  width: 300,
+  maxWidth: '100%',
+  alignSelf: 'center',
+  mt: '$2',
 })
 export default ModalContent

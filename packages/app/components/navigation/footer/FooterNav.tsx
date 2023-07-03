@@ -1,8 +1,36 @@
 import LinkPressable from 'app/components/pressable/LinkPressable'
+import { FONT_TOP_OFFSET } from 'app/constants/font'
 import useLocalization from 'app/provider/localization'
 import isDesktop from 'app/utils/isDesktop'
 import { Row, Text, View } from 'dripsy'
 import React from 'react'
+
+const FooterLinks = [
+  {
+    label: 'footer.aboutUs',
+    href: '/',
+  },
+  {
+    label: 'common.shareholder',
+    href: '/',
+  },
+  {
+    label: 'common.agent',
+    href: '/',
+  },
+  {
+    label: 'footer.responsibleGaming',
+    href: '/',
+  },
+  {
+    label: 'footer.contactUs',
+    href: '/',
+  },
+  {
+    label: 'common.tnc',
+    href: '/',
+  },
+]
 
 const FooterNav = () => {
   const { t } = useLocalization()
@@ -13,32 +41,29 @@ const FooterNav = () => {
       sx={{
         justifyContent: 'center',
         alignItems: 'center',
-        height: desktop ? 48 : 36,
         bg: '$primary.500',
       }}
     >
       <Row
         sx={{
-          width: desktop ? '50%' : '100%',
-          justifyContent: 'space-evenly',
+          // width: desktop ? '50%' : '100%',
+          py: '$2',
+          gap: ['$3', '$3', '$3', '$4'],
+          justifyContent: 'center',
+          flexWrap: 'wrap',
         }}
       >
-        <NavLink href="/">{t('footer.aboutUs')}</NavLink>
-        <NavLink href="/">{t('common.shareholder')}</NavLink>
-        <NavLink href="/">{t('common.agent')}</NavLink>
-        <NavLink href="/">{t('footer.responsibleGaming')}</NavLink>
-        <NavLink href="/">{t('footer.contactUs')}</NavLink>
-        <NavLink href="/">{t('common.tnc')}</NavLink>
+        {FooterLinks.map((l) => {
+          return (
+            <LinkPressable key={l.label} href={l.href}>
+              <Text sx={{ fontSize: 12, mt: FONT_TOP_OFFSET }}>
+                {t(l.label)}
+              </Text>
+            </LinkPressable>
+          )
+        })}
       </Row>
     </View>
-  )
-}
-
-const NavLink = ({ href, children }) => {
-  return (
-    <LinkPressable href={href}>
-      <Text sx={{ fontSize: 12 }}>{children}</Text>
-    </LinkPressable>
   )
 }
 

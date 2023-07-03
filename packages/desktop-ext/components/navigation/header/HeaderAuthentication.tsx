@@ -6,7 +6,7 @@ import useLocalization from 'app/provider/localization'
 import isDesktop from 'app/utils/isDesktop'
 import { PASSWORD_MAX_LENGTH, USERNAME_MAX_LENGTH } from 'app/utils/validation'
 import { View } from 'dripsy'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useModal } from 'react-native-modalfy'
 import { useRouter } from 'solito/router'
 
@@ -14,15 +14,18 @@ const HeaderAuthentication = () => {
   const { push } = useRouter()
   const { t } = useLocalization()
   const desktop = isDesktop()
-
   const { openModal } = useModal()
-
   const { formik } = useLoginForm()
-
   const { handleChange, handleBlur, values, isSubmitting, submitForm } = formik
 
   return (
-    <View sx={{ flexDirection: 'row', alignItems: 'center', gap: '$3' }}>
+    <View
+      sx={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: ['$2', '$2', '$2', '$2', '$3'],
+      }}
+    >
       <Input
         sx={{ mb: 0, width: 200 }}
         inputContainerSx={{ py: '$1' }}

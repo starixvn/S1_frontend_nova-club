@@ -8,11 +8,9 @@ import { useWindowDimensions } from 'react-native'
 interface ModalWrapperProps {
   children?: React.ReactNode
   sx?: Sx
-  isAuthModal?: boolean
 }
 
-const ModalWrapper = ({ children, sx, isAuthModal }: ModalWrapperProps) => {
-  const { width, height } = useContainerDimension()
+const ModalWrapper = ({ children, sx }: ModalWrapperProps) => {
   const { width: WindowWidth } = useWindowDimensions()
   const { left, right } = useSafeArea() //Landscape
   // const desktop = isDesktop()
@@ -20,7 +18,7 @@ const ModalWrapper = ({ children, sx, isAuthModal }: ModalWrapperProps) => {
     <View
       sx={{
         p: '$4',
-        width: isAuthModal ? WindowWidth * 0.9 : Math.min(500, width * 0.9),
+        width: Math.min(800, WindowWidth * 0.9),
         justifyContent: 'center',
         ...sx,
       }}

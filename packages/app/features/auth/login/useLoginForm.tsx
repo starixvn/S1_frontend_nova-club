@@ -8,6 +8,7 @@ import { IResponse } from 'services/common/types'
 import * as Yup from 'yup'
 import useAgentLoginProcess from './useAgentLoginProcess'
 import useLoginProcess from './useLoginProcess'
+import { sleep } from 'utils/common'
 
 type LoginFormValues = {
   username: string
@@ -25,7 +26,7 @@ export default function useLoginForm(isAgent?: boolean) {
 
   const onSubmit = async (
     { username, password }: LoginFormValues,
-    actions: FormikHelpers<LoginFormValues>
+    {}: FormikHelpers<LoginFormValues>
   ) => {
     const api = isAgent ? authApi.endpoints.login : authApi.endpoints.login
 
@@ -46,6 +47,8 @@ export default function useLoginForm(isAgent?: boolean) {
         isAgent
           ? handleAgentSuccessLogin(data)
           : handleSuccessLogin(username, password, data)
+
+        return
       } else {
         showAlert(message)
       }

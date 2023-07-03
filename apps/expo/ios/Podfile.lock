@@ -47,6 +47,8 @@ PODS:
     - ExpoModulesCore
   - ExpoLinearGradient (12.1.2):
     - ExpoModulesCore
+  - ExpoLocalAuthentication (13.3.0):
+    - ExpoModulesCore
   - ExpoModulesCore (1.2.7):
     - React-Core
     - React-RCTAppDelegate
@@ -488,6 +490,7 @@ DEPENDENCIES:
   - ExpoImagePicker (from `../../../node_modules/expo-image-picker/ios`)
   - ExpoKeepAwake (from `../../../node_modules/expo-keep-awake/ios`)
   - ExpoLinearGradient (from `../../../node_modules/expo-linear-gradient/ios`)
+  - ExpoLocalAuthentication (from `../../../node_modules/expo-local-authentication/ios`)
   - ExpoModulesCore (from `../../../node_modules/expo-modules-core`)
   - EXScreenOrientation (from `../../../node_modules/expo-screen-orientation/ios`)
   - EXSharing (from `../../../node_modules/expo-sharing/ios`)
@@ -592,6 +595,8 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/expo-keep-awake/ios"
   ExpoLinearGradient:
     :path: "../../../node_modules/expo-linear-gradient/ios"
+  ExpoLocalAuthentication:
+    :path: "../../../node_modules/expo-local-authentication/ios"
   ExpoModulesCore:
     :path: "../../../node_modules/expo-modules-core"
   EXScreenOrientation:
@@ -711,6 +716,7 @@ SPEC CHECKSUMS:
   ExpoImagePicker: 432af66697986cc210bc814dee782a07b2037a61
   ExpoKeepAwake: 69f5f627670d62318410392d03e0b5db0f85759a
   ExpoLinearGradient: 8eaab76b7f55c612ed8348c8be8c2a18a9b4529f
+  ExpoLocalAuthentication: 32919307c66fb3661caefa07e7811a95a7539d7b
   ExpoModulesCore: 653958063a301098b541ae4dfed1ac0b98db607b
   EXScreenOrientation: d6f2277d20a76206f1ec5268d6c727e758e10d05
   EXSharing: 09839ace249f61bfa13c50c6a28256c31d260355

@@ -4,7 +4,13 @@ import { useAppSelector } from 'app/provider/redux/store'
 import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import isDesktop from 'app/utils/isDesktop'
-import { ActivityIndicator, Pressable, Text, View } from 'dripsy'
+import {
+  ActivityIndicator,
+  Pressable,
+  Text,
+  View,
+  useResponsiveValue,
+} from 'dripsy'
 import React from 'react'
 import { Shadow } from 'react-native-shadow-2'
 import { usePlayerBalanceQuery } from 'services/walletApi'
@@ -17,10 +23,10 @@ interface HeaderButtonProps {
 }
 
 const HeaderButton = ({ icon, label, value, isLoading }: HeaderButtonProps) => {
-  const desktop = isDesktop()
   return (
-    <View>
+    <View sx={{}}>
       <Shadow
+        stretch
         offset={[0, 1]}
         startColor={'rgba(255, 255, 255, 0.25)'}
         distance={1}
@@ -33,12 +39,13 @@ const HeaderButton = ({ icon, label, value, isLoading }: HeaderButtonProps) => {
           sx={{
             px: '$2',
             borderRadius: 15,
-            minWidth: desktop ? 125 : 100,
+            minWidth: 75,
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
             height: 22,
             bg: '$primary.700',
+            gap: '$1',
           }}
         >
           <Icon name={icon} size={14} color={'$secondary.100'} />
@@ -47,7 +54,9 @@ const HeaderButton = ({ icon, label, value, isLoading }: HeaderButtonProps) => {
             <ActivityIndicator size={14} color={'$secondary.100'} />
           ) : (
             <Text
+              numberOfLines={1}
               sx={{
+                flex: 1,
                 mt: FONT_TOP_OFFSET,
                 fontSize: 14,
                 color: '$secondary.100',
@@ -80,12 +89,14 @@ const HeaderOverview = ({}: HeaderOverviewProps) => {
     refetch,
   } = usePlayerBalanceQuery(undefined, { skip: !token })
 
+  const width = useResponsiveValue([110, 120, 150])
+
   return (
     <Pressable
       onPress={refetch}
       sx={{
-        alignItems: 'center',
         py: 5,
+        width,
       }}
     >
       <HeaderButton

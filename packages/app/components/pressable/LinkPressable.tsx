@@ -1,7 +1,7 @@
 import React from 'react'
-import { MotiLink } from 'solito/moti'
+import { MotiLink, MotiLinkProps } from 'solito/moti'
 
-const LinkPressable = ({ href, children }) => {
+const LinkPressable = ({ href, children, ...rest }: MotiLinkProps) => {
   return (
     <MotiLink
       href={href}
@@ -12,6 +12,7 @@ const LinkPressable = ({ href, children }) => {
           opacity: hovered ? 0.5 : 1,
         }
       }}
+      {...rest}
     >
       {children}
     </MotiLink>

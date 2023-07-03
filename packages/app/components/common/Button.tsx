@@ -79,8 +79,6 @@ const Button = (props: ButtonProps) => {
   const { style: endIconStyle, ...passedEndIconProps } = rightIcon || {}
   const { sx: passedTitleSx, ...passedTitleProps } = titleProps || {}
 
-  const { theme } = useDripsyTheme()
-
   const accessibilityState = useMemo(
     () => ({
       disabled: Boolean(disabled),
@@ -90,7 +88,7 @@ const Button = (props: ButtonProps) => {
   )
 
   const defaultPressableSxStyle: SxProp = {
-    backgroundColor: theme.colors.$secondary[500],
+    backgroundColor: '$secondary.500',
     borderRadius: BORDER_RADIUS,
     ...(elevation && shadowGenerator(elevation)),
     ...Platform.select({
@@ -102,7 +100,7 @@ const Button = (props: ButtonProps) => {
   }
   const pressableSxStyle = Object.assign(defaultPressableSxStyle, sx, {
     ...(disabled && {
-      backgroundColor: theme.colors.$disabled,
+      backgroundColor: '$disabled',
       opacity: 0.6,
     }),
   })
@@ -124,13 +122,14 @@ const Button = (props: ButtonProps) => {
   const endIconProps = Object.assign(defaultIconProps, passedEndIconProps)
 
   const defaultTitleSxStyle: SxProp = {
-    fontSize: 16,
+    fontSize: [13, 13, 13, 15],
     textAlign: 'center',
     color: 'white',
     fontWeight: 'bold',
     textTransform: 'uppercase',
     mt: FONT_TOP_OFFSET,
   }
+
   const titleSxStyle = Object.assign(defaultTitleSxStyle, passedTitleSx, {
     ...(disabled && {
       color: 'white',
@@ -174,7 +173,7 @@ const Button = (props: ButtonProps) => {
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
-              py: '$3',
+              py: ['$2', 10],
               px: '$3',
             }}
             style={contentStyle}

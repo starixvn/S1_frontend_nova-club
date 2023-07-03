@@ -18,6 +18,11 @@ interface LastSyncShield {
   token: string
 }
 
+interface Credential {
+  username: string
+  password: string
+}
+
 export interface Setting {
   locale: LANGUAGE_CODE
   referral?: Referral
@@ -28,23 +33,15 @@ export interface Setting {
   log?: string
   transferScan: boolean
   platformUUID?: string
-  currentSession: {
-    username: string
-    password: string
-  }
-  biometricCredentials: {
-    username?: string
-    password?: string
-  } | null
+
   lastSyncShield?: LastSyncShield
   luckyDrawBalance: number
   suggestions: boolean
   appDownloadSuggestion?: Date
   floatingDrawer: boolean
-  rememberMeCredentials: {
-    username?: string
-    password?: string
-  } | null
+  currentSessionCredential?: Credential
+  biometricCredentials?: Credential
+  rememberMeCredentials?: Credential
 }
 // export const DomainListHintPostfix = '-DomainListHint'
 // export const DepositListHintPostfix = '-DepositListHint'
@@ -56,11 +53,8 @@ const initialState: Setting = {
   recentGames: [],
   recentGameResources: {},
   transferScan: false,
-  currentSession: {},
-  biometricCredentials: null,
   suggestions: true,
   luckyDrawBalance: 0,
-  rememberMeCredentials: null,
   floatingDrawer: true,
 }
 
@@ -122,17 +116,13 @@ const settingSlice = createSlice({
 
       state.recentGames.unshift(recentGame)
     },
-    addCredentials: (
-      state,
-      action: PayloadAction<{ username: string; password: string }>
-    ) => {
-      state.currentSession.username = action.payload.username
-      state.currentSession.password = action.payload.password
+    setCurrentSessionCredential: (state, action: PayloadAction<Credential>) => {
+      state.currentSessionCredential = action.payload
     },
     toggleBiometricLogin: (state, action: PayloadAction<boolean>) => {
-      state.biometricCredentials === null || action.payload
-        ? (state.biometricCredentials = state.currentSession)
-        : (state.biometricCredentials = null)
+      state.biometricCredentials == undefined || action.payload
+        ? (state.biometricCredentials = state.currentSessionCredential)
+        : (state.biometricCredentials = undefined)
     },
     setLastSyncShieldInfo: (state, action: PayloadAction<LastSyncShield>) => {
       state.lastSyncShield = action.payload
@@ -149,13 +139,10 @@ const settingSlice = createSlice({
     setFloatingDrawer: (state, action: PayloadAction<boolean>) => {
       state.floatingDrawer = action.payload
     },
-    setRememberMe: (
-      state,
-      action: PayloadAction<{ username: string; password: string } | undefined>
-    ) => {
+    setRememberMe: (state, action: PayloadAction<Credential | undefined>) => {
       action?.payload
         ? (state.rememberMeCredentials = action.payload)
-        : (state.rememberMeCredentials = null)
+        : (state.rememberMeCredentials = undefined)
     },
   },
   extraReducers: (builder) => {

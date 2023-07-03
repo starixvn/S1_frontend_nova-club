@@ -50,6 +50,7 @@ export default function BannerCarousel({
         ...sx,
       }}
     >
+      {/* <Text>{width + ' ' + height}</Text> */}
       <SkeletonPlaceholder width={'100%'} height={'100%'}>
         {showCarousel ? (
           <Carousel

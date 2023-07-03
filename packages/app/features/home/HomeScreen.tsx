@@ -20,7 +20,7 @@ export default function HomeScreen() {
       bounces={false}
       showsVerticalScrollIndicator={false}
       sx={{ flex: 1 }}
-      contentContainerSx={{ pb: '$2' }}
+      contentContainerSx={{ pb: '$4' }}
     >
       <BannerSection />
       <AnnouncementSection />

@@ -3,10 +3,7 @@ import CheckBox from 'app/components/common/CheckBox'
 import FormContainer from 'app/components/form/FormContainer'
 import Input from 'app/components/form/Input'
 import useLocalization from 'app/provider/localization'
-import {
-  PASSWORD_MAX_LENGTH,
-  USERNAME_MAX_LENGTH,
-} from 'app/utils/validation'
+import { PASSWORD_MAX_LENGTH, USERNAME_MAX_LENGTH } from 'app/utils/validation'
 import { Pressable, Text, View } from 'dripsy'
 import React, { useRef } from 'react'
 import { TextInput } from 'react-native'
@@ -34,8 +31,15 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
 
   const { formik } = useLoginForm(isAgent)
 
-  const { handleChange, handleBlur, values, errors, touched, submitForm } =
-    formik
+  const {
+    isSubmitting,
+    handleChange,
+    handleBlur,
+    values,
+    errors,
+    touched,
+    submitForm,
+  } = formik
 
   return (
     <FormContainer
@@ -123,7 +127,7 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
         </View>
       </View>
 
-      <Button onPress={submitForm} sx={{ my: '$2' }}>
+      <Button loading={isSubmitting} onPress={submitForm} sx={{ my: '$2' }}>
         {t('authentication.login')}
       </Button>
       <Button

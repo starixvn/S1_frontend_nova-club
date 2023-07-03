@@ -29,7 +29,7 @@ import HeaderLanguageToggle from './HeaderLanguageToggle'
 import HeaderOverview from './HeaderOverview'
 
 const LogoSize = [
-  HEADER_HEIGHT * 0.5,
+  HEADER_HEIGHT * 0.45,
   HEADER_HEIGHT * 0.5,
   HEADER_HEIGHT * 0.75,
 ]
@@ -94,7 +94,7 @@ const MainHeader = () => {
             )}
 
             <Pressable
-              sx={{ borderRadius: 50, px: desktop ? 0 : 5 }}
+              sx={{ borderRadius: 50 }}
               onPress={() => push('/account')}
             >
               <Image
@@ -106,7 +106,6 @@ const MainHeader = () => {
             {desktop && (
               <>
                 <HeaderLanguageToggle />
-
                 <Shadow
                   offset={[0, -1]}
                   startColor={'rgba(255, 255, 255, 0.5)'}

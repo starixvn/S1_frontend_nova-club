@@ -9,9 +9,15 @@ const HeaderAuthentication = () => {
   const { t } = useLocalization()
 
   return (
-    <View sx={{ flexDirection: 'row', alignItems: 'center', gap: '$3' }}>
+    <View
+      sx={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: '$2',
+      }}
+    >
       <Button
-        sx={{ minWidth: 100, borderRadius: 15 }}
+        sx={{ minWidth: 100, borderRadius: 20 }}
         contentProps={{
           sx: { py: '$2' },
         }}
@@ -20,7 +26,7 @@ const HeaderAuthentication = () => {
         {t('authentication.login')}
       </Button>
       <Button
-        sx={{ bg: '$primary.300', minWidth: 100, borderRadius: 15 }}
+        sx={{ bg: '$primary.300', minWidth: 100, borderRadius: 20 }}
         contentProps={{
           sx: { py: '$2' },
         }}

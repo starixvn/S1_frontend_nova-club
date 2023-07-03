@@ -1,11 +1,15 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { RefObject, useLayoutEffect, useState } from 'react'
+import { View } from 'react-native'
 
-export default function useContainerWidth(ref) {
+export default function useContainerWidth(ref: RefObject<View>) {
   const [width, setWidth] = useState(0)
   useLayoutEffect(() => {
-    // setWidth()
-    ref.current.measure((x, y, width, height) => {
-      setWidth(width)
+    this.requestAnimationFrame(() => {
+      if (ref.current)
+        ref.current.measure((ox, oy, width, height, px, py) => {
+          console.log('widtg', width)
+          setWidth(width)
+        })
     })
   }, [ref])
 

@@ -40,38 +40,35 @@ export default function useLoginProcess() {
   async function handleSuccessLogin(
     username: string,
     password: string,
-    data: LoginResult,
-    skipBiometric?: boolean
+    data: LoginResult
   ) {
-    if (
-      skipBiometric ||
-      !(await biometricProcess(username, password, () =>
-        handleSuccessLogin(username, password, data, true)
-      ))
-    ) {
-      dispatch(AuthActions.setAuthInfo(data))
+    dispatch(SettingActions.setCurrentSessionCredential({ username, password }))
 
-      if (!isDesktop) {
-        push('/')
-      }
-    }
-    // dispatch(TempSettingActions.setSyncShieldActionType(Shield_Action.LOGIN))
+    await biometricProcess(username).catch((e) => {
+      console.warn('Biometric Process Error', e)
+    }) // Once Flow completed, the promise will be resolved
+
+    completeSuccessLoginHandler(data)
   }
 
-  async function biometricProcess(username, password, callback) {
-    const isBiometricAvailable = await checkBiometricEnabled()
-    if (
-      isBiometricAvailable &&
-      biometricCredentials &&
-      biometricCredentials.username !== username
-    ) {
-      showBiometricDialog(() =>
-        handleSuccessLogin(username, password, callback)
-      )
-      return true
-    }
+  async function completeSuccessLoginHandler(data: LoginResult) {
+    dispatch(AuthActions.setAuthInfo(data))
 
-    return false
+    if (!isDesktop) {
+      push('/')
+    }
+  }
+
+  async function biometricProcess(username: string) {
+    return new Promise(async (resolve) => {
+      const isBiometricAvailable = await checkBiometricEnabled()
+      if (
+        isBiometricAvailable &&
+        (!biometricCredentials || biometricCredentials.username !== username)
+      ) {
+        showBiometricDialog(() => resolve(true))
+      } else resolve(true)
+    })
   }
 
   const showBiometricDialog = async (callback) => {
@@ -81,12 +78,10 @@ export default function useLoginProcess() {
         {
           label: t('common.cancel'),
           onPress: callback,
-          buttonStyle: { px: 0, minWidth: 120 },
         },
         {
           label: t('common.yes'),
           onPress: () => biometricPrompt(callback),
-          buttonStyle: { px: 0, minWidth: 120 },
         },
       ],
       persistent: true,
@@ -96,10 +91,12 @@ export default function useLoginProcess() {
   async function biometricPrompt(callback) {
     const success = await authenticate()
 
-    callback()
     if (success) {
+      console.log('set biometric to true')
       dispatch(SettingActions.toggleBiometricLogin(true))
     }
+
+    callback()
   }
 
   async function authenticate() {
@@ -121,15 +118,12 @@ export default function useLoginProcess() {
     }
 
     const success = await authenticate()
-    if (
-      success &&
-      biometricCredentials?.username &&
-      biometricCredentials?.password
-    ) {
+    if (success && biometricCredentials) {
+      const { username, password } = biometricCredentials
       const resp = await dispatch(
         authApi.endpoints.login.initiate({
-          username: biometricCredentials?.username,
-          password: biometricCredentials?.password,
+          username,
+          password,
         })
       )
         .unwrap()
@@ -140,9 +134,11 @@ export default function useLoginProcess() {
       if (resp) {
         const { data, message } = resp
         if (data) {
-          isAgent
-            ? handleAgentSuccessLogin(data)
-            : handleSuccessLogin(username, password, data)
+          dispatch(
+            SettingActions.setCurrentSessionCredential({ username, password })
+          )
+
+          completeSuccessLoginHandler(data)
         } else {
           showAlert(message)
         }
