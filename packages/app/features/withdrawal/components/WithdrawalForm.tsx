@@ -80,7 +80,7 @@ const WithdrawalForm = ({ isCrypto, selectedChannel }: WithdrawalFormProps) => {
             inputSx: { opacity: values.bank?.BankAccountNumber ? 1 : 0.5 },
           }}
           _actionSheet={{
-            sheetId: t('filter.transactionType.title') + 1,
+            sheetId: t('bank.walletAddress'),
           }}
           _actionSheetContent={
             walletAddressList && walletAddressList.length === 0

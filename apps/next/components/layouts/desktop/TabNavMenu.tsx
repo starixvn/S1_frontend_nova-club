@@ -24,8 +24,11 @@ type NavMenuItemProps = {
 
 const TabNavMenu = ({ routes, notice }: TabNavMenuProps) => {
   const pathname = usePathname()
+
   const currentPath =
-    routes?.find((el) => el.route === pathname)?.route ?? routes[0].route
+    routes?.find((el) => el.route === pathname)?.route ??
+    routes?.find((el) => el?.base && pathname.includes(el?.base))?.route ??
+    routes[0].route
 
   const { t } = useLocalization()
   const [currentMenu, setCurrentMenu] = useState(currentPath)
@@ -38,7 +41,10 @@ const TabNavMenu = ({ routes, notice }: TabNavMenuProps) => {
     <View>
       {routes &&
         routes.map((item) => {
-          const isActive = currentMenu === (item.base ?? item.route)
+          const isActive =
+            currentMenu === item.route ||
+            (item?.base && currentMenu.includes(item?.base)) ||
+            false
 
           return (
             <NavMenuItem
@@ -70,7 +76,7 @@ const NavMenuItem = ({
   onPress,
 }: NavMenuItemProps) => {
   return (
-    <NavMenuPressable href={href} onPress={onPress}>
+    <NavMenuPressable href={href} isActive={isActive} onPress={onPress}>
       {/* <Divider /> */}
       <DripsyGradient gradient="surface">
         <Row

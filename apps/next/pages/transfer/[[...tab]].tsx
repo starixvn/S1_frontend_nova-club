@@ -6,10 +6,9 @@ const LazyMobileScreen = dynamic(() => import('app/features/transfer'), {
   ssr: false,
 })
 
-const LazyDesktopScreen = dynamic(
-  () => import('desktop-ext/features/transfer/TransferScreen'),
-  { ssr: false }
-)
+const LazyDesktopScreen = dynamic(() => import('app/features/transfer'), {
+  ssr: false,
+})
 
 const Transfer = withAdaptiveScreen(LazyMobileScreen, LazyDesktopScreen)
 

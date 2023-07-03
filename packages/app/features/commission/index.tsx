@@ -1,14 +1,21 @@
-import { FlashList } from '@shopify/flash-list'
 import DataTable from 'app/components/dataTable/DataTable'
+import DataTableTitle from 'app/components/dataTable/DataTableTitle'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
+import { ScrollFlashList } from 'app/components/withCustomScroll'
 import useLocalization from 'app/provider/localization'
 import { Currency } from 'app/utils/constant'
 import isDesktop from 'app/utils/isDesktop'
-import { ScrollView, View } from 'dripsy'
-import React from 'react'
-import { Platform } from 'react-native'
+import DesktopPageContainer from 'desktop-ext/components/layout/DesktopPage'
+import { SxProp, View } from 'dripsy'
+import React, { ComponentProps, ReactNode } from 'react'
 import { useCommissionTableQuery } from 'services/contentApi'
 import { CommissionTableResult } from 'services/contentApi.type'
+
+type TitleCellProps = {
+  border?: boolean
+  textStyle?: SxProp
+  children: ReactNode
+} & Partial<ComponentProps<typeof DataTableTitle>>
 
 const CommissionTitle = [
   'LOTTERY',
@@ -37,6 +44,43 @@ const CommissionTableScreen = () => {
   const fillColumn = (value) => {
     return value ? value + '%' : '⎯'
   }
+
+  const TableHeader = () => (
+    <DataTable>
+      <DataTable.Header
+        size="big"
+        containerStyle={{
+          color: 'white',
+          zIndex: 2,
+          // mt: Platform.OS === 'web' ? (desktop ? 0 : 15) : 0,
+          // position:
+          //   Platform.OS === 'web'
+          //     ? desktop
+          //       ? 'relative'
+          //       : 'absolute'
+          //     : 'relative',
+          bg: '$background',
+        }}
+      >
+        <TitleCell
+          center={false}
+          containerStyle={{ flex: 0.4 }}
+          textStyle={{
+            pl: 12,
+          }}
+        >
+          {t('commision.productLists').toUpperCase()}
+        </TitleCell>
+        <TitleCell center>{t('commision.cashPlayer').toUpperCase()}</TitleCell>
+        <TitleCell center>
+          {t('commision.cashPlayerReferral').toUpperCase()}
+        </TitleCell>
+        <TitleCell center>
+          {t('commision.creditPlayer').toUpperCase()}
+        </TitleCell>
+      </DataTable.Header>
+    </DataTable>
+  )
 
   const onRender = ({
     item,
@@ -101,54 +145,31 @@ const CommissionTableScreen = () => {
       disableScrollView
       hideHeader={desktop}
     >
-      <DataTable>
-        <DataTable.Header
-          size="big"
-          containerStyle={{
-            color: 'white',
-            zIndex: 2,
-            mt: Platform.OS === 'web' ? (desktop ? 0 : 15) : 0,
-            position:
-              Platform.OS === 'web'
-                ? desktop
-                  ? 'relative'
-                  : 'fixed'
-                : 'relative',
-            bg: '$background',
+      <DesktopPageContainer>
+        <TableHeader />
+        <View
+          sx={{
+            height: desktop ? '50vh' : '100%',
           }}
         >
-          <TitleCell containerStyle={{ flex: 0.4 }}>
-            {t('commision.productLists').toUpperCase()}
-          </TitleCell>
-          <TitleCell center>
-            {t('commision.cashPlayer').toUpperCase()}
-          </TitleCell>
-          <TitleCell center>
-            {t('commision.cashPlayerReferral').toUpperCase()}
-          </TitleCell>
-          <TitleCell center>
-            {t('commision.creditPlayer').toUpperCase()}
-          </TitleCell>
-        </DataTable.Header>
-      </DataTable>
-      <ScrollView
-        sx={{
-          zIndex: -1,
-          marginTop: Platform.OS === 'web' ? (desktop ? 0 : 60) : 0,
-          height: desktop ? 500 : '100%',
-        }}
-      >
-        <FlashList
-          data={parseCommissionList}
-          renderItem={onRender}
-          estimatedItemSize={40}
-        />
-      </ScrollView>
+          <ScrollFlashList
+            data={parseCommissionList}
+            renderItem={onRender}
+            estimatedItemSize={20}
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
+      </DesktopPageContainer>
     </PageWithBackHeader>
   )
 }
 
-export const TitleCell = ({ border = true, children, ...rest }) => (
+export const TitleCell = ({
+  border = true,
+  textStyle,
+  children,
+  ...rest
+}: TitleCellProps) => (
   <DataTable.Title
     numberOfLines={4}
     textStyle={{
@@ -156,6 +177,7 @@ export const TitleCell = ({ border = true, children, ...rest }) => (
       textAlign: 'center',
       lineHeight: 15,
       fontSize: 12,
+      ...textStyle,
     }}
     containerStyle={{ flex: 0.2 }}
     {...rest}

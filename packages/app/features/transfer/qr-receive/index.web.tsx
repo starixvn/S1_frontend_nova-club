@@ -4,6 +4,7 @@ import ViewScreenShot, {
 } from 'app/components/ViewScreenShot'
 import Button from 'app/components/common/Button'
 import useLocalization from 'app/provider/localization'
+import DesktopPageContainer from 'desktop-ext/components/layout/DesktopPage'
 import { ScrollView, Text, View } from 'dripsy'
 import React, { useRef } from 'react'
 import { usePlayerProfileQuery } from 'services/playerApi'
@@ -20,20 +21,22 @@ const QrReceive = () => {
   }
 
   return (
-    <ScrollView contentContainerStyle={{ padding: '10%' }}>
-      <View sx={{ p: '2%', borderRadius: 15, bg: 'white' }}>
-        <ViewScreenShot ref={ref} fileName={`Vui123-${username}`}>
-          <QRCodeGenerator />
-        </ViewScreenShot>
-      </View>
-      <View sx={{ alignItems: 'center', py: '$3' }}>
-        <Text sx={{ fontWeight: 'bold', fontSize: 18 }}>{username}</Text>
-      </View>
-      <View sx={{ alignItems: 'center', py: '$3' }}>
-        <Text sx={{ fontSize: 16 }}>{t('notes.qr.n1')}</Text>
-      </View>
-      <Button onPress={handleDownload}>{t('qr.downloadQr')}</Button>
-    </ScrollView>
+    <DesktopPageContainer>
+      <ScrollView contentContainerStyle={{ padding: '10%' }}>
+        <View sx={{ p: '2%', borderRadius: 15, bg: 'white', mx: 'auto' }}>
+          <ViewScreenShot ref={ref} fileName={`Vui123-${username}`}>
+            <QRCodeGenerator />
+          </ViewScreenShot>
+        </View>
+        <View sx={{ alignItems: 'center', py: '$3' }}>
+          <Text sx={{ fontWeight: 'bold', fontSize: 18 }}>{username}</Text>
+        </View>
+        <View sx={{ alignItems: 'center', py: '$3' }}>
+          <Text sx={{ fontSize: 16 }}>{t('notes.qr.n1')}</Text>
+        </View>
+        <Button onPress={handleDownload}>{t('qr.downloadQr')}</Button>
+      </ScrollView>
+    </DesktopPageContainer>
   )
 }
 

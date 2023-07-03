@@ -1,14 +1,12 @@
-import IconButton from 'app/components/IconButton'
-import { copyToClipboard } from 'app/utils'
-import { Text, View, styled } from 'dripsy'
+import GiftImage from 'app/assets/images/referral/gift.png'
+import SpeakerImage from 'app/assets/images/referral/speaker.png'
+import { View, styled } from 'dripsy'
 import React from 'react'
 import { ImageBackground } from 'react-native'
 import { SolitoImage } from 'solito/image'
-import GiftImage from 'app/assets/images/referral/gift.png'
-import SpeakerImage from 'app/assets/images/referral/speaker.png'
 import ShareCode from './ShareCode'
 
-const IMAGE_SIZE = 180
+const IMAGE_SIZE = 150
 const ReferralSection = () => {
   return (
     <View sx={{ width: '100%' }}>
@@ -22,23 +20,26 @@ const ReferralSection = () => {
       >
         <View
           sx={{
+            width: '100%',
             height: '100%',
+            px: '5%',
             alignItems: 'center',
             justifyContent: 'center',
           }}
         >
           <View
             sx={{
+              position: 'relative',
               borderWidth: 2,
               borderRadius: 15,
               bg: 'rgb(0,0,0,0.6)',
               borderColor: 'yellow',
               minHeight: '30%',
-              width: '75%',
+              width: '100%',
               justifyContent: 'center',
               alignItems: 'center',
-              paddingX: 5,
-              paddingY: 10,
+              px: 5,
+              py: 10,
             }}
           >
             <SolitoImage
@@ -47,7 +48,7 @@ const ReferralSection = () => {
               height={IMAGE_SIZE}
               resizeMode="contain"
               alt="referralImage1"
-              style={{ position: 'absolute', left: '-15%' }}
+              style={{ position: 'absolute', left: '-10%' }}
             />
             <StyledImage
               src={SpeakerImage}
@@ -55,7 +56,7 @@ const ReferralSection = () => {
               height={IMAGE_SIZE}
               resizeMode="contain"
               alt="referralImage2"
-              sx={{ position: 'absolute', right: '-10%' }}
+              sx={{ position: 'absolute', right: '-5%' }}
             />
 
             <ShareCode />
