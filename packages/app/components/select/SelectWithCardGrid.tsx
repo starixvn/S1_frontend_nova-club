@@ -5,14 +5,22 @@ import React, { ReactNode } from 'react'
 import TouchableOpacity from '../pressable/TouchableOpacity'
 import Select, { SelectProps } from './Select'
 
-export type SelectWithCardGrid<T> = Omit<
+export type SelectWithCardGridProps<T> = Omit<
   SelectProps<T>,
   '_actionSheetContent'
-> & { renderEmpty?: (args) => ReactNode }
+> & { isProvider?: boolean; renderEmpty?: (args) => ReactNode }
 
-function SelectWithCardGrid<T>(props: SelectWithCardGrid<T>) {
-  const { options, renderEmpty, onSelected } = props
+function SelectWithCardGrid<T>(props: SelectWithCardGridProps<T>) {
+  const { options, isProvider = false, renderEmpty, onSelected } = props
 
+  const squareStyle = isProvider
+    ? {
+        bg: '$primary.500',
+        p: '$2',
+      }
+    : {
+        borderColor: '$primary.100',
+      }
   return (
     <Select
       {...props}
@@ -24,6 +32,7 @@ function SelectWithCardGrid<T>(props: SelectWithCardGrid<T>) {
               p: '$2',
               flexWrap: 'wrap',
               justifyContent: 'center',
+              bg: 'white',
             }}
           >
             {options && options.length > 0 ? (
@@ -32,14 +41,13 @@ function SelectWithCardGrid<T>(props: SelectWithCardGrid<T>) {
                   <TouchableOpacity
                     key={index}
                     sx={{
-                      borderColor: '#0c7dff',
-                      m: '$2',
+                      m: '$1',
                       borderRadius: 15,
                       borderWidth: 2,
                       overflow: 'hidden',
-                      width: 100,
-                      height: 100,
-                      // p: '$2',
+                      height: 72,
+                      aspectRatio: 3 / 2,
+                      ...squareStyle,
                     }}
                     onPress={() => {
                       onSelected(option.value)
@@ -55,8 +63,9 @@ function SelectWithCardGrid<T>(props: SelectWithCardGrid<T>) {
                               }
                             : option.icon
                         }
-                        resizeMode={'contain'}
+                        resizeMode="contain"
                         sx={{ width: '100%', height: '100%' }}
+                        alt=""
                       />
                     )}
                   </TouchableOpacity>

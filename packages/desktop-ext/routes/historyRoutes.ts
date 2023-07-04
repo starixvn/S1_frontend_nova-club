@@ -5,19 +5,19 @@ const _Routes: Readonly<DesktopRoute[]> = [
     key: 'TransactionHistory',
     title: 'Transaction History',
     icon: 'lba',
-    route: '/history',
+    route: '/history/transaction',
   },
   {
     key: 'GameHistory',
     title: 'Game History',
     icon: 'cp',
-    route: '/history',
+    route: '/history/game',
   },
   {
     key: 'RedeemHistory',
     title: 'RedeemHistory',
     icon: 'cp',
-    route: '/history',
+    route: '/history/redeem',
   },
 ] as const
 

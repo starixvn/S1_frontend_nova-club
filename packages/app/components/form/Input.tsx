@@ -129,7 +129,8 @@ const Input = forwardRef<NativeTextInput, InputProps>(
                     color: sizeEffectColor,
                     minHeight: 30,
                     minWidth: 40,
-                    mx: '$2',
+                    ml: '$2',
+                    mr: '$1',
                     fontSize: 14,
                     ...inputSx,
                   }}
@@ -203,7 +204,7 @@ const InputContainer = styled(Row)(
 )
 
 const Container = styled(View)({
-  mx: '$2',
+  mr: '$2',
 })
 
 const getDefaultInputIcon = (name: string) => {

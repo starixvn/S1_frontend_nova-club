@@ -14,6 +14,7 @@ import React from 'react'
 import { useCryptoBankQuery } from 'services/bank'
 import RealNameForm from '../components/RealNameForm'
 import DesktopPageContainer from 'desktop-ext/components/layout/DesktopPage'
+import SelectList from 'app/components/select/SelectList'
 
 const AddCryptoWalletScreen = () => {
   const { t } = useLocalization()
@@ -64,26 +65,15 @@ const AddCryptoWalletScreen = () => {
       <ContentWrapper desktop={desktop}>
         <DesktopPageContainer>
           <RealNameForm formik={formik}>
-            {desktop ? (
-              <View sx={{ marginBottom: '$3' }}>
-                <SelectWithDropdown
-                  label={t('bank.bank')}
-                  options={sheetData}
-                  value={values.bank?.bank_name}
-                  onSelected={(e) => handleSelected(e)}
-                />
-              </View>
-            ) : (
-              <SelectWithCardGrid
-                label={t('bank.channel')}
-                placeholder={t('bank.selectChannel')}
-                options={sheetData}
-                loading={isLoading || isFetching}
-                value={values.bank?.bank_name}
-                sx={{ width: '100%', mb: '$3' }}
-                onSelected={(e) => handleSelected(e)}
-              />
-            )}
+            <SelectList
+              label={t('bank.channel')}
+              placeholder={t('bank.selectChannel')}
+              options={sheetData}
+              loading={isLoading || isFetching}
+              value={values.bank?.bank_name}
+              onSelected={(e) => handleSelected(e)}
+            />
+
             <Input
               label={t('wallet.walletAddress')}
               value={values.walletAddress}

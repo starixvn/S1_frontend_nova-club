@@ -66,7 +66,7 @@ const bankApi = baseApiWithTag.injectEndpoints({
      * *General Withdrawal Bank
      */
     withdrawalBank: builder.query<
-      IResponse<WithdrawalBankResult[]>,
+      WithdrawalBankResult[],
       WithdrawalBankArgs | void
     >({
       query: (queryArgs) => ({
@@ -76,6 +76,9 @@ const bankApi = baseApiWithTag.injectEndpoints({
           ...queryArgs,
         },
       }),
+      transformResponse: ({ data }: { data: WithdrawalBankResult[] }) => {
+        return data ?? []
+      },
     }),
     cryptoBank: builder.query<
       CryptoWithdrawalBankResult[],
