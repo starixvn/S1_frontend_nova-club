@@ -63,7 +63,6 @@ const theme = makeTheme({
       mx: [0, 0, 'auto', 'auto'],
       width: ['100%', '100%', 600, 600],
       maxWidth: '100%',
-      p: ['$pagePadding'],
       alignSelf: 'stretch',
     },
   },

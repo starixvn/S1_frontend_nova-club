@@ -66,66 +66,57 @@ const AddBankAccountScreen = () => {
 
   return (
     <PageWithBackHeader header={{ title: t('bank.addBankAccount') }}>
-      <ContentWrapper desktop={desktop}>
-        <DesktopPageContainer>
-          <RealNameForm formik={formik}>
-            {desktop ? (
-              <View sx={{ marginBottom: '$3' }}>
-                <SelectWithDropdown
-                  label={t('bank.bank')}
-                  options={sheetData}
-                  value={values.bank?.bank_name}
-                  onSelected={(e) => handleSelected(e)}
-                />
-              </View>
-            ) : (
-              <SelectWithCardGrid
+      <FormContainer>
+        <RealNameForm formik={formik}>
+          {desktop ? (
+            <View sx={{ marginBottom: '$3' }}>
+              <SelectWithDropdown
                 label={t('bank.bank')}
-                placeholder={t('bank.selectBank')}
                 options={sheetData}
-                loading={isLoading || isFetching}
                 value={values.bank?.bank_name}
-                sx={{ width: '100%', mb: '$3' }}
                 onSelected={(e) => handleSelected(e)}
               />
-            )}
-            <CardInput
-              label={t('bank.accountNumber')}
-              value={values.accountNo}
-              setValue={handleChange('accountNo')}
-              // onChangeText={handleChange('accountNo')}
-              onBlur={handleBlur('accountNo')}
-              keyboardType="number-pad"
-              maxLength={MaxLength.CARD}
-              error={
-                touched.accountNo && errors.accountNo
-                  ? t(errors.accountNo, {
-                      field: t('bank.accountNumber'),
-                    })
-                  : undefined
-              }
+            </View>
+          ) : (
+            <SelectWithCardGrid
+              label={t('bank.bank')}
+              placeholder={t('bank.selectBank')}
+              options={sheetData}
+              loading={isLoading || isFetching}
+              value={values.bank?.bank_name}
+              sx={{ width: '100%', mb: '$3' }}
+              onSelected={(e) => handleSelected(e)}
             />
-          </RealNameForm>
+          )}
+          <CardInput
+            label={t('bank.accountNumber')}
+            value={values.accountNo}
+            setValue={handleChange('accountNo')}
+            // onChangeText={handleChange('accountNo')}
+            onBlur={handleBlur('accountNo')}
+            keyboardType="number-pad"
+            maxLength={MaxLength.CARD}
+            error={
+              touched.accountNo && errors.accountNo
+                ? t(errors.accountNo, {
+                    field: t('bank.accountNumber'),
+                  })
+                : undefined
+            }
+          />
+        </RealNameForm>
 
-          <Button
-            loading={isSubmitting}
-            disabled={!isValid || !dirty}
-            onPress={submitForm}
-            sx={{ my: 20 }}
-          >
-            {t('common.next')}
-          </Button>
-        </DesktopPageContainer>
-      </ContentWrapper>
+        <Button
+          loading={isSubmitting}
+          disabled={!isValid || !dirty}
+          onPress={submitForm}
+          sx={{ my: 20 }}
+        >
+          {t('common.next')}
+        </Button>
+      </FormContainer>
     </PageWithBackHeader>
   )
 }
-
-const ContentWrapper = styled(View)(({ desktop }: { desktop: boolean }) => ({
-  flex: 1,
-  bg: '$secondary',
-  p: '$pagePadding',
-  px: desktop ? 0 : '$pagePadding',
-}))
 
 export default AddBankAccountScreen

@@ -11,13 +11,13 @@ const _Routes: Readonly<DesktopRoute[]> = [
     key: 'IDTransfer',
     title: 'transfer.idTransfer',
     icon: 'cp',
-    route: '/transfer/id-transfer',
+    route: '/transfer/id',
   },
   {
     key: 'QRTransfer',
     title: 'transfer.qrTransfer',
     icon: 'cp',
-    route: '/transfer/qr-transfer',
+    route: '/transfer/qr',
   },
 ] as const
 

@@ -3,6 +3,7 @@ import ViewScreenShot, {
   ViewScreenShotMethods,
 } from 'app/components/ViewScreenShot'
 import Button from 'app/components/common/Button'
+import FormContainer from 'app/components/form/FormContainer'
 import useLocalization from 'app/provider/localization'
 import DesktopPageContainer from 'desktop-ext/components/layout/DesktopPage'
 import { ScrollView, Text, View } from 'dripsy'
@@ -21,9 +22,9 @@ const QrReceive = () => {
   }
 
   return (
-    <DesktopPageContainer>
+    <FormContainer>
       <ScrollView contentContainerStyle={{ padding: '10%' }}>
-        <View sx={{ p: '2%', borderRadius: 15, bg: 'white', mx: 'auto' }}>
+        <View sx={{ p: '2%', borderRadius: 15, alignItems: 'center' }}>
           <ViewScreenShot ref={ref} fileName={`Vui123-${username}`}>
             <QRCodeGenerator />
           </ViewScreenShot>
@@ -36,7 +37,7 @@ const QrReceive = () => {
         </View>
         <Button onPress={handleDownload}>{t('qr.downloadQr')}</Button>
       </ScrollView>
-    </DesktopPageContainer>
+    </FormContainer>
   )
 }
 

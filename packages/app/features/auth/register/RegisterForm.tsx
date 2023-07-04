@@ -110,6 +110,7 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
 
   return (
     <FormContainer
+      padding
       sx={{
         py: '$4',
       }}

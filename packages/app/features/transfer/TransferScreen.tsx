@@ -8,15 +8,15 @@ import { useModal } from 'react-native-modalfy'
 import { SceneMap, TabView } from 'react-native-tab-view'
 import { createParam } from 'solito'
 import IconButton from 'app/components/IconButton'
-import QrTransfer from './qr-transfer'
-import QrReceive from './qr-receive'
-import IdTransfer from './id-transfer'
+import QrTransfer from './Qr'
+import QrReceive from './QrReceive'
+import IdTransfer from './Id'
 import isDesktop from 'app/utils/isDesktop'
 
 enum SCREEN_TAB {
   RECEIVE = 'receive',
-  ID_TRANSFER = 'id-transfer',
-  QR_TRANSFER = 'qr-transfer',
+  ID_TRANSFER = 'id',
+  QR_TRANSFER = 'qr',
 }
 
 const { useParam } = createParam<{ tab: string }>()

@@ -2,8 +2,7 @@ import Button from 'app/components/common/Button'
 import Input from 'app/components/form/Input'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { ToThousandValue, toCleanAmount, toCurrency } from 'app/utils'
-import { Currency } from 'app/utils/constant'
+import { ToThousandValue, toCleanAmount } from 'app/utils'
 import validation from 'app/utils/validation'
 import { ScrollView, Text, View, useDripsyTheme } from 'dripsy'
 import React from 'react'
@@ -11,7 +10,9 @@ import { usePlayerProfileQuery } from 'services/playerApi'
 import * as Yup from 'yup'
 
 import IconButton from 'app/components/IconButton'
+import AvailableBalance from 'app/features/withdrawal/components/AvailableBalance'
 import useAlert from 'app/hooks/useAlert'
+import DesktopPageContainer from 'desktop-ext/components/layout/DesktopPage'
 import { FormikHelpers, useFormik } from 'formik'
 import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
@@ -20,8 +21,6 @@ import {
   useTransferMemberToMemberMutation,
 } from 'services/walletApi'
 import { useRouter } from 'solito/router'
-import AvailableBalance from 'app/features/withdrawal/components/AvailableBalance'
-import DesktopPageContainer from 'desktop-ext/components/layout/DesktopPage'
 
 type IdTransferFormValues = {
   idTransfer: string
@@ -129,6 +128,7 @@ const IdTransfer = () => {
       },
     })
   }
+
   return (
     <DesktopPageContainer>
       <ScrollView
