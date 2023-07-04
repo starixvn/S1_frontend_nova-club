@@ -21,6 +21,8 @@ const MatchListHeader = ({ data, height }: MatchListHeaderProps) => {
         bg: '$primary.300',
         flexDirection: 'row',
         alignItems: 'center',
+        borderTopWidth: 1,
+        borderTopColor: '$primary.50',
       }}
     >
       <DataTable>
@@ -37,26 +39,30 @@ const MatchListHeader = ({ data, height }: MatchListHeaderProps) => {
             />
           </DataTableTitle>
 
-          <DataTableTitle sx={{ flex: 0.25 }}>
-            <Text>{data?.LeagueName}</Text>
+          <DataTableTitle
+            sx={{ flex: 0.01, minWidth: 250, justifyContent: 'flex-start' }}
+          >
+            <Text sx={{ fontSize: 12, textAlign: 'left' }}>
+              {data?.LeagueName}
+            </Text>
           </DataTableTitle>
           <Row sx={{ flex: 1 }}>
-            <DataTableTitle sx={{ flex: 2 }}>
+            <DataTableTitle sx={{ maxWidth: '16%' }}>
               <Text>TT Handicap</Text>
             </DataTableTitle>
-            <DataTableTitle sx={{ flex: 2 }}>
+            <DataTableTitle sx={{ maxWidth: '16%' }}>
               <Text>TT</Text>
             </DataTableTitle>
-            <DataTableTitle sx={{ width: 40 }}>
+            <DataTableTitle sx={{ maxWidth: '10%' }}>
               <Text>1x2 TT</Text>
             </DataTableTitle>
-            <DataTableTitle sx={{ flex: 2 }}>
+            <DataTableTitle sx={{ maxWidth: '16%' }}>
               <Text>Handicap H1</Text>
             </DataTableTitle>
-            <DataTableTitle sx={{ flex: 2 }}>
+            <DataTableTitle sx={{ maxWidth: '16%' }}>
               <Text>H1</Text>
             </DataTableTitle>
-            <DataTableTitle sx={{ width: 40 }}>
+            <DataTableTitle sx={{ maxWidth: '10%' }}>
               <Text>1X2 H1</Text>
             </DataTableTitle>
           </Row>
