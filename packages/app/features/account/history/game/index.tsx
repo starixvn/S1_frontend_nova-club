@@ -27,16 +27,16 @@ const GameHistory = () => {
   const [fetchData, result] = useLazyPlayerReportQuery()
 
   const [selected, setSelected] = useState({
-    selectedGame: ReportGameStatusOptions[0],
+    selectedGame: ReportGameStatusOptions[0]?.value,
     selectedDate: DateFilterOptions[0],
-    selectedGameStatus: ReportGameStatusOptions[0],
+    selectedGameStatus: ReportGameStatusOptions[0]?.value,
     startDate: dayjsTz().startOf('date').toDate(),
     endDate: dayjsTz().endOf('date').toDate(),
   })
 
   const [fetchParams, setFetchParams] = useState({
-    game_provider_code: selected.selectedGame?.value,
-    status: selected.selectedGameStatus?.value,
+    game_provider_code: selected.selectedGame,
+    status: selected.selectedGameStatus,
     time_from: dayjsTz(selected.startDate).toISOString(),
     time_to: dayjsTz(selected.endDate).toISOString(),
     trans_type: ReportTransactionType.GAME,
@@ -44,8 +44,8 @@ const GameHistory = () => {
 
   useEffect(() => {
     setFetchParams({
-      game_provider_code: selected.selectedGame?.value,
-      status: selected.selectedGameStatus?.value,
+      game_provider_code: selected.selectedGame,
+      status: selected.selectedGameStatus,
       time_from: dayjsTz(selected.startDate).toISOString(),
       time_to: dayjsTz(selected.endDate).toISOString(),
       trans_type: ReportTransactionType.GAME,

@@ -189,6 +189,7 @@ const Select = <T,>(
   const selectedItem = options?.find((option) => {
     return option.value === value
   })
+  const selectedLabel = options?.find((el) => el.value === value)?.label || ''
 
   function openActionSheet() {
     SheetManager.show(sheetId)
@@ -245,7 +246,7 @@ const Select = <T,>(
             subtitle={subtitle}
             placeholder={placeholder}
             pointerEvents="none"
-            value={typeof value === 'string' ? (value as string) : undefined}
+            value={typeof value === 'string' ? t(selectedLabel) : undefined}
             action={() => memoArrow}
             {..._input}
           />

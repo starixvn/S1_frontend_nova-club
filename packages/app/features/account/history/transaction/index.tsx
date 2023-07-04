@@ -8,8 +8,9 @@ import {
   ReportTransactionTypeOptions,
 } from 'app/utils/constant'
 import dayjsTz from 'app/utils/dayjs'
+import isDesktop from 'app/utils/isDesktop'
 import dayjs from 'dayjs'
-import { View } from 'dripsy'
+import { View, useResponsiveValue } from 'dripsy'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useLazyPlayerReportQuery } from 'services/playerApi'
 import { ReportGameItem, ReportResult } from 'services/playerApi.type'
@@ -20,6 +21,7 @@ import ReferralHistoryItem from '../ReferralHistoryItem'
 import RewardHistoryItem from '../RewardHistoryItem'
 import TransferHistoryItem from '../TransferHistoryItem'
 import WithdrawalHistoryItem from '../WithdrawalHistoryItem'
+import DesktopDepositHistoryItem from '../dekstop/DesktopDepositHistoryItem'
 
 type HistoryListingDataType = Exclude<
   ReportResult['rows'],
@@ -28,17 +30,16 @@ type HistoryListingDataType = Exclude<
 
 const TransactionHistory = () => {
   const { t } = useLocalization()
+  const desktop = isDesktop()
+  const responsiveWidth = useResponsiveValue(['100%', '100%', '100%', '90%'])
+
   const [fetchData, result] = useLazyPlayerReportQuery()
   const updatedSlipId = useAppSelector((state) => state.deposit.updatedSlipId)
-  console.log(
-    '🚀 ~ file: index.tsx ~ line 35 ~ TransactionHistoryTab ~ updatedSlipId',
-    updatedSlipId
-  )
 
   const [selected, setSelected] = useState({
-    selectedStatus: ReportDepositStatusOptions[0],
+    selectedStatus: ReportDepositStatusOptions[0]?.value,
     selectedDate: DateFilterOptions[0],
-    selectedTransType: ReportTransactionTypeOptions[0],
+    selectedTransType: ReportTransactionTypeOptions[0]?.value,
     startDate: dayjs().startOf('date').toDate(),
     endDate: dayjs().endOf('date').toDate(),
     time_from: '',
@@ -46,21 +47,26 @@ const TransactionHistory = () => {
   })
 
   const [fetchParams, setFetchParams] = useState({
-    status: selected.selectedStatus?.value,
+    status: selected.selectedStatus,
     time_from: dayjsTz(selected.startDate).toISOString(),
     time_to: dayjsTz(selected.endDate).toISOString(),
-    trans_type: selected.selectedTransType?.value,
+    trans_type: selected.selectedTransType,
     is_reward_group_by: false,
   })
 
+  const headerLabel =
+    ReportTransactionTypeOptions.find(
+      (el) => el.value === selected.selectedTransType
+    )?.label || 'N/A'
+
   useEffect(() => {
     setFetchParams({
-      status: selected.selectedStatus?.value,
+      status: selected.selectedStatus,
       time_from: dayjsTz(selected.startDate).toISOString(),
       time_to: dayjsTz(selected.endDate).toISOString(),
-      trans_type: selected.selectedTransType?.value,
+      trans_type: selected.selectedTransType,
       is_reward_group_by:
-        selected.selectedTransType?.value === ReportTransactionType.REWARDS
+        selected.selectedTransType === ReportTransactionType.REWARDS
           ? true
           : false,
     })
@@ -81,10 +87,14 @@ const TransactionHistory = () => {
   }
 
   const renderItem = useCallback(
-    ({ item }) => {
-      switch (selected.selectedTransType?.value) {
+    ({ item, index }) => {
+      switch (selected.selectedTransType) {
         case ReportTransactionType.DEPOSIT:
-          return <DepositHistoryItem item={item} />
+          return desktop ? (
+            <DesktopDepositHistoryItem item={item} index={index} />
+          ) : (
+            <DepositHistoryItem item={item} index={index} />
+          )
         case ReportTransactionType.WITHDRAWAL:
           return <WithdrawalHistoryItem item={item} />
         case ReportTransactionType.REWARDS:
@@ -99,10 +109,12 @@ const TransactionHistory = () => {
           return <WithdrawalHistoryItem item={item} />
       }
     },
-    [selected.selectedTransType?.value]
+    [selected.selectedTransType]
   )
   return (
-    <View sx={{ flex: 1, bg: '$secondary' }}>
+    <View
+      sx={{ flex: 1, bg: '$secondary', width: responsiveWidth, mx: 'auto' }}
+    >
       <FilterSelection
         selected={selected}
         setSelected={setSelected}
@@ -115,9 +127,7 @@ const TransactionHistory = () => {
         // header={tableHeader}
         header={[
           {
-            label: selected.selectedTransType
-              ? t(selected.selectedTransType?.label)
-              : 'N/A',
+            label: t(headerLabel),
             columnWidth: 1,
           },
         ]}

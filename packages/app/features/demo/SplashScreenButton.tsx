@@ -1,18 +1,14 @@
 import GradientButton from 'app/components/GradientButton'
 import Icon from 'app/components/Icon'
+import IconButtonGradient from 'app/components/IconButtonGradient'
 import { useAppDispatch } from 'app/provider/redux/store'
 import { AuthActions } from 'app/store/authReducer'
 import { Text, View } from 'dripsy'
+import { useState } from 'react'
 import { TouchableOpacity } from 'react-native'
+import { Link } from 'solito/link'
 import { useRouter } from 'solito/router'
 import { useLoginMutation } from '../../../services/authApi'
-import { Link } from 'solito/link'
-import IconButtonGradient from 'app/components/IconButtonGradient'
-import Select from 'app/components/select/Select'
-import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
-import { SetStateAction, useState } from 'react'
-import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { useWithdrawalBankQuery } from 'services/bank'
 
 export const StatusOptions = [
   {
@@ -35,22 +31,6 @@ const SplashScreenButton = () => {
 
   const [status, setStatus] = useState(StatusOptions[0])
   const [selectedBank, setSelectedBank] = useState()
-
-  const { bankData } = useWithdrawalBankQuery(undefined, {
-    selectFromResult: (s) => ({
-      ...s,
-      bankData: s.data?.data?.filter((b) => b.bank_code),
-    }),
-  })
-
-  const sheetData =
-    bankData?.map((item) => {
-      return {
-        label: item.bank_name,
-        value: item.bank_code,
-        icon: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.bank_icon}`,
-      }
-    }) ?? []
 
   const TestLogin = async () => {
     try {
@@ -135,33 +115,6 @@ const SplashScreenButton = () => {
             <Text>Home</Text>
           </Link>
         </TouchableOpacity>
-      </View>
-      <View sx={{ width: '100%' }}>
-        <Select
-          options={StatusOptions}
-          placeholder={'Day'}
-          value={status}
-          onSelected={(val) => {
-            // console.log(val)
-            if (!val) return
-            setStatus(val)
-          }}
-          label={'Day'}
-          isRequired
-        />
-
-        <SelectWithCardGrid
-          label={'common.bankCard'}
-          placeholder={'common.selectBank'}
-          options={sheetData}
-          value={selectedBank}
-          sx={{ width: '100%', mb: '$3' }}
-          onSelected={(e) => {
-            console.log('Selected Bank', e)
-            console.log('2', selectedBank)
-            setSelectedBank(e as SetStateAction<undefined>)
-          }}
-        />
       </View>
     </>
   )

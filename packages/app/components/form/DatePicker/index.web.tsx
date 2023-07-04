@@ -1,10 +1,9 @@
+import Icon from 'app/components/Icon'
 import dayjs from 'dayjs'
+import { SxProp } from 'dripsy'
+import { ChangeEvent, useRef } from 'react'
 import { DatePickerProps as RNDatePickerProps } from 'react-native-date-picker'
 import Input, { InputProps } from '../Input'
-import { ChangeEvent, useRef } from 'react'
-import InputClearActionRow from '../InputClearActionRow'
-import Icon from 'app/components/Icon'
-import { SxProp } from 'dripsy'
 
 export interface DatePickerProps
   extends Omit<RNDatePickerProps, 'date' | 'onConfirm'>,
@@ -16,7 +15,8 @@ export interface DatePickerProps
 
 const IS_IOS =
   typeof window !== 'undefined'
-    ? /iPad|iPhone|iPod/.test(window.navigator?.userAgent)
+    ? /iPad|iPhone|iPod/.test(window.navigator?.userAgent) &&
+      window.navigator?.userAgentData?.mobile
     : false
 
 export default function DatePicker({
@@ -29,6 +29,7 @@ export default function DatePicker({
 }: DatePickerProps) {
   const datePickerRef = useRef<HTMLInputElement>(null)
   const _localValue = useRef<Date | null>()
+
   const onDateTimePickerChange = (e: ChangeEvent<HTMLInputElement>) => {
     const currentSelectedDate = e.target.valueAsDate || value
 
@@ -38,6 +39,7 @@ export default function DatePicker({
       } else {
         // If its IOS Mobile Browser Picker, when clicking on any date before clicking done will trigger onChange,
         // Storing temp value before "Done" is clicked, real value will be assigned on blur
+
         _localValue.current = e.target.valueAsDate
       }
     }

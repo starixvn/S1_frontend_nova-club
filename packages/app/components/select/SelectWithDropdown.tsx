@@ -1,65 +1,86 @@
-import { Image, Pressable, Row, ScrollView, Text, View } from 'dripsy'
-import React, { ReactNode } from 'react'
-import { SelectOptions } from 'services/common/types'
+import useLocalization from 'app/provider/localization'
+import {
+  Image,
+  Pressable,
+  Row,
+  ScrollView,
+  SxProp,
+  Text,
+  View,
+  styled,
+} from 'dripsy'
+import React from 'react'
 import { SolitoImage } from 'solito/image'
 import * as DropdownMenu from 'zeego/dropdown-menu'
 import Icon from '../Icon'
 import Label from '../Label'
 import { DropdownMenuContent } from './DropMenu'
-import useLocalization from 'app/provider/localization'
+import { SelectProps } from './Select'
+import { ScrollScrollView } from '../withCustomScroll'
 
 export const DropdownMenuRoot = DropdownMenu.Root
 export const DropdownMenuTrigger = DropdownMenu.Trigger
 export const DropdownMenuItemTitle = DropdownMenu.ItemTitle
 export const DropdownMenuItem = DropdownMenu.Item
 
-type SelectWithDropdownProps = {
-  label?: string
-  placeholder?: string
-  options: SelectOptions[]
-  value: string | undefined
-  onSelected: (arg0) => void
+type SelectWithDropdownProps<T> = {
+  enabledLabel?: boolean
   renderEmpty?: () => JSX.Element
-}
+  containerStyle?: SxProp
+} & Pick<
+  SelectProps<T>,
+  'label' | 'placeholder' | 'options' | 'value' | 'onSelected'
+>
 
-const SelectWithDropdown = ({
+const SelectWithDropdown = <T,>({
   label,
+  enabledLabel = true,
   placeholder,
   options,
   value,
   renderEmpty,
   onSelected,
-}: SelectWithDropdownProps) => {
+  containerStyle,
+  ...rest
+}: SelectWithDropdownProps<T>) => {
   const { t } = useLocalization()
 
+  const selectedLabel = options?.find((el) => el.value === value)?.label || ''
+
   return (
-    <View sx={{ mb: '$3' }}>
-      {label && <Label>{`${label} :`}</Label>}
+    <ContainerView {...rest}>
+      {enabledLabel && label && <Label>{`${label} :`}</Label>}
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
           <Pressable>
-            <Row
-              sx={{
-                borderWidth: 1,
-                borderColor: '$primary.100',
-                borderRadius: 12,
-                py: 12,
-                px: 24,
-                justifyContent: 'space-between',
-              }}
-            >
-              <Text sx={{ opacity: value ? 1 : 0.5 }}>
-                {value ? value : placeholder}
-              </Text>
-              <Icon name="down" color="white" />
-            </Row>
+            <View sx={{}}>
+              <Row
+                sx={{
+                  py: '$2',
+                  px: 24,
+                  borderWidth: 1,
+                  borderColor: '$primary.200',
+                  borderRadius: 10,
+                  minHeight: 48,
+                  minWidth: 40,
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Text sx={{ opacity: value ? 1 : 0.5 }}>
+                  {typeof value === 'string' || typeof value === 'number'
+                    ? t(selectedLabel)
+                    : placeholder}
+                </Text>
+                <Icon name="down" color="white" />
+              </Row>
+            </View>
           </Pressable>
         </DropdownMenu.Trigger>
         <DropdownMenuContent side="bottom" align="end">
           <ScrollView
-            contentContainerStyle={{ maxHeight: 300 }}
+            contentContainerStyle={{ maxHeight: 350 }}
             indicatorSx={{ bg: 'transparent' }}
-            showsVerticalScrollIndicator={false}
           >
             <View>
               {options && options.length > 0 ? (
@@ -103,8 +124,10 @@ const SelectWithDropdown = ({
           </ScrollView>
         </DropdownMenuContent>
       </DropdownMenu.Root>
-    </View>
+    </ContainerView>
   )
 }
+
+const ContainerView = styled(View)({ mb: '$3' })
 
 export default SelectWithDropdown

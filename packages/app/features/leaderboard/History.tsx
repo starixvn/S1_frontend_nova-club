@@ -2,6 +2,7 @@ import DataTable from 'app/components/dataTable/DataTable'
 import DataTableHeader from 'app/components/dataTable/DataTableHeader'
 import DataTableTitle from 'app/components/dataTable/DataTableTitle'
 import Select from 'app/components/select/Select'
+import SelectList from 'app/components/select/SelectList'
 import SelectWithDropdown from 'app/components/select/SelectWithDropdown'
 import useLocalization from 'app/provider/localization'
 import { DateFilterOptions } from 'app/utils/constant'
@@ -22,22 +23,14 @@ const HistoryScreen = () => {
     <DesktopPageContainer>
       <View sx={{ flexGrow: 1 }}>
         <View sx={{ pt: 12, px: [12, 12, 12, 0] }}>
-          {desktop ? (
-            <SelectWithDropdown
-              options={options}
-              value={date}
-              onSelected={setDate}
-            />
-          ) : (
-            <Select
-              label={t('common.date')}
-              placeholder=""
-              enabledLabel={false}
-              options={options}
-              value={date}
-              onSelected={(e) => setDate(e?.value)}
-            />
-          )}
+          <SelectList
+            label={t('common.date')}
+            placeholder=""
+            enabledLabel={false}
+            options={options}
+            value={date}
+            onSelected={setDate}
+          />
         </View>
         <DataTable>
           <DataTableHeader size="small">

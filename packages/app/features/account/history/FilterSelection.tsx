@@ -18,6 +18,8 @@ import React, { useEffect, useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { SelectOptions } from 'services/common/types'
 import { usePlayerWalletDetailQuery } from 'services/walletApi'
+import TransactionTypeFilter from './filter/TransactionTypeFilter'
+import SelectList from 'app/components/select/SelectList'
 
 const FILTER_BOX_HEIGHT = 60
 
@@ -93,7 +95,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
     }
   }
   return (
-    <View sx={{ p: '$2', mx: '$2' }}>
+    <View sx={{ p: '$2' }}>
       <View
         sx={{
           flexDirection: 'row',
@@ -101,7 +103,8 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
         }}
       >
         {isTransaction ? (
-          <Select
+          <SelectList
+            label={t('filter.transactionType.title')}
             value={selected.selectedTransType}
             enabledLabel={false}
             placeholder={t(selected.selectedTransType.label)}
@@ -111,28 +114,17 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
               return setSelected({
                 ...selected,
                 selectedTransType: value,
-                selectedStatus: ReportDepositStatusOptions[0],
+                selectedStatus: ReportDepositStatusOptions[0]?.value,
               })
             }}
-            _input={{ placeholderTextColor: '$white' }}
-            // buttonComponent={(props) => (
-            //   <SelectButton
-            //     variants="history"
-            //     label={selected.selectedTransType.label}
-            //     containerStyle={{
-            //       mr: 10,
-            //       flex: 1,
-            //     }}
-            //     {...props}
-            //   />
-            // )}
-            label={t('filter.transactionType.title')}
             _actionSheet={{
               sheetId: t('filter.transactionType.title') + 1,
             }}
           />
         ) : (
-          <SelectWithProviderCardGrid
+          <SelectList
+            isGrid
+            isProvider
             value={selected.selectedGame}
             enabledLabel={false}
             placeholder={
@@ -146,34 +138,20 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
             onSelected={(value) =>
               setSelected({ ...selected, selectedGame: value })
             }
-            _input={{ placeholderTextColor: '$white' }}
             label={t('common.provider')}
-            // buttonComponent={(props: SelectButtonProps) => (
-            //   <SelectButton
-            //     variants="history"
-            //     label={selected.selectedGame.label}
-            //     logo={selected.selectedGame.icon}
-            //     containerStyle={{
-            //       mr: 10,
-            //       flex: 1,
-            //     }}
-            //     {...props}
-            //   />
-            // )}
-            // _actionSheet={{
-            //   sheetId: t('common.provider') + 1,
-            // }}
+            _actionSheet={{
+              sheetId: t('common.provider') + 1,
+            }}
           />
         )}
-
-        <Select
+        <SelectList
           value={selected.selectedDate}
           options={isTransaction ? DateFilterList : DateFilterList.slice(0, 4)}
           sx={{ flex: 1, m: '$1' }}
           enabledLabel={false}
           placeholder={t(selected.selectedDate.label)}
           onSelected={(value) => {
-            const { startDate, endDate } = handleDateRange(value.value)
+            const { startDate, endDate } = handleDateRange(value)
 
             setSelected({
               ...selected,
@@ -182,27 +160,15 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
               endDate,
             })
           }}
-          _input={{ placeholderTextColor: '$white' }}
           label={t('common.date')}
-          // buttonComponent={(props: SelectButtonComponentProps) => (
-          //   <SelectButton
-          //     variants="history"
-          //     label={selected.selectedDate.label}
-          //     containerStyle={{
-          //       mr: 10,
-          //       flex: 1,
-          //     }}
-          //     {...props}
-          //   />
-          // )}
-          // _actionSheet={{
-          //   sheetId: isTransaction
-          //     ? t('common.date') + 1
-          //     : t('common.game') + 1,
-          // }}
+          _actionSheet={{
+            sheetId: isTransaction
+              ? t('common.date') + 1
+              : t('common.game') + 1,
+          }}
         />
         {isTransaction ? (
-          <Select
+          <SelectList
             placeholder={t(selected.selectedStatus.label)}
             value={selected.selectedStatus}
             options={
@@ -216,30 +182,14 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
             onSelected={(value) =>
               setSelected({ ...selected, selectedStatus: value })
             }
-            // buttonComponent={(props: SelectButtonComponentProps) => (
-            //   <SelectButton
-            //     variants="history"
-            //     label={selected.selectedStatus.label}
-            //     containerStyle={{
-            //       flex: 1,
-            //     }}
-            //     disabled={
-            //       selected.selectedTransType.value !==
-            //         ReportTransactionType.DEPOSIT &&
-            //       selected.selectedTransType.value !==
-            //         ReportTransactionType.WITHDRAWAL
-            //     }
-            //     {...props}
-            //   />
-            // )}
             label={t('filter.statusType')}
-            // _actionSheet={{
-            //   sheetId: t('filter.statusType') + 1,
-            //   // headerTitle: t('menu.tab.statusType'),
-            // }}
+            _actionSheet={{
+              sheetId: t('filter.statusType') + 1,
+              // headerTitle: t('menu.tab.statusType'),
+            }}
           />
         ) : (
-          <Select
+          <SelectList
             label={t('filter.win/loss')}
             value={selected.selectedGameStatus}
             enabledLabel={false}
@@ -250,19 +200,9 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
             onSelected={(value) =>
               setSelected({ ...selected, selectedGameStatus: value })
             }
-            // buttonComponent={(props: SelectButtonComponentProps) => (
-            //   <SelectButton
-            //     variants="history"
-            //     label={selected.selectedGameStatus.label}
-            //     containerStyle={{
-            //       flex: 1,
-            //     }}
-            //     {...props}
-            //   />
-            // )}
-            // _actionSheet={{
-            //   sheetId: t('filter.win/loss') + 1,
-            // }}
+            _actionSheet={{
+              sheetId: t('filter.win/loss') + 1,
+            }}
           />
         )}
       </View>
@@ -278,7 +218,6 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
           <DatePicker
             value={selected.startDate}
             inputSx={{ flex: 1, m: '$1' }}
-            minimumDate={dayjs().subtract(2, 'month').startOf('date').toDate()}
             maximumDate={selected.endDate}
             onChange={(value) =>
               setSelected({
@@ -294,15 +233,14 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
           <DatePicker
             value={selected.endDate}
             inputSx={{ flex: 1, m: '$1' }}
-            minimumDate={dayjs().subtract(2, 'month').startOf('date').toDate()}
-            maximumDate={selected.startDate}
-            onChange={(value) =>
+            minimumDate={selected.startDate}
+            onChange={(value) => {
               setSelected({
                 ...selected,
                 selectedDate: DateFilterOptions[5],
                 endDate: value,
               })
-            }
+            }}
           />
         </View>
       )}

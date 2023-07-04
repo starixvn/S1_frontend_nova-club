@@ -27,7 +27,9 @@ export default function WalletLayout({
 
   const [currentTab, setCurrentTab] = useState(currentPath)
   const [menuRoutes, setMenuRoutes] = useState(TransferRoutes)
-  const [noticeNotes, setNoticeNotes] = useState(TRANSFER_NOTES)
+  const [noticeNotes, setNoticeNotes] = useState<string[] | undefined>(
+    TRANSFER_NOTES
+  )
 
   useEffect(() => {
     if (currentTab.includes(WALLET_PATH.TRANSFER)) {
@@ -47,7 +49,7 @@ export default function WalletLayout({
     }
     if (currentTab.includes(WALLET_PATH.HISTORY)) {
       setMenuRoutes(HistoryRoutes)
-      setNoticeNotes([])
+      setNoticeNotes(undefined)
       return
     }
   }, [currentTab])

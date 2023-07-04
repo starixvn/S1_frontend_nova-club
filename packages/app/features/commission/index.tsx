@@ -1,7 +1,7 @@
 import DataTable from 'app/components/dataTable/DataTable'
 import DataTableTitle from 'app/components/dataTable/DataTableTitle'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
-import { ScrollFlashList } from 'app/components/withCustomScroll'
+import { ScrollFlashList } from 'app/hoc/withCustomScroll'
 import useLocalization from 'app/provider/localization'
 import { Currency } from 'app/utils/constant'
 import isDesktop from 'app/utils/isDesktop'
