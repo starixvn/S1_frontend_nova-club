@@ -1,4 +1,4 @@
-import { styled, useDripsyTheme, View } from 'dripsy'
+import { styled, SxProp, useDripsyTheme, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
 import { MotiPressable } from 'moti/interactions'
 import React, { ReactNode, useReducer, useState } from 'react'
@@ -12,6 +12,8 @@ type AccordianProps = {
   header?: ReactNode
   children: ReactNode
   onPress?: () => void
+  parentStyle?: SxProp
+  childStyle?: SxProp
 }
 
 const Accordian = ({
@@ -21,6 +23,8 @@ const Accordian = ({
   header,
   children,
   onPress,
+  parentStyle,
+  childStyle,
 }: AccordianProps) => {
   const { theme } = useDripsyTheme()
   const [expandHeight, setExpandHeight] = useState(0)
@@ -41,7 +45,7 @@ const Accordian = ({
           borderColor: '$primary.100',
         }}
       >
-        <ViewMessageHeader>
+        <ViewMessageHeader sx={parentStyle}>
           {header ?? <View>{label}</View>}
           {isExpandable && (
             <MotiView
@@ -75,7 +79,7 @@ const Accordian = ({
         >
           <AnimatePresence>
             {isExtend && (
-              <MotiView
+              <StyledMotiView
                 from={{
                   opacity: 0,
                 }}
@@ -85,14 +89,15 @@ const Accordian = ({
                 exit={{
                   opacity: 0,
                 }}
-                style={{
+                sx={{
                   backgroundColor: theme.colors.$primary[500],
                   borderBottomWidth: 2,
                   borderColor: theme.colors.$primary[100],
+                  ...childStyle,
                 }}
               >
                 {children}
-              </MotiView>
+              </StyledMotiView>
             )}
           </AnimatePresence>
         </MotiView>
@@ -119,4 +124,5 @@ const Divider = styled(View)({
   borderColor: '$primary.100',
 })
 
+const StyledMotiView = styled(MotiView)({})
 export default Accordian

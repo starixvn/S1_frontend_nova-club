@@ -101,12 +101,13 @@ export const DateFilterOptions = [
 export enum ReportTransactionType {
   DEPOSIT = 'deposit',
   WITHDRAWAL = 'withdrawal',
-  REWARDS = 'rewards', // Label renamed to Rebate
+  REBATE = 'rewards', // Label renamed to Rebate
   REFERRAL = 'referral',
   TRANSFER = 'transfer',
   ADJUSTMENT = 'adjustment',
   GAME = 'game',
   BONUS = 'bonus',
+  COIN = 'coin',
 }
 
 export enum ReportBonusType {
@@ -123,7 +124,7 @@ export const ReportTransactionTypeOptions = [
     label: 'withdrawal.withdrawalTitle',
   },
   {
-    value: ReportTransactionType.REWARDS,
+    value: ReportTransactionType.REBATE,
     label: 'filter.transactionType.rebate',
   },
   {

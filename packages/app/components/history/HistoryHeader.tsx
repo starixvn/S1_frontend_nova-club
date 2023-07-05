@@ -1,11 +1,10 @@
-import { Text, View } from 'dripsy'
+import { SxProp, Text, View } from 'dripsy'
 import React from 'react'
-import { DripsyGradient } from '../Gradient'
 
 export type HeaderProps = {
   data: {
     label: string
-    columnWidth: number
+    textStyle?: SxProp
   }[]
 }
 
@@ -14,11 +13,8 @@ const HistoryHeader = ({ data }: HeaderProps) => {
     <View
       sx={{
         flexDirection: 'row',
-        // borderTopLeftRadius: 16,
-        // borderTopRightRadius: 16,
         alignItems: 'center',
-        py: '$3',
-        px: '$3',
+        py: '$2',
         textAlign: 'center',
         bg: '$primary.300',
         borderTopWidth: 1,
@@ -29,12 +25,10 @@ const HistoryHeader = ({ data }: HeaderProps) => {
         data.map((item, index) => (
           <Text
             key={`${index} ${item.label}`}
-            sx={{
-              flex: item.columnWidth,
-              alignSelf: 'stretch',
-              textAlign: index === 0 ? 'left' : 'center',
-            }}
             numberOfLines={1}
+            sx={{
+              ...item.textStyle,
+            }}
           >
             {item.label}
           </Text>

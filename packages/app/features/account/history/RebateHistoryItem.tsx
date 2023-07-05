@@ -16,9 +16,9 @@ const CELL_DATE_WIDTH = 1
 const CELL_GAME_WIDTH = 1
 const CELL_AMOUNT_WIDTH = 1
 
-const RewardHistoryItem = ({ item }) => {
+const RebateHistoryItem = ({ item }) => {
   const [fetchData, result] = useLazyPlayerReportQuery()
-  const [rewardDetails, setRewardDetails] = useState([])
+  const [dataDetails, setDataDetails] = useState([])
   const [firstLoading, setFirstLoading] = useState(true)
 
   const handleFetchData = async (date) => {
@@ -28,17 +28,17 @@ const RewardHistoryItem = ({ item }) => {
       status: ReportDepositStatus.ALL,
       time_from: dayjsTz(dayjs(date).startOf('date')).toISOString(),
       time_to: dayjsTz(dayjs(date).endOf('date')).toISOString(),
-      trans_type: ReportTransactionType.REWARDS,
+      trans_type: ReportTransactionType.REBATE,
       is_reward_group_by: false,
     }).unwrap()
 
-    if (success) setRewardDetails(data.rows)
+    if (success) setDataDetails(data.rows)
     setFirstLoading(false)
   }
 
   const handleExpand = () => {
     setTimeout(() => {
-      rewardDetails.length <= 0 && handleFetchData(item.date)
+      dataDetails.length <= 0 && handleFetchData(item.date)
     }, 1000)
   }
 
@@ -48,14 +48,14 @@ const RewardHistoryItem = ({ item }) => {
         isExpandable
         extended={false}
         onPress={handleExpand}
-        header={<RewardParentItem date={item.date} amount={item.amount} />}
+        header={<ParentItem date={item.date} amount={item.amount} />}
       >
         <View sx={{ py: 4 }}>
           {firstLoading ? (
             <ActivityIndicator sx={{ flex: 1, minHeight: 68 }} />
           ) : (
-            rewardDetails.map((el: ReportRewardItem, index) => (
-              <RewardChildItem
+            dataDetails.map((el: ReportRewardItem, index) => (
+              <ChildItem
                 key={`${index} ${el.gp}`}
                 date={el.date}
                 game={el.gp}
@@ -69,7 +69,7 @@ const RewardHistoryItem = ({ item }) => {
   )
 }
 
-const RewardParentItem = ({ date, amount }) => {
+const ParentItem = ({ date, amount }) => {
   return (
     <View
       sx={{
@@ -90,7 +90,7 @@ const RewardParentItem = ({ date, amount }) => {
   )
 }
 
-const RewardChildItem = ({ date, game, amount }) => {
+const ChildItem = ({ date, game, amount }) => {
   return (
     <View
       sx={{
@@ -131,4 +131,4 @@ const RewardChildItem = ({ date, game, amount }) => {
   )
 }
 
-export default RewardHistoryItem
+export default RebateHistoryItem

@@ -2,8 +2,8 @@ import { getStatusColor } from 'app/config/status'
 import { toThousandSeparator } from 'app/utils'
 import { Text, useDripsyTheme, View } from 'dripsy'
 import React from 'react'
-import DateTimeCell from './DateTimeCell'
 import TransactionHistoryItemBox from './TransactionHistoryItemBox'
+import DateTimeCell from './DateTimeCell'
 
 const CELL_DATE_WIDTH = 1
 const CELL_AMOUNT_WIDTH = 1

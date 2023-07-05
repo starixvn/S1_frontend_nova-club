@@ -1,4 +1,5 @@
 import {
+  Pressable,
   Row,
   SxProp,
   Text,
@@ -91,7 +92,7 @@ const Input = forwardRef<NativeTextInput, InputProps>(
         <View
           focusable={false}
           sx={{
-            flex: 1,
+            // flex: 1,
             flexDirection: horizontalMode ? 'row' : 'column',
             alignItems: horizontalMode ? 'center' : 'stretch',
           }}
@@ -177,7 +178,7 @@ const RootView = styled(View)({
   // maxWidth: 450,
 })
 
-const FocusArea = styled(TouchableWithoutFeedback)({})
+const FocusArea = styled(Pressable)({ minHeight: 48 })
 
 export const Label = styled(Text)({
   fontWeight: 'bold',
@@ -197,6 +198,7 @@ const InputContainer = styled(Row)(
       py: '$2',
       px: '2%',
       borderWidth: 1,
+      minHeight: 48,
       alignItems: 'center',
       position: 'relative',
     }

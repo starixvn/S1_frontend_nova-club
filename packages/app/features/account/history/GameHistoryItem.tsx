@@ -1,48 +1,33 @@
-import Image from 'app/components/common/Image'
 import { getProviderLogo } from 'app/config/games/provider'
 import { toThousandSeparator } from 'app/utils'
-import { Text, View } from 'dripsy'
+import { Text, View, styled } from 'dripsy'
 import React from 'react'
+import { SolitoImage } from 'solito/image'
 import DateTimeCell from './DateTimeCell'
+import { CellViewContainer } from './dekstop/DesktopDepositHistoryItem'
+import { GameTableHeader } from './dekstop/DesktopGameHistoryItem'
 import TransactionHistoryItemBox from './TransactionHistoryItemBox'
-
-const CELL_DATE_WIDTH = 1
-const CELL_GAME_WIDTH = 1
-const CELL_STATUS_WIDTH = 1
+import isDesktop from 'app/utils/isDesktop'
 
 const GameHistoryItem = ({ item }) => {
   return (
-    <TransactionHistoryItemBox>
-      <View
-        sx={{
-          flex: 1,
-          alignSelf: 'stretch',
-          flexDirection: 'row',
-          p: '$3',
-          alignItems: 'center',
-        }}
-      >
-        <View style={{ flex: CELL_DATE_WIDTH }}>
+    <ItemContainer>
+      <CellViewContainer>
+        <CellView index={1}>
           <DateTimeCell date={item.date} />
-        </View>
+        </CellView>
 
-        <View
-          sx={{
-            flex: CELL_GAME_WIDTH,
-            py: 12,
-          }}
-        >
-          <Image
+        <CellView index={2} sx={{ alignItems: 'center' }}>
+          <SolitoImage
             resizeMode="contain"
-            source={getProviderLogo(item.game_provider_code)}
-            style={{
-              height: 20,
-              maxWidth: 100,
-            }}
+            src={getProviderLogo(item.game_provider_code)}
+            height={40}
+            width={100}
             alt={item.game_provider_code}
           />
-        </View>
-        <View style={{ flex: CELL_STATUS_WIDTH }}>
+        </CellView>
+
+        <CellView index={3}>
           <Text sx={{ textAlign: 'center' }}>
             {toThousandSeparator(item.bet)}
           </Text>
@@ -56,10 +41,24 @@ const GameHistoryItem = ({ item }) => {
               ? toThousandSeparator(item.winloss)
               : `+${toThousandSeparator(item.winloss)}`}
           </Text>
-        </View>
-      </View>
-    </TransactionHistoryItemBox>
+        </CellView>
+      </CellViewContainer>
+    </ItemContainer>
   )
 }
+
+const ItemContainer = ({ children }) => {
+  const desktop = isDesktop()
+
+  return desktop ? (
+    <>{children}</>
+  ) : (
+    <TransactionHistoryItemBox>{children}</TransactionHistoryItemBox>
+  )
+}
+
+const CellView = styled(View)(({ index }: { index: number }) => ({
+  ...GameTableHeader[index]?.textStyle,
+}))
 
 export default GameHistoryItem

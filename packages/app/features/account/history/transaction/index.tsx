@@ -11,17 +11,38 @@ import dayjsTz from 'app/utils/dayjs'
 import isDesktop from 'app/utils/isDesktop'
 import dayjs from 'dayjs'
 import { View, useResponsiveValue } from 'dripsy'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useLazyPlayerReportQuery } from 'services/playerApi'
 import { ReportGameItem, ReportResult } from 'services/playerApi.type'
+import AdjustmentHistoryItem from '../AdjustmentHistoryItem'
 import BonusHistoryItem from '../BonusHistoryItem'
 import DepositHistoryItem from '../DepositHistoryItem'
 import FilterSelection from '../FilterSelection'
+import RebateHistoryItem from '../RebateHistoryItem'
 import ReferralHistoryItem from '../ReferralHistoryItem'
-import RewardHistoryItem from '../RewardHistoryItem'
 import TransferHistoryItem from '../TransferHistoryItem'
 import WithdrawalHistoryItem from '../WithdrawalHistoryItem'
-import DesktopDepositHistoryItem from '../dekstop/DesktopDepositHistoryItem'
+import DesktopAdjustmentHistoryItem, {
+  AdjustmentTableHeader,
+} from '../dekstop/DesktopAdjustmentHistoryItem'
+import DesktopBonusHistoryItem, {
+  BonusTableHeader,
+} from '../dekstop/DesktopBonusHistoryItem'
+import DesktopDepositHistoryItem, {
+  DepositTableHeader,
+} from '../dekstop/DesktopDepositHistoryItem'
+import DesktopRebateHistoryItem, {
+  RebateTableHeader,
+} from '../dekstop/DesktopRebateHistoryItem'
+import DesktopReferralHistoryItem, {
+  ReferralTableHeader,
+} from '../dekstop/DesktopReferralHistoryItem'
+import DesktopTransferHistoryItem, {
+  TransferTableHeader,
+} from '../dekstop/DesktopTransferHistoryItem'
+import DesktopWithdrawalHistoryItem, {
+  WithdrawalTableHeader,
+} from '../dekstop/DesktopWithdrawalHistoryItem'
 
 type HistoryListingDataType = Exclude<
   ReportResult['rows'],
@@ -38,7 +59,7 @@ const TransactionHistory = () => {
 
   const [selected, setSelected] = useState({
     selectedStatus: ReportDepositStatusOptions[0]?.value,
-    selectedDate: DateFilterOptions[0],
+    selectedDate: DateFilterOptions[0]?.value,
     selectedTransType: ReportTransactionTypeOptions[0]?.value,
     startDate: dayjs().startOf('date').toDate(),
     endDate: dayjs().endOf('date').toDate(),
@@ -54,11 +75,6 @@ const TransactionHistory = () => {
     is_reward_group_by: false,
   })
 
-  const headerLabel =
-    ReportTransactionTypeOptions.find(
-      (el) => el.value === selected.selectedTransType
-    )?.label || 'N/A'
-
   useEffect(() => {
     setFetchParams({
       status: selected.selectedStatus,
@@ -66,7 +82,7 @@ const TransactionHistory = () => {
       time_to: dayjsTz(selected.endDate).toISOString(),
       trans_type: selected.selectedTransType,
       is_reward_group_by:
-        selected.selectedTransType === ReportTransactionType.REWARDS
+        selected.selectedTransType === ReportTransactionType.REBATE
           ? true
           : false,
     })
@@ -86,6 +102,41 @@ const TransactionHistory = () => {
     return `${index} History ${uid}`
   }
 
+  const getTableHeader = () => {
+    const headerLabel =
+      ReportTransactionTypeOptions.find(
+        (el) => el.value === selected.selectedTransType
+      )?.label || 'N/A'
+
+    return [
+      {
+        label: t(headerLabel),
+        textStyle: { flex: 1, textAlign: 'left', px: '$3' },
+      },
+    ]
+  }
+
+  const renderHeader = useMemo(() => {
+    switch (selected.selectedTransType) {
+      case ReportTransactionType.DEPOSIT:
+        return desktop ? DepositTableHeader : getTableHeader()
+      case ReportTransactionType.WITHDRAWAL:
+        return desktop ? WithdrawalTableHeader : getTableHeader()
+      case ReportTransactionType.REBATE:
+        return desktop ? RebateTableHeader : getTableHeader()
+      case ReportTransactionType.REFERRAL:
+        return desktop ? ReferralTableHeader : getTableHeader()
+      case ReportTransactionType.TRANSFER:
+        return desktop ? TransferTableHeader : getTableHeader()
+      case ReportTransactionType.ADJUSTMENT:
+        return desktop ? AdjustmentTableHeader : getTableHeader()
+      case ReportTransactionType.BONUS:
+        return desktop ? BonusTableHeader : getTableHeader()
+      default:
+        return desktop ? WithdrawalTableHeader : getTableHeader()
+    }
+  }, [selected.selectedTransType])
+
   const renderItem = useCallback(
     ({ item, index }) => {
       switch (selected.selectedTransType) {
@@ -93,18 +144,46 @@ const TransactionHistory = () => {
           return desktop ? (
             <DesktopDepositHistoryItem item={item} index={index} />
           ) : (
-            <DepositHistoryItem item={item} index={index} />
+            <DepositHistoryItem item={item} />
           )
+
         case ReportTransactionType.WITHDRAWAL:
-          return <WithdrawalHistoryItem item={item} />
-        case ReportTransactionType.REWARDS:
-          return <RewardHistoryItem item={item} />
+          return desktop ? (
+            <DesktopWithdrawalHistoryItem item={item} index={index} />
+          ) : (
+            <WithdrawalHistoryItem item={item} />
+          )
+
+        case ReportTransactionType.REBATE:
+          return desktop ? (
+            <DesktopRebateHistoryItem item={item} index={index} />
+          ) : (
+            <RebateHistoryItem item={item} />
+          )
         case ReportTransactionType.REFERRAL:
-          return <ReferralHistoryItem item={item} />
+          return desktop ? (
+            <DesktopReferralHistoryItem item={item} index={index} />
+          ) : (
+            <ReferralHistoryItem item={item} />
+          )
         case ReportTransactionType.TRANSFER:
-          return <TransferHistoryItem item={item} />
+          return desktop ? (
+            <DesktopTransferHistoryItem item={item} index={index} />
+          ) : (
+            <TransferHistoryItem item={item} />
+          )
+        case ReportTransactionType.ADJUSTMENT:
+          return desktop ? (
+            <DesktopAdjustmentHistoryItem item={item} index={index} />
+          ) : (
+            <AdjustmentHistoryItem item={item} />
+          )
         case ReportTransactionType.BONUS:
-          return <BonusHistoryItem item={item} />
+          return desktop ? (
+            <DesktopBonusHistoryItem item={item} index={index} />
+          ) : (
+            <BonusHistoryItem item={item} />
+          )
         default:
           return <WithdrawalHistoryItem item={item} />
       }
@@ -113,25 +192,20 @@ const TransactionHistory = () => {
   )
   return (
     <View
-      sx={{ flex: 1, bg: '$secondary', width: responsiveWidth, mx: 'auto' }}
+      sx={{ flex: 300, bg: '$secondary', width: responsiveWidth, mx: 'auto' }}
     >
       <FilterSelection
         selected={selected}
         setSelected={setSelected}
         isTransaction
       />
+
       <HistoryListing<HistoryListingDataType, typeof fetchParams>
         fetchParams={fetchParams}
         trigger={fetchData}
         result={result}
-        // header={tableHeader}
-        header={[
-          {
-            label: t(headerLabel),
-            columnWidth: 1,
-          },
-        ]}
         keyExtractor={keyExtractor}
+        header={renderHeader}
         renderItem={renderItem}
         updatedSlipId={updatedSlipId}
       />

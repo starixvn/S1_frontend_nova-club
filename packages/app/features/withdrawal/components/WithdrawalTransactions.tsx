@@ -1,6 +1,6 @@
 import RefreshButton from 'app/components/RefreshButton'
 import EmptyResult from 'app/components/dataTable/EmptyResult'
-import WithdrawalHistoryItem from 'app/features/history/WithdrawalHistoryItem'
+import WithdrawalHistoryItem from 'app/features/account/history/WithdrawalHistoryItem'
 import useLocalization from 'app/provider/localization'
 import { ReportCommonStatus, ReportTransactionType } from 'app/utils/constant'
 import dayjs from 'dayjs'

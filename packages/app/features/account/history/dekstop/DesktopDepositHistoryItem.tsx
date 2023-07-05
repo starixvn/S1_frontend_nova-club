@@ -4,25 +4,40 @@ import PaymentMethod, {
   PaymentMethodProps,
 } from 'app/config/deposit'
 import { getStatusColor } from 'app/config/status'
-import DateTimeCell from 'app/features/history/DateTimeCell'
+
 import useLocalization from 'app/provider/localization'
 import { copyToClipboard, toThousandSeparator } from 'app/utils'
 import dayjsTz from 'app/utils/dayjs'
-import { Text, View, styled, useDripsyTheme } from 'dripsy'
+import { Row, Text, View, styled, useDripsyTheme } from 'dripsy'
 import React from 'react'
 import { useModal } from 'react-native-modalfy'
 import { ReportDepositItem } from 'services/playerApi.type'
+import DateTimeCell from '../DateTimeCell'
 
-export const CELL_PAYMENT_WIDTH = 0.5
-export const CELL_DATE_WIDTH = 0.2
-export const CELL_STATUS_WIDTH = 0.3
-const FONT_SIZE = 14
+const FONT_SIZE = 16
 const ICON_SIZE = 34
 
 type TransactionHistoryItemProps = {
   item: ReportDepositItem
   index: number
 }
+
+export const DepositTableHeader = [
+  {
+    label: 'No',
+    textStyle: {
+      flex: 1,
+      flexBasis: 60,
+      flexGrow: 0,
+      textAlign: 'center',
+    },
+  },
+  { label: 'Type', textStyle: { flex: 1.5, textAlign: 'left' } },
+  { label: 'ID', textStyle: { flex: 2, textAlign: 'left' } },
+  { label: 'Date', textStyle: { flex: 1.5, textAlign: 'left' } },
+  { label: 'Amount', textStyle: { flex: 2 } },
+  { label: 'Status', textStyle: { flex: 2 } },
+]
 
 const CONFIRMATION_FIELDS = [
   {
@@ -73,57 +88,50 @@ const DesktopDepositHistoryItem = ({
   }
 
   return (
-    <View
-      sx={{
-        flex: 1,
-        alignSelf: 'stretch',
-        flexDirection: 'row',
-        p: '$2',
-        alignItems: 'center',
-      }}
-    >
-      <View sx={{ flex: CELL_PAYMENT_WIDTH }}>
-        <View sx={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Text>{index + 1}</Text>
+    <CellViewContainer>
+      <CellView index={0}>
+        <Text sx={{ textAlign: 'center' }}>{index + 1}</Text>
+      </CellView>
 
-          <Text sx={{ fontSize: FONT_SIZE, fontWeight: 'bold' }}>
-            {t(category?.name)}
-          </Text>
+      <CellView index={1}>
+        <Text sx={{ fontSize: FONT_SIZE, fontWeight: 'bold' }}>
+          {t(category?.name)}
+        </Text>
+      </CellView>
 
-          <View>
-            <View
-              sx={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <Text sx={{ fontSize: FONT_SIZE, mr: '$2', minWidth: 105 }}>
-                {item.secure_id}
-              </Text>
-              <IconButton
-                name="copy"
-                color={'white'}
-                size={14}
-                onPress={() => copyToClipboard(item.secure_id)}
-              />
-            </View>
-          </View>
-        </View>
-      </View>
+      <CellView
+        index={2}
+        sx={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: '$2',
+        }}
+      >
+        <Text sx={{ fontSize: FONT_SIZE, minWidth: 105 }}>
+          {item.secure_id}
+        </Text>
+        <IconButton
+          name="copy"
+          color={'white'}
+          size={14}
+          onPress={() => copyToClipboard(item.secure_id)}
+        />
+      </CellView>
 
-      <View style={{ flex: CELL_DATE_WIDTH }}>
+      <CellView index={3}>
         <DateTimeCell
           date={item.date}
           sx={{ textAlign: 'left', fontSize: FONT_SIZE, py: 2 }}
         />
-      </View>
+      </CellView>
 
-      <Text sx={{ textAlign: 'center', fontSize: FONT_SIZE }}>
-        {toThousandSeparator(item.amount)}
-      </Text>
+      <CellView index={4}>
+        <Text sx={{ textAlign: 'center', fontSize: FONT_SIZE }}>
+          {toThousandSeparator(item.amount)}
+        </Text>
+      </CellView>
 
-      <View style={{ flex: CELL_STATUS_WIDTH, alignItems: 'flex-end' }}>
+      <CellView index={5}>
         <Text
           sx={{
             textAlign: 'center',
@@ -139,34 +147,35 @@ const DesktopDepositHistoryItem = ({
             <Text
               numberOfLines={1}
               sx={{
-                fontSize: 12,
+                fontSize: FONT_SIZE,
                 /* widen click bank upload area */
                 py: 5,
-                pl: 5,
+                px: 5,
                 my: -5,
                 /* */
-                ml: 4,
                 textDecorationLine: 'underline',
                 color: '$tertiary',
+                textAlign: 'center',
               }}
               onPress={handleUploadReceipt}
             >
               {t('deposit.bankSlip')}
             </Text>
           )}
-      </View>
-    </View>
+      </CellView>
+    </CellViewContainer>
   )
 }
 
-const IconWrap = styled(View)({
-  height: ICON_SIZE,
-  width: ICON_SIZE,
-  borderRadius: ICON_SIZE,
-  // borderWidth: 2,
-  // borderColor: 'white',
-  justifyContent: 'center',
+export const CellViewContainer = styled(Row)({
+  flex: 1,
+  alignSelf: 'stretch',
+  py: '$2',
   alignItems: 'center',
 })
+
+export const CellView = styled(View)(({ index }: { index: number }) => ({
+  ...DepositTableHeader[index]?.textStyle,
+}))
 
 export default DesktopDepositHistoryItem

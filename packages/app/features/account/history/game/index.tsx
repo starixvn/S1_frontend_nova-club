@@ -6,16 +6,16 @@ import {
   ReportTransactionType,
 } from 'app/utils/constant'
 import dayjsTz from 'app/utils/dayjs'
-import { View } from 'dripsy'
+import isDesktop from 'app/utils/isDesktop'
+import { View, useResponsiveValue } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import { useLazyPlayerReportQuery } from 'services/playerApi'
 import { ReportGameItem, ReportResult } from 'services/playerApi.type'
 import FilterSelection from '../FilterSelection'
 import GameHistoryItem from '../GameHistoryItem'
-
-const CELL_DATE_WIDTH = 1
-const CELL_AMOUNT_WIDTH = 1
-const CELL_STATUS_WIDTH = 1
+import DesktopGameHistoryItem, {
+  GameTableHeader,
+} from '../dekstop/DesktopGameHistoryItem'
 
 type HistoryListingDataType = Extract<
   ReportResult['rows'],
@@ -24,11 +24,14 @@ type HistoryListingDataType = Extract<
 
 const GameHistory = () => {
   const { t } = useLocalization()
+  const desktop = isDesktop()
+  const responsiveWidth = useResponsiveValue(['100%', '100%', '100%', '90%'])
+
   const [fetchData, result] = useLazyPlayerReportQuery()
 
   const [selected, setSelected] = useState({
     selectedGame: ReportGameStatusOptions[0]?.value,
-    selectedDate: DateFilterOptions[0],
+    selectedDate: DateFilterOptions[0]?.value,
     selectedGameStatus: ReportGameStatusOptions[0]?.value,
     startDate: dayjsTz().startOf('date').toDate(),
     endDate: dayjsTz().endOf('date').toDate(),
@@ -52,25 +55,18 @@ const GameHistory = () => {
     })
   }, [selected])
 
-  const tableHeader = [
-    {
-      label: t('common.date'),
-      columnWidth: CELL_DATE_WIDTH,
-    },
-    {
-      label: t('common.game'),
-      columnWidth: CELL_AMOUNT_WIDTH,
-    },
-    {
-      label: t('filter.win/loss'),
-      columnWidth: CELL_STATUS_WIDTH,
-    },
-  ]
-
-  const renderItem = ({ item }) => <GameHistoryItem item={item} />
+  const tableHeader = desktop ? GameTableHeader : GameTableHeader.slice(1)
+  const renderItem = ({ item, index }) =>
+    desktop ? (
+      <DesktopGameHistoryItem item={item} index={index} />
+    ) : (
+      <GameHistoryItem item={item} />
+    )
 
   return (
-    <View sx={{ flex: 1, bg: '$secondary' }}>
+    <View
+      sx={{ flex: 300, bg: '$secondary', width: responsiveWidth, mx: 'auto' }}
+    >
       <FilterSelection selected={selected} setSelected={setSelected} />
       <HistoryListing<HistoryListingDataType, typeof fetchParams>
         fetchParams={fetchParams}

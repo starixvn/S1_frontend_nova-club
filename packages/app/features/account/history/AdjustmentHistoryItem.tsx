@@ -1,20 +1,18 @@
-import StaticField from 'app/components/StaticField'
+import { getStatusColor } from 'app/config/status'
 import { toThousandSeparator } from 'app/utils'
 import { Text, useDripsyTheme, View } from 'dripsy'
 import React from 'react'
 import DateTimeCell from './DateTimeCell'
+import TransactionHistoryItemBox from './TransactionHistoryItemBox'
 
 const CELL_DATE_WIDTH = 1
 const CELL_AMOUNT_WIDTH = 1
 const CELL_STATUS_WIDTH = 1
 
-const WithdrawalHistoryItem = ({ item }) => {
-  console.log(
-    '🚀 ~ file: WithdrawalHistoryItem.tsx:12 ~ WithdrawalHistoryItem ~ item:',
-    item
-  )
+const AdjustmentHistoryItem = ({ item }) => {
+  const { theme } = useDripsyTheme()
   return (
-    <StaticField>
+    <TransactionHistoryItemBox>
       <View
         sx={{
           flex: 1,
@@ -25,7 +23,7 @@ const WithdrawalHistoryItem = ({ item }) => {
         }}
       >
         <View style={{ flex: CELL_DATE_WIDTH }}>
-          <DateTimeCell date={item?.date} />
+          <DateTimeCell date={item.date} />
         </View>
 
         <View style={{ flex: CELL_AMOUNT_WIDTH }}>
@@ -38,15 +36,15 @@ const WithdrawalHistoryItem = ({ item }) => {
           <Text
             sx={{
               textAlign: 'center',
-              // color: getStatusColor(item.status, theme),
+              color: getStatusColor(item.status, theme),
             }}
           >
             {item.status}
           </Text>
         </View>
       </View>
-    </StaticField>
+    </TransactionHistoryItemBox>
   )
 }
 
-export default WithdrawalHistoryItem
+export default AdjustmentHistoryItem

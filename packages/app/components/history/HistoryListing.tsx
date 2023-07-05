@@ -11,12 +11,13 @@ import { View } from 'dripsy'
 import { ReportDepositItem } from 'services/playerApi.type'
 import HistoryEmpty from './HistoryEmpty'
 import HistoryHeader, { HeaderProps } from './HistoryHeader'
+import isDesktop from 'app/utils/isDesktop'
 
 interface HistoryListingProps<T, FetchParamsType> {
   fetchParams: FetchParamsType
   trigger: any // TODO: How to fix it to RTKQ type
   result: any // TODO: How to fix it to RTKQ type
-  header: HeaderProps['data']
+  header?: HeaderProps['data']
   keyExtractor?: (item: T, index: number) => string
   renderItem: ListRenderItem<T>
   updatedSlipId?: string
@@ -40,6 +41,7 @@ function HistoryListing<T, FetchParamsType>(
   const [displayList, setDisplayList] = useState<T[]>([])
   const [totalRow, setTotalRow] = useState(0)
   const [allLoaded, setAllLoaded] = useState(false)
+  const desktop = isDesktop()
 
   useEffect(() => {
     console.log('updatedSlipId', updatedSlipId)
@@ -125,8 +127,15 @@ function HistoryListing<T, FetchParamsType>(
   }
 
   return (
-    <View sx={{ flex: 1, paddingBottom: 15 }}>
-      <HistoryHeader data={header} />
+    <View
+      sx={{
+        paddingBottom: 15,
+        ...(Platform.OS === 'web'
+          ? { height: desktop ? 500 : 600 }
+          : { flex: 1 }),
+      }}
+    >
+      {header && <HistoryHeader data={header} />}
       <FlashList
         data={displayList}
         keyExtractor={keyExtractor}
@@ -143,6 +152,7 @@ function HistoryListing<T, FetchParamsType>(
         onEndReached={onLoadMore}
         onEndReachedThreshold={0.2}
         extraData={isFetching}
+        showsVerticalScrollIndicator={desktop ? false : true}
       />
     </View>
   )

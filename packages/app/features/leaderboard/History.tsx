@@ -24,6 +24,7 @@ const HistoryScreen = () => {
       <View sx={{ flexGrow: 1 }}>
         <View sx={{ pt: 12, px: [12, 12, 12, 0] }}>
           <SelectList
+            isGrid
             label={t('common.date')}
             placeholder=""
             enabledLabel={false}

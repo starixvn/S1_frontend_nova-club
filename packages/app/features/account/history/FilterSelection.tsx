@@ -1,6 +1,5 @@
 import DatePicker from 'app/components/form/DatePicker'
-import Select from 'app/components/select/Select'
-import SelectWithProviderCardGrid from 'app/components/select/SelectWithProviderCardGrid'
+import SelectList from 'app/components/select/SelectList'
 import { getProviderLogo } from 'app/config/games/provider'
 import useLocalization from 'app/provider/localization'
 import {
@@ -13,13 +12,11 @@ import {
   ReportTransactionTypeOptions,
 } from 'app/utils/constant'
 import dayjs from 'dayjs'
-import { Text, View } from 'dripsy'
+import { Row, Text, TextInput, View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { SelectOptions } from 'services/common/types'
 import { usePlayerWalletDetailQuery } from 'services/walletApi'
-import TransactionTypeFilter from './filter/TransactionTypeFilter'
-import SelectList from 'app/components/select/SelectList'
 
 const FILTER_BOX_HEIGHT = 60
 
@@ -218,11 +215,12 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
           <DatePicker
             value={selected.startDate}
             inputSx={{ flex: 1, m: '$1' }}
+            minimumDate={dayjs().subtract(2, 'month').startOf('date').toDate()}
             maximumDate={selected.endDate}
             onChange={(value) =>
               setSelected({
                 ...selected,
-                selectedDate: DateFilterOptions[5],
+                selectedDate: DateFilterOptions[5]?.value,
                 startDate: value,
               })
             }
@@ -237,7 +235,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
             onChange={(value) => {
               setSelected({
                 ...selected,
-                selectedDate: DateFilterOptions[5],
+                selectedDate: DateFilterOptions[5]?.value,
                 endDate: value,
               })
             }}
