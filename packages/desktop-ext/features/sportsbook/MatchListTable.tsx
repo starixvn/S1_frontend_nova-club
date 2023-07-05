@@ -16,6 +16,8 @@ import { League, MatchResult } from 'services/matchApi.type'
 import { SolitoImage } from 'solito/image'
 import { CONTENT_URI, MEDIA_DOMAIN } from '../../../../apps/next/config/env'
 import Button from 'app/components/common/Button'
+import { ActionType, getAction } from 'app/utils/actionGenerator'
+import { Game } from 'services/gameApi.type'
 dayjs.extend(customParseFormat)
 
 interface MatchListTableProps {
@@ -26,18 +28,20 @@ interface MatchListTableProps {
   selectedTime: string
 }
 
-interface MatchListCellData {
+interface MatchListCellDataProps {
   item: MatchResult
   selectionType: string
   flag?: string
   dateTime?: string
   name?: string
+  onPress?: (match: MatchResult) => void
 }
 
 const handicapTypeArr = [
   MatchHandicapType.FULL_TIME,
   MatchHandicapType.FULL_TIME_OVER,
   MatchHandicapType.FULL_TIME_DOUBLE,
+  MatchHandicapType.FULL_TIME_OVER_UNDER,
   MatchHandicapType.HALF_TIME,
   MatchHandicapType.HALF_TIME_OVER,
   MatchHandicapType.HALF_TIME_DOUBLE,
@@ -51,7 +55,28 @@ const MatchListTable = ({
 }: MatchListTableProps) => {
   const filterEndDate = dayjs(selectedTime).add(1, 'day')
   const filterStartDate = filterEndDate.add(-1, 'day')
-  console.log(fullData)
+  // console.log(fullData)
+
+  const onPress = (match: MatchResult) => {
+    getAction({
+      type: ActionType.GAME,
+      payload: {
+        gc: '1',
+        name: {
+          en: 'SABA Sports',
+          vi: 'SABA Sports',
+        },
+        gtc: 'sports',
+        img: 'https://static-stage.gball8.com/nvclub/sbe/cms/game/saba/sport-saba_1659947637.png',
+        gpc: 'SABA',
+        tags: [],
+        params: {
+          leaguekey: match.LeagueId.toString(),
+          matchid: match.EventId.toString(),
+        },
+      } as Game,
+    })()
+  }
 
   return (
     <ScrollView
@@ -73,6 +98,7 @@ const MatchListTable = ({
               selectedTime={selectedTime}
               filterEndDate={filterEndDate}
               filterStartDate={filterStartDate}
+              onPress={onPress}
             />
           )}
           estimatedItemSize={40}
@@ -100,6 +126,7 @@ const MatchListTable = ({
                     selectedTime={selectedTime}
                     filterEndDate={filterEndDate}
                     filterStartDate={filterStartDate}
+                    onPress={onPress}
                   />
                 )}
                 estimatedItemSize={40}
@@ -119,18 +146,20 @@ const MatchListCellData = ({
   dateTime,
   flag,
   name,
-}: MatchListCellData) => {
+  onPress,
+}: MatchListCellDataProps) => {
   return (
     <DataTableRow>
       <DataTableCell
         containerStyle={{
-          flex: 0.1,
+          flex: 0.075,
           alignItems: selectionType === 'home' ? 'flex-end' : 'flex-start',
         }}
+        textStyle={{ fontWeight: 'bold' }}
       >
         {dateTime}
       </DataTableCell>
-      <DataTableCell containerStyle={{ flex: 0.05 }}>
+      <DataTableCell containerStyle={{ flex: 0.025 }}>
         {flag && (
           <SolitoImage
             src={flag}
@@ -143,17 +172,23 @@ const MatchListCellData = ({
       </DataTableCell>
       <DataTableCell
         textStyle={{ textAlign: 'center' }}
-        containerStyle={{ maxWidth: 100, ml: '$2' }}
+        containerStyle={{ ml: '$2', flex: 0.1 }}
       >
         {name ?? 'Draw'}
       </DataTableCell>
       <DataTableCell
-        containerStyle={{ justifyContent: 'flex-start', ml: '$4' }}
+        containerStyle={{
+          justifyContent: 'flex-start',
+          ml: '$2',
+          flex: 1,
+          px: 0,
+        }}
       >
         {handicapTypeArr.map((d, i) => {
           //Length is 3 if it is 1x2 Full Time & 1x2 Half Time
           //Selection ID 0 is Home while 1 is Away,
           //Selection ID for Away is 2 when it is 1x2 Full Time & 1x2 Half Time (Length===2)
+          //IsTimeDouble is to indicate the Selection ID 5 AND 15
           const selectionId =
             item.selection[d]?.length === 3
               ? 2
@@ -165,21 +200,24 @@ const MatchListCellData = ({
           const invertedPoint = point > 0 ? -point : Math.abs(point)
           const isTimeDouble =
             d === MatchHandicapType.FULL_TIME_DOUBLE ||
-            d === MatchHandicapType.HALF_TIME_DOUBLE
-              ? true
-              : false
+            d === MatchHandicapType.HALF_TIME_DOUBLE ||
+            d === MatchHandicapType.FULL_TIME_OVER_UNDER
+
           return (
             <View
               key={i}
               sx={{
                 flexDirection: 'row',
-                flex: 1,
+                flex: isTimeDouble ? 0.5 : 1,
                 justifyContent: 'center',
               }}
             >
               <DataTableCell
-                containerStyle={{ flex: 1 }}
-                textStyle={{ color: getBetColor(point), maxWidth: 40 }}
+                containerStyle={{
+                  flex: isTimeDouble ? 0.5 : 1,
+                  px: 0,
+                }}
+                textStyle={{ color: getBetColor(point) }}
               >
                 {!isTimeDouble && !!!(selectionType === 'draw') ? point : ''}
               </DataTableCell>
@@ -187,22 +225,21 @@ const MatchListCellData = ({
                 <DataTableCell
                   containerStyle={{
                     flex: 1,
+                    px: 0,
                   }}
                   textStyle={{
                     color: isTimeDouble ? '#ffcc00' : 'white',
-                    maxWidth: 40,
                   }}
                 >
-                  {isTimeDouble ? item.selection[d]?.[1]?.Price : ''}
+                  {isTimeDouble && d !== MatchHandicapType.FULL_TIME_OVER_UNDER
+                    ? item.selection[d]?.[1]?.Price
+                    : ''}
                 </DataTableCell>
               ) : (
                 <DataTableCell
-                  containerStyle={{
-                    flex: 1,
-                  }}
+                  containerStyle={{ flex: 1, px: 0 }}
                   textStyle={{
                     color: isTimeDouble ? '#ffcc00' : 'white',
-                    maxWidth: 40,
                   }}
                 >
                   {price}
@@ -210,10 +247,13 @@ const MatchListCellData = ({
               )}
 
               <DataTableCell
-                containerStyle={{ flex: 1 }}
+                containerStyle={{
+                  flex: isTimeDouble ? 0.5 : 1,
+                  px: 0,
+                }}
                 textStyle={{
                   color: getBetColor(invertedPoint),
-                  maxWidth: 40,
+                  px: 0,
                 }}
               >
                 {!isTimeDouble && !!!(selectionType === 'draw')
@@ -228,8 +268,13 @@ const MatchListCellData = ({
         // textStyle={{ textAlign: 'center' }}
         containerStyle={{ flex: 0.1, mr: '$4' }}
       >
-        {selectionType === 'away' ? (
-          <Button contentProps={{ sx: { py: '$2', px: '$3' } }}>Bet Now</Button>
+        {selectionType === 'away' && onPress ? (
+          <Button
+            contentProps={{ sx: { py: '$1', px: '$2' } }}
+            onPress={() => onPress(item)}
+          >
+            Bet Now
+          </Button>
         ) : (
           ''
         )}
@@ -243,20 +288,29 @@ const OnRender = ({
   selectedTime,
   filterEndDate,
   filterStartDate,
+  onPress,
 }: {
   item: MatchResult
   index: number
   selectedTime: string
   filterEndDate: dayjs.Dayjs
   filterStartDate: dayjs.Dayjs
+  onPress: (match: MatchResult) => void
 }) => {
   const homeFlag = getFlagPath(item.HomeName)
   const awayFlag = getFlagPath(item.AwayName)
-  const { date, matchUnixDate, time } = getMatchTime(item.globalshowtime)
-  if (
-    matchUnixDate >= filterEndDate.unix() ||
-    matchUnixDate <= filterStartDate.unix()
-  ) {
+  const { date, matchUnixDate, time, matchDayjs } = getMatchTime(
+    item.globalshowtime
+  )
+
+  const endDate =
+    selectedTime === 'All' ? dayjsTz(dayjs()).add(6, 'day') : filterEndDate
+  const startDate = selectedTime === 'All' ? dayjsTz(dayjs()) : filterEndDate
+
+  console.log('Start: ', startDate.format('DD/MM || HH:MMA'))
+  console.log('End: ', endDate.format('DD/MM || HH:MMA'))
+  // matchDayjs.isBefore(endDate.format('DD/MM'))
+  if (matchUnixDate >= endDate.unix() || matchUnixDate <= startDate.unix()) {
     return null
   } else {
     return (
@@ -283,14 +337,9 @@ const OnRender = ({
           item={item}
           name={item.AwayName}
           selectionType={'away'}
+          onPress={onPress}
         />
-        <MatchListCellData
-          // dateTime={date}
-          // flag={awayFlag}
-          item={item}
-          // name={item.AwayName}
-          selectionType={'draw'}
-        />
+        <MatchListCellData item={item} selectionType={'draw'} />
       </View>
     )
   }
@@ -310,6 +359,7 @@ const getMatchTime = (globalshowtime: string) => {
   let time = '-'
   let date = '-'
   let matchUnixDate = 0
+  let matchDayjs = {} as dayjs.Dayjs
   try {
     const gmt8 = dayjs(globalshowtime, 'MM/DD hh:mmA')
     const gmt7 = dayjsTz(gmt8)
@@ -318,11 +368,12 @@ const getMatchTime = (globalshowtime: string) => {
       time = gmt7.format('HH:mm')
       date = gmt7.format('DD/MM')
       matchUnixDate = gmt7.unix()
+      matchDayjs = gmt7
     }
   } catch (e) {
     // Android Hermes will hit error if using dayjsTz
   }
-  return { time, date, matchUnixDate }
+  return { time, date, matchUnixDate, matchDayjs }
 }
 
 export default MatchListTable

@@ -66,6 +66,7 @@ export enum MatchHandicapType {
   FULL_TIME = 1,
   FULL_TIME_OVER = 3,
   FULL_TIME_DOUBLE = 5,
+  FULL_TIME_OVER_UNDER = 2,
   HALF_TIME = 7,
   HALF_TIME_OVER = 8,
   HALF_TIME_DOUBLE = 15,

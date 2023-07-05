@@ -1,4 +1,3 @@
-import Divider from 'app/components/Divider'
 import { DripsyGradient } from 'app/components/Gradient'
 import MatchLeagueSelector from 'app/features/sportsbook/MatchLeagueSelector'
 import isDesktop from 'app/utils/isDesktop'
@@ -49,7 +48,13 @@ export default function MatchList({}: Props) {
       >
         {timeFilter.map((f) => {
           return (
-            <Pressable key={f.label} onPress={() => setSelectedTime(f.date)}>
+            <Pressable
+              key={f.label}
+              onPress={() => {
+                setSelectedTime(f.date ?? 'All')
+                f.label === 'All' && setSelectedLeague(undefined)
+              }}
+            >
               <Text
                 selectable={false}
                 sx={{
