@@ -21,12 +21,14 @@ const MatchListHeader = ({ data, height }: MatchListHeaderProps) => {
         bg: '$primary.300',
         flexDirection: 'row',
         alignItems: 'center',
+        borderTopWidth: 1,
+        borderTopColor: '$primary.50',
       }}
     >
       <DataTable>
-        <DataTableHeader sx={{ justifyContent: 'space-between' }}>
+        <DataTableHeader sx={{ justifyContent: 'space-between', px: 0 }}>
           <DataTableTitle
-            sx={{ flex: 0.05 }}
+            sx={{ flex: 0.1 }}
             textStyle={{
               lineHeight: height,
             }}
@@ -37,40 +39,22 @@ const MatchListHeader = ({ data, height }: MatchListHeaderProps) => {
             />
           </DataTableTitle>
 
-          <DataTableTitle sx={{ flex: 0.25 }}>
-            <Text>{data?.LeagueName}</Text>
+          <DataTableTitle sx={{ flex: 0.15, justifyContent: 'flex-start' }}>
+            <Text sx={{ fontSize: 12, textAlign: 'left' }}>
+              {data?.LeagueName}
+            </Text>
           </DataTableTitle>
           <Row sx={{ flex: 1 }}>
-            <DataTableTitle sx={{ flex: 2 }}>
-              <Text>TT Handicap</Text>
-            </DataTableTitle>
-            <DataTableTitle sx={{ flex: 2 }}>
-              <Text>TT</Text>
-            </DataTableTitle>
-            <DataTableTitle sx={{ width: 40 }}>
-              <Text>1x2 TT</Text>
-            </DataTableTitle>
-            <DataTableTitle sx={{ flex: 2 }}>
-              <Text>Handicap H1</Text>
-            </DataTableTitle>
-            <DataTableTitle sx={{ flex: 2 }}>
-              <Text>H1</Text>
-            </DataTableTitle>
-            <DataTableTitle sx={{ width: 40 }}>
-              <Text>1X2 H1</Text>
-            </DataTableTitle>
+            <DataTableTitle sx={{ flex: 0.6, px: 0 }}>FT. HDP</DataTableTitle>
+            <DataTableTitle sx={{ flex: 0.6, px: 0 }}>FT. O/U</DataTableTitle>
+            <DataTableTitle sx={{ flex: 0.35, px: 0 }}>FT. 1X2</DataTableTitle>
+            <DataTableTitle sx={{ flex: 0.3, px: 0 }}>FT. O/E</DataTableTitle>
+            <DataTableTitle sx={{ flex: 0.6, px: 0 }}>1H. HDP</DataTableTitle>
+            <DataTableTitle sx={{ flex: 0.65, px: 0 }}>1H. O/U</DataTableTitle>
+            <DataTableTitle sx={{ flex: 0.3, px: 0 }}>1H. 1X2</DataTableTitle>
           </Row>
+          <DataTableTitle sx={{ flex: 0.15 }}>{}</DataTableTitle>
         </DataTableHeader>
-        {/* {dummyData.map((item) => (
-          <DataTableRow key={item.rank}>
-            <DataTableCell>{item.rank}</DataTableCell>
-            <DataTableCell>{item.playerId}</DataTableCell>
-            <DataTableCell textStyle={{ fontSize: 14 }}>
-              {toThousandSeparator(item.points.toString())}
-            </DataTableCell>
-            <DataTableCell>-</DataTableCell>
-          </DataTableRow>
-        ))} */}
       </DataTable>
     </View>
   )
