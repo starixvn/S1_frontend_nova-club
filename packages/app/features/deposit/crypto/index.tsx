@@ -1,4 +1,10 @@
-import { ActivityIndicator, ScrollView, Text, View, useResponsiveValue } from 'dripsy'
+import {
+  ActivityIndicator,
+  ScrollView,
+  Text,
+  View,
+  useResponsiveValue,
+} from 'dripsy'
 import DepositForm from '../component/DepositForm'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
 import useLocalization from 'app/provider/localization'
@@ -34,47 +40,6 @@ const CryptoPayScreen = () => {
   return (
     <ScrollView>
       <DepositForm DepositCategoryId={DepositPaymentMethodCategoryId.CRYPTO} />
-      <View
-        sx={{
-          width: horizontalMode ? '90%' : '100%',
-          alignSelf: 'center',
-        }}
-      >
-        <View
-          sx={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            px: '$pagePadding',
-            py: '$2',
-            mt: '$4',
-          }}
-        >
-          <Text>{t('transaction.Pending')}</Text>
-          <RefreshButton loading={isFetching} onPress={refetch} />
-        </View>
-        {horizontalMode && (
-          <View sx={{ bg: '$primary.200', py: 2, mb: 20 }}>
-            <HorizontalTransactionRowListHeader />
-          </View>
-        )}
-
-        <ScrollView>
-          {transactionIsLoading ? (
-            <ActivityIndicator size="large" />
-          ) : transactionData?.data?.row_count_total ?? 0 > 0 ? (
-            transactionData?.data?.rows.map((item, index) => (
-              <RecentTransactionRow
-                key={item.tx_code}
-                item={item}
-                index={index + 1}
-              />
-            ))
-          ) : (
-            <EmptyResult />
-          )}
-        </ScrollView>
-      </View>
     </ScrollView>
   )
 }

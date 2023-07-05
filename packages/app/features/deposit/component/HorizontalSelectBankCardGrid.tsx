@@ -7,11 +7,13 @@ type HorizontalSelectBankCardGridProps = {
     value: string
     icon: string
   }
+  contain?: boolean
   onPress: () => void
 }
 
 const HorizontalSelectBankCardGrid = ({
   item,
+  contain,
   onPress,
 }: HorizontalSelectBankCardGridProps) => {
   return (
@@ -37,7 +39,7 @@ const HorizontalSelectBankCardGrid = ({
               }
             : item.icon
         }
-        // resizeMode={'contain'}
+        resizeMode={contain ? 'contain' : 'cover'}
         sx={{ width: '100%', height: '100%' }}
       />
     </TouchableOpacity>
