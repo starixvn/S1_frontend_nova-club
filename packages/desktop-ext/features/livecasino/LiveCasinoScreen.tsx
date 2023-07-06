@@ -59,8 +59,16 @@ export default function LiveCasinoScreen({}: Props) {
   return (
     <Container>
       <Row sx={{ gap: '$3', my: '$sectionBottomSpace' }}>
-        <View sx={{ flex: 3, minHeight: 300, bg: '$secondary.500' }}></View>
-        <View sx={{ flex: 2, minHeight: 300, bg: '$secondary.500' }}></View>
+        <View sx={{ flex: 2, minHeight: 320, bg: '$secondary.500' }}></View>
+        <View
+          sx={{
+            minWidth: 340,
+            flex: [1, 1, 1, 1, 1.5],
+            maxWidth: 480,
+            minHeight: 320,
+            bg: '$secondary.500',
+          }}
+        ></View>
       </Row>
       <RecentlyPlayedSection />
       {provider == null || !games || filteredGames == null ? (

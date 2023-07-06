@@ -153,6 +153,7 @@ const GameListSectionGridList = ({
         const launchPayload = GameToLaunchPayload(g, locale)
         return (
           <GameCard
+            name={g.name[locale]}
             key={i}
             width={width}
             sx={{

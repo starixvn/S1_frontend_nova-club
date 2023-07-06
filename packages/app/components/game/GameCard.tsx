@@ -1,11 +1,20 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { Pressable, SxProp, Text, View, styled } from 'dripsy'
-import React, { memo, useRef, useState, useTransition } from 'react'
+import {
+  Pressable,
+  SxProp,
+  Text,
+  View,
+  styled,
+  useResponsiveValue,
+  useSx,
+} from 'dripsy'
+import React, { memo, useMemo, useRef, useState, useTransition } from 'react'
 import { GestureResponderEvent, PressableProps, StyleSheet } from 'react-native'
 import { SolitoImage } from 'solito/image'
 import SkeletonPlaceholder from '../SkeletonPlaceholder'
 import { LaunchGamePayload } from 'app/store/gameLauncher.slice'
 import { LaunchGame } from 'app/features/game/GameLauncher'
+import { MotiPressable } from 'moti/interactions'
 
 export interface GameCardProps
   extends PressableProps,
@@ -15,6 +24,8 @@ export interface GameCardProps
   width?: number | number[] | string | string[]
   height?: number | number[]
   sx?: SxProp
+  containerSx?: SxProp
+  absoluteName?: boolean
 }
 
 const GameCard = ({
@@ -23,12 +34,16 @@ const GameCard = ({
   width,
   height,
   sx,
+  containerSx,
   onPress,
+  absoluteName,
   ...rest
 }: GameCardProps) => {
   const lastLoadedRef = useRef(image)
   const [loaded, setLoaded] = useState(false)
   const [isPending, startTransition] = useTransition()
+  const desktopMode = useResponsiveValue([false, false, false, true])
+  const ss = useSx()
 
   if (lastLoadedRef.current != image) {
     lastLoadedRef.current = image
@@ -48,21 +63,41 @@ const GameCard = ({
         gameType: rest.gameType,
         image: imageSrc,
         providerCode: rest.providerCode,
+        desktopMode,
       })
     }
   }
 
   return (
     <Root
-      sx={{
+      containerStyle={ss({
         width,
-        height,
         ...sx,
-      }}
+      })}
+      animate={useMemo(
+        () =>
+          ({ hovered, pressed }) => {
+            'worklet'
+
+            return {
+              translateY: hovered ? -5 : 0,
+            }
+          },
+        []
+      )}
       onPress={onClick}
       {...rest}
     >
-      <View sx={{ width: '100%', height: '100%', position: 'relative' }}>
+      <View
+        sx={{
+          height,
+          width: '100%',
+          aspectRatio: 1,
+          position: 'relative',
+          borderRadius: 10,
+          ...containerSx,
+        }}
+      >
         <SkeletonPlaceholder show={!loaded} width={'100%'} height="100%">
           <SolitoImage
             unoptimized
@@ -81,7 +116,7 @@ const GameCard = ({
         </SkeletonPlaceholder>
       </View>
       {name && (
-        <LabelContainer>
+        <LabelContainer absolute={absoluteName}>
           <Text
             sx={{
               textAlign: 'center',
@@ -99,18 +134,24 @@ const GameCard = ({
 
 export default memo(GameCard)
 
-const Root = styled(Pressable)({
-  borderRadius: 10,
+const Root = styled(MotiPressable)({
   position: 'relative',
-  aspectRatio: 1,
+  // aspectRatio: 1,
   overflow: 'hidden',
 })
-const LabelContainer = styled(View)({
-  borderTopWidth: StyleSheet.hairlineWidth,
-  borderTopColor: '$primary.100',
-  bg: `rgba(50, 50, 90, 0.8)`,
-  position: 'absolute',
-  bottom: 0,
-  width: '100%',
-  py: [6, '$2'],
-})
+const LabelContainer = styled(View)(({ absolute }: { absolute?: boolean }) =>
+  absolute
+    ? {
+        width: '100%',
+        borderTopWidth: StyleSheet.hairlineWidth,
+        borderTopColor: '$primary.100',
+        bg: `rgba(50, 50, 90, 0.8)`,
+        position: 'absolute',
+        bottom: 0,
+        py: [6, '$2'],
+      }
+    : {
+        pt: [6, '$2'],
+        width: '100%',
+      }
+)

@@ -27,14 +27,24 @@ export default function HorizontalGameList({
     <ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
-      contentContainerSx={{ gap: ['$2', '$3'], px: ['$2', '$3'] }}
+      contentContainerSx={{
+        gap: ['$2', '$3'],
+        px: ['$2', '$3'],
+        pt: ['$2', '$3'],
+      }}
       {...rest}
     >
       {data ? (
         data.map((g: Game) => {
           const gamePayload = GameToLaunchPayload(g, locale)
           return (
-            <GameCard width={size} height={size} key={g.gc} {...gamePayload} />
+            <GameCard
+              // name={g.name[locale]}
+              width={size}
+              height={size}
+              key={g.gc}
+              {...gamePayload}
+            />
           )
         })
       ) : (

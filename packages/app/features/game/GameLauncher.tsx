@@ -8,17 +8,17 @@ import {
   LaunchGamePayload,
 } from 'app/store/gameLauncher.slice'
 import { SettingActions } from 'app/store/setting.slice'
+import { useResponsiveValue } from 'dripsy'
 import { useEffect } from 'react'
 import { Platform } from 'react-native'
+import { useModal } from 'react-native-modalfy'
 import { useDispatch } from 'react-redux'
 import { IResponse } from 'services/common/types'
 import { useGoToGameMutation } from 'services/gameApi'
 import { GetGameUrlResult } from 'services/gameApi.type'
+import { useRouter } from 'solito/router'
 import useGameWindow from './useGameWindow'
 import { useMaintenanceStatus } from './useMaintenanceStatus'
-import { useRouter } from 'solito/router'
-import { useResponsiveValue } from 'dripsy'
-import { useModal } from 'react-native-modalfy'
 
 const ProviderRunningWithoutIframe = ['PRGP']
 const ProviderRunningWithoutIframePlatformBased = Platform.select({
@@ -44,14 +44,6 @@ const GameLauncher = () => {
 
   const isLoggedIn = !!authState.info
 
-  useEffect(() => {
-    LaunchGame = (payload: LaunchGamePayload) => {
-      if (isLoggedIn) dispatch(GameLauncherActions.launchGame(payload))
-      else
-        isDesktop ? showAlert('Please Login to play game') : push('/auth/login')
-    }
-  }, [dispatch, isLoggedIn, push, replace, isDesktop, openModal])
-
   const {
     providerCode,
     gameCode,
@@ -59,6 +51,28 @@ const GameLauncher = () => {
     desktopMode = false,
     params,
   } = gameLauncherState
+
+  useEffect(() => {
+    LaunchGame = (payload: LaunchGamePayload) => {
+      const isSabaDesktopMode = !!(
+        payload.providerCode === 'SABA' &&
+        payload.desktopMode &&
+        payload.gameCode === '1' &&
+        isDesktop
+      )
+
+      if (isSabaDesktopMode) {
+        dispatch(SettingActions.addRecentGame(payload))
+        push('/sportsbook/saba')
+        return
+      }
+
+      if (isLoggedIn) {
+        dispatch(GameLauncherActions.launchGame(payload))
+      } else
+        isDesktop ? showAlert('Please Login to play game') : push('/auth/login')
+    }
+  }, [dispatch, isLoggedIn, push, replace, isDesktop, openModal, showAlert])
 
   async function launchGamePT(providerCode: string) {
     const domain = Platform.OS === 'web' ? '' : DEV_DOMAIN

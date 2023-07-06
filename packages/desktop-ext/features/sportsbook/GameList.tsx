@@ -2,7 +2,7 @@ import GameCard from 'app/components/game/GameCard'
 import { useAppSelector } from 'app/provider/redux/store'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
 import { GameToLaunchPayload } from 'app/utils/game'
-import { ScrollView } from 'dripsy'
+import { Row } from 'dripsy'
 import React from 'react'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
 
@@ -15,32 +15,28 @@ export default function GameList({}) {
   ])
 
   return (
-    <ScrollView
-      horizontal
-      sx={{}}
-      contentContainerSx={{
-        p: '$layoutSpace',
-        pr: 0,
+    <Row
+      sx={{
+        width: '100%',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: ['$3', '$4'],
+        py: ['$3', '$4'],
       }}
     >
-      {data?.map((item) => {
-        const { name, gc, gpc } = item
-        const formattedName = name
-          ? typeof name === 'string'
-            ? name
-            : name[locale]
-          : undefined
-
-        const launchPayload = GameToLaunchPayload(item, locale)
+      {data?.map((g) => {
+        const launchPayload = GameToLaunchPayload(g, locale)
         return (
           <GameCard
-            sx={{ height: 200, mr: '$layoutSpace' }}
-            key={gc + gpc}
-            name={formattedName}
+            absoluteName
+            name={g.name[locale]}
+            key={g.gc + g.gpc}
+            sx={{ width: '11%' }}
             {...launchPayload}
           />
         )
       })}
-    </ScrollView>
+    </Row>
   )
 }

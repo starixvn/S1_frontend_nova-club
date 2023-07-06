@@ -19,7 +19,7 @@ export default function GameListSection({
     <View sx={{ mb: '$sectionBottomSpace' }}>
       <SectionHeader icon={icon} title={title} />
       {data ? (
-        <HorizontalGameList data={data} sx={{ mt: ['$2', '$3'] }} />
+        <HorizontalGameList data={data} />
       ) : (
         <ActivityIndicator
           sx={{ my: ['$2', '$3'], alignSelf: 'flex-start', ml: '$pagePadding' }}

@@ -29,7 +29,10 @@ export default function GameSectionByProviderItemFlashList({ data }: Props) {
           const launchPayload = GameToLaunchPayload(item, locale)
           return (
             <View sx={{ flex: 1, p: ['$2'] }}>
-              <GameCard sx={{ flex: 1 }} {...launchPayload} />
+              <GameCard
+                sx={{ flex: 1 }}
+                {...launchPayload}
+              />
             </View>
           )
         }}

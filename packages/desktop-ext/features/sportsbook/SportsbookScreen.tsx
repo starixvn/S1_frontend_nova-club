@@ -1,13 +1,15 @@
-import { Container } from 'dripsy'
+import { Container, View } from 'dripsy'
 import React from 'react'
 import GameList from './GameList'
 import MatchList from './MatchList'
 
 export default function SportsbookScreen() {
   return (
-    <Container>
+    <View>
       <GameList />
-      <MatchList />
-    </Container>
+      <Container>
+        <MatchList />
+      </Container>
+    </View>
   )
 }

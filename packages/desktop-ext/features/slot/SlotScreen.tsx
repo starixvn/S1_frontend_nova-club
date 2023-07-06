@@ -61,11 +61,11 @@ function SlotScreen({}: Props) {
   return (
     <Container>
       <Row sx={{ gap: '$3', my: '$sectionBottomSpace' }}>
-        <View sx={{ flex: 0.8, minHeight: 300 }}>
+        <View sx={{ flex: 0.8, minHeight: 320 }}>
           <LatestWinnerSection type={LatestWinnerType.Slot} />
         </View>
-        <View sx={{ flex: 1, minHeight: 300, bg: '$secondary.500' }}></View>
-        <View sx={{ flex: 1, minHeight: 300, bg: '$secondary.500' }}></View>
+        <View sx={{ flex: 1, minHeight: 320, bg: '$secondary.500' }}></View>
+        <View sx={{ flex: 1, minHeight: 320, bg: '$secondary.500' }}></View>
       </Row>
       <RecentlyPlayedSection />
       {!games || filteredGames == null ? (

@@ -61,7 +61,7 @@ export default function LatestWinnerSection({ type }: Props) {
         borderWidth: 2,
         borderColor: '$primary.300',
         overflow: 'hidden',
-        height: 310,
+        height: 320,
       }}
     >
       <Header />
