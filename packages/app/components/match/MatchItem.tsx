@@ -50,7 +50,7 @@ export default function MatchItem({ width, match }: Props) {
   const homeOdd = match.selection[MatchHandicapType.FULL_TIME]?.[0]?.Point ?? 0
   const awayOdd = match.selection[MatchHandicapType.FULL_TIME]?.[1]?.Point ?? 0
 
-  console.log(match.LeagueName)
+  // console.log(match.LeagueName)
   // console.log(JSON.stringify(match.selection, undefined, 2))
 
   // console.log(homeFlag)

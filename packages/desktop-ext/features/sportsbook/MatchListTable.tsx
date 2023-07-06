@@ -37,6 +37,17 @@ interface MatchListCellDataProps {
   onPress?: (match: MatchResult) => void
 }
 
+interface MatchListCellRowProps {
+  index: number
+  selectedTime: string
+  time: string
+  date: string
+  homeFlag: string
+  awayFlag: string
+  item: MatchResult
+  onPress: (match: MatchResult) => void
+}
+
 const handicapTypeArr = [
   MatchHandicapType.FULL_TIME,
   MatchHandicapType.FULL_TIME_OVER,
@@ -53,9 +64,8 @@ const MatchListTable = ({
   allLeagueId,
   selectedTime,
 }: MatchListTableProps) => {
-  const filterEndDate = dayjs(selectedTime).add(1, 'day')
-  const filterStartDate = filterEndDate.add(-1, 'day')
-  // console.log(fullData)
+  const filterStartDate = dayjs(selectedTime)
+  const filterEndDate = filterStartDate.add(1, 'day')
 
   const onPress = (match: MatchResult) => {
     getAction({
@@ -264,10 +274,7 @@ const MatchListCellData = ({
           )
         })}
       </DataTableCell>
-      <DataTableCell
-        // textStyle={{ textAlign: 'center' }}
-        containerStyle={{ flex: 0.1, mr: '$4' }}
-      >
+      <DataTableCell containerStyle={{ flex: 0.1, mr: '$4' }}>
         {selectionType === 'away' && onPress ? (
           <Button
             contentProps={{ sx: { py: '$1', px: '$2' } }}
@@ -305,44 +312,94 @@ const OnRender = ({
 
   const endDate =
     selectedTime === 'All' ? dayjsTz(dayjs()).add(6, 'day') : filterEndDate
-  const startDate = selectedTime === 'All' ? dayjsTz(dayjs()) : filterEndDate
+  const startDate = selectedTime === 'All' ? dayjsTz(dayjs()) : filterStartDate
+  // console.log('-----------------------')
+  // console.log('MatchDate', matchDayjs.format('DD/MM/YYYY || HH:MMA'))
+  // console.log('Start: ', startDate.format('DD/MM/YYYY || HH:MMA'))
+  // console.log('End: ', endDate.format('DD/MM/YYYY || HH:MMA'))
+  // console.log(matchDayjs.subtract(startDate.day(), 'days').day())
+  // console.log(endDate.subtract(matchDayjs.day(), 'days').day())
 
-  console.log('Start: ', startDate.format('DD/MM || HH:MMA'))
-  console.log('End: ', endDate.format('DD/MM || HH:MMA'))
-  // matchDayjs.isBefore(endDate.format('DD/MM'))
-  if (matchUnixDate >= endDate.unix() || matchUnixDate <= startDate.unix()) {
-    return null
-  } else {
+  if (
+    selectedTime !== 'All' &&
+    (endDate.subtract(matchDayjs.day(), 'days').day() === 1 ||
+      matchDayjs.subtract(startDate.day(), 'days').day() === 0)
+  ) {
     return (
-      <View
+      <MatchListCellRow
+        awayFlag={awayFlag}
+        date={date}
+        homeFlag={homeFlag}
+        index={index}
+        item={item}
+        onPress={onPress}
+        selectedTime={selectedTime}
+        time={time}
         key={selectedTime}
-        sx={{
-          flex: 0,
-          py: '$2',
-          mt: '$2',
-          bg: index % 2 ? '$primary.300' : '$primary.500',
-        }}
-      >
-        <MatchListCellData
-          dateTime={time}
-          flag={homeFlag}
-          item={item}
-          name={item.HomeName}
-          selectionType={'home'}
-        />
-
-        <MatchListCellData
-          dateTime={date}
-          flag={awayFlag}
-          item={item}
-          name={item.AwayName}
-          selectionType={'away'}
-          onPress={onPress}
-        />
-        <MatchListCellData item={item} selectionType={'draw'} />
-      </View>
+      />
     )
+  } else if (
+    selectedTime === 'All' &&
+    (matchDayjs.subtract(startDate.day(), 'days').day() === 0 ||
+      endDate.subtract(matchDayjs.day(), 'days').day() <= 6)
+  ) {
+    return (
+      <MatchListCellRow
+        awayFlag={awayFlag}
+        date={date}
+        homeFlag={homeFlag}
+        index={index}
+        item={item}
+        onPress={onPress}
+        selectedTime={selectedTime}
+        time={time}
+        key={selectedTime}
+      />
+    )
+  } else {
+    return null
   }
+}
+
+const MatchListCellRow = ({
+  index,
+  selectedTime,
+  time,
+  date,
+  homeFlag,
+  awayFlag,
+  item,
+  onPress,
+}: MatchListCellRowProps) => {
+  return (
+    <View
+      key={selectedTime}
+      sx={{
+        flex: 0,
+        py: '$2',
+        mt: '$2',
+        bg: index % 2 ? '$primary.300' : '$primary.500',
+      }}
+    >
+      <MatchListCellData
+        dateTime={time}
+        flag={homeFlag}
+        item={item}
+        name={item.HomeName}
+        selectionType={'home'}
+      />
+
+      <MatchListCellData
+        dateTime={date}
+        flag={awayFlag}
+        item={item}
+        name={item.AwayName}
+        selectionType={'away'}
+        onPress={onPress}
+      />
+      <MatchListCellData item={item} selectionType={'draw'} />
+    </View>
+  )
 }
 
 const getBetColor = (val: number) => {
