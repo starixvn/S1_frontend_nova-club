@@ -18,7 +18,7 @@ export default function useGameWindow() {
       Linking.openURL(url)
     } else {
       push({
-        pathname: '/games/gameUrl',
+        pathname: '/launcher',
         query: {
           gameUrl: encodeURIComponent(url),
           title: options?.title,

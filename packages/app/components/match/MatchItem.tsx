@@ -5,7 +5,7 @@ import {
 } from 'app/constants/recMatchMapping'
 import dayjsTz from 'app/utils/dayjs'
 import dayjs from 'dayjs'
-import { Row, Text, View, styled } from 'dripsy'
+import { Pressable, Row, Text, View, styled } from 'dripsy'
 import { MotiView } from 'moti'
 import React, { useState } from 'react'
 import { MatchResult } from 'services/matchApi.type'
@@ -13,16 +13,18 @@ import { SolitoImage } from 'solito/image'
 
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
+import { ActionType, getAction } from 'app/utils/actionGenerator'
 
 dayjs.extend(customParseFormat)
 interface Props {
   width: number
   match: MatchResult
+  onPress: (match: MatchResult) => void
 }
 
 export const SCORE_HEIGHT = [20, 30]
 
-export default function MatchItem({ width, match }: Props) {
+export default function MatchItem({ width, match, onPress }: Props) {
   // const leagueLogo = getLeagueLogo(match.LeagueId)
 
   let dateDisplay = '-'
@@ -55,7 +57,8 @@ export default function MatchItem({ width, match }: Props) {
 
   // console.log(homeFlag)
   return (
-    <View
+    <Pressable
+      onPress={() => onPress(match)}
       sx={{
         borderRadius: 15,
         overflow: 'hidden',
@@ -109,7 +112,7 @@ export default function MatchItem({ width, match }: Props) {
           <HandicapLabel color={'red'}>{awayPrice}</HandicapLabel>
         </HandicapColumn>
       </Row>
-    </View>
+    </Pressable>
   )
 }
 

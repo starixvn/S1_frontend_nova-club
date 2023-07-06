@@ -13,12 +13,13 @@ type Props = {}
 
 export default function SabaScreen({}: Props) {
   const [goToGame] = useGoToGameMutation()
-  const dispatch = useAppDispatch()
   const [error, setError] = useState<string | undefined>()
   const [gameUrl, setGameUrl] = useState<string | undefined>()
 
   const authState = useAppSelector((s) => s.auth)
   const isLoggedIn = !!authState.info
+
+  const locale = useAppSelector((s) => s.setting.locale)
 
   async function getSabaGame() {
     const { data, success } = await goToGame({
@@ -37,13 +38,13 @@ export default function SabaScreen({}: Props) {
 
     if (success && data) {
       let url = data.url
-      setGameUrl(url)
+      setGameUrl(url + window.location.search)
     }
   }
 
   useEffect(() => {
     getSabaGame()
-  }, [])
+  }, [locale])
 
   return (
     <Container

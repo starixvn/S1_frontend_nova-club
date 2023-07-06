@@ -95,6 +95,7 @@ const GameCard = ({
           aspectRatio: 1,
           position: 'relative',
           borderRadius: 10,
+          overflow: 'hidden',
           ...containerSx,
         }}
       >
@@ -113,11 +114,7 @@ const GameCard = ({
           src={imageSrc}
         />
         <View sx={{ ...StyleSheet.absoluteFillObject }}>
-          <SkeletonPlaceholder
-            show={!loaded}
-            width="100%"
-            height="100%"
-          ></SkeletonPlaceholder>
+          <SkeletonPlaceholder show={!loaded} width="100%" height="100%" />
         </View>
       </View>
       {name && (

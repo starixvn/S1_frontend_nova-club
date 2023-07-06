@@ -10,7 +10,7 @@ import {
 import dayjsTz from 'app/utils/dayjs'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
-import { Row, ScrollView, Text, View } from 'dripsy'
+import { Row, ScrollView, Text, View, useResponsiveValue } from 'dripsy'
 import React from 'react'
 import { League, MatchResult } from 'services/matchApi.type'
 import { SolitoImage } from 'solito/image'
@@ -66,25 +66,29 @@ const MatchListTable = ({
 }: MatchListTableProps) => {
   const filterStartDate = dayjs(selectedTime)
   const filterEndDate = filterStartDate.add(1, 'day')
+  const isDesktop = useResponsiveValue([false, false, false, true])
 
   const onPress = (match: MatchResult) => {
     getAction({
       type: ActionType.GAME,
       payload: {
-        gc: '1',
-        name: {
-          en: 'SABA Sports',
-          vi: 'SABA Sports',
-        },
-        gtc: 'sports',
-        img: 'https://static-stage.gball8.com/nvclub/sbe/cms/game/saba/sport-saba_1659947637.png',
-        gpc: 'SABA',
-        tags: [],
-        params: {
-          leaguekey: match.LeagueId.toString(),
-          matchid: match.EventId.toString(),
-        },
-      } as Game,
+        desktopMode: isDesktop,
+        game: {
+          gc: '1',
+          name: {
+            en: 'SABA Sports',
+            vi: 'SABA Sports',
+          },
+          gtc: 'sports',
+          img: 'https://static-stage.gball8.com/nvclub/sbe/cms/game/saba/sport-saba_1659947637.png',
+          gpc: 'SABA',
+          tags: [],
+          params: {
+            leaguekey: match.LeagueId.toString(),
+            matchid: match.EventId.toString(),
+          },
+        } as Game,
+      },
     })()
   }
 

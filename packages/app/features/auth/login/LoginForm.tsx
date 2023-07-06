@@ -49,6 +49,7 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
       }}
     >
       <Input
+        autoCapitalize={'none'}
         inputContainerSx={{ width: '100%' }}
         icon="profile-rounded"
         placeholder="Username"
@@ -70,6 +71,7 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
         }
       />
       <Input
+        autoCapitalize={'none'}
         inputContainerSx={{ width: '100%' }}
         icon="pw"
         placeholder="Password"

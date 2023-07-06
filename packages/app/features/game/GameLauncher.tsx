@@ -28,6 +28,12 @@ const ProviderRunningWithoutIframePlatformBased = Platform.select({
 
 export let LaunchGame: (payload: LaunchGamePayload) => void
 
+function paramsToQuery(params) {
+  const urlParams = new URLSearchParams(params)
+  const paramsToAppend = urlParams.toString()
+  return `&${paramsToAppend}`
+}
+
 const GameLauncher = () => {
   const gameLauncherState = useAppSelector((s) => s.gameLauncher)
   const { t } = useLocalization()
@@ -63,7 +69,10 @@ const GameLauncher = () => {
 
       if (isSabaDesktopMode) {
         dispatch(SettingActions.addRecentGame(payload))
-        push('/sportsbook/saba')
+        let url = '/sportsbook/saba'
+        if (payload.params) url += `?${paramsToQuery(payload.params)}`
+
+        push(url)
         return
       }
 
@@ -102,9 +111,7 @@ const GameLauncher = () => {
       if (success && data) {
         let url = data.url
         if (params) {
-          const urlParams = new URLSearchParams(params)
-          const paramsToAppend = urlParams.toString()
-          url += `&${paramsToAppend}`
+          url += paramsToQuery(params)
         }
 
         openGame(url, providerCode, {

@@ -27,6 +27,7 @@ const HeaderAuthentication = () => {
       }}
     >
       <Input
+        autoCapitalize={'none'}
         sx={{ mb: 0, width: 200 }}
         inputContainerSx={{ py: '$1' }}
         icon="profile-rounded"
@@ -38,6 +39,7 @@ const HeaderAuthentication = () => {
         maxLength={USERNAME_MAX_LENGTH}
       />
       <Input
+        autoCapitalize={'none'}
         sx={{ mb: 0, width: 200 }}
         inputContainerSx={{ py: '$1' }}
         icon="pw"

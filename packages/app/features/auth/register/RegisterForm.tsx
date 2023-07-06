@@ -116,6 +116,7 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
       }}
     >
       <Input
+        autoCapitalize={'none'}
         inputContainerSx={{ width: '100%' }}
         icon="profile-rounded"
         placeholder="Username"
@@ -139,6 +140,7 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
         }
       />
       <Input
+        autoCapitalize={'none'}
         inputContainerSx={{ width: '100%' }}
         icon="pw"
         placeholder="Password"
@@ -159,6 +161,7 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
         }
       />
       <Input
+        autoCapitalize={'none'}
         inputContainerSx={{ width: '100%' }}
         icon="cpw"
         placeholder="Confirm Password"

@@ -19,7 +19,7 @@ export interface InternalRedirectPayload {
 
 export interface ActionLaunchGame {
   type: ActionType.GAME
-  payload: Game
+  payload: { game: Game; desktopMode?: boolean }
 }
 
 export interface ActionRedirect {
@@ -68,13 +68,15 @@ export function getAction(action: Action): (p?: ActionRedirectParams) => void {
     }
     case ActionType.GAME: {
       return () => {
+        const { game, desktopMode } = action.payload
         LaunchGame({
-          gameCode: action.payload.gc,
-          gameName: action.payload.name[i18n.locale],
-          gameType: action.payload.gtc,
-          providerCode: action.payload.gpc,
-          image: action.payload.img,
-          params: action.payload.params,
+          gameCode: game.gc,
+          gameName: game.name[i18n.locale],
+          gameType: game.gtc,
+          providerCode: game.gpc,
+          image: game.img,
+          params: game.params,
+          desktopMode,
         })
       }
     }

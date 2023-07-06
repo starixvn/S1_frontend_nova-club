@@ -109,7 +109,7 @@ const LatestWinnerItem = ({ game, username, amount }) => {
         }}
       >
         <Row sx={{ alignItems: 'center', gap: '$2' }}>
-          <GameCard sx={{ height: 50 }} {...launchGameProps} />
+          <GameCard containerSx={{ height: 50 }} {...launchGameProps} />
           <View sx={{ flex: 1, gap: '$1' }}>
             <Label>{username}</Label>
             <Label>{game.name[locale]}</Label>

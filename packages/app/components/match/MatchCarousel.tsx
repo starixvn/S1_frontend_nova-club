@@ -1,5 +1,5 @@
 import { Pressable, View, styled, useResponsiveValue } from 'dripsy'
-import React, { forwardRef, useRef } from 'react'
+import React, { forwardRef, useCallback, useRef } from 'react'
 import { useWindowDimensions } from 'react-native'
 import Carousel, {
   ICarouselInstance,
@@ -10,6 +10,8 @@ import MatchItem, { SCORE_HEIGHT } from './MatchItem'
 import { MatchResult } from 'services/matchApi.type'
 import { mergeRefs } from 'utils/mergeRefs'
 import { AnimatePresence, MotiView } from 'moti'
+import { ActionType, getAction } from 'app/utils/actionGenerator'
+import { Game } from 'services/gameApi.type'
 const ASPECT_RATIO = 3
 
 export type MatchCarouselProps = Omit<
@@ -44,6 +46,35 @@ const MatchCarousel = forwardRef<ICarouselInstance, MatchCarouselProps>(
     function prev() {
       carouselRef?.current?.prev()
     }
+
+    const isDesktop = useResponsiveValue([false, false, false, true])
+
+    const onPress = useCallback(
+      (match: MatchResult) => {
+        getAction({
+          type: ActionType.GAME,
+          payload: {
+            desktopMode: isDesktop,
+            game: {
+              gc: '1',
+              name: {
+                en: 'SABA Sports',
+                vi: 'SABA Sports',
+              },
+              gtc: 'sports',
+              img: 'https://static-stage.gball8.com/nvclub/sbe/cms/game/saba/sport-saba_1659947637.png',
+              gpc: 'SABA',
+              tags: [],
+              params: {
+                leaguekey: match.LeagueId.toString(),
+                matchid: match.EventId.toString(),
+              },
+            } as Game,
+          },
+        })()
+      },
+      [isDesktop]
+    )
 
     if (!data) return <View sx={{ height }} />
 
@@ -84,7 +115,7 @@ const MatchCarousel = forwardRef<ICarouselInstance, MatchCarouselProps>(
           data={data}
           windowSize={3}
           renderItem={({ item }) => (
-            <MatchItem match={item} width={itemWidth} />
+            <MatchItem match={item} width={itemWidth} onPress={onPress} />
           )}
           width={width}
           height={height}

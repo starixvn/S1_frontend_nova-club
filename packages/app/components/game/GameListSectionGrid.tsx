@@ -56,7 +56,7 @@ const GameListSectionGridFilter = ({
           py: '$2',
           flexDirection: 'row',
           alignItems: 'center',
-          gap: '$3',
+          gap: ['$2', '$3'],
         }}
       >
         {children}
@@ -94,6 +94,7 @@ const GameListSectionGridSearch = ({ onSearch }) => {
       <MotiView state={animationState}>
         <View sx={{ width: '100%', borderRadius: 20, bg: '$primary.700' }}>
           <TextInput
+            autoCapitalize={'none'}
             value={searchValue}
             numberOfLines={1}
             placeholderTextColor="$placeholder"
@@ -102,7 +103,7 @@ const GameListSectionGridSearch = ({ onSearch }) => {
               paddingRight: 42,
               paddingLeft: '$3',
               // lineHeight: 18
-              height: [24, 24, 24, 30],
+              height: [26, 26, 26, 30],
               lineHeight: [15, 15, 15, 30],
             }}
             placeholder="Search"
@@ -183,8 +184,8 @@ const TagButton = ({ isActive, children = '', ...rest }) => {
       >
         <View
           sx={{
-            px: ['$2', '$3'],
-            py: ['$1', 6],
+            px: [10, '$3'],
+            py: 6,
             bg: '$primary.700',
           }}
         >
