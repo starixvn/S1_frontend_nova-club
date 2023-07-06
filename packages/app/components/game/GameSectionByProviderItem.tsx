@@ -45,9 +45,9 @@ function GameSectionByProviderItem({
 
   const searchedGame = useMemo(() => {
     return search
-      ? filteredGame.filter((g) =>
-          g.name[locale]?.toLowerCase().includes(search)
-        )
+      ? filteredGame.filter((g) => {
+          return g.name[locale]?.toLowerCase().includes(search.toLowerCase())
+        })
       : undefined
   }, [search, filteredGame, locale])
 

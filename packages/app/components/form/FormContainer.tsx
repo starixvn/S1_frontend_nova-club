@@ -4,7 +4,7 @@ const FormContainer = styled(View, {
   defaultVariant: 'body',
   themeKey: 'forms',
 })(({ padding }: { padding?: boolean }) => ({
-  p: padding ? 0 : '$pagePadding',
+  p: padding ? '$pagePadding' : 0,
 }))
 
 export default FormContainer

@@ -198,7 +198,7 @@ const InputContainer = styled(Row)(
       py: '$2',
       px: '2%',
       borderWidth: 1,
-      minHeight: 48,
+      // minHeight: 48,
       alignItems: 'center',
       position: 'relative',
     }
