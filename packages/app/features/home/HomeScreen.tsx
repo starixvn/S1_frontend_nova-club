@@ -1,17 +1,16 @@
 import GameListSectionAsyncByTag from 'app/components/game/GameListSectionAsyncByTag'
+import Footer from 'app/components/navigation/footer'
 import useLocalization from 'app/provider/localization'
 import { SlotType } from 'app/utils/constant'
 import { ScrollView } from 'dripsy'
 import AnnouncementSection from './Announcement/AnnouncementSection'
 import BannerSection from './BannerSection'
 import GameGridSection from './GameGridSection'
-import MatchSection from './Match/MatchSection'
-import RecentlyPlayedSection from './RecentlyPlayedSection'
-import TopGameSection from './TopGameSection'
-import LeaderboardSection from './LeaderboardSection'
-import ReferralSection from './Referral/ReferralSection'
-import Footer from 'app/components/navigation/footer'
 import HireBanner from './HireBanner'
+import LeaderboardSection from './LeaderboardSection'
+import MatchSection from './Match/MatchSection'
+import ReferralSection from './Referral/ReferralSection'
+import TopGameSection from './TopGameSection'
 
 export default function HomeScreen() {
   const { t } = useLocalization()
@@ -26,7 +25,7 @@ export default function HomeScreen() {
       <AnnouncementSection />
       <HireBanner />
       <GameGridSection />
-      <RecentlyPlayedSection />
+      {/* <RecentlyPlayedSection /> */}
       <TopGameSection />
 
       <GameListSectionAsyncByTag

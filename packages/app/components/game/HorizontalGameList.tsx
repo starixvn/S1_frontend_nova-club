@@ -1,14 +1,11 @@
-import { ScrollView, useResponsiveValue } from 'dripsy'
-import React, { useCallback } from 'react'
-import GameCard from './GameCard'
-import { Skeleton } from 'moti/skeleton'
-import { Game } from 'services/gameApi.type'
-import { ScrollViewProps } from 'react-native'
-import SkeletonPlaceholder from '../SkeletonPlaceholder'
-import { LaunchGame } from 'app/features/game/GameLauncher'
-import i18n from 'app/provider/localization/i18n'
 import { useAppSelector } from 'app/provider/redux/store'
-import { GameToLaunchPayload } from 'app/utils/game'
+import { ScrollView, useResponsiveValue } from 'dripsy'
+import { Skeleton } from 'moti/skeleton'
+import React from 'react'
+import { ScrollViewProps } from 'react-native'
+import { Game } from 'services/gameApi.type'
+import SkeletonPlaceholder from '../SkeletonPlaceholder'
+import GameCard from './GameCard'
 
 interface HorizontalGameListProps extends ScrollViewProps {
   data: Game[]
@@ -36,14 +33,13 @@ export default function HorizontalGameList({
     >
       {data ? (
         data.map((g: Game) => {
-          const gamePayload = GameToLaunchPayload(g, locale)
           return (
             <GameCard
               // name={g.name[locale]}
               width={size}
               height={size}
               key={g.gc}
-              {...gamePayload}
+              {...g}
             />
           )
         })

@@ -1,11 +1,8 @@
-import {
-  Row
-} from 'dripsy'
+import { Row } from 'dripsy'
 import React from 'react'
 import { Game } from 'services/gameApi.type'
 
 import { useAppSelector } from 'app/provider/redux/store'
-import { GameToLaunchPayload } from 'app/utils/game'
 import GameCard from './GameCard'
 
 const width = ['22%', '18%', '15%', '15%', '12%']
@@ -30,7 +27,6 @@ const GameSectionByProviderItemGameListSummary = ({
       }}
     >
       {data.map((g, i) => {
-        const launchPayload = GameToLaunchPayload(g, locale)
         return (
           <GameCard
             key={i}
@@ -38,7 +34,7 @@ const GameSectionByProviderItemGameListSummary = ({
             sx={{
               m: spaces,
             }}
-            {...launchPayload}
+            {...g}
           />
         )
       })}

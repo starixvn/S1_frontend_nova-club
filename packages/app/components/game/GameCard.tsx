@@ -16,11 +16,8 @@ import { LaunchGamePayload } from 'app/store/gameLauncher.slice'
 import { LaunchGame } from 'app/features/game/GameLauncher'
 import { MotiPressable } from 'moti/interactions'
 
-export interface GameCardProps
-  extends PressableProps,
-    PressableProps,
-    LaunchGamePayload {
-  name?: string
+export interface GameCardProps extends PressableProps, LaunchGamePayload {
+  displayName?: string
   width?: number | number[] | string | string[]
   height?: number | number[]
   sx?: SxProp
@@ -29,8 +26,8 @@ export interface GameCardProps
 }
 
 const GameCard = ({
-  name,
-  image,
+  displayName,
+  img,
   width,
   height,
   sx,
@@ -39,30 +36,34 @@ const GameCard = ({
   absoluteName,
   ...rest
 }: GameCardProps) => {
-  const lastLoadedRef = useRef(image)
+  const lastLoadedRef = useRef(img)
   const [loaded, setLoaded] = useState(false)
   const [isPending, startTransition] = useTransition()
   const desktopMode = useResponsiveValue([false, false, false, true])
   const ss = useSx()
 
-  if (lastLoadedRef.current != image) {
-    lastLoadedRef.current = image
+  if (lastLoadedRef.current != img) {
+    lastLoadedRef.current = img
     startTransition(() => setLoaded(false))
   }
   const imageSrc =
-    image?.startsWith('/_next') || image?.startsWith('http')
-      ? image
-      : `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${image}`
+    img?.startsWith('/_next') || img?.startsWith('http')
+      ? img
+      : `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${img}`
 
   function onClick(e: GestureResponderEvent) {
     if (onPress) onPress(e)
     else {
       LaunchGame({
-        gameCode: rest.gameCode,
-        gameName: rest.gameName,
-        gameType: rest.gameType,
-        image: imageSrc,
-        providerCode: rest.providerCode,
+        gc: rest.gc,
+        gpc: rest.gpc,
+        gtc: rest.gtc,
+        imgX: rest.imgX,
+        tags: rest.tags,
+        gdc_cat: rest.gdc_cat,
+        params: rest.params,
+        name: rest.name,
+        img,
         desktopMode,
       })
     }
@@ -108,7 +109,7 @@ const GameCard = ({
           // to supporess warning, will be ignored since unoptimized is true
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           loading="lazy"
-          alt={name ?? ''}
+          alt={displayName ?? ''}
           resizeMode="cover"
           key={imageSrc}
           src={imageSrc}
@@ -117,7 +118,7 @@ const GameCard = ({
           <SkeletonPlaceholder show={!loaded} width="100%" height="100%" />
         </View>
       </View>
-      {name && (
+      {displayName && (
         <LabelContainer absolute={absoluteName}>
           <Text
             sx={{
@@ -126,7 +127,7 @@ const GameCard = ({
               fontSize: [12, 14],
             }}
           >
-            {name}
+            {displayName}
           </Text>
         </LabelContainer>
       )}

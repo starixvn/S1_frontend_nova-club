@@ -1,5 +1,4 @@
 import { useAppSelector } from 'app/provider/redux/store'
-import { GameToLaunchPayload } from 'app/utils/game'
 import {
   Pressable,
   Row,
@@ -153,16 +152,15 @@ const GameListSectionGridList = ({
       }}
     >
       {data.map((g, i) => {
-        const launchPayload = GameToLaunchPayload(g, locale)
         return (
           <GameCard
-            name={g.name[locale]}
+            displayName={g.name[locale]}
             key={i}
             width={width}
             sx={{
               m: spaces,
             }}
-            {...launchPayload}
+            {...g}
           />
         )
       })}

@@ -21,9 +21,11 @@ import GameList from './GameList'
 type Props = {}
 
 function _GamesScreen({}: Props) {
-  const { route, filteredGames, onFilterClicked } = useGameScreen(
+  const { type, route, filteredGames, onFilterClicked } = useGameScreen(
     SUB_ROUTES.local.route
   )
+
+  console.log('type', type)
 
   return (
     <Container>
@@ -34,7 +36,14 @@ function _GamesScreen({}: Props) {
         <View sx={{ flex: 1, minHeight: 300, bg: '$secondary.500' }}></View>
         <View sx={{ flex: 1, minHeight: 300, bg: '$secondary.500' }}></View>
       </Row>
-      <RecentlyPlayedSection />
+      <RecentlyPlayedSection
+        gameTypes={[
+          GAME_TYPE_CODE.GAMES,
+          GAME_TYPE_CODE.FISHING,
+          GAME_TYPE_CODE.LOTTERY,
+        ]}
+        gameCategories={[GDC_GAME_CATEGORY.CARDGAME]}
+      />
       {filteredGames == null ? (
         <View sx={{ height: '50vh' }}>
           <ActivityIndicator color="$primary.300" size="large" />

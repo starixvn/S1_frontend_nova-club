@@ -70,12 +70,7 @@ export function getAction(action: Action): (p?: ActionRedirectParams) => void {
       return () => {
         const { game, desktopMode } = action.payload
         LaunchGame({
-          gameCode: game.gc,
-          gameName: game.name[i18n.locale],
-          gameType: game.gtc,
-          providerCode: game.gpc,
-          image: game.img,
-          params: game.params,
+          ...game,
           desktopMode,
         })
       }

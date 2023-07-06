@@ -3,12 +3,9 @@ import GamePageHeader from 'app/components/GamePageHeader'
 import GameCard from 'app/components/game/GameCard'
 import { useAppSelector } from 'app/provider/redux/store'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
-import { GameToLaunchPayload } from 'app/utils/game'
 import { Row, useResponsiveValue } from 'dripsy'
 import React from 'react'
-import {
-  useGetGameListByCategoryQuery
-} from 'services/gameApi'
+import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import MatchSection from './MatchSection'
 
@@ -36,8 +33,6 @@ export default function SportsbookScreen() {
     const isMiddle = !isMostLeft && !isMostRight
     const spacePercentage = 5
 
-    const launchPayload = GameToLaunchPayload(item, locale)
-
     return (
       <Row
         sx={{
@@ -47,14 +42,14 @@ export default function SportsbookScreen() {
         }}
       >
         <GameCard
-          name={formattedName}
+          displayName={formattedName}
           // image={img}
           sx={{
             my: `${spacePercentage}%`,
             flex: 1,
             mx: isMiddle ? `${spacePercentage * 1.5}%` : `${spacePercentage}%`,
           }}
-          {...launchPayload}
+          {...item}
         />
       </Row>
     )

@@ -51,9 +51,10 @@ export interface Game {
   gpc: string
   gtc: GAME_TYPE_CODE
   img: string
-  name: Record<LANGUAGE_CODE, string> | string
+  imgX: string
+  name: Record<LANGUAGE_CODE, string>
   tags: string[]
-  gdc_cat?: string
+  gdc_cat?: GDC_GAME_CATEGORY
   params?: Record<string, string>
 }
 

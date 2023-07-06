@@ -67,7 +67,9 @@ function SlotScreen({}: Props) {
         <View sx={{ flex: 1, minHeight: 320, bg: '$secondary.500' }}></View>
         <View sx={{ flex: 1, minHeight: 320, bg: '$secondary.500' }}></View>
       </Row>
-      <RecentlyPlayedSection />
+      <RecentlyPlayedSection
+        gameTypes={[GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]}
+      />
       {!games || filteredGames == null ? (
         <View sx={{ height: '50vh' }}>
           <ActivityIndicator color="$primary.300" size="large" />

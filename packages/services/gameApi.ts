@@ -170,7 +170,7 @@ export const gameApi = baseApiWithTag.injectEndpoints({
         try {
           const resp = await fetch({
             baseUrl: '/',
-            url: `${window.location.origin}/api/latestWinner`,
+            url: `${window.location.origin}/api/latestWinner?type=${_arg}`,
             method: 'GET',
           })
 

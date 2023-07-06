@@ -1,18 +1,15 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import GameCard from 'app/components/game/GameCard'
+import { useAppSelector } from 'app/provider/redux/store'
 import {
   ActivityIndicator,
-  Container,
   Pressable,
   Row,
-  Text,
-  View,
+  View
 } from 'dripsy'
 import React, { startTransition } from 'react'
 import { Game } from 'services/gameApi.type'
 import { useNavigationHeader } from './NavigationHeaderProvider'
-import GameCard from 'app/components/game/GameCard'
-import { GameToLaunchPayload } from 'app/utils/game'
-import { useAppSelector } from 'app/provider/redux/store'
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 type Props = {
   data?: Game[]
@@ -51,17 +48,16 @@ export default function DropdownContent({
             }}
           >
             {data.map((g) => {
-              const launchPayload = GameToLaunchPayload(g, locale)
               return (
                 <GameCard
                   onHoverIn={() => startTransition(() => setDropdownMenu(menu))}
-                  name={g.name[locale]}
+                  displayName={g.name[locale]}
                   key={g.gc + g.gpc}
                   sx={{ width: '11%' }}
-                  {...launchPayload}
+                  {...g}
                   {...(useProviderImage
                     ? {
-                        image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/main/${g.gpc?.toLowerCase()}.png`,
+                        img: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/main/${g.gpc?.toLowerCase()}.png`,
                       }
                     : {})}
                 />

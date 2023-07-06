@@ -1,8 +1,7 @@
 import { FlashList } from '@shopify/flash-list'
 import GameCard from 'app/components/game/GameCard'
 import { useAppSelector } from 'app/provider/redux/store'
-import { GameToLaunchPayload } from 'app/utils/game'
-import { View, useSx } from 'dripsy'
+import { View } from 'dripsy'
 import React from 'react'
 import { Game } from 'services/gameApi.type'
 /* DEPRECATED */
@@ -24,15 +23,9 @@ export default function GameSectionByProviderItemFlashList({ data }: Props) {
         numColumns={7}
         extraData={locale}
         renderItem={({ item }) => {
-          const { name, img } = item
-
-          const launchPayload = GameToLaunchPayload(item, locale)
           return (
             <View sx={{ flex: 1, p: ['$2'] }}>
-              <GameCard
-                sx={{ flex: 1 }}
-                {...launchPayload}
-              />
+              <GameCard sx={{ flex: 1 }} {...item} />
             </View>
           )
         }}

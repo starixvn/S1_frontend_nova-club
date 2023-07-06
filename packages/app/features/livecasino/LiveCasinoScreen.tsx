@@ -8,9 +8,7 @@ import { GAME_TYPE_CODE } from 'app/utils/constant'
 import { GameToLaunchPayload } from 'app/utils/game'
 import { Row, useResponsiveValue } from 'dripsy'
 import React from 'react'
-import {
-  useGetGameListByCategoryQuery
-} from 'services/gameApi'
+import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import BannerSection from '../home/BannerSection'
@@ -40,7 +38,6 @@ export default function LiveCasinoScreen() {
     const isMostRight = index % numColumns === numColumns - 1
     const isMiddle = !isMostLeft && !isMostRight
     const spacePercentage = 5
-    const launchPayload = GameToLaunchPayload(item, locale)
 
     return (
       <Row
@@ -51,14 +48,13 @@ export default function LiveCasinoScreen() {
         }}
       >
         <GameCard
-          name={formattedName}
-          image={img}
+          displayName={formattedName}
           sx={{
             my: `${spacePercentage}%`,
             flex: 1,
             mx: isMiddle ? `${spacePercentage * 1.5}%` : `${spacePercentage}%`,
           }}
-          {...launchPayload}
+          {...item}
         />
       </Row>
     )
@@ -79,7 +75,7 @@ export default function LiveCasinoScreen() {
         <>
           <GamePageHeader title={'LIVE CASINO'} icon="casino" />
           <BannerSection />
-          <RecentlyPlayedSection />
+          <RecentlyPlayedSection gameTypes={[GAME_TYPE_CODE.LIVE_DEALER]} />
           <SectionHeader
             title={'PROVIDERS'}
             icon="all"

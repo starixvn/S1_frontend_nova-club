@@ -63,7 +63,9 @@ function _SlotScreen() {
         <>
           <GamePageHeader icon="sl" title="SLOTS" />
           <BannerSection />
-          <RecentlyPlayedSection />
+          <RecentlyPlayedSection
+            gameTypes={[GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]}
+          />
           <GameListSectionAsyncByTag
             tag={SlotType.NEW}
             title={t('game.new').toUpperCase()}

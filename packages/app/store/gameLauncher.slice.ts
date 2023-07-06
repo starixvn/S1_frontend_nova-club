@@ -1,14 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
 import { Platform } from 'react-native'
+import { Game } from 'services/gameApi.type'
 
-export interface LaunchGamePayload {
-  gameCode?: string
-  providerCode?: string
-  gameName?: string
+export type LaunchGamePayload = Partial<Game> & {
   desktopMode?: boolean
-  image?: string
-  gameType?: GAME_TYPE_CODE
   params?: Record<string, string> // Params will turn to query parameters, it must be casted to string
 }
 export type GameLauncherState = LaunchGamePayload & {
@@ -33,7 +29,7 @@ const gameLauncherSlice = createSlice({
       }
 
       Object.assign(state, action.payload, {
-        lastLaunchedProvider: action.payload.providerCode,
+        lastLaunchedProvider: action.payload.gpc,
       })
     },
     reset: (state) => {

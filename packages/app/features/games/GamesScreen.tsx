@@ -5,7 +5,9 @@ import IconButtonGradientToggle from 'app/components/IconButtonGradientToggle'
 import GameSectionByProviderItem from 'app/components/game/GameSectionByProviderItem'
 import ProviderList from 'app/components/game/ProviderList'
 import {
-  ProviderImageCategory
+  GAME_TYPE_CODE,
+  GDC_GAME_CATEGORY,
+  ProviderImageCategory,
 } from 'app/utils/constant'
 import groupBy from 'lodash/groupBy'
 import React, { useEffect, useMemo, useRef } from 'react'
@@ -13,7 +15,7 @@ import { Platform } from 'react-native'
 import { Game } from 'services/gameApi.type'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 import TopGameSection from '../home/TopGameSection'
-import { MobileGamesFilter } from './subroutes'
+import { MobileGamesFilter, SUB_ROUTES } from './subroutes'
 import useGameScreen from './useGameScreen'
 
 const GamesScreen = () => {
@@ -99,7 +101,14 @@ const GamesScreen = () => {
               )
             })}
           </IconButtonGradientGroup>
-          <RecentlyPlayedSection />
+          <RecentlyPlayedSection
+            gameTypes={[
+              GAME_TYPE_CODE.GAMES,
+              GAME_TYPE_CODE.FISHING,
+              GAME_TYPE_CODE.LOTTERY,
+            ]}
+            gameCategories={[GDC_GAME_CATEGORY.CARDGAME]}
+          />
           <TopGameSection />
 
           <ProviderList

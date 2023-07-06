@@ -8,7 +8,6 @@ import { useInterval } from 'app/hooks/useInterval'
 import { useAppSelector } from 'app/provider/redux/store'
 import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
-import { GameToLaunchPayload } from 'app/utils/game'
 import { Row, Text, View, styled } from 'dripsy'
 import React, { startTransition, useEffect, useRef, useState } from 'react'
 import { useLatestWinnerQuery } from 'services/gameApi'
@@ -89,7 +88,6 @@ export default function LatestWinnerSection({ type }: Props) {
 
 const LatestWinnerItem = ({ game, username, amount }) => {
   const locale = useAppSelector((s) => s.setting.locale)
-  const launchGameProps = GameToLaunchPayload(game, locale)
 
   return (
     <DripsyMotiView
@@ -109,7 +107,7 @@ const LatestWinnerItem = ({ game, username, amount }) => {
         }}
       >
         <Row sx={{ alignItems: 'center', gap: '$2' }}>
-          <GameCard containerSx={{ height: 50 }} {...launchGameProps} />
+          <GameCard containerSx={{ height: 50 }} {...game} />
           <View sx={{ flex: 1, gap: '$1' }}>
             <Label>{username}</Label>
             <Label>{game.name[locale]}</Label>

@@ -70,7 +70,7 @@ export default function LiveCasinoScreen({}: Props) {
           }}
         ></View>
       </Row>
-      <RecentlyPlayedSection />
+      <RecentlyPlayedSection gameTypes={[GAME_TYPE_CODE.LIVE_DEALER]} />
       {provider == null || !games || filteredGames == null ? (
         <View sx={{ height: '50vh' }}>
           <ActivityIndicator color="$primary.300" size="large" />

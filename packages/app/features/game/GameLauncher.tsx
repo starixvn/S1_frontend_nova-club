@@ -35,6 +35,7 @@ function paramsToQuery(params) {
 }
 
 const GameLauncher = () => {
+  const locale = useAppSelector((s) => s.setting.locale)
   const gameLauncherState = useAppSelector((s) => s.gameLauncher)
   const { t } = useLocalization()
   const { showAlert } = useAlert()
@@ -50,20 +51,14 @@ const GameLauncher = () => {
 
   const isLoggedIn = !!authState.info
 
-  const {
-    providerCode,
-    gameCode,
-    gameName,
-    desktopMode = false,
-    params,
-  } = gameLauncherState
+  const { gpc, gc, name, desktopMode = false, params } = gameLauncherState
 
   useEffect(() => {
     LaunchGame = (payload: LaunchGamePayload) => {
       const isSabaDesktopMode = !!(
-        payload.providerCode === 'SABA' &&
+        payload.gpc === 'SABA' &&
         payload.desktopMode &&
-        payload.gameCode === '1' &&
+        payload.gc === '1' &&
         isDesktop
       )
 
@@ -85,7 +80,7 @@ const GameLauncher = () => {
 
   async function launchGamePT(providerCode: string) {
     const domain = Platform.OS === 'web' ? '' : DEV_DOMAIN
-    const ptLaunchUrl = `${domain}/launcher_pt?code=${gameCode}&t=${authState.info?.token}&username=${authState.info?.playerName}`
+    const ptLaunchUrl = `${domain}/launcher_pt?code=${gc}&t=${authState.info?.token}&username=${authState.info?.playerName}`
 
     openGame(ptLaunchUrl, providerCode, { external: true })
   }
@@ -95,7 +90,7 @@ const GameLauncher = () => {
       toggleLoading(true)
 
       const { data, success } = await goToGame({
-        game_code: gameCode,
+        game_code: gc,
         is_demo: 0,
         is_mobile: desktopMode ? 0 : 1,
         platform_code: providerCode,
@@ -115,7 +110,7 @@ const GameLauncher = () => {
         }
 
         openGame(url, providerCode, {
-          title: gameName,
+          title: name?.[locale] ?? '',
           external: !!(
             providerCode &&
             (ProviderRunningWithoutIframe.includes(providerCode) ||
@@ -145,22 +140,22 @@ const GameLauncher = () => {
 
   /* Entry Point for launching game */
   useEffect(() => {
-    if (providerCode) {
-      const isMaintenance = checkMaintenance(providerCode)
+    if (gpc) {
+      const isMaintenance = checkMaintenance(gpc)
       if (isMaintenance) {
         showAlert(t('game.underMaintenance'))
         cleanUpGame()
         return
       }
 
-      launchGameProcess(providerCode)
+      launchGameProcess(gpc)
     }
 
     return () => {
       dispatch(GameLauncherActions.reset())
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [providerCode])
+  }, [gpc])
 
   return null
 }

@@ -107,9 +107,7 @@ const settingSlice = createSlice({
       }
 
       const similarGameIndex = state.recentGames.findIndex(
-        (g) =>
-          g.gameCode === recentGame.gameCode &&
-          g.providerCode === recentGame.providerCode
+        (g) => g.gc === recentGame.gc && g.gpc === recentGame.gpc
       )
 
       if (similarGameIndex > -1) state.recentGames.splice(similarGameIndex, 1)

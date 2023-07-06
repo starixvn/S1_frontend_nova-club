@@ -26,14 +26,13 @@ export default function GameList({}) {
       }}
     >
       {data?.map((g) => {
-        const launchPayload = GameToLaunchPayload(g, locale)
         return (
           <GameCard
             absoluteName
-            name={g.name[locale]}
+            displayName={g.name[locale]}
             key={g.gc + g.gpc}
             sx={{ width: '11%' }}
-            {...launchPayload}
+            {...g}
           />
         )
       })}

@@ -3,20 +3,37 @@ import SectionLabel from 'app/components/SectionLabel'
 import HorizontalGameList from 'app/components/game/HorizontalGameList'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { SlotType } from 'app/utils/constant'
+import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'app/utils/constant'
 import { Row, View } from 'dripsy'
-import React from 'react'
-import { useGetGameListByTagsQuery } from 'services/gameApi'
+import React, { useMemo } from 'react'
 
-export default function RecentlyPlayedSection() {
-  const recent = useAppSelector((s) => s.setting.recentGames) ?? []
+interface RecentlyPlayedSectionProps {
+  gameTypes?: GAME_TYPE_CODE[]
+  gameCategories?: GDC_GAME_CATEGORY[]
+}
+
+export default function RecentlyPlayedSection({
+  gameTypes = [],
+  gameCategories = [],
+}: RecentlyPlayedSectionProps) {
+  const recent = useAppSelector((s) => s.setting.recentGames)
   const { t } = useLocalization()
 
-  const { data = [] } = useGetGameListByTagsQuery([SlotType.JACKPOT])
+  const displayAble = useMemo(() => {
+    if (recent) {
+      return recent.filter((g) => {
+        console.log('gg', g)
+        return (
+          (g.gtc && gameTypes.includes(g.gtc)) ||
+          (g.gdc_cat && gameCategories.includes(g.gdc_cat))
+        )
+      })
+    }
 
-  // if (recent.length === 0) return null
-  const vgaming = require('app/assets/images/game/vgaming.png')
+    return []
+  }, [recent, gameTypes, gameCategories])
 
+  if (displayAble.length === 0) return null
   return (
     <DripsyGradient
       gradient="surface"
@@ -52,7 +69,7 @@ export default function RecentlyPlayedSection() {
             // image={vgaming}
           />
         </View> */}
-        <HorizontalGameList data={data} size={[50, 70]} />
+        <HorizontalGameList data={displayAble} size={[50, 70]} />
       </Row>
     </DripsyGradient>
   )
