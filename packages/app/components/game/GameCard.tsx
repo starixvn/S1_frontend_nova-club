@@ -98,22 +98,27 @@ const GameCard = ({
           ...containerSx,
         }}
       >
-        <SkeletonPlaceholder show={!loaded} width={'100%'} height="100%">
-          <SolitoImage
-            unoptimized
-            onLoadingComplete={() => {
-              startTransition(() => setLoaded(true))
-            }}
-            fill
-            // to supporess warning, will be ignored since unoptimized is true
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            loading="lazy"
-            alt={name ?? ''}
-            resizeMode="cover"
-            key={imageSrc}
-            src={imageSrc}
-          />
-        </SkeletonPlaceholder>
+        <SolitoImage
+          unoptimized
+          onLoadingComplete={() => {
+            startTransition(() => setLoaded(true))
+          }}
+          fill
+          // to supporess warning, will be ignored since unoptimized is true
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          loading="lazy"
+          alt={name ?? ''}
+          resizeMode="cover"
+          key={imageSrc}
+          src={imageSrc}
+        />
+        <View sx={{ ...StyleSheet.absoluteFillObject }}>
+          <SkeletonPlaceholder
+            show={!loaded}
+            width="100%"
+            height="100%"
+          ></SkeletonPlaceholder>
+        </View>
       </View>
       {name && (
         <LabelContainer absolute={absoluteName}>

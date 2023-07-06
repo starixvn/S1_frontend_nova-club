@@ -96,12 +96,14 @@ const GameListSectionGridSearch = ({ onSearch }) => {
           <TextInput
             value={searchValue}
             numberOfLines={1}
+            placeholderTextColor="$placeholder"
             sx={{
               fontSize: 14,
               paddingRight: 42,
               paddingLeft: '$3',
-              height: 30,
-              lineHeight: 30,
+              // lineHeight: 18
+              height: [24, 24, 24, 30],
+              lineHeight: [15, 15, 15, 30],
             }}
             placeholder="Search"
             onChangeText={(t) => {
@@ -121,7 +123,7 @@ const GameListSectionGridSearch = ({ onSearch }) => {
           bottom: 0,
         }}
       >
-        <Icon name="search" />
+        <Icon name="search" size={18} />
       </Pressable>
     </View>
   )
@@ -142,7 +144,7 @@ const GameListSectionGridList = ({
     <Row
       sx={{
         flexWrap: 'wrap',
-        px: ['$3'],
+        px: ['$1', '$1', '$1', '$3'],
         pt: ['$2'],
         pb: '$sectionBottomSpace',
         borderWidth: bordered ? 2 : 0,

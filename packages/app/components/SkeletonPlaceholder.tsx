@@ -10,7 +10,7 @@ const SkeletonPlaceholder = ({
 }: SkeletonPlaceholderProps) => {
   return (
     <Skeleton
-      radius={5}
+      radius={10}
       colors={[
         'rgba(150,150,255,0.3)',
         'rgba(0,0,0,0.2)',
