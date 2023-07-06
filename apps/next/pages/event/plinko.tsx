@@ -13,7 +13,7 @@ import Matter, {
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import GeneratePlinkoAsset from '../../components/plinko-event/generatePlinkoAsset'
 import generateBackgroundAsset from '../../components/plinko-event/backgroundAsset'
-import { View } from 'dripsy'
+import { View, Text } from 'dripsy'
 import PlinkoTicketCounter from '../../components/plinko-event/PlinkoTicketCounter'
 import PlinkoPrizeText from '../../components/plinko-event/PlinkoPrizeText'
 import {
@@ -49,6 +49,46 @@ const arrays = [
   [2, 1, 1, 0, 0, 0, 0, 2, 0, 0],
 ]
 
+//Ball Final Location
+const FinalLocation = [
+  {
+    start: 0,
+    end: 45,
+  },
+  {
+    start: 120,
+    end: 130,
+  },
+  {
+    start: 210,
+    end: 220,
+  },
+  {
+    start: 290,
+    end: 310,
+  },
+  {
+    start: 380,
+    end: 390,
+  },
+  {
+    start: 460,
+    end: 470,
+  },
+  {
+    start: 550,
+    end: 560,
+  },
+  {
+    start: 630,
+    end: 650,
+  },
+  {
+    start: 720,
+    end: 730,
+  },
+]
+
 const amplitude = 5 // The maximum distance the hotAirBalloon will move up and down
 const period = 2000 // The time it takes for the hotAirBalloon to complete one full up-and-down cycle (in milliseconds)
 const xRatio = 768
@@ -68,7 +108,7 @@ const Plinko = () => {
   const token = url.get('token')
   const locale = url.get('lang') as LANGUAGE_CODE
   const deviceLocale = useAppSelector((s) => s.setting.locale)
-  const testVelocity = useRef(0)
+  const testBasketLocation = useRef(-1)
   const scene = useRef<HTMLDivElement>(null)
   const engine = useRef(Engine.create())
   const render = useRef<Matter.Render>()
@@ -82,6 +122,8 @@ const Plinko = () => {
   const [isShowCard, setIsShowCard] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isTicketLoading, setIsTicketLoading] = useState(false)
+  const [isHidePrize, setIsHidePrize] = useState(true)
+  const basketFinalLocation = useRef(0)
   const intervalId = useRef<NodeJS.Timeout | null>(null)
   const { showAlert } = useAlert()
   const [draw] = useTicketSpinMutation()
@@ -93,6 +135,7 @@ const Plinko = () => {
   const scale = Math.min(width / xRatio, height / yRatio)
   const enlargedWidth = Math.floor(scale * xRatio)
   const enlargedHeight = Math.floor(scale * yRatio)
+
   async function getResult() {
     try {
       setIsLoading(true)
@@ -104,12 +147,14 @@ const Plinko = () => {
         prizeCode.current = parseInt(data[0].code)
         const basketLocation = mapDataCodeToValue(parseInt(data[0].code))
         // console.log(basketLocation)
-        testVelocity.current = basketLocation
+        basketFinalLocation.current = basketLocation
+        testBasketLocation.current = basketLocation
         handleTargetBasket(arrays[basketLocation])
         handleDropBall()
         setIsTicketLoading(false)
       } else {
         showAlert(message)
+        setIsHidePrize(true)
         setIsLoading(false)
         setIsTicketLoading(false)
       }
@@ -117,6 +162,7 @@ const Plinko = () => {
       const error = getErrorMessage(e)
       showAlert(error)
       setIsLoading(false)
+      setIsHidePrize(true)
       setIsTicketLoading(false)
     }
   }
@@ -174,7 +220,9 @@ const Plinko = () => {
 
   const handleMessageCard = () => {
     setIsShowCard(false)
-    testVelocity.current = 0
+    setIsLoading(false)
+    setIsHidePrize(true)
+    testBasketLocation.current = 0
   }
 
   const getNextX = (() => {
@@ -207,14 +255,23 @@ const Plinko = () => {
           index = 0
           Body.setStatic(ball, true)
           //TODO ADD OVERLAY FOR RESULT
+          for (let i = 0; i < 9; i++) {
+            if (
+              ball.position.x <= FinalLocation[i].end &&
+              ball.position.x >= FinalLocation[i].start
+            ) {
+              basketFinalLocation.current = i
+            }
+          }
           setIsShowCard(true)
-          setIsLoading(false)
+          setIsHidePrize(false)
+
+          testBasketLocation.current = -1
+          prizeCode.current = -1
           win.play()
         } else {
           bounce.play()
           const nextX = getNextX()
-          // console.log('Valocity: ', nextX)
-          // testVelocity.current.push(nextX)
           Body.setVelocity(ball, { x: nextX, y: 0 })
         }
       }
@@ -259,6 +316,7 @@ const Plinko = () => {
     if (isLoading) {
       setIsLoading(false)
       setIsShowCard(true)
+      setIsHidePrize(true)
     }
 
     render.current = renderInstance
@@ -527,17 +585,19 @@ const Plinko = () => {
                 enlargedHeight={enlargedHeight}
                 enlargedWidth={enlargedWidth}
                 scale={scale}
+                prize={winAmount}
+                basketLocation={basketFinalLocation}
+                ballDropping={isLoading}
+                isHidePrize={isHidePrize}
               />
             </div>
           </div>
           {/* <View sx={{ flexDirection: 'row' }}>
-
             <Text key={index}>
-              {' ['}
-              {testVelocity.current + 1}
+              {' Ball Should Drop At Basket: ['}
+              {testBasketLocation.current + 1}
               {']'}
             </Text>
-
           </View> */}
         </div>
       </main>
