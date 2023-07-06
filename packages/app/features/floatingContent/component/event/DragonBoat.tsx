@@ -6,14 +6,14 @@ import { Text } from 'dripsy'
 import React from 'react'
 import { useCheckTicketSpinQuery } from 'services/eventApi'
 
-const SummerMeowMeow = ({ size }: { size: number }) => {
+const DragonBoat = ({ size }: { size: number }) => {
   const { push } = useContextualRouter()
   const { balance } = useCheckTicketSpinQuery(undefined, {
     selectFromResult: (s) => ({ ...s, balance: s.data?.data }),
   })
 
   const handlePress = () => {
-    push('/event/sea-game')
+    push('/event/dragon-boat')
   }
 
   return (
@@ -23,7 +23,7 @@ const SummerMeowMeow = ({ size }: { size: number }) => {
     >
       <Image
         source={{
-          uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/sea-game/seagame_floating.gif`,
+          uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/dragon_boat/dragonboat_floating.gif`,
         }}
         style={{
           width: size,
@@ -38,11 +38,11 @@ const SummerMeowMeow = ({ size }: { size: number }) => {
             lineHeight: 16,
             position: 'absolute',
             top: '78%',
-            left: 13,
+            left: 0,
             right: 0,
             textAlign: 'center',
             fontWeight: 'bold',
-            color: 'black',
+            color: 'white',
             zIndex: 99,
           }}
         >
@@ -52,4 +52,4 @@ const SummerMeowMeow = ({ size }: { size: number }) => {
     </TouchableOpacity>
   )
 }
-export default SummerMeowMeow
+export default DragonBoat

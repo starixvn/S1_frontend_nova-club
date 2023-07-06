@@ -1,9 +1,9 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { Audio, AVPlaybackStatusToSet } from 'expo-av'
+import { AVPlaybackStatusToSet, Audio } from 'expo-av'
 import { Sound } from 'expo-av/build/Audio'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 
-export type SoundType = 'bgm' | 'flip' | 'won' | 'lose'
+export type SoundType = 'bgm' | 'flip' | 'win' | 'lose'
 
 export interface SoundController {
   play: (s: SoundType) => void
@@ -15,7 +15,7 @@ const useSoundController = () => {
     bgm: null,
     flip: null,
     lose: null,
-    won: null,
+    win: null,
   })
 
   async function createAudioInstance(
@@ -32,13 +32,13 @@ const useSoundController = () => {
     const soundMap: Record<SoundType, string> = {
       bgm: 'bgm',
       flip: 'flip',
-      won: 'won',
+      win: 'win',
       lose: 'lose',
     }
 
     const { sound: audio } = await Audio.Sound.createAsync(
       {
-        uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/sea-game/${soundMap[type]}.mp3`,
+        uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/dragon_boat/${soundMap[type]}.mp3`,
       },
       {
         ...initialStatus,
@@ -67,7 +67,7 @@ const useSoundController = () => {
       bgm: null,
       flip: null,
       lose: null,
-      won: null,
+      win: null,
     }
   }
 
@@ -84,7 +84,7 @@ const useSoundController = () => {
 
   async function preloadSounds() {
     createAudioInstance('flip', { volume: 1 })
-    createAudioInstance('won')
+    createAudioInstance('win')
     createAudioInstance('lose', { volume: 1 })
   }
 

@@ -173,6 +173,8 @@
       "tnc": {}
     },
     "claim": "CLAIM YOUR BONUS TICKET NOW",
+    "jackpot": "Jackpot (Shared Pool Prize): 100,000,000 VND",
+    "luckyDraw": "Lucky Draw - 10,000,000 VNĐ",
     "prediction": {
       "event": "Prediction Event",
       "haveSelected": "You have selected",
@@ -183,6 +185,7 @@
     "ticketSubmitted": "Successfully submitted your prediction ticket",
     "winText1": "CONGRATULATIONS!",
     "winText2": "YOU HAVE RECEIVED THE LOVE GIFT OF",
+    "winnerList": "WINNERS LIST",
     "youHave": "You Have"
   },
   "filter": {
@@ -257,6 +260,7 @@
       "liveCasino": "Live Casino",
       "localGame": "Local Game",
       "poker": "Poker",
+      "recommended": "Recommended Games",
       "slots": "Slots",
       "sportsbook": "Sportsbook"
     },
@@ -273,8 +277,11 @@
       "virtualSports": "SABA Virtual Sports"
     },
     "notFound": "",
+    "playNow": "PLAY NOW",
     "quitGame": "Quit Game",
+    "rebate": "Rebate up to",
     "reward": "Game rewards",
+    "slotgame": "Slots & Games",
     "unableToConnect": "Unable to connect [%{code}]",
     "underMaintenance": "Game Under Maintenance"
   },
@@ -296,6 +303,7 @@
     "logout": "Logout",
     "manageCredentials": "Manage Credentials",
     "message/announcement": "Message/Announcement",
+    "predictionWinner": "Prediction Winner",
     "profile": "Profile",
     "referral": "Referral",
     "switchAccount": "Switch Account",
@@ -349,11 +357,10 @@
     },
     "rewards": {
       "n1": "Games that are NOT eligible for the Rebate/Commission include: Turnover on all types of non-live table games (e.g. Blackjack, Video Poker, Craps, American Roulette, Baccarat, and other non-live table games) and non-slot games, will not count towards this turnover requirement unless SPECIFICALLY stated.",
-      "n2": "\nSpecial exclusion: ",
-      "n3": "[Sportsbookl] Only wagers that generate a win/loss return will entitle for rebate. Cancelled or void wagers, wagers on odds less than 1.7 (Decimal odd); 0.7 (China odd); 0.7 (Malay Positive odd); -1.43 (Indo odd); -143 (US odd), or wagers on both even chances during a single game will not entitle for rebate. ",
-      "n4": "[Live Casino] All LIVE Blackjack (21) and Live Roulette video games ",
-      "n5": "[Slots] All Video Poker, Table, Arcade, Fishing, multi-spin Slots, Lucky God Progressive 2, Golden Tour, Ugga Bugga, Liu Fu Shou, and double-bonus Slots offered by any slot game room, plus games in xx slot game rooms. ",
-      "n6": "\n*Notes: Rewards rule of the company will change from time to time, In any event, the decision of Vui123 is final."
+      "n2": "Special exclusion: \n[Sportsbookl] Only wagers that generate a win/loss return will entitle for rebate. Cancelled or void wagers, wagers on odds less than 1.7 (Decimal odd); 0.7 (China odd); 0.7 (Malay Positive odd); -1.43 (Indo odd); -143 (US odd), or wagers on both even chances during a single game will not entitle for rebate. ",
+      "n3": "[Live Casino] All LIVE Blackjack (21) and Live Roulette video games ",
+      "n4": "[Slots] All Video Poker, Table, Arcade, Fishing, multi-spin Slots, Lucky God Progressive 2, Golden Tour, Ugga Bugga, Liu Fu Shou, and double-bonus Slots offered by any slot game room, plus games in xx slot game rooms. ",
+      "n5": "*Notes: Rewards rule of the company will change from time to time, In any event, the decision of Vui123 is final. \n**Notes: Free bet or any bonuses are not subject to rebate computation"
     },
     "topUpCard": {
       "n1": "Please ensure you choose the correct telco provider and card value. Vui123 do not bear any responsibility if incorrect information selected and resulted the lost of money",

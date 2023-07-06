@@ -25,7 +25,6 @@ export const REWARDS_NOTES = [
   'notes.rewards.n3',
   'notes.rewards.n4',
   'notes.rewards.n5',
-  'notes.rewards.n6',
 ]
 
 export const CRYPTO_NOTES = ['notes.crypto.n1', 'notes.crypto.n2']

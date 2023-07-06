@@ -6,13 +6,18 @@ import { useAppSelector } from 'app/provider/redux/store'
 import { StyleProp, ViewStyle } from 'react-native'
 import { Game } from 'services/contentApi.type'
 import useSeamlessList from './useSeamlessList'
+import RecommendedGamesCard from '../home/Section/RecommendedGamesCard'
+
+type GameProps = Game & { imgAlt: string }
 
 const HorizontalGameList = ({
   data,
   containerStyle,
+  isRankCard = false,
 }: {
-  data: Game[]
-  containerStyle: StyleProp<ViewStyle>
+  data: GameProps[]
+  containerStyle?: StyleProp<ViewStyle>
+  isRankCard?: boolean
 }) => {
   const { width, height } = useContainerDimension()
   const borderedWidth = width - 4
@@ -43,18 +48,33 @@ const HorizontalGameList = ({
           : undefined
 
         return (
-          <SimpleGridImage
-            gameCode={gc}
-            providerCode={gpc}
-            key={`${gc + gpc}${index}`}
-            image={img}
-            width={columnWidth}
-            sx={{ mr: leftRightSpace * 0.5 }}
-            gameType={gtc}
-            gameName={formattedName}
-            skeleton
-            isSeamless={seamlessProviderList.includes(gpc)}
-          />
+          <>
+            {isRankCard ? (
+              <RecommendedGamesCard
+                key={index}
+                image={img}
+                imageAlt={item?.imgAlt}
+                number={index + 1}
+                gameCode={gc}
+                providerCode={gpc}
+                gameType={gtc}
+                gameName={formattedName}
+              />
+            ) : (
+              <SimpleGridImage
+                gameCode={gc}
+                providerCode={gpc}
+                key={`${gc + gpc}${index}`}
+                image={img}
+                width={columnWidth}
+                sx={{ mr: leftRightSpace * 0.5 }}
+                gameType={gtc}
+                gameName={formattedName}
+                skeleton
+                isSeamless={seamlessProviderList.includes(gpc)}
+              />
+            )}
+          </>
         )
       })}
     </DraggableScrollView>

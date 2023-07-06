@@ -1,4 +1,4 @@
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native'
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native'
 import { useMemo } from 'react'
 
 /**
@@ -158,9 +158,9 @@ export function NavigationProvider({
               ChangePin: 'pin/change-pin',
               ForgotPin: 'pin/forgot-pin',
               AccountVerification: '/profile/account-verification',
-              SummerCat: '/event/sea-game',
-              CatEventTnc: '/event/sea-game-event-tnc',
               AgentRecruitmentTnc: '/banner/agent-tnc',
+              CatEventTnc: '/event/dragon-boat-event-tnc',
+              DragonBoat: '/event/dragon-boat',
               Prediction: '/event/prediction',
               PredictionTnc: '/event/prediction-tnc',
               Plinko: '/event/plinko',

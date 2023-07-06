@@ -1,11 +1,15 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
+import MenuNotice from 'app/components/common/MenuNotice'
+import IconButton from 'app/components/form/IconButton'
+import { REWARDS_NOTES } from 'app/constant/notes'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
 import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import { styled, SxProp, Text, useDripsyTheme, View } from 'dripsy'
+import { useModal } from 'react-native-modalfy'
 import {
   usePlayerOverviewSummaryQuery,
   usePlayerProfileQuery,
@@ -17,10 +21,15 @@ const ProfileOverview = () => {
   const { t } = useLocalization()
   const { push } = useContextualRouter()
   const { theme } = useDripsyTheme()
+  const { openModal } = useModal()
 
   const { data } = usePlayerOverviewSummaryQuery()
   const { data: playerData } = usePlayerProfileQuery()
   const currency = playerData?.currency as Currency
+
+  const handleNotice = () => {
+    openModal('NoticeModal', { notice: REWARDS_NOTES })
+  }
 
   return (
     <StyledContainer>
@@ -42,9 +51,13 @@ const ProfileOverview = () => {
               p: '$3',
             }}
           >
-            <Text sx={{ fontWeight: 'bold' }}>
-              {t('profile.overview.title').toUpperCase()}
-            </Text>
+            <View sx={{ flexDirection: 'row' }}>
+              <Text sx={{ fontWeight: 'bold' }}>
+                {t('profile.overview.title').toUpperCase()}
+              </Text>
+
+              <MenuNotice onPress={handleNotice} />
+            </View>
             <BouncePressable
               sx={{
                 flexDirection: 'row',

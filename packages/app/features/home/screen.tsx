@@ -16,7 +16,8 @@ import HotGamesSection from './Section/HotGamesSection'
 import Jackpot from './Section/Jackpot'
 import MatchesSection from './Section/MatchesSection'
 import RecentOpenGames from './Section/RecentOpenGames'
-import { Button } from 'app/components/form/Button'
+import PlaySection from './Section/PlaySection'
+import RecommendedGamesSection from './Section/RecommendedGamesSection'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 
 const HomeScreen = () => {
@@ -73,12 +74,15 @@ const HomeScreen = () => {
     >
       {!isLandscape && <BannerSection />}
       <AnnouncementMarquee />
-      <MatchesSection />
+      <PlaySection />
+      <RecommendedGamesSection />
       <GridSection />
+      <MatchesSection />
       <RecentOpenGames />
       <HotGamesSection />
       <Jackpot />
       <LuckyDrawTrigger />
+      {/* <MessagePopup /> */}
       <EventPopup />
     </ScrollView>
   )
