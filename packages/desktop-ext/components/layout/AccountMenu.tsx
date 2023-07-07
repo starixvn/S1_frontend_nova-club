@@ -17,28 +17,10 @@ export default function AccountMenu({}) {
   })
   const currency = playerData?.currency as Currency
 
-  const { isFetching, wallets } = usePlayerBalanceQuery(undefined, {
-    selectFromResult: (s) => ({
-      ...s,
-      wallets: s.data?.data,
-    }),
+  const { isFetching, data } = usePlayerBalanceQuery(undefined, {
     skip: !token,
   })
 
-  const walletInfo = useMemo(() => {
-    const sum = {
-      cash: 0,
-      reward: 0,
-    }
-
-    if (wallets)
-      Object.values(wallets).forEach((v) => {
-        sum.cash += v.balance ? Number(v.balance) : 0
-        sum.reward += v.reward ? Number(v.reward) : 0
-      })
-
-    return sum
-  }, [wallets])
   return (
     <View
       sx={{
@@ -54,8 +36,8 @@ export default function AccountMenu({}) {
     >
       <ProfileHeaderCard data={playerData} />
       <ProfileBalanceSummary
-        cash={walletInfo.cash}
-        reward={walletInfo.reward}
+        cash={data?.totalBalance ?? 0}
+        reward={data?.totalReward ?? 0}
         isLoading={isFetching}
         currency={currency}
       />

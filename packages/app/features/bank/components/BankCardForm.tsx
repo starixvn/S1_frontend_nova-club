@@ -55,7 +55,7 @@ const BankCardForm = ({
 }
 
 const StyledView = styled(ScrollView)(() => ({
-  flex: 1,
+  // flex: 1,
   bg: '$secondary',
   pt: 12,
 }))

@@ -22,16 +22,18 @@ type TransactionHistoryItemProps = {
   index: number
 }
 
-export const DepositTableHeader = [
-  {
-    label: 'No',
-    textStyle: {
-      flex: 1,
-      flexBasis: 60,
-      flexGrow: 0,
-      textAlign: 'center',
-    },
+export const TAB_NO = {
+  label: 'No',
+  textStyle: {
+    flex: 1,
+    flexBasis: 60,
+    flexGrow: 0,
+    textAlign: 'center',
   },
+}
+
+export const DepositTableHeader = [
+  TAB_NO,
   { label: 'Type', textStyle: { flex: 1.5, textAlign: 'left' } },
   { label: 'ID', textStyle: { flex: 2, textAlign: 'left' } },
   { label: 'Date', textStyle: { flex: 1.5, textAlign: 'left' } },

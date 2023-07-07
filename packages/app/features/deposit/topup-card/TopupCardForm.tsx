@@ -189,7 +189,7 @@ const TopupCardForm = () => {
 
   return (
     <View sx={{ pt: '$3' }}>
-      <View sx={{ px: '$4' }}>
+      <View sx={{ px: horizontalMode ? 0 : '$4' }}>
         {horizontalMode ? (
           <View>
             <InputLabel label="Payment Mode" />
@@ -207,12 +207,14 @@ const TopupCardForm = () => {
                 {cardTypeList &&
                   cardTypeList.map((e, i) => {
                     return (
-                      <HorizontalSelectBankCardGrid
-                        contain
-                        key={i}
-                        item={e}
-                        onPress={() => setFieldValue('cardType', e.value)}
-                      />
+                      <View key={i} sx={{ width: '25%' }}>
+                        <HorizontalSelectBankCardGrid
+                          contain
+                          key={i}
+                          item={e}
+                          onPress={() => setFieldValue('cardType', e.value)}
+                        />
+                      </View>
                     )
                   })}
               </View>
@@ -244,7 +246,6 @@ const TopupCardForm = () => {
       </View>
       <View
         sx={{
-          px: horizontalMode ? '$4' : 0,
           pt: horizontalMode ? '$4' : 0,
         }}
       >
@@ -260,19 +261,21 @@ const TopupCardForm = () => {
             <Text>Card value</Text>
             <View sx={{ flexDirection: 'row', flexWrap: 'wrap' }}>
               {cardAmount.map((item) => (
-                <ValueCard
-                  key={item}
-                  value={item}
-                  onPress={(e) => {
-                    onCardValueChanged(e)
-                  }}
-                />
+                <View key={item} sx={{ width: '25%' }}>
+                  <ValueCard
+                    key={item}
+                    value={item}
+                    onPress={(e) => {
+                      onCardValueChanged(e)
+                    }}
+                  />
+                </View>
               ))}
             </View>
           </View>
         </ValueCardContainer>
       </View>
-      <View sx={{ px: '$4' }}>
+      <View sx={{ px: horizontalMode ? 0 : '$4' }}>
         <Input
           label="Card Code"
           value={values.cardCode}

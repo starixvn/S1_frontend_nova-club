@@ -12,6 +12,7 @@ const _Routes: Readonly<DesktopRoute[]> = [
     title: 'common.bankAccount',
     icon: 'card',
     route: '/account/bank',
+    base: '/account/bank',
   },
   {
     key: 'ManageCredentials',

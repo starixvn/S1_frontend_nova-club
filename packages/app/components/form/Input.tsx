@@ -1,5 +1,4 @@
 import {
-  Pressable,
   Row,
   SxProp,
   Text,
@@ -92,7 +91,7 @@ const Input = forwardRef<NativeTextInput, InputProps>(
         <View
           focusable={false}
           sx={{
-            // flex: 1,
+            flexGrow: 1,
             flexDirection: horizontalMode ? 'row' : 'column',
             alignItems: horizontalMode ? 'center' : 'stretch',
           }}
@@ -103,7 +102,7 @@ const Input = forwardRef<NativeTextInput, InputProps>(
               focusable={false}
               editable={editable}
               color={sizeEffectColor}
-              sx={{ flex: 2, ...inputContainerSx }}
+              sx={{ flexGrow: 1, ...inputContainerSx }}
             >
               {InputIcon && <InputIcon color={sizeEffectColor ?? 'white'} />}
               {prefix && (
@@ -178,7 +177,7 @@ const RootView = styled(View)({
   // maxWidth: 450,
 })
 
-const FocusArea = styled(Pressable)({ minHeight: 48 })
+const FocusArea = styled(TouchableWithoutFeedback)({})
 
 export const Label = styled(Text)({
   fontWeight: 'bold',
@@ -198,7 +197,6 @@ const InputContainer = styled(Row)(
       py: '$2',
       px: '2%',
       borderWidth: 1,
-      // minHeight: 48,
       alignItems: 'center',
       position: 'relative',
     }

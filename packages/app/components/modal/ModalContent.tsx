@@ -122,6 +122,7 @@ const TextTitle = styled(Text)({
 
 const ViewBody = styled(View)({
   flex: 1,
+  px: '$pagePadding',
   width: '100%',
   p: ['$2', '$2', '$2', '$3'],
 })

@@ -2,11 +2,11 @@ import IconButton from 'app/components/IconButton'
 import MoneyInput from 'app/components/MoneyInput'
 import useLocalization from 'app/provider/localization'
 import { toCleanAmount, toCurrency, toRealAmount } from 'app/utils'
+import { FormikProps } from 'formik'
 import React from 'react'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { usePlayerBalanceQuery } from 'services/walletApi'
 import { MinMax } from '../hooks/useCryptoSelection'
-import { FormikProps } from 'formik'
 import { WithdrawalValues } from '../hooks/useWithdrawalForm'
 
 type WithdrawalAmountProps = {
@@ -23,18 +23,15 @@ const WithdrawalAmount = ({
 
   const { currency } = usePlayerProfileQuery()
 
-  const { playerBalance } = usePlayerBalanceQuery(undefined, {
+  const { data } = usePlayerBalanceQuery(undefined, {
     refetchOnMountOrArgChange: true,
-    selectFromResult: ({ data }) => ({
-      playerBalance: data?.data?.main.balance,
-    }),
   })
 
   const { values, handleChange, handleBlur, touched, errors, setValues } =
     formik
 
   const handleMaxAmount = () => {
-    const value = toCurrency(Number(playerBalance), currency, {
+    const value = toCurrency(Number(data?.totalBalance), currency, {
       symbol: false,
       hideTruncatedThousand: false,
     })

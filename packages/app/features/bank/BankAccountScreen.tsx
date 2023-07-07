@@ -1,10 +1,10 @@
+import FormContainer from 'app/components/form/FormContainer'
 import useLocalization from 'app/provider/localization'
+import { View } from 'dripsy'
 import React from 'react'
 import { usePlayerBankQuery } from 'services/bank'
 import { useRouter } from 'solito/router'
 import BankCardForm from './components/BankCardForm'
-import DesktopPageContainer from 'desktop-ext/components/layout/DesktopPage'
-import FormContainer from 'app/components/form/FormContainer'
 
 const BankAccountScreen = () => {
   const { t } = useLocalization()
@@ -16,7 +16,7 @@ const BankAccountScreen = () => {
   }
 
   return (
-    <FormContainer>
+    <FormContainer padding>
       <BankCardForm
         bankList={playerBankList}
         buttonLabel={t('bank.addBankAccount')}

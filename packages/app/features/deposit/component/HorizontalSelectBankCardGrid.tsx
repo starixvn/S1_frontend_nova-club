@@ -24,7 +24,7 @@ const HorizontalSelectBankCardGrid = ({
         borderRadius: 15,
         borderWidth: 2,
         overflow: 'hidden',
-        width: 150,
+        minWidth: 80,
         height: 80,
         // p: '$2',
       }}

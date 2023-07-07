@@ -11,6 +11,7 @@ import { SlotType } from 'app/utils/constant'
 import { Container, Row, Text, View } from 'dripsy'
 import React from 'react'
 import MiddleBanner from './MiddleBanner'
+import DownloadScreen from '../download/DownloadScreen'
 
 export default function HomeScreen() {
   const { t } = useLocalization()
@@ -91,17 +92,8 @@ export default function HomeScreen() {
           </View>
           <LeaderboardSection sx={{ flex: 1 }} />
         </Row>
-        <View
-          sx={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            aspectRatio: 1920 / 500,
-            bg: '$secondary.500',
-          }}
-        >
-          <Text sx={{ fontSize: 30, fontWeight: '900' }}>
-            APP DOWNLOAD BANNER
-          </Text>
+        <View sx={{ py: '$4' }}>
+          <DownloadScreen />
         </View>
       </Container>
     </View>

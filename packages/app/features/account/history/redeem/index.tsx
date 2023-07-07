@@ -42,7 +42,9 @@ const RedeemHistory = () => {
     <View
       sx={{ flex: 300, bg: '$secondary', width: responsiveWidth, mx: 'auto' }}
     >
-      <Text sx={{ py: '$pagePadding' }}>REDEEM HISTORY</Text>
+      <Text sx={{ py: '$pagePadding', fontWeight: 'bold' }}>
+        REDEEM HISTORY
+      </Text>
       <HistoryListing<HistoryListingDataType, typeof fetchParams>
         fetchParams={fetchParams}
         trigger={fetchData}

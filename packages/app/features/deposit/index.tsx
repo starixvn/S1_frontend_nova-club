@@ -57,7 +57,7 @@ const Deposit = () => {
         push(`/deposit/online-banking`)
         break
       case DepositMethodId.MOMO:
-        push(`/deposit/momo-pay`)
+        push(`/deposit/momo`)
         break
       case DepositMethodId.QR_CODE:
         push(`/deposit/qr-pay`)
@@ -66,7 +66,7 @@ const Deposit = () => {
         push(`/deposit/topup-card`)
         break
       case DepositMethodId.CRYPTO:
-        push(`/deposit/crypto-pay`)
+        push(`/deposit/crypto`)
         break
       default:
         break

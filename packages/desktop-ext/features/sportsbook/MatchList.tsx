@@ -44,6 +44,8 @@ export default function MatchList({}: Props) {
           alignItems: 'center',
           gap: '$4',
           px: '$4',
+          borderTopWidth: 1,
+          borderTopColor: '$primary.50',
         }}
       >
         {timeFilter.map((f) => {

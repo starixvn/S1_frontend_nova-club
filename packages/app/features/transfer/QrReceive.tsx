@@ -5,7 +5,6 @@ import ViewScreenShot, {
 import Button from 'app/components/common/Button'
 import FormContainer from 'app/components/form/FormContainer'
 import useLocalization from 'app/provider/localization'
-import DesktopPageContainer from 'desktop-ext/components/layout/DesktopPage'
 import { ScrollView, Text, View } from 'dripsy'
 import React, { useRef } from 'react'
 import { usePlayerProfileQuery } from 'services/playerApi'
@@ -23,7 +22,7 @@ const QrReceive = () => {
 
   return (
     <FormContainer>
-      <ScrollView contentContainerStyle={{ padding: '10%' }}>
+      <ScrollView>
         <View sx={{ p: '2%', borderRadius: 15, alignItems: 'center' }}>
           <ViewScreenShot ref={ref} fileName={`Vui123-${username}`}>
             <QRCodeGenerator />

@@ -1,18 +1,16 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Button from 'app/components/common/Button'
 import CardInput from 'app/components/form/CardInput'
+import FormContainer from 'app/components/form/FormContainer'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import SelectList from 'app/components/select/SelectList'
 import useAddBank from 'app/hooks/bank/useAddBank'
 import useLocalization from 'app/provider/localization'
 import { MaxLength } from 'app/utils/constant'
 import isDesktop from 'app/utils/isDesktop'
-import DesktopPageContainer from 'desktop-ext/components/layout/DesktopPage'
-import { View, styled } from 'dripsy'
 import React, { useMemo } from 'react'
 import { useWithdrawalBankQuery } from 'services/bank'
 import RealNameForm from '../components/RealNameForm'
-import FormContainer from 'app/components/form/FormContainer'
 
 const AddBankAccountScreen = () => {
   const { t } = useLocalization()
@@ -62,40 +60,38 @@ const AddBankAccountScreen = () => {
 
   return (
     <PageWithBackHeader header={{ title: t('bank.addBankAccount') }}>
-        <FormContainer>
-          <RealNameForm formik={formik}>
-            <SelectList
-              isGrid
-              label={t('bank.bank')}
-              placeholder={t('bank.selectBank')}
-              options={sheetData}
-              loading={isLoading || isFetching}
-              value={values.bank?.bank_code}
-              onSelected={(e) => handleSelected(e)}
-            />
+      <FormContainer>
+        <RealNameForm formik={formik}>
+          <SelectList
+            isGrid
+            label={t('bank.bank')}
+            placeholder={t('bank.selectBank')}
+            options={sheetData}
+            loading={isLoading || isFetching}
+            value={values.bank?.bank_code}
+            onSelected={(e) => handleSelected(e)}
+          />
 
-            <CardInput
-              label={t('bank.accountNumber')}
-              value={values.accountNo}
-              setValue={handleChange('accountNo')}
-              // onChangeText={handleChange('accountNo')}
-              onBlur={handleBlur('accountNo')}
-              keyboardType="number-pad"
-              maxLength={MaxLength.CARD}
-              error={
-                touched.accountNo && errors.accountNo
-                  ? t(errors.accountNo, {
-                      field: t('bank.accountNumber'),
-                    })
-                  : undefined
-              }
-            />
-          )}
           <CardInput
             label={t('bank.accountNumber')}
             value={values.accountNo}
             setValue={handleChange('accountNo')}
-            // onChangeText={handleChange('accountNo')}
+            onBlur={handleBlur('accountNo')}
+            keyboardType="number-pad"
+            maxLength={MaxLength.CARD}
+            error={
+              touched.accountNo && errors.accountNo
+                ? t(errors.accountNo, {
+                    field: t('bank.accountNumber'),
+                  })
+                : undefined
+            }
+          />
+
+          <CardInput
+            label={t('bank.accountNumber')}
+            value={values.accountNo}
+            setValue={handleChange('accountNo')}
             onBlur={handleBlur('accountNo')}
             keyboardType="number-pad"
             maxLength={MaxLength.CARD}

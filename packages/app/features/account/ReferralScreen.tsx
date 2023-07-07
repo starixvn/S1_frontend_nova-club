@@ -1,10 +1,10 @@
-import React from 'react'
-import ReferralSection from '../home/Referral/ReferralSection'
-import DesktopPageContainer from 'desktop-ext/components/layout/DesktopPage'
+import FormContainer from 'app/components/form/FormContainer'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import useLocalization from 'app/provider/localization'
 import isDesktop from 'app/utils/isDesktop'
 import { View } from 'dripsy'
+import React from 'react'
+import ReferralSection from '../home/Referral/ReferralSection'
 
 const ReferralScreen = () => {
   const { t } = useLocalization()
@@ -16,7 +16,7 @@ const ReferralScreen = () => {
       disableScrollView
       hideHeader={desktop}
     >
-      <DesktopPageContainer>
+      <FormContainer>
         <View
           sx={{
             height: 400,
@@ -26,7 +26,7 @@ const ReferralScreen = () => {
         >
           <ReferralSection />
         </View>
-      </DesktopPageContainer>
+      </FormContainer>
     </PageWithBackHeader>
   )
 }

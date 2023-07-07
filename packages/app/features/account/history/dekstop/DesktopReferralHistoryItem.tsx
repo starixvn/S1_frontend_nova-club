@@ -2,18 +2,10 @@ import { toThousandSeparator } from 'app/utils'
 import { Text, View, styled } from 'dripsy'
 import React from 'react'
 import DateTimeCell from '../DateTimeCell'
-import { CellViewContainer } from './DesktopDepositHistoryItem'
+import { CellViewContainer, TAB_NO } from './DesktopDepositHistoryItem'
 
 export const ReferralTableHeader = [
-  {
-    label: 'No',
-    textStyle: {
-      flex: 1,
-      flexBasis: 60,
-      flexGrow: 0,
-      textAlign: 'center',
-    },
-  },
+  TAB_NO,
   { label: 'Date', textStyle: { flex: 1, textAlign: 'left' } },
   { label: 'Amount', textStyle: { flex: 1, textAlign: 'center' } },
 ]

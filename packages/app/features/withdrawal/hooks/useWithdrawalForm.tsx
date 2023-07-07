@@ -68,11 +68,8 @@ const useWithdrawalForm = ({ isCrypto = false, minMax }) => {
     [isCrypto, isLoading]
   )
 
-  const { playerBalance } = usePlayerBalanceQuery(undefined, {
+  const { data } = usePlayerBalanceQuery(undefined, {
     refetchOnMountOrArgChange: true,
-    selectFromResult: ({ data }) => ({
-      playerBalance: data?.data?.main.balance,
-    }),
   })
 
   const { currency, username } = usePlayerProfileQuery()
@@ -96,14 +93,6 @@ const useWithdrawalForm = ({ isCrypto = false, minMax }) => {
   }, [bankData])
 
   const handleSelected = (value) => {
-    console.log(
-      '🚀 ~ file: useWithdrawalForm.tsx:99 ~ handleSelected ~ value:',
-      value
-    )
-    console.log(
-      '🚀 ~ file: useWithdrawalForm.tsx:104 ~ handleSelected ~ bankData:',
-      bankData
-    )
     const item = bankData?.find((el) => el.BankAccountNumber === value)
     setFieldValue('bank', item)
   }
@@ -149,10 +138,10 @@ const useWithdrawalForm = ({ isCrypto = false, minMax }) => {
       amount: validation.amountMinMax({
         min: toDisplayAmount((minMax && minMax.min) ?? 1, currency),
         max: toDisplayAmount(
-          Number(playerBalance) > 0
+          Number(data?.totalBalance) > 0
             ? minMax
-              ? Math.min(minMax.max, Number(playerBalance))
-              : playerBalance
+              ? Math.min(minMax.max, Number(data?.totalBalance))
+              : data?.totalBalance
             : 1,
           currency
         ),

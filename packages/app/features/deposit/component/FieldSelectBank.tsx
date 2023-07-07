@@ -30,9 +30,9 @@ const FieldSelectBank = ({ field, isLoading, formik }: FieldBankProps) => {
   }))
 
   const handleSelected = (value) => {
-    console.log(value)
-    const item = bankList.find((el) => el.value === value.value)
-    setFieldValue('bank', item)
+    // const item = bankList.find((el) => el.value === value)
+
+    setFieldValue('bank', value)
   }
   return field ? (
     <>
@@ -70,11 +70,13 @@ const FieldSelectBank = ({ field, isLoading, formik }: FieldBankProps) => {
               {bankList &&
                 bankList.map((e, i) => {
                   return (
-                    <HorizontalSelectBankCardGrid
-                      key={i}
-                      item={e}
-                      onPress={() => handleSelected(e.value)}
-                    />
+                    <View key={i} sx={{ width: '25%' }}>
+                      <HorizontalSelectBankCardGrid
+                        key={i}
+                        item={e}
+                        onPress={() => handleSelected(e.value)}
+                      />
+                    </View>
                   )
                 })}
             </View>

@@ -29,6 +29,8 @@ import * as Yup from 'yup'
 import FieldAmount from './FieldAmount'
 import FieldSelectBank from './FieldSelectBank'
 import MinMaxLimitDetail from './MinMaxLimitDetail'
+import SelectList from 'app/components/select/SelectList'
+import { Linking, Platform } from 'react-native'
 
 export type DepositValues = {
   bank: SelectOptions | null
@@ -91,11 +93,12 @@ const DepositForm = ({ DepositCategoryId }) => {
     { bank, selectedChannel, realAmount }: DepositValues,
     actions: FormikHelpers<DepositValues>
   ) => {
+    console.log(bank)
     try {
       actions.setSubmitting(true)
       const result = await postSubmitDeposit({
         amount: realAmount,
-        bank: bank?.value ?? '',
+        bank: bank ?? '',
         bank_type_id: selectedChannel?.bankTypeId ?? 0,
         card_code: 0,
         card_seri: 0,
@@ -118,13 +121,22 @@ const DepositForm = ({ DepositCategoryId }) => {
             persistent: true,
           })
         } else {
-          const params = {
-            title: depositPayment?.category_text,
-            depositUrl: encodeURIComponent(result?.data?.url),
-          }
+          if (Platform.OS === 'web') {
+            Linking.openURL(result?.data?.url)
+          } else {
+            const params = {
+              title: depositPayment?.category_text,
+              depositUrl: encodeURIComponent(result?.data?.url),
+            }
 
-        //   push('/deposit/deposit-loader', params)
+            push('/deposit/deposit-loader', {
+              pathname: '/deposit/deposit-loader',
+              query: params,
+            })
+          }
         }
+
+        formik.resetForm()
       }
     } catch (error) {
       showAlert(error)
@@ -153,39 +165,40 @@ const DepositForm = ({ DepositCategoryId }) => {
   const { isSubmitting, isValid, dirty, submitForm, setFieldValue } = formik
 
   const handleSelected = (value) => {
-    console.log(value)
     setSelectedValues(value)
     formik.resetForm()
   }
 
   return (
     <View sx={{ pt: '$3' }}>
-      <View sx={{ px: '$4' }}>
-        <SelectWithDropdown
+      <View sx={{ px: horizontalMode ? 0 : '$4' }}>
+        <SelectList
           label={t('deposit.selectChannel')}
-          placeholder={t('deposit.selectChannel')}
-          value={
-            (channelOptions && channelOptions[selectedValues]?.label) ?? ''
+          placeholder={
+            channelOptions
+              ? channelOptions[selectedValues]?.label
+              : t('deposit.selectChannel')
           }
+          value={channelOptions && channelOptions[selectedValues]?.value}
           loading={isLoading || isFetching}
           options={channelOptions}
           onSelected={handleSelected}
         />
-
-        <View
-          sx={{
-            //   px: horizontalMode ? '$4' : 0,
-            pt: horizontalMode ? '$4' : 0,
-          }}
-        >
-          {selectedValues >= 0 && (
-            <MinMaxLimitDetail
-              currency={currency}
-              minAmount={minAmount}
-              maxAmount={maxAmount}
-            />
-          )}
-        </View>
+      </View>
+      <View
+        sx={{
+          pt: horizontalMode ? '$4' : 0,
+        }}
+      >
+        {selectedValues >= 0 && (
+          <MinMaxLimitDetail
+            currency={currency}
+            minAmount={minAmount}
+            maxAmount={maxAmount}
+          />
+        )}
+      </View>
+      <View sx={{ px: horizontalMode ? 0 : '$4' }}>
         <FieldSelectBank
           field={fieldBank}
           isLoading={isLoading || isFetching}
@@ -198,7 +211,7 @@ const DepositForm = ({ DepositCategoryId }) => {
           formik={formik}
         />
 
-        <View sx={{ flex: 1, justifyContent: 'space-between' }}>
+        <View sx={{ flex: 1, marginTop: 65, justifyContent: 'space-between' }}>
           <Button
             loading={isSubmitting}
             disabled={!isValid || !dirty}

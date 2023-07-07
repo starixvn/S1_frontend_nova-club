@@ -1,21 +1,11 @@
-import { getProviderLogo } from 'app/config/games/provider'
 import { toThousandSeparator } from 'app/utils'
 import { Text, View, styled } from 'dripsy'
 import React from 'react'
 import DateTimeCell from '../DateTimeCell'
-import { CellViewContainer } from './DesktopDepositHistoryItem'
-import { SolitoImage } from 'solito/image'
+import { CellViewContainer, TAB_NO } from './DesktopDepositHistoryItem'
 
 export const RedeemTableHeader = [
-  {
-    label: 'No',
-    textStyle: {
-      flex: 1,
-      flexBasis: 60,
-      flexGrow: 0,
-      textAlign: 'center',
-    },
-  },
+  TAB_NO,
   {
     label: 'Date',
     textStyle: { flex: 1, textAlign: 'left', pl: 12 },

@@ -165,7 +165,7 @@ const BankTransferForm = () => {
 
   return (
     <View sx={{ pt: '$3' }}>
-      <View sx={{ px: '$4' }}>
+      <View sx={{ px: horizontalMode ? 0 : '$4' }}>
         {horizontalMode ? (
           <View>
             <InputLabel label="Bank" />
@@ -186,11 +186,13 @@ const BankTransferForm = () => {
                 {sheetData &&
                   sheetData.map((e, i) => {
                     return (
-                      <HorizontalSelectBankCardGrid
-                        key={i}
-                        item={e}
-                        onPress={() => handleSelected(e.value)}
-                      />
+                      <View key={i} sx={{ width: '25%' }}>
+                        <HorizontalSelectBankCardGrid
+                          key={i}
+                          item={e}
+                          onPress={() => handleSelected(e.value)}
+                        />
+                      </View>
                     )
                   })}
               </View>
@@ -225,7 +227,6 @@ const BankTransferForm = () => {
 
       <View
         sx={{
-          px: horizontalMode ? '$4' : 0,
           pt: horizontalMode ? '$4' : 0,
         }}
       >
@@ -238,7 +239,7 @@ const BankTransferForm = () => {
         )}
       </View>
 
-      <View sx={{ px: '$4' }}>
+      <View sx={{ px: horizontalMode ? 0 : '$4' }}>
         <Input
           label="Deposit Amount"
           placeholder={t('validation.minMaxLimit', {

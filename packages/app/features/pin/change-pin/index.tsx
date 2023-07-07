@@ -1,16 +1,17 @@
+import Button from 'app/components/common/Button'
+import FormContainer from 'app/components/form/FormContainer'
+import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
+import isDesktop from 'app/utils/isDesktop'
 import validation from 'app/utils/validation'
 import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React from 'react'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useUpdateTransferPinMutation } from 'services/pinApi'
+import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import UnderlinePinField from '../UnderlinePinField'
-import { useRouter } from 'solito/router'
-import Button from 'app/components/common/Button'
-import useAlert from 'app/hooks/useAlert'
-import isDesktop from 'app/utils/isDesktop'
 
 type ChangePinFormValues = {
   oldPin: string
@@ -79,9 +80,9 @@ const ChangePinScreen = () => {
   } = formik
 
   return (
-    <View sx={{ flex: 1 }}>
+    <FormContainer>
       <UnderlinePinField
-        title={t('manageCredentials.pin.oldPin')}
+        label={t('manageCredentials.pin.oldPin')}
         value={values.oldPin}
         setValue={handleChange('oldPin')}
         errorMsg={
@@ -91,12 +92,12 @@ const ChangePinScreen = () => {
         }
       />
       <UnderlinePinField
-        title={t('manageCredentials.pin.newPin')}
+        label={t('manageCredentials.pin.newPin')}
         value={values.pin}
         setValue={handleChange('pin')}
       />
       <UnderlinePinField
-        title={t('manageCredentials.pin.confirmPin')}
+        label={t('manageCredentials.pin.confirmPin')}
         value={values.confirmPin}
         setValue={handleChange('confirmPin')}
         errorMsg={
@@ -125,7 +126,7 @@ const ChangePinScreen = () => {
           {t('common.submit')}
         </Button>
       </View>
-    </View>
+    </FormContainer>
   )
 }
 
