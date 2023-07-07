@@ -1,33 +1,49 @@
 import Input from 'app/components/form/Input'
 import useLocalization from 'app/provider/localization'
 import { toCurrency } from 'app/utils'
-import { Currency } from 'app/utils/constant'
 import isDesktop from 'app/utils/isDesktop'
 import { Text, View } from 'dripsy'
 import React from 'react'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { usePlayerBalanceQuery } from 'services/walletApi'
+import { useGetAvailableWithdrawalAmountQuery } from 'services/withdrawal'
 
-const AvailableBalance = ({ label = 'withdrawal.eligibleAmount' }) => {
+type AvailableBalanceProps = {
+  label?: string
+  isTransfer?: boolean
+}
+
+const AvailableBalance = ({
+  label = 'withdrawal.eligibleAmount',
+  isTransfer = false,
+}: AvailableBalanceProps) => {
   const { t } = useLocalization()
   const desktop = isDesktop()
 
+  const { currency } = usePlayerProfileQuery()
   const { data } = usePlayerBalanceQuery(undefined, {
     refetchOnMountOrArgChange: true,
   })
 
-  const { currency } = usePlayerProfileQuery()
+  const { data: availableBalance } = useGetAvailableWithdrawalAmountQuery(
+    undefined,
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  )
+
+  const balance = isTransfer ? data?.totalBalance : availableBalance?.balance
 
   return desktop ? (
     <DesktopBalance
       label={t(label)}
-      totalBalance={data?.totalBalance}
+      totalBalance={balance}
       currency={currency}
     />
   ) : (
     <MobileBalance
       label={t(label)}
-      totalBalance={data?.totalBalance}
+      totalBalance={balance}
       currency={currency}
     />
   )
