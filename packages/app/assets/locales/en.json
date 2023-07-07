@@ -314,5 +314,11 @@
     "options": "Choose your withdrawal options",
     "exchangeRates": "CHAIN: %{crypto} Current exchange rate",
     "withdrawTo": "Withdrawal To"
+  },
+  "download": {
+    "downloadAppNow": "Download Vui123 App Now\nTo Enjoy All The\nExclusive Bonuses!",
+    "downloadGuide": "Download\nGuide",
+    "ios": "IOS",
+    "android": "ANDROID"
   }
 }
