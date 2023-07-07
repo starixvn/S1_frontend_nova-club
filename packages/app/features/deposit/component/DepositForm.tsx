@@ -30,6 +30,7 @@ import FieldAmount from './FieldAmount'
 import FieldSelectBank from './FieldSelectBank'
 import MinMaxLimitDetail from './MinMaxLimitDetail'
 import SelectList from 'app/components/select/SelectList'
+import { Linking, Platform } from 'react-native'
 
 export type DepositValues = {
   bank: SelectOptions | null
@@ -120,16 +121,22 @@ const DepositForm = ({ DepositCategoryId }) => {
             persistent: true,
           })
         } else {
-          const params = {
-            title: depositPayment?.category_text,
-            depositUrl: encodeURIComponent(result?.data?.url),
-          }
+          if (Platform.OS === 'web') {
+            Linking.openURL(result?.data?.url)
+          } else {
+            const params = {
+              title: depositPayment?.category_text,
+              depositUrl: encodeURIComponent(result?.data?.url),
+            }
 
-          push('/deposit/deposit-loader', {
-            pathname: '/deposit/deposit-loader',
-            query: params,
-          })
+            push('/deposit/deposit-loader', {
+              pathname: '/deposit/deposit-loader',
+              query: params,
+            })
+          }
         }
+
+        formik.resetForm()
       }
     } catch (error) {
       showAlert(error)
@@ -164,7 +171,7 @@ const DepositForm = ({ DepositCategoryId }) => {
 
   return (
     <View sx={{ pt: '$3' }}>
-      <View sx={{ px: '$4' }}>
+      <View sx={{ px: horizontalMode ? 0 : '$4' }}>
         <SelectList
           label={t('deposit.selectChannel')}
           placeholder={
@@ -180,7 +187,6 @@ const DepositForm = ({ DepositCategoryId }) => {
       </View>
       <View
         sx={{
-          px: horizontalMode ? '$4' : 0,
           pt: horizontalMode ? '$4' : 0,
         }}
       >
@@ -192,7 +198,7 @@ const DepositForm = ({ DepositCategoryId }) => {
           />
         )}
       </View>
-      <View sx={{ px: '$4' }}>
+      <View sx={{ px: horizontalMode ? 0 : '$4' }}>
         <FieldSelectBank
           field={fieldBank}
           isLoading={isLoading || isFetching}

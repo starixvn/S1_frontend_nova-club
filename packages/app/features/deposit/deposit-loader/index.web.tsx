@@ -29,19 +29,15 @@ const { useParam } = createParam<{ depositUrl: string; title: string }>()
  */
 const DepositLoaderScreen = () => {
   const [depositUrl] = useParam('depositUrl', { initial: '' })
-  const [title] = useParam('title')
 
   return (
-    <PageWithBackHeader header={{ title: title }} disableScrollView>
-      <View sx={{ flex: 1 }}>
-        <iframe
-          key={depositUrl}
-          src={decodeURIComponent(depositUrl)}
-          height="100%"
-          style={{ flex: 1 }}
-        />
-      </View>
-    </PageWithBackHeader>
+    <View sx={{ flex: 1 }}>
+      <iframe
+        src={decodeURIComponent(depositUrl)}
+        height="100%"
+        style={{ flex: 1 }}
+      />
+    </View>
   )
 }
 

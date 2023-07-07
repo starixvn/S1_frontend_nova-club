@@ -57,16 +57,16 @@ const HorizontalTransactionRowList = ({
         />
       </View>
 
-      <View sx={{ flex: 0.8, flexDirection: 'column' }}>
+      <View sx={{ flex: 0.7, flexDirection: 'column' }}>
         <Text>{date}</Text>
         <Text>{time}</Text>
       </View>
 
-      <View sx={{ flex: 0.6 }}>
+      <View sx={{ flex: 0.5 }}>
         <Text sx={{ textAlign: 'center' }}>{amount}</Text>
       </View>
 
-      <View sx={{ flex: 1 }}>
+      <View sx={{ flex: 0.6 }}>
         <Text
           sx={{
             color: getStatusColor(item.status, theme),
