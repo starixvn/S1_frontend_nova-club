@@ -4,7 +4,7 @@ export enum DepositPaymentMethodCategoryId {
   MOMO = 26,
   QR_CODE = 27,
   TOP_UP = 25,
-  CRYPTO = 13,
+  CRYPTO = 9,
 }
 
 export enum DepositPaymentMethodCategoryType {
@@ -13,7 +13,7 @@ export enum DepositPaymentMethodCategoryType {
   MOMO = 'auto',
   QR_CODE = 'auto',
   TOP_UP = 'auto',
-  CRYPTO = 'manual',
+  CRYPTO = 'auto',
 }
 
 const enum PAYMENT_METHOD_CATEGORY {

@@ -1,12 +1,13 @@
-import WalletLayoutContainer from 'desktop-ext/components/layout/WalletLayoutContainer'
+import BankTransferContent from 'app/features/deposit/bank-transfer/BankTransferContent'
+import DesktopPageContainer from 'desktop-ext/components/layout/DesktopPage'
 import React from 'react'
-import BankTransferScreen from 'app/features/deposit/bank-transfer'
-import DepositMethodMenu from './DepositMethodMenu'
 
 export default function DepositScreen({}) {
   return (
     // <WalletLayoutContainer leftContent={<DepositMethodMenu />}>
-    <BankTransferScreen />
+    <DesktopPageContainer>
+      <BankTransferContent />
+    </DesktopPageContainer>
     // </WalletLayoutContainer>
   )
 }

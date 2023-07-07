@@ -114,7 +114,7 @@ const DepositForm = ({ DepositCategoryId }) => {
         .catch((error) => showAlert(error))
 
       if (result?.success) {
-        if (DepositCategoryId === 9) {
+        if (DepositCategoryId === DepositPaymentMethodCategoryId.CRYPTO) {
           openModal('DepositCryptoModal', {
             data: result.data,
             persistent: true,
