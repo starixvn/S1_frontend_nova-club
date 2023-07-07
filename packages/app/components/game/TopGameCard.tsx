@@ -1,12 +1,13 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { LaunchGame } from 'app/features/game/GameLauncher'
-import { Pressable, SxProp, View } from 'dripsy'
-import React from 'react'
-import { PressableProps } from 'react-native'
+import { Pressable, SxProp, View, styled } from 'dripsy'
+import { MotiPressable } from 'moti/interactions'
+import React, { useMemo } from 'react'
+import { GestureResponderEvent, PressableProps } from 'react-native'
 import { FeaturedGame } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
 
-interface TopGameCardProps extends PressableProps {
+interface TopGameCardProps {
   game: FeaturedGame
   desktopMode?: boolean
   sx?: SxProp
@@ -16,7 +17,6 @@ export default function TopGameCard({
   game,
   desktopMode,
   sx,
-  ...props
 }: TopGameCardProps) {
   // const
   function onPress() {
@@ -27,29 +27,44 @@ export default function TopGameCard({
   }
 
   return (
-    <Pressable sx={sx} onPress={onPress} {...props}>
+    <Root
+      sx={sx}
+      onPress={onPress}
+      animate={useMemo(
+        () =>
+          ({ hovered, pressed }) => {
+            'worklet'
+
+            return {
+              translateY: hovered ? -5 : 0,
+            }
+          },
+        []
+      )}
+    >
       <View
         sx={{
           width: [70, 100, 120],
           aspectRatio: 170 / 350,
-          // borderRadius: 15,
           overflow: 'hidden',
         }}
       >
         <SolitoImage
-          src={`${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${game.xImg.replace(
-            '{gameProviderCode}',
-            '%7BgameProviderCode%7D'
-          )}`}
+          src={`${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${game.xImg}`}
           fill
           alt={game.gpc}
           resizeMode="cover"
         />
       </View>
-      {/* <PaginationItem>{number}</PaginationItem> */}
-    </Pressable>
+    </Root>
   )
 }
+
+const Root = styled(MotiPressable)({
+  position: 'relative',
+  // aspectRatio: 1,
+  overflow: 'hidden',
+})
 
 // const PaginationItem = ({ children }) => {
 //   return (
