@@ -11,7 +11,7 @@ import { SlotType } from 'app/utils/constant'
 import { Container, Row, Text, View } from 'dripsy'
 import React from 'react'
 import MiddleBanner from './MiddleBanner'
-import DownloadScreen from '../download/DownloadScreen'
+import AppDownloadSection from '../download/AppDownloadSection'
 
 export default function HomeScreen() {
   const { t } = useLocalization()
@@ -92,9 +92,7 @@ export default function HomeScreen() {
           </View>
           <LeaderboardSection sx={{ flex: 1 }} />
         </Row>
-        <View sx={{ py: '$4' }}>
-          <DownloadScreen />
-        </View>
+        <AppDownloadSection />
       </Container>
     </View>
   )

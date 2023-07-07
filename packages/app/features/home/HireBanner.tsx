@@ -28,6 +28,7 @@ export default function HireBanner() {
             fontWeight: '900',
             pt: FONT_TOP_OFFSET,
             fontSize: [12, 14],
+            lineHeight: [13, 15],
           }}
         >
           HIRE AGENT

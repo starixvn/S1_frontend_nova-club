@@ -1,8 +1,3 @@
-import dynamic from 'next/dynamic'
+import DownloadScreen from 'desktop-ext/features/download/DownloadScreen'
 
-const LazyDesktopDepositScreen = dynamic(
-  () => import('desktop-ext/features/download/DownloadPage'),
-  { ssr: false }
-)
-
-export default LazyDesktopDepositScreen
+export default DownloadScreen
