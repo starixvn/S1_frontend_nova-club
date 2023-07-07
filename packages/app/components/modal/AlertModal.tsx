@@ -11,7 +11,7 @@ const AlertModal = ({ modal: { closeModal, getParam } }) => {
   const onClose = getParam('onClose')
 
   const { width } = useWindowDimensions()
-
+  console.log('title', title)
   useEffect(() => {
     return () => {
       onClose && onClose()

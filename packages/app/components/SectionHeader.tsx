@@ -47,5 +47,5 @@ export default function SectionHeader({
   )
 }
 const Root = styled(View)({
-  ml: '$pagePadding',
+  ml: ['$pagePadding', '$pagePadding', '$pagePadding', 0],
 })

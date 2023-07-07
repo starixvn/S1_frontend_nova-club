@@ -1,9 +1,8 @@
 import Icon from 'app/components/Icon'
 import { useAppSelector } from 'app/provider/redux/store'
-import { ActivityIndicator, View, styled } from 'dripsy'
+import { ActivityIndicator, Pressable, View, styled } from 'dripsy'
 import React, { useMemo } from 'react'
 import { useAnnouncementQuery } from 'services/contentApi'
-import { Link } from 'solito/link'
 import MarqueeFlip from './MarqueeFlip'
 
 const ANNOUNCEMENT_HEIGHT = 30
@@ -18,7 +17,7 @@ export default function AnnouncementSection() {
   })
 
   const marquees = useMemo(() => {
-    if (announcements == null) return null
+    if (announcements == null) return []
     return announcements.map((annc) => {
       return {
         label: annc.newsId,
@@ -29,44 +28,10 @@ export default function AnnouncementSection() {
   }, [announcements])
 
   return (
-    <StyledContainer>
-      <Link href="/">
-        <View
-          sx={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            height: ANNOUNCEMENT_HEIGHT,
-            px: '$2',
-          }}
-        >
-          {isUninitialized ? (
-            <ActivityIndicator color={'$lightCyan'} size={14} />
-          ) : (
-            <Icon
-              name="announcement"
-              color={'$secondary.100'}
-              sx={{ mr: '$2' }}
-              size={16}
-            />
-          )}
-          {marquees && (
-            <MarqueeFlip
-              announcementList={marquees}
-              announcementHeight={ANNOUNCEMENT_HEIGHT}
-              textSx={{ color: '$secondary.100' }}
-            />
-          )}
-        </View>
-      </Link>
-    </StyledContainer>
+    <MarqueeFlip
+      announcementList={marquees}
+      announcementHeight={ANNOUNCEMENT_HEIGHT}
+      loading={isUninitialized}
+    />
   )
 }
-
-const StyledContainer = styled(View)({
-  borderWidth: 1,
-  borderRadius: 20,
-  px: '$1',
-  borderColor: '$primary.100',
-  mx: '$pagePadding',
-  mb: '$sectionBottomSpace',
-})

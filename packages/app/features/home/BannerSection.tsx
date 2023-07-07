@@ -7,5 +7,5 @@ export default function BannerSection() {
 
   const { data } = useBannerQuery()
 
-  return <BannerCarousel data={data} sx={{ mb: ['$2', '$3'] }} />
+  return <BannerCarousel data={data} sx={{}} />
 }

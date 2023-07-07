@@ -16,7 +16,7 @@ export default function GameListSection({
   title,
 }: GameListSectionProps) {
   return (
-    <View sx={{ mb: '$sectionBottomSpace' }}>
+    <View>
       <SectionHeader icon={icon} title={title} />
       {data ? (
         <HorizontalGameList data={data} />

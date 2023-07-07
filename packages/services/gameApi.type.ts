@@ -51,15 +51,24 @@ export interface Game {
   gpc: string
   gtc: GAME_TYPE_CODE
   img: string
-  imgX: string
+  xImg?: string
   name: Record<LANGUAGE_CODE, string>
   tags: string[]
   gdc_cat?: GDC_GAME_CATEGORY
   params?: Record<string, string>
 }
 
+export type FeaturedGame = Omit<Game, 'gdc_cat' | 'params'> & {
+  cat: '1' | '2'
+}
+
 export interface GetGameListResult {
   rows: Game[]
+  row_count_total: number
+}
+
+export interface GetFeaturedGameListResult {
+  rows: FeaturedGame[]
   row_count_total: number
 }
 

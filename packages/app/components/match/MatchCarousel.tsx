@@ -148,7 +148,7 @@ const Root = styled(View)({
   alignItems: 'center',
   flexDirection: 'row',
   justifyContent: 'space-evenly',
-  mb: '$sectionBottomSpace',
+  overflow: 'hidden',
 })
 const PaginationIconButton = styled(Pressable)({
   position: 'absolute',

@@ -58,7 +58,7 @@ const GameCard = ({
         gc: rest.gc,
         gpc: rest.gpc,
         gtc: rest.gtc,
-        imgX: rest.imgX,
+        xImg: rest.xImg,
         tags: rest.tags,
         gdc_cat: rest.gdc_cat,
         params: rest.params,

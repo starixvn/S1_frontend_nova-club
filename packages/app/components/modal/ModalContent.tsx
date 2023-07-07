@@ -43,6 +43,7 @@ const ModalContent = ({
           bounces
           contentContainerSx={{
             minHeight: 150,
+            p: ['$2', '$2', '$2', '$3'],
           }}
         >
           {isShowHeader && (
@@ -108,22 +109,21 @@ const ModalBackground = styled(DripsyGradient)(({}) => {
 })
 
 const ModalHeader = styled(View)({
-  pt: 12,
-  pb: 12,
-  mb: '$2',
+  mb: "$2",
 })
 
 const TextTitle = styled(Text)({
   color: 'white',
   fontWeight: 'bold',
   textAlign: 'center',
-  fontSize: [14, 14, 16, 16],
+  fontSize: [14, 14, 16, 17],
   mt: FONT_TOP_OFFSET,
 })
 
 const ViewBody = styled(View)({
   flex: 1,
   width: '100%',
+  p: ['$2', '$2', '$2', '$3'],
 })
 
 const ViewFooter = styled(View)({

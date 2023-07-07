@@ -13,7 +13,6 @@ export default function HireBanner() {
         borderRadius: 40,
         bg: '$primary.200',
         p: ['$1', '$1', '$1', '$2'],
-        mx: ['$2', '$pagePadding'],
       }}
     >
       <View
@@ -21,7 +20,7 @@ export default function HireBanner() {
           borderRadius: 30,
           bg: '$primary.500',
           px: '$3',
-          py: '$2',
+          justifyContent: 'center',
         }}
       >
         <Text

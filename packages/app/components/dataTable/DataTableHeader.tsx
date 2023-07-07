@@ -11,14 +11,9 @@ export type Props = React.ComponentPropsWithRef<typeof View> & {
   containerStyle?: SxProp
 }
 
-const DataTableHeader = ({
-  size = 'small',
-  children,
-  containerStyle,
-  ...rest
-}: Props) => {
+const DataTableHeader = ({ children, containerStyle, ...rest }: Props) => {
   return (
-    <HeaderView sx={containerStyle} size={size} {...rest}>
+    <HeaderView sx={containerStyle} {...rest}>
       <ContentView>{children}</ContentView>
     </HeaderView>
   )
@@ -26,10 +21,11 @@ const DataTableHeader = ({
 
 DataTableHeader.displayName = 'DataTable.Header'
 
-const HeaderView = styled(View)(({ size }: { size: 'big' | 'small' }) => ({
+const HeaderView = styled(View)(() => ({
   // flexDirection: 'row',
   // alignItems: 'center',
-  minHeight: size === 'small' ? 48 : 60,
+  // minHeight: size === 'small' ? 48 : 60,
+  py: ['$2', '$2', '$2', '$2', '$3'],
   bg: '$primary.300',
 }))
 

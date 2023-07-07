@@ -18,16 +18,24 @@ export default function HomeScreen() {
     <View sx={{ pb: '$6' }}>
       <BannerSection />
 
-      <Container>
-        <AnnouncementSection />
-        <Row sx={{mb: "$sectionBottomSpace"}}>
-          <View sx={{ flex: 1 }}>
-            <HireBanner />
-          </View>
-          <View sx={{ flex: 1 }}>
-            <HireBanner />
-          </View>
-        </Row>
+      <Container sx={{ gap: '$sectionBottomSpace' }}>
+        <View
+          sx={{
+            gap: '$sectionBottomSpace',
+            pt: '$sectionBottomSpace',
+            px: '$pagePadding',
+          }}
+        >
+          <AnnouncementSection />
+          <Row sx={{ gap: '$pagePadding' }}>
+            <View sx={{ flex: 1 }}>
+              <HireBanner />
+            </View>
+            <View sx={{ flex: 1 }}>
+              <HireBanner />
+            </View>
+          </Row>
+        </View>
 
         {/* <Row>
           <View sx={{ flex: 1 }}>
@@ -49,9 +57,9 @@ export default function HomeScreen() {
 
         <TopGameSection />
 
-        <Row sx={{ pl: ["$3"] }}>
-          <MiddleBanner sx={{ flex: 1 }}></MiddleBanner>
-          <View sx={{ flex: 1 }}>
+        <Row sx={{ gap: '$pagePadding' }}>
+          <MiddleBanner sx={{ flex: 1, gap: '$pagePadding' }}></MiddleBanner>
+          <View sx={{ flex: 1, gap: '$pagePadding' }}>
             <GameListSectionAsyncByTag
               tag={SlotType.NEW}
               title={t('game.new').toUpperCase()}
@@ -70,8 +78,14 @@ export default function HomeScreen() {
           </View>
         </Row>
 
-        <Row>
-          <View sx={{ flex: 1, justifyContent: 'space-evenly' }}>
+        <Row sx={{ alignItems: 'stretch', gap: '$pagePadding' }}>
+          <View
+            sx={{
+              flex: 1,
+              gap: '$pagePadding',
+              justifyContent: 'space-evenly',
+            }}
+          >
             <MatchSection />
             <ReferralSection />
           </View>

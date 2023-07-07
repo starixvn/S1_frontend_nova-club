@@ -25,69 +25,69 @@ const LeaderboardTable = ({ maxRow = 10 }: { maxRow?: number }) => {
   const fourthCellStyle = { flex: 2 / 12 }
 
   return (
-    <>
-      <View sx={{ height: 1, bg: '$primary.100' }} />
-      <DataTable>
-        <DataTableHeader size="small" containerStyle={{}}>
-          <DataTableTitle containerStyle={firstCellStyle} numberOfLines={2}>
-            {t('leaderboard.rank').toUpperCase()}
-          </DataTableTitle>
-          <DataTableTitle containerStyle={secondCellStyle} numberOfLines={2}>
-            {t('profile.playerId').toUpperCase()}
-          </DataTableTitle>
-          <DataTableTitle containerStyle={thirdCellStyle} numberOfLines={2}>
-            {t('common.points').toUpperCase()}
-          </DataTableTitle>
-          <DataTableTitle containerStyle={fourthCellStyle} numberOfLines={2}>
-            {t('menu.tab.status').toUpperCase()}
-          </DataTableTitle>
-        </DataTableHeader>
-        {leaderboardData &&
-          leaderboardData.map((item, index) => (
-            <DataTableRow key={item.rank} size="big">
-              <DataTableCell center containerStyle={firstCellStyle}>
+    <DataTable>
+      <DataTableHeader containerStyle={{}}>
+        <DataTableTitle containerStyle={firstCellStyle} numberOfLines={2}>
+          {t('leaderboard.rank').toUpperCase()}
+        </DataTableTitle>
+        <DataTableTitle containerStyle={secondCellStyle} numberOfLines={2}>
+          {t('profile.playerId').toUpperCase()}
+        </DataTableTitle>
+        <DataTableTitle containerStyle={thirdCellStyle} numberOfLines={2}>
+          {t('common.points').toUpperCase()}
+        </DataTableTitle>
+        <DataTableTitle containerStyle={fourthCellStyle} numberOfLines={2}>
+          {t('menu.tab.status').toUpperCase()}
+        </DataTableTitle>
+      </DataTableHeader>
+      {leaderboardData &&
+        leaderboardData.map((item, index) => (
+          <DataTableRow key={item.rank} size="big">
+            <DataTableCell center containerStyle={firstCellStyle}>
+              <SolitoImage
+                src={getRankingImage(item.rank)}
+                fill
+                alt="item.playerId"
+              />
+            </DataTableCell>
+            <DataTableCell
+              containerStyle={secondCellStyle}
+              textStyle={{ fontSize: [12, 12, 13, 14] }}
+            >
+              {item.username}
+            </DataTableCell>
+            <DataTableCell center={false} containerStyle={thirdCellStyle}>
+              <Row sx={{ alignItems: 'center' }}>
                 <SolitoImage
-                  src={getRankingImage(item.rank)}
-                  fill
-                  alt="item.playerId"
+                  src={CoinImage}
+                  height={18}
+                  width={18}
+                  alt={`${index} coin`}
+                  style={{ marginRight: 12 }}
                 />
-              </DataTableCell>
-              <DataTableCell containerStyle={secondCellStyle}>
-                {item.username}
-              </DataTableCell>
-              <DataTableCell center={false} containerStyle={thirdCellStyle}>
-                <Row sx={{ alignItems: 'center' }}>
-                  <SolitoImage
-                    src={CoinImage}
-                    height={18}
-                    width={18}
-                    alt={`${index} coin`}
-                    style={{ marginRight: 12 }}
-                  />
-                  <Text sx={{ fontSize: 14 }}>
-                    {toThousandSeparator(item.points)}
-                  </Text>
-                </Row>
-              </DataTableCell>
-              <DataTableCell containerStyle={fourthCellStyle}>
-                {item.status === 'r' ? (
-                  <Text>-</Text>
-                ) : (
-                  <Icon
-                    name="down"
-                    color={getRankStatusImage(item.status)}
-                    sx={{
-                      transform: [
-                        { rotate: item.status === 'u' ? '180deg' : '0deg' },
-                      ],
-                    }}
-                  />
-                )}
-              </DataTableCell>
-            </DataTableRow>
-          ))}
-      </DataTable>
-    </>
+                <Text sx={{ fontSize: [12, 12, 13, 14] }}>
+                  {toThousandSeparator(item.points)}
+                </Text>
+              </Row>
+            </DataTableCell>
+            <DataTableCell containerStyle={fourthCellStyle}>
+              {item.status === 'r' ? (
+                <Text>-</Text>
+              ) : (
+                <Icon
+                  name="down"
+                  color={getRankStatusImage(item.status)}
+                  sx={{
+                    transform: [
+                      { rotate: item.status === 'u' ? '180deg' : '0deg' },
+                    ],
+                  }}
+                />
+              )}
+            </DataTableCell>
+          </DataTableRow>
+        ))}
+    </DataTable>
   )
 }
 

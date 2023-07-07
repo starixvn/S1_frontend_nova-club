@@ -67,7 +67,7 @@ export default function MatchItem({ width, match, onPress }: Props) {
       }}
     >
       {/* <Button title="asdff" onPress={onRandom} /> */}
-      <View sx={{ position: 'relative' }}>
+      <View sx={{ position: 'relative' }} pointerEvents="none">
         <SolitoImage
           src={require('app/assets/images/match/fullbg.jpg')}
           alt="live match"

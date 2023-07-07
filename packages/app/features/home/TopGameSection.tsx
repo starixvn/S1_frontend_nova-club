@@ -1,7 +1,9 @@
+import { CMS_CONTENT_URI, CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import SectionHeader from 'app/components/SectionHeader'
 import TopGameCard from 'app/components/game/TopGameCard'
-import { ScrollView, View } from 'dripsy'
+import { ScrollView, View, useResponsiveValue } from 'dripsy'
 import React from 'react'
+import { useFeaturedGameListQuery } from 'services/gameApi'
 
 const sampleData = [
   {
@@ -47,8 +49,19 @@ const sampleData = [
 ]
 
 export default function TopGameSection(props) {
+  const { data } = useFeaturedGameListQuery(undefined, {
+    selectFromResult: (s) => {
+      return {
+        ...s,
+        data: s.data?.filter((g) => g.cat === '2'),
+      }
+    },
+  })
+
+  const desktopMode = useResponsiveValue([false, false, false, true])
+
   return (
-    <View sx={{ mb: '$sectionBottomSpace' }} {...props}>
+    <View {...props}>
       <SectionHeader icon="crown" title="RECOMMENDED GAMES" />
       <ScrollView
         horizontal
@@ -59,9 +72,9 @@ export default function TopGameSection(props) {
           pt: ['$3'],
         }}
       >
-        {sampleData.map((g, i) => (
-          <TopGameCard key={i} image={g.image} number={i + 1} />
-        ))}
+        {data?.map((g, i) => {
+          return <TopGameCard key={i} game={g} desktopMode={desktopMode} />
+        })}
       </ScrollView>
     </View>
   )

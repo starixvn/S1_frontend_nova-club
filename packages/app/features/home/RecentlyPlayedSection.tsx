@@ -22,7 +22,6 @@ export default function RecentlyPlayedSection({
   const displayAble = useMemo(() => {
     if (recent) {
       return recent.filter((g) => {
-        console.log('gg', g)
         return (
           (g.gtc && gameTypes.includes(g.gtc)) ||
           (g.gdc_cat && gameCategories.includes(g.gdc_cat))
@@ -49,26 +48,6 @@ export default function RecentlyPlayedSection({
         />
       </View>
       <Row>
-        {/* <View sx={{ position: 'relative', zIndex: 1, ml: ['$3'] }}>
-          <DripsyGradient
-            gradient="shading"
-            end={{ x: 1, y: 0.5 }}
-            start={{ x: 0, y: 0.5 }}
-            sx={{
-              position: 'absolute',
-              zIndex: 13,
-              height: [50, 70],
-              width: 20,
-              left: '100%',
-            }}
-          />
-          <GameCard
-            sx={{ mx: '$1' }}
-            width={[50, 70]}
-            height={[50, 70]}
-            // image={vgaming}
-          />
-        </View> */}
         <HorizontalGameList data={displayAble} size={[50, 70]} />
       </Row>
     </DripsyGradient>

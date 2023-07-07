@@ -72,7 +72,7 @@ const DataTableTitle = ({
       <ContentText
         sx={{
           // height must scale with numberOfLines
-          maxHeight: 24 * numberOfLines,
+          maxHeight: 20 * numberOfLines,
           ...textStyle,
         }}
         numberOfLines={numberOfLines}
@@ -96,8 +96,8 @@ const TitleView = styled(View)(
 )
 
 const ContentText = styled(Text)({
-  lineHeight: 24,
-  fontSize: 14,
+  // lineHeight: 24,
+  fontSize: [11, 11, 12, 13, 14],
   fontWeight: 'bold',
   alignItems: 'center',
   textAlign: 'center',

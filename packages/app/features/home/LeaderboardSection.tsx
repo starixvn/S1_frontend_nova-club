@@ -7,11 +7,16 @@ const LeaderboardSection = (props) => {
   const displayRowCount = useResponsiveValue([5, 5, 5, 10])
   return (
     <View {...props}>
-      <SectionHeader icon="crown" title="menu.leaderboard" />
+      <SectionHeader
+        icon="crown"
+        title="menu.leaderboard"
+        sx={{ mb: '$pagePadding' }}
+      />
       <View
         sx={{
-          mx: '$2',
-          my: '$pagePadding',
+          flex: 1,
+          ml: '$pagePadding',
+          mr: ['$pagePadding', '$pagePadding', '$pagePadding', 0],
           overflow: 'hidden',
           borderRadius: 24,
           borderWidth: 1,

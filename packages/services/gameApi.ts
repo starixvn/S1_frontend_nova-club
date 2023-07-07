@@ -2,10 +2,12 @@ import { Currency } from 'app/utils/constant'
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
+  FeaturedGame,
   Game,
   GameConfig,
   GameListQueryArgs,
   GameScreenMultipleRequest,
+  GetFeaturedGameListResult,
   GetGameListQueryArgs,
   GetGameListResult,
   GetGameUrlQueryArgs,
@@ -106,11 +108,13 @@ export const gameApi = baseApiWithTag.injectEndpoints({
         return data?.rows ?? []
       },
     }),
-    featuredGameList: builder.query<IResponse<GetGameListResult>, string>({
-      query: (data) => ({
+    featuredGameList: builder.query<FeaturedGame[], void>({
+      query: () => ({
         url: `/static_api/getFeaturedGameList`,
-        data,
       }),
+      transformResponse: ({ data }: { data: GetFeaturedGameListResult }) => {
+        return data?.rows ?? []
+      },
     }),
     gameListMultiple: builder.query<Game[], GameScreenMultipleRequest>({
       async queryFn(_arg, _queryApi, _extraOptions, fetch) {

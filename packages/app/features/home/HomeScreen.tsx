@@ -2,7 +2,7 @@ import GameListSectionAsyncByTag from 'app/components/game/GameListSectionAsyncB
 import Footer from 'app/components/navigation/footer'
 import useLocalization from 'app/provider/localization'
 import { SlotType } from 'app/utils/constant'
-import { ScrollView } from 'dripsy'
+import { ScrollView, View } from 'dripsy'
 import AnnouncementSection from './Announcement/AnnouncementSection'
 import BannerSection from './BannerSection'
 import GameGridSection from './GameGridSection'
@@ -22,30 +22,33 @@ export default function HomeScreen() {
       contentContainerSx={{ pb: '$4' }}
     >
       <BannerSection />
-      <AnnouncementSection />
-      <HireBanner />
+      <View sx={{ gap: ['$2', '$3'], pt: ['$2', '$3'], px: '$3' }}>
+        <AnnouncementSection />
+        <HireBanner />
+      </View>
       <GameGridSection />
       {/* <RecentlyPlayedSection /> */}
-      <TopGameSection />
-
-      <GameListSectionAsyncByTag
-        tag={SlotType.NEW}
-        title={t('game.new').toUpperCase()}
-        icon="star"
-      />
-      <GameListSectionAsyncByTag
-        tag={SlotType.JACKPOT}
-        title={t('game.jackpot').toUpperCase()}
-        icon="jackpot"
-      />
-      <GameListSectionAsyncByTag
-        tag={SlotType.MEGAWAY}
-        title={'MEGAWAY'}
-        icon="megaway"
-      />
-      <MatchSection />
-      <LeaderboardSection />
-      <ReferralSection />
+      <View sx={{ gap: ['$3', '$4'] }}>
+        <TopGameSection />
+        <GameListSectionAsyncByTag
+          tag={SlotType.NEW}
+          title={t('game.new').toUpperCase()}
+          icon="star"
+        />
+        <GameListSectionAsyncByTag
+          tag={SlotType.JACKPOT}
+          title={t('game.jackpot').toUpperCase()}
+          icon="jackpot"
+        />
+        <GameListSectionAsyncByTag
+          tag={SlotType.MEGAWAY}
+          title={'MEGAWAY'}
+          icon="megaway"
+        />
+        <MatchSection />
+        <LeaderboardSection />
+        <ReferralSection />
+      </View>
       <Footer />
     </ScrollView>
   )

@@ -5,14 +5,11 @@ const useAlert = () => {
   const { openModal } = useModal()
 
   const showAlert = (data) => {
-    if (typeof data === 'object' && 'persistent' in data) {
+    if (typeof data === 'object') {
       openModal('AlertModal', data)
-    } else if (
-      (typeof data === 'object' && 'message' in data) ||
-      typeof data === 'string'
-    ) {
+    } else if (typeof data === 'string') {
       openModal('AlertModal', { message: getErrorMessage(data) })
-    } else openModal('AlertModal', data)
+    }
   }
 
   return {
