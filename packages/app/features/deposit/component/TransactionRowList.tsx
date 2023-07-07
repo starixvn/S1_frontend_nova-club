@@ -55,7 +55,7 @@ const TransactionRowList = ({ item }: TransactionRowListProps) => {
               alignItems: 'center',
             }}
           >
-            <Text>{item.secure_id}</Text>
+            <Text numberOfLines={1}>{item.secure_id}</Text>
             <IconButton
               name={'copy'}
               color={'white'}
@@ -64,11 +64,13 @@ const TransactionRowList = ({ item }: TransactionRowListProps) => {
               onPress={() => copyToClipboard(item.secure_id)}
             />
           </View>
-          <Text sx={{ fontWeight: 'bold' }}>{item.pay_type}</Text>
+          <Text numberOfLines={1} sx={{ fontWeight: 'bold' }}>
+            {item.pay_type}
+          </Text>
         </View>
         <View sx={{ flex: 0.7, justifyContent: 'center' }}>
-          <Text>{date}</Text>
-          <Text>{time}</Text>
+          <Text numberOfLines={1}>{date}</Text>
+          <Text numberOfLines={1}>{time}</Text>
         </View>
         <View
           sx={{ flex: 0.7, alignItems: 'flex-end', justifyContent: 'center' }}
@@ -82,6 +84,7 @@ const TransactionRowList = ({ item }: TransactionRowListProps) => {
               DepositPaymentMethodCategoryId.LOCAL_BANK && (
               <Pressable onPress={openUploadBankSlipModal}>
                 <Text
+                  numberOfLines={1}
                   sx={{ textDecorationLine: 'underline', color: '$tertiary' }}
                 >
                   Bank Slip

@@ -16,15 +16,15 @@ const HorizontalTransactionRowListHeader = () => {
           <HeaderText>{'ID'}</HeaderText>
         </View>
 
-        <View sx={{ flex: 0.8, flexDirection: 'column' }}>
+        <View sx={{ flex: 0.7, flexDirection: 'column' }}>
           <HeaderText>{'datetime'}</HeaderText>
         </View>
 
-        <View sx={{ flex: 0.6 }}>
+        <View sx={{ flex: 0.5 }}>
           <HeaderText sx={{ textAlign: 'center' }}>{'amount'}</HeaderText>
         </View>
 
-        <View sx={{ flex: 1 }}>
+        <View sx={{ flex: 0.6 }}>
           <HeaderText sx={{ textAlign: 'center' }}>{'status'}</HeaderText>
         </View>
       </View>

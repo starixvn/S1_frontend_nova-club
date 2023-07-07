@@ -22,7 +22,7 @@ const ValueCard = ({ value, onPress }: ValueCardProps) => {
         sx={{
           position: 'absolute',
           bottom: 1,
-          minWidth: 80,
+          width: '100%',
           height: 45,
           bg: '$background',
           borderRadius: 100,

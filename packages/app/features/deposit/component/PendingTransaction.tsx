@@ -44,7 +44,7 @@ const PendingTransaction = ({ paymentMethod }: PendingTransactionProps) => {
   return (
     <View
       sx={{
-        width: horizontalMode ? '90%' : '100%',
+        width: '100%',
         alignSelf: 'center',
       }}
     >
