@@ -262,13 +262,15 @@ const TopupCardForm = () => {
             <Text>Card value</Text>
             <View sx={{ flexDirection: 'row', flexWrap: 'wrap' }}>
               {cardAmount.map((item) => (
-                <ValueCard
-                  key={item}
-                  value={item}
-                  onPress={(e) => {
-                    onCardValueChanged(e)
-                  }}
-                />
+                <View sx={{ width: '25%' }}>
+                  <ValueCard
+                    key={item}
+                    value={item}
+                    onPress={(e) => {
+                      onCardValueChanged(e)
+                    }}
+                  />
+                </View>
               ))}
             </View>
           </View>

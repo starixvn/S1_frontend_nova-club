@@ -10,7 +10,7 @@ const ValueCard = ({ value, onPress }: ValueCardProps) => {
   return (
     <TouchableOpacity
       sx={{
-        width: 80,
+        minWidth: 80,
         height: 45,
         borderRadius: 100,
         m: 20,
@@ -22,7 +22,7 @@ const ValueCard = ({ value, onPress }: ValueCardProps) => {
         sx={{
           position: 'absolute',
           bottom: 1,
-          width: 80,
+          minWidth: 80,
           height: 45,
           bg: '$background',
           borderRadius: 100,
