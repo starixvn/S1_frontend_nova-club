@@ -1,6 +1,7 @@
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import useLocalization from 'app/provider/localization'
 import { Platform } from 'react-native'
+import QRPayContent from './QRPayContent'
 
 const QRPayScreen = () => {
   const { t } = useLocalization()
@@ -10,7 +11,7 @@ const QRPayScreen = () => {
       disableScrollView={Platform.OS === 'ios'}
       header={{ title: t('deposit.qrPay') }}
     >
-      <QRPayScreen />
+      <QRPayContent />
     </PageWithBackHeader>
   )
 }

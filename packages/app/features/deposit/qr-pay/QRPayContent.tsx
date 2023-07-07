@@ -3,7 +3,7 @@ import { ScrollView, useResponsiveValue } from 'dripsy'
 import DepositForm from '../component/DepositForm'
 import PendingTransaction from '../component/PendingTransaction'
 
-const QRPayScreen = () => {
+const QRPayContent = () => {
   const horizontalMode = useResponsiveValue([false, false, false, true, true])
 
   return (
@@ -18,4 +18,4 @@ const QRPayScreen = () => {
   )
 }
 
-export default QRPayScreen
+export default QRPayContent

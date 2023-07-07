@@ -207,12 +207,14 @@ const TopupCardForm = () => {
                 {cardTypeList &&
                   cardTypeList.map((e, i) => {
                     return (
-                      <HorizontalSelectBankCardGrid
-                        contain
-                        key={i}
-                        item={e}
-                        onPress={() => setFieldValue('cardType', e.value)}
-                      />
+                      <View key={i} sx={{ width: '25%' }}>
+                        <HorizontalSelectBankCardGrid
+                          contain
+                          key={i}
+                          item={e}
+                          onPress={() => setFieldValue('cardType', e.value)}
+                        />
+                      </View>
                     )
                   })}
               </View>

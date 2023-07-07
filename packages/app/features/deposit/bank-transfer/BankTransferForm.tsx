@@ -186,11 +186,13 @@ const BankTransferForm = () => {
                 {sheetData &&
                   sheetData.map((e, i) => {
                     return (
-                      <HorizontalSelectBankCardGrid
-                        key={i}
-                        item={e}
-                        onPress={() => handleSelected(e.value)}
-                      />
+                      <View key={i} sx={{ width: '25%' }}>
+                        <HorizontalSelectBankCardGrid
+                          key={i}
+                          item={e}
+                          onPress={() => handleSelected(e.value)}
+                        />
+                      </View>
                     )
                   })}
               </View>
