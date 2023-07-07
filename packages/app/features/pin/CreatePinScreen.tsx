@@ -12,6 +12,7 @@ import UnderlinePinField from './UnderlinePinField'
 import Button from 'app/components/common/Button'
 import useAlert from 'app/hooks/useAlert'
 import isDesktop from 'app/utils/isDesktop'
+import FormContainer from 'app/components/form/FormContainer'
 
 type PinFormValues = {
   pin: string
@@ -83,16 +84,16 @@ const CreatePinScreen = ({}) => {
   } = formik
 
   return (
-    <View sx={{ flex: 1, p: '$4', mb: 20 }}>
+    <FormContainer>
       <Text sx={{ fontSize: 24 }}>{t('manageCredentials.pin.create6Pin')}</Text>
-      <Text>{t('manageCredentials.pin.securePin')}</Text>
+      <Text sx={{ mb: '$3' }}>{t('manageCredentials.pin.securePin')}</Text>
       <UnderlinePinField
-        title={t('manageCredentials.pin.newPin')}
+        label={t('manageCredentials.pin.newPin')}
         value={values.pin}
         setValue={handleChange('pin')}
       />
       <UnderlinePinField
-        title={t('manageCredentials.pin.confirmPin')}
+        label={t('manageCredentials.pin.confirmPin')}
         value={values.confirmPin}
         setValue={handleChange('confirmPin')}
         errorMsg={
@@ -104,25 +105,14 @@ const CreatePinScreen = ({}) => {
         }
       />
 
-      <View sx={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-        {desktop && <View sx={{ width: '20%', minWidth: 200 }} />}
-        <Button
-          onPress={submitForm}
-          disabled={!isValid || !dirty}
-          sx={{
-            mt: '$4',
-            maxWidth: 350,
-            ...(desktop
-              ? {
-                  width: '55%',
-                }
-              : { width: '100%' }),
-          }}
-        >
-          {t('common.submit')}
-        </Button>
-      </View>
-    </View>
+      <Button
+        onPress={submitForm}
+        disabled={!isValid || !dirty}
+        sx={{ mt: '$3' }}
+      >
+        {t('common.submit')}
+      </Button>
+    </FormContainer>
   )
 }
 

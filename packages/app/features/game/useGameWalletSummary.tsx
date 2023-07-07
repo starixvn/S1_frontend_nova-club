@@ -12,12 +12,8 @@ export default function useGameWalletSummary(providerCode?: string) {
     selectFromResult: ({ data }) => ({ ...data, walletDetails: data?.data }),
   })
 
-  const { wallets, ...rest } = usePlayerBalanceQuery(undefined, {
+  const { data, ...rest } = usePlayerBalanceQuery(undefined, {
     skip: !token,
-    selectFromResult: (s) => ({
-      ...s,
-      wallets: s.data?.data,
-    }),
   })
 
   const isSeamless = useMemo(() => {
@@ -34,16 +30,10 @@ export default function useGameWalletSummary(providerCode?: string) {
   }, [walletDetails, providerCode])
 
   const isTransferRequired = useMemo(() => {
-    if (wallets) {
-      const total = Object.values(wallets).reduce(
-        (total, w) =>
-          total + (Number(w.balance) ?? 0) + (Number(w.reward) ?? 0),
-        0
-      )
-
-      return total > 0
+    if (data) {
+      return data.totalBalance + data.totalReward > 0
     } else return true
-  }, [wallets])
+  }, [])
 
   return {
     ...rest,

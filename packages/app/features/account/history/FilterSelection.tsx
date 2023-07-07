@@ -12,13 +12,11 @@ import {
   ReportTransactionTypeOptions,
 } from 'app/utils/constant'
 import dayjs from 'dayjs'
-import { Row, Text, TextInput, View } from 'dripsy'
+import { Text, View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { SelectOptions } from 'services/common/types'
 import { usePlayerWalletDetailQuery } from 'services/walletApi'
-
-const FILTER_BOX_HEIGHT = 60
 
 const TypeList = ReportTransactionTypeOptions
 const DateFilterList = DateFilterOptions
@@ -96,7 +94,8 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
       <View
         sx={{
           flexDirection: 'row',
-          height: FILTER_BOX_HEIGHT,
+          mb: '$2',
+          gap: '$2',
         }}
       >
         {isTransaction ? (
@@ -105,7 +104,8 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
             value={selected.selectedTransType}
             enabledLabel={false}
             placeholder={t(selected.selectedTransType.label)}
-            sx={{ flex: 1, m: '$1' }}
+            sx={{ flex: 1 }}
+            _input={{ sx: { mb: 0 } }}
             options={TypeList}
             onSelected={(value) => {
               return setSelected({
@@ -129,7 +129,8 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
                 ? t(selected.selectedGame.label)
                 : selected.selectedGame.label
             }
-            sx={{ flex: 1, m: '$1' }}
+            sx={{ flex: 1 }}
+            _input={{ sx: { mb: 0 } }}
             isHorizontalActionSheet
             options={providerList}
             onSelected={(value) =>
@@ -144,7 +145,8 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
         <SelectList
           value={selected.selectedDate}
           options={isTransaction ? DateFilterList : DateFilterList.slice(0, 4)}
-          sx={{ flex: 1, m: '$1' }}
+          sx={{ flex: 1 }}
+          _input={{ sx: { mb: 0 } }}
           enabledLabel={false}
           placeholder={t(selected.selectedDate.label)}
           onSelected={(value) => {
@@ -173,9 +175,9 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
                 ? DepositStatusList
                 : WithdrawalStatusList
             }
-            _input={{ placeholderTextColor: '$white' }}
             enabledLabel={false}
-            sx={{ flex: 1, m: '$1' }}
+            _input={{ sx: { mb: 0 } }}
+            sx={{ flex: 1 }}
             onSelected={(value) =>
               setSelected({ ...selected, selectedStatus: value })
             }
@@ -191,8 +193,9 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
             value={selected.selectedGameStatus}
             enabledLabel={false}
             placeholder={t(selected.selectedGameStatus.label)}
-            sx={{ flex: 1, m: '$1' }}
-            _input={{ placeholderTextColor: '$white' }}
+            sx={{ flex: 1, mb: 0 }}
+            _input={{ sx: { mb: 0 } }}
+            style={{ flex: 1 }}
             options={GameStatusList}
             onSelected={(value) =>
               setSelected({ ...selected, selectedGameStatus: value })
@@ -209,12 +212,11 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
           sx={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            height: FILTER_BOX_HEIGHT,
           }}
         >
           <DatePicker
             value={selected.startDate}
-            inputSx={{ flex: 1, m: '$1' }}
+            inputSx={{ flex: 1, mb: 0 }}
             minimumDate={dayjs().subtract(2, 'month').startOf('date').toDate()}
             maximumDate={selected.endDate}
             onChange={(value) =>
@@ -230,7 +232,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
           </Text>
           <DatePicker
             value={selected.endDate}
-            inputSx={{ flex: 1, m: '$1' }}
+            inputSx={{ flex: 1, mb: 0 }}
             minimumDate={selected.startDate}
             onChange={(value) => {
               setSelected({

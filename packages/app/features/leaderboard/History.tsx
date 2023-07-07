@@ -1,14 +1,12 @@
 import DataTable from 'app/components/dataTable/DataTable'
 import DataTableHeader from 'app/components/dataTable/DataTableHeader'
 import DataTableTitle from 'app/components/dataTable/DataTableTitle'
-import Select from 'app/components/select/Select'
+import FormContainer from 'app/components/form/FormContainer'
 import SelectList from 'app/components/select/SelectList'
-import SelectWithDropdown from 'app/components/select/SelectWithDropdown'
 import useLocalization from 'app/provider/localization'
 import { DateFilterOptions } from 'app/utils/constant'
 import isDesktop from 'app/utils/isDesktop'
-import DesktopPageContainer from 'desktop-ext/components/layout/DesktopPage'
-import { View } from 'dripsy'
+import { Row, View } from 'dripsy'
 import React, { useState } from 'react'
 
 const dummyData = []
@@ -20,11 +18,10 @@ const HistoryScreen = () => {
 
   const options = DateFilterOptions.slice(0, -1)
   return (
-    <DesktopPageContainer>
+    <FormContainer padding>
       <View sx={{ flexGrow: 1 }}>
         <View sx={{ pt: 12, px: [12, 12, 12, 0] }}>
           <SelectList
-            isGrid
             label={t('common.date')}
             placeholder=""
             enabledLabel={false}
@@ -58,7 +55,7 @@ const HistoryScreen = () => {
         ))} */}
         </DataTable>
       </View>
-    </DesktopPageContainer>
+    </FormContainer>
   )
 }
 

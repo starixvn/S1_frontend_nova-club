@@ -1,15 +1,15 @@
+import FormContainer from 'app/components/form/FormContainer'
 import useLocalization from 'app/provider/localization'
 import dayjs from 'dayjs'
 import { Text, View } from 'dripsy'
 import React from 'react'
 import LeaderboardTable from './components/LeaderboardTable'
-import DesktopPageContainer from 'desktop-ext/components/layout/DesktopPage'
 
 const RankingScreen = () => {
   const { t } = useLocalization()
 
   return (
-    <DesktopPageContainer>
+    <FormContainer padding>
       <View sx={{ flexGrow: 1 }}>
         <Text sx={{ textAlign: 'center', p: 12 }}>
           {t('leaderboard.top10').toUpperCase()}
@@ -21,7 +21,7 @@ const RankingScreen = () => {
           {`${t('common.lastUpdated')} ${dayjs().format('YYYY-MM-DD')}`}
         </Text>
       </View>
-    </DesktopPageContainer>
+    </FormContainer>
   )
 }
 

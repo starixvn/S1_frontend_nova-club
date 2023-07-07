@@ -10,22 +10,10 @@ import React, { useState } from 'react'
 import { useLazyPlayerReportQuery } from 'services/playerApi'
 import { ReportRewardItem } from 'services/playerApi.type'
 import DateTimeCell from '../DateTimeCell'
-import { CellViewContainer } from './DesktopDepositHistoryItem'
-
-const CELL_DATE_WIDTH = 1
-const CELL_GAME_WIDTH = 1
-const CELL_AMOUNT_WIDTH = 1
+import { CellViewContainer, TAB_NO } from './DesktopDepositHistoryItem'
 
 export const RebateTableHeader = [
-  {
-    label: 'No',
-    textStyle: {
-      flex: 1,
-      flexBasis: 60,
-      flexGrow: 0,
-      textAlign: 'center',
-    },
-  },
+  TAB_NO,
   { label: 'Date', textStyle: { flex: 1, textAlign: 'left' } },
   {
     label: 'Amount',

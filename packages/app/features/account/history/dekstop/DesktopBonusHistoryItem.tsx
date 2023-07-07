@@ -4,18 +4,10 @@ import { toThousandSeparator } from 'app/utils'
 import { styled, Text, useDripsyTheme, View } from 'dripsy'
 import React from 'react'
 import DateTimeCell from '../DateTimeCell'
-import { CellViewContainer } from './DesktopDepositHistoryItem'
+import { CellViewContainer, TAB_NO } from './DesktopDepositHistoryItem'
 
 export const BonusTableHeader = [
-  {
-    label: 'No',
-    textStyle: {
-      flex: 1,
-      flexBasis: 60,
-      flexGrow: 0,
-      textAlign: 'center',
-    },
-  },
+  TAB_NO,
   { label: 'Date', textStyle: { flex: 1, textAlign: 'left' } },
   { label: 'Type', textStyle: { flex: 1, textAlign: 'center' } },
   { label: 'Amount', textStyle: { flex: 1, textAlign: 'center' } },

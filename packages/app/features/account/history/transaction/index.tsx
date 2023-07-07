@@ -10,7 +10,7 @@ import {
 import dayjsTz from 'app/utils/dayjs'
 import isDesktop from 'app/utils/isDesktop'
 import dayjs from 'dayjs'
-import { View, useResponsiveValue } from 'dripsy'
+import { Text, View, useResponsiveValue } from 'dripsy'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useLazyPlayerReportQuery } from 'services/playerApi'
 import { ReportGameItem, ReportResult } from 'services/playerApi.type'
@@ -199,7 +199,11 @@ const TransactionHistory = () => {
         setSelected={setSelected}
         isTransaction
       />
-
+      {desktop && (
+        <Text sx={{ py: '$3', fontWeight: 'bold' }}>{`${
+          getTableHeader()[0]?.label
+        } History :`}</Text>
+      )}
       <HistoryListing<HistoryListingDataType, typeof fetchParams>
         fetchParams={fetchParams}
         trigger={fetchData}

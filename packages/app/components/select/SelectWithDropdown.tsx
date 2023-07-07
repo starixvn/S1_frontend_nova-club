@@ -16,7 +16,6 @@ import Icon from '../Icon'
 import Label from '../Label'
 import { DropdownMenuContent } from './DropMenu'
 import { SelectProps } from './Select'
-import { ScrollScrollView } from '../withCustomScroll'
 
 export const DropdownMenuRoot = DropdownMenu.Root
 export const DropdownMenuTrigger = DropdownMenu.Trigger
@@ -25,6 +24,8 @@ export const DropdownMenuItem = DropdownMenu.Item
 
 type SelectWithDropdownProps<T> = {
   enabledLabel?: boolean
+  isLabelValue?: boolean
+  autoTranslate?: boolean
   renderEmpty?: () => JSX.Element
   containerStyle?: SxProp
 } & Pick<
@@ -35,6 +36,8 @@ type SelectWithDropdownProps<T> = {
 const SelectWithDropdown = <T,>({
   label,
   enabledLabel = true,
+  isLabelValue = false,
+  autoTranslate = true,
   placeholder,
   options,
   value,
@@ -45,7 +48,12 @@ const SelectWithDropdown = <T,>({
 }: SelectWithDropdownProps<T>) => {
   const { t } = useLocalization()
 
-  const selectedLabel = options?.find((el) => el.value === value)?.label || ''
+  const selectedLabel = options?.find((el) => el.value === value)
+  const parseLabel = isLabelValue
+    ? (selectedLabel?.value as string)
+    : selectedLabel?.label
+
+  const finalizeLabel = autoTranslate ? t(parseLabel || '') : parseLabel
 
   return (
     <ContainerView {...rest}>
@@ -69,7 +77,7 @@ const SelectWithDropdown = <T,>({
               >
                 <Text sx={{ opacity: value ? 1 : 0.5 }}>
                   {typeof value === 'string' || typeof value === 'number'
-                    ? t(selectedLabel)
+                    ? finalizeLabel
                     : placeholder}
                 </Text>
                 <Icon name="down" color="white" />

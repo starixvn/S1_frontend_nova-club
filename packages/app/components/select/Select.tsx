@@ -45,6 +45,7 @@ export type Options<T> = {
 export type SelectProps<T> = {
   _actionSheet?: Partial<ActionSheetProps>
   isHorizontalActionSheet?: boolean
+  autoTranslate?: boolean
   isRequired?: boolean
   label?: InputLabelProps['children']
   labelProps?: Omit<InputLabelProps, 'isRequired'>
@@ -158,6 +159,7 @@ const Select = <T,>(
     options,
     loading,
     isHorizontalActionSheet = false,
+    autoTranslate = true,
     onSelected,
     _actionSheet,
     label,
@@ -190,6 +192,8 @@ const Select = <T,>(
     return option.value === value
   })
   const selectedLabel = options?.find((el) => el.value === value)?.label || ''
+
+  const finalizeLabel = autoTranslate ? t(selectedLabel) : selectedLabel
 
   function openActionSheet() {
     SheetManager.show(sheetId)
@@ -246,7 +250,7 @@ const Select = <T,>(
             subtitle={subtitle}
             placeholder={placeholder}
             pointerEvents="none"
-            value={typeof value === 'string' ? t(selectedLabel) : undefined}
+            value={typeof value === 'string' ? finalizeLabel : undefined}
             action={() => memoArrow}
             {..._input}
           />

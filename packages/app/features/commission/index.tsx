@@ -1,11 +1,11 @@
 import DataTable from 'app/components/dataTable/DataTable'
 import DataTableTitle from 'app/components/dataTable/DataTableTitle'
+import FormContainer from 'app/components/form/FormContainer'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import { ScrollFlashList } from 'app/hoc/withCustomScroll'
 import useLocalization from 'app/provider/localization'
 import { Currency } from 'app/utils/constant'
 import isDesktop from 'app/utils/isDesktop'
-import DesktopPageContainer from 'desktop-ext/components/layout/DesktopPage'
 import { SxProp, View } from 'dripsy'
 import React, { ComponentProps, ReactNode } from 'react'
 import { useCommissionTableQuery } from 'services/contentApi'
@@ -145,7 +145,7 @@ const CommissionTableScreen = () => {
       disableScrollView
       hideHeader={desktop}
     >
-      <DesktopPageContainer>
+      <FormContainer padding>
         <TableHeader />
         <View
           sx={{
@@ -159,7 +159,7 @@ const CommissionTableScreen = () => {
             showsVerticalScrollIndicator={false}
           />
         </View>
-      </DesktopPageContainer>
+      </FormContainer>
     </PageWithBackHeader>
   )
 }

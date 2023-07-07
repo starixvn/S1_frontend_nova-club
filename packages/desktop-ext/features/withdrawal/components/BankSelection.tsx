@@ -161,8 +161,8 @@ const SelectContainer = styled(View)({
 
 const SelectedContainer = styled(View)(
   ({ isActive }: { isActive: boolean }) => ({
-    borderWidth: isActive ? 4 : 0,
-    borderColor: '$primary.100',
+    borderWidth: 4,
+    borderColor: isActive ? '$primary.100' : 'transparent',
     borderRadius: 12,
     overflow: 'hidden',
   })

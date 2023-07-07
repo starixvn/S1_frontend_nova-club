@@ -29,7 +29,7 @@ const TransferScreen = () => {
       ) {
         return templateFromUrl?.[0]
       }
-      return undefined
+      return SCREEN_TAB.RECEIVE
     },
   })
 

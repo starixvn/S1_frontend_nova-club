@@ -2,19 +2,11 @@ import { getStatusColor } from 'app/config/status'
 import { toThousandSeparator } from 'app/utils'
 import { styled, Text, useDripsyTheme, View } from 'dripsy'
 import React from 'react'
-import { CellViewContainer } from './DesktopDepositHistoryItem'
+import { CellViewContainer, TAB_NO } from './DesktopDepositHistoryItem'
 import DateTimeCell from '../DateTimeCell'
 
 export const TransferTableHeader = [
-  {
-    label: 'No',
-    textStyle: {
-      flex: 1,
-      flexBasis: 60,
-      flexGrow: 0,
-      textAlign: 'center',
-    },
-  },
+  TAB_NO,
   { label: 'Date', textStyle: { flex: 1, textAlign: 'left' } },
   { label: 'Username', textStyle: { flex: 1, textAlign: 'center' } },
   { label: 'Amount', textStyle: { flex: 1, textAlign: 'center' } },

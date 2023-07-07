@@ -1,24 +1,24 @@
+import FormContainer from 'app/components/form/FormContainer'
+import AvailableBalance from 'app/features/withdrawal/components/AvailableBalance'
 import WithdrawalTransactions from 'app/features/withdrawal/components/WithdrawalTransactions'
 import { ReportCommonStatus } from 'app/utils/constant'
-import DesktopPage from 'desktop-ext/components/layout/DesktopPage'
 import { View, styled } from 'dripsy'
 import React from 'react'
 import { WITHDRAWAL_TYPE } from 'services/playerApi.type'
 import DesktopWithdrawalForm from './components/DesktopWithdrawalForm'
-import AvailableBalance from 'app/features/withdrawal/components/AvailableBalance'
 
 const BankWithdrawalPage = () => {
   return (
-    <DesktopPage>
+    <FormContainer>
       <StyledView>
         <AvailableBalance />
-        <DesktopWithdrawalForm isCrypto={false} />
+        <DesktopWithdrawalForm />
       </StyledView>
       <WithdrawalTransactions
         status={ReportCommonStatus.PENDING}
         withdrawalType={WITHDRAWAL_TYPE.BANK}
       />
-    </DesktopPage>
+    </FormContainer>
   )
 }
 

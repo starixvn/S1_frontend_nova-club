@@ -1,7 +1,7 @@
 import Select from 'app/components/select/Select'
 import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
 import useLocalization from 'app/provider/localization'
-import { toCleanCard } from 'app/utils'
+import { View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import { SelectOptions } from 'services/common/types'
 import { ChannelList, ChannelRadioButton } from '../hooks/useCryptoSelection'
@@ -9,7 +9,6 @@ import useWithdrawalForm from '../hooks/useWithdrawalForm'
 import EmptyAccount from './EmptyAccount'
 import WithdrawalAmount from './WithdrawalAmount'
 import WithdrawalConfirm from './WithdrawalConfirm'
-import { View } from 'dripsy'
 
 type WithdrawalFormProps = {
   isCrypto: boolean
@@ -48,10 +47,6 @@ const WithdrawalForm = ({ isCrypto, selectedChannel }: WithdrawalFormProps) => {
   }, [selectedChannel])
 
   const renderEmpty = (closeActionSheet) => {
-    console.log(
-      '🚀 ~ file: WithdrawalForm.tsx:51 ~ renderEmpty ~ closeActionSheet:',
-      closeActionSheet
-    )
     return (
       <View sx={{ p: '$4' }}>
         <EmptyAccount
@@ -69,6 +64,7 @@ const WithdrawalForm = ({ isCrypto, selectedChannel }: WithdrawalFormProps) => {
     <>
       {isCrypto ? (
         <Select
+          autoTranslate={false}
           label={isCrypto ? t('bank.walletAddress') : t('bank.bankAcc')}
           subtitle={values.bank?.BankName}
           placeholder={t('placeholder.plsSelectCrypto')}
@@ -98,15 +94,10 @@ const WithdrawalForm = ({ isCrypto, selectedChannel }: WithdrawalFormProps) => {
               : t('placeholder.plsSelectBank')
           }
           options={bankSelectionList}
-          value={
-            isCrypto
-              ? values.bank?.BankAccountNumber
-              : toCleanCard(values.bank?.BankAccountNumber ?? '')
-          }
+          value={values.bank?.BankAccountNumber ?? ''}
           sx={{ width: '100%', mb: '$3' }}
           onSelected={(e) => handleSelected(e)}
           renderEmpty={renderEmpty}
-          isHorizontalActionSheet
         />
       )}
 

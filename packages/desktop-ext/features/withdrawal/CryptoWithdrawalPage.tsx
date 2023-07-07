@@ -1,19 +1,15 @@
-import { RadioButtonProps } from 'app/components/form/RadioButton'
+import FormContainer from 'app/components/form/FormContainer'
 import AvailableBalance from 'app/features/withdrawal/components/AvailableBalance'
 import WithdrawalTransactions from 'app/features/withdrawal/components/WithdrawalTransactions'
 import { ReportCommonStatus } from 'app/utils/constant'
-import DesktopPage from 'desktop-ext/components/layout/DesktopPage'
 import { View, styled } from 'dripsy'
 import React from 'react'
 import { WITHDRAWAL_TYPE } from 'services/playerApi.type'
 import DesktopCryptoWithdrawalForm from './components/DesktopCryptoWithdrawalForm'
 
-type RadioButton = RadioButtonProps & {
-  minMax: { min: number; max: number }
-}
 const CryptoWithdrawalPage = () => {
   return (
-    <DesktopPage>
+    <FormContainer>
       <StyledView>
         <AvailableBalance />
 
@@ -23,7 +19,7 @@ const CryptoWithdrawalPage = () => {
         status={ReportCommonStatus.PENDING}
         withdrawalType={WITHDRAWAL_TYPE.CRYPTO}
       />
-    </DesktopPage>
+    </FormContainer>
   )
 }
 

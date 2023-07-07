@@ -24,6 +24,7 @@ function SelectWithCardGrid<T>(props: SelectWithCardGridProps<T>) {
   return (
     <Select
       {...props}
+      contentContainerProps={{ sx: { bg: 'white' } }}
       _actionSheetContent={({ closeActionSheet }) => {
         return (
           <View
