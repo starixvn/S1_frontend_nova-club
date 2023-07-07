@@ -12,35 +12,22 @@ const AvailableBalance = ({ label = 'withdrawal.eligibleAmount' }) => {
   const { t } = useLocalization()
   const desktop = isDesktop()
 
-  const { totalBalance } = usePlayerBalanceQuery(undefined, {
+  const { data } = usePlayerBalanceQuery(undefined, {
     refetchOnMountOrArgChange: true,
-    selectFromResult: (s) => {
-      return {
-        ...s,
-        totalBalance: s.data?.data
-          ? Object.values(s.data?.data).reduce(
-              (total, w) =>
-                total + (Number(w.balance) ?? 0) + (Number(w.reward) ?? 0),
-              0
-            )
-          : 0,
-      }
-    },
   })
 
-  const { data: playerData } = usePlayerProfileQuery()
-  const currency = playerData?.currency as Currency
+  const { currency } = usePlayerProfileQuery()
 
   return desktop ? (
     <DesktopBalance
       label={t(label)}
-      totalBalance={totalBalance}
+      totalBalance={data?.totalBalance}
       currency={currency}
     />
   ) : (
     <MobileBalance
       label={t(label)}
-      totalBalance={totalBalance}
+      totalBalance={data?.totalBalance}
       currency={currency}
     />
   )

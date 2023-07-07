@@ -31,7 +31,7 @@ export const BOTTOM_ROUTE: Route[] = [
 export const Profile_Wallet_Route: Route[] = [
   {
     label: 'Transfer',
-    path: '/transfer',
+    path: '/transfer/receive',
     icon: 'transfer',
   },
   {
@@ -64,7 +64,7 @@ export const Profile_Quick_Navigation_Path: Route[] = [
   },
   {
     label: 'manageCredentials.title',
-    path: '/account/manage-credentials',
+    path: '/account/manage-credentials/change-password',
     icon: 'mng-cred',
   },
   {

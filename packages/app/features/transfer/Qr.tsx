@@ -1,5 +1,6 @@
 import LoadingScreen from 'app/components/LoadingScreen'
 import Button from 'app/components/common/Button'
+import FormContainer from 'app/components/form/FormContainer'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useImagePicker from 'app/hooks/useImagePicker'
 import useLocalization from 'app/provider/localization'

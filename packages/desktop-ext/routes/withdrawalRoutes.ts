@@ -3,13 +3,13 @@ import { DesktopRoute } from './NavigationType'
 const _Routes: Readonly<DesktopRoute[]> = [
   {
     key: 'BankWithdrawal',
-    title: 'deposit.depositMethod.bankTransfer',
+    title: 'Bank Withdrawal',
     icon: 'lba',
     route: '/withdrawal/bank-withdrawal',
   },
   {
     key: 'Crypto',
-    title: 'deposit.depositMethod.crypto',
+    title: 'Crypto Withdrawal',
     icon: 'cp',
     route: '/withdrawal/crypto-withdrawal',
   },

@@ -55,14 +55,13 @@ const RealNameForm = ({ formik, children }) => {
 
   return (
     <>
-      {playerData?.firstName.length !== 0 && (
+      {playerData?.firstName.length !== 0 ? (
         <Input
           label={t('common.realName')}
           value={playerData?.firstName || ''}
           editable={false}
         />
-      )}
-      {playerData?.firstName.length === 0 && (
+      ) : (
         <Input
           label={t('bank.accountName')}
           value={values.realName}

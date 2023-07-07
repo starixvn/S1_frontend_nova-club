@@ -1,14 +1,12 @@
 import LanguageSwitch from 'app/components/LanguageSwitch'
 import Screen from 'app/components/layouts/Screen'
-import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { Currency } from 'app/utils/constant'
-import React, { useMemo } from 'react'
+import { View } from 'dripsy'
+import React from 'react'
+import { useWindowDimensions } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { usePlayerBalanceQuery } from 'services/walletApi'
 import ProfileBalanceSummary from './ProfileBalanceSummary'
-import { useWindowDimensions } from 'react-native'
-import { View } from 'dripsy'
 import ProfileHeader from './ProfileHeader'
 import ProfileOverviewCard from './ProfileOverviewCard'
 import ProfileQuickNavigation from './ProfileQuickNavigation'
@@ -17,35 +15,14 @@ import WalletButton from './WalletButton'
 export default function ProfileScreen() {
   const { bottom } = useSafeArea()
   const { height, width } = useWindowDimensions()
-  const { token } = useAppSelector((state) => state.auth.info) || {}
 
-  const { data: playerData } = usePlayerProfileQuery(undefined, {
-    skip: !token,
-  })
-  const currency = playerData?.currency as Currency
-
-  const { isFetching, wallets } = usePlayerBalanceQuery(undefined, {
-    selectFromResult: (s) => ({
-      ...s,
-      wallets: s.data?.data,
-    }),
-    skip: !token,
+  const { data: playerData, currency } = usePlayerProfileQuery(undefined, {
+    refetchOnMountOrArgChange: true,
   })
 
-  const walletInfo = useMemo(() => {
-    const sum = {
-      cash: 0,
-      reward: 0,
-    }
-
-    if (wallets)
-      Object.values(wallets).forEach((v) => {
-        sum.cash += v.balance ? Number(v.balance) : 0
-        sum.reward += v.reward ? Number(v.reward) : 0
-      })
-
-    return sum
-  }, [wallets])
+  const { data, isFetching } = usePlayerBalanceQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  })
 
   return (
     <Screen
@@ -59,8 +36,8 @@ export default function ProfileScreen() {
       <View sx={{ alignItems: 'center', width }}>
         <ProfileHeader data={playerData} />
         <ProfileBalanceSummary
-          cash={walletInfo.cash}
-          reward={walletInfo.reward}
+          cash={data?.totalBalance ?? 0}
+          reward={data?.totalReward ?? 0}
           isLoading={isFetching}
           currency={currency}
         />

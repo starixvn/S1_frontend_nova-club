@@ -19,6 +19,7 @@ import { usePlayerProfileQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import UnderlinePinField from '../UnderlinePinField'
+import FormContainer from 'app/components/form/FormContainer'
 
 interface ForgotPinFormValues {
   confirmPin: string
@@ -171,7 +172,7 @@ const ForgotPinScreen = () => {
       header={{ title: t('manageCredentials.pin.forgotPin') }}
       hideHeader={desktop}
     >
-      <View sx={{ p: '5%' }}>
+      <FormContainer>
         <Input
           sx={{ mt: '$2' }}
           label={t('common.phone')}
@@ -220,12 +221,12 @@ const ForgotPinScreen = () => {
           }
         />
         <UnderlinePinField
-          title={t('manageCredentials.pin.newPin')}
+          label={t('manageCredentials.pin.newPin')}
           value={values.pin}
           setValue={handleChange('pin')}
         />
         <UnderlinePinField
-          title={t('manageCredentials.pin.confirmPin')}
+          label={t('manageCredentials.pin.confirmPin')}
           value={values.confirmPin}
           setValue={handleChange('confirmPin')}
           errorMsg={
@@ -254,7 +255,7 @@ const ForgotPinScreen = () => {
             {t('common.submit')}
           </Button>
         </View>
-      </View>
+      </FormContainer>
     </PageWithBackHeader>
   )
 }

@@ -6,10 +6,9 @@ import { View, styled } from 'dripsy'
 import React from 'react'
 import { useModal } from 'react-native-modalfy'
 import { WITHDRAWAL_TYPE } from 'services/playerApi.type'
-import { useRouter } from 'solito/router'
+import AvailableBalance from './components/AvailableBalance'
 import WithdrawalForm from './components/WithdrawalForm'
 import WithdrawalTransactions from './components/WithdrawalTransactions'
-import AvailableBalance from './components/AvailableBalance'
 
 const BankWithdrawalScreen = () => {
   const { t } = useLocalization()

@@ -10,20 +10,22 @@ import {
   useBlurOnFulfill,
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field'
+import { styled } from 'dripsy'
 
 export const CELL_COUNT = 6
 export const CELL_SIZE = 50
 export const CELL_BORDER_RADIUS = 8
 
 type UnderlinePinFieldProps = {
-  title: string
+  label: string
   value: string
   setValue: (value: string) => void
   errorMsg?: string
   autoFocus?: boolean
+  horizontalMode?: boolean
 }
 const UnderlinePinField = ({
-  title,
+  label,
   value,
   setValue,
   errorMsg,
@@ -107,38 +109,18 @@ const UnderlinePinField = ({
   }
   return (
     <View
+      focusable={false}
       sx={{
-        ...(desktop
-          ? { flexDirection: 'row', justifyContent: 'space-evenly' }
-          : {}),
+        flexDirection: desktop ? 'row' : 'column',
+        alignItems: desktop ? 'center' : 'stretch',
+        mb: '$3',
+        justifyContent: 'center',
       }}
     >
-      <View
-        sx={{
-          ...(desktop ? { minWidth: 200, width: '20%' } : {}),
-        }}
-      >
-        <Text
-          sx={{
-            mt: '$4',
-            ...(desktop ? { textAlign: 'right', fontWeight: 'bold' } : {}),
-          }}
-        >
-          {title + ' : '}
-        </Text>
-      </View>
-      <View
-        sx={{
-          ...(desktop
-            ? {
-                minWidth: 350,
-                width: '60%',
-              }
-            : {}),
-        }}
-      >
+      {label && <Label sx={{ flexGrow: 1 }}>{label + ' : '}</Label>}
+      <View>
         <CodeField
-          key={title}
+          key={label}
           ref={ref}
           {...props}
           // Use `caretHidden={false}` when users can't paste a text value, because context menu doesn't appear
@@ -160,11 +142,11 @@ const UnderlinePinField = ({
 
 const styles = StyleSheet.create({
   root: { flex: 1, padding: 20 },
-  title: { textAlign: 'center', fontSize: 30 },
+  label: { textAlign: 'center', fontSize: 30 },
   codeFieldRoot: {
     height: CELL_SIZE,
     marginTop: 12,
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
     justifyContent: 'center',
   },
   cell: {
@@ -183,7 +165,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   focusCell: {
-    marginBottom: '$2',
+    marginBottom: 8,
     borderBottomColor: '#9696E6',
     borderBottomWidth: 4,
   },
@@ -191,5 +173,9 @@ const styles = StyleSheet.create({
     borderBottomColor: 'red',
     color: 'red',
   },
+})
+
+const Label = styled(Text)({
+  fontWeight: 'bold',
 })
 export default UnderlinePinField

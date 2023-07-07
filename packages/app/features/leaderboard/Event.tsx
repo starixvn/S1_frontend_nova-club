@@ -1,18 +1,17 @@
-import { ScrollView, View } from 'dripsy'
-import React from 'react'
-import MonthlyEvent from './components/MonthlyEvent'
-import PointsCalculation from './components/PointsCalculation'
-import useLocalization from 'app/provider/localization'
-import DesktopPageContainer from 'desktop-ext/components/layout/DesktopPage'
-import isDesktop from 'app/utils/isDesktop'
 import Button from 'app/components/common/Button'
+import FormContainer from 'app/components/form/FormContainer'
+import useLocalization from 'app/provider/localization'
+import isDesktop from 'app/utils/isDesktop'
+import { View } from 'dripsy'
+import React from 'react'
+import PointsCalculation from './components/PointsCalculation'
 
 const EventScreen = () => {
   const { t } = useLocalization()
   const desktop = isDesktop()
 
   return (
-    <DesktopPageContainer>
+    <FormContainer padding>
       <View sx={{ flexGrow: 1 }}>
         <PointsCalculation />
 
@@ -34,7 +33,7 @@ const EventScreen = () => {
           </Button>
         </View>
       </View>
-    </DesktopPageContainer>
+    </FormContainer>
   )
 }
 

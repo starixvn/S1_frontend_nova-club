@@ -74,6 +74,8 @@ const DesktopCryptoWithdrawalForm = () => {
 
       {walletAddressList && (
         <SelectWithDropdown
+          isLabelValue
+          autoTranslate={false}
           label={t('wallet.walletAddress')}
           placeholder={t('Please select your wallet address')}
           options={walletAddressList}

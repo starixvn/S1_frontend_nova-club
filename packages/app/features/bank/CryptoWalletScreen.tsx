@@ -1,9 +1,9 @@
+import FormContainer from 'app/components/form/FormContainer'
 import useLocalization from 'app/provider/localization'
 import React from 'react'
 import { usePlayerBankQuery } from 'services/bank'
-import BankCardForm from './components/BankCardForm'
 import { useRouter } from 'solito/router'
-import DesktopPageContainer from 'desktop-ext/components/layout/DesktopPage'
+import BankCardForm from './components/BankCardForm'
 
 const FLAG_CRYPTO = 3
 const CryptoWalletScreen = () => {
@@ -17,7 +17,7 @@ const CryptoWalletScreen = () => {
   }
 
   return (
-    <DesktopPageContainer>
+    <FormContainer padding>
       <BankCardForm
         bankList={playerCryptoList}
         buttonLabel={t('wallet.addCryptoWallet')}
@@ -25,7 +25,7 @@ const CryptoWalletScreen = () => {
         onPress={handlePress}
         isCrypto={true}
       />
-    </DesktopPageContainer>
+    </FormContainer>
   )
 }
 

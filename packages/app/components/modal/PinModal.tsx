@@ -54,7 +54,7 @@ const PinModal = ({ modal: { closeModal, getParam } }) => {
         </Text>
         <IconButton name="cross" size={24} onPress={() => closeModal()} />
       </View>
-      <UnderlinePinField title="" value={value} setValue={setValue} />
+      <UnderlinePinField label="" value={value} setValue={setValue} />
 
       <View sx={{ px: MODAL_PADDING }}>
         <View sx={{ alignItems: 'flex-end', my: '$4' }}>

@@ -3,8 +3,7 @@ import Button from 'app/components/common/Button'
 import FormContainer from 'app/components/form/FormContainer'
 import Input from 'app/components/form/Input'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
-import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
-import SelectWithDropdown from 'app/components/select/SelectWithDropdown'
+import SelectList from 'app/components/select/SelectList'
 import { getCryptoProtocol } from 'app/constants/crypto'
 import useAddBank from 'app/hooks/bank/useAddBank'
 import useLocalization from 'app/provider/localization'
@@ -13,8 +12,6 @@ import { View, styled } from 'dripsy'
 import React from 'react'
 import { useCryptoBankQuery } from 'services/bank'
 import RealNameForm from '../components/RealNameForm'
-import DesktopPageContainer from 'desktop-ext/components/layout/DesktopPage'
-import SelectList from 'app/components/select/SelectList'
 
 const AddCryptoWalletScreen = () => {
   const { t } = useLocalization()
@@ -62,43 +59,41 @@ const AddCryptoWalletScreen = () => {
 
   return (
     <PageWithBackHeader header={{ title: t('wallet.addCryptoWallet') }}>
-      <ContentWrapper desktop={desktop}>
-        <DesktopPageContainer>
-          <RealNameForm formik={formik}>
-            <SelectList
-              label={t('bank.channel')}
-              placeholder={t('bank.selectChannel')}
-              options={sheetData}
-              loading={isLoading || isFetching}
-              value={values.bank?.bank_name}
-              onSelected={(e) => handleSelected(e)}
-            />
+      <FormContainer>
+        <RealNameForm formik={formik}>
+          <SelectList
+            label={t('bank.channel')}
+            placeholder={t('bank.selectChannel')}
+            options={sheetData}
+            loading={isLoading || isFetching}
+            value={values.bank?.bank_name}
+            onSelected={(e) => handleSelected(e)}
+          />
 
-            <Input
-              label={t('wallet.walletAddress')}
-              value={values.walletAddress}
-              onChangeText={handleChange('walletAddress')}
-              onBlur={handleBlur('walletAddress')}
-              error={
-                touched.walletAddress && errors.walletAddress
-                  ? t(errors.walletAddress, {
-                      field: t('wallet.walletAddress'),
-                    })
-                  : undefined
-              }
-            />
-          </RealNameForm>
+          <Input
+            label={t('wallet.walletAddress')}
+            value={values.walletAddress}
+            onChangeText={handleChange('walletAddress')}
+            onBlur={handleBlur('walletAddress')}
+            error={
+              touched.walletAddress && errors.walletAddress
+                ? t(errors.walletAddress, {
+                    field: t('wallet.walletAddress'),
+                  })
+                : undefined
+            }
+          />
+        </RealNameForm>
 
-          <Button
-            loading={isSubmitting}
-            disabled={!isValid || !dirty}
-            onPress={submitForm}
-            sx={{ my: 20 }}
-          >
-            {t('common.next')}
-          </Button>
-        </DesktopPageContainer>
-      </ContentWrapper>
+        <Button
+          loading={isSubmitting}
+          disabled={!isValid || !dirty}
+          onPress={submitForm}
+          sx={{ my: 20 }}
+        >
+          {t('common.next')}
+        </Button>
+      </FormContainer>
     </PageWithBackHeader>
   )
 }
