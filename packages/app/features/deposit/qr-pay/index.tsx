@@ -15,6 +15,9 @@ import RefreshButton from 'app/components/RefreshButton'
 import HorizontalTransactionRowListHeader from '../component/HorizontalTransactionRowListHeader'
 import RecentTransactionRow from '../component/RecentTransactionRow'
 import EmptyResult from 'app/components/dataTable/EmptyResult'
+import { PageWithBackHeader } from 'app/components/layouts/Page'
+import { Platform } from 'react-native'
+import PendingTransaction from '../component/PendingTransaction'
 
 const QRPayScreen = () => {
   const { t } = useLocalization()
@@ -38,9 +41,21 @@ const QRPayScreen = () => {
     { refetchOnMountOrArgChange: true }
   )
   return (
-    <ScrollView>
-      <DepositForm DepositCategoryId={DepositPaymentMethodCategoryId.QR_CODE} />
-    </ScrollView>
+    <PageWithBackHeader
+      disableScrollView={Platform.OS === 'ios'}
+      header={{ title: t('deposit.qrPay') }}
+    >
+      <ScrollView>
+        <DepositForm
+          DepositCategoryId={DepositPaymentMethodCategoryId.QR_CODE}
+        />
+        {horizontalMode && (
+          <PendingTransaction
+            paymentMethod={DepositPaymentMethodCategoryId.QR_CODE}
+          />
+        )}
+      </ScrollView>
+    </PageWithBackHeader>
   )
 }
 

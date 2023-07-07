@@ -10,6 +10,9 @@ import dayjsTz from 'app/utils/dayjs'
 import RecentTransactionRow from '../component/RecentTransactionRow'
 import { ActivityIndicator } from 'dripsy'
 import EmptyResult from 'app/components/dataTable/EmptyResult'
+import { PageWithBackHeader } from 'app/components/layouts/Page'
+import { Platform } from 'react-native'
+import PendingTransaction from '../component/PendingTransaction'
 
 const MomoPayScreen = () => {
   const { t } = useLocalization()
@@ -34,9 +37,19 @@ const MomoPayScreen = () => {
   )
 
   return (
-    <ScrollView>
-      <DepositForm DepositCategoryId={DepositPaymentMethodCategoryId.MOMO} />
-    </ScrollView>
+    <PageWithBackHeader
+      disableScrollView={Platform.OS === 'ios'}
+      header={{ title: t('deposit.momo') }}
+    >
+      <ScrollView>
+        <DepositForm DepositCategoryId={DepositPaymentMethodCategoryId.MOMO} />
+        {horizontalMode && (
+          <PendingTransaction
+            paymentMethod={DepositPaymentMethodCategoryId.MOMO}
+          />
+        )}
+      </ScrollView>
+    </PageWithBackHeader>
   )
 }
 

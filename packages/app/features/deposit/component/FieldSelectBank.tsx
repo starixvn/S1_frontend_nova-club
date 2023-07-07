@@ -30,9 +30,9 @@ const FieldSelectBank = ({ field, isLoading, formik }: FieldBankProps) => {
   }))
 
   const handleSelected = (value) => {
-    console.log(value)
-    const item = bankList.find((el) => el.value === value.value)
-    setFieldValue('bank', item)
+    // const item = bankList.find((el) => el.value === value)
+
+    setFieldValue('bank', value)
   }
   return field ? (
     <>

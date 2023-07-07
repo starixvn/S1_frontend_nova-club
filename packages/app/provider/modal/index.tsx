@@ -10,6 +10,7 @@ import {
 import ModalWrapper from 'app/components/modal/ModalWrapper'
 import { ActivityIndicator } from 'dripsy'
 import isDesktop from 'app/utils/isDesktop'
+import { SubmitDepositCryptoItem } from 'services/deposit.type'
 
 type ModalStackConfigValueType = ModalStackConfig extends Record<
   any,
@@ -55,6 +56,7 @@ export type ModalStackParams = {
   }
   RegisterModal: undefined
   AgentLoginModal: undefined
+  DepositCryptoModal: { data: SubmitDepositCryptoItem }
 }
 
 type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
@@ -77,6 +79,8 @@ const _dynamicModal = {
   RegisterModal: () =>
     import('desktop-ext/features/auth/register/RegisterScreen'),
   AgentLoginModal: () => import('desktop-ext/features/auth/login/LoginScreen'),
+  DepositCryptoModal: () =>
+    import('app/features/deposit/component/DepositCryptoModal'),
 }
 
 function getDynamicComponent(key: DynamicModalType) {
@@ -129,6 +133,9 @@ const modalConfig: ModalConfigType = {
   },
   AgentLoginModal: {
     modal: getDynamicComponent('AgentLoginModal'),
+  },
+  DepositCryptoModal: {
+    modal: getDynamicComponent('DepositCryptoModal'),
   },
 }
 

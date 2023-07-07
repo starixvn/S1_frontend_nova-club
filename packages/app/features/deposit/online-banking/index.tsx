@@ -15,6 +15,9 @@ import { ReportDepositStatus, ReportTransactionType } from 'app/utils/constant'
 import dayjsTz from 'app/utils/dayjs'
 import useLocalization from 'app/provider/localization'
 import DepositForm from '../component/DepositForm'
+import { PageWithBackHeader } from 'app/components/layouts/Page'
+import { Platform } from 'react-native'
+import PendingTransaction from '../component/PendingTransaction'
 
 const OnlineBankingScreen = () => {
   const { t } = useLocalization()
@@ -39,52 +42,19 @@ const OnlineBankingScreen = () => {
   )
 
   return (
-    <ScrollView>
-      <DepositForm
-        DepositCategoryId={DepositPaymentMethodCategoryId.ONLINE_BANK}
-      />
-      <View
-        sx={{
-          width: horizontalMode ? '90%' : '100%',
-          alignSelf: 'center',
-        }}
-      >
-        <View
-          sx={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            px: '$pagePadding',
-            py: '$2',
-            mt: '$4',
-          }}
-        >
-          <Text>{t('transaction.Pending')}</Text>
-          <RefreshButton loading={isFetching} onPress={refetch} />
-        </View>
-        {horizontalMode && (
-          <View sx={{ bg: '$primary.200', py: 2, mb: 20 }}>
-            <HorizontalTransactionRowListHeader />
-          </View>
-        )}
-
-        <ScrollView>
-          {transactionIsLoading ? (
-            <ActivityIndicator size="large" />
-          ) : transactionData?.data?.row_count_total ?? 0 > 0 ? (
-            transactionData?.data?.rows.map((item, index) => (
-              <RecentTransactionRow
-                key={item.tx_code}
-                item={item}
-                index={index + 1}
-              />
-            ))
-          ) : (
-            <EmptyResult />
-          )}
-        </ScrollView>
-      </View>
-    </ScrollView>
+    <PageWithBackHeader
+      disableScrollView={Platform.OS === 'ios'}
+      header={{ title: t('deposit.momo') }}
+    >
+      <ScrollView>
+        <DepositForm
+          DepositCategoryId={DepositPaymentMethodCategoryId.ONLINE_BANK}
+        />
+        <PendingTransaction
+          paymentMethod={DepositPaymentMethodCategoryId.ONLINE_BANK}
+        />
+      </ScrollView>
+    </PageWithBackHeader>
   )
 }
 
