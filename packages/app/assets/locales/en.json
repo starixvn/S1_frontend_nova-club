@@ -19,7 +19,7 @@
     "addBankAccount": "Add Bank Account",
     "channel": "Channel",
     "selectChannel": "Select Channel",
-    "selectBank": "Select Bank",
+    "selectBank": "Please select bank",
     "accountNumber": "Account Number"
   },
   "commision": {
