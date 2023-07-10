@@ -5,30 +5,48 @@ import isDesktop from 'app/utils/isDesktop'
 import { Row, Text, View } from 'dripsy'
 import React from 'react'
 
-const FooterLinks = [
+export const FooterLinks = [
   {
-    label: 'footer.aboutUs',
-    href: '/',
+    key: 'About Us',
+    title: 'footer.aboutUs',
+    icon: '',
+    route: '/info/about-us',
+    base: '/account/bank',
   },
   {
-    label: 'common.shareholder',
-    href: '/',
+    key: 'ShareHolder',
+    title: 'common.shareholder',
+    icon: '',
+    route: '/info/shareholder',
+    base: '/account/bank',
   },
   {
-    label: 'common.agent',
-    href: '/',
+    key: 'Agent',
+    title: 'common.agent',
+    icon: '',
+    route: '/info/agent',
+    base: '/account/bank',
   },
   {
-    label: 'footer.responsibleGaming',
-    href: '/',
+    key: 'ResponsibleGaming',
+    title: 'footer.responsibleGaming',
+    icon: '',
+    route: '/info/responsible-gaming',
+    base: '/account/bank',
   },
   {
-    label: 'footer.contactUs',
-    href: '/',
+    key: 'ContactUs',
+    title: 'footer.contactUs',
+    icon: '',
+    route: '/info/contact-us',
+    base: '/account/bank',
   },
   {
-    label: 'common.tnc',
-    href: '/',
+    key: 'TNC',
+    title: 'common.tnc',
+    icon: '',
+    route: '/info/tnc',
+    base: '/account/bank',
   },
 ]
 
@@ -53,9 +71,9 @@ const FooterNav = () => {
       >
         {FooterLinks.map((l) => {
           return (
-            <LinkPressable key={l.label} href={l.href}>
+            <LinkPressable key={l.title} href={l.route}>
               <Text sx={{ fontSize: 12, mt: FONT_TOP_OFFSET }}>
-                {t(l.label)}
+                {t(l.title)}
               </Text>
             </LinkPressable>
           )
