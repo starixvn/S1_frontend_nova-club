@@ -94,6 +94,8 @@ const Deposit = () => {
             sx={{
               flexDirection: 'row',
               flexWrap: 'wrap',
+              px: '$4',
+              justifyContent: 'space-around',
             }}
           >
             {paymentMethodList &&

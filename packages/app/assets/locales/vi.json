@@ -97,7 +97,10 @@
       "onlineBanking": "Cổng thanh toán",
       "qrPay": "QR Pay",
       "topUp": "Thẻ cào"
-    }
+    },
+    "choose": "Chọn phương thức nạp tiền",
+    "channel": "Tài khoản nạp",
+    "selectChannel": "Chọn tài khoản nạp"
   },
   "filter": {
     "statusType": "Loại trạng thái",

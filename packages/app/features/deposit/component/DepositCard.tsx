@@ -25,8 +25,7 @@ const DepositCard = ({ item, onPress, ...rest }) => {
       onPress={onPress}
       style={sx({
         py: '$2',
-        px: '$4',
-        width: '45%',
+        width: '48%',
         position: 'relative',
         ...rest.sx,
       })}
@@ -39,7 +38,7 @@ const DepositCard = ({ item, onPress, ...rest }) => {
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
-            width: 180,
+            width: '100%',
             height: 80,
             padding: 15,
           }}
