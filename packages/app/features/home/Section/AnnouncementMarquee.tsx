@@ -17,14 +17,19 @@ export interface MarqueeItem<T> {
 
 const ANNOUNCEMENT_HEIGHT = 25
 const ANNOUNCEMENT_CONTEXT_COLOR = '#97FFF4'
+const ANNOUNCEMENT_COLOR_AGENT = '#0D7DFF'
 
-const AnnouncementMarquee = () => {
+const AnnouncementMarquee = ({ isAgent = false }) => {
   const { push } = useContextualRouter()
   const locale = useAppSelector((s) => s.setting.locale)
   const { data, isSuccess, isUninitialized } = useAnnouncementQuery(locale)
   const [marquees, setMarquees] = useState<
     MarqueeItem<AnnouncementListItems>[]
   >([])
+
+  const fontColor = isAgent
+    ? ANNOUNCEMENT_COLOR_AGENT
+    : ANNOUNCEMENT_CONTEXT_COLOR
 
   useEffect(() => {
     if (data?.data && data.data.list && isSuccess) {
@@ -49,7 +54,7 @@ const AnnouncementMarquee = () => {
     <StyledContainer>
       <TouchableOpacity onPress={onPress}>
         <DripsyGradient
-          gradient="darkBlue"
+          gradient={isAgent ? 'white' : 'darkBlue'}
           sx={{
             flexDirection: 'row',
             alignItems: 'center',
@@ -62,7 +67,7 @@ const AnnouncementMarquee = () => {
           ) : (
             <Icon
               name="annoucement"
-              sx={{ color: ANNOUNCEMENT_CONTEXT_COLOR, mr: '$2' }}
+              sx={{ color: fontColor, mr: '$2' }}
               size={18}
             />
           )}
@@ -70,7 +75,7 @@ const AnnouncementMarquee = () => {
             <MarqueeFlip
               announcementList={marquees}
               announcementHeight={ANNOUNCEMENT_HEIGHT}
-              color={ANNOUNCEMENT_CONTEXT_COLOR}
+              color={fontColor}
             />
           )}
         </DripsyGradient>

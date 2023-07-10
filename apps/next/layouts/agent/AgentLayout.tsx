@@ -5,6 +5,7 @@ import { TAB_HEIGHT } from 'app/constant/sizes'
 import { View } from 'dripsy'
 import React, { ReactElement } from 'react'
 import NavigationLoading from './NavigationLoading'
+import AnnouncementMarquee from 'app/features/home/Section/AnnouncementMarquee'
 
 const AgentLayout = (page: ReactElement) => {
   return (
@@ -18,6 +19,7 @@ const AgentLayout = (page: ReactElement) => {
         }}
       >
         <HeaderFloat />
+        <View sx={{ mb: 24 }} />
         {page}
         <NavigationLoading />
         <BottomTabFloat />
@@ -39,6 +41,7 @@ const HeaderFloat = ({}) => {
     >
       <Header />
       <AgentShareholderTab />
+      <AnnouncementMarquee isAgent />
     </View>
   )
 }
