@@ -64,8 +64,16 @@ const AppDownloadSection = () => {
               width: '100%',
             }}
           >
-            <QRCodeDownloadGuideItem label="download.ios" width={qrWidth} />
-            <QRCodeDownloadGuideItem label="download.android" width={qrWidth} />
+            <QRCodeDownloadGuideItem
+              label="download.ios"
+              device={'ios'}
+              width={qrWidth}
+            />
+            <QRCodeDownloadGuideItem
+              label="download.android"
+              device={'android'}
+              width={qrWidth}
+            />
           </View>
         </View>
       </ImageBackground>
@@ -91,9 +99,11 @@ const AppDownloadSection = () => {
 const QRCodeDownloadGuideItem = ({
   label,
   width,
+  device,
 }: {
   label: string
   width: number
+  device: string
 }) => {
   const { t } = useLocalization()
   const { openModal } = useModal()
@@ -105,7 +115,7 @@ const QRCodeDownloadGuideItem = ({
         sx={{ borderRadius: 30 }}
         contentProps={{ sx: { py: '$1', px: ['$3', '$3', '$3', '$3', '$4'] } }}
         titleProps={{ sx: { fontSize: 12 } }}
-        onPress={() => openModal('DownloadGuideModal', { device: 'android' })}
+        onPress={() => openModal('DownloadGuideModal', { label: device })}
       >
         {t('download.downloadGuide')}
       </Button>

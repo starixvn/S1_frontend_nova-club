@@ -57,6 +57,7 @@ export type ModalStackParams = {
   RegisterModal: undefined
   DownloadGuideModal: {
     label: string
+    onClose(...args: any): any
   }
   AgentLoginModal: undefined
   DepositCryptoModal: { data: SubmitDepositCryptoItem }
