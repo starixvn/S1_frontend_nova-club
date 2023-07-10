@@ -1,15 +1,14 @@
+import LoadingModal from 'app/components/modal/LoadingModal'
+import ModalWrapper from 'app/components/modal/ModalWrapper'
+import { ActivityIndicator, useResponsiveValue } from 'dripsy'
+import dynamic from 'next/dynamic'
 import React from 'react'
 import { Easing } from 'react-native'
-import LoadingModal from 'app/components/modal/LoadingModal'
-import dynamic from 'next/dynamic'
 import {
   ModalStackConfig,
   ModalProvider as RNMModalProvider,
   createModalStack,
 } from 'react-native-modalfy'
-import ModalWrapper from 'app/components/modal/ModalWrapper'
-import { ActivityIndicator } from 'dripsy'
-import isDesktop from 'app/utils/isDesktop'
 import { SubmitDepositCryptoItem } from 'services/deposit.type'
 
 type ModalStackConfigValueType = ModalStackConfig extends Record<
@@ -149,10 +148,9 @@ const modalConfig: ModalConfigType = {
 }
 
 const ModalProvider = ({ children }) => {
-  const desktop = isDesktop()
   const stack = createModalStack(modalConfig, {
     containerStyle: {
-      maxWidth: desktop ? undefined : 768,
+      maxWidth: useResponsiveValue([768, 768, undefined, undefined, undefined]),
       zIndex: 2,
     },
     backdropOpacity: 0.6,
