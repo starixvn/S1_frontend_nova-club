@@ -36,6 +36,7 @@ const HeaderDeposit = () => {
                   px: '$2',
                   lineHeight: 32,
                   height: 30,
+                  fontSize: [14, 14, 14, 14, 16],
                 }
               : {
                   fontSize: 10,

@@ -6,6 +6,7 @@ import { Image, Text, View } from 'dripsy'
 import { ResizeMode, Video } from 'expo-av'
 import React, { useRef } from 'react'
 import { ImageBackground, View as RNView } from 'react-native'
+import { useModal } from 'react-native-modalfy'
 import QRCode from 'react-native-qrcode-svg'
 const HowToInstall =
   `${MEDIA_DOMAIN}${CONTENT_URI}/download/How_To_Install.mp4` as any
@@ -95,6 +96,7 @@ const QRCodeDownloadGuideItem = ({
   width: number
 }) => {
   const { t } = useLocalization()
+  const { openModal } = useModal()
   return (
     <View sx={{ alignItems: 'center' }}>
       <QRCode value={DOWNLOAD_APP_LINK} size={width} ecl="H" quietZone={12} />
@@ -103,6 +105,7 @@ const QRCodeDownloadGuideItem = ({
         sx={{ borderRadius: 30 }}
         contentProps={{ sx: { py: '$1', px: ['$3', '$3', '$3', '$3', '$4'] } }}
         titleProps={{ sx: { fontSize: 12 } }}
+        onPress={() => openModal('DownloadGuideModal', { device: 'android' })}
       >
         {t('download.downloadGuide')}
       </Button>
