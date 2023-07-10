@@ -17,10 +17,11 @@ import {
   persistStore,
 } from 'redux-persist'
 
-import { storage } from './persistStorage/index'
+import { agentBaseApi } from 'agent/services/agentBaseApi'
+import { depositReducer } from 'app/store/deposit.slice'
 import { Setting, settingReducer } from 'app/store/setting.slice'
 import { baseApi } from '../../../services/baseApi'
-import { depositReducer } from 'app/store/deposit.slice'
+import { storage } from './persistStorage/index'
 
 const migrations = {
   5: (s: PersistedState) => {},
@@ -63,10 +64,11 @@ const persistConfig: PersistConfig<any> = {
   ],
 }
 
-const middlerwares = [baseApi.middleware]
+const middlerwares = [baseApi.middleware, agentBaseApi.middleware]
 
 const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
+  [agentBaseApi.reducerPath]: agentBaseApi.reducer,
   // alert: alertReducer,
   auth: authReducer,
   // bank: bankReducer,

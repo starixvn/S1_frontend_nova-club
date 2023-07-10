@@ -98,7 +98,33 @@ const nextConfig = {
     'react-redux',
     'react-web-share',
     'redux-persist',
+    'react-native-chart-kit',
+    'react-native-keyboard-aware-scroll-view',
   ],
+  async redirects() {
+    return [
+      {
+        source: '/agent/add',
+        destination: '/agent/add/shareholder',
+        permanent: true,
+      },
+      {
+        source: '/agent/wallet',
+        destination: '/agent/wallet/withdrawal',
+        permanent: true,
+      },
+      {
+        source: '/agent/list',
+        destination: '/agent/list/shareholder',
+        permanent: true,
+      },
+      {
+        source: '/agent/report',
+        destination: '/agent/report/commission',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 const moduleExports = withPlugins(

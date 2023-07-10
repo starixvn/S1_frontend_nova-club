@@ -1,0 +1,366 @@
+import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import Button from 'agent/components/Button'
+import Input from 'agent/components/Input'
+import SelectWithCardGrid from 'agent/components/Select/SelectWithCardGrid'
+import Text from 'agent/components/Text'
+import TimerButton, {
+  ITimerButtonForwardRef,
+} from 'agent/components/TimerButton'
+import useAgentAlert from 'agent/hooks/useAgentAlert'
+import useGetProfile from 'agent/hooks/useGetProfile'
+import CommonBackHeader from 'agent/navigation/components/CommonBackHeader'
+import {
+  useAddBankAccountMutation,
+  useLookupBankCodeQuery,
+  useSendOTPMutation,
+} from 'agent/services/accountApi'
+import { IResponse } from 'agent/services/common/agentAxiosBaseQuery'
+import { useUserInfoQuery } from 'agent/services/userApi'
+import validation, {
+  ACCOUNT_NUMBER_MAX_LENGTH,
+  MAX_OTP_DIGIT,
+  MAX_PHONE_DIGIT,
+  getErrorMessage,
+  removeAgentPhoneNumPrefix,
+} from 'agent/utils/validation'
+import KeyboardView from 'app/components/KeyboardView'
+import { MOBILE_PREFIX } from 'app/constants/country'
+import useContainerDimension from 'app/hooks/useContainerDimension'
+import { useAgentLocalization } from 'app/provider/localization'
+import { Currency } from 'app/utils/constant'
+import { View } from 'dripsy'
+import { FormikHelpers, useFormik } from 'formik'
+import { useEffect, useRef, useState } from 'react'
+import { useModal } from 'react-native-modalfy'
+import { useRouter } from 'solito/router'
+import * as Yup from 'yup'
+import { AGENT_STACK_CONTENT_PADDING } from 'agent/constant/sizes'
+
+interface AddBankInfoValues {
+  bankCard: string
+  accountNumber: string
+  accountName: string
+  mobileNumber: string
+  otp?: string
+  hasVerified: boolean
+}
+
+const AddBankInfoForm = () => {
+  const OTPRef = useRef<ITimerButtonForwardRef>(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const [otpField, setOtpField] = useState(false)
+  const { showAlert } = useAgentAlert()
+  const { openModal } = useModal()
+  const { t } = useAgentLocalization()
+  const { data: bankList, isLoading: bankListLoading } =
+    useLookupBankCodeQuery()
+  const [newBankAccount, { isLoading: isNewLoading }] =
+    useAddBankAccountMutation()
+  const [sendOtp] = useSendOTPMutation()
+  const { back } = useRouter()
+  const { height } = useContainerDimension()
+
+  const { hasVerified, phoneNo, realName, role } = useUserInfoQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      currency: data?.wallet.currency as Currency,
+      hasVerified: data?.has_verified_wd,
+      phoneNo: data?.mobile_no,
+      realName: data?.name,
+      role: data?.role,
+    }),
+  })
+
+  const { currency } = useGetProfile()
+
+  useEffect(() => {
+    setFieldValue('hasVerified', hasVerified === 1)
+  }, [hasVerified])
+
+  const onSubmit = async (
+    {
+      bankCard,
+      accountNumber,
+      accountName,
+      mobileNumber,
+      otp,
+    }: AddBankInfoValues,
+    { setStatus }: FormikHelpers<AddBankInfoValues>
+  ) => {
+    try {
+      setIsLoading(true)
+      const { result, message, success } = await newBankAccount({
+        currency: currency,
+        bank_code: bankCard,
+        acc_no: accountNumber,
+        acc_name: accountName,
+        OTP: otp ?? '',
+      })
+        .unwrap()
+        .catch((error) => {
+          showAlert(error)
+          return error
+        })
+
+      if (success) {
+        showAlert(message)
+        back()
+      }
+    } catch (err) {
+      console.log('error')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+  const validationSchema = Yup.object({
+    bankCard: validation.stringRequired,
+    accountNumber: validation.accountNo,
+    accountName: validation.accountName,
+    mobileNumber: Yup.string().when('hasVerified', {
+      is: true,
+      then: () => Yup.string(),
+      otherwise: () => validation.phoneNumber,
+    }),
+    otp: Yup.string().when('hasVerified', {
+      is: true,
+      then: () => Yup.string(),
+      otherwise: () => validation.verifyCode,
+    }),
+  })
+
+  const formik = useFormik<AddBankInfoValues>({
+    initialValues: {
+      bankCard: '',
+      accountNumber: '',
+      accountName: realName ?? '',
+      mobileNumber: '',
+      otp: '',
+      hasVerified: hasVerified === 1 ?? false,
+    },
+    validationSchema,
+    onSubmit,
+  })
+
+  const {
+    handleChange,
+    handleBlur,
+    isSubmitting,
+    values,
+    errors,
+    touched,
+    isValid,
+    dirty,
+    submitForm,
+    setFieldValue,
+  } = formik
+
+  async function handleSendOtp() {
+    try {
+      setIsLoading(true)
+      const { message, success } = await sendOtp({
+        mobile_no: MOBILE_PREFIX.VND + values.mobileNumber,
+      })
+        .unwrap()
+        .catch((error): IResponse<void> => {
+          showAlert(error)
+          return error
+        })
+      if (success) {
+        OTPRef.current?.startOtpTimer()
+        setOtpField(true)
+      }
+    } catch (err) {
+      openModal('AgentAlertModal', {
+        message: getErrorMessage(err),
+      })
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleSelected = (e) => {
+    const item = bankList?.result?.data.lookup.find((el) => {
+      return el.bank_code === e
+    })
+    setFieldValue('bankCard', item?.bank_code)
+  }
+
+  const sheetData =
+    bankList?.result?.data.lookup.map((item) => {
+      return {
+        label: item.bank_code,
+        value: item.bank_code,
+        icon: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.bank_icon}`,
+      }
+    }) ?? []
+
+  useEffect(() => {
+    if (phoneNo) {
+      const formattedPhoneNum = removeAgentPhoneNumPrefix(phoneNo)
+      setFieldValue('mobileNumber', formattedPhoneNum, false)
+    }
+    if (realName) {
+      setFieldValue('accountName', realName, false)
+    }
+  }, [phoneNo, realName, setFieldValue])
+
+  return (
+    <>
+      <CommonBackHeader title="wallet.addBank" />
+      <KeyboardView
+        contentContainerStyle={{
+          backgroundColor: 'white',
+          paddingHorizontal: 20,
+          paddingTop: AGENT_STACK_CONTENT_PADDING,
+          minHeight: height,
+        }}
+      >
+        <View sx={{ alignItems: 'center' }}>
+          <SelectWithCardGrid
+            label={t('common.bankCard')}
+            placeholder={t('common.selectBank')}
+            loading={bankListLoading}
+            options={sheetData}
+            value={values.bankCard}
+            sx={{ width: '100%', mb: '$3' }}
+            onSelected={(e) => handleSelected(e)}
+          />
+          <Input
+            label={t('common.accountNumber')}
+            containerProps={{
+              sx: { mb: '$3' },
+            }}
+            placeholder={t('placeholder.enterAccountNumber')}
+            error={
+              touched.accountNumber && errors.accountNumber
+                ? t(errors.accountNumber, {
+                    field: t('common.accountNumber'),
+                  })
+                : undefined
+            }
+            isRequired
+            onChangeText={handleChange('accountNumber')}
+            onBlur={handleBlur('accountNumber')}
+            keyboardType={'numeric'}
+            value={values.accountNumber}
+            maxLength={ACCOUNT_NUMBER_MAX_LENGTH}
+          />
+          <Input
+            editable={realName ? false : true}
+            label={t('common.accountName')}
+            containerProps={{ sx: { mb: '$3' } }}
+            placeholder={t('placeholder.enterAccountName')}
+            error={
+              touched.accountName && errors.accountName
+                ? t(errors.accountName, {
+                    field: 'accountName',
+                  })
+                : undefined
+            }
+            onChangeText={handleChange('accountName')}
+            onBlur={handleBlur('accountName')}
+            value={values.accountName}
+          />
+
+          <Input
+            label={t('profile.currency')}
+            editable={false}
+            containerProps={{
+              sx: { mb: hasVerified ? '$10' : '$3' },
+            }}
+            value={currency}
+          />
+
+          {hasVerified ?? true ? null : (
+            <>
+              <Input
+                editable={phoneNo ? false : true}
+                leftOuterElementProps={{
+                  sx: { backgroundColor: '$secondaryAgent', marginRight: 1 },
+                }}
+                leftOuterElement={
+                  <Text sx={{ paddingX: '$4', color: 'black' }}>
+                    {t('common.countryCode')}
+                  </Text>
+                }
+                rightOuterElementProps={{
+                  sx: {
+                    bg: !values.mobileNumber ? '$disabled' : '$primaryAgent',
+                  },
+                }}
+                rightOuterElement={
+                  <TimerButton
+                    accessibilityRole="button"
+                    ref={OTPRef}
+                    title={t('common.send') + ' ' + t('common.otp')}
+                    loading={isLoading}
+                    onPress={handleSendOtp}
+                    sx={{
+                      width: 'auto',
+                      backgroundColor: '$primaryAgent',
+                      m: 0,
+                      px: '$3',
+                      minWidth: 75,
+                      flexGrow: 1,
+                      borderRadius: 0,
+                    }}
+                    _text={{ sx: { color: '$white' } }}
+                  />
+                }
+                label={t('common.mobileNumber')}
+                containerProps={{
+                  sx: { mb: '$3' },
+                }}
+                isRequired
+                error={
+                  touched.mobileNumber && errors.mobileNumber
+                    ? t(errors.mobileNumber, {
+                        field: t('common.mobileNumber'),
+                      })
+                    : undefined
+                }
+                maxLength={MAX_PHONE_DIGIT}
+                onChangeText={handleChange('mobileNumber')}
+                onBlur={handleBlur('mobileNumber')}
+                keyboardType={'numeric'}
+                value={values.mobileNumber}
+              />
+              <Input
+                label={t('common.enter') + ' ' + t('common.otp')}
+                editable={otpField}
+                containerProps={{
+                  sx: { mb: '$10' },
+                }}
+                isRequired
+                error={
+                  touched.otp && errors.otp
+                    ? t(errors.otp, {
+                        field: t('common.mobileNumber') + ' ' + t('common.otp'),
+                      })
+                    : undefined
+                }
+                maxLength={MAX_OTP_DIGIT}
+                onChangeText={handleChange('otp')}
+                onBlur={handleBlur('otp')}
+                keyboardType={'numeric'}
+                value={values.otp}
+              />
+            </>
+          )}
+
+          <Button
+            onPress={submitForm}
+            loading={isNewLoading}
+            sx={{ width: 150 }}
+            disabled={!isValid || !dirty}
+          >
+            <Text sx={{ fontWeight: 'bold', py: '$1', color: 'white' }}>
+              {t('common.submit')}
+            </Text>
+          </Button>
+        </View>
+      </KeyboardView>
+    </>
+  )
+}
+
+export default AddBankInfoForm

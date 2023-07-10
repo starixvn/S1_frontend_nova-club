@@ -104,6 +104,17 @@ const theme = makeTheme({
     $transparentWhite: 'rgba(255,255,255,0)',
     $disabled: '#7D7D7D',
     // selectionColor: '$tertiary',
+
+    // Agent Colors
+    $textAgent: '#000000',
+    $primaryAgent: '#0D7DFF',
+    $inactivePrimaryAgent: '#8DC0FF',
+    $secondaryAgent: '#DBEBFF',
+    $successAgent: '#27FF00',
+    $errorAgent: '#FF0000',
+    $darkBlueAgent: '#335DA0',
+    $disabledAgent: '#D1D1D1',
+    $grayAgent: '#505050',
   },
   linearGradients: {
     button: ['$primary.100', '$tertiary'],
@@ -138,6 +149,18 @@ const theme = makeTheme({
     $6: 128,
     $7: 256,
     $8: 512,
+  },
+  fontSizes: {
+    $0: 12,
+    $1: 16,
+    $2: 18,
+    $3: 20,
+    $4: 22,
+    $5: 24,
+    $6: 26,
+    $7: 28,
+    $8: 30,
+    $9: 32,
   },
   sizes: {
     container: 768,
