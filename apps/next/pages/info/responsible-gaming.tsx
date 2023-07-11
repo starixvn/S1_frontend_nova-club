@@ -1,4 +1,5 @@
-import { DesktopCommonInfoLayout } from 'components/layouts/desktop'
+import { AdaptiveLayoutPage } from 'components/layouts/AdaptiveLayout'
+import { DesktopInfoLayout } from 'components/layouts/desktop'
 import withAdaptiveScreen from 'desktop-ext/hoc/withAdaptiveScreen'
 import dynamic from 'next/dynamic'
 
@@ -16,11 +17,11 @@ const LazyDesktopScreen = dynamic(
   }
 )
 
-const ResponsibleGaming = withAdaptiveScreen(
+const ResponsibleGaming: AdaptiveLayoutPage = withAdaptiveScreen(
   LazyMobileScreen,
   LazyDesktopScreen
 )
 
-ResponsibleGaming.DesktopLayout = DesktopCommonInfoLayout
+ResponsibleGaming.DesktopLayout = DesktopInfoLayout
 
 export default ResponsibleGaming

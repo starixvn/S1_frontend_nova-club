@@ -1,11 +1,15 @@
-import { View, Text } from 'react-native'
+import { PageWithBackHeader } from 'app/components/layouts/Page'
+import ResponsibleGamingDesktop from 'desktop-ext/features/info/responsible-gaming'
 import React from 'react'
 
 const ResponsibleGaming = () => {
   return (
-    <View>
-      <Text>ResponsibleGaming</Text>
-    </View>
+    <PageWithBackHeader
+      header={{ title: 'ResponsibleGaming' }}
+      hideHeader={window.ReactNativeWebView ? true : false}
+    >
+      <ResponsibleGamingDesktop />
+    </PageWithBackHeader>
   )
 }
 

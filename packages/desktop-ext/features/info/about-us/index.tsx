@@ -1,4 +1,3 @@
-import { View, Text } from 'dripsy'
 import React from 'react'
 import AboutUsEn from './AboutUsEn'
 import AboutUsVi from './AboutUsVi'

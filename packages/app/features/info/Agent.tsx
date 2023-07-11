@@ -1,11 +1,15 @@
-import { View, Text } from 'react-native'
 import React from 'react'
+import { PageWithBackHeader } from 'app/components/layouts/Page'
+import AgentDesktop from 'desktop-ext/features/info/agent'
 
 const Agent = () => {
   return (
-    <View>
-      <Text>Agent</Text>
-    </View>
+    <PageWithBackHeader
+      header={{ title: 'Aboutus' }}
+      hideHeader={window.ReactNativeWebView ? true : false}
+    >
+      <AgentDesktop />
+    </PageWithBackHeader>
   )
 }
 
