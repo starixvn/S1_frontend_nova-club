@@ -24,7 +24,7 @@ const Jackpot = ({}: JackpotProps) => {
   const { data, isLoading } = useGetJackpotAmountQuery()
   const { increment = '0', jackpotAmount = '0' } = data?.data || {}
 
-  const jackpotHeight = (width * 550) / 768 + 35
+  const jackpotHeight = (width * 550) / 768
 
   return (
     <SkeletonPlaceholder show={isLoading} height={jackpotHeight}>
@@ -90,7 +90,7 @@ const Jackpot = ({}: JackpotProps) => {
           </View>
         </StyledImageBackground>
       )}
-      {!isLoading && <JackpotGamesSection />}
+      {/* {!isLoading && <JackpotGamesSection />} */}
     </SkeletonPlaceholder>
   )
 }

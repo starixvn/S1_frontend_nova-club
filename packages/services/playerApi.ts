@@ -148,7 +148,7 @@ export const usePlayerProfileQuery = (
         ...s,
         data: s.data?.data,
         username: s.data?.data?.username,
-        currency: s.data?.data?.currency as Currency,
+        currency: (s.data?.data?.currency as Currency) ?? Currency.VND,
         isCreditMember: s.data?.data?.member_type === MEMBER_TYPE.CREDIT,
       }
     },

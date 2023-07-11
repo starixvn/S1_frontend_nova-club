@@ -1,15 +1,16 @@
-import { CMS_CONTENT_URI, CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import HorizontalGameList from 'app/features/games/HorizontalGameList'
 import { View } from 'dripsy'
 import React from 'react'
 import { useFeaturedGameListQuery } from 'services/contentApi'
+import { FEATURED_GAME_CATEGORY } from 'services/contentApi.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import SectionHeader from './SectionHeader'
-import { FEATURED_GAME_CATEGORY } from 'services/contentApi.type'
 
 const RecommendedGamesSection = () => {
   const { currency } = usePlayerProfileQuery()
-  const { data } = useFeaturedGameListQuery({ currency })
+  const { data } = useFeaturedGameListQuery({ currency }, { skip: !currency })
+
   const featuredList = data?.data?.rows
     .filter((el) => el.cat === FEATURED_GAME_CATEGORY.RECOMMENDED)
     .map((item, index) => {

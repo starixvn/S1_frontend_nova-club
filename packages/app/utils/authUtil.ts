@@ -5,6 +5,7 @@ import { modalfy } from 'react-native-modalfy'
 import { authApi } from 'services/authApi'
 import { contentApi } from 'services/contentApi'
 import { sleep } from 'utils/common'
+import { Currency } from './constant'
 
 export async function logOut({ isTokenExpired = false } = {}) {
   const { openModal, closeModal } = modalfy<ModalStackParams>()
@@ -26,6 +27,11 @@ export async function logOut({ isTokenExpired = false } = {}) {
       store.dispatch(contentApi.endpoints.getRecoMatch.initiate())
       store.dispatch(contentApi.endpoints.banner.initiate())
       store.dispatch(contentApi.endpoints.getJackpotAmount.initiate())
+      store.dispatch(
+        contentApi.endpoints.featuredGameList.initiate({
+          currency: Currency.VND,
+        })
+      )
     }, 3000)
   } catch (error) {
     console.error(error)

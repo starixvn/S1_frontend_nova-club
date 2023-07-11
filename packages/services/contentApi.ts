@@ -15,6 +15,7 @@ import {
   MatchResult,
 } from './contentApi.type'
 import dayjs from 'dayjs'
+import { Currency } from 'app/utils/constant'
 
 /**
  * @param builder Pass builder from `createApi` *endpoints*
@@ -87,7 +88,10 @@ export const contentApi = baseApiWithTag.injectEndpoints({
         },
       }),
     }),
-    featuredGameList: builder.query<IResponse<GetGameListResult>, string>({
+    featuredGameList: builder.query<
+      IResponse<GetGameListResult>,
+      Currency | string
+    >({
       query: (data) => ({
         url: `/static_api/getFeaturedGameList`,
         data,

@@ -19,6 +19,7 @@ import RecentOpenGames from './Section/RecentOpenGames'
 import PlaySection from './Section/PlaySection'
 import RecommendedGamesSection from './Section/RecommendedGamesSection'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
+import JackpotGamesSection from './Section/JackpotGamesSection'
 
 const HomeScreen = () => {
   const { push } = useContextualRouter()
@@ -80,9 +81,9 @@ const HomeScreen = () => {
       <MatchesSection />
       <RecentOpenGames />
       <HotGamesSection />
+      <JackpotGamesSection />
       <Jackpot />
       <LuckyDrawTrigger />
-      {/* <MessagePopup /> */}
       <EventPopup />
     </ScrollView>
   )
