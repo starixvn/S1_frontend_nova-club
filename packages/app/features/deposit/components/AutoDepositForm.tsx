@@ -125,7 +125,7 @@ const AutoDepositForm = ({ module, DepositCategoryId }) => {
             depositUrl: encodeURIComponent(result?.data?.url),
           }
 
-          push('/deposit/deposit-loader', params)
+          push('/deposit/deposit-loader', params, { as: 'payment' })
         }
       }
     } catch (error) {
