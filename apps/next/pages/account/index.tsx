@@ -1,3 +1,4 @@
+import { AdaptiveLayoutPage } from 'components/layouts/AdaptiveLayout'
 import { DesktopAccountLayout } from 'components/layouts/desktop'
 import withAdaptiveScreen from 'desktop-ext/hoc/withAdaptiveScreen'
 import dynamic from 'next/dynamic'
@@ -13,7 +14,10 @@ const LazyDesktopScreen = dynamic(
   }
 )
 
-const Account = withAdaptiveScreen(LazyMobileScreen, LazyDesktopScreen)
+const Account: AdaptiveLayoutPage = withAdaptiveScreen(
+  LazyMobileScreen,
+  LazyDesktopScreen
+)
 
 Account.DesktopLayout = DesktopAccountLayout
 
