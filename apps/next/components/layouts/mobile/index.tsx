@@ -7,6 +7,15 @@ const DynamicTabLayout = dynamic(() => import('./TabLayout'), {
   ssr: false,
 })
 
+const DynamicInfoLayout = dynamic(() => import('./InfoLayout'), {
+  loading: () => <ActivityIndicator />,
+  ssr: false,
+})
+
 export const MobileTabLayout: Layout = (component) => (
   <DynamicTabLayout>{component}</DynamicTabLayout>
+)
+
+export const MobileInfoLayout: Layout = (component) => (
+  <DynamicInfoLayout>{component}</DynamicInfoLayout>
 )

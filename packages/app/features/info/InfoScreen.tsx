@@ -1,28 +1,25 @@
-import { View, Text } from 'dripsy'
-import React from 'react'
-import AboutUsEn from './AboutUsEn'
-import AboutUsVi from './AboutUsVi'
 import { useAppSelector } from 'app/provider/redux/store'
+import { LANGUAGE_CODE } from 'app/utils/constant'
 import { useRouter } from 'next/router'
+import React, { ComponentType } from 'react'
 // import { fontName } from 'app/provider/dripsy'
 const FONT_COLOR = '#FFF'
 const FONT_SIZE = 12
-const AboutUsDesktop = () => {
+
+export type InfoContentLocalization = {
+  [index in LANGUAGE_CODE]: ComponentType<{}>
+}
+
+export interface InfoScreenProps {
+  map: InfoContentLocalization
+}
+
+const InfoScreen = ({ map }: InfoScreenProps) => {
   const settingLocale = useAppSelector((s) => s.setting.locale)
   const router = useRouter()
   const locale = router.query?.locale ? router.query?.locale : settingLocale
+  const TnCLanguage = typeof locale === 'string' ? map[locale] : map.vi
 
-  const TnCLanguage = () => {
-    switch (locale) {
-      case 'en':
-        return <AboutUsEn />
-      case 'vi':
-        return <AboutUsVi />
-
-      default:
-        return <AboutUsEn />
-    }
-  }
   return (
     <main
       style={{
@@ -71,4 +68,4 @@ const AboutUsDesktop = () => {
   )
 }
 
-export default AboutUsDesktop
+export default InfoScreen

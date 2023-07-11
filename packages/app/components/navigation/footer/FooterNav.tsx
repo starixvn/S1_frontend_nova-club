@@ -1,7 +1,6 @@
 import LinkPressable from 'app/components/pressable/LinkPressable'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
 import useLocalization from 'app/provider/localization'
-import isDesktop from 'app/utils/isDesktop'
 import { Row, Text, View } from 'dripsy'
 import React from 'react'
 
