@@ -6,7 +6,7 @@ import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
 import { GameToLaunchPayload } from 'app/utils/game'
-import { Row, useResponsiveValue } from 'dripsy'
+import { Row, View, useResponsiveValue } from 'dripsy'
 import React from 'react'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
@@ -72,7 +72,7 @@ export default function LiveCasinoScreen() {
         paddingBottom: 40,
       }}
       ListHeaderComponent={
-        <>
+        <View sx={{ gap: '$3', my: '$3' }}>
           <GamePageHeader title={'LIVE CASINO'} icon="casino" />
           <BannerSection />
           <RecentlyPlayedSection gameTypes={[GAME_TYPE_CODE.LIVE_DEALER]} />
@@ -83,7 +83,7 @@ export default function LiveCasinoScreen() {
               mb: '$sectionBottomSpace',
             }}
           />
-        </>
+        </View>
       }
     />
   )

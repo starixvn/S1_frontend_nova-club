@@ -19,7 +19,7 @@ export default function ProviderList({
   onNavigateProvider: (index: number, gpc: string) => void
 }) {
   return (
-    <View sx={{ mb: '$sectionBottomSpace' }}>
+    <View>
       <SectionHeader icon="all" title={'PROVIDERS'} />
       {!data ? (
         <ActivityIndicator color="$tertiary" sx={{ my: '$4' }} />

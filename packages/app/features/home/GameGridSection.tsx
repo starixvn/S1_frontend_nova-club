@@ -68,7 +68,7 @@ const config = [
     action: {
       type: ActionType.INTERNAL_REDIRECT,
       payload: {
-        uri: '/games',
+        uri: '/games/local',
       },
     },
   },
@@ -104,7 +104,7 @@ const config = [
     action: {
       type: ActionType.INTERNAL_REDIRECT,
       payload: {
-        uri: '/games?t=lottery',
+        uri: '/games/keno-lottery',
       },
     },
   },
@@ -116,10 +116,7 @@ const config = [
     action: {
       type: ActionType.INTERNAL_REDIRECT,
       payload: {
-        uri: '/games',
-        params: {
-          t: 'fishing',
-        },
+        uri: '/games/fishing',
       },
     },
   },

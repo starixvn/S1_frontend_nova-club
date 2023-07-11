@@ -3,7 +3,6 @@ import { Row, Text, View, styled, useDripsyTheme } from 'dripsy'
 import React from 'react'
 import Icon from './Icon'
 
-import { Shadow } from 'react-native-shadow-2'
 import ShadowButton from './ShadowButton'
 
 export default function GamePageHeader({ icon, title }) {
@@ -19,7 +18,6 @@ export default function GamePageHeader({ icon, title }) {
         pl: ['$3', '$4'],
         alignItems: 'center',
         marginRight: 'auto',
-        my: ['$2', '$3'],
       }}
     >
       <ShadowButton

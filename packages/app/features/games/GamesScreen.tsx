@@ -17,10 +17,11 @@ import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 import TopGameSection from '../home/TopGameSection'
 import { MobileGamesFilter, SUB_ROUTES } from './subroutes'
 import useGameScreen from './useGameScreen'
+import { View } from 'dripsy'
 
 const GamesScreen = () => {
   const { type, filteredGames, onFilterClicked } = useGameScreen()
-
+  console.log('type', type)
   useEffect(() => {
     if (type) {
       if (Platform.OS === 'web') {
@@ -76,12 +77,10 @@ const GamesScreen = () => {
         else return null
       }}
       ListHeaderComponent={
-        <>
+        <View sx={{ gap: '$3', my: '$3' }}>
           <GamePageHeader icon="games1" title="GAMES" />
           <IconButtonGradientGroup
             sx={{
-              my: ['$2'],
-              width: '100%',
               maxWidth: 550,
               alignSelf: 'center',
             }}
@@ -116,7 +115,7 @@ const GamesScreen = () => {
             onNavigateProvider={onNavigate}
             imageCategory={ProviderImageCategory.Games}
           />
-        </>
+        </View>
       }
     />
   )
