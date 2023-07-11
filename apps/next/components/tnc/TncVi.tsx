@@ -555,16 +555,6 @@ const TncVi = () => {
                 </li>
                 <li>Sẽ không truy cập vào trang Web bất kỳ lúc nào:</li>
                 <li>
-                  Trong phạm vi lãnh thổ Philippines hoặc bất kỳ vùng tài phán
-                  nào cấm cá cược từ xa hoặc trò chơi trực tuyến;
-                </li>
-                <li>
-                  Nếu Người chơi là công dân Philippines hoặc công dân của một
-                  quốc gia hoặc nước có quy định cấm công dân của mình tham gia
-                  hoạt động cá cược từ xa hay trò chơi trực tuyến (bất kể địa
-                  điểm chơi hiện tại của họ); và
-                </li>
-                <li>
                   Nếu Người chơi là công dân hoặc người cư trú hay cư ngụ trong
                   phạm vi của mọi Vùng tài phán bị Cấm, vùng phụ thuộc và lãnh
                   thổ của Vùng tài phán bị cấm.
@@ -624,13 +614,6 @@ const TncVi = () => {
                   TÀI KHOẢN NGƯỜI CHƠI ĐÓ.
                 </li>
                 <li>
-                  Sẽ không cho phép và ủy quyền cho bất kỳ cá nhân hay bên thứ
-                  ba nào (bao gồm nhưng không giới hạn đối với người dưới mười
-                  tám tuổi (18) tuổi và/hoặc công dân Philippines) sử dụng Dịch
-                  vụ Công ty, sử dụng Tài khoản Người chơi hoặc nhận bất kỳ
-                  khoản chiến thắng nào thay mặt cho họ.
-                </li>
-                <li>
                   Sẽ báo cáo ngay lập tức bất kỳ và mọi khoản tiền thắng cược
                   cho nhà chức trách có liên quan nếu Người chơi cư ngụ trong
                   vùng tài phán nơi các khoản tiền thắng cược đó bị đánh thuế
@@ -678,11 +661,6 @@ const TncVi = () => {
             <strong>Điều khoản Giao dịch</strong>
           </div>
           <ol>
-            <li>
-              Công ty được cấp phép để chấp nhận khoản cược thông qua thiết bị
-              truyền thông từ xa trên phạm vi toàn cầu theo Giấy phép Trò chơi
-              Nước ngoài của Công ty do PAGCOR cấp.
-            </li>
             <li>
               Theo quy tắc chung và tùy vào bộ quy tắc cụ thể hơn được cung cấp
               trong trang Web này, nếu có, khoản cược chỉ được xem là đã được
@@ -1078,13 +1056,6 @@ const TncVi = () => {
               điều khoản, điều kiện và hệ quả theo Tài liệu. Người chơi cũng xác
               nhận rằng mình đã được giải thích và đã hiểu đầy đủ tất cả các
               điều khoản và điều kiện.
-            </li>
-            <li>
-              Các Điều khoản và Điều kiện này sẽ được điều chỉnh và được hiểu
-              theo luật pháp Philippines. Bất kỳ và tất cả mọi trường hợp hoặc
-              tranh chấp liên quan đến các Điều khoản và Điều kiện và Tài liệu
-              này sẽ được đệ trình duy nhất lên các tòa án phù hợp tại Thành phố
-              Makati, Philippines mà không đệ trình lên các tòa án khác.
             </li>
             <li>
               <div>
