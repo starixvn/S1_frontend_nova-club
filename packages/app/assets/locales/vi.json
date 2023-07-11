@@ -1,158 +1,115 @@
 {
-  "accountVerification": {
-    "placeHolder": "Vui lòng điền họ tên đầy đủ",
-    "realName": "Tên thật",
-    "remark": "Vui lòng kiểm tra tên tài khoản của bạn là tên thật để giao dịch không bị hoãn/hủy",
-    "secondaryTitle": "Điền tên thật của bạn để tiếp tục: ",
-    "title": "Xác thực tài khoản"
-  },
-  "auth": {
-    "accountReg": "ĐĂNG KÝ",
-    "accountVerification": "Xác minh tài khoản",
-    "agentLogin": "Đăng nhập đại lý",
-    "enterNewPassword": "Vui lòng nhập mật khẩu mới của bạn",
-    "enterOtp": "Vui lòng nhập OTP",
-    "forgotPassword": "Quên mật khẩu",
+  "authentication": {
     "login": "ĐĂNG NHẬP",
-    "loginToAccount": "ĐĂNG NHẬP",
-    "memberLogin": "Đăng nhập thành viên",
-    "noReceiveOTP": "Không nhận được OTP?",
-    "resend": "Resend",
-    "readAndAgree": "Tôi đã đọc và đồng ý",
-    "referrerInfo": "Thông tin người giới thiệu",
     "register": "ĐĂNG KÝ",
+    "loginHeader": "ĐĂNG NHẬP",
+    "noReceiveOTP": "Không nhận được OTP?",
+    "resend": "Gởi",
+    "readAndAgree": "Tôi đã đọc và đồng ý",
+    "enterOtp": "Vui lòng nhập OTP",
+    "send": "Gởi",
     "rememberMe": "Lưu để đăng nhập lần sau",
-    "table": "Bảng hoa hồng",
-    "welcome": "Welcome Back"
+    "forgotPassword": "Quên mật khẩu",
+    "forgotPasswordHeader": "Quên mật khẩu",
+    "resetPasswordHeader": "Reset Password"
   },
   "bank": {
-    "accountName": "Tên tài khoản",
-    "accountNo": "Số tài khoản",
-    "accountNumber": "Số tài khoản",
-    "addBankAccount": "Thêm tài khoản",
     "bank": "Ngân hàng",
-    "enterAccountNo": "Vui lòng nhập số tài khoản",
-    "noBankAccount": "Không có tài khoản ngân hàng",
-    "selectBank": "Vui lòng chọn ngân hàng"
+    "bankAcc": "Tài khoản ngân hàng",
+    "addBankAccount": "Thêm tài khoản",
+    "channel": "Tài khoản nạp",
+    "selectChannel": "Chọn tài khoản nạp",
+    "selectBank": "Vui lòng chọn ngân hàng",
+    "accountNumber": "Số tài khoản"
   },
-  "biometric": {
-    "label": "Đăng nhập bằng Sinh trắc học",
-    "message": "Bạn có muốn kích hoạt đăng nhập sinh trắc học không?",
-    "notFound": "Sinh trắc học không được hỗ trợ / không được bật trên thiết bị của bạn"
-  },
-  "commission": {
+  "commision": {
+    "title": "Bảng hoa hồng",
+    "productLists": "Danh sách sản phẩm",
     "cashPlayer": "Người chơi trả trước",
     "cashPlayerReferral": "Giới thiệu người chơi trả trước",
-    "creditPlayer": "Người chơi tín dụng",
-    "productLists": "Danh sách sản phẩm",
-    "table": "Bảng hoa hồng"
+    "creditPlayer": "Người chơi tín dụng"
   },
   "common": {
-    "all": "TẤT CẢ",
-    "amount": "Số tiền",
-    "app": "Ứng dụng",
-    "balance": "Số dư",
-    "bet": "Tiền cược",
-    "cancel": "Hủy",
-    "cash": "VÍ",
-    "clickMore": "Xem thêm",
-    "close": "Đóng",
-    "confirm": "Xác nhận",
-    "confirmDelete": "Bạn có chắc chắn muốn xóa? Không thể khôi phục sau khi xóa!",
-    "confirmPassword": "Xác nhận mật khẩu",
-    "contactUs": "Liên hệ",
-    "copied": "Đã sao chép đường dẫn",
-    "copy": "Sao chép",
-    "desktop": "Bản máy tính",
-    "download": "Tải ứng dụng",
-    "emptyResult": "Không có kết quả",
-    "enter": "Nhập",
-    "enterAmount": "Vui lòng nhập số tiền %{field} của bạn",
-    "enterConfirmPassword": "Vui lòng xác nhận mật khẩu",
-    "enterNewPassword": "Vui lòng nhập mật khẩu mới",
-    "enterOldPassword": "Vui lòng nhập mật khẩu cũ",
-    "hello": "Xin chào!!",
-    "home": "Trang Chủ",
-    "id": "Mã ID",
-    "importantNote": "Lưu Ý Quan Trọng",
-    "importantNotes": "Lưu Ý Quan Trọng",
-    "loading": "Đang tải",
-    "lose": "Thua",
-    "more": "Thêm",
-    "newPassword": "Mật khẩu mới",
-    "next": "Tiếp theo",
-    "noInfoAvailable": "Không Có Thông Tin",
-    "ok": "OK",
-    "oldPassword": "Mật khẩu hiện tại",
-    "otp": "OTP",
-    "password": "Mật khẩu",
-    "passwordNote": "1. Độ dài mật khẩu phải từ 6-15 ký tự.\n\n2. Mật khẩu không được giống với mật khẩu cũ",
-    "playNow": "Vào trò chơi",
-    "recentlyOpened": "Mở gần đây",
-    "recentlyViewed": "Xem gần đây",
-    "referenceId": "ID tham chiếu",
-    "reward": "THƯỞNG",
-    "rewards": "THƯỞNG",
-    "selectAll": "Chọn tất cả",
-    "selectDate": "Chọn ngày",
-    "send": "Gởi",
-    "share": "Chia sẻ",
-    "spin": "Quay ngay bây giờ",
-    "submit": "Gửi",
-    "turnover": "Doanh số",
-    "userAgreement": "Thỏa thuận người dùng",
+    "player": "Người chơi",
+    "agent": "Đại lý",
     "username": "Tên đăng nhập",
-    "win": "Thắng",
-    "yes": "Đồng Ý",
-    "player": "player VI",
-    "agent": "agent VI"
+    "password": "Mật khẩu",
+    "transfer": "Chuyển quỹ",
+    "deposit": "Nạp tiền",
+    "withdraw": "Rút tiền",
+    "bankAccount": "Tài khoản ngân hàng",
+    "history": "Lịch sử",
+    "cash": "VÍ",
+    "reward": "THƯỞNG",
+    "balance": "Số dư",
+    "more": "Thêm",
+    "overview": "Tổng quan",
+    "profile": "Hồ sơ",
+    "points": "Points",
+    "submit": "Gửi",
+    "close": "Đóng",
+    "pin": "Mã PIN",
+    "timeline": "UTC/GMT +7",
+    "download": "Tải về",
+    "realName": "Tên thật",
+    "phone": "Số ĐT",
+    "playerId": "ID người chơi",
+    "currency": "Tiền tệ",
+    "copied": "Đã sao chép đường dẫn",
+    "amount": "Số tiền",
+    "confirm": "Xác nhận",
+    "confirmPassword": "Xác nhận mật khẩu",
+    "userAgreement": "Thỏa thuận người dùng",
+    "otp": "OTP",
+    "realBet": "Đặt cược thực sự",
+    "turnOver": "Doanh số",
+    "tnc": "Điều khoản và Điều kiện",
+    "active": "Active",
+    "inactive": "InActive",
+    "all": "TẤT CẢ",
+    "date": "Ngày",
+    "noInfoAvailable": "Không Có Thông Tin",
+    "provider": "ProCác nhà cung cấpvider",
+    "bonus": "Thưởng",
+    "historyTitle": "Lịch sử giao dịch",
+    "transaction": "Giao dịch",
+    "game": "Trò Chơi",
+    "next": "Tiếp theo",
+    "shareholder": "Shareholder",
+    "hello": "Xin chào!!",
+    "agentLogin": "Đăng nhập đại lý",
+    "logout": "Thoát"
   },
   "contact": {
-    "contactVia": "Liên hệ qua",
-    "livechat": "Live Chat",
+    "customerSupport": "Hỗ trợ khách hàng",
+    "contactVia": "Liên hệ qua:",
     "telegram": "Telegram",
-    "whatsapp": "WhatsApp",
-    "zalo": "Zalo"
+    "zalo": "Zalo",
+    "liveChat": "Live Chat"
   },
   "deposit": {
-    "actualDeposit": "Tiền gửi thực tế",
+    "depositTitle": "Nạp tiền",
     "bankSlip": "Biên lai ngân hàng",
-    "cardCode": "Mã số thẻ",
-    "cardSerialNo": "Số sê-ri thẻ.",
-    "cardValue": "Mệnh giá thẻ",
-    "channel": "Tài khoản nạp",
-    "choose": "Chọn phương thức nạp tiền",
-    "cryptoAmount": "123,456 đồng",
-    "deduction": "Khấu trừ",
-    "depositAmount": "Số tiền nạp",
     "depositMethod": {
       "bankTransfer": "Chuyển khoản",
       "crypto": "Tiền ảo",
       "momo": "MOMO",
       "onlineBanking": "Cổng thanh toán",
-      "qrCode": "QR Pay",
+      "qrPay": "QR Pay",
       "topUp": "Thẻ cào"
     },
-    "minMaxLimit": "Tối thiểu/Tối đa",
-    "paymentMode": "Chọn cổng thanh toán",
-    "pleaseConfirmDeposit": "Vui lòng xác nhận thông tin gửi tiền bên dưới",
-    "selectChannel": "Chọn tài khoản nạp",
-    "upload": {
-      "description": "Chọn hình ảnh biên lai hoặc hóa đơn để tải lên",
-      "files": "Tải tệp tin",
-      "title": "Tải biên lai ngân hàng"
-    },
-    "usdt": "USDT"
-  },
-  "event": {
-    "claim": "ĐỔI VÉ THƯỞNG CỦA BẠN NGAY",
-    "ticket": "vé dự đoán",
-    "ticketSubmitted": "Gửi vé dự đoán thành công",
-    "winText1": "XIN CHÚC MỪNG!",
-    "winText2": "BẠN NHẬN LỘC",
-    "youHave": "Bạn có"
+    "choose": "Chọn phương thức nạp tiền",
+    "channel": "Tài khoản nạp",
+    "selectChannel": "Chọn tài khoản nạp"
   },
   "filter": {
+    "statusType": "Loại trạng thái",
+    "win/loss": "Thắng/Thua",
+    "transactionType": {
+      "title": "Loại giao dịch",
+      "rebate": "Hoàn Trả",
+      "adjustment": "Điều chỉnh"
+    },
     "date": {
       "custom": "Tùy chọn",
       "lastWeek": "Tuần trước",
@@ -162,165 +119,116 @@
       "yesterday": "Hôm qua"
     },
     "depositStatus": {
-      "all": "TẤT CẢ",
       "cancelled": "Hủy",
       "checking": "Đang kiểm tra",
       "declined": "Giảm",
       "failed": "Không thành công",
       "pending": "Đang chờ",
       "settled": "Đã thanh toán",
-      "settledonBrowser": "Đã thanh toán trên trình duyệt"
+      "settledOnBrowser": "Đã thanh toán trên trình duyệt"
     },
     "gameStatus": {
       "loss": "Thua",
       "win": "Thắng"
-    },
-    "genre": {
-      "all": "TẤT CẢ",
-      "baccarat": "Baccarat",
-      "blackjack": "Blackjack",
-      "dragonTiger": "Dragon Tiger",
-      "hot": "NỔI BẬT",
-      "jackpot": "NỔ HŨ",
-      "new": "Mới",
-      "poker": "Poker",
-      "roulette": "Roulette",
-      "sicbo": "Sicbo"
-    },
-    "transactionType": {
-      "adjustment": "Điều chỉnh",
-      "bonus": "Thưởng",
-      "deposit": "Nạp tiền",
-      "game": "Trò Chơi",
-      "rebate": "Hoàn Trả",
-      "withdrawal": "Rút tiền"
-    },
-    "withdrawalStatus": {
-      "all": "TẤT CẢ",
-      "declined": "Suy giảm",
-      "paid": "Trả",
-      "payment": "Thanh toán",
-      "paymentProcessing": "Đang xử lý",
-      "pendingReview": "Đang chờ",
-      "request": "Yêu cầu"
     }
   },
-  "forceDownload": {
-    "download": "Tải về",
-    "downloadApp": "Tải APP",
-    "message": "Vui lòng tải bản mới với những nâng cấp sau:",
-    "promoText": "Cược mọi lúc mọi nơi",
-    "title": "Cập nhật phiên bản mới"
+  "footer": {
+    "note1": "Become Our Partner",
+    "note2": "VUI123 is committed to supporting Responsible Gaming",
+    "copyright": "© Copyright 2023 VUI123. All Rights Reserved.",
+    "aboutUs": "About Us",
+    "responsibleGaming": "Responsible Gaming",
+    "contactUs": "Liên hệ"
   },
   "game": {
     "category": {
-      "cardGame": "Game Bài",
-      "cockfighting": "Chọi Gà",
-      "fishing": "Bắn Cá",
-      "fishingGames": "Bắn Cá",
+      "sportsbook": "THỂ THAO",
       "games": "Trò Chơi",
-      "hotGames": "Trò Chơi Hot",
-      "keno/lottery": "Keno / Xổ số",
-      "liveCasino": "SÒNG BÀI",
-      "localGame": "Thuần Việt",
-      "poker": "Poker",
       "slots": "Quay hũ",
-      "sportsbook": "THỂ THAO"
+      "liveCasino": "SÒNG BÀI",
+      "lottery": "Keno / Xổ số",
+      "fishing": "Bắn Cá"
     },
-    "enterGame": "Vào trò chơi",
-    "invalidSession": "Invalid Session [%{code}]",
-    "jackpot": "NỔ HŨ",
-    "name": {
-      "btiSports": "BTI Sports",
-      "esports": "SABA E-Sports",
-      "imEsports": "IM E-Sports",
-      "sbo": "SBO Sports",
-      "sports": "SABA Sports",
-      "tfGamingEsports": "TF E-Sports",
-      "virtualSports": "SABA Virtual Sports"
-    },
-    "notFound": "Trò chơi không tìm thấy",
-    "quitGame": "Thoát trò chơi",
-    "reward": "Phần thưởng trò chơi",
-    "unableToConnect": "Không kết nối được [%{code}]",
-    "underMaintenance": "Trò chơi đang được bảo trì"
+    "recently": "Recently Played",
+    "jackpot": "NỔ HŨ"
   },
-  "maintenance": "HỆ THỐNG ĐANG BẢO TRÌ",
+  "leaderboard": {
+    "monthlyEvent": "Monthly Event",
+    "minPoints": "Min Points",
+    "pointsCalculation": "Points calculation",
+    "product": "Product",
+    "top10": "Top 10 Winners"
+  },
+  "manageCredentials": {
+    "title": "Quản lý thông tin đăng nhập",
+    "pin": {
+      "createPin": "Tạo mã PIN",
+      "create6Pin": "Tạo mã PIN 6 số",
+      "securePin": "Bảo mật chuyển khoản của bạn bằng mã PIN",
+      "newPin": "Pin mới",
+      "confirmPin": "Xác nhận mã PIN",
+      "changePin": "Thay đổi mã PIN",
+      "oldPin": "Mã PIN cũ",
+      "forgotPin": "Quên mã PIN",
+      "confirmPinTitle": "Nhập mã PIN 6 số để xác nhận",
+      "confirmPinInfo": "Tất cả các giao dịch của bạn đều được xử lý trong một môi trường an toàn và bảo mật."
+    },
+    "pw": {
+      "changePw": "Đổi Mật Khẩ",
+      "oldPw": "Mật khẩu hiện tại",
+      "newPw": "Mật khẩu mới",
+      "confirmPw": "Xác nhận mật khẩu",
+      "placeholderOldPw": "Vui lòng nhập mật khẩu cũ",
+      "placeholderNewPw": "Vui lòng nhập mật khẩu mới",
+      "placeholderConfirmPw": "Vui lòng xác nhận mật khẩu"
+    }
+  },
   "menu": {
-    "agentLogin": "Đăng nhập đại lý",
-    "bankAccount": "Tài khoản ngân hàng",
-    "changePassword": "Đổi Mật Khẩu",
-    "changePin": "Thay đổi mã PIN",
-    "commisionTable": "Bảng hoa hồng",
-    "createPin": "Tạo mã PIN",
-    "customerSupport": "Hỗ trợ khách hàng",
-    "deposit": "Nạp tiền",
-    "depositConfirmation": "Xác nhận thông tin gửi tiền",
-    "gameHistory": "Lịch sử trò chơi",
-    "history": "Lịch sử",
-    "logout": "Thoát",
-    "manageCredentials": "Quản lý thông tin đăng nhập",
-    "message/announcement": "Tin Nhắn/Thông Báo",
-    "profile": "Hồ sơ",
-    "referral": "Giới thiệu",
-    "switchAccount": "Chuyển tài khoản",
-    "tab": {
-      "bets": "Cá cược",
-      "date": "Ngày",
-      "game": "Trò Chơi",
-      "gameType": "Loại trò chơi",
-      "idTransfer": "Chuyển quỹ bằng ID",
-      "provider": "Các nhà cung cấp",
-      "providers": "Các nhà cung cấp",
-      "qrTransfer": "Chuyển quỹ bằng QR",
-      "receive": "Nhận",
-      "send": "Gửi",
-      "status": "Trạng thái",
-      "statusType": "Loại trạng thái",
-      "transaction": "Giao dịch",
-      "transactionType": "Loại giao dịch",
-      "type": "Loại",
-      "win/loss": "Thắng/Thua"
-    },
+    "rewardsHub": "My Rewards Hub",
+    "friendReferral": "Giới thiệu bạn bè",
+    "msgAnnouncement": "Tin Nhắn/Thông Báo",
+    "commissionTable": "Bảng hoa hồng",
     "tnc": "Điều khoản và Điều kiện",
-    "transactionHistory": "Lịch sử giao dịch",
-    "transfer": "Chuyển quỹ",
+    "bankAccount": "Tài khoản ngân hàng",
+    "cryptoWallet": "Ví tiền ảo",
     "withdraw": "Rút tiền",
-    "withdrawal": "Rút tiền",
-    "withdrawalConfirmation": "Xác nhận Rút tiền"
-  },
-  "message": {
-    "announcement": "Thông Báo",
-    "empty": "Không có bất kỳ tin nhắn nào được nêu ra!",
-    "personalMessage": "Tin nhắn khách hàng"
+    "withdrawalConfirmation": "Xác nhận Rút tiền",
+    "cryptoWithdrawal": "Rút bằng tiền ảo",
+    "leaderboard": "Leaderboard",
+    "tab": {
+      "event": "Event",
+      "ranking": "Ranking"
+    }
   },
   "notes": {
+    "importantNotice": "THÔNG BÁO QUAN TRỌNG",
+    "qr": {
+      "n1": "Quét bằng ứng dụng để chuyển số dư"
+    },
+    "transfer": {
+      "n1": "Tất cả các tiền chuyển quỹ nội bộ đều phải trải qua 1x vòng cược trước khi rút tiền."
+    },
     "deposit": {
       "n1": "Vui lòng luôn cập nhật thông tin tài khoản ngân hàng đang hoạt động trước khi gửi tiền.",
-      "n2": "Nếu chọn “Chuyển khoản”, vui lòng thực hiện chuyển khoản trước khi thực hiện lệnh gửi để tránh giao dịch bị chậm.",
       "n3": "TÊN TÀI KHOẢN người gửi phải trùng với họ tên đăng ký. Chúng tôi không khuyến khích thực hiện giao dịch bằng bên/công ty thứ ba.",
       "n4": "Vui lòng KHÔNG điền “Vui123” hoặc bất cứ từ nhạy cảm nào liên quan đến cá cược trong phần nội dung giao dịch.",
       "n5": "Vui lòng lưu ý rằng mọi khoản tiền nạp đều cần hoàn thành doanh thu cược 1 lần trước khi được rút.",
       "n6": "Vui lòng liên hệ bộ phận LIVECHAT 24/7 nếu lệnh gửi chậm trễ quá 5 phút."
     },
-    "importantNotice": "THÔNG BÁO QUAN TRỌNG",
-    "qr": {
-      "n1": "Quét bằng ứng dụng để chuyển số dư"
+    "depost": {
+      "n2": "Nếu chọn “Chuyển khoản”, vui lòng thực hiện chuyển khoản trước khi thực hiện lệnh gửi để tránh giao dịch bị chậm."
     },
     "rewards": {
       "n1": "Các loại games KHÔNG áp dụng cho hoàn trả/hoa hồng bao gồm: doanh thu của các games bàn không trực tiếp (ví dụ Blackjack, Video Poker, Craps, American Roulette, Baccarat, và các loại game bàn không trực tiếp khác) và các game không thuộc quay hũ. Các game này sẽ không được tính vào yêu cầu doanh thu trừ khi được ĐẶC BIỆT nêu rõ điều ngược lại.",
-      "n2": "\nNgoại lệ đặc biệt:",
+      "n2": "Ngoại lệ đặc biệt:",
       "n3": "[Sportsbook] Chỉ các cược có kết quả thắng thua mới được hoàn trả. Cược hủy, cược trống, cược có tỷ lệ dưới 1.7 (Decimal odd); 0.7 (China odd); 0.7 (Malay Positive odd); -1.43 (Indo odd); -143 (US odd), hoặc cược hai bên trong cùng một trận không được hoàn trả.",
       "n4": "[Live Casino] Tất cả các video game Blackjack (21) và Roulette TRỰC TIẾP",
       "n5": "[Quay hũ] Tất cả các game video Poker, Table, Arcade, bắn cá, quay hũ nhiều vòng, Lucky God Progressive 2, Golden Tour, Ugga Bugga, Liu Fu Shou, quay hũ thưởng đôi trong tất cả các phòng quay hũ, và trò trong phòng game xx slot.",
-      "n6": "\n*Lưu ý: Quy định về phần thưởng của công ty có thể thay đổi. Trong bất cứ trường hợp nào, quyết định của Vui123 là cuối cùng."
+      "n6": "*Lưu ý: Quy định về phần thưởng của công ty có thể thay đổi. Trong bất cứ trường hợp nào, quyết định của Vui123 là cuối cùng. \n**Lưu ý: Tiền hoàn trả không bao gồm cược miễn phí và các tiền thưởng khuyến mãi khác."
     },
     "topUpCard": {
       "n1": "Vui lòng chọn đúng mệnh giá và nhà mạng, nếu quý khách nhập sai, Vui123 không chịu trách nhiệm.",
       "n2": "Phí gạch thẻ rẻ nhất thị trường, 25% cho tất cả các nhà mạng."
-    },
-    "transfer": {
-      "n1": "Tất cả các tiền chuyển quỹ nội bộ đều phải trải qua 1x vòng cược trước khi rút tiền."
     },
     "withdrawal": {
       "n1": "Vui lòng liên hệ bộ phận LIVECHAT 24/7 nếu lệnh rút bị chậm trễ quá 10 phút.",
@@ -330,91 +238,44 @@
       "n5": "Nếu có vấn đề phát sinh hoặc cần được hỗ trợ thêm về vấn đề rút tiền, vui lòng liên hệ bộ phận LIVECHAT 24/7. Xin cám ơn."
     }
   },
-  "pin": {
-    "confirmPin": "Xác nhận mã PIN",
-    "forgotPin": "Quên mã PIN",
-    "headerText1": "Tạo mã PIN 6 số",
-    "headerText2": "Bảo mật chuyển khoản của bạn bằng mã PIN",
-    "newPin": "Pin mới",
-    "note1": "Vui lòng nhập mã PIN để chuyển khoản",
-    "oldPin": "Mã PIN cũ",
-    "pin": "Mã PIN",
-    "submitNote": "Tất cả các giao dịch của bạn đều được xử lý trong một môi trường an toàn và bảo mật.",
-    "submitTitle": "Nhập mã PIN 6 số để xác nhận"
-  },
   "profile": {
-    "accumulateReward": "Tích lũy phần thưởng",
-    "active": "Người chơi đang hoạt động",
-    "details": {
-      "currency": "Tiền tệ",
-      "phone": "Số ĐT",
-      "realname": "Tên thật",
-      "referrer": "Người giới thiệu",
-      "username": "Tên đăng nhập"
-    },
-    "overview": {
-      "circle": "Vòng tròn",
-      "direct": "Trực tiếp",
-      "realbet": "Đặt cược thực sự",
-      "self": "Bản thân",
-      "title": "Tổng quan",
-      "turnover": "Doanh số",
-      "w/l": "Thắng/Thua (đồng)"
-    },
-    "playerId": "ID người chơi",
+    "self": "Bản thân",
+    "w/l": "Thắng/Thua (đồng)",
     "registered": "Đăng ký",
-    "reward": "Phần thưởng hàng tháng",
-    "timeline": "UTC/GMT +7"
+    "activePlayer": "Người chơi đang hoạt động",
+    "monthlyReward": "Phần thưởng hàng tháng",
+    "circle": "Vòng tròn",
+    "direct": "Trực tiếp"
   },
   "qr": {
-    "downloadQrCode": "Tải Mã QR",
+    "scanGallery": "Quét từ thư viện",
+    "downloadQr": "Tải Mã QR",
     "noCameraAccess": "Máy ảnh của bạn được yêu cầu quét mã QR để chuyển. \nVui lòng cho phép để tiếp tục sử dụng tính năng này",
-    "requestCameraPermissions": "Yêu cầu quyền truy cập vào camera",
-    "scanGallery": "Quét từ thư viện"
+    "requestCameraPermissions": "Yêu cầu quyền truy cập vào camera"
   },
   "referral": {
-    "earn": "Chia sẻ & nhận thưởng",
-    "friend": "Giới thiệu bạn bè",
-    "link": "Đường dẫn để giới thiệu",
-    "refer": "Giới thiệu bạn bè của bạn ngay bây giờ \nđể kiếm thêm hoa hồng",
-    "shareMessage": "Chia sẻ"
+    "title": "Giới thiệu",
+    "link": "Link",
+    "share": "Chia sẻ",
+    "shareMessage": "Chia sẻ & nhận thưởng",
+    "shareContent": "Get exclusive referral bonuses when your friend signs up using your referral code",
+    "code": "Referral Code"
   },
   "status": {
-    "alert": "Cảnh báo",
-    "approved": "Thành công",
-    "bankSlipSuccess": "Đã tải lên thành công biên lai ngân hàng",
-    "cancelled": "Hủy",
-    "draft": "Bản nháp",
-    "error": "Lỗi",
-    "expired": "Hết hạn",
-    "failed": "Không thành công",
-    "imageNotSupported": "Định dạng hình ảnh không được hỗ trợ",
-    "luckyThankYou": "Cảm ơn bạn, vui lòng thử lại lần sau",
-    "luckyWin": "Xin chúc mừng, bạn đã thắng VND",
     "pending": "Đang chờ",
-    "processing": "Đang xử lý",
-    "qrCodeNotDetected": "Không phát hiện mã QR trong hình ảnh",
-    "qrDownloadSuccess": "Tải mã QR thành công",
-    "qrTransferSelfError": "Chuyển khoản vào tài khoản riêng không được phép",
-    "receiptRequired": "Vui lòng tải biên lai gửi tiền",
-    "receiptSuccess": "Biên nhận đã được tải lên thành công",
-    "referralError": "Mã giới thiệu không đúng, vui lòng thử mã khác",
-    "rejected": "Từ chối",
-    "scanFailed": "Quét không thành công!",
     "success": "Thành công",
-    "systemError": "Rất tiếc! Đã xảy ra lỗi, vui lòng thử lại."
+    "rejected": "Từ chối"
   },
   "transaction": {
-    "id": "ID giao dịch",
-    "pending": "Đang chờ giao dịch",
     "recent": "Giao Dịch Gần Đây"
   },
   "transfer": {
-    "avaiableAmount": " Số dư khả dụng",
-    "transferTo": "Chuyển tới"
-  },
-  "userAgreement": {
-    "description": "Nhà cung cấp cá cược thể thao có toàn quyền quyết định, có quyền hủy bỏ hoặc tuyên bố đặt cược vô hiệu mà không cần thông báo trước, nếu phát hiện có dấu hiệu cá cược bất thường hoặc vi phạm quy tắc & quy định cá cược thể thao."
+    "receive": "Nhận",
+    "transferTitle": "Chuyển quỹ",
+    "idTransfer": "Chuyển quỹ bằng ID",
+    "qrTransfer": "Chuyển quỹ bằng QR",
+    "placeholderTransferId": "Vui lòng nhập ID giới thiệu",
+    "placeholderTransferAmount": "Please enter your transfer amount"
   },
   "validation": {
     "alphanumeric": "6-18 ký tự chữ và số (A-Z, a-z, 0-9)",
@@ -445,7 +306,22 @@
     "userNameMinMaxLength": "Tên đăng nhập phải có 6-15 ký tự",
     "username": "Tên đăng nhập phải có 6-15 ký tự"
   },
+  "wallet": {
+    "cryptoWallet": "Ví tiền ảo",
+    "addCryptoWallet": "Thêm ví tiền ảo",
+    "walletAddress": "Địa chỉ ví"
+  },
   "withdrawal": {
+    "withdrawalTitle": "Rút tiền",
+    "eligibleAmount": "Eligible Withdrawal Amount",
+    "options": "Địa chỉ ví không hợp lệ",
+    "exchangeRates": "Tỉ giá %{crypto}",
     "withdrawTo": "Rút tiền về"
+  },
+  "download": {
+    "downloadAppNow": "Download Vui123 App Now\nTo Enjoy All The\nExclusive Bonuses!",
+    "downloadGuide": "Download\nGuide",
+    "ios": "IOS",
+    "android": "ANDROID"
   }
 }

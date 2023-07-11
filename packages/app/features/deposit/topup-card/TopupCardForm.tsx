@@ -192,7 +192,7 @@ const TopupCardForm = () => {
       <View sx={{ px: horizontalMode ? 0 : '$4' }}>
         {horizontalMode ? (
           <View>
-            <InputLabel label="Payment Mode" />
+            <InputLabel label={t('deposit.paymentMode')} />
             <View
               sx={{
                 flex: 1,

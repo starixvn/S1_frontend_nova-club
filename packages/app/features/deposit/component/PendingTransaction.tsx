@@ -58,7 +58,7 @@ const PendingTransaction = ({ paymentMethod }: PendingTransactionProps) => {
           mt: '$4',
         }}
       >
-        <Text>{t('transaction.Pending')}</Text>
+        <Text>{t('transaction.pending')}</Text>
         <RefreshButton loading={isFetching} onPress={refetch} />
       </View>
       {horizontalMode && (

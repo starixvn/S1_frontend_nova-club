@@ -22,6 +22,11 @@ const DynamicLeaderboardLayout = dynamic(() => import('./LeaderboardLayout'), {
   ssr: false,
 })
 
+const DynamicInfoLayout = dynamic(() => import('./InfoLayout'), {
+  loading: () => <ActivityIndicator />,
+  ssr: false,
+})
+
 export const DesktopBaseLayout: Layout = (component) => (
   <DynamicBaseLayout>{component}</DynamicBaseLayout>
 )
@@ -41,5 +46,11 @@ export const DesktopAccountLayout: Layout = (component) => (
 export const DesktopLeaderboardLayout: Layout = (component) => (
   <DynamicBaseLayout>
     <DynamicLeaderboardLayout>{component}</DynamicLeaderboardLayout>
+  </DynamicBaseLayout>
+)
+
+export const DesktopInfoLayout: Layout = (component) => (
+  <DynamicBaseLayout>
+    <DynamicInfoLayout>{component}</DynamicInfoLayout>
   </DynamicBaseLayout>
 )

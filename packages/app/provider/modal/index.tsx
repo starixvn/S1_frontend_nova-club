@@ -1,15 +1,14 @@
+import LoadingModal from 'app/components/modal/LoadingModal'
+import ModalWrapper from 'app/components/modal/ModalWrapper'
+import { ActivityIndicator, useResponsiveValue } from 'dripsy'
+import dynamic from 'next/dynamic'
 import React from 'react'
 import { Easing } from 'react-native'
-import LoadingModal from 'app/components/modal/LoadingModal'
-import dynamic from 'next/dynamic'
 import {
   ModalStackConfig,
   ModalProvider as RNMModalProvider,
   createModalStack,
 } from 'react-native-modalfy'
-import ModalWrapper from 'app/components/modal/ModalWrapper'
-import { ActivityIndicator } from 'dripsy'
-import isDesktop from 'app/utils/isDesktop'
 import { SubmitDepositCryptoItem } from 'services/deposit.type'
 
 type ModalStackConfigValueType = ModalStackConfig extends Record<
@@ -55,6 +54,10 @@ export type ModalStackParams = {
     callback(...args: any): any
   }
   RegisterModal: undefined
+  DownloadGuideModal: {
+    label: string
+    onClose(...args: any): any
+  }
   AgentLoginModal: undefined
   DepositCryptoModal: { data: SubmitDepositCryptoItem }
 }
@@ -81,6 +84,8 @@ const _dynamicModal = {
   AgentLoginModal: () => import('desktop-ext/features/auth/login/LoginScreen'),
   DepositCryptoModal: () =>
     import('app/features/deposit/component/DepositCryptoModal'),
+  DownloadGuideModal: () =>
+    import('desktop-ext/features/download/DownloadGuide'),
 }
 
 function getDynamicComponent(key: DynamicModalType) {
@@ -137,13 +142,15 @@ const modalConfig: ModalConfigType = {
   DepositCryptoModal: {
     modal: getDynamicComponent('DepositCryptoModal'),
   },
+  DownloadGuideModal: {
+    modal: getDynamicComponent('DownloadGuideModal'),
+  },
 }
 
 const ModalProvider = ({ children }) => {
-  const desktop = isDesktop()
   const stack = createModalStack(modalConfig, {
     containerStyle: {
-      maxWidth: desktop ? undefined : 768,
+      maxWidth: useResponsiveValue([768, 768, undefined, undefined, undefined]),
       zIndex: 2,
     },
     backdropOpacity: 0.6,
