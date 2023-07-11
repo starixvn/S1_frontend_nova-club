@@ -93,4 +93,5 @@ export const {
   useAffiliateUsernameQuery,
   useLazyAffiliateUsernameQuery,
   useGetJackpotAmountQuery,
+  useGetMaintenanceQuery,
 } = contentApi

@@ -1,15 +1,12 @@
 import dynamic from 'next/dynamic'
 import { ActivityIndicator } from 'react-native'
+import { Layout } from '../AdaptiveLayout'
 
-export const MobileBaseLayout = ({
-  children,
-}: {
-  children: React.ReactNode
-}) => {
-  return children
-}
-
-export const MobileTabLayout = dynamic(() => import('./TabLayout'), {
+const DynamicTabLayout = dynamic(() => import('./TabLayout'), {
   loading: () => <ActivityIndicator />,
   ssr: false,
 })
+
+export const MobileTabLayout: Layout = (component) => (
+  <DynamicTabLayout>{component}</DynamicTabLayout>
+)

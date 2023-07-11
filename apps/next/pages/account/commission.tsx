@@ -1,6 +1,9 @@
 import CommissionTableScreen from 'app/features/commission'
+import { AdaptiveLayoutPage } from 'components/layouts/AdaptiveLayout'
 import { DesktopAccountLayout } from 'components/layouts/desktop'
 
-export default CommissionTableScreen
+const CommissionTable: AdaptiveLayoutPage = CommissionTableScreen
 
-CommissionTableScreen.DesktopLayout = DesktopAccountLayout
+CommissionTable.DesktopLayout = DesktopAccountLayout
+
+export default CommissionTable

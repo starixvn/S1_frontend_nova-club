@@ -5,11 +5,7 @@ import MainHeader from 'app/components/navigation/header/MainHeader'
 import { HEADER_HEIGHT } from 'app/utils/constant'
 import { ReactNode, useEffect } from 'react'
 
-export default function MobileBaseLayout({
-  children,
-}: {
-  children: ReactNode
-}) {
+export default function TabLayout({ children }: { children: ReactNode }) {
   useEffect(() => {
     console.log('Header Mounted')
   }, [])

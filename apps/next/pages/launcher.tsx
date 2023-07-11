@@ -1,5 +1,7 @@
+import { AdaptiveLayoutPage } from 'components/layouts/AdaptiveLayout'
 import LauncherScreen from 'desktop-ext/features/LauncherScreen'
 
-export default LauncherScreen
+const Launcher: AdaptiveLayoutPage = LauncherScreen
+Launcher.DesktopLayout = (component) => component
 
-LauncherScreen.DesktopLayout = ({ children }) => <div>{children}</div>
+export default LauncherScreen

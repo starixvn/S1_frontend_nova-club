@@ -1,20 +1,19 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import { LaunchGame } from 'app/features/game/GameLauncher'
+import { LaunchGamePayload } from 'app/store/gameLauncher.slice'
 import {
-  Pressable,
   SxProp,
   Text,
   View,
   styled,
   useResponsiveValue,
-  useSx,
+  useSx
 } from 'dripsy'
+import { MotiPressable } from 'moti/interactions'
 import React, { memo, useMemo, useRef, useState, useTransition } from 'react'
 import { GestureResponderEvent, PressableProps, StyleSheet } from 'react-native'
 import { SolitoImage } from 'solito/image'
 import SkeletonPlaceholder from '../SkeletonPlaceholder'
-import { LaunchGamePayload } from 'app/store/gameLauncher.slice'
-import { LaunchGame } from 'app/features/game/GameLauncher'
-import { MotiPressable } from 'moti/interactions'
 
 export interface GameCardProps extends PressableProps, LaunchGamePayload {
   displayName?: string

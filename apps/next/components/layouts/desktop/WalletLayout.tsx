@@ -55,17 +55,15 @@ export default function WalletLayout({
   }, [currentTab])
 
   return (
-    <BaseLayout>
-      <Container sx={{ minHeight: `calc(100vh - ${NAVIGATION_HEIGHT}px)` }}>
-        <WalletMenu currentTab={currentTab} setCurrentTab={setCurrentTab} />
-        <Row>
-          <LeftPanelContainer>
-            <TabNavMenu routes={menuRoutes} notice={noticeNotes} />
-          </LeftPanelContainer>
-          <PageContainer>{children}</PageContainer>
-        </Row>
-      </Container>
-    </BaseLayout>
+    <Container sx={{ minHeight: `calc(100vh - ${NAVIGATION_HEIGHT}px)` }}>
+      <WalletMenu currentTab={currentTab} setCurrentTab={setCurrentTab} />
+      <Row>
+        <LeftPanelContainer>
+          <TabNavMenu routes={menuRoutes} notice={noticeNotes} />
+        </LeftPanelContainer>
+        <PageContainer>{children}</PageContainer>
+      </Row>
+    </Container>
   )
 }
 

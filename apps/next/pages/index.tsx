@@ -1,3 +1,4 @@
+import { AdaptiveLayoutPage } from 'components/layouts/AdaptiveLayout'
 import { MobileTabLayout } from 'components/layouts/mobile'
 import withAdaptiveScreen from 'desktop-ext/hoc/withAdaptiveScreen'
 import dynamic from 'next/dynamic'
@@ -13,8 +14,10 @@ const LazyDesktopScreen = dynamic(
   { ssr: false }
 )
 
-const Home = withAdaptiveScreen(LazyMobileScreen, LazyDesktopScreen)
+const Home: AdaptiveLayoutPage = withAdaptiveScreen(
+  LazyMobileScreen,
+  LazyDesktopScreen
+)
 
-export default Home
-// eslint-disable-next-line react/display-name
 Home.MobileLayout = MobileTabLayout
+export default Home

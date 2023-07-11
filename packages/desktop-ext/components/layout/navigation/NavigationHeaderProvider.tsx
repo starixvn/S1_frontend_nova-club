@@ -2,6 +2,8 @@ import React, {
   Dispatch,
   SetStateAction,
   createContext,
+  startTransition,
+  useCallback,
   useContext,
   useMemo,
   useState,
@@ -9,9 +11,10 @@ import React, {
 import LiveCasino from './dropdown/LiveCasino'
 import Sportsbook from './dropdown/Sportsbook'
 import usePathname from 'app/hooks/usePathname'
+import debounce from 'lodash/debounce'
 
 const NavigationHeaderContext = createContext<
-  Dispatch<SetStateAction<string | undefined>>
+  (menu: NAVIGATION_DROPDOWN_MENU | undefined) => void
 >((v) => {})
 
 export enum NAVIGATION_DROPDOWN_MENU {
@@ -22,9 +25,13 @@ export enum NAVIGATION_DROPDOWN_MENU {
 const NavigationHeaderProvider = ({ children }) => {
   const [menu, setMenu] = useState<NAVIGATION_DROPDOWN_MENU | undefined>()
 
+  const toggleMenu = useCallback((m: NAVIGATION_DROPDOWN_MENU | undefined) => {
+    if (!m) startTransition(() => setMenu(undefined))
+    else setMenu(m)
+  }, [])
+
   const pathname = usePathname()
   const DropDown = useMemo(() => {
-    console.log('pathname', pathname, menu)
     if (menu) {
       if (pathname.includes(menu)) return null
 
@@ -42,7 +49,7 @@ const NavigationHeaderProvider = ({ children }) => {
   }, [menu, pathname])
 
   return (
-    <NavigationHeaderContext.Provider value={setMenu}>
+    <NavigationHeaderContext.Provider value={toggleMenu}>
       {children}
       {DropDown}
     </NavigationHeaderContext.Provider>

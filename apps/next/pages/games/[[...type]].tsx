@@ -1,3 +1,4 @@
+import { AdaptiveLayoutPage } from 'components/layouts/AdaptiveLayout'
 import { MobileTabLayout } from 'components/layouts/mobile'
 import withAdaptiveScreen from 'desktop-ext/hoc/withAdaptiveScreen'
 import dynamic from 'next/dynamic'
@@ -7,7 +8,10 @@ const LazyDesktopScreen = dynamic(
   import('desktop-ext/features/games/GamesScreen')
 )
 
-const Games = withAdaptiveScreen(LazyMobileScreen, LazyDesktopScreen)
+const Games: AdaptiveLayoutPage = withAdaptiveScreen(
+  LazyMobileScreen,
+  LazyDesktopScreen
+)
 
 Games.MobileLayout = MobileTabLayout
 

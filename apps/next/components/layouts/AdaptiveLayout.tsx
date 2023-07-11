@@ -4,18 +4,29 @@ import type { SolitoAppProps } from 'solito'
 
 import useAppState from 'app/hooks/appState/useAppState'
 import useOnAppStart from 'app/hooks/useOnAppStart'
+import { View } from 'dripsy'
+import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { DesktopBaseLayout } from './desktop'
-import { MobileBaseLayout } from './mobile'
 
 export type NavigationOptions = SolitoAppProps['Component']['navigationOptions']
-export type AdaptiveAppProps<P = {}> = Omit<SolitoAppProps<P>, 'Component'> & {
-  Component: SolitoAppProps<P>['Component'] & {
-    navigationOptions: NavigationOptions
-    MobileLayout?: React.FC
-    DesktopLayout?: React.FC
-  }
+
+export type Layout = (node: JSX.Element) => JSX.Element
+
+interface AdaptiveLayout {
+  MobileLayout?: Layout
+  DesktopLayout?: Layout
 }
+
+export type AdaptiveAppProps<P = {}> = Omit<SolitoAppProps<P>, 'Component'> & {
+  Component: SolitoAppProps<P>['Component'] &
+    AdaptiveLayout & {
+      navigationOptions: NavigationOptions
+    }
+}
+
+export type AdaptiveLayoutPage<P = {}, IP = P> = NextPage<P, IP> &
+  AdaptiveLayout
 
 export default function AdaptiveLayout({
   Component,
@@ -29,14 +40,21 @@ export default function AdaptiveLayout({
   useOnAppStart()
 
   /* TODO: Split width and router as 2 seperate rerender */
-  const BaseLayout = useMemo(() => {
-    if (!isClientReady) return
+  const getLayout = useMemo((): ((node: JSX.Element) => JSX.Element) => {
+    // eslint-disable-next-line react/display-name
+    if (!isClientReady) return () => <View />
     document.getElementsByTagName('body')[0].classList.add('rendered')
 
     if (window.innerWidth < 992) {
-      return Component.MobileLayout || MobileBaseLayout
-    } else return Component.DesktopLayout || DesktopBaseLayout
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+      return typeof Component.MobileLayout === 'function'
+        ? Component.MobileLayout
+        : (node: JSX.Element) => node
+    } else {
+      return typeof Component.DesktopLayout === 'function'
+        ? Component.DesktopLayout
+        : DesktopBaseLayout
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isClientReady, width, router])
 
   useEffect(() => {
@@ -55,14 +73,13 @@ export default function AdaptiveLayout({
 
   // const cachedRoot = useMemo(() => children, [])
 
+  const page = <Component {...pageProps} />
+  const content = getLayout ? getLayout(page) : null
+
   return (
     <div id="al">
       {/* <ActivityIndicator /> */}
-      {BaseLayout && (
-        <BaseLayout>
-          <Component {...pageProps} />
-        </BaseLayout>
-      )}
+      {content}
     </div>
   )
 }

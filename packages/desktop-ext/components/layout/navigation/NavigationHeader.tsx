@@ -1,13 +1,13 @@
+import Divider from 'app/components/Divider'
 import DripsyMotiView from 'app/components/DripsyMotiView'
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import usePathname from 'app/hooks/usePathname'
 import { Container, Pressable, Row, Text, View, styled } from 'dripsy'
 import { MotiPressable, useMotiPressable } from 'moti/interactions'
-import { useLink } from 'solito/link'
 import React, { startTransition } from 'react'
-import Divider from 'app/components/Divider'
-import NavigationHeaderProvider, {
+import { useLink } from 'solito/link'
+import {
   NAVIGATION_DROPDOWN_MENU,
   useNavigationHeader,
 } from './NavigationHeaderProvider'
@@ -69,12 +69,12 @@ const MENU = [
 
 export const NAVIGATION_HEIGHT = 60
 export default function NavigationHeader({}) {
-  const setDropdownMenu = useNavigationHeader()
+  const toggleMenu = useNavigationHeader()
   return (
     <View sx={{ height: NAVIGATION_HEIGHT, bg: '$primary.500' }}>
       <Divider />
       <Pressable
-        onHoverOut={() => startTransition(() => setDropdownMenu(undefined))}
+        onHoverOut={() => startTransition(() => toggleMenu(undefined))}
       >
         <DripsyGradient
           gradient="surface"
@@ -141,12 +141,11 @@ const MenuButton = ({ icon, label, route, style, menu }) => {
 
 const Indicator = ({ route }) => {
   const pathname = usePathname()
-  console.log('pathname', pathname)
   const state = useMotiPressable(
     ({ pressed, hovered }) => {
       'worklet'
 
-      const isActive = pathname === route || pressed || hovered
+      const isActive = pathname.startsWith(route) || pressed || hovered
       return {
         opacity: isActive ? 1 : 0,
         // opacity: true? 1
