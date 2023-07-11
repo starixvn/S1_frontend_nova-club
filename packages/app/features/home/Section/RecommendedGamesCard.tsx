@@ -47,7 +47,6 @@ const RecommendedGamesCard = ({
             sx={{ width: '100%', height: '100%' }}
           />
         </View>
-        <PaginationItem>{number}</PaginationItem>
       </View>
     </TouchableOpacity>
   )
