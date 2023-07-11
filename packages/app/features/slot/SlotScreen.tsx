@@ -18,6 +18,7 @@ import { Platform } from 'react-native'
 import { Game } from 'services/gameApi.type'
 import BannerSection from '../home/BannerSection'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
+import { View } from 'dripsy'
 
 function _SlotScreen() {
   const { t } = useLocalization()
@@ -60,7 +61,7 @@ function _SlotScreen() {
         else return null
       }}
       ListHeaderComponent={
-        <>
+        <View sx={{ gap: '$3', my: '$3' }}>
           <GamePageHeader icon="sl" title="SLOTS" />
           <BannerSection />
           <RecentlyPlayedSection
@@ -86,7 +87,7 @@ function _SlotScreen() {
             onNavigateProvider={onNavigate}
             imageCategory={ProviderImageCategory.Slot}
           />
-        </>
+        </View>
       }
     />
   )
