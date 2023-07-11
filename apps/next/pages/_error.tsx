@@ -3,7 +3,6 @@ import { GetServerSideProps } from 'next'
 
 interface ErrorProps {
   statusCode: number
-  currentPath: string
 }
 
 const ErrorPage: React.FC<ErrorProps> = () => {
@@ -12,20 +11,10 @@ const ErrorPage: React.FC<ErrorProps> = () => {
 
 export const getServerSideProps: GetServerSideProps<ErrorProps> = async ({
   res,
-  req,
 }) => {
   const statusCode = res?.statusCode
-  const currentPath = req?.url || ''
 
   if (statusCode === 404) {
-    if (currentPath.includes('/deposit')) {
-      return {
-        redirect: {
-          destination: '/deposit',
-          permanent: false,
-        },
-      }
-    }
     return {
       redirect: {
         destination: '/',
@@ -37,7 +26,6 @@ export const getServerSideProps: GetServerSideProps<ErrorProps> = async ({
   return {
     props: {
       statusCode,
-      currentPath,
     },
   }
 }
