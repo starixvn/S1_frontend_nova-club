@@ -4,6 +4,7 @@ import Text from 'agent/components/Text'
 import useAgentAlert from 'agent/hooks/useAgentAlert'
 import useOnAgentLogout from 'agent/hooks/useOnAgentLogout'
 import { useUserInfoQuery } from 'agent/services/userApi'
+import useSupportItemList from 'app/features/customerSupport/useSupportItemList'
 import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
@@ -45,6 +46,7 @@ const MainMenuTest = ({
   })
   const { showAlert } = useAgentAlert()
   const { openModal } = useModal()
+  const mediaList = useSupportItemList()
 
   const { x: parentWidth, y: parentHeight } = parentPosition
 
@@ -66,6 +68,10 @@ const MainMenuTest = ({
     openModal('AgentSwitchConfirmationModal', {
       onConfirm: () => push('/'),
     })
+  }
+
+  const OpenCSTelegram = () => {
+    mediaList.length > 0 && Linking.openURL(mediaList[0]?.href)
   }
   const mainMenuList = [
     {
@@ -97,6 +103,11 @@ const MainMenuTest = ({
       label: 'menu.switchMember',
       icon: 'switch',
       onPress: () => AgentSwitchConfirmation(),
+    },
+    {
+      label: 'menu.contactUs',
+      icon: 'cs',
+      onPress: () => OpenCSTelegram(),
     },
     {
       label: 'menu.logout',
