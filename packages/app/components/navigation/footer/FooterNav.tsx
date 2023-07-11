@@ -17,28 +17,28 @@ export const FooterLinks = [
     title: 'common.shareholder',
     icon: '',
     route: '/info/shareholder',
-    base: '/info/about-us',
+    base: '/info/shareholder',
   },
   {
     key: 'Agent',
     title: 'common.agent',
     icon: '',
     route: '/info/agent',
-    base: '/info/about-us',
+    base: '/info/agent',
   },
   {
     key: 'ContactUs',
     title: 'footer.contactUs',
     icon: '',
     route: '/info/contact-us',
-    base: '/info/about-us',
+    base: '/info/contact-us',
   },
   {
     key: 'TNC',
     title: 'common.tnc',
     icon: '',
     route: '/info/tnc',
-    base: '/info/about-us',
+    base: '/info/tnc',
   },
 ]
 
