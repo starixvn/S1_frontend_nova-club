@@ -99,6 +99,7 @@
   },
   "menu": {
     "changePass": "Change Password",
+    "customerSupport": "Customer Support",
     "desktopVersion": "Desktop Version",
     "logout": "Logout",
     "resetPin": "Reset Pin",

@@ -1,21 +1,17 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import { BOTTOM_NAV_HEIGHT } from 'app/constant/sizes'
+import useSupportItemList from 'app/features/customerSupport/useSupportItemList'
 import useLocalization from 'app/provider/localization'
-import { styled, Text, useDripsyTheme, View } from 'dripsy'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { View, useDripsyTheme } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
+import React, { Dispatch, SetStateAction } from 'react'
 import {
-  Linking,
   Platform,
   StyleSheet,
   TouchableWithoutFeedback,
   useWindowDimensions,
 } from 'react-native'
-import TouchableOpacity from 'app/pressable/TouchableOpacity'
-import { DripsyGradient } from 'app/components/Gradient'
-import Icon from 'app/components/Icon'
-import Image from 'app/components/common/Image'
-import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import useSupportItemList from 'app/features/customerSupport/useSupportItemList'
-import { BOTTOM_NAV_HEIGHT } from 'app/constant/sizes'
+import MediaIcon from './MediaIcon'
 interface SupportMenuProps {
   setSupportMenuVisible: Dispatch<SetStateAction<boolean>>
   visible: boolean
@@ -64,58 +60,16 @@ const SupportMenu = ({ setSupportMenuVisible, visible }: SupportMenuProps) => {
                   }}
                 >
                   <AnimatePresence>
-                    {mediaList.map((c, i) => {
-                      return (
-                        <MotiView
-                          delay={i * 100}
-                          from={{ translateX: 100, opacity: 0 }}
-                          animate={{ translateX: 0, opacity: 1 }}
-                          key={c.label}
-                        >
-                          <TouchableOpacity
-                            onPress={() => {
-                              if (Platform.OS !== 'web') Linking.openURL(c.href)
-                            }}
-                            sx={{
-                              flexDirection: 'row',
-                              alignItems: 'center',
-                              justifyContent: 'flex-end',
-                              mb: '$3',
-                            }}
-                            href={c.href}
-                            hrefAttrs={{
-                              rel: 'noreferrer',
-                              target: '_blank',
-                            }}
-                          >
-                            <Text sx={{ mr: '$2', fontSize: 16 }}>
-                              {t('contact.' + c.label)}
-                            </Text>
-                            <View
-                              sx={{
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                mx: '$2',
-                              }}
-                            >
-                              <SupportIconWrap colors={c.bg}>
-                                {c.icon ? (
-                                  <Icon name={c.icon} />
-                                ) : (
-                                  <Image
-                                    source={c.image}
-                                    sx={{
-                                      width: 40,
-                                      height: 40,
-                                    }}
-                                  />
-                                )}
-                              </SupportIconWrap>
-                            </View>
-                          </TouchableOpacity>
-                        </MotiView>
-                      )
-                    })}
+                    {mediaList.map((c, i) => (
+                      <MotiView
+                        delay={i * 100}
+                        from={{ translateX: 100, opacity: 0 }}
+                        animate={{ translateX: 0, opacity: 1 }}
+                        key={c.label}
+                      >
+                        <MediaIcon key={c.label} item={c} index={i} />
+                      </MotiView>
+                    ))}
                   </AnimatePresence>
                 </View>
               </View>
@@ -126,17 +80,5 @@ const SupportMenu = ({ setSupportMenuVisible, visible }: SupportMenuProps) => {
     </>
   )
 }
-
-const SupportIconWrap = styled(DripsyGradient)(({ size = 45 }) => ({
-  borderRadius: size * 0.5,
-  borderWidth: 2,
-  borderColor: '$PaleBlue',
-  m: 1,
-  height: size,
-  aspectRatio: 1,
-  justifyContent: 'center',
-  alignItems: 'center',
-  overflow: 'hidden',
-}))
 
 export default SupportMenu
