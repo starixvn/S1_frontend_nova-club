@@ -105,7 +105,7 @@ const MainMenuTest = ({
       onPress: () => AgentSwitchConfirmation(),
     },
     {
-      label: 'menu.customerSupport',
+      label: 'menu.contactUs',
       icon: 'cs',
       onPress: () => OpenCSTelegram(),
     },
