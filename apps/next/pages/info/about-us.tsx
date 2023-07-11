@@ -1,4 +1,5 @@
-import { DesktopCommonInfoLayout } from 'components/layouts/desktop'
+import { AdaptiveLayoutPage } from 'components/layouts/AdaptiveLayout'
+import { DesktopInfoLayout } from 'components/layouts/desktop'
 import withAdaptiveScreen from 'desktop-ext/hoc/withAdaptiveScreen'
 import dynamic from 'next/dynamic'
 
@@ -13,8 +14,11 @@ const LazyDesktopScreen = dynamic(
   }
 )
 
-const AboutUs = withAdaptiveScreen(LazyMobileScreen, LazyDesktopScreen)
+const AboutUs: AdaptiveLayoutPage = withAdaptiveScreen(
+  LazyMobileScreen,
+  LazyDesktopScreen
+)
 
-AboutUs.DesktopLayout = DesktopCommonInfoLayout
+AboutUs.DesktopLayout = DesktopInfoLayout
 
 export default AboutUs
