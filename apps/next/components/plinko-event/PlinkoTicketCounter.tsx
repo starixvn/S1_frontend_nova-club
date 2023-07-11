@@ -45,10 +45,14 @@ const PlinkoTicketCounter = ({
             rotateZ: '360deg',
           }),
         }}
+        style={{
+          width: enlargedWidth * 0.075,
+          aspectRatio: 1,
+        }}
       >
         <Image
           source={require('../../../../packages/app/assets/images/events/plinko/coin.png')}
-          sx={{ width: enlargedWidth * 0.075, aspectRatio: 1 }}
+          sx={{ width: '100%', aspectRatio: 1 }}
         />
       </MotiView>
       {loading || loadingBalance ? (

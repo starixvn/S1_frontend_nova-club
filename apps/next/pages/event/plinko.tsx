@@ -28,6 +28,7 @@ import usePlinkoSound from '../../components/plinko-event/usePlinkoSound'
 import { LANGUAGE_CODE } from 'app/constant/language'
 import { SettingActions } from 'app/store/setting.slice'
 import PlinkoMessageCard from '../../components/plinko-event/PlinkoMessageCard'
+import { ActivityIndicator, Pressable } from 'react-native'
 
 const theme = {
   primary: '#81C0FF',
@@ -142,7 +143,7 @@ const Plinko = () => {
       setIsTicketLoading(true)
       const { data, success, message } = await draw().unwrap()
 
-      if (success && data) {
+      if (success && data && data[0].code !== '') {
         winAmount.current = data[0].formatted_amount
         prizeCode.current = parseInt(data[0].code)
         const basketLocation = mapDataCodeToValue(parseInt(data[0].code))
@@ -153,7 +154,7 @@ const Plinko = () => {
         handleDropBall()
         setIsTicketLoading(false)
       } else {
-        showAlert(message)
+        showAlert(data[0].err)
         setIsHidePrize(true)
         setIsLoading(false)
         setIsTicketLoading(false)
@@ -209,7 +210,7 @@ const Plinko = () => {
       case 4:
         return 8
       default:
-        throw new Error(`Invalid code: ${code}`)
+        throw new Error(`Please Contact Customer Support`)
     }
   }
 
@@ -534,8 +535,8 @@ const Plinko = () => {
               }}
             >
               {isShowCard && (
-                <TouchableOpacity
-                  sx={{
+                <Pressable
+                  style={{
                     flex: 1,
                     width: '100%',
                     height: '100%',
@@ -549,13 +550,13 @@ const Plinko = () => {
                     winAmount={winAmount.current}
                     code={prizeCode}
                   />
-                </TouchableOpacity>
+                </Pressable>
               )}
               <PlinkoBackButton scale={scale} />
-              <TouchableOpacity
+              <Pressable
                 onPress={() => getResult()}
                 disabled={!!!balance?.totalBalance || isLoading}
-                sx={{
+                style={{
                   top: enlargedHeight * 0.15,
                   right: enlargedWidth * 0.43,
                   zIndex: 1,
@@ -563,8 +564,13 @@ const Plinko = () => {
                   aspectRatio: 1,
                   position: 'absolute',
                   borderRadius: 50,
+                  justifyContent: 'center',
                 }}
-              />
+              >
+                {(!!!balance?.totalBalance || isLoading || isFetching) && (
+                  <ActivityIndicator color={'white'} />
+                )}
+              </Pressable>
               <PlinkoTncButton
                 scale={scale}
                 locale={
