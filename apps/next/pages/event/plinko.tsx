@@ -566,7 +566,7 @@ const Plinko = () => {
                   borderRadius: 50,
                 }}
               >
-                {(!!!balance?.totalBalance || isLoading || isFetching) && (
+                {(isLoading || isFetching) && (
                   <ActivityIndicator
                     color={'white'}
                     style={{ paddingTop: enlargedHeight * 0.11 }}
