@@ -1,5 +1,4 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import ListImage from 'app/components/ListImage'
 import hotgame from 'app/config/games/hotgame'
 import HorizontalGameList from 'app/features/games/HorizontalGameList'
 import { View } from 'dripsy'
@@ -123,9 +122,8 @@ const games: Game[] = [
 ]
 
 const HotGamesSection = () => {
-  const { data: playerProfile } = usePlayerProfileQuery()
-  const { currency } = playerProfile || {}
-  const { data } = useFeaturedGameListQuery({ currency })
+  const { currency } = usePlayerProfileQuery()
+  const { data } = useFeaturedGameListQuery({ currency }, { skip: !currency })
 
   const featuredList = data?.data?.rows
     .filter((el) => el.cat === FEATURED_GAME_CATEGORY.HOT)

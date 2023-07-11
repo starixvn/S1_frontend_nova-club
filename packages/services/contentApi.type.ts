@@ -6,6 +6,7 @@ import { ImageSourcePropType } from 'react-native'
 export enum FEATURED_GAME_CATEGORY {
   HOT = '1',
   RECOMMENDED = '2',
+  JACKPOT = '3',
 }
 export interface BannerResult {
   image: string
