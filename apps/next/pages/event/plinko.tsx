@@ -557,18 +557,20 @@ const Plinko = () => {
                 onPress={() => getResult()}
                 disabled={!!!balance?.totalBalance || isLoading}
                 style={{
-                  top: enlargedHeight * 0.15,
-                  right: enlargedWidth * 0.43,
+                  top: enlargedHeight * 0.08,
+                  right: enlargedWidth * 0.35,
                   zIndex: 1,
-                  width: 110 * scale,
-                  aspectRatio: 1,
+                  width: 235 * scale,
+                  aspectRatio: 3 / 5,
                   position: 'absolute',
                   borderRadius: 50,
-                  justifyContent: 'center',
                 }}
               >
                 {(!!!balance?.totalBalance || isLoading || isFetching) && (
-                  <ActivityIndicator color={'white'} />
+                  <ActivityIndicator
+                    color={'white'}
+                    style={{ paddingTop: enlargedHeight * 0.11 }}
+                  />
                 )}
               </Pressable>
               <PlinkoTncButton
