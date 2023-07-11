@@ -560,16 +560,6 @@ const TncEn = () => {
                 </li>
                 <li>Will not access the Website at any time:</li>
                 <li>
-                  From within the Philippine territory or any jurisdiction that
-                  prohibits remote gambling or online gaming;
-                </li>
-                <li>
-                  If the Player is a Filipino citizen or a citizen of a nation
-                  or state that prohibits its citizens from participating in
-                  remote gambling or online gaming (regardless of their current
-                  location); and
-                </li>
-                <li>
                   If the Player is a citizen or resident of, or is located
                   within, any of the Prohibited Jurisdictions, their
                   dependencies and territories.
@@ -631,13 +621,6 @@ const TncEn = () => {
                   FUNDS IN THE SUBJECT PLAYER ACCOUNT.
                 </li>
                 <li>
-                  Will not allow or authorize any other person or third party
-                  (including, without limitation, persons below eighteen [18]
-                  years of age and/or Filipino citizens) to use the Company
-                  Services, use the Player Account or accept any winnings in
-                  their behalf.
-                </li>
-                <li>
                   Will forthwith report any and all winnings to the proper
                   authorities if the Player resides in a jurisdiction where such
                   winnings are taxable or are otherwise required by law to be
@@ -687,11 +670,6 @@ const TncEn = () => {
             <strong>Terms of Transactions</strong>
           </div>
           <ol>
-            <li>
-              The Company is licensed to accept bets via remote communication
-              devices on a global basis under the Company’s Offshore Gaming
-              License issued by PAGCOR.
-            </li>
             <li>
               In general and subject to a more specific set of rules provided in
               this Website, if any, a bet is only deemed placed (“Placed Bet”)
@@ -1081,13 +1059,6 @@ const TncEn = () => {
               consequences under the Documentation. The Player also acknowledges
               that all the terms and conditions have been explained to him and
               that he completely understood the same.
-            </li>
-            <li>
-              These Terms and Conditions shall be governed by and construed in
-              accordance with Philippine laws. Any and all cases or disputes
-              relating to this Terms and Conditions and Documentation shall be
-              exclusively filed before the appropriate courts in the City of
-              Makati, Philippines to the exclusion of other courts.
             </li>
             <li>
               <div>
