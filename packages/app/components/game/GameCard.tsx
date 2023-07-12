@@ -1,14 +1,7 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { LaunchGame } from 'app/features/game/GameLauncher'
 import { LaunchGamePayload } from 'app/store/gameLauncher.slice'
-import {
-  SxProp,
-  Text,
-  View,
-  styled,
-  useResponsiveValue,
-  useSx
-} from 'dripsy'
+import { SxProp, Text, View, styled, useResponsiveValue, useSx } from 'dripsy'
 import { MotiPressable } from 'moti/interactions'
 import React, { memo, useMemo, useRef, useState, useTransition } from 'react'
 import { GestureResponderEvent, PressableProps, StyleSheet } from 'react-native'
@@ -147,6 +140,8 @@ const LabelContainer = styled(View)(({ absolute }: { absolute?: boolean }) =>
         width: '100%',
         borderTopWidth: StyleSheet.hairlineWidth,
         borderTopColor: '$primary.100',
+        borderBottomRightRadius: 10,
+        borderBottomLeftRadius: 10,
         bg: `rgba(50, 50, 90, 0.8)`,
         position: 'absolute',
         bottom: 0,

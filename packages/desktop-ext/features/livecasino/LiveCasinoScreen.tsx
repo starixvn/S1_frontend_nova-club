@@ -55,7 +55,6 @@ export default function LiveCasinoScreen({}: Props) {
     setProvider(gpc.toLowerCase())
   }
 
-  console.log('provider', provider)
   return (
     <Container>
       <Row sx={{ gap: '$3', my: '$sectionBottomSpace' }}>
