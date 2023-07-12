@@ -29,6 +29,8 @@ import { LANGUAGE_CODE } from 'app/constant/language'
 import { SettingActions } from 'app/store/setting.slice'
 import PlinkoMessageCard from '../../components/plinko-event/PlinkoMessageCard'
 import { ActivityIndicator, Pressable } from 'react-native'
+import IconButton from 'app/components/form/IconButton'
+import { StyleSheet } from 'react-native'
 
 const theme = {
   primary: '#81C0FF',
@@ -561,7 +563,7 @@ const Plinko = () => {
                   right: enlargedWidth * 0.35,
                   zIndex: 1,
                   width: 235 * scale,
-                  aspectRatio: 3 / 5,
+                  height: 235 * scale * 1.5,
                   position: 'absolute',
                   borderRadius: 50,
                 }}
