@@ -8,12 +8,11 @@ export type Props = React.ComponentPropsWithRef<typeof View> & {
    */
   size?: 'big' | 'small'
   children: React.ReactNode
-  containerStyle?: SxProp
 }
 
-const DataTableHeader = ({ children, containerStyle, ...rest }: Props) => {
+const DataTableHeader = ({ children, ...rest }: Props) => {
   return (
-    <HeaderView sx={containerStyle} {...rest}>
+    <HeaderView {...rest}>
       <ContentView>{children}</ContentView>
     </HeaderView>
   )

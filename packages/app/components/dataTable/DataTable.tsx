@@ -13,11 +13,10 @@ export type Props = React.ComponentPropsWithRef<typeof View> & {
    */
   rounded?: boolean
   children: React.ReactNode
-  style?: SxProp
 }
 
-const DataTable = ({ rounded = false, children, style, ...rest }: Props) => (
-  <RootView rounded={rounded} sx={style} {...rest}>
+const DataTable = ({ rounded = false, children, ...rest }: Props) => (
+  <RootView rounded={rounded} {...rest}>
     {children}
   </RootView>
 )
