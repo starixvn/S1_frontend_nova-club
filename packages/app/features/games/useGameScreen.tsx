@@ -7,7 +7,7 @@ import { SUB_ROUTES } from './subroutes'
 import { createParam } from 'solito'
 
 type Params = {
-  type?: string
+  type?: string[]
 }
 const { useParam } = createParam<Params>()
 
@@ -24,7 +24,18 @@ export default function useGameScreen(defaultType?: string) {
   const [filteredGames, setFilteredGames] = useState<Game[]>()
   const { push } = useRouter()
 
-  const [type, setType] = useParam('type')
+  const [type, setType] = useParam('type', {
+    parse: (templateFromUrl) =>
+      templateFromUrl && templateFromUrl[0] ? templateFromUrl[0] : undefined,
+    initial: undefined,
+  })
+
+  const [provider, setProvider] = useParam('type', {
+    parse: (templateFromUrl) =>
+      templateFromUrl && templateFromUrl[1] ? templateFromUrl[1] : undefined,
+    initial: undefined,
+  })
+
   const route = type ? SUB_ROUTES[type] : undefined
   if (!route && defaultType) setType(defaultType)
 
@@ -46,6 +57,7 @@ export default function useGameScreen(defaultType?: string) {
   return {
     filteredGames,
     route,
+    provider,
     type,
     onFilterClicked,
   }

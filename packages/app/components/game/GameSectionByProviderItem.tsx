@@ -9,16 +9,20 @@ import { ALL } from 'app/utils/constant'
 import GameListSectionGrid from './GameListSectionGrid'
 import { Text } from 'dripsy'
 import { useAppSelector } from 'app/provider/redux/store'
+import Button from '../common/Button'
+import { useRouter } from 'solito/router'
 
 function GameSectionByProviderItem({
   gpc,
   games = [],
   // GameListComponent = GameSectionByProviderItemGameListSummary,
   bordered = false,
+  onViewMore,
 }: {
   bordered?: boolean
   gpc?: string
   games: Game[]
+  onViewMore?: (gpc: string) => void
   // GameListComponent: FC<{ data: Game[] }>
 }) {
   const locale = useAppSelector((s) => s.setting.locale)
@@ -45,11 +49,13 @@ function GameSectionByProviderItem({
 
   const searchedGame = useMemo(() => {
     return search
-      ? filteredGame.filter((g) => {
-          return g.name[locale]?.toLowerCase().includes(search.toLowerCase())
-        })
+      ? games
+          .filter((g) => {
+            return g.name[locale]?.toLowerCase().includes(search.toLowerCase())
+          })
+          .slice(0, count)
       : undefined
-  }, [search, filteredGame, locale])
+  }, [search, games, count, locale])
 
   return (
     <View nativeID={`gameSection${gpc}`}>
@@ -90,6 +96,14 @@ function GameSectionByProviderItem({
         data={searchedGame ?? filteredGame}
         bordered={bordered}
       />
+      {count < 50 && (
+        <Button
+          sx={{ alignSelf: 'center', mb: '$3' }}
+          onPress={() => onViewMore && gpc && onViewMore(gpc)}
+        >
+          Show More
+        </Button>
+      )}
     </View>
   )
 }

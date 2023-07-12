@@ -39,7 +39,7 @@ const GameListSectionGridHeader = styled(View)({
 
 interface GameListSectionGridFilterProps {
   children: React.ReactNode
-  onSearch: (t?: string) => void
+  onSearch?: (t?: string) => void
 }
 
 const GameListSectionGridFilter = ({
@@ -174,7 +174,7 @@ const TagButton = ({ isActive, children = '', ...rest }) => {
     <Pressable sx={{ maxWidth: 100, marginBottom: 2 }} {...rest}>
       <Shadow
         safeRender
-        style={{ flex: 1, borderRadius: 30, overflow: 'hidden' }}
+        style={{ borderRadius: 30, overflow: 'hidden' }}
         offset={[0, 1]}
         distance={1}
         startColor={theme.colors.$primary[100]}

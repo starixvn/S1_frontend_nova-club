@@ -15,7 +15,7 @@
     "react-native-reanimated-carousel": "^3.3.2",
     "react-native-svg": "^13.9.0",
     "react-web-share": "^2.0.2",
-    "solito": "3.0.0",
+    "solito": "3.2.6",
     "utils": "*",
     "zeego": "^1.5.1"
   },

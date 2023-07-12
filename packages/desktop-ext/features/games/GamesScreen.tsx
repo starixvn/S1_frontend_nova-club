@@ -21,12 +21,9 @@ import GameList from './GameList'
 type Props = {}
 
 function _GamesScreen({}: Props) {
-  const { type, route, filteredGames, onFilterClicked } = useGameScreen(
+  const { route, filteredGames, onFilterClicked } = useGameScreen(
     SUB_ROUTES.local.route
   )
-
-  console.log('type', type)
-
   return (
     <Container>
       <Row sx={{ gap: '$3', my: '$sectionBottomSpace' }}>
