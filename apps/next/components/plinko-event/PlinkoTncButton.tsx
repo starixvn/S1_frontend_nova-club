@@ -36,7 +36,7 @@ const PlinkoTncButton = ({
         right: 20,
         zIndex: 3,
         width: 40 * scale,
-        aspectRatio: 1,
+        height: 40 * scale,
         position: 'absolute',
         borderRadius: 100,
         shadowColor: '#000',
