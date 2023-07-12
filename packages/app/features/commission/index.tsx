@@ -49,7 +49,7 @@ const CommissionTableScreen = () => {
     <DataTable>
       <DataTable.Header
         size="big"
-        containerStyle={{
+        sx={{
           color: 'white',
           zIndex: 2,
           // mt: Platform.OS === 'web' ? (desktop ? 0 : 15) : 0,
@@ -64,7 +64,7 @@ const CommissionTableScreen = () => {
       >
         <TitleCell
           center={false}
-          containerStyle={{ flex: 0.4 }}
+          sx={{ flex: 0.4 }}
           textStyle={{
             pl: 12,
           }}
@@ -96,14 +96,14 @@ const CommissionTableScreen = () => {
       <DataTable.Row
         key={`${index} ${item.seq}`}
         size={isTitle ? 'big' : 'small'}
-        containerStyle={{
+        sx={{
           bg: isTitle ? '$primary.300' : 'none',
         }}
       >
         <DataTable.Cell
           bordered={isTitle ? false : true}
           center={false}
-          containerStyle={{
+          sx={{
             flex: isTitle ? 1 : 0.4,
           }}
           textStyle={{
@@ -117,21 +117,21 @@ const CommissionTableScreen = () => {
         <DataTable.Cell
           bordered={isTitle ? false : true}
           center
-          containerStyle={{ flex: 0.2 }}
+          sx={{ flex: 0.2 }}
         >
           {isTitle ? '' : fillColumn(item.cash_player)}
         </DataTable.Cell>
         <DataTable.Cell
           bordered={isTitle ? false : true}
           center
-          containerStyle={{ flex: 0.2 }}
+          sx={{ flex: 0.2 }}
         >
           {isTitle ? '' : fillColumn(item.cash_player_referrer)}
         </DataTable.Cell>
         <DataTable.Cell
           bordered={isTitle ? false : true}
           center
-          containerStyle={{ flex: 0.2 }}
+          sx={{ flex: 0.2 }}
         >
           {isTitle ? '' : fillColumn(item.credit_player)}
         </DataTable.Cell>
@@ -179,7 +179,7 @@ export const TitleCell = ({
       fontSize: 12,
       ...textStyle,
     }}
-    containerStyle={{ flex: 0.2 }}
+    sx={{ flex: 0.2 }}
     {...rest}
   >
     {children}

@@ -13,7 +13,6 @@ export type Props = React.ComponentPropsWithRef<typeof View> & {
   numberOfLines?: number
   bordered?: boolean
   center?: boolean
-  containerStyle?: SxProp
   /**
    * Text content style of the `DataTableTitle`.
    */
@@ -58,17 +57,11 @@ const DataTableTitle = ({
   bordered = false,
   center = true,
   textStyle,
-  containerStyle,
   numberOfLines = 2,
   ...rest
 }: Props) => {
   return (
-    <TitleView
-      center={center}
-      bordered={bordered}
-      sx={containerStyle}
-      {...rest}
-    >
+    <TitleView center={center} bordered={bordered} {...rest}>
       <ContentText
         sx={{
           // height must scale with numberOfLines
@@ -91,7 +84,9 @@ const TitleView = styled(View)(
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: center ? 'center' : 'flex-start',
-    px: 4,
+    borderRightWidth: bordered ? StyleSheet.hairlineWidth : 0,
+    borderColor: '#AEAFAF',
+    px: '$2',
   })
 )
 

@@ -69,8 +69,8 @@ const MonthlyEvent = () => {
       </Text>
 
       <DataTable>
-        <DataTableHeader size="small" containerStyle={{}}>
-          <DataTableTitle center={false} containerStyle={{ px: 12 }}>
+        <DataTableHeader size="small" sx={{}}>
+          <DataTableTitle center={false} sx={{ px: 12 }}>
             {t('menu.leaderboard').toUpperCase()}
           </DataTableTitle>
           <DataTableTitle>
@@ -82,7 +82,7 @@ const MonthlyEvent = () => {
         </DataTableHeader>
         {dummyData.map((item) => (
           <DataTableRow key={item.rank}>
-            <DataTableCell containerStyle={{ px: 12 }}>
+            <DataTableCell sx={{ px: 12 }}>
               {item.rank.toUpperCase()}
             </DataTableCell>
             <DataTableCell>

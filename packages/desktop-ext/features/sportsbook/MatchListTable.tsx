@@ -165,7 +165,7 @@ const MatchListCellData = ({
   return (
     <DataTableRow>
       <DataTableCell
-        containerStyle={{
+        sx={{
           flex: 0.075,
           alignItems: selectionType === 'home' ? 'flex-end' : 'flex-start',
         }}
@@ -173,7 +173,7 @@ const MatchListCellData = ({
       >
         {dateTime}
       </DataTableCell>
-      <DataTableCell containerStyle={{ flex: 0.025 }}>
+      <DataTableCell sx={{ flex: 0.025 }}>
         {flag && (
           <SolitoImage
             src={flag}
@@ -186,12 +186,12 @@ const MatchListCellData = ({
       </DataTableCell>
       <DataTableCell
         textStyle={{ textAlign: 'center' }}
-        containerStyle={{ ml: '$2', flex: 0.1 }}
+        sx={{ ml: '$2', flex: 0.1 }}
       >
         {name ?? 'Draw'}
       </DataTableCell>
       <DataTableCell
-        containerStyle={{
+        sx={{
           justifyContent: 'flex-start',
           ml: '$2',
           flex: 1,
@@ -227,7 +227,7 @@ const MatchListCellData = ({
               }}
             >
               <DataTableCell
-                containerStyle={{
+                sx={{
                   flex: isTimeDouble ? 0.5 : 1,
                   px: 0,
                 }}
@@ -237,7 +237,7 @@ const MatchListCellData = ({
               </DataTableCell>
               {selectionType === 'draw' ? (
                 <DataTableCell
-                  containerStyle={{
+                  sx={{
                     flex: 1,
                     px: 0,
                   }}
@@ -251,7 +251,7 @@ const MatchListCellData = ({
                 </DataTableCell>
               ) : (
                 <DataTableCell
-                  containerStyle={{ flex: 1, px: 0 }}
+                  sx={{ flex: 1, px: 0 }}
                   textStyle={{
                     color: isTimeDouble ? '#ffcc00' : 'white',
                   }}
@@ -261,7 +261,7 @@ const MatchListCellData = ({
               )}
 
               <DataTableCell
-                containerStyle={{
+                sx={{
                   flex: isTimeDouble ? 0.5 : 1,
                   px: 0,
                 }}
@@ -278,7 +278,7 @@ const MatchListCellData = ({
           )
         })}
       </DataTableCell>
-      <DataTableCell containerStyle={{ flex: 0.1, mr: '$4' }}>
+      <DataTableCell sx={{ flex: 0.1, mr: '$4' }}>
         {selectionType === 'away' && onPress ? (
           <Button
             contentProps={{ sx: { py: '$1', px: '$2' } }}
