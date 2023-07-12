@@ -1,10 +1,11 @@
+import AvertaStd from 'app/assets/fonts/Averta'
 import { useAppSelector } from 'app/provider/redux/store'
 import { LANGUAGE_CODE } from 'app/utils/constant'
 import { useRouter } from 'next/router'
 import React, { ComponentType } from 'react'
-// import { fontName } from 'app/provider/dripsy'
+
 const FONT_COLOR = '#FFF'
-const FONT_SIZE = 12
+const FONT_SIZE = '0.85rem'
 
 export type InfoContentLocalization = {
   [index in LANGUAGE_CODE]: ComponentType<{}>
@@ -24,7 +25,7 @@ const InfoScreen = ({ map }: InfoScreenProps) => {
     <main
       style={{
         padding: 12,
-        // fontFamily: fontName,
+        fontFamily: AvertaStd.Regular.name,
         fontSize: FONT_SIZE,
         color: FONT_COLOR,
       }}
