@@ -26,6 +26,7 @@ const ShadowButton = ({
       startColor={theme.colors.$primary[100]}
       distance={1}
       isActive={isActive}
+      safeRender
       sx={containerStyle}
       {...rest}
     >

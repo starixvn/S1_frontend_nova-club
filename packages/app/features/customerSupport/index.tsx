@@ -16,7 +16,7 @@ const CustomerSupportScreen = () => {
   const { t } = useLocalization()
   const mediaList = useSupportItemList()
   const desktop = isDesktop()
-
+  console.log('Re-Render')
   return (
     <PageWithBackHeader
       header={{ title: t('contact.customerSupport') }}
@@ -30,14 +30,20 @@ const CustomerSupportScreen = () => {
         />
         <Text sx={{ py: 12 }}>{t('contact.contactVia')}</Text>
 
-        {mediaList.map((item) => (
-          <SupportButton
-            key={item.label}
-            icon={item.icon}
-            label={item.label}
-            href={item.href}
-          />
-        ))}
+        <View
+          sx={{
+            minHeight: '200px',
+          }}
+        >
+          {mediaList.map((item) => (
+            <SupportButton
+              key={item.label}
+              icon={item.icon}
+              label={item.label}
+              href={item.href}
+            />
+          ))}
+        </View>
       </View>
     </PageWithBackHeader>
   )
@@ -66,6 +72,7 @@ const SupportButton = ({
         offset={[0, -1]}
         startColor={theme.colors.$primary[100]}
         distance={1}
+        safeRender
         style={{ borderRadius: 100 }}
       >
         <DripsyGradient

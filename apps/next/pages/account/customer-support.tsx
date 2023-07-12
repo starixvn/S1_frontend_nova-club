@@ -1,6 +1,9 @@
 import CustomerSupportScreen from 'app/features/customerSupport'
+import { AdaptiveLayoutPage } from 'components/layouts/AdaptiveLayout'
 import { DesktopAccountLayout } from 'components/layouts/desktop'
 
-export default CustomerSupportScreen
+const CustomerSupport: AdaptiveLayoutPage = CustomerSupportScreen
 
-CustomerSupportScreen.DesktopLayout = DesktopAccountLayout
+CustomerSupport.DesktopLayout = DesktopAccountLayout
+
+export default CustomerSupport
