@@ -1,4 +1,4 @@
-package com.anonymous.solitoexporouter;
+package com.chlgame.app;
 
 import android.app.Application;
 import android.content.res.Configuration;

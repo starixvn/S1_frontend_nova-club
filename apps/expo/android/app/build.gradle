@@ -113,9 +113,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace 'com.anonymous.solitoexporouter'
+    namespace 'com.chlgame.app'
     defaultConfig {
-        applicationId 'com.anonymous.solitoexporouter'
+        applicationId 'com.chlgame.app'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

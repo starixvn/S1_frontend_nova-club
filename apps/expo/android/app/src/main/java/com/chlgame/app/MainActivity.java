@@ -1,4 +1,4 @@
-package com.anonymous.solitoexporouter;
+package com.chlgame.app;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -20,14 +20,14 @@ public class MainActivity extends ReactActivity {
     // This is required for expo-splash-screen.
     setTheme(R.style.AppTheme);
 
-      WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+    WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
     
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-        layoutParams.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
-        getWindow().setAttributes(layoutParams);
-      }
-
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+      WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+      layoutParams.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+      getWindow().setAttributes(layoutParams);
+    }
+    
     super.onCreate(null);
   }
 
