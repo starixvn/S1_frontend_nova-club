@@ -26,7 +26,7 @@
         <key>CFBundleURLSchemes</key>
         <array>
           <string>vuifit</string>
-          <string>com.anonymous.solitoexporouter</string>
+          <string>com.vuifit.app</string>
         </array>
       </dict>
       <dict>

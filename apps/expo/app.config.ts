@@ -22,7 +22,7 @@ const expoConfig = ({ config }: ConfigContext): ExpoConfig => ({
   ios: {
     requireFullScreen: true,
     supportsTablet: true,
-    bundleIdentifier: 'com.anonymous.solitoexporouter',
+    bundleIdentifier: 'com.vuifit.app',
     // infoPlist: {
     //   // to add
     //   // - LSApplicationQueriesSchemes
