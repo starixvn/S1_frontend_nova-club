@@ -11,8 +11,18 @@ import {
   NAVIGATION_DROPDOWN_MENU,
   useNavigationHeader,
 } from './NavigationHeaderProvider'
+import { ViewStyle } from 'react-native'
 
-const MENU = [
+interface MenuProps {
+  icon?: string
+  label?: string
+  route: string
+  style?: ViewStyle
+  menu?: NAVIGATION_DROPDOWN_MENU
+}
+interface MenuButtonProps extends MenuProps {}
+
+const MENU: MenuProps[] = [
   {
     route: '/download',
     icon: 'mobile',
@@ -110,7 +120,7 @@ export default function NavigationHeader({}) {
 
 const DripsyMotiPressable = styled(MotiPressable)()
 
-const MenuButton = ({ icon, label, route, style, menu }) => {
+const MenuButton = ({ icon, label, route, style, menu }: MenuButtonProps) => {
   const linkProps = useLink({ href: route })
   const setDropdownMenu = useNavigationHeader()
 
@@ -139,13 +149,12 @@ const MenuButton = ({ icon, label, route, style, menu }) => {
   )
 }
 
-const Indicator = ({ route }) => {
+const Indicator = ({ route }: { route: string }) => {
   const pathname = usePathname()
   const state = useMotiPressable(
     ({ pressed, hovered }) => {
       'worklet'
-
-      const isActive = pathname.startsWith(route) || pressed || hovered
+      const isActive = isTabActive({ route, pathname }) || pressed || hovered
       return {
         opacity: isActive ? 1 : 0,
         // opacity: true? 1
@@ -167,4 +176,23 @@ const Indicator = ({ route }) => {
       }}
     />
   )
+}
+
+const isTabActive = ({
+  route,
+  pathname,
+}: {
+  route: string
+  pathname: string
+}) => {
+  const pathNameMatch = pathname.match(route)
+  if (pathname.match(route)) {
+    if (pathNameMatch?.[0] === pathNameMatch?.input) {
+      return true
+    } else if (pathNameMatch?.[0] !== '/') {
+      return pathNameMatch?.input?.includes(route)
+    }
+    return false
+  }
+  return false
 }
