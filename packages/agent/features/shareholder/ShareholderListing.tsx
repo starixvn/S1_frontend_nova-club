@@ -1,3 +1,6 @@
+import AgentDataTableCell from 'agent/components/DataTable/AgentDataTableCell'
+import AgentDataTableHeader from 'agent/components/DataTable/AgentDataTableHeader'
+import AgentDataTableTitle from 'agent/components/DataTable/AgentDataTableTitle'
 import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
 import IconButton from 'agent/components/Icon/IconButton'
 import Switch from 'agent/components/Switch'
@@ -10,6 +13,7 @@ import {
 } from 'agent/services/shareholderApi'
 import { ShareholderListResult } from 'agent/services/shareholderApi.type'
 import DataTable from 'app/components/dataTable/DataTable'
+import { DateTimeField } from 'app/components/dataTable/DataTableCell'
 import { useAgentLocalization } from 'app/provider/localization'
 import dayjs from 'dayjs'
 import { Pressable, View } from 'dripsy'
@@ -19,7 +23,6 @@ import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useRouter } from 'solito/router'
 import AgentFloatingContent from '../floatingContent'
-import { DateTimeField } from 'app/components/dataTable/DataTableCell'
 
 export type ShareholderListingFilterOptions = {
   date: DateFilter | string | undefined
@@ -89,21 +92,21 @@ const ShareholderListing = () => {
   }
 
   const onRenderHeader = () => (
-    <DataTable.Header>
-      <DataTable.Title bordered center containerStyle={firstCellStyle}>
+    <AgentDataTableHeader>
+      <AgentDataTableTitle bordered center sx={firstCellStyle}>
         #
-      </DataTable.Title>
-      <DataTable.Title bordered center>
+      </AgentDataTableTitle>
+      <AgentDataTableTitle bordered center>
         {t('common.username')}
-      </DataTable.Title>
-      <DataTable.Title bordered center containerStyle={thirdCellStyle}>
+      </AgentDataTableTitle>
+      <AgentDataTableTitle bordered center sx={thirdCellStyle}>
         PT %
-      </DataTable.Title>
-      <DataTable.Title bordered center>
+      </AgentDataTableTitle>
+      <AgentDataTableTitle bordered center>
         {t('shAgent.regDate')}
-      </DataTable.Title>
-      <DataTable.Title center>{t('common.status')}</DataTable.Title>
-    </DataTable.Header>
+      </AgentDataTableTitle>
+      <AgentDataTableTitle center>{t('common.status')}</AgentDataTableTitle>
+    </AgentDataTableHeader>
   )
 
   const onRenderItem = ({
@@ -112,10 +115,10 @@ const ShareholderListing = () => {
   }: ListRenderItemInfo<ShareholderListResult>) => {
     return (
       <DataTable.Row size="big" sx={{ bg: 'transparent' }}>
-        <DataTable.Cell bordered center containerStyle={firstCellStyle}>
+        <AgentDataTableCell bordered center sx={firstCellStyle}>
           {index + 1}
-        </DataTable.Cell>
-        <DataTable.Cell bordered>
+        </AgentDataTableCell>
+        <AgentDataTableCell bordered>
           <Pressable
             sx={{
               width: '100%',
@@ -128,8 +131,8 @@ const ShareholderListing = () => {
               {item.username}
             </Text>
           </Pressable>
-        </DataTable.Cell>
-        <DataTable.Cell bordered center containerStyle={thirdCellStyle}>
+        </AgentDataTableCell>
+        <AgentDataTableCell bordered center sx={thirdCellStyle}>
           <Text sx={{ color: 'black' }}>{item.earning_perc}</Text>
           <IconButton
             name="edit"
@@ -138,17 +141,17 @@ const ShareholderListing = () => {
             sx={{ ml: 8 }}
             onPress={() => handleEdit(item.id, item.earning_perc)}
           />
-        </DataTable.Cell>
-        <DataTable.Cell bordered center>
+        </AgentDataTableCell>
+        <AgentDataTableCell bordered center>
           <DateTimeField dateTime={item.created_at} />
-        </DataTable.Cell>
-        <DataTable.Cell center>
+        </AgentDataTableCell>
+        <AgentDataTableCell center>
           <Switch
             isActive={!!Number(item.active)}
             isLoading={index === isLoadingIndex ? isLoading : false}
             onPress={() => handleToggle(item.id, item.active, index)}
           />
-        </DataTable.Cell>
+        </AgentDataTableCell>
       </DataTable.Row>
     )
   }

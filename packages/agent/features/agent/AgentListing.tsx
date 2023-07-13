@@ -1,3 +1,7 @@
+import AgentDataTableCell from 'agent/components/DataTable/AgentDataTableCell'
+import AgentDataTableHeader from 'agent/components/DataTable/AgentDataTableHeader'
+import AgentDataTableTitle from 'agent/components/DataTable/AgentDataTableTitle'
+import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
 import Switch from 'agent/components/Switch'
 import Text from 'agent/components/Text'
 import { DateFilter, ShareholderStatusFilter } from 'agent/constant/select'
@@ -17,7 +21,6 @@ import { ListRenderItemInfo } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useRouter } from 'solito/router'
-import TableListing, { LIMIT } from '../../components/dataTable/TableListing'
 import AgentFloatingContent from '../floatingContent'
 
 export type AgentListingFilterOptions = {
@@ -86,18 +89,18 @@ const AgentListing = () => {
   const firstCellStyle = { flexGrow: 0, flexBasis: 40, px: '$1' }
 
   const onRenderHeader = () => (
-    <DataTable.Header>
-      <DataTable.Title bordered center containerStyle={firstCellStyle}>
+    <AgentDataTableHeader>
+      <AgentDataTableTitle bordered center sx={firstCellStyle}>
         #
-      </DataTable.Title>
-      <DataTable.Title bordered center>
+      </AgentDataTableTitle>
+      <AgentDataTableTitle bordered center>
         {t('common.username')}
-      </DataTable.Title>
-      <DataTable.Title bordered center>
+      </AgentDataTableTitle>
+      <AgentDataTableTitle bordered center>
         {t('shAgent.regDate')}
-      </DataTable.Title>
-      <DataTable.Title center>{t('common.status')}</DataTable.Title>
-    </DataTable.Header>
+      </AgentDataTableTitle>
+      <AgentDataTableTitle center>{t('common.status')}</AgentDataTableTitle>
+    </AgentDataTableHeader>
   )
 
   const onRenderItem = ({
@@ -105,10 +108,10 @@ const AgentListing = () => {
     index,
   }: ListRenderItemInfo<AgentListResult>) => (
     <DataTable.Row size="big" sx={{ bg: 'transparent' }}>
-      <DataTable.Cell bordered center containerStyle={firstCellStyle}>
+      <AgentDataTableCell bordered center sx={firstCellStyle}>
         {index + 1}
-      </DataTable.Cell>
-      <DataTable.Cell bordered>
+      </AgentDataTableCell>
+      <AgentDataTableCell bordered>
         <Pressable
           sx={{
             width: '100%',
@@ -121,17 +124,17 @@ const AgentListing = () => {
             {item.username}
           </Text>
         </Pressable>
-      </DataTable.Cell>
-      <DataTable.Cell bordered center>
+      </AgentDataTableCell>
+      <AgentDataTableCell bordered center>
         <DateTimeField dateTime={item.created_at} />
-      </DataTable.Cell>
-      <DataTable.Cell center>
+      </AgentDataTableCell>
+      <AgentDataTableCell center>
         <Switch
           isActive={!!Number(item.active)}
           isLoading={index === isLoadingIndex ? isLoading : false}
           onPress={() => handleToggle(item.id, item.active, index)}
         />
-      </DataTable.Cell>
+      </AgentDataTableCell>
     </DataTable.Row>
   )
 

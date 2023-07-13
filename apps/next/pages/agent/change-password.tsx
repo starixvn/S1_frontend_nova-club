@@ -1,13 +1,10 @@
 import AgentChangePassword from 'agent/features/auth/AgentChangePassword'
-import AgentStackLayout from '../../layouts/agent/AgentStackLayout'
-import React from 'react'
+import { MobileStackAgentLayout } from 'components/layouts/agent'
 
 const ChangePassword = () => {
-  return (
-    <AgentStackLayout>
-      <AgentChangePassword />
-    </AgentStackLayout>
-  )
+  return <AgentChangePassword />
 }
+
+ChangePassword.AgentLayout = MobileStackAgentLayout
 
 export default ChangePassword

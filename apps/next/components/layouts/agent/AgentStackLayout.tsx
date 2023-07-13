@@ -13,6 +13,7 @@ const StyledView = styled(View)(({ height }: { height: number }) => ({
   paddingTop: AGENT_STACK_CONTENT_PADDING_WEB,
   minHeight: height,
   bg: 'white',
+  zIndex: 10,
 }))
 
 const AgentStackLayout: FC<TabLayoutProps> = ({ children, ...props }) => {

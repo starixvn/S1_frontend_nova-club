@@ -214,7 +214,7 @@ const AddBankInfoForm = () => {
           minHeight: height,
         }}
       >
-        <View sx={{ alignItems: 'center' }}>
+        <View sx={{ alignItems: 'center', p: 20, mt: 20 }}>
           <SelectWithCardGrid
             label={t('common.bankCard')}
             placeholder={t('common.selectBank')}

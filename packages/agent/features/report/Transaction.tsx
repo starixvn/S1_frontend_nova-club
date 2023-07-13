@@ -1,3 +1,6 @@
+import AgentDataTableCell from 'agent/components/DataTable/AgentDataTableCell'
+import AgentDataTableHeader from 'agent/components/DataTable/AgentDataTableHeader'
+import AgentDataTableTitle from 'agent/components/DataTable/AgentDataTableTitle'
 import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
 import {
   DateFilter,
@@ -75,15 +78,15 @@ const TransactionScreen = () => {
   })
 
   const onRenderHeader = () => (
-    <DataTable.Header>
-      <DataTable.Title bordered center>
+    <AgentDataTableHeader>
+      <AgentDataTableTitle bordered center>
         {t('common.date')}
-      </DataTable.Title>
-      <DataTable.Title center bordered>
+      </AgentDataTableTitle>
+      <AgentDataTableTitle center bordered>
         {t('report.transactionType')}
-      </DataTable.Title>
-      <DataTable.Title center>{t('common.amount')}</DataTable.Title>
-    </DataTable.Header>
+      </AgentDataTableTitle>
+      <AgentDataTableTitle center>{t('common.amount')}</AgentDataTableTitle>
+    </AgentDataTableHeader>
   )
 
   const onRenderItem = ({
@@ -94,20 +97,20 @@ const TransactionScreen = () => {
     index: number
   }) => (
     <DataTable.Row size="big">
-      <DataTable.Cell bordered center>
+      <AgentDataTableCell bordered center>
         <DateTimeField dateTime={item.created_date} />
-      </DataTable.Cell>
-      <DataTable.Cell bordered textStyle={{ px: 12 }}>
+      </AgentDataTableCell>
+      <AgentDataTableCell bordered textStyle={{ px: 12 }}>
         {item.transaction_type}
-      </DataTable.Cell>
-      <DataTable.Cell
+      </AgentDataTableCell>
+      <AgentDataTableCell
         center
         textStyle={{
           color: item.actual_amount.startsWith('-') ? '$errorAgent' : 'black',
         }}
       >
         {toThousandSeparator(item.actual_amount)}
-      </DataTable.Cell>
+      </AgentDataTableCell>
     </DataTable.Row>
   )
 

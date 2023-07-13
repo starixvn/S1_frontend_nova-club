@@ -1,8 +1,8 @@
-import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import { View } from 'dripsy'
 import React from 'react'
 import Select, { SelectProps } from './Select'
 import Image from 'app/components/common/Image'
+import TouchableOpacity from 'app/components/pressable/TouchableOpacity'
 
 export type SelectWithCardGrid<T> = Omit<SelectProps<T>, '_actionSheetContent'>
 

@@ -38,7 +38,7 @@ const RefreshButton = ({
         },
       ],
     }
-  })
+  }, [])
 
   const onPressHandler = async (event: GestureResponderEvent) => {
     onPress && (await onPress(event))

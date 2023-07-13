@@ -1,11 +1,10 @@
 import React from 'react'
 import AgentCommissionPage from 'agent/features/commision'
-import AgentStackLayout from '../../layouts/agent/AgentStackLayout'
+import AgentStackLayout from 'components/layouts/agent/AgentStackLayout'
+import { MobileStackAgentLayout } from 'components/layouts/agent'
 
-export default function commission() {
-  return (
-    <AgentStackLayout>
-      <AgentCommissionPage />
-    </AgentStackLayout>
-  )
+export default function Commission() {
+  return <AgentCommissionPage />
 }
+
+Commission.AgentLayout = MobileStackAgentLayout

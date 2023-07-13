@@ -115,6 +115,8 @@ const theme = makeTheme({
     $darkBlueAgent: '#335DA0',
     $disabledAgent: '#D1D1D1',
     $grayAgent: '#505050',
+    $tableHeader: '#d1d1d1',
+    $tableBorder: '#AEAFAF',
   },
   linearGradients: {
     button: ['$primary.100', '$tertiary'],

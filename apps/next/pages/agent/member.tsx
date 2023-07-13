@@ -1,11 +1,10 @@
-import React from 'react'
-import AgentLayout from 'components/layouts/agent/AgentLayout'
 import MemberListingPage from 'agent/features/member/MemberListingPage'
+import { MobileAgentLayout } from 'components/layouts/agent'
 
 const Member = () => {
   return <MemberListingPage />
 }
 
-Member.getLayout = AgentLayout
+Member.AgentLayout = MobileAgentLayout
 
 export default Member

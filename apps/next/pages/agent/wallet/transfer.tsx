@@ -1,8 +1,7 @@
-import React from 'react'
+import TransferPage from 'agent/features/wallet/transfer'
 import AgentNestedTabs from 'agent/navigation/components/AgentNestedTabNavigator/AgentNestedTabs'
 import WalletRoutes from 'agent/navigation/routes/WalletRoutes'
-import AgentLayout from 'components/layouts/agent/AgentLayout'
-import TransferPage from 'agent/features/wallet/transfer'
+import { MobileAgentLayout } from 'components/layouts/agent'
 
 const Transfer = () => {
   return (
@@ -12,6 +11,6 @@ const Transfer = () => {
     </>
   )
 }
-Transfer.getLayout = AgentLayout
+Transfer.AgentLayout = MobileAgentLayout
 
 export default Transfer

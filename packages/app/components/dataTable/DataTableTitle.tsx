@@ -85,7 +85,7 @@ const TitleView = styled(View)(
     alignItems: 'center',
     justifyContent: center ? 'center' : 'flex-start',
     borderRightWidth: bordered ? StyleSheet.hairlineWidth : 0,
-    borderColor: '#AEAFAF',
+    borderColor: '$tableBorder',
     px: '$2',
   })
 )

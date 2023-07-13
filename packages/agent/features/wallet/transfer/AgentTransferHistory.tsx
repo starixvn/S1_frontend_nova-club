@@ -1,3 +1,4 @@
+import AgentDataTableCell from 'agent/components/DataTable/AgentDataTableCell'
 import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
 import useTableListing from 'agent/hooks/useTableListing'
 import { ShareholderRecentTransactionListResult } from 'agent/services/shareholderApi.type'
@@ -103,15 +104,15 @@ const AgentTransferHistory = ({
     item: AgentTransferListResult | ShareholderRecentTransactionListResult
   }) => (
     <DataTable.Row>
-      <DataTable.Cell center style={{ flex: 0.35 }}>
+      <AgentDataTableCell center sx={{ flex: 0.35 }}>
         <DateTimeField dateTime={item.created_date} />
-      </DataTable.Cell>
-      <DataTable.Cell style={{ flex: 0.4 }} center>
+      </AgentDataTableCell>
+      <AgentDataTableCell sx={{ flex: 0.4 }} center>
         {item.referrer_code}
-      </DataTable.Cell>
-      <DataTable.Cell style={{ flex: 0.4 }} center>
+      </AgentDataTableCell>
+      <AgentDataTableCell sx={{ flex: 0.4 }} center>
         {toThousandSeparator(item.amount)}
-      </DataTable.Cell>
+      </AgentDataTableCell>
     </DataTable.Row>
   )
 

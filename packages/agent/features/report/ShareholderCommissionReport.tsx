@@ -1,3 +1,6 @@
+import AgentDataTableCell from 'agent/components/DataTable/AgentDataTableCell'
+import AgentDataTableHeader from 'agent/components/DataTable/AgentDataTableHeader'
+import AgentDataTableTitle from 'agent/components/DataTable/AgentDataTableTitle'
 import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
 import Icon from 'agent/components/Icon'
 import Text from 'agent/components/Text'
@@ -71,11 +74,11 @@ const ShareholderCommissionScreen = () => {
   const fourthCellStyle = { flex: 1 / 2 }
 
   const onRenderHeader = () => (
-    <DataTable.Header>
-      <DataTable.Title bordered center>
+    <AgentDataTableHeader>
+      <AgentDataTableTitle bordered center>
         {t('common.date')}
-      </DataTable.Title>
-      <DataTable.Cell bordered center>
+      </AgentDataTableTitle>
+      <AgentDataTableCell bordered center>
         <View
           sx={{
             flexDirection: 'row',
@@ -83,19 +86,21 @@ const ShareholderCommissionScreen = () => {
             justifyContent: 'center',
           }}
         >
-          <Text sx={{ fontSize: 12, fontWeight: 'bold', mr: 2 }}>
+          <Text
+            sx={{ fontSize: 12, fontWeight: 'bold', mr: 2, color: 'black' }}
+          >
             {t('common.turnover')}
           </Text>
           <Pressable onPress={() => openModal('TurnoverModal')}>
             <Icon name="info" color="red" size={16} />
           </Pressable>
         </View>
-      </DataTable.Cell>
-      <DataTable.Title bordered center containerStyle={fourthCellStyle}>
+      </AgentDataTableCell>
+      <AgentDataTableTitle bordered center sx={fourthCellStyle}>
         PT %
-      </DataTable.Title>
-      <DataTable.Title center>{t('report.commission')}</DataTable.Title>
-    </DataTable.Header>
+      </AgentDataTableTitle>
+      <AgentDataTableTitle center>{t('report.commission')}</AgentDataTableTitle>
+    </AgentDataTableHeader>
   )
 
   const onRenderItem = ({
@@ -104,18 +109,18 @@ const ShareholderCommissionScreen = () => {
     item: ShareholderCommissionListResult
   }) => (
     <DataTable.Row size="big">
-      <DataTable.Cell bordered center>
+      <AgentDataTableCell bordered center>
         <DateTimeField dateTime={item.rpt_date} isTime={false} />
-      </DataTable.Cell>
-      <DataTable.Cell bordered center textStyle={{ fontSize: 12 }}>
+      </AgentDataTableCell>
+      <AgentDataTableCell bordered center textStyle={{ fontSize: 12 }}>
         {toThousandSeparator(item.turnover_amt)}
-      </DataTable.Cell>
-      <DataTable.Cell bordered center style={fourthCellStyle}>
+      </AgentDataTableCell>
+      <AgentDataTableCell bordered center style={fourthCellStyle}>
         {item.shareholding_perc}
-      </DataTable.Cell>
-      <DataTable.Cell center textStyle={{ fontSize: 12 }}>
+      </AgentDataTableCell>
+      <AgentDataTableCell center textStyle={{ fontSize: 12 }}>
         {toThousandSeparator(item.earning_amt)}
-      </DataTable.Cell>
+      </AgentDataTableCell>
     </DataTable.Row>
   )
 

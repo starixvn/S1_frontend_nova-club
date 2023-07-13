@@ -8,6 +8,7 @@ import { View } from 'dripsy'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { DesktopBaseLayout } from './desktop'
+import { MobileAgentLayout } from './agent'
 
 export type NavigationOptions = SolitoAppProps['Component']['navigationOptions']
 
@@ -16,6 +17,7 @@ export type Layout = (node: JSX.Element) => JSX.Element
 interface AdaptiveLayout {
   MobileLayout?: Layout
   DesktopLayout?: Layout
+  AgentLayout?: Layout
 }
 
 export type AdaptiveAppProps<P = {}> = Omit<SolitoAppProps<P>, 'Component'> & {
@@ -45,7 +47,13 @@ export default function AdaptiveLayout({
     if (!isClientReady) return () => <View />
     document.getElementsByTagName('body')[0].classList.add('rendered')
 
-    if (window.innerWidth < 992) {
+    const path = window.location.pathname
+
+    if (path.includes('/agent')) {
+      return typeof Component.AgentLayout === 'function'
+        ? Component.AgentLayout
+        : (node: JSX.Element) => node
+    } else if (window.innerWidth < 992) {
       return typeof Component.MobileLayout === 'function'
         ? Component.MobileLayout
         : (node: JSX.Element) => node

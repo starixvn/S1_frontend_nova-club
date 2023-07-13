@@ -104,7 +104,7 @@ const TableListing = <T, FetchParamsType>({
           {...refreshProps}
         />
         {renderHeader && renderHeader()}
-        <View sx={viewStyle}>
+        <View sx={{ bg: 'white', ...viewStyle }}>
           <FlashList
             ref={tableRef}
             data={data}

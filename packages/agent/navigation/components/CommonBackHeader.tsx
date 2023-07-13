@@ -22,6 +22,8 @@ const CommonBackHeader = ({
   customRoute,
   ...rest
 }: HeaderProps) => {
+  const { sx, ...props } = rest
+
   const { t } = useAgentLocalization()
   const { back } = useRouter()
   const { width } = useContainerDimension()
@@ -39,15 +41,16 @@ const CommonBackHeader = ({
         pt: top,
         pl: left,
         pr: right,
+        ...sx,
       }}
-      {...rest}
+      {...props}
     >
       <View
         sx={{
           flexDirection: 'row',
           justifyContent: 'space-between',
-          py: '$5',
-          px: '$6',
+          py: 20,
+          px: '$3',
         }}
       >
         <IconButton

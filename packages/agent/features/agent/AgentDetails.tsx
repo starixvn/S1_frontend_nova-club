@@ -12,7 +12,11 @@ import dayjs from 'dayjs'
 import { View } from 'dripsy'
 import React from 'react'
 import { createParam } from 'solito'
-import DataTableRefresh from '../../components/dataTable/DataTableRefresh'
+
+import AgentDataTableCell from 'agent/components/DataTable/AgentDataTableCell'
+import AgentDataTableHeader from 'agent/components/DataTable/AgentDataTableHeader'
+import AgentDataTableTitle from 'agent/components/DataTable/AgentDataTableTitle'
+import DataTableRefresh from 'agent/components/DataTable/DataTableRefresh'
 
 const { useParam } = createParam<{ id: string }>()
 const AgentDetailsScreen = () => {
@@ -78,33 +82,29 @@ const AgentDetailsScreen = () => {
             }}
           >
             <DataTableRefresh title={t('profile.totalDownline')} center />
-            <DataTable.Header>
-              <DataTable.Title bordered containerStyle={firstCellStyle}>
+            <AgentDataTableHeader>
+              <AgentDataTableTitle bordered sx={firstCellStyle}>
                 {' '}
-              </DataTable.Title>
-              <DataTable.Title bordered center containerStyle={secondCellStyle}>
+              </AgentDataTableTitle>
+              <AgentDataTableTitle bordered center sx={secondCellStyle}>
                 {t('profile.direct')}
-              </DataTable.Title>
-              <DataTable.Title center containerStyle={thirdCellStyle}>
+              </AgentDataTableTitle>
+              <AgentDataTableTitle center sx={thirdCellStyle}>
                 {t('profile.indirect')}
-              </DataTable.Title>
-            </DataTable.Header>
+              </AgentDataTableTitle>
+            </AgentDataTableHeader>
 
             {downlineTable ? (
               <DataTable.Row>
-                <DataTable.Cell center bordered containerStyle={firstCellStyle}>
+                <AgentDataTableCell center bordered sx={firstCellStyle}>
                   {downlineTable?.label}
-                </DataTable.Cell>
-                <DataTable.Cell
-                  center
-                  bordered
-                  containerStyle={secondCellStyle}
-                >
+                </AgentDataTableCell>
+                <AgentDataTableCell center bordered sx={secondCellStyle}>
                   {downlineTable?.direct}
-                </DataTable.Cell>
-                <DataTable.Cell center containerStyle={thirdCellStyle}>
+                </AgentDataTableCell>
+                <AgentDataTableCell center sx={thirdCellStyle}>
                   {downlineTable?.indirect}
-                </DataTable.Cell>
+                </AgentDataTableCell>
               </DataTable.Row>
             ) : null}
           </DataTable>

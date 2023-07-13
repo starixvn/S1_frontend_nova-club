@@ -1,12 +1,12 @@
+import { AGENT_TAB_HEIGHT } from 'agent/constant/sizes'
 import Header from 'agent/navigation/Header'
 import AgentShareholderTab from 'agent/navigation/components/AgentTabNavigator/AgentShareholderTabs'
 import AgentProvider from 'agent/provider'
 import { View } from 'dripsy'
-import React, { ReactElement } from 'react'
+import { ReactNode } from 'react'
 import NavigationLoading from './NavigationLoading'
-import { AGENT_TAB_HEIGHT } from 'agent/constant/sizes'
 
-const AgentLayout = (page: ReactElement) => {
+const AgentLayout = ({ children }: { children: ReactNode }) => {
   return (
     <AgentProvider>
       <View
@@ -18,7 +18,7 @@ const AgentLayout = (page: ReactElement) => {
         }}
       >
         <HeaderFloat />
-        {page}
+        {children}
         <NavigationLoading />
         <BottomTabFloat />
       </View>

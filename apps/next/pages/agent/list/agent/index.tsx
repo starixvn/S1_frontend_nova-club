@@ -1,8 +1,7 @@
-import React from 'react'
+import AgentListing from 'agent/features/agent/AgentListing'
 import AgentNestedTabs from 'agent/navigation/components/AgentNestedTabNavigator/AgentNestedTabs'
 import ListRoutes from 'agent/navigation/routes/ListRoutes'
-import AgentLayout from 'components/layouts/agent/AgentLayout'
-import AgentListing from 'agent/features/agent/AgentListing'
+import { MobileAgentLayout } from 'components/layouts/agent'
 
 const ListAgent = () => {
   return (
@@ -12,6 +11,6 @@ const ListAgent = () => {
     </>
   )
 }
-ListAgent.getLayout = AgentLayout
+ListAgent.AgentLayout = MobileAgentLayout
 
 export default ListAgent
