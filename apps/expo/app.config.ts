@@ -5,16 +5,37 @@ const expoConfig = ({ config }: ConfigContext): ExpoConfig => ({
   name: 'Vui 123',
   slug: 'vui123',
   version: '2.0.0',
-  scheme: 'vui123',
+  scheme: 'vuifit',
   platforms: ['ios', 'android'],
+  orientation: 'portrait',
+  backgroundColor: '#1E2238',
+  primaryColor: '#7B7BCF',
+  notification: {
+    iosDisplayInForeground: true,
+    androidMode: 'default',
+  },
   updates: {
     enabled: false,
   },
   jsEngine: 'jsc',
+  icon: 'https://static-stage.gball8.com/nvclub/nova-club/content/app-logo-1024.png',
   ios: {
     requireFullScreen: true,
     supportsTablet: true,
     bundleIdentifier: 'com.anonymous.solitoexporouter',
+    // infoPlist: {
+    //   // to add
+    //   // - LSApplicationQueriesSchemes
+    // },
+    associatedDomains: [
+      'applinks:s2syf.app.link',
+      'applinks:s2syf.test.app.link',
+      'applinks:s2syf-alternate.app.link',
+      'applinks:s2syf-alternate.test.app.link',
+    ],
+  },
+  androidStatusBar: {
+    barStyle: 'light-content',
   },
   androidNavigationBar: {
     visible: 'immersive',
@@ -22,7 +43,7 @@ const expoConfig = ({ config }: ConfigContext): ExpoConfig => ({
     backgroundColor: '#00000000',
   },
   android: {
-    package: 'com.anonymous.solitoexporouter',
+    package: 'com.chlgame.app',
   },
   plugins: [
     [

@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
                BuildableName = "Vui123.app"
-               BlueprintName = "solitoexporouter"
-               ReferencedContainer = "container:solitoexporouter.xcodeproj">
+               BlueprintName = "Vui123"
+               ReferencedContainer = "container:Vui123.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "solitoexporouterTests.xctest"
-               BlueprintName = "solitoexporouterTests"
-               ReferencedContainer = "container:solitoexporouter.xcodeproj">
+               BuildableName = "Vui123Tests.xctest"
+               BlueprintName = "Vui123Tests"
+               ReferencedContainer = "container:Vui123.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -56,8 +56,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
             BuildableName = "Vui123.app"
-            BlueprintName = "solitoexporouter"
-            ReferencedContainer = "container:solitoexporouter.xcodeproj">
+            BlueprintName = "Vui123"
+            ReferencedContainer = "container:Vui123.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -73,8 +73,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
             BuildableName = "Vui123.app"
-            BlueprintName = "solitoexporouter"
-            ReferencedContainer = "container:solitoexporouter.xcodeproj">
+            BlueprintName = "Vui123"
+            ReferencedContainer = "container:Vui123.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
