@@ -1,5 +1,6 @@
 import FilePicker, { FilePickerProps } from 'app/components/form/FilePicker'
 import useAlert from 'app/hooks/useAlert'
+import useLocalization from 'app/provider/localization'
 import { Text, View } from 'dripsy'
 import ImagePicker, { ImagePickerAsset } from 'expo-image-picker'
 import { forwardRef, useImperativeHandle, useState } from 'react'
@@ -14,6 +15,7 @@ export interface BankSlipUploadMethod {
 
 const BankSlipUpload = forwardRef<BankSlipUploadMethod, BankSlipUploadProps>(
   (props: BankSlipUploadProps, ref) => {
+    const { t } = useLocalization()
     const { showAlert } = useAlert()
 
     const [postUploadReceipt] = useUploadDepositSlipMutation()
@@ -41,7 +43,6 @@ const BankSlipUpload = forwardRef<BankSlipUploadMethod, BankSlipUploadProps>(
         if (uploadResp && uploadResp.success) {
           Toast.show({ type: 'success', text1: uploadResp.message })
         }
-        console.log('bank slip upload', secureId)
       } catch (e) {
         console.log(e)
       }
@@ -53,11 +54,11 @@ const BankSlipUpload = forwardRef<BankSlipUploadMethod, BankSlipUploadProps>(
 
     return (
       <View sx={{ width: '100%', mt: '$2' }}>
-        <Text>{'Upload receipt'} :</Text>
+        <Text>{t('deposit.upload.title')} :</Text>
         <Text sx={{ fontSize: 12, mt: 5, mb: 5 }}>
-          {'Browse your Bank Transfer Receipt or Invoice'}
+          {t('deposit.uplaod.description')}
         </Text>
-        <FilePicker placeholder="Select File" {...props} />
+        <FilePicker placeholder={t('deposit.upload.files')} {...props} />
       </View>
     )
   }

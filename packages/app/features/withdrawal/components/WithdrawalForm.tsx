@@ -65,7 +65,7 @@ const WithdrawalForm = ({ isCrypto, selectedChannel }: WithdrawalFormProps) => {
       {isCrypto ? (
         <Select
           autoTranslate={false}
-          label={isCrypto ? t('bank.walletAddress') : t('bank.bankAcc')}
+          label={isCrypto ? t('bank.walletAddress') : t('bank.bankAccount')}
           subtitle={values.bank?.BankName}
           placeholder={t('placeholder.plsSelectCrypto')}
           options={walletAddressList}
@@ -86,7 +86,7 @@ const WithdrawalForm = ({ isCrypto, selectedChannel }: WithdrawalFormProps) => {
         />
       ) : (
         <SelectWithCardGrid
-          label={isCrypto ? t('bank.walletAddress') : t('bank.bankAcc')}
+          label={isCrypto ? t('bank.walletAddress') : t('bank.bankAccount')}
           subtitle={values.bank?.BankName}
           placeholder={
             isCrypto

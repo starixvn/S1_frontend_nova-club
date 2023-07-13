@@ -14,13 +14,17 @@
     "resetPasswordHeader": "Reset Password"
   },
   "bank": {
+    "accountName": "Account name",
+    "accountNo": "Account no",
     "bank": "Bank",
-    "bankAcc": "Bank Account",
+    "bankAccount": "Bank Account",
     "addBankAccount": "Add Bank Account",
+    "addCryptoAccount": "Add Crypto Wallet",
     "channel": "Channel",
     "selectChannel": "Select Channel",
     "selectBank": "Please select bank",
-    "accountNumber": "Account Number"
+    "accountNumber": "Account Number",
+    "walletAddress": "Wallet Address"
   },
   "commision": {
     "title": "Commision Table",
@@ -100,7 +104,26 @@
     },
     "choose": "Choose your Deposit Options",
     "channel": "Channel",
-    "selectChannel": "Select Channel"
+    "cryptoAddress": "Crypto Address",
+    "cryptoAmount": "Crypto Amount",
+    "cryptoChannel": "Crypto Channel",
+    "selectChannel": "Select Channel",
+    "depositAmount": "Deposit Amount",
+    "depositConfirmation": "Deposit Confirmation",
+    "paymentTime": "PAYMENT TIME LEFT",
+    "paymentMode": "Payment Mode",
+    "pleaseConfirmDeposit": "Please confirm deposit information below",
+    "transactionId": "Transaction Id",
+    "upload": {
+      "description": "Browse your Bank Transfer Receipt or Invoice",
+      "files": "Select File",
+      "title": "Upload Receipt"
+    },
+    "id": "ID",
+    "type": "Type",
+    "date": "Date",
+    "status": "Status",
+    "minMaxLimit": "Min/Max Limit"
   },
   "filter": {
     "statusType": "Status Type",
@@ -239,6 +262,7 @@
     }
   },
   "placeholder": {
+    "plsSelectCrypto": "Please Select Crypto",
     "plsSelectBank": "Please Select Bank"
   },
   "profile": {
@@ -326,6 +350,18 @@
     "downloadAppNow": "Download Vui123 App Now\nTo Enjoy All The\nExclusive Bonuses!",
     "downloadGuide": "Download\nGuide",
     "ios": "IOS",
-    "android": "ANDROID"
+    "android": "ANDROID",
+    "iosGuideText": {
+      "n1": "Click app download button\non our VUI123 site.",
+      "n2": "A new tab will be opened in\nyour web browser, click on\nthe \"Get the App button\"",
+      "n3": "You will be redirected to\n\"Vui Fit app on App Store\ninstead of VUI123 app\"",
+      "n4": "Click \"Get\" to install the\n\"Vui Fit\" app",
+      "n5": "Open \"Vui Fit\" app to launch\nVUI123 app. Start enjoying your\nexclusive bonus and games"
+    },
+    "androidGuideText": {
+      "n1": "Click app download button\non our VUI123 site.",
+      "n2": "A new tab will be opened in\nyour web browser, click on\nthe \"Download anyway.\"",
+      "n3": "Install VUI123.apk to launch\nVUI123 app. Start enjoying your\nexclusive bonuses and games."
+    }
   }
 }

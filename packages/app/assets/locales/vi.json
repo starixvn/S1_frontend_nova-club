@@ -11,16 +11,20 @@
     "rememberMe": "Lưu để đăng nhập lần sau",
     "forgotPassword": "Quên mật khẩu",
     "forgotPasswordHeader": "Quên mật khẩu",
-    "resetPasswordHeader": "Reset Password"
+    "resetPasswordHeader": "Đặt lại mật khẩu"
   },
   "bank": {
+    "accountName": "Tên tài khoản",
+    "accountNo": "Số tài khoản",
     "bank": "Ngân hàng",
-    "bankAcc": "Tài khoản ngân hàng",
+    "bankAccount": "Tài khoản ngân hàng",
     "addBankAccount": "Thêm tài khoản",
+    "addCryptoAccount": "Thêm ví tiền ảo",
     "channel": "Tài khoản nạp",
     "selectChannel": "Chọn tài khoản nạp",
     "selectBank": "Vui lòng chọn ngân hàng",
-    "accountNumber": "Số tài khoản"
+    "accountNumber": "Số tài khoản",
+    "walletAddress": "Địa chỉ ví"
   },
   "commision": {
     "title": "Bảng hoa hồng",
@@ -64,8 +68,8 @@
     "realBet": "Đặt cược thực sự",
     "turnOver": "Doanh số",
     "tnc": "Điều khoản và Điều kiện",
-    "active": "Active",
-    "inactive": "InActive",
+    "active": "Đang hoạt động",
+    "inactive": "Không hoạt động",
     "all": "TẤT CẢ",
     "date": "Ngày",
     "noInfoAvailable": "Không Có Thông Tin",
@@ -75,7 +79,7 @@
     "transaction": "Giao dịch",
     "game": "Trò Chơi",
     "next": "Tiếp theo",
-    "shareholder": "Shareholder",
+    "shareholder": "Cổ đông",
     "hello": "Xin chào!!",
     "agentLogin": "Đăng nhập đại lý",
     "logout": "Thoát"
@@ -88,6 +92,7 @@
     "liveChat": "Live Chat"
   },
   "deposit": {
+    "actualDeposit": "Tiền gửi thực tế",
     "depositTitle": "Nạp tiền",
     "bankSlip": "Biên lai ngân hàng",
     "depositMethod": {
@@ -98,9 +103,32 @@
       "qrPay": "QR Pay",
       "topUp": "Thẻ cào"
     },
+    "deduction": "Khấu trừ",
+    "cardCode": "Mã số thẻ",
+    "cardSerialNo": "Số sê-ri thẻ.",
+    "cardValue": "Mệnh giá thẻ",
     "choose": "Chọn phương thức nạp tiền",
     "channel": "Tài khoản nạp",
-    "selectChannel": "Chọn tài khoản nạp"
+    "cryptoAddress": "Địa chỉ ví tiền ảo",
+    "cryptoAmount": "Số tiền ảo muốn nạp",
+    "cryptoChannel": "Kênh nạp tiền ảo",
+    "selectChannel": "Chọn tài khoản nạp",
+    "depositAmount": "Số tiền nạp",
+    "depositConfirmation": "Xác nhận thông tin gửi tiền",
+    "paymentTime": "THỜI GIAN THANH TOÁN CÒN LẠI",
+    "paymentMode": "Chọn cổng thanh toán",
+    "pleaseConfirmDeposit": "Vui lòng xác nhận thông tin gửi tiền bên dưới",
+    "transactionId": "Mã giao dịch ",
+    "upload": {
+      "description": "Chọn hình ảnh biên lai hoặc hóa đơn để tải lên",
+      "files": "Tải tệp tin",
+      "title": "Tải biên lai ngân hàng"
+    },
+    "id": "Mã ID",
+    "type": "Loại",
+    "date": "Ngày",
+    "status": "Trạng thái",
+    "minMaxLimit": "Min/Max Limit"
   },
   "filter": {
     "statusType": "Loại trạng thái",
@@ -133,11 +161,11 @@
     }
   },
   "footer": {
-    "note1": "Become Our Partner",
-    "note2": "VUI123 is committed to supporting Responsible Gaming",
-    "copyright": "© Copyright 2023 VUI123. All Rights Reserved.",
-    "aboutUs": "About Us",
-    "responsibleGaming": "Responsible Gaming",
+    "note1": "Trở thành đối tác của chúng tôi",
+    "note2": "VUI123 cam kết ủng hộ cá cược có trách nhiệm",
+    "copyright": "© Copyright 2023 VUI123. Bản quyền thuộc về VUI123 2023",
+    "aboutUs": "Về chúng tôi",
+    "responsibleGaming": "Cược có trách nhiệm",
     "contactUs": "Liên hệ"
   },
   "game": {
@@ -149,15 +177,15 @@
       "lottery": "Keno / Xổ số",
       "fishing": "Bắn Cá"
     },
-    "recently": "Recently Played",
+    "recently": "Được chơi gần đây",
     "jackpot": "NỔ HŨ"
   },
   "leaderboard": {
-    "monthlyEvent": "Monthly Event",
-    "minPoints": "Min Points",
-    "pointsCalculation": "Points calculation",
-    "product": "Product",
-    "top10": "Top 10 Winners"
+    "monthlyEvent": "Sự kiện tháng",
+    "minPoints": "Điểm tối thiểu",
+    "pointsCalculation": "Tính điểm",
+    "product": "Sản phẩm",
+    "top10": "Top 10 người thắng"
   },
   "manageCredentials": {
     "title": "Quản lý thông tin đăng nhập",
@@ -184,7 +212,7 @@
     }
   },
   "menu": {
-    "rewardsHub": "My Rewards Hub",
+    "rewardsHub": "Phần thưởng của tôi",
     "friendReferral": "Giới thiệu bạn bè",
     "msgAnnouncement": "Tin Nhắn/Thông Báo",
     "commissionTable": "Bảng hoa hồng",
@@ -194,10 +222,10 @@
     "withdraw": "Rút tiền",
     "withdrawalConfirmation": "Xác nhận Rút tiền",
     "cryptoWithdrawal": "Rút bằng tiền ảo",
-    "leaderboard": "Leaderboard",
+    "leaderboard": "Bảng xếp hạng",
     "tab": {
-      "event": "Event",
-      "ranking": "Ranking"
+      "event": "Sự kiện",
+      "ranking": "Xếp hạng"
     }
   },
   "notes": {
@@ -238,6 +266,10 @@
       "n5": "Nếu có vấn đề phát sinh hoặc cần được hỗ trợ thêm về vấn đề rút tiền, vui lòng liên hệ bộ phận LIVECHAT 24/7. Xin cám ơn."
     }
   },
+  "placeholder": {
+    "plsSelectCrypto": "Please Select Crypto",
+    "plsSelectBank": "Vui lòng chọn ngân hàng"
+  },
   "profile": {
     "self": "Bản thân",
     "w/l": "Thắng/Thua (đồng)",
@@ -258,8 +290,8 @@
     "link": "Link",
     "share": "Chia sẻ",
     "shareMessage": "Chia sẻ & nhận thưởng",
-    "shareContent": "Get exclusive referral bonuses when your friend signs up using your referral code",
-    "code": "Referral Code"
+    "shareContent": "Nhận hoa hồng giới thiệu bạn bè với những phần thưởng đặc biệt với mã code của riêng bạn.",
+    "code": "Mã giới thiệu"
   },
   "status": {
     "pending": "Đang chờ",
@@ -275,7 +307,7 @@
     "idTransfer": "Chuyển quỹ bằng ID",
     "qrTransfer": "Chuyển quỹ bằng QR",
     "placeholderTransferId": "Vui lòng nhập ID giới thiệu",
-    "placeholderTransferAmount": "Please enter your transfer amount"
+    "placeholderTransferAmount": "Vui lòng điền số tiền chuyển"
   },
   "validation": {
     "alphanumeric": "6-18 ký tự chữ và số (A-Z, a-z, 0-9)",
@@ -313,15 +345,27 @@
   },
   "withdrawal": {
     "withdrawalTitle": "Rút tiền",
-    "eligibleAmount": "Eligible Withdrawal Amount",
+    "eligibleAmount": "Số tiền có thể rút",
     "options": "Địa chỉ ví không hợp lệ",
     "exchangeRates": "Tỉ giá %{crypto}",
     "withdrawTo": "Rút tiền về"
   },
   "download": {
-    "downloadAppNow": "Download Vui123 App Now\nTo Enjoy All The\nExclusive Bonuses!",
-    "downloadGuide": "Download\nGuide",
+    "downloadAppNow": "Tải ứng dụng Vui123 ngay\nTận hưởng\nPhần thưởng đỉnh cao!",
+    "downloadGuide": "Tải\nHướng dẫn",
     "ios": "IOS",
-    "android": "ANDROID"
+    "android": "ANDROID",
+    "iosGuideText": {
+      "n1": "Bấm nút tải\ntrên trang Vui123.",
+      "n2": "Bấm nút \"Lấy ứng dụng\"\ntrên trang được mở\ntừ trình duyệt của bạn",
+      "n3": "Bạn sẽ được chuyển hướng\ntải ứng dụng Vui Fit trên App Store",
+      "n4": "Bấm \"Lấy\" để tải ứng dụng Vui Fit",
+      "n5": "Mở Vui Fit để vào VUI123. Tận hưởng trò chơi đỉnh cao\nvà phần thưởng hấp dẫn"
+    },
+    "androidGuideText": {
+      "n1": "Bấm nút tải\ntrên trang Vui123.",
+      "n2": "Bấm nút \"Vẫn tải\"\ntrên trang được mở\ntừ trình duyệt của bạn",
+      "n3": "Mở tệp VUI123.apk để\ncài ứng dụng VUI123. Tận hưởng trò chơi đỉnh cao\nvà phần thưởng hấp dẫn"
+    }
   }
 }

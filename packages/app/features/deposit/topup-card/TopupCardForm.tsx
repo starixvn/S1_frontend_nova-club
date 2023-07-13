@@ -236,7 +236,7 @@ const TopupCardForm = () => {
                 touched.cardType && errors.cardType ? (
                   <Text sx={{ color: errors.cardType && '$secondary.500' }}>
                     {t(errors.cardType, {
-                      field: t('common.cardType'),
+                      field: t('bank.paymentMode'),
                     })}
                   </Text>
                 ) : undefined,
@@ -258,7 +258,7 @@ const TopupCardForm = () => {
               px: '$4',
             }}
           >
-            <Text>Card value</Text>
+            <Text>{t('deposit.cardValue')}</Text>
             <View sx={{ flexDirection: 'row', flexWrap: 'wrap' }}>
               {cardAmount.map((item) => (
                 <View key={item} sx={{ width: '25%' }}>
@@ -277,7 +277,7 @@ const TopupCardForm = () => {
       </View>
       <View sx={{ px: horizontalMode ? 0 : '$4' }}>
         <Input
-          label="Card Code"
+          label={t('deposit.cardCode')}
           value={values.cardCode}
           onBlur={handleBlur('cardCode')}
           onChangeText={onCardCodeChanged}
@@ -292,7 +292,7 @@ const TopupCardForm = () => {
           }
         />
         <Input
-          label="Card Serial No."
+          label={t('deposit.cardSerialNo')}
           value={values.cardSerialNo}
           onBlur={handleBlur('cardSerialNo')}
           onChangeText={onCardSerialNoChanged}

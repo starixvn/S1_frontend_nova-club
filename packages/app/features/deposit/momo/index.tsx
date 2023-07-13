@@ -8,7 +8,7 @@ const MomoPayScreen = () => {
   return (
     <PageWithBackHeader
       disableScrollView={Platform.OS === 'ios'}
-      header={{ title: t('deposit.momo') }}
+      header={{ title: t('deposit.depositMethod.momo') }}
     >
       <MomoContent />
     </PageWithBackHeader>

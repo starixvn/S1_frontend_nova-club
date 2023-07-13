@@ -9,7 +9,7 @@ const CryptoPayScreen = () => {
   return (
     <PageWithBackHeader
       disableScrollView={Platform.OS === 'ios'}
-      header={{ title: t('deposit.crypto') }}
+      header={{ title: t('deposit.depositMethod.crypto') }}
     >
       <CryptoPayContent />
     </PageWithBackHeader>

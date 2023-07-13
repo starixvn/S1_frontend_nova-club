@@ -1,3 +1,4 @@
+import useLocalization from 'app/provider/localization'
 import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import { Text, View, useResponsiveValue } from 'dripsy'
@@ -12,6 +13,7 @@ const MinMaxLimitDetail = ({
   maxAmount,
   minAmount,
 }: MinMaxLimitDetailProps) => {
+  const { t } = useLocalization()
   const horizontalMode = useResponsiveValue([false, false, false, true, true])
 
   return (
@@ -33,7 +35,7 @@ const MinMaxLimitDetail = ({
           justifyContent: 'space-between',
         }}
       >
-        <Text>Min/Max Limit :</Text>
+        <Text>{t('deposit.minMaxLimit')} :</Text>
         <View
           sx={{
             flexDirection: 'row',
