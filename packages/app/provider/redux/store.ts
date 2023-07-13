@@ -6,7 +6,7 @@ import { gameLauncherReducer } from 'app/store/gameLauncher.slice'
 // import { depositReducer } from 'app/store/deposit.slice'
 // import { gameLauncherReducer } from 'app/store/gameLauncher.slice'
 
-// import { tempSettingReducer } from 'app/store/tempSetting.slice'
+import { tempSettingReducer } from 'app/store/tempSetting.slice'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import {
   createMigrate,
@@ -72,7 +72,7 @@ const rootReducer = combineReducers({
   // bank: bankReducer,
   deposit: depositReducer,
   setting: settingReducer,
-  // tempSetting: tempSettingReducer,
+  tempSetting: tempSettingReducer,
   gameLauncher: gameLauncherReducer,
 })
 
