@@ -2,6 +2,7 @@ import React from 'react'
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 const src1 = `${MEDIA_DOMAIN}${CONTENT_URI}/info/shareholder-en-1.png`
 const src2 = `${MEDIA_DOMAIN}${CONTENT_URI}/info/shareholder-en-2.png`
+import Image from 'next/image'
 
 const ShareholderEn = () => {
   return (
@@ -14,11 +15,11 @@ const ShareholderEn = () => {
       >
         <img
           src={src1}
-          style={{ width: '50%', height: '30%', minWidth: '350px' }}
+          style={{ width: '100%', height: '30%', minWidth: '350px' }}
         />
         <img
           src={src2}
-          style={{ width: '50%', height: '30%', minWidth: '350px' }}
+          style={{ width: '50%', height: '30%', maxWidth: '350px' }}
         />
       </div>
       <ol>
