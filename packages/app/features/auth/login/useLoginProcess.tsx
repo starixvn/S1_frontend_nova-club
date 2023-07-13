@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { AuthActions } from 'app/store/authReducer'
 import { P, useResponsiveValue } from 'dripsy'
-import { LoginResult } from 'services/authApi.type'
+import { LoginResult, Shield_Action } from 'services/authApi.type'
 import { useRouter } from 'solito/router'
 import {
   authenticateAsync,
@@ -14,6 +14,7 @@ import { SettingActions } from 'app/store/setting.slice'
 import { authApi } from 'services/authApi'
 import { IResponse } from 'services/common/types'
 import useAlert from 'app/hooks/useAlert'
+import { TempSettingActions } from 'app/store/tempSetting.slice'
 
 export default function useLoginProcess() {
   const dispatch = useAppDispatch()
@@ -43,6 +44,7 @@ export default function useLoginProcess() {
     data: LoginResult
   ) {
     dispatch(SettingActions.setCurrentSessionCredential({ username, password }))
+    dispatch(TempSettingActions.setSyncShieldActionType(Shield_Action.LOGIN))
 
     await biometricProcess(username).catch((e) => {
       console.warn('Biometric Process Error', e)

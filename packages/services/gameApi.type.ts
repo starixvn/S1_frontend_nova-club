@@ -87,3 +87,11 @@ export interface LatestWinner {
   username: string
   amount: number
 }
+
+export interface ProviderStatus {
+  maintenance: boolean
+  seamless: number
+  seq: number
+  system_code: string
+  system_name: string
+}

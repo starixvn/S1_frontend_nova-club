@@ -14,6 +14,7 @@ import {
   GetGameUrlResult,
   LatestWinner,
   LatestWinnerType,
+  ProviderStatus,
 } from './gameApi.type'
 
 /**
@@ -188,6 +189,27 @@ export const gameApi = baseApiWithTag.injectEndpoints({
         }
       },
     }),
+    gameProviderList: builder.query<Record<string, ProviderStatus>, void>({
+      query: () => ({
+        url: `/static_api/getGameProviderList`,
+        method: 'GET',
+      }),
+      transformResponse: (resp: IResponse<Record<string, ProviderStatus>>) => {
+        const providers = resp.data ?? {}
+        return Object.keys(providers).reduce((acc, providerId) => {
+          console.log('providerId', providerId)
+          const provider = providers[providerId]
+          if (provider) acc[provider?.system_code] = provider
+
+          return acc
+        }, {})
+      },
+    }),
+    demoGame: builder.mutation<FeaturedGame[], void>({
+      query: () => ({
+        url: `/static_api/gotodemogame`,
+      }),
+    }),
   }),
 })
 
@@ -200,4 +222,6 @@ export const {
   useGetGameListByTagsQuery,
   useGetGameListByCategoryQuery,
   useLatestWinnerQuery,
+  useDemoGameMutation,
+  useGameProviderListQuery,
 } = gameApi

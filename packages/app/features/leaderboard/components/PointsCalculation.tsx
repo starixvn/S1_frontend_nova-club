@@ -34,8 +34,8 @@ const PointsCalculation = () => {
         {t('leaderboard.pointsCalculation').toUpperCase()}
       </Text>
       <DataTable>
-        <DataTableHeader size="small" containerStyle={{}}>
-          <DataTableTitle center={false} containerStyle={{ px: 12 }}>
+        <DataTableHeader size="small" sx={{}}>
+          <DataTableTitle center={false} sx={{ px: 12 }}>
             {t('leaderboard.product').toUpperCase()}
           </DataTableTitle>
           <DataTableTitle>{t('common.turnover').toUpperCase()}</DataTableTitle>
@@ -43,7 +43,7 @@ const PointsCalculation = () => {
         </DataTableHeader>
         {dummyPoints.map((item) => (
           <DataTableRow key={item.product}>
-            <DataTableCell center={false} containerStyle={{ px: 12 }}>
+            <DataTableCell center={false} sx={{ px: 12 }}>
               {item.product.toUpperCase()}
             </DataTableCell>
             <DataTableCell>{item.turnover}</DataTableCell>

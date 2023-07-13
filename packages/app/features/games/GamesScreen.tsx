@@ -5,23 +5,67 @@ import IconButtonGradientToggle from 'app/components/IconButtonGradientToggle'
 import GameSectionByProviderItem from 'app/components/game/GameSectionByProviderItem'
 import ProviderList from 'app/components/game/ProviderList'
 import {
+  ALL,
   GAME_TYPE_CODE,
   GDC_GAME_CATEGORY,
   ProviderImageCategory,
 } from 'app/utils/constant'
+import { ActivityIndicator, View } from 'dripsy'
 import groupBy from 'lodash/groupBy'
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, {
+  startTransition,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { Platform } from 'react-native'
+import { useGameListMultipleQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
+import { createParam } from 'solito'
+import { useRouter } from 'solito/router'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 import TopGameSection from '../home/TopGameSection'
+import GamesScreenSingleProvider from './GamesSingleProviderListing'
 import { MobileGamesFilter, SUB_ROUTES } from './subroutes'
-import useGameScreen from './useGameScreen'
-import { View } from 'dripsy'
 
+type Params = {
+  type?: string
+}
+
+const { useParam } = createParam<Params>()
 const GamesScreen = () => {
-  const { type, filteredGames, onFilterClicked } = useGameScreen()
-  console.log('type', type)
+  const { data: games } = useGameListMultipleQuery({
+    game_category: [
+      GAME_TYPE_CODE.GAMES,
+      GAME_TYPE_CODE.FISHING,
+      GAME_TYPE_CODE.LOTTERY,
+    ],
+    gdc_game_category: [GDC_GAME_CATEGORY.CARDGAME],
+  })
+
+  const [filteredGames, setFilteredGames] = useState<Game[]>()
+  const { push } = useRouter()
+
+  const [params, setParams] = useParam('type', {
+    parse: (templateFromUrl) => {
+      return templateFromUrl
+    },
+    initial: undefined,
+  })
+
+  const [type = ALL, provider] = params || []
+  const route = type ? SUB_ROUTES[type] : undefined
+  // if (!route && defaultType) setType(defaultType)
+
+  useEffect(() => {
+    if (route && route.filter && games) {
+      const filtered = route.filter(games)
+      startTransition(() => setFilteredGames(filtered))
+    } else startTransition(() => setFilteredGames(games))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [type, games])
+
   useEffect(() => {
     if (type) {
       if (Platform.OS === 'web') {
@@ -63,6 +107,41 @@ const GamesScreen = () => {
     }
   }
 
+  function onFilterClicked(r, i: number) {
+    if (r.filter) {
+      setParams([r.route, provider])
+    } else if (r.route) {
+      push(r.route)
+    }
+  }
+
+  function onViewMore(gpc: string) {
+    if (Platform.OS === 'web') push(`/games/${type}/${gpc}`)
+    else {
+      push('/gamesByProvider?provider=' + gpc.toLowerCase())
+    }
+    // setParams([type, gpc.toLowerCase()])
+  }
+
+  function onProviderBack() {
+    setParams([type])
+  }
+
+  // console.log('params', type, provider)
+  if (provider && Platform.OS === 'web') {
+    if (!gamesByProviders || !filteredGames) return <ActivityIndicator />
+
+    return (
+      <GamesScreenSingleProvider
+        games={gamesByProviders[provider.toUpperCase()]}
+        provider={provider}
+        type={type}
+        onFilterClicked={onFilterClicked}
+        onBack={onProviderBack}
+      />
+    )
+  }
+
   return (
     <FlashList
       ref={flashListRef}
@@ -73,7 +152,13 @@ const GamesScreen = () => {
       }}
       renderItem={({ item }) => {
         if (item && item[0])
-          return <GameSectionByProviderItem gpc={item[0].gpc} games={item} />
+          return (
+            <GameSectionByProviderItem
+              gpc={item[0].gpc}
+              games={item}
+              onViewMore={onViewMore}
+            />
+          )
         else return null
       }}
       ListHeaderComponent={
@@ -81,6 +166,7 @@ const GamesScreen = () => {
           <GamePageHeader icon="games1" title="GAMES" />
           <IconButtonGradientGroup
             sx={{
+              flex: 1,
               maxWidth: 550,
               alignSelf: 'center',
             }}

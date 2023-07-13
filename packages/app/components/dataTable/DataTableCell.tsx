@@ -23,7 +23,6 @@ export type Props = $RemoveChildren<typeof View> & {
    * Function to execute on press.
    */
   onPress?: (e: GestureResponderEvent) => void
-  containerStyle?: SxProp
   /**
    * Text content style of the `DataTableCell`.
    */
@@ -64,13 +63,12 @@ export type Props = $RemoveChildren<typeof View> & {
 const DataTableCell = ({
   children,
   textStyle,
-  containerStyle = {},
   bordered = false,
   center = true,
   ...rest
 }: Props) => {
   return (
-    <CellView center={center} bordered={bordered} {...rest} sx={containerStyle}>
+    <CellView center={center} bordered={bordered} {...rest}>
       {typeof children === 'string' || typeof children === 'number' ? (
         <Text sx={{ ...textStyle }} numberOfLines={2}>
           {children}
@@ -122,6 +120,8 @@ const CellView = styled(View)(
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: center ? 'center' : 'flex-start',
+    borderRightWidth: bordered ? StyleSheet.hairlineWidth : 0,
+    borderColor: '#AEAFAF',
     px: 4,
     py: 2,
   })

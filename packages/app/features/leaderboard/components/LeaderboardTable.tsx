@@ -26,24 +26,24 @@ const LeaderboardTable = ({ maxRow = 10 }: { maxRow?: number }) => {
 
   return (
     <DataTable>
-      <DataTableHeader containerStyle={{}}>
-        <DataTableTitle containerStyle={firstCellStyle} numberOfLines={2}>
+      <DataTableHeader sx={{}}>
+        <DataTableTitle sx={firstCellStyle} numberOfLines={2}>
           {t('leaderboard.rank').toUpperCase()}
         </DataTableTitle>
-        <DataTableTitle containerStyle={secondCellStyle} numberOfLines={2}>
+        <DataTableTitle sx={secondCellStyle} numberOfLines={2}>
           {t('profile.playerId').toUpperCase()}
         </DataTableTitle>
-        <DataTableTitle containerStyle={thirdCellStyle} numberOfLines={2}>
+        <DataTableTitle sx={thirdCellStyle} numberOfLines={2}>
           {t('common.points').toUpperCase()}
         </DataTableTitle>
-        <DataTableTitle containerStyle={fourthCellStyle} numberOfLines={2}>
+        <DataTableTitle sx={fourthCellStyle} numberOfLines={2}>
           {t('menu.tab.status').toUpperCase()}
         </DataTableTitle>
       </DataTableHeader>
       {leaderboardData &&
         leaderboardData.map((item, index) => (
           <DataTableRow key={item.rank} size="big">
-            <DataTableCell center containerStyle={firstCellStyle}>
+            <DataTableCell center sx={firstCellStyle}>
               <SolitoImage
                 src={getRankingImage(item.rank)}
                 fill
@@ -51,12 +51,12 @@ const LeaderboardTable = ({ maxRow = 10 }: { maxRow?: number }) => {
               />
             </DataTableCell>
             <DataTableCell
-              containerStyle={secondCellStyle}
+              sx={secondCellStyle}
               textStyle={{ fontSize: [12, 12, 13, 14] }}
             >
               {item.username}
             </DataTableCell>
-            <DataTableCell center={false} containerStyle={thirdCellStyle}>
+            <DataTableCell center={false} sx={thirdCellStyle}>
               <Row sx={{ alignItems: 'center' }}>
                 <SolitoImage
                   src={CoinImage}
@@ -70,7 +70,7 @@ const LeaderboardTable = ({ maxRow = 10 }: { maxRow?: number }) => {
                 </Text>
               </Row>
             </DataTableCell>
-            <DataTableCell containerStyle={fourthCellStyle}>
+            <DataTableCell sx={fourthCellStyle}>
               {item.status === 'r' ? (
                 <Text>-</Text>
               ) : (

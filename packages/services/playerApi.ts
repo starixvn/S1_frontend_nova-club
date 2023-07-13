@@ -100,11 +100,10 @@ const playerApi = baseApiWithTag.injectEndpoints({
         method: 'POST',
       }),
     }),
-    freeSpin: builder.query<IResponse<FreeSpinResult>, FreeSpinArgs>({
-      query: (queryArgs) => ({
+    freeSpin: builder.query<IResponse<FreeSpinResult>, void>({
+      query: () => ({
         url: `/player_api/getRegisterFreeWheelSpin`,
         method: 'POST',
-        data: { ...queryArgs },
       }),
     }),
     playerRealName: builder.mutation<IResponse, PlayerRealNameArgs>({

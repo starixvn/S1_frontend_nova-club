@@ -12,7 +12,6 @@ export type Props = $RemoveChildren<typeof View> & {
    * Function to execute on press.
    */
   size?: 'big' | 'small'
-  containerStyle?: SxProp
   /**
    * @optional
    */
@@ -52,13 +51,12 @@ export type Props = $RemoveChildren<typeof View> & {
 
 const DataTableRow = ({
   size = 'small',
-  containerStyle,
   children,
   pointerEvents,
   ...rest
 }: Props) => {
   return (
-    <RowView size={size} sx={containerStyle} {...rest}>
+    <RowView size={size} {...rest}>
       <ContentView pointerEvents={pointerEvents}>{children}</ContentView>
     </RowView>
   )

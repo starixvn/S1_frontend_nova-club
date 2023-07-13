@@ -25,6 +25,7 @@ export default function Sportsbook({}: Props) {
         data.map((g) => {
           return (
             <GameCard
+              absoluteName
               displayName={g.name[locale]}
               key={g.gc + g.gpc}
               sx={{ width: '11%' }}

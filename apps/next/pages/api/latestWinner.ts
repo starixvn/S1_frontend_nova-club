@@ -1,7 +1,7 @@
 import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'app/utils/constant'
 import random from 'lodash/random'
 import sampleSize from 'lodash/sampleSize'
-import { LatestWinner, LatestWinnerType } from 'services/gameApi.type'
+import { Game, LatestWinner, LatestWinnerType } from 'services/gameApi.type'
 import { generateUsername } from 'unique-username-generator'
 
 export default async function handler(req, res) {
@@ -10,15 +10,16 @@ export default async function handler(req, res) {
 
   try {
     if (!Object.values(LatestWinnerType).includes(type)) {
-      type = LatestWinnerType.Slot
+      type = LatestWinnerType.Games
     }
-
+    console.log('requesting ')
     switch (type) {
       case LatestWinnerType.Slot: {
         games = await requestSlotGameList()
         break
       }
       case LatestWinnerType.Games: {
+        console.log('requesting games')
         games = await requestGamesGameList()
         break
       }
@@ -49,31 +50,64 @@ async function requestGameList(
   game_category: GAME_TYPE_CODE[] = [],
   gdc_game_category: GDC_GAME_CATEGORY[] = []
 ) {
+  let games: Game[] = []
   try {
-    const resp = await fetch(
-      `${process.env.API_DOMAIN}/static_api/getGameList`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          api_key: process.env.API_KEY,
-        },
-        body: JSON.stringify({
-          currency: 'VND',
-          game_category,
-          limit: 9999,
-          offset: 0,
-          gdc_game_category,
-        }),
-      }
-    )
-      .then((r) => r.json())
-      .then((r) => r.data?.rows)
+    if (game_category) {
+      const resp = await fetch(
+        `${process.env.API_DOMAIN}/static_api/getGameList`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            api_key: process.env.API_KEY,
+          },
+          body: JSON.stringify({
+            currency: 'VND',
+            game_category,
+            limit: 9999,
+            offset: 0,
+            gdc_game_category: [],
+          }),
+        }
+      )
+        .then((r) => r.json())
+        .then((r) => {
+          return r.data?.rows
+        })
 
-    return resp ?? []
+      if (resp) games = games.concat(resp)
+    }
+
+    if (gdc_game_category) {
+      const resp = await fetch(
+        `${process.env.API_DOMAIN}/static_api/getGameList`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            api_key: process.env.API_KEY,
+          },
+          body: JSON.stringify({
+            currency: 'VND',
+            game_category,
+            limit: 9999,
+            offset: 0,
+            gdc_game_category: [],
+          }),
+        }
+      )
+        .then((r) => r.json())
+        .then((r) => {
+          return r.data?.rows
+        })
+
+      if (resp) games = games.concat(resp)
+    }
+
+    return games
   } catch (e) {
     console.log('api error', e)
-    return []
+    return games
   }
 }
 
