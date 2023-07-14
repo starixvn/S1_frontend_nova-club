@@ -1,101 +1,180 @@
-import { Box, ScrollView, Text, styled } from 'dripsy'
-import React, { ComponentProps } from 'react'
+import { Text, View } from 'dripsy'
+import React, { useEffect } from 'react'
 
-import { Button, Text as TextRN } from 'react-native'
-
+import useFontInit from 'app/hooks/useFontInit'
+import useCodePushDownload from 'app/integrations/codepush/useCodePush'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import * as DropdownMenu from 'zeego/dropdown-menu'
-import { Link } from 'solito/link'
+// import { getVersion } from 'react-native-device-info'
+import useSplashScreen, { useSplashScreenTaskResolver } from './useSplashScreen'
+
+import { useNavigation } from '@react-navigation/native'
+import useAlert from 'app/hooks/useAlert'
+import useLocalization from 'app/provider/localization'
+import { useAppDispatch } from 'app/provider/redux/store'
+import { Video, ResizeMode } from 'expo-av'
+import { MotiView } from 'moti'
+import { StyleSheet } from 'react-native'
+import CodePush from 'react-native-code-push'
+import { Easing } from 'react-native-reanimated'
+import CodePushUpdateBar from './CodePushUpdateBar'
 import { useRouter } from 'solito/router'
+import { TempSettingActions } from 'app/store/tempSetting.slice'
 
-const DropdownMenuLabel = DropdownMenu.create(
-  (props: ComponentProps<typeof DropdownMenu.Label>) => (
-    <DropdownMenu.Label {...props} />
-  ),
-  'ItemImage'
-)
+function useFontInitWithPromise() {
+  const resolver = useSplashScreenTaskResolver(useFontInit)
+  const {
+    hookValue: [fontsLoaded],
+    promiseFactory,
+    resolve,
+  } = resolver
 
-export const DropdownMenuRoot = DropdownMenu.Root
-export const DropdownMenuTrigger = DropdownMenu.Trigger
-export const DropdownMenuContent = DropdownMenu.Content
-export const DropdownMenuItemTitle = DropdownMenu.ItemTitle
-export const DropdownMenuItem = DropdownMenu.create(
-  styled(DropdownMenu.Item)({
-    height: 34,
-  }),
-  'Item'
-)
+  useEffect(() => {
+    if (fontsLoaded) {
+      resolve({
+        result: true,
+      })
+    }
+  }, [fontsLoaded])
+
+  return { fontsLoaded, promiseFactory }
+}
 
 export default function SplashScreen() {
-  const { top, bottom } = useSafeArea()
+  const { fontsLoaded, promiseFactory: fontInitPromiseFactory } =
+    useFontInitWithPromise()
+
+  const dispatch = useAppDispatch()
+  const { showAlert } = useAlert()
+
   const { replace } = useRouter()
+
+  const { t } = useLocalization()
+  const navigation = useNavigation()
+  // const currentVersion = getVersion()
+  const { status: codePushStatus, progress } = useCodePushDownload()
+
+  const { status } = useSplashScreen(
+    {
+      // mandatorySync: [checkVersionUpdated, checkMaintenance], // TODO : implement check maintenane logic
+      mandatoryAsync: [fontInitPromiseFactory],
+    },
+    codePushStatus === CodePush.SyncStatus.UP_TO_DATE,
+    {
+      minWaitTime: 2000,
+      context: {
+        dispatch,
+        t,
+        navigation,
+        showAlert,
+      },
+    }
+  )
+
+  const { top, bottom } = useSafeArea()
+  // const { replace } = useRouter()
+
+  useEffect(() => {
+    if (status) {
+      // if (loginResult?.token) {
+      //   replace('/')
+      // } else if (agentToken) {
+      //   handleAgentLogin()
+      // } else
+      console.log('test')
+      dispatch(TempSettingActions.setSplashScreenLoaded(true))
+      replace('/')
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [status])
 
   //clear token/logout first
   // useEffect(() => {
   //   LogOut()
   // }, [])
-
+  console.log('fontsLoaded', fontsLoaded)
   return (
-    <ScrollView
-      contentContainerStyle={{
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingTop: top,
-        paddingBottom: bottom,
-      }}
-      sx={{
-        bg: '$primary.700',
-      }}
-      nestedScrollEnabled
-    >
-      <Text>AvertaStd</Text>
-      <Text sx={{ fontWeight: '500' }}>AvertaStd Semibold</Text>
-      <Text sx={{ fontWeight: 'bold' }}>AvertaStd Bold</Text>
-      <Text sx={{ fontWeight: '900' }}>AvertaStd Black</Text>
-      <TextRN>RN Original Text</TextRN>
-      {/* <SplashScreenButton /> */}
-
-      <Button
-        title="Home"
-        onPress={() => {
-          replace('/?splashscreen=true', undefined, {
-            experimental: {
-              nativeBehavior: 'stack-replace',
-              isNestedNavigator: false,
-            },
-          })
+    <View sx={{ flex: 1 }}>
+      {fontsLoaded && (
+        <>
+          {codePushStatus === CodePush.SyncStatus.DOWNLOADING_PACKAGE && (
+            <CodePushUpdateBar progress={progress} />
+          )}
+          <Text
+            sx={{
+              color: 'white',
+              position: 'absolute',
+              bottom: bottom || 10,
+              right: bottom || 10,
+              fontWeight: 'bold',
+              opacity: 0.8,
+            }}
+          >
+            {'2.0.0'}
+          </Text>
+          <PromoText />
+        </>
+      )}
+      <Video
+        isLooping={false}
+        isMuted
+        shouldPlay
+        style={{
+          position: 'absolute',
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+          zIndex: -1,
+          // width: '100%',
+          // height: Math.max(
+          //   width / (isLandscape ? 2047 / 2732 : 1242 / 2208),
+          //   height
+          // ),
         }}
+        source={require('app/assets/videos/vui123-splash.mp4')}
+        resizeMode={ResizeMode.COVER}
+        useNativeControls={false}
       />
-      <Box>
-        <DropdownMenuRoot>
-          <DropdownMenuTrigger>
-            <Button title={'Zeego'} />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenu.Item key="fernando rojo">
-              <DropdownMenuItemTitle>ACB</DropdownMenuItemTitle>
-              <DropdownMenu.ItemSubtitle>
-                1391-2241-1412-4123
-              </DropdownMenu.ItemSubtitle>
-              <DropdownMenu.ItemImage
-                source={require('app/assets/images/logo-acb.png')}
-              />
-              <DropdownMenu.ItemIcon />
-            </DropdownMenu.Item>
-            <DropdownMenu.Item key="vv">
-              <DropdownMenuItemTitle>VIB</DropdownMenuItemTitle>
-              <DropdownMenu.ItemSubtitle>
-                7345-8345-5673-2231
-              </DropdownMenu.ItemSubtitle>
-              <DropdownMenu.ItemImage
-                source={require('app/assets/images/vib.png')}
-              />
-              <DropdownMenu.ItemIcon />
-            </DropdownMenu.Item>
-          </DropdownMenuContent>
-        </DropdownMenuRoot>
-      </Box>
-      {/* <DemoIcon /> */}
-    </ScrollView>
+    </View>
   )
 }
+
+const PromoText = () => {
+  return (
+    <MotiView
+      from={{
+        opacity: 0,
+        translateY: 100,
+      }}
+      animate={{ translateY: 0, opacity: 1 }}
+      transition={{
+        type: 'timing',
+        duration: 2000,
+        easing: Easing.bezier(0.25, 1, 0.5, 1),
+      }}
+      style={{
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: '20%',
+      }}
+    >
+      <Text style={styles.promoLabel}>Đăng ký làm đại lý,</Text>
+      <Text style={styles.promoLabel}>
+        <Text>
+          nhận hoa hồng đến
+          <Text sx={{ color: 'gold', fontSize: 30 }}> 0.5%</Text>
+        </Text>
+      </Text>
+    </MotiView>
+  )
+}
+
+const styles = StyleSheet.create({
+  promoLabel: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: 'bold',
+  },
+})

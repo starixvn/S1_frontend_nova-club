@@ -1,17 +1,22 @@
-import { Text } from 'react-native'
-import { Redirect } from 'expo-router'
-import { createParam } from 'solito'
 import HomeScreen from 'app/features/home/HomeScreen'
-
-const { useParam } = createParam()
+import { useAppSelector } from 'app/provider/redux/store'
+import { Redirect, useNavigation, useRouter } from 'expo-router'
+import { useEffect } from 'react'
 
 export default function MemberScreen(props) {
-  const [isFromSplashscreen] = useParam('splashscreen')
-  /* Expo-router not able to use initial path and we require to map home page to "/" */
-  // if (!isFromSplashscreen) {
-  //   console.log('redirect to splashscreen')
-  //   return <Redirect href="/splashscreen" />
-  // }
+  const splashScreenLoaded = useAppSelector(
+    (s) => s.tempSetting.splashScreenLoaded
+  )
+
+  const router = useRouter()
+
+  useEffect(() => {
+    /* https://github.com/expo/router/issues/740 */
+    if (!splashScreenLoaded)
+      setTimeout(() => router.replace('/splashscreen'), 1)
+  }, [splashScreenLoaded])
+
+  if (!splashScreenLoaded) return null
 
   return <HomeScreen />
 }

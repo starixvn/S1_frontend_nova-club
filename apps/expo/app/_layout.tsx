@@ -1,26 +1,30 @@
 import { Provider } from 'app/provider'
-import { Stack } from 'expo-router'
+import { Slot, Stack, useNavigation, useRouter } from 'expo-router'
 import RootPage from './rootPage'
-import { useFonts } from 'expo-font'
+import { Platform } from 'react-native'
 
-import { AvertaStdUseFont } from 'app/assets/fonts/Averta'
 export default function Root() {
-  const [loaded] = useFonts({
-    ...AvertaStdUseFont,
-  })
+  // const router = useRouter()
 
-  if (!loaded) return null
+  // if (Platform.OS === 'ios') {
+  //   setTimeout(() => {
+  //     router.replace('/')
+  //   }, 1)
+  // } else {
+  //   setImmediate(() => {
+  //     router.replace('/')
+  //   })
+  // }
 
   return (
     <Provider>
       <Stack
         screenOptions={{ header: () => null }}
-
         /* initialRouteName doesnt work on expo-rtouer 
         initialRouteName="splashscreen"
         */
       />
-      <RootPage />
+      {/* <RootPage /> */}
     </Provider>
   )
 }

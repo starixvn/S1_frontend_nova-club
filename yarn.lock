@@ -2891,14 +2891,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-async-storage/async-storage@npm:^1.18.1":
-  version: 1.18.1
-  resolution: "@react-native-async-storage/async-storage@npm:1.18.1"
+"@react-native-async-storage/async-storage@npm:1.17.11":
+  version: 1.17.11
+  resolution: "@react-native-async-storage/async-storage@npm:1.17.11"
   dependencies:
     merge-options: ^3.0.4
   peerDependencies:
-    react-native: ^0.0.0-0 || 0.60 - 0.72 || 1000.0.0
-  checksum: 58c8497fafdd4d112c4a70b0976783abdc6fa487f0cffca196901efd146fc838dee0cf498fdc4ef67a4634ba4ca97d60fec5a24720aea1d46f1999b0ba8b249b
+    react-native: ^0.0.0-0 || 0.60 - 0.71 || 1000.0.0
+  checksum: 691f2b74498160d0b532f673402d8affeecb28b005b1c6d6fa2e7c87f89ab3068177e8e2d2686738306e7592a39c6d7148aa4c426b7e8e149c43a336ad446648
   languageName: node
   linkType: hard
 
@@ -3263,6 +3263,20 @@ __metadata:
     component-type: ^1.2.1
     join-component: ^1.1.0
   checksum: 8c4aacc903fb717619b69ca7eecf8d4a7b928661b0e835c9cd98f1b858a85ce62c348369ad9a52cb2df8df02578c0525a73fce4c69a42ac414d9554cc6be7117
+  languageName: node
+  linkType: hard
+
+"@shopify/flash-list@npm:1.4.0":
+  version: 1.4.0
+  resolution: "@shopify/flash-list@npm:1.4.0"
+  dependencies:
+    recyclerlistview: 4.2.0
+    tslib: 2.4.0
+  peerDependencies:
+    "@babel/runtime": "*"
+    react: "*"
+    react-native: "*"
+  checksum: c6510b0d6ae6404fe92ede0c918ba184bc2b27ed39c627eebad16a6542792cb34e750e2004e1a9ce165f9d729f1af0555cba1e4c224fd52bfd2a600fdc9e2a65
   languageName: node
   linkType: hard
 
@@ -5132,13 +5146,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"convert-source-map@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "convert-source-map@npm:2.0.0"
-  checksum: 63ae9933be5a2b8d4509daca5124e20c14d023c820258e484e32dc324d34c2754e71297c94a05784064ad27615037ef677e3f0c00469fb55f409d2bb21261035
-  languageName: node
-  linkType: hard
-
 "cookiejar@npm:^2.1.2, cookiejar@npm:^2.1.4":
   version: 2.1.4
   resolution: "cookiejar@npm:2.1.4"
@@ -6335,29 +6342,29 @@ __metadata:
   resolution: "expo-app@workspace:apps/expo"
   dependencies:
     "@babel/core": ^7.20.0
-    "@react-native-async-storage/async-storage": ^1.18.1
+    "@react-native-async-storage/async-storage": 1.17.11
     "@react-native-menu/menu": ^0.7.3
     "@react-navigation/material-top-tabs": ^6.6.3
     "@reduxjs/toolkit": ^1.9.5
-    "@shopify/flash-list": ^1.4.3
+    "@shopify/flash-list": 1.4.0
     "@types/react": ~18.0.27
     "@types/react-native": ~0.69.1
     app: "*"
     axios: ^1.4.0
     expo: ~48.0.18
     expo-av: ~13.2.1
-    expo-barcode-scanner: ^12.3.2
-    expo-build-properties: ~0.8.3
-    expo-clipboard: ^4.1.2
-    expo-device: ^5.2.1
+    expo-barcode-scanner: ~12.3.2
+    expo-build-properties: ~0.6.0
+    expo-clipboard: ~4.1.2
+    expo-device: ~5.2.1
     expo-image: ~1.0.1
-    expo-image-picker: ^14.1.1
+    expo-image-picker: ~14.1.1
     expo-linear-gradient: ~12.1.2
     expo-linking: ~4.0.1
     expo-local-authentication: 13.3.0
-    expo-media-library: ^15.2.3
+    expo-media-library: ~15.2.3
     expo-router: ^1.0.1
-    expo-screen-orientation: ^5.1.1
+    expo-screen-orientation: ~5.1.1
     expo-sharing: ~11.2.2
     expo-splash-screen: ~0.18.2
     expo-status-bar: ~1.4.4
@@ -6379,17 +6386,17 @@ __metadata:
     react-native-ios-context-menu: ^1.15.3
     react-native-mask-input: ^1.2.3
     react-native-modalfy: ^3.4.0
-    react-native-pager-view: 6.2.0
+    react-native-pager-view: 6.1.2
     react-native-qrcode-svg: ^6.2.0
-    react-native-reanimated: ^3.1.0
+    react-native-reanimated: ~2.14.4
     react-native-safe-area-context: 4.5.0
     react-native-screens: ~3.20.0
     react-native-shadow-2: ^7.0.8
     react-native-share: ^8.2.2
-    react-native-svg: ^13.9.0
+    react-native-svg: 13.4.0
     react-native-tab-view: ^3.5.1
     react-native-toast-message: ^2.1.6
-    react-native-view-shot: ^3.6.0
+    react-native-view-shot: 3.5.0
     react-native-web: ~0.18.11
     react-native-webview: 11.26.0
     react-qr-reader: ^3.0.0-beta-1
@@ -6434,35 +6441,35 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-barcode-scanner@npm:^12.3.2":
-  version: 12.4.0
-  resolution: "expo-barcode-scanner@npm:12.4.0"
+"expo-barcode-scanner@npm:~12.3.2":
+  version: 12.3.2
+  resolution: "expo-barcode-scanner@npm:12.3.2"
   dependencies:
-    expo-image-loader: ~4.2.0
+    expo-image-loader: ~4.1.0
   peerDependencies:
     expo: "*"
-  checksum: 61883171bf913090da8254bdba53e581da545590b36e2c43040486434ca0d02048e1da82f06b12ac7a7d01718adf455d676747792a10a516fb1973658112cfe6
+  checksum: b07831a8b7205c838be54268ac927ca4ce431065f55f551d37e9957e3b2bae0c6b208fee278d846a9f06d9cd9e71d54f3821818c80327fa8387a7b56ee1291af
   languageName: node
   linkType: hard
 
-"expo-build-properties@npm:~0.8.3":
-  version: 0.8.3
-  resolution: "expo-build-properties@npm:0.8.3"
+"expo-build-properties@npm:~0.6.0":
+  version: 0.6.0
+  resolution: "expo-build-properties@npm:0.6.0"
   dependencies:
     ajv: ^8.11.0
-    semver: ^7.5.3
+    semver: ^7.3.5
   peerDependencies:
     expo: "*"
-  checksum: 7a296f2dc398f129af7d5543526edbe46f87e80fb860d8d2ff9edd37e0464a785ef02a18ad218e5ad350cfda6a44e1837d942c4cdabf62b4d100790b50982302
+  checksum: 81827f80a368915224f7b4b3ae8682b13e9e683511c329084da7a2a659253b2281dae33cf386cc82f599c2c458aa57c66c6565c917ebeb4799bebc3044974037
   languageName: node
   linkType: hard
 
-"expo-clipboard@npm:^4.1.2":
-  version: 4.2.0
-  resolution: "expo-clipboard@npm:4.2.0"
+"expo-clipboard@npm:~4.1.2":
+  version: 4.1.2
+  resolution: "expo-clipboard@npm:4.1.2"
   peerDependencies:
     expo: "*"
-  checksum: f207eb3e6a67dbe283100fa9de5b41669e9bc3f6e6d493bf7c83688d9cbc64a035b376f9da011d3bebbbe59494ea74b8d95569ca9360c7f13bcbe97bf19f9c8d
+  checksum: c9f97013b0ea95cfcf34c0e14bf5b35d52b9ebd3a2ce1f9b675db1f94e8cc03040834b5d3b58e3678bd85297dc8a797ec38e353860b4db5c70ae1087698a30ad
   languageName: node
   linkType: hard
 
@@ -6527,14 +6534,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-device@npm:^5.2.1":
-  version: 5.3.0
-  resolution: "expo-device@npm:5.3.0"
+"expo-device@npm:~5.2.1":
+  version: 5.2.1
+  resolution: "expo-device@npm:5.2.1"
   dependencies:
     ua-parser-js: ^0.7.33
   peerDependencies:
     expo: "*"
-  checksum: 08e136e5ebf40215a3062956d7aad09b8446462ac91a173a52625aab17a778fbb8757a9d09b2aed3a8be2e463f5f157d3f14e4267e8e61cd914c67167b5e55c4
+  checksum: da94661b56f71e76f5f34593922aed085bb40b7a5f00e1550cb1b18336dad50f51513a2859797ef1704412b88798c952668410e86a8298a8ba5eeb8eabecadd6
   languageName: node
   linkType: hard
 
@@ -6560,6 +6567,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"expo-image-loader@npm:~4.1.0":
+  version: 4.1.1
+  resolution: "expo-image-loader@npm:4.1.1"
+  peerDependencies:
+    expo: "*"
+  checksum: 6ea7d49148d9126a79f00b1e9a2e648884d208daf8ac54c663eb941a7524d229aa907d6d45704598168c7d1efcb891bdc0bd91f077a53d3a270b18c269d43d99
+  languageName: node
+  linkType: hard
+
 "expo-image-loader@npm:~4.2.0":
   version: 4.2.0
   resolution: "expo-image-loader@npm:4.2.0"
@@ -6577,6 +6593,17 @@ __metadata:
   peerDependencies:
     expo: "*"
   checksum: 6132c98eeae92f0c17ea230292cc8dc84300ff11366b1bc33ca5a0157cfb4463932526800a47c5f0827157160988616da97124dfc356dee071e9d913d60e5248
+  languageName: node
+  linkType: hard
+
+"expo-image-picker@npm:~14.1.1":
+  version: 14.1.1
+  resolution: "expo-image-picker@npm:14.1.1"
+  dependencies:
+    expo-image-loader: ~4.1.0
+  peerDependencies:
+    expo: "*"
+  checksum: 6e6e8a9c9bd32af9a4b09f4ff271182bb00c4abc733348911a46a0515c3ea1d0f8263b18d2b18b0d394ad44f3c8cc5fd8066d3748fade109b04c7031fbec9b07
   languageName: node
   linkType: hard
 
@@ -6647,12 +6674,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-media-library@npm:^15.2.3":
-  version: 15.3.0
-  resolution: "expo-media-library@npm:15.3.0"
+"expo-media-library@npm:~15.2.3":
+  version: 15.2.3
+  resolution: "expo-media-library@npm:15.2.3"
   peerDependencies:
     expo: "*"
-  checksum: b7a31d351ca1811cf2a7008d1b67af29a7525dced44b1d624e8d0f4e99c78c5f64c666c4ea3e1c933ce6a0f35af7aedc82f50090f37c9b612ca2c6aa99829012
+  checksum: a054d333cfc9f74444618852df7568c91edfb90ecfb995f0ac44d2c2925d841489c0eb9decbd776a00866d13aa7bd84fd3b1b9ee4316aa895c675944397feb3e
   languageName: node
   linkType: hard
 
@@ -6715,12 +6742,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-screen-orientation@npm:^5.1.1":
-  version: 5.2.0
-  resolution: "expo-screen-orientation@npm:5.2.0"
+"expo-screen-orientation@npm:~5.1.1":
+  version: 5.1.1
+  resolution: "expo-screen-orientation@npm:5.1.1"
   peerDependencies:
     expo: "*"
-  checksum: 05a225c8577a732b24fcf9c590c578d8d8426491964beb557e37b92d89150ebae3fedac05f817a1e3aa0b838584e246cce746a5d494eafb6460f60f99a735b6c
+  checksum: 5e647c1ed2e30a6db1741e5bfda581f957c113110a4f916c82b3c6220a96807880cc3aab189427e9ee4a61649de2c81d1332c75537271f9f9ac52467df4317c8
   languageName: node
   linkType: hard
 
@@ -9220,6 +9247,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash.isequal@npm:^4.5.0":
+  version: 4.5.0
+  resolution: "lodash.isequal@npm:4.5.0"
+  checksum: da27515dc5230eb1140ba65ff8de3613649620e8656b19a6270afe4866b7bd461d9ba2ac8a48dcc57f7adac4ee80e1de9f965d89d4d81a0ad52bb3eec2609644
+  languageName: node
+  linkType: hard
+
 "lodash.merge@npm:^4.6.2":
   version: 4.6.2
   resolution: "lodash.merge@npm:4.6.2"
@@ -11700,13 +11734,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-pager-view@npm:6.2.0":
-  version: 6.2.0
-  resolution: "react-native-pager-view@npm:6.2.0"
+"react-native-pager-view@npm:6.1.2":
+  version: 6.1.2
+  resolution: "react-native-pager-view@npm:6.1.2"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 3006fe29f008d472ebfb654922302d138b08f56e7796627263424b5e91a3169dd9d0c450b5396efffd88d511197c5006180430a2b687d2d827926b324f8fb947
+  checksum: 813da82c7816748b7a66c87d281c11cc3d787342b0896ffad686ee15e968911f4ed7b1164cdf196068eb2abcb28513bd85cdd0023280af73ff66e2b42bd2efa1
   languageName: node
   linkType: hard
 
@@ -11736,24 +11770,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-reanimated@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "react-native-reanimated@npm:3.1.0"
+"react-native-reanimated@npm:~2.14.4":
+  version: 2.14.4
+  resolution: "react-native-reanimated@npm:2.14.4"
   dependencies:
     "@babel/plugin-transform-object-assign": ^7.16.7
     "@babel/preset-typescript": ^7.16.7
-    convert-source-map: ^2.0.0
+    convert-source-map: ^1.7.0
     invariant: ^2.2.4
+    lodash.isequal: ^4.5.0
+    setimmediate: ^1.0.5
+    string-hash-64: ^1.0.3
   peerDependencies:
     "@babel/core": ^7.0.0-0
-    "@babel/plugin-proposal-nullish-coalescing-operator": ^7.0.0-0
-    "@babel/plugin-proposal-optional-chaining": ^7.0.0-0
-    "@babel/plugin-transform-arrow-functions": ^7.0.0-0
-    "@babel/plugin-transform-shorthand-properties": ^7.0.0-0
-    "@babel/plugin-transform-template-literals": ^7.0.0-0
     react: "*"
     react-native: "*"
-  checksum: 28279642056c7b214649ff14d3c9f1e914c9dd3dd74afc734fc10d1af088a2c3b0e187751e2713d54fc0a9916c394068b29aec51e754b51625a4179f10e38bcd
+  checksum: ec24225a145a8636065b464660256bed99ba5f50c7f6c74899838f5563e59a342ea217c285a06be8bdd5549e2faaf1ebdac6986011a767ba814a4cf469ed9bdb
   languageName: node
   linkType: hard
 
@@ -11799,6 +11831,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-svg@npm:13.4.0":
+  version: 13.4.0
+  resolution: "react-native-svg@npm:13.4.0"
+  dependencies:
+    css-select: ^5.1.0
+    css-tree: ^1.1.3
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: e630c057d6a0947c4d729538f643585a1fd9380975c1cf9adffad7647822b35219a9e1e60407f422b2b70592ed7f7e8766fab15df74f9cfce0b1c8a1c3544676
+  languageName: node
+  linkType: hard
+
 "react-native-svg@npm:^13.9.0":
   version: 13.9.0
   resolution: "react-native-svg@npm:13.9.0"
@@ -11835,13 +11880,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-view-shot@npm:^3.6.0":
-  version: 3.6.0
-  resolution: "react-native-view-shot@npm:3.6.0"
+"react-native-view-shot@npm:3.5.0":
+  version: 3.5.0
+  resolution: "react-native-view-shot@npm:3.5.0"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 702fecd29aef9a139846e9bf535a2ffec4091091ea1833a4135bedd88376e7b5d45bc2e2af4f5f4d0a83b208adaebf43cd646230799d495536e3bdb0ff71c0b0
+  checksum: c405d4859dc74d6de72e3c740977245fba805d1d422fa506f0347d98316cb9e80552fd31f76a294ecc8d7c136da4c7d5843f974a22f427b5fe8752a039c7f96b
   languageName: node
   linkType: hard
 
@@ -12697,7 +12742,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.5.0, semver@npm:^7.5.3":
+"semver@npm:^7.5.0":
   version: 7.5.3
   resolution: "semver@npm:7.5.3"
   dependencies:
@@ -13246,6 +13291,13 @@ __metadata:
   version: 2.0.0
   resolution: "strict-uri-encode@npm:2.0.0"
   checksum: eaac4cf978b6fbd480f1092cab8b233c9b949bcabfc9b598dd79a758f7243c28765ef7639c876fa72940dac687181b35486ea01ff7df3e65ce3848c64822c581
+  languageName: node
+  linkType: hard
+
+"string-hash-64@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "string-hash-64@npm:1.0.3"
+  checksum: 79de8431b4fa3e85a2429cd52a34f7948221ff167b7a094e05d6bcfd0173474b232e0c9845c96f74b0d7b6b0c8bbe2c3532a4cacb21635293ef0cf3cc8e77f06
   languageName: node
   linkType: hard
 

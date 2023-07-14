@@ -80,3 +80,6 @@ build/**
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+apps/expo/CodePush/android/*
+apps/expo/CodePush/ios/*

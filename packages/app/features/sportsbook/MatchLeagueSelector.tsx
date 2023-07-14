@@ -103,7 +103,6 @@ const MatchLeagueSelectorTab = memo(
           position: 'relative',
         }}
         onPress={() => {
-          console.log('onrepss', id)
           onPress && onPress(id)
         }}
         {...rest}

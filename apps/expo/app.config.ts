@@ -70,7 +70,7 @@ const expoConfig = ({ config }: ConfigContext): ExpoConfig => ({
           CodePushDeploymentKey: 'YOUR_ANDROID_CODE_PUSH_KEY',
         },
         ios: {
-          CodePushDeploymentKey: 'YOUR_IOS_CODE_PUSH_KEY',
+          CodePushDeploymentKey: 'LL5A-_orX6NTd-uyepH8TUCRie8GKpWvgVsw6', // "Staging Alt"
         },
       },
     ],
