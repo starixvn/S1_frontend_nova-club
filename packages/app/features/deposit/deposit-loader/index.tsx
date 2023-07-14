@@ -1,8 +1,10 @@
+import { DEV_DOMAIN } from '@env'
 import { PageWithBackHeader } from 'app/components/layout/Page'
 import WebView from 'app/components/WebView'
 import { View } from 'dripsy'
 import { Platform } from 'react-native'
 import { createParam } from 'solito'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 
 const { useParam } = createParam<{ depositUrl: string; title: string }>()
 /**
@@ -30,6 +32,12 @@ const { useParam } = createParam<{ depositUrl: string; title: string }>()
 const DepositLoaderScreen = () => {
   const [depositUrl] = useParam('depositUrl', { initial: '' })
   const [title] = useParam('title')
+  const { back } = useContextualRouter()
+
+  const handleNavigation = (event) => {
+    const { src } = event.target
+    console.log(src)
+  }
 
   return (
     <PageWithBackHeader header={{ title: title }} disableScrollView>
@@ -39,9 +47,22 @@ const DepositLoaderScreen = () => {
             src={decodeURIComponent(depositUrl)}
             height="100%"
             style={{ flex: 1 }}
+            onLoad={handleNavigation}
           />
         ) : (
-          <WebView url={depositUrl} />
+          <WebView
+            url={depositUrl}
+            onShouldStartLoadWithRequest={(e) => {
+              const { url } = e
+              if (url.startsWith(DEV_DOMAIN)) {
+                back()
+                return false
+              }
+
+              console.log('onShouldStartLoadWithRequest', e)
+              return true
+            }}
+          />
         )}
       </View>
     </PageWithBackHeader>
