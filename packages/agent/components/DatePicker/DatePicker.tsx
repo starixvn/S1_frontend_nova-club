@@ -102,7 +102,7 @@ const DatePicker = ({
 
             <Text
               sx={{
-                color: '$grayAgent',
+                color: 'black',
                 paddingLeft: '$1',
                 paddingRight: 2.5,
                 flex: 1,

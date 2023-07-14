@@ -11,6 +11,7 @@ type IDatePickerProps = CommonDatePickerProps
 const InputText = styled(Text)({
   fontSize: [13, 15],
   marginLeft: '$2',
+  color: 'black',
 })
 
 const DatePickerWeb = ({
@@ -85,7 +86,7 @@ const DatePickerWeb = ({
             width: '100%',
             height: '100%',
             border: 0,
-            color: 'white',
+            color: 'black',
             textAlign: 'center',
             outline: 0,
             opacity: 0,

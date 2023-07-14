@@ -168,7 +168,7 @@ const Input = forwardRef<NativeTextInput, InputProps>((props, ref) => {
     flexShrink: 1,
     marginLeft: leftInnerElement ? 8 : 0,
     marginRight: rightInnerElement ? 8 : 0,
-    color: '$textAgent',
+    color: 'black',
     ...Platform.select({
       web: {
         cursor: editable ? 'auto' : 'not-allowed',
@@ -184,7 +184,9 @@ const Input = forwardRef<NativeTextInput, InputProps>((props, ref) => {
         <Label nativeId={inputNativeId} isRequired={isRequired} {...labelProps}>
           {label + ' '}
         </Label>
-      ) : null}
+      ) : (
+        <Text> </Text>
+      )}
 
       <View
         sx={{

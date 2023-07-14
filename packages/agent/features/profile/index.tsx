@@ -9,6 +9,12 @@ import ProfileChart from './ProfileChart'
 import ProfileChartLegend from './ProfileChartLegend'
 import ProfileDetails from './ProfileDetails'
 import ProfileTitle from './ProfileTitle'
+import Select from 'agent/components/Select/Select'
+import { DateFilterOptions } from 'agent/constant/select'
+import {
+  ReportTransactionTypeOptions,
+  SlotTypeOptions,
+} from 'app/utils/constant'
 
 const AgentProfile = () => {
   const { data: userInfoData } = useUserInfoQuery()
@@ -26,6 +32,25 @@ const AgentProfile = () => {
     >
       <ScrollView sx={{ px: '$3', pt: '$4', mb: '$5' }}>
         <ProfileTitle userRole={userRole} />
+
+        <Select
+          options={ReportTransactionTypeOptions}
+          placeholder={'shAgent.regDate'}
+          value={ReportTransactionTypeOptions[0]?.value}
+          onSelected={(val) => {
+            if (!val) return
+            // const { startDate, endDate } = getDateRange(val)
+            // setSelected({
+            //   ...selected,
+            //   date: val,
+            //   startDate: startDate ? startDate : selected.startDate,
+            //   endDate: endDate ? endDate : selected.endDate,
+            // })
+          }}
+          label={'shAgent.regDate'}
+          isRequired
+        />
+
         <Card isLoading={loading} sx={{ mb: 30 }}>
           <ProfileContentContainer
             from={{ opacity: 0, height: 0 }}

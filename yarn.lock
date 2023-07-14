@@ -6413,7 +6413,7 @@ __metadata:
     react: 18.2.0
     react-dom: 18.2.0
     react-native: 0.71.8
-    react-native-actions-sheet: ^0.8.29
+    react-native-actions-sheet: 0.7.2
     react-native-barcode-mask: ^1.2.4
     react-native-chart-kit: ^6.12.0
     react-native-code-push: ^8.0.2
@@ -11605,12 +11605,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-actions-sheet@npm:^0.8.29":
-  version: 0.8.29
-  resolution: "react-native-actions-sheet@npm:0.8.29"
+"react-native-actions-sheet@npm:0.7.2":
+  version: 0.7.2
+  resolution: "react-native-actions-sheet@npm:0.7.2"
   peerDependencies:
     react-native: "*"
-  checksum: e4ea46f6370d25a6fff97de87e4e20799319c2d574cb52e12017b266eeadc869116d443b78d1880999df7bbb13cdfa3df2dae3589d98d9063f62c4122e6e5011
+  checksum: 7b094b558e3ca791079026ac27fe8b4b76e051e9add1713fa0af46e26c8b46e832218582fd9be15143a6f9da239d8314bf1753b5417f35f59cc780e435444454
   languageName: node
   linkType: hard
 

@@ -1,7 +1,5 @@
 import Text from 'agent/components/Text'
-import ActionSheet, {
-  ActionSheetProps,
-} from 'app/components/actionSheet/ActionSheet'
+
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Pressable, styled, View } from 'dripsy'
 import uniqueId from 'lodash/uniqueId'
@@ -19,6 +17,7 @@ import { SheetManager } from 'react-native-actions-sheet'
 import Icon from '../Icon'
 import Input, { InputProps } from '../Input'
 import Label, { InputLabelProps } from '../Label'
+import ActionSheet from 'agent/components/Actionsheet/ActionSheet'
 
 const StyledPressable = styled(Pressable)({
   borderRadius: 9,
@@ -29,6 +28,7 @@ const StyledContentContainer = styled(View)(
   (props: { safeAreaBottom: number }) => {
     return {
       pb: props.safeAreaBottom,
+      bg: 'red',
     }
   }
 )
