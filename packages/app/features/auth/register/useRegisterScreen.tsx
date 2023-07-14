@@ -1,6 +1,6 @@
 import useAlert from 'app/hooks/useAlert'
 import useUniqueId from 'app/hooks/useUniqueId'
-import { useAppSelector } from 'app/provider/redux/store'
+import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { APP_DEVICE_IOS, APP_DEVICE_ANDROID } from 'app/utils/constant'
 import { isBannedTrackingCode } from 'app/utils/referralUtil'
 import validation from 'app/utils/validation'
@@ -15,12 +15,15 @@ import { RegisterFormValues } from './RegisterScreen'
 import useContainerWidth from 'app/hooks/useContainerWidth'
 import { View as RNView } from 'react-native'
 import * as Yup from 'yup'
+import { TempSettingActions } from 'app/store/tempSetting.slice'
+import { Shield_Action } from 'services/authApi.type'
 
 const { useParam } = createParam<{ t: LoginType }>()
 
 export default function useRegisterScreen(rootView: RefObject<RNView>) {
   const { showAlert } = useAlert()
   const width = useContainerWidth(rootView)
+  const dispatch = useAppDispatch()
 
   const [routes] = useState([
     { key: 'first', title: 'common.player', index: 0 },
@@ -78,6 +81,9 @@ export default function useRegisterScreen(rootView: RefObject<RNView>) {
 
     if (success) {
       // dispatch()
+      dispatch(
+        TempSettingActions.setSyncShieldActionType(Shield_Action.REGISTER)
+      )
       setStatus(true)
     } else {
       showAlert(message)

@@ -93,7 +93,6 @@ const DepositForm = ({ DepositCategoryId }) => {
     { bank, selectedChannel, realAmount }: DepositValues,
     actions: FormikHelpers<DepositValues>
   ) => {
-    console.log(bank)
     try {
       actions.setSubmitting(true)
       const result = await postSubmitDeposit({

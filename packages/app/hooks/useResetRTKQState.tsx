@@ -4,6 +4,7 @@ import { useCallback } from 'react'
 import { baseApi } from 'services/baseApi'
 import { useAppDispatch } from '../provider/redux/store'
 import { LANGUAGE_CODE } from 'app/utils/constant'
+import { TempSettingActions } from 'app/store/tempSetting.slice'
 
 const useResetRTKQState = () => {
   const dispatch = useAppDispatch()
@@ -12,7 +13,7 @@ const useResetRTKQState = () => {
     dispatch(baseApi.util.resetApiState())
 
     // dispatch(TempSettingActions.toggleTriggerPopupEvent(true))
-    // dispatch(TempSettingActions.setLuckyDrawTriggered(false))
+    dispatch(TempSettingActions.setLuckyDrawTriggered(false))
     dispatch(SettingActions.removeReferral())
     dispatch(SettingActions.setLocale(LANGUAGE_CODE.VIETNAM))
   }, [dispatch])

@@ -14,11 +14,11 @@ const ShareholderVi = () => {
       >
         <img
           src={src1}
-          style={{ width: '50%', height: '30%', minWidth: '350px' }}
+          style={{ width: '100%', height: '30%', minWidth: '350px' }}
         />
         <img
           src={src2}
-          style={{ width: '50%', height: '30%', minWidth: '350px' }}
+          style={{ width: '50%', height: '30%', maxWidth: '350px' }}
         />
       </div>
       <ol>

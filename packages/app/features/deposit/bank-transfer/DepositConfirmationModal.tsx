@@ -27,7 +27,7 @@ const DepositConfirmationModal = ({ modal: { closeModal, getParam } }) => {
   return (
     <ModalWrapper>
       <ModalContent
-        title="Deposit Confirmation"
+        title={t('deposit.depositConfirmation')}
         actions={[
           {
             label: t('common.cancel'),
@@ -41,7 +41,7 @@ const DepositConfirmationModal = ({ modal: { closeModal, getParam } }) => {
       >
         <View sx={{ alignItems: 'center' }}>
           <Text sx={{ mt: '$4', fontSize: 14 }}>
-            Please confirm deposit information below
+            {t('deposit.pleaseConfirmDeposit')}
           </Text>
           <Text sx={{ mt: '$3', fontSize: 16, fontWeight: '400' }}>
             {`${t('deposit.depositAmount')} : ${toCurrency(amount, currency, {

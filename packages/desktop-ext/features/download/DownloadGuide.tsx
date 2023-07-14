@@ -28,42 +28,37 @@ interface GuideContent {
 const device: DeviceType = {
   ios: [
     {
-      guideText: 'Click app download button\non our VUI123 site.',
+      guideText: 'download.iosGuideText.n1',
       guideImage: 'IOS_1.png',
     },
     {
-      guideText:
-        'A new tab will be opened in\nyour web browser, click on\nthe "Get the App button',
+      guideText: 'download.iosGuideText.n2',
       guideImage: 'IOS_2.png',
     },
     {
-      guideText:
-        'You will be redirected to\n"Vui Fit app on App Store\ninstead of VUI123 app"',
+      guideText: 'download.iosGuideText.n3',
       guideImage: 'IOS_3.png',
     },
     {
-      guideText: 'Click "Get" to install the\n"Vui Fit" app',
+      guideText: 'download.iosGuideText.n4',
       guideImage: 'IOS_4.png',
     },
     {
-      guideText:
-        'Open "Vui Fit" app to launch\nVUI123 app. Start enjoying your\nexclusive bonus and games',
+      guideText: 'download.iosGuideText.n5',
       guideImage: 'IOS_5.png',
     },
   ],
   android: [
     {
-      guideText: 'Click app download button\non our VUI123 site.',
+      guideText: 'download.androidGuideText.n1',
       guideImage: 'ADR_1.png',
     },
     {
-      guideText:
-        'A new tab will be opened in\nyour web browser, click on\nthe "Download anyway.',
+      guideText: 'download.androidGuideText.n2',
       guideImage: 'ADR_2.png',
     },
     {
-      guideText:
-        'Install VUI123.apk to launch\nVUI123 app. Start enjoying your\nexclusive bonuses and games.',
+      guideText: 'download.androidGuideText.n3',
       guideImage: 'ADR_3.png',
     },
   ],
@@ -150,7 +145,7 @@ const DownloadGuide = ({ modal: { closeModal, getParam } }) => {
                       minHeight: 125,
                     }}
                   >
-                    {data[guideTextIndex]?.guideText}
+                    {t(data[guideTextIndex].guideText)}
                   </Text>
                 </MotiView>
               </View>

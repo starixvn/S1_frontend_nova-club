@@ -65,7 +65,7 @@ const AddBankAccountScreen = () => {
           <SelectList
             isGrid
             label={t('bank.bank')}
-            placeholder={t('bank.selectBank')}
+            placeholder={t('placeholder.plsSelectBank')}
             options={sheetData}
             loading={isLoading || isFetching}
             value={values.bank?.bank_code}

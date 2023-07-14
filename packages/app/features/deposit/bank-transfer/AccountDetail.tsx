@@ -1,6 +1,7 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import IconButton from 'app/components/IconButton'
 import Image from 'app/components/common/Image'
+import useLocalization from 'app/provider/localization'
 import { copyToClipboard } from 'app/utils'
 import { Text, View, useResponsiveValue } from 'dripsy'
 
@@ -15,6 +16,7 @@ const AccountDetail = ({
   accountNumber,
   qrCode,
 }: AccountDefailProps) => {
+  const { t } = useLocalization()
   const horizontalMode = useResponsiveValue([false, false, false, true, true])
 
   return (
@@ -38,7 +40,7 @@ const AccountDetail = ({
       >
         <View>
           <View>
-            <Text>Account Name :</Text>
+            <Text>{t('bank.accountName')} :</Text>
             <View
               sx={{
                 flexDirection: 'row',
@@ -60,7 +62,7 @@ const AccountDetail = ({
             </View>
           </View>
           <View sx={{ mt: '$2' }}>
-            <Text>Account No :</Text>
+            <Text>{t('bank.accountNo')} :</Text>
             <View
               sx={{
                 flexDirection: 'row',

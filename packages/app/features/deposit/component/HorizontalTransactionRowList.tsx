@@ -1,6 +1,7 @@
 import IconButton from 'app/components/IconButton'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
 import { getStatusColor } from 'app/config/status'
+import useLocalization from 'app/provider/localization'
 import { copyToClipboard, toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import dayjsTz from 'app/utils/dayjs'
@@ -15,6 +16,7 @@ const HorizontalTransactionRowList = ({
   item: any
   index?: number
 }) => {
+  const { t } = useLocalization()
   const { theme } = useDripsyTheme()
   const { openModal } = useModal()
   const date = dayjsTz(item.date).format('YYYY/MM/DD')
@@ -43,7 +45,7 @@ const HorizontalTransactionRowList = ({
       </View>
 
       <View sx={{ flex: 0.9 }}>
-        <Text>Bank Transfer</Text>
+        <Text>{t('deposit.depositMethod.bankTransfer')}</Text>
       </View>
 
       <View sx={{ flex: 1, flexDirection: 'row' }}>
@@ -86,7 +88,7 @@ const HorizontalTransactionRowList = ({
                   textAlign: 'center',
                 }}
               >
-                Bank Slip
+                {t('deposit.bankSlip')}
               </Text>
             </Pressable>
           )}

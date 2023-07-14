@@ -25,23 +25,23 @@ const UploadBankSlipModal = ({ modal: { closeModal, getParam } }) => {
 
   const DepositDetail = [
     {
-      title: 'Transaction ID',
+      title: 'deposit.transactionId',
       value: depositInfo.depositId,
     },
     {
-      title: 'Payment Mode',
+      title: 'deposit.paymentMode',
       value: depositInfo.paymentMode,
     },
     {
-      title: 'Date',
+      title: 'deposit.date',
       value: depositInfo.date,
     },
     {
-      title: 'Status',
+      title: 'deposit.status',
       value: depositInfo.status,
     },
     {
-      title: 'Amount',
+      title: 'deposit.amount',
       value: depositInfo.amount,
     },
   ]
@@ -116,15 +116,15 @@ const UploadBankSlipModal = ({ modal: { closeModal, getParam } }) => {
                   }}
                 >
                   <Text sx={{ fontSize: 16, fontWeight: '100' }}>
-                    {item.title} :
+                    {t(item.title)} :
                   </Text>
                   <Text sx={{ fontSize: 12, mt: 5 }}>{item.value}</Text>
                 </View>
               ))}
             <View sx={{ width: '100%', mt: '$2' }}>
-              <Text>{'Upload receipt'} :</Text>
+              <Text>{t('deposit.upload.title')} :</Text>
               <Text sx={{ fontSize: 12, mt: 5, mb: 5 }}>
-                {'Browse your Bank Transfer Receipt or Invoice'}
+                {t('deposit.upload.description')}
               </Text>
               <FilePicker
                 value={receipt}
@@ -132,7 +132,7 @@ const UploadBankSlipModal = ({ modal: { closeModal, getParam } }) => {
                   console.log('e', e)
                   setReceipt(e)
                 }}
-                placeholder="Select File"
+                placeholder={t('deposit.upload.files')}
               />
             </View>
           </View>

@@ -43,7 +43,7 @@ const DepositCryptoModal = ({ modal: { closeModal, getParam } }) => {
   return (
     <ModalWrapper>
       <ModalContent
-        title={t('menu.depositConfirmation')}
+        title={t('deposit.depositConfirmation')}
         actions={[
           {
             label: t('common.confirm'),

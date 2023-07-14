@@ -52,7 +52,7 @@ const FieldSelectBank = ({ field, isLoading, formik }: FieldBankProps) => {
       /> */}
       {horizontalMode ? (
         <View>
-          <InputLabel label="Bank" />
+          <InputLabel label={t('bank.bank')} />
           <View
             sx={{
               flex: 1,
@@ -84,7 +84,7 @@ const FieldSelectBank = ({ field, isLoading, formik }: FieldBankProps) => {
         </View>
       ) : (
         <SelectWithCardGrid
-          label={t('bank.bankAcc')}
+          label={t('bank.bank')}
           placeholder={t('placeholder.plsSelectBank')}
           options={bankList}
           value={values.bank?.label ?? ''}

@@ -168,7 +168,7 @@ const BankTransferForm = () => {
       <View sx={{ px: horizontalMode ? 0 : '$4' }}>
         {horizontalMode ? (
           <View>
-            <InputLabel label="Bank" />
+            <InputLabel label={t('bank.bank')} />
             <View
               sx={{
                 flex: 1,
@@ -200,7 +200,7 @@ const BankTransferForm = () => {
           </View>
         ) : (
           <SelectWithCardGrid
-            label={t('bank.bankAcc')}
+            label={t('bank.bankAccount')}
             placeholder={t('placeholder.plsSelectBank')}
             options={sheetData}
             value={values.bank?.bank_branch ?? ''}
@@ -241,7 +241,7 @@ const BankTransferForm = () => {
 
       <View sx={{ px: horizontalMode ? 0 : '$4' }}>
         <Input
-          label="Deposit Amount"
+          label={t('deposit.depositAmount')}
           placeholder={t('validation.minMaxLimit', {
             min: toCurrency(limit.minAmount ?? 0, currency, {
               symbol: false,
@@ -281,7 +281,7 @@ const BankTransferForm = () => {
           disabled={!isValid || !dirty}
           onPress={handleConfirmDeposit}
         >
-          <ButtonText>Next</ButtonText>
+          <ButtonText>{t('common.next')}</ButtonText>
         </ButtonContainer>
       </View>
     </View>

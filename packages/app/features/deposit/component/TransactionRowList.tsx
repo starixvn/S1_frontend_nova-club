@@ -5,6 +5,7 @@ import PaymentMethod, {
   PaymentMethodProps,
 } from 'app/config/deposit'
 import { getStatusColor } from 'app/config/status'
+import useLocalization from 'app/provider/localization'
 import { copyToClipboard, toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import dayjsTz from 'app/utils/dayjs'
@@ -16,6 +17,7 @@ type TransactionRowListProps = {
   item
 }
 const TransactionRowList = ({ item }: TransactionRowListProps) => {
+  const { t } = useLocalization()
   const { theme } = useDripsyTheme()
   const date = dayjsTz(item.date).format('YYYY/MM/DD')
   const time = dayjsTz(item.date).format('hh:mm a')
@@ -87,7 +89,7 @@ const TransactionRowList = ({ item }: TransactionRowListProps) => {
                   numberOfLines={1}
                   sx={{ textDecorationLine: 'underline', color: '$tertiary' }}
                 >
-                  Bank Slip
+                  {t('deposit.bankSlip')}
                 </Text>
               </Pressable>
             )}

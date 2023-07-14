@@ -9,7 +9,7 @@ const OnlineBankingScreen = () => {
   return (
     <PageWithBackHeader
       disableScrollView={Platform.OS === 'ios'}
-      header={{ title: t('deposit.momo') }}
+      header={{ title: t('deposit.depositMethod.onlineBanking') }}
     >
       <OnlineBankingContent />
     </PageWithBackHeader>

@@ -9,7 +9,7 @@ const BankTransferScreen = () => {
   return (
     <PageWithBackHeader
       disableScrollView={Platform.OS === 'ios'}
-      header={{ title: t('deposit.bankTransfer') }}
+      header={{ title: t('deposit.depositMethod.bankTransfer') }}
     >
       <BankTransferContent />
     </PageWithBackHeader>
