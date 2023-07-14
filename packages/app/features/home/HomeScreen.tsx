@@ -11,9 +11,65 @@ import LeaderboardSection from './LeaderboardSection'
 import MatchSection from './Match/MatchSection'
 import ReferralSection from './Referral/ReferralSection'
 import TopGameSection from './TopGameSection'
+import useShield from 'app/hooks/useShield'
+import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
+import { TempSettingActions } from 'app/store/tempSetting.slice'
+import { useEffect } from 'react'
+import { Shield_Action } from 'services/authApi.type'
+import LuckyDrawTrigger from './LuckyDrawTrigger'
+import { useModal } from 'react-native-modalfy'
 
 export default function HomeScreen() {
   const { t } = useLocalization()
+  const dispatch = useAppDispatch()
+  const username = useAppSelector((s) => s.auth.info?.playerName)
+  const syncShieldActionType = useAppSelector(
+    (s) => s.tempSetting.syncShieldActionType
+  )
+  const { openModal } = useModal()
+  const luckyDrawBalance = useAppSelector((s) => s.setting.luckyDrawBalance)
+
+  const syncShieldStatus = useAppSelector(
+    (state) => state.tempSetting.syncShieldStatus
+  )
+
+  const { syncShield } = useShield()
+
+  const checkSyncShield = async () => {
+    try {
+      const _ = await syncShield(
+        syncShieldActionType === Shield_Action.NONE
+          ? Shield_Action.LOGIN
+          : syncShieldActionType
+      )
+
+      // Dont care abou sync shield success or not as long as it ad triggered
+      dispatch(TempSettingActions.setSyncShieldStatus(true))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  function handleCheckShield() {
+    if (syncShieldStatus) {
+      return
+    }
+
+    checkSyncShield()
+  }
+
+  useEffect(() => {
+    if (username) handleCheckShield()
+  }, [username])
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (luckyDrawBalance) {
+        openModal('LuckyDrawModal')
+      }
+    }, 1000)
+  }, [])
+
   return (
     <ScrollView
       bounces={false}
@@ -48,6 +104,7 @@ export default function HomeScreen() {
         <MatchSection />
         <LeaderboardSection />
         <ReferralSection />
+        <LuckyDrawTrigger />
       </View>
       <Footer />
     </ScrollView>

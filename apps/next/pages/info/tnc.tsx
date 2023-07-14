@@ -6,7 +6,7 @@ import InfoScreen from 'app/features/info/InfoScreen'
 import dynamic from 'next/dynamic'
 import { ActivityIndicator } from 'dripsy'
 
-const LazyEn = dynamic(() => import('app/features/info/Tnc/TncEn'), {
+const LazyEn = dynamic(() => import('app/features/info/tnc/TncEn'), {
   loading: () => <ActivityIndicator />,
   ssr: false,
 })

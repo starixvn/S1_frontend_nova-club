@@ -12,9 +12,15 @@ type HeaderProps = {
   title?: string
   actions?: React.ReactNode
   titleProps?: ComponentProps<typeof Text>
+  customBack?: () => void
 } & React.ComponentProps<typeof View>
 
-const Header = ({ title = '', actions, titleProps = {} }: HeaderProps) => {
+const Header = ({
+  title = '',
+  actions,
+  titleProps = {},
+  customBack,
+}: HeaderProps) => {
   const isAndroid = Platform.OS === 'android'
   const { back } = useRouter()
   const onGoBack = () => {
@@ -48,7 +54,7 @@ const Header = ({ title = '', actions, titleProps = {} }: HeaderProps) => {
           }}
         >
           <Pressable
-            onPress={onGoBack}
+            onPress={customBack ? customBack : onGoBack}
             sx={{ p: 4, px: 8, paddingLeft: right }}
           >
             <Icon name="back" size={isLandscape ? 14 : 20} color="white" />
