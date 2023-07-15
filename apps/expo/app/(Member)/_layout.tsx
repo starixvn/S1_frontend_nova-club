@@ -2,13 +2,18 @@ import { View } from 'react-native'
 
 import BottomTabBar from 'app/components/navigation/BottomTabBar'
 import MainHeader from 'app/components/navigation/header/MainHeader'
-import { Tabs, useNavigation } from 'expo-router'
+import useOnAppStart from 'app/hooks/useOnAppStart'
 import { useAppSelector } from 'app/provider/redux/store'
+import { Tabs } from 'expo-router'
+import useAppState from 'app/hooks/appState/useAppState'
 
 export default function Root() {
   const splashScreenLoaded = useAppSelector(
     (s) => s.tempSetting.splashScreenLoaded
   )
+
+  useOnAppStart()
+  useAppState()
 
   return (
     <View style={{ flex: 1 }}>

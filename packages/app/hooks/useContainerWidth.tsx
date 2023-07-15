@@ -7,7 +7,6 @@ export default function useContainerWidth(ref: RefObject<View>) {
     this.requestAnimationFrame(() => {
       if (ref.current)
         ref.current.measure((ox, oy, width, height, px, py) => {
-          console.log('widtg', width)
           setWidth(width)
         })
     })

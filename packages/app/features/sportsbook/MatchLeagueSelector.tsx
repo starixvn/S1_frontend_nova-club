@@ -32,7 +32,7 @@ export default function MatchLeagueSelector({
   // console.log('League ID: ', ids)
 
   return (
-    <DripsyGradient gradient={gradient} sx={{ px: '$4' }}>
+    <DripsyGradient gradient={gradient}>
       {gradient && (
         <View
           sx={{
@@ -49,6 +49,8 @@ export default function MatchLeagueSelector({
           maxWidth: maxWidth,
           gap: ['$1', '$2', '$3'],
           py: ['$1', '$2'],
+          px: '$4',
+          mb: "$2"
         }}
       >
         {ids.map((id) => {

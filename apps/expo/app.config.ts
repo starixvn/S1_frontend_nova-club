@@ -47,6 +47,15 @@ const expoConfig = ({ config }: ConfigContext): ExpoConfig => ({
   },
   plugins: [
     [
+      'expo-build-properties',
+      {
+        android: {
+          usesCleartextTraffic: true,
+        },
+        ios: {},
+      },
+    ],
+    [
       'expo-av',
       {
         microphonePermission:

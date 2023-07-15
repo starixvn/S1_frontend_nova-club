@@ -21,7 +21,6 @@ import { storage } from './persistStorage/index'
 import { Setting, settingReducer } from 'app/store/setting.slice'
 import { baseApi } from '../../../services/baseApi'
 import { depositReducer } from 'app/store/deposit.slice'
-import { tempSettingReducer } from 'app/store/tempSetting.slice'
 
 const migrations = {
   5: (s: PersistedState) => {},

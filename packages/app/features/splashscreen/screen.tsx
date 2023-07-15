@@ -80,7 +80,7 @@ export default function SplashScreen() {
       // } else if (agentToken) {
       //   handleAgentLogin()
       // } else
-      console.log('test')
+      // console.log('test')
       dispatch(TempSettingActions.setSplashScreenLoaded(true))
       replace('/')
     }
@@ -91,9 +91,8 @@ export default function SplashScreen() {
   // useEffect(() => {
   //   LogOut()
   // }, [])
-  console.log('fontsLoaded', fontsLoaded)
   return (
-    <View sx={{ flex: 1 }}>
+    <View sx={{ flex: 1 , bg: "$primary.500"}}>
       {fontsLoaded && (
         <>
           {codePushStatus === CodePush.SyncStatus.DOWNLOADING_PACKAGE && (
