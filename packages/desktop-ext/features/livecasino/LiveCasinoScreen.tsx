@@ -11,6 +11,9 @@ import React, { useMemo } from 'react'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { createParam } from 'solito'
 import groupBy from 'lodash/groupBy'
+import { SolitoImage } from 'solito/image'
+import SkeletonPlaceholder from 'app/components/SkeletonPlaceholder'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 type Props = {}
 
@@ -57,18 +60,15 @@ export default function LiveCasinoScreen({}: Props) {
 
   return (
     <Container>
-      <Row sx={{ gap: '$3', my: '$sectionBottomSpace' }}>
-        <View sx={{ flex: 2, minHeight: 320, bg: '$secondary.500' }}></View>
-        <View
-          sx={{
-            minWidth: 340,
-            flex: [1, 1, 1, 1, 1.5],
-            maxWidth: 480,
-            minHeight: 320,
-            bg: '$secondary.500',
-          }}
-        ></View>
-      </Row>
+      <View sx={{ width: '100%', aspectRatio: 1520 / 300, mb: '$3' }}>
+        <SkeletonPlaceholder width={'100%'} height={'100%'}>
+          <SolitoImage
+            src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/livecasino/dailywins@2x.jpg`}
+            alt="Dailywins"
+            fill
+          />
+        </SkeletonPlaceholder>
+      </View>
       <RecentlyPlayedSection gameTypes={[GAME_TYPE_CODE.LIVE_DEALER]} />
       {provider == null || !games || filteredGames == null ? (
         <View sx={{ height: '50vh' }}>

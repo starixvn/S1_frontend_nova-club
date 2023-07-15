@@ -91,8 +91,8 @@ const GameTypeFilter = ({ onFilterClicked, ...rest }) => {
               </View>
               <Text
                 sx={{
-                  fontSize: 24,
-                  lineHeight: 24,
+                  fontSize: 20,
+                  lineHeight: 22,
                   fontWeight: '900',
                   flex: 1.1,
                 }}

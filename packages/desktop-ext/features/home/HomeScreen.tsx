@@ -89,27 +89,7 @@ export default function HomeScreen() {
             </View>
           </Row>
         </View>
-
-        {/* <Row>
-          <View sx={{ flex: 1 }}>
-          </View>
-          <View sx={{ flex: 1 }}>
-          </View>
-        </Row> */}
-        {/* <Row>
-          <View sx={{ flex: 2, mb: '$sectionBottomSpace' }}>
-            <HireBanner />
-       
-
-          </View>
-          <View sx={{ flex: 3 }}>
-            <MatchSection />
-          </View>
-         
-        </Row> */}
-
         <TopGameSection />
-
         <Row sx={{ gap: '$pagePadding' }}>
           <MiddleBanner sx={{ flex: 1, gap: '$pagePadding' }}></MiddleBanner>
           <View sx={{ flex: 1, gap: '$pagePadding' }}>
@@ -130,7 +110,6 @@ export default function HomeScreen() {
             />
           </View>
         </Row>
-
         <Row sx={{ alignItems: 'stretch', gap: '$pagePadding' }}>
           <View
             sx={{

@@ -7,12 +7,11 @@ import { GAME_TYPE_CODE } from 'app/utils/constant'
 import { Row, View, useResponsiveValue } from 'dripsy'
 import groupBy from 'lodash/groupBy'
 import React, { useMemo } from 'react'
-import {
-  useGetGameListByCategoryQuery
-} from 'services/gameApi'
+import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import BannerSection from '../home/BannerSection'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
+import { SolitoImage } from 'solito/image'
 
 export default function LiveCasinoScreen() {
   const { data } = useGetGameListByCategoryQuery([GAME_TYPE_CODE.LIVE_DEALER])
@@ -77,7 +76,14 @@ export default function LiveCasinoScreen() {
       ListHeaderComponent={
         <View sx={{ gap: '$3', my: '$3' }}>
           <GamePageHeader title={'LIVE CASINO'} icon="casino" />
-          <BannerSection />
+          {/* <BannerSection /> */}
+          <View sx={{ width: '100%', aspectRatio: 768 / 200 }}>
+            <SolitoImage
+              fill
+              src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/livecasino/dailywins.jpg`}
+              alt="dailywins"
+            />
+          </View>
           <RecentlyPlayedSection gameTypes={[GAME_TYPE_CODE.LIVE_DEALER]} />
           <SectionHeader title={'PROVIDERS'} icon="all" />
         </View>

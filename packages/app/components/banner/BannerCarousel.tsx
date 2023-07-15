@@ -68,8 +68,8 @@ export default function BannerCarousel({
             renderItem={({ item }) => (
               <View pointerEvents="none">
                 <SolitoImage
-                  // src={`${MEDIA_DOMAIN}/${CONTENT_URI}/banners/${item.image}`}
-                  src={`https://bw88.io/2023/June/Bwing_BTI_250K_VN.jpg`}
+                  src={`${MEDIA_DOMAIN}/${CONTENT_URI}/v2/banners/${item.image}`}
+                  // src={`https://bw88.io/2023/June/Bwing_BTI_250K_VN.jpg`}
                   height={height}
                   width={width}
                   alt={item.alt ?? ''}

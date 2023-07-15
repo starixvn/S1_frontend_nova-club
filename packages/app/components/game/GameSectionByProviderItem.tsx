@@ -96,10 +96,10 @@ function GameSectionByProviderItem({
         data={searchedGame ?? filteredGame}
         bordered={bordered}
       />
-      {count < 50 && (
+      {onViewMore && (
         <Button
           sx={{ alignSelf: 'center', mb: '$3' }}
-          onPress={() => onViewMore && gpc && onViewMore(gpc)}
+          onPress={() => gpc && onViewMore(gpc)}
         >
           Show More
         </Button>

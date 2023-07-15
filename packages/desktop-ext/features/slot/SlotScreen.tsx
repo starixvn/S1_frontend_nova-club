@@ -64,7 +64,15 @@ function SlotScreen({}: Props) {
         <View sx={{ flex: 0.8, minHeight: 320 }}>
           <LatestWinnerSection type={LatestWinnerType.Slot} />
         </View>
-        <View sx={{ flex: 1, minHeight: 320, bg: '$secondary.500' }}></View>
+        <View sx={{ flex: 1, minHeight: 320, bg: '$secondary.500' }}>
+          <SolitoImage
+            style={{ width: '100%', height: '100%' }}
+            src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/slot/dailywins@2x.jpg`}
+            alt="dailywins"
+            contentFit="cover"
+            fill
+          />
+        </View>
         <View sx={{ flex: 1, minHeight: 320, bg: '$secondary.500' }}></View>
       </Row>
       <RecentlyPlayedSection

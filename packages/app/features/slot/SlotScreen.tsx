@@ -19,6 +19,8 @@ import { Game } from 'services/gameApi.type'
 import BannerSection from '../home/BannerSection'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 import { View } from 'dripsy'
+import { SolitoImage } from 'solito/image'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 function _SlotScreen() {
   const { t } = useLocalization()
@@ -47,6 +49,11 @@ function _SlotScreen() {
       })
     }
   }
+
+  function onViewMore(gpc: string) {
+    // TODO open game list by provider
+  }
+
   return (
     <FlashList
       ref={flashListRef}
@@ -57,13 +64,25 @@ function _SlotScreen() {
       }}
       renderItem={({ item }) => {
         if (item && item[0])
-          return <GameSectionByProviderItem gpc={item[0].gpc} games={item} />
+          return (
+            <GameSectionByProviderItem
+              gpc={item[0].gpc}
+              games={item}
+              // onViewMore={onViewMore}
+            />
+          )
         else return null
       }}
       ListHeaderComponent={
         <View sx={{ gap: '$3', my: '$3' }}>
           <GamePageHeader icon="sl" title="SLOTS" />
-          <BannerSection />
+          <View sx={{ width: '100%', aspectRatio: 768 / 200 }}>
+            <SolitoImage
+              fill
+              src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/slot/dailywins.jpg`}
+              alt="dailywins"
+            />
+          </View>
           <RecentlyPlayedSection
             gameTypes={[GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]}
           />
