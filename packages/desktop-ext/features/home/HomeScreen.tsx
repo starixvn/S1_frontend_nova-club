@@ -9,12 +9,64 @@ import TopGameSection from 'app/features/home/TopGameSection'
 import useLocalization from 'app/provider/localization'
 import { SlotType } from 'app/utils/constant'
 import { Container, Row, Text, View } from 'dripsy'
-import React from 'react'
+import React, { useEffect } from 'react'
 import MiddleBanner from './MiddleBanner'
 import AppDownloadSection from '../download/AppDownloadSection'
+import useShield from 'app/hooks/useShield'
+import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
+import { TempSettingActions } from 'app/store/tempSetting.slice'
+import { Shield_Action } from 'services/authApi.type'
+import LuckyDrawTrigger from 'app/features/home/LuckyDrawTrigger'
+import { useModal } from 'react-native-modalfy'
 
 export default function HomeScreen() {
   const { t } = useLocalization()
+  const dispatch = useAppDispatch()
+  const username = useAppSelector((s) => s.auth.info?.playerName)
+  const syncShieldActionType = useAppSelector(
+    (s) => s.tempSetting.syncShieldActionType
+  )
+  const { openModal } = useModal()
+  const luckyDrawBalance = useAppSelector((s) => s.setting.luckyDrawBalance)
+
+  const syncShieldStatus = useAppSelector(
+    (state) => state.tempSetting.syncShieldStatus
+  )
+
+  const { syncShield } = useShield()
+
+  const checkSyncShield = async () => {
+    try {
+      const _ = await syncShield(
+        syncShieldActionType === Shield_Action.NONE
+          ? Shield_Action.LOGIN
+          : syncShieldActionType
+      )
+
+      // Dont care abou sync shield success or not as long as it ad triggered
+      dispatch(TempSettingActions.setSyncShieldStatus(true))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  function handleCheckShield() {
+    if (syncShieldStatus) {
+      return
+    }
+
+    checkSyncShield()
+  }
+
+  useEffect(() => {
+    if (username) handleCheckShield()
+  }, [username])
+
+  useEffect(() => {
+    if (luckyDrawBalance) {
+      openModal('LuckyDrawModal')
+    }
+  }, [])
   return (
     <View sx={{ pb: '$6' }}>
       <BannerSection />
@@ -93,6 +145,7 @@ export default function HomeScreen() {
           <LeaderboardSection sx={{ flex: 1 }} />
         </Row>
         <AppDownloadSection />
+        <LuckyDrawTrigger />
       </Container>
     </View>
   )

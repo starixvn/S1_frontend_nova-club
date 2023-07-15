@@ -60,6 +60,7 @@ export type ModalStackParams = {
   }
   AgentLoginModal: undefined
   DepositCryptoModal: { data: SubmitDepositCryptoItem }
+  LuckyDrawModal: undefined
 }
 
 type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
@@ -86,6 +87,7 @@ const _dynamicModal = {
     import('app/features/deposit/component/DepositCryptoModal'),
   DownloadGuideModal: () =>
     import('desktop-ext/features/download/DownloadGuide'),
+  LuckyDrawModal: () => import('app/components/modal/LuckyDrawModal'),
 }
 
 function getDynamicComponent(key: DynamicModalType) {
@@ -144,6 +146,9 @@ const modalConfig: ModalConfigType = {
   },
   DownloadGuideModal: {
     modal: getDynamicComponent('DownloadGuideModal'),
+  },
+  LuckyDrawModal: {
+    modal: getDynamicComponent('LuckyDrawModal'),
   },
 }
 
