@@ -17,9 +17,8 @@ export interface MarqueeItem<T> {
 
 const ANNOUNCEMENT_HEIGHT = 25
 const ANNOUNCEMENT_CONTEXT_COLOR = '#97FFF4'
-const ANNOUNCEMENT_COLOR_AGENT = '#0D7DFF'
 
-const AnnouncementMarquee = ({ isAgent = false }) => {
+const AnnouncementMarquee = () => {
   const { push } = useContextualRouter()
   const locale = useAppSelector((s) => s.setting.locale)
   const { data, isSuccess, isUninitialized } = useAnnouncementQuery(locale)
@@ -27,9 +26,7 @@ const AnnouncementMarquee = ({ isAgent = false }) => {
     MarqueeItem<AnnouncementListItems>[]
   >([])
 
-  const fontColor = isAgent
-    ? ANNOUNCEMENT_COLOR_AGENT
-    : ANNOUNCEMENT_CONTEXT_COLOR
+  const fontColor = ANNOUNCEMENT_CONTEXT_COLOR
 
   useEffect(() => {
     if (data?.data && data.data.list && isSuccess) {
@@ -54,7 +51,7 @@ const AnnouncementMarquee = ({ isAgent = false }) => {
     <StyledContainer>
       <TouchableOpacity onPress={onPress}>
         <DripsyGradient
-          gradient={isAgent ? 'white' : 'darkBlue'}
+          gradient={'darkBlue'}
           sx={{
             flexDirection: 'row',
             alignItems: 'center',

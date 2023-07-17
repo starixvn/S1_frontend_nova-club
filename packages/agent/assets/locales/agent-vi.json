@@ -105,6 +105,11 @@
     "switchMember": "Chuyển sang trang Thành Viên",
     "switchMemberNote": "Bạn muốn chuyển sang trang thành viên?"
   },
+  "message": {
+    "announcement": "Thông Báo",
+    "empty": "Không có bất kỳ tin nhắn nào được nêu ra!",
+    "personalMessage": "Tin nhắn khách hàng"
+  },
   "notes": {
     "importantNotice": "THÔNG BÁO QUAN TRỌNG",
     "turnover": {

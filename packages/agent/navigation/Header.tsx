@@ -22,6 +22,7 @@ import { useState } from 'react'
 import { ColorValue, LayoutChangeEvent } from 'react-native'
 import { useDispatch } from 'react-redux'
 import MainMenuTest from './MainMenu'
+import IconButton from 'agent/components/Icon/IconButton'
 
 const iconHeight = TAB_HEIGHT * 0.6
 const smallIconHeight = TAB_HEIGHT * 0.5
@@ -72,6 +73,10 @@ const Header = () => {
     dispatch(SettingActions.setLocale(value))
   }
 
+  const handleMail = () => {
+    push('/agent/inbox/mail')
+  }
+
   return (
     <View sx={{ bg: '#004fd0', pt: top, pl: left, pr: right }}>
       <View sx={{ py: '$1', px: '$1' }}>
@@ -96,6 +101,9 @@ const Header = () => {
           <HeaderContentContainer>
             {data ? (
               <>
+                <View sx={{ mx: 12 }}>
+                  <IconButton onPress={handleMail} name="mail" size={20} />
+                </View>
                 <BalanceContainer>
                   <View sx={{ mr: '$3' }}>
                     <CurrencyText color={balanceColor}>VND</CurrencyText>

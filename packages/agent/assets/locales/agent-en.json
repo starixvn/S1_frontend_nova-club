@@ -105,6 +105,11 @@
     "switchMember": "Switch to Member",
     "switchMemberNote": "Are you sure want to switch to member site?"
   },
+  "message": {
+    "announcement": "Announcement",
+    "empty": "Does not have any message yet!",
+    "personalMessage": "Personal Message"
+  },
   "notes": {
     "importantNotice": "Important Notice",
     "turnover": {
