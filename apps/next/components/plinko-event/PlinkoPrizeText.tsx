@@ -48,11 +48,9 @@ const PlinkoPrizeText = ({
                 sx={{
                   position: 'absolute',
                   minWidth: enlargedWidth * 0.11,
-                  bottom: enlargedHeight * 0.0425,
+                  top: enlargedHeight * (1 - 0.065),
                   left: basketSpacing * i,
                   display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
                 }}
               >
                 <Text
@@ -79,11 +77,9 @@ const PlinkoPrizeText = ({
                   sx={{
                     position: 'absolute',
                     minWidth: enlargedWidth * 0.11,
-                    bottom: enlargedHeight * 0.0425,
+                    top: enlargedHeight * (1 - 0.065),
                     left: basketSpacing * i,
                     display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
                   }}
                 >
                   <Text
