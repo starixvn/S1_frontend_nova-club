@@ -89,7 +89,7 @@ const CreateForm = <T,>({
         )}
         <Input
           editable={false}
-          label={isShareholder ? t('report.type') : ''}
+          label={isShareholder ? t('report.type') : '\u00A0'}
           leftInnerElement={
             <CheckBox
               isCheck={isCheck}
@@ -104,7 +104,7 @@ const CreateForm = <T,>({
         />
         <Input
           editable={false}
-          label=""
+          label="&nbsp;"
           leftInnerElement={
             <CheckBox
               isCheck={isCheck}

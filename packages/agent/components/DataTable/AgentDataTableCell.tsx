@@ -9,12 +9,18 @@ type Props = {
   children: ReactNode
 } & CellProps
 
-const AgentDataTableCell = ({ sx, children, ...rest }: Props) => {
+const AgentDataTableCell = ({ sx, textStyle, children, ...rest }: Props) => {
   return (
     <DataTable.Cell
       sx={{
         color: 'black',
         ...sx,
+      }}
+      textStyle={{
+        color: 'black',
+        textAlign: 'center',
+        fontSize: 14,
+        ...textStyle,
       }}
       {...rest}
     >

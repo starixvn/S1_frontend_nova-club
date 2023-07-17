@@ -1,6 +1,7 @@
 import Card from 'agent/components/Card'
 import AgentDataTableCell from 'agent/components/DataTable/AgentDataTableCell'
 import AgentDataTableHeader from 'agent/components/DataTable/AgentDataTableHeader'
+import AgentDataTableRow from 'agent/components/DataTable/AgentDataTableRow'
 import AgentDataTableTitle from 'agent/components/DataTable/AgentDataTableTitle'
 import DataTableRefresh from 'agent/components/DataTable/DataTableRefresh'
 import CommonBackHeader from 'agent/navigation/components/CommonBackHeader'
@@ -107,7 +108,7 @@ const ShareholderDetailsScreen = () => {
               </AgentDataTableTitle>
             </AgentDataTableHeader>
             {downlineTable.map((item) => (
-              <DataTable.Row key={item.label}>
+              <AgentDataTableRow key={item.label}>
                 <AgentDataTableCell center bordered sx={firstCellStyle}>
                   {item.label}
                 </AgentDataTableCell>
@@ -117,7 +118,7 @@ const ShareholderDetailsScreen = () => {
                 <AgentDataTableCell center sx={thirdCellStyle}>
                   {item.indirect}
                 </AgentDataTableCell>
-              </DataTable.Row>
+              </AgentDataTableRow>
             ))}
           </DataTable>
 

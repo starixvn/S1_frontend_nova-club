@@ -30,10 +30,6 @@ const EditPTModal = ({ modal: { closeModal, getParam } }) => {
   const ptOptions = Object.values(ptList).map((el) => {
     return { label: el, value: el }
   })
-  console.log(
-    '🚀 ~ file: EditPTModal.tsx:42 ~ ptOptions ~ ptOptions:',
-    ptOptions
-  )
 
   function onDismiss() {
     closeModal()

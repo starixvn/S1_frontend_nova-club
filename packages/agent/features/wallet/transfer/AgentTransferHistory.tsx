@@ -1,4 +1,5 @@
 import AgentDataTableCell from 'agent/components/DataTable/AgentDataTableCell'
+import AgentDataTableRow from 'agent/components/DataTable/AgentDataTableRow'
 import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
 import useTableListing from 'agent/hooks/useTableListing'
 import { ShareholderRecentTransactionListResult } from 'agent/services/shareholderApi.type'
@@ -7,7 +8,6 @@ import {
   useShareholderTransferListQuery,
 } from 'agent/services/transferApi'
 import { AgentTransferListResult } from 'agent/services/transferApi.type'
-import DataTable from 'app/components/dataTable/DataTable'
 import { DateTimeField } from 'app/components/dataTable/DataTableCell'
 import { useAgentLocalization } from 'app/provider/localization'
 import { toThousandSeparator } from 'app/utils'
@@ -103,7 +103,7 @@ const AgentTransferHistory = ({
   }: {
     item: AgentTransferListResult | ShareholderRecentTransactionListResult
   }) => (
-    <DataTable.Row>
+    <AgentDataTableRow>
       <AgentDataTableCell center sx={{ flex: 0.35 }}>
         <DateTimeField dateTime={item.created_date} />
       </AgentDataTableCell>
@@ -113,7 +113,7 @@ const AgentTransferHistory = ({
       <AgentDataTableCell sx={{ flex: 0.4 }} center>
         {toThousandSeparator(item.amount)}
       </AgentDataTableCell>
-    </DataTable.Row>
+    </AgentDataTableRow>
   )
 
   return (

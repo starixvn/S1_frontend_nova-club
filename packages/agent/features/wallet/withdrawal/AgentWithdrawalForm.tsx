@@ -322,7 +322,7 @@ const AgentWithdrawalForm = ({
         onChangeText={handleChange('nettPayout')}
         onBlur={handleBlur('nettPayout')}
         keyboardType={'numeric'}
-        containerProps={{ sx: { mb: '$10' } }}
+        containerProps={{ sx: { mb: '$5' } }}
         error={
           touched.nettPayout && errors.nettPayout
             ? t(errors.nettPayout, {

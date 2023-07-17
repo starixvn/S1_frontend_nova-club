@@ -21,6 +21,7 @@ import { useState } from 'react'
 import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import AgentFloatingContent from '../floatingContent'
+import AgentDataTableRow from 'agent/components/DataTable/AgentDataTableRow'
 
 export type MemberListFilterOptions = {
   date: DateFilter | string | undefined
@@ -98,7 +99,7 @@ const MemberListScreen = () => {
   )
 
   const onRenderItem = ({ item, index }: MemberListProps) => (
-    <DataTable.Row size="big" sx={{ bg: 'transparent' }}>
+    <AgentDataTableRow size="big" sx={{ bg: 'transparent' }}>
       <AgentDataTableCell bordered center sx={firstCellStyle}>
         {index + 1}
       </AgentDataTableCell>
@@ -119,7 +120,7 @@ const MemberListScreen = () => {
           </Text>
         </SwitchView>
       </AgentDataTableCell>
-    </DataTable.Row>
+    </AgentDataTableRow>
   )
 
   const onFilter = () => {

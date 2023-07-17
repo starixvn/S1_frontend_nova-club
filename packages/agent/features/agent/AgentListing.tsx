@@ -22,6 +22,7 @@ import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useRouter } from 'solito/router'
 import AgentFloatingContent from '../floatingContent'
+import AgentDataTableRow from 'agent/components/DataTable/AgentDataTableRow'
 
 export type AgentListingFilterOptions = {
   date: DateFilter | string | undefined
@@ -107,7 +108,7 @@ const AgentListing = () => {
     item,
     index,
   }: ListRenderItemInfo<AgentListResult>) => (
-    <DataTable.Row size="big" sx={{ bg: 'transparent' }}>
+    <AgentDataTableRow size="big" sx={{ bg: 'transparent' }}>
       <AgentDataTableCell bordered center sx={firstCellStyle}>
         {index + 1}
       </AgentDataTableCell>
@@ -135,7 +136,7 @@ const AgentListing = () => {
           onPress={() => handleToggle(item.id, item.active, index)}
         />
       </AgentDataTableCell>
-    </DataTable.Row>
+    </AgentDataTableRow>
   )
 
   const handleToggle = async (id, status, loadingIndex) => {

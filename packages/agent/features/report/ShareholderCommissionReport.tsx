@@ -1,5 +1,6 @@
 import AgentDataTableCell from 'agent/components/DataTable/AgentDataTableCell'
 import AgentDataTableHeader from 'agent/components/DataTable/AgentDataTableHeader'
+import AgentDataTableRow from 'agent/components/DataTable/AgentDataTableRow'
 import AgentDataTableTitle from 'agent/components/DataTable/AgentDataTableTitle'
 import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
 import Icon from 'agent/components/Icon'
@@ -9,7 +10,6 @@ import useTableListing from 'agent/hooks/useTableListing'
 import { useShareholderCommissionListQuery } from 'agent/services/reportApi'
 import { ShareholderCommissionListResult } from 'agent/services/reportApi.type'
 import { useUserInfoQuery } from 'agent/services/userApi'
-import DataTable from 'app/components/dataTable/DataTable'
 import { DateTimeField } from 'app/components/dataTable/DataTableCell'
 import { useAgentLocalization } from 'app/provider/localization'
 import { toThousandSeparator } from 'app/utils'
@@ -108,7 +108,7 @@ const ShareholderCommissionScreen = () => {
   }: {
     item: ShareholderCommissionListResult
   }) => (
-    <DataTable.Row size="big">
+    <AgentDataTableRow size="big">
       <AgentDataTableCell bordered center>
         <DateTimeField dateTime={item.rpt_date} isTime={false} />
       </AgentDataTableCell>
@@ -121,7 +121,7 @@ const ShareholderCommissionScreen = () => {
       <AgentDataTableCell center textStyle={{ fontSize: 12 }}>
         {toThousandSeparator(item.earning_amt)}
       </AgentDataTableCell>
-    </DataTable.Row>
+    </AgentDataTableRow>
   )
 
   const onFilter = () => {

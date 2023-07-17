@@ -236,7 +236,7 @@ const AgentTransferForm = ({
         onChangeText={(e) => formik.setFieldValue('amount', e)}
         label={t('common.amount')}
         placeholder={t('placeholder.enterAmount')}
-        containerProps={{ sx: { mb: '$8' } }}
+        containerProps={{ sx: { mb: '$5' } }}
         onBlur={() => {
           handleBlur('amount')
         }}

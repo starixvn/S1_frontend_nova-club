@@ -22,17 +22,18 @@ import { depositReducer } from 'app/store/deposit.slice'
 import { Setting, settingReducer } from 'app/store/setting.slice'
 import { baseApi } from '../../../services/baseApi'
 import { storage } from './persistStorage/index'
+import agentAuthReducer from 'agent/store/agentAuthReducer'
 
 const migrations = {
-  5: (s: PersistedState) => {},
   6: (s: PersistedState) => {},
+  7: (s: PersistedState) => {},
 }
 
 const persistConfig: PersistConfig<any> = {
   key: 'root',
-  version: 6,
+  version: 7,
   storage,
-  whitelist: ['auth', 'setting'],
+  whitelist: ['auth', 'agent', 'setting'],
   migrate: createMigrate(migrations, { debug: true }),
   transforms: [
     createTransform<AuthState, Omit<AuthState, 'isLogoutActionTriggered'>>(
@@ -45,7 +46,7 @@ const persistConfig: PersistConfig<any> = {
       (outboundState, key) => {
         return { ...authInitialState, ...outboundState }
       },
-      { whitelist: ['auth'] }
+      { whitelist: ['auth', 'agent'] }
     ),
     createTransform<Setting, Setting>(
       (inboundState, key) => {
@@ -76,6 +77,7 @@ const rootReducer = combineReducers({
   setting: settingReducer,
   tempSetting: tempSettingReducer,
   gameLauncher: gameLauncherReducer,
+  agent: agentAuthReducer,
 })
 
 /** Fix typescript issue https://github.com/rt2zz/redux-persist/issues/1184 */

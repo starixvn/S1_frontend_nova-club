@@ -67,6 +67,9 @@ const theme = makeTheme({
     },
   },
   text: {
+    agent: {
+      color: 'black',
+    },
     body: {
       fontSize: 16,
       color: '$text',

@@ -17,6 +17,7 @@ import AgentDataTableCell from 'agent/components/DataTable/AgentDataTableCell'
 import AgentDataTableHeader from 'agent/components/DataTable/AgentDataTableHeader'
 import AgentDataTableTitle from 'agent/components/DataTable/AgentDataTableTitle'
 import DataTableRefresh from 'agent/components/DataTable/DataTableRefresh'
+import AgentDataTableRow from 'agent/components/DataTable/AgentDataTableRow'
 
 const { useParam } = createParam<{ id: string }>()
 const AgentDetailsScreen = () => {
@@ -95,7 +96,7 @@ const AgentDetailsScreen = () => {
             </AgentDataTableHeader>
 
             {downlineTable ? (
-              <DataTable.Row>
+              <AgentDataTableRow>
                 <AgentDataTableCell center bordered sx={firstCellStyle}>
                   {downlineTable?.label}
                 </AgentDataTableCell>
@@ -105,7 +106,7 @@ const AgentDetailsScreen = () => {
                 <AgentDataTableCell center sx={thirdCellStyle}>
                   {downlineTable?.indirect}
                 </AgentDataTableCell>
-              </DataTable.Row>
+              </AgentDataTableRow>
             ) : null}
           </DataTable>
 

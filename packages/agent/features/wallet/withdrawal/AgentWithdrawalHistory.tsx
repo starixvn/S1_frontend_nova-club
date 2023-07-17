@@ -1,8 +1,8 @@
 import AgentDataTableCell from 'agent/components/DataTable/AgentDataTableCell'
+import AgentDataTableRow from 'agent/components/DataTable/AgentDataTableRow'
 import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
 import useTableListing from 'agent/hooks/useTableListing'
 import { useWithdrawalListQuery } from 'agent/services/withdrawalApi'
-import DataTable from 'app/components/dataTable/DataTable'
 import { DateTimeField } from 'app/components/dataTable/DataTableCell'
 
 import useContainerDimension from 'app/hooks/useContainerDimension'
@@ -73,7 +73,7 @@ const AgentWithdrawalHistory = ({ currency }: { currency: Currency }) => {
   }
 
   const onRenderItem = ({ item, index }) => (
-    <DataTable.Row key={`${index} ${item.created_at}`}>
+    <AgentDataTableRow key={`${index} ${item.created_at}`}>
       <AgentDataTableCell center sx={{ flex: 0.35 }}>
         <DateTimeField dateTime={item.created_at} />
       </AgentDataTableCell>
@@ -88,7 +88,7 @@ const AgentWithdrawalHistory = ({ currency }: { currency: Currency }) => {
       <AgentDataTableCell center sx={{ flex: 0.3 }}>
         {t(getStatusString(item.status))}
       </AgentDataTableCell>
-    </DataTable.Row>
+    </AgentDataTableRow>
   )
 
   return (

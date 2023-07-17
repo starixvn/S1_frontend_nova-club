@@ -27,7 +27,7 @@ const ProfileChart = ({ downline }: ProfileChartProps) => {
   }, [data])
 
   return (
-    <View sx={{ pt: '$5', pb: '$5' }}>
+    <View sx={{ py: '$2' }}>
       <>
         {data.map((d, index) => {
           return d.showChart ? (

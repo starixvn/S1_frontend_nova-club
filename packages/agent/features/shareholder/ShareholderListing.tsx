@@ -23,6 +23,7 @@ import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useRouter } from 'solito/router'
 import AgentFloatingContent from '../floatingContent'
+import AgentDataTableRow from 'agent/components/DataTable/AgentDataTableRow'
 
 export type ShareholderListingFilterOptions = {
   date: DateFilter | string | undefined
@@ -114,7 +115,7 @@ const ShareholderListing = () => {
     index,
   }: ListRenderItemInfo<ShareholderListResult>) => {
     return (
-      <DataTable.Row size="big" sx={{ bg: 'transparent' }}>
+      <AgentDataTableRow size="big">
         <AgentDataTableCell bordered center sx={firstCellStyle}>
           {index + 1}
         </AgentDataTableCell>
@@ -152,7 +153,7 @@ const ShareholderListing = () => {
             onPress={() => handleToggle(item.id, item.active, index)}
           />
         </AgentDataTableCell>
-      </DataTable.Row>
+      </AgentDataTableRow>
     )
   }
 

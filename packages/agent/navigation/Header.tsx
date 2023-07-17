@@ -192,6 +192,9 @@ const StyledContainer = styled(View)({
 const StyledLogo = styled(Image)({})
 
 const StyledImg = styled(Image)({
+  borderRadius: 24,
+  borderWidth: 2,
+  borderColor: 'white',
   mx: '$2',
 })
 

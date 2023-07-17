@@ -4,6 +4,8 @@ import type { SolitoAppProps } from 'solito'
 
 import useAppState from 'app/hooks/appState/useAppState'
 import useOnAppStart from 'app/hooks/useOnAppStart'
+import useOnAgentAppStart from 'agent/hooks/useOnAgentAppStart'
+
 import { View } from 'dripsy'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
@@ -40,6 +42,7 @@ export default function AdaptiveLayout({
   const { width } = useWindowDimensions()
   useAppState()
   useOnAppStart()
+  useOnAgentAppStart()
 
   /* TODO: Split width and router as 2 seperate rerender */
   const getLayout = useMemo((): ((node: JSX.Element) => JSX.Element) => {

@@ -28,7 +28,7 @@ const LegendContainer = styled(View)({
   justifyContent: 'space-around',
   alignItems: 'center',
   flexDirection: 'row',
-  py: '$5',
+  py: '$3',
   borderRadius: 15,
   shadowColor: '#000',
   shadowOffset: {

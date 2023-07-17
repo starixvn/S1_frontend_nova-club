@@ -1,5 +1,6 @@
 import AgentDataTableCell from 'agent/components/DataTable/AgentDataTableCell'
 import AgentDataTableHeader from 'agent/components/DataTable/AgentDataTableHeader'
+import AgentDataTableRow from 'agent/components/DataTable/AgentDataTableRow'
 import AgentDataTableTitle from 'agent/components/DataTable/AgentDataTableTitle'
 import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
 import Icon from 'agent/components/Icon'
@@ -8,7 +9,6 @@ import { DateFilterOptions } from 'agent/constant/select'
 import useTableListing from 'agent/hooks/useTableListing'
 import { useAgentCommissionListQuery } from 'agent/services/reportApi'
 import { AgentCommissionListResult } from 'agent/services/reportApi.type'
-import DataTable from 'app/components/dataTable/DataTable'
 import { DateTimeField } from 'app/components/dataTable/DataTableCell'
 import { useAgentLocalization } from 'app/provider/localization'
 import { toThousandSeparator } from 'app/utils'
@@ -88,7 +88,7 @@ const AgentCommissionScreen = () => {
   )
 
   const onRenderItem = ({ item }: { item: AgentCommissionListResult }) => (
-    <DataTable.Row size="big">
+    <AgentDataTableRow size="big">
       <AgentDataTableCell bordered center>
         <DateTimeField dateTime={item.rpt_date} isTime={false} />
       </AgentDataTableCell>
@@ -98,7 +98,7 @@ const AgentCommissionScreen = () => {
       <AgentDataTableCell center textStyle={{ fontSize: 13 }}>
         {toThousandSeparator(item.earning_amt)}
       </AgentDataTableCell>
-    </DataTable.Row>
+    </AgentDataTableRow>
   )
 
   const onFilter = () => {

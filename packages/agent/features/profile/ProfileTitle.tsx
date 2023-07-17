@@ -10,8 +10,8 @@ const ProfileTitle = ({ userRole }: { userRole: string }) => {
       sx={{
         flexDirection: 'row',
         alignItems: 'center',
-        paddingX: '$5',
-        paddingY: '$3',
+        px: '$3',
+        py: '$2',
       }}
     >
       <View>

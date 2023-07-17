@@ -184,9 +184,7 @@ const Input = forwardRef<NativeTextInput, InputProps>((props, ref) => {
         <Label nativeId={inputNativeId} isRequired={isRequired} {...labelProps}>
           {label + ' '}
         </Label>
-      ) : (
-        <Text> </Text>
-      )}
+      ) : null}
 
       <View
         sx={{

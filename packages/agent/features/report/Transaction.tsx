@@ -1,5 +1,6 @@
 import AgentDataTableCell from 'agent/components/DataTable/AgentDataTableCell'
 import AgentDataTableHeader from 'agent/components/DataTable/AgentDataTableHeader'
+import AgentDataTableRow from 'agent/components/DataTable/AgentDataTableRow'
 import AgentDataTableTitle from 'agent/components/DataTable/AgentDataTableTitle'
 import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
 import {
@@ -10,7 +11,6 @@ import {
 import useTableListing from 'agent/hooks/useTableListing'
 import { useTransactionReportQuery } from 'agent/services/reportApi'
 import { TransactionReportResult } from 'agent/services/reportApi.type'
-import DataTable from 'app/components/dataTable/DataTable'
 import { DateTimeField } from 'app/components/dataTable/DataTableCell'
 import { useAgentLocalization } from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
@@ -96,7 +96,7 @@ const TransactionScreen = () => {
     item: TransactionReportResult
     index: number
   }) => (
-    <DataTable.Row size="big">
+    <AgentDataTableRow size="big">
       <AgentDataTableCell bordered center>
         <DateTimeField dateTime={item.created_date} />
       </AgentDataTableCell>
@@ -111,7 +111,7 @@ const TransactionScreen = () => {
       >
         {toThousandSeparator(item.actual_amount)}
       </AgentDataTableCell>
-    </DataTable.Row>
+    </AgentDataTableRow>
   )
 
   const handleNavigate = () => {

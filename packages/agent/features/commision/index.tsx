@@ -1,6 +1,7 @@
 import { FlashList } from '@shopify/flash-list'
 import AgentDataTableCell from 'agent/components/DataTable/AgentDataTableCell'
 import AgentDataTableHeader from 'agent/components/DataTable/AgentDataTableHeader'
+import AgentDataTableRow from 'agent/components/DataTable/AgentDataTableRow'
 import CommonBackHeader from 'agent/navigation/components/CommonBackHeader'
 import { useUserCommissionListQuery } from 'agent/services/userApi'
 import DataTable from 'app/components/dataTable/DataTable'
@@ -43,9 +44,8 @@ const CommissionTable = () => {
     const isTitle = item.gametype in TitleContentAlignmentMap
     const paddingLeft = isTitle ? 12 : 24
 
-    ;('⎯')
     return (
-      <DataTable.Row
+      <AgentDataTableRow
         key={`${index} ${item.gametype}`}
         size={isTitle ? 'big' : 'small'}
         sx={{
@@ -86,7 +86,7 @@ const CommissionTable = () => {
         >
           {isTitle ? '' : fillString(item.cashreferralplayer)}
         </AgentDataTableCell>
-      </DataTable.Row>
+      </AgentDataTableRow>
     )
   }
   return (
