@@ -12,7 +12,9 @@ const GameListSectionAsyncByTag = ({
   tag,
   ...rest
 }: GameListSectionAsyncByTagProps) => {
-  const { data } = useGetGameListByTagsQuery([tag])
+  const { data } = useGetGameListByTagsQuery([tag], {
+    refetchOnMountOrArgChange: true,
+  })
 
   return <GameListSection data={data} {...rest} />
 }

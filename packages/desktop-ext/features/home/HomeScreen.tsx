@@ -94,7 +94,7 @@ export default function HomeScreen() {
         </View>
         <TopGameSection />
         <Row sx={{ gap: '$pagePadding' }}>
-          <MiddleBanner sx={{ flex: 1, gap: '$pagePadding' }}></MiddleBanner>
+          <MiddleBanner sx={{ flex: 1, gap: '$pagePadding' }} />
           <View sx={{ flex: 1, gap: '$pagePadding' }}>
             <GameListSectionAsyncByTag
               tag={SlotType.NEW}

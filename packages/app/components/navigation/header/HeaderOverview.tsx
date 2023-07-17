@@ -111,7 +111,9 @@ const HeaderOverview = ({}: HeaderOverviewProps) => {
       <HeaderButton
         icon="gift"
         label="Reward"
-        value={playerBalance?.totalReward?.toString() ?? '-'}
+        value={toCurrency(playerBalance?.totalReward ?? '-', Currency.VND, {
+          symbol: false,
+        })}
         isLoading={isMainWalletLoading}
       />
     </Pressable>

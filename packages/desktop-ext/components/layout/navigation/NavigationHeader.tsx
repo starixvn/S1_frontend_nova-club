@@ -15,6 +15,7 @@ import { ViewStyle } from 'react-native'
 import { Video, ResizeMode } from 'expo-av'
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { useModal } from 'react-native-modalfy'
+import useLocalization from 'app/provider/localization'
 
 interface MenuProps {
   icon?: string
@@ -39,37 +40,37 @@ const MENU: MenuProps[] = [
   },
   {
     route: '/sportsbook',
-    label: 'SPORTSBOOK',
+    label: 'game.category.sportsbook',
     menu: NAVIGATION_DROPDOWN_MENU.Sportsbook,
   },
   {
     route: '/livecasino',
-    label: 'LIVECASINO',
+    label: 'game.category.liveCasino',
     menu: NAVIGATION_DROPDOWN_MENU.LiveCasino,
   },
   {
     route: '/slots',
-    label: 'SLOTS',
+    label: 'game.category.slots',
   },
   {
     route: '/games/local',
-    label: 'LOCAL GAME',
+    label: 'game.category.localGame',
   },
   {
     route: '/games/card',
-    label: 'CARD GAME',
+    label: 'game.category.cardGame',
   },
   {
     route: '/games/fishing',
-    label: 'FISHING',
+    label: 'game.category.fishing',
   },
   {
     route: '/games/keno-lottery',
-    label: 'KENO / LOTTERY',
+    label: 'game.category.lottery',
   },
   {
     route: '/account/leaderboard',
-    label: 'LEADERBOARD',
+    label: 'menu.leaderboard',
   },
   // {
   //   route: '/leaderboard',
@@ -157,6 +158,7 @@ const DripsyMotiPressable = styled(MotiPressable)()
 const MenuButton = ({ icon, label, route, style, menu }: MenuButtonProps) => {
   const linkProps = useLink({ href: route })
   const setDropdownMenu = useNavigationHeader()
+  const { t } = useLocalization()
 
   return (
     <DripsyMotiPressable
@@ -176,7 +178,9 @@ const MenuButton = ({ icon, label, route, style, menu }: MenuButtonProps) => {
       {icon ? (
         <Icon name={icon} size={22} />
       ) : (
-        <Text sx={{ fontSize: [10, 10, 10, 10, 14] }}>{label}</Text>
+        <Text sx={{ fontSize: [10, 10, 10, 10, 14] }}>
+          {t(label).toUpperCase()}
+        </Text>
       )}
       <Indicator route={route} />
     </DripsyMotiPressable>

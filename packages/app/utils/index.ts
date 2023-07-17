@@ -151,8 +151,7 @@ export function appendWithThousandUnit(
 
   const formattedQuotient = toThousandSeparator(quotient, language)
   const formattedDecimal = toDecimalSeparator(formattedRemainder, language)
-
-  return `${formattedQuotient}${formattedDecimal}K`
+  return `${formattedQuotient ? formattedQuotient : '0'}${formattedDecimal}K`
 }
 
 export function clearThousandSeparator(amount: string) {
