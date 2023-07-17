@@ -3,7 +3,7 @@ import DripsyMotiView from 'app/components/DripsyMotiView'
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import usePathname from 'app/hooks/usePathname'
-import { Container, Pressable, Row, Text, View, styled } from 'dripsy'
+import { Container, Pressable, Row, Text, View, styled, Image } from 'dripsy'
 import { MotiPressable, useMotiPressable } from 'moti/interactions'
 import React, { startTransition } from 'react'
 import { useLink } from 'solito/link'
@@ -12,6 +12,8 @@ import {
   useNavigationHeader,
 } from './NavigationHeaderProvider'
 import { ViewStyle } from 'react-native'
+import { Video, ResizeMode } from 'expo-av'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 interface MenuProps {
   icon?: string
@@ -76,8 +78,9 @@ const MENU: MenuProps[] = [
   //   },
   // },
 ]
-
-export const NAVIGATION_HEIGHT = 60
+const LuckySpin =
+  `${MEDIA_DOMAIN}${CONTENT_URI}/lucky-spin/miniLuckyWheel.gif` as any
+export const NAVIGATION_HEIGHT = 50
 export default function NavigationHeader({}) {
   const toggleMenu = useNavigationHeader()
   return (
@@ -95,9 +98,38 @@ export default function NavigationHeader({}) {
               sx={{
                 flex: 1,
                 alignItems: 'stretch',
+                justifyContent: 'space-evenly',
                 // px: [0, 0, 0, '$pagePadding'],
               }}
             >
+              <View
+                sx={{
+                  position: 'relative',
+                  width: NAVIGATION_HEIGHT * 2,
+                  aspectRatio: 1,
+                  height: NAVIGATION_HEIGHT * 1.25,
+                  overflow: 'hidden',
+                  top: -NAVIGATION_HEIGHT * 0.25,
+                }}
+              >
+                <Pressable
+                  onPress={() => {
+                    console.log('Open Lucky Spin')
+                  }}
+                >
+                  <Image
+                    source={LuckySpin}
+                    alt="luckywheel"
+                    sx={{
+                      width: '100%',
+                      height: '100%',
+                      aspectRatio: 1,
+                      bottom: -NAVIGATION_HEIGHT * 0.05,
+                    }}
+                    resizeMode="cover"
+                  />
+                </Pressable>
+              </View>
               {MENU.map((m, i) => {
                 return (
                   <MenuButton
@@ -130,7 +162,7 @@ const MenuButton = ({ icon, label, route, style, menu }: MenuButtonProps) => {
         position: 'relative',
         justifyContent: 'center',
         flex: 1,
-        px: icon ? '$3' : ['$3', '$3', '$3', '$3', '$3', '$4'],
+        px: icon ? '$3' : ['$2', '$3', '$3', '$3', '$3', '$4'],
         alignItems: 'center',
       }}
       containerStyle={{ position: 'relative', ...style }}
@@ -142,7 +174,7 @@ const MenuButton = ({ icon, label, route, style, menu }: MenuButtonProps) => {
       {icon ? (
         <Icon name={icon} size={22} />
       ) : (
-        <Text sx={{ fontSize: [12, 12, 12, 12, 14] }}>{label}</Text>
+        <Text sx={{ fontSize: [10, 10, 10, 10, 14] }}>{label}</Text>
       )}
       <Indicator route={route} />
     </DripsyMotiPressable>

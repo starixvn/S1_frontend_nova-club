@@ -27,18 +27,18 @@ export const FooterLinks = [
     base: '/info/agent',
   },
   {
-    key: 'ContactUs',
-    title: 'footer.contactUs',
-    icon: '',
-    route: '/info/contact-us',
-    base: '/info/contact-us',
-  },
-  {
     key: 'TNC',
     title: 'common.tnc',
     icon: '',
     route: '/info/tnc',
     base: '/info/tnc',
+  },
+  {
+    key: 'ContactUs',
+    title: 'footer.contactUs',
+    icon: '',
+    route: '/info/contact-us',
+    base: '/info/contact-us',
   },
 ]
 

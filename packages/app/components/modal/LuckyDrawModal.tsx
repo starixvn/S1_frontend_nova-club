@@ -14,7 +14,7 @@ import {
   useResponsiveValue,
 } from 'dripsy'
 import debounce from 'lodash/debounce'
-import { MotiView } from 'moti'
+import { MotiText, MotiView } from 'moti'
 import { useCallback, useMemo, useRef, useState } from 'react'
 import { Linking, Platform, useWindowDimensions } from 'react-native'
 import { Easing } from 'react-native-reanimated'
@@ -23,6 +23,7 @@ import { useLuckySpinMutation } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 import IconButton from '../IconButton'
 import { MotifiedImage } from '../common/Image'
+import AvertaStd from 'app/assets/fonts/Averta'
 
 const LuckyDrawModal = ({ modal: { closeModal } }) => {
   const { t } = useLocalization()
@@ -418,7 +419,7 @@ const DownloadAppButton = ({
     <Pressable
       sx={{
         position: 'absolute',
-        bottom: '-27%',
+        bottom: '-28%',
         zIndex: 2,
         flexDirection: 'row',
         alignItems: 'center',
@@ -432,24 +433,43 @@ const DownloadAppButton = ({
         }
       }}
     >
-      <Text
-        sx={{
-          fontWeight: 'bold',
-          fontSize: 20,
-          textTransform: 'uppercase',
-          mx: '$2',
-        }}
-      >
-        Download App to Spin
-      </Text>
+      <View sx={{ flexDirection: 'row', mx: '$2', alignItems: 'center' }}>
+        <MotiText
+          from={{ scale: 0.85, backgroundColor: '#50509E' }}
+          animate={{ scale: 1, backgroundColor: 'transparent' }}
+          transition={{ type: 'timing', duration: 500, loop: true }}
+          style={{
+            fontWeight: 'bold',
+            fontSize: 20,
+            textTransform: 'uppercase',
+            color: 'white',
+            // marginRight: 8,
+            borderRadius: 10,
+            fontFamily: AvertaStd.Regular.name,
+            padding: 8,
+          }}
+        >
+          Download
+        </MotiText>
+        <Text
+          sx={{
+            fontWeight: 'bold',
+            fontSize: 20,
+            textTransform: 'uppercase',
+          }}
+        >
+          App to Spin
+        </Text>
+      </View>
+
       <MotifiedImage
         source={require('app/assets/images/luckydraw/download.gif')}
         sx={{
-          width: width * useResponsiveValue([0.075]),
+          width: width * useResponsiveValue([0.04]),
           mx: '$2',
           aspectRatio: 1,
           ...(Platform.OS !== 'web' && {
-            height: height * useResponsiveValue([0.41, 0.41, 0.38]),
+            height: height * useResponsiveValue([0.3]),
           }),
         }}
       />

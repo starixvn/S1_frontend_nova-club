@@ -26,7 +26,7 @@ export default function HomeScreen() {
   const syncShieldActionType = useAppSelector(
     (s) => s.tempSetting.syncShieldActionType
   )
-  const { openModal } = useModal()
+  const { openModal, closeModal } = useModal()
   const luckyDrawBalance = useAppSelector((s) => s.setting.luckyDrawBalance)
 
   const syncShieldStatus = useAppSelector(
@@ -64,7 +64,10 @@ export default function HomeScreen() {
 
   useEffect(() => {
     if (luckyDrawBalance) {
-      openModal('LuckyDrawModal')
+      closeModal('LuckyDrawModal')
+      setTimeout(() => {
+        openModal('LuckyDrawModal')
+      }, 500)
     }
   }, [])
   return (

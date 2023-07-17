@@ -1,15 +1,20 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import Icon from 'app/components/Icon'
+import Shadow from 'app/components/Shadow'
+import ShadowButton from 'app/components/ShadowButton'
 import Button from 'app/components/common/Button'
 import useContainerWidth from 'app/hooks/useContainerWidth'
 import useLocalization from 'app/provider/localization'
-import { Image, Text, View } from 'dripsy'
+import { Image, Pressable, Text, View, useDripsyTheme } from 'dripsy'
 import { ResizeMode, Video } from 'expo-av'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { ImageBackground, View as RNView } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import QRCode from 'react-native-qrcode-svg'
 const HowToInstall =
   `${MEDIA_DOMAIN}${CONTENT_URI}/download/How_To_Install.mp4` as any
+const DownloadGuideThumbnail =
+  `${MEDIA_DOMAIN}${CONTENT_URI}/download/dl_guide_thumbnail.jpg` as any
 
 const DOWNLOAD_APP_LINK = 'https://s2syf.app.link/7rqfWLKDhtb'
 
@@ -18,7 +23,8 @@ const AppDownloadSection = () => {
   const ref = useRef<RNView>(null)
   const width = useContainerWidth(ref)
   const qrWidth = Math.min(width * 0.3, 125)
-
+  const [isPlaying, setIsPlaying] = useState(false)
+  const { theme } = useDripsyTheme()
   return (
     <View sx={{ flexDirection: 'row' }}>
       <ImageBackground
@@ -80,17 +86,58 @@ const AppDownloadSection = () => {
       <View
         sx={{
           flex: 2 / 3,
+          minHeight: 375,
         }}
       >
-        <Video
-          source={HowToInstall}
-          videoStyle={{ position: 'relative' }}
-          isMuted
-          isLooping
-          //   shouldPlay
-          useNativeControls
-          resizeMode={ResizeMode.STRETCH}
-        />
+        {!isPlaying && (
+          <Pressable
+            onPress={() => {
+              setIsPlaying(!isPlaying)
+            }}
+            sx={{
+              width: '100%',
+              height: '100%',
+              position: 'absolute',
+              zIndex: 2,
+            }}
+          >
+            <ImageBackground
+              source={DownloadGuideThumbnail}
+              alt="download-guide"
+              resizeMode="stretch"
+              style={{
+                width: '100%',
+                height: '100%',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <View
+                sx={{
+                  width: 125,
+                  height: 125,
+                  borderRadius: 25,
+                  backgroundColor: 'rgba(255,255,255,0.25)',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Icon name="next" size={80} color={'$primary.50'} />
+              </View>
+            </ImageBackground>
+          </Pressable>
+        )}
+
+        {isPlaying && (
+          <Video
+            source={HowToInstall}
+            videoStyle={{ position: 'relative' }}
+            isLooping
+            shouldPlay={isPlaying}
+            useNativeControls
+            resizeMode={ResizeMode.CONTAIN}
+          />
+        )}
       </View>
     </View>
   )
