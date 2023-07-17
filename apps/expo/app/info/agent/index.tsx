@@ -10,7 +10,7 @@ const Agent = () => {
   const lang = useAppSelector((state) => state.setting.locale)
 
   //   const TNC_URL = `${DEV_DOMAIN}/info/about-us?locale=${lang}`
-  const TNC_URL = `http://localhost:3000/info/agent?locale=${lang}`
+  const TNC_URL = `https://stage2.gball8.com/info/agent?locale=${lang}`
 
   return (
     <PageWithBackHeader header={{ title: 'info.Agent' }} disableScrollView>

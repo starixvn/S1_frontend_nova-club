@@ -11,6 +11,7 @@ import {
   ScrollView,
   Text,
   View,
+  useDripsyTheme,
   useResponsiveValue,
 } from 'dripsy'
 import debounce from 'lodash/debounce'
@@ -416,6 +417,7 @@ const DownloadAppButton = ({
   height,
 }: DownloadAppButtonProps) => {
   const { push } = useRouter()
+  const { theme } = useDripsyTheme()
   return (
     <Pressable
       sx={{
@@ -436,15 +438,14 @@ const DownloadAppButton = ({
     >
       <View sx={{ flexDirection: 'row', mx: '$2', alignItems: 'center' }}>
         <MotiText
-          from={{ scale: 0.85, backgroundColor: '#50509E' }}
-          animate={{ scale: 1, backgroundColor: 'transparent' }}
+          from={{ scale: 0.85, backgroundColor: theme.colors?.$primary[300] }}
+          animate={{ scale: 1, backgroundColor: theme.colors?.$primary[500] }}
           transition={{ type: 'timing', duration: 500, loop: true }}
           style={{
             fontWeight: 'bold',
             fontSize: 20,
             textTransform: 'uppercase',
             color: 'white',
-            // marginRight: 8,
             borderRadius: 10,
             fontFamily: AvertaStd.Regular.name,
             padding: 8,

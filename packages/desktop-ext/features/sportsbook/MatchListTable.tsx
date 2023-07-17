@@ -18,6 +18,7 @@ import { CONTENT_URI, MEDIA_DOMAIN } from '../../../../apps/next/config/env'
 import Button from 'app/components/common/Button'
 import { ActionType, getAction } from 'app/utils/actionGenerator'
 import { Game } from 'services/gameApi.type'
+import { useAppSelector } from 'app/provider/redux/store'
 dayjs.extend(customParseFormat)
 
 interface MatchListTableProps {
@@ -162,6 +163,8 @@ const MatchListCellData = ({
   name,
   onPress,
 }: MatchListCellDataProps) => {
+  const authState = useAppSelector((s) => s.auth)
+  const isLoggedIn = !!authState.info
   return (
     <DataTableRow>
       <DataTableCell
@@ -279,7 +282,7 @@ const MatchListCellData = ({
         })}
       </DataTableCell>
       <DataTableCell sx={{ flex: 0.1, mr: '$4' }}>
-        {selectionType === 'away' && onPress ? (
+        {selectionType === 'away' && onPress && isLoggedIn ? (
           <Button
             contentProps={{ sx: { py: '$1', px: '$2' } }}
             onPress={() => onPress(item)}
@@ -318,16 +321,21 @@ const OnRender = ({
     selectedTime === 'All' ? dayjsTz(dayjs()).add(6, 'day') : filterEndDate
   const startDate = selectedTime === 'All' ? dayjsTz(dayjs()) : filterStartDate
   // console.log('-----------------------')
+  // console.log(item.HomeName)
   // console.log('MatchDate', matchDayjs.format('DD/MM/YYYY || HH:MMA'))
-  // console.log('Start: ', startDate.format('DD/MM/YYYY || HH:MMA'))
-  // console.log('End: ', endDate.format('DD/MM/YYYY || HH:MMA'))
+  // console.log('Filter Start: ', startDate.format('DD/MM/YYYY || HH:MMA'))
+  // console.log('Filter End: ', endDate.format('DD/MM/YYYY || HH:MMA'))
   // console.log(matchDayjs.subtract(startDate.day(), 'days').day())
   // console.log(endDate.subtract(matchDayjs.day(), 'days').day())
-
+  // console.log('@@@')
+  // console.log(dayjs(matchDayjs.diff(startDate)).format('D'))
+  // console.log(dayjs(matchDayjs.diff(endDate)).format('D'))
+  // console.log(parseInt(dayjs(matchDayjs.diff(startDate)).format('D')) === 1)
   if (
     selectedTime !== 'All' &&
-    (endDate.subtract(matchDayjs.day(), 'days').day() === 1 ||
-      matchDayjs.subtract(startDate.day(), 'days').day() === 0)
+    parseInt(dayjs(matchDayjs.diff(startDate)).format('D')) === 1 &&
+    matchDayjs.isAfter(startDate) &&
+    matchDayjs.isBefore(endDate)
   ) {
     return (
       <MatchListCellRow
@@ -344,8 +352,9 @@ const OnRender = ({
     )
   } else if (
     selectedTime === 'All' &&
-    (matchDayjs.subtract(startDate.day(), 'days').day() === 0 ||
-      endDate.subtract(matchDayjs.day(), 'days').day() <= 6)
+    (parseInt(dayjs(matchDayjs.diff(startDate, 'day')).format('DD')) === 0 ||
+      (parseInt(dayjs(matchDayjs.diff(endDate, 'day')).format('DD')) <= 6 &&
+        matchDayjs.isBefore(endDate)))
   ) {
     return (
       <MatchListCellRow
