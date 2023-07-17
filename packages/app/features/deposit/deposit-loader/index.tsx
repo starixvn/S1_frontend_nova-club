@@ -34,11 +34,6 @@ const DepositLoaderScreen = () => {
   const [title] = useParam('title')
   const { back } = useContextualRouter()
 
-  const handleNavigation = (event) => {
-    const { src } = event.target
-    console.log(src)
-  }
-
   return (
     <PageWithBackHeader header={{ title: title }} disableScrollView>
       <View sx={{ flex: 1 }}>
@@ -47,7 +42,6 @@ const DepositLoaderScreen = () => {
             src={decodeURIComponent(depositUrl)}
             height="100%"
             style={{ flex: 1 }}
-            onLoad={handleNavigation}
           />
         ) : (
           <WebView
@@ -59,7 +53,6 @@ const DepositLoaderScreen = () => {
                 return false
               }
 
-              console.log('onShouldStartLoadWithRequest', e)
               return true
             }}
           />
