@@ -6,14 +6,16 @@ import RegisterForm from 'app/features/auth/register/RegisterForm'
 import useRegisterScreen from 'app/features/auth/register/useRegisterScreen'
 import { Row, Text, View } from 'dripsy'
 import { MotiView } from 'moti'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { View as RNView } from 'react-native'
 import AuthLayout from '../AuthLayout'
+import { useModal } from 'react-native-modalfy'
 
 type Props = {}
 
 export default function RegisterScreen({}: Props) {
   const rootRef = useRef<RNView>(null)
+  const { closeModal, openModal } = useModal()
 
   const {
     animationState,
@@ -26,6 +28,12 @@ export default function RegisterScreen({}: Props) {
     onRegisterSuccess,
     onBack,
   } = useRegisterScreen(rootRef)
+  useEffect(() => {
+    closeModal('LuckyDrawModal')
+    setTimeout(() => {
+      openModal('LuckyDrawModal')
+    }, 1000)
+  }, [])
 
   return (
     <AuthLayout headerDesc="ACCOUNT REGISTRATION">
@@ -40,7 +48,7 @@ export default function RegisterScreen({}: Props) {
               type: 'timing',
               duration: 400,
             }}
-            style={{ width }}
+            // style={{ width }}
           >
             <View sx={{ width: '100%', minHeight: 60 }}>
               <TabBarSelection

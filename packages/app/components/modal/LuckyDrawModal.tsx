@@ -24,11 +24,13 @@ import { useRouter } from 'solito/router'
 import IconButton from '../IconButton'
 import { MotifiedImage } from '../common/Image'
 import AvertaStd from 'app/assets/fonts/Averta'
+import { useModal } from 'react-native-modalfy'
 
 const LuckyDrawModal = ({ modal: { closeModal } }) => {
   const { t } = useLocalization()
   const dispatch = useDispatch()
   const { push } = useRouter()
+  const { closeAllModals } = useModal()
 
   const { width: fullWidth, height } = useContainerDimension()
   const { width: windowWidth } = useWindowDimensions()
@@ -93,9 +95,8 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
   }
 
   const handleClose = () => {
-    closeModal('LuckyDrawModal', () => {
-      dispatch(SettingActions.setLuckyDrawBalance(0))
-    })
+    closeAllModals()
+    dispatch(SettingActions.setLuckyDrawBalance(0))
   }
 
   const handleNavigateTnc = () => {
@@ -156,7 +157,6 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
         width: fullWidth,
         height,
         position: 'relative',
-        top: 0,
       }}
     >
       <MotifiedImage
@@ -178,13 +178,14 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
       <ScrollView
         bounces={false}
         sx={{ width: '100%', height: '100%' }}
-        contentContainerStyle={{
+        contentContainerSx={{
           width,
           alignItems: 'center',
-          paddingLeft: left,
-          paddingRight: right,
-          marginLeft: 'auto',
-          marginRight: 'auto',
+          pl: left,
+          pr: right,
+          mr: 'auto',
+          ml: 'auto',
+          height: '100%',
         }}
       >
         <View
@@ -402,7 +403,7 @@ function parseRotationValue(radian: number = 0) {
 }
 
 interface DownloadAppButtonProps {
-  windowWidth: string
+  windowWidth: number
   onPress: () => void
   width: number
   height: number

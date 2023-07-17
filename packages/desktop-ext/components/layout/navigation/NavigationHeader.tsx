@@ -14,6 +14,7 @@ import {
 import { ViewStyle } from 'react-native'
 import { Video, ResizeMode } from 'expo-av'
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import { useModal } from 'react-native-modalfy'
 
 interface MenuProps {
   icon?: string
@@ -83,6 +84,7 @@ const LuckySpin =
 export const NAVIGATION_HEIGHT = 50
 export default function NavigationHeader({}) {
   const toggleMenu = useNavigationHeader()
+  const { openModal } = useModal()
   return (
     <View sx={{ height: NAVIGATION_HEIGHT, bg: '$primary.500' }}>
       <Divider />
@@ -114,7 +116,7 @@ export default function NavigationHeader({}) {
               >
                 <Pressable
                   onPress={() => {
-                    console.log('Open Lucky Spin')
+                    openModal('LuckyDrawModal', {})
                   }}
                 >
                   <Image

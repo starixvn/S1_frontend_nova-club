@@ -1,12 +1,13 @@
 import CustomTabBar from 'app/components/navigation/CustomTabBar'
 import { View } from 'dripsy'
 import { MotiView } from 'moti'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { View as RNView } from 'react-native'
 import AuthLayout from '../AuthLayout'
 import AccountVerificationForm from './AccountVerificationForm'
 import RegisterForm from './RegisterForm'
 import useRegisterScreen from './useRegisterScreen'
+import { useModal } from 'react-native-modalfy'
 
 export type RegisterFormValues = {
   username: string
@@ -19,6 +20,7 @@ export type RegisterFormValues = {
 
 const RegisterScreen = () => {
   const rootRef = useRef<RNView>(null)
+  const { closeModal, openModal } = useModal()
 
   const {
     animationState,
@@ -31,6 +33,13 @@ const RegisterScreen = () => {
     onRegisterSuccess,
     onBack,
   } = useRegisterScreen(rootRef)
+
+  useEffect(() => {
+    closeModal('LuckyDrawModal')
+    setTimeout(() => {
+      openModal('LuckyDrawModal')
+    }, 1000)
+  }, [])
 
   return (
     <View

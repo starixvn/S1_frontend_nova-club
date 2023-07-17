@@ -63,15 +63,13 @@ export default function HomeScreen() {
   }, [username])
 
   useEffect(() => {
-    setTimeout(() => {
-      if (luckyDrawBalance) {
-        closeModal('LuckyDrawModal')
-        setTimeout(() => {
-          openModal('LuckyDrawModal')
-        }, 500)
-      }
-    }, 1000)
-  }, [])
+    if (luckyDrawBalance) {
+      closeModal('LuckyDrawModal')
+      setTimeout(() => {
+        openModal('LuckyDrawModal')
+      }, 500)
+    }
+  }, [username, luckyDrawBalance])
 
   return (
     <ScrollView
