@@ -49,7 +49,7 @@ const ModalWrapper = ({ title, children, onClose, sx }: ModalWrapperProps) => {
       </View>
       <View
         sx={{
-          p: '$4',
+          p: '$1',
           ...sx,
         }}
       >

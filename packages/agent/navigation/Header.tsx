@@ -20,6 +20,7 @@ import { useDispatch } from 'react-redux'
 import { useRouter } from 'solito/router'
 import { AGENT_TAB_HEIGHT } from '../constant/sizes'
 import MainMenuTest from './MainMenu'
+import MainMenu from './MainMenu'
 
 const iconHeight = AGENT_TAB_HEIGHT * 0.6
 const smallIconHeight = AGENT_TAB_HEIGHT * 0.5
@@ -154,7 +155,9 @@ const Header = () => {
               />
             )}
 
-            <BouncePressable
+            <MainMenu />
+
+            {/* <BouncePressable
               onPress={() => setShowMenu(!showMenu)}
               onLayout={(event: LayoutChangeEvent) => {
                 const { x, width } = event.nativeEvent.layout
@@ -167,7 +170,7 @@ const Header = () => {
               }}
             >
               <Icon name="menu" size={smallIconHeight} />
-            </BouncePressable>
+            </BouncePressable> */}
             {/* 
             <MainMenuTest
               isShow={showMenu}

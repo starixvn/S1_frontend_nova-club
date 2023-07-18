@@ -4,7 +4,7 @@ import React, { ComponentProps } from 'react'
 
 const IconComponent = createIconSetFromIcoMoon(
   require('agent/assets/fonts/selection.json'),
-  'Icomoon',
+  'IcomoonAgent',
   require('agent/assets/fonts/icomoon.ttf')
 )
 

@@ -137,7 +137,7 @@ const StyledViewClose = styled(View)(() => ({
 const StyledViewButton = styled(View)(() => ({
   flexDirection: 'row',
   justifyContent: 'space-around',
-  pb: '$5',
+  pb: '$3',
 }))
 
 export default ModalContent

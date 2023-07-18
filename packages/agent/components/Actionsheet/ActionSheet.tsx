@@ -57,12 +57,10 @@ const ActionSheet = ({
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0,
         maxWidth: theme.sizes.container,
-        // bg: 'transparent',
-        // width: '100%',
-        // ...(containerStyleSx &&
-        //   (typeof containerStyleSx === 'function'
-        //     ? containerStyleSx(theme)
-        //     : containerStyleSx)),
+        ...(containerStyleSx &&
+          (typeof containerStyleSx === 'function'
+            ? containerStyleSx(theme)
+            : containerStyleSx)),
       })}
       indicatorStyle={sx({
         my: 10,
@@ -75,7 +73,6 @@ const ActionSheet = ({
     >
       <View
         sx={{
-          backgroundColor: 'red',
           maxHeight: height / 2 + 48,
         }}
       >

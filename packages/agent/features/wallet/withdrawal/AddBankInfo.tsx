@@ -204,162 +204,162 @@ const AddBankInfoForm = () => {
   }, [phoneNo, realName, setFieldValue])
 
   return (
-    <>
+    <View sx={{ flex: 1 }}>
       <CommonBackHeader title="wallet.addBank" />
-      <KeyboardView
+      {/* <KeyboardView
         contentContainerStyle={{
           backgroundColor: 'white',
           paddingHorizontal: 20,
           paddingTop: AGENT_STACK_CONTENT_PADDING,
           minHeight: height,
         }}
-      >
-        <View sx={{ alignItems: 'center', p: 20, mt: 20 }}>
-          <SelectWithCardGrid
-            label={t('common.bankCard')}
-            placeholder={t('common.selectBank')}
-            loading={bankListLoading}
-            options={sheetData}
-            value={values.bankCard}
-            sx={{ width: '100%', mb: '$3' }}
-            onSelected={(e) => handleSelected(e)}
-          />
-          <Input
-            label={t('common.accountNumber')}
-            containerProps={{
-              sx: { mb: '$3' },
-            }}
-            placeholder={t('placeholder.enterAccountNumber')}
-            error={
-              touched.accountNumber && errors.accountNumber
-                ? t(errors.accountNumber, {
-                    field: t('common.accountNumber'),
-                  })
-                : undefined
-            }
-            isRequired
-            onChangeText={handleChange('accountNumber')}
-            onBlur={handleBlur('accountNumber')}
-            keyboardType={'numeric'}
-            value={values.accountNumber}
-            maxLength={ACCOUNT_NUMBER_MAX_LENGTH}
-          />
-          <Input
-            editable={realName ? false : true}
-            label={t('common.accountName')}
-            containerProps={{ sx: { mb: '$3' } }}
-            placeholder={t('placeholder.enterAccountName')}
-            error={
-              touched.accountName && errors.accountName
-                ? t(errors.accountName, {
-                    field: 'accountName',
-                  })
-                : undefined
-            }
-            onChangeText={handleChange('accountName')}
-            onBlur={handleBlur('accountName')}
-            value={values.accountName}
-          />
+      > */}
+      <View sx={{ alignItems: 'center', p: 20, mt: 20 }}>
+        <SelectWithCardGrid
+          label={t('common.bankCard')}
+          placeholder={t('common.selectBank')}
+          loading={bankListLoading}
+          options={sheetData}
+          value={values.bankCard}
+          sx={{ width: '100%', mb: '$3' }}
+          onSelected={(e) => handleSelected(e)}
+        />
+        <Input
+          label={t('common.accountNumber')}
+          containerProps={{
+            sx: { mb: '$3' },
+          }}
+          placeholder={t('placeholder.enterAccountNumber')}
+          error={
+            touched.accountNumber && errors.accountNumber
+              ? t(errors.accountNumber, {
+                  field: t('common.accountNumber'),
+                })
+              : undefined
+          }
+          isRequired
+          onChangeText={handleChange('accountNumber')}
+          onBlur={handleBlur('accountNumber')}
+          keyboardType={'numeric'}
+          value={values.accountNumber}
+          maxLength={ACCOUNT_NUMBER_MAX_LENGTH}
+        />
+        <Input
+          editable={realName ? false : true}
+          label={t('common.accountName')}
+          containerProps={{ sx: { mb: '$3' } }}
+          placeholder={t('placeholder.enterAccountName')}
+          error={
+            touched.accountName && errors.accountName
+              ? t(errors.accountName, {
+                  field: 'accountName',
+                })
+              : undefined
+          }
+          onChangeText={handleChange('accountName')}
+          onBlur={handleBlur('accountName')}
+          value={values.accountName}
+        />
 
-          <Input
-            label={t('profile.currency')}
-            editable={false}
-            containerProps={{
-              sx: { mb: hasVerified ? '$10' : '$3' },
-            }}
-            value={currency}
-          />
+        <Input
+          label={t('profile.currency')}
+          editable={false}
+          containerProps={{
+            sx: { mb: hasVerified ? '$4' : '$3' },
+          }}
+          value={currency}
+        />
 
-          {hasVerified ?? true ? null : (
-            <>
-              <Input
-                editable={phoneNo ? false : true}
-                leftOuterElementProps={{
-                  sx: { backgroundColor: '$secondaryAgent', marginRight: 1 },
-                }}
-                leftOuterElement={
-                  <Text sx={{ paddingX: '$4', color: 'black' }}>
-                    {t('common.countryCode')}
-                  </Text>
-                }
-                rightOuterElementProps={{
-                  sx: {
-                    bg: !values.mobileNumber ? '$disabled' : '$primaryAgent',
-                  },
-                }}
-                rightOuterElement={
-                  <TimerButton
-                    accessibilityRole="button"
-                    ref={OTPRef}
-                    title={t('common.send') + ' ' + t('common.otp')}
-                    loading={isLoading}
-                    onPress={handleSendOtp}
-                    sx={{
-                      width: 'auto',
-                      backgroundColor: '$primaryAgent',
-                      m: 0,
-                      px: '$3',
-                      minWidth: 75,
-                      flexGrow: 1,
-                      borderRadius: 0,
-                    }}
-                    _text={{ sx: { color: '$white' } }}
-                  />
-                }
-                label={t('common.mobileNumber')}
-                containerProps={{
-                  sx: { mb: '$3' },
-                }}
-                isRequired
-                error={
-                  touched.mobileNumber && errors.mobileNumber
-                    ? t(errors.mobileNumber, {
-                        field: t('common.mobileNumber'),
-                      })
-                    : undefined
-                }
-                maxLength={MAX_PHONE_DIGIT}
-                onChangeText={handleChange('mobileNumber')}
-                onBlur={handleBlur('mobileNumber')}
-                keyboardType={'numeric'}
-                value={values.mobileNumber}
-              />
-              <Input
-                label={t('common.enter') + ' ' + t('common.otp')}
-                editable={otpField}
-                containerProps={{
-                  sx: { mb: '$10' },
-                }}
-                isRequired
-                error={
-                  touched.otp && errors.otp
-                    ? t(errors.otp, {
-                        field: t('common.mobileNumber') + ' ' + t('common.otp'),
-                      })
-                    : undefined
-                }
-                maxLength={MAX_OTP_DIGIT}
-                onChangeText={handleChange('otp')}
-                onBlur={handleBlur('otp')}
-                keyboardType={'numeric'}
-                value={values.otp}
-              />
-            </>
-          )}
+        {hasVerified ?? true ? null : (
+          <>
+            <Input
+              editable={phoneNo ? false : true}
+              leftOuterElementProps={{
+                sx: { backgroundColor: '$secondaryAgent', marginRight: 1 },
+              }}
+              leftOuterElement={
+                <Text sx={{ paddingX: '$4', color: 'black' }}>
+                  {t('common.countryCode')}
+                </Text>
+              }
+              rightOuterElementProps={{
+                sx: {
+                  bg: !values.mobileNumber ? '$disabled' : '$primaryAgent',
+                },
+              }}
+              rightOuterElement={
+                <TimerButton
+                  accessibilityRole="button"
+                  ref={OTPRef}
+                  title={t('common.send') + ' ' + t('common.otp')}
+                  loading={isLoading}
+                  onPress={handleSendOtp}
+                  sx={{
+                    width: 'auto',
+                    backgroundColor: '$primaryAgent',
+                    m: 0,
+                    px: '$3',
+                    minWidth: 75,
+                    flexGrow: 1,
+                    borderRadius: 0,
+                  }}
+                  _text={{ sx: { color: '$white' } }}
+                />
+              }
+              label={t('common.mobileNumber')}
+              containerProps={{
+                sx: { mb: '$3' },
+              }}
+              isRequired
+              error={
+                touched.mobileNumber && errors.mobileNumber
+                  ? t(errors.mobileNumber, {
+                      field: t('common.mobileNumber'),
+                    })
+                  : undefined
+              }
+              maxLength={MAX_PHONE_DIGIT}
+              onChangeText={handleChange('mobileNumber')}
+              onBlur={handleBlur('mobileNumber')}
+              keyboardType={'numeric'}
+              value={values.mobileNumber}
+            />
+            <Input
+              label={t('common.enter') + ' ' + t('common.otp')}
+              editable={otpField}
+              containerProps={{
+                sx: { mb: '$4' },
+              }}
+              isRequired
+              error={
+                touched.otp && errors.otp
+                  ? t(errors.otp, {
+                      field: t('common.mobileNumber') + ' ' + t('common.otp'),
+                    })
+                  : undefined
+              }
+              maxLength={MAX_OTP_DIGIT}
+              onChangeText={handleChange('otp')}
+              onBlur={handleBlur('otp')}
+              keyboardType={'numeric'}
+              value={values.otp}
+            />
+          </>
+        )}
 
-          <Button
-            onPress={submitForm}
-            loading={isNewLoading}
-            sx={{ width: 150 }}
-            disabled={!isValid || !dirty}
-          >
-            <Text sx={{ fontWeight: 'bold', py: '$1', color: 'white' }}>
-              {t('common.submit')}
-            </Text>
-          </Button>
-        </View>
-      </KeyboardView>
-    </>
+        <Button
+          onPress={submitForm}
+          loading={isNewLoading}
+          sx={{ width: 150 }}
+          disabled={!isValid || !dirty}
+        >
+          <Text sx={{ fontWeight: 'bold', py: '$1', color: 'white' }}>
+            {t('common.submit')}
+          </Text>
+        </Button>
+      </View>
+      {/* </KeyboardView> */}
+    </View>
   )
 }
 
