@@ -1,3 +1,4 @@
+import Icon from 'app/components/Icon'
 import IconButton from 'app/components/IconButton'
 import BouncePressable from 'app/components/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
@@ -27,6 +28,7 @@ const ShareCode = () => {
         {t('referral.shareContent')}
       </Text>
       <BouncePressable
+        onPress={() => copyToClipboard(data?.referral_code)}
         sx={{
           bg: '$primary.500',
           padding: 10,
@@ -37,13 +39,7 @@ const ShareCode = () => {
         }}
       >
         <Text sx={{ fontSize: 14 }}>{t('referral.code')}</Text>
-        <IconButton
-          name={'copy'}
-          color={'white'}
-          size={12}
-          sx={{ padding: 5 }}
-          onPress={() => copyToClipboard(data?.referral_code)}
-        />
+        <Icon name={'copy'} color={'white'} size={12} sx={{ padding: 5 }} />
       </BouncePressable>
     </View>
   )

@@ -3,7 +3,7 @@ import { Game } from 'services/gameApi.type'
 
 export const SUB_ROUTES = {
   'keno-lottery': {
-    label: 'Keno / Xổ số',
+    label: 'game.category.lottery',
     icon: 'lotto',
     route: 'keno-lottery',
     filter: (games: Game[]) => {
@@ -11,7 +11,7 @@ export const SUB_ROUTES = {
     },
   },
   fishing: {
-    label: 'Bắn Cá',
+    label: 'game.category.fishing',
     icon: 'fishing',
     route: 'fishing',
     filter: (games: Game[]) => {
@@ -19,7 +19,7 @@ export const SUB_ROUTES = {
     },
   },
   card: {
-    label: 'Card Game',
+    label: 'game.category.cardGame',
     icon: 'card-game',
     route: 'card',
     filter: (games: Game[]) => {
@@ -27,7 +27,7 @@ export const SUB_ROUTES = {
     },
   },
   local: {
-    label: 'Game Bài',
+    label: 'game.category.localGame',
     icon: 'games',
     route: 'local',
     filter: (games: Game[]) => {
