@@ -55,10 +55,7 @@ export default function useLoginProcess() {
 
   async function completeSuccessLoginHandler(data: LoginResult) {
     dispatch(AuthActions.setAuthInfo(data))
-
-    if (!isDesktop) {
-      push('/')
-    }
+    useResponsiveValue([push('/'), push('/'), push('/'), undefined, undefined])
   }
 
   async function biometricProcess(username: string) {

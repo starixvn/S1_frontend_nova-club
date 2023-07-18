@@ -69,7 +69,7 @@ export default function HomeScreen() {
         openModal('LuckyDrawModal')
       }, 500)
     }
-  }, [username, luckyDrawBalance])
+  }, [username])
 
   return (
     <ScrollView

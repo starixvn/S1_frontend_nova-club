@@ -9,7 +9,7 @@ import {
 import { View } from 'dripsy'
 import { FormikProps } from 'formik'
 import { useCallback, useRef, useState } from 'react'
-import { TextInput } from 'react-native'
+import { TextInput, useWindowDimensions } from 'react-native'
 import { useLazyCheckUsernameQuery } from 'services/authApi'
 import { RegisterFormValues } from './RegisterScreen'
 import FormContainer from 'app/components/form/FormContainer'
@@ -33,6 +33,7 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
   } = formik
   const { t } = useLocalization()
   const [checkUsername] = useLazyCheckUsernameQuery()
+  const { width } = useWindowDimensions()
   //   const [agentCheckUsername] = useLazyAgentCheckUsernameQuery()
 
   const [usernameErrorMsg, setUsernameErrorMsg] = useState('')
@@ -113,6 +114,7 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
       padding
       sx={{
         py: '$4',
+        width: Math.min(768, width),
       }}
     >
       <Input

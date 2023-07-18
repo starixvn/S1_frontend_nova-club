@@ -1,8 +1,8 @@
 import CustomTabBar from 'app/components/navigation/CustomTabBar'
-import { View } from 'dripsy'
+import { P, View } from 'dripsy'
 import { MotiView } from 'moti'
 import { useEffect, useRef, useState } from 'react'
-import { View as RNView } from 'react-native'
+import { Platform, View as RNView } from 'react-native'
 import AuthLayout from '../AuthLayout'
 import AccountVerificationForm from './AccountVerificationForm'
 import RegisterForm from './RegisterForm'
@@ -35,10 +35,12 @@ const RegisterScreen = () => {
   } = useRegisterScreen(rootRef)
 
   useEffect(() => {
-    closeModal('LuckyDrawModal')
-    setTimeout(() => {
-      openModal('LuckyDrawModal')
-    }, 1000)
+    if (Platform.OS === 'web') {
+      closeModal('LuckyDrawModal')
+      setTimeout(() => {
+        openModal('LuckyDrawModal')
+      }, 1000)
+    }
   }, [])
 
   return (
@@ -62,11 +64,13 @@ const RegisterScreen = () => {
               routes={routes}
             />
           </View>
-          <RegisterForm
-            isAgent={isAgentLogin}
-            formik={formik}
-            onSuccess={onRegisterSuccess}
-          />
+          <View>
+            <RegisterForm
+              isAgent={isAgentLogin}
+              formik={formik}
+              onSuccess={onRegisterSuccess}
+            />
+          </View>
         </AuthLayout>
       </MotiView>
 

@@ -147,7 +147,11 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
           easing: Easing.bezier(0, 0.62, 0.19, 1.01),
         }}
         source={require('app/assets/images/luckydraw/prizes.png')}
-        sx={{ width: '90%', height: '90%', zIndex: 2 }}
+        sx={{
+          width: Math.min(350, fullWidth * 0.9),
+          height: Math.min(350, fullWidth * 0.9),
+          zIndex: 2,
+        }}
       />
     )
   }, [luckyDrawBalance])
@@ -158,121 +162,95 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
         width: fullWidth,
         height,
         position: 'relative',
+        // bg: 'green',
       }}
     >
-      <MotifiedImage
-        style={{
-          width: width * useResponsiveValue([1.25, 1.8, 1.8, 1.8]),
-          top: height * useResponsiveValue([0.15, 0.1, 0.1]),
-          aspectRatio: 10 / 7,
-          position: 'absolute',
-          ...(Platform.OS !== 'web' && {
-            height: width * useResponsiveValue([1, 1, 1.8, 1.8]),
-            top: height * useResponsiveValue([0.25, 0.25, 0.25]),
-          }),
-        }}
-        from={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        // transition={{ type: 'timing' }}
-        source={require('app/assets/images/luckydraw/coins.png')}
-      />
       <ScrollView
         bounces={false}
-        sx={{ width: '100%', height: '100%' }}
         contentContainerSx={{
-          width,
           alignItems: 'center',
           pl: left,
           pr: right,
           mr: 'auto',
           ml: 'auto',
           height: '100%',
+          justifyContent: 'center',
         }}
       >
+        <MotifiedImage
+          style={{
+            width: fullWidth,
+            height: fullWidth,
+            position: 'absolute',
+          }}
+          from={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          // transition={{ type: 'timing' }}
+          source={require('app/assets/images/luckydraw/coins.png')}
+        />
         <View
           sx={{
             flex: 1,
             width: '100%',
+            justifyContent: 'center',
             height: Platform.OS !== 'web' ? height : 'auto',
           }}
         >
           <View
             sx={{
-              mt: top + height * 0.05,
               alignItems: 'center',
               justifyContent: 'center',
-              minHeight: '20%',
             }}
           >
-            <MotifiedImage
-              source={require('app/assets/images/luckydraw/lucky-spin.png')}
-              from={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              delay={200}
-              sx={{
-                width: width * useResponsiveValue([0.5, 0.5, 0.6, 0.6, 0.6]),
-                aspectRatio: 380 / 98,
-              }}
-            />
-          </View>
-          <View
-            sx={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              paddingTop: Platform.OS === 'web' ? '100%' : 0,
-            }}
-          >
-            <MotifiedImage
-              source={require('app/assets/images/luckydraw/pin.png')}
-              from={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              delay={200}
-              sx={{
-                width:
-                  width * useResponsiveValue([0.075, 0.075, 0.075, 0.08, 0.08]),
-                aspectRatio: 23 / 26,
-                zIndex: 5,
-                position: 'absolute',
-                top: width * useResponsiveValue([0.05, 0.04, 0.01]),
-                ...(Platform.OS !== 'web' && {
-                  height:
-                    height *
-                    useResponsiveValue([0.05, 0.045, 0.05, 0.05, 0.06]),
-                  top: width * useResponsiveValue([-0.025, 0.01]),
-                }),
-              }}
-            />
-
             <View
               sx={{
-                width: '90%',
+                width: Math.min(400, fullWidth),
+                height: Math.min(400, fullWidth),
                 aspectRatio: 1,
-                position: Platform.OS === 'web' ? 'absolute' : 'relative',
                 alignItems: 'center',
                 justifyContent: 'center',
-                mb: '10%',
-                top: Platform.OS === 'web' ? '5%' : 0,
               }}
             >
+              <MotifiedImage
+                source={require('app/assets/images/luckydraw/lucky-spin.png')}
+                from={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                delay={200}
+                sx={{
+                  zIndex: 5,
+                  position: 'absolute',
+                  width: Math.min(400, fullWidth),
+                  height: Math.min(100, fullWidth),
+                  top: -100,
+                }}
+              />
+              <MotifiedImage
+                source={require('app/assets/images/luckydraw/pin.png')}
+                from={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                delay={200}
+                sx={{
+                  width: Math.min(30, fullWidth * 0.1),
+                  height: Math.min(50, fullWidth * 0.18),
+                  zIndex: 10,
+                  position: 'absolute',
+                  top: -10,
+                }}
+              />
               {startAnimateWinPrizeFrame && <WinningAnimationFrame />}
-
-              <LuckySpinLogo />
-
-              <PurpleTableImage />
+              <LuckySpinLogo width={fullWidth} />
+              <PurpleTableImage width={fullWidth} />
 
               {Platform.OS === 'web' && (
                 <DownloadAppButton
                   height={height}
-                  width={width}
+                  width={fullWidth}
                   windowWidth={windowWidth}
                   onPress={handleClose}
                 />
               )}
-
               {MemoizedWheel}
-
-              <LuckySpinWheelFrame height={height} width={width} />
-
+              <LuckySpinWheelFrame width={fullWidth} />
               {/* Android will crash with the rotation value supplied */}
               {Platform.OS === 'ios' && (
                 <MotiView
@@ -311,11 +289,11 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
                 }}
                 disabled={!canSpin || isLoading}
                 sx={{
-                  width: '25%',
-                  height: '22%',
+                  width: Math.min(100, fullWidth * 0.3),
+                  height: Math.min(100, fullWidth * 0.3),
                   zIndex: 10,
                   position: 'absolute',
-                  bottom: '-15%',
+                  bottom: -80,
                 }}
               >
                 <MotifiedImage
@@ -422,8 +400,8 @@ const DownloadAppButton = ({
     <Pressable
       sx={{
         position: 'absolute',
-        bottom: '-28%',
-        zIndex: 2,
+        bottom: -75,
+        zIndex: 5,
         flexDirection: 'row',
         alignItems: 'center',
       }}
@@ -443,12 +421,13 @@ const DownloadAppButton = ({
           transition={{ type: 'timing', duration: 500, loop: true }}
           style={{
             fontWeight: 'bold',
-            fontSize: 20,
+            fontSize: useResponsiveValue([16, 16, 16, 16, 18]),
             textTransform: 'uppercase',
             color: 'white',
             borderRadius: 10,
             fontFamily: AvertaStd.Regular.name,
-            padding: 8,
+            padding: 6,
+            marginRight: 4,
           }}
         >
           Download
@@ -467,19 +446,16 @@ const DownloadAppButton = ({
       <MotifiedImage
         source={require('app/assets/images/luckydraw/download.gif')}
         sx={{
-          width: width * useResponsiveValue([0.04]),
-          mx: '$2',
+          width: width * useResponsiveValue([0.03]),
+          mx: '$1',
           aspectRatio: 1,
-          ...(Platform.OS !== 'web' && {
-            height: height * useResponsiveValue([0.3]),
-          }),
         }}
       />
     </Pressable>
   )
 }
 
-const PurpleTableImage = () => {
+const PurpleTableImage = ({ width }) => {
   return (
     <MotifiedImage
       source={require('app/assets/images/luckydraw/table.png')}
@@ -487,36 +463,32 @@ const PurpleTableImage = () => {
       animate={{ scale: 1 }}
       delay={200}
       sx={{
-        width: '100%',
-        height: '25%',
-        aspectRatio: 600 / 320,
+        width: Math.min(300, width),
+        height: Math.min(100, width),
         zIndex: 1,
         position: 'absolute',
-        bottom: '-30%',
+        bottom: -90,
       }}
     />
   )
 }
 
-const LuckySpinWheelFrame = ({ width, height }) => {
+const LuckySpinWheelFrame = ({ width }) => {
   return (
     <MotifiedImage
       source={require('app/assets/images/luckydraw/frame.png')}
       sx={{
         zIndex: 1,
         position: 'absolute',
-        width: width * useResponsiveValue([0.89, 0.89, 0.92]),
-        //   height: height * useResponsiveValue([0.41, 0.41, 0.38]),
+        width: Math.min(400, width),
+        height: Math.min(400, width),
         aspectRatio: 1,
-        ...(Platform.OS !== 'web' && {
-          height: height * useResponsiveValue([0.41, 0.41, 0.38]),
-        }),
       }}
     />
   )
 }
 
-const LuckySpinLogo = () => {
+const LuckySpinLogo = ({ width }: { width: number }) => {
   return (
     <MotifiedImage
       source={require('app/assets/images/luckydraw/logo.png')}
@@ -524,8 +496,8 @@ const LuckySpinLogo = () => {
       animate={{ scale: 1 }}
       delay={200}
       sx={{
-        width: '25%',
-        height: '25%',
+        width: Math.min(75, width * 0.25),
+        height: Math.min(75, width * 0.25),
         aspectRatio: 1,
         zIndex: 5,
         position: 'absolute',

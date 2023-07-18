@@ -33,7 +33,9 @@ export default function LoginScreen() {
           routes={routes}
         />
       </View>
-      <LoginForm isAgent={isAgentLogin} />
+      <View>
+        <LoginForm isAgent={isAgentLogin} />
+      </View>
     </AuthLayout>
   )
 }

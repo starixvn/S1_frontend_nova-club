@@ -6,7 +6,7 @@ import useLocalization from 'app/provider/localization'
 import { PASSWORD_MAX_LENGTH, USERNAME_MAX_LENGTH } from 'app/utils/validation'
 import { Pressable, Text, View } from 'dripsy'
 import React, { useRef } from 'react'
-import { TextInput } from 'react-native'
+import { TextInput, useWindowDimensions } from 'react-native'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 import useLoginForm from './useLoginForm'
@@ -22,6 +22,7 @@ const { useParam } = createParam()
 
 const LoginForm = ({ isAgent }: LoginFormProps) => {
   const { t } = useLocalization()
+  const { width } = useWindowDimensions()
   const { replace, push, back } = useRouter()
 
   // const { handleAgentLogin } = useAfterLogin()
@@ -46,6 +47,7 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
       padding
       sx={{
         py: '$4',
+        width: Math.min(768, width),
       }}
     >
       <Input
