@@ -2,27 +2,27 @@ import { Route } from '../components/navigation/type'
 
 export const BOTTOM_ROUTE: Route[] = [
   {
-    label: 'Sportsbook',
+    label: 'game.category.sportsbook',
     path: '/sportsbook',
     icon: 'sportbook',
   },
   {
-    label: 'Games',
+    label: 'game.category.games',
     path: '/games',
     icon: 'games1',
   },
   {
-    label: 'Home',
+    label: 'common.home',
     path: '/',
     icon: 'home',
   },
   {
-    label: 'Slots',
+    label: 'game.category.slots',
     path: '/slots',
     icon: 'sl',
   },
   {
-    label: 'Live Casino',
+    label: 'game.category.liveCasino',
     path: '/livecasino',
     icon: 'casino',
   },

@@ -82,7 +82,8 @@
     "shareholder": "Shareholder",
     "hello": "Hello!!",
     "agentLogin": "Agent Login",
-    "logout": "Logout"
+    "logout": "Logout",
+    "home": "Home"
   },
   "contact": {
     "customerSupport": "Customer Support",

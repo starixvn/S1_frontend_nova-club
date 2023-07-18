@@ -5,6 +5,7 @@ import { TextProps } from 'react-native/Libraries/Text/Text'
 import IconButtonGradient, {
   IconButtonGradientProps,
 } from './IconButtonGradient'
+import useLocalization from 'app/provider/localization'
 
 interface IconButtonGradientToggleProps extends IconButtonGradientProps {
   label?: string
@@ -21,6 +22,7 @@ export default function IconButtonGradientToggle({
   iconProps,
   ...rest
 }: IconButtonGradientToggleProps) {
+  const { t } = useLocalization()
   const animState = useAnimationState({
     inactive: {
       scale: 0.8,
@@ -43,12 +45,14 @@ export default function IconButtonGradientToggle({
       <MotiView state={animState} transition={{ type: 'timing' }}>
         <IconButtonGradient size={size} iconProps={_iconProps} {...rest} />
       </MotiView>
-      <IconButtonGradient.Label
-        sx={{ fontWeight: active ? '900' : 'normal' }}
-        {...labelProps}
-      >
-        {label}
-      </IconButtonGradient.Label>
+      {label && (
+        <IconButtonGradient.Label
+          sx={{ fontWeight: active ? '900' : 'normal' }}
+          {...labelProps}
+        >
+          {t(label)}
+        </IconButtonGradient.Label>
+      )}
     </View>
   )
 }
