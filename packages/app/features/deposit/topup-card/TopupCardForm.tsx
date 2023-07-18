@@ -335,7 +335,7 @@ const TopupCardForm = () => {
           disabled={!isValid || !dirty}
           onPress={submitForm}
         >
-          <ButtonText>Next</ButtonText>
+          <ButtonText>{t('common.next')}</ButtonText>
         </ButtonContainer>
       </View>
     </View>

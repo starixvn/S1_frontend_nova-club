@@ -11,7 +11,7 @@ import {
   View,
   useResponsiveValue,
 } from 'dripsy'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Shadow } from 'react-native-shadow-2'
 import { usePlayerBalanceQuery } from 'services/walletApi'
 
@@ -91,6 +91,10 @@ const HeaderOverview = ({}: HeaderOverviewProps) => {
 
   const width = useResponsiveValue([110, 120, 150])
 
+  useEffect(() => {
+    refetch
+  }, [])
+  
   return (
     <Pressable
       onPress={refetch}

@@ -93,6 +93,7 @@
     "liveChat": "Live Chat"
   },
   "deposit": {
+    "actualDeposit": "Actual Deposit",
     "depositTitle": "Deposit",
     "bankSlip": "Bank Slip",
     "depositMethod": {
@@ -103,6 +104,10 @@
       "qrPay": "QR Pay",
       "topUp": "Top Up Card"
     },
+    "deduction": "Deduction",
+    "cardCode": "Card Code",
+    "cardSerialNo": "Card serial no.",
+    "cardValue": "Card Value",
     "choose": "Choose your Deposit Options",
     "channel": "Channel",
     "cryptoAddress": "Crypto Address",
