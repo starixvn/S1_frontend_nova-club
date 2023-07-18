@@ -64,7 +64,9 @@ const FooterNav = () => {
         {FooterLinks.map((l) => {
           return (
             <LinkPressable key={l.title} href={l.route}>
-              <Text sx={{ fontSize: 12, mt: FONT_TOP_OFFSET }}>
+              <Text
+                sx={{ fontSize: [14, 14, 16, 16, 16], mt: FONT_TOP_OFFSET }}
+              >
                 {t(l.title)}
               </Text>
             </LinkPressable>

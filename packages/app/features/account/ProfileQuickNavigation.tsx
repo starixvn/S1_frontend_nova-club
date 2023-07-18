@@ -48,7 +48,7 @@ const ProfileQuickNavigation = () => {
       <Pressable
         key={r.label}
         onPress={() =>
-          r.label === 'logout' ? TriggerLogout() : push(r.path ?? '/')
+          r.icon === 'logout' ? TriggerLogout() : push(r.path ?? '/')
         }
       >
         <Gradient

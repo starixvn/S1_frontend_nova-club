@@ -7,7 +7,7 @@ const LazyMobileScreen = dynamic(
 )
 
 const LazyDesktopScreen = dynamic(
-  import('desktop-ext/features/auth/login/LoginScreen'),
+  import('desktop-ext/features/auth/login/LoginScreenDesktop'),
   { ssr: false }
 )
 const Login = withAdaptiveScreen(LazyMobileScreen, LazyDesktopScreen)

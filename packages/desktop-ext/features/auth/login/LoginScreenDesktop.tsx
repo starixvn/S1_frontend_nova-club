@@ -4,7 +4,7 @@ import AuthLayout from '../AuthLayout'
 
 type Props = {}
 
-export default function LoginScreen({}: Props) {
+export default function LoginScreenDesktop({}: Props) {
   return (
     <AuthLayout headerDesc={'Agent Login'}>
       <LoginForm isAgent={true} />

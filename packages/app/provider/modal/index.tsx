@@ -82,7 +82,8 @@ const _dynamicModal = {
     import('app/features/deposit/bank-transfer/DepositConfirmationModal'),
   RegisterModal: () =>
     import('desktop-ext/features/auth/register/RegisterScreen'),
-  AgentLoginModal: () => import('desktop-ext/features/auth/login/LoginScreen'),
+  AgentLoginModal: () =>
+    import('desktop-ext/features/auth/login/LoginScreenDesktop'),
   DepositCryptoModal: () =>
     import('app/features/deposit/component/DepositCryptoModal'),
   DownloadGuideModal: () =>

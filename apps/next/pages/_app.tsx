@@ -10,6 +10,7 @@ import AdaptiveLayout, {
   AdaptiveAppProps,
 } from '../components/layouts/AdaptiveLayout'
 import '../global.css'
+import AuthenticationProvider from 'components/AuthenticationProvider'
 
 function MyApp({ ...rest }: AdaptiveAppProps) {
   useFonts(AvertaStdUseFont)
@@ -21,7 +22,9 @@ function MyApp({ ...rest }: AdaptiveAppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Provider>
-        <AdaptiveLayout {...rest} />
+        <AuthenticationProvider>
+          <AdaptiveLayout {...rest} />
+        </AuthenticationProvider>
       </Provider>
     </>
   )

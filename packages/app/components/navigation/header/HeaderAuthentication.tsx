@@ -3,6 +3,7 @@ import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
 import React from 'react'
 import { useRouter } from 'solito/router'
+import HeaderLanguageToggle from './HeaderLanguageToggle'
 
 const HeaderAuthentication = () => {
   const { push } = useRouter()
@@ -35,6 +36,7 @@ const HeaderAuthentication = () => {
       >
         {t('authentication.register')}
       </Button>
+      <HeaderLanguageToggle />
     </View>
   )
 }
