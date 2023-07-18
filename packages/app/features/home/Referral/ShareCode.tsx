@@ -23,6 +23,7 @@ const ShareCode = () => {
           fontWeight: '700',
           textAlign: 'center',
           marginTop: 10,
+          userSelect: 'none',
         }}
       >
         {t('referral.shareContent')}

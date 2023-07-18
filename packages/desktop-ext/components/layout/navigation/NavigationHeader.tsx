@@ -1,21 +1,31 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Divider from 'app/components/Divider'
 import DripsyMotiView from 'app/components/DripsyMotiView'
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
+import useSupportItemList from 'app/features/customerSupport/useSupportItemList'
 import usePathname from 'app/hooks/usePathname'
-import { Container, Pressable, Row, Text, View, styled, Image } from 'dripsy'
+import useLocalization from 'app/provider/localization'
+import {
+  Container,
+  Image,
+  Pressable,
+  Row,
+  Text,
+  View,
+  styled,
+  useDripsyTheme,
+} from 'dripsy'
 import { MotiPressable, useMotiPressable } from 'moti/interactions'
 import React, { startTransition } from 'react'
+import { ViewStyle } from 'react-native'
+import { useModal } from 'react-native-modalfy'
 import { useLink } from 'solito/link'
 import {
   NAVIGATION_DROPDOWN_MENU,
   useNavigationHeader,
 } from './NavigationHeaderProvider'
-import { ViewStyle } from 'react-native'
-import { Video, ResizeMode } from 'expo-av'
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { useModal } from 'react-native-modalfy'
-import useLocalization from 'app/provider/localization'
+import ToggleSupportDropDown from './ToggleSupportDropDown'
 
 interface MenuProps {
   icon?: string
@@ -86,70 +96,77 @@ export const NAVIGATION_HEIGHT = 50
 export default function NavigationHeader({}) {
   const toggleMenu = useNavigationHeader()
   const { openModal } = useModal()
+  const { theme } = useDripsyTheme()
+  const mediaList = useSupportItemList()
+
   return (
-    <View sx={{ height: NAVIGATION_HEIGHT, bg: '$primary.500' }}>
-      <Divider />
-      <Pressable
-        onHoverOut={() => startTransition(() => toggleMenu(undefined))}
-      >
-        <DripsyGradient
-          gradient="surface"
-          sx={{ height: NAVIGATION_HEIGHT, marginTop: 'auto' }}
+    <>
+      <View sx={{ height: NAVIGATION_HEIGHT, bg: '$primary.500' }}>
+        <Divider />
+        <Pressable
+          onHoverOut={() => startTransition(() => toggleMenu(undefined))}
         >
-          <Container sx={{ alignItems: 'stretch', flex: 1 }}>
-            <Row
-              sx={{
-                flex: 1,
-                alignItems: 'stretch',
-                justifyContent: 'space-evenly',
-                // px: [0, 0, 0, '$pagePadding'],
-              }}
-            >
-              <View
+          <DripsyGradient
+            gradient="surface"
+            sx={{ height: NAVIGATION_HEIGHT, marginTop: 'auto' }}
+          >
+            <Container sx={{ alignItems: 'stretch', flex: 1 }}>
+              <Row
                 sx={{
-                  position: 'relative',
-                  width: NAVIGATION_HEIGHT * 2,
-                  aspectRatio: 1,
-                  height: NAVIGATION_HEIGHT * 1.25,
-                  overflow: 'hidden',
-                  top: -NAVIGATION_HEIGHT * 0.25,
+                  flex: 1,
+                  alignItems: 'stretch',
+                  justifyContent: 'space-evenly',
+                  // px: [0, 0, 0, '$pagePadding'],
                 }}
               >
-                <Pressable
-                  onPress={() => {
-                    openModal('LuckyDrawModal', {})
+                <View
+                  sx={{
+                    position: 'relative',
+                    width: NAVIGATION_HEIGHT * 2,
+                    aspectRatio: 1,
+                    height: NAVIGATION_HEIGHT * 1.25,
+                    overflow: 'hidden',
+                    top: -NAVIGATION_HEIGHT * 0.25,
                   }}
                 >
-                  <Image
-                    source={LuckySpin}
-                    alt="luckywheel"
-                    sx={{
-                      width: '100%',
-                      height: '100%',
-                      aspectRatio: 1,
-                      bottom: -NAVIGATION_HEIGHT * 0.05,
+                  <Pressable
+                    onPress={() => {
+                      openModal('LuckyDrawModal', {})
                     }}
-                    resizeMode="cover"
-                  />
-                </Pressable>
-              </View>
-              {MENU.map((m, i) => {
-                return (
-                  <MenuButton
-                    key={i}
-                    label={m.label}
-                    icon={m.icon}
-                    route={m.route}
-                    style={m.style}
-                    menu={m.menu}
-                  />
-                )
-              })}
-            </Row>
-          </Container>
-        </DripsyGradient>
-      </Pressable>
-    </View>
+                  >
+                    <Image
+                      source={LuckySpin}
+                      alt="luckywheel"
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        aspectRatio: 1,
+                        bottom: -NAVIGATION_HEIGHT * 0.05,
+                      }}
+                      resizeMode="cover"
+                    />
+                  </Pressable>
+                </View>
+
+                {MENU.map((m, i) => {
+                  return (
+                    <MenuButton
+                      key={i}
+                      label={m.label}
+                      icon={m.icon}
+                      route={m.route}
+                      style={m.style}
+                      menu={m.menu}
+                    />
+                  )
+                })}
+              </Row>
+            </Container>
+          </DripsyGradient>
+        </Pressable>
+      </View>
+      <ToggleSupportDropDown />
+    </>
   )
 }
 

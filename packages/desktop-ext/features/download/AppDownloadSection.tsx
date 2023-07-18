@@ -1,7 +1,5 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Icon from 'app/components/Icon'
-import Shadow from 'app/components/Shadow'
-import ShadowButton from 'app/components/ShadowButton'
 import Button from 'app/components/common/Button'
 import useContainerWidth from 'app/hooks/useContainerWidth'
 import useLocalization from 'app/provider/localization'
