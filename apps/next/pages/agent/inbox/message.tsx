@@ -4,7 +4,7 @@ import InboxRoutes from 'agent/navigation/routes/InboxRoutes'
 import AgentLayout from '../../../layouts/agent/AgentLayout'
 import React from 'react'
 
-const Mail = () => {
+const Message = () => {
   return (
     <>
       <AgentNestedTabs routes={InboxRoutes} />
@@ -13,6 +13,6 @@ const Mail = () => {
   )
 }
 
-Mail.getLayout = AgentLayout
+Message.getLayout = AgentLayout
 
-export default Mail
+export default Message

@@ -1,17 +1,22 @@
 import { EndpointBuilderType } from 'services/common/types'
-import { BankAccountItem, LookUpBank } from './accountApi.type'
 import { agentBaseApiWithTag } from './agentBaseApi'
 import { IResponse } from './common/agentAxiosBaseQuery'
 import {
   AnnouncementDetailArgs,
   AnnouncementDetailResult,
   AnnouncementItem,
+  AnnouncementList,
   AnnouncementResult,
+  ContentList,
+  MessageDetailArgs,
+  MessageDetailResult,
+  MessageItem,
+  MessageResult,
 } from './contentApi.type'
 
 export const contentApi = agentBaseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
-    announcement: builder.query<AnnouncementItem[], void>({
+    announcement: builder.query<ContentList<AnnouncementItem>, void>({
       query: () => ({
         url: `/user/announcement`,
         data: {
@@ -20,7 +25,10 @@ export const contentApi = agentBaseApiWithTag.injectEndpoints({
         },
       }),
       transformResponse: ({ result }: { result: AnnouncementResult }) => {
-        return result?.data ?? []
+        return {
+          list: result?.data ?? [],
+          total: result?.recordsTotal ?? 0,
+        }
       },
     }),
     announcementDetail: builder.query<
@@ -35,8 +43,39 @@ export const contentApi = agentBaseApiWithTag.injectEndpoints({
         },
       }),
     }),
+    message: builder.query<ContentList<MessageItem>, void>({
+      query: () => ({
+        url: `/user/message`,
+        data: {
+          start: 0,
+          length: 25,
+        },
+      }),
+      transformResponse: ({ result }: { result: MessageResult }) => {
+        return {
+          list: result?.data ?? [],
+          total: result?.recordsTotal ?? 0,
+        }
+      },
+    }),
+    messageDetail: builder.query<
+      IResponse<MessageDetailResult>,
+      MessageDetailArgs
+    >({
+      query: (query) => ({
+        url: `/user/messageDetail`,
+        method: 'POST',
+        data: {
+          ...query,
+        },
+      }),
+    }),
   }),
 })
 
-export const { useAnnouncementQuery, useLazyAnnouncementDetailQuery } =
-  contentApi
+export const {
+  useAnnouncementQuery,
+  useLazyAnnouncementDetailQuery,
+  useMessageQuery,
+  useLazyMessageDetailQuery,
+} = contentApi

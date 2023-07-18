@@ -65,6 +65,7 @@
     "submit": "Submit",
     "suspended": "Suspended",
     "to": "To",
+    "total": "Total",
     "turnover": "Turnover",
     "userAgreement": "user agreement",
     "username": "Username",
@@ -101,6 +102,7 @@
     "changePass": "Change Password",
     "desktopVersion": "Desktop Version",
     "logout": "Logout",
+    "message": "Message",
     "resetPin": "Reset Pin",
     "switchMember": "Switch to Member",
     "switchMemberNote": "Are you sure want to switch to member site?"

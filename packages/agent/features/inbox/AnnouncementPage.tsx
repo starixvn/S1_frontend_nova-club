@@ -4,19 +4,27 @@ import { FlatList, Text, View } from 'dripsy'
 import { ListRenderItem } from 'react-native'
 import { AnnouncementListItems } from 'services/contentApi.type'
 import MessageCard from './MessageCard'
+import DataTableRefresh from 'agent/components/DataTable/DataTableRefresh'
 
 const AnnouncementPage = () => {
   const { t } = useAgentLocalization()
-  const { data, refetch, isLoading } = useAnnouncementQuery()
+  const { data, refetch, isFetching } = useAnnouncementQuery()
+  const totalData = data?.total ?? 0
 
   return (
     <View sx={{ bg: 'white', flex: 1, flexBasis: 0 }}>
+      <DataTableRefresh
+        title={`${t('common.total')} : ${totalData}`}
+        isLoading={isFetching}
+        onRefresh={() => refetch()}
+      />
+
       <FlatList
         showsVerticalScrollIndicator={false}
         onRefresh={() => refetch()}
         keyExtractor={(item) => item.newsId.toString()}
-        refreshing={isLoading}
-        data={data}
+        refreshing={isFetching}
+        data={data?.list}
         renderItem={renderItem}
         ListEmptyComponent={
           //havent finalize no data design

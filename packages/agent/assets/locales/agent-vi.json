@@ -65,6 +65,7 @@
     "submit": "Gửi",
     "suspended": "Bị tạm khóa",
     "to": "Đến",
+    "total": "Tổng số",
     "turnover": "Doanh số",
     "userAgreement": "Thỏa thuận người dùng",
     "username": "Tên đăng nhập",
@@ -101,6 +102,7 @@
     "changePass": "Thay đổi mật khẩu",
     "desktopVersion": "Phiên bản máy tính",
     "logout": "Đăng xuất",
+    "message": "Tin Nhắn",
     "resetPin": "Cài lại mã PIN",
     "switchMember": "Chuyển sang trang Thành Viên",
     "switchMemberNote": "Bạn muốn chuyển sang trang thành viên?"

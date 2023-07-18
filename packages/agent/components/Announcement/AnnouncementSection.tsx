@@ -11,7 +11,7 @@ export default function AnnouncementSection() {
 
   const marquees = useMemo(() => {
     if (data == null) return []
-    return data.map((annc) => {
+    return data.list.map((annc) => {
       return {
         label: annc.newsId,
         value: annc.title,

@@ -1,15 +1,15 @@
 const InboxRoutes = [
   {
-    key: 'AddShareholder',
+    key: 'Announcement',
     title: 'message.announcement',
     icon: 'announcement',
     route: '/agent/inbox/announcement',
   },
   {
-    key: 'AddAgent',
+    key: 'Message',
     title: 'message.personalMessage',
     icon: 'mail',
-    route: '/agent/inbox/mail',
+    route: '/agent/inbox/message',
   },
 ] as const
 

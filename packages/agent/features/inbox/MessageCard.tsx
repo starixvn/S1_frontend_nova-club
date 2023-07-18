@@ -1,4 +1,7 @@
-import { useLazyAnnouncementDetailQuery } from 'agent/services/contentApi'
+import {
+  useLazyAnnouncementDetailQuery,
+  useLazyMessageDetailQuery,
+} from 'agent/services/contentApi'
 import CheckBox from 'app/components/CheckBox'
 import Icon from 'app/components/Icon'
 import useContainerDimension from 'app/hooks/useContainerDimension'
@@ -13,10 +16,11 @@ import WebView, { WebViewMessageEvent } from 'react-native-webview'
 export interface MessageCardProps {
   selected?: boolean
   isHtml?: boolean
+  isMessage?: boolean
   onToggle?: (id: string) => void
   id: string
   title: string
-  content: string
+  content?: string
   time?: string
   index: number
 }
@@ -24,6 +28,7 @@ export interface MessageCardProps {
 const MessageCard: FC<MessageCardProps> = ({
   selected,
   isHtml,
+  isMessage = false,
   onToggle,
   id,
   title,
@@ -36,35 +41,56 @@ const MessageCard: FC<MessageCardProps> = ({
 
   const [isExtend, setIsExtend] = useState(false)
   const { width, height } = useContainerDimension()
-  const [content, setContent] = useState('123123')
+  const [content, setContent] = useState('')
   const [fetchAnnouncementDetails, { isFetching }] =
     useLazyAnnouncementDetailQuery()
+  const [fetchMessageDetails, { isFetching: isMessageFetching }] =
+    useLazyMessageDetailQuery()
+
+  const firstItem = index === 0
 
   const handlePress = async () => {
     setIsExtend(!isExtend)
     if (!isExtend) {
-      try {
-        const { result, success } = await fetchAnnouncementDetails({
-          id,
-        })
-          .unwrap()
-          .catch((error) => {
-            return error
-          })
-
-        if (success) {
-          setContent(result.data.content)
-        } else setContent('Error fetching message')
-      } catch (error) {
-        console.log(
-          '🚀 ~ file: MessageCard.tsx:58 ~ handlePress ~ error:',
-          error
-        )
-      }
+      isMessage ? handleMessageDetail() : handleAnnouncementDetail()
     }
   }
 
-  const firstItem = index === 0
+  const handleAnnouncementDetail = async () => {
+    try {
+      const { result, success } = await fetchAnnouncementDetails({
+        id,
+      })
+        .unwrap()
+        .catch((error) => {
+          return error
+        })
+
+      if (success) {
+        setContent(result.data.content)
+      } else setContent('Error fetching message')
+    } catch (error) {
+      console.log('🚀 ~ file: MessageCard.tsx:58 ~ handlePress ~ error:', error)
+    }
+  }
+
+  const handleMessageDetail = async () => {
+    try {
+      const { result, success } = await fetchMessageDetails({
+        id,
+      })
+        .unwrap()
+        .catch((error) => {
+          return error
+        })
+
+      if (success) {
+        setContent(result.data.message)
+      } else setContent('Error fetching message')
+    } catch (error) {
+      console.log('🚀 ~ file: MessageCard.tsx:58 ~ handlePress ~ error:', error)
+    }
+  }
 
   return (
     <MotiPressable onPress={handlePress} key={id}>
@@ -111,7 +137,7 @@ const MessageCard: FC<MessageCardProps> = ({
                 opacity: 0,
               }}
             >
-              {isFetching ? (
+              {isFetching || isMessageFetching ? (
                 <ActivityIndicator size={36} />
               ) : (
                 <MessageContent isHtml={isHtml} content={content} />
