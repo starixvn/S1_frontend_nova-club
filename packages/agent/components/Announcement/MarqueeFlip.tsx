@@ -39,7 +39,7 @@ const MarqueeFlip = ({
   return (
     <StyledContainer
       onPress={() => {
-        push('/agent/inbox/announcement')
+        // push('/agent/inbox/announcement')
       }}
       sx={sx}
     >

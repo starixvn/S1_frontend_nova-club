@@ -27,13 +27,13 @@ const _Routes: Readonly<AgentRoute[]> = [
     icon: 'qr-code',
     key: 'QR',
   },
-  {
-    route: '/agent/inbox/announcement',
-    base: '/agent/inbox',
-    title: 'menu.message',
-    icon: 'mail',
-    key: 'Inbox',
-  },
+  // {
+  //   route: '/agent/inbox/announcement',
+  //   base: '/agent/inbox',
+  //   title: 'menu.message',
+  //   icon: 'mail',
+  //   key: 'Inbox',
+  // },
 ] as const
 
 export type AgentRoutesParamList = Record<

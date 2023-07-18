@@ -29,13 +29,13 @@ const _Routes: Readonly<AgentRoute[]> = [
     icon: 'report',
     key: 'Report',
   },
-  {
-    route: '/agent/inbox/announcement',
-    base: '/agent/inbox',
-    title: 'menu.message',
-    icon: 'mail',
-    key: 'Inbox',
-  },
+  // {
+  //   route: '/agent/inbox/announcement',
+  //   base: '/agent/inbox',
+  //   title: 'menu.message',
+  //   icon: 'mail',
+  //   key: 'Inbox',
+  // },
 ] as const
 
 export type ShareholderRoutesParamList = Record<
