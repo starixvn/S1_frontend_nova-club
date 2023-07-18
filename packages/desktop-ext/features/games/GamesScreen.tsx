@@ -17,6 +17,7 @@ import React from 'react'
 import { LatestWinnerType } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
 import GameList from './GameList'
+import useLocalization from 'app/provider/localization'
 
 type Props = {}
 
@@ -60,6 +61,7 @@ function _GamesScreen({}: Props) {
 }
 
 const GameTypeFilter = ({ onFilterClicked, ...rest }) => {
+  const { t } = useLocalization()
   return (
     <View sx={{ gap: '$3', width: [175, 175, 175, 175, 200] }} {...rest}>
       {DesktopGamesFilter.map((r, i) => {
@@ -91,13 +93,13 @@ const GameTypeFilter = ({ onFilterClicked, ...rest }) => {
               </View>
               <Text
                 sx={{
-                  fontSize: 20,
+                  fontSize: 18,
                   lineHeight: 22,
                   fontWeight: '900',
                   flex: 1.1,
                 }}
               >
-                {r.label}
+                {t(r.label)}
               </Text>
             </Row>
           </Pressable>

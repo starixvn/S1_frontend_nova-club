@@ -7,6 +7,7 @@ import { Game } from 'services/gameApi.type'
 import { ViewProps } from 'react-native'
 import SelectProvider from 'desktop-ext/components/game/SelectProvider'
 import countBy from 'lodash/countBy'
+import useLocalization from 'app/provider/localization'
 interface Props extends ViewProps {
   label: string
   games: Game[]
@@ -16,6 +17,7 @@ interface Props extends ViewProps {
 export default function GameList({ label, games, ...rest }: Props) {
   const [filter, setFilter] = useState(ALL)
   const [provider, setProvider] = useState<string | undefined>()
+  const { t } = useLocalization()
 
   const tags = useMemo(() => {
     setProvider(undefined)
@@ -40,7 +42,7 @@ export default function GameList({ label, games, ...rest }: Props) {
   return (
     <View {...rest}>
       <GameListSectionGrid.Header>
-        <Text sx={{ fontWeight: '900' }}>{label}</Text>
+        <Text sx={{ fontWeight: '900' }}>{t(label)}</Text>
       </GameListSectionGrid.Header>
       <GameListSectionGrid.Filter>
         {tags.map((f) => {
