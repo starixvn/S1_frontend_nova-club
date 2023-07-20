@@ -2,7 +2,7 @@ import { getErrorMessage } from 'app/utils/validation'
 import { useModal } from 'react-native-modalfy'
 
 const useAlert = () => {
-  const { openModal } = useModal()
+  const { openModal, currentModal } = useModal()
 
   const showAlert = (data) => {
     if (typeof data === 'object') {
@@ -14,6 +14,7 @@ const useAlert = () => {
 
   return {
     showAlert,
+    currentModal,
   }
 }
 
