@@ -93,6 +93,7 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
   }, [
     checkUsername,
     errors.username,
+    isAgent,
     isCheckingUsername,
     usernameErrorMsg,
     values.username,
@@ -121,7 +122,7 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
         autoCapitalize={'none'}
         inputContainerSx={{ width: '100%' }}
         icon="profile-rounded"
-        placeholder="Username"
+        placeholder={t('common.username')}
         textContentType="username"
         value={values.username}
         onBlur={onUsernameBlur}
@@ -145,7 +146,7 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
         autoCapitalize={'none'}
         inputContainerSx={{ width: '100%' }}
         icon="pw"
-        placeholder="Password"
+        placeholder={t('common.password')}
         secureTextEntry
         textContentType="password"
         value={values.password}
@@ -166,7 +167,7 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
         autoCapitalize={'none'}
         inputContainerSx={{ width: '100%' }}
         icon="cpw"
-        placeholder="Confirm Password"
+        placeholder={t('common.confirmPassword')}
         secureTextEntry
         textContentType="password"
         value={values.confirmPassword}
@@ -186,6 +187,7 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
 
       <Button
         onPress={onSubmit}
+        disabled={!!usernameErrorMsg}
         sx={{ mt: '$4', my: '$2', bg: '$primary.300' }}
       >
         {t('authentication.register')}

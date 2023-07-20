@@ -16,6 +16,7 @@ import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import useAlert from 'app/hooks/useAlert'
 import { useSendRegistrationOtpMutation } from 'services/authApi'
 import FormContainer from 'app/components/form/FormContainer'
+import Button from 'app/components/common/Button'
 
 interface AccountVerificationFormProps {
   isAgent: boolean
@@ -43,11 +44,10 @@ const AccountVerificationForm = ({
   const { showAlert } = useAlert()
   const locale = useAppSelector((s) => s.setting.locale)
 
-  const contactNumberFieldRef = useRef<TextInput>(null)
   const otpFieldRef = useRef<TextInput>(null)
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
 
-  const [sendOtp, { isLoading: isOtpLoading }] =
+  const [sendOtp, { isLoading: isOtpLoading, isSuccess: isMemberOtpSucess }] =
     useSendRegistrationOtpMutation()
 
   const onCheckboxCheck = () => {
@@ -83,7 +83,21 @@ const AccountVerificationForm = ({
       showAlert(error)
     }
   }
+  const isContactNumValid = async () => {
+    setTouched({ contactNumber: true })
+    const { contactNumber } = await validateForm()
 
+    if (contactNumber) return false
+
+    return true
+  }
+  const onSendOtp = async () => {
+    const isValid = await isContactNumValid()
+    isValid && sendOTP()
+    // if (isValid) {
+    //   isAgent ? sendAgentOTP() : sendOTP()
+    // }
+  }
   const handlePressTnC = () => {
     const params = {
       locale: locale,
@@ -91,14 +105,11 @@ const AccountVerificationForm = ({
     push('/info/tnc')
   }
 
-  const handleResendOTP = () => {
-    console.log('should be contact us')
-    // const params = {
-    //   locale: locale,
-    // }
-    // push('/auth/register/tnc', params)
+  const handleContactUs = () => {
+    push('/info/contact-us')
   }
 
+  console.log('Rerender Verification Form')
   return (
     <FormContainer
       padding
@@ -112,14 +123,16 @@ const AccountVerificationForm = ({
         textContentType="telephoneNumber"
         prefix="+84"
         inputMode="numeric"
+        keyboardType="number-pad"
         maxLength={9}
         action={() => (
           <TimerButton
+            // disabled={!!!errors.contactNumber}
             accessibilityRole="button"
             ref={OTPRef}
             title={t('authentication.send')}
             loading={isOtpLoading}
-            onPress={sendOTP}
+            onPress={onSendOtp}
             sx={{
               width: 'auto',
               backgroundColor: '$otp',
@@ -136,17 +149,16 @@ const AccountVerificationForm = ({
             }}
           />
         )}
+        onSubmitEditing={() => {
+          otpFieldRef.current?.focus()
+        }}
         value={values.contactNumber}
         onBlur={handleBlur('contactNumber')}
         onChangeText={handleChange('contactNumber')}
-        ref={contactNumberFieldRef}
-        onSubmitEditing={() => {
-          contactNumberFieldRef.current?.focus()
-        }}
         error={
           touched.contactNumber && errors.contactNumber
             ? t(errors.contactNumber, {
-                field: t('profile.details.phone'),
+                field: t('common.phone'),
               })
             : undefined
         }
@@ -154,17 +166,11 @@ const AccountVerificationForm = ({
       <Input
         inputContainerSx={{ width: '100%' }}
         icon="otp"
-        placeholder="Please enter OTP"
+        placeholder={t('authentication.enterOtp')}
+        keyboardType="number-pad"
         textContentType="oneTimeCode"
         prefix="OTP"
         inputMode="numeric"
-        action={() => {
-          return (
-            <TickCircle>
-              <Icon name={'tick'} size={14} color={'white'} />
-            </TickCircle>
-          )
-        }}
         value={values.verifyCode}
         onBlur={handleBlur('verifyCode')}
         onChangeText={handleChange('verifyCode')}
@@ -212,35 +218,24 @@ const AccountVerificationForm = ({
         >
           <Text>{t('authentication.noReceiveOTP')} </Text>
 
-          <Pressable onPress={handleResendOTP}>
+          <Pressable onPress={handleContactUs}>
             <Text sx={{ color: '$secondary.500' }}>
-              {t('authentication.resend')}
+              {t('footer.contactUs')}
             </Text>
           </Pressable>
         </View>
       </View>
 
-      <ButtonContainer
+      <Button
         sx={{ bg: '$secondary.500', marginTop: 20 }}
         onPress={submitForm}
+        disabled={!values.terms || !isMemberOtpSucess || !!errors.verifyCode}
       >
-        <ButtonText>Submit</ButtonText>
-      </ButtonContainer>
+        <ButtonText>{t('common.submit')}</ButtonText>
+      </Button>
     </FormContainer>
   )
 }
-
-const TickCircle = styled(View)({
-  backgroundColor: 'green',
-  borderRadius: 50,
-  p: 5,
-})
-
-const ButtonContainer = styled(Pressable)({
-  borderRadius: 15,
-  mb: 20,
-  alignItems: 'center',
-})
 
 const ButtonText = styled(Text)({
   width: '100%',

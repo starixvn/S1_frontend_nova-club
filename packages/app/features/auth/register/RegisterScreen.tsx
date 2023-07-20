@@ -8,6 +8,7 @@ import AccountVerificationForm from './AccountVerificationForm'
 import RegisterForm from './RegisterForm'
 import useRegisterScreen from './useRegisterScreen'
 import { useModal } from 'react-native-modalfy'
+import useLocalization from 'app/provider/localization'
 
 export type RegisterFormValues = {
   username: string
@@ -20,6 +21,7 @@ export type RegisterFormValues = {
 
 const RegisterScreen = () => {
   const rootRef = useRef<RNView>(null)
+  const { t } = useLocalization()
   const { closeModal, openModal } = useModal()
 
   const {
@@ -56,7 +58,7 @@ const RegisterScreen = () => {
         }}
         style={{ width }}
       >
-        <AuthLayout headerDesc="ACCOUNT REGISTRATION">
+        <AuthLayout headerDesc={t('authentication.accountReg')}>
           <View sx={{ width: '100%' }}>
             <CustomTabBar
               currentIndex={index}
@@ -82,7 +84,10 @@ const RegisterScreen = () => {
         }}
         style={{ width }}
       >
-        <AuthLayout onBack={onBack} headerDesc="ACCOUNT VERIFICATION">
+        <AuthLayout
+          onBack={onBack}
+          headerDesc={t('authentication.accVerification')}
+        >
           <AccountVerificationForm isAgent={isAgentLogin} formik={formik} />
         </AuthLayout>
       </MotiView>

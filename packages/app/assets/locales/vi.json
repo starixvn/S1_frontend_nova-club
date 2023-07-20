@@ -11,7 +11,9 @@
     "rememberMe": "Lưu để đăng nhập lần sau",
     "forgotPassword": "Quên mật khẩu",
     "forgotPasswordHeader": "Quên mật khẩu",
-    "resetPasswordHeader": "Đặt lại mật khẩu"
+    "resetPasswordHeader": "Đặt lại mật khẩu",
+    "accVerification": "Xác thực tài khoản",
+    "accountReg": "ĐĂNG KÝ"
   },
   "bank": {
     "accountName": "Tên tài khoản",
