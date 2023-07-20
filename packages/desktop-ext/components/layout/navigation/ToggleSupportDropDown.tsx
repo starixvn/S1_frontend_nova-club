@@ -14,7 +14,7 @@ const ToggleSupportDropDown = () => {
       style={{
         position: 'absolute',
         backgroundColor: theme.colors?.$primary
-          ? theme.colors?.$primary[50]
+          ? theme.colors?.$primary[100]
           : 'transparent',
         width: 60,
         minHeight: 50,
@@ -28,7 +28,7 @@ const ToggleSupportDropDown = () => {
       from={{ height: isMenuOpen ? 240 : 25 }}
       animate={{ height: isMenuOpen ? 240 : 25 }}
       transition={{
-        damping: 8,
+        damping: 10,
         mass: 1,
         type: 'spring',
       }}
@@ -52,7 +52,7 @@ const ToggleSupportDropDown = () => {
         />
       </MotiView>
 
-      <View sx={{ height: 50 }} />
+      <View sx={{ height: 40 }} />
 
       <AnimatePresence>
         {isMenuOpen && (
@@ -67,29 +67,21 @@ const ToggleSupportDropDown = () => {
             {mediaList.map((item) => {
               return (
                 <>
-                  {item.icon ? (
-                    <IconButton
-                      key={item.label}
-                      name={item.icon}
-                      size={20}
-                      sx={{
-                        bg: '$primary.500',
-                        borderRadius: 50,
-                        my: '$3',
-                        alignItems: 'center',
-                      }}
-                      iconSx={{ p: '$2' }}
-                      onPress={() => {
-                        Linking.openURL(item.href)
-                      }}
-                    />
-                  ) : (
-                    <Image
-                      alt="zalo"
-                      source={item.image}
-                      style={{ width: 45, height: 45, borderRadius: 50 }}
-                    />
-                  )}
+                  <IconButton
+                    key={item.label}
+                    name={item.icon}
+                    size={24}
+                    sx={{
+                      bg: '$primary.500',
+                      borderRadius: 50,
+                      my: '$2',
+                      alignItems: 'center',
+                    }}
+                    iconSx={{ p: 5 }}
+                    onPress={() => {
+                      Linking.openURL(item.href)
+                    }}
+                  />
                 </>
               )
             })}
