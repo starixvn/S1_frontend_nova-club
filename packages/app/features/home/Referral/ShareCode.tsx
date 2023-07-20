@@ -6,15 +6,17 @@ import { copyToClipboard } from 'app/utils'
 import { Text, View } from 'dripsy'
 import React from 'react'
 import { usePlayerProfileQuery } from 'services/playerApi'
+import { DEV_DOMAIN } from '../../../../../apps/next/config/env'
 
 const ShareCode = () => {
   const { t } = useLocalization()
 
   const { data } = usePlayerProfileQuery()
+  const referralLink = `${DEV_DOMAIN}/download?ref=${data?.referral_code}`
 
   return (
     <View sx={{ width: '50%', alignItems: 'center' }}>
-      <Text sx={{ fontSize: 20, fontWeight: '500' }}>
+      <Text sx={{ fontSize: 20, fontWeight: '500', textAlign: 'center' }}>
         {t('referral.shareMessage')}
       </Text>
       <Text
@@ -28,20 +30,30 @@ const ShareCode = () => {
       >
         {t('referral.shareContent')}
       </Text>
-      <BouncePressable
-        onPress={() => copyToClipboard(data?.referral_code)}
-        sx={{
-          bg: '$primary.500',
-          padding: 10,
-          borderRadius: 20,
-          marginTop: 10,
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}
-      >
-        <Text sx={{ fontSize: 14 }}>{t('referral.code')}</Text>
-        <Icon name={'copy'} color={'white'} size={12} sx={{ padding: 5 }} />
-      </BouncePressable>
+      {data && (
+        <BouncePressable
+          onPress={() => copyToClipboard(referralLink)}
+          sx={{
+            bg: 'rgba(255,255,255,0.3)',
+            borderRadius: 20,
+            marginTop: 10,
+            flexDirection: 'row',
+            alignItems: 'center',
+            px: '$3',
+            py: 1,
+          }}
+        >
+          <Text sx={{ fontSize: 14, mx: '$1', fontWeight: 'bold' }}>
+            {t('common.copy')}
+          </Text>
+          <Icon
+            name={'copy'}
+            color={'white'}
+            size={20}
+            sx={{ padding: 5, mx: '$1' }}
+          />
+        </BouncePressable>
+      )}
     </View>
   )
 }

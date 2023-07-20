@@ -9,7 +9,8 @@ export const CONTACT_LIST = [
   },
   {
     label: SocialMedia.ZALO,
-    icon: 'telegram',
+    image: require('../../assets/images/social-media/zalo.jpg'),
+    // icon: 'zalo',
   },
   {
     label: SocialMedia.LIVECHAT,

@@ -129,7 +129,7 @@ const AppDownloadSection = () => {
         {isPlaying && (
           <Video
             source={HowToInstall}
-            videoStyle={{ position: 'relative' }}
+            videoStyle={{ position: 'relative', minHeight: 375 }}
             isLooping
             shouldPlay={isPlaying}
             useNativeControls
