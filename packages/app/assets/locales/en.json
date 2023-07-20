@@ -84,7 +84,8 @@
     "agentLogin": "Agent Login",
     "logout": "Logout",
     "home": "Home",
-    "showMore": "Show More"
+    "showMore": "Show More",
+    "copy": "Copy"
   },
   "contact": {
     "customerSupport": "Customer Support",

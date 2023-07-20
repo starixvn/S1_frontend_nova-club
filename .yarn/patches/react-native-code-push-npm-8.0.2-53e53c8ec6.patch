@@ -1,0 +1,20 @@
+diff --git a/android/codepush.gradle b/android/codepush.gradle
+index a0f9d27488afe45a1141a1ccab1852c47e6bf1be..7a1f77444d17f382dc075998cd4ed549caaaac14 100644
+--- a/android/codepush.gradle
++++ b/android/codepush.gradle
+@@ -32,14 +32,7 @@ gradle.projectsEvaluated {
+             return;
+         }
+ 
+-        def nodeModulesPath;
+-        if (config.root) {
+-            nodeModulesPath = Paths.get(config.root.asFile.get().absolutePath, "/node_modules");
+-        } else if (project.hasProperty('nodeModulesPath')) {
+-            nodeModulesPath = project.nodeModulesPath
+-        } else {
+-            nodeModulesPath = "../../node_modules";
+-        }
++        def nodeModulesPath = "../../../../node_modules";
+ 
+         def targetName = variant.name.capitalize()
+         def targetPath = variant.dirName

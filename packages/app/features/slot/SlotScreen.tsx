@@ -18,12 +18,31 @@ import { Platform } from 'react-native'
 import { Game } from 'services/gameApi.type'
 import BannerSection from '../home/BannerSection'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
-import { View } from 'dripsy'
+import { ActivityIndicator, View } from 'dripsy'
 import { SolitoImage } from 'solito/image'
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import { useRouter } from 'solito/router'
+import SlotSingleProviderListing from './SlotSingleProviderListing'
+import { createParam } from 'solito'
+
+type Params = {
+  provider?: string
+}
+
+const { useParam } = createParam<Params>()
 
 function _SlotScreen() {
   const { t } = useLocalization()
+  const { push } = useRouter()
+
+  const [provider, setProvider] = useParam('provider', {
+    initial: undefined,
+    parse: (templateFromUrl) => {
+      return templateFromUrl && templateFromUrl[0]
+        ? templateFromUrl[0]
+        : undefined
+    },
+  })
 
   const { gamesByProviders } = useGameFilter()
 
@@ -51,7 +70,25 @@ function _SlotScreen() {
   }
 
   function onViewMore(gpc: string) {
-    // TODO open game list by provider
+    if (Platform.OS === 'web') push(`/slots/${gpc}`)
+    else
+      push({
+        pathname: `/slotsByProvider?provider=${gpc.toLowerCase()}`,
+      })
+  }
+
+  if (provider && Platform.OS === 'web') {
+    if (!gamesByProviders) return <ActivityIndicator />
+
+    return (
+      <SlotSingleProviderListing
+        games={gamesByProviders[provider.toUpperCase()]}
+        provider={provider}
+        onBack={() => {
+          setProvider(undefined)
+        }}
+      />
+    )
   }
 
   return (
@@ -68,7 +105,7 @@ function _SlotScreen() {
             <GameSectionByProviderItem
               gpc={item[0].gpc}
               games={item}
-              // onViewMore={onViewMore}
+              onViewMore={onViewMore}
             />
           )
         else return null

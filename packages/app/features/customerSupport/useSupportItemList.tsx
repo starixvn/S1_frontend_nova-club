@@ -1,5 +1,4 @@
 import { SocialMedia, isURLSupported } from 'app/constants/socialMedia'
-import useLocalization from 'app/provider/localization'
 import { useEffect, useState } from 'react'
 
 export const CONTACT_LIST = [
@@ -9,7 +8,7 @@ export const CONTACT_LIST = [
   },
   {
     label: SocialMedia.ZALO,
-    icon: 'telegram',
+    icon: 'zalo',
   },
   {
     label: SocialMedia.LIVECHAT,

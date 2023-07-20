@@ -11594,7 +11594,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-code-push@npm:^8.0.2":
+"react-native-code-push@npm:8.0.2":
   version: 8.0.2
   resolution: "react-native-code-push@npm:8.0.2"
   dependencies:
@@ -11606,6 +11606,21 @@ __metadata:
     semver: ^7.3.5
     xcode: 3.0.1
   checksum: 1f8a3f10e441cbb17bc5ffaa12716102ab65040dc81b81ab0b84b3571d51939a182bda02921f2c5a4788a02ea3cdeb79104644f1e51e6c7df599935b01e30507
+  languageName: node
+  linkType: hard
+
+"react-native-code-push@patch:react-native-code-push@npm%3A8.0.2#./.yarn/patches/react-native-code-push-npm-8.0.2-53e53c8ec6.patch::locator=vuifit%40workspace%3A.":
+  version: 8.0.2
+  resolution: "react-native-code-push@patch:react-native-code-push@npm%3A8.0.2#./.yarn/patches/react-native-code-push-npm-8.0.2-53e53c8ec6.patch::version=8.0.2&hash=6d1fe2&locator=vuifit%40workspace%3A."
+  dependencies:
+    code-push: ^4.1.0
+    glob: ^7.1.7
+    hoist-non-react-statics: ^3.3.2
+    inquirer: ^8.1.5
+    plist: ^3.0.4
+    semver: ^7.3.5
+    xcode: 3.0.1
+  checksum: 3ea3e872c77d483dc86b37bdeef375ac8a78dcc70bae66de396e570f17310fefc340e41a98f39118d43bffb568568e39573df8eeb2dd22e58c5f52fa9f7642da
   languageName: node
   linkType: hard
 
