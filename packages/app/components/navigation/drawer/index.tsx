@@ -8,7 +8,7 @@ import DrawerContent from './DrawerContent'
 // TODOƒ
 /* Overlay */
 export default function Drawer({ children }) {
-  const { width } = useWindowDimensions()
+  const { width, height } = useWindowDimensions()
   const useDrawerAnimation = useAnimationState({
     from: { translateX: width },
     //multiplier should opposite with drawer container width
@@ -25,7 +25,13 @@ export default function Drawer({ children }) {
   }, [isOpen, useDrawerAnimation, width])
 
   return (
-    <View sx={{ flex: 1, overflow: 'hidden' }}>
+    <View
+      sx={{
+        flex: 1,
+        overflow: 'hidden',
+        maxHeight: isOpen ? height : null,
+      }}
+    >
       {children}
       {isOpen && <DrawerOverlay onPress={() => toggleDrawer()} />}
       <DrawerContainer

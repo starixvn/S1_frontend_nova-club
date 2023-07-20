@@ -88,7 +88,7 @@ const AccountVerificationForm = ({
     const params = {
       locale: locale,
     }
-    push('/auth/register/tnc', params)
+    push('/info/tnc')
   }
 
   const handleResendOTP = () => {

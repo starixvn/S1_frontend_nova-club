@@ -88,7 +88,7 @@ export default function DrawerContent() {
         bg: '$primary.500',
         flex: 1,
         width: '100%',
-        height: '100%',
+        height,
         position: 'absolute',
       }}
       contentContainerSx={{

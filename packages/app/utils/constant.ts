@@ -329,7 +329,7 @@ export enum SlotType {
 export const SlotTypeOptions = [
   {
     value: SlotType.ALL,
-    label: 'filter.genre.all',
+    label: 'common.all',
   },
   {
     value: SlotType.NEW,
@@ -463,7 +463,7 @@ export const TURNOVER_NOTES = [
   'notes.turnover.n4',
 ]
 
-export const ALL = 'common.all'
+export const ALL = 'ALL'
 
 export enum ProviderImageCategory {
   LiveCasino = 'livecasino',

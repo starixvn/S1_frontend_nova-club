@@ -11,15 +11,20 @@ import { Linking, Platform } from 'react-native'
 import { Shadow } from 'react-native-shadow-2'
 import useSupportItemList from './useSupportItemList'
 import isDesktop from 'app/utils/isDesktop'
+import usePathname from 'app/hooks/usePathname'
 
 const CustomerSupportScreen = () => {
   const { t } = useLocalization()
   const mediaList = useSupportItemList()
   const desktop = isDesktop()
-  console.log('Re-Render')
+  const pathName = usePathname()
+  const currentPath = pathName.replace('customer-support', '')
+  const contactUsTitle =
+    currentPath === '/account/' ? 'contact.customerSupport' : 'footer.contactUs'
+
   return (
     <PageWithBackHeader
-      header={{ title: t('contact.customerSupport') }}
+      header={{ title: t(contactUsTitle) }}
       hideHeader={desktop}
     >
       <View sx={{ flex: 1, alignItems: 'center' }}>
@@ -32,7 +37,7 @@ const CustomerSupportScreen = () => {
 
         <View
           sx={{
-            minHeight: '200px',
+            minHeight: 200,
           }}
         >
           {mediaList.map((item) => (

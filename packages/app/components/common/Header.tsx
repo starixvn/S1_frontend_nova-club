@@ -1,12 +1,11 @@
 import useOrientation from 'app/hooks/useOrientation'
-import useLocalization from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import isDesktop from 'app/utils/isDesktop'
 import { Pressable, styled, Text, useSx, View } from 'dripsy'
 import { ComponentProps } from 'react'
 import { Platform } from 'react-native'
 import { useRouter } from 'solito/router'
 import Icon from '../Icon'
-import isDesktop from 'app/utils/isDesktop'
 
 type HeaderProps = {
   title?: string
@@ -51,35 +50,27 @@ const Header = ({
           sx={{
             ...(isLandscape ? {} : headerHeight),
             px: isLandscape ? 12 : 4,
+            justifyContent: 'space-between',
           }}
         >
           <Pressable
             onPress={customBack ? customBack : onGoBack}
-            sx={{ p: 4, px: 8, paddingLeft: right }}
+            sx={{ flex: 0.1 }}
           >
             <Icon name="back" size={isLandscape ? 14 : 20} color="white" />
           </Pressable>
-          <View
-            sx={{ alignItems: desktop ? 'flex-start' : 'center', flex: 0.9 }}
+          <Text
+            sx={{
+              fontSize: isLandscape ? 14 : 20,
+              color: 'white',
+              fontWeight: 'bold',
+              ...titleProps?.sx,
+            }}
+            {...titleProps}
           >
-            <Text
-              sx={{
-                fontSize: isLandscape ? 14 : 20,
-                color: 'white',
-                fontWeight: 'bold',
-                ...titleProps?.sx,
-              }}
-              {...titleProps}
-            >
-              {title.toUpperCase()}
-            </Text>
-          </View>
-
-          {actions && (
-            <View sx={{ position: 'absolute', right: isLandscape ? right : 4 }}>
-              {actions}
-            </View>
-          )}
+            {title.toUpperCase()}
+          </Text>
+          <View sx={{ flex: 0.1 }}>{actions && actions}</View>
         </StyledTop>
       </View>
     </View>
