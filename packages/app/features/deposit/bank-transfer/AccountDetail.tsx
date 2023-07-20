@@ -81,7 +81,7 @@ const AccountDetail = ({
         </View>
 
         <View>
-          {qrCode && (
+          {qrCode ? (
             <View
               sx={{ justifyContent: 'center', alignItems: 'center', py: 12 }}
             >
@@ -93,7 +93,7 @@ const AccountDetail = ({
                 sx={{ width: 120, height: 120 }}
               />
             </View>
-          )}
+          ) : null}
         </View>
       </View>
     </View>

@@ -30,7 +30,7 @@ const DepositCard = ({ item, onPress, ...rest }) => {
         ...rest.sx,
       })}
     >
-      <View>
+      <View sx={{ height: 80 }}>
         <Gradient
           colors={theme.linearGradients.surface}
           sx={{
@@ -39,7 +39,6 @@ const DepositCard = ({ item, onPress, ...rest }) => {
             justifyContent: 'center',
             flexDirection: 'row',
             width: '100%',
-            height: 80,
             padding: 15,
             flex: 1,
           }}

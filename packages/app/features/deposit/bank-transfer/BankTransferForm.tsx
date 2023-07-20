@@ -59,13 +59,14 @@ const BankTransferForm = () => {
 
   const horizontalMode = useResponsiveValue([false, false, false, true, true])
 
-  const sheetData = depositPayment?.list.map((item) => {
-    return {
-      label: item.bank_acc_name,
-      value: item.bankTypeId,
-      icon: getBankLogo(item.bank_code),
-    }
-  })
+  const sheetData =
+    depositPayment?.list.map((item) => {
+      return {
+        label: item.bank_acc_name,
+        value: item.bankTypeId,
+        icon: getBankLogo(item.bank_code),
+      }
+    }) ?? []
 
   const handleSelected = (value) => {
     const item = depositPayment?.list?.find((el) => el.bankTypeId === value)
@@ -162,6 +163,7 @@ const BankTransferForm = () => {
       callback: () => handleSubmit(),
     })
   }
+  console.log('first', values.bank?.bank_branch)
 
   return (
     <View sx={{ pt: '$3' }}>
@@ -203,7 +205,7 @@ const BankTransferForm = () => {
             label={t('bank.bankAccount')}
             placeholder={t('placeholder.plsSelectBank')}
             options={sheetData}
-            value={values.bank?.bank_branch ?? ''}
+            value={'values.bank?.bank_acc_no ??'}
             sx={{
               width: '100%',
               mb: '$3',
@@ -211,16 +213,16 @@ const BankTransferForm = () => {
             onSelected={(e) => {
               handleSelected(e)
             }}
-            _input={{
-              error:
-                touched.bank && errors.bank ? (
-                  <Text sx={{ color: errors.bank && '$secondary.500' }}>
-                    {t(errors.bank, {
-                      field: t('common.bank'),
-                    })}
-                  </Text>
-                ) : undefined,
-            }}
+            // _input={{
+            //   error:
+            //     touched.bank && errors.bank ? (
+            //       <Text sx={{ color: errors.bank && '$secondary.500' }}>
+            //         {t(errors.bank, {
+            //           field: t('common.bank'),
+            //         })}
+            //       </Text>
+            //     ) : undefined,
+            // }}
           />
         )}
       </View>
@@ -257,9 +259,11 @@ const BankTransferForm = () => {
           onChangeText={onAmountChanged}
           ref={amountFieldRef}
           action={() => (
-            <Text sx={{ color: '$secondary.100' }}>
-              = {values.amount ? values.amount : 0}K
-            </Text>
+            <>
+              <Text sx={{ color: '$secondary.100' }}>
+                = {values.amount ? values.amount : 0}K
+              </Text>
+            </>
           )}
           error={
             touched.amount && errors.amount
