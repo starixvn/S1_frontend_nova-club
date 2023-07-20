@@ -205,7 +205,7 @@ const BankTransferForm = () => {
             label={t('bank.bankAccount')}
             placeholder={t('placeholder.plsSelectBank')}
             options={sheetData}
-            value={'values.bank?.bank_acc_no ??'}
+            value={values.bank?.bank_acc_no ?? ''}
             sx={{
               width: '100%',
               mb: '$3',
