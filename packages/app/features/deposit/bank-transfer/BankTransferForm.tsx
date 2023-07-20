@@ -265,6 +265,14 @@ const BankTransferForm = () => {
             touched.amount && errors.amount
               ? t(errors.amount, {
                   field: t('common.amount'),
+                  amount: toCurrency(values.realAmount ?? 0, currency, {
+                    forceDecimal: false,
+                    symbol: false,
+                  }),
+                  min: toCurrency(limit.minAmount ?? 0, currency, {
+                    forceDecimal: false,
+                    symbol: false,
+                  }),
                 })
               : undefined
           }

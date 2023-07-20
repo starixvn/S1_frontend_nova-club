@@ -1,4 +1,4 @@
 <resources>
-  <string name="app_name">Vui 123</string>
-  <string name="CodePushDeploymentKey">YOUR_ANDROID_CODE_PUSH_KEY</string>
+  <string name="app_name">Vui Staging 2</string>
+  <string moduleConfig="true" name="CodePushDeploymentKey">SvCxPjLPQNzedhbukfwEbdAHeR5qwCBOJiD6Z</string>
 </resources>
