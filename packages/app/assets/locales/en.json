@@ -11,7 +11,9 @@
     "rememberMe": "Remember Me",
     "forgotPassword": "Forgot Password ?",
     "forgotPasswordHeader": "Forgot Password",
-    "resetPasswordHeader": "Reset Password"
+    "resetPasswordHeader": "Reset Password",
+    "accVerification": "Account Verification",
+    "accountReg": "Account Registration"
   },
   "bank": {
     "accountName": "Account name",

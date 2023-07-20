@@ -22,7 +22,7 @@ const MarqueeFlip = ({
   const [currentIndex, setCurrentIndex] = useState(0)
   const totalIndex = announcementList.length - 1
 
-  const { showAlert } = useAlert()
+  const { showAlert, currentModal } = useAlert()
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -40,10 +40,13 @@ const MarqueeFlip = ({
           'announcementList[currentIndex]?.value',
           announcementList[currentIndex]?.value
         )
-        showAlert({
-          title: announcementList[currentIndex]?.value,
-          message: announcementList[currentIndex]?.item.content,
-        })
+
+        if (!currentModal) {
+          showAlert({
+            title: announcementList[currentIndex]?.value,
+            message: announcementList[currentIndex]?.item.content,
+          })
+        }
       }}
       sx={sx}
     >

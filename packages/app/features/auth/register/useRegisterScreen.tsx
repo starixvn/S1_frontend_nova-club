@@ -16,7 +16,9 @@ import useContainerWidth from 'app/hooks/useContainerWidth'
 import { View as RNView } from 'react-native'
 import * as Yup from 'yup'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
-import { Shield_Action } from 'services/authApi.type'
+import { LoginResult, Shield_Action } from 'services/authApi.type'
+import { useRouter } from 'solito/router'
+import { AuthActions } from 'app/store/authReducer'
 
 const { useParam } = createParam<{ t: LoginType }>()
 
@@ -24,6 +26,7 @@ export default function useRegisterScreen(rootView: RefObject<RNView>) {
   const { showAlert } = useAlert()
   const width = useContainerWidth(rootView)
   const dispatch = useAppDispatch()
+  const { push } = useRouter()
 
   const [routes] = useState([
     { key: 'first', title: 'common.player', index: 0 },
@@ -80,6 +83,8 @@ export default function useRegisterScreen(rootView: RefObject<RNView>) {
     }).unwrap()
 
     if (success) {
+      dispatch(AuthActions.setAuthInfo(data as LoginResult))
+      push('/')
       // dispatch()
       dispatch(
         TempSettingActions.setSyncShieldActionType(Shield_Action.REGISTER)

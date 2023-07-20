@@ -10,11 +10,13 @@ import React, { useEffect, useRef } from 'react'
 import { View as RNView } from 'react-native'
 import AuthLayout from '../AuthLayout'
 import { useModal } from 'react-native-modalfy'
+import useLocalization from 'app/provider/localization'
 
 type Props = {}
 
 export default function RegisterScreen({}: Props) {
   const rootRef = useRef<RNView>(null)
+  const { t } = useLocalization()
   const { closeModal, openModal } = useModal()
 
   const {
@@ -36,7 +38,7 @@ export default function RegisterScreen({}: Props) {
   }, [])
 
   return (
-    <AuthLayout headerDesc="ACCOUNT REGISTRATION">
+    <AuthLayout headerDesc={t('authentication.accountReg')}>
       <View ref={rootRef} sx={{ overflow: 'hidden', py: 20 }}>
         {/* <Button onPress={onRegisterSuccess}> asdf</Button>
       <Button onPress={onBack}> onBack</Button> */}
@@ -86,9 +88,10 @@ export default function RegisterScreen({}: Props) {
                     textAlign: 'center',
                     fontWeight: 'bold',
                     mt: FONT_TOP_OFFSET,
+                    textTransform: 'uppercase',
                   }}
                 >
-                  ACCOUNT VERIFICATION
+                  {t('authentication.accVerification')}
                 </Text>
                 <IconButton name="back" sx={{ opacity: 0 }} />
               </Row>

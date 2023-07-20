@@ -1,3 +1,4 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { FlashList } from '@shopify/flash-list'
 import GamePageHeader from 'app/components/GamePageHeader'
 import GameListSectionAsyncByTag from 'app/components/game/GameListSectionAsyncByTag'
@@ -13,17 +14,17 @@ import {
   ProviderImageCategory,
   SlotType,
 } from 'app/utils/constant'
-import React, { useMemo, useRef } from 'react'
-import { Platform } from 'react-native'
-import { Game } from 'services/gameApi.type'
-import BannerSection from '../home/BannerSection'
-import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 import { ActivityIndicator, View } from 'dripsy'
-import { SolitoImage } from 'solito/image'
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { useRouter } from 'solito/router'
-import SlotSingleProviderListing from './SlotSingleProviderListing'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
+import { InteractionManager, Platform } from 'react-native'
+import { Game } from 'services/gameApi.type'
 import { createParam } from 'solito'
+import { SolitoImage } from 'solito/image'
+import { useRouter } from 'solito/router'
+import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
+import SlotSingleProviderListing from './SlotSingleProviderListing'
+import { useGameListMultipleQuery } from 'services/gameApi'
+import groupBy from 'lodash/groupBy'
 
 type Params = {
   provider?: string
@@ -31,9 +32,14 @@ type Params = {
 
 const { useParam } = createParam<Params>()
 
-function _SlotScreen() {
+function SlotScreen() {
   const { t } = useLocalization()
   const { push } = useRouter()
+
+  const [isDelayed, setDelayed] = useState(false)
+  useEffect(() => {
+    setTimeout(() => setDelayed(true), 3000)
+  })
 
   const [provider, setProvider] = useParam('provider', {
     initial: undefined,
@@ -44,7 +50,18 @@ function _SlotScreen() {
     },
   })
 
-  const { gamesByProviders } = useGameFilter()
+  const { data: games, isUninitialized } = useGameListMultipleQuery(
+    {
+      game_category: [GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING],
+    },
+    {
+      skip: !isDelayed,
+    }
+  )
+
+  const gamesByProviders = useMemo(() => {
+    return groupBy(games, 'gpc')
+  }, [games])
 
   const providers = useMemo(() => {
     return Object.keys(gamesByProviders)
@@ -76,6 +93,9 @@ function _SlotScreen() {
         pathname: `/slotsByProvider?provider=${gpc.toLowerCase()}`,
       })
   }
+
+  // if (!isDelayed || isUninitialized)
+  //   return <ActivityIndicator color="$tertiary" sx={{ my: '$3' }} />
 
   if (provider && Platform.OS === 'web') {
     if (!gamesByProviders) return <ActivityIndicator />
@@ -127,30 +147,33 @@ function _SlotScreen() {
             tag={SlotType.NEW}
             title={t('game.new').toUpperCase()}
             icon="star"
+            delay={100}
           />
           <GameListSectionAsyncByTag
             tag={SlotType.JACKPOT}
             title={t('game.jackpot').toUpperCase()}
             icon="jackpot"
+            delay={500}
           />
           <GameListSectionAsyncByTag
             tag={SlotType.MEGAWAY}
             title={'MEGAWAY'}
             icon="megaway"
+            delay={1000}
           />
-          <ProviderList
-            data={providers}
-            onNavigateProvider={onNavigate}
-            imageCategory={ProviderImageCategory.Slot}
-          />
+          {isUninitialized ? (
+            <ActivityIndicator color="$tertiary" sx={{ my: '$3' }} />
+          ) : (
+            <ProviderList
+              data={providers}
+              onNavigateProvider={onNavigate}
+              imageCategory={ProviderImageCategory.Slot}
+            />
+          )}
         </View>
       }
     />
   )
 }
-
-const SlotScreen = withGameFilterProvider(_SlotScreen, {
-  gameTypes: [GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING],
-})
 
 export default SlotScreen

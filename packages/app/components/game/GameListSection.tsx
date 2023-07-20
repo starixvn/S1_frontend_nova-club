@@ -18,14 +18,23 @@ export default function GameListSection({
   return (
     <View>
       <SectionHeader icon={icon} title={title} />
-      {data ? (
-        <HorizontalGameList data={data} />
-      ) : (
-        <ActivityIndicator
-          sx={{ my: ['$2', '$3'], alignSelf: 'flex-start', ml: '$pagePadding' }}
-          color="$tertiary"
-        />
-      )}
+      <View
+        sx={{
+          height: [90, 120],
+          justifyContent: 'center',
+        }}
+      >
+        {data ? (
+          <HorizontalGameList data={data} />
+        ) : (
+          <ActivityIndicator
+            sx={{
+              my: ['$2', '$3'],
+            }}
+            color="$primary.100"
+          />
+        )}
+      </View>
     </View>
   )
 }

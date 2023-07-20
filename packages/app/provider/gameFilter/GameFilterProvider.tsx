@@ -88,7 +88,6 @@ const GameFilterProvider = ({
   }
 
   useEffect(() => {
-    console.log('on games loaded')
     if (games && games.length > 0 && !filteredGames) {
       setFilteredGames(games)
     }

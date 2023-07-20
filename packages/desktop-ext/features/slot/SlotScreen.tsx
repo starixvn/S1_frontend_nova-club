@@ -1,20 +1,16 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import GameSectionByProviderItem from 'app/components/game/GameSectionByProviderItem'
 import RecentlyPlayedSection from 'app/features/home/RecentlyPlayedSection'
-import {
-  useGameFilter,
-  withGameFilterProvider,
-} from 'app/provider/gameFilter/GameFilterProvider'
 import { GAME_TYPE_CODE, ProviderImageCategory } from 'app/utils/constant'
+import LatestWinnerSection from 'desktop-ext/components/game/LatestWinnerSection'
 import ProviderList from 'desktop-ext/components/game/ProviderList'
 import { ActivityIndicator, Container, Pressable, Row, View } from 'dripsy'
+import groupBy from 'lodash/groupBy'
 import React, { startTransition, useEffect, useMemo, useState } from 'react'
 import { useGameListMultipleQuery } from 'services/gameApi'
-import { createParam } from 'solito'
-import groupBy from 'lodash/groupBy'
 import { Game, LatestWinnerType } from 'services/gameApi.type'
-import LatestWinnerSection from 'desktop-ext/components/game/LatestWinnerSection'
+import { createParam } from 'solito'
 import { SolitoImage } from 'solito/image'
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 type Props = {}
 
