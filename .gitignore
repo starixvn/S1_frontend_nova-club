@@ -83,3 +83,5 @@ build/**
 
 apps/expo/CodePush/android/*
 apps/expo/CodePush/ios/*
+
+# apps/expo/**/release
