@@ -2,6 +2,7 @@ import { DrawerContext } from 'app/hooks/useDrawer'
 import { useCallback, useState } from 'react'
 import Drawer, { MemoDrawer } from '.'
 import { useResponsiveValue } from 'dripsy'
+import { useAppSelector } from 'app/provider/redux/store'
 
 const DrawerProvider = ({ children }) => {
   const [isOpen, setOpen] = useState(false)
@@ -10,6 +11,12 @@ const DrawerProvider = ({ children }) => {
   const toggleDrawer = useCallback((open?: boolean) => {
     setOpen((prev) => (open === undefined ? !prev : open))
   }, [])
+
+  const splashScreenLoaded = useAppSelector(
+    (s) => s.tempSetting.splashScreenLoaded
+  )
+
+  if (!splashScreenLoaded) return children
 
   return (
     <DrawerContext.Provider value={{ isOpen, toggleDrawer }}>
