@@ -41,16 +41,17 @@ const DepositCard = ({ item, onPress, ...rest }) => {
             width: '100%',
             height: 80,
             padding: 15,
+            flex: 1,
           }}
         >
-          <View sx={{ width: '30%' }}>
+          <View>
             <IconBorder
               IconName={item.icon}
               IconSize={23}
               IconColor={'white'}
             />
           </View>
-          <View sx={{ width: '70%' }}>
+          <View sx={{ width: '65%', p: 1 }}>
             <Text
               numberOfLines={2}
               sx={{

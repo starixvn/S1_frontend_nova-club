@@ -1,7 +1,7 @@
 import { useDrawer } from 'app/hooks/useDrawer'
 import { Pressable, View, styled } from 'dripsy'
 import { MotiView, useAnimationState } from 'moti'
-import React, { useEffect } from 'react'
+import React, { memo, useEffect } from 'react'
 import { useWindowDimensions } from 'react-native'
 import DrawerContent from './DrawerContent'
 
@@ -22,10 +22,10 @@ export default function Drawer({ children }) {
     } else {
       useDrawerAnimation.transitionTo('from')
     }
-  }, [isOpen, useDrawerAnimation])
+  }, [isOpen, useDrawerAnimation, width])
 
   return (
-    <View sx={{ flex: 1 }}>
+    <View sx={{ flex: 1, overflow: 'hidden' }}>
       {children}
       {isOpen && <DrawerOverlay onPress={() => toggleDrawer()} />}
       <DrawerContainer
@@ -50,4 +50,7 @@ const DrawerContainer = styled(MotiView)({
   width: '60%',
   height: '100%',
   backgroundColor: 'rgba(0,0,0,0.3)',
+  zIndex: 1,
 })
+
+export const MemoDrawer = memo(Drawer)

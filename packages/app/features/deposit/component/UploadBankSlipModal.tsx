@@ -82,7 +82,7 @@ const UploadBankSlipModal = ({ modal: { closeModal, getParam } }) => {
   return (
     <ModalWrapper>
       <ModalContent
-        title="Upload Bank Slip"
+        title="deposit.uploadBankSlip"
         actions={[
           {
             label: t('common.cancel'),
