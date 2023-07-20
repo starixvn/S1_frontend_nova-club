@@ -1,8 +1,6 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { FlashList } from '@shopify/flash-list'
 import Icon from 'app/components/Icon'
-import IconButtonGradientGroup from 'app/components/IconButtonGradientGroup'
-import IconButtonGradientToggle from 'app/components/IconButtonGradientToggle'
 import Shadow from 'app/components/Shadow'
 import GameCard from 'app/components/game/GameCard'
 import GameListSectionGrid from 'app/components/game/GameListSectionGrid'
@@ -16,13 +14,11 @@ import {
   View,
   useDripsyTheme,
   useResponsiveValue,
-  useSx,
 } from 'dripsy'
 import union from 'lodash/union'
 import React, { startTransition, useEffect, useMemo, useState } from 'react'
 import { Game } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
-import { MobileGamesFilter } from './subroutes'
 
 interface SlotSingleProviderListingProps {
   games: Game[]
@@ -71,6 +67,7 @@ const SlotSingleProviderListing = ({
       <View sx={{ gap: '$3' }}>
         <Pressable onPress={onBack}>
           <Shadow
+            safeRender
             offset={[0, -1]}
             startColor={theme.colors.$primary[100]}
             distance={1}

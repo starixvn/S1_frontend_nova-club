@@ -27,7 +27,7 @@ export default function HorizontalGameList({
       contentContainerSx={{
         gap: ['$2', '$3'],
         px: ['$2', '$3'],
-        pt: ['$2', '$3'],
+        pt: ['$2', '$3'], // Beware on parent height at GameListSection
       }}
       {...rest}
     >
