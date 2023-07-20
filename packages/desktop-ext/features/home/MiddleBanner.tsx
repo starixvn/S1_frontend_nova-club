@@ -1,16 +1,14 @@
-import { Pressable, Row, SxProp, View } from 'dripsy'
-import React, { ComponentProps } from 'react'
-import { Video, ResizeMode } from 'expo-av'
-import { Platform, ViewProps } from 'react-native'
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import VideoBanner from './VideoBanner'
+import { Pressable, Row, View } from 'dripsy'
+import React, { ComponentProps } from 'react'
 import { useRouter } from 'solito/router'
+import VideoBanner from './VideoBanner'
 
 const subs = [
   {
     label: 'Live Casino',
     video: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/livecasino.mp4`,
-    onPress: '/games/livecasino',
+    onPress: '/livecasino',
   },
   {
     label: 'Fishing',
@@ -30,11 +28,13 @@ const MiddleBanner = (props: MiddleBannerProps) => {
   const { push } = useRouter()
   return (
     <View {...props}>
-      <VideoBanner
-        sx={{ aspectRatio: 880 / 420, bg: '$secondary.500' }}
-        uri={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/sportsbook.mp4`}
-        label={'Sportsbook'}
-      />
+      <Pressable onPress={() => push('/sportsbook')}>
+        <VideoBanner
+          sx={{ aspectRatio: 880 / 420, bg: '$secondary.500' }}
+          uri={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/sportsbook.mp4`}
+          label={'Sportsbook'}
+        />
+      </Pressable>
       <Row sx={{ flex: 1, gap: '$3' }}>
         {subs.map((s) => {
           return (

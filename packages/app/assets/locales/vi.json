@@ -87,7 +87,8 @@
     "logout": "Thoát",
     "home": "Trang Chủ",
     "showMore": "Cho xem nhiều hơn",
-    "copy": "Sao chép"
+    "copy": "Sao chép",
+    "loading": "Đang tải"
   },
   "contact": {
     "customerSupport": "Hỗ trợ khách hàng",

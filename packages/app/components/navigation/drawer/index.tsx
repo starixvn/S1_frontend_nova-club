@@ -2,7 +2,7 @@ import { useDrawer } from 'app/hooks/useDrawer'
 import { Pressable, View, styled } from 'dripsy'
 import { MotiView, useAnimationState } from 'moti'
 import React, { memo, useEffect } from 'react'
-import { useWindowDimensions } from 'react-native'
+import { Platform, useWindowDimensions } from 'react-native'
 import DrawerContent from './DrawerContent'
 
 // TODOƒ
@@ -19,10 +19,12 @@ export default function Drawer({ children }) {
   useEffect(() => {
     if (isOpen) {
       useDrawerAnimation.transitionTo('toggle')
-      document.documentElement.classList.add('overflow-hidden')
+      Platform.OS === 'web' &&
+        document.documentElement.classList.add('overflow-hidden')
     } else {
       useDrawerAnimation.transitionTo('from')
-      document.documentElement.classList.remove('overflow-hidden')
+      Platform.OS === 'web' &&
+        document.documentElement.classList.remove('overflow-hidden')
     }
   }, [isOpen, useDrawerAnimation, width])
 
