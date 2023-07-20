@@ -70,7 +70,7 @@ const Header = () => {
   const onChangeLanguage = (value: LANGUAGE_CODE) => {
     dispatch(SettingActions.setLocale(value))
   }
-  console.log('header here<><><')
+
   return (
     <View sx={{ bg: '#004fd0', pt: top, pl: left, pr: right }}>
       <View sx={{ py: '$1', px: '$1' }}>

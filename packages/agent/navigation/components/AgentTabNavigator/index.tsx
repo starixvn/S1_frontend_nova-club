@@ -12,6 +12,7 @@ import { useAgentLocalization } from 'app/provider/localization'
 import * as React from 'react'
 import { Platform, StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
 import AgentShareholderTabs from './AgentShareholderTabs'
+import AnnouncementSection from 'agent/components/Announcement/AnnouncementSection'
 
 // Props accepted by the view
 type TabNavigationConfig = {
@@ -68,6 +69,8 @@ function AgentTabNavigator({
   return (
     <NavigationContent>
       <AgentShareholderTabs />
+      <AnnouncementSection />
+
       <View style={[{ flex: 1 }]}>
         {state.routes.map((route, i) => {
           const isFocused = i === state.index

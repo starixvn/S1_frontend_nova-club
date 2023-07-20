@@ -100,6 +100,7 @@ const nextConfig = {
     'redux-persist',
     'react-native-chart-kit',
     'react-native-keyboard-aware-scroll-view',
+    'react-native-render-html',
   ],
   async redirects() {
     return [

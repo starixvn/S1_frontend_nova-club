@@ -5,6 +5,7 @@ import AgentProvider from 'agent/provider'
 import { View } from 'dripsy'
 import { ReactNode } from 'react'
 import NavigationLoading from './NavigationLoading'
+import AnnouncementSection from 'agent/components/Announcement/AnnouncementSection'
 
 const AgentLayout = ({ children }: { children: ReactNode }) => {
   return (
@@ -18,6 +19,7 @@ const AgentLayout = ({ children }: { children: ReactNode }) => {
         }}
       >
         <HeaderFloat />
+        <View sx={{ mb: 32 }} />
         {children}
         <NavigationLoading />
         <BottomTabFloat />
@@ -39,6 +41,7 @@ const HeaderFloat = ({}) => {
     >
       <Header />
       <AgentShareholderTab />
+      <AnnouncementSection />
     </View>
   )
 }

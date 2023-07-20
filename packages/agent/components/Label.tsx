@@ -31,7 +31,8 @@ const Label = (props: InputLabelProps) => {
       sx={{
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        my: '$0a',
+        mt: '$2',
+        mb: '$1',
       }}
       {...Platform.select({
         web: {

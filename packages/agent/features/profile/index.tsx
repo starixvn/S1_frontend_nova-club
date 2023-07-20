@@ -20,10 +20,7 @@ const AgentProfile = () => {
   const downline = profile?.total_downline
 
   return (
-    <DripsyGradient
-      locations={[0.0, 0.1]}
-      colors={['rgb(224,237,254)', '#ffffff']}
-    >
+    <DripsyGradient locations={[0.0, 0.1]} gradient="agentContent">
       <ScrollView sx={{ px: '$3', pt: '$4' }}>
         <ProfileTitle userRole={userRole} />
         <Card isLoading={loading} sx={{ mb: 30 }}>

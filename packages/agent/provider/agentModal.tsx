@@ -97,7 +97,7 @@ function getDynamicComponent(key: string) {
     loading: (props) => {
       return (
         <ModalWrapper>
-          <ActivityIndicator sx={{ mt: '$10' }} color={'$lightCyan'} />
+          <ActivityIndicator sx={{ mt: '$4' }} color={'$lightCyan'} />
         </ModalWrapper>
       )
     },

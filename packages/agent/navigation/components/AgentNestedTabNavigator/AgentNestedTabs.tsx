@@ -5,6 +5,7 @@ import React from 'react'
 import AgentNestedTabBar from './AgentNestedTabBar'
 import AgentNestedTabBarItem from './AgentNestedTabBarItem'
 import { useRouter } from 'solito/router'
+import usePathname from 'app/hooks/usePathname'
 
 export default function AgentNestedTabs({
   routes,
@@ -14,13 +15,13 @@ export default function AgentNestedTabs({
   const { push } = useRouter()
   const { t } = useAgentLocalization()
 
-  const currentPath = window?.location?.pathname
+  const pathname = usePathname()
 
   return (
     <AgentNestedTabBar>
       {routes &&
         routes.map((r) => {
-          const isActive = currentPath.includes(r.route)
+          const isActive = pathname.includes(r.route)
 
           return (
             <AgentNestedTabBarItem

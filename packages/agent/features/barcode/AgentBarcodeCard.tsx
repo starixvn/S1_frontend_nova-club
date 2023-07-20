@@ -74,7 +74,7 @@ const AgentBarcodeCard = ({ userId }: { userId: number }) => {
 
   return (
     <Card
-      sx={{ my: '$2', py: '$10', px: '$5', width: cardWidth }}
+      sx={{ my: '$2', py: '$4', px: '$5', width: cardWidth }}
       isLoading={isLoading}
     >
       {domain ? BarcodeCard : null}

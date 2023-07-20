@@ -3,11 +3,12 @@ import AgentRoutes from 'agent/navigation/routes/AgentRoutes'
 import ShareholderRoutes from 'agent/navigation/routes/ShareholderRoutes'
 import { useUserInfoQuery } from 'agent/services/userApi'
 import { ROLE } from 'agent/utils/helper'
+import usePathname from 'app/hooks/usePathname'
 import { useAgentLocalization } from 'app/provider/localization'
 import React, { useMemo } from 'react'
+import { useRouter } from 'solito/router'
 import AgentTabBar from './AgentTabBar'
 import AgentTabBarItem from './AgentTabBarItem'
-import { useRouter } from 'solito/router'
 
 export default function AgentShareholderTabBar({}) {
   const { isAgent } = useUserInfoQuery(undefined, {
@@ -17,7 +18,7 @@ export default function AgentShareholderTabBar({}) {
   const { push } = useRouter()
   const { t } = useAgentLocalization()
 
-  const currentPath = window?.location?.pathname
+  const pathname = usePathname()
 
   const routes = useMemo(() => {
     return isAgent ? AgentRoutes : ShareholderRoutes
@@ -27,7 +28,7 @@ export default function AgentShareholderTabBar({}) {
     <AgentTabBar>
       {routes &&
         routes.map((r) => {
-          const isActive = currentPath.includes(r.base ?? r.route)
+          const isActive = pathname.includes(r.base ?? r.route)
 
           return (
             <AgentTabBarItem

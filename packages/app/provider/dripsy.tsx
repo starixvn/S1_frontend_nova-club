@@ -120,6 +120,7 @@ const theme = makeTheme({
     $grayAgent: '#505050',
     $tableHeader: '#d1d1d1',
     $tableBorder: '#AEAFAF',
+    $contentSlightBlue: '#e0edfe',
   },
   linearGradients: {
     button: ['$primary.100', '$tertiary'],
@@ -128,6 +129,7 @@ const theme = makeTheme({
     ball: ['$success', '$error'],
     shading: ['$primary.500', '$transparent'],
     secondary: ['$secondary.100', '$secondary.500'],
+    agentContent: ['$contentSlightBlue', '$white'],
   },
   shadows: {
     md: {
