@@ -31,7 +31,7 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
   const { t } = useLocalization()
   const dispatch = useDispatch()
   const { push } = useRouter()
-  const { closeAllModals } = useModal()
+  // const { closeModal } = useModal()
 
   const { width: fullWidth, height } = useContainerDimension()
   const { width: windowWidth } = useWindowDimensions()
@@ -96,7 +96,7 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
   }
 
   const handleClose = () => {
-    closeAllModals()
+    closeModal()
     dispatch(SettingActions.setLuckyDrawBalance(0))
   }
 
