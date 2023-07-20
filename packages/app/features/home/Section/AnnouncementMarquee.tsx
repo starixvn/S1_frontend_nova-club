@@ -26,6 +26,8 @@ const AnnouncementMarquee = () => {
     MarqueeItem<AnnouncementListItems>[]
   >([])
 
+  const fontColor = ANNOUNCEMENT_CONTEXT_COLOR
+
   useEffect(() => {
     if (data?.data && data.data.list && isSuccess) {
       setMarquees(
@@ -49,7 +51,7 @@ const AnnouncementMarquee = () => {
     <StyledContainer>
       <TouchableOpacity onPress={onPress}>
         <DripsyGradient
-          gradient="darkBlue"
+          gradient={'darkBlue'}
           sx={{
             flexDirection: 'row',
             alignItems: 'center',
@@ -62,7 +64,7 @@ const AnnouncementMarquee = () => {
           ) : (
             <Icon
               name="annoucement"
-              sx={{ color: ANNOUNCEMENT_CONTEXT_COLOR, mr: '$2' }}
+              sx={{ color: fontColor, mr: '$2' }}
               size={18}
             />
           )}
@@ -70,7 +72,7 @@ const AnnouncementMarquee = () => {
             <MarqueeFlip
               announcementList={marquees}
               announcementHeight={ANNOUNCEMENT_HEIGHT}
-              color={ANNOUNCEMENT_CONTEXT_COLOR}
+              color={fontColor}
             />
           )}
         </DripsyGradient>

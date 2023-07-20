@@ -5,6 +5,7 @@ import Header from 'agent/navigation/Header'
 import React from 'react'
 import { createAgentTabNavigator } from '../components/AgentTabNavigator'
 import AddNavigation from './AddNavigation'
+import AgentInboxNavigation from './AgentInboxNavigation'
 import ListNavigation from './ListNavigation'
 import ReportNavigation from './ReportNavigation'
 import WalletNavigation from './WalletNavigation'
@@ -32,6 +33,7 @@ const AgentMainTabNavigation = () => {
         <Tab.Screen name="Report" component={ReportNavigation} />
         <Tab.Screen name="MemberList" component={MemberListingPage} />
         <Tab.Screen name="Barcode" component={AgentBarcodePage} />
+        <Tab.Screen name="Inbox" component={AgentInboxNavigation} />
       </Tab.Navigator>
     </>
   )

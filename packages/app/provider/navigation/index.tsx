@@ -103,6 +103,14 @@ export function NavigationProvider({
                               Transaction: '/transaction',
                             },
                           },
+                          Inbox: {
+                            path: '/inbox',
+                            initialRouteName: 'Announcement',
+                            screens: {
+                              Announcement: '/announcement',
+                              Message: '/message',
+                            },
+                          },
                         },
                       },
                       ShareholderDetails: '/agent/list/shareholder/:id',
