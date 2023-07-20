@@ -1,18 +1,17 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import useContainerWidth from 'app/hooks/useContainerWidth'
-import { Row, SxProp, Text, View, useDripsyTheme } from 'dripsy'
-import { Skeleton } from 'moti/skeleton'
-import React, { ComponentType, useLayoutEffect, useRef, useState } from 'react'
-import { View as RNView, useWindowDimensions } from 'react-native'
+import { Row, SxProp, View, useDripsyTheme, useResponsiveValue } from 'dripsy'
+import React, { useRef } from 'react'
+import { View as RNView } from 'react-native'
 import Animated, {
-  useAnimatedStyle,
-  interpolate,
   Extrapolate,
+  interpolate,
+  useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated'
 import Carousel, { TCarouselProps } from 'react-native-reanimated-carousel'
 import { BannerResult } from 'services/contentApi.type'
-import { SolitoImage } from 'solito/image'
+import { SolitoImage, ResizeMode } from 'solito/image'
 import SkeletonPlaceholder from '../SkeletonPlaceholder'
 
 export interface BannerCarouselProps
@@ -35,8 +34,9 @@ export default function BannerCarousel({
 
   const width = useContainerWidth(rootRef)
 
-  const ratio = 1920 / 500
+  const ratio = useResponsiveValue([2.688, 2.688, 2.688, 3.84])
   const height = width / ratio
+
   const showCarousel = data != null && width > 0
 
   return (
@@ -73,7 +73,7 @@ export default function BannerCarousel({
                   height={height}
                   width={width}
                   alt={item.alt ?? ''}
-                  resizeMode="cover"
+                  contentFit="cover"
                 />
               </View>
             )}
