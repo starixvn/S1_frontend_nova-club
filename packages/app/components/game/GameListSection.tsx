@@ -31,7 +31,7 @@ export default function GameListSection({
             sx={{
               my: ['$2', '$3'],
             }}
-            color="$tertiary"
+            color="$primary.100"
           />
         )}
       </View>

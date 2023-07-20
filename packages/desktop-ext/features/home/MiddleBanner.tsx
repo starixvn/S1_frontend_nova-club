@@ -35,7 +35,7 @@ const MiddleBanner = (props: MiddleBannerProps) => {
         uri={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/sportsbook.mp4`}
         label={'Sportsbook'}
       />
-      <Row sx={{ flex: 1, gap: '$3', minHeight: 300 }}>
+      <Row sx={{ flex: 1, gap: '$3' }}>
         {subs.map((s) => {
           return (
             <Pressable
