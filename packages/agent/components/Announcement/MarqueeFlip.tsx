@@ -1,11 +1,10 @@
 import { AnnouncementItem } from 'agent/services/contentApi.type'
-import useAlert from 'app/hooks/useAlert'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { ActivityIndicator, Pressable, SxProp, View, styled } from 'dripsy'
 import { AnimatePresence, MotiText } from 'moti'
 import React, { useEffect, useState } from 'react'
-import { MarqueeItem } from './type'
 import Icon from '../Icon'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
+import { MarqueeItem } from './type'
 
 export interface MarqueeFlipProp {
   announcementList?: MarqueeItem<AnnouncementItem>[]
@@ -29,7 +28,7 @@ const MarqueeFlip = ({
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      if (currentIndex === totalIndex) {
+      if (currentIndex >= totalIndex) {
         setCurrentIndex(0)
       } else setCurrentIndex(currentIndex + 1)
     }, 5000)
