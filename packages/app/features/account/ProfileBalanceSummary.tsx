@@ -105,7 +105,7 @@ const ProfileBalanceSummary = ({
             <HiddenItem
               color={theme.colors.$secondary[100]}
               iconName="cash"
-              label="cash"
+              label={t('common.cash')}
               value={cash}
               isLoading={isLoading}
               currency={currency}
@@ -114,7 +114,7 @@ const ProfileBalanceSummary = ({
             <HiddenItem
               color={theme.colors.$secondary[100]}
               iconName="gift"
-              label="reward"
+              label={t('common.reward')}
               isLoading={isLoading}
               value={reward}
             />

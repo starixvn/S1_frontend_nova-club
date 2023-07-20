@@ -37,7 +37,7 @@ const ReferralModal = ({ modal: { closeModal, getParam } }) => {
             borderTopRightRadius: 5,
           }}
         >
-          <Text>Friend Referral</Text>
+          <Text>{t('menu.friendReferral')}</Text>
         </DripsyGradient>
         <View
           sx={{

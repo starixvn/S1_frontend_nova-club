@@ -186,7 +186,7 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
 
       <Button
         onPress={onSubmit}
-        sx={{ mt: '$6', my: '$2', bg: '$primary.300' }}
+        sx={{ mt: '$4', my: '$2', bg: '$primary.300' }}
       >
         {t('authentication.register')}
       </Button>

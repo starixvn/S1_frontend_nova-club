@@ -83,7 +83,8 @@
     "hello": "Xin chào!!",
     "agentLogin": "Đăng nhập đại lý",
     "logout": "Thoát",
-    "home": "Trang Chủ"
+    "home": "Trang Chủ",
+    "showMore": "Cho xem nhiều hơn"
   },
   "contact": {
     "customerSupport": "Hỗ trợ khách hàng",
@@ -178,7 +179,8 @@
       "lottery": "Keno / Xổ số",
       "fishing": "Bắn Cá",
       "localGame": "Thuần Việt",
-      "cardGame": "Game Bài"
+      "cardGame": "Game Bài",
+      "recommended": "GAMES ĐƯỢC ĐỀ XUẤT"
     },
     "recently": "Được chơi gần đây",
     "jackpot": "NỔ HŨ"
@@ -290,7 +292,7 @@
   },
   "referral": {
     "title": "Giới thiệu",
-    "link": "Link",
+    "link": "Đường dẫn để giới thiệu",
     "share": "Chia sẻ",
     "shareMessage": "Chia sẻ & nhận thưởng",
     "shareContent": "Nhận hoa hồng giới thiệu bạn bè với những phần thưởng đặc biệt với mã code của riêng bạn.",

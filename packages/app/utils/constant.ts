@@ -463,7 +463,7 @@ export const TURNOVER_NOTES = [
   'notes.turnover.n4',
 ]
 
-export const ALL = 'all'
+export const ALL = 'common.all'
 
 export enum ProviderImageCategory {
   LiveCasino = 'livecasino',

@@ -400,7 +400,7 @@ const DownloadAppButton = ({
     <Pressable
       sx={{
         position: 'absolute',
-        bottom: -75,
+        bottom: -80,
         zIndex: 5,
         flexDirection: 'row',
         alignItems: 'center',

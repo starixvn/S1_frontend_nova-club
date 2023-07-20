@@ -42,7 +42,7 @@ export const DesktopGamesFilter = [
   SUB_ROUTES.fishing,
   SUB_ROUTES['keno-lottery'],
   {
-    label: 'Slots',
+    label: 'game.category.slots',
     icon: 'sl',
     route: '/slots',
   },
@@ -50,7 +50,7 @@ export const DesktopGamesFilter = [
 
 export const MobileGamesFilter = [
   {
-    label: 'All',
+    label: 'common.all',
     icon: 'all',
     route: '/games',
   },

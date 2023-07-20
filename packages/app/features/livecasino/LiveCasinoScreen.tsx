@@ -3,18 +3,19 @@ import { FlashList } from '@shopify/flash-list'
 import GamePageHeader from 'app/components/GamePageHeader'
 import SectionHeader from 'app/components/SectionHeader'
 import GameCard from 'app/components/game/GameCard'
+import useLocalization from 'app/provider/localization'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
 import { Row, View, useResponsiveValue } from 'dripsy'
 import groupBy from 'lodash/groupBy'
 import React, { useMemo } from 'react'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
-import BannerSection from '../home/BannerSection'
-import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 import { SolitoImage } from 'solito/image'
+import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 
 export default function LiveCasinoScreen() {
   const { data } = useGetGameListByCategoryQuery([GAME_TYPE_CODE.LIVE_DEALER])
+  const { t } = useLocalization()
 
   const firstGameOfEachProvider = useMemo(() => {
     if (data) {
@@ -75,7 +76,7 @@ export default function LiveCasinoScreen() {
       numColumns={numColumns}
       ListHeaderComponent={
         <View sx={{ gap: '$3', my: '$3' }}>
-          <GamePageHeader title={'LIVE CASINO'} icon="casino" />
+          <GamePageHeader title={t('game.category.liveCasino')} icon="casino" />
           {/* <BannerSection /> */}
           <View sx={{ width: '100%', aspectRatio: 768 / 200 }}>
             <SolitoImage
@@ -85,7 +86,7 @@ export default function LiveCasinoScreen() {
             />
           </View>
           <RecentlyPlayedSection gameTypes={[GAME_TYPE_CODE.LIVE_DEALER]} />
-          <SectionHeader title={'PROVIDERS'} icon="all" />
+          <SectionHeader title={t('common.provider')} icon="all" />
         </View>
       }
     />

@@ -4,6 +4,7 @@ import { ActivityIndicator, Pressable, Row, View } from 'dripsy'
 import React from 'react'
 import { SolitoImage } from 'solito/image'
 import SectionHeader from '../SectionHeader'
+import useLocalization from 'app/provider/localization'
 
 // const cols = [3, 3, 4]
 const width = ['24%', '19.5%', '19.5%', '16%']
@@ -18,9 +19,10 @@ export default function ProviderList({
   imageCategory: ProviderImageCategory
   onNavigateProvider: (index: number, gpc: string) => void
 }) {
+  const { t } = useLocalization()
   return (
     <View>
-      <SectionHeader icon="all" title={'PROVIDERS'} />
+      <SectionHeader icon="all" title={t('common.provider')} />
       {!data ? (
         <ActivityIndicator color="$tertiary" sx={{ my: '$4' }} />
       ) : (

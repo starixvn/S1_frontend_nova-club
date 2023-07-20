@@ -10,7 +10,7 @@ import {
   GDC_GAME_CATEGORY,
   ProviderImageCategory,
 } from 'app/utils/constant'
-import { ActivityIndicator, View } from 'dripsy'
+import { ActivityIndicator, View, useResponsiveValue } from 'dripsy'
 import groupBy from 'lodash/groupBy'
 import React, {
   startTransition,
@@ -28,6 +28,7 @@ import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 import TopGameSection from '../home/TopGameSection'
 import GamesScreenSingleProvider from './GamesSingleProviderListing'
 import { MobileGamesFilter, SUB_ROUTES } from './subroutes'
+import useLocalization from 'app/provider/localization'
 
 type Params = {
   type?: string
@@ -35,6 +36,7 @@ type Params = {
 
 const { useParam } = createParam<Params>()
 const GamesScreen = () => {
+  const { t } = useLocalization()
   const { data: games } = useGameListMultipleQuery({
     game_category: [
       GAME_TYPE_CODE.GAMES,
@@ -163,11 +165,11 @@ const GamesScreen = () => {
       }}
       ListHeaderComponent={
         <View sx={{ gap: '$3', my: '$3' }}>
-          <GamePageHeader icon="games1" title="GAMES" />
+          <GamePageHeader icon="games1" title={t('game.category.games')} />
           <IconButtonGradientGroup
             sx={{
               flex: 1,
-              maxWidth: 550,
+              minWidth: 450,
               alignSelf: 'center',
             }}
           >
@@ -178,7 +180,7 @@ const GamesScreen = () => {
                   key={r.label}
                   active={type ? r.route.includes(type) : r.route === '/games'}
                   label={r.label}
-                  size={50}
+                  size={useResponsiveValue([60, 60, 70, 70, 70])}
                   icon={r.icon ?? 'notice'}
                   labelProps={{ style: { fontSize: 11 }, numberOfLines: 2 }}
                   onPress={() => onFilterClicked(r, i)}

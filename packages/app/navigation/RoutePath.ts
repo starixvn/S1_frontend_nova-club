@@ -30,27 +30,27 @@ export const BOTTOM_ROUTE: Route[] = [
 
 export const Profile_Wallet_Route: Route[] = [
   {
-    label: 'Transfer',
+    label: 'common.transfer',
     path: '/transfer/receive',
     icon: 'transfer',
   },
   {
-    label: 'Deposit',
+    label: 'common.deposit',
     path: '/deposit',
     icon: 'deposit',
   },
   {
-    label: 'Withdraw',
+    label: 'common.withdraw',
     path: '/withdrawal',
     icon: 'withdraw',
   },
   {
-    label: 'Bank Account',
+    label: 'common.bankAccount',
     path: '/account/bank',
     icon: 'card',
   },
   {
-    label: 'History',
+    label: 'common.history',
     path: '/history',
     icon: 'history',
   },

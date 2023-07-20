@@ -1,6 +1,7 @@
 import { CMS_CONTENT_URI, CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import SectionHeader from 'app/components/SectionHeader'
 import TopGameCard from 'app/components/game/TopGameCard'
+import useLocalization from 'app/provider/localization'
 import { ScrollView, View, useResponsiveValue } from 'dripsy'
 import React from 'react'
 import { useFeaturedGameListQuery } from 'services/gameApi'
@@ -49,6 +50,7 @@ const sampleData = [
 ]
 
 export default function TopGameSection(props) {
+  const { t } = useLocalization()
   const { data } = useFeaturedGameListQuery(undefined, {
     selectFromResult: (s) => {
       return {
@@ -62,7 +64,7 @@ export default function TopGameSection(props) {
 
   return (
     <View {...props}>
-      <SectionHeader icon="crown" title="RECOMMENDED GAMES" />
+      <SectionHeader icon="crown" title={t('game.category.recommended')} />
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}

@@ -11,6 +11,7 @@ import { Text } from 'dripsy'
 import { useAppSelector } from 'app/provider/redux/store'
 import Button from '../common/Button'
 import { useRouter } from 'solito/router'
+import useLocalization from 'app/provider/localization'
 
 function GameSectionByProviderItem({
   gpc,
@@ -25,6 +26,7 @@ function GameSectionByProviderItem({
   onViewMore?: (gpc: string) => void
   // GameListComponent: FC<{ data: Game[] }>
 }) {
+  const { t } = useLocalization()
   const locale = useAppSelector((s) => s.setting.locale)
   const [filter, setFilter] = useState(ALL)
   const [search, setSearch] = useState<string | undefined>()
@@ -69,7 +71,7 @@ function GameSectionByProviderItem({
             alt={gpc}
           />
         ) : (
-          <Text sx={{ fontWeight: '900' }}>{'ALL'}</Text>
+          <Text sx={{ fontWeight: '900' }}>{t('common.all')}</Text>
         )}
       </GameListSectionGrid.Header>
       <GameListSectionGrid.Filter
@@ -87,7 +89,7 @@ function GameSectionByProviderItem({
               }}
               isActive={isActive}
             >
-              {f.toUpperCase()}
+              {t(f).toUpperCase()}
             </GameListSectionGrid.TagButton>
           )
         })}
@@ -101,7 +103,7 @@ function GameSectionByProviderItem({
           sx={{ alignSelf: 'center', mb: '$3' }}
           onPress={() => gpc && onViewMore(gpc)}
         >
-          Show More
+          {t('common.showMore')}
         </Button>
       )}
     </View>
