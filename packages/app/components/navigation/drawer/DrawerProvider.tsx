@@ -3,6 +3,7 @@ import { useCallback, useState } from 'react'
 import Drawer, { MemoDrawer } from '.'
 import { useResponsiveValue } from 'dripsy'
 import { useAppSelector } from 'app/provider/redux/store'
+import { Platform } from 'react-native'
 
 const DrawerProvider = ({ children }) => {
   const [isOpen, setOpen] = useState(false)
@@ -16,7 +17,7 @@ const DrawerProvider = ({ children }) => {
     (s) => s.tempSetting.splashScreenLoaded
   )
 
-  if (!splashScreenLoaded) return children
+  if (!splashScreenLoaded && Platform.OS !== 'web') return children
 
   return (
     <DrawerContext.Provider value={{ isOpen, toggleDrawer }}>
