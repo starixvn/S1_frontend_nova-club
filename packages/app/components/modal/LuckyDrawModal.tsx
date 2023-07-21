@@ -31,7 +31,7 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
   const { t } = useLocalization()
   const dispatch = useDispatch()
   const { push } = useRouter()
-  // const { closeModal } = useModal()
+  const { closeModal: closeTargetModal } = useModal()
 
   const { width: fullWidth, height } = useContainerDimension()
   const { width: windowWidth } = useWindowDimensions()
@@ -96,7 +96,8 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
   }
 
   const handleClose = () => {
-    closeModal()
+    closeTargetModal('LuckyDrawModal')
+    closeTargetModal('RegisterModal')
     dispatch(SettingActions.setLuckyDrawBalance(0))
   }
 
@@ -396,6 +397,7 @@ const DownloadAppButton = ({
 }: DownloadAppButtonProps) => {
   const { push } = useRouter()
   const { theme } = useDripsyTheme()
+  const { t } = useLocalization()
   return (
     <Pressable
       sx={{
@@ -414,7 +416,7 @@ const DownloadAppButton = ({
         }
       }}
     >
-      <View sx={{ flexDirection: 'row', mx: '$2', alignItems: 'center' }}>
+      <View sx={{ flexDirection: 'row', mx: 2, alignItems: 'center' }}>
         <MotiText
           from={{ scale: 0.85, backgroundColor: theme.colors?.$primary[300] }}
           animate={{ scale: 1, backgroundColor: theme.colors?.$primary[500] }}
@@ -430,7 +432,7 @@ const DownloadAppButton = ({
             marginRight: 4,
           }}
         >
-          Download
+          {t('common.download')}
         </MotiText>
         <Text
           sx={{
@@ -439,7 +441,7 @@ const DownloadAppButton = ({
             textTransform: 'uppercase',
           }}
         >
-          App to Spin
+          {t('event.luckyDraw.appSpin')}
         </Text>
       </View>
 
@@ -447,7 +449,7 @@ const DownloadAppButton = ({
         source={require('app/assets/images/luckydraw/download.gif')}
         sx={{
           width: width * useResponsiveValue([0.03]),
-          mx: '$1',
+          ml: '$2',
           aspectRatio: 1,
         }}
       />
@@ -463,7 +465,7 @@ const PurpleTableImage = ({ width }) => {
       animate={{ scale: 1 }}
       delay={200}
       sx={{
-        width: Math.min(300, width),
+        width: Math.min(325, width),
         height: Math.min(100, width),
         zIndex: 1,
         position: 'absolute',

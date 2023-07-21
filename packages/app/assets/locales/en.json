@@ -136,6 +136,11 @@
     "status": "Status",
     "minMaxLimit": "Min/Max Limit"
   },
+  "event": {
+    "luckyDraw": {
+      "appSpin": "App To Spin"
+    }
+  },
   "filter": {
     "statusType": "Status Type",
     "win/loss": "Win/Loss",

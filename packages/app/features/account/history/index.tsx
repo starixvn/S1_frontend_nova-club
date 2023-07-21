@@ -9,6 +9,7 @@ import GameHistory from './game'
 import TransactionHistory from './transaction'
 import isDesktop from 'app/utils/isDesktop'
 import RedeemHistory from './redeem'
+import { useRouter } from 'solito/router'
 
 enum SCREEN_TAB {
   TRANSACTION = 'transaction',
@@ -32,6 +33,7 @@ const History = () => {
 
   const { t } = useLocalization()
   const desktop = isDesktop()
+  const { back, replace } = useRouter()
 
   const renderScene = SceneMap({
     first: TransactionHistory,

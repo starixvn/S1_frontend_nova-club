@@ -136,6 +136,11 @@
     "status": "Trạng thái",
     "minMaxLimit": "Min/Max Limit"
   },
+  "event": {
+    "luckyDraw": {
+      "appSpin": "ứng dụng để quay"
+    }
+  },
   "filter": {
     "statusType": "Loại trạng thái",
     "win/loss": "Thắng/Thua",

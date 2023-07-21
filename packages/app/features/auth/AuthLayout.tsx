@@ -14,7 +14,6 @@ interface AuthLayoutProps {
   headerColor?: string
   formHeader?: React.ReactNode
   children?: React.ReactNode
-  onBack?: () => void
 }
 
 export default function AuthLayout({
@@ -23,14 +22,13 @@ export default function AuthLayout({
   headerColor,
   formHeader,
   children,
-  onBack,
 }: AuthLayoutProps) {
   const { top, bottom } = useSafeArea()
-  const { back } = useRouter()
+  const { back, replace } = useRouter()
   const BANNER_RATIO = 768 / 240
   return (
     <View sx={{ alignItems: 'stretch', flex: 1 }}>
-      <AuthHeader headerDesc={headerDesc} onPress={onBack ?? back} />
+      <AuthHeader headerDesc={headerDesc} onPress={() => replace('/')} />
       <ScrollView
         bounces={false}
         sx={{ bg: '$primary.700', flex: 1 }}

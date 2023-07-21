@@ -28,6 +28,7 @@ const guestRoutes = [
   '/auth/login',
   '/auth/register',
   '/games',
+  '/lucky-spin-tnc',
 ]
 
 /* 

@@ -51,7 +51,7 @@ export const Profile_Wallet_Route: Route[] = [
   },
   {
     label: 'common.history',
-    path: '/history',
+    path: '/history/transaction',
     icon: 'history',
   },
 ]

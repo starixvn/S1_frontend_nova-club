@@ -3,8 +3,6 @@ import IconButtonGradientGroup from 'app/components/IconButtonGradientGroup'
 import { Profile_Wallet_Route } from 'app/navigation/RoutePath'
 import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
-
-import { Link } from 'solito/link'
 import { useRouter } from 'solito/router'
 
 const WalletButton = () => {
@@ -20,11 +18,11 @@ const WalletButton = () => {
     >
       {Profile_Wallet_Route.map((r, index) => {
         return (
-          <Link
+          <View
             key={r.label}
-            href={r.path ?? '/'}
-            viewProps={{
-              style: { flex: 1, alignItems: 'center' },
+            sx={{
+              flex: 1,
+              alignItems: 'center',
             }}
           >
             <IconButtonGradient
@@ -37,7 +35,7 @@ const WalletButton = () => {
             <IconButtonGradient.Label sx={{ fontWeight: '500' }}>
               {t(r.label)}
             </IconButtonGradient.Label>
-          </Link>
+          </View>
         )
       })}
     </IconButtonGradientGroup>
