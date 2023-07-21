@@ -8,7 +8,7 @@ import {
   useResponsiveValue,
 } from 'dripsy'
 import { DripsyTextInputProps } from 'dripsy/build/core/components/TextInput'
-import React, { ReactNode, forwardRef, useRef, useState } from 'react'
+import React, { ReactNode, forwardRef, useMemo, useRef, useState } from 'react'
 import {
   GestureResponderEvent,
   TextInput as NativeTextInput,
@@ -25,7 +25,7 @@ export interface InputProps extends DripsyTextInputProps {
   subtitle?: string
   prefix?: string
   error?: string
-  action?: InputComponent
+  action?: InputComponent | React.ReactNode
   icon?: string | InputComponent
   sx?: SxProp
   inputSx?: SxProp
@@ -149,7 +149,11 @@ const Input = forwardRef<NativeTextInput, InputProps>(
               )}
               {InputAction && (
                 <Container>
-                  <InputAction color={sizeEffectColor} />
+                  {typeof InputAction === 'function' ? (
+                    <InputAction color={sizeEffectColor} />
+                  ) : (
+                    InputAction
+                  )}
                 </Container>
               )}
             </InputContainer>
