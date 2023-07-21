@@ -140,7 +140,7 @@ export default function DrawerContent() {
         </View>
         <View>
           <ImageBackground
-            source={require('../../../assets/images/imageB.png')}
+            source={require('../../../assets/images/banner_referral.jpg')}
             style={{ aspectRatio: 760 / 1200 }}
             resizeMode="contain"
           >
@@ -153,10 +153,6 @@ export default function DrawerContent() {
             >
               <View
                 sx={{
-                  borderWidth: 2,
-                  borderRadius: 15,
-                  bg: 'rgb(0,0,0,0.6)',
-                  borderColor: 'yellow',
                   minHeight: '30%',
                   width: '75%',
                   justifyContent: 'center',
