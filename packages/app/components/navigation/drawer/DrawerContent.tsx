@@ -41,28 +41,28 @@ export default function DrawerContent() {
       iconName: 'withdraw',
       text: 'Withdrawal',
       onPress: () => {
-        push('/deposit')
+        push('/withdrawal')
       },
     },
     {
       iconName: 'transfer',
       text: 'Transfer',
       onPress: () => {
-        push('/deposit')
+        push('/transfer')
       },
     },
     {
       iconName: 'history',
       text: 'History',
       onPress: () => {
-        push('/deposit')
+        push('/history')
       },
     },
     {
       iconName: 'cs',
       text: 'Customer Support',
       onPress: () => {
-        push('/deposit')
+        push('/account/customer-support')
       },
     },
     {

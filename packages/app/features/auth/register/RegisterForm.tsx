@@ -45,6 +45,8 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
   const confirmPasswordFieldRef = useRef<TextInput>(null)
 
   const onSubmit = useCallback(async () => {
+    await handleCheckingUsername()
+    if (!usernameErrorMsg) return
     setTouched({
       username: true,
       password: true,
