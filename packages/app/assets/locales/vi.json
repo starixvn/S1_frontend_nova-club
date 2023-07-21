@@ -87,7 +87,8 @@
     "logout": "Thoát",
     "home": "Trang Chủ",
     "showMore": "Cho xem nhiều hơn",
-    "copy": "Sao chép"
+    "copy": "Sao chép",
+    "loading": "Đang tải"
   },
   "contact": {
     "customerSupport": "Hỗ trợ khách hàng",
@@ -134,6 +135,11 @@
     "date": "Ngày",
     "status": "Trạng thái",
     "minMaxLimit": "Min/Max Limit"
+  },
+  "event": {
+    "luckyDraw": {
+      "appSpin": "ứng dụng để quay"
+    }
   },
   "filter": {
     "statusType": "Loại trạng thái",

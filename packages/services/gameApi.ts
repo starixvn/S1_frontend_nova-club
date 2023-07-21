@@ -36,6 +36,15 @@ export const gameApi = baseApiWithTag.injectEndpoints({
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       }),
     }),
+    demoGame: builder.mutation<
+      IResponse<GetGameUrlResult>,
+      GetGameUrlQueryArgs
+    >({
+      query: (params) => ({
+        url: `/static_api/gotodemogame`,
+        data: params,
+      }),
+    }),
     gameList: builder.query<IResponse<GameConfig[]>, GameListQueryArgs>({
       query: (data) => ({
         url: `/player_api/getGameList`,
@@ -204,11 +213,6 @@ export const gameApi = baseApiWithTag.injectEndpoints({
           return acc
         }, {})
       },
-    }),
-    demoGame: builder.mutation<FeaturedGame[], void>({
-      query: () => ({
-        url: `/static_api/gotodemogame`,
-      }),
     }),
   }),
 })

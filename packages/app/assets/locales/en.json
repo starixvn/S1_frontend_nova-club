@@ -87,7 +87,8 @@
     "logout": "Logout",
     "home": "Home",
     "showMore": "Show More",
-    "copy": "Copy"
+    "copy": "Copy",
+    "loading": "Loading"
   },
   "contact": {
     "customerSupport": "Customer Support",
@@ -134,6 +135,11 @@
     "date": "Date",
     "status": "Status",
     "minMaxLimit": "Min/Max Limit"
+  },
+  "event": {
+    "luckyDraw": {
+      "appSpin": "App To Spin"
+    }
   },
   "filter": {
     "statusType": "Status Type",

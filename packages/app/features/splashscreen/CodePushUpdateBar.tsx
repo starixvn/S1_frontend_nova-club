@@ -34,7 +34,7 @@ function CodePushUpdateBar<CodePushUpdateBar>({ progress = 0, ...rest }) {
         <ProgressBar
           progress={progress}
           bgColor={'#c2c2c2'}
-          color={theme.colors['$primary']}
+          color={theme.colors['$primary']['300']}
         />
       </View>
     </View>

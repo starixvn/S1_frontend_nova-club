@@ -96,7 +96,7 @@ const RealNameForm = ({ formik, children }) => {
                 })
               : undefined
           }
-          action={() => (
+          action={
             <TimerButton
               accessibilityRole="button"
               ref={OTPRef}
@@ -117,7 +117,7 @@ const RealNameForm = ({ formik, children }) => {
                 },
               }}
             />
-          )}
+          }
         />
       )}
     </>

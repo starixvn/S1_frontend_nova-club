@@ -19,12 +19,11 @@ export default function Drawer({ children }) {
   useEffect(() => {
     if (isOpen) {
       useDrawerAnimation.transitionTo('toggle')
-      if (Platform.OS === 'web')
+      Platform.OS === 'web' &&
         document.documentElement.classList.add('overflow-hidden')
     } else {
       useDrawerAnimation.transitionTo('from')
-
-      if (Platform.OS === 'web')
+      Platform.OS === 'web' &&
         document.documentElement.classList.remove('overflow-hidden')
     }
   }, [isOpen, useDrawerAnimation, width])

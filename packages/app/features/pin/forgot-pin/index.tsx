@@ -178,32 +178,30 @@ const ForgotPinScreen = () => {
           label={t('common.phone')}
           value={values.contactNumber}
           editable={false}
-          action={() => {
-            return (
-              <TimerButton
-                accessibilityRole="button"
-                ref={OTPRef}
-                title={t('authentication.send')}
-                loading={isOtpLoading}
-                onPress={onSendOtp}
-                sx={{
-                  width: 'auto',
-                  backgroundColor: '$otp',
-                  m: 0,
-                  px: '$3',
-                  minWidth: 53,
-                  marginRight: 10,
-                }}
-                _text={{
-                  sx: {
-                    py: '$1',
-                    color: '$white',
-                    fontWeight: 'bold',
-                  },
-                }}
-              />
-            )
-          }}
+          action={
+            <TimerButton
+              accessibilityRole="button"
+              ref={OTPRef}
+              title={t('authentication.send')}
+              loading={isOtpLoading}
+              onPress={onSendOtp}
+              sx={{
+                width: 'auto',
+                backgroundColor: '$otp',
+                m: 0,
+                px: '$3',
+                minWidth: 53,
+                marginRight: 10,
+              }}
+              _text={{
+                sx: {
+                  py: '$1',
+                  color: '$white',
+                  fontWeight: 'bold',
+                },
+              }}
+            />
+          }
         />
         <Input
           label={'OTP'}

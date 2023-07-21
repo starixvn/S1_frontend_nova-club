@@ -9,14 +9,14 @@ import { Game } from 'services/gameApi.type'
 import { useRouter } from 'solito/router'
 
 export const SHAREHOLDER_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/agent-recruitment.mp4?v=2`
-export const FISHING_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/fishing.mp4?v=1`
-export const LOTTERY_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/lottery.mp4?v=1`
-export const GAME_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/game.mp4?v=1`
-export const LIVE_CASINO_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/live-casino.mp4?v=1`
-export const SPORT_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/sport.mp4?v=1`
-export const SLOT_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/slot.mp4?v=1`
+export const FISHING_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/fishing.mp4?v=1`
+export const LOTTERY_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/keno.mp4?v=1`
+export const GAME_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/games.mp4?v=1`
+export const LIVE_CASINO_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/livecasino.mp4?v=1`
+export const SPORT_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/sportsbook.mp4?v=1`
+export const SLOT_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/slot.mp4?v=1`
 
-export const SABA_PROMO_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/videos/saba-sportsbook.mp4?v=1`
+export const SABA_PROMO_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/rebate.mp4?v=1`
 
 const config = [
   {
