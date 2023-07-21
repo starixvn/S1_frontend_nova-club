@@ -1,9 +1,12 @@
 import Icon from 'app/components/Icon'
 import IconButton from 'app/components/IconButton'
+import useAlert from 'app/hooks/useAlert'
 import { useDrawer } from 'app/hooks/useDrawer'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
+import useLocalization from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { copyToClipboard } from 'app/utils'
+import isDesktop from 'app/utils/isDesktop'
 import { Pressable, ScrollView, Text, View } from 'dripsy'
 import React from 'react'
 import { ImageBackground, useWindowDimensions } from 'react-native'
@@ -16,10 +19,21 @@ export default function DrawerContent() {
   const { height } = useWindowDimensions()
   const { isOpen, toggleDrawer } = useDrawer()
   const { logout } = useOnAppLogout()
+  const desktop = isDesktop()
+  const { showAlert } = useAlert()
+  const { t } = useLocalization()
 
   const { isCreditMember, data: playerData } = usePlayerProfileQuery()
 
   const isPlayerName = !!playerData?.firstName
+  const handleDesktopAccountVerification = () => {
+    showAlert(
+      t('accountVerification.secondaryTitle') +
+        '\n' +
+        t('accountVerification.remark')
+    )
+    push('/account/profile-details')
+  }
 
   const MENU_LIST = [
     {
@@ -33,8 +47,11 @@ export default function DrawerContent() {
       iconName: 'deposit',
       text: 'Deposit',
       onPress: () => {
-        push('/deposit')
-        // isPlayerName ? push('/deposit') : push(`/profile/account-verification`)
+        isPlayerName
+          ? push('/deposit')
+          : desktop
+          ? handleDesktopAccountVerification()
+          : push('/account/account-verification')
       },
     },
     {

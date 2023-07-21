@@ -1,3 +1,4 @@
+import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
 import isDesktop from 'app/utils/isDesktop'
 import { Pressable, Text } from 'dripsy'
@@ -5,10 +6,20 @@ import { Gradient } from 'dripsy/gradient'
 import React from 'react'
 import { useRouter } from 'solito/router'
 
-const HeaderDeposit = () => {
+const HeaderDeposit = ({ isPlayerName }: { isPlayerName: boolean }) => {
   const { t } = useLocalization()
   const { push } = useRouter()
   const desktop = isDesktop()
+  const { showAlert } = useAlert()
+
+  const handleDesktopAccountVerification = () => {
+    showAlert(
+      t('accountVerification.secondaryTitle') +
+        '\n' +
+        t('accountVerification.remark')
+    )
+    push('/account/profile-details')
+  }
   return (
     <Gradient
       gradient={'button'}
@@ -19,7 +30,13 @@ const HeaderDeposit = () => {
       }}
     >
       <Pressable
-        onPress={() => push('/deposit')}
+        onPress={() => {
+          isPlayerName
+            ? push('/deposit')
+            : desktop
+            ? handleDesktopAccountVerification()
+            : push('/account/account-verification')
+        }}
         sx={{
           borderRadius: 50,
           borderWidth: 2,
