@@ -19,10 +19,8 @@ export default function Drawer({ children }) {
   useEffect(() => {
     if (isOpen) {
       useDrawerAnimation.transitionTo('toggle')
-      document.documentElement.classList.add('overflow-hidden')
     } else {
       useDrawerAnimation.transitionTo('from')
-      document.documentElement.classList.remove('overflow-hidden')
     }
   }, [isOpen, useDrawerAnimation, width])
 
