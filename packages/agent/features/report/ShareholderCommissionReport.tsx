@@ -19,6 +19,7 @@ import { Pressable, View } from 'dripsy'
 import React, { useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import AgentFloatingContent from '../floatingContent'
+import DataTable from 'app/components/dataTable/DataTable'
 
 export type CommissionFilterOptions = {
   initial: boolean
@@ -78,7 +79,7 @@ const ShareholderCommissionScreen = () => {
       <AgentDataTableTitle bordered center>
         {t('common.date')}
       </AgentDataTableTitle>
-      <AgentDataTableCell bordered center>
+      <AgentDataTableTitle bordered center>
         <View
           sx={{
             flexDirection: 'row',
@@ -95,7 +96,7 @@ const ShareholderCommissionScreen = () => {
             <Icon name="info" color="red" size={16} />
           </Pressable>
         </View>
-      </AgentDataTableCell>
+      </AgentDataTableTitle>
       <AgentDataTableTitle bordered center sx={fourthCellStyle}>
         PT %
       </AgentDataTableTitle>

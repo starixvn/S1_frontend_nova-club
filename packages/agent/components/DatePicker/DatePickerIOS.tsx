@@ -4,6 +4,8 @@ import DateTimePicker, {
 } from '@react-native-community/datetimepicker'
 import { useAgentLocalization } from 'app/provider/localization'
 import React, { FC, useEffect, useState } from 'react'
+import ModalContent from '../Modal/ModalContent'
+import { Modal } from 'react-native'
 
 interface DatePickerModalIOSProps extends IOSNativeProps {
   value: Date
@@ -23,6 +25,7 @@ const DatePickerIOS: FC<DatePickerModalIOSProps> = ({
   onClose,
   ...rest
 }) => {
+  console.log('🚀 ~ file: DatePickerIOS.tsx:28 ~ isOpen:', isOpen)
   const { t } = useAgentLocalization()
 
   const [localValue, setLocalValue] = useState<{ event?: Event; date: Date }>({
@@ -49,32 +52,37 @@ const DatePickerIOS: FC<DatePickerModalIOSProps> = ({
   }, [value])
 
   return (
-    // <Modal
-    //   isVisible={isOpen}
-    //   onModalHide={onClose}
-    //   onBackdropPress={onClose}
-    //   title={t('common.selectDate')}
-    //   animationIn={'fadeIn'}
-    //   animationOut={'fadeOut'}
-    //   actions={[
-    //     {
-    //       label: t('common.confirm'),
-    //       onPress: () => {
-    //         onChange(localValue.event, localValue.date)
-    //       },
-    //     },
-    //   ]}
-    // >
-    <DateTimePicker
-      themeVariant="dark"
-      maximumDate={maximumDate}
-      minimumDate={minimumDate}
-      display="inline"
-      value={localValue.date}
-      onChange={onDateTimePickerChange}
-      {...rest}
-    />
-    // </Modal>
+    <Modal
+      style={{ backgroundColor: 'black', position: 'absolute', bottom: 0 }}
+      visible={isOpen}
+      transparent
+      onRequestClose={() => {
+        onClose()
+      }}
+    >
+      <ModalContent
+        title={t('common.selectDate')}
+        closeModal={onClose}
+        actions={[
+          {
+            label: t('common.confirm'),
+            onPress: () => {
+              onChange(localValue.event, localValue.date)
+            },
+          },
+        ]}
+      >
+        <DateTimePicker
+          // themeVariant="dark"
+          maximumDate={maximumDate}
+          minimumDate={minimumDate}
+          display="default"
+          value={localValue.date}
+          onChange={onDateTimePickerChange}
+          {...rest}
+        />
+      </ModalContent>
+    </Modal>
   )
 }
 

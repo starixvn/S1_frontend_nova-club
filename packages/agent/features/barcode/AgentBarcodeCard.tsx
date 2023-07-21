@@ -62,7 +62,7 @@ const AgentBarcodeCard = ({ userId }: { userId: number }) => {
                 backgroundColor: 'white',
               }}
             />
-            <Text numberOfLines={1} sx={{ fontSize: 14, py: '$1', ml: '$1' }}>
+            <Text numberOfLines={2} sx={{ fontSize: 14, py: '$1', ml: '$1' }}>
               {domain}
             </Text>
           </BarcodeDomain>
@@ -74,7 +74,7 @@ const AgentBarcodeCard = ({ userId }: { userId: number }) => {
 
   return (
     <Card
-      sx={{ my: '$2', py: '$4', px: '$5', width: cardWidth }}
+      sx={{ my: '$2', py: '$4', px: '$4', width: cardWidth }}
       isLoading={isLoading}
     >
       {domain ? BarcodeCard : null}
@@ -82,11 +82,11 @@ const AgentBarcodeCard = ({ userId }: { userId: number }) => {
   )
 }
 const BarcodeInfo = styled(View)({
-  width: '90%',
+  // width: '90%',
 })
 const BarcodeTitle = styled(Text)({
   fontSize: 20,
-  pt: '$5',
+  pt: '$3',
 })
 const BarcodeDomain = styled(TouchableOpacity)({
   flexDirection: 'row',

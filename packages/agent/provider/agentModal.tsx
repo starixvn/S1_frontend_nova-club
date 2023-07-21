@@ -13,6 +13,9 @@ type ModalStackConfigValueType = ModalStackConfig extends Record<
   : never
 
 export interface ModalStackParams {
+  AgentMenuModal: {
+    mainMenuList: { label: string; icon: string; onPress: () => void }[]
+  }
   AgentAlertModal: {
     message: string
     title?: string
@@ -70,6 +73,7 @@ type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
 
 const _dynamicModal = {
   AgentAlertModal: () => import('../components/Modal/AgentAlertModal'),
+  AgentMenuModal: () => import('../components/Modal/AgentMenuModal'),
   FilterCommissionReportModal: () =>
     import('agent/components/Modal/FilterCommissionReportModal'),
   FilterTransactionReportModal: () =>
@@ -110,6 +114,22 @@ function getDynamicComponent(key: string) {
 export const agentModalConfig: ModalConfigType = {
   AgentAlertModal: {
     modal: getDynamicComponent('AgentAlertModal'),
+  },
+  AgentMenuModal: {
+    modal: getDynamicComponent('AgentMenuModal'),
+    position: 'top',
+    backdropOpacity: 0,
+    containerStyle: {
+      position: 'absolute',
+      marginTop: '30%',
+      marginRight: '-35%',
+    },
+    transitionOptions: (animatedValue) => ({
+      opacity: animatedValue.interpolate({
+        inputRange: [0, 1, 2],
+        outputRange: [0, 1, 0.9],
+      }),
+    }),
   },
   FilterCommissionReportModal: {
     modal: getDynamicComponent('FilterCommissionReportModal'),

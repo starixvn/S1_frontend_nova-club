@@ -14,6 +14,7 @@ const AgentDataTableHeader = ({ sx, children }: AgentDataTableHeaderProps) => {
         borderBottomColor: '$tableBorder',
         backgroundColor: '$tableHeader',
         borderBottomWidth: 1,
+        py: '$3',
         ...sx,
       }}
     >

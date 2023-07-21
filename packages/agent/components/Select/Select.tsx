@@ -258,46 +258,45 @@ const Select = <T,>(
           {_actionSheetContent ? (
             _actionSheetContent({ closeActionSheet })
           ) : (
-            <></>
-            // <FlashList
-            //   data={options}
-            //   keyExtractor={(_, index) => index.toString()}
-            //   renderItem={({ item, index }) => {
-            //     const isSelected = item.value === value
+            <FlashList
+              data={options}
+              keyExtractor={(_, index) => index.toString()}
+              renderItem={({ item, index }) => {
+                const isSelected = item.value === value
 
-            //     return (
-            //       <Pressable
-            //         sx={{
-            //           backgroundColor: isSelected
-            //             ? '$primaryAgent'
-            //             : '$secondaryAgent',
-            //           py: '$3',
-            //           px: '$4',
-            //           borderTopWidth: index === 0 ? 2 : 0,
-            //           borderBottomWidth: 2,
-            //           borderColor: '$white',
-            //         }}
-            //         style={({ pressed }) => ({
-            //           opacity: pressed ? 0.7 : 1,
-            //         })}
-            //         onPress={() => {
-            //           onSelected(item.value)
-            //           closeActionSheet()
-            //         }}
-            //       >
-            //         <Text
-            //           sx={{
-            //             color: isSelected ? '#fff' : '#000000',
-            //             fontWeight: '500',
-            //           }}
-            //         >
-            //           {item?.label}
-            //         </Text>
-            //       </Pressable>
-            //     )
-            //   }}
-            // {..._actionSheetFlatlist}
-            // />
+                return (
+                  <Pressable
+                    sx={{
+                      backgroundColor: isSelected
+                        ? '$primaryAgent'
+                        : '$secondaryAgent',
+                      py: '$3',
+                      px: '$4',
+                      borderTopWidth: index === 0 ? 2 : 0,
+                      borderBottomWidth: 2,
+                      borderColor: '$white',
+                    }}
+                    style={({ pressed }) => ({
+                      opacity: pressed ? 0.7 : 1,
+                    })}
+                    onPress={() => {
+                      onSelected(item.value)
+                      closeActionSheet()
+                    }}
+                  >
+                    <Text
+                      sx={{
+                        color: isSelected ? '#fff' : '#000000',
+                        fontWeight: '500',
+                      }}
+                    >
+                      {item?.label}
+                    </Text>
+                  </Pressable>
+                )
+              }}
+              {..._actionSheetFlatlist}
+            />
           )}
         </StyledContentContainer>
       </ActionSheet>

@@ -62,16 +62,20 @@ const DataTableTitle = ({
 }: Props) => {
   return (
     <TitleView center={center} bordered={bordered} {...rest}>
-      <ContentText
-        sx={{
-          // height must scale with numberOfLines
-          maxHeight: 20 * numberOfLines,
-          ...textStyle,
-        }}
-        numberOfLines={numberOfLines}
-      >
-        {children}
-      </ContentText>
+      {typeof children === 'string' || typeof children === 'number' ? (
+        <ContentText
+          sx={{
+            // height must scale with numberOfLines
+            maxHeight: 20 * numberOfLines,
+            ...textStyle,
+          }}
+          numberOfLines={numberOfLines}
+        >
+          {children}
+        </ContentText>
+      ) : (
+        children
+      )}
     </TitleView>
   )
 }

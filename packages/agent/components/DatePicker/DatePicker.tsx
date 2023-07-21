@@ -1,20 +1,17 @@
-import DateTimePicker, {
-  AndroidNativeProps,
-  IOSNativeProps,
-} from '@react-native-community/datetimepicker'
 import Icon from 'agent/components/Icon'
 import Text from 'agent/components/Text'
 import dayjs from 'dayjs'
-import { View } from 'dripsy'
+import { SxProp, View } from 'dripsy'
 import React, { useState } from 'react'
-import { Platform, TouchableWithoutFeedback } from 'react-native'
+import { TouchableWithoutFeedback } from 'react-native'
+import RNDatePicker from 'react-native-date-picker'
 import Label from '../Label'
-import DatePickerIOS from './DatePickerIOS'
-import { CommonDatePickerProps, OnChangeEvent } from './types'
+import { CommonDatePickerProps } from './types'
 
 type IDatePickerProps = CommonDatePickerProps & {
-  _android?: AndroidNativeProps
-  _ios?: IOSNativeProps
+  value?: Date
+  onChange?: (date?: Date) => void
+  inputSx?: SxProp
 }
 
 /**
@@ -32,10 +29,7 @@ type IDatePickerProps = CommonDatePickerProps & {
  * ```
  */
 const DatePicker = ({
-  _android,
-  _dateTime,
   _icon,
-  _ios,
   _rightIcon,
   defaultDate = dayjs().toDate(),
   error,
@@ -47,23 +41,12 @@ const DatePicker = ({
   label,
   labelProps,
   isRequired,
+  mode = 'date',
+  onCancel,
+  inputSx,
   ...restProps
 }: IDatePickerProps) => {
-  const [showDatePicker, setShowDatePicker] = useState(false)
-
-  const openDatePicker = () => {
-    setShowDatePicker(true)
-  }
-
-  const onDateTimePickerChange = (e?: OnChangeEvent, v?: Date) => {
-    setShowDatePicker(false)
-
-    if (e?.type === 'dismissed') return
-
-    const dayJsDate = dayjs(v)
-    const currentSelectedDate = dayJsDate.startOf('date').toDate()
-    onChange(currentSelectedDate)
-  }
+  const [isFocus, setFocus] = useState(false)
 
   return (
     <View sx={{ mt: 20, width: '100%' }} {...restProps}>
@@ -80,7 +63,12 @@ const DatePicker = ({
           overflow: 'hidden',
         }}
       >
-        <TouchableWithoutFeedback onPress={openDatePicker}>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            setFocus(true)
+          }}
+          // onPress={openDatePicker}
+        >
           <View
             sx={{
               flexDirection: 'row',
@@ -125,38 +113,21 @@ const DatePicker = ({
               </View>
             )}
 
-            {Platform.OS === 'ios' ? (
-              <DatePickerIOS
-                onClose={() => setShowDatePicker(false)}
-                isOpen={showDatePicker}
-                onChange={onDateTimePickerChange}
-                value={value || defaultDate}
-                // minimumDate={
-                //   _dateTime?.minimumDate ||
-                //   dayjs().subtract(2, 'month').startOf('date').toDate()
-                // }
-                maximumDate={
-                  _dateTime?.maximumDate || dayjs().endOf('date').toDate()
-                }
-                {..._ios}
-              />
-            ) : (
-              showDatePicker && (
-                <DateTimePicker
-                  is24Hour
-                  value={value || defaultDate}
-                  onChange={onDateTimePickerChange}
-                  // minimumDate={
-                  //   _dateTime?.minimumDate ||
-                  //   dayjs().subtract(2, 'month').startOf('date').toDate()
-                  // }
-                  maximumDate={
-                    _dateTime?.maximumDate || dayjs().endOf('date').toDate()
-                  }
-                  {..._android}
-                />
-              )
-            )}
+            <RNDatePicker
+              modal
+              date={value ?? new Date()}
+              mode={mode}
+              open={isFocus}
+              onCancel={() => {
+                onCancel && onCancel()
+                setFocus(false)
+              }}
+              onConfirm={(e) => {
+                onChange && onChange(e)
+                setFocus(false)
+              }}
+              {...restProps}
+            />
           </View>
         </TouchableWithoutFeedback>
       </View>

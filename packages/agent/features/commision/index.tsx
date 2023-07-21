@@ -96,6 +96,7 @@ const CommissionTable = () => {
         <AgentDataTableHeader
           size="big"
           sx={{
+            py: '$2',
             bg: theme.colors.$primaryAgent,
             color: 'white',
             borderTopWidth: StyleSheet.hairlineWidth,

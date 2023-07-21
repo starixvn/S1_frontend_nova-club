@@ -65,7 +65,7 @@ const AgentCommissionScreen = () => {
       <AgentDataTableTitle bordered center>
         {t('common.date')}
       </AgentDataTableTitle>
-      <AgentDataTableCell bordered center>
+      <AgentDataTableTitle bordered center>
         <View
           sx={{
             flexDirection: 'row',
@@ -82,7 +82,7 @@ const AgentCommissionScreen = () => {
             <Icon name="info" color="red" size={16} />
           </Pressable>
         </View>
-      </AgentDataTableCell>
+      </AgentDataTableTitle>
       <AgentDataTableTitle center>{t('report.commission')}</AgentDataTableTitle>
     </AgentDataTableHeader>
   )
