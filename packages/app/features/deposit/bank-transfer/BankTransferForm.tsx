@@ -116,6 +116,7 @@ const BankTransferForm = () => {
       realAmount: 0,
     },
     validationSchema: Yup.object({
+      realAmount: validation.amount,
       bank: validation.bank,
       amount: validation.amountMinMax({
         min: toDisplayAmount(limit.minAmount, currency),
@@ -255,7 +256,7 @@ const BankTransferForm = () => {
               forceDecimal: false,
             }),
           })}
-          value={values.amount.toString()}
+          value={values.amount}
           onBlur={handleBlur('amount')}
           onChangeText={onAmountChanged}
           ref={amountFieldRef}

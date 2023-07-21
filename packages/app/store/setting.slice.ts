@@ -42,6 +42,7 @@ export interface Setting {
   currentSessionCredential?: Credential
   biometricCredentials?: Credential
   rememberMeCredentials?: Credential
+  agentRememberMeCredentials?: Credential
 }
 // export const DomainListHintPostfix = '-DomainListHint'
 // export const DepositListHintPostfix = '-DepositListHint'
@@ -138,6 +139,14 @@ const settingSlice = createSlice({
       state.floatingDrawer = action.payload
     },
     setRememberMe: (state, action: PayloadAction<Credential | undefined>) => {
+      action?.payload
+        ? (state.rememberMeCredentials = action.payload)
+        : (state.rememberMeCredentials = undefined)
+    },
+    setAgentRememberMe: (
+      state,
+      action: PayloadAction<Credential | undefined>
+    ) => {
       action?.payload
         ? (state.rememberMeCredentials = action.payload)
         : (state.rememberMeCredentials = undefined)

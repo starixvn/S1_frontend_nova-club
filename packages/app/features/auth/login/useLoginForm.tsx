@@ -9,13 +9,14 @@ import * as Yup from 'yup'
 import useAgentLoginProcess from './useAgentLoginProcess'
 import useLoginProcess from './useLoginProcess'
 import { sleep } from 'utils/common'
+import { SettingActions } from 'app/store/setting.slice'
 
 type LoginFormValues = {
   username: string
   password: string
 }
 
-export default function useLoginForm(isAgent?: boolean) {
+export default function useLoginForm(isAgent?: boolean, isRemember) {
   // const [login] = useLoginMutation()
   // const [agentLogin] = useAgentLoginMutation()
   const { showAlert } = useAlert()
@@ -47,6 +48,16 @@ export default function useLoginForm(isAgent?: boolean) {
         isAgent
           ? handleAgentSuccessLogin(data)
           : handleSuccessLogin(username, password, data)
+
+        dispatch(
+          isAgent
+            ? SettingActions.setAgentRememberMe(
+                isRemember ? { username, password } : undefined
+              )
+            : SettingActions.setRememberMe(
+                isRemember ? { username, password } : undefined
+              )
+        )
 
         return
       } else {
