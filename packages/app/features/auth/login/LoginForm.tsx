@@ -5,11 +5,12 @@ import Input from 'app/components/form/Input'
 import useLocalization from 'app/provider/localization'
 import { PASSWORD_MAX_LENGTH, USERNAME_MAX_LENGTH } from 'app/utils/validation'
 import { Pressable, Text, View } from 'dripsy'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { TextInput, useWindowDimensions } from 'react-native'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 import useLoginForm from './useLoginForm'
+import { useAppSelector } from 'app/provider/redux/store'
 
 type LoginFormValues = {
   username: string
@@ -29,8 +30,18 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
 
   const passwordFieldRef = useRef<TextInput>(null)
   const usernameFieldRef = useRef<TextInput>(null)
+  const rememberMeCredential = useAppSelector((s) =>
+    isAgent
+      ? s.setting.agentRememberMeCredentials
+      : s.setting.rememberMeCredentials
+  )
 
-  const { formik } = useLoginForm(isAgent)
+  const [isRemember, setIsRemember] = useState(() => {
+    if (rememberMeCredential) return true
+    else return false
+  })
+
+  const { formik } = useLoginForm(isAgent, isRemember)
 
   const {
     isSubmitting,
@@ -40,7 +51,24 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
     errors,
     touched,
     submitForm,
+    setValues,
   } = formik
+
+  const onCheckboxCheck = () => {
+    setIsRemember(!isRemember)
+  }
+
+  useEffect(() => {
+    if (rememberMeCredential) {
+      setIsRemember(true)
+    } else {
+      setIsRemember(false)
+    }
+    setValues({
+      username: rememberMeCredential?.username ?? '',
+      password: rememberMeCredential?.password ?? '',
+    })
+  }, [isAgent])
 
   return (
     <FormContainer
@@ -108,14 +136,8 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
             justifyContent: 'flex-start',
           }}
         >
-          <CheckBox
-            isCheck={false}
-            onCheck={() => console.log('remember me')}
-          />
-          <Pressable
-            sx={{ pl: '$2' }}
-            onPress={() => console.log('remember me')}
-          >
+          <CheckBox isCheck={isRemember} onCheck={onCheckboxCheck} />
+          <Pressable sx={{ pl: '$2' }} onPress={onCheckboxCheck}>
             <Text>{t('authentication.rememberMe')}</Text>
           </Pressable>
         </View>

@@ -52,6 +52,7 @@ const DrawerOverlay = styled(Pressable)({
   width: '100%',
   height: '100%',
   backgroundColor: 'rgba(0,0,0,0.3)',
+  zIndex: 1,
 })
 
 const DrawerContainer = styled(MotiView)({
