@@ -1,7 +1,7 @@
-import Image from 'app/components/common/Image'
 import BankEmpty from 'app/features/bank/components/BankEmpty'
 import { View } from 'dripsy'
 import React, { ReactNode } from 'react'
+import { SolitoImage } from 'solito/image'
 import TouchableOpacity from '../pressable/TouchableOpacity'
 import Select, { SelectProps } from './Select'
 
@@ -56,16 +56,10 @@ function SelectWithCardGrid<T>(props: SelectWithCardGridProps<T>) {
                     }}
                   >
                     {option.icon && (
-                      <Image
-                        source={
-                          typeof option.icon === 'string'
-                            ? {
-                                uri: option.icon,
-                              }
-                            : option.icon
-                        }
+                      <SolitoImage
+                        src={option.icon}
                         resizeMode="contain"
-                        sx={{ width: '100%', height: '100%' }}
+                        fill
                         alt=""
                       />
                     )}
