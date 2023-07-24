@@ -94,6 +94,7 @@
     "logout": "Logout",
     "home": "Home",
     "showMore": "Show More",
+    "selectAll": "Select All",
     "copy": "Copy",
     "loading": "Loading"
   },
@@ -248,6 +249,11 @@
       "event": "Event",
       "ranking": "Ranking"
     }
+  },
+  "message": {
+    "announcement": "Announcement",
+    "empty": "Does not have any message yet!",
+    "personalMessage": "Personal Message"
   },
   "notes": {
     "importantNotice": "Important Notice",

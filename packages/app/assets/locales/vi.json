@@ -94,6 +94,7 @@
     "logout": "Thoát",
     "home": "Trang Chủ",
     "showMore": "Cho xem nhiều hơn",
+    "selectAll": "Chọn tất cả",
     "copy": "Sao chép",
     "loading": "Đang tải"
   },
@@ -231,6 +232,11 @@
       "placeholderNewPw": "Vui lòng nhập mật khẩu mới",
       "placeholderConfirmPw": "Vui lòng xác nhận mật khẩu"
     }
+  },
+  "message": {
+    "announcement": "Thông Báo",
+    "empty": "Không có bất kỳ tin nhắn nào được nêu ra!",
+    "personalMessage": "Tin nhắn khách hàng"
   },
   "menu": {
     "rewardsHub": "Phần thưởng của tôi",

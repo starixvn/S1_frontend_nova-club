@@ -3,6 +3,7 @@
     "strictNullChecks": true,
     "noUncheckedIndexedAccess": true,
     "paths": {
+      "agent/*": ["./packages/agent/*"],
       "app/*": ["./packages/app/*"],
       "services/*": ["./packages/services/*"],
       "desktop-ext/*": ["./packages/desktop-ext/*"],

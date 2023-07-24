@@ -7,6 +7,7 @@ import { Image, Pressable, Text, View } from 'dripsy'
 import React from 'react'
 import { useModal } from 'react-native-modalfy'
 import { ProfileResult } from 'services/playerApi.type'
+import { DEV_DOMAIN } from '../../../../apps/next/config/env'
 
 interface ProfileHeaderCardProps {
   data?: ProfileResult
@@ -18,6 +19,7 @@ const ProfileHeaderCard = ({ data }: ProfileHeaderCardProps) => {
   const desktop = isDesktop()
   const AVATAR_SIZE = desktop ? 45 : 30
   const fontSize = desktop ? 15 : 14
+  const referralLink = `${DEV_DOMAIN}/download?ref=${data?.referral_code}`
 
   return (
     <View
@@ -63,7 +65,7 @@ const ProfileHeaderCard = ({ data }: ProfileHeaderCardProps) => {
               name={'copy'}
               size={desktop ? 22 : 16}
               sx={{ pl: 10 }}
-              onPress={() => copyToClipboard(data?.referral_code)}
+              onPress={() => copyToClipboard(referralLink)}
             />
           </View>
           {!desktop && <Text sx={{ fontSize }}>{t('common.timeline')}</Text>}

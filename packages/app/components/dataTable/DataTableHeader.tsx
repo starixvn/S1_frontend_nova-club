@@ -1,4 +1,4 @@
-import { styled, SxProp, View } from 'dripsy'
+import { Row, styled, SxProp, View } from 'dripsy'
 import * as React from 'react'
 import { StyleSheet } from 'react-native'
 
@@ -13,7 +13,7 @@ export type Props = React.ComponentPropsWithRef<typeof View> & {
 const DataTableHeader = ({ children, ...rest }: Props) => {
   return (
     <HeaderView {...rest}>
-      <ContentView>{children}</ContentView>
+      <Row>{children}</Row>
     </HeaderView>
   )
 }
@@ -27,11 +27,6 @@ const HeaderView = styled(View)(() => ({
   py: ['$2', '$2', '$2', '$2', '$3'],
   bg: '$primary.300',
 }))
-
-const ContentView = styled(View)({
-  flex: 1,
-  flexDirection: 'row',
-})
 
 export default DataTableHeader
 

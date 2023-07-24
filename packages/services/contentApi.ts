@@ -2,6 +2,7 @@ import { CONTENT_URI, DEV_DOMAIN, MEDIA_DOMAIN } from '@env'
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
+  AnnouncementListItems,
   AnnouncementResult,
   BannerResult,
   CommissionQueryArgs,
@@ -49,11 +50,14 @@ export const contentApi = baseApiWithTag.injectEndpoints({
         },
       }),
     }),
-    announcement: builder.query<IResponse<AnnouncementResult>, string>({
+    announcement: builder.query<AnnouncementListItems[], string>({
       query: (lang) => ({
         url: `/static_api/announcement`,
         method: 'GET',
       }),
+      transformResponse: (resp: IResponse<AnnouncementResult>) => {
+        return resp.data?.list ?? []
+      },
       providesTags: (result, error, arg) => {
         return [{ type: 'Announcement', lang: arg }]
       },

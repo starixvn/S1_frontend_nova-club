@@ -61,11 +61,7 @@ const AccountVerification = () => {
           actions.resetForm()
 
           setTimeout(() => {
-            if (Platform.OS === 'web') {
-              replace('/deposit', undefined, { shallow: true })
-            } else {
-              replace('/deposit')
-            }
+            replace('/deposit')
           }, 150)
         }
       }

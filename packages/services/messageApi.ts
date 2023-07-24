@@ -1,14 +1,21 @@
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
-import { DeleteMessageQueryArgs, MessageResult } from './messageApi.type'
+import {
+  DeleteMessageQueryArgs,
+  Message,
+  MessageResult,
+} from './messageApi.type'
 
 const messageApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
-    message: builder.query<IResponse<MessageResult>, void>({
-      query: (queryArgs) => ({
+    message: builder.query<Message[], void>({
+      query: () => ({
         url: `/player_api/message`,
         method: 'POST',
       }),
+      transformResponse: (r: IResponse<MessageResult>) => {
+        return r.data?.messages || []
+      },
     }),
     deleteMessages: builder.mutation<IResponse, DeleteMessageQueryArgs>({
       query: ({ isDeleteAll, ids }) => ({

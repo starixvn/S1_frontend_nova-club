@@ -10,6 +10,7 @@ export enum SocialMedia {
   LIVECHAT = 'liveChat',
   ENVELOPE = 'envelope',
   ZALO = 'zalo',
+  TIKTOK = 'tiktok',
 }
 
 export function getSocialMediaScheme(platform: SocialMedia) {
@@ -18,13 +19,13 @@ export function getSocialMediaScheme(platform: SocialMedia) {
 
   switch (platform) {
     case SocialMedia.FACEBOOK:
-      backUpScheme = 'https://www.facebook.com/nova88official/'
+      backUpScheme = 'https://www.facebook.com/vui123vietnam'
       const s = Platform.select({
         ios: 'fb://profile',
         android: 'fb://page',
       })
       scheme = s || ''
-      if (scheme) scheme = `${scheme}/100735694719310`
+      if (scheme) scheme = `${scheme}/100279542799962`
       break
     // case 'whatsapp':
     //   backUpScheme = 'https://api.whatsapp.com/send?'
@@ -38,12 +39,12 @@ export function getSocialMediaScheme(platform: SocialMedia) {
       scheme = `https://twitter.com/nova88official?s=11`
       break
     case SocialMedia.YOUTUBE:
-      backUpScheme = 'https://www.youtube.com/channel/UCoUtgrQN2E10oke1Hmj0ATw'
-      scheme = 'vnd.youtube://channel/UCoUtgrQN2E10oke1Hmj0ATw'
+      backUpScheme = 'https://www.youtube.com/@vui123vn'
+      // scheme = 'vnd.youtube://channel/UCoUtgrQN2E10oke1Hmj0ATw'
       break
     case SocialMedia.TELEGRAM:
-      backUpScheme = 'https://t.me/vui123cs'
-      scheme = 'https://t.me/vui123cs'
+      backUpScheme = 'https://t.me/cungvui123'
+      scheme = 'https://t.me/cungvui123'
       break
     case SocialMedia.LIVECHAT:
       scheme = LIVECHAT_URL
@@ -53,6 +54,10 @@ export function getSocialMediaScheme(platform: SocialMedia) {
       break
     case SocialMedia.ZALO:
       scheme = 'https://zalo.me/84782801659'
+      break
+    case SocialMedia.TIKTOK:
+      backUpScheme = 'https://www.tiktok.com/@vui123_vn'
+      scheme = 'https://www.tiktok.com/@vui123_vn'
       break
   }
 

@@ -17,7 +17,7 @@ const Channel = () => {
 }
 
 export const LogoImage = ({ src }) => {
-  return <SolitoImage fill resizeMode="contain" src={src} alt="" />
+  return <SolitoImage fill contentFit="contain" src={src} alt="" />
 }
 
 export default Channel

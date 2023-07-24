@@ -5,7 +5,6 @@ import { Platform } from 'react-native'
 import ActionSheetBase, {
   ActionSheetProps as RNActionSheetProps,
   SheetProps,
-  useScrollHandlers,
 } from 'react-native-actions-sheet'
 import { ScrollView } from 'react-native-gesture-handler'
 
@@ -40,10 +39,10 @@ const ActionSheet = ({
   const { containerStyleSx, indicatorStyleSx, ...rest } = props
   const sx = useSx()
 
-  const scrollHandlers = useScrollHandlers<ScrollView>(
-    'scrollview-1',
-    actionSheetRef
-  )
+  // const scrollHandlers = useScrollHandlers<ScrollView>(
+  //   'scrollview-1',
+  //   actionSheetRef
+  // )
 
   return (
     <ActionSheetBase
@@ -78,7 +77,12 @@ const ActionSheet = ({
           maxHeight: height / 2 + 48,
         }}
       >
-        <ScrollView nestedScrollEnabled={true} {...scrollHandlers}>
+        <ScrollView
+          nestedScrollEnabled={true}
+          onMomentumScrollEnd={() =>
+            actionSheetRef.current?.handleChildScrollEnd()
+          }
+        >
           {children}
         </ScrollView>
       </View>
