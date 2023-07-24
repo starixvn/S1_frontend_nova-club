@@ -97,7 +97,7 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
 
   const handleClose = () => {
     closeTargetModal('LuckyDrawModal')
-    closeTargetModal('RegisterModal')
+    // closeTargetModal('RegisterModal')
     dispatch(SettingActions.setLuckyDrawBalance(0))
   }
 

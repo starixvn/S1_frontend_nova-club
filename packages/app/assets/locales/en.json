@@ -199,7 +199,10 @@
       "recommended": "Recommended Games"
     },
     "recently": "Recently Played",
-    "jackpot": "Jackpot"
+    "jackpot": "Jackpot",
+    "err": {
+      "notLogin": "Please Login to Play Game"
+    }
   },
   "leaderboard": {
     "monthlyEvent": "Monthly Event",
