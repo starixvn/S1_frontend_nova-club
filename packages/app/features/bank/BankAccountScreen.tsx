@@ -16,7 +16,7 @@ const BankAccountScreen = () => {
   }
 
   return (
-    <FormContainer padding>
+    <FormContainer hidePadding>
       <BankCardForm
         bankList={playerBankList}
         buttonLabel={t('bank.addBankAccount')}

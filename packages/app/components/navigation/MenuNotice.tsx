@@ -14,7 +14,7 @@ const MenuNotice = ({ onPress, sx }: MenuNoticeProps) => {
   const { left } = useSafeArea()
 
   return (
-    <BouncePressable onPress={onPress} sx={{ px: '$4', mx: left, ...sx }}>
+    <BouncePressable onPress={onPress} sx={{ mx: left, ...sx }}>
       <Icon name="notice" size={isLandscape ? 14 : 20} />
     </BouncePressable>
   )

@@ -25,7 +25,6 @@ const CryptoWithdrawalPage = () => {
 
 const StyledView = styled(View)(() => ({
   flex: 1,
-  p: '$pagePadding',
 }))
 
 export default CryptoWithdrawalPage

@@ -4,10 +4,12 @@ import FormContainer from 'app/components/form/FormContainer'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import { ScrollFlashList } from 'app/hoc/withCustomScroll'
 import useLocalization from 'app/provider/localization'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Currency } from 'app/utils/constant'
 import isDesktop from 'app/utils/isDesktop'
-import { SxProp, View } from 'dripsy'
+import { SxProp, Text, View } from 'dripsy'
 import React, { ComponentProps, ReactNode } from 'react'
+import { Platform } from 'react-native'
 import { useCommissionTableQuery } from 'services/contentApi'
 import { CommissionTableResult } from 'services/contentApi.type'
 
@@ -32,6 +34,7 @@ const CommissionTitle = [
 const CommissionTableScreen = () => {
   const { t } = useLocalization()
   const desktop = isDesktop()
+  const { bottom } = useSafeArea()
   const { commissionList } = useCommissionTableQuery(
     { currency: Currency.VND },
     {
@@ -145,18 +148,49 @@ const CommissionTableScreen = () => {
       disableScrollView
       hideHeader={desktop}
     >
-      <FormContainer padding>
+      <FormContainer sx={{ flex: 1 }} hidePadding>
         <TableHeader />
         <View
           sx={{
-            height: desktop ? '50vh' : '100%',
+            flex: 1,
+            maxHeight: desktop ? '50vh' : '100%',
           }}
         >
           <ScrollFlashList
+            overrideProps={{
+              style: {
+                /**
+                 * !!!
+                 * DO NOT REMOVE `minHeight` and `minWidth`
+                 * !!!
+                 *
+                 * It is used inside `@shopify/FlashList` component internally. The reason
+                 * to use this `overrideProps` is to add `overscroll-behaviour` for web to
+                 * improve UX. However, to add this css property, the only way is to add
+                 * via `overrideProps`. To prevent override the style used inside `@shopify/FlashList`
+                 * component, the style used internally has to copy paste to below.
+                 *
+                 * See more:
+                 * https://shopify.github.io/flash-list/docs/usage/#overrideprops
+                 */
+                minHeight: 1,
+                minWidth: 1,
+                /** */
+
+                ...Platform.select({
+                  web: {
+                    overscrollBehavior: 'contain',
+                  },
+                }),
+              },
+            }}
             data={parseCommissionList}
             renderItem={onRender}
             estimatedItemSize={20}
             showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+              paddingBottom: bottom,
+            }}
           />
         </View>
       </FormContainer>

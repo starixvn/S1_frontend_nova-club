@@ -115,7 +115,6 @@ const AccountVerificationForm = ({
 
   return (
     <FormContainer
-      padding
       sx={{
         py: 20,
       }}

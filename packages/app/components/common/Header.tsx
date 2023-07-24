@@ -68,18 +68,28 @@ const Header = ({
           >
             <Icon name="back" size={isLandscape ? 14 : 20} color="white" />
           </Pressable>
-          <Text
+          <View sx={{ flex: 0.8, alignItems: 'center' }}>
+            <Text
+              numberOfLines={2}
+              sx={{
+                fontSize: isLandscape ? 14 : 20,
+                color: 'white',
+                fontWeight: 'bold',
+                textAlign: 'center',
+                ...titleProps?.sx,
+              }}
+              {...titleProps}
+            >
+              {title.toUpperCase()}
+            </Text>
+          </View>
+          <View
             sx={{
-              fontSize: isLandscape ? 14 : 20,
-              color: 'white',
-              fontWeight: 'bold',
-              ...titleProps?.sx,
+              flex: 0.1,
+              alignItems: 'flex-end',
+              pr,
             }}
-            {...titleProps}
           >
-            {title.toUpperCase()}
-          </Text>
-          <View sx={{ flex: 0.1, pr: actions ? pr : 0 }}>
             {actions && actions}
           </View>
         </StyledTop>

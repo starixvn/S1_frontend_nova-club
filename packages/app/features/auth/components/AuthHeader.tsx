@@ -39,7 +39,7 @@ const AuthHeader = ({ headerDesc, onPress }: AuthHeaderProps) => {
             {headerDesc}
           </Text>
         </View>
-        <IconButton sx={{ opacity: 0 }} name="back" />
+        <View sx={{ width: 28, height: 28 }} />
       </View>
     </>
   )
