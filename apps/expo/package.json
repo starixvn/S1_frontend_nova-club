@@ -5,7 +5,7 @@
     "@react-native-menu/menu": "^0.7.3",
     "@react-navigation/material-top-tabs": "^6.6.3",
     "@reduxjs/toolkit": "^1.9.5",
-    "@shopify/flash-list": "1.4.0",
+    "@shopify/flash-list": "1.4.3",
     "app": "*",
     "axios": "^1.4.0",
     "expo": "~48.0.18",

@@ -6,6 +6,7 @@ import useOnAppStart from 'app/hooks/useOnAppStart'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Tabs } from 'expo-router'
 import useAppState from 'app/hooks/appState/useAppState'
+import useOnAgentAppStart from 'agent/hooks/useOnAgentAppStart'
 
 export default function Root() {
   const splashScreenLoaded = useAppSelector(
@@ -13,6 +14,7 @@ export default function Root() {
   )
 
   useOnAppStart()
+  useOnAgentAppStart()
   useAppState()
 
   return (

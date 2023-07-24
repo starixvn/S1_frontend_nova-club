@@ -34,7 +34,7 @@ export default function BannerCarousel({
 
   const width = useContainerWidth(rootRef)
 
-  const ratio = useResponsiveValue([2.688, 2.688, 2.688, 3.84])
+  const ratio = 1920 / 500 //useResponsiveValue([2.688, 2.688, 2.688, 3.84])
   const height = width / ratio
 
   const showCarousel = data != null && width > 0

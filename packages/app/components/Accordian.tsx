@@ -130,6 +130,7 @@ const ViewMessageHeader = styled(View)({
   minHeight: 24,
   py: 16,
   px: '$pagePadding',
+  gap: '$2',
 })
 
 const Divider = styled(View)(({ color }) => ({

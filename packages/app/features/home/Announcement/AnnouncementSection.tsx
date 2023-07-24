@@ -10,11 +10,10 @@ const ANNOUNCEMENT_CONTEXT_COLOR = '#97FFF4'
 
 export default function AnnouncementSection() {
   const locale = useAppSelector((s) => s.setting.locale)
-  const { isUninitialized, announcements } = useAnnouncementQuery(locale, {
-    selectFromResult: (resp) => {
-      return { ...resp, announcements: resp.data?.data?.list }
-    },
-  })
+  const { isUninitialized, data: announcements } = useAnnouncementQuery(
+    locale,
+    {}
+  )
 
   const marquees = useMemo(() => {
     if (announcements == null) return []

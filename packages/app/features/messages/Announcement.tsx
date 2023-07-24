@@ -1,37 +1,36 @@
-import { Container, View } from 'dripsy'
-import React, { useEffect, useState } from 'react'
-import { MessageList } from './PersonalMessage'
+import FormContainer from 'app/components/form/FormContainer'
+import { useAppSelector } from 'app/provider/redux/store'
+import { View, useResponsiveValue } from 'dripsy'
+import React from 'react'
+import { useAnnouncementQuery } from 'services/contentApi'
 import MessageCard from './components/MessageCard'
-import isDesktop from 'app/utils/isDesktop'
 
 const AnnouncementScreen = () => {
-  const [list, setList] = useState<typeof MessageList>([])
-  const desktop = isDesktop()
-
-  useEffect(() => {
-    setList(MessageList)
-  }, [])
+  const locale = useAppSelector((s) => s.setting.locale)
+  const { data } = useAnnouncementQuery(locale)
+  const isDesktop = useResponsiveValue([false, false, false, true])
 
   return (
-    <Container
-      sx={{
-        ...(desktop ? { maxWidth: 500, mt: '$4' } : {}),
-      }}
-    >
-      {list.map((item) => (
+    <FormContainer padding={isDesktop}>
+      {data?.map((item, i) => (
         <View
           key={item.id}
           sx={{
             mb: 12,
-            borderWidth: isDesktop() ? 2 : 0,
+            borderWidth: isDesktop ? 2 : 0,
             borderTopWidth: 2,
             borderColor: '$primary.100',
           }}
         >
-          <MessageCard item={item} />
+          <MessageCard
+            id={item.id}
+            title={item.title}
+            content={item.content}
+            index={i}
+          />
         </View>
       ))}
-    </Container>
+    </FormContainer>
   )
 }
 

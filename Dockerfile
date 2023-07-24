@@ -15,6 +15,7 @@ COPY yarn.lock ./
 COPY apps/next/package.json ./apps/next/
 COPY apps/expo/package.json ./apps/expo/
 COPY packages/app/package.json ./packages/app/
+COPY packages/agent/package.json ./packages/agent/
 COPY packages/desktop-ext/package.json ./packages/desktop-ext/
 COPY packages/services/package.json ./packages/services/
 COPY packages/utils/package.json ./packages/utils/

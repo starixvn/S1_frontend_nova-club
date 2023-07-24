@@ -58,6 +58,7 @@ const nextConfig = {
     'react-native-shadow-2',
     'react-native-svg',
     'react-native-toast-message',
+    'react-native-web',
     /* https://github.com/expo/expo/issues/21623 */
     '@react-native/assets',
     'expo-av',

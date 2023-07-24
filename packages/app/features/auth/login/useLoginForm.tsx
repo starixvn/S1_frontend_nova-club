@@ -43,7 +43,6 @@ export default function useLoginForm(isAgent?: boolean, isRemember) {
       })
 
     if (resp) {
-      console.log('🚀 ~ file: useLoginForm.tsx:45 ~ useLoginForm ~ resp:', resp)
       const { data, result, message, success } = resp
       if (success) {
         isAgent
