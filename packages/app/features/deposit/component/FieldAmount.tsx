@@ -7,6 +7,7 @@ import { PlayerInputFieldsAmount } from 'services/deposit.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { DepositValues } from './DepositForm'
 import Input from 'app/components/form/Input'
+import { Text } from 'dripsy'
 
 type FieldAmountProps = {
   field: PlayerInputFieldsAmount
@@ -57,6 +58,13 @@ const FieldAmount = ({
         onBlur={handleBlur('amount')}
         sx={{ mt: '$2' }}
         value={values.amount}
+        action={() => (
+          <>
+            <Text sx={{ color: '$secondary.100' }}>
+              = {values.amount ? values.amount : 0}K
+            </Text>
+          </>
+        )}
         error={
           touched.amount && errors.amount
             ? t(errors.amount, {
