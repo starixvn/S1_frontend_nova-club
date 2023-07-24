@@ -1,96 +1,91 @@
-import { View } from 'dripsy'
+import { SxProp, View, styled } from 'dripsy'
 import React, { FC, useEffect, useState } from 'react'
 import { GestureResponderEvent } from 'react-native'
 import Animated, {
   Easing,
-  runOnJS,
+  runOnUI,
   useAnimatedStyle,
   useSharedValue,
   withRepeat,
   withTiming,
 } from 'react-native-reanimated'
-import Icon, { IconProps } from './Icon'
-import BouncePressable from './pressable/BouncePressable'
+import IconButton, { IconButtonProps } from './IconButton'
+import { MotiView } from 'moti'
 // import Icon from 'src/components/form/Icon'
 
-interface RefreshButtonProps {
+type RefreshButtonProps = {
   onPress?: (event: GestureResponderEvent) => void
-  _icon?: Partial<IconProps>
   loading?: boolean
-}
+  containerStyle?: SxProp
+} & Omit<IconButtonProps, 'name'>
 
 const ROTATION_DEG = 360
-const ANIMATION_DURATION = 500
+const ANIMATION_DURATION = 1000
 
-const RefreshButton: FC<RefreshButtonProps> = (props) => {
-  const [isAnimating, setIsAnimating] = useState(false)
+const RefreshButton = ({
+  loading,
+  onPress,
+  size = 22,
+  sx,
+}: RefreshButtonProps) => {
+  // const animation = useSharedValue(0)
+  // const animationStyle = useAnimatedStyle(() => {
+  //   'worklet'
+  //   return {
+  //     transform: [
+  //       {
+  //         translateY: animation.value,
+  //       },
+  //     ],
+  //   }
+  // }, [animation.value])
 
-  const { onPress, _icon, loading = false, ...restProps } = props
+  // function changeValue(v, loop) {
+  //   'worklet'
 
-  const animation = useSharedValue(0)
-  const animationStyle = useAnimatedStyle(() => {
-    return {
-      transform: [
-        {
-          rotate: animation.value + 'deg',
-        },
-      ],
-    }
-  }, [])
+  //   animation.value = withRepeat(
+  //     withTiming(v, {
+  //       duration: ANIMATION_DURATION,
+  //       easing: Easing.linear,
+  //     }),
+  //     loop ? -1 : 1,
+  //     false,
+  //     () => {
+  //       if (animation.value === ROTATION_DEG) {
+  //         // runOnJS(setIsAnimatingStatus)()
+  //         animation.value = 0
+  //       }
+  //     }
+  //   )
+  // }
 
-  const onPressHandler = async (event: GestureResponderEvent) => {
-    onPress && (await onPress(event))
-  }
+  // useEffect(() => {
+  //   runOnUI(changeValue)(loading ? ROTATION_DEG : 0, loading)
+  // }, [loading])
 
-  const setIsAnimatingStatus = (status = false) => {
-    setIsAnimating(status)
-  }
-
-  useEffect(() => {
-    if (loading) {
-      setIsAnimating(true)
-
-      animation.value = withRepeat(
-        withTiming(ROTATION_DEG, {
-          duration: ANIMATION_DURATION,
-          easing: Easing.linear,
-        }),
-        -1,
-        false,
-        () => {
-          if (animation.value === ROTATION_DEG) {
-            runOnJS(setIsAnimatingStatus)()
-            animation.value = 0
-          }
-        }
-      )
-    } else {
-      if (animation.value !== 0) {
-        animation.value = withTiming(
-          ROTATION_DEG,
-          {
-            duration:
-              ANIMATION_DURATION -
-              (animation.value / ROTATION_DEG) * ANIMATION_DURATION,
-            easing: Easing.linear,
-          },
-          () => {
-            runOnJS(setIsAnimatingStatus)()
-            animation.value = 0
-          }
-        )
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading])
+  // const onPressHandler = async (event: GestureResponderEvent) => {
+  //   onPress && (await onPress(event))
+  // }
 
   return (
-    <BouncePressable {...restProps} onPress={onPressHandler}>
-      <Animated.View style={[animationStyle]}>
-        <Icon name="refresh" {..._icon} />
-      </Animated.View>
-    </BouncePressable>
+    <StyledMotiView
+      key={(!!loading).toString()}
+      from={{ rotateZ: `0deg` }}
+      animate={{ rotateZ: `${ROTATION_DEG}deg` }}
+      transition={{
+        // repeat: loading ? 0 : 1,
+        loop: loading,
+        repeatReverse: false,
+        type: 'timing',
+        duration: 1000,
+      }}
+      sx={sx}
+    >
+      <IconButton name="refresh" size={size} onPress={onPress} />
+    </StyledMotiView>
   )
 }
+
+const StyledMotiView = styled(MotiView)()
 
 export default RefreshButton

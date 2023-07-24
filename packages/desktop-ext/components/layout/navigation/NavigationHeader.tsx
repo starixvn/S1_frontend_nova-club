@@ -195,7 +195,7 @@ const MenuButton = ({ icon, label, route, style, menu }: MenuButtonProps) => {
       {icon ? (
         <Icon name={icon} size={22} />
       ) : (
-        <Text sx={{ fontSize: [10, 10, 10, 10, 14] }}>
+        <Text sx={{ fontSize: [10, 10, 10, 12, 14] }}>
           {t(label).toUpperCase()}
         </Text>
       )}

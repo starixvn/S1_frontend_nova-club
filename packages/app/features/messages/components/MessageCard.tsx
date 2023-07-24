@@ -3,41 +3,49 @@ import CheckBox from 'app/components/common/CheckBox'
 import { ViewRow } from 'app/components/common/ViewRow'
 import { Text, View, styled } from 'dripsy'
 import React from 'react'
-
-type Message = {
-  id: number
-  title: string
-  subtitle: string
-  content: string
-}
+import HTMLLoader from './HTMLLoader'
 
 type MessageCardProps = {
-  item: Message
-  isChecked?: boolean
-  onCheck?: (arg0) => void
+  selected?: boolean
+  isHtml?: boolean
+  onToggle?: (id: number) => void
+  id: number
+  title: string
+  content: string
+  time?: string
+  index: number
 }
 
-const MessageCard = ({ item, isChecked, onCheck }: MessageCardProps) => {
+const MessageCard = ({
+  selected,
+  isHtml,
+  onToggle,
+  id,
+  title,
+  content,
+  time,
+}: MessageCardProps) => {
   const handlePress = () => {
-    onCheck && onCheck(item.id)
+    onToggle && onToggle(id)
   }
 
   return (
     <Accordian
       isExpandable
       extended={false}
+      parentStyle={{ px: '$3' }}
       // onPress={handlePress}
       header={
         <MessageHeader
-          title={item.title}
-          subtitle={item.subtitle}
-          isChecked={isChecked}
-          onCheck={onCheck && handlePress}
+          title={title}
+          subtitle={time}
+          isChecked={selected}
+          onCheck={onToggle && handlePress}
         />
       }
     >
-      <View sx={{ py: 12, px: 32, gap: 4 }}>
-        <Text>{item.content}</Text>
+      <View sx={{ px: '$4', py: '$3' }}>
+        {isHtml ? <HTMLLoader content={content} /> : <Text>{content}</Text>}
       </View>
     </Accordian>
   )
@@ -45,22 +53,23 @@ const MessageCard = ({ item, isChecked, onCheck }: MessageCardProps) => {
 
 const MessageHeader = ({ title, subtitle, isChecked, onCheck }) => {
   return (
-    <ViewRow sx={{ alignItems: 'center', gap: 12 }}>
+    <ViewRow sx={{ alignItems: 'center', gap: '$3', flex: 1 }}>
       {onCheck && <CheckBox isCheck={isChecked} onCheck={onCheck} />}
-      <View>
+      <View sx={{ flex: 1 }}>
         <TextTitle>{title}</TextTitle>
-        <TextSubTitle>{subtitle}</TextSubTitle>
+        {subtitle && <TextSubTitle>{subtitle}</TextSubTitle>}
       </View>
     </ViewRow>
   )
 }
 
 const TextTitle = styled(Text)({
-  fontWeight: '500',
-  mb: 4,
+  fontWeight: 'bold',
+  width: '100%',
 })
 const TextSubTitle = styled(Text)({
   opacity: 0.8,
+  fontSize: 14,
 })
 
 export default MessageCard

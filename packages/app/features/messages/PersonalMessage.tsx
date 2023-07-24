@@ -1,120 +1,103 @@
 import IconButton from 'app/components/IconButton'
+import RefreshButton from 'app/components/RefreshButton'
 import CheckBox from 'app/components/common/CheckBox'
-import { ViewRow } from 'app/components/common/ViewRow'
+import FormContainer from 'app/components/form/FormContainer'
+import useLocalization from 'app/provider/localization'
 import isDesktop from 'app/utils/isDesktop'
-import { Container, Text, View } from 'dripsy'
-import React, { useEffect, useState } from 'react'
+import { Pressable, Row, Text, View, useResponsiveValue } from 'dripsy'
+import React, { useCallback, useState } from 'react'
+import { useDeleteMessagesMutation, useMessageQuery } from 'services/messageApi'
 import MessageCard from './components/MessageCard'
 
-export const MessageList = [
-  {
-    id: 101,
-    title: 'Title 1',
-    subtitle: 'Subtitle 1',
-    content:
-      'Content 1 all message content show in here, Content 1 all message content show in here,.Content 1 all message content show in hereContent 1 all message content show in hereContent 1 all message content show in here',
-  },
-  {
-    id: 102,
-    title: 'Title 2',
-    subtitle: 'Subtitle 2',
-    content: 'Content 2 all message content show in here',
-  },
-  {
-    id: 103,
-    title: 'Title 3',
-    subtitle: 'Subtitle 3',
-    content: 'Content 3 all message content show in here',
-  },
-  {
-    id: 104,
-    title: 'Title 4',
-    subtitle: 'Subtitle 4',
-    content: 'Content 4 all message content show in here',
-  },
-  {
-    id: 105,
-    title: 'Title 5',
-    subtitle: 'Subtitle 5',
-    content: 'Content 5 all message content show in here',
-  },
-  {
-    id: 106,
-    title: 'Title 6',
-    subtitle: 'Subtitle 6',
-    content: 'Content 6 all message content show in here',
-  },
-]
-
 const PersonalMessage = () => {
-  const [isCheckAll, setIsCheckAll] = useState(false)
-  const [isCheck, setIsCheck] = useState<number[]>([])
-  const [list, setList] = useState<typeof MessageList>([])
-  const desktop = isDesktop()
+  const { t } = useLocalization()
+  const { data, isSuccess, refetch, isFetching } = useMessageQuery()
 
-  useEffect(() => {
-    setList(MessageList)
+  const [deleteMessages, { isLoading: isDeleting }] =
+    useDeleteMessagesMutation()
+  const [selectedIds, setSelectedIds] = useState<number[]>([])
+
+  const isDesktop = useResponsiveValue([false, false, false, true])
+
+  const onToggle = useCallback((id: number) => {
+    setSelectedIds((prev) => {
+      let idIndex = prev.indexOf(id)
+      let newResult = [...prev]
+      if (idIndex > -1) {
+        newResult.splice(idIndex, 1)
+      } else newResult.push(id)
+
+      return newResult
+    })
   }, [])
 
-  const handleSelectAll = (e) => {
-    setIsCheckAll(!isCheckAll)
-    setIsCheck(list.map((li) => li.id))
-    if (isCheckAll) {
-      setIsCheck([])
+  const isSelectedAtLeastOne = selectedIds.length > 0
+  const isAllSelected =
+    isSuccess && isSelectedAtLeastOne && selectedIds.length === data.length
+
+  const selectAll = () => {
+    if (isAllSelected) setSelectedIds([])
+    else data && setSelectedIds(data.map((d) => d.messageId) ?? [])
+  }
+
+  async function onDelete() {
+    if (!isSelectedAtLeastOne) return
+
+    let params = {
+      isDeleteAll: false,
+      ids: selectedIds,
     }
-  }
-
-  const handleClick = (id) => {
-    if (isCheck.includes(id)) {
-      setIsCheck(isCheck.filter((item) => item !== id))
-      isCheckAll && setIsCheckAll(!isCheckAll)
-    } else setIsCheck([...isCheck, id].sort((a, b) => a - b))
-  }
-
-  const handleDelete = () => {
-    console.log('Delete action')
-  }
-
-  const handleRefresh = () => {
-    console.log('Refresh action')
+    try {
+      await deleteMessages(params).unwrap()
+      setSelectedIds([])
+      refetch()
+    } catch (e) {}
   }
 
   return (
-    <View>
-      <Container
-        sx={{
-          ...(desktop ? { maxWidth: 500 } : {}),
-        }}
-      >
-        <ViewRow sx={{ alignItems: 'center', p: 24, gap: 12 }}>
-          <CheckBox isCheck={isCheckAll} onCheck={handleSelectAll} />
-          <Text sx={{ flex: 1 }}>Select All</Text>
+    <FormContainer padding={isDesktop}>
+      <Row sx={{ alignItems: 'center', p: '$3' }}>
+        <Pressable
+          sx={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: '$3',
+            marginRight: 'auto',
+          }}
+          onPress={selectAll}
+        >
+          <CheckBox isCheck={isAllSelected} />
+          <Text sx={{ flex: 1 }}>{t('common.selectAll')}</Text>
+        </Pressable>
+        <Row sx={{ gap: '$2', alignItems: 'center' }}>
+          <IconButton name="bin" onPress={onDelete} />
+          <RefreshButton loading={isFetching} onPress={() => refetch()} />
+        </Row>
+      </Row>
 
-          <ViewRow sx={{ gap: 4 }}>
-            <IconButton name="bin" onPress={handleDelete} />
-            <IconButton name="refresh" onPress={handleRefresh} />
-          </ViewRow>
-        </ViewRow>
-
-        {list.map((item) => (
-          <View
-            key={item.id}
-            sx={{
-              mb: 12,
-              borderWidth: desktop ? 2 : 0,
-              borderTopWidth: 2,
-              borderColor: '$primary.100',
-            }}
-          >
-            <MessageCard
-              item={item}
-              isChecked={isCheck.includes(item.id)}
-              onCheck={(id) => handleClick(id)}
-            />
-          </View>
-        ))}
-      </Container>
-    </View>
+      {data?.map((item, i) => (
+        <View
+          key={item.messageId}
+          sx={{
+            mb: 12,
+            borderWidth: isDesktop ? 2 : 0,
+            borderTopWidth: 2,
+            borderColor: '$primary.100',
+          }}
+        >
+          <MessageCard
+            isHtml
+            index={i}
+            id={item.messageId}
+            content={item.message}
+            selected={selectedIds.includes(item.messageId)}
+            onToggle={(id) => onToggle(id)}
+            title={item.subject}
+            time={item.date}
+          />
+        </View>
+      ))}
+    </FormContainer>
   )
 }
 
