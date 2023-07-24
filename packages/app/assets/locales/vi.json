@@ -200,7 +200,10 @@
       "recommended": "GAMES ĐƯỢC ĐỀ XUẤT"
     },
     "recently": "Được chơi gần đây",
-    "jackpot": "NỔ HŨ"
+    "jackpot": "NỔ HŨ",
+    "err": {
+      "notLogin": "Vui lòng đăng nhập để chơi trò chơi"
+    }
   },
   "leaderboard": {
     "monthlyEvent": "Sự kiện tháng",
