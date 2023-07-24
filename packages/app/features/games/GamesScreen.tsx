@@ -48,6 +48,9 @@ const GamesScreen = () => {
 
   const [filteredGames, setFilteredGames] = useState<Game[]>()
   const { push } = useRouter()
+  const mobileGamesFilterResponsiveSize = useResponsiveValue([
+    60, 60, 70, 70, 70,
+  ])
 
   const [params, setParams] = useParam('type', {
     parse: (templateFromUrl) => {
@@ -169,7 +172,7 @@ const GamesScreen = () => {
           <IconButtonGradientGroup
             sx={{
               flex: 1,
-              minWidth: 450,
+              minWidth: ['100%', 450],
               alignSelf: 'center',
             }}
           >
@@ -180,7 +183,7 @@ const GamesScreen = () => {
                   key={r.label}
                   active={type ? r.route.includes(type) : r.route === '/games'}
                   label={r.label}
-                  size={useResponsiveValue([60, 60, 70, 70, 70])}
+                  size={mobileGamesFilterResponsiveSize}
                   icon={r.icon ?? 'notice'}
                   labelProps={{ style: { fontSize: 11 }, numberOfLines: 2 }}
                   onPress={() => onFilterClicked(r, i)}
