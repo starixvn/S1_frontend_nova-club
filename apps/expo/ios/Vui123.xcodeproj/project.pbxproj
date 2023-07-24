@@ -169,7 +169,7 @@
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = "VU9FQBV88P";
+						DevelopmentTeam = VU9FQBV88P;
 						LastSwiftMigration = 1250;
 						ProvisioningStyle = Automatic;
 					};
@@ -310,7 +310,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "VU9FQBV88P";
+				DEVELOPMENT_TEAM = VU9FQBV88P;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 36LZ925H63;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = "";
@@ -351,7 +351,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "VU9FQBV88P";
+				DEVELOPMENT_TEAM = VU9FQBV88P;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 36LZ925H63;
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = Vui123/Info.plist;

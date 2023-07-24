@@ -16,9 +16,7 @@ type LoginFormValues = {
   password: string
 }
 
-export default function useLoginForm(isAgent?: boolean, isRemember) {
-  // const [login] = useLoginMutation()
-  // const [agentLogin] = useAgentLoginMutation()
+export default function useLoginForm(isAgent?: boolean, isRemember?: boolean) {
   const { showAlert } = useAlert()
   const dispatch = useAppDispatch()
 
@@ -31,12 +29,7 @@ export default function useLoginForm(isAgent?: boolean, isRemember) {
   ) => {
     const api = isAgent ? agentAuthApi.endpoints.login : authApi.endpoints.login
 
-    const resp = await dispatch(
-      api.initiate({
-        username,
-        password,
-      })
-    )
+    const resp = await dispatch(api.initiate({ username, password }))
       .unwrap()
       .catch((e: IResponse<LoginResult>) => {
         showAlert(e.message)
