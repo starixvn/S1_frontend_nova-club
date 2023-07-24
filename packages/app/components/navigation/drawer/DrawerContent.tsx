@@ -1,6 +1,6 @@
 import { DEV_DOMAIN } from '@env'
 import Icon from 'app/components/Icon'
-import IconButton from 'app/components/IconButton'
+import BouncePressable from 'app/components/pressable/BouncePressable'
 import useAlert from 'app/hooks/useAlert'
 import { useDrawer } from 'app/hooks/useDrawer'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
@@ -10,7 +10,11 @@ import { copyToClipboard } from 'app/utils'
 import isDesktop from 'app/utils/isDesktop'
 import { Pressable, ScrollView, Text, View } from 'dripsy'
 import React, { useEffect, useRef } from 'react'
-import { ImageBackground, useWindowDimensions } from 'react-native'
+import {
+  ImageBackground,
+  useWindowDimensions,
+  ScrollView as rScrollView,
+} from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 
@@ -23,7 +27,7 @@ export default function DrawerContent() {
   const { logout } = useOnAppLogout()
   const desktop = isDesktop()
   const { showAlert } = useAlert()
-  const scrollRef = useRef()
+  const scrollRef = useRef<rScrollView>(null)
 
   const { isCreditMember, data: playerData } = usePlayerProfileQuery()
   const referralLink = `${DEV_DOMAIN}/download?ref=${playerData?.referral_code}`
@@ -38,23 +42,22 @@ export default function DrawerContent() {
   }
 
   useEffect(() => {
-    if (isOpen) {
-      scrollRef?.current.scrollTo({ animated: false, offset: 0 })
+    if (isOpen && scrollRef?.current) {
+      scrollRef?.current.scrollTo({ animated: false })
     }
-    // scrollRef?.current?.scrollToOffset({ animated: true, offset: 0 })
   }, [isOpen])
 
   const MENU_LIST = [
     {
       iconName: 'agent',
-      text: 'AgentLogin',
+      text: 'common.agentLogin',
       onPress: () => {
         push('/auth/login?t=agent')
       },
     },
     {
       iconName: 'deposit',
-      text: 'Deposit',
+      text: 'common.deposit',
       onPress: () => {
         isPlayerName
           ? push('/deposit')
@@ -65,35 +68,35 @@ export default function DrawerContent() {
     },
     {
       iconName: 'withdraw',
-      text: 'Withdrawal',
+      text: 'common.withdraw',
       onPress: () => {
         push('/withdrawal')
       },
     },
     {
       iconName: 'transfer',
-      text: 'Transfer',
+      text: 'common.transfer',
       onPress: () => {
         push('/transfer')
       },
     },
     {
       iconName: 'history',
-      text: 'History',
+      text: 'common.history',
       onPress: () => {
         push('/history')
       },
     },
     {
       iconName: 'cs',
-      text: 'Customer Support',
+      text: 'contact.customerSupport',
       onPress: () => {
         push('/account/customer-support')
       },
     },
     {
       iconName: 'logout',
-      text: 'Logout',
+      text: 'common.logout',
       onPress: async () => {
         try {
           await logout()
@@ -138,7 +141,8 @@ export default function DrawerContent() {
                 sx={{
                   flexDirection: 'row',
                   alignItems: 'center',
-                  paddingHorizontal: 10,
+                  px: '$3',
+                  py: 14,
                 }}
                 onPress={() => {
                   item.onPress && item.onPress()
@@ -146,19 +150,14 @@ export default function DrawerContent() {
                 }}
               >
                 <View sx={{ alignItems: 'flex-start' }}>
-                  <Icon
-                    name={item.iconName}
-                    color={'white'}
-                    size={30}
-                    sx={{ p: 10 }}
-                  />
+                  <Icon name={item.iconName} color={'white'} size={30} />
                 </View>
                 <View sx={{ flex: 1, alignItems: 'flex-end' }}>
                   <Text
                     numberOfLines={1}
                     sx={{ alignItems: 'flex-end', fontSize: 16 }}
                   >
-                    {item.text}
+                    {t(item.text)}
                   </Text>
                 </View>
               </Pressable>
@@ -201,25 +200,28 @@ export default function DrawerContent() {
                 >
                   {t('referral.shareContent')}
                 </Text>
-                <Pressable
+                <BouncePressable
+                  onPress={() => copyToClipboard(referralLink)}
                   sx={{
-                    bg: '$primary.500',
-                    padding: 10,
+                    bg: 'rgba(255,255,255,0.3)',
                     borderRadius: 20,
                     marginTop: 10,
                     flexDirection: 'row',
                     alignItems: 'center',
+                    px: '$3',
+                    py: 1,
                   }}
-                  onPress={() => copyToClipboard(referralLink)}
                 >
-                  <Text sx={{ fontSize: 14 }}>{t('common.copy')}</Text>
-                  <IconButton
+                  <Text sx={{ fontSize: 14, mx: '$1', fontWeight: 'bold' }}>
+                    {t('common.copy')}
+                  </Text>
+                  <Icon
                     name={'copy'}
                     color={'white'}
-                    size={12}
-                    sx={{ padding: 5 }}
+                    size={20}
+                    sx={{ padding: 5, mx: '$1' }}
                   />
-                </Pressable>
+                </BouncePressable>
               </View>
             </View>
           </ImageBackground>
