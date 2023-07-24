@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function DepositScreen({}) {
   return (
-    <FormContainer>
+    <FormContainer hidePadding>
       <OnlineBankingContent />
     </FormContainer>
   )

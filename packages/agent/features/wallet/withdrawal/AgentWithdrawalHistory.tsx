@@ -92,7 +92,7 @@ const AgentWithdrawalHistory = ({ currency }: { currency: Currency }) => {
   )
 
   return (
-    <View sx={{ py: '$5', height: Platform.OS !== 'web' ? 500 : null }}>
+    <View sx={{ mt: '$5', height: Platform.OS !== 'web' ? 500 : null }}>
       <TableListing
         title={t('wallet.recentTransaction')}
         refreshProps={{ titleProps: { sx: { fontWeight: 'bold' } } }}

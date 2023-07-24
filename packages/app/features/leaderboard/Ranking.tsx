@@ -9,7 +9,7 @@ const RankingScreen = () => {
   const { t } = useLocalization()
 
   return (
-    <FormContainer padding>
+    <FormContainer hidePadding>
       <View sx={{ flexGrow: 1 }}>
         <Text sx={{ textAlign: 'center', p: 12 }}>
           {t('leaderboard.top10').toUpperCase()}

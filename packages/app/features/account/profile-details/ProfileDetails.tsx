@@ -105,7 +105,7 @@ const ProfileDetails = () => {
       disableScrollView
       hideHeader={desktop}
     >
-      <FormContainer sx={{ my: '$4' }}>
+      <FormContainer sx={{ my: '$4' }} hidePadding>
         {desktop ? (
           <>
             {isPlayerName && desktop ? (

@@ -1,17 +1,20 @@
 import { DripsyGradient } from 'app/components/Gradient'
-import Icon from 'app/components/Icon'
-import ShadowButton from 'app/components/ShadowButton'
-import Image from 'app/components/common/Image'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
-import TouchableOpacity from 'app/components/pressable/TouchableOpacity'
+import usePathname from 'app/hooks/usePathname'
 import useLocalization from 'app/provider/localization'
-import { Text, View, useDripsyTheme } from 'dripsy'
+import isDesktop from 'app/utils/isDesktop'
+import {
+  ActivityIndicator,
+  Image,
+  Pressable,
+  Text,
+  View,
+  useDripsyTheme,
+} from 'dripsy'
 import React from 'react'
 import { Linking, Platform } from 'react-native'
 import { Shadow } from 'react-native-shadow-2'
 import useSupportItemList from './useSupportItemList'
-import isDesktop from 'app/utils/isDesktop'
-import usePathname from 'app/hooks/usePathname'
 
 const CustomerSupportScreen = () => {
   const { t } = useLocalization()
@@ -27,28 +30,27 @@ const CustomerSupportScreen = () => {
       header={{ title: t(contactUsTitle) }}
       hideHeader={desktop}
     >
-      <View sx={{ flex: 1, alignItems: 'center' }}>
-        <Image
-          source={require('app/assets/images/common/logo-circle.png')}
-          alt="logo"
-          style={{ height: 150, aspectRatio: 1 / 1, marginVertical: 24 }}
-        />
-        <Text sx={{ py: 12 }}>{t('contact.contactVia')}</Text>
+      <Text sx={{ pt: 30, px: '$3', fontWeight: 'bold', fontSize: 24 }}>
+        {t('contact.contactVia')}
+      </Text>
 
-        <View
-          sx={{
-            minHeight: 200,
-          }}
-        >
-          {mediaList.map((item) => (
-            <SupportButton
-              key={item.label}
-              icon={item.icon}
-              label={item.label}
-              href={item.href}
-            />
-          ))}
-        </View>
+      <View
+        sx={{
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        {mediaList.map((item) => (
+          <SupportButton
+            key={item.label}
+            qr={item.qr}
+            icon={item.icon}
+            label={item.label}
+            href={item.href}
+          />
+        ))}
       </View>
     </PageWithBackHeader>
   )
@@ -58,27 +60,29 @@ const SupportButton = ({
   icon,
   label,
   href,
+  qr,
 }: {
   icon: string
   label: string
   href: string
+  qr: string
 }) => {
   const { t } = useLocalization()
   const { theme } = useDripsyTheme()
 
   return (
-    <TouchableOpacity
+    <Pressable
       onPress={() => {
         if (Platform.OS !== 'web') Linking.openURL(href)
       }}
-      style={{ marginVertical: 8 }}
+      sx={{ minWidth: 400, alignItems: 'center', my: '$4' }}
     >
       <Shadow
         offset={[0, -1]}
         startColor={theme.colors.$primary[100]}
         distance={1}
         safeRender
-        style={{ borderRadius: 100 }}
+        style={{ borderRadius: 50 }}
       >
         <DripsyGradient
           gradient="surface"
@@ -88,21 +92,37 @@ const SupportButton = ({
             target: '_blank',
           }}
           sx={{
-            flexDirection: 'row',
             alignItems: 'center',
-            borderRadius: 100,
-            p: 4,
+            justifyContent: 'center',
+            borderRadius: 50,
+            px: '$5',
+            py: '$4',
             minWidth: 180,
             // my: 8,
           }}
         >
-          <ShadowButton containerStyle={{ aspectRatio: 1 / 1, mr: 12 }}>
-            <Icon name={icon} />
-          </ShadowButton>
-          <Text sx={{ fontWeight: 'bold' }}>{t('contact.' + label)}</Text>
+          {qr ? (
+            <>
+              <Text sx={{ fontWeight: 'bold', pb: '$3', fontSize: 20 }}>
+                {t('contact.' + label)}
+              </Text>
+
+              <Image
+                source={{ uri: qr }}
+                alt="zalo-social-media"
+                style={{
+                  width: 200,
+                  height: 200,
+                  zIndex: 99,
+                }}
+              />
+            </>
+          ) : (
+            <ActivityIndicator />
+          )}
         </DripsyGradient>
       </Shadow>
-    </TouchableOpacity>
+    </Pressable>
   )
 }
 

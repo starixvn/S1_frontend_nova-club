@@ -5,11 +5,12 @@ import useOnAgentLogout from 'agent/hooks/useOnAgentLogout'
 import { useUserInfoQuery } from 'agent/services/userApi'
 import { useAgentLocalization } from 'app/provider/localization'
 import { styled, Sx, View } from 'dripsy'
-import { Platform, TouchableOpacity } from 'react-native'
+import { Linking, Platform, TouchableOpacity } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useRouter } from 'solito/router'
 // import * as DropdownMenu from 'zeego/dropdown-menu'
 import { DropdownMenu } from 'agent/components/Dropdown'
+import useSupportItemList from 'app/features/customerSupport/useSupportItemList'
 
 const smallIconHeight = AGENT_TAB_HEIGHT * 0.5
 interface MainMenuTestProps {
@@ -23,6 +24,7 @@ const MainMenu = () => {
   const { logout } = useOnAgentLogout()
   const { push } = useRouter()
   const { openModal } = useModal()
+  const mediaList = useSupportItemList()
 
   const { hasPin } = useUserInfoQuery(undefined, {
     selectFromResult: ({ data }) => ({
@@ -35,6 +37,11 @@ const MainMenu = () => {
       onConfirm: () => push('/'),
     })
   }
+
+  const OpenCSTelegram = () => {
+    mediaList.length > 0 && Linking.openURL(mediaList[0]?.href ?? '')
+  }
+
   const mainMenuList = [
     {
       label: 'commission.title',
@@ -65,6 +72,11 @@ const MainMenu = () => {
       label: 'menu.switchMember',
       icon: 'switch',
       onPress: () => AgentSwitchConfirmation(),
+    },
+    {
+      label: 'menu.contactUs',
+      icon: 'cs',
+      onPress: () => OpenCSTelegram(),
     },
     {
       label: 'menu.logout',

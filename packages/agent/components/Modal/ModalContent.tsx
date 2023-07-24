@@ -116,9 +116,7 @@ const StyledViewHeader = styled(View)(() => ({
   borderTopRightRadius: 12,
 }))
 const StyledViewBody = styled(View)(() => ({
-  padding: '$4',
   minHeight: 120,
-  color: 'white',
 }))
 const StyledViewFooter = styled(View)(() => ({
   padding: '$4',

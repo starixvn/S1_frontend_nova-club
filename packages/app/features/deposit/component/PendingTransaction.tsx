@@ -46,6 +46,7 @@ const PendingTransaction = ({ paymentMethod }: PendingTransactionProps) => {
       sx={{
         width: '100%',
         alignSelf: 'center',
+        pb: '$pagePadding',
       }}
     >
       <View

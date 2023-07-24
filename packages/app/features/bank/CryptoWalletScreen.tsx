@@ -17,7 +17,7 @@ const CryptoWalletScreen = () => {
   }
 
   return (
-    <FormContainer padding>
+    <FormContainer hidePadding>
       <BankCardForm
         bankList={playerCryptoList}
         buttonLabel={t('wallet.addCryptoWallet')}

@@ -120,9 +120,8 @@ export const agentModalConfig: ModalConfigType = {
     position: 'top',
     backdropOpacity: 0,
     containerStyle: {
-      position: 'absolute',
       marginTop: '30%',
-      marginRight: '-35%',
+      alignItems: 'flex-end',
     },
     transitionOptions: (animatedValue) => ({
       opacity: animatedValue.interpolate({

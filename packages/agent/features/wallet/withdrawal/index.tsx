@@ -27,7 +27,7 @@ const AgentWithdrawalPage = () => {
         />
       ) : (
         <ScrollView
-          sx={{ width: '100%' }}
+          sx={{ width: '100%', bg: 'white' }}
           contentContainerSx={{ margin: 0, padding: 0 }}
         >
           {bankListData?.result?.recordsTotal ? (

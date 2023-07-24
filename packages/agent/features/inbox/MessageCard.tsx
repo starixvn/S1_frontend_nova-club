@@ -38,7 +38,6 @@ const MessageCard: FC<MessageCardProps> = ({
   }
 
   const [isExtend, setIsExtend] = useState(false)
-  const { width, height } = useContainerDimension()
   const [content, setContent] = useState('')
   const [fetchAnnouncementDetails, { isFetching }] =
     useLazyAnnouncementDetailQuery()
@@ -46,8 +45,6 @@ const MessageCard: FC<MessageCardProps> = ({
     useLazyMessageDetailQuery()
 
   const { theme } = useDripsyTheme()
-
-  const firstItem = index === 0
 
   const handleExpand = async () => {
     setIsExtend(!isExtend)
@@ -124,87 +121,5 @@ const ParentItem = ({ title, isExtend }) => {
     </View>
   )
 }
-
-// const MessageContent = ({ isHtml, content }) => {
-//   const { width, height } = useContainerDimension()
-//   const [webViewHeight, setWebViewHeight] = useState<number>(0)
-
-//   const webViewScript =
-//     'window.ReactNativeWebView.postMessage(Math.max(document.body.offsetHeight, document.body.scrollHeight));'
-//   const onMessage = (event) => {
-//     setWebViewHeight(Number(event.nativeEvent.data))
-//   }
-
-//   const styleContent = `<html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body>
-//   <div style="font-size:17px;color:black;margin-left:8px;font-family: 'Noto Sans';">
-//   ${content}</div></body></html>`
-
-//   const htmlTagStyle = useMemo(() => {
-//     return {
-//       div: {
-//         fontSize: 17,
-//         color: 'black',
-//         marginLeft: 8,
-//       },
-//     }
-//   }, [])
-
-//   if (isHtml) {
-//     return (
-//       <>
-//         {Platform.OS === 'web' ? (
-//           <div
-//             dangerouslySetInnerHTML={{
-//               __html: styleContent,
-//             }}
-//           />
-//         ) : (
-//           <RenderHtml
-//             source={{
-//               html: `${content}` || '<p></p>',
-//             }}
-//             // baseStyle={htmlStyle}
-//             tagsStyles={htmlTagStyle}
-//           />
-//           // <WebView
-//           //   style={{
-//           //     width,
-//           //     height: webViewHeight,
-//           //     backgroundColor: 'transparent',
-//           //   }}
-//           //   originWhitelist={['*']}
-//           //   source={{
-//           //     uri: styleContent,
-//           //   }}
-//           //   injectedJavaScript={webViewScript}
-//           //   onMessage={onMessage}
-//           // />
-//         )}
-//       </>
-//     )
-//   } else {
-//     return <Text sx={{ px: '$3', pt: '$2', color: 'black' }}>{content}</Text>
-//   }
-// }
-
-const StyledMotiView = styled(MotiView)({
-  flex: 1,
-  borderTopWidth: 1,
-  borderTopColor: '$lightNavyBlue',
-  justifyContent: 'center',
-  minHeight: 100,
-})
-
-const StyledView = styled(View)({
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  flex: 1,
-  p: '$3',
-  borderTopWidth: 1,
-  borderBottomWidth: 1,
-  borderColor: '$borderBlue',
-  alignItems: 'center',
-  py: '$3',
-})
 
 export default MessageCard

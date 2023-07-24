@@ -13,7 +13,7 @@ const AnnouncementPage = () => {
   const totalData = data?.total ?? 0
 
   return (
-    <View sx={{ bg: 'white', flex: 1, flexBasis: 0 }}>
+    <View sx={{ bg: 'white', flex: 1, flexBasis: 0, pb: '$5' }}>
       <DataTableRefresh
         title={`${t('common.total')} : ${totalData}`}
         isLoading={isFetching}

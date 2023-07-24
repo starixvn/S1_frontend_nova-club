@@ -11,12 +11,12 @@ const AnnouncementScreen = () => {
   const isDesktop = useResponsiveValue([false, false, false, true])
 
   return (
-    <FormContainer padding={isDesktop}>
+    <FormContainer hidePadding={!isDesktop}>
       {data?.map((item, i) => (
         <View
           key={item.id}
           sx={{
-            mb: 12,
+            mt: 12,
             borderWidth: isDesktop ? 2 : 0,
             borderTopWidth: 2,
             borderColor: '$primary.100',
