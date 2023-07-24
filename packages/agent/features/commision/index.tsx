@@ -54,10 +54,8 @@ const CommissionTable = () => {
       >
         <AgentDataTableCell
           bordered={isTitle ? false : true}
-          sx={{
-            flex: 0.4,
-            // justifyContent,
-          }}
+          center={isTitle ? false : true}
+          sx={{ flex: isTitle ? 1 : 0.4 }}
           textStyle={{ fontWeight: 'bold', paddingLeft, px: 12 }}
         >
           {item.gametype}

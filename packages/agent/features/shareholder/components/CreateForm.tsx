@@ -57,7 +57,7 @@ const CreateForm = <T,>({
   }
 
   return (
-    <Card>
+    <Card sx={{ mb: '$5' }}>
       <Flex
         sx={{
           flexDirection: 'row',

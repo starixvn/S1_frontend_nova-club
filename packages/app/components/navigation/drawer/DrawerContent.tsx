@@ -1,10 +1,12 @@
 import { DEV_DOMAIN } from '@env'
 import Icon from 'app/components/Icon'
 import BouncePressable from 'app/components/pressable/BouncePressable'
+import { LoginType } from 'app/features/auth/AuthTypeSelection'
 import useAlert from 'app/hooks/useAlert'
 import { useDrawer } from 'app/hooks/useDrawer'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { copyToClipboard } from 'app/utils'
 import isDesktop from 'app/utils/isDesktop'
@@ -29,6 +31,7 @@ export default function DrawerContent() {
   const { showAlert } = useAlert()
   const scrollRef = useRef<rScrollView>(null)
 
+  const isAgentLoggedIn = useAppSelector((s) => !!s.agent.access_token)
   const { isCreditMember, data: playerData } = usePlayerProfileQuery()
   const referralLink = `${DEV_DOMAIN}/download?ref=${playerData?.referral_code}`
   const isPlayerName = !!playerData?.firstName
@@ -52,7 +55,20 @@ export default function DrawerContent() {
       iconName: 'agent',
       text: 'common.agentLogin',
       onPress: () => {
-        push('/auth/login?t=agent')
+        try {
+          if (isAgentLoggedIn) {
+            push('/agent/profile')
+          } else {
+            push({
+              pathname: '/auth/login',
+              query: {
+                t: LoginType.Agent,
+              },
+            })
+          }
+        } catch (e) {
+          console.log('Failed to open Agent url')
+        }
       },
     },
     {

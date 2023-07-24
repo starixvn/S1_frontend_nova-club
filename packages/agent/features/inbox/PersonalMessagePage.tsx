@@ -14,7 +14,7 @@ const PersonalMessagePage = () => {
   const totalData = data?.total ?? 0
 
   return (
-    <View sx={{ backgroundColor: 'white', flex: 1, flexBasis: 0 }}>
+    <View sx={{ backgroundColor: 'white', flex: 1, flexBasis: 0, pb: '$5' }}>
       <DataTableRefresh
         title={`${t('common.total')} : ${totalData}`}
         isLoading={isFetching}

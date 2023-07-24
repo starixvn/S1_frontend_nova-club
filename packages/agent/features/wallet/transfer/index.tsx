@@ -40,7 +40,7 @@ const AgentFundTransferPage = () => {
   }
 
   return (
-    <ScrollView>
+    <ScrollView sx={{ bg: 'white' }}>
       <AgentTransferForm
         currency={currency}
         balance={balance ?? 0}

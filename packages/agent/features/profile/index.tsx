@@ -25,7 +25,7 @@ const AgentProfile = () => {
     <DripsyGradient locations={[0.0, 0.1]} gradient="agentContent">
       <ScrollView sx={{ px: '$3', pt: '$4' }}>
         <ProfileTitle userRole={userRole} />
-        <Card isLoading={loading} sx={{ mb: 30 }}>
+        <Card isLoading={loading} sx={{ mb: '$6' }}>
           <ProfileContentContainer
             from={{ opacity: 0, height: 0 }}
             animate={{

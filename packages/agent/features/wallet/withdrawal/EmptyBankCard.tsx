@@ -10,7 +10,7 @@ const EmptyBankCard = () => {
   const { t } = useAgentLocalization()
 
   const handleAddBank = () => {
-    push('/agent/wallet/withdrawal/add-bank')
+    push('/agent/add-bank')
   }
 
   return (
