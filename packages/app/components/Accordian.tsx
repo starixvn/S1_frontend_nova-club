@@ -10,8 +10,11 @@ type AccordianProps = {
   extended: boolean
   label?: string
   header?: ReactNode
+  icon?: ReactNode
   children: ReactNode
   onPress?: () => void
+  color?: any
+  containerStyle?: SxProp
   parentStyle?: SxProp
   childStyle?: SxProp
 }
@@ -21,8 +24,11 @@ const Accordian = ({
   extended = true,
   label,
   header,
+  icon,
   children,
   onPress,
+  color,
+  containerStyle,
   parentStyle,
   childStyle,
 }: AccordianProps) => {
@@ -33,31 +39,37 @@ const Accordian = ({
   }, extended)
   const desktop = isDesktop()
 
+  const borderColor = color ?? '$primary.100'
+
   const handlePress = () => {
-    onPress && !isExtend && onPress()
+    onPress && onPress()
     toggleIsExtend()
   }
   return (
     <MotiPressable onPress={isExpandable ? handlePress : undefined}>
       <View
         sx={{
+          borderTopWidth: desktop ? 0 : 2,
           borderBottomWidth: desktop ? 0 : isExtend ? 0 : 2,
-          borderColor: '$primary.100',
+          borderColor: borderColor,
+          ...containerStyle,
         }}
       >
         <ViewMessageHeader sx={parentStyle}>
-          {header ?? <View>{label}</View>}
-          {isExpandable && (
-            <MotiView
-              animate={{ rotate: isExtend ? '-180deg' : '0deg' }}
-              transition={{
-                type: 'timing',
-                duration: 350,
-              }}
-            >
-              <Icon name="down" size={20} />
-            </MotiView>
-          )}
+          <View sx={{ flex: 1 }}>{header ?? <View>{label}</View>}</View>
+          <View sx={{ flexBasis: 48, alignItems: 'center' }}>
+            {isExpandable && (
+              <MotiView
+                animate={{ rotate: isExtend ? '-180deg' : '0deg' }}
+                transition={{
+                  type: 'timing',
+                  duration: 350,
+                }}
+              >
+                {icon ?? <Icon name="down" size={20} />}
+              </MotiView>
+            )}
+          </View>
         </ViewMessageHeader>
       </View>
       {/* Dummy View to calculate the expandable Height */}
@@ -70,7 +82,9 @@ const Accordian = ({
       >
         {children}
       </View>
-      <View sx={{ bg: '$primary.500' }}>{isExtend && <Divider />}</View>
+      <View sx={{ bg: color ? 'white' : '$primary.500' }}>
+        {isExtend && <Divider color={color} />}
+      </View>
       {isExpandable ? (
         <MotiView
           from={{ height: 0 }}
@@ -90,9 +104,9 @@ const Accordian = ({
                   opacity: 0,
                 }}
                 sx={{
-                  backgroundColor: theme.colors.$primary[500],
+                  backgroundColor: '$primary.500',
                   borderBottomWidth: 2,
-                  borderColor: theme.colors.$primary[100],
+                  borderColor: borderColor,
                   ...childStyle,
                 }}
               >
@@ -119,11 +133,11 @@ const ViewMessageHeader = styled(View)({
   gap: '$2',
 })
 
-const Divider = styled(View)({
+const Divider = styled(View)(({ color }) => ({
   mx: '$pagePadding',
   borderBottomWidth: 1,
-  borderColor: '$primary.100',
-})
+  borderColor: color ?? '$primary.100',
+}))
 
 const StyledMotiView = styled(MotiView)({})
 export default Accordian

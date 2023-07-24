@@ -26,11 +26,14 @@ export default function AuthLayout({
   onBack,
 }: AuthLayoutProps) {
   const { top, bottom } = useSafeArea()
-  const { back } = useRouter()
+  const { back, replace } = useRouter()
   const BANNER_RATIO = 768 / 240
   return (
     <View sx={{ alignItems: 'stretch', flex: 1 }}>
-      <AuthHeader headerDesc={headerDesc} onPress={onBack ?? back} />
+      <AuthHeader
+        headerDesc={headerDesc}
+        onPress={() => (onBack ? onBack() : replace('/'))}
+      />
       <ScrollView
         bounces={false}
         sx={{ bg: '$primary.700', flex: 1 }}

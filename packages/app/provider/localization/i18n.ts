@@ -1,12 +1,14 @@
 import { I18n, MissingTranslationStrategy } from 'i18n-js'
 
+import agentEn from 'agent/assets/locales/agent-en.json'
+import agentVi from 'agent/assets/locales/agent-vi.json'
 import en from 'app/assets/locales/en.json'
 import vi from 'app/assets/locales/vi.json'
 
 export const i18n = new I18n(
   {
-    en: Object.assign(en),
-    vi: Object.assign(vi),
+    en: Object.assign(en, { agent: agentEn }),
+    vi: Object.assign(vi, { agent: agentVi }),
   },
   {
     enableFallback: true,

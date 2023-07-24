@@ -202,19 +202,35 @@ export function toThousandSeparator(
   text: string,
   language: LANGUAGE_CODE = LANGUAGE_CODE.VIETNAM
 ) {
-  if (!text || text === '0') return ''
-  const parseText = text.toString()
+  if (!text) return 0
+
   const separatorSymbol = CURRENCY_SEPARATOR[language].thousands
-  let index = parseText.search(/[1-9]/)
-  index = index === -1 ? parseText.length : index
+  const significants = text.toString().split('.')
+  const wholeNum = parseFloat(significants[0] ?? '0')
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, separatorSymbol)
+
+  const decimal =
+    significants.length > 1 ? significants[1]?.substring(0, 2) : undefined
+
+  return `${wholeNum}${decimal ? '.' + decimal : ''}`
+}
+
+export function agentToThousandSeparator(
+  text: string,
+  language: LANGUAGE_CODE = LANGUAGE_CODE.VIETNAM
+) {
+  if (!text || text === '0') return ''
+  const separatorSymbol = CURRENCY_SEPARATOR[language].thousands
+  let index = text.search(/[1-9]/)
+  index = index === -1 ? text.length : index
   return (
-    parseText.substring(0, index) +
-    parseText
-      .substring(index, parseText.length)
+    text.substring(0, index) +
+    text
+      .substring(index, text.length)
       .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1' + separatorSymbol)
   )
 }
-
 export interface CleanAmount {
   cleanText: string
   amountNumber: number

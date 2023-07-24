@@ -56,6 +56,7 @@ export const TabBarSelection = ({
             <Pressable
               sx={{ maxWidth: 200, flex: 1, py: '$3' }}
               key={route.title}
+              disabled={route.index === currentIndex ? true : false}
               onPress={() => handlePress(route.index)}
             >
               <ShadowButton isActive={isActive} safeRender stretch>

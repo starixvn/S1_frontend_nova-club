@@ -94,13 +94,13 @@ export const DateTimeField = ({
 
   return (
     <View sx={{ flexDirection: 'column' }}>
-      <Text sx={{ color: 'white', textAlign: 'center', fontSize: 14 }}>
+      <Text sx={{ color: 'black', textAlign: 'center', fontSize: 14 }}>
         {parsedDate}
       </Text>
       {isTime && (
         <Text
           sx={{
-            color: '$taupeGray',
+            color: '$disabled',
             textAlign: 'center',
             fontSize: 13,
             lineHeight: 14,
@@ -122,8 +122,8 @@ const CellView = styled(View)(
     justifyContent: center ? 'center' : 'flex-start',
     borderRightWidth: bordered ? StyleSheet.hairlineWidth : 0,
     borderColor: '#AEAFAF',
-    px: 4,
-    py: 2,
+    px: '$2',
+    py: '$2',
   })
 )
 

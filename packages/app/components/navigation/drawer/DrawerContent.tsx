@@ -1,73 +1,102 @@
+import { DEV_DOMAIN } from '@env'
 import Icon from 'app/components/Icon'
-import IconButton from 'app/components/IconButton'
+import BouncePressable from 'app/components/pressable/BouncePressable'
+import useAlert from 'app/hooks/useAlert'
 import { useDrawer } from 'app/hooks/useDrawer'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
+import useLocalization from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { copyToClipboard } from 'app/utils'
+import isDesktop from 'app/utils/isDesktop'
 import { Pressable, ScrollView, Text, View } from 'dripsy'
-import React from 'react'
-import { ImageBackground, useWindowDimensions } from 'react-native'
+import React, { useEffect, useRef } from 'react'
+import {
+  ImageBackground,
+  useWindowDimensions,
+  ScrollView as rScrollView,
+} from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 
 export default function DrawerContent() {
+  const { t } = useLocalization()
   const { push } = useRouter()
   const { top, bottom } = useSafeArea()
   const { height } = useWindowDimensions()
   const { isOpen, toggleDrawer } = useDrawer()
   const { logout } = useOnAppLogout()
+  const desktop = isDesktop()
+  const { showAlert } = useAlert()
+  const scrollRef = useRef<rScrollView>(null)
 
   const { isCreditMember, data: playerData } = usePlayerProfileQuery()
-
+  const referralLink = `${DEV_DOMAIN}/download?ref=${playerData?.referral_code}`
   const isPlayerName = !!playerData?.firstName
+  const handleDesktopAccountVerification = () => {
+    showAlert(
+      t('accountVerification.secondaryTitle') +
+        '\n' +
+        t('accountVerification.remark')
+    )
+    push('/account/profile-details')
+  }
+
+  useEffect(() => {
+    if (isOpen && scrollRef?.current) {
+      scrollRef?.current.scrollTo({ animated: false })
+    }
+  }, [isOpen])
 
   const MENU_LIST = [
     {
       iconName: 'agent',
-      text: 'AgentLogin',
+      text: 'common.agentLogin',
       onPress: () => {
-        push('/deposit')
+        push('/auth/login?t=agent')
       },
     },
     {
       iconName: 'deposit',
-      text: 'Deposit',
+      text: 'common.deposit',
       onPress: () => {
-        push('/deposit')
-        // isPlayerName ? push('/deposit') : push(`/profile/account-verification`)
+        isPlayerName
+          ? push('/deposit')
+          : desktop
+          ? handleDesktopAccountVerification()
+          : push('/account/account-verification')
       },
     },
     {
       iconName: 'withdraw',
-      text: 'Withdrawal',
+      text: 'common.withdraw',
       onPress: () => {
-        push('/deposit')
+        push('/withdrawal')
       },
     },
     {
       iconName: 'transfer',
-      text: 'Transfer',
+      text: 'common.transfer',
       onPress: () => {
-        push('/deposit')
+        push('/transfer')
       },
     },
     {
       iconName: 'history',
-      text: 'History',
+      text: 'common.history',
       onPress: () => {
-        push('/deposit')
+        push('/history')
       },
     },
     {
       iconName: 'cs',
-      text: 'Customer Support',
+      text: 'contact.customerSupport',
       onPress: () => {
-        push('/deposit')
+        push('/account/customer-support')
       },
     },
     {
       iconName: 'logout',
-      text: 'Logout',
+      text: 'common.logout',
       onPress: async () => {
         try {
           await logout()
@@ -95,6 +124,7 @@ export default function DrawerContent() {
         paddingTop: top,
         paddingBottom: bottom,
       }}
+      ref={scrollRef}
     >
       <View
         sx={{
@@ -111,7 +141,8 @@ export default function DrawerContent() {
                 sx={{
                   flexDirection: 'row',
                   alignItems: 'center',
-                  paddingHorizontal: 10,
+                  px: '$3',
+                  py: 14,
                 }}
                 onPress={() => {
                   item.onPress && item.onPress()
@@ -119,19 +150,14 @@ export default function DrawerContent() {
                 }}
               >
                 <View sx={{ alignItems: 'flex-start' }}>
-                  <Icon
-                    name={item.iconName}
-                    color={'white'}
-                    size={30}
-                    sx={{ p: 10 }}
-                  />
+                  <Icon name={item.iconName} color={'white'} size={30} />
                 </View>
                 <View sx={{ flex: 1, alignItems: 'flex-end' }}>
                   <Text
                     numberOfLines={1}
                     sx={{ alignItems: 'flex-end', fontSize: 16 }}
                   >
-                    {item.text}
+                    {t(item.text)}
                   </Text>
                 </View>
               </Pressable>
@@ -162,7 +188,7 @@ export default function DrawerContent() {
                 }}
               >
                 <Text sx={{ fontSize: 20, fontWeight: '500' }}>
-                  Share & Earn
+                  {t('referral.shareMessage')}
                 </Text>
                 <Text
                   sx={{
@@ -172,28 +198,30 @@ export default function DrawerContent() {
                     marginTop: 10,
                   }}
                 >
-                  Get exclusive referral bonuses when your friend signs up using
-                  your referral code
+                  {t('referral.shareContent')}
                 </Text>
-                <View
+                <BouncePressable
+                  onPress={() => copyToClipboard(referralLink)}
                   sx={{
-                    bg: '$primary.500',
-                    padding: 10,
+                    bg: 'rgba(255,255,255,0.3)',
                     borderRadius: 20,
                     marginTop: 10,
                     flexDirection: 'row',
                     alignItems: 'center',
+                    px: '$3',
+                    py: 1,
                   }}
                 >
-                  <Text sx={{ fontSize: 14 }}>A1234567890</Text>
-                  <IconButton
+                  <Text sx={{ fontSize: 14, mx: '$1', fontWeight: 'bold' }}>
+                    {t('common.copy')}
+                  </Text>
+                  <Icon
                     name={'copy'}
                     color={'white'}
-                    size={12}
-                    sx={{ padding: 5 }}
-                    onPress={() => copyToClipboard('123')}
+                    size={20}
+                    sx={{ padding: 5, mx: '$1' }}
                   />
-                </View>
+                </BouncePressable>
               </View>
             </View>
           </ImageBackground>

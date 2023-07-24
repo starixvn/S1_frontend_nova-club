@@ -6,6 +6,7 @@ import useLocalization from 'app/provider/localization'
 import Icon from 'app/components/Icon'
 import { Row, View } from 'dripsy'
 import { useRouter } from 'next/router'
+import usePathname from 'app/hooks/usePathname'
 
 export const MENU_HEIGHT = 72
 const DesktopTabBar = () => {
@@ -13,7 +14,7 @@ const DesktopTabBar = () => {
   const { push } = useRouter()
   const [filter, setFilter] = useState()
 
-  const currentPath = window?.location?.pathname
+  const pathname = usePathname()
 
   const routes = WalletRoutes
 
@@ -25,7 +26,7 @@ const DesktopTabBar = () => {
       <Row sx={{ px: '$3' }}>
         {routes &&
           routes.map((r) => {
-            const isActive = currentPath.includes(r.base ?? r.route)
+            const isActive = pathname.includes(r.base ?? r.route)
 
             return (
               <TabBarItem

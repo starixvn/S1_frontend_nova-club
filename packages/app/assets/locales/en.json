@@ -1,4 +1,11 @@
 {
+  "accountVerification": {
+    "placeHolder": "Please enter your full name",
+    "realName": "Real Name",
+    "remark": "Please ensure the real name is match your own account name to avoid any delay or cancelled transaction",
+    "secondaryTitle": "Fill in your real name to continue:",
+    "title": "Account Verification"
+  },
   "authentication": {
     "login": "Login",
     "register": "Register",
@@ -136,6 +143,11 @@
     "date": "Date",
     "status": "Status",
     "minMaxLimit": "Min/Max Limit"
+  },
+  "event": {
+    "luckyDraw": {
+      "appSpin": "App To Spin"
+    }
   },
   "filter": {
     "statusType": "Status Type",

@@ -97,7 +97,7 @@ const ForgotPasswordForm = ({
         textContentType="telephoneNumber"
         prefix="+84"
         inputMode="numeric"
-        action={() => (
+        action={
           <TimerButton
             accessibilityRole="button"
             ref={OTPRef}
@@ -119,7 +119,7 @@ const ForgotPasswordForm = ({
               },
             }}
           />
-        )}
+        }
         value={values.contactNumber}
         onBlur={handleBlur('contactNumber')}
         onChangeText={handleChange('contactNumber')}

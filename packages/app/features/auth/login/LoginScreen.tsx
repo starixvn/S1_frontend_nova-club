@@ -1,6 +1,6 @@
 import CustomTabBar from 'app/components/navigation/CustomTabBar'
 import { View } from 'dripsy'
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { createParam } from 'solito'
 import AuthLayout from '../AuthLayout'
 import { LoginType } from '../AuthTypeSelection'
@@ -10,8 +10,8 @@ const { useParam } = createParam<{ t: LoginType }>()
 
 export default function LoginScreen() {
   const [routes] = useState([
-    { key: 'first', title: 'common.player', index: 0 },
-    { key: 'second', title: 'common.agent', index: 1 },
+    { key: 'first', title: 'common.player', index: 0, type: LoginType.Member },
+    { key: 'second', title: 'common.agent', index: 1, type: LoginType.Agent },
   ])
 
   const [type, setIsAgentLogin] = useParam('t', { initial: LoginType.Member })
@@ -23,6 +23,13 @@ export default function LoginScreen() {
     setIsAgentLogin(index === 0 ? LoginType.Agent : LoginType.Member)
     setIndex(value)
   }
+
+  useEffect(() => {
+    const initT = routes.find((e) => {
+      return e.type === type
+    })
+    if (initT) setIndex(initT.index)
+  }, [])
 
   return (
     <AuthLayout headerDesc={'login to your account'} headerColor={'black'}>

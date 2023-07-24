@@ -1,6 +1,8 @@
 import { DesktopWalletLayout } from 'components/layouts/desktop'
 import withAdaptiveScreen from 'desktop-ext/hoc/withAdaptiveScreen'
 import dynamic from 'next/dynamic'
+import DepositGuard from './deposit-guard'
+import { AdaptiveLayoutPage } from 'components/layouts/AdaptiveLayout'
 
 const LazyMobileDepositScreen = dynamic(
   () => import('app/features/deposit/crypto/index'),
@@ -14,11 +16,15 @@ const LazyDesktopDepositScreen = dynamic(
   { ssr: false }
 )
 
-const CryptoPayScreen = withAdaptiveScreen(
+const CryptoPayScreen: AdaptiveLayoutPage = withAdaptiveScreen(
   LazyMobileDepositScreen,
   LazyDesktopDepositScreen
 )
 
-CryptoPayScreen.DesktopLayout = DesktopWalletLayout
+const GuardCryptoPay: AdaptiveLayoutPage = DepositGuard(
+  CryptoPayScreen,
+  'deposit'
+)
+GuardCryptoPay.DesktopLayout = DesktopWalletLayout
 
-export default CryptoPayScreen
+export default GuardCryptoPay

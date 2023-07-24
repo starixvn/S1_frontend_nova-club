@@ -1,7 +1,7 @@
 import { useDrawer } from 'app/hooks/useDrawer'
 import { Pressable, View, styled } from 'dripsy'
 import { MotiView, useAnimationState } from 'moti'
-import React, { memo, useEffect } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { Platform, useWindowDimensions } from 'react-native'
 import DrawerContent from './DrawerContent'
 
@@ -15,8 +15,12 @@ export default function Drawer({ children }) {
     toggle: { translateX: width * 0.4 },
   })
   const { isOpen, toggleDrawer } = useDrawer()
+  const [offsetTop, setOffsetTop] = useState(0)
 
   useEffect(() => {
+    if (Platform.OS === 'web') {
+      setOffsetTop(document.documentElement.scrollTop)
+    }
     if (isOpen) {
       useDrawerAnimation.transitionTo('toggle')
       Platform.OS === 'web' &&
@@ -38,6 +42,7 @@ export default function Drawer({ children }) {
       {children}
       {isOpen && <DrawerOverlay onPress={() => toggleDrawer()} />}
       <DrawerContainer
+        offsetTop={offsetTop}
         state={useDrawerAnimation}
         transition={{ type: 'timing' }}
       >
@@ -52,14 +57,18 @@ const DrawerOverlay = styled(Pressable)({
   width: '100%',
   height: '100%',
   backgroundColor: 'rgba(0,0,0,0.3)',
-})
-
-const DrawerContainer = styled(MotiView)({
-  position: 'absolute',
-  width: '60%',
-  height: '100%',
-  backgroundColor: 'rgba(0,0,0,0.3)',
   zIndex: 1,
 })
+
+const DrawerContainer = styled(MotiView)(
+  ({ offsetTop }: { offsetTop: number }) => ({
+    position: 'absolute',
+    width: '60%',
+    height: '100%',
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    zIndex: 1,
+    top: offsetTop,
+  })
+)
 
 export const MemoDrawer = memo(Drawer)

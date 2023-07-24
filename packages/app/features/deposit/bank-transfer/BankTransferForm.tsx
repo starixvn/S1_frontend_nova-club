@@ -1,6 +1,5 @@
 import Input from 'app/components/form/Input'
 import InputLabel from 'app/components/form/InputLabel'
-import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
 import { getBankLogo } from 'app/config/bank'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
 import useAlert from 'app/hooks/useAlert'
@@ -32,6 +31,7 @@ import BankSlipUpload, {
 } from '../component/BankSlipUpload'
 import HorizontalSelectBankCardGrid from '../component/HorizontalSelectBankCardGrid'
 import AccountDetail from './AccountDetail'
+import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
 
 type BankTransferValues = {
   bank: ManualBankItem | undefined
@@ -63,13 +63,15 @@ const BankTransferForm = () => {
     depositPayment?.list.map((item) => {
       return {
         label: item.bank_acc_name,
-        value: item.bankTypeId,
+        value: item.bankTypeId.toString(),
         icon: getBankLogo(item.bank_code),
       }
     }) ?? []
 
   const handleSelected = (value) => {
-    const item = depositPayment?.list?.find((el) => el.bankTypeId === value)
+    const item = depositPayment?.list?.find(
+      (el) => el.bankTypeId.toString() === value
+    )
 
     setFieldValue('bank', item)
   }
@@ -114,6 +116,7 @@ const BankTransferForm = () => {
       realAmount: 0,
     },
     validationSchema: Yup.object({
+      realAmount: validation.amount,
       bank: validation.bank,
       amount: validation.amountMinMax({
         min: toDisplayAmount(limit.minAmount, currency),
@@ -163,7 +166,6 @@ const BankTransferForm = () => {
       callback: () => handleSubmit(),
     })
   }
-  console.log('first', values.bank?.bank_branch)
 
   return (
     <View sx={{ pt: '$3' }}>
@@ -205,7 +207,7 @@ const BankTransferForm = () => {
             label={t('bank.bankAccount')}
             placeholder={t('placeholder.plsSelectBank')}
             options={sheetData}
-            value={values.bank?.bank_acc_no ?? ''}
+            value={values.bank?.bankTypeId.toString() ?? ''}
             sx={{
               width: '100%',
               mb: '$3',
@@ -213,16 +215,16 @@ const BankTransferForm = () => {
             onSelected={(e) => {
               handleSelected(e)
             }}
-            // _input={{
-            //   error:
-            //     touched.bank && errors.bank ? (
-            //       <Text sx={{ color: errors.bank && '$secondary.500' }}>
-            //         {t(errors.bank, {
-            //           field: t('common.bank'),
-            //         })}
-            //       </Text>
-            //     ) : undefined,
-            // }}
+            _input={{
+              error:
+                touched.bank && errors.bank ? (
+                  <Text sx={{ color: errors.bank && '$secondary.500' }}>
+                    {t(errors.bank, {
+                      field: t('common.bank'),
+                    })}
+                  </Text>
+                ) : undefined,
+            }}
           />
         )}
       </View>
@@ -254,7 +256,7 @@ const BankTransferForm = () => {
               forceDecimal: false,
             }),
           })}
-          value={values.amount.toString()}
+          value={values.amount}
           onBlur={handleBlur('amount')}
           onChangeText={onAmountChanged}
           ref={amountFieldRef}

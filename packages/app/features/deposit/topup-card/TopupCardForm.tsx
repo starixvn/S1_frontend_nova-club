@@ -185,7 +185,6 @@ const TopupCardForm = () => {
       })
     }
   }
-  console.log(values.realAmount)
 
   return (
     <View sx={{ pt: '$3' }}>

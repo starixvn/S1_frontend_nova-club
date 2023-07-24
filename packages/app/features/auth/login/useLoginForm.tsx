@@ -1,3 +1,4 @@
+import { authApi as agentAuthApi } from 'agent/services/authApi'
 import useAlert from 'app/hooks/useAlert'
 import { useAppDispatch } from 'app/provider/redux/store'
 import validation from 'app/utils/validation'
@@ -8,14 +9,14 @@ import { IResponse } from 'services/common/types'
 import * as Yup from 'yup'
 import useAgentLoginProcess from './useAgentLoginProcess'
 import useLoginProcess from './useLoginProcess'
-import { sleep } from 'utils/common'
+import { SettingActions } from 'app/store/setting.slice'
 
 type LoginFormValues = {
   username: string
   password: string
 }
 
-export default function useLoginForm(isAgent?: boolean) {
+export default function useLoginForm(isAgent?: boolean, isRemember) {
   // const [login] = useLoginMutation()
   // const [agentLogin] = useAgentLoginMutation()
   const { showAlert } = useAlert()
@@ -28,7 +29,7 @@ export default function useLoginForm(isAgent?: boolean) {
     { username, password }: LoginFormValues,
     {}: FormikHelpers<LoginFormValues>
   ) => {
-    const api = isAgent ? authApi.endpoints.login : authApi.endpoints.login
+    const api = isAgent ? agentAuthApi.endpoints.login : authApi.endpoints.login
 
     const resp = await dispatch(
       api.initiate({
@@ -42,11 +43,22 @@ export default function useLoginForm(isAgent?: boolean) {
       })
 
     if (resp) {
-      const { data, message } = resp
-      if (data) {
+      console.log('🚀 ~ file: useLoginForm.tsx:45 ~ useLoginForm ~ resp:', resp)
+      const { data, result, message, success } = resp
+      if (success) {
         isAgent
-          ? handleAgentSuccessLogin(data)
+          ? handleAgentSuccessLogin(result)
           : handleSuccessLogin(username, password, data)
+
+        dispatch(
+          isAgent
+            ? SettingActions.setAgentRememberMe(
+                isRemember ? { username, password } : undefined
+              )
+            : SettingActions.setRememberMe(
+                isRemember ? { username, password } : undefined
+              )
+        )
 
         return
       } else {

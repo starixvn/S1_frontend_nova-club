@@ -87,7 +87,7 @@ const ChangePasswordPage = () => {
       // contentContainerSx={{ pb: 20, px: '$4', pt: '$4' }}
       bounces={false}
     >
-      <FormContainer>
+      <FormContainer sx={{ mt: '$4' }}>
         <Input
           responsive
           label={t('manageCredentials.pw.oldPw')}

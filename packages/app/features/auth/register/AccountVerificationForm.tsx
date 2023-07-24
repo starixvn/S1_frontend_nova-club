@@ -1,22 +1,19 @@
-import Icon from 'app/components/Icon'
-import Input from 'app/components/form/Input'
-import { Pressable, Text, View, styled } from 'dripsy'
-import { FormikProps } from 'formik'
-import { RegisterFormValues } from './RegisterScreen'
-import { TextInput } from 'react-native'
-import { useCallback, useRef } from 'react'
-import useLocalization from 'app/provider/localization'
-import CheckBox from 'app/components/common/CheckBox'
-import TimerButton from 'app/components/TimerButton'
-import { ITimerButtonForwardRef } from 'app/components/TimerButton'
-import { useRouter } from 'solito/router'
-import { useAppSelector } from 'app/provider/redux/store'
-import { useSendUpdateProfileOTPMutation } from 'services/playerApi'
-import { Toast } from 'react-native-toast-message/lib/src/Toast'
-import useAlert from 'app/hooks/useAlert'
-import { useSendRegistrationOtpMutation } from 'services/authApi'
-import FormContainer from 'app/components/form/FormContainer'
+import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
 import Button from 'app/components/common/Button'
+import CheckBox from 'app/components/common/CheckBox'
+import FormContainer from 'app/components/form/FormContainer'
+import Input from 'app/components/form/Input'
+import useAlert from 'app/hooks/useAlert'
+import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
+import { Pressable, Text, View, styled, useResponsiveValue } from 'dripsy'
+import { FormikProps } from 'formik'
+import { useCallback, useRef } from 'react'
+import { TextInput } from 'react-native'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
+import { useSendRegistrationOtpMutation } from 'services/authApi'
+import { useRouter } from 'solito/router'
+import { RegisterFormValues } from './RegisterScreen'
 
 interface AccountVerificationFormProps {
   isAgent: boolean
@@ -46,9 +43,12 @@ const AccountVerificationForm = ({
 
   const otpFieldRef = useRef<TextInput>(null)
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
+  const isOtpButtonLoading = useRef(false)
 
-  const [sendOtp, { isLoading: isOtpLoading, isSuccess: isMemberOtpSucess }] =
-    useSendRegistrationOtpMutation()
+  const [
+    sendOtp,
+    { isLoading: isOtpApiLoading, isSuccess: isMemberOtpSucess },
+  ] = useSendRegistrationOtpMutation()
 
   const onCheckboxCheck = () => {
     setFieldValue('terms', !values.terms)
@@ -67,6 +67,7 @@ const AccountVerificationForm = ({
   }, [setTouched, validateForm])
 
   const sendOTP = async () => {
+    isOtpButtonLoading.current = true
     try {
       const { data, message, success } = await sendOtp({
         username: values.username?.toLowerCase(),
@@ -78,8 +79,11 @@ const AccountVerificationForm = ({
 
       if (success) {
         Toast.show({ type: 'success', text1: message })
+        isOtpButtonLoading.current = false
       }
     } catch (error) {
+      isOtpButtonLoading.current = false
+
       showAlert(error)
     }
   }
@@ -109,7 +113,6 @@ const AccountVerificationForm = ({
     push('/info/contact-us')
   }
 
-  console.log('Rerender Verification Form')
   return (
     <FormContainer
       padding
@@ -125,13 +128,12 @@ const AccountVerificationForm = ({
         inputMode="numeric"
         keyboardType="number-pad"
         maxLength={9}
-        action={() => (
+        action={
           <TimerButton
-            // disabled={!!!errors.contactNumber}
             accessibilityRole="button"
             ref={OTPRef}
             title={t('authentication.send')}
-            loading={isOtpLoading}
+            loading={isOtpApiLoading}
             onPress={onSendOtp}
             sx={{
               width: 'auto',
@@ -148,7 +150,7 @@ const AccountVerificationForm = ({
               },
             }}
           />
-        )}
+        }
         onSubmitEditing={() => {
           otpFieldRef.current?.focus()
         }}
@@ -188,7 +190,7 @@ const AccountVerificationForm = ({
 
       <View
         sx={{
-          minHeight: 100,
+          minHeight: useResponsiveValue([50, 50, 75, 75, 75]),
           justifyContent: 'space-between',
         }}
       >
@@ -227,23 +229,14 @@ const AccountVerificationForm = ({
       </View>
 
       <Button
-        sx={{ bg: '$secondary.500', marginTop: 20 }}
+        sx={{ bg: '$secondary.500', marginTop: '$4', py: '$2' }}
         onPress={submitForm}
         disabled={!values.terms || !isMemberOtpSucess || !!errors.verifyCode}
       >
-        <ButtonText>{t('common.submit')}</ButtonText>
+        {t('common.submit')}
       </Button>
     </FormContainer>
   )
 }
-
-const ButtonText = styled(Text)({
-  width: '100%',
-  py: 15,
-  px: 25,
-  textAlign: 'center',
-  textTransform: 'uppercase',
-  fontWeight: 'bold',
-})
 
 export default AccountVerificationForm

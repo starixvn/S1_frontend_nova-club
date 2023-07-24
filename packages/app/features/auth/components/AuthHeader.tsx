@@ -17,18 +17,25 @@ const AuthHeader = ({ headerDesc, onPress }: AuthHeaderProps) => {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
-          py: top > 0 ? top : 20,
+          pt: top > 0 ? top : 20,
+          pb: 20,
           px: 20,
         }}
       >
-        <IconButton onPress={onPress} name="back" />
+        <IconButton onPress={() => onPress()} name="back" />
         <View sx={{ alignItems: 'center' }}>
           <Image
             source={require('../../../assets/images/common/logo.png')}
             alt="authentication-logo"
             sx={{ height: 40, aspectRatio: 64 / 24 }}
           />
-          <Text sx={{ textTransform: 'uppercase', fontWeight: 'bold', pt: 5 }}>
+          <Text
+            sx={{
+              textTransform: 'uppercase',
+              fontWeight: 'bold',
+              pt: 5,
+            }}
+          >
             {headerDesc}
           </Text>
         </View>
