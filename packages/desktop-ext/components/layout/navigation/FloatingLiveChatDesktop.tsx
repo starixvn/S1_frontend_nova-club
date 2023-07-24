@@ -5,7 +5,7 @@ import { MotiPressable } from 'moti/interactions'
 import React, { startTransition, useState } from 'react'
 import { Linking } from 'react-native'
 
-const ToggleSupportDropDown = () => {
+const FloatingLiveChatDesktop = () => {
   const { theme } = useDripsyTheme()
   const { t } = useLocalization()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -72,4 +72,4 @@ const ToggleSupportDropDown = () => {
   )
 }
 
-export default ToggleSupportDropDown
+export default FloatingLiveChatDesktop

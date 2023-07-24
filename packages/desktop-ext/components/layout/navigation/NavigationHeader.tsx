@@ -3,29 +3,19 @@ import Divider from 'app/components/Divider'
 import DripsyMotiView from 'app/components/DripsyMotiView'
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
-import useSupportItemList from 'app/features/customerSupport/useSupportItemList'
 import usePathname from 'app/hooks/usePathname'
 import useLocalization from 'app/provider/localization'
-import {
-  Container,
-  Image,
-  Pressable,
-  Row,
-  Text,
-  View,
-  styled,
-  useDripsyTheme,
-} from 'dripsy'
+import { Container, Image, Pressable, Row, Text, View, styled } from 'dripsy'
 import { MotiPressable, useMotiPressable } from 'moti/interactions'
 import React, { startTransition } from 'react'
 import { ViewStyle } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useLink } from 'solito/link'
+import FloatingLiveChatDesktop from './FloatingLiveChatDesktop'
 import {
   NAVIGATION_DROPDOWN_MENU,
   useNavigationHeader,
 } from './NavigationHeaderProvider'
-import ToggleSupportDropDown from './ToggleSupportDropDown'
 
 interface MenuProps {
   icon?: string
@@ -96,8 +86,6 @@ export const NAVIGATION_HEIGHT = 50
 export default function NavigationHeader({}) {
   const toggleMenu = useNavigationHeader()
   const { openModal } = useModal()
-  const { theme } = useDripsyTheme()
-  const mediaList = useSupportItemList()
 
   return (
     <>
@@ -165,7 +153,7 @@ export default function NavigationHeader({}) {
           </DripsyGradient>
         </Pressable>
       </View>
-      <ToggleSupportDropDown />
+      <FloatingLiveChatDesktop />
     </>
   )
 }

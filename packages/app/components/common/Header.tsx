@@ -79,7 +79,9 @@ const Header = ({
           >
             {title.toUpperCase()}
           </Text>
-          <View sx={{ flex: 0.1, pr }}>{actions && actions}</View>
+          <View sx={{ flex: 0.1, pr: actions ? pr : 0 }}>
+            {actions && actions}
+          </View>
         </StyledTop>
       </View>
     </View>
