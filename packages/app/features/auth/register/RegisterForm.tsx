@@ -46,7 +46,7 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
 
   const onSubmit = useCallback(async () => {
     await handleCheckingUsername()
-    if (!usernameErrorMsg) return
+    // if (!usernameErrorMsg) return
     setTouched({
       username: true,
       password: true,
@@ -190,7 +190,7 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
       <Button
         onPress={onSubmit}
         disabled={!!usernameErrorMsg}
-        sx={{ mt: '$4', my: '$2', bg: '$primary.300' }}
+        sx={{ mt: '$4', py: '$2', bg: '$primary.300' }}
       >
         {t('authentication.register')}
       </Button>

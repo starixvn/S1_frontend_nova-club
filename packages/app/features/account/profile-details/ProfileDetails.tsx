@@ -9,16 +9,14 @@ import { useAppSelector } from 'app/provider/redux/store'
 import { copyToClipboard } from 'app/utils'
 import isDesktop from 'app/utils/isDesktop'
 import validation from 'app/utils/validation'
-import { ActivityIndicator, Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React from 'react'
-import { Platform } from 'react-native'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { IResponse } from 'services/common/types'
 import {
   usePlayerProfileQuery,
   usePlayerRealNameMutation,
 } from 'services/playerApi'
-import { ProfileResult } from 'services/playerApi.type'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import MobileProfileItem from './MobileProfileItem'
@@ -38,7 +36,7 @@ const ProfileDetails = () => {
 
   const [updatePlayerName] = usePlayerRealNameMutation()
   const { showAlert } = useAlert()
-  const { replace, back } = useRouter()
+  const { push } = useRouter()
 
   async function updateRealName(realName) {
     const { success, message } = await updatePlayerName({
@@ -70,14 +68,8 @@ const ProfileDetails = () => {
         const success = await updateRealName(sanitizedRealName)
 
         if (success) {
-          actions.resetForm()
-
           setTimeout(() => {
-            if (Platform.OS === 'web') {
-              replace('/deposit', undefined, { shallow: true })
-            } else {
-              replace('/deposit')
-            }
+            push('/deposit')
           }, 150)
         }
       }

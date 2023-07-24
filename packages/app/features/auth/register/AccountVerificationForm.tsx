@@ -6,7 +6,7 @@ import Input from 'app/components/form/Input'
 import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { Pressable, Text, View, styled } from 'dripsy'
+import { Pressable, Text, View, styled, useResponsiveValue } from 'dripsy'
 import { FormikProps } from 'formik'
 import { useCallback, useRef } from 'react'
 import { TextInput } from 'react-native'
@@ -190,7 +190,7 @@ const AccountVerificationForm = ({
 
       <View
         sx={{
-          minHeight: 100,
+          minHeight: useResponsiveValue([50, 50, 75, 75, 75]),
           justifyContent: 'space-between',
         }}
       >
@@ -229,23 +229,14 @@ const AccountVerificationForm = ({
       </View>
 
       <Button
-        sx={{ bg: '$secondary.500', marginTop: 20 }}
+        sx={{ bg: '$secondary.500', marginTop: '$4', py: '$2' }}
         onPress={submitForm}
         disabled={!values.terms || !isMemberOtpSucess || !!errors.verifyCode}
       >
-        <ButtonText>{t('common.submit')}</ButtonText>
+        {t('common.submit')}
       </Button>
     </FormContainer>
   )
 }
-
-const ButtonText = styled(Text)({
-  width: '100%',
-  py: 15,
-  px: 25,
-  textAlign: 'center',
-  textTransform: 'uppercase',
-  fontWeight: 'bold',
-})
 
 export default AccountVerificationForm
