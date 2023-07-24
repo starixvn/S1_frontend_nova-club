@@ -85,6 +85,9 @@ const Games = () => {
       numColumns={3}
       isLoading={isFetchingGameList}
       data={filterGames}
+      keyExtractor={(_, index) => {
+        return index.toString()
+      }}
       ListHeaderComponent={
         <>
           <MemoListSectionHeader
