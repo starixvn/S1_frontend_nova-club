@@ -1,4 +1,5 @@
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { Pressable, Text, View, styled } from 'dripsy'
 import { Gradient } from 'dripsy/gradient'
 import React from 'react'
@@ -18,8 +19,8 @@ const AuthTypeSelection = ({
   isAgent = false,
 }: AuthTypeSelectionProps) => {
   const { t } = useLocalization()
-  const agentToken = false
-  const memberToken = false
+  const agentToken = useAppSelector((s) => s.agent.access_token)
+  const memberToken = useAppSelector((state) => state.auth.info?.token)
   const { replace } = useRouter()
   //   const { token: memberToken } =
   //     useAppSelector((state) => state.auth.info) || {}
@@ -63,7 +64,7 @@ const AuthTypeSelection = ({
           }}
           onPress={() => {
             if (agentToken) {
-              //   replace('/agent/profile')
+              replace('/agent/profile')
             }
             setType(LoginType.Agent)
           }}
