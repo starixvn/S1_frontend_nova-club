@@ -4,7 +4,7 @@ const PlinkoTncVi = () => {
   return (
     <div>
       <h2>THẢ BÓNG LƯỢM TIỀN</h2>
-      <p>Thời gian khuyến mãi: 01/07 - 31/08/2023</p>
+      <p>Thời gian khuyến mãi: 01/07 - 31/07/2023</p>
 
       <br />
       <div>

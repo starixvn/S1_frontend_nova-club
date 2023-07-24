@@ -4,7 +4,7 @@ const PlinkoTncEn = () => {
   return (
     <div>
       <h2>CRAZY PLINKO</h2>
-      <p>Campaign Period: 01/07 - 31/08/2023</p>
+      <p>Campaign Period: 01/07 - 31/07/2023</p>
 
       <br />
       <div>
