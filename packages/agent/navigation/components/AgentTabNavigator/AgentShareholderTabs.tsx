@@ -9,10 +9,13 @@ import React, { useMemo } from 'react'
 import { useRouter } from 'solito/router'
 import AgentTabBar from './AgentTabBar'
 import AgentTabBarItem from './AgentTabBarItem'
+import { useAppSelector } from 'app/provider/redux/store'
 
 export default function AgentShareholderTabBar({}) {
+  const token = useAppSelector((s) => s.agent.access_token)
   const { isAgent } = useUserInfoQuery(undefined, {
     selectFromResult: (s) => ({ ...s, isAgent: s.data?.role === ROLE.AGENT }),
+    skip: !token,
   })
 
   const { push } = useRouter()

@@ -9,9 +9,11 @@ import ProfileChart from './ProfileChart'
 import ProfileChartLegend from './ProfileChartLegend'
 import ProfileDetails from './ProfileDetails'
 import ProfileTitle from './ProfileTitle'
+import { useAppSelector } from 'app/provider/redux/store'
 
 const AgentProfile = () => {
-  const { data: userInfoData } = useUserInfoQuery()
+  const token = useAppSelector((s) => s.agent.access_token)
+  const { data: userInfoData } = useUserInfoQuery(undefined, { skip: !token })
   const isAgent = userInfoData?.role === ROLE.AGENT
   const userRole = isAgent ? ROLE.AGENT : ROLE.SHAREHOLDER
 

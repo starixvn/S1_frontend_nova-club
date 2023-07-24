@@ -34,6 +34,7 @@ const Header = () => {
   const sx = useSx()
   const { push } = useRouter()
   const { t } = useAgentLocalization()
+  const token = useAppSelector((s) => s.agent.access_token)
 
   const { balance, currency, role, userName, data } = useUserInfoQuery(
     undefined,
@@ -45,6 +46,7 @@ const Header = () => {
         role: data?.role,
         data,
       }),
+      skip: !token,
     }
   )
   //get user info here
@@ -249,7 +251,7 @@ const RoleText = styled(Text)(
   ({ isShareHolder }: { isShareHolder: boolean }) => ({
     color: isShareHolder ? '#000' : '#fff',
     fontSize: 10,
-    marginBottom: 3,
+    py: '$1',
     fontStyle: 'italic',
   })
 )

@@ -73,8 +73,7 @@ const GameLauncher = () => {
 
       if (isLoggedIn) {
         dispatch(GameLauncherActions.launchGame(payload))
-      } else
-        isDesktop ? showAlert('Please Login to play game') : push('/auth/login')
+      } else isDesktop ? showAlert(t('game.err.notLogin')) : push('/auth/login')
     }
   }, [dispatch, isLoggedIn, push, replace, isDesktop, openModal, showAlert])
 
@@ -99,6 +98,7 @@ const GameLauncher = () => {
       })
         .unwrap()
         .catch((e: IResponse<GetGameUrlResult>) => {
+          console.log('error')
           showAlert(e.message)
           return e
         })
