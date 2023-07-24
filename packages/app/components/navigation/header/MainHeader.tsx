@@ -68,6 +68,7 @@ const MainHeader = () => {
   const { data: playerData } = usePlayerProfileQuery(undefined, {
     skip: !token,
   })
+  const isPlayerName = !!playerData?.firstName
 
   return (
     <View
@@ -79,7 +80,7 @@ const MainHeader = () => {
         <Logo />
         {token ? (
           <Row sx={{ alignItems: 'center', gap: ['$2', '$3'] }}>
-            <HeaderDeposit />
+            <HeaderDeposit isPlayerName={isPlayerName} />
             <HeaderOverview />
             {desktop && (
               <View sx={{ minWidth: 75 }}>

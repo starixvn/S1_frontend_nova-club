@@ -80,7 +80,7 @@ const ChangePinScreen = () => {
   } = formik
 
   return (
-    <FormContainer>
+    <FormContainer sx={{ mt: '$4' }}>
       <UnderlinePinField
         label={t('manageCredentials.pin.oldPin')}
         value={values.oldPin}
