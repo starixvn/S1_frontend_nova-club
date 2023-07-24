@@ -9,7 +9,7 @@ import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { copyToClipboard } from 'app/utils'
 import isDesktop from 'app/utils/isDesktop'
 import { Pressable, ScrollView, Text, View } from 'dripsy'
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { ImageBackground, useWindowDimensions } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
@@ -23,7 +23,7 @@ export default function DrawerContent() {
   const { logout } = useOnAppLogout()
   const desktop = isDesktop()
   const { showAlert } = useAlert()
-  const { t } = useLocalization()
+  const scrollRef = useRef()
 
   const { isCreditMember, data: playerData } = usePlayerProfileQuery()
   const referralLink = `${DEV_DOMAIN}/download?ref=${playerData?.referral_code}`
@@ -36,6 +36,13 @@ export default function DrawerContent() {
     )
     push('/account/profile-details')
   }
+
+  useEffect(() => {
+    if (isOpen) {
+      scrollRef?.current.scrollTo({ animated: false, offset: 0 })
+    }
+    // scrollRef?.current?.scrollToOffset({ animated: true, offset: 0 })
+  }, [isOpen])
 
   const MENU_LIST = [
     {
@@ -114,6 +121,7 @@ export default function DrawerContent() {
         paddingTop: top,
         paddingBottom: bottom,
       }}
+      ref={scrollRef}
     >
       <View
         sx={{
