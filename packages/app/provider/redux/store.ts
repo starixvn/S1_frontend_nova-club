@@ -17,21 +17,23 @@ import {
   persistStore,
 } from 'redux-persist'
 
-import { storage } from './persistStorage/index'
+import { agentBaseApi } from 'agent/services/agentBaseApi'
+import { depositReducer } from 'app/store/deposit.slice'
 import { Setting, settingReducer } from 'app/store/setting.slice'
 import { baseApi } from '../../../services/baseApi'
-import { depositReducer } from 'app/store/deposit.slice'
+import { storage } from './persistStorage/index'
+import agentAuthReducer from 'agent/store/agentAuthReducer'
 
 const migrations = {
-  5: (s: PersistedState) => {},
   6: (s: PersistedState) => {},
+  7: (s: PersistedState) => {},
 }
 
 const persistConfig: PersistConfig<any> = {
   key: 'root',
-  version: 6,
+  version: 7,
   storage,
-  whitelist: ['auth', 'setting'],
+  whitelist: ['auth', 'agent', 'setting'],
   migrate: createMigrate(migrations, { debug: true }),
   transforms: [
     createTransform<AuthState, Omit<AuthState, 'isLogoutActionTriggered'>>(
@@ -44,7 +46,7 @@ const persistConfig: PersistConfig<any> = {
       (outboundState, key) => {
         return { ...authInitialState, ...outboundState }
       },
-      { whitelist: ['auth'] }
+      { whitelist: ['auth', 'agent'] }
     ),
     createTransform<Setting, Setting>(
       (inboundState, key) => {
@@ -63,10 +65,11 @@ const persistConfig: PersistConfig<any> = {
   ],
 }
 
-const middlerwares = [baseApi.middleware]
+const middlerwares = [baseApi.middleware, agentBaseApi.middleware]
 
 const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
+  [agentBaseApi.reducerPath]: agentBaseApi.reducer,
   // alert: alertReducer,
   auth: authReducer,
   // bank: bankReducer,
@@ -74,6 +77,7 @@ const rootReducer = combineReducers({
   setting: settingReducer,
   tempSetting: tempSettingReducer,
   gameLauncher: gameLauncherReducer,
+  agent: agentAuthReducer,
 })
 
 /** Fix typescript issue https://github.com/rt2zz/redux-persist/issues/1184 */

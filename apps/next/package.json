@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@expo/next-adapter": "5.0.2",
+    "agent": "*",
     "app": "*",
     "desktop-ext": "*",
     "dripsy": "*",
@@ -24,6 +25,8 @@
     "next-images": "^1.8.5",
     "next-videos": "^1.4.1",
     "raf": "^3.4.1",
+    "react-native-chart-kit": "*",
+    "react-native-keyboard-aware-scroll-view": "*",
     "setimmediate": "^1.0.5",
     "sharp": "^0.32.1",
     "unique-username-generator": "^1.1.3",

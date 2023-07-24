@@ -1,3 +1,4 @@
+import { agentModalConfig } from 'agent/provider/agentModal'
 import LoadingModal from 'app/components/modal/LoadingModal'
 import ModalWrapper from 'app/components/modal/ModalWrapper'
 import { ActivityIndicator, useResponsiveValue } from 'dripsy'
@@ -151,6 +152,7 @@ const modalConfig: ModalConfigType = {
   LuckyDrawModal: {
     modal: getDynamicComponent('LuckyDrawModal'),
   },
+  ...agentModalConfig,
 }
 
 const ModalProvider = ({ children }) => {

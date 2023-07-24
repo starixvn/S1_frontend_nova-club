@@ -1,3 +1,4 @@
+import { authApi as agentAuthApi } from 'agent/services/authApi'
 import useAlert from 'app/hooks/useAlert'
 import { useAppDispatch } from 'app/provider/redux/store'
 import validation from 'app/utils/validation'
@@ -8,7 +9,6 @@ import { IResponse } from 'services/common/types'
 import * as Yup from 'yup'
 import useAgentLoginProcess from './useAgentLoginProcess'
 import useLoginProcess from './useLoginProcess'
-import { sleep } from 'utils/common'
 import { SettingActions } from 'app/store/setting.slice'
 
 type LoginFormValues = {
@@ -29,7 +29,7 @@ export default function useLoginForm(isAgent?: boolean, isRemember) {
     { username, password }: LoginFormValues,
     {}: FormikHelpers<LoginFormValues>
   ) => {
-    const api = isAgent ? authApi.endpoints.login : authApi.endpoints.login
+    const api = isAgent ? agentAuthApi.endpoints.login : authApi.endpoints.login
 
     const resp = await dispatch(
       api.initiate({
@@ -43,10 +43,11 @@ export default function useLoginForm(isAgent?: boolean, isRemember) {
       })
 
     if (resp) {
-      const { data, message } = resp
-      if (data) {
+      console.log('🚀 ~ file: useLoginForm.tsx:45 ~ useLoginForm ~ resp:', resp)
+      const { data, result, message, success } = resp
+      if (success) {
         isAgent
-          ? handleAgentSuccessLogin(data)
+          ? handleAgentSuccessLogin(result)
           : handleSuccessLogin(username, password, data)
 
         dispatch(

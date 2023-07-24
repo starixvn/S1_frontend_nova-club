@@ -1,13 +1,13 @@
-import { FlashList, ListRenderItem, FlashListProps } from '@shopify/flash-list'
-import EmptyResult from 'agent/components/DataTable/EmptyResult'
-import { ActivityIndicator, FlatList, SxProp, View, useSx } from 'dripsy'
-import React, { ComponentProps, useRef } from 'react'
-import { FlatListProps, Platform } from 'react-native'
-import DataTable from './DataTable'
-import DataTableRefresh from './DataTableRefresh'
+import { FlashList, FlashListProps, ListRenderItem } from '@shopify/flash-list'
+import { AGENT_TAB_HEIGHT } from 'agent/constant/sizes'
+import DataTable from 'app/components/dataTable/DataTable'
+import EmptyResult from 'app/components/dataTable/EmptyResult'
 import useContainerDimension from 'app/hooks/useContainerDimension'
-import { TAB_HEIGHT } from 'app/constant/sizes'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { ActivityIndicator, SxProp, View, useSx } from 'dripsy'
+import React, { ComponentProps, useRef } from 'react'
+import { Platform } from 'react-native'
+import DataTableRefresh from './DataTableRefresh'
 
 /**
  * ### Usage
@@ -89,7 +89,10 @@ const TableListing = <T, FetchParamsType>({
   }
 
   const viewStyle =
-    Platform.OS === 'web' ? { height: height - TAB_HEIGHT * 3 } : { flex: 1 }
+    Platform.OS === 'web'
+      ? { height: height - AGENT_TAB_HEIGHT * 3 }
+      : { flex: 1 }
+
   return (
     <DataTable style={{ flex: 1 }}>
       <>
@@ -101,7 +104,7 @@ const TableListing = <T, FetchParamsType>({
           {...refreshProps}
         />
         {renderHeader && renderHeader()}
-        <View sx={viewStyle}>
+        <View sx={{ bg: 'white', ...viewStyle }}>
           <FlashList
             ref={tableRef}
             data={data}
