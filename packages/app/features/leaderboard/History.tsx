@@ -18,7 +18,7 @@ const HistoryScreen = () => {
 
   const options = DateFilterOptions.slice(0, -1)
   return (
-    <FormContainer padding>
+    <FormContainer hidePadding>
       <View sx={{ flexGrow: 1 }}>
         <View sx={{ pt: 12, px: [12, 12, 12, 0] }}>
           <SelectList

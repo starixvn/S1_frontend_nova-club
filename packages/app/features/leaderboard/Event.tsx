@@ -11,7 +11,7 @@ const EventScreen = () => {
   const desktop = isDesktop()
 
   return (
-    <FormContainer padding>
+    <FormContainer hidePadding>
       <View sx={{ flexGrow: 1 }}>
         <PointsCalculation />
 

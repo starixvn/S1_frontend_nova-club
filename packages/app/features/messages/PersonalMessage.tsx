@@ -55,7 +55,7 @@ const PersonalMessage = () => {
   }
 
   return (
-    <FormContainer padding={isDesktop}>
+    <FormContainer hidePadding={!isDesktop}>
       <Row sx={{ alignItems: 'center', p: '$3' }}>
         <Pressable
           sx={{

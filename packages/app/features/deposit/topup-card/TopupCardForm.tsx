@@ -221,7 +221,7 @@ const TopupCardForm = () => {
           </View>
         ) : (
           <SelectWithCardGrid
-            label={t('bank.paymentMode')}
+            label={t('deposit.paymentMode')}
             placeholder={t('placeholder.paymentMode')}
             options={cardTypeList}
             value={values.cardType ?? ''}

@@ -192,7 +192,13 @@ const TransactionHistory = () => {
   )
   return (
     <View
-      sx={{ flex: 300, bg: '$secondary', width: responsiveWidth, mx: 'auto' }}
+      sx={{
+        flex: 300,
+        bg: '$secondary',
+        width: responsiveWidth,
+        mx: 'auto',
+        py: '$pagePadding',
+      }}
     >
       <FilterSelection
         selected={selected}

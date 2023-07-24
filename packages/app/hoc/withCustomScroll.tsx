@@ -1,4 +1,4 @@
-import { FlashList } from '@shopify/flash-list'
+import { FlashList, FlashListProps } from '@shopify/flash-list'
 import isDesktop from 'app/utils/isDesktop'
 import { View } from 'dripsy'
 import React, { useState } from 'react'
@@ -69,6 +69,8 @@ const withCustomScroll = (WrappedComponent) => {
   return NewHocComponent
 }
 
-export const ScrollFlashList = withCustomScroll(FlashList)
+export const ScrollFlashList = withCustomScroll(FlashList) as <T>(
+  props: FlashListProps<T>
+) => React.ReactElement
 
 export default withCustomScroll

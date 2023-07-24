@@ -60,7 +60,19 @@ const theme = makeTheme({
     },
     body: {
       alignItems: 'stretch',
-      mx: [0, 0, 'auto', 'auto'],
+      /**
+       * `mx` with `auto` value is not working for mobile app due to
+       * it will convert to `marginHorizontal: auto` but `marginHorizontal: auto`
+       * is not functioning as expected in mobile app.
+       * To solve this issue, convert it to `marginLeft` and `marginRight`
+       *
+       * See more:
+       * https://github.com/facebook/react-native/issues/350#issuecomment-375238958
+       */
+      marginRight: [0, 0, 'auto', 'auto'],
+      marginLeft: [0, 0, 'auto', 'auto'],
+      /** */
+
       width: ['100%', '100%', 600, 600],
       maxWidth: '100%',
       alignSelf: 'stretch',

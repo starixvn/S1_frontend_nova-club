@@ -5,10 +5,13 @@ import { createParam } from 'solito'
 import AuthLayout from '../AuthLayout'
 import { LoginType } from '../AuthTypeSelection'
 import LoginForm from './LoginForm'
+import useLocalization from 'app/provider/localization'
 
 const { useParam } = createParam<{ t: LoginType }>()
 
 export default function LoginScreen() {
+  const { t } = useLocalization()
+
   const [routes] = useState([
     { key: 'first', title: 'common.player', index: 0, type: LoginType.Member },
     { key: 'second', title: 'common.agent', index: 1, type: LoginType.Agent },
@@ -32,7 +35,10 @@ export default function LoginScreen() {
   }, [])
 
   return (
-    <AuthLayout headerDesc={'login to your account'} headerColor={'black'}>
+    <AuthLayout
+      headerDesc={t('authentication.loginHeader')}
+      headerColor={'black'}
+    >
       <View sx={{ width: '100%' }}>
         <CustomTabBar
           currentIndex={index}

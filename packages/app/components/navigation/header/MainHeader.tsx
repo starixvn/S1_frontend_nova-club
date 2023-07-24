@@ -27,6 +27,7 @@ import HeaderAuthentication from './HeaderAuthentication'
 import HeaderDeposit from './HeaderDeposit'
 import HeaderLanguageToggle from './HeaderLanguageToggle'
 import HeaderOverview from './HeaderOverview'
+import { StatusBar } from 'expo-status-bar'
 
 const LogoSize = [
   HEADER_HEIGHT * 0.45,
@@ -76,6 +77,7 @@ const MainHeader = () => {
         bg: '$primary.500',
       }}
     >
+      <StatusBar style="light" />
       <HeaderContainer insetTop={top} key={'MainHeader'}>
         <Logo />
         {token ? (

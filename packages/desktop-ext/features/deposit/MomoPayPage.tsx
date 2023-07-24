@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function MomoPayPage() {
   return (
-    <FormContainer>
+    <FormContainer hidePadding>
       <MomoContent />
     </FormContainer>
   )
