@@ -149,8 +149,8 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
         }}
         source={require('app/assets/images/luckydraw/prizes.png')}
         sx={{
-          width: Math.min(350, fullWidth * 0.9),
-          height: Math.min(350, fullWidth * 0.9),
+          width: Math.min(275, fullWidth * 0.9),
+          height: Math.min(275, fullWidth * 0.9),
           zIndex: 2,
         }}
       />
@@ -163,7 +163,6 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
         width: fullWidth,
         height,
         position: 'relative',
-        // bg: 'green',
       }}
     >
       <ScrollView
@@ -186,7 +185,7 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
           }}
           from={{ scale: 0 }}
           animate={{ scale: 1 }}
-          // transition={{ type: 'timing' }}
+          resizeMode="contain"
           source={require('app/assets/images/luckydraw/coins.png')}
         />
         <View
@@ -220,9 +219,9 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
                 sx={{
                   zIndex: 5,
                   position: 'absolute',
-                  width: Math.min(400, fullWidth),
-                  height: Math.min(100, fullWidth),
-                  top: -100,
+                  width: Math.min(300, fullWidth),
+                  height: Math.min(50, fullWidth),
+                  top: -30,
                 }}
               />
               <MotifiedImage
@@ -231,11 +230,11 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
                 animate={{ scale: 1 }}
                 delay={200}
                 sx={{
-                  width: Math.min(30, fullWidth * 0.1),
-                  height: Math.min(50, fullWidth * 0.18),
+                  width: Math.min(20, fullWidth * 0.1),
+                  height: Math.min(30, fullWidth * 0.18),
                   zIndex: 10,
                   position: 'absolute',
-                  top: -10,
+                  top: 47,
                 }}
               />
               {startAnimateWinPrizeFrame && <WinningAnimationFrame />}
@@ -270,7 +269,7 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
                       height: shinyHeight,
                       transform: [
                         {
-                          translateY: width * 0.42 + shinyHeight * 0.35,
+                          translateY: width * 0.33 + shinyHeight * 0.33,
                         },
                       ],
                     }}
@@ -290,11 +289,11 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
                 }}
                 disabled={!canSpin || isLoading}
                 sx={{
-                  width: Math.min(100, fullWidth * 0.3),
-                  height: Math.min(100, fullWidth * 0.3),
+                  width: Math.min(60, fullWidth * 0.2),
+                  height: Math.min(60, fullWidth * 0.2),
                   zIndex: 10,
                   position: 'absolute',
-                  bottom: -80,
+                  bottom: -10,
                 }}
               >
                 <MotifiedImage
@@ -402,7 +401,7 @@ const DownloadAppButton = ({
     <Pressable
       sx={{
         position: 'absolute',
-        bottom: -80,
+        bottom: -5,
         zIndex: 5,
         flexDirection: 'row',
         alignItems: 'center',
@@ -423,7 +422,7 @@ const DownloadAppButton = ({
           transition={{ type: 'timing', duration: 500, loop: true }}
           style={{
             fontWeight: 'bold',
-            fontSize: useResponsiveValue([16, 16, 16, 16, 18]),
+            fontSize: 12,
             textTransform: 'uppercase',
             color: 'white',
             borderRadius: 10,
@@ -437,7 +436,7 @@ const DownloadAppButton = ({
         <Text
           sx={{
             fontWeight: 'bold',
-            fontSize: 20,
+            fontSize: 12,
             textTransform: 'uppercase',
           }}
         >
@@ -465,11 +464,11 @@ const PurpleTableImage = ({ width }) => {
       animate={{ scale: 1 }}
       delay={200}
       sx={{
-        width: Math.min(325, width),
+        width: Math.min(250, width),
         height: Math.min(100, width),
         zIndex: 1,
         position: 'absolute',
-        bottom: -90,
+        bottom: -20,
       }}
     />
   )
@@ -482,8 +481,8 @@ const LuckySpinWheelFrame = ({ width }) => {
       sx={{
         zIndex: 1,
         position: 'absolute',
-        width: Math.min(400, width),
-        height: Math.min(400, width),
+        width: Math.min(300, width),
+        height: Math.min(300, width),
         aspectRatio: 1,
       }}
     />
@@ -498,8 +497,8 @@ const LuckySpinLogo = ({ width }: { width: number }) => {
       animate={{ scale: 1 }}
       delay={200}
       sx={{
-        width: Math.min(75, width * 0.25),
-        height: Math.min(75, width * 0.25),
+        width: Math.min(60, width * 0.25),
+        height: Math.min(60, width * 0.25),
         aspectRatio: 1,
         zIndex: 5,
         position: 'absolute',
@@ -517,12 +516,12 @@ const WinningAnimationFrame = () => {
       delay={100}
       transition={{ type: 'timing', duration: 100, loop: true }}
       sx={{
-        width: '32%',
-        height: '42%',
+        width: '24%',
+        height: '32%',
         aspectRatio: 69 / 90,
         zIndex: 3,
         position: 'absolute',
-        top: '3%',
+        top: '14%',
       }}
     />
   )
