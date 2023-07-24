@@ -6,24 +6,45 @@ import AuthLayout from '../AuthLayout'
 import { LoginType } from '../AuthTypeSelection'
 import LoginForm from './LoginForm'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
+import { useRouter } from 'solito/router'
+
+const memberRoute = {
+  key: 'first',
+  title: 'common.player',
+  index: 0,
+  type: LoginType.Member,
+}
+
+const agentRoute = {
+  key: 'second',
+  title: 'common.agent',
+  index: 1,
+  type: LoginType.Agent,
+}
 
 const { useParam } = createParam<{ t: LoginType }>()
 
 export default function LoginScreen() {
   const { t } = useLocalization()
 
-  const [routes] = useState([
-    { key: 'first', title: 'common.player', index: 0, type: LoginType.Member },
-    { key: 'second', title: 'common.agent', index: 1, type: LoginType.Agent },
-  ])
+  const agentToken = useAppSelector((s) => s.agent.access_token)
+  const memberToken = useAppSelector((state) => state.auth.info?.token)
 
-  const [type, setIsAgentLogin] = useParam('t', { initial: LoginType.Member })
+  const { replace } = useRouter()
+
+  const [routes, setRoutes] = useState([memberRoute, agentRoute])
+
+  const [type, setType] = useParam('t', { initial: LoginType.Member })
   const [index, setIndex] = useState(0)
 
   const isAgentLogin = useMemo(() => type === LoginType.Agent, [type])
 
   const handlePress = (value) => {
-    setIsAgentLogin(index === 0 ? LoginType.Agent : LoginType.Member)
+    if (agentToken) {
+      replace('/agent/profile')
+    }
+    setType(value === 0 ? LoginType.Member : LoginType.Agent)
     setIndex(value)
   }
 
@@ -32,6 +53,8 @@ export default function LoginScreen() {
       return e.type === type
     })
     if (initT) setIndex(initT.index)
+
+    if (memberToken) setRoutes([agentRoute])
   }, [])
 
   return (

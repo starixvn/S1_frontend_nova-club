@@ -19,6 +19,7 @@ import { TempSettingActions } from 'app/store/tempSetting.slice'
 import { LoginResult, Shield_Action } from 'services/authApi.type'
 import { useRouter } from 'solito/router'
 import { AuthActions } from 'app/store/authReducer'
+import { useResponsiveValue } from 'dripsy'
 
 const { useParam } = createParam<{ t: LoginType }>()
 
@@ -28,9 +29,11 @@ export default function useRegisterScreen(rootView: RefObject<RNView>) {
   const dispatch = useAppDispatch()
   const { push } = useRouter()
 
+  const responsiveMode = useResponsiveValue([false, false, false, true, true])
+
   const [routes] = useState([
-    { key: 'first', title: 'common.player', index: 0 },
-    { key: 'second', title: 'common.agent', index: 1 },
+    { key: 'first', title: 'common.player', index: 0, type: LoginType.Member },
+    { key: 'second', title: 'common.agent', index: 1, type: LoginType.Agent },
   ])
 
   const [type, setIsAgentLogin] = useParam('t', { initial: LoginType.Member })
@@ -48,6 +51,13 @@ export default function useRegisterScreen(rootView: RefObject<RNView>) {
     setIsAgentLogin(index === 0 ? LoginType.Agent : LoginType.Member)
     setIndex(value)
   }
+
+  useEffect(() => {
+    const initT = routes.find((e) => {
+      return e.type === type
+    })
+    if (initT) setIndex(initT.index)
+  }, [])
 
   const handleMemberRegister = async (
     {

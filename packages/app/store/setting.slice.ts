@@ -148,8 +148,8 @@ const settingSlice = createSlice({
       action: PayloadAction<Credential | undefined>
     ) => {
       action?.payload
-        ? (state.rememberMeCredentials = action.payload)
-        : (state.rememberMeCredentials = undefined)
+        ? (state.agentRememberMeCredentials = action.payload)
+        : (state.agentRememberMeCredentials = undefined)
     },
   },
   extraReducers: (builder) => {

@@ -22,11 +22,7 @@ export default function useAgentLoginProcess() {
 
   async function handleAgentSuccessLogin(data: LoginResult) {
     dispatch(AgentAuthActions.setAgentAuthToken(data.data.access_token))
-    // dispatch(
-    //     SettingActions.setAgentRememberMe(
-    //       isRememberAgent ? { username, password } : undefined
-    //     )
-    //   )
+
     const resp = await getUserInfo().unwrap()
     if (!resp.has_logged_in || !resp.has_otp) {
       Platform.select({

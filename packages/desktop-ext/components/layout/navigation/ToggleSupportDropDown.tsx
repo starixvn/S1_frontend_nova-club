@@ -1,94 +1,74 @@
-import IconButton from 'app/components/IconButton'
-import useSupportItemList from 'app/features/customerSupport/useSupportItemList'
-import { View, Text, useDripsyTheme, Image } from 'dripsy'
-import { AnimatePresence, MotiView } from 'moti'
-import React, { useState } from 'react'
+import Icon from 'app/components/Icon'
+import useLocalization from 'app/provider/localization'
+import { Text, View, useDripsyTheme } from 'dripsy'
+import { MotiPressable } from 'moti/interactions'
+import React, { startTransition, useState } from 'react'
 import { Linking } from 'react-native'
 
 const ToggleSupportDropDown = () => {
   const { theme } = useDripsyTheme()
-  const mediaList = useSupportItemList()
-  const [isMenuOpen, setIsMenuOpen] = useState(true)
+  const { t } = useLocalization()
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   return (
-    <MotiView
+    <MotiPressable
+      id="menu"
+      onPress={() => {
+        Linking.openURL(
+          'https://secure.livechatinc.com/licence/14440122/v2/open_chat.cgi'
+        )
+      }}
       style={{
-        position: 'absolute',
+        position: 'fixed',
         backgroundColor: theme.colors?.$primary
           ? theme.colors?.$primary[100]
           : 'transparent',
-        width: 60,
-        minHeight: 50,
-        left: 0,
+        width: 140,
+        height: 40,
+        right: 0,
+        bottom: '10%',
         zIndex: 5,
-        borderBottomEndRadius: 15,
+        borderTopLeftRadius: 15,
+        borderBottomLeftRadius: 15,
         alignItems: 'center',
-        paddingVertical: 15,
-        justifyContent: 'space-around',
+        justifyContent: 'center',
       }}
-      from={{ height: isMenuOpen ? 240 : 25 }}
-      animate={{ height: isMenuOpen ? 240 : 25 }}
-      transition={{
-        damping: 10,
-        mass: 1,
-        type: 'spring',
-      }}
+      onHoverIn={() => startTransition(() => setIsMenuOpen(true))}
+      onHoverOut={() => startTransition(() => setIsMenuOpen(false))}
+      animate={{ translateX: isMenuOpen ? 15 : 95 }}
     >
-      <MotiView
-        from={{ rotateZ: !isMenuOpen ? '0deg' : '180deg' }}
-        animate={{ rotateZ: !isMenuOpen ? '0deg' : '180deg' }}
-        transition={{ type: 'timing' }}
-        style={{
-          position: 'absolute',
-          alignItems: 'center',
+      <View
+        sx={{
+          flexDirection: 'row',
+          px: '$2',
           width: '100%',
-          left: 0,
-          top: 15,
+          alignItems: 'center',
+          justifyContent: 'space-evenly',
         }}
       >
-        <IconButton
-          sx={{}}
-          name="down"
-          onPress={() => setIsMenuOpen(!isMenuOpen)}
+        <Icon
+          name={'iconCS'}
+          size={20}
+          sx={{
+            borderRadius: 50,
+            alignItems: 'center',
+          }}
         />
-      </MotiView>
 
-      <View sx={{ height: 40 }} />
-
-      <AnimatePresence>
-        {isMenuOpen && (
-          <MotiView
-            from={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ type: 'timing', duration: 750 }}
-            exitTransition={{ type: 'timing', duration: 150 }}
-            style={{ alignItems: 'center' }}
-          >
-            {mediaList.map((item) => {
-              return (
-                <>
-                  <IconButton
-                    key={item.label}
-                    name={item.icon}
-                    size={24}
-                    sx={{
-                      bg: '$primary.500',
-                      borderRadius: 50,
-                      my: '$2',
-                      alignItems: 'center',
-                    }}
-                    iconSx={{ p: 5 }}
-                    onPress={() => {
-                      Linking.openURL(item.href)
-                    }}
-                  />
-                </>
-              )
-            })}
-          </MotiView>
-        )}
-      </AnimatePresence>
-    </MotiView>
+        <Text
+          sx={{
+            minWidth: 70,
+            marginLeft: 5,
+            marginRight: 10,
+            height: 21,
+            lineHeight: 24,
+            fontWeight: 'bold',
+            textAlignVertical: 'center',
+          }}
+        >
+          {t('common.hello')}
+        </Text>
+      </View>
+    </MotiPressable>
   )
 }
 

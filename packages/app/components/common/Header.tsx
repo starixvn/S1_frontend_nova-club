@@ -1,7 +1,14 @@
 import useOrientation from 'app/hooks/useOrientation'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import isDesktop from 'app/utils/isDesktop'
-import { Pressable, styled, Text, useSx, View } from 'dripsy'
+import {
+  Pressable,
+  styled,
+  Text,
+  useResponsiveValue,
+  useSx,
+  View,
+} from 'dripsy'
 import { ComponentProps } from 'react'
 import { Platform } from 'react-native'
 import { useRouter } from 'solito/router'
@@ -30,6 +37,8 @@ const Header = ({
   const { orientation, isLandscape } = useOrientation()
 
   const { top, right } = useSafeArea()
+
+  const pr = useResponsiveValue(['$4', '$4', 0, 0, 0])
 
   const sx = useSx()
 
@@ -78,6 +87,7 @@ const Header = ({
             sx={{
               flex: 0.1,
               alignItems: 'flex-end',
+              pr,
             }}
           >
             {actions && actions}

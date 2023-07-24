@@ -10,6 +10,7 @@ import LoginScreenDesktop from 'desktop-ext/features/auth/login/LoginScreenDeskt
 // import AgentGuard from './agent/AgentGuard'
 
 const guestRoutes = [
+  '/',
   '/account/leaderboard',
   '/games/keno-lottery',
   '/games/fishing',
@@ -29,6 +30,7 @@ const guestRoutes = [
   '/auth/register',
   '/games',
   '/lucky-spin-tnc',
+  '/agent',
 ]
 
 /* 

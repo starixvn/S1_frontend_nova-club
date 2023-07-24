@@ -153,12 +153,16 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
         </View>
       </View>
 
-      <Button loading={isSubmitting} onPress={submitForm} sx={{ my: '$2' }}>
+      <Button
+        loading={isSubmitting}
+        onPress={submitForm}
+        sx={{ my: '$2', py: '$2' }}
+      >
         {t('authentication.login')}
       </Button>
       <Button
         onPress={() => push('/auth/register')}
-        sx={{ bg: '$primary.300', my: '$2' }}
+        sx={{ bg: '$primary.300', my: '$2', py: '$2' }}
       >
         {t('authentication.register')}
       </Button>

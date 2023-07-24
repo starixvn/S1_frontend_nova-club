@@ -30,7 +30,7 @@ const ModalContent = ({
   isShowHeader = true,
   actions,
   children,
-  disableAction = true,
+  disableAction = false,
 }: ModalContentProps) => {
   const { t } = useLocalization()
   const { closeModal } = useModal()
@@ -68,7 +68,7 @@ const ModalContent = ({
         </ScrollView>
       </ModalBackground>
 
-      {disableAction && (
+      {!disableAction && (
         <ViewFooter>
           {actions ? (
             actions.map((item, i) => (
@@ -109,7 +109,7 @@ const ModalBackground = styled(DripsyGradient)(({}) => {
 })
 
 const ModalHeader = styled(View)({
-  mb: "$2",
+  mb: '$2',
 })
 
 const TextTitle = styled(Text)({
