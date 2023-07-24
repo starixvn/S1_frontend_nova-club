@@ -55,6 +55,7 @@ export default function BannerCarousel({
         {showCarousel ? (
           <Carousel
             loop
+            windowSize={1}
             width={width}
             height={height}
             autoPlay

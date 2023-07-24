@@ -6,6 +6,7 @@
     "app": "*",
     "dripsy": "*",
     "moti": "*",
+    "next": "*",
     "solito": "*"
   }
 }

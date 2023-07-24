@@ -5726,6 +5726,7 @@ __metadata:
     app: "*"
     dripsy: "*"
     moti: "*"
+    next: "*"
     solito: "*"
   languageName: unknown
   linkType: soft

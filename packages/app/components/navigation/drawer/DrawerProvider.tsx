@@ -7,7 +7,7 @@ import { Platform } from 'react-native'
 
 const DrawerProvider = ({ children }) => {
   const [isOpen, setOpen] = useState(false)
-  const horizontalMode = useResponsiveValue([false, false, false, true, true])
+  const isDesktop = useResponsiveValue([false, false, false, true, true])
 
   const toggleDrawer = useCallback((open?: boolean) => {
     setOpen((prev) => (open === undefined ? !prev : open))
@@ -17,7 +17,8 @@ const DrawerProvider = ({ children }) => {
     (s) => s.tempSetting.splashScreenLoaded
   )
 
-  if (!splashScreenLoaded && Platform.OS !== 'web') return children
+  if (!splashScreenLoaded && (isDesktop || Platform.OS !== 'web'))
+    return children
 
   return (
     <DrawerContext.Provider value={{ isOpen, toggleDrawer }}>

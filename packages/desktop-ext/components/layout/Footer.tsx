@@ -5,14 +5,14 @@ import FooterNav from 'app/components/navigation/footer/FooterNav'
 import Powered from 'app/components/navigation/footer/Powered'
 import Providers from 'app/components/navigation/footer/Providers'
 import useLocalization from 'app/provider/localization'
-import { Row, Text, View } from 'dripsy'
+import { Container, Row, Text, View } from 'dripsy'
 import React from 'react'
 
 const Footer = () => {
   const { t } = useLocalization()
 
   return (
-    <View>
+    <Container>
       <Row sx={{ py: '$3', px: '6%', justifyContent: 'space-between' }}>
         <Text>{t('footer.note1')}</Text>
         <Text>{t('footer.note2')}</Text>
@@ -23,9 +23,8 @@ const Footer = () => {
       <Providers />
       <Powered />
       <Copyright />
-    </View>
+    </Container>
   )
 }
 
 export default Footer
-

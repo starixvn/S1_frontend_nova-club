@@ -1,9 +1,8 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { LaunchGame } from 'app/features/game/GameLauncher'
-import { Pressable, SxProp, View, styled } from 'dripsy'
+import { SxProp, View, styled } from 'dripsy'
 import { MotiPressable } from 'moti/interactions'
 import React, { useMemo } from 'react'
-import { GestureResponderEvent, PressableProps } from 'react-native'
 import { FeaturedGame } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
 
@@ -12,6 +11,11 @@ interface TopGameCardProps {
   desktopMode?: boolean
   sx?: SxProp
 }
+
+export const width = [70, 100, 120]
+export const aspectRatio = 0.485 //170 / 350
+
+export const height = width.map((w) => w / aspectRatio)
 
 export default function TopGameCard({
   game,
@@ -44,8 +48,8 @@ export default function TopGameCard({
     >
       <View
         sx={{
-          width: [70, 100, 120],
-          aspectRatio: 170 / 350,
+          width,
+          aspectRatio,
           overflow: 'hidden',
         }}
       >

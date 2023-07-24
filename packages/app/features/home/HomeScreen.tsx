@@ -1,26 +1,17 @@
-import GameListSectionAsyncByTag from 'app/components/game/GameListSectionAsyncByTag'
-import Footer from 'app/components/navigation/footer'
-import useLocalization from 'app/provider/localization'
-import { SlotType } from 'app/utils/constant'
-import { ScrollView, View } from 'dripsy'
-import AnnouncementSection from './Announcement/AnnouncementSection'
-import BannerSection from './BannerSection'
-import GameGridSection from './GameGridSection'
-import HireBanner from './HireBanner'
-import LeaderboardSection from './LeaderboardSection'
-import MatchSection from './Match/MatchSection'
-import ReferralSection from './Referral/ReferralSection'
-import TopGameSection from './TopGameSection'
 import useShield from 'app/hooks/useShield'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
+import { ScrollView, View } from 'dripsy'
 import { useEffect } from 'react'
-import { Shield_Action } from 'services/authApi.type'
-import LuckyDrawTrigger from './LuckyDrawTrigger'
 import { useModal } from 'react-native-modalfy'
+import { Shield_Action } from 'services/authApi.type'
+import AnnouncementSection from './Announcement/AnnouncementSection'
+import BannerSection from './BannerSection'
+import Deferrable from './Deferrable'
+import GameGridSection from './GameGridSection'
+import HireBanner from './HireBanner'
 
 export default function HomeScreen() {
-  const { t } = useLocalization()
   const dispatch = useAppDispatch()
   const username = useAppSelector((s) => s.auth.info?.playerName)
   const syncShieldActionType = useAppSelector(
@@ -84,30 +75,7 @@ export default function HomeScreen() {
         <HireBanner />
       </View>
       <GameGridSection />
-      {/* <RecentlyPlayedSection /> */}
-      <View sx={{ gap: ['$3', '$4'] }}>
-        <TopGameSection />
-        <GameListSectionAsyncByTag
-          tag={SlotType.NEW}
-          title={t('game.new').toUpperCase()}
-          icon="star"
-        />
-        <GameListSectionAsyncByTag
-          tag={SlotType.JACKPOT}
-          title={t('game.jackpot').toUpperCase()}
-          icon="jackpot"
-        />
-        <GameListSectionAsyncByTag
-          tag={SlotType.MEGAWAY}
-          title={'MEGAWAY'}
-          icon="megaway"
-        />
-        <MatchSection />
-        <LeaderboardSection />
-        <ReferralSection />
-        <LuckyDrawTrigger />
-      </View>
-      <Footer />
+      <Deferrable />
     </ScrollView>
   )
 }

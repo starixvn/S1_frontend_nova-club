@@ -26,6 +26,7 @@ import {
   useNavigationHeader,
 } from './NavigationHeaderProvider'
 import ToggleSupportDropDown from './ToggleSupportDropDown'
+import { SolitoImage } from 'solito/image'
 
 interface MenuProps {
   icon?: string
@@ -91,7 +92,7 @@ const MENU: MenuProps[] = [
   // },
 ]
 const LuckySpin =
-  `${MEDIA_DOMAIN}${CONTENT_URI}/lucky-spin/miniLuckyWheel.gif` as any
+  `${MEDIA_DOMAIN}${CONTENT_URI}/lucky-spin/miniLuckyWheelv2.gif` as any
 export const NAVIGATION_HEIGHT = 50
 export default function NavigationHeader({}) {
   const toggleMenu = useNavigationHeader()
@@ -119,34 +120,19 @@ export default function NavigationHeader({}) {
                   // px: [0, 0, 0, '$pagePadding'],
                 }}
               >
-                <View
-                  sx={{
-                    position: 'relative',
-                    width: NAVIGATION_HEIGHT * 2,
-                    aspectRatio: 1,
-                    height: NAVIGATION_HEIGHT * 1.25,
-                    overflow: 'hidden',
-                    top: -NAVIGATION_HEIGHT * 0.25,
+                <Pressable
+                  sx={{ position: 'relative', top: NAVIGATION_HEIGHT - 55 }}
+                  onPress={() => {
+                    openModal('LuckyDrawModal', {})
                   }}
                 >
-                  <Pressable
-                    onPress={() => {
-                      openModal('LuckyDrawModal', {})
-                    }}
-                  >
-                    <Image
-                      source={LuckySpin}
-                      alt="luckywheel"
-                      sx={{
-                        width: '100%',
-                        height: '100%',
-                        aspectRatio: 1,
-                        bottom: -NAVIGATION_HEIGHT * 0.05,
-                      }}
-                      resizeMode="cover"
-                    />
-                  </Pressable>
-                </View>
+                  <SolitoImage
+                    src={LuckySpin}
+                    alt="luckywheel"
+                    width={100}
+                    height={55}
+                  />
+                </Pressable>
 
                 {MENU.map((m, i) => {
                   return (

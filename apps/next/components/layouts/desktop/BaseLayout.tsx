@@ -3,12 +3,21 @@ import { HEADER_HEIGHT } from 'app/utils/constant'
 import NavigationHeader, {
   NAVIGATION_HEIGHT,
 } from 'desktop-ext/components/layout/navigation/NavigationHeader'
-import DesktopFooter from 'desktop-ext/components/layout/Footer'
-import { ActivityIndicator, Container } from 'dripsy'
-import { ReactNode, useEffect, useState } from 'react'
 import NavigationHeaderProvider from 'desktop-ext/components/layout/navigation/NavigationHeaderProvider'
-import { useRouter } from 'next/router'
+import { ActivityIndicator, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
+import { useRouter } from 'next/router'
+import { ReactNode, useEffect, useState } from 'react'
+
+import dynamic from 'next/dynamic'
+import withLazyLoad from 'app/hoc/withLadyLoad'
+
+const Footer = dynamic(() => import('desktop-ext/components/layout/Footer'), {
+  loading: () => <ActivityIndicator />,
+  ssr: false,
+})
+
+const LazyFooter = withLazyLoad(Footer)
 
 export default function BaseLayout({ children }: { children: ReactNode }) {
   const router = useRouter()
@@ -36,7 +45,13 @@ export default function BaseLayout({ children }: { children: ReactNode }) {
   return (
     <div style={{ paddingTop: NAVIGATION_HEIGHT + HEADER_HEIGHT }}>
       <FloatedHeader />
-      {children}
+      <View
+        sx={{
+          minHeight: `calc(100vh - ${NAVIGATION_HEIGHT + HEADER_HEIGHT}px)`,
+        }}
+      >
+        {children}
+      </View>
       <AnimatePresence>
         {loading && (
           <MotiView
@@ -63,7 +78,7 @@ export default function BaseLayout({ children }: { children: ReactNode }) {
           </MotiView>
         )}
       </AnimatePresence>
-      <Footer />
+      <LazyFooter />
     </div>
   )
 }
@@ -85,13 +100,5 @@ const FloatedHeader = () => {
         <NavigationHeader />
       </NavigationHeaderProvider>
     </div>
-  )
-}
-
-const Footer = () => {
-  return (
-    <Container>
-      <DesktopFooter />
-    </Container>
   )
 }

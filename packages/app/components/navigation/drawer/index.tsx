@@ -3,7 +3,7 @@ import { Pressable, View, styled } from 'dripsy'
 import { MotiView, useAnimationState } from 'moti'
 import React, { memo, useEffect, useState } from 'react'
 import { Platform, useWindowDimensions } from 'react-native'
-import DrawerContent from './DrawerContent'
+import LazyDrawerContent from './LazyDrawerContent.web'
 
 // TODOƒ
 /* Overlay */
@@ -46,7 +46,7 @@ export default function Drawer({ children }) {
         state={useDrawerAnimation}
         transition={{ type: 'timing' }}
       >
-        <DrawerContent />
+        <LazyDrawerContent />
       </DrawerContainer>
     </View>
   )

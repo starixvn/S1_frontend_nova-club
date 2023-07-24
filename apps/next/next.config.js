@@ -41,11 +41,14 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   output: 'standalone',
-  // compiler: {
-  //   removeConsole: {
-  //     exclude: ['error'],
-  //   },
-  // },
+  compiler: {
+    removeConsole:
+      process.env.NODE_ENV === 'production'
+        ? {
+            exclude: ['error'],
+          }
+        : false,
+  },
   transpilePackages: [
     'react-native',
     'react-native-confirmation-code-field',

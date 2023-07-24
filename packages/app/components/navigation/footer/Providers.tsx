@@ -1,8 +1,7 @@
-import { Row, View } from 'dripsy'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import { Row } from 'dripsy'
 import React from 'react'
 import { LogoImage } from './Channel'
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { MENU_HEIGHT } from 'desktop-ext/components/tab/DesktopTabBar'
 
 const Providers = () => {
   return (
