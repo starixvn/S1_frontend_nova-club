@@ -1,7 +1,9 @@
+import { DEV_DOMAIN } from '@env'
 import Icon from 'app/components/Icon'
 import IconButton from 'app/components/IconButton'
 import { useDrawer } from 'app/hooks/useDrawer'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
+import useLocalization from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { copyToClipboard } from 'app/utils'
 import { Pressable, ScrollView, Text, View } from 'dripsy'
@@ -11,6 +13,7 @@ import { usePlayerProfileQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 
 export default function DrawerContent() {
+  const { t } = useLocalization()
   const { push } = useRouter()
   const { top, bottom } = useSafeArea()
   const { height } = useWindowDimensions()
@@ -18,7 +21,7 @@ export default function DrawerContent() {
   const { logout } = useOnAppLogout()
 
   const { isCreditMember, data: playerData } = usePlayerProfileQuery()
-
+  const referralLink = `${DEV_DOMAIN}/download?ref=${playerData?.referral_code}`
   const isPlayerName = !!playerData?.firstName
 
   const MENU_LIST = [
@@ -26,7 +29,7 @@ export default function DrawerContent() {
       iconName: 'agent',
       text: 'AgentLogin',
       onPress: () => {
-        push('/deposit')
+        push('/auth/login?t=agent')
       },
     },
     {
@@ -162,7 +165,7 @@ export default function DrawerContent() {
                 }}
               >
                 <Text sx={{ fontSize: 20, fontWeight: '500' }}>
-                  Share & Earn
+                  {t('referral.shareMessage')}
                 </Text>
                 <Text
                   sx={{
@@ -172,10 +175,9 @@ export default function DrawerContent() {
                     marginTop: 10,
                   }}
                 >
-                  Get exclusive referral bonuses when your friend signs up using
-                  your referral code
+                  {t('referral.shareContent')}
                 </Text>
-                <View
+                <Pressable
                   sx={{
                     bg: '$primary.500',
                     padding: 10,
@@ -184,16 +186,16 @@ export default function DrawerContent() {
                     flexDirection: 'row',
                     alignItems: 'center',
                   }}
+                  onPress={() => copyToClipboard(referralLink)}
                 >
-                  <Text sx={{ fontSize: 14 }}>A1234567890</Text>
+                  <Text sx={{ fontSize: 14 }}>{t('common.copy')}</Text>
                   <IconButton
                     name={'copy'}
                     color={'white'}
                     size={12}
                     sx={{ padding: 5 }}
-                    onPress={() => copyToClipboard('123')}
                   />
-                </View>
+                </Pressable>
               </View>
             </View>
           </ImageBackground>
