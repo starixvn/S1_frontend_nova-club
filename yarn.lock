@@ -6755,7 +6755,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-font@npm:~11.1.1":
+"expo-font@npm:11.1.1":
   version: 11.1.1
   resolution: "expo-font@npm:11.1.1"
   dependencies:
@@ -6763,6 +6763,17 @@ __metadata:
   peerDependencies:
     expo: "*"
   checksum: 813c424fbb521bfc00e1116deaa5a7c65ac1cb85ac78f5472ab2946e061fb0c0053a5bc7c5309545dc9f42d59faf9bd19eb1c2d895c59768f095c114241ac1e0
+  languageName: node
+  linkType: hard
+
+"expo-font@patch:expo-font@npm%3A11.1.1#./.yarn/patches/expo-font-npm-11.1.1-e30f61f5aa.patch::locator=vuifit%40workspace%3A.":
+  version: 11.1.1
+  resolution: "expo-font@patch:expo-font@npm%3A11.1.1#./.yarn/patches/expo-font-npm-11.1.1-e30f61f5aa.patch::version=11.1.1&hash=027006&locator=vuifit%40workspace%3A."
+  dependencies:
+    fontfaceobserver: ^2.1.0
+  peerDependencies:
+    expo: "*"
+  checksum: c288c140878160f642769edd211436b970f4b213f9aa2ba3ff49b54a33bea3ad8cd9cd76430033d12c7b2f7046ee8966f214cac483ad279af740aa144dfdc62b
   languageName: node
   linkType: hard
 
