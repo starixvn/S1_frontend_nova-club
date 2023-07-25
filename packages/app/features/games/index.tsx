@@ -11,6 +11,7 @@ import { usePlayerProfileQuery } from 'services/playerApi'
 import ListSectionHeader from '../ListSectionHeader'
 import MenuRow from './MenuRow'
 import VerticalGameList from './VerticalGameList'
+import uniqueWith from 'lodash/uniqWith'
 
 // To prevent `ListSectionHeader` animation from triggered on each re-render
 const MemoListSectionHeader = memo(ListSectionHeader)
@@ -56,7 +57,16 @@ const Games = () => {
       return (concatList || []).concat(currentList || [])
     }, [])
 
-    return concatList
+    const uniqueConcatList = uniqueWith(
+      concatList,
+      (arrVal, othVal) =>
+        arrVal.gc === othVal.gc &&
+        arrVal.gdc_cat === othVal.gdc_cat &&
+        arrVal.gpc === othVal.gpc &&
+        arrVal.gtc === othVal.gtc
+    )
+
+    return uniqueConcatList
   }
 
   const isFetchingGameList =
@@ -85,9 +95,6 @@ const Games = () => {
       numColumns={3}
       isLoading={isFetchingGameList}
       data={filterGames}
-      keyExtractor={(_, index) => {
-        return index.toString()
-      }}
       ListHeaderComponent={
         <>
           <MemoListSectionHeader
