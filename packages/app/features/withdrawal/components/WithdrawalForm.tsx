@@ -48,7 +48,7 @@ const WithdrawalForm = ({ isCrypto, selectedChannel }: WithdrawalFormProps) => {
 
   const renderEmpty = (closeActionSheet) => {
     return (
-      <View sx={{ p: '$4' }}>
+      <View sx={{ p: '$4', width: '100%', height: '100%' }}>
         <EmptyAccount
           label={
             isCrypto ? t('wallet.addCryptoWallet') : t('bank.addBankAccount')

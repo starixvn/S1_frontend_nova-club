@@ -75,6 +75,7 @@ const FieldSelectBank = ({ field, isLoading, formik }: FieldBankProps) => {
                         key={i}
                         item={e}
                         onPress={() => handleSelected(e.value)}
+                        selected={e.value === values.bank}
                       />
                     </View>
                   )

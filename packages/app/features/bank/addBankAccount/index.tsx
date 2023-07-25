@@ -87,22 +87,6 @@ const AddBankAccountScreen = () => {
                 : undefined
             }
           />
-
-          <CardInput
-            label={t('bank.accountNumber')}
-            value={values.accountNo}
-            setValue={handleChange('accountNo')}
-            onBlur={handleBlur('accountNo')}
-            keyboardType="number-pad"
-            maxLength={MaxLength.CARD}
-            error={
-              touched.accountNo && errors.accountNo
-                ? t(errors.accountNo, {
-                    field: t('bank.accountNumber'),
-                  })
-                : undefined
-            }
-          />
         </RealNameForm>
 
         <Button

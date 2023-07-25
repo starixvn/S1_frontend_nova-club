@@ -8,12 +8,14 @@ type HorizontalSelectBankCardGridProps = {
     icon: string
   }
   contain?: boolean
+  selected?: boolean
   onPress: () => void
 }
 
 const HorizontalSelectBankCardGrid = ({
   item,
   contain,
+  selected,
   onPress,
 }: HorizontalSelectBankCardGridProps) => {
   return (
@@ -22,7 +24,7 @@ const HorizontalSelectBankCardGrid = ({
         borderColor: '#0c7dff',
         m: '$2',
         borderRadius: 15,
-        borderWidth: 2,
+        borderWidth: selected ? 5 : 2,
         overflow: 'hidden',
         minWidth: 80,
         height: 80,

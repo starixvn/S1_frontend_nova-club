@@ -195,6 +195,9 @@ const BankTransferForm = () => {
                           key={i}
                           item={e}
                           onPress={() => handleSelected(e.value)}
+                          selected={
+                            e.value === values.bank?.bankTypeId.toString()
+                          }
                         />
                       </View>
                     )

@@ -212,6 +212,9 @@ const TopupCardForm = () => {
                           key={i}
                           item={e}
                           onPress={() => setFieldValue('cardType', e.value)}
+                          selected={
+                            e.value === values.cardType
+                          }
                         />
                       </View>
                     )
