@@ -1,29 +1,29 @@
 import dynamic from 'next/dynamic'
-import { ActivityIndicator } from 'react-native'
 import { Layout } from '../AdaptiveLayout'
+import AdaptiveLayoutLoader from '../AdaptiveLayoutLoader'
 
 const DynamicBaseLayout = dynamic(() => import('./BaseLayout'), {
-  loading: () => <ActivityIndicator />,
+  loading: () => <AdaptiveLayoutLoader />,
   ssr: false,
 })
 
 const DynamicWalletLayout = dynamic(() => import('./WalletLayout'), {
-  loading: () => <ActivityIndicator />,
+  loading: () => <AdaptiveLayoutLoader />,
   ssr: false,
 })
 
 const DynamicAccountLayout = dynamic(() => import('./AccountLayout'), {
-  loading: () => <ActivityIndicator />,
+  loading: () => <AdaptiveLayoutLoader />,
   ssr: false,
 })
 
 const DynamicLeaderboardLayout = dynamic(() => import('./LeaderboardLayout'), {
-  loading: () => <ActivityIndicator />,
+  loading: () => <AdaptiveLayoutLoader />,
   ssr: false,
 })
 
 const DynamicInfoLayout = dynamic(() => import('./InfoLayout'), {
-  loading: () => <ActivityIndicator />,
+  loading: () => <AdaptiveLayoutLoader />,
   ssr: false,
 })
 

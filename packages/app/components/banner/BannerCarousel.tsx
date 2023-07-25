@@ -1,8 +1,8 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import useContainerWidth from 'app/hooks/useContainerWidth'
-import { Row, SxProp, View, useDripsyTheme, useResponsiveValue } from 'dripsy'
+import { Row, SxProp, View, useDripsyTheme } from 'dripsy'
 import React, { useRef } from 'react'
-import { View as RNView } from 'react-native'
+import { Platform, View as RNView } from 'react-native'
 import Animated, {
   Extrapolate,
   interpolate,
@@ -11,7 +11,7 @@ import Animated, {
 } from 'react-native-reanimated'
 import Carousel, { TCarouselProps } from 'react-native-reanimated-carousel'
 import { BannerResult } from 'services/contentApi.type'
-import { SolitoImage, ResizeMode } from 'solito/image'
+import { SolitoImage } from 'solito/image'
 import SkeletonPlaceholder from '../SkeletonPlaceholder'
 
 export interface BannerCarouselProps
@@ -51,37 +51,40 @@ export default function BannerCarousel({
       }}
     >
       {/* <Text>{width + ' ' + height}</Text> */}
-      <SkeletonPlaceholder width={'100%'} height={'100%'}>
-        {showCarousel ? (
-          <Carousel
-            loop
-            windowSize={1}
-            width={width}
-            height={height}
-            autoPlay
-            autoPlayInterval={5000}
-            data={data}
-            scrollAnimationDuration={1000}
-            onProgressChange={(_, absoluteProgress) =>
-              (progressValue.value = absoluteProgress)
-            }
-            // onSnapToItem={(index) => console.log('current index:', index)}
-            renderItem={({ item }) => (
-              <View pointerEvents="none">
-                <SolitoImage
-                  src={`${MEDIA_DOMAIN}/${CONTENT_URI}/v2/banners/${item.image}`}
-                  // src={`https://bw88.io/2023/June/Bwing_BTI_250K_VN.jpg`}
-                  height={height}
-                  width={width}
-                  alt={item.alt ?? ''}
-                  contentFit="cover"
-                />
-              </View>
-            )}
-            {...rest}
-          />
-        ) : null}
-      </SkeletonPlaceholder>
+      {showCarousel ? (
+        <Carousel
+          loop
+          windowSize={3}
+          width={width}
+          height={height}
+          // autoPlay
+          // autoPlayInterval={5000}
+          data={data}
+          scrollAnimationDuration={1000}
+          onProgressChange={(_, absoluteProgress) =>
+            (progressValue.value = absoluteProgress)
+          }
+          // onSnapToItem={(index) => console.log('current index:', index)}
+          renderItem={({ item, index }) => (
+            <View pointerEvents="none">
+              <SolitoImage
+                priority={index === 0}
+                src={`${MEDIA_DOMAIN}/${CONTENT_URI}/v2/banners/${item.image}`}
+                // src={`https://bw88.io/2023/June/Bwing_BTI_250K_VN.jpg`}
+                height={height}
+                width={width}
+                alt={item.alt ?? ''}
+                contentFit="cover"
+                placeholder="blur"
+                blurDataURL={
+                  Platform.OS === 'web' ? item.blurDataURL : item.blurHash
+                }
+              />
+            </View>
+          )}
+          {...rest}
+        />
+      ) : null}
       {data && (
         <Row
           sx={{

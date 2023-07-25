@@ -2,6 +2,8 @@ import { Action } from 'app/utils/actionGenerator'
 
 export interface BannerResult {
   image: string
+  blurDataURL?: string // base64 of 10px width banner image
+  blurHash?: string // https://blurha.sh/
   action?: Action
   alt?: string
   // bannerName: string

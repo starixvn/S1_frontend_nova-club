@@ -82,7 +82,7 @@ const MENU: MenuProps[] = [
   // },
 ]
 const LuckySpin =
-  `${MEDIA_DOMAIN}${CONTENT_URI}/lucky-spin/miniLuckyWheelv2.gif` as any
+  `${MEDIA_DOMAIN}${CONTENT_URI}/lucky-spin/miniLuckyWheelv3.gif` as any
 export const NAVIGATION_HEIGHT = 50
 export default function NavigationHeader({}) {
   const toggleMenu = useNavigationHeader()

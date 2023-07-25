@@ -6,7 +6,8 @@ import { MotiPressable } from 'moti/interactions'
 import React, { memo, useMemo, useRef, useState, useTransition } from 'react'
 import { GestureResponderEvent, PressableProps, StyleSheet } from 'react-native'
 import { SolitoImage } from 'solito/image'
-import SkeletonPlaceholder from '../SkeletonPlaceholder'
+
+import { AnimatePresence, MotiView } from 'moti'
 
 export interface GameCardProps extends PressableProps, LaunchGamePayload {
   displayName?: string
@@ -98,17 +99,24 @@ const GameCard = ({
             startTransition(() => setLoaded(true))
           }}
           fill
-          // to supporess warning, will be ignored since unoptimized is true
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           loading="lazy"
           alt={displayName ?? ''}
-          resizeMode="cover"
+          contentFit="cover"
           key={imageSrc}
           src={imageSrc}
         />
-        <View sx={{ ...StyleSheet.absoluteFillObject }}>
-          <SkeletonPlaceholder show={!loaded} width="100%" height="100%" />
-        </View>
+        <AnimatePresence>
+          {!loaded && (
+            <MotiView
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              style={{
+                ...StyleSheet.absoluteFillObject,
+                backgroundColor: 'rgba(150,150,255,0.3)',
+              }}
+            />
+          )}
+        </AnimatePresence>
       </View>
       {displayName && (
         <LabelContainer absolute={absoluteName}>

@@ -11,9 +11,10 @@ import { ReactNode, useEffect, useState } from 'react'
 
 import dynamic from 'next/dynamic'
 import withLazyLoad from 'app/hoc/withLadyLoad'
+import LazyIndicator from 'app/components/LazyIndicator'
 
 const Footer = dynamic(() => import('desktop-ext/components/layout/Footer'), {
-  loading: () => <ActivityIndicator />,
+  loading: () => <LazyIndicator />,
   ssr: false,
 })
 
@@ -74,7 +75,11 @@ export default function BaseLayout({ children }: { children: ReactNode }) {
               //   'radial-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.4), transparent, transparent)',
             }}
           >
-            <ActivityIndicator color="white" size={40} sx={{ m: '$5' }} />
+            <ActivityIndicator
+              color="$primary.100"
+              size={40}
+              sx={{ m: '$5' }}
+            />
           </MotiView>
         )}
       </AnimatePresence>

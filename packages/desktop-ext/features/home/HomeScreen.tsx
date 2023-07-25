@@ -13,9 +13,10 @@ import { Shield_Action } from 'services/authApi.type'
 
 import dynamic from 'next/dynamic'
 import withLazyLoad from 'app/hoc/withLadyLoad'
+import LazyIndicator from 'app/components/LazyIndicator'
 
 const DeferredSection = dynamic(() => import('./DeferredSection'), {
-  loading: () => <ActivityIndicator />,
+  loading: () => <LazyIndicator />,
   ssr: false,
 })
 
