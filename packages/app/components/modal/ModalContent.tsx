@@ -1,14 +1,12 @@
+import { FONT_TOP_OFFSET } from 'app/constants/font'
 import useLocalization from 'app/provider/localization'
 import { ScrollView, Text, View, styled } from 'dripsy'
-import { Gradient } from 'dripsy/gradient'
 import React, { ReactElement } from 'react'
 import { GestureResponderEvent } from 'react-native'
 import { useModal } from 'react-native-modalfy'
-import Icon from '../Icon'
-import TouchableOpacity from '../pressable/TouchableOpacity'
 import { DripsyGradient } from '../Gradient'
+import Icon from '../Icon'
 import Button from '../common/Button'
-import { FONT_TOP_OFFSET } from 'app/constants/font'
 
 interface ActionsProps {
   label: string
@@ -23,6 +21,7 @@ interface ModalContentProps {
   actions?: ActionsProps[]
   children: ReactElement
   disableAction?: boolean
+  close: any
 }
 
 const ModalContent = ({
@@ -31,6 +30,7 @@ const ModalContent = ({
   actions,
   children,
   disableAction = false,
+  close,
 }: ModalContentProps) => {
   const { t } = useLocalization()
   const { closeModal } = useModal()
@@ -94,7 +94,13 @@ const ModalContent = ({
               </Button>
             ))
           ) : (
-            <Button onPress={() => closeModal()}>{t('common.close')}</Button>
+            <Button
+              onPress={() => {
+                close()
+              }}
+            >
+              {t('common.close')}
+            </Button>
           )}
         </ViewFooter>
       )}
