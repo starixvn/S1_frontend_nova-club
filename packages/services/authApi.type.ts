@@ -47,6 +47,8 @@ export interface RegisterQueryArgs {
   username: string
   verify_code: string
   platform_uuid: string
+  agent_currency?: string
+  agent_token?: string
 }
 
 export type LogoutQueryArgs = Pick<LoginQueryArgs, 'username'>
