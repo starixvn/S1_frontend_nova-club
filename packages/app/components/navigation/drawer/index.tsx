@@ -3,7 +3,7 @@ import { Pressable, View, styled } from 'dripsy'
 import { MotiView, useAnimationState } from 'moti'
 import React, { memo, useEffect, useState } from 'react'
 import { Platform, useWindowDimensions } from 'react-native'
-import LazyDrawerContent from './LazyDrawerContent.web'
+import LazyDrawerContent from './LazyDrawerContent'
 
 // TODOƒ
 /* Overlay */
