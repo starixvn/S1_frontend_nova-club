@@ -17,10 +17,10 @@ export const CONTACT_LIST = [
     icon: 'zalo',
     qr: Zalo,
   },
-  // {
-  //   label: SocialMedia.LIVECHAT,
-  //   icon: 'cs',
-  // },
+  {
+    label: SocialMedia.LIVECHAT,
+    icon: 'iconCS',
+  },
 ]
 
 type ContactListType = typeof CONTACT_LIST
