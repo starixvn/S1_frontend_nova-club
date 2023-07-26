@@ -11,10 +11,9 @@ const AlertModal = ({ modal: { closeModal, getParam } }) => {
   const message = getParam('message', '')
   const actions = getParam('actions')
   const onClose = getParam('onClose')
-  const { t } = useLocalization()
 
   const { width } = useWindowDimensions()
-  console.log('title', title)
+
   useEffect(() => {
     return () => {
       onClose && onClose()
@@ -23,22 +22,11 @@ const AlertModal = ({ modal: { closeModal, getParam } }) => {
 
   return (
     <ModalWrapper sx={{ width: Math.min(500, width * 0.9) }}>
-      <ModalContent
-        title={title}
-        disableAction
-        // actions={
-        //   actions
-        // [
-        //   { label: 'Close', onPress: closeModal },
-        //   { label: 'Submit', onPress: () => console.log('Submit actions') },
-        // ]
-        // }
-      >
+      <ModalContent title={title} actions={actions} close={closeModal}>
         <Text sx={{ textAlign: 'center', fontSize: [14, 14, 14, 16] }}>
           {message}
         </Text>
       </ModalContent>
-      <Button onPress={() => closeModal()}>{t('common.close')}</Button>
     </ModalWrapper>
   )
 }

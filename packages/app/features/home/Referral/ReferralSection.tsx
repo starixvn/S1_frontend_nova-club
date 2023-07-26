@@ -11,7 +11,7 @@ const ReferralSection = () => {
   return (
     <View sx={{ width: '100%' }}>
       <ImageBackground
-        source={require('app/assets/images/referral/referral-bg.png')}
+        source={require('app/assets/images/referral/referral-bg.jpg')}
         style={{ width: '100%', height: 220 }}
         imageStyle={{
           resizeMode: 'cover',
