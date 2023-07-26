@@ -1,6 +1,6 @@
 import { FONT_TOP_OFFSET } from 'app/constants/font'
 import useLocalization from 'app/provider/localization'
-import { ScrollView, Text, View, styled } from 'dripsy'
+import { ScrollView, SxProp, Text, View, styled } from 'dripsy'
 import React, { ReactElement } from 'react'
 import { GestureResponderEvent } from 'react-native'
 import { useModal } from 'react-native-modalfy'
@@ -21,7 +21,8 @@ interface ModalContentProps {
   actions?: ActionsProps[]
   children: ReactElement
   disableAction?: boolean
-  close: any
+  close?: any
+  bodyStyle?: SxProp
 }
 
 const ModalContent = ({
@@ -31,6 +32,7 @@ const ModalContent = ({
   children,
   disableAction = false,
   close,
+  bodyStyle,
 }: ModalContentProps) => {
   const { t } = useLocalization()
   const { closeModal } = useModal()
@@ -64,7 +66,7 @@ const ModalContent = ({
               )}
             </ModalHeader>
           )}
-          <ViewBody>{children}</ViewBody>
+          <ViewBody sx={bodyStyle}>{children}</ViewBody>
         </ScrollView>
       </ModalBackground>
 
@@ -115,7 +117,8 @@ const ModalBackground = styled(DripsyGradient)(({}) => {
 })
 
 const ModalHeader = styled(View)({
-  mb: '$2',
+  mt: '$2',
+  mb: '$3',
 })
 
 const TextTitle = styled(Text)({
@@ -128,14 +131,13 @@ const TextTitle = styled(Text)({
 
 const ViewBody = styled(View)({
   flex: 1,
-  px: '$pagePadding',
+  // px: '$pagePadding',
   width: '100%',
   p: ['$2', '$2', '$2', '$3'],
 })
 
 const ViewFooter = styled(View)({
-  width: 300,
-  maxWidth: '100%',
+  width: '100%',
   alignSelf: 'center',
   mt: '$2',
 })

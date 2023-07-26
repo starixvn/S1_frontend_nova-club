@@ -61,7 +61,7 @@ const TabNavMenu = ({ routes, notice }: TabNavMenuProps) => {
       {notice && (
         <>
           <View sx={{ mb: '$3' }} />
-          <NoticeContent notice={notice ?? []} />
+          <NoticeContent notice={notice ?? []} bodyStyle={{ p: 0 }} />
         </>
       )}
     </View>

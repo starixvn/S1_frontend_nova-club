@@ -27,8 +27,8 @@ const BankScreen = () => {
 
   const [index, setIndex] = useState(getTab)
   const [routes] = useState([
-    { key: 'first', title: t('bank.bankAccount'), index: 0 },
-    { key: 'second', title: t('wallet.cryptoWallet'), index: 1 },
+    { key: 'first', title: 'bank.bankAccount', index: 0 },
+    { key: 'second', title: 'wallet.cryptoWallet', index: 1 },
   ])
   const layout = useWindowDimensions()
 

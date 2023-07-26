@@ -16,6 +16,22 @@ enum SCREEN_TAB {
   CHANGE_PIN = 'change-pin',
 }
 
+const changePwRoute = {
+  key: 'first',
+  title: 'manageCredentials.pw.changePw',
+  index: 0,
+}
+const changePinRoute = {
+  key: 'second',
+  title: 'manageCredentials.pin.changePin',
+  index: 1,
+}
+const createPinRoute = {
+  key: 'second',
+  title: 'manageCredentials.pin.createPin',
+  index: 1,
+}
+
 const { useParam } = createParam<{ tab: string }>()
 const ManageCredentialsPage = () => {
   const [tab, setTab] = useParam('tab', {
@@ -51,14 +67,8 @@ const ManageCredentialsPage = () => {
 
   const [index, setIndex] = useState<number>(getIndexFromTab(tab))
   const [routes, setRoutes] = useState([
-    { key: 'first', title: t('manageCredentials.pw.changePw'), index: 0 },
-    isPinExist
-      ? { key: 'second', title: t('manageCredentials.pin.changePin'), index: 1 }
-      : {
-          key: 'second',
-          title: t('manageCredentials.pin.createPin'),
-          index: 1,
-        },
+    changePwRoute,
+    isPinExist ? changePinRoute : createPinRoute,
   ])
 
   const renderScene = SceneMap({
@@ -104,20 +114,7 @@ const ManageCredentialsPage = () => {
     )
   }
   useEffect(() => {
-    setRoutes([
-      { key: 'first', title: t('manageCredentials.pw.changePw'), index: 0 },
-      isPinExist
-        ? {
-            key: 'second',
-            title: t('manageCredentials.pin.changePin'),
-            index: 1,
-          }
-        : {
-            key: 'second',
-            title: t('manageCredentials.pin.createPin'),
-            index: 1,
-          },
-    ])
+    setRoutes([changePwRoute, isPinExist ? changePinRoute : createPinRoute])
   }, [isPinExist])
 
   return (
