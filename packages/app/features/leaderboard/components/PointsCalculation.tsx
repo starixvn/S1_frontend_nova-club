@@ -38,7 +38,9 @@ const PointsCalculation = () => {
           <DataTableTitle center={false} sx={{ px: 12 }}>
             {t('leaderboard.product').toUpperCase()}
           </DataTableTitle>
-          <DataTableTitle>{t('common.turnOver').toUpperCase()}</DataTableTitle>
+          <DataTableTitle>
+            {t('leaderboard.turnover').toUpperCase()}
+          </DataTableTitle>
           <DataTableTitle>{t('common.points').toUpperCase()}</DataTableTitle>
         </DataTableHeader>
         {dummyPoints.map((item) => (

@@ -17,7 +17,7 @@ const BankWithdrawalScreen = () => {
   return (
     <PageWithBackHeader
       header={{
-        title: t('menu.bankWithdraw'),
+        title: t('menu.bankWithdrawal'),
         actions: (
           <MenuNotice
             onPress={() =>

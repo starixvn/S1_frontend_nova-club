@@ -38,11 +38,13 @@ const LogoSize = [
 const Logo = () => (
   <Link href="/">
     <Image
-      source={require('../../../assets/images/common/logo.png')}
+      // source={require('../../../assets/images/common/logo.png')}
+      source={require('../../../assets/images/common/vui123-Bong-01.png')}
       alt="header-logo"
       sx={{
         height: LogoSize,
-        aspectRatio: 67 / 24,
+        // aspectRatio: 67 / 24,
+        aspectRatio: 292 / 88,
       }}
     />
   </Link>

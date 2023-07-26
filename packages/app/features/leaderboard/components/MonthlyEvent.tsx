@@ -76,9 +76,7 @@ const MonthlyEvent = () => {
           <DataTableTitle>
             {t('leaderboard.minPoints').toUpperCase()}
           </DataTableTitle>
-          <DataTableTitle>
-            {t('filter.transactionType.bonus').toUpperCase()}
-          </DataTableTitle>
+          <DataTableTitle>{t('common.bonus').toUpperCase()}</DataTableTitle>
         </DataTableHeader>
         {dummyData.map((item) => (
           <DataTableRow key={item.rank}>

@@ -46,45 +46,48 @@ const Accordian = ({
     toggleIsExtend()
   }
   return (
-    <MotiPressable onPress={isExpandable ? handlePress : undefined}>
-      <View
-        sx={{
-          borderTopWidth: desktop ? 0 : 2,
-          borderBottomWidth: desktop ? 0 : isExtend ? 0 : 2,
-          borderColor: borderColor,
-          ...containerStyle,
-        }}
-      >
-        <ViewMessageHeader sx={parentStyle}>
-          <View sx={{ flex: 1 }}>{header ?? <View>{label}</View>}</View>
-          <View sx={{ flexBasis: 48, alignItems: 'center' }}>
-            {isExpandable && (
-              <MotiView
-                animate={{ rotate: isExtend ? '-180deg' : '0deg' }}
-                transition={{
-                  type: 'timing',
-                  duration: 350,
-                }}
-              >
-                {icon ?? <Icon name="down" size={20} />}
-              </MotiView>
-            )}
-          </View>
-        </ViewMessageHeader>
-      </View>
-      {/* Dummy View to calculate the expandable Height */}
-      <View
-        pointerEvents="none"
-        sx={{ opacity: 0, position: 'absolute' }}
-        onLayout={(e) => {
-          setExpandHeight(e.nativeEvent.layout.height)
-        }}
-      >
-        {children}
-      </View>
-      <View sx={{ bg: color ? 'white' : '$primary.500' }}>
-        {isExtend && <Divider color={color} />}
-      </View>
+    <>
+      <MotiPressable onPress={isExpandable ? handlePress : undefined}>
+        <View
+          sx={{
+            borderTopWidth: desktop ? 0 : 2,
+            borderBottomWidth: desktop ? 0 : isExtend ? 0 : 2,
+            borderColor: borderColor,
+            ...containerStyle,
+          }}
+        >
+          <ViewMessageHeader sx={parentStyle}>
+            <View sx={{ flex: 1 }}>{header ?? <View>{label}</View>}</View>
+            <View sx={{ flexBasis: 48, alignItems: 'center' }}>
+              {isExpandable && (
+                <MotiView
+                  animate={{ rotate: isExtend ? '-180deg' : '0deg' }}
+                  transition={{
+                    type: 'timing',
+                    duration: 350,
+                  }}
+                >
+                  {icon ?? <Icon name="down" size={20} />}
+                </MotiView>
+              )}
+            </View>
+          </ViewMessageHeader>
+        </View>
+        {/* Dummy View to calculate the expandable Height */}
+        <View
+          pointerEvents="none"
+          sx={{ opacity: 0, position: 'absolute' }}
+          onLayout={(e) => {
+            setExpandHeight(e.nativeEvent.layout.height)
+          }}
+        >
+          {children}
+        </View>
+        <View sx={{ bg: color ? 'white' : '$primary.500' }}>
+          {isExtend && <Divider color={color} />}
+        </View>
+      </MotiPressable>
+
       {isExpandable ? (
         <MotiView
           from={{ height: 0 }}
@@ -118,7 +121,7 @@ const Accordian = ({
       ) : (
         children
       )}
-    </MotiPressable>
+    </>
   )
 }
 
