@@ -65,7 +65,7 @@ const DepositForm = ({ DepositCategoryId }) => {
           depositPayment.category_id === DepositPaymentMethodCategoryId.CRYPTO
             ? MAP_CRYPTO_PROTOCOL[item.bankTypeId]
             : `${t('deposit.channel')} ${index + 1}`,
-        value: index,
+        value: index.toString(),
       }
     }
   )
@@ -173,11 +173,7 @@ const DepositForm = ({ DepositCategoryId }) => {
       <View sx={{ px: horizontalMode ? 0 : '$4' }}>
         <SelectList
           label={t('deposit.selectChannel')}
-          placeholder={
-            channelOptions
-              ? channelOptions[selectedValues]?.label
-              : t('deposit.selectChannel')
-          }
+          placeholder={t('deposit.selectChannel')}
           value={channelOptions && channelOptions[selectedValues]?.value}
           loading={isLoading || isFetching}
           options={channelOptions}

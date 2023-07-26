@@ -75,7 +75,7 @@ const SelectWithDropdown = <T,>({
                   justifyContent: 'space-between',
                 }}
               >
-                <Text sx={{ opacity: value ? 1 : 0.5 }}>
+                <Text sx={{ opacity: value || finalizeLabel ? 1 : 0.5 }}>
                   {typeof value === 'string' || typeof value === 'number'
                     ? finalizeLabel
                     : placeholder}
