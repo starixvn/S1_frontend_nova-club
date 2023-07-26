@@ -40,7 +40,7 @@ const DataTableRefresh = ({
         bg: theme.colors.$primaryAgent,
         justifyContent: 'center',
         minHeight: 36,
-        py: 8,
+        py: 12,
         pl: 12,
         pr: center ? 0 : 30,
         alignItems: center ? 'center' : 'flex-start',
@@ -54,7 +54,7 @@ const DataTableRefresh = ({
       </Pressable>
       {onRefresh ? (
         <View sx={{ position: 'absolute', right: 12 }}>
-          <RefreshButton loading={isLoading} onPress={onRefresh} />
+          <RefreshButton loading={isLoading} onPress={onRefresh} size={24} />
         </View>
       ) : null}
     </View>
