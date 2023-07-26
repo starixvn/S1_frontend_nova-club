@@ -60,7 +60,7 @@ const LeaderboardScreen = () => {
   const [routes] = useState([
     { key: 'first', title: t('menu.tab.event'), index: 0 },
     { key: 'second', title: t('menu.tab.ranking'), index: 1 },
-    { key: 'third', title: t('menu.history'), index: 2 },
+    { key: 'third', title: t('common.history'), index: 2 },
   ])
   const layout = useWindowDimensions()
 

@@ -1,3 +1,4 @@
+import { AdaptiveLayoutPage } from 'components/layouts/AdaptiveLayout'
 import { DesktopAccountLayout } from 'components/layouts/desktop'
 import { ActivityIndicator } from 'dripsy'
 import dynamic from 'next/dynamic'
@@ -10,7 +11,7 @@ export const LazyScreen = dynamic(
   }
 )
 
-const Profile = LazyScreen
+const Profile: AdaptiveLayoutPage = LazyScreen
 
 Profile.DesktopLayout = DesktopAccountLayout
 

@@ -1,13 +1,10 @@
+import InfoScreen from 'app/features/info/InfoScreen'
 import { LANGUAGE_CODE } from 'app/utils/constant'
 import { AdaptiveLayoutPage } from 'components/layouts/AdaptiveLayout'
-import {
-  DesktopBaseLayout,
-  DesktopInfoLayout,
-} from 'components/layouts/desktop'
-import { MobileInfoLayout, MobileTabLayout } from 'components/layouts/mobile'
-import InfoScreen from 'app/features/info/InfoScreen'
-import dynamic from 'next/dynamic'
+import { DesktopBaseLayout } from 'components/layouts/desktop'
+import { MobileInfoLayout } from 'components/layouts/mobile'
 import { ActivityIndicator } from 'dripsy'
+import dynamic from 'next/dynamic'
 
 const LazyEn = dynamic(() => import('app/features/lucky-spin/TncEn'), {
   loading: () => <ActivityIndicator />,

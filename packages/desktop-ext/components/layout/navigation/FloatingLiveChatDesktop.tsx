@@ -4,6 +4,8 @@ import { Text, View, useDripsyTheme } from 'dripsy'
 import { MotiPressable } from 'moti/interactions'
 import React, { startTransition, useState } from 'react'
 import { Linking } from 'react-native'
+import { NAVIGATION_HEIGHT } from './NavigationHeader'
+import { HEADER_HEIGHT } from 'app/utils/constant'
 
 const FloatingLiveChatDesktop = () => {
   const { theme } = useDripsyTheme()
@@ -25,7 +27,7 @@ const FloatingLiveChatDesktop = () => {
         width: 140,
         height: 40,
         right: 0,
-        bottom: '10%',
+        top: NAVIGATION_HEIGHT + HEADER_HEIGHT,
         zIndex: 5,
         borderTopLeftRadius: 15,
         borderBottomLeftRadius: 15,
@@ -57,7 +59,7 @@ const FloatingLiveChatDesktop = () => {
         <Text
           sx={{
             minWidth: 70,
-            marginLeft: 5,
+            marginLeft: 10,
             marginRight: 10,
             height: 21,
             lineHeight: 24,

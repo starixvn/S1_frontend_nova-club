@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
 import { DripsyGradient } from 'app/components/Gradient'
-import WalletRoutes from 'desktop-ext/routes/walletRoutes'
-import TabBarItem from './TabBarItem'
-import useLocalization from 'app/provider/localization'
 import Icon from 'app/components/Icon'
-import { Row, View } from 'dripsy'
-import { useRouter } from 'next/router'
 import usePathname from 'app/hooks/usePathname'
+import useLocalization from 'app/provider/localization'
+import WalletRoutes from 'desktop-ext/routes/walletRoutes'
+import { Row } from 'dripsy'
+import { useRouter } from 'next/router'
+import React, { useState } from 'react'
+import TabBarItem from './TabBarItem'
 
 export const MENU_HEIGHT = 72
 const DesktopTabBar = () => {

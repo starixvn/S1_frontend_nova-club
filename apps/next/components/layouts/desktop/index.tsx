@@ -54,3 +54,5 @@ export const DesktopInfoLayout: Layout = (component) => (
     <DynamicInfoLayout>{component}</DynamicInfoLayout>
   </DynamicBaseLayout>
 )
+
+export const EmptyLayout: Layout = (component) => <>{component}</>

@@ -31,6 +31,7 @@ const AppDownloadSection = () => {
           aspectRatio: 1 / 1,
           flex: 1 / 3,
           alignItems: 'center',
+          minHeight: 433,
         }}
       >
         <View
@@ -39,6 +40,8 @@ const AppDownloadSection = () => {
             flex: 1,
             alignItems: 'center',
             width: '100%',
+            height: '100%',
+            justifyContent: 'space-evenly',
           }}
           ref={ref}
         >
@@ -47,7 +50,7 @@ const AppDownloadSection = () => {
             alt="logo"
             sx={{
               aspectRatio: 67 / 24,
-              width: '40%',
+              width: '45%',
             }}
           />
           <Text
@@ -129,7 +132,7 @@ const AppDownloadSection = () => {
         {isPlaying && (
           <Video
             source={HowToInstall}
-            videoStyle={{ position: 'relative', minHeight: 375 }}
+            videoStyle={{ position: 'relative', minHeight: 433 }}
             isLooping
             shouldPlay={isPlaying}
             useNativeControls

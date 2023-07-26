@@ -46,3 +46,6 @@ p {
 ::-webkit-scrollbar {
   width: 0.5px;
 }
+canvas{
+  display: block;
+}
