@@ -10,26 +10,26 @@ export enum WALLET_PATH {
 const _Routes: Readonly<DesktopRoute[]> = [
   {
     key: WALLET_PATH.TRANSFER,
-    title: 'Transfer',
+    title: 'common.transfer',
     icon: 'transfer',
     route: '/transfer',
   },
   {
     key: WALLET_PATH.DEPOSIT,
-    title: 'Deposit',
+    title: 'common.deposit',
     icon: 'deposit',
     route: '/deposit',
   },
   {
     key: WALLET_PATH.WITHDRAWAL,
-    title: 'Withdrawal',
+    title: 'common.withdraw',
     icon: 'withdraw',
     route: '/withdrawal/bank-withdrawal',
     base: '/withdrawal',
   },
   {
     key: WALLET_PATH.HISTORY,
-    title: 'History',
+    title: 'common.history',
     icon: 'history',
     route: '/history',
   },

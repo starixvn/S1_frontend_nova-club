@@ -94,7 +94,7 @@ const MessagesScreen = () => {
   }
   return (
     <PageWithBackHeader
-      header={{ title: t('menu.message/announcement') }}
+      header={{ title: t('menu.msgAnnouncement') }}
       disableScrollView
       hideHeader={desktop}
     >

@@ -27,7 +27,7 @@ export default function DeferredSection({}: Props) {
       />
       <GameListSectionAsyncByTag
         tag={SlotType.MEGAWAY}
-        title={'MEGAWAY'}
+        title={t('game.megaway').toUpperCase()}
         icon="megaway"
       />
       <MatchSection />

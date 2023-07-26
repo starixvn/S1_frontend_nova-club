@@ -56,7 +56,7 @@ const BankSlipUpload = forwardRef<BankSlipUploadMethod, BankSlipUploadProps>(
       <View sx={{ width: '100%', mt: '$2' }}>
         <Text>{t('deposit.upload.title')} :</Text>
         <Text sx={{ fontSize: 12, mt: 5, mb: 5 }}>
-          {t('deposit.uplaod.description')}
+          {t('deposit.upload.description')}
         </Text>
         <FilePicker placeholder={t('deposit.upload.files')} {...props} />
       </View>

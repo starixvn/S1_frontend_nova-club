@@ -6,7 +6,6 @@ import ModalWrapper from './ModalWrapper'
 
 const FONT_SIZE = 16
 const NoticeModal = ({ modal: { closeModal, getParam } }) => {
-  const { t } = useLocalization()
   const notice = getParam('notice', [])
   const noticeModule = getParam('noticeModule', '')
 
@@ -23,8 +22,9 @@ type NoticeContentProps = {
 }
 
 export const NoticeContent = ({ notice, noticeModule }: NoticeContentProps) => {
+  const { t } = useLocalization()
   return (
-    <ModalContent actions={[]}>
+    <ModalContent disableAction>
       <View>
         {notice.map((content, i) => {
           const _content = content
@@ -37,7 +37,7 @@ export const NoticeContent = ({ notice, noticeModule }: NoticeContentProps) => {
               {noticeModule !== 'Rewards' && (
                 <Text sx={{ fontSize: FONT_SIZE, mr: 12 }}>{i + 1 + '.'}</Text>
               )}
-              <Text sx={{ fontSize: FONT_SIZE, flex: 1 }}>{content}</Text>
+              <Text sx={{ fontSize: FONT_SIZE, flex: 1 }}>{t(content)}</Text>
             </View>
           )
         })}

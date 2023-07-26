@@ -31,13 +31,13 @@ const LeaderboardTable = ({ maxRow = 10 }: { maxRow?: number }) => {
           {t('leaderboard.rank').toUpperCase()}
         </DataTableTitle>
         <DataTableTitle sx={secondCellStyle} numberOfLines={2}>
-          {t('profile.playerId').toUpperCase()}
+          {t('leaderboard.playerId').toUpperCase()}
         </DataTableTitle>
         <DataTableTitle sx={thirdCellStyle} numberOfLines={2}>
           {t('common.points').toUpperCase()}
         </DataTableTitle>
         <DataTableTitle sx={fourthCellStyle} numberOfLines={2}>
-          {t('menu.tab.status').toUpperCase()}
+          {t('deposit.status').toUpperCase()}
         </DataTableTitle>
       </DataTableHeader>
       {leaderboardData &&
@@ -47,7 +47,7 @@ const LeaderboardTable = ({ maxRow = 10 }: { maxRow?: number }) => {
               <SolitoImage
                 src={getRankingImage(item.rank)}
                 fill
-                alt="item.playerId"
+                alt={`${item.rank}}`}
               />
             </DataTableCell>
             <DataTableCell

@@ -208,7 +208,7 @@ const TransactionHistory = () => {
       {desktop && (
         <Text sx={{ py: '$3', fontWeight: 'bold' }}>{`${
           getTableHeader()[0]?.label
-        } History :`}</Text>
+        } ${t('common.history')} :`}</Text>
       )}
       <HistoryListing<HistoryListingDataType, typeof fetchParams>
         fetchParams={fetchParams}

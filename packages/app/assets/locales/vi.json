@@ -7,108 +7,118 @@
     "title": "Xác thực tài khoản"
   },
   "authentication": {
-    "login": "ĐĂNG NHẬP",
-    "register": "ĐĂNG KÝ",
-    "loginHeader": "ĐĂNG NHẬP",
-    "noReceiveOTP": "Không nhận được OTP?",
-    "resend": "Gởi",
-    "readAndAgree": "Tôi đã đọc và đồng ý",
+    "accVerification": "Xác thực tài khoản",
+    "accountReg": "ĐĂNG KÝ",
     "enterOtp": "Vui lòng nhập OTP",
-    "send": "Gởi",
-    "rememberMe": "Lưu để đăng nhập lần sau",
     "forgotPassword": "Quên mật khẩu",
     "forgotPasswordHeader": "Quên mật khẩu",
+    "login": "ĐĂNG NHẬP",
+    "loginHeader": "ĐĂNG NHẬP",
+    "noReceiveOTP": "Không nhận được OTP?",
+    "readAndAgree": "Tôi đã đọc và đồng ý",
+    "register": "ĐĂNG KÝ",
+    "rememberMe": "Lưu để đăng nhập lần sau",
+    "resend": "Gởi",
     "resetPasswordHeader": "Đặt lại mật khẩu",
-    "accVerification": "Xác thực tài khoản",
-    "accountReg": "ĐĂNG KÝ"
+    "send": "Gởi"
   },
   "bank": {
     "accountName": "Tên tài khoản",
     "accountNo": "Số tài khoản",
-    "bank": "Ngân hàng",
-    "bankAccount": "Tài khoản ngân hàng",
+    "accountNumber": "Số tài khoản",
     "addBankAccount": "Thêm tài khoản",
     "addCryptoAccount": "Thêm ví tiền ảo",
+    "bank": "Ngân hàng",
+    "bankAccount": "Tài khoản ngân hàng",
     "channel": "Tài khoản nạp",
-    "selectChannel": "Chọn tài khoản nạp",
     "selectBank": "Vui lòng chọn ngân hàng",
-    "accountNumber": "Số tài khoản",
+    "selectChannel": "Chọn tài khoản nạp",
     "walletAddress": "Địa chỉ ví"
   },
   "commision": {
-    "title": "Bảng hoa hồng",
-    "productLists": "Danh sách sản phẩm",
     "cashPlayer": "Người chơi trả trước",
     "cashPlayerReferral": "Giới thiệu người chơi trả trước",
-    "creditPlayer": "Người chơi tín dụng"
+    "creditPlayer": "Người chơi tín dụng",
+    "productLists": "Danh sách sản phẩm",
+    "title": "Bảng hoa hồng"
   },
   "common": {
-    "player": "Người chơi",
+    "active": "Đang hoạt động",
     "agent": "Đại lý",
-    "username": "Tên đăng nhập",
-    "password": "Mật khẩu",
-    "transfer": "Chuyển quỹ",
-    "deposit": "Nạp tiền",
-    "withdraw": "Rút tiền",
-    "bankAccount": "Tài khoản ngân hàng",
-    "history": "Lịch sử",
-    "cash": "VÍ",
-    "reward": "THƯỞNG",
-    "balance": "Số dư",
-    "more": "Thêm",
-    "overview": "Tổng quan",
-    "profile": "Hồ sơ",
-    "points": "điểm",
-    "submit": "Gửi",
-    "close": "Đóng",
-    "pin": "Mã PIN",
-    "timeline": "UTC/GMT +7",
-    "download": "Tải về",
-    "realName": "Tên thật",
-    "phone": "Số ĐT",
-    "playerId": "ID người chơi",
-    "currency": "Tiền tệ",
-    "copied": "Đã sao chép đường dẫn",
+    "agentLogin": "Đăng nhập đại lý",
+    "all": "TẤT CẢ",
     "amount": "Số tiền",
+    "balance": "Số dư",
+    "bankAccount": "Tài khoản ngân hàng",
+    "bonus": "Thưởng",
+    "cash": "VÍ",
+    "close": "Đóng",
     "confirm": "Xác nhận",
     "confirmPassword": "Xác nhận mật khẩu",
-    "userAgreement": "Thỏa thuận người dùng",
-    "otp": "OTP",
-    "realBet": "Đặt cược thực sự",
-    "turnOver": "Doanh số",
-    "tnc": "Điều khoản và Điều kiện",
-    "active": "Đang hoạt động",
-    "inactive": "Không hoạt động",
-    "all": "TẤT CẢ",
-    "date": "Ngày",
-    "noInfoAvailable": "Không Có Thông Tin",
-    "provider": "ProCác nhà cung cấpvider",
-    "bonus": "Thưởng",
-    "historyTitle": "Lịch sử giao dịch",
-    "transaction": "Giao dịch",
-    "game": "Trò Chơi",
-    "next": "Tiếp theo",
-    "shareholder": "Cổ đông",
-    "hello": "Xin chào!!",
-    "agentLogin": "Đăng nhập đại lý",
-    "logout": "Thoát",
-    "home": "Trang Chủ",
-    "showMore": "Cho xem nhiều hơn",
-    "selectAll": "Chọn tất cả",
+    "copied": "Đã sao chép đường dẫn",
     "copy": "Sao chép",
-    "loading": "Đang tải"
+    "currency": "Tiền tệ",
+    "date": "Ngày",
+    "deposit": "Nạp tiền",
+    "download": "Tải về",
+    "game": "Trò Chơi",
+    "hello": "Xin chào!!",
+    "history": "Lịch sử",
+    "home": "Trang Chủ",
+    "inactive": "Không hoạt động",
+    "loading": "Đang tải",
+    "logout": "Thoát",
+    "more": "Thêm",
+    "next": "Tiếp theo",
+    "noInfoAvailable": "Không Có Thông Tin",
+    "otp": "OTP",
+    "overview": "Tổng quan",
+    "password": "Mật khẩu",
+    "phone": "Số ĐT",
+    "pin": "Mã PIN",
+    "player": "Người chơi",
+    "playerId": "ID người chơi",
+    "points": "điểm",
+    "profile": "Hồ sơ",
+    "provider": "ProCác nhà cung cấpvider",
+    "realBet": "Đặt cược thực sự",
+    "realName": "Tên thật",
+    "reward": "THƯỞNG",
+    "selectAll": "Chọn tất cả",
+    "shareholder": "Cổ đông",
+    "showMore": "Cho xem nhiều hơn",
+    "submit": "Gửi",
+    "timeline": "UTC/GMT +7",
+    "tnc": "Điều khoản và Điều kiện",
+    "transaction": "Giao dịch",
+    "transfer": "Chuyển quỹ",
+    "turnOver": "Doanh số",
+    "userAgreement": "Thỏa thuận người dùng",
+    "username": "Tên đăng nhập",
+    "withdraw": "Rút tiền"
   },
   "contact": {
-    "customerSupport": "Hỗ trợ khách hàng",
     "contactVia": "Liên hệ qua:",
+    "customerSupport": "Hỗ trợ khách hàng",
+    "liveChat": "Live Chat",
     "telegram": "Telegram",
-    "zalo": "Zalo",
-    "liveChat": "Live Chat"
+    "zalo": "Zalo"
   },
   "deposit": {
     "actualDeposit": "Tiền gửi thực tế",
-    "depositTitle": "Nạp tiền",
     "bankSlip": "Biên lai ngân hàng",
+    "cardCode": "Mã số thẻ",
+    "cardSerialNo": "Số sê-ri thẻ.",
+    "cardValue": "Mệnh giá thẻ",
+    "channel": "Tài khoản nạp",
+    "choose": "Chọn phương thức nạp tiền",
+    "cryptoAddress": "Địa chỉ ví tiền ảo",
+    "cryptoAmount": "Số tiền ảo muốn nạp",
+    "cryptoChannel": "Kênh nạp tiền ảo",
+    "date": "Ngày",
+    "deduction": "Khấu trừ",
+    "depositAmount": "Số tiền nạp",
+    "depositConfirmation": "Xác nhận thông tin gửi tiền",
     "depositMethod": {
       "bankTransfer": "Chuyển khoản",
       "crypto": "Tiền ảo",
@@ -117,32 +127,39 @@
       "qrPay": "QR Pay",
       "topUp": "Thẻ cào"
     },
-    "deduction": "Khấu trừ",
-    "cardCode": "Mã số thẻ",
-    "cardSerialNo": "Số sê-ri thẻ.",
-    "cardValue": "Mệnh giá thẻ",
-    "choose": "Chọn phương thức nạp tiền",
-    "channel": "Tài khoản nạp",
-    "cryptoAddress": "Địa chỉ ví tiền ảo",
-    "cryptoAmount": "Số tiền ảo muốn nạp",
-    "cryptoChannel": "Kênh nạp tiền ảo",
-    "selectChannel": "Chọn tài khoản nạp",
-    "depositAmount": "Số tiền nạp",
-    "depositConfirmation": "Xác nhận thông tin gửi tiền",
-    "paymentTime": "THỜI GIAN THANH TOÁN CÒN LẠI",
+    "depositTitle": "Nạp tiền",
+    "id": "Mã ID",
+    "minMaxLimit": "Tối thiểu/Tối đa",
     "paymentMode": "Chọn cổng thanh toán",
+    "paymentTime": "THỜI GIAN THANH TOÁN CÒN LẠI",
     "pleaseConfirmDeposit": "Vui lòng xác nhận thông tin gửi tiền bên dưới",
+    "selectChannel": "Chọn tài khoản nạp",
+    "status": "Trạng thái",
     "transactionId": "Mã giao dịch ",
+    "type": "Loại",
     "upload": {
       "description": "Chọn hình ảnh biên lai hoặc hóa đơn để tải lên",
       "files": "Tải tệp tin",
       "title": "Tải biên lai ngân hàng"
+    }
+  },
+  "download": {
+    "android": "ANDROID",
+    "androidGuideText": {
+      "n1": "Bấm nút tải\ntrên trang Vui123.",
+      "n2": "Bấm nút \"Vẫn tải\"\ntrên trang được mở\ntừ trình duyệt của bạn",
+      "n3": "Mở tệp VUI123.apk để\ncài ứng dụng VUI123. Tận hưởng trò chơi đỉnh cao\nvà phần thưởng hấp dẫn"
     },
-    "id": "Mã ID",
-    "type": "Loại",
-    "date": "Ngày",
-    "status": "Trạng thái",
-    "minMaxLimit": "Min/Max Limit"
+    "downloadAppNow": "Tải ứng dụng Vui123 ngay\nTận hưởng\nPhần thưởng đỉnh cao!",
+    "downloadGuide": "Tải\nHướng dẫn",
+    "ios": "IOS",
+    "iosGuideText": {
+      "n1": "Bấm nút tải\ntrên trang Vui123.",
+      "n2": "Bấm nút \"Lấy ứng dụng\"\ntrên trang được mở\ntừ trình duyệt của bạn",
+      "n3": "Bạn sẽ được chuyển hướng\ntải ứng dụng Vui Fit trên App Store",
+      "n4": "Bấm \"Lấy\" để tải ứng dụng Vui Fit",
+      "n5": "Mở Vui Fit để vào VUI123. Tận hưởng trò chơi đỉnh cao\nvà phần thưởng hấp dẫn"
+    }
   },
   "event": {
     "luckyDraw": {
@@ -150,13 +167,6 @@
     }
   },
   "filter": {
-    "statusType": "Loại trạng thái",
-    "win/loss": "Thắng/Thua",
-    "transactionType": {
-      "title": "Loại giao dịch",
-      "rebate": "Hoàn Trả",
-      "adjustment": "Điều chỉnh"
-    },
     "date": {
       "custom": "Tùy chọn",
       "lastWeek": "Tuần trước",
@@ -177,95 +187,104 @@
     "gameStatus": {
       "loss": "Thua",
       "win": "Thắng"
-    }
+    },
+    "statusType": "Loại trạng thái",
+    "transactionType": {
+      "adjustment": "Điều chỉnh",
+      "rebate": "Hoàn Trả",
+      "title": "Loại giao dịch"
+    },
+    "win/loss": "Thắng/Thua"
   },
   "footer": {
+    "aboutUs": "Về chúng tôi",
+    "contactUs": "Liên hệ",
+    "copyright": "© Copyright 2023 VUI123. Bản quyền thuộc về VUI123 2023",
     "note1": "Trở thành đối tác của chúng tôi",
     "note2": "VUI123 cam kết ủng hộ cá cược có trách nhiệm",
-    "copyright": "© Copyright 2023 VUI123. Bản quyền thuộc về VUI123 2023",
-    "aboutUs": "Về chúng tôi",
-    "responsibleGaming": "Cược có trách nhiệm",
-    "contactUs": "Liên hệ"
+    "responsibleGaming": "Cược có trách nhiệm"
   },
   "game": {
     "category": {
-      "sportsbook": "THỂ THAO",
-      "games": "Trò Chơi",
-      "slots": "Quay hũ",
-      "liveCasino": "SÒNG BÀI",
-      "lottery": "Keno / Xổ số",
-      "fishing": "Bắn Cá",
-      "localGame": "Thuần Việt",
       "cardGame": "Game Bài",
-      "recommended": "GAMES ĐƯỢC ĐỀ XUẤT"
+      "fishing": "Bắn Cá",
+      "games": "Trò Chơi",
+      "liveCasino": "SÒNG BÀI",
+      "localGame": "Thuần Việt",
+      "lottery": "Keno / Xổ số",
+      "recommended": "GAMES ĐƯỢC ĐỀ XUẤT",
+      "slots": "Quay hũ",
+      "sportsbook": "THỂ THAO"
     },
-    "recently": "Được chơi gần đây",
-    "jackpot": "NỔ HŨ",
     "err": {
       "notLogin": "Vui lòng đăng nhập để chơi trò chơi"
-    }
+    },
+    "jackpot": "NỔ HŨ",
+    "megaway": "Megaway",
+    "new": "Mới",
+    "recently": "Được chơi gần đây"
   },
   "leaderboard": {
-    "monthlyEvent": "Sự kiện tháng",
     "minPoints": "Điểm tối thiểu",
+    "monthlyEvent": "Sự kiện tháng",
+    "playerId": "ID người chơi",
     "pointsCalculation": "Tính điểm",
     "product": "Sản phẩm",
-    "top10": "Top 10 người thắng"
+    "rank": "",
+    "top10": "Top 10 người thắng",
+    "turnover": "Doanh số"
   },
   "manageCredentials": {
-    "title": "Quản lý thông tin đăng nhập",
     "pin": {
-      "createPin": "Tạo mã PIN",
-      "create6Pin": "Tạo mã PIN 6 số",
-      "securePin": "Bảo mật chuyển khoản của bạn bằng mã PIN",
-      "newPin": "Pin mới",
-      "confirmPin": "Xác nhận mã PIN",
       "changePin": "Thay đổi mã PIN",
-      "oldPin": "Mã PIN cũ",
-      "forgotPin": "Quên mã PIN",
+      "confirmPin": "Xác nhận mã PIN",
+      "confirmPinInfo": "Tất cả các giao dịch của bạn đều được xử lý trong một môi trường an toàn và bảo mật.",
       "confirmPinTitle": "Nhập mã PIN 6 số để xác nhận",
-      "confirmPinInfo": "Tất cả các giao dịch của bạn đều được xử lý trong một môi trường an toàn và bảo mật."
+      "create6Pin": "Tạo mã PIN 6 số",
+      "createPin": "Tạo mã PIN",
+      "forgotPin": "Quên mã PIN",
+      "newPin": "Pin mới",
+      "oldPin": "Mã PIN cũ",
+      "securePin": "Bảo mật chuyển khoản của bạn bằng mã PIN"
     },
     "pw": {
       "changePw": "Đổi Mật Khẩ",
-      "oldPw": "Mật khẩu hiện tại",
-      "newPw": "Mật khẩu mới",
       "confirmPw": "Xác nhận mật khẩu",
-      "placeholderOldPw": "Vui lòng nhập mật khẩu cũ",
+      "newPw": "Mật khẩu mới",
+      "oldPw": "Mật khẩu hiện tại",
+      "placeholderConfirmPw": "Vui lòng xác nhận mật khẩu",
       "placeholderNewPw": "Vui lòng nhập mật khẩu mới",
-      "placeholderConfirmPw": "Vui lòng xác nhận mật khẩu"
-    }
+      "placeholderOldPw": "Vui lòng nhập mật khẩu cũ"
+    },
+    "title": "Quản lý thông tin đăng nhập"
+  },
+  "menu": {
+    "bankAccount": "Tài khoản ngân hàng",
+    "bankWithdrawal": "Rút tiền qua ngân hàng",
+    "commissionTable": "Bảng hoa hồng",
+    "cryptoWallet": "Ví tiền ảo",
+    "cryptoWithdrawal": "Rút bằng tiền ảo",
+    "friendReferral": "Giới thiệu bạn bè",
+    "leaderboard": "Bảng xếp hạng",
+    "msgAnnouncement": "Tin Nhắn/Thông Báo",
+    "rewardsHub": "Phần thưởng của tôi",
+    "tab": {
+      "event": "Sự kiện",
+      "ranking": "Xếp hạng",
+      "gameHistory": "Lịch sử trò chơi",
+      "redeemHistory": "",
+      "transactionHistory": "Lịch sử giao dịch"
+    },
+    "tnc": "Điều khoản và Điều kiện",
+    "withdraw": "Rút tiền",
+    "withdrawalConfirmation": "Xác nhận Rút tiền"
   },
   "message": {
     "announcement": "Thông Báo",
     "empty": "Không có bất kỳ tin nhắn nào được nêu ra!",
     "personalMessage": "Tin nhắn khách hàng"
   },
-  "menu": {
-    "rewardsHub": "Phần thưởng của tôi",
-    "friendReferral": "Giới thiệu bạn bè",
-    "msgAnnouncement": "Tin Nhắn/Thông Báo",
-    "commissionTable": "Bảng hoa hồng",
-    "tnc": "Điều khoản và Điều kiện",
-    "bankAccount": "Tài khoản ngân hàng",
-    "cryptoWallet": "Ví tiền ảo",
-    "withdraw": "Rút tiền",
-    "withdrawalConfirmation": "Xác nhận Rút tiền",
-    "cryptoWithdrawal": "Rút bằng tiền ảo",
-    "leaderboard": "Bảng xếp hạng",
-    "tab": {
-      "event": "Sự kiện",
-      "ranking": "Xếp hạng"
-    }
-  },
   "notes": {
-    "importantNotice": "THÔNG BÁO QUAN TRỌNG",
-    "qr": {
-      "n1": "Quét bằng ứng dụng để chuyển số dư"
-    },
-    "transfer": {
-      "n1": "Tất cả các tiền chuyển quỹ nội bộ đều phải trải qua 1x vòng cược trước khi rút tiền."
-    },
     "deposit": {
       "n1": "Vui lòng luôn cập nhật thông tin tài khoản ngân hàng đang hoạt động trước khi gửi tiền.",
       "n3": "TÊN TÀI KHOẢN người gửi phải trùng với họ tên đăng ký. Chúng tôi không khuyến khích thực hiện giao dịch bằng bên/công ty thứ ba.",
@@ -275,6 +294,10 @@
     },
     "depost": {
       "n2": "Nếu chọn “Chuyển khoản”, vui lòng thực hiện chuyển khoản trước khi thực hiện lệnh gửi để tránh giao dịch bị chậm."
+    },
+    "importantNotice": "THÔNG BÁO QUAN TRỌNG",
+    "qr": {
+      "n1": "Quét bằng ứng dụng để chuyển số dư"
     },
     "rewards": {
       "n1": "Các loại games KHÔNG áp dụng cho hoàn trả/hoa hồng bao gồm: doanh thu của các games bàn không trực tiếp (ví dụ Blackjack, Video Poker, Craps, American Roulette, Baccarat, và các loại game bàn không trực tiếp khác) và các game không thuộc quay hũ. Các game này sẽ không được tính vào yêu cầu doanh thu trừ khi được ĐẶC BIỆT nêu rõ điều ngược lại.",
@@ -288,6 +311,9 @@
       "n1": "Vui lòng chọn đúng mệnh giá và nhà mạng, nếu quý khách nhập sai, Vui123 không chịu trách nhiệm.",
       "n2": "Phí gạch thẻ rẻ nhất thị trường, 25% cho tất cả các nhà mạng."
     },
+    "transfer": {
+      "n1": "Tất cả các tiền chuyển quỹ nội bộ đều phải trải qua 1x vòng cược trước khi rút tiền."
+    },
     "withdrawal": {
       "n1": "Vui lòng liên hệ bộ phận LIVECHAT 24/7 nếu lệnh rút bị chậm trễ quá 10 phút.",
       "n2": "Tên tài khoản rút tiền phải trùng với họ tên đăng ký, thành viên không được phép rút tiền vào tài khoản bên thứ ba.",
@@ -297,47 +323,49 @@
     }
   },
   "placeholder": {
-    "plsSelectCrypto": "Please Select Crypto",
-    "plsSelectBank": "Vui lòng chọn ngân hàng"
+    "plsSelectBank": "Vui lòng chọn ngân hàng",
+    "plsSelectCrypto": "Please Select Crypto"
   },
   "profile": {
-    "self": "Bản thân",
-    "w/l": "Thắng/Thua (đồng)",
-    "registered": "Đăng ký",
     "activePlayer": "Người chơi đang hoạt động",
-    "monthlyReward": "Phần thưởng hàng tháng",
     "circle": "Vòng tròn",
-    "direct": "Trực tiếp"
+    "direct": "Trực tiếp",
+    "monthlyReward": "Phần thưởng hàng tháng",
+    "registered": "Đăng ký",
+    "self": "Bản thân",
+    "w/l": "Thắng/Thua (đồng)"
   },
   "qr": {
-    "scanGallery": "Quét từ thư viện",
     "downloadQr": "Tải Mã QR",
     "noCameraAccess": "Máy ảnh của bạn được yêu cầu quét mã QR để chuyển. \nVui lòng cho phép để tiếp tục sử dụng tính năng này",
-    "requestCameraPermissions": "Yêu cầu quyền truy cập vào camera"
+    "requestCameraPermissions": "Yêu cầu quyền truy cập vào camera",
+    "scanGallery": "Quét từ thư viện"
   },
   "referral": {
-    "title": "Giới thiệu",
+    "code": "Mã giới thiệu",
     "link": "Đường dẫn để giới thiệu",
     "share": "Chia sẻ",
-    "shareMessage": "Chia sẻ & nhận thưởng",
     "shareContent": "Nhận hoa hồng giới thiệu bạn bè với những phần thưởng đặc biệt với mã code của riêng bạn.",
-    "code": "Mã giới thiệu"
+    "shareMessage": "Chia sẻ & nhận thưởng",
+    "title": "Giới thiệu"
   },
   "status": {
     "pending": "Đang chờ",
-    "success": "Thành công",
-    "rejected": "Từ chối"
+    "rejected": "Từ chối",
+    "success": "Thành công"
   },
   "transaction": {
+    "pending": "Đang chờ giao dịch",
     "recent": "Giao Dịch Gần Đây"
   },
   "transfer": {
+    "idTransfer": "Chuyển quỹ bằng ID",
+    "placeholderTransferAmount": "Vui lòng điền số tiền chuyển",
+    "placeholderTransferId": "Vui lòng nhập ID giới thiệu",
+    "qrTransfer": "Chuyển quỹ bằng QR",
     "receive": "Nhận",
     "transferTitle": "Chuyển quỹ",
-    "idTransfer": "Chuyển quỹ bằng ID",
-    "qrTransfer": "Chuyển quỹ bằng QR",
-    "placeholderTransferId": "Vui lòng nhập ID giới thiệu",
-    "placeholderTransferAmount": "Vui lòng điền số tiền chuyển"
+    "transferableAmount": ""
   },
   "validation": {
     "alphanumeric": "6-18 ký tự chữ và số (A-Z, a-z, 0-9)",
@@ -369,33 +397,15 @@
     "username": "Tên đăng nhập phải có 6-15 ký tự"
   },
   "wallet": {
-    "cryptoWallet": "Ví tiền ảo",
     "addCryptoWallet": "Thêm ví tiền ảo",
+    "cryptoWallet": "Ví tiền ảo",
     "walletAddress": "Địa chỉ ví"
   },
   "withdrawal": {
-    "withdrawalTitle": "Rút tiền",
     "eligibleAmount": "Số tiền có thể rút",
-    "options": "Địa chỉ ví không hợp lệ",
     "exchangeRates": "Tỉ giá %{crypto}",
-    "withdrawTo": "Rút tiền về"
-  },
-  "download": {
-    "downloadAppNow": "Tải ứng dụng Vui123 ngay\nTận hưởng\nPhần thưởng đỉnh cao!",
-    "downloadGuide": "Tải\nHướng dẫn",
-    "ios": "IOS",
-    "android": "ANDROID",
-    "iosGuideText": {
-      "n1": "Bấm nút tải\ntrên trang Vui123.",
-      "n2": "Bấm nút \"Lấy ứng dụng\"\ntrên trang được mở\ntừ trình duyệt của bạn",
-      "n3": "Bạn sẽ được chuyển hướng\ntải ứng dụng Vui Fit trên App Store",
-      "n4": "Bấm \"Lấy\" để tải ứng dụng Vui Fit",
-      "n5": "Mở Vui Fit để vào VUI123. Tận hưởng trò chơi đỉnh cao\nvà phần thưởng hấp dẫn"
-    },
-    "androidGuideText": {
-      "n1": "Bấm nút tải\ntrên trang Vui123.",
-      "n2": "Bấm nút \"Vẫn tải\"\ntrên trang được mở\ntừ trình duyệt của bạn",
-      "n3": "Mở tệp VUI123.apk để\ncài ứng dụng VUI123. Tận hưởng trò chơi đỉnh cao\nvà phần thưởng hấp dẫn"
-    }
+    "options": "Địa chỉ ví không hợp lệ",
+    "withdrawTo": "Rút tiền về",
+    "withdrawalTitle": "Rút tiền"
   }
 }
