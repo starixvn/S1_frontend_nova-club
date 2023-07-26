@@ -3,13 +3,13 @@ import { useRouter } from 'next/router'
 import React from 'react'
 
 const PlinkoBackButton = ({ scale }: { scale: number }) => {
-  const { back } = useRouter()
+  const { back, replace } = useRouter()
 
   return (
     <div id="back_button">
       <IconButton
         onPress={() => {
-          back()
+          replace('/')
           if (window.ReactNativeWebView)
             window.ReactNativeWebView.postMessage('back')
         }}
