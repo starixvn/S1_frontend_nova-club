@@ -65,9 +65,7 @@ const LeaderboardTable = ({ maxRow = 10 }: { maxRow?: number }) => {
                   alt={`${index} coin`}
                   style={{ marginRight: 12 }}
                 />
-                <Text sx={{ fontSize: [12, 12, 13, 14] }}>
-                  {toThousandSeparator(item.points)}
-                </Text>
+                <Text sx={{ fontSize: [12, 12, 13, 14] }}>{item.points}</Text>
               </Row>
             </DataTableCell>
             <DataTableCell sx={fourthCellStyle}>

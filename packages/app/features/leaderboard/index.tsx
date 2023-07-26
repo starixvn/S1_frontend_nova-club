@@ -11,9 +11,9 @@ import HistoryScreen from './History'
 import RankingScreen from './Ranking'
 
 enum LEADERBOARD_TAB {
-  EVENT = 'event',
+  // EVENT = 'event',
   RANKING = 'ranking',
-  HISTORY = 'history',
+  // HISTORY = 'history',
 }
 
 const { useParam } = createParam<{ tab?: LEADERBOARD_TAB }>()
@@ -37,19 +37,19 @@ const LeaderboardScreen = () => {
   const desktop = isDesktop()
 
   const renderScene = SceneMap({
-    first: EventScreen,
-    second: RankingScreen,
-    third: HistoryScreen,
+    // first: EventScreen,
+    first: RankingScreen,
+    // third: HistoryScreen,
   })
 
   const getIndexFromTab = (value) => {
     switch (value) {
-      case LEADERBOARD_TAB.EVENT:
-        return 0
+      // case LEADERBOARD_TAB.EVENT:
+      //   return 0
       case LEADERBOARD_TAB.RANKING:
-        return 1
-      case LEADERBOARD_TAB.HISTORY:
-        return 2
+        return 0
+      // case LEADERBOARD_TAB.HISTORY:
+      //   return 2
 
       default:
         return 0
@@ -58,9 +58,9 @@ const LeaderboardScreen = () => {
 
   const [index, setIndex] = useState<number>(getIndexFromTab(tab))
   const [routes] = useState([
-    { key: 'first', title: t('menu.tab.event'), index: 0 },
-    { key: 'second', title: t('menu.tab.ranking'), index: 1 },
-    { key: 'third', title: t('common.history'), index: 2 },
+    // { key: 'first', title: t('menu.tab.event'), index: 0 },
+    { key: 'first', title: t('menu.tab.ranking'), index: 0 },
+    // { key: 'third', title: t('common.history'), index: 2 },
   ])
   const layout = useWindowDimensions()
 
@@ -78,18 +78,18 @@ const LeaderboardScreen = () => {
 
   const getTabFromIndex = (value) => {
     switch (value) {
+      // case 0:
+      //   setTab(LEADERBOARD_TAB.EVENT)
+      //   break
       case 0:
-        setTab(LEADERBOARD_TAB.EVENT)
-        break
-      case 1:
         setTab(LEADERBOARD_TAB.RANKING)
         break
-      case 2:
-        setTab(LEADERBOARD_TAB.HISTORY)
-        break
+      // case 2:
+      //   setTab(LEADERBOARD_TAB.HISTORY)
+      //   break
 
       default:
-        setTab(LEADERBOARD_TAB.EVENT)
+        setTab(LEADERBOARD_TAB.RANKING)
         break
     }
   }
