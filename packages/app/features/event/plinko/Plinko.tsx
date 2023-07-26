@@ -7,7 +7,7 @@ import React from 'react'
 import { useWindowDimensions } from 'react-native'
 import { useRouter } from 'solito/router'
 
-const plinkoUrl = `http://localhost:3000/event/plinko?`
+const plinkoUrl = `${DEV_DOMAIN}/event/plinko?`
 
 const Plinko = () => {
   const { back } = useRouter()

@@ -6,10 +6,13 @@ import { useWindowDimensions } from 'react-native'
 import { useDispatch } from 'react-redux'
 import FloatingDrawer from './component/FloatingDrawer'
 import ToggleFloatingDrawerButton from './component/ToggleFloatingDrawerButton'
-import { BOTTOM_TAB_BAR_HEIGHT } from 'app/components/navigation/BottomTabBar'
 import { useResponsiveValue } from 'dripsy'
 
-const FloatingContent = () => {
+const FloatingContent = ({
+  BottomTabBarHeight,
+}: {
+  BottomTabBarHeight: number
+}) => {
   const dispatch = useDispatch()
   const isDesktop = useResponsiveValue([false, false, false, true])
   const isFloatingDrawerOpen = useAppSelector((s) => s.setting.floatingDrawer)
@@ -20,11 +23,13 @@ const FloatingContent = () => {
 
   // const isFloatingVisible = isLoggedIn
   const DESKTOP_BOTTOM_OFFSET = 60
-  const bottomTabBarHeight = isDesktop ? 0 : BOTTOM_TAB_BAR_HEIGHT
+  const bottomTabIconHeightOffset = 30
+  const bottomTabBarHeight = isDesktop ? 0 : BottomTabBarHeight
   const PlinkoIconAdditionalHeight = 75
   const NUMBER_OF_FLOATING_CONTENT = isDesktop ? 1 : 2
   const iconSize = Math.min(80, width * 0.18)
-  const floatingDrawerOffset = bottomTabBarHeight + bottom
+  const floatingDrawerOffset =
+    bottomTabBarHeight + bottom + bottomTabIconHeightOffset
   const floatingDrawerHeight =
     iconSize * NUMBER_OF_FLOATING_CONTENT + 20 + PlinkoIconAdditionalHeight
   const floatButtonOffset =

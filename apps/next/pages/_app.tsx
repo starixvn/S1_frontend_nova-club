@@ -11,6 +11,7 @@ import AdaptiveLayout, {
 } from '../components/layouts/AdaptiveLayout'
 import '../global.css'
 import AuthenticationProvider from 'components/AuthenticationProvider'
+import Shield from 'script/Shield'
 
 function MyApp({ ...rest }: AdaptiveAppProps) {
   useFonts(AvertaStdUseFont)
@@ -22,6 +23,7 @@ function MyApp({ ...rest }: AdaptiveAppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Provider>
+        <Shield />
         <AuthenticationProvider>
           <AdaptiveLayout {...rest} />
         </AuthenticationProvider>

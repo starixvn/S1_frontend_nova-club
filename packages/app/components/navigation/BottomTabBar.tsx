@@ -33,7 +33,7 @@ function BottomTabBar() {
 
   return (
     <>
-      <FloatingContent />
+      <FloatingContent BottomTabBarHeight={BOTTOM_TAB_BAR_HEIGHT} />
       <DripsyGradient
         gradient="surface"
         sx={{

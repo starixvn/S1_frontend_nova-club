@@ -18,6 +18,7 @@ import {
   useNavigationHeader,
 } from './NavigationHeaderProvider'
 import FloatingContent from 'app/features/floatingContent'
+import { BOTTOM_TAB_BAR_HEIGHT } from 'app/components/navigation/BottomTabBar'
 
 interface MenuProps {
   icon?: string
@@ -151,7 +152,7 @@ export default function NavigationHeader({}) {
           zIndex: 5,
         }}
       >
-        <FloatingContent />
+        <FloatingContent BottomTabBarHeight={BOTTOM_TAB_BAR_HEIGHT} />
       </View>
     </>
   )
