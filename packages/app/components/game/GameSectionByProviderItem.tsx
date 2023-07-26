@@ -19,11 +19,13 @@ function GameSectionByProviderItem({
   // GameListComponent = GameSectionByProviderItemGameListSummary,
   bordered = false,
   onViewMore,
+  gameListProps,
 }: {
   bordered?: boolean
   gpc?: string
   games: Game[]
   onViewMore?: (gpc: string) => void
+  gameListProps?: any
   // GameListComponent: FC<{ data: Game[] }>
 }) {
   const { t } = useLocalization()
@@ -67,7 +69,7 @@ function GameSectionByProviderItem({
             height={20}
             width={90}
             src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${gpc?.toLowerCase()}.png`}
-            resizeMode="contain"
+            contentFit="contain"
             alt={gpc}
           />
         ) : (
@@ -97,6 +99,7 @@ function GameSectionByProviderItem({
       <GameListSectionGrid.GameList
         data={searchedGame ?? filteredGame}
         bordered={bordered}
+        {...gameListProps}
       />
       {onViewMore && (
         <Button

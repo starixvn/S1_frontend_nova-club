@@ -91,7 +91,11 @@ export default function LiveCasinoScreen({}: Props) {
               bordered
               gpc={provider}
               games={filteredGames}
-              // GameListComponent={GameSectionByProviderItemFlashList}
+              gameListProps={{
+                aspectRatio: 350 / 220,
+                itemWidth: ['22%', '18%', '15%', '23%', '18%'],
+                itemSpace: ['1.5%', '1%', '0.83%', '1%', '1%'],
+              }}
             />
           </View>
         </Row>

@@ -135,9 +135,15 @@ const spaces = ['1.5%', '1%', '0.83%', '0.83%', '1.14%']
 const GameListSectionGridList = ({
   data,
   bordered = false,
+  itemWidth = width,
+  itemSpace = spaces,
+  aspectRatio = 1,
 }: {
   data: Game[]
+  itemWidth?: string[]
+  itemSpace?: string[]
   bordered?: boolean
+  aspectRatio?: number
 }) => {
   const locale = useAppSelector((s) => s.setting.locale)
   return (
@@ -154,11 +160,14 @@ const GameListSectionGridList = ({
       {data.map((g, i) => {
         return (
           <GameCard
-            displayName={g.name[locale]}
             key={i}
-            width={width}
+            displayName={g.name[locale]}
+            width={itemWidth}
             sx={{
-              m: spaces,
+              m: itemSpace,
+            }}
+            containerSx={{
+              aspectRatio,
             }}
             {...g}
           />
@@ -171,7 +180,7 @@ const GameListSectionGridList = ({
 const TagButton = ({ isActive, children = '', ...rest }) => {
   const { theme } = useDripsyTheme()
   return (
-    <Pressable sx={{ maxWidth: 100, marginBottom: 2 }} {...rest}>
+    <Pressable sx={{ marginBottom: 2 }} {...rest}>
       <Shadow
         safeRender
         style={{ borderRadius: 30, overflow: 'hidden' }}

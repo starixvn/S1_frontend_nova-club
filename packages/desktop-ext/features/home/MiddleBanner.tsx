@@ -30,7 +30,7 @@ const MiddleBanner = (props: MiddleBannerProps) => {
     <View {...props}>
       <Pressable onPress={() => push('/sportsbook')}>
         <VideoBanner
-          sx={{ aspectRatio: 880 / 420, bg: '$secondary.500' }}
+          sx={{ aspectRatio: 880 / 420 }}
           uri={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/sportsbook.mp4`}
           label={'Sportsbook'}
         />
