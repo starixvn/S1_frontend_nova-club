@@ -24,7 +24,7 @@ export default function ProfileScreen() {
   const { data, isFetching } = usePlayerBalanceQuery(undefined, {
     refetchOnMountOrArgChange: true,
   })
-  const profileHeaderHeight = HEADER_HEIGHT + (top ? top : 30)
+  const profileHeaderHeight = HEADER_HEIGHT + (top ? top : 40)
 
   return (
     <>

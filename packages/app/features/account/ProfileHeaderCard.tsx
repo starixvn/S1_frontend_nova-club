@@ -17,7 +17,7 @@ const ProfileHeaderCard = ({ data }: ProfileHeaderCardProps) => {
   const { t } = useLocalization()
   const { openModal } = useModal()
   const desktop = isDesktop()
-  const AVATAR_SIZE = desktop ? 45 : 30
+  const AVATAR_SIZE = desktop ? 45 : 40
   const fontSize = desktop ? 15 : 14
   const referralLink = `${DEV_DOMAIN}/download?ref=${data?.referral_code}`
 
@@ -44,17 +44,17 @@ const ProfileHeaderCard = ({ data }: ProfileHeaderCardProps) => {
         }}
       >
         <Image
+          alt="user-avatar"
+          source={require('../../assets/images/common/avatarx2.png')}
           sx={{
+            aspectRatio: 1,
             width: AVATAR_SIZE,
             height: AVATAR_SIZE,
-            borderRadius: 100,
-            borderWidth: 2,
             mx: desktop ? 0 : 15,
+            borderRadius: 50,
+            borderWidth: 1,
             borderColor: 'white',
           }}
-          source={require('../../assets/images/common/en.jpg')}
-          resizeMode="contain"
-          alt=""
         />
 
         <View sx={{ ...(desktop ? { mx: '$3' } : {}) }}>
