@@ -5,6 +5,7 @@ import PlinkoTncVi from '../../components/plinko-event/PlinkoTncVi'
 import { useAppSelector } from 'app/provider/redux/store'
 import AvertaStd from 'app/assets/fonts/Averta'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
+import useLocalization from 'app/provider/localization'
 
 const FONT_COLOR = '#FFF'
 const FONT_SIZE = 12
@@ -13,6 +14,7 @@ const PlinkoTnc = () => {
   const router = useRouter()
   const deviceLocale = useAppSelector((s) => s.setting.locale)
   const locale = router.query?.locale ? router.query?.locale : deviceLocale
+  const { t } = useLocalization()
 
   const TnCLanguage = () => {
     switch (locale) {
@@ -26,7 +28,7 @@ const PlinkoTnc = () => {
   }
 
   return (
-    <PageWithBackHeader header={{ title: 'menu.tnc' }}>
+    <PageWithBackHeader header={{ title: t('menu.tnc') }}>
       <main
         style={{
           padding: 12,
