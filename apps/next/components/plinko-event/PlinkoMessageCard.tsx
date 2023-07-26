@@ -46,7 +46,7 @@ const PlinkoMessageCard = ({
               my: '$2',
             }}
           >
-            {winAmount + ' VND'}
+            {(winAmount === '1000K' ? '1TR' : winAmount) + ' VND'}
           </Text>
         ) : null}
 
