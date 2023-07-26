@@ -17,6 +17,7 @@ import {
   NAVIGATION_DROPDOWN_MENU,
   useNavigationHeader,
 } from './NavigationHeaderProvider'
+import FloatingContent from 'app/features/floatingContent'
 
 interface MenuProps {
   icon?: string
@@ -140,6 +141,18 @@ export default function NavigationHeader({}) {
         </Pressable>
       </View>
       <FloatingLiveChatDesktop />
+      <View
+        sx={{
+          position: 'fixed',
+          width: 140,
+          height: 300,
+          right: 0,
+          bottom: 0,
+          zIndex: 5,
+        }}
+      >
+        <FloatingContent />
+      </View>
     </>
   )
 }

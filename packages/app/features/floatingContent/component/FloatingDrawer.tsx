@@ -8,20 +8,23 @@ interface FloatingContentSwitchProps {
   visible: boolean
   size: number
   floatingDrawerOffset: number
+  isDesktop: boolean
+  floatingDrawerHeight: number
 }
 interface FloatingContentContainerProps {
   bottom: number
   height: number
 }
 
-const PlinkoIconAdditionalHeight = 30
+const PlinkoIconAdditionalHeight = 50
 
 const FloatingDrawer = ({
   visible,
   size,
   floatingDrawerOffset,
+  isDesktop,
+  floatingDrawerHeight,
 }: FloatingContentSwitchProps) => {
-  const floatingDrawerHeight = size * 2 + 20 + PlinkoIconAdditionalHeight
   return (
     <FloatingContentContainer
       pointerEvents={visible ? 'auto' : 'none'}
@@ -38,7 +41,7 @@ const FloatingDrawer = ({
           >
             <ContentOffset>
               <PlinkoEvent size={size} />
-              <LiveChatButton />
+              {!isDesktop && <LiveChatButton />}
             </ContentOffset>
           </ContentOverlay>
         )}

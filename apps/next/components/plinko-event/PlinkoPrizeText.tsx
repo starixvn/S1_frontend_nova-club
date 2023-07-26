@@ -48,7 +48,7 @@ const PlinkoPrizeText = ({
                 sx={{
                   position: 'absolute',
                   minWidth: enlargedWidth * 0.11,
-                  top: enlargedHeight * (1 - 0.065),
+                  top: enlargedHeight * (1 - 0.062),
                   left: basketSpacing * i,
                   display: 'flex',
                 }}

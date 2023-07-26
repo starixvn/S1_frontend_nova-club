@@ -504,25 +504,21 @@ const Plinko = () => {
   }
 
   return (
-    <View
-      sx={{
-        height: enlargedHeight,
-      }}
-    >
+    <View sx={{ flex: 1 }}>
       <main
         style={{
           overflow: 'auto',
           justifyContent: 'center',
-          height: enlargedHeight,
+          flex: 1,
         }}
       >
         <div
           style={{
+            height: '100%',
             display: 'grid',
             placeContent: 'center',
             justifyItems: 'center',
             position: 'relative',
-            height: enlargedHeight,
           }}
         >
           <div
@@ -530,7 +526,6 @@ const Plinko = () => {
             style={{
               backgroundColor: theme.primary,
               position: 'relative',
-              height: enlargedHeight,
             }}
           >
             <div
