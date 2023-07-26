@@ -64,7 +64,6 @@
     "game": "Trò Chơi",
     "hello": "Xin chào!!",
     "history": "Lịch sử",
-    "historyTitle": "Lịch sử giao dịch",
     "home": "Trang Chủ",
     "inactive": "Không hoạt động",
     "loading": "Đang tải",
@@ -271,7 +270,10 @@
     "rewardsHub": "Phần thưởng của tôi",
     "tab": {
       "event": "Sự kiện",
-      "ranking": "Xếp hạng"
+      "ranking": "Xếp hạng",
+      "gameHistory": "Lịch sử trò chơi",
+      "redeemHistory": "",
+      "transactionHistory": "Lịch sử giao dịch"
     },
     "tnc": "Điều khoản và Điều kiện",
     "withdraw": "Rút tiền",
