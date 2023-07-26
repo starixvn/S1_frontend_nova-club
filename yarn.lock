@@ -3436,6 +3436,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/howler@npm:^2.2.7":
+  version: 2.2.7
+  resolution: "@types/howler@npm:2.2.7"
+  checksum: e9d6723f946a7526c8562436c06ad64d55f63a0573bfbf08c776e3785ab520a3138da84058f280b0fe7d8a819af77af3dd62d88f873a316d3723dc2ad575aa0d
+  languageName: node
+  linkType: hard
+
 "@types/istanbul-lib-coverage@npm:*, @types/istanbul-lib-coverage@npm:^2.0.0":
   version: 2.0.4
   resolution: "@types/istanbul-lib-coverage@npm:2.0.4"
@@ -3479,6 +3486,13 @@ __metadata:
   version: 4.14.195
   resolution: "@types/lodash@npm:4.14.195"
   checksum: 39b75ca635b3fa943d17d3d3aabc750babe4c8212485a4df166fe0516e39288e14b0c60afc6e21913cc0e5a84734633c71e617e2bd14eaa1cf51b8d7799c432e
+  languageName: node
+  linkType: hard
+
+"@types/matter-js@npm:^0.18.5":
+  version: 0.18.5
+  resolution: "@types/matter-js@npm:0.18.5"
+  checksum: 0747b8b8b811a13946f5fbf07160fb4ab30e5964b6fb280fcfd478388a8c7ef112aaeb5190c3188ccc2e7d0084788ed9c8514f8ae8749add5a0563652861220a
   languageName: node
   linkType: hard
 
@@ -8144,6 +8158,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"howler@npm:^2.2.3":
+  version: 2.2.3
+  resolution: "howler@npm:2.2.3"
+  checksum: c04ce19411f4d86f8508d411a93aea943f128c2686b3df3c61383fd4ed8f5551232c4389aba3a8d4c8b0eeb34ae51df5a9c3ccd9ba48583ac53e9bf9fcbd1ecf
+  languageName: node
+  linkType: hard
+
 "html-to-image@npm:^1.11.11":
   version: 1.11.11
   resolution: "html-to-image@npm:1.11.11"
@@ -9617,6 +9638,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"matter-js@npm:^0.19.0":
+  version: 0.19.0
+  resolution: "matter-js@npm:0.19.0"
+  checksum: 1f226a0826ad9700e7d171daeb17f6d18b7f4fcc94a6530b7dd190d2e3c7380b5b4d518a4d0272aaf6a674475b2ef777a44320ab639ce2e8974ebb02a58a50ca
+  languageName: node
+  linkType: hard
+
 "md5-file@npm:^3.2.3":
   version: 3.2.3
   resolution: "md5-file@npm:3.2.3"
@@ -10435,14 +10463,18 @@ __metadata:
   resolution: "next-app@workspace:apps/next"
   dependencies:
     "@expo/next-adapter": 5.0.2
+    "@types/howler": ^2.2.7
     "@types/lodash": "*"
+    "@types/matter-js": ^0.18.5
     "@types/node": 17.0.21
     agent: "*"
     app: "*"
     desktop-ext: "*"
     dripsy: "*"
     eslint-config-next: 13.2.0
+    howler: ^2.2.3
     lodash: "*"
+    matter-js: ^0.19.0
     memory-cache-node: ^1.4.0
     next: 13.2.0
     next-compose-plugins: ^2.2.1

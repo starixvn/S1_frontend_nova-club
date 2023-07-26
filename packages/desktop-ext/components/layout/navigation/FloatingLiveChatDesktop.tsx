@@ -57,7 +57,7 @@ const FloatingLiveChatDesktop = () => {
         <Text
           sx={{
             minWidth: 70,
-            marginLeft: 5,
+            marginLeft: 10,
             marginRight: 10,
             height: 21,
             lineHeight: 24,
