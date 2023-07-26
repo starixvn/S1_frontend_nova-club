@@ -272,7 +272,8 @@ const Select = <T,>(
         >
           {_actionSheetContent
             ? _actionSheetContent({ closeActionSheet })
-            : options.map((item, index) => {
+            : options && options.length > 0
+            ? options.map((item, index) => {
                 const isSelected = item.value === value
 
                 return (
@@ -306,7 +307,8 @@ const Select = <T,>(
                     </Text>
                   </Pressable>
                 )
-              })}
+              })
+            : null}
         </StyledContentContainer>
       </ActionSheet>
     </View>

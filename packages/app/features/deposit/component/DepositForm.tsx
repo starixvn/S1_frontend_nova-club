@@ -69,6 +69,10 @@ const DepositForm = ({ DepositCategoryId }) => {
       }
     }
   )
+  console.log(
+    '🚀 ~ file: DepositForm.tsx:72 ~ DepositForm ~ channelOptions:',
+    channelOptions
+  )
 
   const [selectedValues, setSelectedValues] = useState(0)
   const selectedChannel = depositPayment?.list[selectedValues]

@@ -85,7 +85,7 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
       setStartAnimateWinPrizeFrame(true)
     } else {
       setLoading(false)
-      showAlert(message)
+      // showAlert(message)
     }
   }
 

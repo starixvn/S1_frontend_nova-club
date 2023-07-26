@@ -63,8 +63,9 @@ export const TabBarSelection = ({
                 <Text
                   numberOfLines={2}
                   sx={{
+                    py: '$1',
                     mt: FONT_TOP_OFFSET,
-                    fontSize: 12,
+                    fontSize: 14,
                     fontWeight: '900',
                     color: 'white',
                     opacity: isActive ? 1 : 0.5,

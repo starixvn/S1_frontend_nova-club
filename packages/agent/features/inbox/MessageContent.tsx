@@ -1,6 +1,8 @@
 import { Text } from 'dripsy'
 import React, { useMemo } from 'react'
 import RenderHtml from 'react-native-render-html'
+import unescape from 'lodash/unescape'
+import { Linking } from 'react-native'
 
 const MessageContent = ({ isHtml, content }) => {
   const htmlTagStyle = useMemo(() => {
@@ -20,6 +22,21 @@ const MessageContent = ({ isHtml, content }) => {
       htmlParserOptions={{ decodeEntities: false }}
       // baseStyle={htmlStyle}
       tagsStyles={htmlTagStyle}
+      // renderersProps={{
+      //   a: {
+      //     onPress: (_, href) => {
+      //       console.log(
+      //         '🚀 ~ file: MessageContent.tsx:29 ~ MessageContent ~ _:',
+      //         _
+      //       )
+      //       console.log(
+      //         '🚀 ~ file: MessageContent.tsx:29 ~ MessageContent ~ href:',
+      //         href
+      //       )
+      //       Linking.openURL(href)
+      //     },
+      //   },
+      // }}
     />
   ) : (
     <Text sx={{ color: 'black' }}>{content}</Text>

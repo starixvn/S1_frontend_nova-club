@@ -109,7 +109,7 @@ const History = () => {
   }
   return (
     <PageWithBackHeader
-      header={{ title: t('common.historyTitle') }}
+      header={{ title: t('menu.tab.transactionHistory') }}
       disableScrollView
       hideHeader={desktop}
     >

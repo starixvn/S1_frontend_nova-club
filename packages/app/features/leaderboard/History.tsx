@@ -36,12 +36,10 @@ const HistoryScreen = () => {
               {t('leaderboard.rank').toUpperCase()}
             </DataTableTitle>
             <DataTableTitle>
-              {t('profile.playerId').toUpperCase()}
+              {t('leaderboard.playerId').toUpperCase()}
             </DataTableTitle>
             <DataTableTitle>{t('common.points').toUpperCase()}</DataTableTitle>
-            <DataTableTitle>
-              {t('menu.tab.status').toUpperCase()}
-            </DataTableTitle>
+            <DataTableTitle>{t('deposit.status').toUpperCase()}</DataTableTitle>
           </DataTableHeader>
           {/* {dummyData.map((item) => (
           <DataTableRow key={item.rank}>

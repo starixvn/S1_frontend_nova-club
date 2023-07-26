@@ -3,11 +3,12 @@ import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
 import { HEADER_HEIGHT } from 'app/utils/constant'
 import { NAVIGATION_HEIGHT } from 'desktop-ext/components/layout/navigation/NavigationHeader'
-import { ActivityIndicator, Container } from 'dripsy'
+import { ActivityIndicator, Container, View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import { IResponse } from 'services/common/types'
 import { gameApi, useGoToGameMutation } from 'services/gameApi'
 import { GetGameUrlResult } from 'services/gameApi.type'
+import { SolitoImage } from 'solito/image'
 
 type Props = {}
 
@@ -34,8 +35,8 @@ export default function SabaScreen({}: Props) {
         is_demo: isLoggedIn ? 0 : 1,
         is_mobile: 0,
         platform_code: 'SABA',
-        home_url: DEV_DOMAIN,
-        cashier_url: `${DEV_DOMAIN}/deposit`,
+        home_url: '#',
+        cashier_url: `#`,
       })
     )
       .unwrap()
@@ -59,6 +60,7 @@ export default function SabaScreen({}: Props) {
       sx={{
         height: `calc(100vh - ${NAVIGATION_HEIGHT + HEADER_HEIGHT}px)`,
         justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
       {gameUrl ? (
@@ -66,11 +68,18 @@ export default function SabaScreen({}: Props) {
           src={gameUrl}
           width={'100%'}
           height={'100%'}
-          style={{ border: 'none' }}
+          style={{ border: 'none', zIndex: 2 }}
         />
       ) : (
-        <ActivityIndicator color={'$secondary.500'} size={55} />
+        <ActivityIndicator color={'$primary.200'} size={55} />
       )}
+      <SolitoImage
+        alt={'SABA'}
+        src={require('app/assets/images/game/saba-logo.png')}
+        width={241}
+        height={78}
+        style={{ marginBottom: '20%', position: 'absolute', zIndex: 1 }}
+      />
     </Container>
   )
 }

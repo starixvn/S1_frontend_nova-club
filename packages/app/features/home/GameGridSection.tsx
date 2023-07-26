@@ -49,15 +49,18 @@ const config = [
     action: {
       type: ActionType.GAME,
       payload: {
-        gc: '1',
-        name: {
-          en: 'SABA Sports',
-          vi: 'SABA Sports',
-        },
-        gtc: 'sports',
-        img: 'https://static.zzspeed.site/nvclub/sbe/cms/game/saba/sport-saba_1659947637.png',
-        gpc: 'SABA',
-      } as Game,
+        desktopMode: false,
+        game: {
+          gc: '1',
+          name: {
+            en: 'SABA Sports',
+            vi: 'SABA Sports',
+          },
+          gtc: 'sports',
+          img: 'https://static.zzspeed.site/nvclub/sbe/cms/game/saba/sport-saba_1659947637.png',
+          gpc: 'SABA',
+        } as Game,
+      },
     },
   },
   {
@@ -134,6 +137,8 @@ export default function GameGridSection() {
 
   const widthPerColumn = (1 / totalColumn) * innerWidth
 
+  const isDesktop = useResponsiveValue([false, false, false, true])
+
   const { push } = useRouter()
 
   return (
@@ -159,11 +164,11 @@ export default function GameGridSection() {
             type={c.type}
             src={c.src}
             title={c.title}
-            onPress={() =>
+            onPress={() => {
               getAction(c.action)({
                 push,
               })
-            }
+            }}
           />
         )
       })}
