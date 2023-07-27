@@ -7,7 +7,6 @@ import React from 'react'
 export default function HireBanner() {
   const direction = useResponsiveValue(['column', 'column', 'column', 'row'])
   const showTime = useResponsiveValue([false, true])
-  const isDesktop = useResponsiveValue([false, false, false, true])
   return (
     <Row
       sx={{
@@ -47,18 +46,17 @@ export default function HireBanner() {
             mx: '$1',
             px: '$2',
             flex: 1,
-            flexDirection: isDesktop ? 'row' : 'column',
           }}
         >
           <Label
             sx={{
-              mr: isDesktop ? '$3' : 0,
+              flex: 1,
             }}
           >
             JOINS US & START EARNING BONUS!
           </Label>
           {showTime && (
-            <Row sx={{ alignItems: 'center' }}>
+            <Row sx={{ flex: 1, alignItems: 'center' }}>
               <Icon size={16} name="date" />
               <Label
                 sx={{

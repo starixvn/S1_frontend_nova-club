@@ -89,6 +89,9 @@ export default function HomeScreen() {
             <View sx={{ flex: 1 }}>
               <HireBanner />
             </View>
+            <View sx={{ flex: 1 }}>
+              <HireBanner />
+            </View>
           </Row>
         </View>
         <TopGameSection />
