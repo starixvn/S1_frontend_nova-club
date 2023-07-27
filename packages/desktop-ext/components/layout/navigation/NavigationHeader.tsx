@@ -99,31 +99,40 @@ export default function NavigationHeader({}) {
         >
           <DripsyGradient
             gradient="surface"
-            sx={{ height: NAVIGATION_HEIGHT, marginTop: 'auto' }}
+            sx={{ height: NAVIGATION_HEIGHT, marginTop: 'auto', px: '$2' }}
           >
-            <Container sx={{ alignItems: 'stretch', flex: 1 }}>
-              <Row
+            <Row
+              sx={{
+                flex: 1,
+                justifyContent: 'center',
+              }}
+            >
+              <Pressable
                 sx={{
-                  flex: 1,
-                  alignItems: 'stretch',
-                  justifyContent: 'space-evenly',
-                  // px: [0, 0, 0, '$pagePadding'],
+                  position: 'relative',
+                  top: NAVIGATION_HEIGHT - 55,
+                  width: 100,
+                  height: 55,
+                }}
+                onPress={() => {
+                  openModal('LuckyDrawModal', {})
                 }}
               >
-                <Pressable
-                  sx={{ position: 'relative', top: NAVIGATION_HEIGHT - 55 }}
-                  onPress={() => {
-                    openModal('LuckyDrawModal', {})
-                  }}
-                >
-                  <SolitoImage
-                    src={LuckySpin}
-                    alt="luckywheel"
-                    width={100}
-                    height={55}
-                  />
-                </Pressable>
-
+                <SolitoImage
+                  src={LuckySpin}
+                  alt="luckywheel"
+                  width={100}
+                  height={55}
+                />
+              </Pressable>
+              <View
+                sx={{
+                  flex: 1,
+                  maxWidth: 1300,
+                  justifyContent: 'center',
+                  flexDirection: 'row',
+                }}
+              >
                 {MENU.map((m, i) => {
                   return (
                     <MenuButton
@@ -136,8 +145,18 @@ export default function NavigationHeader({}) {
                     />
                   )
                 })}
-              </Row>
-            </Container>
+              </View>
+
+              <View
+                sx={{
+                  position: 'relative',
+                  top: NAVIGATION_HEIGHT - 55,
+                  width: 100,
+                  height: 55,
+                }}
+                //View for Reward/VIP Module
+              ></View>
+            </Row>
           </DripsyGradient>
         </Pressable>
       </View>
@@ -171,7 +190,7 @@ const MenuButton = ({ icon, label, route, style, menu }: MenuButtonProps) => {
         position: 'relative',
         justifyContent: 'center',
         flex: 1,
-        px: icon ? '$3' : ['$2', '$3', '$3', '$3', '$3', '$4'],
+        px: icon ? '$3' : ['$2', '$2', '$2', '$2', '$3', '$4'],
         alignItems: 'center',
       }}
       containerStyle={{ position: 'relative', ...style }}
