@@ -169,6 +169,7 @@ const MatchListCellData = ({
     <DataTableRow>
       <DataTableCell
         sx={{
+          py: '$0',
           flex: 0.075,
           alignItems: selectionType === 'home' ? 'flex-end' : 'flex-start',
         }}
@@ -176,7 +177,7 @@ const MatchListCellData = ({
       >
         {dateTime}
       </DataTableCell>
-      <DataTableCell sx={{ flex: 0.025 }}>
+      <DataTableCell sx={{ flex: 0.025, py: '$0' }}>
         {flag && (
           <SolitoImage
             src={flag}
@@ -189,7 +190,7 @@ const MatchListCellData = ({
       </DataTableCell>
       <DataTableCell
         textStyle={{ textAlign: 'center' }}
-        sx={{ ml: '$2', flex: 0.1 }}
+        sx={{ ml: '$2', flex: 0.1, py: '$0' }}
       >
         {name ?? 'Draw'}
       </DataTableCell>
@@ -199,6 +200,7 @@ const MatchListCellData = ({
           ml: '$2',
           flex: 1,
           px: 0,
+          py: '$0',
         }}
       >
         {handicapTypeArr.map((d, i) => {
@@ -227,12 +229,14 @@ const MatchListCellData = ({
                 flexDirection: 'row',
                 flex: isTimeDouble ? 0.5 : 1,
                 justifyContent: 'center',
+                py: '$0',
               }}
             >
               <DataTableCell
                 sx={{
                   flex: isTimeDouble ? 0.5 : 1,
                   px: 0,
+                  py: '$0',
                 }}
                 textStyle={{ color: getBetColor(point) }}
               >
@@ -243,6 +247,7 @@ const MatchListCellData = ({
                   sx={{
                     flex: 1,
                     px: 0,
+                    py: '$0',
                   }}
                   textStyle={{
                     color: isTimeDouble ? '#ffcc00' : 'white',
@@ -254,7 +259,7 @@ const MatchListCellData = ({
                 </DataTableCell>
               ) : (
                 <DataTableCell
-                  sx={{ flex: 1, px: 0 }}
+                  sx={{ flex: 1, px: 0, py: '$0' }}
                   textStyle={{
                     color: isTimeDouble ? '#ffcc00' : 'white',
                   }}
@@ -267,6 +272,7 @@ const MatchListCellData = ({
                 sx={{
                   flex: isTimeDouble ? 0.5 : 1,
                   px: 0,
+                  py: '$0',
                 }}
                 textStyle={{
                   color: getBetColor(invertedPoint),
@@ -281,7 +287,7 @@ const MatchListCellData = ({
           )
         })}
       </DataTableCell>
-      <DataTableCell sx={{ flex: 0.1, mr: '$4' }}>
+      <DataTableCell sx={{ flex: 0.1, mr: '$4', py: '$0' }}>
         {selectionType === 'away' && onPress && isLoggedIn ? (
           <Button
             contentProps={{ sx: { py: '$1', px: '$2' } }}
@@ -351,10 +357,12 @@ const OnRender = ({
       />
     )
   } else if (
-    selectedTime === 'All' &&
-    (parseInt(dayjs(matchDayjs.diff(startDate, 'day')).format('DD')) === 0 ||
-      (parseInt(dayjs(matchDayjs.diff(endDate, 'day')).format('DD')) <= 6 &&
-        matchDayjs.isBefore(endDate)))
+    selectedTime === 'All'
+    // &&
+    // (parseInt(dayjs(matchDayjs.diff(startDate, 'day')).format('DD')) === 0 ||
+    //   (parseInt(dayjs(matchDayjs.diff(endDate, 'day')).format('DD')) <= 6 &&
+    //     matchDayjs.isBefore(endDate))
+    //     )
   ) {
     return (
       <MatchListCellRow
@@ -389,7 +397,7 @@ const MatchListCellRow = ({
       key={selectedTime}
       sx={{
         flex: 0,
-        py: '$2',
+        py: '$1',
         mt: '$2',
         bg: index % 2 ? '$primary.300' : '$primary.500',
       }}
