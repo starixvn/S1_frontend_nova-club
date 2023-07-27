@@ -95,7 +95,7 @@ const LatestWinnerItem = ({ game, username, amount }) => {
       from={{ rotateX: '90deg' }}
       animate={{ rotateX: 0 }}
       sx={{
-        height: 58,
+        height: 60,
         borderRadius: 15,
         overflow: 'hidden',
       }}

@@ -11,6 +11,8 @@ import { useGameListMultipleQuery } from 'services/gameApi'
 import { Game, LatestWinnerType } from 'services/gameApi.type'
 import { createParam } from 'solito'
 import { SolitoImage } from 'solito/image'
+import { Video, ResizeMode } from 'expo-av'
+import { Platform } from 'react-native'
 
 type Props = {}
 
@@ -60,7 +62,7 @@ function SlotScreen({}: Props) {
         <View sx={{ flex: 0.8, minHeight: 320 }}>
           <LatestWinnerSection type={LatestWinnerType.Slot} />
         </View>
-        <View sx={{ flex: 1, minHeight: 320, bg: '$secondary.500' }}>
+        <View sx={{ flex: 1, minHeight: 320 }}>
           <SolitoImage
             style={{ width: '100%', height: '100%' }}
             src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/slot/dailywins@2x.jpg`}
@@ -69,7 +71,23 @@ function SlotScreen({}: Props) {
             fill
           />
         </View>
-        <View sx={{ flex: 1, minHeight: 320, bg: '$secondary.500' }}></View>
+        <View sx={{ flex: 1, minHeight: 320 }}>
+          <Video
+            isMuted
+            isLooping
+            shouldPlay
+            style={{
+              width: '100%',
+              height: '100%',
+            }}
+            videoStyle={{
+              position: Platform.OS === 'web' ? 'relative' : 'absolute',
+              height: '100%',
+            }}
+            source={{ uri: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/slot.mp4` }}
+            resizeMode={ResizeMode.COVER}
+          />
+        </View>
       </Row>
       <RecentlyPlayedSection
         gameTypes={[GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]}
