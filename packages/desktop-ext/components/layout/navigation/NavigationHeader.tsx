@@ -99,40 +99,31 @@ export default function NavigationHeader({}) {
         >
           <DripsyGradient
             gradient="surface"
-            sx={{ height: NAVIGATION_HEIGHT, marginTop: 'auto', px: '$2' }}
+            sx={{ height: NAVIGATION_HEIGHT, marginTop: 'auto' }}
           >
-            <Row
-              sx={{
-                flex: 1,
-                justifyContent: 'center',
-              }}
-            >
-              <Pressable
-                sx={{
-                  position: 'relative',
-                  top: NAVIGATION_HEIGHT - 55,
-                  width: 100,
-                  height: 55,
-                }}
-                onPress={() => {
-                  openModal('LuckyDrawModal', {})
-                }}
-              >
-                <SolitoImage
-                  src={LuckySpin}
-                  alt="luckywheel"
-                  width={100}
-                  height={55}
-                />
-              </Pressable>
-              <View
+            <Container sx={{ alignItems: 'stretch', flex: 1 }}>
+              <Row
                 sx={{
                   flex: 1,
-                  maxWidth: 1300,
-                  justifyContent: 'center',
-                  flexDirection: 'row',
+                  alignItems: 'stretch',
+                  justifyContent: 'space-evenly',
+                  // px: [0, 0, 0, '$pagePadding'],
                 }}
               >
+                <Pressable
+                  sx={{ position: 'relative', top: NAVIGATION_HEIGHT - 55 }}
+                  onPress={() => {
+                    openModal('LuckyDrawModal', {})
+                  }}
+                >
+                  <SolitoImage
+                    src={LuckySpin}
+                    alt="luckywheel"
+                    width={100}
+                    height={55}
+                  />
+                </Pressable>
+
                 {MENU.map((m, i) => {
                   return (
                     <MenuButton
@@ -145,18 +136,8 @@ export default function NavigationHeader({}) {
                     />
                   )
                 })}
-              </View>
-
-              <View
-                sx={{
-                  position: 'relative',
-                  top: NAVIGATION_HEIGHT - 55,
-                  width: 100,
-                  height: 55,
-                }}
-                //View for Reward/VIP Module
-              ></View>
-            </Row>
+              </Row>
+            </Container>
           </DripsyGradient>
         </Pressable>
       </View>
