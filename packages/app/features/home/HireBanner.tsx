@@ -7,7 +7,7 @@ import React from 'react'
 
 export default function HireBanner() {
   const { t } = useLocalization()
-  const direction = useResponsiveValue(['column', 'column', 'column', 'row'])
+  // const direction = useResponsiveValue(['column', 'column', 'column', 'row'])
   const showTime = useResponsiveValue([false, true])
 
   return (
@@ -22,16 +22,16 @@ export default function HireBanner() {
         sx={{
           borderRadius: 30,
           bg: '$primary.500',
-          px: '$3',
+          px: ['$2', '$3'],
           justifyContent: 'center',
         }}
       >
         <Text
           sx={{
             fontWeight: '900',
-            pt: FONT_TOP_OFFSET,
-            fontSize: [12, 14],
-            lineHeight: [13, 15],
+            // pt: FONT_TOP_OFFSET,
+            fontSize: [10, 12, 14, 10, 12, 14],
+            lineHeight: [13, 15, 15, 13, 15],
           }}
         >
           {t('home.hireAgent')}
@@ -47,7 +47,7 @@ export default function HireBanner() {
         <View
           sx={{
             mx: '$1',
-            px: '$2',
+            px: ['$1', '$2'],
             flex: 1,
           }}
         >
@@ -87,7 +87,7 @@ export default function HireBanner() {
 
 const Label = styled(Text)({
   mt: FONT_TOP_OFFSET,
-  fontSize: [12, 14],
+  fontSize: [10, 12, 12, 11, 12],
   fontWeight: 'bold',
 })
 
@@ -104,10 +104,11 @@ const JoinNowBtn = ({ children }) => {
     >
       <DripsyGradient
         gradient={'secondary'}
-        sx={{ px: '$3', flex: 1, justifyContent: 'center' }}
+        sx={{ px: ['$1', '$2', '$3'], flex: 1, justifyContent: 'center' }}
       >
         <Text
           sx={{
+            fontSize: [10, 12, 13, 10, 12, 13],
             color: '$error',
             fontWeight: '900',
             marginTop: FONT_TOP_OFFSET,
