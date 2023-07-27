@@ -2,7 +2,7 @@ import IconButton from 'app/components/IconButton'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
 import { getStatusColor } from 'app/config/status'
 import useLocalization from 'app/provider/localization'
-import { copyToClipboard, toCurrency } from 'app/utils'
+import { copyToClipboard, toCurrency, toThousandSeparator } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import dayjsTz from 'app/utils/dayjs'
 import { Text, View, useDripsyTheme } from 'dripsy'
@@ -65,7 +65,9 @@ const HorizontalTransactionRowList = ({
       </View>
 
       <View sx={{ flex: 0.5 }}>
-        <Text sx={{ textAlign: 'center' }}>{amount}</Text>
+        <Text sx={{ textAlign: 'center' }}>
+          {toThousandSeparator(item.amount)}
+        </Text>
       </View>
 
       <View sx={{ flex: 0.6 }}>

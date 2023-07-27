@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function CryptoPayPage() {
   return (
-    <FormContainer hidePadding>
+    <FormContainer hidePadding sx={{ width: '90%' }}>
       <CryptoPayContent />
     </FormContainer>
   )

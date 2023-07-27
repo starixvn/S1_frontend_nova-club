@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function QRPayPage() {
   return (
-    <FormContainer hidePadding>
+    <FormContainer hidePadding sx={{ width: '90%' }}>
       <QRPayContent />
     </FormContainer>
   )

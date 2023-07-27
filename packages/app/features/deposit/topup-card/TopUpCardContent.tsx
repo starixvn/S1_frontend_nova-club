@@ -6,8 +6,8 @@ import TopupCardForm from './TopupCardForm'
 const TopUpCardContent = () => {
   const horizontalMode = useResponsiveValue([false, false, false, true, true])
   return (
-    <ScrollView>
-      <View>
+    <ScrollView contentContainerSx={{ alignItems: 'center' }}>
+      <View sx={{ width: horizontalMode ? '70%' : '100%' }}>
         <TopupCardForm />
       </View>
       {horizontalMode && (

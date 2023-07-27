@@ -1,10 +1,13 @@
 import Icon from 'app/components/Icon'
 import IconButton from 'app/components/IconButton'
-import PaymentMethod, { PaymentMethodProps } from 'app/config/deposit'
+import PaymentMethod, {
+  DepositPaymentMethodCategoryId,
+  PaymentMethodProps,
+} from 'app/config/deposit'
 import { getStatusColor } from 'app/config/status'
 import TransactionHistoryItemBox from 'app/features/account/history/TransactionHistoryItemBox'
 import useLocalization from 'app/provider/localization'
-import { copyToClipboard, toThousandSeparator } from 'app/utils'
+import { copyToClipboard, toCurrency, toThousandSeparator } from 'app/utils'
 import dayjsTz from 'app/utils/dayjs'
 import { Text, View, styled, useDripsyTheme } from 'dripsy'
 import React from 'react'
@@ -12,6 +15,7 @@ import { useModal } from 'react-native-modalfy'
 import { Shadow } from 'react-native-shadow-2'
 import { ReportDepositItem } from 'services/playerApi.type'
 import DateTimeCell from './DateTimeCell'
+import { Currency } from 'app/utils/constant'
 
 export const CELL_PAYMENT_WIDTH = 0.5
 export const CELL_DATE_WIDTH = 0.2
@@ -55,16 +59,19 @@ const DepositHistoryItem = ({ item }: TransactionHistoryItemProps) => {
     (el) => el.categoryId === item.second_category_flag
   ) as PaymentMethodProps
 
+  const amount = toCurrency(item.amount, Currency.VND, {
+    symbol: false,
+  })
+
   const handleUploadReceipt = () => {
-    openModal('DepositUploadModal', {
-      descInfo: {
-        transactionId: item.secure_id,
-        paymentMethod: t(category.name),
-        date: dayjsTz(item.date).format('YYYY-MM-DD hh:mm a'),
+    openModal('UploadBankSlipModal', {
+      depositInfo: {
+        depositId: item.secure_id,
+        paymentMode: item.pay_type,
+        date: dayjsTz(item.date).format('YYYY/MM/DD hh:mm a'),
         status: item.status,
-        amount: item.amount,
+        amount: amount,
       },
-      fields: CONFIRMATION_FIELDS,
     })
   }
 
@@ -142,25 +149,27 @@ const DepositHistoryItem = ({ item }: TransactionHistoryItemProps) => {
           >
             {item.status}
           </Text>
-          {true && (
-            <Text
-              numberOfLines={1}
-              sx={{
-                fontSize: 12,
-                /* widen click bank upload area */
-                py: 5,
-                pl: 5,
-                my: -5,
-                /* */
-                ml: 4,
-                textDecorationLine: 'underline',
-                color: '$tertiary',
-              }}
-              onPress={handleUploadReceipt}
-            >
-              {t('deposit.bankSlip')}
-            </Text>
-          )}
+          {!item.bank_slip_attachment &&
+            item.second_category_flag ===
+              DepositPaymentMethodCategoryId.LOCAL_BANK && (
+              <Text
+                numberOfLines={1}
+                sx={{
+                  fontSize: 12,
+                  /* widen click bank upload area */
+                  py: 5,
+                  pl: 5,
+                  my: -5,
+                  /* */
+                  ml: 4,
+                  textDecorationLine: 'underline',
+                  color: '$tertiary',
+                }}
+                onPress={handleUploadReceipt}
+              >
+                {t('deposit.bankSlip')}
+              </Text>
+            )}
         </View>
       </View>
     </TransactionHistoryItemBox>

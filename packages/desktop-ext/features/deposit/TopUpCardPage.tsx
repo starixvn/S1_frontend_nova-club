@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function TopUpCardPage() {
   return (
-    <FormContainer hidePadding>
+    <FormContainer hidePadding sx={{ width: '90%' }}>
       <TopUpCardContent />
     </FormContainer>
   )
