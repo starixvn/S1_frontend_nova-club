@@ -6,12 +6,12 @@ import { MobileInfoLayout } from 'components/layouts/mobile'
 import { ActivityIndicator } from 'dripsy'
 import dynamic from 'next/dynamic'
 
-const LazyEn = dynamic(() => import('app/features/lucky-spin/TncEn'), {
+const LazyEn = dynamic(() => import('app/features/lucky-spin/tncEn'), {
   loading: () => <ActivityIndicator />,
   ssr: false,
 })
 
-const LazyVi = dynamic(() => import('app/features/lucky-spin/TncVi'), {
+const LazyVi = dynamic(() => import('app/features/lucky-spin/tncVi'), {
   loading: () => <ActivityIndicator />,
   ssr: false,
 })
