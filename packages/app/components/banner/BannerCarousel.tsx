@@ -1,7 +1,7 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import useContainerWidth from 'app/hooks/useContainerWidth'
 import { Row, SxProp, View, useDripsyTheme } from 'dripsy'
-import React, { useRef } from 'react'
+import React, { useCallback, useRef } from 'react'
 import { Platform, View as RNView } from 'react-native'
 import Animated, {
   Extrapolate,
@@ -13,6 +13,10 @@ import Carousel, { TCarouselProps } from 'react-native-reanimated-carousel'
 import { BannerResult } from 'services/contentApi.type'
 import { SolitoImage } from 'solito/image'
 import SkeletonPlaceholder from '../SkeletonPlaceholder'
+import { Pressable } from 'dripsy'
+import { getAction } from 'app/utils/actionGenerator'
+import { useAppSelector } from 'app/provider/redux/store'
+import { useRouter } from 'solito/router'
 
 export interface BannerCarouselProps
   extends Omit<TCarouselProps<BannerResult>, 'data' | 'renderItem'> {
@@ -66,21 +70,12 @@ export default function BannerCarousel({
           }
           // onSnapToItem={(index) => console.log('current index:', index)}
           renderItem={({ item, index }) => (
-            <View pointerEvents="none">
-              <SolitoImage
-                priority={index === 0}
-                src={`${MEDIA_DOMAIN}/${CONTENT_URI}/v2/banners/${item.image}`}
-                // src={`https://bw88.io/2023/June/Bwing_BTI_250K_VN.jpg`}
-                height={height}
-                width={width}
-                alt={item.alt ?? ''}
-                contentFit="cover"
-                placeholder="blur"
-                blurDataURL={
-                  Platform.OS === 'web' ? item.blurDataURL : item.blurHash
-                }
-              />
-            </View>
+            <BannerItem
+              item={item}
+              index={index}
+              height={height}
+              width={width}
+            />
           )}
           {...rest}
         />
@@ -113,6 +108,38 @@ export default function BannerCarousel({
         </Row>
       )}
     </View>
+  )
+}
+
+const BannerItem = ({ item, index, width, height }) => {
+  const { push } = useRouter()
+  const locale = useAppSelector((s) => s.setting.locale)
+
+  const onPressCallback = useCallback(() => {
+    console.log('click item', item)
+    if (item.action) {
+      const action = getAction(item.action)
+      action({ push, locale })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [item.action, locale])
+
+  return (
+    <Pressable onPress={onPressCallback}>
+      <View pointerEvents="none">
+        <SolitoImage
+          priority={index === 0}
+          src={`${MEDIA_DOMAIN}/${CONTENT_URI}/v2/banners/${item.image}`}
+          // src={`https://bw88.io/2023/June/Bwing_BTI_250K_VN.jpg`}
+          height={height}
+          width={width}
+          alt={item.alt ?? ''}
+          contentFit="cover"
+          placeholder="blur"
+          blurDataURL={Platform.OS === 'web' ? item.blurDataURL : item.blurHash}
+        />
+      </View>
+    </Pressable>
   )
 }
 

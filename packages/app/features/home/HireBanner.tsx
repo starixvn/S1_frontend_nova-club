@@ -1,12 +1,15 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
+import useLocalization from 'app/provider/localization'
 import { Pressable, Row, Text, View, styled, useResponsiveValue } from 'dripsy'
 import React from 'react'
 
 export default function HireBanner() {
+  const { t } = useLocalization()
   const direction = useResponsiveValue(['column', 'column', 'column', 'row'])
   const showTime = useResponsiveValue([false, true])
+
   return (
     <Row
       sx={{
@@ -31,7 +34,7 @@ export default function HireBanner() {
             lineHeight: [13, 15],
           }}
         >
-          HIRE AGENT
+          {t('home.hireAgent')}
         </Text>
       </View>
       <Row
@@ -53,7 +56,7 @@ export default function HireBanner() {
               flex: 1,
             }}
           >
-            JOINS US & START EARNING BONUS!
+            {t('home.joinsUs')}
           </Label>
           {showTime && (
             <Row sx={{ flex: 1, alignItems: 'center' }}>
@@ -70,13 +73,13 @@ export default function HireBanner() {
                   color: '#00FFFF',
                 }}
               >
-                30 Days 12:34:56
+                30 {t('common.days')} 12:34:56
               </Label>
             </Row>
           )}
         </View>
 
-        <JoinNowBtn>JOIN NOW</JoinNowBtn>
+        <JoinNowBtn>{t('home.joinNow')}</JoinNowBtn>
       </Row>
     </Row>
   )

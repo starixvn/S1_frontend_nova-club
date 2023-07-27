@@ -119,7 +119,7 @@ const useImagePicker = () => {
         referralCode: cleanText,
       }
 
-      push('/transfer', params)
+      push({ pathname: '/transfer/id', query: params })
     }
   }
 

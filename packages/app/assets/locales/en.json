@@ -7,108 +7,119 @@
     "title": "Account Verification"
   },
   "authentication": {
-    "login": "Login",
-    "register": "Register",
-    "loginHeader": "Login to your account",
-    "noReceiveOTP": "Didn't receive OTP?",
-    "resend": "Send",
-    "readAndAgree": "I have read & agree the",
+    "accVerification": "Account Verification",
+    "accountReg": "Account Registration",
     "enterOtp": "Please enter OTP",
-    "send": "Send",
-    "rememberMe": "Remember Me",
     "forgotPassword": "Forgot Password ?",
     "forgotPasswordHeader": "Forgot Password",
+    "login": "Login",
+    "loginHeader": "Login to your account",
+    "noReceiveOTP": "Didn't receive OTP?",
+    "readAndAgree": "I have read & agree the",
+    "register": "Register",
+    "rememberMe": "Remember Me",
+    "resend": "Send",
     "resetPasswordHeader": "Reset Password",
-    "accVerification": "Account Verification",
-    "accountReg": "Account Registration"
+    "send": "Send"
   },
   "bank": {
     "accountName": "Account Name",
     "accountNo": "Account no",
-    "bank": "Bank",
-    "bankAccount": "Bank Account",
+    "accountNumber": "Account Number",
     "addBankAccount": "Add Bank Account",
     "addCryptoAccount": "Add Crypto Wallet",
+    "bank": "Bank",
+    "bankAccount": "Bank Account",
     "channel": "Channel",
-    "selectChannel": "Select Channel",
     "selectBank": "Please select bank",
-    "accountNumber": "Account Number",
+    "selectChannel": "Select Channel",
     "walletAddress": "Wallet Address"
   },
   "commision": {
-    "title": "Commision Table",
-    "productLists": "Product Lists",
     "cashPlayer": "Cash Player",
     "cashPlayerReferral": "Cash Player Referral",
-    "creditPlayer": "Credit Player"
+    "creditPlayer": "Credit Player",
+    "productLists": "Product Lists",
+    "title": "Commision Table"
   },
   "common": {
-    "player": "Player",
+    "active": "Active",
     "agent": "Agent",
-    "username": "Username",
-    "password": "Password",
-    "transfer": "Transfer",
-    "deposit": "Deposit",
-    "withdraw": "Withdraw",
-    "bankAccount": "Bank Account",
-    "history": "History",
-    "cash": "Cash",
-    "reward": "Reward",
-    "balance": "Balance",
-    "more": "More",
-    "overview": "Overview",
-    "profile": "Profile",
-    "points": "Points",
-    "submit": "Submit",
-    "close": "Close",
-    "pin": "Pin",
-    "timeline": "UTC/GMT +7",
-    "download": "Download",
-    "realName": "Real Name",
-    "phone": "Phone Number",
-    "playerId": "Player ID",
-    "currency": "Currency",
-    "copied": "Copied",
+    "agentLogin": "Agent Login",
+    "all": "All",
     "amount": "Amount",
+    "balance": "Balance",
+    "bankAccount": "Bank Account",
+    "bonus": "Bonus",
+    "cash": "Cash",
+    "close": "Close",
     "confirm": "Confirm",
     "confirmPassword": "Confirm Password",
-    "userAgreement": "User Agreement",
-    "otp": "OTP",
-    "realBet": "Real Bet",
-    "turnOver": "Turn Over",
-    "tnc": "Terms & Conditions",
-    "active": "Active",
-    "inactive": "InActive",
-    "all": "All",
-    "date": "Date",
-    "noInfoAvailable": "No information is available now",
-    "provider": "Provider",
-    "bonus": "Bonus",
-    "historyTitle": "Transaction History",
-    "transaction": "Transaction",
-    "game": "Game",
-    "next": "Next",
-    "shareholder": "Shareholder",
-    "hello": "Hello!!",
-    "agentLogin": "Agent Login",
-    "logout": "Logout",
-    "home": "Home",
-    "showMore": "Show More",
-    "selectAll": "Select All",
+    "copied": "Copied",
     "copy": "Copy",
-    "loading": "Loading"
+    "currency": "Currency",
+    "date": "Date",
+    "days": "Days",
+    "deposit": "Deposit",
+    "download": "Download",
+    "game": "Game",
+    "hello": "Hello!!",
+    "history": "History",
+    "home": "Home",
+    "inactive": "InActive",
+    "loading": "Loading",
+    "logout": "Logout",
+    "more": "More",
+    "next": "Next",
+    "noInfoAvailable": "No information is available now",
+    "otp": "OTP",
+    "overview": "Overview",
+    "password": "Password",
+    "phone": "Phone Number",
+    "pin": "Pin",
+    "player": "Player",
+    "playerId": "Player ID",
+    "points": "Points",
+    "profile": "Profile",
+    "provider": "Provider",
+    "realBet": "Real Bet",
+    "realName": "Real Name",
+    "reward": "Reward",
+    "selectAll": "Select All",
+    "shareholder": "Shareholder",
+    "showMore": "Show More",
+    "submit": "Submit",
+    "timeline": "UTC/GMT +7",
+    "tnc": "Terms & Conditions",
+    "transaction": "Transaction",
+    "transfer": "Transfer",
+    "turnOver": "Turn Over",
+    "userAgreement": "User Agreement",
+    "username": "Username",
+    "withdraw": "Withdraw"
   },
   "contact": {
-    "customerSupport": "Customer Support",
     "contactVia": "Contact via:",
+    "customerSupport": "Customer Support",
+    "liveChat": "Live Chat",
     "telegram": "Telegram",
-    "zalo": "Zalo",
-    "liveChat": "Live Chat"
+    "zalo": "Zalo"
   },
   "deposit": {
     "actualDeposit": "Actual Deposit",
-    "depositTitle": "Deposit",
     "bankSlip": "Bank Slip",
+    "cardCode": "Card Code",
+    "cardSerialNo": "Card serial no.",
+    "cardValue": "Card Value",
+    "channel": "Channel",
+    "choose": "Choose your Deposit Options",
+    "cryptoAddress": "Crypto Address",
+    "cryptoAmount": "Crypto Amount",
+    "cryptoChannel": "Crypto Channel",
+    "date": "Date",
+    "deduction": "Deduction",
+    "depositAmount": "Deposit Amount",
+    "depositConfirmation": "Deposit Confirmation",
     "depositMethod": {
       "bankTransfer": "Bank Transfer",
       "crypto": "Crypto",
@@ -117,32 +128,39 @@
       "qrPay": "QR Pay",
       "topUp": "Top Up Card"
     },
-    "deduction": "Deduction",
-    "cardCode": "Card Code",
-    "cardSerialNo": "Card serial no.",
-    "cardValue": "Card Value",
-    "choose": "Choose your Deposit Options",
-    "channel": "Channel",
-    "cryptoAddress": "Crypto Address",
-    "cryptoAmount": "Crypto Amount",
-    "cryptoChannel": "Crypto Channel",
-    "selectChannel": "Select Channel",
-    "depositAmount": "Deposit Amount",
-    "depositConfirmation": "Deposit Confirmation",
-    "paymentTime": "PAYMENT TIME LEFT",
+    "depositTitle": "Deposit",
+    "id": "ID",
+    "minMaxLimit": "Min/Max Limit",
     "paymentMode": "Payment Mode",
+    "paymentTime": "PAYMENT TIME LEFT",
     "pleaseConfirmDeposit": "Please confirm deposit information below",
+    "selectChannel": "Select Channel",
+    "status": "Status",
     "transactionId": "Transaction Id",
+    "type": "Type",
     "upload": {
       "description": "Browse your Bank Transfer Receipt or Invoice",
       "files": "Select File",
       "title": "Upload Receipt"
+    }
+  },
+  "download": {
+    "android": "ANDROID",
+    "androidGuideText": {
+      "n1": "Click app download button\non our VUI123 site.",
+      "n2": "A new tab will be opened in\nyour web browser, click on\nthe \"Download anyway.\"",
+      "n3": "Install VUI123.apk to launch\nVUI123 app. Start enjoying your\nexclusive bonuses and games."
     },
-    "id": "ID",
-    "type": "Type",
-    "date": "Date",
-    "status": "Status",
-    "minMaxLimit": "Min/Max Limit"
+    "downloadAppNow": "Download Vui123 App Now\nTo Enjoy All The\nExclusive Bonuses!",
+    "downloadGuide": "Download\nGuide",
+    "ios": "IOS",
+    "iosGuideText": {
+      "n1": "Click app download button\non our VUI123 site.",
+      "n2": "A new tab will be opened in\nyour web browser, click on\nthe \"Get the App button\"",
+      "n3": "You will be redirected to\n\"Vui Fit app on App Store\ninstead of VUI123 app\"",
+      "n4": "Click \"Get\" to install the\n\"Vui Fit\" app",
+      "n5": "Open \"Vui Fit\" app to launch\nVUI123 app. Start enjoying your\nexclusive bonus and games"
+    }
   },
   "event": {
     "luckyDraw": {
@@ -150,13 +168,6 @@
     }
   },
   "filter": {
-    "statusType": "Status Type",
-    "win/loss": "Win/Loss",
-    "transactionType": {
-      "title": "Transaction Type",
-      "rebate": "Rebate",
-      "adjustment": "Adjustment"
-    },
     "date": {
       "custom": "Custom",
       "lastWeek": "Last Week",
@@ -177,81 +188,102 @@
     "gameStatus": {
       "loss": "Loss",
       "win": "Win"
-    }
+    },
+    "statusType": "Status Type",
+    "transactionType": {
+      "adjustment": "Adjustment",
+      "rebate": "Rebate",
+      "title": "Transaction Type"
+    },
+    "win/loss": "Win/Loss"
   },
   "footer": {
+    "aboutUs": "About Us",
+    "contactUs": "Contact Us",
+    "copyright": "© Copyright 2023 VUI123. All Rights Reserved.",
     "note1": "Become Our Partner",
     "note2": "VUI123 is committed to supporting Responsible Gaming",
-    "copyright": "© Copyright 2023 VUI123. All Rights Reserved.",
-    "aboutUs": "About Us",
-    "responsibleGaming": "Responsible Gaming",
-    "contactUs": "Contact Us"
+    "responsibleGaming": "Responsible Gaming"
   },
   "game": {
     "category": {
-      "sportsbook": "Sportsbook",
-      "games": "Games",
-      "slots": "Slots",
-      "liveCasino": "Live Casino",
-      "lottery": "Keno/Lottery",
-      "fishing": "Fishing",
       "cardGame": "Card Game",
+      "fishing": "Fishing",
+      "games": "Games",
+      "liveCasino": "Live Casino",
       "localGame": "Local Game",
-      "recommended": "Recommended Games"
+      "lottery": "Keno/Lottery",
+      "recommended": "Recommended Games",
+      "slots": "Slots",
+      "sportsbook": "Sportsbook"
     },
-    "recently": "Recently Played",
-    "jackpot": "Jackpot",
     "err": {
       "notLogin": "Please Login to Play Game"
-    }
+    },
+    "jackpot": "Jackpot",
+    "megaway": "Megaway",
+    "new": "New",
+    "recently": "Recently Played"
+  },
+  "home": {
+    "hireAgent": "HIRE AGENT",
+    "joinNow": "JOIN NOW",
+    "joinsUs": "JOINS US & START EARNING BONUS!"
   },
   "leaderboard": {
-    "monthlyEvent": "Monthly Event",
     "minPoints": "Min Points",
+    "monthlyEvent": "Monthly Event",
+    "playerId": "Player Id",
     "pointsCalculation": "Points calculation",
     "product": "Product",
-    "top10": "Top 10 Winners"
+    "rank": "Rank",
+    "top10": "Top 10 Winners",
+    "turnover": "Turnover"
   },
   "manageCredentials": {
-    "title": "Manage Credentials",
     "pin": {
-      "createPin": "Create Pin",
-      "create6Pin": "Create 6-digit Pin",
-      "securePin": "Secure your transfer with PIN",
-      "newPin": "New Pin",
-      "confirmPin": "Confirm Pin",
       "changePin": "Change Pin",
-      "oldPin": "Old Pin",
-      "forgotPin": "Forgot Pin",
+      "confirmPin": "Confirm Pin",
+      "confirmPinInfo": "All your transactions are processed in a safe and secured environment.",
       "confirmPinTitle": "Enter 6-digit PIN to Confirm",
-      "confirmPinInfo": "All your transactions are processed in a safe and secured environment."
+      "create6Pin": "Create 6-digit Pin",
+      "createPin": "Create Pin",
+      "forgotPin": "Forgot Pin",
+      "newPin": "New Pin",
+      "oldPin": "Old Pin",
+      "securePin": "Secure your transfer with PIN"
     },
     "pw": {
       "changePw": "Change Password",
-      "oldPw": "Old Password",
-      "newPw": "New Password",
       "confirmPw": "Confirm Password",
-      "placeholderOldPw": "Please enter old password",
+      "newPw": "New Password",
+      "oldPw": "Old Password",
+      "placeholderConfirmPw": "Please confirm password",
       "placeholderNewPw": "Please enter new password",
-      "placeholderConfirmPw": "Please confirm password"
-    }
+      "placeholderOldPw": "Please enter old password"
+    },
+    "title": "Manage Credentials"
   },
   "menu": {
-    "rewardsHub": "My Rewards Hub",
-    "friendReferral": "Friend Referral",
-    "msgAnnouncement": "Message / Announcement",
-    "commissionTable": "Commission Table",
-    "tnc": "Terms and Conditions",
     "bankAccount": "Bank Account",
+    "bankWithdrawal": "Bank Withdrawal",
+    "commissionTable": "Commission Table",
     "cryptoWallet": "Crypto Wallet",
-    "withdraw": "Withdraw",
-    "withdrawalConfirmation": "Withdrawal Confirmation",
     "cryptoWithdrawal": "Crypto Withdrawal",
+    "friendReferral": "Friend Referral",
     "leaderboard": "Leaderboard",
+    "msgAnnouncement": "Message / Announcement",
+    "rewardsHub": "My Rewards Hub",
     "tab": {
       "event": "Event",
-      "ranking": "Ranking"
-    }
+      "gameHistory": "Game History",
+      "ranking": "Ranking",
+      "redeemHistory": "Redeem History",
+      "transactionHistory": "Transaction History"
+    },
+    "tnc": "Terms and Conditions",
+    "withdraw": "Withdraw",
+    "withdrawalConfirmation": "Withdrawal Confirmation"
   },
   "message": {
     "announcement": "Announcement",
@@ -259,13 +291,6 @@
     "personalMessage": "Personal Message"
   },
   "notes": {
-    "importantNotice": "Important Notice",
-    "qr": {
-      "n1": "Scan with your app to transfer balance"
-    },
-    "transfer": {
-      "n1": "All the fund receive via internal transfer are subject to |1x rollover| before the withdrawal"
-    },
     "deposit": {
       "n1": "Kindly please check for the latest active deposit bank details before you making a deposit.",
       "n3": "Depositor's ACCOUNT NAME must match with your registered full name. We do not encourage transaction made using 3rd party/company account.",
@@ -275,6 +300,10 @@
     },
     "depost": {
       "n2": "For using Bank Transfer deposit option, please make the transfer done before submit the transaction to avoid the transaction delay."
+    },
+    "importantNotice": "Important Notice",
+    "qr": {
+      "n1": "Scan with your app to transfer balance"
     },
     "rewards": {
       "n1": "Games that are NOT eligible for the Rebate/Commission include: Turnover on all types of non-live table games (e.g. Blackjack, Video Poker, Craps, American Roulette, Baccarat, and other non-live table games) and non-slot games, will not count towards this turnover requirement unless SPECIFICALLY stated.",
@@ -288,6 +317,9 @@
       "n1": "Please ensure you choose the correct telco provider and card value. Vui123 do not bear any responsibility if incorrect information selected and resulted the lost of money",
       "n2": "The final deposited amount is subject to 25% deduction from the original card value."
     },
+    "transfer": {
+      "n1": "All the fund receive via internal transfer are subject to |1x rollover| before the withdrawal"
+    },
     "withdrawal": {
       "n1": "Kindly check with our 24/7 LIVE CHAT if your transaction is pending for more than 10 minutes.",
       "n2": "Withdrawal bank account name must match with registered full name, member is not allow withdrawal to 3rd party bank account.",
@@ -297,48 +329,49 @@
     }
   },
   "placeholder": {
-    "plsSelectCrypto": "Please Select Crypto",
-    "plsSelectBank": "Please Select Bank"
+    "plsSelectBank": "Please Select Bank",
+    "plsSelectCrypto": "Please Select Crypto"
   },
   "profile": {
-    "self": "Self",
-    "w/l": "Win/Lose (VND)",
-    "registered": "Registered",
     "activePlayer": "Active Player",
-    "monthlyReward": "Monthly Reward",
     "circle": "Circle",
-    "direct": "Direct"
+    "direct": "Direct",
+    "monthlyReward": "Monthly Reward",
+    "registered": "Registered",
+    "self": "Self",
+    "w/l": "Win/Lose (VND)"
   },
   "qr": {
-    "scanGallery": "Scan from gallery",
     "downloadQr": "Download QR Code",
     "noCameraAccess": "Your camera is required to scan QR code for transfer. Please enable permission to continue using this feature",
-    "requestCameraPermissions": "Requesting for camera permission"
+    "requestCameraPermissions": "Requesting for camera permission",
+    "scanGallery": "Scan from gallery"
   },
   "referral": {
-    "title": "Referral",
+    "code": "Referral Code",
     "link": "Referral Link",
     "share": "Share",
-    "shareMessage": "Share & Earn",
     "shareContent": "Get exclusive referral bonuses when your friend signs up using your referral code",
-    "code": "Referral Code"
+    "shareMessage": "Share & Earn",
+    "title": "Referral"
   },
   "status": {
     "pending": "Pending",
-    "success": "Success",
-    "rejected": "Rejected"
+    "rejected": "Rejected",
+    "success": "Success"
   },
   "transaction": {
-    "recent": "Recent Transactions",
-    "pending": "Pending Transactions"
+    "pending": "Pending Transactions",
+    "recent": "Recent Transactions"
   },
   "transfer": {
+    "idTransfer": "ID Transfer",
+    "placeholderTransferAmount": "Please enter your transfer amount",
+    "placeholderTransferId": "Please enter ID",
+    "qrTransfer": "QR Transfer",
     "receive": "Receive",
     "transferTitle": "Transfer",
-    "idTransfer": "ID Transfer",
-    "qrTransfer": "QR Transfer",
-    "placeholderTransferId": "Please enter ID",
-    "placeholderTransferAmount": "Please enter your transfer amount"
+    "transferableAmount": "Transferable Amount"
   },
   "validation": {
     "alphanumeric": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only",
@@ -370,33 +403,15 @@
     "username": "6-18 characters only"
   },
   "wallet": {
-    "cryptoWallet": "Crypto Wallet",
     "addCryptoWallet": "Add Crypto Wallet",
+    "cryptoWallet": "Crypto Wallet",
     "walletAddress": "Wallet Address"
   },
   "withdrawal": {
-    "withdrawalTitle": "Withdrawal",
     "eligibleAmount": "Eligible Withdrawal Amount",
-    "options": "Choose your withdrawal options",
     "exchangeRates": "CHAIN: %{crypto} Current exchange rate",
-    "withdrawTo": "Withdrawal To"
-  },
-  "download": {
-    "downloadAppNow": "Download Vui123 App Now\nTo Enjoy All The\nExclusive Bonuses!",
-    "downloadGuide": "Download\nGuide",
-    "ios": "IOS",
-    "android": "ANDROID",
-    "iosGuideText": {
-      "n1": "Click app download button\non our VUI123 site.",
-      "n2": "A new tab will be opened in\nyour web browser, click on\nthe \"Get the App button\"",
-      "n3": "You will be redirected to\n\"Vui Fit app on App Store\ninstead of VUI123 app\"",
-      "n4": "Click \"Get\" to install the\n\"Vui Fit\" app",
-      "n5": "Open \"Vui Fit\" app to launch\nVUI123 app. Start enjoying your\nexclusive bonus and games"
-    },
-    "androidGuideText": {
-      "n1": "Click app download button\non our VUI123 site.",
-      "n2": "A new tab will be opened in\nyour web browser, click on\nthe \"Download anyway.\"",
-      "n3": "Install VUI123.apk to launch\nVUI123 app. Start enjoying your\nexclusive bonuses and games."
-    }
+    "options": "Choose your withdrawal options",
+    "withdrawTo": "Withdrawal To",
+    "withdrawalTitle": "Withdrawal"
   }
 }

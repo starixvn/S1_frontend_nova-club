@@ -15,7 +15,7 @@ export const FINDER_HEIGHT: number = 300
 
 function QrTransfer({ isActive }) {
   const { t } = useLocalization()
-  const [hasPermission, setHasPermission] = useState(null)
+  const [hasPermission, setHasPermission] = useState(false)
   const { width, height } = useContainerDimension()
   const viewMinX = (width - FINDER_WIDTH) / 2
   const viewMinY = (height - FINDER_HEIGHT) / 2
@@ -30,12 +30,12 @@ function QrTransfer({ isActive }) {
   } = useImagePicker()
 
   useEffect(() => {
-    handleScan(isActive)
+    handleScan(hasPermission)
 
     return () => {
       handleScan(false)
     }
-  }, [isActive])
+  }, [hasPermission])
 
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {

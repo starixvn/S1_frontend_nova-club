@@ -9,8 +9,9 @@ import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { copyToClipboard } from 'app/utils'
+import { HEADER_HEIGHT } from 'app/utils/constant'
 import isDesktop from 'app/utils/isDesktop'
-import { Pressable, ScrollView, Text, View } from 'dripsy'
+import { Pressable, ScrollView, Text, View, useResponsiveValue } from 'dripsy'
 import React, { useEffect, useRef } from 'react'
 import {
   ImageBackground,
@@ -130,22 +131,21 @@ export default function DrawerContent() {
   return (
     <ScrollView
       sx={{
-        bg: '$primary.500',
         flex: 1,
         width: '100%',
-        height,
+        height: height,
         position: 'absolute',
       }}
       contentContainerSx={{
-        paddingTop: top,
-        paddingBottom: bottom,
+        mt: HEADER_HEIGHT + top,
+        bg: '$primary.500',
       }}
       ref={scrollRef}
     >
       <View
         sx={{
           flex: 1,
-          minHeight: height - top - bottom,
+          minHeight: height * 0.4,
           justifyContent: 'space-between',
         }}
       >
@@ -158,7 +158,7 @@ export default function DrawerContent() {
                   flexDirection: 'row',
                   alignItems: 'center',
                   px: '$3',
-                  py: 14,
+                  py: 8,
                 }}
                 onPress={() => {
                   item.onPress && item.onPress()
@@ -166,7 +166,7 @@ export default function DrawerContent() {
                 }}
               >
                 <View sx={{ alignItems: 'flex-start' }}>
-                  <Icon name={item.iconName} color={'white'} size={30} />
+                  <Icon name={item.iconName} color={'white'} size={24} />
                 </View>
                 <View sx={{ flex: 1, alignItems: 'flex-end' }}>
                   <Text
@@ -180,30 +180,42 @@ export default function DrawerContent() {
             )
           })}
         </View>
-        <View>
+        <View
+          sx={{
+            minHeight: height * 0.57,
+            justifyContent: 'flex-end',
+          }}
+        >
           <ImageBackground
             source={require('../../../assets/images/banner_referral.jpg')}
-            style={{ aspectRatio: 760 / 1200 }}
+            style={{
+              aspectRatio: 760 / 1200,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
             resizeMode="contain"
           >
             <View
               sx={{
-                height: '100%',
-                alignItems: 'center',
+                height: '35%',
+                width: '80%',
                 justifyContent: 'center',
+                alignItems: 'center',
               }}
             >
               <View
                 sx={{
-                  minHeight: '30%',
-                  width: '75%',
+                  px: '$2',
+                  py: '$3',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  paddingX: 5,
-                  paddingY: 10,
+                  height: '100%',
+                  width: '100%',
                 }}
               >
-                <Text sx={{ fontSize: 20, fontWeight: '500' }}>
+                <Text
+                  sx={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}
+                >
                   {t('referral.shareMessage')}
                 </Text>
                 <Text

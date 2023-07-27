@@ -1,9 +1,9 @@
 import { DrawerContext } from 'app/hooks/useDrawer'
-import { useCallback, useState } from 'react'
-import Drawer, { MemoDrawer } from '.'
-import { useResponsiveValue } from 'dripsy'
 import { useAppSelector } from 'app/provider/redux/store'
+import { useResponsiveValue } from 'dripsy'
+import { useCallback, useState } from 'react'
 import { Platform } from 'react-native'
+import { MemoDrawer } from '.'
 
 const DrawerProvider = ({ children }) => {
   const [isOpen, setOpen] = useState(false)

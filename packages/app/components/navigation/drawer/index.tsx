@@ -1,5 +1,5 @@
 import { useDrawer } from 'app/hooks/useDrawer'
-import { Pressable, View, styled } from 'dripsy'
+import { Pressable, View, styled, useResponsiveValue } from 'dripsy'
 import { MotiView, useAnimationState } from 'moti'
 import React, { memo, useEffect, useState } from 'react'
 import { Platform, useWindowDimensions } from 'react-native'
@@ -9,11 +9,13 @@ import LazyDrawerContent from './LazyDrawerContent'
 /* Overlay */
 export default function Drawer({ children }) {
   const { width, height } = useWindowDimensions()
+  const drawerWidth = Math.min(300, width)
   const useDrawerAnimation = useAnimationState({
     from: { translateX: width },
     //multiplier should opposite with drawer container width
-    toggle: { translateX: width * 0.4 },
+    toggle: { translateX: width - drawerWidth + 5 },
   })
+  const isDesktop = useResponsiveValue([false, false, false, true])
   const { isOpen, toggleDrawer } = useDrawer()
   const [offsetTop, setOffsetTop] = useState(0)
 
@@ -30,7 +32,7 @@ export default function Drawer({ children }) {
       Platform.OS === 'web' &&
         document.documentElement.classList.remove('overflow-hidden')
     }
-  }, [isOpen, useDrawerAnimation, width])
+  }, [isOpen, useDrawerAnimation, width, isDesktop])
 
   return (
     <View
@@ -42,9 +44,11 @@ export default function Drawer({ children }) {
       {children}
       {isOpen && <DrawerOverlay onPress={() => toggleDrawer()} />}
       <DrawerContainer
+        width={drawerWidth}
         offsetTop={offsetTop}
         state={useDrawerAnimation}
         transition={{ type: 'timing' }}
+        pointerEvents="none"
       >
         <LazyDrawerContent />
       </DrawerContainer>
@@ -56,16 +60,16 @@ const DrawerOverlay = styled(Pressable)({
   position: 'absolute',
   width: '100%',
   height: '100%',
-  backgroundColor: 'rgba(0,0,0,0.3)',
+  backgroundColor: 'rgba(0,0,0,0.2)',
   zIndex: 1,
 })
 
 const DrawerContainer = styled(MotiView)(
-  ({ offsetTop }: { offsetTop: number }) => ({
+  ({ offsetTop, width }: { offsetTop: number; width: number }) => ({
     position: 'absolute',
-    width: '60%',
+    width,
     height: '100%',
-    backgroundColor: 'rgba(0,0,0,0.3)',
+    // backgroundColor: 'red',
     zIndex: 1,
     top: offsetTop,
   })

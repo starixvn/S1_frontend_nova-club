@@ -3,19 +3,19 @@ import { DesktopRoute } from './NavigationType'
 const _Routes: Readonly<DesktopRoute[]> = [
   {
     key: 'TransactionHistory',
-    title: 'Transaction History',
+    title: 'menu.tab.transactionHistory',
     icon: 'lba',
     route: '/history/transaction',
   },
   {
     key: 'GameHistory',
-    title: 'Game History',
+    title: 'menu.tab.gameHistory',
     icon: 'cp',
     route: '/history/game',
   },
   {
     key: 'RedeemHistory',
-    title: 'RedeemHistory',
+    title: 'menu.tab.redeemHistory',
     icon: 'cp',
     route: '/history/redeem',
   },

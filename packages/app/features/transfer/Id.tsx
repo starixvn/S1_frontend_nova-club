@@ -10,7 +10,7 @@ import { toCleanAmount, toCurrency, toRealAmount } from 'app/utils'
 import validation from 'app/utils/validation'
 import { ScrollView } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { usePlayerProfileQuery } from 'services/playerApi'
@@ -18,6 +18,7 @@ import {
   usePlayerBalanceQuery,
   useTransferMemberToMemberMutation,
 } from 'services/walletApi'
+import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 
@@ -27,6 +28,8 @@ type IdTransferFormValues = {
   realAmount: number
 }
 
+const { useParam } = createParam<{ referralCode: string }>()
+
 const IdTransfer = () => {
   const { t } = useLocalization()
   const { back } = useRouter()
@@ -35,6 +38,8 @@ const IdTransfer = () => {
   const { push } = useRouter()
   const { currency } = usePlayerProfileQuery()
   const [postTransferMemberToMember] = useTransferMemberToMemberMutation()
+
+  const [referralCode] = useParam('referralCode', { initial: '' })
 
   const { data } = usePlayerBalanceQuery(undefined, {
     refetchOnMountOrArgChange: true,
@@ -104,6 +109,7 @@ const IdTransfer = () => {
     dirty,
     submitForm,
     setValues,
+    setFieldValue,
   } = formik
 
   const handleSubmit = () => {
@@ -129,10 +135,17 @@ const IdTransfer = () => {
     })
   }
 
+  useEffect(() => {
+    setFieldValue('idTransfer', referralCode)
+  }, [referralCode])
+
   return (
     <FormContainer>
       <ScrollView>
-        <AvailableBalance label={'Transferable Amount :'} isTransfer />
+        <AvailableBalance
+          label={`${t('transfer.transferableAmount')} :`}
+          isTransfer
+        />
 
         <Input
           label={t('transfer.idTransfer')}

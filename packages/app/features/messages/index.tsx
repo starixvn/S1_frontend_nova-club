@@ -50,8 +50,8 @@ const MessagesScreen = () => {
 
   const [index, setIndex] = useState<number>(getIndexFromTab(tab))
   const [routes] = useState([
-    { key: 'first', title: t('message.personalMessage'), index: 0 },
-    { key: 'second', title: t('message.announcement'), index: 1 },
+    { key: 'first', title: 'message.personalMessage', index: 0 },
+    { key: 'second', title: 'message.announcement', index: 1 },
   ])
   const layout = useWindowDimensions()
 
@@ -94,7 +94,7 @@ const MessagesScreen = () => {
   }
   return (
     <PageWithBackHeader
-      header={{ title: t('menu.message/announcement') }}
+      header={{ title: t('menu.msgAnnouncement') }}
       disableScrollView
       hideHeader={desktop}
     >
