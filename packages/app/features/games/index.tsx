@@ -36,7 +36,7 @@ const Games = () => {
       GAME_TYPE_CODE.FISHING,
       GAME_TYPE_CODE.LOTTERY,
     ],
-    limit: 100,
+    limit: 300,
     offset: 0,
   })
 
@@ -44,7 +44,7 @@ const Games = () => {
     useGetGameListQuery({
       currency: currency ?? Currency.VND,
       game_category: [],
-      limit: 100,
+      limit: 300,
       offset: 0,
       gdc_game_category: ['cardgame'],
       gdc_tag: [],
