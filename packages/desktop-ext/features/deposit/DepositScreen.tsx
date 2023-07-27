@@ -5,7 +5,7 @@ import React from 'react'
 export default function DepositScreen({}) {
   return (
     // <WalletLayoutContainer leftContent={<DepositMethodMenu />}>
-    <FormContainer hidePadding>
+    <FormContainer hidePadding sx={{ width: '90%' }}>
       <BankTransferContent />
     </FormContainer>
     // </WalletLayoutContainer>

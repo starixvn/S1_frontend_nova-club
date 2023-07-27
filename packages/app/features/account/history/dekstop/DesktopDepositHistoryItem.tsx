@@ -6,13 +6,14 @@ import PaymentMethod, {
 import { getStatusColor } from 'app/config/status'
 
 import useLocalization from 'app/provider/localization'
-import { copyToClipboard, toThousandSeparator } from 'app/utils'
+import { copyToClipboard, toCurrency, toThousandSeparator } from 'app/utils'
 import dayjsTz from 'app/utils/dayjs'
 import { Row, Text, View, styled, useDripsyTheme } from 'dripsy'
 import React from 'react'
 import { useModal } from 'react-native-modalfy'
 import { ReportDepositItem } from 'services/playerApi.type'
 import DateTimeCell from '../DateTimeCell'
+import { Currency } from 'app/utils/constant'
 
 const FONT_SIZE = 16
 const ICON_SIZE = 34
@@ -76,16 +77,19 @@ const DesktopDepositHistoryItem = ({
     (el) => el.categoryId === item.second_category_flag
   ) as PaymentMethodProps
 
+  const amount = toCurrency(item.amount, Currency.VND, {
+    symbol: false,
+  })
+
   const handleUploadReceipt = () => {
-    openModal('DepositUploadModal', {
-      descInfo: {
-        transactionId: item.secure_id,
-        paymentMethod: t(category.name),
-        date: dayjsTz(item.date).format('YYYY-MM-DD hh:mm a'),
+    openModal('UploadBankSlipModal', {
+      depositInfo: {
+        depositId: item.secure_id,
+        paymentMode: item.pay_type,
+        date: dayjsTz(item.date).format('YYYY/MM/DD hh:mm a'),
         status: item.status,
-        amount: item.amount,
+        amount: amount,
       },
-      fields: CONFIRMATION_FIELDS,
     })
   }
 
