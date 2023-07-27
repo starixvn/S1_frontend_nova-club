@@ -10,6 +10,7 @@ import * as Yup from 'yup'
 import useAgentLoginProcess from './useAgentLoginProcess'
 import useLoginProcess from './useLoginProcess'
 import { SettingActions } from 'app/store/setting.slice'
+import { useModal } from 'react-native-modalfy'
 
 type LoginFormValues = {
   username: string
@@ -19,6 +20,7 @@ type LoginFormValues = {
 export default function useLoginForm(isAgent?: boolean, isRemember?: boolean) {
   const { showAlert } = useAlert()
   const dispatch = useAppDispatch()
+  const { closeModal } = useModal()
 
   const { handleSuccessLogin } = useLoginProcess()
   const { handleAgentSuccessLogin } = useAgentLoginProcess()
@@ -51,7 +53,7 @@ export default function useLoginForm(isAgent?: boolean, isRemember?: boolean) {
                 isRemember ? { username, password } : undefined
               )
         )
-
+        closeModal('AgentLoginModal')
         return
       } else {
         showAlert(message)

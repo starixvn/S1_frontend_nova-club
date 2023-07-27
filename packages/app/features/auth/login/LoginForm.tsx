@@ -4,7 +4,7 @@ import FormContainer from 'app/components/form/FormContainer'
 import Input from 'app/components/form/Input'
 import useLocalization from 'app/provider/localization'
 import { PASSWORD_MAX_LENGTH, USERNAME_MAX_LENGTH } from 'app/utils/validation'
-import { Pressable, Text, View } from 'dripsy'
+import { Pressable, Text, View, useResponsiveValue } from 'dripsy'
 import React, { useEffect, useRef, useState } from 'react'
 import { TextInput, useWindowDimensions } from 'react-native'
 import { createParam } from 'solito'
@@ -25,6 +25,7 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
   const { t } = useLocalization()
   const { width } = useWindowDimensions()
   const { replace, push, back } = useRouter()
+  const isDesktop = useResponsiveValue([false, false, false, true])
 
   // const { handleAgentLogin } = useAfterLogin()
 
@@ -160,12 +161,14 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
       >
         {t('authentication.login')}
       </Button>
-      <Button
-        onPress={() => push('/auth/register')}
-        sx={{ bg: '$primary.300', my: '$2', py: '$2' }}
-      >
-        {t('authentication.register')}
-      </Button>
+      {!isDesktop && (
+        <Button
+          onPress={() => push('/auth/register')}
+          sx={{ bg: '$primary.300', my: '$2', py: '$2' }}
+        >
+          {t('authentication.register')}
+        </Button>
+      )}
     </FormContainer>
   )
 }

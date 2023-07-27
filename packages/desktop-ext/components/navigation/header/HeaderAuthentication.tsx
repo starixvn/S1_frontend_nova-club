@@ -1,3 +1,5 @@
+import Shadow from 'app/components/Shadow'
+import Button from 'app/components/common/Button'
 import Input from 'app/components/form/Input'
 import HeaderButton from 'app/components/navigation/header/HeaderButton'
 import HeaderLanguageToggle from 'app/components/navigation/header/HeaderLanguageToggle'
@@ -73,6 +75,32 @@ const HeaderAuthentication = () => {
         {t('authentication.register')}
       </HeaderButton>
       <HeaderLanguageToggle />
+      <Shadow
+        offset={[0, -1]}
+        startColor={'rgba(255, 255, 255, 0.8)'}
+        distance={1}
+        style={{ borderRadius: 15 }}
+        containerStyle={{ marginHorizontal: 5 }}
+      >
+        <Button
+          sx={{
+            bg: '$primary.100',
+            px: '$3',
+            width: 80,
+            borderRadius: 15,
+          }}
+          onPress={() => openModal('AgentLoginModal')}
+          contentProps={{ sx: { py: 2 } }}
+          titleProps={{
+            sx: {
+              fontSize: 11,
+              wordWrap: 'break-word',
+            },
+          }}
+        >
+          {t('common.agentLogin')}
+        </Button>
+      </Shadow>
     </View>
   )
 }
