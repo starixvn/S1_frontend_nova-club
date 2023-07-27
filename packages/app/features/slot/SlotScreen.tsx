@@ -15,7 +15,7 @@ import {
   SlotType,
 } from 'app/utils/constant'
 import { ActivityIndicator, View } from 'dripsy'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { InteractionManager, Platform } from 'react-native'
 import { Game } from 'services/gameApi.type'
 import { createParam } from 'solito'
@@ -86,13 +86,13 @@ function SlotScreen() {
     }
   }
 
-  function onViewMore(gpc: string) {
+  const onViewMore = useCallback((gpc: string) => {
     if (Platform.OS === 'web') push(`/slots/${gpc}`)
     else
       push({
         pathname: `/slotsByProvider?provider=${gpc.toLowerCase()}`,
       })
-  }
+  }, [])
 
   // if (!isDelayed || isUninitialized)
   //   return <ActivityIndicator color="$tertiary" sx={{ my: '$3' }} />

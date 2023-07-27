@@ -152,27 +152,31 @@ const GameListSectionGridList = ({
         flexWrap: 'wrap',
         px: ['$1', '$1', '$1', '$3'],
         pt: ['$2'],
-        pb: '$sectionBottomSpace',
+        pb: ['$2'],
         borderWidth: bordered ? 2 : 0,
         borderColor: '$primary.300',
       }}
     >
-      {data.map((g, i) => {
-        return (
-          <GameCard
-            key={i}
-            displayName={g.name[locale]}
-            width={itemWidth}
-            sx={{
-              m: itemSpace,
-            }}
-            containerSx={{
-              aspectRatio,
-            }}
-            {...g}
-          />
-        )
-      })}
+      {data?.length > 0 ? (
+        data.map((g, i) => {
+          return (
+            <GameCard
+              key={i}
+              displayName={g.name[locale]}
+              width={itemWidth}
+              sx={{
+                m: itemSpace,
+              }}
+              containerSx={{
+                aspectRatio,
+              }}
+              {...g}
+            />
+          )
+        })
+      ) : (
+        <Text sx={{ color: '$placeholder', my: '$3' }}>No Games Available</Text>
+      )}
     </Row>
   )
 }
