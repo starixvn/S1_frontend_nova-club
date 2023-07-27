@@ -3,6 +3,7 @@ import { AnimatePresence, MotiView } from 'moti'
 import { memo } from 'react'
 import PlinkoEvent from './event/PlinkoEvent'
 import LiveChatButton from './LiveChatButton'
+import isDesktop from 'app/utils/isDesktop'
 
 interface FloatingContentSwitchProps {
   visible: boolean
@@ -14,9 +15,8 @@ interface FloatingContentSwitchProps {
 interface FloatingContentContainerProps {
   bottom: number
   height: number
+  isDesktop: boolean
 }
-
-const PlinkoIconAdditionalHeight = 50
 
 const FloatingDrawer = ({
   visible,
@@ -30,6 +30,7 @@ const FloatingDrawer = ({
       pointerEvents={visible ? 'auto' : 'none'}
       bottom={floatingDrawerOffset}
       height={floatingDrawerHeight}
+      isDesktop={isDesktop}
     >
       <AnimatePresence>
         {visible && (
@@ -50,11 +51,11 @@ const FloatingDrawer = ({
   )
 }
 const FloatingContentContainer = styled(View)(
-  ({ bottom, height }: FloatingContentContainerProps) => ({
+  ({ bottom, height, isDesktop }: FloatingContentContainerProps) => ({
     zIndex: 9,
     right: 0,
     bottom,
-    position: 'absolute',
+    position: isDesktop ? 'fixed' : 'absolute',
     height,
     width: 120,
     overflow: 'hidden',

@@ -6,7 +6,7 @@ import { useWindowDimensions } from 'react-native'
 import { useDispatch } from 'react-redux'
 import FloatingDrawer from './component/FloatingDrawer'
 import ToggleFloatingDrawerButton from './component/ToggleFloatingDrawerButton'
-import { useResponsiveValue } from 'dripsy'
+import { View, useResponsiveValue } from 'dripsy'
 
 const FloatingContent = ({
   BottomTabBarHeight,
@@ -49,6 +49,7 @@ const FloatingContent = ({
         floatingDrawerHeight={floatingDrawerHeight}
       />
       <ToggleFloatingDrawerButton
+        isDesktop={isDesktop}
         toggleFloatingDrawer={() => {
           dispatch(SettingActions.setFloatingDrawer(!isFloatingDrawerOpen))
         }}
