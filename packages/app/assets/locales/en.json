@@ -223,7 +223,8 @@
     "jackpot": "Jackpot",
     "megaway": "Megaway",
     "new": "New",
-    "recently": "Recently Played"
+    "recently": "Recently Played",
+    "noGame": "No Game Available"
   },
   "home": {
     "hireAgent": "HIRE AGENT",

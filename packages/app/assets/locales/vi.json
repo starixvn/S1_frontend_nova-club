@@ -223,7 +223,8 @@
     "jackpot": "NỔ HŨ",
     "megaway": "Megaway",
     "new": "Mới",
-    "recently": "Được chơi gần đây"
+    "recently": "Được chơi gần đây",
+    "noGame": "Không có trò chơi phù hợp bộ lọc"
   },
   "home": {
     "hireAgent": "TUYỂN ĐẠI LÝ",
