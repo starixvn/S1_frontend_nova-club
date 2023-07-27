@@ -59,6 +59,7 @@
     "copy": "Copy",
     "currency": "Currency",
     "date": "Date",
+    "days": "Days",
     "deposit": "Deposit",
     "download": "Download",
     "game": "Game",
@@ -224,6 +225,11 @@
     "new": "New",
     "recently": "Recently Played"
   },
+  "home": {
+    "hireAgent": "HIRE AGENT",
+    "joinNow": "JOIN NOW",
+    "joinsUs": "JOINS US & START EARNING BONUS!"
+  },
   "leaderboard": {
     "minPoints": "Min Points",
     "monthlyEvent": "Monthly Event",
@@ -270,8 +276,8 @@
     "rewardsHub": "My Rewards Hub",
     "tab": {
       "event": "Event",
-      "ranking": "Ranking",
       "gameHistory": "Game History",
+      "ranking": "Ranking",
       "redeemHistory": "Redeem History",
       "transactionHistory": "Transaction History"
     },

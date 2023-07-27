@@ -59,6 +59,7 @@
     "copy": "Sao chép",
     "currency": "Tiền tệ",
     "date": "Ngày",
+    "days": "ngày",
     "deposit": "Nạp tiền",
     "download": "Tải về",
     "game": "Trò Chơi",
@@ -224,6 +225,11 @@
     "new": "Mới",
     "recently": "Được chơi gần đây"
   },
+  "home": {
+    "hireAgent": "TUYỂN ĐẠI LÝ",
+    "joinNow": "THAM GIA NGAY",
+    "joinsUs": "THAM GIA VỚI CHÚNG TÔI & BẮT ĐẦU KIẾM TIỀN THƯỞNG!"
+  },
   "leaderboard": {
     "minPoints": "Điểm tối thiểu",
     "monthlyEvent": "Sự kiện tháng",
@@ -270,8 +276,8 @@
     "rewardsHub": "Phần thưởng của tôi",
     "tab": {
       "event": "Sự kiện",
-      "ranking": "Xếp hạng",
       "gameHistory": "Lịch sử trò chơi",
+      "ranking": "Xếp hạng",
       "redeemHistory": "",
       "transactionHistory": "Lịch sử giao dịch"
     },
