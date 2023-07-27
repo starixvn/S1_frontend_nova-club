@@ -15,6 +15,7 @@ export default function Drawer({ children }) {
     //multiplier should opposite with drawer container width
     toggle: { translateX: width - drawerWidth + 5 },
   })
+  const isDesktop = useResponsiveValue([false, false, false, true])
   const { isOpen, toggleDrawer } = useDrawer()
   const [offsetTop, setOffsetTop] = useState(0)
 
@@ -31,7 +32,7 @@ export default function Drawer({ children }) {
       Platform.OS === 'web' &&
         document.documentElement.classList.remove('overflow-hidden')
     }
-  }, [isOpen, useDrawerAnimation, width])
+  }, [isOpen, useDrawerAnimation, width, isDesktop])
 
   return (
     <View
