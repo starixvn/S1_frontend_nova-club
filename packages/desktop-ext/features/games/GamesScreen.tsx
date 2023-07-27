@@ -18,7 +18,7 @@ import { LatestWinnerType } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
 import GameList from './GameList'
 import useLocalization from 'app/provider/localization'
-import { Video } from 'expo-av'
+import { Video, ResizeMode } from 'expo-av'
 import { Platform } from 'react-native'
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
@@ -46,10 +46,13 @@ function _GamesScreen({}: Props) {
             }}
             videoStyle={{
               position: Platform.OS === 'web' ? 'relative' : 'absolute',
+              height: '100%',
             }}
             source={{
               uri: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/games.mp4`,
             }}
+            useNativeControls={false}
+            resizeMode={ResizeMode.COVER}
           />
         </View>
       </Row>

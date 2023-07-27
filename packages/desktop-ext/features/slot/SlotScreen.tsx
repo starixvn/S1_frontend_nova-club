@@ -11,7 +11,7 @@ import { useGameListMultipleQuery } from 'services/gameApi'
 import { Game, LatestWinnerType } from 'services/gameApi.type'
 import { createParam } from 'solito'
 import { SolitoImage } from 'solito/image'
-import { Video } from 'expo-av'
+import { Video, ResizeMode } from 'expo-av'
 import { Platform } from 'react-native'
 
 type Props = {}
@@ -82,8 +82,10 @@ function SlotScreen({}: Props) {
             }}
             videoStyle={{
               position: Platform.OS === 'web' ? 'relative' : 'absolute',
+              height: '100%',
             }}
             source={{ uri: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/slot.mp4` }}
+            resizeMode={ResizeMode.COVER}
           />
         </View>
       </Row>
