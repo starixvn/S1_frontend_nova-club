@@ -1,6 +1,11 @@
+import { getErrorMessage } from 'agent/utils/validation'
 import useAlert from 'app/hooks/useAlert'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
+import { AuthActions } from 'app/store/authReducer'
+import { SettingActions } from 'app/store/setting.slice'
+import { LANGUAGE_CODE } from 'app/utils/constant'
+import { View } from 'dripsy'
 import Matter, {
   Body,
   Composite,
@@ -9,25 +14,21 @@ import Matter, {
   Render,
   Runner,
 } from 'matter-js'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import GeneratePlinkoAsset from '../../components/plinko-event/generatePlinkoAsset'
-import generateBackgroundAsset from '../../components/plinko-event/backgroundAsset'
-import { View, Text } from 'dripsy'
-import PlinkoTicketCounter from '../../components/plinko-event/PlinkoTicketCounter'
-import PlinkoPrizeText from '../../components/plinko-event/PlinkoPrizeText'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { ActivityIndicator, Pressable } from 'react-native'
 import {
   useCheckTicketSpinQuery,
   useTicketSpinMutation,
 } from 'services/eventApi'
 import PlinkoBackButton from '../../components/plinko-event/PlinkoBackButton'
-import PlinkoTncButton from '../../components/plinko-event/PlinkoTncButton'
-import { getErrorMessage } from 'agent/utils/validation'
-import { AuthActions } from 'app/store/authReducer'
-import usePlinkoSound from '../../components/plinko-event/usePlinkoSound'
-import { SettingActions } from 'app/store/setting.slice'
 import PlinkoMessageCard from '../../components/plinko-event/PlinkoMessageCard'
-import { ActivityIndicator, Pressable } from 'react-native'
-import { LANGUAGE_CODE } from 'app/utils/constant'
+import PlinkoPrizeText from '../../components/plinko-event/PlinkoPrizeText'
+import PlinkoTicketCounter from '../../components/plinko-event/PlinkoTicketCounter'
+import PlinkoTncButton from '../../components/plinko-event/PlinkoTncButton'
+import generateBackgroundAsset from '../../components/plinko-event/backgroundAsset'
+import GeneratePlinkoAsset from '../../components/plinko-event/generatePlinkoAsset'
+import usePlinkoSound from '../../components/plinko-event/usePlinkoSound'
+import TouchableOpacity from 'app/components/pressable/TouchableOpacity'
 
 const theme = {
   primary: '#81C0FF',
@@ -153,7 +154,7 @@ const PlinkoGame = () => {
         handleDropBall()
         setIsTicketLoading(false)
       } else {
-        showAlert(data?.[0].err)
+        showAlert(data[0].err)
         setIsHidePrize(true)
         setIsLoading(false)
         setIsTicketLoading(false)
@@ -234,50 +235,49 @@ const PlinkoGame = () => {
   })()
 
   //Handle The Collision of Ball and Different Asset
-  const handleCollision = useCallback(
-    (e: Matter.IEventCollision<Engine>) => {
-      const ball = Composite.allBodies(engine.current.world).find(
-        (body) => body.label === 'ball'
-      )
-      const ground = Composite.allBodies(engine.current.world).find(
-        (body) => body.label === 'ground'
-      )
+  const handleCollision = useCallback((e: Matter.IEventCollision<Engine>) => {
+    const ball = Composite.allBodies(engine.current.world).find(
+      (body) => body.label === 'ball'
+    )
+    const ground = Composite.allBodies(engine.current.world).find(
+      (body) => body.label === 'ground'
+    )
 
-      if (ball && ground) {
-        if (
-          e.pairs.some(
-            (pair) =>
-              (pair.bodyA === ball && pair.bodyB === ground) ||
-              (pair.bodyA === ground && pair.bodyB === ball)
-          )
-        ) {
-          Body.setVelocity(ball, { x: 0, y: 0 })
-          index = 0
-          Body.setStatic(ball, true)
-          //TODO ADD OVERLAY FOR RESULT
-          for (let i = 0; i < 9; i++) {
-            if (
-              ball.position.x <= FinalLocation[i].end &&
-              ball.position.x >= FinalLocation[i].start
-            ) {
-              basketFinalLocation.current = i
-            }
+    if (ball && ground) {
+      if (
+        e.pairs.some(
+          (pair) =>
+            (pair.bodyA === ball && pair.bodyB === ground) ||
+            (pair.bodyA === ground && pair.bodyB === ball)
+        )
+      ) {
+        Body.setVelocity(ball, { x: 0, y: 0 })
+        index = 0
+
+        Body.setStatic(ball, true)
+
+        for (let i = 0; i < 9; i++) {
+          if (
+            ball.position.x <= FinalLocation[i].end &&
+            ball.position.x >= FinalLocation[i].start
+          ) {
+            basketFinalLocation.current = i
           }
-          setIsShowCard(true)
-          setIsHidePrize(false)
-
-          testBasketLocation.current = -1
-          prizeCode.current = -1
-          win.play()
-        } else {
-          bounce.play()
-          const nextX = getNextX()
-          Body.setVelocity(ball, { x: nextX, y: 0 })
         }
+        setIsShowCard(true)
+        setIsHidePrize(false)
+
+        testBasketLocation.current = -1
+        prizeCode.current = -1
+
+        win.play()
+      } else {
+        bounce.play()
+        const nextX = getNextX()
+        Body.setVelocity(ball, { x: nextX, y: 0 })
       }
-    },
-    [showAlert]
-  )
+    }
+  }, [])
 
   const initMatter = useCallback(() => {
     if (!scene.current) return
@@ -347,7 +347,7 @@ const PlinkoGame = () => {
     render.current.context = null
     render.current.textures = {}
     Events.off(engine.current, 'collisionStart', handleCollision)
-  }, [handleCollision])
+  }, [handleCollision, enlargedHeight, enlargedWidth])
 
   useEffect(() => {
     bgm.play()

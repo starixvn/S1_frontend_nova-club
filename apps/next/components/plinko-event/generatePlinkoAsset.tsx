@@ -25,7 +25,6 @@ const GeneratePlinkoAsset = (width: number, height: number) => {
         xScale: 1,
         yScale: 1,
       },
-      // fillStyle: 'red',
     },
     collisionFilter: {
       group: -1, // set a negative group for bodyA
@@ -80,7 +79,7 @@ const GeneratePlinkoAsset = (width: number, height: number) => {
   })
 
   // create ground
-  const ground = Bodies.rectangle(400, height - 60 / 2, width, 100, {
+  const ground = Bodies.rectangle(400, height - 60 / 2, 810, 60, {
     label: 'ground',
     isStatic: true,
     render: {
@@ -162,7 +161,7 @@ const GeneratePlinkoAsset = (width: number, height: number) => {
             xScale: 0.75,
             yScale: 0.75,
           },
-          // fillStyle: 'green',
+          fillStyle: 'green',
         },
         collisionFilter: {
           // group: -1, // set a negative group for bodyA
@@ -208,7 +207,7 @@ const GeneratePlinkoAsset = (width: number, height: number) => {
       x - spacing / 2,
       height - 50,
       50,
-      50,
+      25,
       {
         label: 'ground',
         isSensor: false,
@@ -219,6 +218,7 @@ const GeneratePlinkoAsset = (width: number, height: number) => {
           mask: 0x0004, // set a mask for bodyA to collide with bodyB
         },
         render: {
+          fillStyle: 'red',
           sprite: {
             texture: require('../../../../packages/app/assets/images/plinko/shadow.png'),
             xScale: 1,

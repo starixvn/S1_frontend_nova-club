@@ -21,7 +21,7 @@ const PlinkoMessageCard = ({
       <View
         sx={{
           borderRadius: 20,
-          py: '$8',
+          py: '$3',
           minHeight: height * 0.2,
           bg: 'rgba(3, 52, 84,0.65)',
           alignItems: 'center',
@@ -46,7 +46,7 @@ const PlinkoMessageCard = ({
               my: '$2',
             }}
           >
-            {winAmount + ' VND'}
+            {(winAmount === '1000K' ? '1TR' : winAmount) + ' VND'}
           </Text>
         ) : null}
 

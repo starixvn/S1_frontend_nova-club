@@ -7,7 +7,6 @@ import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { HEADER_HEIGHT } from 'app/utils/constant'
-import isDesktop from 'app/utils/isDesktop'
 import HeaderAuthenticationDesktop from 'desktop-ext/components/navigation/header/HeaderAuthentication'
 import {
   Container,
@@ -20,6 +19,7 @@ import {
   useDripsyTheme,
   useResponsiveValue,
 } from 'dripsy'
+import { StatusBar } from 'expo-status-bar'
 import React from 'react'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { Link } from 'solito/link'
@@ -28,8 +28,6 @@ import HeaderAuthentication from './HeaderAuthentication'
 import HeaderDeposit from './HeaderDeposit'
 import HeaderLanguageToggle from './HeaderLanguageToggle'
 import HeaderOverview from './HeaderOverview'
-import { StatusBar } from 'expo-status-bar'
-import Button from 'app/components/common/Button'
 
 const LogoSize = [
   HEADER_HEIGHT * 0.45,
