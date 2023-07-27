@@ -1,6 +1,6 @@
 import { DEV_DOMAIN } from '@env'
 import Button from 'app/components/common/Button'
-import SelectWithDropdown from 'app/components/select/SelectWithDropdown'
+import SelectList from 'app/components/select/SelectList'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
 import { MAP_CRYPTO_PROTOCOL } from 'app/constants/crypto'
 import useAlert from 'app/hooks/useAlert'
@@ -12,6 +12,7 @@ import validation from 'app/utils/validation'
 import { Text, View, useResponsiveValue } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect, useState } from 'react'
+import { Linking, Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { SelectOptions } from 'services/common/types'
 import {
@@ -29,8 +30,6 @@ import * as Yup from 'yup'
 import FieldAmount from './FieldAmount'
 import FieldSelectBank from './FieldSelectBank'
 import MinMaxLimitDetail from './MinMaxLimitDetail'
-import SelectList from 'app/components/select/SelectList'
-import { Linking, Platform } from 'react-native'
 
 export type DepositValues = {
   bank: SelectOptions | null
@@ -68,10 +67,6 @@ const DepositForm = ({ DepositCategoryId }) => {
         value: index.toString(),
       }
     }
-  )
-  console.log(
-    '🚀 ~ file: DepositForm.tsx:72 ~ DepositForm ~ channelOptions:',
-    channelOptions
   )
 
   const [selectedValues, setSelectedValues] = useState(0)

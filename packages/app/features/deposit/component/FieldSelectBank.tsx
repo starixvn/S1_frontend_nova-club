@@ -1,15 +1,13 @@
+import InputLabel from 'app/components/form/InputLabel'
+import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
 import { getBankLogo } from 'app/config/bank'
 import useLocalization from 'app/provider/localization'
+import { Text, View, useResponsiveValue } from 'dripsy'
 import { FormikProps } from 'formik'
 import React from 'react'
 import { PlayerInputFieldsBank } from 'services/deposit.type'
 import { DepositValues } from './DepositForm'
-import Select from 'app/components/select/Select'
-import { ACTION_SHEET_ID } from 'app/constants/deposit'
-import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
 import HorizontalSelectBankCardGrid from './HorizontalSelectBankCardGrid'
-import { Text, View, useResponsiveValue } from 'dripsy'
-import InputLabel from 'app/components/form/InputLabel'
 
 type FieldBankProps = {
   field: PlayerInputFieldsBank
@@ -63,8 +61,9 @@ const FieldSelectBank = ({ field, isLoading, formik }: FieldBankProps) => {
               p: 19,
             }}
           >
-            <Text sx={{ m: '$2', fontSize: 20, fontWeight: 'bold' }}>
-              {values.bank?.label}
+            <Text sx={{ p: '$2', fontSize: 16 }}>
+              {bankList &&
+                bankList.find((el) => el.value === values.bank)?.label}
             </Text>
             <View sx={{ flexDirection: 'row', flexWrap: 'wrap' }}>
               {bankList &&
@@ -88,7 +87,7 @@ const FieldSelectBank = ({ field, isLoading, formik }: FieldBankProps) => {
           label={t('bank.bank')}
           placeholder={t('placeholder.plsSelectBank')}
           options={bankList}
-          value={values.bank?.label ?? ''}
+          value={values.bank ?? ''}
           sx={{
             width: '100%',
             mb: '$3',
