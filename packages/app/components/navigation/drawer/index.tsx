@@ -48,7 +48,6 @@ export default function Drawer({ children }) {
         offsetTop={offsetTop}
         state={useDrawerAnimation}
         transition={{ type: 'timing' }}
-        pointerEvents="none"
       >
         <LazyDrawerContent />
       </DrawerContainer>
