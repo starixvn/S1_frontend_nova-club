@@ -26,16 +26,13 @@ export default function HireBanner() {
           justifyContent: 'center',
         }}
       >
-        <Text
+        <Label
           sx={{
             fontWeight: '900',
-            // pt: FONT_TOP_OFFSET,
-            fontSize: [10, 12, 14, 10, 12, 14],
-            lineHeight: [13, 15, 15, 13, 15],
           }}
         >
           {t('home.hireAgent')}
-        </Text>
+        </Label>
       </View>
       <Row
         sx={{
@@ -87,7 +84,8 @@ export default function HireBanner() {
 
 const Label = styled(Text)({
   mt: FONT_TOP_OFFSET,
-  fontSize: [10, 12, 12, 11, 12],
+  fontSize: [11, 12, 12, 11, 12],
+  lineHeight: [13, 15, 15, 13, 15],
   fontWeight: 'bold',
 })
 
@@ -106,16 +104,15 @@ const JoinNowBtn = ({ children }) => {
         gradient={'secondary'}
         sx={{ px: ['$1', '$2', '$3'], flex: 1, justifyContent: 'center' }}
       >
-        <Text
+        <Label
           sx={{
-            fontSize: [10, 12, 13, 10, 12, 13],
             color: '$error',
             fontWeight: '900',
             marginTop: FONT_TOP_OFFSET,
           }}
         >
           {children}
-        </Text>
+        </Label>
       </DripsyGradient>
     </Pressable>
   )

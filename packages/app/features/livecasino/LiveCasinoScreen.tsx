@@ -71,6 +71,9 @@ export default function LiveCasinoScreen() {
       key={numColumns}
       estimatedItemSize={160}
       showsVerticalScrollIndicator={false}
+      contentContainerStyle={{
+        paddingBottom: 30,
+      }}
       data={firstGameOfEachProvider}
       renderItem={renderItem}
       numColumns={numColumns}

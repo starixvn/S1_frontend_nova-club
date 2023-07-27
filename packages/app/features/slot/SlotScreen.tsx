@@ -161,8 +161,8 @@ function SlotScreen() {
             icon="megaway"
             delay={1000}
           />
-          {isUninitialized ? (
-            <ActivityIndicator color="$tertiary" sx={{ my: '$3' }} />
+          {!providers ? (
+            <ActivityIndicator color="$primary.100" sx={{ my: '$3' }} />
           ) : (
             <ProviderList
               data={providers}
