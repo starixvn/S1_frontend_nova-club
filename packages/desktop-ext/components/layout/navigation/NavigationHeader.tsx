@@ -171,7 +171,7 @@ const MenuButton = ({ icon, label, route, style, menu }: MenuButtonProps) => {
         position: 'relative',
         justifyContent: 'center',
         flex: 1,
-        px: icon ? '$3' : ['$2', '$3', '$3', '$3', '$3', '$4'],
+        px: icon ? '$3' : ['$2', '$2', '$2', 10, 14, 25],
         alignItems: 'center',
       }}
       containerStyle={{ position: 'relative', ...style }}

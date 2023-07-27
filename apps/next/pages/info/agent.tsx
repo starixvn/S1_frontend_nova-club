@@ -6,12 +6,12 @@ import InfoScreen from 'app/features/info/InfoScreen'
 import dynamic from 'next/dynamic'
 import { ActivityIndicator } from 'dripsy'
 
-const LazyEn = dynamic(() => import('app/features/info/Agent/AgentEn'), {
+const LazyEn = dynamic(() => import('app/features/info/agent/AgentEn'), {
   loading: () => <ActivityIndicator />,
   ssr: false,
 })
 
-const LazyVi = dynamic(() => import('app/features/info/Agent/AgentVi'), {
+const LazyVi = dynamic(() => import('app/features/info/agent/AgentVi'), {
   loading: () => <ActivityIndicator />,
   ssr: false,
 })

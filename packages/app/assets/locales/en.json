@@ -59,6 +59,7 @@
     "copy": "Copy",
     "currency": "Currency",
     "date": "Date",
+    "days": "Days",
     "deposit": "Deposit",
     "download": "Download",
     "game": "Game",
@@ -164,7 +165,41 @@
   "event": {
     "luckyDraw": {
       "appSpin": "App To Spin"
-    }
+    },
+    "next": "PLAY NEXT",
+    "start": "START",
+    "won": "CONGRATULATIONS!",
+    "won2": "YOU'VE WON TOTAL",
+    "lose": "SORRY, YOU DIDN'T WIN.",
+    "lose2": " BETTER LUCK NEXT TIME.",
+    "catEvent": {
+      "miniGame": {
+        "lose": "SORRY, YOU DIDN'T WIN.",
+        "lose2": " BETTER LUCK NEXT TIME.",
+        "matchThree": "MATCH 3 TO WIN",
+        "next": "PLAY NEXT",
+        "start": "START",
+        "ticketLeft": "TICKET LEFT",
+        "tryAgain": "TRY AGAIN",
+        "won": "CONGRATULATIONS!",
+        "won2": "YOU'VE WON TOTAL"
+      },
+      "tnc": {}
+    },
+    "claim": "CLAIM YOUR BONUS TICKET NOW",
+    "jackpot": "Jackpot (Shared Pool Prize): 100,000,000 VND",
+    "prediction": {
+      "event": "Prediction Event",
+      "haveSelected": "You have selected",
+      "score": "Score",
+      "selectTeam": "Please select the team"
+    },
+    "ticket": "Ticket/s",
+    "ticketSubmitted": "Successfully submitted your prediction ticket",
+    "winText1": "CONGRATULATIONS!",
+    "winText2": "YOU HAVE RECEIVED THE LOVE GIFT OF",
+    "winnerList": "WINNERS LIST",
+    "youHave": "You Have"
   },
   "filter": {
     "date": {
@@ -222,7 +257,13 @@
     "jackpot": "Jackpot",
     "megaway": "Megaway",
     "new": "New",
-    "recently": "Recently Played"
+    "recently": "Recently Played",
+    "noGame": "No Game Available"
+  },
+  "home": {
+    "hireAgent": "HIRE AGENT",
+    "joinNow": "JOIN NOW",
+    "joinsUs": "JOINS US & START EARNING BONUS!"
   },
   "leaderboard": {
     "minPoints": "Min Points",
@@ -270,8 +311,8 @@
     "rewardsHub": "My Rewards Hub",
     "tab": {
       "event": "Event",
-      "ranking": "Ranking",
       "gameHistory": "Game History",
+      "ranking": "Ranking",
       "redeemHistory": "Redeem History",
       "transactionHistory": "Transaction History"
     },

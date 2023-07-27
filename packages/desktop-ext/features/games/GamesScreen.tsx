@@ -18,6 +18,9 @@ import { LatestWinnerType } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
 import GameList from './GameList'
 import useLocalization from 'app/provider/localization'
+import { Video, ResizeMode } from 'expo-av'
+import { Platform } from 'react-native'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 type Props = {}
 
@@ -32,7 +35,26 @@ function _GamesScreen({}: Props) {
           <LatestWinnerSection type={LatestWinnerType.Games} />
         </View>
         <View sx={{ flex: 1, minHeight: 300, bg: '$secondary.500' }}></View>
-        <View sx={{ flex: 1, minHeight: 300, bg: '$secondary.500' }}></View>
+        <View sx={{ flex: 1, minHeight: 300 }}>
+          <Video
+            isMuted
+            isLooping
+            shouldPlay
+            style={{
+              width: '100%',
+              height: '100%',
+            }}
+            videoStyle={{
+              position: Platform.OS === 'web' ? 'relative' : 'absolute',
+              height: '100%',
+            }}
+            source={{
+              uri: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/games.mp4`,
+            }}
+            useNativeControls={false}
+            resizeMode={ResizeMode.COVER}
+          />
+        </View>
       </Row>
       <RecentlyPlayedSection
         gameTypes={[

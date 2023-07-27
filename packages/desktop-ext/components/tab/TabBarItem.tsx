@@ -35,18 +35,19 @@ const TabBarItem = ({ renderIcon, isActive, label, onPress }) => {
         distance={1}
         startColor={theme.colors.$primary[100]}
         stretch
+        safeRender
       >
         <Row
           sx={{
             borderColor: isActive ? '$primary.100' : 'transparent',
-            borderWidth: 2,
+            borderWidth: 1,
             px: ['$2', '$3'],
             py: ['$1', '$2'],
             bg: '$primary.700',
             alignItems: 'center',
             justifyContent: 'center',
             borderRadius: 24,
-            boxShadow: isActive ? 'inset 0px -3px 6px #9696E6' : 'none',
+            boxShadow: isActive ? 'inset 0px -1px 2px #9696E6' : 'none',
           }}
         >
           <View sx={{ mr: 12 }}>{renderIcon()}</View>

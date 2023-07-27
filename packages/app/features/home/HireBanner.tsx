@@ -1,12 +1,15 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
+import useLocalization from 'app/provider/localization'
 import { Pressable, Row, Text, View, styled, useResponsiveValue } from 'dripsy'
 import React from 'react'
 
 export default function HireBanner() {
-  const direction = useResponsiveValue(['column', 'column', 'column', 'row'])
+  const { t } = useLocalization()
+  // const direction = useResponsiveValue(['column', 'column', 'column', 'row'])
   const showTime = useResponsiveValue([false, true])
+
   return (
     <Row
       sx={{
@@ -19,20 +22,17 @@ export default function HireBanner() {
         sx={{
           borderRadius: 30,
           bg: '$primary.500',
-          px: '$3',
+          px: ['$2', '$3'],
           justifyContent: 'center',
         }}
       >
-        <Text
+        <Label
           sx={{
             fontWeight: '900',
-            pt: FONT_TOP_OFFSET,
-            fontSize: [12, 14],
-            lineHeight: [13, 15],
           }}
         >
-          HIRE AGENT
-        </Text>
+          {t('home.hireAgent')}
+        </Label>
       </View>
       <Row
         sx={{
@@ -44,7 +44,7 @@ export default function HireBanner() {
         <View
           sx={{
             mx: '$1',
-            px: '$2',
+            px: ['$1', '$2'],
             flex: 1,
           }}
         >
@@ -53,7 +53,7 @@ export default function HireBanner() {
               flex: 1,
             }}
           >
-            JOINS US & START EARNING BONUS!
+            {t('home.joinsUs')}
           </Label>
           {showTime && (
             <Row sx={{ flex: 1, alignItems: 'center' }}>
@@ -70,13 +70,13 @@ export default function HireBanner() {
                   color: '#00FFFF',
                 }}
               >
-                30 Days 12:34:56
+                30 {t('common.days')} 12:34:56
               </Label>
             </Row>
           )}
         </View>
 
-        <JoinNowBtn>JOIN NOW</JoinNowBtn>
+        <JoinNowBtn>{t('home.joinNow')}</JoinNowBtn>
       </Row>
     </Row>
   )
@@ -84,7 +84,8 @@ export default function HireBanner() {
 
 const Label = styled(Text)({
   mt: FONT_TOP_OFFSET,
-  fontSize: [12, 14],
+  fontSize: [11, 12, 12, 11, 12],
+  lineHeight: [13, 15, 15, 13, 15],
   fontWeight: 'bold',
 })
 
@@ -101,9 +102,9 @@ const JoinNowBtn = ({ children }) => {
     >
       <DripsyGradient
         gradient={'secondary'}
-        sx={{ px: '$3', flex: 1, justifyContent: 'center' }}
+        sx={{ px: ['$1', '$2', '$3'], flex: 1, justifyContent: 'center' }}
       >
-        <Text
+        <Label
           sx={{
             color: '$error',
             fontWeight: '900',
@@ -111,7 +112,7 @@ const JoinNowBtn = ({ children }) => {
           }}
         >
           {children}
-        </Text>
+        </Label>
       </DripsyGradient>
     </Pressable>
   )

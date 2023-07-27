@@ -27,15 +27,10 @@ const MatchListHeader = ({ data, height }: MatchListHeaderProps) => {
     >
       <DataTable>
         <DataTableHeader sx={{ justifyContent: 'space-between', px: 0 }}>
-          <DataTableTitle
-            sx={{ flex: 0.1 }}
-            textStyle={{
-              lineHeight: height,
-            }}
-          >
+          <DataTableTitle sx={{ flex: 0.1 }}>
             <Icon
               name={MatchLeagueTabIconMapping[data?.LeagueId ?? 0]}
-              sx={{ fontSize: [24, 30, 36], m: '$2' }}
+              sx={{ fontSize: [24, 30] }}
             />
           </DataTableTitle>
 

@@ -4,7 +4,12 @@ import { LaunchGamePayload } from 'app/store/gameLauncher.slice'
 import { SxProp, Text, View, styled, useResponsiveValue, useSx } from 'dripsy'
 import { MotiPressable } from 'moti/interactions'
 import React, { memo, useMemo, useRef, useState, useTransition } from 'react'
-import { GestureResponderEvent, PressableProps, StyleSheet } from 'react-native'
+import {
+  GestureResponderEvent,
+  Platform,
+  PressableProps,
+  StyleSheet,
+} from 'react-native'
 import { SolitoImage } from 'solito/image'
 
 import { AnimatePresence, MotiView } from 'moti'
@@ -105,18 +110,20 @@ const GameCard = ({
           key={imageSrc}
           src={imageSrc}
         />
-        <AnimatePresence>
-          {!loaded && (
-            <MotiView
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              style={{
-                ...StyleSheet.absoluteFillObject,
-                backgroundColor: 'rgba(150,150,255,0.3)',
-              }}
-            />
-          )}
-        </AnimatePresence>
+        {Platform.OS !== 'android' && (
+          <AnimatePresence>
+            {!loaded && (
+              <MotiView
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                style={{
+                  ...StyleSheet.absoluteFillObject,
+                  backgroundColor: 'rgba(150,150,255,0.3)',
+                }}
+              />
+            )}
+          </AnimatePresence>
+        )}
       </View>
       {displayName && (
         <LabelContainer absolute={absoluteName}>

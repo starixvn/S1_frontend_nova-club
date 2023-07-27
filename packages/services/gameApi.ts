@@ -21,7 +21,7 @@ import {
  * @param builder Pass builder from `createApi` *endpoints*
  */
 
-const GAME_BY_TAG_LIMIT = 30
+const GAME_BY_TAG_LIMIT = 20
 const GAME_BY_CATEGORY_LIMIT = 100
 
 export const gameApi = baseApiWithTag.injectEndpoints({

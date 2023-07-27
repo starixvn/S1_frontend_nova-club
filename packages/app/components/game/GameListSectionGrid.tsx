@@ -19,6 +19,7 @@ import { Shadow } from 'react-native-shadow-2'
 import Icon from '../Icon'
 
 import debounce from 'lodash/debounce'
+import useLocalization from 'app/provider/localization'
 type Props = {}
 
 export default function GameListSectionGrid({ children }: Props) {
@@ -146,33 +147,38 @@ const GameListSectionGridList = ({
   aspectRatio?: number
 }) => {
   const locale = useAppSelector((s) => s.setting.locale)
+  const { t } = useLocalization()
   return (
     <Row
       sx={{
         flexWrap: 'wrap',
         px: ['$1', '$1', '$1', '$3'],
         pt: ['$2'],
-        pb: '$sectionBottomSpace',
+        pb: ['$2'],
         borderWidth: bordered ? 2 : 0,
         borderColor: '$primary.300',
       }}
     >
-      {data.map((g, i) => {
-        return (
-          <GameCard
-            key={i}
-            displayName={g.name[locale]}
-            width={itemWidth}
-            sx={{
-              m: itemSpace,
-            }}
-            containerSx={{
-              aspectRatio,
-            }}
-            {...g}
-          />
-        )
-      })}
+      {data?.length > 0 ? (
+        data.map((g, i) => {
+          return (
+            <GameCard
+              key={i}
+              displayName={g.name[locale]}
+              width={itemWidth}
+              sx={{
+                m: itemSpace,
+              }}
+              containerSx={{
+                aspectRatio,
+              }}
+              {...g}
+            />
+          )
+        })
+      ) : (
+        <Text sx={{ color: '$placeholder', my: '$3' }}>{t('game.noGame')}</Text>
+      )}
     </Row>
   )
 }

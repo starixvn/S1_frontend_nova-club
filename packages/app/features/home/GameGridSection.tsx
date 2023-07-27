@@ -1,7 +1,7 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { Row, View, useResponsiveValue } from 'dripsy'
 import React from 'react'
-import { useWindowDimensions } from 'react-native'
+import { Platform, useWindowDimensions } from 'react-native'
 import GameGridSectionItem from './GameGridSectionItem'
 import { ActionType, getAction } from 'app/utils/actionGenerator'
 import { SocialMedia, getSocialMediaScheme } from 'app/constants/socialMedia'
@@ -68,6 +68,7 @@ const config = [
     src: GAME_IMG,
     type: 'video',
     title: 'game.category.games',
+    fallback: `${MEDIA_DOMAIN}${CONTENT_URI}/home/games.jpg`,
     action: {
       type: ActionType.INTERNAL_REDIRECT,
       payload: {
@@ -80,6 +81,7 @@ const config = [
     src: SLOT_IMG,
     type: 'video',
     title: 'game.category.slots',
+    fallback: `${MEDIA_DOMAIN}${CONTENT_URI}/home/sl.jpg`,
     action: {
       type: ActionType.INTERNAL_REDIRECT,
       payload: {
@@ -92,6 +94,7 @@ const config = [
     src: LIVE_CASINO_IMG,
     type: 'video',
     title: 'game.category.liveCasino',
+    fallback: `${MEDIA_DOMAIN}${CONTENT_URI}/home/lc.jpg`,
     action: {
       type: ActionType.INTERNAL_REDIRECT,
       payload: {
@@ -103,6 +106,7 @@ const config = [
     col: 3,
     src: LOTTERY_IMG,
     type: 'video',
+    fallback: `${MEDIA_DOMAIN}${CONTENT_URI}/home/lt.jpg`,
     title: 'game.category.lottery',
     action: {
       type: ActionType.INTERNAL_REDIRECT,
@@ -115,6 +119,7 @@ const config = [
     col: 3,
     src: FISHING_IMG,
     type: 'video',
+    fallback: `${MEDIA_DOMAIN}${CONTENT_URI}/home/fishing.jpg`,
     title: 'game.category.fishing',
     action: {
       type: ActionType.INTERNAL_REDIRECT,
@@ -135,9 +140,7 @@ export default function GameGridSection() {
   const outerPadding = outerPaddingRatio * outerWidth
   const innerWidth = outerWidth - outerPadding * 2
 
-  const widthPerColumn = (1 / totalColumn) * innerWidth
-
-  const isDesktop = useResponsiveValue([false, false, false, true])
+  const widthPerColumn = Math.floor((1 / totalColumn) * innerWidth)
 
   const { push } = useRouter()
 
@@ -146,13 +149,13 @@ export default function GameGridSection() {
       sx={{
         flexWrap: 'wrap',
         p: outerPadding,
-        // bg: 'red',
         justifyContent: 'center',
       }}
     >
       {config.map((c, i) => {
         const width = widthPerColumn * c.col
         const height = width / (c.col / 2)
+        const isFallback = Platform.OS === 'android' && c.fallback
         return (
           <GameGridSectionItem
             key={i}
@@ -161,8 +164,8 @@ export default function GameGridSection() {
               height,
               p: itemSpace,
             }}
-            type={c.type}
-            src={c.src}
+            type={isFallback ? 'image' : c.type}
+            src={isFallback ? c.fallback : c.src}
             title={c.title}
             onPress={() => {
               getAction(c.action)({

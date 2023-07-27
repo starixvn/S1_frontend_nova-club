@@ -53,7 +53,7 @@ export default function MatchLeagueSelector({
           width: '100%',
           maxWidth: maxWidth,
           gap: ['$1', '$2', '$3'],
-          py: ['$1', '$2'],
+          py: '$1',
           px: '$4',
         }}
       >
@@ -120,7 +120,7 @@ const MatchLeagueSelectorTab = memo(
         <IconContainer state={iconRotate} transition={{ type: 'timing' }}>
           <Icon
             name={MatchLeagueTabIconMapping[id]}
-            sx={{ fontSize: [24, 30, 36] }}
+            sx={{ fontSize: 24 }}
             // state={iconColorFade}
             // animatedProps={color}
             color={active ? 'white' : '$tertiary'}

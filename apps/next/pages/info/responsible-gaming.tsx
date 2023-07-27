@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic'
 import { ActivityIndicator } from 'dripsy'
 
 const LazyEn = dynamic(
-  () => import('app/features/info/ResponsibleGaming/ResponsibleGamingEn'),
+  () => import('app/features/info/responsibleGaming/ResponsibleGamingEn'),
   {
     loading: () => <ActivityIndicator />,
     ssr: false,
@@ -15,7 +15,7 @@ const LazyEn = dynamic(
 )
 
 const LazyVi = dynamic(
-  () => import('app/features/info/ResponsibleGaming/ResponsibleGamingVi'),
+  () => import('app/features/info/responsibleGaming/ResponsibleGamingVi'),
   {
     loading: () => <ActivityIndicator />,
     ssr: false,

@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic'
 import { ActivityIndicator } from 'dripsy'
 
 const LazyEn = dynamic(
-  () => import('app/features/info/Shareholder/ShareholderEn'),
+  () => import('app/features/info/shareholder/ShareholderEn'),
   {
     loading: () => <ActivityIndicator />,
     ssr: false,
@@ -15,7 +15,7 @@ const LazyEn = dynamic(
 )
 
 const LazyVi = dynamic(
-  () => import('app/features/info/Shareholder/ShareholderVi'),
+  () => import('app/features/info/shareholder/ShareholderVi'),
   {
     loading: () => <ActivityIndicator />,
     ssr: false,

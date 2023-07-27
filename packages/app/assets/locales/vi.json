@@ -59,6 +59,7 @@
     "copy": "Sao chép",
     "currency": "Tiền tệ",
     "date": "Ngày",
+    "days": "ngày",
     "deposit": "Nạp tiền",
     "download": "Tải về",
     "game": "Trò Chơi",
@@ -164,7 +165,41 @@
   "event": {
     "luckyDraw": {
       "appSpin": "ứng dụng để quay"
-    }
+    },
+    "lose": "RẤT TIẾC!",
+    "lose2": "CHÚC BẠN MAY MẮN LẦN SAU.",
+    "next": "CHƠI TIẾP",
+    "start": "BẮT ĐẦU",
+    "won": "XIN CHÚC MỪNG!",
+    "won2": "BẠN ĐÃ TRÚNG THƯỞNG",
+    "catEvent": {
+      "miniGame": {
+        "lose": "RẤT TIẾC!",
+        "lose2": "CHÚC BẠN MAY MẮN LẦN SAU.",
+        "matchThree": "BỘ BA TÀI LỘC",
+        "next": "CHƠI TIẾP",
+        "start": "BẮT ĐẦU",
+        "ticketLeft": "LƯỢT CHƠI CÒN LẠI",
+        "tryAgain": "THỬ LẠI",
+        "won": "XIN CHÚC MỪNG!",
+        "won2": "BẠN ĐÃ TRÚNG THƯỞNG"
+      },
+      "tnc": {}
+    },
+    "claim": "ĐỔI VÉ THƯỞNG CỦA BẠN NGAY",
+    "jackpot": "Jackpot (chia phần thưởng): 100,000,000 VND",
+    "prediction": {
+      "event": "THÁNH DỰ ĐOÁN ",
+      "haveSelected": "Bạn đã chọn",
+      "score": "Tỷ số",
+      "selectTeam": "Chọn đội của bạn "
+    },
+    "ticket": "vé dự đoán",
+    "ticketSubmitted": "Gửi vé dự đoán thành công",
+    "winText1": "XIN CHÚC MỪNG!",
+    "winText2": "BẠN NHẬN LỘC",
+    "winnerList": "DANH SÁCH NGƯỜI CHIẾN THẮNG",
+    "youHave": "Bạn có"
   },
   "filter": {
     "date": {
@@ -222,7 +257,13 @@
     "jackpot": "NỔ HŨ",
     "megaway": "Megaway",
     "new": "Mới",
-    "recently": "Được chơi gần đây"
+    "recently": "Được chơi gần đây",
+    "noGame": "Không có trò chơi phù hợp bộ lọc"
+  },
+  "home": {
+    "hireAgent": "TUYỂN ĐẠI LÝ",
+    "joinNow": "THAM GIA NGAY",
+    "joinsUs": "THAM GIA VỚI CHÚNG TÔI & BẮT ĐẦU KIẾM TIỀN THƯỞNG!"
   },
   "leaderboard": {
     "minPoints": "Điểm tối thiểu",
@@ -270,8 +311,8 @@
     "rewardsHub": "Phần thưởng của tôi",
     "tab": {
       "event": "Sự kiện",
-      "ranking": "Xếp hạng",
       "gameHistory": "Lịch sử trò chơi",
+      "ranking": "Xếp hạng",
       "redeemHistory": "",
       "transactionHistory": "Lịch sử giao dịch"
     },

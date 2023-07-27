@@ -131,21 +131,19 @@ export default function DrawerContent() {
   return (
     <ScrollView
       sx={{
-        flex: 1,
         width: '100%',
-        height: height,
         position: 'absolute',
       }}
       contentContainerSx={{
         mt: HEADER_HEIGHT + top,
         bg: '$primary.500',
+        height: height - HEADER_HEIGHT - top,
       }}
       ref={scrollRef}
     >
       <View
         sx={{
           flex: 1,
-          minHeight: height * 0.4,
           justifyContent: 'space-between',
         }}
       >
@@ -182,16 +180,17 @@ export default function DrawerContent() {
         </View>
         <View
           sx={{
-            minHeight: height * 0.57,
+            flexGrow: 1,
             justifyContent: 'flex-end',
           }}
         >
           <ImageBackground
             source={require('../../../assets/images/banner_referral.jpg')}
             style={{
-              aspectRatio: 760 / 1200,
+              aspectRatio: 380 / 600,
               alignItems: 'center',
               justifyContent: 'center',
+              backgroundColor: 'blue',
             }}
             resizeMode="contain"
           >

@@ -1,17 +1,22 @@
 import { View, useResponsiveValue } from 'dripsy'
 import union from 'lodash/union'
-import React, { startTransition, useEffect, useMemo, useState } from 'react'
+import React, {
+  memo,
+  startTransition,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 import { Game } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
 
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { ALL } from 'app/utils/constant'
-import GameListSectionGrid from './GameListSectionGrid'
-import { Text } from 'dripsy'
-import { useAppSelector } from 'app/provider/redux/store'
-import Button from '../common/Button'
-import { useRouter } from 'solito/router'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
+import { ALL } from 'app/utils/constant'
+import { Text } from 'dripsy'
+import Button from '../common/Button'
+import GameListSectionGrid from './GameListSectionGrid'
 
 function GameSectionByProviderItem({
   gpc,
@@ -53,13 +58,13 @@ function GameSectionByProviderItem({
 
   const searchedGame = useMemo(() => {
     return search
-      ? games
+      ? filteredGame
           .filter((g) => {
             return g.name[locale]?.toLowerCase().includes(search.toLowerCase())
           })
           .slice(0, count)
       : undefined
-  }, [search, games, count, locale])
+  }, [search, filteredGame, count, locale])
 
   return (
     <View nativeID={`gameSection${gpc}`}>
@@ -113,4 +118,4 @@ function GameSectionByProviderItem({
   )
 }
 
-export default GameSectionByProviderItem
+export default memo(GameSectionByProviderItem)

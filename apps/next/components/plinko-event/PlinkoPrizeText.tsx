@@ -8,10 +8,10 @@ const basketPrizeArray = [
   '100K',
   '100K',
   '0K',
-  '100K',
+  '1TR',
   '0K',
   '0K',
-  '1M',
+  '200K',
 ]
 interface PlinkoPrizeTextProps {
   enlargedHeight: number
@@ -48,7 +48,7 @@ const PlinkoPrizeText = ({
                 sx={{
                   position: 'absolute',
                   minWidth: enlargedWidth * 0.11,
-                  top: enlargedHeight * (1 - 0.062),
+                  top: enlargedHeight * (1 - 0.065),
                   left: basketSpacing * i,
                   display: 'flex',
                 }}
@@ -91,7 +91,7 @@ const PlinkoPrizeText = ({
                         basketLocation.current === i &&
                         prize.current === '1000K'
                           ? '#FF9300'
-                          : dummyText === '1M' && basketLocation.current !== i
+                          : dummyText === '1TR' && basketLocation.current !== i
                           ? '#FF9300'
                           : '#7C4800',
                       fontSize: 22 * scale,
@@ -102,6 +102,8 @@ const PlinkoPrizeText = ({
                     {basketLocation.current === i
                       ? prize.current === '0'
                         ? prize.current + 'K'
+                        : prize.current === '1000K'
+                        ? '1TR'
                         : prize.current
                       : dummyText}
                   </Text>

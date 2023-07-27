@@ -7,7 +7,6 @@ import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { HEADER_HEIGHT } from 'app/utils/constant'
-import isDesktop from 'app/utils/isDesktop'
 import HeaderAuthenticationDesktop from 'desktop-ext/components/navigation/header/HeaderAuthentication'
 import {
   Container,
@@ -18,7 +17,9 @@ import {
   View,
   styled,
   useDripsyTheme,
+  useResponsiveValue,
 } from 'dripsy'
+import { StatusBar } from 'expo-status-bar'
 import React from 'react'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { Link } from 'solito/link'
@@ -27,7 +28,6 @@ import HeaderAuthentication from './HeaderAuthentication'
 import HeaderDeposit from './HeaderDeposit'
 import HeaderLanguageToggle from './HeaderLanguageToggle'
 import HeaderOverview from './HeaderOverview'
-import { StatusBar } from 'expo-status-bar'
 
 const LogoSize = [
   HEADER_HEIGHT * 0.45,
@@ -56,7 +56,7 @@ const MainHeader = () => {
   const { push } = useRouter()
   const token = useAppSelector((s) => s.auth.info?.token)
   const { t } = useLocalization()
-  const desktop = isDesktop()
+  const desktop = useResponsiveValue([false, false, false, true])
   const { theme } = useDripsyTheme()
   const { logout } = useOnAppLogout()
 
@@ -127,31 +127,6 @@ const MainHeader = () => {
                     size={22}
                   />
                 </Shadow>
-                {/* <Shadow
-                  offset={[0, -1]}
-                  startColor={'rgba(255, 255, 255, 0.8)'}
-                  distance={1}
-                  style={{ borderRadius: 15 }}
-                  containerStyle={{ marginHorizontal: 5 }}
-                >
-                  <Button
-                    sx={{
-                      bg: '$primary.100',
-                      px: '$3',
-                      width: 80,
-                      borderRadius: 15,
-                    }}
-                    contentProps={{ sx: { py: 2 } }}
-                    titleProps={{
-                      sx: {
-                        fontSize: 11,
-                        wordWrap: 'break-word',
-                      },
-                    }}
-                  >
-                    {t('common.agentLogin')}
-                  </Button>
-                </Shadow> */}
               </>
             )}
 
