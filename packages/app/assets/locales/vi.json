@@ -205,6 +205,13 @@
     "note2": "VUI123 cam kết ủng hộ cá cược có trách nhiệm",
     "responsibleGaming": "Cược có trách nhiệm"
   },
+  "forceDownload": {
+    "download": "Tải về",
+    "downloadApp": "Tải APP",
+    "message": "Vui lòng tải bản mới với những nâng cấp sau:",
+    "promoText": "Cược mọi lúc mọi nơi",
+    "title": "Cập nhật phiên bản mới"
+  },
   "game": {
     "category": {
       "cardGame": "Game Bài",

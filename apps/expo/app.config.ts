@@ -23,6 +23,9 @@ const expoConfig = ({ config }: ConfigContext): ExpoConfig => ({
     requireFullScreen: true,
     supportsTablet: true,
     bundleIdentifier: 'com.vuifit.app',
+    infoPlist: {
+      UIBackgroundModes: ['remote-notification', 'fetch'],
+    },
     // infoPlist: {
     //   // to add
     //   // - LSApplicationQueriesSchemes

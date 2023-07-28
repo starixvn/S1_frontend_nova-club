@@ -1,58 +1,61 @@
 import { CommonActions } from '@react-navigation/native'
 import { contentApi } from 'services/contentApi'
-import { SplashScreenTask } from './useSplashScreen'
-// export const checkVersionUpdated: SplashScreenTask = (context) => async () => {
-//   const { t, showAlert } = context
-//   let isUptoDate = true
-//   let handler = () => {}
+import { SplashScreenHandler, SplashScreenTask } from './useSplashScreen'
+import firestore from '@react-native-firebase/firestore'
+import { Version, isNewVersionAvailable } from 'app/utils/rn-helper'
+import { Linking, Platform } from 'react-native'
+export const checkVersionUpdated: SplashScreenTask = (context) => async () => {
+  const { t, showAlert } = context
+  let isUptoDate = true
+  let handler = () => {}
 
-//   const versions = await firestore().collection('versions').get()
-//   if (versions) {
-//     const latestVersion = (await versions.docs[
-//       versions.docs.length - 1
-//     ]?.data()) as Version
+  const versions = await firestore().collection('versions').get()
+  if (versions) {
+    const latestVersion = (await versions.docs[
+      versions.docs.length - 1
+    ]?.data()) as Version
 
-//     isUptoDate = !isNewVersionAvailable(latestVersion)
+    isUptoDate = !isNewVersionAvailable(latestVersion)
 
-//     console.log('SPLASHSCREEN - binary version status', isUptoDate)
+    console.log('SPLASHSCREEN - binary version status', isUptoDate)
 
-//     const { major, minor, patch } = latestVersion
+    const { major, minor, patch } = latestVersion
 
-//     handler = () => {
-//       if (!isUptoDate)
-//         showAlert({
-//           title: t('forceDownload.title', {
-//             version: `${major}.${minor}.${patch}`,
-//           }),
-//           message:
-//             `${t('forceDownload.message')}\n\n` +
-//             latestVersion.changes.reduce((c, s) => `${c}- ${s}\n`, ''),
-//           actions: [
-//             {
-//               label: t('forceDownload.download'),
-//               onPress: () => {
-//                 try {
-//                   Linking.openURL(
-//                     Platform.OS === 'android'
-//                       ? latestVersion.androidUrl
-//                       : latestVersion.iosUrl
-//                   )
-//                 } catch (e) {}
-//               },
-//               disableAutoClose: true,
-//             },
-//           ],
-//           persistent: true,
-//           hideCloseButton: true,
-//         })
-//     }
-//   }
+    handler = () => {
+      if (!isUptoDate)
+        showAlert({
+          title: t('forceDownload.title', {
+            version: `${major}.${minor}.${patch}`,
+          }),
+          message:
+            `${t('forceDownload.message')}\n\n` +
+            latestVersion.changes.reduce((c, s) => `${c}- ${s}\n`, ''),
+          actions: [
+            {
+              label: t('forceDownload.download'),
+              onPress: () => {
+                try {
+                  Linking.openURL(
+                    Platform.OS === 'android'
+                      ? latestVersion.androidUrl
+                      : latestVersion.iosUrl
+                  )
+                } catch (e) {}
+              },
+              disableAutoClose: true,
+            },
+          ],
+          persistent: true,
+          hideCloseButton: true,
+        })
+    }
+  }
 
-//   return {
-//     result: isUptoDate,
-//     handler,
-//   } as SplashScreenHandler
-// }
+  return {
+    result: isUptoDate,
+    handler,
+  } as SplashScreenHandler
+}
 
 export const checkMaintenance: SplashScreenTask = (context) => async () => {
   const { dispatch, navigation } = context

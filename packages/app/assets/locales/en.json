@@ -205,6 +205,13 @@
     "note2": "VUI123 is committed to supporting Responsible Gaming",
     "responsibleGaming": "Responsible Gaming"
   },
+  "forceDownload": {
+    "download": "Download",
+    "downloadApp": "Download APP",
+    "message": "Please update app to the latest version which includes:",
+    "promoText": "Bet Anytime Anywhere",
+    "title": "New version available"
+  },
   "game": {
     "category": {
       "cardGame": "Card Game",

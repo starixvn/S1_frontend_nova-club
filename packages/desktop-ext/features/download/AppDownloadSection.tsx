@@ -1,4 +1,4 @@
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import { CONTENT_URI, MEDIA_DOMAIN, REFERRAL_DOMAIN } from '@env'
 import Icon from 'app/components/Icon'
 import Button from 'app/components/common/Button'
 import useContainerWidth from 'app/hooks/useContainerWidth'
@@ -13,8 +13,6 @@ const HowToInstall =
   `${MEDIA_DOMAIN}${CONTENT_URI}/download/How_To_Install.mp4` as any
 const DownloadGuideThumbnail =
   `${MEDIA_DOMAIN}${CONTENT_URI}/download/dl_guide_thumbnail.jpg` as any
-
-const DOWNLOAD_APP_LINK = 'https://s2syf.app.link/7rqfWLKDhtb'
 
 const AppDownloadSection = () => {
   const { t } = useLocalization()
@@ -157,7 +155,7 @@ const QRCodeDownloadGuideItem = ({
   const { openModal } = useModal()
   return (
     <View sx={{ alignItems: 'center' }}>
-      <QRCode value={DOWNLOAD_APP_LINK} size={width} ecl="H" quietZone={12} />
+      <QRCode value={REFERRAL_DOMAIN} size={width} ecl="H" quietZone={12} />
       <Text sx={{ fontWeight: 'bold', pt: '$1', pb: '$2' }}>{t(label)}</Text>
       <Button
         sx={{ borderRadius: 30 }}

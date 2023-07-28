@@ -1,7 +1,14 @@
 {
   "dependencies": {
+    "@notifee/react-native": "^7.8.0",
     "@react-native-async-storage/async-storage": "^1.18.1",
     "@react-native-community/datetimepicker": "4.0.0",
+    "@react-native-firebase/analytics": "^18.3.0",
+    "@react-native-firebase/app": "^18.3.0",
+    "@react-native-firebase/crashlytics": "^18.3.0",
+    "@react-native-firebase/firestore": "^18.3.0",
+    "@react-native-firebase/messaging": "^18.3.0",
+    "@react-native-firebase/perf": "^18.3.0",
     "@react-native-menu/menu": "^0.7.3",
     "@react-navigation/material-top-tabs": "^6.6.3",
     "@reduxjs/toolkit": "^1.9.5",
@@ -39,6 +46,7 @@
     "react-native-code-push": "^8.0.2",
     "react-native-confirmation-code-field": "^7.3.1",
     "react-native-date-picker": "^4.2.13",
+    "react-native-device-info": "^10.8.0",
     "react-native-gesture-handler": "~2.9.0",
     "react-native-ios-context-menu": "^1.15.3",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",

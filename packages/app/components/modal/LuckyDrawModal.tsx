@@ -26,6 +26,7 @@ import IconButton from '../IconButton'
 import { MotifiedImage } from '../common/Image'
 import AvertaStd from 'app/assets/fonts/Averta'
 import { useModal } from 'react-native-modalfy'
+import { REFERRAL_DOMAIN } from '@env'
 
 const LuckyDrawModal = ({ modal: { closeModal } }) => {
   const { t } = useLocalization()
@@ -408,7 +409,7 @@ const DownloadAppButton = ({
       }}
       onPress={() => {
         if (windowWidth < 992) {
-          Linking.openURL('https://s2syf.app.link/7rqfWLKDhtb')
+          Linking.openURL(REFERRAL_DOMAIN)
         } else {
           push('/download')
           onPress()
