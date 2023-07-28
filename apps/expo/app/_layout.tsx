@@ -1,7 +1,18 @@
 import { Provider } from 'app/provider'
-import { Slot, Stack, useNavigation, useRouter } from 'expo-router'
-import RootPage from './rootPage'
-import { Platform } from 'react-native'
+import { Stack } from 'expo-router'
+
+import messaging from '@react-native-firebase/messaging'
+import notifee from '@notifee/react-native'
+import useNotification from 'app/hooks/notification/useNotification'
+
+// Register background handler
+messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+  console.log('Message handled in the background!', remoteMessage)
+})
+
+notifee.onBackgroundEvent(async ({ type, detail }) => {
+  // no op
+})
 
 export default function Root() {
   // const router = useRouter()
@@ -15,6 +26,8 @@ export default function Root() {
   //     router.replace('/')
   //   })
   // }
+
+  useNotification()
 
   return (
     <Provider>

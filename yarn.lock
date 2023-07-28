@@ -2520,6 +2520,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@notifee/react-native@npm:^7.8.0":
+  version: 7.8.0
+  resolution: "@notifee/react-native@npm:7.8.0"
+  peerDependencies:
+    react-native: "*"
+  checksum: 800233c9505195046e918ee42a4b11d8e84cf1846ea4a0b52599e1a40181b2bbfcab09c64b445b5a7eed98c38556c97550bce32ed24a51ce05ccd8b65047548d
+  languageName: node
+  linkType: hard
+
 "@npmcli/fs@npm:^1.0.0":
   version: 1.1.1
   resolution: "@npmcli/fs@npm:1.1.1"
@@ -3146,6 +3155,78 @@ __metadata:
   dependencies:
     invariant: ^2.2.4
   checksum: 4a86807ee3bb3437c1a57ef33e4066f58c5d23c8f22231007964247ea9c8c7abfc27342ee85cc42df0c2776061570cdf8e4eb802024fcccaf71ee7fe3ec319d9
+  languageName: node
+  linkType: hard
+
+"@react-native-firebase/analytics@npm:^18.3.0":
+  version: 18.3.0
+  resolution: "@react-native-firebase/analytics@npm:18.3.0"
+  peerDependencies:
+    "@react-native-firebase/app": 18.3.0
+  checksum: d5afcfa990bd057e565313c114b8acad5ccc7e32ae9fc7331ccb7022bd41fe58a73f6d41273650957eb28420ddcc4fb018d640bb27639c386bf2be3c7eb1e9e3
+  languageName: node
+  linkType: hard
+
+"@react-native-firebase/app@npm:^18.3.0":
+  version: 18.3.0
+  resolution: "@react-native-firebase/app@npm:18.3.0"
+  dependencies:
+    opencollective-postinstall: ^2.0.1
+    superstruct: ^0.6.2
+  peerDependencies:
+    expo: ">=47.0.0"
+    react: "*"
+    react-native: "*"
+  peerDependenciesMeta:
+    expo:
+      optional: true
+  checksum: 2fded415d7b9f579e72888402a2619e2bb87fa7bdb04ad29f04349cb2140cdfda0d7f13cd79dc76cb106c342cc2b73ff833f84a78b84f62d70e7005f2500448a
+  languageName: node
+  linkType: hard
+
+"@react-native-firebase/crashlytics@npm:^18.3.0":
+  version: 18.3.0
+  resolution: "@react-native-firebase/crashlytics@npm:18.3.0"
+  dependencies:
+    stacktrace-js: ^2.0.0
+  peerDependencies:
+    "@react-native-firebase/app": 18.3.0
+    expo: ">=47.0.0"
+  peerDependenciesMeta:
+    expo:
+      optional: true
+  checksum: d54cad8cff9bcf0f52a2b243b65b8895c930da79fe5a21bf7cee5a912d4eec1dadf9b2c21b1c77e0dda30b54ddd628c62a0f57651f873c517c7d20e0a48d85ba
+  languageName: node
+  linkType: hard
+
+"@react-native-firebase/firestore@npm:^18.3.0":
+  version: 18.3.0
+  resolution: "@react-native-firebase/firestore@npm:18.3.0"
+  peerDependencies:
+    "@react-native-firebase/app": 18.3.0
+  checksum: ee0e8b8e921d852b0536ce884af0ab716eda95a45f461dd6d4b2603fccfc11ffffc435eca124f660c590d4695886b4160f8c87f92328da1d06040913098cee94
+  languageName: node
+  linkType: hard
+
+"@react-native-firebase/messaging@npm:^18.3.0":
+  version: 18.3.0
+  resolution: "@react-native-firebase/messaging@npm:18.3.0"
+  peerDependencies:
+    "@react-native-firebase/app": 18.3.0
+  checksum: e72774dab99d594c1004fe726666c458dcab108bb13f2dfa23a29597a17942f124ed50524d948ddbf75f6cb78f9fca4aca2bc8c5a6fa9c38af36e5911bcaf072
+  languageName: node
+  linkType: hard
+
+"@react-native-firebase/perf@npm:^18.3.0":
+  version: 18.3.0
+  resolution: "@react-native-firebase/perf@npm:18.3.0"
+  peerDependencies:
+    "@react-native-firebase/app": 18.3.0
+    expo: ">=47.0.0"
+  peerDependenciesMeta:
+    expo:
+      optional: true
+  checksum: d6879a61f5f78167cfd4cf18134c9ae68c467e6ccff5d4f5234dcc73881096c6b627256a9b6554471e1419590aa28fc67d6e08fa61ce63b1e368fe010e0f6969
   languageName: node
   linkType: hard
 
@@ -5003,6 +5084,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"clone-deep@npm:^2.0.1":
+  version: 2.0.2
+  resolution: "clone-deep@npm:2.0.2"
+  dependencies:
+    for-own: ^1.0.0
+    is-plain-object: ^2.0.4
+    kind-of: ^6.0.0
+    shallow-clone: ^1.0.0
+  checksum: c33ae31e332cdfd477a8115c9d044984eb69bf009fce3e1f0ff002176652f572d8742aa5e6caeaf16cf5d6084e33fe51bfa482fec53f43e767b3518c797955b1
+  languageName: node
+  linkType: hard
+
 "clone-deep@npm:^4.0.1":
   version: 4.0.1
   resolution: "clone-deep@npm:4.0.1"
@@ -6551,8 +6644,15 @@ __metadata:
   resolution: "expo-app@workspace:apps/expo"
   dependencies:
     "@babel/core": ^7.20.0
+    "@notifee/react-native": ^7.8.0
     "@react-native-async-storage/async-storage": ^1.18.1
     "@react-native-community/datetimepicker": 4.0.0
+    "@react-native-firebase/analytics": ^18.3.0
+    "@react-native-firebase/app": ^18.3.0
+    "@react-native-firebase/crashlytics": ^18.3.0
+    "@react-native-firebase/firestore": ^18.3.0
+    "@react-native-firebase/messaging": ^18.3.0
+    "@react-native-firebase/perf": ^18.3.0
     "@react-native-menu/menu": ^0.7.3
     "@react-navigation/material-top-tabs": ^6.6.3
     "@reduxjs/toolkit": ^1.9.5
@@ -6592,6 +6692,7 @@ __metadata:
     react-native-code-push: ^8.0.2
     react-native-confirmation-code-field: ^7.3.1
     react-native-date-picker: ^4.2.13
+    react-native-device-info: ^10.8.0
     react-native-dotenv: ^3.4.8
     react-native-gesture-handler: ~2.9.0
     react-native-ios-context-menu: ^1.15.3
@@ -7425,10 +7526,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"for-in@npm:^1.0.2":
+"for-in@npm:^0.1.3":
+  version: 0.1.8
+  resolution: "for-in@npm:0.1.8"
+  checksum: f5bdad7811700ee6a0f96b33d72a1db966aea75a1f03c7245d147f8369305e709f53a55ee7ae8eaddcfa85c7c89bca78472be8f1bc605475ce5bb2c70f77f8da
+  languageName: node
+  linkType: hard
+
+"for-in@npm:^1.0.1, for-in@npm:^1.0.2":
   version: 1.0.2
   resolution: "for-in@npm:1.0.2"
   checksum: 09f4ae93ce785d253ac963d94c7f3432d89398bf25ac7a24ed034ca393bf74380bdeccc40e0f2d721a895e54211b07c8fad7132e8157827f6f7f059b70b4043d
+  languageName: node
+  linkType: hard
+
+"for-own@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "for-own@npm:1.0.0"
+  dependencies:
+    for-in: ^1.0.1
+  checksum: 233238f6e9060f61295a7f7c7e3e9de11aaef57e82a108e7f350dc92ae84fe2189848077ac4b8db47fd8edd45337ed8d9f66bd0b1efa4a6a1b3f38aa21b7ab2e
   languageName: node
   linkType: hard
 
@@ -9353,7 +9470,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"kind-of@npm:^6.0.0, kind-of@npm:^6.0.2":
+"kind-of@npm:^6.0.0, kind-of@npm:^6.0.1, kind-of@npm:^6.0.2":
   version: 6.0.3
   resolution: "kind-of@npm:6.0.3"
   checksum: 3ab01e7b1d440b22fe4c31f23d8d38b4d9b91d9f291df683476576493d5dfd2e03848a8b05813dd0c3f0e835bc63f433007ddeceb71f05cb25c45ae1b19c6d3b
@@ -10284,6 +10401,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mixin-object@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "mixin-object@npm:2.0.1"
+  dependencies:
+    for-in: ^0.1.3
+    is-extendable: ^0.1.1
+  checksum: 7d0eb7c2f06435fcc01d132824b4c973a0df689a117d8199d79911b506363b6f4f86a84458a63f3acfa7388f3052612cfe27105400b4932678452925a9739a4c
+  languageName: node
+  linkType: hard
+
 "mkdirp-classic@npm:^0.5.2, mkdirp-classic@npm:^0.5.3":
   version: 0.5.3
   resolution: "mkdirp-classic@npm:0.5.3"
@@ -10994,6 +11121,15 @@ __metadata:
     is-docker: ^2.1.1
     is-wsl: ^2.2.0
   checksum: 6388bfff21b40cb9bd8f913f9130d107f2ed4724ea81a8fd29798ee322b361ca31fa2cdfb491a5c31e43a3996cfe9566741238c7a741ada8d7af1cb78d85cf26
+  languageName: node
+  linkType: hard
+
+"opencollective-postinstall@npm:^2.0.1":
+  version: 2.0.3
+  resolution: "opencollective-postinstall@npm:2.0.3"
+  bin:
+    opencollective-postinstall: index.js
+  checksum: 0a68c5cef135e46d11e665d5077398285d1ce5311c948e8327b435791c409744d4a6bb9c55bd6507fb5f2ef34b0ad920565adcdaf974cbdae701aead6f32b396
   languageName: node
   linkType: hard
 
@@ -11946,6 +12082,15 @@ __metadata:
     react: ">= 17.0.1"
     react-native: ">= 0.64.3"
   checksum: 0e18931524c2a9a19efac3d367a0c746201245c29a52ffa665eb4144d96226f68657f14f71918786ea47ae64d4ad06b9ede9ac0dc6f5539499fd05d3aca3f466
+  languageName: node
+  linkType: hard
+
+"react-native-device-info@npm:^10.8.0":
+  version: 10.8.0
+  resolution: "react-native-device-info@npm:10.8.0"
+  peerDependencies:
+    react-native: "*"
+  checksum: 9875ad17a8b73a418befd010c4a33a5a43d5c09c2f63a445c1cec35746014c392c35dee487e81e9ff7c0568ff08fbd51ccee33f3c7bc4f71a065e7d47c205b6b
   languageName: node
   linkType: hard
 
@@ -13195,6 +13340,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"shallow-clone@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "shallow-clone@npm:1.0.0"
+  dependencies:
+    is-extendable: ^0.1.1
+    kind-of: ^5.0.0
+    mixin-object: ^2.0.1
+  checksum: d4fd93b82d9fdd135027510f4beb04479de96c50b5392a17b022cf0942d17d43bff92aa83dfc30ddf962c0ed015e7c686c2ce677b85760ca5a8db9ebd5f1d791
+  languageName: node
+  linkType: hard
+
 "shallow-clone@npm:^3.0.0":
   version: 3.0.1
   resolution: "shallow-clone@npm:3.0.1"
@@ -13488,6 +13644,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"source-map@npm:0.5.6":
+  version: 0.5.6
+  resolution: "source-map@npm:0.5.6"
+  checksum: 390b3f5165c9631a74fb6fb55ba61e62a7f9b7d4026ae0e2bfc2899c241d71c1bccb8731c496dc7f7cb79a5f523406eb03d8c5bebe8448ee3fc38168e2d209c8
+  languageName: node
+  linkType: hard
+
 "source-map@npm:^0.5.6":
   version: 0.5.7
   resolution: "source-map@npm:0.5.7"
@@ -13566,6 +13729,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"stack-generator@npm:^2.0.5":
+  version: 2.0.10
+  resolution: "stack-generator@npm:2.0.10"
+  dependencies:
+    stackframe: ^1.3.4
+  checksum: 4fc3978a934424218a0aa9f398034e1f78153d5ff4f4ff9c62478c672debb47dd58de05b09fc3900530cbb526d72c93a6e6c9353bacc698e3b1c00ca3dda0c47
+  languageName: node
+  linkType: hard
+
 "stack-utils@npm:^2.0.3":
   version: 2.0.6
   resolution: "stack-utils@npm:2.0.6"
@@ -13579,6 +13751,27 @@ __metadata:
   version: 1.3.4
   resolution: "stackframe@npm:1.3.4"
   checksum: bae1596873595c4610993fa84f86a3387d67586401c1816ea048c0196800c0646c4d2da98c2ee80557fd9eff05877efe33b91ba6cd052658ed96ddc85d19067d
+  languageName: node
+  linkType: hard
+
+"stacktrace-gps@npm:^3.0.4":
+  version: 3.1.2
+  resolution: "stacktrace-gps@npm:3.1.2"
+  dependencies:
+    source-map: 0.5.6
+    stackframe: ^1.3.4
+  checksum: 85daa232d138239b6ae0f4bcdd87d15d302a045d93625db17614030945b5314e204b5fbcf9bee5b6f4f9e6af5fca05f65c27fe910894b861ef6853b99470aa1c
+  languageName: node
+  linkType: hard
+
+"stacktrace-js@npm:^2.0.0":
+  version: 2.0.2
+  resolution: "stacktrace-js@npm:2.0.2"
+  dependencies:
+    error-stack-parser: ^2.0.6
+    stack-generator: ^2.0.5
+    stacktrace-gps: ^3.0.4
+  checksum: 081e786d56188ac04ac6604c09cd863b3ca2b4300ec061366cf68c3e4ad9edaa34fb40deea03cc23a05f442aa341e9171f47313f19bd588f9bec6c505a396286
   languageName: node
   linkType: hard
 
@@ -13911,6 +14104,16 @@ __metadata:
     qs: ^6.11.0
     semver: ^7.3.8
   checksum: 5d00cdc7ceb5570663da80604965750e6b1b8d7d7442b7791e285c62bcd8d578a8ead0242a2426432b59a255fb42eb3a196d636157538a1392e7b6c5f1624810
+  languageName: node
+  linkType: hard
+
+"superstruct@npm:^0.6.2":
+  version: 0.6.2
+  resolution: "superstruct@npm:0.6.2"
+  dependencies:
+    clone-deep: ^2.0.1
+    kind-of: ^6.0.1
+  checksum: f95e4049becb928baa531fe56256a74b050a2e4da0bee09ccd0031e08fffd521defeb1d37881b93e6861fa1a7c17c48f3834a99af83cb3ad60c9e6079e840a65
   languageName: node
   linkType: hard
 

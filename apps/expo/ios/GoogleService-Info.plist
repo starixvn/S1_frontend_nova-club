@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>401100497770-t1nkrn23jeqmd0irbhvs49k4gsdpjtj9.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.401100497770-t1nkrn23jeqmd0irbhvs49k4gsdpjtj9</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCJzeP1qKLtnpV7KvNzjHPLgumtPjU8DJ8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>401100497770</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.chlgame.staging2</string>
+	<key>PROJECT_ID</key>
+	<string>nova-club-staging</string>
+	<key>STORAGE_BUCKET</key>
+	<string>nova-club-staging.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:401100497770:ios:cc8597d91d3020bf4e7b13</string>
+	<key>DATABASE_URL</key>
+	<string>https://nova-club-staging-default-rtdb.asia-southeast1.firebasedatabase.app</string>
+</dict>
+</plist>

@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 import useFontInit from 'app/hooks/useFontInit'
 import useCodePushDownload from 'app/integrations/codepush/useCodePush'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-// import { getVersion } from 'react-native-device-info'
+import { getVersion } from 'react-native-device-info'
 import useSplashScreen, { useSplashScreenTaskResolver } from './useSplashScreen'
 
 import { useNavigation } from '@react-navigation/native'
@@ -19,6 +19,7 @@ import { Easing } from 'react-native-reanimated'
 import CodePushUpdateBar from './CodePushUpdateBar'
 import { useRouter } from 'solito/router'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
+import { checkMaintenance, checkVersionUpdated } from './splashScreenChecks'
 
 function useFontInitWithPromise() {
   const resolver = useSplashScreenTaskResolver(useFontInit)
@@ -50,13 +51,16 @@ export default function SplashScreen() {
 
   const { t } = useLocalization()
   const navigation = useNavigation()
-  // const currentVersion = getVersion()
+  const currentVersion = getVersion()
   const { status: codePushStatus, progress } = useCodePushDownload()
 
   const { status } = useSplashScreen(
     {
-      // mandatorySync: [checkVersionUpdated, checkMaintenance], // TODO : implement check maintenane logic
-      mandatoryAsync: [fontInitPromiseFactory],
+      mandatorySync: [
+        fontInitPromiseFactory,
+        checkVersionUpdated,
+        checkMaintenance,
+      ],
     },
     codePushStatus === CodePush.SyncStatus.UP_TO_DATE,
     {
@@ -92,7 +96,7 @@ export default function SplashScreen() {
   //   LogOut()
   // }, [])
   return (
-    <View sx={{ flex: 1 , bg: "$primary.500"}}>
+    <View sx={{ flex: 1, bg: '$primary.500' }}>
       {fontsLoaded && (
         <>
           {codePushStatus === CodePush.SyncStatus.DOWNLOADING_PACKAGE && (
@@ -108,7 +112,7 @@ export default function SplashScreen() {
               opacity: 0.8,
             }}
           >
-            {'2.0.0'}
+            {currentVersion}
           </Text>
           <PromoText />
         </>
