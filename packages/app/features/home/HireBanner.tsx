@@ -5,9 +5,11 @@ import useLocalization from 'app/provider/localization'
 import { Pressable, Row, Text, View, styled, useResponsiveValue } from 'dripsy'
 import { MotiView } from 'moti'
 import React, { useMemo } from 'react'
+import { useRouter } from 'solito/router'
 
 export default function HireBanner() {
   const { t } = useLocalization()
+  const { push } = useRouter()
   // const direction = useResponsiveValue(['column', 'column', 'column', 'row'])
   const show = useResponsiveValue([false, true])
 
@@ -97,7 +99,9 @@ export default function HireBanner() {
           </Row>
         </View>
 
-        <JoinNowBtn>{t('home.playNow')}</JoinNowBtn>
+        <AnimatedButton onPress={() => push('/deposit')}>
+          {t('home.playNow')}
+        </AnimatedButton>
       </Row>
     </Row>
   )
@@ -110,7 +114,7 @@ const Label = styled(Text)({
   fontWeight: 'bold',
 })
 
-export const JoinNowBtn = ({ children }) => {
+export const AnimatedButton = ({ onPress, children }) => {
   const animatedText = useMemo(
     () => (
       <MotiView
@@ -141,6 +145,7 @@ export const JoinNowBtn = ({ children }) => {
 
   return (
     <Pressable
+      onPress={onPress}
       sx={{
         borderRadius: 50,
         overflow: 'hidden',

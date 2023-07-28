@@ -21,11 +21,11 @@ const infoLocalizationMapping = {
   [LANGUAGE_CODE.VIETNAM]: LazyVi,
 }
 
-const Agent: AdaptiveLayoutPage = () => (
+const InfoAgent: AdaptiveLayoutPage = () => (
   <InfoScreen map={infoLocalizationMapping} />
 )
 
-Agent.DesktopLayout = DesktopInfoLayout
-Agent.MobileLayout = MobileInfoLayout
+InfoAgent.DesktopLayout = DesktopInfoLayout
+InfoAgent.MobileLayout = MobileInfoLayout
 
-export default Agent
+export default InfoAgent

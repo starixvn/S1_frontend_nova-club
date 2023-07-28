@@ -73,7 +73,7 @@ const ManageCredentialsPage = () => {
 
   const renderScene = SceneMap({
     first: ChangePasswordPage,
-    second: isPinExist ? ChangePinScreen : CreatePinScreen,
+    second: isPinExist ? ChangePinScreen : () => <CreatePinScreen isTab />,
   })
 
   useEffect(() => {

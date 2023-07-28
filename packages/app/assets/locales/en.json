@@ -36,6 +36,7 @@
     "walletAddress": "Wallet Address"
   },
   "commision": {
+    "cashAgent": "Cash Agent",
     "cashPlayer": "Cash Player",
     "cashPlayerReferral": "Cash Player Referral",
     "creditPlayer": "Credit Player",
@@ -175,7 +176,8 @@
         "won": "CONGRATULATIONS!",
         "won2": "YOU'VE WON TOTAL"
       },
-      "tnc": {}
+      "tnc": {
+      }
     },
     "claim": "CLAIM YOUR BONUS TICKET NOW",
     "jackpot": "Jackpot (Shared Pool Prize): 100,000,000 VND",
@@ -320,10 +322,12 @@
     "msgAnnouncement": "Message / Announcement",
     "rewardsHub": "My Rewards Hub",
     "tab": {
+      "coinHistory": "Coin History",
       "event": "Event",
       "gameHistory": "Game History",
+      "leaderboardEvent": "Leaderboard Event",
+      "leaderboardHistory": "Leaderboard History",
       "ranking": "Ranking",
-      "redeemHistory": "Redeem History",
       "transactionHistory": "Transaction History"
     },
     "tnc": "Terms and Conditions",
@@ -338,13 +342,11 @@
   "notes": {
     "deposit": {
       "n1": "Kindly please check for the latest active deposit bank details before you making a deposit.",
+      "n2": "For using Bank Transfer deposit option, please make the transfer done before submit the transaction to avoid the transaction delay.",
       "n3": "Depositor's ACCOUNT NAME must match with your registered full name. We do not encourage transaction made using 3rd party/company account.",
       "n4": "Please DO NOT fill in 'VUI123' or any sensitive words related to gambling as reference/remark in your online transaction.",
       "n5": "Please take noted that will be 1x rollover required for all deposit made before any withdrawal can be processed.",
       "n6": "Kindly please contact our 24/7 LIVECHAT if your transaction is still pending for more than 5 minutes."
-    },
-    "depost": {
-      "n2": "For using Bank Transfer deposit option, please make the transfer done before submit the transaction to avoid the transaction delay."
     },
     "importantNotice": "Important Notice",
     "qr": {

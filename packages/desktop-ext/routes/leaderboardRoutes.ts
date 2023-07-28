@@ -3,19 +3,19 @@ import { DesktopRoute } from './NavigationType'
 const _Routes: Readonly<DesktopRoute[]> = [
   // {
   //   key: 'LeaderboardEvent',
-  //   title: 'Leaderboard Event',
+  //   title: 'menu.tab.leaderboardEvent',
   //   icon: 'star',
   //   route: '/account/leaderboard/event',
   // },
   {
     key: 'Ranking',
-    title: 'Ranking',
+    title: 'menu.tab.ranking',
     icon: 'crown',
     route: '/account/leaderboard/ranking',
   },
   // {
   //   key: 'LeaderboardHistory',
-  //   title: 'Leaderboard History',
+  //   title: 'menu.tab.leaderboardHistory',
   //   icon: 'star',
   //   route: '/account/leaderboard/history',
   // },

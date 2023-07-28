@@ -1,13 +1,13 @@
-import { DripsyGradient } from 'app/components/Gradient'
-import Icon from 'app/components/Icon'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
 import useLocalization from 'app/provider/localization'
-import { Pressable, Row, Text, View, styled, useResponsiveValue } from 'dripsy'
+import { Row, Text, View, styled, useResponsiveValue } from 'dripsy'
 import React from 'react'
-import { JoinNowBtn } from './HireBanner'
+import { useRouter } from 'solito/router'
+import { AnimatedButton } from './HireBanner'
 
 export default function HireBannerDesktop() {
   const { t } = useLocalization()
+  const { push } = useRouter()
   // const direction = useResponsiveValue(['column', 'column', 'column', 'row'])
   const showTime = useResponsiveValue([false, true])
 
@@ -55,7 +55,9 @@ export default function HireBannerDesktop() {
           <Label sx={{ flex: 1 }}>{t('home.banner2.n2')}</Label>
         </View>
 
-        <JoinNowBtn>{t('home.joinNow')}</JoinNowBtn>
+        <AnimatedButton onPress={() => push('/auth/register?t=agent')}>
+          {t('home.joinNow')}
+        </AnimatedButton>
       </Row>
     </Row>
   )

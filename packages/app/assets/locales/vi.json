@@ -36,6 +36,7 @@
     "walletAddress": "Địa chỉ ví"
   },
   "commision": {
+    "cashAgent": "Đại lý trả trước",
     "cashPlayer": "Người chơi trả trước",
     "cashPlayerReferral": "Giới thiệu người chơi trả trước",
     "creditPlayer": "Người chơi tín dụng",
@@ -175,7 +176,8 @@
         "won": "XIN CHÚC MỪNG!",
         "won2": "BẠN ĐÃ TRÚNG THƯỞNG"
       },
-      "tnc": {}
+      "tnc": {
+      }
     },
     "claim": "ĐỔI VÉ THƯỞNG CỦA BẠN NGAY",
     "jackpot": "Jackpot (chia phần thưởng): 100,000,000 VND",
@@ -281,7 +283,7 @@
     "playerId": "ID người chơi",
     "pointsCalculation": "Tính điểm",
     "product": "Sản phẩm",
-    "rank": "",
+    "rank": "Xếp hạng",
     "top10": "Top 10 người thắng",
     "turnover": "Doanh số"
   },
@@ -320,10 +322,12 @@
     "msgAnnouncement": "Tin Nhắn/Thông Báo",
     "rewardsHub": "Phần thưởng của tôi",
     "tab": {
+      "coinHistory": "Lịch sử xu",
       "event": "Sự kiện",
       "gameHistory": "Lịch sử trò chơi",
+      "leaderboardEvent": "Sự kiện đua top",
+      "leaderboardHistory": "Lịch sử đua top",
       "ranking": "Xếp hạng",
-      "redeemHistory": "",
       "transactionHistory": "Lịch sử giao dịch"
     },
     "tnc": "Điều khoản và Điều kiện",
@@ -338,13 +342,11 @@
   "notes": {
     "deposit": {
       "n1": "Vui lòng luôn cập nhật thông tin tài khoản ngân hàng đang hoạt động trước khi gửi tiền.",
+      "n2": "Nếu chọn “Chuyển khoản”, vui lòng thực hiện chuyển khoản trước khi thực hiện lệnh gửi để tránh giao dịch bị chậm.",
       "n3": "TÊN TÀI KHOẢN người gửi phải trùng với họ tên đăng ký. Chúng tôi không khuyến khích thực hiện giao dịch bằng bên/công ty thứ ba.",
       "n4": "Vui lòng KHÔNG điền “Vui123” hoặc bất cứ từ nhạy cảm nào liên quan đến cá cược trong phần nội dung giao dịch.",
       "n5": "Vui lòng lưu ý rằng mọi khoản tiền nạp đều cần hoàn thành doanh thu cược 1 lần trước khi được rút.",
       "n6": "Vui lòng liên hệ bộ phận LIVECHAT 24/7 nếu lệnh gửi chậm trễ quá 5 phút."
-    },
-    "depost": {
-      "n2": "Nếu chọn “Chuyển khoản”, vui lòng thực hiện chuyển khoản trước khi thực hiện lệnh gửi để tránh giao dịch bị chậm."
     },
     "importantNotice": "THÔNG BÁO QUAN TRỌNG",
     "qr": {
@@ -416,7 +418,7 @@
     "qrTransfer": "Chuyển quỹ bằng QR",
     "receive": "Nhận",
     "transferTitle": "Chuyển quỹ",
-    "transferableAmount": ""
+    "transferableAmount": "Số tiền có thể chuyển"
   },
   "validation": {
     "alphanumeric": "6-18 ký tự chữ và số (A-Z, a-z, 0-9)",

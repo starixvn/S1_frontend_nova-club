@@ -12,7 +12,7 @@ const Providers = () => {
         mx: ['8%', , , , '10%'],
       }}
     >
-      <LogoImage src={`${MEDIA_DOMAIN}${CONTENT_URI}/footer/providers.png`} />
+      <LogoImage src={`${MEDIA_DOMAIN}${CONTENT_URI}/footer/provider.png`} />
     </Row>
   )
 }

@@ -78,9 +78,7 @@ const CommissionTableScreen = () => {
         <TitleCell center>
           {t('commision.cashPlayerReferral').toUpperCase()}
         </TitleCell>
-        <TitleCell center>
-          {t('commision.creditPlayer').toUpperCase()}
-        </TitleCell>
+        <TitleCell center>{t('commision.cashAgent').toUpperCase()}</TitleCell>
       </DataTable.Header>
     </DataTable>
   )

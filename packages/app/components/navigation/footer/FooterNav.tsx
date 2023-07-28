@@ -23,8 +23,8 @@ export const FooterLinks = [
     key: 'Agent',
     title: 'common.agent',
     icon: '',
-    route: '/info/agent',
-    base: '/info/agent',
+    route: '/info/info-agent',
+    base: '/info/info-agent',
   },
   {
     key: 'TNC',
