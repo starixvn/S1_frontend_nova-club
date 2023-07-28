@@ -14,6 +14,7 @@ import { Shield_Action } from 'services/authApi.type'
 import dynamic from 'next/dynamic'
 import withLazyLoad from 'app/hoc/withLadyLoad'
 import LazyIndicator from 'app/components/LazyIndicator'
+import HireBannerDesktop from 'app/features/home/HireBannerDesktop'
 
 const DeferredSection = dynamic(() => import('./DeferredSection'), {
   loading: () => <LazyIndicator />,
@@ -90,7 +91,7 @@ export default function HomeScreen() {
               <HireBanner />
             </View>
             <View sx={{ flex: 1 }}>
-              <HireBanner />
+              <HireBannerDesktop />
             </View>
           </Row>
         </View>

@@ -163,15 +163,6 @@
     }
   },
   "event": {
-    "luckyDraw": {
-      "appSpin": "App To Spin"
-    },
-    "next": "PLAY NEXT",
-    "start": "START",
-    "won": "CONGRATULATIONS!",
-    "won2": "YOU'VE WON TOTAL",
-    "lose": "SORRY, YOU DIDN'T WIN.",
-    "lose2": " BETTER LUCK NEXT TIME.",
     "catEvent": {
       "miniGame": {
         "lose": "SORRY, YOU DIDN'T WIN.",
@@ -188,17 +179,26 @@
     },
     "claim": "CLAIM YOUR BONUS TICKET NOW",
     "jackpot": "Jackpot (Shared Pool Prize): 100,000,000 VND",
+    "lose": "SORRY, YOU DIDN'T WIN.",
+    "lose2": " BETTER LUCK NEXT TIME.",
+    "luckyDraw": {
+      "appSpin": "App To Spin"
+    },
+    "next": "PLAY NEXT",
     "prediction": {
       "event": "Prediction Event",
       "haveSelected": "You have selected",
       "score": "Score",
       "selectTeam": "Please select the team"
     },
+    "start": "START",
     "ticket": "Ticket/s",
     "ticketSubmitted": "Successfully submitted your prediction ticket",
     "winText1": "CONGRATULATIONS!",
     "winText2": "YOU HAVE RECEIVED THE LOVE GIFT OF",
     "winnerList": "WINNERS LIST",
+    "won": "CONGRATULATIONS!",
+    "won2": "YOU'VE WON TOTAL",
     "youHave": "You Have"
   },
   "filter": {
@@ -257,13 +257,23 @@
     "jackpot": "Jackpot",
     "megaway": "Megaway",
     "new": "New",
-    "recently": "Recently Played",
-    "noGame": "No Game Available"
+    "noGame": "No Game Available",
+    "recently": "Recently Played"
   },
   "home": {
+    "banner": {
+      "n1": "100% WELCOME & DEPOSIT BONUS",
+      "n2": "WIN UP TO 1 MILLION VND",
+      "n3": "1X ROLLOVER ONLY"
+    },
+    "banner2": {
+      "n1": "UNLOCK YOUR PASSIVE INCOME",
+      "n2": "RECRUIT PLAYER AND EARN COMMISSION"
+    },
     "hireAgent": "HIRE AGENT",
     "joinNow": "JOIN NOW",
-    "joinsUs": "JOINS US & START EARNING BONUS!"
+    "joinsUs": "JOINS US & START EARNING BONUS!",
+    "playNow": "PLAY NOW"
   },
   "leaderboard": {
     "minPoints": "Min Points",
