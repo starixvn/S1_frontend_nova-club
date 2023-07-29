@@ -4696,7 +4696,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"branch-sdk@npm:^2.76.0":
+"branch-sdk@npm:2.76.0":
   version: 2.76.0
   resolution: "branch-sdk@npm:2.76.0"
   checksum: dc35b6fd3c35e1a1f33d1ddc86cd9d7e7bcd81257b004a34464c42b0ea9f05e9901a8718a24aa22909f1300530397f46b33b5f0711a6770ddefe9d6480a5fa81
@@ -10605,7 +10605,7 @@ __metadata:
     "@types/node": 17.0.21
     agent: "*"
     app: "*"
-    branch-sdk: ^2.76.0
+    branch-sdk: 2.76.0
     desktop-ext: "*"
     dripsy: "*"
     eslint-config-next: 13.2.0
