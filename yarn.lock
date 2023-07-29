@@ -4696,6 +4696,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"branch-sdk@npm:^2.76.0":
+  version: 2.76.0
+  resolution: "branch-sdk@npm:2.76.0"
+  checksum: dc35b6fd3c35e1a1f33d1ddc86cd9d7e7bcd81257b004a34464c42b0ea9f05e9901a8718a24aa22909f1300530397f46b33b5f0711a6770ddefe9d6480a5fa81
+  languageName: node
+  linkType: hard
+
 "browserslist@npm:^4.21.3, browserslist@npm:^4.21.5":
   version: 4.21.5
   resolution: "browserslist@npm:4.21.5"
@@ -6688,6 +6695,7 @@ __metadata:
     react-native: 0.71.8
     react-native-actions-sheet: 0.7.2
     react-native-barcode-mask: ^1.2.4
+    react-native-branch: 5.8.0
     react-native-chart-kit: ^6.12.0
     react-native-code-push: ^8.0.2
     react-native-confirmation-code-field: ^7.3.1
@@ -6707,6 +6715,7 @@ __metadata:
     react-native-screens: ~3.20.0
     react-native-shadow-2: ^7.0.8
     react-native-share: ^8.2.2
+    react-native-shield: "https://oauth2:gKtjpo2C_UvL4rB-muaE@dev.git.beacora.com/frontend/react-native-shield.git"
     react-native-svg: 13.4.0
     react-native-tab-view: ^3.5.1
     react-native-toast-message: ^2.1.6
@@ -10596,6 +10605,7 @@ __metadata:
     "@types/node": 17.0.21
     agent: "*"
     app: "*"
+    branch-sdk: ^2.76.0
     desktop-ext: "*"
     dripsy: "*"
     eslint-config-next: 13.2.0
@@ -12001,6 +12011,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-branch@npm:5.8.0":
+  version: 5.8.0
+  resolution: "react-native-branch@npm:5.8.0"
+  peerDependencies:
+    react-native: ">= 0.60"
+  checksum: 03bee6c884c67678e637b9bd065eed06f6fdcb57fa92011d09855e53b5e77adb5390887dc113a6691f48e5902a80246a8e475c909576bd19899257797f62fa3e
+  languageName: node
+  linkType: hard
+
 "react-native-chart-kit@npm:*, react-native-chart-kit@npm:^6.12.0":
   version: 6.12.0
   resolution: "react-native-chart-kit@npm:6.12.0"
@@ -12317,6 +12336,16 @@ __metadata:
   version: 8.2.2
   resolution: "react-native-share@npm:8.2.2"
   checksum: 0f69911fda2ca1856b439d8b4fcc2ac9c74bd92590fb6a7db60282181f0a9612f218985b3c69b0bbe73da5395a3aa197e91ac8de9a05c07c0b0da5a096a0e294
+  languageName: node
+  linkType: hard
+
+"react-native-shield@https://oauth2:gKtjpo2C_UvL4rB-muaE@dev.git.beacora.com/frontend/react-native-shield.git":
+  version: 1.0.1
+  resolution: "react-native-shield@https://oauth2:gKtjpo2C_UvL4rB-muaE@dev.git.beacora.com/frontend/react-native-shield.git#commit=0377d1c8dd31139c99dba34dd23e76c41092763a"
+  peerDependencies:
+    react: ">=16.8.1"
+    react-native: ">=0.60.0-rc.0 <1.0.x"
+  checksum: 8a19f90de7bba937a722b1980d74b672046554a32facd723c2ef77fb01dd27b91204e0afed009ea27b02000799d961a11d28aae5bc531c8a5d93cf85f18e1be3
   languageName: node
   linkType: hard
 

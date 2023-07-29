@@ -13,6 +13,7 @@ import { TextInput, useWindowDimensions } from 'react-native'
 import { useLazyCheckUsernameQuery } from 'services/authApi'
 import { RegisterFormValues } from './RegisterScreen'
 import FormContainer from 'app/components/form/FormContainer'
+import { useAppSelector } from 'app/provider/redux/store'
 
 interface RegisterFormProps {
   isAgent: boolean
@@ -34,6 +35,9 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
   const { t } = useLocalization()
   const [checkUsername] = useLazyCheckUsernameQuery()
   const { width } = useWindowDimensions()
+  const referral = useAppSelector((s) => s.setting.referral)
+
+  console.log('referral', referral)
   //   const [agentCheckUsername] = useLazyAgentCheckUsernameQuery()
 
   const [usernameErrorMsg, setUsernameErrorMsg] = useState('')

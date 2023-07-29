@@ -12,6 +12,9 @@ import expo.modules.ReactActivityDelegateWrapper;
 import android.view.WindowManager;
 import androidx.core.view.WindowCompat;
 
+import io.branch.rnbranch.*;
+import android.content.Intent;
+
 public class MainActivity extends ReactActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,20 @@ public class MainActivity extends ReactActivity {
   @Override
   protected String getMainComponentName() {
     return "main";
+  }
+
+  // Override onStart:
+  @Override
+  protected void onStart() {
+    super.onStart();
+    RNBranchModule.initSession(getIntent().getData(), this);
+  }
+
+  // Override onNewIntent:
+  @Override
+  public void onNewIntent(Intent intent) {
+    super.onNewIntent(intent);
+    RNBranchModule.onNewIntent(intent);
   }
 
   /**

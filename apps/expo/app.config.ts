@@ -4,7 +4,7 @@ const expoConfig = ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: 'Vui 123',
   slug: 'vui123',
-  version: '2.0.0',
+  version: '2.0.1',
   scheme: 'vuifit',
   platforms: ['ios', 'android'],
   orientation: 'portrait',
@@ -25,6 +25,12 @@ const expoConfig = ({ config }: ConfigContext): ExpoConfig => ({
     bundleIdentifier: 'com.vuifit.app',
     infoPlist: {
       UIBackgroundModes: ['remote-notification', 'fetch'],
+      branch_universal_link_domains: [
+        's2syf.app.link',
+        's2syf.test.app.link',
+        's2syf-alternate.app.link',
+        's2syf-alternate.test.app.link',
+      ],
     },
     // infoPlist: {
     //   // to add

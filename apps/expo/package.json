@@ -42,6 +42,7 @@
     "react-native": "0.71.8",
     "react-native-actions-sheet": "0.7.2",
     "react-native-barcode-mask": "^1.2.4",
+    "react-native-branch": "5.8.0",
     "react-native-chart-kit": "^6.12.0",
     "react-native-code-push": "^8.0.2",
     "react-native-confirmation-code-field": "^7.3.1",
@@ -60,6 +61,7 @@
     "react-native-screens": "~3.20.0",
     "react-native-shadow-2": "^7.0.8",
     "react-native-share": "^8.2.2",
+    "react-native-shield": "https://oauth2:gKtjpo2C_UvL4rB-muaE@dev.git.beacora.com/frontend/react-native-shield.git",
     "react-native-svg": "13.4.0",
     "react-native-tab-view": "^3.5.1",
     "react-native-toast-message": "^2.1.6",
@@ -86,8 +88,8 @@
     "clean-codepush": "rm -rf codepush && mkdir codepush && mkdir codepush/android && mkdir codepush/ios",
     "bundle-ios": "yarn clean-codepush && node ../../node_modules/.bin/react-native bundle --platform ios --entry-file index.js --bundle-output ./CodePush/ios/main.jsbundle --assets-dest ./CodePush/ios --dev false --reset-cache",
     "bundle-android": "yarn clean-codepush && node ../../node_modules/.bin/react-native bundle --platform android --entry-file index.js --bundle-output ./CodePush/android/index.android.bundle --assets-dest ./CodePush/android --dev false --reset-cache",
-    "codepush:ios:staging2": "APP_ENV=stag yarn bundle-ios && appcenter codepush release -a app_team/NClub-ios -d StagingAlt -m -t 2.0.0 -c ./CodePush/ios",
-    "codepush:android:staging2": "APP_ENV=stag yarn bundle-android && appcenter codepush release -a app_team/NClub-android -d StagingAlt -m -t 2.0.0 -c ./CodePush/android"
+    "codepush:ios:staging2": "APP_ENV=stag yarn bundle-ios && appcenter codepush release -a app_team/NClub-ios -d StagingAlt -m -t 2.0.1 -c ./CodePush/ios",
+    "codepush:android:staging2": "APP_ENV=stag yarn bundle-android && appcenter codepush release -a app_team/NClub-android -d StagingAlt -m -t 2.0.1 -c ./CodePush/android"
   },
   "version": "1.0.0",
   "private": true,

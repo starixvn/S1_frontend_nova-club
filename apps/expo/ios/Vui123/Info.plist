@@ -23,6 +23,10 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.chlgame.staging2</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>vuifit</string>
@@ -89,5 +93,12 @@
 	<string>Light</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>branch_universal_link_domains</key>
+	<array>
+		<string>nnynt.app.link</string>
+		<string>nnynt-alternate.app.link</string>
+		<string>nnynt.test.app.link</string>
+		<string>nnynt-alternate.test.app.link</string>
+	</array>
 </dict>
 </plist>

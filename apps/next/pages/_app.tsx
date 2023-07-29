@@ -23,7 +23,6 @@ function MyApp({ ...rest }: AdaptiveAppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Provider>
-        <Shield />
         <AuthenticationProvider>
           <AdaptiveLayout {...rest} />
         </AuthenticationProvider>

@@ -32,7 +32,7 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:scheme="vuifit"/>
-        <data android:scheme="com.chlgame.app"/>
+        <data android:scheme="com.chlgame.staging2"/>
         <data android:scheme="exp+vui123"/>
       </intent-filter>
     </activity>

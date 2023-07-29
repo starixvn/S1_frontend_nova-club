@@ -19,6 +19,8 @@ import com.microsoft.codepush.react.CodePush;
 
 import java.util.List;
 
+import io.branch.rnbranch.RNBranchModule;
+
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
@@ -73,6 +75,10 @@ public class MainApplication extends Application implements ReactApplication {
     }
     ReactNativeFlipper.initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
     ApplicationLifecycleDispatcher.onApplicationCreate(this);
+
+    // Branch logging for debugging
+    RNBranchModule.enableLogging();
+    RNBranchModule.getAutoInstance(this);
   }
 
   @Override

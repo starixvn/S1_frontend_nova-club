@@ -11,5 +11,5 @@ export const SHIELD_KEY = process.env.SHIELD_KEY
 export const LIVECHAT_URL = process.env.LIVECHAT_URL
 export const AGENT_API_DOMAIN = process.env.AGENT_API_DOMAIN
 
-export const NEXT_PUBLIC_BRANCH_KEY = process.env.AGENT_API_DOMAIN
-export const NEXT_PUBLIC_SHIELD_SITE_ID = process.env.AGENT_API_DOMAIN
+export const NEXT_PUBLIC_BRANCH_KEY = process.env.NEXT_PUBLIC_BRANCH_KEY
+export const NEXT_PUBLIC_SHIELD_SITE_ID = process.env.NEXT_PUBLIC_SHIELD_SITE_ID

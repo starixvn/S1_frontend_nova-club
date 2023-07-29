@@ -636,6 +636,7 @@ PODS:
   - BoringSSL-GRPC/Implementation (0.0.24):
     - BoringSSL-GRPC/Interface (= 0.0.24)
   - BoringSSL-GRPC/Interface (0.0.24)
+  - BranchSDK (2.1.0)
   - CodePush (8.0.2):
     - Base64 (~> 1.1)
     - JWT (~> 3.0.0-beta.12)
@@ -1171,6 +1172,9 @@ PODS:
   - React-jsinspector (0.71.8)
   - React-logger (0.71.8):
     - glog
+  - react-native-branch (5.8.0):
+    - BranchSDK (= 2.1.0)
+    - React-Core
   - react-native-date-picker (4.2.13):
     - React-Core
   - react-native-ios-context-menu (1.15.3):
@@ -1187,6 +1191,9 @@ PODS:
     - RCTTypeSafety
     - React-Core
     - ReactCommon/turbomodule/core
+  - react-native-shield (1.0.1):
+    - React
+    - ShieldFraud
   - react-native-view-shot (3.5.0):
     - React-Core
   - react-native-webview (11.26.0):
@@ -1359,6 +1366,7 @@ PODS:
   - SDWebImageWebPCoder (0.9.1):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.13)
+  - ShieldFraud (1.5.27)
   - SSZipArchive (2.2.3)
   - Yoga (1.14.0)
   - ZXingObjC/Core (3.6.5)
@@ -1409,12 +1417,14 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../../../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../../../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../../../node_modules/react-native/ReactCommon/logger`)
+  - react-native-branch (from `../../../node_modules/react-native-branch`)
   - react-native-date-picker (from `../../../node_modules/react-native-date-picker`)
   - react-native-ios-context-menu (from `../../../node_modules/react-native-ios-context-menu`)
   - "react-native-menu (from `../../../node_modules/@react-native-menu/menu`)"
   - react-native-pager-view (from `../../../node_modules/react-native-pager-view`)
   - react-native-render-html (from `../../../node_modules/react-native-render-html`)
   - react-native-safe-area-context (from `../../../node_modules/react-native-safe-area-context`)
+  - react-native-shield (from `../../../node_modules/react-native-shield`)
   - react-native-view-shot (from `../../../node_modules/react-native-view-shot`)
   - react-native-webview (from `../../../node_modules/react-native-webview`)
   - React-perflogger (from `../../../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -1454,6 +1464,7 @@ SPEC REPOS:
     - abseil
     - Base64
     - BoringSSL-GRPC
+    - BranchSDK
     - Firebase
     - FirebaseABTesting
     - FirebaseAnalytics
@@ -1486,6 +1497,7 @@ SPEC REPOS:
     - SDWebImageAVIFCoder
     - SDWebImageSVGCoder
     - SDWebImageWebPCoder
+    - ShieldFraud
     - SSZipArchive
     - ZXingObjC
 
@@ -1570,6 +1582,8 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/react-native/ReactCommon/jsinspector"
   React-logger:
     :path: "../../../node_modules/react-native/ReactCommon/logger"
+  react-native-branch:
+    :path: "../../../node_modules/react-native-branch"
   react-native-date-picker:
     :path: "../../../node_modules/react-native-date-picker"
   react-native-ios-context-menu:
@@ -1582,6 +1596,8 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/react-native-render-html"
   react-native-safe-area-context:
     :path: "../../../node_modules/react-native-safe-area-context"
+  react-native-shield:
+    :path: "../../../node_modules/react-native-shield"
   react-native-view-shot:
     :path: "../../../node_modules/react-native-view-shot"
   react-native-webview:
@@ -1654,6 +1670,7 @@ SPEC CHECKSUMS:
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
   BoringSSL-GRPC: 3175b25143e648463a56daeaaa499c6cb86dad33
+  BranchSDK: ce28650272c658fcdb66675769e670ef83845d17
   CodePush: 9eddecce05cd10491e2673b259c85885a462be33
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   EXApplication: d8f53a7eee90a870a75656280e8d4b85726ea903
@@ -1721,12 +1738,14 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 9101857bcffac8dae43d76a7bc0a39bda593c756
   React-jsinspector: c712f9e3bb9ba4122d6b82b4f906448b8a281580
   React-logger: 342f358b8decfbf8f272367f4eacf4b6154061be
+  react-native-branch: f50f269fa6d2e1b8025c7fc8ebfe4872678abe53
   react-native-date-picker: 04e866ba4e7857f83abd504ad42e787f0f02ae00
   react-native-ios-context-menu: e529171ba760a1af7f2ef0729f5a7f4d226171c5
   react-native-menu: 9d7d6f819cc7fa14a15cf86888c53f3240d86f1b
   react-native-pager-view: 54bed894cecebe28cede54c01038d9d1e122de43
   react-native-render-html: 984dfe2294163d04bf5fe25d7c9f122e60e05ebe
   react-native-safe-area-context: 39c2d8be3328df5d437ac1700f4f3a4f75716acc
+  react-native-shield: fee0c85f4aa81e9f43f0a9d87f3bc8c9d4475a72
   react-native-view-shot: 792829857bbb23a9c8acdad9a640554bdee397a3
   react-native-webview: 994b9f8fbb504d6314dc40d83f94f27c6831b3bf
   React-perflogger: d21f182895de9d1b077f8a3cd00011095c8c9100
@@ -1763,6 +1782,7 @@ SPEC CHECKSUMS:
   SDWebImageAVIFCoder: 8348fef6d0ec69e129c66c9fe4d74fbfbf366112
   SDWebImageSVGCoder: 6fc109f9c2a82ab44510fff410b88b1a6c271ee8
   SDWebImageWebPCoder: 18503de6621dd2c420d680e33d46bf8e1d5169b0
+  ShieldFraud: b014f2ed4ff470c17ad2086c100f746a75426056
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   Yoga: 065f0b74dba4832d6e328238de46eb72c5de9556
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb

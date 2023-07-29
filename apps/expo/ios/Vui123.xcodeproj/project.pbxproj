@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		092EB1752A73D17100F1E29F /* branch.json in Resources */ = {isa = PBXBuildFile; fileRef = 092EB1742A73D17100F1E29F /* branch.json */; };
+		092EB1772A73EEEE00F1E29F /* Vui123.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 092EB1762A73EEE400F1E29F /* Vui123.entitlements */; };
 		097DED2F2A72873A00BCCFCC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 097DED2E2A72873A00BCCFCC /* GoogleService-Info.plist */; };
 		097DED382A7287D900BCCFCC /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 097DED372A7287D900BCCFCC /* NotificationService.m */; };
 		097DED3C2A7287D900BCCFCC /* NotifeeNotificationService.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 097DED342A7287D900BCCFCC /* NotifeeNotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -47,6 +49,8 @@
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		092EB1742A73D17100F1E29F /* branch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = branch.json; sourceTree = "<group>"; };
+		092EB1762A73EEE400F1E29F /* Vui123.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = Vui123.entitlements; path = Vui123/Vui123.entitlements; sourceTree = "<group>"; };
 		097DED2E2A72873A00BCCFCC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		097DED342A7287D900BCCFCC /* NotifeeNotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotifeeNotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		097DED362A7287D900BCCFCC /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
@@ -104,6 +108,8 @@
 		13B07FAE1A68108700A75B9A /* Vui123 */ = {
 			isa = PBXGroup;
 			children = (
+				092EB1762A73EEE400F1E29F /* Vui123.entitlements */,
+				092EB1742A73D17100F1E29F /* branch.json */,
 				097DED2E2A72873A00BCCFCC /* GoogleService-Info.plist */,
 				BB2F792B24A3F905000567C9 /* Supporting */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -231,6 +237,7 @@
 				097DED402A7287D900BCCFCC /* Embed Foundation Extensions */,
 				30EC6C532C1A121F7ADAA4A0 /* [CP-User] [RNFB] Core Configuration */,
 				E866E5574B1901EFC4804764 /* [CP-User] [RNFB] Crashlytics Configuration */,
+				8AF1F7589F1EC1ABFD51B740 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -293,8 +300,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				092EB1772A73EEEE00F1E29F /* Vui123.entitlements in Resources */,
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				097DED2F2A72873A00BCCFCC /* GoogleService-Info.plist in Resources */,
+				092EB1752A73D17100F1E29F /* branch.json in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
 			);
@@ -396,6 +405,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Vui123/Pods-Vui123-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8AF1F7589F1EC1ABFD51B740 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Vui123/Pods-Vui123-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/ShieldFraud/ShieldFraud.framework/ShieldFraud",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ShieldFraud.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Vui123/Pods-Vui123-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		E866E5574B1901EFC4804764 /* [CP-User] [RNFB] Crashlytics Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -474,7 +501,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -494,7 +521,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chlgame.staging2.NotifeeNotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Wildcard Development";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Wildcard Distribution";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -513,7 +540,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
@@ -533,7 +560,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chlgame.staging2.NotifeeNotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Wildcard Development";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Wildcard Distribution";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -548,7 +575,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Vui123/Vui123.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
@@ -573,7 +600,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chlgame.staging2;
 				PRODUCT_NAME = Vui123;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Vui Staging 2 Development Profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Vui Staging 2 Adhoc Distribution profile";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -589,7 +616,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Vui123/Vui123.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
@@ -609,7 +636,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chlgame.staging2;
 				PRODUCT_NAME = Vui123;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Vui Staging 2 Development Profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Vui Staging 2 Adhoc Distribution profile";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";

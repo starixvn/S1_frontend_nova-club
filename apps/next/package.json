@@ -17,6 +17,7 @@
     "@types/matter-js": "^0.18.5",
     "agent": "*",
     "app": "*",
+    "branch-sdk": "2.76.0",
     "desktop-ext": "*",
     "dripsy": "*",
     "howler": "^2.2.3",

@@ -5,6 +5,9 @@ import ModalProvider from './modal'
 import RootToast from 'app/components/RootToast'
 import DrawerProvider from 'app/components/navigation/drawer/DrawerProvider'
 import GameLauncher from 'app/features/game/GameLauncher'
+import Branch from 'app/integrations/branch/Branch'
+import ReferralTrigger from 'app/components/ReferralTrigger'
+import Shield from 'app/integrations/shield/Shield'
 
 export function Provider({ children }: { children: React.ReactNode }) {
   return (
@@ -15,6 +18,9 @@ export function Provider({ children }: { children: React.ReactNode }) {
             <ModalProvider>
               {children}
               <GameLauncher />
+              <Branch />
+              <Shield />
+              <ReferralTrigger />
             </ModalProvider>
           </DrawerProvider>
           <RootToast />
