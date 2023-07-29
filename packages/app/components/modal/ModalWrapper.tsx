@@ -17,8 +17,8 @@ const ModalWrapper = ({ children, sx }: ModalWrapperProps) => {
   return (
     <View
       sx={{
-        p: '$4',
-        width: Math.min(800, WindowWidth * 0.9),
+        // p: '$4',
+        width: Math.min(800, WindowWidth * 0.8),
         justifyContent: 'center',
         ...sx,
       }}

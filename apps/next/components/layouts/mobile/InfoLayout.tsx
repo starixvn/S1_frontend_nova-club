@@ -2,6 +2,7 @@ import { PageWithBackHeader } from 'app/components/layouts/Page'
 import useLocalization from 'app/provider/localization'
 import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
+import { Platform } from 'react-native'
 
 export default function InfoLayout({ children }: { children: ReactNode }) {
   const { pathname } = useRouter()
@@ -14,6 +15,7 @@ export default function InfoLayout({ children }: { children: ReactNode }) {
     <PageWithBackHeader
       header={{ title: t(infoPageTitle) }} // TODO find way to change title based on route
       hideHeader={window.ReactNativeWebView ? true : false}
+      wrapperStyle={{ maxHeight: Platform.OS === 'web' ? '100vh' : '' }}
     >
       {children}
     </PageWithBackHeader>

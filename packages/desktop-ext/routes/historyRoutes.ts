@@ -15,7 +15,7 @@ const _Routes: Readonly<DesktopRoute[]> = [
   },
   {
     key: 'RedeemHistory',
-    title: 'menu.tab.redeemHistory',
+    title: 'menu.tab.coinHistory',
     icon: 'cp',
     route: '/history/redeem',
   },

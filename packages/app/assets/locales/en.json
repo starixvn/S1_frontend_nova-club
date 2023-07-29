@@ -36,6 +36,7 @@
     "walletAddress": "Wallet Address"
   },
   "commision": {
+    "cashAgent": "Cash Agent",
     "cashPlayer": "Cash Player",
     "cashPlayerReferral": "Cash Player Referral",
     "creditPlayer": "Credit Player",
@@ -163,15 +164,6 @@
     }
   },
   "event": {
-    "luckyDraw": {
-      "appSpin": "App To Spin"
-    },
-    "next": "PLAY NEXT",
-    "start": "START",
-    "won": "CONGRATULATIONS!",
-    "won2": "YOU'VE WON TOTAL",
-    "lose": "SORRY, YOU DIDN'T WIN.",
-    "lose2": " BETTER LUCK NEXT TIME.",
     "catEvent": {
       "miniGame": {
         "lose": "SORRY, YOU DIDN'T WIN.",
@@ -184,21 +176,31 @@
         "won": "CONGRATULATIONS!",
         "won2": "YOU'VE WON TOTAL"
       },
-      "tnc": {}
+      "tnc": {
+      }
     },
     "claim": "CLAIM YOUR BONUS TICKET NOW",
     "jackpot": "Jackpot (Shared Pool Prize): 100,000,000 VND",
+    "lose": "SORRY, YOU DIDN'T WIN.",
+    "lose2": " BETTER LUCK NEXT TIME.",
+    "luckyDraw": {
+      "appSpin": "App To Spin"
+    },
+    "next": "PLAY NEXT",
     "prediction": {
       "event": "Prediction Event",
       "haveSelected": "You have selected",
       "score": "Score",
       "selectTeam": "Please select the team"
     },
+    "start": "START",
     "ticket": "Ticket/s",
     "ticketSubmitted": "Successfully submitted your prediction ticket",
     "winText1": "CONGRATULATIONS!",
     "winText2": "YOU HAVE RECEIVED THE LOVE GIFT OF",
     "winnerList": "WINNERS LIST",
+    "won": "CONGRATULATIONS!",
+    "won2": "YOU'VE WON TOTAL",
     "youHave": "You Have"
   },
   "filter": {
@@ -264,13 +266,23 @@
     "jackpot": "Jackpot",
     "megaway": "Megaway",
     "new": "New",
-    "recently": "Recently Played",
-    "noGame": "No Game Available"
+    "noGame": "No Game Available",
+    "recently": "Recently Played"
   },
   "home": {
+    "banner": {
+      "n1": "100% WELCOME & DEPOSIT BONUS",
+      "n2": "WIN UP TO 1 MILLION VND",
+      "n3": "1X ROLLOVER ONLY"
+    },
+    "banner2": {
+      "n1": "UNLOCK YOUR PASSIVE INCOME",
+      "n2": "RECRUIT PLAYER AND EARN COMMISSION"
+    },
     "hireAgent": "HIRE AGENT",
     "joinNow": "JOIN NOW",
-    "joinsUs": "JOINS US & START EARNING BONUS!"
+    "joinsUs": "JOINS US & START EARNING BONUS!",
+    "playNow": "PLAY NOW"
   },
   "leaderboard": {
     "minPoints": "Min Points",
@@ -317,10 +329,12 @@
     "msgAnnouncement": "Message / Announcement",
     "rewardsHub": "My Rewards Hub",
     "tab": {
+      "coinHistory": "Coin History",
       "event": "Event",
       "gameHistory": "Game History",
+      "leaderboardEvent": "Leaderboard Event",
+      "leaderboardHistory": "Leaderboard History",
       "ranking": "Ranking",
-      "redeemHistory": "Redeem History",
       "transactionHistory": "Transaction History"
     },
     "tnc": "Terms and Conditions",
@@ -335,13 +349,11 @@
   "notes": {
     "deposit": {
       "n1": "Kindly please check for the latest active deposit bank details before you making a deposit.",
+      "n2": "For using Bank Transfer deposit option, please make the transfer done before submit the transaction to avoid the transaction delay.",
       "n3": "Depositor's ACCOUNT NAME must match with your registered full name. We do not encourage transaction made using 3rd party/company account.",
       "n4": "Please DO NOT fill in 'VUI123' or any sensitive words related to gambling as reference/remark in your online transaction.",
       "n5": "Please take noted that will be 1x rollover required for all deposit made before any withdrawal can be processed.",
       "n6": "Kindly please contact our 24/7 LIVECHAT if your transaction is still pending for more than 5 minutes."
-    },
-    "depost": {
-      "n2": "For using Bank Transfer deposit option, please make the transfer done before submit the transaction to avoid the transaction delay."
     },
     "importantNotice": "Important Notice",
     "qr": {

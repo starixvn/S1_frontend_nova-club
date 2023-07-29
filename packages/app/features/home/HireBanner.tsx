@@ -3,12 +3,36 @@ import Icon from 'app/components/Icon'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
 import useLocalization from 'app/provider/localization'
 import { Pressable, Row, Text, View, styled, useResponsiveValue } from 'dripsy'
-import React from 'react'
+import { MotiView } from 'moti'
+import React, { useMemo } from 'react'
+import { useRouter } from 'solito/router'
 
 export default function HireBanner() {
   const { t } = useLocalization()
+  const { push } = useRouter()
   // const direction = useResponsiveValue(['column', 'column', 'column', 'row'])
-  const showTime = useResponsiveValue([false, true])
+  const show = useResponsiveValue([false, true])
+
+  const animatedText = useMemo(
+    () => (
+      <MotiView
+        key="rebate"
+        from={{ scale: 0.8 }}
+        animate={{ scale: 1 }}
+        transition={{
+          loop: true,
+          type: 'timing',
+          duration: 500,
+        }}
+        style={{
+          justifyContent: 'center',
+        }}
+      >
+        <Label sx={{ color: '#00FFFF' }}>{t('home.banner.n3')}</Label>
+      </MotiView>
+    ),
+    []
+  )
 
   return (
     <Row
@@ -24,14 +48,16 @@ export default function HireBanner() {
           bg: '$primary.500',
           px: ['$2', '$3'],
           justifyContent: 'center',
+          flex: [0.5, 0.5, 0.5, 0.7],
         }}
       >
         <Label
           sx={{
             fontWeight: '900',
+            textAlign: 'center',
           }}
         >
-          {t('home.hireAgent')}
+          {t('home.banner.n1')}
         </Label>
       </View>
       <Row
@@ -48,35 +74,34 @@ export default function HireBanner() {
             flex: 1,
           }}
         >
-          <Label
-            sx={{
-              flex: 1,
-            }}
-          >
-            {t('home.joinsUs')}
+          <Label sx={{ flex: 1, color: '$secondary.100' }}>
+            {t('home.banner.n2')}
           </Label>
-          {showTime && (
-            <Row sx={{ flex: 1, alignItems: 'center' }}>
-              <Icon size={16} name="date" />
-              <Label
+
+          <Row sx={{ flex: 1, alignItems: 'center' }}>
+            {animatedText}
+            {show && (
+              <Icon
+                size={16}
+                name="date"
                 sx={{
-                  mx: ['$1', '$2'],
+                  ml: ['$1', '$2'],
                 }}
-              >
-                1-31/5/2023
-              </Label>
-              <Label
-                sx={{
-                  color: '#00FFFF',
-                }}
-              >
-                30 {t('common.days')} 12:34:56
-              </Label>
-            </Row>
-          )}
+              />
+            )}
+            <Label
+              sx={{
+                mx: ['$1', '$2'],
+              }}
+            >
+              01-31/08/2023
+            </Label>
+          </Row>
         </View>
 
-        <JoinNowBtn>{t('home.joinNow')}</JoinNowBtn>
+        <AnimatedButton onPress={() => push('/deposit')}>
+          {t('home.playNow')}
+        </AnimatedButton>
       </Row>
     </Row>
   )
@@ -89,30 +114,53 @@ const Label = styled(Text)({
   fontWeight: 'bold',
 })
 
-const JoinNowBtn = ({ children }) => {
-  return (
-    <Pressable
-      sx={{
-        borderRadius: 30,
-        overflow: 'hidden',
-        alignSelf: 'stretch',
-        borderWidth: 2,
-        borderColor: '$secondary.500',
-      }}
-    >
-      <DripsyGradient
-        gradient={'secondary'}
-        sx={{ px: ['$1', '$2', '$3'], flex: 1, justifyContent: 'center' }}
+export const AnimatedButton = ({ onPress, children }) => {
+  const animatedText = useMemo(
+    () => (
+      <MotiView
+        key="button"
+        from={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          loop: true,
+          type: 'timing',
+          duration: 1000,
+        }}
       >
         <Label
           sx={{
             color: '$error',
             fontWeight: '900',
-            marginTop: FONT_TOP_OFFSET,
+            lineHeight: 12,
+            fontSize: 9,
+            textAlign: 'center',
           }}
         >
           {children}
         </Label>
+      </MotiView>
+    ),
+    []
+  )
+
+  return (
+    <Pressable
+      onPress={onPress}
+      sx={{
+        borderRadius: 50,
+        overflow: 'hidden',
+        alignSelf: 'stretch',
+        borderWidth: 2,
+        borderColor: '$secondary.500',
+        aspectRatio: 1 / 1,
+        width: 40,
+      }}
+    >
+      <DripsyGradient
+        gradient={'secondary'}
+        sx={{ px: ['$1'], flex: 1, justifyContent: 'center' }}
+      >
+        {animatedText}
       </DripsyGradient>
     </Pressable>
   )

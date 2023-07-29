@@ -36,9 +36,10 @@ const IdTransfer = () => {
   const { showAlert } = useAlert()
   const { openModal } = useModal()
   const { push } = useRouter()
-  const { currency } = usePlayerProfileQuery()
   const [postTransferMemberToMember] = useTransferMemberToMemberMutation()
 
+  const { data: playerData, currency } = usePlayerProfileQuery()
+  const isPinExist = playerData?.pin_exist
   const [referralCode] = useParam('referralCode', { initial: '' })
 
   const { data } = usePlayerBalanceQuery(undefined, {
@@ -108,6 +109,7 @@ const IdTransfer = () => {
     isValid,
     dirty,
     submitForm,
+    resetForm,
     setValues,
     setFieldValue,
   } = formik
@@ -137,7 +139,20 @@ const IdTransfer = () => {
 
   useEffect(() => {
     setFieldValue('idTransfer', referralCode)
+    if (referralCode === playerData?.referral_code)
+      openModal('AlertModal', {
+        message: t('status.qrTransferSelfError'),
+        onClose: () => back(),
+      })
+
+    if (!referralCode) {
+      resetForm()
+    }
   }, [referralCode])
+
+  useEffect(() => {
+    !isPinExist && push('/account/manage-credentials/create-pin')
+  }, [isPinExist])
 
   return (
     <FormContainer>
