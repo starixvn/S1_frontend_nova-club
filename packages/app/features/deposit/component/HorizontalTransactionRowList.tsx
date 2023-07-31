@@ -45,7 +45,7 @@ const HorizontalTransactionRowList = ({
       </View>
 
       <View sx={{ flex: 0.9 }}>
-        <Text>{t('deposit.depositMethod.bankTransfer')}</Text>
+        <Text>{item.pay_type}</Text>
       </View>
 
       <View sx={{ flex: 1, flexDirection: 'row' }}>

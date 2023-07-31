@@ -33,7 +33,7 @@ const FieldAmount = ({
       const { cleanText, amountNumber } = toCleanAmount(text)
       setValues({
         ...values,
-        amount: cleanText,
+        amount: cleanText ? cleanText : '',
         realAmount: toRealAmount(amountNumber, currency),
       })
     }

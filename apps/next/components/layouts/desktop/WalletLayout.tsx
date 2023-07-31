@@ -1,6 +1,7 @@
 import usePathname from 'app/hooks/usePathname'
 import {
   DEPOSIT_NOTES,
+  TOPUP_NOTES,
   TRANSFER_NOTES,
   WITHDRAWAL_NOTES,
 } from 'app/utils/constant'
@@ -32,14 +33,18 @@ export default function WalletLayout({
   )
 
   useEffect(() => {
+    console.log('>>>>>>>PATH CH')
     if (currentTab.includes(WALLET_PATH.TRANSFER)) {
       setMenuRoutes(TransferRoutes)
       setNoticeNotes(TRANSFER_NOTES)
       return
     }
     if (currentTab.includes(WALLET_PATH.DEPOSIT)) {
+      console.log('>>>>>>>DEPOSIT')
       setMenuRoutes(DepositRoutes)
-      setNoticeNotes(DEPOSIT_NOTES)
+      setNoticeNotes(
+        currentPath.includes('topup-card') ? TOPUP_NOTES : DEPOSIT_NOTES
+      )
       return
     }
     if (currentTab.includes(WALLET_PATH.WITHDRAWAL)) {

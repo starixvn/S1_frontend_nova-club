@@ -60,6 +60,7 @@ const IdTransfer = () => {
       })
         .unwrap()
         .catch((error) => {
+          console.log('🚀 ~ file: Id.tsx:63 ~ IdTransfer ~ error:', error)
           showAlert(error)
           return error
         })
@@ -70,6 +71,7 @@ const IdTransfer = () => {
         back()
       }
     } catch (error) {
+      console.log('🚀 ~ >>>>>>~ error:', error)
       showAlert(error)
     } finally {
       actions.setSubmitting(false)
@@ -93,7 +95,7 @@ const IdTransfer = () => {
       const { cleanText, amountNumber } = toCleanAmount(text.toString())
       setValues({
         ...values,
-        amount: cleanText,
+        amount: cleanText ? cleanText : '',
         realAmount: toRealAmount(amountNumber),
       })
     }
@@ -156,10 +158,7 @@ const IdTransfer = () => {
   return (
     <FormContainer>
       <ScrollView>
-        <AvailableBalance
-          label={`${t('transfer.transferableAmount')} :`}
-          isTransfer
-        />
+        <AvailableBalance label={t('transfer.transferableAmount')} isTransfer />
 
         <Input
           label={t('transfer.idTransfer')}
