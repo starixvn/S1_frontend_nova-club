@@ -48,7 +48,7 @@ const WithdrawalAmount = ({
       const { cleanText, amountNumber } = toCleanAmount(text)
       setValues({
         ...values,
-        amount: cleanText,
+        amount: cleanText ? cleanText : '',
         realAmount: toRealAmount(amountNumber),
       })
     }
@@ -69,7 +69,7 @@ const WithdrawalAmount = ({
                 forceDecimal: false,
               }),
             })
-          : t('placeholder.plsEnterFieldAmount', {
+          : t('placeholder.plsEnterAmount', {
               field: t('menu.withdraw').toLowerCase(),
             })
       }

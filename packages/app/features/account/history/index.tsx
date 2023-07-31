@@ -93,7 +93,7 @@ const History = () => {
         break
 
       default:
-        setTab(SCREEN_TAB.TRANSACTION)
+        // setTab(SCREEN_TAB.TRANSACTION)
         break
     }
   }

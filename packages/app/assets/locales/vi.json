@@ -57,6 +57,7 @@
     "balance": "Số dư",
     "bankAccount": "Tài khoản ngân hàng",
     "bonus": "Thưởng",
+    "cancel": "Hủy",
     "cash": "VÍ",
     "close": "Đóng",
     "confirm": "Xác nhận",
@@ -73,6 +74,7 @@
     "history": "Lịch sử",
     "home": "Trang Chủ",
     "inactive": "Không hoạt động",
+    "lastUpdated": "Cập nhật lần cuối",
     "latestWinners": "Người thắng gần nhất",
     "loading": "Đang tải",
     "logout": "Thoát",
@@ -86,6 +88,7 @@
     "pin": "Mã PIN",
     "player": "Người chơi",
     "playerId": "ID người chơi",
+    "playerName": "Tên người chơi",
     "points": "điểm",
     "profile": "Hồ sơ",
     "provider": "Các nhà cung cấp",
@@ -103,9 +106,7 @@
     "turnOver": "Doanh số",
     "userAgreement": "Thỏa thuận người dùng",
     "username": "Tên đăng nhập",
-    "withdraw": "Rút tiền",
-    "playerName": "Tên người chơi",
-    "lastUpdated": "Cập nhật lần cuối"
+    "withdraw": "Rút tiền"
   },
   "contact": {
     "contactVia": "Liên hệ qua:",
@@ -391,8 +392,10 @@
     }
   },
   "placeholder": {
+    "plsEnterAmount": "Vui lòng nhập số tiền %{field} của bạn",
     "plsSelectBank": "Vui lòng chọn ngân hàng",
-    "plsSelectCrypto": "Please Select Crypto"
+    "plsSelectCrypto": "Please Select Crypto",
+    "plsSelectWalletAddress": "Vui lòng chọn địa chỉ ví tiền ảo của bạn"
   },
   "profile": {
     "activePlayer": "Người chơi đang hoạt động",
@@ -440,6 +443,7 @@
     "amount": "%{amount} ngoài hạn mức",
     "amount0": "Số tiền không được bằng 0",
     "amountLessThan": "Số tiền không thể nhỏ hơn %{min}",
+    "cryptoAddress": "Chọn phương thức rút tiền",
     "dailyLimitReached": "Bạn Đã Sử Dụng Hết Hạn Mức Trong Ngày",
     "email": "Định dạng email chưa đúng",
     "enterId": "Vui lòng nhập ID giới thiệu",

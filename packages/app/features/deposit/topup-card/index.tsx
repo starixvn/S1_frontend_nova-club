@@ -11,7 +11,7 @@ const TopUpCardScreen = () => {
   return (
     <PageWithBackHeader
       disableScrollView={Platform.OS === 'ios'}
-      header={{ title: t('deposit.depositMethod.topupCard') }}
+      header={{ title: t('deposit.depositMethod.topUp') }}
     >
       <TopUpCardContent />
     </PageWithBackHeader>

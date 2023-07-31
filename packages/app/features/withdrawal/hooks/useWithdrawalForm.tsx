@@ -94,7 +94,13 @@ const useWithdrawalForm = ({ isCrypto = false, minMax }) => {
 
   const handleSelected = (value) => {
     const item = bankData?.find((el) => el.BankAccountNumber === value)
-    setFieldValue('bank', item)
+
+    setValues({
+      ...values,
+      bank: item,
+      amount: '',
+      realAmount: 0,
+    })
   }
 
   const onSubmit = async (
@@ -150,7 +156,7 @@ const useWithdrawalForm = ({ isCrypto = false, minMax }) => {
     onSubmit,
   })
 
-  const { values, setFieldValue } = formik
+  const { values, setFieldValue, setValues } = formik
 
   function withdrawalConfirmation() {
     openModal('WithdrawalConfirmationModal', {

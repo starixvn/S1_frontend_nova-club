@@ -159,7 +159,7 @@ const ProfileDetails = () => {
               responsive
               label={t('common.playerId')}
               editable={false}
-              value={playerData?.player_id.toString() || ''}
+              value={playerData?.referral_code.toString() || ''}
               action={() => {
                 return (
                   <IconButton
@@ -167,7 +167,7 @@ const ProfileDetails = () => {
                     size={16}
                     name="copy"
                     onPress={() =>
-                      copyToClipboard(playerData?.player_id.toString())
+                      copyToClipboard(playerData?.referral_code.toString())
                     }
                   />
                 )

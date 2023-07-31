@@ -23,6 +23,7 @@ type NavMenuItemProps = {
 }
 
 const TabNavMenu = ({ routes, notice }: TabNavMenuProps) => {
+  console.log('🚀 ~ file: TabNavMenu.tsx:26 ~ TabNavMenu ~ notice:', notice)
   const pathname = usePathname()
 
   const currentPath =
@@ -34,6 +35,10 @@ const TabNavMenu = ({ routes, notice }: TabNavMenuProps) => {
   const [currentMenu, setCurrentMenu] = useState(currentPath)
 
   useEffect(() => {
+    console.log(
+      '🚀 ~ file: TabNavMenu.tsx:27 ~ TabNavMenu ~ pathname:',
+      pathname
+    )
     setCurrentMenu(currentPath)
   }, [currentPath])
 

@@ -57,7 +57,7 @@ const MobileBalance = ({ label, totalBalance, currency }) => (
       justifyContent: 'space-between',
     }}
   >
-    <Text>{label}</Text>
+    <Text>{`${label} :`}</Text>
     <Text>
       {toCurrency(totalBalance, currency, {
         symbol: false,

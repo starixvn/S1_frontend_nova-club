@@ -23,7 +23,7 @@ export interface LeaderboardResult {
 export interface CommissionTableResult {
   cash_player: number
   cash_player_referrer: number
-  credit_player: number
+  cash_agent: number
   currency: string
   game_type: string
   game_type_code: string

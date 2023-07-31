@@ -57,6 +57,7 @@
     "balance": "Balance",
     "bankAccount": "Bank Account",
     "bonus": "Bonus",
+    "cancel": "Cancel",
     "cash": "Cash",
     "close": "Close",
     "confirm": "Confirm",
@@ -73,6 +74,7 @@
     "history": "History",
     "home": "Home",
     "inactive": "InActive",
+    "lastUpdated": "Last updated",
     "latestWinners": "Latest Winners",
     "loading": "Loading",
     "logout": "Logout",
@@ -86,6 +88,7 @@
     "pin": "Pin",
     "player": "Player",
     "playerId": "Player ID",
+    "playerName": "Player Name",
     "points": "Points",
     "profile": "Profile",
     "provider": "Provider",
@@ -103,9 +106,7 @@
     "turnOver": "Turn Over",
     "userAgreement": "User Agreement",
     "username": "Username",
-    "withdraw": "Withdraw",
-    "playerName": "Player Name",
-    "lastUpdated": "Last updated"
+    "withdraw": "Withdraw"
   },
   "contact": {
     "contactVia": "Contact via:",
@@ -391,8 +392,10 @@
     }
   },
   "placeholder": {
+    "plsEnterAmount": "Please enter your %{field} amount",
     "plsSelectBank": "Please Select Bank",
-    "plsSelectCrypto": "Please Select Crypto"
+    "plsSelectCrypto": "Please Select Crypto",
+    "plsSelectWalletAddress": "Please select your wallet address"
   },
   "profile": {
     "activePlayer": "Active Player",
@@ -440,6 +443,7 @@
     "amount": "%{amount} not in range",
     "amount0": "Amount must not be 0",
     "amountLessThan": "Amount cannot be less than %{min}",
+    "cryptoAddress": "Invalid wallet address",
     "dailyLimitReached": "Your Daily Limit Reached",
     "email": "Mail format is wrong",
     "enterId": "Please enter ID",
