@@ -129,7 +129,7 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: 'history',
+        source: '/history',
         destination: 'history/transaction',
         permanent: true,
       },
