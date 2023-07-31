@@ -97,7 +97,8 @@
     "turnOver": "Doanh số",
     "userAgreement": "Thỏa thuận người dùng",
     "username": "Tên đăng nhập",
-    "withdraw": "Rút tiền"
+    "withdraw": "Rút tiền",
+    "playerName": "Tên người chơi"
   },
   "contact": {
     "contactVia": "Liên hệ qua:",
@@ -176,8 +177,7 @@
         "won": "XIN CHÚC MỪNG!",
         "won2": "BẠN ĐÃ TRÚNG THƯỞNG"
       },
-      "tnc": {
-      }
+      "tnc": {}
     },
     "claim": "ĐỔI VÉ THƯỞNG CỦA BẠN NGAY",
     "jackpot": "Jackpot (chia phần thưởng): 100,000,000 VND",

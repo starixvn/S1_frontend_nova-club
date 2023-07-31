@@ -4,12 +4,16 @@ import { Row, Text, View, styled, useResponsiveValue } from 'dripsy'
 import React from 'react'
 import { useRouter } from 'solito/router'
 import { AnimatedButton } from './HireBanner'
+import { useAppSelector } from 'app/provider/redux/store'
+import { useModal } from 'react-native-modalfy'
 
 export default function HireBannerDesktop() {
   const { t } = useLocalization()
   const { push } = useRouter()
   // const direction = useResponsiveValue(['column', 'column', 'column', 'row'])
   const showTime = useResponsiveValue([false, true])
+  const agentToken = useAppSelector((s) => s.agent.access_token)
+  const { openModal } = useModal()
 
   return (
     <Row
@@ -55,7 +59,11 @@ export default function HireBannerDesktop() {
           <Label sx={{ flex: 1 }}>{t('home.banner2.n2')}</Label>
         </View>
 
-        <AnimatedButton onPress={() => push('/auth/register?t=agent')}>
+        <AnimatedButton
+          onPress={() =>
+            agentToken ? push('/agent/profile') : openModal('AgentLoginModal')
+          }
+        >
           {t('home.joinNow')}
         </AnimatedButton>
       </Row>
