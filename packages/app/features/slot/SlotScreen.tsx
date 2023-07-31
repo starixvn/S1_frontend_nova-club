@@ -132,7 +132,7 @@ function SlotScreen() {
       }}
       ListHeaderComponent={
         <View sx={{ gap: '$3', my: '$3' }}>
-          <GamePageHeader icon="sl" title="SLOTS" />
+          <GamePageHeader icon="sl" title={t('game.category.slots')} />
           <View sx={{ width: '100%', aspectRatio: 768 / 200 }}>
             <SolitoImage
               fill

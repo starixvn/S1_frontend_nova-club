@@ -86,7 +86,12 @@ export default function SplashScreen() {
       // } else
       // console.log('test')
       dispatch(TempSettingActions.setSplashScreenLoaded(true))
-      replace('/')
+      replace('/', undefined, {
+        experimental: {
+          nativeBehavior: 'stack-replace',
+          isNestedNavigator: false,
+        },
+      })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status])

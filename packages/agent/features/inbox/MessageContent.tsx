@@ -1,8 +1,6 @@
 import { Text } from 'dripsy'
 import React, { useMemo } from 'react'
 import RenderHtml from 'react-native-render-html'
-import unescape from 'lodash/unescape'
-import { Linking } from 'react-native'
 
 const MessageContent = ({ isHtml, content }) => {
   const htmlTagStyle = useMemo(() => {

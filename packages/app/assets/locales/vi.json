@@ -35,6 +35,11 @@
     "selectChannel": "Chọn tài khoản nạp",
     "walletAddress": "Địa chỉ ví"
   },
+  "biometric": {
+    "label": "Đăng nhập bằng Sinh trắc học",
+    "message": "Bạn có muốn kích hoạt đăng nhập sinh trắc học không?",
+    "notFound": "Sinh trắc học không được hỗ trợ / không được bật trên thiết bị của bạn"
+  },
   "commision": {
     "cashAgent": "Đại lý trả trước",
     "cashPlayer": "Người chơi trả trước",
@@ -82,7 +87,7 @@
     "playerId": "ID người chơi",
     "points": "điểm",
     "profile": "Hồ sơ",
-    "provider": "ProCác nhà cung cấpvider",
+    "provider": "Các nhà cung cấp",
     "realBet": "Đặt cược thực sự",
     "realName": "Tên thật",
     "reward": "THƯỞNG",
@@ -176,8 +181,7 @@
         "won": "XIN CHÚC MỪNG!",
         "won2": "BẠN ĐÃ TRÚNG THƯỞNG"
       },
-      "tnc": {
-      }
+      "tnc": {}
     },
     "claim": "ĐỔI VÉ THƯỞNG CỦA BẠN NGAY",
     "jackpot": "Jackpot (chia phần thưởng): 100,000,000 VND",

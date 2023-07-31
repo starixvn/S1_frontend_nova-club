@@ -1,7 +1,7 @@
 import Icon from 'app/components/Icon'
-import IconButton from 'app/components/IconButton'
 import BouncePressable from 'app/components/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { copyToClipboard } from 'app/utils'
 import { Text, View } from 'dripsy'
 import React from 'react'
@@ -10,8 +10,10 @@ import { DEV_DOMAIN } from '../../../../../apps/next/config/env'
 
 const ShareCode = () => {
   const { t } = useLocalization()
-
-  const { data } = usePlayerProfileQuery()
+  const isLoggedIn = useAppSelector((s) => !!s.auth.info)
+  const { data } = usePlayerProfileQuery(undefined, {
+    skip: !isLoggedIn,
+  })
   const referralLink = `${DEV_DOMAIN}/download?ref=${data?.referral_code}`
 
   return (

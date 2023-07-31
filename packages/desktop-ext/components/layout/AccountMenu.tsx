@@ -10,15 +10,15 @@ import { usePlayerBalanceQuery } from 'services/walletApi'
 
 export const ACCOUNT_MENU_HEIGHT = 160 // can remove this if the component inside can have dynamic height
 export default function AccountMenu({}) {
-  const { token } = useAppSelector((state) => state.auth.info) || {}
+  const isLoggedIn = useAppSelector((state) => !!state.auth.info)
 
   const { data: playerData } = usePlayerProfileQuery(undefined, {
-    skip: !token,
+    skip: !isLoggedIn,
   })
-  const currency = playerData?.currency as Currency
 
+  const currency = playerData?.currency as Currency
   const { isFetching, data } = usePlayerBalanceQuery(undefined, {
-    skip: !token,
+    skip: !isLoggedIn,
   })
 
   return (

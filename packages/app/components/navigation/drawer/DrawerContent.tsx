@@ -33,7 +33,11 @@ export default function DrawerContent() {
   const scrollRef = useRef<rScrollView>(null)
 
   const isAgentLoggedIn = useAppSelector((s) => !!s.agent.access_token)
-  const { isCreditMember, data: playerData } = usePlayerProfileQuery()
+  const isLoggedIn = useAppSelector((s) => !!s.auth.info)
+  const { isCreditMember, data: playerData } = usePlayerProfileQuery(
+    undefined,
+    { skip: !isLoggedIn }
+  )
   const referralLink = `${DEV_DOMAIN}/download?ref=${playerData?.referral_code}`
   const isPlayerName = !!playerData?.firstName
   const handleDesktopAccountVerification = () => {
