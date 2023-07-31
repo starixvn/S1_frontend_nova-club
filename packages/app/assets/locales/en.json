@@ -73,6 +73,7 @@
     "history": "History",
     "home": "Home",
     "inactive": "InActive",
+    "latestWinners": "Latest Winners",
     "loading": "Loading",
     "logout": "Logout",
     "more": "More",
@@ -103,7 +104,8 @@
     "userAgreement": "User Agreement",
     "username": "Username",
     "withdraw": "Withdraw",
-    "playerName": "Player Name"
+    "playerName": "Player Name",
+    "lastUpdated": "Last updated"
   },
   "contact": {
     "contactVia": "Contact via:",

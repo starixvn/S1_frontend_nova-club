@@ -73,6 +73,7 @@
     "history": "Lịch sử",
     "home": "Trang Chủ",
     "inactive": "Không hoạt động",
+    "latestWinners": "Người thắng gần nhất",
     "loading": "Đang tải",
     "logout": "Thoát",
     "more": "Thêm",
@@ -103,7 +104,8 @@
     "userAgreement": "Thỏa thuận người dùng",
     "username": "Tên đăng nhập",
     "withdraw": "Rút tiền",
-    "playerName": "Tên người chơi"
+    "playerName": "Tên người chơi",
+    "lastUpdated": "Cập nhật lần cuối"
   },
   "contact": {
     "contactVia": "Liên hệ qua:",

@@ -5,6 +5,7 @@ import ShadowButton from 'app/components/ShadowButton'
 import GameCard from 'app/components/game/GameCard'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
 import { useInterval } from 'app/hooks/useInterval'
+import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
@@ -130,6 +131,7 @@ const Label = styled(Text)({
 })
 
 const Header = () => {
+  const { t } = useLocalization()
   return (
     <Row
       sx={{
@@ -152,7 +154,7 @@ const Header = () => {
         <Icon sx={{ fontSize: [10, 12] }} name={'star'} />
       </ShadowButton>
       <Text sx={{ mt: FONT_TOP_OFFSET, fontSize: 14, fontWeight: 'bold' }}>
-        LATEST WINNERS
+        {t('common.latestWinners')}
       </Text>
     </Row>
   )
