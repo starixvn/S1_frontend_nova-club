@@ -1,9 +1,11 @@
+import { useResponsiveValue } from 'dripsy'
 import React from 'react'
 
 const TncVi = () => {
+  const isDesktop = useResponsiveValue([false, false, false, true])
   return (
     <div>
-      <h2>ĐIỀU KHOẢN VÀ ĐIỀU KIỆN</h2>
+      {isDesktop && <h2>ĐIỀU KHOẢN VÀ ĐIỀU KIỆN</h2>}
       <p>TẶNG VÒNG QUAY TÂN THỦ</p>
 
       <br />

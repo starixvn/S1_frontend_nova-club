@@ -103,9 +103,7 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
   }
 
   const handleNavigateTnc = () => {
-    closeModal('LuckyDrawModal', () => {
-      dispatch(SettingActions.setLuckyDrawBalance(1))
-    })
+    closeTargetModal('LuckyDrawModal')
     push('/lucky-spin-tnc')
   }
 

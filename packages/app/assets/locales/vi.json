@@ -52,7 +52,7 @@
     "active": "Đang hoạt động",
     "agent": "Đại lý",
     "agentLogin": "Đăng nhập đại lý",
-    "all": "TẤT CẢ",
+    "all": "Tất cả",
     "amount": "Số tiền",
     "balance": "Số dư",
     "bankAccount": "Tài khoản ngân hàng",
@@ -102,7 +102,8 @@
     "turnOver": "Doanh số",
     "userAgreement": "Thỏa thuận người dùng",
     "username": "Tên đăng nhập",
-    "withdraw": "Rút tiền"
+    "withdraw": "Rút tiền",
+    "playerName": "Tên người chơi"
   },
   "contact": {
     "contactVia": "Liên hệ qua:",
@@ -214,6 +215,7 @@
       "thisMonth": "Tháng này",
       "thisWeek": "Tuần này",
       "today": "Hôm nay",
+      "tomorrow": "Ngày mai",
       "yesterday": "Hôm qua"
     },
     "depositStatus": {

@@ -102,7 +102,8 @@
     "turnOver": "Turn Over",
     "userAgreement": "User Agreement",
     "username": "Username",
-    "withdraw": "Withdraw"
+    "withdraw": "Withdraw",
+    "playerName": "Player Name"
   },
   "contact": {
     "contactVia": "Contact via:",
@@ -214,6 +215,7 @@
       "thisMonth": "This Month",
       "thisWeek": "This Week",
       "today": "Today",
+      "tomorrow": "Tomorrow",
       "yesterday": "Yesterday"
     },
     "depositStatus": {

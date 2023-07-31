@@ -17,7 +17,8 @@
     "react-web-share": "^2.0.2",
     "solito": "3.2.6",
     "utils": "*",
-    "zeego": "^1.5.1"
+    "zeego": "^1.5.1",
+    "react-native-modalfy": "*"
   },
   "sideEffects": false
 }

@@ -10,6 +10,7 @@ import dayjsTz from 'app/utils/dayjs'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { EntityId } from '@reduxjs/toolkit'
+import useLocalization from 'app/provider/localization'
 dayjs.extend(customParseFormat)
 
 type Props = {}
@@ -18,8 +19,9 @@ const BAR_HEIGHT = 50
 
 export default function MatchList({}: Props) {
   const [selectedLeague, setSelectedLeague] = useState<EntityId>()
-  const [selectedTime, setSelectedTime] = useState<string>('All')
+  const [selectedTime, setSelectedTime] = useState<string>('all')
   const desktop = isDesktop()
+  const { t } = useLocalization()
   const { leagues } = useGetRecoMatchQuery(
     { isApp: !desktop },
     {
@@ -53,8 +55,8 @@ export default function MatchList({}: Props) {
             <Pressable
               key={f.label}
               onPress={() => {
-                setSelectedTime(f.date ?? 'All')
-                f.label === 'All' && setSelectedLeague(undefined)
+                setSelectedTime(f.date ?? 'all')
+                f.date === 'all' && setSelectedLeague(undefined)
               }}
             >
               <Text
@@ -63,9 +65,10 @@ export default function MatchList({}: Props) {
                   fontSize: 12,
                   fontWeight: 'bold',
                   color: f.date === selectedTime ? 'white' : '#80ceff',
+                  textTransform: 'capitalize',
                 }}
               >
-                {f.label}
+                {t(f.label ?? '')}
               </Text>
             </Pressable>
           )
@@ -105,16 +108,16 @@ const getMatchTimeFilterLabel = () => {
   const dateArray: DateArrayType[] = []
   dateArray.push({
     date: 'All',
-    label: 'All',
+    label: 'common.all',
   })
   for (let i = 0; i < 7; i++) {
     const date = gmt7.add(i, 'day')
     const dateObject: DateArrayType = {}
 
     if (i === 0) {
-      dateObject['label'] = 'Today'
+      dateObject['label'] = 'filter.date.today'
     } else if (i === 1) {
-      dateObject['label'] = 'Tomorrow'
+      dateObject['label'] = 'filter.date.tomorrow'
     } else {
       dateObject['label'] = `${date.format('D-MMM')} (${date.format('ddd')})`
     }

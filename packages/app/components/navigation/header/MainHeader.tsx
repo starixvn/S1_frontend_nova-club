@@ -28,6 +28,9 @@ import HeaderAuthentication from './HeaderAuthentication'
 import HeaderDeposit from './HeaderDeposit'
 import HeaderLanguageToggle from './HeaderLanguageToggle'
 import HeaderOverview from './HeaderOverview'
+import Button from 'app/components/common/Button'
+import { useModal } from 'react-native-modalfy'
+import AgentLoginButton from 'app/components/AgentLoginButton'
 
 const LogoSize = [
   HEADER_HEIGHT * 0.45,
@@ -59,6 +62,7 @@ const MainHeader = () => {
   const desktop = useResponsiveValue([false, false, false, true])
   const { theme } = useDripsyTheme()
   const { logout } = useOnAppLogout()
+  const { openModal } = useModal()
 
   const TriggerLogout = async () => {
     try {
@@ -111,6 +115,7 @@ const MainHeader = () => {
             {desktop && (
               <>
                 <HeaderLanguageToggle />
+
                 <Shadow
                   offset={[0, -1]}
                   startColor={'rgba(255, 255, 255, 0.5)'}
@@ -127,6 +132,7 @@ const MainHeader = () => {
                     size={22}
                   />
                 </Shadow>
+                <AgentLoginButton />
               </>
             )}
 
