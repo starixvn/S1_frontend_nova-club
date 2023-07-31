@@ -116,7 +116,7 @@ const CreatePinScreen = ({ isTab = false }) => {
         <Button
           onPress={submitForm}
           disabled={!isValid || !dirty}
-          sx={{ mt: '$3' }}
+          sx={{ mt: '$3', py: '$2' }}
         >
           {t('common.submit')}
         </Button>

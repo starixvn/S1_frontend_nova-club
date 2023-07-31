@@ -119,7 +119,6 @@ const IdTransfer = () => {
       onConfirm: (value) => onSubmit(values, value, formik),
       onForgotPin: () => {
         push('/account/manage-credentials/forgot-pin')
-        console.log('gg')
       },
     })
   }

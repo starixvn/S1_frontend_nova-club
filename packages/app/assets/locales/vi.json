@@ -47,7 +47,7 @@
     "active": "Đang hoạt động",
     "agent": "Đại lý",
     "agentLogin": "Đăng nhập đại lý",
-    "all": "TẤT CẢ",
+    "all": "Tất cả",
     "amount": "Số tiền",
     "balance": "Số dư",
     "bankAccount": "Tài khoản ngân hàng",
@@ -210,6 +210,7 @@
       "thisMonth": "Tháng này",
       "thisWeek": "Tuần này",
       "today": "Hôm nay",
+      "tomorrow": "Ngày mai",
       "yesterday": "Hôm qua"
     },
     "depositStatus": {

@@ -24,7 +24,7 @@ const AgentLoginButton = () => {
         sx={{
           bg: '$primary.100',
           px: '$2',
-          maxWidth: 150,
+          minWidth: 120,
           py: '$2',
           borderRadius: 15,
         }}

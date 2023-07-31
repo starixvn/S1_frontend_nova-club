@@ -10,13 +10,12 @@ import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { copyToClipboard } from 'app/utils'
 import { HEADER_HEIGHT } from 'app/utils/constant'
-import isDesktop from 'app/utils/isDesktop'
 import { Pressable, ScrollView, Text, View, useResponsiveValue } from 'dripsy'
 import React, { useEffect, useRef } from 'react'
 import {
   ImageBackground,
-  useWindowDimensions,
   ScrollView as rScrollView,
+  useWindowDimensions,
 } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
@@ -28,7 +27,7 @@ export default function DrawerContent() {
   const { height } = useWindowDimensions()
   const { isOpen, toggleDrawer } = useDrawer()
   const { logout } = useOnAppLogout()
-  const desktop = isDesktop()
+  const desktop = useResponsiveValue([false, false, false, true])
   const { showAlert } = useAlert()
   const scrollRef = useRef<rScrollView>(null)
 
@@ -94,7 +93,9 @@ export default function DrawerContent() {
       iconName: 'transfer',
       text: 'common.transfer',
       onPress: () => {
-        push('/transfer')
+        playerData?.pin_exist
+          ? push('/transfer/receive')
+          : push('/account/manage-credentials/create-pin')
       },
     },
     {
@@ -133,9 +134,11 @@ export default function DrawerContent() {
       sx={{
         width: '100%',
         position: 'absolute',
+        height: height - HEADER_HEIGHT - top,
+        borderTopWidth: 1,
+        borderColor: '$primary.600',
       }}
       contentContainerSx={{
-        mt: HEADER_HEIGHT + top,
         bg: '$primary.500',
         height: height - HEADER_HEIGHT - top,
       }}
@@ -190,7 +193,6 @@ export default function DrawerContent() {
               aspectRatio: 380 / 600,
               alignItems: 'center',
               justifyContent: 'center',
-              backgroundColor: 'blue',
             }}
             resizeMode="contain"
           >

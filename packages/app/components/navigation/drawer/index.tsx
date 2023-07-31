@@ -4,12 +4,16 @@ import { MotiView, useAnimationState } from 'moti'
 import React, { memo, useEffect, useState } from 'react'
 import { Platform, useWindowDimensions } from 'react-native'
 import LazyDrawerContent from './LazyDrawerContent'
+import { HEADER_HEIGHT } from 'app/utils/constant'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 
 // TODOƒ
 /* Overlay */
 export default function Drawer({ children }) {
   const { width, height } = useWindowDimensions()
+  const { top } = useSafeArea()
   const drawerWidth = Math.min(300, width)
+  const drawerHeight = height - HEADER_HEIGHT - top
   const useDrawerAnimation = useAnimationState({
     from: { translateX: width },
     //multiplier should opposite with drawer container width
@@ -45,7 +49,8 @@ export default function Drawer({ children }) {
       {isOpen && <DrawerOverlay onPress={() => toggleDrawer()} />}
       <DrawerContainer
         width={drawerWidth}
-        offsetTop={offsetTop}
+        height={drawerHeight}
+        offsetTop={HEADER_HEIGHT + top + offsetTop}
         state={useDrawerAnimation}
         transition={{ type: 'timing' }}
       >
@@ -64,11 +69,18 @@ const DrawerOverlay = styled(Pressable)({
 })
 
 const DrawerContainer = styled(MotiView)(
-  ({ offsetTop, width }: { offsetTop: number; width: number }) => ({
+  ({
+    offsetTop,
+    width,
+    height,
+  }: {
+    offsetTop: number
+    width: number
+    height: number
+  }) => ({
     position: 'absolute',
     width,
-    height: '100%',
-    // backgroundColor: 'red',
+    height,
     zIndex: 1,
     top: offsetTop,
   })

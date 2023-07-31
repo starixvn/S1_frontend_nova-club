@@ -16,10 +16,10 @@ const ShareholderVi = () => {
           src={src1}
           style={{ width: '100%', height: '30%', minWidth: '350px' }}
         />
-        <img
+        {/* <img
           src={src2}
           style={{ width: '50%', height: '30%', maxWidth: '350px' }}
-        />
+        /> */}
       </div>
       <ol>
         <li>Cổ đông được hưởng đến 85% lợi nhuận từ nhà cái</li>
