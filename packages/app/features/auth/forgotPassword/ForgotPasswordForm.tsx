@@ -1,29 +1,46 @@
-import Icon from 'app/components/Icon'
+import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
+import Button from 'app/components/common/Button'
+import FormContainer from 'app/components/form/FormContainer'
 import Input from 'app/components/form/Input'
-import { Pressable, Text, View, styled } from 'dripsy'
-import { FormikProps } from 'formik'
-import { TextInput } from 'react-native'
-import { useCallback, useRef } from 'react'
-import useLocalization from 'app/provider/localization'
-import CheckBox from 'app/components/common/CheckBox'
-import TimerButton from 'app/components/TimerButton'
-import { ITimerButtonForwardRef } from 'app/components/TimerButton'
-import { useRouter } from 'solito/router'
-import { useAppSelector } from 'app/provider/redux/store'
-import { useSendUpdateProfileOTPMutation } from 'services/playerApi'
-import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import useAlert from 'app/hooks/useAlert'
-import { ForgotPasswordFormValues } from './ForgotPasswordScreen'
+import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
+import isDesktop from 'app/utils/isDesktop'
+import { View, styled } from 'dripsy'
+import { FormikProps, FormikTouched } from 'formik'
+import { ComponentProps, useRef } from 'react'
+import { Platform, TextInput } from 'react-native'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useSendPasswordRecoveryOtpMutation } from 'services/authApi'
+import { useRouter } from 'solito/router'
+import ReceiveOTPContact from '../components/ReceiveOTPContact'
+import { MOBILE_PREFIX } from 'app/constants/country'
+import useForgotPassword, {
+  ForgotPasswordFormValues,
+} from './hook/useForgotPassword'
+import { USERNAME_MAX_LENGTH } from 'app/utils/validation'
 
-interface AccountVerificationFormProps {
+const StyledFormContainer = styled(FormContainer)({
+  py: '$4',
+})
+
+type AccountVerificationFormProps = {
   formik: FormikProps<ForgotPasswordFormValues>
   onCodeSubmit: () => void
-}
+  isAgentLogin: boolean
+  isAgentLoading: boolean
+  isAgentSuccess: boolean
+  agentSendOTP: ReturnType<typeof useForgotPassword>['agentSendOTP']
+} & ComponentProps<typeof StyledFormContainer>
 
 const ForgotPasswordForm = ({
   formik,
   onCodeSubmit,
+  isAgentLogin,
+  isAgentLoading,
+  isAgentSuccess,
+  agentSendOTP,
+  ...rest
 }: AccountVerificationFormProps) => {
   const {
     handleChange,
@@ -42,68 +59,113 @@ const ForgotPasswordForm = ({
   const { showAlert } = useAlert()
   const locale = useAppSelector((s) => s.setting.locale)
 
-  const contactNumberFieldRef = useRef<TextInput>(null)
   const otpFieldRef = useRef<TextInput>(null)
-  const OTPRef = useRef<ITimerButtonForwardRef>(null)
+  const contactNumRef = useRef<TextInput>(null)
+  const OTPTimerRef = useRef<ITimerButtonForwardRef>(null)
+  const desktop = isDesktop()
 
-  const [sendOtp, { isLoading: isOtpLoading }] =
+  const isFormFieldValid = async (
+    fields: FormikTouched<ForgotPasswordFormValues>
+  ) => {
+    setTouched(fields)
+    const formError = await validateForm()
+
+    const fieldKeys = Object.keys(fields)
+    const fieldErrorVal = fieldKeys.find((key) => formError[key])
+
+    return typeof fieldErrorVal === 'undefined'
+  }
+
+  const [sendOtp, { isLoading: isOtpLoading, isSuccess }] =
     useSendPasswordRecoveryOtpMutation()
 
-  const onSubmit = useCallback(async () => {
-    setTouched({
+  const onSubmit = async () => {
+    const isFormValid = await isFormFieldValid({
+      username: true,
       contactNumber: true,
       verifyCode: true,
     })
 
-    const { contactNumber, verifyCode } = await validateForm()
-
-    if (contactNumber || verifyCode) return
-    onCodeSubmit()
-  }, [setTouched, validateForm, onCodeSubmit])
+    if (isFormValid) {
+      onCodeSubmit()
+    }
+  }
 
   const sendOTP = async () => {
     try {
       const { data, message, success } = await sendOtp({
-        contactNumber: values.contactNumber,
-      }).unwrap()
+        contactNumber:
+          MOBILE_PREFIX.VND.replace('+', '') + values.contactNumber,
+      })
+        .unwrap()
+        .catch((error) => {
+          showAlert(error)
+          return error
+        })
 
-      OTPRef.current?.startOtpTimer()
+      OTPTimerRef.current?.startOtpTimer()
 
       if (success) {
         Toast.show({ type: 'success', text1: message })
+        otpFieldRef.current?.focus()
       }
     } catch (error) {
       showAlert(error)
     }
   }
 
-  const handleResendOTP = () => {
-    console.log('should be contact us')
-    // const params = {
-    //   locale: locale,
-    // }
-    // push('/auth/register/tnc', params)
+  const onSendOtp = async () => {
+    const isValid = await isFormFieldValid({
+      username: true,
+      contactNumber: true,
+    })
+
+    if (isValid) {
+      isAgentLogin
+        ? agentSendOTP(OTPTimerRef, values.username, values.contactNumber)
+        : sendOTP()
+    }
   }
 
   return (
-    <View
-      sx={{
-        width: '90%',
-        py: 20,
-      }}
-    >
+    <StyledFormContainer {...rest}>
+      {isAgentLogin && (
+        <Input
+          icon="profile-rounded"
+          placeholder={t('common.username')}
+          textContentType="username"
+          value={values.username}
+          onBlur={handleBlur('username')}
+          onChangeText={handleChange('username')}
+          autoCapitalize="none"
+          maxLength={USERNAME_MAX_LENGTH}
+          onSubmitEditing={() => {
+            contactNumRef.current?.focus()
+          }}
+          error={
+            touched.username && errors.username
+              ? t(errors.username, {
+                  field: t('common.username'),
+                })
+              : undefined
+          }
+        />
+      )}
+
       <Input
+        ref={contactNumRef}
         icon="icon-hp"
         textContentType="telephoneNumber"
         prefix="+84"
         inputMode="numeric"
+        maxLength={9}
         action={
           <TimerButton
             accessibilityRole="button"
-            ref={OTPRef}
+            ref={OTPTimerRef}
             title={t('authentication.send')}
-            loading={isOtpLoading}
-            onPress={sendOTP}
+            loading={isOtpLoading || isAgentLoading}
+            onPress={onSendOtp}
             sx={{
               width: 'auto',
               backgroundColor: '$otp',
@@ -123,37 +185,32 @@ const ForgotPasswordForm = ({
         value={values.contactNumber}
         onBlur={handleBlur('contactNumber')}
         onChangeText={handleChange('contactNumber')}
-        ref={contactNumberFieldRef}
         onSubmitEditing={() => {
-          contactNumberFieldRef.current?.focus()
+          otpFieldRef.current?.focus()
         }}
         error={
           touched.contactNumber && errors.contactNumber
             ? t(errors.contactNumber, {
-                field: t('profile.details.phone'),
+                field: t('common.phone'),
               })
             : undefined
         }
       />
       <Input
+        ref={otpFieldRef}
         icon="otp"
-        placeholder="Please enter OTP"
+        placeholder={t('authentication.enterOtp')}
         textContentType="oneTimeCode"
         prefix="OTP"
         inputMode="numeric"
-        action={() => {
-          return (
-            <TickCircle>
-              <Icon name={'tick'} size={14} color={'white'} />
-            </TickCircle>
-          )
-        }}
+        keyboardType="number-pad"
         value={values.verifyCode}
         onBlur={handleBlur('verifyCode')}
         onChangeText={handleChange('verifyCode')}
         maxLength={6}
-        ref={otpFieldRef}
+        editable={isSuccess || isAgentSuccess}
         onSubmitEditing={onSubmit}
+        inputContainerSx={{ opacity: isSuccess || isAgentSuccess ? 1 : 0.3 }}
         error={
           touched.verifyCode && errors.verifyCode
             ? t(errors.verifyCode, {
@@ -161,58 +218,28 @@ const ForgotPasswordForm = ({
               })
             : undefined
         }
+        {...(Platform.OS === 'web' && {
+          disabled: !isSuccess && !isAgentSuccess,
+        })}
       />
 
-      <View
+      <ReceiveOTPContact
         sx={{
-          mt: 65,
+          mt: desktop ? 'auto' : '$4',
+        }}
+      />
+
+      <Button
+        onPress={onSubmit}
+        sx={{
+          bg: '$secondary.500',
+          mt: '$3',
         }}
       >
-        <View
-          sx={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-          }}
-        >
-          <Text>{t('authentication.noReceiveOTP')} </Text>
-
-          <Pressable onPress={handleResendOTP}>
-            <Text sx={{ color: '$secondary.500' }}>
-              {t('authentication.resend')}
-            </Text>
-          </Pressable>
-        </View>
-      </View>
-
-      <ButtonContainer
-        sx={{ bg: '$secondary.500', marginTop: 20 }}
-        onPress={onSubmit}
-      >
-        <ButtonText>Submit</ButtonText>
-      </ButtonContainer>
-    </View>
+        {t('common.submit')}
+      </Button>
+    </StyledFormContainer>
   )
 }
-
-const TickCircle = styled(View)({
-  backgroundColor: 'green',
-  borderRadius: 50,
-  p: 5,
-})
-
-const ButtonContainer = styled(Pressable)({
-  borderRadius: 15,
-  mb: 20,
-  alignItems: 'center',
-})
-
-const ButtonText = styled(Text)({
-  width: '100%',
-  py: 15,
-  px: 25,
-  textAlign: 'center',
-  textTransform: 'uppercase',
-  fontWeight: 'bold',
-})
 
 export default ForgotPasswordForm

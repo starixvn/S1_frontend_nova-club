@@ -1,27 +1,37 @@
+import { useLazyAgentCheckUsernameQuery } from 'agent/services/authApi'
 import Button from 'app/components/common/Button'
+import FormContainer from 'app/components/form/FormContainer'
 import Input from 'app/components/form/Input'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
+import isDesktop from 'app/utils/isDesktop'
 import {
   PASSWORD_MAX_LENGTH,
   USERNAME_MAX_LENGTH,
   getErrorMessage,
 } from 'app/utils/validation'
-import { View } from 'dripsy'
+import { ActivityIndicator, View, styled, useDripsyTheme } from 'dripsy'
 import { FormikProps } from 'formik'
-import { useCallback, useRef, useState } from 'react'
-import { TextInput, useWindowDimensions } from 'react-native'
+import { ComponentProps, useCallback, useEffect, useRef, useState } from 'react'
+import { TextInput } from 'react-native'
 import { useLazyCheckUsernameQuery } from 'services/authApi'
 import { RegisterFormValues } from './RegisterScreen'
-import FormContainer from 'app/components/form/FormContainer'
-import { useAppSelector } from 'app/provider/redux/store'
+const StyledFormContainer = styled(FormContainer)({
+  py: '$4',
+})
 
-interface RegisterFormProps {
+type RegisterFormProps = {
   isAgent: boolean
   formik: FormikProps<RegisterFormValues>
   onSuccess: () => void
-}
+} & ComponentProps<typeof StyledFormContainer>
 
-const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
+const RegisterForm = ({
+  isAgent,
+  formik,
+  onSuccess,
+  ...rest
+}: RegisterFormProps) => {
   const {
     handleChange,
     handleBlur,
@@ -34,11 +44,12 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
   } = formik
   const { t } = useLocalization()
   const [checkUsername] = useLazyCheckUsernameQuery()
-  const { width } = useWindowDimensions()
+  const { theme } = useDripsyTheme()
+  const desktop = isDesktop()
   const referral = useAppSelector((s) => s.setting.referral)
 
   console.log('referral', referral)
-  //   const [agentCheckUsername] = useLazyAgentCheckUsernameQuery()
+  const [agentCheckUsername] = useLazyAgentCheckUsernameQuery()
 
   const [usernameErrorMsg, setUsernameErrorMsg] = useState('')
   const [isCheckingUsername, setIsCheckingUsername] = useState(false)
@@ -47,10 +58,9 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
   const usernameFieldRef = useRef<TextInput>(null)
   const passwordFieldRef = useRef<TextInput>(null)
   const confirmPasswordFieldRef = useRef<TextInput>(null)
+  const lang = useAppSelector((state) => state.setting.locale)
 
-  const onSubmit = useCallback(async () => {
-    await handleCheckingUsername()
-    // if (!usernameErrorMsg) return
+  const onSubmit = async () => {
     setTouched({
       username: true,
       password: true,
@@ -60,9 +70,11 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
     const { username, confirmPassword, password } = await validateForm()
 
     if (username || confirmPassword || password) return
+    if (isCheckingUsername || usernameErrorMsg || !isUsernameCheckedRef.current)
+      return
 
     onSuccess()
-  }, [setTouched, validateForm, onSuccess])
+  }
 
   const handleCheckingUsername = useCallback(async () => {
     if (isCheckingUsername) return
@@ -72,14 +84,15 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
 
       try {
         if (isAgent) {
-          // pending for agent services implementation
-          //   const { success } = await agentCheckUsername({
-          //     username: values.username,
-          //   }).unwrap()
-          //   isUsernameCheckedRef.current = true
-          //   if (success) {
-          //     if (usernameErrorMsg) setUsernameErrorMsg('')
-          //   }
+          const { success } = await agentCheckUsername({
+            username: values.username,
+          }).unwrap()
+
+          isUsernameCheckedRef.current = true
+
+          if (success) {
+            if (usernameErrorMsg) setUsernameErrorMsg('')
+          }
         } else {
           const { success } = await checkUsername({
             username: values.username,
@@ -99,7 +112,6 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
   }, [
     checkUsername,
     errors.username,
-    isAgent,
     isCheckingUsername,
     usernameErrorMsg,
     values.username,
@@ -116,13 +128,38 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
     handleCheckingUsername()
   }, [handleCheckingUsername, setTouched, values.username])
 
+  const onUsernameChange = useCallback(
+    (e: string) => {
+      if (isUsernameCheckedRef.current) isUsernameCheckedRef.current = false
+      if (usernameErrorMsg) {
+        oldUsernameRef.current = ''
+        setUsernameErrorMsg('')
+      }
+
+      setFieldValue('username', e)
+    },
+    [setFieldValue, usernameErrorMsg]
+  )
+
+  const usernameActions = useCallback(() => {
+    if (!isCheckingUsername) return
+
+    return <ActivityIndicator color={theme.colors.$tertiary} />
+  }, [isCheckingUsername, theme.colors.$tertiary])
+
+  useEffect(() => {
+    if (usernameErrorMsg) {
+      /**
+       * On changing language, retrigger checking username api to get the corresponding
+       * error message translation
+       */
+      handleCheckingUsername()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lang, usernameErrorMsg])
+
   return (
-    <FormContainer
-      sx={{
-        py: '$4',
-        width: Math.min(768, width),
-      }}
-    >
+    <StyledFormContainer {...rest}>
       <Input
         autoCapitalize={'none'}
         inputContainerSx={{ width: '100%' }}
@@ -131,7 +168,7 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
         textContentType="username"
         value={values.username}
         onBlur={onUsernameBlur}
-        onChangeText={handleChange('username')}
+        onChangeText={onUsernameChange}
         maxLength={USERNAME_MAX_LENGTH}
         ref={usernameFieldRef}
         onSubmitEditing={() => {
@@ -146,6 +183,7 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
             ? usernameErrorMsg
             : undefined
         }
+        action={usernameActions}
       />
       <Input
         autoCapitalize={'none'}
@@ -190,14 +228,18 @@ const RegisterForm = ({ isAgent, formik, onSuccess }: RegisterFormProps) => {
         }
       />
 
+      {/* Act as a margin for bottom */}
+      {desktop && (
+        <View aria-hidden sx={{ minHeight: 30, visibility: 'hidden' }} />
+      )}
+
       <Button
         onPress={onSubmit}
-        disabled={!!usernameErrorMsg}
-        sx={{ mt: '$4', py: '$2', bg: '$primary.300' }}
+        sx={{ mt: desktop ? 'auto' : '$4', py: '$0', bg: '$primary.300' }}
       >
         {t('authentication.register')}
       </Button>
-    </FormContainer>
+    </StyledFormContainer>
   )
 }
 

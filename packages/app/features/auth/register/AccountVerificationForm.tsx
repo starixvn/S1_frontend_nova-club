@@ -8,21 +8,32 @@ import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Pressable, Text, View, styled, useResponsiveValue } from 'dripsy'
 import { FormikProps } from 'formik'
-import { useCallback, useRef } from 'react'
+import { ComponentProps, useCallback, useRef } from 'react'
 import { TextInput } from 'react-native'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useSendRegistrationOtpMutation } from 'services/authApi'
 import { useRouter } from 'solito/router'
 import { RegisterFormValues } from './RegisterScreen'
+import ReceiveOTPContact from '../components/ReceiveOTPContact'
+import isDesktop from 'app/utils/isDesktop'
+import { ModalComponentProp } from 'react-native-modalfy'
+import { ModalStackParams } from 'app/provider/modal'
 
-interface AccountVerificationFormProps {
+const StyledFormContainer = styled(FormContainer)({
+  py: '$4',
+})
+
+type AccountVerificationFormProps = {
   isAgent: boolean
   formik: FormikProps<RegisterFormValues>
-}
+  modal?: ModalComponentProp<ModalStackParams, void, 'RegisterModal'>['modal']
+} & ComponentProps<typeof StyledFormContainer>
 
 const AccountVerificationForm = ({
   isAgent,
   formik,
+  modal,
+  ...rest
 }: AccountVerificationFormProps) => {
   const {
     handleChange,
@@ -34,6 +45,7 @@ const AccountVerificationForm = ({
     setTouched,
     setFieldValue,
     validateForm,
+    isSubmitting,
   } = formik
 
   const { t } = useLocalization()
@@ -44,6 +56,8 @@ const AccountVerificationForm = ({
   const otpFieldRef = useRef<TextInput>(null)
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
   const isOtpButtonLoading = useRef(false)
+  const desktop = isDesktop()
+  const minHeightResponsiveValue = useResponsiveValue([50, 50, 75, 75, 75])
 
   const [
     sendOtp,
@@ -63,8 +77,10 @@ const AccountVerificationForm = ({
 
     const { contactNumber, verifyCode, terms } = await validateForm()
 
-    if (contactNumber || verifyCode || terms) return
-  }, [setTouched, validateForm])
+    if (contactNumber || verifyCode || terms || !isMemberOtpSucess) return
+
+    submitForm()
+  }, [isMemberOtpSucess, setTouched, submitForm, validateForm])
 
   const sendOTP = async () => {
     isOtpButtonLoading.current = true
@@ -103,9 +119,10 @@ const AccountVerificationForm = ({
     // }
   }
   const handlePressTnC = () => {
-    const params = {
-      locale: locale,
+    if (modal) {
+      modal.closeModal()
     }
+
     push('/info/tnc')
   }
 
@@ -114,11 +131,7 @@ const AccountVerificationForm = ({
   }
 
   return (
-    <FormContainer
-      sx={{
-        py: 20,
-      }}
-    >
+    <StyledFormContainer {...rest}>
       <Input
         inputContainerSx={{ width: '100%' }}
         icon="icon-hp"
@@ -189,7 +202,7 @@ const AccountVerificationForm = ({
 
       <View
         sx={{
-          minHeight: useResponsiveValue([50, 50, 75, 75, 75]),
+          minHeight: minHeightResponsiveValue,
           justifyContent: 'space-between',
         }}
       >
@@ -197,7 +210,6 @@ const AccountVerificationForm = ({
           sx={{
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'center',
           }}
         >
           <CheckBox isCheck={values.terms} onCheck={onCheckboxCheck} />
@@ -210,31 +222,23 @@ const AccountVerificationForm = ({
             </Text>
           </Pressable>
         </View>
-
-        <View
-          sx={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-          }}
-        >
-          <Text>{t('authentication.noReceiveOTP')} </Text>
-
-          <Pressable onPress={handleContactUs}>
-            <Text sx={{ color: '$secondary.500' }}>
-              {t('footer.contactUs')}
-            </Text>
-          </Pressable>
-        </View>
       </View>
 
+      <ReceiveOTPContact
+        sx={{
+          mt: desktop ? 'auto' : '$4',
+        }}
+      />
+
       <Button
-        sx={{ bg: '$secondary.500', marginTop: '$4', py: '$2' }}
+        sx={{ bg: '$secondary.500', marginTop: '$3' }}
         onPress={submitForm}
+        loading={isSubmitting}
         disabled={!values.terms || !isMemberOtpSucess || !!errors.verifyCode}
       >
         {t('common.submit')}
       </Button>
-    </FormContainer>
+    </StyledFormContainer>
   )
 }
 

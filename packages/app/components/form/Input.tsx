@@ -18,7 +18,7 @@ import {
 import { mergeRefs } from 'utils/mergeRefs'
 import Icon from '../Icon'
 
-type InputComponent = ({ color }: { color?: string }) => JSX.Element
+type InputComponent = ({ color }: { color?: string }) => React.ReactNode
 
 export interface InputProps extends DripsyTextInputProps {
   label?: string

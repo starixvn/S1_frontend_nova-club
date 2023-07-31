@@ -23,22 +23,26 @@ export default function Shield() {
       id="shield.com"
       src={`https://d1cr9zxt7u0sgu.cloudfront.net/shdfp.js?SITE_ID=${process.env.NEXT_PUBLIC_SHIELD_SITE_ID}&TYPE=JS&DE=1&AUTO=0`}
       onLoad={() => {
-        window.getDeviceResult().then(
-          function (res) {
-            console.log('Shield Response', res)
-            let sessionId = res.result.session_id
-            dispatch(SettingActions.setShieldSessionID(sessionId))
+        try {
+          window.getDeviceResult().then(
+            function (res) {
+              console.log('Shield Response', res)
+              let sessionId = res.result.session_id
+              dispatch(SettingActions.setShieldSessionID(sessionId))
 
-            // consume device intelligence
+              // consume device intelligence
 
-            // let deviceIntelligence = res.result.device_intelligence
-            // console.log(deviceIntelligence)
-            // ... rest of the code
-          },
-          function (error) {
-            console.log('shield error', error.message)
-          }
-        )
+              // let deviceIntelligence = res.result.device_intelligence
+              // console.log(deviceIntelligence)
+              // ... rest of the code
+            },
+            function (error) {
+              console.log('shield error', error.message)
+            }
+          )
+        } catch (error) {
+          console.error(error)
+        }
       }}
     />
   )

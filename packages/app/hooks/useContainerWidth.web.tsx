@@ -1,9 +1,21 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 
-export default function useContainerWidth(ref) {
+export default function useContainerWidth(ref: React.RefObject<HTMLElement>) {
   const [width, setWidth] = useState(0)
+
   useLayoutEffect(() => {
-    setWidth(ref.current.clientWidth)
+    const updateSize = () => {
+      if (!ref.current) {
+        return
+      }
+
+      setWidth(ref.current.clientWidth)
+    }
+
+    window.addEventListener('resize', updateSize)
+    updateSize()
+
+    return () => window.removeEventListener('resize', updateSize)
   }, [ref.current?.clientWidth])
 
   return width

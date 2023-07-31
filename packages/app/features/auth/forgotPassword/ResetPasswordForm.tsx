@@ -1,17 +1,24 @@
+import Button from 'app/components/common/Button'
+import FormContainer from 'app/components/form/FormContainer'
 import Input from 'app/components/form/Input'
-import { Pressable, Text, View, styled } from 'dripsy'
-import { FormikProps } from 'formik'
-import { ForgotPasswordFormValues } from './ForgotPasswordScreen'
-import { PASSWORD_MAX_LENGTH } from 'app/utils/validation'
-import { useCallback, useRef } from 'react'
-import { TextInput } from 'react-native'
 import useLocalization from 'app/provider/localization'
+import isDesktop from 'app/utils/isDesktop'
+import { PASSWORD_MAX_LENGTH } from 'app/utils/validation'
+import { styled } from 'dripsy'
+import { FormikProps } from 'formik'
+import { ComponentProps, useRef } from 'react'
+import { TextInput } from 'react-native'
+import { ForgotPasswordFormValues } from './hook/useForgotPassword'
+
+const StyledFormContainer = styled(FormContainer)({
+  py: '$4',
+})
 
 type ResetPasswordFormProps = {
   formik: FormikProps<ForgotPasswordFormValues>
-}
+} & ComponentProps<typeof StyledFormContainer>
 
-const ResetPasswordForm = ({ formik }: ResetPasswordFormProps) => {
+const ResetPasswordForm = ({ formik, ...rest }: ResetPasswordFormProps) => {
   const {
     handleChange,
     handleBlur,
@@ -22,34 +29,20 @@ const ResetPasswordForm = ({ formik }: ResetPasswordFormProps) => {
     setTouched,
     setFieldValue,
     validateForm,
+    isSubmitting,
   } = formik
 
   const { t } = useLocalization()
+  const desktop = isDesktop()
 
   const passwordFieldRef = useRef<TextInput>(null)
   const confirmPasswordFieldRef = useRef<TextInput>(null)
 
-  const onSubmit = useCallback(async () => {
-    setTouched({
-      password: true,
-      confirmPassword: true,
-    })
-
-    const { password, confirmPassword } = await validateForm()
-
-    if (password || confirmPassword) return
-  }, [setTouched, validateForm])
-
   return (
-    <View
-      sx={{
-        width: '90%',
-        py: 20,
-      }}
-    >
+    <StyledFormContainer {...rest}>
       <Input
         icon="pw"
-        placeholder="Password"
+        placeholder={t('common.password')}
         secureTextEntry
         textContentType="password"
         value={values.password}
@@ -68,7 +61,7 @@ const ResetPasswordForm = ({ formik }: ResetPasswordFormProps) => {
       />
       <Input
         icon="pw"
-        placeholder="Confirm Password"
+        placeholder={t('common.confirmPassword')}
         secureTextEntry
         textContentType="password"
         value={values.confirmPassword}
@@ -76,7 +69,7 @@ const ResetPasswordForm = ({ formik }: ResetPasswordFormProps) => {
         onChangeText={handleChange('confirmPassword')}
         maxLength={PASSWORD_MAX_LENGTH}
         ref={confirmPasswordFieldRef}
-        onSubmitEditing={onSubmit}
+        onSubmitEditing={submitForm}
         error={
           touched.confirmPassword && errors.confirmPassword
             ? t(errors.confirmPassword, {
@@ -86,29 +79,19 @@ const ResetPasswordForm = ({ formik }: ResetPasswordFormProps) => {
         }
       />
 
-      <ButtonContainer
-        sx={{ bg: '$secondary.500', marginTop: 65 }}
+      <Button
         onPress={submitForm}
+        loading={isSubmitting}
+        sx={{
+          bg: '$secondary.500',
+          marginTop: desktop ? 'auto' : '$4',
+          py: '$1',
+        }}
       >
-        <ButtonText>Submit</ButtonText>
-      </ButtonContainer>
-    </View>
+        {t('common.enter')}
+      </Button>
+    </StyledFormContainer>
   )
 }
-
-const ButtonContainer = styled(Pressable)({
-  borderRadius: 15,
-  mb: 20,
-  alignItems: 'center',
-})
-
-const ButtonText = styled(Text)({
-  width: '100%',
-  py: 15,
-  px: 25,
-  textAlign: 'center',
-  textTransform: 'uppercase',
-  fontWeight: 'bold',
-})
 
 export default ResetPasswordForm

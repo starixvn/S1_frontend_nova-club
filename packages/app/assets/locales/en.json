@@ -10,7 +10,7 @@
     "accVerification": "Account Verification",
     "accountReg": "Account Registration",
     "enterOtp": "Please enter OTP",
-    "forgotPassword": "Forgot Password ?",
+    "forgotPassword": "Forgot Password?",
     "forgotPasswordHeader": "Forgot Password",
     "login": "Login",
     "loginHeader": "Login to your account",
@@ -106,7 +106,8 @@
     "turnOver": "Turn Over",
     "userAgreement": "User Agreement",
     "username": "Username",
-    "withdraw": "Withdraw"
+    "withdraw": "Withdraw",
+    "enter": "Enter"
   },
   "contact": {
     "contactVia": "Contact via:",

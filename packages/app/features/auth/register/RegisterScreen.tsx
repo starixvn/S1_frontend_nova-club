@@ -6,7 +6,7 @@ import { Platform, View as RNView } from 'react-native'
 import AuthLayout from '../AuthLayout'
 import AccountVerificationForm from './AccountVerificationForm'
 import RegisterForm from './RegisterForm'
-import useRegisterScreen from './useRegisterScreen'
+import useRegisterScreen, { Register_Screen } from './useRegisterScreen'
 import { useModal } from 'react-native-modalfy'
 import useLocalization from 'app/provider/localization'
 
@@ -64,13 +64,12 @@ const RegisterScreen = () => {
               routes={routes}
             />
           </View>
-          <View>
-            <RegisterForm
-              isAgent={isAgentLogin}
-              formik={formik}
-              onSuccess={onRegisterSuccess}
-            />
-          </View>
+
+          <RegisterForm
+            isAgent={isAgentLogin}
+            formik={formik}
+            onSuccess={onRegisterSuccess}
+          />
         </AuthLayout>
       </MotiView>
 
@@ -80,7 +79,9 @@ const RegisterScreen = () => {
           type: 'timing',
           duration: 400,
         }}
-        style={{ width }}
+        style={{
+          width,
+        }}
       >
         <AuthLayout
           onBack={onBack}

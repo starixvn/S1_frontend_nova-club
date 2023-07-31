@@ -3,20 +3,25 @@ import { TabBarSelection } from 'app/components/navigation/CustomTabBar'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
 import AccountVerificationForm from 'app/features/auth/register/AccountVerificationForm'
 import RegisterForm from 'app/features/auth/register/RegisterForm'
-import useRegisterScreen from 'app/features/auth/register/useRegisterScreen'
-import { Row, Text, View } from 'dripsy'
+import useRegisterScreen, {
+  Register_Screen,
+} from 'app/features/auth/register/useRegisterScreen'
+import useLocalization from 'app/provider/localization'
+import { Row, Text, View, useDripsyTheme } from 'dripsy'
 import { MotiView } from 'moti'
 import React, { useEffect, useRef } from 'react'
 import { View as RNView } from 'react-native'
-import AuthLayout from '../AuthLayout'
 import { useModal } from 'react-native-modalfy'
-import useLocalization from 'app/provider/localization'
+import AuthLayout from '../AuthLayout'
+import { ModalComponentProp } from 'react-native-modalfy'
+import { ModalStackParams } from 'app/provider/modal'
 
-type Props = {}
+type Props = ModalComponentProp<ModalStackParams, void, 'RegisterModal'>
 
-export default function RegisterScreen({}: Props) {
+export default function RegisterScreen({ modal }: Props) {
   const rootRef = useRef<RNView>(null)
   const { t } = useLocalization()
+  const { theme } = useDripsyTheme()
   const { closeModal, openModal } = useModal()
 
   const {
@@ -29,7 +34,9 @@ export default function RegisterScreen({}: Props) {
     formik,
     onRegisterSuccess,
     onBack,
+    currentScreen,
   } = useRegisterScreen(rootRef)
+
   useEffect(() => {
     closeModal('LuckyDrawModal')
     setTimeout(() => {
@@ -38,11 +45,11 @@ export default function RegisterScreen({}: Props) {
   }, [])
 
   return (
-    <AuthLayout headerDesc={t('authentication.accountReg')}>
-      <View ref={rootRef} sx={{ overflow: 'hidden', py: 20 }}>
-        {/* <Button onPress={onRegisterSuccess}> asdf</Button>
-      <Button onPress={onBack}> onBack</Button> */}
-
+    <AuthLayout
+      sx={{ mt: modal ? 0 : '$5' }}
+      headerDesc={t('authentication.accountReg')}
+    >
+      <View ref={rootRef} sx={{ overflow: 'hidden', flex: 1, pt: '$4' }}>
         <Row sx={{ flex: 1 }}>
           <MotiView
             state={animationState}
@@ -50,19 +57,32 @@ export default function RegisterScreen({}: Props) {
               type: 'timing',
               duration: 400,
             }}
-            // style={{ width }}
+            style={{ width: '100%' }}
           >
-            <View sx={{ width: '100%', minHeight: 60 }}>
+            <View>
               <TabBarSelection
                 currentIndex={index}
                 onPress={handlePress}
                 routes={routes}
+                buttonProps={{
+                  sx: {
+                    py: 0,
+                  },
+                }}
+                buttonTextProps={{
+                  sx: {
+                    py: 0,
+                  },
+                }}
               />
             </View>
             <RegisterForm
               isAgent={isAgentLogin}
               formik={formik}
               onSuccess={onRegisterSuccess}
+              sx={{
+                flex: 1,
+              }}
             />
           </MotiView>
           <MotiView
@@ -71,13 +91,18 @@ export default function RegisterScreen({}: Props) {
               type: 'timing',
               duration: 400,
             }}
-            style={{ width }}
+            style={{
+              width,
+              display:
+                currentScreen === Register_Screen.ACCOUNT_VERIFICATION
+                  ? 'flex'
+                  : 'none',
+            }}
           >
-            <View sx={{ py: 20 }}>
+            <View sx={{ flex: 1 }}>
               <Row
                 sx={{
                   px: '$pagePadding',
-                  mb: '$pagePadding',
                   justifyContent: 'space-between',
                   alignItems: 'center',
                 }}
@@ -95,7 +120,12 @@ export default function RegisterScreen({}: Props) {
                 </Text>
                 <IconButton name="back" sx={{ opacity: 0 }} />
               </Row>
-              <AccountVerificationForm isAgent={isAgentLogin} formik={formik} />
+              <AccountVerificationForm
+                isAgent={isAgentLogin}
+                formik={formik}
+                modal={modal}
+                sx={{ flex: 1 }}
+              />
             </View>
           </MotiView>
         </Row>

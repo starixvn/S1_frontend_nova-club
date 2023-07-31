@@ -2,21 +2,34 @@ import Divider from 'app/components/Divider'
 import { DripsyGradient } from 'app/components/Gradient'
 import LanguageSwitch from 'app/components/LanguageSwitch'
 import AuthBanner from 'app/features/auth/components/AuthBanner'
-import { Text } from 'dripsy'
-import { Container, View } from 'dripsy'
-import React, { ReactNode, memo } from 'react'
+import { Container, Text, View, styled } from 'dripsy'
+import React, { ComponentProps, ReactNode, memo } from 'react'
+import { useWindowDimensions } from 'react-native'
 import { SolitoImage } from 'solito/image'
+
+type StyledContainerProps = {
+  width: number
+}
+
+const StyledContainer = styled(Container)(
+  ({ width }: StyledContainerProps) => ({
+    width: Math.min(1260, width * 0.9),
+    minHeight: 420,
+  })
+)
 
 type Props = {
   children: ReactNode
   headerDesc: string
-}
+} & Omit<ComponentProps<typeof StyledContainer>, keyof StyledContainerProps>
 
-export default function AuthLayout({ children, headerDesc }: Props) {
+export default function AuthLayout({ children, headerDesc, ...rest }: Props) {
+  const { width } = useWindowDimensions()
+
   return (
-    <Container sx={{ py: 40 }}>
-      <DripsyGradient gradient="surface">
-        <View sx={{ flexDirection: 'row' }}>
+    <StyledContainer width={width} {...rest}>
+      <DripsyGradient gradient="surface" sx={{ flex: 1 }}>
+        <View sx={{ flexDirection: 'row', flex: 1 }}>
           <LeftColumn title={headerDesc} />
           <View sx={{ width: '50%' }}>
             <Divider />
@@ -24,7 +37,7 @@ export default function AuthLayout({ children, headerDesc }: Props) {
           </View>
         </View>
       </DripsyGradient>
-    </Container>
+    </StyledContainer>
   )
 }
 
