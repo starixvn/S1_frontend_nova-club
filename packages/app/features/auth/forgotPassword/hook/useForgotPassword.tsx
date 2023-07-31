@@ -37,7 +37,7 @@ function useForgotPassword(rootView: RefObject<RNView>) {
   const { showAlert } = useAlert()
   const width = useContainerWidth(rootView)
 
-  const { push } = useRouter()
+  const { push, replace } = useRouter()
   const { closeModal } = useModal()
   const desktop = isDesktop()
   const [currentScreen, setCurrentScreen] = useState<ForgotPassword_Screen>(
@@ -82,7 +82,7 @@ function useForgotPassword(rootView: RefObject<RNView>) {
           if (Platform.OS === 'web' && desktop) {
             closeModal()
           } else {
-            push('/auth/login')
+            replace('/auth/login')
           }
         }
       }

@@ -34,7 +34,7 @@ export default function useRegisterScreen(rootView: RefObject<RNView>) {
   const { showAlert } = useAlert()
   const width = useContainerWidth(rootView)
   const dispatch = useAppDispatch()
-  const { push } = useRouter()
+  const { push, replace } = useRouter()
   const { closeModal } = useModal()
 
   const responsiveMode = useResponsiveValue([false, false, false, true, true])
@@ -113,7 +113,7 @@ export default function useRegisterScreen(rootView: RefObject<RNView>) {
       if (Platform.OS === 'web' && desktop) {
         closeModal()
       } else {
-        push('/')
+        replace('/')
       }
 
       setStatus(true)
