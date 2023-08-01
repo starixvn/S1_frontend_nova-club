@@ -7,6 +7,7 @@ import LoginScreen from 'app/features/auth/login/LoginScreen'
 import 'desktop-ext/features/auth/login/LoginScreenDesktop'
 import isDesktop from 'app/utils/isDesktop'
 import LoginScreenDesktop from 'desktop-ext/features/auth/login/LoginScreenDesktop'
+import { useResponsiveValue } from 'dripsy'
 // import AgentGuard from './agent/AgentGuard'
 
 const guestRoutes = [
@@ -49,8 +50,8 @@ export function serialize(obj) {
 
 const AuthenticationProvider = ({ children }) => {
   const router = useRouter()
-  const { asPath, query, replace: nextJsReplace } = router
-  const desktop = isDesktop()
+  const { asPath, query, replace: nextJsReplace, route } = router
+  const desktop = useResponsiveValue([false, false, false, true])
   const loginInfo = useAppSelector((s) => s.auth.info)
 
   const isLoggedInWithToken = useLoginWithToken(loginInfo?.token)
@@ -63,10 +64,12 @@ const AuthenticationProvider = ({ children }) => {
   // persisting the LoginPage with query.r detection will prevent empty page being shown
 
   // if route doesnt exists in guestRoutes
-  if (!guestRoutes.some((r) => asPath === '/' || asPath.startsWith(r))) {
+  if (!guestRoutes.some((r) => route === '/' || asPath.startsWith(r))) {
     if (!loginInfo) {
       if (!desktop) nextJsReplace('/auth/login', '/auth/login?r=' + asPath, {})
-      else nextJsReplace('/', '/')
+      else {
+        nextJsReplace('/', '/')
+      }
       if (!desktop) return <LoginScreen />
       else return <LoginScreenDesktop />
     }
