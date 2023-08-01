@@ -17,7 +17,7 @@ export default function LoginScreenDesktop({}: Props) {
 
   return (
     <AuthLayout headerDesc={t('authentication.loginHeader')}>
-      <LoginForm isAgent={isAgentLogin} />
+      <LoginForm isAgent={true} />
     </AuthLayout>
   )
 }
