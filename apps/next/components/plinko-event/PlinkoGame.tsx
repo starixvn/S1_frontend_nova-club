@@ -504,7 +504,7 @@ const PlinkoGame = () => {
   }
 
   return (
-    <View sx={{ flex: 1 }}>
+    <View sx={{ flex: 1, height }}>
       <main
         style={{
           overflow: 'auto',

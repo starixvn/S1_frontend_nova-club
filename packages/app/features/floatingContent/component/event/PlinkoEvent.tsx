@@ -23,7 +23,7 @@ const PlinkoEvent = ({ size }: { size: number }) => {
 
   const handlePress = () => {
     if (isDesktop) {
-      Linking.openURL('http://localhost:3000/event/plinko')
+      Linking.openURL('https://stage2.gball8.com/event/plinko')
     } else push('/event/plinko')
   }
 
