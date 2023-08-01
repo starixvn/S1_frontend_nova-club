@@ -38,9 +38,11 @@ const RegisterScreen = () => {
 
   useEffect(() => {
     closeModal('LuckyDrawModal')
-    setTimeout(() => {
-      openModal('LuckyDrawModal')
-    }, 1000)
+    if (Platform.OS === 'web') {
+      setTimeout(() => {
+        openModal('LuckyDrawModal')
+      }, 1000)
+    }
   }, [])
 
   return (
