@@ -35,11 +35,11 @@ export const TAB_NO = {
 
 export const DepositTableHeader = [
   TAB_NO,
-  { label: 'Type', textStyle: { flex: 1.5, textAlign: 'left' } },
-  { label: 'ID', textStyle: { flex: 2, textAlign: 'left' } },
-  { label: 'Date', textStyle: { flex: 1.5, textAlign: 'left' } },
-  { label: 'Amount', textStyle: { flex: 2 } },
-  { label: 'Status', textStyle: { flex: 2 } },
+  { label: 'deposit.type', textStyle: { flex: 1.5, textAlign: 'left' } },
+  { label: 'deposit.id', textStyle: { flex: 2, textAlign: 'left' } },
+  { label: 'common.date', textStyle: { flex: 1.5, textAlign: 'left' } },
+  { label: 'common.amount', textStyle: { flex: 2 } },
+  { label: 'deposit.status', textStyle: { flex: 2 } },
 ]
 
 const CONFIRMATION_FIELDS = [

@@ -7,9 +7,9 @@ import { CellViewContainer, TAB_NO } from './DesktopDepositHistoryItem'
 
 export const WithdrawalTableHeader = [
   TAB_NO,
-  { label: 'Date', textStyle: { flex: 1, textAlign: 'left' } },
-  { label: 'Amount', textStyle: { flex: 1, textAlign: 'center' } },
-  { label: 'Status', textStyle: { flex: 1, textAlign: 'center' } },
+  { label: 'common.date', textStyle: { flex: 1, textAlign: 'left' } },
+  { label: 'common.amount', textStyle: { flex: 1, textAlign: 'center' } },
+  { label: 'deposit.status', textStyle: { flex: 1, textAlign: 'center' } },
 ]
 
 const DesktopWithdrawalHistoryItem = ({ item, index }) => {

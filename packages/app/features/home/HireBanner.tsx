@@ -21,7 +21,7 @@ export default function HireBanner() {
   const animatedText = useMemo(
     () => (
       <MotiView
-        key={'rebate'}
+        key={lang}
         from={{ scale: 0.8 }}
         animate={{ scale: 1 }}
         transition={{
@@ -133,7 +133,7 @@ export const AnimatedButton = ({ onPress, children }) => {
   const animatedText = useMemo(
     () => (
       <MotiView
-        key="button"
+        key={lang}
         from={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{

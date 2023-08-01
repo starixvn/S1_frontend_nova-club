@@ -7,7 +7,7 @@ import { CellViewContainer, TAB_NO } from './DesktopDepositHistoryItem'
 export const RedeemTableHeader = [
   TAB_NO,
   {
-    label: 'Date',
+    label: 'common.date',
     textStyle: { flex: 1, textAlign: 'left', pl: 12 },
   },
   { label: 'Category', textStyle: { flex: 1, textAlign: 'left' } },

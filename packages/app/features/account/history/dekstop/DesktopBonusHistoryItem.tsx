@@ -8,9 +8,9 @@ import { CellViewContainer, TAB_NO } from './DesktopDepositHistoryItem'
 
 export const BonusTableHeader = [
   TAB_NO,
-  { label: 'Date', textStyle: { flex: 1, textAlign: 'left' } },
-  { label: 'Type', textStyle: { flex: 1, textAlign: 'center' } },
-  { label: 'Amount', textStyle: { flex: 1, textAlign: 'center' } },
+  { label: 'common.date', textStyle: { flex: 1, textAlign: 'left' } },
+  { label: 'deposit.type', textStyle: { flex: 1, textAlign: 'center' } },
+  { label: 'common.amount', textStyle: { flex: 1, textAlign: 'center' } },
 ]
 
 const DesktopBonusHistoryItem = ({ item, index }) => {
