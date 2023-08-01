@@ -48,7 +48,6 @@ const RegisterForm = ({
   const desktop = isDesktop()
   const referral = useAppSelector((s) => s.setting.referral)
 
-  console.log('referral', referral)
   const [agentCheckUsername] = useLazyAgentCheckUsernameQuery()
 
   const [usernameErrorMsg, setUsernameErrorMsg] = useState('')
@@ -66,6 +65,7 @@ const RegisterForm = ({
       password: true,
       confirmPassword: true,
     })
+    handleCheckingUsername()
 
     const { username, confirmPassword, password } = await validateForm()
 

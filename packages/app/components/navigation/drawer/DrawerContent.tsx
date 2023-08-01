@@ -106,7 +106,7 @@ export default function DrawerContent() {
       iconName: 'history',
       text: 'common.history',
       onPress: () => {
-        push('/history')
+        push('/history/transaction')
       },
     },
     {
