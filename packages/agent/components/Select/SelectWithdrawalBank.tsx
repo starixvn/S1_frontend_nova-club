@@ -3,7 +3,6 @@ import useAgentLoading from 'agent/hooks/useAgentLoading'
 import { useDeleteBankAccountMutation } from 'agent/services/accountApi'
 import { DeleteBankAccount } from 'agent/services/accountApi.type'
 import { IResponse } from 'agent/services/common/agentAxiosBaseQuery'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { Image, View, styled } from 'dripsy'
 import React, { useRef } from 'react'
 import { TouchableOpacity } from 'react-native'
@@ -11,6 +10,7 @@ import { useModal } from 'react-native-modalfy'
 import Icon from '../Icon'
 import IconButton from '../Icon/IconButton'
 import Select, { CloseSelectForwardRef, Options, SelectProps } from './Select'
+import { useRouter } from 'solito/router'
 const TOTAL_CARD = 3
 
 export type SelectWithdrawalBank<T> = Omit<
@@ -23,7 +23,7 @@ export default function SelectWithdrawalBank<T>(
 ) {
   // const navigation = useNavigation()
 
-  const { push } = useContextualRouter()
+  const { push } = useRouter()
   const [DeleteBankAccount] = useDeleteBankAccountMutation()
   const selectRef = useRef<CloseSelectForwardRef>(null)
   const { showAlert } = useAgentAlert()
@@ -111,7 +111,7 @@ export default function SelectWithdrawalBank<T>(
                   key={`addBankCard-${i}`}
                   onPress={() => {
                     selectRef.current?.closeActionSheet()
-                    push('/agent/wallet/withdrawal/add-bank')
+                    push('/agent/add-bank')
                   }}
                 >
                   <Icon name={'add'} color={'grey'} size={25} />

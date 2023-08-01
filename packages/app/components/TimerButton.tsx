@@ -70,14 +70,14 @@ const TimerButton = forwardRef<ITimerButtonForwardRef, ITimerButtonProps>(
       <StyledButton
         disabled={disabled}
         onPress={handleButtonClick}
-        style={disabled ? { backgroundColor: theme.colors.$disabled } : {}}
+        style={disabled ? { backgroundColor: '$gray' } : {}}
         {...props}
       >
         {(disabled || loading) && (
           <ActivityIndicator
             size="small"
-            color={theme.colors.$secondary}
-            sx={{ mr: secDiff ? '$1' : '$0', fontSize: 12 }}
+            color={'$white'}
+            sx={{ mr: secDiff ? 2 : 0, fontSize: 12 }}
           />
         )}
         {!loading && (
@@ -100,11 +100,11 @@ TimerButton.displayName = 'TimerButton'
 
 const StyledButton = styled(Pressable)({
   flexDirection: 'row',
-  p: '$2',
-  m: '$1',
+  p: 4,
+  m: 2,
   width: 100,
   borderRadius: 4,
-  bg: '$primary',
+  bg: '$primary.500',
   justifyContent: 'center',
   alignItems: 'center',
 })

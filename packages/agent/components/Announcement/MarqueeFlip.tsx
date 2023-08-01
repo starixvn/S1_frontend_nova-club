@@ -1,8 +1,8 @@
 import { AnnouncementItem } from 'agent/services/contentApi.type'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { ActivityIndicator, Pressable, SxProp, View, styled } from 'dripsy'
 import { AnimatePresence, MotiText } from 'moti'
 import React, { useEffect, useState } from 'react'
+import { useRouter } from 'solito/router'
 import Icon from '../Icon'
 import { MarqueeItem } from './type'
 
@@ -24,7 +24,7 @@ const MarqueeFlip = ({
   const [currentIndex, setCurrentIndex] = useState(0)
   const totalIndex = announcementList.length - 1
 
-  const { push } = useContextualRouter()
+  const { push } = useRouter()
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -106,7 +106,7 @@ const StyledContainer = styled(Pressable)({
   borderTopWidth: 1,
   borderBottomWidth: 1,
   px: ['$2', '$2', '$2', '$3'],
-  borderColor: '$lightNavyBlue',
+  borderColor: ANNOUNCEMENT_COLOR_AGENT,
   alignItems: 'center',
   bg: 'white',
 })

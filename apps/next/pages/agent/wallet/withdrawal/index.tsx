@@ -1,8 +1,7 @@
-import React from 'react'
 import WithdrawalPage from 'agent/features/wallet/withdrawal'
 import AgentNestedTabs from 'agent/navigation/components/AgentNestedTabNavigator/AgentNestedTabs'
 import WalletRoutes from 'agent/navigation/routes/WalletRoutes'
-import AgentLayout from '../../../../layouts/agent/AgentLayout'
+import { MobileAgentLayout } from 'components/layouts/agent'
 
 const Withdrawal = () => {
   return (
@@ -13,6 +12,6 @@ const Withdrawal = () => {
   )
 }
 
-Withdrawal.getLayout = AgentLayout
+Withdrawal.AgentLayout = MobileAgentLayout
 
 export default Withdrawal

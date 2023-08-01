@@ -1,0 +1,89 @@
+import { useDrawer } from 'app/hooks/useDrawer'
+import { Pressable, View, styled, useResponsiveValue } from 'dripsy'
+import { MotiView, useAnimationState } from 'moti'
+import React, { memo, useEffect, useState } from 'react'
+import { Platform, useWindowDimensions } from 'react-native'
+import LazyDrawerContent from './LazyDrawerContent'
+import { HEADER_HEIGHT } from 'app/utils/constant'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+
+// TODOƒ
+/* Overlay */
+export default function Drawer({ children }) {
+  const { width, height } = useWindowDimensions()
+  const { top } = useSafeArea()
+  const drawerWidth = Math.min(300, width)
+  const drawerHeight = height - HEADER_HEIGHT - top
+  const useDrawerAnimation = useAnimationState({
+    from: { translateX: width },
+    //multiplier should opposite with drawer container width
+    toggle: { translateX: width - drawerWidth + 5 },
+  })
+  const isDesktop = useResponsiveValue([false, false, false, true])
+  const { isOpen, toggleDrawer } = useDrawer()
+  const [offsetTop, setOffsetTop] = useState(0)
+
+  useEffect(() => {
+    if (Platform.OS === 'web') {
+      setOffsetTop(document.documentElement.scrollTop)
+    }
+    if (isOpen) {
+      useDrawerAnimation.transitionTo('toggle')
+      Platform.OS === 'web' &&
+        document.documentElement.classList.add('overflow-hidden')
+    } else {
+      useDrawerAnimation.transitionTo('from')
+      Platform.OS === 'web' &&
+        document.documentElement.classList.remove('overflow-hidden')
+    }
+  }, [isOpen, useDrawerAnimation, width, isDesktop])
+
+  return (
+    <View
+      sx={{
+        flex: 1,
+        overflow: 'hidden',
+      }}
+    >
+      {children}
+      {isOpen && <DrawerOverlay onPress={() => toggleDrawer()} />}
+      <DrawerContainer
+        width={drawerWidth}
+        height={drawerHeight}
+        offsetTop={HEADER_HEIGHT + top + offsetTop}
+        state={useDrawerAnimation}
+        transition={{ type: 'timing' }}
+      >
+        <LazyDrawerContent />
+      </DrawerContainer>
+    </View>
+  )
+}
+
+const DrawerOverlay = styled(Pressable)({
+  position: 'absolute',
+  width: '100%',
+  height: '100%',
+  backgroundColor: 'rgba(0,0,0,0.2)',
+  zIndex: 1,
+})
+
+const DrawerContainer = styled(MotiView)(
+  ({
+    offsetTop,
+    width,
+    height,
+  }: {
+    offsetTop: number
+    width: number
+    height: number
+  }) => ({
+    position: 'absolute',
+    width,
+    height,
+    zIndex: 1,
+    top: offsetTop,
+  })
+)
+
+export const MemoDrawer = memo(Drawer)

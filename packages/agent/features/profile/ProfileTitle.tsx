@@ -1,6 +1,5 @@
 import Text from 'agent/components/Text'
 import { ROLE } from 'agent/utils/helper'
-import { NotoSansItalic } from 'app/provider/dripsy'
 import { useAgentLocalization } from 'app/provider/localization'
 import { View } from 'dripsy'
 
@@ -11,8 +10,8 @@ const ProfileTitle = ({ userRole }: { userRole: string }) => {
       sx={{
         flexDirection: 'row',
         alignItems: 'center',
-        paddingX: '$5',
-        paddingY: '$3',
+        px: '$3',
+        py: '$2',
       }}
     >
       <View>
@@ -39,8 +38,8 @@ const ProfileTitle = ({ userRole }: { userRole: string }) => {
         <Text
           sx={{
             color: userRole === ROLE.AGENT ? 'white' : 'black',
-            fontFamily: NotoSansItalic,
             fontSize: 10,
+            fontStyle: 'italic',
           }}
         >
           {userRole === ROLE.AGENT

@@ -1,5 +1,4 @@
 import Image from 'app/components/common/Image'
-import Icon from 'app/components/Icon'
 import { styled } from 'dripsy'
 import React from 'react'
 import { PixelRatio, Pressable, StyleSheet, Text, View } from 'react-native'

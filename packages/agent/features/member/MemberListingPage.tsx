@@ -1,5 +1,6 @@
-import DataTable from 'agent/components/DataTable/DataTable'
-import { DateTimeField } from 'agent/components/DataTable/DataTableCell'
+import AgentDataTableCell from 'agent/components/DataTable/AgentDataTableCell'
+import AgentDataTableHeader from 'agent/components/DataTable/AgentDataTableHeader'
+import AgentDataTableTitle from 'agent/components/DataTable/AgentDataTableTitle'
 import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
 import Text from 'agent/components/Text'
 import {
@@ -10,8 +11,9 @@ import {
 import useTableListing from 'agent/hooks/useTableListing'
 import { useMemberListQuery } from 'agent/services/agentApi'
 import { MemberListResult } from 'agent/services/agentApi.type'
+import DataTable from 'app/components/dataTable/DataTable'
+import { DateTimeField } from 'app/components/dataTable/DataTableCell'
 import { useAgentLocalization } from 'app/provider/localization'
-import { useAppSelector } from 'app/provider/redux/store'
 import { Currency } from 'app/utils/constant'
 import dayjs from 'dayjs'
 import { View, styled } from 'dripsy'
@@ -19,6 +21,7 @@ import { useState } from 'react'
 import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import AgentFloatingContent from '../floatingContent'
+import AgentDataTableRow from 'agent/components/DataTable/AgentDataTableRow'
 
 export type MemberListFilterOptions = {
   date: DateFilter | string | undefined
@@ -81,30 +84,30 @@ const MemberListScreen = () => {
   const firstCellStyle = { flexGrow: 0, flexBasis: 40, px: '$1' }
 
   const onRenderHeader = () => (
-    <DataTable.Header>
-      <DataTable.Title bordered center containerStyle={firstCellStyle}>
+    <AgentDataTableHeader>
+      <AgentDataTableTitle bordered center sx={firstCellStyle}>
         #
-      </DataTable.Title>
-      <DataTable.Title bordered center>
+      </AgentDataTableTitle>
+      <AgentDataTableTitle bordered center>
         {t('common.username')}
-      </DataTable.Title>
-      <DataTable.Title bordered center>
+      </AgentDataTableTitle>
+      <AgentDataTableTitle bordered center>
         {t('shAgent.regDate')}
-      </DataTable.Title>
-      <DataTable.Title center>{t('common.status')}</DataTable.Title>
-    </DataTable.Header>
+      </AgentDataTableTitle>
+      <AgentDataTableTitle center>{t('common.status')}</AgentDataTableTitle>
+    </AgentDataTableHeader>
   )
 
   const onRenderItem = ({ item, index }: MemberListProps) => (
-    <DataTable.Row size="big" sx={{ bg: 'transparent' }}>
-      <DataTable.Cell bordered center containerStyle={firstCellStyle}>
+    <AgentDataTableRow size="big" sx={{ bg: 'transparent' }}>
+      <AgentDataTableCell bordered center sx={firstCellStyle}>
         {index + 1}
-      </DataTable.Cell>
-      <DataTable.Cell bordered>{item.username}</DataTable.Cell>
-      <DataTable.Cell bordered center>
+      </AgentDataTableCell>
+      <AgentDataTableCell bordered>{item.username}</AgentDataTableCell>
+      <AgentDataTableCell bordered center>
         <DateTimeField dateTime={item.register_date} />
-      </DataTable.Cell>
-      <DataTable.Cell center>
+      </AgentDataTableCell>
+      <AgentDataTableCell center>
         <SwitchView active={item.status === '0'}>
           <Text
             numberOfLines={1}
@@ -116,8 +119,8 @@ const MemberListScreen = () => {
             {t(getMemberStatus(item.status))}
           </Text>
         </SwitchView>
-      </DataTable.Cell>
-    </DataTable.Row>
+      </AgentDataTableCell>
+    </AgentDataTableRow>
   )
 
   const onFilter = () => {

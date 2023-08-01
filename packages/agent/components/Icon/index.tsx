@@ -1,30 +1,22 @@
 import { createIconSetFromIcoMoon } from '@expo/vector-icons'
-import { AGENT_ICON, DEFAULT_ICON } from 'app/hooks/useFontInit'
-import { styled, useDripsyTheme, useSx } from 'dripsy'
+import { styled } from 'dripsy'
 import React, { ComponentProps } from 'react'
 
 const IconComponent = createIconSetFromIcoMoon(
   require('agent/assets/fonts/selection.json'),
-  AGENT_ICON.FAMILY,
-  AGENT_ICON.FILENAME
+  'IcomoonAgent',
+  require('agent/assets/fonts/icomoon.ttf')
 )
 
-export const DripsyIcon = styled(IconComponent)()
+export const DripsyIcon = styled(IconComponent)(({ color }) => ({
+  color: color ?? '$text',
+}))
 
 export type IconComponentProps = ComponentProps<typeof IconComponent> &
   ComponentProps<typeof DripsyIcon>
 
 const Icon = (iconProps: IconComponentProps) => {
-  const { theme } = useDripsyTheme()
-  const sx = useSx()
-
-  const themedProps = sx({
-    color: iconProps.color,
-  })
-
-  return (
-    <DripsyIcon size={25} {...theme.icon} {...iconProps} {...themedProps} />
-  )
+  return <DripsyIcon size={25} {...iconProps} />
 }
 
 export default Icon

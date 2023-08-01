@@ -52,8 +52,9 @@ const PlinkoTicketCounter = ({
         }}
       >
         <Image
-          source={require('../../../../packages/app/assets/images/events/plinko/coin.png')}
+          source={require('../../../../packages/app/assets/images/plinko/coin.png')}
           sx={{ width: '100%', height: '100%', aspectRatio: 1 }}
+          alt="coin"
         />
       </MotiView>
       {loading || loadingBalance ? (

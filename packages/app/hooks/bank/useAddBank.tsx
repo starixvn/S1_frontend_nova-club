@@ -3,7 +3,6 @@ import { FormikHelpers, useFormik } from 'formik'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useAddPlayerBankAccMutation } from 'services/bank'
 import { WithdrawalBankResult } from 'services/bank.type'
-import { SelectOptions } from 'services/common/types'
 import {
   usePlayerProfileQuery,
   useUpdateProfileMutation,
@@ -133,37 +132,38 @@ const useAddBank = ({ BankType }: BankType) => {
       bank: validation.bank,
       accountNo: Yup.number().when('isCryptoValidation', {
         is: false,
-        then: validation.accountNo,
+        then: () => validation.accountNo,
       }),
       walletAddress: Yup.string().when('isCryptoValidation', {
         is: true,
-        then: Yup.string().when('bank', (bank) => {
-          switch (bank?.bank_code) {
-            case 'USDT-ERC20':
-              return validation.usdtErc20
-            case 'USDT-TRC20':
-              return validation.usdtTrc20
-            case 'BTC':
-              return validation.btc
-            case 'ETH':
-              return validation.eth
+        then: () =>
+          Yup.string().when('bank', ([bank]) => {
+            switch (bank?.bank_code) {
+              case 'USDT-ERC20':
+                return validation.usdtErc20
+              case 'USDT-TRC20':
+                return validation.usdtTrc20
+              case 'BTC':
+                return validation.btc
+              case 'ETH':
+                return validation.eth
 
-            default:
-              break
-          }
-        }),
+              default:
+                break
+            }
+          }),
       }),
       protocol: Yup.string().when('isCryptoValidation', {
         is: true,
-        then: validation.stringRequired,
+        then: () => validation.stringRequired,
       }),
       realName: Yup.string().when('isRealNameValidation', {
         is: false,
-        then: validation.vietnameseCharacter,
+        then: () => validation.vietnameseCharacter,
       }),
       otp: Yup.string().when('isPhoneVerified', {
         is: false,
-        then: validation.stringRequired,
+        then: () => validation.stringRequired,
       }),
     }),
     onSubmit,

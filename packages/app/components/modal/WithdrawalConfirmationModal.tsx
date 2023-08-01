@@ -1,22 +1,17 @@
-import useContainerDimension from 'app/hooks/useContainerDimension'
 import useLocalization from 'app/provider/localization'
-import { Box, Image, Text } from 'dripsy'
+import { Box, Text } from 'dripsy'
 import React from 'react'
 import { Platform } from 'react-native'
+import { modalDelaySubmission } from 'utils/common'
 import ModalContent from './ModalContent'
 import ModalWrapper from './ModalWrapper'
+import Image from '../common/Image'
 
 const WithdrawalConfirmationModal = ({ modal: { closeModal, getParam } }) => {
   const { t } = useLocalization()
-  const { width, height } = useContainerDimension()
 
   const withdrawalInfo = getParam('withdrawalInfo', '')
   const bankLogo = getParam('bankLogo', '')
-  console.log(
-    '🚀 ~ file: WithdrawalConfirmationModal.tsx:15 ~ WithdrawalConfirmationModal ~ bankLogo',
-    bankLogo
-  )
-
   const fields = getParam('fields', '')
   const onConfirm = getParam('onConfirm')
 
@@ -27,17 +22,14 @@ const WithdrawalConfirmationModal = ({ modal: { closeModal, getParam } }) => {
   }
 
   function onWithdrawalConfirmed() {
+    onConfirm && modalDelaySubmission(() => onConfirm())
     onDismiss()
-    setTimeout(() => {
-      onConfirm && onConfirm()
-    }, 150)
   }
 
   return (
     <ModalWrapper>
       <ModalContent
         title={t('menu.withdrawalConfirmation')}
-        closeModal={closeModal}
         actions={[
           {
             label: t('common.cancel'),
@@ -49,42 +41,46 @@ const WithdrawalConfirmationModal = ({ modal: { closeModal, getParam } }) => {
           },
         ]}
       >
-        {bankLogo ? (
-          <Image
-            source={
-              typeof bankLogo === 'string'
-                ? {
-                    uri: bankLogo,
-                  }
-                : bankLogo
-            }
-            sx={{ mx: '$2', width: 100, height: 100 }}
-          />
-        ) : null}
-        {isShowingFields &&
-          fields.map((field) => {
-            return (
-              <Box sx={{ p: '$2' }} key={field.value?.toString()}>
-                <Text sx={{ fontWeight: 'bold' }}>
-                  {t(field.label?.toString())} :
-                </Text>
-                <Box sx={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <Text
-                    sx={{
-                      mt: '$1',
-                      ...Platform.select({
-                        web: {
-                          wordBreak: 'break-word',
-                        },
-                      }),
-                    }}
-                  >
-                    {withdrawalInfo[field.value]?.toString() ?? ''}
+        <>
+          {bankLogo ? (
+            <Image
+              source={
+                typeof bankLogo === 'string'
+                  ? {
+                      uri: bankLogo,
+                    }
+                  : bankLogo
+              }
+              resizeMode="contain"
+              sx={{ mx: '$2', width: 100, height: 100 }}
+              alt="bank logo"
+            />
+          ) : null}
+          {isShowingFields &&
+            fields.map((field) => {
+              return (
+                <Box sx={{ p: '$2' }} key={field.value?.toString()}>
+                  <Text sx={{ fontWeight: 'bold' }}>
+                    {t(field.label?.toString())} :
                   </Text>
+                  <Box sx={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Text
+                      sx={{
+                        mt: '$1',
+                        ...Platform.select({
+                          web: {
+                            wordBreak: 'break-word',
+                          },
+                        }),
+                      }}
+                    >
+                      {withdrawalInfo[field.value]?.toString() ?? ''}
+                    </Text>
+                  </Box>
                 </Box>
-              </Box>
-            )
-          })}
+              )
+            })}
+        </>
       </ModalContent>
     </ModalWrapper>
   )

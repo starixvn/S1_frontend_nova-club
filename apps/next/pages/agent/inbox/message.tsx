@@ -1,8 +1,7 @@
 import PersonalMessagePage from 'agent/features/inbox/PersonalMessagePage'
 import AgentNestedTabs from 'agent/navigation/components/AgentNestedTabNavigator/AgentNestedTabs'
 import InboxRoutes from 'agent/navigation/routes/InboxRoutes'
-import AgentLayout from '../../../layouts/agent/AgentLayout'
-import React from 'react'
+import { MobileAgentLayout } from 'components/layouts/agent'
 
 const Message = () => {
   return (
@@ -13,6 +12,6 @@ const Message = () => {
   )
 }
 
-Message.getLayout = AgentLayout
+Message.AgentLayout = MobileAgentLayout
 
 export default Message

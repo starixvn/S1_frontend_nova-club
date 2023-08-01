@@ -1,120 +1,213 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
-import { PageWithBackHeader } from 'app/components/layout/Page'
-import BouncePressable from 'app/pressable/BouncePressable'
+import ShadowButton from 'app/components/ShadowButton'
+import Image from 'app/components/common/Image'
+import { PageWithBackHeader } from 'app/components/layouts/Page'
+import usePathname from 'app/hooks/usePathname'
 import useLocalization from 'app/provider/localization'
-import { isURLSupported } from 'app/utils/helper'
-import { Image, styled, Text, View } from 'dripsy'
-import { useEffect, useState } from 'react'
+import {
+  ActivityIndicator,
+  Pressable,
+  Text,
+  View,
+  useDripsyTheme,
+  useResponsiveValue,
+} from 'dripsy'
+import React from 'react'
 import { Linking, Platform } from 'react-native'
-import { CONTACT_LIST } from '../floatingContent'
+import { Shadow } from 'react-native-shadow-2'
 import useSupportItemList from './useSupportItemList'
-const HEADER_IMAGE = require('../../assets/images/logo.png')
 
-const CustomerSupportPage = () => {
+const CustomerSupportScreen = () => {
   const { t } = useLocalization()
+  const mediaList = useSupportItemList()
+  const isDesktop = useResponsiveValue([false, false, false, true, true])
+  const pathName = usePathname()
+  const currentPath = pathName.replace('customer-support', '')
+  const contactUsTitle =
+    currentPath === '/account/' ? 'contact.customerSupport' : 'footer.contactUs'
 
   return (
-    <DripsyGradient colors={['#133351', '#0D2035']} sx={{ flex: 1 }}>
-      <PageWithBackHeader header={{ title: t('menu.customerSupport') }}>
-        <View sx={{ alignItems: 'center', mt: '$2a' }}>
-          <StyledImage source={HEADER_IMAGE} resizeMode="contain" />
-          <Text sx={{ fontSize: 18, fontWeight: 'bold', my: '$4' }}>
-            {t('contact.contactVia')}:
-          </Text>
-          <SupportItems />
+    <PageWithBackHeader
+      header={{ title: t(contactUsTitle) }}
+      hideHeader={isDesktop}
+    >
+      <View sx={!isDesktop && { flex: 1, alignItems: 'center' }}>
+        {!isDesktop && (
+          <Image
+            source={require('app/assets/images/common/logo-circle.png')}
+            alt="logo"
+            style={{ height: 150, aspectRatio: 1 / 1, marginVertical: 24 }}
+          />
+        )}
+
+        <Text
+          sx={
+            isDesktop
+              ? { pt: 30, px: '$3', fontWeight: 'bold', fontSize: 24 }
+              : { py: 12 }
+          }
+        >
+          {t('contact.contactVia')}
+        </Text>
+
+        <View
+          sx={
+            isDesktop
+              ? {
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }
+              : {
+                  minHeight: 200,
+                }
+          }
+        >
+          {mediaList.map((item) => (
+            <SupportButton
+              key={item.label}
+              icon={item.icon}
+              label={item.label}
+              href={item.href}
+              qr={item.qr}
+              isDesktop={isDesktop}
+            />
+          ))}
         </View>
-      </PageWithBackHeader>
+      </View>
+    </PageWithBackHeader>
+  )
+}
+
+const SupportButton = ({
+  icon,
+  label,
+  href,
+  isDesktop,
+  qr,
+}: {
+  icon: string
+  label: string
+  href: string
+  isDesktop: boolean
+  qr: string
+}) => {
+  const { t } = useLocalization()
+  const { theme } = useDripsyTheme()
+
+  if (isDesktop && !qr) return null
+
+  return (
+    <Pressable
+      onPress={() => {
+        if (Platform.OS !== 'web') Linking.openURL(href)
+      }}
+      sx={
+        isDesktop
+          ? {
+              minWidth: 400,
+              alignItems: 'center',
+              my: '$4',
+            }
+          : { my: '$2' }
+      }
+    >
+      <Shadow
+        offset={[0, -1]}
+        startColor={theme.colors.$primary[100]}
+        distance={1}
+        safeRender
+        style={{ borderRadius: 50 }}
+      >
+        {isDesktop ? (
+          <CSDesktop qr={qr} label={label} href={href} />
+        ) : (
+          <CSMobile label={label} href={href} icon={icon} />
+        )}
+      </Shadow>
+    </Pressable>
+  )
+}
+
+const CSMobile = ({
+  href,
+  label,
+  icon,
+}: {
+  icon: string
+  label: string
+  href: string
+}) => {
+  const { t } = useLocalization()
+  return (
+    <DripsyGradient
+      gradient="surface"
+      href={href}
+      hrefAttrs={{
+        rel: 'noreferrer',
+        target: '_blank',
+      }}
+      sx={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderRadius: 100,
+        p: 4,
+        minWidth: 180,
+        // my: 8,
+      }}
+    >
+      <ShadowButton containerStyle={{ aspectRatio: 1 / 1, mr: 12 }}>
+        <Icon name={icon} />
+      </ShadowButton>
+      <Text sx={{ fontWeight: 'bold' }}>{t('contact.' + label)}</Text>
     </DripsyGradient>
   )
 }
-const StyledImage = styled(Image)({
-  height: 100,
-  width: 100,
-})
 
-const StyledButton = styled(DripsyGradient)({
-  borderRadius: 25,
-  my: '$2',
-})
-
-const StyledWrapIcon = styled(DripsyGradient)({
-  borderRadius: 25,
-  borderWidth: 2,
-  borderColor: '$PaleBlue',
-  m: 1,
-  height: 50,
-  aspectRatio: 1,
-  justifyContent: 'center',
-  overflow: 'hidden',
-})
-
-const SupportItems = () => {
+const CSDesktop = ({
+  href,
+  qr,
+  label,
+}: {
+  label: string
+  href: string
+  qr: string
+}) => {
   const { t } = useLocalization()
-  const mediaList = useSupportItemList()
-
   return (
-    <View>
-      {!!mediaList.length &&
-        mediaList.map((item) => {
-          return (
-            <BouncePressable
-              key={item.label}
-              onPress={() => {
-                if (Platform.OS !== 'web') Linking.openURL(item.href)
-              }}
-            >
-              <StyledButton
-                colors={['#33A0D0', '#0B76A5']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                href={item.href}
-                hrefAttrs={{
-                  rel: 'noreferrer',
-                  target: '_blank',
-                }}
-                sx={{
-                  width: 200,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}
-              >
-                <StyledWrapIcon colors={item.bg}>
-                  {typeof item.icon === 'undefined' ? (
-                    <Image
-                      resizeMode="contain"
-                      source={item.image}
-                      sx={{
-                        width: 47,
-                        height: 47,
-                      }}
-                    />
-                  ) : (
-                    <Icon
-                      name={item.icon}
-                      size={30}
-                      sx={{
-                        color: 'white',
-                        alignSelf: 'center',
-                      }}
-                    />
-                  )}
-                </StyledWrapIcon>
-                <Text
-                  sx={{
-                    fontSize: 20,
-                    fontWeight: 'bold',
-                    pl: '$4',
-                  }}
-                >
-                  {t('contact.' + item.label)}
-                </Text>
-              </StyledButton>
-            </BouncePressable>
-          )
-        })}
-    </View>
+    <DripsyGradient
+      gradient="surface"
+      href={href}
+      hrefAttrs={{
+        rel: 'noreferrer',
+        target: '_blank',
+      }}
+      sx={{
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 50,
+        px: '$5',
+        py: '$4',
+        minWidth: 180,
+      }}
+    >
+      <Text sx={{ fontWeight: 'bold', pb: '$3', fontSize: 20 }}>
+        {t('contact.' + label)}
+      </Text>
+
+      <Image
+        source={{ uri: qr }}
+        alt="zalo-social-media"
+        style={{
+          width: 200,
+          height: 200,
+          zIndex: 99,
+        }}
+      />
+    </DripsyGradient>
   )
 }
 
-export default CustomerSupportPage
+export default CustomerSupportScreen

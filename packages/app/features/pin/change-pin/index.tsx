@@ -1,13 +1,15 @@
-import { Button } from 'app/components/form/Button'
+import Button from 'app/components/common/Button'
+import FormContainer from 'app/components/form/FormContainer'
 import useAlert from 'app/hooks/useAlert'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import useLocalization from 'app/provider/localization'
+import isDesktop from 'app/utils/isDesktop'
 import validation from 'app/utils/validation'
 import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React from 'react'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useUpdateTransferPinMutation } from 'services/pinApi'
+import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import UnderlinePinField from '../UnderlinePinField'
 
@@ -19,9 +21,10 @@ type ChangePinFormValues = {
 
 const ChangePinScreen = () => {
   const { t } = useLocalization()
-  const { back } = useContextualRouter()
+  const { back } = useRouter()
   const { showAlert } = useAlert()
   const [updateTransferPin] = useUpdateTransferPinMutation()
+  const desktop = isDesktop()
 
   const onSubmit = async (
     { oldPin, pin, confirmPin }: ChangePinFormValues,
@@ -77,53 +80,54 @@ const ChangePinScreen = () => {
   } = formik
 
   return (
-    <View sx={{ flex: 1 }}>
+    <FormContainer>
       <UnderlinePinField
-        title={t('pin.oldPin')}
+        label={t('manageCredentials.pin.oldPin')}
         value={values.oldPin}
         setValue={handleChange('oldPin')}
         errorMsg={
-          errors.oldPin ? t(errors.oldPin, { field: t('pin.pin') }) : undefined
+          errors.oldPin
+            ? t(errors.oldPin, { field: t('common.pin') })
+            : undefined
         }
       />
       <UnderlinePinField
-        title={t('pin.newPin')}
+        label={t('manageCredentials.pin.newPin')}
         value={values.pin}
         setValue={handleChange('pin')}
       />
       <UnderlinePinField
-        title={t('pin.confirmPin')}
+        label={t('manageCredentials.pin.confirmPin')}
         value={values.confirmPin}
         setValue={handleChange('confirmPin')}
         errorMsg={
           values.confirmPin.length === 6 && errors.confirmPin
             ? t(errors.confirmPin, {
-                field: t('pin.pin'),
+                field: t('common.pin'),
               })
             : undefined
         }
       />
-
-      <Button
-        rounded
-        stretch
-        loading={isSubmitting}
-        disabled={!isValid || !dirty}
-        variant="lg"
-        fill={{
-          type: 'gradient',
-          color: 'secondary',
-          start: { x: 0, y: 0 },
-          end: { x: 1, y: 0 },
-        }}
-        containerStyle={{
-          m: '$10',
-        }}
-        onPress={submitForm}
-      >
-        <Button.Label>{t('common.submit')}</Button.Label>
-      </Button>
-    </View>
+      <View sx={{ flexDirection: 'row', justifyContent: 'center' }}>
+        {desktop && <View sx={{ width: '20%', minWidth: 100 }} />}
+        <Button
+          onPress={submitForm}
+          disabled={!isValid || !dirty}
+          sx={{
+            mt: '$4',
+            py: '$2',
+            ...(desktop
+              ? {
+                  width: '55%',
+                  maxWidth: 350,
+                }
+              : { width: '80%', maxWidth: 350 }),
+          }}
+        >
+          {t('common.submit')}
+        </Button>
+      </View>
+    </FormContainer>
   )
 }
 

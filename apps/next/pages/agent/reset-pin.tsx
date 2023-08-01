@@ -1,13 +1,10 @@
 import AgentResetPin from 'agent/features/pin/AgentResetPin'
-import AgentStackLayout from '../../layouts/agent/AgentStackLayout'
-import React from 'react'
+import { MobileStackAgentLayout } from 'components/layouts/agent'
 
 const ResetPin = () => {
-  return (
-    <AgentStackLayout>
-      <AgentResetPin />
-    </AgentStackLayout>
-  )
+  return <AgentResetPin />
 }
+
+ResetPin.AgentLayout = MobileStackAgentLayout
 
 export default ResetPin

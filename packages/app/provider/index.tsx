@@ -1,54 +1,31 @@
-import { PortalProvider } from '@gorhom/portal'
-import RootToast from 'app/components/RootToast'
-import App from 'app/features/App'
-import GameLauncher from 'app/features/games/GameLauncher'
-import useNotification from 'app/hooks/notification/useNotification'
-import ContextualNavigationProvider from 'app/navigation/contextual/ContextualNavigation'
-import { styled } from 'dripsy'
-import { useKeepAwake } from 'expo-keep-awake'
-import { Platform } from 'react-native'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { Dripsy } from './dripsy'
 import { LocalizationProviderRedux } from './localization'
-import ModalProvider from './modal'
-import { NavigationProvider } from './navigation'
 import ReduxProvider from './redux'
-import { SafeArea } from './safe-area'
-
-const RootView = styled(GestureHandlerRootView)(() => ({
-  flex: 1,
-  width: '100%',
-  maxWidth: Platform.OS === 'web' ? 'container' : '100%',
-  overflow: 'hidden',
-  marginLeft: 'auto',
-  marginRight: 'auto',
-}))
+import ModalProvider from './modal'
+import RootToast from 'app/components/RootToast'
+import DrawerProvider from 'app/components/navigation/drawer/DrawerProvider'
+import GameLauncher from 'app/features/game/GameLauncher'
+import Branch from 'app/integrations/branch/Branch'
+import ReferralTrigger from 'app/components/ReferralTrigger'
+import Shield from 'app/integrations/shield/Shield'
 
 export function Provider({ children }: { children: React.ReactNode }) {
-  useKeepAwake()
-  useNotification()
-
   return (
     <Dripsy>
-      <RootView>
-        <ReduxProvider>
-          <LocalizationProviderRedux>
-            <SafeArea>
-              <NavigationProvider>
-                <ModalProvider>
-                  <ContextualNavigationProvider>
-                    <PortalProvider>{children}</PortalProvider>
-                    <GameLauncher />
-                    <App />
-                    <RootToast />
-                    {/* <SnowFall /> */}
-                  </ContextualNavigationProvider>
-                </ModalProvider>
-              </NavigationProvider>
-            </SafeArea>
-          </LocalizationProviderRedux>
-        </ReduxProvider>
-      </RootView>
+      <ReduxProvider>
+        <LocalizationProviderRedux>
+          <DrawerProvider>
+            <ModalProvider>
+              {children}
+              <GameLauncher />
+              <Branch />
+              <Shield />
+              <ReferralTrigger />
+            </ModalProvider>
+          </DrawerProvider>
+          <RootToast />
+        </LocalizationProviderRedux>
+      </ReduxProvider>
     </Dripsy>
   )
 }

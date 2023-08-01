@@ -118,7 +118,7 @@ const Button = (props: ButtonProps) => {
   const defaultIconProps: IconComponentProps = {
     name: '',
     color: 'white',
-    size: theme.space.$4,
+    size: theme.space.$3,
   }
   const startIconProps = Object.assign(defaultIconProps, passedStartIconProps)
   const endIconProps = Object.assign(defaultIconProps, passedEndIconProps)
@@ -172,7 +172,7 @@ const Button = (props: ButtonProps) => {
               justifyContent: 'center',
               alignItems: 'center',
               py: '$2',
-              px: '$10',
+              px: '$4',
             }}
             style={contentStyle}
             {...contentProps}

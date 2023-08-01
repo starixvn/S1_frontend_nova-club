@@ -1,65 +1,41 @@
-import MenuNotice from 'app/components/common/MenuNotice'
-import { PageWithBackHeader } from 'app/components/layout/Page'
-import {
-  DepositMethodId,
-  DepositPaymentMethodCategoryId,
-} from 'app/config/deposit'
-import { WITHDRAWAL_NOTES } from 'app/constant/notes'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
+import DepositMethodCard from 'app/components/DepositMethodCard'
+import { PageWithBackHeader } from 'app/components/layouts/Page'
+import MenuNotice from 'app/components/navigation/MenuNotice'
+import { DepositMethodId, PAYMENT_METHOD } from 'app/constants/deposit'
 import useLocalization from 'app/provider/localization'
+import { WITHDRAWAL_NOTES } from 'app/utils/constant'
 import { Text, View, styled } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
-import DepositMethodCard from '../deposit/DepositMethodCard'
-import AvailableBalance from './AvailableBalance'
-import WithdrawalTransactions from './WithdrawalTransactions'
-import { useCryptoBankQuery } from 'services/bank'
+import { useCryptoBankQuery, usePlayerBankQuery } from 'services/bank'
+import { useRouter } from 'solito/router'
+import AvailableBalance from './components/AvailableBalance'
+import WithdrawalTransactions from './components/WithdrawalTransactions'
+import { FLAG_PAYMENT_TYPE_BANK } from 'app/constants/crypto'
 
-const WITHDRAWAL_OPTIONS = [
-  {
-    id: DepositMethodId.LOCAL_BANK,
-    categoryId: DepositPaymentMethodCategoryId.LOCAL_BANK,
-    name: 'deposit.depositMethod.bankTransfer',
-    icon: 'lba',
-    color: '#ac0102',
-    active: true,
-  },
-]
-
-const WITHDRAWAL_OPTIONS_CRYPTO = {
-  id: DepositMethodId.CRYPTO,
-  categoryId: DepositPaymentMethodCategoryId.CRYPTO,
-  name: 'deposit.depositMethod.crypto',
-  icon: 'cp',
-  color: '#36A07B',
-  active: true,
-}
-
-const WithdrawalPage = () => {
+const WithdrawalScreen = () => {
   const { t } = useLocalization()
-  const { push } = useContextualRouter()
+  const { push } = useRouter()
   const { openModal } = useModal()
-  const [withdrawalOptions, setWithdrawalOptions] = useState(WITHDRAWAL_OPTIONS)
+  const [withdrawalOptions, setWithdrawalOptions] = useState([
+    PAYMENT_METHOD.LOCAL_BANK,
+  ])
 
-  const { cryptoBankList } = useCryptoBankQuery(undefined, {
-    selectFromResult: ({ data }) => ({
-      cryptoBankList: data?.data,
-    }),
-  })
+  const { data: cryptoBankList } = useCryptoBankQuery()
 
   useEffect(() => {
     cryptoBankList &&
       cryptoBankList.length !== 0 &&
-      setWithdrawalOptions([...WITHDRAWAL_OPTIONS, WITHDRAWAL_OPTIONS_CRYPTO])
+      setWithdrawalOptions([PAYMENT_METHOD.LOCAL_BANK, PAYMENT_METHOD.CRYPTO])
   }, [cryptoBankList])
 
   const handlePress = (id) => {
     switch (id) {
       case DepositMethodId.LOCAL_BANK:
-        push(`/withdrawal/bank`)
+        push(`/withdrawal/bank-withdrawal`)
         break
       case DepositMethodId.CRYPTO:
-        push(`/withdrawal/crypto`)
+        push(`/withdrawal/crypto-withdrawal`)
         break
       default:
         break
@@ -80,21 +56,19 @@ const WithdrawalPage = () => {
       }}
     >
       <StyledView>
-        <AvailableBalance />
-
-        <>
-          <Text sx={{ my: '$6', mx: '$4' }}>{t('withdrawal.options')}</Text>
+        <View sx={{ p: '$pagePadding' }}>
+          <AvailableBalance />
+          <Text sx={{ my: 12 }}>{t('withdrawal.options')}</Text>
           <View
             sx={{
               position: 'relative',
-              mx: '$4',
               flexDirection: 'row',
               flexWrap: 'wrap',
               justifyContent: 'space-between',
             }}
           >
             {withdrawalOptions &&
-              withdrawalOptions.map((item, index) => (
+              withdrawalOptions?.map((item, index) => (
                 <DepositMethodCard
                   key={item.id}
                   item={item}
@@ -102,8 +76,7 @@ const WithdrawalPage = () => {
                 />
               ))}
           </View>
-        </>
-
+        </View>
         <WithdrawalTransactions />
       </StyledView>
     </PageWithBackHeader>
@@ -112,7 +85,6 @@ const WithdrawalPage = () => {
 
 const StyledView = styled(View)(() => ({
   flex: 1,
-  bg: '$secondary',
 }))
 
-export default WithdrawalPage
+export default WithdrawalScreen

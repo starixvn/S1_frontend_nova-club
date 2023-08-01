@@ -1,8 +1,7 @@
-import React from 'react'
 import ShareholderListing from 'agent/features/shareholder/ShareholderListing'
 import AgentNestedTabs from 'agent/navigation/components/AgentNestedTabNavigator/AgentNestedTabs'
 import ListRoutes from 'agent/navigation/routes/ListRoutes'
-import AgentLayout from '../../../../layouts/agent/AgentLayout'
+import { MobileAgentLayout } from 'components/layouts/agent'
 
 const ListShareholder = () => {
   return (
@@ -12,6 +11,6 @@ const ListShareholder = () => {
     </>
   )
 }
-ListShareholder.getLayout = AgentLayout
+ListShareholder.AgentLayout = MobileAgentLayout
 
 export default ListShareholder

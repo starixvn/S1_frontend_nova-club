@@ -8,15 +8,17 @@ interface ToggleFloatingDrawerButtonProps {
   toggleFloatingDrawer: Dispatch<SetStateAction<boolean>>
   visible: boolean
   drawerButtonOffset: number
+  isDesktop: boolean
 }
 
 const ToggleFloatingDrawerButton = ({
   toggleFloatingDrawer,
   visible,
   drawerButtonOffset,
+  isDesktop,
 }: ToggleFloatingDrawerButtonProps) => {
   return (
-    <DrawerButtonContainer bottom={drawerButtonOffset}>
+    <DrawerButtonContainer isDesktop={isDesktop} bottom={drawerButtonOffset}>
       <DrawerButton onPress={() => toggleFloatingDrawer(!visible)}>
         <DrawerIconContainer>
           <MotiView
@@ -25,7 +27,7 @@ const ToggleFloatingDrawerButton = ({
             }}
             transition={{ type: 'timing', duration: 500 }}
           >
-            <Icon name={'chevleft'} size={10} />
+            <Icon name={'back'} size={14} />
           </MotiView>
         </DrawerIconContainer>
       </DrawerButton>
@@ -34,8 +36,8 @@ const ToggleFloatingDrawerButton = ({
 }
 
 const DrawerButtonContainer = styled(View)(
-  ({ bottom }: { bottom: number }) => ({
-    position: 'absolute',
+  ({ bottom, isDesktop }: { bottom: number; isDesktop: boolean }) => ({
+    position: isDesktop ? 'fixed' : 'absolute',
     zIndex: 9,
     right: 0,
     bottom,
@@ -51,7 +53,7 @@ const DrawerButton = styled(TouchableOpacity)({
 
 const DrawerIconContainer = styled(View)({
   height: 60,
-  backgroundColor: '$lightNavyBlue',
+  backgroundColor: '$primary.200',
   borderTopLeftRadius: 10,
   borderBottomLeftRadius: 10,
   width: 20,

@@ -1,33 +1,36 @@
 import { styled, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
 import { memo } from 'react'
-import LiveChatButton from './LiveChatButton'
-import VGaming from './VGaming'
 import PlinkoEvent from './event/PlinkoEvent'
+import LiveChatButton from './LiveChatButton'
+import isDesktop from 'app/utils/isDesktop'
 
 interface FloatingContentSwitchProps {
   visible: boolean
   size: number
   floatingDrawerOffset: number
+  isDesktop: boolean
+  floatingDrawerHeight: number
 }
 interface FloatingContentContainerProps {
   bottom: number
   height: number
+  isDesktop: boolean
 }
-
-const PlinkoIconAdditionalHeight = 30
 
 const FloatingDrawer = ({
   visible,
   size,
   floatingDrawerOffset,
+  isDesktop,
+  floatingDrawerHeight,
 }: FloatingContentSwitchProps) => {
-  const floatingDrawerHeight = size * 3 + 20 + PlinkoIconAdditionalHeight
   return (
     <FloatingContentContainer
       pointerEvents={visible ? 'auto' : 'none'}
       bottom={floatingDrawerOffset}
       height={floatingDrawerHeight}
+      isDesktop={isDesktop}
     >
       <AnimatePresence>
         {visible && (
@@ -39,8 +42,7 @@ const FloatingDrawer = ({
           >
             <ContentOffset>
               <PlinkoEvent size={size} />
-              <VGaming size={size} />
-              <LiveChatButton />
+              {!isDesktop && <LiveChatButton />}
             </ContentOffset>
           </ContentOverlay>
         )}
@@ -49,11 +51,11 @@ const FloatingDrawer = ({
   )
 }
 const FloatingContentContainer = styled(View)(
-  ({ bottom, height }: FloatingContentContainerProps) => ({
+  ({ bottom, height, isDesktop }: FloatingContentContainerProps) => ({
     zIndex: 9,
     right: 0,
     bottom,
-    position: 'absolute',
+    position: isDesktop ? 'fixed' : 'absolute',
     height,
     width: 120,
     overflow: 'hidden',
@@ -70,6 +72,6 @@ const ContentOffset = styled(View)({
   py: '$2',
   pl: '$1',
   alignItems: 'center',
-  paddingRight: '$6',
+  paddingRight: '$1',
 })
 export default memo(FloatingDrawer)

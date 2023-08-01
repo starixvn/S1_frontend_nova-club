@@ -1,4 +1,3 @@
-import { getErrorMessage } from 'app/utils/validation'
 import { useModal } from 'react-native-modalfy'
 
 const useLoading = () => {

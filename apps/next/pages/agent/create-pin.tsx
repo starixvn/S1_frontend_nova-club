@@ -1,13 +1,11 @@
 import AgentCreatePin from 'agent/features/pin/AgentCreatePin'
-import AgentStackLayout from '../../layouts/agent/AgentStackLayout'
-import React from 'react'
+import { MobileStackAgentLayout } from 'components/layouts/agent'
+import AgentStackLayout from 'components/layouts/agent/AgentStackLayout'
 
 const CreatePin = () => {
-  return (
-    <AgentStackLayout>
-      <AgentCreatePin />
-    </AgentStackLayout>
-  )
+  return <AgentCreatePin />
 }
+
+CreatePin.AgentLayout = MobileStackAgentLayout
 
 export default CreatePin

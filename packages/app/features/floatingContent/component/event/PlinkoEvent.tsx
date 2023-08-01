@@ -1,18 +1,19 @@
 import Image from 'app/components/common/Image'
 import useContainerDimension from 'app/hooks/useContainerDimension'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
-import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import { useAppSelector } from 'app/provider/redux/store'
-import { Text, View } from 'dripsy'
+import { Pressable, Text, View, useResponsiveValue } from 'dripsy'
 import { MotiView } from 'moti'
 import React from 'react'
+import { Linking } from 'react-native'
 import { useCheckTicketSpinQuery } from 'services/eventApi'
+import { useRouter } from 'solito/router'
 
 const PlinkoEvent = ({ size }: { size: number }) => {
-  const { push } = useContextualRouter()
+  const { push } = useRouter()
   const { token } = useAppSelector((state) => state.auth.info) || {}
   const { width } = useContainerDimension()
   const iconSize = Math.min(100, width * 0.3)
+  const isDesktop = useResponsiveValue([false, false, false, true, true])
 
   const { balance, isFetching } = useCheckTicketSpinQuery(undefined, {
     refetchOnMountOrArgChange: true,
@@ -21,7 +22,9 @@ const PlinkoEvent = ({ size }: { size: number }) => {
   })
 
   const handlePress = () => {
-    push('/event/plinko')
+    if (isDesktop) {
+      Linking.openURL('https://stage2.gball8.com/event/plinko')
+    } else push('/event/plinko')
   }
 
   return (
@@ -30,21 +33,22 @@ const PlinkoEvent = ({ size }: { size: number }) => {
       animate={{ translateY: 10 }}
       transition={{ type: 'timing', loop: true, duration: 3000 }}
     >
-      <TouchableOpacity
+      <Pressable
         onPress={handlePress}
         sx={{ justifyContent: 'center', mb: 10, ml: -5 }}
       >
         <Image
           source={
             token
-              ? require('app/assets/images/events/plinko/HAB_Button.png')
-              : require('app/assets/images/events/plinko/btnStart.png')
+              ? require('app/assets/images/plinko/HAB_Button.png')
+              : require('app/assets/images/plinko/btnStart.png')
           }
           style={{
             width: iconSize,
             height: iconSize,
           }}
           resizeMode="contain"
+          alt="Plinko-Event"
         />
         {token ? (
           <View
@@ -76,7 +80,7 @@ const PlinkoEvent = ({ size }: { size: number }) => {
             </Text>
           </View>
         ) : null}
-      </TouchableOpacity>
+      </Pressable>
     </MotiView>
   )
 }

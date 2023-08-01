@@ -25,6 +25,7 @@ export interface IResponse<T = void> {
 export type SelectOptions = {
   value: string
   label: string
+  icon?: string
 }
 
 /**

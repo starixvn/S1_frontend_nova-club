@@ -7,6 +7,7 @@ interface settingStateProps {
   luckyDrawTriggered: boolean
   syncShieldActionType: Shield_Action
   syncShieldStatus: boolean
+  splashScreenLoaded: boolean
 }
 
 const initialState: settingStateProps = {
@@ -15,6 +16,7 @@ const initialState: settingStateProps = {
   luckyDrawTriggered: false,
   syncShieldActionType: Shield_Action.NONE,
   syncShieldStatus: false,
+  splashScreenLoaded: false,
 }
 
 const tempSettingSlice = createSlice({
@@ -37,6 +39,9 @@ const tempSettingSlice = createSlice({
     },
     setSyncShieldStatus: (state, action: PayloadAction<boolean>) => {
       state.syncShieldStatus = action.payload
+    },
+    setSplashScreenLoaded: (state, action: PayloadAction<boolean>) => {
+      state.splashScreenLoaded = action.payload
     },
   },
 })

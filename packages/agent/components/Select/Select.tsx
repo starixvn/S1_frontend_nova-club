@@ -1,4 +1,7 @@
 import Text from 'agent/components/Text'
+
+import { FlashList } from '@shopify/flash-list'
+import ActionSheet from 'agent/components/Actionsheet/ActionSheet'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Pressable, styled, View } from 'dripsy'
 import uniqueId from 'lodash/uniqueId'
@@ -7,14 +10,12 @@ import {
   ComponentProps,
   ForwardedRef,
   forwardRef,
-  RefObject,
   useImperativeHandle,
   useMemo,
   useReducer,
 } from 'react'
-import { FlatList, FlatListProps, Platform } from 'react-native'
+import { FlatListProps, Platform } from 'react-native'
 import { SheetManager } from 'react-native-actions-sheet'
-import ActionSheet, { ActionSheetProps } from '../Actionsheet/ActionSheet'
 import Icon from '../Icon'
 import Input, { InputProps } from '../Input'
 import Label, { InputLabelProps } from '../Label'
@@ -28,6 +29,7 @@ const StyledContentContainer = styled(View)(
   (props: { safeAreaBottom: number }) => {
     return {
       pb: props.safeAreaBottom,
+      // bg: 'white',
     }
   }
 )
@@ -247,16 +249,16 @@ const Select = <T,>(
           label ? <CommonHeader label={label} /> : undefined
         }
         onClose={toggleIsOpen}
-        {...actionSheetProp}
+        // {...actionSheetProp}
       >
         <StyledContentContainer
           safeAreaBottom={bottom}
-          {...contentContainerProps}
+          // {...contentContainerProps}
         >
           {_actionSheetContent ? (
             _actionSheetContent({ closeActionSheet })
           ) : (
-            <FlatList
+            <FlashList
               data={options}
               keyExtractor={(_, index) => index.toString()}
               renderItem={({ item, index }) => {

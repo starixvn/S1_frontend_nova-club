@@ -2,20 +2,16 @@ import { CONTENT_URI, DEV_DOMAIN, MEDIA_DOMAIN } from '@env'
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
+  AnnouncementListItems,
   AnnouncementResult,
   BannerResult,
   CommissionQueryArgs,
   CommissionTableResult,
-  GameConfig,
-  GameListQueryArgs,
-  GetGameListQueryArgs,
-  GetGameListResult,
   JackpotAmountResult,
+  LeaderboardRankingResult,
   LeaderboardResult,
-  MatchResult,
+  RankingItem,
 } from './contentApi.type'
-import dayjs from 'dayjs'
-import { Currency } from 'app/utils/constant'
 
 /**
  * @param builder Pass builder from `createApi` *endpoints*
@@ -24,16 +20,24 @@ export const contentApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
     banner: builder.query<BannerResult[], void>({
       query: () => ({
-        url: `${MEDIA_DOMAIN}${CONTENT_URI}/banners/banner.json?v=25`,
+        url: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/banner.json?v=1`,
         method: 'GET',
       }),
-      providesTags: ['Banner'],
     }),
     leaderboard: builder.query<IResponse<LeaderboardResult[]>, void>({
       query: () => ({
         url: `/static_api/leaderboard`,
         method: 'GET',
       }),
+    }),
+    getLeaderboard: builder.query<RankingItem[], void>({
+      query: () => ({
+        url: `/static_api/getLeaderboard`,
+        method: 'GET',
+      }),
+      transformResponse: ({ data }: { data: LeaderboardRankingResult }) => {
+        return data.rows ?? []
+      },
     }),
     commissionTable: builder.query<
       IResponse<CommissionTableResult[]>,
@@ -46,56 +50,17 @@ export const contentApi = baseApiWithTag.injectEndpoints({
         },
       }),
     }),
-    announcement: builder.query<IResponse<AnnouncementResult>, string>({
+    announcement: builder.query<AnnouncementListItems[], string>({
       query: (lang) => ({
         url: `/static_api/announcement`,
         method: 'GET',
       }),
+      transformResponse: (resp: IResponse<AnnouncementResult>) => {
+        return resp.data?.list ?? []
+      },
       providesTags: (result, error, arg) => {
         return [{ type: 'Announcement', lang: arg }]
       },
-    }),
-    gameList: builder.query<IResponse<GameConfig[]>, GameListQueryArgs>({
-      query: (data) => ({
-        url: `/player_api/getGameList`,
-        data,
-      }),
-    }),
-    getGameList: builder.query<
-      IResponse<GetGameListResult>,
-      GetGameListQueryArgs
-    >({
-      query: ({
-        currency,
-        game_category,
-        limit,
-        offset,
-        gdc_game_category,
-        gdc_tag,
-      }) => ({
-        url: `/static_api/getGameList`,
-        method: 'POST',
-        data: {
-          currency,
-          game_category,
-          limit,
-          offset,
-          gdc_game_category,
-          gdc_tag,
-        },
-        _config: {
-          isStaticApi: true,
-        },
-      }),
-    }),
-    featuredGameList: builder.query<
-      IResponse<GetGameListResult>,
-      Currency | string
-    >({
-      query: (data) => ({
-        url: `/static_api/getFeaturedGameList`,
-        data,
-      }),
     }),
     affiliateUsername: builder.query<
       IResponse<{ username: string; currency: string }>,
@@ -112,7 +77,6 @@ export const contentApi = baseApiWithTag.injectEndpoints({
         method: 'GET',
         baseURL: DEV_DOMAIN,
       }),
-      providesTags: ['Jackpot'],
     }),
     getMaintenance: builder.query<IResponse<JackpotAmountResult>, void>({
       query: () => ({
@@ -121,36 +85,17 @@ export const contentApi = baseApiWithTag.injectEndpoints({
         baseURL: 'http://localhost:3000',
       }),
     }),
-    getRecoMatch: builder.query<MatchResult[], void>({
-      query: () => ({
-        url: `/static_api/getRecoMatch`,
-        method: 'GET',
-      }),
-      providesTags: ['RecoMatches'],
-      transformResponse: (responseData: IResponse<MatchResult[]>) => {
-        return (
-          responseData.data?.sort(
-            (a, b) =>
-              dayjs(a.globalshowtime, 'MM/DD hh:mm a').unix() -
-              dayjs(b.globalshowtime, 'MM/DD hh:mm a').unix()
-          ) ?? []
-        )
-      },
-    }),
   }),
 })
 
 export const {
   useBannerQuery,
   useLeaderboardQuery,
+  useGetLeaderboardQuery,
   useCommissionTableQuery,
   useAnnouncementQuery,
-  useGameListQuery,
   useAffiliateUsernameQuery,
   useLazyAffiliateUsernameQuery,
-  useGetGameListQuery,
-  useLazyGetGameListQuery,
-  useFeaturedGameListQuery,
   useGetJackpotAmountQuery,
-  useGetRecoMatchQuery,
+  useGetMaintenanceQuery,
 } = contentApi

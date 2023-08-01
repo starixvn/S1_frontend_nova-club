@@ -5,13 +5,13 @@ import CommonBackHeader from 'agent/navigation/components/CommonBackHeader'
 import { IResponse } from 'agent/services/common/agentAxiosBaseQuery'
 import { useChangePasswordMutation } from 'agent/services/userApi'
 import validation from 'agent/utils/validation'
-import { AGENT_STACK_CONTENT_PADDING } from 'app/constant/sizes'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
 import { Flex, ScrollView } from 'dripsy'
 import { useFormik } from 'formik'
 import { useState } from 'react'
+import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
+import { AGENT_STACK_CONTENT_PADDING } from '../../constant/sizes'
 
 interface ChangePasswordValues {
   oldPwd: string
@@ -24,7 +24,7 @@ const AgentChangePassword = () => {
   const [isLoading, setIsLoading] = useState(false)
   const { showAlert } = useAgentAlert()
   const [changePassword] = useChangePasswordMutation()
-  const { replace } = useContextualRouter()
+  const { replace } = useRouter()
 
   const onSubmit = async ({
     oldPwd,

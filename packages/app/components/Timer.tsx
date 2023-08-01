@@ -1,4 +1,4 @@
-import useInterval from 'app/hooks/useInterval'
+import { useInterval } from 'app/hooks/useInterval'
 import dayjs from 'dayjs'
 import { Text } from 'dripsy'
 

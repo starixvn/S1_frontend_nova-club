@@ -3,7 +3,7 @@ import { SxProp, Text } from 'dripsy'
 import { View } from 'dripsy'
 import React from 'react'
 import { Platform } from 'react-native'
-import IconButton from './form/IconButton'
+import IconButton from './IconButton'
 
 type CopyFieldProps = {
   label: string

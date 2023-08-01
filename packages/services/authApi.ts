@@ -104,6 +104,12 @@ export const authApi = baseApiWithTag.injectEndpoints({
         },
       }),
     }),
+    // banner: builder.query<BannerResult[], void>({
+    //   query: () => ({
+    //     url: `https://static-stage.gball8.com/nvclub/nova-club/content/banners/banner.json?v=13`,
+    //     method: 'GET',
+    //   }),
+    // }),
   }),
 })
 

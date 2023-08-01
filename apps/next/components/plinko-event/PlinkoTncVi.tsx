@@ -1,8 +1,15 @@
+import { useResponsiveValue } from 'dripsy'
 import React from 'react'
 
 const PlinkoTncVi = () => {
+  const isDesktop = useResponsiveValue([false, false, false, true])
   return (
     <div>
+      {isDesktop && (
+        <h1 style={{ textAlign: 'center', paddingBottom: 25 }}>
+          Điều khoản và Điều kiện
+        </h1>
+      )}
       <h2>THẢ BÓNG LƯỢM TIỀN (PHIÊN BẢN CẢI TIẾN) </h2>
       <p>Thời gian khuyến mãi: 01-31/08/2023</p>
 

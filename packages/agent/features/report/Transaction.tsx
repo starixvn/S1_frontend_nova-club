@@ -1,23 +1,26 @@
-import DataTable from 'agent/components/DataTable/DataTable'
-import { DateTimeField } from 'agent/components/DataTable/DataTableCell'
+import AgentDataTableCell from 'agent/components/DataTable/AgentDataTableCell'
+import AgentDataTableHeader from 'agent/components/DataTable/AgentDataTableHeader'
+import AgentDataTableRow from 'agent/components/DataTable/AgentDataTableRow'
+import AgentDataTableTitle from 'agent/components/DataTable/AgentDataTableTitle'
 import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
 import {
   DateFilter,
   DateFilterOptions,
   TypeFilter,
 } from 'agent/constant/select'
+import useTableListing from 'agent/hooks/useTableListing'
 import { useTransactionReportQuery } from 'agent/services/reportApi'
 import { TransactionReportResult } from 'agent/services/reportApi.type'
+import { DateTimeField } from 'app/components/dataTable/DataTableCell'
 import { useAgentLocalization } from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { toThousandSeparator } from 'app/utils'
 import { Currency } from 'app/utils/constant'
-import dayjs, { utc } from 'dayjs'
+import dayjs from 'dayjs'
 import { View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import AgentFloatingContent from '../floatingContent'
-import useTableListing from 'agent/hooks/useTableListing'
-import { useAppSelector } from 'app/provider/redux/store'
 
 export type TransactionFilterOptions = {
   initial: boolean
@@ -75,15 +78,15 @@ const TransactionScreen = () => {
   })
 
   const onRenderHeader = () => (
-    <DataTable.Header>
-      <DataTable.Title bordered center>
+    <AgentDataTableHeader>
+      <AgentDataTableTitle bordered center>
         {t('common.date')}
-      </DataTable.Title>
-      <DataTable.Title center bordered>
+      </AgentDataTableTitle>
+      <AgentDataTableTitle center bordered>
         {t('report.transactionType')}
-      </DataTable.Title>
-      <DataTable.Title center>{t('common.amount')}</DataTable.Title>
-    </DataTable.Header>
+      </AgentDataTableTitle>
+      <AgentDataTableTitle center>{t('common.amount')}</AgentDataTableTitle>
+    </AgentDataTableHeader>
   )
 
   const onRenderItem = ({
@@ -93,22 +96,22 @@ const TransactionScreen = () => {
     item: TransactionReportResult
     index: number
   }) => (
-    <DataTable.Row size="big">
-      <DataTable.Cell bordered center>
+    <AgentDataTableRow size="big">
+      <AgentDataTableCell bordered center>
         <DateTimeField dateTime={item.created_date} />
-      </DataTable.Cell>
-      <DataTable.Cell bordered textStyle={{ px: 12 }}>
+      </AgentDataTableCell>
+      <AgentDataTableCell bordered textStyle={{ px: 12 }}>
         {item.transaction_type}
-      </DataTable.Cell>
-      <DataTable.Cell
+      </AgentDataTableCell>
+      <AgentDataTableCell
         center
         textStyle={{
           color: item.actual_amount.startsWith('-') ? '$errorAgent' : 'black',
         }}
       >
         {toThousandSeparator(item.actual_amount)}
-      </DataTable.Cell>
-    </DataTable.Row>
+      </AgentDataTableCell>
+    </AgentDataTableRow>
   )
 
   const handleNavigate = () => {

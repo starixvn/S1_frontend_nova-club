@@ -1,12 +1,11 @@
 import { combineReducers, configureStore, Reducer } from '@reduxjs/toolkit'
-import { agentBaseApi } from 'agent/services/agentBaseApi'
-import agentAuthReducer from 'agent/store/agentAuthReducer'
-import { alertReducer } from 'app/store/alert.slice'
+// import { alertReducer } from 'app/store/alert.slice'
 import authReducer, { authInitialState, AuthState } from 'app/store/authReducer'
-import bankReducer from 'app/store/bankReducer'
-import { depositReducer } from 'app/store/deposit.slice'
 import { gameLauncherReducer } from 'app/store/gameLauncher.slice'
-import { Setting, settingReducer } from 'app/store/setting.slice'
+// import bankReducer from 'app/store/bankReducer'
+// import { depositReducer } from 'app/store/deposit.slice'
+// import { gameLauncherReducer } from 'app/store/gameLauncher.slice'
+
 import { tempSettingReducer } from 'app/store/tempSetting.slice'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import {
@@ -17,8 +16,13 @@ import {
   persistReducer,
   persistStore,
 } from 'redux-persist'
-import { baseApi } from 'services/baseApi'
+
+import { agentBaseApi } from 'agent/services/agentBaseApi'
+import { depositReducer } from 'app/store/deposit.slice'
+import { Setting, settingReducer } from 'app/store/setting.slice'
+import { baseApi } from '../../../services/baseApi'
 import { storage } from './persistStorage/index'
+import agentAuthReducer from 'agent/store/agentAuthReducer'
 
 const migrations = {
   6: (s: PersistedState) => {},
@@ -44,20 +48,20 @@ const persistConfig: PersistConfig<any> = {
       },
       { whitelist: ['auth', 'agent'] }
     ),
-    // createTransform<Setting, Setting>(
-    //   (inboundState, key) => {
-    //     return inboundState
-    //   },
-    //   (outboundState, key) => {
-    //     const clearShieldId = {
-    //       ...outboundState,
-    //       shieldSessionID: undefined,
-    //     }
+    createTransform<Setting, Setting>(
+      (inboundState, key) => {
+        return inboundState
+      },
+      (outboundState, key) => {
+        const clearShieldId = {
+          ...outboundState,
+          shieldSessionID: undefined,
+        }
 
-    //     return clearShieldId
-    //   },
-    //   { whitelist: ['setting'] }
-    // ),
+        return clearShieldId
+      },
+      { whitelist: ['setting'] }
+    ),
   ],
 }
 
@@ -66,9 +70,9 @@ const middlerwares = [baseApi.middleware, agentBaseApi.middleware]
 const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
   [agentBaseApi.reducerPath]: agentBaseApi.reducer,
-  alert: alertReducer,
+  // alert: alertReducer,
   auth: authReducer,
-  bank: bankReducer,
+  // bank: bankReducer,
   deposit: depositReducer,
   setting: settingReducer,
   tempSetting: tempSettingReducer,

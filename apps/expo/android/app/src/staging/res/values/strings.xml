@@ -6,5 +6,5 @@
   <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
   <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
 
-  <string moduleConfig="true" name="CodePushDeploymentKey">Guje1sv_AN6g4Yq5FTQ418_wzhqAYudLOTAPE</string>
+  <string moduleConfig="true" name="CodePushDeploymentKey">SvCxPjLPQNzedhbukfwEbdAHeR5qwCBOJiD6Z</string>
 </resources>

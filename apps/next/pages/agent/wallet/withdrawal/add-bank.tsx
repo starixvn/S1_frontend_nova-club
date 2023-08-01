@@ -1,11 +1,8 @@
-import React from 'react'
 import AddBankInfoForm from 'agent/features/wallet/withdrawal/AddBankInfo'
-import AgentStackLayout from '../../../../layouts/agent/AgentStackLayout'
+import { MobileStackAgentLayout } from 'components/layouts/agent'
 
-export default function Account() {
-  return (
-    <AgentStackLayout>
-      <AddBankInfoForm />
-    </AgentStackLayout>
-  )
+export default function AddBank() {
+  return <AddBankInfoForm />
 }
+
+AddBank.AgentLayout = MobileStackAgentLayout

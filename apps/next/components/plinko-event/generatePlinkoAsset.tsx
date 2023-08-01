@@ -21,11 +21,10 @@ const GeneratePlinkoAsset = (width: number, height: number) => {
     velocity: { x: 0, y: 2 },
     render: {
       sprite: {
-        texture: require('../../../../packages/app/assets/images/events/plinko/coin.png'),
+        texture: require('../../../../packages/app/assets/images/plinko/coin.png'),
         xScale: 1,
         yScale: 1,
       },
-      // fillStyle: 'red',
     },
     collisionFilter: {
       group: -1, // set a negative group for bodyA
@@ -46,7 +45,7 @@ const GeneratePlinkoAsset = (width: number, height: number) => {
       isStatic: true,
       render: {
         sprite: {
-          texture: require('../../../../packages/app/assets/images/events/plinko/HAB.png'),
+          texture: require('../../../../packages/app/assets/images/plinko/HAB.png'),
           xScale: 1,
           yScale: 1,
         },
@@ -67,7 +66,7 @@ const GeneratePlinkoAsset = (width: number, height: number) => {
     friction: 0,
     render: {
       sprite: {
-        texture: require('../../../../packages/app/assets/images/events/plinko/start.png'),
+        texture: require('../../../../packages/app/assets/images/plinko/start.png'),
         xScale: 0.8,
         yScale: 0.8,
       },
@@ -85,7 +84,7 @@ const GeneratePlinkoAsset = (width: number, height: number) => {
     isStatic: true,
     render: {
       sprite: {
-        texture: require('../../../../packages/app/assets/images/events/plinko/ground.png'),
+        texture: require('../../../../packages/app/assets/images/plinko/ground.png'),
         xScale: 1.5,
         yScale: 0.6,
       },
@@ -101,7 +100,7 @@ const GeneratePlinkoAsset = (width: number, height: number) => {
     isStatic: true,
     render: {
       sprite: {
-        texture: require('../../../../packages/app/assets/images/events/plinko/grass.png'),
+        texture: require('../../../../packages/app/assets/images/plinko/grass.png'),
         xScale: 1.15,
         yScale: 0.6,
       },
@@ -158,11 +157,11 @@ const GeneratePlinkoAsset = (width: number, height: number) => {
         friction: 0,
         render: {
           sprite: {
-            texture: require('../../../../packages/app/assets/images/events/plinko/dot.png'),
+            texture: require('../../../../packages/app/assets/images/plinko/dot.png'),
             xScale: 0.75,
             yScale: 0.75,
           },
-          // fillStyle: 'green',
+          fillStyle: 'green',
         },
         collisionFilter: {
           // group: -1, // set a negative group for bodyA
@@ -208,7 +207,7 @@ const GeneratePlinkoAsset = (width: number, height: number) => {
       x - spacing / 2,
       height - 50,
       50,
-      50,
+      25,
       {
         label: 'ground',
         isSensor: false,
@@ -219,8 +218,9 @@ const GeneratePlinkoAsset = (width: number, height: number) => {
           mask: 0x0004, // set a mask for bodyA to collide with bodyB
         },
         render: {
+          fillStyle: 'red',
           sprite: {
-            texture: require('../../../../packages/app/assets/images/events/plinko/shadow.png'),
+            texture: require('../../../../packages/app/assets/images/plinko/shadow.png'),
             xScale: 1,
             yScale: 1,
           },
@@ -244,7 +244,7 @@ const GeneratePlinkoAsset = (width: number, height: number) => {
       },
       render: {
         sprite: {
-          texture: require('../../../../packages/app/assets/images/events/plinko/basket.png'),
+          texture: require('../../../../packages/app/assets/images/plinko/basket.png'),
           xScale: 1,
           yScale: 1,
         },

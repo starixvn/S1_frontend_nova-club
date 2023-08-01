@@ -2,7 +2,7 @@ import IconButton, { IIconButtonProps } from 'agent/components/Icon/IconButton'
 import { SxProp, View } from 'dripsy'
 import { MotiView } from 'moti'
 import { useEffect, useState } from 'react'
-import { GestureResponderEvent, Omit } from 'react-native'
+import { GestureResponderEvent } from 'react-native'
 import {
   Easing,
   runOnJS,
@@ -38,7 +38,7 @@ const RefreshButton = ({
         },
       ],
     }
-  })
+  }, [])
 
   const onPressHandler = async (event: GestureResponderEvent) => {
     onPress && (await onPress(event))

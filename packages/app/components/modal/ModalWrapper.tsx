@@ -1,7 +1,9 @@
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import isDesktop from 'app/utils/isDesktop'
 import { ScrollView, Sx, View } from 'dripsy'
 import React from 'react'
+import { useWindowDimensions } from 'react-native'
 
 interface ModalWrapperProps {
   children?: React.ReactNode
@@ -9,13 +11,14 @@ interface ModalWrapperProps {
 }
 
 const ModalWrapper = ({ children, sx }: ModalWrapperProps) => {
-  const { width, height } = useContainerDimension()
+  const { width: WindowWidth } = useWindowDimensions()
   const { left, right } = useSafeArea() //Landscape
+  // const desktop = isDesktop()
   return (
     <View
       sx={{
-        p: '$4',
-        width: Math.min(500, width * 0.9),
+        // p: '$4',
+        width: Math.min(800, WindowWidth * 0.8),
         justifyContent: 'center',
         ...sx,
       }}

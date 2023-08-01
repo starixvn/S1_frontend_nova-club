@@ -66,13 +66,22 @@ web-build/
 
 **/*/.next
 
+# **/*/ios
+# **/*/android
+
 .turbo
 build/**
 
-.vscode/settings.json
-.prettierrc.json
 
-.gitlab-ci.yml
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
 
 apps/expo/CodePush/android/*
 apps/expo/CodePush/ios/*
+
+apps/expo/**/release

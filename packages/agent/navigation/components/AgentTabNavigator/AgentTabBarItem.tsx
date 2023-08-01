@@ -1,8 +1,8 @@
 import React, { ComponentProps } from 'react'
 import { Pressable, SxProp, View } from 'dripsy'
 import { NavIcon } from '../NavIcon'
-import { TAB_HEIGHT } from 'app/constant/sizes'
 import Text from 'agent/components/Text'
+import { AGENT_TAB_HEIGHT } from 'agent/constant/sizes'
 
 type PressableProps = ComponentProps<typeof Pressable>
 export interface AgentTabBarItemProps extends PressableProps {
@@ -27,7 +27,7 @@ export default function AgentTabBarItem({
     <Pressable
       sx={{
         flex: 1,
-        height: TAB_HEIGHT * 1.25,
+        height: AGENT_TAB_HEIGHT * 1.25,
         alignItems: 'center',
         py: 5,
         ...sx,

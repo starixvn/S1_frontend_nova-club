@@ -20,7 +20,7 @@ import {
 import validation from 'agent/utils/validation'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useAgentLocalization } from 'app/provider/localization'
-import { agentToThousandSeparator } from 'app/utils'
+import { agentToThousandSeparator } from 'agent/utils'
 import { Currency } from 'app/utils/constant'
 import { ActivityIndicator, View, styled, useDripsyTheme } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
@@ -322,7 +322,7 @@ const AgentWithdrawalForm = ({
         onChangeText={handleChange('nettPayout')}
         onBlur={handleBlur('nettPayout')}
         keyboardType={'numeric'}
-        containerProps={{ sx: { mb: '$10' } }}
+        containerProps={{ sx: { mb: '$5' } }}
         error={
           touched.nettPayout && errors.nettPayout
             ? t(errors.nettPayout, {

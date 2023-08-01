@@ -1,4 +1,3 @@
-import EmptyResult from 'agent/components/DataTable/EmptyResult'
 import Text from 'agent/components/Text'
 import { UserTotalDownline } from 'agent/services/userApi.type'
 import { useAgentLocalization } from 'app/provider/localization'
@@ -6,6 +5,7 @@ import { styled, View } from 'dripsy'
 import { useEffect, useState } from 'react'
 import { PieChart } from 'react-native-chart-kit'
 import { ParseDownlineChart } from './ParseDownlineChart'
+import EmptyResult from 'app/components/dataTable/EmptyResult'
 
 interface ProfileChartProps {
   downline: UserTotalDownline
@@ -27,7 +27,7 @@ const ProfileChart = ({ downline }: ProfileChartProps) => {
   }, [data])
 
   return (
-    <View sx={{ pt: '$5', pb: '$5' }}>
+    <View sx={{ py: '$2' }}>
       <>
         {data.map((d, index) => {
           return d.showChart ? (

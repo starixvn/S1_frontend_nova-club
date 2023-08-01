@@ -1,9 +1,9 @@
-import { ModalAction } from 'app/components/modal/Modal.type'
 import ModalWrapper from 'app/components/modal/ModalWrapper'
 import { ActivityIndicator } from 'dripsy'
 import dynamic from 'next/dynamic'
 import React from 'react'
 import { ModalStackConfig } from 'react-native-modalfy'
+import { ModalAction } from '../components/Modal/Modal.type'
 
 type ModalStackConfigValueType = ModalStackConfig extends Record<
   any,
@@ -13,6 +13,9 @@ type ModalStackConfigValueType = ModalStackConfig extends Record<
   : never
 
 export interface ModalStackParams {
+  AgentMenuModal: {
+    mainMenuList: { label: string; icon: string; onPress: () => void }[]
+  }
   AgentAlertModal: {
     message: string
     title?: string
@@ -70,6 +73,7 @@ type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
 
 const _dynamicModal = {
   AgentAlertModal: () => import('../components/Modal/AgentAlertModal'),
+  AgentMenuModal: () => import('../components/Modal/AgentMenuModal'),
   FilterCommissionReportModal: () =>
     import('agent/components/Modal/FilterCommissionReportModal'),
   FilterTransactionReportModal: () =>
@@ -97,7 +101,7 @@ function getDynamicComponent(key: string) {
     loading: (props) => {
       return (
         <ModalWrapper>
-          <ActivityIndicator sx={{ mt: '$10' }} color={'$lightCyan'} />
+          <ActivityIndicator sx={{ mt: '$4' }} color={'$lightCyan'} />
         </ModalWrapper>
       )
     },
@@ -110,6 +114,21 @@ function getDynamicComponent(key: string) {
 export const agentModalConfig: ModalConfigType = {
   AgentAlertModal: {
     modal: getDynamicComponent('AgentAlertModal'),
+  },
+  AgentMenuModal: {
+    modal: getDynamicComponent('AgentMenuModal'),
+    position: 'top',
+    backdropOpacity: 0,
+    containerStyle: {
+      marginTop: '30%',
+      alignItems: 'flex-end',
+    },
+    transitionOptions: (animatedValue) => ({
+      opacity: animatedValue.interpolate({
+        inputRange: [0, 1, 2],
+        outputRange: [0, 1, 0.9],
+      }),
+    }),
   },
   FilterCommissionReportModal: {
     modal: getDynamicComponent('FilterCommissionReportModal'),
@@ -148,43 +167,3 @@ export const agentModalConfig: ModalConfigType = {
     modal: getDynamicComponent('TurnoverModal'),
   },
 }
-
-// const stack = createModalStack(agentModalConfig, {
-//   containerStyle: {
-//     maxWidth: 768,
-//   },
-//   backdropOpacity: 0.6,
-//   backBehavior: 'pop',
-//   disableFlingGesture: true,
-//   // transitionOptions: (animatedValue) => ({
-//   //   opacity: animatedValue.interpolate({
-//   //     inputRange: [0, 1, 2],
-//   //     outputRange: [0, 1, 0.9],
-//   //   }),
-//   //   transform: [
-//   //     {
-//   //       perspective: 2000,
-//   //     },
-//   //     {
-//   //       scale: animatedValue.interpolate({
-//   //         inputRange: [0, 1, 2],
-//   //         outputRange: [1.3, 1, 1],
-//   //       }),
-//   //     },
-//   //   ],
-//   // }),
-//   // animateInConfig: {
-//   //   easing: Easing.bezier(0.42, -0.03, 0.27, 0.95),
-//   //   duration: 300,
-//   // },
-//   // animateOutConfig: {
-//   //   easing: Easing.bezier(0.42, -0.03, 0.27, 0.95),
-//   //   duration: 300,
-//   // },
-// })
-
-// const AgentModalProvider = ({ children }) => {
-//   return <RNMModalProvider stack={stack}>{children}</RNMModalProvider>
-// }
-
-// export default AgentModalProvider

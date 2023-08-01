@@ -1,71 +1,56 @@
-import { DEV_DOMAIN } from '@env'
-import useContainerDimension from 'app/hooks/useContainerDimension'
-import useDownload from 'app/hooks/useDownload'
-import useShare from 'app/hooks/useShare'
-import BouncePressable from 'app/pressable/BouncePressable'
 import useLocalization from 'app/provider/localization'
 import { copyToClipboard } from 'app/utils'
-import { ScrollView, Text, View } from 'dripsy'
+import { Pressable, ScrollView, Text, View } from 'dripsy'
 import React, { useRef } from 'react'
-import { Platform } from 'react-native'
-import ViewShot from 'react-native-view-shot'
-import { RWebShare } from 'react-web-share'
+import { DEV_DOMAIN } from '@env'
+import withShare from 'app/hoc/withShare'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import { Button } from '../form/Button'
-import IconButton from '../form/IconButton'
 import { DripsyGradient } from '../Gradient'
 import Icon from '../Icon'
+import IconButton from '../IconButton'
 import QRCodeGenerator from '../QRCodeGenerator'
+import ViewScreenShot, { ViewScreenShotMethods } from '../ViewScreenShot'
+import BouncePressable from '../pressable/BouncePressable'
 import ModalWrapper from './ModalWrapper'
 
-const ReferralModal = ({ modal: { closeModal } }) => {
+const ReferralModal = ({ modal: { closeModal, getParam } }) => {
   const { t } = useLocalization()
   const { data } = usePlayerProfileQuery()
-  const ref = useRef()
+
+  const ref = useRef<ViewScreenShotMethods>(null)
   const referralCode = data?.referral_code
-
   const referralLink = `${DEV_DOMAIN}/download?ref=${referralCode}`
-  const { width, height } = useContainerDimension()
 
-  const { appScreenshotDownload, webScreenshotDownload } = useDownload({
-    ref,
-    closeModal,
-  })
-
-  const shareOptions = {
-    message: t('referral.shareMessage'),
-    url: referralLink,
-    title: t('common.share'),
-  }
-
-  const { onShare } = useShare(shareOptions)
   const handleDownload = () => {
-    Platform.OS === 'web' ? webScreenshotDownload() : appScreenshotDownload()
+    ref?.current?.download()
   }
 
   return (
     <ModalWrapper>
-      <View
-        sx={{
-          bg: 'white',
-          borderRadius: 12,
-          width: Math.min(width * 0.8, 400),
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          maxHeight: '100%',
-        }}
-      >
-        <DripsyGradient gradient="PaleBlue" sx={{ p: '$4' }}>
-          <Text sx={{ textAlign: 'center' }}>{t('referral.friend')}</Text>
+      <>
+        <DripsyGradient
+          gradient={'surface'}
+          sx={{
+            alignItems: 'center',
+            py: '$3',
+            borderTopLeftRadius: 5,
+            borderTopRightRadius: 5,
+          }}
+        >
+          <Text>{t('menu.friendReferral')}</Text>
         </DripsyGradient>
-
-        <ScrollView contentContainerStyle={{ padding: '5%' }}>
-          <Text sx={{ color: 'black' }}>{t('referral.earn')}</Text>
-          <View>
-            <ViewScreenShot innerRef={ref} name={`Vui123-${referralCode}`}>
-              <QRCodeGenerator isTransfer={false} referralLink={referralLink} />
-            </ViewScreenShot>
-          </View>
+        <View
+          sx={{
+            p: '5%',
+            bg: 'white',
+            borderBottomLeftRadius: 5,
+            borderBottomRightRadius: 5,
+          }}
+        >
+          <Text sx={{ color: 'black' }}>{t('referral.shareMessage')}</Text>
+          <ViewScreenShot ref={ref} fileName={`Vui123-${referralCode}`}>
+            <QRCodeGenerator isTransfer={false} referralLink={referralLink} />
+          </ViewScreenShot>
 
           <View
             sx={{
@@ -100,90 +85,40 @@ const ReferralModal = ({ modal: { closeModal } }) => {
               />
             </View>
           </View>
-
-          <View>
-            <View
-              sx={{
-                my: '$8',
-                mx: '$4',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
+          <View
+            sx={{
+              my: '$3',
+              mx: '$4',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}
+          >
+            <ActionButton
+              icon="dl-round"
+              title={t('common.download')}
+              onPress={handleDownload}
+            />
+            <ShareButton
+              icon="tf"
+              title={t('referral.share')}
+              options={{
+                message: t('referral.shareMessage'),
+                url: referralLink,
+                title: t('referral.share'),
               }}
-            >
-              <ActionButton
-                icon="dl-round"
-                title={t('common.download')}
-                onPress={handleDownload}
-              />
-              {Platform.OS === 'web' ? (
-                <RWebShare
-                  data={shareOptions}
-                  onClick={() => console.info('Share successful!')}
-                >
-                  <button
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      backgroundColor: 'transparent',
-                      border: 'none',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      fontSize: 12,
-                    }}
-                  >
-                    <Icon
-                      size={22}
-                      name="share"
-                      color="black"
-                      sx={{ mb: '$1' }}
-                    />
-                    <span>{t('common.share')}</span>
-                  </button>
-                </RWebShare>
-              ) : (
-                <ActionButton
-                  icon="share"
-                  title={t('common.share')}
-                  onPress={onShare}
-                />
-              )}
-            </View>
-
-            <Button
-              rounded
-              stretch
-              variant="lg"
-              fill={{
-                type: 'gradient',
-                color: 'secondary',
-                start: { x: 0, y: 0 },
-                end: { x: 1, y: 0 },
-              }}
-              onPress={closeModal}
-            >
-              <Button.Label>{t('common.close')}</Button.Label>
-            </Button>
+            />
           </View>
-        </ScrollView>
-      </View>
+          <Pressable onPress={() => closeModal()}>
+            <DripsyGradient
+              gradient={'surface'}
+              sx={{ alignItems: 'center', borderRadius: 15, py: '$3' }}
+            >
+              <Text>{t('common.close')}</Text>
+            </DripsyGradient>
+          </Pressable>
+        </View>
+      </>
     </ModalWrapper>
-  )
-}
-
-const ViewScreenShot = ({ innerRef, name, children }) => {
-  return Platform.OS === 'web' ? (
-    <View ref={innerRef}>{children}</View>
-  ) : (
-    <ViewShot
-      ref={innerRef}
-      options={{
-        fileName: { name },
-        format: 'png',
-        quality: 0.9,
-      }}
-    >
-      {children}
-    </ViewShot>
   )
 }
 
@@ -194,9 +129,11 @@ const ActionButton = ({ icon, title, onPress }) => {
       onPress={onPress}
     >
       <Icon size={22} name={icon} color="black" />
-      <Text sx={{ color: '$black', fontSize: 12, mt: '$1' }}>{title}</Text>
+      <Text sx={{ color: 'black', fontSize: 12, mt: '$1' }}>{title}</Text>
     </BouncePressable>
   )
 }
+
+const ShareButton = withShare(ActionButton)
 
 export default ReferralModal

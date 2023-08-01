@@ -2,11 +2,10 @@
 //  NotificationService.h
 //  NotifeeNotificationService
 //
-//  Created by Wilson Lim on 18/08/2022.
+//  Created by ACRNB033 on 27/07/2023.
 //
 
 #import <UserNotifications/UserNotifications.h>
-#import "NotifeeExtensionHelper.h"
 
 @interface NotificationService : UNNotificationServiceExtension
 

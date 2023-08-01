@@ -5,7 +5,7 @@ import { Platform } from 'react-native'
 export default function AgentNestedTabBar({ children }) {
   return (
     <DripsyGradient
-      colors={['rgb(224,237,254)', '#ffffff']}
+      gradient="agentContent"
       start={{ x: 0.5, y: 0 }}
       end={{ x: 0.5, y: 1 }}
       style={[

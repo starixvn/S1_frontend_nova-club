@@ -1,11 +1,11 @@
 import { UserTotalDownline } from 'agent/services/userApi.type'
-import { Rect, Color, Text, NumberProp } from 'react-native-svg'
+import { NumberProp } from 'react-native-svg'
 
 interface ChartProps {
   name: string
   amount: number
-  color: Color
-  legendFontColor: Color
+  color: string
+  legendFontColor: string
   legendFontSize: NumberProp
   legendFontFamily?: string
 }

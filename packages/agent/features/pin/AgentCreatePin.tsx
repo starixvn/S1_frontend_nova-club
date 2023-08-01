@@ -20,15 +20,15 @@ import validation, {
   getErrorMessage,
   removeAgentPhoneNumPrefix,
 } from 'agent/utils/validation'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
 import { ActivityIndicator, ScrollView, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { useEffect, useRef, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
+import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import AgentUnderlinePinField from './AgentUnderlinePinField'
-import { MOBILE_PREFIX } from 'app/constant/country'
+import { MOBILE_PREFIX } from 'app/constants/country'
 
 interface AddBankInfoValues {
   mobileNumber: string
@@ -38,7 +38,7 @@ interface AddBankInfoValues {
 }
 
 const AgentCreatePin = () => {
-  const { back, replace } = useContextualRouter()
+  const { push, back, replace } = useRouter()
   const { isAgent, mobile_no, hasPin, isUninitialized, isFetching } =
     useUserInfoQuery(undefined, {
       selectFromResult: ({ data, ...rest }) => ({
@@ -49,7 +49,6 @@ const AgentCreatePin = () => {
       }),
       refetchOnMountOrArgChange: true,
     })
-  const { push } = useContextualRouter()
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [otpField, setOtpField] = useState(false)

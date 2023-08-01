@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { LoginResult } from 'agent/services/authApi.type'
 
 // type PartialLoginResult = Pick<LoginResult, 'access_token' | 'token_type'>
 

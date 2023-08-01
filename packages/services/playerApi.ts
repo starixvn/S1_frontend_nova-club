@@ -1,8 +1,8 @@
-import { useAppSelector } from 'app/provider/redux/store'
 import { Currency } from 'app/utils/constant'
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
+  FreeSpinArgs,
   FreeSpinResult,
   LuckySpinArgs,
   MEMBER_TYPE,
@@ -14,9 +14,9 @@ import {
   ProfileResult,
   ProfileUpdateArgs,
   ReportArgs,
+  // ReportArgs,
   ReportResult,
 } from './playerApi.type'
-import { walletApi } from './walletApi'
 
 const playerApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
@@ -99,17 +99,6 @@ const playerApi = baseApiWithTag.injectEndpoints({
         url: `/player_api/registerFreeWheelSpin`,
         method: 'POST',
       }),
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled
-          // `onSuccess` side-effect
-          setTimeout(() => {
-            dispatch(dispatch(walletApi.util.invalidateTags(['Balance'])))
-          }, 6000)
-        } catch (err) {
-          // `onError` side-effect
-        }
-      },
     }),
     freeSpin: builder.query<IResponse<FreeSpinResult>, void>({
       query: () => ({
@@ -139,16 +128,14 @@ export const usePlayerProfileQuery = (
   _: void,
   options?: PlayerProfileQuerySubscriptionOptions
 ) => {
-  const { token } = useAppSelector((state) => state.auth.info) || {}
   return playerApi.usePlayerProfileQuery(undefined, {
     ...options,
-    skip: !token,
     selectFromResult: (s) => {
       return {
         ...s,
         data: s.data?.data,
         username: s.data?.data?.username,
-        currency: (s.data?.data?.currency as Currency) ?? Currency.VND,
+        currency: s.data?.data?.currency as Currency,
         isCreditMember: s.data?.data?.member_type === MEMBER_TYPE.CREDIT,
       }
     },

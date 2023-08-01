@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { LOGOUT_ACTION } from 'app/constant/redux'
-import { LoginResult, Shield_Action } from 'services/authApi.type'
-import { ProfileResult } from 'services/playerApi.type'
+
+import { LoginResult } from '../../services/authApi.type'
+import { ProfileResult } from '../../services/playerApi.type'
+import { LOGOUT_ACTION } from 'app/utils/constant'
 
 type TokenType = Pick<LoginResult, 'token'>
 
@@ -31,11 +32,10 @@ const playerSlice = createSlice({
       state.isLogoutActionTriggered = action.payload
     },
   },
-  extraReducers: {
-    [LOGOUT_ACTION]: () => {
-      // return { ...authInitialState, isLogoutActionTriggered: true }
-      return { ...authInitialState }
-    },
+  extraReducers: (builder) => {
+    builder.addCase(LOGOUT_ACTION, (state, action) => {
+      return { ...authInitialState, isLogoutActionTriggered: true }
+    })
   },
 })
 

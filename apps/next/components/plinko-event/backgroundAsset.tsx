@@ -8,7 +8,7 @@ const backgroundAsset = (width: number, height: number) => {
     isStatic: true,
     render: {
       sprite: {
-        texture: require('../../../../packages/app/assets/images/events/plinko/cloud1-1.png'),
+        texture: require('../../../../packages/app/assets/images/plinko/cloud1-1.png'),
         xScale: 0.75,
         yScale: 0.75,
       },
@@ -23,7 +23,7 @@ const backgroundAsset = (width: number, height: number) => {
     isStatic: true,
     render: {
       sprite: {
-        texture: require('../../../../packages/app/assets/images/events/plinko/cloud1.png'),
+        texture: require('../../../../packages/app/assets/images/plinko/cloud1.png'),
         xScale: 1,
         yScale: 1,
       },
@@ -38,7 +38,7 @@ const backgroundAsset = (width: number, height: number) => {
     isStatic: true,
     render: {
       sprite: {
-        texture: require('../../../../packages/app/assets/images/events/plinko/cloud2-1.png'),
+        texture: require('../../../../packages/app/assets/images/plinko/cloud2-1.png'),
         xScale: 0.75,
         yScale: 0.75,
       },
@@ -53,7 +53,7 @@ const backgroundAsset = (width: number, height: number) => {
     isStatic: true,
     render: {
       sprite: {
-        texture: require('../../../../packages/app/assets/images/events/plinko/cloud2.png'),
+        texture: require('../../../../packages/app/assets/images/plinko/cloud2.png'),
         xScale: 1,
         yScale: 1,
       },
@@ -68,7 +68,7 @@ const backgroundAsset = (width: number, height: number) => {
     isStatic: true,
     render: {
       sprite: {
-        texture: require('../../../../packages/app/assets/images/events/plinko/hab-green.png'),
+        texture: require('../../../../packages/app/assets/images/plinko/hab-green.png'),
         xScale: 1,
         yScale: 1,
       },
@@ -83,7 +83,7 @@ const backgroundAsset = (width: number, height: number) => {
     isStatic: true,
     render: {
       sprite: {
-        texture: require('../../../../packages/app/assets/images/events/plinko/hab-blue.png'),
+        texture: require('../../../../packages/app/assets/images/plinko/hab-blue.png'),
         xScale: 1.15,
         yScale: 1.15,
       },

@@ -1,20 +1,34 @@
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
+import useAlert from 'app/hooks/useAlert'
+import useLocalization from 'app/provider/localization'
+import { AdaptiveLayoutPage } from 'components/layouts/AdaptiveLayout'
+import { useResponsiveValue } from 'dripsy'
+import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { usePlayerProfileQuery } from 'services/playerApi'
 
 const DepositGuard = (
-  WrappedComponent: React.ComponentType,
+  WrappedComponent: AdaptiveLayoutPage,
   guardType: string
 ) => {
   const HOC = () => {
     const { data, isFetching } = usePlayerProfileQuery()
     const isPlayerName = !!data?.firstName
-    const { replace } = useContextualRouter()
+    const { replace } = useRouter()
+    const { showAlert } = useAlert()
+    const { t } = useLocalization()
+    const isDesktop = useResponsiveValue([false, false, false, true])
 
     useEffect(() => {
       if (data && guardType === 'deposit') {
         if (!isPlayerName) {
-          replace('/profile/account-verification')
+          showAlert(
+            t('accountVerification.secondaryTitle') +
+              '\n' +
+              t('accountVerification.remark')
+          )
+          isDesktop
+            ? replace('/account/profile')
+            : replace('/account/account-verification')
         }
       }
       if (data && guardType === 'account-verification') {
@@ -42,7 +56,7 @@ const DepositGuard = (
     return <WrappedComponent />
   }
 
-  return HOC
+  return HOC as AdaptiveLayoutPage
 }
 
 export default DepositGuard

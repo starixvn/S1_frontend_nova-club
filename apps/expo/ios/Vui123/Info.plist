@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Vui 123</string>
+	<string>Vui Staging 2</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -23,28 +23,27 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.chlgame.staging2</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>chlgame</string>
-				<string>com.chlgame.app</string>
+				<string>vuifit</string>
+				<string>com.vuifit.app</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>exp+vui123</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>CodePushDeploymentKey</key>
-	<string>7Z3-B9JPV61mEugXeyoQ3LnBCZg3-Sjk2T0dp</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>fb</string>
-		<string>instagram</string>
-		<string>twitter</string>
-		<string>vnd.youtube</string>
-		<string>line</string>
-		<string>whatsapp</string>
-		<string>skype</string>
-		<string>tg</string>
-	</array>
+	<string>LL5A-_orX6NTd-uyepH8TUCRie8GKpWvgVsw6</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -61,22 +60,21 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>QR Scanning capability</string>
+	<string>Allow $(PRODUCT_NAME) to open the camera</string>
 	<key>NSFaceIDUsageDescription</key>
-	<string>FaceID Authentication</string>
+	<string>Allow $(PRODUCT_NAME) to use Face ID.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow $(PRODUCT_NAME) to access your microphone</string>
+	<string>Allow $(PRODUCT_NAME) to access your microphone.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Allow $(PRODUCT_NAME) permission to save photos</string>
+	<string>Allow $(PRODUCT_NAME) to save photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow $(PRODUCT_NAME) permission to access your photos</string>
+	<string>custom photos permission</string>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>fetch</string>
 		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
-	<string>SplashScreen</string>
-	<key>UIMainStoryboardFile</key>
 	<string>SplashScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
@@ -85,30 +83,22 @@
 	<key>UIRequiresFullScreen</key>
 	<true/>
 	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleDarkContent</string>
+	<string>UIStatusBarStyleDefault</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UISupportedInterfaceOrientations~ipad</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIUserInterfaceStyle</key>
-	<string>Dark</string>
+	<string>Light</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>branch_universal_link_domains</key>
 	<array>
-		<string>s2syf.app.link</string>
-		<string>s2syf-alternate.app.link</string>
-		<string>s2syf.test.app.link</string>
-		<string>s2syf-alternate.test.app.link</string>
+		<string>nnynt.app.link</string>
+		<string>nnynt-alternate.app.link</string>
+		<string>nnynt.test.app.link</string>
+		<string>nnynt-alternate.test.app.link</string>
 	</array>
 </dict>
 </plist>

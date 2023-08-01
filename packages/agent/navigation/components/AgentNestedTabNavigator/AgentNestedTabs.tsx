@@ -1,26 +1,27 @@
 import Icon from 'agent/components/Icon'
 import { AgentRoute } from 'agent/navigation/NavigationType'
-import useContextualRouting from 'app/hooks/useContextualRouting'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
 import React from 'react'
 import AgentNestedTabBar from './AgentNestedTabBar'
 import AgentNestedTabBarItem from './AgentNestedTabBarItem'
+import { useRouter } from 'solito/router'
+import usePathname from 'app/hooks/usePathname'
 
 export default function AgentNestedTabs({
   routes,
 }: {
   routes: Readonly<AgentRoute[]>
 }) {
-  const { push } = useContextualRouter()
-  const { returnHref } = useContextualRouting()
+  const { push } = useRouter()
   const { t } = useAgentLocalization()
+
+  const pathname = usePathname()
 
   return (
     <AgentNestedTabBar>
       {routes &&
         routes.map((r) => {
-          const isActive = returnHref.includes(r.route)
+          const isActive = pathname.includes(r.route)
 
           return (
             <AgentNestedTabBarItem

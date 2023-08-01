@@ -3,7 +3,6 @@ import { useShareholderProfileQuery } from 'agent/services/shareholderApi'
 import { useUserInfoQuery } from 'agent/services/userApi'
 import { ROLE } from 'agent/utils/helper'
 import { Currency } from 'app/utils/constant'
-import React from 'react'
 
 const useGetProfile = () => {
   const { role } = useUserInfoQuery(undefined, {

@@ -1,5 +1,23 @@
 import { getProviderLogo } from 'app/config/games/provider'
 
+export const HEADER_HEIGHT = 60
+
+export enum LANGUAGE_CODE {
+  ENGLISH = 'en',
+  VIETNAM = 'vi',
+}
+
+export const LANGUAGE_SUBTAG = {
+  [LANGUAGE_CODE.ENGLISH]: 'en',
+  [LANGUAGE_CODE.VIETNAM]: 'vi',
+}
+
+export const LOGOUT_ACTION = 'LOGOUT'
+
+//App Device OS
+export const APP_DEVICE_IOS = 'iOS'
+export const APP_DEVICE_ANDROID = 'Android'
+
 export const currencyListMapper: { [key: number]: string } = {
   2: 'MYR',
   4: 'THB',
@@ -15,6 +33,21 @@ export enum Currency {
   // IDR = 15,
   VND = 'VND',
   // CRYPTO = 96,
+}
+
+export const CURRENCY_TO_LANGUAGE = {
+  [Currency.VND]: LANGUAGE_CODE.VIETNAM,
+}
+
+export const CURRENCY_SEPARATOR = {
+  [LANGUAGE_CODE.ENGLISH]: {
+    decimal: '.',
+    thousands: ',',
+  },
+  [LANGUAGE_CODE.VIETNAM]: {
+    decimal: '.',
+    thousands: ',',
+  },
 }
 
 export enum PLATFORM_CODE {
@@ -68,12 +101,13 @@ export const DateFilterOptions = [
 export enum ReportTransactionType {
   DEPOSIT = 'deposit',
   WITHDRAWAL = 'withdrawal',
-  REWARDS = 'rewards', // Label renamed to Rebate
+  REBATE = 'rewards', // Label renamed to Rebate
   REFERRAL = 'referral',
   TRANSFER = 'transfer',
   ADJUSTMENT = 'adjustment',
   GAME = 'game',
   BONUS = 'bonus',
+  COIN = 'coin',
 }
 
 export enum ReportBonusType {
@@ -83,23 +117,23 @@ export enum ReportBonusType {
 export const ReportTransactionTypeOptions = [
   {
     value: ReportTransactionType.DEPOSIT,
-    label: 'filter.transactionType.deposit',
+    label: 'deposit.depositTitle',
   },
   {
     value: ReportTransactionType.WITHDRAWAL,
-    label: 'filter.transactionType.withdrawal',
+    label: 'withdrawal.withdrawalTitle',
   },
   {
-    value: ReportTransactionType.REWARDS,
+    value: ReportTransactionType.REBATE,
     label: 'filter.transactionType.rebate',
   },
   {
     value: ReportTransactionType.REFERRAL,
-    label: 'menu.referral',
+    label: 'referral.title',
   },
   {
     value: ReportTransactionType.TRANSFER,
-    label: 'menu.transfer',
+    label: 'transfer.transferTitle',
   },
   {
     value: ReportTransactionType.ADJUSTMENT,
@@ -111,7 +145,7 @@ export const ReportTransactionTypeOptions = [
   // },
   {
     value: ReportTransactionType.BONUS,
-    label: 'filter.transactionType.bonus',
+    label: 'common.bonus',
   },
 ]
 
@@ -155,7 +189,7 @@ export const ReportCommonStatusOptions = [
 export const ReportDepositStatusOptions = [
   {
     value: ReportDepositStatus.ALL,
-    label: 'filter.depositStatus.all',
+    label: 'common.all',
   },
   {
     value: ReportDepositStatus.PENDING,
@@ -249,6 +283,21 @@ export const ReportGameStatusOptions = [
     label: 'filter.gameStatus.loss',
   },
 ]
+// export const ReportGameStatusOptions = [
+//   {
+//     value: ReportGameStatus.ALL,
+//     label: 'common.all',
+//     icon: getProviderLogo(ReportGameStatus.ALL),
+//   },
+//   {
+//     value: ReportGameStatus.WIN,
+//     label: 'filter.gameStatus.win',
+//   },
+//   {
+//     value: ReportGameStatus.LOSS,
+//     label: 'filter.gameStatus.loss',
+//   },
+// ]
 
 export enum GameProvider {
   AG = 'Asia Gaming',
@@ -274,11 +323,13 @@ export enum SlotType {
   NEW = 'new',
   HOT = 'hot',
   JACKPOT = 'jackpot',
+  MEGAWAY = 'megaway',
+  RECOMMENDED = 'recommended',
 }
 export const SlotTypeOptions = [
   {
     value: SlotType.ALL,
-    label: 'filter.genre.all',
+    label: 'common.all',
   },
   {
     value: SlotType.NEW,
@@ -372,4 +423,54 @@ export enum GAME_TAGS {
   NEW = 'new',
   HOT = 'hot',
   DESKTOP = 'desktop',
+}
+
+export const DEPOSIT_NOTES = [
+  'notes.deposit.n1',
+  'notes.deposit.n2',
+  'notes.deposit.n3',
+  'notes.deposit.n4',
+  'notes.deposit.n5',
+  'notes.deposit.n6',
+]
+
+export const WITHDRAWAL_NOTES = [
+  'notes.withdrawal.n1',
+  'notes.withdrawal.n2',
+  'notes.withdrawal.n3',
+  'notes.withdrawal.n4',
+  'notes.withdrawal.n5',
+]
+
+export const TOPUP_NOTES = ['notes.topUpCard.n1', 'notes.topUpCard.n2']
+
+export const TRANSFER_NOTES = ['notes.transfer.n1']
+
+export const REWARDS_NOTES = [
+  'notes.rewards.n1',
+  'notes.rewards.n2',
+  'notes.rewards.n3',
+  'notes.rewards.n4',
+  'notes.rewards.n5',
+  'notes.rewards.n6',
+]
+
+export const CRYPTO_NOTES = ['notes.crypto.n1', 'notes.crypto.n2']
+export const TURNOVER_NOTES = [
+  'notes.turnover.n1',
+  'notes.turnover.n2',
+  'notes.turnover.n3',
+  'notes.turnover.n4',
+]
+
+export const ALL = 'ALL'
+
+export enum ProviderImageCategory {
+  LiveCasino = 'livecasino',
+  Games = 'games',
+  Slot = 'slot',
+}
+
+export enum ERROR_CODE {
+  INVALID_OTP = 10021,
 }

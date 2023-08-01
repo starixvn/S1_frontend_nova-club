@@ -1,5 +1,5 @@
 import Icon, { IconComponentProps } from 'agent/components/Icon'
-import TouchableOpacity from 'app/pressable/TouchableOpacity'
+import TouchableOpacity from 'app/components/pressable/TouchableOpacity'
 import { SxProp } from 'dripsy'
 
 export interface IIconButtonProps {

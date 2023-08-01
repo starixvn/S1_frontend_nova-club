@@ -1,16 +1,15 @@
-import DataTable from 'agent/components/DataTable/DataTable'
-import { DateTimeField } from 'agent/components/DataTable/DataTableCell'
+import AgentDataTableCell from 'agent/components/DataTable/AgentDataTableCell'
+import AgentDataTableRow from 'agent/components/DataTable/AgentDataTableRow'
 import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
-import Text from 'agent/components/Text'
 import useTableListing from 'agent/hooks/useTableListing'
 import { useWithdrawalListQuery } from 'agent/services/withdrawalApi'
-import { TAB_HEIGHT } from 'app/constant/sizes'
+import { DateTimeField } from 'app/components/dataTable/DataTableCell'
+
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useAgentLocalization } from 'app/provider/localization'
 import { toThousandSeparator } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import dayjsTz from 'app/utils/dayjs'
-import dayjs from 'dayjs'
 import { View } from 'dripsy'
 import React, { useState } from 'react'
 import { Platform } from 'react-native'
@@ -74,32 +73,26 @@ const AgentWithdrawalHistory = ({ currency }: { currency: Currency }) => {
   }
 
   const onRenderItem = ({ item, index }) => (
-    <DataTable.Row key={`${index} ${item.created_at}`}>
-      <DataTable.Cell
-        center
-        style={{
-          flex: 0.35,
-        }}
-        textStyle={{}}
-      >
+    <AgentDataTableRow key={`${index} ${item.created_at}`}>
+      <AgentDataTableCell center sx={{ flex: 0.35 }}>
         <DateTimeField dateTime={item.created_at} />
-      </DataTable.Cell>
-      <DataTable.Cell
-        style={{
+      </AgentDataTableCell>
+      <AgentDataTableCell
+        sx={{
           flex: 0.4,
         }}
         center
       >
         {toThousandSeparator(item.amount.toString())}
-      </DataTable.Cell>
-      <DataTable.Cell center style={{ flex: 0.3 }}>
+      </AgentDataTableCell>
+      <AgentDataTableCell center sx={{ flex: 0.3 }}>
         {t(getStatusString(item.status))}
-      </DataTable.Cell>
-    </DataTable.Row>
+      </AgentDataTableCell>
+    </AgentDataTableRow>
   )
 
   return (
-    <View sx={{ py: '$5', height: Platform.OS !== 'web' ? 500 : null }}>
+    <View sx={{ mt: '$5', height: Platform.OS !== 'web' ? 500 : null }}>
       <TableListing
         title={t('wallet.recentTransaction')}
         refreshProps={{ titleProps: { sx: { fontWeight: 'bold' } } }}

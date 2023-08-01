@@ -20,9 +20,7 @@ import validation, {
   getErrorMessage,
   removeAgentPhoneNumPrefix,
 } from 'agent/utils/validation'
-import { AGENT_STACK_CONTENT_PADDING } from 'app/constant/sizes'
 import useContainerDimension from 'app/hooks/useContainerDimension'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
 import { ActivityIndicator, ScrollView, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
@@ -30,7 +28,9 @@ import { useEffect, useRef, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import * as Yup from 'yup'
 import AgentUnderlinePinField from './AgentUnderlinePinField'
-import { MOBILE_PREFIX } from 'app/constant/country'
+import { useRouter } from 'solito/router'
+import { AGENT_STACK_CONTENT_PADDING } from 'agent/constant/sizes'
+import { MOBILE_PREFIX } from 'app/constants/country'
 
 interface AddBankInfoValues {
   mobileNumber: string
@@ -57,7 +57,7 @@ const AgentResetPin = () => {
   const { showAlert } = useAgentAlert()
   const { openModal } = useModal()
   const { t } = useAgentLocalization()
-  const { back, replace } = useContextualRouter()
+  const { back, replace } = useRouter()
   const [sendOtp] = useResetPinOtpMutation()
 
   const [agentResetPin] = useAgentResetPinMutation()

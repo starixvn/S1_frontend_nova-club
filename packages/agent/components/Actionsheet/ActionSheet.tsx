@@ -39,6 +39,11 @@ const ActionSheet = ({
   const { containerStyleSx, indicatorStyleSx, ...rest } = props
   const sx = useSx()
 
+  // const scrollHandlers = useScrollHandlers<ScrollView>(
+  //   'scrollview-1',
+  //   actionSheetRef
+  // )
+
   return (
     <ActionSheetBase
       id={sheetId}
@@ -68,7 +73,6 @@ const ActionSheet = ({
     >
       <View
         sx={{
-          backgroundColor: '$white',
           maxHeight: height / 2 + 48,
         }}
       >

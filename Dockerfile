@@ -7,14 +7,18 @@ RUN apk add --no-cache libc6-compat
 RUN apk add --no-cache rsync
 RUN apk add git
 WORKDIR /workspace-install
+
+COPY .yarnrc.yml ./.yarnrc.yml
+COPY .yarn ./.yarn
 COPY package.json ./
 COPY yarn.lock ./
 COPY apps/next/package.json ./apps/next/
 COPY apps/expo/package.json ./apps/expo/
 COPY packages/app/package.json ./packages/app/
+COPY packages/agent/package.json ./packages/agent/
+COPY packages/desktop-ext/package.json ./packages/desktop-ext/
 COPY packages/services/package.json ./packages/services/
 COPY packages/utils/package.json ./packages/utils/
-COPY packages/agent/package.json ./packages/agent/
 
 RUN yarn install
 

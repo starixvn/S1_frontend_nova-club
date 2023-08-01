@@ -1,9 +1,9 @@
 import { DripsyGradient } from 'app/components/Gradient'
-import Icon, { IconComponentProps } from 'app/components/Icon'
+import Icon from 'app/components/Icon'
 import useLocalization from 'app/provider/localization'
 import { ReportGameStatusOptions } from 'app/utils/constant'
 import { Image, Pressable, SxProp, Text } from 'dripsy'
-import { ComponentProps, ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 export type SelectButtonProps = {
   onPress: () => any
@@ -15,8 +15,6 @@ export type SelectButtonProps = {
   chevelonButtonSize?: number
   disabled?: boolean
   children?: ReactNode
-  textProps?: ComponentProps<typeof Text>
-  iconProps?: Omit<IconComponentProps, 'name'>
 }
 
 const SelectButton = ({
@@ -29,8 +27,6 @@ const SelectButton = ({
   disabled,
   children,
   chevelonButtonSize = 20,
-  textProps,
-  iconProps,
   ...rest
 }: SelectButtonProps) => {
   const { t } = useLocalization()
@@ -95,7 +91,7 @@ const SelectButton = ({
             }}
           />
         ) : (
-          <Text sx={{ flex: 0.6 }} numberOfLines={1} {...textProps}>
+          <Text sx={{ flex: 0.6 }} numberOfLines={1}>
             {t(label)}
           </Text>
         )}
@@ -103,7 +99,6 @@ const SelectButton = ({
           name={'chevdown'}
           size={chevelonButtonSize}
           sx={{ position: 'absolute', right: '$2' }}
-          {...iconProps}
         />
       </DripsyGradient>
     </Pressable>

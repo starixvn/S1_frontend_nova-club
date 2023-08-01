@@ -1,10 +1,10 @@
 import AgentProfile from 'agent/features/profile'
-import React from 'react'
-import AgentLayout from '../../layouts/agent/AgentLayout'
+import { MobileAgentLayout } from 'components/layouts/agent'
 
 const Profile = () => {
   return <AgentProfile />
 }
-Profile.getLayout = AgentLayout
+
+Profile.AgentLayout = MobileAgentLayout
 
 export default Profile

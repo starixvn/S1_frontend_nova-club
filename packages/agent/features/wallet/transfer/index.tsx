@@ -1,16 +1,16 @@
+import useGetProfile from 'agent/hooks/useGetProfile'
 import { useUserInfoQuery } from 'agent/services/userApi'
 import { ROLE } from 'agent/utils/helper'
 import { useIsFocused } from 'app/hooks/isFocus/useIsFocused'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { Currency } from 'app/utils/constant'
 import { ScrollView } from 'dripsy'
 import { useEffect } from 'react'
+import { useRouter } from 'solito/router'
 import AgentTransferForm from './AgentTransferForm'
 import AgentTransferHistory from './AgentTransferHistory'
-import useGetProfile from 'agent/hooks/useGetProfile'
 
 const AgentFundTransferPage = () => {
-  const { push } = useContextualRouter()
+  const { push } = useRouter()
   const isFocus = useIsFocused()
 
   const { currency } = useGetProfile()
@@ -40,7 +40,7 @@ const AgentFundTransferPage = () => {
   }
 
   return (
-    <ScrollView>
+    <ScrollView sx={{ bg: 'white' }}>
       <AgentTransferForm
         currency={currency}
         balance={balance ?? 0}

@@ -1,22 +1,25 @@
-import useLocalization from 'app/provider/localization'
-import { isURLSupported, SocialMedia } from 'app/utils/helper'
+import { SocialMedia, isURLSupported } from 'app/constants/socialMedia'
 import { useEffect, useState } from 'react'
+import { MEDIA_DOMAIN, CONTENT_URI } from '../../../../apps/next/config/env'
+import { ImageSourcePropType } from 'react-native'
+
+const Zalo = `${MEDIA_DOMAIN}${CONTENT_URI}/qr/zalo.jpg` as string
+const Telegram = `${MEDIA_DOMAIN}${CONTENT_URI}/qr/telegram.jpg` as string
 
 export const CONTACT_LIST = [
   {
     label: SocialMedia.TELEGRAM,
-    icon: 'tg',
-    bg: ['#C0E0FD', '#33A0D0'],
+    icon: 'telegram',
+    qr: Telegram,
   },
   {
     label: SocialMedia.ZALO,
-    image: require('../../assets/images/social-media/zalo.jpg'),
-    bg: ['#51aafd', '#3a62f6'],
+    icon: 'zalo',
+    qr: Zalo,
   },
   {
     label: SocialMedia.LIVECHAT,
-    icon: 'cs',
-    bg: ['#FC819B', '#E13256'],
+    icon: 'iconCS',
   },
 ]
 

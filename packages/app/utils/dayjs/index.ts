@@ -1,4 +1,4 @@
-import { TIMEZONE } from 'app/constant/timezone'
+import { TIMEZONE } from 'app/constants/timezone'
 import dayjs, { ConfigType, Dayjs } from 'dayjs'
 import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
@@ -13,7 +13,6 @@ function dayjsTz(date: ConfigType = dayjs(), timezone?: string): Dayjs {
   const currentPlayerCurrency = Currency.VND
 
   const selectedTimezone = timezone || TIMEZONE[currentPlayerCurrency]
-
   return dayjs(date).tz(selectedTimezone)
 }
 

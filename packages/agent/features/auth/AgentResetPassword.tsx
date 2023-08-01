@@ -18,9 +18,8 @@ import validation, {
   getErrorMessage,
 } from 'agent/utils/validation'
 import KeyboardView from 'app/components/KeyboardView'
-import { MOBILE_PREFIX } from 'app/constant/country'
+import { MOBILE_PREFIX } from 'app/constants/country'
 import useContainerDimension from 'app/hooks/useContainerDimension'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Flex, Image, Text, View, useDripsyTheme } from 'dripsy'
@@ -29,6 +28,7 @@ import { useRef, useState } from 'react'
 import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useDispatch } from 'react-redux'
+import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 
 interface ResetPasswordValues {
@@ -44,7 +44,7 @@ const AgentResetPassword = () => {
   const { width } = useContainerDimension()
   const { openModal } = useModal()
   const { showAlert } = useAgentAlert()
-  const { push, replace } = useContextualRouter()
+  const { push, replace } = useRouter()
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [isEnableOtp, setEnableOtp] = useState(false)
@@ -188,17 +188,17 @@ const AgentResetPassword = () => {
               width,
             }}
             resizeMode={'cover'}
+            alt=""
           />
           <Image
             source={require('app/assets/images/logo.png')}
             sx={{
               position: 'absolute',
               height: Math.min(75, width * 0.25),
-              // width: Math.min(width, theme.sizes.container),
               aspectRatio: 67 / 24,
-              // top:,
             }}
             resizeMode={'contain'}
+            alt=""
           />
         </View>
         <View

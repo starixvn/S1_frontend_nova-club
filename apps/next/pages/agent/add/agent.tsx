@@ -1,8 +1,7 @@
-import React from 'react'
-import AgentLayout from '../../../layouts/agent/AgentLayout'
 import AddAgentPage from 'agent/features/agent/AddAgent'
 import AgentNestedTabs from 'agent/navigation/components/AgentNestedTabNavigator/AgentNestedTabs'
 import AddRoutes from 'agent/navigation/routes/AddRoutes'
+import { MobileAgentLayout } from 'components/layouts/agent'
 
 const AddAgent = () => {
   return (
@@ -12,6 +11,6 @@ const AddAgent = () => {
     </>
   )
 }
-AddAgent.getLayout = AgentLayout
+AddAgent.AgentLayout = MobileAgentLayout
 
 export default AddAgent

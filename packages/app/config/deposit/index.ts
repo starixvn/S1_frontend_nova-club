@@ -42,7 +42,7 @@ export const PAYMENT_METHOD: { [key in keyof typeof PAYMENT_METHOD_CATEGORY] } =
       categoryId: DepositPaymentMethodCategoryId.LOCAL_BANK,
       name: 'deposit.depositMethod.bankTransfer',
       icon: 'lba',
-      color: '#ac0102',
+      color: '#1E2238',
       active: true,
     },
     ONLINE_BANK: {
@@ -51,7 +51,7 @@ export const PAYMENT_METHOD: { [key in keyof typeof PAYMENT_METHOD_CATEGORY] } =
       categoryId: DepositPaymentMethodCategoryId.ONLINE_BANK,
       name: 'deposit.depositMethod.onlineBanking',
       icon: 'mac',
-      color: '#f56e04',
+      color: '#1E2238',
       active: true,
     },
     MOMO: {
@@ -60,16 +60,16 @@ export const PAYMENT_METHOD: { [key in keyof typeof PAYMENT_METHOD_CATEGORY] } =
       categoryId: DepositPaymentMethodCategoryId.MOMO,
       name: 'deposit.depositMethod.momo',
       icon: 'momo',
-      color: '#AC016C',
+      color: '#1E2238',
       active: true,
     },
     QR_CODE: {
       id: DepositMethodId.QR_CODE,
       type: DepositPaymentMethodCategoryType.QR_CODE,
       categoryId: DepositPaymentMethodCategoryId.QR_CODE,
-      name: 'deposit.depositMethod.qrCode',
+      name: 'deposit.depositMethod.qrPay',
       icon: 'qr',
-      color: '#44BAF9',
+      color: '#1E2238',
       active: true,
     },
     TOP_UP: {
@@ -78,7 +78,7 @@ export const PAYMENT_METHOD: { [key in keyof typeof PAYMENT_METHOD_CATEGORY] } =
       categoryId: DepositPaymentMethodCategoryId.TOP_UP,
       name: 'deposit.depositMethod.topUp',
       icon: 'card',
-      color: '#95AC00',
+      color: '#1E2238',
       active: true,
     },
     CRYPTO: {
@@ -87,7 +87,7 @@ export const PAYMENT_METHOD: { [key in keyof typeof PAYMENT_METHOD_CATEGORY] } =
       categoryId: DepositPaymentMethodCategoryId.CRYPTO,
       name: 'deposit.depositMethod.crypto',
       icon: 'cp',
-      color: '#36A07B',
+      color: '#1E2238',
       active: true,
     },
   }

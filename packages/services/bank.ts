@@ -1,4 +1,8 @@
 import {
+  FLAG_PAYMENT_TYPE_BANK,
+  FLAG_PAYMENT_TYPE_CRYPTO,
+} from 'app/constants/crypto'
+import {
   addPlayerBankAccArgs,
   addPlayerBankAccResult,
   CryptoWithdrawalBankArgs,
@@ -18,10 +22,7 @@ const bankApi = baseApiWithTag.injectEndpoints({
     /**
      * *Player Bank Get, Add, Delete
      */
-    playerBank: builder.query<
-      IResponse<PlayerBankResult[]>,
-      PlayerBankArgs | void
-    >({
+    playerBank: builder.query<PlayerBankResult[], PlayerBankArgs | void>({
       query: (queryArgs) => ({
         url: `/player_api/getPlayerWithdrawalBankList`,
         method: 'POST',
@@ -29,6 +30,9 @@ const bankApi = baseApiWithTag.injectEndpoints({
           ...queryArgs,
         },
       }),
+      transformResponse: ({ data }: { data: PlayerBankResult[] }) => {
+        return data ?? []
+      },
       providesTags: ['PlayerBank'],
     }),
     addPlayerBankAcc: builder.mutation<
@@ -62,7 +66,7 @@ const bankApi = baseApiWithTag.injectEndpoints({
      * *General Withdrawal Bank
      */
     withdrawalBank: builder.query<
-      IResponse<WithdrawalBankResult[]>,
+      WithdrawalBankResult[],
       WithdrawalBankArgs | void
     >({
       query: (queryArgs) => ({
@@ -72,9 +76,12 @@ const bankApi = baseApiWithTag.injectEndpoints({
           ...queryArgs,
         },
       }),
+      transformResponse: ({ data }: { data: WithdrawalBankResult[] }) => {
+        return data ?? []
+      },
     }),
     cryptoBank: builder.query<
-      IResponse<CryptoWithdrawalBankResult[]>,
+      CryptoWithdrawalBankResult[],
       CryptoWithdrawalBankArgs | void
     >({
       query: (queryArgs) => ({
@@ -84,12 +91,38 @@ const bankApi = baseApiWithTag.injectEndpoints({
           ...queryArgs,
         },
       }),
+      transformResponse: ({ data }: { data: CryptoWithdrawalBankResult[] }) => {
+        return data ?? []
+      },
     }),
   }),
 })
 
+type PlayerProfileQuerySubscriptionOptions = Parameters<
+  typeof bankApi.usePlayerBankQuery
+>[1]
+
+export const usePlayerBankQuery = (
+  _: void,
+  options?: PlayerProfileQuerySubscriptionOptions
+) => {
+  return bankApi.usePlayerBankQuery(undefined, {
+    ...options,
+    selectFromResult: (res) => {
+      return {
+        ...res,
+        playerBankList: res?.data?.filter(
+          (b) => b.PaymentTypeFlag === FLAG_PAYMENT_TYPE_BANK
+        ),
+        playerCryptoList: res?.data?.filter(
+          (b) => b.PaymentTypeFlag === FLAG_PAYMENT_TYPE_CRYPTO
+        ),
+      }
+    },
+  })
+}
+
 export const {
-  usePlayerBankQuery,
   useWithdrawalBankQuery,
   useCryptoBankQuery,
   useAddPlayerBankAccMutation,

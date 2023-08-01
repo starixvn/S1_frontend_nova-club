@@ -5,6 +5,7 @@ import { ListRenderItem } from 'react-native'
 import { AnnouncementListItems } from 'services/contentApi.type'
 import MessageCard from './MessageCard'
 import DataTableRefresh from 'agent/components/DataTable/DataTableRefresh'
+import { FlashList } from '@shopify/flash-list'
 
 const AnnouncementPage = () => {
   const { t } = useAgentLocalization()
@@ -12,20 +13,22 @@ const AnnouncementPage = () => {
   const totalData = data?.total ?? 0
 
   return (
-    <View sx={{ bg: 'white', flex: 1, flexBasis: 0 }}>
+    <View sx={{ bg: 'white', flex: 1, flexBasis: 0, pb: '$5' }}>
       <DataTableRefresh
         title={`${t('common.total')} : ${totalData}`}
         isLoading={isFetching}
         onRefresh={() => refetch()}
       />
 
-      <FlatList
+      <FlashList
         showsVerticalScrollIndicator={false}
         onRefresh={() => refetch()}
         keyExtractor={(item) => item.newsId.toString()}
         refreshing={isFetching}
         data={data?.list}
         renderItem={renderItem}
+        estimatedItemSize={10}
+        ItemSeparatorComponent={() => <View sx={{ height: 10 }} />}
         ListEmptyComponent={
           //havent finalize no data design
           <Text sx={{ textAlign: 'center', pt: '$2', color: 'black' }}>

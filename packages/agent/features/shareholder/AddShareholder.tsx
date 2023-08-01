@@ -84,14 +84,14 @@ const AddShareholder = () => {
 
   return (
     <KeyboardView>
-      <View sx={{ p: 12 }}>
+      <ScrollView sx={{ p: 12, bg: 'white' }}>
         <CreateForm<NewShareholderFormValues>
           screen={initialScreen}
           isLoading={isLoading}
           formik={formik}
           earningPt={earningPtList?.VND}
         />
-      </View>
+      </ScrollView>
     </KeyboardView>
   )
 }

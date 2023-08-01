@@ -1,8 +1,15 @@
+import { useResponsiveValue } from 'dripsy'
 import React from 'react'
 
 const PlinkoTncEn = () => {
+  const isDesktop = useResponsiveValue([false, false, false, true])
   return (
     <div>
+      {isDesktop && (
+        <h1 style={{ textAlign: 'center', paddingBottom: 25 }}>
+          Terms and Conditions
+        </h1>
+      )}
       <h2>CRAZY PLINKO (ENHANCED VERSION)</h2>
       <p>Campaign Period: 01-31/08/2023</p>
 

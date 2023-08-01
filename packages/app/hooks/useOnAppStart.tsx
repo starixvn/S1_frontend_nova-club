@@ -1,19 +1,21 @@
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { store, useAppSelector } from 'app/provider/redux/store'
-import { logOut } from 'app/utils/authUtil'
+import { LogOut } from 'app/utils/authUtil'
 import { useCallback, useEffect, useRef } from 'react'
 import { Platform } from 'react-native'
-import { configureAxios } from 'services/common/axiosInstance'
+import { useRouter } from 'solito/router'
+import { configureAxios } from '../../services/common/axiosInstance'
 import useResetRTKQState from './useResetRTKQState'
 
 const useOnAppStart = () => {
-  const { replace, clear, push } = useContextualRouter()
+  const { replace, push } = useRouter()
   const { token } = useAppSelector((state) => state.auth.info) || {}
   const isLogoutTriggered = useRef(false)
 
   const { resetRTKQState } = useResetRTKQState()
 
-  const redirectToLoginPage = useCallback(() => {}, [replace])
+  const redirectToLoginPage = useCallback(() => {}, [])
+  //temporary replacement for RTKQ reset
+  // const dispatch = useAppDispatch()
 
   useEffect(() => {
     configureAxios({
@@ -23,28 +25,31 @@ const useOnAppStart = () => {
           if (token && !isLogoutTriggered.current) {
             isLogoutTriggered.current = true
 
-            await logOut({
+            await LogOut({
               isTokenExpired: true,
             })
 
             if (Platform.OS === 'web') {
-              replace('/auth/login')
+              replace('/')
             } else {
-              clear()
-              push('/auth/login')
-              // setTimeout(() => push('/auth/login'), 500)
+              // clear()
+              console.log('logout')
+              replace('/')
+              setTimeout(() => push('/auth/login'), 500)
             }
 
             setTimeout(resetRTKQState, 1000)
           }
         } catch (error) {
+          // dispatch(AuthActions.setAuthInfo(undefined))
+
           console.log(error)
         } finally {
           isLogoutTriggered.current = false
         }
       },
     })
-  }, [redirectToLoginPage, resetRTKQState, token])
+  }, [redirectToLoginPage, token, resetRTKQState])
 }
 
 export default useOnAppStart

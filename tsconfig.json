@@ -2,16 +2,14 @@
   "compilerOptions": {
     "strictNullChecks": true,
     "noUncheckedIndexedAccess": true,
-    // "noErrorTruncation": true,
     "paths": {
-      "app/*": ["./packages/app/*"],
       "agent/*": ["./packages/agent/*"],
-      "utils/*": ["./packages/utils/*"],
+      "app/*": ["./packages/app/*"],
       "services/*": ["./packages/services/*"],
+      "desktop-ext/*": ["./packages/desktop-ext/*"],
+      "utils/*": ["./packages/utils/*"]
     },
-    "typeRoots": ["./packages/app/env.d.ts"],
     "module": "ES2022"
   },
-  "include": ["**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
   "extends": "expo/tsconfig.base"
 }
