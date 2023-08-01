@@ -114,6 +114,7 @@ const History = () => {
       hideHeader={desktop}
     >
       <TabView
+        swipeEnabled={false}
         navigationState={{ index, routes }}
         renderScene={renderScene}
         onIndexChange={setIndex}

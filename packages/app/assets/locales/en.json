@@ -30,6 +30,8 @@
     "addCryptoAccount": "Add Crypto Wallet",
     "bank": "Bank",
     "bankAccount": "Bank Account",
+    "noBankAccount": "No Bank Account",
+    "noCryptoAccount": "No Crypto Account",
     "channel": "Channel",
     "selectBank": "Please select bank",
     "selectChannel": "Select Channel",

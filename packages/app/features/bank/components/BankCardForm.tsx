@@ -23,6 +23,7 @@ const BankCardForm = ({
   isCrypto,
 }) => {
   const { openModal } = useModal()
+  const { t } = useLocalization()
 
   const handleRemove = async (item: PlayerBankResult) => {
     openModal('DeleteBankAccountModal', { bank: item })
@@ -42,7 +43,11 @@ const BankCardForm = ({
           />
         ))
       ) : (
-        <BankEmpty />
+        <BankEmpty
+          message={
+            isCrypto ? t('bank.noCryptoAccount') : t('bank.noBankAccount')
+          }
+        />
       )}
 
       <View sx={{ m: 20 }}>

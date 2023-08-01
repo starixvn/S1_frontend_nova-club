@@ -6,13 +6,13 @@ import React from 'react'
 
 type BankEmptyProps = {
   size?: 'big' | 'small'
+  message?: string
 }
 
-const BankEmpty = ({ size = 'big' }: BankEmptyProps) => {
-  const { t } = useLocalization()
+const BankEmpty = ({ size = 'big', message }: BankEmptyProps) => {
   const { width } = useContainerDimension()
 
-  const ICON_SIZE = size === 'big' ? width * 0.5 : width * 0.2
+  const ICON_SIZE = size === 'big' ? width * 0.3 : width * 0.2
   return (
     <StyledViewNoResult>
       <Image
@@ -23,7 +23,7 @@ const BankEmpty = ({ size = 'big' }: BankEmptyProps) => {
           height: ICON_SIZE,
         }}
       />
-      <Text sx={{ color: '#72859A' }}>{t('bank.noBankAccount')}</Text>
+      <Text sx={{ color: '#72859A' }}>{message}</Text>
     </StyledViewNoResult>
   )
 }

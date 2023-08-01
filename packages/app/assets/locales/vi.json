@@ -30,6 +30,8 @@
     "addCryptoAccount": "Thêm ví tiền ảo",
     "bank": "Ngân hàng",
     "bankAccount": "Tài khoản ngân hàng",
+    "noBankAccount": "Không có tài khoản tiền ảo",
+    "noCryptoAccount": "Không có tài khoản ngân hàng",
     "channel": "Tài khoản nạp",
     "selectBank": "Vui lòng chọn ngân hàng",
     "selectChannel": "Chọn tài khoản nạp",

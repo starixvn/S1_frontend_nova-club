@@ -40,7 +40,7 @@ function ReceiveOTPContact(props: ReceiveOTPContactProps) {
           }}
           onPress={handlePressContact}
         >
-          {t('common.contactUs')}
+          {t('footer.contactUs')}
         </Text>
       </Text>
     </StyledView>
