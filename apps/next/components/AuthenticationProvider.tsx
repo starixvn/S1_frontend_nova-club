@@ -30,6 +30,7 @@ const guestRoutes = [
   '/games',
   '/lucky-spin-tnc',
   '/agent',
+  '/event',
 ]
 
 /* 

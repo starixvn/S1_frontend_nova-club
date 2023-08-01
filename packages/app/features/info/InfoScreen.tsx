@@ -1,4 +1,5 @@
 import AvertaStd from 'app/assets/fonts/Averta'
+import FormContainer from 'app/components/form/FormContainer'
 import { useAppSelector } from 'app/provider/redux/store'
 import { LANGUAGE_CODE } from 'app/utils/constant'
 import { useRouter } from 'next/router'
@@ -22,50 +23,52 @@ const InfoScreen = ({ map }: InfoScreenProps) => {
   const TnCLanguage = typeof locale === 'string' ? map[locale] : map.vi
 
   return (
-    <main
-      style={{
-        padding: 12,
-        fontFamily: AvertaStd.Regular.name,
-        fontSize: FONT_SIZE,
-        color: FONT_COLOR,
-      }}
-    >
-      <style jsx>{`
-        ol {
-          list-style-type: none;
-          counter-reset: item;
-          margin: 0;
-          padding: 0;
-        }
+    <FormContainer>
+      <main
+        style={{
+          padding: 12,
+          fontFamily: AvertaStd.Regular.name,
+          fontSize: FONT_SIZE,
+          color: FONT_COLOR,
+        }}
+      >
+        <style jsx>{`
+          ol {
+            list-style-type: none;
+            counter-reset: item;
+            margin: 0;
+            padding: 0;
+          }
 
-        li {
-          display: table;
-          counter-increment: item;
-          margin-bottom: 0.6em;
-        }
+          li {
+            display: table;
+            counter-increment: item;
+            margin-bottom: 0.6em;
+          }
 
-        li:before {
-          content: counters(item, '.') '. ';
-          display: table-cell;
-          padding-right: 0.6em;
-        }
+          li:before {
+            content: counters(item, '.') '. ';
+            display: table-cell;
+            padding-right: 0.6em;
+          }
 
-        li li {
-          margin: 0;
-          margin-bottom: 0.4em;
-        }
+          li li {
+            margin: 0;
+            margin-bottom: 0.4em;
+          }
 
-        li li:before {
-          content: counters(item, '.') ' ';
-        }
+          li li:before {
+            content: counters(item, '.') ' ';
+          }
 
-        li div {
-          margin-bottom: 0.6em;
-        }
-      `}</style>
+          li div {
+            margin-bottom: 0.6em;
+          }
+        `}</style>
 
-      <TnCLanguage />
-    </main>
+        <TnCLanguage />
+      </main>
+    </FormContainer>
   )
 }
 

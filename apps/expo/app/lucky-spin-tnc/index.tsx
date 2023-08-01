@@ -14,7 +14,7 @@ const Tnc = () => {
   const { t } = useLocalization()
 
   //   const TNC_URL = `${DEV_DOMAIN}/info/about-us?locale=${lang}`
-  const TNC_URL = `http://localhost:3000/lucky-spin-tnc?locale=${lang}`
+  const TNC_URL = `https://stage2.gball8.com/lucky-spin-tnc?locale=${lang}`
   const { back } = useRouter()
   const { openModal } = useModal()
 
