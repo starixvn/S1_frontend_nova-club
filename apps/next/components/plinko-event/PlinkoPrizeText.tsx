@@ -3,15 +3,15 @@ import React from 'react'
 
 const basket = 9
 const basketPrizeArray = [
-  '88K',
-  '38K',
-  '88K',
-  '18K',
+  '100K',
+  '200K',
+  '100K',
+  '100K',
   '0K',
-  '18K',
+  '1TR',
   '0K',
-  '38K',
-  '888K',
+  '0K',
+  '200K',
 ]
 interface PlinkoPrizeTextProps {
   enlargedHeight: number
@@ -48,11 +48,9 @@ const PlinkoPrizeText = ({
                 sx={{
                   position: 'absolute',
                   minWidth: enlargedWidth * 0.11,
-                  bottom: enlargedHeight * 0.0425,
+                  top: enlargedHeight * (1 - 0.065),
                   left: basketSpacing * i,
                   display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
                 }}
               >
                 <Text
@@ -79,11 +77,9 @@ const PlinkoPrizeText = ({
                   sx={{
                     position: 'absolute',
                     minWidth: enlargedWidth * 0.11,
-                    bottom: enlargedHeight * 0.0425,
+                    top: enlargedHeight * (1 - 0.065),
                     left: basketSpacing * i,
                     display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
                   }}
                 >
                   <Text
@@ -92,9 +88,10 @@ const PlinkoPrizeText = ({
                       minWidth: enlargedWidth * 0.075,
                       right: basketSpacing * (i + 1),
                       color:
-                        basketLocation.current === i && prize.current === '888K'
+                        basketLocation.current === i &&
+                        prize.current === '1000K'
                           ? '#FF9300'
-                          : dummyText === '888K' && basketLocation.current !== i
+                          : dummyText === '1TR' && basketLocation.current !== i
                           ? '#FF9300'
                           : '#7C4800',
                       fontSize: 22 * scale,
@@ -105,6 +102,8 @@ const PlinkoPrizeText = ({
                     {basketLocation.current === i
                       ? prize.current === '0'
                         ? prize.current + 'K'
+                        : prize.current === '1000K'
+                        ? '1TR'
                         : prize.current
                       : dummyText}
                   </Text>

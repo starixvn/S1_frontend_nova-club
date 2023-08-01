@@ -171,6 +171,10 @@ export const PROVIDER_LOGO = {
     provider_code: 'BNG',
     image: require('../../../assets/images/provider/BNG.png'),
   },
+  PNGO: {
+    provider_code: 'PNGO',
+    image: require('../../../assets/images/provider/PNGO.png'),
+  },
 }
 
 export const ProviderLogo = [
@@ -209,6 +213,7 @@ export const ProviderLogo = [
   PROVIDER_LOGO.DGLC,
   PROVIDER_LOGO.WMLC,
   PROVIDER_LOGO.BNG,
+  PROVIDER_LOGO.PNGO,
 ]
 
 export const getProviderLogo = (code: string) => {

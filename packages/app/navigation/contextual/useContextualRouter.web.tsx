@@ -42,10 +42,13 @@ function useContextualRouter() {
     // Cookies.set('contextualNav', urlInstance.search)
 
     // if (params) appendParams(urlInstance, params)
-    router.push({
-      pathname: url,
-      query: params,
-    })
+    router.push(
+      {
+        pathname: url,
+        query: params,
+      },
+      options?.as
+    )
   }
 
   function replace(

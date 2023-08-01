@@ -3,8 +3,8 @@ import React from 'react'
 const PlinkoTncVi = () => {
   return (
     <div>
-      <h2>THẢ BÓNG LƯỢM TIỀN</h2>
-      <p>Thời gian khuyến mãi: 01/07 - 31/08/2023</p>
+      <h2>THẢ BÓNG LƯỢM TIỀN (PHIÊN BẢN CẢI TIẾN) </h2>
+      <p>Thời gian khuyến mãi: 01-31/08/2023</p>
 
       <br />
       <div>
@@ -12,7 +12,7 @@ const PlinkoTncVi = () => {
       </div>
 
       <ol>
-        <li>Nạp 200,000VND để nhận 1 vé chơi.</li>
+        <li>Nạp 1,000,000VND để nhận 1 vé chơi.</li>
         <li>Dùng vé để chơi minigame và trúng thưởng. </li>
         <li>Vào minigame và chọn BẮT ĐẦU để chơi.</li>
         <li>Trái bóng sẽ được thả xuống và đi qua mê cung. </li>

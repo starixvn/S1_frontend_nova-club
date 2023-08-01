@@ -4,17 +4,23 @@ import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import { ActivityIndicator, ScrollView, View } from 'dripsy'
 import React, { useState } from 'react'
 import Image from '../common/Image'
+import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
+import { useSelector } from 'react-redux'
+import { RootState } from 'app/provider/redux/store'
 
 const EventPopupModal = ({ modal: { closeModal } }) => {
   const { width, height } = useContainerDimension()
   const [isLoading, setLoading] = useState(true)
+  const { push } = useContextualRouter()
+  const agentToken = useSelector((s: RootState) => s.agent.access_token)
 
   const handlePress = () => {
+    agentToken ? push('/agent') : push('/auth/register', { t: 'agent' })
     closeModal()
   }
 
   const imageWidth = Math.min(300, width * 0.7)
-  const imageHeight = imageWidth / (800 / 1100)
+  const imageHeight = (imageWidth / 17) * 18
   return (
     <View
       sx={{
@@ -33,7 +39,7 @@ const EventPopupModal = ({ modal: { closeModal } }) => {
           <>
             <Image
               source={{
-                uri: `${MEDIA_DOMAIN}${CONTENT_URI}/popup-agent-recruitment-v6.jpg?v=1`,
+                uri: `${MEDIA_DOMAIN}${CONTENT_URI}/popup/agent-recruitment-august.jpg?v=1`,
               }}
               style={{
                 flex: 1,

@@ -65,6 +65,7 @@
     "submit": "Submit",
     "suspended": "Suspended",
     "to": "To",
+    "total": "Total",
     "turnover": "Turnover",
     "userAgreement": "user agreement",
     "username": "Username",
@@ -102,9 +103,15 @@
     "contactUs": "Contact Us",
     "desktopVersion": "Desktop Version",
     "logout": "Logout",
+    "message": "Message",
     "resetPin": "Reset Pin",
     "switchMember": "Switch to Member",
     "switchMemberNote": "Are you sure want to switch to member site?"
+  },
+  "message": {
+    "announcement": "Announcement",
+    "empty": "Does not have any message yet!",
+    "personalMessage": "Personal Message"
   },
   "notes": {
     "importantNotice": "Important Notice",

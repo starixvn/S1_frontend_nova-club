@@ -512,7 +512,7 @@ const Plinko = () => {
         style={{
           overflow: 'auto',
           justifyContent: 'center',
-          flexGrow: 1,
+          flex: 1,
         }}
       >
         <div
@@ -521,6 +521,7 @@ const Plinko = () => {
             display: 'grid',
             placeContent: 'center',
             justifyItems: 'center',
+            position: 'relative',
           }}
         >
           <div
@@ -532,8 +533,7 @@ const Plinko = () => {
           >
             <div
               style={{
-                position: 'absolute',
-                inset: 0,
+                position: 'relative',
               }}
             >
               {isShowCard && (
@@ -543,6 +543,8 @@ const Plinko = () => {
                     width: '100%',
                     height: '100%',
                     zIndex: 2,
+                    position: 'absolute',
+                    bottom: -enlargedHeight / 2,
                   }}
                   onPress={(e) => handleMessageCard()}
                 >

@@ -11,6 +11,7 @@ import { usePlayerProfileQuery } from 'services/playerApi'
 import ListSectionHeader from '../ListSectionHeader'
 import MenuRow from './MenuRow'
 import VerticalGameList from './VerticalGameList'
+import uniqueWith from 'lodash/uniqWith'
 
 // To prevent `ListSectionHeader` animation from triggered on each re-render
 const MemoListSectionHeader = memo(ListSectionHeader)
@@ -35,7 +36,7 @@ const Games = () => {
       GAME_TYPE_CODE.FISHING,
       GAME_TYPE_CODE.LOTTERY,
     ],
-    limit: 100,
+    limit: 300,
     offset: 0,
   })
 
@@ -43,7 +44,7 @@ const Games = () => {
     useGetGameListQuery({
       currency: currency ?? Currency.VND,
       game_category: [],
-      limit: 100,
+      limit: 300,
       offset: 0,
       gdc_game_category: ['cardgame'],
       gdc_tag: [],
@@ -56,7 +57,16 @@ const Games = () => {
       return (concatList || []).concat(currentList || [])
     }, [])
 
-    return concatList
+    const uniqueConcatList = uniqueWith(
+      concatList,
+      (arrVal, othVal) =>
+        arrVal.gc === othVal.gc &&
+        arrVal.gdc_cat === othVal.gdc_cat &&
+        arrVal.gpc === othVal.gpc &&
+        arrVal.gtc === othVal.gtc
+    )
+
+    return uniqueConcatList
   }
 
   const isFetchingGameList =
