@@ -111,6 +111,10 @@ def reactNativeArchitectures() {
     return value ? value.split(",") : ["armeabi-v7a", "x86", "x86_64", "arm64-v8a"]
 }
 
+ext.versionMajor = 2
+ext.versionMinor = 0
+ext.versionPatch = 1
+
 android {
     ndkVersion rootProject.ext.ndkVersion
 
@@ -118,14 +122,13 @@ android {
 
     namespace 'com.chlgame.app'
     defaultConfig {
-        applicationId 'com.chlgame.staging2'
+        applicationId 'com.chlgame.app'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "2.0.1"
+        versionCode generateVersionCode()
+        versionName generateVersionName()
         resValue 'string', "CODE_PUSH_APK_BUILD_TIME", String.format("\"%d\"", System.currentTimeMillis())
     }
-
     splits {
         abi {
             reset()
@@ -135,6 +138,14 @@ android {
         }
     }
     signingConfigs {
+        release {
+            if (project.hasProperty('MYAPP_UPLOAD_STORE_FILE')) {
+                storeFile file(MYAPP_UPLOAD_STORE_FILE)
+                storePassword MYAPP_UPLOAD_STORE_PASSWORD
+                keyAlias MYAPP_UPLOAD_KEY_ALIAS
+                keyPassword MYAPP_UPLOAD_KEY_PASSWORD
+            }
+        }
         debug {
             storeFile file('debug.keystore')
             storePassword 'android'
@@ -159,6 +170,49 @@ android {
             }
         }
     }
+    flavorDimensions "env"
+    productFlavors {
+        prod {
+            dimension "env"
+            applicationId 'com.chlgame.app'
+            manifestPlaceholders.scheme1 = "chlgame"
+            manifestPlaceholders.scheme2 = "com.chlgame.app"
+            manifestPlaceholders.appLink = "s2syf.app.link"
+            manifestPlaceholders.appLinkAlt = "s2syf-alternate.app.link"
+        }
+        pre {
+            dimension "env"
+            applicationId 'com.chlgame.pre'
+            manifestPlaceholders.scheme1 = "chlgame"
+            manifestPlaceholders.scheme2 = "com.chlgame.pre"
+            manifestPlaceholders.appLink = "s2syf.app.link"
+            manifestPlaceholders.appLinkAlt = "s2syf-alternate.app.link"
+        }
+        soft {
+            dimension "env"
+            applicationId 'com.chlgame.soft'
+            manifestPlaceholders.scheme1 = "chlgame-staging2"
+            manifestPlaceholders.scheme2 = "com.chlgame.soft"
+            manifestPlaceholders.appLink = "nnynt.app.link"
+            manifestPlaceholders.appLinkAlt = "nnynt-alternate.app.link"
+        }
+        staging {
+            dimension "env"
+            applicationId 'com.chlgame.staging'
+            manifestPlaceholders.scheme1 = "chlgame-staging"
+            manifestPlaceholders.scheme2 = "com.chlgame.staging"
+            manifestPlaceholders.appLink = "nnynt.app.link"
+            manifestPlaceholders.appLinkAlt = "nnynt-alternate.app.link"
+        }
+        staging2 {
+            dimension "env"
+            applicationId 'com.chlgame.staging2'
+            manifestPlaceholders.scheme1 = "chlgame-staging2"
+            manifestPlaceholders.scheme2 = "com.chlgame.staging2"
+            manifestPlaceholders.appLink = "nnynt.app.link"
+            manifestPlaceholders.appLinkAlt = "nnynt-alternate.app.link"
+        }
+    }
 
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
@@ -175,6 +229,19 @@ android {
 
         }
     }
+}
+
+private Integer generateVersionCode() {
+    return ext.versionMajor * 10000 + ext.versionMinor * 100 + ext.versionPatch
+}
+
+private String generateVersionName() {
+    String versionName = "${ext.versionMajor}.${ext.versionMinor}.${ext.versionPatch}"
+    
+    // if (ext.versionClassifier != null) {
+    // 	versionName += "-" + ext.versionClassifier
+    // }
+    return versionName;
 }
 
 // Apply static values from `gradle.properties` to the `android.packagingOptions`
