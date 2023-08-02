@@ -87,7 +87,7 @@ const Header = ({
             sx={{
               flex: 0.1,
               alignItems: 'flex-end',
-              pr: actions ? pr : undefined,
+              // pr: actions ? undefined : undefined,
             }}
           >
             {actions && actions}
