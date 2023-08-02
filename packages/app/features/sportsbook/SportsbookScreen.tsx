@@ -8,9 +8,11 @@ import React from 'react'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import MatchSection from './MatchSection'
+import useLocalization from 'app/provider/localization'
 
 export default function SportsbookScreen() {
   const locale = useAppSelector((s) => s.setting.locale)
+  const { t } = useLocalization()
 
   const { data } = useGetGameListByCategoryQuery([
     GAME_TYPE_CODE.SPORTS,
@@ -68,7 +70,10 @@ export default function SportsbookScreen() {
       }}
       ListHeaderComponent={
         <View sx={{ gap: '$3', my: '$3' }}>
-          <GamePageHeader title={'SPORTSBOOK'} icon="sportbook" />
+          <GamePageHeader
+            title={t('game.category.sportsbook')}
+            icon="sportbook"
+          />
           <MatchSection />
         </View>
       }

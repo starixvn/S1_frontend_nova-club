@@ -63,6 +63,7 @@
     "days": "ngày",
     "deposit": "Nạp tiền",
     "download": "Tải về",
+    "fileSizeExceeds": "kích thước tệp không được vượt quá %{size}",
     "game": "Trò Chơi",
     "hello": "Xin chào!!",
     "history": "Lịch sử",
@@ -176,8 +177,7 @@
         "won": "XIN CHÚC MỪNG!",
         "won2": "BẠN ĐÃ TRÚNG THƯỞNG"
       },
-      "tnc": {
-      }
+      "tnc": {}
     },
     "claim": "ĐỔI VÉ THƯỞNG CỦA BẠN NGAY",
     "jackpot": "Jackpot (chia phần thưởng): 100,000,000 VND",

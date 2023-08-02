@@ -14,7 +14,7 @@ const UploadBankSlipModal = ({ modal: { closeModal, getParam } }) => {
   const { t } = useLocalization()
   const { showAlert } = useAlert()
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [receipt, setReceipt] = useState<ImagePicker.ImagePickerAsset>()
+  const [receipt, setReceipt] = useState<ImagePicker.ImagePickerAsset | File>()
   const depositInfo = getParam('depositInfo', '')
 
   const [postUploadReceipt] = useUploadDepositSlipMutation()
@@ -53,10 +53,15 @@ const UploadBankSlipModal = ({ modal: { closeModal, getParam } }) => {
       let file
 
       if (receipt) {
-        file = {
-          uri: receipt.uri,
-          name: receipt.uri.split('/').pop() ?? '',
-          type: `image/${receipt.uri.split('.').pop()}` ?? '',
+        if (Platform.OS === 'web') {
+          file = receipt as File
+        } else {
+          let value = receipt as ImagePicker.ImagePickerAsset
+          file = {
+            uri: value.uri,
+            name: value.uri.split('/').pop() ?? '',
+            type: `image/${value.uri.split('.').pop()}` ?? '',
+          }
         }
       }
 
@@ -129,7 +134,6 @@ const UploadBankSlipModal = ({ modal: { closeModal, getParam } }) => {
               <FilePicker
                 value={receipt}
                 onChange={(e) => {
-                  console.log('e', e)
                   setReceipt(e)
                 }}
                 placeholder={t('deposit.upload.files')}
