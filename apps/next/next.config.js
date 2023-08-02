@@ -8,7 +8,7 @@ const withImages = require('next-images')
 
 const APP_ENV = process.env.APP_ENV || 'prod'
 const result = require('dotenv').config({
-  path: `../../env/.env`,
+  path: `../../env/.env.${APP_ENV}`,
 })
 
 const env = {}
