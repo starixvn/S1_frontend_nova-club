@@ -25,7 +25,7 @@ export default function ProfileScreen() {
   const { data, isFetching } = usePlayerBalanceQuery(undefined, {
     refetchOnMountOrArgChange: true,
   })
-  const profileHeaderHeight = HEADER_HEIGHT + (top ? top : 40)
+  const profileHeaderHeight = HEADER_HEIGHT + (top ? top + 15 : 40)
 
   return (
     <>
@@ -44,13 +44,13 @@ export default function ProfileScreen() {
             cash={data?.totalBalance ?? 0}
             reward={data?.totalReward ?? 0}
             isLoading={isFetching}
-            currency={currency}
+            currency={currency as Currency}
           />
           <WalletButton />
-          <ProfileOverviewCard currency={currency} />
+          <ProfileOverviewCard currency={currency as Currency} />
           <ProfileQuickNavigation />
         </View>
-        <View sx={{ flex: 1, justifyContent: 'flex-end' }}>
+        <View sx={{ flex: 1, justifyContent: 'flex-start', pt: '$3' }}>
           <LanguageSwitch />
         </View>
       </Screen>
