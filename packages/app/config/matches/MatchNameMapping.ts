@@ -28,6 +28,7 @@ export const MatchNameMapping = {
   'TSG 1899 Hoffenheim': 'Hoffenheim',
   'Bayer 04 Leverkusen ': 'Leverkusen',
   'Atletico de Madrid': 'Atletico',
+  'FC Heidenheim 1846': 'FC Heidenheim',
 }
 
 export enum MatchLeagueId {
