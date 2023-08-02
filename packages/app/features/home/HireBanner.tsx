@@ -1,12 +1,14 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
+import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Pressable, Row, Text, View, styled, useResponsiveValue } from 'dripsy'
 import { MotiView } from 'moti'
 import React, { useMemo } from 'react'
 import { useModal } from 'react-native-modalfy'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 
 export default function HireBanner() {
@@ -15,9 +17,19 @@ export default function HireBanner() {
   const lang = useAppSelector((state) => state.setting.locale)
   const { token } = useAppSelector((state) => state.auth.info) || {}
   const isDesktop = useResponsiveValue([false, false, false, true])
+  const { data: playerData } = usePlayerProfileQuery()
   const { openModal } = useModal()
+  const { showAlert } = useAlert()
   // const direction = useResponsiveValue(['column', 'column', 'column', 'row'])
   const show = useResponsiveValue([false, true])
+  const handleDesktopAccountVerification = () => {
+    showAlert(
+      t('accountVerification.secondaryTitle') +
+        '\n' +
+        t('accountVerification.remark')
+    )
+    push('/account/profile-details')
+  }
   const animatedText = useMemo(
     () => (
       <MotiView
@@ -107,7 +119,11 @@ export default function HireBanner() {
         <AnimatedButton
           onPress={() =>
             token
-              ? push('/deposit/bank-transfer')
+              ? !playerData?.firstName
+                ? isDesktop
+                  ? handleDesktopAccountVerification()
+                  : push('/account/account-verification')
+                : push('/deposit/bank-transfer')
               : isDesktop
               ? openModal('RegisterModal')
               : push('/auth/register/?t=member')
