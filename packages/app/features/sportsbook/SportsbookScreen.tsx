@@ -13,7 +13,6 @@ import useLocalization from 'app/provider/localization'
 export default function SportsbookScreen() {
   const { t } = useLocalization()
   const locale = useAppSelector((s) => s.setting.locale)
-  const { t } = useLocalization()
 
   const { data } = useGetGameListByCategoryQuery([
     GAME_TYPE_CODE.SPORTS,
