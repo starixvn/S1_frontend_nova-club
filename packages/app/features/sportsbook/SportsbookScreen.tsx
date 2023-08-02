@@ -70,7 +70,10 @@ export default function SportsbookScreen() {
       }}
       ListHeaderComponent={
         <View sx={{ gap: '$3', my: '$3' }}>
-          <GamePageHeader title={t('game.category.sportsbook')} icon="sportbook" />
+          <GamePageHeader
+            title={t('game.category.sportsbook')}
+            icon="sportbook"
+          />
           <MatchSection />
         </View>
       }

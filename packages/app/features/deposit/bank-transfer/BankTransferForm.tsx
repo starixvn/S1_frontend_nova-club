@@ -43,7 +43,7 @@ const BankTransferForm = () => {
   const { t } = useLocalization()
   const { showAlert } = useAlert()
   const { openModal } = useModal()
-  const [receipt, setReceipt] = useState<ImagePicker.ImagePickerAsset>()
+  const [receipt, setReceipt] = useState<ImagePicker.ImagePickerAsset | File>()
   const [limit, setLimit] = useState({ minAmount: 0, maxAmount: 0 })
   const bankSlipUploadRef = useRef<BankSlipUploadMethod>(null)
   const amountFieldRef = useRef<TextInput>(null)

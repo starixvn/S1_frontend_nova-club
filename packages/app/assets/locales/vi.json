@@ -71,6 +71,7 @@
     "days": "ngày",
     "deposit": "Nạp tiền",
     "download": "Tải về",
+    "fileSizeExceeds": "kích thước tệp không được vượt quá %{size}",
     "game": "Trò Chơi",
     "hello": "Xin chào!!",
     "history": "Lịch sử",

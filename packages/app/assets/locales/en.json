@@ -71,6 +71,7 @@
     "days": "Days",
     "deposit": "Deposit",
     "download": "Download",
+    "fileSizeExceeds": "File size cannot exceed %{size}",
     "game": "Game",
     "hello": "Hello!!",
     "history": "History",
