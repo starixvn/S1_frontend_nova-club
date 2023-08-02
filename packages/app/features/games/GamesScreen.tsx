@@ -181,7 +181,9 @@ const GamesScreen = () => {
                 <IconButtonGradientToggle
                   sx={{ flex: 1 }}
                   key={r.label}
-                  active={type ? r.route.includes(type) : r.route === '/games'}
+                  active={
+                    type !== ALL ? r.route.includes(type) : r.route === '/games'
+                  }
                   label={r.label}
                   size={mobileGamesFilterResponsiveSize}
                   icon={r.icon ?? 'notice'}

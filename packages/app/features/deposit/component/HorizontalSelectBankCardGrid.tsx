@@ -1,5 +1,6 @@
 import Image from 'app/components/common/Image'
 import TouchableOpacity from 'app/components/pressable/TouchableOpacity'
+import { SxProp } from 'dripsy'
 
 type HorizontalSelectBankCardGridProps = {
   item: {
@@ -9,6 +10,7 @@ type HorizontalSelectBankCardGridProps = {
   }
   contain?: boolean
   selected?: boolean
+  containerStyle?: SxProp
   onPress: () => void
 }
 
@@ -17,6 +19,7 @@ const HorizontalSelectBankCardGrid = ({
   contain,
   selected,
   onPress,
+  containerStyle,
 }: HorizontalSelectBankCardGridProps) => {
   return (
     <TouchableOpacity
@@ -28,7 +31,7 @@ const HorizontalSelectBankCardGrid = ({
         overflow: 'hidden',
         minWidth: 80,
         height: 80,
-        // p: '$2',
+        ...containerStyle,
       }}
       onPress={onPress}
     >

@@ -53,7 +53,7 @@ const MessageCard = ({
 
 const MessageHeader = ({ title, subtitle, isChecked, onCheck }) => {
   return (
-    <ViewRow sx={{ alignItems: 'center', gap: '$3', flex: 1 }}>
+    <ViewRow sx={{ alignItems: 'center', gap: '$3' }}>
       {onCheck && <CheckBox isCheck={isChecked} onCheck={onCheck} />}
       <View sx={{ flex: 1 }}>
         <TextTitle>{title}</TextTitle>

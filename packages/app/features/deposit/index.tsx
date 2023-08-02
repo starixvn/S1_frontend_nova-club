@@ -94,7 +94,7 @@ const Deposit = () => {
             sx={{
               flexDirection: 'row',
               flexWrap: 'wrap',
-              px: '$4',
+              px: '$2',
               justifyContent: 'space-around',
             }}
           >

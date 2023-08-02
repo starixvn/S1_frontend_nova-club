@@ -1,4 +1,4 @@
-import { styled, SxProp, useDripsyTheme, View } from 'dripsy'
+import { styled, SxProp, Text, useDripsyTheme, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
 import { MotiPressable } from 'moti/interactions'
 import React, { ReactNode, useReducer, useState } from 'react'
@@ -57,7 +57,7 @@ const Accordian = ({
           }}
         >
           <ViewMessageHeader sx={parentStyle}>
-            <View sx={{ flex: 1 }}>{header ?? <View>{label}</View>}</View>
+            <View sx={{ flex: 1 }}>{header ?? <Text>{label}</Text>}</View>
             <View sx={{ flexBasis: 48, alignItems: 'center' }}>
               {isExpandable && (
                 <MotiView
