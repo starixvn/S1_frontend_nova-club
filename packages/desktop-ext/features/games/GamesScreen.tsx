@@ -34,7 +34,15 @@ function _GamesScreen({}: Props) {
         <View sx={{ flex: 0.8, minHeight: 300 }}>
           <LatestWinnerSection type={LatestWinnerType.Games} />
         </View>
-        <View sx={{ flex: 1, minHeight: 300, bg: '$secondary.500' }}></View>
+        <View sx={{ flex: 1, minHeight: 300 }}>
+          <SolitoImage
+            alt="game-banner"
+            fill
+            contentFit="cover"
+            style={{ width: '100%', height: '100%' }}
+            src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game-banner.png`}
+          />
+        </View>
         <View sx={{ flex: 1, minHeight: 300 }}>
           <Video
             isMuted
