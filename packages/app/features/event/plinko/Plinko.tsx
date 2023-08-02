@@ -8,7 +8,7 @@ import React from 'react'
 import { useWindowDimensions } from 'react-native'
 import { useRouter } from 'solito/router'
 
-// const plinkoUrl = `https://stage2.gball8.com/event/plinko?`
+// const plinkoUrl = `${DEV_DOMAIN}/event/plinko?`
 const plinkoUrl = `https://stage2.gball8.com/event/plinko?`
 
 const Plinko = () => {

@@ -9,13 +9,12 @@ import { useAppSelector } from 'app/provider/redux/store'
 import { Pressable, Text, View, styled, useResponsiveValue } from 'dripsy'
 import { FormikProps } from 'formik'
 import { ComponentProps, useCallback, useRef } from 'react'
-import { TextInput } from 'react-native'
+import { Linking, TextInput } from 'react-native'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useSendRegistrationOtpMutation } from 'services/authApi'
 import { useRouter } from 'solito/router'
 import { RegisterFormValues } from './RegisterScreen'
 import ReceiveOTPContact from '../components/ReceiveOTPContact'
-import isDesktop from 'app/utils/isDesktop'
 import { ModalComponentProp } from 'react-native-modalfy'
 import { ModalStackParams } from 'app/provider/modal'
 
@@ -52,11 +51,14 @@ const AccountVerificationForm = ({
   const { push } = useRouter()
   const { showAlert } = useAlert()
   const locale = useAppSelector((s) => s.setting.locale)
+  // const tncUrl = `${DEV_DOMAIN}/info/tnc?`
+
+  const tncUrl = `https://stage2.gball8.com/info/tnc?`
 
   const otpFieldRef = useRef<TextInput>(null)
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
   const isOtpButtonLoading = useRef(false)
-  const desktop = isDesktop()
+  const isDesktop = useResponsiveValue([false, false, false, true])
   const minHeightResponsiveValue = useResponsiveValue([50, 50, 75, 75, 75])
 
   const [
@@ -122,12 +124,7 @@ const AccountVerificationForm = ({
     if (modal) {
       modal.closeModal()
     }
-
-    push('/info/tnc')
-  }
-
-  const handleContactUs = () => {
-    push('/info/contact-us')
+    isDesktop ? Linking.openURL(tncUrl) : push('/info/tnc')
   }
 
   return (
@@ -226,7 +223,7 @@ const AccountVerificationForm = ({
 
       <ReceiveOTPContact
         sx={{
-          mt: desktop ? 'auto' : '$4',
+          mt: isDesktop ? 'auto' : '$4',
         }}
       />
 
