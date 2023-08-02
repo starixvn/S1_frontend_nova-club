@@ -31,10 +31,11 @@ import RegisterForm from './RegisterForm'
 import { LoginType } from '../type'
 import { useAgentRegisterMutation } from 'agent/services/authApi'
 import { AgentAuthActions } from 'agent/store/agentAuthReducer'
-import { useLazyUserInfoQuery } from 'agent/services/userApi'
+import { useLazyUserInfoQuery, useUserInfoQuery } from 'agent/services/userApi'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import RegisterSelection from './RegisterSelection'
 import { MOBILE_PREFIX } from 'app/constant/country'
+import useGetProfile from 'agent/hooks/useGetProfile'
 
 export type RegisterFormValues = {
   username: string
@@ -50,6 +51,15 @@ const RegisterPage = () => {
   const [ref] = useParam('ref')
   const [type, setIsAgentLogin] = useParam('t', { initial: LoginType.Member })
   const isAgent = useMemo(() => type === LoginType.Agent, [type])
+
+  const agentToken = useAppSelector((s) => s.agent.access_token)
+
+  const { agentCurrency } = useUserInfoQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      agentCurrency: data?.wallet.currency,
+    }),
+    skip: !agentToken,
+  })
 
   const [register] = useRegisterMutation()
   const [agentRegister] = useAgentRegisterMutation()
@@ -113,10 +123,11 @@ const RegisterPage = () => {
       // WIP: Prefix should not be hardcoded
       contactNumber: '84' + contactNumber,
       terms,
-      tracking_code:
-        trackingCode && !isBannedTrackingCode(trackingCode)
-          ? trackingCode
-          : undefined,
+      tracking_code: !!agentToken
+        ? ''
+        : trackingCode && !isBannedTrackingCode(trackingCode)
+        ? trackingCode
+        : undefined,
       verify_code: verifyCode,
       platform_uuid: uuid ?? '',
       device_os:
@@ -126,6 +137,8 @@ const RegisterPage = () => {
             : APP_DEVICE_ANDROID
           : '',
       registered_by: Platform.OS !== 'web' ? 'APP' : '',
+      agent_currency: !!agentToken ? agentCurrency : '',
+      agent_token: !!agentToken ? agentToken : '',
     }).unwrap()
 
     if (success) {
