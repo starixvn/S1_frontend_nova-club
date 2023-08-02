@@ -20,8 +20,8 @@ const LeaderboardTable = ({ maxRow = 10 }: { maxRow?: number }) => {
   const leaderboardData = maxRow ? data?.slice(0, maxRow) : data
 
   const firstCellStyle = { flex: 2 / 12 }
-  const secondCellStyle = { flex: 5 / 12 }
-  const thirdCellStyle = { flex: 3 / 12 }
+  const secondCellStyle = { flex: 3 / 12 }
+  const thirdCellStyle = { flex: 5 / 12 }
   const fourthCellStyle = { flex: 2 / 12 }
 
   return (
@@ -52,7 +52,7 @@ const LeaderboardTable = ({ maxRow = 10 }: { maxRow?: number }) => {
             </DataTableCell>
             <DataTableCell
               sx={secondCellStyle}
-              textStyle={{ fontSize: [12, 12, 13, 14] }}
+              textStyle={{ fontSize: [12, 12, 13, 14], flex: 1 }}
             >
               {item.username}
             </DataTableCell>
@@ -65,12 +65,14 @@ const LeaderboardTable = ({ maxRow = 10 }: { maxRow?: number }) => {
                   alt={`${index} coin`}
                   style={{ marginRight: 12 }}
                 />
-                <Text sx={{ fontSize: [12, 12, 13, 14] }}>{item.points}</Text>
+                <Text sx={{ fontSize: [12, 12, 13, 14], flex: 1 }}>
+                  {item.points}
+                </Text>
               </Row>
             </DataTableCell>
             <DataTableCell sx={fourthCellStyle}>
               {item.status === 'r' ? (
-                <Text>-</Text>
+                <Text sx={{ flex: 1, textAlign: 'center' }}>-</Text>
               ) : (
                 <Icon
                   name="down"
