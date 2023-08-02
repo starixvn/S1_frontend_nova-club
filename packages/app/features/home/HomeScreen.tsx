@@ -10,6 +10,7 @@ import BannerSection from './BannerSection'
 import Deferrable from './Deferrable'
 import GameGridSection from './GameGridSection'
 import HireBanner from './HireBanner'
+import LuckyDrawTrigger from './LuckyDrawTrigger'
 
 export default function HomeScreen() {
   const dispatch = useAppDispatch()
@@ -17,7 +18,7 @@ export default function HomeScreen() {
   const syncShieldActionType = useAppSelector(
     (s) => s.tempSetting.syncShieldActionType
   )
-  const { openModal, closeModal, closeAllModals } = useModal()
+  const { openModal, closeModal } = useModal()
   const luckyDrawBalance = useAppSelector((s) => s.setting.luckyDrawBalance)
 
   const syncShieldStatus = useAppSelector(
@@ -60,7 +61,7 @@ export default function HomeScreen() {
         openModal('LuckyDrawModal')
       }, 500)
     }
-  }, [username])
+  }, [luckyDrawBalance, username])
 
   return (
     <ScrollView
@@ -69,6 +70,7 @@ export default function HomeScreen() {
       sx={{ flex: 1 }}
       contentContainerSx={{ pb: '$4' }}
     >
+      <LuckyDrawTrigger />
       <BannerSection />
       <View sx={{ gap: ['$2', '$3'], pt: ['$2', '$3'], px: '$3' }}>
         <AnnouncementSection />

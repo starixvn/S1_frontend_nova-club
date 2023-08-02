@@ -1,9 +1,7 @@
 import IconButton from 'app/components/IconButton'
 import RefreshButton from 'app/components/RefreshButton'
 import CheckBox from 'app/components/common/CheckBox'
-import FormContainer from 'app/components/form/FormContainer'
 import useLocalization from 'app/provider/localization'
-import isDesktop from 'app/utils/isDesktop'
 import { Pressable, Row, Text, View, useResponsiveValue } from 'dripsy'
 import React, { useCallback, useState } from 'react'
 import { useDeleteMessagesMutation, useMessageQuery } from 'services/messageApi'
@@ -55,7 +53,7 @@ const PersonalMessage = () => {
   }
 
   return (
-    <FormContainer hidePadding={!isDesktop}>
+    <View>
       <Row sx={{ alignItems: 'center', p: '$3' }}>
         <Pressable
           sx={{
@@ -80,7 +78,6 @@ const PersonalMessage = () => {
           key={item.messageId}
           sx={{
             mb: 12,
-            borderWidth: isDesktop ? 2 : 0,
             borderTopWidth: 2,
             borderColor: '$primary.100',
           }}
@@ -97,7 +94,7 @@ const PersonalMessage = () => {
           />
         </View>
       ))}
-    </FormContainer>
+    </View>
   )
 }
 

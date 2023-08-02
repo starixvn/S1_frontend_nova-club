@@ -1,6 +1,6 @@
 import HomeScreen from 'app/features/home/HomeScreen'
 import { useAppSelector } from 'app/provider/redux/store'
-import { Redirect, useNavigation, useRouter } from 'expo-router'
+import { useRouter } from 'expo-router'
 import { useEffect } from 'react'
 
 export default function MemberScreen(props) {

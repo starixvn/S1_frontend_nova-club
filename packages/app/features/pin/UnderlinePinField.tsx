@@ -117,7 +117,7 @@ const UnderlinePinField = ({
         justifyContent: 'center',
       }}
     >
-      {label && <Label sx={{ flexGrow: 1 }}>{label + ' : '}</Label>}
+      {label ? <Label sx={{ flexGrow: 1 }}>{label + ' : '}</Label> : null}
       <View>
         <CodeField
           key={label}

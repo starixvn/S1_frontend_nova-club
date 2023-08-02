@@ -25,6 +25,7 @@ export default function InfoLayout({ children }: { children: ReactNode }) {
 const MapInfoRouteTitle = (currentPath: string) => {
   switch (currentPath) {
     case 'tnc':
+    case '/lucky-spin-tnc':
       return 'common.tnc'
     case 'about-us':
       return 'footer.aboutUs'

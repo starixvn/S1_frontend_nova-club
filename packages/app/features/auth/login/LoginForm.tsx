@@ -11,6 +11,7 @@ import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 import useLoginForm from './useLoginForm'
 import { useAppSelector } from 'app/provider/redux/store'
+import { LoginType } from '../AuthTypeSelection'
 
 type LoginFormValues = {
   username: string
@@ -148,7 +149,16 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
             justifyContent: 'flex-end',
           }}
         >
-          <Pressable onPress={() => push('/auth/forgot-password')}>
+          <Pressable
+            onPress={() => {
+              push({
+                pathname: '/auth/forgot-password',
+                query: {
+                  t: isAgent ? LoginType.Agent : LoginType.Member,
+                },
+              })
+            }}
+          >
             <Text>{t('authentication.forgotPassword')}</Text>
           </Pressable>
         </View>
@@ -157,18 +167,23 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
       <Button
         loading={isSubmitting}
         onPress={submitForm}
-        sx={{ my: '$2', py: '$2' }}
+        sx={{ my: '$2', py: '$1' }}
       >
         {t('authentication.login')}
       </Button>
-      {!isDesktop && (
-        <Button
-          onPress={() => push('/auth/register')}
-          sx={{ bg: '$primary.300', my: '$2', py: '$2' }}
-        >
-          {t('authentication.register')}
-        </Button>
-      )}
+      <Button
+        onPress={() => {
+          push({
+            pathname: '/auth/register',
+            query: {
+              t: isAgent ? LoginType.Agent : LoginType.Member,
+            },
+          })
+        }}
+        sx={{ bg: '$primary.300', my: '$2', py: '$1' }}
+      >
+        {t('authentication.register')}
+      </Button>
     </FormContainer>
   )
 }

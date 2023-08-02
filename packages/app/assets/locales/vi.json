@@ -30,10 +30,17 @@
     "addCryptoAccount": "Thêm ví tiền ảo",
     "bank": "Ngân hàng",
     "bankAccount": "Tài khoản ngân hàng",
+    "noBankAccount": "Không có tài khoản tiền ảo",
+    "noCryptoAccount": "Không có tài khoản ngân hàng",
     "channel": "Tài khoản nạp",
     "selectBank": "Vui lòng chọn ngân hàng",
     "selectChannel": "Chọn tài khoản nạp",
     "walletAddress": "Địa chỉ ví"
+  },
+  "biometric": {
+    "label": "Đăng nhập bằng Sinh trắc học",
+    "message": "Bạn có muốn kích hoạt đăng nhập sinh trắc học không?",
+    "notFound": "Sinh trắc học không được hỗ trợ / không được bật trên thiết bị của bạn"
   },
   "commision": {
     "cashAgent": "Đại lý trả trước",
@@ -47,11 +54,12 @@
     "active": "Đang hoạt động",
     "agent": "Đại lý",
     "agentLogin": "Đăng nhập đại lý",
-    "all": "TẤT CẢ",
+    "all": "Tất cả",
     "amount": "Số tiền",
     "balance": "Số dư",
     "bankAccount": "Tài khoản ngân hàng",
     "bonus": "Thưởng",
+    "cancel": "Hủy",
     "cash": "VÍ",
     "close": "Đóng",
     "confirm": "Xác nhận",
@@ -69,6 +77,8 @@
     "history": "Lịch sử",
     "home": "Trang Chủ",
     "inactive": "Không hoạt động",
+    "lastUpdated": "Cập nhật lần cuối",
+    "latestWinners": "Người thắng gần nhất",
     "loading": "Đang tải",
     "logout": "Thoát",
     "more": "Thêm",
@@ -81,9 +91,10 @@
     "pin": "Mã PIN",
     "player": "Người chơi",
     "playerId": "ID người chơi",
+    "playerName": "Tên người chơi",
     "points": "điểm",
     "profile": "Hồ sơ",
-    "provider": "ProCác nhà cung cấpvider",
+    "provider": "Các nhà cung cấp",
     "realBet": "Đặt cược thực sự",
     "realName": "Tên thật",
     "reward": "THƯỞNG",
@@ -210,6 +221,7 @@
       "thisMonth": "Tháng này",
       "thisWeek": "Tuần này",
       "today": "Hôm nay",
+      "tomorrow": "Ngày mai",
       "yesterday": "Hôm qua"
     },
     "depositStatus": {
@@ -383,8 +395,10 @@
     }
   },
   "placeholder": {
+    "plsEnterAmount": "Vui lòng nhập số tiền %{field} của bạn",
     "plsSelectBank": "Vui lòng chọn ngân hàng",
-    "plsSelectCrypto": "Please Select Crypto"
+    "plsSelectCrypto": "Please Select Crypto",
+    "plsSelectWalletAddress": "Vui lòng chọn địa chỉ ví tiền ảo của bạn"
   },
   "profile": {
     "activePlayer": "Người chơi đang hoạt động",
@@ -432,6 +446,7 @@
     "amount": "%{amount} ngoài hạn mức",
     "amount0": "Số tiền không được bằng 0",
     "amountLessThan": "Số tiền không thể nhỏ hơn %{min}",
+    "cryptoAddress": "Chọn phương thức rút tiền",
     "dailyLimitReached": "Bạn Đã Sử Dụng Hết Hạn Mức Trong Ngày",
     "email": "Định dạng email chưa đúng",
     "enterId": "Vui lòng nhập ID giới thiệu",

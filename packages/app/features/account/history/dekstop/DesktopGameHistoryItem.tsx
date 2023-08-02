@@ -9,11 +9,11 @@ import { SolitoImage } from 'solito/image'
 export const GameTableHeader = [
   TAB_NO,
   {
-    label: 'Date',
+    label: 'common.date',
     textStyle: { flex: 1, textAlign: 'left', pl: 12 },
   },
-  { label: 'Game', textStyle: { flex: 1 } },
-  { label: 'Win/Loss', textStyle: { flex: 1, textAlign: 'center' } },
+  { label: 'common.game', textStyle: { flex: 1 } },
+  { label: 'filter.win/loss', textStyle: { flex: 1, textAlign: 'center' } },
 ]
 
 const DesktopGameHistoryItem = ({ item, index }) => {

@@ -37,7 +37,6 @@ export default function Root() {
         initialRouteName="splashscreen"
         */
       />
-      {/* <RootPage /> */}
     </Provider>
   )
 }

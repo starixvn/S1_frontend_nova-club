@@ -11,16 +11,17 @@ import ProfileHeader from './ProfileHeader'
 import ProfileOverviewCard from './ProfileOverviewCard'
 import ProfileQuickNavigation from './ProfileQuickNavigation'
 import WalletButton from './WalletButton'
-import { HEADER_HEIGHT } from 'app/utils/constant'
+import { Currency, HEADER_HEIGHT } from 'app/utils/constant'
 
 export default function ProfileScreen() {
   const { bottom, top } = useSafeArea()
   const { height, width } = useWindowDimensions()
 
-  const { data: playerData, currency } = usePlayerProfileQuery(undefined, {
+  const { data: playerData } = usePlayerProfileQuery(undefined, {
     refetchOnMountOrArgChange: true,
   })
 
+  const currency = playerData?.currency ?? Currency.VND.toString()
   const { data, isFetching } = usePlayerBalanceQuery(undefined, {
     refetchOnMountOrArgChange: true,
   })

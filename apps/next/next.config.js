@@ -128,6 +128,11 @@ const nextConfig = {
         destination: '/agent/report/commission',
         permanent: true,
       },
+      {
+        source: '/history',
+        destination: 'history/transaction',
+        permanent: true,
+      },
     ]
   },
 }

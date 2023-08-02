@@ -3,6 +3,7 @@ import Icon from 'app/components/Icon'
 import BouncePressable from 'app/components/pressable/BouncePressable'
 import { LoginType } from 'app/features/auth/AuthTypeSelection'
 import useAlert from 'app/hooks/useAlert'
+import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useDrawer } from 'app/hooks/useDrawer'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import useLocalization from 'app/provider/localization'
@@ -10,13 +11,12 @@ import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { copyToClipboard } from 'app/utils'
 import { HEADER_HEIGHT } from 'app/utils/constant'
-import isDesktop from 'app/utils/isDesktop'
 import { Pressable, ScrollView, Text, View, useResponsiveValue } from 'dripsy'
 import React, { useEffect, useRef } from 'react'
 import {
   ImageBackground,
-  useWindowDimensions,
   ScrollView as rScrollView,
+  useWindowDimensions,
 } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
@@ -25,15 +25,19 @@ export default function DrawerContent() {
   const { t } = useLocalization()
   const { push } = useRouter()
   const { top, bottom } = useSafeArea()
-  const { height } = useWindowDimensions()
+  const { height } = useContainerDimension()
   const { isOpen, toggleDrawer } = useDrawer()
   const { logout } = useOnAppLogout()
-  const desktop = isDesktop()
+  const desktop = useResponsiveValue([false, false, false, true])
   const { showAlert } = useAlert()
   const scrollRef = useRef<rScrollView>(null)
 
   const isAgentLoggedIn = useAppSelector((s) => !!s.agent.access_token)
-  const { isCreditMember, data: playerData } = usePlayerProfileQuery()
+  const isLoggedIn = useAppSelector((s) => !!s.auth.info)
+  const { isCreditMember, data: playerData } = usePlayerProfileQuery(
+    undefined,
+    { skip: !isLoggedIn }
+  )
   const referralLink = `${DEV_DOMAIN}/download?ref=${playerData?.referral_code}`
   const isPlayerName = !!playerData?.firstName
   const handleDesktopAccountVerification = () => {
@@ -94,14 +98,16 @@ export default function DrawerContent() {
       iconName: 'transfer',
       text: 'common.transfer',
       onPress: () => {
-        push('/transfer')
+        playerData?.pin_exist
+          ? push('/transfer/receive')
+          : push('/account/manage-credentials/create-pin')
       },
     },
     {
       iconName: 'history',
       text: 'common.history',
       onPress: () => {
-        push('/history')
+        push('/history/transaction')
       },
     },
     {
@@ -129,25 +135,35 @@ export default function DrawerContent() {
   }
 
   return (
-    <ScrollView
+    <View
       sx={{
-        width: '100%',
-        position: 'absolute',
+        flex: 1,
+        // display: 'flex',
+        height: '100%',
+        // flexDirection: 'column',
+        // bg: 'yellow',
+        // justifyContent: 'space-between',
       }}
-      contentContainerSx={{
-        mt: HEADER_HEIGHT + top,
-        bg: '$primary.500',
-        height: height - HEADER_HEIGHT - top,
-      }}
-      ref={scrollRef}
     >
-      <View
+      <ScrollView
         sx={{
-          flex: 1,
-          justifyContent: 'space-between',
+          // width: '100%',
+          // position: 'absolute',
+          // height: height - HEADER_HEIGHT - top,
+          borderTopWidth: 1,
+          borderColor: '$primary.600',
+          // flex: 1,
+          // bg: 'red',
         }}
+        contentContainerSx={{
+          bg: '$primary.500',
+          height: 350,
+          // flex: 1,
+          // height,
+        }}
+        ref={scrollRef}
       >
-        <View>
+        <View sx={{ bg: '' }}>
           {MENU_LIST.map((item, index) => {
             return (
               <Pressable
@@ -178,82 +194,83 @@ export default function DrawerContent() {
             )
           })}
         </View>
-        <View
-          sx={{
-            flexGrow: 1,
-            justifyContent: 'flex-end',
+      </ScrollView>
+      <View
+        sx={{
+          height: height - 350 + bottom,
+          // bg: 'red',
+          justifyContent: 'flex-end',
+        }}
+      >
+        <ImageBackground
+          source={require('../../../assets/images/banner_referral.jpg')}
+          style={{
+            aspectRatio: 380 / 600,
+            alignItems: 'center',
+            justifyContent: 'center',
+            // backgroundColor: 'green',
           }}
+          resizeMode="contain"
         >
-          <ImageBackground
-            source={require('../../../assets/images/banner_referral.jpg')}
-            style={{
-              aspectRatio: 380 / 600,
-              alignItems: 'center',
+          <View
+            sx={{
+              height: '35%',
+              width: '80%',
               justifyContent: 'center',
-              backgroundColor: 'blue',
+              alignItems: 'center',
             }}
-            resizeMode="contain"
           >
             <View
               sx={{
-                height: '35%',
-                width: '80%',
+                px: '$2',
+                py: '$3',
                 justifyContent: 'center',
                 alignItems: 'center',
+                height: '100%',
+                width: '100%',
               }}
             >
-              <View
+              <Text
+                sx={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}
+              >
+                {t('referral.shareMessage')}
+              </Text>
+              <Text
                 sx={{
-                  px: '$2',
-                  py: '$3',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '100%',
-                  width: '100%',
+                  fontSize: 12,
+                  fontWeight: '700',
+                  textAlign: 'center',
+                  marginTop: 10,
                 }}
               >
-                <Text
-                  sx={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}
-                >
-                  {t('referral.shareMessage')}
+                {t('referral.shareContent')}
+              </Text>
+              <BouncePressable
+                onPress={() => copyToClipboard(referralLink)}
+                sx={{
+                  bg: 'rgba(255,255,255,0.3)',
+                  borderRadius: 20,
+                  marginTop: 10,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  px: '$3',
+                  py: 1,
+                }}
+              >
+                <Text sx={{ fontSize: 14, mx: '$1', fontWeight: 'bold' }}>
+                  {t('common.copy')}
                 </Text>
-                <Text
-                  sx={{
-                    fontSize: 12,
-                    fontWeight: '700',
-                    textAlign: 'center',
-                    marginTop: 10,
-                  }}
-                >
-                  {t('referral.shareContent')}
-                </Text>
-                <BouncePressable
-                  onPress={() => copyToClipboard(referralLink)}
-                  sx={{
-                    bg: 'rgba(255,255,255,0.3)',
-                    borderRadius: 20,
-                    marginTop: 10,
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    px: '$3',
-                    py: 1,
-                  }}
-                >
-                  <Text sx={{ fontSize: 14, mx: '$1', fontWeight: 'bold' }}>
-                    {t('common.copy')}
-                  </Text>
-                  <Icon
-                    name={'copy'}
-                    color={'white'}
-                    size={20}
-                    sx={{ padding: 5, mx: '$1' }}
-                  />
-                </BouncePressable>
-              </View>
+                <Icon
+                  name={'copy'}
+                  color={'white'}
+                  size={20}
+                  sx={{ padding: 5, mx: '$1' }}
+                />
+              </BouncePressable>
             </View>
-          </ImageBackground>
-        </View>
+          </View>
+        </ImageBackground>
       </View>
-    </ScrollView>
+    </View>
   )
 }

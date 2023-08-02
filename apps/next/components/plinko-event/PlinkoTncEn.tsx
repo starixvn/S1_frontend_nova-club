@@ -1,10 +1,17 @@
+import { useResponsiveValue } from 'dripsy'
 import React from 'react'
 
 const PlinkoTncEn = () => {
+  const isDesktop = useResponsiveValue([false, false, false, true])
   return (
     <div>
-      <h2>CRAZY PLINKO</h2>
-      <p>Campaign Period: 01/07 - 31/08/2023</p>
+      {isDesktop && (
+        <h1 style={{ textAlign: 'center', paddingBottom: 25 }}>
+          Terms and Conditions
+        </h1>
+      )}
+      <h2>CRAZY PLINKO (ENHANCED VERSION)</h2>
+      <p>Campaign Period: 01-31/08/2023</p>
 
       <br />
       <div>
@@ -13,7 +20,7 @@ const PlinkoTncEn = () => {
       </div>
 
       <ol>
-        <li>One (1) ticket will be given for every VND 200,000 deposit.</li>
+        <li>One (1) ticket will be given for every VND 1,000,000 deposit.</li>
         <li>Tickets can be used to play the game and win the prizes.</li>
         <li>Enter the game and press START to play.</li>
         <li>The ball will drop down and bounce through the maze.</li>

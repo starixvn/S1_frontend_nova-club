@@ -7,9 +7,9 @@ import DateTimeCell from '../DateTimeCell'
 
 export const TransferTableHeader = [
   TAB_NO,
-  { label: 'Date', textStyle: { flex: 1, textAlign: 'left' } },
-  { label: 'Username', textStyle: { flex: 1, textAlign: 'center' } },
-  { label: 'Amount', textStyle: { flex: 1, textAlign: 'center' } },
+  { label: 'common.date', textStyle: { flex: 1, textAlign: 'left' } },
+  { label: 'common.username', textStyle: { flex: 1, textAlign: 'center' } },
+  { label: 'common.amount', textStyle: { flex: 1, textAlign: 'center' } },
 ]
 
 const DesktopTransferHistoryItem = ({ item, index }) => {

@@ -58,6 +58,7 @@ const RewardsHubScreen = () => {
       disableScrollView
     >
       <TabView
+      swipeEnabled={false}
         navigationState={{ index, routes }}
         renderScene={renderScene}
         onIndexChange={setIndex}

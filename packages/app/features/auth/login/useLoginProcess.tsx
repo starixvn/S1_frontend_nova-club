@@ -19,7 +19,7 @@ import { TempSettingActions } from 'app/store/tempSetting.slice'
 export default function useLoginProcess() {
   const dispatch = useAppDispatch()
   const { t } = useLocalization()
-  const { push } = useRouter()
+  const { push, replace } = useRouter()
   const { openModal } = useModal()
   const { showAlert } = useAlert()
   const biometricCredentials = useAppSelector(
@@ -55,7 +55,8 @@ export default function useLoginProcess() {
 
   async function completeSuccessLoginHandler(data: LoginResult) {
     dispatch(AuthActions.setAuthInfo(data))
-    useResponsiveValue([push('/'), push('/'), push('/'), undefined, undefined])
+    // useResponsiveValue([push('/'), push('/'), push('/'), undefined, undefined])
+    replace('/')
   }
 
   async function biometricProcess(username: string) {

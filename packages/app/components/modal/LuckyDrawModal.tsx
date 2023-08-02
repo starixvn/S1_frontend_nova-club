@@ -103,9 +103,7 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
   }
 
   const handleNavigateTnc = () => {
-    closeModal('LuckyDrawModal', () => {
-      dispatch(SettingActions.setLuckyDrawBalance(1))
-    })
+    closeTargetModal('LuckyDrawModal')
     push('/lucky-spin-tnc')
   }
 
@@ -398,6 +396,7 @@ const DownloadAppButton = ({
   const { push } = useRouter()
   const { theme } = useDripsyTheme()
   const { t } = useLocalization()
+  const { closeModal } = useModal()
   return (
     <Pressable
       sx={{
@@ -408,6 +407,7 @@ const DownloadAppButton = ({
         alignItems: 'center',
       }}
       onPress={() => {
+        closeModal('RegisterModal')
         if (windowWidth < 992) {
           Linking.openURL(REFERRAL_DOMAIN)
         } else {

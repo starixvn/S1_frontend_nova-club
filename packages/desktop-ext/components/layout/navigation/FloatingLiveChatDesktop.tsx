@@ -1,3 +1,4 @@
+import { LIVECHAT_URL } from '@env'
 import Icon from 'app/components/Icon'
 import useLocalization from 'app/provider/localization'
 import { Text, View, useDripsyTheme } from 'dripsy'
@@ -15,9 +16,7 @@ const FloatingLiveChatDesktop = () => {
     <MotiPressable
       id="menu"
       onPress={() => {
-        Linking.openURL(
-          'https://secure.livechatinc.com/licence/14440122/v2/open_chat.cgi'
-        )
+        Linking.openURL(LIVECHAT_URL)
       }}
       style={{
         position: 'fixed',

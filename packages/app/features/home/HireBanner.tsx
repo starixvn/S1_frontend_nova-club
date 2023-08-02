@@ -2,21 +2,26 @@ import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { Pressable, Row, Text, View, styled, useResponsiveValue } from 'dripsy'
 import { MotiView } from 'moti'
 import React, { useMemo } from 'react'
+import { useModal } from 'react-native-modalfy'
 import { useRouter } from 'solito/router'
 
 export default function HireBanner() {
   const { t } = useLocalization()
   const { push } = useRouter()
+  const lang = useAppSelector((state) => state.setting.locale)
+  const { token } = useAppSelector((state) => state.auth.info) || {}
+  const isDesktop = useResponsiveValue([false, false, false, true])
+  const { openModal } = useModal()
   // const direction = useResponsiveValue(['column', 'column', 'column', 'row'])
   const show = useResponsiveValue([false, true])
-
   const animatedText = useMemo(
     () => (
       <MotiView
-        key="rebate"
+        key={lang}
         from={{ scale: 0.8 }}
         animate={{ scale: 1 }}
         transition={{
@@ -31,7 +36,7 @@ export default function HireBanner() {
         <Label sx={{ color: '#00FFFF' }}>{t('home.banner.n3')}</Label>
       </MotiView>
     ),
-    []
+    [lang]
   )
 
   return (
@@ -99,7 +104,15 @@ export default function HireBanner() {
           </Row>
         </View>
 
-        <AnimatedButton onPress={() => push('/deposit')}>
+        <AnimatedButton
+          onPress={() =>
+            token
+              ? push('/deposit/bank-transfer')
+              : isDesktop
+              ? openModal('RegisterModal')
+              : push('/auth/register/?t=member')
+          }
+        >
           {t('home.playNow')}
         </AnimatedButton>
       </Row>
@@ -115,10 +128,12 @@ const Label = styled(Text)({
 })
 
 export const AnimatedButton = ({ onPress, children }) => {
+  const lang = useAppSelector((state) => state.setting.locale)
+
   const animatedText = useMemo(
     () => (
       <MotiView
-        key="button"
+        key={lang}
         from={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{
@@ -140,7 +155,7 @@ export const AnimatedButton = ({ onPress, children }) => {
         </Label>
       </MotiView>
     ),
-    []
+    [lang]
   )
 
   return (

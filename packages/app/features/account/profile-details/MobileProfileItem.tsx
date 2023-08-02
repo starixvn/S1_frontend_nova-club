@@ -31,7 +31,7 @@ const MobileProfileItem = ({ playerData }: MobileProfileDetailsProps) => {
       />
       <ProfileItem
         label={t('common.playerId')}
-        value={playerData?.player_id.toString()}
+        value={playerData?.referral_code.toString()}
         copy
       />
       <ProfileItem label={t('common.currency')} value={playerData?.currency} />

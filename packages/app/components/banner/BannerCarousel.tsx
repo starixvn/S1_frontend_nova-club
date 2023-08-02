@@ -61,8 +61,8 @@ export default function BannerCarousel({
           windowSize={3}
           width={width}
           height={height}
-          // autoPlay
-          // autoPlayInterval={5000}
+          autoPlay
+          autoPlayInterval={5000}
           data={data}
           scrollAnimationDuration={1000}
           onProgressChange={(_, absoluteProgress) =>

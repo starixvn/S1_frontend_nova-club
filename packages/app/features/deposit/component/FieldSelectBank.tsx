@@ -19,7 +19,7 @@ const FieldSelectBank = ({ field, isLoading, formik }: FieldBankProps) => {
   const { t } = useLocalization()
   const horizontalMode = useResponsiveValue([false, false, false, true, true])
 
-  const { values, setFieldValue } = formik
+  const { values, setFieldValue, setValues } = formik
 
   const bankList = Object.keys(field?.bank_tree ?? {}).map((key) => ({
     label: field.bank_tree[key],
@@ -29,8 +29,14 @@ const FieldSelectBank = ({ field, isLoading, formik }: FieldBankProps) => {
 
   const handleSelected = (value) => {
     // const item = bankList.find((el) => el.value === value)
+    // setFieldValue('bank', value)
 
-    setFieldValue('bank', value)
+    setValues({
+      ...values,
+      bank: value,
+      amount: '',
+      realAmount: 0,
+    })
   }
   return field ? (
     <>

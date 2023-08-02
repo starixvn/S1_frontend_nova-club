@@ -20,14 +20,22 @@ import { LoginResult, Shield_Action } from 'services/authApi.type'
 import { useRouter } from 'solito/router'
 import { AuthActions } from 'app/store/authReducer'
 import { useResponsiveValue } from 'dripsy'
+import isDesktop from 'app/utils/isDesktop'
+import { useModal } from 'react-native-modalfy'
 
 const { useParam } = createParam<{ t: LoginType }>()
+
+export enum Register_Screen {
+  SET_USERNAME,
+  ACCOUNT_VERIFICATION,
+}
 
 export default function useRegisterScreen(rootView: RefObject<RNView>) {
   const { showAlert } = useAlert()
   const width = useContainerWidth(rootView)
   const dispatch = useAppDispatch()
-  const { push } = useRouter()
+  const { push, replace } = useRouter()
+  const { closeModal } = useModal()
 
   const responsiveMode = useResponsiveValue([false, false, false, true, true])
 
@@ -35,6 +43,9 @@ export default function useRegisterScreen(rootView: RefObject<RNView>) {
     { key: 'first', title: 'common.player', index: 0, type: LoginType.Member },
     { key: 'second', title: 'common.agent', index: 1, type: LoginType.Agent },
   ])
+  const [currentScreen, setCurrentScreen] = useState<Register_Screen>(
+    Register_Screen.SET_USERNAME
+  )
 
   const [type, setIsAgentLogin] = useParam('t', { initial: LoginType.Member })
   const [index, setIndex] = useState(0)
@@ -46,6 +57,7 @@ export default function useRegisterScreen(rootView: RefObject<RNView>) {
   const trackingCode = referral?.trackingCode
   const { uuid } = useUniqueId()
   const [register] = useRegisterMutation()
+  const desktop = isDesktop()
 
   const handlePress = (value) => {
     setIsAgentLogin(index === 0 ? LoginType.Agent : LoginType.Member)
@@ -94,11 +106,16 @@ export default function useRegisterScreen(rootView: RefObject<RNView>) {
 
     if (success) {
       dispatch(AuthActions.setAuthInfo(data as LoginResult))
-      push('/')
-      // dispatch()
       dispatch(
         TempSettingActions.setSyncShieldActionType(Shield_Action.REGISTER)
       )
+
+      if (Platform.OS === 'web' && desktop) {
+        closeModal()
+      } else {
+        replace('/')
+      }
+
       setStatus(true)
     } else {
       showAlert(message)
@@ -154,12 +171,15 @@ export default function useRegisterScreen(rootView: RefObject<RNView>) {
   })
 
   const onRegisterSuccess = () => {
+    setCurrentScreen(Register_Screen.ACCOUNT_VERIFICATION)
+
     animationState.animateTo({
       translateX: -width,
     })
   }
 
   const onBack = () => {
+    setCurrentScreen(Register_Screen.SET_USERNAME)
     animationState.animateTo({
       translateX: 0,
     })
@@ -191,5 +211,6 @@ export default function useRegisterScreen(rootView: RefObject<RNView>) {
     formik,
     onRegisterSuccess,
     onBack,
+    currentScreen,
   }
 }

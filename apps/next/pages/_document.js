@@ -41,8 +41,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -ms-overflow-style: scrollbar;
-  // background-color: #9696e6;
-  // transition: background-color 2s;
 }
 `
 

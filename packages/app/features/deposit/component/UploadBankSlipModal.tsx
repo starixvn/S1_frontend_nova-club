@@ -41,7 +41,7 @@ const UploadBankSlipModal = ({ modal: { closeModal, getParam } }) => {
       value: depositInfo.status,
     },
     {
-      title: 'deposit.amount',
+      title: 'common.amount',
       value: depositInfo.amount,
     },
   ]
@@ -87,7 +87,7 @@ const UploadBankSlipModal = ({ modal: { closeModal, getParam } }) => {
   return (
     <ModalWrapper>
       <ModalContent
-        title="deposit.uploadBankSlip"
+        title={t('deposit.bankSlip')}
         actions={[
           {
             label: t('common.cancel'),

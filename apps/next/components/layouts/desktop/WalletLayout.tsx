@@ -1,6 +1,7 @@
 import usePathname from 'app/hooks/usePathname'
 import {
   DEPOSIT_NOTES,
+  TOPUP_NOTES,
   TRANSFER_NOTES,
   WITHDRAWAL_NOTES,
 } from 'app/utils/constant'
@@ -39,7 +40,9 @@ export default function WalletLayout({
     }
     if (currentTab.includes(WALLET_PATH.DEPOSIT)) {
       setMenuRoutes(DepositRoutes)
-      setNoticeNotes(DEPOSIT_NOTES)
+      setNoticeNotes(
+        currentPath.includes('topup-card') ? TOPUP_NOTES : DEPOSIT_NOTES
+      )
       return
     }
     if (currentTab.includes(WALLET_PATH.WITHDRAWAL)) {
@@ -52,7 +55,7 @@ export default function WalletLayout({
       setNoticeNotes(undefined)
       return
     }
-  }, [currentTab])
+  }, [currentPath])
 
   return (
     <Container sx={{ minHeight: `calc(100vh - ${NAVIGATION_HEIGHT}px)` }}>

@@ -1,3 +1,4 @@
+import useLocalization from 'app/provider/localization'
 import { SxProp, Text, View } from 'dripsy'
 import React from 'react'
 
@@ -9,6 +10,7 @@ export type HeaderProps = {
 }
 
 const HistoryHeader = ({ data }: HeaderProps) => {
+  const { t } = useLocalization()
   return (
     <View
       sx={{
@@ -30,7 +32,7 @@ const HistoryHeader = ({ data }: HeaderProps) => {
               ...item.textStyle,
             }}
           >
-            {item.label}
+            {t(item.label)}
           </Text>
         ))}
     </View>

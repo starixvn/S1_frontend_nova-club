@@ -33,10 +33,6 @@ const enum CURRENT_ACTION {
   SET_PASSWORD,
 }
 
-const enum ERROR_CODE {
-  INVALID_OTP = 10021,
-}
-
 const ForgotPinScreen = () => {
   const { t } = useLocalization()
   const { showAlert } = useAlert()

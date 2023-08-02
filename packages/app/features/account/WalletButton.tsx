@@ -35,6 +35,10 @@ const WalletButton = () => {
               onPress={() => {
                 r.icon === 'deposit' && !isPlayerName
                   ? push('/account/account-verification')
+                  : r.icon === 'transfer'
+                  ? playerData?.pin_exist
+                    ? push(r.path ?? '/')
+                    : push('/account/manage-credentials/create-pin')
                   : push(r.path ?? '/')
               }}
             />

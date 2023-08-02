@@ -3,7 +3,7 @@ import useLocalization from 'app/provider/localization'
 import { toCurrency } from 'app/utils'
 import isDesktop from 'app/utils/isDesktop'
 import { Text, View } from 'dripsy'
-import React from 'react'
+import React, { useState } from 'react'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { usePlayerBalanceQuery } from 'services/walletApi'
 import { useGetAvailableWithdrawalAmountQuery } from 'services/withdrawal'
@@ -19,18 +19,22 @@ const AvailableBalance = ({
 }: AvailableBalanceProps) => {
   const { t } = useLocalization()
   const desktop = isDesktop()
-
   const { currency } = usePlayerProfileQuery()
-  const { data } = usePlayerBalanceQuery(undefined, {
-    refetchOnMountOrArgChange: true,
-  })
+  const [delay, setDelay] = useState(true)
+
+  const { data } = usePlayerBalanceQuery(undefined)
 
   const { data: availableBalance } = useGetAvailableWithdrawalAmountQuery(
     undefined,
     {
       refetchOnMountOrArgChange: true,
+      skip: isTransfer || delay,
     }
   )
+
+  setTimeout(() => {
+    !isTransfer && setDelay(false)
+  }, 2000)
 
   const balance = isTransfer ? data?.totalBalance : availableBalance?.balance
 
@@ -57,7 +61,7 @@ const MobileBalance = ({ label, totalBalance, currency }) => (
       justifyContent: 'space-between',
     }}
   >
-    <Text>{label}</Text>
+    <Text>{`${label} :`}</Text>
     <Text>
       {toCurrency(totalBalance, currency, {
         symbol: false,

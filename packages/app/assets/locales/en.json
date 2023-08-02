@@ -10,7 +10,7 @@
     "accVerification": "Account Verification",
     "accountReg": "Account Registration",
     "enterOtp": "Please enter OTP",
-    "forgotPassword": "Forgot Password ?",
+    "forgotPassword": "Forgot Password?",
     "forgotPasswordHeader": "Forgot Password",
     "login": "Login",
     "loginHeader": "Login to your account",
@@ -30,10 +30,17 @@
     "addCryptoAccount": "Add Crypto Wallet",
     "bank": "Bank",
     "bankAccount": "Bank Account",
+    "noBankAccount": "No Bank Account",
+    "noCryptoAccount": "No Crypto Account",
     "channel": "Channel",
     "selectBank": "Please select bank",
     "selectChannel": "Select Channel",
     "walletAddress": "Wallet Address"
+  },
+  "biometric": {
+    "label": "Login with Biometrics",
+    "message": "Would you like to enable biometric login?",
+    "notFound": "Biometric is not supported / not enabled on your device"
   },
   "commision": {
     "cashAgent": "Cash Agent",
@@ -52,6 +59,7 @@
     "balance": "Balance",
     "bankAccount": "Bank Account",
     "bonus": "Bonus",
+    "cancel": "Cancel",
     "cash": "Cash",
     "close": "Close",
     "confirm": "Confirm",
@@ -69,6 +77,8 @@
     "history": "History",
     "home": "Home",
     "inactive": "InActive",
+    "lastUpdated": "Last updated",
+    "latestWinners": "Latest Winners",
     "loading": "Loading",
     "logout": "Logout",
     "more": "More",
@@ -81,6 +91,7 @@
     "pin": "Pin",
     "player": "Player",
     "playerId": "Player ID",
+    "playerName": "Player Name",
     "points": "Points",
     "profile": "Profile",
     "provider": "Provider",
@@ -98,7 +109,8 @@
     "turnOver": "Turn Over",
     "userAgreement": "User Agreement",
     "username": "Username",
-    "withdraw": "Withdraw"
+    "withdraw": "Withdraw",
+    "enter": "Enter"
   },
   "contact": {
     "contactVia": "Contact via:",
@@ -210,6 +222,7 @@
       "thisMonth": "This Month",
       "thisWeek": "This Week",
       "today": "Today",
+      "tomorrow": "Tomorrow",
       "yesterday": "Yesterday"
     },
     "depositStatus": {
@@ -383,8 +396,10 @@
     }
   },
   "placeholder": {
+    "plsEnterAmount": "Please enter your %{field} amount",
     "plsSelectBank": "Please Select Bank",
-    "plsSelectCrypto": "Please Select Crypto"
+    "plsSelectCrypto": "Please Select Crypto",
+    "plsSelectWalletAddress": "Please select your wallet address"
   },
   "profile": {
     "activePlayer": "Active Player",
@@ -432,6 +447,7 @@
     "amount": "%{amount} not in range",
     "amount0": "Amount must not be 0",
     "amountLessThan": "Amount cannot be less than %{min}",
+    "cryptoAddress": "Invalid wallet address",
     "dailyLimitReached": "Your Daily Limit Reached",
     "email": "Mail format is wrong",
     "enterId": "Please enter ID",

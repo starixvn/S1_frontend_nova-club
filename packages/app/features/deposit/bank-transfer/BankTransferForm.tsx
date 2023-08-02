@@ -73,7 +73,14 @@ const BankTransferForm = () => {
       (el) => el.bankTypeId.toString() === value
     )
 
-    setFieldValue('bank', item)
+    // setFieldValue('bank', item)
+
+    setValues({
+      ...values,
+      bank: item,
+      amount: '',
+      realAmount: 0,
+    })
   }
 
   const onSubmit = async (
@@ -154,7 +161,7 @@ const BankTransferForm = () => {
       const { cleanText, amountNumber } = toCleanAmount(text)
       setValues({
         ...values,
-        amount: cleanText,
+        amount: cleanText ? cleanText : '',
         realAmount: toRealAmount(amountNumber),
       })
     }

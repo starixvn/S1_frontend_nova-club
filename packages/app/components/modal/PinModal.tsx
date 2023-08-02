@@ -25,7 +25,7 @@ const PinModal = ({ modal: { closeModal, getParam } }) => {
     onDismiss()
     setTimeout(() => {
       onConfirm && onConfirm(value)
-    }, 100)
+    }, 350)
   }
 
   useEffect(() => {

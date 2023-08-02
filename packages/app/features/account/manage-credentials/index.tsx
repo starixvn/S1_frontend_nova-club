@@ -124,6 +124,7 @@ const ManageCredentialsPage = () => {
       hideHeader={isDesktop()}
     >
       <TabView
+        swipeEnabled={false}
         lazy
         navigationState={{ index, routes }}
         renderScene={renderScene}

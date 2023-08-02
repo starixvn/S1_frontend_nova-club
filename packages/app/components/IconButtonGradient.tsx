@@ -3,6 +3,7 @@ import { Gradient } from 'dripsy/gradient'
 import React from 'react'
 import { PressableProps, TextProps } from 'react-native'
 import Icon, { IconProps } from './Icon'
+import { DripsyGradient } from './Gradient'
 const ICON_SIZE = 40
 
 export interface IconButtonGradientProps extends PressableProps {
@@ -47,13 +48,13 @@ const IconButtonGradient = ({
 
 const Root = styled(Pressable)(({ size }: { size: number }) => ({
   backgroundColor: '$primary.500',
-  borderRadius: size * 0.7,
+  borderRadius: 50,
   justifyContent: 'center',
   alignItems: 'center',
   height: size,
   width: size,
   overflow: 'hidden',
-  borderWidth: size * 0.04,
+  borderWidth: 1,
   borderColor: '$primary.200',
 }))
 
@@ -62,7 +63,7 @@ const IconBorderView = styled(View)({
   bg: '$primary.500',
   height: '85%',
   width: '85%',
-  borderRadius: 100,
+  borderRadius: 50,
   overflow: 'hidden',
 })
 

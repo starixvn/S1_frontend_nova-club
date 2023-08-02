@@ -8,16 +8,16 @@ import MessageCard from './components/MessageCard'
 const AnnouncementScreen = () => {
   const locale = useAppSelector((s) => s.setting.locale)
   const { data } = useAnnouncementQuery(locale)
-  const isDesktop = useResponsiveValue([false, false, false, true])
+  // const isDesktop = useResponsiveValue([false, false, false, true])
 
   return (
-    <FormContainer hidePadding={!isDesktop}>
+    <View>
       {data?.map((item, i) => (
         <View
           key={item.id}
           sx={{
             mt: 12,
-            borderWidth: isDesktop ? 2 : 0,
+            // borderWidth: isDesktop ? 2 : 0,
             borderTopWidth: 2,
             borderColor: '$primary.100',
           }}
@@ -30,7 +30,7 @@ const AnnouncementScreen = () => {
           />
         </View>
       ))}
-    </FormContainer>
+    </View>
   )
 }
 

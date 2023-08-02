@@ -93,7 +93,7 @@ const History = () => {
         break
 
       default:
-        setTab(SCREEN_TAB.TRANSACTION)
+        // setTab(SCREEN_TAB.TRANSACTION)
         break
     }
   }
@@ -114,6 +114,7 @@ const History = () => {
       hideHeader={desktop}
     >
       <TabView
+        swipeEnabled={false}
         navigationState={{ index, routes }}
         renderScene={renderScene}
         onIndexChange={setIndex}

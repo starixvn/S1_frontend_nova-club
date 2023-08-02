@@ -470,3 +470,7 @@ export enum ProviderImageCategory {
   Games = 'games',
   Slot = 'slot',
 }
+
+export enum ERROR_CODE {
+  INVALID_OTP = 10021,
+}

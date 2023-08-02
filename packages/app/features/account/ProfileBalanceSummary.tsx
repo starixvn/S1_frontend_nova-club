@@ -117,6 +117,7 @@ const ProfileBalanceSummary = ({
               label={t('common.reward')}
               isLoading={isLoading}
               value={reward}
+              currency={currency}
             />
           </MotiView>
         )}

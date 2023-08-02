@@ -11,6 +11,7 @@ import MatchSection from './MatchSection'
 import useLocalization from 'app/provider/localization'
 
 export default function SportsbookScreen() {
+  const { t } = useLocalization()
   const locale = useAppSelector((s) => s.setting.locale)
   const { t } = useLocalization()
 

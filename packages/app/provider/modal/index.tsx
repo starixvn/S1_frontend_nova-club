@@ -62,12 +62,13 @@ export type ModalStackParams = {
   AgentLoginModal: undefined
   DepositCryptoModal: { data: SubmitDepositCryptoItem }
   LuckyDrawModal: undefined
+  ForgotPasswordModal: undefined
 }
 
 type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
 type DynamicModalType = keyof typeof _dynamicModal
 
-const _dynamicModal = {
+const _dynamicModal: Record<keyof ModalStackParams, () => Promise<any>> = {
   LoadingModal: () => import('app/components/modal/LoadingModal'),
   AlertModal: () => import('app/components/modal/AlertModal'),
   ReferralModal: () => import('app/components/modal/ReferralModal'),
@@ -90,6 +91,8 @@ const _dynamicModal = {
   DownloadGuideModal: () =>
     import('desktop-ext/features/download/DownloadGuide'),
   LuckyDrawModal: () => import('app/components/modal/LuckyDrawModal'),
+  ForgotPasswordModal: () =>
+    import('desktop-ext/features/auth/forgotPassword/ForgotPasswordScreen'),
 }
 
 function getDynamicComponent(key: DynamicModalType) {
@@ -152,13 +155,16 @@ const modalConfig: ModalConfigType = {
   LuckyDrawModal: {
     modal: getDynamicComponent('LuckyDrawModal'),
   },
+  ForgotPasswordModal: {
+    modal: getDynamicComponent('ForgotPasswordModal'),
+  },
   ...agentModalConfig,
 }
 
 const ModalProvider = ({ children }) => {
   const stack = createModalStack(modalConfig, {
     containerStyle: {
-      maxWidth: useResponsiveValue([768, 768, undefined, undefined, undefined]),
+      maxWidth: useResponsiveValue([768, 768, '100%']),
       zIndex: 2,
     },
     backdropOpacity: 0.6,

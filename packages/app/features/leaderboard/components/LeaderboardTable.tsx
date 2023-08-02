@@ -31,10 +31,10 @@ const LeaderboardTable = ({ maxRow = 10 }: { maxRow?: number }) => {
           {t('leaderboard.rank').toUpperCase()}
         </DataTableTitle>
         <DataTableTitle sx={secondCellStyle} numberOfLines={2}>
-          {t('leaderboard.playerId').toUpperCase()}
+          {t('common.playerName').toUpperCase()}
         </DataTableTitle>
         <DataTableTitle sx={thirdCellStyle} numberOfLines={2}>
-          {t('common.points').toUpperCase()}
+          {t('common.amount').toUpperCase()}
         </DataTableTitle>
         <DataTableTitle sx={fourthCellStyle} numberOfLines={2}>
           {t('deposit.status').toUpperCase()}
