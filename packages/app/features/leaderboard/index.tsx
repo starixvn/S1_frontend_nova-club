@@ -9,6 +9,7 @@ import { createParam } from 'solito'
 import EventScreen from './Event'
 import HistoryScreen from './History'
 import RankingScreen from './Ranking'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 
 enum LEADERBOARD_TAB {
   // EVENT = 'event',
@@ -35,6 +36,7 @@ const LeaderboardScreen = () => {
 
   const { t } = useLocalization()
   const desktop = isDesktop()
+  const { bottom } = useSafeArea()
 
   const renderScene = SceneMap({
     // first: EventScreen,
