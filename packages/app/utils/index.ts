@@ -298,3 +298,13 @@ export const ToThousandValue = ({
     return dividedNumber?.split('.')[0] ?? ''
   }
 }
+
+export function humanFileSize(bytes: number): string {
+  if (!bytes || bytes === 0) return '0KB'
+  const i = Math.floor(Math.log(bytes) / Math.log(1024))
+  return (
+    ((bytes / 1024 ** i) * 1).toFixed(2) +
+    ' ' +
+    ['B', 'KB', 'MB', 'GB', 'TB'][i]
+  )
+}

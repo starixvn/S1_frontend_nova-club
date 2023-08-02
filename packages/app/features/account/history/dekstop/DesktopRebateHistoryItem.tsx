@@ -14,9 +14,9 @@ import { CellViewContainer, TAB_NO } from './DesktopDepositHistoryItem'
 
 export const RebateTableHeader = [
   TAB_NO,
-  { label: 'Date', textStyle: { flex: 1, textAlign: 'left' } },
+  { label: 'common.date', textStyle: { flex: 1, textAlign: 'left' } },
   {
-    label: 'Amount',
+    label: 'common.amount',
     textStyle: { flex: 1, textAlign: 'center' },
   },
   {

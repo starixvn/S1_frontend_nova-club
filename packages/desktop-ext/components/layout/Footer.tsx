@@ -13,10 +13,10 @@ const Footer = () => {
 
   return (
     <Container>
-      <Row sx={{ py: '$3', px: '6%', justifyContent: 'space-between' }}>
+      {/* <Row sx={{ py: '$3', px: '6%', justifyContent: 'space-between' }}>
         <Text>{t('footer.note1')}</Text>
         <Text>{t('footer.note2')}</Text>
-      </Row>
+      </Row> */}
       <FooterNav />
       <Channel />
       <FooterAction />

@@ -4,13 +4,7 @@ import DepositForm from '../component/DepositForm'
 import PendingTransaction from '../component/PendingTransaction'
 
 const OnlineBankingContent = () => {
-  const horizontalMode = useResponsiveValue([
-    '100%',
-    '100%',
-    '100%',
-    '70%',
-    '70%',
-  ])
+  const horizontalMode = useResponsiveValue([false, false, false, true, true])
 
   return (
     <ScrollView contentContainerSx={{ alignItems: 'center' }}>

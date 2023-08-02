@@ -3,6 +3,7 @@ import Icon from 'app/components/Icon'
 import BouncePressable from 'app/components/pressable/BouncePressable'
 import { LoginType } from 'app/features/auth/AuthTypeSelection'
 import useAlert from 'app/hooks/useAlert'
+import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useDrawer } from 'app/hooks/useDrawer'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import useLocalization from 'app/provider/localization'
@@ -24,7 +25,7 @@ export default function DrawerContent() {
   const { t } = useLocalization()
   const { push } = useRouter()
   const { top, bottom } = useSafeArea()
-  const { height } = useWindowDimensions()
+  const { height } = useContainerDimension()
   const { isOpen, toggleDrawer } = useDrawer()
   const { logout } = useOnAppLogout()
   const desktop = useResponsiveValue([false, false, false, true])
@@ -134,27 +135,35 @@ export default function DrawerContent() {
   }
 
   return (
-    <ScrollView
+    <View
       sx={{
-        width: '100%',
-        position: 'absolute',
-        height: height - HEADER_HEIGHT - top,
-        borderTopWidth: 1,
-        borderColor: '$primary.600',
+        flex: 1,
+        // display: 'flex',
+        height: '100%',
+        // flexDirection: 'column',
+        // bg: 'yellow',
+        // justifyContent: 'space-between',
       }}
-      contentContainerSx={{
-        bg: '$primary.500',
-        height: height - HEADER_HEIGHT - top,
-      }}
-      ref={scrollRef}
     >
-      <View
+      <ScrollView
         sx={{
-          flex: 1,
-          justifyContent: 'space-between',
+          // width: '100%',
+          // position: 'absolute',
+          // height: height - HEADER_HEIGHT - top,
+          borderTopWidth: 1,
+          borderColor: '$primary.600',
+          // flex: 1,
+          // bg: 'red',
         }}
+        contentContainerSx={{
+          bg: '$primary.500',
+          height: 350,
+          // flex: 1,
+          // height,
+        }}
+        ref={scrollRef}
       >
-        <View>
+        <View sx={{ bg: '' }}>
           {MENU_LIST.map((item, index) => {
             return (
               <Pressable
@@ -185,81 +194,83 @@ export default function DrawerContent() {
             )
           })}
         </View>
-        <View
-          sx={{
-            flexGrow: 1,
-            justifyContent: 'flex-end',
+      </ScrollView>
+      <View
+        sx={{
+          height: height - 350 + bottom,
+          // bg: 'red',
+          justifyContent: 'flex-end',
+        }}
+      >
+        <ImageBackground
+          source={require('../../../assets/images/banner_referral.jpg')}
+          style={{
+            aspectRatio: 380 / 600,
+            alignItems: 'center',
+            justifyContent: 'center',
+            // backgroundColor: 'green',
           }}
+          resizeMode="contain"
         >
-          <ImageBackground
-            source={require('../../../assets/images/banner_referral.jpg')}
-            style={{
-              aspectRatio: 380 / 600,
-              alignItems: 'center',
+          <View
+            sx={{
+              height: '35%',
+              width: '80%',
               justifyContent: 'center',
+              alignItems: 'center',
             }}
-            resizeMode="contain"
           >
             <View
               sx={{
-                height: '35%',
-                width: '80%',
+                px: '$2',
+                py: '$3',
                 justifyContent: 'center',
                 alignItems: 'center',
+                height: '100%',
+                width: '100%',
               }}
             >
-              <View
+              <Text
+                sx={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}
+              >
+                {t('referral.shareMessage')}
+              </Text>
+              <Text
                 sx={{
-                  px: '$2',
-                  py: '$3',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '100%',
-                  width: '100%',
+                  fontSize: 12,
+                  fontWeight: '700',
+                  textAlign: 'center',
+                  marginTop: 10,
                 }}
               >
-                <Text
-                  sx={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}
-                >
-                  {t('referral.shareMessage')}
+                {t('referral.shareContent')}
+              </Text>
+              <BouncePressable
+                onPress={() => copyToClipboard(referralLink)}
+                sx={{
+                  bg: 'rgba(255,255,255,0.3)',
+                  borderRadius: 20,
+                  marginTop: 10,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  px: '$3',
+                  py: 1,
+                }}
+              >
+                <Text sx={{ fontSize: 14, mx: '$1', fontWeight: 'bold' }}>
+                  {t('common.copy')}
                 </Text>
-                <Text
-                  sx={{
-                    fontSize: 12,
-                    fontWeight: '700',
-                    textAlign: 'center',
-                    marginTop: 10,
-                  }}
-                >
-                  {t('referral.shareContent')}
-                </Text>
-                <BouncePressable
-                  onPress={() => copyToClipboard(referralLink)}
-                  sx={{
-                    bg: 'rgba(255,255,255,0.3)',
-                    borderRadius: 20,
-                    marginTop: 10,
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    px: '$3',
-                    py: 1,
-                  }}
-                >
-                  <Text sx={{ fontSize: 14, mx: '$1', fontWeight: 'bold' }}>
-                    {t('common.copy')}
-                  </Text>
-                  <Icon
-                    name={'copy'}
-                    color={'white'}
-                    size={20}
-                    sx={{ padding: 5, mx: '$1' }}
-                  />
-                </BouncePressable>
-              </View>
+                <Icon
+                  name={'copy'}
+                  color={'white'}
+                  size={20}
+                  sx={{ padding: 5, mx: '$1' }}
+                />
+              </BouncePressable>
             </View>
-          </ImageBackground>
-        </View>
+          </View>
+        </ImageBackground>
       </View>
-    </ScrollView>
+    </View>
   )
 }

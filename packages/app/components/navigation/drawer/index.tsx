@@ -6,13 +6,14 @@ import { Platform, useWindowDimensions } from 'react-native'
 import LazyDrawerContent from './LazyDrawerContent'
 import { HEADER_HEIGHT } from 'app/utils/constant'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import useContainerDimension from 'app/hooks/useContainerDimension'
 
 // TODOƒ
 /* Overlay */
 export default function Drawer({ children }) {
   const { width, height } = useWindowDimensions()
-  const { top } = useSafeArea()
-  const drawerWidth = Math.min(300, width)
+  const { top, bottom } = useSafeArea()
+  const drawerWidth = Math.min(250, width)
   const drawerHeight = height - HEADER_HEIGHT - top
   const useDrawerAnimation = useAnimationState({
     from: { translateX: width },
@@ -50,7 +51,7 @@ export default function Drawer({ children }) {
       <DrawerContainer
         width={drawerWidth}
         height={drawerHeight}
-        offsetTop={HEADER_HEIGHT + top + offsetTop}
+        offsetTop={top + offsetTop}
         state={useDrawerAnimation}
         transition={{ type: 'timing' }}
       >
@@ -80,9 +81,11 @@ const DrawerContainer = styled(MotiView)(
   }) => ({
     position: 'absolute',
     width,
-    height,
+    height: '100%',
     zIndex: 1,
     top: offsetTop,
+    bg: '$primary.500',
+    // bg: 'blue',
   })
 )
 

@@ -4,6 +4,8 @@ import FormContainer from 'app/components/form/FormContainer'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useImagePicker from 'app/hooks/useImagePicker'
 import useLocalization from 'app/provider/localization'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+
 import { Text, View, useDripsyTheme } from 'dripsy'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 import React, { useEffect, useMemo, useState } from 'react'
@@ -20,6 +22,7 @@ function QrTransfer({ isActive }) {
   const viewMinX = (width - FINDER_WIDTH) / 2
   const viewMinY = (height - FINDER_HEIGHT) / 2
   const { theme } = useDripsyTheme()
+  const { bottom } = useSafeArea()
 
   const {
     loading,
@@ -64,7 +67,11 @@ function QrTransfer({ isActive }) {
       <BarCodeScanner
         onBarCodeScanned={isScanning ? handleBarCodeScanned : undefined}
         barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
-        style={[StyleSheet.absoluteFillObject, styles.camera]}
+        style={[
+          StyleSheet.absoluteFillObject,
+          styles.camera,
+          { marginBottom: bottom },
+        ]}
       >
         <BarcodeMask
           width={FINDER_WIDTH}
@@ -86,7 +93,12 @@ function QrTransfer({ isActive }) {
   // }
 
   return (
-    <View sx={{ flex: 1, bg: '$secondary' }}>
+    <View
+      sx={{
+        flex: 1,
+        bg: '$secondary',
+      }}
+    >
       {hasPermission === true ? (
         BarcodeComponent
       ) : (
@@ -99,12 +111,14 @@ function QrTransfer({ isActive }) {
         sx={{
           m: '$4',
           position: 'absolute',
-          bottom: 0,
+          bottom: 0 + bottom,
           left: 0,
           right: 0,
         }}
       >
-        <Button onPress={pickImageFromGallery}>{t('qr.scanGallery')}</Button>
+        <Button sx={{ py: '$2' }} onPress={pickImageFromGallery}>
+          {t('qr.scanGallery')}
+        </Button>
       </View>
       {loading && <LoadingScreen />}
     </View>

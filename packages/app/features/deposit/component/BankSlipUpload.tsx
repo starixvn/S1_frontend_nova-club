@@ -4,6 +4,7 @@ import useLocalization from 'app/provider/localization'
 import { Text, View } from 'dripsy'
 import ImagePicker, { ImagePickerAsset } from 'expo-image-picker'
 import { forwardRef, useImperativeHandle, useState } from 'react'
+import { Platform } from 'react-native'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useUploadDepositSlipMutation } from 'services/deposit'
 
@@ -26,10 +27,15 @@ const BankSlipUpload = forwardRef<BankSlipUploadMethod, BankSlipUploadProps>(
         const receipt = props.value
 
         if (receipt) {
-          file = {
-            uri: receipt.uri,
-            name: receipt.uri.split('/').pop() ?? '',
-            type: `image/${receipt.uri.split('.').pop()}` ?? '',
+          if (Platform.OS === 'web') {
+            file = receipt as File
+          } else {
+            let value = receipt as ImagePicker.ImagePickerAsset
+            file = {
+              uri: value?.uri,
+              name: value.uri.split('/').pop() ?? '',
+              type: `image/${value.uri.split('.').pop()}` ?? '',
+            }
           }
         }
 

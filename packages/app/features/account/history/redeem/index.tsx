@@ -22,6 +22,7 @@ type HistoryListingDataType = Extract<
 >[number]
 
 const RedeemHistory = () => {
+  const { t } = useLocalization()
   const desktop = isDesktop()
   const responsiveWidth = useResponsiveValue(['100%', '100%', '100%', '90%'])
 
@@ -49,7 +50,7 @@ const RedeemHistory = () => {
       }}
     >
       <Text sx={{ pb: '$pagePadding', fontWeight: 'bold' }}>
-        REDEEM HISTORY
+        {t('menu.tab.coinHistory')}
       </Text>
       <HistoryListing<HistoryListingDataType, typeof fetchParams>
         fetchParams={fetchParams}

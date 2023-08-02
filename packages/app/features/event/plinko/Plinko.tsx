@@ -15,7 +15,7 @@ const Plinko = () => {
   const { back } = useRouter()
   const loginInfo = useAppSelector((s) => s.auth.info)
   const locale = useAppSelector((s) => s.setting.locale)
-  const { top } = useSafeArea()
+  const { top, bottom } = useSafeArea()
   const { theme } = useDripsyTheme()
   const { height } = useWindowDimensions()
 
@@ -44,6 +44,7 @@ const Plinko = () => {
       startInLoadingState
       containerStyle={{
         paddingTop: top,
+        paddingBottom: bottom,
         backgroundColor: theme.colors
           ? theme.colors.$primary[700]
           : 'transparent',
