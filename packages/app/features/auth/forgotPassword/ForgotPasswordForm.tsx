@@ -2,11 +2,13 @@ import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
 import Button from 'app/components/common/Button'
 import FormContainer from 'app/components/form/FormContainer'
 import Input from 'app/components/form/Input'
+import { MOBILE_PREFIX } from 'app/constants/country'
 import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import isDesktop from 'app/utils/isDesktop'
-import { View, styled } from 'dripsy'
+import { USERNAME_MAX_LENGTH } from 'app/utils/validation'
+import { styled } from 'dripsy'
 import { FormikProps, FormikTouched } from 'formik'
 import { ComponentProps, useRef } from 'react'
 import { Platform, TextInput } from 'react-native'
@@ -14,11 +16,9 @@ import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useSendPasswordRecoveryOtpMutation } from 'services/authApi'
 import { useRouter } from 'solito/router'
 import ReceiveOTPContact from '../components/ReceiveOTPContact'
-import { MOBILE_PREFIX } from 'app/constants/country'
 import useForgotPassword, {
   ForgotPasswordFormValues,
 } from './hook/useForgotPassword'
-import { USERNAME_MAX_LENGTH } from 'app/utils/validation'
 
 const StyledFormContainer = styled(FormContainer)({
   py: '$4',
@@ -139,6 +139,7 @@ const ForgotPasswordForm = ({
           onChangeText={handleChange('username')}
           autoCapitalize="none"
           maxLength={USERNAME_MAX_LENGTH}
+          autoComplete="username"
           onSubmitEditing={() => {
             contactNumRef.current?.focus()
           }}
@@ -157,7 +158,9 @@ const ForgotPasswordForm = ({
         icon="icon-hp"
         textContentType="telephoneNumber"
         prefix="+84"
-        inputMode="numeric"
+        inputMode="tel"
+        keyboardType="number-pad"
+        autoComplete="tel"
         maxLength={9}
         action={
           <TimerButton

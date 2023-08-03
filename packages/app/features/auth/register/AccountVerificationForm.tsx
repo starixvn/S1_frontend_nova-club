@@ -1,22 +1,24 @@
+import { useAgentRegisterOtpMutation } from 'agent/services/authApi'
 import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
 import Button from 'app/components/common/Button'
 import CheckBox from 'app/components/common/CheckBox'
 import FormContainer from 'app/components/form/FormContainer'
 import Input from 'app/components/form/Input'
+import { MOBILE_PREFIX } from 'app/constants/country'
 import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
+import { ModalStackParams } from 'app/provider/modal'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Pressable, Text, View, styled, useResponsiveValue } from 'dripsy'
 import { FormikProps } from 'formik'
-import { ComponentProps, useCallback, useRef } from 'react'
-import { Linking, TextInput } from 'react-native'
+import { ComponentProps, useRef } from 'react'
+import { Linking, Platform, TextInput } from 'react-native'
+import { ModalComponentProp } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useSendRegistrationOtpMutation } from 'services/authApi'
 import { useRouter } from 'solito/router'
-import { RegisterFormValues } from './RegisterScreen'
 import ReceiveOTPContact from '../components/ReceiveOTPContact'
-import { ModalComponentProp } from 'react-native-modalfy'
-import { ModalStackParams } from 'app/provider/modal'
+import { RegisterFormValues } from './RegisterScreen'
 
 const StyledFormContainer = styled(FormContainer)({
   py: '$4',
@@ -66,23 +68,14 @@ const AccountVerificationForm = ({
     { isLoading: isOtpApiLoading, isSuccess: isMemberOtpSucess },
   ] = useSendRegistrationOtpMutation()
 
+  const [
+    sendAgentRegistrationOtp,
+    { isLoading: isAgentOtpLoading, isSuccess: isAgentOtpSuccess },
+  ] = useAgentRegisterOtpMutation()
+
   const onCheckboxCheck = () => {
     setFieldValue('terms', !values.terms)
   }
-
-  const onSubmit = useCallback(async () => {
-    setTouched({
-      contactNumber: true,
-      verifyCode: true,
-      terms: true,
-    })
-
-    const { contactNumber, verifyCode, terms } = await validateForm()
-
-    if (contactNumber || verifyCode || terms || !isMemberOtpSucess) return
-
-    submitForm()
-  }, [isMemberOtpSucess, setTouched, submitForm, validateForm])
 
   const sendOTP = async () => {
     isOtpButtonLoading.current = true
@@ -105,6 +98,24 @@ const AccountVerificationForm = ({
       showAlert(error)
     }
   }
+
+  const sendAgentOTP = async () => {
+    try {
+      const { data, message, success } = await sendAgentRegistrationOtp({
+        username: values.username?.toLowerCase(),
+        // WIP: Prefix should not be hardcoded
+        mobile_no: MOBILE_PREFIX.VND + values.contactNumber,
+      }).unwrap()
+
+      if (success) {
+        OTPRef.current?.startOtpTimer()
+        Toast.show({ type: 'success', text1: message })
+      }
+    } catch (error) {
+      showAlert(error)
+    }
+  }
+
   const isContactNumValid = async () => {
     setTouched({ contactNumber: true })
     const { contactNumber } = await validateForm()
@@ -115,10 +126,10 @@ const AccountVerificationForm = ({
   }
   const onSendOtp = async () => {
     const isValid = await isContactNumValid()
-    isValid && sendOTP()
-    // if (isValid) {
-    //   isAgent ? sendAgentOTP() : sendOTP()
-    // }
+
+    if (isValid) {
+      isAgent ? sendAgentOTP() : sendOTP()
+    }
   }
   const handlePressTnC = () => {
     if (modal) {
@@ -142,7 +153,7 @@ const AccountVerificationForm = ({
             accessibilityRole="button"
             ref={OTPRef}
             title={t('authentication.send')}
-            loading={isOtpApiLoading}
+            loading={isOtpApiLoading || isAgentOtpLoading}
             onPress={onSendOtp}
             sx={{
               width: 'auto',
@@ -175,7 +186,10 @@ const AccountVerificationForm = ({
         }
       />
       <Input
-        inputContainerSx={{ width: '100%' }}
+        inputContainerSx={{
+          width: '100%',
+          opacity: isMemberOtpSucess || isAgentOtpSuccess ? 1 : 0.3,
+        }}
         icon="otp"
         placeholder={t('authentication.enterOtp')}
         keyboardType="number-pad"
@@ -187,7 +201,8 @@ const AccountVerificationForm = ({
         onChangeText={handleChange('verifyCode')}
         maxLength={6}
         ref={otpFieldRef}
-        onSubmitEditing={onSubmit}
+        onSubmitEditing={submitForm}
+        editable={isMemberOtpSucess || isAgentOtpSuccess}
         error={
           touched.verifyCode && errors.verifyCode
             ? t(errors.verifyCode, {
@@ -195,6 +210,9 @@ const AccountVerificationForm = ({
               })
             : undefined
         }
+        {...(Platform.OS === 'web' && {
+          disabled: !isMemberOtpSucess && !isAgentOtpSuccess,
+        })}
       />
 
       <View
@@ -231,7 +249,11 @@ const AccountVerificationForm = ({
         sx={{ bg: '$secondary.500', marginTop: '$3' }}
         onPress={submitForm}
         loading={isSubmitting}
-        disabled={!values.terms || !isMemberOtpSucess || !!errors.verifyCode}
+        disabled={
+          !values.terms ||
+          (!isMemberOtpSucess && !isAgentOtpSuccess) ||
+          !!errors.verifyCode
+        }
       >
         {t('common.submit')}
       </Button>

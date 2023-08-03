@@ -26,9 +26,6 @@ const ResetPasswordForm = ({ formik, ...rest }: ResetPasswordFormProps) => {
     errors,
     touched,
     submitForm,
-    setTouched,
-    setFieldValue,
-    validateForm,
     isSubmitting,
   } = formik
 
@@ -50,6 +47,7 @@ const ResetPasswordForm = ({ formik, ...rest }: ResetPasswordFormProps) => {
         onChangeText={handleChange('password')}
         maxLength={PASSWORD_MAX_LENGTH}
         ref={passwordFieldRef}
+        autoComplete="password-new"
         onSubmitEditing={() => confirmPasswordFieldRef.current?.focus()}
         error={
           touched.password && errors.password
@@ -69,6 +67,7 @@ const ResetPasswordForm = ({ formik, ...rest }: ResetPasswordFormProps) => {
         onChangeText={handleChange('confirmPassword')}
         maxLength={PASSWORD_MAX_LENGTH}
         ref={confirmPasswordFieldRef}
+        autoComplete="password-new"
         onSubmitEditing={submitForm}
         error={
           touched.confirmPassword && errors.confirmPassword

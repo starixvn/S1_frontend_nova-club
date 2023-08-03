@@ -9,14 +9,14 @@ import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useRouter } from 'solito/router'
 
-const memberRoute = {
+export const memberRoute = {
   key: 'first',
   title: 'common.player',
   index: 0,
   type: LoginType.Member,
 }
 
-const agentRoute = {
+export const agentRoute = {
   key: 'second',
   title: 'common.agent',
   index: 1,
@@ -69,7 +69,8 @@ export default function LoginScreen() {
           routes={routes}
         />
       </View>
-      <View>
+
+      <View sx={{ width: '100%', maxWidth: 600 }}>
         <LoginForm isAgent={isAgentLogin} />
       </View>
     </AuthLayout>

@@ -48,6 +48,7 @@ export default function RegisterScreen({ modal }: Props) {
     <AuthLayout
       sx={{ mt: modal ? 0 : '$5' }}
       headerDesc={t('authentication.accountReg')}
+      isAbleToClose={Boolean(modal)}
     >
       <View ref={rootRef} sx={{ overflow: 'hidden', flex: 1, pt: '$4' }}>
         <Row sx={{ flex: 1 }}>
@@ -66,7 +67,7 @@ export default function RegisterScreen({ modal }: Props) {
                 routes={routes}
                 buttonProps={{
                   sx: {
-                    py: 0,
+                    pb: 0,
                   },
                 }}
                 buttonTextProps={{
