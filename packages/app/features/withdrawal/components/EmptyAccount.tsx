@@ -18,7 +18,9 @@ const EmptyAccount = ({ label, onClose, onCloseActionSheet }) => {
         alignItems: 'center',
       }}
     >
-      <Button onPress={() => handleClose()}>{label}</Button>
+      <Button sx={{ py: '$2' }} onPress={() => handleClose()}>
+        {label}
+      </Button>
     </View>
   )
 }

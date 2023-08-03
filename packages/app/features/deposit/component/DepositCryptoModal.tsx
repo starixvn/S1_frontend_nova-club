@@ -1,6 +1,6 @@
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useLocalization from 'app/provider/localization'
-import { Box, Text } from 'dripsy'
+import { Box, ScrollView, Text } from 'dripsy'
 import React from 'react'
 import QRCode from 'react-native-qrcode-svg'
 import { SubmitDepositCryptoItem } from 'services/deposit.type'
@@ -55,7 +55,7 @@ const DepositCryptoModal = ({ modal: { closeModal, getParam } }) => {
           <Box sx={{ width: '100%', alignItems: 'center', mb: '$4' }}>
             <QRCode
               value={data.payment_address}
-              size={Math.min(width * 0.7, 250)}
+              size={Math.min(150, width * 0.7)}
               ecl="H"
               quietZone={12}
               logoBackgroundColor="white"
@@ -87,7 +87,11 @@ const DepositCryptoModal = ({ modal: { closeModal, getParam } }) => {
 
           <Box sx={{ alignItems: 'center', mt: '$1' }}>
             <Text
-              sx={{ textAlign: 'center', fontWeight: 'bold', color: '$error' }}
+              sx={{
+                textAlign: 'center',
+                fontWeight: 'bold',
+                color: '$error',
+              }}
             >
               {t('deposit.paymentTime')}
             </Text>

@@ -51,7 +51,11 @@ const BankCardForm = ({
       )}
 
       <View sx={{ m: 20 }}>
-        <Button disabled={bankList && bankList.length >= 3} onPress={onPress}>
+        <Button
+          sx={{ py: '$2' }}
+          disabled={bankList && bankList.length >= 3}
+          onPress={onPress}
+        >
           {buttonLabel}
         </Button>
       </View>

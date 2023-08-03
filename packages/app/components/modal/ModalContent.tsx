@@ -125,8 +125,9 @@ const TextTitle = styled(Text)({
   color: 'white',
   fontWeight: 'bold',
   textAlign: 'center',
-  fontSize: [14, 14, 16, 17],
+  fontSize: [16, 16, 16, 17],
   mt: FONT_TOP_OFFSET,
+  textTransform: 'uppercase',
 })
 
 const ViewBody = styled(View)({

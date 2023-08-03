@@ -208,7 +208,7 @@ const IdTransfer = () => {
         <Button
           onPress={handleSubmit}
           disabled={!isValid || !dirty}
-          sx={{ mt: '$4' }}
+          sx={{ mt: '$4', py: '$2' }}
         >
           {t('common.confirm')}
         </Button>

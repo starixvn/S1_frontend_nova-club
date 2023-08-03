@@ -111,7 +111,8 @@
     "userAgreement": "User Agreement",
     "username": "Username",
     "withdraw": "Withdraw",
-    "enter": "Enter"
+    "enter": "Enter",
+    "confirmDelete": "Are you sure you want to delete? It cannot be restored after deletion!"
   },
   "contact": {
     "contactVia": "Contact via:",
