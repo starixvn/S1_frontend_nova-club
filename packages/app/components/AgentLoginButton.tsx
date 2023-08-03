@@ -1,10 +1,11 @@
+import { LoginType } from 'app/features/auth/AuthTypeSelection'
+import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import React from 'react'
-import Shadow from './Shadow'
-import Button from './common/Button'
-import useLocalization from 'app/provider/localization'
 import { useModal } from 'react-native-modalfy'
 import { useRouter } from 'solito/router'
+import Shadow from './Shadow'
+import Button from './common/Button'
 
 const AgentLoginButton = () => {
   const agentToken = useAppSelector((s) => s.agent.access_token)
@@ -29,7 +30,11 @@ const AgentLoginButton = () => {
           borderRadius: 15,
         }}
         onPress={() =>
-          agentToken ? push('/agent/profile') : openModal('AgentLoginModal')
+          agentToken
+            ? push('/agent/profile')
+            : openModal('AgentLoginModal', {
+                t: LoginType.Agent,
+              })
         }
         contentProps={{ sx: { py: 2 } }}
         titleProps={{

@@ -11,6 +11,7 @@ import { useRouter } from 'solito/router'
 // import * as DropdownMenu from 'zeego/dropdown-menu'
 import { DropdownMenu } from 'agent/components/Dropdown'
 import useSupportItemList from 'app/features/customerSupport/useSupportItemList'
+import MenuArrow from './components/MenuArrow'
 
 const smallIconHeight = AGENT_TAB_HEIGHT * 0.5
 interface MainMenuTestProps {
@@ -98,48 +99,7 @@ const MainMenu = () => {
     // }
   }
 
-  return Platform.OS === 'web' ? (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
-        <TouchableOpacity>
-          <Icon name="menu" size={smallIconHeight} />
-        </TouchableOpacity>
-      </DropdownMenu.Trigger>
-      <DropdownMenu.Content
-        align="end"
-        alignOffset={-12}
-        side="top"
-        sideOffset={20}
-        style={{
-          backgroundColor: 'rgba(255,255,255,0.8)',
-          borderTopLeftRadius: 20,
-          paddingTop: 12,
-          borderWidth: 0,
-        }}
-      >
-        {mainMenuList.map((i, index) => {
-          const lastItem = index === mainMenuList.length - 1
-          const isSwitchAcc = index === mainMenuList.length - 2
-
-          return (
-            <StyledMenuWrapList
-              key={i.label}
-              onPress={() => onSelectMenuItem(i)}
-            >
-              <Icon
-                name={i.icon}
-                size={23}
-                color={lastItem ? 'red' : 'black'}
-              />
-              <StyleMenuText sx={{ color: lastItem ? 'red' : 'black' }}>
-                {t(i.label)}
-              </StyleMenuText>
-            </StyledMenuWrapList>
-          )
-        })}
-      </DropdownMenu.Content>
-    </DropdownMenu.Root>
-  ) : (
+  return (
     <TouchableOpacity
       onPress={() =>
         openModal('AgentMenuModal', { mainMenuList: mainMenuList })
@@ -151,57 +111,49 @@ const MainMenu = () => {
 }
 
 {
-  /* <DropdownMenu.Item key={i.label} textValue={i.label}>
-<StyledMenuWrapList onPress={() => onSelectMenuItem(i)}>
-  <Icon
-    name={i.icon}
-    size={23}
-    color={lastItem ? 'red' : 'black'}
-  />
-  <StyleMenuText sx={{ color: lastItem ? 'red' : 'black' }}>
-    {t(i.label)}
-  </StyleMenuText>
-</StyledMenuWrapList>
-</DropdownMenu.Item> */
+  /* <DropdownMenu.Root>
+  <DropdownMenu.Trigger>
+    <TouchableOpacity>
+      <Icon name="menu" size={smallIconHeight} />
+    </TouchableOpacity>
+  </DropdownMenu.Trigger>
+  <DropdownMenu.Content
+    align="end"
+    alignOffset={-12}
+    side="top"
+    sideOffset={20}
+    style={{
+      backgroundColor: 'rgba(255,255,255,0.8)',
+      borderTopLeftRadius: 20,
+      // paddingTop: 12,
+      borderWidth: 0,
+    }}
+  >
+    {mainMenuList.map((i, index) => {
+      const lastItem = index === mainMenuList.length - 1
+      const isSwitchAcc = index === mainMenuList.length - 2
+
+      return (
+        <StyledMenuWrapList
+          key={i.label}
+          onPress={() => onSelectMenuItem(i)}
+          hitSlop={{ top: -20, bottom: -20, left: 50, right: 50 }}
+        >
+          <Icon name={i.icon} size={23} color={lastItem ? 'red' : 'black'} />
+          <StyleMenuText sx={{ color: lastItem ? 'red' : 'black' }}>
+            {t(i.label)}
+          </StyleMenuText>
+        </StyledMenuWrapList>
+      )
+    })}
+  </DropdownMenu.Content>
+</DropdownMenu.Root> */
 }
-// {mainMenuList.map((i, index) => {
-//   const lastItem = index === mainMenuList.length - 1
-//   const isSwitchAcc = index === mainMenuList.length - 2
-//   return (
-//     <DropdownMenu.Item
-//       key={i.label}
-//       textValue={i.label}
-//       onSelect={() => onSelectMenuItem(i)}
-//       style={{
-//         flexDirection: 'row',
-//         paddingHorizontal: '$3',
-//         paddingVertical: '$1',
-//         justifyContent: 'space-between',
-//         alignItems: 'center',
-//       }}
-//     >
-//       <DropdownMenu.ItemIcon>
-//         <Icon
-//           name={i.icon}
-//           size={23}
-//           color={lastItem ? 'red' : 'black'}
-//         />
-//       </DropdownMenu.ItemIcon>
-//       <DropdownMenu.ItemTitle
-//         style={{
-//           fontSize: 16,
-//           color: lastItem ? 'red' : 'black',
-//         }}
-//       >
-//         {t(i.label)}
-//       </DropdownMenu.ItemTitle>
-//     </DropdownMenu.Item>
-//   )
-// })}
+
 export const StyledMenuWrapList = styled(TouchableOpacity)({
   flexDirection: 'row',
   px: '$3',
-  py: '$1',
+  my: '$1',
   justifyContent: 'space-between',
   alignItems: 'center',
 })

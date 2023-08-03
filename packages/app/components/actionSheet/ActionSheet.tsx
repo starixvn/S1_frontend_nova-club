@@ -56,6 +56,7 @@ const ActionSheet = ({
         borderTopRightRadius: 24,
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0,
+        bg: 'transparent',
         maxWidth: theme.sizes.container,
         ...(containerStyleSx &&
           (typeof containerStyleSx === 'function'

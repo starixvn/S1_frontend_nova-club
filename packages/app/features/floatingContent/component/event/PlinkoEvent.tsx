@@ -1,3 +1,4 @@
+import { DEV_DOMAIN } from '@env'
 import Image from 'app/components/common/Image'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useAppSelector } from 'app/provider/redux/store'
@@ -23,7 +24,7 @@ const PlinkoEvent = ({ size }: { size: number }) => {
 
   const handlePress = () => {
     if (isDesktop) {
-      Linking.openURL('https://stage2.gball8.com/event/plinko')
+      Linking.openURL(`${DEV_DOMAIN}/event/plinko`)
     } else push('/event/plinko')
   }
 

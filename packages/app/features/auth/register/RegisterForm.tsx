@@ -16,6 +16,8 @@ import { ComponentProps, useCallback, useEffect, useRef, useState } from 'react'
 import { TextInput } from 'react-native'
 import { useLazyCheckUsernameQuery } from 'services/authApi'
 import { RegisterFormValues } from './RegisterScreen'
+import ReferralInfo from './ReferralInfo'
+
 const StyledFormContainer = styled(FormContainer)({
   py: '$4',
 })
@@ -65,7 +67,6 @@ const RegisterForm = ({
       password: true,
       confirmPassword: true,
     })
-    handleCheckingUsername()
 
     const { username, confirmPassword, password } = await validateForm()
 
@@ -171,6 +172,7 @@ const RegisterForm = ({
         onChangeText={onUsernameChange}
         maxLength={USERNAME_MAX_LENGTH}
         ref={usernameFieldRef}
+        autoCorrect={false}
         onSubmitEditing={() => {
           passwordFieldRef.current?.focus()
         }}
@@ -197,6 +199,7 @@ const RegisterForm = ({
         onChangeText={handleChange('password')}
         maxLength={PASSWORD_MAX_LENGTH}
         ref={passwordFieldRef}
+        autoComplete="password-new"
         onSubmitEditing={() => confirmPasswordFieldRef.current?.focus()}
         error={
           touched.password && errors.password
@@ -218,6 +221,7 @@ const RegisterForm = ({
         onChangeText={handleChange('confirmPassword')}
         maxLength={PASSWORD_MAX_LENGTH}
         ref={confirmPasswordFieldRef}
+        autoComplete="password-new"
         onSubmitEditing={onSubmit}
         error={
           touched.confirmPassword && errors.confirmPassword
@@ -227,6 +231,8 @@ const RegisterForm = ({
             : undefined
         }
       />
+
+      {isAgent ? null : <ReferralInfo />}
 
       {/* Act as a margin for bottom */}
       {desktop && (

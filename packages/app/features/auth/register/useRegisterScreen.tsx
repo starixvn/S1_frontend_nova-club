@@ -1,27 +1,29 @@
+import { useAgentRegisterMutation } from 'agent/services/authApi'
+import { useLazyUserInfoQuery } from 'agent/services/userApi'
+import { AgentAuthActions } from 'agent/store/agentAuthReducer'
+import { MOBILE_PREFIX } from 'app/constants/country'
 import useAlert from 'app/hooks/useAlert'
+import useContainerWidth from 'app/hooks/useContainerWidth'
 import useUniqueId from 'app/hooks/useUniqueId'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
-import { APP_DEVICE_IOS, APP_DEVICE_ANDROID } from 'app/utils/constant'
+import { AuthActions } from 'app/store/authReducer'
+import { TempSettingActions } from 'app/store/tempSetting.slice'
+import { APP_DEVICE_ANDROID, APP_DEVICE_IOS } from 'app/utils/constant'
 import { isBannedTrackingCode } from 'app/utils/referralUtil'
 import validation from 'app/utils/validation'
 import { FormikHelpers, useFormik } from 'formik'
 import { useDynamicAnimation } from 'moti'
-import { useState, useMemo, useEffect, RefObject } from 'react'
-import { Platform } from 'react-native'
+import { RefObject, useEffect, useMemo, useState } from 'react'
+import { Platform, View as RNView } from 'react-native'
+import { useModal } from 'react-native-modalfy'
 import { useRegisterMutation } from 'services/authApi'
+import { LoginResult, Shield_Action } from 'services/authApi.type'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import { createParam } from 'solito'
+import { useRouter } from 'solito/router'
+import * as Yup from 'yup'
 import { LoginType } from '../AuthTypeSelection'
 import { RegisterFormValues } from './RegisterScreen'
-import useContainerWidth from 'app/hooks/useContainerWidth'
-import { View as RNView } from 'react-native'
-import * as Yup from 'yup'
-import { TempSettingActions } from 'app/store/tempSetting.slice'
-import { LoginResult, Shield_Action } from 'services/authApi.type'
-import { useRouter } from 'solito/router'
-import { AuthActions } from 'app/store/authReducer'
-import { useResponsiveValue } from 'dripsy'
-import isDesktop from 'app/utils/isDesktop'
-import { useModal } from 'react-native-modalfy'
 
 const { useParam } = createParam<{ t: LoginType }>()
 
@@ -34,10 +36,8 @@ export default function useRegisterScreen(rootView: RefObject<RNView>) {
   const { showAlert } = useAlert()
   const width = useContainerWidth(rootView)
   const dispatch = useAppDispatch()
-  const { push, replace } = useRouter()
-  const { closeModal } = useModal()
-
-  const responsiveMode = useResponsiveValue([false, false, false, true, true])
+  const { replace } = useRouter()
+  const { closeModal, currentModal } = useModal()
 
   const [routes] = useState([
     { key: 'first', title: 'common.player', index: 0, type: LoginType.Member },
@@ -57,7 +57,14 @@ export default function useRegisterScreen(rootView: RefObject<RNView>) {
   const trackingCode = referral?.trackingCode
   const { uuid } = useUniqueId()
   const [register] = useRegisterMutation()
-  const desktop = isDesktop()
+  const [agentRegister] = useAgentRegisterMutation()
+  const [getUserInfo] = useLazyUserInfoQuery()
+
+  const isLoggedIn = useAppSelector((s) => !!s.auth.info)
+  const { data } = usePlayerProfileQuery(undefined, {
+    skip: !isLoggedIn,
+  })
+  const referralCode = data?.referral_code ?? ''
 
   const handlePress = (value) => {
     setIsAgentLogin(index === 0 ? LoginType.Agent : LoginType.Member)
@@ -110,12 +117,11 @@ export default function useRegisterScreen(rootView: RefObject<RNView>) {
         TempSettingActions.setSyncShieldActionType(Shield_Action.REGISTER)
       )
 
-      if (Platform.OS === 'web' && desktop) {
+      if (currentModal) {
         closeModal()
-      } else {
-        replace('/')
       }
 
+      replace('/')
       setStatus(true)
     } else {
       showAlert(message)
@@ -131,7 +137,39 @@ export default function useRegisterScreen(rootView: RefObject<RNView>) {
       contactNumber,
     }: RegisterFormValues,
     { setStatus }: FormikHelpers<RegisterFormValues>
-  ) => {}
+  ) => {
+    const { result, success, message } = await agentRegister({
+      currency: {
+        VND: {
+          CASH: '1',
+        },
+      },
+      username: username?.toLowerCase(),
+      password,
+      confirmpassword: confirmPassword,
+      // WIP: Prefix should not be hardcoded
+      mobile_no: MOBILE_PREFIX.VND + contactNumber,
+      // terms,
+      referral_code: isLoggedIn ? referralCode : '',
+      OTP: verifyCode,
+    }).unwrap()
+
+    if (success && result) {
+      dispatch(AgentAuthActions.setAgentAuthToken(result.data.access_token))
+      const resp = await getUserInfo().unwrap()
+
+      if (currentModal) {
+        closeModal()
+      }
+
+      replace('/agent/profile')
+      /* to indicate the register is successfull and used to persist loading on submit button */
+      setStatus(true)
+    } else {
+      showAlert(message)
+    }
+    setIsSubmitting(false)
+  }
 
   const onSubmit = async (
     registerValues: RegisterFormValues,
@@ -140,7 +178,7 @@ export default function useRegisterScreen(rootView: RefObject<RNView>) {
     try {
       setIsSubmitting(true)
       await (isAgentLogin
-        ? console.log('handle agent register')
+        ? handleAgentRegister(registerValues, formikHelpers)
         : handleMemberRegister(registerValues, formikHelpers))
     } catch (error) {
       showAlert(error)

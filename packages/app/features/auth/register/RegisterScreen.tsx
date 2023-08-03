@@ -1,14 +1,14 @@
 import CustomTabBar from 'app/components/navigation/CustomTabBar'
-import { P, View } from 'dripsy'
+import useLocalization from 'app/provider/localization'
+import { View } from 'dripsy'
 import { MotiView } from 'moti'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { Platform, View as RNView } from 'react-native'
+import { useModal } from 'react-native-modalfy'
 import AuthLayout from '../AuthLayout'
 import AccountVerificationForm from './AccountVerificationForm'
 import RegisterForm from './RegisterForm'
 import useRegisterScreen, { Register_Screen } from './useRegisterScreen'
-import { useModal } from 'react-native-modalfy'
-import useLocalization from 'app/provider/localization'
 
 export type RegisterFormValues = {
   username: string
@@ -34,6 +34,7 @@ const RegisterScreen = () => {
     formik,
     onRegisterSuccess,
     onBack,
+    currentScreen,
   } = useRegisterScreen(rootRef)
 
   useEffect(() => {
@@ -67,11 +68,13 @@ const RegisterScreen = () => {
             />
           </View>
 
-          <RegisterForm
-            isAgent={isAgentLogin}
-            formik={formik}
-            onSuccess={onRegisterSuccess}
-          />
+          <View sx={{ width: '100%', maxWidth: 600 }}>
+            <RegisterForm
+              isAgent={isAgentLogin}
+              formik={formik}
+              onSuccess={onRegisterSuccess}
+            />
+          </View>
         </AuthLayout>
       </MotiView>
 
@@ -81,9 +84,19 @@ const RegisterScreen = () => {
           type: 'timing',
           duration: 400,
         }}
-        style={{
-          width,
-        }}
+        style={[
+          {
+            width,
+          },
+          Platform.select({
+            web: {
+              display:
+                currentScreen === Register_Screen.ACCOUNT_VERIFICATION
+                  ? 'flex'
+                  : 'none',
+            },
+          }),
+        ]}
       >
         <AuthLayout
           onBack={onBack}
