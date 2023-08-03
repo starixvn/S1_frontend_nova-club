@@ -174,7 +174,8 @@
       "n3": "Bạn sẽ được chuyển hướng\ntải ứng dụng Vui Fit trên App Store",
       "n4": "Bấm \"Lấy\" để tải ứng dụng Vui Fit",
       "n5": "Mở Vui Fit để vào VUI123. Tận hưởng trò chơi đỉnh cao\nvà phần thưởng hấp dẫn"
-    }
+    },
+    "guideInstall": "Hướng dẫn cài đặt"
   },
   "event": {
     "catEvent": {
@@ -247,9 +248,10 @@
     "win/loss": "Thắng/Thua"
   },
   "footer": {
+    "power": "Cung cấp bởi",
     "aboutUs": "Về chúng tôi",
     "contactUs": "Liên hệ",
-    "copyright": "© Copyright 2023 VUI123. Bản quyền thuộc về VUI123 2023",
+    "copyright": "© Bản quyền 2023 VUI123. Bản quyền thuộc về VUI123 2023",
     "note1": "Trở thành đối tác của chúng tôi",
     "note2": "VUI123 cam kết ủng hộ cá cược có trách nhiệm",
     "responsibleGaming": "Cược có trách nhiệm"

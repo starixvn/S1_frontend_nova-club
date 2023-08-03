@@ -113,8 +113,14 @@ const DownloadGuide = ({ modal: { closeModal, getParam } }) => {
             <AnimatePresence>
               <View sx={{ justifyContent: 'center' }}>
                 <View sx={{ alignItems: 'center' }}>
-                  <Text sx={{ fontWeight: 'bold', fontSize: 20 }}>
-                    GUIDE TO INSTALL
+                  <Text
+                    sx={{
+                      fontWeight: 'bold',
+                      fontSize: 20,
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    {t('download.guideInstall')}
                   </Text>
                   <Image
                     source={require('../../../app/assets/images/common/logo.png')}

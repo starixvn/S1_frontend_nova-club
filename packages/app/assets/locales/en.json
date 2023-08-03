@@ -175,7 +175,8 @@
       "n3": "You will be redirected to\n\"Vui Fit app on App Store\ninstead of VUI123 app\"",
       "n4": "Click \"Get\" to install the\n\"Vui Fit\" app",
       "n5": "Open \"Vui Fit\" app to launch\nVUI123 app. Start enjoying your\nexclusive bonus and games"
-    }
+    },
+    "guideInstall": "Guide to Install"
   },
   "event": {
     "catEvent": {
@@ -248,6 +249,7 @@
     "win/loss": "Win/Loss"
   },
   "footer": {
+    "power": "Powered By",
     "aboutUs": "About Us",
     "contactUs": "Contact Us",
     "copyright": "© Copyright 2023 VUI123. All Rights Reserved.",
