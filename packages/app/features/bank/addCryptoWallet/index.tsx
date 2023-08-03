@@ -89,7 +89,7 @@ const AddCryptoWalletScreen = () => {
           loading={isSubmitting}
           disabled={!isValid || !dirty}
           onPress={submitForm}
-          sx={{ my: 20 }}
+          sx={{ my: 20, py: '$2' }}
         >
           {t('common.next')}
         </Button>
