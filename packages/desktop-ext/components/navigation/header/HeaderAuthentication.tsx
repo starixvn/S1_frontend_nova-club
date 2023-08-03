@@ -8,10 +8,15 @@ import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
 import isDesktop from 'app/utils/isDesktop'
 import { PASSWORD_MAX_LENGTH, USERNAME_MAX_LENGTH } from 'app/utils/validation'
-import { View } from 'dripsy'
-import React, { ElementRef, useRef } from 'react'
+import { Pressable, Row, Text, View, styled, useResponsiveValue } from 'dripsy'
+import React, { ElementRef, useRef, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import { useRouter } from 'solito/router'
+
+const StyledForgotPasswordText = styled(Text)({
+  fontSize: 12,
+  fontWeight: '500',
+})
 
 const HeaderAuthentication = () => {
   const { push } = useRouter()
@@ -20,6 +25,19 @@ const HeaderAuthentication = () => {
   const { openModal } = useModal()
   const { showAlert } = useAlert()
   const passwordFieldRef = useRef<ElementRef<typeof Input>>(null)
+
+  const [forgotPasswordPosition, setForgotPasswordPosition] = useState({
+    x: 0,
+    y: 0,
+  })
+
+  const headerGapResponsiveValue = useResponsiveValue([
+    '$2',
+    '$2',
+    '$2',
+    '$2',
+    '$3',
+  ])
 
   const { formik } = useLoginForm()
   const {
@@ -74,49 +92,63 @@ const HeaderAuthentication = () => {
       sx={{
         flexDirection: 'row',
         alignItems: 'center',
-        gap: ['$2', '$2', '$2', '$2', '$3'],
+        gap: headerGapResponsiveValue,
       }}
     >
-      <Input
-        autoCapitalize={'none'}
-        sx={{ mb: 0, width: 200 }}
-        inputContainerSx={{ py: '$1' }}
-        icon="profile-rounded"
-        placeholder={t('common.username')}
-        textContentType="username"
-        value={values.username}
-        onBlur={handleBlur('username')}
-        onChangeText={handleChange('username')}
-        onSubmitEditing={() => {
-          passwordFieldRef.current?.focus()
-        }}
-        maxLength={USERNAME_MAX_LENGTH}
-      />
-      <Input
-        ref={passwordFieldRef}
-        autoCapitalize={'none'}
-        sx={{ mb: 0, width: 200 }}
-        inputContainerSx={{ py: '$1' }}
-        icon="pw"
-        placeholder={t('common.password')}
-        secureTextEntry
-        textContentType="password"
-        value={values.password}
-        onBlur={handleBlur('password')}
-        onChangeText={handleChange('password')}
-        onSubmitEditing={onLogin}
-        maxLength={PASSWORD_MAX_LENGTH}
-      />
-      <IconButton
-        nativeID="forgotPassword"
-        name="tnc"
-        size={20}
-        onPress={() => {
-          desktop
-            ? openModal('ForgotPasswordModal')
-            : push('/auth/forgot-password')
-        }}
-      />
+      <View sx={{ mt: '$1' }}>
+        <Row sx={{ gap: headerGapResponsiveValue }}>
+          <Input
+            autoCapitalize={'none'}
+            sx={{ mb: 0, width: 200 }}
+            inputContainerSx={{ py: 1 }}
+            icon="profile-rounded"
+            placeholder={t('common.username')}
+            textContentType="username"
+            value={values.username}
+            onBlur={handleBlur('username')}
+            onChangeText={handleChange('username')}
+            onSubmitEditing={() => {
+              passwordFieldRef.current?.focus()
+            }}
+            maxLength={USERNAME_MAX_LENGTH}
+            tabIndex={1}
+          />
+
+          <Input
+            ref={passwordFieldRef}
+            autoCapitalize={'none'}
+            sx={{ mb: 0, width: 200 }}
+            inputContainerSx={{ py: 1 }}
+            icon="pw"
+            placeholder={t('common.password')}
+            secureTextEntry
+            textContentType="password"
+            value={values.password}
+            onBlur={handleBlur('password')}
+            onChangeText={handleChange('password')}
+            onSubmitEditing={onLogin}
+            maxLength={PASSWORD_MAX_LENGTH}
+          />
+        </Row>
+
+        <View sx={{ alignItems: 'flex-end' }}>
+          {/* Act as a placeholder for the actual forgot password to move to this location */}
+          {/* Reason: To solve `tabIndex` issue, rather than specify `tabIndex` number on each component */}
+          <StyledForgotPasswordText
+            sx={{ visibility: 'hidden' }}
+            onLayout={(e) => {
+              const { top, x } = e.nativeEvent.layout
+              setForgotPasswordPosition({
+                x: Math.floor(x),
+                y: Math.floor(top),
+              })
+            }}
+          >
+            {t('authentication.forgotPassword')}
+          </StyledForgotPasswordText>
+        </View>
+      </View>
+
       <HeaderButton
         loading={isSubmitting}
         contentProps={{
@@ -126,6 +158,26 @@ const HeaderAuthentication = () => {
       >
         {t('authentication.login')}
       </HeaderButton>
+
+      {forgotPasswordPosition.x > 0 && (
+        <Pressable
+          onPress={() => {
+            desktop
+              ? openModal('ForgotPasswordModal')
+              : push('/auth/forgot-password')
+          }}
+          sx={{
+            position: 'absolute',
+            top: forgotPasswordPosition.y,
+            left: forgotPasswordPosition.x,
+          }}
+        >
+          <StyledForgotPasswordText>
+            {t('authentication.forgotPassword')}
+          </StyledForgotPasswordText>
+        </Pressable>
+      )}
+
       <HeaderButton
         sx={{ bg: '$primary.300' }}
         contentProps={{
