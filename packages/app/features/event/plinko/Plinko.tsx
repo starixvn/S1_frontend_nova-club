@@ -1,15 +1,13 @@
 import { DEV_DOMAIN } from '@env'
 import WebView from 'app/components/WebView'
-import { PageWithBackHeader } from 'app/components/layouts/Page'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { useDripsyTheme } from 'dripsy'
 import React from 'react'
-import { useWindowDimensions } from 'react-native'
 import { useRouter } from 'solito/router'
 
 // const plinkoUrl = `${DEV_DOMAIN}/event/plinko?`
-const plinkoUrl = `https://stage2.gball8.com/event/plinko?`
+const plinkoUrl = `${DEV_DOMAIN}/event/plinko?`
 
 const Plinko = () => {
   const { back } = useRouter()
@@ -17,7 +15,6 @@ const Plinko = () => {
   const locale = useAppSelector((s) => s.setting.locale)
   const { top, bottom } = useSafeArea()
   const { theme } = useDripsyTheme()
-  const { height } = useWindowDimensions()
 
   const GenerateParam = () => {
     const tempUrl = new URLSearchParams(plinkoUrl)
