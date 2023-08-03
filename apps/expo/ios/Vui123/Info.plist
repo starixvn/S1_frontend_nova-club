@@ -44,6 +44,17 @@
 	<string>1</string>
 	<key>CodePushDeploymentKey</key>
 	<string>LL5A-_orX6NTd-uyepH8TUCRie8GKpWvgVsw6</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fb</string>
+		<string>instagram</string>
+		<string>twitter</string>
+		<string>vnd.youtube</string>
+		<string>line</string>
+		<string>whatsapp</string>
+		<string>skype</string>
+		<string>tg</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
