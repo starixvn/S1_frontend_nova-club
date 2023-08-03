@@ -13,6 +13,7 @@ interface ProfileOverviewTextProps {
   px?: number
   fontSize?: number
   textTransform?: string
+  flex?: number
 }
 interface ProfileOverviewHorizontalItemProps {
   value: number
@@ -141,9 +142,13 @@ const ProfileOverviewHorizontalItem = ({
         height: '50%',
       }}
     >
-      <ProfileOverviewText fontSize={12}>{label}</ProfileOverviewText>
-      <View sx={{ justifyContent: 'center', pr: 20 }}>
-        <ProfileOverviewText fontSize={20}>{value}</ProfileOverviewText>
+      <ProfileOverviewText fontSize={10} flex={1}>
+        {label}
+      </ProfileOverviewText>
+      <View sx={{ justifyContent: 'center', pr: 12 }}>
+        <ProfileOverviewText fontSize={20} flex={1}>
+          {value}
+        </ProfileOverviewText>
       </View>
     </View>
   )
@@ -177,12 +182,14 @@ const ProfileOverviewText = styled(Text)(
     fontSize = 16,
     px = 0,
     textTransform = 'uppercase',
+    flex,
   }: ProfileOverviewTextProps) => ({
     fontSize,
     px,
     color: 'white',
     fontWeight: '500',
     textTransform,
+    flex,
   })
 )
 

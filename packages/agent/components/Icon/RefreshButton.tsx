@@ -1,102 +1,45 @@
-import IconButton, { IIconButtonProps } from 'agent/components/Icon/IconButton'
-import { SxProp, View } from 'dripsy'
+import { SxProp, styled } from 'dripsy'
 import { MotiView } from 'moti'
-import { useEffect, useState } from 'react'
+import React from 'react'
 import { GestureResponderEvent } from 'react-native'
-import {
-  Easing,
-  runOnJS,
-  useAnimatedStyle,
-  useSharedValue,
-  withRepeat,
-  withTiming,
-} from 'react-native-reanimated'
+
+import { IconButtonProps } from 'app/components/IconButton'
+import IconButton from 'app/components/IconButton'
 
 type RefreshButtonProps = {
   onPress?: (event: GestureResponderEvent) => void
   loading?: boolean
   containerStyle?: SxProp
-} & Omit<IIconButtonProps, 'name'>
+} & Omit<IconButtonProps, 'name'>
 
 const ROTATION_DEG = 360
-const ANIMATION_DURATION = 500
+const ANIMATION_DURATION = 1000
 
 const RefreshButton = ({
   loading,
   onPress,
-  containerStyle,
-  ...rest
+  size = 22,
+  sx,
 }: RefreshButtonProps) => {
-  const [isRefresh, setIsRefresh] = useState(false)
-
-  const animation = useSharedValue(0)
-  const animationStyle = useAnimatedStyle(() => {
-    return {
-      transform: [
-        {
-          rotate: animation.value + 'deg',
-        },
-      ],
-    }
-  }, [])
-
-  const onPressHandler = async (event: GestureResponderEvent) => {
-    onPress && (await onPress(event))
-  }
-
-  const setIsAnimatingStatus = (status = false) => {
-    setIsRefresh(status)
-  }
-
-  useEffect(() => {
-    if (loading) {
-      setIsRefresh(true)
-
-      animation.value = withRepeat(
-        withTiming(ROTATION_DEG, {
-          duration: ANIMATION_DURATION,
-          easing: Easing.linear,
-        }),
-        -1,
-        false,
-        () => {
-          if (animation.value === ROTATION_DEG) {
-            runOnJS(setIsAnimatingStatus)()
-            animation.value = 0
-          }
-        }
-      )
-    }
-    if (isRefresh && !loading) {
-      animation.value = withTiming(
-        ROTATION_DEG,
-        {
-          duration:
-            ANIMATION_DURATION -
-            (animation.value / ROTATION_DEG) * ANIMATION_DURATION,
-          easing: Easing.linear,
-        },
-        () => {
-          runOnJS(setIsAnimatingStatus)()
-          animation.value = 0
-        }
-      )
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading])
-
   return (
-    <View sx={containerStyle}>
-      <MotiView style={animationStyle}>
-        <IconButton
-          onPress={onPressHandler}
-          name="refresh"
-          size={15}
-          {...rest}
-        />
-      </MotiView>
-    </View>
+    <StyledMotiView
+      // key={(!!loading).toString()}
+      from={{ rotateZ: `0deg` }}
+      animate={{ rotateZ: `${ROTATION_DEG}deg` }}
+      transition={{
+        // repeat: loading ? 0 : 1,
+        // loop: loading,
+        // repeatReverse: false,
+        type: 'timing',
+        duration: 1000,
+      }}
+      sx={sx}
+    >
+      <IconButton name="refresh" size={size} onPress={onPress} />
+    </StyledMotiView>
   )
 }
+
+const StyledMotiView = styled(MotiView)()
 
 export default RefreshButton
