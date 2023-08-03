@@ -59,7 +59,7 @@ const DeleteBankAccountModal = ({ modal: { closeModal, getParam } }) => {
         ]}
       >
         <View sx={{ justifyContent: 'center', flex: 1 }}>
-          <Text sx={{ textAlign: 'center' }}>{t('bank.confirmDelete')}</Text>
+          <Text sx={{ textAlign: 'center' }}>{t('common.confirmDelete')}</Text>
         </View>
       </ModalContent>
     </ModalWrapper>

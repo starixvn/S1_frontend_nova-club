@@ -142,6 +142,9 @@ const Input = forwardRef<NativeTextInput, InputProps>(
                 <Container>
                   <TouchableOpacity
                     onPress={() => setSecureTextEntry(!_secureTextEntry)}
+                    accessible={false}
+                    // @ts-expect-error: react-native-web support this prop but missing in react-native prop
+                    focusable={false}
                   >
                     <Icon name={_secureTextEntry ? 'invisible' : 'visible'} />
                   </TouchableOpacity>

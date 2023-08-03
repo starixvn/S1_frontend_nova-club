@@ -1,5 +1,6 @@
 import { View } from 'dripsy'
 import IconButton from './IconButton'
+import Icon from './Icon'
 
 type IconBorderProps = {
   IconName?: string
@@ -28,7 +29,7 @@ const IconBorder = ({
           bg: '$background',
         }}
       >
-        <IconButton
+        <Icon
           name={IconName ?? 'notice'}
           color={IconColor}
           size={IconSize}

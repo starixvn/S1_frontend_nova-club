@@ -3,32 +3,38 @@ import CheckBox from 'app/components/common/CheckBox'
 import FormContainer from 'app/components/form/FormContainer'
 import Input from 'app/components/form/Input'
 import useLocalization from 'app/provider/localization'
+import { ModalStackParams } from 'app/provider/modal'
+import { useAppSelector } from 'app/provider/redux/store'
 import { PASSWORD_MAX_LENGTH, USERNAME_MAX_LENGTH } from 'app/utils/validation'
-import { Pressable, Text, View, useResponsiveValue } from 'dripsy'
-import React, { useEffect, useRef, useState } from 'react'
-import { TextInput, useWindowDimensions } from 'react-native'
+import { Pressable, Text, View, styled, useResponsiveValue } from 'dripsy'
+import React, { ComponentProps, useEffect, useRef, useState } from 'react'
+import { TextInput } from 'react-native'
+import { useModal } from 'react-native-modalfy'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
-import useLoginForm from './useLoginForm'
-import { useAppSelector } from 'app/provider/redux/store'
 import { LoginType } from '../AuthTypeSelection'
+import useLoginForm from './useLoginForm'
 
-type LoginFormValues = {
-  username: string
-  password: string
-}
-interface LoginFormProps {
+const StyledFormContainer = styled(FormContainer)({
+  py: '$4',
+})
+
+type LoginFormProps = {
   isAgent: boolean
-}
+  isAgentLoginWithDesktopModal?: boolean
+} & ComponentProps<typeof StyledFormContainer>
+
 const { useParam } = createParam()
 
-const LoginForm = ({ isAgent }: LoginFormProps) => {
+const LoginForm = ({
+  isAgent,
+  isAgentLoginWithDesktopModal,
+  ...rest
+}: LoginFormProps) => {
   const { t } = useLocalization()
-  const { width } = useWindowDimensions()
-  const { replace, push, back } = useRouter()
-  const isDesktop = useResponsiveValue([false, false, false, true])
-
-  // const { handleAgentLogin } = useAfterLogin()
+  const { push } = useRouter()
+  const { closeModal, openModal } = useModal<ModalStackParams>()
+  const desktop = useResponsiveValue([false, false, false, true])
 
   const passwordFieldRef = useRef<TextInput>(null)
   const usernameFieldRef = useRef<TextInput>(null)
@@ -73,23 +79,19 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
   }, [isAgent])
 
   return (
-    <FormContainer
-      sx={{
-        py: '$4',
-        width: Math.min(768, width),
-      }}
-    >
+    <StyledFormContainer {...rest}>
       <Input
         autoCapitalize={'none'}
         inputContainerSx={{ width: '100%' }}
         icon="profile-rounded"
-        placeholder="Username"
+        placeholder={t('common.username')}
         textContentType="username"
         value={values.username}
         onBlur={handleBlur('username')}
         onChangeText={handleChange('username')}
         maxLength={USERNAME_MAX_LENGTH}
         ref={usernameFieldRef}
+        autoCorrect={false}
         onSubmitEditing={() => {
           passwordFieldRef.current?.focus()
         }}
@@ -105,7 +107,7 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
         autoCapitalize={'none'}
         inputContainerSx={{ width: '100%' }}
         icon="pw"
-        placeholder="Password"
+        placeholder={t('common.password')}
         secureTextEntry
         textContentType="password"
         value={values.password}
@@ -113,6 +115,7 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
         onChangeText={handleChange('password')}
         maxLength={PASSWORD_MAX_LENGTH}
         ref={passwordFieldRef}
+        autoComplete="password"
         onSubmitEditing={submitForm}
         error={
           touched.password && errors.password
@@ -151,6 +154,18 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
         >
           <Pressable
             onPress={() => {
+              if (isAgentLoginWithDesktopModal) {
+                closeModal('AgentLoginModal', () => {
+                  setTimeout(() => {
+                    openModal('ForgotPasswordModal', {
+                      t: LoginType.Agent,
+                    })
+                  })
+                })
+
+                return
+              }
+
               push({
                 pathname: '/auth/forgot-password',
                 query: {
@@ -167,24 +182,26 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
       <Button
         loading={isSubmitting}
         onPress={submitForm}
-        sx={{ my: '$2', py: '$1' }}
+        sx={{ mb: '$2', mt: desktop ? 'auto' : '$2' }}
       >
         {t('authentication.login')}
       </Button>
-      <Button
-        onPress={() => {
-          push({
-            pathname: '/auth/register',
-            query: {
-              t: isAgent ? LoginType.Agent : LoginType.Member,
-            },
-          })
-        }}
-        sx={{ bg: '$primary.300', my: '$2', py: '$1' }}
-      >
-        {t('authentication.register')}
-      </Button>
-    </FormContainer>
+      {!isAgentLoginWithDesktopModal && (
+        <Button
+          onPress={() => {
+            push({
+              pathname: '/auth/register',
+              query: {
+                t: isAgent ? LoginType.Agent : LoginType.Member,
+              },
+            })
+          }}
+          sx={{ bg: '$primary.300', my: '$2' }}
+        >
+          {t('authentication.register')}
+        </Button>
+      )}
+    </StyledFormContainer>
   )
 }
 

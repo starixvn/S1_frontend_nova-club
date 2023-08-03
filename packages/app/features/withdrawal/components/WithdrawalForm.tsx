@@ -67,7 +67,7 @@ const WithdrawalForm = ({ isCrypto, selectedChannel }: WithdrawalFormProps) => {
           autoTranslate={false}
           label={isCrypto ? t('bank.walletAddress') : t('bank.bankAccount')}
           subtitle={values.bank?.BankName}
-          placeholder={t('placeholder.plsSelectCrypto')}
+          placeholder={t('placeholder.plsSelectWalletAddress')}
           options={walletAddressList}
           onSelected={(e) => handleSelected(e?.value)}
           value={values.bank?.BankAccountNumber ?? ''}

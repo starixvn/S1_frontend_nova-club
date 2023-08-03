@@ -1,38 +1,42 @@
 import { SHIELD_KEY, SHIELD_SITE_ID } from '@env'
-import useShield from 'app/hooks/useShield'
 import { ShieldDeviceResult } from 'app/integrations/shield/type'
-import { useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
 import { useEffect } from 'react'
 import { Platform } from 'react-native'
-import ShieldFD from 'react-native-shield'
+import ShieldFraud, {
+  Config,
+  ShieldCallback,
+} from 'react-native-shield-fraud-plugin'
 import { useDispatch } from 'react-redux'
 
 const Shield = () => {
   const dispatch = useDispatch()
 
-  // const { autoSyncShield } = useShield()
-
-  // useEffect(() => {
-  //   autoSyncShield()
-  // }, [autoSyncShield])
-
   useEffect(() => {
-    ShieldFD.initShield(
-      SHIELD_SITE_ID,
-      SHIELD_KEY,
-      (r: ShieldDeviceResult | string) => {
-        console.log('SHIELD SUCCESS', r)
+    const callbacks: ShieldCallback = {
+      onSuccess: (data) => {
+        console.log('SHIELD SUCCESS', data)
         let result: ShieldDeviceResult =
-          Platform.OS === 'android' && typeof r === 'string' ? JSON.parse(r) : r
+          Platform.OS === 'android' && typeof data === 'string'
+            ? JSON.parse(data)
+            : data
 
         dispatch(SettingActions.setShieldSessionID(result.session_id))
       },
-      (e) => {
-        console.log('SHEILD ERROR', e)
-      }
-    )
+      onFailure: (error) => {
+        // Handle failure event here
+        console.log('Error:', error)
+      },
+    }
+    const config: Config = {
+      siteID: SHIELD_SITE_ID,
+
+      secretKey: SHIELD_KEY,
+    }
+
+    ShieldFraud.initShield(config, callbacks)
   }, [])
+
   return null
 }
 

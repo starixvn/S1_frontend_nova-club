@@ -12,6 +12,7 @@ import { ReportDepositItem } from 'services/playerApi.type'
 import HistoryEmpty from './HistoryEmpty'
 import HistoryHeader, { HeaderProps } from './HistoryHeader'
 import isDesktop from 'app/utils/isDesktop'
+import { useAppSelector } from 'app/provider/redux/store'
 
 interface HistoryListingProps<T, FetchParamsType> {
   fetchParams: FetchParamsType
@@ -42,6 +43,7 @@ function HistoryListing<T, FetchParamsType>(
   const [totalRow, setTotalRow] = useState(0)
   const [allLoaded, setAllLoaded] = useState(false)
   const desktop = isDesktop()
+  const lang = useAppSelector((state) => state.setting.locale)
 
   useEffect(() => {
     console.log('updatedSlipId', updatedSlipId)
@@ -151,7 +153,7 @@ function HistoryListing<T, FetchParamsType>(
         ListEmptyComponent={onListEmpty}
         onEndReached={onLoadMore}
         onEndReachedThreshold={0.2}
-        extraData={isFetching}
+        extraData={isFetching || lang}
         showsVerticalScrollIndicator={desktop ? false : true}
       />
     </View>

@@ -4100,7 +4100,7 @@ __metadata:
     modern-screenshot: ^4.4.25
     moti: latest
     react-native-date-picker: ^4.2.13
-    react-native-modalfy: ^3.4.0
+    react-native-modalfy: 3.5.1
     react-native-reanimated-carousel: ^3.3.2
     react-native-svg: ^13.9.0
     react-web-share: ^2.0.2
@@ -6707,7 +6707,7 @@ __metadata:
     react-native-ios-context-menu: ^1.15.3
     react-native-keyboard-aware-scroll-view: ^0.9.5
     react-native-mask-input: ^1.2.3
-    react-native-modalfy: ^3.4.0
+    react-native-modalfy: 3.5.1
     react-native-pager-view: 6.1.2
     react-native-qrcode-svg: ^6.2.0
     react-native-reanimated: ^3.1.0
@@ -6716,7 +6716,7 @@ __metadata:
     react-native-screens: ~3.20.0
     react-native-shadow-2: ^7.0.8
     react-native-share: ^8.2.2
-    react-native-shield: "https://oauth2:gKtjpo2C_UvL4rB-muaE@dev.git.beacora.com/frontend/react-native-shield.git"
+    react-native-shield-fraud-plugin: 1.0.4
     react-native-svg: 13.4.0
     react-native-tab-view: ^3.5.1
     react-native-toast-message: ^2.1.6
@@ -12191,9 +12191,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-modalfy@npm:3.4.0":
-  version: 3.4.0
-  resolution: "react-native-modalfy@npm:3.4.0"
+"react-native-modalfy@npm:3.5.1":
+  version: 3.5.1
+  resolution: "react-native-modalfy@npm:3.5.1"
   dependencies:
     hoist-non-react-statics: ^3.3.2
     react-is: ^17.0.2
@@ -12202,13 +12202,13 @@ __metadata:
     react: ">=16.8.3"
     react-native: ">=0.59.0"
     react-native-gesture-handler: ">=1.9.0"
-  checksum: 5466848b81192c8a061c67c95341199fce21d9ee425dc6ff7ece4922e30e6ef52a7ebb146aecc8759cc5bf94a95f9dabbfa493e280caed3cf71b0e1835a562eb
+  checksum: 7a9b525fe538d7476b85f717e7efcce5fde593fc0cfc0e61c5c21bc0aa80c74e5d80f2169769923520335256ab93be44c13484d3019b268ee81d4cf6f0265d6f
   languageName: node
   linkType: hard
 
-"react-native-modalfy@patch:react-native-modalfy@npm%3A3.4.0#./.yarn/patches/react-native-modalfy-npm-3.4.0-e099e20f8f.patch::locator=vuifit%40workspace%3A.":
-  version: 3.4.0
-  resolution: "react-native-modalfy@patch:react-native-modalfy@npm%3A3.4.0#./.yarn/patches/react-native-modalfy-npm-3.4.0-e099e20f8f.patch::version=3.4.0&hash=4a0d28&locator=vuifit%40workspace%3A."
+"react-native-modalfy@patch:react-native-modalfy@npm%3A3.5.1#./.yarn/patches/react-native-modalfy-npm-3.5.1-f624d6b350.patch::locator=vuifit%40workspace%3A.":
+  version: 3.5.1
+  resolution: "react-native-modalfy@patch:react-native-modalfy@npm%3A3.5.1#./.yarn/patches/react-native-modalfy-npm-3.5.1-f624d6b350.patch::version=3.5.1&hash=c4e88f&locator=vuifit%40workspace%3A."
   dependencies:
     hoist-non-react-statics: ^3.3.2
     react-is: ^17.0.2
@@ -12217,7 +12217,7 @@ __metadata:
     react: ">=16.8.3"
     react-native: ">=0.59.0"
     react-native-gesture-handler: ">=1.9.0"
-  checksum: 70bea63981a22c9291904cdf8e751ee960c5f09da2863cfe769314b95a4c71ef225f5d7d5fee54a9b7c8c32cd1899cba29ecccff9e9fbf31fdcc1848b183e26a
+  checksum: 0dc2b988f0fdba5645a71d92b13c708cd42458580535a117bdf82e3d30a7ca46dfb3142fe427ae5acac4914c04e2c65a9e054592dcf9fe2b9cb816db4b6ba9f5
   languageName: node
   linkType: hard
 
@@ -12340,13 +12340,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-shield@https://oauth2:gKtjpo2C_UvL4rB-muaE@dev.git.beacora.com/frontend/react-native-shield.git":
-  version: 1.0.1
-  resolution: "react-native-shield@https://oauth2:gKtjpo2C_UvL4rB-muaE@dev.git.beacora.com/frontend/react-native-shield.git#commit=0377d1c8dd31139c99dba34dd23e76c41092763a"
+"react-native-shield-fraud-plugin@npm:1.0.4":
+  version: 1.0.4
+  resolution: "react-native-shield-fraud-plugin@npm:1.0.4"
   peerDependencies:
-    react: ">=16.8.1"
-    react-native: ">=0.60.0-rc.0 <1.0.x"
-  checksum: 8a19f90de7bba937a722b1980d74b672046554a32facd723c2ef77fb01dd27b91204e0afed009ea27b02000799d961a11d28aae5bc531c8a5d93cf85f18e1be3
+    react: "*"
+    react-native: "*"
+  checksum: 17b49effeb0990d1d896ee70d361a18777fbfceb31eeccfdb61962d7918ba4aeaf6c0e4f49d26d93c67cbbc4517982589176873c663c19bd3ac9e716a8e0dbd5
+  languageName: node
+  linkType: hard
+
+"react-native-shield-fraud-plugin@patch:react-native-shield-fraud-plugin@npm%3A1.0.4#./.yarn/patches/react-native-shield-fraud-plugin-npm-1.0.4-a03692a411.patch::locator=vuifit%40workspace%3A.":
+  version: 1.0.4
+  resolution: "react-native-shield-fraud-plugin@patch:react-native-shield-fraud-plugin@npm%3A1.0.4#./.yarn/patches/react-native-shield-fraud-plugin-npm-1.0.4-a03692a411.patch::version=1.0.4&hash=10c0b3&locator=vuifit%40workspace%3A."
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 23b2f5b57adcb52d98f95d31926d8dd6e06cb0a6db518e51cf0a784931c67fb1d5784e2d94b2b837be000f73cc4815de5ea44af5971964dc24aa25855df15d78
   languageName: node
   linkType: hard
 

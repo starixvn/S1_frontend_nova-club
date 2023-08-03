@@ -10,7 +10,6 @@ export default function InfoLayout({ children }: { children: ReactNode }) {
   const currentPath = pathname.replace('/info/', '')
 
   const infoPageTitle = MapInfoRouteTitle(currentPath)
-  console.log('.', infoPageTitle)
   return (
     <PageWithBackHeader
       header={{ title: t(infoPageTitle) }} // TODO find way to change title based on route

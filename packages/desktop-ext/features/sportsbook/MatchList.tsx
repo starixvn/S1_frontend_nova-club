@@ -19,7 +19,7 @@ const BAR_HEIGHT = 50
 
 export default function MatchList({}: Props) {
   const [selectedLeague, setSelectedLeague] = useState<EntityId>()
-  const [selectedTime, setSelectedTime] = useState<string>('all')
+  const [selectedTime, setSelectedTime] = useState<string>('All')
   const desktop = isDesktop()
   const { t } = useLocalization()
   const { leagues } = useGetRecoMatchQuery(

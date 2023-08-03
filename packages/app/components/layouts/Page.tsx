@@ -4,6 +4,7 @@ import { Platform, useWindowDimensions } from 'react-native'
 import Image from '../common/Image'
 import Header from '../common/Header'
 import isDesktop from 'app/utils/isDesktop'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 
 type PageScrollViewProps = {
   disableScrollView?: false
@@ -59,6 +60,7 @@ export const PageWithBackHeader = ({
   const PageComponent = disableScrollView ? Page : Page.ScrollView
   const { height } = useWindowDimensions()
   const desktop = isDesktop()
+  const { bottom } = useSafeArea()
   return (
     <View
       sx={{
@@ -91,6 +93,7 @@ export const PageWithBackHeader = ({
           // minHeight: 0,
           bg: background ? 'transparent' : '$secondary',
           flex: 1,
+          pb: bottom,
         }}
         showsVerticalScrollIndicator={false}
         {...(rest as any)}

@@ -16,6 +16,7 @@ import { ReportResult } from 'services/playerApi.type'
 type TransactionRowListProps = {
   item
 }
+
 const TransactionRowList = ({ item }: TransactionRowListProps) => {
   const { t } = useLocalization()
   const { theme } = useDripsyTheme()
@@ -42,15 +43,31 @@ const TransactionRowList = ({ item }: TransactionRowListProps) => {
       },
     })
   }
+
+  const firstCell = { flexBasis: 56 }
+  const secondCell = { flex: 0.5 }
+  const thirdCell = { flex: 0.3 }
+  const fourthCell = {
+    flex: 0.2,
+    alignItems: 'flex-end',
+  }
+
   return (
     <>
       <View
-        sx={{ bg: '$primary.500', flexDirection: 'row', py: '$3', px: '$3' }}
+        sx={{
+          bg: '$primary.500',
+          flexDirection: 'row',
+          py: '$3',
+          px: ['$2', '$3'],
+          alignItems: 'center',
+        }}
       >
-        <View sx={{ flex: 0.4, justifyContent: 'center' }}>
+        <View sx={firstCell}>
           <IconBorder IconSize={22} IconName={category && category.icon} />
         </View>
-        <View sx={{ flex: 1, justifyContent: 'center' }}>
+
+        <View sx={secondCell}>
           <View
             sx={{
               flexDirection: 'row',
@@ -67,18 +84,24 @@ const TransactionRowList = ({ item }: TransactionRowListProps) => {
             />
           </View>
           <Text numberOfLines={1} sx={{ fontWeight: 'bold' }}>
-            {item.pay_type}
+            {t(category.name)}
           </Text>
         </View>
-        <View sx={{ flex: 0.7, justifyContent: 'center' }}>
+
+        <View sx={thirdCell}>
           <Text numberOfLines={1}>{date}</Text>
           <Text numberOfLines={1}>{time}</Text>
         </View>
-        <View
-          sx={{ flex: 0.7, alignItems: 'flex-end', justifyContent: 'center' }}
-        >
+
+        <View sx={fourthCell}>
           <Text>{amount}</Text>
-          <Text sx={{ color: getStatusColor(item.status, theme) }}>
+          <Text
+            numberOfLines={2}
+            sx={{
+              color: getStatusColor(item.status, theme),
+              textAlign: 'right',
+            }}
+          >
             {item.status}
           </Text>
           {!item.bank_slip_attachment &&

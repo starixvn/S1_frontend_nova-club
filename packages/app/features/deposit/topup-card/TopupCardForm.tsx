@@ -212,9 +212,8 @@ const TopupCardForm = () => {
                           key={i}
                           item={e}
                           onPress={() => setFieldValue('cardType', e.value)}
-                          selected={
-                            e.value === values.cardType
-                          }
+                          selected={e.value === values.cardType}
+                          containerStyle={{ p: '$2' }}
                         />
                       </View>
                     )
@@ -261,9 +260,15 @@ const TopupCardForm = () => {
             }}
           >
             <Text>{t('deposit.cardValue')}</Text>
-            <View sx={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+            <View
+              sx={{
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                gap: 4,
+              }}
+            >
               {cardAmount.map((item) => (
-                <View key={item} sx={{ width: '25%' }}>
+                <View key={item} sx={{ width: '23%' }}>
                   <ValueCard
                     key={item}
                     value={item}

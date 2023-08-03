@@ -2,11 +2,13 @@ import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
 import { MotiView } from 'moti'
 import { ElementRef, useRef } from 'react'
+import { Platform } from 'react-native'
 import AuthLayout from '../AuthLayout'
 import ForgotPasswordForm from './ForgotPasswordForm'
 import ResetPasswordForm from './ResetPasswordForm'
-import useForgotPassword from './hook/useForgotPassword'
-import useAgentForgotPassword from './hook/useAgentForgotPassword'
+import useForgotPassword, {
+  ForgotPassword_Screen,
+} from './hook/useForgotPassword'
 
 const ForgotPasswordScreen = () => {
   const { t } = useLocalization()
@@ -22,6 +24,7 @@ const ForgotPasswordScreen = () => {
     isAgentLoading,
     isAgentSuccess,
     agentSendOTP,
+    currentScreen,
   } = useForgotPassword(rootRef)
 
   return (
@@ -55,7 +58,17 @@ const ForgotPasswordScreen = () => {
           type: 'timing',
           duration: 400,
         }}
-        style={{ width }}
+        style={[
+          { width },
+          Platform.select({
+            web: {
+              display:
+                currentScreen === ForgotPassword_Screen.SET_NEW_PASSWORD
+                  ? 'flex'
+                  : 'none',
+            },
+          }),
+        ]}
       >
         <AuthLayout
           headerDesc={t('authentication.resetPasswordHeader')}
