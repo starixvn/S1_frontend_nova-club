@@ -12,6 +12,7 @@ import { useRouter } from 'solito/router'
 import useLoginForm from './useLoginForm'
 import { useAppSelector } from 'app/provider/redux/store'
 import { LoginType } from '../AuthTypeSelection'
+import { useModal } from 'react-native-modalfy'
 
 type LoginFormValues = {
   username: string
@@ -25,6 +26,7 @@ const { useParam } = createParam()
 const LoginForm = ({ isAgent }: LoginFormProps) => {
   const { t } = useLocalization()
   const { width } = useWindowDimensions()
+  const { openModal } = useModal()
   const { replace, push, back } = useRouter()
   const isDesktop = useResponsiveValue([false, false, false, true])
 
@@ -151,12 +153,14 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
         >
           <Pressable
             onPress={() => {
-              push({
-                pathname: '/auth/forgot-password',
-                query: {
-                  t: isAgent ? LoginType.Agent : LoginType.Member,
-                },
-              })
+              isDesktop
+                ? openModal('ForgotPasswordModal')
+                : push({
+                    pathname: '/auth/forgot-password',
+                    query: {
+                      t: isAgent ? LoginType.Agent : LoginType.Member,
+                    },
+                  })
             }}
           >
             <Text>{t('authentication.forgotPassword')}</Text>
