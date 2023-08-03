@@ -1,3 +1,4 @@
+import { DEV_DOMAIN } from '@env'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
@@ -8,8 +9,7 @@ import WebView from 'react-native-webview'
 const PlinkoTnc = () => {
   const lang = useAppSelector((state) => state.setting.locale)
   const { t } = useLocalization()
-  // const TNC_URL = `https://stage2.gball8.com/event/plinko-tnc?locale=${lang}`
-  const TNC_URL = `https://stage2.gball8.com/event/plinko-tnc?locale=${lang}`
+  const TNC_URL = `${DEV_DOMAIN}/event/plinko-tnc?locale=${lang}`
 
   // Used to hide the header inside webview
   const INJECTED_JAVASCRIPT = `

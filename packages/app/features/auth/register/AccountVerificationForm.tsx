@@ -17,6 +17,7 @@ import { RegisterFormValues } from './RegisterScreen'
 import ReceiveOTPContact from '../components/ReceiveOTPContact'
 import { ModalComponentProp } from 'react-native-modalfy'
 import { ModalStackParams } from 'app/provider/modal'
+import { DEV_DOMAIN } from '@env'
 
 const StyledFormContainer = styled(FormContainer)({
   py: '$4',
@@ -51,9 +52,8 @@ const AccountVerificationForm = ({
   const { push } = useRouter()
   const { showAlert } = useAlert()
   const locale = useAppSelector((s) => s.setting.locale)
-  // const tncUrl = `${DEV_DOMAIN}/info/tnc?`
 
-  const tncUrl = `https://stage2.gball8.com/info/tnc?`
+  const tncUrl = `${DEV_DOMAIN}/info/tnc?locale=${locale}`
 
   const otpFieldRef = useRef<TextInput>(null)
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
