@@ -146,18 +146,22 @@ export default function DrawerContent() {
       }}
     >
       <ScrollView
-        sx={{
-          // width: '100%',
-          // position: 'absolute',
-          // height: height - HEADER_HEIGHT - top,
-          borderTopWidth: 1,
-          borderColor: '$primary.600',
-          // flex: 1,
-          // bg: 'red',
-        }}
+        sx={
+          {
+            // width: '100%',
+            // position: 'absolute',
+            // height: height - HEADER_HEIGHT - top,
+            // borderTopWidth: 1,
+            // borderColor: '$primary.600',
+            // flex: 1,
+            // bg: 'red',
+          }
+        }
         contentContainerSx={{
-          bg: '$primary.500',
-          height: 350,
+          // bg: '$primary.500',
+          minHeight: 300,
+          // bg: 'green',
+          height: '100%',
           // flex: 1,
           // height,
         }}
@@ -197,7 +201,7 @@ export default function DrawerContent() {
       </ScrollView>
       <View
         sx={{
-          height: height - 350 + bottom,
+          height: height - 300 + bottom,
           // bg: 'red',
           justifyContent: 'flex-end',
         }}
@@ -205,12 +209,15 @@ export default function DrawerContent() {
         <ImageBackground
           source={require('../../../assets/images/banner_referral.jpg')}
           style={{
-            aspectRatio: 380 / 600,
+            // aspectRatio: 380 / 600,
+            maxHeight: 380,
+            height: '100%',
+            width: '100%',
             alignItems: 'center',
             justifyContent: 'center',
             // backgroundColor: 'green',
           }}
-          resizeMode="contain"
+          resizeMode="cover"
         >
           <View
             sx={{
@@ -231,13 +238,13 @@ export default function DrawerContent() {
               }}
             >
               <Text
-                sx={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}
+                sx={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center' }}
               >
                 {t('referral.shareMessage')}
               </Text>
               <Text
                 sx={{
-                  fontSize: 12,
+                  fontSize: 10,
                   fontWeight: '700',
                   textAlign: 'center',
                   marginTop: 10,
@@ -257,13 +264,13 @@ export default function DrawerContent() {
                   py: 1,
                 }}
               >
-                <Text sx={{ fontSize: 14, mx: '$1', fontWeight: 'bold' }}>
+                <Text sx={{ fontSize: 10, mx: '$1', fontWeight: 'bold' }}>
                   {t('common.copy')}
                 </Text>
                 <Icon
                   name={'copy'}
                   color={'white'}
-                  size={20}
+                  size={14}
                   sx={{ padding: 5, mx: '$1' }}
                 />
               </BouncePressable>

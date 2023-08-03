@@ -21,7 +21,7 @@ const LeaderboardTable = ({ maxRow = 10 }: { maxRow?: number }) => {
 
   const firstCellStyle = { flex: 2 / 12 }
   const secondCellStyle = { flex: 3 / 12 }
-  const thirdCellStyle = { flex: 5 / 12 }
+  const thirdCellStyle = { flex: 4 / 12 }
   const fourthCellStyle = { flex: 2 / 12 }
 
   return (
@@ -57,7 +57,7 @@ const LeaderboardTable = ({ maxRow = 10 }: { maxRow?: number }) => {
               {item.username}
             </DataTableCell>
             <DataTableCell center={false} sx={thirdCellStyle}>
-              <Row sx={{ alignItems: 'center' }}>
+              <Row sx={{ alignItems: 'center', maxWidth: '80%' }}>
                 <SolitoImage
                   src={CoinImage}
                   height={18}
@@ -65,7 +65,13 @@ const LeaderboardTable = ({ maxRow = 10 }: { maxRow?: number }) => {
                   alt={`${index} coin`}
                   style={{ marginRight: 12 }}
                 />
-                <Text sx={{ fontSize: [12, 12, 13, 14], flex: 1 }}>
+                <Text
+                  sx={{
+                    fontSize: [12, 12, 13, 14],
+                    maxWidth: '100%',
+                    // bg: 'red',
+                  }}
+                >
                   {item.points}
                 </Text>
               </Row>
