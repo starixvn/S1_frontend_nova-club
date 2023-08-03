@@ -20,7 +20,8 @@
     "rememberMe": "Remember Me",
     "resend": "Send",
     "resetPasswordHeader": "Reset Password",
-    "send": "Send"
+    "send": "Send",
+    "referrerInfo": "Referrer information"
   },
   "bank": {
     "accountName": "Account Name",

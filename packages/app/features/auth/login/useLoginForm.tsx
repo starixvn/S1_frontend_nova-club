@@ -29,35 +29,40 @@ export default function useLoginForm(isAgent?: boolean, isRemember?: boolean) {
     { username, password }: LoginFormValues,
     {}: FormikHelpers<LoginFormValues>
   ) => {
-    const api = isAgent ? agentAuthApi.endpoints.login : authApi.endpoints.login
+    try {
+      const api = isAgent
+        ? agentAuthApi.endpoints.login
+        : authApi.endpoints.login
 
-    const resp = await dispatch(api.initiate({ username, password }))
-      .unwrap()
-      .catch((e: IResponse<LoginResult>) => {
-        showAlert(e.message)
-      })
+      const resp = await dispatch(api.initiate({ username, password }))
+        .unwrap()
+        .catch((e: IResponse<LoginResult>) => {
+          showAlert(e.message)
+        })
 
-    if (resp) {
-      const { data, result, message, success } = resp
-      if (success) {
-        isAgent
-          ? handleAgentSuccessLogin(result)
-          : handleSuccessLogin(username, password, data)
-
-        dispatch(
+      if (resp) {
+        const { data, result, message, success } = resp
+        if (success) {
           isAgent
-            ? SettingActions.setAgentRememberMe(
-                isRemember ? { username, password } : undefined
-              )
-            : SettingActions.setRememberMe(
-                isRemember ? { username, password } : undefined
-              )
-        )
-        closeModal('AgentLoginModal')
-        return
-      } else {
-        showAlert(message)
+            ? handleAgentSuccessLogin(result)
+            : handleSuccessLogin(username, password, data)
+
+          dispatch(
+            isAgent
+              ? SettingActions.setAgentRememberMe(
+                  isRemember ? { username, password } : undefined
+                )
+              : SettingActions.setRememberMe(
+                  isRemember ? { username, password } : undefined
+                )
+          )
+          closeModal('AgentLoginModal')
+        } else {
+          showAlert(message)
+        }
       }
+    } catch (error) {
+      console.error(error)
     }
   }
 

@@ -1,6 +1,4 @@
 import AgentLoginButton from 'app/components/AgentLoginButton'
-import Shadow from 'app/components/Shadow'
-import Button from 'app/components/common/Button'
 import IconButton from 'app/components/IconButton'
 import Input from 'app/components/form/Input'
 import HeaderButton from 'app/components/navigation/header/HeaderButton'
@@ -33,16 +31,6 @@ const HeaderAuthentication = () => {
     validateForm,
     isValidating,
   } = formik
-
-  const isHideLoginRegisterSection = () => {
-    if (!desktop) {
-      return true
-    }
-
-    const isAuthRelatedURL = window.location.pathname.includes('/auth')
-
-    return isAuthRelatedURL
-  }
 
   const onLogin = async () => {
     if (isValidating) {
@@ -89,70 +77,67 @@ const HeaderAuthentication = () => {
         gap: ['$2', '$2', '$2', '$2', '$3'],
       }}
     >
-      {isHideLoginRegisterSection() ? null : (
-        <>
-          <Input
-            autoCapitalize={'none'}
-            sx={{ mb: 0, width: 200 }}
-            inputContainerSx={{ py: '$1' }}
-            icon="profile-rounded"
-            placeholder="Username"
-            textContentType="username"
-            value={values.username}
-            onBlur={handleBlur('username')}
-            onChangeText={handleChange('username')}
-            onSubmitEditing={() => {
-              passwordFieldRef.current?.focus()
-            }}
-            maxLength={USERNAME_MAX_LENGTH}
-          />
-          <Input
-            ref={passwordFieldRef}
-            autoCapitalize={'none'}
-            sx={{ mb: 0, width: 200 }}
-            inputContainerSx={{ py: '$1' }}
-            icon="pw"
-            placeholder="Password"
-            secureTextEntry
-            textContentType="password"
-            value={values.password}
-            onBlur={handleBlur('password')}
-            onChangeText={handleChange('password')}
-            onSubmitEditing={onLogin}
-            maxLength={PASSWORD_MAX_LENGTH}
-          />
-          <IconButton
-            nativeID="forgotPassword"
-            name="tnc"
-            size={20}
-            onPress={() => {
-              desktop
-                ? openModal('ForgotPasswordModal')
-                : push('/auth/forgot-password')
-            }}
-          />
-          <HeaderButton
-            loading={isSubmitting}
-            contentProps={{
-              sx: { py: '$2' },
-            }}
-            onPress={() => (desktop ? onLogin() : push('/auth/login'))}
-          >
-            {t('authentication.login')}
-          </HeaderButton>
-          <HeaderButton
-            sx={{ bg: '$primary.300' }}
-            contentProps={{
-              sx: { py: '$2' },
-            }}
-            onPress={() =>
-              desktop ? openModal('RegisterModal') : push('/auth/register')
-            }
-          >
-            {t('authentication.register')}
-          </HeaderButton>
-        </>
-      )}
+      <Input
+        autoCapitalize={'none'}
+        sx={{ mb: 0, width: 200 }}
+        inputContainerSx={{ py: '$1' }}
+        icon="profile-rounded"
+        placeholder={t('common.username')}
+        textContentType="username"
+        value={values.username}
+        onBlur={handleBlur('username')}
+        onChangeText={handleChange('username')}
+        onSubmitEditing={() => {
+          passwordFieldRef.current?.focus()
+        }}
+        maxLength={USERNAME_MAX_LENGTH}
+      />
+      <Input
+        ref={passwordFieldRef}
+        autoCapitalize={'none'}
+        sx={{ mb: 0, width: 200 }}
+        inputContainerSx={{ py: '$1' }}
+        icon="pw"
+        placeholder={t('common.password')}
+        secureTextEntry
+        textContentType="password"
+        value={values.password}
+        onBlur={handleBlur('password')}
+        onChangeText={handleChange('password')}
+        onSubmitEditing={onLogin}
+        maxLength={PASSWORD_MAX_LENGTH}
+      />
+      <IconButton
+        nativeID="forgotPassword"
+        name="tnc"
+        size={20}
+        onPress={() => {
+          desktop
+            ? openModal('ForgotPasswordModal')
+            : push('/auth/forgot-password')
+        }}
+      />
+      <HeaderButton
+        loading={isSubmitting}
+        contentProps={{
+          sx: { py: '$2' },
+        }}
+        onPress={() => (desktop ? onLogin() : push('/auth/login'))}
+      >
+        {t('authentication.login')}
+      </HeaderButton>
+      <HeaderButton
+        sx={{ bg: '$primary.300' }}
+        contentProps={{
+          sx: { py: '$2' },
+        }}
+        onPress={() =>
+          desktop ? openModal('RegisterModal') : push('/auth/register')
+        }
+      >
+        {t('authentication.register')}
+      </HeaderButton>
+
       <HeaderLanguageToggle />
       <AgentLoginButton />
     </View>

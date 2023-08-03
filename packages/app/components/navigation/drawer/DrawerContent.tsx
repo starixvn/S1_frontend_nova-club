@@ -167,7 +167,7 @@ export default function DrawerContent() {
         }}
         ref={scrollRef}
       >
-        <View sx={{ bg: '' }}>
+        <View>
           {MENU_LIST.map((item, index) => {
             return (
               <Pressable

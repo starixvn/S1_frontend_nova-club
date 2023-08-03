@@ -1,5 +1,6 @@
 import IconButton from 'app/components/IconButton'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
+import { LoginType } from 'app/features/auth/AuthTypeSelection'
 import ForgotPasswordForm from 'app/features/auth/forgotPassword/ForgotPasswordForm'
 import ResetPasswordForm from 'app/features/auth/forgotPassword/ResetPasswordForm'
 import useForgotPassword, {
@@ -19,6 +20,7 @@ type Props = ModalComponentProp<ModalStackParams, void, 'ForgotPasswordModal'>
 export default function ForgotPasswordScreen({ modal }: Props) {
   const rootRef = useRef<RNView>(null)
   const { t } = useLocalization()
+  const modalType = modal?.getParam('t', LoginType.Member)
 
   const {
     animationState,
@@ -31,12 +33,13 @@ export default function ForgotPasswordScreen({ modal }: Props) {
     isAgentSuccess,
     agentSendOTP,
     currentScreen,
-  } = useForgotPassword(rootRef)
+  } = useForgotPassword(rootRef, modalType)
 
   return (
     <AuthLayout
       sx={{ mt: modal ? 0 : '$5' }}
       headerDesc={t('authentication.forgotPasswordHeader')}
+      isAbleToClose={Boolean(modal)}
     >
       <View ref={rootRef} sx={{ overflow: 'hidden', flex: 1 }}>
         <Row sx={{ flex: 1 }}>
@@ -51,6 +54,7 @@ export default function ForgotPasswordScreen({ modal }: Props) {
             <ForgotPasswordForm
               sx={{
                 flex: 1,
+                pt: 52,
               }}
               formik={formik}
               onCodeSubmit={onForgotPasswordSubmit}

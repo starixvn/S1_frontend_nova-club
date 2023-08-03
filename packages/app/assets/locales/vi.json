@@ -20,7 +20,8 @@
     "rememberMe": "Lưu để đăng nhập lần sau",
     "resend": "Gởi",
     "resetPasswordHeader": "Đặt lại mật khẩu",
-    "send": "Gởi"
+    "send": "Gởi",
+    "referrerInfo": "Thông tin người giới thiệu"
   },
   "bank": {
     "accountName": "Tên tài khoản",
