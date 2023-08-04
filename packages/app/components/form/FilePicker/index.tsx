@@ -108,7 +108,7 @@ export default function FilePicker({
           <Icon name="attachment" color={color} />
         </InputClearActionRow>
       )}
-      onPress={handleSelect}
+      onPress={Platform.OS !== 'web' ? handleSelect : undefined}
       value={value ? getName() ?? ' ' : ''}
       {...rest}
     >
