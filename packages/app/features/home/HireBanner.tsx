@@ -17,7 +17,10 @@ export default function HireBanner() {
   const lang = useAppSelector((state) => state.setting.locale)
   const { token } = useAppSelector((state) => state.auth.info) || {}
   const isDesktop = useResponsiveValue([false, false, false, true])
-  const { data: playerData } = usePlayerProfileQuery()
+
+  const { data: playerData } = usePlayerProfileQuery(undefined, {
+    skip: !token,
+  })
   const { openModal } = useModal()
   const { showAlert } = useAlert()
   // const direction = useResponsiveValue(['column', 'column', 'column', 'row'])

@@ -14,6 +14,7 @@
     "forgotPasswordHeader": "Forgot Password",
     "login": "Login",
     "loginHeader": "Login to your account",
+    "loginAgentHeader": "Login to agent account",
     "noReceiveOTP": "Didn't receive OTP?",
     "readAndAgree": "I have read & agree the",
     "register": "Register",

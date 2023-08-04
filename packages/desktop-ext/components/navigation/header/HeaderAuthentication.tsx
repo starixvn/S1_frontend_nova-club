@@ -14,7 +14,7 @@ import { useModal } from 'react-native-modalfy'
 import { useRouter } from 'solito/router'
 
 const StyledForgotPasswordText = styled(Text)({
-  fontSize: 12,
+  fontSize: 11,
   fontWeight: '500',
 })
 
@@ -168,7 +168,7 @@ const HeaderAuthentication = () => {
           }}
           sx={{
             position: 'absolute',
-            top: forgotPasswordPosition.y,
+            top: forgotPasswordPosition.y - 2,
             left: forgotPasswordPosition.x,
           }}
         >
