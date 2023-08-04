@@ -32,11 +32,20 @@ const PlinkoEvent = ({ size }: { size: number }) => {
     <MotiView
       from={{ translateY: -10 }}
       animate={{ translateY: 10 }}
-      transition={{ type: 'timing', loop: true, duration: 3000 }}
+      transition={{
+        type: 'timing',
+        loop: true,
+        duration: 2000,
+      }}
     >
       <Pressable
         onPress={handlePress}
-        sx={{ justifyContent: 'center', mb: 10, ml: -5 }}
+        sx={{
+          justifyContent: 'center',
+          mb: 10,
+          ml: -5,
+          bg: 'rgba(30,30,30,0.01)',
+        }}
       >
         <Image
           source={

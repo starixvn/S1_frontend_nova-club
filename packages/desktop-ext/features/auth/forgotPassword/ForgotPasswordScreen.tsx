@@ -38,8 +38,13 @@ export default function ForgotPasswordScreen({ modal }: Props) {
   return (
     <AuthLayout
       sx={{ mt: modal ? 0 : '$5' }}
-      headerDesc={t('authentication.forgotPasswordHeader')}
+      headerDesc={
+        isAgentLogin
+          ? t('authentication.agentForgotPassword')
+          : t('authentication.forgotPasswordHeader')
+      }
       isAbleToClose={Boolean(modal)}
+      isAgent={isAgentLogin}
     >
       <View ref={rootRef} sx={{ overflow: 'hidden', flex: 1 }}>
         <Row sx={{ flex: 1 }}>

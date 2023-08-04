@@ -52,7 +52,12 @@ export default function LoginScreenDesktop({ modal }: Props) {
     <AuthLayout
       isAbleToClose={Boolean(modal)}
       sx={{ mt: modal ? 0 : '$5' }}
-      headerDesc={t('authentication.loginHeader')}
+      isAgent={isAgentLogin}
+      headerDesc={
+        isAgentLogin
+          ? t('authentication.loginAgentHeader')
+          : t('authentication.loginHeader')
+      }
     >
       <View sx={{ mt: '$3', flex: 1 }}>
         {Boolean(modal) ? null : (

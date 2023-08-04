@@ -59,7 +59,11 @@ export default function LoginScreen() {
 
   return (
     <AuthLayout
-      headerDesc={t('authentication.loginHeader')}
+      headerDesc={
+        isAgentLogin
+          ? t('authentication.loginAgentHeader')
+          : t('authentication.loginHeader')
+      }
       headerColor={'black'}
     >
       <View sx={{ width: '100%' }}>

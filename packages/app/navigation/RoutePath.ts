@@ -82,11 +82,11 @@ export const Profile_Quick_Navigation_Path: Route[] = [
   //   path: '/account/profile/my-rewards-hub',
   //   icon: 'gift',
   // },
-  // {
-  //   label: 'friend referral',
-  //   path: '/',
-  //   icon: 'friend-ref',
-  // },
+  {
+    label: 'menu.friendReferral',
+    path: '/account/referral',
+    icon: 'friend-ref',
+  },
   // {
   //   label: 'promotion',
   //   path: '/',

@@ -1,5 +1,6 @@
 import FormContainer from 'app/components/form/FormContainer'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
+import DrawerReferral from 'app/components/navigation/drawer/DrawerReferral'
 import useLocalization from 'app/provider/localization'
 import isDesktop from 'app/utils/isDesktop'
 import { View } from 'dripsy'
@@ -17,15 +18,26 @@ const ReferralScreen = () => {
       hideHeader={desktop}
     >
       <FormContainer>
-        <View
-          sx={{
-            height: 400,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <ReferralSection />
-        </View>
+        {desktop ? (
+          <View
+            sx={{
+              height: 400,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <ReferralSection />
+          </View>
+        ) : (
+          <View
+            sx={{
+              // width: '80%',
+              margin: 'auto',
+            }}
+          >
+            <DrawerReferral />
+          </View>
+        )}
       </FormContainer>
     </PageWithBackHeader>
   )
