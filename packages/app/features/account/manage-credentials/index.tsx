@@ -4,7 +4,7 @@ import CreatePinScreen from 'app/features/pin/CreatePinScreen'
 import ChangePinScreen from 'app/features/pin/change-pin'
 import useLocalization from 'app/provider/localization'
 import isDesktop from 'app/utils/isDesktop'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { SceneMap, TabView } from 'react-native-tab-view'
 import { usePlayerProfileQuery } from 'services/playerApi'
@@ -71,9 +71,13 @@ const ManageCredentialsPage = () => {
     isPinExist ? changePinRoute : createPinRoute,
   ])
 
+  const renderCreatePinScreen = useCallback(() => {
+    return <CreatePinScreen isTab />
+  }, [])
+
   const renderScene = SceneMap({
     first: ChangePasswordPage,
-    second: isPinExist ? ChangePinScreen : () => <CreatePinScreen isTab />,
+    second: isPinExist ? ChangePinScreen : renderCreatePinScreen,
   })
 
   useEffect(() => {

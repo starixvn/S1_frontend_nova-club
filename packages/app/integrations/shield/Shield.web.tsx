@@ -13,18 +13,12 @@ declare global {
 export default function Shield() {
   const dispatch = useAppDispatch()
 
-  // const { autoSyncShield } = useShield()
-
-  // useEffect(() => {
-  //   autoSyncShield()
-  // }, [autoSyncShield])
-
   return (
     <Script
       id="shield.com"
       src={`https://d1cr9zxt7u0sgu.cloudfront.net/shdfp.js?SITE_ID=${process.env.NEXT_PUBLIC_SHIELD_SITE_ID}&TYPE=JS&DE=1&AUTO=0`}
       onLoad={() => {
-        window.getDeviceResult().then(
+        window.getDeviceResult?.().then(
           function (res) {
             console.log('Shield Response', res)
             let sessionId = res.result.session_id
