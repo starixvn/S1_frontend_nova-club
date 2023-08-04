@@ -1,6 +1,5 @@
+import usePathname from 'app/hooks/usePathname'
 import React, {
-  Dispatch,
-  SetStateAction,
   createContext,
   startTransition,
   useCallback,
@@ -9,9 +8,8 @@ import React, {
   useState,
 } from 'react'
 import LiveCasino from './dropdown/LiveCasino'
+import Slots from './dropdown/Slots'
 import Sportsbook from './dropdown/Sportsbook'
-import usePathname from 'app/hooks/usePathname'
-import debounce from 'lodash/debounce'
 
 const NavigationHeaderContext = createContext<
   (menu: NAVIGATION_DROPDOWN_MENU | undefined) => void
@@ -20,6 +18,7 @@ const NavigationHeaderContext = createContext<
 export enum NAVIGATION_DROPDOWN_MENU {
   Sportsbook = 'sportsbook',
   LiveCasino = 'livecasino',
+  Slots = 'slots',
 }
 
 const NavigationHeaderProvider = ({ children }) => {
@@ -41,6 +40,9 @@ const NavigationHeaderProvider = ({ children }) => {
         }
         case NAVIGATION_DROPDOWN_MENU.LiveCasino: {
           return <LiveCasino />
+        }
+        case NAVIGATION_DROPDOWN_MENU.Slots: {
+          return <Slots />
         }
       }
     }
