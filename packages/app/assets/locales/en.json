@@ -20,7 +20,8 @@
     "rememberMe": "Remember Me",
     "resend": "Send",
     "resetPasswordHeader": "Reset Password",
-    "send": "Send"
+    "send": "Send",
+    "referrerInfo": "Referrer information"
   },
   "bank": {
     "accountName": "Account Name",
@@ -110,7 +111,8 @@
     "userAgreement": "User Agreement",
     "username": "Username",
     "withdraw": "Withdraw",
-    "enter": "Enter"
+    "enter": "Enter",
+    "confirmDelete": "Are you sure you want to delete? It cannot be restored after deletion!"
   },
   "contact": {
     "contactVia": "Contact via:",
@@ -174,7 +176,8 @@
       "n3": "You will be redirected to\n\"Vui Fit app on App Store\ninstead of VUI123 app\"",
       "n4": "Click \"Get\" to install the\n\"Vui Fit\" app",
       "n5": "Open \"Vui Fit\" app to launch\nVUI123 app. Start enjoying your\nexclusive bonus and games"
-    }
+    },
+    "guideInstall": "Guide to Install"
   },
   "event": {
     "catEvent": {
@@ -247,6 +250,7 @@
     "win/loss": "Win/Loss"
   },
   "footer": {
+    "power": "Powered By",
     "aboutUs": "About Us",
     "contactUs": "Contact Us",
     "copyright": "© Copyright 2023 VUI123. All Rights Reserved.",

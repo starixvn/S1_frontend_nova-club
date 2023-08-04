@@ -1,6 +1,7 @@
 import { agentModalConfig } from 'agent/provider/agentModal'
 import LoadingModal from 'app/components/modal/LoadingModal'
 import ModalWrapper from 'app/components/modal/ModalWrapper'
+import { LoginType } from 'app/features/auth/AuthTypeSelection'
 import { ActivityIndicator, useResponsiveValue } from 'dripsy'
 import dynamic from 'next/dynamic'
 import React from 'react'
@@ -59,10 +60,14 @@ export type ModalStackParams = {
     label: string
     onClose(...args: any): any
   }
-  AgentLoginModal: undefined
+  AgentLoginModal: {
+    t: LoginType
+  }
   DepositCryptoModal: { data: SubmitDepositCryptoItem }
   LuckyDrawModal: undefined
-  ForgotPasswordModal: undefined
+  ForgotPasswordModal: {
+    t: LoginType
+  }
 }
 
 type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>

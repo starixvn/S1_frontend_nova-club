@@ -1,20 +1,21 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import isDesktop from 'app/utils/isDesktop'
-import { Row, Text } from 'dripsy'
+import useLocalization from 'app/provider/localization'
+import { Row, Text, useResponsiveValue } from 'dripsy'
 import React from 'react'
 import { SolitoImage } from 'solito/image'
 
 const Powered = () => {
-  const desktop = isDesktop()
+  const isDesktop = useResponsiveValue([false, false, false, true])
+  const { t } = useLocalization()
   return (
     <Row
       sx={{
         justifyContent: 'center',
         alignItems: 'center',
-        bg: desktop ? '$primary.500' : 'transparent',
+        bg: isDesktop ? '$primary.500' : 'transparent',
       }}
     >
-      <Text sx={{ mr: '$3' }}>Powered by</Text>
+      <Text sx={{ mr: '$3' }}>{t('footer.power')}</Text>
       <SolitoImage
         width={100}
         height={60}

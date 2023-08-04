@@ -1,21 +1,20 @@
+import { MOBILE_PREFIX } from 'app/constants/country'
 import useAlert from 'app/hooks/useAlert'
 import useContainerWidth from 'app/hooks/useContainerWidth'
-import { ERROR_CODE } from 'app/utils/constant'
-import validation, { getErrorMessage } from 'app/utils/validation'
+import isDesktop from 'app/utils/isDesktop'
+import validation from 'app/utils/validation'
 import { FormikHelpers, useFormik } from 'formik'
 import { useDynamicAnimation } from 'moti'
-import { RefObject, useEffect, useMemo, useRef, useState } from 'react'
+import { RefObject, useEffect, useMemo, useState } from 'react'
 import { Platform, View as RNView } from 'react-native'
+import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { usePasswordRecoveryMutation } from 'services/authApi'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import { LoginType } from '../../AuthTypeSelection'
-import { useModal } from 'react-native-modalfy'
-import { MOBILE_PREFIX } from 'app/constants/country'
 import useAgentForgotPassword from './useAgentForgotPassword'
-import isDesktop from 'app/utils/isDesktop'
 
 export interface ForgotPasswordFormValues {
   username: string
@@ -33,18 +32,20 @@ export enum ForgotPassword_Screen {
 
 const { useParam } = createParam<{ t: LoginType }>()
 
-function useForgotPassword(rootView: RefObject<RNView>) {
+function useForgotPassword(rootView: RefObject<RNView>, modalType?: LoginType) {
   const { showAlert } = useAlert()
   const width = useContainerWidth(rootView)
 
-  const { push, replace } = useRouter()
+  const { replace } = useRouter()
   const { closeModal } = useModal()
   const desktop = isDesktop()
   const [currentScreen, setCurrentScreen] = useState<ForgotPassword_Screen>(
     ForgotPassword_Screen.GET_OTP
   )
 
-  const [type] = useParam('t', { initial: LoginType.Member })
+  const [urlType] = useParam('t', { initial: LoginType.Member })
+
+  const type = modalType ?? urlType
 
   const [recoverPassword] = usePasswordRecoveryMutation()
   const { agentResetPassword, agentSendOTP, isAgentLoading, isAgentSuccess } =
@@ -58,7 +59,7 @@ function useForgotPassword(rootView: RefObject<RNView>) {
   ) => {
     try {
       if (isAgentLogin) {
-        agentResetPassword(forgotPasswordValues, formikHelpers)
+        await agentResetPassword(forgotPasswordValues, formikHelpers)
       } else {
         const { password, confirmPassword, verifyCode, contactNumber } =
           forgotPasswordValues

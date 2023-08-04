@@ -1,12 +1,9 @@
-import IconButton from 'app/components/IconButton'
 import LanguageSwitch from 'app/components/LanguageSwitch'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { View, Image, Text, ScrollView } from 'dripsy'
+import { ScrollView, View } from 'dripsy'
 import React from 'react'
-import { useWindowDimensions } from 'react-native'
 import { useRouter } from 'solito/router'
 import AuthHeader from './components/AuthHeader'
-import AuthBanner from './components/AuthBanner'
 
 interface AuthLayoutProps {
   showBackButton?: boolean
