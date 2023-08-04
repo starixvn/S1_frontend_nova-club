@@ -24,12 +24,14 @@ type Props = {
   children: ReactNode
   headerDesc: string
   isAbleToClose?: boolean
+  isAgent?: boolean
 } & Omit<ComponentProps<typeof StyledContainer>, keyof StyledContainerProps>
 
 export default function AuthLayout({
   children,
   headerDesc,
   isAbleToClose,
+  isAgent,
   ...rest
 }: Props) {
   const { width } = useWindowDimensions()
@@ -38,7 +40,7 @@ export default function AuthLayout({
     <StyledContainer width={width} {...rest}>
       <DripsyGradient gradient="surface" sx={{ flex: 1 }}>
         <View sx={{ flexDirection: 'row', flex: 1 }}>
-          <LeftColumn title={headerDesc} />
+          <LeftColumn title={headerDesc} isAgent={isAgent} />
           <View sx={{ width: '50%' }}>
             <Divider />
             {isAbleToClose && <CloseButton />}
@@ -50,33 +52,35 @@ export default function AuthLayout({
   )
 }
 
-const LeftColumn = memo(({ title }: { title: string }) => {
-  return (
-    <View
-      sx={{
-        width: '50%',
-        bg: '$primary.500',
-        alignItems: 'center',
-        py: 30,
-      }}
-    >
-      <Text sx={{ textAlign: 'center', fontWeight: 'bold', fontSize: 22 }}>
-        {title}
-      </Text>
-      <SolitoImage
-        src={require('app/assets/images/common/logo.png')}
-        alt="logo"
-        width={128}
-        height={80}
-        resizeMode="contain"
-      />
-      <AuthBanner />
-      <View sx={{ alignItems: 'center', mt: 'auto' }}>
-        <LanguageSwitch />
+const LeftColumn = memo(
+  ({ title, isAgent }: { title: string; isAgent?: boolean }) => {
+    return (
+      <View
+        sx={{
+          width: '50%',
+          bg: '$primary.500',
+          alignItems: 'center',
+          py: 30,
+        }}
+      >
+        <Text sx={{ textAlign: 'center', fontWeight: 'bold', fontSize: 22 }}>
+          {title}
+        </Text>
+        <SolitoImage
+          src={require('app/assets/images/common/logo.png')}
+          alt="logo"
+          width={128}
+          height={80}
+          resizeMode="contain"
+        />
+        <AuthBanner isAgent={isAgent} />
+        <View sx={{ alignItems: 'center', mt: 'auto' }}>
+          <LanguageSwitch />
+        </View>
       </View>
-    </View>
-  )
-})
+    )
+  }
+)
 
 const CloseButton = () => {
   const { closeModal } = useModal()

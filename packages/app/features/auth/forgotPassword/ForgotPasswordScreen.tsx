@@ -40,7 +40,13 @@ const ForgotPasswordScreen = () => {
         }}
         style={{ width }}
       >
-        <AuthLayout headerDesc={t('authentication.forgotPasswordHeader')}>
+        <AuthLayout
+          headerDesc={
+            isAgentLogin
+              ? t('authentication.agentForgotPassword')
+              : t('authentication.forgotPasswordHeader')
+          }
+        >
           <ForgotPasswordForm
             formik={formik}
             onCodeSubmit={onForgotPasswordSubmit}

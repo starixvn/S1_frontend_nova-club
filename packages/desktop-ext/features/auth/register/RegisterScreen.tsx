@@ -49,6 +49,7 @@ export default function RegisterScreen({ modal }: Props) {
       sx={{ mt: modal ? 0 : '$5' }}
       headerDesc={t('authentication.accountReg')}
       isAbleToClose={Boolean(modal)}
+      isAgent={isAgentLogin}
     >
       <View ref={rootRef} sx={{ overflow: 'hidden', flex: 1, pt: '$4' }}>
         <Row sx={{ flex: 1 }}>
