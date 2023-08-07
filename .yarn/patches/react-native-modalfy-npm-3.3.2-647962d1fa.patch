@@ -1,0 +1,41 @@
+diff --git a/lib/commonjs/lib/ModalStack.js b/lib/commonjs/lib/ModalStack.js
+index f1eb980d7545f11e52a4abe0ee9a5a1726be7dcf..99c6c85027039af404e83aec47c712e0ac20249d 100644
+--- a/lib/commonjs/lib/ModalStack.js
++++ b/lib/commonjs/lib/ModalStack.js
+@@ -108,6 +108,8 @@ const ModalStack = props => {
+   const onBackdropPress = () => {
+     if (backBehavior === 'none') return;
+     const currentItem = [...stack.openedItems].slice(-1)[0];
++    if (currentItem && currentItem.params && currentItem.params.persistent) return
++
+     if (stack.openedItemsSize === 1) hideBackdrop();
+     setBackdropClosedItems([...backdropClosedItems, currentItem === null || currentItem === void 0 ? void 0 : currentItem.hash]);
+   };
+diff --git a/lib/module/lib/ModalStack.js b/lib/module/lib/ModalStack.js
+index 82f8d17943fd15e20e3636b945c0cb56a02ef39a..cc0f6ceaff07fa02d6514cdad92d2e9ed1113c6d 100644
+--- a/lib/module/lib/ModalStack.js
++++ b/lib/module/lib/ModalStack.js
+@@ -90,6 +90,8 @@ const ModalStack = props => {
+   const onBackdropPress = () => {
+     if (backBehavior === 'none') return;
+     const currentItem = [...stack.openedItems].slice(-1)[0];
++    if (currentItem && currentItem.params && currentItem.params.persistent) return
++    
+     if (stack.openedItemsSize === 1) hideBackdrop();
+     setBackdropClosedItems([...backdropClosedItems, currentItem === null || currentItem === void 0 ? void 0 : currentItem.hash]);
+   };
+diff --git a/src/lib/ModalStack.tsx b/src/lib/ModalStack.tsx
+index fa3dedbb479aa651ffe14381e61565e964c27e17..0e9fcc814a8ee99b28bdf04f09a6e7c0d16b2d82 100644
+--- a/src/lib/ModalStack.tsx
++++ b/src/lib/ModalStack.tsx
+@@ -98,9 +98,9 @@ const ModalStack = <P extends ModalfyParams>(props: Props<P>) => {
+     if (backBehavior === 'none') return
+ 
+     const currentItem = [...stack.openedItems].slice(-1)[0]
++    if (currentItem && currentItem.params && currentItem.params.persistent) return
+ 
+     if (stack.openedItemsSize === 1) hideBackdrop()
+-
+     setBackdropClosedItems([...backdropClosedItems, currentItem?.hash])
+   }
+ 

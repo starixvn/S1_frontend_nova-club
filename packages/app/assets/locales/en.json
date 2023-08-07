@@ -114,7 +114,8 @@
     "username": "Username",
     "withdraw": "Withdraw",
     "enter": "Enter",
-    "confirmDelete": "Are you sure you want to delete? It cannot be restored after deletion!"
+    "confirmDelete": "Are you sure you want to delete? It cannot be restored after deletion!",
+    "yes": "Yes"
   },
   "contact": {
     "contactVia": "Contact via:",
