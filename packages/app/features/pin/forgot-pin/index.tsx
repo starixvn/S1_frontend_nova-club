@@ -8,7 +8,7 @@ import isDesktop from 'app/utils/isDesktop'
 import validation from 'app/utils/validation'
 import { View } from 'dripsy'
 import { FormikHelpers, FormikTouched, useFormik } from 'formik'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { TextInput as RNTextField } from 'react-native'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import {
@@ -20,6 +20,7 @@ import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import UnderlinePinField from '../UnderlinePinField'
 import FormContainer from 'app/components/form/FormContainer'
+import { useAppSelector } from 'app/provider/redux/store'
 
 interface ForgotPinFormValues {
   confirmPin: string
@@ -47,6 +48,12 @@ const ForgotPinScreen = () => {
   const [sendPinRecoveryOtp, { isLoading: isOtpLoading }] =
     useTransferPinRecoveryOtpMutation()
   const [recoverTransferPin] = useTransferPinRecoveryMutation()
+
+  const lang = useAppSelector((s) => s.setting.locale)
+
+  useEffect(() => {
+    resetForm()
+  }, [lang])
 
   useEffect(() => {
     setFieldValue('contactNumber', playerData?.contractNumber)
@@ -102,6 +109,7 @@ const ForgotPinScreen = () => {
     touched,
     isValid,
     dirty,
+    resetForm,
     submitForm,
     validateForm,
     setFieldValue,
@@ -163,6 +171,31 @@ const ForgotPinScreen = () => {
     }
   }
 
+  const memoPin = useMemo(
+    () => (
+      <>
+        <UnderlinePinField
+          label={t('manageCredentials.pin.newPin')}
+          value={values.pin}
+          setValue={handleChange('pin')}
+        />
+        <UnderlinePinField
+          label={t('manageCredentials.pin.confirmPin')}
+          value={values.confirmPin}
+          setValue={handleChange('confirmPin')}
+          errorMsg={
+            values.confirmPin.length === 6 && errors.confirmPin
+              ? t(errors.confirmPin, {
+                  field: t('common.pin'),
+                })
+              : undefined
+          }
+        />
+      </>
+    ),
+    [values]
+  )
+
   return (
     <PageWithBackHeader
       header={{ title: t('manageCredentials.pin.forgotPin') }}
@@ -214,23 +247,7 @@ const ForgotPinScreen = () => {
               : undefined
           }
         />
-        <UnderlinePinField
-          label={t('manageCredentials.pin.newPin')}
-          value={values.pin}
-          setValue={handleChange('pin')}
-        />
-        <UnderlinePinField
-          label={t('manageCredentials.pin.confirmPin')}
-          value={values.confirmPin}
-          setValue={handleChange('confirmPin')}
-          errorMsg={
-            values.confirmPin.length === 6 && errors.confirmPin
-              ? t(errors.confirmPin, {
-                  field: t('common.pin'),
-                })
-              : undefined
-          }
-        />
+        {memoPin}
         <View sx={{ flexDirection: 'row', justifyContent: 'center' }}>
           {desktop && <View sx={{ width: '20%', minWidth: 200 }} />}
           <Button

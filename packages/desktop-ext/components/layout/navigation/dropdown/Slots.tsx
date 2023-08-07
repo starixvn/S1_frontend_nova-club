@@ -36,7 +36,6 @@ export default function Slots({}: Props) {
     <DropdownContent data={data} menu={NAVIGATION_DROPDOWN_MENU.Slots}>
       {providers &&
         providers.map((g) => {
-          console.log('🚀 ~ file: Slots.tsx:46 ~ Slots ~ g:', g)
           return (
             <GameCard
               absoluteName

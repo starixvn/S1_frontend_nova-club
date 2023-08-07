@@ -1,6 +1,6 @@
 import isDesktop from 'app/utils/isDesktop'
 import { Text, View } from 'dripsy'
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { Platform, StyleSheet } from 'react-native'
 import {
   CodeField,
@@ -103,6 +103,8 @@ const UnderlinePinField = ({
     )
   }
 
+  const memoCell = useMemo(() => renderCell, [])
+
   function onPinChanged(text: string) {
     let cleanText = text.replace(/[^0-9]/g, '')
     setValue(cleanText)
@@ -130,7 +132,7 @@ const UnderlinePinField = ({
           rootStyle={styles.codeFieldRoot}
           keyboardType="number-pad"
           textContentType="oneTimeCode"
-          renderCell={renderCell}
+          renderCell={memoCell}
         />
         {errorMsg && (
           <Text sx={{ my: '$2', mx: 45, color: '$error' }}>{errorMsg}</Text>

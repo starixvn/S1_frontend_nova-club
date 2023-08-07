@@ -259,13 +259,13 @@
 				TargetAttributes = {
 					097DED332A7287D900BCCFCC = {
 						CreatedOnToolsVersion = 14.2;
-						DevelopmentTeam = 36LZ925H63;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = VU9FQBV88P;
+						ProvisioningStyle = Automatic;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 36LZ925H63;
+						DevelopmentTeam = VU9FQBV88P;
 						LastSwiftMigration = 1250;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -502,10 +502,10 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = VU9FQBV88P;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 36LZ925H63;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -541,11 +541,11 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = VU9FQBV88P;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 36LZ925H63;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -576,9 +576,9 @@
 				CODE_SIGN_ENTITLEMENTS = Vui123/Vui123.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = VU9FQBV88P;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 36LZ925H63;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -616,9 +616,9 @@
 				CODE_SIGN_ENTITLEMENTS = Vui123/Vui123.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = VU9FQBV88P;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 36LZ925H63;
 				INFOPLIST_FILE = Vui123/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Vui Staging 2";

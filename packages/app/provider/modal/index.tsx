@@ -13,6 +13,8 @@ import {
 } from 'react-native-modalfy'
 import { SubmitDepositCryptoItem } from 'services/deposit.type'
 
+export const MODAL_ANIMATION_DELAY = 350
+
 type ModalStackConfigValueType = ModalStackConfig extends Record<
   any,
   infer ValueType
