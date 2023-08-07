@@ -4,6 +4,8 @@ import { EndpointBuilderType, IResponse } from './common/types'
 import {
   FeaturedGame,
   Game,
+  GameCategoryTagResult,
+  GameCategoryTagTypes,
   GameConfig,
   GameListQueryArgs,
   GameScreenMultipleRequest,
@@ -214,6 +216,15 @@ export const gameApi = baseApiWithTag.injectEndpoints({
         }, {})
       },
     }),
+    gameCategoryTagTypes: builder.query<GameCategoryTagTypes[], void>({
+      query: () => ({
+        url: `/static_api/getGameCategoryTagTypes`,
+        method: 'GET',
+      }),
+      transformResponse: ({ data }: { data: GameCategoryTagResult }) => {
+        return data?.rows ?? []
+      },
+    }),
   }),
 })
 
@@ -228,4 +239,5 @@ export const {
   useLatestWinnerQuery,
   useDemoGameMutation,
   useGameProviderListQuery,
+  useGameCategoryTagTypesQuery,
 } = gameApi

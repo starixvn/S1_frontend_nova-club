@@ -8,13 +8,23 @@ import { ViewProps } from 'react-native'
 import SelectProvider from 'desktop-ext/components/game/SelectProvider'
 import countBy from 'lodash/countBy'
 import useLocalization from 'app/provider/localization'
+import {
+  useGetTagName,
+  type GameCategoryTagTranslation,
+} from 'app/hooks/appState/game/useGameCategoryTag'
 interface Props extends ViewProps {
   label: string
   games: Game[]
   sx?: SxProp
+  gameCategoryTagTranslation?: GameCategoryTagTranslation
 }
 
-export default function GameList({ label, games, ...rest }: Props) {
+export default function GameList({
+  label,
+  games,
+  gameCategoryTagTranslation,
+  ...rest
+}: Props) {
   const [filter, setFilter] = useState(ALL)
   const [provider, setProvider] = useState<string | undefined>()
   const { t } = useLocalization()
@@ -26,6 +36,7 @@ export default function GameList({ label, games, ...rest }: Props) {
       [ALL]
     )
   }, [games])
+  const { getTagName } = useGetTagName()
 
   const filteredGame = useMemo(() => {
     return filter === ALL ? games : games.filter((g) => g.tags.includes(filter))
@@ -55,7 +66,7 @@ export default function GameList({ label, games, ...rest }: Props) {
               }}
               isActive={isActive}
             >
-              {f.toUpperCase()}
+              {getTagName(f, gameCategoryTagTranslation)}
             </GameListSectionGrid.TagButton>
           )
         })}

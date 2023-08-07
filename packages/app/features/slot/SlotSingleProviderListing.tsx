@@ -4,6 +4,10 @@ import Icon from 'app/components/Icon'
 import Shadow from 'app/components/Shadow'
 import GameCard from 'app/components/game/GameCard'
 import GameListSectionGrid from 'app/components/game/GameListSectionGrid'
+import {
+  GameCategoryTagTranslation,
+  useGetTagName,
+} from 'app/hooks/appState/game/useGameCategoryTag'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { ALL } from 'app/utils/constant'
@@ -25,12 +29,14 @@ interface SlotSingleProviderListingProps {
   provider: string
   onBack: () => void
   sx?: SxProp
+  gameCategoryTagTranslation?: GameCategoryTagTranslation
 }
 const SlotSingleProviderListing = ({
   games,
   provider,
   onBack,
   sx,
+  gameCategoryTagTranslation,
 }: SlotSingleProviderListingProps) => {
   const { top, bottom } = useSafeArea()
 
@@ -46,6 +52,7 @@ const SlotSingleProviderListing = ({
       )
     } else return ['ALL']
   }, [games])
+  const { getTagName } = useGetTagName()
 
   const column = useResponsiveValue([4, 5, 6])
 
@@ -106,7 +113,7 @@ const SlotSingleProviderListing = ({
                 }}
                 isActive={isActive}
               >
-                {f.toUpperCase()}
+                {getTagName(f, gameCategoryTagTranslation)}
               </GameListSectionGrid.TagButton>
             )
           })}

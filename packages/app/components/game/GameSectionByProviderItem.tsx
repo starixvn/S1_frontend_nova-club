@@ -11,6 +11,10 @@ import { Game } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
 
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import {
+  useGetTagName,
+  type GameCategoryTagTranslation,
+} from 'app/hooks/appState/game/useGameCategoryTag'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { ALL } from 'app/utils/constant'
@@ -25,12 +29,14 @@ function GameSectionByProviderItem({
   bordered = false,
   onViewMore,
   gameListProps,
+  gameCategoryTagTranslation,
 }: {
   bordered?: boolean
   gpc?: string
   games: Game[]
   onViewMore?: (gpc: string) => void
   gameListProps?: any
+  gameCategoryTagTranslation?: GameCategoryTagTranslation
   // GameListComponent: FC<{ data: Game[] }>
 }) {
   const { t } = useLocalization()
@@ -38,6 +44,8 @@ function GameSectionByProviderItem({
   const [filter, setFilter] = useState(ALL)
   const [search, setSearch] = useState<string | undefined>()
   const count = useResponsiveValue([8, 10, 12, 999, 999])
+
+  const { getTagName } = useGetTagName()
 
   useEffect(() => {
     startTransition(() => setFilter(ALL))
@@ -96,7 +104,7 @@ function GameSectionByProviderItem({
               }}
               isActive={isActive}
             >
-              {t(f).toUpperCase()}
+              {getTagName(f, gameCategoryTagTranslation)}
             </GameListSectionGrid.TagButton>
           )
         })}

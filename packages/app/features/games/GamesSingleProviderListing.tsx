@@ -23,6 +23,10 @@ import React, { startTransition, useEffect, useMemo, useState } from 'react'
 import { Game } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
 import { MobileGamesFilter } from './subroutes'
+import {
+  useGetTagName,
+  type GameCategoryTagTranslation,
+} from 'app/hooks/appState/game/useGameCategoryTag'
 
 interface GamesSingleProviderListingProps {
   games: Game[]
@@ -31,6 +35,7 @@ interface GamesSingleProviderListingProps {
   onFilterClicked: (r, i: number) => void
   onBack: () => void
   sx?: SxProp
+  gameCategoryTagTranslation?: GameCategoryTagTranslation
 }
 const GamesSingleProviderListing = ({
   games,
@@ -39,6 +44,7 @@ const GamesSingleProviderListing = ({
   onFilterClicked,
   onBack,
   sx,
+  gameCategoryTagTranslation,
 }: GamesSingleProviderListingProps) => {
   const sxP = useSx()
   const { top, bottom } = useSafeArea()
@@ -56,6 +62,7 @@ const GamesSingleProviderListing = ({
       )
     } else return ['ALL']
   }, [games])
+  const { getTagName } = useGetTagName()
 
   const column = useResponsiveValue([4, 5, 6])
 
@@ -135,7 +142,7 @@ const GamesSingleProviderListing = ({
                 }}
                 isActive={isActive}
               >
-                {f.toUpperCase()}
+                {getTagName(f, gameCategoryTagTranslation)}
               </GameListSectionGrid.TagButton>
             )
           })}

@@ -4,10 +4,7 @@ import GamePageHeader from 'app/components/GamePageHeader'
 import GameListSectionAsyncByTag from 'app/components/game/GameListSectionAsyncByTag'
 import GameSectionByProviderItem from 'app/components/game/GameSectionByProviderItem'
 import ProviderList from 'app/components/game/ProviderList'
-import {
-  useGameFilter,
-  withGameFilterProvider,
-} from 'app/provider/gameFilter/GameFilterProvider'
+import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
 import useLocalization from 'app/provider/localization'
 import {
   GAME_TYPE_CODE,
@@ -15,22 +12,24 @@ import {
   SlotType,
 } from 'app/utils/constant'
 import { ActivityIndicator, View } from 'dripsy'
+import groupBy from 'lodash/groupBy'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { InteractionManager, Platform } from 'react-native'
+import { Platform } from 'react-native'
+import { useGameListMultipleQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import { createParam } from 'solito'
 import { SolitoImage } from 'solito/image'
 import { useRouter } from 'solito/router'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 import SlotSingleProviderListing from './SlotSingleProviderListing'
-import { useGameListMultipleQuery } from 'services/gameApi'
-import groupBy from 'lodash/groupBy'
 
 type Params = {
   provider?: string
 }
 
 const { useParam } = createParam<Params>()
+
+const GameCategory = [GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]
 
 function SlotScreen() {
   const { t } = useLocalization()
@@ -52,12 +51,13 @@ function SlotScreen() {
 
   const { data: games, isUninitialized } = useGameListMultipleQuery(
     {
-      game_category: [GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING],
+      game_category: GameCategory,
     },
     {
       skip: !isDelayed,
     }
   )
+  const { gameCategoryTagTranslation } = useGameCategoryTag(GameCategory)
 
   const gamesByProviders = useMemo(() => {
     return groupBy(games, 'gpc')
@@ -107,6 +107,7 @@ function SlotScreen() {
         onBack={() => {
           setProvider(undefined)
         }}
+        gameCategoryTagTranslation={gameCategoryTagTranslation}
       />
     )
   }
@@ -126,6 +127,7 @@ function SlotScreen() {
               gpc={item[0].gpc}
               games={item}
               onViewMore={onViewMore}
+              gameCategoryTagTranslation={gameCategoryTagTranslation}
             />
           )
         else return null

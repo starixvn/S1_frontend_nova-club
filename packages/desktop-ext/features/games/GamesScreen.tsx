@@ -25,9 +25,9 @@ import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 type Props = {}
 
 function _GamesScreen({}: Props) {
-  const { route, filteredGames, onFilterClicked } = useGameScreen(
-    SUB_ROUTES.local.route
-  )
+  const { route, filteredGames, onFilterClicked, gameCategoryTagTranslation } =
+    useGameScreen(SUB_ROUTES.local.route)
+
   return (
     <Container>
       <Row sx={{ gap: '$3', my: '$sectionBottomSpace' }}>
@@ -83,6 +83,7 @@ function _GamesScreen({}: Props) {
             sx={{ flex: 1 }}
             games={filteredGames}
             label={route.label}
+            gameCategoryTagTranslation={gameCategoryTagTranslation}
           />
         </Row>
       )}
