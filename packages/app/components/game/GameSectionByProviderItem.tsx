@@ -17,7 +17,7 @@ import {
 } from 'app/hooks/appState/game/useGameCategoryTag'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { ALL } from 'app/utils/constant'
+import { ALL, HOT } from 'app/utils/constant'
 import { Text } from 'dripsy'
 import Button from '../common/Button'
 import GameListSectionGrid from './GameListSectionGrid'
@@ -41,15 +41,11 @@ function GameSectionByProviderItem({
 }) {
   const { t } = useLocalization()
   const locale = useAppSelector((s) => s.setting.locale)
-  const [filter, setFilter] = useState(ALL)
-  const [search, setSearch] = useState<string | undefined>()
+  const [filter, setFilter] = useState('hot')
+  const [search, setSearch] = useState<string>()
   const count = useResponsiveValue([8, 10, 12, 999, 999])
 
   const { getTagName } = useGetTagName()
-
-  useEffect(() => {
-    startTransition(() => setFilter(ALL))
-  }, [gpc])
 
   const tags = useMemo(() => {
     return games.reduce(
@@ -73,6 +69,16 @@ function GameSectionByProviderItem({
           .slice(0, count)
       : undefined
   }, [search, filteredGame, count, locale])
+
+  useEffect(() => {
+    if (tags.length) {
+      const defaultTag = tags.find((tag) => tag === HOT)
+
+      startTransition(() => {
+        setFilter(defaultTag ?? ALL)
+      })
+    }
+  }, [gpc, tags])
 
   return (
     <View nativeID={`gameSection${gpc}`}>

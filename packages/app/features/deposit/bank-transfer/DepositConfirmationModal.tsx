@@ -4,7 +4,6 @@ import useLocalization from 'app/provider/localization'
 import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import { Text, View } from 'dripsy'
-import { useState } from 'react'
 import { usePlayerProfileQuery } from 'services/playerApi'
 
 const DepositConfirmationModal = ({ modal: { closeModal, getParam } }) => {

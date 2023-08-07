@@ -1,4 +1,3 @@
-import { DEV_DOMAIN } from '@env'
 import Icon from 'app/components/Icon'
 import BouncePressable from 'app/components/pressable/BouncePressable'
 import useContainerDimension from 'app/hooks/useContainerDimension'
@@ -10,6 +9,7 @@ import { Text, View } from 'dripsy'
 import React from 'react'
 import { ImageBackground } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
+import { DEV_DOMAIN } from '../../../../../apps/next/config/env'
 
 const DrawerReferral = () => {
   const { t } = useLocalization()
@@ -26,18 +26,18 @@ const DrawerReferral = () => {
   return (
     <View
       sx={{
-        height: height - 300 + bottom,
+        height: height - 325 + bottom,
         // bg: 'red',
         justifyContent: 'flex-end',
       }}
     >
       <ImageBackground
-        source={require('app/assets/images/banner_referral.jpg')}
+        source={require('../../../assets/images/banner_referral.jpg')}
         style={{
-          aspectRatio: 250 / 380,
-          //   maxHeight: 380,
-          //   height: '100%',
-          //   width: '100%',
+          // aspectRatio: 380 / 600,
+          maxHeight: 380,
+          height: '100%',
+          width: '100%',
           alignItems: 'center',
           justifyContent: 'center',
           // backgroundColor: 'green',

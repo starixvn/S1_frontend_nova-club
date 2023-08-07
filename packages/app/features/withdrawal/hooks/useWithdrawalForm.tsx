@@ -107,8 +107,8 @@ const useWithdrawalForm = ({ isCrypto = false, minMax }) => {
     { bank, realAmount }: WithdrawalValues,
     actions: FormikHelpers<WithdrawalValues>
   ) => {
+    console.log('submitting')
     try {
-      actions.setSubmitting(true)
       const { data, success, message } = await postSubmitWithdrawal({
         amount: realAmount,
         bank_details_id: bank?.PlayerBankDetailsId ?? 0,
@@ -128,8 +128,6 @@ const useWithdrawalForm = ({ isCrypto = false, minMax }) => {
       }
     } catch (error) {
       showAlert(error)
-    } finally {
-      actions.setSubmitting(false)
     }
   }
 
@@ -156,7 +154,7 @@ const useWithdrawalForm = ({ isCrypto = false, minMax }) => {
     onSubmit,
   })
 
-  const { values, setFieldValue, setValues } = formik
+  const { values, setFieldValue, setValues, handleSubmit } = formik
 
   function withdrawalConfirmation() {
     openModal('WithdrawalConfirmationModal', {
@@ -174,7 +172,7 @@ const useWithdrawalForm = ({ isCrypto = false, minMax }) => {
         values.bank?.BankIcon &&
         `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${values.bank?.BankIcon}`,
       fields: isCrypto ? CRYPTO_CONFIRMATION_FIELDS : CONFIRMATION_FIELDS,
-      onConfirm: () => onSubmit(values, formik),
+      onConfirm: handleSubmit,
     })
   }
 

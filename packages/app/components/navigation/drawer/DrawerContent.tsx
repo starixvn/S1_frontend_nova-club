@@ -1,23 +1,13 @@
-import { DEV_DOMAIN } from '@env'
 import Icon from 'app/components/Icon'
-import BouncePressable from 'app/components/pressable/BouncePressable'
 import { LoginType } from 'app/features/auth/AuthTypeSelection'
 import useAlert from 'app/hooks/useAlert'
-import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useDrawer } from 'app/hooks/useDrawer'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { copyToClipboard } from 'app/utils'
-import { HEADER_HEIGHT } from 'app/utils/constant'
 import { Pressable, ScrollView, Text, View, useResponsiveValue } from 'dripsy'
 import React, { useEffect, useRef } from 'react'
-import {
-  ImageBackground,
-  ScrollView as rScrollView,
-  useWindowDimensions,
-} from 'react-native'
+import { ScrollView as rScrollView } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 import DrawerReferral from './DrawerReferral'
@@ -25,8 +15,6 @@ import DrawerReferral from './DrawerReferral'
 export default function DrawerContent() {
   const { t } = useLocalization()
   const { push } = useRouter()
-  const { top, bottom } = useSafeArea()
-  const { height } = useContainerDimension()
   const { isOpen, toggleDrawer } = useDrawer()
   const { logout } = useOnAppLogout()
   const desktop = useResponsiveValue([false, false, false, true])
@@ -39,7 +27,6 @@ export default function DrawerContent() {
     undefined,
     { skip: !isLoggedIn }
   )
-  const referralLink = `${DEV_DOMAIN}/download?ref=${playerData?.referral_code}`
   const isPlayerName = !!playerData?.firstName
   const handleDesktopAccountVerification = () => {
     showAlert(

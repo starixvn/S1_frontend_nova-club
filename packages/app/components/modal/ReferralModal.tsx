@@ -2,7 +2,6 @@ import useLocalization from 'app/provider/localization'
 import { copyToClipboard } from 'app/utils'
 import { Pressable, ScrollView, Text, View } from 'dripsy'
 import React, { useRef } from 'react'
-import { DEV_DOMAIN } from '@env'
 import withShare from 'app/hoc/withShare'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { DripsyGradient } from '../Gradient'
@@ -12,6 +11,7 @@ import QRCodeGenerator from '../QRCodeGenerator'
 import ViewScreenShot, { ViewScreenShotMethods } from '../ViewScreenShot'
 import BouncePressable from '../pressable/BouncePressable'
 import ModalWrapper from './ModalWrapper'
+import { DEV_DOMAIN } from '../../../../apps/next/config/env'
 
 const ReferralModal = ({ modal: { closeModal, getParam } }) => {
   const { t } = useLocalization()

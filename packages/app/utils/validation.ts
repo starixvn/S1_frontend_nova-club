@@ -53,7 +53,7 @@ const validation = {
   accountName: Yup.string().required('validation.realName'),
   accountNo: Yup.number()
     .typeError('validation.numberOnly')
-    .required('validation.needAccountNo'),
+    .required('validation.required'),
 
   amount: Yup.string()
     .required('validation.required')

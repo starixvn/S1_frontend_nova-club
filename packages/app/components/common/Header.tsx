@@ -74,6 +74,7 @@ const Header = ({
               sx={{
                 fontSize: isLandscape ? 14 : 20,
                 color: 'white',
+                lineHeight: headerHeight.height,
                 fontWeight: 'bold',
                 textAlign: 'center',
                 ...titleProps?.sx,

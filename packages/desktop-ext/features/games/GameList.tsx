@@ -1,7 +1,7 @@
 import GameListSectionGrid from 'app/components/game/GameListSectionGrid'
-import { ALL } from 'app/utils/constant'
+import { ALL, HOT } from 'app/utils/constant'
 import { SxProp, Text, View } from 'dripsy'
-import React, { useMemo, useState } from 'react'
+import React, { startTransition, useEffect, useMemo, useState } from 'react'
 import union from 'lodash/union'
 import { Game } from 'services/gameApi.type'
 import { ViewProps } from 'react-native'
@@ -49,6 +49,16 @@ export default function GameList({
   const providers = useMemo(() => {
     return Object.keys(countBy(filteredGame, (g) => g.gpc))
   }, [filteredGame])
+
+  useEffect(() => {
+    if (tags.length) {
+      const defaultTag = tags.find((tag) => tag === HOT)
+
+      startTransition(() => {
+        setFilter(defaultTag ?? ALL)
+      })
+    }
+  }, [tags])
 
   return (
     <View {...rest}>

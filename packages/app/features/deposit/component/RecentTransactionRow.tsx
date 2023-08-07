@@ -4,6 +4,7 @@ import { View, useResponsiveValue } from 'dripsy'
 import { ReportResult } from 'services/playerApi.type'
 import TransactionRowList from './TransactionRowList'
 import HorizontalTransactionRowList from './HorizontalTransactionRowList'
+import DepositHistoryItem from 'app/features/account/history/DepositHistoryItem'
 
 type RecentTransactionRowProps = {
   item: ReportResult
@@ -17,9 +18,7 @@ const RecentTransactionRow = ({ item, index }) => {
       {horizontalMode ? (
         <HorizontalTransactionRowList item={item} index={index} />
       ) : (
-        <View sx={{ bg: '$primary.200', py: 2, mb: 20 }}>
-          <TransactionRowList item={item} />
-        </View>
+        <DepositHistoryItem item={item} />
       )}
     </>
   )

@@ -4,14 +4,14 @@ import { AGENT_TAB_HEIGHT } from 'agent/constant/sizes'
 import useOnAgentLogout from 'agent/hooks/useOnAgentLogout'
 import { useUserInfoQuery } from 'agent/services/userApi'
 import { useAgentLocalization } from 'app/provider/localization'
-import { styled, Sx, View } from 'dripsy'
-import { Linking, Platform, TouchableOpacity } from 'react-native'
+import { styled, Sx } from 'dripsy'
+import { Linking, TouchableOpacity } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useRouter } from 'solito/router'
 // import * as DropdownMenu from 'zeego/dropdown-menu'
-import { DropdownMenu } from 'agent/components/Dropdown'
 import useSupportItemList from 'app/features/customerSupport/useSupportItemList'
-import MenuArrow from './components/MenuArrow'
+import { modalDelaySubmission } from 'utils/common'
+import { MODAL_ANIMATION_DELAY } from 'app/provider/modal'
 
 const smallIconHeight = AGENT_TAB_HEIGHT * 0.5
 interface MainMenuTestProps {
@@ -34,9 +34,11 @@ const MainMenu = () => {
   })
 
   function AgentSwitchConfirmation() {
-    openModal('AgentSwitchConfirmationModal', {
-      onConfirm: () => push('/'),
-    })
+    setTimeout(() => {
+      openModal('AgentSwitchConfirmationModal', {
+        onConfirm: () => push('/'),
+      })
+    }, MODAL_ANIMATION_DELAY)
   }
 
   const OpenCSTelegram = () => {

@@ -11,6 +11,7 @@ const RootToast = () => {
         {...props}
         style={{ borderLeftColor: theme.colors.$primary[200] }}
         contentContainerStyle={{ paddingHorizontal: 15 }}
+        text1NumberOfLines={2}
         text1Style={{
           fontSize: 15,
         }}

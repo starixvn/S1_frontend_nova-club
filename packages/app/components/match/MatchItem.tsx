@@ -38,8 +38,8 @@ export default function MatchItem({ width, match, onPress }: Props) {
   } catch (e) {
     // Android Hermes will hit error if using dayjsTz
   }
-  const homeFlag = getFlagPath(match.HomeName)
-  const awayFlag = getFlagPath(match.AwayName)
+  const homeFlag = `${MEDIA_DOMAIN}/nvclub${match.HomeImagePath}`
+  const awayFlag = `${MEDIA_DOMAIN}/nvclub${match.AwayImagePath}`
   const leagueLogo = getLeagueLogo(match.LeagueId)
   const homeName =
     match.selection[MatchHandicapType.FULL_TIME]?.[0]?.KeyName ?? 0
