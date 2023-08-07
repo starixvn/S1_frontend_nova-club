@@ -29,22 +29,27 @@ import TopGameSection from '../home/TopGameSection'
 import GamesScreenSingleProvider from './GamesSingleProviderListing'
 import { MobileGamesFilter, SUB_ROUTES } from './subroutes'
 import useLocalization from 'app/provider/localization'
+import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
 
 type Params = {
   type?: string
 }
 
 const { useParam } = createParam<Params>()
+
+const GameCategory = [
+  GAME_TYPE_CODE.GAMES,
+  GAME_TYPE_CODE.FISHING,
+  GAME_TYPE_CODE.LOTTERY,
+]
+
 const GamesScreen = () => {
   const { t } = useLocalization()
   const { data: games } = useGameListMultipleQuery({
-    game_category: [
-      GAME_TYPE_CODE.GAMES,
-      GAME_TYPE_CODE.FISHING,
-      GAME_TYPE_CODE.LOTTERY,
-    ],
+    game_category: GameCategory,
     gdc_game_category: [GDC_GAME_CATEGORY.CARDGAME],
   })
+  const { gameCategoryTagTranslation } = useGameCategoryTag(GameCategory)
 
   const [filteredGames, setFilteredGames] = useState<Game[]>()
   const { push } = useRouter()
@@ -143,6 +148,7 @@ const GamesScreen = () => {
         type={type}
         onFilterClicked={onFilterClicked}
         onBack={onProviderBack}
+        gameCategoryTagTranslation={gameCategoryTagTranslation}
       />
     )
   }
@@ -162,6 +168,7 @@ const GamesScreen = () => {
               gpc={item[0].gpc}
               games={item}
               onViewMore={onViewMore}
+              gameCategoryTagTranslation={gameCategoryTagTranslation}
             />
           )
         else return null

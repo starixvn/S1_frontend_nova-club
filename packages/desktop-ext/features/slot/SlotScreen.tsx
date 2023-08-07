@@ -1,18 +1,19 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import GameSectionByProviderItem from 'app/components/game/GameSectionByProviderItem'
 import RecentlyPlayedSection from 'app/features/home/RecentlyPlayedSection'
+import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
 import { GAME_TYPE_CODE, ProviderImageCategory } from 'app/utils/constant'
 import LatestWinnerSection from 'desktop-ext/components/game/LatestWinnerSection'
 import ProviderList from 'desktop-ext/components/game/ProviderList'
 import { ActivityIndicator, Container, Pressable, Row, View } from 'dripsy'
+import { ResizeMode, Video } from 'expo-av'
 import groupBy from 'lodash/groupBy'
 import React, { startTransition, useEffect, useMemo, useState } from 'react'
+import { Platform } from 'react-native'
 import { useGameListMultipleQuery } from 'services/gameApi'
 import { Game, LatestWinnerType } from 'services/gameApi.type'
 import { createParam } from 'solito'
 import { SolitoImage } from 'solito/image'
-import { Video, ResizeMode } from 'expo-av'
-import { Platform } from 'react-native'
 
 type Props = {}
 
@@ -20,6 +21,8 @@ type Params = {
   provider?: string
 }
 const { useParam } = createParam<Params>()
+
+const GameCategory = [GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]
 
 function SlotScreen({}: Props) {
   const [provider, setProvider] = useParam('provider', {
@@ -31,8 +34,9 @@ function SlotScreen({}: Props) {
   const [filteredGames, setFilteredGames] = useState<Game[]>()
 
   const { data: games } = useGameListMultipleQuery({
-    game_category: [GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING],
+    game_category: GameCategory,
   })
+  const { gameCategoryTagTranslation } = useGameCategoryTag(GameCategory)
 
   const gamesByProviders = useMemo(() => {
     return groupBy(games, 'gpc')
@@ -128,6 +132,7 @@ function SlotScreen({}: Props) {
               bordered
               gpc={provider}
               games={filteredGames}
+              gameCategoryTagTranslation={gameCategoryTagTranslation}
               // GameListComponent={GameSectionByProviderItemFlashList}
             />
           </View>

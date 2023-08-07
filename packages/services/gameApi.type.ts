@@ -62,6 +62,11 @@ export type FeaturedGame = Omit<Game, 'gdc_cat' | 'params'> & {
   cat: '1' | '2'
 }
 
+export interface GameListDefaultData<T> {
+  rows: T[]
+  row_count_total: number
+}
+
 export interface GetGameListResult {
   rows: Game[]
   row_count_total: number
@@ -95,3 +100,12 @@ export interface ProviderStatus {
   system_code: string
   system_name: string
 }
+
+export interface GameCategoryTagTypes {
+  gtc: string
+  ck: string
+  category_name: Record<LANGUAGE_CODE, string>
+}
+
+export interface GameCategoryTagResult
+  extends GameListDefaultData<GameCategoryTagTypes> {}

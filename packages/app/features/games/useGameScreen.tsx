@@ -3,21 +3,24 @@ import { startTransition, useEffect, useState } from 'react'
 import { useGameListMultipleQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import { useRouter } from 'solito/router'
-import { SUB_ROUTES } from './subroutes'
+import { Route_GameCategory, SUB_ROUTES } from './subroutes'
 import { createParam } from 'solito'
+import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
 
 type Params = {
   type?: string[]
 }
 const { useParam } = createParam<Params>()
 
+const GameCategory = [
+  GAME_TYPE_CODE.GAMES,
+  GAME_TYPE_CODE.FISHING,
+  GAME_TYPE_CODE.LOTTERY,
+]
+
 export default function useGameScreen(defaultType?: string) {
   const { data: games } = useGameListMultipleQuery({
-    game_category: [
-      GAME_TYPE_CODE.GAMES,
-      GAME_TYPE_CODE.FISHING,
-      GAME_TYPE_CODE.LOTTERY,
-    ],
+    game_category: GameCategory,
     gdc_game_category: [GDC_GAME_CATEGORY.CARDGAME],
   })
 
@@ -38,6 +41,13 @@ export default function useGameScreen(defaultType?: string) {
 
   const route = type ? SUB_ROUTES[type] : undefined
   if (!route && defaultType) setType(defaultType)
+
+  const { gameCategoryTagTranslation } = useGameCategoryTag(
+    Route_GameCategory[type ?? defaultType ?? GAME_TYPE_CODE.GAMES],
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  )
 
   useEffect(() => {
     if (route && route.filter && games) {
@@ -60,5 +70,6 @@ export default function useGameScreen(defaultType?: string) {
     provider,
     type,
     onFilterClicked,
+    gameCategoryTagTranslation,
   }
 }

@@ -21,7 +21,7 @@ export const matchApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
     getRecoMatch: builder.query<MatchResult[], { isApp: boolean }>({
       query: ({ isApp }) => ({
-        url: `/static_api/getRecoMatchNew/${isApp ? 1 : 0}`,
+        url: `/static_api/getRecoMatchV2/${isApp ? 1 : 0}`,
         method: 'GET',
       }),
       transformResponse: (responseData: IResponse<MatchResult[]>) => {

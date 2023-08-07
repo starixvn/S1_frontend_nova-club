@@ -5,6 +5,7 @@ import { Game } from 'services/gameApi.type'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 import SlotSingleProviderListing from './SlotSingleProviderListing'
+import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
 
 type Props = {}
 
@@ -14,10 +15,13 @@ type Params = {
 
 const { useParam } = createParam<Params>()
 
+const GameCategory = [GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]
+
 export default function SlotByProviderScreen({}: Props) {
   const { data: games } = useGameListMultipleQuery({
-    game_category: [GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING],
+    game_category: GameCategory,
   })
+  const { gameCategoryTagTranslation } = useGameCategoryTag(GameCategory)
 
   const [filteredGames, setFilteredGames] = useState<Game[]>([])
   const [provider, setProvider] = useParam('provider')
@@ -39,6 +43,7 @@ export default function SlotByProviderScreen({}: Props) {
       games={filteredGames}
       provider={provider}
       onBack={back}
+      gameCategoryTagTranslation={gameCategoryTagTranslation}
     />
   )
 }

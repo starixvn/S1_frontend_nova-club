@@ -1,11 +1,25 @@
 import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'app/utils/constant'
 import { Game } from 'services/gameApi.type'
 
+const Route = {
+  'keno-lottery': 'keno-lottery',
+  fishing: 'fishing',
+  card: 'card',
+  local: 'local',
+} as const
+
+export const Route_GameCategory: Record<keyof typeof Route, GAME_TYPE_CODE> = {
+  'keno-lottery': GAME_TYPE_CODE.LOTTERY,
+  fishing: GAME_TYPE_CODE.FISHING,
+  card: GAME_TYPE_CODE.GAMES,
+  local: GAME_TYPE_CODE.GAMES,
+}
+
 export const SUB_ROUTES = {
   'keno-lottery': {
     label: 'game.category.lottery',
     icon: 'lotto',
-    route: 'keno-lottery',
+    route: Route['keno-lottery'],
     filter: (games: Game[]) => {
       return games.filter((g) => g.gtc === GAME_TYPE_CODE.LOTTERY)
     },
@@ -13,7 +27,7 @@ export const SUB_ROUTES = {
   fishing: {
     label: 'game.category.fishing',
     icon: 'fishing',
-    route: 'fishing',
+    route: Route['fishing'],
     filter: (games: Game[]) => {
       return games.filter((g) => g.gtc === GAME_TYPE_CODE.FISHING)
     },
@@ -21,7 +35,7 @@ export const SUB_ROUTES = {
   card: {
     label: 'game.category.cardGame',
     icon: 'card-game',
-    route: 'card',
+    route: Route['card'],
     filter: (games: Game[]) => {
       return games.filter((g) => g.gdc_cat === GDC_GAME_CATEGORY.CARDGAME)
     },
@@ -29,7 +43,7 @@ export const SUB_ROUTES = {
   local: {
     label: 'game.category.localGame',
     icon: 'games',
-    route: 'local',
+    route: Route['local'],
     filter: (games: Game[]) => {
       return games.filter((g) => g.gtc === GAME_TYPE_CODE.GAMES)
     },
