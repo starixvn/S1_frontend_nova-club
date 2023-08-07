@@ -1,4 +1,6 @@
 export interface MatchResult {
+  HomeImagePath: string
+  AwayImagePath: string
   AwayKey: number
   AwayLang: string
   AwayName: string

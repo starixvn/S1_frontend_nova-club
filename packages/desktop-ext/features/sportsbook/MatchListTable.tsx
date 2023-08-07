@@ -1,24 +1,24 @@
 import { Dictionary, EntityId } from '@reduxjs/toolkit'
 import { FlashList } from '@shopify/flash-list'
 import Icon from 'app/components/Icon'
+import Button from 'app/components/common/Button'
 import DataTableCell from 'app/components/dataTable/DataTableCell'
 import DataTableRow from 'app/components/dataTable/DataTableRow'
 import {
   MatchHandicapType,
   MatchLeagueTabIconMapping,
 } from 'app/constants/recMatchMapping'
+import { useAppSelector } from 'app/provider/redux/store'
+import { ActionType, getAction } from 'app/utils/actionGenerator'
 import dayjsTz from 'app/utils/dayjs'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { Row, ScrollView, Text, View, useResponsiveValue } from 'dripsy'
 import React from 'react'
+import { Game } from 'services/gameApi.type'
 import { League, MatchResult } from 'services/matchApi.type'
 import { SolitoImage } from 'solito/image'
-import { CONTENT_URI, MEDIA_DOMAIN } from '../../../../apps/next/config/env'
-import Button from 'app/components/common/Button'
-import { ActionType, getAction } from 'app/utils/actionGenerator'
-import { Game } from 'services/gameApi.type'
-import { useAppSelector } from 'app/provider/redux/store'
+import { MEDIA_DOMAIN } from '../../../../apps/next/config/env'
 dayjs.extend(customParseFormat)
 
 interface MatchListTableProps {
@@ -68,7 +68,7 @@ const MatchListTable = ({
   const filterStartDate = dayjs(selectedTime)
   const filterEndDate = filterStartDate.add(1, 'day')
   const isDesktop = useResponsiveValue([false, false, false, true])
-
+  console.log(fullData)
   const onPress = (match: MatchResult) => {
     getAction({
       type: ActionType.GAME,
@@ -317,8 +317,8 @@ const OnRender = ({
   filterStartDate: dayjs.Dayjs
   onPress: (match: MatchResult) => void
 }) => {
-  const homeFlag = getFlagPath(item.HomeName)
-  const awayFlag = getFlagPath(item.AwayName)
+  const homeFlag = `${MEDIA_DOMAIN}/nvclub${item.HomeImagePath}`
+  const awayFlag = `${MEDIA_DOMAIN}/nvclub${item.AwayImagePath}`
   const { date, matchUnixDate, time, matchDayjs } = getMatchTime(
     item.globalshowtime
   )
@@ -425,12 +425,6 @@ const MatchListCellRow = ({
 
 const getBetColor = (val: number) => {
   return val === 0 ? 'white' : val < 0 ? '#ff8080' : '#99ff86'
-}
-
-const getFlagPath = (country: string) => {
-  const cleanFileName = country.toLowerCase().replace(/[^a-zA-Z0-9]/g, '')
-
-  return `${MEDIA_DOMAIN}${CONTENT_URI}/flags/${cleanFileName}.png`
 }
 
 const getMatchTime = (globalshowtime: string) => {
