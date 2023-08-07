@@ -14,21 +14,13 @@ enum CarouselBannerActionType {
 interface InternalRedirectPayload {
   uri: string
   desktopUri?: string
-  payload: {
-    uri: string
-    desktopUri: string
-    params?: Record<string, string>
-  }
+  payload: BannerCarouselActionPayload
 }
 
 interface ActionRedirect {
   type: CarouselBannerActionType.INTERNAL_REDIRECT
   desktopType: CarouselBannerActionType
-  payload: {
-    uri: string
-    desktopUri: string
-    params?: Record<string, string>
-  }
+  payload: BannerCarouselActionPayload
 }
 
 type CarouselBannerActionRedirectParams = {
@@ -39,15 +31,13 @@ type CarouselBannerActionRedirectParams = {
 
 interface ActionExternalRedirect {
   type: CarouselBannerActionType.EXTERNAL_REDIRECT
-  payload: {
-    uri: string
-    desktopUri: string
-    params?: Record<string, string>
-  }
+  desktopType: CarouselBannerActionType
+  payload: BannerCarouselActionPayload
 }
 
 interface ActionModal {
   type: CarouselBannerActionType.MODAL
+  desktopType: CarouselBannerActionType
   payload: BannerCarouselActionPayload
 }
 
@@ -57,10 +47,10 @@ interface BannerCarouselActionPayload {
   params?: Record<string, string>
 }
 
-type Action = ActionRedirect | ActionExternalRedirect | ActionModal
+export type BannerAction = ActionRedirect | ActionExternalRedirect | ActionModal
 
 export function getCarouselBannerActionGenerator(
-  action: Action,
+  action: BannerAction,
   isDesktop: boolean,
   actionType: CarouselBannerActionType
 ): (p?: CarouselBannerActionRedirectParams) => void {

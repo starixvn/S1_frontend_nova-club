@@ -1,10 +1,11 @@
-import { Action } from 'app/utils/actionGenerator'
+import { BannerAction } from 'app/utils/carouselBannerActionGenerator'
 
 export interface BannerResult {
   image: string
   blurDataURL?: string // base64 of 10px width banner image
   blurHash?: string // https://blurha.sh/
-  action?: Action
+  action?: BannerAction
+  guestAction?: BannerAction
   alt?: string
   // bannerName: string
   // bannerLink: string
