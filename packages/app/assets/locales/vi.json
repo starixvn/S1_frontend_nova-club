@@ -125,7 +125,7 @@
   },
   "deposit": {
     "actualDeposit": "Tiền gửi thực tế",
-    "bankSlip": "Biên lai ngân hàng",
+    "bankSlip": "Biên lai",
     "cardCode": "Mã số thẻ",
     "cardSerialNo": "Số sê-ri thẻ.",
     "cardValue": "Mệnh giá thẻ",
@@ -272,12 +272,12 @@
       "cardGame": "Game Bài",
       "fishing": "Bắn Cá",
       "games": "Trò Chơi",
-      "liveCasino": "SÒNG BÀI",
+      "liveCasino": "Sòng bài",
       "localGame": "Thuần Việt",
       "lottery": "Keno / Xổ số",
       "recommended": "GAMES ĐƯỢC ĐỀ XUẤT",
       "slots": "Quay hũ",
-      "sportsbook": "THỂ THAO"
+      "sportsbook": "Thể thao"
     },
     "err": {
       "notLogin": "Vui lòng đăng nhập để chơi trò chơi"

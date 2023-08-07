@@ -2,7 +2,7 @@ import useLocalization from 'app/provider/localization'
 import validation from 'app/utils/validation'
 import { Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useCreateTransferPinMutation } from 'services/pinApi'
 import { useLazyPlayerProfileQuery } from 'services/playerApi'
@@ -14,6 +14,7 @@ import useAlert from 'app/hooks/useAlert'
 import isDesktop from 'app/utils/isDesktop'
 import FormContainer from 'app/components/form/FormContainer'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
+import { useAppSelector } from 'app/provider/redux/store'
 
 type PinFormValues = {
   pin: string
@@ -26,6 +27,12 @@ const CreatePinScreen = ({ isTab = false }) => {
   const [fetchProfile] = useLazyPlayerProfileQuery()
   const [postCreateTransferPin] = useCreateTransferPinMutation()
   const desktop = isDesktop()
+
+  const lang = useAppSelector((s) => s.setting.locale)
+
+  useEffect(() => {
+    resetForm()
+  }, [lang])
 
   useEffect(() => {
     return () => {
@@ -81,20 +88,13 @@ const CreatePinScreen = ({ isTab = false }) => {
     errors,
     isValid,
     dirty,
+    resetForm,
     submitForm,
   } = formik
 
-  return (
-    <PageWithBackHeader
-      header={{ title: t('manageCredentials.pin.createPin') }}
-      disableScrollView
-      hideHeader={desktop || isTab}
-    >
-      <FormContainer>
-        <Text sx={{ fontSize: 24 }}>
-          {t('manageCredentials.pin.create6Pin')}
-        </Text>
-        <Text sx={{ mb: '$3' }}>{t('manageCredentials.pin.securePin')}</Text>
+  const memoPin = useMemo(
+    () => (
+      <>
         <UnderlinePinField
           label={t('manageCredentials.pin.newPin')}
           value={values.pin}
@@ -112,6 +112,23 @@ const CreatePinScreen = ({ isTab = false }) => {
               : undefined
           }
         />
+      </>
+    ),
+    [values]
+  )
+
+  return (
+    <PageWithBackHeader
+      header={{ title: t('manageCredentials.pin.createPin') }}
+      disableScrollView
+      hideHeader={desktop || isTab}
+    >
+      <FormContainer>
+        <Text sx={{ fontSize: 24 }}>
+          {t('manageCredentials.pin.create6Pin')}
+        </Text>
+        <Text sx={{ mb: '$3' }}>{t('manageCredentials.pin.securePin')}</Text>
+        {memoPin}
 
         <Button
           onPress={submitForm}
