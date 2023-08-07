@@ -433,7 +433,12 @@
   "status": {
     "pending": "Pending",
     "rejected": "Rejected",
-    "success": "Success"
+    "success": "Success",
+    "qrDownloadSuccess": "Qr code download successfully",
+    "systemError": "Oops! Something wrong, please try again.",
+    "qrTransferSelfError": "Transfer to own account is not allowed",
+    "scanFailed": "Scan Failed!",
+    "imageNotSupported": "Image format not supported"
   },
   "transaction": {
     "pending": "Pending Transactions",

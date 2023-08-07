@@ -45,7 +45,7 @@ const ViewScreenShot = forwardRef<ViewScreenShotMethods, ViewScreenShotProps>(
           Toast.show({ type: 'success', text1: t('status.qrDownloadSuccess') })
         })
       } catch (error) {
-        console.log('ViewScreenShot download error', error)
+        console.log(t('status.systemError'), error)
       }
     }
 
