@@ -68,7 +68,7 @@ const MatchListTable = ({
   const filterStartDate = dayjs(selectedTime)
   const filterEndDate = filterStartDate.add(1, 'day')
   const isDesktop = useResponsiveValue([false, false, false, true])
-  console.log(fullData)
+  // console.log(fullData)
   const onPress = (match: MatchResult) => {
     getAction({
       type: ActionType.GAME,

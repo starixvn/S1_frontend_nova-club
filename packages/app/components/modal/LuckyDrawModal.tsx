@@ -197,14 +197,15 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
         >
           <View
             sx={{
+              height: 400,
               alignItems: 'center',
               justifyContent: 'center',
             }}
           >
             <View
               sx={{
+                height: 400,
                 width: Math.min(400, fullWidth),
-                height: Math.min(400, fullWidth),
                 aspectRatio: 1,
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -233,7 +234,7 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
                   height: Math.min(30, fullWidth * 0.18),
                   zIndex: 10,
                   position: 'absolute',
-                  top: 47,
+                  top: 40,
                 }}
               />
               {startAnimateWinPrizeFrame && <WinningAnimationFrame />}

@@ -246,7 +246,7 @@ const AccountVerificationForm = ({
       />
 
       <Button
-        sx={{ bg: '$secondary.500', marginTop: '$3' }}
+        sx={{ bg: '$secondary.500', marginTop: '$3', py: '$2' }}
         onPress={submitForm}
         loading={isSubmitting}
         disabled={

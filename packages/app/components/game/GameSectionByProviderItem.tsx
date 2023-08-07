@@ -41,7 +41,7 @@ function GameSectionByProviderItem({
 }) {
   const { t } = useLocalization()
   const locale = useAppSelector((s) => s.setting.locale)
-  const [filter, setFilter] = useState(ALL)
+  const [filter, setFilter] = useState('hot')
   const [search, setSearch] = useState<string | undefined>()
   const count = useResponsiveValue([8, 10, 12, 999, 999])
 

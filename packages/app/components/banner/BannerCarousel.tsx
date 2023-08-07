@@ -1,8 +1,18 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import useContainerWidth from 'app/hooks/useContainerWidth'
-import { Row, SxProp, View, useDripsyTheme } from 'dripsy'
+import { useAppSelector } from 'app/provider/redux/store'
+import { getCarouselBannerActionGenerator } from 'app/utils/carouselBannerActionGenerator'
+import {
+  Pressable,
+  Row,
+  SxProp,
+  View,
+  useDripsyTheme,
+  useResponsiveValue,
+} from 'dripsy'
 import React, { useCallback, useRef } from 'react'
 import { Platform, View as RNView } from 'react-native'
+import { useModal } from 'react-native-modalfy'
 import Animated, {
   Extrapolate,
   interpolate,
@@ -12,10 +22,6 @@ import Animated, {
 import Carousel, { TCarouselProps } from 'react-native-reanimated-carousel'
 import { BannerResult } from 'services/contentApi.type'
 import { SolitoImage } from 'solito/image'
-import SkeletonPlaceholder from '../SkeletonPlaceholder'
-import { Pressable } from 'dripsy'
-import { getAction } from 'app/utils/actionGenerator'
-import { useAppSelector } from 'app/provider/redux/store'
 import { useRouter } from 'solito/router'
 
 export interface BannerCarouselProps
@@ -113,13 +119,33 @@ export default function BannerCarousel({
 
 const BannerItem = ({ item, index, width, height }) => {
   const { push } = useRouter()
+  const { openModal } = useModal()
+  const token = useAppSelector((s) => s.auth.info?.token)
+  const isDesktop = useResponsiveValue([false, false, false, true])
   const locale = useAppSelector((s) => s.setting.locale)
 
   const onPressCallback = useCallback(() => {
-    console.log('click item', item)
-    if (item.action) {
-      const action = getAction(item.action)
-      action({ push, locale })
+    // console.log('click item', item)
+
+    if (token && item.action) {
+      const actionType = isDesktop ? item.action.desktopType : item.action.type
+      const action = getCarouselBannerActionGenerator(
+        item.action,
+        isDesktop,
+        actionType
+      )
+      action({ push, locale, openModal })
+    }
+    if (!token && item.guestAction) {
+      const guestActionType = isDesktop
+        ? item.guestAction.desktopType
+        : item.guestAction.type
+      const action = getCarouselBannerActionGenerator(
+        item.guestAction,
+        isDesktop,
+        guestActionType
+      )
+      action({ push, locale, openModal })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [item.action, locale])
