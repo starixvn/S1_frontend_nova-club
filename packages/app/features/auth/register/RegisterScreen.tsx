@@ -22,7 +22,7 @@ export type RegisterFormValues = {
 const RegisterScreen = () => {
   const rootRef = useRef<RNView>(null)
   const { t } = useLocalization()
-  const { closeModal, openModal } = useModal()
+  const { closeModal, openModal, currentModal } = useModal()
 
   const {
     animationState,
@@ -38,11 +38,22 @@ const RegisterScreen = () => {
   } = useRegisterScreen(rootRef)
 
   useEffect(() => {
-    closeModal('LuckyDrawModal')
+    if (currentModal === 'LuckyDrawModal') {
+      closeModal('LuckyDrawModal')
+    }
+
+    let openLuckyDrawModalInstance: NodeJS.Timeout
+
     if (Platform.OS === 'web') {
-      setTimeout(() => {
+      openLuckyDrawModalInstance = setTimeout(() => {
         openModal('LuckyDrawModal')
       }, 1000)
+    }
+
+    return () => {
+      if (openLuckyDrawModalInstance) {
+        clearTimeout(openLuckyDrawModalInstance)
+      }
     }
   }, [])
 
