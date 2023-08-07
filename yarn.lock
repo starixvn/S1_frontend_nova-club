@@ -12208,7 +12208,7 @@ __metadata:
 
 "react-native-modalfy@patch:react-native-modalfy@npm%3A3.3.2#./.yarn/patches/react-native-modalfy-npm-3.3.2-647962d1fa.patch::locator=vuifit%40workspace%3A.":
   version: 3.3.2
-  resolution: "react-native-modalfy@patch:react-native-modalfy@npm%3A3.3.2#./.yarn/patches/react-native-modalfy-npm-3.3.2-647962d1fa.patch::version=3.3.2&hash=4b7577&locator=vuifit%40workspace%3A."
+  resolution: "react-native-modalfy@patch:react-native-modalfy@npm%3A3.3.2#./.yarn/patches/react-native-modalfy-npm-3.3.2-647962d1fa.patch::version=3.3.2&hash=d0c655&locator=vuifit%40workspace%3A."
   dependencies:
     hoist-non-react-statics: ^3.3.2
     react-is: ^17.0.2
@@ -12217,7 +12217,7 @@ __metadata:
     react: ">=16.8.3"
     react-native: ">=0.59.0"
     react-native-gesture-handler: ">=1.9.0"
-  checksum: 766803b46f8583b53d948923d8984820f862e7b44b9a022e8a416be8b68edbdda8de472c295035944f050116d084ada540f25e7d7fd48cd54502bc7c63485e1f
+  checksum: 03952ef0f0bc37971a510487552ce783be692d873500d5d2bff41fcb6ed55980b1c95e38c5baaedcc3eaad6b9b94b79752e7062d4c731c3a8942b1dfc3bd05db
   languageName: node
   linkType: hard
 
