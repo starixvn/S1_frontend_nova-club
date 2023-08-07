@@ -68,6 +68,7 @@ export type ModalStackParams = {
   ForgotPasswordModal: {
     t: LoginType
   }
+  EventPopupModal: undefined
 }
 
 type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
@@ -98,6 +99,7 @@ const _dynamicModal: Record<keyof ModalStackParams, () => Promise<any>> = {
   LuckyDrawModal: () => import('app/components/modal/LuckyDrawModal'),
   ForgotPasswordModal: () =>
     import('desktop-ext/features/auth/forgotPassword/ForgotPasswordScreen'),
+  EventPopupModal: () => import('app/components/modal/EventPopupModal'),
 }
 
 function getDynamicComponent(key: DynamicModalType) {
@@ -162,6 +164,9 @@ const modalConfig: ModalConfigType = {
   },
   ForgotPasswordModal: {
     modal: getDynamicComponent('ForgotPasswordModal'),
+  },
+  EventPopupModal: {
+    modal: getDynamicComponent('EventPopupModal'),
   },
   ...agentModalConfig,
 }
