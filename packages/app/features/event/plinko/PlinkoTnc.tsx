@@ -1,10 +1,10 @@
-import { DEV_DOMAIN } from '@env'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { View } from 'dripsy'
 import React from 'react'
 import WebView from 'react-native-webview'
+import { DEV_DOMAIN } from '../../../../../apps/next/config/env'
 
 const PlinkoTnc = () => {
   const lang = useAppSelector((state) => state.setting.locale)

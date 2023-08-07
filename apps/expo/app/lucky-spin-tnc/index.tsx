@@ -1,4 +1,3 @@
-import { DEV_DOMAIN } from '@env'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import useLocalization from 'app/provider/localization'
 
@@ -8,12 +7,14 @@ import { useRouter } from 'expo-router'
 import React from 'react'
 import { useModal } from 'react-native-modalfy'
 import WebView from 'react-native-webview'
+import { DEV_DOMAIN } from '../../../next/config/env'
 
 const Tnc = () => {
   const lang = useAppSelector((state) => state.setting.locale)
   const { t } = useLocalization()
 
   const TNC_URL = `${DEV_DOMAIN}/lucky-spin-tnc?locale=${lang}`
+  console.log(TNC_URL)
   const { back } = useRouter()
   const { openModal } = useModal()
 

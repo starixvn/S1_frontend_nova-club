@@ -33,7 +33,7 @@ const DeleteBankAccountModal = ({ modal: { closeModal, getParam } }) => {
         })
 
       if (success) {
-        Toast.show({ type: 'success', text1: message })
+        Toast.show({ type: 'success', text2: message })
       }
     } catch (e) {
       showAlert(t('status.systemError'))

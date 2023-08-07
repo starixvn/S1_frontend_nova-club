@@ -13,12 +13,9 @@ import {
 } from 'react-native-modalfy'
 import { SubmitDepositCryptoItem } from 'services/deposit.type'
 
-type ModalStackConfigValueType = ModalStackConfig extends Record<
-  any,
-  infer ValueType
->
-  ? ValueType
-  : never
+export const MODAL_ANIMATION_DELAY = 350
+
+type ModalStackConfigValueType = ModalStackConfig[keyof ModalStackConfig]
 
 export type ModalStackParams = {
   LoadingModal: undefined
@@ -68,6 +65,7 @@ export type ModalStackParams = {
   ForgotPasswordModal: {
     t: LoginType
   }
+  EventPopupModal: undefined
 }
 
 type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
@@ -98,6 +96,7 @@ const _dynamicModal: Record<keyof ModalStackParams, () => Promise<any>> = {
   LuckyDrawModal: () => import('app/components/modal/LuckyDrawModal'),
   ForgotPasswordModal: () =>
     import('desktop-ext/features/auth/forgotPassword/ForgotPasswordScreen'),
+  EventPopupModal: () => import('app/components/modal/EventPopupModal'),
 }
 
 function getDynamicComponent(key: DynamicModalType) {
@@ -147,9 +146,11 @@ const modalConfig: ModalConfigType = {
   },
   RegisterModal: {
     modal: getDynamicComponent('RegisterModal'),
+    backBehavior: 'none',
   },
   AgentLoginModal: {
     modal: getDynamicComponent('AgentLoginModal'),
+    backBehavior: 'none',
   },
   DepositCryptoModal: {
     modal: getDynamicComponent('DepositCryptoModal'),
@@ -162,6 +163,10 @@ const modalConfig: ModalConfigType = {
   },
   ForgotPasswordModal: {
     modal: getDynamicComponent('ForgotPasswordModal'),
+    backBehavior: 'none',
+  },
+  EventPopupModal: {
+    modal: getDynamicComponent('EventPopupModal'),
   },
   ...agentModalConfig,
 }

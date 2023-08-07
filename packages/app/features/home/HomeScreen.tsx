@@ -8,6 +8,7 @@ import { Shield_Action } from 'services/authApi.type'
 import AnnouncementSection from './Announcement/AnnouncementSection'
 import BannerSection from './BannerSection'
 import Deferrable from './Deferrable'
+import EventPopup from './EventPopup'
 import GameGridSection from './GameGridSection'
 import HireBanner from './HireBanner'
 import LuckyDrawTrigger from './LuckyDrawTrigger'
@@ -78,6 +79,7 @@ export default function HomeScreen() {
       </View>
       <GameGridSection />
       <Deferrable />
+      <EventPopup />
     </ScrollView>
   )
 }

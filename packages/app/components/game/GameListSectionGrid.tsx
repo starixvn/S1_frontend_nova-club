@@ -67,6 +67,7 @@ const GameListSectionGridFilter = ({
 }
 
 const GameListSectionGridSearch = ({ onSearch }) => {
+  const { t } = useLocalization()
   const [searchValue, setSearchValue] = useState<string>()
   const animationState = useAnimationState({
     from: {
@@ -106,7 +107,7 @@ const GameListSectionGridSearch = ({ onSearch }) => {
               height: [26, 26, 26, 30],
               lineHeight: [15, 15, 15, 30],
             }}
-            placeholder="Search"
+            placeholder={t('common.search')}
             onChangeText={(t) => {
               setSearchValue(t)
               _onSearch(t)

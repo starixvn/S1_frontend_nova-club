@@ -19,7 +19,7 @@ import { useSendRegistrationOtpMutation } from 'services/authApi'
 import { useRouter } from 'solito/router'
 import ReceiveOTPContact from '../components/ReceiveOTPContact'
 import { RegisterFormValues } from './RegisterScreen'
-import { DEV_DOMAIN } from '@env'
+import { DEV_DOMAIN } from '../../../../../apps/next/config/env'
 
 const StyledFormContainer = styled(FormContainer)({
   py: '$4',
@@ -246,7 +246,7 @@ const AccountVerificationForm = ({
       />
 
       <Button
-        sx={{ bg: '$secondary.500', marginTop: '$3' }}
+        sx={{ bg: '$secondary.500', marginTop: '$3', py: '$2' }}
         onPress={submitForm}
         loading={isSubmitting}
         disabled={

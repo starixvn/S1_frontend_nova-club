@@ -22,7 +22,7 @@ export default function RegisterScreen({ modal }: Props) {
   const rootRef = useRef<RNView>(null)
   const { t } = useLocalization()
   const { theme } = useDripsyTheme()
-  const { closeModal, openModal } = useModal()
+  const { closeModal, openModal, currentModal } = useModal()
 
   const {
     animationState,
@@ -38,10 +38,17 @@ export default function RegisterScreen({ modal }: Props) {
   } = useRegisterScreen(rootRef)
 
   useEffect(() => {
-    closeModal('LuckyDrawModal')
-    setTimeout(() => {
+    if (currentModal === 'LuckyDrawModal') {
+      closeModal('LuckyDrawModal')
+    }
+
+    const openLuckyDrawModalInstance = setTimeout(() => {
       openModal('LuckyDrawModal')
     }, 1000)
+
+    return () => {
+      clearTimeout(openLuckyDrawModalInstance)
+    }
   }, [])
 
   return (

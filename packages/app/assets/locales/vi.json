@@ -113,7 +113,9 @@
     "userAgreement": "Thỏa thuận người dùng",
     "username": "Tên đăng nhập",
     "withdraw": "Rút tiền",
-    "confirmDelete": "Bạn có chắc chắn muốn xóa? Không thể khôi phục sau khi xóa!"
+    "confirmDelete": "Bạn có chắc chắn muốn xóa? Không thể khôi phục sau khi xóa!",
+    "search": "Tìm kiếm",
+    "yes": "Đồng Ý"
   },
   "contact": {
     "contactVia": "Liên hệ qua:",
@@ -124,7 +126,7 @@
   },
   "deposit": {
     "actualDeposit": "Tiền gửi thực tế",
-    "bankSlip": "Biên lai ngân hàng",
+    "bankSlip": "Biên lai",
     "cardCode": "Mã số thẻ",
     "cardSerialNo": "Số sê-ri thẻ.",
     "cardValue": "Mệnh giá thẻ",
@@ -271,12 +273,12 @@
       "cardGame": "Game Bài",
       "fishing": "Bắn Cá",
       "games": "Trò Chơi",
-      "liveCasino": "SÒNG BÀI",
+      "liveCasino": "Sòng bài",
       "localGame": "Thuần Việt",
       "lottery": "Keno / Xổ số",
       "recommended": "GAMES ĐƯỢC ĐỀ XUẤT",
       "slots": "Quay hũ",
-      "sportsbook": "THỂ THAO"
+      "sportsbook": "Thể thao"
     },
     "err": {
       "notLogin": "Vui lòng đăng nhập để chơi trò chơi"
@@ -432,7 +434,12 @@
   "status": {
     "pending": "Đang chờ",
     "rejected": "Từ chối",
-    "success": "Thành công"
+    "success": "Thành công",
+    "qrDownloadSuccess": "Tải mã QR thành công",
+    "systemError": "Rất tiếc! Đã xảy ra lỗi, vui lòng thử lại.",
+    "qrTransferSelfError": "Chuyển khoản vào tài khoản riêng không được phép",
+    "scanFailed": "Quét không thành công!",
+    "imageNotSupported": "Định dạng hình ảnh không được hỗ trợ"
   },
   "transaction": {
     "pending": "Đang chờ giao dịch",

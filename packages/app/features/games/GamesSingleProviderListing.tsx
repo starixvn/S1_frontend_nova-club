@@ -8,7 +8,7 @@ import GameCard from 'app/components/game/GameCard'
 import GameListSectionGrid from 'app/components/game/GameListSectionGrid'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { ALL } from 'app/utils/constant'
+import { ALL, HOT } from 'app/utils/constant'
 import {
   Pressable,
   Row,
@@ -60,7 +60,7 @@ const GamesSingleProviderListing = ({
         (distinctTags, currentGame) => union(distinctTags, currentGame.tags),
         [ALL]
       )
-    } else return ['ALL']
+    } else return [ALL]
   }, [games])
   const { getTagName } = useGetTagName()
 

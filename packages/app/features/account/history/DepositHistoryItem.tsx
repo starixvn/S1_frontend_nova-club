@@ -17,7 +17,7 @@ import { ReportDepositItem } from 'services/playerApi.type'
 import DateTimeCell from './DateTimeCell'
 import { Currency } from 'app/utils/constant'
 
-export const CELL_PAYMENT_WIDTH = 0.5
+export const CELL_PAYMENT_WIDTH = 0.48
 export const CELL_DATE_WIDTH = 0.2
 export const CELL_STATUS_WIDTH = 0.3
 const FONT_SIZE = 14
@@ -83,6 +83,7 @@ const DepositHistoryItem = ({ item }: TransactionHistoryItemProps) => {
           alignSelf: 'stretch',
           flexDirection: 'row',
           p: '$2',
+          pb: '$0',
           alignItems: 'center',
         }}
       >
@@ -112,7 +113,7 @@ const DepositHistoryItem = ({ item }: TransactionHistoryItemProps) => {
                   alignItems: 'center',
                 }}
               >
-                <Text sx={{ fontSize: FONT_SIZE, mr: '$2', minWidth: 105 }}>
+                <Text sx={{ fontSize: FONT_SIZE, minWidth: 105 }}>
                   {item.secure_id}
                 </Text>
                 <IconButton
@@ -136,42 +137,39 @@ const DepositHistoryItem = ({ item }: TransactionHistoryItemProps) => {
           />
         </View>
 
-        <View style={{ flex: CELL_STATUS_WIDTH, alignItems: 'flex-end' }}>
-          <Text sx={{ textAlign: 'center', fontSize: FONT_SIZE }}>
+        <View style={{ flex: CELL_STATUS_WIDTH }}>
+          <Text sx={{ textAlign: 'right', fontSize: FONT_SIZE }}>
             {toThousandSeparator(item.amount)}
           </Text>
           <Text
             sx={{
-              textAlign: 'center',
+              textAlign: 'right',
               color: getStatusColor(item.status, theme),
               fontSize: FONT_SIZE,
             }}
           >
             {item.status}
           </Text>
-          {!item.bank_slip_attachment &&
-            item.second_category_flag ===
-              DepositPaymentMethodCategoryId.LOCAL_BANK && (
-              <Text
-                numberOfLines={1}
-                sx={{
-                  fontSize: 12,
-                  /* widen click bank upload area */
-                  py: 5,
-                  pl: 5,
-                  my: -5,
-                  /* */
-                  ml: 4,
-                  textDecorationLine: 'underline',
-                  color: '$tertiary',
-                }}
-                onPress={handleUploadReceipt}
-              >
-                {t('deposit.bankSlip')}
-              </Text>
-            )}
         </View>
       </View>
+      {!item.bank_slip_attachment &&
+        item.second_category_flag ===
+          DepositPaymentMethodCategoryId.LOCAL_BANK && (
+          <Text
+            numberOfLines={1}
+            sx={{
+              fontSize: FONT_SIZE,
+              px: '$3',
+              pb: '$2',
+              textDecorationLine: 'underline',
+              color: '$tertiary',
+              textAlign: 'right',
+            }}
+            onPress={handleUploadReceipt}
+          >
+            {t('deposit.bankSlip')}
+          </Text>
+        )}
     </TransactionHistoryItemBox>
   )
 }

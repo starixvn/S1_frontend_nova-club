@@ -6,6 +6,7 @@ import IconButtonGradient, {
   IconButtonGradientProps,
 } from './IconButtonGradient'
 import useLocalization from 'app/provider/localization'
+import capitalize from 'lodash/capitalize'
 
 interface IconButtonGradientToggleProps extends IconButtonGradientProps {
   label?: string
@@ -50,7 +51,7 @@ export default function IconButtonGradientToggle({
           sx={{ fontWeight: active ? '900' : 'normal' }}
           {...labelProps}
         >
-          {t(label)}
+          {capitalize(t(label))}
         </IconButtonGradient.Label>
       )}
     </View>

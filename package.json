@@ -47,8 +47,8 @@
     "react-native-webview@11.26.0": "patch:react-native-webview@npm%3A11.26.0#./.yarn/patches/react-native-webview-npm-11.26.0-7f2711346f.patch",
     "react-native-code-push@^8.0.2": "patch:react-native-code-push@npm%3A8.0.2#./.yarn/patches/react-native-code-push-npm-8.0.2-53e53c8ec6.patch",
     "expo-font@~11.1.1": "patch:expo-font@npm%3A11.1.1#./.yarn/patches/expo-font-npm-11.1.1-e30f61f5aa.patch",
-    "react-native-modalfy@3.5.1": "patch:react-native-modalfy@npm%3A3.5.1#./.yarn/patches/react-native-modalfy-npm-3.5.1-f624d6b350.patch",
-    "react-native-shield-fraud-plugin@1.0.4": "patch:react-native-shield-fraud-plugin@npm%3A1.0.4#./.yarn/patches/react-native-shield-fraud-plugin-npm-1.0.4-a03692a411.patch"
+    "react-native-shield-fraud-plugin@1.0.4": "patch:react-native-shield-fraud-plugin@npm%3A1.0.4#./.yarn/patches/react-native-shield-fraud-plugin-npm-1.0.4-a03692a411.patch",
+    "react-native-modalfy@3.3.2": "patch:react-native-modalfy@npm%3A3.3.2#./.yarn/patches/react-native-modalfy-npm-3.3.2-647962d1fa.patch"
   },
   "nohoist": [
     "**/expo-router",

@@ -68,7 +68,7 @@ const MatchListTable = ({
   const filterStartDate = dayjs(selectedTime)
   const filterEndDate = filterStartDate.add(1, 'day')
   const isDesktop = useResponsiveValue([false, false, false, true])
-  console.log(fullData)
+  // console.log(fullData)
   const onPress = (match: MatchResult) => {
     getAction({
       type: ActionType.GAME,
@@ -170,14 +170,14 @@ const MatchListCellData = ({
       <DataTableCell
         sx={{
           py: '$0',
-          flex: 0.075,
+          flex: 0.06,
           alignItems: selectionType === 'home' ? 'flex-end' : 'flex-start',
         }}
         textStyle={{ fontWeight: 'bold' }}
       >
         {dateTime}
       </DataTableCell>
-      <DataTableCell sx={{ flex: 0.025, py: '$0' }}>
+      <DataTableCell sx={{ flex: 0.02, py: '$0' }}>
         {flag && (
           <SolitoImage
             src={flag}
@@ -189,8 +189,8 @@ const MatchListCellData = ({
         )}
       </DataTableCell>
       <DataTableCell
-        textStyle={{ textAlign: 'center' }}
-        sx={{ ml: '$2', flex: 0.1, py: '$0' }}
+        textStyle={{ textAlign: 'center', fontSize: 13 }}
+        sx={{ ml: '$1', flex: 0.165, py: '$0' }}
       >
         {name ?? 'Draw'}
       </DataTableCell>
