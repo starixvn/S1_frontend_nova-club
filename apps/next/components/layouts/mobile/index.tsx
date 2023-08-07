@@ -1,14 +1,14 @@
 import dynamic from 'next/dynamic'
-import { ActivityIndicator } from 'react-native'
 import { Layout } from '../AdaptiveLayout'
+import AdaptiveLayoutLoader from '../AdaptiveLayoutLoader'
 
 const DynamicTabLayout = dynamic(() => import('./TabLayout'), {
-  loading: () => <ActivityIndicator />,
+  loading: () => <AdaptiveLayoutLoader />,
   ssr: false,
 })
 
 const DynamicInfoLayout = dynamic(() => import('./InfoLayout'), {
-  loading: () => <ActivityIndicator />,
+  loading: () => <AdaptiveLayoutLoader />,
   ssr: false,
 })
 

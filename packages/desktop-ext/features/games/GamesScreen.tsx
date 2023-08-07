@@ -1,8 +1,9 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Icon from 'app/components/Icon'
 import { DesktopGamesFilter, SUB_ROUTES } from 'app/features/games/subroutes'
 import useGameScreen from 'app/features/games/useGameScreen'
 import RecentlyPlayedSection from 'app/features/home/RecentlyPlayedSection'
-import { withGameFilterProvider } from 'app/provider/gameFilter/GameFilterProvider'
+import useLocalization from 'app/provider/localization'
 import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'app/utils/constant'
 import LatestWinnerSection from 'desktop-ext/components/game/LatestWinnerSection'
 import {
@@ -13,18 +14,16 @@ import {
   Text,
   View,
 } from 'dripsy'
+import { ResizeMode, Video } from 'expo-av'
 import React from 'react'
+import { Platform } from 'react-native'
 import { LatestWinnerType } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
 import GameList from './GameList'
-import useLocalization from 'app/provider/localization'
-import { Video, ResizeMode } from 'expo-av'
-import { Platform } from 'react-native'
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 type Props = {}
 
-function _GamesScreen({}: Props) {
+function GamesScreen({}: Props) {
   const { route, filteredGames, onFilterClicked, gameCategoryTagTranslation } =
     useGameScreen(SUB_ROUTES.local.route)
 
@@ -139,14 +138,5 @@ const GameTypeFilter = ({ onFilterClicked, ...rest }) => {
     </View>
   )
 }
-
-const GamesScreen = withGameFilterProvider(_GamesScreen, {
-  gameTypes: [
-    GAME_TYPE_CODE.GAMES,
-    GAME_TYPE_CODE.FISHING,
-    GAME_TYPE_CODE.LOTTERY,
-  ],
-  gameCategories: [GDC_GAME_CATEGORY.CARDGAME],
-})
 
 export default GamesScreen
