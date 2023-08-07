@@ -19,7 +19,7 @@ import { useSendRegistrationOtpMutation } from 'services/authApi'
 import { useRouter } from 'solito/router'
 import ReceiveOTPContact from '../components/ReceiveOTPContact'
 import { RegisterFormValues } from './RegisterScreen'
-import { DEV_DOMAIN } from '@env'
+import { DEV_DOMAIN } from '../../../../../apps/next/config/env'
 
 const StyledFormContainer = styled(FormContainer)({
   py: '$4',

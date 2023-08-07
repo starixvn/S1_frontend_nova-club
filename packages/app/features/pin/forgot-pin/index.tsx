@@ -135,7 +135,7 @@ const ForgotPinScreen = () => {
       OTPRef.current?.startOtpTimer()
 
       if (success) {
-        Toast.show({ type: 'success', text1: message })
+        Toast.show({ type: 'success', text1: t('status.success') })
       }
     } catch (error) {
       showAlert(error)
@@ -237,6 +237,7 @@ const ForgotPinScreen = () => {
             onPress={submitForm}
             disabled={!isValid || !dirty}
             sx={{
+              py: '$2',
               mt: '$4',
               maxWidth: 350,
               ...(desktop

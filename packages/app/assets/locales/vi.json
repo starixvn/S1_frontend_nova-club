@@ -433,7 +433,12 @@
   "status": {
     "pending": "Đang chờ",
     "rejected": "Từ chối",
-    "success": "Thành công"
+    "success": "Thành công",
+    "qrDownloadSuccess": "Tải mã QR thành công",
+    "systemError": "Rất tiếc! Đã xảy ra lỗi, vui lòng thử lại.",
+    "qrTransferSelfError": "Chuyển khoản vào tài khoản riêng không được phép",
+    "scanFailed": "Quét không thành công!",
+    "imageNotSupported": "Định dạng hình ảnh không được hỗ trợ"
   },
   "transaction": {
     "pending": "Đang chờ giao dịch",

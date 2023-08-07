@@ -30,6 +30,13 @@ export interface BannerCarouselProps
   sx?: SxProp
 }
 
+interface BannerItem {
+  item: BannerResult
+  index: number
+  width: number
+  height: number
+}
+
 export default function BannerCarousel({
   data,
   sx,
@@ -120,7 +127,7 @@ export default function BannerCarousel({
   )
 }
 
-const BannerItem = ({ item, index, width, height }) => {
+const BannerItem = ({ item, index, width, height }: BannerItem) => {
   const { push } = useRouter()
   const { openModal } = useModal()
   const token = useAppSelector((s) => s.auth.info?.token)
@@ -128,7 +135,11 @@ const BannerItem = ({ item, index, width, height }) => {
   const locale = useAppSelector((s) => s.setting.locale)
 
   const onPressCallback = useCallback(() => {
-    // console.log('click item', item)
+    if (
+      Platform.OS !== 'web' &&
+      item.guestAction?.payload.uri === 'LuckyDrawModal'
+    )
+      return
 
     if (token && item.action) {
       const actionType = isDesktop ? item.action.desktopType : item.action.type

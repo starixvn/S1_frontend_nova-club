@@ -1,4 +1,3 @@
-import { DEV_DOMAIN } from '@env'
 import Icon from 'app/components/Icon'
 import BouncePressable from 'app/components/pressable/BouncePressable'
 import useContainerDimension from 'app/hooks/useContainerDimension'
@@ -10,6 +9,7 @@ import { Text, View } from 'dripsy'
 import React from 'react'
 import { ImageBackground } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
+import { DEV_DOMAIN } from '../../../../../apps/next/config/env'
 
 const DrawerReferral = () => {
   const { t } = useLocalization()
