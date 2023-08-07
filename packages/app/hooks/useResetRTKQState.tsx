@@ -12,7 +12,7 @@ const useResetRTKQState = () => {
   const resetRTKQState = useCallback(() => {
     dispatch(baseApi.util.resetApiState())
 
-    // dispatch(TempSettingActions.toggleTriggerPopupEvent(true))
+    dispatch(TempSettingActions.toggleTriggerPopupEvent(true))
     dispatch(TempSettingActions.setLuckyDrawTriggered(false))
     dispatch(SettingActions.removeReferral())
     dispatch(SettingActions.setLocale(LANGUAGE_CODE.VIETNAM))

@@ -74,6 +74,9 @@ export default function BannerCarousel({
           onProgressChange={(_, absoluteProgress) =>
             (progressValue.value = absoluteProgress)
           }
+          panGestureHandlerProps={{
+            activeOffsetX: [-10, 10],
+          }}
           // onSnapToItem={(index) => console.log('current index:', index)}
           renderItem={({ item, index }) => (
             <BannerItem

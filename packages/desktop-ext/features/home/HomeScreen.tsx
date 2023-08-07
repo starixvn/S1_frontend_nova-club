@@ -15,6 +15,7 @@ import dynamic from 'next/dynamic'
 import withLazyLoad from 'app/hoc/withLadyLoad'
 import LazyIndicator from 'app/components/LazyIndicator'
 import HireBannerDesktop from 'app/features/home/HireBannerDesktop'
+import EventPopup from 'app/features/home/EventPopup'
 
 const DeferredSection = dynamic(() => import('./DeferredSection'), {
   loading: () => <LazyIndicator />,
@@ -98,6 +99,7 @@ export default function HomeScreen() {
         <TopGameSection />
         <LazyDeferredSection />
       </Container>
+      <EventPopup />
     </View>
   )
 }
