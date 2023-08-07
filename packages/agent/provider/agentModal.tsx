@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 import React from 'react'
 import { ModalStackConfig } from 'react-native-modalfy'
 import { ModalAction } from '../components/Modal/Modal.type'
+import { Platform } from 'react-native'
 
 type ModalStackConfigValueType = ModalStackConfig extends Record<
   any,
@@ -120,8 +121,10 @@ export const agentModalConfig: ModalConfigType = {
     position: 'top',
     backdropOpacity: 0,
     containerStyle: {
-      marginTop: '15%',
+      marginTop: Platform.OS === 'web' ? 60 : 120,
       alignItems: 'flex-end',
+      maxWidth: 768,
+      marginHorizontal: 'auto',
     },
     transitionOptions: (animatedValue) => ({
       opacity: animatedValue.interpolate({

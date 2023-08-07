@@ -54,6 +54,7 @@ const MENU: MenuProps[] = [
   {
     route: '/slots',
     label: 'game.category.slots',
+    menu: NAVIGATION_DROPDOWN_MENU.Slots,
   },
   {
     route: '/games/local',
