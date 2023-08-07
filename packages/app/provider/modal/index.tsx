@@ -13,12 +13,7 @@ import {
 } from 'react-native-modalfy'
 import { SubmitDepositCryptoItem } from 'services/deposit.type'
 
-type ModalStackConfigValueType = ModalStackConfig extends Record<
-  any,
-  infer ValueType
->
-  ? ValueType
-  : never
+type ModalStackConfigValueType = ModalStackConfig[keyof ModalStackConfig]
 
 export type ModalStackParams = {
   LoadingModal: undefined
@@ -149,9 +144,11 @@ const modalConfig: ModalConfigType = {
   },
   RegisterModal: {
     modal: getDynamicComponent('RegisterModal'),
+    backBehavior: 'none',
   },
   AgentLoginModal: {
     modal: getDynamicComponent('AgentLoginModal'),
+    backBehavior: 'none',
   },
   DepositCryptoModal: {
     modal: getDynamicComponent('DepositCryptoModal'),
@@ -164,6 +161,7 @@ const modalConfig: ModalConfigType = {
   },
   ForgotPasswordModal: {
     modal: getDynamicComponent('ForgotPasswordModal'),
+    backBehavior: 'none',
   },
   EventPopupModal: {
     modal: getDynamicComponent('EventPopupModal'),
