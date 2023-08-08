@@ -129,18 +129,15 @@ const RegisterForm = ({
     handleCheckingUsername()
   }, [handleCheckingUsername, setTouched, values.username])
 
-  const onUsernameChange = useCallback(
-    (e: string) => {
-      if (isUsernameCheckedRef.current) isUsernameCheckedRef.current = false
-      if (usernameErrorMsg) {
-        oldUsernameRef.current = ''
-        setUsernameErrorMsg('')
-      }
+  const onUsernameChange = (e: string) => {
+    if (isUsernameCheckedRef.current) isUsernameCheckedRef.current = false
+    if (usernameErrorMsg) {
+      oldUsernameRef.current = ''
+      setUsernameErrorMsg('')
+    }
 
-      setFieldValue('username', e)
-    },
-    [setFieldValue, usernameErrorMsg]
-  )
+    setFieldValue('username', e, false)
+  }
 
   const usernameActions = useCallback(() => {
     if (!isCheckingUsername) return

@@ -13,7 +13,7 @@ import { isBannedTrackingCode } from 'app/utils/referralUtil'
 import validation from 'app/utils/validation'
 import { FormikHelpers, useFormik } from 'formik'
 import { useDynamicAnimation } from 'moti'
-import { RefObject, useEffect, useMemo, useState } from 'react'
+import { RefObject, useCallback, useEffect, useMemo, useState } from 'react'
 import { Platform, View as RNView } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useRegisterMutation } from 'services/authApi'
@@ -208,26 +208,26 @@ export default function useRegisterScreen(rootView: RefObject<RNView>) {
     onSubmit,
   })
 
-  const onRegisterSuccess = () => {
-    setCurrentScreen(Register_Screen.ACCOUNT_VERIFICATION)
-
-    animationState.animateTo({
-      translateX: -width,
-    })
-  }
-
-  const onBack = () => {
-    setCurrentScreen(Register_Screen.SET_USERNAME)
-    animationState.animateTo({
-      translateX: 0,
-    })
-  }
-
   const animationState = useDynamicAnimation(() => {
     return {
       translateX: 0,
     }
   })
+
+  const onBack = useCallback(() => {
+    setCurrentScreen(Register_Screen.SET_USERNAME)
+    animationState.animateTo({
+      translateX: 0,
+    })
+  }, [animationState])
+
+  const onRegisterSuccess = useCallback(() => {
+    setCurrentScreen(Register_Screen.ACCOUNT_VERIFICATION)
+
+    animationState.animateTo({
+      translateX: -width,
+    })
+  }, [animationState, width])
 
   useEffect(() => {
     const currentX = animationState.current?.translateX
