@@ -1,45 +1,21 @@
-import useLoading from 'app/hooks/useLoading'
 import { useAppSelector } from 'app/provider/redux/store'
 import { GameLauncherActions } from 'app/store/gameLauncher.slice'
 import { useDispatch } from 'react-redux'
-import { useTransferAllToOneMutation } from 'services/walletApi'
-import useGameWalletSummary from './useGameWalletSummary'
+import { usePlayerBalanceQuery } from 'services/walletApi'
 
 export default function useGameWindow() {
   const dispatch = useDispatch()
-  const lastLaunchProvider = useAppSelector(
-    (s) => s.gameLauncher.lastLaunchedProvider
-  )
+  const isLoggedIn = useAppSelector((s) => !!s.auth.info)
 
-  const { refetch, isTransferRequired, isSeamless } =
-    useGameWalletSummary(lastLaunchProvider)
-
-  const [transferAllToOne] = useTransferAllToOneMutation({
-    fixedCacheKey: 'transfer-all-to-one',
+  const { data, refetch } = usePlayerBalanceQuery(undefined, {
+    skip: !isLoggedIn,
   })
-
-  const { toggleLoading } = useLoading()
-
-  async function transferAllToMain() {
-    try {
-      toggleLoading(true)
-      await transferAllToOne({
-        transfer_from: 999,
-        transfer_to: 0,
-      }).unwrap()
-    } catch (error) {
-      console.error(error)
-    } finally {
-      toggleLoading(false)
-    }
-  }
 
   function _refreshWallet() {
     // When window is instantly closed and auto focused to main window, the .closed indicator will remain false until a few ms.
     setTimeout(() => {
       if (!window.gameWindow || window.gameWindow.closed) {
         window.removeEventListener('focus', _refreshWallet)
-        if (!isSeamless && isTransferRequired) transferAllToMain()
       } else refetch()
     }, 100)
   }
@@ -52,8 +28,12 @@ export default function useGameWindow() {
     if (window?.gameWindow) {
       if (url) {
         window.gameWindow.location = url
-        window.removeEventListener('focus', _refreshWallet)
-        window.addEventListener('focus', _refreshWallet)
+
+        if (isLoggedIn) {
+          window.removeEventListener('focus', _refreshWallet)
+          window.addEventListener('focus', _refreshWallet)
+        }
+
         window.gameWindow.focus()
       }
     }

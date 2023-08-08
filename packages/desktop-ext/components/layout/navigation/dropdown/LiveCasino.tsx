@@ -17,7 +17,7 @@ export default function LiveCasino({}: Props) {
   const { push } = useRouter()
 
   const { data } = useGetGameListByCategoryQuery([GAME_TYPE_CODE.LIVE_DEALER])
-  const { data: providerStatus } = useGameProviderListQuery(undefined, {})
+  const { data: providerStatus } = useGameProviderListQuery()
 
   const providers = useMemo(() => {
     if (data) return Object.keys(groupBy(data, 'gpc'))

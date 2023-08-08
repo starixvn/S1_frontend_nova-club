@@ -208,7 +208,6 @@ export const gameApi = baseApiWithTag.injectEndpoints({
       transformResponse: (resp: IResponse<Record<string, ProviderStatus>>) => {
         const providers = resp.data ?? {}
         return Object.keys(providers).reduce((acc, providerId) => {
-          console.log('providerId', providerId)
           const provider = providers[providerId]
           if (provider) acc[provider?.system_code] = provider
 

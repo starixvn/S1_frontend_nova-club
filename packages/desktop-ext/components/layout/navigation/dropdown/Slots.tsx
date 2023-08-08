@@ -21,7 +21,6 @@ export default function Slots({}: Props) {
   //   GAME_TYPE_CODE.SLOTS,
   //   GAME_TYPE_CODE.FISHING,
   // ])
-  const { data: providerStatus } = useGameProviderListQuery(undefined, {})
 
   const { data } = useGameListMultipleQuery({
     game_category: [GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING],

@@ -141,7 +141,7 @@ const GameLauncher = () => {
   /* Entry Point for launching game */
   useEffect(() => {
     if (gpc) {
-      const isMaintenance = checkMaintenance(gpc)
+      const isMaintenance = checkMaintenance(gpc.toUpperCase())
       if (isMaintenance) {
         showAlert(t('game.underMaintenance'))
         cleanUpGame()
