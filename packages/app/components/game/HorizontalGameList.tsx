@@ -1,9 +1,10 @@
 import { useAppSelector } from 'app/provider/redux/store'
-import { ScrollView, useResponsiveValue } from 'dripsy'
+import { useResponsiveValue } from 'dripsy'
 import { Skeleton } from 'moti/skeleton'
 import React from 'react'
 import { ScrollViewProps } from 'react-native'
 import { Game } from 'services/gameApi.type'
+import { DraggableScrollView } from '../DraggableScrollView'
 import SkeletonPlaceholder from '../SkeletonPlaceholder'
 import GameCard from './GameCard'
 
@@ -21,7 +22,7 @@ export default function HorizontalGameList({
   const locale = useAppSelector((s) => s.setting.locale)
 
   return (
-    <ScrollView
+    <DraggableScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
       contentContainerSx={{
@@ -56,6 +57,6 @@ export default function HorizontalGameList({
             ))}
         </Skeleton.Group>
       )}
-    </ScrollView>
+    </DraggableScrollView>
   )
 }
