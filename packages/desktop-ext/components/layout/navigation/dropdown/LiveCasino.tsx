@@ -32,9 +32,9 @@ export default function LiveCasino({}: Props) {
             <GameCard
               absoluteName
               onPress={() => push(`/livecasino/${g.toLowerCase()}`)}
-              displayName={
-                providerStatus ? providerStatus[g]?.system_name : undefined
-              }
+              // displayName={
+              //   providerStatus ? providerStatus[g]?.system_name : undefined
+              // }
               key={g}
               sx={{ width: '11%' }}
               img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/main/${g.toLowerCase()}.png`}

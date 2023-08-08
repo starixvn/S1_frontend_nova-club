@@ -26,7 +26,7 @@ export default function Sportsbook({}: Props) {
           return (
             <GameCard
               absoluteName
-              displayName={g.name[locale]}
+              // displayName={g.name[locale]}
               key={g.gc + g.gpc}
               sx={{ width: '11%' }}
               {...g}

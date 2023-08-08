@@ -56,11 +56,8 @@ export default function SplashScreen() {
 
   const { status } = useSplashScreen(
     {
-      mandatorySync: [
-        fontInitPromiseFactory,
-        checkVersionUpdated,
-        checkMaintenance,
-      ],
+      mandatorySync: [checkVersionUpdated, checkMaintenance],
+      mandatoryAsync: [fontInitPromiseFactory],
     },
     codePushStatus === CodePush.SyncStatus.UP_TO_DATE,
     {
