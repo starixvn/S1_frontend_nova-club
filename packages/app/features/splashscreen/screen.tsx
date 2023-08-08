@@ -12,7 +12,7 @@ import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch } from 'app/provider/redux/store'
 import { Video, ResizeMode } from 'expo-av'
-import { MotiView } from 'moti'
+// import { MotiView } from 'moti'
 import { StyleSheet } from 'react-native'
 import CodePush from 'react-native-code-push'
 import { Easing } from 'react-native-reanimated'
@@ -116,7 +116,7 @@ export default function SplashScreen() {
           >
             {currentVersion}
           </Text>
-          <PromoText />
+          {/* <PromoText /> */}
         </>
       )}
       <Video
@@ -144,36 +144,36 @@ export default function SplashScreen() {
   )
 }
 
-const PromoText = () => {
-  return (
-    <MotiView
-      from={{
-        opacity: 0,
-        translateY: 100,
-      }}
-      animate={{ translateY: 0, opacity: 1 }}
-      transition={{
-        type: 'timing',
-        duration: 2000,
-        easing: Easing.bezier(0.25, 1, 0.5, 1),
-      }}
-      style={{
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: '20%',
-      }}
-    >
-      <Text style={styles.promoLabel}>Đăng ký làm đại lý,</Text>
-      <Text style={styles.promoLabel}>
-        <Text>
-          nhận hoa hồng đến
-          <Text sx={{ color: 'gold', fontSize: 30 }}> 0.5%</Text>
-        </Text>
-      </Text>
-    </MotiView>
-  )
-}
+// const PromoText = () => {
+//   return (
+//     <MotiView
+//       from={{
+//         opacity: 0,
+//         translateY: 100,
+//       }}
+//       animate={{ translateY: 0, opacity: 1 }}
+//       transition={{
+//         type: 'timing',
+//         duration: 2000,
+//         easing: Easing.bezier(0.25, 1, 0.5, 1),
+//       }}
+//       style={{
+//         position: 'absolute',
+//         left: 0,
+//         right: 0,
+//         top: '20%',
+//       }}
+//     >
+//       <Text style={styles.promoLabel}>Đăng ký làm đại lý,</Text>
+//       <Text style={styles.promoLabel}>
+//         <Text>
+//           nhận hoa hồng đến
+//           <Text sx={{ color: 'gold', fontSize: 30 }}> 0.5%</Text>
+//         </Text>
+//       </Text>
+//     </MotiView>
+//   )
+// }
 
 const styles = StyleSheet.create({
   promoLabel: {

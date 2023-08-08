@@ -7,8 +7,8 @@ import SectionHeader from '../SectionHeader'
 import useLocalization from 'app/provider/localization'
 
 // const cols = [3, 3, 4]
-const width = ['24%', '19.5%', '19.5%', '16%']
-const spaces = ['0.4%', '0.25%', '0.25%', '0.33%']
+const width = ['32%', '24%', '19.5%', '19.5%', '16%']
+const spaces = ['0.66%', '0.25%', '0.25%', '0.33%']
 
 export default function ProviderList({
   data,
