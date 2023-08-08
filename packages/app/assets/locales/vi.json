@@ -114,7 +114,8 @@
     "username": "Tên đăng nhập",
     "withdraw": "Rút tiền",
     "confirmDelete": "Bạn có chắc chắn muốn xóa? Không thể khôi phục sau khi xóa!",
-    "search": "Tìm kiếm"
+    "search": "Tìm kiếm",
+    "yes": "Đồng Ý"
   },
   "contact": {
     "contactVia": "Liên hệ qua:",

@@ -115,7 +115,8 @@
     "withdraw": "Withdraw",
     "enter": "Enter",
     "confirmDelete": "Are you sure you want to delete? It cannot be restored after deletion!",
-    "search": "Search"
+    "search": "Search",
+    "yes": "Yes"
   },
   "contact": {
     "contactVia": "Contact via:",
