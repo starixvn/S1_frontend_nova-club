@@ -37,8 +37,11 @@ export const DepositTableHeader = [
   TAB_NO,
   { label: 'deposit.type', textStyle: { flex: 1.5, textAlign: 'left' } },
   { label: 'deposit.id', textStyle: { flex: 2, textAlign: 'left' } },
-  { label: 'common.date', textStyle: { flex: 1.5, textAlign: 'left' } },
-  { label: 'common.amount', textStyle: { flex: 2 } },
+  {
+    label: 'common.date',
+    textStyle: { flex: 1.5, textAlign: 'left' },
+  },
+  { label: 'common.amount', textStyle: { flex: 1 } },
   { label: 'deposit.status', textStyle: { flex: 2 } },
 ]
 

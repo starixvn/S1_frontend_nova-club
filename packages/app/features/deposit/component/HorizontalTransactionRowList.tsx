@@ -40,15 +40,15 @@ const HorizontalTransactionRowList = ({
 
   return (
     <View sx={{ flex: 1, flexDirection: 'row', mx: 10 }}>
-      <View sx={{ flex: 0.3 }}>
+      <View sx={{ flexBasis: 40 }}>
         <Text>{index}</Text>
       </View>
 
-      <View sx={{ flex: 0.9 }}>
+      <View sx={{ flex: 0.25 }}>
         <Text>{item.pay_type}</Text>
       </View>
 
-      <View sx={{ flex: 1, flexDirection: 'row' }}>
+      <View sx={{ flex: 0.25, flexDirection: 'row' }}>
         <Text>{item.secure_id}</Text>
         <IconButton
           name={'copy'}
@@ -59,22 +59,22 @@ const HorizontalTransactionRowList = ({
         />
       </View>
 
-      <View sx={{ flex: 0.7, flexDirection: 'column' }}>
+      <View sx={{ flex: 0.15, flexDirection: 'column' }}>
         <Text>{date}</Text>
         <Text>{time}</Text>
       </View>
 
-      <View sx={{ flex: 0.5 }}>
+      <View sx={{ flex: 0.15 }}>
         <Text sx={{ textAlign: 'center' }}>
           {toThousandSeparator(item.amount)}
         </Text>
       </View>
 
-      <View sx={{ flex: 0.6 }}>
+      <View sx={{ flex: 0.2 }}>
         <Text
           sx={{
             color: getStatusColor(item.status, theme),
-            textAlign: 'center',
+            textAlign: 'right',
           }}
         >
           {item.status}
@@ -87,7 +87,7 @@ const HorizontalTransactionRowList = ({
                 sx={{
                   textDecorationLine: 'underline',
                   color: '$tertiary',
-                  textAlign: 'center',
+                  textAlign: 'right',
                 }}
               >
                 {t('deposit.bankSlip')}

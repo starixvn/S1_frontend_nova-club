@@ -9,21 +9,21 @@
   "authentication": {
     "accVerification": "Xác thực tài khoản",
     "accountReg": "ĐĂNG KÝ",
+    "agentForgotPassword": "Đại lý quên mật khẩu",
     "enterOtp": "Vui lòng nhập OTP",
     "forgotPassword": "Quên mật khẩu",
     "forgotPasswordHeader": "Quên mật khẩu",
-    "agentForgotPassword": "Đại lý quên mật khẩu",
     "login": "ĐĂNG NHẬP",
-    "loginHeader": "Thành viên đăng nhập",
     "loginAgentHeader": "Đăng nhập đại lý",
+    "loginHeader": "Thành viên đăng nhập",
     "noReceiveOTP": "Không nhận được OTP?",
     "readAndAgree": "Tôi đã đọc và đồng ý",
+    "referrerInfo": "Thông tin người giới thiệu",
     "register": "ĐĂNG KÝ",
     "rememberMe": "Lưu để đăng nhập lần sau",
     "resend": "Gởi",
     "resetPasswordHeader": "Đặt lại mật khẩu",
-    "send": "Gởi",
-    "referrerInfo": "Thông tin người giới thiệu"
+    "send": "Gởi"
   },
   "bank": {
     "accountName": "Tên tài khoản",
@@ -33,9 +33,9 @@
     "addCryptoAccount": "Thêm ví tiền ảo",
     "bank": "Ngân hàng",
     "bankAccount": "Tài khoản ngân hàng",
+    "channel": "Tài khoản nạp",
     "noBankAccount": "Không có tài khoản tiền ảo",
     "noCryptoAccount": "Không có tài khoản ngân hàng",
-    "channel": "Tài khoản nạp",
     "selectBank": "Vui lòng chọn ngân hàng",
     "selectChannel": "Chọn tài khoản nạp",
     "walletAddress": "Địa chỉ ví"
@@ -66,6 +66,7 @@
     "cash": "VÍ",
     "close": "Đóng",
     "confirm": "Xác nhận",
+    "confirmDelete": "Bạn có chắc chắn muốn xóa? Không thể khôi phục sau khi xóa!",
     "confirmPassword": "Xác nhận mật khẩu",
     "copied": "Đã sao chép đường dẫn",
     "copy": "Sao chép",
@@ -74,6 +75,7 @@
     "days": "ngày",
     "deposit": "Nạp tiền",
     "download": "Tải về",
+    "enter": "",
     "fileSizeExceeds": "kích thước tệp không được vượt quá %{size}",
     "game": "Trò Chơi",
     "hello": "Xin chào!!",
@@ -101,6 +103,7 @@
     "realBet": "Đặt cược thực sự",
     "realName": "Tên thật",
     "reward": "THƯỞNG",
+    "search": "Tìm kiếm",
     "selectAll": "Chọn tất cả",
     "shareholder": "Cổ đông",
     "showMore": "Cho xem nhiều hơn",
@@ -113,8 +116,6 @@
     "userAgreement": "Thỏa thuận người dùng",
     "username": "Tên đăng nhập",
     "withdraw": "Rút tiền",
-    "confirmDelete": "Bạn có chắc chắn muốn xóa? Không thể khôi phục sau khi xóa!",
-    "search": "Tìm kiếm",
     "yes": "Đồng Ý"
   },
   "contact": {
@@ -172,6 +173,7 @@
     },
     "downloadAppNow": "Tải ứng dụng Vui123 ngay\nTận hưởng\nPhần thưởng đỉnh cao!",
     "downloadGuide": "Tải\nHướng dẫn",
+    "guideInstall": "Hướng dẫn cài đặt",
     "ios": "IOS",
     "iosGuideText": {
       "n1": "Bấm nút tải\ntrên trang Vui123.",
@@ -179,8 +181,7 @@
       "n3": "Bạn sẽ được chuyển hướng\ntải ứng dụng Vui Fit trên App Store",
       "n4": "Bấm \"Lấy\" để tải ứng dụng Vui Fit",
       "n5": "Mở Vui Fit để vào VUI123. Tận hưởng trò chơi đỉnh cao\nvà phần thưởng hấp dẫn"
-    },
-    "guideInstall": "Hướng dẫn cài đặt"
+    }
   },
   "event": {
     "catEvent": {
@@ -195,7 +196,8 @@
         "won": "XIN CHÚC MỪNG!",
         "won2": "BẠN ĐÃ TRÚNG THƯỞNG"
       },
-      "tnc": {}
+      "tnc": {
+      }
     },
     "claim": "ĐỔI VÉ THƯỞNG CỦA BẠN NGAY",
     "jackpot": "Jackpot (chia phần thưởng): 100,000,000 VND",
@@ -253,12 +255,12 @@
     "win/loss": "Thắng/Thua"
   },
   "footer": {
-    "power": "Cung cấp bởi",
     "aboutUs": "Về chúng tôi",
     "contactUs": "Liên hệ",
     "copyright": "© Bản quyền 2023 VUI123. Bản quyền thuộc về VUI123 2023",
     "note1": "Trở thành đối tác của chúng tôi",
     "note2": "VUI123 cam kết ủng hộ cá cược có trách nhiệm",
+    "power": "Cung cấp bởi",
     "responsibleGaming": "Cược có trách nhiệm"
   },
   "forceDownload": {
@@ -336,7 +338,7 @@
       "placeholderNewPw": "Vui lòng nhập mật khẩu mới",
       "placeholderOldPw": "Vui lòng nhập mật khẩu cũ"
     },
-    "title": "Quản lý thông tin đăng nhập"
+    "title": "QUẢN LÝ MẬT KHẨU"
   },
   "menu": {
     "bankAccount": "Tài khoản ngân hàng",
@@ -432,14 +434,14 @@
     "title": "Giới thiệu"
   },
   "status": {
+    "imageNotSupported": "Định dạng hình ảnh không được hỗ trợ",
     "pending": "Đang chờ",
-    "rejected": "Từ chối",
-    "success": "Thành công",
     "qrDownloadSuccess": "Tải mã QR thành công",
-    "systemError": "Rất tiếc! Đã xảy ra lỗi, vui lòng thử lại.",
     "qrTransferSelfError": "Chuyển khoản vào tài khoản riêng không được phép",
+    "rejected": "Từ chối",
     "scanFailed": "Quét không thành công!",
-    "imageNotSupported": "Định dạng hình ảnh không được hỗ trợ"
+    "success": "Thành công",
+    "systemError": "Rất tiếc! Đã xảy ra lỗi, vui lòng thử lại."
   },
   "transaction": {
     "pending": "Đang chờ giao dịch",

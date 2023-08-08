@@ -1,4 +1,5 @@
 import { CMS_CONTENT_URI, CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import { DraggableScrollView } from 'app/components/DraggableScrollView'
 import SectionHeader from 'app/components/SectionHeader'
 import TopGameCard, { height } from 'app/components/game/TopGameCard'
 import useLocalization from 'app/provider/localization'
@@ -22,7 +23,7 @@ export default function TopGameSection(props) {
   return (
     <View {...props}>
       <SectionHeader icon="crown" title={t('game.category.recommended')} />
-      <ScrollView
+      <DraggableScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerSx={{
@@ -35,7 +36,7 @@ export default function TopGameSection(props) {
         {data?.map((g, i) => {
           return <TopGameCard key={i} game={g} desktopMode={desktopMode} />
         })}
-      </ScrollView>
+      </DraggableScrollView>
     </View>
   )
 }

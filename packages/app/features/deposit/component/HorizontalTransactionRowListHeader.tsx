@@ -6,31 +6,31 @@ const HorizontalTransactionRowListHeader = () => {
   return (
     <>
       <View sx={{ flex: 1, flexDirection: 'row', m: 10 }}>
-        <View sx={{ flex: 0.3 }}>
+        <View sx={{ flexBasis: 40 }}>
           <HeaderText>{'No'}</HeaderText>
         </View>
 
-        <View sx={{ flex: 0.9 }}>
+        <View sx={{ flex: 0.25 }}>
           <HeaderText sx={{ textAlign: 'left' }}>
             {t('deposit.type')}
           </HeaderText>
         </View>
 
-        <View sx={{ flex: 1, flexDirection: 'row' }}>
+        <View sx={{ flex: 0.25, flexDirection: 'row' }}>
           <HeaderText>{t('deposit.id')}</HeaderText>
         </View>
 
-        <View sx={{ flex: 0.7, flexDirection: 'column' }}>
+        <View sx={{ flex: 0.15, flexDirection: 'column' }}>
           <HeaderText>{t('deposit.date')}</HeaderText>
         </View>
 
-        <View sx={{ flex: 0.5 }}>
+        <View sx={{ flex: 0.15 }}>
           <HeaderText sx={{ textAlign: 'center' }}>
             {t('common.amount')}
           </HeaderText>
         </View>
 
-        <View sx={{ flex: 0.6 }}>
+        <View sx={{ flex: 0.2 }}>
           <HeaderText sx={{ textAlign: 'center' }}>
             {t('deposit.status')}
           </HeaderText>

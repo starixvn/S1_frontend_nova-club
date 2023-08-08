@@ -72,7 +72,7 @@ const Header = ({
             <Text
               numberOfLines={2}
               sx={{
-                fontSize: isLandscape ? 14 : 20,
+                fontSize: isLandscape ? 14 : 19,
                 color: 'white',
                 lineHeight: headerHeight.height,
                 fontWeight: 'bold',
