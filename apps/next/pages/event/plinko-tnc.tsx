@@ -1,13 +1,12 @@
-import React from 'react'
+import AvertaStd from 'app/assets/fonts/Averta'
+import FormContainer from 'app/components/form/FormContainer'
+import { PageWithBackHeader } from 'app/components/layouts/Page'
+import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
+import { useResponsiveValue } from 'dripsy'
 import { useRouter } from 'next/router'
 import PlinkoTncEn from '../../components/plinko-event/PlinkoTncEn'
 import PlinkoTncVi from '../../components/plinko-event/PlinkoTncVi'
-import { useAppSelector } from 'app/provider/redux/store'
-import AvertaStd from 'app/assets/fonts/Averta'
-import { PageWithBackHeader } from 'app/components/layouts/Page'
-import useLocalization from 'app/provider/localization'
-import { useResponsiveValue } from 'dripsy'
-import FormContainer from 'app/components/form/FormContainer'
 
 const FONT_COLOR = '#FFF'
 const FONT_SIZE = 12
@@ -33,7 +32,7 @@ const PlinkoTnc = () => {
   return (
     <PageWithBackHeader
       header={{ title: t('menu.tnc') }}
-      hideHeader={isDesktop}
+      hideHeader={isDesktop || window.ReactNativeWebView}
     >
       <FormContainer>
         <main

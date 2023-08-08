@@ -170,7 +170,7 @@ const MatchListCellData = ({
       <DataTableCell
         sx={{
           py: '$0',
-          flex: 0.06,
+          flex: 0.065,
           alignItems: selectionType === 'home' ? 'flex-end' : 'flex-start',
         }}
         textStyle={{ fontWeight: 'bold' }}
@@ -190,7 +190,7 @@ const MatchListCellData = ({
       </DataTableCell>
       <DataTableCell
         textStyle={{ textAlign: 'center', fontSize: 13 }}
-        sx={{ ml: '$1', flex: 0.165, py: '$0' }}
+        sx={{ ml: '$1', flex: 0.16, py: '$0' }}
       >
         {name ?? 'Draw'}
       </DataTableCell>
@@ -208,12 +208,16 @@ const MatchListCellData = ({
           //Selection ID 0 is Home while 1 is Away,
           //Selection ID for Away is 2 when it is 1x2 Full Time & 1x2 Half Time (Length===2)
           //IsTimeDouble is to indicate the Selection ID 5 AND 15
-          const selectionId =
-            item.selection[d]?.length === 3
-              ? 2
-              : selectionType === 'away'
-              ? 1
-              : 0
+          // const selectionId =
+          //   item.selection[d]?.length === 3
+          //     ? 2
+          //     : selectionType === 'away'
+          //     ? 1
+          //     : 0
+
+          //homeawaydraw
+          const selectionId = getSelectionId({ selectionType, item, d })
+
           const price = item.selection[d]?.[selectionId]?.Price ?? 0
           const point = item.selection[d]?.[selectionId]?.Point ?? 0
           const invertedPoint = point > 0 ? -point : Math.abs(point)
@@ -227,7 +231,7 @@ const MatchListCellData = ({
               key={i}
               sx={{
                 flexDirection: 'row',
-                flex: isTimeDouble ? 0.5 : 1,
+                flex: isTimeDouble ? 0.6 : 1.1,
                 justifyContent: 'center',
                 py: '$0',
               }}
@@ -356,14 +360,7 @@ const OnRender = ({
         key={selectedTime}
       />
     )
-  } else if (
-    selectedTime === 'All'
-    // &&
-    // (parseInt(dayjs(matchDayjs.diff(startDate, 'day')).format('DD')) === 0 ||
-    //   (parseInt(dayjs(matchDayjs.diff(endDate, 'day')).format('DD')) <= 6 &&
-    //     matchDayjs.isBefore(endDate))
-    //     )
-  ) {
+  } else if (selectedTime === 'All') {
     return (
       <MatchListCellRow
         awayFlag={awayFlag}
@@ -446,6 +443,20 @@ const getMatchTime = (globalshowtime: string) => {
     // Android Hermes will hit error if using dayjsTz
   }
   return { time, date, matchUnixDate, matchDayjs }
+}
+
+interface GetSelectionId {
+  selectionType: string
+  d: MatchHandicapType
+  item: MatchResult
+}
+
+const getSelectionId = ({ selectionType, item, d }: GetSelectionId) => {
+  if (item.selection[d]?.length === 3) {
+    return selectionType === 'home' ? 0 : selectionType === 'away' ? 2 : 1
+  } else {
+    return selectionType === 'home' ? 0 : 1
+  }
 }
 
 export default MatchListTable
