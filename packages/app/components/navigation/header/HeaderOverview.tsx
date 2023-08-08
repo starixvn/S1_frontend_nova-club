@@ -3,7 +3,6 @@ import { FONT_TOP_OFFSET } from 'app/constants/font'
 import { useAppSelector } from 'app/provider/redux/store'
 import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
-import isDesktop from 'app/utils/isDesktop'
 import {
   ActivityIndicator,
   Pressable,
@@ -39,7 +38,6 @@ const HeaderButton = ({ icon, label, value, isLoading }: HeaderButtonProps) => {
           sx={{
             px: '$2',
             borderRadius: 15,
-            minWidth: 75,
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -58,7 +56,7 @@ const HeaderButton = ({ icon, label, value, isLoading }: HeaderButtonProps) => {
               sx={{
                 flex: 1,
                 mt: FONT_TOP_OFFSET,
-                fontSize: 14,
+                fontSize: [12, 14],
                 color: '$secondary.100',
                 minWidth: 40,
                 textAlign: 'right',
@@ -89,12 +87,12 @@ const HeaderOverview = ({}: HeaderOverviewProps) => {
     refetch,
   } = usePlayerBalanceQuery(undefined, { skip: !token })
 
-  const width = useResponsiveValue([110, 120, 150])
+  const width = useResponsiveValue([100, 120, 150])
 
   useEffect(() => {
     refetch
   }, [])
-  
+
   return (
     <Pressable
       onPress={refetch}

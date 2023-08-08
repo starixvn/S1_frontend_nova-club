@@ -1,3 +1,4 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { View } from 'dripsy'
 import { useRef } from 'react'
 import { View as RNView } from 'react-native'
@@ -8,8 +9,8 @@ type AuthBannerProps = {
 }
 
 const BannerImage = {
-  AGENT: require('app/assets/images/auth/agent_banner.jpg'),
-  PLAYER: require('app/assets/images/auth/banner.png'),
+  AGENT: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/auth/agent_banner.jpg`,
+  PLAYER: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/auth/member_banner.jpg`,
 } as const
 
 const AuthBanner = (props: AuthBannerProps) => {
