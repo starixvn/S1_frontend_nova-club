@@ -35,7 +35,7 @@ const ReferralScreen = () => {
               margin: 'auto',
             }}
           >
-            <DrawerReferral />
+            <DrawerReferral imageHeight={'100%'} />
           </View>
         )}
       </FormContainer>

@@ -60,7 +60,7 @@ export default function HomeScreen() {
       closeModal('LuckyDrawModal')
       setTimeout(() => {
         openModal('LuckyDrawModal')
-      }, 500)
+      }, 2000)
     }
   }, [luckyDrawBalance, username])
 

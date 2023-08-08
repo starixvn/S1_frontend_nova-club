@@ -11,7 +11,7 @@ import { ImageBackground } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { DEV_DOMAIN } from '../../../../../apps/next/config/env'
 
-const DrawerReferral = () => {
+const DrawerReferral = ({ imageHeight }: { imageHeight: number | string }) => {
   const { t } = useLocalization()
   const { bottom } = useSafeArea()
   const { height } = useContainerDimension()
@@ -35,8 +35,8 @@ const DrawerReferral = () => {
         source={require('../../../assets/images/banner_referral.jpg')}
         style={{
           // aspectRatio: 380 / 600,
-          maxHeight: 380,
-          height: '100%',
+          // maxHeight: 380,
+          height: imageHeight,
           width: '100%',
           alignItems: 'center',
           justifyContent: 'center',
