@@ -38,7 +38,7 @@ const useImagePicker = () => {
   }, [isFocus])
 
   const handleScan = (value: boolean) => {
-    dispatch(SettingActions.toogleScan(value))
+    dispatch(SettingActions.toggleScan(value))
   }
 
   const pickImageFromGallery = async () => {
