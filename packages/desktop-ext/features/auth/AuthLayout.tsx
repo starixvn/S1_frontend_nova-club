@@ -71,7 +71,7 @@ const LeftColumn = memo(
           alt="logo"
           width={128}
           height={80}
-          resizeMode="contain"
+          contentFit="contain"
         />
         <AuthBanner isAgent={isAgent} />
         <View sx={{ alignItems: 'center', mt: 'auto' }}>

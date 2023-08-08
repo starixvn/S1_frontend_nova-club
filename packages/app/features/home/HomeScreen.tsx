@@ -19,7 +19,7 @@ export default function HomeScreen() {
   const syncShieldActionType = useAppSelector(
     (s) => s.tempSetting.syncShieldActionType
   )
-  const { openModal, closeModal } = useModal()
+  const { openModal, closeModal, currentModal } = useModal()
   const luckyDrawBalance = useAppSelector((s) => s.setting.luckyDrawBalance)
 
   const syncShieldStatus = useAppSelector(
@@ -56,13 +56,22 @@ export default function HomeScreen() {
   }, [username])
 
   useEffect(() => {
+    let openLuckyDrawModalInstance: NodeJS.Timeout
+
     if (luckyDrawBalance) {
-      closeModal('LuckyDrawModal')
-      setTimeout(() => {
+      if (currentModal === 'LuckyDrawModal') {
+        closeModal('LuckyDrawModal')
+      }
+
+      openLuckyDrawModalInstance = setTimeout(() => {
         openModal('LuckyDrawModal')
-      }, 500)
+      }, 2000)
     }
-  }, [luckyDrawBalance, username])
+
+    return () => {
+      clearTimeout(openLuckyDrawModalInstance)
+    }
+  }, [luckyDrawBalance])
 
   return (
     <ScrollView

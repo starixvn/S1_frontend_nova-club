@@ -6,6 +6,8 @@ import Input from 'app/components/form/Input'
 import AvailableBalance from 'app/features/withdrawal/components/AvailableBalance'
 import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
+import { useAppDispatch } from 'app/provider/redux/store'
+import { SettingActions } from 'app/store/setting.slice'
 import { toCleanAmount, toCurrency, toRealAmount } from 'app/utils'
 import validation from 'app/utils/validation'
 import { ScrollView } from 'dripsy'
@@ -30,12 +32,13 @@ type IdTransferFormValues = {
 
 const { useParam } = createParam<{ referralCode: string }>()
 
-const IdTransfer = () => {
+const IdTransfer = ({ isIDTransfer = false }: { isIDTransfer?: boolean }) => {
   const { t } = useLocalization()
   const { back } = useRouter()
   const { showAlert } = useAlert()
   const { openModal } = useModal()
   const { push } = useRouter()
+  const dispatch = useAppDispatch()
   const [postTransferMemberToMember] = useTransferMemberToMemberMutation()
 
   const { data: playerData, currency } = usePlayerProfileQuery()
@@ -153,6 +156,10 @@ const IdTransfer = () => {
 
   useEffect(() => {
     !isPinExist && push('/account/manage-credentials/create-pin')
+
+    return () => {
+      !isIDTransfer && dispatch(SettingActions.toggleScan(true))
+    }
   }, [isPinExist])
 
   return (

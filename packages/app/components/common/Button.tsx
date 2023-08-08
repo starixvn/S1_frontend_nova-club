@@ -173,7 +173,7 @@ const Button = (props: ButtonProps) => {
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
-              py: ['$2', 10],
+              py: 10,
               px: '$3',
             }}
             style={contentStyle}

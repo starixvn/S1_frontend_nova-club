@@ -33,12 +33,12 @@ function QrTransfer({ isActive }) {
   } = useImagePicker()
 
   useEffect(() => {
-    handleScan(hasPermission)
+    handleScan(isActive)
 
     return () => {
       handleScan(false)
     }
-  }, [hasPermission])
+  }, [isActive])
 
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {

@@ -1,3 +1,4 @@
+import AgentLoginButton from 'app/components/AgentLoginButton'
 import IconButton from 'app/components/IconButton'
 import IconButtonGradient from 'app/components/IconButtonGradient'
 import Shadow from 'app/components/Shadow'
@@ -21,6 +22,7 @@ import {
 } from 'dripsy'
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
+import { useModal } from 'react-native-modalfy'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { Link } from 'solito/link'
 import { useRouter } from 'solito/router'
@@ -28,26 +30,21 @@ import HeaderAuthentication from './HeaderAuthentication'
 import HeaderDeposit from './HeaderDeposit'
 import HeaderLanguageToggle from './HeaderLanguageToggle'
 import HeaderOverview from './HeaderOverview'
-import Button from 'app/components/common/Button'
-import { useModal } from 'react-native-modalfy'
-import AgentLoginButton from 'app/components/AgentLoginButton'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
-const LogoSize = [
-  HEADER_HEIGHT * 0.45,
-  HEADER_HEIGHT * 0.5,
-  HEADER_HEIGHT * 0.75,
-]
+const LogoSize = [HEADER_HEIGHT * 0.5, HEADER_HEIGHT * 0.75]
 
 const Logo = () => (
   <Link href="/">
     <Image
-      // source={require('../../../assets/images/common/logo.png')}
-      source={require('../../../assets/images/common/vui123-Bong-01.png')}
+      source={{
+        uri: `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered.png`,
+      }}
       alt="header-logo"
       sx={{
         height: LogoSize,
-        // aspectRatio: 67 / 24,
         aspectRatio: 292 / 88,
+        marginLeft: -5,
       }}
     />
   </Link>
@@ -109,7 +106,7 @@ const MainHeader = () => {
               <Image
                 alt="user-avatar"
                 source={require('../../../assets/images/common/avatarx2.png')}
-                sx={{ aspectRatio: 1, width: 34, height: 34, borderRadius: 50 }}
+                sx={{ width: 34, height: 34, borderRadius: 50 }}
               />
             </Pressable>
             {desktop && (

@@ -39,10 +39,10 @@ const TransferScreen = () => {
 
   const renderScene = SceneMap({
     first: QrReceive,
-    second: IdTransfer,
-    third: QrTransfer,
+    second: () => <IdTransfer isIDTransfer />,
+    third: () => <QrTransfer isActive={index === routes[2]?.index} />,
   })
-
+  // isActive={index === routes[2]?.index}
   const getIndexFromTab = (value) => {
     switch (value) {
       case SCREEN_TAB.RECEIVE:

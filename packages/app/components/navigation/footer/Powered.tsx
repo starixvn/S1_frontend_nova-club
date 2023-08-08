@@ -19,7 +19,7 @@ const Powered = () => {
       <SolitoImage
         width={100}
         height={60}
-        resizeMode="contain"
+        contentFit="contain"
         src={`${MEDIA_DOMAIN}${CONTENT_URI}/footer/bong88.png`}
         alt="PoweredBy"
       />

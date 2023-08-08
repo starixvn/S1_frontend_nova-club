@@ -35,11 +35,11 @@ function GamesScreen({}: Props) {
         </View>
         <View sx={{ flex: 1, minHeight: 300 }}>
           <SolitoImage
-            alt="game-banner"
+            alt="v-gaming"
             fill
             contentFit="cover"
             style={{ width: '100%', height: '100%' }}
-            src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game-banner.png`}
+            src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/game/vGaming.jpg`}
           />
         </View>
         <View sx={{ flex: 1, minHeight: 300 }}>

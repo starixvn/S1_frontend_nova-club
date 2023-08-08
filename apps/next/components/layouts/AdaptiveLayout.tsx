@@ -2,15 +2,12 @@ import { useEffect, useMemo, useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import type { SolitoAppProps } from 'solito'
 
-import useAppState from 'app/hooks/appState/useAppState'
-import useOnAppStart from 'app/hooks/useOnAppStart'
-import useOnAgentAppStart from 'agent/hooks/useOnAgentAppStart'
+import SessionHandler from 'app/components/SessionHandler'
 
 import { View } from 'dripsy'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { DesktopBaseLayout } from './desktop'
-import { MobileAgentLayout } from './agent'
 
 export type NavigationOptions = SolitoAppProps['Component']['navigationOptions']
 
@@ -40,9 +37,6 @@ export default function AdaptiveLayout({
   const router = useRouter()
 
   const { width } = useWindowDimensions()
-  useAppState()
-  useOnAppStart()
-  useOnAgentAppStart()
 
   /* TODO: Split width and router as 2 seperate rerender */
   const getLayout = useMemo((): ((node: JSX.Element) => JSX.Element) => {
@@ -89,6 +83,7 @@ export default function AdaptiveLayout({
 
   return (
     <div id="al">
+      <SessionHandler />
       {/* <ActivityIndicator /> */}
       {content}
     </div>

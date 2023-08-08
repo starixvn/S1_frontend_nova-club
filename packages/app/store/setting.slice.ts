@@ -98,7 +98,7 @@ const settingSlice = createSlice({
     setLog: (state, action: PayloadAction<string>) => {
       state.log = action.payload
     },
-    toogleScan: (state, action: PayloadAction<boolean>) => {
+    toggleScan: (state, action: PayloadAction<boolean>) => {
       state.transferScan = action.payload
     },
     addRecentGame: (state, action: PayloadAction<LaunchGamePayload>) => {

@@ -17,7 +17,7 @@ export default function LiveCasino({}: Props) {
   const { push } = useRouter()
 
   const { data } = useGetGameListByCategoryQuery([GAME_TYPE_CODE.LIVE_DEALER])
-  const { data: providerStatus } = useGameProviderListQuery(undefined, {})
+  const { data: providerStatus } = useGameProviderListQuery()
 
   const providers = useMemo(() => {
     if (data) return Object.keys(groupBy(data, 'gpc'))
@@ -32,9 +32,9 @@ export default function LiveCasino({}: Props) {
             <GameCard
               absoluteName
               onPress={() => push(`/livecasino/${g.toLowerCase()}`)}
-              displayName={
-                providerStatus ? providerStatus[g]?.system_name : undefined
-              }
+              // displayName={
+              //   providerStatus ? providerStatus[g]?.system_name : undefined
+              // }
               key={g}
               sx={{ width: '11%' }}
               img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/main/${g.toLowerCase()}.png`}

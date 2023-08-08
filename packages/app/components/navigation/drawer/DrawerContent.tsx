@@ -188,7 +188,7 @@ export default function DrawerContent() {
         </View>
       </ScrollView>
 
-      <DrawerReferral />
+      <DrawerReferral imageHeight={380} />
     </View>
   )
 }
