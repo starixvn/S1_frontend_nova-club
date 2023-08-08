@@ -4,7 +4,7 @@ import { Skeleton } from 'moti/skeleton'
 import React from 'react'
 import { ScrollViewProps } from 'react-native'
 import { Game } from 'services/gameApi.type'
-import { DraggableScrollView } from '../DraggableScrollView'
+import DraggableScrollView from '../DraggableScrollView'
 import SkeletonPlaceholder from '../SkeletonPlaceholder'
 import GameCard from './GameCard'
 

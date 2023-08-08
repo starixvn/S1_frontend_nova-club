@@ -1,9 +1,8 @@
-import { CMS_CONTENT_URI, CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { DraggableScrollView } from 'app/components/DraggableScrollView'
+import DraggableScrollView from 'app/components/DraggableScrollView'
 import SectionHeader from 'app/components/SectionHeader'
 import TopGameCard, { height } from 'app/components/game/TopGameCard'
 import useLocalization from 'app/provider/localization'
-import { ScrollView, View, useResponsiveValue } from 'dripsy'
+import { View, useResponsiveValue } from 'dripsy'
 import React from 'react'
 import { useFeaturedGameListQuery } from 'services/gameApi'
 
