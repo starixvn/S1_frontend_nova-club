@@ -105,6 +105,7 @@ const nextConfig = {
     'react-native-chart-kit',
     'react-native-keyboard-aware-scroll-view',
     'react-native-render-html',
+    'react-merge-refs'
   ],
   async redirects() {
     return [

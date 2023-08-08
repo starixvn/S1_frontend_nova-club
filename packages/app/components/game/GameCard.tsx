@@ -95,6 +95,7 @@ const GameCard = ({
           position: 'relative',
           borderRadius: 10,
           overflow: 'hidden',
+          pointerEvents: 'none',
           ...containerSx,
         }}
       >

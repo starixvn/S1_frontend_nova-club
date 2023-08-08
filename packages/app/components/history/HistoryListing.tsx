@@ -62,7 +62,7 @@ function HistoryListing<T, FetchParamsType>(
   useEffect(() => {
     if (displayList.length) setDisplayList([])
     refreshData()
-  }, [fetchParams])
+  }, [fetchParams, lang])
 
   const refreshData = () => {
     setTotalRow(0)

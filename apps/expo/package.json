@@ -39,6 +39,7 @@
     "jsqr": "^1.4.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-merge-refs": "^2.0.2",
     "react-native": "0.71.8",
     "react-native-actions-sheet": "0.7.2",
     "react-native-barcode-mask": "^1.2.4",

@@ -1,5 +1,10 @@
 import RefreshButton from 'app/components/RefreshButton'
+import EmptyResult from 'app/components/dataTable/EmptyResult'
+import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
+import { ReportDepositStatus, ReportTransactionType } from 'app/utils/constant'
+import dayjsTz from 'app/utils/dayjs'
 import {
   ActivityIndicator,
   ScrollView,
@@ -7,14 +12,10 @@ import {
   View,
   useResponsiveValue,
 } from 'dripsy'
+import { useEffect } from 'react'
+import { usePlayerReportQuery } from 'services/playerApi'
 import HorizontalTransactionRowListHeader from './HorizontalTransactionRowListHeader'
 import RecentTransactionRow from './RecentTransactionRow'
-import EmptyResult from 'app/components/dataTable/EmptyResult'
-import { ReportResult } from 'services/playerApi.type'
-import { usePlayerReportQuery } from 'services/playerApi'
-import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
-import { ReportDepositStatus, ReportTransactionType } from 'app/utils/constant'
-import dayjsTz from 'app/utils/dayjs'
 
 type PendingTransactionProps = {
   paymentMethod: DepositPaymentMethodCategoryId
@@ -23,6 +24,7 @@ type PendingTransactionProps = {
 const PendingTransaction = ({ paymentMethod }: PendingTransactionProps) => {
   const { t } = useLocalization()
   const horizontalMode = useResponsiveValue([false, false, false, true, true])
+  const lang = useAppSelector((s) => s.setting.locale)
 
   const {
     data: transactionData,
@@ -41,6 +43,11 @@ const PendingTransaction = ({ paymentMethod }: PendingTransactionProps) => {
     },
     { refetchOnMountOrArgChange: true }
   )
+
+  useEffect(() => {
+    refetch()
+  }, [lang])
+
   return (
     <View
       sx={{

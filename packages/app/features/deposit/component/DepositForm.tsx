@@ -71,6 +71,7 @@ const DepositForm = ({ DepositCategoryId }) => {
 
   const [selectedValues, setSelectedValues] = useState(0)
   const selectedChannel = depositPayment?.list[selectedValues]
+
   const inputFields = Object.values(selectedChannel?.player_input_fields ?? {})
 
   const fieldBank = inputFields.find(
@@ -135,6 +136,8 @@ const DepositForm = ({ DepositCategoryId }) => {
         }
 
         formik.resetForm()
+        setSelectedValues(0)
+        setFieldValue('selectedChannel', selectedChannel)
       }
     } catch (error) {
       showAlert(error)
