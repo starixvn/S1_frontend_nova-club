@@ -114,7 +114,7 @@ const CreatePinScreen = ({ isTab = false }) => {
         />
       </>
     ),
-    [values]
+    [values, errors]
   )
 
   return (

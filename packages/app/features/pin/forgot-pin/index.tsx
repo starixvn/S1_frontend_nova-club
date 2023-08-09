@@ -193,7 +193,7 @@ const ForgotPinScreen = () => {
         />
       </>
     ),
-    [values]
+    [values, errors]
   )
 
   return (

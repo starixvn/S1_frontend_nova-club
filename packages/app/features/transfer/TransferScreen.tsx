@@ -1,17 +1,17 @@
+import IconButton from 'app/components/IconButton'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import CustomTabBar from 'app/components/navigation/CustomTabBar'
 import useLocalization from 'app/provider/localization'
 import { TRANSFER_NOTES } from 'app/utils/constant'
+import { useResponsiveValue } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { SceneMap, TabView } from 'react-native-tab-view'
 import { createParam } from 'solito'
-import IconButton from 'app/components/IconButton'
+import IdTransfer from './Id'
 import QrTransfer from './Qr'
 import QrReceive from './QrReceive'
-import IdTransfer from './Id'
-import isDesktop from 'app/utils/isDesktop'
 
 enum SCREEN_TAB {
   RECEIVE = 'receive',
@@ -35,7 +35,7 @@ const TransferScreen = () => {
 
   const { openModal } = useModal()
   const { t } = useLocalization()
-  const desktop = isDesktop()
+  const desktop = useResponsiveValue([false, false, false, true])
 
   const renderScene = SceneMap({
     first: QrReceive,
