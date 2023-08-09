@@ -5,6 +5,7 @@
   "peerDependencies": {
     "@dripsy/gradient": "*",
     "@react-native-async-storage/async-storage": "*",
+    "@react-native-community/datetimepicker": "*",
     "@react-navigation/bottom-tabs": "*",
     "@react-navigation/native": "*",
     "@react-navigation/native-stack": "*",
@@ -29,8 +30,5 @@
     "react-redux": "*",
     "solito": "*",
     "yup": "*"
-  },
-  "dependencies": {
-    "@react-native-community/datetimepicker": "4.0.0"
   }
 }

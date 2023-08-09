@@ -31,6 +31,16 @@ const expoConfig = ({ config }: ConfigContext): ExpoConfig => ({
         's2syf-alternate.app.link',
         's2syf-alternate.test.app.link',
       ],
+      LSApplicationQueriesSchemes: [
+        'fb',
+        'instagram',
+        'twitter',
+        'vnd.youtube',
+        'line',
+        'whatsapp',
+        'skype',
+        'tg',
+      ],
     },
     // infoPlist: {
     //   // to add
@@ -79,17 +89,6 @@ const expoConfig = ({ config }: ConfigContext): ExpoConfig => ({
 
         '//': 'Disables the microphone permission',
         microphonePermission: false,
-      },
-    ],
-    [
-      './app.plugin',
-      {
-        android: {
-          CodePushDeploymentKey: 'YOUR_ANDROID_CODE_PUSH_KEY',
-        },
-        ios: {
-          CodePushDeploymentKey: 'LL5A-_orX6NTd-uyepH8TUCRie8GKpWvgVsw6', // "Staging Alt"
-        },
       },
     ],
     [

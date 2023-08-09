@@ -1,12 +1,13 @@
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { SxProp, useDripsyTheme, useSx, View } from 'dripsy'
 import React, { ReactNode, useRef } from 'react'
-import { Platform } from 'react-native'
+import { Platform, ScrollView } from 'react-native'
 import ActionSheetBase, {
+  ActionSheetRef,
   ActionSheetProps as RNActionSheetProps,
   SheetProps,
+  useScrollHandlers,
 } from 'react-native-actions-sheet'
-import { ScrollView } from 'react-native-gesture-handler'
 
 type ActionSheetBaseProps = Omit<
   RNActionSheetProps,
@@ -35,14 +36,13 @@ const ActionSheet = ({
 }: ActionSheetProps) => {
   const { theme } = useDripsyTheme()
   const { height } = useContainerDimension()
-  const actionSheetRef = useRef<ActionSheetBase>(null)
+  const actionSheetRef = useRef<ActionSheetRef>(null)
+  const scrollHandlers = useScrollHandlers<ScrollView>(
+    `scroll-${sheetId}`,
+    actionSheetRef
+  )
   const { containerStyleSx, indicatorStyleSx, ...rest } = props
   const sx = useSx()
-
-  // const scrollHandlers = useScrollHandlers<ScrollView>(
-  //   'scrollview-1',
-  //   actionSheetRef
-  // )
 
   return (
     <ActionSheetBase
@@ -56,6 +56,7 @@ const ActionSheet = ({
         borderTopRightRadius: 24,
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0,
+        backgroundColor: 'transparent',
         maxWidth: theme.sizes.container,
         ...(containerStyleSx &&
           (typeof containerStyleSx === 'function'
@@ -73,17 +74,11 @@ const ActionSheet = ({
     >
       <View
         sx={{
+          bg: 'white',
           maxHeight: height / 2 + 48,
         }}
       >
-        <ScrollView
-          nestedScrollEnabled={true}
-          onMomentumScrollEnd={() =>
-            actionSheetRef.current?.handleChildScrollEnd()
-          }
-        >
-          {children}
-        </ScrollView>
+        <ScrollView {...scrollHandlers}>{children}</ScrollView>
       </View>
     </ActionSheetBase>
   )
