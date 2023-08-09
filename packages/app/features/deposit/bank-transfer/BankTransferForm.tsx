@@ -1,8 +1,10 @@
 import Input from 'app/components/form/Input'
 import InputLabel from 'app/components/form/InputLabel'
+import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
 import { getBankLogo } from 'app/config/bank'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
 import useAlert from 'app/hooks/useAlert'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import {
   toCleanAmount,
@@ -12,7 +14,7 @@ import {
 } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import validation from 'app/utils/validation'
-import { Pressable, Text, View, styled, useResponsiveValue } from 'dripsy'
+import { Pressable, Text, View, styled } from 'dripsy'
 import * as ImagePicker from 'expo-image-picker'
 import { FormikHelpers, useFormik } from 'formik'
 import { useEffect, useRef, useState } from 'react'
@@ -31,7 +33,6 @@ import BankSlipUpload, {
 } from '../component/BankSlipUpload'
 import HorizontalSelectBankCardGrid from '../component/HorizontalSelectBankCardGrid'
 import AccountDetail from './AccountDetail'
-import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
 
 type BankTransferValues = {
   bank: ManualBankItem | undefined
@@ -57,7 +58,7 @@ const BankTransferForm = () => {
     (el) => el.category_id === DepositPaymentMethodCategoryId.LOCAL_BANK
   )
 
-  const horizontalMode = useResponsiveValue([false, false, false, true, true])
+  const horizontalMode = useIsDesktop()
 
   const sheetData =
     depositPayment?.list.map((item) => {

@@ -1,20 +1,20 @@
+import useAlert from 'app/hooks/useAlert'
+import useIsDesktop from 'app/hooks/useIsDesktop'
+import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { AuthActions } from 'app/store/authReducer'
-import { P, useResponsiveValue } from 'dripsy'
-import { LoginResult, Shield_Action } from 'services/authApi.type'
-import { useRouter } from 'solito/router'
+import { SettingActions } from 'app/store/setting.slice'
+import { TempSettingActions } from 'app/store/tempSetting.slice'
 import {
   authenticateAsync,
   hasHardwareAsync,
   isEnrolledAsync,
 } from 'expo-local-authentication'
-import useLocalization from 'app/provider/localization'
 import { useModal } from 'react-native-modalfy'
-import { SettingActions } from 'app/store/setting.slice'
 import { authApi } from 'services/authApi'
+import { LoginResult, Shield_Action } from 'services/authApi.type'
 import { IResponse } from 'services/common/types'
-import useAlert from 'app/hooks/useAlert'
-import { TempSettingActions } from 'app/store/tempSetting.slice'
+import { useRouter } from 'solito/router'
 
 export default function useLoginProcess() {
   const dispatch = useAppDispatch()
@@ -26,7 +26,7 @@ export default function useLoginProcess() {
     (s) => s.setting.biometricCredentials
   )
 
-  const isDesktop = useResponsiveValue([false, false, false, true])
+  const isDesktop = useIsDesktop()
 
   async function checkBiometricEnabled() {
     const compatible = await hasHardwareAsync()

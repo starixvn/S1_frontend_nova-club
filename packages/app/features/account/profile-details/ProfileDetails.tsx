@@ -4,10 +4,10 @@ import FormContainer from 'app/components/form/FormContainer'
 import Input from 'app/components/form/Input'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import useAlert from 'app/hooks/useAlert'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { copyToClipboard } from 'app/utils'
-import isDesktop from 'app/utils/isDesktop'
 import validation from 'app/utils/validation'
 import { FormikHelpers, useFormik } from 'formik'
 import React from 'react'
@@ -32,7 +32,7 @@ const ProfileDetails = () => {
     skip: !token,
   })
   const isPlayerName = !!playerData?.firstName
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
 
   const [updatePlayerName] = usePlayerRealNameMutation()
   const { showAlert } = useAlert()

@@ -1,10 +1,12 @@
 import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
 import Button from 'app/components/common/Button'
+import FormContainer from 'app/components/form/FormContainer'
 import Input from 'app/components/form/Input'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import useAlert from 'app/hooks/useAlert'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import isDesktop from 'app/utils/isDesktop'
+import { useAppSelector } from 'app/provider/redux/store'
 import validation from 'app/utils/validation'
 import { View } from 'dripsy'
 import { FormikHelpers, FormikTouched, useFormik } from 'formik'
@@ -19,8 +21,6 @@ import { usePlayerProfileQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import UnderlinePinField from '../UnderlinePinField'
-import FormContainer from 'app/components/form/FormContainer'
-import { useAppSelector } from 'app/provider/redux/store'
 
 interface ForgotPinFormValues {
   confirmPin: string
@@ -38,7 +38,7 @@ const ForgotPinScreen = () => {
   const { t } = useLocalization()
   const { showAlert } = useAlert()
   const { back } = useRouter()
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
 
   const [currentAction, setCurrentAction] = useState(CURRENT_ACTION.GET_OTP)
   const otpFieldRef = useRef<RNTextField>(null)

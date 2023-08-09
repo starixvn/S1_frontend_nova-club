@@ -1,8 +1,8 @@
 import Icon from 'app/components/Icon'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
-import isDesktop from 'app/utils/isDesktop'
 import { ActivityIndicator, Text, View, styled, useDripsyTheme } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti/build'
 import { useState } from 'react'
@@ -37,7 +37,7 @@ const ProfileBalanceSummary = ({
   currency,
 }: ProfileBalanceSummaryProps) => {
   const { theme } = useDripsyTheme()
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
   const [isExtend, setIsExtend] = useState(desktop)
   const { t } = useLocalization()
   const { width } = useWindowDimensions()
@@ -50,7 +50,10 @@ const ProfileBalanceSummary = ({
     setIsExtend(!isExtend)
   }
   return (
-    <ProfileBalanceSummaryContainer width={summaryContainerWidth}>
+    <ProfileBalanceSummaryContainer
+      width={summaryContainerWidth}
+      desktop={desktop}
+    >
       <BalanceSection>
         <BalanceItem>
           <Icon
@@ -167,13 +170,13 @@ const HiddenItem = ({
 }
 
 const ProfileBalanceSummaryContainer = styled(View)(
-  ({ width }: { width: number }) => ({
+  ({ width, desktop }: { width: number; desktop: boolean }) => ({
     flexDirection: 'column',
     borderRadius: 15,
     borderColor: '$primary.100',
     borderWidth: 1,
     my: 20,
-    bg: isDesktop() ? '$primary.500' : 'transparent',
+    bg: desktop ? '$primary.500' : 'transparent',
     width,
   })
 )

@@ -1,7 +1,7 @@
 import { MOBILE_PREFIX } from 'app/constants/country'
 import useAlert from 'app/hooks/useAlert'
 import useContainerWidth from 'app/hooks/useContainerWidth'
-import isDesktop from 'app/utils/isDesktop'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import validation from 'app/utils/validation'
 import { FormikHelpers, useFormik } from 'formik'
 import { useDynamicAnimation } from 'moti'
@@ -38,7 +38,7 @@ function useForgotPassword(rootView: RefObject<RNView>, modalType?: LoginType) {
 
   const { replace } = useRouter()
   const { closeModal } = useModal()
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
   const [currentScreen, setCurrentScreen] = useState<ForgotPassword_Screen>(
     ForgotPassword_Screen.GET_OTP
   )

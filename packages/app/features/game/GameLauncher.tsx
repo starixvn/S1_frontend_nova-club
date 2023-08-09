@@ -19,6 +19,7 @@ import { GetGameUrlResult } from 'services/gameApi.type'
 import { useRouter } from 'solito/router'
 import useGameWindow from './useGameWindow'
 import { useMaintenanceStatus } from './useMaintenanceStatus'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 
 const ProviderRunningWithoutIframe = ['PRGP']
 const ProviderRunningWithoutIframePlatformBased = Platform.select({
@@ -46,7 +47,7 @@ const GameLauncher = () => {
   const { checkMaintenance } = useMaintenanceStatus()
   const { toggleLoading } = useLoading()
   const { push, replace } = useRouter()
-  const isDesktop = useResponsiveValue([false, false, false, true])
+  const isDesktop = useIsDesktop()
   const { openModal } = useModal()
 
   const isLoggedIn = !!authState.info

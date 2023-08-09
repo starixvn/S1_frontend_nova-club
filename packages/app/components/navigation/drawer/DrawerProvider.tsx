@@ -1,13 +1,13 @@
 import { DrawerContext } from 'app/hooks/useDrawer'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import { useAppSelector } from 'app/provider/redux/store'
-import { useResponsiveValue } from 'dripsy'
 import { useCallback, useState } from 'react'
 import { Platform } from 'react-native'
 import { MemoDrawer } from '.'
 
 const DrawerProvider = ({ children }) => {
   const [isOpen, setOpen] = useState(false)
-  const isDesktop = useResponsiveValue([false, false, false, true, true])
+  const isDesktop = useIsDesktop()
 
   const toggleDrawer = useCallback((open?: boolean) => {
     setOpen((prev) => (open === undefined ? !prev : open))

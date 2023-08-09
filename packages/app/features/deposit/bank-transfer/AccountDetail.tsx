@@ -1,9 +1,10 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import IconButton from 'app/components/IconButton'
 import Image from 'app/components/common/Image'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { copyToClipboard } from 'app/utils'
-import { Text, View, useResponsiveValue } from 'dripsy'
+import { Text, View } from 'dripsy'
 
 type AccountDefailProps = {
   accountName: string
@@ -17,7 +18,7 @@ const AccountDetail = ({
   qrCode,
 }: AccountDefailProps) => {
   const { t } = useLocalization()
-  const horizontalMode = useResponsiveValue([false, false, false, true, true])
+  const horizontalMode = useIsDesktop()
 
   return (
     <View

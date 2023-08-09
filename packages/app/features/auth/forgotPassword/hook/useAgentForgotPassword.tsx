@@ -2,22 +2,22 @@ import {
   useResetPwMutation,
   useResetPwSendOtpMutation,
 } from 'agent/services/authApi'
+import { MOBILE_PREFIX } from 'app/constants/country'
 import useAlert from 'app/hooks/useAlert'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import { FormikHelpers } from 'formik'
 import { Platform } from 'react-native'
-import { Toast } from 'react-native-toast-message/lib/src/Toast'
-import { MOBILE_PREFIX } from 'app/constants/country'
-import { useRouter } from 'solito/router'
 import { useModal } from 'react-native-modalfy'
-import { ForgotPasswordFormValues } from './useForgotPassword'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
+import { useRouter } from 'solito/router'
 import { LoginType } from '../../AuthTypeSelection'
-import isDesktop from 'app/utils/isDesktop'
+import { ForgotPasswordFormValues } from './useForgotPassword'
 
 const useAgentForgotPassword = () => {
   const { push } = useRouter()
   const { closeModal } = useModal()
   const { showAlert } = useAlert()
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
 
   const [
     postSendOtp,

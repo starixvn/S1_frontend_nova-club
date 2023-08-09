@@ -2,8 +2,8 @@ import { PageWithBackHeader } from 'app/components/layouts/Page'
 import CustomTabBar from 'app/components/navigation/CustomTabBar'
 import CreatePinScreen from 'app/features/pin/CreatePinScreen'
 import ChangePinScreen from 'app/features/pin/change-pin'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import isDesktop from 'app/utils/isDesktop'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { SceneMap, TabView } from 'react-native-tab-view'
@@ -34,6 +34,7 @@ const createPinRoute = {
 
 const { useParam } = createParam<{ tab: string }>()
 const ManageCredentialsPage = () => {
+  const desktop = useIsDesktop()
   const [tab, setTab] = useParam('tab', {
     initial: undefined,
     parse: (templateFromUrl) => {
@@ -125,7 +126,7 @@ const ManageCredentialsPage = () => {
     <PageWithBackHeader
       header={{ title: t('manageCredentials.title') }}
       disableScrollView
-      hideHeader={isDesktop()}
+      hideHeader={desktop}
     >
       <TabView
         swipeEnabled={false}

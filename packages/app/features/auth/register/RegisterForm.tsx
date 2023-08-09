@@ -2,9 +2,9 @@ import { useLazyAgentCheckUsernameQuery } from 'agent/services/authApi'
 import Button from 'app/components/common/Button'
 import FormContainer from 'app/components/form/FormContainer'
 import Input from 'app/components/form/Input'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import isDesktop from 'app/utils/isDesktop'
 import {
   PASSWORD_MAX_LENGTH,
   USERNAME_MAX_LENGTH,
@@ -15,8 +15,8 @@ import { FormikProps } from 'formik'
 import { ComponentProps, useCallback, useEffect, useRef, useState } from 'react'
 import { TextInput } from 'react-native'
 import { useLazyCheckUsernameQuery } from 'services/authApi'
-import { RegisterFormValues } from './RegisterScreen'
 import ReferralInfo from './ReferralInfo'
+import { RegisterFormValues } from './RegisterScreen'
 
 const StyledFormContainer = styled(FormContainer)({
   py: '$4',
@@ -47,7 +47,7 @@ const RegisterForm = ({
   const { t } = useLocalization()
   const [checkUsername] = useLazyCheckUsernameQuery()
   const { theme } = useDripsyTheme()
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
   const referral = useAppSelector((s) => s.setting.referral)
 
   const [agentCheckUsername] = useLazyAgentCheckUsernameQuery()

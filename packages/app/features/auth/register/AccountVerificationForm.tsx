@@ -6,6 +6,7 @@ import FormContainer from 'app/components/form/FormContainer'
 import Input from 'app/components/form/Input'
 import { MOBILE_PREFIX } from 'app/constants/country'
 import useAlert from 'app/hooks/useAlert'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { ModalStackParams } from 'app/provider/modal'
 import { useAppSelector } from 'app/provider/redux/store'
@@ -17,9 +18,9 @@ import { ModalComponentProp } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useSendRegistrationOtpMutation } from 'services/authApi'
 import { useRouter } from 'solito/router'
+import { DEV_DOMAIN } from '../../../../../apps/next/config/env'
 import ReceiveOTPContact from '../components/ReceiveOTPContact'
 import { RegisterFormValues } from './RegisterScreen'
-import { DEV_DOMAIN } from '../../../../../apps/next/config/env'
 
 const StyledFormContainer = styled(FormContainer)({
   py: '$4',
@@ -60,7 +61,7 @@ const AccountVerificationForm = ({
   const otpFieldRef = useRef<TextInput>(null)
   const OTPRef = useRef<ITimerButtonForwardRef>(null)
   const isOtpButtonLoading = useRef(false)
-  const isDesktop = useResponsiveValue([false, false, false, true])
+  const isDesktop = useIsDesktop()
   const minHeightResponsiveValue = useResponsiveValue([50, 50, 75, 75, 75])
 
   const [

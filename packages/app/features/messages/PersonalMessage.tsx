@@ -2,7 +2,7 @@ import IconButton from 'app/components/IconButton'
 import RefreshButton from 'app/components/RefreshButton'
 import CheckBox from 'app/components/common/CheckBox'
 import useLocalization from 'app/provider/localization'
-import { Pressable, Row, Text, View, useResponsiveValue } from 'dripsy'
+import { Pressable, Row, Text, View } from 'dripsy'
 import React, { useCallback, useState } from 'react'
 import { useDeleteMessagesMutation, useMessageQuery } from 'services/messageApi'
 import MessageCard from './components/MessageCard'
@@ -14,8 +14,6 @@ const PersonalMessage = () => {
   const [deleteMessages, { isLoading: isDeleting }] =
     useDeleteMessagesMutation()
   const [selectedIds, setSelectedIds] = useState<number[]>([])
-
-  const isDesktop = useResponsiveValue([false, false, false, true])
 
   const onToggle = useCallback((id: number) => {
     setSelectedIds((prev) => {

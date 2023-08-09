@@ -31,6 +31,7 @@ import HeaderDeposit from './HeaderDeposit'
 import HeaderLanguageToggle from './HeaderLanguageToggle'
 import HeaderOverview from './HeaderOverview'
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 
 const LogoSize = [HEADER_HEIGHT * 0.5, HEADER_HEIGHT * 0.75]
 
@@ -56,7 +57,7 @@ const MainHeader = () => {
   const { push } = useRouter()
   const token = useAppSelector((s) => s.auth.info?.token)
   const { t } = useLocalization()
-  const desktop = useResponsiveValue([false, false, false, true])
+  const desktop = useIsDesktop()
   const { theme } = useDripsyTheme()
   const { logout } = useOnAppLogout()
   const { openModal } = useModal()

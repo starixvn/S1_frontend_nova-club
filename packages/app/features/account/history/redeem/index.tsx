@@ -1,17 +1,12 @@
 import HistoryListing from 'app/components/history/HistoryListing'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import {
-  DateFilterOptions,
-  ReportGameStatusOptions,
-  ReportTransactionType,
-} from 'app/utils/constant'
+import { ReportTransactionType } from 'app/utils/constant'
 import dayjsTz from 'app/utils/dayjs'
-import isDesktop from 'app/utils/isDesktop'
 import { Text, View, useResponsiveValue } from 'dripsy'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useLazyPlayerReportQuery } from 'services/playerApi'
 import { ReportGameItem, ReportResult } from 'services/playerApi.type'
-import FilterSelection from '../FilterSelection'
 import DesktopRedeemHistoryItem, {
   RedeemTableHeader,
 } from '../dekstop/DesktopRedeemHistoryItem'
@@ -23,7 +18,7 @@ type HistoryListingDataType = Extract<
 
 const RedeemHistory = () => {
   const { t } = useLocalization()
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
   const responsiveWidth = useResponsiveValue(['100%', '100%', '100%', '90%'])
 
   const [fetchData, result] = useLazyPlayerReportQuery()

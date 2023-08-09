@@ -1,9 +1,9 @@
 import IconButton from 'app/components/IconButton'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import CustomTabBar from 'app/components/navigation/CustomTabBar'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { TRANSFER_NOTES } from 'app/utils/constant'
-import { useResponsiveValue } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { useModal } from 'react-native-modalfy'
@@ -35,7 +35,7 @@ const TransferScreen = () => {
 
   const { openModal } = useModal()
   const { t } = useLocalization()
-  const desktop = useResponsiveValue([false, false, false, true])
+  const desktop = useIsDesktop()
 
   const renderScene = SceneMap({
     first: QrReceive,

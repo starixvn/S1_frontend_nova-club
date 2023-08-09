@@ -1,9 +1,9 @@
-import { styled, SxProp, Text, useDripsyTheme, View } from 'dripsy'
+import useIsDesktop from 'app/hooks/useIsDesktop'
+import { styled, SxProp, Text, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
 import { MotiPressable } from 'moti/interactions'
 import React, { ReactNode, useReducer, useState } from 'react'
 import Icon from './Icon'
-import isDesktop from 'app/utils/isDesktop'
 
 type AccordianProps = {
   isExpandable?: boolean
@@ -32,12 +32,11 @@ const Accordian = ({
   parentStyle,
   childStyle,
 }: AccordianProps) => {
-  const { theme } = useDripsyTheme()
   const [expandHeight, setExpandHeight] = useState(0)
   const [isExtend, toggleIsExtend] = useReducer((state) => {
     return !state
   }, extended)
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
 
   const borderColor = color ?? '$primary.100'
 

@@ -1,3 +1,4 @@
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { SettingActions } from 'app/store/setting.slice'
@@ -6,7 +7,6 @@ import { useWindowDimensions } from 'react-native'
 import { useDispatch } from 'react-redux'
 import FloatingDrawer from './component/FloatingDrawer'
 import ToggleFloatingDrawerButton from './component/ToggleFloatingDrawerButton'
-import { View, useResponsiveValue } from 'dripsy'
 
 const FloatingContent = ({
   BottomTabBarHeight,
@@ -14,7 +14,7 @@ const FloatingContent = ({
   BottomTabBarHeight: number
 }) => {
   const dispatch = useDispatch()
-  const isDesktop = useResponsiveValue([false, false, false, true])
+  const isDesktop = useIsDesktop()
   const isFloatingDrawerOpen = useAppSelector((s) => s.setting.floatingDrawer)
   // const isLoggedIn = useAppSelector((s) => !!s.auth.info)
 

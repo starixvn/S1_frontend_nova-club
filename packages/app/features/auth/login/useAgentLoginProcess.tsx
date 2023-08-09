@@ -1,8 +1,6 @@
 import { useLazyUserInfoQuery } from 'agent/services/userApi'
 import { AgentAuthActions } from 'agent/store/agentAuthReducer'
-import useAlert from 'app/hooks/useAlert'
 import { useAppDispatch } from 'app/provider/redux/store'
-import { useResponsiveValue } from 'dripsy'
 import { Platform } from 'react-native'
 import { LoginResult } from 'services/authApi.type'
 import { useRouter } from 'solito/router'
@@ -15,10 +13,7 @@ type LoginFormValues = {
 export default function useAgentLoginProcess() {
   const dispatch = useAppDispatch()
   const { push, replace, back } = useRouter()
-  const { showAlert } = useAlert()
   const [getUserInfo] = useLazyUserInfoQuery()
-
-  const isDesktop = useResponsiveValue([false, false, false, true])
 
   async function handleAgentSuccessLogin(data: LoginResult) {
     dispatch(AgentAuthActions.setAgentAuthToken(data.data.access_token))

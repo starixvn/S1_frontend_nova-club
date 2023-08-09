@@ -1,7 +1,7 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { LaunchGame } from 'app/features/game/GameLauncher'
 import { LaunchGamePayload } from 'app/store/gameLauncher.slice'
-import { SxProp, Text, View, styled, useResponsiveValue, useSx } from 'dripsy'
+import { SxProp, Text, View, styled, useSx } from 'dripsy'
 import { MotiPressable } from 'moti/interactions'
 import React, { memo, useMemo, useRef, useState, useTransition } from 'react'
 import {
@@ -12,6 +12,7 @@ import {
 } from 'react-native'
 import { SolitoImage } from 'solito/image'
 
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import { AnimatePresence, MotiView } from 'moti'
 
 export interface GameCardProps extends PressableProps, LaunchGamePayload {
@@ -37,7 +38,7 @@ const GameCard = ({
   const lastLoadedRef = useRef(img)
   const [loaded, setLoaded] = useState(false)
   const [isPending, startTransition] = useTransition()
-  const desktopMode = useResponsiveValue([false, false, false, true])
+  const desktopMode = useIsDesktop()
   const ss = useSx()
 
   if (lastLoadedRef.current != img) {

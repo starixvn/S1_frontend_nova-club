@@ -7,14 +7,12 @@ import SelectList from 'app/components/select/SelectList'
 import useAddBank from 'app/hooks/bank/useAddBank'
 import useLocalization from 'app/provider/localization'
 import { MaxLength } from 'app/utils/constant'
-import isDesktop from 'app/utils/isDesktop'
 import React, { useMemo } from 'react'
 import { useWithdrawalBankQuery } from 'services/bank'
 import RealNameForm from '../components/RealNameForm'
 
 const AddBankAccountScreen = () => {
   const { t } = useLocalization()
-  const desktop = isDesktop()
 
   const {
     data: bankData,

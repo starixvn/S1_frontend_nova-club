@@ -1,12 +1,12 @@
 import { useDrawer } from 'app/hooks/useDrawer'
-import { Pressable, View, styled, useResponsiveValue } from 'dripsy'
+import useIsDesktop from 'app/hooks/useIsDesktop'
+import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { HEADER_HEIGHT } from 'app/utils/constant'
+import { Pressable, View, styled } from 'dripsy'
 import { MotiView, useAnimationState } from 'moti'
 import React, { memo, useEffect, useState } from 'react'
 import { Platform, useWindowDimensions } from 'react-native'
 import LazyDrawerContent from './LazyDrawerContent'
-import { HEADER_HEIGHT } from 'app/utils/constant'
-import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import useContainerDimension from 'app/hooks/useContainerDimension'
 
 // TODOƒ
 /* Overlay */
@@ -20,7 +20,7 @@ export default function Drawer({ children }) {
     //multiplier should opposite with drawer container width
     toggle: { translateX: width - drawerWidth + 5 },
   })
-  const isDesktop = useResponsiveValue([false, false, false, true])
+  const isDesktop = useIsDesktop()
   const { isOpen, toggleDrawer } = useDrawer()
   const [offsetTop, setOffsetTop] = useState(0)
 

@@ -43,6 +43,7 @@ import DesktopTransferHistoryItem, {
 import DesktopWithdrawalHistoryItem, {
   WithdrawalTableHeader,
 } from '../dekstop/DesktopWithdrawalHistoryItem'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 
 type HistoryListingDataType = Exclude<
   ReportResult['rows'],
@@ -51,7 +52,7 @@ type HistoryListingDataType = Exclude<
 
 const TransactionHistory = () => {
   const { t } = useLocalization()
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
   const responsiveWidth = useResponsiveValue(['100%', '100%', '100%', '90%'])
 
   const [fetchData, result] = useLazyPlayerReportQuery()

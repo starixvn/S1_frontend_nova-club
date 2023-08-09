@@ -1,14 +1,14 @@
 import Button from 'app/components/common/Button'
 import FormContainer from 'app/components/form/FormContainer'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import isDesktop from 'app/utils/isDesktop'
 import { View } from 'dripsy'
 import React from 'react'
 import PointsCalculation from './components/PointsCalculation'
 
 const EventScreen = () => {
   const { t } = useLocalization()
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
 
   return (
     <FormContainer hidePadding>

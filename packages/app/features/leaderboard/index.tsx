@@ -10,6 +10,7 @@ import EventScreen from './Event'
 import HistoryScreen from './History'
 import RankingScreen from './Ranking'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 
 enum LEADERBOARD_TAB {
   // EVENT = 'event',
@@ -35,7 +36,7 @@ const LeaderboardScreen = () => {
   })
 
   const { t } = useLocalization()
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
   const { bottom } = useSafeArea()
 
   const renderScene = SceneMap({

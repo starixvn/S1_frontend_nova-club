@@ -1,12 +1,12 @@
 import MatchCarousel from 'app/components/match/MatchCarousel'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import { View } from 'dripsy'
 import React, { useState } from 'react'
 import { matchGroupByLeague, useGetRecoMatchQuery } from 'services/matchApi'
 import MatchLeagueSelector from './MatchLeagueSelector'
-import isDesktop from 'app/utils/isDesktop'
 
 export default function MatchSection() {
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
   const [selectedLeague, setSelectedLeague] = useState<string>()
 
   const { leagues, data } = useGetRecoMatchQuery(

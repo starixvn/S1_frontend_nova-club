@@ -1,9 +1,9 @@
 import AvertaStd from 'app/assets/fonts/Averta'
 import FormContainer from 'app/components/form/FormContainer'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { useResponsiveValue } from 'dripsy'
 import { useRouter } from 'next/router'
 import PlinkoTncEn from '../../components/plinko-event/PlinkoTncEn'
 import PlinkoTncVi from '../../components/plinko-event/PlinkoTncVi'
@@ -16,7 +16,7 @@ const PlinkoTnc = () => {
   const deviceLocale = useAppSelector((s) => s.setting.locale)
   const locale = router.query?.locale ? router.query?.locale : deviceLocale
   const { t } = useLocalization()
-  const isDesktop = useResponsiveValue([false, false, false, true])
+  const isDesktop = useIsDesktop()
 
   const TnCLanguage = () => {
     switch (isDesktop ? deviceLocale : locale) {

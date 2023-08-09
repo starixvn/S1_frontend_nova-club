@@ -1,5 +1,5 @@
 import { FlashList, FlashListProps } from '@shopify/flash-list'
-import isDesktop from 'app/utils/isDesktop'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import { View } from 'dripsy'
 import React, { useState } from 'react'
 
@@ -12,7 +12,7 @@ const withCustomScroll = (WrappedComponent) => {
     const [contentSize, setContentSize] = useState(0)
     const [scrollViewHeight, setScrollViewHeight] = useState(0)
 
-    const desktop = isDesktop()
+    const desktop = useIsDesktop()
 
     const scrollPerc =
       (contentOffset.y / (contentSize - scrollViewHeight)) *

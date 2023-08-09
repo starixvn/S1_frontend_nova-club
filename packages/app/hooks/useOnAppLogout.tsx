@@ -1,12 +1,11 @@
 import { LogOut } from 'app/utils/authUtil'
-import { Platform } from 'react-native'
-import useResetRTKQState from './useResetRTKQState'
 import { useRouter } from 'solito/router'
-import isDesktop from 'app/utils/isDesktop'
+import useIsDesktop from './useIsDesktop'
+import useResetRTKQState from './useResetRTKQState'
 const useOnAppLogout = () => {
   const { replace, push } = useRouter()
   const { resetRTKQState } = useResetRTKQState()
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
   const logout = async () => {
     try {
       await LogOut()

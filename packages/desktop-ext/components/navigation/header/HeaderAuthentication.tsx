@@ -1,12 +1,11 @@
 import AgentLoginButton from 'app/components/AgentLoginButton'
-import IconButton from 'app/components/IconButton'
 import Input from 'app/components/form/Input'
 import HeaderButton from 'app/components/navigation/header/HeaderButton'
 import HeaderLanguageToggle from 'app/components/navigation/header/HeaderLanguageToggle'
 import useLoginForm from 'app/features/auth/login/useLoginForm'
 import useAlert from 'app/hooks/useAlert'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import isDesktop from 'app/utils/isDesktop'
 import { PASSWORD_MAX_LENGTH, USERNAME_MAX_LENGTH } from 'app/utils/validation'
 import { Pressable, Row, Text, View, styled, useResponsiveValue } from 'dripsy'
 import React, { ElementRef, useRef, useState } from 'react'
@@ -21,7 +20,7 @@ const StyledForgotPasswordText = styled(Text)({
 const HeaderAuthentication = () => {
   const { push } = useRouter()
   const { t } = useLocalization()
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
   const { openModal } = useModal()
   const { showAlert } = useAlert()
   const passwordFieldRef = useRef<ElementRef<typeof Input>>(null)

@@ -19,6 +19,7 @@ import { Game } from 'services/gameApi.type'
 import { League, MatchResult } from 'services/matchApi.type'
 import { SolitoImage } from 'solito/image'
 import { MEDIA_DOMAIN } from '../../../../apps/next/config/env'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 dayjs.extend(customParseFormat)
 
 interface MatchListTableProps {
@@ -67,7 +68,7 @@ const MatchListTable = ({
 }: MatchListTableProps) => {
   const filterStartDate = dayjs(selectedTime)
   const filterEndDate = filterStartDate.add(1, 'day')
-  const isDesktop = useResponsiveValue([false, false, false, true])
+  const isDesktop = useIsDesktop()
   // console.log(fullData)
   const onPress = (match: MatchResult) => {
     getAction({

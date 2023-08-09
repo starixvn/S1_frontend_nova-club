@@ -2,6 +2,7 @@ import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
 import useAlert from 'app/hooks/useAlert'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Pressable, Row, Text, View, styled, useResponsiveValue } from 'dripsy'
@@ -16,8 +17,7 @@ export default function HireBanner() {
   const { push } = useRouter()
   const lang = useAppSelector((state) => state.setting.locale)
   const { token } = useAppSelector((state) => state.auth.info) || {}
-  const isDesktop = useResponsiveValue([false, false, false, true])
-
+  const isDesktop = useIsDesktop()
   const { data: playerData } = usePlayerProfileQuery(undefined, {
     skip: !token,
   })
