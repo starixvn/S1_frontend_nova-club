@@ -105,7 +105,7 @@ const GameLauncher = () => {
         })
 
       if (success && data) {
-        let url = data.url
+        let url = data.url.replace(' ', '')
         if (params) {
           url += paramsToQuery(params)
         }

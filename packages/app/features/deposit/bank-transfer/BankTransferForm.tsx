@@ -110,6 +110,7 @@ const BankTransferForm = () => {
           Toast.show({ type: 'success', text1: message })
           setReceipt(undefined)
           actions.resetForm()
+          setLimit({ maxAmount: 0, minAmount: 0 })
         }
       }
     } catch (e) {
