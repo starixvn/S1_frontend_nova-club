@@ -5,6 +5,7 @@ import Image from '../common/Image'
 import Header from '../common/Header'
 import isDesktop from 'app/utils/isDesktop'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 
 type PageScrollViewProps = {
   disableScrollView?: false
@@ -59,7 +60,7 @@ export const PageWithBackHeader = ({
 }: PageWithBackHeaderProps) => {
   const PageComponent = disableScrollView ? Page : Page.ScrollView
   const { height } = useWindowDimensions()
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
   const { bottom } = useSafeArea()
   return (
     <View

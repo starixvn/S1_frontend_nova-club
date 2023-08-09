@@ -2,10 +2,11 @@ import Icon from 'app/components/Icon'
 import { LoginType } from 'app/features/auth/AuthTypeSelection'
 import useAlert from 'app/hooks/useAlert'
 import { useDrawer } from 'app/hooks/useDrawer'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { Pressable, ScrollView, Text, View, useResponsiveValue } from 'dripsy'
+import { Pressable, ScrollView, Text, View } from 'dripsy'
 import React, { useEffect, useRef } from 'react'
 import { ScrollView as rScrollView } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
@@ -17,7 +18,7 @@ export default function DrawerContent() {
   const { push } = useRouter()
   const { isOpen, toggleDrawer } = useDrawer()
   const { logout } = useOnAppLogout()
-  const desktop = useResponsiveValue([false, false, false, true])
+  const desktop = useIsDesktop()
   const { showAlert } = useAlert()
   const scrollRef = useRef<rScrollView>(null)
 

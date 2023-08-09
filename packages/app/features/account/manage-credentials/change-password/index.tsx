@@ -2,8 +2,8 @@ import Button from 'app/components/common/Button'
 import FormContainer from 'app/components/form/FormContainer'
 import Input from 'app/components/form/Input'
 import useAlert from 'app/hooks/useAlert'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import isDesktop from 'app/utils/isDesktop'
 import validation, { PASSWORD_MAX_LENGTH } from 'app/utils/validation'
 import { ScrollView, styled, Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
@@ -24,7 +24,7 @@ const ChangePasswordPage = () => {
   const [postChangePassword] = useChangePasswordMutation()
   const { back } = useRouter()
   const { showAlert } = useAlert()
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
 
   const onSubmit = async (
     { oldPassword, password, confirmPassword }: PasswordFormValues,

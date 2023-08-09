@@ -1,8 +1,10 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import AgentLoginButton from 'app/components/AgentLoginButton'
 import IconButton from 'app/components/IconButton'
 import IconButtonGradient from 'app/components/IconButtonGradient'
 import Shadow from 'app/components/Shadow'
 import { useDrawer } from 'app/hooks/useDrawer'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
@@ -18,11 +20,9 @@ import {
   View,
   styled,
   useDripsyTheme,
-  useResponsiveValue,
 } from 'dripsy'
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
-import { useModal } from 'react-native-modalfy'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { Link } from 'solito/link'
 import { useRouter } from 'solito/router'
@@ -30,7 +30,6 @@ import HeaderAuthentication from './HeaderAuthentication'
 import HeaderDeposit from './HeaderDeposit'
 import HeaderLanguageToggle from './HeaderLanguageToggle'
 import HeaderOverview from './HeaderOverview'
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 const LogoSize = [HEADER_HEIGHT * 0.5, HEADER_HEIGHT * 0.75]
 
@@ -56,10 +55,9 @@ const MainHeader = () => {
   const { push } = useRouter()
   const token = useAppSelector((s) => s.auth.info?.token)
   const { t } = useLocalization()
-  const desktop = useResponsiveValue([false, false, false, true])
+  const desktop = useIsDesktop()
   const { theme } = useDripsyTheme()
   const { logout } = useOnAppLogout()
-  const { openModal } = useModal()
 
   const TriggerLogout = async () => {
     try {

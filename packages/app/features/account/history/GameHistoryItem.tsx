@@ -8,6 +8,7 @@ import { CellViewContainer } from './dekstop/DesktopDepositHistoryItem'
 import { GameTableHeader } from './dekstop/DesktopGameHistoryItem'
 import TransactionHistoryItemBox from './TransactionHistoryItemBox'
 import isDesktop from 'app/utils/isDesktop'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 
 const GameHistoryItem = ({ item }) => {
   return (
@@ -48,7 +49,7 @@ const GameHistoryItem = ({ item }) => {
 }
 
 const ItemContainer = ({ children }) => {
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
 
   return desktop ? (
     <>{children}</>

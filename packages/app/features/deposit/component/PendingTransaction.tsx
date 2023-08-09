@@ -1,17 +1,12 @@
 import RefreshButton from 'app/components/RefreshButton'
 import EmptyResult from 'app/components/dataTable/EmptyResult'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { ReportDepositStatus, ReportTransactionType } from 'app/utils/constant'
 import dayjsTz from 'app/utils/dayjs'
-import {
-  ActivityIndicator,
-  ScrollView,
-  Text,
-  View,
-  useResponsiveValue,
-} from 'dripsy'
+import { ActivityIndicator, ScrollView, Text, View } from 'dripsy'
 import { useEffect } from 'react'
 import { usePlayerReportQuery } from 'services/playerApi'
 import HorizontalTransactionRowListHeader from './HorizontalTransactionRowListHeader'
@@ -23,7 +18,7 @@ type PendingTransactionProps = {
 
 const PendingTransaction = ({ paymentMethod }: PendingTransactionProps) => {
   const { t } = useLocalization()
-  const horizontalMode = useResponsiveValue([false, false, false, true, true])
+  const horizontalMode = useIsDesktop()
   const lang = useAppSelector((s) => s.setting.locale)
 
   const {

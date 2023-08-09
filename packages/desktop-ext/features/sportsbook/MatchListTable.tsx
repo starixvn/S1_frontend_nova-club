@@ -4,23 +4,24 @@ import Icon from 'app/components/Icon'
 import Button from 'app/components/common/Button'
 import DataTableCell from 'app/components/dataTable/DataTableCell'
 import DataTableRow from 'app/components/dataTable/DataTableRow'
+import { SabaGamePayload } from 'app/constants/game'
 import {
   MatchHandicapType,
   MatchLeagueTabIconMapping,
 } from 'app/constants/recMatchMapping'
+import useIsDesktop from 'app/hooks/useIsDesktop'
+import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { ActionType, getAction } from 'app/utils/actionGenerator'
 import dayjsTz from 'app/utils/dayjs'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
-import { Row, ScrollView, Text, View, useResponsiveValue } from 'dripsy'
+import { Row, ScrollView, Text, View } from 'dripsy'
 import React from 'react'
 import { Game } from 'services/gameApi.type'
 import { League, MatchResult } from 'services/matchApi.type'
 import { SolitoImage } from 'solito/image'
 import { MEDIA_DOMAIN } from '../../../../apps/next/config/env'
-import useLocalization from 'app/provider/localization'
-import { SabaGamePayload } from 'app/constants/game'
 dayjs.extend(customParseFormat)
 
 interface MatchListTableProps {
@@ -69,7 +70,7 @@ const MatchListTable = ({
 }: MatchListTableProps) => {
   const filterStartDate = dayjs(selectedTime)
   const filterEndDate = filterStartDate.add(1, 'day')
-  const isDesktop = useResponsiveValue([false, false, false, true])
+  const isDesktop = useIsDesktop()
   // console.log(fullData)
   const onPress = (match: MatchResult) => {
     getAction({

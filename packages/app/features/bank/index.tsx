@@ -1,8 +1,7 @@
-import FormContainer from 'app/components/form/FormContainer'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import CustomTabBar from 'app/components/navigation/CustomTabBar'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import isDesktop from 'app/utils/isDesktop'
 import React, { useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { SceneMap, TabView } from 'react-native-tab-view'
@@ -14,7 +13,7 @@ const { useParam } = createParam<{ tab: string }>()
 
 const BankScreen = () => {
   const [tab = 0] = useParam('tab')
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
 
   const { t } = useLocalization()
 

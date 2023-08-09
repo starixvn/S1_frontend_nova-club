@@ -1,6 +1,6 @@
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useOrientation from 'app/hooks/useOrientation'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import isDesktop from 'app/utils/isDesktop'
 import {
   Pressable,
   styled,
@@ -10,7 +10,6 @@ import {
   View,
 } from 'dripsy'
 import { ComponentProps } from 'react'
-import { Platform } from 'react-native'
 import { useRouter } from 'solito/router'
 import Icon from '../Icon'
 
@@ -27,12 +26,11 @@ const Header = ({
   titleProps = {},
   customBack,
 }: HeaderProps) => {
-  const isAndroid = Platform.OS === 'android'
   const { back } = useRouter()
   const onGoBack = () => {
     back()
   }
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
 
   const { orientation, isLandscape } = useOrientation()
 

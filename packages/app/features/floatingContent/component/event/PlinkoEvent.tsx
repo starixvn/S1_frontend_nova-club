@@ -1,7 +1,8 @@
 import Image from 'app/components/common/Image'
 import useContainerDimension from 'app/hooks/useContainerDimension'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import { useAppSelector } from 'app/provider/redux/store'
-import { Pressable, Text, View, useResponsiveValue } from 'dripsy'
+import { Pressable, Text, View } from 'dripsy'
 import { MotiView } from 'moti'
 import React from 'react'
 import { Linking } from 'react-native'
@@ -14,7 +15,7 @@ const PlinkoEvent = ({ size }: { size: number }) => {
   const { token } = useAppSelector((state) => state.auth.info) || {}
   const { width } = useContainerDimension()
   const iconSize = Math.min(100, width * 0.3)
-  const isDesktop = useResponsiveValue([false, false, false, true, true])
+  const isDesktop = useIsDesktop()
 
   const { balance, isFetching } = useCheckTicketSpinQuery(undefined, {
     refetchOnMountOrArgChange: true,

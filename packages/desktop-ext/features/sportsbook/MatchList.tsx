@@ -11,6 +11,7 @@ import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { EntityId } from '@reduxjs/toolkit'
 import useLocalization from 'app/provider/localization'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 dayjs.extend(customParseFormat)
 
 type Props = {}
@@ -20,7 +21,7 @@ const BAR_HEIGHT = 50
 export default function MatchList({}: Props) {
   const [selectedLeague, setSelectedLeague] = useState<EntityId>()
   const [selectedTime, setSelectedTime] = useState<string>('All')
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
   const { t } = useLocalization()
   const { leagues } = useGetRecoMatchQuery(
     { isApp: !desktop },

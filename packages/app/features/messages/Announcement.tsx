@@ -1,6 +1,5 @@
-import FormContainer from 'app/components/form/FormContainer'
 import { useAppSelector } from 'app/provider/redux/store'
-import { View, useResponsiveValue } from 'dripsy'
+import { View } from 'dripsy'
 import React from 'react'
 import { useAnnouncementQuery } from 'services/contentApi'
 import MessageCard from './components/MessageCard'
@@ -8,7 +7,6 @@ import MessageCard from './components/MessageCard'
 const AnnouncementScreen = () => {
   const locale = useAppSelector((s) => s.setting.locale)
   const { data } = useAnnouncementQuery(locale)
-  // const isDesktop = useResponsiveValue([false, false, false, true])
 
   return (
     <View>

@@ -1,8 +1,7 @@
-import { useResponsiveValue } from 'dripsy'
-import React from 'react'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 
 const PlinkoTncVi = () => {
-  const isDesktop = useResponsiveValue([false, false, false, true])
+  const isDesktop = useIsDesktop()
   return (
     <div>
       {isDesktop && (

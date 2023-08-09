@@ -1,8 +1,9 @@
 import InputLabel from 'app/components/form/InputLabel'
 import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
 import { getBankLogo } from 'app/config/bank'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import { Text, View, useResponsiveValue } from 'dripsy'
+import { Text, View } from 'dripsy'
 import { FormikProps } from 'formik'
 import React from 'react'
 import { PlayerInputFieldsBank } from 'services/deposit.type'
@@ -17,7 +18,7 @@ type FieldBankProps = {
 
 const FieldSelectBank = ({ field, isLoading, formik }: FieldBankProps) => {
   const { t } = useLocalization()
-  const horizontalMode = useResponsiveValue([false, false, false, true, true])
+  const horizontalMode = useIsDesktop()
 
   const { values, setFieldValue, setValues } = formik
 

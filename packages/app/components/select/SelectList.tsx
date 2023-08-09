@@ -1,4 +1,4 @@
-import isDesktop from 'app/utils/isDesktop'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import React, { ComponentProps } from 'react'
 import Select, { SelectProps } from './Select'
 import SelectWithCardGrid, {
@@ -13,7 +13,7 @@ type SelectListProps<T> = {
   SelectProps<T>
 
 const SelectList = <T,>(props: SelectListProps<T>) => {
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
 
   const { isGrid, onSelected } = props
 

@@ -1,8 +1,9 @@
 import Button from 'app/components/common/Button'
 import FormContainer from 'app/components/form/FormContainer'
 import useAlert from 'app/hooks/useAlert'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import isDesktop from 'app/utils/isDesktop'
+import { useAppSelector } from 'app/provider/redux/store'
 import validation from 'app/utils/validation'
 import { View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
@@ -12,7 +13,6 @@ import { useUpdateTransferPinMutation } from 'services/pinApi'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import UnderlinePinField from '../UnderlinePinField'
-import { useAppSelector } from 'app/provider/redux/store'
 
 type ChangePinFormValues = {
   oldPin: string
@@ -25,7 +25,7 @@ const ChangePinScreen = () => {
   const { back } = useRouter()
   const { showAlert } = useAlert()
   const [updateTransferPin] = useUpdateTransferPinMutation()
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
 
   const lang = useAppSelector((s) => s.setting.locale)
 

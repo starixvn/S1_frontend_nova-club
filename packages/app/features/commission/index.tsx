@@ -3,6 +3,7 @@ import DataTableTitle from 'app/components/dataTable/DataTableTitle'
 import FormContainer from 'app/components/form/FormContainer'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import { ScrollFlashList } from 'app/hoc/withCustomScroll'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { Currency } from 'app/utils/constant'
@@ -33,7 +34,7 @@ const CommissionTitle = [
 
 const CommissionTableScreen = () => {
   const { t } = useLocalization()
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
   const { bottom } = useSafeArea()
   const { commissionList } = useCommissionTableQuery(
     { currency: Currency.VND },

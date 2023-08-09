@@ -1,13 +1,14 @@
 import Icon from 'app/components/Icon'
+import useIsDesktop from 'app/hooks/useIsDesktop'
+import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
+import isDesktop from 'app/utils/isDesktop'
 import { ActivityIndicator, Text, View, styled } from 'dripsy'
 import { TouchableOpacity, useWindowDimensions } from 'react-native'
 import { usePlayerOverviewSummaryQuery } from 'services/playerApi'
-import { useAppSelector } from 'app/provider/redux/store'
-import useLocalization from 'app/provider/localization'
 import { useRouter } from 'solito/router'
-import isDesktop from 'app/utils/isDesktop'
 
 interface ProfileOverviewTextProps {
   px?: number
@@ -31,7 +32,7 @@ const ProfileOverviewCard = ({ currency }: ProfileOverviewCardProps) => {
   const { data, isFetching } = usePlayerOverviewSummaryQuery(undefined, {
     skip: !token,
   })
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
   const { width } = useWindowDimensions()
   const overViewContainerWidth = Math.min(
     450,
@@ -40,7 +41,10 @@ const ProfileOverviewCard = ({ currency }: ProfileOverviewCardProps) => {
 
   return (
     <>
-      <ProfileOverviewCardContainer width={overViewContainerWidth}>
+      <ProfileOverviewCardContainer
+        width={overViewContainerWidth}
+        desktop={desktop}
+      >
         <ProfileOverviewHeader>
           <ProfileOverviewText fontSize={13}>
             {t('common.overview')}
@@ -154,14 +158,14 @@ const ProfileOverviewHorizontalItem = ({
   )
 }
 const ProfileOverviewCardContainer = styled(View)(
-  ({ width }: { width: number }) => ({
+  ({ width, desktop }: { width: number; desktop: boolean }) => ({
     flexDirection: 'column',
     borderRadius: 15,
     borderColor: '$primary.100',
     borderWidth: 1,
     my: 10,
-    height: isDesktop() ? 125 : 150,
-    bg: isDesktop() ? '$primary.500' : 'transparent',
+    height: desktop ? 125 : 150,
+    bg: desktop ? '$primary.500' : 'transparent',
     width,
   })
 )

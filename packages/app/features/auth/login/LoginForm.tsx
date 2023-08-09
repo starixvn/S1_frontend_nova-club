@@ -2,11 +2,12 @@ import Button from 'app/components/common/Button'
 import CheckBox from 'app/components/common/CheckBox'
 import FormContainer from 'app/components/form/FormContainer'
 import Input from 'app/components/form/Input'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { ModalStackParams } from 'app/provider/modal'
 import { useAppSelector } from 'app/provider/redux/store'
 import { PASSWORD_MAX_LENGTH, USERNAME_MAX_LENGTH } from 'app/utils/validation'
-import { Pressable, Text, View, styled, useResponsiveValue } from 'dripsy'
+import { Pressable, Text, View, styled } from 'dripsy'
 import React, { ComponentProps, useEffect, useRef, useState } from 'react'
 import { TextInput } from 'react-native'
 import { useModal } from 'react-native-modalfy'
@@ -34,7 +35,7 @@ const LoginForm = ({
   const { t } = useLocalization()
   const { push } = useRouter()
   const { closeModal, openModal } = useModal<ModalStackParams>()
-  const desktop = useResponsiveValue([false, false, false, true])
+  const desktop = useIsDesktop()
 
   const passwordFieldRef = useRef<TextInput>(null)
   const usernameFieldRef = useRef<TextInput>(null)

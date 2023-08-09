@@ -1,7 +1,7 @@
 import Input from 'app/components/form/Input'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { toCurrency } from 'app/utils'
-import isDesktop from 'app/utils/isDesktop'
 import { Text, View } from 'dripsy'
 import React, { useState } from 'react'
 import { usePlayerProfileQuery } from 'services/playerApi'
@@ -18,7 +18,7 @@ const AvailableBalance = ({
   isTransfer = false,
 }: AvailableBalanceProps) => {
   const { t } = useLocalization()
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
   const { currency } = usePlayerProfileQuery()
   const [delay, setDelay] = useState(true)
 
