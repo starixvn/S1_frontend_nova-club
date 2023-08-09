@@ -5,11 +5,12 @@ import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
 import { MAP_CRYPTO_PROTOCOL } from 'app/constants/crypto'
 import useAlert from 'app/hooks/useAlert'
 import useCheckMobile from 'app/hooks/useCheckMobile'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { toDisplayAmount } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import validation from 'app/utils/validation'
-import { Text, View, useResponsiveValue } from 'dripsy'
+import { Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect, useState } from 'react'
 import { Linking, Platform } from 'react-native'
@@ -46,7 +47,7 @@ const DepositForm = ({ DepositCategoryId }) => {
   const [postSubmitDeposit] = useSubmitDepositMutation()
   const { data: playerData } = usePlayerProfileQuery()
   const currency = playerData?.currency as Currency
-  const horizontalMode = useResponsiveValue([false, false, false, true, true])
+  const horizontalMode = useIsDesktop()
 
   const { isMobile } = useCheckMobile()
   const { data, isLoading, isFetching } = useDepositPaymentListQuery({

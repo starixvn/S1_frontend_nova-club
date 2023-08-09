@@ -13,6 +13,7 @@ import HistoryEmpty from './HistoryEmpty'
 import HistoryHeader, { HeaderProps } from './HistoryHeader'
 import isDesktop from 'app/utils/isDesktop'
 import { useAppSelector } from 'app/provider/redux/store'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 
 interface HistoryListingProps<T, FetchParamsType> {
   fetchParams: FetchParamsType
@@ -42,7 +43,7 @@ function HistoryListing<T, FetchParamsType>(
   const [displayList, setDisplayList] = useState<T[]>([])
   const [totalRow, setTotalRow] = useState(0)
   const [allLoaded, setAllLoaded] = useState(false)
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
   const lang = useAppSelector((state) => state.setting.locale)
 
   useEffect(() => {

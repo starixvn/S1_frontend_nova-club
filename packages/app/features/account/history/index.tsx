@@ -1,15 +1,14 @@
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import CustomTabBar from 'app/components/navigation/CustomTabBar'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import React, { useEffect, useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { SceneMap, TabView } from 'react-native-tab-view'
 import { createParam } from 'solito'
 import GameHistory from './game'
-import TransactionHistory from './transaction'
-import isDesktop from 'app/utils/isDesktop'
 import RedeemHistory from './redeem'
-import { useRouter } from 'solito/router'
+import TransactionHistory from './transaction'
 
 enum SCREEN_TAB {
   TRANSACTION = 'transaction',
@@ -32,8 +31,7 @@ const History = () => {
   })
 
   const { t } = useLocalization()
-  const desktop = isDesktop()
-  const { back, replace } = useRouter()
+  const desktop = useIsDesktop()
 
   const renderScene = SceneMap({
     first: TransactionHistory,

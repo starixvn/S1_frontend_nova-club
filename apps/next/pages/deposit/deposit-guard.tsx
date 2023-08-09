@@ -1,9 +1,9 @@
 import useAlert from 'app/hooks/useAlert'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { AdaptiveLayoutPage } from 'components/layouts/AdaptiveLayout'
-import { useResponsiveValue } from 'dripsy'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { usePlayerProfileQuery } from 'services/playerApi'
 
 const DepositGuard = (
@@ -16,7 +16,7 @@ const DepositGuard = (
     const { replace } = useRouter()
     const { showAlert } = useAlert()
     const { t } = useLocalization()
-    const isDesktop = useResponsiveValue([false, false, false, true])
+    const isDesktop = useIsDesktop()
 
     useEffect(() => {
       if (data && guardType === 'deposit') {

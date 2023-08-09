@@ -1,33 +1,27 @@
+import { DEV_DOMAIN } from '@env'
+import Input from 'app/components/form/Input'
+import InputLabel from 'app/components/form/InputLabel'
+import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
+import useAlert from 'app/hooks/useAlert'
+import useIsDesktop from 'app/hooks/useIsDesktop'
+import useLocalization from 'app/provider/localization'
+import { toCleanAmount, toCleanCard, toCurrency, toRealAmount } from 'app/utils'
 import { MaxLength, TopUpCard } from 'app/utils/constant'
-import { Text, View, styled, useResponsiveValue } from 'dripsy'
+import validation from 'app/utils/validation'
+import { Text, View, styled } from 'dripsy'
+import { FormikHelpers, useFormik } from 'formik'
+import { Pressable } from 'react-native'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import {
   useDepositPaymentListQuery,
   useSubmitDepositMutation,
 } from 'services/deposit'
 import { AutoBankItem, PlayerInputFieldsBank } from 'services/deposit.type'
-import HorizontalSelectBankCardGrid from '../component/HorizontalSelectBankCardGrid'
-import * as Yup from 'yup'
-import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
-import { FormikHelpers, useFormik } from 'formik'
-import useLocalization from 'app/provider/localization'
-import validation from 'app/utils/validation'
-import {
-  toCleanAmount,
-  toCleanCard,
-  toCurrency,
-  toDisplayAmount,
-  toRealAmount,
-} from 'app/utils'
-import { DEV_DOMAIN } from '@env'
-import { Toast } from 'react-native-toast-message/lib/src/Toast'
-import useAlert from 'app/hooks/useAlert'
-import { useModal } from 'react-native-modalfy'
-import ValueCard from './ValueCard'
-import Input from 'app/components/form/Input'
-import { Pressable } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import InputLabel from 'app/components/form/InputLabel'
+import * as Yup from 'yup'
+import HorizontalSelectBankCardGrid from '../component/HorizontalSelectBankCardGrid'
+import ValueCard from './ValueCard'
 
 type TopupValues = {
   realAmount: number
@@ -42,10 +36,9 @@ const cardAmount = ['10k', '20k', '30k', '50k', '100k', '200k', '300k']
 const TopupCardForm = () => {
   const { t } = useLocalization()
   const { showAlert } = useAlert()
-  const { openModal } = useModal()
   const [postSubmitDeposit] = useSubmitDepositMutation()
   const { currency } = usePlayerProfileQuery()
-  const horizontalMode = useResponsiveValue([false, false, false, true, true])
+  const horizontalMode = useIsDesktop()
   const { data } = useDepositPaymentListQuery({
     is_mobile: horizontalMode ? 1 : 0,
   })

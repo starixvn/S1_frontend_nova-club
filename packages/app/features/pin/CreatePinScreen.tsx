@@ -1,6 +1,12 @@
+import Button from 'app/components/common/Button'
+import FormContainer from 'app/components/form/FormContainer'
+import { PageWithBackHeader } from 'app/components/layouts/Page'
+import useAlert from 'app/hooks/useAlert'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import validation from 'app/utils/validation'
-import { Text, View } from 'dripsy'
+import { Text } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect, useMemo } from 'react'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
@@ -9,12 +15,6 @@ import { useLazyPlayerProfileQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import UnderlinePinField from './UnderlinePinField'
-import Button from 'app/components/common/Button'
-import useAlert from 'app/hooks/useAlert'
-import isDesktop from 'app/utils/isDesktop'
-import FormContainer from 'app/components/form/FormContainer'
-import { PageWithBackHeader } from 'app/components/layouts/Page'
-import { useAppSelector } from 'app/provider/redux/store'
 
 type PinFormValues = {
   pin: string
@@ -26,7 +26,7 @@ const CreatePinScreen = ({ isTab = false }) => {
   const { showAlert } = useAlert()
   const [fetchProfile] = useLazyPlayerProfileQuery()
   const [postCreateTransferPin] = useCreateTransferPinMutation()
-  const desktop = isDesktop()
+  const isDesktop = useIsDesktop()
 
   const lang = useAppSelector((s) => s.setting.locale)
 
@@ -114,14 +114,14 @@ const CreatePinScreen = ({ isTab = false }) => {
         />
       </>
     ),
-    [values]
+    [values, errors]
   )
 
   return (
     <PageWithBackHeader
       header={{ title: t('manageCredentials.pin.createPin') }}
       disableScrollView
-      hideHeader={desktop || isTab}
+      hideHeader={isDesktop || isTab}
     >
       <FormContainer>
         <Text sx={{ fontSize: 24 }}>
@@ -133,7 +133,7 @@ const CreatePinScreen = ({ isTab = false }) => {
         <Button
           onPress={submitForm}
           disabled={!isValid || !dirty}
-          sx={{ mt: '$3', py: '$2' }}
+          sx={{ mt: '$3' }}
         >
           {t('common.submit')}
         </Button>

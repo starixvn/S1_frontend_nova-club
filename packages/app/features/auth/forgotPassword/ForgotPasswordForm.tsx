@@ -4,9 +4,9 @@ import FormContainer from 'app/components/form/FormContainer'
 import Input from 'app/components/form/Input'
 import { MOBILE_PREFIX } from 'app/constants/country'
 import useAlert from 'app/hooks/useAlert'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import isDesktop from 'app/utils/isDesktop'
 import { USERNAME_MAX_LENGTH } from 'app/utils/validation'
 import { styled } from 'dripsy'
 import { FormikProps, FormikTouched } from 'formik'
@@ -62,7 +62,7 @@ const ForgotPasswordForm = ({
   const otpFieldRef = useRef<TextInput>(null)
   const contactNumRef = useRef<TextInput>(null)
   const OTPTimerRef = useRef<ITimerButtonForwardRef>(null)
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
 
   const isFormFieldValid = async (
     fields: FormikTouched<ForgotPasswordFormValues>

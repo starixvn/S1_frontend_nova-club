@@ -3,16 +3,10 @@ import Icon from 'app/components/Icon'
 import ShadowButton from 'app/components/ShadowButton'
 import Image from 'app/components/common/Image'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import usePathname from 'app/hooks/usePathname'
 import useLocalization from 'app/provider/localization'
-import {
-  ActivityIndicator,
-  Pressable,
-  Text,
-  View,
-  useDripsyTheme,
-  useResponsiveValue,
-} from 'dripsy'
+import { Pressable, Text, View, useDripsyTheme } from 'dripsy'
 import React from 'react'
 import { Linking, Platform } from 'react-native'
 import { Shadow } from 'react-native-shadow-2'
@@ -21,7 +15,7 @@ import useSupportItemList from './useSupportItemList'
 const CustomerSupportScreen = () => {
   const { t } = useLocalization()
   const mediaList = useSupportItemList()
-  const isDesktop = useResponsiveValue([false, false, false, true, true])
+  const isDesktop = useIsDesktop()
   const pathName = usePathname()
   const currentPath = pathName.replace('customer-support', '')
   const contactUsTitle =

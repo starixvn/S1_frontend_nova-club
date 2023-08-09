@@ -1,11 +1,12 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import { Row, Text, useResponsiveValue } from 'dripsy'
+import { Row, Text } from 'dripsy'
 import React from 'react'
 import { SolitoImage } from 'solito/image'
 
 const Powered = () => {
-  const isDesktop = useResponsiveValue([false, false, false, true])
+  const isDesktop = useIsDesktop()
   const { t } = useLocalization()
   return (
     <Row

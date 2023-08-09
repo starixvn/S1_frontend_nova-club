@@ -26,7 +26,7 @@ const AgentLoginButton = () => {
           bg: '$primary.100',
           px: '$2',
           minWidth: 120,
-          py: '$2',
+          py: 6,
           borderRadius: 15,
         }}
         onPress={() =>

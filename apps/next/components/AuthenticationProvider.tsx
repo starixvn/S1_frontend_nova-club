@@ -1,13 +1,10 @@
-import React from 'react'
+import LoginScreen from 'app/features/auth/login/LoginScreen'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import { useAppSelector } from 'app/provider/redux/store'
+import 'desktop-ext/features/auth/login/LoginScreenDesktop'
+import LoginScreenDesktop from 'desktop-ext/features/auth/login/LoginScreenDesktop'
 import { useRouter } from 'next/router'
 import useLoginWithToken from './hooks/useLoginWithToken'
-import { useModal } from 'react-native-modalfy'
-import LoginScreen from 'app/features/auth/login/LoginScreen'
-import 'desktop-ext/features/auth/login/LoginScreenDesktop'
-import isDesktop from 'app/utils/isDesktop'
-import LoginScreenDesktop from 'desktop-ext/features/auth/login/LoginScreenDesktop'
-import { useResponsiveValue } from 'dripsy'
 // import AgentGuard from './agent/AgentGuard'
 
 const guestRoutes = [
@@ -48,7 +45,7 @@ export function serialize(obj) {
 const AuthenticationProvider = ({ children }) => {
   const router = useRouter()
   const { asPath, query, replace: nextJsReplace, route } = router
-  const desktop = useResponsiveValue([false, false, false, true])
+  const desktop = useIsDesktop()
   const loginInfo = useAppSelector((s) => s.auth.info)
 
   const isLoggedInWithToken = useLoginWithToken(loginInfo?.token)

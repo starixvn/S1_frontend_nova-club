@@ -1,4 +1,5 @@
 import { PageWithBackHeader } from 'app/components/layouts/Page'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import dayjs from 'dayjs'
 import { ActivityIndicator, ScrollView } from 'dripsy'
@@ -7,13 +8,12 @@ import { Platform, RefreshControl } from 'react-native'
 import { usePlayerOverviewQuery } from 'services/playerApi'
 import OverviewDateRange from './OverviewDateRange'
 import SummarySection from './SummarySection'
-import isDesktop from 'app/utils/isDesktop'
 
 const ProfileOverview = () => {
   const { t } = useLocalization()
   const [endDate, setEndDate] = useState(dayjs().startOf('date').toDate())
   const [startDate, setStartDate] = useState(dayjs().startOf('date').toDate())
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
 
   const formatDate = (date: Date) => {
     return dayjs(date).format('YYYY-MM-DD')
@@ -36,7 +36,7 @@ const ProfileOverview = () => {
     >
       <ScrollView
         contentContainerSx={
-          isDesktop()
+          desktop
             ? {
                 px: '$5',
                 py: '$4',

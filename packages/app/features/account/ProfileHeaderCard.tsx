@@ -1,8 +1,8 @@
 import Icon from 'app/components/Icon'
 import IconButton from 'app/components/IconButton'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { copyToClipboard } from 'app/utils'
-import isDesktop from 'app/utils/isDesktop'
 import { Image, Pressable, Text, View } from 'dripsy'
 import React from 'react'
 import { useModal } from 'react-native-modalfy'
@@ -16,7 +16,7 @@ interface ProfileHeaderCardProps {
 const ProfileHeaderCard = ({ data }: ProfileHeaderCardProps) => {
   const { t } = useLocalization()
   const { openModal } = useModal()
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
   const AVATAR_SIZE = desktop ? 45 : 40
   const fontSize = desktop ? 15 : 14
   const referralLink = `${DEV_DOMAIN}/download?ref=${data?.referral_code}`

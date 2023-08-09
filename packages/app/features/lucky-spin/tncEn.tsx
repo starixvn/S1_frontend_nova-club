@@ -1,8 +1,8 @@
-import { useResponsiveValue } from 'dripsy'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import React from 'react'
 
 const TncEn = () => {
-  const isDesktop = useResponsiveValue([false, false, false, true])
+  const isDesktop = useIsDesktop()
   return (
     <div>
       {isDesktop && <h2>TERMS & CONDITIONS</h2>}

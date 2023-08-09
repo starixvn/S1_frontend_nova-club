@@ -2,10 +2,9 @@ import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import IconButton from 'app/components/IconButton'
 import RoundedIcon from 'app/components/RoundedIcon'
 import StaticField from 'app/components/StaticField'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import { toCleanCard } from 'app/utils'
-import isDesktop from 'app/utils/isDesktop'
-import { styled, Text, View } from 'dripsy'
-import { Gradient } from 'dripsy/gradient'
+import { Text, View, styled } from 'dripsy'
 import React from 'react'
 import { PlayerBankResult } from 'services/bank.type'
 
@@ -20,7 +19,7 @@ const BankAccCard = ({
   onPressRemove,
   isCrypto = false,
 }: BankAccCardProps) => {
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
   const cleanText = isCrypto
     ? item.BankAccountNumber
     : toCleanCard(item.BankAccountNumber)

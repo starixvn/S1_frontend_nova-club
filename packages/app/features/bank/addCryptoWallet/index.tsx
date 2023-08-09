@@ -7,7 +7,6 @@ import SelectList from 'app/components/select/SelectList'
 import { getCryptoProtocol } from 'app/constants/crypto'
 import useAddBank from 'app/hooks/bank/useAddBank'
 import useLocalization from 'app/provider/localization'
-import isDesktop from 'app/utils/isDesktop'
 import { View, styled } from 'dripsy'
 import React from 'react'
 import { useCryptoBankQuery } from 'services/bank'
@@ -15,7 +14,6 @@ import RealNameForm from '../components/RealNameForm'
 
 const AddCryptoWalletScreen = () => {
   const { t } = useLocalization()
-  const desktop = isDesktop()
 
   const {
     data: bankData,
@@ -89,7 +87,7 @@ const AddCryptoWalletScreen = () => {
           loading={isSubmitting}
           disabled={!isValid || !dirty}
           onPress={submitForm}
-          sx={{ my: 20, py: '$2' }}
+          sx={{ my: 20 }}
         >
           {t('common.next')}
         </Button>

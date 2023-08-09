@@ -41,7 +41,10 @@ const IdTransfer = ({ isIDTransfer = false }: { isIDTransfer?: boolean }) => {
   const dispatch = useAppDispatch()
   const [postTransferMemberToMember] = useTransferMemberToMemberMutation()
 
-  const { data: playerData, currency } = usePlayerProfileQuery()
+  const { data: playerData } = usePlayerProfileQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+    refetchOnFocus: true,
+  })
   const isPinExist = playerData?.pin_exist
   const [referralCode] = useParam('referralCode', { initial: '' })
 
@@ -155,7 +158,8 @@ const IdTransfer = ({ isIDTransfer = false }: { isIDTransfer?: boolean }) => {
   }, [referralCode])
 
   useEffect(() => {
-    !isPinExist && push('/account/manage-credentials/create-pin')
+    if (playerData)
+      !isPinExist && push('/account/manage-credentials/create-pin')
 
     return () => {
       !isIDTransfer && dispatch(SettingActions.toggleScan(true))
@@ -215,7 +219,7 @@ const IdTransfer = ({ isIDTransfer = false }: { isIDTransfer?: boolean }) => {
         <Button
           onPress={handleSubmit}
           disabled={!isValid || !dirty}
-          sx={{ mt: '$4', py: '$2' }}
+          sx={{ mt: '$4' }}
         >
           {t('common.confirm')}
         </Button>

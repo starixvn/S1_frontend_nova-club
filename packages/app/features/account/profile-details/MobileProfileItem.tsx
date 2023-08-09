@@ -5,6 +5,7 @@ import IconButton from 'app/components/IconButton'
 import { copyToClipboard } from 'app/utils'
 import useLocalization from 'app/provider/localization'
 import { ProfileResult } from 'services/playerApi.type'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 
 type ProfileItemProps = {
   label: string
@@ -42,12 +43,13 @@ const MobileProfileItem = ({ playerData }: MobileProfileDetailsProps) => {
 }
 
 const ProfileItem = ({ label, value, copy = false }: ProfileItemProps) => {
-  const isMobile = !isDesktop()
+  const desktop = useIsDesktop()
+
   return (
     <View
       sx={{
         marginVertical: '$1',
-        ...(isMobile && {
+        ...(!desktop && {
           bg: '$primary.500',
           borderTopWidth: 1,
           borderBottomWidth: 1,
@@ -62,7 +64,7 @@ const ProfileItem = ({ label, value, copy = false }: ProfileItemProps) => {
           py: 15,
           alignItems: 'center',
 
-          ...(isDesktop() && {
+          ...(desktop && {
             justifyContent: 'center',
           }),
         }}
@@ -76,7 +78,7 @@ const ProfileItem = ({ label, value, copy = false }: ProfileItemProps) => {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-            ...(isDesktop()
+            ...(desktop
               ? {
                   minWidth: 400,
                   borderColor: '$primary.100',

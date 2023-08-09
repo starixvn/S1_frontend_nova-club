@@ -1,15 +1,15 @@
 import FormContainer from 'app/components/form/FormContainer'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import DrawerReferral from 'app/components/navigation/drawer/DrawerReferral'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import isDesktop from 'app/utils/isDesktop'
 import { View } from 'dripsy'
 import React from 'react'
 import ReferralSection from '../home/Referral/ReferralSection'
 
 const ReferralScreen = () => {
   const { t } = useLocalization()
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
 
   return (
     <PageWithBackHeader

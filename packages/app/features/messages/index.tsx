@@ -8,6 +8,7 @@ import { SceneMap, TabView } from 'react-native-tab-view'
 import { createParam } from 'solito'
 import AnnouncementScreen from './Announcement'
 import PersonalMessage from './PersonalMessage'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 
 enum SCREEN_TAB {
   MESSAGE = 'message',
@@ -29,7 +30,7 @@ const MessagesScreen = () => {
   })
 
   const { t } = useLocalization()
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
 
   const renderScene = SceneMap({
     first: PersonalMessage,
@@ -99,7 +100,7 @@ const MessagesScreen = () => {
       hideHeader={desktop}
     >
       <TabView
-      swipeEnabled={false}
+        swipeEnabled={false}
         navigationState={{ index, routes }}
         renderScene={renderScene}
         onIndexChange={setIndex}

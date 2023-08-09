@@ -1,5 +1,6 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import useContainerWidth from 'app/hooks/useContainerWidth'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import { useAppSelector } from 'app/provider/redux/store'
 import { getCarouselBannerActionGenerator } from 'app/utils/carouselBannerActionGenerator'
 import {
@@ -131,7 +132,7 @@ const BannerItem = ({ item, index, width, height }: BannerItem) => {
   const { push } = useRouter()
   const { openModal } = useModal()
   const token = useAppSelector((s) => s.auth.info?.token)
-  const isDesktop = useResponsiveValue([false, false, false, true])
+  const isDesktop = useIsDesktop()
   const locale = useAppSelector((s) => s.setting.locale)
 
   const onPressCallback = useCallback(() => {

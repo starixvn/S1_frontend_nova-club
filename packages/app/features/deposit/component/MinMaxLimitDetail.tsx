@@ -1,7 +1,8 @@
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { toCurrency } from 'app/utils'
 import { Currency } from 'app/utils/constant'
-import { Text, View, useResponsiveValue } from 'dripsy'
+import { Text, View } from 'dripsy'
 
 type MinMaxLimitDetailProps = {
   currency?: Currency
@@ -14,7 +15,7 @@ const MinMaxLimitDetail = ({
   minAmount,
 }: MinMaxLimitDetailProps) => {
   const { t } = useLocalization()
-  const horizontalMode = useResponsiveValue([false, false, false, true, true])
+  const horizontalMode = useIsDesktop()
 
   return (
     <View

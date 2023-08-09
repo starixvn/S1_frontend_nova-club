@@ -1,8 +1,8 @@
+import DatePicker from 'app/components/form/DatePicker'
+import useIsDesktop from 'app/hooks/useIsDesktop'
+import dayjs from 'dayjs'
 import { Sx, Text, View } from 'dripsy'
 import { ComponentProps, Dispatch, SetStateAction } from 'react'
-import dayjs from 'dayjs'
-import DatePicker from 'app/components/form/DatePicker'
-import isDesktop from 'app/utils/isDesktop'
 import { useWindowDimensions } from 'react-native'
 
 type DateType = 'startDate' | 'endDate'
@@ -27,7 +27,7 @@ const OverviewDateRange = ({
   ...viewProps
 }: OverviewDateRangeProps) => {
   const { sx: viewSx, ...restViewProps } = viewProps
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
   const { width } = useWindowDimensions()
   const desktopDateWidth = Math.min(200, width * 0.25)
 

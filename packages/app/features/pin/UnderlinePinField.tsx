@@ -1,16 +1,15 @@
-import isDesktop from 'app/utils/isDesktop'
-import { Text, View } from 'dripsy'
+import useIsDesktop from 'app/hooks/useIsDesktop'
+import { Text, View, styled } from 'dripsy'
 import React, { useEffect, useMemo } from 'react'
 import { Platform, StyleSheet } from 'react-native'
 import {
   CodeField,
   Cursor,
-  isLastFilledCell,
   MaskSymbol,
+  isLastFilledCell,
   useBlurOnFulfill,
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field'
-import { styled } from 'dripsy'
 
 export const CELL_COUNT = 6
 export const CELL_SIZE = 50
@@ -36,7 +35,7 @@ const UnderlinePinField = ({
     value,
     setValue,
   })
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
 
   useEffect(() => {
     if (autoFocus) ref.current?.focus()

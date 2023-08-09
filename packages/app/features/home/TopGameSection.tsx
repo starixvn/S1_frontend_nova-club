@@ -1,8 +1,9 @@
 import DraggableScrollView from 'app/components/DraggableScrollView'
 import SectionHeader from 'app/components/SectionHeader'
 import TopGameCard, { height } from 'app/components/game/TopGameCard'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import { View, useResponsiveValue } from 'dripsy'
+import { View } from 'dripsy'
 import React from 'react'
 import { useFeaturedGameListQuery } from 'services/gameApi'
 
@@ -17,7 +18,7 @@ export default function TopGameSection(props) {
     },
   })
 
-  const desktopMode = useResponsiveValue([false, false, false, true])
+  const desktopMode = useIsDesktop()
 
   return (
     <View {...props}>

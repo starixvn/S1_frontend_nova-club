@@ -116,9 +116,7 @@ function QrTransfer({ isActive }) {
           right: 0,
         }}
       >
-        <Button sx={{ py: '$2' }} onPress={pickImageFromGallery}>
-          {t('qr.scanGallery')}
-        </Button>
+        <Button onPress={pickImageFromGallery}>{t('qr.scanGallery')}</Button>
       </View>
       {loading && <LoadingScreen />}
     </View>

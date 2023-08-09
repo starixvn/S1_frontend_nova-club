@@ -1,8 +1,9 @@
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import { useResponsiveValue } from 'dripsy'
 import React from 'react'
 
 const TncVi = () => {
-  const isDesktop = useResponsiveValue([false, false, false, true])
+  const isDesktop = useIsDesktop()
   return (
     <div>
       {isDesktop && <h2>ĐIỀU KHOẢN VÀ ĐIỀU KIỆN</h2>}

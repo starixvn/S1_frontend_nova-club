@@ -4,16 +4,19 @@ import Icon from 'app/components/Icon'
 import Button from 'app/components/common/Button'
 import DataTableCell from 'app/components/dataTable/DataTableCell'
 import DataTableRow from 'app/components/dataTable/DataTableRow'
+import { SabaGamePayload } from 'app/constants/game'
 import {
   MatchHandicapType,
   MatchLeagueTabIconMapping,
 } from 'app/constants/recMatchMapping'
+import useIsDesktop from 'app/hooks/useIsDesktop'
+import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { ActionType, getAction } from 'app/utils/actionGenerator'
 import dayjsTz from 'app/utils/dayjs'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
-import { Row, ScrollView, Text, View, useResponsiveValue } from 'dripsy'
+import { Row, ScrollView, Text, View } from 'dripsy'
 import React from 'react'
 import { Game } from 'services/gameApi.type'
 import { League, MatchResult } from 'services/matchApi.type'
@@ -67,7 +70,7 @@ const MatchListTable = ({
 }: MatchListTableProps) => {
   const filterStartDate = dayjs(selectedTime)
   const filterEndDate = filterStartDate.add(1, 'day')
-  const isDesktop = useResponsiveValue([false, false, false, true])
+  const isDesktop = useIsDesktop()
   // console.log(fullData)
   const onPress = (match: MatchResult) => {
     getAction({
@@ -75,15 +78,7 @@ const MatchListTable = ({
       payload: {
         desktopMode: isDesktop,
         game: {
-          gc: '1',
-          name: {
-            en: 'SABA Sports',
-            vi: 'SABA Sports',
-          },
-          gtc: 'sports',
-          img: 'https://static-stage.gball8.com/nvclub/sbe/cms/game/saba/sport-saba_1659947637.png',
-          gpc: 'SABA',
-          tags: [],
+          ...SabaGamePayload,
           params: {
             leaguekey: match.LeagueId.toString(),
             matchid: match.EventId.toString(),
@@ -163,6 +158,7 @@ const MatchListCellData = ({
   name,
   onPress,
 }: MatchListCellDataProps) => {
+  const { t } = useLocalization()
   const authState = useAppSelector((s) => s.auth)
   const isLoggedIn = !!authState.info
   return (
@@ -294,10 +290,11 @@ const MatchListCellData = ({
       <DataTableCell sx={{ flex: 0.1, mr: '$4', py: '$0' }}>
         {selectionType === 'away' && onPress && isLoggedIn ? (
           <Button
-            contentProps={{ sx: { py: '$1', px: '$2' } }}
+            contentProps={{ sx: { py: '$2', px: '$2' } }}
+            titleProps={{ sx: { fontSize: [12, 12, 12, 12, 14] } }}
             onPress={() => onPress(item)}
           >
-            Bet Now
+            {t('game.betNow')}
           </Button>
         ) : (
           ''

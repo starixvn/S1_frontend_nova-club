@@ -3,16 +3,16 @@ import DataTableHeader from 'app/components/dataTable/DataTableHeader'
 import DataTableTitle from 'app/components/dataTable/DataTableTitle'
 import FormContainer from 'app/components/form/FormContainer'
 import SelectList from 'app/components/select/SelectList'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { DateFilterOptions } from 'app/utils/constant'
-import isDesktop from 'app/utils/isDesktop'
-import { Row, View } from 'dripsy'
+import { View } from 'dripsy'
 import React, { useState } from 'react'
 
 const dummyData = []
 const HistoryScreen = () => {
   const { t } = useLocalization()
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
 
   const [date, setDate] = useState(DateFilterOptions[4]?.value)
 

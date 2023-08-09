@@ -1,15 +1,15 @@
-import { useResponsiveValue } from 'dripsy'
-import { createParam } from 'solito'
-import { useModal } from 'react-native-modalfy'
-import { useEffect } from 'react'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
+import { useEffect } from 'react'
+import { useModal } from 'react-native-modalfy'
+import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 
 const { useParam } = createParam<{ ref: string }>()
 
 export default function ReferralTrigger({}) {
-  const isDesktop = useResponsiveValue([false, false, false, true])
+  const isDesktop = useIsDesktop()
 
   const [ref] = useParam('ref')
 

@@ -1,3 +1,6 @@
+import { SabaGamePayload } from 'app/constants/game'
+import useIsDesktop from 'app/hooks/useIsDesktop'
+import { ActionType, getAction } from 'app/utils/actionGenerator'
 import { Pressable, View, styled, useResponsiveValue } from 'dripsy'
 import React, { forwardRef, useCallback, useRef } from 'react'
 import { useWindowDimensions } from 'react-native'
@@ -5,13 +8,11 @@ import Carousel, {
   ICarouselInstance,
   TCarouselProps,
 } from 'react-native-reanimated-carousel'
-import Icon from '../Icon'
-import MatchItem, { SCORE_HEIGHT } from './MatchItem'
+import { Game } from 'services/gameApi.type'
 import { MatchResult } from 'services/matchApi.type'
 import { mergeRefs } from 'utils/mergeRefs'
-import { AnimatePresence, MotiView } from 'moti'
-import { ActionType, getAction } from 'app/utils/actionGenerator'
-import { Game } from 'services/gameApi.type'
+import Icon from '../Icon'
+import MatchItem, { SCORE_HEIGHT } from './MatchItem'
 const ASPECT_RATIO = 3
 
 export type MatchCarouselProps = Omit<
@@ -47,7 +48,7 @@ const MatchCarousel = forwardRef<ICarouselInstance, MatchCarouselProps>(
       carouselRef?.current?.prev()
     }
 
-    const isDesktop = useResponsiveValue([false, false, false, true])
+    const isDesktop = useIsDesktop()
 
     const onPress = useCallback(
       (match: MatchResult) => {
@@ -56,15 +57,7 @@ const MatchCarousel = forwardRef<ICarouselInstance, MatchCarouselProps>(
           payload: {
             desktopMode: isDesktop,
             game: {
-              gc: '1',
-              name: {
-                en: 'SABA Sports',
-                vi: 'SABA Sports',
-              },
-              gtc: 'sports',
-              img: 'https://static-stage.gball8.com/nvclub/sbe/cms/game/saba/sport-saba_1659947637.png',
-              gpc: 'SABA',
-              tags: [],
+              ...SabaGamePayload,
               params: {
                 leaguekey: match.LeagueId.toString(),
                 matchid: match.EventId.toString(),

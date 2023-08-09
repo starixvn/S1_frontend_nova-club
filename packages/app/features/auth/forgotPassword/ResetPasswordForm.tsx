@@ -1,8 +1,8 @@
 import Button from 'app/components/common/Button'
 import FormContainer from 'app/components/form/FormContainer'
 import Input from 'app/components/form/Input'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import isDesktop from 'app/utils/isDesktop'
 import { PASSWORD_MAX_LENGTH } from 'app/utils/validation'
 import { styled } from 'dripsy'
 import { FormikProps } from 'formik'
@@ -30,7 +30,7 @@ const ResetPasswordForm = ({ formik, ...rest }: ResetPasswordFormProps) => {
   } = formik
 
   const { t } = useLocalization()
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
 
   const passwordFieldRef = useRef<TextInput>(null)
   const confirmPasswordFieldRef = useRef<TextInput>(null)
@@ -84,7 +84,6 @@ const ResetPasswordForm = ({ formik, ...rest }: ResetPasswordFormProps) => {
         sx={{
           bg: '$secondary.500',
           marginTop: desktop ? 'auto' : '$4',
-          py: '$1',
         }}
       >
         {t('common.enter')}

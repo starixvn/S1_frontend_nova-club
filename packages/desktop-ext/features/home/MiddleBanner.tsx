@@ -1,9 +1,11 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { Pressable, Row, View } from 'dripsy'
-import React, { ComponentProps } from 'react'
+import React, { ComponentProps, useCallback } from 'react'
 import { useRouter } from 'solito/router'
 import VideoBanner from './VideoBanner'
 import useLocalization from 'app/provider/localization'
+import { ActionType, getAction } from 'app/utils/actionGenerator'
+import { SabaGamePayload } from 'app/constants/game'
 
 const subs = [
   {
@@ -28,9 +30,22 @@ type MiddleBannerProps = ComponentProps<typeof View>
 const MiddleBanner = (props: MiddleBannerProps) => {
   const { push } = useRouter()
   const { t } = useLocalization()
+
+  const launchSaba = useCallback(
+    () =>
+      getAction({
+        type: ActionType.GAME,
+        payload: {
+          desktopMode: true,
+          game: SabaGamePayload,
+        },
+      })(),
+    []
+  )
+
   return (
     <View {...props}>
-      <Pressable onPress={() => push('/sportsbook')}>
+      <Pressable onPress={launchSaba}>
         <VideoBanner
           sx={{ aspectRatio: 880 / 420 }}
           uri={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/sportsbook.mp4`}

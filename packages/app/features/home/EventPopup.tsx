@@ -17,7 +17,7 @@ const EventPopup = () => {
         openModal('EventPopupModal')
         dispatch(TempSettingActions.toggleTriggerPopupEvent(false))
       }
-    }, 1000)
+    }, 500)
 
     return () => {
       clearTimeout(setTimeoutId)
