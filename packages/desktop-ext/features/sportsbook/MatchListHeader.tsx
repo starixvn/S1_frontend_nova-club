@@ -3,7 +3,8 @@ import DataTable from 'app/components/dataTable/DataTable'
 import DataTableHeader from 'app/components/dataTable/DataTableHeader'
 import DataTableTitle from 'app/components/dataTable/DataTableTitle'
 import { MatchLeagueTabIconMapping } from 'app/constants/recMatchMapping'
-import { Row, Text, View } from 'dripsy'
+import { Row, View } from 'dripsy'
+import { MotiText, MotiView } from 'moti'
 import React from 'react'
 import { MatchResult } from 'services/matchApi.type'
 
@@ -28,16 +29,34 @@ const MatchListHeader = ({ data, height }: MatchListHeaderProps) => {
       <DataTable>
         <DataTableHeader sx={{ justifyContent: 'space-between', px: 0 }}>
           <DataTableTitle sx={{ flex: 0.1 }}>
-            <Icon
-              name={MatchLeagueTabIconMapping[data?.LeagueId ?? 0]}
-              sx={{ fontSize: [24, 30] }}
-            />
+            <MotiView
+              from={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              key={MatchLeagueTabIconMapping[data?.LeagueId ?? 0]}
+            >
+              <Icon
+                name={MatchLeagueTabIconMapping[data?.LeagueId ?? 0]}
+                sx={{ fontSize: [24, 30] }}
+              />
+            </MotiView>
           </DataTableTitle>
 
           <DataTableTitle sx={{ flex: 0.15, justifyContent: 'flex-start' }}>
-            <Text sx={{ fontSize: 12, textAlign: 'left' }}>
+            <MotiText
+              from={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              key={data?.LeagueName}
+              style={{
+                fontSize: 12,
+                textAlign: 'left',
+                color: 'white',
+              }}
+            >
               {data?.LeagueName}
-            </Text>
+
+              {/* <Text sx={{ fontSize: 12, textAlign: 'left' }}>
+              </Text> */}
+            </MotiText>
           </DataTableTitle>
           <Row sx={{ flex: 1 }}>
             <DataTableTitle sx={{ flex: 0.6, px: 0 }}>FT. HDP</DataTableTitle>

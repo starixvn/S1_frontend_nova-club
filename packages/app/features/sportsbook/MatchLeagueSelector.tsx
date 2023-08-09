@@ -1,3 +1,4 @@
+import { EntityId } from '@reduxjs/toolkit'
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import { MatchLeagueTabIconMapping } from 'app/constants/recMatchMapping'
@@ -5,7 +6,6 @@ import { Pressable, Row, View, styled } from 'dripsy'
 import { MotiView, useAnimationState } from 'moti'
 import React, { Dispatch, SetStateAction, memo, useEffect } from 'react'
 import { StyleSheet, useWindowDimensions } from 'react-native'
-import { EntityId } from '@reduxjs/toolkit'
 
 interface MatchLeagueSelectorProps {
   ids: EntityId[]
@@ -30,7 +30,6 @@ export default function MatchLeagueSelector({
   const maxWidth = Math.min(700, width * 0.8)
 
   // console.log('League ID: ', ids)
-
   return (
     <DripsyGradient
       gradient={gradient}
@@ -77,11 +76,11 @@ const MatchLeagueSelectorTab = memo(
     const iconRotate = useAnimationState({
       active: {
         rotateZ: [
-          { value: '0rad', type: 'timing', duration: 1 },
+          { value: '0rad', type: 'timing', duration: 250 },
           '0.3rad',
           '0rad',
         ],
-        scale: [{ value: 1, type: 'timing', duration: 1 }, , 1.1, 1],
+        scale: [{ value: 1, type: 'timing', duration: 250 }, 1.1, 1],
       },
       inactive: {
         scale: [1],
@@ -100,7 +99,7 @@ const MatchLeagueSelectorTab = memo(
     useEffect(() => {
       iconRotate.transitionTo(active ? 'active' : 'inactive')
       containerScale.transitionTo(active ? 'active' : 'inactive')
-    }, [active, containerScale, iconRotate])
+    }, [active, containerScale, iconRotate, onPress])
     // console.log(MatchLeagueTabIconMapping[id])
     return (
       <Pressable
