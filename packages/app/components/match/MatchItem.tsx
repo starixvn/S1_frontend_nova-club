@@ -11,9 +11,9 @@ import React, { useState } from 'react'
 import { MatchResult } from 'services/matchApi.type'
 import { SolitoImage } from 'solito/image'
 
-import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
-import { ActionType, getAction } from 'app/utils/actionGenerator'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+import { MotifiedImage } from '../common/Image'
 
 dayjs.extend(customParseFormat)
 interface Props {
@@ -26,7 +26,6 @@ export const SCORE_HEIGHT = [20, 30]
 
 export default function MatchItem({ width, match, onPress }: Props) {
   // const leagueLogo = getLeagueLogo(match.LeagueId)
-
   let dateDisplay = '-'
 
   try {
@@ -41,10 +40,8 @@ export default function MatchItem({ width, match, onPress }: Props) {
   const homeFlag = `${MEDIA_DOMAIN}/nvclub${match.HomeImagePath}`
   const awayFlag = `${MEDIA_DOMAIN}/nvclub${match.AwayImagePath}`
   const leagueLogo = getLeagueLogo(match.LeagueId)
-  const homeName =
-    match.selection[MatchHandicapType.FULL_TIME]?.[0]?.KeyName ?? 0
-  const awayName =
-    match.selection[MatchHandicapType.FULL_TIME]?.[1]?.KeyName ?? 0
+  const homeName = match.HomeName ?? 0
+  const awayName = match.AwayName ?? 0
   const homePrice =
     match.selection[MatchHandicapType.FULL_TIME]?.[0]?.Price ?? 0
   const awayPrice =
@@ -139,7 +136,7 @@ const LeagueLogo = styled(View)({
 
 const Logo = ({ image, sx, size }) => {
   return (
-    <LogoAnimatedView
+    <LogoView
       sx={sx}
       // animate={{
       //   transform: [
@@ -150,18 +147,20 @@ const Logo = ({ image, sx, size }) => {
       //   ],
       // }}
     >
-      <SolitoImage
-        src={image}
+      <MotifiedImage
+        key={image}
+        from={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        source={{ uri: image }}
+        style={{ width: size, height: size }}
         alt="live match"
-        width={size}
-        height={size}
         resizeMode="contain"
       />
-    </LogoAnimatedView>
+    </LogoView>
   )
 }
 
-const LogoAnimatedView = styled(MotiView)(({}) => ({
+const LogoView = styled(View)(({}) => ({
   position: 'absolute',
   top: '18%',
   zIndex: 1,
