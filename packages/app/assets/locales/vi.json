@@ -196,8 +196,7 @@
         "won": "XIN CHÚC MỪNG!",
         "won2": "BẠN ĐÃ TRÚNG THƯỞNG"
       },
-      "tnc": {
-      }
+      "tnc": {}
     },
     "claim": "ĐỔI VÉ THƯỞNG CỦA BẠN NGAY",
     "jackpot": "Jackpot (chia phần thưởng): 100,000,000 VND",
@@ -289,7 +288,8 @@
     "megaway": "Megaway",
     "new": "Mới",
     "noGame": "Không có trò chơi phù hợp bộ lọc",
-    "recently": "Được chơi gần đây"
+    "recently": "Được chơi gần đây",
+    "betNow": "Cược NGAY"
   },
   "home": {
     "banner": {

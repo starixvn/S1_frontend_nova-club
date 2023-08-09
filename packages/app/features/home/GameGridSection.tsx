@@ -7,6 +7,7 @@ import { ActionType, getAction } from 'app/utils/actionGenerator'
 import { SocialMedia, getSocialMediaScheme } from 'app/constants/socialMedia'
 import { Game } from 'services/gameApi.type'
 import { useRouter } from 'solito/router'
+import { SabaGamePayload } from 'app/constants/game'
 
 export const SHAREHOLDER_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/agent-recruitment.mp4`
 export const FISHING_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/fishing.mp4`
@@ -25,9 +26,10 @@ const config = [
     type: 'video',
     title: 'game.category.sportsbook',
     action: {
-      type: ActionType.INTERNAL_REDIRECT,
+      type: ActionType.GAME,
       payload: {
-        uri: '/sportsbook',
+        desktopMode: false,
+        game: SabaGamePayload,
       },
     },
   },
@@ -50,16 +52,7 @@ const config = [
       type: ActionType.GAME,
       payload: {
         desktopMode: false,
-        game: {
-          gc: '1',
-          name: {
-            en: 'SABA Sports',
-            vi: 'SABA Sports',
-          },
-          gtc: 'sports',
-          img: 'https://static.zzspeed.site/nvclub/sbe/cms/game/saba/sport-saba_1659947637.png',
-          gpc: 'SABA',
-        } as Game,
+        game: SabaGamePayload,
       },
     },
   },

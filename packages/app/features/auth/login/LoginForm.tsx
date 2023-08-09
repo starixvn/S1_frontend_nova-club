@@ -182,7 +182,7 @@ const LoginForm = ({
       <Button
         loading={isSubmitting}
         onPress={submitForm}
-        sx={{ mb: '$2', py: '$2', mt: desktop ? 'auto' : '$2' }}
+        sx={{ mb: '$2', mt: desktop ? 'auto' : '$2' }}
       >
         {t('authentication.login')}
       </Button>
@@ -196,7 +196,7 @@ const LoginForm = ({
               },
             })
           }}
-          sx={{ bg: '$primary.300', my: '$2', py: '$2' }}
+          sx={{ bg: '$primary.300', my: '$2' }}
         >
           {t('authentication.register')}
         </Button>

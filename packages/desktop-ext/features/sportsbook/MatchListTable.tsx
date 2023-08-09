@@ -19,6 +19,8 @@ import { Game } from 'services/gameApi.type'
 import { League, MatchResult } from 'services/matchApi.type'
 import { SolitoImage } from 'solito/image'
 import { MEDIA_DOMAIN } from '../../../../apps/next/config/env'
+import useLocalization from 'app/provider/localization'
+import { SabaGamePayload } from 'app/constants/game'
 dayjs.extend(customParseFormat)
 
 interface MatchListTableProps {
@@ -75,15 +77,7 @@ const MatchListTable = ({
       payload: {
         desktopMode: isDesktop,
         game: {
-          gc: '1',
-          name: {
-            en: 'SABA Sports',
-            vi: 'SABA Sports',
-          },
-          gtc: 'sports',
-          img: 'https://static-stage.gball8.com/nvclub/sbe/cms/game/saba/sport-saba_1659947637.png',
-          gpc: 'SABA',
-          tags: [],
+          ...SabaGamePayload,
           params: {
             leaguekey: match.LeagueId.toString(),
             matchid: match.EventId.toString(),
@@ -163,6 +157,7 @@ const MatchListCellData = ({
   name,
   onPress,
 }: MatchListCellDataProps) => {
+  const { t } = useLocalization()
   const authState = useAppSelector((s) => s.auth)
   const isLoggedIn = !!authState.info
   return (
@@ -294,10 +289,11 @@ const MatchListCellData = ({
       <DataTableCell sx={{ flex: 0.1, mr: '$4', py: '$0' }}>
         {selectionType === 'away' && onPress && isLoggedIn ? (
           <Button
-            contentProps={{ sx: { py: '$1', px: '$2' } }}
+            contentProps={{ sx: { py: '$2', px: '$2' } }}
+            titleProps={{ sx: { fontSize: [12, 12, 12, 12, 14] } }}
             onPress={() => onPress(item)}
           >
-            Bet Now
+            {t('game.betNow')}
           </Button>
         ) : (
           ''

@@ -132,7 +132,6 @@ const ChangePinScreen = () => {
           disabled={!isValid || !dirty}
           sx={{
             mt: '$4',
-            py: '$2',
             ...(desktop
               ? {
                   width: '55%',

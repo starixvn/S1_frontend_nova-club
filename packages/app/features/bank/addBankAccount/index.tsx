@@ -93,7 +93,7 @@ const AddBankAccountScreen = () => {
           loading={isSubmitting}
           disabled={!isValid || !dirty}
           onPress={submitForm}
-          sx={{ my: 20, py: '$2' }}
+          sx={{ my: 20 }}
         >
           {t('common.next')}
         </Button>

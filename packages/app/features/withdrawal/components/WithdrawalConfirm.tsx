@@ -6,7 +6,7 @@ const WithdrawalConfirm = ({ disabled, onPress }) => {
   const { t } = useLocalization()
 
   return (
-    <Button disabled={disabled} sx={{ mt: '$4', py: '$2' }} onPress={onPress}>
+    <Button disabled={disabled} sx={{ mt: '$4' }} onPress={onPress}>
       {t('common.next')}
     </Button>
   )

@@ -84,7 +84,6 @@ const ResetPasswordForm = ({ formik, ...rest }: ResetPasswordFormProps) => {
         sx={{
           bg: '$secondary.500',
           marginTop: desktop ? 'auto' : '$4',
-          py: '$1',
         }}
       >
         {t('common.enter')}

@@ -238,7 +238,7 @@ const RegisterForm = ({
 
       <Button
         onPress={onSubmit}
-        sx={{ mt: desktop ? 'auto' : '$4', py: '$2', bg: '$primary.300' }}
+        sx={{ mt: desktop ? 'auto' : '$4', bg: '$primary.300' }}
       >
         {t('authentication.register')}
       </Button>

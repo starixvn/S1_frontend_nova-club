@@ -254,7 +254,6 @@ const ForgotPinScreen = () => {
             onPress={submitForm}
             disabled={!isValid || !dirty}
             sx={{
-              py: '$2',
               mt: '$4',
               maxWidth: 350,
               ...(desktop
