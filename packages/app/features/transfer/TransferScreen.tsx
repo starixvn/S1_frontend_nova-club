@@ -4,7 +4,7 @@ import CustomTabBar from 'app/components/navigation/CustomTabBar'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { TRANSFER_NOTES } from 'app/utils/constant'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { SceneMap, TabView } from 'react-native-tab-view'
@@ -37,11 +37,6 @@ const TransferScreen = () => {
   const { t } = useLocalization()
   const desktop = useIsDesktop()
 
-  const renderScene = SceneMap({
-    first: QrReceive,
-    second: () => <IdTransfer isIDTransfer />,
-    third: () => <QrTransfer isActive={index === routes[2]?.index} />,
-  })
   // isActive={index === routes[2]?.index}
   const getIndexFromTab = (value) => {
     switch (value) {
@@ -63,6 +58,20 @@ const TransferScreen = () => {
     { key: 'second', title: t('transfer.idTransfer'), index: 1 },
     { key: 'third', title: t('transfer.qrTransfer'), index: 2 },
   ])
+
+  const RenderQRScanner = useCallback(() => {
+    return <QrTransfer isActive={index === routes[2]?.index} />
+  }, [index, routes])
+
+  const RenderIdTransfer = useCallback(() => {
+    return <IdTransfer isIDTransfer />
+  }, [])
+
+  const renderScene = SceneMap({
+    first: QrReceive,
+    second: RenderIdTransfer,
+    third: RenderQRScanner,
+  })
   const layout = useWindowDimensions()
 
   useEffect(() => {

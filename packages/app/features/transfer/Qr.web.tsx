@@ -1,20 +1,19 @@
 import LoadingScreen from 'app/components/LoadingScreen'
 import Button from 'app/components/common/Button'
-import { useIsFocused } from 'app/hooks/isFocus/useIsFocused'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useImagePicker from 'app/hooks/useImagePicker'
 import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import BarcodeMask from 'react-native-barcode-mask'
 import { QrReader } from 'react-qr-reader'
 
 function QrTransfer({ isActive }) {
   const { t } = useLocalization()
-  const isFocus = useIsFocused()
   const { width, height } = useContainerDimension()
 
   const [loading, setLoading] = useState(false)
+  const timeoutId = useRef<NodeJS.Timeout | null>(null)
 
   const { isScanning, handleScan, handleGoToTransfer, pickImageFromGallery } =
     useImagePicker()
@@ -25,9 +24,9 @@ function QrTransfer({ isActive }) {
     return () => {
       handleScan(false)
     }
-  }, [isActive, isFocus])
+  }, [isActive])
 
-  const handleBarCodeScannedWeb = (result, error) => {
+  const handleBarCodeScannedWeb = useCallback((result, error) => {
     if (!!result) {
       handleScan(false)
       handleGoToTransfer(result.text)
@@ -37,13 +36,22 @@ function QrTransfer({ isActive }) {
       //   error
       // )
     }
-  }
-
-  const QrScannerComponent = useMemo(
-    () => (
+  }, [])
+  const QrScannerComponent = useMemo(() => {
+    return (
       <QrReader
         constraints={{ facingMode: 'environment' }}
-        onResult={isScanning ? handleBarCodeScannedWeb : undefined}
+        onResult={(result, error) => {
+          timeoutId.current = setTimeout(() => {
+            isActive && !error
+              ? handleBarCodeScannedWeb(result, error)
+              : undefined
+          }, 500)
+
+          return () => {
+            clearTimeout(timeoutId.current)
+          }
+        }}
         className="absolute-fill-center"
         scanDelay={500}
         videoContainerStyle={{ height }}
@@ -57,9 +65,8 @@ function QrTransfer({ isActive }) {
           />
         )}
       />
-    ),
-    [isScanning]
-  )
+    )
+  }, [isActive])
 
   const onScanFromGallery = async () => {
     setLoading(true)
