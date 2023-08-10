@@ -131,6 +131,7 @@ const TransferScreen = () => {
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}
         renderTabBar={renderTabBar}
+        lazy
       />
     </PageWithBackHeader>
   )

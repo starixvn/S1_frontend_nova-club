@@ -107,7 +107,12 @@ const AllSelection = ({ size = 16, sx }: { size?: number; sx?: SxProp }) => {
     >
       <Icon name="all" size={size} />
       <Text
-        sx={{ mt: FONT_TOP_OFFSET, fontSize: size * 0.8, fontWeight: '900' }}
+        sx={{
+          mt: FONT_TOP_OFFSET,
+          fontSize: size * 0.8,
+          fontWeight: '900',
+          userSelect: 'none',
+        }}
       >
         {'ALL'}
       </Text>
