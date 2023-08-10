@@ -4,7 +4,14 @@ import useContainerDimension from 'app/hooks/useContainerDimension'
 import useImagePicker from 'app/hooks/useImagePicker'
 import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, {
+  ElementRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import BarcodeMask from 'react-native-barcode-mask'
 import { QrReader } from 'react-qr-reader'
 
@@ -13,7 +20,7 @@ function QrTransfer({ isActive }) {
   const { width, height } = useContainerDimension()
 
   const [loading, setLoading] = useState(false)
-  const timeoutId = useRef<NodeJS.Timeout | null>(null)
+  const timeoutId = useRef<NodeJS.Timeout>(null)
 
   const { isScanning, handleScan, handleGoToTransfer, pickImageFromGallery } =
     useImagePicker()
@@ -25,6 +32,14 @@ function QrTransfer({ isActive }) {
       handleScan(false)
     }
   }, [isActive])
+
+  useEffect(() => {
+    return () => {
+      if (timeoutId.current) {
+        clearTimeout(timeoutId.current)
+      }
+    }
+  }, [])
 
   const handleBarCodeScannedWeb = useCallback((result, error) => {
     if (!!result) {
@@ -47,10 +62,6 @@ function QrTransfer({ isActive }) {
               ? handleBarCodeScannedWeb(result, error)
               : undefined
           }, 500)
-
-          return () => {
-            clearTimeout(timeoutId.current)
-          }
         }}
         className="absolute-fill-center"
         scanDelay={500}
