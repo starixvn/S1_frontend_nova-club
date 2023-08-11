@@ -42,7 +42,7 @@ const Slots = () => {
             bgColor="purple"
             iconName="sl"
           >
-            {filteredGames ? (
+            {filteredGames.length > 0 ? (
               <Row sx={{ flex: 1, justifyContent: 'flex-end' }}>
                 <Select
                   options={slotTypeSelection}
