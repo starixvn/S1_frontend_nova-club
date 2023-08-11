@@ -95,8 +95,8 @@
     "clean-codepush": "rm -rf codepush && mkdir codepush && mkdir codepush/android && mkdir codepush/ios",
     "bundle-ios": "yarn clean-codepush && node ../../node_modules/.bin/react-native bundle --platform ios --entry-file index.js --bundle-output ./CodePush/ios/main.jsbundle --assets-dest ./CodePush/ios --dev false --reset-cache",
     "bundle-android": "yarn clean-codepush && node ../../node_modules/.bin/react-native bundle --platform android --entry-file index.js --bundle-output ./CodePush/android/index.android.bundle --assets-dest ./CodePush/android --dev false --reset-cache",
-    "codepush:ios:staging2": "APP_ENV=stag yarn bundle-ios && appcenter codepush release -a app_team/NClub-ios -d StagingAlt -m -t 2.0.2 -c ./CodePush/ios",
-    "codepush:android:staging2": "APP_ENV=stag yarn bundle-android && appcenter codepush release -a app_team/NClub-android -d StagingAlt -m -t 2.0.2 -c ./CodePush/android"
+    "codepush:ios:staging2": "APP_ENV=stag yarn bundle-ios && appcenter codepush release -a app_team/NClub-ios -d StagingAlt -m -t 2.0.3 -c ./CodePush/ios",
+    "codepush:android:staging2": "APP_ENV=stag yarn bundle-android && appcenter codepush release -a app_team/NClub-android -d StagingAlt -m -t 2.0.3 -c ./CodePush/android"
   },
   "version": "1.0.0",
   "private": true,

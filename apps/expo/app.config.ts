@@ -4,7 +4,7 @@ const expoConfig = ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: 'Vui 123',
   slug: 'vui123',
-  version: '2.0.2',
+  version: '2.0.3',
   scheme: 'vuifit',
   platforms: ['ios', 'android'],
   orientation: 'portrait',
