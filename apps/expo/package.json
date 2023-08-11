@@ -16,7 +16,7 @@
     "app": "*",
     "axios": "^1.4.0",
     "date-time-format-timezone": "^1.0.22",
-    "expo": "~48.0.18",
+    "expo": "48.0.20",
     "expo-av": "13.2.1",
     "expo-barcode-scanner": "12.3.2",
     "expo-build-properties": "0.6.0",
