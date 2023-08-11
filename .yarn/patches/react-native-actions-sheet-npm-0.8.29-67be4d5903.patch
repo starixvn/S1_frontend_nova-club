@@ -1,0 +1,319 @@
+diff --git a/dist/src/index.js b/dist/src/index.js
+index 1215a5c5aa1ad0dcbcab4db658398d74537db0ec..6039338185ba7b5c40ffe9ad6324d952b70f67b1 100644
+--- a/dist/src/index.js
++++ b/dist/src/index.js
+@@ -69,7 +69,7 @@ export default forwardRef(function ActionSheet(_a, ref) {
+         width: Dimensions.get('window').width,
+         height: 0,
+         portrait: true,
+-        paddingBottom: (props === null || props === void 0 ? void 0 : props.useBottomSafeAreaPadding) ? 25 : 0
++        paddingBottom: (props === null || props === void 0 ? void 0 : props.useBottomSafeAreaPadding) ? 25 : 0,
+     }), dimensions = _9[0], setDimensions = _9[1];
+     var _10 = useSheetManager({
+         id: sheetId,
+@@ -85,17 +85,17 @@ export default forwardRef(function ActionSheet(_a, ref) {
+             if (sheetId) {
+                 SheetManager.add(sheetId, currentContext);
+                 SheetManager.registerRef(sheetId, currentContext, {
+-                    current: getRef()
++                    current: getRef(),
+                 });
+             }
+-        }
++        },
+     }), visible = _10.visible, setVisible = _10.setVisible;
+     var animations = useState({
+         opacity: new Animated.Value(0),
+         translateY: new Animated.Value(0),
+         underlayTranslateY: new Animated.Value(100),
+         keyboardTranslate: new Animated.Value(0),
+-        routeOpacity: new Animated.Value(0)
++        routeOpacity: new Animated.Value(0),
+     })[0];
+     var router = useRouter({
+         routes: routes,
+@@ -103,7 +103,7 @@ export default forwardRef(function ActionSheet(_a, ref) {
+         initialRoute: initialRoute,
+         onNavigate: props.onNavigate,
+         onNavigateBack: props.onNavigateBack,
+-        routeOpacity: animations.routeOpacity
++        routeOpacity: animations.routeOpacity,
+     });
+     var routerRef = useRef(router);
+     payloadRef.current = payload;
+@@ -114,6 +114,7 @@ export default forwardRef(function ActionSheet(_a, ref) {
+         if (initialValue.current === -1) {
+             return;
+         }
++        keyboardAnimation(false);
+     });
+     var notifyOffsetChange = function (value) {
+         internalEventManager.publish('onoffsetchange', value);
+@@ -136,7 +137,7 @@ export default forwardRef(function ActionSheet(_a, ref) {
+         if (shown === void 0) { shown = true; }
+         Animated.spring(animations.keyboardTranslate, {
+             toValue: shown ? -keyboard.keyboardHeight : 0,
+-            useNativeDriver: true
++            useNativeDriver: true,
+         }).start();
+     }, 
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+@@ -144,9 +145,9 @@ export default forwardRef(function ActionSheet(_a, ref) {
+     var opacityAnimation = React.useCallback(function (opacity) {
+         Animated.timing(animations.opacity, {
+             duration: 150,
+-            easing: Easing["in"](Easing.ease),
++            easing: Easing.in(Easing.ease),
+             toValue: opacity,
+-            useNativeDriver: true
++            useNativeDriver: true,
+         }).start();
+     }, 
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+@@ -228,7 +229,7 @@ export default forwardRef(function ActionSheet(_a, ref) {
+     var onDeviceLayout = React.useCallback(function (event) {
+         var _a;
+         var windowDimensions = Dimensions.get('window');
+-        var isPortraitMode = windowDimensions.height > windowDimensions.width;
++        var isPortraitMode = true; //windowDimensions.height > windowDimensions.width;
+         if (isOrientationChanging.current)
+             return;
+         if (keyboard.keyboardShown && !isModal) {
+@@ -259,7 +260,7 @@ export default forwardRef(function ActionSheet(_a, ref) {
+             setDimensions({
+                 width: isPortraitMode ? width : height,
+                 height: isPortraitMode ? height : width,
+-                portrait: isPortraitMode
++                portrait: isPortraitMode,
+             });
+         });
+         clearTimeout(onDeviceLayoutReset.current.timer);
+@@ -303,7 +304,6 @@ export default forwardRef(function ActionSheet(_a, ref) {
+                         else {
+                             hiding.current = false;
+                         }
+-                        currentSnapIndex.current = initialSnapIndex;
+                     }
+                     else {
+                         returnAnimation();
+@@ -429,12 +429,12 @@ export default forwardRef(function ActionSheet(_a, ref) {
+                             break;
+                         }
+                         var scrollOffset = (gestureBoundary === null || gestureBoundary === void 0 ? void 0 : gestureBoundary.scrollOffset) || 0;
+-                        if (event.nativeEvent.pageY < (gestureBoundary === null || gestureBoundary === void 0 ? void 0 : gestureBoundary.y) ||
++                        if (event.nativeEvent.locationY < (gestureBoundary === null || gestureBoundary === void 0 ? void 0 : gestureBoundary.y) ||
+                             (gesture.vy > 0 && scrollOffset <= 0) ||
+                             getCurrentPosition() !== 0) {
+                             if (!props.enableGesturesInScrollView &&
+                                 Platform.OS !== 'web' &&
+-                                event.nativeEvent.pageY > (gestureBoundary === null || gestureBoundary === void 0 ? void 0 : gestureBoundary.y)) {
++                                event.nativeEvent.locationY > (gestureBoundary === null || gestureBoundary === void 0 ? void 0 : gestureBoundary.y)) {
+                                 return false;
+                             }
+                             else {
+@@ -468,15 +468,10 @@ export default forwardRef(function ActionSheet(_a, ref) {
+                             gestures = true;
+                         }
+                         var scrollOffset = (gestureBoundary === null || gestureBoundary === void 0 ? void 0 : gestureBoundary.scrollOffset) || 0;
+-                        if (event.nativeEvent.pageY < (gestureBoundary === null || gestureBoundary === void 0 ? void 0 : gestureBoundary.y) ||
++                        if (event.nativeEvent.locationY < (gestureBoundary === null || gestureBoundary === void 0 ? void 0 : gestureBoundary.y) ||
+                             (scrollOffset <= 0 && getCurrentPosition() !== 0)) {
+                             if (Platform.OS !== 'web') {
+-                                if (event.nativeEvent.pageY < (gestureBoundary === null || gestureBoundary === void 0 ? void 0 : gestureBoundary.y)) {
+-                                    return true;
+-                                }
+-                                else {
+-                                    return false;
+-                                }
++                                return false;
+                             }
+                             else {
+                                 gestures = true;
+@@ -526,7 +521,7 @@ export default forwardRef(function ActionSheet(_a, ref) {
+                     else {
+                         snapForward(gesture.vy);
+                     }
+-                }
++                },
+             });
+     }, [
+         gestureEnabled,
+@@ -561,17 +556,19 @@ export default forwardRef(function ActionSheet(_a, ref) {
+             : StatusBar.currentHeight || 0;
+         var windowDimensions = Dimensions.get('window');
+         var height = windowDimensions.height - safeMarginFromTop;
+-        var orientationChanged = dimensions.portrait !==
+-            windowDimensions.width < windowDimensions.height;
++        var orientationChanged = false;
++        // dimensions.portrait !==
++        // windowDimensions.width < windowDimensions.height;
+         if (orientationChanged)
+             isOrientationChanging.current = true;
+         (_a = deviceContainerRef.current) === null || _a === void 0 ? void 0 : _a.setNativeProps({
+             style: {
+-                height: Dimensions.get('screen').height - safeMarginFromTop
+-            }
++                height: Dimensions.get('screen').height - safeMarginFromTop,
++            },
+         });
+         setDimensions(function (dim) {
+-            return __assign(__assign({}, dim), { height: height, portrait: windowDimensions.width < windowDimensions.height });
++            return __assign(__assign({}, dim), { height: height, portrait: true //windowDimensions.width < windowDimensions.height,
++             });
+         });
+         actionSheetHeight.current =
+             event.nativeEvent.layout.height > height
+@@ -591,7 +588,6 @@ export default forwardRef(function ActionSheet(_a, ref) {
+                 initialValue.current >= minTranslateValue.current
+                 ? initialValue.current
+                 : nextInitialValue;
+-        var wasVisible = keyboardWasVisible.current;
+         if (keyboard.keyboardShown) {
+             keyboardAnimation();
+             keyboardWasVisible.current = true;
+@@ -601,13 +597,7 @@ export default forwardRef(function ActionSheet(_a, ref) {
+             keyboardWasVisible.current = false;
+         }
+         opacityAnimation(1);
+-        if (!wasVisible || keyboard.keyboardShown) {
+-            returnAnimation();
+-        }
+-        else {
+-            keyboardAnimation(false);
+-            returnAnimation();
+-        }
++        returnAnimation();
+         if (isOrientationChanging.current) {
+             setTimeout(function () {
+                 isOrientationChanging.current = false;
+@@ -688,7 +678,7 @@ export default forwardRef(function ActionSheet(_a, ref) {
+         },
+         isGestureEnabled: function () { return gestureEnabled; },
+         isOpen: function () { return visible; },
+-        ev: internalEventManager
++        ev: internalEventManager,
+     }); }, [
+         internalEventManager,
+         setVisible,
+@@ -705,7 +695,7 @@ export default forwardRef(function ActionSheet(_a, ref) {
+     useEffect(function () {
+         if (sheetId) {
+             SheetManager.registerRef(sheetId, currentContext, {
+-                current: getRef()
++                current: getRef(),
+             });
+         }
+     }, [currentContext, getRef, sheetId]);
+@@ -731,7 +721,7 @@ export default forwardRef(function ActionSheet(_a, ref) {
+                 /**
+                  * Always true, it causes issue with keyboard handling.
+                  */
+-                statusBarTranslucent: true
++                statusBarTranslucent: true,
+             }
+             : {
+                 testID: ((_b = props.testIDs) === null || _b === void 0 ? void 0 : _b.root) || props.testID,
+@@ -748,11 +738,11 @@ export default forwardRef(function ActionSheet(_a, ref) {
+                             ? getZIndexFromStack(sheetId, currentContext)
+                             : 999,
+                     width: '100%',
+-                    height: initialWindowHeight.current
++                    height: initialWindowHeight.current,
+                 },
+                 pointerEvents: (props === null || props === void 0 ? void 0 : props.backgroundInteractionEnabled)
+                     ? 'box-none'
+-                    : 'auto'
++                    : 'auto',
+             };
+     }, [
+         currentContext,
+@@ -768,7 +758,7 @@ export default forwardRef(function ActionSheet(_a, ref) {
+         var RouteComponent = route.component;
+         return (<Animated.View key={route.name} style={{
+                 display: route.name !== ((_a = router.currentRoute) === null || _a === void 0 ? void 0 : _a.name) ? 'none' : 'flex',
+-                opacity: animations.routeOpacity
++                opacity: animations.routeOpacity,
+             }}>
+             <RouterParamsContext.Provider value={route === null || route === void 0 ? void 0 : route.params}>
+               <RouteComponent router={router} params={route === null || route === void 0 ? void 0 : route.params} payload={payloadRef.current}/>
+@@ -826,7 +816,7 @@ export default forwardRef(function ActionSheet(_a, ref) {
+                 width: 1,
+                 left: 0,
+                 top: 0,
+-                backgroundColor: 'transparent'
++                backgroundColor: 'transparent',
+             }}>
+             <View />
+           </SafeAreaView>) : null}
+@@ -839,9 +829,9 @@ export default forwardRef(function ActionSheet(_a, ref) {
+                     justifyContent: 'flex-end',
+                     transform: [
+                         {
+-                            translateY: animations.keyboardTranslate
++                            translateY: animations.keyboardTranslate,
+                         },
+-                    ]
++                    ],
+                 },
+             ]}>
+               {!(props === null || props === void 0 ? void 0 : props.backgroundInteractionEnabled) ? (<TouchableOpacity onPress={onTouch} activeOpacity={defaultOverlayOpacity} testID={(_b = props.testIDs) === null || _b === void 0 ? void 0 : _b.backdrop} style={{
+@@ -851,7 +841,7 @@ export default forwardRef(function ActionSheet(_a, ref) {
+                     width: '100%',
+                     position: 'absolute',
+                     backgroundColor: overlayColor,
+-                    opacity: defaultOverlayOpacity
++                    opacity: defaultOverlayOpacity,
+                 }} {...(props.backdropProps ? props.backdropProps : {})}/>) : null}
+ 
+               <Animated.View pointerEvents="box-none" style={__assign(__assign({ borderTopRightRadius: ((_c = props.containerStyle) === null || _c === void 0 ? void 0 : _c.borderTopRightRadius) || 10, borderTopLeftRadius: ((_d = props.containerStyle) === null || _d === void 0 ? void 0 : _d.borderTopLeftRadius) || 10, backgroundColor: ((_e = props.containerStyle) === null || _e === void 0 ? void 0 : _e.backgroundColor) || 'white', borderBottomLeftRadius: ((_f = props.containerStyle) === null || _f === void 0 ? void 0 : _f.borderBottomLeftRadius) || undefined, borderBottomRightRadius: ((_g = props.containerStyle) === null || _g === void 0 ? void 0 : _g.borderBottomRightRadius) || undefined, borderRadius: ((_h = props.containerStyle) === null || _h === void 0 ? void 0 : _h.borderRadius) || undefined, width: ((_j = props.containerStyle) === null || _j === void 0 ? void 0 : _j.width) || '100%' }, getElevation(typeof elevation === 'number' ? elevation : 5)), { flex: undefined, height: dimensions.height, maxHeight: dimensions.height, paddingBottom: keyboard.keyboardShown
+@@ -860,14 +850,14 @@ export default forwardRef(function ActionSheet(_a, ref) {
+                 //zIndex: 10,
+                 transform: [
+                     {
+-                        translateY: animations.translateY
++                        translateY: animations.translateY,
+                     },
+                 ] })}>
+                 {dimensions.height === 0 ? null : (<Animated.View {...handlers.panHandlers} onLayout={onSheetLayout} ref={panViewRef} testID={(_k = props.testIDs) === null || _k === void 0 ? void 0 : _k.sheet} style={[
+                     styles.container,
+                     {
+                         borderTopRightRadius: 10,
+-                        borderTopLeftRadius: 10
++                        borderTopLeftRadius: 10,
+                     },
+                     props.containerStyle,
+                     {
+@@ -877,10 +867,10 @@ export default forwardRef(function ActionSheet(_a, ref) {
+                             : paddingBottom,
+                         maxHeight: keyboard.keyboardShown
+                             ? dimensions.height - keyboard.keyboardHeight
+-                            : dimensions.height
++                            : dimensions.height,
+                     },
+                     {
+-                        overflow: 'hidden'
++                        overflow: 'hidden',
+                     },
+                 ]}>
+                     {drawUnderStatusBar ? (<Animated.View style={{
+@@ -893,9 +883,9 @@ export default forwardRef(function ActionSheet(_a, ref) {
+                         borderTopLeftRadius: ((_o = props.containerStyle) === null || _o === void 0 ? void 0 : _o.borderRadius) || 10,
+                         transform: [
+                             {
+-                                translateY: animations.underlayTranslateY
++                                translateY: animations.underlayTranslateY,
+                             },
+-                        ]
++                        ],
+                     }}/>) : null}
+                     {gestureEnabled || props.headerAlwaysVisible ? (props.CustomHeaderComponent ? (props.CustomHeaderComponent) : (<Animated.View style={[styles.indicator, props.indicatorStyle]}/>)) : null}
+ 
+@@ -908,7 +898,7 @@ export default forwardRef(function ActionSheet(_a, ref) {
+                     height: overdrawSize,
+                     bottom: -overdrawSize,
+                     backgroundColor: ((_p = props.containerStyle) === null || _p === void 0 ? void 0 : _p.backgroundColor) || 'white',
+-                    width: ((_q = props.containerStyle) === null || _q === void 0 ? void 0 : _q.width) || dimensions.width
++                    width: ((_q = props.containerStyle) === null || _q === void 0 ? void 0 : _q.width) || dimensions.width,
+                 }}/>) : null}
+               </Animated.View>
+               {ExtraOverlayComponent}
