@@ -14,7 +14,10 @@
   },
   "scripts": {
     "native": "cd apps/expo && yarn start",
-    "native:ios": "cd apps/expo && yarn ios",
+    "native:staging": "cd apps/expo && yarn start:staging",
+    "native:soft": "cd apps/expo && yarn start:soft",
+    "native:pre": "cd apps/expo && yarn start:pre",
+    "native:prod": "cd apps/expo && yarn start:prod",
     "web": "cd apps/next && yarn next",
     "web:staging": "cd apps/next && APP_ENV=stag yarn next",
     "build:web": "yarn workspace next-app build",
