@@ -11,7 +11,7 @@ import {
   useDripsyTheme,
   useResponsiveValue,
 } from 'dripsy'
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { Platform, View as RNView } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import Animated, {
@@ -36,6 +36,7 @@ interface BannerItem {
   index: number
   width: number
   height: number
+  disable: boolean
 }
 
 export default function BannerCarousel({
@@ -44,6 +45,7 @@ export default function BannerCarousel({
   ...rest
 }: BannerCarouselProps) {
   // const width = useWindowDimensions().width
+  const [disablePress, setDisablePress] = useState(true)
 
   const progressValue = useSharedValue<number>(0)
   const { theme } = useDripsyTheme()
@@ -84,6 +86,8 @@ export default function BannerCarousel({
           }
           panGestureHandlerProps={{
             activeOffsetX: [-10, 10],
+            onBegan: () => setDisablePress(true),
+            onEnded: () => setDisablePress(false),
           }}
           // onSnapToItem={(index) => console.log('current index:', index)}
           renderItem={({ item, index }) => (
@@ -92,6 +96,7 @@ export default function BannerCarousel({
               index={index}
               height={height}
               width={width}
+              disable={disablePress}
             />
           )}
           {...rest}
@@ -128,7 +133,7 @@ export default function BannerCarousel({
   )
 }
 
-const BannerItem = ({ item, index, width, height }: BannerItem) => {
+const BannerItem = ({ item, index, width, height, disable }: BannerItem) => {
   const { push } = useRouter()
   const { openModal } = useModal()
   const token = useAppSelector((s) => s.auth.info?.token)
@@ -166,7 +171,7 @@ const BannerItem = ({ item, index, width, height }: BannerItem) => {
   }, [item.action, locale])
 
   return (
-    <Pressable onPress={onPressCallback}>
+    <Pressable onPress={onPressCallback} disabled={disable}>
       <View pointerEvents="none">
         <SolitoImage
           priority={index === 0}
