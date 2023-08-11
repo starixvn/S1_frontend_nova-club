@@ -21,9 +21,11 @@ import useGameWindow from './useGameWindow'
 import { useMaintenanceStatus } from './useMaintenanceStatus'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 
-const ProviderRunningWithoutIframe = ['PRGP']
+// const ProviderRunningWithoutIframe = ['PRGP']
+const ProviderRunningWithoutIframe = []
 const ProviderRunningWithoutIframePlatformBased = Platform.select({
-  android: ['SKYW'],
+  // android: ['SKYW'],
+  android: [],
   default: [],
 })
 
@@ -105,7 +107,7 @@ const GameLauncher = () => {
         })
 
       if (success && data) {
-        let url = data.url
+        let url = data.url.replace(' ', '')
         if (params) {
           url += paramsToQuery(params)
         }

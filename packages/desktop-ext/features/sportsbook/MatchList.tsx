@@ -1,17 +1,16 @@
+import { EntityId } from '@reduxjs/toolkit'
 import { DripsyGradient } from 'app/components/Gradient'
 import MatchLeagueSelector from 'app/features/sportsbook/MatchLeagueSelector'
-import isDesktop from 'app/utils/isDesktop'
+import useIsDesktop from 'app/hooks/useIsDesktop'
+import useLocalization from 'app/provider/localization'
+import dayjsTz from 'app/utils/dayjs'
+import dayjs from 'dayjs'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { Pressable, Text, View } from 'dripsy'
 import { useState } from 'react'
 import { matchGroupByLeague, useGetRecoMatchQuery } from 'services/matchApi'
 import MatchListHeader from './MatchListHeader'
 import MatchListTable from './MatchListTable'
-import dayjsTz from 'app/utils/dayjs'
-import dayjs from 'dayjs'
-import customParseFormat from 'dayjs/plugin/customParseFormat'
-import { EntityId } from '@reduxjs/toolkit'
-import useLocalization from 'app/provider/localization'
-import useIsDesktop from 'app/hooks/useIsDesktop'
 dayjs.extend(customParseFormat)
 
 type Props = {}

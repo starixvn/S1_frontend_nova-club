@@ -29,6 +29,10 @@ const useImagePicker = () => {
 
   const isFocus = useIsFocused()
 
+  const handleScan = (value: boolean) => {
+    dispatch(SettingActions.toggleScan(value))
+  }
+
   useEffect(() => {
     handleScan(true)
     return () => {
@@ -36,10 +40,6 @@ const useImagePicker = () => {
       setLoading(false)
     }
   }, [isFocus])
-
-  const handleScan = (value: boolean) => {
-    dispatch(SettingActions.toggleScan(value))
-  }
 
   const pickImageFromGallery = async () => {
     setLoading(true)
@@ -101,7 +101,6 @@ const useImagePicker = () => {
 
   const handleGoToTransfer = async (value: string) => {
     handleScan(false)
-
     const cleanText = value.replace(/\W/g, '') ?? ''
 
     const data = await fetchUsername(cleanText)

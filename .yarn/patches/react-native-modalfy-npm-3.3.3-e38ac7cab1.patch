@@ -1,5 +1,5 @@
 diff --git a/lib/commonjs/lib/ModalStack.js b/lib/commonjs/lib/ModalStack.js
-index f1eb980d7545f11e52a4abe0ee9a5a1726be7dcf..b5b4bae3247c9d00eaf3460eec450366fb9af950 100644
+index a77922b8709e37741212404dc4edce3c13203420..164b979ec2a406d127bc004785c5a1d5ab94f42b 100644
 --- a/lib/commonjs/lib/ModalStack.js
 +++ b/lib/commonjs/lib/ModalStack.js
 @@ -108,6 +108,7 @@ const ModalStack = props => {
@@ -14,13 +14,13 @@ index f1eb980d7545f11e52a4abe0ee9a5a1726be7dcf..b5b4bae3247c9d00eaf3460eec450366
      overflow: 'hidden',
      height: '100vh',
      width: '100vw',
--    zIndex: 0
-+    zIndex: 2
-   },
-   backdrop: { ..._reactNative.StyleSheet.absoluteFillObject
-   }
+-    zIndex: 0,
++    zIndex: 2,
+     // mobile viewport units bug fix
+     maxHeight: '-webkit-fill-available',
+     maxWidth: '-webkit-fill-available'
 diff --git a/lib/module/lib/ModalStack.js b/lib/module/lib/ModalStack.js
-index 82f8d17943fd15e20e3636b945c0cb56a02ef39a..aa20f9f3af56b0fc0a0301c5b03e9b047aa6bd2f 100644
+index e4cc85de2a09d816d83873fc431e18675a35edd6..2b8036671abe180c88be7a591182afcd08c64b9b 100644
 --- a/lib/module/lib/ModalStack.js
 +++ b/lib/module/lib/ModalStack.js
 @@ -90,6 +90,7 @@ const ModalStack = props => {
@@ -35,13 +35,13 @@ index 82f8d17943fd15e20e3636b945c0cb56a02ef39a..aa20f9f3af56b0fc0a0301c5b03e9b04
      overflow: 'hidden',
      height: '100vh',
      width: '100vw',
--    zIndex: 0
-+    zIndex: 2
-   },
-   backdrop: { ...StyleSheet.absoluteFillObject
-   }
+-    zIndex: 0,
++    zIndex: 2,
+     // mobile viewport units bug fix
+     maxHeight: '-webkit-fill-available',
+     maxWidth: '-webkit-fill-available'
 diff --git a/src/lib/ModalStack.tsx b/src/lib/ModalStack.tsx
-index fa3dedbb479aa651ffe14381e61565e964c27e17..9c16574ddf3bbc7f75775f07f893175f20a742c9 100644
+index 4ef9d7876ce1f11d5ce2e6b27d3a0ed244570e35..fb9b401c1a31ce824b780f1e1528997cfc7844db 100644
 --- a/src/lib/ModalStack.tsx
 +++ b/src/lib/ModalStack.tsx
 @@ -98,7 +98,7 @@ const ModalStack = <P extends ModalfyParams>(props: Props<P>) => {
@@ -59,6 +59,6 @@ index fa3dedbb479aa651ffe14381e61565e964c27e17..9c16574ddf3bbc7f75775f07f893175f
      width: '100vw',
 -    zIndex: 0,
 +    zIndex: 2,
-   },
-   backdrop: {
-     ...StyleSheet.absoluteFillObject,
+     // mobile viewport units bug fix
+     maxHeight: '-webkit-fill-available',
+     maxWidth: '-webkit-fill-available',

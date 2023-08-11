@@ -52,7 +52,11 @@ const ForgotPinScreen = () => {
   const lang = useAppSelector((s) => s.setting.locale)
 
   useEffect(() => {
-    resetForm()
+    setValues({
+      ...values,
+      pin: '',
+      confirmPin: '',
+    })
   }, [lang])
 
   useEffect(() => {
@@ -114,6 +118,7 @@ const ForgotPinScreen = () => {
     validateForm,
     setFieldValue,
     setTouched,
+    setValues,
     setFieldError,
   } = formik
 

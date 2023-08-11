@@ -4100,7 +4100,7 @@ __metadata:
     modern-screenshot: ^4.4.25
     moti: latest
     react-native-date-picker: ^4.2.13
-    react-native-modalfy: 3.3.2
+    react-native-modalfy: 3.3.3
     react-native-reanimated-carousel: ^3.3.2
     react-native-svg: ^13.9.0
     react-web-share: ^2.0.2
@@ -5590,6 +5590,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"date-time-format-timezone@npm:^1.0.22":
+  version: 1.0.22
+  resolution: "date-time-format-timezone@npm:1.0.22"
+  checksum: c94f1ae290003b6183ce01ff92ee1d0de909d809cee1e44eb049b009bf39ea8bb3e8017f58a93228b62f89a2493154d0bd98ebc02c0c450d421316d1b4250fa4
+  languageName: node
+  linkType: hard
+
 "dayjs@npm:^1.11.7, dayjs@npm:^1.8.15":
   version: 1.11.7
   resolution: "dayjs@npm:1.11.7"
@@ -6669,6 +6676,7 @@ __metadata:
     "@types/react-native": ~0.69.1
     app: "*"
     axios: ^1.4.0
+    date-time-format-timezone: ^1.0.22
     expo: ~48.0.18
     expo-av: ~13.2.1
     expo-barcode-scanner: 12.3.2
@@ -6689,6 +6697,7 @@ __metadata:
     formik: ^2.2.9
     html-to-image: ^1.11.11
     i18n-js: 4.2.0
+    intl: ^1.2.5
     jpeg-js: ^0.4.4
     jsqr: ^1.4.0
     react: 18.2.0
@@ -6708,7 +6717,7 @@ __metadata:
     react-native-ios-context-menu: ^1.15.3
     react-native-keyboard-aware-scroll-view: ^0.9.5
     react-native-mask-input: ^1.2.3
-    react-native-modalfy: 3.3.2
+    react-native-modalfy: 3.3.3
     react-native-pager-view: 6.1.2
     react-native-qrcode-svg: ^6.2.0
     react-native-reanimated: ^3.1.0
@@ -8554,6 +8563,13 @@ __metadata:
     has: ^1.0.3
     side-channel: ^1.0.4
   checksum: 97e84046bf9e7574d0956bd98d7162313ce7057883b6db6c5c7b5e5f05688864b0978ba07610c726d15d66544ffe4b1050107d93f8a39ebc59b15d8b429b497a
+  languageName: node
+  linkType: hard
+
+"intl@npm:^1.2.5":
+  version: 1.2.5
+  resolution: "intl@npm:1.2.5"
+  checksum: 54c2444ec334b4e7f501c1b988ccfdae96d62a6275a915b9c75a38fc42d611bfc7dd33447e94079b7a8fdb3fbf36b95afd13132af4bfd70e2ec4bf9c9e0935f9
   languageName: node
   linkType: hard
 
@@ -12199,9 +12215,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-modalfy@npm:3.3.2":
-  version: 3.3.2
-  resolution: "react-native-modalfy@npm:3.3.2"
+"react-native-modalfy@npm:3.3.3":
+  version: 3.3.3
+  resolution: "react-native-modalfy@npm:3.3.3"
   dependencies:
     hoist-non-react-statics: ^3.3.2
     react-is: ^17.0.2
@@ -12210,22 +12226,7 @@ __metadata:
     react: ">=16.8.3"
     react-native: ">=0.59.0"
     react-native-gesture-handler: ">=1.9.0"
-  checksum: 1234f7bd1e9957069876d550f7a38f2388d140de917b05181a304fcc6ce5cd3149c3ea10fc6443f3d071627e99e4c0ac1558249baccb7333061d065dca1db072
-  languageName: node
-  linkType: hard
-
-"react-native-modalfy@patch:react-native-modalfy@npm%3A3.3.2#./.yarn/patches/react-native-modalfy-npm-3.3.2-647962d1fa.patch::locator=vuifit%40workspace%3A.":
-  version: 3.3.2
-  resolution: "react-native-modalfy@patch:react-native-modalfy@npm%3A3.3.2#./.yarn/patches/react-native-modalfy-npm-3.3.2-647962d1fa.patch::version=3.3.2&hash=d0c655&locator=vuifit%40workspace%3A."
-  dependencies:
-    hoist-non-react-statics: ^3.3.2
-    react-is: ^17.0.2
-    use-memo-one: ^1.1.2
-  peerDependencies:
-    react: ">=16.8.3"
-    react-native: ">=0.59.0"
-    react-native-gesture-handler: ">=1.9.0"
-  checksum: 03952ef0f0bc37971a510487552ce783be692d873500d5d2bff41fcb6ed55980b1c95e38c5baaedcc3eaad6b9b94b79752e7062d4c731c3a8942b1dfc3bd05db
+  checksum: b157b9c7b0b4f402ae6d3c82fd1c83458dc07bc511957e7ad8eff6adfa01d70d3ed31bfbb49c7fb733f1a941a7b98b3cf3f46d0c82a255e7d13a51fb466129a7
   languageName: node
   linkType: hard
 

@@ -2,6 +2,7 @@ import { Dictionary, EntityId } from '@reduxjs/toolkit'
 import { FlashList } from '@shopify/flash-list'
 import Icon from 'app/components/Icon'
 import Button from 'app/components/common/Button'
+import { MotifiedImage } from 'app/components/common/Image'
 import DataTableCell from 'app/components/dataTable/DataTableCell'
 import DataTableRow from 'app/components/dataTable/DataTableRow'
 import { SabaGamePayload } from 'app/constants/game'
@@ -10,7 +11,6 @@ import {
   MatchLeagueTabIconMapping,
 } from 'app/constants/recMatchMapping'
 import useIsDesktop from 'app/hooks/useIsDesktop'
-import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { ActionType, getAction } from 'app/utils/actionGenerator'
 import dayjsTz from 'app/utils/dayjs'
@@ -20,8 +20,8 @@ import { Row, ScrollView, Text, View } from 'dripsy'
 import React from 'react'
 import { Game } from 'services/gameApi.type'
 import { League, MatchResult } from 'services/matchApi.type'
-import { SolitoImage } from 'solito/image'
 import { MEDIA_DOMAIN } from '../../../../apps/next/config/env'
+import useLocalization from 'app/provider/localization'
 dayjs.extend(customParseFormat)
 
 interface MatchListTableProps {
@@ -100,6 +100,7 @@ const MatchListTable = ({
         <FlashList
           key={leagueId + 'All' + selectedTime} // Update the key prop
           data={fullData[leagueId]}
+          estimatedItemSize={20}
           renderItem={({ index, item }) => (
             <OnRender
               key={selectedTime}
@@ -111,7 +112,6 @@ const MatchListTable = ({
               onPress={onPress}
             />
           )}
-          estimatedItemSize={40}
         />
       ) : (
         allLeagueId.map((l) => {
@@ -139,7 +139,7 @@ const MatchListTable = ({
                     onPress={onPress}
                   />
                 )}
-                estimatedItemSize={40}
+                estimatedItemSize={20}
                 //Display All League with specific date
               />
             </>
@@ -175,11 +175,12 @@ const MatchListCellData = ({
       </DataTableCell>
       <DataTableCell sx={{ flex: 0.02, py: '$0' }}>
         {flag && (
-          <SolitoImage
-            src={flag}
+          <MotifiedImage
+            from={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            source={{ uri: flag }}
             alt="away"
-            width={30}
-            height={30}
+            style={{ width: 30, height: 30 }}
             resizeMode="contain"
           />
         )}

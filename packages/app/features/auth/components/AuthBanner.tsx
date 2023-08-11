@@ -9,8 +9,8 @@ type AuthBannerProps = {
 }
 
 const BannerImage = {
-  AGENT: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/auth/agent_banner.jpg`,
-  PLAYER: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/auth/member_banner.jpg`,
+  AGENT: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/auth/agent_banner.png`,
+  PLAYER: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/auth/member_banner.png`,
 } as const
 
 const AuthBanner = (props: AuthBannerProps) => {
@@ -20,7 +20,7 @@ const AuthBanner = (props: AuthBannerProps) => {
   const rootRef = useRef<RNView>(null)
 
   return (
-    <View ref={rootRef} sx={{ width: '100%', aspectRatio: 1536 / 400 }}>
+    <View ref={rootRef} sx={{ width: '100%', aspectRatio: 760 / 250 }}>
       <SolitoImage
         src={imageSrc}
         alt="auth-banner"

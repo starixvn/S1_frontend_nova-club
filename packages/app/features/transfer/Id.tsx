@@ -8,8 +8,15 @@ import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
-import { toCleanAmount, toCurrency, toRealAmount } from 'app/utils'
+import {
+  toCleanAmount,
+  toCurrency,
+  toDisplayAmount,
+  toRealAmount,
+} from 'app/utils'
+import { Currency } from 'app/utils/constant'
 import validation from 'app/utils/validation'
+import validationRule from 'app/utils/validationRule'
 import { ScrollView } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect } from 'react'
@@ -40,17 +47,20 @@ const IdTransfer = ({ isIDTransfer = false }: { isIDTransfer?: boolean }) => {
   const { push } = useRouter()
   const dispatch = useAppDispatch()
   const [postTransferMemberToMember] = useTransferMemberToMemberMutation()
-
-  const { data: playerData } = usePlayerProfileQuery(undefined, {
-    refetchOnMountOrArgChange: true,
-    refetchOnFocus: true,
-  })
-  const isPinExist = playerData?.pin_exist
   const [referralCode] = useParam('referralCode', { initial: '' })
 
   const { data } = usePlayerBalanceQuery(undefined, {
     refetchOnMountOrArgChange: true,
   })
+
+  const { data: playerData } = usePlayerProfileQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+    refetchOnFocus: true,
+  })
+  const playerBalance = data?.main.balance
+
+  const isPinExist = playerData?.pin_exist
+  const currency = playerData?.currency as Currency
 
   const onSubmit = async (
     { idTransfer, amount, realAmount }: IdTransferFormValues,
@@ -90,8 +100,14 @@ const IdTransfer = ({ isIDTransfer = false }: { isIDTransfer?: boolean }) => {
       realAmount: 0,
     },
     validationSchema: Yup.object({
-      idTransfer: validation.amount,
-      amount: validation.amount,
+      idTransfer: validation.referralCode,
+      amount: validationRule.amount({
+        min: toDisplayAmount(1, currency),
+        max: toDisplayAmount(
+          playerBalance !== '0' ? playerBalance : 1,
+          currency
+        ),
+      }),
     }),
     onSubmit,
   })
