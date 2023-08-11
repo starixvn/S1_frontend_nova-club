@@ -9,30 +9,26 @@ export default function Unmatched({}: Props) {
   const navigation = useNavigation()
   const router = useRouter()
 
-  useEffect(() => {
+  function handleUnmatched() {
     if (navigation.canGoBack()) router.back()
-    else router.push('/')
-    // router.
-    // setTimeout(() => {
-    //   navigation.dispatch((state) => {
-    //     const routes = state.routes.filter((r) => r.name !== '[...unmatched]')
-    //     routes.push({
-    //       name: '(Member)',
-    //     })
-    //     console.log('state', state)
-    //     console.log('roues', routes)
+    else router.replace('/')
+  }
 
-    //     CommonActions.reset({
-    //       ...state,
-    //       routes,
-    //       index: routes.length - 1,
-    //     })
-    //   })
-    // }, 2000)
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      handleUnmatched()
+    })
   }, [])
   return (
-    <View sx={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <ActivityIndicator color={'$primary.300'} />
+    <View
+      sx={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#1E2238',
+      }}
+    >
+      <ActivityIndicator color={'#50509E'} />
     </View>
   )
 }
