@@ -32,11 +32,13 @@ export default function Root() {
   return (
     <Provider>
       <Stack
-        screenOptions={{ header: () => null }}
+        screenOptions={{ headerShown: false }}
         /* initialRouteName doesnt work on expo-rtouer 
         initialRouteName="splashscreen"
         */
-      />
+      >
+        <Stack.Screen name="(Member)" />
+      </Stack>
     </Provider>
   )
 }
