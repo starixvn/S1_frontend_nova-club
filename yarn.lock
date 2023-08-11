@@ -12230,6 +12230,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-modalfy@patch:react-native-modalfy@npm%3A3.3.3#./.yarn/patches/react-native-modalfy-npm-3.3.3-e38ac7cab1.patch::locator=vuifit%40workspace%3A.":
+  version: 3.3.3
+  resolution: "react-native-modalfy@patch:react-native-modalfy@npm%3A3.3.3#./.yarn/patches/react-native-modalfy-npm-3.3.3-e38ac7cab1.patch::version=3.3.3&hash=774b5c&locator=vuifit%40workspace%3A."
+  dependencies:
+    hoist-non-react-statics: ^3.3.2
+    react-is: ^17.0.2
+    use-memo-one: ^1.1.2
+  peerDependencies:
+    react: ">=16.8.3"
+    react-native: ">=0.59.0"
+    react-native-gesture-handler: ">=1.9.0"
+  checksum: 127ec1c6f1b87276a54aa5fa02cdb27f49a9504629cfee7e2a7ae4deb753fa9ac851efa458d8db13010ef44ceb5eb44e3b026b3eb0456134d77e89a4fedaa8f0
+  languageName: node
+  linkType: hard
+
 "react-native-pager-view@npm:6.1.2":
   version: 6.1.2
   resolution: "react-native-pager-view@npm:6.1.2"
