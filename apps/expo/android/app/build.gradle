@@ -113,7 +113,7 @@ def reactNativeArchitectures() {
 
 ext.versionMajor = 2
 ext.versionMinor = 0
-ext.versionPatch = 2
+ext.versionPatch = 3
 
 android {
     ndkVersion rootProject.ext.ndkVersion

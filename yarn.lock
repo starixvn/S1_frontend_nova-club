@@ -3230,7 +3230,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-menu/menu@npm:^0.7.3":
+"@react-native-menu/menu@npm:0.7.3":
   version: 0.7.3
   resolution: "@react-native-menu/menu@npm:0.7.3"
   peerDependencies:
@@ -3269,10 +3269,10 @@ __metadata:
   linkType: hard
 
 "@react-navigation/bottom-tabs@npm:~6.5.7":
-  version: 6.5.7
-  resolution: "@react-navigation/bottom-tabs@npm:6.5.7"
+  version: 6.5.8
+  resolution: "@react-navigation/bottom-tabs@npm:6.5.8"
   dependencies:
-    "@react-navigation/elements": ^1.3.17
+    "@react-navigation/elements": ^1.3.18
     color: ^4.2.3
     warn-once: ^0.1.0
   peerDependencies:
@@ -3281,15 +3281,15 @@ __metadata:
     react-native: "*"
     react-native-safe-area-context: ">= 3.0.0"
     react-native-screens: ">= 3.0.0"
-  checksum: 3b49e988ffc54287622899a481045cc98abb7b2c33fa8456b52957ef0da1e8c84f7c4f6fbe32c97e32321184dadce3c27778a387d75a5b19f29dd1877de121e7
+  checksum: 5a42995a6602ff4458dfbc815b0d6a57aca3f93554d784d9db92e902f700e569f6db6f3d863285d830c80f76c72804a9041676d078794a56b55eb7e487532770
   languageName: node
   linkType: hard
 
-"@react-navigation/core@npm:^6.4.8":
-  version: 6.4.8
-  resolution: "@react-navigation/core@npm:6.4.8"
+"@react-navigation/core@npm:^6.4.9":
+  version: 6.4.9
+  resolution: "@react-navigation/core@npm:6.4.9"
   dependencies:
-    "@react-navigation/routers": ^6.1.8
+    "@react-navigation/routers": ^6.1.9
     escape-string-regexp: ^4.0.0
     nanoid: ^3.1.23
     query-string: ^7.1.3
@@ -3297,19 +3297,19 @@ __metadata:
     use-latest-callback: ^0.1.5
   peerDependencies:
     react: "*"
-  checksum: d4ae55f4827622cf02389344ea154fbae6e0da26165e9c8644ba4b54c50fb2bf930856b080f5fc5c57af46809909b19903f414f3df071d75113e54c9dc6d2ed0
+  checksum: 5479a49f2bf64dd8da149e268bd926804a466a923baf1b7149707e5db9fc78bcfd131e6d225832cb8f826cef6fc8afb91e10802dd5d0f9086aac61cabcc973ac
   languageName: node
   linkType: hard
 
-"@react-navigation/elements@npm:^1.3.17":
-  version: 1.3.17
-  resolution: "@react-navigation/elements@npm:1.3.17"
+"@react-navigation/elements@npm:^1.3.18":
+  version: 1.3.18
+  resolution: "@react-navigation/elements@npm:1.3.18"
   peerDependencies:
     "@react-navigation/native": ^6.0.0
     react: "*"
     react-native: "*"
     react-native-safe-area-context: ">= 3.0.0"
-  checksum: 19d329efcc144f48b88ad235f4195803712e2c72a5ec5f86340463978c58e6d6e931e3bd447509d0f2511810ee2b91e97378ecc5af974674fd8ddb5096be643e
+  checksum: 02293f0932e5f53bb9c4df46f97063bfa27f05a1f606ea556de42189e6bf3e928f70a531ae64e0f56072d6525178cee9bd41eafbcbbce4653476f4aa2346524a
   languageName: node
   linkType: hard
 
@@ -3330,10 +3330,10 @@ __metadata:
   linkType: hard
 
 "@react-navigation/native-stack@npm:~6.9.12":
-  version: 6.9.12
-  resolution: "@react-navigation/native-stack@npm:6.9.12"
+  version: 6.9.13
+  resolution: "@react-navigation/native-stack@npm:6.9.13"
   dependencies:
-    "@react-navigation/elements": ^1.3.17
+    "@react-navigation/elements": ^1.3.18
     warn-once: ^0.1.0
   peerDependencies:
     "@react-navigation/native": ^6.0.0
@@ -3341,31 +3341,31 @@ __metadata:
     react-native: "*"
     react-native-safe-area-context: ">= 3.0.0"
     react-native-screens: ">= 3.0.0"
-  checksum: 20e05983d157ed330575a13d34174ed4d6092b61d5fe5ff55050b2f4f8470ae81c53f6e87215f686a8b00067c799c91fb65638866b7adf8970ecdc6d188108e3
+  checksum: 10d1f2ef4f1f2f4543f77b9c378dd3b49ee3c20e6e9d15b1b3ce3489d46c634411f6bc4c3cda379e47e7f3a669fb765c99954229479cd20aff5fae800e886574
   languageName: node
   linkType: hard
 
 "@react-navigation/native@npm:~6.1.6":
-  version: 6.1.6
-  resolution: "@react-navigation/native@npm:6.1.6"
+  version: 6.1.7
+  resolution: "@react-navigation/native@npm:6.1.7"
   dependencies:
-    "@react-navigation/core": ^6.4.8
+    "@react-navigation/core": ^6.4.9
     escape-string-regexp: ^4.0.0
     fast-deep-equal: ^3.1.3
     nanoid: ^3.1.23
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 7d54fe80a39d163819fbf646d2c9c907f4ac967446527d81debf450aebeabaaad2428d7004c725015ed535c57cc99f2f8a1ca96b383c87bdcaaff9fcb567549a
+  checksum: 917be90290b2de6aa6d32f0798369757d5577814fa1cf3b6b7fb62efdc6341f0db2c85a1826f1f83ccd563ffd7c2ce3c98ff7560e80f868641a66f162650a992
   languageName: node
   linkType: hard
 
-"@react-navigation/routers@npm:^6.1.8":
-  version: 6.1.8
-  resolution: "@react-navigation/routers@npm:6.1.8"
+"@react-navigation/routers@npm:^6.1.9":
+  version: 6.1.9
+  resolution: "@react-navigation/routers@npm:6.1.9"
   dependencies:
     nanoid: ^3.1.23
-  checksum: f703ab9015e514e218a71a5cded79b1f2d2b7bb3d508e252aaa4b75cc1537b539177b1a66b4278322ce866320535fc1ebda7ea7f2f740abe6eac31f3b40e2c70
+  checksum: 3a3392ce095d6a2bd2aad69856f513b35774f943a3dc73d8ffb75127de6773203e3264188d87058bdea4c0c9a7d43ed28d0cbf3a1f1cdc086df3ee255d8e1e27
   languageName: node
   linkType: hard
 
@@ -4094,11 +4094,11 @@ __metadata:
     dripsy: 4.3.3
     expo-image-picker: ^14.1.1
     expo-local-authentication: 13.3.0
-    expo-sharing: ~11.2.2
+    expo-sharing: 11.2.2
     formik: "*"
     modern-screenshot: ^4.4.25
     moti: latest
-    react-native-date-picker: ^4.2.13
+    react-native-date-picker: 4.2.13
     react-native-modalfy: 3.3.3
     react-native-reanimated-carousel: ^3.3.2
     react-native-svg: ^13.9.0
@@ -6667,7 +6667,7 @@ __metadata:
     "@react-native-firebase/firestore": 18.3.0
     "@react-native-firebase/messaging": 18.3.0
     "@react-native-firebase/perf": 18.3.0
-    "@react-native-menu/menu": ^0.7.3
+    "@react-native-menu/menu": 0.7.3
     "@react-navigation/material-top-tabs": 6.6.3
     "@reduxjs/toolkit": ^1.9.5
     "@shopify/flash-list": 1.4.3
@@ -6677,7 +6677,7 @@ __metadata:
     axios: ^1.4.0
     date-time-format-timezone: ^1.0.22
     expo: ~48.0.18
-    expo-av: ~13.2.1
+    expo-av: 13.2.1
     expo-barcode-scanner: 12.3.2
     expo-build-properties: 0.6.0
     expo-clipboard: 4.1.2
@@ -6687,12 +6687,12 @@ __metadata:
     expo-linear-gradient: 12.1.2
     expo-linking: 4.0.1
     expo-local-authentication: 13.3.0
-    expo-media-library: ~15.2.3
-    expo-router: ^1.0.0
-    expo-screen-orientation: ~5.1.1
-    expo-sharing: ~11.2.2
-    expo-splash-screen: ~0.18.2
-    expo-status-bar: ~1.4.4
+    expo-media-library: 15.2.3
+    expo-router: 1.5.3
+    expo-screen-orientation: 5.1.1
+    expo-sharing: 11.2.2
+    expo-splash-screen: 0.18.2
+    expo-status-bar: 1.4.4
     formik: ^2.2.9
     html-to-image: ^1.11.11
     i18n-js: 4.2.0
@@ -6707,22 +6707,22 @@ __metadata:
     react-native-barcode-mask: ^1.2.4
     react-native-branch: 5.8.0
     react-native-chart-kit: ^6.12.0
-    react-native-code-push: ^8.0.2
+    react-native-code-push: 8.0.2
     react-native-confirmation-code-field: ^7.3.1
-    react-native-date-picker: ^4.2.13
-    react-native-device-info: ^10.8.0
+    react-native-date-picker: 4.2.13
+    react-native-device-info: 10.8.0
     react-native-dotenv: ^3.4.8
     react-native-gesture-handler: ~2.9.0
-    react-native-ios-context-menu: ^1.15.3
+    react-native-ios-context-menu: 1.15.3
     react-native-keyboard-aware-scroll-view: ^0.9.5
     react-native-mask-input: ^1.2.3
     react-native-modalfy: 3.3.3
     react-native-pager-view: 6.1.2
     react-native-qrcode-svg: ^6.2.0
-    react-native-reanimated: ^3.1.0
-    react-native-render-html: ^6.3.4
+    react-native-reanimated: 3.1.0
+    react-native-render-html: 6.3.4
     react-native-safe-area-context: 4.5.0
-    react-native-screens: ~3.20.0
+    react-native-screens: 3.21.1
     react-native-shadow-2: ^7.0.8
     react-native-share: 9.2.3
     react-native-shield-fraud-plugin: 1.0.4
@@ -6765,7 +6765,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-av@npm:~13.2.1":
+"expo-av@npm:13.2.1":
   version: 13.2.1
   resolution: "expo-av@npm:13.2.1"
   peerDependencies:
@@ -7018,7 +7018,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-media-library@npm:~15.2.3":
+"expo-media-library@npm:15.2.3":
   version: 15.2.3
   resolution: "expo-media-library@npm:15.2.3"
   peerDependencies:
@@ -7052,7 +7052,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-router@npm:^1.0.0":
+"expo-router@npm:1.5.3":
   version: 1.5.3
   resolution: "expo-router@npm:1.5.3"
   dependencies:
@@ -7086,7 +7086,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-screen-orientation@npm:~5.1.1":
+"expo-screen-orientation@npm:5.1.1":
   version: 5.1.1
   resolution: "expo-screen-orientation@npm:5.1.1"
   peerDependencies:
@@ -7095,7 +7095,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-sharing@npm:~11.2.2":
+"expo-sharing@npm:11.2.2":
   version: 11.2.2
   resolution: "expo-sharing@npm:11.2.2"
   peerDependencies:
@@ -7116,7 +7116,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-splash-screen@npm:~0.18.2":
+"expo-splash-screen@npm:0.18.2":
   version: 0.18.2
   resolution: "expo-splash-screen@npm:0.18.2"
   dependencies:
@@ -7128,7 +7128,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-status-bar@npm:~1.4.4":
+"expo-status-bar@npm:1.4.4":
   version: 1.4.4
   resolution: "expo-status-bar@npm:1.4.4"
   checksum: 8d36b821ff2804aed3158f339cc396f0525f365763913881b9b11e6e85e83f21ddbc3a2ede660ae8ce6d6df1a6cda825ad996c3c45f195cbc89091da7605f7e0
@@ -12125,7 +12125,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-date-picker@npm:^4.2.13":
+"react-native-date-picker@npm:4.2.13":
   version: 4.2.13
   resolution: "react-native-date-picker@npm:4.2.13"
   dependencies:
@@ -12137,7 +12137,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-device-info@npm:^10.8.0":
+"react-native-device-info@npm:10.8.0":
   version: 10.8.0
   resolution: "react-native-device-info@npm:10.8.0"
   peerDependencies:
@@ -12180,7 +12180,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-ios-context-menu@npm:^1.15.3":
+"react-native-ios-context-menu@npm:1.15.3":
   version: 1.15.3
   resolution: "react-native-ios-context-menu@npm:1.15.3"
   dependencies:
@@ -12289,7 +12289,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-reanimated@npm:^3.1.0":
+"react-native-reanimated@npm:3.1.0":
   version: 3.1.0
   resolution: "react-native-reanimated@npm:3.1.0"
   dependencies:
@@ -12310,7 +12310,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-render-html@npm:^6.3.4":
+"react-native-render-html@npm:6.3.4":
   version: 6.3.4
   resolution: "react-native-render-html@npm:6.3.4"
   dependencies:
@@ -12340,16 +12340,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-screens@npm:~3.20.0":
-  version: 3.20.0
-  resolution: "react-native-screens@npm:3.20.0"
+"react-native-screens@npm:3.21.1":
+  version: 3.21.1
+  resolution: "react-native-screens@npm:3.21.1"
   dependencies:
     react-freeze: ^1.0.0
     warn-once: ^0.1.0
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 94ab21378ee82765d329ccb8c92f5ca7cb15df916496fac7ce9a03c45e22579715000dae9c16f0a7d734a8fc1c2d0569fd82ecb71119a0b56046b5ea7533e7c2
+  checksum: 7a596108749e9afef4d3ac8b169f468a1f544ebe89a9b86716badbef0c1113d0fb7d068a17b0e767c473aead3832675ed191c09f572497bf2560f0a1db7498e1
   languageName: node
   linkType: hard
 
