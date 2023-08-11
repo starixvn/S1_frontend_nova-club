@@ -28,7 +28,7 @@
     "expo-linking": "4.0.1",
     "expo-local-authentication": "13.3.0",
     "expo-media-library": "15.2.3",
-    "expo-router": "1.0.1",
+    "expo-router": "1.5.3",
     "expo-screen-orientation": "5.1.1",
     "expo-sharing": "11.2.2",
     "expo-splash-screen": "0.18.2",
