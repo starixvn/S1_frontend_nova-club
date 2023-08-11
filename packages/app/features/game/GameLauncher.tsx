@@ -102,7 +102,9 @@ const GameLauncher = () => {
         .unwrap()
         .catch((e: IResponse<GetGameUrlResult>) => {
           console.log('error')
-          showAlert(e.message)
+          setTimeout(() => {
+            showAlert(e.message)
+          }, 500)
           return e
         })
 
