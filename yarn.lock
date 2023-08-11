@@ -4100,7 +4100,7 @@ __metadata:
     modern-screenshot: ^4.4.25
     moti: latest
     react-native-date-picker: ^4.2.13
-    react-native-modalfy: 3.3.2
+    react-native-modalfy: 3.3.3
     react-native-reanimated-carousel: ^3.3.2
     react-native-svg: ^13.9.0
     react-web-share: ^2.0.2
@@ -6717,7 +6717,7 @@ __metadata:
     react-native-ios-context-menu: ^1.15.3
     react-native-keyboard-aware-scroll-view: ^0.9.5
     react-native-mask-input: ^1.2.3
-    react-native-modalfy: 3.3.2
+    react-native-modalfy: 3.3.3
     react-native-pager-view: 6.1.2
     react-native-qrcode-svg: ^6.2.0
     react-native-reanimated: ^3.1.0
@@ -12215,9 +12215,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-modalfy@npm:3.3.2":
-  version: 3.3.2
-  resolution: "react-native-modalfy@npm:3.3.2"
+"react-native-modalfy@npm:3.3.3":
+  version: 3.3.3
+  resolution: "react-native-modalfy@npm:3.3.3"
   dependencies:
     hoist-non-react-statics: ^3.3.2
     react-is: ^17.0.2
@@ -12226,22 +12226,7 @@ __metadata:
     react: ">=16.8.3"
     react-native: ">=0.59.0"
     react-native-gesture-handler: ">=1.9.0"
-  checksum: 1234f7bd1e9957069876d550f7a38f2388d140de917b05181a304fcc6ce5cd3149c3ea10fc6443f3d071627e99e4c0ac1558249baccb7333061d065dca1db072
-  languageName: node
-  linkType: hard
-
-"react-native-modalfy@patch:react-native-modalfy@npm%3A3.3.2#./.yarn/patches/react-native-modalfy-npm-3.3.2-647962d1fa.patch::locator=vuifit%40workspace%3A.":
-  version: 3.3.2
-  resolution: "react-native-modalfy@patch:react-native-modalfy@npm%3A3.3.2#./.yarn/patches/react-native-modalfy-npm-3.3.2-647962d1fa.patch::version=3.3.2&hash=d0c655&locator=vuifit%40workspace%3A."
-  dependencies:
-    hoist-non-react-statics: ^3.3.2
-    react-is: ^17.0.2
-    use-memo-one: ^1.1.2
-  peerDependencies:
-    react: ">=16.8.3"
-    react-native: ">=0.59.0"
-    react-native-gesture-handler: ">=1.9.0"
-  checksum: 03952ef0f0bc37971a510487552ce783be692d873500d5d2bff41fcb6ed55980b1c95e38c5baaedcc3eaad6b9b94b79752e7062d4c731c3a8942b1dfc3bd05db
+  checksum: b157b9c7b0b4f402ae6d3c82fd1c83458dc07bc511957e7ad8eff6adfa01d70d3ed31bfbb49c7fb733f1a941a7b98b3cf3f46d0c82a255e7d13a51fb466129a7
   languageName: node
   linkType: hard
 
