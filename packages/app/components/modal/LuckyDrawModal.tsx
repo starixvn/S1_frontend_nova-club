@@ -1,3 +1,5 @@
+import { REFERRAL_DOMAIN } from '@env'
+import AvertaStd from 'app/assets/fonts/Averta'
 import useAlert from 'app/hooks/useAlert'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useOrientation from 'app/hooks/useOrientation'
@@ -5,33 +7,24 @@ import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { SettingActions } from 'app/store/setting.slice'
-import {
-  P,
-  Pressable,
-  ScrollView,
-  Text,
-  View,
-  useDripsyTheme,
-  useResponsiveValue,
-} from 'dripsy'
+import { Pressable, ScrollView, View, useDripsyTheme } from 'dripsy'
 import debounce from 'lodash/debounce'
 import { MotiText, MotiView } from 'moti'
 import { useCallback, useMemo, useRef, useState } from 'react'
 import { Linking, Platform, useWindowDimensions } from 'react-native'
+import { useModal } from 'react-native-modalfy'
 import { Easing } from 'react-native-reanimated'
 import { useDispatch } from 'react-redux'
 import { useLuckySpinMutation } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 import IconButton from '../IconButton'
 import { MotifiedImage } from '../common/Image'
-import AvertaStd from 'app/assets/fonts/Averta'
-import { useModal } from 'react-native-modalfy'
-import { REFERRAL_DOMAIN } from '@env'
 
 const LuckyDrawModal = ({ modal: { closeModal } }) => {
   const { t } = useLocalization()
   const dispatch = useDispatch()
   const { push } = useRouter()
+  const token = useAppSelector((s) => s.auth.info?.token)
   const { closeModal: closeTargetModal } = useModal()
 
   const { width: fullWidth, height } = useContainerDimension()
@@ -51,7 +44,7 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
   const [startAnimateWinPrizeFrame, setStartAnimateWinPrizeFrame] =
     useState(false)
 
-  const canSpin = true // luckyDrawBalance > 0
+  const canSpin = luckyDrawBalance > 0 // luckyDrawBalance > 0
 
   const { isLandscape } = useOrientation()
 
@@ -241,14 +234,14 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
               <LuckySpinLogo width={fullWidth} />
               <PurpleTableImage width={fullWidth} />
 
-              {Platform.OS === 'web' && (
-                <DownloadAppButton
+              {/* {Platform.OS === 'web' && (
+                <RegisterToSpinButton
                   height={height}
                   width={fullWidth}
                   windowWidth={windowWidth}
                   onPress={handleClose}
                 />
-              )}
+              )} */}
               {MemoizedWheel}
               <LuckySpinWheelFrame width={fullWidth} />
               {/* Android will crash with the rotation value supplied */}
@@ -278,7 +271,7 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
               )}
             </View>
 
-            {Platform.OS !== 'web' && (
+            {token && canSpin && (
               <Pressable
                 onPress={() => {
                   triggerDebounceSpin()
@@ -320,6 +313,15 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
                   }}
                 />
               </Pressable>
+            )}
+            {!token && (
+              <HintButton
+                height={height}
+                width={fullWidth}
+                windowWidth={windowWidth}
+                onPress={handleClose}
+                hintText={t('event.luckyDraw.registerSpin')}
+              />
             )}
           </View>
         </View>
@@ -381,23 +383,25 @@ function parseRotationValue(radian: number = 0) {
   return `${radian}rad`
 }
 
-interface DownloadAppButtonProps {
+interface HintButtonProps {
   windowWidth: number
   onPress: () => void
   width: number
   height: number
+  hintText: string
 }
 
-const DownloadAppButton = ({
+const HintButton = ({
   windowWidth,
   onPress,
   width,
   height,
-}: DownloadAppButtonProps) => {
+  hintText,
+}: HintButtonProps) => {
   const { push } = useRouter()
   const { theme } = useDripsyTheme()
   const { t } = useLocalization()
-  const { closeModal } = useModal()
+  const { openModal } = useModal()
   return (
     <Pressable
       sx={{
@@ -408,11 +412,12 @@ const DownloadAppButton = ({
         alignItems: 'center',
       }}
       onPress={() => {
-        closeModal('RegisterModal')
+        // closeModal('RegisterModal')
         if (windowWidth < 992) {
-          Linking.openURL(REFERRAL_DOMAIN)
+          push('/auth/register/?t=member')
+          onPress()
         } else {
-          push('/download')
+          openModal('RegisterModal')
           onPress()
         }
       }}
@@ -424,7 +429,7 @@ const DownloadAppButton = ({
           transition={{ type: 'timing', duration: 500, loop: true }}
           style={{
             fontWeight: 'bold',
-            fontSize: 12,
+            fontSize: 14,
             textTransform: 'uppercase',
             color: 'white',
             borderRadius: 10,
@@ -433,27 +438,9 @@ const DownloadAppButton = ({
             marginRight: 4,
           }}
         >
-          {t('common.download')}
+          {hintText}
         </MotiText>
-        <Text
-          sx={{
-            fontWeight: 'bold',
-            fontSize: 12,
-            textTransform: 'uppercase',
-          }}
-        >
-          {t('event.luckyDraw.appSpin')}
-        </Text>
       </View>
-
-      <MotifiedImage
-        source={require('app/assets/images/luckydraw/download.gif')}
-        sx={{
-          width: width * useResponsiveValue([0.03]),
-          ml: '$2',
-          aspectRatio: 1,
-        }}
-      />
     </Pressable>
   )
 }

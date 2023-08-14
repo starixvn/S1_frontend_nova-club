@@ -203,7 +203,9 @@
     "lose": "RẤT TIẾC!",
     "lose2": "CHÚC BẠN MAY MẮN LẦN SAU.",
     "luckyDraw": {
-      "appSpin": "ứng dụng để quay"
+      "appSpin": "ứng dụng để quay",
+      "registerSpin": "ĐĂNG KÝ VÀ QUAY",
+      "ineligibleSpin": "không đủ điều kiện để quay"
     },
     "next": "CHƠI TIẾP",
     "prediction": {

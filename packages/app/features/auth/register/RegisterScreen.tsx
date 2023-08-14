@@ -2,9 +2,8 @@ import CustomTabBar from 'app/components/navigation/CustomTabBar'
 import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
 import { MotiView } from 'moti'
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { Platform, View as RNView } from 'react-native'
-import { useModal } from 'react-native-modalfy'
 import AuthLayout from '../AuthLayout'
 import AccountVerificationForm from './AccountVerificationForm'
 import RegisterForm from './RegisterForm'
@@ -22,7 +21,6 @@ export type RegisterFormValues = {
 const RegisterScreen = () => {
   const rootRef = useRef<RNView>(null)
   const { t } = useLocalization()
-  const { closeModal, openModal, currentModal } = useModal()
 
   const {
     animationState,
@@ -36,26 +34,6 @@ const RegisterScreen = () => {
     onBack,
     currentScreen,
   } = useRegisterScreen(rootRef)
-
-  useEffect(() => {
-    if (currentModal === 'LuckyDrawModal') {
-      closeModal('LuckyDrawModal')
-    }
-
-    let openLuckyDrawModalInstance: NodeJS.Timeout
-
-    if (Platform.OS === 'web') {
-      openLuckyDrawModalInstance = setTimeout(() => {
-        openModal('LuckyDrawModal')
-      }, 1000)
-    }
-
-    return () => {
-      if (openLuckyDrawModalInstance) {
-        clearTimeout(openLuckyDrawModalInstance)
-      }
-    }
-  }, [])
 
   return (
     <View

@@ -203,7 +203,9 @@
     "lose": "SORRY, YOU DIDN'T WIN.",
     "lose2": " BETTER LUCK NEXT TIME.",
     "luckyDraw": {
-      "appSpin": "App To Spin"
+      "appSpin": "App To Spin",
+      "registerSpin": "REGISTER AND SPIN",
+      "ineligibleSpin": "Ineligible To Spin"
     },
     "next": "PLAY NEXT",
     "prediction": {

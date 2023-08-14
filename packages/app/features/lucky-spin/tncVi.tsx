@@ -16,7 +16,7 @@ const TncVi = () => {
       </div>
 
       <ol>
-        <li>Áp dụng cho TẤT CẢ thành viên mới đăng ký qua ỨNG DỤNG</li>
+        <li>Áp dụng cho TẤT CẢ thành viên mới đăng ký</li>
         <li>
           Các tài khoản có chung địa chỉ IP và sử dụng chung thiết bị không được
           tham gia khuyến mãi này
