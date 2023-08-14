@@ -665,7 +665,7 @@ PODS:
   - EXMediaLibrary (15.2.3):
     - ExpoModulesCore
     - React-Core
-  - Expo (48.0.18):
+  - Expo (48.0.20):
     - ExpoModulesCore
   - ExpoClipboard (4.1.2):
     - ExpoModulesCore
@@ -1348,7 +1348,7 @@ PODS:
     - React-RCTText
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.20.0):
+  - RNScreens (3.21.1):
     - React-Core
     - React-RCTImage
   - RNShare (9.2.3):
@@ -1681,7 +1681,7 @@ SPEC CHECKSUMS:
   EXFont: 6ea3800df746be7233208d80fe379b8ed74f4272
   EXImageLoader: fd053169a8ee932dd83bf1fe5487a50c26d27c2b
   EXMediaLibrary: 587cd8aad27a6fc8d7c38b950bc75bc1845a7480
-  Expo: 3ad7b6c4f91a8d4e661831666952e72294493e80
+  Expo: b7d2843b0a0027d0ce76121a63085764355a16ed
   ExpoClipboard: 9b87df0ad145e3aa841614fab6aea54b7a604850
   ExpoDevice: e0bebf68f978b3d353377ce42e73c20c0a070215
   ExpoImage: 55b537a1f50df2f6fc3c2d82552e6d1df397a73d
@@ -1775,7 +1775,7 @@ SPEC CHECKSUMS:
   RNNotifee: 115a0bd237f4c1ffdbcafc0e1cccece60c3300b7
   RNNotifeeCore: 9b5f576cdaa4fb7199d35d0651eb4f3ca0f5bcd3
   RNReanimated: 7afddd5ab0590339f3e83d7bb52f43a73443b862
-  RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
+  RNScreens: d3675ab2878704de70c9dae57fa5d024802404cc
   RNShare: da6d90b6dc332f51f86498041d6e34211f96b630
   RNSVG: 07dbd870b0dcdecc99b3a202fa37c8ca163caec2
   SDWebImage: cb032eba469c54e0000e78bcb0a13cdde0a52798
