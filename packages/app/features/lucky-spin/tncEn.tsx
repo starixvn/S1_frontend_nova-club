@@ -15,7 +15,7 @@ const TncEn = () => {
       </div>
 
       <ol>
-        <li>Apply to ALL first time registered member in APP only</li>
+        <li>Apply to ALL first time registered member</li>
         <li>Same IP and devices registered before are not entitled</li>
         <li>
           Member who qualified for free spin will see the pop up Lucky Wheel

@@ -9,7 +9,7 @@ import { ActivityIndicator, Container, Pressable, Row, View } from 'dripsy'
 import { ResizeMode, Video } from 'expo-av'
 import groupBy from 'lodash/groupBy'
 import React, { startTransition, useEffect, useMemo, useState } from 'react'
-import { Platform } from 'react-native'
+import { Linking, Platform } from 'react-native'
 import { useGameListMultipleQuery } from 'services/gameApi'
 import { Game, LatestWinnerType } from 'services/gameApi.type'
 import { createParam } from 'solito'
@@ -66,15 +66,20 @@ function SlotScreen({}: Props) {
         <View sx={{ flex: 0.8, minHeight: 320 }}>
           <LatestWinnerSection type={LatestWinnerType.Slot} />
         </View>
-        <View sx={{ flex: 1, minHeight: 320 }}>
+        <Pressable
+          sx={{ flex: 1, minHeight: 320 }}
+          onPress={() =>
+            Linking.openURL('https://pp88.asia/vi/promotion/daily-wins/')
+          }
+        >
           <SolitoImage
             style={{ width: '100%', height: '100%' }}
-            src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/slot/dailywins@2x.jpg`}
+            src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/slot/ppBanner.jpg`}
             alt="dailywins"
             contentFit="cover"
             fill
           />
-        </View>
+        </Pressable>
         <View sx={{ flex: 1, minHeight: 320 }}>
           <Video
             isMuted
