@@ -441,7 +441,8 @@
     "systemError": "Oops! Something wrong, please try again.",
     "qrTransferSelfError": "Transfer to own account is not allowed",
     "scanFailed": "Scan Failed!",
-    "imageNotSupported": "Image format not supported"
+    "imageNotSupported": "Image format not supported",
+    "networkError": "Network Error!"
   },
   "transaction": {
     "pending": "Pending Transactions",

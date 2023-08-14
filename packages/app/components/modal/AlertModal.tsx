@@ -13,6 +13,7 @@ const AlertModal = ({ modal: { closeModal, getParam } }) => {
   const onClose = getParam('onClose')
 
   const { width } = useWindowDimensions()
+  const { t } = useLocalization()
 
   useEffect(() => {
     return () => {
@@ -24,7 +25,7 @@ const AlertModal = ({ modal: { closeModal, getParam } }) => {
     <ModalWrapper sx={{ width: Math.min(500, width * 0.9) }}>
       <ModalContent title={title} actions={actions} close={closeModal}>
         <Text sx={{ textAlign: 'center', fontSize: [14, 14, 14, 16] }}>
-          {message}
+          {t(message)}
         </Text>
       </ModalContent>
     </ModalWrapper>
