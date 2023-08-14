@@ -33,6 +33,7 @@ import BankSlipUpload, {
 } from '../component/BankSlipUpload'
 import HorizontalSelectBankCardGrid from '../component/HorizontalSelectBankCardGrid'
 import AccountDetail from './AccountDetail'
+import useDepositFailedMessage from '../tools/useDepositFailedMessage'
 
 type BankTransferValues = {
   bank: ManualBankItem | undefined
@@ -59,6 +60,7 @@ const BankTransferForm = () => {
   )
 
   const horizontalMode = useIsDesktop()
+  const { dispatchDepositFailedMessage } = useDepositFailedMessage()
 
   const sheetData =
     depositPayment?.list.map((item) => {
@@ -97,7 +99,7 @@ const BankTransferForm = () => {
       })
         .unwrap()
         .catch((error) => {
-          showAlert(error)
+          dispatchDepositFailedMessage(error)
           return null
         })
       if (depositResp) {

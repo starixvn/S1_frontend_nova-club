@@ -162,7 +162,8 @@
       "description": "Browse your Bank Transfer Receipt or Invoice",
       "files": "Select File",
       "title": "Upload Receipt"
-    }
+    },
+    "commonError": "Bank is under maintenance. Please try another bank or payment method"
   },
   "download": {
     "android": "ANDROID",

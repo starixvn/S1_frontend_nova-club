@@ -22,6 +22,7 @@ import { usePlayerProfileQuery } from 'services/playerApi'
 import * as Yup from 'yup'
 import HorizontalSelectBankCardGrid from '../component/HorizontalSelectBankCardGrid'
 import ValueCard from './ValueCard'
+import useDepositFailedMessage from '../tools/useDepositFailedMessage'
 
 type TopupValues = {
   realAmount: number
@@ -42,6 +43,7 @@ const TopupCardForm = () => {
   const { data } = useDepositPaymentListQuery({
     is_mobile: horizontalMode ? 1 : 0,
   })
+  const { dispatchDepositFailedMessage } = useDepositFailedMessage()
 
   const depositPayment = data?.data?.result.auto.find(
     (el) => el.category_id === DepositPaymentMethodCategoryId.TOP_UP
@@ -103,7 +105,7 @@ const TopupCardForm = () => {
       })
         .unwrap()
         .catch((error) => {
-          showAlert(error)
+          dispatchDepositFailedMessage(error)
           return error
         })
 

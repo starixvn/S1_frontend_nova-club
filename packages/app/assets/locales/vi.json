@@ -162,7 +162,8 @@
       "description": "Chọn hình ảnh biên lai hoặc hóa đơn để tải lên",
       "files": "Tải tệp tin",
       "title": "Tải biên lai ngân hàng"
-    }
+    },
+    "commonError": "Ngân hàng này hiện đang bảo trì. Vui lòng thử với ngân hàng khác hoặc đổi phương thức thanh toán."
   },
   "download": {
     "android": "ANDROID",
