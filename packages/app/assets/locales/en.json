@@ -204,7 +204,9 @@
     "lose": "SORRY, YOU DIDN'T WIN.",
     "lose2": " BETTER LUCK NEXT TIME.",
     "luckyDraw": {
-      "appSpin": "App To Spin"
+      "appSpin": "App To Spin",
+      "registerSpin": "REGISTER AND SPIN",
+      "ineligibleSpin": "Ineligible To Spin"
     },
     "next": "PLAY NEXT",
     "prediction": {
@@ -442,7 +444,8 @@
     "systemError": "Oops! Something wrong, please try again.",
     "qrTransferSelfError": "Transfer to own account is not allowed",
     "scanFailed": "Scan Failed!",
-    "imageNotSupported": "Image format not supported"
+    "imageNotSupported": "Image format not supported",
+    "networkError": "Network Error!"
   },
   "transaction": {
     "pending": "Pending Transactions",

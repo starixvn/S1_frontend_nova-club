@@ -204,7 +204,9 @@
     "lose": "RẤT TIẾC!",
     "lose2": "CHÚC BẠN MAY MẮN LẦN SAU.",
     "luckyDraw": {
-      "appSpin": "ứng dụng để quay"
+      "appSpin": "ứng dụng để quay",
+      "registerSpin": "ĐĂNG KÝ VÀ QUAY",
+      "ineligibleSpin": "không đủ điều kiện để quay"
     },
     "next": "CHƠI TIẾP",
     "prediction": {
@@ -442,7 +444,8 @@
     "rejected": "Từ chối",
     "scanFailed": "Quét không thành công!",
     "success": "Thành công",
-    "systemError": "Rất tiếc! Đã xảy ra lỗi, vui lòng thử lại."
+    "systemError": "Rất tiếc! Đã xảy ra lỗi, vui lòng thử lại.",
+    "networkError": "Lỗi mạng!"
   },
   "transaction": {
     "pending": "Đang chờ giao dịch",

@@ -57,7 +57,9 @@ export function axiosBaseQuery<T>(): BaseQueryFn<
           }
         }
       }
-
+      if (error.message === 'Network Error') {
+        errorObj.message = 'status.networkError'
+      }
       return {
         error: errorObj,
       }
