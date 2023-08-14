@@ -441,7 +441,8 @@
     "rejected": "Từ chối",
     "scanFailed": "Quét không thành công!",
     "success": "Thành công",
-    "systemError": "Rất tiếc! Đã xảy ra lỗi, vui lòng thử lại."
+    "systemError": "Rất tiếc! Đã xảy ra lỗi, vui lòng thử lại.",
+    "networkError": "Lỗi mạng!"
   },
   "transaction": {
     "pending": "Đang chờ giao dịch",
