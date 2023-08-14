@@ -66,6 +66,7 @@ export type ModalStackParams = {
     t: LoginType
   }
   EventPopupModal: undefined
+  DepositQrModal: { qrCode: string }
 }
 
 type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
@@ -97,6 +98,7 @@ const _dynamicModal: Record<keyof ModalStackParams, () => Promise<any>> = {
   ForgotPasswordModal: () =>
     import('desktop-ext/features/auth/forgotPassword/ForgotPasswordScreen'),
   EventPopupModal: () => import('app/components/modal/EventPopupModal'),
+  DepositQrModal: () => import('app/components/modal/DepositQrModal'),
 }
 
 function getDynamicComponent(key: DynamicModalType) {
@@ -167,6 +169,9 @@ const modalConfig: ModalConfigType = {
   },
   EventPopupModal: {
     modal: getDynamicComponent('EventPopupModal'),
+  },
+  DepositQrModal: {
+    modal: getDynamicComponent('DepositQrModal'),
   },
   ...agentModalConfig,
 }

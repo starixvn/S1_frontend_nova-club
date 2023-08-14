@@ -4,8 +4,7 @@ import { ActivityIndicator, ScrollView, Text, View } from 'dripsy'
 import DepositCard from './component/DepositCard'
 import useCheckMobile from 'app/hooks/useCheckMobile'
 import { useDepositPaymentListQuery } from 'services/deposit'
-import { DepositMethodId, PaymentMethod } from 'app/constants/deposit'
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'solito/router'
 import RecentTransactionRow from './component/RecentTransactionRow'
 import RefreshButton from 'app/components/RefreshButton'
@@ -19,17 +18,15 @@ import {
 import dayjsTz from 'app/utils/dayjs'
 import MenuNotice from 'app/components/navigation/MenuNotice'
 import { useModal } from 'react-native-modalfy'
+import PaymentMethod, { DepositMethodId } from 'app/config/deposit'
+import useDepositList from './tools/useDepositList'
 
 const Deposit = () => {
   const { t } = useLocalization()
   const { push } = useRouter()
   const { openModal } = useModal()
-  const [paymentMethodList, setPaymentMethodList] = useState(PaymentMethod)
 
-  const { isMobile } = useCheckMobile()
-  const { data, isLoading } = useDepositPaymentListQuery({
-    is_mobile: isMobile ? 0 : 1,
-  })
+  const { paymentMethodList, isLoading } = useDepositList()
 
   const {
     data: transactionData,
@@ -94,8 +91,8 @@ const Deposit = () => {
             sx={{
               flexDirection: 'row',
               flexWrap: 'wrap',
-              px: '$2',
-              justifyContent: 'space-around',
+              px: '$3',
+              justifyContent: 'space-between',
             }}
           >
             {paymentMethodList &&

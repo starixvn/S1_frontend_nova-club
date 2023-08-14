@@ -9,6 +9,7 @@ import useWithdrawalForm from '../hooks/useWithdrawalForm'
 import EmptyAccount from './EmptyAccount'
 import WithdrawalAmount from './WithdrawalAmount'
 import WithdrawalConfirm from './WithdrawalConfirm'
+import { useGetAvailableWithdrawalAmountQuery } from 'services/withdrawal'
 
 type WithdrawalFormProps = {
   isCrypto: boolean
@@ -17,6 +18,10 @@ type WithdrawalFormProps = {
 
 const WithdrawalForm = ({ isCrypto, selectedChannel }: WithdrawalFormProps) => {
   const { t } = useLocalization()
+
+  const { data: availableBalance } = useGetAvailableWithdrawalAmountQuery()
+
+  const withdrawalMinMax = { min: 50000, max: 1000000000 }
 
   const [walletAddressList, setWalletAddressList] = useState<SelectOptions[]>(
     []
@@ -28,7 +33,10 @@ const WithdrawalForm = ({ isCrypto, selectedChannel }: WithdrawalFormProps) => {
     handleSelected,
     handleGoToBank,
     withdrawalConfirmation,
-  } = useWithdrawalForm({ isCrypto, minMax: selectedChannel?.minMax })
+  } = useWithdrawalForm({
+    isCrypto,
+    minMax: isCrypto ? selectedChannel?.minMax : withdrawalMinMax,
+  })
 
   const { values, isValid, dirty } = formik
 
@@ -104,11 +112,11 @@ const WithdrawalForm = ({ isCrypto, selectedChannel }: WithdrawalFormProps) => {
       <WithdrawalAmount
         isCrypto={isCrypto}
         formik={formik}
-        minMax={selectedChannel?.minMax}
+        minMax={isCrypto ? selectedChannel?.minMax : withdrawalMinMax}
       />
 
       <WithdrawalConfirm
-        disabled={!isValid || !dirty}
+        disabled={!isValid || !dirty || availableBalance?.balance === 0}
         onPress={withdrawalConfirmation}
       />
     </>

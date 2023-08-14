@@ -4,7 +4,8 @@ import Image from 'app/components/common/Image'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { copyToClipboard } from 'app/utils'
-import { Text, View } from 'dripsy'
+import { Pressable, Text, View } from 'dripsy'
+import { useModal } from 'react-native-modalfy'
 
 type AccountDefailProps = {
   accountName: string
@@ -19,6 +20,7 @@ const AccountDetail = ({
 }: AccountDefailProps) => {
   const { t } = useLocalization()
   const horizontalMode = useIsDesktop()
+  const { openModal } = useModal()
 
   return (
     <View
@@ -83,7 +85,8 @@ const AccountDetail = ({
 
         <View>
           {qrCode ? (
-            <View
+            <Pressable
+              onPress={() => openModal('DepositQrModal', { qrCode })}
               sx={{ justifyContent: 'center', alignItems: 'center', py: 12 }}
             >
               <Image
@@ -93,7 +96,7 @@ const AccountDetail = ({
                 }}
                 sx={{ width: 120, height: 120 }}
               />
-            </View>
+            </Pressable>
           ) : null}
         </View>
       </View>

@@ -8,6 +8,7 @@ import { SocialMedia, getSocialMediaScheme } from 'app/constants/socialMedia'
 import { Game } from 'services/gameApi.type'
 import { useRouter } from 'solito/router'
 import { SabaGamePayload } from 'app/constants/game'
+import { store } from 'app/provider/redux/store'
 
 export const SHAREHOLDER_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/agent-recruitment.mp4`
 export const FISHING_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/fishing.mp4`
@@ -38,9 +39,10 @@ const config = [
     src: SHAREHOLDER_IMG,
     type: 'video',
     action: {
-      type: ActionType.EXTERNAL_REDIRECT,
+      type: ActionType.INTERNAL_REDIRECT,
       payload: {
-        uri: getSocialMediaScheme(SocialMedia.ZALO).scheme,
+        uri: store.getState().auth.info?.token ? '/agent' : '/auth/register',
+        params: store.getState().auth.info?.token ? {} : { t: 'agent' },
       },
     },
   },

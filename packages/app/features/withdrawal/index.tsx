@@ -1,7 +1,6 @@
 import DepositMethodCard from 'app/components/DepositMethodCard'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import MenuNotice from 'app/components/navigation/MenuNotice'
-import { DepositMethodId, PAYMENT_METHOD } from 'app/constants/deposit'
 import useLocalization from 'app/provider/localization'
 import { WITHDRAWAL_NOTES } from 'app/utils/constant'
 import { Text, View, styled } from 'dripsy'
@@ -12,6 +11,7 @@ import { useRouter } from 'solito/router'
 import AvailableBalance from './components/AvailableBalance'
 import WithdrawalTransactions from './components/WithdrawalTransactions'
 import { FLAG_PAYMENT_TYPE_BANK } from 'app/constants/crypto'
+import { DepositMethodId, PAYMENT_METHOD } from 'app/config/deposit'
 
 const WithdrawalScreen = () => {
   const { t } = useLocalization()

@@ -19,6 +19,7 @@ import {
 } from './NavigationHeaderProvider'
 import FloatingContent from 'app/features/floatingContent'
 import { BOTTOM_TAB_BAR_HEIGHT } from 'app/components/navigation/BottomTabBar'
+import { useAppSelector } from 'app/provider/redux/store'
 
 interface MenuProps {
   icon?: string
@@ -90,6 +91,7 @@ export const NAVIGATION_HEIGHT = 50
 export default function NavigationHeader({}) {
   const toggleMenu = useNavigationHeader()
   const { openModal } = useModal()
+  const token = useAppSelector((s) => s.auth.info?.token)
 
   return (
     <>
@@ -114,7 +116,7 @@ export default function NavigationHeader({}) {
                 <Pressable
                   sx={{ position: 'relative', top: NAVIGATION_HEIGHT - 55 }}
                   onPress={() => {
-                    openModal('LuckyDrawModal', {})
+                    !token && openModal('LuckyDrawModal', {})
                   }}
                 >
                   <SolitoImage

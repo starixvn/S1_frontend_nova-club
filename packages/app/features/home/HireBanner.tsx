@@ -54,88 +54,88 @@ export default function HireBanner() {
     [lang]
   )
 
+  const handlePress = () => {
+    token
+      ? !playerData?.firstName
+        ? isDesktop
+          ? handleDesktopAccountVerification()
+          : push('/account/account-verification')
+        : push('/deposit/bank-transfer')
+      : isDesktop
+      ? openModal('RegisterModal')
+      : push('/auth/register/?t=member')
+  }
+
   return (
-    <Row
-      sx={{
-        borderRadius: 40,
-        bg: '$primary.200',
-        p: ['$1', '$1', '$1', '$2'],
-      }}
-    >
-      <View
-        sx={{
-          borderRadius: 30,
-          bg: '$primary.500',
-          px: ['$2', '$3'],
-          justifyContent: 'center',
-          flex: [0.5, 0.5, 0.5, 0.7],
-        }}
-      >
-        <Label
-          sx={{
-            fontWeight: '900',
-            textAlign: 'center',
-          }}
-        >
-          {t('home.banner.n1')}
-        </Label>
-      </View>
+    <Pressable onPress={handlePress}>
       <Row
         sx={{
-          alignItems: 'center',
-          flex: 1,
-          justifyContent: 'space-between',
+          borderRadius: 40,
+          bg: '$primary.200',
+          p: ['$1', '$1', '$1', '$2'],
         }}
       >
         <View
           sx={{
-            mx: '$1',
-            px: ['$1', '$2'],
-            flex: 1,
+            borderRadius: 30,
+            bg: '$primary.500',
+            px: ['$2', '$3'],
+            justifyContent: 'center',
+            flex: [0.5, 0.5, 0.5, 0.7],
           }}
         >
-          <Label sx={{ flex: 1, color: '$secondary.100' }}>
-            {t('home.banner.n2')}
+          <Label
+            sx={{
+              fontWeight: '900',
+              textAlign: 'center',
+            }}
+          >
+            {t('home.banner.n1')}
           </Label>
-
-          <Row sx={{ flex: 1, alignItems: 'center' }}>
-            {animatedText}
-            {show && (
-              <Icon
-                size={16}
-                name="date"
-                sx={{
-                  ml: ['$1', '$2'],
-                }}
-              />
-            )}
-            <Label
-              sx={{
-                mx: ['$1', '$2'],
-              }}
-            >
-              01-31/08/2023
-            </Label>
-          </Row>
         </View>
-
-        <AnimatedButton
-          onPress={() =>
-            token
-              ? !playerData?.firstName
-                ? isDesktop
-                  ? handleDesktopAccountVerification()
-                  : push('/account/account-verification')
-                : push('/deposit/bank-transfer')
-              : isDesktop
-              ? openModal('RegisterModal')
-              : push('/auth/register/?t=member')
-          }
+        <Row
+          sx={{
+            alignItems: 'center',
+            flex: 1,
+            justifyContent: 'space-between',
+          }}
         >
-          {t('home.playNow')}
-        </AnimatedButton>
+          <View
+            sx={{
+              mx: '$1',
+              px: ['$1', '$2'],
+              flex: 1,
+            }}
+          >
+            <Label sx={{ flex: 1, color: '$secondary.100' }}>
+              {t('home.banner.n2')}
+            </Label>
+
+            <Row sx={{ flex: 1, alignItems: 'center' }}>
+              {animatedText}
+              {show && (
+                <Icon
+                  size={16}
+                  name="date"
+                  sx={{
+                    ml: ['$1', '$2'],
+                  }}
+                />
+              )}
+              <Label
+                sx={{
+                  mx: ['$1', '$2'],
+                }}
+              >
+                01-31/08/2023
+              </Label>
+            </Row>
+          </View>
+
+          <AnimatedButton>{t('home.playNow')}</AnimatedButton>
+        </Row>
       </Row>
-    </Row>
+    </Pressable>
   )
 }
 
@@ -178,8 +178,7 @@ export const AnimatedButton = ({ onPress, children }) => {
   )
 
   return (
-    <Pressable
-      onPress={onPress}
+    <View
       sx={{
         borderRadius: 50,
         overflow: 'hidden',
@@ -196,6 +195,6 @@ export const AnimatedButton = ({ onPress, children }) => {
       >
         {animatedText}
       </DripsyGradient>
-    </Pressable>
+    </View>
   )
 }

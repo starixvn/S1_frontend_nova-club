@@ -4,6 +4,7 @@ import BottomTabBar, {
 import MainHeader from 'app/components/navigation/header/MainHeader'
 import { HEADER_HEIGHT } from 'app/utils/constant'
 import { ReactNode, useEffect } from 'react'
+import AppDownloadSuggestion from 'app/components/AppDownloadSuggestion'
 
 export default function TabLayout({ children }: { children: ReactNode }) {
   useEffect(() => {
@@ -35,6 +36,7 @@ const FloatedHeader = () => (
       color: 'white',
     }}
   >
+    <AppDownloadSuggestion />
     <MainHeader />
   </div>
 )

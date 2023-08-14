@@ -41,20 +41,6 @@ const FieldSelectBank = ({ field, isLoading, formik }: FieldBankProps) => {
   }
   return field ? (
     <>
-      {/* <Select
-        label={t('bank.bank')}
-        placeholder={t('bank.selectBank')}
-        value={values.bank?.label ?? ''}
-        loading={isLoading}
-        options={bankList}
-        onSelected={handleSelected}
-        isHorizontalActionSheet
-        sx={{ mb: 0, mt: '$2' }}
-        _actionSheet={{
-          sheetId: ACTION_SHEET_ID.AUTO_DEPOSIT,
-          headerTitle: t('bank.bank'),
-        }}
-      /> */}
       {horizontalMode ? (
         <View>
           <InputLabel label={t('bank.bank')} />

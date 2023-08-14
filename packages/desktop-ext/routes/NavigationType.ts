@@ -5,4 +5,5 @@ export interface DesktopRoute {
   icon?: string
   key: string
   params?: any
+  categoryId: number
 }

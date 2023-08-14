@@ -1,3 +1,4 @@
+import SelectWithDropdown from 'app/components/select/SelectWithDropdown'
 import WithdrawalAmount from 'app/features/withdrawal/components/WithdrawalAmount'
 import WithdrawalConfirm from 'app/features/withdrawal/components/WithdrawalConfirm'
 import useCryptoRates from 'app/features/withdrawal/hooks/useCryptoRates'
@@ -6,13 +7,13 @@ import useWithdrawalForm from 'app/features/withdrawal/hooks/useWithdrawalForm'
 import useLocalization from 'app/provider/localization'
 import { toThousandSeparator } from 'app/utils'
 import React, { useEffect, useState } from 'react'
-import BankSelection, { AddNewAccount } from './BankSelection'
-import SelectWithDropdown from 'app/components/select/SelectWithDropdown'
-import EmptyAccount from 'app/features/withdrawal/components/EmptyAccount'
 import { SelectOptions } from 'services/common/types'
+import { useGetAvailableWithdrawalAmountQuery } from 'services/withdrawal'
+import BankSelection, { AddNewAccount } from './BankSelection'
 
 const DesktopCryptoWithdrawalForm = () => {
   const { t } = useLocalization()
+  const { data: availableBalance } = useGetAvailableWithdrawalAmountQuery()
   const [walletAddressList, setWalletAddressList] = useState<SelectOptions[]>(
     []
   )
@@ -92,7 +93,7 @@ const DesktopCryptoWithdrawalForm = () => {
       />
 
       <WithdrawalConfirm
-        disabled={!isValid || !dirty}
+        disabled={!isValid || !dirty || availableBalance?.balance === 0}
         onPress={withdrawalConfirmation}
       />
     </>

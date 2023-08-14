@@ -7,22 +7,19 @@ import useRegisterScreen, {
   Register_Screen,
 } from 'app/features/auth/register/useRegisterScreen'
 import useLocalization from 'app/provider/localization'
-import { Row, Text, View, useDripsyTheme } from 'dripsy'
-import { MotiView } from 'moti'
-import React, { useEffect, useRef } from 'react'
-import { View as RNView } from 'react-native'
-import { useModal } from 'react-native-modalfy'
-import AuthLayout from '../AuthLayout'
-import { ModalComponentProp } from 'react-native-modalfy'
 import { ModalStackParams } from 'app/provider/modal'
+import { Row, Text, View } from 'dripsy'
+import { MotiView } from 'moti'
+import React, { useRef } from 'react'
+import { View as RNView } from 'react-native'
+import { ModalComponentProp } from 'react-native-modalfy'
+import AuthLayout from '../AuthLayout'
 
 type Props = ModalComponentProp<ModalStackParams, void, 'RegisterModal'>
 
 export default function RegisterScreen({ modal }: Props) {
   const rootRef = useRef<RNView>(null)
   const { t } = useLocalization()
-  const { theme } = useDripsyTheme()
-  const { closeModal, openModal, currentModal } = useModal()
 
   const {
     animationState,
@@ -36,20 +33,6 @@ export default function RegisterScreen({ modal }: Props) {
     onBack,
     currentScreen,
   } = useRegisterScreen(rootRef)
-
-  useEffect(() => {
-    if (currentModal === 'LuckyDrawModal') {
-      closeModal('LuckyDrawModal')
-    }
-
-    const openLuckyDrawModalInstance = setTimeout(() => {
-      openModal('LuckyDrawModal')
-    }, 1000)
-
-    return () => {
-      clearTimeout(openLuckyDrawModalInstance)
-    }
-  }, [])
 
   return (
     <AuthLayout

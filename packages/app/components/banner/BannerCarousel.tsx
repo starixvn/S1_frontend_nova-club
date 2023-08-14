@@ -45,7 +45,7 @@ export default function BannerCarousel({
   ...rest
 }: BannerCarouselProps) {
   // const width = useWindowDimensions().width
-  const [disablePress, setDisablePress] = useState(true)
+  const [disablePress, setDisablePress] = useState(false)
 
   const progressValue = useSharedValue<number>(0)
   const { theme } = useDripsyTheme()
@@ -171,7 +171,7 @@ const BannerItem = ({ item, index, width, height, disable }: BannerItem) => {
   }, [item.action, locale])
 
   return (
-    <Pressable onPress={onPressCallback} disabled={disable}>
+    <Pressable onPress={onPressCallback} disabled={isDesktop ? disable : false}>
       <View pointerEvents="none">
         <SolitoImage
           priority={index === 0}

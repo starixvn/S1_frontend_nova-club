@@ -31,6 +31,7 @@ import * as Yup from 'yup'
 import FieldAmount from './FieldAmount'
 import FieldSelectBank from './FieldSelectBank'
 import MinMaxLimitDetail from './MinMaxLimitDetail'
+import useDepositFailedMessage from '../tools/useDepositFailedMessage'
 
 export type DepositValues = {
   bank: SelectOptions | null
@@ -48,6 +49,7 @@ const DepositForm = ({ DepositCategoryId }) => {
   const { data: playerData } = usePlayerProfileQuery()
   const currency = playerData?.currency as Currency
   const horizontalMode = useIsDesktop()
+  const { dispatchDepositFailedMessage } = useDepositFailedMessage()
 
   const { isMobile } = useCheckMobile()
   const { data, isLoading, isFetching } = useDepositPaymentListQuery({
@@ -112,7 +114,10 @@ const DepositForm = ({ DepositCategoryId }) => {
         success_url: DEV_DOMAIN,
       })
         .unwrap()
-        .catch((error) => showAlert(error))
+        .catch((error) => {
+          dispatchDepositFailedMessage(error)
+          return null
+        })
 
       if (result?.success) {
         if (DepositCategoryId === DepositPaymentMethodCategoryId.CRYPTO) {

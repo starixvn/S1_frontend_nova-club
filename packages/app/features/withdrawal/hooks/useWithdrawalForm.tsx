@@ -140,13 +140,13 @@ const useWithdrawalForm = ({ isCrypto = false, minMax }) => {
     validationSchema: Yup.object({
       bank: validation.bank,
       amount: validation.amountMinMax({
-        min: toDisplayAmount((minMax && minMax.min) ?? 1, currency),
+        min: toDisplayAmount((minMax && minMax.min) ?? 50000, currency),
         max: toDisplayAmount(
           Number(data?.totalBalance) > 0
             ? minMax
               ? Math.min(minMax.max, Number(data?.totalBalance))
               : data?.totalBalance
-            : 1,
+            : 1000000000,
           currency
         ),
       }),
