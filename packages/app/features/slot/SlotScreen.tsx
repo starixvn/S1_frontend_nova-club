@@ -13,7 +13,14 @@ import {
 } from 'app/utils/constant'
 import { ActivityIndicator, View } from 'dripsy'
 import groupBy from 'lodash/groupBy'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, {
+  startTransition,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { Platform } from 'react-native'
 import { useGameListMultipleQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
@@ -34,10 +41,11 @@ const GameCategory = [GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]
 function SlotScreen() {
   const { t } = useLocalization()
   const { push } = useRouter()
+  const [gameGroup, setGameGroup] = useState<Game[][]>()
 
   const [isDelayed, setDelayed] = useState(false)
   useEffect(() => {
-    setTimeout(() => setDelayed(true), 3000)
+    setTimeout(() => setDelayed(true), 1000)
   })
 
   const [provider, setProvider] = useParam('provider', {
@@ -67,8 +75,16 @@ function SlotScreen() {
     return Object.keys(gamesByProviders)
   }, [gamesByProviders])
 
-  const gameGroup: Game[][] = useMemo(() => {
-    return Object.values(gamesByProviders).filter((v) => v.length > 0)
+  useEffect(() => {
+    const gamesGroup = Object.values(gamesByProviders).filter(
+      (v) => v.length > 0
+    )
+
+    if (gamesGroup.length > 0) {
+      startTransition(() => {
+        setGameGroup(gamesGroup)
+      })
+    }
   }, [gamesByProviders])
 
   const flashListRef = useRef<FlashList<Game[]>>(null)
@@ -115,7 +131,7 @@ function SlotScreen() {
   return (
     <FlashList
       ref={flashListRef}
-      estimatedItemSize={273}
+      estimatedItemSize={302}
       data={gameGroup}
       contentContainerStyle={{
         paddingBottom: 40,
@@ -163,15 +179,11 @@ function SlotScreen() {
             icon="megaway"
             delay={1000}
           />
-          {!providers ? (
-            <ActivityIndicator color="$primary.100" sx={{ my: '$3' }} />
-          ) : (
-            <ProviderList
-              data={providers}
-              onNavigateProvider={onNavigate}
-              imageCategory={ProviderImageCategory.Slot}
-            />
-          )}
+          <ProviderList
+            data={providers}
+            onNavigateProvider={onNavigate}
+            imageCategory={ProviderImageCategory.Slot}
+          />
         </View>
       }
     />

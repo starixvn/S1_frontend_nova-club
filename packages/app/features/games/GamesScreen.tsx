@@ -8,6 +8,7 @@ import {
   ALL,
   GAME_TYPE_CODE,
   GDC_GAME_CATEGORY,
+  HEADER_HEIGHT,
   ProviderImageCategory,
 } from 'app/utils/constant'
 import { ActivityIndicator, View, useResponsiveValue } from 'dripsy'
@@ -45,6 +46,7 @@ const GameCategory = [
 
 const GamesScreen = () => {
   const { t } = useLocalization()
+  const scrollingRef = useRef<View>()
   const { data: games } = useGameListMultipleQuery({
     game_category: GameCategory,
     gdc_game_category: [GDC_GAME_CATEGORY.CARDGAME],
@@ -77,15 +79,17 @@ const GamesScreen = () => {
   }, [type, games])
 
   useEffect(() => {
-    if (type) {
+    if (type !== ALL) {
       if (Platform.OS === 'web') {
         document
-          .getElementById(`gameSectionSABA`)
+          .getElementById(`scrollingPoint`)
           ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
       } else
-        flashListRef.current?.scrollToIndex({
-          animated: true,
-          index: 0,
+        scrollingRef.current.measure((width, height, px, py, fx, fy) => {
+          flashListRef.current?.scrollToOffset({
+            animated: true,
+            offset: fy - HEADER_HEIGHT - 12,
+          })
         })
     }
   }, [type])
@@ -156,7 +160,7 @@ const GamesScreen = () => {
   return (
     <FlashList
       ref={flashListRef}
-      estimatedItemSize={273}
+      estimatedItemSize={302}
       data={gameGroup}
       contentContainerStyle={{
         paddingBottom: 40,
@@ -209,7 +213,7 @@ const GamesScreen = () => {
             gameCategories={[GDC_GAME_CATEGORY.CARDGAME]}
           />
           <TopGameSection />
-
+          <View ref={scrollingRef} nativeID="scrollingPoint" />
           <ProviderList
             data={providers}
             onNavigateProvider={onNavigate}
