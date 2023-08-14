@@ -57,22 +57,16 @@ const WithdrawalAmount = ({
   return (
     <MoneyInput
       label={t('common.amount')}
-      placeholder={
-        isCrypto
-          ? t('validation.minMaxLimit', {
-              min: toCurrency(minMax?.min ?? 0, currency, {
-                symbol: false,
-                forceDecimal: false,
-              }),
-              max: toCurrency(minMax?.max ?? 0, currency, {
-                symbol: false,
-                forceDecimal: false,
-              }),
-            })
-          : t('placeholder.plsEnterAmount', {
-              field: t('menu.withdraw').toLowerCase(),
-            })
-      }
+      placeholder={t('validation.minMaxLimit', {
+        min: toCurrency(minMax?.min ?? 0, currency, {
+          symbol: false,
+          forceDecimal: false,
+        }),
+        max: toCurrency(minMax?.max ?? 0, currency, {
+          symbol: false,
+          forceDecimal: false,
+        }),
+      })}
       keyboardType="number-pad"
       onChangeText={onAmountChanged}
       onBlur={handleBlur('amount')}
@@ -85,7 +79,7 @@ const WithdrawalAmount = ({
                 forceDecimal: false,
                 symbol: false,
               }),
-              min: 1,
+              min: minMax?.min,
             })
           : undefined
       }

@@ -4,9 +4,12 @@ import useWithdrawalForm from 'app/features/withdrawal/hooks/useWithdrawalForm'
 import useLocalization from 'app/provider/localization'
 import React from 'react'
 import BankSelection from './BankSelection'
+import { useGetAvailableWithdrawalAmountQuery } from 'services/withdrawal'
 
 const DesktopWithdrawalForm = () => {
   const { t } = useLocalization()
+  const { data: availableBalance } = useGetAvailableWithdrawalAmountQuery()
+  const withdrawalMinMax = { min: 50000, max: 1000000000 }
 
   const {
     formik,
@@ -14,7 +17,7 @@ const DesktopWithdrawalForm = () => {
     handleSelected,
     handleGoToBank,
     withdrawalConfirmation,
-  } = useWithdrawalForm({ isCrypto: false, minMax: undefined })
+  } = useWithdrawalForm({ isCrypto: false, minMax: withdrawalMinMax })
 
   const { values, isValid, dirty } = formik
 
@@ -33,10 +36,14 @@ const DesktopWithdrawalForm = () => {
         onAddNewAccount={handleGoToBank}
       />
 
-      <WithdrawalAmount isCrypto={false} formik={formik} />
+      <WithdrawalAmount
+        isCrypto={false}
+        formik={formik}
+        minMax={withdrawalMinMax}
+      />
 
       <WithdrawalConfirm
-        disabled={!isValid || !dirty}
+        disabled={!isValid || !dirty || availableBalance?.balance === 0}
         onPress={withdrawalConfirmation}
       />
     </>

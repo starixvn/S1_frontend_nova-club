@@ -46,7 +46,7 @@ const DepositCryptoModal = ({ modal: { closeModal, getParam } }) => {
         title={t('deposit.depositConfirmation')}
         actions={[
           {
-            label: t('common.confirm'),
+            label: 'Okay',
             onPress: onDismiss,
           },
         ]}

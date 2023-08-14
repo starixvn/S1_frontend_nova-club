@@ -72,5 +72,9 @@ export const MobileGamesFilter = [
     icon: 'all',
     route: '/games',
   },
+  SUB_ROUTES.local,
+  SUB_ROUTES.card,
+  SUB_ROUTES.fishing,
+  SUB_ROUTES['keno-lottery'],
   ...DefaultFilter,
 ]

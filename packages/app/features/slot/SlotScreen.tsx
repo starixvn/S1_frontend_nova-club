@@ -161,7 +161,7 @@ function SlotScreen() {
           <RecentlyPlayedSection
             gameTypes={[GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]}
           />
-          <GameListSectionAsyncByTag
+          {/* <GameListSectionAsyncByTag
             tag={SlotType.NEW}
             title={t('game.new').toUpperCase()}
             icon="star"
@@ -178,7 +178,7 @@ function SlotScreen() {
             title={'MEGAWAY'}
             icon="megaway"
             delay={1000}
-          />
+          /> */}
           <ProviderList
             data={providers}
             onNavigateProvider={onNavigate}

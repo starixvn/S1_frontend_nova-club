@@ -92,7 +92,7 @@ export function getAction(action: Action): (p?: ActionRedirectParams) => void {
               replacedParams.locale = locale
             }
             console.log('pushing', uri, replacedParams)
-            push({ pathname: uri, query: replacedParams })
+            push({ pathname: `${uri}`, query: replacedParams })
           }
         } catch (e) {
           console.log('Internal Redirection error', e)

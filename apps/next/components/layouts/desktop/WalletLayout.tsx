@@ -18,6 +18,7 @@ import { Container, Row, View, styled } from 'dripsy'
 import { useEffect, useState } from 'react'
 import BaseLayout from './BaseLayout'
 import TabNavMenu from './TabNavMenu'
+import useDepositList from 'app/features/deposit/tools/useDepositList'
 
 export default function WalletLayout({
   children,
@@ -25,6 +26,7 @@ export default function WalletLayout({
   children: React.ReactNode
 }) {
   const currentPath = usePathname()
+  const { paymentMethodList, isLoading } = useDepositList()
 
   const [currentTab, setCurrentTab] = useState(currentPath)
   const [menuRoutes, setMenuRoutes] = useState(TransferRoutes)
@@ -39,7 +41,11 @@ export default function WalletLayout({
       return
     }
     if (currentTab.includes(WALLET_PATH.DEPOSIT)) {
-      setMenuRoutes(DepositRoutes)
+      const availableRoutes = DepositRoutes.filter((route) =>
+        paymentMethodList.find((el) => route.categoryId === el.categoryId)
+      )
+
+      setMenuRoutes(availableRoutes)
       setNoticeNotes(
         currentPath.includes('topup-card') ? TOPUP_NOTES : DEPOSIT_NOTES
       )
@@ -55,7 +61,7 @@ export default function WalletLayout({
       setNoticeNotes(undefined)
       return
     }
-  }, [currentPath])
+  }, [currentPath, paymentMethodList])
 
   return (
     <Container sx={{ minHeight: `calc(100vh - ${NAVIGATION_HEIGHT}px)` }}>

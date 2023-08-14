@@ -18,5 +18,5 @@ export type CryptoExchangeRateResult = {
 }
 
 export type AvailableWithdrawalAmountResult = {
-  balance: number
+  balance: string | number
 }
