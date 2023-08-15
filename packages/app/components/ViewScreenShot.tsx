@@ -3,6 +3,7 @@ import * as MediaLibrary from 'expo-media-library'
 import React, {
   ReactNode,
   forwardRef,
+  useCallback,
   useEffect,
   useImperativeHandle,
   useRef,
@@ -26,17 +27,9 @@ const ViewScreenShot = forwardRef<ViewScreenShotMethods, ViewScreenShotProps>(
     const viewShotRef = useRef<ViewShot>(null)
     const { t } = useLocalization()
     const [hasPermission, setHasPermission] = useState(false)
-    useEffect(() => {
-      if (Platform.OS === 'android' && hasPermission) {
-        download()
-      }
-    }, [hasPermission])
-    const hasAndroidPermission = async () => {
-      const permissionStorage =
-        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
 
-      if (!permissionStorage) return false
-      const hasPermission = await PermissionsAndroid.check(permissionStorage)
+    const hasAndroidPermission = async () => {
+      const hasPermission = await checkDevicePermission()
       if (hasPermission) {
         return true
       }
@@ -45,7 +38,15 @@ const ViewScreenShot = forwardRef<ViewScreenShotMethods, ViewScreenShotProps>(
       return status === 'granted'
     }
 
-    async function download() {
+    const checkDevicePermission = async () => {
+      const permissionStorage =
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
+
+      if (!permissionStorage) return false
+      return await PermissionsAndroid.check(permissionStorage)
+    }
+
+    const download = useCallback(async () => {
       try {
         if (Platform.OS === 'android' && !hasPermission) {
           setHasPermission(await hasAndroidPermission())
@@ -74,13 +75,20 @@ const ViewScreenShot = forwardRef<ViewScreenShotMethods, ViewScreenShotProps>(
           text1: error,
         })
       }
-    }
+    }, [hasAndroidPermission, hasPermission])
+
+    useEffect(() => {
+      if (Platform.OS === 'android' && hasPermission) {
+        download()
+      }
+    }, [download, hasPermission])
+
     useImperativeHandle(
       ref,
       () => ({
         download,
       }),
-      []
+      [download]
     )
 
     return (

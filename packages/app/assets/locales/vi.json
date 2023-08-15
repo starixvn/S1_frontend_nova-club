@@ -426,7 +426,9 @@
     "downloadQr": "Tải Mã QR",
     "noCameraAccess": "Máy ảnh của bạn được yêu cầu quét mã QR để chuyển. \nVui lòng cho phép để tiếp tục sử dụng tính năng này",
     "requestCameraPermissions": "Yêu cầu quyền truy cập vào camera",
-    "scanGallery": "Quét từ thư viện"
+    "scanGallery": "Quét từ thư viện",
+    "openSetting": "Mở cài đặt",
+    "noStorageAccess": "Bộ nhớ phương tiện của bạn được yêu cầu quét mã QR để chuyển. \nVui lòng cho phép để tiếp tục sử dụng tính năng này"
   },
   "referral": {
     "code": "Mã giới thiệu",
