@@ -154,7 +154,7 @@ function SlotScreen() {
           <View sx={{ width: '100%', aspectRatio: 768 / 200 }}>
             <SolitoImage
               fill
-              src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/slot/dailywins.jpg`}
+              src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/slot/dailywins_slot.jpg`}
               alt="dailywins"
             />
           </View>
