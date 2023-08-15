@@ -6,7 +6,14 @@ import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
 import { GAME_TYPE_CODE, ProviderImageCategory } from 'app/utils/constant'
 import LatestWinnerSection from 'desktop-ext/components/game/LatestWinnerSection'
 import ProviderList from 'desktop-ext/components/game/ProviderList'
-import { ActivityIndicator, Container, Pressable, Row, View } from 'dripsy'
+import {
+  ActivityIndicator,
+  Container,
+  Pressable,
+  Row,
+  View,
+  useResponsiveValue,
+} from 'dripsy'
 import { ResizeMode, Video } from 'expo-av'
 import groupBy from 'lodash/groupBy'
 import React, { startTransition, useEffect, useMemo, useState } from 'react'
@@ -32,6 +39,8 @@ function SlotScreen({}: Props) {
       templateFromUrl ? templateFromUrl[0] : undefined,
     initial: undefined,
   })
+
+  const showSlotVideo = useResponsiveValue([false, false, false, false, true])
 
   const [filteredGames, setFilteredGames] = useState<Game[]>()
 
@@ -66,29 +75,33 @@ function SlotScreen({}: Props) {
   return (
     <Container>
       <Row sx={{ gap: '$3', my: '$sectionBottomSpace' }}>
-        <View sx={{ flex: 0.8, minHeight: 320 }}>
+        <View sx={{ flex: 1, minHeight: 320 }}>
           <LatestWinnerSection type={LatestWinnerType.Slot} />
         </View>
         <View sx={{ flexBasis: 480, minHeight: 320 }}>
           <BannerCarousel data={banner} bannerType="slot" ratio={480 / 320} />
         </View>
-        <View sx={{ flex: 1, minHeight: 320 }}>
-          <Video
-            isMuted
-            isLooping
-            shouldPlay
-            style={{
-              width: '100%',
-              height: '100%',
-            }}
-            videoStyle={{
-              position: Platform.OS === 'web' ? 'relative' : 'absolute',
-              height: '100%',
-            }}
-            source={{ uri: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/slot.mp4` }}
-            resizeMode={ResizeMode.COVER}
-          />
-        </View>
+        {showSlotVideo && (
+          <View sx={{ flex: 1, minHeight: 320 }}>
+            <Video
+              isMuted
+              isLooping
+              shouldPlay
+              style={{
+                width: '100%',
+                height: '100%',
+              }}
+              videoStyle={{
+                position: Platform.OS === 'web' ? 'relative' : 'absolute',
+                height: '100%',
+              }}
+              source={{
+                uri: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/slot.mp4`,
+              }}
+              resizeMode={ResizeMode.COVER}
+            />
+          </View>
+        )}
       </Row>
       <RecentlyPlayedSection
         gameTypes={[GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]}
