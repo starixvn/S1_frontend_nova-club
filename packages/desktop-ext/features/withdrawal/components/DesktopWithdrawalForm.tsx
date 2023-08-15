@@ -43,7 +43,7 @@ const DesktopWithdrawalForm = () => {
       />
 
       <WithdrawalConfirm
-        disabled={!isValid || !dirty || availableBalance?.balance === 0}
+        disabled={!isValid || !dirty || !Number(availableBalance?.balance)}
         onPress={withdrawalConfirmation}
       />
     </>

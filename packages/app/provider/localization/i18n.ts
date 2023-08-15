@@ -31,12 +31,13 @@ const extendGuessStrategy: MissingTranslationStrategy = (
 
   // Get only the last portion of the scope.
   const message = scope.split(i18n.defaultSeparator).slice(-1)[0] ?? ''
+  const translateMessage = message ? message : scope
 
   // Replace underscore with space and camelcase with space and
   // lowercase letter.
   return (
     i18n.missingTranslationPrefix +
-    message
+    translateMessage
       .replace('_', ' ')
       .replace(
         /([a-z])([A-Z])/g,

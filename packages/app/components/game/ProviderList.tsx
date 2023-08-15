@@ -24,7 +24,7 @@ export default function ProviderList({
     <View>
       <SectionHeader icon="all" title={t('common.provider')} />
       {!data || data.length === 0 ? (
-        <ActivityIndicator color="$tertiary" sx={{ my: '$4' }} />
+        <ActivityIndicator color="$primary.300" sx={{ my: '$4' }} />
       ) : (
         <View sx={{ px: ['$1', '$2'], pt: ['$2', '$3'] }}>
           <Row

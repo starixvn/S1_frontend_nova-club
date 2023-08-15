@@ -80,7 +80,9 @@ const GamesSingleProviderListing = ({
   }, [games, filter])
 
   return (
-    <View sx={{ flex: 1, bg: '$primary.700', pt: top ? top : '$3', ...sx }}>
+    <View
+      sx={{ flex: 1, bg: '$primary.700', pt: top ? top + 10 : '$3', ...sx }}
+    >
       <View sx={{ gap: '$3' }}>
         <Pressable onPress={onBack}>
           <Shadow

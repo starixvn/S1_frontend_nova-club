@@ -24,6 +24,18 @@ export const contentApi = baseApiWithTag.injectEndpoints({
         method: 'GET',
       }),
     }),
+    slotBanner: builder.query<BannerResult[], void>({
+      query: () => ({
+        url: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/slot/banner_slot.json?v=1`,
+        method: 'GET',
+      }),
+    }),
+    slotBannerFull: builder.query<BannerResult[], void>({
+      query: () => ({
+        url: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/slot/banner_slot_full.json?v=1`,
+        method: 'GET',
+      }),
+    }),
     leaderboard: builder.query<IResponse<LeaderboardResult[]>, void>({
       query: () => ({
         url: `/static_api/leaderboard`,
@@ -90,6 +102,8 @@ export const contentApi = baseApiWithTag.injectEndpoints({
 
 export const {
   useBannerQuery,
+  useSlotBannerQuery,
+  useSlotBannerFullQuery,
   useLeaderboardQuery,
   useGetLeaderboardQuery,
   useCommissionTableQuery,

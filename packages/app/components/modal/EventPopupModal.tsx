@@ -56,7 +56,7 @@ const EventPopupModal = ({ modal: { closeModal } }) => {
               >
                 <ActivityIndicator
                   size="large"
-                  color="$lightCyan"
+                  color="$primary.100"
                   sx={{ position: 'absolute' }}
                 />
               </View>

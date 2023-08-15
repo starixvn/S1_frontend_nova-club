@@ -28,11 +28,14 @@ import { useRouter } from 'solito/router'
 export interface BannerCarouselProps
   extends Omit<TCarouselProps<BannerResult>, 'data' | 'renderItem'> {
   data?: BannerResult[]
+  ratio?: number
+  bannerType?: 'home' | 'slot'
   sx?: SxProp
 }
 
 interface BannerItem {
   item: BannerResult
+  bannerUrl: string
   index: number
   width: number
   height: number
@@ -41,6 +44,8 @@ interface BannerItem {
 
 export default function BannerCarousel({
   data,
+  bannerType = 'home',
+  ratio = 1920 / 500,
   sx,
   ...rest
 }: BannerCarouselProps) {
@@ -54,10 +59,15 @@ export default function BannerCarousel({
 
   const width = useContainerWidth(rootRef)
 
-  const ratio = 1920 / 500 //useResponsiveValue([2.688, 2.688, 2.688, 3.84])
+  // const ratio = 1920 / 500 //useResponsiveValue([2.688, 2.688, 2.688, 3.84])
   const height = width / ratio
 
   const showCarousel = data != null && width > 0
+
+  const bannerUrl =
+    bannerType === 'slot'
+      ? `${MEDIA_DOMAIN}/${CONTENT_URI}/v2/banners/slot/`
+      : `${MEDIA_DOMAIN}/${CONTENT_URI}/v2/banners/`
 
   return (
     <View
@@ -93,6 +103,7 @@ export default function BannerCarousel({
           renderItem={({ item, index }) => (
             <BannerItem
               item={item}
+              bannerUrl={bannerUrl}
               index={index}
               height={height}
               width={width}
@@ -133,7 +144,14 @@ export default function BannerCarousel({
   )
 }
 
-const BannerItem = ({ item, index, width, height, disable }: BannerItem) => {
+const BannerItem = ({
+  item,
+  bannerUrl,
+  index,
+  width,
+  height,
+  disable,
+}: BannerItem) => {
   const { push } = useRouter()
   const { openModal } = useModal()
   const token = useAppSelector((s) => s.auth.info?.token)
@@ -168,14 +186,17 @@ const BannerItem = ({ item, index, width, height, disable }: BannerItem) => {
       action({ push, locale, openModal })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [item.action, locale])
+  }, [item.action, locale, token])
 
   return (
-    <Pressable onPress={onPressCallback} disabled={isDesktop ? disable : false}>
+    <Pressable
+      onPress={onPressCallback}
+      disabled={Platform.OS === 'web' ? disable : false}
+    >
       <View pointerEvents="none">
         <SolitoImage
           priority={index === 0}
-          src={`${MEDIA_DOMAIN}/${CONTENT_URI}/v2/banners/${item.image}`}
+          src={`${bannerUrl}${item.image}`}
           // src={`https://bw88.io/2023/June/Bwing_BTI_250K_VN.jpg`}
           height={height}
           width={width}

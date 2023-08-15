@@ -29,23 +29,23 @@ const device: DeviceType = {
   ios: [
     {
       guideText: 'download.iosGuideText.n1',
-      guideImage: 'IOS_1.png',
+      guideImage: 'iOS_1.png',
     },
     {
       guideText: 'download.iosGuideText.n2',
-      guideImage: 'IOS_2.png',
+      guideImage: 'iOS_2.png',
     },
     {
       guideText: 'download.iosGuideText.n3',
-      guideImage: 'IOS_3.png',
+      guideImage: 'iOS_3.png',
     },
     {
       guideText: 'download.iosGuideText.n4',
-      guideImage: 'IOS_4.png',
+      guideImage: 'iOS_4.png',
     },
     {
       guideText: 'download.iosGuideText.n5',
-      guideImage: 'IOS_5.png',
+      guideImage: 'iOS_5.png',
     },
   ],
   android: [
@@ -217,7 +217,7 @@ const DownloadGuide = ({ modal: { closeModal, getParam } }) => {
                     }}
                   >
                     <Image
-                      source={`${MEDIA_DOMAIN}/${CONTENT_URI}/download/${item.guideImage}`}
+                      source={`${MEDIA_DOMAIN}/${CONTENT_URI}/v2/download/${item.guideImage}`}
                       alt={''}
                       style={{
                         width: '90%',
