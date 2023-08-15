@@ -5,7 +5,7 @@ import GameSectionByProviderItem from 'app/components/game/GameSectionByProvider
 import ProviderList from 'app/components/game/ProviderList'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
 import useLocalization from 'app/provider/localization'
-import { GAME_TYPE_CODE, ProviderImageCategory } from 'app/utils/constant'
+import { GAME_TYPE_CODE, ProviderImageCategory, SlotType } from 'app/utils/constant'
 import { ActivityIndicator, View } from 'dripsy'
 import groupBy from 'lodash/groupBy'
 import React, {
@@ -24,6 +24,7 @@ import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 import SlotSingleProviderListing from './SlotSingleProviderListing'
+import GameListSectionAsyncByTag from 'app/components/game/GameListSectionAsyncByTag'
 
 type Params = {
   provider?: string
@@ -153,7 +154,7 @@ function SlotScreen() {
           <RecentlyPlayedSection
             gameTypes={[GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]}
           />
-          {/* <GameListSectionAsyncByTag
+          <GameListSectionAsyncByTag
             tag={SlotType.NEW}
             title={t('game.new').toUpperCase()}
             icon="star"
@@ -170,7 +171,7 @@ function SlotScreen() {
             title={'MEGAWAY'}
             icon="megaway"
             delay={1000}
-          /> */}
+          />
           <ProviderList
             data={providers}
             onNavigateProvider={onNavigate}
