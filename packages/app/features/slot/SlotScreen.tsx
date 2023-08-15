@@ -5,7 +5,11 @@ import GameSectionByProviderItem from 'app/components/game/GameSectionByProvider
 import ProviderList from 'app/components/game/ProviderList'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
 import useLocalization from 'app/provider/localization'
-import { GAME_TYPE_CODE, ProviderImageCategory, SlotType } from 'app/utils/constant'
+import {
+  GAME_TYPE_CODE,
+  ProviderImageCategory,
+  SlotType,
+} from 'app/utils/constant'
 import { ActivityIndicator, View } from 'dripsy'
 import groupBy from 'lodash/groupBy'
 import React, {
@@ -39,11 +43,6 @@ function SlotScreen() {
   const { push } = useRouter()
   const [gameGroup, setGameGroup] = useState<Game[][]>()
 
-  const [isDelayed, setDelayed] = useState(false)
-  useEffect(() => {
-    setTimeout(() => setDelayed(true), 1000)
-  })
-
   const [provider, setProvider] = useParam('provider', {
     initial: undefined,
     parse: (templateFromUrl) => {
@@ -54,14 +53,9 @@ function SlotScreen() {
   })
 
   const { data: banner } = useSlotBannerFullQuery()
-  const { data: games, isUninitialized } = useGameListMultipleQuery(
-    {
-      game_category: GameCategory,
-    },
-    {
-      skip: !isDelayed,
-    }
-  )
+  const { data: games, isUninitialized } = useGameListMultipleQuery({
+    game_category: GameCategory,
+  })
   const { gameCategoryTagTranslation } = useGameCategoryTag(GameCategory)
 
   const gamesByProviders = useMemo(() => {
@@ -154,7 +148,7 @@ function SlotScreen() {
           <RecentlyPlayedSection
             gameTypes={[GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]}
           />
-          <GameListSectionAsyncByTag
+          {/* <GameListSectionAsyncByTag
             tag={SlotType.NEW}
             title={t('game.new').toUpperCase()}
             icon="star"
@@ -171,7 +165,7 @@ function SlotScreen() {
             title={'MEGAWAY'}
             icon="megaway"
             delay={1000}
-          />
+          /> */}
           <ProviderList
             data={providers}
             onNavigateProvider={onNavigate}
