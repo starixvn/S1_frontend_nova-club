@@ -12,9 +12,9 @@ import { DEV_DOMAIN } from '../../../next/config/env'
 const Tnc = () => {
   const lang = useAppSelector((state) => state.setting.locale)
   const { t } = useLocalization()
+  const luckyDrawBalance = useAppSelector((s) => s.setting.luckyDrawBalance)
 
   const TNC_URL = `${DEV_DOMAIN}/lucky-spin-tnc?locale=${lang}`
-  console.log(TNC_URL)
   const { back } = useRouter()
   const { openModal } = useModal()
 
@@ -24,7 +24,7 @@ const Tnc = () => {
         title: t('common.tnc'),
         customBack: () => {
           back()
-          openModal('LuckyDrawModal')
+          luckyDrawBalance > 0 && openModal('LuckyDrawModal')
         },
       }}
       disableScrollView

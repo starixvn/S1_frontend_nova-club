@@ -24,7 +24,7 @@ const ViewScreenShot = forwardRef<ViewScreenShotMethods, ViewScreenShotProps>(
     const viewShotRef = useRef<HTMLDivElement>(null)
     const { t } = useLocalization()
 
-    const htmlDownload = (image, { name = '', extension = 'jpg' } = {}) => {
+    const htmlDownload = (image, { name = '', extension = 'png' } = {}) => {
       const a = document.createElement('a')
       a.href = image
       a.download = createFileName(extension, name)
@@ -36,7 +36,7 @@ const ViewScreenShot = forwardRef<ViewScreenShotMethods, ViewScreenShotProps>(
       if (viewShotRef.current) {
         try {
           const dataURI = await domToDataUrl(viewShotRef.current)
-          htmlDownload(dataURI, { name: fileName })
+          htmlDownload(dataURI, { name: fileName, extension: 'png' })
 
           Toast.show({ type: 'success', text1: t('status.qrDownloadSuccess') })
         } catch (error) {
