@@ -18,17 +18,23 @@ export default function ReferralTrigger({}) {
   const referral = useAppSelector((s) => s.setting.referral)
   const dispatch = useAppDispatch()
 
+  useEffect(() => {}, [])
+
   useEffect(() => {
-    console.log('ref', ref)
     if (ref) {
-      if (!referral || ref !== referral.trackingCode) {
+      const filterRef = ref.replace(/[^0-9a-zA-Z]/g, '')
+
+      if (!referral || filterRef !== referral.trackingCode) {
         dispatch(
           SettingActions.setReferral({
             trackingCode: ref,
           })
         )
 
-        if (isDesktop) openModal('RegisterModal')
+        if (isDesktop)
+          setTimeout(() => {
+            openModal('RegisterModal')
+          }, 2000)
         else push('/auth/register')
       }
     }
