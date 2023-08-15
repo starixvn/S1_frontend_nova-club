@@ -1,24 +1,18 @@
 import LoadingScreen from 'app/components/LoadingScreen'
 import Button from 'app/components/common/Button'
+import FormContainer from 'app/components/form/FormContainer'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useImagePicker from 'app/hooks/useImagePicker'
 import useLocalization from 'app/provider/localization'
-import { View } from 'dripsy'
-import React, {
-  ElementRef,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+import { View, useDripsyTheme } from 'dripsy'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import BarcodeMask from 'react-native-barcode-mask'
 import { QrReader } from 'react-qr-reader'
 
 function QrTransfer({ isActive }) {
   const { t } = useLocalization()
   const { width, height } = useContainerDimension()
-
+  const { theme } = useDripsyTheme()
   const [loading, setLoading] = useState(false)
   const timeoutId = useRef<NodeJS.Timeout>(null)
 
@@ -71,7 +65,7 @@ function QrTransfer({ isActive }) {
           <BarcodeMask
             width={width / 2}
             height={width / 2}
-            edgeColor="#62B1F6"
+            edgeColor={theme.colors.$primary[100]}
             showAnimatedLine={false}
           />
         )}
@@ -103,7 +97,7 @@ function QrTransfer({ isActive }) {
   }, [])
 
   return (
-    <View sx={{ flex: 1, bg: '$secondary' }}>
+    <View sx={{ flex: 1, bg: '$secondary', minHeight: (width / 2) * 1.5 }}>
       {isScanning && QrScannerComponent}
       <View
         sx={{
@@ -114,7 +108,19 @@ function QrTransfer({ isActive }) {
           right: 0,
         }}
       >
-        <Button onPress={onScanFromGallery}>{t('qr.scanGallery')}</Button>
+        <FormContainer>
+          <Button
+            sx={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+            }}
+            onPress={onScanFromGallery}
+          >
+            {t('qr.scanGallery')}
+          </Button>
+        </FormContainer>
       </View>
 
       {loading && <LoadingScreen />}

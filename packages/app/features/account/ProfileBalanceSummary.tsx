@@ -68,7 +68,7 @@ const ProfileBalanceSummary = ({
         </BalanceItem>
         <BalanceItem>
           {isLoading ? (
-            <ActivityIndicator />
+            <ActivityIndicator color={'$secondary.100'} />
           ) : (
             <ProfileSummaryText px={5} color={theme.colors.$secondary[100]}>
               {toCurrency(reward + cash, currency, {

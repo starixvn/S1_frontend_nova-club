@@ -79,7 +79,7 @@ const ProfileOverviewCard = ({ currency }: ProfileOverviewCardProps) => {
               }}
             >
               {isFetching ? (
-                <ActivityIndicator />
+                <ActivityIndicator color="$primary.100" />
               ) : (
                 <ProfileOverviewText fontSize={20}>
                   {toCurrency(data?.data?.accumulate_reward ?? 0, currency, {
@@ -100,6 +100,7 @@ const ProfileOverviewCard = ({ currency }: ProfileOverviewCardProps) => {
           >
             {isFetching ? (
               <ActivityIndicator
+                color="$primary.100"
                 sx={{
                   height: '50%',
                 }}
@@ -115,6 +116,7 @@ const ProfileOverviewCard = ({ currency }: ProfileOverviewCardProps) => {
             />
             {isFetching ? (
               <ActivityIndicator
+                color="$primary.100"
                 sx={{
                   height: '50%',
                 }}
