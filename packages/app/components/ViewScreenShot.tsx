@@ -94,7 +94,7 @@ const ViewScreenShot = forwardRef<ViewScreenShotMethods, ViewScreenShotProps>(
     return (
       <ViewShot
         ref={viewShotRef}
-        options={{ fileName, format: 'jpg', quality: 1 }}
+        options={{ fileName, format: 'png', quality: 1 }}
       >
         {children}
       </ViewShot>
