@@ -56,7 +56,7 @@ const BankTransferForm = () => {
   const [submitDeposit] = useSubmitManualDepositMutation()
   const { data: playerData } = usePlayerProfileQuery()
   const currency = playerData?.currency as Currency
-  const depositPayment = data?.data?.result.manual.find(
+  const depositPayment = data?.data?.result.manual?.find(
     (el) => el.category_id === DepositPaymentMethodCategoryId.LOCAL_BANK
   )
 
