@@ -168,7 +168,7 @@ const BannerItem = ({ item, index, width, height, disable }: BannerItem) => {
       action({ push, locale, openModal })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [item.action, locale])
+  }, [item.action, locale, token])
 
   return (
     <Pressable onPress={onPressCallback} disabled={isDesktop ? disable : false}>

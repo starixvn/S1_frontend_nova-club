@@ -81,10 +81,10 @@ export default function LiveCasinoScreen() {
         <View sx={{ gap: '$3', my: '$3' }}>
           <GamePageHeader title={t('game.category.liveCasino')} icon="casino" />
           {/* <BannerSection /> */}
-          <View sx={{ width: '100%', aspectRatio: 768 / 200 }}>
+          <View sx={{ width: '100%', aspectRatio: 1280 / 333 }}>
             <SolitoImage
               fill
-              src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/livecasino/dailywins.jpg`}
+              src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/livecasino/dailywins_pp.jpg`}
               alt="dailywins"
             />
           </View>

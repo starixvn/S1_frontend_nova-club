@@ -20,20 +20,39 @@ import { Platform } from 'react-native'
 import { LatestWinnerType } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
 import GameList from './GameList'
+import { LaunchGame } from 'app/features/game/GameLauncher'
+import isDesktop from 'app/utils/isDesktop'
 
 type Props = {}
 
 function GamesScreen({}: Props) {
+  const desktop = isDesktop()
   const { route, filteredGames, onFilterClicked, gameCategoryTagTranslation } =
     useGameScreen(SUB_ROUTES.local.route)
 
+  const handleVgaming = () => {
+    LaunchGame({
+      gc: 'Vgaming:3804',
+      gpc: 'SABA',
+      gtc: GAME_TYPE_CODE.GAMES,
+      xImg: '',
+      tags: [],
+      gdc_cat: '',
+      name: {
+        en: 'Fish Prawn Crab',
+        vi: 'Fish Prawn Crab',
+      },
+      img: 'cms/game/saba/Games-Vgaming-FishPrawnCrab_1661158713.jpg',
+      desktopMode: desktop,
+    })
+  }
   return (
     <Container>
       <Row sx={{ gap: '$3', my: '$sectionBottomSpace' }}>
         <View sx={{ flex: 0.8, minHeight: 300 }}>
           <LatestWinnerSection type={LatestWinnerType.Games} />
         </View>
-        <View sx={{ flex: 1, minHeight: 300 }}>
+        <Pressable onPress={handleVgaming} sx={{ flex: 1, minHeight: 300 }}>
           <SolitoImage
             alt="v-gaming"
             fill
@@ -41,7 +60,7 @@ function GamesScreen({}: Props) {
             style={{ width: '100%', height: '100%' }}
             src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/game/vGaming.jpg`}
           />
-        </View>
+        </Pressable>
         <View sx={{ flex: 1, minHeight: 300 }}>
           <Video
             isMuted
