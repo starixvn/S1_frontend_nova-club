@@ -1,16 +1,11 @@
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { FlashList } from '@shopify/flash-list'
 import GamePageHeader from 'app/components/GamePageHeader'
-import GameListSectionAsyncByTag from 'app/components/game/GameListSectionAsyncByTag'
+import BannerCarousel from 'app/components/banner/BannerCarousel'
 import GameSectionByProviderItem from 'app/components/game/GameSectionByProviderItem'
 import ProviderList from 'app/components/game/ProviderList'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
 import useLocalization from 'app/provider/localization'
-import {
-  GAME_TYPE_CODE,
-  ProviderImageCategory,
-  SlotType,
-} from 'app/utils/constant'
+import { GAME_TYPE_CODE, ProviderImageCategory } from 'app/utils/constant'
 import { ActivityIndicator, View } from 'dripsy'
 import groupBy from 'lodash/groupBy'
 import React, {
@@ -22,10 +17,10 @@ import React, {
   useState,
 } from 'react'
 import { Platform } from 'react-native'
+import { useSlotBannerFullQuery } from 'services/contentApi'
 import { useGameListMultipleQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import { createParam } from 'solito'
-import { SolitoImage } from 'solito/image'
 import { useRouter } from 'solito/router'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 import SlotSingleProviderListing from './SlotSingleProviderListing'
@@ -57,6 +52,7 @@ function SlotScreen() {
     },
   })
 
+  const { data: banner } = useSlotBannerFullQuery()
   const { data: games, isUninitialized } = useGameListMultipleQuery(
     {
       game_category: GameCategory,
@@ -151,12 +147,8 @@ function SlotScreen() {
       ListHeaderComponent={
         <View sx={{ gap: '$3', my: '$3' }}>
           <GamePageHeader icon="sl" title={t('game.category.slots')} />
-          <View sx={{ width: '100%', aspectRatio: 768 / 200 }}>
-            <SolitoImage
-              fill
-              src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/slot/dailywins_slot.jpg`}
-              alt="dailywins"
-            />
+          <View sx={{ width: '100%', aspectRatio: 1280 / 333 }}>
+            <BannerCarousel data={banner} bannerType="slot" />
           </View>
           <RecentlyPlayedSection
             gameTypes={[GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]}
