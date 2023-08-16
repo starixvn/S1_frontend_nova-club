@@ -1,4 +1,4 @@
-import { DEV_DOMAIN } from '../../../../../apps/next/config/env'
+import { DEV_DOMAIN } from '../../../../next/config/env'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import useLocalization from 'app/provider/localization'
 
