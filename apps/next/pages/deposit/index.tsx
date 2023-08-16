@@ -9,7 +9,7 @@ const LazyMobileScreen = dynamic(() => import('app/features/deposit/index'), {
 })
 
 const LazyDesktopScreen = dynamic(
-  () => import('desktop-ext/features/deposit/DepositScreen'),
+  () => import('desktop-ext/features/deposit/index'),
   { ssr: false }
 )
 

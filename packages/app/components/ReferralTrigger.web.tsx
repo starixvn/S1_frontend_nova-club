@@ -18,8 +18,6 @@ export default function ReferralTrigger({}) {
   const referral = useAppSelector((s) => s.setting.referral)
   const dispatch = useAppDispatch()
 
-  useEffect(() => {}, [])
-
   useEffect(() => {
     if (ref) {
       const filterRef = ref.replace(/[^0-9a-zA-Z]/g, '')
