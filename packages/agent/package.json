@@ -5,30 +5,30 @@
   "peerDependencies": {
     "@dripsy/gradient": "*",
     "@react-native-async-storage/async-storage": "*",
-    "@shopify/flash-list": "*",
-    "react-native-chart-kit": "*",
+    "@react-native-community/datetimepicker": "*",
     "@react-navigation/bottom-tabs": "*",
     "@react-navigation/native": "*",
     "@react-navigation/native-stack": "*",
     "@react-navigation/stack": "*",
     "@reduxjs/toolkit": "*",
+    "@shopify/flash-list": "*",
     "dayjs": "*",
     "dripsy": "*",
+    "expo-clipboard": "*",
     "expo-font": "*",
     "formik": "*",
     "moti": "*",
     "react-native-actions-sheet": "*",
+    "react-native-chart-kit": "*",
     "react-native-gesture-handler": "*",
     "react-native-modal": "*",
     "react-native-modalfy": "*",
+    "react-native-qrcode-svg": "*",
     "react-native-reanimated": "*",
     "react-native-svg": "*",
+    "react-native-toast-message": "*",
     "react-redux": "*",
     "solito": "*",
-    "yup": "*",
-    "react-native-qrcode-svg": "*",
-    "react-native-toast-message": "*",
-    "expo-clipboard": "*"
-  },
-  "dependencies": {}
+    "yup": "*"
+  }
 }

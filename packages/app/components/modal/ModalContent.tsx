@@ -1,143 +1,145 @@
+import { FONT_TOP_OFFSET } from 'app/constants/font'
 import useLocalization from 'app/provider/localization'
-import { ModalStackParams } from 'app/provider/modal'
-import { ScrollView, styled, Sx, Text, View } from 'dripsy'
-import React, { ComponentProps } from 'react'
-import { ModalComponentProp, ModalfyParams } from 'react-native-modalfy'
-import { Button } from '../form/Button'
-import IconButton from '../form/IconButton'
-import { ModalAction } from './Modal.type'
+import { ScrollView, SxProp, Text, View, styled } from 'dripsy'
+import React, { ReactElement } from 'react'
+import { GestureResponderEvent } from 'react-native'
+import { useModal } from 'react-native-modalfy'
+import { DripsyGradient } from '../Gradient'
+import Icon from '../Icon'
+import Button from '../common/Button'
 
-type DripsyViewProps = React.ComponentProps<typeof View>
-
-type ModalProps = {
-  children?: React.ReactNode
+interface ActionsProps {
+  label: string
+  loading?: boolean
+  onPress: (e: GestureResponderEvent) => void
+  bg?: string
+  disableAutoClose?: boolean
+}
+interface ModalContentProps {
   title?: string
-  renderFooter?: React.FC
-  actions?: ModalAction[]
-  _body?: DripsyViewProps
-  _footer?: DripsyViewProps
   isShowHeader?: boolean
-  hideCloseButton?: boolean
-  headerStyle?: Sx
-  closeModal: ModalComponentProp<ModalStackParams>['modal']['closeModal']
-  closeIconProps?: ComponentProps<typeof IconButton>
+  actions?: ActionsProps[]
+  children: ReactElement
+  disableAction?: boolean
+  close?: any
+  bodyStyle?: SxProp
 }
 
 const ModalContent = ({
-  children,
   title,
-  renderFooter,
-  actions,
-  _body,
-  _footer,
   isShowHeader = true,
-  hideCloseButton,
-  closeModal,
-  headerStyle,
-  closeIconProps,
-  ...modalProps
-}: ModalProps) => {
+  actions,
+  children,
+  disableAction = false,
+  close,
+  bodyStyle,
+}: ModalContentProps) => {
   const { t } = useLocalization()
+  const { closeModal } = useModal()
+  const TITLE = t('notes.importantNotice')
 
   return (
-    <StyledViewModal {...modalProps}>
-      {isShowHeader && (
-        <StyledViewHeader>
-          <StyledTextHeader sx={{ ...headerStyle }}>
-            {t(title)}
-          </StyledTextHeader>
-          {!hideCloseButton && (
-            <StyledViewClose>
-              <IconButton
-                name="cross"
-                size={26}
-                onPress={() => closeModal()}
-                {...closeIconProps}
-              />
-            </StyledViewClose>
-          )}
-        </StyledViewHeader>
-      )}
-      <ScrollView>
-        <StyledViewBody {..._body}>{children}</StyledViewBody>
-        <StyledViewFooter {..._footer}>
-          {renderFooter ? (
-            renderFooter({})
-          ) : (
-            <StyledViewButton>
-              {actions ? (
-                actions.map((a) => (
-                  <Button
-                    disabled={a.disabled ?? false}
-                    loading={a.loading}
-                    key={a.label}
-                    onPress={() => {
-                      if (!a.disableAutoClose && closeModal)
-                        closeModal(undefined, () => a.onPress && a.onPress())
-                      else {
-                        a.onPress && a.onPress()
-                      }
-                    }}
-                    containerStyle={{ mx: '$1', ...a?.buttonStyle }}
-                    {...a.props}
-                  >
-                    <Button.Label sx={{ color: 'white' }}>
-                      {a.label}
-                    </Button.Label>
-                  </Button>
-                ))
+    <>
+      <ModalBackground gradient={'surface'}>
+        <ScrollView
+          bounces
+          contentContainerSx={{
+            minHeight: 150,
+            p: ['$2', '$2', '$2', '$3'],
+          }}
+        >
+          {isShowHeader && (
+            <ModalHeader>
+              {title ? (
+                <TextTitle>{title}</TextTitle>
               ) : (
-                <Button
-                  onPress={() => {
-                    closeModal()
+                <View
+                  sx={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}
                 >
-                  <Button.Label>{t('common.close')}</Button.Label>
-                </Button>
+                  <Icon name="notice" size={16} color="white" sx={{ mr: 12 }} />
+                  <TextTitle>{TITLE.toUpperCase()}</TextTitle>
+                </View>
               )}
-            </StyledViewButton>
+            </ModalHeader>
           )}
-        </StyledViewFooter>
-      </ScrollView>
-    </StyledViewModal>
+          <ViewBody sx={bodyStyle}>{children}</ViewBody>
+        </ScrollView>
+      </ModalBackground>
+
+      {!disableAction && (
+        <ViewFooter>
+          {actions ? (
+            actions.map((item, i) => (
+              <Button
+                key={item.label}
+                loading={item?.loading}
+                onPress={(e) => {
+                  if (!item.disableAutoClose && closeModal)
+                    closeModal(undefined, () => item.onPress && item.onPress(e))
+                  else {
+                    item.onPress && item.onPress(e)
+                  }
+                }}
+                sx={{
+                  mb: '$2',
+                  bg:
+                    item.label === t('common.cancel')
+                      ? '$disabled'
+                      : item.bg ?? '$secondary.500',
+                }}
+              >
+                {item.label}
+              </Button>
+            ))
+          ) : (
+            <Button
+              onPress={() => {
+                close()
+              }}
+            >
+              {t('common.close')}
+            </Button>
+          )}
+        </ViewFooter>
+      )}
+    </>
   )
 }
 
-const StyledViewModal = styled(View)(() => ({
-  bg: '$background',
-  borderRadius: 12,
-  borderColor: 'rgba(0, 0, 0, 0.1)',
-  maxHeight: '100%',
-  // flex: 1
-}))
-const StyledViewHeader = styled(View)(() => ({
-  flexDirection: 'row',
-  alignItems: 'center',
-  p: '$4',
-}))
-const StyledViewBody = styled(View)(() => ({
-  padding: '$4',
-  minHeight: 120,
-  color: 'white',
-}))
-const StyledViewFooter = styled(View)(() => ({
-  padding: '$4',
-}))
+const ModalBackground = styled(DripsyGradient)(({}) => {
+  return {
+    borderRadius: 15,
+  }
+})
 
-const StyledTextHeader = styled(Text)(() => ({
-  flex: 1,
-  fontSize: 20,
+const ModalHeader = styled(View)({
+  mt: '$2',
+  mb: '$3',
+})
+
+const TextTitle = styled(Text)({
+  color: 'white',
+  fontWeight: 'bold',
   textAlign: 'center',
-  color: 'white',
-}))
-const StyledViewClose = styled(View)(() => ({
-  position: 'absolute',
-  right: '$3',
-  top: '$3',
-}))
-const StyledViewButton = styled(View)(() => ({
-  flexDirection: 'row',
-  justifyContent: 'center',
-}))
+  fontSize: [16, 16, 16, 17],
+  mt: FONT_TOP_OFFSET,
+  textTransform: 'uppercase',
+})
 
+const ViewBody = styled(View)({
+  flex: 1,
+  // px: '$pagePadding',
+  width: '100%',
+  p: ['$2', '$2', '$2', '$3'],
+})
+
+const ViewFooter = styled(View)({
+  width: '100%',
+  alignSelf: 'center',
+  mt: '$2',
+})
 export default ModalContent

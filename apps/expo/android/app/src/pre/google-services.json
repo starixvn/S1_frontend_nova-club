@@ -1,76 +1,41 @@
 {
   "project_info": {
-    "project_number": "1015314255459",
-    "project_id": "vui-health",
-    "storage_bucket": "vui-health.appspot.com"
+    "project_number": "401100497770",
+    "firebase_url": "https://nova-club-staging-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "nova-club-staging",
+    "storage_bucket": "nova-club-staging.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1015314255459:android:c726a5d43ce74f7da17256",
-        "android_client_info": {
-          "package_name": "com.chlgame.app"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "1015314255459-nek6mlbo858shfmvjou4soof7ncg0jad.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAulZ7QFKteHs7EHM-OSL-eRZjqqfq-baE"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1015314255459-nek6mlbo858shfmvjou4soof7ncg0jad.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "1015314255459-0i00m625icmomophchd3rs8qvtlte907.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.chlgame.app"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:1015314255459:android:070acab1820e2c9ca17256",
+        "mobilesdk_app_id": "1:401100497770:android:0622d74eafb17a244e7b13",
         "android_client_info": {
           "package_name": "com.chlgame.pre"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1015314255459-nek6mlbo858shfmvjou4soof7ncg0jad.apps.googleusercontent.com",
+          "client_id": "401100497770-48rakkjmcfuk0vt85ntv1akgqj3t0u26.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAulZ7QFKteHs7EHM-OSL-eRZjqqfq-baE"
+          "current_key": "AIzaSyAacFE-BLArWgyWBoKuJT51p7ZRCN5qu2w"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1015314255459-nek6mlbo858shfmvjou4soof7ncg0jad.apps.googleusercontent.com",
+              "client_id": "401100497770-48rakkjmcfuk0vt85ntv1akgqj3t0u26.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "1015314255459-0i00m625icmomophchd3rs8qvtlte907.apps.googleusercontent.com",
+              "client_id": "401100497770-2h5umtskrkojmutjp10abakri9cf29lj.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.chlgame.app"
+                "bundle_id": "com.chlgame.pre"
               }
             }
           ]
@@ -79,34 +44,106 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1015314255459:android:7fe44841e497e169a17256",
+        "mobilesdk_app_id": "1:401100497770:android:3c57797731aaa38c4e7b13",
         "android_client_info": {
           "package_name": "com.chlgame.soft"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1015314255459-nek6mlbo858shfmvjou4soof7ncg0jad.apps.googleusercontent.com",
+          "client_id": "401100497770-48rakkjmcfuk0vt85ntv1akgqj3t0u26.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAulZ7QFKteHs7EHM-OSL-eRZjqqfq-baE"
+          "current_key": "AIzaSyAacFE-BLArWgyWBoKuJT51p7ZRCN5qu2w"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1015314255459-nek6mlbo858shfmvjou4soof7ncg0jad.apps.googleusercontent.com",
+              "client_id": "401100497770-48rakkjmcfuk0vt85ntv1akgqj3t0u26.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "1015314255459-0i00m625icmomophchd3rs8qvtlte907.apps.googleusercontent.com",
+              "client_id": "401100497770-2h5umtskrkojmutjp10abakri9cf29lj.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.chlgame.app"
+                "bundle_id": "com.chlgame.pre"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:401100497770:android:fca0904d59506a794e7b13",
+        "android_client_info": {
+          "package_name": "com.chlgame.staging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "401100497770-48rakkjmcfuk0vt85ntv1akgqj3t0u26.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAacFE-BLArWgyWBoKuJT51p7ZRCN5qu2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "401100497770-48rakkjmcfuk0vt85ntv1akgqj3t0u26.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "401100497770-2h5umtskrkojmutjp10abakri9cf29lj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.chlgame.pre"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:401100497770:android:9486084f639b8afd4e7b13",
+        "android_client_info": {
+          "package_name": "com.chlgame.staging2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "401100497770-48rakkjmcfuk0vt85ntv1akgqj3t0u26.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAacFE-BLArWgyWBoKuJT51p7ZRCN5qu2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "401100497770-48rakkjmcfuk0vt85ntv1akgqj3t0u26.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "401100497770-2h5umtskrkojmutjp10abakri9cf29lj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.chlgame.pre"
               }
             }
           ]

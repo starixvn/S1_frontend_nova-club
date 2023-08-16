@@ -1,9 +1,35 @@
-import { View } from 'dripsy'
+import { View, useDripsyTheme } from 'dripsy'
 import React from 'react'
 import { Platform } from 'react-native'
-import Toast, { SuccessToast } from 'react-native-toast-message'
+import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message'
 
 const RootToast = () => {
+  const { theme } = useDripsyTheme()
+  const toastConfig = {
+    success: (props) => (
+      <BaseToast
+        {...props}
+        style={{ borderLeftColor: theme.colors.$primary[200] }}
+        contentContainerStyle={{ paddingHorizontal: 15 }}
+        text1NumberOfLines={2}
+        text1Style={{
+          fontSize: 15,
+        }}
+      />
+    ),
+    error: (props) => (
+      <ErrorToast
+        {...props}
+        style={{ borderLeftColor: theme.colors.$error }}
+        text1Style={{
+          fontSize: 17,
+        }}
+        text2Style={{
+          fontSize: 15,
+        }}
+      />
+    ),
+  }
   return (
     <View
       sx={{
@@ -14,14 +40,7 @@ const RootToast = () => {
         right: 0,
       }}
     >
-      <Toast
-        position="bottom"
-        config={{
-          success: (props) => (
-            <SuccessToast {...props} text1NumberOfLines={2} />
-          ),
-        }}
-      />
+      <Toast position="bottom" config={toastConfig} />
     </View>
   )
 }

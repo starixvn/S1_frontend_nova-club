@@ -1,24 +1,31 @@
-import React from 'react'
-import LoginPage from 'app/features/auth/login'
+import LoginScreen from 'app/features/auth/login/LoginScreen'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import { useAppSelector } from 'app/provider/redux/store'
+import 'desktop-ext/features/auth/login/LoginScreenDesktop'
+import LoginScreenDesktop from 'desktop-ext/features/auth/login/LoginScreenDesktop'
 import { useRouter } from 'next/router'
-import useLoginWithToken from '../hooks/useLoginWithToken'
-import AgentGuard from './agent/AgentGuard'
+import useLoginWithToken from './hooks/useLoginWithToken'
+// import AgentGuard from './agent/AgentGuard'
 
 const guestRoutes = [
-  '/auth',
-  '/profile/commission-table',
-  '/launcher',
-  '/customer-support',
-  '/download',
-  '/event',
-  '/slot',
+  '/account/leaderboard',
+  '/games/keno-lottery',
+  '/games/fishing',
+  '/games/card',
+  '/games/local',
+  '/slots',
   '/livecasino',
+  '/livecasino/sexy',
   '/sportsbook',
+  '/download',
+  '/info',
+  '/auth/login',
+  '/auth/register',
+  '/auth/forgot-password',
   '/games',
-  '/messages',
+  '/lucky-spin-tnc',
   '/agent',
-  '/banner',
+  '/event',
 ]
 
 /* 
@@ -37,8 +44,8 @@ export function serialize(obj) {
 
 const AuthenticationProvider = ({ children }) => {
   const router = useRouter()
-  const { asPath, query, replace: nextJsReplace } = router
-
+  const { asPath, query, replace: nextJsReplace, route } = router
+  const desktop = useIsDesktop()
   const loginInfo = useAppSelector((s) => s.auth.info)
 
   const isLoggedInWithToken = useLoginWithToken(loginInfo?.token)
@@ -51,17 +58,20 @@ const AuthenticationProvider = ({ children }) => {
   // persisting the LoginPage with query.r detection will prevent empty page being shown
 
   // if route doesnt exists in guestRoutes
-  if (!guestRoutes.some((r) => asPath === '/' || asPath.startsWith(r))) {
+  if (!guestRoutes.some((r) => route === '/' || asPath.startsWith(r))) {
     if (!loginInfo) {
-      nextJsReplace('/auth/login', '/auth/login?r=' + asPath, {})
-
-      return <LoginPage />
+      if (!desktop) nextJsReplace('/auth/login', '/auth/login?r=' + asPath, {})
+      else {
+        nextJsReplace('/', '/')
+      }
+      if (!desktop) return <LoginScreen />
+      else return <LoginScreenDesktop />
     }
   }
 
-  if (query.r) return <LoginPage />
+  if (query.r) return <LoginScreen />
 
-  if (asPath.startsWith('/agent')) return <AgentGuard>{children}</AgentGuard>
+  //   if (asPath.startsWith('/agent')) return <AgentGuard>{children}</AgentGuard>
 
   return children
 }

@@ -1,8 +1,7 @@
-import { styled } from 'dripsy'
+import { Image as DripsyImage, styled } from 'dripsy'
 import { motify } from 'moti'
-import FastImage from 'react-native-fast-image'
 
-const Image = styled(FastImage)()
+const Image = styled(DripsyImage)()
 export default Image
 
 export const MotifiedImage = motify(Image)()

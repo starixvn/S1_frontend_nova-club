@@ -5,9 +5,12 @@ import android.os.Bundle;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
-import com.facebook.react.ReactRootView;
+import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
+import com.facebook.react.defaults.DefaultReactActivityDelegate;
 
 import expo.modules.ReactActivityDelegateWrapper;
+import android.view.WindowManager;
+import androidx.core.view.WindowCompat;
 
 import io.branch.rnbranch.*;
 import android.content.Intent;
@@ -19,6 +22,15 @@ public class MainActivity extends ReactActivity {
     // coloring the background, status bar, and navigation bar.
     // This is required for expo-splash-screen.
     setTheme(R.style.AppTheme);
+
+    WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+    
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+      WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+      layoutParams.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+      getWindow().setAttributes(layoutParams);
+    }
+    
     super.onCreate(null);
   }
 
@@ -31,27 +43,35 @@ public class MainActivity extends ReactActivity {
     return "main";
   }
 
+  // Override onStart:
   @Override
   protected void onStart() {
-      super.onStart();
-      RNBranchModule.initSession(getIntent().getData(), this);
+    super.onStart();
+    RNBranchModule.initSession(getIntent().getData(), this);
   }
 
+  // Override onNewIntent:
   @Override
   public void onNewIntent(Intent intent) {
-      super.onNewIntent(intent);
-      RNBranchModule.onNewIntent(intent);
-
-       if(intent != null) {
-          intent.putExtra("branch_force_new_session", true);
-      }
+    super.onNewIntent(intent);
+    RNBranchModule.onNewIntent(intent);
   }
 
+  /**
+   * Returns the instance of the {@link ReactActivityDelegate}. Here we use a util class {@link
+   * DefaultReactActivityDelegate} which allows you to easily enable Fabric and Concurrent React
+   * (aka React 18) with two boolean flags.
+   */
   @Override
   protected ReactActivityDelegate createReactActivityDelegate() {
-    return new ReactActivityDelegateWrapper(this,
-      new ReactActivityDelegate(this, getMainComponentName())
-    );
+    return new ReactActivityDelegateWrapper(this, BuildConfig.IS_NEW_ARCHITECTURE_ENABLED, new DefaultReactActivityDelegate(
+        this,
+        getMainComponentName(),
+        // If you opted-in for the New Architecture, we enable the Fabric Renderer.
+        DefaultNewArchitectureEntryPoint.getFabricEnabled(), // fabricEnabled
+        // If you opted-in for the New Architecture, we enable Concurrent React (i.e. React 18).
+        DefaultNewArchitectureEntryPoint.getConcurrentReactEnabled() // concurrentRootEnabled
+        ));
   }
 
   /**

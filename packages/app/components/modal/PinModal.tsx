@@ -4,7 +4,7 @@ import useLocalization from 'app/provider/localization'
 import { Text, View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import IconButton from '../form/IconButton'
+import IconButton from '../IconButton'
 
 const MODAL_PADDING = 24
 
@@ -20,9 +20,12 @@ const PinModal = ({ modal: { closeModal, getParam } }) => {
     closeModal()
   }
 
-  function onPinConfirmed() {
-    onConfirm && onConfirm(value)
+  const onPinConfirmed = () => {
+    //TODO: FIX Remove timeout
     onDismiss()
+    setTimeout(() => {
+      onConfirm && onConfirm(value)
+    }, 350)
   }
 
   useEffect(() => {
@@ -46,10 +49,12 @@ const PinModal = ({ modal: { closeModal, getParam } }) => {
           justifyContent: 'space-between',
         }}
       >
-        <Text sx={{ fontSize: 22 }}>{t('pin.submitTitle')}</Text>
+        <Text sx={{ fontSize: 22 }}>
+          {t('manageCredentials.pin.confirmPinTitle')}
+        </Text>
         <IconButton name="cross" size={24} onPress={() => closeModal()} />
       </View>
-      <UnderlinePinField title="" value={value} setValue={setValue} />
+      <UnderlinePinField label="" value={value} setValue={setValue} />
 
       <View sx={{ px: MODAL_PADDING }}>
         <View sx={{ alignItems: 'flex-end', my: '$4' }}>
@@ -60,17 +65,16 @@ const PinModal = ({ modal: { closeModal, getParam } }) => {
             }}
           >
             <Text
-              variant="md"
               sx={{
                 fontSize: [14, 16],
                 opacity: 0.8,
               }}
             >
-              {t('pin.forgotPin') + '?'}
+              {t('manageCredentials.pin.forgotPin') + '?'}
             </Text>
           </TouchableOpacity>
         </View>
-        <Text>{t('pin.submitNote')}</Text>
+        <Text>{t('manageCredentials.pin.confirmPinInfo')}</Text>
       </View>
     </View>
   )

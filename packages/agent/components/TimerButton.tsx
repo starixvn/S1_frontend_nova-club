@@ -1,5 +1,6 @@
+import TouchableOpacity from 'app/components/pressable/TouchableOpacity'
 import useCountDownTimer from 'app/hooks/useCountDownTimer'
-import TouchableOpacity from 'app/pressable/TouchableOpacity'
+
 import dayjs from 'dayjs'
 import {
   ActivityIndicator,

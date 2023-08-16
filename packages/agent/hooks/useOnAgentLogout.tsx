@@ -1,13 +1,12 @@
 import { agentBaseApi } from 'agent/services/agentBaseApi'
 import { AgentAuthActions } from 'agent/store/agentAuthReducer'
-import { LoginType } from 'app/features/auth/type'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { Platform } from 'react-native'
 import { useDispatch } from 'react-redux'
+import { useRouter } from 'solito/router'
 import { sleep } from 'utils/common'
 
 const useOnAgentLogout = () => {
-  const { replace, push } = useContextualRouter()
+  const { replace, push } = useRouter()
   const dispatch = useDispatch()
 
   const logout = async () => {

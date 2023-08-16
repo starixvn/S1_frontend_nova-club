@@ -1,14 +1,10 @@
 import AgentResetPassword from 'agent/features/auth/AgentResetPassword'
-import AgentChangePassword from 'agent/features/auth/AgentChangePassword'
-import AgentStackLayout from '../../layouts/agent/AgentStackLayout'
-import React from 'react'
+import { MobileStackAgentLayout } from 'components/layouts/agent'
 
 const ResetPassword = () => {
-  return (
-    <AgentStackLayout sx={{ paddingTop: 0 }}>
-      <AgentResetPassword />
-    </AgentStackLayout>
-  )
+  return <AgentResetPassword />
 }
+
+ResetPassword.AgentLayout = MobileStackAgentLayout
 
 export default ResetPassword

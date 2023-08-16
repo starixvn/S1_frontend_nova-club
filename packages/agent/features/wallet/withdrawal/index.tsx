@@ -1,11 +1,10 @@
+import useGetProfile from 'agent/hooks/useGetProfile'
 import { useBankAccountListQuery } from 'agent/services/accountApi'
 import { useUserInfoQuery } from 'agent/services/userApi'
-import { Currency } from 'app/utils/constant'
 import { ActivityIndicator, ScrollView } from 'dripsy'
 import AgentWithdrawalForm from './AgentWithdrawalForm'
 import AgentWithdrawalHistory from './AgentWithdrawalHistory'
 import EmptyBankCard from './EmptyBankCard'
-import useGetProfile from 'agent/hooks/useGetProfile'
 
 const AgentWithdrawalPage = () => {
   const { data: userData } = useUserInfoQuery()
@@ -28,7 +27,7 @@ const AgentWithdrawalPage = () => {
         />
       ) : (
         <ScrollView
-          sx={{ width: '100%' }}
+          sx={{ width: '100%', bg: 'white' }}
           contentContainerSx={{ margin: 0, padding: 0 }}
         >
           {bankListData?.result?.recordsTotal ? (

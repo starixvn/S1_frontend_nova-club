@@ -159,22 +159,6 @@ export const PROVIDER_LOGO = {
     provider_code: 'EZGI',
     image: require('../../../assets/images/provider/EZGI.png'),
   },
-  DGLC: {
-    provider_code: 'DGLC',
-    image: require('../../../assets/images/provider/DGLC.png'),
-  },
-  WMLC: {
-    provider_code: 'WMLC',
-    image: require('../../../assets/images/provider/WMLC.png'),
-  },
-  BNG: {
-    provider_code: 'BNG',
-    image: require('../../../assets/images/provider/BNG.png'),
-  },
-  PNGO: {
-    provider_code: 'PNGO',
-    image: require('../../../assets/images/provider/PNGO.png'),
-  },
 }
 
 export const ProviderLogo = [
@@ -210,10 +194,6 @@ export const ProviderLogo = [
   PROVIDER_LOGO.NERT,
   PROVIDER_LOGO.NESP,
   PROVIDER_LOGO.EZGI,
-  PROVIDER_LOGO.DGLC,
-  PROVIDER_LOGO.WMLC,
-  PROVIDER_LOGO.BNG,
-  PROVIDER_LOGO.PNGO,
 ]
 
 export const getProviderLogo = (code: string) => {

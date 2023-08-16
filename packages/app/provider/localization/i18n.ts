@@ -12,8 +12,8 @@ export const i18n = new I18n(
   },
   {
     enableFallback: true,
-    defaultLocale: 'vi',
-    locale: 'vi',
+    defaultLocale: 'en',
+    locale: 'en',
   }
 )
 
@@ -27,15 +27,23 @@ const extendGuessStrategy: MissingTranslationStrategy = (
     scope = scope.join(i18n.defaultSeparator)
   }
 
-  console.log('🚫 Missing translation', scope)
+  // console.log('🚫 Missing translation', scope)
 
   // Get only the last portion of the scope.
-  // const message = scope.split(i18n.defaultSeparator).slice(-1)[0] ?? ''
+  const message = scope.split(i18n.defaultSeparator).slice(-1)[0] ?? ''
+  const translateMessage = message ? message : scope
 
   // Replace underscore with space and camelcase with space and
   // lowercase letter.
-
-  return scope
+  return (
+    i18n.missingTranslationPrefix +
+    translateMessage
+      .replace('_', ' ')
+      .replace(
+        /([a-z])([A-Z])/g,
+        (_match: string, p1: string, p2: string) => `${p1} ${p2.toLowerCase()}`
+      )
+  )
 }
 
 i18n.missingTranslation.register('empty', extendGuessStrategy)

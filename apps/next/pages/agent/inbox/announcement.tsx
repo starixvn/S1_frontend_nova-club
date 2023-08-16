@@ -1,8 +1,7 @@
-import React from 'react'
 import AnnouncementPage from 'agent/features/inbox/AnnouncementPage'
 import AgentNestedTabs from 'agent/navigation/components/AgentNestedTabNavigator/AgentNestedTabs'
 import InboxRoutes from 'agent/navigation/routes/InboxRoutes'
-import AgentLayout from '../../../layouts/agent/AgentLayout'
+import { MobileAgentLayout } from 'components/layouts/agent'
 
 const Announcement = () => {
   return (
@@ -12,6 +11,6 @@ const Announcement = () => {
     </>
   )
 }
-Announcement.getLayout = AgentLayout
+Announcement.AgentLayout = MobileAgentLayout
 
 export default Announcement

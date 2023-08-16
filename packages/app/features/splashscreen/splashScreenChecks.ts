@@ -1,9 +1,9 @@
-import firestore from '@react-native-firebase/firestore'
-import { isNewVersionAvailable, Version } from 'app/utils/rn-helper'
-import { Linking, Platform } from 'react-native'
+import { CommonActions } from '@react-navigation/native'
 import { contentApi } from 'services/contentApi'
 import { SplashScreenHandler, SplashScreenTask } from './useSplashScreen'
-import { CommonActions } from '@react-navigation/native'
+import firestore from '@react-native-firebase/firestore'
+import { Version, isNewVersionAvailable } from 'app/utils/rn-helper'
+import { Linking, Platform } from 'react-native'
 export const checkVersionUpdated: SplashScreenTask = (context) => async () => {
   const { t, showAlert } = context
   let isUptoDate = true

@@ -1,36 +1,30 @@
-import MenuNotice from 'app/components/common/MenuNotice'
-import { PageWithBackHeader } from 'app/components/layout/Page'
-import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
-import { CRYPTO_NOTES } from 'app/constant/notes'
+import { PageWithBackHeader } from 'app/components/layouts/Page'
 import useLocalization from 'app/provider/localization'
-import { View } from 'dripsy'
-import React from 'react'
+import { Platform } from 'react-native'
+import CryptoPayContent from './CryptoPayContent'
+import MenuNotice from 'app/components/navigation/MenuNotice'
+import { DEPOSIT_NOTES } from 'app/utils/constant'
 import { useModal } from 'react-native-modalfy'
-import AutoDepositForm from '../components/AutoDepositForm'
 
-const CryptoScreen = () => {
+const CryptoPayScreen = () => {
   const { t } = useLocalization()
   const { openModal } = useModal()
 
   return (
     <PageWithBackHeader
+      disableScrollView={Platform.OS === 'ios'}
       header={{
         title: t('deposit.depositMethod.crypto'),
         actions: (
           <MenuNotice
-            onPress={() => openModal('NoticeModal', { notice: CRYPTO_NOTES })}
+            onPress={() => openModal('NoticeModal', { notice: DEPOSIT_NOTES })}
           />
         ),
       }}
     >
-      <View sx={{ flex: 1 }}>
-        <AutoDepositForm
-          module="crypto"
-          DepositCategoryId={DepositPaymentMethodCategoryId.CRYPTO}
-        />
-      </View>
+      <CryptoPayContent />
     </PageWithBackHeader>
   )
 }
 
-export default CryptoScreen
+export default CryptoPayScreen

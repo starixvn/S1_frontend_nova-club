@@ -1,4 +1,15 @@
-import RegisterPage from 'app/features/auth/register'
-import { ReactElement } from 'react'
+import withAdaptiveScreen from 'desktop-ext/hoc/withAdaptiveScreen'
+import dynamic from 'next/dynamic'
 
-export default RegisterPage
+const LazyMobileScreen = dynamic(
+  import('app/features/auth/register/RegisterScreen'),
+  { ssr: false }
+)
+
+const LazyDesktopScreen = dynamic(
+  import('desktop-ext/features/auth/register/RegisterScreen'),
+  { ssr: false }
+)
+const Register = withAdaptiveScreen(LazyMobileScreen, LazyDesktopScreen)
+
+export default Register

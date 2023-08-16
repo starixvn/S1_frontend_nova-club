@@ -1,7 +1,10 @@
 import { FlashList } from '@shopify/flash-list'
-import DataTable from 'agent/components/DataTable/DataTable'
+import AgentDataTableCell from 'agent/components/DataTable/AgentDataTableCell'
+import AgentDataTableHeader from 'agent/components/DataTable/AgentDataTableHeader'
+import AgentDataTableRow from 'agent/components/DataTable/AgentDataTableRow'
 import CommonBackHeader from 'agent/navigation/components/CommonBackHeader'
 import { useUserCommissionListQuery } from 'agent/services/userApi'
+import DataTable from 'app/components/dataTable/DataTable'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useAgentLocalization } from 'app/provider/localization'
 import { Currency } from 'app/utils/constant'
@@ -41,59 +44,57 @@ const CommissionTable = () => {
     const isTitle = item.gametype in TitleContentAlignmentMap
     const paddingLeft = isTitle ? 12 : 24
 
-    ;('⎯')
     return (
-      <DataTable.Row
+      <AgentDataTableRow
         key={`${index} ${item.gametype}`}
         size={isTitle ? 'big' : 'small'}
-        containerStyle={{
+        sx={{
           bg: isTitle ? '#D1D1D1' : 'white',
         }}
       >
-        <DataTable.Cell
+        <AgentDataTableCell
           bordered={isTitle ? false : true}
-          containerStyle={{
-            flex: 0.4,
-            // justifyContent,
-          }}
+          center={isTitle ? false : true}
+          sx={{ flex: isTitle ? 1 : 0.4 }}
           textStyle={{ fontWeight: 'bold', paddingLeft, px: 12 }}
         >
           {item.gametype}
-        </DataTable.Cell>
-        <DataTable.Cell
+        </AgentDataTableCell>
+        <AgentDataTableCell
           bordered={isTitle ? false : true}
           center
-          containerStyle={{ flex: 0.2 }}
+          sx={{ flex: 0.2 }}
           textStyle={{ color: '#8D0016' }}
         >
           {isTitle ? '' : fillString(item.cashagent)}
-        </DataTable.Cell>
-        <DataTable.Cell
+        </AgentDataTableCell>
+        <AgentDataTableCell
           bordered={isTitle ? false : true}
           center
-          containerStyle={{ flex: 0.2 }}
+          sx={{ flex: 0.2 }}
           textStyle={{ color: '#00058D' }}
         >
           {isTitle ? '' : fillString(item.cashplayer)}
-        </DataTable.Cell>
-        <DataTable.Cell
+        </AgentDataTableCell>
+        <AgentDataTableCell
           bordered={isTitle ? false : true}
           center
-          containerStyle={{ flex: 0.2 }}
+          sx={{ flex: 0.2 }}
           textStyle={{ color: '#066506' }}
         >
           {isTitle ? '' : fillString(item.cashreferralplayer)}
-        </DataTable.Cell>
-      </DataTable.Row>
+        </AgentDataTableCell>
+      </AgentDataTableRow>
     )
   }
   return (
     <>
       <CommonBackHeader title="commission.title" />
       <DataTable>
-        <DataTable.Header
+        <AgentDataTableHeader
           size="big"
-          containerStyle={{
+          sx={{
+            py: '$2',
             bg: theme.colors.$primaryAgent,
             color: 'white',
             borderTopWidth: StyleSheet.hairlineWidth,
@@ -105,7 +106,7 @@ const CommissionTable = () => {
           }}
         >
           <TitleCell
-            containerStyle={{ flex: 0.4, borderColor: '#8EC0FF' }}
+            sx={{ flex: 0.4, borderColor: '#8EC0FF' }}
             textStyle={{ px: 12, color: 'white' }}
           >
             {t('commission.type')}
@@ -115,7 +116,7 @@ const CommissionTable = () => {
           <TitleCell border={false} center>
             {t('commission.cPlayerReferrer')}
           </TitleCell>
-        </DataTable.Header>
+        </AgentDataTableHeader>
       </DataTable>
 
       <View

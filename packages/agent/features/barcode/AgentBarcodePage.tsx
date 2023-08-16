@@ -12,13 +12,13 @@ const AgentBarcodePage = () => {
 
   return (
     <DripsyGradient
+      locations={[0.0, 0.1]}
+      gradient="agentContent"
       sx={{
-        justifyContent: 'center',
-        pt: 0,
-        height: '80%',
+        pt: '$5',
         alignItems: 'center',
+        justifyContent: 'center',
       }}
-      colors={['rgb(224,237,254)', '#ffffff']}
     >
       <AgentBarcodeCard userId={userId ?? 0} />
     </DripsyGradient>

@@ -10,9 +10,11 @@ interface KeyboardViewProps extends KeyboardAwareScrollViewProps {
 
 const KeyboardView = ({ children, ...rest }: KeyboardViewProps) => {
   return (
-    <KeyboardAwareScrollView extraScrollHeight={60} enableOnAndroid {...rest}>
-      {children}
-    </KeyboardAwareScrollView>
+    <>{children}</>
+    // TODO: KeyboardAware problem
+    // <KeyboardAwareScrollView extraScrollHeight={60} enableOnAndroid {...rest}>
+    //   {children}
+    // </KeyboardAwareScrollView>
   )
 }
 

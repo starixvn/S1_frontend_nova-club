@@ -30,6 +30,7 @@ export default function useNotification() {
     }
 
     async function onMessageReceived(message) {
+      console.log("on Message Received", message)
       onDisplayNotification(message)
     }
 

@@ -1,3 +1,15 @@
-import LoginPage from 'app/features/auth/login'
+import withAdaptiveScreen from 'desktop-ext/hoc/withAdaptiveScreen'
+import dynamic from 'next/dynamic'
 
-export default LoginPage
+const LazyMobileScreen = dynamic(
+  import('app/features/auth/login/LoginScreen'),
+  { ssr: false }
+)
+
+const LazyDesktopScreen = dynamic(
+  import('desktop-ext/features/auth/login/LoginScreenDesktop'),
+  { ssr: false }
+)
+const Login = withAdaptiveScreen(LazyMobileScreen, LazyDesktopScreen)
+
+export default Login

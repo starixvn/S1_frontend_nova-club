@@ -1,24 +1,24 @@
-import { Button } from 'app/components/form/Button'
-import InputBase, {
-  INPUT_BASE_SPACE,
-} from 'app/components/form/Input/InputBase'
-import { PageWithBackHeader } from 'app/components/layout/Page'
 import TimerButton, { ITimerButtonForwardRef } from 'app/components/TimerButton'
+import Button from 'app/components/common/Button'
+import FormContainer from 'app/components/form/FormContainer'
+import Input from 'app/components/form/Input'
+import { PageWithBackHeader } from 'app/components/layouts/Page'
 import useAlert from 'app/hooks/useAlert'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import validation from 'app/utils/validation'
-import { useDripsyTheme, View } from 'dripsy'
+import { View } from 'dripsy'
 import { FormikHelpers, FormikTouched, useFormik } from 'formik'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { TextInput as RNTextField } from 'react-native'
-import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import {
   useTransferPinRecoveryMutation,
   useTransferPinRecoveryOtpMutation,
 } from 'services/pinApi'
 import { usePlayerProfileQuery } from 'services/playerApi'
+import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import UnderlinePinField from '../UnderlinePinField'
 
@@ -34,16 +34,11 @@ const enum CURRENT_ACTION {
   SET_PASSWORD,
 }
 
-const enum ERROR_CODE {
-  INVALID_OTP = 10021,
-}
-
 const ForgotPinScreen = () => {
   const { t } = useLocalization()
-  const { theme } = useDripsyTheme()
-  const { openModal } = useModal()
   const { showAlert } = useAlert()
-  const { back } = useContextualRouter()
+  const { back } = useRouter()
+  const desktop = useIsDesktop()
 
   const [currentAction, setCurrentAction] = useState(CURRENT_ACTION.GET_OTP)
   const otpFieldRef = useRef<RNTextField>(null)
@@ -53,6 +48,16 @@ const ForgotPinScreen = () => {
   const [sendPinRecoveryOtp, { isLoading: isOtpLoading }] =
     useTransferPinRecoveryOtpMutation()
   const [recoverTransferPin] = useTransferPinRecoveryMutation()
+
+  const lang = useAppSelector((s) => s.setting.locale)
+
+  useEffect(() => {
+    setValues({
+      ...values,
+      pin: '',
+      confirmPin: '',
+    })
+  }, [lang])
 
   useEffect(() => {
     setFieldValue('contactNumber', playerData?.contractNumber)
@@ -75,7 +80,10 @@ const ForgotPinScreen = () => {
           return error
         })
       if (success) {
-        Toast.show({ type: 'success', text1: message })
+        Toast.show({
+          type: 'success',
+          text1: t('manageCredentials.pin.resetPinSuccess'),
+        })
         back()
       }
     } catch (error) {
@@ -108,10 +116,12 @@ const ForgotPinScreen = () => {
     touched,
     isValid,
     dirty,
+    resetForm,
     submitForm,
     validateForm,
     setFieldValue,
     setTouched,
+    setValues,
     setFieldError,
   } = formik
 
@@ -141,7 +151,7 @@ const ForgotPinScreen = () => {
       OTPRef.current?.startOtpTimer()
 
       if (success) {
-        Toast.show({ type: 'success', text1: message })
+        Toast.show({ type: 'success', text1: t('status.success') })
       }
     } catch (error) {
       showAlert(error)
@@ -169,40 +179,70 @@ const ForgotPinScreen = () => {
     }
   }
 
+  const memoPin = useMemo(
+    () => (
+      <>
+        <UnderlinePinField
+          label={t('manageCredentials.pin.newPin')}
+          value={values.pin}
+          setValue={handleChange('pin')}
+        />
+        <UnderlinePinField
+          label={t('manageCredentials.pin.confirmPin')}
+          value={values.confirmPin}
+          setValue={handleChange('confirmPin')}
+          errorMsg={
+            values.confirmPin.length === 6 && errors.confirmPin
+              ? t(errors.confirmPin, {
+                  field: t('common.pin'),
+                })
+              : undefined
+          }
+        />
+      </>
+    ),
+    [values, errors]
+  )
+
   return (
-    <PageWithBackHeader header={{ title: t('pin.forgotPin') }}>
-      <View>
-        <InputBase
+    <PageWithBackHeader
+      header={{ title: t('manageCredentials.pin.forgotPin') }}
+      hideHeader={desktop}
+    >
+      <FormContainer>
+        <Input
           sx={{ mt: '$2' }}
-          label={t('profile.details.phone')}
+          label={t('common.phone')}
           value={values.contactNumber}
           editable={false}
           action={
             <TimerButton
               accessibilityRole="button"
               ref={OTPRef}
-              title={t('common.send')}
+              title={t('authentication.send')}
               loading={isOtpLoading}
               onPress={onSendOtp}
               sx={{
                 width: 'auto',
-                backgroundColor: theme.colors.$gray,
+                backgroundColor: '$otp',
                 m: 0,
                 px: '$3',
                 minWidth: 53,
-                marginRight: INPUT_BASE_SPACE,
+                marginRight: 10,
               }}
               _text={{
                 sx: {
-                  color: theme.colors.$black,
+                  py: '$1',
+                  color: '$white',
+                  fontWeight: 'bold',
                 },
               }}
             />
           }
         />
-        <InputBase
+        <Input
           label={'OTP'}
-          placeholder={t('auth.enterOtp')}
+          placeholder={t('authentication.enterOtp')}
           value={values.verifyCode}
           keyboardType={'number-pad'}
           maxLength={6}
@@ -215,45 +255,26 @@ const ForgotPinScreen = () => {
               : undefined
           }
         />
-      </View>
-
-      <UnderlinePinField
-        title={t('pin.newPin')}
-        value={values.pin}
-        setValue={handleChange('pin')}
-      />
-      <UnderlinePinField
-        title={t('pin.confirmPin')}
-        value={values.confirmPin}
-        setValue={handleChange('confirmPin')}
-        errorMsg={
-          values.confirmPin.length === 6 && errors.confirmPin
-            ? t(errors.confirmPin, {
-                field: t('pin.pin'),
-              })
-            : undefined
-        }
-      />
-
-      <Button
-        rounded
-        stretch
-        loading={isSubmitting}
-        disabled={!isValid || !dirty}
-        variant="lg"
-        fill={{
-          type: 'gradient',
-          color: 'secondary',
-          start: { x: 0, y: 0 },
-          end: { x: 1, y: 0 },
-        }}
-        containerStyle={{
-          m: '$10',
-        }}
-        onPress={submitForm}
-      >
-        <Button.Label>{t('common.submit')}</Button.Label>
-      </Button>
+        {memoPin}
+        <View sx={{ flexDirection: 'row', justifyContent: 'center' }}>
+          {desktop && <View sx={{ width: '20%', minWidth: 200 }} />}
+          <Button
+            onPress={submitForm}
+            disabled={!isValid || !dirty}
+            sx={{
+              mt: '$4',
+              maxWidth: 350,
+              ...(desktop
+                ? {
+                    width: '55%',
+                  }
+                : { width: '100%' }),
+            }}
+          >
+            {t('common.submit')}
+          </Button>
+        </View>
+      </FormContainer>
     </PageWithBackHeader>
   )
 }

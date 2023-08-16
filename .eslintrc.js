@@ -7,6 +7,6 @@ module.exports = {
   },
   root: true,
   rules: {
-    "jsx-a11y/alt-text": "off"
-  }
+    'react/display-name': 'off',
+  },
 }

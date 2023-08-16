@@ -1,19 +1,16 @@
 {
-  "name": "chlgame",
+  "name": "vuifit",
   "private": true,
   "workspaces": [
     "apps/*",
     "packages/*"
   ],
   "devDependencies": {
-    "@types/react": "18.0.1",
-    "@types/react-native": "0.67.6",
-    "eslint": "^8.11.0",
-    "lerna-update-wizard": "^1.1.2",
-    "patch-package": "^6.4.7",
-    "postinstall-postinstall": "^2.1.0",
-    "turbo": "^1.1.6",
-    "typescript": "^4.6.2"
+    "@types/react": "^18.0.17",
+    "@types/react-native": "^0.69.5",
+    "eslint": "^8.21.0",
+    "turbo": "^1.4.2",
+    "typescript": "^5.0.4"
   },
   "scripts": {
     "native": "cd apps/expo && yarn start",
@@ -21,41 +18,50 @@
     "native:soft": "cd apps/expo && yarn start:soft",
     "native:pre": "cd apps/expo && yarn start:pre",
     "native:prod": "cd apps/expo && yarn start:prod",
-    "ios": "cd apps/expo && yarn ios",
-    "android": "cd apps/expo && yarn android",
-    "web": "APP_ENV=prod yarn workspace next-app dev",
+    "native:ios": "cd apps/expo && yarn ios",
+    "web": "cd apps/next && yarn next",
     "web:staging": "cd apps/next && APP_ENV=stag yarn next",
-    "web:pre": "cd apps/next && APP_ENV=pre yarn next",
-    "plus": "yarn lernaupdate --lazy",
-    "reset": "find . -type dir -name node_modules | xargs rm -rf && rm -rf yarn.lock",
-    "copy-assets": "node ./apps/next/scripts/copy-assets.js",
+    "web:soft": "cd apps/next && APP_ENV=soft yarn next",
     "build:web": "yarn workspace next-app build",
     "build:web:staging": "APP_ENV=stag yarn build:web",
     "build:web:pre": "APP_ENV=pre yarn build:web",
     "build:web:soft": "APP_ENV=soft yarn build:web",
-    "docker:web": "docker build -t chlgame .",
-    "docker:verify": "docker run -it chlgame sh",
-    "docker:run": "docker run -p 3000:3000 chlgame",
-    "deploy:staging": "cd apps/expo && expo publish --release-channel staging",
-    "deploy:prod": "expo publish --release-channel prod",
-    "rndebug": "open 'rndebugger://set-debugger-loc?host=localhost&port=19000'",
-    "build:android:staging": "cd apps/expo &&  yarn build:android:staging",
-    "build:ios:staging": "cd apps/expo && yarn build:ios:staging",
+    "docker:build": "docker build -t chlgame2 .",
+    "docker:verify": "docker run -it chlgame2 sh",
+    "docker:run": "docker run -p 3000:3000 chlgame2",
     "codepush:ios:staging": "cd apps/expo && yarn codepush:ios:staging",
     "codepush:android:staging": "cd apps/expo && yarn codepush:android:staging",
+    "codepush:ios:staging2": "cd apps/expo && yarn codepush:ios:staging2",
+    "codepush:android:staging2": "cd apps/expo && yarn codepush:android:staging2",
     "codepush:ios:prod": "cd apps/expo && yarn codepush:ios:prod",
     "codepush:android:prod": "cd apps/expo && yarn codepush:android:prod",
     "codepush:ios:pre": "cd apps/expo && yarn codepush:ios:pre",
     "codepush:android:pre": "cd apps/expo && yarn codepush:android:pre",
     "codepush:ios:soft": "cd apps/expo && yarn codepush:ios:soft",
-    "codepush:android:soft": "cd apps/expo && yarn codepush:android:soft",
-    "postinstall": "patch-package"
+    "codepush:android:soft": "cd apps/expo && yarn codepush:android:soft"
   },
   "resolutions": {
-    "@types/react": "18.0.1",
-    "@types/react-native": "0.67.6",
-    "react-devtools-core": "4.25.0",
-    "ts-toolbelt": "^9.6.0",
-    "axios": "0.27.2"
+    "metro": "^0.73.1",
+    "metro-resolver": "^0.73.1",
+    "@react-native/assets@1.0.0": "patch:@react-native/assets@npm%3A1.0.0#./.yarn/patches/@react-native-assets-npm-1.0.0-2165b2ba43.patch",
+    "react-native-webview@11.26.0": "patch:react-native-webview@npm%3A11.26.0#./.yarn/patches/react-native-webview-npm-11.26.0-7f2711346f.patch",
+    "react-native-code-push@8.0.2": "patch:react-native-code-push@npm%3A8.0.2#./.yarn/patches/react-native-code-push-npm-8.0.2-53e53c8ec6.patch",
+    "expo-font@~11.1.1": "patch:expo-font@npm%3A11.1.1#./.yarn/patches/expo-font-npm-11.1.1-e30f61f5aa.patch",
+    "react-native-shield-fraud-plugin@1.0.4": "patch:react-native-shield-fraud-plugin@npm%3A1.0.4#./.yarn/patches/react-native-shield-fraud-plugin-npm-1.0.4-a03692a411.patch",
+    "react-native-modalfy@3.3.3": "patch:react-native-modalfy@npm%3A3.3.3#./.yarn/patches/react-native-modalfy-npm-3.3.3-e38ac7cab1.patch",
+    "react-native-actions-sheet@0.8.29": "patch:react-native-actions-sheet@npm%3A0.8.29#./.yarn/patches/react-native-actions-sheet-npm-0.8.29-67be4d5903.patch"
+  },
+  "nohoist": [
+    "**/expo-router",
+    "**/expo-router/**"
+  ],
+  "engines": {
+    "node": "^16.0.0"
+  },
+  "packageManager": "yarn@3.4.1",
+  "dependencies": {
+    "expo-dev-client": "^2.2.1",
+    "patch-package": "^7.0.0",
+    "postinstall-postinstall": "^2.1.0"
   }
 }

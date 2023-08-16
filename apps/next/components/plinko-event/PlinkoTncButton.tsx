@@ -1,9 +1,9 @@
 import { Image } from 'dripsy'
 import React, { useCallback } from 'react'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
-import TouchableOpacity from 'app/pressable/TouchableOpacity'
-import { LANGUAGE_CODE } from 'app/constant/language'
 import { Action, ActionType, getAction } from 'app/utils/actionGenerator'
+import { LANGUAGE_CODE } from 'app/utils/constant'
+import { useRouter } from 'next/router'
+import TouchableOpacity from 'app/components/pressable/TouchableOpacity'
 
 const PlinkoTncButton = ({
   locale,
@@ -12,7 +12,7 @@ const PlinkoTncButton = ({
   locale: LANGUAGE_CODE
   scale: number
 }) => {
-  const { push } = useContextualRouter()
+  const { push } = useRouter()
 
   const tncData: Action = {
     type: ActionType.INTERNAL_REDIRECT,
@@ -51,9 +51,10 @@ const PlinkoTncButton = ({
       }}
     >
       <Image
-        source={require('app/assets/images/events/plinko/btnTnC.png')}
+        source={require('../../../../packages/app/assets/images/plinko/btnTnC.png')}
         resizeMode="contain"
         style={{ width: '100%', height: '100%', zIndex: 1 }}
+        alt="btnTnc"
       />
     </TouchableOpacity>
   )

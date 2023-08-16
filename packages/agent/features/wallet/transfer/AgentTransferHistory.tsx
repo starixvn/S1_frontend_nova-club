@@ -1,7 +1,6 @@
-import DataTable from 'agent/components/DataTable/DataTable'
-import { DateTimeField } from 'agent/components/DataTable/DataTableCell'
+import AgentDataTableCell from 'agent/components/DataTable/AgentDataTableCell'
+import AgentDataTableRow from 'agent/components/DataTable/AgentDataTableRow'
 import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
-import Text from 'agent/components/Text'
 import useTableListing from 'agent/hooks/useTableListing'
 import { ShareholderRecentTransactionListResult } from 'agent/services/shareholderApi.type'
 import {
@@ -9,14 +8,13 @@ import {
   useShareholderTransferListQuery,
 } from 'agent/services/transferApi'
 import { AgentTransferListResult } from 'agent/services/transferApi.type'
+import { DateTimeField } from 'app/components/dataTable/DataTableCell'
 import { useAgentLocalization } from 'app/provider/localization'
 import { toThousandSeparator } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import dayjsTz from 'app/utils/dayjs'
-import dayjs from 'dayjs'
 import { View } from 'dripsy'
 import { useState } from 'react'
-import { Platform } from 'react-native'
 
 interface AgentTransferHistoryProps {
   currency: Currency
@@ -100,31 +98,22 @@ const AgentTransferHistory = ({
     refetch,
   })
 
-  // const onLoadMore = () => {
-  //   if (isAgent)
-  //     agentHasMorePage && !agentIsFetching && setOffset((prev) => prev + 1)
-  //   else
-  //     shareholderHasMorePage &&
-  //       !shareholderIsFetching &&
-  //       setOffset((prev) => prev + 1)
-  // }
-
   const onRenderItem = ({
     item,
   }: {
     item: AgentTransferListResult | ShareholderRecentTransactionListResult
   }) => (
-    <DataTable.Row>
-      <DataTable.Cell center style={{ flex: 0.35 }}>
+    <AgentDataTableRow>
+      <AgentDataTableCell center sx={{ flex: 0.35 }}>
         <DateTimeField dateTime={item.created_date} />
-      </DataTable.Cell>
-      <DataTable.Cell style={{ flex: 0.4 }} center>
+      </AgentDataTableCell>
+      <AgentDataTableCell sx={{ flex: 0.4 }} center>
         {item.referrer_code}
-      </DataTable.Cell>
-      <DataTable.Cell style={{ flex: 0.4 }} center>
+      </AgentDataTableCell>
+      <AgentDataTableCell sx={{ flex: 0.4 }} center>
         {toThousandSeparator(item.amount)}
-      </DataTable.Cell>
-    </DataTable.Row>
+      </AgentDataTableCell>
+    </AgentDataTableRow>
   )
 
   return (

@@ -1,8 +1,8 @@
-import TouchableOpacity from 'app/pressable/TouchableOpacity'
-import { View } from 'dripsy'
+import TouchableOpacity from 'app/components/pressable/TouchableOpacity'
+import { Pressable, ScrollView, View } from 'dripsy'
 import React from 'react'
+import { SolitoImage } from 'solito/image'
 import Select, { SelectProps } from './Select'
-import Image from 'app/components/common/Image'
 
 export type SelectWithCardGrid<T> = Omit<SelectProps<T>, '_actionSheetContent'>
 
@@ -28,31 +28,24 @@ export default function SelectWithCardGrid<T>(props: SelectWithCardGrid<T>) {
                   key={index}
                   sx={{
                     borderColor: '#0c7dff',
-                    m: '$2',
+                    m: '$1',
                     borderRadius: 15,
                     borderWidth: 2,
                     overflow: 'hidden',
                     width: 100,
                     height: 100,
-                    p: '$2',
                   }}
                   onPress={() => {
-                    console.log('topion', option)
                     onSelected(option.value)
                     closeActionSheet()
                   }}
                 >
                   {option.icon && (
-                    <Image
-                      source={
-                        typeof option.icon === 'string'
-                          ? {
-                              uri: option.icon,
-                            }
-                          : option.icon
-                      }
-                      resizeMode={'contain'}
-                      sx={{ width: '100%', height: '100%' }}
+                    <SolitoImage
+                      src={option.icon}
+                      resizeMode="contain"
+                      fill
+                      alt=""
                     />
                   )}
                 </TouchableOpacity>

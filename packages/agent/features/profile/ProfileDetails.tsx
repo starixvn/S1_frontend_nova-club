@@ -16,7 +16,7 @@ const ProfileDetails = ({ data }) => {
   const lastLoginIp = data?.lastlogin_ip
 
   return (
-    <View sx={{ paddingX: '$2', pt: '$1', pb: '$5' }}>
+    <View sx={{ paddingX: '$2', pt: '$1', pb: '$2' }}>
       <ProfileRow>
         <ProfileLabel>{t('profile.currency')}:</ProfileLabel>
         <ProfileData sx={{ color: '#0342A9', fontWeight: 'bold' }}>

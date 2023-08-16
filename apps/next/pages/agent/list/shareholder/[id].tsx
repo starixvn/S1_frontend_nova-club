@@ -1,13 +1,10 @@
-import React from 'react'
-import AgentStackLayout from '../../../../layouts/agent/AgentStackLayout'
 import ShareholderDetailsScreen from 'agent/features/shareholder/ShareholderDetails'
+import { MobileStackAgentLayout } from 'components/layouts/agent'
 
 const ShareholderDetails = () => {
-  return (
-    <AgentStackLayout>
-      <ShareholderDetailsScreen />
-    </AgentStackLayout>
-  )
+  return <ShareholderDetailsScreen />
 }
+
+ShareholderDetails.AgentLayout = MobileStackAgentLayout
 
 export default ShareholderDetails

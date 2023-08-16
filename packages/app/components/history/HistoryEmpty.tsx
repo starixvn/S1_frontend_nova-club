@@ -2,7 +2,6 @@ import useContainerDimension from 'app/hooks/useContainerDimension'
 import useLocalization from 'app/provider/localization'
 import { Image, Text, View } from 'dripsy'
 import React, { ComponentProps } from 'react'
-import Icon from '../Icon'
 
 export type IHistoryEmpty = ComponentProps<typeof View> & {
   text?: string
@@ -27,6 +26,7 @@ const HistoryEmpty = ({ text, _text, ...props }: IHistoryEmpty) => {
           height: width * 0.25,
           resizeMode: 'contain',
         }}
+        alt="history-empty"
       />
 
       <Text

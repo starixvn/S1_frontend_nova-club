@@ -1,10 +1,14 @@
-import { CURRENCY_SEPARATOR, CURRENCY_TO_LANGUAGE } from 'app/constant/currency'
-import { LANGUAGE_CODE } from 'app/constant/language'
-import * as Clipboard from 'expo-clipboard'
-import { Currency } from './constant'
+// import * as Clipboard from 'expo-clipboard'
+import i18n from 'app/provider/localization/i18n'
+import {
+  CURRENCY_SEPARATOR,
+  CURRENCY_TO_LANGUAGE,
+  Currency,
+  LANGUAGE_CODE,
+} from './constant'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { store } from 'app/provider/redux/store'
-import i18n from 'app/provider/localization/i18n'
+import * as Clipboard from 'expo-clipboard'
 /**
  * `expo-clipboard` version 2.1.1 is used due to v3 above need Expo SDK45
  * to support, and `setStringAsync` can't be used in IOS
@@ -18,13 +22,19 @@ export async function copyToClipboard(
     Clipboard.setString(message)
     onCopied && onCopied(message)
 
+    console.log('copied')
+
     Toast.show({
-      type: 'info',
+      type: 'success',
       text1: i18n.translate('common.copied', {
         locale: store.getState().setting.locale,
       }),
     })
   } catch (error) {
+    Toast.show({
+      type: 'error',
+      text1: error,
+    })
     console.error(error)
   }
 }
@@ -141,8 +151,7 @@ export function appendWithThousandUnit(
 
   const formattedQuotient = toThousandSeparator(quotient, language)
   const formattedDecimal = toDecimalSeparator(formattedRemainder, language)
-
-  return `${formattedQuotient}${formattedDecimal}K`
+  return `${formattedQuotient ? formattedQuotient : '0'}${formattedDecimal}K`
 }
 
 export function clearThousandSeparator(amount: string) {
@@ -222,7 +231,6 @@ export function agentToThousandSeparator(
       .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1' + separatorSymbol)
   )
 }
-
 export interface CleanAmount {
   cleanText: string
   amountNumber: number
@@ -272,4 +280,31 @@ export const createFileName = (extension = '', ...names) => {
   if (!extension) return ''
 
   return `${names.join('')}.${extension}`
+}
+
+export const ToThousandValue = ({
+  number,
+  decimal = true,
+  floatingPoint = 2,
+}: {
+  number: number
+  decimal?: boolean
+  floatingPoint?: number
+}): string => {
+  const dividedNumber = (number / 1000).toFixed(floatingPoint)
+  if (decimal) {
+    return dividedNumber
+  } else {
+    return dividedNumber?.split('.')[0] ?? ''
+  }
+}
+
+export function humanFileSize(bytes: number): string {
+  if (!bytes || bytes === 0) return '0KB'
+  const i = Math.floor(Math.log(bytes) / Math.log(1024))
+  return (
+    ((bytes / 1024 ** i) * 1).toFixed(2) +
+    ' ' +
+    ['B', 'KB', 'MB', 'GB', 'TB'][i]
+  )
 }

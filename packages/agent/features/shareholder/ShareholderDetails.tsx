@@ -1,11 +1,15 @@
 import Card from 'agent/components/Card'
-import DataTable from 'agent/components/DataTable/DataTable'
+import AgentDataTableCell from 'agent/components/DataTable/AgentDataTableCell'
+import AgentDataTableHeader from 'agent/components/DataTable/AgentDataTableHeader'
+import AgentDataTableRow from 'agent/components/DataTable/AgentDataTableRow'
+import AgentDataTableTitle from 'agent/components/DataTable/AgentDataTableTitle'
 import DataTableRefresh from 'agent/components/DataTable/DataTableRefresh'
 import CommonBackHeader from 'agent/navigation/components/CommonBackHeader'
 import {
   useShareholderBalanceQuery,
   useShareholderDetailsQuery,
 } from 'agent/services/shareholderApi'
+import DataTable from 'app/components/dataTable/DataTable'
 import { useAgentLocalization } from 'app/provider/localization'
 import dayjs from 'dayjs'
 import { View } from 'dripsy'
@@ -92,33 +96,29 @@ const ShareholderDetailsScreen = () => {
             }}
           >
             <DataTableRefresh title={t('profile.totalDownline')} center />
-            <DataTable.Header>
-              <DataTable.Title bordered containerStyle={firstCellStyle}>
+            <AgentDataTableHeader>
+              <AgentDataTableTitle bordered sx={firstCellStyle}>
                 {' '}
-              </DataTable.Title>
-              <DataTable.Title bordered center containerStyle={secondCellStyle}>
+              </AgentDataTableTitle>
+              <AgentDataTableTitle bordered center sx={secondCellStyle}>
                 {t('profile.direct')}
-              </DataTable.Title>
-              <DataTable.Title center containerStyle={thirdCellStyle}>
+              </AgentDataTableTitle>
+              <AgentDataTableTitle center sx={thirdCellStyle}>
                 {t('profile.indirect')}
-              </DataTable.Title>
-            </DataTable.Header>
+              </AgentDataTableTitle>
+            </AgentDataTableHeader>
             {downlineTable.map((item) => (
-              <DataTable.Row key={item.label}>
-                <DataTable.Cell center bordered containerStyle={firstCellStyle}>
+              <AgentDataTableRow key={item.label}>
+                <AgentDataTableCell center bordered sx={firstCellStyle}>
                   {item.label}
-                </DataTable.Cell>
-                <DataTable.Cell
-                  center
-                  bordered
-                  containerStyle={secondCellStyle}
-                >
+                </AgentDataTableCell>
+                <AgentDataTableCell center bordered sx={secondCellStyle}>
                   {item.direct}
-                </DataTable.Cell>
-                <DataTable.Cell center containerStyle={thirdCellStyle}>
+                </AgentDataTableCell>
+                <AgentDataTableCell center sx={thirdCellStyle}>
                   {item.indirect}
-                </DataTable.Cell>
-              </DataTable.Row>
+                </AgentDataTableCell>
+              </AgentDataTableRow>
             ))}
           </DataTable>
 

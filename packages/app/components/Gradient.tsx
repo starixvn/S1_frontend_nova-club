@@ -1,5 +1,5 @@
-import { Gradient } from '@dripsy/gradient'
 import { DripsyCustomTheme } from 'dripsy'
+import { Gradient } from 'dripsy/gradient'
 import { ComponentProps } from 'react'
 
 export type GradientList = keyof DripsyCustomTheme['linearGradients']
@@ -10,5 +10,5 @@ export type DripsyGradientProps = Override<
 >
 
 export function DripsyGradient(rest: DripsyGradientProps) {
-  return <Gradient {...rest} gradient={rest.gradient} />
+  return <Gradient {...rest} />
 }

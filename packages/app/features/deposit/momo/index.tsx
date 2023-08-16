@@ -1,19 +1,18 @@
-import MenuNotice from 'app/components/common/MenuNotice'
-import { PageWithBackHeader } from 'app/components/layout/Page'
-import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
-import { DEPOSIT_NOTES } from 'app/constant/notes'
+import { PageWithBackHeader } from 'app/components/layouts/Page'
+import MenuNotice from 'app/components/navigation/MenuNotice'
 import useLocalization from 'app/provider/localization'
-import { View } from 'dripsy'
-import React from 'react'
+import { DEPOSIT_NOTES } from 'app/utils/constant'
+import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
-import AutoDepositForm from '../components/AutoDepositForm'
+import MomoContent from './MomoContent'
 
-const MomoScreen = () => {
+const MomoPayScreen = () => {
   const { t } = useLocalization()
   const { openModal } = useModal()
 
   return (
     <PageWithBackHeader
+      disableScrollView={Platform.OS === 'ios'}
       header={{
         title: t('deposit.depositMethod.momo'),
         actions: (
@@ -23,14 +22,9 @@ const MomoScreen = () => {
         ),
       }}
     >
-      <View sx={{ flex: 1 }}>
-        <AutoDepositForm
-          module="momo"
-          DepositCategoryId={DepositPaymentMethodCategoryId.MOMO}
-        />
-      </View>
+      <MomoContent />
     </PageWithBackHeader>
   )
 }
 
-export default MomoScreen
+export default MomoPayScreen

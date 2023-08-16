@@ -1,5 +1,9 @@
 {
   "version": "0.0.0",
   "name": "services",
-  "sideEffects": false
+  "sideEffects": false,
+  "peerDependencies": {
+    "@reduxjs/toolkit": "*",
+    "dayjs": "*"
+  }
 }

@@ -1,66 +1,63 @@
-import { PageWithBackHeader } from 'app/components/layout/Page'
-import PaymentMethod, { DepositMethodId } from 'app/config/deposit'
-import useCheckMobile from 'app/hooks/useCheckMobile'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
+import { PageWithBackHeader } from 'app/components/layouts/Page'
 import useLocalization from 'app/provider/localization'
-import { BankActions } from 'app/store/bankReducer'
-import { ActivityIndicator, styled, Text, View } from 'dripsy'
-import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { ActivityIndicator, ScrollView, Text, View } from 'dripsy'
+import DepositCard from './component/DepositCard'
+import useCheckMobile from 'app/hooks/useCheckMobile'
 import { useDepositPaymentListQuery } from 'services/deposit'
-import DepositMethodCard from './DepositMethodCard'
-import DepositTransactions from './local-bank/DepositTransactions'
+import { useCallback, useEffect, useState } from 'react'
+import { useRouter } from 'solito/router'
+import RecentTransactionRow from './component/RecentTransactionRow'
+import RefreshButton from 'app/components/RefreshButton'
+import EmptyResult from 'app/components/dataTable/EmptyResult'
+import { usePlayerReportQuery } from 'services/playerApi'
+import {
+  DEPOSIT_NOTES,
+  ReportDepositStatus,
+  ReportTransactionType,
+} from 'app/utils/constant'
+import dayjsTz from 'app/utils/dayjs'
+import MenuNotice from 'app/components/navigation/MenuNotice'
+import { useModal } from 'react-native-modalfy'
+import PaymentMethod, { DepositMethodId } from 'app/config/deposit'
+import useDepositList from './tools/useDepositList'
 
-const DepositPage = () => {
-  const { push } = useContextualRouter()
+const Deposit = () => {
   const { t } = useLocalization()
-  const dispatch = useDispatch()
-  const [paymentMethodList, setPaymentMethodList] = useState(PaymentMethod)
+  const { push } = useRouter()
+  const { openModal } = useModal()
 
-  const { isMobile } = useCheckMobile()
-  const { data, isLoading } = useDepositPaymentListQuery({
-    is_mobile: isMobile ? 0 : 1,
-  })
+  const { paymentMethodList, isLoading } = useDepositList()
 
-  useEffect(() => {
-    if (data?.success) {
-      const activeMethod = PaymentMethod.filter((item) => item.active === true)
-
-      const convertData = activeMethod
-        .map((item) => {
-          const method = data?.data?.result[item.type]
-          if (method) {
-            const res = method.find((el) => el.category_id === item.categoryId)
-
-            if (res)
-              return {
-                ...item,
-                categoryText: res.category_text,
-                list: res.list,
-              }
-          }
-        })
-        .filter((x) => x != null)
-
-      setPaymentMethodList(convertData)
-
-      dispatch(BankActions.setDepositPayment(convertData))
-    }
-  }, [data])
+  const {
+    data: transactionData,
+    isFetching,
+    isLoading: transactionIsLoading,
+    refetch,
+  } = usePlayerReportQuery(
+    {
+      limit: 5,
+      offset: 0,
+      status: ReportDepositStatus.ALL,
+      time_from: dayjsTz().subtract(2, 'month').startOf('date').toISOString(),
+      time_to: dayjsTz().endOf('date').toISOString(),
+      trans_type: ReportTransactionType.DEPOSIT,
+    },
+    { refetchOnMountOrArgChange: true }
+  )
 
   const handlePress = (id) => {
     switch (id) {
       case DepositMethodId.LOCAL_BANK:
-        push(`/deposit/local-bank`)
+        push(`/deposit/bank-transfer`)
         break
       case DepositMethodId.ONLINE_BANK:
-        push(`/deposit/online-bank`)
+        push(`/deposit/online-banking`)
         break
       case DepositMethodId.MOMO:
         push(`/deposit/momo`)
         break
       case DepositMethodId.QR_CODE:
-        push(`/deposit/qr-transfer`)
+        push(`/deposit/qr-pay`)
         break
       case DepositMethodId.TOP_UP:
         push(`/deposit/topup-card`)
@@ -74,24 +71,33 @@ const DepositPage = () => {
   }
 
   return (
-    <PageWithBackHeader header={{ title: t('menu.deposit') }}>
+    <PageWithBackHeader
+      header={{
+        title: t('deposit.depositTitle'),
+        actions: (
+          <MenuNotice
+            onPress={() => openModal('NoticeModal', { notice: DEPOSIT_NOTES })}
+          />
+        ),
+      }}
+      disableScrollView
+    >
       {isLoading ? (
         <ActivityIndicator sx={{ my: '$6' }} />
       ) : paymentMethodList.length > 0 ? (
         <>
-          <Text sx={{ my: '$6', mx: '$4' }}>{t('deposit.choose')}</Text>
+          <Text sx={{ my: '$3', mx: '$4' }}>{t('deposit.choose')}</Text>
           <View
             sx={{
-              position: 'relative',
-              mx: '$4',
               flexDirection: 'row',
               flexWrap: 'wrap',
+              px: '$3',
               justifyContent: 'space-between',
             }}
           >
             {paymentMethodList &&
               paymentMethodList.map((item, index) => (
-                <DepositMethodCard
+                <DepositCard
                   key={item.id}
                   item={item}
                   sx={{
@@ -99,26 +105,45 @@ const DepositPage = () => {
                       paymentMethodList.length - index <= 1 &&
                       (index + 1) % 2 === 1
                         ? 0
-                        : '$4',
+                        : '$1',
                   }}
                   onPress={() => handlePress(item.id)}
                 />
               ))}
-            <Seperator />
+            {/* <Seperator /> */}
           </View>
         </>
       ) : null}
-      <DepositTransactions />
+      <View
+        sx={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          px: '$pagePadding',
+          py: '$2',
+          mt: '$4',
+        }}
+      >
+        <Text>{t('transaction.recent')}</Text>
+        <RefreshButton loading={isFetching} onPress={refetch} />
+      </View>
+      <ScrollView>
+        {transactionIsLoading ? (
+          <ActivityIndicator size="large" />
+        ) : transactionData?.data?.row_count_total ?? 0 > 0 ? (
+          transactionData?.data?.rows.map((item, index) => (
+            <RecentTransactionRow
+              key={item.tx_code}
+              item={item}
+              index={index}
+            />
+          ))
+        ) : (
+          <EmptyResult />
+        )}
+      </ScrollView>
     </PageWithBackHeader>
   )
 }
 
-const Seperator = styled(View)({
-  width: 1,
-  bg: '#33A0D0',
-  height: '100%',
-  position: 'absolute',
-  left: '50%',
-})
-
-export default DepositPage
+export default Deposit

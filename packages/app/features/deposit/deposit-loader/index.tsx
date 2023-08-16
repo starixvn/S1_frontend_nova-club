@@ -1,10 +1,8 @@
-import { DEV_DOMAIN } from '@env'
-import { PageWithBackHeader } from 'app/components/layout/Page'
+import { PageWithBackHeader } from 'app/components/layouts/Page'
 import WebView from 'app/components/WebView'
-import { View } from 'dripsy'
+import { Text, View } from 'dripsy'
 import { Platform } from 'react-native'
 import { createParam } from 'solito'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 
 const { useParam } = createParam<{ depositUrl: string; title: string }>()
 /**
@@ -32,31 +30,11 @@ const { useParam } = createParam<{ depositUrl: string; title: string }>()
 const DepositLoaderScreen = () => {
   const [depositUrl] = useParam('depositUrl', { initial: '' })
   const [title] = useParam('title')
-  const { back } = useContextualRouter()
 
   return (
     <PageWithBackHeader header={{ title: title }} disableScrollView>
       <View sx={{ flex: 1 }}>
-        {Platform.OS === 'web' ? (
-          <iframe
-            src={decodeURIComponent(depositUrl)}
-            height="100%"
-            style={{ flex: 1 }}
-          />
-        ) : (
-          <WebView
-            url={depositUrl}
-            onShouldStartLoadWithRequest={(e) => {
-              const { url } = e
-              if (url.startsWith(DEV_DOMAIN)) {
-                back()
-                return false
-              }
-
-              return true
-            }}
-          />
-        )}
+        <WebView url={depositUrl} />
       </View>
     </PageWithBackHeader>
   )

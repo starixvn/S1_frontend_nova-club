@@ -1,19 +1,20 @@
-import { Gradient } from '@dripsy/gradient'
 import { CONTENT_URI, MEDIA_DOMAIN, REFERRAL_DOMAIN } from '@env'
-import TouchableOpacity from 'app/pressable/TouchableOpacity'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
+import { HEADER_HEIGHT } from 'app/utils/constant'
 import dayjsTz from 'app/utils/dayjs'
-import { styled, Text, useDripsyTheme, View } from 'dripsy'
+import { Text, View } from 'dripsy'
+import { Gradient } from 'dripsy/gradient'
 import { AnimatePresence, MotiView } from 'moti'
 import { useEffect, useState } from 'react'
 import { Linking } from 'react-native'
 import { useDispatch } from 'react-redux'
+import IconButton from './IconButton'
 import Image from './common/Image'
-import IconButton from './form/IconButton'
+import HeaderButton from './navigation/header/HeaderButton'
 
-const HEIGHT = 60
+const HEIGHT = HEADER_HEIGHT
 const AppDownloadSuggestion = () => {
   const [show, setShow] = useState(false)
   const { t } = useLocalization()
@@ -49,19 +50,20 @@ const AppDownloadSuggestion = () => {
                 height: HEIGHT,
                 flexDirection: 'row',
                 alignItems: 'center',
-                px: '$4',
+                px: '$3',
               }}
               start={[0, 0]}
               end={[1, 1]}
-              colors={['#a8dfe2', '#2ba3c4']}
+              gradient={'button'}
             >
               <IconButton
                 name="cross"
-                color="primary"
                 size={16}
                 onPress={onClose}
+                color={'$primary.500'}
               />
               <Image
+                alt="logo"
                 source={{
                   uri: `${MEDIA_DOMAIN}${CONTENT_URI}/app-logo-40.png`,
                 }}
@@ -73,27 +75,24 @@ const AppDownloadSuggestion = () => {
                 }}
               />
               <View>
-                <Text sx={{ color: '#0056FA' }}>
+                <Text sx={{ color: '$primary.500' }}>
                   {t('forceDownload.downloadApp')}
                 </Text>
-                <Text sx={{ fontWeight: 'bold', color: '#000757' }}>
+                <Text sx={{ color: '$primary.500', fontWeight: 'bold' }}>
                   {t('forceDownload.promoText')}
                 </Text>
               </View>
-              <TouchableOpacity
+              <HeaderButton
                 sx={{
-                  px: '$4',
-                  py: '$2',
+                  bg: '$primary.300',
                   ml: 'auto',
-                  backgroundColor: '#0d3664',
-                  borderRadius: 10,
                 }}
                 onPress={() => {
                   Linking.openURL(REFERRAL_DOMAIN)
                 }}
               >
-                <Text>{t('forceDownload.download')}</Text>
-              </TouchableOpacity>
+                {t('forceDownload.download')}
+              </HeaderButton>
             </Gradient>
           </MotiView>
         )}

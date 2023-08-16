@@ -1,5 +1,6 @@
-import DataTable from 'agent/components/DataTable/DataTable'
-import { DateTimeField } from 'agent/components/DataTable/DataTableCell'
+import AgentDataTableCell from 'agent/components/DataTable/AgentDataTableCell'
+import AgentDataTableHeader from 'agent/components/DataTable/AgentDataTableHeader'
+import AgentDataTableTitle from 'agent/components/DataTable/AgentDataTableTitle'
 import TableListing, { LIMIT } from 'agent/components/DataTable/TableListing'
 import Switch from 'agent/components/Switch'
 import Text from 'agent/components/Text'
@@ -10,7 +11,8 @@ import {
   useAgentSetStatusMutation,
 } from 'agent/services/agentApi'
 import { AgentListResult } from 'agent/services/agentApi.type'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
+import DataTable from 'app/components/dataTable/DataTable'
+import { DateTimeField } from 'app/components/dataTable/DataTableCell'
 import { useAgentLocalization } from 'app/provider/localization'
 import dayjs from 'dayjs'
 import { Pressable, View } from 'dripsy'
@@ -18,7 +20,9 @@ import { useState } from 'react'
 import { ListRenderItemInfo } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
+import { useRouter } from 'solito/router'
 import AgentFloatingContent from '../floatingContent'
+import AgentDataTableRow from 'agent/components/DataTable/AgentDataTableRow'
 
 export type AgentListingFilterOptions = {
   date: DateFilter | string | undefined
@@ -35,7 +39,7 @@ type AgentListProps = {
 
 const AgentListing = () => {
   const { t } = useAgentLocalization()
-  const { push } = useContextualRouter()
+  const { push } = useRouter()
   const { openModal } = useModal()
 
   const [offset, setOffset] = useState(0)
@@ -86,29 +90,29 @@ const AgentListing = () => {
   const firstCellStyle = { flexGrow: 0, flexBasis: 40, px: '$1' }
 
   const onRenderHeader = () => (
-    <DataTable.Header>
-      <DataTable.Title bordered center containerStyle={firstCellStyle}>
+    <AgentDataTableHeader>
+      <AgentDataTableTitle bordered center sx={firstCellStyle}>
         #
-      </DataTable.Title>
-      <DataTable.Title bordered center>
+      </AgentDataTableTitle>
+      <AgentDataTableTitle bordered center>
         {t('common.username')}
-      </DataTable.Title>
-      <DataTable.Title bordered center>
+      </AgentDataTableTitle>
+      <AgentDataTableTitle bordered center>
         {t('shAgent.regDate')}
-      </DataTable.Title>
-      <DataTable.Title center>{t('common.status')}</DataTable.Title>
-    </DataTable.Header>
+      </AgentDataTableTitle>
+      <AgentDataTableTitle center>{t('common.status')}</AgentDataTableTitle>
+    </AgentDataTableHeader>
   )
 
   const onRenderItem = ({
     item,
     index,
   }: ListRenderItemInfo<AgentListResult>) => (
-    <DataTable.Row size="big" sx={{ bg: 'transparent' }}>
-      <DataTable.Cell bordered center containerStyle={firstCellStyle}>
+    <AgentDataTableRow size="big" sx={{ bg: 'transparent' }}>
+      <AgentDataTableCell bordered center sx={firstCellStyle}>
         {index + 1}
-      </DataTable.Cell>
-      <DataTable.Cell bordered>
+      </AgentDataTableCell>
+      <AgentDataTableCell bordered>
         <Pressable
           sx={{
             width: '100%',
@@ -121,18 +125,18 @@ const AgentListing = () => {
             {item.username}
           </Text>
         </Pressable>
-      </DataTable.Cell>
-      <DataTable.Cell bordered center>
+      </AgentDataTableCell>
+      <AgentDataTableCell bordered center>
         <DateTimeField dateTime={item.created_at} />
-      </DataTable.Cell>
-      <DataTable.Cell center>
+      </AgentDataTableCell>
+      <AgentDataTableCell center>
         <Switch
           isActive={!!Number(item.active)}
           isLoading={index === isLoadingIndex ? isLoading : false}
           onPress={() => handleToggle(item.id, item.active, index)}
         />
-      </DataTable.Cell>
-    </DataTable.Row>
+      </AgentDataTableCell>
+    </AgentDataTableRow>
   )
 
   const handleToggle = async (id, status, loadingIndex) => {

@@ -1,47 +1,41 @@
-import { Text } from 'dripsy'
+import useLocalization from 'app/provider/localization'
+import { SxProp, Text, View } from 'dripsy'
 import React from 'react'
-import { DripsyGradient } from '../Gradient'
 
 export type HeaderProps = {
   data: {
     label: string
-    columnWidth: number
+    textStyle?: SxProp
   }[]
 }
 
 const HistoryHeader = ({ data }: HeaderProps) => {
+  const { t } = useLocalization()
   return (
-    <DripsyGradient
-      gradient="PaleBlue"
+    <View
       sx={{
         flexDirection: 'row',
-        backgroundColor: '$darkNavyBlue',
-        borderTopLeftRadius: 16,
-        borderTopRightRadius: 16,
-        borderBottomColor: '$lightNavyBlue',
-        borderBottomWidth: 1,
         alignItems: 'center',
-        py: '$4',
-        px: '$3',
+        py: '$2',
         textAlign: 'center',
-        minHeight: 55,
+        bg: '$primary.300',
+        borderTopWidth: 1,
+        borderColor: '$primary.50',
       }}
     >
       {data &&
         data.map((item, index) => (
           <Text
             key={`${index} ${item.label}`}
-            sx={{
-              flex: item.columnWidth,
-              alignSelf: 'stretch',
-              textAlign: index === 0 ? 'left' : 'center',
-            }}
             numberOfLines={1}
+            sx={{
+              ...item.textStyle,
+            }}
           >
-            {item.label}
+            {t(item.label)}
           </Text>
         ))}
-    </DripsyGradient>
+    </View>
   )
 }
 

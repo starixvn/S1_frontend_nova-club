@@ -1,25 +1,5 @@
-// Polyfill for dayjs timezone plugin (Android `Intl` is not supported)
-// Unless it is upgraded to RN0.65 and above
+// registerRootComponent happens in "expo-router/entry"
+import 'expo-router/entry'
 import 'intl'
 import 'date-time-format-timezone'
 import 'intl/locale-data/jsonp/en'
-import messaging from '@react-native-firebase/messaging'
-import notifee from '@notifee/react-native'
-
-import { registerRootComponent } from 'expo'
-
-import App from './App'
-
-// Register background handler
-messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-  console.log('Message handled in the background!', remoteMessage)
-})
-
-notifee.onBackgroundEvent(async ({ type, detail }) => {
-  // no op
-})
-
-// registerRootComponent calls AppRegistry.registerComponent('main', () => App);
-// It also ensures that whether you load the app in Expo Go or in a native build,
-// the environment is set up appropriately
-registerRootComponent(App)

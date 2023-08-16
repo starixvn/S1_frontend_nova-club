@@ -1,220 +1,174 @@
+import AvertaStd from 'app/assets/fonts/Averta'
 import { DripsyProvider, makeTheme } from 'dripsy'
 import { Platform } from 'react-native'
-export const fontName = 'Noto Sans'
-export const NotoSansBold = 'Noto Sans Bold'
-export const NotoSansBoldItalic = 'Noto Sans Bold Italic'
-export const NotoSansItalic = 'Noto Sans Italic'
 
 const webFont = (font: string) =>
   Platform.select({
-    web: `${font}, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, Inter-serif`,
+    web: `${font}, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, Inter-serif`,
     default: font,
   })
 
-const size = {
+/* sizes, space, radii
+  https://github.com/nandorojo/dripsy/blob/master/packages/dripsy/src/core/css/scales.ts
+
   $0: 0,
-  $0a: 2,
   $1: 4,
-  $1a: 6,
   $2: 8,
-  $2a: 10,
-  $3: 12,
-  $3a: 14,
-  $4: 16,
-  $5: 20,
-  $6: 24,
-  $7: 28,
-  $7a: 30,
-  $8: 32,
-  $9: 36,
-  $10: 40,
-  $10a: 48,
-  $11: 64,
-  $11a: 72,
-  $12: 88,
-  $12a: 96,
-  $13: 112,
-  $14: 136,
-  $15: 160,
-}
-
-const commonColors = {
-  $background: '#033454',
-  $backgroundSecondary: '#0D2035',
-  $shadow: 'rgb(26,64,98)',
-  $text: '#FFFFFF',
-  $white: '#FFFFFF',
-  $black: '#000000',
-  $primary: '#0E2B46',
-  $success: '#00FF19',
-  $error: '#F37070',
-  $info: '#F9B32B',
-  $yellow: 'rgb(255,255,84)',
-  $yellowOrange: '#f7ff00',
-  $border: '#B3BADE',
-  $borderBlue: '#33A0D0',
-  $secondary: '#0D2035',
-  $blue: '#1e79d4',
-  $navyBlue: '#066D9A',
-  $navyBlue2: '#246d92',
-  $lightNavyBlue: '#33A0D0',
-  $lightNavyBlue2: '#AFE4FF',
-  $lightCyan: '#9CD9FA',
-  $darkNavyBlue: '#014F71',
-  $dark: '#132C43',
-  $oceanBlue: '#9AC9FF',
-  $cyan: '#00E5FF',
-  $darkOcean: '#002243',
-  $darkOcean2: '#133351',
-  $disabled: '#BDBDBD',
-  $PaleBlue: '#C0E0FD',
-  $PastelBlue: '#6397B7',
-  $yellowLight: '#F6FF7A',
-  $taupeGray: '#8B8787',
-  $placeholder: '#8B8787',
-  placeholderTextColor: 'this string is ignored but must be declared',
-  $orange: '#F15D12',
-  $accent: '#F15D12',
-  $transparent: '#00000000',
-  $gray: '#DBDBDB',
-  $dim: '#FFFFFFBF', //opacity 75%
-  $dim1: '#FFFFFF80', // opacity 50%
-  $yellowGold: '#FFDB6D',
-  $eth: '#627EEA',
-  $btc: '#F6931A',
-  $usdt: '#36A07B',
-
-  // Agent Colors
-  $textAgent: '#000000',
-  $primaryAgent: '#0D7DFF',
-  $inactivePrimaryAgent: '#8DC0FF',
-  $secondaryAgent: '#DBEBFF',
-  $successAgent: '#27FF00',
-  $errorAgent: '#FF0000',
-  $darkBlueAgent: '#335DA0',
-  $disabledAgent: '#D1D1D1',
-  $grayAgent: '#505050',
-}
-
-const colorGradient = {
-  grey: ['#CCCCCC', '#666666'],
-  maroon: ['rgb(160,50,100)', 'rgb(112,27,42)'],
-  lightPurple: ['rgb(174,98,206)', 'rgb(115,54,124)'],
-  purple: ['rgb(71,82,200)', 'rgb(40,47,120)'],
-  blue: ['rgb(115,218,191)', 'rgb(46,101,99)'],
-  darkBlue: ['rgb(25,52,93)', 'rgb(18,33,53)'],
-  navyBlue: ['rgb(6, 109, 154)', 'rgb(1, 79, 113)'],
-  darkNavyBlue: ['rgb(19, 51, 81)', 'rgb(13, 32, 53)'],
-  lightNavyBlue: ['rgb(51, 160, 208)', 'rgb(1, 79, 113)'],
-  oceanBlue: ['rgb(24, 95, 161)', 'rgb(51, 160, 208)'],
-  lightOceanBlue: ['rgb(36, 108, 158)', 'rgb(29, 89, 135)'],
-  darkOceanBlue: ['rgb(3, 62, 116)', 'rgb(19, 44, 71)'],
-  plainLightBlue: ['rgba(61, 127, 156, 0.6)', 'rgba(61, 127, 156, 0.6)'],
-  green: ['rgb(88,173,64)', 'rgb(47,106,50)'],
-  pink: ['rgb(204,64,87)', 'rgb(179,43,60)'],
-  yellow: ['rgb(213,190,63)', 'rgb(206,121,45)'],
-  yellowOrange: ['#E7D215', '#D9A20D', '#CE7F08'],
-  gold: ['rgb(242,168,59)', 'rgb(247,209,70)', 'rgb(242,168,59)'],
-  orange: ['rgb(235,166,78)', 'rgb(210,78,86)'],
-  orangeRed: ['rgb(231, 97, 21)', 'rgb(206, 48, 8)'],
-  main: ['#24C0E3', '#3799CC'],
-  secondary: ['#33A0D0', '#0B76A5'],
-  PaleBlue: ['#066D9A', '#014F71'],
-  PaleBlue60: ['#066D9A99', '#014F7199'],
-  lightPurple2x: ['#a044ff', '#6a3093'],
-  lightRed: ['#FC819B', '#E13256'],
-  lightGreen: ['#91F5CA', '#24AA3F'],
-  lightBlue: ['#8EB0FF', '#2B32F9'],
-  lightYellow: ['#F7ED7B', '#F9B32B'],
-  orangeDark: ['#FBC000', '#C26202'],
-  wineRed: ['#BF0A31', '#78031D'],
-  white: ['#FFF', '#FFF'],
-  transparent: ['', ''],
-  disabled: ['#CCC', '#CCC'],
-  disabledSecondary: ['#666', '#666'],
-  background: ['#066D9A', '#014F71'],
-  backgroundSecondary: ['#33A0D0', '#0B76A5'],
-  recommended: ['#EA1616', '#E83AB4', '#6F00B4'],
-  jackpot: ['#00AA48', '#3172AF', '#4300D9'],
-}
+  $3: 16,
+  $4: 32,
+  $5: 64,
+  $6: 128,
+  $7: 256,
+  $8: 512,
+*/
 
 // default breakpoints [0, 576, 768, 992, 1200]
 const theme = makeTheme({
   // https://www.dripsy.xyz/usage/theming/create
+  customFonts: {
+    [AvertaStd.Regular.name]: {
+      bold: webFont(AvertaStd.Bold.name),
+      default: webFont(AvertaStd.Regular.name),
+      normal: webFont(AvertaStd.Regular.name),
+      '400': webFont(AvertaStd.Regular.name),
+      '500': webFont(AvertaStd.Semibold.name),
+      '600': webFont(AvertaStd.Bold.name),
+      '700': webFont(AvertaStd.Bold.name),
+      '800': webFont(AvertaStd.Bold.name),
+      '900': webFont(AvertaStd.Black.name),
+    },
+  },
+  breakpoints: [576, 768, 992, 1200, 1400],
+  layout: {
+    container: {
+      width: ['100%', '100%', '100%', '100%', '95%'],
+      maxWidth: ['100%', '100%', '100%', '100%', 1360],
+    },
+  },
+  fonts: {
+    root: AvertaStd.Regular.name,
+  },
+  forms: {
+    input: {
+      fontSize: 16,
+      color: '$text',
+      fontFamily: AvertaStd.Regular.name,
+    },
+    icon: {
+      size: 16,
+      color: '$text',
+    },
+    body: {
+      alignItems: 'stretch',
+      /**
+       * `mx` with `auto` value is not working for mobile app due to
+       * it will convert to `marginHorizontal: auto` but `marginHorizontal: auto`
+       * is not functioning as expected in mobile app.
+       * To solve this issue, convert it to `marginLeft` and `marginRight`
+       *
+       * See more:
+       * https://github.com/facebook/react-native/issues/350#issuecomment-375238958
+       */
+      marginRight: [0, 0, 'auto', 'auto'],
+      marginLeft: [0, 0, 'auto', 'auto'],
+      /** */
+
+      width: ['100%', '100%', '100%', 600, 600],
+      maxWidth: '100%',
+      alignSelf: 'stretch',
+    },
+  },
   text: {
     agent: {
       color: 'black',
     },
     body: {
-      color: 'white',
-    },
-    p: {
-      color: 'white',
       fontSize: 16,
+      color: '$text',
     },
-    error: {
-      color: '$error',
-      fontSize: 14,
+  },
+  colors: {
+    $text: '#fff',
+    $background: '#1E2238',
+    $primary: {
+      50: '#9696ff',
+      100: '#9696E6',
+      200: '#7B7BCF',
+      300: '#50509E',
+      500: '#32325A',
+      700: '#1E2238',
     },
-    xs: {
-      fontSize: '$0',
+    $secondary: {
+      100: '#FAFA7F',
+      200: '#FFC65D',
+      300: '#F9B32A',
+      500: '#E69B0D',
+      600: '#D79535',
     },
-    sm: {
-      fontSize: '$1',
-    },
+    $tertiary: '#7fcfff',
+    $success: '#01ff0d',
+    $error: '#E43221',
+    $placeholder: '#ffffff80',
+    $otp: '#E69B0D',
+    $info: '#F9B32A',
+    $accent: '#F15D12',
+
+    $black: '#000',
+    $white: '#fff',
+    $transparent: 'rgba(0,0,0,0)',
+    $transparentWhite: 'rgba(255,255,255,0)',
+    $disabled: '#7D7D7D',
+    // selectionColor: '$tertiary',
+
+    // Agent Colors
+    $textAgent: '#000000',
+    $primaryAgent: '#0D7DFF',
+    $inactivePrimaryAgent: '#8DC0FF',
+    $secondaryAgent: '#DBEBFF',
+    $successAgent: '#27FF00',
+    $errorAgent: '#FF0000',
+    $darkBlueAgent: '#335DA0',
+    $disabledAgent: '#D1D1D1',
+    $grayAgent: '#505050',
+    $tableHeader: '#d1d1d1',
+    $tableBorder: '#AEAFAF',
+    $contentSlightBlue: '#e0edfe',
+  },
+  linearGradients: {
+    button: ['$primary.100', '$tertiary'],
+    // surface: ['$primary.300', '#$primary.500'],
+    surface: ['$primary.300', '$primary.500'],
+    ball: ['$success', '$error'],
+    shading: ['$primary.500', '$transparent'],
+    secondary: ['$secondary.100', '$secondary.500'],
+    agentContent: ['$contentSlightBlue', '$white'],
+  },
+  shadows: {
     md: {
-      fontSize: '$2',
-    },
-    lg: {
-      fontSize: '$3',
-    },
-  },
-  buttons: {
-    xs: {
-      height: 22,
-      px: '$4',
-    },
-    sm: {
-      height: 28,
-      px: '$7',
-    },
-    md: {
-      height: 40,
-      px: '$10',
-    },
-    lg: {
-      height: 50,
-      px: '$10',
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.7,
+      shadowRadius: 2.1,
+      elevation: 3,
     },
   },
-  forms: {
-    wrapper: {
-      mb: '$2',
-    },
-    input: {
-      color: 'white',
-    },
+  space: {
+    $pagePadding: 24,
+    $sectionBottomSpace: 20,
+    $layoutSpace: 16,
+    $0: 0,
+    $1: 4,
+    $2: 8,
+    $3: 16,
+    $4: 32,
+    $5: 64,
+    $6: 128,
+    $7: 256,
+    $8: 512,
   },
-  icon: {
-    color: 'white',
-  },
-  activityIndicator: {
-    primary: {
-      color: commonColors.$lightCyan,
-    },
-  },
-  // fontSizes: {
-  //   $0: '0.75rem', // 12px
-  //   $1: '1rem', // 16px
-  //   $2: '1.125rem', // 18px
-  //   $3: '1.25rem', // 20px
-  //   $4: '1.375rem', // 22px
-  //   $5: '1.5em', // 24px
-  //   $6: '1.625rem', // 26px
-  //   $7: '1.75rem', // 28px
-  //   $8: '1.875rem', // 30px
-  //   $9: '2rem', // 32px
-  // },
   fontSizes: {
     $0: 12,
     $1: 16,
@@ -227,43 +181,11 @@ const theme = makeTheme({
     $8: 30,
     $9: 32,
   },
-  colors: commonColors,
-  linearGradients: colorGradient,
-  space: size,
   sizes: {
-    $button: 40,
     container: 768,
     header: [50, 60],
   },
-  roundness: {
-    sm: 5,
-    md: 8,
-    lg: 25,
-  },
-  fonts: {
-    root: fontName,
-  },
-  customFonts: {
-    [fontName]: {
-      // I recommend setting every weight here
-      bold: webFont(NotoSansBold),
-      default: webFont(fontName),
-      normal: webFont(fontName),
-      italic: webFont(NotoSansItalic),
-      // 500: 'arialMedium',
-      // 600: 'arialBold',
-      // 700: HelveticaBold,
-      // 800: 'arialBold',
-      900: webFont(NotoSansBoldItalic),
-    },
-  },
 })
-
-type MyTheme = typeof theme
-declare module 'dripsy' {
-  // eslint-disable-next-line
-  interface DripsyCustomTheme extends MyTheme {}
-}
 
 export function Dripsy({ children }: { children: React.ReactNode }) {
   return (
@@ -275,4 +197,9 @@ export function Dripsy({ children }: { children: React.ReactNode }) {
       {children}
     </DripsyProvider>
   )
+}
+
+type MyTheme = typeof theme
+declare module 'dripsy' {
+  interface DripsyCustomTheme extends MyTheme {}
 }

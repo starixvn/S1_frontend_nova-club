@@ -2,7 +2,7 @@ import { useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
 import React, { useEffect, useState } from 'react'
 import { Platform } from 'react-native'
-import { getUniqueId, getManufacturer } from 'react-native-device-info'
+// import { getUniqueId, getManufacturer } from 'react-native-device-info'
 import { useDispatch } from 'react-redux'
 import { uuidv4 } from 'utils/common'
 
@@ -11,9 +11,8 @@ const useUniqueId = () => {
   const uuid = useAppSelector((s) => s.setting.platformUUID)
 
   const getDeviceUniqueId = async () => {
-    const uniqueId = await getUniqueId()
-
-    dispatch(SettingActions.setPlatformUUID(uniqueId))
+    // const uniqueId = await getUniqueId()
+    // dispatch(SettingActions.setPlatformUUID(uniqueId))
   }
 
   const getWebUniqueId = () => {

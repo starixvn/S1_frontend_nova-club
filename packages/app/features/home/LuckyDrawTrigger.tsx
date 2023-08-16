@@ -42,11 +42,11 @@ const LuckyDrawTrigger = () => {
       if (success && data) {
         const freeSpinBalance = data.wheel_info.totalBalance ?? 0
 
-        if (freeSpinBalance > 0) {
-          setTimeout(() => {
-            openModal('LuckyDrawModal')
-          }, 1000)
-        }
+        // if (freeSpinBalance > 0) {
+        //   setTimeout(() => {
+        //     openModal('LuckyDrawModal')
+        //   }, 1000)
+        // }
 
         if ('note' in data) {
           if (syncShieldActionType === Shield_Action.REGISTER) {

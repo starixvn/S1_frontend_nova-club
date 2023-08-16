@@ -1,19 +1,19 @@
+import IconButton from 'app/components/IconButton'
+import { useRouter } from 'next/router'
 import React from 'react'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
-import IconButton from 'app/components/form/IconButton'
 
 const PlinkoBackButton = ({ scale }: { scale: number }) => {
-  const { back } = useContextualRouter()
+  const { back, replace } = useRouter()
 
   return (
     <div id="back_button">
       <IconButton
         onPress={() => {
-          back()
+          replace('/')
           if (window.ReactNativeWebView)
             window.ReactNativeWebView.postMessage('back')
         }}
-        name="chevleft"
+        name="back"
         size={20 * scale}
         color={'$darkNavyBlue'}
         sx={{
@@ -30,9 +30,11 @@ const PlinkoBackButton = ({ scale }: { scale: number }) => {
             width: 0,
             height: 2,
           },
+          p: 10,
           shadowOpacity: 0.23,
           shadowRadius: 2.62,
-
+          alignItems: 'center',
+          justifyContent: 'center',
           elevation: 4,
         }}
       />

@@ -6,36 +6,38 @@
     "secondaryTitle": "Fill in your real name to continue:",
     "title": "Account Verification"
   },
-  "auth": {
+  "authentication": {
+    "accVerification": "Account Verification",
     "accountReg": "Account Registration",
-    "accountVerification": "Account Verification",
-    "agentLogin": "Agent Login",
-    "agentRegister": "Agent Register",
-    "enterNewPassword": "Please enter your New Password",
     "enterOtp": "Please enter OTP",
-    "forgotPassword": "Forgot Password",
+    "forgotPassword": "Forgot Password?",
+    "forgotPasswordHeader": "Forgot Password",
+    "agentForgotPassword": "Agent Forgot Password",
     "login": "Login",
-    "loginToAccount": "Login to your account",
-    "memberLogin": "Member Login",
-    "memberRegister": "Member Register",
+    "loginHeader": "Member Login",
+    "loginAgentHeader": "Agent Login",
     "noReceiveOTP": "Didn't receive OTP?",
     "readAndAgree": "I have read & agree the",
-    "referrerInfo": "Referrer information",
     "register": "Register",
     "rememberMe": "Remember Me",
-    "table": "Commission Table",
-    "welcome": "Welcome Back"
+    "resend": "Send",
+    "resetPasswordHeader": "Reset Password",
+    "send": "Send",
+    "referrerInfo": "Referrer information"
   },
   "bank": {
-    "accountName": "Account name",
+    "accountName": "Account Name",
     "accountNo": "Account no",
-    "accountNumber": "Account number",
+    "accountNumber": "Account Number",
     "addBankAccount": "Add Bank Account",
     "addCryptoAccount": "Add Crypto Wallet",
     "bank": "Bank",
-    "enterAccountNo": "Please enter account no",
+    "bankAccount": "Bank Account",
     "noBankAccount": "No Bank Account",
+    "noCryptoAccount": "No Crypto Account",
+    "channel": "Channel",
     "selectBank": "Please select bank",
+    "selectChannel": "Select Channel",
     "walletAddress": "Wallet Address"
   },
   "biometric": {
@@ -43,77 +45,84 @@
     "message": "Would you like to enable biometric login?",
     "notFound": "Biometric is not supported / not enabled on your device"
   },
-  "commission": {
+  "commision": {
     "cashAgent": "Cash Agent",
     "cashPlayer": "Cash Player",
     "cashPlayerReferral": "Cash Player Referral",
-    "creditPlayer": "Credit player",
-    "productLists": "Products List",
-    "table": "Commission Table"
+    "creditPlayer": "Credit Player",
+    "productLists": "Product Lists",
+    "title": "Commision Table"
   },
   "common": {
+    "active": "Active",
+    "agent": "Agent",
+    "agentLogin": "Agent Login",
     "all": "All",
     "amount": "Amount",
-    "app": "App",
     "balance": "Balance",
-    "bet": "Bet",
+    "bankAccount": "Bank Account",
+    "bonus": "Bonus",
     "cancel": "Cancel",
     "cash": "Cash",
-    "clickMore": "Click More",
     "close": "Close",
     "confirm": "Confirm",
-    "confirmDelete": "Are you sure you want to delete? It cannot be restored after deletion!",
     "confirmPassword": "Confirm Password",
-    "contactUs": "Contact Us",
-    "copied": "Copied to clipboard",
+    "copied": "Copied",
     "copy": "Copy",
-    "desktop": "Desktop",
+    "currency": "Currency",
+    "date": "Date",
+    "days": "Days",
+    "deposit": "Deposit",
     "download": "Download",
-    "emptyResult": "Empty Result",
-    "enter": "Enter",
-    "enterAmount": "Please enter your %{field} amount",
-    "enterConfirmPassword": "Please confirm password",
-    "enterNewPassword": "Please enter new password",
-    "enterOldPassword": "Please enter old password",
+    "fileSizeExceeds": "File size cannot exceed %{size}",
+    "game": "Game",
     "hello": "Hello!!",
+    "history": "History",
     "home": "Home",
-    "id": "ID",
-    "importantNote": "Important note",
-    "importantNotes": "Important Notes",
+    "inactive": "InActive",
+    "lastUpdated": "Last updated",
+    "latestWinners": "Latest Winners",
     "loading": "Loading",
-    "lose": "Lose",
+    "logout": "Logout",
     "more": "More",
-    "newPassword": "New Password",
     "next": "Next",
     "noInfoAvailable": "No information is available now",
-    "ok": "OK",
-    "oldPassword": "Old Password",
     "otp": "OTP",
+    "overview": "Overview",
     "password": "Password",
-    "passwordNote": "1. Password length must be 6-15 characters. \n2. Password can not be the same to old pass",
-    "playNow": "Play now",
-    "recentlyOpened": "Recently Opened",
-    "recentlyViewed": "Recently Viewed",
-    "referenceId": "Reference ID",
+    "phone": "Phone Number",
+    "pin": "Pin",
+    "player": "Player",
+    "playerId": "Player ID",
+    "playerName": "Player Name",
+    "points": "Points",
+    "profile": "Profile",
+    "provider": "Provider",
+    "realBet": "Real Bet",
+    "realName": "Real Name",
     "reward": "Reward",
-    "rewards": "Rewards",
     "selectAll": "Select All",
-    "selectDate": "Select A Date",
-    "send": "Send",
-    "share": "Share",
-    "spin": "SPIN NOW",
+    "shareholder": "Shareholder",
+    "showMore": "Show More",
     "submit": "Submit",
-    "turnover": "Turnover",
-    "userAgreement": "user agreement",
+    "timeline": "UTC/GMT +7",
+    "tnc": "Terms & Conditions",
+    "transaction": "Transaction",
+    "transfer": "Transfer",
+    "turnOver": "Turn Over",
+    "userAgreement": "User Agreement",
     "username": "Username",
-    "win": "Win",
+    "withdraw": "Withdraw",
+    "enter": "Enter",
+    "confirmDelete": "Are you sure you want to delete? It cannot be restored after deletion!",
+    "search": "Search",
     "yes": "Yes"
   },
   "contact": {
-    "contactVia": "Contact via",
-    "livechat": "Live Chat",
+    "contactVia": "Contact via:",
+    "customerSupport": "Customer Support",
+    "liveChat": "Live Chat",
     "telegram": "Telegram",
-    "whatsapp": "WhatsApp",
     "zalo": "Zalo"
   },
   "deposit": {
@@ -127,37 +136,55 @@
     "cryptoAddress": "Crypto Address",
     "cryptoAmount": "Crypto Amount",
     "cryptoChannel": "Crypto Channel",
+    "date": "Date",
     "deduction": "Deduction",
     "depositAmount": "Deposit Amount",
+    "depositConfirmation": "Deposit Confirmation",
     "depositMethod": {
       "bankTransfer": "Bank Transfer",
       "crypto": "Crypto",
       "momo": "MOMO",
       "onlineBanking": "Online Banking",
-      "qrCode": "QR Pay",
+      "qrPay": "QR Pay",
       "topUp": "Top Up Card"
     },
+    "depositTitle": "Deposit",
+    "id": "ID",
     "minMaxLimit": "Min/Max Limit",
     "paymentMode": "Payment Mode",
     "paymentTime": "PAYMENT TIME LEFT",
     "pleaseConfirmDeposit": "Please confirm deposit information below",
-    "scanQr": "Scan QR",
     "selectChannel": "Select Channel",
+    "status": "Status",
     "transactionId": "Transaction Id",
+    "type": "Type",
     "upload": {
       "description": "Browse your Bank Transfer Receipt or Invoice",
       "files": "Select File",
       "title": "Upload Receipt"
     },
-    "usdt": "USDT"
+    "commonError": "Bank is under maintenance. Please try another bank or payment method"
+  },
+  "download": {
+    "android": "ANDROID",
+    "androidGuideText": {
+      "n1": "Click app download button\non our VUI123 site.",
+      "n2": "A new tab will be opened in\nyour web browser, click on\nthe \"Download anyway.\"",
+      "n3": "Install VUI123.apk to launch\nVUI123 app. Start enjoying your\nexclusive bonuses and games."
+    },
+    "downloadAppNow": "Download Vui123 App Now\nTo Enjoy All The\nExclusive Bonuses!",
+    "downloadGuide": "Download\nGuide",
+    "ios": "IOS",
+    "iosGuideText": {
+      "n1": "Click app download button\non our VUI123 site.",
+      "n2": "A new tab will be opened in\nyour web browser, click on\nthe \"Get the App button\"",
+      "n3": "You will be redirected to\n\"Vui Fit app on App Store\ninstead of VUI123 app\"",
+      "n4": "Click \"Get\" to install the\n\"Vui Fit\" app",
+      "n5": "Open \"Vui Fit\" app to launch\nVUI123 app. Start enjoying your\nexclusive bonus and games"
+    },
+    "guideInstall": "Guide to Install"
   },
   "event": {
-    "next": "PLAY NEXT",
-    "start": "START",
-    "won": "CONGRATULATIONS!",
-    "won2": "YOU'VE WON TOTAL",
-    "lose": "SORRY, YOU DIDN'T WIN.",
-    "lose2": " BETTER LUCK NEXT TIME.",
     "catEvent": {
       "miniGame": {
         "lose": "SORRY, YOU DIDN'T WIN.",
@@ -174,18 +201,28 @@
     },
     "claim": "CLAIM YOUR BONUS TICKET NOW",
     "jackpot": "Jackpot (Shared Pool Prize): 100,000,000 VND",
-    "luckyDraw": "Lucky Draw - 10,000,000 VNĐ",
+    "lose": "SORRY, YOU DIDN'T WIN.",
+    "lose2": " BETTER LUCK NEXT TIME.",
+    "luckyDraw": {
+      "appSpin": "App To Spin",
+      "registerSpin": "REGISTER AND SPIN",
+      "ineligibleSpin": "Ineligible To Spin"
+    },
+    "next": "PLAY NEXT",
     "prediction": {
       "event": "Prediction Event",
       "haveSelected": "You have selected",
       "score": "Score",
       "selectTeam": "Please select the team"
     },
+    "start": "START",
     "ticket": "Ticket/s",
     "ticketSubmitted": "Successfully submitted your prediction ticket",
     "winText1": "CONGRATULATIONS!",
     "winText2": "YOU HAVE RECEIVED THE LOVE GIFT OF",
     "winnerList": "WINNERS LIST",
+    "won": "CONGRATULATIONS!",
+    "won2": "YOU'VE WON TOTAL",
     "youHave": "You Have"
   },
   "filter": {
@@ -195,51 +232,38 @@
       "thisMonth": "This Month",
       "thisWeek": "This Week",
       "today": "Today",
+      "tomorrow": "Tomorrow",
       "yesterday": "Yesterday"
     },
     "depositStatus": {
-      "all": "All",
       "cancelled": "Cancelled",
       "checking": "Checking",
       "declined": "Declined",
       "failed": "Failed",
       "pending": "Pending",
       "settled": "Settled",
-      "settledonBrowser": "Settled on Browser"
+      "settledOnBrowser": "Settled on Browser"
     },
     "gameStatus": {
       "loss": "Loss",
       "win": "Win"
     },
-    "genre": {
-      "all": "All",
-      "baccarat": "Baccarat",
-      "blackjack": "Blackjack",
-      "dragonTiger": "Dragon Tiger",
-      "hot": "Hot",
-      "jackpot": "Jackpot",
-      "new": "New",
-      "poker": "Poker",
-      "roulette": "Roulette",
-      "sicbo": "Sicbo"
-    },
+    "statusType": "Status Type",
     "transactionType": {
       "adjustment": "Adjustment",
-      "bonus": "Bonus",
-      "deposit": "Deposit",
-      "game": "Game",
       "rebate": "Rebate",
-      "withdrawal": "Withdrawal"
+      "title": "Transaction Type"
     },
-    "withdrawalStatus": {
-      "all": "All",
-      "declined": "Declined",
-      "paid": "Paid",
-      "payment": "Payment",
-      "paymentProcessing": "Payment Processing",
-      "pendingReview": "Pending Review",
-      "request": "Request"
-    }
+    "win/loss": "Win/Loss"
+  },
+  "footer": {
+    "power": "Powered By",
+    "aboutUs": "About Us",
+    "contactUs": "Contact Us",
+    "copyright": "© Copyright 2023 VUI123. All Rights Reserved.",
+    "note1": "Become Our Partner",
+    "note2": "VUI123 is committed to supporting Responsible Gaming",
+    "responsibleGaming": "Responsible Gaming"
   },
   "forceDownload": {
     "download": "Download",
@@ -251,86 +275,96 @@
   "game": {
     "category": {
       "cardGame": "Card Game",
-      "cockfighting": "Cockfighting",
       "fishing": "Fishing",
-      "fishingGames": "Fishing Games",
       "games": "Games",
-      "hotGames": "Hot Games",
-      "keno/lottery": "Keno / Lottery",
       "liveCasino": "Live Casino",
       "localGame": "Local Game",
-      "poker": "Poker",
+      "lottery": "Keno/Lottery",
       "recommended": "Recommended Games",
       "slots": "Slots",
       "sportsbook": "Sportsbook"
     },
-    "enterGame": "Enter Game",
-    "invalidSession": "Invalid Session [%{code}]",
-    "jackpot": "Jackpot",
-    "name": {
-      "btiSports": "BTI Sports",
-      "esports": "SABA E-Sports",
-      "imEsports": "IM E-Sports",
-      "sbo": "SBO Sports",
-      "sports": "SABA Sports",
-      "tfGamingEsports": "TF E-Sports",
-      "virtualSports": "SABA Virtual Sports"
+    "err": {
+      "notLogin": "Please Login to Play Game"
     },
-    "notFound": "",
-    "playNow": "PLAY NOW",
-    "quitGame": "Quit Game",
-    "rebate": "Rebate up to",
-    "reward": "Game rewards",
-    "slotgame": "Slots & Games",
-    "unableToConnect": "Unable to connect [%{code}]",
-    "underMaintenance": "Game Under Maintenance"
+    "jackpot": "Jackpot",
+    "megaway": "Megaway",
+    "new": "New",
+    "noGame": "No Game Available",
+    "recently": "Recently Played",
+    "betNow": "Bet Now"
   },
-  "maintenance": "The System is under maintenance",
+  "home": {
+    "banner": {
+      "n1": "100% WELCOME & DEPOSIT BONUS",
+      "n2": "WIN UP TO 1 MILLION VND",
+      "n3": "1X ROLLOVER ONLY"
+    },
+    "banner2": {
+      "n1": "UNLOCK YOUR PASSIVE INCOME",
+      "n2": "RECRUIT PLAYER AND EARN COMMISSION"
+    },
+    "hireAgent": "HIRE AGENT",
+    "joinNow": "JOIN NOW",
+    "joinsUs": "JOINS US & START EARNING BONUS!",
+    "playNow": "PLAY NOW"
+  },
+  "leaderboard": {
+    "minPoints": "Min Points",
+    "monthlyEvent": "Monthly Event",
+    "playerId": "Player Id",
+    "pointsCalculation": "Points calculation",
+    "product": "Product",
+    "rank": "Rank",
+    "top10": "Top 10 Winners",
+    "turnover": "Turnover"
+  },
+  "manageCredentials": {
+    "pin": {
+      "changePin": "Change Pin",
+      "confirmPin": "Confirm Pin",
+      "confirmPinInfo": "All your transactions are processed in a safe and secured environment.",
+      "confirmPinTitle": "Enter 6-digit PIN to Confirm",
+      "create6Pin": "Create 6-digit Pin",
+      "createPin": "Create Pin",
+      "forgotPin": "Forgot Pin",
+      "newPin": "New Pin",
+      "oldPin": "Old Pin",
+      "securePin": "Secure your transfer with PIN",
+      "resetPinSuccess": "Reset Transfer Pin Successfully"
+    },
+    "pw": {
+      "changePw": "Change Password",
+      "confirmPw": "Confirm Password",
+      "newPw": "New Password",
+      "oldPw": "Old Password",
+      "placeholderConfirmPw": "Please confirm password",
+      "placeholderNewPw": "Please enter new password",
+      "placeholderOldPw": "Please enter old password"
+    },
+    "title": "Manage Credentials"
+  },
   "menu": {
-    "agentLogin": "Agent Login",
     "bankAccount": "Bank Account",
-    "bankWithdraw": "Bank Withdrawal",
-    "changePassword": "Change Password",
-    "changePin": "Change PIN",
-    "commisionTable": "Commission Table",
-    "createPin": "Create PIN",
-    "cryptoWithdraw": "Crypto Withdrawal",
-    "customerSupport": "Customer Support",
-    "deposit": "Deposit",
-    "depositConfirmation": "Deposit Confirmation",
-    "gameHistory": "Game History",
-    "history": "History",
-    "logout": "Logout",
-    "manageCredentials": "Manage Credentials",
-    "message/announcement": "Message/Announcement",
-    "predictionWinner": "Prediction Winner",
-    "profile": "Profile",
-    "referral": "Referral",
-    "switchAccount": "Switch Account",
+    "bankWithdrawal": "Bank Withdrawal",
+    "commissionTable": "Commission Table",
+    "cryptoWallet": "Crypto Wallet",
+    "cryptoWithdrawal": "Crypto Withdrawal",
+    "friendReferral": "Friend Referral",
+    "leaderboard": "Leaderboard",
+    "msgAnnouncement": "Message / Announcement",
+    "rewardsHub": "My Rewards Hub",
     "tab": {
-      "bets": "Bet",
-      "cryptoWallet": "Crypto Wallet",
-      "date": "Date",
-      "game": "Game",
-      "gameType": "Game Type",
-      "idTransfer": "ID Transfer",
-      "provider": "Provider",
-      "providers": "Providers",
-      "qrTransfer": "QR Transfer",
-      "receive": "Receive",
-      "send": "Send",
-      "status": "Status",
-      "statusType": "Status Type",
-      "transaction": "Transaction",
-      "transactionType": "Transaction Type",
-      "type": "Type",
-      "win/loss": "Win/Loss"
+      "coinHistory": "Coin History",
+      "event": "Event",
+      "gameHistory": "Game History",
+      "leaderboardEvent": "Leaderboard Event",
+      "leaderboardHistory": "Leaderboard History",
+      "ranking": "Ranking",
+      "transactionHistory": "Transaction History"
     },
     "tnc": "Terms and Conditions",
-    "transactionHistory": "Transaction History",
-    "transfer": "Transfer",
     "withdraw": "Withdraw",
-    "withdrawal": "Withdrawal",
     "withdrawalConfirmation": "Withdrawal Confirmation"
   },
   "message": {
@@ -339,10 +373,6 @@
     "personalMessage": "Personal Message"
   },
   "notes": {
-    "crypto": {
-      "n1": "This is a one-time address. Please do not save this address for future use",
-      "n2": "Please complete your transaction within the time frame given."
-    },
     "deposit": {
       "n1": "Kindly please check for the latest active deposit bank details before you making a deposit.",
       "n2": "For using Bank Transfer deposit option, please make the transfer done before submit the transaction to avoid the transaction delay.",
@@ -357,17 +387,18 @@
     },
     "rewards": {
       "n1": "Games that are NOT eligible for the Rebate/Commission include: Turnover on all types of non-live table games (e.g. Blackjack, Video Poker, Craps, American Roulette, Baccarat, and other non-live table games) and non-slot games, will not count towards this turnover requirement unless SPECIFICALLY stated.",
-      "n2": "Special exclusion: \n[Sportsbookl] Only wagers that generate a win/loss return will entitle for rebate. Cancelled or void wagers, wagers on odds less than 1.7 (Decimal odd); 0.7 (China odd); 0.7 (Malay Positive odd); -1.43 (Indo odd); -143 (US odd), or wagers on both even chances during a single game will not entitle for rebate. ",
-      "n3": "[Live Casino] All LIVE Blackjack (21) and Live Roulette video games ",
-      "n4": "[Slots] All Video Poker, Table, Arcade, Fishing, multi-spin Slots, Lucky God Progressive 2, Golden Tour, Ugga Bugga, Liu Fu Shou, and double-bonus Slots offered by any slot game room, plus games in xx slot game rooms. ",
-      "n5": "*Notes: Rewards rule of the company will change from time to time, In any event, the decision of Vui123 is final. \n**Notes: Free bet or any bonuses are not subject to rebate computation"
+      "n2": "Special exclusion:",
+      "n3": "[Sportsbookl] Only wagers that generate a win/loss return will entitle for rebate. Cancelled or void wagers, wagers on odds less than 1.7 (Decimal odd); 0.7 (China odd); 0.7 (Malay Positive odd); -1.43 (Indo odd); -143 (US odd), or wagers on both even chances during a single game will not entitle for rebate.",
+      "n4": "[Live Casino] All LIVE Blackjack (21) and Live Roulette video games",
+      "n5": "[Slots] All Video Poker, Table, Arcade, Fishing, multi-spin Slots, Lucky God Progressive 2, Golden Tour, Ugga Bugga, Liu Fu Shou, and double-bonus Slots offered by any slot game room, plus games in xx slot game rooms.",
+      "n6": "*Notes: Rewards rule of the company will change from time to time, In any event, the decision of Vui123 is final."
     },
     "topUpCard": {
       "n1": "Please ensure you choose the correct telco provider and card value. Vui123 do not bear any responsibility if incorrect information selected and resulted the lost of money",
       "n2": "The final deposited amount is subject to 25% deduction from the original card value."
     },
     "transfer": {
-      "n1": "All the fund receive via internal transfer are subject to 1x rollover before the withdrawal"
+      "n1": "All the fund receive via internal transfer are subject to |1x rollover| before the withdrawal"
     },
     "withdrawal": {
       "n1": "Kindly check with our 24/7 LIVE CHAT if your transaction is pending for more than 10 minutes.",
@@ -377,91 +408,60 @@
       "n5": "If there is any discrepancy or you may have any other further withdrawal inquiries, kindly contact our 24/7 LIVE CHAT. Thank you."
     }
   },
-  "pin": {
-    "confirmPin": "Confirm PIN",
-    "forgotPin": "Forgot PIN",
-    "headerText1": "Create 6-digit PIN",
-    "headerText2": "Secure your transfer with PIN",
-    "newPin": "New Pin",
-    "note1": "Pin is required for transfer",
-    "oldPin": "Old Pin",
-    "pin": "PIN",
-    "submitNote": "All your transactions are processed in a safe and secured environment.",
-    "submitTitle": "Enter 6-digit PIN to confirm"
+  "placeholder": {
+    "plsEnterAmount": "Please enter your %{field} amount",
+    "plsSelectBank": "Please Select Bank",
+    "plsSelectCrypto": "Please Select Crypto",
+    "plsSelectWalletAddress": "Please select your wallet address"
   },
   "profile": {
-    "accumulateReward": "Accumulate Reward",
-    "active": "Active Player",
-    "details": {
-      "currency": "Currency",
-      "phone": "Phone Number",
-      "realname": "Real Name",
-      "referrer": "Referrer",
-      "username": "Username"
-    },
-    "overview": {
-      "circle": "Circle",
-      "direct": "Direct",
-      "realbet": "Real Bet",
-      "self": "Self",
-      "title": "Overview",
-      "turnover": "Turn Over",
-      "w/l": "Win/Lose (VND)"
-    },
-    "playerId": "Player ID",
+    "activePlayer": "Active Player",
+    "circle": "Circle",
+    "direct": "Direct",
+    "monthlyReward": "Monthly Reward",
     "registered": "Registered",
-    "reward": "Monthly Reward",
-    "timeline": "UTC/GMT +7"
+    "self": "Self",
+    "w/l": "Win/Lose (VND)"
   },
   "qr": {
-    "downloadQrCode": "Download QR code",
+    "downloadQr": "Download QR Code",
     "noCameraAccess": "Your camera is required to scan QR code for transfer. Please enable permission to continue using this feature",
     "requestCameraPermissions": "Requesting for camera permission",
-    "scanGallery": "Scan from gallery"
+    "scanGallery": "Scan from gallery",
+    "openSetting": "Open Setting",
+    "noStorageAccess": "Your storage is required to scan QR code for transfer. Please enable permission to continue using this feature"
   },
   "referral": {
-    "earn": "Share & Earn",
-    "friend": "Friend Referral",
+    "code": "Referral Code",
     "link": "Referral Link",
-    "refer": "Refer your friends now \nto earn more commission",
-    "shareMessage": "Share this referral link to receive rewards"
+    "share": "Share",
+    "shareContent": "Get exclusive referral bonuses when your friend signs up using your referral code",
+    "shareMessage": "Share & Earn",
+    "title": "Referral"
   },
   "status": {
-    "alert": "Alert",
-    "approved": "Approved",
-    "bankSlipSuccess": "Bank slip uploaded successfully",
-    "cancelled": "Cancelled",
-    "draft": "Draft",
-    "error": "Error",
-    "expired": "Expired",
-    "failed": "Failed",
-    "imageNotSupported": "Image format not supported",
-    "luckyThankYou": "Thank you, please try again next time!",
-    "luckyWin": "Congratulations, you won VND",
     "pending": "Pending",
-    "processing": "Processing",
-    "qrCodeNotDetected": "Cannot detect QR code in image",
-    "qrDownloadSuccess": "Qr code download successfully",
-    "qrTransferSelfError": "Transfer to own account is not allowed",
-    "receiptRequired": "Receipt is required for deposit submit",
-    "receiptSuccess": "Receipt successfully uploaded",
-    "referralError": "Refferal doesn't exist, please try another code",
     "rejected": "Rejected",
-    "scanFailed": "Scan Failed!",
     "success": "Success",
-    "systemError": "Oops! Something wrong, please try again."
+    "qrDownloadSuccess": "Qr code download successfully",
+    "systemError": "Oops! Something wrong, please try again.",
+    "qrTransferSelfError": "Transfer to own account is not allowed",
+    "scanFailed": "Scan Failed!",
+    "imageNotSupported": "Image format not supported",
+    "networkError": "Network Error!"
   },
   "transaction": {
-    "id": "Transaction Id",
     "pending": "Pending Transactions",
     "recent": "Recent Transactions"
   },
   "transfer": {
-    "avaiableAmount": "Available Amount",
-    "transferTo": "Transfer To"
-  },
-  "userAgreement": {
-    "description": "The sportsbook provider is in its sole and absolute discretion, reserves the right to cancel or declare a bet void without prior notification, if there appears to be an abnormal or irregular bets detected or violation of sportsbetting rule & regulation."
+    "idTransfer": "ID Transfer",
+    "placeholderTransferAmount": "Please enter your transfer amount",
+    "placeholderTransferId": "Please enter ID",
+    "qrTransfer": "QR Transfer",
+    "receive": "Receive",
+    "transferTitle": "Transfer",
+    "transferableAmount": "Transferable Amount"
   },
   "validation": {
     "alphanumeric": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only",
@@ -493,10 +493,16 @@
     "userNameMinMaxLength": "6-18 characters only",
     "username": "6-18 characters only"
   },
+  "wallet": {
+    "addCryptoWallet": "Add Crypto Wallet",
+    "cryptoWallet": "Crypto Wallet",
+    "walletAddress": "Wallet Address"
+  },
   "withdrawal": {
-    "cryptoExchangeRates": "CHAIN: %{crypto} Current exchange rate",
-    "guarantee": "Guaranteed until : 11:14",
-    "options": "Choose your Withdrawal Options",
-    "withdrawTo": "Withdraw To"
+    "eligibleAmount": "Eligible Withdrawal Amount",
+    "exchangeRates": "CHAIN: %{crypto} Current exchange rate",
+    "options": "Choose your withdrawal options",
+    "withdrawTo": "Withdrawal To",
+    "withdrawalTitle": "Withdrawal"
   }
 }

@@ -1,19 +1,19 @@
-import useLocalization from 'app/provider/localization'
-import { ModalStackParams } from 'app/provider/modal'
 import { Text } from 'dripsy'
 import React, { useEffect } from 'react'
-import { ModalComponentProp } from 'react-native-modalfy'
 import ModalContent from './ModalContent'
 import ModalWrapper from './ModalWrapper'
+import { useWindowDimensions } from 'react-native'
+import Button from '../common/Button'
+import useLocalization from 'app/provider/localization'
 
-type AlertModalProps = ModalComponentProp<ModalStackParams, void, 'AlertModal'>
-const AlertModal = ({ modal: { closeModal, getParam } }: AlertModalProps) => {
-  const { t } = useLocalization()
-
-  const title = getParam('title', t('notes.importantNotice'))
+const AlertModal = ({ modal: { closeModal, getParam } }) => {
+  const title = getParam('title')
   const message = getParam('message', '')
   const actions = getParam('actions')
   const onClose = getParam('onClose')
+
+  const { width } = useWindowDimensions()
+  const { t } = useLocalization()
 
   useEffect(() => {
     return () => {
@@ -22,14 +22,11 @@ const AlertModal = ({ modal: { closeModal, getParam } }: AlertModalProps) => {
   }, [])
 
   return (
-    <ModalWrapper>
-      <ModalContent
-        title={title}
-        closeModal={closeModal}
-        hideCloseButton
-        actions={actions}
-      >
-        <Text>{t(message)}</Text>
+    <ModalWrapper sx={{ width: Math.min(500, width * 0.9) }}>
+      <ModalContent title={title} actions={actions} close={closeModal}>
+        <Text sx={{ textAlign: 'center', fontSize: [14, 14, 14, 16] }}>
+          {t(message)}
+        </Text>
       </ModalContent>
     </ModalWrapper>
   )

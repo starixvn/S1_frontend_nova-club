@@ -1,7 +1,7 @@
 import { useAgentLocalization } from 'app/provider/localization'
 import { ActivityIndicator, Pressable, View } from 'dripsy'
 import { AnimatePresence, MotiView, Text } from 'moti'
-import React, { useEffect, useReducer, useState } from 'react'
+import React from 'react'
 
 type SwitchProps = {
   isActive: boolean

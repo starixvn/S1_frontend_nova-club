@@ -1,4 +1,3 @@
-import { StackNavigationOptions } from '@react-navigation/stack'
 import AgentDetailsScreen from 'agent/features/agent/AgentDetails'
 import AgentChangePassword from 'agent/features/auth/AgentChangePassword'
 import AgentResetPassword from 'agent/features/auth/AgentResetPassword'
@@ -10,6 +9,7 @@ import AddBankInfo from 'agent/features/wallet/withdrawal/AddBankInfo'
 import { FC } from 'react'
 import AgentMainTabNavigation from '../native/AgentMainTabNavigation'
 import CommonBackHeader from './CommonBackHeader'
+import { NativeStackNavigationOptions } from '@react-navigation/native-stack'
 
 export type AgentStackParamList = {
   AgentMainTabNavigation: undefined
@@ -26,7 +26,7 @@ export type AgentStackParamList = {
 export interface AgentStackScreen {
   name: keyof AgentStackParamList
   component: FC
-  options: StackNavigationOptions & {
+  options: NativeStackNavigationOptions & {
     icon?: string
   }
 }

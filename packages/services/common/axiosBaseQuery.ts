@@ -9,7 +9,7 @@ export function axiosBaseQuery<T>(): BaseQueryFn<
   IResponse<T>
 > {
   return async (
-    { method = 'POST', _config = {}, url = '', ...axiosConfig },
+    { method = 'POST', _config = {}, url = '', baseURL, ...axiosConfig },
     { signal }
   ) => {
     try {
@@ -22,12 +22,12 @@ export function axiosBaseQuery<T>(): BaseQueryFn<
         signal,
         // @ts-expect-error: Custom `_config` used only in interceptor
         _config,
+        baseURL,
         ...axiosConfig,
       })
 
       const { code } = respData
-      if (url.startsWith('/player_api/getGameList'))
-        console.log('respData', url, respData.data.length)
+
       if (code) {
         console.log('returning error')
         return {
@@ -57,7 +57,9 @@ export function axiosBaseQuery<T>(): BaseQueryFn<
           }
         }
       }
-
+      if (error.message === 'Network Error') {
+        errorObj.message = 'status.networkError'
+      }
       return {
         error: errorObj,
       }

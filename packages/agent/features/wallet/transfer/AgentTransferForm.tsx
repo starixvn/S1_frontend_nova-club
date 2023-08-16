@@ -14,7 +14,6 @@ import {
 import { ROLE } from 'agent/utils/helper'
 import validation from 'agent/utils/validation'
 import { useAgentLocalization } from 'app/provider/localization'
-import { agentToThousandSeparator } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import { ActivityIndicator, View, useDripsyTheme } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
@@ -22,6 +21,7 @@ import debounce from 'lodash/debounce'
 import { useCallback, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import * as Yup from 'yup'
+import { agentToThousandSeparator } from 'agent/utils'
 
 interface BankInfoValues {
   playerId: string
@@ -236,7 +236,7 @@ const AgentTransferForm = ({
         onChangeText={(e) => formik.setFieldValue('amount', e)}
         label={t('common.amount')}
         placeholder={t('placeholder.enterAmount')}
-        containerProps={{ sx: { mb: '$8' } }}
+        containerProps={{ sx: { mb: '$5' } }}
         onBlur={() => {
           handleBlur('amount')
         }}

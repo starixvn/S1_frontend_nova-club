@@ -1,8 +1,8 @@
 import { LIVECHAT_URL, REFERRAL_DOMAIN } from '@env'
-import { LaunchGame } from 'app/features/games/GameLauncher'
+import { LaunchGame } from 'app/features/game/GameLauncher'
 import i18n from 'app/provider/localization/i18n'
 import { Linking } from 'react-native'
-import { Game } from 'services/contentApi.type'
+import { Game } from 'services/gameApi.type'
 
 export enum ActionType {
   GAME = 'game',
@@ -19,7 +19,7 @@ export interface InternalRedirectPayload {
 
 export interface ActionLaunchGame {
   type: ActionType.GAME
-  payload: Game
+  payload: { game: Game; desktopMode?: boolean }
 }
 
 export interface ActionRedirect {
@@ -68,13 +68,10 @@ export function getAction(action: Action): (p?: ActionRedirectParams) => void {
     }
     case ActionType.GAME: {
       return () => {
+        const { game, desktopMode } = action.payload
         LaunchGame({
-          gameCode: action.payload.gc,
-          gameName: action.payload.name[i18n.locale],
-          gameType: action.payload.gtc,
-          providerCode: action.payload.gpc,
-          image: action.payload.img,
-          params: action.payload.params,
+          ...game,
+          desktopMode,
         })
       }
     }
@@ -95,7 +92,7 @@ export function getAction(action: Action): (p?: ActionRedirectParams) => void {
               replacedParams.locale = locale
             }
             console.log('pushing', uri, replacedParams)
-            push(uri, replacedParams)
+            push({ pathname: `${uri}`, query: replacedParams })
           }
         } catch (e) {
           console.log('Internal Redirection error', e)

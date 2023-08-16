@@ -1,92 +1,98 @@
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useOrientation from 'app/hooks/useOrientation'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
-import BouncePressable from 'app/pressable/BouncePressable'
-import useLocalization from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { styled, Text, useSx, View } from 'dripsy'
+import {
+  Pressable,
+  styled,
+  Text,
+  useResponsiveValue,
+  useSx,
+  View,
+} from 'dripsy'
 import { ComponentProps } from 'react'
-import { Platform } from 'react-native'
-import { DripsyGradient } from '../Gradient'
+import { useRouter } from 'solito/router'
 import Icon from '../Icon'
 
 type HeaderProps = {
   title?: string
   actions?: React.ReactNode
   titleProps?: ComponentProps<typeof Text>
+  customBack?: () => void
 } & React.ComponentProps<typeof View>
 
-const Header = ({ title, actions, titleProps = {} }: HeaderProps) => {
-  const isAndroid = Platform.OS === 'android'
-  const { t } = useLocalization()
-  const { back } = useContextualRouter()
+const Header = ({
+  title = '',
+  actions,
+  titleProps = {},
+  customBack,
+}: HeaderProps) => {
+  const { back } = useRouter()
   const onGoBack = () => {
     back()
   }
+  const desktop = useIsDesktop()
 
   const { orientation, isLandscape } = useOrientation()
 
   const { top, right } = useSafeArea()
+
+  const pr = useResponsiveValue(['$4', '$4', 0, 0, 0])
 
   const sx = useSx()
 
   const headerHeight = sx({
     height: 'header',
   })
+
   return (
-    <View
-      nativeID="pageback-header"
-      sx={{
-        borderBottomWidth: 1,
-        borderBottomColor: '#33A0D0',
-      }}
-    >
-      <DripsyGradient
+    <View nativeID="pageback-header">
+      <View
         sx={{
           paddingTop: top,
+          px: 12,
+          bg: desktop ? 'transparent' : '$primary.500',
         }}
-        gradient={'PaleBlue'}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
       >
         <StyledTop
           sx={{
             ...(isLandscape ? {} : headerHeight),
-            px: isLandscape ? '$6' : '$2',
+            px: isLandscape ? 12 : 4,
+            justifyContent: 'space-between',
           }}
         >
-          <BouncePressable
-            onPress={onGoBack}
-            sx={{ p: '$2', px: '$4', paddingLeft: right }}
+          <Pressable
+            onPress={customBack ? customBack : onGoBack}
+            sx={{ flex: 0.1 }}
           >
-            <Icon
-              name="chevleft"
-              size={isLandscape ? 14 : 20}
-              color="#9CD9FA"
-            />
-          </BouncePressable>
-          <View sx={{ alignItems: 'center', flex: 0.9 }}>
+            <Icon name="back" size={isLandscape ? 14 : 20} color="white" />
+          </Pressable>
+          <View sx={{ flex: 0.8, alignItems: 'center' }}>
             <Text
+              numberOfLines={2}
               sx={{
-                fontSize: isLandscape ? 14 : 20,
+                fontSize: isLandscape ? 14 : 19,
                 color: 'white',
+                lineHeight: headerHeight.height,
                 fontWeight: 'bold',
+                textAlign: 'center',
                 ...titleProps?.sx,
               }}
               {...titleProps}
             >
-              {t(title)}
+              {title.toUpperCase()}
             </Text>
           </View>
-
-          {actions && (
-            <View
-              sx={{ position: 'absolute', right: isLandscape ? right : '$2' }}
-            >
-              {actions}
-            </View>
-          )}
+          <View
+            sx={{
+              flex: 0.1,
+              alignItems: 'flex-end',
+              // pr: actions ? undefined : undefined,
+            }}
+          >
+            {actions && actions}
+          </View>
         </StyledTop>
-      </DripsyGradient>
+      </View>
     </View>
   )
 }

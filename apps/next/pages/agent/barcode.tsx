@@ -1,11 +1,10 @@
-import React from 'react'
-import AgentLayout from '../../layouts/agent/AgentLayout'
 import AgentBarcodePage from 'agent/features/barcode/AgentBarcodePage'
+import { MobileAgentLayout } from 'components/layouts/agent'
 
 const Barcode = () => {
   return <AgentBarcodePage />
 }
 
-Barcode.getLayout = AgentLayout
+Barcode.AgentLayout = MobileAgentLayout
 
 export default Barcode

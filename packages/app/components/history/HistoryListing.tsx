@@ -5,17 +5,21 @@ import {
   ListRenderItem,
   ListRenderItemInfo,
   Platform,
-  View,
+  RefreshControl,
 } from 'react-native'
+import { View } from 'dripsy'
 import { ReportDepositItem } from 'services/playerApi.type'
 import HistoryEmpty from './HistoryEmpty'
 import HistoryHeader, { HeaderProps } from './HistoryHeader'
+import isDesktop from 'app/utils/isDesktop'
+import { useAppSelector } from 'app/provider/redux/store'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 
 interface HistoryListingProps<T, FetchParamsType> {
   fetchParams: FetchParamsType
   trigger: any // TODO: How to fix it to RTKQ type
   result: any // TODO: How to fix it to RTKQ type
-  header: HeaderProps['data']
+  header?: HeaderProps['data']
   keyExtractor?: (item: T, index: number) => string
   renderItem: ListRenderItem<T>
   updatedSlipId?: string
@@ -39,6 +43,8 @@ function HistoryListing<T, FetchParamsType>(
   const [displayList, setDisplayList] = useState<T[]>([])
   const [totalRow, setTotalRow] = useState(0)
   const [allLoaded, setAllLoaded] = useState(false)
+  const desktop = useIsDesktop()
+  const lang = useAppSelector((state) => state.setting.locale)
 
   useEffect(() => {
     console.log('updatedSlipId', updatedSlipId)
@@ -57,7 +63,7 @@ function HistoryListing<T, FetchParamsType>(
   useEffect(() => {
     if (displayList.length) setDisplayList([])
     refreshData()
-  }, [fetchParams])
+  }, [fetchParams, lang])
 
   const refreshData = () => {
     setTotalRow(0)
@@ -111,11 +117,7 @@ function HistoryListing<T, FetchParamsType>(
     if (Platform.OS === 'web') {
       if (isFetching) {
         return (
-          <ActivityIndicator
-            size={'large'}
-            color={'$lightCyan'}
-            sx={{ mt: '$4' }}
-          />
+          <ActivityIndicator size={'large'} color={'white'} sx={{ mt: '$4' }} />
         )
       }
     }
@@ -128,31 +130,33 @@ function HistoryListing<T, FetchParamsType>(
   }
 
   return (
-    <View style={{ flex: 1 }}>
-      <HistoryHeader data={header} />
+    <View
+      sx={{
+        paddingBottom: 15,
+        ...(Platform.OS === 'web'
+          ? { height: desktop ? 500 : 600 }
+          : { flex: 1 }),
+      }}
+    >
+      {header && <HistoryHeader data={header} />}
       <FlashList
         data={displayList}
         keyExtractor={keyExtractor}
         renderItem={onRenderItem}
         estimatedItemSize={10}
-        onRefresh={onRefresh}
-        refreshing={isFetching ?? false}
+        refreshControl={
+          <RefreshControl
+            refreshing={isFetching ?? false}
+            onRefresh={onRefresh}
+            tintColor={'white'}
+          />
+        }
         ListEmptyComponent={onListEmpty}
         onEndReached={onLoadMore}
         onEndReachedThreshold={0.2}
-        extraData={isFetching}
+        extraData={isFetching || lang}
+        showsVerticalScrollIndicator={desktop ? false : true}
       />
-      {/* <FlatList
-        onRefresh={onRefresh}
-        refreshing={isFetching ?? false}
-        ListEmptyComponent={onListEmpty}
-        data={displayList}
-        keyExtractor={keyExtractor}
-        renderItem={onRenderItem}
-        onEndReached={onLoadMore}
-        onEndReachedThreshold={0.5}
-        extraData={displayList}
-      /> */}
     </View>
   )
 }

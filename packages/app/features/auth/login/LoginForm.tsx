@@ -1,243 +1,100 @@
-import { useLoginMutation as useAgentLoginMutation } from 'agent/services/authApi'
-import { useLazyUserInfoQuery } from 'agent/services/userApi'
-import { AgentAuthActions } from 'agent/store/agentAuthReducer'
-import CheckBox from 'app/components/CheckBox'
-import { Button } from 'app/components/form/Button'
-import IconButton from 'app/components/form/IconButton'
-import TextInput from 'app/components/form/TextInput'
-import useAlert from 'app/hooks/useAlert'
-import useBioAuth from 'app/hooks/useBioAuth'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
-import TouchableOpacity from 'app/pressable/TouchableOpacity'
+import Button from 'app/components/common/Button'
+import CheckBox from 'app/components/common/CheckBox'
+import FormContainer from 'app/components/form/FormContainer'
+import Input from 'app/components/form/Input'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
-import { AuthActions } from 'app/store/authReducer'
-import { SettingActions } from 'app/store/setting.slice'
-import { TempSettingActions } from 'app/store/tempSetting.slice'
-import validation, {
-  PASSWORD_MAX_LENGTH,
-  USERNAME_MAX_LENGTH,
-} from 'app/utils/validation'
-import { Text, View } from 'dripsy'
-import { FormikHelpers, useFormik } from 'formik'
-import { AnimatePresence, MotiText, MotiView } from 'moti'
-import React, { useEffect, useRef, useState } from 'react'
-import { Platform, TextInput as RNTextField, StyleSheet } from 'react-native'
-import { useLoginMutation } from 'services/authApi'
-import { Shield_Action } from 'services/authApi.type'
+import { ModalStackParams } from 'app/provider/modal'
+import { useAppSelector } from 'app/provider/redux/store'
+import { PASSWORD_MAX_LENGTH, USERNAME_MAX_LENGTH } from 'app/utils/validation'
+import { Pressable, Text, View, styled } from 'dripsy'
+import React, { ComponentProps, useEffect, useRef, useState } from 'react'
+import { TextInput } from 'react-native'
+import { useModal } from 'react-native-modalfy'
 import { createParam } from 'solito'
-import * as Yup from 'yup'
-import { LoginType } from '../type'
+import { useRouter } from 'solito/router'
+import { LoginType } from '../AuthTypeSelection'
+import useLoginForm from './useLoginForm'
 
-const { useParam } = createParam()
-
-const REMEMBER_ME_HEIGHT = 40
-
-type LoginFormValues = {
-  username: string
-  password: string
-}
+const StyledFormContainer = styled(FormContainer)({
+  py: '$4',
+})
 
 type LoginFormProps = {
   isAgent: boolean
-}
+  isAgentLoginWithDesktopModal?: boolean
+} & ComponentProps<typeof StyledFormContainer>
 
-const LoginForm = ({ isAgent }: LoginFormProps) => {
-  const [login] = useLoginMutation()
-  const [agentLogin] = useAgentLoginMutation()
-  const [getUserInfo] = useLazyUserInfoQuery()
+const { useParam } = createParam()
 
+const LoginForm = ({
+  isAgent,
+  isAgentLoginWithDesktopModal,
+  ...rest
+}: LoginFormProps) => {
   const { t } = useLocalization()
-  const { showAlert } = useAlert()
-  const [errorMsg, setErrorMsg] = useState('')
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const { replace, push, back, clear } = useContextualRouter()
-  const [afterLoginRedirection] = useParam('r')
+  const { push } = useRouter()
+  const { closeModal, openModal } = useModal<ModalStackParams>()
+  const desktop = useIsDesktop()
 
-  // const { handleAgentLogin } = useAfterLogin()
-
-  const passwordFieldRef = useRef<RNTextField>(null)
-  const usernameFieldRef = useRef<RNTextField>(null)
-
-  const dispatch = useAppDispatch()
-
-  const { isBioLoading, showBiometric, normalLogin, startBiometricLogin } =
-    useBioAuth()
-
-  const isBiometricLogin = useAppSelector((s) => s.setting.biometricCredentials)
-
-  const rememberMeCredential = useAppSelector(
-    (s) => s.setting.rememberMeCredentials
-  )
-  const agentRememberMeCredential = useAppSelector(
-    (s) => s.setting.agentRememberMeCredentials
-  )
-
-  useEffect(() => {
+  const passwordFieldRef = useRef<TextInput>(null)
+  const usernameFieldRef = useRef<TextInput>(null)
+  const rememberMeCredential = useAppSelector((s) =>
     isAgent
-      ? setValues({
-          username: agentRememberMeCredential?.username ?? '',
-          password: agentRememberMeCredential?.password ?? '',
-        })
-      : setValues({
-          username: rememberMeCredential?.username ?? '',
-          password: rememberMeCredential?.password ?? '',
-        })
-  }, [isAgent])
+      ? s.setting.agentRememberMeCredentials
+      : s.setting.rememberMeCredentials
+  )
 
   const [isRemember, setIsRemember] = useState(() => {
     if (rememberMeCredential) return true
     else return false
   })
-  const [isRememberAgent, setIsRememberAgent] = useState(() => {
-    if (agentRememberMeCredential) return true
-    else return false
-  })
 
-  const navigateAfterLogin = Platform.select({
-    web: (base) => {
-      let replaceRoute = afterLoginRedirection ?? base
-
-      const urlParams = new URLSearchParams(window.location.search)
-      const redirect = urlParams.get('r')
-      if (redirect) replaceRoute = redirect
-
-      replace(replaceRoute)
-    },
-    default: (base) => {
-      console.log('base', base)
-      if (base) push(base)
-      else back()
-    },
-  })
-
-  const onSubmit = async (
-    { username, password }: LoginFormValues,
-    actions: FormikHelpers<LoginFormValues>
-  ) => {
-    try {
-      setIsSubmitting(true)
-
-      if (isAgent) {
-        //handle agent login
-        const { result, success, message } = await agentLogin({
-          username,
-          password,
-        }).unwrap()
-
-        if (success && result) {
-          dispatch(AgentAuthActions.setAgentAuthToken(result.data.access_token))
-          dispatch(
-            SettingActions.setAgentRememberMe(
-              isRememberAgent ? { username, password } : undefined
-            )
-          )
-
-          const resp = await getUserInfo().unwrap()
-
-          if (!resp.has_logged_in || !resp.has_otp) {
-            Platform.select({
-              web: function () {
-                replace('/agent/reset-password')
-              },
-              default: function () {
-                back()
-                push('/agent/reset-password')
-              },
-            })()
-          } else {
-            navigateAfterLogin('/agent/profile')
-          }
-        } else {
-          throw new Error(message)
-        }
-      } else {
-        //handle member login
-        const { data, success, message } = await login({
-          username,
-          password,
-        }).unwrap()
-
-        if (success && data) {
-          // syncShield(Shield_Action.LOGIN)
-          dispatch(
-            SettingActions.setRememberMe(
-              isRemember ? { username, password } : undefined
-            )
-          )
-
-          dispatch(
-            TempSettingActions.setSyncShieldActionType(Shield_Action.LOGIN)
-          )
-          normalLogin(username, password, () =>
-            handleProceedLogin(data, actions)
-          )
-        } else {
-          throw new Error(message)
-        }
-      }
-    } catch (error) {
-      showAlert(error)
-
-      setIsSubmitting(false)
-    }
-  }
-
-  const handleProceedLogin = (data, actions) => {
-    dispatch(AuthActions.setAuthInfo(data))
-
-    actions.resetForm()
-    if (errorMsg) setErrorMsg('')
-
-    navigateAfterLogin('/')
-  }
-
-  const onCheckboxCheck = () => {
-    setIsRemember(!isRemember)
-  }
-  const onAgentCheckboxCheck = () => {
-    setIsRememberAgent(!isRememberAgent)
-  }
-
-  const formik = useFormik<LoginFormValues>({
-    initialValues: {
-      username: rememberMeCredential?.username || '',
-      password: rememberMeCredential?.password || '',
-    },
-    validationSchema: Yup.object({
-      username: validation.stringRequired,
-      password: validation.stringRequired,
-    }),
-    onSubmit,
-  })
+  const { formik } = useLoginForm(isAgent, isRemember)
 
   const {
+    isSubmitting,
     handleChange,
     handleBlur,
     values,
     errors,
     touched,
-    setValues,
     submitForm,
+    setValues,
   } = formik
 
+  const onCheckboxCheck = () => {
+    setIsRemember(!isRemember)
+  }
+
+  useEffect(() => {
+    if (rememberMeCredential) {
+      setIsRemember(true)
+    } else {
+      setIsRemember(false)
+    }
+    setValues({
+      username: rememberMeCredential?.username ?? '',
+      password: rememberMeCredential?.password ?? '',
+    })
+  }, [isAgent])
+
   return (
-    <>
-      <TextInput
-        _icon="avatar"
-        _input={{
-          textContentType: 'username',
-          placeholder: t('common.username'),
-          value: values.username,
-          onChangeText: handleChange('username'),
-          onBlur: handleBlur('username'),
-          autoCapitalize: 'none',
-          ref: usernameFieldRef,
-          autoComplete: 'new-password',
-          onSubmitEditing: () => {
-            passwordFieldRef.current?.focus()
-          },
-          maxLength: USERNAME_MAX_LENGTH,
+    <StyledFormContainer {...rest}>
+      <Input
+        autoCapitalize={'none'}
+        inputContainerSx={{ width: '100%' }}
+        icon="profile-rounded"
+        placeholder={t('common.username')}
+        textContentType="username"
+        value={values.username}
+        onBlur={handleBlur('username')}
+        onChangeText={handleChange('username')}
+        maxLength={USERNAME_MAX_LENGTH}
+        ref={usernameFieldRef}
+        autoCorrect={false}
+        onSubmitEditing={() => {
+          passwordFieldRef.current?.focus()
         }}
         error={
           touched.username && errors.username
@@ -247,20 +104,20 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
             : undefined
         }
       />
-
-      <TextInput
-        _icon="lock"
-        _input={{
-          textContentType: 'password',
-          placeholder: t('common.password'),
-          value: values.password,
-          onChangeText: handleChange('password'),
-          onBlur: handleBlur('password'),
-          secureTextEntry: true,
-          ref: passwordFieldRef,
-          onSubmitEditing: submitForm,
-          maxLength: PASSWORD_MAX_LENGTH,
-        }}
+      <Input
+        autoCapitalize={'none'}
+        inputContainerSx={{ width: '100%' }}
+        icon="pw"
+        placeholder={t('common.password')}
+        secureTextEntry
+        textContentType="password"
+        value={values.password}
+        onBlur={handleBlur('password')}
+        onChangeText={handleChange('password')}
+        maxLength={PASSWORD_MAX_LENGTH}
+        ref={passwordFieldRef}
+        autoComplete="password"
+        onSubmitEditing={submitForm}
         error={
           touched.password && errors.password
             ? t(errors.password, {
@@ -268,153 +125,85 @@ const LoginForm = ({ isAgent }: LoginFormProps) => {
               })
             : undefined
         }
-        sx={{ mt: '$3' }}
       />
 
       <View
         sx={{
-          flexDirection: 'row',
-          height: REMEMBER_ME_HEIGHT,
+          minHeight: 50,
+          justifyContent: 'space-between',
+          mb: 10,
         }}
       >
-        <AnimatePresence>
-          {!isAgent ? (
-            <RememberMe
-              t={t}
-              isRemember={isRemember}
-              onCheck={onCheckboxCheck}
-            />
-          ) : (
-            <RememberMe
-              t={t}
-              isRemember={isRememberAgent}
-              onCheck={onAgentCheckboxCheck}
-            />
-          )}
-        </AnimatePresence>
-      </View>
-
-      <View
-        sx={{
-          alignItems: 'flex-end',
-        }}
-      >
-        <TouchableOpacity
-          onPress={() =>
-            push('/auth/forget-password', {
-              t: isAgent ? LoginType.Agent : LoginType.Member,
-            })
-          }
-        >
-          <Text
-            sx={{
-              opacity: 0.43,
-            }}
-          >
-            {t('auth.forgotPassword') + '?'}
-          </Text>
-        </TouchableOpacity>
-      </View>
-
-      <Text variant="error" sx={{ mt: '$3' }}>
-        {errorMsg}
-      </Text>
-
-      <View sx={{ alignItems: 'center', mt: '$5' }}>
-        <View sx={{ width: '80%' }}>
-          <Button
-            stretch
-            onPress={submitForm}
-            sx={{ mt: '$4' }}
-            loading={isSubmitting || isBioLoading}
-          >
-            <Button.Label>{t('auth.login')}</Button.Label>
-          </Button>
-        </View>
-
-        <View sx={{ mt: '$5', minHeight: 20 }}>
-          <TouchableOpacity
-            onPress={() =>
-              push('/auth/register', {
-                t: isAgent ? LoginType.Agent : LoginType.Member,
-              })
-            }
-          >
-            <AnimatePresence>
-              {
-                <MotiText
-                  from={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ type: 'timing', duration: 250 }}
-                  style={{
-                    textAlign: 'center',
-                    fontWeight: 'bold',
-                    color: '#F15D12',
-                  }}
-                >
-                  {t('auth.register')}
-                </MotiText>
-              }
-            </AnimatePresence>
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      {Platform.OS !== 'web' && showBiometric && !!isBiometricLogin && (
         <View
           sx={{
-            flex: 1,
+            flexDirection: 'row',
             alignItems: 'center',
+            justifyContent: 'flex-start',
+          }}
+        >
+          <CheckBox isCheck={isRemember} onCheck={onCheckboxCheck} />
+          <Pressable sx={{ pl: '$2' }} onPress={onCheckboxCheck}>
+            <Text>{t('authentication.rememberMe')}</Text>
+          </Pressable>
+        </View>
+
+        <View
+          sx={{
+            flexDirection: 'row',
             justifyContent: 'flex-end',
           }}
         >
-          <IconButton
-            name={Platform.OS === 'ios' ? 'face-id' : 'fingerprint'}
-            onPress={() => startBiometricLogin()}
-          />
+          <Pressable
+            onPress={() => {
+              if (isAgentLoginWithDesktopModal) {
+                closeModal('AgentLoginModal', () => {
+                  setTimeout(() => {
+                    openModal('ForgotPasswordModal', {
+                      t: LoginType.Agent,
+                    })
+                  })
+                })
+
+                return
+              }
+
+              push({
+                pathname: '/auth/forgot-password',
+                query: {
+                  t: isAgent ? LoginType.Agent : LoginType.Member,
+                },
+              })
+            }}
+          >
+            <Text>{t('authentication.forgotPassword')}</Text>
+          </Pressable>
         </View>
+      </View>
+
+      <Button
+        loading={isSubmitting}
+        onPress={submitForm}
+        sx={{ mb: '$2', mt: desktop ? 'auto' : '$2' }}
+      >
+        {t('authentication.login')}
+      </Button>
+      {!isAgentLoginWithDesktopModal && (
+        <Button
+          onPress={() => {
+            push({
+              pathname: '/auth/register',
+              query: {
+                t: isAgent ? LoginType.Agent : LoginType.Member,
+              },
+            })
+          }}
+          sx={{ bg: '$primary.300', my: '$2' }}
+        >
+          {t('authentication.register')}
+        </Button>
       )}
-    </>
+    </StyledFormContainer>
   )
 }
-
-const RememberMe = ({ t, isRemember, onCheck }) => (
-  <MotiView
-    from={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    transition={{ type: 'timing', duration: 250 }}
-    style={{ justifyContent: 'center' }}
-  >
-    <TouchableOpacity
-      sx={{ flexDirection: 'row', alignItems: 'center' }}
-      onPress={onCheck}
-    >
-      <CheckBox
-        isCheck={isRemember}
-        tickColor="$orange"
-        sx={{
-          bg: isRemember ? '#062243' : '#fff',
-        }}
-      />
-      <Text
-        sx={{ ml: '$2' }}
-        style={isRemember ? styles.checked : styles.uncheck}
-      >
-        {t('auth.rememberMe')}
-      </Text>
-    </TouchableOpacity>
-  </MotiView>
-)
-
-const styles = StyleSheet.create({
-  checked: {
-    opacity: 0.43,
-  },
-  uncheck: {
-    color: '#F15D12',
-  },
-})
 
 export default LoginForm

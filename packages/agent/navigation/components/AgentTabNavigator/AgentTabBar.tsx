@@ -1,4 +1,4 @@
-import { TAB_HEIGHT } from 'app/constant/sizes'
+import { AGENT_TAB_HEIGHT } from 'agent/constant/sizes'
 import { View } from 'dripsy'
 import React from 'react'
 
@@ -7,7 +7,7 @@ export default function AgentTabBar({ children }) {
     <View
       style={[
         {
-          height: TAB_HEIGHT * 1.25,
+          height: AGENT_TAB_HEIGHT * 1.25,
           flexDirection: 'row',
           backgroundColor: 'white',
           shadowColor: '#000',

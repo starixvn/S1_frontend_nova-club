@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
-import isEqual from 'lodash.isequal'
+import isEqual from 'lodash/isEqual'
 
 import RadioButton from './RadioButton'
 import { RadioButtonProps, RadioGroupProps } from './types'

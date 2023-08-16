@@ -70,6 +70,7 @@ function AgentTabNavigator({
     <NavigationContent>
       <AgentShareholderTabs />
       <AnnouncementSection />
+
       <View style={[{ flex: 1 }]}>
         {state.routes.map((route, i) => {
           const isFocused = i === state.index

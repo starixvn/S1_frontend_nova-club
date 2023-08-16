@@ -37,6 +37,7 @@ export default function useCodePushDownload(
     // This is to force update the release
     const availableUpdate = await codePush.checkForUpdate()
     if (availableUpdate) {
+      console.log('availableUpdate', availableUpdate)
       const downloadedPackage = await availableUpdate.download(
         onDownloadProgress
       )

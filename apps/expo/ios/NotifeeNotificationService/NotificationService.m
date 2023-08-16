@@ -2,7 +2,7 @@
 //  NotificationService.m
 //  NotifeeNotificationService
 //
-//  Created by Wilson Lim on 18/08/2022.
+//  Created by ACRNB033 on 27/07/2023.
 //
 
 #import "NotificationService.h"
@@ -20,9 +20,10 @@
     self.contentHandler = contentHandler;
     self.bestAttemptContent = [request.content mutableCopy];
     
-    [NotifeeExtensionHelper populateNotificationContent:request
-                                  withContent: self.bestAttemptContent
-                                  withContentHandler:contentHandler];
+    // Modify the notification content here...
+    self.bestAttemptContent.title = [NSString stringWithFormat:@"%@ [modified]", self.bestAttemptContent.title];
+    
+    self.contentHandler(self.bestAttemptContent);
 }
 
 - (void)serviceExtensionTimeWillExpire {

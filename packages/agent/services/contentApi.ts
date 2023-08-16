@@ -5,6 +5,7 @@ import {
   AnnouncementDetailArgs,
   AnnouncementDetailResult,
   AnnouncementItem,
+  AnnouncementList,
   AnnouncementResult,
   ContentList,
   MessageDetailArgs,

@@ -116,9 +116,7 @@ const StyledViewHeader = styled(View)(() => ({
   borderTopRightRadius: 12,
 }))
 const StyledViewBody = styled(View)(() => ({
-  padding: '$4',
   minHeight: 120,
-  color: 'white',
 }))
 const StyledViewFooter = styled(View)(() => ({
   padding: '$4',
@@ -137,7 +135,7 @@ const StyledViewClose = styled(View)(() => ({
 const StyledViewButton = styled(View)(() => ({
   flexDirection: 'row',
   justifyContent: 'space-around',
-  pb: '$5',
+  pb: '$3',
 }))
 
 export default ModalContent

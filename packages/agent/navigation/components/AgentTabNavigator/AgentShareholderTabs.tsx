@@ -3,21 +3,25 @@ import AgentRoutes from 'agent/navigation/routes/AgentRoutes'
 import ShareholderRoutes from 'agent/navigation/routes/ShareholderRoutes'
 import { useUserInfoQuery } from 'agent/services/userApi'
 import { ROLE } from 'agent/utils/helper'
-import useContextualRouting from 'app/hooks/useContextualRouting'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
+import usePathname from 'app/hooks/usePathname'
 import { useAgentLocalization } from 'app/provider/localization'
 import React, { useMemo } from 'react'
+import { useRouter } from 'solito/router'
 import AgentTabBar from './AgentTabBar'
 import AgentTabBarItem from './AgentTabBarItem'
+import { useAppSelector } from 'app/provider/redux/store'
 
 export default function AgentShareholderTabBar({}) {
+  const token = useAppSelector((s) => s.agent.access_token)
   const { isAgent } = useUserInfoQuery(undefined, {
     selectFromResult: (s) => ({ ...s, isAgent: s.data?.role === ROLE.AGENT }),
+    skip: !token,
   })
 
-  const { push } = useContextualRouter()
-  const { returnHref } = useContextualRouting()
+  const { push } = useRouter()
   const { t } = useAgentLocalization()
+
+  const pathname = usePathname()
 
   const routes = useMemo(() => {
     return isAgent ? AgentRoutes : ShareholderRoutes
@@ -27,7 +31,7 @@ export default function AgentShareholderTabBar({}) {
     <AgentTabBar>
       {routes &&
         routes.map((r) => {
-          const isActive = returnHref.includes(r.base ?? r.route)
+          const isActive = pathname.includes(r.base ?? r.route)
 
           return (
             <AgentTabBarItem

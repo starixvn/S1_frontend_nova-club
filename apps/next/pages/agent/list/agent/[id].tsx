@@ -1,13 +1,10 @@
-import React from 'react'
-import AgentStackLayout from '../../../../layouts/agent/AgentStackLayout'
 import AgentDetailsScreen from 'agent/features/agent/AgentDetails'
+import { MobileStackAgentLayout } from 'components/layouts/agent'
 
 const AgentDetails = () => {
-  return (
-    <AgentStackLayout>
-      <AgentDetailsScreen />
-    </AgentStackLayout>
-  )
+  return <AgentDetailsScreen />
 }
+
+AgentDetails.AgentLayout = MobileStackAgentLayout
 
 export default AgentDetails

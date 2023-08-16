@@ -1,12 +1,12 @@
 import IconButton from 'agent/components/Icon/IconButton'
 import Text from 'agent/components/Text'
 import useContainerDimension from 'app/hooks/useContainerDimension'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
 import { useAgentLocalization } from 'app/provider/localization'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { View } from 'dripsy'
 import { ComponentProps } from 'react'
 import { Platform } from 'react-native'
+import { useRouter } from 'solito/router'
 
 type HeaderProps = {
   title?: string
@@ -22,8 +22,10 @@ const CommonBackHeader = ({
   customRoute,
   ...rest
 }: HeaderProps) => {
+  const { sx, ...props } = rest
+
   const { t } = useAgentLocalization()
-  const { back } = useContextualRouter()
+  const { back } = useRouter()
   const { width } = useContainerDimension()
 
   const { top, left, right } = useSafeArea()
@@ -39,15 +41,16 @@ const CommonBackHeader = ({
         pt: top,
         pl: left,
         pr: right,
+        ...sx,
       }}
-      {...rest}
+      {...props}
     >
       <View
         sx={{
           flexDirection: 'row',
           justifyContent: 'space-between',
-          py: '$5',
-          px: '$6',
+          py: 20,
+          px: '$3',
         }}
       >
         <IconButton

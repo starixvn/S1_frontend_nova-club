@@ -1,16 +1,12 @@
-import { LANGUAGE_CODE } from 'app/constant/language'
-import { Action } from 'app/utils/actionGenerator'
-import { GAME_TYPE_CODE } from 'app/utils/constant'
-import { ImageSourcePropType } from 'react-native'
+import { BannerAction } from 'app/utils/carouselBannerActionGenerator'
 
-export enum FEATURED_GAME_CATEGORY {
-  HOT = '1',
-  RECOMMENDED = '2',
-  JACKPOT = '3',
-}
 export interface BannerResult {
   image: string
-  action?: Action
+  blurDataURL?: string // base64 of 10px width banner image
+  blurHash?: string // https://blurha.sh/
+  action?: BannerAction
+  guestAction?: BannerAction
+  alt?: string
   // bannerName: string
   // bannerLink: string
   // bannerType: number
@@ -26,10 +22,9 @@ export interface LeaderboardResult {
 }
 
 export interface CommissionTableResult {
-  cash_agent: number
   cash_player: number
   cash_player_referrer: number
-  credit_player: number
+  cash_agent: number
   currency: string
   game_type: string
   game_type_code: string
@@ -43,24 +38,6 @@ export interface CommissionTableResult {
 
 export interface CommissionQueryArgs {
   currency: string
-}
-
-export enum GameCategory {
-  Slot = 'slots',
-  Fishing = 'fishing',
-  LiveCasino = 'live_dealer',
-}
-export interface GameListQueryArgs {
-  currency: string
-  game_category: GameCategory
-}
-
-export interface GameConfig {
-  game_code: string
-  game_name: string
-  game_provider_code: string
-  game_type_code: string
-  image?: ImageSourcePropType
 }
 
 export interface AnnouncementResult {
@@ -78,59 +55,19 @@ export interface AnnouncementListItems {
   title: string
 }
 
-export interface GetGameListQueryArgs {
-  currency: string
-  game_category: string[]
-  limit: number
-  offset: number
-  gdc_game_category?: string[]
-  gdc_tag?: string[]
-}
-
-export interface Game {
-  cat: string
-  gc: string
-  gpc: string
-  gtc: GAME_TYPE_CODE
-  img: string
-  xImg: string
-  name: Record<LANGUAGE_CODE, string> | string
-  tags: string[]
-  gdc_cat?: string
-  params?: Record<string, string>
-}
-
-export interface GetGameListResult {
-  rows: Game[]
-  row_count_total: number
-}
-
 export interface JackpotAmountResult {
   increment: string
   jackpotAmount: string
 }
 
-export interface MatchResult {
-  AwayKey: number
-  AwayLang: string
-  AwayName: string
-  EventId: number
-  HomeKey: number
-  HomeLang: string
-  HomeName: string
-  LeagueId: number
-  LeagueLang: string
-  LeagueName: string
-  MarketType: string
-  SportID: number
-  globalshowtime: string
-  selection: MatchOdd[]
+export interface LeaderboardRankingResult {
+  row_count_total: number
+  rows: RankingItem[]
 }
 
-export interface MatchOdd {
-  Key: string
-  KeyName: string
-  Point: number
-  Point2: string
-  Price: number
+export type RankingItem = {
+  rank: number
+  username: string
+  points: string
+  status: string
 }

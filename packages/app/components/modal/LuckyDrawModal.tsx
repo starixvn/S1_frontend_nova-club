@@ -1,3 +1,5 @@
+import { REFERRAL_DOMAIN } from '@env'
+import AvertaStd from 'app/assets/fonts/Averta'
 import useAlert from 'app/hooks/useAlert'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useOrientation from 'app/hooks/useOrientation'
@@ -5,40 +7,44 @@ import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { SettingActions } from 'app/store/setting.slice'
-import { ScrollView, View } from 'dripsy'
+import { Pressable, ScrollView, View, useDripsyTheme } from 'dripsy'
 import debounce from 'lodash/debounce'
-import { MotiView } from 'moti'
-import { useCallback, useMemo, useState } from 'react'
-import { Platform, StyleSheet } from 'react-native'
+import { MotiText, MotiView } from 'moti'
+import { useCallback, useMemo, useRef, useState } from 'react'
+import { Linking, Platform, useWindowDimensions } from 'react-native'
+import { useModal } from 'react-native-modalfy'
 import { Easing } from 'react-native-reanimated'
 import { useDispatch } from 'react-redux'
 import { useLuckySpinMutation } from 'services/playerApi'
+import { useRouter } from 'solito/router'
+import IconButton from '../IconButton'
 import { MotifiedImage } from '../common/Image'
-import { Button } from '../form/Button'
-import IconButton from '../form/IconButton'
 
 const LuckyDrawModal = ({ modal: { closeModal } }) => {
   const { t } = useLocalization()
   const dispatch = useDispatch()
-
-  // const { data } = usePlayerProfileQuery()
-  // const totalSpin = getParam('totalSpin', 0)
+  const { push } = useRouter()
+  const token = useAppSelector((s) => s.auth.info?.token)
+  const { closeModal: closeTargetModal } = useModal()
 
   const { width: fullWidth, height } = useContainerDimension()
-  const width = Platform.OS === 'web' ? Math.min(450, fullWidth) : fullWidth
+  const { width: windowWidth } = useWindowDimensions()
+  const width = Math.min(450, fullWidth)
 
   const { showAlert } = useAlert()
 
   const [spinLuckyWheel] = useLuckySpinMutation()
   const luckyDrawBalance = useAppSelector((s) => s.setting.luckyDrawBalance)
 
-  const [targetIndex, setTargetIndex] = useState(0)
-  // const [spinBalance, setSpinBalance] = useState(0)
+  const targetIndex = useRef(0)
   const [startAnimate, setStartAnimate] = useState(false)
   const [isLoading, setLoading] = useState(false)
   const [loopCount, setLoopCount] = useState(1)
+  const [isButtonPressed, setIsButtonPressed] = useState(false)
+  const [startAnimateWinPrizeFrame, setStartAnimateWinPrizeFrame] =
+    useState(false)
 
-  const canSpin = true // luckyDrawBalance > 0
+  const canSpin = luckyDrawBalance > 0 // luckyDrawBalance > 0
 
   const { isLandscape } = useOrientation()
 
@@ -56,13 +62,13 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
       })
 
     if (success) {
-      setTargetIndex(handleSpinMapping(data.code))
-      dispatch(SettingActions.setLuckyDrawBalance(luckyDrawBalance - 1)) // this is to trigger the memoized wheel
+      targetIndex.current = handleSpinMapping(data.code)
+      dispatch(SettingActions.setLuckyDrawBalance(0)) // this is to trigger the memoized wheel
       // setSpinBalance((prev) => prev + 1)
 
       setTimeout(() => {
         showAlert({
-          message: data.code === 4 ? t('status.luckyThankYou') : data.note,
+          message: data.note,
           onClose: () => {
             setTimeout(() => handleClose(), 500)
           },
@@ -70,9 +76,10 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
         })
         // setLoading(false) // since can only spin 1 time, retain the loading until its auto closed
       }, 5500)
+      setStartAnimateWinPrizeFrame(true)
     } else {
       setLoading(false)
-      showAlert(message)
+      // showAlert(message)
     }
   }
 
@@ -83,30 +90,39 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
   }
 
   const handleClose = () => {
-    closeModal('LuckyDrawModal', () => {
-      dispatch(SettingActions.setLuckyDrawBalance(0))
-    })
+    closeTargetModal('LuckyDrawModal')
+    // closeTargetModal('RegisterModal')
+    dispatch(SettingActions.setLuckyDrawBalance(0))
+  }
+
+  const handleNavigateTnc = () => {
+    closeTargetModal('LuckyDrawModal')
+    push('/lucky-spin-tnc')
   }
 
   const handleSpinMapping = (code: number) => {
     switch (code) {
       case 1:
-        return 4
+        return 9 //8
       case 2:
-        return 0
+        return 1 //18
       case 3:
-        return 5
+        return 6 //38
       case 4:
-        return 2
+        return 2 //98
+      case 5:
+        return 4 //188
+      case 6:
+        return 8 // 388
+      case 7:
+        return 5 // 888
       default:
-        return 3
+        return 3 //Dummy Prize, can be 0,3,7
     }
   }
 
-  function onResultSpinned() {}
-
-  const shinyWidth = isLandscape ? height * 0.21 : width * 0.21
-  const shinyHeight = shinyWidth / (130 / 35)
+  const shinyWidth = isLandscape ? height * 0.21 : width * 0.12
+  const shinyHeight = shinyWidth / (120 / 25)
 
   const { top, left, right } = useSafeArea()
 
@@ -115,7 +131,7 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
       <MotifiedImage
         from={{ rotate: parseRotationValue(0) }}
         animate={{
-          rotate: getRadianByIndex(targetIndex, loopCount),
+          rotate: getRadianByIndex(targetIndex.current, loopCount),
         }}
         // onDidAnimate={onResultSpinned}
         transition={{
@@ -124,7 +140,11 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
           easing: Easing.bezier(0, 0.62, 0.19, 1.01),
         }}
         source={require('app/assets/images/luckydraw/prizes.png')}
-        sx={{ width: '90%', height: '90%' }}
+        sx={{
+          width: Math.min(275, fullWidth * 0.9),
+          height: Math.min(275, fullWidth * 0.9),
+          zIndex: 2,
+        }}
       />
     )
   }, [luckyDrawBalance])
@@ -132,112 +152,98 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
   return (
     <View
       sx={{
-        bg: 'rgba(18, 55, 88, 0.6)',
         width: fullWidth,
         height,
         position: 'relative',
-        top: 0,
       }}
     >
-      <MotifiedImage
-        style={{
-          ...StyleSheet.absoluteFillObject,
-        }}
-        from={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        // transition={{ type: 'timing' }}
-        source={require('app/assets/images/luckydraw/coins.png')}
-      />
       <ScrollView
         bounces={false}
-        sx={{ width: '100%', height: '100%' }}
-        contentContainerStyle={{
-          width,
+        contentContainerSx={{
           alignItems: 'center',
-          paddingLeft: left,
-          paddingRight: right,
-          marginLeft: 'auto',
-          marginRight: 'auto',
+          pl: left,
+          pr: right,
+          mr: 'auto',
+          ml: 'auto',
+          height: '100%',
+          justifyContent: 'center',
         }}
       >
+        <MotifiedImage
+          style={{
+            width: fullWidth,
+            height: fullWidth,
+            position: 'absolute',
+          }}
+          from={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          resizeMode="contain"
+          source={require('app/assets/images/luckydraw/coins.png')}
+        />
         <View
           sx={{
-            flexDirection: isLandscape ? 'row' : 'column',
             flex: 1,
             width: '100%',
+            justifyContent: 'center',
             height: Platform.OS !== 'web' ? height : 'auto',
           }}
         >
           <View
             sx={{
-              mt: top + height * 0.05,
-              flex: isLandscape ? 0.45 : 0,
+              height: 400,
               alignItems: 'center',
               justifyContent: 'center',
-              minHeight: '20%',
-            }}
-          >
-            <MotifiedImage
-              source={require('app/assets/images/luckydraw/lucky-spin.png')}
-              from={{ scale: 0.6 }}
-              animate={{ scale: 1 }}
-              delay={200}
-              sx={{
-                width: '50%',
-                aspectRatio: 447 / 210,
-                // mt: isLandscape ? 0 : '30%',
-              }}
-            />
-            {isLandscape && (
-              <Button
-                onPress={triggerDebounceSpin}
-                loading={isLoading}
-                disabled={!canSpin}
-                sx={{ mt: '10%' }}
-              >
-                <Button.Label>SPIN NOW</Button.Label>
-              </Button>
-            )}
-          </View>
-          <View
-            sx={{
-              flex: isLandscape ? 0.55 : 0,
-              alignItems: isLandscape ? 'flex-start' : 'center',
-              justifyContent: Platform.OS === 'web' ? 'flex-start' : 'center',
-              paddingTop: Platform.OS === 'web' ? '100%' : 0,
             }}
           >
             <View
               sx={{
-                width: isLandscape ? 'auto' : '90%',
-                height: isLandscape ? '90%' : 'auto',
+                height: 400,
+                width: Math.min(400, fullWidth),
                 aspectRatio: 1,
-                position: Platform.OS === 'web' ? 'absolute' : 'relative',
                 alignItems: 'center',
                 justifyContent: 'center',
-                mb: isLandscape ? 0 : '10%',
-                top: Platform.OS === 'web' ? '5%' : 0,
               }}
             >
-              {/* <MotifiedImage
-                from={{ rotate: 0 }}
-                animate={{
-                  rotate: getRadianByIndex(targetIndex),
-                }}
-                onDidAnimate={onResultSpinned}
-                transition={{
-                  duration: startAnimate ? 5000 : 0,
-                  type: 'timing',
-                  easing: Easing.bezier(0, 0.62, 0.19, 1.01),
-                }}
-                source={require('app/assets/images/luckydraw/prizes.png')}
-                sx={{ width: '90%', height: '90%' }}
-              /> */}
-              {MemoizedWheel}
               <MotifiedImage
-                source={require('app/assets/images/luckydraw/frame.png')}
-                sx={{ ...StyleSheet.absoluteFillObject }}
+                source={require('app/assets/images/luckydraw/lucky-spin.png')}
+                from={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                delay={200}
+                sx={{
+                  zIndex: 5,
+                  position: 'absolute',
+                  width: Math.min(300, fullWidth),
+                  height: Math.min(50, fullWidth),
+                  top: -30,
+                }}
               />
+              <MotifiedImage
+                source={require('app/assets/images/luckydraw/pin.png')}
+                from={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                delay={200}
+                sx={{
+                  width: Math.min(20, fullWidth * 0.1),
+                  height: Math.min(30, fullWidth * 0.18),
+                  zIndex: 10,
+                  position: 'absolute',
+                  top: 40,
+                }}
+              />
+              {startAnimateWinPrizeFrame && <WinningAnimationFrame />}
+              <LuckySpinLogo width={fullWidth} />
+              <PurpleTableImage width={fullWidth} />
+
+              {/* {Platform.OS === 'web' && (
+                <RegisterToSpinButton
+                  height={height}
+                  width={fullWidth}
+                  windowWidth={windowWidth}
+                  onPress={handleClose}
+                />
+              )} */}
+              {MemoizedWheel}
+              <LuckySpinWheelFrame width={fullWidth} />
               {/* Android will crash with the rotation value supplied */}
               {Platform.OS === 'ios' && (
                 <MotiView
@@ -246,18 +252,17 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
                     loop: true,
                     repeatReverse: false,
                   }}
-                  style={{ position: 'absolute' }}
+                  style={{ position: 'absolute', zIndex: 10 }}
                 >
                   <MotifiedImage
                     source={require('app/assets/images/luckydraw/shine-curve.png')}
                     sx={{
+                      zIndex: 10,
                       width: shinyWidth,
                       height: shinyHeight,
                       transform: [
                         {
-                          translateY:
-                            (isLandscape ? height * -0.45 : width * -0.4) +
-                            shinyHeight * 0.5,
+                          translateY: width * 0.33 + shinyHeight * 0.33,
                         },
                       ],
                     }}
@@ -265,15 +270,58 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
                 </MotiView>
               )}
             </View>
-            {!isLandscape && (
-              <Button
-                sx={{ mb: '$10' }}
-                onPress={triggerDebounceSpin}
-                loading={isLoading}
-                disabled={!canSpin}
+
+            {token && canSpin && (
+              <Pressable
+                onPress={() => {
+                  triggerDebounceSpin()
+                  setIsButtonPressed(true)
+                  setTimeout(() => {
+                    setIsButtonPressed(false)
+                  }, 100)
+                }}
+                disabled={!canSpin || isLoading}
+                sx={{
+                  width: Math.min(60, fullWidth * 0.2),
+                  height: Math.min(60, fullWidth * 0.2),
+                  zIndex: 10,
+                  position: 'absolute',
+                  bottom: -10,
+                }}
               >
-                <Button.Label>{t('common.spin')}</Button.Label>
-              </Button>
+                <MotifiedImage
+                  source={require('app/assets/images/luckydraw/btnSpin.png')}
+                  from={{
+                    scale: 0,
+                    height: [
+                      {
+                        value: isButtonPressed ? '60%' : '100%',
+                        duration: 250,
+                      },
+                    ],
+                  }}
+                  animate={{
+                    scale: 1,
+                    height: isButtonPressed ? '60%' : '100%',
+                  }}
+                  resizeMode="contain"
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    bottom: 0,
+                    position: 'absolute',
+                  }}
+                />
+              </Pressable>
+            )}
+            {!token && (
+              <HintButton
+                height={height}
+                width={fullWidth}
+                windowWidth={windowWidth}
+                onPress={handleClose}
+                hintText={t('event.luckyDraw.registerSpin')}
+              />
             )}
           </View>
         </View>
@@ -284,7 +332,17 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
           name="cross"
           color="white"
           sx={{
-            right: 0,
+            zIndex: 10,
+          }}
+          size={30}
+        />
+      </View>
+      <View sx={{ position: 'absolute', top: '8%', left: '10%' }}>
+        <IconButton
+          onPress={() => handleNavigateTnc()}
+          name="notice"
+          color="white"
+          sx={{
             zIndex: 10,
           }}
           size={30}
@@ -296,12 +354,12 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
 
 const shinyAnimationState = {
   rotate: [
-    { type: 'timing', value: -Math.PI * 0.45 },
-    { type: 'timing', value: -Math.PI * 0.45, delay: 1000 },
-    { type: 'timing', value: Math.PI * 2.2, duration: 2000 },
+    { type: 'timing', value: `${-Math.PI * 0.45}radian` },
+    { type: 'timing', value: `${-Math.PI * 0.45}radian`, delay: 1000 },
+    { type: 'timing', value: `${Math.PI * 2.2}radian`, duration: 2000 },
   ],
   opacity: [
-    { type: 'timing', value: 0 },
+    { type: 'timing', value: 0.2 },
     { type: 'timing', value: 0.9, delay: 1000 },
     { type: 'timing', value: 0, duration: 2000 },
   ],
@@ -311,10 +369,11 @@ function getRadianByIndex(
   index,
   loopCount = Math.floor(Math.random() * 20) + 10
 ) {
-  const numberOfItems = 6
+  const numberOfItems = 10
   const degreePerItem = 360 / numberOfItems
-  const offset = -degreePerItem * Math.random() + degreePerItem / 2
-  const deg = (loopCount - 1) * 360 + index * degreePerItem + offset
+  //   const offset = -degreePerItem * Math.random() + degreePerItem / 2
+  const deg = (loopCount - 1) * 360 + index * degreePerItem //+ offset
+
   const rad = -(deg * Math.PI) / 180
 
   return parseRotationValue(rad)
@@ -322,6 +381,139 @@ function getRadianByIndex(
 
 function parseRotationValue(radian: number = 0) {
   return `${radian}rad`
+}
+
+interface HintButtonProps {
+  windowWidth: number
+  onPress: () => void
+  width: number
+  height: number
+  hintText: string
+}
+
+const HintButton = ({
+  windowWidth,
+  onPress,
+  width,
+  height,
+  hintText,
+}: HintButtonProps) => {
+  const { push } = useRouter()
+  const { theme } = useDripsyTheme()
+  const { t } = useLocalization()
+  const { openModal } = useModal()
+  return (
+    <Pressable
+      sx={{
+        position: 'absolute',
+        bottom: -5,
+        zIndex: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+      }}
+      onPress={() => {
+        // closeModal('RegisterModal')
+        if (windowWidth < 992) {
+          push('/auth/register/?t=member')
+          onPress()
+        } else {
+          openModal('RegisterModal')
+          onPress()
+        }
+      }}
+    >
+      <View sx={{ flexDirection: 'row', mx: 2, alignItems: 'center' }}>
+        <MotiText
+          from={{ scale: 0.85, backgroundColor: theme.colors?.$primary[300] }}
+          animate={{ scale: 1, backgroundColor: theme.colors?.$primary[500] }}
+          transition={{ type: 'timing', duration: 500, loop: true }}
+          style={{
+            fontWeight: 'bold',
+            fontSize: 14,
+            textTransform: 'uppercase',
+            color: 'white',
+            borderRadius: 10,
+            fontFamily: AvertaStd.Regular.name,
+            padding: 6,
+            marginRight: 4,
+          }}
+        >
+          {hintText}
+        </MotiText>
+      </View>
+    </Pressable>
+  )
+}
+
+const PurpleTableImage = ({ width }) => {
+  return (
+    <MotifiedImage
+      source={require('app/assets/images/luckydraw/table.png')}
+      from={{ scale: 0 }}
+      animate={{ scale: 1 }}
+      delay={200}
+      sx={{
+        width: Math.min(250, width),
+        height: Math.min(100, width),
+        zIndex: 1,
+        position: 'absolute',
+        bottom: -20,
+      }}
+    />
+  )
+}
+
+const LuckySpinWheelFrame = ({ width }) => {
+  return (
+    <MotifiedImage
+      source={require('app/assets/images/luckydraw/frame.png')}
+      sx={{
+        zIndex: 1,
+        position: 'absolute',
+        width: Math.min(300, width),
+        height: Math.min(300, width),
+        aspectRatio: 1,
+      }}
+    />
+  )
+}
+
+const LuckySpinLogo = ({ width }: { width: number }) => {
+  return (
+    <MotifiedImage
+      source={require('app/assets/images/luckydraw/logo.png')}
+      from={{ scale: 0 }}
+      animate={{ scale: 1 }}
+      delay={200}
+      sx={{
+        width: Math.min(60, width * 0.25),
+        height: Math.min(60, width * 0.25),
+        aspectRatio: 1,
+        zIndex: 5,
+        position: 'absolute',
+      }}
+    />
+  )
+}
+
+const WinningAnimationFrame = () => {
+  return (
+    <MotifiedImage
+      source={require('app/assets/images/luckydraw/win_prize_frame.png')}
+      from={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      delay={100}
+      transition={{ type: 'timing', duration: 100, loop: true }}
+      sx={{
+        width: '24%',
+        height: '32%',
+        aspectRatio: 69 / 90,
+        zIndex: 3,
+        position: 'absolute',
+        top: '14%',
+      }}
+    />
+  )
 }
 
 export default LuckyDrawModal

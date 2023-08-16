@@ -33,3 +33,9 @@ export function shadowGenerator(elevation: Elevation) {
     elevation: Number(elevation),
   }
 }
+
+export function modalDelaySubmission(callback) {
+  setTimeout(() => {
+    callback()
+  }, 250)
+}

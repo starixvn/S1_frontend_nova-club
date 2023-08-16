@@ -1,15 +1,18 @@
-import { Button } from 'app/components/form/Button'
-import { PageWithBackHeader } from 'app/components/layout/Page'
+import Button from 'app/components/common/Button'
+import FormContainer from 'app/components/form/FormContainer'
+import { PageWithBackHeader } from 'app/components/layouts/Page'
 import useAlert from 'app/hooks/useAlert'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import validation from 'app/utils/validation'
-import { Text, View } from 'dripsy'
+import { Text } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useCreateTransferPinMutation } from 'services/pinApi'
 import { useLazyPlayerProfileQuery } from 'services/playerApi'
+import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import UnderlinePinField from './UnderlinePinField'
 
@@ -17,12 +20,19 @@ type PinFormValues = {
   pin: string
   confirmPin: string
 }
-const CreatePinScreen = ({ hideHeader = false }) => {
+const CreatePinScreen = ({ isTab = false }) => {
   const { t } = useLocalization()
-  const { back } = useContextualRouter()
+  const { back } = useRouter()
   const { showAlert } = useAlert()
   const [fetchProfile] = useLazyPlayerProfileQuery()
   const [postCreateTransferPin] = useCreateTransferPinMutation()
+  const isDesktop = useIsDesktop()
+
+  const lang = useAppSelector((s) => s.setting.locale)
+
+  useEffect(() => {
+    resetForm()
+  }, [lang])
 
   useEffect(() => {
     return () => {
@@ -78,55 +88,56 @@ const CreatePinScreen = ({ hideHeader = false }) => {
     errors,
     isValid,
     dirty,
+    resetForm,
     submitForm,
   } = formik
 
-  return (
-    <PageWithBackHeader
-      header={{ title: t('menu.createPin') }}
-      hideHeader={hideHeader}
-    >
-      <View sx={{ flex: 1, p: '$4', mb: '$10' }}>
-        <Text sx={{ fontSize: 24 }}>{t('pin.headerText1')}</Text>
-        <Text>{t('pin.headerText2')}</Text>
+  const memoPin = useMemo(
+    () => (
+      <>
         <UnderlinePinField
-          title={t('pin.newPin')}
+          label={t('manageCredentials.pin.newPin')}
           value={values.pin}
           setValue={handleChange('pin')}
         />
         <UnderlinePinField
-          title={t('pin.confirmPin')}
+          label={t('manageCredentials.pin.confirmPin')}
           value={values.confirmPin}
           setValue={handleChange('confirmPin')}
           errorMsg={
             values.confirmPin.length === 6 && errors.confirmPin
               ? t(errors.confirmPin, {
-                  field: t('pin.newPin'),
+                  field: t('manageCredentials.pin.newPin'),
                 })
               : undefined
           }
         />
+      </>
+    ),
+    [values, errors]
+  )
+
+  return (
+    <PageWithBackHeader
+      header={{ title: t('manageCredentials.pin.createPin') }}
+      disableScrollView
+      hideHeader={isDesktop || isTab}
+    >
+      <FormContainer>
+        <Text sx={{ fontSize: 24 }}>
+          {t('manageCredentials.pin.create6Pin')}
+        </Text>
+        <Text sx={{ mb: '$3' }}>{t('manageCredentials.pin.securePin')}</Text>
+        {memoPin}
 
         <Button
-          rounded
-          stretch
-          loading={isSubmitting}
-          disabled={!isValid || !dirty}
-          variant="lg"
-          fill={{
-            type: 'gradient',
-            color: 'secondary',
-            start: { x: 0, y: 0 },
-            end: { x: 1, y: 0 },
-          }}
-          containerStyle={{
-            m: '$10',
-          }}
           onPress={submitForm}
+          disabled={!isValid || !dirty}
+          sx={{ mt: '$3' }}
         >
-          <Button.Label>{t('common.submit')}</Button.Label>
+          {t('common.submit')}
         </Button>
-      </View>
+      </FormContainer>
     </PageWithBackHeader>
   )
 }

@@ -1,6 +1,7 @@
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
+  PlayerBalance,
   PlayerBalanceArgs,
   PlayerBalanceResult,
   PlayerWalletDetailArgs,
@@ -15,18 +16,29 @@ import {
 
 export const walletApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
-    playerBalance: builder.query<
-      IResponse<PlayerBalanceResult>,
-      PlayerBalanceArgs | void
-    >({
-      query: (queryArgs) => ({
+    playerBalance: builder.query<PlayerBalance, void>({
+      query: () => ({
         url: `/player_api/getPlayerBalance`,
         method: 'POST',
-        data: {
-          ...queryArgs,
-        },
       }),
       providesTags: ['Balance'],
+      transformResponse: (resp: IResponse<PlayerBalanceResult>) => {
+        if (resp.data) {
+          return {
+            ...resp.data,
+            totalBalance: Object.values(resp.data).reduce(
+              (total, w) => total + (Number(w.balance) ?? 0),
+              0
+            ),
+            totalReward: Number(resp.data.main?.reward ?? 0),
+          } as PlayerBalance
+        } else {
+          return {
+            totalBalance: 0,
+            totalReward: 0,
+          } as PlayerBalance
+        }
+      },
     }),
     playerWalletDetail: builder.query<
       IResponse<PlayerWalletDetailResult>,

@@ -16,3 +16,7 @@ export type CryptoExchangeRateResult = {
   currency: string
   success: boolean
 }
+
+export type AvailableWithdrawalAmountResult = {
+  balance: string | number
+}

@@ -1,8 +1,7 @@
-import React from 'react'
-import AgentLayout from '../../../layouts/agent/AgentLayout'
-import ReportRoutes from 'agent/navigation/routes/ReportRoutes'
-import AgentNestedTabs from 'agent/navigation/components/AgentNestedTabNavigator/AgentNestedTabs'
 import TransactionScreen from 'agent/features/report/Transaction'
+import AgentNestedTabs from 'agent/navigation/components/AgentNestedTabNavigator/AgentNestedTabs'
+import ReportRoutes from 'agent/navigation/routes/ReportRoutes'
+import { MobileAgentLayout } from 'components/layouts/agent'
 
 const TransactionPage = () => {
   return (
@@ -12,6 +11,6 @@ const TransactionPage = () => {
     </>
   )
 }
-TransactionPage.getLayout = AgentLayout
+TransactionPage.AgentLayout = MobileAgentLayout
 
 export default TransactionPage

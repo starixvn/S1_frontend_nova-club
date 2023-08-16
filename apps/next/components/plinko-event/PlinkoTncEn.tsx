@@ -1,8 +1,14 @@
-import React from 'react'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 
 const PlinkoTncEn = () => {
+  const isDesktop = useIsDesktop()
   return (
     <div>
+      {isDesktop && (
+        <h1 style={{ textAlign: 'center', paddingBottom: 25 }}>
+          Terms and Conditions
+        </h1>
+      )}
       <h2>CRAZY PLINKO (ENHANCED VERSION)</h2>
       <p>Campaign Period: 01-31/08/2023</p>
 

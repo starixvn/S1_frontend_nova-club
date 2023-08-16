@@ -65,13 +65,13 @@ const AddAgent = () => {
 
   return (
     <KeyboardView>
-      <View sx={{ p: 12 }}>
+      <ScrollView sx={{ p: 12, bg: 'white' }}>
         <CreateForm<NewAgentFormValues>
           screen={initialScreen}
           isLoading={isLoading}
           formik={formik}
         />
-      </View>
+      </ScrollView>
     </KeyboardView>
   )
 }

@@ -1,8 +1,7 @@
 import {
   ReportDepositStatus,
-  ReportWithdrawalStatus,
   ReportTransactionType,
-  ReportCommonStatus,
+  ReportWithdrawalStatus,
 } from 'app/utils/constant'
 import { WheelInfo } from './authApi.type'
 
@@ -16,7 +15,6 @@ export enum WITHDRAWAL_TYPE {
   BANK = 1,
   CRYPTO = 2,
 }
-
 export interface ProfileResult {
   auto_transfer_status: number
   birthdate: string
@@ -81,13 +79,12 @@ export type ReportArgs = {
   is_reward_group_by?: boolean
   limit: number
   offset: number
-  status: ReportDepositStatus | ReportWithdrawalStatus | ReportCommonStatus
+  status: ReportDepositStatus | ReportWithdrawalStatus
   game_provider_code?: string
   time_from: string
   time_to: string
   trans_type: ReportTransactionType
   username?: string
-  withdrawal_type?: WITHDRAWAL_TYPE
 }
 
 export type ReportResult = {
@@ -165,6 +162,10 @@ export interface PlayerOverviewArgs {
 export type LuckySpinArgs = {
   code: number
   note: string
+}
+
+export type FreeSpinArgs = {
+  username: string
 }
 
 export type FreeSpinResult = {

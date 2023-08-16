@@ -1,15 +1,16 @@
 import Button from 'agent/components/Button'
 import Card from 'agent/components/Card'
-import useContextualRouter from 'app/navigation/contextual/useContextualRouter'
+
 import { useAgentLocalization } from 'app/provider/localization'
 import { View } from 'dripsy'
+import { useRouter } from 'solito/router'
 
 const EmptyBankCard = () => {
-  const { push } = useContextualRouter()
+  const { push } = useRouter()
   const { t } = useAgentLocalization()
 
   const handleAddBank = () => {
-    push('/agent/wallet/withdrawal/add-bank')
+    push('/agent/add-bank')
   }
 
   return (

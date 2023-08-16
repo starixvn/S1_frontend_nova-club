@@ -1,6 +1,6 @@
-import { agentToThousandSeparator } from 'app/utils'
 import { useRef } from 'react'
 import Input, { InputProps } from './Input'
+import { agentToThousandSeparator } from 'agent/utils'
 
 interface NumberInputProps extends InputProps {
   // add any additional props specific to TestInput here

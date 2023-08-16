@@ -1,101 +1,112 @@
 import { agentModalConfig } from 'agent/provider/agentModal'
 import LoadingModal from 'app/components/modal/LoadingModal'
-import { ModalAction } from 'app/components/modal/Modal.type'
 import ModalWrapper from 'app/components/modal/ModalWrapper'
-import { ActivityIndicator } from 'dripsy'
+import { LoginType } from 'app/features/auth/AuthTypeSelection'
+import { ActivityIndicator, useResponsiveValue } from 'dripsy'
 import dynamic from 'next/dynamic'
 import React from 'react'
 import { Easing } from 'react-native'
-import { FastImageProps } from 'react-native-fast-image'
 import {
-  createModalStack,
-  ModalProvider as RNMModalProvider,
   ModalStackConfig,
+  ModalProvider as RNMModalProvider,
+  createModalStack,
 } from 'react-native-modalfy'
 import { SubmitDepositCryptoItem } from 'services/deposit.type'
 
-type ModalStackConfigValueType = ModalStackConfig extends Record<
-  any,
-  infer ValueType
->
-  ? ValueType
-  : never
+export const MODAL_ANIMATION_DELAY = 350
 
-export interface ModalStackParams {
+type ModalStackConfigValueType = ModalStackConfig[keyof ModalStackConfig]
+
+export type ModalStackParams = {
   LoadingModal: undefined
   AlertModal: {
     message: string
     title?: string
-    actions: ModalAction[]
+    // actions: ModalAction[]
     onClose(...args: any): any
   }
-  CnyWinModal: { amount: number }
-  DepositConfirmationModal: { amount: number; callback(...args: any): any }
-  DepositCryptoModal: { data: SubmitDepositCryptoItem }
-  DepositUploadModal: {
-    descInfo: Record<any, any>
-    bankLogo: any
-    fields: Record<any, any>[]
-    onConfirm(...args: any): any
+  ReferralModal: {
+    message: string
+    title?: string
+    // actions: ModalAction[]
+    onClose(...args: any): any
   }
-  NoticeModal: { notice: [] }
+  DeleteBankAccountModal: {
+    message: string
+    title?: string
+    // actions: ModalAction[]
+    onClose(...args: any): any
+  }
   PinModal: { onConfirm(...args: any): any; onForgotPin(...args: any): any }
-  PlayerBankDeleteModal: { bank: Record<any, any> }
-  PredictionModal: undefined
-  EventPopupModal: undefined
-  MessagePopupModal: undefined
-  ReferralModal: undefined
-  LuckyDrawModal: undefined
-  // CnyLuckyDrawModal: undefined
-  SpinManiaWinModal: undefined
+  NoticeModal: { notice: [] }
   WithdrawalConfirmationModal: {
     withdrawalInfo: Record<any, any>
-    bankLogo: any
+    bankLogo: string
     fields: Record<any, any>[]
-    onConfirm(...args: any): any
+    formik: any
   }
-  PredictionWhiteBgModal: {
-    imageSource: FastImageProps['source']
-    scoringArrangement: [
-      { teamName: string; score: number },
-      { teamName: string; score: number }
-    ]
+  UploadBankSlipModal: {
+    depositInfo: Record<any, any>
   }
+  DepositConfirmationModal: {
+    amount: string
+    callback(...args: any): any
+  }
+  RegisterModal: undefined
+  DownloadGuideModal: {
+    label: string
+    onClose(...args: any): any
+  }
+  AgentLoginModal: {
+    t: LoginType
+  }
+  DepositCryptoModal: { data: SubmitDepositCryptoItem }
+  LuckyDrawModal: undefined
+  ForgotPasswordModal: {
+    t: LoginType
+  }
+  EventPopupModal: undefined
+  DepositQrModal: { qrCode: string }
 }
 
 type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
+type DynamicModalType = keyof typeof _dynamicModal
 
-const _dynamicModal = {
-  // CnyLuckyDrawModal: () => import('app/components/modal/CnyLuckyDrawModal'),
-  LuckyDrawModal: () => import('app/components/modal/LuckyDrawModal'),
-  AlertModal: () => import('app/components/modal/AlertModal'),
+const _dynamicModal: Record<keyof ModalStackParams, () => Promise<any>> = {
   LoadingModal: () => import('app/components/modal/LoadingModal'),
-  DepositConfirmationModal: () =>
-    import('app/components/modal/DepositConfirmationModal'),
-  DepositCryptoModal: () => import('app/components/modal/DepositCryptoModal'),
-  DepositUploadModal: () => import('app/components/modal/DepositUploadModal'),
-  NoticeModal: () => import('app/components/modal/NoticeModal'),
-  PinModal: () => import('app/components/modal/PinModal'),
-  PlayerBankDeleteModal: () =>
-    import('app/components/modal/PlayerBankDeleteModal'),
-  PredictionModal: () => import('app/components/modal/PredictionModal'),
-  EventPopupModal: () => import('app/components/modal/EventPopupModal'),
-  MessagePopupModal: () => import('app/components/modal/MessagePopupModal'),
+  AlertModal: () => import('app/components/modal/AlertModal'),
   ReferralModal: () => import('app/components/modal/ReferralModal'),
+  NoticeModal: () => import('app/components/modal/NoticeModal'),
+  DeleteBankAccountModal: () =>
+    import('app/components/modal/DeleteBankAccountModal'),
+  PinModal: () => import('app/components/modal/PinModal'),
   WithdrawalConfirmationModal: () =>
     import('app/components/modal/WithdrawalConfirmationModal'),
-  CnyWinModal: () => import('app/components/modal/CnyWinModal'),
-  SpinManiaWinModal: () => import('app/components/modal/SpinManiaWinModal'),
-  PredictionWhiteBgModal: () =>
-    import('app/components/modal/PredictionWhiteBgModal'),
+  UploadBankSlipModal: () =>
+    import('app/features/deposit/component/UploadBankSlipModal'),
+  DepositConfirmationModal: () =>
+    import('app/features/deposit/bank-transfer/DepositConfirmationModal'),
+  RegisterModal: () =>
+    import('desktop-ext/features/auth/register/RegisterScreen'),
+  AgentLoginModal: () =>
+    import('desktop-ext/features/auth/login/LoginScreenDesktop'),
+  DepositCryptoModal: () =>
+    import('app/features/deposit/component/DepositCryptoModal'),
+  DownloadGuideModal: () =>
+    import('desktop-ext/features/download/DownloadGuide'),
+  LuckyDrawModal: () => import('app/components/modal/LuckyDrawModal'),
+  ForgotPasswordModal: () =>
+    import('desktop-ext/features/auth/forgotPassword/ForgotPasswordScreen'),
+  EventPopupModal: () => import('app/components/modal/EventPopupModal'),
+  DepositQrModal: () => import('app/components/modal/DepositQrModal'),
 }
 
-function getDynamicComponent(key: string) {
+function getDynamicComponent(key: DynamicModalType) {
   const LazyComponent = dynamic(_dynamicModal[key], {
     loading: (props) => {
       return (
         <ModalWrapper>
-          <ActivityIndicator sx={{ mt: '$10' }} color={'$lightCyan'} />
+          <ActivityIndicator sx={{ mt: 24 }} color={'$primary'} />
         </ModalWrapper>
       )
     },
@@ -106,12 +117,6 @@ function getDynamicComponent(key: string) {
 }
 
 const modalConfig: ModalConfigType = {
-  // CnyLuckyDrawModal: {
-  //   modal: getDynamicComponent('CnyLuckyDrawModal'),
-  // },
-  LuckyDrawModal: {
-    modal: getDynamicComponent('LuckyDrawModal'),
-  },
   LoadingModal: {
     modal: LoadingModal,
     backBehavior: 'none',
@@ -119,88 +124,94 @@ const modalConfig: ModalConfigType = {
   AlertModal: {
     modal: getDynamicComponent('AlertModal'),
   },
-  DepositConfirmationModal: {
-    modal: getDynamicComponent('DepositConfirmationModal'),
-  },
-  DepositCryptoModal: {
-    modal: getDynamicComponent('DepositCryptoModal'),
-  },
-  DepositUploadModal: {
-    modal: getDynamicComponent('DepositUploadModal'),
+  ReferralModal: {
+    modal: getDynamicComponent('ReferralModal'),
   },
   NoticeModal: {
     modal: getDynamicComponent('NoticeModal'),
+  },
+  DeleteBankAccountModal: {
+    modal: getDynamicComponent('DeleteBankAccountModal'),
   },
   PinModal: {
     modal: getDynamicComponent('PinModal'),
     position: 'bottom',
   },
-  PlayerBankDeleteModal: {
-    modal: getDynamicComponent('PlayerBankDeleteModal'),
+  WithdrawalConfirmationModal: {
+    modal: getDynamicComponent('WithdrawalConfirmationModal'),
   },
-  PredictionModal: {
-    modal: getDynamicComponent('PredictionModal'),
+  UploadBankSlipModal: {
+    modal: getDynamicComponent('UploadBankSlipModal'),
+  },
+  DepositConfirmationModal: {
+    modal: getDynamicComponent('DepositConfirmationModal'),
+  },
+  RegisterModal: {
+    modal: getDynamicComponent('RegisterModal'),
+    backBehavior: 'none',
+  },
+  AgentLoginModal: {
+    modal: getDynamicComponent('AgentLoginModal'),
+    backBehavior: 'none',
+  },
+  DepositCryptoModal: {
+    modal: getDynamicComponent('DepositCryptoModal'),
+  },
+  DownloadGuideModal: {
+    modal: getDynamicComponent('DownloadGuideModal'),
+  },
+  LuckyDrawModal: {
+    modal: getDynamicComponent('LuckyDrawModal'),
+  },
+  ForgotPasswordModal: {
+    modal: getDynamicComponent('ForgotPasswordModal'),
+    backBehavior: 'none',
   },
   EventPopupModal: {
     modal: getDynamicComponent('EventPopupModal'),
   },
-  MessagePopupModal: {
-    modal: getDynamicComponent('MessagePopupModal'),
-  },
-  ReferralModal: {
-    modal: getDynamicComponent('ReferralModal'),
-  },
-  WithdrawalConfirmationModal: {
-    modal: getDynamicComponent('WithdrawalConfirmationModal'),
-  },
-  CnyWinModal: {
-    modal: getDynamicComponent('CnyWinModal'),
-    // backdropOpacity: 0,
-  },
-  SpinManiaWinModal: {
-    modal: getDynamicComponent('SpinManiaWinModal'),
-  },
-  PredictionWhiteBgModal: {
-    modal: getDynamicComponent('PredictionWhiteBgModal'),
+  DepositQrModal: {
+    modal: getDynamicComponent('DepositQrModal'),
   },
   ...agentModalConfig,
 }
 
-const stack = createModalStack(modalConfig, {
-  containerStyle: {
-    maxWidth: 768,
-  },
-  backdropOpacity: 0.6,
-  backBehavior: 'pop',
-  disableFlingGesture: true,
-  transitionOptions: (animatedValue) => ({
-    opacity: animatedValue.interpolate({
-      inputRange: [0, 1, 2],
-      outputRange: [0, 1, 0.9],
-    }),
-    transform: [
-      {
-        perspective: 2000,
-      },
-      {
-        scale: animatedValue.interpolate({
-          inputRange: [0, 1, 2],
-          outputRange: [1.3, 1, 1],
-        }),
-      },
-    ],
-  }),
-  animateInConfig: {
-    easing: Easing.bezier(0.42, -0.03, 0.27, 0.95),
-    duration: 300,
-  },
-  animateOutConfig: {
-    easing: Easing.bezier(0.42, -0.03, 0.27, 0.95),
-    duration: 300,
-  },
-})
-
 const ModalProvider = ({ children }) => {
+  const stack = createModalStack(modalConfig, {
+    containerStyle: {
+      maxWidth: useResponsiveValue([768, 768, '100%']),
+      zIndex: 2,
+    },
+    backdropOpacity: 0.6,
+    backBehavior: 'pop',
+    disableFlingGesture: true,
+    transitionOptions: (animatedValue) => ({
+      opacity: animatedValue.interpolate({
+        inputRange: [0, 1, 2],
+        outputRange: [0, 1, 0.9],
+      }),
+      transform: [
+        {
+          perspective: 2000,
+        },
+        {
+          scale: animatedValue.interpolate({
+            inputRange: [0, 1, 2],
+            outputRange: [1.3, 1, 1],
+          }),
+        },
+      ],
+    }),
+    animateInConfig: {
+      easing: Easing.bezier(0.42, -0.03, 0.27, 0.95),
+      duration: 300,
+    },
+    animateOutConfig: {
+      easing: Easing.bezier(0.42, -0.03, 0.27, 0.95),
+      duration: 300,
+    },
+  })
+
   return <RNMModalProvider stack={stack}>{children}</RNMModalProvider>
 }
 

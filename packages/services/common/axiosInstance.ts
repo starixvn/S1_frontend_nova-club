@@ -1,9 +1,13 @@
 import { API_DOMAIN, API_KEY } from '@env'
 import { EnhancedStore } from '@reduxjs/toolkit'
-import { LANGUAGE_CODE } from 'app/constant/language'
+
 import { RootState } from 'app/provider/redux/store'
+import { LANGUAGE_CODE } from 'app/utils/constant'
 import { generateFPSParams } from 'app/utils/fps/fpsGenerator'
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
+
+// const API_DOMAIN = 'https://stage.gball8.com/api/nv88_api/v1'
+// const API_KEY = 'zl9oo0vtrtbih1fufvq8pk8stvqprad8'
 
 export enum AuthURL {
   LOGOUT = '/player_api/logout',
@@ -37,15 +41,13 @@ const axiosInstance = axios.create({
   transformRequest: [
     (data, headers) => {
       if (headers && data) {
-        const contentType = headers.post['Content-Type']?.toLowerCase()
-
+        const contentType = headers['Content-Type']
         switch (contentType) {
           case 'multipart/form-data': {
             const body = new FormData()
             Object.keys(data).map((k) => {
               body.append(k, data[k])
             })
-
             // console.log('body', Object.fromEntries(body))
             return body
           }
@@ -66,11 +68,11 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
   let { url, headers, baseURL } = config
   const requestParams: RequestParams = {} as RequestParams
   const state = customConfig.store?.getState()
-
   if (config.headers === undefined) config.headers = {}
 
   if (baseURL && baseURL?.startsWith(API_DOMAIN) && url?.startsWith('/')) {
     const { token, playerName } = state?.auth.info || {}
+
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`
     }
@@ -89,7 +91,6 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
       ...headers,
       api_key: API_KEY,
     }
-
     console.log(`Request ${config.url} : `, config.data)
   }
 
@@ -98,23 +99,25 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
   //   config.headers['Cache-Control'] = 'no-cache'
   // }
 
-  const fraudDetectionNeeded = ['/player_api/createPlayer', '/player_api/login']
+  /** FRAUD DETECTION (No longer using FPS and IOVATION) */
+  // const fraudDetectionNeeded = ['/player_api/createPlayer', '/player_api/login']
 
-  if (fraudDetectionNeeded.includes(url!)) {
-    headers = {
-      ...headers,
-      'Content-Type': 'application/json',
-    }
+  // if (fraudDetectionNeeded.includes(url!)) {
+  //   headers = {
+  //     ...headers,
+  //     'Content-Type': 'application/json',
+  //   }
 
-    // Object.assign(requestParams, generateFPSParams())
+  //   Object.assign(requestParams, generateFPSParams())
 
-    try {
-      const black_b = window.IGLOO?.getBlackbox?.()?.blackbox
-      requestParams.black_b = black_b
-    } catch (e) {
-      console.error(e, 'Failed to retrieve blackbox')
-    }
-  }
+  //   try {
+  //     const black_b = window.IGLOO?.getBlackbox?.()?.blackbox
+  //     requestParams.black_b = black_b
+  //   } catch (e) {
+  //     console.error(e, 'Failed to retrieve blackbox')
+  //   }
+  // }
+  /** FRAUD DETECTION */
 
   // IOS 13.3 added security where GET request should not have body data ( use query param instead)
   // if config.data is {} on GET method , ios will reject as well.
@@ -136,7 +139,8 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
   }
 
   // After login, backend will be using `locale` selected in `playerProfile` api
-  const currentLocale = state?.setting.locale || LANGUAGE_CODE.VIETNAM
+
+  const currentLocale = state?.setting.locale ?? LANGUAGE_CODE.VIETNAM
   config.headers['X-Lang'] = currentLocale
 
   return config
@@ -170,6 +174,7 @@ const onResponseError = (error: AxiosError) => {
   }
 }
 
+axiosInstance.defaults.headers.get['Content-Type'] = 'application/json'
 axiosInstance.defaults.headers.post['Content-Type'] = 'application/json'
 axiosInstance.defaults.headers.put['Content-Type'] = 'application/json'
 axiosInstance.interceptors.request.use(onRequestFullfilled, onRequestError)

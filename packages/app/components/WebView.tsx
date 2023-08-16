@@ -1,4 +1,3 @@
-import useContainerDimension from 'app/hooks/useContainerDimension'
 import { ActivityIndicator, styled, Text, View } from 'dripsy'
 import { useWindowDimensions } from 'react-native'
 import { WebView as RWebView, WebViewProps } from 'react-native-webview'
@@ -8,8 +7,6 @@ interface WebViewComponentProps extends WebViewProps {
 }
 
 const WebView = ({ url, ...restWebViewProps }: WebViewComponentProps) => {
-  const { width, height } = useContainerDimension()
-
   return (
     <RWebView
       bounces={false}

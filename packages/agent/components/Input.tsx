@@ -1,14 +1,14 @@
 import Icon, { IconComponentProps } from 'agent/components/Icon'
 import Text from 'agent/components/Text'
-import { mergeRefs } from 'app/utils/mergeRefs'
 import { Pressable, styled, SxProp, TextInput, View } from 'dripsy'
 import uniqueId from 'lodash/uniqueId'
 import { ComponentProps, forwardRef, useMemo, useRef } from 'react'
 import {
   GestureResponderEvent,
-  Platform,
   TextInput as NativeTextInput,
+  Platform,
 } from 'react-native'
+import { mergeRefs } from 'utils/mergeRefs'
 import Label, { InputLabelProps } from './Label'
 
 type TextInputProps = ComponentProps<typeof TextInput>
@@ -36,7 +36,7 @@ export interface InputProps extends TextInputProps {
 const StyledInputOuterElementContainer = styled(View)(
   (props: { placement?: 'left' | 'right' }) => {
     const placementBasedBorderRadius: Record<
-      NonNullable<typeof props['placement']>,
+      NonNullable<(typeof props)['placement']>,
       SxProp
     > = {
       left: {
@@ -168,7 +168,7 @@ const Input = forwardRef<NativeTextInput, InputProps>((props, ref) => {
     flexShrink: 1,
     marginLeft: leftInnerElement ? 8 : 0,
     marginRight: rightInnerElement ? 8 : 0,
-    color: '$textAgent',
+    color: 'black',
     ...Platform.select({
       web: {
         cursor: editable ? 'auto' : 'not-allowed',
