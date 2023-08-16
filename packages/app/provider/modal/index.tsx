@@ -1,7 +1,7 @@
 import { agentModalConfig } from 'agent/provider/agentModal'
 import LoadingModal from 'app/components/modal/LoadingModal'
 import ModalWrapper from 'app/components/modal/ModalWrapper'
-import { LoginType } from 'app/features/auth/AuthTypeSelection'
+import { LoginType } from 'app/features/auth/AuthLayout'
 import { ActivityIndicator, useResponsiveValue } from 'dripsy'
 import dynamic from 'next/dynamic'
 import React from 'react'

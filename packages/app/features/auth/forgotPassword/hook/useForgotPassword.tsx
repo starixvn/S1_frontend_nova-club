@@ -13,7 +13,7 @@ import { usePasswordRecoveryMutation } from 'services/authApi'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
-import { LoginType } from '../../AuthTypeSelection'
+import { LoginType } from '../../AuthLayout'
 import useAgentForgotPassword from './useAgentForgotPassword'
 
 export interface ForgotPasswordFormValues {

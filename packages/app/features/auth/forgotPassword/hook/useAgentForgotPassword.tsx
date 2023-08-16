@@ -10,7 +10,7 @@ import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useRouter } from 'solito/router'
-import { LoginType } from '../../AuthTypeSelection'
+import { LoginType } from '../../AuthLayout'
 import { ForgotPasswordFormValues } from './useForgotPassword'
 
 const useAgentForgotPassword = () => {

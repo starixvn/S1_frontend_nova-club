@@ -1,5 +1,5 @@
 import Icon from 'app/components/Icon'
-import { LoginType } from 'app/features/auth/AuthTypeSelection'
+import { LoginType } from 'app/features/auth/AuthLayout'
 import useAlert from 'app/hooks/useAlert'
 import { useDrawer } from 'app/hooks/useDrawer'
 import useIsDesktop from 'app/hooks/useIsDesktop'

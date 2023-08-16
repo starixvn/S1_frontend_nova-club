@@ -1,4 +1,4 @@
-import { LoginType } from 'app/features/auth/AuthTypeSelection'
+import { LoginType } from 'app/features/auth/AuthLayout'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import React from 'react'

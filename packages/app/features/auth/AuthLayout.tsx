@@ -14,6 +14,11 @@ interface AuthLayoutProps {
   onBack?: () => void
 }
 
+export enum LoginType {
+  Member = 'member',
+  Agent = 'agent',
+}
+
 export default function AuthLayout({
   showBackButton = true,
   headerDesc,

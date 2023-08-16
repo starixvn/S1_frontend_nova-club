@@ -11,7 +11,7 @@ const Tnc = () => {
   const lang = useAppSelector((state) => state.setting.locale)
   const { t } = useLocalization()
 
-  const TNC_URL = `${DEV_DOMAIN}info/tnc?locale=${lang}`
+  const TNC_URL = `${DEV_DOMAIN}/info/tnc?locale=${lang}`
 
   return (
     <PageWithBackHeader header={{ title: t('common.tnc') }} disableScrollView>

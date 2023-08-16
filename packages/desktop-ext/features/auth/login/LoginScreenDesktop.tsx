@@ -1,5 +1,5 @@
 import { TabBarSelection } from 'app/components/navigation/CustomTabBar'
-import { LoginType } from 'app/features/auth/AuthTypeSelection'
+import { LoginType } from 'app/features/auth/AuthLayout'
 import LoginForm from 'app/features/auth/login/LoginForm'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'

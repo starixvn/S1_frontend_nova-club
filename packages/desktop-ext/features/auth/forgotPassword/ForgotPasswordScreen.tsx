@@ -1,6 +1,6 @@
 import IconButton from 'app/components/IconButton'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
-import { LoginType } from 'app/features/auth/AuthTypeSelection'
+import { LoginType } from 'app/features/auth/AuthLayout'
 import ForgotPasswordForm from 'app/features/auth/forgotPassword/ForgotPasswordForm'
 import ResetPasswordForm from 'app/features/auth/forgotPassword/ResetPasswordForm'
 import useForgotPassword, {

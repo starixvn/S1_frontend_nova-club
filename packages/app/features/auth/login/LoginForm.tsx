@@ -13,7 +13,7 @@ import { TextInput } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
-import { LoginType } from '../AuthTypeSelection'
+import { LoginType } from '../AuthLayout'
 import useLoginForm from './useLoginForm'
 
 const StyledFormContainer = styled(FormContainer)({
@@ -187,21 +187,29 @@ const LoginForm = ({
       >
         {t('authentication.login')}
       </Button>
-      {!isAgentLoginWithDesktopModal && (
-        <Button
-          onPress={() => {
-            push({
-              pathname: '/auth/register',
-              query: {
-                t: isAgent ? LoginType.Agent : LoginType.Member,
-              },
-            })
-          }}
-          sx={{ bg: '$primary.300', my: '$2' }}
-        >
-          {t('authentication.register')}
-        </Button>
-      )}
+
+      <Button
+        onPress={() => {
+          if (isAgentLoginWithDesktopModal) {
+            closeModal('AgentLoginModal')
+            setTimeout(() => {
+              openModal('RegisterModal', {
+                t: LoginType.Agent,
+              })
+            }, 500)
+            return
+          }
+          push({
+            pathname: '/auth/register',
+            query: {
+              t: isAgent ? LoginType.Agent : LoginType.Member,
+            },
+          })
+        }}
+        sx={{ bg: '$primary.300', my: '$2' }}
+      >
+        {t('authentication.register')}
+      </Button>
     </StyledFormContainer>
   )
 }
