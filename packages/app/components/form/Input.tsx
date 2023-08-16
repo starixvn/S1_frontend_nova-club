@@ -5,10 +5,11 @@ import {
   TextInput,
   View,
   styled,
+  useDripsyTheme,
   useResponsiveValue,
 } from 'dripsy'
 import { DripsyTextInputProps } from 'dripsy/build/core/components/TextInput'
-import React, { ReactNode, forwardRef, useMemo, useRef, useState } from 'react'
+import React, { ReactNode, forwardRef, useRef, useState } from 'react'
 import {
   GestureResponderEvent,
   TextInput as NativeTextInput,
@@ -62,6 +63,7 @@ const Input = forwardRef<NativeTextInput, InputProps>(
       typeof icon === 'string' ? getDefaultInputIcon(icon) : icon
 
     const InputAction = action
+    const { theme } = useDripsyTheme()
 
     const [_secureTextEntry, setSecureTextEntry] = useState(secureTextEntry)
     const inputRef = useRef<NativeTextInput>(null)
@@ -123,6 +125,8 @@ const Input = forwardRef<NativeTextInput, InputProps>(
                 <TextInput
                   ref={mergedInputRef}
                   editable={editable && !onPress}
+                  cursorColor={theme?.colors?.$primary?.[200]}
+                  selectionColor={theme?.colors?.$primary?.[200]}
                   placeholderTextColor="$placeholder"
                   secureTextEntry={_secureTextEntry}
                   sx={{
