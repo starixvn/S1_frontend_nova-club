@@ -11,8 +11,8 @@ const useIntersectionObserver = (
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsIntersecting(entry.isIntersecting)
-        if (entry.isIntersecting && !hasRendered) {
+        setIsIntersecting(entry?.isIntersecting ?? false)
+        if (entry?.isIntersecting && !hasRendered) {
           if (count > 1) setHasRendered(true)
           else setCount((prevCount) => ++prevCount)
         }
