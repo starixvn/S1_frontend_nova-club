@@ -36,11 +36,6 @@ const MarqueeFlip = ({
   return (
     <StyledContainer
       onPress={() => {
-        console.log(
-          'announcementList[currentIndex]?.value',
-          announcementList[currentIndex]?.value
-        )
-
         if (!currentModal) {
           showAlert({
             title: announcementList[currentIndex]?.value,
