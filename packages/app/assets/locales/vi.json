@@ -330,7 +330,8 @@
       "forgotPin": "Quên mã PIN",
       "newPin": "Pin mới",
       "oldPin": "Mã PIN cũ",
-      "securePin": "Bảo mật chuyển khoản của bạn bằng mã PIN"
+      "securePin": "Bảo mật chuyển khoản của bạn bằng mã PIN",
+      "resetPinSuccess": "Đặt lại mã pin chuyển thành công"
     },
     "pw": {
       "changePw": "Đổi Mật Khẩ",

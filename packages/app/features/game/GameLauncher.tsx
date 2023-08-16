@@ -104,7 +104,7 @@ const GameLauncher = () => {
           console.log('error')
           setTimeout(() => {
             showAlert(e.message)
-          }, 500)
+          }, 1000)
           return e
         })
 

@@ -75,11 +75,12 @@ export default function MatchItem({ width, match, onPress }: Props) {
         <Logo image={homeFlag} sx={{ left: '17%' }} size={width * 0.15} />
         <Logo image={awayFlag} sx={{ right: '17%' }} size={width * 0.15} />
         <LeagueLogo>
-          <SolitoImage
-            alt="league"
-            src={leagueLogo}
-            width={width * 0.23}
-            height={width * 0.056}
+          <MotifiedImage
+            key={leagueLogo}
+            from={{ scaleY: 0, opacity: 0 }}
+            animate={{ scaleY: 1, opacity: 1 }}
+            source={{ uri: leagueLogo }}
+            style={{ width: width * 0.23, height: width * 0.056 }}
             resizeMode="contain"
           />
         </LeagueLogo>
@@ -228,6 +229,7 @@ const HandicapLabel = styled(Text)(
     mx: ['$1', '$1', '$2', '$2'],
     fontSize,
     mt: FONT_TOP_OFFSET,
+    minWidth: 40,
     // lineHeight: SCORE_HEIGHT,
     fontWeight: '500',
   })
