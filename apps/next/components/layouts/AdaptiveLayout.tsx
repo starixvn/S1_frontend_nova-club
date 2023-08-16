@@ -82,7 +82,7 @@ export default function AdaptiveLayout({
   const content = getLayout ? getLayout(page) : null
 
   return (
-    <div id="al">
+    <div id="al" style={{ overflowX: 'hidden' }}>
       <SessionHandler />
       {/* <ActivityIndicator /> */}
       {content}
