@@ -22,8 +22,9 @@ import { usePlayerProfileQuery } from 'services/playerApi'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
-import { LoginType } from '../AuthTypeSelection'
+import { LoginType } from '../AuthLayout'
 import { RegisterFormValues } from './RegisterScreen'
+import { agentRoute, memberRoute } from '../login/LoginScreen'
 
 const { useParam } = createParam<{ t: LoginType }>()
 
@@ -32,22 +33,26 @@ export enum Register_Screen {
   ACCOUNT_VERIFICATION,
 }
 
-export default function useRegisterScreen(rootView: RefObject<RNView>) {
+export default function useRegisterScreen(
+  rootView: RefObject<RNView>,
+  modalType?: LoginType
+) {
   const { showAlert } = useAlert()
   const width = useContainerWidth(rootView)
   const dispatch = useAppDispatch()
   const { replace } = useRouter()
   const { closeModal, currentModal } = useModal()
 
-  const [routes] = useState([
-    { key: 'first', title: 'common.player', index: 0, type: LoginType.Member },
-    { key: 'second', title: 'common.agent', index: 1, type: LoginType.Agent },
-  ])
+  const [routes, setRoutes] = useState([memberRoute, agentRoute])
+
   const [currentScreen, setCurrentScreen] = useState<Register_Screen>(
     Register_Screen.SET_USERNAME
   )
 
-  const [type, setIsAgentLogin] = useParam('t', { initial: LoginType.Member })
+  const [paramType, setIsAgentLogin] = useParam('t', {
+    initial: LoginType.Member,
+  })
+  const type = modalType ?? paramType
   const [index, setIndex] = useState(0)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -61,6 +66,8 @@ export default function useRegisterScreen(rootView: RefObject<RNView>) {
   const [getUserInfo] = useLazyUserInfoQuery()
 
   const isLoggedIn = useAppSelector((s) => !!s.auth.info)
+  const memberToken = useAppSelector((state) => state.auth.info?.token)
+
   const { data } = usePlayerProfileQuery(undefined, {
     skip: !isLoggedIn,
   })
@@ -76,6 +83,8 @@ export default function useRegisterScreen(rootView: RefObject<RNView>) {
       return e.type === type
     })
     if (initT) setIndex(initT.index)
+
+    if (memberToken) setRoutes([agentRoute])
   }, [])
 
   const handleMemberRegister = async (

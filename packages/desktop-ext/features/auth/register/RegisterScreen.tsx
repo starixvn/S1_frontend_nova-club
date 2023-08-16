@@ -14,12 +14,14 @@ import React, { useRef } from 'react'
 import { View as RNView } from 'react-native'
 import { ModalComponentProp } from 'react-native-modalfy'
 import AuthLayout from '../AuthLayout'
+import { LoginType } from 'app/features/auth/AuthLayout'
 
 type Props = ModalComponentProp<ModalStackParams, void, 'RegisterModal'>
 
 export default function RegisterScreen({ modal }: Props) {
   const rootRef = useRef<RNView>(null)
   const { t } = useLocalization()
+  const modalType = modal?.getParam('t', LoginType.Member)
 
   const {
     animationState,
@@ -32,7 +34,7 @@ export default function RegisterScreen({ modal }: Props) {
     onRegisterSuccess,
     onBack,
     currentScreen,
-  } = useRegisterScreen(rootRef)
+  } = useRegisterScreen(rootRef, modalType)
 
   return (
     <AuthLayout
