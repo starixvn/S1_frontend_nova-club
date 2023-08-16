@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 import { ReactNode, useEffect, useState } from 'react'
 
 import dynamic from 'next/dynamic'
-import withLazyLoad from 'app/hoc/withLadyLoad'
+import withLazyLoad from 'app/hoc/withLazyLoad'
 import LazyIndicator from 'app/components/LazyIndicator'
 
 const Footer = dynamic(() => import('desktop-ext/components/layout/Footer'), {

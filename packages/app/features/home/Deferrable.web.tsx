@@ -1,4 +1,4 @@
-import withLazyLoad from 'app/hoc/withLadyLoad'
+import withLazyLoad from 'app/hoc/withLazyLoad'
 import { View } from 'dripsy'
 import dynamic from 'next/dynamic'
 import React from 'react'

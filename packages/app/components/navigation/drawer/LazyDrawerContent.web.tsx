@@ -1,4 +1,4 @@
-import withLazyLoad from 'app/hoc/withLadyLoad'
+import withLazyLoad from 'app/hoc/withLazyLoad'
 import dynamic from 'next/dynamic'
 
 const DynamicComponent = dynamic(() => import('./DrawerContent'), {

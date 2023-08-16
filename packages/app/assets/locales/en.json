@@ -330,7 +330,8 @@
       "forgotPin": "Forgot Pin",
       "newPin": "New Pin",
       "oldPin": "Old Pin",
-      "securePin": "Secure your transfer with PIN"
+      "securePin": "Secure your transfer with PIN",
+      "resetPinSuccess": "Reset Transfer Pin Successfully"
     },
     "pw": {
       "changePw": "Change Password",

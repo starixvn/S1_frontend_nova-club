@@ -80,7 +80,10 @@ const ForgotPinScreen = () => {
           return error
         })
       if (success) {
-        Toast.show({ type: 'success', text1: message })
+        Toast.show({
+          type: 'success',
+          text1: t('manageCredentials.pin.resetPinSuccess'),
+        })
         back()
       }
     } catch (error) {
