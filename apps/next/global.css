@@ -1,6 +1,7 @@
 body.rendered {
   background-color: #1e2238;
   overflow-x: hidden;
+  min-height: 101vh;
 }
 
 input:focus {
