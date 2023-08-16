@@ -6,16 +6,16 @@ import TopGameSection from 'app/features/home/TopGameSection'
 import useShield from 'app/hooks/useShield'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
-import { ActivityIndicator, Container, Row, View } from 'dripsy'
+import { Container, Row, View } from 'dripsy'
 import React, { useEffect } from 'react'
 import { useModal } from 'react-native-modalfy'
 import { Shield_Action } from 'services/authApi.type'
 
-import dynamic from 'next/dynamic'
-import withLazyLoad from 'app/hoc/withLadyLoad'
 import LazyIndicator from 'app/components/LazyIndicator'
-import HireBannerDesktop from 'app/features/home/HireBannerDesktop'
 import EventPopup from 'app/features/home/EventPopup'
+import HireBannerDesktop from 'app/features/home/HireBannerDesktop'
+import withLazyLoad from 'app/hoc/withLazyLoad'
+import dynamic from 'next/dynamic'
 
 const DeferredSection = dynamic(() => import('./DeferredSection'), {
   loading: () => <LazyIndicator />,
@@ -85,7 +85,7 @@ export default function HomeScreen() {
   }, [luckyDrawBalance])
 
   return (
-    <View sx={{ pb: '$6' }}>
+    <View sx={{}}>
       <LuckyDrawTrigger />
       <BannerSection />
       <Container sx={{ gap: '$sectionBottomSpace' }}>
