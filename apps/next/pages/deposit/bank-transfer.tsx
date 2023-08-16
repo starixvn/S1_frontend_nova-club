@@ -1,24 +1,29 @@
+import { AdaptiveLayoutPage } from 'components/layouts/AdaptiveLayout'
 import { DesktopWalletLayout } from 'components/layouts/desktop'
 import withAdaptiveScreen from 'desktop-ext/hoc/withAdaptiveScreen'
 import dynamic from 'next/dynamic'
+import DepositGuard from './deposit-guard'
 
-const LazyMobileDepositScreen = dynamic(
+const LazyMobileScreen = dynamic(
   () => import('app/features/deposit/bank-transfer/index'),
   {
     ssr: false,
   }
 )
 
-const LazyDesktopDepositScreen = dynamic(
-  () => import('desktop-ext/features/deposit/DepositScreen'),
+const LazyDesktopScreen = dynamic(
+  () => import('desktop-ext/features/deposit/BankTransferPage'),
   { ssr: false }
 )
 
-const Deposit = withAdaptiveScreen(
-  LazyMobileDepositScreen,
-  LazyDesktopDepositScreen
+const BankTranferScreen: AdaptiveLayoutPage = withAdaptiveScreen(
+  LazyMobileScreen,
+  LazyDesktopScreen
 )
+const GuardBankTranferScreen: AdaptiveLayoutPage = DepositGuard(
+  BankTranferScreen,
+  'deposit'
+)
+GuardBankTranferScreen.DesktopLayout = DesktopWalletLayout
 
-Deposit.DesktopLayout = DesktopWalletLayout
-
-export default Deposit
+export default GuardBankTranferScreen

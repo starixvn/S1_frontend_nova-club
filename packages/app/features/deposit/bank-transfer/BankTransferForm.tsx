@@ -56,7 +56,7 @@ const BankTransferForm = () => {
   const [submitDeposit] = useSubmitManualDepositMutation()
   const { data: playerData } = usePlayerProfileQuery()
   const currency = playerData?.currency as Currency
-  const depositPayment = data?.data?.result.manual.find(
+  const depositPayment = data?.data?.result?.manual?.find(
     (el) => el.category_id === DepositPaymentMethodCategoryId.LOCAL_BANK
   )
 
@@ -71,6 +71,13 @@ const BankTransferForm = () => {
         icon: getBankLogo(item.bank_code),
       }
     }) ?? []
+
+  const formDefaultStatus = () =>
+    sheetData.length > 0 && handleSelected(sheetData[0]?.value)
+
+  useEffect(() => {
+    formDefaultStatus()
+  }, [depositPayment])
 
   const handleSelected = (value) => {
     const item = depositPayment?.list?.find(
@@ -113,7 +120,8 @@ const BankTransferForm = () => {
           Toast.show({ type: 'success', text1: message })
           setReceipt(undefined)
           actions.resetForm()
-          setLimit({ maxAmount: 0, minAmount: 0 })
+          formDefaultStatus()
+          // setLimit({ maxAmount: 0, minAmount: 0 })
         }
       }
     } catch (e) {
