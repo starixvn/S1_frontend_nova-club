@@ -341,7 +341,7 @@ const OnRender = ({
   // console.log(parseInt(dayjs(matchDayjs.diff(startDate)).format('D')) === 1)
   if (
     selectedTime !== 'All' &&
-    parseInt(dayjs(matchDayjs.diff(startDate)).format('D')) === 1 &&
+    startDate.format('D') === matchDayjs.format('D') &&
     matchDayjs.isAfter(startDate) &&
     matchDayjs.isBefore(endDate)
   ) {
