@@ -1,5 +1,5 @@
 import { useAgentRegisterMutation } from 'agent/services/authApi'
-import { useLazyUserInfoQuery } from 'agent/services/userApi'
+import { useLazyUserInfoQuery, useUserInfoQuery } from 'agent/services/userApi'
 import { AgentAuthActions } from 'agent/store/agentAuthReducer'
 import { MOBILE_PREFIX } from 'app/constants/country'
 import useAlert from 'app/hooks/useAlert'
@@ -52,6 +52,15 @@ export default function useRegisterScreen(rootView: RefObject<RNView>) {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const isAgentLogin = useMemo(() => type === LoginType.Agent, [type])
+
+  const agentToken = useAppSelector((s) => s.agent.access_token)
+
+  const { agentCurrency } = useUserInfoQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      agentCurrency: data?.wallet.currency,
+    }),
+    skip: !agentToken,
+  })
 
   const referral = useAppSelector((s) => s.setting.referral)
   const trackingCode = referral?.trackingCode
