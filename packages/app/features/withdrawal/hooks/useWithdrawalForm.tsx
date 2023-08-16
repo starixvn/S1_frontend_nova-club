@@ -141,14 +141,8 @@ const useWithdrawalForm = ({ isCrypto = false, minMax }) => {
       bank: validation.bank,
       amount: validation.amountMinMax({
         min: toDisplayAmount((minMax && minMax.min) ?? 50000, currency),
-        max: toDisplayAmount(
-          Number(data?.totalBalance) > 0
-            ? minMax
-              ? Math.min(minMax.max, Number(data?.totalBalance))
-              : data?.totalBalance
-            : 1000000000,
-          currency
-        ),
+        max: toDisplayAmount((minMax && minMax.max) ?? 1000000000, currency),
+        balance: toDisplayAmount(data?.totalBalance, currency),
       }),
     }),
     onSubmit,
