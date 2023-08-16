@@ -1,6 +1,4 @@
-import Icon from 'app/components/Icon'
 import { useAppSelector } from 'app/provider/redux/store'
-import { ActivityIndicator, Pressable, View, styled } from 'dripsy'
 import React, { useMemo } from 'react'
 import { useAnnouncementQuery } from 'services/contentApi'
 import MarqueeFlip from './MarqueeFlip'
@@ -12,7 +10,7 @@ export default function AnnouncementSection() {
   const locale = useAppSelector((s) => s.setting.locale)
   const { isUninitialized, data: announcements } = useAnnouncementQuery(
     locale,
-    {}
+    { refetchOnMountOrArgChange: true }
   )
 
   const marquees = useMemo(() => {

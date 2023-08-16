@@ -7,6 +7,7 @@ import * as ScreenOrientation from 'expo-screen-orientation'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import { ActivityIndicator, Text, View, styled } from 'dripsy'
 import { WebView } from 'react-native-webview'
+import { useRouter } from 'solito/router'
 
 type Props = {}
 
@@ -21,6 +22,7 @@ export default function GameLoaderScreen({}: Props) {
   const [gameUrl] = useParam('gameUrl')
   const [title] = useParam('title')
   const [trigger] = useLazyPlayerBalanceQuery()
+  const { back } = useRouter()
 
   useEffect(() => {
     ScreenOrientation.unlockAsync()
@@ -53,6 +55,13 @@ export default function GameLoaderScreen({}: Props) {
           javaScriptCanOpenWindowsAutomatically
           setSupportMultipleWindows={false}
           textZoom={100}
+          onShouldStartLoadWithRequest={(e) => {
+            if (e.url === 'https://vui123vn.com/') {
+              back()
+              return false
+            }
+            return true
+          }}
           startInLoadingState={true}
           renderLoading={() => (
             <StyledLoadingView>

@@ -108,7 +108,7 @@ export default function SplashScreen() {
             sx={{
               color: 'white',
               position: 'absolute',
-              bottom: bottom || 10,
+              bottom: 25,
               right: bottom || 10,
               fontWeight: 'bold',
               opacity: 0.8,
