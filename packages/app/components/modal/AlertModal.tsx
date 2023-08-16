@@ -25,7 +25,7 @@ const AlertModal = ({ modal: { closeModal, getParam } }) => {
     <ModalWrapper sx={{ width: Math.min(500, width * 0.9) }}>
       <ModalContent title={title} actions={actions} close={closeModal}>
         <Text sx={{ textAlign: 'center', fontSize: [14, 14, 14, 16] }}>
-          {t(message)}
+          {message}
         </Text>
       </ModalContent>
     </ModalWrapper>
