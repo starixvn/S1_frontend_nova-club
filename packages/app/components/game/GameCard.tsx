@@ -108,7 +108,7 @@ const GameCard = ({
           fill
           loading="lazy"
           alt={displayName ?? ''}
-          contentFit="cover"
+          contentFit="contain"
           key={imageSrc}
           src={imageSrc}
         />
