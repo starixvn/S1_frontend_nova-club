@@ -1,4 +1,3 @@
-import { useAppSelector } from 'app/provider/redux/store'
 import { useResponsiveValue } from 'dripsy'
 import { Skeleton } from 'moti/skeleton'
 import React from 'react'
@@ -7,6 +6,7 @@ import { Game } from 'services/gameApi.type'
 import DraggableScrollView from '../DraggableScrollView'
 import SkeletonPlaceholder from '../SkeletonPlaceholder'
 import GameCard from './GameCard'
+import { GAME_TYPE_CODE } from 'app/utils/constant'
 
 interface HorizontalGameListProps extends ScrollViewProps {
   data: Game[]
@@ -19,7 +19,6 @@ export default function HorizontalGameList({
   ...rest
 }: HorizontalGameListProps) {
   const shadowSize = useResponsiveValue(size)
-  const locale = useAppSelector((s) => s.setting.locale)
 
   return (
     <DraggableScrollView
@@ -39,7 +38,7 @@ export default function HorizontalGameList({
               // name={g.name[locale]}
               width={size}
               height={size}
-              key={g.gc}
+              key={g.gtc === GAME_TYPE_CODE.LIVE_DEALER ? g.gpc : g.gc}
               {...g}
             />
           )

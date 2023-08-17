@@ -19,7 +19,7 @@ export default function RecentlyPlayedSection({
   const recent = useAppSelector((s) => s.setting.recentGames)
   const { t } = useLocalization()
 
-  const displayAble = useMemo(() => {
+  const displayable = useMemo(() => {
     if (recent) {
       return recent.filter((g) => {
         return (
@@ -32,7 +32,7 @@ export default function RecentlyPlayedSection({
     return []
   }, [recent, gameTypes, gameCategories])
 
-  if (displayAble.length === 0) return null
+  if (displayable.length === 0) return null
   return (
     <DripsyGradient
       gradient="surface"
@@ -44,11 +44,11 @@ export default function RecentlyPlayedSection({
           icon="recently"
           title={t('game.recently').toUpperCase()}
           sx={{ p: [6, '$2'], my: [0] }}
-          iconProps={{ sx: { fontSize: [12, 14] } }}
+          iconProps={{ sx: { fontSize: [12, 14] }, name: 'recently' }}
         />
       </View>
       <Row>
-        <HorizontalGameList data={displayAble} size={[50, 70]} />
+        <HorizontalGameList data={displayable} size={[50, 70]} />
       </Row>
     </DripsyGradient>
   )

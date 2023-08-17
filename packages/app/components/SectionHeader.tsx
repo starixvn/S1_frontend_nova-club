@@ -25,7 +25,7 @@ export default function SectionHeader({
         offset={[0, -1]}
         distance={1}
         stretch
-        startColor={theme.colors.$primary[100]}
+        startColor={theme?.colors?.$primary?.[100]}
         style={{
           borderTopLeftRadius: 30,
           borderBottomLeftRadius: 30,

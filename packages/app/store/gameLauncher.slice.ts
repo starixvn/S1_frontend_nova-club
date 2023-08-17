@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { GAME_TYPE_CODE } from 'app/utils/constant'
 import { Platform } from 'react-native'
 import { Game } from 'services/gameApi.type'
 
