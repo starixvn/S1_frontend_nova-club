@@ -1,4 +1,5 @@
 import Icon from 'app/components/Icon'
+import useLocalization from 'app/provider/localization'
 import dayjs from 'dayjs'
 import { SxProp } from 'dripsy'
 import React, { useState } from 'react'
@@ -27,6 +28,7 @@ export default function DatePicker({
   ...rest
 }: DatePickerProps) {
   const [isFocus, setFocus] = useState(false)
+  const { t } = useLocalization()
   return (
     <>
       <Input
@@ -51,6 +53,7 @@ export default function DatePicker({
         value={value ? dayjs(value).format('YYYY-MM-DD').toString() : ''}
       />
       <RNDatePicker
+        title={t('common.selectDate')}
         modal
         date={value ?? new Date()}
         mode={mode}

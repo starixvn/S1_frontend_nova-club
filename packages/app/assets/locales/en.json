@@ -116,7 +116,8 @@
     "enter": "Enter",
     "confirmDelete": "Are you sure you want to delete? It cannot be restored after deletion!",
     "search": "Search",
-    "yes": "Yes"
+    "yes": "Yes",
+    "selectDate": "Select Date"
   },
   "contact": {
     "contactVia": "Contact via:",
