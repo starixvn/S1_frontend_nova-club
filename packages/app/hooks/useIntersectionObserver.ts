@@ -12,7 +12,7 @@ const useIntersectionObserver = (
     const bodyElement = document.body
     bodyElement.style.minHeight = '118vh'
     return () => {
-      bodyElement.style.minHeight = 'auto'
+      bodyElement.style.minHeight = '100vh'
     }
   }, [])
 
