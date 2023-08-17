@@ -11,6 +11,9 @@ const useIntersectionObserver = (
   useEffect(() => {
     const bodyElement = document.body
     bodyElement.style.minHeight = '118vh'
+    return () => {
+      bodyElement.style.minHeight = 'auto'
+    }
   }, [])
 
   useEffect(() => {
