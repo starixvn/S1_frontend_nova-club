@@ -10,6 +10,8 @@ import com.facebook.react.defaults.DefaultReactActivityDelegate;
 
 import expo.modules.ReactActivityDelegateWrapper;
 import android.view.WindowManager;
+
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.view.WindowCompat;
 
 import io.branch.rnbranch.*;
@@ -22,7 +24,7 @@ public class MainActivity extends ReactActivity {
     // coloring the background, status bar, and navigation bar.
     // This is required for expo-splash-screen.
     setTheme(R.style.AppTheme);
-
+    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
     
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
