@@ -4,6 +4,7 @@ import { memo } from 'react'
 import PlinkoEvent from './event/PlinkoEvent'
 import LiveChatButton from './LiveChatButton'
 import isDesktop from 'app/utils/isDesktop'
+import MidAutumnFloat from './event/MidAutumnFloat'
 
 interface FloatingContentSwitchProps {
   visible: boolean
@@ -42,6 +43,7 @@ const FloatingDrawer = ({
           >
             <ContentOffset>
               <PlinkoEvent size={size} />
+              <MidAutumnFloat size={size} />
               {!isDesktop && <LiveChatButton />}
             </ContentOffset>
           </ContentOverlay>

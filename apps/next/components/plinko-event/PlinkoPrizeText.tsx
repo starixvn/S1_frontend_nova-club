@@ -58,7 +58,7 @@ const PlinkoPrizeText = ({
                   sx={{
                     minWidth: enlargedWidth * 0.075,
                     right: basketSpacing * (i + 1),
-                    color: '#7C4800',
+                    color: 'black',
 
                     fontSize: 22 * scale,
                     fontWeight: 'bold',
@@ -90,11 +90,14 @@ const PlinkoPrizeText = ({
                       color:
                         basketLocation.current === i &&
                         prize.current === '1000K'
-                          ? '#FF9300'
+                          ? 'black'
                           : dummyText === '1TR' && basketLocation.current !== i
-                          ? '#FF9300'
-                          : '#7C4800',
-                      fontSize: 22 * scale,
+                          ? 'white'
+                          : 'black',
+                      fontSize:
+                        dummyText === '1TR' && basketLocation.current !== i
+                          ? 26 * scale
+                          : 22 * scale,
                       fontWeight: 'bold',
                       textAlign: 'center',
                     }}

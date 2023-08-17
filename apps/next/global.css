@@ -1,7 +1,7 @@
 body.rendered {
   background-color: #1e2238;
   overflow-x: hidden;
-  min-height: 125vh;
+  min-height: 100vh;
 }
 
 input:focus {
@@ -47,7 +47,7 @@ p {
 ::-webkit-scrollbar {
   width: 0.5px;
 }
-canvas{
+canvas {
   display: block;
 }
 

@@ -61,7 +61,7 @@ const GeneratePlinkoAsset = (width: number, height: number) => {
     friction: 0,
     render: {
       sprite: {
-        texture: require('app/assets/images/events/autumn/moon.png'),
+        texture: require('app/assets/images/events/autumn/moon-text.png'),
         xScale: 0.8,
         yScale: 0.8,
       },
@@ -137,7 +137,7 @@ const GeneratePlinkoAsset = (width: number, height: number) => {
         friction: 0,
         render: {
           sprite: {
-            texture: require('../../../../packages/app/assets/images/events/plinko/dot.png'),
+            texture: require('app/assets/images/plinko/dot.png'),
             xScale: 0.75,
             yScale: 0.75,
           },

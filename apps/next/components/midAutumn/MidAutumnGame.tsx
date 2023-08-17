@@ -1,6 +1,5 @@
 import React from 'react'
 import { getErrorMessage } from 'agent/utils/validation'
-import { LANGUAGE_CODE } from 'app/constant/language'
 import useAlert from 'app/hooks/useAlert'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
@@ -21,16 +20,17 @@ import {
   useCheckTicketSpinQuery,
   useTicketSpinMutation,
 } from 'services/eventApi'
-import PlinkoBackButton from '../../components/plinko-event/PlinkoBackButton'
-import PlinkoMessageCard from '../../components/plinko-event/PlinkoMessageCard'
-import PlinkoPrizeText from '../../components/plinko-event/PlinkoPrizeText'
-import PlinkoTicketCounter from '../../components/midAutumn/PlinkoTicketCounter'
-import PlinkoTncButton from '../../components/plinko-event/PlinkoTncButton'
-import generateBackgroundAsset from '../../components/midAutumn/backgroundAsset'
-import GeneratePlinkoAsset from '../../components/midAutumn/generatePlinkoAsset'
-import usePlinkoSound from '../../components/midAutumn/usePlinkoSound'
-import backgroundTopAsset from '../../components/midAutumn/backgroundTopAsset'
-import backgroundBottomAsset from '../../components/midAutumn/backgroundBottomAsset'
+import PlinkoBackButton from '../plinko-event/PlinkoBackButton'
+import PlinkoMessageCard from '../plinko-event/PlinkoMessageCard'
+import PlinkoPrizeText from '../plinko-event/PlinkoPrizeText'
+import PlinkoTicketCounter from './PlinkoTicketCounter'
+import PlinkoTncButton from '../plinko-event/PlinkoTncButton'
+import generateBackgroundAsset from './backgroundAsset'
+import GeneratePlinkoAsset from './generatePlinkoAsset'
+import usePlinkoSound from './usePlinkoSound'
+import backgroundTopAsset from './backgroundTopAsset'
+import backgroundBottomAsset from './backgroundBottomAsset'
+import { LANGUAGE_CODE } from 'app/utils/constant'
 import background from 'app/assets/images/events/autumn/bg.jpg'
 
 const theme = {
@@ -528,6 +528,9 @@ const Plinko = () => {
   }
 
   const handleLaternMoving = () => {
+    const lineLeft = Composite.allBodies(engine.current.world).find(
+      (body) => body.label === 'lineLeft'
+    )
     const latern1 = Composite.allBodies(engine.current.world).find(
       (body) => body.label === 'latern1'
     )
@@ -536,6 +539,10 @@ const Plinko = () => {
     )
     const latern3 = Composite.allBodies(engine.current.world).find(
       (body) => body.label === 'latern3'
+    )
+
+    const lineRight = Composite.allBodies(engine.current.world).find(
+      (body) => body.label === 'lineRight'
     )
     const latern4 = Composite.allBodies(engine.current.world).find(
       (body) => body.label === 'latern4'
@@ -548,7 +555,18 @@ const Plinko = () => {
       (body) => body.label === 'latern6'
     )
 
-    if (latern1 && latern2 && latern3 && latern4 && latern5 && latern6) {
+    if (
+      lineLeft &&
+      lineRight &&
+      latern1 &&
+      latern2 &&
+      latern3 &&
+      latern4 &&
+      latern5 &&
+      latern6
+    ) {
+      const centerXlineLeft = lineLeft.position.x
+      const centerXlineRight = lineRight.position.x
       const centerXlatern1 = latern1.position.x
       const centerXlatern2 = latern2.position.x
       const centerXlatern3 = latern3.position.x
@@ -559,7 +577,11 @@ const Plinko = () => {
       setInterval(() => {
         const cloudHover =
           amplitude * Math.sin((2 * Math.PI * Date.now()) / period)
+        const cloudHover2 =
+          amplitude * Math.sin((2 * Math.PI * Date.now()) / period)
 
+        const xlineLeft = centerXlineLeft - cloudHover2
+        const xlineRight = centerXlineRight + cloudHover2
         const xlatern1 = centerXlatern1 - cloudHover
         const xlatern2 = centerXlatern2 - cloudHover
         const xlatern3 = centerXlatern3 - cloudHover
@@ -579,6 +601,10 @@ const Plinko = () => {
         // latern5.position.x < outOfScreenXPosition &&
         //   Body.setPosition(latern5, resetPosition)
 
+        Body.setPosition(lineLeft, {
+          x: xlineLeft,
+          y: lineLeft.position.y,
+        })
         Body.setPosition(latern1, {
           x: xlatern1,
           y: latern1.position.y,
@@ -590,6 +616,11 @@ const Plinko = () => {
         Body.setPosition(latern3, {
           x: xlatern3,
           y: latern3.position.y,
+        })
+
+        Body.setPosition(lineRight, {
+          x: xlineRight,
+          y: lineRight.position.y,
         })
         Body.setPosition(latern4, {
           x: xlatern4,
@@ -624,7 +655,7 @@ const Plinko = () => {
   }
 
   return (
-    <View sx={{ flex: 1 }}>
+    <View sx={{ flex: 1, height }}>
       <main
         style={{
           overflow: 'auto',

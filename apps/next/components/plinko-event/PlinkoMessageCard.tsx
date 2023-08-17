@@ -23,7 +23,7 @@ const PlinkoMessageCard = ({
           borderRadius: 20,
           py: '$3',
           minHeight: height * 0.2,
-          bg: 'rgba(3, 52, 84,0.65)',
+          bg: 'rgba(204, 232, 255, 0.65)',
           alignItems: 'center',
         }}
       >

@@ -31,20 +31,12 @@ const PlinkoTicketCounter = ({
         top: enlargedHeight * 0.28,
         right: enlargedHeight * 0.03,
         // justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'stretch',
         flexDirection: 'row',
-        paddingLeft: 36,
-        paddingTop: 14,
+        paddingLeft: '5%',
+        paddingTop: '5%',
       }}
     >
-      {/* <View
-        sx={{
-          pl: 8,
-          width: '70%',
-          flexDirection: 'row',
-          alignItems: 'flex-end',
-        }}
-      > */}
       <MotiView
         transition={{ type: 'timing', duration: 500 }}
         from={{ rotateZ: '0deg' }}
@@ -68,7 +60,7 @@ const PlinkoTicketCounter = ({
         />
       </MotiView>
       {loading || loadingBalance ? (
-        <ActivityIndicator color="white" sx={{ minWidth: '50%' }} />
+        <ActivityIndicator color="white" sx={{}} />
       ) : (
         <Text
           sx={{
@@ -84,7 +76,6 @@ const PlinkoTicketCounter = ({
           {balance}
         </Text>
       )}
-      {/* </View> */}
     </ImageBackground>
   )
 }
