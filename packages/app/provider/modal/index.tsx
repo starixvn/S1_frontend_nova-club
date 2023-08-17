@@ -106,7 +106,7 @@ function getDynamicComponent(key: DynamicModalType) {
     loading: (props) => {
       return (
         <ModalWrapper>
-          <ActivityIndicator sx={{ mt: 24 }} color={'$primary'} />
+          <ActivityIndicator sx={{ mt: 24 }} color={'$primary.100'} />
         </ModalWrapper>
       )
     },

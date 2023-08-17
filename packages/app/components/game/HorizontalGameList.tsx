@@ -10,7 +10,7 @@ import { GAME_TYPE_CODE } from 'app/utils/constant'
 
 interface HorizontalGameListProps extends ScrollViewProps {
   data: Game[]
-  size: number[]
+  size?: number[]
 }
 
 export default function HorizontalGameList({

@@ -83,7 +83,7 @@ const Deposit = () => {
       disableScrollView
     >
       {isLoading ? (
-        <ActivityIndicator sx={{ my: '$6' }} />
+        <ActivityIndicator sx={{ my: '$6' }} color={'$primary.100'} />
       ) : paymentMethodList.length > 0 ? (
         <>
           <Text sx={{ my: '$3', mx: '$4' }}>{t('deposit.choose')}</Text>
@@ -129,7 +129,11 @@ const Deposit = () => {
       </View>
       <ScrollView>
         {transactionIsLoading ? (
-          <ActivityIndicator size="large" />
+          <ActivityIndicator
+            size="large"
+            color={'$primary.100'}
+            sx={{ height: 250 }}
+          />
         ) : transactionData?.data?.row_count_total ?? 0 > 0 ? (
           transactionData?.data?.rows.map((item, index) => (
             <RecentTransactionRow

@@ -49,7 +49,7 @@ const HeaderButton = ({ icon, label, value, isLoading }: HeaderButtonProps) => {
           <Icon name={icon} size={14} color={'$secondary.100'} />
 
           {isLoading ? (
-            <ActivityIndicator size={14} color={'$secondary.100'} />
+            <ActivityIndicator color={'$secondary.100'} />
           ) : (
             <Text
               numberOfLines={1}

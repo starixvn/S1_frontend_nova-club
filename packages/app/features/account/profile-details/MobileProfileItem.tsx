@@ -1,11 +1,10 @@
-import { View, Text, ActivityIndicator } from 'dripsy'
-import React from 'react'
-import isDesktop from 'app/utils/isDesktop'
 import IconButton from 'app/components/IconButton'
-import { copyToClipboard } from 'app/utils'
-import useLocalization from 'app/provider/localization'
-import { ProfileResult } from 'services/playerApi.type'
 import useIsDesktop from 'app/hooks/useIsDesktop'
+import useLocalization from 'app/provider/localization'
+import { copyToClipboard } from 'app/utils'
+import { ActivityIndicator, Text, View } from 'dripsy'
+import React from 'react'
+import { ProfileResult } from 'services/playerApi.type'
 
 type ProfileItemProps = {
   label: string
@@ -38,7 +37,7 @@ const MobileProfileItem = ({ playerData }: MobileProfileDetailsProps) => {
       <ProfileItem label={t('common.currency')} value={playerData?.currency} />
     </>
   ) : (
-    <ActivityIndicator />
+    <ActivityIndicator sx={{ minHeight: 300 }} size={'large'} />
   )
 }
 

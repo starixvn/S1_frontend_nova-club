@@ -57,7 +57,11 @@ const WithdrawalTransactions = ({
       </View>
 
       {isLoading ? (
-        <ActivityIndicator size="large" />
+        <ActivityIndicator
+          size="large"
+          sx={{ minHeight: 250 }}
+          color="$primary.100"
+        />
       ) : data?.data?.row_count_total ?? 0 > 0 ? (
         data?.data?.rows.map((item, index) => (
           <DesktopWithdrawalHistoryItem

@@ -26,7 +26,7 @@ const WebView = ({ url, ...restWebViewProps }: WebViewComponentProps) => {
       startInLoadingState={true}
       renderLoading={() => (
         <StyledLoadingView>
-          <ActivityIndicator size={20} color={'white'} />
+          <ActivityIndicator size={'large'} color={'white'} />
         </StyledLoadingView>
       )}
       onError={(e) => console.log('Error loading game', e)}

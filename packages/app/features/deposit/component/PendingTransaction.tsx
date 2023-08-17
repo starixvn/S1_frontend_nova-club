@@ -71,7 +71,11 @@ const PendingTransaction = ({ paymentMethod }: PendingTransactionProps) => {
       )}
       <ScrollView>
         {transactionIsLoading ? (
-          <ActivityIndicator size="large" />
+          <ActivityIndicator
+            size="large"
+            sx={{ height: 150 }}
+            color="$primary.100"
+          />
         ) : transactionData?.data?.row_count_total ?? 0 > 0 ? (
           transactionData?.data?.rows.map((item, index) => (
             <RecentTransactionRow

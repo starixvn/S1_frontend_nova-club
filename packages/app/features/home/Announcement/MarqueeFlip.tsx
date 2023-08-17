@@ -46,7 +46,11 @@ const MarqueeFlip = ({
       sx={sx}
     >
       {loading ? (
-        <ActivityIndicator color={'$lightCyan'} size={14} />
+        <ActivityIndicator
+          color={'$secondary.100'}
+          size={7}
+          sx={{ mx: '$2' }}
+        />
       ) : (
         <Icon
           name="announcement"

@@ -15,7 +15,12 @@ const EmptyResult = ({ text, _text, ...props }: IHistoryEmpty) => {
 
   return (
     <View
-      sx={{ alignItems: 'center', justifyContent: 'center', ...containerStyle }}
+      sx={{
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: 250,
+        ...containerStyle,
+      }}
       {...restProps}
     >
       <Image
@@ -26,6 +31,7 @@ const EmptyResult = ({ text, _text, ...props }: IHistoryEmpty) => {
           height: width * 0.25,
         }}
         resizeMode="contain"
+        alt="empty-result"
       />
 
       <Text
