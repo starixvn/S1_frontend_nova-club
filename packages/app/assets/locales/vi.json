@@ -43,7 +43,8 @@
   "biometric": {
     "label": "Đăng nhập bằng Sinh trắc học",
     "message": "Bạn có muốn kích hoạt đăng nhập sinh trắc học không?",
-    "notFound": "Sinh trắc học không được hỗ trợ / không được bật trên thiết bị của bạn"
+    "notFound": "Sinh trắc học không được hỗ trợ / không được bật trên thiết bị của bạn",
+    "title": "Sinh trắc học"
   },
   "commision": {
     "cashAgent": "Đại lý trả trước",
@@ -105,6 +106,7 @@
     "reward": "THƯỞNG",
     "search": "Tìm kiếm",
     "selectAll": "Chọn tất cả",
+    "selectDate": "Chọn ngày",
     "shareholder": "Cổ đông",
     "showMore": "Cho xem nhiều hơn",
     "submit": "Gửi",
@@ -116,8 +118,7 @@
     "userAgreement": "Thỏa thuận người dùng",
     "username": "Tên đăng nhập",
     "withdraw": "Rút tiền",
-    "yes": "Đồng Ý",
-    "selectDate": "Chọn ngày"
+    "yes": "Đồng Ý"
   },
   "contact": {
     "contactVia": "Liên hệ qua:",
@@ -134,6 +135,7 @@
     "cardValue": "Mệnh giá thẻ",
     "channel": "Tài khoản nạp",
     "choose": "Chọn phương thức nạp tiền",
+    "commonError": "Ngân hàng này hiện đang bảo trì. Vui lòng thử với ngân hàng khác hoặc đổi phương thức thanh toán.",
     "cryptoAddress": "Địa chỉ ví tiền ảo",
     "cryptoAmount": "Số tiền ảo muốn nạp",
     "cryptoChannel": "Kênh nạp tiền ảo",
@@ -163,8 +165,7 @@
       "description": "Chọn hình ảnh biên lai hoặc hóa đơn để tải lên",
       "files": "Tải tệp tin",
       "title": "Tải biên lai ngân hàng"
-    },
-    "commonError": "Ngân hàng này hiện đang bảo trì. Vui lòng thử với ngân hàng khác hoặc đổi phương thức thanh toán."
+    }
   },
   "download": {
     "android": "ANDROID",
@@ -206,8 +207,8 @@
     "lose2": "CHÚC BẠN MAY MẮN LẦN SAU.",
     "luckyDraw": {
       "appSpin": "ứng dụng để quay",
-      "registerSpin": "ĐĂNG KÝ VÀ QUAY",
-      "ineligibleSpin": "không đủ điều kiện để quay"
+      "ineligibleSpin": "không đủ điều kiện để quay",
+      "registerSpin": "ĐĂNG KÝ VÀ QUAY"
     },
     "next": "CHƠI TIẾP",
     "prediction": {
@@ -274,6 +275,7 @@
     "title": "Cập nhật phiên bản mới"
   },
   "game": {
+    "betNow": "Cược NGAY",
     "category": {
       "cardGame": "Game Bài",
       "fishing": "Bắn Cá",
@@ -292,8 +294,7 @@
     "megaway": "Megaway",
     "new": "Mới",
     "noGame": "Không có trò chơi phù hợp bộ lọc",
-    "recently": "Được chơi gần đây",
-    "betNow": "Cược NGAY"
+    "recently": "Được chơi gần đây"
   },
   "home": {
     "banner": {
@@ -331,8 +332,8 @@
       "forgotPin": "Quên mã PIN",
       "newPin": "Pin mới",
       "oldPin": "Mã PIN cũ",
-      "securePin": "Bảo mật chuyển khoản của bạn bằng mã PIN",
-      "resetPinSuccess": "Đặt lại mã pin chuyển thành công"
+      "resetPinSuccess": "Đặt lại mã pin chuyển thành công",
+      "securePin": "Bảo mật chuyển khoản của bạn bằng mã PIN"
     },
     "pw": {
       "changePw": "Đổi Mật Khẩ",
@@ -427,10 +428,10 @@
   "qr": {
     "downloadQr": "Tải Mã QR",
     "noCameraAccess": "Máy ảnh của bạn được yêu cầu quét mã QR để chuyển. \nVui lòng cho phép để tiếp tục sử dụng tính năng này",
-    "requestCameraPermissions": "Yêu cầu quyền truy cập vào camera",
-    "scanGallery": "Quét từ thư viện",
+    "noStorageAccess": "Bộ nhớ phương tiện của bạn được yêu cầu quét mã QR để chuyển. \nVui lòng cho phép để tiếp tục sử dụng tính năng này",
     "openSetting": "Mở cài đặt",
-    "noStorageAccess": "Bộ nhớ phương tiện của bạn được yêu cầu quét mã QR để chuyển. \nVui lòng cho phép để tiếp tục sử dụng tính năng này"
+    "requestCameraPermissions": "Yêu cầu quyền truy cập vào camera",
+    "scanGallery": "Quét từ thư viện"
   },
   "referral": {
     "code": "Mã giới thiệu",
@@ -442,14 +443,14 @@
   },
   "status": {
     "imageNotSupported": "Định dạng hình ảnh không được hỗ trợ",
+    "networkError": "Lỗi mạng!",
     "pending": "Đang chờ",
     "qrDownloadSuccess": "Tải mã QR thành công",
     "qrTransferSelfError": "Chuyển khoản vào tài khoản riêng không được phép",
     "rejected": "Từ chối",
     "scanFailed": "Quét không thành công!",
     "success": "Thành công",
-    "systemError": "Rất tiếc! Đã xảy ra lỗi, vui lòng thử lại.",
-    "networkError": "Lỗi mạng!"
+    "systemError": "Rất tiếc! Đã xảy ra lỗi, vui lòng thử lại."
   },
   "transaction": {
     "pending": "Đang chờ giao dịch",
