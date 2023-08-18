@@ -82,7 +82,11 @@ function GameSectionByProviderItem({
 
   return (
     <View nativeID={`gameSection${gpc}`}>
-      <GameListSectionGrid.Header>
+      <GameListSectionGrid.Header
+        onSearch={(t) => {
+          startTransition(() => setSearch(t))
+        }}
+      >
         {gpc ? (
           <SolitoImage
             height={20}
@@ -95,11 +99,7 @@ function GameSectionByProviderItem({
           <Text sx={{ fontWeight: '900' }}>{t('common.all')}</Text>
         )}
       </GameListSectionGrid.Header>
-      <GameListSectionGrid.Filter
-        onSearch={(t) => {
-          startTransition(() => setSearch(t))
-        }}
-      >
+      <GameListSectionGrid.TagBody>
         {tags.map((f) => {
           const isActive = filter === f
           return (
@@ -114,7 +114,8 @@ function GameSectionByProviderItem({
             </GameListSectionGrid.TagButton>
           )
         })}
-      </GameListSectionGrid.Filter>
+      </GameListSectionGrid.TagBody>
+
       <GameListSectionGrid.GameList
         data={searchedGame ?? filteredGame}
         bordered={bordered}
