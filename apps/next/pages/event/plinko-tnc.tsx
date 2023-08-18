@@ -32,7 +32,7 @@ const PlinkoTnc = () => {
   return (
     <PageWithBackHeader
       header={{ title: t('menu.tnc') }}
-      hideHeader={isDesktop || window.ReactNativeWebView}
+      hideHeader={isDesktop}
     >
       <FormContainer>
         <main

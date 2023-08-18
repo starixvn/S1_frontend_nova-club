@@ -129,10 +129,10 @@ const GamesScreen = () => {
     }
   }
 
-  function onViewMore(gpc: string) {
+  function onViewMore(gpc: string, tag: string = 'All') {
     if (Platform.OS === 'web') push(`/games/${type}/${gpc}`)
     else {
-      push('/gamesByProvider?provider=' + gpc.toLowerCase())
+      push('/gamesByProvider?provider=' + gpc.toLowerCase() + `&tag=${tag}`)
     }
     // setParams([type, gpc.toLowerCase()])
   }

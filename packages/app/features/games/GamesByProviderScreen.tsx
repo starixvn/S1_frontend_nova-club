@@ -12,6 +12,7 @@ type Props = {}
 
 type Params = {
   provider?: string
+  tag?: string
 }
 
 const { useParam } = createParam<Params>()
@@ -30,7 +31,7 @@ export default function GamesByProviderScreen({}: Props) {
   const { gameCategoryTagTranslation } = useGameCategoryTag(GameCategory)
 
   const [filteredGames, setFilteredGames] = useState<Game[]>([])
-  const [type, setType] = useState<string>()
+  const [type, setType] = useParam('tag')
   const [provider, setProvider] = useParam('provider')
 
   const { back } = useRouter()
@@ -51,19 +52,14 @@ export default function GamesByProviderScreen({}: Props) {
       } else startTransition(() => setFilteredGames(providerGames))
     }
   }, [games, type, provider])
-
   return (
-    <>
-      {type && provider && (
-        <GamesScreenSingleProvider
-          games={filteredGames}
-          type={type}
-          provider={provider}
-          onBack={back}
-          onFilterClicked={onFilterClicked}
-          gameCategoryTagTranslation={gameCategoryTagTranslation}
-        />
-      )}
-    </>
+    <GamesScreenSingleProvider
+      games={filteredGames}
+      type={type}
+      provider={provider}
+      onBack={back}
+      onFilterClicked={onFilterClicked}
+      gameCategoryTagTranslation={gameCategoryTagTranslation}
+    />
   )
 }

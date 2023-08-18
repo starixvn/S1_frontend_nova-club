@@ -6,7 +6,6 @@ import React from 'react'
 import { useRouter } from 'solito/router'
 import { DEV_DOMAIN } from '../../../../../apps/next/config/env'
 
-// const plinkoUrl = `${DEV_DOMAIN}/event/plinko?`
 const plinkoUrl = `${DEV_DOMAIN}/event/plinko?`
 
 const Plinko = () => {
@@ -43,7 +42,7 @@ const Plinko = () => {
         paddingTop: top,
         paddingBottom: bottom,
         backgroundColor: theme.colors
-          ? theme.colors.$primary[700]
+          ? theme?.colors?.$primary?.[700]
           : 'transparent',
       }}
       incognito={true}
