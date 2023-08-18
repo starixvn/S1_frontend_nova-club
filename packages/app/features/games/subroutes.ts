@@ -21,7 +21,12 @@ export const SUB_ROUTES = {
     icon: 'lotto',
     route: Route['keno-lottery'],
     filter: (games: Game[]) => {
-      return games.filter((g) => g.gtc === GAME_TYPE_CODE.LOTTERY)
+      return games.filter(
+        (g) =>
+          // any game thats a "Card Game" will not be listed under game type
+          g.gdc_cat !== GDC_GAME_CATEGORY.CARDGAME &&
+          g.gtc === GAME_TYPE_CODE.LOTTERY
+      )
     },
   },
   fishing: {
@@ -29,7 +34,12 @@ export const SUB_ROUTES = {
     icon: 'fishing',
     route: Route['fishing'],
     filter: (games: Game[]) => {
-      return games.filter((g) => g.gtc === GAME_TYPE_CODE.FISHING)
+      return games.filter(
+        (g) =>
+          // any game thats a "Card Game" will not be listed under game type
+          g.gdc_cat !== GDC_GAME_CATEGORY.CARDGAME &&
+          g.gtc === GAME_TYPE_CODE.FISHING
+      )
     },
   },
   card: {
@@ -45,7 +55,12 @@ export const SUB_ROUTES = {
     icon: 'games',
     route: Route['local'],
     filter: (games: Game[]) => {
-      return games.filter((g) => g.gtc === GAME_TYPE_CODE.GAMES)
+      return games.filter(
+        (g) =>
+          // any game thats a "Card Game" will not be listed under game type
+          g.gdc_cat !== GDC_GAME_CATEGORY.CARDGAME &&
+          g.gtc === GAME_TYPE_CODE.GAMES
+      )
     },
   },
 }
