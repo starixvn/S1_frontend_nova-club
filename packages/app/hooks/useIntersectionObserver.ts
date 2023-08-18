@@ -9,14 +9,6 @@ const useIntersectionObserver = (
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const bodyElement = document.body
-    bodyElement.style.minHeight = '118vh'
-    return () => {
-      bodyElement.style.minHeight = '100vh'
-    }
-  }, [])
-
-  useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsIntersecting(entry?.isIntersecting ?? false)

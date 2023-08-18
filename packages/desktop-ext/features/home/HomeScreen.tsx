@@ -67,6 +67,15 @@ export default function HomeScreen() {
   }, [username])
 
   useEffect(() => {
+    //Trivial fix to handle intersection observer unable to load the lazy component when switch to agent app and switch back to member app
+    const bodyElement = document.body
+    bodyElement.style.minHeight = '118vh'
+    return () => {
+      bodyElement.style.minHeight = '100vh'
+    }
+  }, [])
+
+  useEffect(() => {
     let openLuckyDrawModalInstance: NodeJS.Timeout
 
     if (luckyDrawBalance) {
