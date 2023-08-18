@@ -66,7 +66,7 @@ const BankTransferForm = () => {
   const sheetData =
     depositPayment?.list.map((item) => {
       return {
-        label: item.bank_acc_name,
+        label: item.bank_branch,
         value: item.bankTypeId.toString(),
         icon: getBankLogo(item.bank_code),
       }
