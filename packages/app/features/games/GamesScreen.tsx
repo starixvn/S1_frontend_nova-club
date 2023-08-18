@@ -130,7 +130,7 @@ const GamesScreen = () => {
   }
 
   function onViewMore(gpc: string, tag: string = 'All') {
-    if (Platform.OS === 'web') push(`/games/${type}/${gpc}`)
+    if (Platform.OS === 'web') push(`/games/${type}/${gpc}/${tag}`)
     else {
       push('/gamesByProvider?provider=' + gpc.toLowerCase() + `&tag=${tag}`)
     }
@@ -144,10 +144,10 @@ const GamesScreen = () => {
   // console.log('params', type, provider)
   if (provider && Platform.OS === 'web') {
     if (!gamesByProviders || !filteredGames) return <ActivityIndicator />
-
     return (
       <GamesScreenSingleProvider
-        games={gamesByProviders[provider.toUpperCase()]}
+        tag={params?.[2] ?? 'ALL'}
+        games={gamesByProviders[provider.toUpperCase()] ?? []}
         provider={provider}
         type={type}
         onFilterClicked={onFilterClicked}

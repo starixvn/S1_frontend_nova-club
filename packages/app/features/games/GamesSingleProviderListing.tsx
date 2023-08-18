@@ -36,6 +36,7 @@ interface GamesSingleProviderListingProps {
   onBack: () => void
   sx?: SxProp
   gameCategoryTagTranslation?: GameCategoryTagTranslation
+  tag: string
 }
 const GamesSingleProviderListing = ({
   games,
@@ -45,13 +46,13 @@ const GamesSingleProviderListing = ({
   onBack,
   sx,
   gameCategoryTagTranslation,
+  tag = 'ALL',
 }: GamesSingleProviderListingProps) => {
   const { top, bottom } = useSafeArea()
 
   const { theme } = useDripsyTheme()
   const locale = useAppSelector((s) => s.setting.locale)
-  const [localType, setLocalType] = useState(type)
-  const [filter, setFilter] = useState<string>(ALL)
+  const [filter, setFilter] = useState<string>(tag)
   const [filteredGames, setFilteredGames] = useState<Game[]>([])
   const [search, setSearch] = useState<string>()
   const tags = useMemo(() => {
@@ -60,9 +61,12 @@ const GamesSingleProviderListing = ({
         (distinctTags, currentGame) => union(distinctTags, currentGame.tags),
         [ALL]
       )
-    } else return [localType]
-  }, [games, localType])
+    } else return [filter]
+  }, [games, filter])
   const { getTagName } = useGetTagName()
+  const mobileGamesFilterResponsiveSize = useResponsiveValue([
+    60, 60, 70, 70, 70,
+  ])
 
   const column = useResponsiveValue([4, 5, 6])
 
@@ -86,15 +90,6 @@ const GamesSingleProviderListing = ({
       })
     }
   }, [games, filter])
-
-  useEffect(() => {
-    const selectedFilter = tags.find(
-      (f) => getTagName(f, gameCategoryTagTranslation) === localType
-    )
-    if (selectedFilter) {
-      setFilter(selectedFilter)
-    }
-  }, [tags, localType, getTagName, gameCategoryTagTranslation])
   return (
     <View
       sx={{ flex: 1, bg: '$primary.700', pt: top ? top + 10 : '$3', ...sx }}
@@ -138,8 +133,9 @@ const GamesSingleProviderListing = ({
         </Row>
         <IconButtonGradientGroup
           sx={{
-            width: '80%',
-            maxWidth: [500, 550, 600],
+            // flex: 1,
+            py: '$2',
+            minWidth: ['100%', 450],
             alignSelf: 'center',
           }}
         >
@@ -150,7 +146,7 @@ const GamesSingleProviderListing = ({
                 key={r.label}
                 active={type ? r.route.includes(type) : r.route === '/games'}
                 label={r.label}
-                size={50}
+                size={mobileGamesFilterResponsiveSize}
                 icon={r.icon ?? 'notice'}
                 labelProps={{ style: { fontSize: 11 }, numberOfLines: 2 }}
                 onPress={() => onFilterClicked(r, i)}

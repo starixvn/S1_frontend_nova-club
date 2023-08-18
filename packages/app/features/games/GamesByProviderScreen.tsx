@@ -31,8 +31,9 @@ export default function GamesByProviderScreen({}: Props) {
   const { gameCategoryTagTranslation } = useGameCategoryTag(GameCategory)
 
   const [filteredGames, setFilteredGames] = useState<Game[]>([])
-  const [type, setType] = useParam('tag')
+  const [type, setType] = useState<string>()
   const [provider, setProvider] = useParam('provider')
+  const [tag, setTag] = useParam('tag')
 
   const { back } = useRouter()
 
@@ -55,6 +56,7 @@ export default function GamesByProviderScreen({}: Props) {
   return (
     <GamesScreenSingleProvider
       games={filteredGames}
+      tag={tag ?? 'ALL'}
       type={type}
       provider={provider}
       onBack={back}
