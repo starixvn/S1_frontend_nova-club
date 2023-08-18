@@ -31,7 +31,7 @@ const GameListSectionGridHeader = ({ onSearch, children }) => {
           bg: '$primary.200',
           borderTopRightRadius: [15, 20],
           width: [120, 130],
-          px: '2%',
+          px: '$2',
           py: '$2',
           alignItems: 'center',
           justifyContent: 'center',
