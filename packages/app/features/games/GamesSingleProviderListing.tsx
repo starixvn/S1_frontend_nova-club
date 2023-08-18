@@ -54,6 +54,7 @@ const GamesSingleProviderListing = ({
   const [localType, setLocalType] = useState(type)
   const [filter, setFilter] = useState<string>(ALL)
   const [filteredGames, setFilteredGames] = useState<Game[]>([])
+  const [search, setSearch] = useState<string>()
   const tags = useMemo(() => {
     if (games) {
       return games.reduce(
@@ -65,6 +66,14 @@ const GamesSingleProviderListing = ({
   const { getTagName } = useGetTagName()
 
   const column = useResponsiveValue([4, 5, 6])
+
+  const searchedGame = useMemo(() => {
+    return search
+      ? filteredGames.filter((g) => {
+          return g.name[locale]?.toLowerCase().includes(search.toLowerCase())
+        })
+      : undefined
+  }, [search, filteredGames, locale])
 
   useEffect(() => {
     if (games) {
@@ -84,34 +93,42 @@ const GamesSingleProviderListing = ({
       sx={{ flex: 1, bg: '$primary.700', pt: top ? top + 10 : '$3', ...sx }}
     >
       <View sx={{ gap: '$3' }}>
-        <Pressable onPress={onBack}>
-          <Shadow
-            offset={[0, -1]}
-            startColor={theme.colors.$primary[100]}
-            distance={1}
-            sx={{ borderTopRightRadius: 20, borderBottomRightRadius: 20 }}
-          >
-            <Row
-              sx={{
-                bg: '$primary.300',
-                borderTopRightRadius: 20,
-                borderBottomRightRadius: 20,
-                alignItems: 'center',
-                py: ['$2'],
-                px: ['$3'],
-                gap: '$3',
-              }}
+        <Row sx={{ justifyContent: 'space-between' }}>
+          <Pressable onPress={onBack}>
+            <Shadow
+              safeRender
+              offset={[0, -1]}
+              startColor={theme?.colors?.$primary?.[100]}
+              distance={1}
+              sx={{ borderTopRightRadius: 20, borderBottomRightRadius: 20 }}
             >
-              <Icon name="back" />
-              <SolitoImage
-                alt={provider}
-                height={20}
-                width={100}
-                src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${provider.toLowerCase()}.png`}
-              />
-            </Row>
-          </Shadow>
-        </Pressable>
+              <Row
+                sx={{
+                  bg: '$primary.300',
+                  borderTopRightRadius: 20,
+                  borderBottomRightRadius: 20,
+                  alignItems: 'center',
+                  py: ['$2'],
+                  px: ['$3'],
+                  gap: '$3',
+                }}
+              >
+                <Icon name="back" />
+                <SolitoImage
+                  alt={provider}
+                  height={20}
+                  width={100}
+                  src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${provider.toLowerCase()}.png`}
+                />
+              </Row>
+            </Shadow>
+          </Pressable>
+          <GameListSectionGrid.Search
+            onSearch={(t) => {
+              startTransition(() => setSearch(t))
+            }}
+          />
+        </Row>
         <IconButtonGradientGroup
           sx={{
             maxWidth: 550,
@@ -133,7 +150,7 @@ const GamesSingleProviderListing = ({
             )
           })}
         </IconButtonGradientGroup>
-        <GameListSectionGrid.Filter>
+        <GameListSectionGrid.TagBody>
           {tags.map((f) => {
             const isActive = filter === f
             return (
@@ -148,14 +165,14 @@ const GamesSingleProviderListing = ({
               </GameListSectionGrid.TagButton>
             )
           })}
-        </GameListSectionGrid.Filter>
+        </GameListSectionGrid.TagBody>
       </View>
       <View style={{ flex: 1 }}>
         <FlashList
           contentContainerStyle={{ paddingBottom: bottom, paddingTop: 12 }}
           key={column}
           estimatedItemSize={100}
-          data={filteredGames}
+          data={searchedGame ?? filteredGames}
           numColumns={column}
           renderItem={({ item }: { item: Game }) => {
             return (

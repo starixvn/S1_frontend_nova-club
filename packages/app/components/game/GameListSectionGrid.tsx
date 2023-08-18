@@ -10,6 +10,7 @@ import { DripsyGradient } from '../Gradient'
 import Icon from '../Icon'
 import GameCard from './GameCard'
 import DraggableScrollView from '../DraggableScrollView'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 type Props = {}
 
 export default function GameListSectionGrid({ children }: Props) {
@@ -17,6 +18,8 @@ export default function GameListSectionGrid({ children }: Props) {
 }
 
 const GameListSectionGridHeader = ({ onSearch, children }) => {
+  const isDesktop = useIsDesktop()
+
   return (
     <View
       sx={{
@@ -37,7 +40,9 @@ const GameListSectionGridHeader = ({ onSearch, children }) => {
       >
         {children}
       </View>
-      {onSearch && <GameListSectionGridSearch onSearch={onSearch} />}
+      {onSearch && isDesktop && (
+        <GameListSectionGridSearch onSearch={onSearch} />
+      )}
     </View>
   )
 }
