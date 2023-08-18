@@ -2,15 +2,7 @@ import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Icon from 'app/components/Icon'
 import ShadowButton from 'app/components/ShadowButton'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
-import {
-  Pressable,
-  Row,
-  ScrollView,
-  SxProp,
-  Text,
-  View,
-  useDripsyTheme,
-} from 'dripsy'
+import { Row, ScrollView, SxProp, Text, View, useDripsyTheme } from 'dripsy'
 import React, { startTransition, useState } from 'react'
 import { SolitoImage } from 'solito/image'
 
@@ -81,17 +73,14 @@ export default function SelectProvider({ providers, value, onSelect }: Props) {
             onSelect={() => {
               onSelect && onSelect(undefined)
             }}
+            onFocus={() => {
+              startTransition(() => setActiveIndex(IndexState.ALL))
+            }}
+            onBlur={() => {
+              startTransition(() => setActiveIndex(IndexState.NONE))
+            }}
           >
-            <Pressable
-              onPress={() => {
-                onSelect && onSelect(undefined)
-              }}
-              onHoverIn={() =>
-                startTransition(() => setActiveIndex(IndexState.ALL))
-              }
-              onHoverOut={() =>
-                startTransition(() => setActiveIndex(IndexState.NONE))
-              }
+            <View
               style={{
                 height: 40,
                 backgroundColor:
@@ -101,7 +90,7 @@ export default function SelectProvider({ providers, value, onSelect }: Props) {
               }}
             >
               <AllSelection size={20} sx={{ mx: 'auto' }} />
-            </Pressable>
+            </View>
           </DropdownMenu.Item>
           <View sx={{}}>
             {providers.map((p, index) => {
@@ -122,26 +111,18 @@ export default function SelectProvider({ providers, value, onSelect }: Props) {
                   onSelect={() => {
                     onSelect && onSelect(p)
                   }}
+                  onFocus={() => startTransition(() => setActiveIndex(index))}
+                  onBlur={() =>
+                    startTransition(() => setActiveIndex(IndexState.NONE))
+                  }
                 >
-                  <Pressable
-                    onPress={() => {
-                      onSelect && onSelect(p)
-                    }}
-                    onHoverIn={() =>
-                      startTransition(() => setActiveIndex(index))
-                    }
-                    onHoverOut={() =>
-                      startTransition(() => setActiveIndex(IndexState.NONE))
-                    }
-                  >
-                    <SolitoImage
-                      height={25}
-                      width={100}
-                      alt={p}
-                      src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${p.toLowerCase()}.png`}
-                      resizeMode="contain"
-                    />
-                  </Pressable>
+                  <SolitoImage
+                    height={25}
+                    width={100}
+                    alt={p}
+                    src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${p.toLowerCase()}.png`}
+                    resizeMode="contain"
+                  />
                 </DropdownMenu.Item>
               )
             })}
