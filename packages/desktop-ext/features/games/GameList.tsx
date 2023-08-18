@@ -12,6 +12,7 @@ import {
   useGetTagName,
   type GameCategoryTagTranslation,
 } from 'app/hooks/appState/game/useGameCategoryTag'
+import { useAppSelector } from 'app/provider/redux/store'
 interface Props extends ViewProps {
   label: string
   games: Game[]
@@ -27,7 +28,9 @@ export default function GameList({
 }: Props) {
   const [filter, setFilter] = useState(ALL)
   const [provider, setProvider] = useState<string | undefined>()
+  const [search, setSearch] = useState<string>()
   const { t } = useLocalization()
+  const locale = useAppSelector((s) => s.setting.locale)
 
   const tags = useMemo(() => {
     setProvider(undefined)
@@ -50,6 +53,18 @@ export default function GameList({
     return Object.keys(countBy(filteredGame, (g) => g.gpc))
   }, [filteredGame])
 
+  const searchedGame = useMemo(() => {
+    return providerFiltered && search
+      ? providerFiltered.filter((g) => {
+          return g.name[locale]?.toLowerCase().includes(search.toLowerCase())
+        })
+      : filteredGame && search
+      ? filteredGame.filter((g) => {
+          return g.name[locale]?.toLowerCase().includes(search.toLowerCase())
+        })
+      : undefined
+  }, [providerFiltered, search, filteredGame, locale])
+
   useEffect(() => {
     if (tags.length) {
       const defaultTag = tags.find((tag) => tag === HOT)
@@ -62,10 +77,14 @@ export default function GameList({
 
   return (
     <View {...rest}>
-      <GameListSectionGrid.Header>
+      <GameListSectionGrid.Header
+        onSearch={(t) => {
+          startTransition(() => setSearch(t))
+        }}
+      >
         <Text sx={{ fontWeight: '900' }}>{t(label)}</Text>
       </GameListSectionGrid.Header>
-      <GameListSectionGrid.Filter>
+      <GameListSectionGrid.TagBody>
         {tags.map((f) => {
           const isActive = filter === f
           return (
@@ -85,9 +104,9 @@ export default function GameList({
           value={provider}
           onSelect={setProvider}
         />
-      </GameListSectionGrid.Filter>
+      </GameListSectionGrid.TagBody>
       <GameListSectionGrid.GameList
-        data={providerFiltered ?? filteredGame}
+        data={searchedGame ?? providerFiltered ?? filteredGame}
         bordered
       />
     </View>

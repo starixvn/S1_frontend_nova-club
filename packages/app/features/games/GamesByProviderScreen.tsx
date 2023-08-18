@@ -53,13 +53,17 @@ export default function GamesByProviderScreen({}: Props) {
   }, [games, type, provider])
 
   return (
-    <GamesScreenSingleProvider
-      games={filteredGames}
-      type={type}
-      provider={provider}
-      onBack={back}
-      onFilterClicked={onFilterClicked}
-      gameCategoryTagTranslation={gameCategoryTagTranslation}
-    />
+    <>
+      {type && provider && (
+        <GamesScreenSingleProvider
+          games={filteredGames}
+          type={type}
+          provider={provider}
+          onBack={back}
+          onFilterClicked={onFilterClicked}
+          gameCategoryTagTranslation={gameCategoryTagTranslation}
+        />
+      )}
+    </>
   )
 }

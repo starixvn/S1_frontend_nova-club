@@ -1,17 +1,17 @@
 import { FONT_TOP_OFFSET } from 'app/constants/font'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Pressable, Row, Text, TextInput, View, useDripsyTheme } from 'dripsy'
 import debounce from 'lodash/debounce'
-import React, { useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { Shadow } from 'react-native-shadow-2'
 import { Game } from 'services/gameApi.type'
+import DraggableScrollView from '../DraggableScrollView'
 import { DripsyGradient } from '../Gradient'
 import Icon from '../Icon'
 import GameCard from './GameCard'
-import DraggableScrollView from '../DraggableScrollView'
-import useIsDesktop from 'app/hooks/useIsDesktop'
-type Props = {}
+type Props = { children: ReactElement }
 
 export default function GameListSectionGrid({ children }: Props) {
   return <View>{children}</View>

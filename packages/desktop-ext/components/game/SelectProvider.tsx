@@ -96,7 +96,7 @@ export default function SelectProvider({ providers, value, onSelect }: Props) {
                 height: 40,
                 backgroundColor:
                   activeIndex === -2
-                    ? theme.colors?.$primary[100]
+                    ? theme?.colors?.$primary?.[100]
                     : 'transparent',
               }}
             >
@@ -116,7 +116,7 @@ export default function SelectProvider({ providers, value, onSelect }: Props) {
                     alignItems: 'center',
                     backgroundColor:
                       index === activeIndex
-                        ? theme.colors?.$primary[100]
+                        ? theme?.colors?.$primary?.[100]
                         : 'transparent',
                   }}
                   onSelect={() => {
