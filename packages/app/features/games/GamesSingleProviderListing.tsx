@@ -4,11 +4,16 @@ import Icon from 'app/components/Icon'
 import IconButtonGradientGroup from 'app/components/IconButtonGradientGroup'
 import IconButtonGradientToggle from 'app/components/IconButtonGradientToggle'
 import Shadow from 'app/components/Shadow'
+import EmptyResult from 'app/components/dataTable/EmptyResult'
 import GameCard from 'app/components/game/GameCard'
 import GameListSectionGrid from 'app/components/game/GameListSectionGrid'
+import {
+  useGetTagName,
+  type GameCategoryTagTranslation,
+} from 'app/hooks/appState/game/useGameCategoryTag'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { ALL, HOT } from 'app/utils/constant'
+import { ALL } from 'app/utils/constant'
 import {
   Pressable,
   Row,
@@ -16,17 +21,12 @@ import {
   View,
   useDripsyTheme,
   useResponsiveValue,
-  useSx,
 } from 'dripsy'
 import union from 'lodash/union'
 import React, { startTransition, useEffect, useMemo, useState } from 'react'
 import { Game } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
 import { MobileGamesFilter } from './subroutes'
-import {
-  useGetTagName,
-  type GameCategoryTagTranslation,
-} from 'app/hooks/appState/game/useGameCategoryTag'
 
 interface GamesSingleProviderListingProps {
   games: Game[]
@@ -46,7 +46,6 @@ const GamesSingleProviderListing = ({
   sx,
   gameCategoryTagTranslation,
 }: GamesSingleProviderListingProps) => {
-  const sxP = useSx()
   const { top, bottom } = useSafeArea()
 
   const { theme } = useDripsyTheme()
@@ -61,8 +60,8 @@ const GamesSingleProviderListing = ({
         (distinctTags, currentGame) => union(distinctTags, currentGame.tags),
         [ALL]
       )
-    } else return [ALL]
-  }, [games])
+    } else return [localType]
+  }, [games, localType])
   const { getTagName } = useGetTagName()
 
   const column = useResponsiveValue([4, 5, 6])
@@ -88,6 +87,14 @@ const GamesSingleProviderListing = ({
     }
   }, [games, filter])
 
+  useEffect(() => {
+    const selectedFilter = tags.find(
+      (f) => getTagName(f, gameCategoryTagTranslation) === localType
+    )
+    if (selectedFilter) {
+      setFilter(selectedFilter)
+    }
+  }, [tags, localType, getTagName, gameCategoryTagTranslation])
   return (
     <View
       sx={{ flex: 1, bg: '$primary.700', pt: top ? top + 10 : '$3', ...sx }}
@@ -167,33 +174,39 @@ const GamesSingleProviderListing = ({
           })}
         </GameListSectionGrid.TagBody>
       </View>
-      <View style={{ flex: 1 }}>
-        <FlashList
-          contentContainerStyle={{ paddingBottom: bottom, paddingTop: 12 }}
-          key={column}
-          estimatedItemSize={100}
-          data={searchedGame ?? filteredGames}
-          numColumns={column}
-          renderItem={({ item }: { item: Game }) => {
-            return (
-              <View
-                sx={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flex: 1,
-                  mb: '$2',
-                }}
-              >
-                <GameCard
-                  sx={{ width: '85%' }}
-                  {...item}
-                  displayName={item.name[locale]}
-                />
-              </View>
-            )
-          }}
-        />
-      </View>
+      {filteredGames.length > 0 ? (
+        <View style={{ flex: 1 }}>
+          <FlashList
+            contentContainerStyle={{ paddingBottom: bottom, paddingTop: 12 }}
+            key={column}
+            estimatedItemSize={100}
+            data={searchedGame ?? filteredGames}
+            numColumns={column}
+            renderItem={({ item }: { item: Game }) => {
+              return (
+                <View
+                  sx={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flex: 1,
+                    mb: '$2',
+                  }}
+                >
+                  <GameCard
+                    sx={{ width: '85%' }}
+                    {...item}
+                    displayName={item.name[locale]}
+                  />
+                </View>
+              )
+            }}
+          />
+        </View>
+      ) : (
+        <View sx={{ height: 350, justifyContent: 'center' }}>
+          <EmptyResult />
+        </View>
+      )}
     </View>
   )
 }

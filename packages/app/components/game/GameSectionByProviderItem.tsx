@@ -34,7 +34,7 @@ function GameSectionByProviderItem({
   bordered?: boolean
   gpc?: string
   games: Game[]
-  onViewMore?: (gpc: string) => void
+  onViewMore?: (gpc: string, tag: string) => void
   gameListProps?: any
   gameCategoryTagTranslation?: GameCategoryTagTranslation
   // GameListComponent: FC<{ data: Game[] }>
@@ -55,20 +55,20 @@ function GameSectionByProviderItem({
   }, [games])
 
   const filteredGame = useMemo(() => {
-    return (
-      filter === ALL ? games : games.filter((g) => g.tags.includes(filter))
-    ).slice(0, count)
-  }, [count, filter, games])
+    return filter === ALL ? games : games.filter((g) => g.tags.includes(filter))
+  }, [filter, games])
 
   const searchedGame = useMemo(() => {
     return search
-      ? filteredGame
-          .filter((g) => {
-            return g.name[locale]?.toLowerCase().includes(search.toLowerCase())
-          })
-          .slice(0, count)
+      ? filteredGame.filter((g) => {
+          return g.name[locale]?.toLowerCase().includes(search.toLowerCase())
+        })
       : undefined
-  }, [search, filteredGame, count, locale])
+  }, [search, filteredGame, locale])
+
+  const showMinimumGame = (game: Game[]) => {
+    return game.slice(0, count)
+  }
 
   useEffect(() => {
     if (tags.length) {
@@ -79,6 +79,10 @@ function GameSectionByProviderItem({
       })
     }
   }, [gpc, tags])
+
+  const canShowMore = () => {
+    return (searchedGame?.length ?? filteredGame.length ?? games.length) > 8
+  }
 
   return (
     <View nativeID={`gameSection${gpc}`}>
@@ -117,14 +121,14 @@ function GameSectionByProviderItem({
       </GameListSectionGrid.TagBody>
 
       <GameListSectionGrid.GameList
-        data={searchedGame ?? filteredGame}
+        data={showMinimumGame(searchedGame ?? filteredGame)}
         bordered={bordered}
         {...gameListProps}
       />
-      {onViewMore && (
+      {onViewMore && canShowMore() && (
         <Button
-          sx={{ alignSelf: 'center', mb: '$3' }}
-          onPress={() => gpc && onViewMore(gpc)}
+          sx={{ alignSelf: 'center', my: '$3' }}
+          onPress={() => gpc && onViewMore(gpc, filter)}
         >
           {t('common.showMore')}
         </Button>
