@@ -81,7 +81,7 @@ function GameSectionByProviderItem({
   }, [gpc, tags])
 
   const canShowMore = () => {
-    return (searchedGame?.length ?? filteredGame.length ?? games.length) > 8
+    return (searchedGame?.length ?? filteredGame.length ?? games.length) > count
   }
 
   return (

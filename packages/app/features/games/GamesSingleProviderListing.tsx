@@ -138,7 +138,8 @@ const GamesSingleProviderListing = ({
         </Row>
         <IconButtonGradientGroup
           sx={{
-            maxWidth: 550,
+            width: '80%',
+            maxWidth: [500, 550, 600],
             alignSelf: 'center',
           }}
         >
