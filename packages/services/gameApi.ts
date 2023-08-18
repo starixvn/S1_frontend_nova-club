@@ -18,6 +18,7 @@ import {
   LatestWinnerType,
   ProviderStatus,
 } from './gameApi.type'
+import uniqWith from 'lodash/uniqWith'
 
 /**
  * @param builder Pass builder from `createApi` *endpoints*
@@ -139,7 +140,7 @@ export const gameApi = baseApiWithTag.injectEndpoints({
               data: {
                 currency: Currency.VND,
                 game_category: _arg.game_category,
-                limit: 9999,
+                limit: 4000,
                 offset: 0,
               },
               _config: {
@@ -168,10 +169,12 @@ export const gameApi = baseApiWithTag.injectEndpoints({
             results = results.concat(gdcFilterResp.data?.data?.rows)
           }
 
-          console.log('results', results.length)
-
           return {
-            data: results,
+            data: uniqWith(
+              results,
+              (a: Game, b: Game) => a.gpc === b.gpc && a.gc === b.gc
+            ),
+            // data: results,
           }
         } catch (e) {
           console.log('error', e)
