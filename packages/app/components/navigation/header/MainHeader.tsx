@@ -62,7 +62,6 @@ const MainHeader = () => {
   const { theme } = useDripsyTheme()
   const { logout } = useOnAppLogout()
   const pathname = usePathname()
-  console.log('🚀 ~ file: MainHeader.tsx:65 ~ MainHeader ~ pathname:', pathname)
 
   const showDownloadPanel =
     Platform.OS === 'web' && !desktop && pathname === '/'
