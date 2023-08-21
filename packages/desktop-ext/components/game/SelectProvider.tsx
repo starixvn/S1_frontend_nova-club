@@ -2,6 +2,7 @@ import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Icon from 'app/components/Icon'
 import ShadowButton from 'app/components/ShadowButton'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
+import useLocalization from 'app/provider/localization'
 import { Row, ScrollView, SxProp, Text, View, useDripsyTheme } from 'dripsy'
 import React, { startTransition, useState } from 'react'
 import { SolitoImage } from 'solito/image'
@@ -98,7 +99,7 @@ export default function SelectProvider({ providers, value, onSelect }: Props) {
                 <DropdownMenu.Item
                   key={p}
                   style={{
-                    width: 125,
+                    width: 135,
                     height: 40,
                     flex: 1,
                     justifyContent: 'center',
@@ -134,6 +135,8 @@ export default function SelectProvider({ providers, value, onSelect }: Props) {
 }
 
 const AllSelection = ({ size = 16, sx }: { size?: number; sx?: SxProp }) => {
+  const { t } = useLocalization()
+
   return (
     <Row
       sx={{
@@ -152,7 +155,7 @@ const AllSelection = ({ size = 16, sx }: { size?: number; sx?: SxProp }) => {
           userSelect: 'none',
         }}
       >
-        {'ALL'}
+        {t('game.allProviders')}
       </Text>
     </Row>
   )
