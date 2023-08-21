@@ -1,6 +1,7 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { FlashList } from '@shopify/flash-list'
 import Icon from 'app/components/Icon'
+import SectionLabel from 'app/components/SectionLabel'
 import Shadow from 'app/components/Shadow'
 import GameCard from 'app/components/game/GameCard'
 import GameListSectionGrid from 'app/components/game/GameListSectionGrid'
@@ -26,17 +27,21 @@ import { SolitoImage } from 'solito/image'
 
 interface SlotSingleProviderListingProps {
   games: Game[]
-  provider: string
+  provider?: string
+  tag?: string
   onBack: () => void
   sx?: SxProp
   gameCategoryTagTranslation?: GameCategoryTagTranslation
+  hideTag?: boolean
 }
 const SlotSingleProviderListing = ({
   games,
   provider,
+  tag,
   onBack,
   sx,
   gameCategoryTagTranslation,
+  hideTag,
 }: SlotSingleProviderListingProps) => {
   const { top, bottom } = useSafeArea()
 
@@ -103,12 +108,15 @@ const SlotSingleProviderListing = ({
                 }}
               >
                 <Icon name="back" />
-                <SolitoImage
-                  alt={provider}
-                  height={20}
-                  width={100}
-                  src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${provider.toLowerCase()}.png`}
-                />
+                {provider && (
+                  <SolitoImage
+                    alt={provider}
+                    height={20}
+                    width={100}
+                    src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${provider.toLowerCase()}.png`}
+                  />
+                )}
+                {tag && <SectionLabel icon={tag} title={tag} />}
               </Row>
             </Shadow>
           </Pressable>
@@ -119,22 +127,24 @@ const SlotSingleProviderListing = ({
           />
         </Row>
 
-        <GameListSectionGrid.TagBody>
-          {tags.map((f) => {
-            const isActive = filter === f
-            return (
-              <GameListSectionGrid.TagButton
-                key={f}
-                onPress={() => {
-                  setFilter(f)
-                }}
-                isActive={isActive}
-              >
-                {getTagName(f, gameCategoryTagTranslation)}
-              </GameListSectionGrid.TagButton>
-            )
-          })}
-        </GameListSectionGrid.TagBody>
+        {!hideTag && (
+          <GameListSectionGrid.TagBody>
+            {tags.map((f) => {
+              const isActive = filter === f
+              return (
+                <GameListSectionGrid.TagButton
+                  key={f}
+                  onPress={() => {
+                    setFilter(f)
+                  }}
+                  isActive={isActive}
+                >
+                  {getTagName(f, gameCategoryTagTranslation)}
+                </GameListSectionGrid.TagButton>
+              )
+            })}
+          </GameListSectionGrid.TagBody>
+        )}
       </View>
       <View style={{ flex: 1 }}>
         <FlashList

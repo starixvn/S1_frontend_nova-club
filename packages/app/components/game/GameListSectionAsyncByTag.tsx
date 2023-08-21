@@ -7,11 +7,13 @@ interface GameListSectionAsyncByTagProps
   extends Omit<GameListSectionProps, 'data'> {
   tag: SlotType
   delay?: number
+  seeMoreUrl?: string
 }
 
 const GameListSectionAsyncByTag = ({
   tag,
   delay,
+  seeMoreUrl,
   ...rest
 }: GameListSectionAsyncByTagProps) => {
   const [isDelayed, setDelayed] = useState(false)
@@ -26,7 +28,7 @@ const GameListSectionAsyncByTag = ({
     skip: !isDelayed,
   })
 
-  return <GameListSection data={data} {...rest} />
+  return <GameListSection data={data} seeMoreUrl={seeMoreUrl} {...rest} />
 }
 
 export default memo(GameListSectionAsyncByTag)

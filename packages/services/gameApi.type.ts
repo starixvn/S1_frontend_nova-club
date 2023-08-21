@@ -30,6 +30,11 @@ export interface GameListQueryArgs {
   game_category: GameCategory
 }
 
+export interface GetGameListByTagsArgs {
+  tags: string[]
+  limit: number
+}
+
 export interface GameConfig {
   game_code: string
   game_name: string
