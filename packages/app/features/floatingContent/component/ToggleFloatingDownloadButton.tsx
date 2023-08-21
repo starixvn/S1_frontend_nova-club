@@ -23,13 +23,13 @@ const ToggleFloatingDownloadButton = ({
         <DrawerIconContainer>
           <MotiView
             animate={{
-              transform: [{ rotateZ: visible ? '180deg' : '0deg' }],
+              transform: [{ rotateZ: visible ? '90deg' : '270deg' }],
             }}
             transition={{ type: 'timing', duration: 500 }}
           >
             <Icon name={'back'} size={14} />
           </MotiView>
-          <DrawerText>{t('common.download')}</DrawerText>
+          <DrawerText numberOfLines={1}>{t('common.download')}</DrawerText>
         </DrawerIconContainer>
       </DrawerButton>
     </DrawerButtonContainer>
@@ -39,8 +39,8 @@ const ToggleFloatingDownloadButton = ({
 const DrawerButtonContainer = styled(View)({
   position: 'absolute',
   zIndex: 2,
-  left: 0,
-  top: 125,
+  left: 50,
+  top: 110,
 })
 
 const DrawerButton = styled(TouchableOpacity)({
@@ -48,23 +48,26 @@ const DrawerButton = styled(TouchableOpacity)({
   width: 20,
   alignItems: 'flex-end',
   justifyContent: 'center',
-  bg: 'blue',
 })
 
 const DrawerText = styled(Text)({
-  mb: '$4',
-  textWrap: 'nowrap',
-  transform: [{ rotateZ: '90deg' }],
+  // mb: '$5',
+  // textWrap: 'nowrap',
+  // flex: 1,
+  // bg: 'red',
+  // overflow: 'visible',
 })
 
 const DrawerIconContainer = styled(View)({
-  height: 150,
+  height: 20,
+  width: 120,
   backgroundColor: '$primary.200',
-  borderBottomRightRadius: 10,
-  width: 20,
+  borderTopRightRadius: 10,
   alignItems: 'center',
   justifyContent: 'space-between',
-  py: '$2',
+  transform: [{ rotateZ: '90deg' }],
+  flexDirection: 'row',
+  px: '$2',
 })
 
 export default ToggleFloatingDownloadButton

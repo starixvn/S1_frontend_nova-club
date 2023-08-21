@@ -72,17 +72,16 @@ const FloatingContentContainer = styled(View)(
     left: 0,
     top: 60,
     position: 'absolute',
-    height: 170,
+    height: 140,
     width: 140,
     overflow: 'hidden',
   })
 )
 const ContentOverlay = styled(MotiView)({
-  backgroundColor: 'rgba(30,30,30,0.4)',
-  borderTopLeftRadius: 10,
-  borderBottomLeftRadius: 10,
+  backgroundColor: 'rgba(30,30,30,0.7)',
+  borderTopRightRadius: 10,
+  borderBottomRightRadius: 10,
   height: '100%',
-  // justifyContent: 'center',
 })
 const ContentOffset = styled(View)({
   py: '$2',
