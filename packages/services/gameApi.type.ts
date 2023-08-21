@@ -32,7 +32,7 @@ export interface GameListQueryArgs {
 
 export interface GetGameListByTagsArgs {
   tags: string[]
-  limit: number
+  limit?: number
 }
 
 export interface GameConfig {
