@@ -83,7 +83,7 @@ function GameSectionByProviderItem({
   }
 
   useEffect(() => {
-    if (tags.length) {
+    if (seqTags.length) {
       const defaultTag = tags.find((tag) => tag === HOT)
 
       startTransition(() => {

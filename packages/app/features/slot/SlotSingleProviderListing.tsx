@@ -21,8 +21,10 @@ import {
 } from 'dripsy'
 import union from 'lodash/union'
 import React, { startTransition, useEffect, useMemo, useState } from 'react'
+import { useGameCategoryTagTypesQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
+import sortBy from 'lodash/sortBy'
 
 interface SlotSingleProviderListingProps {
   games: Game[]
@@ -45,15 +47,26 @@ const SlotSingleProviderListing = ({
   const [filter, setFilter] = useState<string>(ALL)
   const [search, setSearch] = useState<string>()
   const [filteredGames, setFilteredGames] = useState<Game[]>([])
+  const { data: gameCategoryTagTypes } = useGameCategoryTagTypesQuery()
+  const { getTagName } = useGetTagName()
+
   const tags = useMemo(() => {
     if (games) {
       return games.reduce(
         (distinctTags, currentGame) => union(distinctTags, currentGame.tags),
-        [ALL]
+        []
       )
     } else return ['ALL']
   }, [games])
-  const { getTagName } = useGetTagName()
+
+  // Sort according to gameCategoryTagTypes seq
+  const sortedTagsArray = sortBy(tags, (tag) => {
+    const filterTag = gameCategoryTagTypes?.filter((el) => el.gtc === 'slots')
+
+    const index = filterTag?.findIndex((item) => item.ck === tag)
+    return index !== -1 ? index : filterTag?.length
+  })
+  const seqTags = [ALL, ...sortedTagsArray]
 
   const column = useResponsiveValue([4, 5, 6])
   const searchedGame = useMemo(() => {
@@ -120,7 +133,7 @@ const SlotSingleProviderListing = ({
         </Row>
 
         <GameListSectionGrid.TagBody>
-          {tags.map((f) => {
+          {seqTags.map((f) => {
             const isActive = filter === f
             return (
               <GameListSectionGrid.TagButton
