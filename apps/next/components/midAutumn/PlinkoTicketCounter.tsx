@@ -39,10 +39,10 @@ const PlinkoTicketCounter = ({
     >
       <MotiView
         transition={{ type: 'timing', duration: 500 }}
-        from={{ rotateZ: '0deg' }}
+        from={{ scale: 1 }}
         animate={{
           ...(loading && {
-            rotateZ: '360deg',
+            scale: 1.5,
           }),
         }}
         style={{
@@ -60,7 +60,11 @@ const PlinkoTicketCounter = ({
         />
       </MotiView>
       {loading || loadingBalance ? (
-        <ActivityIndicator color="white" sx={{}} />
+        <ActivityIndicator
+          color="white"
+          size={enlargedHeight * 0.03}
+          sx={{ ml: '$1', height: enlargedHeight * 0.035 }}
+        />
       ) : (
         <Text
           sx={{

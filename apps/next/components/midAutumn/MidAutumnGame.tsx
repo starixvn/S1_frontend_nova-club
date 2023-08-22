@@ -366,14 +366,14 @@ const Plinko = () => {
       removeMatter()
       bgm.stop()
     }
-  }, [bgm, initMatter, removeMatter])
+  }, [])
 
   useEffect(() => {
     loginWithToken()
     dispatch(SettingActions.setLocale(locale ? locale : deviceLocale))
   }, [])
 
-  const handleDropBall = () => {
+  const handleDropBall = useCallback(() => {
     const ball = Composite.allBodies(engine.current.world).find(
       (body) => body.label === 'ball'
     )
@@ -385,7 +385,7 @@ const Plinko = () => {
       Body.set(ball, initialBallProperties)
       Body.setStatic(ball, false)
     }
-  }
+  }, [])
 
   const handleBalloonMoving = () => {
     const hotAirBalloon = Composite.allBodies(engine.current.world).find(
@@ -709,9 +709,8 @@ const Plinko = () => {
               )}
               <PlinkoBackButton scale={scale} />
               <Pressable
-                onPress={() => handleDropBall()}
-                // onPress={() => getResult()}
-                // disabled={!!!balance?.totalBalance || isLoading}
+                onPress={() => getResult()}
+                disabled={!!!balance?.totalBalance || isLoading}
                 style={{
                   top: enlargedHeight * 0.08,
                   right: enlargedWidth * 0.35,
@@ -725,7 +724,8 @@ const Plinko = () => {
                 {(isLoading || isFetching) && (
                   <ActivityIndicator
                     color={'white'}
-                    style={{ paddingTop: enlargedHeight * 0.11 }}
+                    size={enlargedHeight * 0.03}
+                    style={{ paddingTop: enlargedHeight * 0.15 }}
                   />
                 )}
               </Pressable>
