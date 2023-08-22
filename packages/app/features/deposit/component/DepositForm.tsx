@@ -32,6 +32,8 @@ import FieldAmount from './FieldAmount'
 import FieldSelectBank from './FieldSelectBank'
 import MinMaxLimitDetail from './MinMaxLimitDetail'
 import useDepositFailedMessage from '../tools/useDepositFailedMessage'
+import InputLabel from 'app/components/form/InputLabel'
+import HorizontalSelectBankCardGrid from './HorizontalSelectBankCardGrid'
 
 export type DepositValues = {
   bank: SelectOptions | null
@@ -73,7 +75,7 @@ const DepositForm = ({ DepositCategoryId }) => {
   )
 
   const [selectedValues, setSelectedValues] = useState(0)
-  const selectedChannel = depositPayment?.list[selectedValues]
+  const selectedChannel = depositPayment?.list[selectedValues] as AutoBankItem
 
   const inputFields = Object.values(selectedChannel?.player_input_fields ?? {})
 
@@ -179,14 +181,51 @@ const DepositForm = ({ DepositCategoryId }) => {
   return (
     <View sx={{ pt: '$3' }}>
       <View sx={{ px: horizontalMode ? 0 : '$4' }}>
-        <SelectList
-          label={t('deposit.selectChannel')}
-          placeholder={t('deposit.selectChannel')}
-          value={channelOptions && channelOptions[selectedValues]?.value}
-          loading={isLoading || isFetching}
-          options={channelOptions}
-          onSelected={handleSelected}
-        />
+        {horizontalMode ? (
+          <View>
+            <InputLabel label={t('bank.bank')} />
+            <View
+              sx={{
+                flex: 1,
+                flexDirection: 'column',
+                borderWidth: 1,
+                borderRadius: 15,
+                borderColor: '$primary.200',
+                p: 19,
+              }}
+            >
+              <Text sx={{ m: '$2', fontSize: 20, fontWeight: 'bold' }}>
+                {selectedChannel?.bank_name_local}
+              </Text>
+              <View sx={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                {channelOptions &&
+                  channelOptions.map((e, i) => {
+                    return (
+                      <View key={i} sx={{ width: '25%' }}>
+                        <HorizontalSelectBankCardGrid
+                          key={i}
+                          item={e}
+                          onPress={() => handleSelected(e.value)}
+                          selected={
+                            e.value === selectedChannel?.bankTypeId.toString()
+                          }
+                        />
+                      </View>
+                    )
+                  })}
+              </View>
+            </View>
+          </View>
+        ) : (
+          <SelectList
+            label={t('deposit.selectChannel')}
+            placeholder={t('deposit.selectChannel')}
+            value={channelOptions && channelOptions[selectedValues]?.value}
+            loading={isLoading || isFetching}
+            options={channelOptions}
+            onSelected={handleSelected}
+          />
+        )}
       </View>
       <View
         sx={{

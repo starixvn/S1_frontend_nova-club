@@ -30,6 +30,9 @@ import HeaderAuthentication from './HeaderAuthentication'
 import HeaderDeposit from './HeaderDeposit'
 import HeaderLanguageToggle from './HeaderLanguageToggle'
 import HeaderOverview from './HeaderOverview'
+import FloatingDownload from 'app/features/floatingContent/FloatingDownload'
+import { Platform } from 'react-native'
+import usePathname from 'app/hooks/usePathname'
 
 const LogoSize = [HEADER_HEIGHT * 0.5, HEADER_HEIGHT * 0.75]
 
@@ -58,7 +61,10 @@ const MainHeader = () => {
   const desktop = useIsDesktop()
   const { theme } = useDripsyTheme()
   const { logout } = useOnAppLogout()
+  const pathname = usePathname()
 
+  const showDownloadPanel =
+    Platform.OS === 'web' && !desktop && pathname === '/'
   const TriggerLogout = async () => {
     try {
       await logout()
@@ -146,6 +152,8 @@ const MainHeader = () => {
           <HeaderAuthentication />
         )}
       </HeaderContainer>
+
+      {showDownloadPanel && <FloatingDownload />}
     </View>
   )
 }

@@ -43,7 +43,8 @@
   "biometric": {
     "label": "Login with Biometrics",
     "message": "Would you like to enable biometric login?",
-    "notFound": "Biometric is not supported / not enabled on your device"
+    "notFound": "Biometric is not supported / not enabled on your device",
+    "title": "Biometric"
   },
   "commision": {
     "cashAgent": "Cash Agent",
@@ -198,8 +199,7 @@
         "won": "CONGRATULATIONS!",
         "won2": "YOU'VE WON TOTAL"
       },
-      "tnc": {
-      }
+      "tnc": {}
     },
     "claim": "CLAIM YOUR BONUS TICKET NOW",
     "jackpot": "Jackpot (Shared Pool Prize): 100,000,000 VND",

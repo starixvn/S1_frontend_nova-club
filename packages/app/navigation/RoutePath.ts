@@ -1,3 +1,4 @@
+import { Platform } from 'react-native'
 import { Route } from '../components/navigation/type'
 
 export const BOTTOM_ROUTE: Route[] = [
@@ -106,6 +107,11 @@ export const Profile_Quick_Navigation_Path: Route[] = [
     label: 'contact.customerSupport',
     path: '/account/customer-support',
     icon: 'cs',
+  },
+  {
+    label: 'biometric.title',
+    path: '/account/biometric',
+    icon: Platform.OS === 'ios' ? 'face-id' : 'fingerprint',
   },
   {
     label: 'common.logout',
