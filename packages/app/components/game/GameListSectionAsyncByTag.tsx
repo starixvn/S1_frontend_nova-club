@@ -23,10 +23,13 @@ const GameListSectionAsyncByTag = ({
     }, delay ?? 10)
   }, [])
 
-  const { data } = useGetGameListByTagsQuery([tag], {
-    refetchOnMountOrArgChange: true,
-    skip: !isDelayed,
-  })
+  const { data } = useGetGameListByTagsQuery(
+    { tags: [tag] },
+    {
+      refetchOnMountOrArgChange: true,
+      skip: !isDelayed,
+    }
+  )
 
   return <GameListSection data={data} seeMoreUrl={seeMoreUrl} {...rest} />
 }

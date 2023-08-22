@@ -16,10 +16,17 @@ type Params = {
   tag?: string
 }
 
+const TAG_VALUE = {
+  new: { icon: 'star', title: 'game.new' },
+  jackpot: { icon: 'jackpot', title: 'game.jackpot' },
+  megaway: { icon: 'megaway', title: 'game.megaway' },
+}
+
 const { useParam } = createParam<Params>()
 
 const TagScreen = () => {
   const { back } = useRouter()
+  const { t } = useLocalization()
 
   const [tagGameGroup, setTagGameGroup] = useState<Game[]>([])
 
@@ -57,7 +64,8 @@ const TagScreen = () => {
     <>
       <SlotSingleProviderListing
         games={tagGameGroup}
-        tag={tag}
+        icon={tag && TAG_VALUE[tag].icon}
+        title={t(tag && TAG_VALUE[tag].title).toUpperCase()}
         onBack={back}
         hideTag
       />

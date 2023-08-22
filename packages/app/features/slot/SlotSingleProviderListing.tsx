@@ -28,7 +28,8 @@ import { SolitoImage } from 'solito/image'
 interface SlotSingleProviderListingProps {
   games: Game[]
   provider?: string
-  tag?: string
+  icon?: string
+  title?: string
   onBack: () => void
   sx?: SxProp
   gameCategoryTagTranslation?: GameCategoryTagTranslation
@@ -37,7 +38,8 @@ interface SlotSingleProviderListingProps {
 const SlotSingleProviderListing = ({
   games,
   provider,
-  tag,
+  icon,
+  title = '',
   onBack,
   sx,
   gameCategoryTagTranslation,
@@ -116,7 +118,7 @@ const SlotSingleProviderListing = ({
                     src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${provider.toLowerCase()}.png`}
                   />
                 )}
-                {tag && <SectionLabel icon={tag} title={tag} />}
+                {icon && <SectionLabel icon={icon} title={title} />}
               </Row>
             </Shadow>
           </Pressable>
