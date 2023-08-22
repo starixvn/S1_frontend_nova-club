@@ -36,21 +36,27 @@ import usePathname from 'app/hooks/usePathname'
 
 const LogoSize = [HEADER_HEIGHT * 0.5, HEADER_HEIGHT * 0.75]
 
-const Logo = () => (
-  <Link href="/">
-    <Image
-      source={{
-        uri: `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered.png`,
-      }}
-      alt="header-logo"
-      sx={{
-        height: LogoSize,
-        aspectRatio: 292 / 88,
-        marginLeft: -5,
-      }}
-    />
-  </Link>
-)
+const Logo = () => {
+  const lang = useAppSelector((s) => s.setting.locale)
+  return (
+    <Link href="/">
+      <Image
+        source={{
+          uri:
+            lang === 'en'
+              ? `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered.png`
+              : `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered-vn.png`,
+        }}
+        alt="header-logo"
+        sx={{
+          height: LogoSize,
+          aspectRatio: 292 / 88,
+          marginLeft: -5,
+        }}
+      />
+    </Link>
+  )
+}
 
 const MainHeader = () => {
   const { top } = useSafeArea()
