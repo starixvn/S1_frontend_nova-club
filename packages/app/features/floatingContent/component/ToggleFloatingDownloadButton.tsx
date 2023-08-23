@@ -21,15 +21,15 @@ const ToggleFloatingDownloadButton = ({
     <DrawerButtonContainer>
       <DrawerButton onPress={() => toggleFloatingDrawer(!visible)}>
         <DrawerIconContainer>
+          <DrawerText numberOfLines={1}>{t('common.download')}</DrawerText>
           <MotiView
             animate={{
-              transform: [{ rotateZ: visible ? '90deg' : '270deg' }],
+              transform: [{ rotateZ: visible ? '270deg' : '90deg' }],
             }}
             transition={{ type: 'timing', duration: 500 }}
           >
             <Icon name={'back'} size={14} />
           </MotiView>
-          <DrawerText numberOfLines={1}>{t('common.download')}</DrawerText>
         </DrawerIconContainer>
       </DrawerButton>
     </DrawerButtonContainer>
@@ -51,17 +51,17 @@ const DrawerButton = styled(TouchableOpacity)({
 })
 
 const DrawerText = styled(Text)({
-  ml: '$2',
+  mr: '$2',
 })
 
 const DrawerIconContainer = styled(View)({
   height: 20,
   width: 120,
   backgroundColor: '$primary.200',
-  borderTopRightRadius: 10,
+  borderBottomLeftRadius: 10,
   alignItems: 'center',
-  // justifyContent: 'space-between',
-  transform: [{ rotateZ: '90deg' }],
+  justifyContent: 'flex-end',
+  transform: [{ rotateZ: '270deg' }],
   flexDirection: 'row',
   px: '$2',
 })
