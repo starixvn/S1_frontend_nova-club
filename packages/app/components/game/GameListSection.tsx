@@ -8,16 +8,18 @@ export interface GameListSectionProps {
   data?: Game[]
   icon: string
   title: string
+  seeMoreUrl?: string
 }
 
 export default function GameListSection({
   data,
   icon,
   title,
+  seeMoreUrl,
 }: GameListSectionProps) {
   return (
     <View>
-      <SectionHeader icon={icon} title={title} />
+      <SectionHeader icon={icon} title={title} seeMoreUrl={seeMoreUrl} />
       <View
         sx={{
           height: [90, 120],
