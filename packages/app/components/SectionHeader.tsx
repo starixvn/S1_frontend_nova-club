@@ -66,7 +66,7 @@ export default function SectionHeader({
               }}
               onPress={() => handleSeeMoreRedirect(seeMoreUrl)}
             >
-              <Text sx={{ textDecorationLine: 'underline' }}>
+              <Text sx={{ textDecorationLine: 'underline', fontSize: 11 }}>
                 {t('common.seeMore')} {'>>'}
               </Text>
             </TouchableOpacity>
