@@ -51,11 +51,7 @@ const DrawerButton = styled(TouchableOpacity)({
 })
 
 const DrawerText = styled(Text)({
-  // mb: '$5',
-  // textWrap: 'nowrap',
-  // flex: 1,
-  // bg: 'red',
-  // overflow: 'visible',
+  ml: '$2',
 })
 
 const DrawerIconContainer = styled(View)({
@@ -64,7 +60,7 @@ const DrawerIconContainer = styled(View)({
   backgroundColor: '$primary.200',
   borderTopRightRadius: 10,
   alignItems: 'center',
-  justifyContent: 'space-between',
+  // justifyContent: 'space-between',
   transform: [{ rotateZ: '90deg' }],
   flexDirection: 'row',
   px: '$2',
