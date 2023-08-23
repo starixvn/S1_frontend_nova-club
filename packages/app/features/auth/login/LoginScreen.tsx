@@ -8,6 +8,9 @@ import LoginForm from './LoginForm'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useRouter } from 'solito/router'
+import IconButton from 'app/components/IconButton'
+import { Platform } from 'react-native'
+import useLoginProcess from './useLoginProcess'
 
 export const memberRoute = {
   key: 'first',
@@ -30,15 +33,30 @@ export default function LoginScreen() {
 
   const agentToken = useAppSelector((s) => s.agent.access_token)
   const memberToken = useAppSelector((state) => state.auth.info?.token)
+  const biometricCredentials = useAppSelector(
+    (s) => s.setting.biometricCredentials
+  )
 
   const { replace } = useRouter()
 
+  const [isBiometricAvailable, setIsBiometricAvailable] = useState(false)
   const [routes, setRoutes] = useState([memberRoute, agentRoute])
 
   const [type, setType] = useParam('t', { initial: LoginType.Member })
   const [index, setIndex] = useState(0)
 
   const isAgentLogin = useMemo(() => type === LoginType.Agent, [type])
+  const { checkBiometricEnabled, loginWithBiometric } = useLoginProcess()
+
+  useEffect(() => {
+    const checkBiometric = async () => {
+      const biometricAvailable = await checkBiometricEnabled()
+
+      setIsBiometricAvailable(!!biometricAvailable)
+    }
+
+    Platform.OS !== 'web' && checkBiometric()
+  }, [])
 
   const handlePress = (value) => {
     if (agentToken) {
@@ -77,6 +95,18 @@ export default function LoginScreen() {
       <View sx={{ width: '100%', maxWidth: 600 }}>
         <LoginForm isAgent={isAgentLogin} />
       </View>
+
+      {Platform.OS !== 'web' &&
+        !!biometricCredentials &&
+        isBiometricAvailable && (
+          <View sx={{ mt: '$4', mb: '$5' }}>
+            <IconButton
+              name={Platform.OS === 'ios' ? 'face-id' : 'fingerprint'}
+              size={36}
+              onPress={loginWithBiometric}
+            />
+          </View>
+        )}
     </AuthLayout>
   )
 }

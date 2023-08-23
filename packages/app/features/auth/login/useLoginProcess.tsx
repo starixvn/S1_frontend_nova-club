@@ -146,5 +146,11 @@ export default function useLoginProcess() {
     }
   }
 
-  return { handleSuccessLogin, showBiometricDialog, biometricProcess }
+  return {
+    handleSuccessLogin,
+    showBiometricDialog,
+    biometricProcess,
+    loginWithBiometric,
+    checkBiometricEnabled,
+  }
 }
