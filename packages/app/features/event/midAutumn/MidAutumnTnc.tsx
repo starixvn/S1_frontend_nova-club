@@ -9,7 +9,7 @@ import WebView from 'react-native-webview'
 const MidAutumnTnc = () => {
   const lang = useAppSelector((state) => state.setting.locale)
   const { t } = useLocalization()
-  const TNC_URL = `${DEV_DOMAIN}/event/plinko-tnc?locale=${lang}`
+  const TNC_URL = `${DEV_DOMAIN}/event/mid-autumn-tnc?locale=${lang}`
 
   // Used to hide the header inside webview
   const INJECTED_JAVASCRIPT = `

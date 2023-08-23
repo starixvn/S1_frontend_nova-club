@@ -42,7 +42,6 @@ const FloatingDrawer = ({
             transition={{ type: 'timing', duration: 500 }}
           >
             <ContentOffset>
-              <PlinkoEvent size={size} />
               <MidAutumnFloat size={size} />
               {!isDesktop && <LiveChatButton />}
             </ContentOffset>

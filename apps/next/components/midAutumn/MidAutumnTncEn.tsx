@@ -1,10 +1,10 @@
 import React from 'react'
 
-const PlinkoTncEn = () => {
+const MidAutumnTncEn = () => {
   return (
     <div>
       <h2>CRAZY PLINKO (ENHANCED VERSION)</h2>
-      <p>Campaign Period: 01-31/08/2023</p>
+      <p>Campaign Period: 01-30/09/2023</p>
 
       <br />
       <div>
@@ -45,4 +45,4 @@ const PlinkoTncEn = () => {
   )
 }
 
-export default PlinkoTncEn
+export default MidAutumnTncEn

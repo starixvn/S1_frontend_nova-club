@@ -1,10 +1,10 @@
 import React from 'react'
 
-const PlinkoTncVi = () => {
+const MidAutumnTncVi = () => {
   return (
     <div>
       <h2>THẢ BÓNG LƯỢM TIỀN (PHIÊN BẢN CẢI TIẾN) </h2>
-      <p>Thời gian khuyến mãi: 01-31/08/2023</p>
+      <p>Thời gian khuyến mãi: 01-30/09/2023</p>
 
       <br />
       <div>
@@ -45,4 +45,4 @@ const PlinkoTncVi = () => {
   )
 }
 
-export default PlinkoTncVi
+export default MidAutumnTncVi

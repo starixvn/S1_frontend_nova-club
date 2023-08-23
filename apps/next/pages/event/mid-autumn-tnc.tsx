@@ -5,13 +5,13 @@ import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useRouter } from 'next/router'
-import PlinkoTncEn from '../../components/plinko-event/PlinkoTncEn'
-import PlinkoTncVi from '../../components/plinko-event/PlinkoTncVi'
+import MidAutumnTncEn from '../../components/midAutumn/MidAutumnTncEn'
+import MidAutumnTncVi from '../../components/midAutumn/MidAutumnTncVi'
 
 const FONT_COLOR = '#FFF'
 const FONT_SIZE = 12
 
-const PlinkoTnc = () => {
+const MidAutumnTnc = () => {
   const router = useRouter()
   const deviceLocale = useAppSelector((s) => s.setting.locale)
   const locale = router.query?.locale ? router.query?.locale : deviceLocale
@@ -21,11 +21,11 @@ const PlinkoTnc = () => {
   const TnCLanguage = () => {
     switch (isDesktop ? deviceLocale : locale) {
       case 'en':
-        return <PlinkoTncEn />
+        return <MidAutumnTncEn />
       case 'vi':
-        return <PlinkoTncVi />
+        return <MidAutumnTncVi />
       default:
-        return <PlinkoTncVi />
+        return <MidAutumnTncVi />
     }
   }
 
@@ -87,4 +87,4 @@ const PlinkoTnc = () => {
   )
 }
 
-export default PlinkoTnc
+export default MidAutumnTnc
