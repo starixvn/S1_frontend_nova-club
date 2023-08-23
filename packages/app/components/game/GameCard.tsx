@@ -1,9 +1,16 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { LaunchGame } from 'app/features/game/GameLauncher'
 import { LaunchGamePayload } from 'app/store/gameLauncher.slice'
-import { SxProp, Text, View, styled, useSx } from 'dripsy'
+import { ActivityIndicator, SxProp, View, styled, useSx } from 'dripsy'
 import { MotiPressable } from 'moti/interactions'
-import React, { memo, useMemo, useRef, useState, useTransition } from 'react'
+import React, {
+  memo,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useTransition,
+} from 'react'
 import {
   GestureResponderEvent,
   Platform,
@@ -14,14 +21,18 @@ import { SolitoImage } from 'solito/image'
 
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import { AnimatePresence, MotiView } from 'moti'
+import GameRebateLabel from './GameRebateLabel'
 
 export interface GameCardProps extends PressableProps, LaunchGamePayload {
   displayName?: string
   width?: number | number[] | string | string[]
   height?: number | number[]
   sx?: SxProp
+  rebateText?: string
   containerSx?: SxProp
   absoluteName?: boolean
+  showRebate?: boolean
+  rebateTop?: boolean
 }
 
 const GameCard = ({
@@ -33,6 +44,9 @@ const GameCard = ({
   containerSx,
   onPress,
   absoluteName,
+  rebateText,
+  rebateTop = false,
+  showRebate = false,
   ...rest
 }: GameCardProps) => {
   const lastLoadedRef = useRef(img)
@@ -40,7 +54,6 @@ const GameCard = ({
   const [isPending, startTransition] = useTransition()
   const desktopMode = useIsDesktop()
   const ss = useSx()
-
   if (lastLoadedRef.current != img) {
     lastLoadedRef.current = img
     startTransition(() => setLoaded(false))
@@ -67,7 +80,14 @@ const GameCard = ({
       })
     }
   }
-
+  const [isRebateLoading, setIsRebateLoading] = useState(
+    rebateText === undefined
+  )
+  useEffect(() => {
+    if (rebateText) {
+      setIsRebateLoading(false)
+    }
+  }, [rebateText])
   return (
     <Root
       containerStyle={ss({
@@ -127,17 +147,24 @@ const GameCard = ({
           </AnimatePresence>
         )}
       </View>
-      {displayName && (
-        <LabelContainer absolute={absoluteName}>
-          <Text
-            sx={{
-              textAlign: 'center',
-              fontWeight: 'bold',
-              fontSize: [12, 14],
-            }}
-          >
-            {displayName}
-          </Text>
+      {showRebate && (
+        <LabelContainer rebateTop={rebateTop}>
+          {/* {!!displayName && (
+            <Text
+              sx={{
+                textAlign: 'center',
+                fontWeight: 'bold',
+                fontSize: [12, 14],
+              }}
+            >
+              {displayName}
+            </Text>
+          )} */}
+          {isRebateLoading ? (
+            <ActivityIndicator />
+          ) : (
+            <GameRebateLabel key={rebateText} rebateText={rebateText} />
+          )}
         </LabelContainer>
       )}
     </Root>
@@ -151,21 +178,28 @@ const Root = styled(MotiPressable)({
   // aspectRatio: 1,
   overflow: 'hidden',
 })
-const LabelContainer = styled(View)(({ absolute }: { absolute?: boolean }) =>
-  absolute
+const LabelContainer = styled(View)(({ rebateTop }: { rebateTop?: boolean }) =>
+  rebateTop //Bad Implementation
     ? {
+        py: [24, 28],
         width: '100%',
-        borderTopWidth: StyleSheet.hairlineWidth,
-        borderTopColor: '$primary.100',
-        borderBottomRightRadius: 10,
-        borderBottomLeftRadius: 10,
-        bg: `rgba(50, 50, 90, 0.8)`,
         position: 'absolute',
-        bottom: 0,
-        py: [6, '$2'],
+        top: 0,
+        right: 0,
+        justifyContent: 'flex-end',
+        flexDirection: 'row',
+        pr: '$2',
+        alignItems: 'center',
       }
     : {
-        pt: [6, '$2'],
+        py: [6, '$2'],
         width: '100%',
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        justifyContent: 'flex-end',
+        flexDirection: 'row',
+        pr: '$2',
+        alignItems: 'center',
       }
 )

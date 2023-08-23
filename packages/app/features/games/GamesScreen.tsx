@@ -31,6 +31,7 @@ import GamesScreenSingleProvider from './GamesSingleProviderListing'
 import { MobileGamesFilter, SUB_ROUTES } from './subroutes'
 import useLocalization from 'app/provider/localization'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
+import { uniqBy } from 'lodash'
 
 type Params = {
   type?: string
@@ -101,8 +102,13 @@ const GamesScreen = () => {
   }, [filteredGames])
 
   const providers = useMemo(() => {
-    return Object.keys(gamesByProviders)
-  }, [gamesByProviders])
+    if (games)
+      return uniqBy(
+        games.map(({ gtc, gpc }) => ({ gtc, gpc })),
+        'gpc'
+      )
+    else return []
+  }, [games])
 
   const gameGroup: Game[][] = useMemo(() => {
     return Object.values(gamesByProviders).filter((v) => v.length > 0)
@@ -169,6 +175,7 @@ const GamesScreen = () => {
         if (item && item[0])
           return (
             <GameSectionByProviderItem
+              gtc={item[0].gtc}
               gpc={item[0].gpc}
               games={item}
               onViewMore={onViewMore}

@@ -1,8 +1,8 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import GameCard from 'app/components/game/GameCard'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
-import groupBy from 'lodash/groupBy'
 import React, { useMemo } from 'react'
+import { uniqBy } from 'lodash'
 import {
   useGameListMultipleQuery,
   useGameProviderListQuery,
@@ -11,6 +11,7 @@ import {
 import { useRouter } from 'solito/router'
 import DropdownContent from '../DropdownContent'
 import { NAVIGATION_DROPDOWN_MENU } from '../NavigationHeaderProvider'
+import useGameRebateValue from 'app/hooks/useGameRebateValue'
 
 type Props = {}
 
@@ -27,9 +28,16 @@ export default function Slots({}: Props) {
   })
 
   const providers = useMemo(() => {
-    if (data) return Object.keys(groupBy(data, 'gpc'))
+    if (data)
+      return uniqBy(
+        data.map(({ gtc, gpc }) => ({ gtc, gpc })),
+        'gpc'
+      )
     else return []
   }, [data])
+
+  const { GetCommissionList, GetRebate } = useGameRebateValue()
+  const commissionList = GetCommissionList()
 
   return (
     <DropdownContent data={data} menu={NAVIGATION_DROPDOWN_MENU.Slots}>
@@ -37,14 +45,19 @@ export default function Slots({}: Props) {
         providers.map((g) => {
           return (
             <GameCard
-              absoluteName
-              onPress={() => push(`/slots/${g.toLowerCase()}`)}
+              rebateText={GetRebate({
+                gtc: g.gtc,
+                gpc: g.gpc,
+                commissionList,
+              })}
+              showRebate={true}
+              onPress={() => push(`/slots/${g.gpc.toLowerCase()}`)}
               // displayName={
               //   providerStatus ? providerStatus[g]?.system_name : undefined
               // }
-              key={g}
+              key={g.gpc}
               sx={{ width: '11%' }}
-              img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/slots/${g.toLowerCase()}.png`}
+              img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/slots/${g.gpc.toLowerCase()}.png`}
             />
           )
         })}

@@ -12,11 +12,13 @@ import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
+import useGameRebateValue from 'app/hooks/useGameRebateValue'
 
 export default function LiveCasinoScreen() {
   const { data } = useGetGameListByCategoryQuery([GAME_TYPE_CODE.LIVE_DEALER])
   const { t } = useLocalization()
-
+  const { GetCommissionList, GetRebate } = useGameRebateValue()
+  const commissionList = GetCommissionList()
   const firstGameOfEachProvider = useMemo(() => {
     if (data) {
       const groupedGames = groupBy(data, 'gpc')
@@ -54,6 +56,12 @@ export default function LiveCasinoScreen() {
         <GameCard
           // absoluteName
           // displayName={formattedName}
+          showRebate={true}
+          rebateText={GetRebate({
+            commissionList,
+            gtc: item.gtc,
+            gpc: item.gpc,
+          })}
           sx={{
             my: `${spacePercentage}%`,
             flex: 1,
@@ -77,6 +85,7 @@ export default function LiveCasinoScreen() {
       data={firstGameOfEachProvider}
       renderItem={renderItem}
       numColumns={numColumns}
+      extraData={commissionList}
       ListHeaderComponent={
         <View sx={{ gap: '$3', my: '$3' }}>
           <GamePageHeader title={t('game.category.liveCasino')} icon="casino" />

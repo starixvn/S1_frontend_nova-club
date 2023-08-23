@@ -21,9 +21,12 @@ import { ALL, HOT } from 'app/utils/constant'
 import { Text } from 'dripsy'
 import Button from '../common/Button'
 import GameListSectionGrid from './GameListSectionGrid'
+import GameRebateLabel from './GameRebateLabel'
+import useGameRebateValue from 'app/hooks/useGameRebateValue'
 
 function GameSectionByProviderItem({
   gpc,
+  gtc,
   games = [],
   // GameListComponent = GameSectionByProviderItemGameListSummary,
   bordered = false,
@@ -33,6 +36,7 @@ function GameSectionByProviderItem({
 }: {
   bordered?: boolean
   gpc?: string
+  gtc?: string
   games: Game[]
   onViewMore?: (gpc: string, tag: string) => void
   gameListProps?: any
@@ -83,25 +87,35 @@ function GameSectionByProviderItem({
   const canShowMore = () => {
     return (searchedGame?.length ?? filteredGame.length ?? games.length) > count
   }
+  const { GetCommissionList, GetRebate } = useGameRebateValue()
+  const commissionList = GetCommissionList()
 
   return (
     <View nativeID={`gameSection${gpc}`}>
       <GameListSectionGrid.Header
+        showRebate={true}
+        rebateValue={GetRebate({
+          gtc: gtc ?? '',
+          gpc: gpc ?? '',
+          commissionList,
+        })}
         onSearch={(t) => {
           startTransition(() => setSearch(t))
         }}
       >
-        {gpc ? (
-          <SolitoImage
-            height={20}
-            width={90}
-            src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${gpc?.toLowerCase()}.png`}
-            contentFit="contain"
-            alt={gpc}
-          />
-        ) : (
-          <Text sx={{ fontWeight: '900' }}>{t('common.all')}</Text>
-        )}
+        <View sx={{ flexDirection: 'row' }}>
+          {gpc ? (
+            <SolitoImage
+              height={20}
+              width={90}
+              src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${gpc?.toLowerCase()}.png`}
+              contentFit="contain"
+              alt={gpc}
+            />
+          ) : (
+            <Text sx={{ fontWeight: '900' }}>{t('common.all')}</Text>
+          )}
+        </View>
       </GameListSectionGrid.Header>
       <GameListSectionGrid.TagBody>
         {tags.map((f) => {

@@ -1,10 +1,19 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Icon from 'app/components/Icon'
+import { LaunchGame } from 'app/features/game/GameLauncher'
 import { DesktopGamesFilter, SUB_ROUTES } from 'app/features/games/subroutes'
 import useGameScreen from 'app/features/games/useGameScreen'
 import RecentlyPlayedSection from 'app/features/home/RecentlyPlayedSection'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'app/utils/constant'
+import {
+  CONTENT_FROM_TOP,
+  CONTENT_FROM_TOP_2,
+  GAME_TYPE_CODE,
+  GDC_GAME_CATEGORY,
+  HEADER_HEIGHT_OFFSET,
+  SCROLL_OFFSET_TOP,
+} from 'app/utils/constant'
 import LatestWinnerSection from 'desktop-ext/components/game/LatestWinnerSection'
 import {
   ActivityIndicator,
@@ -15,18 +24,16 @@ import {
   View,
 } from 'dripsy'
 import { ResizeMode, Video } from 'expo-av'
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Platform } from 'react-native'
 import { LatestWinnerType } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
 import GameList from './GameList'
-import { LaunchGame } from 'app/features/game/GameLauncher'
-import isDesktop from 'app/utils/isDesktop'
 
 type Props = {}
 
 function GamesScreen({}: Props) {
-  const desktop = isDesktop()
+  const desktop = useIsDesktop()
   const { route, filteredGames, onFilterClicked, gameCategoryTagTranslation } =
     useGameScreen(SUB_ROUTES.local.route)
 
@@ -95,8 +102,11 @@ function GamesScreen({}: Props) {
           <ActivityIndicator color="$primary.300" size="large" />
         </View>
       ) : (
-        <Row sx={{ gap: '$3', position: 'relative' }}>
-          <GameTypeFilter onFilterClicked={onFilterClicked} />
+        <Row sx={{ gap: '$3', position: 'relative' }} nativeID="content">
+          <GameTypeFilter
+            onFilterClicked={onFilterClicked}
+            currentRoute={route.route}
+          />
           <GameList
             sx={{ flex: 1 }}
             games={filteredGames}
@@ -109,21 +119,66 @@ function GamesScreen({}: Props) {
   )
 }
 
-const GameTypeFilter = ({ onFilterClicked, ...rest }) => {
+const GameTypeFilter = ({ onFilterClicked, currentRoute, ...rest }) => {
   const { t } = useLocalization()
+
+  const [currentFilter, setCurrentFilter] = useState<string>(currentRoute)
+
+  const handleCurrentFilter = useCallback(() => {
+    setCurrentFilter(currentRoute)
+    const element = document.getElementById('content')
+    if (element) {
+      const elementTop = element.getBoundingClientRect().top
+
+      // If the element is within the desired range, return early
+      if (elementTop > CONTENT_FROM_TOP && elementTop < CONTENT_FROM_TOP_2) {
+        return
+      }
+
+      // Scroll the element into view smoothly
+      element.scrollIntoView({ behavior: 'smooth' })
+
+      // Adjust the window scroll position if necessary
+      if (elementTop < SCROLL_OFFSET_TOP || elementTop > CONTENT_FROM_TOP) {
+        window.scrollBy(0, elementTop - HEADER_HEIGHT_OFFSET)
+      }
+    }
+  }, [currentRoute])
+
+  useEffect(() => {
+    handleCurrentFilter()
+  }, [handleCurrentFilter, currentRoute])
+
   return (
-    <View sx={{ gap: '$3', width: [175, 175, 175, 175, 200] }} {...rest}>
+    <View sx={{ gap: '$2', width: [175, 175, 175, 150] }} {...rest}>
       {DesktopGamesFilter.map((r, i) => {
+        const isActive = r.route === currentFilter
+
         return (
           <Pressable
             key={i}
-            onPress={() => onFilterClicked(r, i)}
+            onPress={() => {
+              onFilterClicked(r, i)
+              setCurrentFilter(r.route)
+            }}
             sx={{
-              width: [175, 175, 175, 175, 200],
-              aspectRatio: 240 / 80,
+              width: [175, 175, 175, 150],
+              aspectRatio: 230 / 80,
               position: 'relative',
+              borderWidth: isActive ? 2 : 0,
+              borderColor: '$secondary.200',
+              overflow: 'hidden',
             }}
           >
+            <div
+              className="btn btn-hover"
+              style={{
+                width: '100%',
+                height: '100%',
+                position: 'absolute',
+                zIndex: 1,
+              }}
+            />
             <SolitoImage
               style={{ position: 'absolute' }}
               fill
@@ -138,11 +193,11 @@ const GameTypeFilter = ({ onFilterClicked, ...rest }) => {
                   justifyContent: 'center',
                 }}
               >
-                <Icon size={40} name={r.icon} />
+                <Icon size={30} name={r.icon} />
               </View>
               <Text
                 sx={{
-                  fontSize: 18,
+                  fontSize: 14,
                   lineHeight: 22,
                   fontWeight: '900',
                   flex: 1.1,

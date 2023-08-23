@@ -1,6 +1,8 @@
 import { FlashList } from '@shopify/flash-list'
 import GamePageHeader from 'app/components/GamePageHeader'
 import GameCard from 'app/components/game/GameCard'
+import useGameRebateValue from 'app/hooks/useGameRebateValue'
+import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
 import { Row, View, useResponsiveValue } from 'dripsy'
@@ -8,7 +10,6 @@ import React from 'react'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import MatchSection from './MatchSection'
-import useLocalization from 'app/provider/localization'
 
 export default function SportsbookScreen() {
   const { t } = useLocalization()
@@ -19,6 +20,8 @@ export default function SportsbookScreen() {
     GAME_TYPE_CODE.E_SPORTS,
     GAME_TYPE_CODE.VIRTUAL_SPORTS,
   ])
+  const { GetCommissionList, GetRebate } = useGameRebateValue()
+  const commissionList = GetCommissionList()
 
   const numColumns = useResponsiveValue([2, 3, 3, 4])
 
@@ -44,6 +47,13 @@ export default function SportsbookScreen() {
         }}
       >
         <GameCard
+          showRebate={true}
+          rebateText={GetRebate({
+            commissionList,
+            gtc: item.gtc,
+            gpc: item.gpc,
+          })}
+          rebateTop
           displayName={formattedName}
           // image={img}
           sx={{
@@ -68,6 +78,7 @@ export default function SportsbookScreen() {
       contentContainerStyle={{
         paddingBottom: 40,
       }}
+      extraData={commissionList}
       ListHeaderComponent={
         <View sx={{ gap: '$3', my: '$3' }}>
           <GamePageHeader

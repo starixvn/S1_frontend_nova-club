@@ -29,6 +29,7 @@ import { useRouter } from 'solito/router'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 import SlotSingleProviderListing from './SlotSingleProviderListing'
 import GameListSectionAsyncByTag from 'app/components/game/GameListSectionAsyncByTag'
+import { uniqBy } from 'lodash'
 
 type Params = {
   provider?: string
@@ -63,8 +64,13 @@ function SlotScreen() {
   }, [games])
 
   const providers = useMemo(() => {
-    return Object.keys(gamesByProviders)
-  }, [gamesByProviders])
+    if (games)
+      return uniqBy(
+        games.map(({ gtc, gpc }) => ({ gtc, gpc })),
+        'gpc'
+      )
+    else return []
+  }, [games])
 
   useEffect(() => {
     const gamesGroup = Object.values(gamesByProviders).filter(
@@ -131,6 +137,7 @@ function SlotScreen() {
         if (item && item[0])
           return (
             <GameSectionByProviderItem
+              gtc={item[0].gtc}
               gpc={item[0].gpc}
               games={item}
               onViewMore={onViewMore}

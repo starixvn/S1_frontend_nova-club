@@ -1,19 +1,22 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import SkeletonPlaceholder from 'app/components/SkeletonPlaceholder'
 import GameSectionByProviderItem from 'app/components/game/GameSectionByProviderItem'
 import RecentlyPlayedSection from 'app/features/home/RecentlyPlayedSection'
 import {
+  CONTENT_FROM_TOP,
+  CONTENT_FROM_TOP_2,
   GAME_TYPE_CODE,
-  GDC_GAME_CATEGORY,
+  HEADER_HEIGHT_OFFSET,
   ProviderImageCategory,
+  SCROLL_OFFSET_TOP,
 } from 'app/utils/constant'
 import ProviderList from 'desktop-ext/components/game/ProviderList'
 import { ActivityIndicator, Container, Row, View } from 'dripsy'
+import { uniqBy } from 'lodash'
 import React, { useMemo } from 'react'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { createParam } from 'solito'
-import groupBy from 'lodash/groupBy'
 import { SolitoImage } from 'solito/image'
-import SkeletonPlaceholder from 'app/components/SkeletonPlaceholder'
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 type Props = {}
 
@@ -46,18 +49,35 @@ export default function LiveCasinoScreen({}: Props) {
     return null
   }, [games, provider, setProvider])
 
-  const gamesByProviders = useMemo(() => {
-    return groupBy(games, 'gpc')
-  }, [games])
-
   const providers = useMemo(() => {
-    return Object.keys(gamesByProviders)
-  }, [gamesByProviders])
+    if (games)
+      return uniqBy(
+        games.map(({ gtc, gpc }) => ({ gtc, gpc })),
+        'gpc'
+      )
+    else return []
+  }, [games])
 
   function onNavigate(index: number, gpc: string) {
     setProvider(gpc.toLowerCase())
-  }
+    const element = document.getElementById('content')
+    if (element) {
+      const elementTop = element.getBoundingClientRect().top
 
+      // If the element is within the desired range, return early
+      if (elementTop > CONTENT_FROM_TOP && elementTop < CONTENT_FROM_TOP_2) {
+        return
+      }
+
+      // Scroll the element into view smoothly
+      element.scrollIntoView({ behavior: 'smooth' })
+
+      // Adjust the window scroll position if necessary
+      if (elementTop < SCROLL_OFFSET_TOP || elementTop > CONTENT_FROM_TOP) {
+        window.scrollBy(0, elementTop - HEADER_HEIGHT_OFFSET)
+      }
+    }
+  }
   return (
     <Container>
       <View sx={{ width: '100%', aspectRatio: 1280 / 333, mb: '$3' }}>
@@ -75,11 +95,13 @@ export default function LiveCasinoScreen({}: Props) {
           <ActivityIndicator color="$primary.300" size="large" />
         </View>
       ) : (
-        <Row sx={{ gap: '$3', position: 'relative' }}>
+        <Row sx={{ gap: '$3', position: 'relative' }} nativeID="content">
           <ProviderList
             data={providers}
             onNavigateProvider={onNavigate}
             imageCategory={ProviderImageCategory.LiveCasino}
+            provider={provider}
+            handleProvider={() => setProvider}
           />
           <View
             sx={{

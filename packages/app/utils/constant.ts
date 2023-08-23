@@ -12,6 +12,12 @@ export const LANGUAGE_SUBTAG = {
   [LANGUAGE_CODE.VIETNAM]: 'vi',
 }
 
+//For Desktop Scroll to Content offset and configuration
+export const CONTENT_FROM_TOP = 120
+export const CONTENT_FROM_TOP_2 = 130
+export const SCROLL_OFFSET_TOP = 10
+export const HEADER_HEIGHT_OFFSET = 125
+
 export const LOGOUT_ACTION = 'LOGOUT'
 
 //App Device OS

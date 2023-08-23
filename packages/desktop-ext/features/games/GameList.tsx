@@ -13,6 +13,7 @@ import {
   type GameCategoryTagTranslation,
 } from 'app/hooks/appState/game/useGameCategoryTag'
 import { useAppSelector } from 'app/provider/redux/store'
+import { uniqBy } from 'lodash'
 interface Props extends ViewProps {
   label: string
   games: Game[]
@@ -50,7 +51,12 @@ export default function GameList({
   }, [provider, filteredGame])
 
   const providers = useMemo(() => {
-    return Object.keys(countBy(filteredGame, (g) => g.gpc))
+    if (filteredGame)
+      return uniqBy(
+        filteredGame.map(({ gtc, gpc }) => ({ gtc, gpc })),
+        'gpc'
+      )
+    else return []
   }, [filteredGame])
 
   const searchedGame = useMemo(() => {
