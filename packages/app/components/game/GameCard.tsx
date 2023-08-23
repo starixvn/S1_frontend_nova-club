@@ -1,7 +1,15 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { LaunchGame } from 'app/features/game/GameLauncher'
 import { LaunchGamePayload } from 'app/store/gameLauncher.slice'
-import { ActivityIndicator, SxProp, View, styled, useSx } from 'dripsy'
+import {
+  ActivityIndicator,
+  SxProp,
+  View,
+  styled,
+  useSx,
+  Text,
+  useDripsyTheme,
+} from 'dripsy'
 import { MotiPressable } from 'moti/interactions'
 import React, {
   memo,
@@ -22,6 +30,7 @@ import { SolitoImage } from 'solito/image'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import { AnimatePresence, MotiView } from 'moti'
 import GameRebateLabel from './GameRebateLabel'
+import GameTagsLabel, { GAME_TAG_SIZE } from './GameTagsLabel'
 
 export interface GameCardProps extends PressableProps, LaunchGamePayload {
   displayName?: string
@@ -33,6 +42,7 @@ export interface GameCardProps extends PressableProps, LaunchGamePayload {
   absoluteName?: boolean
   showRebate?: boolean
   rebateTop?: boolean
+  gameTagSize?: GAME_TAG_SIZE
 }
 
 const GameCard = ({
@@ -47,6 +57,7 @@ const GameCard = ({
   rebateText,
   rebateTop = false,
   showRebate = false,
+  gameTagSize = GAME_TAG_SIZE.lg,
   ...rest
 }: GameCardProps) => {
   const lastLoadedRef = useRef(img)
@@ -54,6 +65,8 @@ const GameCard = ({
   const [isPending, startTransition] = useTransition()
   const desktopMode = useIsDesktop()
   const ss = useSx()
+  const { tags } = rest
+  const { theme } = useDripsyTheme()
   if (lastLoadedRef.current != img) {
     lastLoadedRef.current = img
     startTransition(() => setLoaded(false))
@@ -147,21 +160,23 @@ const GameCard = ({
           </AnimatePresence>
         )}
       </View>
+      <GameTagsLabel tags={tags ?? []} size={gameTagSize} />
+      {!!displayName && (
+        <Text
+          sx={{
+            textAlign: 'center',
+            fontWeight: 'bold',
+            mt: '$2',
+            fontSize: [12, 14],
+          }}
+        >
+          {displayName}
+        </Text>
+      )}
       {showRebate && (
         <LabelContainer rebateTop={rebateTop}>
-          {/* {!!displayName && (
-            <Text
-              sx={{
-                textAlign: 'center',
-                fontWeight: 'bold',
-                fontSize: [12, 14],
-              }}
-            >
-              {displayName}
-            </Text>
-          )} */}
           {isRebateLoading ? (
-            <ActivityIndicator />
+            <ActivityIndicator color={theme?.colors?.$primary?.[100]} />
           ) : (
             <GameRebateLabel key={rebateText} rebateText={rebateText} />
           )}
@@ -176,7 +191,7 @@ export default memo(GameCard)
 const Root = styled(MotiPressable)({
   position: 'relative',
   // aspectRatio: 1,
-  overflow: 'hidden',
+  // overflow: 'hidden',
 })
 const LabelContainer = styled(View)(({ rebateTop }: { rebateTop?: boolean }) =>
   rebateTop //Bad Implementation

@@ -5,12 +5,9 @@ import GameSectionByProviderItem from 'app/components/game/GameSectionByProvider
 import ProviderList from 'app/components/game/ProviderList'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
 import useLocalization from 'app/provider/localization'
-import {
-  GAME_TYPE_CODE,
-  ProviderImageCategory,
-  SlotType,
-} from 'app/utils/constant'
+import { GAME_TYPE_CODE, ProviderImageCategory } from 'app/utils/constant'
 import { ActivityIndicator, View } from 'dripsy'
+import uniqBy from 'lodash/uniqBy'
 import groupBy from 'lodash/groupBy'
 import React, {
   startTransition,
@@ -28,8 +25,7 @@ import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 import SlotSingleProviderListing from './SlotSingleProviderListing'
-import GameListSectionAsyncByTag from 'app/components/game/GameListSectionAsyncByTag'
-import { uniqBy } from 'lodash'
+import { GetCommissionList } from 'app/components/game/GameUtilityAction'
 
 type Params = {
   provider?: string
@@ -43,6 +39,7 @@ function SlotScreen() {
   const { t } = useLocalization()
   const { push } = useRouter()
   const [gameGroup, setGameGroup] = useState<Game[][]>()
+  const commissionList = GetCommissionList()
 
   const [provider, setProvider] = useParam('provider', {
     initial: undefined,
@@ -115,6 +112,8 @@ function SlotScreen() {
 
     return (
       <SlotSingleProviderListing
+        gtc={providers[0]?.gtc ?? ''}
+        commissionList={commissionList}
         games={gamesByProviders[provider.toUpperCase()]}
         provider={provider}
         onBack={() => {
@@ -140,6 +139,7 @@ function SlotScreen() {
               gtc={item[0].gtc}
               gpc={item[0].gpc}
               games={item}
+              commissionList={commissionList}
               onViewMore={onViewMore}
               gameCategoryTagTranslation={gameCategoryTagTranslation}
             />

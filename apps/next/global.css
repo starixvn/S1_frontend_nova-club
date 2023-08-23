@@ -64,7 +64,7 @@ canvas{
   z-index: -1;
 }
 
-#rebateText {
+.rebateText {
   animation: mymove 3s infinite, enlarge 0.5s infinite alternate;
   background: linear-gradient(271deg, #FFDD3C 0%, #FFF192 5%, #FFD400 10%,#FFEA61 50%, #E8B03F 100%);
       background-size: 200% auto;

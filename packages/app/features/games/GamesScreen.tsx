@@ -31,7 +31,8 @@ import GamesScreenSingleProvider from './GamesSingleProviderListing'
 import { MobileGamesFilter, SUB_ROUTES } from './subroutes'
 import useLocalization from 'app/provider/localization'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
-import { uniqBy } from 'lodash'
+import uniqBy from 'lodash/uniqBy'
+import { GetCommissionList } from 'app/components/game/GameUtilityAction'
 
 type Params = {
   type?: string
@@ -47,6 +48,7 @@ const GameCategory = [
 
 const GamesScreen = () => {
   const { t } = useLocalization()
+  const commissionList = GetCommissionList()
   const scrollingRef = useRef<View>()
   const { data: games } = useGameListMultipleQuery({
     game_category: GameCategory,
@@ -156,6 +158,8 @@ const GamesScreen = () => {
         games={gamesByProviders[provider.toUpperCase()] ?? []}
         provider={provider}
         type={type}
+        gtc={providers[0]?.gtc ?? ''}
+        commissionList={commissionList}
         onFilterClicked={onFilterClicked}
         onBack={onProviderBack}
         gameCategoryTagTranslation={gameCategoryTagTranslation}
@@ -180,6 +184,7 @@ const GamesScreen = () => {
               games={item}
               onViewMore={onViewMore}
               gameCategoryTagTranslation={gameCategoryTagTranslation}
+              commissionList={commissionList}
             />
           )
         else return null

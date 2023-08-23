@@ -1,12 +1,11 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { GameProviderCategory } from 'app/hooks/useGameRebateValue'
 import useLocalization from 'app/provider/localization'
 import { ProviderImageCategory } from 'app/utils/constant'
 import { ActivityIndicator, Pressable, Row, View } from 'dripsy'
 import React from 'react'
 import { SolitoImage } from 'solito/image'
 import SectionHeader from '../SectionHeader'
-import { Platform } from 'react-native'
+import { GameProviderCategory } from './GameUtilityAction'
 
 // const cols = [3, 3, 4]
 const width = ['32%', '24%', '19.5%', '19.5%', '16%']

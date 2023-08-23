@@ -1,6 +1,7 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import BannerCarousel from 'app/components/banner/BannerCarousel'
 import GameSectionByProviderItem from 'app/components/game/GameSectionByProviderItem'
+import { GetCommissionList } from 'app/components/game/GameUtilityAction'
 import RecentlyPlayedSection from 'app/features/home/RecentlyPlayedSection'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
 import {
@@ -22,7 +23,7 @@ import {
   useResponsiveValue,
 } from 'dripsy'
 import { ResizeMode, Video } from 'expo-av'
-import { uniqBy } from 'lodash'
+import uniqBy from 'lodash/uniqBy'
 import React, { startTransition, useEffect, useMemo, useState } from 'react'
 import { Platform } from 'react-native'
 import { useSlotBannerQuery } from 'services/contentApi'
@@ -41,6 +42,7 @@ const { useParam } = createParam<Params>()
 const GameCategory = [GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]
 
 function SlotScreen({}: Props) {
+  const commissionList = GetCommissionList()
   const [provider, setProvider] = useParam('provider', {
     parse: (templateFromUrl) =>
       templateFromUrl ? templateFromUrl[0] : undefined,
@@ -150,8 +152,9 @@ function SlotScreen({}: Props) {
                 width: [130, 130, 130, 150],
                 aspectRatio: 230 / 80,
                 overflow: 'hidden',
-                borderWidth: provider === undefined ? 2 : 0,
-                borderColor: '$secondary.200',
+                borderWidth: 2,
+                borderColor:
+                  provider === undefined ? '$secondary.200' : 'transparent',
               }}
             >
               <div
@@ -182,6 +185,7 @@ function SlotScreen({}: Props) {
               gpc={provider}
               games={filteredGames}
               gameCategoryTagTranslation={gameCategoryTagTranslation}
+              commissionList={commissionList}
               // GameListComponent={GameSectionByProviderItemFlashList}
             />
           </View>

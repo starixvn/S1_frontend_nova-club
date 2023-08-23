@@ -15,7 +15,7 @@ const GameRebateLabel = ({ rebateText, background = 'rgba(0,0,0,0.4)' }) => {
         fontSize: labelSize,
       }}
     >
-      <span id="rebateText" style={{ minWidth: 30, userSelect: 'none' }}>
+      <span className="rebateText" style={{ minWidth: 30, userSelect: 'none' }}>
         {(rebateText === undefined ? '0' : rebateText) + ' %'}
       </span>
     </div>

@@ -4,6 +4,8 @@ import Icon from 'app/components/Icon'
 import Shadow from 'app/components/Shadow'
 import GameCard from 'app/components/game/GameCard'
 import GameListSectionGrid from 'app/components/game/GameListSectionGrid'
+import GameRebateLabel from 'app/components/game/GameRebateLabel'
+import { GetGameRebateValue } from 'app/components/game/GameUtilityAction'
 import {
   GameCategoryTagTranslation,
   useGetTagName,
@@ -21,6 +23,7 @@ import {
 } from 'dripsy'
 import union from 'lodash/union'
 import React, { startTransition, useEffect, useMemo, useState } from 'react'
+import { CommissionTableResult } from 'services/contentApi.type'
 import { Game } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
 
@@ -30,6 +33,8 @@ interface SlotSingleProviderListingProps {
   onBack: () => void
   sx?: SxProp
   gameCategoryTagTranslation?: GameCategoryTagTranslation
+  commissionList: CommissionTableResult[]
+  gtc: string
 }
 const SlotSingleProviderListing = ({
   games,
@@ -37,6 +42,8 @@ const SlotSingleProviderListing = ({
   onBack,
   sx,
   gameCategoryTagTranslation,
+  gtc,
+  commissionList = [],
 }: SlotSingleProviderListingProps) => {
   const { top, bottom } = useSafeArea()
 
@@ -109,6 +116,16 @@ const SlotSingleProviderListing = ({
                   width={100}
                   src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${provider.toLowerCase()}.png`}
                 />
+                <View sx={{ justifyContent: 'center', pl: '$2' }}>
+                  <GameRebateLabel
+                    background={'rgba(0,0,0,0.6)'}
+                    rebateText={GetGameRebateValue({
+                      commissionList,
+                      gpc: provider.toUpperCase(),
+                      gtc,
+                    })}
+                  />
+                </View>
               </Row>
             </Shadow>
           </Pressable>

@@ -1,7 +1,10 @@
 import { FlashList } from '@shopify/flash-list'
 import GamePageHeader from 'app/components/GamePageHeader'
 import GameCard from 'app/components/game/GameCard'
-import useGameRebateValue from 'app/hooks/useGameRebateValue'
+import {
+  GetCommissionList,
+  GetGameRebateValue,
+} from 'app/components/game/GameUtilityAction'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
@@ -20,7 +23,6 @@ export default function SportsbookScreen() {
     GAME_TYPE_CODE.E_SPORTS,
     GAME_TYPE_CODE.VIRTUAL_SPORTS,
   ])
-  const { GetCommissionList, GetRebate } = useGameRebateValue()
   const commissionList = GetCommissionList()
 
   const numColumns = useResponsiveValue([2, 3, 3, 4])
@@ -48,13 +50,13 @@ export default function SportsbookScreen() {
       >
         <GameCard
           showRebate={true}
-          rebateText={GetRebate({
+          rebateText={GetGameRebateValue({
             commissionList,
             gtc: item.gtc,
             gpc: item.gpc,
           })}
           rebateTop
-          displayName={formattedName}
+          // displayName={formattedName}
           // image={img}
           sx={{
             my: `${spacePercentage}%`,

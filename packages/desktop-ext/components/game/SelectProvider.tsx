@@ -2,12 +2,14 @@ import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Icon from 'app/components/Icon'
 import ShadowButton from 'app/components/ShadowButton'
 import GameRebateLabel from 'app/components/game/GameRebateLabel'
-import { FONT_TOP_OFFSET } from 'app/constants/font'
-import useGameRebateValue, {
+import {
   GameProviderCategory,
-} from 'app/hooks/useGameRebateValue'
+  GetGameRebateValue,
+} from 'app/components/game/GameUtilityAction'
+import { FONT_TOP_OFFSET } from 'app/constants/font'
 import { Row, ScrollView, SxProp, Text, View, useDripsyTheme } from 'dripsy'
 import React, { startTransition, useState } from 'react'
+import { CommissionTableResult } from 'services/contentApi.type'
 import { SolitoImage } from 'solito/image'
 
 import * as DropdownMenu from 'zeego/dropdown-menu'
@@ -15,6 +17,7 @@ type Props = {
   providers: GameProviderCategory[]
   value?: GameProviderCategory
   onSelect: (p?: string) => void
+  commissionList: CommissionTableResult[]
 }
 
 enum IndexState {
@@ -22,11 +25,14 @@ enum IndexState {
   NONE = -1,
 }
 
-export default function SelectProvider({ providers, value, onSelect }: Props) {
+export default function SelectProvider({
+  providers,
+  value,
+  onSelect,
+  commissionList,
+}: Props) {
   const [activeIndex, setActiveIndex] = useState(IndexState.NONE)
   const { theme } = useDripsyTheme()
-  const { GetCommissionList, GetRebate } = useGameRebateValue()
-  const commissionList = GetCommissionList()
 
   return (
     <DropdownMenu.Root>
@@ -137,7 +143,7 @@ export default function SelectProvider({ providers, value, onSelect }: Props) {
                     resizeMode="contain"
                   />
                   <GameRebateLabel
-                    rebateText={GetRebate({
+                    rebateText={GetGameRebateValue({
                       gtc: p.gtc,
                       gpc: p.gpc,
                       commissionList,

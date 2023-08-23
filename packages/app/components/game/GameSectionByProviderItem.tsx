@@ -19,10 +19,10 @@ import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { ALL, HOT } from 'app/utils/constant'
 import { Text } from 'dripsy'
+import { CommissionTableResult } from 'services/contentApi.type'
 import Button from '../common/Button'
 import GameListSectionGrid from './GameListSectionGrid'
-import GameRebateLabel from './GameRebateLabel'
-import useGameRebateValue from 'app/hooks/useGameRebateValue'
+import { GetGameRebateValue } from './GameUtilityAction'
 
 function GameSectionByProviderItem({
   gpc,
@@ -33,6 +33,7 @@ function GameSectionByProviderItem({
   onViewMore,
   gameListProps,
   gameCategoryTagTranslation,
+  commissionList = [],
 }: {
   bordered?: boolean
   gpc?: string
@@ -41,6 +42,7 @@ function GameSectionByProviderItem({
   onViewMore?: (gpc: string, tag: string) => void
   gameListProps?: any
   gameCategoryTagTranslation?: GameCategoryTagTranslation
+  commissionList?: CommissionTableResult[]
   // GameListComponent: FC<{ data: Game[] }>
 }) {
   const { t } = useLocalization()
@@ -87,14 +89,11 @@ function GameSectionByProviderItem({
   const canShowMore = () => {
     return (searchedGame?.length ?? filteredGame.length ?? games.length) > count
   }
-  const { GetCommissionList, GetRebate } = useGameRebateValue()
-  const commissionList = GetCommissionList()
-
   return (
     <View nativeID={`gameSection${gpc}`}>
       <GameListSectionGrid.Header
         showRebate={true}
-        rebateValue={GetRebate({
+        rebateValue={GetGameRebateValue({
           gtc: gtc ?? '',
           gpc: gpc ?? '',
           commissionList,

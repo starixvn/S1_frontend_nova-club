@@ -1,23 +1,22 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import GameCard from 'app/components/game/GameCard'
-import { GAME_TYPE_CODE } from 'app/utils/constant'
-import React, { useMemo } from 'react'
-import { uniqBy } from 'lodash'
 import {
-  useGameListMultipleQuery,
-  useGameProviderListQuery,
-  useGetGameListByCategoryQuery,
-} from 'services/gameApi'
+  GetCommissionList,
+  GetGameRebateValue,
+} from 'app/components/game/GameUtilityAction'
+import { GAME_TYPE_CODE } from 'app/utils/constant'
+import uniqBy from 'lodash/uniqBy'
+import React, { useMemo } from 'react'
+import { useGameListMultipleQuery } from 'services/gameApi'
 import { useRouter } from 'solito/router'
 import DropdownContent from '../DropdownContent'
 import { NAVIGATION_DROPDOWN_MENU } from '../NavigationHeaderProvider'
-import useGameRebateValue from 'app/hooks/useGameRebateValue'
 
 type Props = {}
 
 export default function Slots({}: Props) {
   const { push } = useRouter()
-
+  const commissionList = GetCommissionList()
   // const { data } = useGetGameListByCategoryQuery([
   //   GAME_TYPE_CODE.SLOTS,
   //   GAME_TYPE_CODE.FISHING,
@@ -36,16 +35,13 @@ export default function Slots({}: Props) {
     else return []
   }, [data])
 
-  const { GetCommissionList, GetRebate } = useGameRebateValue()
-  const commissionList = GetCommissionList()
-
   return (
     <DropdownContent data={data} menu={NAVIGATION_DROPDOWN_MENU.Slots}>
       {providers &&
         providers.map((g) => {
           return (
             <GameCard
-              rebateText={GetRebate({
+              rebateText={GetGameRebateValue({
                 gtc: g.gtc,
                 gpc: g.gpc,
                 commissionList,

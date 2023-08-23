@@ -3,6 +3,10 @@ import { FlashList } from '@shopify/flash-list'
 import GamePageHeader from 'app/components/GamePageHeader'
 import SectionHeader from 'app/components/SectionHeader'
 import GameCard from 'app/components/game/GameCard'
+import {
+  GetCommissionList,
+  GetGameRebateValue,
+} from 'app/components/game/GameUtilityAction'
 import useLocalization from 'app/provider/localization'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
 import { Row, View, useResponsiveValue } from 'dripsy'
@@ -12,12 +16,10 @@ import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
-import useGameRebateValue from 'app/hooks/useGameRebateValue'
 
 export default function LiveCasinoScreen() {
   const { data } = useGetGameListByCategoryQuery([GAME_TYPE_CODE.LIVE_DEALER])
   const { t } = useLocalization()
-  const { GetCommissionList, GetRebate } = useGameRebateValue()
   const commissionList = GetCommissionList()
   const firstGameOfEachProvider = useMemo(() => {
     if (data) {
@@ -57,7 +59,7 @@ export default function LiveCasinoScreen() {
           // absoluteName
           // displayName={formattedName}
           showRebate={true}
-          rebateText={GetRebate({
+          rebateText={GetGameRebateValue({
             commissionList,
             gtc: item.gtc,
             gpc: item.gpc,

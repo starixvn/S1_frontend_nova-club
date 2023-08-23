@@ -1,5 +1,8 @@
 import GameCard from 'app/components/game/GameCard'
-import useGameRebateValue from 'app/hooks/useGameRebateValue'
+import {
+  GetCommissionList,
+  GetGameRebateValue,
+} from 'app/components/game/GameUtilityAction'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
 import React from 'react'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
@@ -15,7 +18,6 @@ export default function Sportsbook({}: Props) {
     GAME_TYPE_CODE.VIRTUAL_SPORTS,
   ])
 
-  const { GetCommissionList, GetRebate } = useGameRebateValue()
   const commissionList = GetCommissionList()
 
   return (
@@ -24,8 +26,8 @@ export default function Sportsbook({}: Props) {
         data.map((g) => {
           return (
             <GameCard
-              absoluteName
-              rebateText={GetRebate({
+              // absoluteName
+              rebateText={GetGameRebateValue({
                 gtc: g.gtc,
                 gpc: g.gpc,
                 commissionList,

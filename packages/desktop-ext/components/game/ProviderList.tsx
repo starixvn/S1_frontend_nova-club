@@ -41,8 +41,8 @@ export default function ProviderList({
               width: [175, 175, 175, 150],
               aspectRatio: 230 / 80,
               overflow: 'hidden',
-              borderWidth: isActive ? 2 : 0,
-              borderColor: '$secondary.200',
+              borderWidth: 2,
+              borderColor: isActive ? '$secondary.200' : 'transparent',
             }}
           >
             <div

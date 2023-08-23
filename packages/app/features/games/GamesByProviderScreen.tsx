@@ -5,8 +5,9 @@ import { useGameListMultipleQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
-import GamesScreenSingleProvider from './GamesSingleProviderListing'
 import { SUB_ROUTES } from './subroutes'
+import { GetCommissionList } from 'app/components/game/GameUtilityAction'
+import GamesSingleProviderListing from './GamesSingleProviderListing'
 
 type Props = {}
 
@@ -28,6 +29,7 @@ export default function GamesByProviderScreen({}: Props) {
     game_category: GameCategory,
     gdc_game_category: [GDC_GAME_CATEGORY.CARDGAME],
   })
+  const commissionList = GetCommissionList()
   const { gameCategoryTagTranslation } = useGameCategoryTag(GameCategory)
 
   const [filteredGames, setFilteredGames] = useState<Game[]>([])
@@ -54,8 +56,10 @@ export default function GamesByProviderScreen({}: Props) {
     }
   }, [games, type, provider])
   return (
-    <GamesScreenSingleProvider
+    <GamesSingleProviderListing
       games={filteredGames}
+      commissionList={commissionList}
+      gtc={filteredGames[0]?.gtc ?? ''}
       tag={tag ?? 'ALL'}
       type={type}
       provider={provider}

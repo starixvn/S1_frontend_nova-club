@@ -250,6 +250,7 @@ const TagButton = ({ isActive, children = '', ...rest }) => {
           }}
         >
           <Text
+            selectable={false}
             numberOfLines={1}
             sx={{
               mt: FONT_TOP_OFFSET,
