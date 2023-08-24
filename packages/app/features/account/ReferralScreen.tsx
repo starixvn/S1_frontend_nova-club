@@ -76,7 +76,7 @@ const ReferralScreen = () => {
                   refComm={referralComm}
                   refFriend={referralFriend}
                 />
-                <ReferralLink />
+                <ReferralLink referralLink={referralLink} />
               </View>
               <View
                 sx={{
@@ -103,7 +103,7 @@ const ReferralScreen = () => {
                 margin: 'auto',
               }}
             >
-              <ReferralLink />
+              <ReferralLink referralLink={referralLink} />
               <View style={{ flexDirection: 'row' }}>
                 <View sx={{ flex: 0.4 }}>
                   <ReferralQrCode

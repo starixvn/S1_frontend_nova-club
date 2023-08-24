@@ -3,7 +3,11 @@ import useLocalization from 'app/provider/localization'
 import { copyToClipboard } from 'app/utils'
 import { Text, View, useResponsiveValue } from 'dripsy'
 
-const ReferralLink = () => {
+type ReferralLinkProps = {
+  referralLink: string
+}
+
+const ReferralLink = ({ referralLink }) => {
   const { t } = useLocalization()
   const horizontalMode = useResponsiveValue([false, false, false, true, true])
   return (
@@ -24,9 +28,9 @@ const ReferralLink = () => {
           color={'white'}
           size={12}
           sx={{ p: 5 }}
-          onPress={() => copyToClipboard('hahahehe')}
+          onPress={() => copyToClipboard(referralLink)}
         />
-        <Text>https://vui123vn.com/download/hahahehe</Text>
+        <Text>{referralLink}</Text>
       </View>
     </View>
   )
