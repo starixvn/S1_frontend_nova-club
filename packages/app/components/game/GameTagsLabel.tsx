@@ -36,7 +36,7 @@ const GameTagsLabel = ({
         scale: 1,
       }}
       animate={{
-        scale: 1.1,
+        scale: 1.25,
       }}
       transition={{
         loop: true,

@@ -19,7 +19,6 @@ export const GetGameRebateValue = ({
     const item = commissionList.find(
       (item) => item.game_type_code === gtc && item.system_code === gpc
     )
-    console.log(item)
     return item?.cash_player.toString()
   }
   return undefined

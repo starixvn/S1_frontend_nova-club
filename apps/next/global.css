@@ -141,7 +141,11 @@ To {
 }
 
 .btn-anim::before {
-  animation: shine 5s ease-in-out infinite;
+  animation: shine 2s ease-in infinite;
+}
+
+.enlarge-anim{
+  animation: enlarge 0.5s infinite alternate;
 }
 
 @keyframes shine {
