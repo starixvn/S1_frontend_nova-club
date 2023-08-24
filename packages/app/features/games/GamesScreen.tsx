@@ -27,12 +27,15 @@ import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 import TopGameSection from '../home/TopGameSection'
-import GamesScreenSingleProvider from './GamesSingleProviderListing'
+import GamesSingleProviderListing from './GamesSingleProviderListing'
 import { MobileGamesFilter, SUB_ROUTES } from './subroutes'
 import useLocalization from 'app/provider/localization'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
 import uniqBy from 'lodash/uniqBy'
-import { GetCommissionList } from 'app/components/game/GameUtilityAction'
+import {
+  GetCommissionList,
+  GetGameRebateValue,
+} from 'app/components/game/GameUtilityAction'
 
 type Params = {
   type?: string
@@ -152,17 +155,21 @@ const GamesScreen = () => {
   // console.log('params', type, provider)
   if (provider && Platform.OS === 'web') {
     if (!gamesByProviders || !filteredGames) return <ActivityIndicator />
+
     return (
-      <GamesScreenSingleProvider
+      <GamesSingleProviderListing
         tag={params?.[2] ?? 'ALL'}
         games={gamesByProviders[provider.toUpperCase()] ?? []}
         provider={provider}
         type={type}
-        gtc={providers[0]?.gtc ?? ''}
-        commissionList={commissionList}
         onFilterClicked={onFilterClicked}
         onBack={onProviderBack}
         gameCategoryTagTranslation={gameCategoryTagTranslation}
+        rebate={GetGameRebateValue({
+          gtc: providers[0]?.gtc ?? '',
+          gpc: provider,
+          commissionList,
+        })}
       />
     )
   }
@@ -176,18 +183,22 @@ const GamesScreen = () => {
         paddingBottom: 40,
       }}
       renderItem={({ item }) => {
-        if (item && item[0])
+        if (item && item[0]) {
+          const { gpc, gtc } = item[0]
           return (
             <GameSectionByProviderItem
-              gtc={item[0].gtc}
-              gpc={item[0].gpc}
+              gpc={gpc}
               games={item}
               onViewMore={onViewMore}
               gameCategoryTagTranslation={gameCategoryTagTranslation}
-              commissionList={commissionList}
+              rebate={GetGameRebateValue({
+                gtc: gtc ?? '',
+                gpc: gpc ?? '',
+                commissionList,
+              })}
             />
           )
-        else return null
+        } else return null
       }}
       ListHeaderComponent={
         <View sx={{ gap: '$3', my: '$3' }}>

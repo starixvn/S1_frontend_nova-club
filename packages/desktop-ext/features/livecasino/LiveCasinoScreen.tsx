@@ -1,7 +1,6 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import SkeletonPlaceholder from 'app/components/SkeletonPlaceholder'
 import GameSectionByProviderItem from 'app/components/game/GameSectionByProviderItem'
-import { GetCommissionList } from 'app/components/game/GameUtilityAction'
 import RecentlyPlayedSection from 'app/features/home/RecentlyPlayedSection'
 import {
   CONTENT_FROM_TOP,
@@ -28,7 +27,6 @@ type Params = {
 const { useParam } = createParam<Params>()
 
 export default function LiveCasinoScreen({}: Props) {
-  const commissionList = GetCommissionList()
   const [provider, setProvider] = useParam('provider', {
     parse: (templateFromUrl) =>
       templateFromUrl ? templateFromUrl[0] : undefined,
@@ -115,7 +113,6 @@ export default function LiveCasinoScreen({}: Props) {
               bordered
               gpc={provider}
               games={filteredGames}
-              commissionList={commissionList}
               gameListProps={{
                 aspectRatio: 350 / 220,
                 itemWidth: ['22%', '18%', '15%', '23%', '18%'],

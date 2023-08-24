@@ -6,7 +6,10 @@ import { Game } from 'services/gameApi.type'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 import { SUB_ROUTES } from './subroutes'
-import { GetCommissionList } from 'app/components/game/GameUtilityAction'
+import {
+  GetCommissionList,
+  GetGameRebateValue,
+} from 'app/components/game/GameUtilityAction'
 import GamesSingleProviderListing from './GamesSingleProviderListing'
 
 type Props = {}
@@ -55,10 +58,15 @@ export default function GamesByProviderScreen({}: Props) {
       } else startTransition(() => setFilteredGames(providerGames))
     }
   }, [games, type, provider])
+
   return (
     <GamesSingleProviderListing
       games={filteredGames}
-      commissionList={commissionList}
+      rebate={GetGameRebateValue({
+        gtc: filteredGames[0]?.gtc ?? '',
+        gpc: provider?.toLowerCase(),
+        commissionList,
+      })}
       gtc={filteredGames[0]?.gtc ?? ''}
       tag={tag ?? 'ALL'}
       type={type}

@@ -26,23 +26,21 @@ import { GetGameRebateValue } from './GameUtilityAction'
 
 function GameSectionByProviderItem({
   gpc,
-  gtc,
   games = [],
   // GameListComponent = GameSectionByProviderItemGameListSummary,
   bordered = false,
   onViewMore,
   gameListProps,
   gameCategoryTagTranslation,
-  commissionList = [],
+  rebate,
 }: {
   bordered?: boolean
   gpc?: string
-  gtc?: string
+  rebate?: string
   games: Game[]
   onViewMore?: (gpc: string, tag: string) => void
   gameListProps?: any
   gameCategoryTagTranslation?: GameCategoryTagTranslation
-  commissionList?: CommissionTableResult[]
   // GameListComponent: FC<{ data: Game[] }>
 }) {
   const { t } = useLocalization()
@@ -93,11 +91,7 @@ function GameSectionByProviderItem({
     <View nativeID={`gameSection${gpc}`}>
       <GameListSectionGrid.Header
         showRebate={true}
-        rebateValue={GetGameRebateValue({
-          gtc: gtc ?? '',
-          gpc: gpc ?? '',
-          commissionList,
-        })}
+        rebateValue={rebate}
         onSearch={(t) => {
           startTransition(() => setSearch(t))
         }}

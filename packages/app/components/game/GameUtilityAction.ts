@@ -25,13 +25,8 @@ export const GetGameRebateValue = ({
 }
 
 export const GetCommissionList = () => {
-  const { commissionList } = useCommissionTableQuery(
-    { currency: Currency.VND },
-    {
-      selectFromResult: ({ data }) => ({
-        commissionList: data,
-      }),
-    }
-  )
-  return commissionList ?? []
+  const { data } = useCommissionTableQuery({
+    currency: Currency.VND,
+  })
+  return data ?? []
 }

@@ -1,7 +1,6 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import BannerCarousel from 'app/components/banner/BannerCarousel'
 import GameSectionByProviderItem from 'app/components/game/GameSectionByProviderItem'
-import { GetCommissionList } from 'app/components/game/GameUtilityAction'
 import RecentlyPlayedSection from 'app/features/home/RecentlyPlayedSection'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
 import {
@@ -42,7 +41,6 @@ const { useParam } = createParam<Params>()
 const GameCategory = [GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]
 
 function SlotScreen({}: Props) {
-  const commissionList = GetCommissionList()
   const [provider, setProvider] = useParam('provider', {
     parse: (templateFromUrl) =>
       templateFromUrl ? templateFromUrl[0] : undefined,
@@ -185,7 +183,6 @@ function SlotScreen({}: Props) {
               gpc={provider}
               games={filteredGames}
               gameCategoryTagTranslation={gameCategoryTagTranslation}
-              commissionList={commissionList}
               // GameListComponent={GameSectionByProviderItemFlashList}
             />
           </View>

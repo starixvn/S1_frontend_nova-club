@@ -40,8 +40,7 @@ interface GamesSingleProviderListingProps {
   sx?: SxProp
   gameCategoryTagTranslation?: GameCategoryTagTranslation
   tag: string
-  commissionList: CommissionTableResult[]
-  gtc: string
+  rebate?: string
 }
 const GamesSingleProviderListing = ({
   games,
@@ -52,8 +51,7 @@ const GamesSingleProviderListing = ({
   sx,
   gameCategoryTagTranslation,
   tag = 'ALL',
-  gtc,
-  commissionList = [],
+  rebate,
 }: GamesSingleProviderListingProps) => {
   const { top, bottom } = useSafeArea()
 
@@ -129,16 +127,14 @@ const GamesSingleProviderListing = ({
                   width={100}
                   src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${provider.toLowerCase()}.png`}
                 />
-                <View sx={{ justifyContent: 'center', pl: '$2' }}>
-                  <GameRebateLabel
-                    background={'rgba(0,0,0,0.6)'}
-                    rebateText={GetGameRebateValue({
-                      commissionList,
-                      gpc: provider.toUpperCase(),
-                      gtc,
-                    })}
-                  />
-                </View>
+                {rebate && (
+                  <View sx={{ justifyContent: 'center', pl: '$2' }}>
+                    <GameRebateLabel
+                      background={'rgba(0,0,0,0.6)'}
+                      rebateText={rebate}
+                    />
+                  </View>
+                )}
               </Row>
             </Shadow>
           </Pressable>

@@ -35,12 +35,9 @@ const CommissionTableScreen = () => {
   const { t } = useLocalization()
   const desktop = useIsDesktop()
   const { bottom } = useSafeArea()
-  const { commissionList } = useCommissionTableQuery(
-    { currency: Currency.VND },
-    {
-      selectFromResult: ({ data }) => ({ commissionList: data }),
-    }
-  )
+  const { data: commissionList } = useCommissionTableQuery({
+    currency: Currency.VND,
+  })
 
   const fillColumn = (value) => {
     if ((value && value < 0) || typeof value === 'undefined') return '⎯'

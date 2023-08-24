@@ -25,7 +25,10 @@ import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 import SlotSingleProviderListing from './SlotSingleProviderListing'
-import { GetCommissionList } from 'app/components/game/GameUtilityAction'
+import {
+  GetCommissionList,
+  GetGameRebateValue,
+} from 'app/components/game/GameUtilityAction'
 
 type Params = {
   provider?: string
@@ -133,18 +136,22 @@ function SlotScreen() {
         paddingBottom: 40,
       }}
       renderItem={({ item }) => {
-        if (item && item[0])
+        if (item && item[0]) {
+          const { gpc, gtc } = item[0]
           return (
             <GameSectionByProviderItem
-              gtc={item[0].gtc}
-              gpc={item[0].gpc}
+              gpc={gpc}
               games={item}
-              commissionList={commissionList}
               onViewMore={onViewMore}
               gameCategoryTagTranslation={gameCategoryTagTranslation}
+              rebate={GetGameRebateValue({
+                gtc: gtc ?? '',
+                gpc: gpc ?? '',
+                commissionList,
+              })}
             />
           )
-        else return null
+        } else return null
       }}
       ListHeaderComponent={
         <View sx={{ gap: '$3', my: '$3' }}>

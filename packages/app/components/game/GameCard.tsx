@@ -13,6 +13,7 @@ import {
 import { MotiPressable } from 'moti/interactions'
 import React, {
   memo,
+  startTransition,
   useEffect,
   useMemo,
   useRef,
@@ -62,11 +63,10 @@ const GameCard = ({
 }: GameCardProps) => {
   const lastLoadedRef = useRef(img)
   const [loaded, setLoaded] = useState(false)
-  const [isPending, startTransition] = useTransition()
   const desktopMode = useIsDesktop()
   const ss = useSx()
   const { tags } = rest
-  const { theme } = useDripsyTheme()
+
   if (lastLoadedRef.current != img) {
     lastLoadedRef.current = img
     startTransition(() => setLoaded(false))
@@ -176,7 +176,7 @@ const GameCard = ({
       {showRebate && (
         <LabelContainer rebateTop={rebateTop}>
           {isRebateLoading ? (
-            <ActivityIndicator color={theme?.colors?.$primary?.[100]} />
+            <ActivityIndicator color={'$primary.100'} />
           ) : (
             <GameRebateLabel key={rebateText} rebateText={rebateText} />
           )}
