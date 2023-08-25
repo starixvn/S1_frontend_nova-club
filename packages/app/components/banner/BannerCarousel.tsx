@@ -113,7 +113,7 @@ export default function BannerCarousel({
           {...rest}
         />
       ) : null}
-      {data && (
+      {data && data.length > 0 && (
         <Row
           sx={{
             height: 20,

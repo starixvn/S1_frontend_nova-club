@@ -5,7 +5,7 @@ import { Linking } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { Game } from 'services/gameApi.type'
 
-enum CarouselBannerActionType {
+export enum CarouselBannerActionType {
   INTERNAL_REDIRECT = 'internalRedirect',
   EXTERNAL_REDIRECT = 'externalRedirect',
   MODAL = 'modal',

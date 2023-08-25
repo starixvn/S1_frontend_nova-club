@@ -80,7 +80,7 @@ export default function LiveCasinoScreen() {
       ListHeaderComponent={
         <View sx={{ gap: '$3', my: '$3' }}>
           <GamePageHeader title={t('game.category.liveCasino')} icon="casino" />
-          {/* <BannerSection /> */}
+
           <View sx={{ width: '100%', aspectRatio: 1280 / 333 }}>
             <SolitoImage
               fill
