@@ -35,14 +35,10 @@ const ReferralScreen = () => {
   const referralLink = `${DEV_DOMAIN}/download?ref=${referralCode}`
 
   const referralFriend = data?.data?.registered ?? 0
-  const referralComm = toCurrency(
-    data?.data?.accumulate_reward ?? 0,
-    currency,
-    {
-      hideTruncatedThousand: false,
-      forceDecimal: false,
-    }
-  )
+  const referralComm = toCurrency(data?.data?.ref_comm ?? 0, currency, {
+    hideTruncatedThousand: false,
+    forceDecimal: false,
+  })
 
   return (
     <PageWithBackHeader
