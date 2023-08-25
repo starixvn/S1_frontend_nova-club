@@ -18,7 +18,7 @@ import { ResizeMode, Video } from 'expo-av'
 import groupBy from 'lodash/groupBy'
 import React, { startTransition, useEffect, useMemo, useState } from 'react'
 import { Platform } from 'react-native'
-import { useSlotBannerQuery } from 'services/contentApi'
+import { useBannerQuery, useSlotBannerQuery } from 'services/contentApi'
 import { useGameListMultipleQuery } from 'services/gameApi'
 import { Game, LatestWinnerType } from 'services/gameApi.type'
 import { createParam } from 'solito'
@@ -44,7 +44,9 @@ function SlotScreen({}: Props) {
 
   const [filteredGames, setFilteredGames] = useState<Game[]>()
 
-  const { data: banner } = useSlotBannerQuery()
+  const { data: banner } = useBannerQuery()
+  const bannerList = banner?.filter((el) => el.banner_display_page === 'slots')
+
   const { data: games } = useGameListMultipleQuery({
     game_category: GameCategory,
   })
@@ -79,7 +81,11 @@ function SlotScreen({}: Props) {
           <LatestWinnerSection type={LatestWinnerType.Slot} />
         </View>
         <View sx={{ flexBasis: 480, minHeight: 320 }}>
-          <BannerCarousel data={banner} bannerType="slot" ratio={480 / 320} />
+          <BannerCarousel
+            data={bannerList}
+            bannerType="slot"
+            ratio={480 / 320}
+          />
         </View>
         {showSlotVideo && (
           <View sx={{ flex: 1, minHeight: 320 }}>

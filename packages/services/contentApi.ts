@@ -25,7 +25,7 @@ export const contentApi = baseApiWithTag.injectEndpoints({
         method: 'GET',
       }),
       transformResponse: ({ data }: { data: BannerResult }) => {
-        return data.rows ?? []
+        return data.rows.sort((a, b) => b.banner_seq - a.banner_seq) ?? []
       },
     }),
     slotBanner: builder.query<BannerResult[], void>({

@@ -13,6 +13,7 @@ import {
   Row,
   Text,
   View,
+  useResponsiveValue,
 } from 'dripsy'
 import { ResizeMode, Video } from 'expo-av'
 import React from 'react'
@@ -22,6 +23,8 @@ import { SolitoImage } from 'solito/image'
 import GameList from './GameList'
 import { LaunchGame } from 'app/features/game/GameLauncher'
 import isDesktop from 'app/utils/isDesktop'
+import BannerCarousel from 'app/components/banner/BannerCarousel'
+import { useBannerQuery } from 'services/contentApi'
 
 type Props = {}
 
@@ -29,6 +32,12 @@ function GamesScreen({}: Props) {
   const desktop = isDesktop()
   const { route, filteredGames, onFilterClicked, gameCategoryTagTranslation } =
     useGameScreen(SUB_ROUTES.local.route)
+  const showSlotVideo = useResponsiveValue([false, false, false, false, true])
+
+  const { data: banner } = useBannerQuery()
+  const bannerList = banner?.filter(
+    (el) => el.banner_display_page === 'local_game'
+  )
 
   const handleVgaming = () => {
     LaunchGame({
@@ -49,38 +58,44 @@ function GamesScreen({}: Props) {
   return (
     <Container>
       <Row sx={{ gap: '$3', my: '$sectionBottomSpace' }}>
-        <View sx={{ flex: 0.8, minHeight: 300 }}>
+        <View sx={{ flex: 1, minHeight: 300 }}>
           <LatestWinnerSection type={LatestWinnerType.Games} />
         </View>
-        <Pressable onPress={handleVgaming} sx={{ flex: 1, minHeight: 300 }}>
-          <SolitoImage
+        <Pressable
+          onPress={handleVgaming}
+          sx={{ flexBasis: 480, minHeight: 320 }}
+        >
+          {/* <SolitoImage
             alt="v-gaming"
             fill
             contentFit="cover"
             style={{ width: '100%', height: '100%' }}
             src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/game/vGaming.jpg`}
-          />
+          /> */}
+          <BannerCarousel data={bannerList} ratio={480 / 320} />
         </Pressable>
-        <View sx={{ flex: 1, minHeight: 300 }}>
-          <Video
-            isMuted
-            isLooping
-            shouldPlay
-            style={{
-              width: '100%',
-              height: '100%',
-            }}
-            videoStyle={{
-              position: Platform.OS === 'web' ? 'relative' : 'absolute',
-              height: '100%',
-            }}
-            source={{
-              uri: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/games.mp4`,
-            }}
-            useNativeControls={false}
-            resizeMode={ResizeMode.COVER}
-          />
-        </View>
+        {showSlotVideo && (
+          <View sx={{ flex: 1, minHeight: 300 }}>
+            <Video
+              isMuted
+              isLooping
+              shouldPlay
+              style={{
+                width: '100%',
+                height: '100%',
+              }}
+              videoStyle={{
+                position: Platform.OS === 'web' ? 'relative' : 'absolute',
+                height: '100%',
+              }}
+              source={{
+                uri: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/games.mp4`,
+              }}
+              useNativeControls={false}
+              resizeMode={ResizeMode.COVER}
+            />
+          </View>
+        )}
       </Row>
       <RecentlyPlayedSection
         gameTypes={[

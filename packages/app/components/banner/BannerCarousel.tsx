@@ -1,8 +1,11 @@
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import { CMS_CONTENT_URI, CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import useContainerWidth from 'app/hooks/useContainerWidth'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import { useAppSelector } from 'app/provider/redux/store'
-import { getCarouselBannerActionGenerator } from 'app/utils/carouselBannerActionGenerator'
+import {
+  CarouselBannerActionType,
+  getCarouselBannerActionGenerator,
+} from 'app/utils/carouselBannerActionGenerator'
 import {
   Pressable,
   Row,
@@ -12,7 +15,7 @@ import {
   useResponsiveValue,
 } from 'dripsy'
 import React, { useCallback, useRef, useState } from 'react'
-import { Platform, View as RNView } from 'react-native'
+import { Linking, Platform, View as RNView } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import Animated, {
   Extrapolate,
@@ -21,20 +24,20 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated'
 import Carousel, { TCarouselProps } from 'react-native-reanimated-carousel'
-import { BannerResult } from 'services/contentApi.type'
+import { BannerItem, BannerResult } from 'services/contentApi.type'
 import { SolitoImage } from 'solito/image'
 import { useRouter } from 'solito/router'
 
 export interface BannerCarouselProps
-  extends Omit<TCarouselProps<BannerResult>, 'data' | 'renderItem'> {
-  data?: BannerResult[]
+  extends Omit<TCarouselProps<BannerItem>, 'data' | 'renderItem'> {
+  data?: BannerItem[]
   ratio?: number
   bannerType?: 'home' | 'slot'
   sx?: SxProp
 }
 
-interface BannerItem {
-  item: BannerResult
+interface BannerItemProps {
+  item: BannerItem
   bannerUrl: string
   index: number
   width: number
@@ -63,11 +66,6 @@ export default function BannerCarousel({
   const height = width / ratio
 
   const showCarousel = data != null && width > 0
-
-  const bannerUrl =
-    bannerType === 'slot'
-      ? `${MEDIA_DOMAIN}/${CONTENT_URI}/v2/banners/slot/`
-      : `${MEDIA_DOMAIN}/${CONTENT_URI}/v2/banners/`
 
   return (
     <View
@@ -101,9 +99,9 @@ export default function BannerCarousel({
           }}
           // onSnapToItem={(index) => console.log('current index:', index)}
           renderItem={({ item, index }) => (
-            <BannerItem
+            <BannerCard
               item={item}
-              bannerUrl={bannerUrl}
+              bannerUrl={item.banner_url}
               index={index}
               height={height}
               width={width}
@@ -144,14 +142,14 @@ export default function BannerCarousel({
   )
 }
 
-const BannerItem = ({
+const BannerCard = ({
   item,
   bannerUrl,
   index,
   width,
   height,
   disable,
-}: BannerItem) => {
+}: BannerItemProps) => {
   const { push } = useRouter()
   const { openModal } = useModal()
   const token = useAppSelector((s) => s.auth.info?.token)
@@ -159,34 +157,44 @@ const BannerItem = ({
   const locale = useAppSelector((s) => s.setting.locale)
 
   const onPressCallback = useCallback(() => {
-    if (
-      Platform.OS !== 'web' &&
-      item.guestAction?.payload.uri === 'LuckyDrawModal'
-    )
-      return
+    if (Platform.OS !== 'web') return
 
-    if (token && item.action) {
-      const actionType = isDesktop ? item.action.desktopType : item.action.type
+    if (token) {
+      if (item.banner_url?.startsWith('/')) {
+        push(item.banner_url)
+      } else {
+        const bannerUrl = item.banner_url.startsWith('www')
+          ? 'https://' + item.banner_url
+          : item.banner_url
+
+        Linking.openURL(bannerUrl)
+      }
+    } else {
+      const bannerAction = {
+        desktopType: CarouselBannerActionType.MODAL,
+        type: CarouselBannerActionType.INTERNAL_REDIRECT,
+        payload: {
+          uri: '/auth/register',
+          desktopUri: 'RegisterModal',
+          params: {
+            locale: 'vn',
+          },
+        },
+      }
+
+      const actionType = isDesktop
+        ? bannerAction.desktopType
+        : bannerAction.type
+
       const action = getCarouselBannerActionGenerator(
-        item.action,
+        bannerAction,
         isDesktop,
         actionType
       )
       action({ push, locale, openModal })
     }
-    if (!token && item.guestAction) {
-      const guestActionType = isDesktop
-        ? item.guestAction.desktopType
-        : item.guestAction.type
-      const action = getCarouselBannerActionGenerator(
-        item.guestAction,
-        isDesktop,
-        guestActionType
-      )
-      action({ push, locale, openModal })
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [item.action, locale, token])
+  }, [item.banner_url, locale, token])
 
   return (
     <Pressable
@@ -196,14 +204,14 @@ const BannerItem = ({
       <View pointerEvents="none">
         <SolitoImage
           priority={index === 0}
-          src={`${bannerUrl}${item.image}`}
+          src={`${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.banner_image}`}
           // src={`https://bw88.io/2023/June/Bwing_BTI_250K_VN.jpg`}
           height={height}
           width={width}
           alt={item.alt ?? ''}
           contentFit="cover"
-          placeholder="blur"
-          blurDataURL={Platform.OS === 'web' ? item.blurDataURL : item.blurHash}
+          // placeholder="blur"
+          // blurDataURL={Platform.OS === 'web' ? item.blurDataURL : item.blurHash}
         />
       </View>
     </Pressable>
