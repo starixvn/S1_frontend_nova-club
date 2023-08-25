@@ -99,7 +99,7 @@ export default function BannerCarousel({
           }}
           // onSnapToItem={(index) => console.log('current index:', index)}
           renderItem={({ item, index }) => (
-            <BannerItem
+            <BannerCard
               item={item}
               bannerUrl={item.banner_url}
               index={index}
@@ -142,7 +142,7 @@ export default function BannerCarousel({
   )
 }
 
-const BannerItem = ({
+const BannerCard = ({
   item,
   bannerUrl,
   index,
