@@ -34,7 +34,14 @@ export default function TopGameSection(props) {
         }}
       >
         {data?.map((g, i) => {
-          return <TopGameCard key={i} game={g} desktopMode={desktopMode} />
+          return (
+            <TopGameCard
+              key={i}
+              game={g}
+              desktopMode={desktopMode}
+              isOnGoing={g.ongoing}
+            />
+          )
         })}
       </DraggableScrollView>
     </View>

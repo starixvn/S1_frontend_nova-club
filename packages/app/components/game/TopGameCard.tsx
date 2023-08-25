@@ -1,6 +1,7 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { LaunchGame } from 'app/features/game/GameLauncher'
-import { SxProp, View, styled } from 'dripsy'
+import useLocalization from 'app/provider/localization'
+import { SxProp, Text, View, styled } from 'dripsy'
 import { MotiPressable } from 'moti/interactions'
 import React, { useMemo } from 'react'
 import { FeaturedGame } from 'services/gameApi.type'
@@ -8,6 +9,7 @@ import { SolitoImage } from 'solito/image'
 
 interface TopGameCardProps {
   game: FeaturedGame
+  isOnGoing?: boolean
   desktopMode?: boolean
   sx?: SxProp
 }
@@ -17,12 +19,15 @@ export const aspectRatio = 0.485 //170 / 350
 
 export const height = width.map((w) => w / aspectRatio)
 
+const labelWidth = [70]
 export default function TopGameCard({
   game,
+  isOnGoing,
   desktopMode,
   sx,
 }: TopGameCardProps) {
-  // const
+  const { t } = useLocalization()
+
   function onPress() {
     LaunchGame({
       ...game,
@@ -59,6 +64,24 @@ export default function TopGameCard({
           alt={game.gpc}
           resizeMode="cover"
         />
+        {isOnGoing && (
+          <View
+            sx={{
+              width: labelWidth,
+              px: 12,
+              aspectRatio: 1,
+              textAlign: 'center',
+              alignItems: 'flex-end',
+              justifyContent: 'flex-end',
+              ml: -labelWidth / 2,
+              mt: -labelWidth / 2,
+              bg: '#45d03b',
+              transform: [{ rotate: '315deg' }],
+            }}
+          >
+            <Text sx={{ fontSize: 9 }}>{t('home.ongoing')}</Text>
+          </View>
+        )}
       </View>
     </Root>
   )
