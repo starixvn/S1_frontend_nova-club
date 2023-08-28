@@ -36,7 +36,7 @@ type Params = {
 
 const { useParam } = createParam<Params>()
 
-const GameCategory = [GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]
+const GameCategory = [GAME_TYPE_CODE.SLOTS]
 
 function SlotScreen() {
   const { t } = useLocalization()
@@ -114,7 +114,7 @@ function SlotScreen() {
 
     return (
       <SlotSingleProviderListing
-        gtc={providers[0]?.gtc ?? ''}
+        gtc={GAME_TYPE_CODE.SLOTS}
         commissionList={commissionList}
         games={gamesByProviders[provider.toUpperCase()]}
         provider={provider}

@@ -1,3 +1,4 @@
+import { GetCommissionList } from 'app/components/game/GameUtilityAction'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
 import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'app/utils/constant'
 import React, { startTransition, useEffect, useState } from 'react'
@@ -5,12 +6,8 @@ import { useGameListMultipleQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
-import { SUB_ROUTES } from './subroutes'
-import {
-  GetCommissionList,
-  GetGameRebateValue,
-} from 'app/components/game/GameUtilityAction'
 import GamesSingleProviderListing from './GamesSingleProviderListing'
+import { SUB_ROUTES } from './subroutes'
 
 type Props = {}
 
@@ -58,17 +55,13 @@ export default function GamesByProviderScreen({}: Props) {
       } else startTransition(() => setFilteredGames(providerGames))
     }
   }, [games, type, provider])
-
+  // console.log('type:', type, '----', type == '/games' || type === undefined)
   return (
     <GamesSingleProviderListing
       games={filteredGames}
-      rebate={GetGameRebateValue({
-        gtc: filteredGames[0]?.gtc ?? '',
-        gpc: provider?.toLowerCase(),
-        commissionList,
-      })}
-      gtc={filteredGames[0]?.gtc ?? ''}
+      showRebate={!(type === '/games' || type == undefined)}
       tag={tag ?? 'ALL'}
+      commissionList={commissionList}
       type={type}
       provider={provider}
       onBack={back}

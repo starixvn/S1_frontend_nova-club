@@ -155,9 +155,10 @@ const GamesScreen = () => {
   // console.log('params', type, provider)
   if (provider && Platform.OS === 'web') {
     if (!gamesByProviders || !filteredGames) return <ActivityIndicator />
-
     return (
       <GamesSingleProviderListing
+        showRebate={type !== ALL}
+        commissionList={commissionList}
         tag={params?.[2] ?? 'ALL'}
         games={gamesByProviders[provider.toUpperCase()] ?? []}
         provider={provider}
@@ -165,11 +166,6 @@ const GamesScreen = () => {
         onFilterClicked={onFilterClicked}
         onBack={onProviderBack}
         gameCategoryTagTranslation={gameCategoryTagTranslation}
-        rebate={GetGameRebateValue({
-          gtc: providers[0]?.gtc ?? '',
-          gpc: provider,
-          commissionList,
-        })}
       />
     )
   }
@@ -191,7 +187,7 @@ const GamesScreen = () => {
               games={item}
               onViewMore={onViewMore}
               gameCategoryTagTranslation={gameCategoryTagTranslation}
-              showRebate={type === ALL ? false : true}
+              showRebate={type !== ALL}
               rebate={GetGameRebateValue({
                 gtc: gtc ?? '',
                 gpc: gpc ?? '',

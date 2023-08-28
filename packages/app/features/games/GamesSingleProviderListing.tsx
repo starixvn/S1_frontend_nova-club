@@ -7,13 +7,15 @@ import Shadow from 'app/components/Shadow'
 import EmptyResult from 'app/components/dataTable/EmptyResult'
 import GameCard from 'app/components/game/GameCard'
 import GameListSectionGrid from 'app/components/game/GameListSectionGrid'
+import GameRebateLabel from 'app/components/game/GameRebateLabel'
+import { GetGameRebateValue } from 'app/components/game/GameUtilityAction'
 import {
   useGetTagName,
   type GameCategoryTagTranslation,
 } from 'app/hooks/appState/game/useGameCategoryTag'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { ALL } from 'app/utils/constant'
+import { ALL, GAME_TYPE_CODE } from 'app/utils/constant'
 import {
   Pressable,
   Row,
@@ -24,12 +26,10 @@ import {
 } from 'dripsy'
 import union from 'lodash/union'
 import React, { startTransition, useEffect, useMemo, useState } from 'react'
+import { CommissionTableResult } from 'services/contentApi.type'
 import { Game } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
 import { MobileGamesFilter } from './subroutes'
-import { CommissionTableResult } from 'services/contentApi.type'
-import GameRebateLabel from 'app/components/game/GameRebateLabel'
-import { GetGameRebateValue } from 'app/components/game/GameUtilityAction'
 
 interface GamesSingleProviderListingProps {
   games: Game[]
@@ -40,7 +40,8 @@ interface GamesSingleProviderListingProps {
   sx?: SxProp
   gameCategoryTagTranslation?: GameCategoryTagTranslation
   tag: string
-  rebate?: string
+  commissionList: CommissionTableResult[]
+  showRebate?: boolean
 }
 const GamesSingleProviderListing = ({
   games,
@@ -51,7 +52,8 @@ const GamesSingleProviderListing = ({
   sx,
   gameCategoryTagTranslation,
   tag = 'ALL',
-  rebate,
+  commissionList,
+  showRebate = true,
 }: GamesSingleProviderListingProps) => {
   const { top, bottom } = useSafeArea()
 
@@ -60,6 +62,7 @@ const GamesSingleProviderListing = ({
   const [filter, setFilter] = useState<string>(tag)
   const [filteredGames, setFilteredGames] = useState<Game[]>([])
   const [search, setSearch] = useState<string>()
+  const [gameTypeCode, setGameTypeCode] = useState(ALL)
   const tags = useMemo(() => {
     if (games) {
       return games.reduce(
@@ -95,6 +98,33 @@ const GamesSingleProviderListing = ({
       })
     }
   }, [games, filter])
+
+  //Map the type to GAMETYPECODE
+  useEffect(() => {
+    switch (type) {
+      case 'local': {
+        setGameTypeCode(GAME_TYPE_CODE.GAMES)
+        break
+      }
+      case 'card': {
+        setGameTypeCode(GAME_TYPE_CODE.GAMES)
+        break
+      }
+      case 'fishing': {
+        setGameTypeCode(GAME_TYPE_CODE.FISHING)
+        break
+      }
+      case 'keno-lottery': {
+        setGameTypeCode(GAME_TYPE_CODE.LOTTERY)
+        break
+      }
+      default:
+        setGameTypeCode(ALL)
+        break
+    }
+  }, [type])
+  // console.log('providerlisting type:', type, '||', gameTypeCode)
+  // console.log('Provider: ', provider)
   return (
     <View
       sx={{ flex: 1, bg: '$primary.700', pt: top ? top + 10 : '$3', ...sx }}
@@ -127,11 +157,15 @@ const GamesSingleProviderListing = ({
                   width={100}
                   src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${provider.toLowerCase()}.png`}
                 />
-                {rebate && (
+                {showRebate && (
                   <View sx={{ justifyContent: 'center', pl: '$2' }}>
                     <GameRebateLabel
                       background={'rgba(0,0,0,0.6)'}
-                      rebateText={rebate}
+                      rebateText={GetGameRebateValue({
+                        gtc: gameTypeCode,
+                        gpc: provider.toUpperCase(),
+                        commissionList,
+                      })}
                     />
                   </View>
                 )}
