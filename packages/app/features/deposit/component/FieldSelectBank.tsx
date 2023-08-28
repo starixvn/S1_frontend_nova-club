@@ -9,6 +9,7 @@ import React from 'react'
 import { PlayerInputFieldsBank } from 'services/deposit.type'
 import { DepositValues } from './DepositForm'
 import HorizontalSelectBankCardGrid from './HorizontalSelectBankCardGrid'
+import BankSelection from 'desktop-ext/features/withdrawal/components/BankSelection'
 
 type FieldBankProps = {
   field: PlayerInputFieldsBank
@@ -42,39 +43,12 @@ const FieldSelectBank = ({ field, isLoading, formik }: FieldBankProps) => {
   return field ? (
     <>
       {horizontalMode ? (
-        <View>
-          <InputLabel label={t('bank.bank')} />
-          <View
-            sx={{
-              flex: 1,
-              flexDirection: 'column',
-              borderWidth: 1,
-              borderRadius: 15,
-              borderColor: '$primary.200',
-              p: 19,
-            }}
-          >
-            <Text sx={{ p: '$2', fontSize: 16 }}>
-              {bankList &&
-                bankList.find((el) => el.value === values.bank)?.label}
-            </Text>
-            <View sx={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-              {bankList &&
-                bankList.map((e, i) => {
-                  return (
-                    <View key={i} sx={{ width: '25%' }}>
-                      <HorizontalSelectBankCardGrid
-                        key={i}
-                        item={e}
-                        onPress={() => handleSelected(e.value)}
-                        selected={e.value === values.bank}
-                      />
-                    </View>
-                  )
-                })}
-            </View>
-          </View>
-        </View>
+        <BankSelection
+          label={t('bank.bank')}
+          list={bankList}
+          selected={values.bank}
+          onPress={handleSelected}
+        />
       ) : (
         <SelectWithCardGrid
           label={t('bank.bank')}

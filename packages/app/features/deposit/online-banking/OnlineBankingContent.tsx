@@ -1,22 +1,12 @@
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
-import useIsDesktop from 'app/hooks/useIsDesktop'
-import { ScrollView, View } from 'dripsy'
-import DepositForm from '../component/DepositForm'
-import PendingTransaction from '../component/PendingTransaction'
+import AutoDepositForm from '../component/AutoDepositForm'
 
 const OnlineBankingContent = () => {
-  const horizontalMode = useIsDesktop()
   return (
-    <ScrollView contentContainerSx={{ alignItems: 'center' }}>
-      <View sx={{ width: horizontalMode ? '70%' : '100%' }}>
-        <DepositForm
-          DepositCategoryId={DepositPaymentMethodCategoryId.ONLINE_BANK}
-        />
-      </View>
-      <PendingTransaction
-        paymentMethod={DepositPaymentMethodCategoryId.ONLINE_BANK}
-      />
-    </ScrollView>
+    <AutoDepositForm
+      depositId={DepositPaymentMethodCategoryId.ONLINE_BANK}
+      showTransaction
+    />
   )
 }
 

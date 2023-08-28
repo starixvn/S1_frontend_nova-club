@@ -1,10 +1,18 @@
 import Icon from 'app/components/Icon'
 import TouchableOpacity from 'app/components/pressable/TouchableOpacity'
 import useLocalization from 'app/provider/localization'
-import { Row, SxProp, Text, View, styled } from 'dripsy'
-import React from 'react'
+import { Pressable, Row, SxProp, Text, View, styled } from 'dripsy'
+
+import React, { ComponentProps } from 'react'
+
 import { SelectOptions } from 'services/common/types'
+import { SolitoImageProps } from 'solito/build/image/image.types'
 import { SolitoImage } from 'solito/image'
+import { ImageContentFit } from 'expo-image'
+
+type Prettier<T> = {
+  [K in keyof T]: T[K]
+} & {}
 
 type BankSelectionProps = {
   label: string
@@ -15,6 +23,7 @@ type BankSelectionProps = {
   isCrypto?: boolean
   onPress: (arg0) => void
   onAddNewAccount?: () => void
+  imageMode?: ImageContentFit
 }
 
 type AddNewAccountProps = {
@@ -32,6 +41,7 @@ const BankSelection = ({
   isCrypto = false,
   onPress,
   onAddNewAccount,
+  imageMode = 'cover',
 }: BankSelectionProps) => {
   return (
     <View sx={{ mb: '$3' }}>
@@ -50,7 +60,7 @@ const BankSelection = ({
         <Row
           sx={{
             py: '$3',
-            gap: '$3',
+            gap: '$1',
             alignItems: 'center',
             flexWrap: 'wrap',
           }}
@@ -70,15 +80,16 @@ const BankSelection = ({
                   label={item.label}
                   img={item.icon}
                   onPress={handlePress}
+                  imageMode={imageMode}
                 />
               )
             })}
-          {!isCrypto && list && list.length < 3 && (
+          {!!onAddNewAccount && !isCrypto && list && list.length < 3 && (
             <AddNewAccount
               isCrypto={isCrypto}
               onPress={onAddNewAccount}
               containerStyle={{
-                width: 150,
+                width: 120,
                 aspectRatio: 2 / 1,
               }}
             />
@@ -89,18 +100,24 @@ const BankSelection = ({
   )
 }
 
-const SelectionItem = ({ isCrypto, isActive, label, img, onPress }) => {
+const SelectionItem = ({
+  isCrypto,
+  isActive,
+  label,
+  img,
+  onPress,
+  imageMode,
+}) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <Pressable onPress={onPress}>
       <SelectedContainer isActive={isActive}>
         <View
           sx={{
-            width: 150,
-            aspectRatio: 2 / 1,
+            width: 120,
+            aspectRatio: 16 / 9,
             alignItems: 'center',
             justifyContent: 'center',
-            p: 12,
-            bg: '$primary.300',
+            bg: 'white',
           }}
         >
           {isCrypto ? (
@@ -114,13 +131,13 @@ const SelectionItem = ({ isCrypto, isActive, label, img, onPress }) => {
               fill
               alt="bank image"
               src={img}
-              resizeMode="cover"
+              contentFit={imageMode}
               placeholder="empty"
             />
           )}
         </View>
       </SelectedContainer>
-    </TouchableOpacity>
+    </Pressable>
   )
 }
 
@@ -162,7 +179,7 @@ const SelectContainer = styled(View)({
 const SelectedContainer = styled(View)(
   ({ isActive }: { isActive: boolean }) => ({
     borderWidth: 4,
-    borderColor: isActive ? '$primary.100' : 'transparent',
+    borderColor: isActive ? '$selectionColor' : 'transparent',
     borderRadius: 12,
     overflow: 'hidden',
   })

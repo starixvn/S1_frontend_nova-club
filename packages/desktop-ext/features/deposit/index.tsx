@@ -37,11 +37,7 @@ const DepositScreen = () => {
     }
   }, [availableRoutes])
 
-  return (
-    <FormContainer hidePadding sx={{ width: '90%' }}>
-      {memoContent}
-    </FormContainer>
-  )
+  return <FormContainer>{memoContent}</FormContainer>
 }
 
 export default DepositScreen
