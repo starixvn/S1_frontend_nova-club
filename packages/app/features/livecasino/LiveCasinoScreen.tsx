@@ -46,7 +46,6 @@ export default function LiveCasinoScreen() {
     const isMostRight = index % numColumns === numColumns - 1
     const isMiddle = !isMostLeft && !isMostRight
     const spacePercentage = 4
-
     return (
       <Row
         sx={{
@@ -61,7 +60,7 @@ export default function LiveCasinoScreen() {
           showRebate={true}
           rebateText={GetGameRebateValue({
             commissionList,
-            gtc: item.gtc,
+            gtc: GAME_TYPE_CODE.LIVE_DEALER,
             gpc: item.gpc,
           })}
           sx={{

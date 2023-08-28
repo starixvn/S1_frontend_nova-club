@@ -41,7 +41,7 @@ export default function SelectProvider({
           safeRender
           containerStyle={{
             height: 28,
-            width: 175,
+            width: 185,
             p: '$1',
           }}
         >
@@ -107,7 +107,7 @@ export default function SelectProvider({
           </DropdownMenu.Item>
           <View
             sx={{
-              width: 160,
+              width: 170,
             }}
           >
             {providers.map((p, index) => {

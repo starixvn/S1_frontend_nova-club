@@ -19,14 +19,14 @@ export const GetGameRebateValue = ({
     const item = commissionList.find(
       (item) => item.game_type_code === gtc && item.system_code === gpc
     )
-    return item?.cash_player.toString()
+    return ((item?.cash_player ?? 0) + (item?.cash_player_referrer ?? 0))
+      .toFixed(2)
+      .toString()
   }
   return undefined
 }
 
 export const GetCommissionList = () => {
-  const { data } = useCommissionTableQuery({
-    currency: Currency.VND,
-  })
+  const { data } = useCommissionTableQuery({ currency: Currency.VND })
   return data ?? []
 }

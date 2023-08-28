@@ -191,6 +191,7 @@ const GamesScreen = () => {
               games={item}
               onViewMore={onViewMore}
               gameCategoryTagTranslation={gameCategoryTagTranslation}
+              showRebate={type === ALL ? false : true}
               rebate={GetGameRebateValue({
                 gtc: gtc ?? '',
                 gpc: gpc ?? '',

@@ -43,7 +43,6 @@ function SlotScreen() {
   const { push } = useRouter()
   const [gameGroup, setGameGroup] = useState<Game[][]>()
   const commissionList = GetCommissionList()
-
   const [provider, setProvider] = useParam('provider', {
     initial: undefined,
     parse: (templateFromUrl) => {
@@ -145,7 +144,7 @@ function SlotScreen() {
               onViewMore={onViewMore}
               gameCategoryTagTranslation={gameCategoryTagTranslation}
               rebate={GetGameRebateValue({
-                gtc: gtc ?? '',
+                gtc: GAME_TYPE_CODE.SLOTS,
                 gpc: gpc ?? '',
                 commissionList,
               })}

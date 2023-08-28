@@ -60,7 +60,7 @@ function SlotScreen({}: Props) {
   const providers = useMemo(() => {
     if (games)
       return uniqBy(
-        games.map(({ gtc, gpc }) => ({ gtc, gpc })),
+        games.map(({ gtc, gpc }) => ({ gtc: GAME_TYPE_CODE.SLOTS, gpc })),
         'gpc'
       )
     else return []
