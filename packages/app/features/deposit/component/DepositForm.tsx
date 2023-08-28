@@ -181,7 +181,7 @@ const DepositForm = ({ DepositCategoryId }) => {
   return (
     <View sx={{ pt: '$3' }}>
       <View sx={{ px: horizontalMode ? 0 : '$4' }}>
-        {horizontalMode ? (
+        {/* {horizontalMode ? (
           <View>
             <InputLabel label={t('bank.bank')} />
             <View
@@ -225,7 +225,15 @@ const DepositForm = ({ DepositCategoryId }) => {
             options={channelOptions}
             onSelected={handleSelected}
           />
-        )}
+        )} */}
+        <SelectList
+          label={t('deposit.selectChannel')}
+          placeholder={t('deposit.selectChannel')}
+          value={channelOptions && channelOptions[selectedValues]?.value}
+          loading={isLoading || isFetching}
+          options={channelOptions}
+          onSelected={handleSelected}
+        />
       </View>
       <View
         sx={{
