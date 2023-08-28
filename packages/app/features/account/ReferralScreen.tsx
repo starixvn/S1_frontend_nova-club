@@ -4,7 +4,7 @@ import { PageWithBackHeader } from 'app/components/layouts/Page'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { toCurrency } from 'app/utils'
+import { toCurrency, toThousandSeparator } from 'app/utils'
 import { Currency } from 'app/utils/constant'
 import { ScrollView, View } from 'dripsy'
 import React from 'react'
@@ -35,10 +35,7 @@ const ReferralScreen = () => {
   const referralLink = `${DEV_DOMAIN}/download?ref=${referralCode}`
 
   const referralFriend = data?.data?.registered ?? 0
-  const referralComm = toCurrency(data?.data?.ref_comm ?? 0, currency, {
-    hideTruncatedThousand: false,
-    forceDecimal: false,
-  })
+  const referralComm = `VND ${toThousandSeparator(data?.data?.ref_comm || '')}`
 
   return (
     <PageWithBackHeader
