@@ -117,12 +117,20 @@ const MatchListTable = ({
         allLeagueId.map((l) => {
           return (
             <>
-              <Row sx={{ mt: '$2', bg: '$primary.50', px: '$3', py: '$2' }}>
+              <Row
+                sx={{
+                  mt: '$2',
+                  bg: '$primary.50',
+                  px: '$3',
+                  py: '$1',
+                  alignItems: 'center',
+                }}
+              >
                 <Icon
                   name={MatchLeagueTabIconMapping[l]}
                   sx={{ fontSize: [24, 30, 36] }}
                 />
-                <Text sx={{ py: '$2', fontSize: 18, fontWeight: 'bold' }}>
+                <Text sx={{ px: '$2', fontSize: 16, fontWeight: 'bold' }}>
                   {fullData[l]?.[0]?.LeagueName}
                 </Text>
               </Row>
