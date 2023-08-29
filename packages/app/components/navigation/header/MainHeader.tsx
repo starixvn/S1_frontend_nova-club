@@ -30,24 +30,33 @@ import HeaderAuthentication from './HeaderAuthentication'
 import HeaderDeposit from './HeaderDeposit'
 import HeaderLanguageToggle from './HeaderLanguageToggle'
 import HeaderOverview from './HeaderOverview'
+import FloatingDownload from 'app/features/floatingContent/FloatingDownload'
+import { Platform } from 'react-native'
+import usePathname from 'app/hooks/usePathname'
 
 const LogoSize = [HEADER_HEIGHT * 0.5, HEADER_HEIGHT * 0.75]
 
-const Logo = () => (
-  <Link href="/">
-    <Image
-      source={{
-        uri: `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered.png`,
-      }}
-      alt="header-logo"
-      sx={{
-        height: LogoSize,
-        aspectRatio: 292 / 88,
-        marginLeft: -5,
-      }}
-    />
-  </Link>
-)
+const Logo = () => {
+  const lang = useAppSelector((s) => s.setting.locale)
+  return (
+    <Link href="/">
+      <Image
+        source={{
+          uri:
+            lang === 'en'
+              ? `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered.png`
+              : `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered-vn.png`,
+        }}
+        alt="header-logo"
+        sx={{
+          height: LogoSize,
+          aspectRatio: 292 / 88,
+          marginLeft: -5,
+        }}
+      />
+    </Link>
+  )
+}
 
 const MainHeader = () => {
   const { top } = useSafeArea()
@@ -58,7 +67,10 @@ const MainHeader = () => {
   const desktop = useIsDesktop()
   const { theme } = useDripsyTheme()
   const { logout } = useOnAppLogout()
+  const pathname = usePathname()
 
+  const showDownloadPanel =
+    Platform.OS === 'web' && !desktop && pathname === '/'
   const TriggerLogout = async () => {
     try {
       await logout()
@@ -146,6 +158,8 @@ const MainHeader = () => {
           <HeaderAuthentication />
         )}
       </HeaderContainer>
+
+      {showDownloadPanel && <FloatingDownload />}
     </View>
   )
 }

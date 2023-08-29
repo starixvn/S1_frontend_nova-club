@@ -1672,7 +1672,7 @@ SPEC CHECKSUMS:
   BoringSSL-GRPC: 3175b25143e648463a56daeaaa499c6cb86dad33
   BranchSDK: ce28650272c658fcdb66675769e670ef83845d17
   CodePush: 9eddecce05cd10491e2673b259c85885a462be33
-  DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
+  DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   EXApplication: d8f53a7eee90a870a75656280e8d4b85726ea903
   EXAV: f1f69397ecdcf44cfacd4ff5d338cd1b96891e87
   EXBarCodeScanner: 8e23fae8d267dbef9f04817833a494200f1fce35
@@ -1709,7 +1709,7 @@ SPEC CHECKSUMS:
   FirebaseRemoteConfig: 33e0dcf43899fbb4f8ef2d84200bf5f5e32eaf05
   FirebaseSessions: 991fb4c20b3505eef125f7cbfa20a5b5b189c2a4
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
-  glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
+  glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
   GoogleAppMeasurement: 2d800fab85e7848b1e66a6f8ce5bca06c5aad892
   GoogleDataTransport: 54dee9d48d14580407f8f5fbf2f496e92437a2f2
   GoogleUtilities: 13e2c67ede716b8741c7989e26893d151b2b2084

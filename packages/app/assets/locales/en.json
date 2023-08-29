@@ -9,21 +9,21 @@
   "authentication": {
     "accVerification": "Account Verification",
     "accountReg": "Account Registration",
+    "agentForgotPassword": "Agent Forgot Password",
     "enterOtp": "Please enter OTP",
     "forgotPassword": "Forgot Password?",
     "forgotPasswordHeader": "Forgot Password",
-    "agentForgotPassword": "Agent Forgot Password",
     "login": "Login",
-    "loginHeader": "Member Login",
     "loginAgentHeader": "Agent Login",
+    "loginHeader": "Member Login",
     "noReceiveOTP": "Didn't receive OTP?",
     "readAndAgree": "I have read & agree the",
+    "referrerInfo": "Referrer information",
     "register": "Register",
     "rememberMe": "Remember Me",
     "resend": "Send",
     "resetPasswordHeader": "Reset Password",
-    "send": "Send",
-    "referrerInfo": "Referrer information"
+    "send": "Send"
   },
   "bank": {
     "accountName": "Account Name",
@@ -33,9 +33,9 @@
     "addCryptoAccount": "Add Crypto Wallet",
     "bank": "Bank",
     "bankAccount": "Bank Account",
+    "channel": "Channel",
     "noBankAccount": "No Bank Account",
     "noCryptoAccount": "No Crypto Account",
-    "channel": "Channel",
     "selectBank": "Please select bank",
     "selectChannel": "Select Channel",
     "walletAddress": "Wallet Address"
@@ -43,7 +43,8 @@
   "biometric": {
     "label": "Login with Biometrics",
     "message": "Would you like to enable biometric login?",
-    "notFound": "Biometric is not supported / not enabled on your device"
+    "notFound": "Biometric is not supported / not enabled on your device",
+    "title": "Biometric"
   },
   "commision": {
     "cashAgent": "Cash Agent",
@@ -66,6 +67,7 @@
     "cash": "Cash",
     "close": "Close",
     "confirm": "Confirm",
+    "confirmDelete": "Are you sure you want to delete? It cannot be restored after deletion!",
     "confirmPassword": "Confirm Password",
     "copied": "Copied",
     "copy": "Copy",
@@ -74,6 +76,7 @@
     "days": "Days",
     "deposit": "Deposit",
     "download": "Download",
+    "enter": "Enter",
     "fileSizeExceeds": "File size cannot exceed %{size}",
     "game": "Game",
     "hello": "Hello!!",
@@ -101,7 +104,10 @@
     "realBet": "Real Bet",
     "realName": "Real Name",
     "reward": "Reward",
+    "search": "Search",
+    "seeMore": "See More",
     "selectAll": "Select All",
+    "selectDate": "Select Date",
     "shareholder": "Shareholder",
     "showMore": "Show More",
     "submit": "Submit",
@@ -113,11 +119,7 @@
     "userAgreement": "User Agreement",
     "username": "Username",
     "withdraw": "Withdraw",
-    "enter": "Enter",
-    "confirmDelete": "Are you sure you want to delete? It cannot be restored after deletion!",
-    "search": "Search",
-    "yes": "Yes",
-    "selectDate": "Select Date"
+    "yes": "Yes"
   },
   "contact": {
     "contactVia": "Contact via:",
@@ -134,6 +136,7 @@
     "cardValue": "Card Value",
     "channel": "Channel",
     "choose": "Choose your Deposit Options",
+    "commonError": "Bank is under maintenance. Please try another bank or payment method",
     "cryptoAddress": "Crypto Address",
     "cryptoAmount": "Crypto Amount",
     "cryptoChannel": "Crypto Channel",
@@ -163,8 +166,7 @@
       "description": "Browse your Bank Transfer Receipt or Invoice",
       "files": "Select File",
       "title": "Upload Receipt"
-    },
-    "commonError": "Bank is under maintenance. Please try another bank or payment method"
+    }
   },
   "download": {
     "android": "ANDROID",
@@ -175,6 +177,7 @@
     },
     "downloadAppNow": "Download Vui123 App Now\nTo Enjoy All The\nExclusive Bonuses!",
     "downloadGuide": "Download\nGuide",
+    "guideInstall": "Guide to Install",
     "ios": "IOS",
     "iosGuideText": {
       "n1": "Click app download button\non our VUI123 site.",
@@ -182,8 +185,7 @@
       "n3": "You will be redirected to\n\"Vui Fit app on App Store\ninstead of VUI123 app\"",
       "n4": "Click \"Get\" to install the\n\"Vui Fit\" app",
       "n5": "Open \"Vui Fit\" app to launch\nVUI123 app. Start enjoying your\nexclusive bonus and games"
-    },
-    "guideInstall": "Guide to Install"
+    }
   },
   "event": {
     "catEvent": {
@@ -206,8 +208,8 @@
     "lose2": " BETTER LUCK NEXT TIME.",
     "luckyDraw": {
       "appSpin": "App To Spin",
-      "registerSpin": "REGISTER AND SPIN",
-      "ineligibleSpin": "Ineligible To Spin"
+      "ineligibleSpin": "Ineligible To Spin",
+      "registerSpin": "REGISTER AND SPIN"
     },
     "next": "PLAY NEXT",
     "prediction": {
@@ -258,12 +260,12 @@
     "win/loss": "Win/Loss"
   },
   "footer": {
-    "power": "Powered By",
     "aboutUs": "About Us",
     "contactUs": "Contact Us",
     "copyright": "© Copyright 2023 VUI123. All Rights Reserved.",
     "note1": "Become Our Partner",
     "note2": "VUI123 is committed to supporting Responsible Gaming",
+    "power": "Powered By",
     "responsibleGaming": "Responsible Gaming"
   },
   "forceDownload": {
@@ -274,6 +276,8 @@
     "title": "New version available"
   },
   "game": {
+    "allProviders": "All Providers",
+    "betNow": "Bet Now",
     "category": {
       "cardGame": "Card Game",
       "fishing": "Fishing",
@@ -292,8 +296,7 @@
     "megaway": "Megaway",
     "new": "New",
     "noGame": "No Game Available",
-    "recently": "Recently Played",
-    "betNow": "Bet Now"
+    "recently": "Recently Played"
   },
   "home": {
     "banner": {
@@ -331,8 +334,8 @@
       "forgotPin": "Forgot Pin",
       "newPin": "New Pin",
       "oldPin": "Old Pin",
-      "securePin": "Secure your transfer with PIN",
-      "resetPinSuccess": "Reset Transfer Pin Successfully"
+      "resetPinSuccess": "Reset Transfer Pin Successfully",
+      "securePin": "Secure your transfer with PIN"
     },
     "pw": {
       "changePw": "Change Password",
@@ -427,10 +430,10 @@
   "qr": {
     "downloadQr": "Download QR Code",
     "noCameraAccess": "Your camera is required to scan QR code for transfer. Please enable permission to continue using this feature",
-    "requestCameraPermissions": "Requesting for camera permission",
-    "scanGallery": "Scan from gallery",
+    "noStorageAccess": "Your storage is required to scan QR code for transfer. Please enable permission to continue using this feature",
     "openSetting": "Open Setting",
-    "noStorageAccess": "Your storage is required to scan QR code for transfer. Please enable permission to continue using this feature"
+    "requestCameraPermissions": "Requesting for camera permission",
+    "scanGallery": "Scan from gallery"
   },
   "referral": {
     "code": "Referral Code",
@@ -441,15 +444,15 @@
     "title": "Referral"
   },
   "status": {
-    "pending": "Pending",
-    "rejected": "Rejected",
-    "success": "Success",
-    "qrDownloadSuccess": "Qr code download successfully",
-    "systemError": "Oops! Something wrong, please try again.",
-    "qrTransferSelfError": "Transfer to own account is not allowed",
-    "scanFailed": "Scan Failed!",
     "imageNotSupported": "Image format not supported",
-    "networkError": "Network Error!"
+    "networkError": "Network Error!",
+    "pending": "Pending",
+    "qrDownloadSuccess": "Qr code download successfully",
+    "qrTransferSelfError": "Transfer to own account is not allowed",
+    "rejected": "Rejected",
+    "scanFailed": "Scan Failed!",
+    "success": "Success",
+    "systemError": "Oops! Something wrong, please try again."
   },
   "transaction": {
     "pending": "Pending Transactions",

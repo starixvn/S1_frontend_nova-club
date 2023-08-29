@@ -106,6 +106,7 @@ const Accordian = ({
                   opacity: 0,
                 }}
                 sx={{
+                  flex: 1,
                   backgroundColor: '$primary.500',
                   borderBottomWidth: 2,
                   borderColor: borderColor,

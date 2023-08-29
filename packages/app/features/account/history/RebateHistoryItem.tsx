@@ -5,7 +5,7 @@ import { toThousandSeparator } from 'app/utils'
 import { ReportDepositStatus, ReportTransactionType } from 'app/utils/constant'
 import dayjsTz from 'app/utils/dayjs'
 import dayjs from 'dayjs'
-import { ActivityIndicator, Text, View } from 'dripsy'
+import { ActivityIndicator, Text, View, useDripsyTheme } from 'dripsy'
 import React, { useState } from 'react'
 import { useLazyPlayerReportQuery } from 'services/playerApi'
 import { ReportRewardItem } from 'services/playerApi.type'
@@ -20,6 +20,7 @@ const RebateHistoryItem = ({ item }) => {
   const [fetchData, result] = useLazyPlayerReportQuery()
   const [dataDetails, setDataDetails] = useState([])
   const [firstLoading, setFirstLoading] = useState(true)
+  const { theme } = useDripsyTheme()
 
   const handleFetchData = async (date) => {
     const { data, success } = await fetchData({
@@ -50,9 +51,16 @@ const RebateHistoryItem = ({ item }) => {
         onPress={handleExpand}
         header={<ParentItem date={item.date} amount={item.amount} />}
       >
-        <View sx={{ py: 4 }}>
+        <View
+          sx={{
+            py: 4,
+            flexGrow: 1,
+            minHeight: 52,
+            justifyContent: 'center',
+          }}
+        >
           {firstLoading ? (
-            <ActivityIndicator sx={{ flex: 1, minHeight: 68 }} />
+            <ActivityIndicator size={32} color={theme.colors.$primary['50']} />
           ) : (
             dataDetails.map((el: ReportRewardItem, index) => (
               <ChildItem
@@ -113,16 +121,9 @@ const ChildItem = ({ date, game, amount }) => {
             height: 18,
             maxWidth: 100,
           }}
+          alt={`Logo of ${game}`}
         />
       </View>
-
-      {/* <View sx={{ flex: CELL_DATE_WIDTH }}>
-        <DateTimeCell
-          date={date}
-          isShowDate={false}
-          sx={{ textAlign: 'right' }}
-        />
-      </View> */}
 
       <View sx={{ flex: CELL_AMOUNT_WIDTH, mr: 28, justifyContent: 'center' }}>
         <Text sx={{ textAlign: 'right' }}>{toThousandSeparator(amount)}</Text>

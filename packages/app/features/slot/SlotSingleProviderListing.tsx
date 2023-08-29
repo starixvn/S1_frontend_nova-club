@@ -1,6 +1,7 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { FlashList } from '@shopify/flash-list'
 import Icon from 'app/components/Icon'
+import SectionLabel from 'app/components/SectionLabel'
 import Shadow from 'app/components/Shadow'
 import GameCard from 'app/components/game/GameCard'
 import GameListSectionGrid from 'app/components/game/GameListSectionGrid'
@@ -24,26 +25,34 @@ import {
 import union from 'lodash/union'
 import React, { startTransition, useEffect, useMemo, useState } from 'react'
 import { CommissionTableResult } from 'services/contentApi.type'
+import { useGameCategoryTagTypesQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
+import sortBy from 'lodash/sortBy'
 
 interface SlotSingleProviderListingProps {
   games: Game[]
-  provider: string
+  provider?: string
+  icon?: string
+  title?: string
   onBack: () => void
   sx?: SxProp
   gameCategoryTagTranslation?: GameCategoryTagTranslation
   commissionList: CommissionTableResult[]
   gtc: string
+  hideTag?: boolean
 }
 const SlotSingleProviderListing = ({
   games,
   provider,
+  icon,
+  title = '',
   onBack,
   sx,
   gameCategoryTagTranslation,
   gtc,
   commissionList = [],
+  hideTag,
 }: SlotSingleProviderListingProps) => {
   const { top, bottom } = useSafeArea()
 
@@ -52,15 +61,26 @@ const SlotSingleProviderListing = ({
   const [filter, setFilter] = useState<string>(ALL)
   const [search, setSearch] = useState<string>()
   const [filteredGames, setFilteredGames] = useState<Game[]>([])
+  const { data: gameCategoryTagTypes } = useGameCategoryTagTypesQuery()
+  const { getTagName } = useGetTagName()
+
   const tags = useMemo(() => {
     if (games) {
       return games.reduce(
         (distinctTags, currentGame) => union(distinctTags, currentGame.tags),
-        [ALL]
+        []
       )
     } else return ['ALL']
   }, [games])
-  const { getTagName } = useGetTagName()
+
+  // Sort according to gameCategoryTagTypes seq
+  const sortedTagsArray = sortBy(tags, (tag) => {
+    const filterTag = gameCategoryTagTypes?.filter((el) => el.gtc === 'slots')
+
+    const index = filterTag?.findIndex((item) => item.ck === tag)
+    return index !== -1 ? index : filterTag?.length
+  })
+  const seqTags = [ALL, ...sortedTagsArray]
 
   const column = useResponsiveValue([4, 5, 6])
   const searchedGame = useMemo(() => {
@@ -110,22 +130,27 @@ const SlotSingleProviderListing = ({
                 }}
               >
                 <Icon name="back" />
-                <SolitoImage
-                  alt={provider}
-                  height={20}
-                  width={100}
-                  src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${provider.toLowerCase()}.png`}
-                />
-                <View sx={{ justifyContent: 'center', pl: '$2' }}>
-                  <GameRebateLabel
-                    background={'rgba(0,0,0,0.6)'}
-                    rebateText={GetGameRebateValue({
-                      commissionList,
-                      gpc: provider.toUpperCase(),
-                      gtc,
-                    })}
-                  />
-                </View>
+                {provider && (
+                  <>
+                    <SolitoImage
+                      alt={provider}
+                      height={20}
+                      width={100}
+                      src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${provider.toLowerCase()}.png`}
+                    />
+                    <View sx={{ justifyContent: 'center', pl: '$2' }}>
+                      <GameRebateLabel
+                        background={'rgba(0,0,0,0.6)'}
+                        rebateText={GetGameRebateValue({
+                          commissionList,
+                          gpc: provider.toUpperCase(),
+                          gtc,
+                        })}
+                      />
+                    </View>
+                  </>
+                )}
+                {icon && <SectionLabel icon={icon} title={title} />}
               </Row>
             </Shadow>
           </Pressable>
@@ -136,22 +161,24 @@ const SlotSingleProviderListing = ({
           />
         </Row>
 
-        <GameListSectionGrid.TagBody>
-          {tags.map((f) => {
-            const isActive = filter === f
-            return (
-              <GameListSectionGrid.TagButton
-                key={f}
-                onPress={() => {
-                  setFilter(f)
-                }}
-                isActive={isActive}
-              >
-                {getTagName(f, gameCategoryTagTranslation)}
-              </GameListSectionGrid.TagButton>
-            )
-          })}
-        </GameListSectionGrid.TagBody>
+        {!hideTag && (
+          <GameListSectionGrid.TagBody>
+            {seqTags.map((f) => {
+              const isActive = filter === f
+              return (
+                <GameListSectionGrid.TagButton
+                  key={f}
+                  onPress={() => {
+                    setFilter(f)
+                  }}
+                  isActive={isActive}
+                >
+                  {getTagName(f, gameCategoryTagTranslation)}
+                </GameListSectionGrid.TagButton>
+              )
+            })}
+          </GameListSectionGrid.TagBody>
+        )}
       </View>
       <View style={{ flex: 1 }}>
         <FlashList

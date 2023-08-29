@@ -48,10 +48,13 @@ export default function IconButtonGradientToggle({
       </MotiView>
       {label && (
         <IconButtonGradient.Label
-          sx={{ fontWeight: active ? '900' : 'normal' }}
+          sx={{
+            fontWeight: active ? '900' : 'normal',
+            textTransform: 'capitalize',
+          }}
           {...labelProps}
         >
-          {capitalize(t(label))}
+          {t(label)}
         </IconButtonGradient.Label>
       )}
     </View>

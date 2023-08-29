@@ -7,6 +7,7 @@ import {
   GetGameRebateValue,
 } from 'app/components/game/GameUtilityAction'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
+import useLocalization from 'app/provider/localization'
 import { Row, ScrollView, SxProp, Text, View, useDripsyTheme } from 'dripsy'
 import React, { startTransition, useState } from 'react'
 import { CommissionTableResult } from 'services/contentApi.type'
@@ -161,6 +162,8 @@ export default function SelectProvider({
 }
 
 const AllSelection = ({ size = 16, sx }: { size?: number; sx?: SxProp }) => {
+  const { t } = useLocalization()
+
   return (
     <Row
       sx={{
@@ -179,7 +182,7 @@ const AllSelection = ({ size = 16, sx }: { size?: number; sx?: SxProp }) => {
           userSelect: 'none',
         }}
       >
-        {'ALL'}
+        {t('game.allProviders')}
       </Text>
     </Row>
   )

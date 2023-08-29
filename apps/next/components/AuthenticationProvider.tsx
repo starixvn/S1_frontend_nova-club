@@ -26,6 +26,9 @@ const guestRoutes = [
   '/lucky-spin-tnc',
   '/agent',
   '/event',
+  '/tag/new',
+  '/tag/jackpot',
+  '/tag/megaway',
 ]
 
 /* 

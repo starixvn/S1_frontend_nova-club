@@ -17,10 +17,12 @@ import {
 } from 'app/hooks/appState/game/useGameCategoryTag'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { ALL, HOT } from 'app/utils/constant'
+import { ALL, GAME_TYPE_CODE, HOT } from 'app/utils/constant'
 import { Text } from 'dripsy'
 import Button from '../common/Button'
 import GameListSectionGrid from './GameListSectionGrid'
+import { useGameCategoryTagTypesQuery } from 'services/gameApi'
+import sortBy from 'lodash/sortBy'
 
 function GameSectionByProviderItem({
   gpc,
@@ -49,14 +51,24 @@ function GameSectionByProviderItem({
   const [search, setSearch] = useState<string>()
   const count = useResponsiveValue([8, 10, 12, 999, 999])
 
+  const { data: gameCategoryTagTypes } = useGameCategoryTagTypesQuery()
   const { getTagName } = useGetTagName()
 
   const tags = useMemo(() => {
     return games.reduce(
       (distinctTags, currentGame) => union(distinctTags, currentGame.tags),
-      [ALL]
+      []
     )
   }, [games])
+
+  // Sort according to gameCategoryTagTypes seq
+  const sortedTagsArray = sortBy(tags, (tag) => {
+    const filterTag = gameCategoryTagTypes?.filter((el) => el.gtc === 'slots')
+
+    const index = filterTag?.findIndex((item) => item.ck === tag)
+    return index !== -1 ? index : filterTag?.length
+  })
+  const seqTags = [ALL, ...sortedTagsArray]
 
   const filteredGame = useMemo(() => {
     return filter === ALL ? games : games.filter((g) => g.tags.includes(filter))
@@ -75,7 +87,7 @@ function GameSectionByProviderItem({
   }
 
   useEffect(() => {
-    if (tags.length) {
+    if (seqTags.length) {
       const defaultTag = tags.find((tag) => tag === HOT)
 
       startTransition(() => {
@@ -111,7 +123,7 @@ function GameSectionByProviderItem({
         </View>
       </GameListSectionGrid.Header>
       <GameListSectionGrid.TagBody>
-        {tags.map((f) => {
+        {seqTags.map((f) => {
           const isActive = filter === f
           return (
             <GameListSectionGrid.TagButton

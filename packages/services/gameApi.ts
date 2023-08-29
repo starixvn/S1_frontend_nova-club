@@ -10,6 +10,7 @@ import {
   GameListQueryArgs,
   GameScreenMultipleRequest,
   GetFeaturedGameListResult,
+  GetGameListByTagsArgs,
   GetGameListQueryArgs,
   GetGameListResult,
   GetGameUrlQueryArgs,
@@ -81,17 +82,17 @@ export const gameApi = baseApiWithTag.injectEndpoints({
         },
       }),
     }),
-    getGameListByTags: builder.query<Game[], string[]>({
-      query: (tags) => ({
+    getGameListByTags: builder.query<Game[], GetGameListByTagsArgs>({
+      query: (query) => ({
         url: `/static_api/getGameList`,
         method: 'POST',
         data: {
           currency: Currency.VND,
           game_category: [],
-          limit: GAME_BY_TAG_LIMIT,
+          limit: query.limit || GAME_BY_TAG_LIMIT,
           offset: 0,
           gdc_game_category: [],
-          gdc_tag: tags,
+          gdc_tag: query.tags,
         },
         _config: {
           isStaticApi: true,
