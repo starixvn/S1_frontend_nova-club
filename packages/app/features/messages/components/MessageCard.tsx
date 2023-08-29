@@ -2,8 +2,9 @@ import Accordian from 'app/components/Accordian'
 import CheckBox from 'app/components/common/CheckBox'
 import { ViewRow } from 'app/components/common/ViewRow'
 import { Text, View, styled } from 'dripsy'
-import React from 'react'
+import React, { useState } from 'react'
 import HTMLLoader from './HTMLLoader'
+import { useLazyMessageDetailsQuery } from 'services/messageApi'
 
 type MessageCardProps = {
   selected?: boolean
@@ -11,7 +12,6 @@ type MessageCardProps = {
   onToggle?: (id: number) => void
   id: number
   title: string
-  content: string
   time?: string
   index: number
 }
@@ -22,11 +22,39 @@ const MessageCard = ({
   onToggle,
   id,
   title,
-  content,
   time,
 }: MessageCardProps) => {
+  const [isExtend, setIsExtend] = useState(false)
+  const [content, setContent] = useState('')
+  const [fetchMessageDetails] = useLazyMessageDetailsQuery()
+
+  const handleMessageDetail = async () => {
+    try {
+      const { data, success } = await fetchMessageDetails({
+        message_id: id,
+      })
+        .unwrap()
+        .catch((error) => {
+          return error
+        })
+
+      if (success) {
+        setContent(data.message)
+      } else setContent('Error fetching message')
+    } catch (error) {
+      console.log(
+        '🚀 ~ file: MessageCard.tsx:44 ~ handleMessageDetail ~ error:',
+        error
+      )
+    }
+  }
   const handlePress = () => {
     onToggle && onToggle(id)
+  }
+
+  const handleExpand = async () => {
+    setIsExtend(!isExtend)
+    !isExtend && handleMessageDetail()
   }
 
   return (
@@ -34,7 +62,7 @@ const MessageCard = ({
       isExpandable
       extended={false}
       parentStyle={{ px: '$3' }}
-      // onPress={handlePress}
+      onPress={handleExpand}
       header={
         <MessageHeader
           title={title}

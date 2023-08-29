@@ -3,6 +3,8 @@ import { EndpointBuilderType, IResponse } from './common/types'
 import {
   DeleteMessageQueryArgs,
   Message,
+  MessageDetailsArgs,
+  MessageDetailsResult,
   MessageResult,
 } from './messageApi.type'
 
@@ -14,8 +16,20 @@ const messageApi = baseApiWithTag.injectEndpoints({
         method: 'POST',
       }),
       transformResponse: (r: IResponse<MessageResult>) => {
-        return r.data?.messages || []
+        return r.data?.rows || []
       },
+    }),
+    messageDetails: builder.query<
+      IResponse<MessageDetailsResult>,
+      MessageDetailsArgs
+    >({
+      query: (queryArgs) => ({
+        url: `/player_api/messageDetails`,
+        method: 'POST',
+        data: {
+          ...queryArgs,
+        },
+      }),
     }),
     deleteMessages: builder.mutation<IResponse, DeleteMessageQueryArgs>({
       query: ({ isDeleteAll, ids }) => ({
@@ -33,4 +47,8 @@ const messageApi = baseApiWithTag.injectEndpoints({
   }),
 })
 
-export const { useMessageQuery, useDeleteMessagesMutation } = messageApi
+export const {
+  useMessageQuery,
+  useLazyMessageDetailsQuery,
+  useDeleteMessagesMutation,
+} = messageApi

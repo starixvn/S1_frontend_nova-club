@@ -6,6 +6,7 @@ import { Pressable, Row, Text, View } from 'dripsy'
 import React, { useCallback, useState } from 'react'
 import { useDeleteMessagesMutation, useMessageQuery } from 'services/messageApi'
 import MessageCard from './components/MessageCard'
+import dayjs from 'dayjs'
 
 const PersonalMessage = () => {
   const { t } = useLocalization()
@@ -84,11 +85,10 @@ const PersonalMessage = () => {
             isHtml
             index={i}
             id={item.messageId}
-            content={item.message}
             selected={selectedIds.includes(item.messageId)}
             onToggle={(id) => onToggle(id)}
             title={item.subject}
-            time={item.date}
+            time={dayjs(item.date).format('YYYY-MM-DD hh:mm a')}
           />
         </View>
       ))}
