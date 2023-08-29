@@ -196,7 +196,7 @@ const Root = styled(MotiPressable)({
 const LabelContainer = styled(View)(({ rebateTop }: { rebateTop?: boolean }) =>
   rebateTop //Bad Implementation
     ? {
-        py: [35],
+        py: [25, 30, 35, 35, 35],
         width: '100%',
         position: 'absolute',
         top: 0,

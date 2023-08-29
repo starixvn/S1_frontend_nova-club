@@ -125,8 +125,7 @@ const SlotSingleProviderListing = ({
                   borderBottomRightRadius: 20,
                   alignItems: 'center',
                   py: ['$2'],
-                  px: ['$3'],
-                  gap: '$3',
+                  px: ['$1'],
                 }}
               >
                 <Icon name="back" />
@@ -138,7 +137,7 @@ const SlotSingleProviderListing = ({
                       width={100}
                       src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${provider.toLowerCase()}.png`}
                     />
-                    <View sx={{ justifyContent: 'center', pl: '$2' }}>
+                    <View sx={{ justifyContent: 'center', px: '$2' }}>
                       <GameRebateLabel
                         background={'rgba(0,0,0,0.6)'}
                         rebateText={GetGameRebateValue({
