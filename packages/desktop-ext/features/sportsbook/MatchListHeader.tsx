@@ -41,7 +41,7 @@ const MatchListHeader = ({ data, height }: MatchListHeaderProps) => {
             </MotiView>
           </DataTableTitle>
 
-          <DataTableTitle sx={{ flex: 0.19, justifyContent: 'flex-start' }}>
+          <DataTableTitle sx={{ flex: 0.18, justifyContent: 'flex-start' }}>
             <MotiText
               from={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}

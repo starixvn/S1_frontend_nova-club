@@ -32,13 +32,17 @@ function GameSectionByProviderItem({
   onViewMore,
   gameListProps,
   gameCategoryTagTranslation,
+  rebate,
+  showRebate = true,
 }: {
   bordered?: boolean
   gpc?: string
+  rebate?: string
   games: Game[]
   onViewMore?: (gpc: string, tag: string) => void
   gameListProps?: any
   gameCategoryTagTranslation?: GameCategoryTagTranslation
+  showRebate?: boolean
   // GameListComponent: FC<{ data: Game[] }>
 }) {
   const { t } = useLocalization()
@@ -95,25 +99,28 @@ function GameSectionByProviderItem({
   const canShowMore = () => {
     return (searchedGame?.length ?? filteredGame.length ?? games.length) > count
   }
-
   return (
     <View nativeID={`gameSection${gpc}`}>
       <GameListSectionGrid.Header
+        showRebate={showRebate}
+        rebateValue={rebate}
         onSearch={(t) => {
           startTransition(() => setSearch(t))
         }}
       >
-        {gpc ? (
-          <SolitoImage
-            height={20}
-            width={90}
-            src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${gpc?.toLowerCase()}.png`}
-            contentFit="contain"
-            alt={gpc}
-          />
-        ) : (
-          <Text sx={{ fontWeight: '900' }}>{t('common.all')}</Text>
-        )}
+        <View sx={{ flexDirection: 'row' }}>
+          {gpc ? (
+            <SolitoImage
+              height={20}
+              width={90}
+              src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${gpc?.toLowerCase()}.png`}
+              contentFit="contain"
+              alt={gpc}
+            />
+          ) : (
+            <Text sx={{ fontWeight: '900' }}>{t('common.all')}</Text>
+          )}
+        </View>
       </GameListSectionGrid.Header>
       <GameListSectionGrid.TagBody>
         {seqTags.map((f) => {

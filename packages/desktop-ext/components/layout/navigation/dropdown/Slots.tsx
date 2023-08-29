@@ -1,13 +1,13 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import GameCard from 'app/components/game/GameCard'
-import { GAME_TYPE_CODE } from 'app/utils/constant'
-import groupBy from 'lodash/groupBy'
-import React, { useMemo } from 'react'
 import {
-  useGameListMultipleQuery,
-  useGameProviderListQuery,
-  useGetGameListByCategoryQuery,
-} from 'services/gameApi'
+  GetCommissionList,
+  GetGameRebateValue,
+} from 'app/components/game/GameUtilityAction'
+import { GAME_TYPE_CODE } from 'app/utils/constant'
+import uniqBy from 'lodash/uniqBy'
+import React, { useMemo } from 'react'
+import { useGameListMultipleQuery } from 'services/gameApi'
 import { useRouter } from 'solito/router'
 import DropdownContent from '../DropdownContent'
 import { NAVIGATION_DROPDOWN_MENU } from '../NavigationHeaderProvider'
@@ -16,7 +16,7 @@ type Props = {}
 
 export default function Slots({}: Props) {
   const { push } = useRouter()
-
+  const commissionList = GetCommissionList()
   // const { data } = useGetGameListByCategoryQuery([
   //   GAME_TYPE_CODE.SLOTS,
   //   GAME_TYPE_CODE.FISHING,
@@ -27,7 +27,11 @@ export default function Slots({}: Props) {
   })
 
   const providers = useMemo(() => {
-    if (data) return Object.keys(groupBy(data, 'gpc'))
+    if (data)
+      return uniqBy(
+        data.map(({ gtc, gpc }) => ({ gtc, gpc })),
+        'gpc'
+      )
     else return []
   }, [data])
 
@@ -37,14 +41,19 @@ export default function Slots({}: Props) {
         providers.map((g) => {
           return (
             <GameCard
-              absoluteName
-              onPress={() => push(`/slots/${g.toLowerCase()}`)}
+              rebateText={GetGameRebateValue({
+                gtc: g.gtc,
+                gpc: g.gpc,
+                commissionList,
+              })}
+              showRebate={true}
+              onPress={() => push(`/slots/${g.gpc.toLowerCase()}`)}
               // displayName={
               //   providerStatus ? providerStatus[g]?.system_name : undefined
               // }
-              key={g}
+              key={g.gpc}
               sx={{ width: '11%' }}
-              img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/slots/${g.toLowerCase()}.png`}
+              img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/slots/${g.gpc.toLowerCase()}.png`}
             />
           )
         })}

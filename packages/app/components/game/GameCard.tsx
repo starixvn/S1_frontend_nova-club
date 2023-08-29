@@ -1,9 +1,25 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { LaunchGame } from 'app/features/game/GameLauncher'
 import { LaunchGamePayload } from 'app/store/gameLauncher.slice'
-import { SxProp, Text, View, styled, useSx } from 'dripsy'
+import {
+  ActivityIndicator,
+  SxProp,
+  View,
+  styled,
+  useSx,
+  Text,
+  useDripsyTheme,
+} from 'dripsy'
 import { MotiPressable } from 'moti/interactions'
-import React, { memo, useMemo, useRef, useState, useTransition } from 'react'
+import React, {
+  memo,
+  startTransition,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useTransition,
+} from 'react'
 import {
   GestureResponderEvent,
   Platform,
@@ -14,14 +30,20 @@ import { SolitoImage } from 'solito/image'
 
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import { AnimatePresence, MotiView } from 'moti'
+import GameRebateLabel from './GameRebateLabel'
+import GameTagsLabel, { GAME_TAG_SIZE } from './GameTagsLabel'
 
 export interface GameCardProps extends PressableProps, LaunchGamePayload {
   displayName?: string
   width?: number | number[] | string | string[]
   height?: number | number[]
   sx?: SxProp
+  rebateText?: string
   containerSx?: SxProp
   absoluteName?: boolean
+  showRebate?: boolean
+  rebateTop?: boolean
+  gameTagSize?: GAME_TAG_SIZE
 }
 
 const GameCard = ({
@@ -33,13 +55,17 @@ const GameCard = ({
   containerSx,
   onPress,
   absoluteName,
+  rebateText,
+  rebateTop = false,
+  showRebate = false,
+  gameTagSize = GAME_TAG_SIZE.lg,
   ...rest
 }: GameCardProps) => {
   const lastLoadedRef = useRef(img)
   const [loaded, setLoaded] = useState(false)
-  const [isPending, startTransition] = useTransition()
   const desktopMode = useIsDesktop()
   const ss = useSx()
+  const { tags } = rest
 
   if (lastLoadedRef.current != img) {
     lastLoadedRef.current = img
@@ -67,7 +93,14 @@ const GameCard = ({
       })
     }
   }
-
+  const [isRebateLoading, setIsRebateLoading] = useState(
+    rebateText === undefined
+  )
+  useEffect(() => {
+    if (rebateText) {
+      setIsRebateLoading(false)
+    }
+  }, [rebateText])
   return (
     <Root
       containerStyle={ss({
@@ -127,17 +160,26 @@ const GameCard = ({
           </AnimatePresence>
         )}
       </View>
-      {displayName && (
-        <LabelContainer absolute={absoluteName}>
-          <Text
-            sx={{
-              textAlign: 'center',
-              fontWeight: 'bold',
-              fontSize: [12, 14],
-            }}
-          >
-            {displayName}
-          </Text>
+      <GameTagsLabel tags={tags ?? []} size={gameTagSize} />
+      {!!displayName && (
+        <Text
+          sx={{
+            textAlign: 'center',
+            fontWeight: 'bold',
+            mt: '$2',
+            fontSize: [12, 14],
+          }}
+        >
+          {displayName}
+        </Text>
+      )}
+      {showRebate && (
+        <LabelContainer rebateTop={rebateTop}>
+          {isRebateLoading ? (
+            <ActivityIndicator color={'$primary.100'} />
+          ) : (
+            <GameRebateLabel key={rebateText} rebateText={rebateText} />
+          )}
         </LabelContainer>
       )}
     </Root>
@@ -149,23 +191,30 @@ export default memo(GameCard)
 const Root = styled(MotiPressable)({
   position: 'relative',
   // aspectRatio: 1,
-  overflow: 'hidden',
+  // overflow: 'hidden',
 })
-const LabelContainer = styled(View)(({ absolute }: { absolute?: boolean }) =>
-  absolute
+const LabelContainer = styled(View)(({ rebateTop }: { rebateTop?: boolean }) =>
+  rebateTop //Bad Implementation
     ? {
+        py: [25, 30, 35, 35, 35],
         width: '100%',
-        borderTopWidth: StyleSheet.hairlineWidth,
-        borderTopColor: '$primary.100',
-        borderBottomRightRadius: 10,
-        borderBottomLeftRadius: 10,
-        bg: `rgba(50, 50, 90, 0.8)`,
         position: 'absolute',
-        bottom: 0,
-        py: [6, '$2'],
+        top: 0,
+        right: 0,
+        justifyContent: 'flex-end',
+        flexDirection: 'row',
+        pr: '$2',
+        alignItems: 'center',
       }
     : {
-        pt: [6, '$2'],
+        py: [6],
         width: '100%',
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        justifyContent: 'flex-end',
+        flexDirection: 'row',
+        pr: '$2',
+        alignItems: 'center',
       }
 )

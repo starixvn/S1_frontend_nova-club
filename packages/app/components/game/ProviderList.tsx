@@ -1,10 +1,11 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import useLocalization from 'app/provider/localization'
 import { ProviderImageCategory } from 'app/utils/constant'
 import { ActivityIndicator, Pressable, Row, View } from 'dripsy'
 import React from 'react'
 import { SolitoImage } from 'solito/image'
 import SectionHeader from '../SectionHeader'
-import useLocalization from 'app/provider/localization'
+import { GameProviderCategory } from './GameUtilityAction'
 
 // const cols = [3, 3, 4]
 const width = ['32%', '24%', '19.5%', '19.5%', '16%']
@@ -15,7 +16,7 @@ export default function ProviderList({
   imageCategory,
   onNavigateProvider,
 }: {
-  data?: string[]
+  data?: GameProviderCategory[]
   imageCategory: ProviderImageCategory
   onNavigateProvider: (index: number, gpc: string) => void
 }) {
@@ -33,23 +34,24 @@ export default function ProviderList({
               alignItems: 'center',
             }}
           >
-            {data.map((gpc, i) => {
+            {data.map((g, i) => {
               return (
                 <Pressable
                   key={i}
-                  onPress={() => onNavigateProvider(i, gpc)}
+                  onPress={() => onNavigateProvider(i, g.gpc)}
                   sx={{
                     width: width,
                     m: spaces,
                     // maxWidth: 240,
                     aspectRatio: 240 / 80,
+                    overflow: 'hidden',
                     // alignSelf: 'stretch',
                   }}
                 >
                   <SolitoImage
                     fill
-                    src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/colored/${imageCategory}/${gpc?.toLowerCase()}.jpg`}
-                    alt={gpc}
+                    src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/colored/${imageCategory}/${g.gpc?.toLowerCase()}.jpg`}
+                    alt={g.gpc}
                   />
                 </Pressable>
               )

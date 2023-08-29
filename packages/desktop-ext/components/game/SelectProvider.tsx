@@ -1,17 +1,24 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Icon from 'app/components/Icon'
 import ShadowButton from 'app/components/ShadowButton'
+import GameRebateLabel from 'app/components/game/GameRebateLabel'
+import {
+  GameProviderCategory,
+  GetGameRebateValue,
+} from 'app/components/game/GameUtilityAction'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
 import useLocalization from 'app/provider/localization'
 import { Row, ScrollView, SxProp, Text, View, useDripsyTheme } from 'dripsy'
 import React, { startTransition, useState } from 'react'
+import { CommissionTableResult } from 'services/contentApi.type'
 import { SolitoImage } from 'solito/image'
 
 import * as DropdownMenu from 'zeego/dropdown-menu'
 type Props = {
-  providers: string[]
-  value?: string
+  providers: GameProviderCategory[]
+  value?: GameProviderCategory
   onSelect: (p?: string) => void
+  commissionList: CommissionTableResult[]
 }
 
 enum IndexState {
@@ -19,9 +26,15 @@ enum IndexState {
   NONE = -1,
 }
 
-export default function SelectProvider({ providers, value, onSelect }: Props) {
+export default function SelectProvider({
+  providers,
+  value,
+  onSelect,
+  commissionList,
+}: Props) {
   const [activeIndex, setActiveIndex] = useState(IndexState.NONE)
   const { theme } = useDripsyTheme()
+
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
@@ -29,7 +42,7 @@ export default function SelectProvider({ providers, value, onSelect }: Props) {
           safeRender
           containerStyle={{
             height: 28,
-            width: 150,
+            width: 185,
             p: '$1',
           }}
         >
@@ -54,7 +67,7 @@ export default function SelectProvider({ providers, value, onSelect }: Props) {
                 <SolitoImage
                   fill
                   alt={value}
-                  src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${value.toLowerCase()}.png`}
+                  src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${value.gpc.toLocaleLowerCase()}.png`}
                 />
               )}
             </View>
@@ -93,21 +106,27 @@ export default function SelectProvider({ providers, value, onSelect }: Props) {
               <AllSelection size={20} sx={{ mx: 'auto' }} />
             </View>
           </DropdownMenu.Item>
-          <View sx={{}}>
+          <View
+            sx={{
+              width: 170,
+            }}
+          >
             {providers.map((p, index) => {
               return (
                 <DropdownMenu.Item
-                  key={p}
+                  key={p.gpc}
                   style={{
-                    width: 135,
+                    width: '100%',
                     height: 40,
                     flex: 1,
-                    justifyContent: 'center',
+                    justifyContent: 'space-around',
                     alignItems: 'center',
                     backgroundColor:
                       index === activeIndex
                         ? theme?.colors?.$primary?.[100]
                         : 'transparent',
+                    flexDirection: 'row',
+                    paddingHorizontal: 5,
                   }}
                   onSelect={() => {
                     onSelect && onSelect(p)
@@ -118,11 +137,19 @@ export default function SelectProvider({ providers, value, onSelect }: Props) {
                   }
                 >
                   <SolitoImage
-                    height={25}
-                    width={100}
-                    alt={p}
-                    src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${p.toLowerCase()}.png`}
+                    height={20}
+                    width={90}
+                    alt={p.gpc}
+                    src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${p.gpc.toLowerCase()}.png`}
                     resizeMode="contain"
+                  />
+                  <GameRebateLabel
+                    rebateText={GetGameRebateValue({
+                      gtc: p.gtc,
+                      gpc: p.gpc,
+                      commissionList,
+                    })}
+                    background="transparent"
                   />
                 </DropdownMenu.Item>
               )

@@ -35,20 +35,8 @@ const CommissionTableScreen = () => {
   const { t } = useLocalization()
   const desktop = useIsDesktop()
   const { bottom } = useSafeArea()
-  const { commissionList } = useCommissionTableQuery(
-    { currency: Currency.VND },
-    {
-      selectFromResult: ({ data }) => ({ commissionList: data?.data }),
-    }
-  )
-
-  const parseCommissionList = commissionList?.slice(1).filter((item) => {
-    return item.system_code === '' ||
-      (item.cash_player > 0 &&
-        item.cash_player_referrer > 0 &&
-        item.cash_agent > 0)
-      ? item
-      : null
+  const { data: commissionList } = useCommissionTableQuery({
+    currency: Currency.VND,
   })
 
   const fillColumn = (value) => {
@@ -191,7 +179,7 @@ const CommissionTableScreen = () => {
                 }),
               },
             }}
-            data={parseCommissionList}
+            data={commissionList}
             renderItem={onRender}
             estimatedItemSize={20}
             showsVerticalScrollIndicator={false}

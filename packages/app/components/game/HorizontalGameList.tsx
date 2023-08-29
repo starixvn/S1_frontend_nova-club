@@ -7,6 +7,7 @@ import DraggableScrollView from '../DraggableScrollView'
 import SkeletonPlaceholder from '../SkeletonPlaceholder'
 import GameCard from './GameCard'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
+import { GAME_TAG_SIZE } from './GameTagsLabel'
 
 interface HorizontalGameListProps extends ScrollViewProps {
   data: Game[]
@@ -36,6 +37,7 @@ export default function HorizontalGameList({
           return (
             <GameCard
               // name={g.name[locale]}
+              gameTagSize={GAME_TAG_SIZE.sm}
               width={size}
               height={size}
               key={g.gtc === GAME_TYPE_CODE.LIVE_DEALER ? g.gpc : g.gc}

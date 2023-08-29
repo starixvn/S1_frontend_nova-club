@@ -11,34 +11,53 @@ import DraggableScrollView from '../DraggableScrollView'
 import { DripsyGradient } from '../Gradient'
 import Icon from '../Icon'
 import GameCard from './GameCard'
+import GameRebateLabel from './GameRebateLabel'
 type Props = { children: ReactElement }
 
 export default function GameListSectionGrid({ children }: Props) {
   return <View>{children}</View>
 }
 
-const GameListSectionGridHeader = ({ onSearch, children }) => {
+const GameListSectionGridHeader = ({
+  onSearch,
+  children,
+  showRebate = false,
+  rebateValue,
+}) => {
   const isDesktop = useIsDesktop()
 
   return (
     <View
       sx={{
         flexDirection: 'row',
+        justifyContent: 'space-between',
       }}
     >
-      <View
-        sx={{
-          bg: '$primary.200',
-          borderTopRightRadius: [15, 20],
-          width: [120, 130],
-          px: '$2',
-          py: '$2',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginRight: 'auto',
-        }}
-      >
-        {children}
+      <View sx={{ flexDirection: 'row' }}>
+        <View
+          sx={{
+            bg: '$primary.200',
+            borderTopRightRadius: [15, 20],
+            minWidth: [120, 130],
+            px: '$2',
+            py: '$2',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginRight: 'auto',
+          }}
+        >
+          <View sx={{ flexDirection: 'row' }}>
+            {children}
+            {showRebate && !isDesktop && (
+              <View sx={{ justifyContent: 'center', pl: '$2' }}>
+                <GameRebateLabel
+                  background={'rgba(0,0,0,0.6)'}
+                  rebateText={rebateValue}
+                />
+              </View>
+            )}
+          </View>
+        </View>
       </View>
       {onSearch && isDesktop && (
         <GameListSectionGridSearch onSearch={onSearch} />
@@ -231,6 +250,7 @@ const TagButton = ({ isActive, children = '', ...rest }) => {
           }}
         >
           <Text
+            selectable={false}
             numberOfLines={1}
             sx={{
               mt: FONT_TOP_OFFSET,

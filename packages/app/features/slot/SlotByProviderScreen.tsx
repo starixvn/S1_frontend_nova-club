@@ -6,6 +6,7 @@ import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 import SlotSingleProviderListing from './SlotSingleProviderListing'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
+import { GetCommissionList } from 'app/components/game/GameUtilityAction'
 
 type Props = {}
 
@@ -25,6 +26,7 @@ export default function SlotByProviderScreen({}: Props) {
 
   const [filteredGames, setFilteredGames] = useState<Game[]>([])
   const [provider, setProvider] = useParam('provider')
+  const commissionList = GetCommissionList()
 
   const { back } = useRouter()
 
@@ -40,6 +42,8 @@ export default function SlotByProviderScreen({}: Props) {
 
   return (
     <SlotSingleProviderListing
+      commissionList={commissionList}
+      gtc={filteredGames[0]?.gtc ?? ''}
       games={filteredGames}
       provider={provider}
       onBack={back}
