@@ -63,7 +63,7 @@ export default function LiveCasinoScreen({}: Props) {
       <View sx={{ width: '100%', aspectRatio: 1280 / 333, mb: '$3' }}>
         <SkeletonPlaceholder width={'100%'} height={'100%'}>
           <SolitoImage
-            src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/livecasino/dailywins_pp.jpg`}
+            src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/livecasino/pp-live-casino.jpg`}
             alt="Dailywins"
             fill
           />

@@ -84,7 +84,7 @@ export default function LiveCasinoScreen() {
           <View sx={{ width: '100%', aspectRatio: 1280 / 333 }}>
             <SolitoImage
               fill
-              src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/livecasino/dailywins_pp.jpg`}
+              src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/livecasino/pp-live-casino.jpg`}
               alt="dailywins"
             />
           </View>
