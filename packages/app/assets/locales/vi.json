@@ -438,10 +438,24 @@
   "referral": {
     "code": "Mã giới thiệu",
     "link": "Đường dẫn để giới thiệu",
+    "howTo": "Cách giới thiệu bạn cùng chơi",
+    "qrCode": "Mã giới thiệu",
+    "referNumber": "Số bạn giới thiệu",
+    "referralStatement": "Nhận ngay hoa hồng lên đến 0.5% khi giới thiệu bạn bè",
+    "referralStatus": "Giới thiệu bạn cùng chơi",
     "share": "Chia sẻ",
     "shareContent": "Nhận hoa hồng giới thiệu bạn bè với những phần thưởng đặc biệt với mã code của riêng bạn.",
     "shareMessage": "Chia sẻ & nhận thưởng",
-    "title": "Giới thiệu"
+    "steps": {
+      "step1": "Bước 1",
+      "step2": "Bước 2",
+      "step3": "Bước 3",
+      "n1": "Chia sẻ mã/đường dẫn của bạn",
+      "n2": "Bạn cùng chơi đăng ký bằng mã/đường dẫn, nạp tiền và tận hưởng trò chơi",
+      "n3": "Nhận hoa hồng từ doanh thu cược của bạn cùng chơi (không giới hạn)"
+    },
+    "title": "Giới thiệu",
+    "totalCom": "Tổng số hoa hồng bạn nhận"
   },
   "status": {
     "imageNotSupported": "Định dạng hình ảnh không được hỗ trợ",
