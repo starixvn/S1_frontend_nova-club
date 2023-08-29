@@ -7,11 +7,14 @@ import OnlineBankingContent from 'app/features/deposit/online-banking/OnlineBank
 import QRPayContent from 'app/features/deposit/qr-pay/QRPayContent'
 import useDepositList from 'app/features/deposit/tools/useDepositList'
 import TopUpCardContent from 'app/features/deposit/topup-card/TopUpCardContent'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import DepositRoutes from 'desktop-ext/routes/depositRoutes'
+import { View } from 'dripsy'
 import React, { useMemo } from 'react'
 
 const DepositScreen = () => {
   const { paymentMethodList } = useDepositList()
+  const horizontalMode = useIsDesktop()
 
   const availableRoutes = DepositRoutes.filter((route) =>
     paymentMethodList.find((el) => route.categoryId === el.categoryId)
@@ -37,7 +40,7 @@ const DepositScreen = () => {
     }
   }, [availableRoutes])
 
-  return <FormContainer>{memoContent}</FormContainer>
+  return <>{memoContent}</>
 }
 
 export default DepositScreen
