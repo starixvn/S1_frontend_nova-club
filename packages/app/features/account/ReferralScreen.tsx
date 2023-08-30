@@ -46,7 +46,7 @@ const ReferralScreen = () => {
       {desktop ? (
         <View
           sx={{
-            height: 600,
+            minHeight: 600,
             justifyContent: 'space-around',
             alignItems: 'center',
           }}
