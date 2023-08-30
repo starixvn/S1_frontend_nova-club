@@ -8,6 +8,7 @@ import { usePlayerProfileQuery } from 'services/playerApi'
 import { usePlayerBalanceQuery } from 'services/walletApi'
 import { MinMax } from '../hooks/useCryptoSelection'
 import { WithdrawalValues } from '../hooks/useWithdrawalForm'
+import { useGetAvailableWithdrawalAmountQuery } from 'services/withdrawal'
 
 type WithdrawalAmountProps = {
   isCrypto?: boolean
@@ -23,15 +24,13 @@ const WithdrawalAmount = ({
 
   const { currency } = usePlayerProfileQuery()
 
-  const { data } = usePlayerBalanceQuery(undefined, {
-    refetchOnMountOrArgChange: true,
-  })
+  const { data: availableBalance } = useGetAvailableWithdrawalAmountQuery()
 
   const { values, handleChange, handleBlur, touched, errors, setValues } =
     formik
 
   const handleMaxAmount = () => {
-    const value = toCurrency(Number(data?.totalBalance), currency, {
+    const value = toCurrency(Number(availableBalance?.balance), currency, {
       symbol: false,
       hideTruncatedThousand: false,
     })

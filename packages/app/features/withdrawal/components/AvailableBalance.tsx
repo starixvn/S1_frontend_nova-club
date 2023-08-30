@@ -22,19 +22,20 @@ const AvailableBalance = ({
   const { currency } = usePlayerProfileQuery()
   const [delay, setDelay] = useState(true)
 
-  const { data } = usePlayerBalanceQuery(undefined)
+  const { data } = usePlayerBalanceQuery(undefined, {
+    skip: !isTransfer,
+  })
 
   const { data: availableBalance } = useGetAvailableWithdrawalAmountQuery(
     undefined,
     {
-      refetchOnMountOrArgChange: true,
-      skip: isTransfer || delay,
+      skip: isTransfer,
     }
   )
 
-  setTimeout(() => {
-    !isTransfer && setDelay(false)
-  }, 2000)
+  // setTimeout(() => {
+  //   !isTransfer && setDelay(false)
+  // }, 2000)
 
   const balance = isTransfer ? data?.totalBalance : availableBalance?.balance
 

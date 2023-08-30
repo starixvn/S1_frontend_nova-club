@@ -12,7 +12,10 @@ import { usePlayerBankQuery } from 'services/bank'
 import { PlayerBankResult } from 'services/bank.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { usePlayerBalanceQuery } from 'services/walletApi'
-import { useSubmitWithdrawalMutation } from 'services/withdrawal'
+import {
+  useGetAvailableWithdrawalAmountQuery,
+  useSubmitWithdrawalMutation,
+} from 'services/withdrawal'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 
@@ -68,9 +71,7 @@ const useWithdrawalForm = ({ isCrypto = false, minMax }) => {
     [isCrypto, isLoading]
   )
 
-  const { data } = usePlayerBalanceQuery(undefined, {
-    refetchOnMountOrArgChange: true,
-  })
+  const { data } = useGetAvailableWithdrawalAmountQuery(undefined)
 
   const { currency, username } = usePlayerProfileQuery()
 
@@ -142,7 +143,7 @@ const useWithdrawalForm = ({ isCrypto = false, minMax }) => {
       amount: validation.amountMinMax({
         min: toDisplayAmount((minMax && minMax.min) ?? 50000, currency),
         max: toDisplayAmount((minMax && minMax.max) ?? 1000000000, currency),
-        balance: toDisplayAmount(data?.totalBalance, currency),
+        balance: toDisplayAmount(data?.balance, currency),
       }),
     }),
     onSubmit,
