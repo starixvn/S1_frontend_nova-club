@@ -103,17 +103,19 @@ function GameSectionByProviderItem({
           startTransition(() => setSearch(t))
         }}
       >
-        {gpc ? (
-          <SolitoImage
-            height={20}
-            width={90}
-            src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${gpc?.toLowerCase()}.png`}
-            contentFit="contain"
-            alt={gpc}
-          />
-        ) : (
-          <Text sx={{ fontWeight: '900' }}>{t('common.all')}</Text>
-        )}
+        <View sx={{ flexDirection: 'row' }}>
+          {gpc ? (
+            <SolitoImage
+              height={25}
+              width={90}
+              src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${gpc?.toLowerCase()}.png`}
+              contentFit="contain"
+              alt={gpc}
+            />
+          ) : (
+            <Text sx={{ fontWeight: '900' }}>{t('common.all')}</Text>
+          )}
+        </View>
       </GameListSectionGrid.Header>
       <GameListSectionGrid.TagBody>
         {seqTags.map((f) => {

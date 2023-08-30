@@ -3,7 +3,7 @@ import Icon from 'app/components/Icon'
 import Button from 'app/components/common/Button'
 import useContainerWidth from 'app/hooks/useContainerWidth'
 import useLocalization from 'app/provider/localization'
-import { Image, Pressable, Text, View, useDripsyTheme } from 'dripsy'
+import { Image, Pressable, Text, View } from 'dripsy'
 import { ResizeMode, Video } from 'expo-av'
 import React, { useRef, useState } from 'react'
 import { ImageBackground, View as RNView } from 'react-native'
@@ -20,11 +20,10 @@ const AppDownloadSection = () => {
   const width = useContainerWidth(ref)
   const qrWidth = Math.min(width * 0.3, 125)
   const [isPlaying, setIsPlaying] = useState(false)
-  const { theme } = useDripsyTheme()
   return (
     <View sx={{ flexDirection: 'row' }}>
       <ImageBackground
-        source={require('../../../app/assets/images/download/BG_DL.jpg')}
+        source={`${MEDIA_DOMAIN}${CONTENT_URI}/download/BG_DL.jpg`}
         style={{
           aspectRatio: 1 / 1,
           flex: 1 / 3,
