@@ -26,7 +26,11 @@ const DepositMethodCard = ({ item, onPress }: DepositMethodCardProps) => {
         offset={[0, -1]}
         startColor={theme.colors.$primary[100]}
         distance={1}
-        style={{ borderRadius: 12, overflow: 'hidden', width: '100%' }}
+        style={{
+          borderRadius: 12,
+          overflow: 'hidden',
+          width: '100%',
+        }}
       >
         <DripsyGradient
           gradient="surface"
@@ -34,6 +38,7 @@ const DepositMethodCard = ({ item, onPress }: DepositMethodCardProps) => {
             flexDirection: 'row',
             alignItems: 'center',
             p: 12,
+            minHeight: 64,
           }}
         >
           <ShadowButton
