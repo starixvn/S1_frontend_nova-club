@@ -17,7 +17,7 @@ const PlinkoTncButton = ({
   const tncData: Action = {
     type: ActionType.INTERNAL_REDIRECT,
     payload: {
-      uri: '/event/plinko-tnc',
+      uri: '/event/mid-autumn-tnc',
       params: {
         locale: 'vn',
       },

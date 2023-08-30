@@ -47,7 +47,7 @@ p {
 ::-webkit-scrollbar {
   width: 0.5px;
 }
-canvas{
+canvas {
   display: block;
 }
 
@@ -66,27 +66,35 @@ canvas{
 
 .rebateText {
   animation: mymove 3s infinite, enlarge 0.5s infinite alternate;
-  background: linear-gradient(271deg, #FFDD3C 0%, #FFF192 5%, #FFD400 10%,#FFEA61 50%, #E8B03F 100%);
-      background-size: 200% auto;
+  background: linear-gradient(
+    271deg,
+    #ffdd3c 0%,
+    #fff192 5%,
+    #ffd400 10%,
+    #ffea61 50%,
+    #e8b03f 100%
+  );
+  background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
-    -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent;
   font-weight: bold;
   text-align: center;
   text-shadow: rgba(233, 221, 173, 0.4) 1px 0 5px;
 }
 
 @keyframes mymove {
-  0% {background-position: 200% center;
+  0% {
+    background-position: 200% center;
+  }
 }
-}
-@keyframes enlarge{
-  From {
-    -webkit-transform: scale(1.0);
-}
-To {
+@keyframes enlarge {
+  from {
+    -webkit-transform: scale(1);
+  }
+  to {
     -webkit-transform: scale(1.1);
-}
+  }
 }
 
 /* https://codepen.io/digital_playground/pen/RwaVXOL */
@@ -118,7 +126,7 @@ To {
 }
 
 .btn::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   width: 100%;
@@ -143,7 +151,7 @@ To {
   animation: shine 2s ease-in infinite;
 }
 
-.enlarge-anim{
+.enlarge-anim {
   animation: enlarge 0.5s infinite alternate;
 }
 
