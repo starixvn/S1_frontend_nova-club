@@ -3,6 +3,10 @@ import { FlashList } from '@shopify/flash-list'
 import GamePageHeader from 'app/components/GamePageHeader'
 import SectionHeader from 'app/components/SectionHeader'
 import GameCard from 'app/components/game/GameCard'
+import {
+  GetCommissionList,
+  GetGameRebateValue,
+} from 'app/components/game/GameUtilityAction'
 import useLocalization from 'app/provider/localization'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
 import { Row, View, useResponsiveValue } from 'dripsy'
@@ -16,7 +20,7 @@ import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 export default function LiveCasinoScreen() {
   const { data } = useGetGameListByCategoryQuery([GAME_TYPE_CODE.LIVE_DEALER])
   const { t } = useLocalization()
-
+  const commissionList = GetCommissionList()
   const firstGameOfEachProvider = useMemo(() => {
     if (data) {
       const groupedGames = groupBy(data, 'gpc')
@@ -42,7 +46,6 @@ export default function LiveCasinoScreen() {
     const isMostRight = index % numColumns === numColumns - 1
     const isMiddle = !isMostLeft && !isMostRight
     const spacePercentage = 4
-
     return (
       <Row
         sx={{
@@ -54,6 +57,12 @@ export default function LiveCasinoScreen() {
         <GameCard
           // absoluteName
           // displayName={formattedName}
+          showRebate={true}
+          rebateText={GetGameRebateValue({
+            commissionList,
+            gtc: GAME_TYPE_CODE.LIVE_DEALER,
+            gpc: item.gpc,
+          })}
           sx={{
             my: `${spacePercentage}%`,
             flex: 1,
@@ -77,6 +86,7 @@ export default function LiveCasinoScreen() {
       data={firstGameOfEachProvider}
       renderItem={renderItem}
       numColumns={numColumns}
+      extraData={commissionList}
       ListHeaderComponent={
         <View sx={{ gap: '$3', my: '$3' }}>
           <GamePageHeader title={t('game.category.liveCasino')} icon="casino" />
@@ -84,7 +94,7 @@ export default function LiveCasinoScreen() {
           <View sx={{ width: '100%', aspectRatio: 1280 / 333 }}>
             <SolitoImage
               fill
-              src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/livecasino/dailywins_pp.jpg`}
+              src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/livecasino/pp-live-casino.jpg`}
               alt="dailywins"
             />
           </View>

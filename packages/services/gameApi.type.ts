@@ -65,6 +65,7 @@ export interface Game {
 
 export type FeaturedGame = Omit<Game, 'gdc_cat' | 'params'> & {
   cat: '1' | '2'
+  ongoing: boolean
 }
 
 export interface GameListDefaultData<T> {

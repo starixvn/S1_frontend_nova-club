@@ -52,7 +52,7 @@ export const contentApi = baseApiWithTag.injectEndpoints({
       },
     }),
     commissionTable: builder.query<
-      IResponse<CommissionTableResult[]>,
+      CommissionTableResult[],
       CommissionQueryArgs
     >({
       query: ({ currency }) => ({
@@ -61,6 +61,18 @@ export const contentApi = baseApiWithTag.injectEndpoints({
           currency,
         },
       }),
+      transformResponse: ({ data }: { data: CommissionTableResult[] }) => {
+        const transformResponse =
+          data?.slice(1).filter((item) => {
+            return item.system_code === '' ||
+              (item.cash_player > 0 &&
+                item.cash_player_referrer > 0 &&
+                item.cash_agent > 0)
+              ? item
+              : null
+          }) ?? []
+        return transformResponse ?? []
+      },
     }),
     announcement: builder.query<AnnouncementListItems[], string>({
       query: (lang) => ({

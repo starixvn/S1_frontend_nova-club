@@ -5,12 +5,9 @@ import GameSectionByProviderItem from 'app/components/game/GameSectionByProvider
 import ProviderList from 'app/components/game/ProviderList'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
 import useLocalization from 'app/provider/localization'
-import {
-  GAME_TYPE_CODE,
-  ProviderImageCategory,
-  SlotType,
-} from 'app/utils/constant'
+import { GAME_TYPE_CODE, ProviderImageCategory } from 'app/utils/constant'
 import { ActivityIndicator, View } from 'dripsy'
+import uniqBy from 'lodash/uniqBy'
 import groupBy from 'lodash/groupBy'
 import React, {
   startTransition,
@@ -28,7 +25,10 @@ import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 import SlotSingleProviderListing from './SlotSingleProviderListing'
-import GameListSectionAsyncByTag from 'app/components/game/GameListSectionAsyncByTag'
+import {
+  GetCommissionList,
+  GetGameRebateValue,
+} from 'app/components/game/GameUtilityAction'
 
 type Params = {
   provider?: string
@@ -36,13 +36,13 @@ type Params = {
 
 const { useParam } = createParam<Params>()
 
-const GameCategory = [GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]
+const GameCategory = [GAME_TYPE_CODE.SLOTS]
 
 function SlotScreen() {
   const { t } = useLocalization()
   const { push } = useRouter()
   const [gameGroup, setGameGroup] = useState<Game[][]>()
-
+  const commissionList = GetCommissionList()
   const [provider, setProvider] = useParam('provider', {
     initial: undefined,
     parse: (templateFromUrl) => {
@@ -63,8 +63,13 @@ function SlotScreen() {
   }, [games])
 
   const providers = useMemo(() => {
-    return Object.keys(gamesByProviders)
-  }, [gamesByProviders])
+    if (games)
+      return uniqBy(
+        games.map(({ gtc, gpc }) => ({ gtc, gpc })),
+        'gpc'
+      )
+    else return []
+  }, [games])
 
   useEffect(() => {
     const gamesGroup = Object.values(gamesByProviders).filter(
@@ -109,6 +114,8 @@ function SlotScreen() {
 
     return (
       <SlotSingleProviderListing
+        gtc={GAME_TYPE_CODE.SLOTS}
+        commissionList={commissionList}
         games={gamesByProviders[provider.toUpperCase()]}
         provider={provider}
         onBack={() => {
@@ -128,16 +135,22 @@ function SlotScreen() {
         paddingBottom: 40,
       }}
       renderItem={({ item }) => {
-        if (item && item[0])
+        if (item && item[0]) {
+          const { gpc, gtc } = item[0]
           return (
             <GameSectionByProviderItem
-              gpc={item[0].gpc}
+              gpc={gpc}
               games={item}
               onViewMore={onViewMore}
               gameCategoryTagTranslation={gameCategoryTagTranslation}
+              rebate={GetGameRebateValue({
+                gtc: GAME_TYPE_CODE.SLOTS,
+                gpc: gpc ?? '',
+                commissionList,
+              })}
             />
           )
-        else return null
+        } else return null
       }}
       ListHeaderComponent={
         <View sx={{ gap: '$3', my: '$3' }}>

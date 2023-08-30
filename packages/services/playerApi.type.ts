@@ -69,6 +69,7 @@ export type OverviewSummaryResult = {
   accumulate_reward: string
   active_player: number
   registered: number
+  ref_comm: string
 }
 
 /**

@@ -27,10 +27,15 @@ import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 import TopGameSection from '../home/TopGameSection'
-import GamesScreenSingleProvider from './GamesSingleProviderListing'
+import GamesSingleProviderListing from './GamesSingleProviderListing'
 import { MobileGamesFilter, SUB_ROUTES } from './subroutes'
 import useLocalization from 'app/provider/localization'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
+import uniqBy from 'lodash/uniqBy'
+import {
+  GetCommissionList,
+  GetGameRebateValue,
+} from 'app/components/game/GameUtilityAction'
 
 type Params = {
   type?: string
@@ -46,6 +51,7 @@ const GameCategory = [
 
 const GamesScreen = () => {
   const { t } = useLocalization()
+  const commissionList = GetCommissionList()
   const scrollingRef = useRef<View>()
   const { data: games } = useGameListMultipleQuery({
     game_category: GameCategory,
@@ -101,8 +107,13 @@ const GamesScreen = () => {
   }, [filteredGames])
 
   const providers = useMemo(() => {
-    return Object.keys(gamesByProviders)
-  }, [gamesByProviders])
+    if (games)
+      return uniqBy(
+        games.map(({ gtc, gpc }) => ({ gtc, gpc })),
+        'gpc'
+      )
+    else return []
+  }, [games])
 
   const gameGroup: Game[][] = useMemo(() => {
     return Object.values(gamesByProviders).filter((v) => v.length > 0)
@@ -145,7 +156,9 @@ const GamesScreen = () => {
   if (provider && Platform.OS === 'web') {
     if (!gamesByProviders || !filteredGames) return <ActivityIndicator />
     return (
-      <GamesScreenSingleProvider
+      <GamesSingleProviderListing
+        showRebate={type !== ALL}
+        commissionList={commissionList}
         tag={params?.[2] ?? 'ALL'}
         games={gamesByProviders[provider.toUpperCase()] ?? []}
         provider={provider}
@@ -166,16 +179,23 @@ const GamesScreen = () => {
         paddingBottom: 40,
       }}
       renderItem={({ item }) => {
-        if (item && item[0])
+        if (item && item[0]) {
+          const { gpc, gtc } = item[0]
           return (
             <GameSectionByProviderItem
-              gpc={item[0].gpc}
+              gpc={gpc}
               games={item}
               onViewMore={onViewMore}
               gameCategoryTagTranslation={gameCategoryTagTranslation}
+              showRebate={type !== ALL}
+              rebate={GetGameRebateValue({
+                gtc: gtc ?? '',
+                gpc: gpc ?? '',
+                commissionList,
+              })}
             />
           )
-        else return null
+        } else return null
       }}
       ListHeaderComponent={
         <View sx={{ gap: '$3', my: '$3' }}>

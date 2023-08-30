@@ -3,7 +3,14 @@ import BannerCarousel from 'app/components/banner/BannerCarousel'
 import GameSectionByProviderItem from 'app/components/game/GameSectionByProviderItem'
 import RecentlyPlayedSection from 'app/features/home/RecentlyPlayedSection'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
-import { GAME_TYPE_CODE, ProviderImageCategory } from 'app/utils/constant'
+import {
+  CONTENT_FROM_TOP,
+  CONTENT_FROM_TOP_2,
+  GAME_TYPE_CODE,
+  HEADER_HEIGHT_OFFSET,
+  ProviderImageCategory,
+  SCROLL_OFFSET_TOP,
+} from 'app/utils/constant'
 import LatestWinnerSection from 'desktop-ext/components/game/LatestWinnerSection'
 import ProviderList from 'desktop-ext/components/game/ProviderList'
 import {
@@ -15,7 +22,7 @@ import {
   useResponsiveValue,
 } from 'dripsy'
 import { ResizeMode, Video } from 'expo-av'
-import groupBy from 'lodash/groupBy'
+import uniqBy from 'lodash/uniqBy'
 import React, { startTransition, useEffect, useMemo, useState } from 'react'
 import { Platform } from 'react-native'
 import { useSlotBannerQuery } from 'services/contentApi'
@@ -50,13 +57,14 @@ function SlotScreen({}: Props) {
   })
   const { gameCategoryTagTranslation } = useGameCategoryTag(GameCategory)
 
-  const gamesByProviders = useMemo(() => {
-    return groupBy(games, 'gpc')
-  }, [games])
-
   const providers = useMemo(() => {
-    return Object.keys(gamesByProviders)
-  }, [gamesByProviders])
+    if (games)
+      return uniqBy(
+        games.map(({ gtc, gpc }) => ({ gtc: GAME_TYPE_CODE.SLOTS, gpc })),
+        'gpc'
+      )
+    else return []
+  }, [games])
 
   useEffect(() => {
     startTransition(() =>
@@ -70,6 +78,23 @@ function SlotScreen({}: Props) {
 
   function onNavigate(index: number, gpc: string) {
     setProvider(gpc?.toLowerCase())
+    const element = document.getElementById('content')
+    if (element) {
+      const elementTop = element.getBoundingClientRect().top
+
+      // If the element is within the desired range, return early
+      if (elementTop > CONTENT_FROM_TOP && elementTop < CONTENT_FROM_TOP_2) {
+        return
+      }
+
+      // Scroll the element into view smoothly
+      element.scrollIntoView({ behavior: 'smooth' })
+
+      // Adjust the window scroll position if necessary
+      if (elementTop < SCROLL_OFFSET_TOP || elementTop > CONTENT_FROM_TOP) {
+        window.scrollBy(0, elementTop - HEADER_HEIGHT_OFFSET)
+      }
+    }
   }
 
   return (
@@ -111,19 +136,34 @@ function SlotScreen({}: Props) {
           <ActivityIndicator color="$primary.300" size="large" />
         </View>
       ) : (
-        <Row sx={{ gap: '$3', position: 'relative' }}>
+        <Row sx={{ gap: '$3', position: 'relative' }} nativeID="content">
           <ProviderList
             data={providers}
+            provider={provider}
             onNavigateProvider={onNavigate}
             imageCategory={ProviderImageCategory.Slot}
+            handleProvider={() => setProvider}
           >
             <Pressable
               onPress={() => setProvider(undefined)}
               sx={{
-                width: [175, 175, 175, 175, 200],
-                aspectRatio: 240 / 80,
+                width: [175, 175, 175, 175],
+                aspectRatio: 230 / 80,
+                overflow: 'hidden',
+                borderWidth: 2,
+                borderColor:
+                  provider === undefined ? '$secondary.200' : 'transparent',
               }}
             >
+              <div
+                className="btn btn-hover"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  position: 'absolute',
+                  zIndex: 1,
+                }}
+              />
               <SolitoImage
                 fill
                 src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/colored/all.jpg`}

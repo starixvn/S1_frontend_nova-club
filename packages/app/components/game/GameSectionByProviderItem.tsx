@@ -32,13 +32,17 @@ function GameSectionByProviderItem({
   onViewMore,
   gameListProps,
   gameCategoryTagTranslation,
+  rebate,
+  showRebate = true,
 }: {
   bordered?: boolean
   gpc?: string
+  rebate?: string
   games: Game[]
   onViewMore?: (gpc: string, tag: string) => void
   gameListProps?: any
   gameCategoryTagTranslation?: GameCategoryTagTranslation
+  showRebate?: boolean
   // GameListComponent: FC<{ data: Game[] }>
 }) {
   const { t } = useLocalization()
@@ -95,10 +99,11 @@ function GameSectionByProviderItem({
   const canShowMore = () => {
     return (searchedGame?.length ?? filteredGame.length ?? games.length) > count
   }
-
   return (
     <View nativeID={`gameSection${gpc}`}>
       <GameListSectionGrid.Header
+        showRebate={showRebate}
+        rebateValue={rebate}
         onSearch={(t) => {
           startTransition(() => setSearch(t))
         }}
