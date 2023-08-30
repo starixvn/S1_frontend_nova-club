@@ -150,7 +150,7 @@ const GameTypeFilter = ({ onFilterClicked, currentRoute, ...rest }) => {
   }, [handleCurrentFilter, currentRoute])
 
   return (
-    <View sx={{ gap: '$2', width: [175, 175, 175, 150] }} {...rest}>
+    <View sx={{ gap: '$2', width: [175, 175, 175, 175] }} {...rest}>
       {DesktopGamesFilter.map((r, i) => {
         const isActive = r.route === currentFilter
 
@@ -162,7 +162,7 @@ const GameTypeFilter = ({ onFilterClicked, currentRoute, ...rest }) => {
               setCurrentFilter(r.route)
             }}
             sx={{
-              width: [175, 175, 175, 150],
+              width: [175, 175, 175, 175],
               aspectRatio: 230 / 80,
               position: 'relative',
               borderWidth: 2,

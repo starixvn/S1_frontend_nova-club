@@ -26,7 +26,7 @@ export default function ProviderList({
   ...rest
 }: ProviderListProps) {
   return (
-    <View sx={{ gap: '$2', width: [175, 175, 175, 150] }} {...rest}>
+    <View sx={{ gap: '$2', width: [175, 175, 175, 175] }} {...rest}>
       {children}
       {data.map((g, i) => {
         const isActive = g.gpc === provider?.toUpperCase()
@@ -38,7 +38,7 @@ export default function ProviderList({
               handleProvider(g.gpc.toUpperCase())
             }}
             sx={{
-              width: [175, 175, 175, 150],
+              width: [175, 175, 175, 175],
               aspectRatio: 230 / 80,
               overflow: 'hidden',
               borderWidth: 2,

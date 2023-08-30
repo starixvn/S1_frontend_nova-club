@@ -16,7 +16,7 @@ import { SolitoImage } from 'solito/image'
 import * as DropdownMenu from 'zeego/dropdown-menu'
 type Props = {
   providers: GameProviderCategory[]
-  value?: GameProviderCategory
+  value: string
   onSelect: (p?: string) => void
   commissionList: CommissionTableResult[]
 }
@@ -67,7 +67,7 @@ export default function SelectProvider({
                 <SolitoImage
                   fill
                   alt={value}
-                  src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${value.gpc.toLocaleLowerCase()}.png`}
+                  src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${value?.toLowerCase()}.png`}
                 />
               )}
             </View>
@@ -129,7 +129,7 @@ export default function SelectProvider({
                     paddingHorizontal: 5,
                   }}
                   onSelect={() => {
-                    onSelect && onSelect(p)
+                    onSelect && onSelect(p.gpc)
                   }}
                   onFocus={() => startTransition(() => setActiveIndex(index))}
                   onBlur={() =>
@@ -140,7 +140,7 @@ export default function SelectProvider({
                     height={20}
                     width={90}
                     alt={p.gpc}
-                    src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${p.gpc.toLowerCase()}.png`}
+                    src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${p?.gpc?.toLowerCase()}.png`}
                     resizeMode="contain"
                   />
                   <GameRebateLabel
