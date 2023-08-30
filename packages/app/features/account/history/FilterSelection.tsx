@@ -1,6 +1,5 @@
 import DatePicker from 'app/components/form/DatePicker'
 import SelectList from 'app/components/select/SelectList'
-import { getProviderLogo } from 'app/config/games/provider'
 import useLocalization from 'app/provider/localization'
 import {
   DateFilter,
@@ -16,6 +15,7 @@ import { Text, View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import { SelectOptions } from 'services/common/types'
 import { usePlayerWalletDetailQuery } from 'services/walletApi'
+import { CONTENT_URI, MEDIA_DOMAIN } from '../../../../../apps/next/config/env'
 
 const TypeList = ReportTransactionTypeOptions
 const DateFilterList = DateFilterOptions
@@ -35,7 +35,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
         return {
           value: item.system_code,
           label: item.system_name,
-          icon: getProviderLogo(item.system_code),
+          icon: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/${item.system_code}.png`,
         }
       }) ?? []
 

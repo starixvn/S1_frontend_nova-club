@@ -1,10 +1,13 @@
-import { getProviderLogo } from 'app/config/games/provider'
 import { toThousandSeparator } from 'app/utils'
 import { Text, View, styled } from 'dripsy'
 import React from 'react'
+import { SolitoImage } from 'solito/image'
+import {
+  CONTENT_URI,
+  MEDIA_DOMAIN,
+} from '../../../../../../apps/next/config/env'
 import DateTimeCell from '../DateTimeCell'
 import { CellViewContainer, TAB_NO } from './DesktopDepositHistoryItem'
-import { SolitoImage } from 'solito/image'
 
 export const GameTableHeader = [
   TAB_NO,
@@ -30,7 +33,7 @@ const DesktopGameHistoryItem = ({ item, index }) => {
       <CellView index={2} sx={{ alignItems: 'center' }}>
         <SolitoImage
           resizeMode="contain"
-          src={getProviderLogo(item.game_provider_code)}
+          src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/${item.game_provider_code}.png`}
           height={40}
           width={100}
           alt={item.game_provider_code}

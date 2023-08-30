@@ -1,6 +1,5 @@
 import Accordian from 'app/components/Accordian'
 import Image from 'app/components/common/Image'
-import { getProviderLogo } from 'app/config/games/provider'
 import { toThousandSeparator } from 'app/utils'
 import { ReportDepositStatus, ReportTransactionType } from 'app/utils/constant'
 import dayjsTz from 'app/utils/dayjs'
@@ -9,6 +8,7 @@ import { ActivityIndicator, Text, View, useDripsyTheme } from 'dripsy'
 import React, { useState } from 'react'
 import { useLazyPlayerReportQuery } from 'services/playerApi'
 import { ReportRewardItem } from 'services/playerApi.type'
+import { CONTENT_URI, MEDIA_DOMAIN } from '../../../../../apps/next/config/env'
 import DateTimeCell from './DateTimeCell'
 import TransactionHistoryItemBox from './TransactionHistoryItemBox'
 
@@ -116,7 +116,7 @@ const ChildItem = ({ date, game, amount }) => {
       >
         <Image
           resizeMode="contain"
-          source={getProviderLogo(game)}
+          source={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/${game}.png`}
           style={{
             height: 18,
             maxWidth: 100,
