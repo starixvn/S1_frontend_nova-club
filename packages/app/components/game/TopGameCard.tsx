@@ -1,7 +1,7 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { LaunchGame } from 'app/features/game/GameLauncher'
 import useLocalization from 'app/provider/localization'
-import { SxProp, Text, View, styled } from 'dripsy'
+import { SxProp, Text, View, styled, useResponsiveValue } from 'dripsy'
 import { MotiPressable } from 'moti/interactions'
 import React, { useMemo } from 'react'
 import { FeaturedGame } from 'services/gameApi.type'
@@ -19,7 +19,6 @@ export const aspectRatio = 0.485 //170 / 350
 
 export const height = width.map((w) => w / aspectRatio)
 
-const labelWidth = [70]
 export default function TopGameCard({
   game,
   isOnGoing,
@@ -27,6 +26,7 @@ export default function TopGameCard({
   sx,
 }: TopGameCardProps) {
   const { t } = useLocalization()
+  const labelWidth = useResponsiveValue([55, 70])
 
   function onPress() {
     LaunchGame({
@@ -68,7 +68,7 @@ export default function TopGameCard({
           <View
             sx={{
               width: labelWidth,
-              px: 12,
+              px: [10, 12],
               aspectRatio: 1,
               textAlign: 'center',
               alignItems: 'flex-end',
@@ -79,7 +79,7 @@ export default function TopGameCard({
               transform: [{ rotate: '315deg' }],
             }}
           >
-            <Text sx={{ fontSize: 9 }}>{t('home.ongoing')}</Text>
+            <Text sx={{ fontSize: [7, 9] }}>{t('home.ongoing')}</Text>
           </View>
         )}
       </View>
