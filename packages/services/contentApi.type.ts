@@ -24,6 +24,7 @@ export interface BannerItem {
   banner_name: string
   banner_seq: number
   banner_url: string
+  banner_url_redirection: 'ext' | 'int'
 }
 export interface LeaderboardResult {
   custId: number

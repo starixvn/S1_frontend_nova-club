@@ -155,6 +155,8 @@ const BannerCard = ({
   const token = useAppSelector((s) => s.auth.info?.token)
   const isDesktop = useIsDesktop()
   const locale = useAppSelector((s) => s.setting.locale)
+  const disablePress =
+    item.banner_url === '' ? true : Platform.OS === 'web' ? disable : false
 
   const onPressCallback = useCallback(() => {
     if (Platform.OS !== 'web') return
@@ -167,7 +169,8 @@ const BannerCard = ({
           ? 'https://' + item.banner_url
           : item.banner_url
 
-        Linking.openURL(bannerUrl)
+        if (item.banner_url_redirection === 'ext') Linking.openURL(bannerUrl)
+        else push(item.banner_url)
       }
     } else {
       const bannerAction = {
@@ -197,10 +200,7 @@ const BannerCard = ({
   }, [item.banner_url, locale, token])
 
   return (
-    <Pressable
-      onPress={onPressCallback}
-      disabled={Platform.OS === 'web' ? disable : false}
-    >
+    <Pressable onPress={onPressCallback} disabled={disablePress}>
       <View pointerEvents="none">
         <SolitoImage
           priority={index === 0}
