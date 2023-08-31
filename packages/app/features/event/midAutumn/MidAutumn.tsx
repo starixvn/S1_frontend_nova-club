@@ -6,8 +6,7 @@ import React from 'react'
 import { useRouter } from 'solito/router'
 import { DEV_DOMAIN } from '../../../../../apps/next/config/env'
 
-// const plinkoUrl = `${DEV_DOMAIN}/event/mid-autumn?`
-const plinkoUrl = `http://localhost:3000/event/mid-autumn?`
+const plinkoUrl = `${DEV_DOMAIN}/event/mid-autumn?`
 
 const MidAutumn = () => {
   const { back } = useRouter()

@@ -1,16 +1,14 @@
-import Image from 'app/components/common/Image'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Pressable, Text, View } from 'dripsy'
-import { MotiView } from 'moti'
 import React from 'react'
 import { Linking } from 'react-native'
 import { useCheckTicketSpinQuery } from 'services/eventApi'
+import { SolitoImage } from 'solito/image'
 import { useRouter } from 'solito/router'
 import { DEV_DOMAIN } from '../../../../../../apps/next/config/env'
-import { SolitoImage } from 'solito/image'
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 const MidAutumnFloat = ({ size }: { size: number }) => {
   const { push } = useRouter()

@@ -9,6 +9,7 @@
     "expo-local-authentication": "13.3.0",
     "expo-sharing": "11.2.2",
     "formik": "*",
+    "lodash": "*",
     "modern-screenshot": "^4.4.25",
     "moti": "latest",
     "react-native-date-picker": "4.2.13",
@@ -18,8 +19,7 @@
     "react-web-share": "^2.0.2",
     "solito": "3.2.6",
     "utils": "*",
-    "zeego": "^1.5.1",
-    "lodash": "*"
+    "zeego": "^1.5.1"
   },
   "sideEffects": false
 }

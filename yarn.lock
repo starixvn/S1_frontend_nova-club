@@ -4115,6 +4115,7 @@ __metadata:
     expo-local-authentication: 13.3.0
     expo-sharing: 11.2.2
     formik: "*"
+    lodash: "*"
     modern-screenshot: ^4.4.25
     moti: latest
     react-native-date-picker: 4.2.13
@@ -5865,6 +5866,7 @@ __metadata:
   peerDependencies:
     app: "*"
     dripsy: "*"
+    lodash: "*"
     moti: "*"
     next: "*"
     solito: "*"
