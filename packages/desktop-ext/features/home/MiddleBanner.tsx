@@ -10,17 +10,17 @@ import { SabaGamePayload } from 'app/constants/game'
 const subs = [
   {
     label: 'game.category.liveCasino',
-    video: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/livecasino.mp4`,
+    video: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/livecasino_350.mp4`,
     onPress: '/livecasino',
   },
   {
     label: 'game.category.fishing',
-    video: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/fishing.mp4`,
+    video: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/fishing_350.mp4`,
     onPress: '/games/fishing',
   },
   {
     label: 'game.category.lottery',
-    video: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/keno.mp4`,
+    video: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/keno_350.mp4`,
     onPress: '/games/keno-lottery',
   },
 ]
@@ -48,7 +48,7 @@ const MiddleBanner = (props: MiddleBannerProps) => {
       <Pressable onPress={launchSaba}>
         <VideoBanner
           sx={{ aspectRatio: 880 / 420 }}
-          uri={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/sportsbook.mp4`}
+          uri={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/sportsbook_680.mp4`}
           label={t('game.category.sportsbook')}
         />
       </Pressable>

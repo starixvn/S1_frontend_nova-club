@@ -1,24 +1,23 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { Row, View, useResponsiveValue } from 'dripsy'
-import React from 'react'
-import { Platform, useWindowDimensions } from 'react-native'
-import GameGridSectionItem from './GameGridSectionItem'
-import { ActionType, getAction } from 'app/utils/actionGenerator'
-import { SocialMedia, getSocialMediaScheme } from 'app/constants/socialMedia'
-import { Game } from 'services/gameApi.type'
-import { useRouter } from 'solito/router'
 import { SabaGamePayload } from 'app/constants/game'
 import { store } from 'app/provider/redux/store'
+import { ActionType, getAction } from 'app/utils/actionGenerator'
+import { Row, useResponsiveValue } from 'dripsy'
+import React from 'react'
+import { useWindowDimensions } from 'react-native'
+import { useRouter } from 'solito/router'
+import { getOs } from 'utils/platform'
+import GameGridSectionItem from './GameGridSectionItem'
 
-export const SHAREHOLDER_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/home/agent-recruitment.mp4`
-export const FISHING_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/fishing.mp4`
-export const LOTTERY_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/keno.mp4`
-export const GAME_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/games.mp4`
-export const LIVE_CASINO_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/livecasino.mp4`
-export const SPORT_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/sportsbook.mp4`
-export const SLOT_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/slot.mp4`
+export const SHAREHOLDER_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/agent-recruitment_220.mp4`
+export const FISHING_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/fishing_350.mp4`
+export const LOTTERY_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/keno_350.mp4`
+export const GAME_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/games_350.mp4`
+export const LIVE_CASINO_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/livecasino_350.mp4`
+export const SPORT_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/sportsbook_450.mp4`
+export const SLOT_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/slot_350.mp4`
 
-export const SABA_PROMO_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/rebate.mp4`
+export const SABA_PROMO_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/rebate_350.mp4`
 
 const config = [
   {
@@ -150,7 +149,7 @@ export default function GameGridSection() {
       {config.map((c, i) => {
         const width = widthPerColumn * c.col
         const height = width / (c.col / 2)
-        const isFallback = Platform.OS === 'android' && c.fallback
+        const isFallback = getOs() === 'android' && c.fallback
         return (
           <GameGridSectionItem
             key={i}
