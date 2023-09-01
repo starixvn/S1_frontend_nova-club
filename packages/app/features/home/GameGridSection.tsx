@@ -149,7 +149,7 @@ export default function GameGridSection() {
       {config.map((c, i) => {
         const width = widthPerColumn * c.col
         const height = width / (c.col / 2)
-        const isFallback = getOs() !== 'android' && c.fallback
+        const isFallback = getOs() === 'android' && c.fallback
         return (
           <GameGridSectionItem
             key={i}
