@@ -11,8 +11,10 @@ import SelectProvider from 'desktop-ext/components/game/SelectProvider'
 import { SxProp, Text, View } from 'dripsy'
 import union from 'lodash/union'
 import uniqBy from 'lodash/uniqBy'
+import sortBy from 'lodash/sortBy'
 import React, { startTransition, useEffect, useMemo, useState } from 'react'
 import { ViewProps } from 'react-native'
+import { useGameCategoryTagTypesQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 interface Props extends ViewProps {
   label: string
@@ -33,15 +35,26 @@ export default function GameList({
   const { t } = useLocalization()
   const locale = useAppSelector((s) => s.setting.locale)
   const commissionList = GetCommissionList()
+  const { data: gameCategoryTagTypes } = useGameCategoryTagTypesQuery()
 
   const tags = useMemo(() => {
     setProvider(undefined)
     return games.reduce(
       (distinctTags, currentGame) => union(distinctTags, currentGame.tags),
-      [ALL]
+      []
     )
   }, [games])
+
   const { getTagName } = useGetTagName()
+
+  // Sort according to gameCategoryTagTypes seq
+  const sortedTagsArray = sortBy(tags, (tag) => {
+    const filterTag = gameCategoryTagTypes?.filter((el) => el.gtc === 'slots')
+
+    const index = filterTag?.findIndex((item) => item.ck === tag)
+    return index !== -1 ? index : filterTag?.length
+  })
+  const seqTags = [ALL, ...sortedTagsArray]
 
   const filteredGame = useMemo(() => {
     return filter === ALL ? games : games.filter((g) => g.tags.includes(filter))
@@ -73,7 +86,7 @@ export default function GameList({
   }, [providerFiltered, search, filteredGame, locale])
 
   useEffect(() => {
-    if (tags.length) {
+    if (seqTags.length) {
       const defaultTag = tags.find((tag) => tag === HOT)
 
       startTransition(() => {
@@ -92,7 +105,7 @@ export default function GameList({
         <Text sx={{ fontWeight: '900' }}>{t(label)}</Text>
       </GameListSectionGrid.Header>
       <GameListSectionGrid.TagBody>
-        {tags.map((f) => {
+        {seqTags.map((f) => {
           const isActive = filter === f
           return (
             <GameListSectionGrid.TagButton
