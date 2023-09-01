@@ -1,5 +1,6 @@
 import { Dictionary, EntityId } from '@reduxjs/toolkit'
 import { FlashList } from '@shopify/flash-list'
+import Accordian from 'app/components/Accordian'
 import Icon from 'app/components/Icon'
 import Button from 'app/components/common/Button'
 import { MotifiedImage } from 'app/components/common/Image'
@@ -11,17 +12,18 @@ import {
   MatchLeagueTabIconMapping,
 } from 'app/constants/recMatchMapping'
 import useIsDesktop from 'app/hooks/useIsDesktop'
+import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { ActionType, getAction } from 'app/utils/actionGenerator'
 import dayjsTz from 'app/utils/dayjs'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
-import { Row, ScrollView, Text, View } from 'dripsy'
-import React from 'react'
+import { ActivityIndicator, Row, ScrollView, Text, View } from 'dripsy'
+import React, { useState } from 'react'
+import { useWindowDimensions } from 'react-native'
 import { Game } from 'services/gameApi.type'
 import { League, MatchResult } from 'services/matchApi.type'
 import { MEDIA_DOMAIN } from '../../../../apps/next/config/env'
-import useLocalization from 'app/provider/localization'
 dayjs.extend(customParseFormat)
 
 interface MatchListTableProps {
@@ -62,6 +64,8 @@ const handicapTypeArr = [
   MatchHandicapType.HALF_TIME_DOUBLE,
 ]
 
+const ROW_HEIGHT = 135
+
 const MatchListTable = ({
   leagueId,
   fullData,
@@ -71,6 +75,8 @@ const MatchListTable = ({
   const filterStartDate = dayjs(selectedTime)
   const filterEndDate = filterStartDate.add(1, 'day')
   const isDesktop = useIsDesktop()
+  const { width } = useWindowDimensions()
+  const [isFlashListLoading, setIsFlashListLoading] = useState(true)
   // console.log(fullData)
   const onPress = (match: MatchResult) => {
     getAction({
@@ -114,42 +120,93 @@ const MatchListTable = ({
           )}
         />
       ) : (
-        allLeagueId.map((l) => {
+        allLeagueId.map((l, index) => {
           return (
             <>
-              <Row
-                sx={{
-                  mt: '$2',
+              <Accordian
+                isExpandable
+                extended={true}
+                parentStyle={{
+                  px: 0,
                   bg: '$primary.50',
-                  px: '$3',
-                  py: '$1',
-                  alignItems: 'center',
+                  py: '$2',
+                  borderBottomWidth: 1,
+                  borderColor: '$primary.700',
+                  borderSpacing: 0,
+                  borderCollapse: 'collapse',
                 }}
+                showDivider={false}
+                //set a minimum height to expand initially
+                estimatedExpandHeight={1000}
+                header={
+                  <Row
+                    sx={{
+                      px: '$3',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Row
+                      sx={{
+                        alignItems: 'center',
+                      }}
+                    >
+                      <Icon
+                        name={MatchLeagueTabIconMapping[l]}
+                        sx={{ fontSize: [24, 30, 36] }}
+                      />
+                      <Text
+                        sx={{
+                          mx: '$2',
+                          fontSize: 18,
+                          fontWeight: 'bold',
+                        }}
+                      >
+                        {fullData[l]?.[0]?.LeagueName}
+                      </Text>
+                    </Row>
+                  </Row>
+                }
               >
-                <Icon
-                  name={MatchLeagueTabIconMapping[l]}
-                  sx={{ fontSize: [24, 30, 36] }}
+                <FlashList
+                  key={leagueId + selectedTime} // Update the key prop
+                  data={fullData[l]}
+                  scrollEnabled={false}
+                  onLoad={(e) => {
+                    setIsFlashListLoading(false)
+                  }}
+                  renderItem={({ index, item }) => {
+                    return !isFlashListLoading ? (
+                      <OnRender
+                        index={index}
+                        item={item}
+                        selectedTime={selectedTime}
+                        filterEndDate={filterEndDate}
+                        filterStartDate={filterStartDate}
+                        onPress={onPress}
+                      />
+                    ) : (
+                      <View
+                        sx={{
+                          height: ROW_HEIGHT,
+                          justifyContent: 'center',
+                          width: '100%',
+                        }}
+                      >
+                        <ActivityIndicator
+                          size={'large'}
+                          color="$primary.100"
+                        />
+                      </View>
+                    )
+                  }}
+                  estimatedListSize={{
+                    width,
+                    height: ROW_HEIGHT,
+                  }}
+                  estimatedItemSize={20}
+                  //Display All League with specific date
                 />
-                <Text sx={{ px: '$2', fontSize: 16, fontWeight: 'bold' }}>
-                  {fullData[l]?.[0]?.LeagueName}
-                </Text>
-              </Row>
-              <FlashList
-                key={leagueId + selectedTime} // Update the key prop
-                data={fullData[l]}
-                renderItem={({ index, item }) => (
-                  <OnRender
-                    index={index}
-                    item={item}
-                    selectedTime={selectedTime}
-                    filterEndDate={filterEndDate}
-                    filterStartDate={filterStartDate}
-                    onPress={onPress}
-                  />
-                )}
-                estimatedItemSize={20}
-                //Display All League with specific date
-              />
+              </Accordian>
             </>
           )
         })
@@ -195,14 +252,19 @@ const MatchListCellData = ({
       </DataTableCell>
       <DataTableCell
         textStyle={{ textAlign: 'center', fontSize: 13 }}
-        sx={{ ml: '$1', flex: 0.16, py: '$0' }}
+        sx={{
+          ml: '$1',
+          flex: 0.16,
+          py: '$0',
+          borderColor: 'rgba(255,255,255,0.6)',
+        }}
       >
         {name ?? 'Draw'}
       </DataTableCell>
       <DataTableCell
         sx={{
           justifyContent: 'flex-start',
-          ml: '$2',
+          // pl: '$2',
           flex: 1,
           px: 0,
           py: '$0',
@@ -238,7 +300,10 @@ const MatchListCellData = ({
                 flexDirection: 'row',
                 flex: isTimeDouble ? 0.6 : 1.1,
                 justifyContent: 'center',
-                py: '$0',
+                py: 0,
+                height: 45,
+                borderLeftWidth: 0.5,
+                borderColor: 'rgba(255,255,255,0.6)',
               }}
             >
               <DataTableCell
@@ -296,7 +361,15 @@ const MatchListCellData = ({
           )
         })}
       </DataTableCell>
-      <DataTableCell sx={{ flex: 0.1, mr: '$4', py: '$0' }}>
+      <DataTableCell
+        sx={{
+          flex: 0.1,
+          mr: '$4',
+          py: '$0',
+          borderLeftWidth: 0.25,
+          borderColor: 'rgba(255,255,255,0.6)',
+        }}
+      >
         {selectionType === 'away' && onPress && isLoggedIn ? (
           <Button
             contentProps={{ sx: { py: '$2', px: '$2' } }}
@@ -399,9 +472,8 @@ const MatchListCellRow = ({
     <View
       key={selectedTime}
       sx={{
-        flex: 0,
-        py: '$1',
-        mt: '$2',
+        // flex: 0,
+        height: ROW_HEIGHT,
         bg: index % 2 ? '$primary.300' : '$primary.500',
       }}
     >

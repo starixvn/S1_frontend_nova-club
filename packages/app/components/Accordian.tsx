@@ -17,11 +17,14 @@ type AccordianProps = {
   containerStyle?: SxProp
   parentStyle?: SxProp
   childStyle?: SxProp
+  showDivider?: boolean
+  estimatedExpandHeight?: number
 }
 
 const Accordian = ({
   isExpandable = false,
   extended = true,
+  estimatedExpandHeight = 0,
   label,
   header,
   icon,
@@ -31,8 +34,9 @@ const Accordian = ({
   containerStyle,
   parentStyle,
   childStyle,
+  showDivider = true,
 }: AccordianProps) => {
-  const [expandHeight, setExpandHeight] = useState(0)
+  const [expandHeight, setExpandHeight] = useState(estimatedExpandHeight)
   const [isExtend, toggleIsExtend] = useReducer((state) => {
     return !state
   }, extended)
@@ -83,39 +87,40 @@ const Accordian = ({
           {children}
         </View>
         <View sx={{ bg: color ? 'white' : '$primary.500' }}>
-          {isExtend && <Divider color={color} />}
+          {isExtend && showDivider && <Divider color={color} />}
         </View>
       </MotiPressable>
 
       {isExpandable ? (
         <MotiView
-          from={{ height: 0 }}
-          animate={{ height: isExtend ? expandHeight : 0 }}
+          from={{ height: expandHeight, opacity: isExtend ? 1 : 0 }}
+          animate={{
+            height: isExtend ? expandHeight : 0,
+            opacity: isExtend ? 1 : 0,
+          }}
           transition={{ type: 'timing' }}
         >
           <AnimatePresence>
-            {isExtend && (
-              <StyledMotiView
-                from={{
-                  opacity: 0,
-                }}
-                animate={{
-                  opacity: 1,
-                }}
-                exit={{
-                  opacity: 0,
-                }}
-                sx={{
-                  flex: 1,
-                  backgroundColor: '$primary.500',
-                  borderBottomWidth: 2,
-                  borderColor: borderColor,
-                  ...childStyle,
-                }}
-              >
-                {children}
-              </StyledMotiView>
-            )}
+            <StyledMotiView
+              from={{
+                opacity: isExtend ? 1 : 0,
+              }}
+              animate={{
+                opacity: isExtend ? 1 : 0,
+              }}
+              exit={{
+                opacity: isExtend ? 1 : 0,
+              }}
+              sx={{
+                flex: 1,
+                backgroundColor: '$primary.500',
+                borderBottomWidth: 2,
+                borderColor: borderColor,
+                ...childStyle,
+              }}
+            >
+              {children}
+            </StyledMotiView>
           </AnimatePresence>
         </MotiView>
       ) : (
