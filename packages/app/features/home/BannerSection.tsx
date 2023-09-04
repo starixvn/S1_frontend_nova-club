@@ -6,6 +6,7 @@ export default function BannerSection() {
   //   return <Banner />
 
   const { data } = useBannerQuery()
+  const bannerList = data?.filter((el) => el.banner_display_page === 'main')
 
-  return <BannerCarousel data={data} sx={{}} />
+  return <BannerCarousel data={bannerList} />
 }

@@ -1,19 +1,31 @@
 import { BannerAction } from 'app/utils/carouselBannerActionGenerator'
 
-export interface BannerResult {
-  image: string
-  blurDataURL?: string // base64 of 10px width banner image
-  blurHash?: string // https://blurha.sh/
-  action?: BannerAction
-  guestAction?: BannerAction
-  alt?: string
-  // bannerName: string
-  // bannerLink: string
-  // bannerType: number
-  // bannerPCUrl: string
-  // bannerMobileUrl: string
-}
+// export interface BannerResult {
+//   image: string
+//   blurDataURL?: string // base64 of 10px width banner image
+//   blurHash?: string // https://blurha.sh/
+//   action?: BannerAction
+//   guestAction?: BannerAction
+//   alt?: string
+//   // bannerName: string
+//   // bannerLink: string
+//   // bannerType: number
+//   // bannerPCUrl: string
+//   // bannerMobileUrl: string
+// }
 
+export interface BannerResult {
+  row_count_total: number
+  rows: []
+}
+export interface BannerItem {
+  banner_display_page: string
+  banner_image: string
+  banner_name: string
+  banner_seq: number
+  banner_url: string
+  banner_url_redirection: 'ext' | 'int'
+}
 export interface LeaderboardResult {
   custId: number
   date: string

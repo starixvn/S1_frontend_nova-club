@@ -1,6 +1,5 @@
 import { FlashList } from '@shopify/flash-list'
 import GamePageHeader from 'app/components/GamePageHeader'
-import BannerCarousel from 'app/components/banner/BannerCarousel'
 import GameSectionByProviderItem from 'app/components/game/GameSectionByProviderItem'
 import ProviderList from 'app/components/game/ProviderList'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
@@ -18,7 +17,7 @@ import React, {
   useState,
 } from 'react'
 import { Platform } from 'react-native'
-import { useSlotBannerFullQuery } from 'services/contentApi'
+import { useBannerQuery, useSlotBannerFullQuery } from 'services/contentApi'
 import { useGameListMultipleQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import { createParam } from 'solito'
@@ -29,6 +28,7 @@ import {
   GetCommissionList,
   GetGameRebateValue,
 } from 'app/components/game/GameUtilityAction'
+import BannerCarousel from 'app/components/banner/BannerCarousel'
 
 type Params = {
   provider?: string
@@ -52,7 +52,9 @@ function SlotScreen() {
     },
   })
 
-  const { data: banner } = useSlotBannerFullQuery()
+  const { data: banner } = useBannerQuery()
+  const bannerList = banner?.filter((el) => el.banner_display_page === 'slots')
+
   const { data: games, isUninitialized } = useGameListMultipleQuery({
     game_category: GameCategory,
   })
@@ -156,7 +158,7 @@ function SlotScreen() {
         <View sx={{ gap: '$3', my: '$3' }}>
           <GamePageHeader icon="sl" title={t('game.category.slots')} />
           <View sx={{ width: '100%', aspectRatio: 1280 / 333 }}>
-            <BannerCarousel data={banner} bannerType="slot" />
+            <BannerCarousel data={bannerList} bannerType="slot" />
           </View>
           <RecentlyPlayedSection
             gameTypes={[GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]}

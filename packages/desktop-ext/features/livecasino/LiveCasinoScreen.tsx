@@ -17,6 +17,8 @@ import React, { useMemo } from 'react'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { createParam } from 'solito'
 import { SolitoImage } from 'solito/image'
+import { useBannerQuery } from 'services/contentApi'
+import BannerCarousel from 'app/components/banner/BannerCarousel'
 
 type Props = {}
 
@@ -36,6 +38,11 @@ export default function LiveCasinoScreen({}: Props) {
   const { data: games } = useGetGameListByCategoryQuery([
     GAME_TYPE_CODE.LIVE_DEALER,
   ])
+
+  const { data: banner } = useBannerQuery()
+  const bannerList = banner?.filter(
+    (el) => el.banner_display_page === 'live_casino'
+  )
 
   const filteredGames = useMemo(() => {
     if (games && games.length > 0) {
@@ -82,11 +89,12 @@ export default function LiveCasinoScreen({}: Props) {
     <Container>
       <View sx={{ width: '100%', aspectRatio: 1280 / 333, mb: '$3' }}>
         <SkeletonPlaceholder width={'100%'} height={'100%'}>
-          <SolitoImage
-            src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/livecasino/pp-live-casino.jpg`}
+          {/* <SolitoImage
+            src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/livecasino/dailywins_pp.jpg`}
             alt="Dailywins"
             fill
-          />
+          /> */}
+          <BannerCarousel data={bannerList} />
         </SkeletonPlaceholder>
       </View>
       <RecentlyPlayedSection gameTypes={[GAME_TYPE_CODE.LIVE_DEALER]} />

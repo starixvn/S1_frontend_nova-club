@@ -16,11 +16,18 @@ import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
+import BannerCarousel from 'app/components/banner/BannerCarousel'
+import { useBannerQuery } from 'services/contentApi'
 
 export default function LiveCasinoScreen() {
   const { data } = useGetGameListByCategoryQuery([GAME_TYPE_CODE.LIVE_DEALER])
   const { t } = useLocalization()
   const commissionList = GetCommissionList()
+  const { data: banner } = useBannerQuery()
+  const bannerList = banner?.filter(
+    (el) => el.banner_display_page === 'live_casino'
+  )
+
   const firstGameOfEachProvider = useMemo(() => {
     if (data) {
       const groupedGames = groupBy(data, 'gpc')
@@ -90,13 +97,14 @@ export default function LiveCasinoScreen() {
       ListHeaderComponent={
         <View sx={{ gap: '$3', my: '$3' }}>
           <GamePageHeader title={t('game.category.liveCasino')} icon="casino" />
-          {/* <BannerSection /> */}
+
           <View sx={{ width: '100%', aspectRatio: 1280 / 333 }}>
-            <SolitoImage
+            {/* <SolitoImage
               fill
               src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/livecasino/pp-live-casino.jpg`}
               alt="dailywins"
-            />
+            /> */}
+            <BannerCarousel data={bannerList} />
           </View>
           <RecentlyPlayedSection gameTypes={[GAME_TYPE_CODE.LIVE_DEALER]} />
           <SectionHeader title={t('common.provider')} icon="all" />

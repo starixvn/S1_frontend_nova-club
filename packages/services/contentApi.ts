@@ -4,6 +4,7 @@ import { EndpointBuilderType, IResponse } from './common/types'
 import {
   AnnouncementListItems,
   AnnouncementResult,
+  BannerItem,
   BannerResult,
   CommissionQueryArgs,
   CommissionTableResult,
@@ -18,11 +19,14 @@ import {
  */
 export const contentApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
-    banner: builder.query<BannerResult[], void>({
+    banner: builder.query<BannerItem[], void>({
       query: () => ({
-        url: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/banner.json?v=5`,
+        url: `/static_api/getBannerList`,
         method: 'GET',
       }),
+      transformResponse: ({ data }: { data: BannerResult }) => {
+        return data.rows.sort((a, b) => b.banner_seq - a.banner_seq) ?? []
+      },
     }),
     slotBanner: builder.query<BannerResult[], void>({
       query: () => ({
