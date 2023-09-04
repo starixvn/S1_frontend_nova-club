@@ -1,4 +1,4 @@
-import { DEV_DOMAIN } from '@env'
+import { CONTENT_URI, DEV_DOMAIN, MEDIA_DOMAIN } from '@env'
 import Input from 'app/components/form/Input'
 import InputLabel from 'app/components/form/InputLabel'
 import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
@@ -35,6 +35,7 @@ type TopupValues = {
 }
 
 const cardAmount = ['10k', '20k', '30k', '50k', '100k', '200k', '300k']
+// const mobifoneImg = require(`${MEDIA_DOMAIN}${CONTENT_URI}/v2/payment-provider/mobifone.png`)
 
 const TopupCardForm = () => {
   const { t } = useLocalization()
@@ -66,11 +67,11 @@ const TopupCardForm = () => {
       const getCardLogo = (key) => {
         switch (key) {
           case TopUpCard.MOBIFONE:
-            return require('app/assets/images/deposit/mobifone.png')
+            return `${MEDIA_DOMAIN}${CONTENT_URI}/v2/payment-provider/mobifone.png`
           case TopUpCard.VIETTEL:
-            return require('app/assets/images/deposit/vietel.png')
+            return `${MEDIA_DOMAIN}${CONTENT_URI}/v2/payment-provider/vietel.png`
           case TopUpCard.VINAPHONE:
-            return require('app/assets/images/deposit/vinaphone.png')
+            return `${MEDIA_DOMAIN}${CONTENT_URI}/v2/payment-provider/vinaphone.png`
 
           default:
             return ''

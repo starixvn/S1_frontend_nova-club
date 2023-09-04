@@ -1,18 +1,13 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Icon from 'app/components/Icon'
-import IconButton from 'app/components/IconButton'
 import Button from 'app/components/common/Button'
 import ModalWrapper from 'app/components/modal/ModalWrapper'
 import TouchableOpacity from 'app/components/pressable/TouchableOpacity'
 import useLocalization from 'app/provider/localization'
-import { Image, Pressable, Text, View } from 'dripsy'
+import { Image, Text, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
 import React, { useRef, useState } from 'react'
-import {
-  ImageBackground,
-  View as RNView,
-  useWindowDimensions,
-} from 'react-native'
+import { ImageBackground } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
 import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel'
 interface DeviceType {
@@ -69,14 +64,15 @@ const DownloadGuide = ({ modal: { closeModal, getParam } }) => {
   const ref = useRef<ICarouselInstance>(null)
   const deviceType = getParam('label')
   const data = deviceType === 'ios' ? device.ios : device.android
-  const { width: WindowWidth } = useWindowDimensions()
 
   const progressValue = useSharedValue<number>(0)
   const [guideTextIndex, setGuideTextIndex] = useState(0)
   const handleDismiss = () => {
     closeModal()
   }
-
+  console.log(
+    `${MEDIA_DOMAIN}/${CONTENT_URI}/download/${device.ios[0]?.guideImage}`
+  )
   return (
     <>
       <ModalWrapper>
@@ -151,7 +147,7 @@ const DownloadGuide = ({ modal: { closeModal, getParam } }) => {
                       minHeight: 125,
                     }}
                   >
-                    {t(data[guideTextIndex].guideText)}
+                    {t(data?.[guideTextIndex]?.guideText ?? '')}
                   </Text>
                 </MotiView>
               </View>
@@ -217,7 +213,7 @@ const DownloadGuide = ({ modal: { closeModal, getParam } }) => {
                     }}
                   >
                     <Image
-                      source={`${MEDIA_DOMAIN}/${CONTENT_URI}/v2/download/${item.guideImage}`}
+                      source={`${MEDIA_DOMAIN}/${CONTENT_URI}/download/${item.guideImage}`}
                       alt={''}
                       style={{
                         width: '90%',

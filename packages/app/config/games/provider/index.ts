@@ -1,3 +1,5 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '../../../../../apps/next/config/env'
+
 const enum PROVIDER_NAME {
   ADVP,
   ALL,
@@ -28,136 +30,149 @@ const enum PROVIDER_NAME {
   O789,
   IMSB,
   EZGI,
+  DGLC,
 }
 
 export const PROVIDER_LOGO = {
   ALL: {
     provider_code: 'ALL',
-    image: require('../../../assets/images/provider/ALL.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/ALL.png`,
   },
   ADVP: {
     provider_code: 'ADVP',
-    image: require('../../../assets/images/provider/AP.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/AP.png`,
   },
   ALLB: {
     provider_code: 'ALLB',
-    image: require('../../../assets/images/provider/Allbet.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/Allbet.png`,
   },
   ARG: {
     provider_code: 'ARG',
-    image: require('../../../assets/images/provider/ARG.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/ARG.png`,
   },
   BBIN: {
     provider_code: 'BBIN',
-    image: require('../../../assets/images/provider/bbin.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/bbin.png`,
   },
   BGGG: {
     provider_code: 'BGGG',
-    image: require('../../../assets/images/provider/BG.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/BG.png`,
   },
   BTI: {
     provider_code: 'BTI',
-    image: require('../../../assets/images/provider/BTI.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/BTI.png`,
+  },
+  BNG: {
+    provider_code: 'BNG',
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/BNG.png`,
   },
   CQ9: {
     provider_code: 'CQ9',
-    image: require('../../../assets/images/provider/CQ9.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/CQ9.png`,
+  },
+  DGLC: {
+    provider_code: 'DGLC',
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/DGLC.png`,
   },
   EBET: {
     provider_code: 'EBET',
-    image: require('../../../assets/images/provider/Ebet.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/EBET.png`,
   },
   HABA: {
     provider_code: 'HABA',
-    image: require('../../../assets/images/provider/Habanero.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/HABA.png`,
   },
   JDBG: {
     provider_code: 'JDBG',
-    image: require('../../../assets/images/provider/JDB.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/JDBG.png`,
   },
   JILI: {
     provider_code: 'JILI',
-    image: require('../../../assets/images/provider/Jili.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/JILI.png`,
   },
   OBLE: {
     provider_code: 'OBLE',
-    image: require('../../../assets/images/provider/OB.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/OBLE.png`,
   },
   PGSF: {
     provider_code: 'PGSF',
-    image: require('../../../assets/images/provider/PG.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/PGSF.png`,
   },
   PRGP: {
     provider_code: 'PRGP',
-    image: require('../../../assets/images/provider/PP.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/PRGP.png`,
   },
   PTV2: {
     provider_code: 'PTV2',
-    image: require('../../../assets/images/provider/PT.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/PTV2.png`,
   },
   PTEC: {
     provider_code: 'PTEC',
-    image: require('../../../assets/images/provider/PTEC.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/PTEC.png`,
   },
   SABA: {
     provider_code: 'SABA',
-    image: require('../../../assets/images/provider/SABA_SPORT.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/SABA.png`,
   },
   SEXY: {
     provider_code: 'SEXY',
-    image: require('../../../assets/images/provider/AE.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/SEXY.png`,
   },
   SPGM: {
     provider_code: 'SPGM',
-    image: require('../../../assets/images/provider/SG.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/SPGM.png`,
   },
   TCG: {
     provider_code: 'TCG',
-    image: require('../../../assets/images/provider/TC.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/TCG.png`,
   },
   TFGM: {
     provider_code: 'TFGM',
-    image: require('../../../assets/images/provider/TF.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/TFGM.png`,
   },
   EVOL: {
     provider_code: 'EVOL',
-    image: require('../../../assets/images/provider/EVOL.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/EVOL.png`,
   },
   SBO: {
     provider_code: 'SBO',
-    image: require('../../../assets/images/provider/SBO_BET.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/SBO.png`,
   },
   V8PK: {
     provider_code: 'V8PK',
-    image: require('../../../assets/images/provider/V8PK.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/V8PK.png`,
   },
   IM1: {
     provider_code: 'IM1',
-    image: require('../../../assets/images/provider/IMSport.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/IMSport.png`,
   },
   SKYW: {
     provider_code: 'SKYW',
-    image: require('../../../assets/images/provider/skywind.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/SKYW.png`,
   },
   O789: {
     provider_code: 'O789',
-    image: require('../../../assets/images/provider/one789.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/0789.png`,
   },
   IMSB: {
     provider_code: 'IMSB',
-    image: require('../../../assets/images/provider/IMSport.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/IMSB.png`,
   },
   NERT: {
     provider_code: 'NERT',
-    image: require('../../../assets/images/provider/NERT.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/NERT.png`,
   },
   NESP: {
     provider_code: 'NESP',
-    image: require('../../../assets/images/provider/NESP.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/NESP.png`,
   },
   EZGI: {
     provider_code: 'EZGI',
-    image: require('../../../assets/images/provider/EZGI.png'),
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/EZGI.png`,
+  },
+  WMLC: {
+    provider_code: 'WMLC',
+    image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/WMLC.png`,
   },
 }
 
@@ -194,12 +209,16 @@ export const ProviderLogo = [
   PROVIDER_LOGO.NERT,
   PROVIDER_LOGO.NESP,
   PROVIDER_LOGO.EZGI,
+  PROVIDER_LOGO.DGLC,
 ]
 
 export const getProviderLogo = (code: string) => {
   const logo = ProviderLogo.find((el) => el.provider_code === code)?.image
 
-  return logo ?? require('../../../assets/images/provider/ALL.png')
+  return (
+    logo ??
+    `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/ALL.png`
+  )
 }
 
 export default ProviderLogo

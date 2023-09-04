@@ -78,7 +78,7 @@ export default function HomeScreen() {
       bounces={false}
       showsVerticalScrollIndicator={false}
       sx={{ flex: 1 }}
-      contentContainerSx={{ pb: '$4' }}
+      contentContainerSx={{ pb: '$1' }}
     >
       <LuckyDrawTrigger />
       <BannerSection />

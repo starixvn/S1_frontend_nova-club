@@ -111,7 +111,7 @@ function GameSectionByProviderItem({
         <View sx={{ flexDirection: 'row' }}>
           {gpc ? (
             <SolitoImage
-              height={20}
+              height={25}
               width={90}
               src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${gpc?.toLowerCase()}.png`}
               contentFit="contain"
