@@ -118,7 +118,7 @@ const theme = makeTheme({
     $transparent: 'rgba(0,0,0,0)',
     $transparentWhite: 'rgba(255,255,255,0)',
     $disabled: '#7D7D7D',
-    // selectionColor: '$tertiary',
+    $selectionColor: '#80CEFF',
 
     // Agent Colors
     $textAgent: '#000000',

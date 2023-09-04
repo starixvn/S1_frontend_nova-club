@@ -2,24 +2,22 @@ import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
 import { ScrollView, View, useResponsiveValue } from 'dripsy'
 import PendingTransaction from '../component/PendingTransaction'
 import BankTransferForm from './BankTransferForm'
+import useIsDesktop from 'app/hooks/useIsDesktop'
+import FormContainer from 'app/components/form/FormContainer'
 
 const BankTransferContent = () => {
-  const horizontalMode = useResponsiveValue([
-    '100%',
-    '100%',
-    '100%',
-    '70%',
-    '70%',
-  ])
-
+  const horizontalMode = useIsDesktop()
   return (
     <ScrollView contentContainerSx={{ alignItems: 'center' }}>
-      <View sx={{ width: horizontalMode }}>
+      <FormContainer hidePadding={!horizontalMode}>
         <BankTransferForm />
+      </FormContainer>
+
+      <View sx={{ width: horizontalMode ? '90%' : '100%' }}>
+        <PendingTransaction
+          paymentMethod={DepositPaymentMethodCategoryId.TOP_UP}
+        />
       </View>
-      <PendingTransaction
-        paymentMethod={DepositPaymentMethodCategoryId.LOCAL_BANK}
-      />
     </ScrollView>
   )
 }

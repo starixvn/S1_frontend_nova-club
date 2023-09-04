@@ -24,6 +24,7 @@ import HorizontalSelectBankCardGrid from '../component/HorizontalSelectBankCardG
 import ValueCard from './ValueCard'
 import Button from 'app/components/common/Button'
 import useDepositFailedMessage from '../tools/useDepositFailedMessage'
+import BankSelection from 'desktop-ext/features/withdrawal/components/BankSelection'
 
 type TopupValues = {
   realAmount: number
@@ -181,42 +182,22 @@ const TopupCardForm = () => {
       })
     }
   }
+  const handleSelected = (value) => {
+    setFieldValue('cardType', value)
+  }
 
   return (
     <View sx={{ pt: '$3' }}>
       <View sx={{ px: horizontalMode ? 0 : '$4' }}>
         {horizontalMode ? (
-          <View>
-            <InputLabel label={t('deposit.paymentMode')} />
-            <View
-              sx={{
-                flex: 1,
-                flexDirection: 'column',
-                borderWidth: 1,
-                borderRadius: 15,
-                borderColor: '$primary.200',
-                p: 19,
-              }}
-            >
-              <View sx={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                {cardTypeList &&
-                  cardTypeList.map((e, i) => {
-                    return (
-                      <View key={i} sx={{ width: '25%' }}>
-                        <HorizontalSelectBankCardGrid
-                          contain
-                          key={i}
-                          item={e}
-                          onPress={() => setFieldValue('cardType', e.value)}
-                          selected={e.value === values.cardType}
-                          containerStyle={{ p: '$2' }}
-                        />
-                      </View>
-                    )
-                  })}
-              </View>
-            </View>
-          </View>
+          <BankSelection
+            label={t('deposit.paymentMode')}
+            subtitle=""
+            list={cardTypeList}
+            selected={values.cardType}
+            onPress={handleSelected}
+            imageMode="contain"
+          />
         ) : (
           <SelectWithCardGrid
             label={t('deposit.paymentMode')}

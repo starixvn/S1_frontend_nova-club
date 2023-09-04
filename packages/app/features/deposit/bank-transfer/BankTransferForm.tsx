@@ -35,6 +35,7 @@ import HorizontalSelectBankCardGrid from '../component/HorizontalSelectBankCardG
 import AccountDetail from './AccountDetail'
 import useDepositFailedMessage from '../tools/useDepositFailedMessage'
 import Button from 'app/components/common/Button'
+import BankSelection from 'desktop-ext/features/withdrawal/components/BankSelection'
 
 type BankTransferValues = {
   bank: ManualBankItem | undefined
@@ -191,40 +192,13 @@ const BankTransferForm = () => {
     <View sx={{ pt: '$3' }}>
       <View sx={{ px: horizontalMode ? 0 : '$4' }}>
         {horizontalMode ? (
-          <View>
-            <InputLabel label={t('bank.bank')} />
-            <View
-              sx={{
-                flex: 1,
-                flexDirection: 'column',
-                borderWidth: 1,
-                borderRadius: 15,
-                borderColor: '$primary.200',
-                p: 19,
-              }}
-            >
-              <Text sx={{ m: '$2', fontSize: 20, fontWeight: 'bold' }}>
-                {values.bank?.bank_branch}
-              </Text>
-              <View sx={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                {sheetData &&
-                  sheetData.map((e, i) => {
-                    return (
-                      <View key={i} sx={{ width: '25%' }}>
-                        <HorizontalSelectBankCardGrid
-                          key={i}
-                          item={e}
-                          onPress={() => handleSelected(e.value)}
-                          selected={
-                            e.value === values.bank?.bankTypeId.toString()
-                          }
-                        />
-                      </View>
-                    )
-                  })}
-              </View>
-            </View>
-          </View>
+          <BankSelection
+            label={t('bank.bank')}
+            subtitle={values.bank?.bank_branch ?? ''}
+            list={sheetData}
+            selected={values.bank?.bankTypeId.toString()}
+            onPress={handleSelected}
+          />
         ) : (
           <SelectWithCardGrid
             label={t('bank.bankAccount')}
