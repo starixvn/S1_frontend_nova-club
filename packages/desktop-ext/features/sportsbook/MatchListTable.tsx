@@ -98,7 +98,7 @@ const MatchListTable = ({
     <ScrollView
       key={selectedTime + leagueId}
       contentContainerSx={{
-        overflow: 'visible',
+        overflow: 'hidden',
         mb: '$sectionBottomSpace',
       }}
     >
