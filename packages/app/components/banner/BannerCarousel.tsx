@@ -159,8 +159,6 @@ const BannerCard = ({
     item.banner_url === '' ? true : Platform.OS === 'web' ? disable : false
 
   const onPressCallback = useCallback(() => {
-    if (Platform.OS !== 'web') return
-
     if (token) {
       if (item.banner_url?.startsWith('/')) {
         push(item.banner_url)
