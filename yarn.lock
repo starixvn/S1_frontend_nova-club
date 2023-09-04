@@ -2308,6 +2308,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@livechat/widget-core@npm:^1.3.1":
+  version: 1.3.1
+  resolution: "@livechat/widget-core@npm:1.3.1"
+  dependencies:
+    mitt: 3.0.0
+  checksum: f82c31c914390191423d592c9523b3fb993e697d83adebc082a3a6433b0197cf674542d04323fce814b0317a7efc20339f0871712f08475b69724f4f63a02d78
+  languageName: node
+  linkType: hard
+
+"@livechat/widget-react@npm:^1.3.1":
+  version: 1.3.1
+  resolution: "@livechat/widget-react@npm:1.3.1"
+  dependencies:
+    "@livechat/widget-core": ^1.3.1
+  peerDependencies:
+    react: ^16.8 || 17 || 18
+  checksum: 079d2aa2baec482c1fd1b5d6ac6c77cd280e0febb660d7e752ee4b7fb8319bd4f3ec364674b12aec6e7ec4a8e50863a50f6cd592df53237b30513c67af00b0a0
+  languageName: node
+  linkType: hard
+
 "@motionone/animation@npm:^10.12.0":
   version: 10.15.1
   resolution: "@motionone/animation@npm:10.15.1"
@@ -10438,6 +10458,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mitt@npm:3.0.0":
+  version: 3.0.0
+  resolution: "mitt@npm:3.0.0"
+  checksum: f7be5049d27d18b1dbe9408452d66376fa60ae4a79fe9319869d1b90ae8cbaedadc7e9dab30b32d781411256d468be5538996bb7368941c09009ef6bbfa6bfc7
+  languageName: node
+  linkType: hard
+
 "mixin-deep@npm:^1.2.0":
   version: 1.3.2
   resolution: "mixin-deep@npm:1.3.2"
@@ -15258,6 +15285,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "vuifit@workspace:."
   dependencies:
+    "@livechat/widget-react": ^1.3.1
     "@types/react": ^18.0.17
     "@types/react-native": ^0.69.5
     eslint: ^8.21.0
