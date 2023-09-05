@@ -7,7 +7,7 @@ import PaymentMethod, {
 import { getStatusColor } from 'app/config/status'
 import useLocalization from 'app/provider/localization'
 import { copyToClipboard, toCurrency } from 'app/utils'
-import { Currency } from 'app/utils/constant'
+import { Currency } from 'utils/constant'
 import dayjsTz from 'app/utils/dayjs'
 import { Pressable, Text, View, useDripsyTheme } from 'dripsy'
 import { useModal } from 'react-native-modalfy'

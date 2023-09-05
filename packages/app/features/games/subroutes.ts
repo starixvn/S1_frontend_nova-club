@@ -1,4 +1,4 @@
-import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'app/utils/constant'
+import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'utils/constant'
 import { Game } from 'services/gameApi.type'
 
 const Route = {

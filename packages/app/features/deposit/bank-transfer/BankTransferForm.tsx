@@ -12,7 +12,7 @@ import {
   toDisplayAmount,
   toRealAmount,
 } from 'app/utils'
-import { Currency } from 'app/utils/constant'
+import { Currency } from 'utils/constant'
 import validation from 'app/utils/validation'
 import { Pressable, Text, View, styled } from 'dripsy'
 import * as ImagePicker from 'expo-image-picker'

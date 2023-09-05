@@ -8,7 +8,7 @@ import {
   DEPOSIT_NOTES,
   ReportDepositStatus,
   ReportTransactionType,
-} from 'app/utils/constant'
+} from 'utils/constant'
 import dayjsTz from 'app/utils/dayjs'
 import { ActivityIndicator, ScrollView, Text, View } from 'dripsy'
 import { useModal } from 'react-native-modalfy'

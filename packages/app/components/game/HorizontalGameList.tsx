@@ -6,7 +6,7 @@ import { Game } from 'services/gameApi.type'
 import DraggableScrollView from '../DraggableScrollView'
 import SkeletonPlaceholder from '../SkeletonPlaceholder'
 import GameCard from './GameCard'
-import { GAME_TYPE_CODE } from 'app/utils/constant'
+import { GAME_TYPE_CODE } from 'utils/constant'
 import { GAME_TAG_SIZE } from './GameTagsLabel'
 
 interface HorizontalGameListProps extends ScrollViewProps {

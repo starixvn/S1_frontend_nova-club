@@ -31,7 +31,7 @@ function ReceiveOTPContact(props: ReceiveOTPContactProps) {
   return (
     <StyledView {...rest}>
       <Text sx={{ pl: '$3' }}>
-        {t('authentication.noReceiveOTP')}{' '}
+        {t('authentication.noReceiveOTP')}
         <Text
           sx={{
             color: '$info',

@@ -3,7 +3,7 @@ import { PageWithBackHeader } from 'app/components/layouts/Page'
 import CustomTabBar from 'app/components/navigation/CustomTabBar'
 import { MaterialTopTab } from 'app/navigation/navigator/MaterialTopTab'
 import useLocalization from 'app/provider/localization'
-import { TRANSFER_NOTES } from 'app/utils/constant'
+import { TRANSFER_NOTES } from 'utils/constant'
 import { useModal } from 'react-native-modalfy'
 
 export default function Transfer({}) {

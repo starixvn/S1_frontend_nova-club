@@ -1,8 +1,13 @@
-import { Text } from 'dripsy'
+import { View } from 'dripsy'
 import React from 'react'
+import HowSection from './HowSection'
 
 const How = () => {
-  return <Text>How</Text>
+  return (
+    <View sx={{ my: '$sectionBottomSpace' }}>
+      <HowSection />
+    </View>
+  )
 }
 
 export default How

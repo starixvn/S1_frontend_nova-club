@@ -12,7 +12,7 @@ import usePathname from 'app/hooks/usePathname'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { HEADER_HEIGHT } from 'app/utils/constant'
+import { HEADER_HEIGHT } from 'utils/constant'
 import HeaderAuthenticationDesktop from 'desktop-ext/components/navigation/header/HeaderAuthentication'
 import {
   Container,
@@ -114,13 +114,12 @@ const MainHeader = () => {
               sx={{ borderRadius: 50 }}
               onPress={() => push('/account')}
             >
-              <MessageBadge size="small">
-                <Image
-                  alt="user-avatar"
-                  source={require('../../../assets/images/common/avatarx2.png')}
-                  sx={{ width: 34, height: 34, borderRadius: 50 }}
-                />
-              </MessageBadge>
+              <MessageBadge size="small" />
+              <Image
+                alt="user-avatar"
+                source={require('../../../assets/images/common/avatarx2.png')}
+                sx={{ width: 34, height: 34, borderRadius: 50 }}
+              />
             </Pressable>
             {desktop && (
               <>

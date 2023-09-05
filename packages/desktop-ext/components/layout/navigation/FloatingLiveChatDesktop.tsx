@@ -1,14 +1,12 @@
-import { LIVECHAT_URL } from '@env'
 import Icon from 'app/components/Icon'
+import useSupportItemList from 'app/features/customerSupport/useSupportItemList'
 import useLocalization from 'app/provider/localization'
+import { HEADER_HEIGHT } from 'utils/constant'
 import { Image, Pressable, Text, View, styled, useDripsyTheme } from 'dripsy'
+import { MotiView } from 'moti'
 import { MotiPressable } from 'moti/interactions'
 import React, { startTransition, useState } from 'react'
-import { Linking, Platform } from 'react-native'
 import { NAVIGATION_HEIGHT } from './NavigationHeader'
-import { HEADER_HEIGHT } from 'app/utils/constant'
-import useSupportItemList from 'app/features/customerSupport/useSupportItemList'
-import { AnimatePresence, MotiView } from 'moti'
 
 const FloatingLiveChatDesktop = () => {
   const { theme } = useDripsyTheme()

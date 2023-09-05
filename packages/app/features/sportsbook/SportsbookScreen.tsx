@@ -7,7 +7,7 @@ import {
 } from 'app/components/game/GameUtilityAction'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { GAME_TYPE_CODE } from 'app/utils/constant'
+import { GAME_TYPE_CODE } from 'utils/constant'
 import { Row, View, useResponsiveValue } from 'dripsy'
 import React, { useMemo } from 'react'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'

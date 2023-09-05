@@ -1,6 +1,6 @@
 import GameListSectionAsyncByTag from 'app/components/game/GameListSectionAsyncByTag'
 import useLocalization from 'app/provider/localization'
-import { SlotType } from 'app/utils/constant'
+import { SlotType } from 'utils/constant'
 import { View } from 'dripsy'
 import React from 'react'
 import LeaderboardSection from './LeaderboardSection'

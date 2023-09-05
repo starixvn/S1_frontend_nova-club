@@ -2,7 +2,7 @@ import { DripsyGradient } from 'app/components/Gradient'
 import { LanguageButton } from 'app/components/LanguageSwitch'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
-import { LANGUAGE_CODE } from 'app/utils/constant'
+import { LANGUAGE_CODE } from 'utils/constant'
 import { View, styled } from 'dripsy'
 import React from 'react'
 

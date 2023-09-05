@@ -1,4 +1,5 @@
 import { ActivityIndicator, styled, Text, View } from 'dripsy'
+import { ForwardedRef, forwardRef, MutableRefObject, RefObject } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { WebView as RWebView, WebViewProps } from 'react-native-webview'
 
@@ -6,9 +7,13 @@ interface WebViewComponentProps extends WebViewProps {
   url: string
 }
 
-const WebView = ({ url, ...restWebViewProps }: WebViewComponentProps) => {
+const WebView = (
+  { url, ...restWebViewProps }: WebViewComponentProps,
+  ref: MutableRefObject<RWebView>
+) => {
   return (
     <RWebView
+      ref={ref}
       bounces={false}
       style={{ flex: 1, width: '100%' }}
       source={{
@@ -54,4 +59,4 @@ const StyledLoadingView = styled(View)({
   width: '100%',
 })
 
-export default WebView
+export default forwardRef(WebView)

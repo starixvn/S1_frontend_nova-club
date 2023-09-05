@@ -1,21 +1,22 @@
 import DatePicker from 'app/components/form/DatePicker'
 import SelectList from 'app/components/select/SelectList'
 import useLocalization from 'app/provider/localization'
-import {
-  DateFilter,
-  DateFilterOptions,
-  ReportCommonStatusOptions,
-  ReportDepositStatusOptions,
-  ReportGameStatusOptions,
-  ReportTransactionType,
-  ReportTransactionTypeOptions,
-} from 'app/utils/constant'
+import { ReportGameStatusOptions } from 'app/utils/constant'
 import dayjs from 'dayjs'
 import { Text, View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import { SelectOptions } from 'services/common/types'
 import { usePlayerWalletDetailQuery } from 'services/walletApi'
+import {
+  DateFilter,
+  DateFilterOptions,
+  ReportCommonStatusOptions,
+  ReportDepositStatusOptions,
+  ReportTransactionType,
+  ReportTransactionTypeOptions,
+} from 'utils/constant'
 import { CONTENT_URI, MEDIA_DOMAIN } from '../../../../../apps/next/config/env'
+import dayjsTz from 'app/utils/dayjs'
 
 const TypeList = ReportTransactionTypeOptions
 const DateFilterList = DateFilterOptions
@@ -221,7 +222,9 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
               setSelected({
                 ...selected,
                 selectedDate: DateFilterOptions[5]?.value,
-                startDate: value,
+                startDate: dayjsTz(value, 'Asia/Shanghai')
+                  .startOf('date')
+                  .toDate(),
               })
             }
           />
@@ -236,7 +239,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
               setSelected({
                 ...selected,
                 selectedDate: DateFilterOptions[5]?.value,
-                endDate: value,
+                endDate: dayjsTz(value, 'Asia/Shanghai').endOf('date').toDate(),
               })
             }}
           />

@@ -14,7 +14,7 @@ import {
 import { ROLE } from 'agent/utils/helper'
 import validation from 'agent/utils/validation'
 import { useAgentLocalization } from 'app/provider/localization'
-import { Currency } from 'app/utils/constant'
+import { Currency } from 'utils/constant'
 import { ActivityIndicator, View, useDripsyTheme } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import debounce from 'lodash/debounce'

@@ -9,7 +9,7 @@ import {
   HEADER_HEIGHT_OFFSET,
   ProviderImageCategory,
   SCROLL_OFFSET_TOP,
-} from 'app/utils/constant'
+} from 'utils/constant'
 import ProviderList from 'desktop-ext/components/game/ProviderList'
 import { ActivityIndicator, Container, Row, View } from 'dripsy'
 import uniqBy from 'lodash/uniqBy'

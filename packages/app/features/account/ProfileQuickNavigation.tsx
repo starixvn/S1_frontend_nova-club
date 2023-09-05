@@ -1,11 +1,11 @@
-import Badge, { MessageBadge } from 'app/components/Badge'
+import { CoinBadge, MessageBadge } from 'app/components/Badge'
 import Icon from 'app/components/Icon'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import { Profile_Quick_Navigation_Path } from 'app/navigation/RoutePath'
 import useLocalization from 'app/provider/localization'
 import { Pressable, Text, View, styled, useDripsyTheme } from 'dripsy'
 import { Gradient } from 'dripsy/gradient'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Platform, useWindowDimensions } from 'react-native'
 import { useRouter } from 'solito/router'
 
@@ -63,9 +63,26 @@ const ProfileQuickNavigation = () => {
           r.icon === 'logout' ? TriggerLogout() : push(r.path ?? '/')
         }
       >
-        <MessageBadge hideBadge={r.icon !== 'announcement'}>
-          <Gradient
-            colors={theme.linearGradients.surface}
+        {r.icon === 'announcement' && <MessageBadge />}
+        {r.icon === 'coin-circle' && <CoinBadge />}
+        <Gradient
+          colors={theme.linearGradients.surface}
+          sx={{
+            borderRadius: 15,
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: CARD_SIZE,
+            height: CARD_SIZE,
+          }}
+        >
+          <Icon
+            name={r.icon ?? 'notice'}
+            color={'white'}
+            size={24}
+            sx={{ p: 10 }}
+          />
+          <Text
+            numberOfLines={2}
             sx={{
               borderRadius: 15,
               alignItems: 'center',

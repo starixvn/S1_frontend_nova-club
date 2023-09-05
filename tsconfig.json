@@ -5,9 +5,15 @@
     "paths": {
       "agent/*": ["./packages/agent/*"],
       "app/*": ["./packages/app/*"],
+      "rewards/*": ["./packages/rewards/*"],
       "services/*": ["./packages/services/*"],
       "desktop-ext/*": ["./packages/desktop-ext/*"],
-      "utils/*": ["./packages/utils/*"]
+      "utils/*": ["./packages/utils/*"],
+      "utils-pixi/*": ["./packages/utils-pixi/*"],
+      "tsconfig/*": ["./packages/tsconfig"],
+      "@games/config": ["./games/config"],
+      "@games/shared": ["./games/shared"],
+      "@games/*": ["./games/*"],
     },
     "module": "ES2022"
   },

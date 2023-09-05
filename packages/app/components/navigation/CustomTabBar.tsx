@@ -35,6 +35,12 @@ type CustomStyledComponent = {
   >
 }
 
+export type CustomTabBarProps = {
+  routes: CustomRoutesProps[]
+  currentIndex: number
+  onPress: (arg0: number) => void
+} & CustomStyledComponent
+
 export type CustomRoutesProps = {
   key: string
   title: string
@@ -52,7 +58,7 @@ const CustomTabBar = ({
     <DripsyGradient gradient="surface">
       <Container
         sx={{
-          px: 24,
+          px: [8, 16, 24],
         }}
       >
         <TabBarSelection
@@ -67,11 +73,14 @@ const CustomTabBar = ({
   )
 }
 
-export type CustomTabBarProps = {
-  routes: CustomRoutesProps[]
-  currentIndex: number
-  onPress: (arg0: number) => void
-} & CustomStyledComponent
+const StyledRow = styled(Row)({
+  gap: ['$2', '$3'],
+  justifyContent: 'center',
+})
+
+interface TabBarSelectionProps extends CustomTabBarProps {
+  wrapperProps?: ComponentProps<typeof StyledRow>
+}
 
 export const TabBarSelection = ({
   routes,
@@ -79,14 +88,15 @@ export const TabBarSelection = ({
   onPress,
   buttonProps,
   buttonTextProps,
-}: CustomTabBarProps) => {
+  wrapperProps,
+}: TabBarSelectionProps) => {
   const { t } = useLocalization()
   const handlePress = (value) => {
     onPress(value)
   }
 
   return (
-    <Row sx={{ gap: '$3', justifyContent: 'center' }}>
+    <StyledRow {...wrapperProps}>
       {routes.length > 0 &&
         routes.map((route, index) => {
           const isActive = currentIndex === route.index
@@ -97,23 +107,20 @@ export const TabBarSelection = ({
               onPress={() => handlePress(route.index)}
               {...buttonProps}
             >
-              <MessageBadge
-                hideBadge={route.title !== 'message.personalMessage'}
-              >
-                <ShadowButton isActive={isActive} safeRender stretch>
-                  <StyledButtonText
-                    numberOfLines={2}
-                    isActive={isActive}
-                    {...buttonTextProps}
-                  >
-                    {t(route?.title) ?? ''}
-                  </StyledButtonText>
-                </ShadowButton>
-              </MessageBadge>
+              <ShadowButton isActive={isActive} safeRender stretch>
+                {route.title === 'message.personalMessage' && <MessageBadge />}
+                <StyledButtonText
+                  numberOfLines={2}
+                  isActive={isActive}
+                  {...buttonTextProps}
+                >
+                  {t(route?.title) ?? ''}
+                </StyledButtonText>
+              </ShadowButton>
             </StyledPressable>
           )
         })}
-    </Row>
+    </StyledRow>
   )
 }
 

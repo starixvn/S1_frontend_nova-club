@@ -1,4 +1,4 @@
-import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'app/utils/constant'
+import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'utils/constant'
 import { startTransition, useEffect, useState } from 'react'
 import { useGameListMultipleQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'

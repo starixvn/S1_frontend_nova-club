@@ -9,7 +9,7 @@ import FloatingDrawer from './component/FloatingDrawer'
 import ToggleFloatingDrawerButton from './component/ToggleFloatingDrawerButton'
 import FloatingDownloadDrawer from './component/FloatingDownloadDrawer'
 import ToggleFloatingDownloadButton from './component/ToggleFloatingDownloadButton'
-import { HEADER_HEIGHT } from 'app/utils/constant'
+import { HEADER_HEIGHT } from 'utils/constant'
 import { NAVIGATION_HEIGHT } from 'desktop-ext/components/layout/navigation/NavigationHeader'
 
 export const TOP_TAB_BAR_HEIGHT = 60

@@ -1,5 +1,6 @@
 import { agentModalConfig } from 'agent/provider/agentModal'
 import LoadingModal from 'app/components/modal/LoadingModal'
+import { ActionsProps } from 'app/components/modal/ModalContent'
 import ModalWrapper from 'app/components/modal/ModalWrapper'
 import { LoginType } from 'app/features/auth/AuthLayout'
 import { ActivityIndicator, useResponsiveValue } from 'dripsy'
@@ -17,7 +18,7 @@ export const MODAL_ANIMATION_DELAY = 350
 
 type ModalStackConfigValueType = ModalStackConfig[keyof ModalStackConfig]
 
-export type ModalStackParams = {
+type DefaultModalStackParams = {
   LoadingModal: undefined
   AlertModal: {
     message: string
@@ -53,7 +54,9 @@ export type ModalStackParams = {
     amount: string
     callback(...args: any): any
   }
-  RegisterModal: undefined
+  RegisterModal: {
+    t: LoginType
+  }
   DownloadGuideModal: {
     label: string
     onClose(...args: any): any
@@ -70,6 +73,39 @@ export type ModalStackParams = {
   EventPopupModal: undefined
   HalloweenWinModal: undefined
   DepositQrModal: { qrCode: string }
+  DailyCheckInModal: undefined
+  RewardGameModal: {
+    key: string
+  }
+  RewardTncModal: {
+    content: React.ReactNode
+  }
+  ActionableModal: {
+    actions: ActionsProps[]
+    message: string
+    isShowHeader: boolean
+  }
+}
+
+/**
+ * `InjectedParamOption` is available after patching `react-native-modalfy`
+ * using `yarn patch`. These injected option is only for `react-native-modalfy`
+ * parameter.
+ *
+ * Example:
+ * ```ts
+ *  const { openModal } = useModal()
+ *  openModal('AlertModal', { persistent: true })
+ * ```
+ */
+type InjectedParamOption = {
+  /** To disable backdrop click from closing the modal. */
+  persistent?: boolean
+}
+export type ModalStackParams = {
+  [key in keyof DefaultModalStackParams]: DefaultModalStackParams[key] extends undefined
+    ? InjectedParamOption
+    : DefaultModalStackParams[key] & InjectedParamOption
 }
 
 type ModalConfigType = Record<keyof ModalStackParams, ModalStackConfigValueType>
@@ -104,6 +140,10 @@ const _dynamicModal: Record<keyof ModalStackParams, () => Promise<any>> = {
     import('desktop-ext/features/auth/forgotPassword/ForgotPasswordScreen'),
   EventPopupModal: () => import('app/components/modal/EventPopupModal'),
   DepositQrModal: () => import('app/components/modal/DepositQrModal'),
+  DailyCheckInModal: () => import('app/components/modal/DailyCheckInModal'),
+  RewardGameModal: () => import('app/components/modal/RewardGameModal'),
+  RewardTncModal: () => import('app/components/modal/RewardTncModal'),
+  ActionableModal: () => import('app/components/modal/ActionableModal'),
   HalloweenWinModal: () =>
     import('app/features/event/halloween/HalloweenWinModal'),
 }
@@ -186,6 +226,18 @@ const modalConfig: ModalConfigType = {
   DepositQrModal: {
     modal: getDynamicComponent('DepositQrModal'),
   },
+  DailyCheckInModal: {
+    modal: getDynamicComponent('DailyCheckInModal'),
+  },
+  RewardGameModal: {
+    modal: getDynamicComponent('RewardGameModal'),
+  },
+  RewardTncModal: {
+    modal: getDynamicComponent('RewardTncModal'),
+  },
+  ActionableModal: {
+    modal: getDynamicComponent('ActionableModal'),
+  },
   HalloweenWinModal: {
     modal: getDynamicComponent('HalloweenWinModal'),
   },
@@ -208,23 +260,20 @@ const ModalProvider = ({ children }) => {
       }),
       transform: [
         {
-          perspective: 2000,
-        },
-        {
           scale: animatedValue.interpolate({
             inputRange: [0, 1, 2],
-            outputRange: [1.3, 1, 1],
+            outputRange: [0.01, 1, 0.01],
           }),
         },
       ],
     }),
     animateInConfig: {
       easing: Easing.bezier(0.42, -0.03, 0.27, 0.95),
-      duration: 300,
+      duration: 450,
     },
     animateOutConfig: {
       easing: Easing.bezier(0.42, -0.03, 0.27, 0.95),
-      duration: 300,
+      duration: 450,
     },
   })
 

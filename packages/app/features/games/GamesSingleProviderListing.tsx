@@ -15,7 +15,7 @@ import {
 } from 'app/hooks/appState/game/useGameCategoryTag'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { ALL, GAME_TYPE_CODE } from 'app/utils/constant'
+import { ALL, GAME_TYPE_CODE } from 'utils/constant'
 import {
   Pressable,
   Row,

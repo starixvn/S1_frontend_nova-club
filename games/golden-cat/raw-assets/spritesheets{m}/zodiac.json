@@ -1,0 +1,255 @@
+{
+	"frames": {
+		"_cat.png": {
+			"frame": {
+				"x": 1,
+				"y": 1,
+				"w": 100,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 100,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 100,
+				"h": 92
+			}
+		},
+		"buffalo.png": {
+			"frame": {
+				"x": 103,
+				"y": 1,
+				"w": 100,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 100,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 100,
+				"h": 92
+			}
+		},
+		"dog.png": {
+			"frame": {
+				"x": 205,
+				"y": 1,
+				"w": 100,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 100,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 100,
+				"h": 92
+			}
+		},
+		"dragon.png": {
+			"frame": {
+				"x": 1,
+				"y": 95,
+				"w": 100,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 100,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 100,
+				"h": 92
+			}
+		},
+		"goat.png": {
+			"frame": {
+				"x": 103,
+				"y": 95,
+				"w": 100,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 100,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 100,
+				"h": 92
+			}
+		},
+		"horse.png": {
+			"frame": {
+				"x": 205,
+				"y": 95,
+				"w": 100,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 100,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 100,
+				"h": 92
+			}
+		},
+		"monkey.png": {
+			"frame": {
+				"x": 1,
+				"y": 189,
+				"w": 100,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 100,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 100,
+				"h": 92
+			}
+		},
+		"pig.png": {
+			"frame": {
+				"x": 103,
+				"y": 189,
+				"w": 100,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 100,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 100,
+				"h": 92
+			}
+		},
+		"rat.png": {
+			"frame": {
+				"x": 205,
+				"y": 189,
+				"w": 100,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 100,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 100,
+				"h": 92
+			}
+		},
+		"rooster.png": {
+			"frame": {
+				"x": 307,
+				"y": 1,
+				"w": 100,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 100,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 100,
+				"h": 92
+			}
+		},
+		"snake.png": {
+			"frame": {
+				"x": 307,
+				"y": 95,
+				"w": 100,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 100,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 100,
+				"h": 92
+			}
+		},
+		"tiger.png": {
+			"frame": {
+				"x": 307,
+				"y": 189,
+				"w": 100,
+				"h": 92
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 100,
+				"h": 92
+			},
+			"sourceSize": {
+				"w": 100,
+				"h": 92
+			}
+		}
+	},
+	"meta": {
+		"app": "http://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"image": "zodiac.png",
+		"format": "RGBA8888",
+		"size": {
+			"w": 408,
+			"h": 282
+		},
+		"scale": "1"
+	}
+}

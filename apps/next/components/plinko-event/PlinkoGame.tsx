@@ -4,7 +4,7 @@ import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { AuthActions } from 'app/store/authReducer'
 import { SettingActions } from 'app/store/setting.slice'
-import { LANGUAGE_CODE } from 'app/utils/constant'
+import { LANGUAGE_CODE } from 'utils/constant'
 import { View } from 'dripsy'
 import Matter, {
   Body,

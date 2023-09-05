@@ -1,18 +1,21 @@
-import { Text, View } from 'dripsy'
-import React, { ReactNode, useEffect, useState } from 'react'
+import { SxProp, Text, View } from 'dripsy'
+import React, { useEffect, useState } from 'react'
 import { useMessageQuery } from 'services/messageApi'
+import { useGetCoinQuery } from 'services/rewardApi'
 
 type BadgeProps = {
-  hideBadge?: boolean
+  badgeColor?: string
   count: number
   size?: 'small' | 'medium' | 'large' | 'inline'
+  textStyle?: SxProp
   children?: JSX.Element
 }
 
 const Badge = ({
-  hideBadge = false,
+  badgeColor = '$error',
   count = 0,
   size = 'large',
+  textStyle,
   children,
 }: BadgeProps) => {
   const [badgeStyle, setBadgeStyle] = useState({})
@@ -45,7 +48,7 @@ const Badge = ({
         }
 
         fontVariant = {
-          fontSize: 14,
+          fontSize: count > 99 ? 11 : 14,
         }
 
         break
@@ -53,8 +56,11 @@ const Badge = ({
       case 'inline':
         variant = {
           width: 24,
-          right: 0,
-          top: -2,
+          right: 12,
+          top: 0,
+          bottom: 0,
+          mt: 'auto',
+          mb: 'auto',
         }
 
         fontVariant = {
@@ -83,47 +89,51 @@ const Badge = ({
 
   useEffect(() => {
     BadgeVariant()
-  }, [])
+  }, [count])
 
-  return hideBadge || count === 0 ? (
-    children
-  ) : (
-    <View sx={{ position: 'relative' }}>
-      {children}
-
-      <View
-        sx={{
-          bg: '$error',
-          alignItems: 'center',
-          justifyContent: 'center',
-          aspectRatio: 1,
-          borderRadius: 50,
-          position: 'absolute',
-          ...badgeStyle,
-        }}
-      >
-        <Text sx={{ ...fontStyle }}>{count}</Text>
-      </View>
+  return (
+    <View
+      sx={{
+        bg: badgeColor,
+        alignItems: 'center',
+        justifyContent: 'center',
+        aspectRatio: 1,
+        borderRadius: 50,
+        position: 'absolute',
+        zIndex: 11,
+        ...badgeStyle,
+      }}
+    >
+      <Text sx={{ ...fontStyle, ...textStyle }}>
+        {count > 99 ? '99+' : count}
+      </Text>
     </View>
   )
 }
 
-export const MessageBadge = ({
-  children,
-  hideBadge,
-  ...rest
-}: Omit<BadgeProps, 'count'>) => {
+export const MessageBadge = ({ ...rest }: Omit<BadgeProps, 'count'>) => {
   const { data } = useMessageQuery(undefined, {
     refetchOnMountOrArgChange: true,
-    skip: hideBadge,
   })
   const unreadCount = data?.filter((el) => el.unreadCnt > 0).length ?? 0
 
-  return (
-    <Badge hideBadge={hideBadge} count={unreadCount} {...rest}>
-      {children}
-    </Badge>
-  )
+  return unreadCount ? <Badge count={unreadCount} {...rest} /> : null
+}
+
+export const CoinBadge = ({ ...rest }: Omit<BadgeProps, 'count'>) => {
+  const { data: balance } = useGetCoinQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  })
+  const count = (balance && Number(balance)) ?? 0
+
+  return count ? (
+    <Badge
+      badgeColor="$secondary.100"
+      count={count}
+      textStyle={{ color: 'black' }}
+      {...rest}
+    />
+  ) : null
 }
 
 export default Badge

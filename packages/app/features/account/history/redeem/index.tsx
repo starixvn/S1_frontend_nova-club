@@ -1,7 +1,7 @@
 import HistoryListing from 'app/components/history/HistoryListing'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import { ReportTransactionType } from 'app/utils/constant'
+import { ReportTransactionType } from 'utils/constant'
 import dayjsTz from 'app/utils/dayjs'
 import { Text, View, useResponsiveValue } from 'dripsy'
 import React, { useState } from 'react'
@@ -24,8 +24,11 @@ const RedeemHistory = () => {
   const [fetchData, result] = useLazyPlayerReportQuery()
 
   const [fetchParams, setFetchParams] = useState({
-    time_from: dayjsTz().subtract(2, 'month').startOf('date').toDate(),
-    time_to: dayjsTz().endOf('date').toDate(),
+    time_from: dayjsTz(undefined, 'Asia/Shanghai')
+      .subtract(2, 'month')
+      .startOf('date')
+      .toDate(),
+    time_to: dayjsTz(undefined, 'Asia/Shanghai').endOf('date').toDate(),
     trans_type: ReportTransactionType.COIN,
   })
 

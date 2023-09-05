@@ -1,4 +1,4 @@
-import { LANGUAGE_CODE } from 'app/utils/constant'
+import { LANGUAGE_CODE } from 'utils/constant'
 import { AdaptiveLayoutPage } from 'components/layouts/AdaptiveLayout'
 import { DesktopInfoLayout } from 'components/layouts/desktop'
 import { MobileInfoLayout } from 'components/layouts/mobile'

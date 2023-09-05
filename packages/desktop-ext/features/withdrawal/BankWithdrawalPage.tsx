@@ -1,7 +1,7 @@
 import FormContainer from 'app/components/form/FormContainer'
 import AvailableBalance from 'app/features/withdrawal/components/AvailableBalance'
 import WithdrawalTransactions from 'app/features/withdrawal/components/WithdrawalTransactions'
-import { ReportCommonStatus } from 'app/utils/constant'
+import { ReportCommonStatus } from 'utils/constant'
 import { View, styled } from 'dripsy'
 import React from 'react'
 import { WITHDRAWAL_TYPE } from 'services/playerApi.type'

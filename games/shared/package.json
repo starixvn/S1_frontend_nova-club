@@ -1,0 +1,29 @@
+{
+  "name": "@games/shared",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint .",
+    "assets": "assetpack"
+  },
+  "peerDependencies": {
+    "@games/config": "*",
+    "utils": "*",
+    "utils-pixi": "*"
+  },
+  "devDependencies": {
+    "@assetpack/cli": "~0.3.4",
+    "@assetpack/core": "~0.3.4",
+    "@assetpack/plugin-compress": "~0.3.4",
+    "@assetpack/plugin-ffmpeg": "~0.3.4",
+    "@assetpack/plugin-json": "~0.3.4",
+    "@assetpack/plugin-manifest": "~0.3.4",
+    "@assetpack/plugin-mipmap": "~0.3.4",
+    "@assetpack/plugin-texture-packer": "~0.3.4",
+    "@assetpack/plugin-webfont": "~0.3.4"
+  }
+}

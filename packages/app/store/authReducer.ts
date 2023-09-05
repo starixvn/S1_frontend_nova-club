@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { LoginResult } from '../../services/authApi.type'
 import { ProfileResult } from '../../services/playerApi.type'
-import { LOGOUT_ACTION } from 'app/utils/constant'
+import { LOGOUT_ACTION } from 'utils/constant'
 
 type TokenType = Pick<LoginResult, 'token'>
 

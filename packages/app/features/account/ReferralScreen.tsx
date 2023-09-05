@@ -5,7 +5,7 @@ import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { toCurrency, toThousandSeparator } from 'app/utils'
-import { Currency } from 'app/utils/constant'
+import { Currency } from 'utils/constant'
 import { ScrollView, View } from 'dripsy'
 import React from 'react'
 import {

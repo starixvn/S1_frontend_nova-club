@@ -1,6 +1,6 @@
 import useLocalization from 'app/provider/localization'
 import { SxProp, Text, View, styled, useDripsyTheme } from 'dripsy'
-import React from 'react'
+import React, { ComponentProps } from 'react'
 import { Platform, ViewProps } from 'react-native'
 import { useRouter } from 'solito/router'
 import SectionLabel from './SectionLabel'
@@ -11,12 +11,16 @@ interface SectionHeaderProps extends ViewProps {
   sx?: SxProp
   icon: string
   title: string
+  titleProps?: ComponentProps<typeof SectionLabel>['titleProps']
+  iconProps?: Omit<ComponentProps<typeof SectionLabel>['iconProps'], 'name'>
   seeMoreUrl?: string
 }
 
 export default function SectionHeader({
   icon,
   title,
+  titleProps,
+  iconProps,
   seeMoreUrl,
   sx,
   children,
@@ -52,15 +56,18 @@ export default function SectionHeader({
             bg: '$primary.300',
             borderTopLeftRadius: 30,
             borderBottomLeftRadius: 30,
-            p: [6, '$2'],
+            p: ['$1'],
             flexDirection: 'row',
             justifyContent: 'space-between',
           }}
           {...rest}
         >
-          <SectionLabel icon={icon} title={title}>
-            {children}
-          </SectionLabel>
+          <SectionLabel
+            icon={icon}
+            title={title}
+            titleProps={titleProps}
+            iconProps={iconProps}
+          />
           {seeMoreUrl && (
             <TouchableOpacity
               sx={{
@@ -73,6 +80,7 @@ export default function SectionHeader({
               </Text>
             </TouchableOpacity>
           )}
+          {children}
         </View>
       </Shadow>
     </Root>

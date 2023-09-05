@@ -30,7 +30,7 @@ import GeneratePlinkoAsset from './generatePlinkoAsset'
 import usePlinkoSound from './usePlinkoSound'
 import backgroundTopAsset from './backgroundTopAsset'
 import backgroundBottomAsset from './backgroundBottomAsset'
-import { LANGUAGE_CODE } from 'app/utils/constant'
+import { LANGUAGE_CODE } from 'utils/constant'
 import background from 'app/assets/images/events/autumn/bg.jpg'
 
 const theme = {

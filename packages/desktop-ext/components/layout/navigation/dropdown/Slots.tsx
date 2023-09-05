@@ -4,7 +4,7 @@ import {
   GetCommissionList,
   GetGameRebateValue,
 } from 'app/components/game/GameUtilityAction'
-import { GAME_TYPE_CODE } from 'app/utils/constant'
+import { GAME_TYPE_CODE } from 'utils/constant'
 import uniqBy from 'lodash/uniqBy'
 import React, { useMemo } from 'react'
 import { useGameListMultipleQuery } from 'services/gameApi'

@@ -1,8 +1,13 @@
-import { Text } from 'dripsy'
+import { View } from 'dripsy'
 import React from 'react'
+import RuleSection from './RuleSection'
 
 const Rules = () => {
-  return <Text>Rules</Text>
+  return (
+    <View sx={{ my: '$sectionBottomSpace' }}>
+      <RuleSection />
+    </View>
+  )
 }
 
 export default Rules

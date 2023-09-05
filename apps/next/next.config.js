@@ -1,9 +1,6 @@
-const path = require('path')
-
 const { withExpo } = require('@expo/next-adapter')
 const withPlugins = require('next-compose-plugins')
 const withFonts = require('next-fonts')
-const withVideos = require('next-videos')
 const withImages = require('next-images')
 const withPWA = require('next-pwa')
 
@@ -17,6 +14,8 @@ Object.keys(result.parsed).forEach((key) => {
   env[key] = process.env[key]
 })
 
+const REWARD_URI = env.REWARDS_BASE_PATH || '/rewards/games'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // reanimated (and thus, Moti) doesn't work with strict mode currently...
@@ -29,8 +28,6 @@ const nextConfig = {
     domains: [
       'static-stage.gball8.com',
       'static.zzspeed.site',
-      'static-global.static-bifrost.com', // delete this before going prod
-      'static-stage.gball8.com',
       'bw88.io',
     ],
   },
@@ -134,6 +131,28 @@ const nextConfig = {
         source: '/history',
         destination: 'history/transaction',
         permanent: true,
+      },
+      {
+        source: '/rewards',
+        destination: '/rewards/redeem/list',
+        permanent: true,
+      },
+      {
+        source: '/rewards/redeem',
+        destination: '/rewards/redeem/list',
+        permanent: true,
+      },
+    ]
+  },
+  async rewrites() {
+    // Forward rewards assets to rewards site
+    return [
+      {
+        source: `${REWARD_URI}/:path*`,
+        destination:
+          process.env.NODE_ENV === 'production'
+            ? `${REWARD_URI}/:path*`
+            : `http://localhost:3001${REWARD_URI}/:path*`,
       },
     ]
   },

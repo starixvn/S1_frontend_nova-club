@@ -148,7 +148,7 @@ export default function DrawerContent() {
         }
         contentContainerSx={{
           // bg: '$primary.500',
-          minHeight: 300,
+          minHeight: 400,
           // bg: 'green',
           height: '100%',
           // flex: 1,

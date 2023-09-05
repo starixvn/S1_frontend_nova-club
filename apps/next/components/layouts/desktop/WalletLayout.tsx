@@ -5,7 +5,7 @@ import {
   TOPUP_NOTES,
   TRANSFER_NOTES,
   WITHDRAWAL_NOTES,
-} from 'app/utils/constant'
+} from 'utils/constant'
 import LeftPanelContainer from 'desktop-ext/components/layout/LeftPanelContainer'
 import PageContainer from 'desktop-ext/components/layout/PageContainer'
 import WalletMenu from 'desktop-ext/components/layout/WalletMenu'

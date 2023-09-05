@@ -10,7 +10,7 @@ import {
   HEADER_HEIGHT_OFFSET,
   ProviderImageCategory,
   SCROLL_OFFSET_TOP,
-} from 'app/utils/constant'
+} from 'utils/constant'
 import LatestWinnerSection from 'desktop-ext/components/game/LatestWinnerSection'
 import ProviderList from 'desktop-ext/components/game/ProviderList'
 import {

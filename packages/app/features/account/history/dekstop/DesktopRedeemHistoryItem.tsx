@@ -36,14 +36,17 @@ const DesktopRedeemHistoryItem = ({ item, index }) => {
         <Text
           sx={{
             textAlign: 'center',
-            color: item.transactionType.includes('Minus')
-              ? '#BE0A16'
-              : '#00FF19',
+            // color: item.transactionType.includes('Minus')
+            //   ? '#BE0A16'
+            //   : '#00FF19',
           }}
         >
-          {item.transactionType?.includes('Minus')
-            ? item.amount
-            : `+${item.amount}`}
+          {
+            // item.transactionType.includes('Minus')
+            //   ? item.amount
+            //   :
+            `+${item.amount}`
+          }
         </Text>
       </CellView>
     </CellViewContainer>

@@ -5,7 +5,7 @@ import FormContainer from 'app/components/form/FormContainer'
 import SelectList from 'app/components/select/SelectList'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import { DateFilterOptions } from 'app/utils/constant'
+import { DateFilterOptions } from 'utils/constant'
 import { View } from 'dripsy'
 import React, { useState } from 'react'
 

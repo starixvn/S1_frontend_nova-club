@@ -1,6 +1,6 @@
 import { GetCommissionList } from 'app/components/game/GameUtilityAction'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
-import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'app/utils/constant'
+import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'utils/constant'
 import React, { startTransition, useEffect, useState } from 'react'
 import { useGameListMultipleQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'

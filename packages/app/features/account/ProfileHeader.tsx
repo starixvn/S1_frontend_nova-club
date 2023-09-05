@@ -1,7 +1,7 @@
 import Icon from 'app/components/Icon'
 import IconButton from 'app/components/IconButton'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { HEADER_HEIGHT } from 'app/utils/constant'
+import { HEADER_HEIGHT } from 'utils/constant'
 import { Pressable, View } from 'dripsy'
 import React from 'react'
 import { useModal } from 'react-native-modalfy'

@@ -3,12 +3,12 @@ import {
   GetCommissionList,
   GetGameRebateValue,
 } from 'app/components/game/GameUtilityAction'
-import { GAME_TYPE_CODE } from 'app/utils/constant'
+import uniqBy from 'lodash/uniqBy'
 import React, { useMemo } from 'react'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
+import { GAME_TYPE_CODE } from 'utils/constant'
 import DropdownContent from '../DropdownContent'
 import { NAVIGATION_DROPDOWN_MENU } from '../NavigationHeaderProvider'
-import uniqBy from 'lodash/uniqBy'
 
 type Props = {}
 

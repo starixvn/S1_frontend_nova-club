@@ -56,6 +56,7 @@ export const PageWithBackHeader = ({
   disableScrollView = false,
   background = undefined,
   wrapperStyle,
+  sx,
   ...rest
 }: PageWithBackHeaderProps) => {
   const PageComponent = disableScrollView ? Page : Page.ScrollView
@@ -95,6 +96,7 @@ export const PageWithBackHeader = ({
           bg: background ? 'transparent' : '$secondary',
           flex: 1,
           pb: bottom,
+          ...sx,
         }}
         showsVerticalScrollIndicator={false}
         {...(rest as any)}

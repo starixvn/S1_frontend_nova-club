@@ -1,4 +1,4 @@
-import { ReportDepositStatus } from 'app/utils/constant'
+import { ReportDepositStatus } from 'utils/constant'
 import { DripsyFinalTheme } from 'dripsy'
 
 export const getStatusColor = (

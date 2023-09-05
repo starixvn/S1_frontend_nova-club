@@ -13,7 +13,7 @@ import {
 } from 'app/hooks/appState/game/useGameCategoryTag'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { ALL } from 'app/utils/constant'
+import { ALL } from 'utils/constant'
 import {
   Pressable,
   Row,

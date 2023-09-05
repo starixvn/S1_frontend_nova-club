@@ -1,5 +1,4 @@
 import { DripsyGradient } from 'app/components/Gradient'
-import Icon from 'app/components/Icon'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
 import useAlert from 'app/hooks/useAlert'
 import useIsDesktop from 'app/hooks/useIsDesktop'
@@ -55,15 +54,27 @@ export default function HireBanner() {
   )
 
   const handlePress = () => {
-    token
-      ? !playerData?.firstName
-        ? isDesktop
-          ? handleDesktopAccountVerification()
-          : push('/account/account-verification')
-        : push('/deposit/bank-transfer')
-      : isDesktop
-      ? openModal('RegisterModal')
-      : push('/auth/register/?t=member')
+    // token
+    //   ? !playerData?.firstName
+    //     ? isDesktop
+    //       ? handleDesktopAccountVerification()
+    //       : push('/account/account-verification')
+    //     : push('/deposit/bank-transfer')
+    //   : isDesktop
+    //   ? openModal('RegisterModal')
+    //   : push('/auth/register/?t=member')
+    if (token) {
+      if (isDesktop) {
+        push('/rewards/redeem/list')
+        setTimeout(() => {
+          openModal('DailyCheckInModal')
+        }, 500)
+      } else {
+        push('/rewards/daily')
+      }
+    } else {
+      isDesktop ? openModal('RegisterModal') : push('/auth/register/?t=member')
+    }
   }
 
   return (
@@ -73,6 +84,7 @@ export default function HireBanner() {
           borderRadius: 40,
           bg: '$primary.200',
           p: ['$1', '$1', '$1', '$2'],
+          // minHeight: [48, 60],
         }}
       >
         <View
@@ -81,7 +93,7 @@ export default function HireBanner() {
             bg: '$primary.500',
             px: ['$2', '$3'],
             justifyContent: 'center',
-            flex: [0.5, 0.5, 0.5, 0.7],
+            flex: [0.25, 0.35, 0.35, 0.4],
           }}
         >
           <Label
@@ -111,22 +123,10 @@ export default function HireBanner() {
               {t('home.banner.n2')}
             </Label>
 
-            <Row sx={{ flex: 1, alignItems: 'center' }}>
-              {animatedText}
-              {show && (
-                <Icon
-                  size={16}
-                  name="date"
-                  sx={{
-                    ml: ['$1', '$2'],
-                  }}
-                />
-              )}
-              <Label sx={{ ml: ['$1', '$2'] }}>01-31/10/2023</Label>
-            </Row>
+            <Row sx={{ flex: 1, alignItems: 'center' }}>{animatedText}</Row>
           </View>
 
-          <AnimatedButton>{t('home.playNow')}</AnimatedButton>
+          <AnimatedButton>{t('home.checkIn')}</AnimatedButton>
         </Row>
       </Row>
     </Pressable>
@@ -160,7 +160,7 @@ export const AnimatedButton = ({ onPress, children }) => {
             color: '$error',
             fontWeight: '900',
             lineHeight: 12,
-            fontSize: 9,
+            fontSize: 8,
             textAlign: 'center',
           }}
         >
@@ -180,7 +180,7 @@ export const AnimatedButton = ({ onPress, children }) => {
         borderWidth: 2,
         borderColor: '$secondary.500',
         aspectRatio: 1 / 1,
-        width: 40,
+        width: [40, 48],
       }}
     >
       <DripsyGradient

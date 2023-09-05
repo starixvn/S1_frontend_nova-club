@@ -77,6 +77,7 @@
     "deposit": "Nạp tiền",
     "desktop": "Máy tính",
     "download": "Tải về",
+    "earn": "Xu nhận được",
     "enter": "",
     "fileSizeExceeds": "kích thước tệp không được vượt quá %{size}",
     "game": "Trò Chơi",
@@ -105,6 +106,7 @@
     "provider": "Các nhà cung cấp",
     "realBet": "Đặt cược thực sự",
     "realName": "Tên thật",
+    "redeem": "Quy đổi",
     "reward": "THƯỞNG",
     "search": "Tìm kiếm",
     "seeMore": "Xem Thêm",
@@ -304,14 +306,17 @@
   },
   "home": {
     "banner": {
-      "n1": "100% THƯỞNG NẠP & CHÀO MỪNG",
-      "n2": "LÊN ĐẾN 1 TRIỆU ĐỒNG",
-      "n3": "1X VÒNG CƯỢC"
+      "n1": "ĐIỂM DANH MỖI NGÀY",
+      "n2": "ĐIỂM DANH MỖI NGÀY ĐỂ KIẾM XU VUI",
+      "n3": "NẠP TỐI THIỂU 100K VND"
     },
     "banner2": {
-      "n1": "LÀM GIÀU THẬT DỄ",
-      "n2": "TUYỂN NGƯỜI CHƠI VÀ HƯỞNG HOA HỒNG"
+      "n1": "PHẦN THƯỞNG CỦA TÔI",
+      "n2": "TÌM XU VUI VÀ MỞ KHOÁ KHO PHẦN THƯỞNG HẤP DẪN",
+      "n3": "1X VÒNG CƯỢC"
     },
+    "checkIn": "ĐIỂM DANH",
+    "earnNow": "KIẾM XU",
     "hireAgent": "TUYỂN ĐẠI LÝ",
     "joinNow": "THAM GIA",
     "joinsUs": "THAM GIA VỚI CHÚNG TÔI & BẮT ĐẦU KIẾM TIỀN THƯỞNG!",
@@ -464,6 +469,146 @@
     "title": "Giới thiệu",
     "totalCom": "Tổng số hoa hồng bạn nhận"
   },
+  "rewards": {
+    "bonusTable": "CÁCH THỨC TÍNH THƯỞNG",
+    "category": "Danh Mục",
+    "checkInModal": {
+      "checkinBtn": "ĐIỂM DANH NGAY",
+      "day": "Ngày",
+      "depositNow": "NẠP NGAY",
+      "resetIfFail": "Tiền thưởng sẽ được đặt lại nếu bạn bỏ lỡ một ngày",
+      "seeYouTmrBtn": "HẸN GẶP BẠN NGÀY MAI",
+      "surprise": "THƯỞNG BẤT NGỜ",
+      "title": "ĐIỂM DANH MỖI NGÀY",
+      "topDesc": "Điểm danh đều đặn, quà mừng liền tay!"
+    },
+    "coin": "Xu Vui",
+    "earn": {
+      "notes": {
+        "n1": "Nhận xu Vui mỗi khi hoàn thành nhiệm vụ.",
+        "n2": "Kiếm nhiều xu để có cơ hội trúng thưởng khủng",
+        "n3": "Nhận phần thưởng yêu thích khi “Đổi thưởng”"
+      },
+      "title": "CÁCH KIẾM XU VUI"
+    },
+    "grid": {
+      "coins": {
+        "c1": "1",
+        "c2": "20",
+        "c3": "1",
+        "c4": "lên đến 9"
+      },
+      "details": {
+        "d1": {
+          "n1": "Dành cho thành viên mới đăng ký và nạp tiền lần đầu ",
+          "n2": "Nạp tối thiểu 50k VND để đổi 1 Xu Vui",
+          "n3": "Người chơi sẽ nhận tối đa 1 xu/tài khoản ",
+          "n4": "Xu Vui sẽ được ghi có vào vào tài khoản trong vòng 10 phút sau khi bạn hoàn thành điều kiện ",
+          "n5": "Thành viên đồng ý với Quy định chung của Vui123 khi tham gia khuyến mãi này"
+        },
+        "d2": {
+          "n1": "Nạp tối thiểu 1TR VND để đổi 1 Xu Vui",
+          "n2": "Số tiền nạp có thể tích lũy mỗi ngày",
+          "n3": "Người chơi có thể nhận tối đa 20 xu mỗi ngày khi nạp 20 triệu VND ",
+          "n4": "Xu Vui sẽ được ghi có vào vào tài khoản trong vòng 10 phút sau khi bạn hoàn thành điều kiện",
+          "n5": "Thành viên đồng ý với Quy định chung của Vui123 khi tham gia khuyến mãi này"
+        },
+        "d3": {
+          "n1": "Cược tối thiểu 10 triệu VND để đổi 1 xu Vui",
+          "n2": "Doanh thu cược có thể tích lũy mỗi ngày",
+          "n3": "Người chơi sẽ nhận tối đa 1 xu mỗi ngày",
+          "n4": "Xu Vui sẽ được ghi có vào vào tài khoản trong vòng 10 phút sau khi bạn hoàn thành điều kiện ",
+          "n5": "Thành viên đồng ý với Quy định chung của Vui123 khi tham gia khuyến mãi này"
+        },
+        "d4": {
+          "n1": "Điểm danh mỗi ngày để kiếm xu Vui",
+          "n2": "Nạp 100k VND để nhận 1 token điểm danh",
+          "n3": "Điểm danh liên tục để nhận nhiều xu Vui",
+          "n4": "Nếu bỏ lỡ một ngày, chuỗi điểm danh sẽ được đặt lại từ ngày 1",
+          "n5": "Vào ngày thứ tám, bạn sẽ điểm danh lại từ đầu để bắt đầu chu kỳ mới",
+          "n6": "Thành viên đồng ý với Quy định chung của Vui123 khi tham gia khuyến mãi này"
+        }
+      },
+      "header": {
+        "coin": "SỐ XU TỐI ĐA",
+        "how": "CÁCH KIẾM XU",
+        "requirement": "YÊU CẦU"
+      },
+      "requirement": {
+        "r1": "Nạp tối thiểu 50k VND",
+        "r2": "Nạp tối thiểu 1TR VND",
+        "r3": "Doanh thu cược tối thiểu 10 triệu VND",
+        "r4": "Nạp tối thiểu 100k VND"
+      },
+      "title": {
+        "t1": "Nạp lần đầu",
+        "t2": "Nạp tích lũy mỗi ngày",
+        "t3": "Doanh thu tích lũy mỗi ngày",
+        "t4": "Điểm danh hàng ngày"
+      }
+    },
+    "howToPlay": "CÁCH CHƠI",
+    "redeem": {
+      "title": "PHẦN THƯỞNG XU VUI"
+    },
+    "rule": {
+      "notes": {
+        "n1": "Chương trình này áp dụng cho TẤT CẢ người chơi của Vui123.",
+        "n2": "Xu Vui có thể dùng để đổi trò chơi và thắng trong trang Đổi thưởng Xu Vui",
+        "n3": "Các giải tiền mặt sẽ được ghi có vào ví người chơi",
+        "n4": "Các giải tiền mặt đều phải trải qua 1 vòng cược",
+        "n5": "Xu Vui không có ngày hết hạn",
+        "n6": "Xu Vui không thể chuyển giữa các người chơi và không thể quy đổi thành tiền mặt",
+        "n7": "Vui123 có quyền hoãn và hủy Khuyến Mãi bất cứ lúc nào.",
+        "n8": "Vui123 có quyền đưa ra quyết định duy nhất và quyết định của Vui123 là quyết định cuối cùng.",
+        "n9": "Áp dụng Điều khoản & Điều kiện của Vui123."
+      },
+      "title": "Quy định chung"
+    },
+    "scrollMenu": {
+      "how": "KIẾM XU ",
+      "redeem": "QUY ĐỔI",
+      "rule": "QUY ĐỊNH"
+    },
+    "tnc": {
+      "angpao": {
+        "tnc1": "Chọn bao lì xì.",
+        "tnc2": "Giải thưởng của bạn là giá trị của bao.",
+        "tnc3": "Xu sẽ bị trừ sau mỗi lần bạn mở bao.."
+      },
+      "dailyCheckIn": {
+        "tnc1": "Điểm danh mỗi ngày để kiếm Xu Vui",
+        "tnc2": "Nạp 100k VND để nhận 1 token điểm danh",
+        "tnc3": "Điểm danh liên tục để nhận nhiều Xu Vui",
+        "tnc4": "Nếu bỏ lỡ một ngày, chuỗi điểm danh sẽ được đặt lại từ ngày 1",
+        "tnc5": "Vào ngày thứ tám, bạn sẽ điểm danh lại từ đầu để bắt đầu chu kỳ mới",
+        "tnc6": "Thành viên đồng ý với Quy định chung của Vui123 khi tham gia khuyến mãi này"
+      },
+      "fortuneCat": {
+        "grand": "ĐỘC ĐẮC",
+        "major": "ĐẠI PHÁT",
+        "mini": "TIỂU PHÁT",
+        "minor": "HỒNG PHÁT",
+        "tnc1": "Chạm biểu tượng để xem giải thưởng.",
+        "tnc2": "Ba biểu tượng trùng nhau đầu tiên là giải thưởng của bạn.",
+        "tnc3": "Bạn có thể trúng một trong các giải sau: Độc Đắc, Đại Phát, Hồng Phát, Tiểu Phát"
+      },
+      "goldenCat": {
+        "bonus1": "0 mèo = 0 VND",
+        "bonus2": "1 mèo = 200K VND",
+        "bonus3": "2 mèo = 1TR VND",
+        "bonus4": "3 mèo = 10TR VND",
+        "tnc1": "Chọn nút QUAY để bắt đầu chơi.",
+        "tnc2": "Số mèo tương ứng với phần thưởng bạn nhận.",
+        "tnc3": "Xu sẽ bị trừ sau mỗi lượt quay."
+      },
+      "spinWin": {
+        "tnc1": "Chọn nút QUAY để bắt đầu chơi.",
+        "tnc2": "Vòng quay dừng ở đâu sẽ là phần thưởng bạn nhận.",
+        "tnc3": "Xu sẽ bị trừ sau mỗi lượt quay."
+      }
+    }
+  },
   "status": {
     "imageNotSupported": "Định dạng hình ảnh không được hỗ trợ",
     "networkError": "Lỗi mạng!",
@@ -487,6 +632,10 @@
     "receive": "Nhận",
     "transferTitle": "Chuyển quỹ",
     "transferableAmount": "Số tiền có thể chuyển"
+  },
+  "tutorial": {
+    "note1": "TÍNH NĂNG MỚI",
+    "note2": "Khám phá TRUNG TÂM PHẦN THƯỞNG và tìm những ưu đãi hấp dẫn nhất dành cho bạn!"
   },
   "validation": {
     "alphanumeric": "6-18 ký tự chữ và số (A-Z, a-z, 0-9)",

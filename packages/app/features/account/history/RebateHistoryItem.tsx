@@ -1,7 +1,7 @@
 import Accordian from 'app/components/Accordian'
 import Image from 'app/components/common/Image'
 import { toThousandSeparator } from 'app/utils'
-import { ReportDepositStatus, ReportTransactionType } from 'app/utils/constant'
+import { ReportDepositStatus, ReportTransactionType } from 'utils/constant'
 import dayjsTz from 'app/utils/dayjs'
 import dayjs from 'dayjs'
 import { ActivityIndicator, Text, View, useDripsyTheme } from 'dripsy'

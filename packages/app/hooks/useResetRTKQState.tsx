@@ -3,7 +3,7 @@ import { SettingActions } from 'app/store/setting.slice'
 import { useCallback } from 'react'
 import { baseApi } from 'services/baseApi'
 import { useAppDispatch } from '../provider/redux/store'
-import { LANGUAGE_CODE } from 'app/utils/constant'
+import { LANGUAGE_CODE } from 'utils/constant'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
 
 const useResetRTKQState = () => {
@@ -17,6 +17,7 @@ const useResetRTKQState = () => {
     dispatch(TempSettingActions.setSyncShieldStatus(false))
     dispatch(SettingActions.removeReferral())
     dispatch(SettingActions.setLocale(LANGUAGE_CODE.VIETNAM))
+    dispatch(SettingActions.toggleTriggerPopupTutorial(true))
   }, [dispatch])
 
   return {

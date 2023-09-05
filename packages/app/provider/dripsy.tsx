@@ -89,6 +89,7 @@ const theme = makeTheme({
     },
     body: {
       fontSize: 16,
+      lineHeight: Platform.OS === 'web' ? '1.45em' : 18,
       color: '$text',
     },
   },

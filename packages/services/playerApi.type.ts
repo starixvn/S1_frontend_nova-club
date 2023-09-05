@@ -1,8 +1,9 @@
 import {
+  CoinRedemptionType,
   ReportDepositStatus,
   ReportTransactionType,
   ReportWithdrawalStatus,
-} from 'app/utils/constant'
+} from 'utils/constant'
 import { WheelInfo } from './authApi.type'
 
 export enum MEMBER_TYPE {
@@ -81,6 +82,7 @@ export type ReportArgs = {
   limit: number
   offset: number
   status: ReportDepositStatus | ReportWithdrawalStatus
+  coin_redemption_type?: CoinRedemptionType
   game_provider_code?: string
   time_from: string
   time_to: string
@@ -98,6 +100,7 @@ export type ReportItemTypes =
   | ReportWithdrawalItem[]
   | ReportRewardItem[]
   | ReportGameItem[]
+  | ReportCoinItem[]
 
 export interface ReportDepositItem {
   amount: string
@@ -141,6 +144,13 @@ export type ReportGameItem = {
   loss: string
   win: string
   winloss: string
+}
+
+export type ReportCoinItem = {
+  amount: number
+  date: string
+  eventName: string
+  transactionType: string
 }
 
 /**

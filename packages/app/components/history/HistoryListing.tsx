@@ -38,7 +38,7 @@ function HistoryListing<T, FetchParamsType>(
     updatedSlipId,
   } = props
   const { data, isFetching, isSuccess, isUninitialized } = result
-  const [limit, setLimit] = useState<number>(10)
+  const [limit, setLimit] = useState<number>(20)
   const [totalOffset, setTotalOffset] = useState<number>(0)
   const [displayList, setDisplayList] = useState<T[]>([])
   const [totalRow, setTotalRow] = useState(0)
@@ -47,7 +47,6 @@ function HistoryListing<T, FetchParamsType>(
   const lang = useAppSelector((state) => state.setting.locale)
 
   useEffect(() => {
-    console.log('updatedSlipId', updatedSlipId)
     if (updatedSlipId) {
       setDisplayList(
         displayList.map((item) => {
@@ -132,7 +131,6 @@ function HistoryListing<T, FetchParamsType>(
   return (
     <View
       sx={{
-        paddingBottom: 15,
         ...(Platform.OS === 'web'
           ? { height: desktop ? 500 : 600 }
           : { flex: 1 }),
@@ -140,10 +138,11 @@ function HistoryListing<T, FetchParamsType>(
     >
       {header && <HistoryHeader data={header} />}
       <FlashList
+        contentContainerStyle={{ paddingBottom: 15 }}
         data={displayList}
         keyExtractor={keyExtractor}
         renderItem={onRenderItem}
-        estimatedItemSize={10}
+        estimatedItemSize={52}
         refreshControl={
           <RefreshControl
             refreshing={isFetching ?? false}
@@ -153,8 +152,8 @@ function HistoryListing<T, FetchParamsType>(
         }
         ListEmptyComponent={onListEmpty}
         onEndReached={onLoadMore}
-        onEndReachedThreshold={0.2}
-        extraData={isFetching || lang}
+        onEndReachedThreshold={0.5}
+        extraData={isFetching || lang || totalOffset}
         showsVerticalScrollIndicator={desktop ? false : true}
       />
     </View>

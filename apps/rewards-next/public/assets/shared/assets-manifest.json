@@ -1,0 +1,69 @@
+{
+  "bundles": [
+    {
+      "name": "default",
+      "assets": [
+        {
+          "name": "fonts/averta/AvertaStd-Black.ttf",
+          "srcs": [
+            "fonts/averta/AvertaStd-Black.woff2"
+          ],
+          "data": {
+            "tags": {
+              "wf": true
+            }
+          }
+        },
+        {
+          "name": "fonts/averta/AvertaStd-Bold.ttf",
+          "srcs": [
+            "fonts/averta/AvertaStd-Bold.woff2"
+          ],
+          "data": {
+            "tags": {
+              "wf": true
+            }
+          }
+        },
+        {
+          "name": "fonts/averta/AvertaStd-Regular.ttf",
+          "srcs": [
+            "fonts/averta/AvertaStd-Regular.woff2"
+          ],
+          "data": {
+            "tags": {
+              "wf": true
+            }
+          }
+        },
+        {
+          "name": "fonts/averta/AvertaStd-Semibold.ttf",
+          "srcs": [
+            "fonts/averta/AvertaStd-Semibold.woff2"
+          ],
+          "data": {
+            "tags": {
+              "wf": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "images",
+      "assets": [
+        {
+          "name": "images/loading.png",
+          "srcs": [
+            "images/loading.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

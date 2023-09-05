@@ -1,29 +1,28 @@
-import Badge, { MessageBadge } from 'app/components/Badge'
-import Divider from 'app/components/Divider'
+import { MessageBadge } from 'app/components/Badge'
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import { NoticeContent } from 'app/components/modal/NoticeModal'
-import NavMenuPressable from 'app/components/pressable/NavMenuPressable'
+import NavMenuPressable, {
+  NavMenuPressableProps,
+} from 'app/components/pressable/NavMenuPressable'
 import usePathname from 'app/hooks/usePathname'
 import useLocalization from 'app/provider/localization'
 import { DesktopRoute } from 'desktop-ext/routes/NavigationType'
 import { Row, Text, View } from 'dripsy'
-import { useEffect, useState } from 'react'
+import { ComponentProps, useEffect, useState } from 'react'
 
-type TabNavMenuProps = {
+interface TabNavMenuProps extends ComponentProps<typeof View> {
   routes: Readonly<DesktopRoute[]>
   notice?: string[]
 }
 
 type NavMenuItemProps = {
-  isActive: boolean
   icon?: string
   label: string
-  href: string
-  onPress: () => void
-}
+  labelProps?: ComponentProps<typeof Text>
+} & NavMenuPressableProps
 
-const TabNavMenu = ({ routes, notice }: TabNavMenuProps) => {
+const TabNavMenu = ({ routes, notice, ...rest }: TabNavMenuProps) => {
   const pathname = usePathname()
 
   const currentPath =
@@ -39,7 +38,7 @@ const TabNavMenu = ({ routes, notice }: TabNavMenuProps) => {
   }, [currentPath])
 
   return (
-    <View>
+    <View {...rest}>
       {routes &&
         routes.map((item) => {
           const isActive =
@@ -69,15 +68,15 @@ const TabNavMenu = ({ routes, notice }: TabNavMenuProps) => {
   )
 }
 
-const NavMenuItem = ({
-  isActive,
+export const NavMenuItem = ({
+  isActive = false,
   icon,
   label,
-  href,
-  onPress,
+  labelProps,
+  ...rest
 }: NavMenuItemProps) => {
   return (
-    <NavMenuPressable href={href} isActive={isActive} onPress={onPress}>
+    <NavMenuPressable isActive={isActive} {...rest}>
       {/* <Divider /> */}
       <DripsyGradient gradient="surface">
         <Row
@@ -89,9 +88,11 @@ const NavMenuItem = ({
           }}
         >
           {icon && <Icon name={icon} sx={{ mr: '$3' }} />}
-          <Text sx={{ flex: 1 }}>{label}</Text>
+          <Text {...labelProps} sx={{ flex: 1, ...labelProps?.sx }}>
+            {label}
+          </Text>
 
-          <MessageBadge hideBadge={icon !== 'announcement'} size="inline" />
+          {icon === 'announcement' && <MessageBadge size="inline" />}
         </Row>
       </DripsyGradient>
     </NavMenuPressable>

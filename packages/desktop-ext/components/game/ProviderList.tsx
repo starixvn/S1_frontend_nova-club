@@ -1,5 +1,5 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { GAME_TYPE_CODE, ProviderImageCategory } from 'app/utils/constant'
+import { GAME_TYPE_CODE, ProviderImageCategory } from 'utils/constant'
 import { Pressable, View } from 'dripsy'
 import React, { Dispatch, SetStateAction } from 'react'
 import { ViewProps } from 'react-native'

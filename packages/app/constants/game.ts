@@ -1,5 +1,5 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { GAME_TYPE_CODE } from 'app/utils/constant'
+import { GAME_TYPE_CODE } from 'utils/constant'
 import { Game } from 'services/gameApi.type'
 
 export const SabaGamePayload: Game = {

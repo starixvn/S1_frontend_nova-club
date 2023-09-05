@@ -1,11 +1,7 @@
 import HistoryListing from 'app/components/history/HistoryListing'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import {
-  DateFilterOptions,
-  ReportGameStatusOptions,
-  ReportTransactionType,
-} from 'app/utils/constant'
+import { DateFilterOptions, ReportTransactionType } from 'utils/constant'
 import dayjsTz from 'app/utils/dayjs'
 import { View, useResponsiveValue } from 'dripsy'
 import React, { useEffect, useState } from 'react'
@@ -16,6 +12,8 @@ import GameHistoryItem from '../GameHistoryItem'
 import DesktopGameHistoryItem, {
   GameTableHeader,
 } from '../dekstop/DesktopGameHistoryItem'
+import { ReportGameStatusOptions } from 'app/utils/constant'
+import dayjs from 'dayjs'
 
 type HistoryListingDataType = Extract<
   ReportResult['rows'],
@@ -33,15 +31,15 @@ const GameHistory = () => {
     selectedGame: ReportGameStatusOptions[0]?.value,
     selectedDate: DateFilterOptions[0]?.value,
     selectedGameStatus: ReportGameStatusOptions[0]?.value,
-    startDate: dayjsTz().startOf('date').toDate(),
-    endDate: dayjsTz().endOf('date').toDate(),
+    startDate: dayjsTz(undefined, 'Asia/Shanghai').startOf('date').toDate(),
+    endDate: dayjsTz(undefined, 'Asia/Shanghai').endOf('date').toDate(),
   })
 
   const [fetchParams, setFetchParams] = useState({
     game_provider_code: selected.selectedGame,
     status: selected.selectedGameStatus,
-    time_from: dayjsTz(selected.startDate).toISOString(),
-    time_to: dayjsTz(selected.endDate).toISOString(),
+    time_from: selected.startDate.toISOString(),
+    time_to: selected.endDate.toISOString(),
     trans_type: ReportTransactionType.GAME,
   })
 
@@ -49,8 +47,8 @@ const GameHistory = () => {
     setFetchParams({
       game_provider_code: selected.selectedGame,
       status: selected.selectedGameStatus,
-      time_from: dayjsTz(selected.startDate).toISOString(),
-      time_to: dayjsTz(selected.endDate).toISOString(),
+      time_from: selected.startDate.toISOString(),
+      time_to: selected.endDate.toISOString(),
       trans_type: ReportTransactionType.GAME,
     })
   }, [selected])

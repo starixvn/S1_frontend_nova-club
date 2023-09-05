@@ -14,7 +14,7 @@ import {
   toDisplayAmount,
   toRealAmount,
 } from 'app/utils'
-import { Currency } from 'app/utils/constant'
+import { Currency } from 'utils/constant'
 import validation from 'app/utils/validation'
 import validationRule from 'app/utils/validationRule'
 import { ScrollView } from 'dripsy'

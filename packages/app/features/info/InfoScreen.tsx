@@ -1,7 +1,7 @@
 import AvertaStd from 'app/assets/fonts/Averta'
 import FormContainer from 'app/components/form/FormContainer'
 import { useAppSelector } from 'app/provider/redux/store'
-import { LANGUAGE_CODE } from 'app/utils/constant'
+import { LANGUAGE_CODE } from 'utils/constant'
 import { useRouter } from 'next/router'
 import React, { ComponentType } from 'react'
 

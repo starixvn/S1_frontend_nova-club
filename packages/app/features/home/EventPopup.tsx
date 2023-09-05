@@ -10,10 +10,11 @@ const EventPopup = () => {
 
   const isLoggedIn = useAppSelector((s) => !!s.auth.info)
   const showPopup = useAppSelector((s) => s.tempSetting.triggerPopupEvent)
+  const showTutorial = useAppSelector((s) => s.setting.triggerPopupTutorial)
 
   useEffect(() => {
     const setTimeoutId = setTimeout(() => {
-      if (isLoggedIn && showPopup) {
+      if (isLoggedIn && showPopup && !showTutorial) {
         openModal('EventPopupModal')
         dispatch(TempSettingActions.toggleTriggerPopupEvent(false))
       }
@@ -22,7 +23,7 @@ const EventPopup = () => {
     return () => {
       clearTimeout(setTimeoutId)
     }
-  }, [isLoggedIn])
+  }, [isLoggedIn, showPopup, showTutorial])
 
   return <></>
 }

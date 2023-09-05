@@ -6,7 +6,7 @@ import {
   ReportDepositStatusOptions,
   ReportTransactionType,
   ReportTransactionTypeOptions,
-} from 'app/utils/constant'
+} from 'utils/constant'
 import dayjsTz from 'app/utils/dayjs'
 import isDesktop from 'app/utils/isDesktop'
 import dayjs from 'dayjs'
@@ -62,8 +62,8 @@ const TransactionHistory = () => {
     selectedStatus: ReportDepositStatusOptions[0]?.value,
     selectedDate: DateFilterOptions[0]?.value,
     selectedTransType: ReportTransactionTypeOptions[0]?.value,
-    startDate: dayjs().startOf('date').toDate(),
-    endDate: dayjs().endOf('date').toDate(),
+    startDate: dayjsTz(undefined, 'Asia/Shanghai').startOf('date').toDate(),
+    endDate: dayjsTz(undefined, 'Asia/Shanghai').endOf('date').toDate(),
     time_from: '',
     time_to: '',
   })

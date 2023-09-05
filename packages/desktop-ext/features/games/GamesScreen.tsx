@@ -13,7 +13,7 @@ import {
   GDC_GAME_CATEGORY,
   HEADER_HEIGHT_OFFSET,
   SCROLL_OFFSET_TOP,
-} from 'app/utils/constant'
+} from 'utils/constant'
 import LatestWinnerSection from 'desktop-ext/components/game/LatestWinnerSection'
 import {
   ActivityIndicator,

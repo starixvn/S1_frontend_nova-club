@@ -1,18 +1,19 @@
+import LazyIndicator from 'app/components/LazyIndicator'
+import TutorialScreen from 'app/components/navigation/TutorialScreen'
 import MainHeader from 'app/components/navigation/header/MainHeader'
-import { HEADER_HEIGHT } from 'app/utils/constant'
+import withLazyLoad from 'app/hoc/withLazyLoad'
+import { useAppSelector } from 'app/provider/redux/store'
+import LiveChat from 'components/LiveChat'
 import NavigationHeader, {
   NAVIGATION_HEIGHT,
 } from 'desktop-ext/components/layout/navigation/NavigationHeader'
 import NavigationHeaderProvider from 'desktop-ext/components/layout/navigation/NavigationHeaderProvider'
 import { ActivityIndicator, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { ReactNode, useEffect, useState } from 'react'
-
-import dynamic from 'next/dynamic'
-import withLazyLoad from 'app/hoc/withLazyLoad'
-import LazyIndicator from 'app/components/LazyIndicator'
-import LiveChat from 'components/LiveChat'
+import { HEADER_HEIGHT } from 'utils/constant'
 
 const Footer = dynamic(() => import('desktop-ext/components/layout/Footer'), {
   loading: () => <LazyIndicator />,
@@ -26,6 +27,20 @@ export default function BaseLayout({ children }: { children: ReactNode }) {
 
   const [loading, setLoading] = useState(false)
   const [url, setUrl] = useState()
+  const isLoggedIn = useAppSelector((s) => !!s.auth.info)
+  const showTutorial = useAppSelector((s) => s.setting.triggerPopupTutorial)
+
+  const [showAfterDelay, setShowAfterDelay] = useState(false)
+
+  useEffect(() => {
+    const setTimeoutId = setTimeout(() => {
+      setShowAfterDelay(true)
+    }, 500)
+
+    return () => {
+      clearTimeout(setTimeoutId)
+    }
+  }, [isLoggedIn, showTutorial])
 
   useEffect(() => {
     const handleStart = (url) => url !== router.asPath && setLoading(true)
@@ -84,9 +99,9 @@ export default function BaseLayout({ children }: { children: ReactNode }) {
           </MotiView>
         )}
       </AnimatePresence>
-
       <LiveChat />
       <LazyFooter />
+      {isLoggedIn && showTutorial && showAfterDelay && <TutorialScreen />}
     </div>
   )
 }

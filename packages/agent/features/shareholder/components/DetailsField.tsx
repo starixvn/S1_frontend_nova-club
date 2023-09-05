@@ -1,5 +1,5 @@
 import Text from 'agent/components/Text'
-import { Currency } from 'app/utils/constant'
+import { Currency } from 'utils/constant'
 import { Flex, useDripsyTheme } from 'dripsy'
 import React from 'react'
 

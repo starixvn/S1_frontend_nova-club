@@ -41,9 +41,10 @@ function MyApp({ ...rest }: AdaptiveAppProps) {
         <meta name="twitter:title" content={SEO_TITLE} />
         <meta name="twitter:description" content={SEO_DESCRIPTION} />
         <meta name="twitter:image" content={SEO_IMAGE} />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
           name="viewport"
-          content="width=375, initial-scale=1.0,viewport-fit=cover, user-scalable=no, maximum-scale=1 "
+          content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, viewport-fit=cover"
         />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         {/* <meta
@@ -51,6 +52,7 @@ function MyApp({ ...rest }: AdaptiveAppProps) {
           content="black-translucent"
         /> */}
         <link rel="icon" href="/favicon.ico" />
+        <link rel="manifest" href="/manifest.json" />
       </Head>
       <Script id="google-tag-manager" strategy="afterInteractive">
         {`

@@ -10,7 +10,7 @@ import {
   GDC_GAME_CATEGORY,
   HEADER_HEIGHT,
   ProviderImageCategory,
-} from 'app/utils/constant'
+} from 'utils/constant'
 import { ActivityIndicator, View, useResponsiveValue } from 'dripsy'
 import groupBy from 'lodash/groupBy'
 import React, {

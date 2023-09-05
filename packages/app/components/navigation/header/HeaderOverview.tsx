@@ -1,8 +1,8 @@
 import Icon from 'app/components/Icon'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
-import { useAppSelector } from 'app/provider/redux/store'
-import { toCurrency } from 'app/utils'
-import { Currency } from 'app/utils/constant'
+import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
+import { SettingActions } from 'app/store/setting.slice'
+import { toCurrency, toThousandSeparator } from 'app/utils'
 import {
   ActivityIndicator,
   Pressable,
@@ -10,18 +10,31 @@ import {
   View,
   useResponsiveValue,
 } from 'dripsy'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Shadow } from 'react-native-shadow-2'
+import { useGetCoinQuery } from 'services/rewardApi'
 import { usePlayerBalanceQuery } from 'services/walletApi'
+import { SolitoImage } from 'solito/image'
+import { useRouter } from 'solito/router'
+import { Currency } from 'utils/constant'
+import useWindowResize from 'app/hooks/useWindowResize'
+import { usePlayerProfileQuery } from 'services/playerApi'
 
 interface HeaderButtonProps {
-  icon: string
+  icon?: string
   label: string
   value?: string
   isLoading: boolean
+  onPress?: () => void
 }
 
-const HeaderButton = ({ icon, label, value, isLoading }: HeaderButtonProps) => {
+const HeaderButton = ({
+  icon,
+  label,
+  value,
+  isLoading,
+  onPress,
+}: HeaderButtonProps) => {
   return (
     <View sx={{}}>
       <Shadow
@@ -46,25 +59,40 @@ const HeaderButton = ({ icon, label, value, isLoading }: HeaderButtonProps) => {
             gap: '$1',
           }}
         >
-          <Icon name={icon} size={14} color={'$secondary.100'} />
-
-          {isLoading ? (
-            <ActivityIndicator color={'$secondary.100'} />
+          {icon ? (
+            <Icon name={icon} size={14} color={'$secondary.100'} />
           ) : (
-            <Text
-              numberOfLines={1}
-              sx={{
-                flex: 1,
-                mt: FONT_TOP_OFFSET,
-                fontSize: [12, 14],
-                color: '$secondary.100',
-                minWidth: 40,
-                textAlign: 'right',
-              }}
-            >
-              {value}
-            </Text>
+            <Pressable onPress={onPress} sx={{ ml: -8 }}>
+              <SolitoImage
+                src={require('app/assets/images/rewards/btn_rewards.png')}
+                alt="icon"
+                // fill
+                width={50}
+                height={20}
+                // contentPosition={'left center'}
+              />
+            </Pressable>
           )}
+
+          <View sx={{ marginLeft: 'auto' }}>
+            {isLoading ? (
+              <ActivityIndicator color={'$secondary.100'} />
+            ) : (
+              <Text
+                numberOfLines={1}
+                sx={{
+                  flex: 1,
+                  mt: FONT_TOP_OFFSET,
+                  fontSize: [12, 14],
+                  color: '$secondary.100',
+                  minWidth: 40,
+                  textAlign: 'right',
+                }}
+              >
+                {value}
+              </Text>
+            )}
+          </View>
         </View>
       </Shadow>
     </View>
@@ -80,45 +108,93 @@ interface HeaderOverviewProps {
 }
 
 const HeaderOverview = ({}: HeaderOverviewProps) => {
+  const { push } = useRouter()
+  const dispatch = useAppDispatch()
   const token = useAppSelector((s) => s.auth.info?.token)
+  const showTutorial = useAppSelector((s) => s.setting.triggerPopupTutorial)
+
+  const { username } = usePlayerProfileQuery()
+
   const {
     data: playerBalance,
     isFetching: isMainWalletLoading,
     refetch,
   } = usePlayerBalanceQuery(undefined, { skip: !token })
 
+  const {
+    data: balance,
+    isFetching: isCoinWalletLoading,
+    refetch: coinRefetch,
+  } = useGetCoinQuery()
+
   const width = useResponsiveValue([100, 120, 150])
+  const coinRef = useRef()
+
+  const dimensions = useWindowResize()
+
+  useEffect(() => {
+    if (showTutorial) {
+      // coinRef?.current?.getBoundingClientRect()
+      coinRef.current?.measure((width, height, px, py, fx, fy) => {
+        const location = { fx, fy, px, py, width, height }
+
+        dispatch(SettingActions.setTutorialLocation(location))
+      })
+    }
+  }, [dimensions, balance, showTutorial, username])
 
   useEffect(() => {
     refetch
   }, [])
 
-  return (
-    <Pressable
-      onPress={refetch}
-      sx={{
-        py: 5,
-        width,
-      }}
-    >
-      <HeaderButton
-        icon="wallet"
-        label="Balance"
-        value={toCurrency(playerBalance?.totalBalance ?? '-', Currency.VND, {
-          symbol: false,
-        })}
-        isLoading={isMainWalletLoading}
-      />
+  const handleCoinPress = () => {
+    push('/rewards/redeem/list')
+  }
 
-      <HeaderButton
-        icon="gift"
-        label="Reward"
-        value={toCurrency(playerBalance?.totalReward ?? '-', Currency.VND, {
-          symbol: false,
-        })}
-        isLoading={isMainWalletLoading}
-      />
-    </Pressable>
+  const handleRefresh = () => {
+    refetch()
+    coinRefetch()
+  }
+
+  return (
+    <View sx={{ py: 5, width }}>
+      <Pressable onPress={handleRefresh}>
+        <HeaderButton
+          icon="wallet"
+          label="Balance"
+          value={toCurrency(playerBalance?.totalBalance ?? '-', Currency.VND, {
+            symbol: false,
+          })}
+          isLoading={isMainWalletLoading}
+        />
+
+        <View
+          ref={coinRef}
+          onLayout={(event) => {
+            console.log('onLayout', event.nativeEvent.layout)
+          }}
+        >
+          <HeaderButton
+            label="Reward"
+            value={
+              Number(balance) > 9999 ? '9,999+' : toThousandSeparator(balance)
+            }
+            isLoading={isCoinWalletLoading}
+            onPress={handleCoinPress}
+          />
+        </View>
+        {/* <View
+          sx={{
+            width: 100,
+            height: 100,
+            position: 'absolute',
+            backgroundColor: 'gray',
+            opacity: 1,
+            zIndex: 11111,
+          }}
+        ></View> */}
+      </Pressable>
+    </View>
   )
 }
 

@@ -1,18 +1,18 @@
 import { useDripsyTheme } from 'dripsy'
-import React, { ReactNode } from 'react'
+import { MotiPressable } from 'moti/interactions'
+import React, { ComponentProps, ReactNode } from 'react'
 import { MotiLink } from 'solito/moti'
 
-type NavMenuPressableProps = {
+export type NavMenuPressableProps = {
   isActive: boolean
-  href: string
-  children: ReactNode
-  onPress: () => void
-}
+  onPress?: () => void
+} & ComponentProps<typeof MotiLink>
 const NavMenuPressable = ({
   isActive,
   href,
   children,
   onPress,
+  ...rest
 }: NavMenuPressableProps) => {
   const { theme } = useDripsyTheme()
 
@@ -32,6 +32,7 @@ const NavMenuPressable = ({
         duration: 100,
       }}
       onPress={onPress}
+      {...rest}
     >
       {children}
     </MotiLink>

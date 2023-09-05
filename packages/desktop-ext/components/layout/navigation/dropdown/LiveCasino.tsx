@@ -1,6 +1,6 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import GameCard from 'app/components/game/GameCard'
-import { GAME_TYPE_CODE } from 'app/utils/constant'
+import { GAME_TYPE_CODE } from 'utils/constant'
 import uniqBy from 'lodash/uniqBy'
 import React, { useMemo } from 'react'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'

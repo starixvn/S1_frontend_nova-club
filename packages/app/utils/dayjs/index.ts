@@ -2,8 +2,8 @@ import { TIMEZONE } from 'app/constants/timezone'
 import dayjs, { ConfigType, Dayjs } from 'dayjs'
 import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
-import { Currency } from '../constant'
 import { Platform } from 'react-native'
+import { Currency } from 'utils/constant'
 
 dayjs.extend(utc)
 dayjs.extend(timezone)

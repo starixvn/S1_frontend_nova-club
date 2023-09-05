@@ -1,5 +1,5 @@
 import { useAgentLocalization } from 'app/provider/localization'
-import { TURNOVER_NOTES } from 'app/utils/constant'
+import { TURNOVER_NOTES } from 'utils/constant'
 import { Text, View } from 'dripsy'
 import React from 'react'
 import ModalWrapper from './ModalWrapper'

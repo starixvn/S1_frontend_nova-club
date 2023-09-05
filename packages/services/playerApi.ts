@@ -1,4 +1,4 @@
-import { Currency } from 'app/utils/constant'
+import { Currency } from 'utils/constant'
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
@@ -81,6 +81,7 @@ const playerApi = baseApiWithTag.injectEndpoints({
       query: (queryArgs) => ({
         url: `/player_api/getPlayerReport`,
         method: 'POST',
+        headers: { 'X-Lang': 'en' },
         data: {
           ...queryArgs,
         },

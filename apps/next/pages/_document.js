@@ -59,14 +59,7 @@ export class Document extends NextDocument {
   render() {
     return (
       <Html>
-        <Head>          
-          <link rel="manifest" href="/manifest.json" />
-          <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, maximum-scale=1"
-          />
-        </Head>
+        <Head />
         <body>
           <Main />
           <NextScript />

@@ -1,6 +1,6 @@
 import useLocalization from 'app/provider/localization'
 import { toCleanAmount, toCurrency, toRealAmount } from 'app/utils'
-import { Currency } from 'app/utils/constant'
+import { Currency } from 'utils/constant'
 import { FormikProps } from 'formik'
 import React from 'react'
 import { PlayerInputFieldsAmount } from 'services/deposit.type'

@@ -1,7 +1,7 @@
 import { useDrawer } from 'app/hooks/useDrawer'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { HEADER_HEIGHT } from 'app/utils/constant'
+import { HEADER_HEIGHT } from 'utils/constant'
 import { Pressable, View, styled } from 'dripsy'
 import { MotiView, useAnimationState } from 'moti'
 import React, { memo, useEffect, useState } from 'react'

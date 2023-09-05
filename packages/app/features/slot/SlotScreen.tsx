@@ -4,7 +4,7 @@ import GameSectionByProviderItem from 'app/components/game/GameSectionByProvider
 import ProviderList from 'app/components/game/ProviderList'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
 import useLocalization from 'app/provider/localization'
-import { GAME_TYPE_CODE, ProviderImageCategory } from 'app/utils/constant'
+import { GAME_TYPE_CODE, ProviderImageCategory } from 'utils/constant'
 import { ActivityIndicator, View } from 'dripsy'
 import uniqBy from 'lodash/uniqBy'
 import groupBy from 'lodash/groupBy'

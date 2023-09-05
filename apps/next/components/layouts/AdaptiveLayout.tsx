@@ -7,11 +7,11 @@ import SessionHandler from 'app/components/SessionHandler'
 import { View } from 'dripsy'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { DesktopBaseLayout } from './desktop'
+import { DesktopBaseLayout, EmptyLayout } from './desktop'
 
 export type NavigationOptions = SolitoAppProps['Component']['navigationOptions']
 
-export type Layout = (node: JSX.Element) => JSX.Element
+export type Layout = (node: JSX.Element, pageProps?: any) => JSX.Element
 
 interface AdaptiveLayout {
   MobileLayout?: Layout
@@ -39,7 +39,10 @@ export default function AdaptiveLayout({
   const { width } = useWindowDimensions()
 
   /* TODO: Split width and router as 2 seperate rerender */
-  const getLayout = useMemo((): ((node: JSX.Element) => JSX.Element) => {
+  const getLayout = useMemo((): ((
+    node: JSX.Element,
+    pageProps?: any
+  ) => JSX.Element) => {
     // eslint-disable-next-line react/display-name
     if (!isClientReady) return () => <View />
     document.getElementsByTagName('body')[0].classList.add('rendered')
@@ -49,11 +52,11 @@ export default function AdaptiveLayout({
     if (path.includes('/agent')) {
       return typeof Component.AgentLayout === 'function'
         ? Component.AgentLayout
-        : (node: JSX.Element) => node
+        : EmptyLayout
     } else if (window.innerWidth < 992) {
       return typeof Component.MobileLayout === 'function'
         ? Component.MobileLayout
-        : (node: JSX.Element) => node
+        : EmptyLayout
     } else {
       return typeof Component.DesktopLayout === 'function'
         ? Component.DesktopLayout
@@ -79,7 +82,8 @@ export default function AdaptiveLayout({
   // const cachedRoot = useMemo(() => children, [])
 
   const page = <Component {...pageProps} />
-  const content = getLayout ? getLayout(page) : null
+
+  const content = getLayout ? getLayout(page, pageProps) : null
 
   return (
     <div id="al" style={{ overflowX: 'hidden' }}>

@@ -1,4 +1,4 @@
-import { Currency } from 'app/utils/constant'
+import { Currency } from 'utils/constant'
 import { UserTotalDownline } from './userApi.type'
 import { ShareholderStatusFilter } from 'agent/constant/select'
 

@@ -2,7 +2,7 @@ import ModalContent from 'app/components/modal/ModalContent'
 import ModalWrapper from 'app/components/modal/ModalWrapper'
 import useLocalization from 'app/provider/localization'
 import { toCurrency } from 'app/utils'
-import { Currency } from 'app/utils/constant'
+import { Currency } from 'utils/constant'
 import { Text, View } from 'dripsy'
 import { usePlayerProfileQuery } from 'services/playerApi'
 

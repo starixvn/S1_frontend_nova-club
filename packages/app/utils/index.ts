@@ -1,14 +1,14 @@
 // import * as Clipboard from 'expo-clipboard'
 import i18n from 'app/provider/localization/i18n'
+import { store } from 'app/provider/redux/store'
+import * as Clipboard from 'expo-clipboard'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import {
   CURRENCY_SEPARATOR,
   CURRENCY_TO_LANGUAGE,
   Currency,
   LANGUAGE_CODE,
-} from './constant'
-import { Toast } from 'react-native-toast-message/lib/src/Toast'
-import { store } from 'app/provider/redux/store'
-import * as Clipboard from 'expo-clipboard'
+} from 'utils/constant'
 /**
  * `expo-clipboard` version 2.1.1 is used due to v3 above need Expo SDK45
  * to support, and `setStringAsync` can't be used in IOS

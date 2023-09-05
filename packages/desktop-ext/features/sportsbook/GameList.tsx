@@ -3,7 +3,7 @@ import {
   GetCommissionList,
   GetGameRebateValue,
 } from 'app/components/game/GameUtilityAction'
-import { GAME_TYPE_CODE } from 'app/utils/constant'
+import { GAME_TYPE_CODE } from 'utils/constant'
 import { Row, useResponsiveValue } from 'dripsy'
 import React, { useMemo } from 'react'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'

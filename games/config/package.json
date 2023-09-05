@@ -1,0 +1,7 @@
+{
+  "name": "@games/config",
+  "version": "0.0.0",
+  "main": "index.ts",
+  "type": "module",
+  "sideEffects": false
+}

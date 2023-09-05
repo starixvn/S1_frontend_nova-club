@@ -6,7 +6,7 @@ import {
 } from 'app/hooks/appState/game/useGameCategoryTag'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { ALL, HOT } from 'app/utils/constant'
+import { ALL, HOT } from 'utils/constant'
 import SelectProvider from 'desktop-ext/components/game/SelectProvider'
 import { SxProp, Text, View } from 'dripsy'
 import union from 'lodash/union'

@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import dayjs, { Dayjs } from 'dayjs'
 import { LaunchGamePayload } from './gameLauncher.slice'
 import { isBannedTrackingCode } from 'app/utils/referralUtil'
-import { LANGUAGE_CODE } from 'app/utils/constant'
+import { LANGUAGE_CODE } from 'utils/constant'
 
 interface PopUpExpire {
   [key: string]: Dayjs | null
@@ -44,6 +44,9 @@ export interface Setting {
   biometricCredentials?: Credential
   rememberMeCredentials?: Credential
   agentRememberMeCredentials?: Credential
+  tutorialLocation: object | undefined
+  triggerPopupTutorial: boolean
+  rewardPopup: number
 }
 // export const DomainListHintPostfix = '-DomainListHint'
 // export const DepositListHintPostfix = '-DepositListHint'
@@ -59,6 +62,9 @@ const initialState: Setting = {
   luckyDrawBalance: 0,
   retentionDrawBalance: 0,
   floatingDrawer: true,
+  tutorialLocation: undefined,
+  triggerPopupTutorial: true,
+  rewardPopup: 0,
 }
 
 const settingSlice = createSlice({
@@ -155,6 +161,15 @@ const settingSlice = createSlice({
       action?.payload
         ? (state.agentRememberMeCredentials = action.payload)
         : (state.agentRememberMeCredentials = undefined)
+    },
+    toggleTriggerPopupTutorial: (state, action: PayloadAction<boolean>) => {
+      state.triggerPopupTutorial = action.payload
+    },
+    setTutorialLocation: (state, action: PayloadAction<object>) => {
+      state.tutorialLocation = action.payload
+    },
+    toggleRewardPopupSwitch: (state) => {
+      state.rewardPopup = state.rewardPopup >= 3 ? 1 : state.rewardPopup + 1
     },
   },
   extraReducers: (builder) => {

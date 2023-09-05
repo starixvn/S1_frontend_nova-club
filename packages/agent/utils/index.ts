@@ -1,4 +1,4 @@
-import { CURRENCY_SEPARATOR, LANGUAGE_CODE } from 'app/utils/constant'
+import { CURRENCY_SEPARATOR, LANGUAGE_CODE } from 'utils/constant'
 
 export function agentToThousandSeparator(
   text: string,

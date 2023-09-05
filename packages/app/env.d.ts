@@ -11,4 +11,5 @@ declare module '@env' {
   export const SHIELD_KEY: string
   export const LIVECHAT_URL: string
   export const AGENT_API_DOMAIN: string
+  export const REWARDS_BASE_PATH: string
 }

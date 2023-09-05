@@ -27,6 +27,7 @@ interface MenuProps {
   route: string
   style?: ViewStyle
   menu?: NAVIGATION_DROPDOWN_MENU
+  checkIsVisible?: (args: { token?: string }) => boolean
 }
 interface MenuButtonProps extends MenuProps {}
 
@@ -76,6 +77,16 @@ const MENU: MenuProps[] = [
   {
     route: '/account/leaderboard',
     label: 'menu.leaderboard',
+  },
+  {
+    route: '/rewards/redeem/list',
+    icon: 'reward',
+    checkIsVisible: ({ token }) => {
+      return Boolean(token)
+    },
+    // style: {
+    //   marginRight: 'auto',
+    // },
   },
   // {
   //   route: '/leaderboard',
@@ -128,6 +139,10 @@ export default function NavigationHeader({}) {
                 </Pressable>
 
                 {MENU.map((m, i) => {
+                  if (m.checkIsVisible?.({ token }) === false) {
+                    return null
+                  }
+
                   return (
                     <MenuButton
                       key={i}

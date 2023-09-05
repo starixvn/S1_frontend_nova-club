@@ -17,7 +17,7 @@ import {
 } from 'app/hooks/appState/game/useGameCategoryTag'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { ALL, GAME_TYPE_CODE, HOT } from 'app/utils/constant'
+import { ALL, GAME_TYPE_CODE, HOT } from 'utils/constant'
 import { Text } from 'dripsy'
 import Button from '../common/Button'
 import GameListSectionGrid from './GameListSectionGrid'

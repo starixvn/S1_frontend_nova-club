@@ -1,7 +1,7 @@
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { toCurrency } from 'app/utils'
-import { Currency } from 'app/utils/constant'
+import { Currency } from 'utils/constant'
 import { Text, View } from 'dripsy'
 
 type MinMaxLimitDetailProps = {

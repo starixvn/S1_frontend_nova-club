@@ -1,7 +1,7 @@
 import { DEV_DOMAIN } from '@env'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
-import { HEADER_HEIGHT } from 'app/utils/constant'
+import { HEADER_HEIGHT } from 'utils/constant'
 import { NAVIGATION_HEIGHT } from 'desktop-ext/components/layout/navigation/NavigationHeader'
 import { ActivityIndicator, Container, View } from 'dripsy'
 import React, { useEffect, useState } from 'react'

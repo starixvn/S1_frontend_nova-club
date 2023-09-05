@@ -1,0 +1,54 @@
+{
+  "name": "@games/fortune-cat",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint .",
+    "assets": "assetpack"
+  },
+  "peerDependencies": {
+    "@games/config": "*",
+    "@reduxjs/toolkit": "*",
+    "react": "*",
+    "react-redux": "*",
+    "rewards": "*",
+    "utils": "*",
+    "utils-pixi": "*"
+  },
+  "dependencies": {
+    "@games/shared": "*",
+    "@pixi/filter-drop-shadow": "^5.2.0",
+    "@pixi/react": "^7.1.0",
+    "@pixi/react-animated": "^7.1.0",
+    "@pixi/sound": "^5.0.0",
+    "@pixi/ui": "^0.5.6",
+    "gsap": "^3.11.4",
+    "pixi-filters": "^5.1.1",
+    "pixi-spine": "^4.0.3",
+    "pixi.js": "^7.2.4",
+    "react-spring": "^9.7.2",
+    "typed-signals": "^2.5.0"
+  },
+  "devDependencies": {
+    "@assetpack/cli": "~0.3.4",
+    "@assetpack/core": "~0.3.4",
+    "@assetpack/plugin-compress": "~0.3.4",
+    "@assetpack/plugin-ffmpeg": "~0.3.4",
+    "@assetpack/plugin-json": "~0.3.4",
+    "@assetpack/plugin-manifest": "~0.3.4",
+    "@assetpack/plugin-mipmap": "~0.3.4",
+    "@assetpack/plugin-texture-packer": "~0.3.4",
+    "@assetpack/plugin-webfont": "~0.3.4",
+    "@turbo/gen": "^1.10.12",
+    "@types/node": "^20.5.2",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "eslint-config-custom": "*",
+    "tsconfig": "*",
+    "typescript": "^5.0.4"
+  }
+}

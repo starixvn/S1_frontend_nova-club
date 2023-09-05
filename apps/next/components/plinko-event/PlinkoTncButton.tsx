@@ -1,7 +1,7 @@
 import { Image } from 'dripsy'
 import React, { useCallback } from 'react'
 import { Action, ActionType, getAction } from 'app/utils/actionGenerator'
-import { LANGUAGE_CODE } from 'app/utils/constant'
+import { LANGUAGE_CODE } from 'utils/constant'
 import { useRouter } from 'next/router'
 import TouchableOpacity from 'app/components/pressable/TouchableOpacity'
 

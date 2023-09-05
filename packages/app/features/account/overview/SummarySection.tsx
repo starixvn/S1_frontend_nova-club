@@ -1,7 +1,7 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import useLocalization from 'app/provider/localization'
 import { toCurrency } from 'app/utils'
-import { Currency } from 'app/utils/constant'
+import { Currency } from 'utils/constant'
 import { styled, Text, View } from 'dripsy'
 import { usePlayerProfileQuery } from 'services/playerApi'
 

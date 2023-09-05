@@ -2,7 +2,7 @@ import { useAgentProfileQuery } from 'agent/services/agentApi'
 import { useShareholderProfileQuery } from 'agent/services/shareholderApi'
 import { useUserInfoQuery } from 'agent/services/userApi'
 import { ROLE } from 'agent/utils/helper'
-import { Currency } from 'app/utils/constant'
+import { Currency } from 'utils/constant'
 
 const useGetProfile = () => {
   const { role } = useUserInfoQuery(undefined, {

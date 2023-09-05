@@ -15,7 +15,7 @@ import { useModal } from 'react-native-modalfy'
 import { Shadow } from 'react-native-shadow-2'
 import { ReportDepositItem } from 'services/playerApi.type'
 import DateTimeCell from './DateTimeCell'
-import { Currency } from 'app/utils/constant'
+import { Currency } from 'utils/constant'
 
 export const CELL_PAYMENT_WIDTH = 0.48
 export const CELL_DATE_WIDTH = 0.2

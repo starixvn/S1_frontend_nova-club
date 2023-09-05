@@ -13,7 +13,7 @@ import React from 'react'
 import { useModal } from 'react-native-modalfy'
 import { ReportDepositItem } from 'services/playerApi.type'
 import DateTimeCell from '../DateTimeCell'
-import { Currency } from 'app/utils/constant'
+import { Currency } from 'utils/constant'
 
 const FONT_SIZE = 16
 const ICON_SIZE = 34

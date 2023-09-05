@@ -1,4 +1,4 @@
-import { Currency } from 'app/utils/constant'
+import { Currency } from 'utils/constant'
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {

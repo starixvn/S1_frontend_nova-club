@@ -8,7 +8,7 @@ import { DripsyGradient } from '../Gradient'
 import Icon from '../Icon'
 import Button from '../common/Button'
 
-interface ActionsProps {
+export interface ActionsProps {
   label: string
   loading?: boolean
   onPress: (e: GestureResponderEvent) => void
@@ -19,7 +19,7 @@ interface ModalContentProps {
   title?: string
   isShowHeader?: boolean
   actions?: ActionsProps[]
-  children: ReactElement
+  children: React.ReactNode
   disableAction?: boolean
   close?: any
   bodyStyle?: SxProp

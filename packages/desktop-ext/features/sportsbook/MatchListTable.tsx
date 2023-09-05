@@ -1,23 +1,26 @@
 import { EntityId } from '@reduxjs/toolkit'
 import { FlashList } from '@shopify/flash-list'
+import Button from 'app/components/common/Button'
 import DataTableCell from 'app/components/dataTable/DataTableCell'
 import DataTableRow from 'app/components/dataTable/DataTableRow'
 import { SabaGamePayload } from 'app/constants/game'
 import { MatchHandicapType } from 'app/constants/recMatchMapping'
 import useIsDesktop from 'app/hooks/useIsDesktop'
+import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { ActionType, getAction } from 'app/utils/actionGenerator'
 import dayjsTz from 'app/utils/dayjs'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { View } from 'dripsy'
+import keyBy from 'lodash/keyBy'
 import { MotiView } from 'moti'
 import React, {
   forwardRef,
   useEffect,
   useImperativeHandle,
-  useMemo,
   useRef,
-  useState,
+  useState
 } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { Game } from 'services/gameApi.type'
@@ -25,10 +28,6 @@ import { MatchResult } from 'services/matchApi.type'
 import { SolitoImage } from 'solito/image'
 import { MEDIA_DOMAIN } from '../../../../apps/next/config/env'
 import MatchListHeader from './MatchListHeader'
-import Button from 'app/components/common/Button'
-import useLocalization from 'app/provider/localization'
-import { useAppSelector } from 'app/provider/redux/store'
-import keyBy from 'lodash/keyBy'
 dayjs.extend(customParseFormat)
 
 interface MatchListTableProps {

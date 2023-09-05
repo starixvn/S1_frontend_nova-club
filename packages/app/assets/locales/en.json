@@ -77,6 +77,7 @@
     "deposit": "Deposit",
     "desktop": "Desktop",
     "download": "Download",
+    "earn": "Earn",
     "enter": "Enter",
     "fileSizeExceeds": "File size cannot exceed %{size}",
     "game": "Game",
@@ -105,6 +106,7 @@
     "provider": "Provider",
     "realBet": "Real Bet",
     "realName": "Real Name",
+    "redeem": "Redeem",
     "reward": "Reward",
     "search": "Search",
     "seeMore": "See More",
@@ -304,14 +306,17 @@
   },
   "home": {
     "banner": {
-      "n1": "100% WELCOME & DEPOSIT BONUS",
-      "n2": "WIN UP TO 1 MILLION VND",
-      "n3": "1X ROLLOVER ONLY"
+      "n1": "DAILY CHECK IN",
+      "n2": "CHECK IN DAILY TO EARN VUI COIN",
+      "n3": "MIN DEPOSIT 100K VND"
     },
     "banner2": {
-      "n1": "UNLOCK YOUR PASSIVE INCOME",
-      "n2": "RECRUIT PLAYER AND EARN COMMISSION"
+      "n1": "MY REWARDS HUB",
+      "n2": "EARN VUI COIN, UNLOCK EXCLUSIVE BONUSES",
+      "n3": "1X ROLLOVER ONLY"
     },
+    "checkIn": "CHECK IN",
+    "earnNow": "EARN NOW",
     "hireAgent": "HIRE AGENT",
     "joinNow": "JOIN NOW",
     "joinsUs": "JOINS US & START EARNING BONUS!",
@@ -464,6 +469,146 @@
     "title": "Referral",
     "totalCom": "Total commission earn"
   },
+  "rewards": {
+    "bonusTable": "Bonus table",
+    "category": "Category",
+    "checkInModal": {
+      "checkinBtn": "CHECK IN",
+      "day": "Day",
+      "depositNow": "DEPOSIT NOW",
+      "resetIfFail": "Reward will restart if you skip a day",
+      "seeYouTmrBtn": "SEE YOU TOMORROW",
+      "surprise": "SURPRISE",
+      "title": "DAILY CHECK IN",
+      "topDesc": "Check in daily from now so you don't miss your reward!"
+    },
+    "coin": "Vui Coin",
+    "earn": {
+      "notes": {
+        "n1": "Receive Vui Coin for every task completion.",
+        "n2": "Earn as many coins to grab for bigger prizes",
+        "n3": "Claim your preferable items in \"Redeem\""
+      },
+      "title": "HOW TO EARN VUI COIN"
+    },
+    "grid": {
+      "coins": {
+        "c1": "1",
+        "c2": "20",
+        "c3": "1",
+        "c4": "up to 9"
+      },
+      "details": {
+        "d1": {
+          "n1": "Available for new registered member with first time deposit only",
+          "n2": "Make a minimum 50k VND to get 1 Vui Coin",
+          "n3": "Player will get maximum 1 coin per account",
+          "n4": "Vui Coin will be credited within 10 minutes if conditions are fulfilled",
+          "n5": "By participating in this program, members are agreed to Vui123 General Rules"
+        },
+        "d2": {
+          "n1": "Make a minimum 1million VND to get 1 Vui Coin",
+          "n2": "Deposited amount can be accumulated daily",
+          "n3": "Player will get maximum 20 coins per day with deposit amount of 20million VND",
+          "n4": "Vui Coin will be credited within 10 minutes if conditions are fulfilled",
+          "n5": "By participating in this program, members are agreed to Vui123 General Rules"
+        },
+        "d3": {
+          "n1": "Bet a minimum 10million VND to get 1 Vui Coin",
+          "n2": "Turnover amount can be accumulated daily",
+          "n3": "Player will get maximum 1 coin per day",
+          "n4": "Vui Coin will be credited within 10 minutes if conditions are fulfilled",
+          "n5": "By participating in this program, members are agreed to Vui123 General Rules"
+        },
+        "d4": {
+          "n1": "Check in daily to earn Vui Coin",
+          "n2": "Deposit 100k VND for 1 check in token",
+          "n3": "Consecutive day check-in will earn you more Vui Coin",
+          "n4": "Check-in will reset to Day 1 if you skip a day",
+          "n5": "On the eighth day, the cycle restart and count as your first check-in of the cycle",
+          "n6": "By participating in this program, members are agreed to Vui123 General Rules"
+        }
+      },
+      "header": {
+        "coin": "MAX COIN",
+        "how": "HOW TO EARN",
+        "requirement": "REQUIREMENT"
+      },
+      "requirement": {
+        "r1": "Min deposit 50k VND",
+        "r2": "Min deposit 1mil VND",
+        "r3": "Min turnover 10million VND",
+        "r4": "Min deposit 100k VND"
+      },
+      "title": {
+        "t1": "First Time Deposit",
+        "t2": "Daily Accumulate Deposit",
+        "t3": "Daily Accumulate Turnover",
+        "t4": "Daily Check In"
+      }
+    },
+    "howToPlay": "How to play",
+    "redeem": {
+      "title": "VUI COIN REWARDS"
+    },
+    "rule": {
+      "notes": {
+        "n1": "This Program is open for ALL Vui123’s players.",
+        "n2": "Vui Coin is use to redeem games and win the prizes in Rewards Hub",
+        "n3": "All cash prizes will be credited to player's wallet",
+        "n4": "All cash prizes are subject to 1x rollover condition",
+        "n5": "Vui Coin got no expiry date",
+        "n6": "Vui Coin is not transferable and cannot convert to real money",
+        "n7": "Vui123 reserves the right to amend or withdraw the rules at any time",
+        "n8": "Vui123 is the sole arbiter of the event and its decision is final",
+        "n9": "Vui123 Standards Terms & Conditions apply"
+      },
+      "title": "General Rules"
+    },
+    "scrollMenu": {
+      "how": "HOW",
+      "redeem": "REDEEM",
+      "rule": "RULES"
+    },
+    "tnc": {
+      "angpao": {
+        "tnc1": "Pick any of the Angpao.",
+        "tnc2": "The value shows is your prizes..",
+        "tnc3": "Coin will be deducted for every Angpao open."
+      },
+      "dailyCheckIn": {
+        "tnc1": "Check in daily to earn Vui Coin",
+        "tnc2": "Deposit 100k VND for 1 check in token",
+        "tnc3": "Consecutive day check-in will earn you more Vui Coin",
+        "tnc4": "Check-in will reset to Day 1 if you skip a day",
+        "tnc5": "On the eighth day, the cycle restart and count as your first check-in of the cycle",
+        "tnc6": "By participating in this program, members are agreed to Vui123 General Rules"
+      },
+      "fortuneCat": {
+        "grand": "GRAND",
+        "major": "MAJOR",
+        "mini": "MINI",
+        "minor": "MINOR",
+        "tnc1": "Tap the icon to reveal prizes.",
+        "tnc2": "The first three similar symbols are your winning prizes.",
+        "tnc3": "You will be eligible for one of the jackpots: Mini, Minor, Major, and Grand."
+      },
+      "goldenCat": {
+        "bonus1": "0 CAT = 0 VND",
+        "bonus2": "1 CAT = 200K VND",
+        "bonus3": "2 CAT = 1 Million VND",
+        "bonus4": "3 CAT = 10 Million VND",
+        "tnc1": "Tap the SPIN button to start the game. ",
+        "tnc2": "Number of cat appear is your prizes.",
+        "tnc3": "Coin will be deducted for every new spin."
+      },
+      "spinWin": {
+        "tnc1": "Tap the SPIN button to start the game.",
+        "tnc2": "Once rotation stops, the item landed is your prizes.",
+        "tnc3": "Coin will be deducted for every new rotation."
+      }
+    }
+  },
   "status": {
     "imageNotSupported": "Image format not supported",
     "networkError": "Network Error!",
@@ -487,6 +632,10 @@
     "receive": "Receive",
     "transferTitle": "Transfer",
     "transferableAmount": "Transferable Amount"
+  },
+  "tutorial": {
+    "note1": "CHECK OUT NEW FEATURE",
+    "note2": "Discover our exciting MY REWARDS HUB feature with more exclusive rewards!"
   },
   "validation": {
     "alphanumeric": "6-18 alphanumeric (A-Z, a-z, 0-9) characters only",

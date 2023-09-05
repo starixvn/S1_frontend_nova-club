@@ -1,0 +1,30 @@
+{
+  "name": "rewards-next",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3001",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@games/config": "*",
+    "@types/react": "18.2.21",
+    "@types/react-dom": "18.2.7",
+    "eslint": "8.48.0",
+    "next": "13.5.4",
+    "next-compose-plugins": "^2.2.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "rewards": "*",
+    "services": "*",
+    "typescript": "^5.0.4"
+  },
+  "devDependencies": {
+    "@types/lodash": "*",
+    "@types/node": "20.5.9",
+    "dotenv": "^16.0.3",
+    "eslint-config-next": "13.4.19"
+  }
+}

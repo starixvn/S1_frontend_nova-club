@@ -1,0 +1,158 @@
+{
+  "bundles": [
+    {
+      "name": "default",
+      "assets": [
+        {
+          "name": "audio/bgm.mp3",
+          "srcs": [
+            "audio/bgm.mp3"
+          ]
+        },
+        {
+          "name": "audio/open.mp3",
+          "srcs": [
+            "audio/open.mp3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "images",
+      "assets": [
+        {
+          "name": "images/SCROLL_BODY.jpg",
+          "srcs": [
+            "images/SCROLL_BODY.jpg"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/bg.jpg",
+          "srcs": [
+            "images/bg.jpg"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/bg.png",
+          "srcs": [
+            "images/bg.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/coin.png",
+          "srcs": [
+            "images/coin.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/cover.png",
+          "srcs": [
+            "images/cover.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/cut.jpg",
+          "srcs": [
+            "images/cut.jpg"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/front.png",
+          "srcs": [
+            "images/front.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/lion.png",
+          "srcs": [
+            "images/lion.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/loading.png",
+          "srcs": [
+            "images/loading.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/scroll_head.png",
+          "srcs": [
+            "images/scroll_head.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/seal.png",
+          "srcs": [
+            "images/seal.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/shadow.png",
+          "srcs": [
+            "images/shadow.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

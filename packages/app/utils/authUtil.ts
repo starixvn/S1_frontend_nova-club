@@ -2,9 +2,8 @@ import { ModalStackParams } from 'app/provider/modal'
 import { store } from 'app/provider/redux/store'
 import { modalfy } from 'react-native-modalfy'
 import { authApi } from 'services/authApi'
-import { LOGOUT_ACTION } from './constant'
-import { useRouter } from 'solito/router'
 import { contentApi } from 'services/contentApi'
+import { LOGOUT_ACTION } from 'utils/constant'
 
 export async function LogOut({ isTokenExpired = false } = {}) {
   const { openModal, closeModal } = modalfy<ModalStackParams>()

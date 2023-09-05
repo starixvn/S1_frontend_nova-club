@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic'
 import { Layout } from '../AdaptiveLayout'
 import AdaptiveLayoutLoader from '../AdaptiveLayoutLoader'
+import { AdaptivePageProvider } from 'components/context/AdaptivePageContext'
 
 const DynamicBaseLayout = dynamic(() => import('./BaseLayout'), {
   loading: () => <AdaptiveLayoutLoader />,
@@ -27,32 +28,34 @@ const DynamicInfoLayout = dynamic(() => import('./InfoLayout'), {
   ssr: false,
 })
 
+const DynammicRewardLayout = dynamic(() => import('./RewardLayout'), {
+  loading: () => <AdaptiveLayoutLoader />,
+  ssr: false,
+})
+
 export const DesktopBaseLayout: Layout = (component) => (
-  <DynamicBaseLayout>{component}</DynamicBaseLayout>
+  <AdaptivePageProvider>
+    <DynamicBaseLayout>{component}</DynamicBaseLayout>
+  </AdaptivePageProvider>
 )
 
-export const DesktopWalletLayout: Layout = (component) => (
-  <DynamicBaseLayout>
-    <DynamicWalletLayout>{component}</DynamicWalletLayout>
-  </DynamicBaseLayout>
-)
+export const DesktopWalletLayout: Layout = (component) =>
+  DesktopBaseLayout(<DynamicWalletLayout>{component}</DynamicWalletLayout>)
 
-export const DesktopAccountLayout: Layout = (component) => (
-  <DynamicBaseLayout>
-    <DynamicAccountLayout>{component}</DynamicAccountLayout>
-  </DynamicBaseLayout>
-)
+export const DesktopAccountLayout: Layout = (component) =>
+  DesktopBaseLayout(<DynamicAccountLayout>{component}</DynamicAccountLayout>)
 
-export const DesktopLeaderboardLayout: Layout = (component) => (
-  <DynamicBaseLayout>
+export const DesktopLeaderboardLayout: Layout = (component) =>
+  DesktopBaseLayout(
     <DynamicLeaderboardLayout>{component}</DynamicLeaderboardLayout>
-  </DynamicBaseLayout>
-)
+  )
 
-export const DesktopInfoLayout: Layout = (component) => (
-  <DynamicBaseLayout>
-    <DynamicInfoLayout>{component}</DynamicInfoLayout>
-  </DynamicBaseLayout>
-)
+export const DesktopInfoLayout: Layout = (component) =>
+  DesktopBaseLayout(<DynamicInfoLayout>{component}</DynamicInfoLayout>)
+
+export const DesktopRewardLayout: Layout = (component, props) =>
+  DesktopBaseLayout(
+    <DynammicRewardLayout {...props}>{component}</DynammicRewardLayout>
+  )
 
 export const EmptyLayout: Layout = (component) => <>{component}</>

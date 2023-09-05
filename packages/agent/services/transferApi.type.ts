@@ -1,5 +1,5 @@
 import { ROLE } from 'agent/utils/helper'
-import { Currency } from 'app/utils/constant'
+import { Currency } from 'utils/constant'
 
 export interface TransferListArgs {
   start: number

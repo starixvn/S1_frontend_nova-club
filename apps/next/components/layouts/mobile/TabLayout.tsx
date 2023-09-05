@@ -1,15 +1,28 @@
+import AppDownloadSuggestion from 'app/components/AppDownloadSuggestion'
 import BottomTabBar, {
   BOTTOM_TAB_BAR_HEIGHT,
 } from 'app/components/navigation/BottomTabBar'
+import TutorialScreen from 'app/components/navigation/TutorialScreen'
 import MainHeader from 'app/components/navigation/header/MainHeader'
-import { HEADER_HEIGHT } from 'app/utils/constant'
-import { ReactNode, useEffect } from 'react'
-import AppDownloadSuggestion from 'app/components/AppDownloadSuggestion'
+import { useAppSelector } from 'app/provider/redux/store'
+import { ReactNode, useEffect, useState } from 'react'
+import { HEADER_HEIGHT } from 'utils/constant'
 
 export default function TabLayout({ children }: { children: ReactNode }) {
+  const isLoggedIn = useAppSelector((s) => !!s.auth.info)
+  const showTutorial = useAppSelector((s) => s.setting.triggerPopupTutorial)
+
+  const [showAfterDelay, setShowAfterDelay] = useState(false)
+
   useEffect(() => {
-    console.log('Header Mounted')
-  }, [])
+    const setTimeoutId = setTimeout(() => {
+      setShowAfterDelay(true)
+    }, 500)
+
+    return () => {
+      clearTimeout(setTimeoutId)
+    }
+  }, [isLoggedIn, showTutorial])
 
   return (
     <div
@@ -21,6 +34,8 @@ export default function TabLayout({ children }: { children: ReactNode }) {
       <FloatedHeader />
       {children}
       <FloatedBottomBar />
+
+      {isLoggedIn && showTutorial && showAfterDelay && <TutorialScreen />}
     </div>
   )
 }

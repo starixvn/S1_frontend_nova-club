@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
-import { LANGUAGE_CODE } from 'app/utils/constant'
+import { LANGUAGE_CODE } from 'utils/constant'
 import { Image, Pressable, SxProp, View } from 'dripsy'
 import React, { useState } from 'react'
 import { ViewProps } from 'react-native'

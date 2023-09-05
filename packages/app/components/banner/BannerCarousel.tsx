@@ -1,4 +1,4 @@
-import { CMS_CONTENT_URI, CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import useContainerWidth from 'app/hooks/useContainerWidth'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import { useAppSelector } from 'app/provider/redux/store'
@@ -11,8 +11,7 @@ import {
   Row,
   SxProp,
   View,
-  useDripsyTheme,
-  useResponsiveValue,
+  useDripsyTheme
 } from 'dripsy'
 import React, { useCallback, useRef, useState } from 'react'
 import { Linking, Platform, View as RNView } from 'react-native'
@@ -24,7 +23,7 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated'
 import Carousel, { TCarouselProps } from 'react-native-reanimated-carousel'
-import { BannerItem, BannerResult } from 'services/contentApi.type'
+import { BannerItem } from 'services/contentApi.type'
 import { SolitoImage } from 'solito/image'
 import { useRouter } from 'solito/router'
 

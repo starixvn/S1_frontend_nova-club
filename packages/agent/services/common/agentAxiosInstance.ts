@@ -2,7 +2,7 @@ import { AGENT_API_DOMAIN } from '@env'
 import { EnhancedStore } from '@reduxjs/toolkit'
 import { AGENT_LANGUAGE_CODE } from 'agent/constant/language'
 import { RootState } from 'app/provider/redux/store'
-import { LANGUAGE_CODE } from 'app/utils/constant'
+import { LANGUAGE_CODE } from 'utils/constant'
 import { generateFPSParams } from 'app/utils/fps/fpsGenerator'
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 

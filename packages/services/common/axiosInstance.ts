@@ -2,7 +2,7 @@ import { API_DOMAIN, API_KEY } from '@env'
 import { EnhancedStore } from '@reduxjs/toolkit'
 
 import { RootState } from 'app/provider/redux/store'
-import { LANGUAGE_CODE } from 'app/utils/constant'
+import { LANGUAGE_CODE } from 'utils/constant'
 import { generateFPSParams } from 'app/utils/fps/fpsGenerator'
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 
@@ -140,8 +140,8 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
 
   // After login, backend will be using `locale` selected in `playerProfile` api
 
-  const currentLocale = state?.setting.locale ?? LANGUAGE_CODE.VIETNAM
-  config.headers['X-Lang'] = currentLocale
+  // const currentLocale = state?.setting.locale ?? LANGUAGE_CODE.VIETNAM
+  config.headers['X-Lang'] = state?.setting.locale ?? LANGUAGE_CODE.ENGLISH
 
   return config
 }

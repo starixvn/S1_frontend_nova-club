@@ -1,7 +1,7 @@
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import MenuNotice from 'app/components/navigation/MenuNotice'
 import useLocalization from 'app/provider/localization'
-import { ReportCommonStatus, WITHDRAWAL_NOTES } from 'app/utils/constant'
+import { ReportCommonStatus, WITHDRAWAL_NOTES } from 'utils/constant'
 import { View, styled } from 'dripsy'
 import React from 'react'
 import { useModal } from 'react-native-modalfy'

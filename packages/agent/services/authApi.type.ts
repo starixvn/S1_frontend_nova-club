@@ -1,4 +1,4 @@
-import { Currency } from 'app/utils/constant'
+import { Currency } from 'utils/constant'
 
 export interface LoginQueryArgs {
   username: string

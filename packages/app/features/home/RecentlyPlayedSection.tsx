@@ -3,7 +3,7 @@ import SectionLabel from 'app/components/SectionLabel'
 import HorizontalGameList from 'app/components/game/HorizontalGameList'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'app/utils/constant'
+import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'utils/constant'
 import { Row, View } from 'dripsy'
 import React, { useMemo } from 'react'
 

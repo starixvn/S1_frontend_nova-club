@@ -1,0 +1,97 @@
+{
+  "bundles": [
+    {
+      "name": "default",
+      "assets": [
+        {
+          "name": "audio/bgm.mp3",
+          "srcs": [
+            "audio/bgm.mp3"
+          ]
+        },
+        {
+          "name": "audio/spin.mp3",
+          "srcs": [
+            "audio/spin.mp3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "images",
+      "assets": [
+        {
+          "name": "images/bgWin.png",
+          "srcs": [
+            "images/bgWin.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/btnSpin.png",
+          "srcs": [
+            "images/btnSpin.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/game-bg.jpg",
+          "srcs": [
+            "images/game-bg.jpg"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/slot-machine-frame.png",
+          "srcs": [
+            "images/slot-machine-frame.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "spritesheets",
+      "assets": [
+        {
+          "name": "spritesheets/zodiac.json",
+          "srcs": [
+            "spritesheets/zodiac.json"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "spritesheets/zodiac.png",
+          "srcs": [
+            "spritesheets/zodiac.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -11,7 +11,7 @@ import ProfileHeader from './ProfileHeader'
 import ProfileOverviewCard from './ProfileOverviewCard'
 import ProfileQuickNavigation from './ProfileQuickNavigation'
 import WalletButton from './WalletButton'
-import { Currency, HEADER_HEIGHT } from 'app/utils/constant'
+import { Currency, HEADER_HEIGHT } from 'utils/constant'
 
 export default function ProfileScreen() {
   const { bottom, top } = useSafeArea()

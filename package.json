@@ -3,13 +3,14 @@
   "private": true,
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "games/*"
   ],
   "devDependencies": {
     "@types/react": "^18.0.17",
     "@types/react-native": "^0.69.5",
     "eslint": "^8.21.0",
-    "turbo": "^1.4.2",
+    "turbo": "1.8.3",
     "typescript": "^5.0.4"
   },
   "scripts": {
@@ -19,13 +20,22 @@
     "native:pre": "cd apps/expo && yarn start:pre",
     "native:prod": "cd apps/expo && yarn start:prod",
     "native:ios": "cd apps/expo && yarn ios",
-    "web": "cd apps/next && yarn next",
-    "web:staging": "cd apps/next && APP_ENV=stag yarn next",
-    "web:soft": "cd apps/next && APP_ENV=soft yarn next",
+    "web:prod": "APP_ENV=prod turbo dev",
+    "web:staging": "APP_ENV=stag turbo dev",
+    "web:soft": "APP_ENV=soft turbo dev",
+    "web:pre": "APP_ENV=pre turbo dev",
+    "web:rewards": "yarn workspace rewards-next dev",
+    "kill:web": "kill -9 $(lsof -ti:3000,3001)",
     "build:web": "yarn workspace next-app build",
     "build:web:staging": "APP_ENV=stag yarn build:web",
+    "build:web:staging2": "APP_ENV=stag2 yarn build:web",
     "build:web:pre": "APP_ENV=pre yarn build:web",
     "build:web:soft": "APP_ENV=soft yarn build:web",
+    "build:rewards": "yarn workspace rewards-next build",
+    "build:rewards:staging": "APP_ENV=stag yarn build:rewards",
+    "build:rewards:staging2": "APP_ENV=stag2 yarn build:rewards",
+    "build:rewards:pre": "APP_ENV=pre yarn build:rewards",
+    "build:rewards:soft": "APP_ENV=soft yarn build:rewards",
     "docker:build": "docker build -t chlgame2 .",
     "docker:verify": "docker run -it chlgame2 sh",
     "docker:run": "docker run -p 3000:3000 chlgame2",
@@ -43,6 +53,7 @@
   "resolutions": {
     "metro": "^0.73.1",
     "metro-resolver": "^0.73.1",
+    "@types/react": "18.2.21",
     "@react-native/assets@1.0.0": "patch:@react-native/assets@npm%3A1.0.0#./.yarn/patches/@react-native-assets-npm-1.0.0-2165b2ba43.patch",
     "react-native-webview@11.26.0": "patch:react-native-webview@npm%3A11.26.0#./.yarn/patches/react-native-webview-npm-11.26.0-7f2711346f.patch",
     "react-native-code-push@8.0.2": "patch:react-native-code-push@npm%3A8.0.2#./.yarn/patches/react-native-code-push-npm-8.0.2-53e53c8ec6.patch",
@@ -60,6 +71,7 @@
   },
   "packageManager": "yarn@3.4.1",
   "dependencies": {
+    "@ebay/nice-modal-react": "^1.2.10",
     "@livechat/widget-react": "^1.3.1",
     "expo-dev-client": "^2.2.1",
     "patch-package": "^7.0.0",

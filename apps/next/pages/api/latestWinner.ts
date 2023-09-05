@@ -1,4 +1,4 @@
-import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'app/utils/constant'
+import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'utils/constant'
 import random from 'lodash/random'
 import sampleSize from 'lodash/sampleSize'
 import { Game, LatestWinner, LatestWinnerType } from 'services/gameApi.type'

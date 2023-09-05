@@ -3,7 +3,7 @@ import useLocalization from 'app/provider/localization'
 import { Platform } from 'react-native'
 import BankTransferContent from './BankTransferContent'
 import MenuNotice from 'app/components/navigation/MenuNotice'
-import { DEPOSIT_NOTES } from 'app/utils/constant'
+import { DEPOSIT_NOTES } from 'utils/constant'
 import { useModal } from 'react-native-modalfy'
 
 const BankTransferScreen = () => {

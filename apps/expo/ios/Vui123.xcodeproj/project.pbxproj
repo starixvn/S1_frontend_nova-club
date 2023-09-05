@@ -620,6 +620,21 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = VU9FQBV88P;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 36LZ925H63;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"$(inherited)",
+					"SD_WEBP=1",
+					ZXINGOBJC_USE_SUBSPECS,
+					ZXINGOBJC_USE_SUBSPECS,
+					ZXINGOBJC_ONED,
+					ZXINGOBJC_USE_SUBSPECS,
+					ZXINGOBJC_PDF417,
+					"$(inherited)",
+					"PB_FIELD_32BIT=1",
+					"PB_NO_PACKED_STRUCTS=1",
+					"PB_ENABLE_MALLOC=1",
+				);
 				INFOPLIST_FILE = Vui123/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Vui Staging 2";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

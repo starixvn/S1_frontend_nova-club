@@ -1,4 +1,4 @@
-import { Currency, GAME_TYPE_CODE } from 'app/utils/constant'
+import { Currency, GAME_TYPE_CODE } from 'utils/constant'
 import { useCommissionTableQuery } from 'services/contentApi'
 import { CommissionTableResult } from 'services/contentApi.type'
 

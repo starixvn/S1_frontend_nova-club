@@ -1,6 +1,6 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import useLocalization from 'app/provider/localization'
-import { ProviderImageCategory } from 'app/utils/constant'
+import { ProviderImageCategory } from 'utils/constant'
 import { ActivityIndicator, Pressable, Row, View } from 'dripsy'
 import React from 'react'
 import { SolitoImage } from 'solito/image'

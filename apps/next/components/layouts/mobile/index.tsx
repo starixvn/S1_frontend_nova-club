@@ -12,10 +12,19 @@ const DynamicInfoLayout = dynamic(() => import('./InfoLayout'), {
   ssr: false,
 })
 
+const DynamicRewardLayout = dynamic(() => import('./RewardLayout'), {
+  loading: () => <AdaptiveLayoutLoader />,
+  ssr: false,
+})
+
 export const MobileTabLayout: Layout = (component) => (
   <DynamicTabLayout>{component}</DynamicTabLayout>
 )
 
 export const MobileInfoLayout: Layout = (component) => (
   <DynamicInfoLayout>{component}</DynamicInfoLayout>
+)
+
+export const MobileRewardLayout: Layout = (component) => (
+  <DynamicRewardLayout>{component}</DynamicRewardLayout>
 )

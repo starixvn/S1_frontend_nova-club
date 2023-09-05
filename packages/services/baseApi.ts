@@ -20,5 +20,7 @@ export const baseApiWithTag = baseApi.enhanceEndpoints({
     'PlayerProfile',
     'RecoMatches',
     'Message',
+    'Coin',
+    'CheckInProgress',
   ],
 })

@@ -2,7 +2,7 @@ import {
   GAME_TYPE_CODE,
   GDC_GAME_CATEGORY,
   LANGUAGE_CODE,
-} from 'app/utils/constant'
+} from 'utils/constant'
 import { ImageSourcePropType } from 'react-native'
 
 export interface GetGameUrlQueryArgs {

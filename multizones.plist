@@ -1,0 +1,30 @@
+# Sample nginx config
+
+daemon off;
+pid nginx.pid;
+
+http {
+    server {
+        listen 8000;
+        server_name http://localhost:8000;
+        proxy_buffering off;
+        proxy_http_version 1.1;
+
+        location / {
+            proxy_pass http://localhost:3000;
+            proxy_redirect off;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+        }
+        location /rewards/games {
+            proxy_pass http://localhost:3001/rewards/games;
+            proxy_redirect off;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+        }
+    }
+}
+events {
+}
