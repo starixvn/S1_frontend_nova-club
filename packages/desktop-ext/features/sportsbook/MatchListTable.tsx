@@ -129,7 +129,8 @@ const MatchListTable = ({
                 parentStyle={{
                   px: 0,
                   bg: '$primary.50',
-                  py: '$2',
+                  py: 5,
+                  my: '$2',
                   borderBottomWidth: 1,
                   borderColor: '$primary.700',
                   borderSpacing: 0,
@@ -152,12 +153,12 @@ const MatchListTable = ({
                     >
                       <Icon
                         name={MatchLeagueTabIconMapping[l]}
-                        sx={{ fontSize: [24, 30, 36] }}
+                        sx={{ fontSize: [24, 30, 34] }}
                       />
                       <Text
                         sx={{
                           mx: '$2',
-                          fontSize: 18,
+                          fontSize: 16,
                           fontWeight: 'bold',
                         }}
                       >
@@ -472,9 +473,10 @@ const MatchListCellRow = ({
     <View
       key={selectedTime}
       sx={{
-        // flex: 0,
-        height: ROW_HEIGHT,
+        flex: 1,
         bg: index % 2 ? '$primary.300' : '$primary.500',
+        borderBottomWidth: 8,
+        borderBottomColor: '$primary.700',
       }}
     >
       <MatchListCellData

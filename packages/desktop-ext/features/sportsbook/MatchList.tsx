@@ -42,7 +42,7 @@ export default function MatchList({}: Props) {
         gradient={'surface'}
         sx={{
           flexDirection: 'row',
-          height: BAR_HEIGHT,
+          py: '$3',
           alignItems: 'center',
           gap: '$4',
           px: '$4',
