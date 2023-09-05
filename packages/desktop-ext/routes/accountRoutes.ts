@@ -42,7 +42,7 @@ const _Routes: Readonly<DesktopRoute[]> = [
   },
   {
     key: 'CustomerSupport',
-    title: 'contact.customerSupport',
+    title: 'footer.contactUs',
     icon: 'cs',
     route: '/account/customer-support',
   },

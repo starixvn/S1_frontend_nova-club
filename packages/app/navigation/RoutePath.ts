@@ -104,7 +104,7 @@ export const Profile_Quick_Navigation_Path: Route[] = [
   //   icon: 'aff',
   // },
   {
-    label: 'contact.customerSupport',
+    label: 'footer.contactUs',
     path: '/account/customer-support',
     icon: 'cs',
   },

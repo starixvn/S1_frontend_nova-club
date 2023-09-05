@@ -52,6 +52,7 @@ const DrawerButton = styled(TouchableOpacity)({
 
 const DrawerText = styled(Text)({
   mr: '$2',
+  fontWeight: 'bold',
 })
 
 const DrawerIconContainer = styled(View)({
