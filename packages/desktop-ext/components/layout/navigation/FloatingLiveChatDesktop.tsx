@@ -24,58 +24,35 @@ const FloatingLiveChatDesktop = () => {
         backgroundColor: theme.colors?.$primary
           ? theme.colors?.$primary[100]
           : 'transparent',
-        width: 200,
-        height: 40,
+        width: 180,
         right: 0,
         top: NAVIGATION_HEIGHT + HEADER_HEIGHT,
         zIndex: 5,
         borderTopLeftRadius: 15,
         borderBottomLeftRadius: 15,
-        alignItems: 'flex-end',
+        flexDirection: 'row',
       }}
       onHoverIn={() => startTransition(() => setIsMenuOpen(true))}
       onHoverOut={() => startTransition(() => setIsMenuOpen(false))}
       animate={{ translateX: isMenuOpen ? 25 : 160 }}
     >
-      <Pressable
-        onPress={() => {
-          Linking.openURL(LIVECHAT_URL)
-        }}
-        sx={{
-          flexDirection: 'row',
-          px: '$2',
-          width: '100%',
-          alignItems: 'center',
-          height: 40,
-        }}
-      >
-        <Icon
-          name={'iconCS'}
-          size={20}
-          sx={{
-            width: 30,
-            borderRadius: 50,
-            alignItems: 'center',
-            ml: 2,
+      <View sx={{ position: 'relative', my: 12 }}>
+        <MotiView
+          animate={{
+            transform: [{ rotateZ: isMenuOpen ? '180deg' : '0deg' }],
           }}
-        />
+          transition={{ type: 'timing', duration: 500 }}
+        >
+          <Icon name={'back'} size={14} />
+        </MotiView>
 
         <Text
-          sx={{
-            minWidth: 70,
-            width: '100%',
-            marginLeft: 10,
-            mr: 15,
-            lineHeight: 24,
-            fontWeight: 'bold',
-            textAlignVertical: 'center',
-            textAlign: 'center',
-          }}
+          numberOfLines={1}
+          sx={{ writingMode: 'vertical-lr', textOrientation: 'mixed', my: 12 }}
         >
-          {t('common.hello')}
+          {t('footer.contactUs')}
         </Text>
-      </Pressable>
-
+      </View>
       <View
         sx={{
           backgroundColor: theme.colors?.$primary
