@@ -4,11 +4,10 @@ import { LaunchGamePayload } from 'app/store/gameLauncher.slice'
 import {
   ActivityIndicator,
   SxProp,
+  Text,
   View,
   styled,
-  useSx,
-  Text,
-  useDripsyTheme,
+  useSx
 } from 'dripsy'
 import { MotiPressable } from 'moti/interactions'
 import React, {
@@ -17,8 +16,7 @@ import React, {
   useEffect,
   useMemo,
   useRef,
-  useState,
-  useTransition,
+  useState
 } from 'react'
 import {
   GestureResponderEvent,
@@ -29,8 +27,10 @@ import {
 import { SolitoImage } from 'solito/image'
 
 import useIsDesktop from 'app/hooks/useIsDesktop'
+import { useAppSelector } from 'app/provider/redux/store'
 import { AnimatePresence, MotiView } from 'moti'
-import GameRebateLabel from './GameRebateLabel'
+import GameBottomRebateLabel from './GameBottomRebateLabel'
+import GameCardDualVersionButton from './GameCardDualVersionButton'
 import GameTagsLabel, { GAME_TAG_SIZE } from './GameTagsLabel'
 
 export interface GameCardProps extends PressableProps, LaunchGamePayload {
@@ -44,6 +44,7 @@ export interface GameCardProps extends PressableProps, LaunchGamePayload {
   showRebate?: boolean
   rebateTop?: boolean
   gameTagSize?: GAME_TAG_SIZE
+  isDualVersion?: boolean
 }
 
 const GameCard = ({
@@ -59,6 +60,7 @@ const GameCard = ({
   rebateTop = false,
   showRebate = false,
   gameTagSize = GAME_TAG_SIZE.lg,
+  isDualVersion = false,
   ...rest
 }: GameCardProps) => {
   const lastLoadedRef = useRef(img)
@@ -66,6 +68,8 @@ const GameCard = ({
   const desktopMode = useIsDesktop()
   const ss = useSx()
   const { tags } = rest
+
+  const lang = useAppSelector((s) => s.setting.locale)
 
   if (lastLoadedRef.current != img) {
     lastLoadedRef.current = img
@@ -93,6 +97,22 @@ const GameCard = ({
       })
     }
   }
+
+  function handleDesktopMode() {
+    LaunchGame({
+      gc: rest.gc,
+      gpc: rest.gpc,
+      gtc: rest.gtc,
+      xImg: rest.xImg,
+      tags: rest.tags,
+      gdc_cat: rest.gdc_cat,
+      params: rest.params,
+      name: rest.name,
+      img,
+      desktopMode: true,
+    })
+  }
+
   const [isRebateLoading, setIsRebateLoading] = useState(
     rebateText === undefined
   )
@@ -173,14 +193,46 @@ const GameCard = ({
           {displayName}
         </Text>
       )}
+      {isDualVersion && (
+        <View
+          sx={{
+            position: 'absolute',
+            width: '100%',
+            alignItems: 'flex-end',
+            bottom: '$4',
+            left: '$2',
+          }}
+        >
+          <GameCardDualVersionButton
+            onPressPlayNow={onClick}
+            onPressDesktop={handleDesktopMode}
+          />
+        </View>
+      )}
+
       {showRebate && (
-        <LabelContainer rebateTop={rebateTop}>
+        <View
+          sx={{
+            position: 'absolute',
+            width: '100%',
+            backgroundColor: 'rgba(80, 80, 158, 0.7);',
+            borderBottomLeftRadius: 5,
+            borderBottomRightRadius: 5,
+            borderTopWidth: 1,
+            borderColor: '$primary.100',
+            bottom: 3,
+          }}
+        >
           {isRebateLoading ? (
             <ActivityIndicator color={'$primary.100'} />
           ) : (
-            <GameRebateLabel key={rebateText} rebateText={rebateText} />
+            <GameBottomRebateLabel
+              key={rebateText}
+              rebateText={rebateText}
+              sportName={lang === 'en' ? rest.name?.en : rest.name?.vi}
+            />
           )}
-        </LabelContainer>
+        </View>
       )}
     </Root>
   )
@@ -193,28 +245,3 @@ const Root = styled(MotiPressable)({
   // aspectRatio: 1,
   // overflow: 'hidden',
 })
-const LabelContainer = styled(View)(({ rebateTop }: { rebateTop?: boolean }) =>
-  rebateTop //Bad Implementation
-    ? {
-        py: [25, 30, 35, 35, 35],
-        width: '100%',
-        position: 'absolute',
-        top: 0,
-        right: 0,
-        justifyContent: 'flex-end',
-        flexDirection: 'row',
-        pr: '$2',
-        alignItems: 'center',
-      }
-    : {
-        py: [6],
-        width: '100%',
-        position: 'absolute',
-        bottom: 0,
-        right: 0,
-        justifyContent: 'flex-end',
-        flexDirection: 'row',
-        pr: '$2',
-        alignItems: 'center',
-      }
-)

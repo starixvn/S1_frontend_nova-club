@@ -55,7 +55,7 @@ export default function SportsbookScreen() {
             gtc: item.gtc,
             gpc: item.gpc,
           })}
-          rebateTop
+          // rebateTop
           // displayName={formattedName}
           // image={img}
           sx={{
@@ -63,6 +63,7 @@ export default function SportsbookScreen() {
             flex: 1,
             mx: isMiddle ? `${spacePercentage * 1.5}%` : `${spacePercentage}%`,
           }}
+          isDualVersion
           {...item}
         />
       </Row>

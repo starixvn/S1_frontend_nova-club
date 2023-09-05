@@ -40,6 +40,7 @@ export default function GameList({}) {
             // displayName={g.name[locale]}
             key={g.gc + g.gpc}
             sx={{ width: '11%' }}
+            isDualVersion
             {...g}
           />
         )
