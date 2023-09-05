@@ -29,11 +29,6 @@ export default function SportsbookScreen() {
 
   function renderItem({ item, index }: { item: Game; index: number }) {
     const { name } = item
-    const formattedName = name
-      ? typeof name === 'string'
-        ? name
-        : name[locale]
-      : undefined
 
     const isMostLeft = index % numColumns === 0
     const isMostRight = index % numColumns === numColumns - 1
@@ -55,9 +50,7 @@ export default function SportsbookScreen() {
             gtc: item.gtc,
             gpc: item.gpc,
           })}
-          // rebateTop
-          // displayName={formattedName}
-          // image={img}
+          rebateTop
           sx={{
             my: `${spacePercentage}%`,
             flex: 1,

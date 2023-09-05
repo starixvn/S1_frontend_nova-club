@@ -1,14 +1,7 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { LaunchGame } from 'app/features/game/GameLauncher'
 import { LaunchGamePayload } from 'app/store/gameLauncher.slice'
-import {
-  ActivityIndicator,
-  SxProp,
-  Text,
-  View,
-  styled,
-  useSx
-} from 'dripsy'
+import { ActivityIndicator, SxProp, Text, View, styled, useSx } from 'dripsy'
 import { MotiPressable } from 'moti/interactions'
 import React, {
   memo,
@@ -16,7 +9,7 @@ import React, {
   useEffect,
   useMemo,
   useRef,
-  useState
+  useState,
 } from 'react'
 import {
   GestureResponderEvent,
@@ -32,6 +25,7 @@ import { AnimatePresence, MotiView } from 'moti'
 import GameBottomRebateLabel from './GameBottomRebateLabel'
 import GameCardDualVersionButton from './GameCardDualVersionButton'
 import GameTagsLabel, { GAME_TAG_SIZE } from './GameTagsLabel'
+import GameRebateLabel from './GameRebateLabel'
 
 export interface GameCardProps extends PressableProps, LaunchGamePayload {
   displayName?: string
@@ -193,13 +187,22 @@ const GameCard = ({
           {displayName}
         </Text>
       )}
+      {showRebate && (
+        <LabelContainer rebateTop={rebateTop}>
+          {isRebateLoading ? (
+            <ActivityIndicator color={'$primary.100'} />
+          ) : (
+            <GameRebateLabel key={rebateText} rebateText={rebateText} />
+          )}
+        </LabelContainer>
+      )}
       {isDualVersion && (
         <View
           sx={{
             position: 'absolute',
             width: '100%',
             alignItems: 'flex-end',
-            bottom: '$4',
+            bottom: 38,
             left: '$2',
           }}
         >
@@ -210,7 +213,7 @@ const GameCard = ({
         </View>
       )}
 
-      {showRebate && (
+      {/* {showRebate && (
         <View
           sx={{
             position: 'absolute',
@@ -233,7 +236,7 @@ const GameCard = ({
             />
           )}
         </View>
-      )}
+      )} */}
     </Root>
   )
 }
@@ -245,3 +248,29 @@ const Root = styled(MotiPressable)({
   // aspectRatio: 1,
   // overflow: 'hidden',
 })
+
+const LabelContainer = styled(View)(({ rebateTop }: { rebateTop?: boolean }) =>
+  rebateTop //Bad Implementation
+    ? {
+        py: [25, 30, 35, 35, 35],
+        width: '100%',
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        justifyContent: 'flex-end',
+        flexDirection: 'row',
+        pr: '$2',
+        alignItems: 'center',
+      }
+    : {
+        py: [6],
+        width: '100%',
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        justifyContent: 'flex-end',
+        flexDirection: 'row',
+        pr: '$2',
+        alignItems: 'center',
+      }
+)

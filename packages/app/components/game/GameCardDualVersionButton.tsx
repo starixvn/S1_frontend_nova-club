@@ -1,4 +1,4 @@
-import { Text } from 'dripsy'
+import { Text, styled } from 'dripsy'
 import TouchableOpacity from '../pressable/TouchableOpacity'
 import useLocalization from 'app/provider/localization'
 
@@ -14,14 +14,10 @@ const GameCardDualVersionButton = ({
   const { t } = useLocalization()
   return (
     <>
-      <TouchableOpacity
+      <GameButton
         sx={{
           backgroundColor: '$secondary.300',
-          borderWidth: 2,
-          borderRadius: 5,
           borderColor: '$secondary.100',
-          p: 2,
-          width: '40%',
           mb: '$2',
         }}
         onPress={onPressPlayNow}
@@ -36,15 +32,11 @@ const GameCardDualVersionButton = ({
         >
           {t('common.playNow')}
         </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
+      </GameButton>
+      <GameButton
         sx={{
           backgroundColor: '$primary.300',
-          borderWidth: 2,
-          borderRadius: 5,
           borderColor: '$primary.100',
-          p: 2,
-          width: '40%',
         }}
         onPress={onPressDesktop}
       >
@@ -57,9 +49,16 @@ const GameCardDualVersionButton = ({
         >
           {t('common.desktop')}
         </Text>
-      </TouchableOpacity>
+      </GameButton>
     </>
   )
 }
 
 export default GameCardDualVersionButton
+
+const GameButton = styled(TouchableOpacity)({
+  borderWidth: 2,
+  borderRadius: 5,
+  p: 2,
+  width: '40%',
+})
