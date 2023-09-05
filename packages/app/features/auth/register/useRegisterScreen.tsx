@@ -52,7 +52,7 @@ export default function useRegisterScreen(
   const [paramType, setIsAgentLogin] = useParam('t', {
     initial: LoginType.Member,
   })
-  const type = modalType ?? paramType
+  const type = paramType ?? modalType
   const [index, setIndex] = useState(0)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
