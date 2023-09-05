@@ -239,7 +239,13 @@ const MatchListCellData = ({
       >
         {dateTime}
       </DataTableCell>
-      <DataTableCell sx={{ flex: 0.015, py: '$0' }}>
+      <DataTableCell
+        sx={{
+          flex: 0.015,
+          py: '$1',
+          alignItems: selectionType === 'home' ? 'flex-end' : 'flex-start',
+        }}
+      >
         {flag && (
           <MotifiedImage
             from={{ scale: 0, opacity: 0 }}
