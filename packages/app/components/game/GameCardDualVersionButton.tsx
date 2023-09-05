@@ -29,6 +29,7 @@ const GameCardDualVersionButton = ({
             textAlign: 'center',
             textTransform: 'capitalize',
           }}
+          numberOfLines={1}
         >
           {t('common.playNow')}
         </Text>
@@ -46,6 +47,7 @@ const GameCardDualVersionButton = ({
             fontWeight: 'bold',
             textAlign: 'center',
           }}
+          numberOfLines={1}
         >
           {t('common.desktop')}
         </Text>
@@ -61,4 +63,5 @@ const GameButton = styled(TouchableOpacity)({
   borderRadius: 5,
   p: 2,
   width: '40%',
+  maxWidth: 60,
 })

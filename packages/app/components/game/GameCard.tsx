@@ -203,7 +203,7 @@ const GameCard = ({
             width: '100%',
             alignItems: 'flex-end',
             bottom: '$4',
-            left: '$2',
+            right: '$2',
           }}
         >
           <GameCardDualVersionButton
