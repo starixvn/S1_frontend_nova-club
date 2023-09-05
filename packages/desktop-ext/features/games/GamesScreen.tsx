@@ -61,19 +61,19 @@ function GamesScreen({}: Props) {
         <View sx={{ flex: 1, minHeight: 300 }}>
           <LatestWinnerSection type={LatestWinnerType.Games} />
         </View>
-        <View
-          // onPress={handleVgaming}
+        <Pressable
+          onPress={handleVgaming}
           sx={{ flexBasis: 480, minHeight: 320 }}
         >
-          {/* <SolitoImage
+          <SolitoImage
             alt="v-gaming"
             fill
             contentFit="cover"
             style={{ width: '100%', height: '100%' }}
             src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/game/vGaming.jpg`}
-          /> */}
-          <BannerCarousel data={bannerList} ratio={480 / 320} />
-        </View>
+          />
+          {/* <BannerCarousel data={bannerList} ratio={480 / 320} /> */}
+        </Pressable>
         {showSlotVideo && (
           <View sx={{ flex: 1, minHeight: 300 }}>
             <Video
