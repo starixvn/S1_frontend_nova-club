@@ -29,11 +29,6 @@ export default function SportsbookScreen() {
 
   function renderItem({ item, index }: { item: Game; index: number }) {
     const { name } = item
-    const formattedName = name
-      ? typeof name === 'string'
-        ? name
-        : name[locale]
-      : undefined
 
     const isMostLeft = index % numColumns === 0
     const isMostRight = index % numColumns === numColumns - 1
@@ -56,13 +51,12 @@ export default function SportsbookScreen() {
             gpc: item.gpc,
           })}
           rebateTop
-          // displayName={formattedName}
-          // image={img}
           sx={{
             my: `${spacePercentage}%`,
             flex: 1,
             mx: isMiddle ? `${spacePercentage * 1.5}%` : `${spacePercentage}%`,
           }}
+          isDualVersion
           {...item}
         />
       </Row>

@@ -4,7 +4,7 @@ import {
   GetGameRebateValue,
 } from 'app/components/game/GameUtilityAction'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
-import { Row } from 'dripsy'
+import { Row, useResponsiveValue } from 'dripsy'
 import React from 'react'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
 
@@ -15,6 +15,7 @@ export default function GameList({}) {
     GAME_TYPE_CODE.E_SPORTS,
     GAME_TYPE_CODE.VIRTUAL_SPORTS,
   ])
+  const isHFive = useResponsiveValue([true, true, true, false])
 
   return (
     <Row
@@ -40,6 +41,7 @@ export default function GameList({}) {
             // displayName={g.name[locale]}
             key={g.gc + g.gpc}
             sx={{ width: '11%' }}
+            isDualVersion={isHFive}
             {...g}
           />
         )
