@@ -202,7 +202,7 @@ const GameCard = ({
             position: 'absolute',
             width: '100%',
             alignItems: 'flex-end',
-            bottom: 38,
+            bottom: '$4',
             left: '$2',
           }}
         >
