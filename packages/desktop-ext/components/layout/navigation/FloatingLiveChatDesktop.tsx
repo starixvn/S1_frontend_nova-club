@@ -8,7 +8,7 @@ import { Linking, Platform } from 'react-native'
 import { NAVIGATION_HEIGHT } from './NavigationHeader'
 import { HEADER_HEIGHT } from 'app/utils/constant'
 import useSupportItemList from 'app/features/customerSupport/useSupportItemList'
-import { MotiView } from 'moti'
+import { AnimatePresence, MotiView } from 'moti'
 
 const FloatingLiveChatDesktop = () => {
   const { theme } = useDripsyTheme()
@@ -21,9 +21,9 @@ const FloatingLiveChatDesktop = () => {
       id="menu"
       style={{
         position: 'fixed',
-        backgroundColor: theme.colors?.$primary
-          ? theme.colors?.$primary[100]
-          : 'transparent',
+        // backgroundColor: theme.colors?.$primary
+        //   ? theme.colors?.$primary[100]
+        //   : 'transparent',
         width: 180,
         right: 0,
         top: NAVIGATION_HEIGHT + HEADER_HEIGHT,
@@ -34,25 +34,49 @@ const FloatingLiveChatDesktop = () => {
       }}
       onHoverIn={() => startTransition(() => setIsMenuOpen(true))}
       onHoverOut={() => startTransition(() => setIsMenuOpen(false))}
-      animate={{ translateX: isMenuOpen ? 25 : 160 }}
+      animate={{ translateX: isMenuOpen ? 50 : 152 }}
     >
-      <View sx={{ position: 'relative', my: 12 }}>
-        <MotiView
-          animate={{
-            transform: [{ rotateZ: isMenuOpen ? '180deg' : '0deg' }],
-          }}
-          transition={{ type: 'timing', duration: 500 }}
-        >
-          <Icon name={'back'} size={14} />
-        </MotiView>
+      <AnimatePresence>
+        {!isMenuOpen && (
+          <View
+            sx={{
+              position: 'relative',
+              py: 12,
+              px: '$1',
+              alignItems: 'center',
+              alignSelf: 'baseline',
+              backgroundColor: theme.colors?.$primary
+                ? theme.colors?.$primary[100]
+                : 'transparent',
+              borderTopLeftRadius: 15,
+              borderBottomLeftRadius: 15,
+            }}
+          >
+            <MotiView
+              animate={{
+                transform: [{ rotateZ: isMenuOpen ? '180deg' : '0deg' }],
+              }}
+              transition={{ type: 'timing', duration: 500 }}
+            >
+              <Icon name={'back'} size={14} />
+            </MotiView>
 
-        <Text
-          numberOfLines={1}
-          sx={{ writingMode: 'vertical-lr', textOrientation: 'mixed', my: 12 }}
-        >
-          {t('footer.contactUs')}
-        </Text>
-      </View>
+            <Text
+              numberOfLines={1}
+              sx={{
+                transform: [{ rotateZ: '180deg' }],
+                writingMode: 'vertical-lr',
+                textOrientation: 'mixed',
+                my: 12,
+                fontWeight: 'bold',
+              }}
+            >
+              {t('footer.contactUs')}
+            </Text>
+          </View>
+        )}
+      </AnimatePresence>
+
       <View
         sx={{
           backgroundColor: theme.colors?.$primary
