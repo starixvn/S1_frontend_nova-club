@@ -3,6 +3,7 @@ import { View } from 'dripsy'
 import React from 'react'
 import { useAnnouncementQuery } from 'services/contentApi'
 import MessageCard from './components/MessageCard'
+import AnnouncementCard from './components/AnnouncementCard'
 
 const AnnouncementScreen = () => {
   const locale = useAppSelector((s) => s.setting.locale)
@@ -20,7 +21,7 @@ const AnnouncementScreen = () => {
             borderColor: '$primary.100',
           }}
         >
-          <MessageCard
+          <AnnouncementCard
             id={item.id}
             title={item.title}
             content={item.content}
