@@ -12,6 +12,7 @@ import { ReactNode, useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import withLazyLoad from 'app/hoc/withLazyLoad'
 import LazyIndicator from 'app/components/LazyIndicator'
+import LiveChat from 'components/LiveChat'
 
 const Footer = dynamic(() => import('desktop-ext/components/layout/Footer'), {
   loading: () => <LazyIndicator />,
@@ -83,6 +84,8 @@ export default function BaseLayout({ children }: { children: ReactNode }) {
           </MotiView>
         )}
       </AnimatePresence>
+
+      <LiveChat />
       <LazyFooter />
     </div>
   )
