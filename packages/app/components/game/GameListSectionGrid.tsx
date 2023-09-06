@@ -12,6 +12,9 @@ import { DripsyGradient } from '../Gradient'
 import Icon from '../Icon'
 import GameCard from './GameCard'
 import GameRebateLabel from './GameRebateLabel'
+import TouchableOpacity from '../pressable/TouchableOpacity'
+import { Platform } from 'react-native'
+import { useRouter } from 'solito/router'
 type Props = { children: ReactElement }
 
 export default function GameListSectionGrid({ children }: Props) {
@@ -23,14 +26,19 @@ const GameListSectionGridHeader = ({
   children,
   showRebate = false,
   rebateValue,
+  showSeeMore = false,
+  onSeeMore,
 }) => {
   const isDesktop = useIsDesktop()
+  const { push } = useRouter()
+  const { t } = useLocalization()
 
   return (
     <View
       sx={{
         flexDirection: 'row',
         justifyContent: 'space-between',
+        bg: isDesktop ? 'transparent' : '$primary.200',
       }}
     >
       <View sx={{ flexDirection: 'row' }}>
@@ -42,8 +50,9 @@ const GameListSectionGridHeader = ({
             px: '$2',
             py: '$2',
             alignItems: 'center',
-            justifyContent: 'center',
+            justifyContent: isDesktop ? 'center' : 'space-between',
             marginRight: 'auto',
+            flexDirection: 'row',
           }}
         >
           <View sx={{ flexDirection: 'row' }}>
@@ -59,9 +68,22 @@ const GameListSectionGridHeader = ({
           </View>
         </View>
       </View>
-      {onSearch && isDesktop && (
-        <GameListSectionGridSearch onSearch={onSearch} />
-      )}
+
+      {isDesktop
+        ? onSearch && <GameListSectionGridSearch onSearch={onSearch} />
+        : showSeeMore && (
+            <TouchableOpacity
+              sx={{
+                alignSelf: 'center',
+                pr: '$2',
+              }}
+              onPress={onSeeMore}
+            >
+              <Text sx={{ textDecorationLine: 'underline', fontSize: 14 }}>
+                {t('common.seeMore')} {'>>'}
+              </Text>
+            </TouchableOpacity>
+          )}
     </View>
   )
 }
