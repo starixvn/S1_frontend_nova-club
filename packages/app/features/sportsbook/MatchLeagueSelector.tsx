@@ -34,7 +34,7 @@ export default function MatchLeagueSelector({
     <DripsyGradient
       gradient={gradient}
       sx={{
-        mb: '$2',
+        my: '$1',
       }}
     >
       {gradient && (
@@ -119,7 +119,7 @@ const MatchLeagueSelectorTab = memo(
         <IconContainer state={iconRotate} transition={{ type: 'timing' }}>
           <Icon
             name={MatchLeagueTabIconMapping[id]}
-            sx={{ fontSize: 24 }}
+            sx={{ fontSize: 26 }}
             // state={iconColorFade}
             // animatedProps={color}
             color={active ? 'white' : '$tertiary'}
