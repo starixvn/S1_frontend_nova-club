@@ -102,6 +102,7 @@ function GameSectionByProviderItem({
   return (
     <View nativeID={`gameSection${gpc}`}>
       <GameListSectionGrid.Header
+        key={gpc} //add key to fix the rebate value animation stop working after sometime/ not in view
         showRebate={showRebate}
         rebateValue={rebate}
         onSearch={(t) => {
