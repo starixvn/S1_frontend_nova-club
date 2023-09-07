@@ -28,34 +28,25 @@ const Providers = () => {
     >
       {systemCodes.map((p, i) => {
         const image = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/all-provider-colored/${p}.png`
-        return (
-          <>
-            {p && (
-              <View key={i} sx={{ width: 95, height: 40, mx: 5, my: '$2' }}>
-                <div
-                  className="footer-provider-img"
-                  style={{ width: '100%', height: '100%' }}
-                >
-                  <SolitoImage fill alt={p} contentFit="contain" src={image} />
-                </div>
-              </View>
-            )}
-          </>
+        return !p ? null : (
+          <View key={i} sx={{ width: 95, height: 40, mx: 5, my: '$2' }}>
+            <div
+              className="footer-provider-img"
+              style={{ width: '100%', height: '100%', position: 'relative' }}
+            >
+              <SolitoImage
+                // fill
+                width={95}
+                height={40}
+                alt={p}
+                contentFit="contain"
+                sizes=""
+                src={image}
+              />
+            </div>
+          </View>
         )
       })}
-      {/* <View sx={{ width: 100, height: 50, mx: '$3', my: '$2' }}>
-        <div
-          className="footer-provider-img"
-          style={{ width: '100%', height: '100%' }}
-        >
-          <SolitoImage
-            fill
-            alt={'g'}
-            contentFit="contain"
-            src={require('../../../assets/images/NERT.png')}
-          />
-        </div>
-      </View> */}
     </Row>
   )
 }

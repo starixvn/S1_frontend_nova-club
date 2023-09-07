@@ -3,7 +3,6 @@ import { FlashList } from '@shopify/flash-list'
 import Accordian from 'app/components/Accordian'
 import Icon from 'app/components/Icon'
 import Button from 'app/components/common/Button'
-import { MotifiedImage } from 'app/components/common/Image'
 import DataTableCell from 'app/components/dataTable/DataTableCell'
 import DataTableRow from 'app/components/dataTable/DataTableRow'
 import { SabaGamePayload } from 'app/constants/game'
@@ -23,6 +22,7 @@ import React, { useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { Game } from 'services/gameApi.type'
 import { League, MatchResult } from 'services/matchApi.type'
+import { SolitoImage } from 'solito/image'
 import { MEDIA_DOMAIN } from '../../../../apps/next/config/env'
 dayjs.extend(customParseFormat)
 
@@ -64,7 +64,7 @@ const handicapTypeArr = [
   MatchHandicapType.HALF_TIME_DOUBLE,
 ]
 
-const ROW_HEIGHT = 135
+const ROW_HEIGHT = 143
 
 const MatchListTable = ({
   leagueId,
@@ -96,7 +96,7 @@ const MatchListTable = ({
 
   return (
     <ScrollView
-      key={selectedTime + leagueId}
+      // key={selectedTime + leagueId}
       contentContainerSx={{
         overflow: 'hidden',
         mb: '$sectionBottomSpace',
@@ -122,93 +122,101 @@ const MatchListTable = ({
       ) : (
         allLeagueId.map((l, index) => {
           return (
-            <>
-              <Accordian
-                isExpandable
-                extended={true}
-                parentStyle={{
-                  px: 0,
-                  bg: '$primary.50',
-                  py: 5,
-                  my: '$2',
-                  borderBottomWidth: 1,
-                  borderColor: '$primary.700',
-                  borderSpacing: 0,
-                  borderCollapse: 'collapse',
-                }}
-                showDivider={false}
-                //set a minimum height to expand initially
-                estimatedExpandHeight={1000}
-                header={
+            <Accordian
+              key={index}
+              isExpandable
+              extended={true}
+              parentStyle={{
+                px: 0,
+                bg: '$primary.50',
+                py: 5,
+                my: '$2',
+                borderBottomWidth: 1,
+                borderColor: '$primary.700',
+                borderSpacing: 0,
+                borderCollapse: 'collapse',
+              }}
+              showDivider={false}
+              //set a minimum height to expand initially
+              estimatedExpandHeight={1000}
+              header={
+                <Row
+                  sx={{
+                    px: '$3',
+                    alignItems: 'center',
+                  }}
+                >
                   <Row
                     sx={{
-                      px: '$3',
                       alignItems: 'center',
                     }}
                   >
-                    <Row
+                    <Icon
+                      name={MatchLeagueTabIconMapping[l]}
+                      sx={{ fontSize: [24, 30, 34] }}
+                    />
+                    <Text
                       sx={{
-                        alignItems: 'center',
+                        mx: '$2',
+                        fontSize: 16,
+                        fontWeight: 'bold',
                       }}
                     >
-                      <Icon
-                        name={MatchLeagueTabIconMapping[l]}
-                        sx={{ fontSize: [24, 30, 34] }}
-                      />
-                      <Text
-                        sx={{
-                          mx: '$2',
-                          fontSize: 16,
-                          fontWeight: 'bold',
-                        }}
-                      >
-                        {fullData[l]?.[0]?.LeagueName}
-                      </Text>
-                    </Row>
+                      {fullData[l]?.[0]?.LeagueName}
+                    </Text>
                   </Row>
-                }
-              >
-                <FlashList
-                  key={leagueId + selectedTime} // Update the key prop
-                  data={fullData[l]}
-                  scrollEnabled={false}
-                  onLoad={(e) => {
-                    setIsFlashListLoading(false)
-                  }}
-                  renderItem={({ index, item }) => {
-                    return !isFlashListLoading ? (
-                      <OnRender
-                        index={index}
-                        item={item}
-                        selectedTime={selectedTime}
-                        filterEndDate={filterEndDate}
-                        filterStartDate={filterStartDate}
-                        onPress={onPress}
-                      />
-                    ) : (
-                      <View
-                        sx={{
-                          height: ROW_HEIGHT,
-                          justifyContent: 'center',
-                          width: '100%',
-                        }}
-                      >
-                        <ActivityIndicator
-                          size={'large'}
-                          color="$primary.100"
-                        />
-                      </View>
-                    )
-                  }}
-                  estimatedListSize={{
-                    width,
-                    height: ROW_HEIGHT,
-                  }}
-                  estimatedItemSize={20}
+                </Row>
+              }
+            >
+              {/* 
                   //Display All League with specific date
-                />
-              </Accordian>
-            </>
+                 */}
+              <FlashList
+                keyExtractor={(item, index) => {
+                  return item.EventId.toString() ?? index
+                }}
+                estimatedItemSize={20}
+                data={fullData[l]}
+                scrollEnabled={false}
+                onLoad={(e) => {
+                  //Add timeout to show the loading indicator for better UX
+                  setTimeout(() => {
+                    setIsFlashListLoading(false)
+                  }, 250)
+                }}
+                onEndReached={() => {
+                  fullData[l]
+                }}
+                extraData={isFlashListLoading}
+                renderItem={({ index, item }) => {
+                  console.log('FlashListLoading?@@@@ :', isFlashListLoading)
+                  return !isFlashListLoading ? (
+                    <OnRender
+                      index={index}
+                      item={item}
+                      selectedTime={selectedTime}
+                      filterEndDate={filterEndDate}
+                      filterStartDate={filterStartDate}
+                      onPress={onPress}
+                    />
+                  ) : (
+                    <View
+                      sx={{
+                        height: ROW_HEIGHT,
+                        justifyContent: 'center',
+                        width: '100%',
+                      }}
+                    >
+                      <ActivityIndicator size={'large'} color="$primary.100" />
+                    </View>
+                  )
+                }}
+                estimatedListSize={{
+                  width: 1095,
+                  height: ROW_HEIGHT,
+                }}
+              />
+            </Accordian>
           )
         })
       )}
@@ -235,7 +243,10 @@ const MatchListCellData = ({
           flex: 0.07,
           alignItems: selectionType === 'home' ? 'flex-end' : 'flex-start',
         }}
-        textStyle={{ fontWeight: 'bold' }}
+        textStyle={{
+          fontWeight: selectionType === 'away' ? 'bold' : 'bold',
+          fontSize: selectionType === 'away' ? 14 : 17,
+        }}
       >
         {dateTime}
       </DataTableCell>
@@ -247,11 +258,15 @@ const MatchListCellData = ({
         }}
       >
         {flag && (
-          <MotifiedImage
-            from={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            source={{ uri: flag }}
+          <SolitoImage
+            // from={{ scale: 0, opacity: 0 }}
+            // animate={{ scale: 1, opacity: 1 }}
+            src={flag}
+            // source={{ uri: flag }}
             alt="away"
+            width={30}
+            height={30}
+            loading="lazy"
             style={{ width: 30, height: 30 }}
             resizeMode="contain"
           />
@@ -271,13 +286,13 @@ const MatchListCellData = ({
       <DataTableCell
         sx={{
           justifyContent: 'flex-start',
-          // pl: '$2',
           flex: 1,
           px: 0,
           py: '$0',
         }}
       >
         {handicapTypeArr.map((d, i) => {
+          // console.log(i)
           //Length is 3 if it is 1x2 Full Time & 1x2 Half Time
           //Selection ID 0 is Home while 1 is Away,
           //Selection ID for Away is 2 when it is 1x2 Full Time & 1x2 Half Time (Length===2)
@@ -370,8 +385,7 @@ const MatchListCellData = ({
       </DataTableCell>
       <DataTableCell
         sx={{
-          flex: 0.1,
-          mr: '$4',
+          flex: 0.15,
           py: '$0',
           borderLeftWidth: 0.25,
           borderColor: 'rgba(255,255,255,0.6)',
@@ -379,7 +393,7 @@ const MatchListCellData = ({
       >
         {selectionType === 'away' && onPress && isLoggedIn ? (
           <Button
-            contentProps={{ sx: { py: '$2', px: '$2' } }}
+            contentProps={{ sx: { py: '$1', px: '$2' } }}
             titleProps={{ sx: { fontSize: [12, 12, 12, 12, 14] } }}
             onPress={() => onPress(item)}
           >
@@ -486,7 +500,7 @@ const MatchListCellRow = ({
       }}
     >
       <MatchListCellData
-        dateTime={time}
+        dateTime={date}
         flag={homeFlag}
         item={item}
         name={item.HomeName}
@@ -494,7 +508,7 @@ const MatchListCellRow = ({
       />
 
       <MatchListCellData
-        dateTime={date}
+        dateTime={time}
         flag={awayFlag}
         item={item}
         name={item.AwayName}
