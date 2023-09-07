@@ -1,7 +1,7 @@
 import { LIVECHAT_URL } from '@env'
 import Icon from 'app/components/Icon'
 import useLocalization from 'app/provider/localization'
-import { Image, Pressable, Text, View, useDripsyTheme } from 'dripsy'
+import { Image, Pressable, Text, View, styled, useDripsyTheme } from 'dripsy'
 import { MotiPressable } from 'moti/interactions'
 import React, { startTransition, useState } from 'react'
 import { Linking, Platform } from 'react-native'
@@ -31,51 +31,51 @@ const FloatingLiveChatDesktop = () => {
         borderTopLeftRadius: 15,
         borderBottomLeftRadius: 15,
         flexDirection: 'row',
+        cursor: 'default',
       }}
-      onHoverIn={() => startTransition(() => setIsMenuOpen(true))}
       onHoverOut={() => startTransition(() => setIsMenuOpen(false))}
-      animate={{ translateX: isMenuOpen ? 50 : 152 }}
+      animate={{ translateX: isMenuOpen ? 20 : 152 }}
     >
-      <AnimatePresence>
-        {!isMenuOpen && (
-          <View
+      <View>
+        <StyledMotiPressable
+          sx={{
+            position: 'relative',
+            py: 12,
+            px: '$1',
+            alignItems: 'center',
+            alignSelf: 'baseline',
+            backgroundColor: theme.colors?.$primary
+              ? theme.colors?.$primary[100]
+              : 'transparent',
+            borderTopLeftRadius: 15,
+            borderBottomLeftRadius: 15,
+          }}
+          onHoverIn={() => startTransition(() => setIsMenuOpen(true))}
+          animate={{ opacity: isMenuOpen ? 0 : 1 }}
+        >
+          <MotiView
+            animate={{
+              transform: [{ rotateZ: isMenuOpen ? '180deg' : '0deg' }],
+            }}
+            transition={{ type: 'timing', duration: 500 }}
+          >
+            <Icon name={'back'} size={14} />
+          </MotiView>
+
+          <Text
+            numberOfLines={1}
             sx={{
-              position: 'relative',
-              py: 12,
-              px: '$1',
-              alignItems: 'center',
-              alignSelf: 'baseline',
-              backgroundColor: theme.colors?.$primary
-                ? theme.colors?.$primary[100]
-                : 'transparent',
-              borderTopLeftRadius: 15,
-              borderBottomLeftRadius: 15,
+              transform: [{ rotateZ: '180deg' }],
+              writingMode: 'vertical-lr',
+              textOrientation: 'mixed',
+              my: 12,
+              fontWeight: 'bold',
             }}
           >
-            <MotiView
-              animate={{
-                transform: [{ rotateZ: isMenuOpen ? '180deg' : '0deg' }],
-              }}
-              transition={{ type: 'timing', duration: 500 }}
-            >
-              <Icon name={'back'} size={14} />
-            </MotiView>
-
-            <Text
-              numberOfLines={1}
-              sx={{
-                transform: [{ rotateZ: '180deg' }],
-                writingMode: 'vertical-lr',
-                textOrientation: 'mixed',
-                my: 12,
-                fontWeight: 'bold',
-              }}
-            >
-              {t('footer.contactUs')}
-            </Text>
-          </View>
-        )}
-      </AnimatePresence>
+            {t('footer.contactUs')}
+          </Text>
+        </StyledMotiPressable>
+      </View>
 
       <View
         sx={{
@@ -144,5 +144,7 @@ export const CSDesktop = ({
     </Pressable>
   )
 }
+
+const StyledMotiPressable = styled(MotiPressable)()
 
 export default FloatingLiveChatDesktop
