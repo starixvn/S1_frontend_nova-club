@@ -79,7 +79,7 @@ const GameListSectionGridHeader = ({
               }}
               onPress={onSeeMore}
             >
-              <Text sx={{ textDecorationLine: 'underline', fontSize: 14 }}>
+              <Text sx={{ textDecorationLine: 'underline', fontSize: 12 }}>
                 {t('common.seeMore')} {'>>'}
               </Text>
             </TouchableOpacity>
