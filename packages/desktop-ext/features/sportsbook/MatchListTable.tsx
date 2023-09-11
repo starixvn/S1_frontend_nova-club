@@ -187,7 +187,7 @@ const MatchListTable = ({
                 onEndReached={() => {
                   fullData[l]
                 }}
-                extraData={isFlashListLoading}
+                extraData={[isFlashListLoading, filterStartDate]}
                 renderItem={({ index, item }) => {
                   console.log('FlashListLoading?@@@@ :', isFlashListLoading)
                   return !isFlashListLoading ? (
