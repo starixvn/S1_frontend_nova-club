@@ -21,6 +21,9 @@ export default function HomeScreen() {
   )
   const { openModal, closeModal, currentModal } = useModal()
   const luckyDrawBalance = useAppSelector((s) => s.setting.luckyDrawBalance)
+  const retentionDrawBalance = useAppSelector(
+    (s) => s.setting.retentionDrawBalance
+  )
 
   const syncShieldStatus = useAppSelector(
     (state) => state.tempSetting.syncShieldStatus
@@ -58,7 +61,7 @@ export default function HomeScreen() {
   useEffect(() => {
     let openLuckyDrawModalInstance: NodeJS.Timeout
 
-    if (luckyDrawBalance) {
+    if (luckyDrawBalance || retentionDrawBalance) {
       if (currentModal === 'LuckyDrawModal') {
         closeModal('LuckyDrawModal')
       }
@@ -71,7 +74,7 @@ export default function HomeScreen() {
     return () => {
       clearTimeout(openLuckyDrawModalInstance)
     }
-  }, [luckyDrawBalance])
+  }, [luckyDrawBalance, retentionDrawBalance])
 
   return (
     <ScrollView

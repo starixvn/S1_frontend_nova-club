@@ -178,3 +178,13 @@ export type PlayerRealNameArgs = {
   username: string
   realName: string
 }
+
+export type EligibleSpinResult = {
+  details: EligibleSpinItem[]
+}
+
+type EligibleSpinItem = {
+  event_code: string
+  event_type: 'registration' | 'retention'
+  wheel_info: WheelInfo
+}

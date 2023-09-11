@@ -15,7 +15,10 @@ import { Linking, Platform, useWindowDimensions } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { Easing } from 'react-native-reanimated'
 import { useDispatch } from 'react-redux'
-import { useLuckySpinMutation } from 'services/playerApi'
+import {
+  useLuckySpinMutation,
+  useRetentionSpinMutation,
+} from 'services/playerApi'
 import { useRouter } from 'solito/router'
 import IconButton from '../IconButton'
 import { MotifiedImage } from '../common/Image'
@@ -34,7 +37,11 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
   const { showAlert } = useAlert()
 
   const [spinLuckyWheel] = useLuckySpinMutation()
+  const [spinRetentionWheel] = useRetentionSpinMutation()
   const luckyDrawBalance = useAppSelector((s) => s.setting.luckyDrawBalance)
+  const retentionDrawBalance = useAppSelector(
+    (s) => s.setting.retentionDrawBalance
+  )
 
   const targetIndex = useRef(0)
   const [startAnimate, setStartAnimate] = useState(false)
@@ -44,7 +51,7 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
   const [startAnimateWinPrizeFrame, setStartAnimateWinPrizeFrame] =
     useState(false)
 
-  const canSpin = luckyDrawBalance > 0 // luckyDrawBalance > 0
+  const canSpin = luckyDrawBalance > 0 || retentionDrawBalance > 0
 
   const { isLandscape } = useOrientation()
 
@@ -83,16 +90,54 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
     }
   }
 
+  const retentionSpin = async () => {
+    setLoopCount((prev) => prev + 20)
+    setStartAnimate(true)
+    setLoading(true)
+
+    const { data, success, message } = await spinRetentionWheel()
+      .unwrap()
+      .catch((error) => {
+        setLoading(false)
+        showAlert(error)
+        return error
+      })
+
+    if (success) {
+      targetIndex.current = handleSpinMapping(data.code)
+      dispatch(SettingActions.setRetentionDrawBalance(0)) // this is to trigger the memoized wheel
+      // setSpinBalance((prev) => prev + 1)
+
+      setTimeout(() => {
+        showAlert({
+          message: data.note,
+          onClose: () => {
+            setTimeout(() => handleClose(), 500)
+          },
+          persistent: true,
+        })
+        // setLoading(false) // since can only spin 1 time, retain the loading until its auto closed
+      }, 5500)
+      setStartAnimateWinPrizeFrame(true)
+    } else {
+      setLoading(false)
+      // showAlert(message)
+    }
+  }
+
   const debounceSpin = useCallback(debounce(spin, 500), [])
+  const debounceRetentionSpin = useCallback(debounce(retentionSpin, 500), [])
   const triggerDebounceSpin = () => {
     setLoading(true)
-    debounceSpin()
+    luckyDrawBalance ? debounceSpin() : debounceRetentionSpin()
   }
 
   const handleClose = () => {
     closeTargetModal('LuckyDrawModal')
     // closeTargetModal('RegisterModal')
-    dispatch(SettingActions.setLuckyDrawBalance(0))
+    luckyDrawBalance > 0 && dispatch(SettingActions.setLuckyDrawBalance(0))
+    retentionDrawBalance > 0 &&
+      dispatch(SettingActions.setRetentionDrawBalance(0))
   }
 
   const handleNavigateTnc = () => {
@@ -147,7 +192,7 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
         }}
       />
     )
-  }, [luckyDrawBalance])
+  }, [luckyDrawBalance, retentionDrawBalance])
 
   return (
     <View

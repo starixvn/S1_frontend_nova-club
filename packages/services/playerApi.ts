@@ -2,6 +2,7 @@ import { Currency } from 'app/utils/constant'
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
+  EligibleSpinResult,
   FreeSpinArgs,
   FreeSpinResult,
   LuckySpinArgs,
@@ -94,12 +95,25 @@ const playerApi = baseApiWithTag.injectEndpoints({
         },
       }),
     }),
+    eligibleSpin: builder.query<IResponse<EligibleSpinResult>, void>({
+      query: () => ({
+        url: `/player_api/getEligibleEvents`,
+        method: 'POST',
+      }),
+    }),
     luckySpin: builder.mutation<IResponse<LuckySpinArgs>, void>({
       query: (queryArgs) => ({
         url: `/player_api/registerFreeWheelSpin`,
         method: 'POST',
       }),
     }),
+    retentionSpin: builder.mutation<IResponse<LuckySpinArgs>, void>({
+      query: (queryArgs) => ({
+        url: `/player_api/retentionFreeWheelSpin`,
+        method: 'POST',
+      }),
+    }),
+    // soon to be deprecated, use eligibleSpin to get register spin balance
     freeSpin: builder.query<IResponse<FreeSpinResult>, void>({
       query: () => ({
         url: `/player_api/getRegisterFreeWheelSpin`,
@@ -152,6 +166,8 @@ export const {
   useUpdateProfileMutation,
   useSendUpdateProfileOTPMutation,
   useLuckySpinMutation,
+  useRetentionSpinMutation,
   useLazyFreeSpinQuery,
+  useLazyEligibleSpinQuery,
   usePlayerRealNameMutation,
 } = playerApi
