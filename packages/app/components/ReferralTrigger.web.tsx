@@ -16,9 +16,14 @@ export default function ReferralTrigger({}) {
   const { openModal } = useModal()
   const { push } = useRouter()
   const referral = useAppSelector((s) => s.setting.referral)
+  const token = useAppSelector((s) => s.auth.info?.token)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
+    if (token) {
+      return
+    }
+
     if (ref) {
       const filterRef = ref.replace(/[^0-9a-zA-Z]/g, '')
 
@@ -36,7 +41,7 @@ export default function ReferralTrigger({}) {
         else push('/auth/register')
       }
     }
-  }, [ref])
+  }, [ref, token])
 
   return null
 }
