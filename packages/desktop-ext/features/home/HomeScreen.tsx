@@ -94,7 +94,7 @@ export default function HomeScreen() {
     return () => {
       clearTimeout(openLuckyDrawModalInstance)
     }
-  }, [luckyDrawBalance])
+  }, [luckyDrawBalance, retentionDrawBalance])
 
   return (
     <View sx={{}}>
