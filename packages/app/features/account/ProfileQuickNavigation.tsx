@@ -1,3 +1,4 @@
+import Badge, { MessageBadge } from 'app/components/Badge'
 import Icon from 'app/components/Icon'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import { Profile_Quick_Navigation_Path } from 'app/navigation/RoutePath'
@@ -62,37 +63,39 @@ const ProfileQuickNavigation = () => {
           r.icon === 'logout' ? TriggerLogout() : push(r.path ?? '/')
         }
       >
-        <Gradient
-          colors={theme.linearGradients.surface}
-          sx={{
-            borderRadius: 15,
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: CARD_SIZE,
-            height: CARD_SIZE,
-          }}
-        >
-          <Icon
-            name={r.icon ?? 'notice'}
-            color={'white'}
-            size={24}
-            sx={{ p: 10 }}
-          />
-          <Text
-            numberOfLines={2}
+        <MessageBadge hideBadge={r.icon !== 'announcement'}>
+          <Gradient
+            colors={theme.linearGradients.surface}
             sx={{
-              fontWeight: '500',
-              px: 5,
-              lineHeight: 12,
-              textAlign: 'center',
-              textTransform: 'uppercase',
-              fontSize: 9,
-              color: 'white',
+              borderRadius: 15,
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: CARD_SIZE,
+              height: CARD_SIZE,
             }}
           >
-            {t(r.label)}
-          </Text>
-        </Gradient>
+            <Icon
+              name={r.icon ?? 'notice'}
+              color={'white'}
+              size={24}
+              sx={{ p: 10 }}
+            />
+            <Text
+              numberOfLines={2}
+              sx={{
+                fontWeight: '500',
+                px: 5,
+                lineHeight: 12,
+                textAlign: 'center',
+                textTransform: 'uppercase',
+                fontSize: 9,
+                color: 'white',
+              }}
+            >
+              {t(r.label)}
+            </Text>
+          </Gradient>
+        </MessageBadge>
       </Pressable>
     )
   }

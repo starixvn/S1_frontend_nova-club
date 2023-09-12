@@ -2,9 +2,8 @@ import Accordian from 'app/components/Accordian'
 import CheckBox from 'app/components/common/CheckBox'
 import { ViewRow } from 'app/components/common/ViewRow'
 import { Text, View, styled } from 'dripsy'
-import React, { useState } from 'react'
+import React from 'react'
 import HTMLLoader from './HTMLLoader'
-import { useLazyMessageDetailsQuery } from 'services/messageApi'
 
 type MessageCardProps = {
   selected?: boolean
