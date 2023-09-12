@@ -1,3 +1,4 @@
+import Badge, { MessageBadge } from 'app/components/Badge'
 import Divider from 'app/components/Divider'
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
@@ -88,7 +89,9 @@ const NavMenuItem = ({
           }}
         >
           {icon && <Icon name={icon} sx={{ mr: '$3' }} />}
-          <Text>{label}</Text>
+          <Text sx={{ flex: 1 }}>{label}</Text>
+
+          <MessageBadge hideBadge={icon !== 'announcement'} size="inline" />
         </Row>
       </DripsyGradient>
     </NavMenuPressable>

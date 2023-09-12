@@ -18,8 +18,9 @@ const messageApi = baseApiWithTag.injectEndpoints({
       transformResponse: (r: IResponse<MessageResult>) => {
         return r.data?.rows || []
       },
+      providesTags: ['Message'],
     }),
-    messageDetails: builder.query<
+    messageDetails: builder.mutation<
       IResponse<MessageDetailsResult>,
       MessageDetailsArgs
     >({
@@ -30,6 +31,7 @@ const messageApi = baseApiWithTag.injectEndpoints({
           ...queryArgs,
         },
       }),
+      invalidatesTags: ['Message'],
     }),
     deleteMessages: builder.mutation<IResponse, DeleteMessageQueryArgs>({
       query: ({ isDeleteAll, ids }) => ({
@@ -49,6 +51,6 @@ const messageApi = baseApiWithTag.injectEndpoints({
 
 export const {
   useMessageQuery,
-  useLazyMessageDetailsQuery,
+  useMessageDetailsMutation,
   useDeleteMessagesMutation,
 } = messageApi

@@ -19,5 +19,6 @@ export const baseApiWithTag = baseApi.enhanceEndpoints({
     'TicketBalance',
     'PlayerProfile',
     'RecoMatches',
+    'Message',
   ],
 })

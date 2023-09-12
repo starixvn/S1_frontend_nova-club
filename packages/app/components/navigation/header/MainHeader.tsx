@@ -1,11 +1,14 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import AgentLoginButton from 'app/components/AgentLoginButton'
+import { MessageBadge } from 'app/components/Badge'
 import IconButton from 'app/components/IconButton'
 import IconButtonGradient from 'app/components/IconButtonGradient'
 import Shadow from 'app/components/Shadow'
+import FloatingDownload from 'app/features/floatingContent/FloatingDownload'
 import { useDrawer } from 'app/hooks/useDrawer'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
+import usePathname from 'app/hooks/usePathname'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
@@ -23,6 +26,7 @@ import {
 } from 'dripsy'
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
+import { Platform } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { Link } from 'solito/link'
 import { useRouter } from 'solito/router'
@@ -30,9 +34,6 @@ import HeaderAuthentication from './HeaderAuthentication'
 import HeaderDeposit from './HeaderDeposit'
 import HeaderLanguageToggle from './HeaderLanguageToggle'
 import HeaderOverview from './HeaderOverview'
-import FloatingDownload from 'app/features/floatingContent/FloatingDownload'
-import { Platform } from 'react-native'
-import usePathname from 'app/hooks/usePathname'
 
 const LogoSize = [HEADER_HEIGHT * 0.5, HEADER_HEIGHT * 0.75]
 
@@ -113,11 +114,13 @@ const MainHeader = () => {
               sx={{ borderRadius: 50 }}
               onPress={() => push('/account')}
             >
-              <Image
-                alt="user-avatar"
-                source={require('../../../assets/images/common/avatarx2.png')}
-                sx={{ width: 34, height: 34, borderRadius: 50 }}
-              />
+              <MessageBadge size="small">
+                <Image
+                  alt="user-avatar"
+                  source={require('../../../assets/images/common/avatarx2.png')}
+                  sx={{ width: 34, height: 34, borderRadius: 50 }}
+                />
+              </MessageBadge>
             </Pressable>
             {desktop && (
               <>
