@@ -2,17 +2,17 @@ import { CONTENT_URI, MEDIA_DOMAIN, REFERRAL_DOMAIN } from '@env'
 import Icon from 'app/components/Icon'
 import Button from 'app/components/common/Button'
 import useContainerWidth from 'app/hooks/useContainerWidth'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import { Image, Pressable, Text, View } from 'dripsy'
+import { Image, Pressable, Text, View, useResponsiveValue } from 'dripsy'
 import { ResizeMode, Video } from 'expo-av'
 import React, { useRef, useState } from 'react'
 import { ImageBackground, View as RNView } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import QRCode from 'react-native-qrcode-svg'
-const HowToInstall =
-  `${MEDIA_DOMAIN}${CONTENT_URI}/download/How_To_Install.mp4` as any
-const DownloadGuideThumbnail =
-  `${MEDIA_DOMAIN}${CONTENT_URI}/download/dl_guide_thumbnail.jpg` as any
+
+const HowToInstall = `${MEDIA_DOMAIN}${CONTENT_URI}/download/How_To_Install.mp4`
+const DownloadGuideThumbnail = `${MEDIA_DOMAIN}${CONTENT_URI}/download/dl_guide_thumbnail.jpg`
 
 const AppDownloadSection = () => {
   const { t } = useLocalization()
@@ -20,15 +20,17 @@ const AppDownloadSection = () => {
   const width = useContainerWidth(ref)
   const qrWidth = Math.min(width * 0.3, 125)
   const [isPlaying, setIsPlaying] = useState(false)
+  const isDesktop = useIsDesktop()
+
   return (
-    <View sx={{ flexDirection: 'row' }}>
+    <View sx={{ flexDirection: isDesktop ? 'row' : 'column' }}>
       <ImageBackground
-        source={`${MEDIA_DOMAIN}${CONTENT_URI}/download/BG_DL.jpg`}
+        source={{ uri: `${MEDIA_DOMAIN}${CONTENT_URI}/download/BG_DL.jpg` }}
         style={{
-          aspectRatio: 1 / 1,
+          aspectRatio: isDesktop ? 1 / 1 : undefined,
           flex: 1 / 3,
           alignItems: 'center',
-          minHeight: 433,
+          minHeight: 233,
         }}
       >
         <View
@@ -47,7 +49,7 @@ const AppDownloadSection = () => {
             alt="logo"
             sx={{
               aspectRatio: 67 / 24,
-              width: '45%',
+              width: [150, '25%', '25%', '45%'],
             }}
           />
           <Text
@@ -81,10 +83,11 @@ const AppDownloadSection = () => {
           </View>
         </View>
       </ImageBackground>
+
       <View
         sx={{
           flex: 2 / 3,
-          minHeight: 375,
+          aspectRatio: 16 / 9,
         }}
       >
         {!isPlaying && (
@@ -100,7 +103,7 @@ const AppDownloadSection = () => {
             }}
           >
             <ImageBackground
-              source={DownloadGuideThumbnail}
+              source={{ uri: DownloadGuideThumbnail }}
               alt="download-guide"
               resizeMode="stretch"
               style={{
@@ -112,8 +115,8 @@ const AppDownloadSection = () => {
             >
               <View
                 sx={{
-                  width: 125,
-                  height: 125,
+                  width: [100, 125],
+                  height: [100, 125],
                   borderRadius: 25,
                   backgroundColor: 'rgba(255,255,255,0.25)',
                   alignItems: 'center',
@@ -128,11 +131,14 @@ const AppDownloadSection = () => {
 
         {isPlaying && (
           <Video
-            source={HowToInstall}
-            videoStyle={{ position: 'relative', minHeight: 433 }}
+            source={{ uri: HowToInstall }}
+            videoStyle={{ position: 'relative', height: '100%' }}
             isLooping
             shouldPlay={isPlaying}
             useNativeControls
+            style={{
+              height: '100%',
+            }}
             resizeMode={ResizeMode.CONTAIN}
           />
         )}
