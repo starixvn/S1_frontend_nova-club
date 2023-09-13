@@ -19,6 +19,7 @@ const { useParam } = createParam<{ t: LoginType }>()
 export default function LoginScreenDesktop({ modal }: Props) {
   const { t } = useLocalization()
   const [urlType, setUrlType] = useParam('t', { initial: LoginType.Member })
+
   const modalType = modal?.getParam('t', LoginType.Agent)
   const type = modalType ?? urlType
 
@@ -45,7 +46,10 @@ export default function LoginScreenDesktop({ modal }: Props) {
     })
     if (initT) setIndex(initT.index)
 
-    if (memberToken) setRoutes([agentRoute])
+    if (memberToken) {
+      if (urlType !== 'agent') replace('/')
+      else setRoutes([agentRoute])
+    }
   }, [])
 
   return (
