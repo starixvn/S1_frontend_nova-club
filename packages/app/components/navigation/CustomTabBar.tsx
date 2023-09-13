@@ -1,10 +1,10 @@
-import { Container, Pressable, Row, Text, View, styled } from 'dripsy'
-import uniqueId from 'lodash/uniqueId'
-import React, { ComponentProps } from 'react'
-import { DripsyGradient } from '../Gradient'
-import ShadowButton from '../ShadowButton'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
 import useLocalization from 'app/provider/localization'
+import { Container, Pressable, Row, Text, styled } from 'dripsy'
+import React, { ComponentProps } from 'react'
+import { MessageBadge } from '../Badge'
+import { DripsyGradient } from '../Gradient'
+import ShadowButton from '../ShadowButton'
 
 const StyledPressable = styled(Pressable)({
   maxWidth: 200,
@@ -97,15 +97,19 @@ export const TabBarSelection = ({
               onPress={() => handlePress(route.index)}
               {...buttonProps}
             >
-              <ShadowButton isActive={isActive} safeRender stretch>
-                <StyledButtonText
-                  numberOfLines={2}
-                  isActive={isActive}
-                  {...buttonTextProps}
-                >
-                  {t(route?.title) ?? ''}
-                </StyledButtonText>
-              </ShadowButton>
+              <MessageBadge
+                hideBadge={route.title !== 'message.personalMessage'}
+              >
+                <ShadowButton isActive={isActive} safeRender stretch>
+                  <StyledButtonText
+                    numberOfLines={2}
+                    isActive={isActive}
+                    {...buttonTextProps}
+                  >
+                    {t(route?.title) ?? ''}
+                  </StyledButtonText>
+                </ShadowButton>
+              </MessageBadge>
             </StyledPressable>
           )
         })}

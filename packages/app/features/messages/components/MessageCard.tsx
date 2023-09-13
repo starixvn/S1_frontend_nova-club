@@ -3,8 +3,8 @@ import CheckBox from 'app/components/common/CheckBox'
 import { ViewRow } from 'app/components/common/ViewRow'
 import { Text, View, styled } from 'dripsy'
 import React, { useState } from 'react'
+import { useMessageDetailsMutation } from 'services/messageApi'
 import HTMLLoader from './HTMLLoader'
-import { useLazyMessageDetailsQuery } from 'services/messageApi'
 
 type MessageCardProps = {
   selected?: boolean
@@ -26,7 +26,7 @@ const MessageCard = ({
 }: MessageCardProps) => {
   const [isExtend, setIsExtend] = useState(false)
   const [content, setContent] = useState('')
-  const [fetchMessageDetails] = useLazyMessageDetailsQuery()
+  const [fetchMessageDetails] = useMessageDetailsMutation()
 
   const handleMessageDetail = async () => {
     try {

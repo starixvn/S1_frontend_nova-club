@@ -108,6 +108,10 @@ function GameSectionByProviderItem({
         onSearch={(t) => {
           startTransition(() => setSearch(t))
         }}
+        showSeeMore={onViewMore && canShowMore()}
+        onSeeMore={() => {
+          gpc && onViewMore(gpc, filter)
+        }}
       >
         <View sx={{ flexDirection: 'row' }}>
           {gpc ? (
@@ -145,14 +149,14 @@ function GameSectionByProviderItem({
         bordered={bordered}
         {...gameListProps}
       />
-      {onViewMore && canShowMore() && (
+      {/* {onViewMore && canShowMore() && (
         <Button
           sx={{ alignSelf: 'center', my: '$3' }}
           onPress={() => gpc && onViewMore(gpc, filter)}
         >
           {t('common.showMore')}
         </Button>
-      )}
+      )} */}
     </View>
   )
 }
