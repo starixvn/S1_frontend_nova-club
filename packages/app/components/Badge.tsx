@@ -27,9 +27,9 @@ const Badge = ({
     switch (size) {
       case 'medium':
         variant = {
-          p: 4,
-          right: -6,
-          top: -6,
+          width: 20,
+          right: -4,
+          top: -4,
         }
 
         fontVariant = {
@@ -39,7 +39,7 @@ const Badge = ({
         break
       case 'large':
         variant = {
-          p: 6,
+          width: 24,
           right: -6,
           top: -6,
         }
@@ -52,7 +52,7 @@ const Badge = ({
 
       case 'inline':
         variant = {
-          p: 6,
+          width: 24,
           right: 0,
           top: -2,
         }
@@ -66,9 +66,9 @@ const Badge = ({
       case 'small':
       default:
         variant = {
-          p: 2,
-          right: -2,
-          top: -2,
+          width: 16,
+          right: -4,
+          top: -4,
         }
         fontVariant = {
           fontSize: 9,
