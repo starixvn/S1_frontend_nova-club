@@ -72,7 +72,10 @@ export default function LoginScreen() {
     })
     if (initT) setIndex(initT.index)
 
-    if (memberToken) setRoutes([agentRoute])
+    if (memberToken) {
+      if (type !== 'agent') replace('/')
+      else setRoutes([agentRoute])
+    }
   }, [])
 
   return (
