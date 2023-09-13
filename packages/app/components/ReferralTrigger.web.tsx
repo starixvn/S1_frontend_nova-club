@@ -1,4 +1,5 @@
 import useIsDesktop from 'app/hooks/useIsDesktop'
+import usePathname from 'app/hooks/usePathname'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
 import { useEffect } from 'react'
@@ -12,6 +13,7 @@ export default function ReferralTrigger({}) {
   const isDesktop = useIsDesktop()
 
   const [ref] = useParam('ref')
+  const pathname = usePathname()
 
   const { openModal } = useModal()
   const { push } = useRouter()
@@ -36,7 +38,7 @@ export default function ReferralTrigger({}) {
 
         if (isDesktop)
           setTimeout(() => {
-            openModal('RegisterModal')
+            !pathname.includes('/auth/login') && openModal('RegisterModal')
           }, 2000)
         else push('/auth/register')
       }
