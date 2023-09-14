@@ -7,8 +7,10 @@ const TncVi = () => {
     <div>
       {isDesktop && <h2>ĐIỀU KHOẢN VÀ ĐIỀU KIỆN</h2>}
 
-      <br />
-      <h2>DAILY FREE SPINS GIVEAWAY</h2>
+      <div>
+        <strong>VÒNG QUAY MIỄN PHÍ MỖI NGÀY</strong>
+        <br />
+      </div>
       <p>Thời gian khuyến mãi: 21/09-31/12/2023</p>
 
       <br />
