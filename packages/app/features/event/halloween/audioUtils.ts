@@ -40,6 +40,13 @@ export function useSoundPlayback(
 ) {
   const ref = useRef<Audio.Sound>()
 
+  async function preload() {
+    ref.current = await createAudioInstance(name, {
+      ...options,
+      shouldPlay: false,
+    })
+  }
+
   async function play() {
     if (ref.current) {
       await ref.current.replayAsync()
@@ -64,5 +71,5 @@ export function useSoundPlayback(
     }
   }
 
-  return [play, dispose] as const
+  return [play, dispose, preload] as const
 }

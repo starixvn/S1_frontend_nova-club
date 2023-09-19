@@ -90,9 +90,13 @@ const SlotMachine = () => {
 
   const [isFontLoaded] = useFonts(BeVietnamProUseFont)
 
-  const [spinPlayback, spinPlaybackDispose] = useSoundPlayback('spin')
-  const [wonPlayback, wonPlaybackDispose] = useSoundPlayback('won')
-  const [bgPlayback, bgPlaybackDispose] = useSoundPlayback('bg')
+  const [spinPlayback, spinPlaybackDispose, preloadSpinPlayback] =
+    useSoundPlayback('spin')
+  const [wonPlayback, wonPlaybackDispose, preloadWonPlayback] =
+    useSoundPlayback('won')
+  const [bgPlayback, bgPlaybackDispose] = useSoundPlayback('bg', {
+    isLooping: true,
+  })
 
   const imageBackgroundref = useCallback((node) => {
     if (!node) return
@@ -176,7 +180,6 @@ const SlotMachine = () => {
       return
     }
 
-    wonPlayback()
     openWinModal()
   }
 
@@ -192,6 +195,9 @@ const SlotMachine = () => {
           progressAmount.value = 0
         }
       )
+
+      wonPlayback()
+
       redeemPrizeError.current = ''
       setAnimating(false)
     }
@@ -257,6 +263,9 @@ const SlotMachine = () => {
 
   useEffect(() => {
     if (Platform.OS !== 'web') bgPlayback()
+
+    preloadWonPlayback()
+    preloadSpinPlayback()
 
     return () => {
       spinPlaybackDispose()
