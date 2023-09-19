@@ -66,6 +66,7 @@ export type ModalStackParams = {
     t: LoginType
   }
   EventPopupModal: undefined
+  HalloweenWinModal: undefined
   DepositQrModal: { qrCode: string }
 }
 
@@ -99,6 +100,8 @@ const _dynamicModal: Record<keyof ModalStackParams, () => Promise<any>> = {
     import('desktop-ext/features/auth/forgotPassword/ForgotPasswordScreen'),
   EventPopupModal: () => import('app/components/modal/EventPopupModal'),
   DepositQrModal: () => import('app/components/modal/DepositQrModal'),
+  HalloweenWinModal: () =>
+    import('app/features/event/halloween/HalloweenWinModal'),
 }
 
 function getDynamicComponent(key: DynamicModalType) {
@@ -172,6 +175,9 @@ const modalConfig: ModalConfigType = {
   },
   DepositQrModal: {
     modal: getDynamicComponent('DepositQrModal'),
+  },
+  HalloweenWinModal: {
+    modal: getDynamicComponent('HalloweenWinModal'),
   },
   ...agentModalConfig,
 }

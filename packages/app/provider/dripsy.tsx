@@ -1,4 +1,5 @@
 import AvertaStd from 'app/assets/fonts/Averta'
+import BeVietnamPro from 'app/assets/fonts/BeVietnamePro'
 import { DripsyProvider, makeTheme } from 'dripsy'
 import { Platform } from 'react-native'
 
@@ -36,6 +37,10 @@ const theme = makeTheme({
       '700': webFont(AvertaStd.Bold.name),
       '800': webFont(AvertaStd.Bold.name),
       '900': webFont(AvertaStd.Black.name),
+    },
+    [BeVietnamPro.Regular.name]: {
+      default: webFont(BeVietnamPro.Black.name),
+      '900': webFont(BeVietnamPro.Black.name),
     },
   },
   breakpoints: [576, 768, 992, 1200, 1400],

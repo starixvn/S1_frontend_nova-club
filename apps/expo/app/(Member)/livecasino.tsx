@@ -1,3 +1,3 @@
-import LiveCasinoScreen from 'app/features/livecasino/LiveCasinoScreen'
+import LiveCasinoScreen from 'app/features/liveCasino/LiveCasinoScreen'
 
 export default LiveCasinoScreen

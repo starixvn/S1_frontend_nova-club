@@ -14,7 +14,7 @@ import {
 } from 'react'
 import { FlatListProps } from 'react-native'
 import { SheetManager } from 'react-native-actions-sheet'
-import ActionSheet, { ActionSheetProps } from '../actionSheet/ActionSheet'
+import ActionSheet, { ActionSheetProps } from '../actionsheet/ActionSheet'
 import Input, { InputProps } from '../form/Input'
 import Icon from '../Icon'
 import { InputLabelProps } from '../Label'
