@@ -2,6 +2,7 @@ import { Currency } from 'app/utils/constant'
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
+  EligibleSpinResult,
   FreeSpinArgs,
   FreeSpinResult,
   LuckySpinArgs,
@@ -17,6 +18,7 @@ import {
   // ReportArgs,
   ReportResult,
 } from './playerApi.type'
+import { walletApi } from './walletApi'
 
 const playerApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
@@ -94,12 +96,47 @@ const playerApi = baseApiWithTag.injectEndpoints({
         },
       }),
     }),
+    eligibleSpin: builder.query<IResponse<EligibleSpinResult>, void>({
+      query: () => ({
+        url: `/player_api/getEligibleEvents`,
+        method: 'POST',
+      }),
+    }),
     luckySpin: builder.mutation<IResponse<LuckySpinArgs>, void>({
       query: (queryArgs) => ({
         url: `/player_api/registerFreeWheelSpin`,
         method: 'POST',
       }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled
+          // `onSuccess` side-effect
+          setTimeout(() => {
+            dispatch(dispatch(walletApi.util.invalidateTags(['Balance'])))
+          }, 6000)
+        } catch (err) {
+          // `onError` side-effect
+        }
+      },
     }),
+    retentionSpin: builder.mutation<IResponse<LuckySpinArgs>, void>({
+      query: (queryArgs) => ({
+        url: `/player_api/retentionFreeWheelSpin`,
+        method: 'POST',
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled
+          // `onSuccess` side-effect
+          setTimeout(() => {
+            dispatch(dispatch(walletApi.util.invalidateTags(['Balance'])))
+          }, 6000)
+        } catch (err) {
+          // `onError` side-effect
+        }
+      },
+    }),
+    // soon to be deprecated, use eligibleSpin to get register spin balance
     freeSpin: builder.query<IResponse<FreeSpinResult>, void>({
       query: () => ({
         url: `/player_api/getRegisterFreeWheelSpin`,
@@ -152,6 +189,8 @@ export const {
   useUpdateProfileMutation,
   useSendUpdateProfileOTPMutation,
   useLuckySpinMutation,
+  useRetentionSpinMutation,
   useLazyFreeSpinQuery,
+  useLazyEligibleSpinQuery,
   usePlayerRealNameMutation,
 } = playerApi

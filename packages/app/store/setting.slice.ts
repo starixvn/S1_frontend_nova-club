@@ -36,6 +36,7 @@ export interface Setting {
 
   lastSyncShield?: LastSyncShield
   luckyDrawBalance: number
+  retentionDrawBalance: number
   suggestions: boolean
   appDownloadSuggestion?: Date
   floatingDrawer: boolean
@@ -56,6 +57,7 @@ const initialState: Setting = {
   transferScan: false,
   suggestions: true,
   luckyDrawBalance: 0,
+  retentionDrawBalance: 0,
   floatingDrawer: true,
 }
 
@@ -128,6 +130,9 @@ const settingSlice = createSlice({
     },
     setLuckyDrawBalance: (state, action: PayloadAction<number>) => {
       state.luckyDrawBalance = action.payload
+    },
+    setRetentionDrawBalance: (state, action: PayloadAction<number>) => {
+      state.retentionDrawBalance = action.payload
     },
     disableSuggestions: (state, actions: PayloadAction<boolean>) => {
       state.suggestions = actions.payload

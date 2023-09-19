@@ -7,8 +7,8 @@ import { useModal } from 'react-native-modalfy'
 import { useDispatch } from 'react-redux'
 import { Shield_Action } from 'services/authApi.type'
 import { IResponse } from 'services/common/types'
-import { useLazyFreeSpinQuery } from 'services/playerApi'
-import { FreeSpinResult } from 'services/playerApi.type'
+import { useLazyEligibleSpinQuery } from 'services/playerApi'
+import { EligibleSpinResult } from 'services/playerApi.type'
 
 const LuckyDrawTrigger = () => {
   const username = useAppSelector((s) => s.auth.info?.playerName) ?? ''
@@ -19,16 +19,16 @@ const LuckyDrawTrigger = () => {
   const luckyDrawTriggered = useAppSelector(
     (state) => state.tempSetting.luckyDrawTriggered
   )
-  const [getFreeSpinInfo] = useLazyFreeSpinQuery()
+  const [getEligileSpin] = useLazyEligibleSpinQuery()
   const dispatch = useDispatch()
   const { openModal } = useModal()
   const { showAlert } = useAlert()
 
   const CheckLuckyDrawBalance = async () => {
     try {
-      const { success, data } = await getFreeSpinInfo()
+      const { success, data } = await getEligileSpin()
         .unwrap()
-        .catch((e: IResponse<FreeSpinResult>) => {
+        .catch((e: IResponse<EligibleSpinResult>) => {
           // only show the finish claim error on register success
           if (
             syncShieldActionType === Shield_Action.REGISTER && // Dont show freespin error message if player is not from register flow
@@ -40,7 +40,10 @@ const LuckyDrawTrigger = () => {
         })
 
       if (success && data) {
-        const freeSpinBalance = data.wheel_info.totalBalance ?? 0
+        const item = data?.details?.find(
+          (el) => el.event_type === 'registration'
+        )
+        const spinBalance = item?.wheel_info.totalBalance ?? 0
 
         // if (freeSpinBalance > 0) {
         //   setTimeout(() => {
@@ -60,7 +63,27 @@ const LuckyDrawTrigger = () => {
           }
         }
 
-        dispatch(SettingActions.setLuckyDrawBalance(freeSpinBalance))
+        dispatch(SettingActions.setLuckyDrawBalance(spinBalance))
+      }
+    } catch (e) {
+      console.log('e', e)
+    } finally {
+      dispatch(TempSettingActions.setLuckyDrawTriggered(true))
+    }
+  }
+  const CheckRetentionBalance = async () => {
+    try {
+      const { success, data } = await getEligileSpin()
+        .unwrap()
+        .catch((e: IResponse<EligibleSpinResult>) => {
+          return e
+        })
+
+      if (success && data) {
+        const item = data?.details?.find((el) => el.event_type === 'retention')
+        const spinBalance = item?.wheel_info.totalBalance ?? 0
+
+        dispatch(SettingActions.setRetentionDrawBalance(spinBalance))
       }
     } catch (e) {
       console.log('e', e)
@@ -77,6 +100,7 @@ const LuckyDrawTrigger = () => {
     }
 
     CheckLuckyDrawBalance()
+    CheckRetentionBalance()
   }, [shieldStatus])
 
   return null
