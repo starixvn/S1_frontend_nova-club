@@ -107,13 +107,13 @@ const GamesScreen = () => {
   }, [filteredGames])
 
   const providers = useMemo(() => {
-    if (games)
+    if (filteredGames)
       return uniqBy(
-        games.map(({ gtc, gpc }) => ({ gtc, gpc })),
+        filteredGames.map(({ gtc, gpc }) => ({ gtc, gpc })),
         'gpc'
       )
     else return []
-  }, [games])
+  }, [filteredGames])
 
   const gameGroup: Game[][] = useMemo(() => {
     return Object.values(gamesByProviders).filter((v) => v.length > 0)
@@ -121,6 +121,7 @@ const GamesScreen = () => {
 
   function onNavigate(index: number, gpc: string) {
     if (Platform.OS === 'web') {
+      console.log('navigate', gpc, document.getElementById(`gameSection${gpc}`))
       document
         .getElementById(`gameSection${gpc}`)
         ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
