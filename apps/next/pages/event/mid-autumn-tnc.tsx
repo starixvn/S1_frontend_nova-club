@@ -32,7 +32,7 @@ const MidAutumnTnc = () => {
   return (
     <PageWithBackHeader
       header={{ title: t('menu.tnc') }}
-      hideHeader={isDesktop}
+      hideHeader={isDesktop || window.ReactNativeWebView ? true : false}
     >
       <FormContainer>
         <main
