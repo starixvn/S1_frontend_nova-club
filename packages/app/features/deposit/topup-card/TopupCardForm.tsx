@@ -23,7 +23,9 @@ import * as Yup from 'yup'
 import HorizontalSelectBankCardGrid from '../component/HorizontalSelectBankCardGrid'
 import ValueCard from './ValueCard'
 import Button from 'app/components/common/Button'
-import useDepositFailedMessage from '../tools/useDepositFailedMessage'
+import useDepositFailedMessage, {
+  FailedMessageModule,
+} from '../tools/useDepositFailedMessage'
 import BankSelection from 'desktop-ext/features/withdrawal/components/BankSelection'
 
 type TopupValues = {
@@ -108,7 +110,9 @@ const TopupCardForm = () => {
       })
         .unwrap()
         .catch((error) => {
-          dispatchDepositFailedMessage(error)
+          dispatchDepositFailedMessage(error, {
+            module: FailedMessageModule.topUpCard,
+          })
           return error
         })
 
