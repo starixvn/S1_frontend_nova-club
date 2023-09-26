@@ -24,6 +24,7 @@ import { Game } from 'services/gameApi.type'
 import { League, MatchResult } from 'services/matchApi.type'
 import { SolitoImage } from 'solito/image'
 import { MEDIA_DOMAIN } from '../../../../apps/next/config/env'
+import DataTableTitle from 'app/components/dataTable/DataTableTitle'
 dayjs.extend(customParseFormat)
 
 interface MatchListTableProps {
@@ -148,6 +149,7 @@ const MatchListTable = ({
                 >
                   <Row
                     sx={{
+                      flex: 0.27,
                       alignItems: 'center',
                     }}
                   >
@@ -164,6 +166,30 @@ const MatchListTable = ({
                     >
                       {fullData[l]?.[0]?.LeagueName}
                     </Text>
+                  </Row>
+                  <Row sx={{ flex: 1 }}>
+                    <DataTableTitle sx={{ flex: 0.164, px: 0 }}>
+                      FT. HDP
+                    </DataTableTitle>
+                    <DataTableTitle sx={{ flex: 0.16, px: 0 }}>
+                      FT. O/U
+                    </DataTableTitle>
+                    <DataTableTitle sx={{ flex: 0.09, px: 0 }}>
+                      FT. 1X2
+                    </DataTableTitle>
+                    <DataTableTitle sx={{ flex: 0.09, px: 0 }}>
+                      FT. O/E
+                    </DataTableTitle>
+                    <DataTableTitle sx={{ flex: 0.164, px: 0 }}>
+                      1H. HDP
+                    </DataTableTitle>
+                    <DataTableTitle sx={{ flex: 0.16, px: 0 }}>
+                      1H. O/U
+                    </DataTableTitle>
+                    <DataTableTitle sx={{ flex: 0.09, px: 0 }}>
+                      1H. 1X2
+                    </DataTableTitle>
+                    {/* <DataTableTitle sx={{ flex: 0.07 }}>{}</DataTableTitle> */}
                   </Row>
                 </Row>
               }

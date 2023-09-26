@@ -80,10 +80,12 @@ export default function MatchList({}: Props) {
         value={leagueId}
       />
 
-      <MatchListHeader
-        data={leagues.entities[leagueId]?.[0]}
-        height={BAR_HEIGHT}
-      />
+      {leagues.entities[leagueId]?.[0] && (
+        <MatchListHeader
+          data={leagues.entities[leagueId]?.[0]}
+          height={BAR_HEIGHT}
+        />
+      )}
 
       <MatchListTable
         data={leagues.entities[leagueId]}

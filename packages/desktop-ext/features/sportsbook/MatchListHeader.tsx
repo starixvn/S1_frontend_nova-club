@@ -3,7 +3,7 @@ import DataTable from 'app/components/dataTable/DataTable'
 import DataTableHeader from 'app/components/dataTable/DataTableHeader'
 import DataTableTitle from 'app/components/dataTable/DataTableTitle'
 import { MatchLeagueTabIconMapping } from 'app/constants/recMatchMapping'
-import { Row, View } from 'dripsy'
+import { Row, Text, View } from 'dripsy'
 import { MotiText, MotiView } from 'moti'
 import React from 'react'
 import { MatchResult } from 'services/matchApi.type'
@@ -26,9 +26,23 @@ const MatchListHeader = ({ data, height }: MatchListHeaderProps) => {
         borderTopColor: '$primary.50',
       }}
     >
-      <DataTable>
-        <DataTableHeader sx={{ justifyContent: 'space-between', px: 0 }}>
-          <DataTableTitle sx={{ flex: 0.1 }}>
+      <DataTable sx={{ height: '100%' }}>
+        <DataTableHeader
+          sx={{
+            justifyContent: 'center',
+            px: '$3',
+            py: 0,
+            bg: '$primary.50',
+            flex: 1,
+          }}
+        >
+          <DataTableTitle
+            sx={{
+              flex: 0.29,
+              px: 0,
+              justifyContent: 'flex-start',
+            }}
+          >
             <MotiView
               from={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -39,24 +53,15 @@ const MatchListHeader = ({ data, height }: MatchListHeaderProps) => {
                 sx={{ fontSize: [24, 30] }}
               />
             </MotiView>
-          </DataTableTitle>
-
-          <DataTableTitle sx={{ flex: 0.18, justifyContent: 'flex-start' }}>
-            <MotiText
-              from={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              key={data?.LeagueName}
-              style={{
-                fontSize: 12,
-                textAlign: 'left',
-                color: 'white',
+            <Text
+              sx={{
+                mx: '$2',
+                fontSize: 16,
+                fontWeight: 'bold',
               }}
             >
               {data?.LeagueName}
-
-              {/* <Text sx={{ fontSize: 12, textAlign: 'left' }}>
-              </Text> */}
-            </MotiText>
+            </Text>
           </DataTableTitle>
           <Row sx={{ flex: 1 }}>
             <DataTableTitle sx={{ flex: 0.6, px: 0 }}>FT. HDP</DataTableTitle>
