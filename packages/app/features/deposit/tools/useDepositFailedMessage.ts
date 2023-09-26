@@ -10,8 +10,12 @@ const useDepositFailedMessage = () => {
     (error: unknown) => {
       let errorMessage = t('deposit.commonError')
 
-      if (error && typeof error === 'object' && 'code' in error) {
-        errorMessage += ` [${error.code}]`
+      if (error && typeof error === 'object') {
+        if ('message' in error) {
+          errorMessage = `${error.message}`
+        } else if ('code' in error) {
+          errorMessage += ` [${error.code}]`
+        }
       }
 
       /** `setTimeout` is used due to multiple modal close and open at the same time
