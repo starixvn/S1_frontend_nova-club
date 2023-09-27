@@ -86,14 +86,14 @@ export const checkMaintenance: SplashScreenTask = (context) => async () => {
         navigation.dispatch(
           CommonActions.reset({
             index: 0,
-            routes: [{ name: 'Maintenance' }],
+            routes: [{ name: 'maintenance' }],
           })
         )
       } else if (isForbidden) {
         navigation.dispatch(
           CommonActions.reset({
             index: 0,
-            routes: [{ name: 'Forbidden' }],
+            routes: [{ name: 'forbidden' }],
           })
         )
       }
