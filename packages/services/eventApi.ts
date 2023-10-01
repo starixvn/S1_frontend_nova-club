@@ -2,12 +2,8 @@
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
-  AffCupWinnerList,
-  CNYRollResult,
-  CNYSpinBalance,
   TicketSpinBalance,
-  TicketSpinResult,
-  WcTicketCountResp,
+  TicketSpinResult
 } from './eventApi.type'
 
 export const eventApi = baseApiWithTag.injectEndpoints({

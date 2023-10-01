@@ -122,7 +122,7 @@ export default function HireBanner() {
                   }}
                 />
               )}
-              <Label sx={{ ml: ['$1', '$2'] }}>01-30/09/2023</Label>
+              <Label sx={{ ml: ['$1', '$2'] }}>01-31/10/2023</Label>
             </Row>
           </View>
 

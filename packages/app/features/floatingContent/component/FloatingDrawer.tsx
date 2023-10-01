@@ -1,10 +1,8 @@
 import { styled, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
 import { memo } from 'react'
-import PlinkoEvent from './event/PlinkoEvent'
+import HalloweenFloat from './event/HalloweenFloat'
 import LiveChatButton from './LiveChatButton'
-import isDesktop from 'app/utils/isDesktop'
-import MidAutumnFloat from './event/MidAutumnFloat'
 
 interface FloatingContentSwitchProps {
   visible: boolean
@@ -42,7 +40,7 @@ const FloatingDrawer = ({
             transition={{ type: 'timing', duration: 500 }}
           >
             <ContentOffset>
-              <MidAutumnFloat size={size} />
+              <HalloweenFloat size={size} />
               {!isDesktop && <LiveChatButton />}
             </ContentOffset>
           </ContentOverlay>
