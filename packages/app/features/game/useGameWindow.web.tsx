@@ -2,6 +2,8 @@ import { useAppSelector } from 'app/provider/redux/store'
 import { GameLauncherActions } from 'app/store/gameLauncher.slice'
 import { useDispatch } from 'react-redux'
 import { usePlayerBalanceQuery } from 'services/walletApi'
+import { OpenGameOptions } from './useGameWindow'
+import { LaunchGameType } from 'services/gameApi.type'
 
 export default function useGameWindow() {
   const dispatch = useDispatch()
@@ -20,21 +22,31 @@ export default function useGameWindow() {
     }, 100)
   }
 
-  function openGame(
-    url: string,
-    providerCode: string,
-    options?: { external?: boolean; title?: string }
-  ) {
+  function openGame({
+    launchGameMethod,
+    providerCode,
+    external = false,
+    title = '',
+  }: OpenGameOptions) {
     if (window?.gameWindow) {
-      if (url) {
-        window.gameWindow.location = url
+      if (launchGameMethod.launchGameType === LaunchGameType.HTML) {
+        const { html } = launchGameMethod
+        // const newWindow = window.open
+        // window.gameWindow.document.body.innerHTML = html
+        window.gameWindow.document.write(html)
+        window.gameWindow.document.close() // .close is required for it to works.
+      } else {
+        const { url } = launchGameMethod
+        if (url) {
+          window.gameWindow.location = url
 
-        if (isLoggedIn) {
-          window.removeEventListener('focus', _refreshWallet)
-          window.addEventListener('focus', _refreshWallet)
+          if (isLoggedIn) {
+            window.removeEventListener('focus', _refreshWallet)
+            window.addEventListener('focus', _refreshWallet)
+          }
+
+          window.gameWindow.focus()
         }
-
-        window.gameWindow.focus()
       }
     }
 

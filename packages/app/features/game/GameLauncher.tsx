@@ -15,15 +15,19 @@ import { useModal } from 'react-native-modalfy'
 import { useDispatch } from 'react-redux'
 import { IResponse } from 'services/common/types'
 import { useGoToGameMutation } from 'services/gameApi'
-import { GetGameUrlResult } from 'services/gameApi.type'
+import {
+  GetGameUrlResult,
+  GotoGameResult,
+  LaunchGameType,
+} from 'services/gameApi.type'
 import { useRouter } from 'solito/router'
 import useGameWindow from './useGameWindow'
 import { useMaintenanceStatus } from './useMaintenanceStatus'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 
 // const ProviderRunningWithoutIframe = ['PRGP']
-const ProviderRunningWithoutIframe = []
-const ProviderRunningWithoutIframePlatformBased = Platform.select({
+const ProviderRunningWithoutIframe: string[] = []
+const ProviderRunningWithoutIframePlatformBased: string[] = Platform.select({
   // android: ['SKYW'],
   android: [],
   default: [],
@@ -100,7 +104,7 @@ const GameLauncher = () => {
         cashier_url: `${DEV_DOMAIN}/deposit`,
       })
         .unwrap()
-        .catch((e: IResponse<GetGameUrlResult>) => {
+        .catch((e: IResponse<GotoGameResult>) => {
           console.log('error')
           setTimeout(() => {
             showAlert(e.message)
@@ -109,12 +113,22 @@ const GameLauncher = () => {
         })
 
       if (success && data) {
-        let url = data.url.replace(' ', '')
-        if (params) {
-          url += paramsToQuery(params)
+        let launchGameMethod: GotoGameResult = data
+        if (data.launchGameType === LaunchGameType.URL) {
+          let url = data.url.replace(' ', '')
+          if (params) {
+            url += paramsToQuery(params)
+          }
+
+          launchGameMethod = {
+            ...data,
+            url,
+          }
         }
 
-        openGame(url, providerCode, {
+        openGame({
+          launchGameMethod,
+          providerCode,
           title: name?.[locale] ?? '',
           external: !!(
             providerCode &&

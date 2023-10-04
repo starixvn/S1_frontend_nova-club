@@ -15,8 +15,11 @@ import {
   GetGameListResult,
   GetGameUrlQueryArgs,
   GetGameUrlResult,
+  GotoGameResult,
   LatestWinner,
   LatestWinnerType,
+  LaunchGameWithHTML,
+  LaunchGameWithUrl,
   ProviderStatus,
 } from './gameApi.type'
 import uniqWith from 'lodash/uniqWith'
@@ -30,10 +33,7 @@ const GAME_BY_CATEGORY_LIMIT = 100
 
 export const gameApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
-    goToGame: builder.mutation<
-      IResponse<GetGameUrlResult>,
-      GetGameUrlQueryArgs
-    >({
+    goToGame: builder.mutation<IResponse<GotoGameResult>, GetGameUrlQueryArgs>({
       query: ({ token, ...params }) => ({
         url: `/player_api/gotogame`,
         data: params,
