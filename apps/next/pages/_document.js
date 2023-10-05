@@ -59,7 +59,8 @@ export class Document extends NextDocument {
   render() {
     return (
       <Html>
-        <Head>
+        <Head>          
+          <link rel="manifest" href="/manifest.json" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
           <meta
             name="viewport"

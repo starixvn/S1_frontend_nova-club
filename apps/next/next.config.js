@@ -5,6 +5,7 @@ const withPlugins = require('next-compose-plugins')
 const withFonts = require('next-fonts')
 const withVideos = require('next-videos')
 const withImages = require('next-images')
+const withPWA = require('next-pwa')
 
 const APP_ENV = process.env.APP_ENV || 'prod'
 const result = require('dotenv').config({
@@ -105,7 +106,7 @@ const nextConfig = {
     'react-native-chart-kit',
     'react-native-keyboard-aware-scroll-view',
     'react-native-render-html',
-    'react-merge-refs'
+    'react-merge-refs',
   ],
   async redirects() {
     return [
@@ -148,6 +149,17 @@ const moduleExports = withPlugins(
     ],
     [withExpo, { projectRoot: __dirname }],
     [withFonts, { projectRoot: __dirname }],
+    [
+      withPWA,
+      {
+        dest: 'public',
+        register: true,
+        skipWaiting: true,
+        fallback: {
+          image: '/android/android-launchericon-192-192.png',
+        },
+      },
+    ],
   ],
   { ...nextConfig, env }
 )
