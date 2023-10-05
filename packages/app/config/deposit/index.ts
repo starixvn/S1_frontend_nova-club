@@ -5,6 +5,7 @@ export enum DepositPaymentMethodCategoryId {
   QR_CODE = 27,
   TOP_UP = 25,
   CRYPTO = 9,
+  INSTANT_TRANFER = 28,
 }
 
 export enum DepositPaymentMethodCategoryType {
@@ -14,6 +15,7 @@ export enum DepositPaymentMethodCategoryType {
   QR_CODE = 'auto',
   TOP_UP = 'auto',
   CRYPTO = 'auto',
+  INSTANT_TRANFER = 'auto',
 }
 
 const enum PAYMENT_METHOD_CATEGORY {
@@ -23,19 +25,30 @@ const enum PAYMENT_METHOD_CATEGORY {
   QR_CODE,
   TOP_UP,
   CRYPTO,
+  INSTANT_TRANFER,
 }
 
 export enum DepositMethodId {
-  LOCAL_BANK = 1,
-  ONLINE_BANK = 2,
-  MOMO = 3,
-  QR_CODE = 4,
-  TOP_UP = 5,
-  CRYPTO = 6,
+  INSTANT_TRANFER = 1,
+  LOCAL_BANK = 2,
+  ONLINE_BANK = 3,
+  MOMO = 4,
+  QR_CODE = 5,
+  TOP_UP = 6,
+  CRYPTO = 7,
 }
 
 export const PAYMENT_METHOD: { [key in keyof typeof PAYMENT_METHOD_CATEGORY] } =
   {
+    INSTANT_TRANFER: {
+      id: DepositMethodId.INSTANT_TRANFER,
+      type: DepositPaymentMethodCategoryType.INSTANT_TRANFER,
+      categoryId: DepositPaymentMethodCategoryId.INSTANT_TRANFER,
+      name: 'deposit.depositMethod.instantTransfer',
+      icon: 'lba',
+      color: '#1E2238',
+      active: true,
+    },
     LOCAL_BANK: {
       id: DepositMethodId.LOCAL_BANK,
       type: DepositPaymentMethodCategoryType.LOCAL_BANK,
@@ -103,6 +116,7 @@ export type PaymentMethodProps = {
 }
 
 export const PaymentMethod: PaymentMethodProps[] = [
+  PAYMENT_METHOD.INSTANT_TRANFER,
   PAYMENT_METHOD.LOCAL_BANK,
   PAYMENT_METHOD.ONLINE_BANK,
   PAYMENT_METHOD.MOMO,

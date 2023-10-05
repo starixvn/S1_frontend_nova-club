@@ -147,6 +147,7 @@
     "depositAmount": "Deposit Amount",
     "depositConfirmation": "Deposit Confirmation",
     "depositMethod": {
+      "instantTransfer": "Instant Transfer",
       "bankTransfer": "Bank Transfer",
       "crypto": "Crypto",
       "momo": "MOMO",

@@ -147,6 +147,7 @@
     "depositAmount": "Số tiền nạp",
     "depositConfirmation": "Xác nhận thông tin gửi tiền",
     "depositMethod": {
+      "instantTransfer": "Chuyển khoản nhanh",
       "bankTransfer": "Chuyển khoản",
       "crypto": "Tiền ảo",
       "momo": "MOMO",

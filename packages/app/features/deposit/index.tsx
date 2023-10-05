@@ -1,24 +1,21 @@
-import { PageWithBackHeader } from 'app/components/layouts/Page'
-import useLocalization from 'app/provider/localization'
-import { ActivityIndicator, ScrollView, Text, View } from 'dripsy'
-import DepositCard from './component/DepositCard'
-import useCheckMobile from 'app/hooks/useCheckMobile'
-import { useDepositPaymentListQuery } from 'services/deposit'
-import { useCallback, useEffect, useState } from 'react'
-import { useRouter } from 'solito/router'
-import RecentTransactionRow from './component/RecentTransactionRow'
 import RefreshButton from 'app/components/RefreshButton'
 import EmptyResult from 'app/components/dataTable/EmptyResult'
-import { usePlayerReportQuery } from 'services/playerApi'
+import { PageWithBackHeader } from 'app/components/layouts/Page'
+import MenuNotice from 'app/components/navigation/MenuNotice'
+import { DepositMethodId } from 'app/config/deposit'
+import useLocalization from 'app/provider/localization'
 import {
   DEPOSIT_NOTES,
   ReportDepositStatus,
   ReportTransactionType,
 } from 'app/utils/constant'
 import dayjsTz from 'app/utils/dayjs'
-import MenuNotice from 'app/components/navigation/MenuNotice'
+import { ActivityIndicator, ScrollView, Text, View } from 'dripsy'
 import { useModal } from 'react-native-modalfy'
-import PaymentMethod, { DepositMethodId } from 'app/config/deposit'
+import { usePlayerReportQuery } from 'services/playerApi'
+import { useRouter } from 'solito/router'
+import DepositCard from './component/DepositCard'
+import RecentTransactionRow from './component/RecentTransactionRow'
 import useDepositList from './tools/useDepositList'
 
 const Deposit = () => {
@@ -47,6 +44,9 @@ const Deposit = () => {
 
   const handlePress = (id) => {
     switch (id) {
+      case DepositMethodId.INSTANT_TRANFER:
+        push(`/deposit/instant-transfer`)
+        break
       case DepositMethodId.LOCAL_BANK:
         push(`/deposit/bank-transfer`)
         break

@@ -2,6 +2,7 @@ import FormContainer from 'app/components/form/FormContainer'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
 import BankTransferContent from 'app/features/deposit/bank-transfer/BankTransferContent'
 import CryptoPayContent from 'app/features/deposit/crypto/CryptoPayContent'
+import InstantTransferContent from 'app/features/deposit/instant-transfer/InstantTransferContent'
 import MomoContent from 'app/features/deposit/momo/MomoContent'
 import OnlineBankingContent from 'app/features/deposit/online-banking/OnlineBankingContent'
 import QRPayContent from 'app/features/deposit/qr-pay/QRPayContent'
@@ -22,6 +23,8 @@ const DepositScreen = () => {
 
   const memoContent = useMemo(() => {
     switch (availableRoutes[0]?.categoryId) {
+      case DepositPaymentMethodCategoryId.INSTANT_TRANFER:
+        return <InstantTransferContent />
       case DepositPaymentMethodCategoryId.LOCAL_BANK:
         return <BankTransferContent />
       case DepositPaymentMethodCategoryId.ONLINE_BANK:
