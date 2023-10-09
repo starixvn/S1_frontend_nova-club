@@ -3,9 +3,11 @@ import { LaunchGame } from 'app/features/game/GameLauncher'
 import useLocalization from 'app/provider/localization'
 import { SxProp, Text, View, styled, useResponsiveValue } from 'dripsy'
 import { MotiPressable } from 'moti/interactions'
-import React, { useMemo } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import { FeaturedGame } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
+import { Video, ResizeMode } from 'expo-av'
+import { Platform } from 'react-native'
 
 interface TopGameCardProps {
   game: FeaturedGame
@@ -27,6 +29,12 @@ export default function TopGameCard({
 }: TopGameCardProps) {
   const { t } = useLocalization()
   const labelWidth = useResponsiveValue([55, 70])
+  const [videoStatus, setVideoStatus] = useState(true)
+
+  //backend declare that only mp4 for video
+  const isMp4 = game.xImg?.includes('.mp4')
+
+  const videoRef = useRef<Video>(null)
 
   function onPress() {
     LaunchGame({
@@ -58,16 +66,41 @@ export default function TopGameCard({
           overflow: 'hidden',
         }}
       >
-        <SolitoImage
-          src={`${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${game.xImg}`}
-          fill
-          alt={game.gpc}
-          resizeMode="cover"
-        />
+        {isMp4 ? (
+          <Video
+            ref={videoRef}
+            isMuted
+            isLooping
+            shouldPlay
+            style={{
+              width: '100%',
+              height: '100%',
+            }}
+            videoStyle={{
+              position: Platform.OS === 'web' ? 'relative' : 'absolute',
+            }}
+            resizeMode={ResizeMode.COVER}
+            source={{ uri: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${game.xImg}` }}
+            useNativeControls={false}
+            onPlaybackStatusUpdate={(val) =>
+              videoStatus !== val?.isPlaying && setVideoStatus(val?.isPlaying)
+            }
+          />
+        ) : (
+          <SolitoImage
+            src={`${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${game.xImg}`}
+            fill
+            alt={game.gpc}
+            contentFit="cover"
+          />
+        )}
+
         {isOnGoing && (
           <View
             sx={{
               width: labelWidth,
+              position: 'absolute',
+              zIndex: 1,
               px: [10, 12],
               aspectRatio: 1,
               textAlign: 'center',
