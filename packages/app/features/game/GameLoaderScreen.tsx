@@ -12,14 +12,16 @@ import { useRouter } from 'solito/router'
 type Props = {}
 
 const { useParam } = createParam<{
-  gameUrl: string
+  url?: string
+  html?: string
   title: string
   providerCode: string
 }>()
 
 export default function GameLoaderScreen({}: Props) {
   const { left, right } = useSafeArea()
-  const [gameUrl] = useParam('gameUrl')
+  const [url] = useParam('url')
+  const [html] = useParam('html')
   const [title] = useParam('title')
   const [trigger] = useLazyPlayerBalanceQuery()
   const { back } = useRouter()
@@ -45,7 +47,7 @@ export default function GameLoaderScreen({}: Props) {
         <WebView
           bounces={false}
           style={{ flex: 1, width: '100%' }}
-          source={gameUrl ? { uri: gameUrl } : undefined}
+          source={url ? { uri: url } : html ? { html } : undefined}
           mediaPlaybackRequiresUserAction
           allowsFullscreenVideo={false}
           allowsInlineMediaPlayback

@@ -16,8 +16,21 @@ export interface GetGameUrlQueryArgs {
   cashier_url?: string
 }
 
-export interface GetGameUrlResult {
+export type GotoGameResult = LaunchGameWithUrl | LaunchGameWithHTML
+
+export enum LaunchGameType {
+  HTML = 'html',
+  URL = 'url',
+}
+
+export interface LaunchGameWithUrl {
+  launchGameType: LaunchGameType.URL
   url: string
+}
+
+export interface LaunchGameWithHTML {
+  launchGameType: LaunchGameType.HTML
+  html: string
 }
 
 export enum GameCategory {
