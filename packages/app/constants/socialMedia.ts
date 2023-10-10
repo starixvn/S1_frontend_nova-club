@@ -43,8 +43,8 @@ export function getSocialMediaScheme(platform: SocialMedia) {
       // scheme = 'vnd.youtube://channel/UCoUtgrQN2E10oke1Hmj0ATw'
       break
     case SocialMedia.TELEGRAM:
-      backUpScheme = 'https://t.me/cungvui123'
-      scheme = 'https://t.me/cungvui123'
+      backUpScheme = 'https://t.me/vui123cs'
+      scheme = 'https://t.me/vui123cs'
       break
     case SocialMedia.LIVECHAT:
       scheme = LIVECHAT_URL
