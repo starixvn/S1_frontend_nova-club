@@ -45,7 +45,7 @@ export const PAYMENT_METHOD: { [key in keyof typeof PAYMENT_METHOD_CATEGORY] } =
       type: DepositPaymentMethodCategoryType.INSTANT_TRANFER,
       categoryId: DepositPaymentMethodCategoryId.INSTANT_TRANFER,
       name: 'deposit.depositMethod.instantTransfer',
-      icon: 'lba',
+      icon: 'instant-transfer',
       color: '#1E2238',
       active: true,
     },

@@ -9,7 +9,7 @@ const _Routes: Readonly<DesktopRoute[]> = [
     key: 'InstantTransfer',
     categoryId: DepositPaymentMethodCategoryId.INSTANT_TRANFER,
     title: 'deposit.depositMethod.instantTransfer',
-    icon: 'lba',
+    icon: 'instant-transfer',
     route: '/deposit/instant-transfer',
   },
   {
