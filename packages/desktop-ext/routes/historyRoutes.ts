@@ -13,12 +13,6 @@ const _Routes: Readonly<DesktopRoute[]> = [
     icon: 'cp',
     route: '/history/game',
   },
-  // {
-  //   key: 'RedeemHistory',
-  //   title: 'menu.tab.coinHistory',
-  //   icon: 'cp',
-  //   route: '/history/redeem',
-  // },
 ] as const
 
 export type HistoryRoutesParamList = Record<

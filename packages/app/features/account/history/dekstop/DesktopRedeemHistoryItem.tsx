@@ -41,7 +41,7 @@ const DesktopRedeemHistoryItem = ({ item, index }) => {
               : '#00FF19',
           }}
         >
-          {item.transactionType.includes('Minus')
+          {item.transactionType?.includes('Minus')
             ? item.amount
             : `+${item.amount}`}
         </Text>

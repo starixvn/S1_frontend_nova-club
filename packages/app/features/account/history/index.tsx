@@ -7,13 +7,11 @@ import { useWindowDimensions } from 'react-native'
 import { SceneMap, TabView } from 'react-native-tab-view'
 import { createParam } from 'solito'
 import GameHistory from './game'
-import RedeemHistory from './redeem'
 import TransactionHistory from './transaction'
 
 enum SCREEN_TAB {
   TRANSACTION = 'transaction',
   GAME = 'game',
-  REDEEM = 'redeem',
 }
 
 const { useParam } = createParam<{ tab: string }>()
@@ -36,7 +34,6 @@ const History = () => {
   const renderScene = SceneMap({
     first: TransactionHistory,
     second: GameHistory,
-    third: RedeemHistory,
   })
 
   const getIndexFromTab = (value) => {
@@ -45,8 +42,6 @@ const History = () => {
         return 0
       case SCREEN_TAB.GAME:
         return 1
-      case SCREEN_TAB.REDEEM:
-        return 2
 
       default:
         return 0
@@ -59,12 +54,6 @@ const History = () => {
     { key: 'second', title: t('common.game'), index: 1 },
   ])
   const layout = useWindowDimensions()
-
-  useEffect(() => {
-    desktop
-      ? setRoutes([...routes, { key: 'third', title: t('Redeem'), index: 2 }])
-      : setRoutes([...routes])
-  }, [desktop])
 
   useEffect(() => {
     setIndex(getIndexFromTab(tab))
@@ -85,9 +74,6 @@ const History = () => {
         break
       case 1:
         setTab(SCREEN_TAB.GAME)
-        break
-      case 2:
-        setTab(SCREEN_TAB.REDEEM)
         break
 
       default:
