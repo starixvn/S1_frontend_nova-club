@@ -1,3 +1,4 @@
+import useDepositList from 'app/features/deposit/tools/useDepositList'
 import usePathname from 'app/hooks/usePathname'
 import {
   DEPOSIT_NOTES,
@@ -6,9 +7,9 @@ import {
   WITHDRAWAL_NOTES,
 } from 'app/utils/constant'
 import LeftPanelContainer from 'desktop-ext/components/layout/LeftPanelContainer'
-import { NAVIGATION_HEIGHT } from 'desktop-ext/components/layout/navigation/NavigationHeader'
 import PageContainer from 'desktop-ext/components/layout/PageContainer'
 import WalletMenu from 'desktop-ext/components/layout/WalletMenu'
+import { NAVIGATION_HEIGHT } from 'desktop-ext/components/layout/navigation/NavigationHeader'
 import DepositRoutes from 'desktop-ext/routes/depositRoutes'
 import HistoryRoutes from 'desktop-ext/routes/historyRoutes'
 import TransferRoutes from 'desktop-ext/routes/transferRoutes'
@@ -16,9 +17,7 @@ import { WALLET_PATH } from 'desktop-ext/routes/walletRoutes'
 import WithdrawalRoutes from 'desktop-ext/routes/withdrawalRoutes'
 import { Container, Row, View, styled } from 'dripsy'
 import { useEffect, useState } from 'react'
-import BaseLayout from './BaseLayout'
 import TabNavMenu from './TabNavMenu'
-import useDepositList from 'app/features/deposit/tools/useDepositList'
 
 export default function WalletLayout({
   children,
@@ -28,19 +27,19 @@ export default function WalletLayout({
   const currentPath = usePathname()
   const { paymentMethodList, isLoading } = useDepositList()
 
-  const [currentTab, setCurrentTab] = useState(currentPath)
   const [menuRoutes, setMenuRoutes] = useState(TransferRoutes)
   const [noticeNotes, setNoticeNotes] = useState<string[] | undefined>(
     TRANSFER_NOTES
   )
 
   useEffect(() => {
-    if (currentTab.includes(WALLET_PATH.TRANSFER)) {
+    if (currentPath.includes(WALLET_PATH.TRANSFER)) {
       setMenuRoutes(TransferRoutes)
       setNoticeNotes(TRANSFER_NOTES)
       return
     }
-    if (currentTab.includes(WALLET_PATH.DEPOSIT)) {
+    if (currentPath.includes(WALLET_PATH.DEPOSIT)) {
+      console.log(currentPath)
       const availableRoutes = DepositRoutes.filter((route) =>
         paymentMethodList.find((el) => route.categoryId === el.categoryId)
       )
@@ -51,12 +50,12 @@ export default function WalletLayout({
       )
       return
     }
-    if (currentTab.includes(WALLET_PATH.WITHDRAWAL)) {
+    if (currentPath.includes(WALLET_PATH.WITHDRAWAL)) {
       setMenuRoutes(WithdrawalRoutes)
       setNoticeNotes(WITHDRAWAL_NOTES)
       return
     }
-    if (currentTab.includes(WALLET_PATH.HISTORY)) {
+    if (currentPath.includes(WALLET_PATH.HISTORY)) {
       setMenuRoutes(HistoryRoutes)
       setNoticeNotes(undefined)
       return
@@ -65,7 +64,7 @@ export default function WalletLayout({
 
   return (
     <Container sx={{ minHeight: `calc(100vh - ${NAVIGATION_HEIGHT}px)` }}>
-      <WalletMenu currentTab={currentTab} setCurrentTab={setCurrentTab} />
+      <WalletMenu currentTab={currentPath} />
       <Row>
         <LeftPanelContainer>
           <TabNavMenu routes={menuRoutes} notice={noticeNotes} />
