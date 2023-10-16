@@ -7,6 +7,7 @@ export enum SocialMedia {
   TWITTER = 'twitter',
   YOUTUBE = 'youtube',
   TELEGRAM = 'telegram',
+  TELEGRAM_MEDIA = 'telegram-media',
   LIVECHAT = 'liveChat',
   ENVELOPE = 'envelope',
   ZALO = 'zalo',
@@ -45,6 +46,10 @@ export function getSocialMediaScheme(platform: SocialMedia) {
     case SocialMedia.TELEGRAM:
       backUpScheme = 'https://t.me/vui123cs'
       scheme = 'https://t.me/vui123cs'
+      break
+    case SocialMedia.TELEGRAM_MEDIA:
+      backUpScheme = 'https://t.me/cungvui123'
+      scheme = 'https://t.me/cungvui123'
       break
     case SocialMedia.LIVECHAT:
       scheme = LIVECHAT_URL

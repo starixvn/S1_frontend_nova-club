@@ -10,7 +10,7 @@ import BouncePressable from './pressable/BouncePressable'
 
 const MEDIA_LIST = [
   { label: SM.FACEBOOK, icon: 'facebook' },
-  { label: SM.TELEGRAM, icon: 'telegram' },
+  { label: SM.TELEGRAM_MEDIA, icon: 'telegram' },
   { label: SM.TIKTOK, icon: 'tiktok' },
   { label: SM.YOUTUBE, icon: 'youtube' },
 ]
