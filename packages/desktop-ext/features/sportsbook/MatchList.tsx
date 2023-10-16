@@ -7,10 +7,12 @@ import dayjsTz from 'app/utils/dayjs'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { Pressable, Text, View } from 'dripsy'
-import { useState } from 'react'
+import { startTransition, useEffect, useMemo, useRef, useState } from 'react'
 import { matchGroupByLeague, useGetRecoMatchQuery } from 'services/matchApi'
 import MatchListHeader from './MatchListHeader'
 import MatchListTable from './MatchListTable'
+import { League, MatchResult } from 'services/matchApi.type'
+import { Dictionary } from 'lodash'
 dayjs.extend(customParseFormat)
 
 type Props = {}
@@ -20,20 +22,68 @@ const BAR_HEIGHT = 50
 export default function MatchList({}: Props) {
   const [selectedLeague, setSelectedLeague] = useState<EntityId>()
   const [selectedTime, setSelectedTime] = useState<string>('All')
+  const [fullData, setFullData] = useState<
+    Record<string, (EntityId | MatchResult)[]>
+  >({})
+
+  const tableRef = useRef()
+  const [data, setData] = useState<(EntityId | MatchResult)[]>([])
   const desktop = useIsDesktop()
   const { t } = useLocalization()
-  const { leagues } = useGetRecoMatchQuery(
+  const leagues = useGetRecoMatchQuery(
     { isApp: !desktop },
     {
-      selectFromResult: (resp) => ({
-        ...resp,
-        leagues: matchGroupByLeague(resp),
-      }),
+      selectFromResult: (resp) => matchGroupByLeague(resp),
     }
   )
   const timeFilter = getMatchTimeFilterLabel()
 
   const leagueId = selectedLeague ?? ''
+
+  useEffect(() => {
+    let final = {}
+    if (leagues) {
+      timeFilter.forEach((f) => {
+        const time = f.date
+        const filterStartDate = dayjs(time)
+        const filterEndDate = filterStartDate.endOf('day')
+        const endDate =
+          time === 'All' ? dayjsTz(dayjs()).add(6, 'day') : filterEndDate
+        const startDate = time === 'All' ? dayjsTz(dayjs()) : filterStartDate
+
+        const filtered = leagues.ids.reduce((prev, cur) => {
+          const matches = leagues.entities[cur] as MatchResult[]
+
+          const filtered =
+            time !== 'All'
+              ? matches.filter((match) => {
+                  const { matchDayjs } = getMatchTime(match.globalshowtime)
+                  return (
+                    startDate.format('D') === matchDayjs.format('D') &&
+                    matchDayjs.isAfter(startDate) &&
+                    matchDayjs.isBefore(endDate)
+                  )
+                })
+              : matches
+
+          if (filtered.length > 0) prev.push(cur)
+          return prev.concat(filtered)
+        }, [] as (EntityId | MatchResult)[])
+
+        final[f.date] = filtered
+      })
+      console.log('final', final)
+
+      setFullData(final)
+    }
+  }, [leagues])
+
+  useEffect(() => {
+    if (fullData[selectedTime])
+      startTransition(() => setData(fullData[selectedTime]))
+  }, [selectedTime, selectedLeague])
+
+  console.log('data', data)
 
   return (
     <View sx={{ mt: '$3', minHeight: 500 }}>
@@ -76,7 +126,15 @@ export default function MatchList({}: Props) {
       </DripsyGradient>
       <MatchLeagueSelector
         ids={leagues.ids}
-        onChange={setSelectedLeague}
+        onChange={(v) => {
+          console.log('tableRef.current', tableRef.current.scrollToIndex)
+          tableRef.current.scrollToIndex({
+            animated: true,
+            index: 30,
+            viewOffset: 50,
+          })
+          // setSelectedLeague(v)
+        }}
         value={leagueId}
       />
 
@@ -88,7 +146,8 @@ export default function MatchList({}: Props) {
       )}
 
       <MatchListTable
-        data={leagues.entities[leagueId]}
+        ref={tableRef}
+        data={data}
         leagueId={leagueId}
         fullData={leagues.entities}
         allLeagueId={leagues.ids}
@@ -112,7 +171,7 @@ const getMatchTimeFilterLabel = () => {
     date: 'All',
     label: 'common.all',
   })
-  for (let i = 0; i < 7; i++) {
+  for (let i = 0; i < 10; i++) {
     const date = gmt7.add(i, 'day')
     const dateObject: DateArrayType = {}
 
@@ -130,4 +189,25 @@ const getMatchTimeFilterLabel = () => {
     dateArray.push(dateObject) // Push the dateObject into the dateArray
   }
   return dateArray
+}
+
+const getMatchTime = (globalshowtime: string) => {
+  let time = '-'
+  let date = '-'
+  let matchUnixDate = 0
+  let matchDayjs = {} as dayjs.Dayjs
+  try {
+    const gmt8 = dayjs(globalshowtime, 'MM/DD hh:mmA')
+    const gmt7 = dayjsTz(gmt8)
+
+    if (gmt7.isValid()) {
+      time = gmt7.format('HH:mm')
+      date = gmt7.format('DD/MM')
+      matchUnixDate = gmt7.unix()
+      matchDayjs = gmt7
+    }
+  } catch (e) {
+    // Android Hermes will hit error if using dayjsTz
+  }
+  return { time, date, matchUnixDate, matchDayjs }
 }
