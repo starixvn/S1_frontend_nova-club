@@ -27,6 +27,7 @@ export default function MatchList({}: Props) {
   >({})
 
   const tableRef = useRef()
+  const matchRef = useRef()
   const [data, setData] = useState<(EntityId | MatchResult)[]>([])
   const desktop = useIsDesktop()
   const { t } = useLocalization()
@@ -37,6 +38,9 @@ export default function MatchList({}: Props) {
     }
   )
   const timeFilter = getMatchTimeFilterLabel()
+  const visibleTimeFilter = timeFilter.filter(
+    (el) => fullData[el.date]?.length > 0
+  )
 
   const leagueId = selectedLeague ?? ''
 
@@ -81,12 +85,10 @@ export default function MatchList({}: Props) {
   useEffect(() => {
     if (fullData[selectedTime])
       startTransition(() => setData(fullData[selectedTime]))
-  }, [selectedTime, selectedLeague])
-
-  console.log('data', data)
+  }, [selectedTime, selectedLeague, fullData])
 
   return (
-    <View sx={{ mt: '$3', minHeight: 500 }}>
+    <View ref={matchRef} sx={{ mt: '$3', minHeight: 500 }}>
       {/* <Divider /> */}
       <DripsyGradient
         gradient={'surface'}
@@ -100,7 +102,7 @@ export default function MatchList({}: Props) {
           borderTopColor: '$primary.50',
         }}
       >
-        {timeFilter.map((f) => {
+        {visibleTimeFilter.map((f) => {
           return (
             <Pressable
               key={f.label}
@@ -127,13 +129,15 @@ export default function MatchList({}: Props) {
       <MatchLeagueSelector
         ids={leagues.ids}
         onChange={(v) => {
-          console.log('tableRef.current', tableRef.current.scrollToIndex)
-          tableRef.current.scrollToIndex({
-            animated: true,
-            index: 30,
-            viewOffset: 50,
+          matchRef?.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'end',
           })
-          // setSelectedLeague(v)
+
+          const goTo = data.findIndex((el) => el === v)
+          setTimeout(() => {
+            tableRef?.current?.jumpTo(goTo)
+          }, 300)
         }}
         value={leagueId}
       />
@@ -145,14 +149,7 @@ export default function MatchList({}: Props) {
         />
       )}
 
-      <MatchListTable
-        ref={tableRef}
-        data={data}
-        leagueId={leagueId}
-        fullData={leagues.entities}
-        allLeagueId={leagues.ids}
-        selectedTime={selectedTime ? selectedTime : ''}
-      />
+      <MatchListTable ref={tableRef} data={data} />
     </View>
   )
 }

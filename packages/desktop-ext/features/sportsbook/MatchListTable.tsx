@@ -19,9 +19,11 @@ import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { ActivityIndicator, Row, ScrollView, Text, View, styled } from 'dripsy'
 import React, {
+  Fragment,
   forwardRef,
   useEffect,
   useImperativeHandle,
+  useRef,
   useState,
 } from 'react'
 import { useWindowDimensions } from 'react-native'
@@ -33,14 +35,11 @@ import DataTableTitle from 'app/components/dataTable/DataTableTitle'
 import useIntersectionObserver from 'app/hooks/useIntersectionObserver'
 import MatchListHeader from './MatchListHeader'
 import { MotiView } from 'moti'
+import { mergeRefs } from 'utils/mergeRefs'
 dayjs.extend(customParseFormat)
 
 interface MatchListTableProps {
   data: (EntityId | MatchResult)[]
-  fullData: Dictionary<League>
-  leagueId: EntityId
-  allLeagueId: EntityId[]
-  selectedTime: string
 }
 
 interface MatchListCellDataProps {
@@ -76,7 +75,8 @@ const ROW_HEIGHT = 143
 
 const MatchListTable = forwardRef(({ data }: MatchListTableProps, ref) => {
   const isDesktop = useIsDesktop()
-  // console.log(fullData)
+  const flashListRef = useRef()
+
   const onPress = (match: MatchResult) => {
     getAction({
       type: ActionType.GAME,
@@ -104,21 +104,24 @@ const MatchListTable = forwardRef(({ data }: MatchListTableProps, ref) => {
     .filter((item) => item !== null) as number[]
 
   function jumpTo(index: number) {
-    console.log('ref.current', ref.current)
-    ref.current?.scrollToIndex(stickyHeaderIndices[index])
+    // ref.current?.scrollToIndex(stickyHeaderIndices[index])
+    flashListRef.current.scrollToIndex({
+      animated: true,
+      index: index,
+    })
   }
 
-  // useImperativeHandle(ref, () => {
-  //   return {
-  //     jumpTo,
-  //   }
-  // })
+  useImperativeHandle(ref, () => {
+    return {
+      jumpTo,
+    }
+  })
 
   return (
     <View sx={{ height: 750 }}>
       <FlashList
         style={{ height: 500 }}
-        ref={ref}
+        ref={flashListRef}
         data={data}
         estimatedItemSize={143}
         stickyHeaderIndices={stickyHeaderIndices}
@@ -144,15 +147,17 @@ const MatchListTable = forwardRef(({ data }: MatchListTableProps, ref) => {
             )
 
             return (
-              <MatchListCellRow
-                awayFlag={awayFlag}
-                date={date}
-                homeFlag={homeFlag}
-                index={index}
-                item={item}
-                onPress={onPress}
-                time={time}
-              />
+              <View key={item}>
+                <MatchListCellRow
+                  awayFlag={awayFlag}
+                  date={date}
+                  homeFlag={homeFlag}
+                  index={index}
+                  item={item}
+                  onPress={onPress}
+                  time={time}
+                />
+              </View>
             )
           }
         }}
@@ -175,6 +180,7 @@ const MatchListCellRow = ({
   return (
     <View
       ref={ref}
+      key={index + time + date}
       sx={{
         bg: index % 2 ? '$primary.300' : '$primary.500',
         // borderBottomWidth: 8,
