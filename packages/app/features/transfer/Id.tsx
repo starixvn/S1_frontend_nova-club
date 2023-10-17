@@ -84,7 +84,7 @@ const IdTransfer = ({ isIDTransfer = false }: { isIDTransfer?: boolean }) => {
       if (success) {
         Toast.show({ type: 'success', text1: t('status.success') })
         actions.resetForm()
-        back()
+        push('/transfer/receive')
       }
     } catch (error) {
       console.log('🚀 ~ >>>>>>~ error:', error)
