@@ -65,7 +65,9 @@ export const checkMaintenance: SplashScreenTask = (context) => async () => {
 
   try {
     const { error, data } = await dispatch(
-      contentApi.endpoints.getLeaderboard.initiate()
+      contentApi.endpoints.getLeaderboard.initiate(undefined, {
+        forceRefetch: true,
+      })
     )
 
     isForbidden = error?.statusCode === 403
