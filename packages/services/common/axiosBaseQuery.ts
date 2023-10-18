@@ -13,7 +13,7 @@ export function axiosBaseQuery<T>(): BaseQueryFn<
     { signal }
   ) => {
     try {
-      const { data: respData } = await axiosInstance.request<
+      const resp = await axiosInstance.request<
         never,
         AxiosResponse<IResponse<T>>
       >({
@@ -26,16 +26,25 @@ export function axiosBaseQuery<T>(): BaseQueryFn<
         ...axiosConfig,
       })
 
-      const { code } = respData
+      const { data } = resp
+      const { code } = data
 
-      if (code) {
-        console.log('returning error')
+      // Currently maintenance will return 200 status code , which will be treated as success
+      // the response will contain maintenance page instead of JSON object.
+      // consult infra to clarify
+      if (typeof data === 'string') {
         return {
-          error: respData,
+          error: {
+            statusCode: 405,
+          },
         }
       }
 
-      return { data: respData }
+      if (code) {
+        return { error: data }
+      }
+
+      return { data }
     } catch (error) {
       console.error('axiosBaseQuery error', url, JSON.stringify(error))
       let errorObj: IResponse<T> = {
@@ -48,10 +57,12 @@ export function axiosBaseQuery<T>(): BaseQueryFn<
       if (axios.isAxiosError(error)) {
         let errorMessage = error.response?.data
 
+        // This maintenance checking maybe deprecated, but some api failed with string response and statuscode 400
         if (errorMessage) {
           // if HTML string
           if (typeof errorMessage === 'string') {
-            errorObj.message = 'maintenance'
+            errorObj.message = 'Maintenance'
+            errorObj.statusCode = 405
           } else {
             Object.assign(errorObj, errorMessage)
           }
