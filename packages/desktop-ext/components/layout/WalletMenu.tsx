@@ -10,7 +10,7 @@ import Divider from 'app/components/Divider'
 
 export const MENU_HEIGHT = 72
 
-export default function WalletMenu({ currentTab, setCurrentTab }) {
+export default function WalletMenu({ currentTab }) {
   const { t } = useLocalization()
   const { push } = useRouter()
 
@@ -38,7 +38,6 @@ export default function WalletMenu({ currentTab, setCurrentTab }) {
                   key={r.key}
                   isActive={isActive}
                   onPress={() => {
-                    setCurrentTab(r.route)
                     push(r.route)
                   }}
                   label={t(r.title)}

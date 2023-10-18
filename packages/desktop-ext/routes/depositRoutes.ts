@@ -6,18 +6,18 @@ import { DesktopRoute } from './NavigationType'
 
 const _Routes: Readonly<DesktopRoute[]> = [
   {
-    key: 'InstantTransfer',
-    categoryId: DepositPaymentMethodCategoryId.INSTANT_TRANFER,
-    title: 'deposit.depositMethod.instantTransfer',
-    icon: 'instant-transfer',
-    route: '/deposit/instant-transfer',
-  },
-  {
     key: 'BankTransfer',
     categoryId: DepositPaymentMethodCategoryId.LOCAL_BANK,
     title: 'deposit.depositMethod.bankTransfer',
     icon: 'lba',
     route: '/deposit/bank-transfer',
+  },
+  {
+    key: 'InstantTransfer',
+    categoryId: DepositPaymentMethodCategoryId.INSTANT_TRANFER,
+    title: 'deposit.depositMethod.instantTransfer',
+    icon: 'instant-transfer',
+    route: '/deposit/instant-transfer',
   },
   {
     key: 'OnlineBanking',
