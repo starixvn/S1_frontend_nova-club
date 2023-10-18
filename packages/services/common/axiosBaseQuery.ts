@@ -27,7 +27,7 @@ export function axiosBaseQuery<T>(): BaseQueryFn<
       })
 
       const { data } = resp
-      const { code } = data
+      const { code } = data || {}
 
       // Currently maintenance will return 200 status code , which will be treated as success
       // the response will contain maintenance page instead of JSON object.
