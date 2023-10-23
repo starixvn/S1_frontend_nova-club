@@ -93,6 +93,7 @@ export type AutoBankItem = {
   minDeposit: string
   order: number
   pay_acc_id: number
+  payment_account_name: string
   player_input_fields: PlayerInputFieldsAmount | PlayerInputFieldsBank
   vendor_percentage?: string
 }
