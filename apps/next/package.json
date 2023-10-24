@@ -28,6 +28,7 @@
     "next-compose-plugins": "^2.2.1",
     "next-fonts": "^1.5.1",
     "next-images": "^1.8.5",
+    "next-pwa": "^5.6.0",
     "next-videos": "^1.4.1",
     "raf": "^3.4.1",
     "react-native-chart-kit": "*",

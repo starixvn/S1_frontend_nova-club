@@ -43,8 +43,13 @@ function MyApp({ ...rest }: AdaptiveAppProps) {
         <meta name="twitter:image" content={SEO_IMAGE} />
         <meta
           name="viewport"
-          content="width=375, initial-scale=1.0, user-scalable=no, maximum-scale=1"
+          content="width=375, initial-scale=1.0,viewport-fit=cover, user-scalable=no, maximum-scale=1 "
         />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        {/* <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
+        /> */}
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Script id="google-tag-manager" strategy="afterInteractive">

@@ -1,13 +1,13 @@
+import FloatingContent from 'app/features/floatingContent'
 import usePathname from 'app/hooks/usePathname'
 import { BOTTOM_ROUTE } from 'app/navigation/RoutePath'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import React from 'react'
-import { useWindowDimensions } from 'react-native'
+import { Platform, useWindowDimensions } from 'react-native'
 import { useRouter } from 'solito/router'
 import { DripsyGradient } from '../Gradient'
 import IconButtonGradientGroup from '../IconButtonGradientGroup'
 import IconButtonGradientToggle from '../IconButtonGradientToggle'
-import FloatingContent from 'app/features/floatingContent'
 
 export const BOTTOM_TAB_BAR_HEIGHT = 60
 
@@ -15,6 +15,7 @@ function BottomTabBar() {
   const pathname = usePathname()
   const { push } = useRouter()
   const { bottom } = useSafeArea()
+
   const { width } = useWindowDimensions()
   const isActiveState = (
     index: number,
@@ -40,7 +41,10 @@ function BottomTabBar() {
           borderTopWidth: 1,
           borderColor: '$primary.50',
           overflow: 'visible',
-          height: BOTTOM_TAB_BAR_HEIGHT + Math.min(bottom, 40),
+          // height: BOTTOM_TAB_BAR_HEIGHT + Math.min(bottom, 40),
+          height:
+            BOTTOM_TAB_BAR_HEIGHT +
+            Math.min(Platform.OS !== 'web' ? bottom : 40, 40),
         }}
       >
         <IconButtonGradientGroup

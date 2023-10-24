@@ -44,12 +44,13 @@ const FloatedHeader = () => (
 const FloatedBottomBar = () => {
   return (
     <div
+      id="bottomTabBar"
       style={{
         bottom: 0,
         position: 'fixed',
         zIndex: 1,
         width: '100%',
-        height: BOTTOM_TAB_BAR_HEIGHT,
+        height: BOTTOM_TAB_BAR_HEIGHT + 15,
       }}
     >
       <BottomTabBar />
