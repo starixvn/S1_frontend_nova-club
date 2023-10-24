@@ -55,7 +55,6 @@ const EventPopupModal = ({ modal: { closeModal } }) => {
   const imageWidth = Math.min(380, width * 0.7)
   const imageHeight = imageWidth / (800 / 1100)
 
-  console.log('isMidAutumnEventDate', isMidAutumnEventDate)
   return (
     <View
       sx={{

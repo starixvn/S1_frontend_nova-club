@@ -1,38 +1,39 @@
-import { Dictionary, EntityId } from '@reduxjs/toolkit'
+import { EntityId } from '@reduxjs/toolkit'
 import { FlashList } from '@shopify/flash-list'
-import Accordian from 'app/components/Accordian'
-import Icon from 'app/components/Icon'
-import Button from 'app/components/common/Button'
 import DataTableCell from 'app/components/dataTable/DataTableCell'
 import DataTableRow from 'app/components/dataTable/DataTableRow'
 import { SabaGamePayload } from 'app/constants/game'
-import {
-  MatchHandicapType,
-  MatchLeagueTabIconMapping,
-} from 'app/constants/recMatchMapping'
+import { MatchHandicapType } from 'app/constants/recMatchMapping'
 import useIsDesktop from 'app/hooks/useIsDesktop'
-import useLocalization from 'app/provider/localization'
-import { useAppSelector } from 'app/provider/redux/store'
 import { ActionType, getAction } from 'app/utils/actionGenerator'
 import dayjsTz from 'app/utils/dayjs'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
-import { ActivityIndicator, Row, ScrollView, Text, View } from 'dripsy'
-import React, { useState } from 'react'
-import { useWindowDimensions } from 'react-native'
+import { View } from 'dripsy'
+import { MotiView } from 'moti'
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
+import { useInView } from 'react-intersection-observer'
 import { Game } from 'services/gameApi.type'
-import { League, MatchResult } from 'services/matchApi.type'
+import { MatchResult } from 'services/matchApi.type'
 import { SolitoImage } from 'solito/image'
 import { MEDIA_DOMAIN } from '../../../../apps/next/config/env'
-import DataTableTitle from 'app/components/dataTable/DataTableTitle'
+import MatchListHeader from './MatchListHeader'
+import Button from 'app/components/common/Button'
+import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
+import keyBy from 'lodash/keyBy'
 dayjs.extend(customParseFormat)
 
 interface MatchListTableProps {
-  data?: League
-  fullData: Dictionary<League>
-  leagueId: EntityId
-  allLeagueId: EntityId[]
-  selectedTime: string
+  data: (EntityId | MatchResult)[]
+  filterKey: string
 }
 
 interface MatchListCellDataProps {
@@ -46,7 +47,6 @@ interface MatchListCellDataProps {
 
 interface MatchListCellRowProps {
   index: number
-  selectedTime: string
   time: string
   date: string
   homeFlag: string
@@ -65,188 +65,169 @@ const handicapTypeArr = [
   MatchHandicapType.HALF_TIME_DOUBLE,
 ]
 
+export interface MatchListMethod {
+  jumpTo: (index: number) => void
+}
+
 const ROW_HEIGHT = 143
 
-const MatchListTable = ({
-  leagueId,
-  fullData,
-  allLeagueId,
-  selectedTime,
-}: MatchListTableProps) => {
-  const filterStartDate = dayjs(selectedTime)
-  const filterEndDate = filterStartDate.add(1, 'day')
-  const isDesktop = useIsDesktop()
-  const { width } = useWindowDimensions()
-  const [isFlashListLoading, setIsFlashListLoading] = useState(true)
-  // console.log(fullData)
-  const onPress = (match: MatchResult) => {
-    getAction({
-      type: ActionType.GAME,
-      payload: {
-        desktopMode: isDesktop,
-        game: {
-          ...SabaGamePayload,
-          params: {
-            leaguekey: match.LeagueId.toString(),
-            matchid: match.EventId.toString(),
-          },
-        } as Game,
-      },
-    })()
+const MatchListTable = forwardRef<MatchListMethod, MatchListTableProps>(
+  ({ data, filterKey }: MatchListTableProps, ref) => {
+    const leagueTabs = keyBy(data, 'LeagueId')
+
+    const isDesktop = useIsDesktop()
+    const flashListRef = useRef()
+
+    const onPress = (match: MatchResult) => {
+      getAction({
+        type: ActionType.GAME,
+        payload: {
+          desktopMode: isDesktop,
+          game: {
+            ...SabaGamePayload,
+            params: {
+              leaguekey: match.LeagueId.toString(),
+              matchid: match.EventId.toString(),
+            },
+          } as Game,
+        },
+      })()
+    }
+
+    const [stickyIndices, setStickyIndices] = useState<number[]>([])
+
+    useEffect(() => {
+      setStickyIndices([])
+      setTimeout(() =>
+        setStickyIndices(
+          data
+            .map((item, index) => (typeof item === 'string' ? index : -1))
+            .filter((index) => index > -1)
+        )
+      )
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [filterKey])
+
+    function jumpTo(index: number) {
+      // ref.current?.scrollToIndex(stickyHeaderIndices[index])
+      flashListRef.current.scrollToIndex({
+        animated: true,
+        index: index,
+      })
+    }
+
+    useImperativeHandle(ref, () => {
+      return {
+        jumpTo,
+      }
+    })
+
+    return (
+      <View sx={{ height: 750 }}>
+        <FlashList
+          // style={{ height: 500 }}
+          ref={flashListRef}
+          data={data}
+          estimatedItemSize={143}
+          keyExtractor={(item) =>
+            typeof item === 'string' || typeof item === 'number'
+              ? item.toString()
+              : item?.EventId.toString()
+          }
+          stickyHeaderIndices={stickyIndices}
+          extraData={data}
+          getItemType={(item) => {
+            // To achieve better performance, specify the type based on the item
+            return typeof item === 'string' || typeof item === 'number'
+              ? 'sectionHeader'
+              : 'row'
+          }}
+          renderItem={({ index, item }) => {
+            if (typeof item === 'string' || typeof item === 'number') {
+              // Rendering header
+              // const sample = data.find(
+              //   (m) => typeof m === 'object' && m.LeagueId.toString() === item
+              // )
+              const sample = leagueTabs[item]
+
+              return <MatchListHeader data={sample} height={50} />
+            } else {
+              // Render item
+              const homeFlag = `${MEDIA_DOMAIN}/nvclub${item.HomeImagePath}`
+              const awayFlag = `${MEDIA_DOMAIN}/nvclub${item.AwayImagePath}`
+              const { date, matchUnixDate, time, matchDayjs } = getMatchTime(
+                item.globalshowtime
+              )
+
+              return (
+                <MatchListCellRow
+                  awayFlag={awayFlag}
+                  date={date}
+                  homeFlag={homeFlag}
+                  index={index}
+                  item={item}
+                  onPress={onPress}
+                  time={time}
+                />
+              )
+            }
+          }}
+        />
+      </View>
+    )
   }
+)
+
+const MatchListCellRow = ({
+  index,
+  time,
+  date,
+  homeFlag,
+  awayFlag,
+  item,
+  onPress,
+}: MatchListCellRowProps) => {
+  const { ref, inView, entry } = useInView({
+    /* Optional options */
+    threshold: 0,
+  })
 
   return (
-    <ScrollView
-      // key={selectedTime + leagueId}
-      contentContainerSx={{
-        overflow: 'hidden',
-        mb: '$sectionBottomSpace',
+    <View
+      ref={ref}
+      key={index + time + date}
+      sx={{
+        bg: index % 2 ? '$primary.300' : '$primary.500',
+        // borderBottomWidth: 8,
+        mb: '$2',
+        // borderBottomColor: '$primary.700',
+        height: 135,
       }}
     >
-      {leagueId ? (
-        <FlashList
-          key={leagueId + 'All' + selectedTime} // Update the key prop
-          data={fullData[leagueId]}
-          estimatedItemSize={20}
-          renderItem={({ index, item }) => (
-            <OnRender
-              key={selectedTime}
-              index={index}
-              item={item}
-              selectedTime={selectedTime}
-              filterEndDate={filterEndDate}
-              filterStartDate={filterStartDate}
-              onPress={onPress}
-            />
-          )}
-        />
-      ) : (
-        allLeagueId.map((l, index) => {
-          return (
-            <Accordian
-              key={index}
-              isExpandable
-              extended={true}
-              parentStyle={{
-                px: 0,
-                bg: '$primary.50',
-                py: 5,
-                my: '$2',
-                borderBottomWidth: 1,
-                borderColor: '$primary.700',
-                borderSpacing: 0,
-                borderCollapse: 'collapse',
-              }}
-              showDivider={false}
-              //set a minimum height to expand initially
-              estimatedExpandHeight={1000}
-              header={
-                <Row
-                  sx={{
-                    px: '$3',
-                    alignItems: 'center',
-                  }}
-                >
-                  <Row
-                    sx={{
-                      flex: 0.27,
-                      alignItems: 'center',
-                    }}
-                  >
-                    <Icon
-                      name={MatchLeagueTabIconMapping[l]}
-                      sx={{ fontSize: [24, 30, 34] }}
-                    />
-                    <Text
-                      sx={{
-                        mx: '$2',
-                        fontSize: 16,
-                        fontWeight: 'bold',
-                      }}
-                    >
-                      {fullData[l]?.[0]?.LeagueName}
-                    </Text>
-                  </Row>
-                  <Row sx={{ flex: 1 }}>
-                    <DataTableTitle sx={{ flex: 0.164, px: 0 }}>
-                      FT. HDP
-                    </DataTableTitle>
-                    <DataTableTitle sx={{ flex: 0.16, px: 0 }}>
-                      FT. O/U
-                    </DataTableTitle>
-                    <DataTableTitle sx={{ flex: 0.09, px: 0 }}>
-                      FT. 1X2
-                    </DataTableTitle>
-                    <DataTableTitle sx={{ flex: 0.09, px: 0 }}>
-                      FT. O/E
-                    </DataTableTitle>
-                    <DataTableTitle sx={{ flex: 0.164, px: 0 }}>
-                      1H. HDP
-                    </DataTableTitle>
-                    <DataTableTitle sx={{ flex: 0.16, px: 0 }}>
-                      1H. O/U
-                    </DataTableTitle>
-                    <DataTableTitle sx={{ flex: 0.09, px: 0 }}>
-                      1H. 1X2
-                    </DataTableTitle>
-                    {/* <DataTableTitle sx={{ flex: 0.07 }}>{}</DataTableTitle> */}
-                  </Row>
-                </Row>
-              }
-            >
-              {/* 
-                  //Display All League with specific date
-                 */}
-              <FlashList
-                keyExtractor={(item, index) => {
-                  return item.EventId.toString() ?? index
-                }}
-                estimatedItemSize={20}
-                data={fullData[l]}
-                scrollEnabled={false}
-                onLoad={(e) => {
-                  //Add timeout to show the loading indicator for better UX
-                  setTimeout(() => {
-                    setIsFlashListLoading(false)
-                  }, 250)
-                }}
-                onEndReached={() => {
-                  fullData[l]
-                }}
-                extraData={[isFlashListLoading, filterStartDate]}
-                renderItem={({ index, item }) => {
-                  console.log('FlashListLoading?@@@@ :', isFlashListLoading)
-                  return !isFlashListLoading ? (
-                    <OnRender
-                      index={index}
-                      item={item}
-                      selectedTime={selectedTime}
-                      filterEndDate={filterEndDate}
-                      filterStartDate={filterStartDate}
-                      onPress={onPress}
-                    />
-                  ) : (
-                    <View
-                      sx={{
-                        height: ROW_HEIGHT,
-                        justifyContent: 'center',
-                        width: '100%',
-                      }}
-                    >
-                      <ActivityIndicator size={'large'} color="$primary.100" />
-                    </View>
-                  )
-                }}
-                estimatedListSize={{
-                  width: 1095,
-                  height: ROW_HEIGHT,
-                }}
-              />
-            </Accordian>
-          )
-        })
+      {!inView ? null : (
+        <MotiView
+          from={{ opacity: 0, translateX: -10 }}
+          animate={{ opacity: 1, translateX: 0 }}
+        >
+          <MatchListCellData
+            dateTime={date}
+            flag={homeFlag}
+            item={item}
+            name={item.HomeName}
+            selectionType={'home'}
+          />
+          <MatchListCellData
+            dateTime={time}
+            flag={awayFlag}
+            item={item}
+            name={item.AwayName}
+            selectionType={'away'}
+            onPress={onPress}
+          />
+          <MatchListCellData item={item} selectionType={'draw'} />
+        </MotiView>
       )}
-    </ScrollView>
+    </View>
   )
 }
 
@@ -259,10 +240,10 @@ const MatchListCellData = ({
   onPress,
 }: MatchListCellDataProps) => {
   const { t } = useLocalization()
-  const authState = useAppSelector((s) => s.auth)
-  const isLoggedIn = !!authState.info
+  const isLoggedIn = useAppSelector((state) => state.auth.info?.token)
+
   return (
-    <DataTableRow>
+    <DataTableRow key={dateTime} sx={{ height: 45 }}>
       <DataTableCell
         sx={{
           py: '$0',
@@ -315,10 +296,10 @@ const MatchListCellData = ({
           flex: 1,
           px: 0,
           py: '$0',
+          alignItems: 'stretch',
         }}
       >
         {handicapTypeArr.map((d, i) => {
-          // console.log(i)
           //Length is 3 if it is 1x2 Full Time & 1x2 Half Time
           //Selection ID 0 is Home while 1 is Away,
           //Selection ID for Away is 2 when it is 1x2 Full Time & 1x2 Half Time (Length===2)
@@ -342,14 +323,14 @@ const MatchListCellData = ({
             d === MatchHandicapType.FULL_TIME_OVER_UNDER
 
           return (
+            // eslint-disable-next-line react/jsx-key
             <View
-              key={i}
+              key={`${i} + ${item.EventId}`}
               sx={{
                 flexDirection: 'row',
                 flex: isTimeDouble ? 0.6 : 1.1,
                 justifyContent: 'center',
                 py: 0,
-                height: 45,
                 borderLeftWidth: 0.5,
                 borderColor: 'rgba(255,255,255,0.6)',
               }}
@@ -430,119 +411,6 @@ const MatchListCellData = ({
         )}
       </DataTableCell>
     </DataTableRow>
-  )
-}
-const OnRender = ({
-  item,
-  index,
-  selectedTime,
-  filterEndDate,
-  filterStartDate,
-  onPress,
-}: {
-  item: MatchResult
-  index: number
-  selectedTime: string
-  filterEndDate: dayjs.Dayjs
-  filterStartDate: dayjs.Dayjs
-  onPress: (match: MatchResult) => void
-}) => {
-  const homeFlag = `${MEDIA_DOMAIN}/nvclub${item.HomeImagePath}`
-  const awayFlag = `${MEDIA_DOMAIN}/nvclub${item.AwayImagePath}`
-  const { date, matchUnixDate, time, matchDayjs } = getMatchTime(
-    item.globalshowtime
-  )
-
-  const endDate =
-    selectedTime === 'All' ? dayjsTz(dayjs()).add(6, 'day') : filterEndDate
-  const startDate = selectedTime === 'All' ? dayjsTz(dayjs()) : filterStartDate
-  // console.log('-----------------------')
-  // console.log(item.HomeName)
-  // console.log('MatchDate', matchDayjs.format('DD/MM/YYYY || HH:MMA'))
-  // console.log('Filter Start: ', startDate.format('DD/MM/YYYY || HH:MMA'))
-  // console.log('Filter End: ', endDate.format('DD/MM/YYYY || HH:MMA'))
-  // console.log(matchDayjs.subtract(startDate.day(), 'days').day())
-  // console.log(endDate.subtract(matchDayjs.day(), 'days').day())
-  // console.log('@@@')
-  // console.log(dayjs(matchDayjs.diff(startDate)).format('D'))
-  // console.log(dayjs(matchDayjs.diff(endDate)).format('D'))
-  // console.log(parseInt(dayjs(matchDayjs.diff(startDate)).format('D')) === 1)
-  if (
-    selectedTime !== 'All' &&
-    startDate.format('D') === matchDayjs.format('D') &&
-    matchDayjs.isAfter(startDate) &&
-    matchDayjs.isBefore(endDate)
-  ) {
-    return (
-      <MatchListCellRow
-        awayFlag={awayFlag}
-        date={date}
-        homeFlag={homeFlag}
-        index={index}
-        item={item}
-        onPress={onPress}
-        selectedTime={selectedTime}
-        time={time}
-        key={selectedTime}
-      />
-    )
-  } else if (selectedTime === 'All') {
-    return (
-      <MatchListCellRow
-        awayFlag={awayFlag}
-        date={date}
-        homeFlag={homeFlag}
-        index={index}
-        item={item}
-        onPress={onPress}
-        selectedTime={selectedTime}
-        time={time}
-        key={selectedTime}
-      />
-    )
-  } else {
-    return null
-  }
-}
-
-const MatchListCellRow = ({
-  index,
-  selectedTime,
-  time,
-  date,
-  homeFlag,
-  awayFlag,
-  item,
-  onPress,
-}: MatchListCellRowProps) => {
-  return (
-    <View
-      key={selectedTime}
-      sx={{
-        flex: 1,
-        bg: index % 2 ? '$primary.300' : '$primary.500',
-        borderBottomWidth: 8,
-        borderBottomColor: '$primary.700',
-      }}
-    >
-      <MatchListCellData
-        dateTime={date}
-        flag={homeFlag}
-        item={item}
-        name={item.HomeName}
-        selectionType={'home'}
-      />
-
-      <MatchListCellData
-        dateTime={time}
-        flag={awayFlag}
-        item={item}
-        name={item.AwayName}
-        selectionType={'away'}
-        onPress={onPress}
-      />
-      <MatchListCellData item={item} selectionType={'draw'} />
-    </View>
   )
 }
 

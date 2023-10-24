@@ -6,11 +6,11 @@ import useLocalization from 'app/provider/localization'
 import dayjsTz from 'app/utils/dayjs'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
-import { Pressable, Text, View } from 'dripsy'
-import { useState } from 'react'
+import { ActivityIndicator, Pressable, Text, View } from 'dripsy'
+import { ElementRef, useMemo, useRef, useState } from 'react'
 import { matchGroupByLeague, useGetRecoMatchQuery } from 'services/matchApi'
-import MatchListHeader from './MatchListHeader'
-import MatchListTable from './MatchListTable'
+import { MatchResult } from 'services/matchApi.type'
+import MatchListTable, { MatchListMethod } from './MatchListTable'
 dayjs.extend(customParseFormat)
 
 type Props = {}
@@ -18,11 +18,14 @@ type Props = {}
 const BAR_HEIGHT = 50
 
 export default function MatchList({}: Props) {
-  const [selectedLeague, setSelectedLeague] = useState<EntityId>()
   const [selectedTime, setSelectedTime] = useState<string>('All')
+
+  const tableRef = useRef<MatchListMethod>()
+  const matchRef = useRef<View>()
+
   const desktop = useIsDesktop()
   const { t } = useLocalization()
-  const { leagues } = useGetRecoMatchQuery(
+  const { leagues, isFetching } = useGetRecoMatchQuery(
     { isApp: !desktop },
     {
       selectFromResult: (resp) => ({
@@ -31,12 +34,61 @@ export default function MatchList({}: Props) {
       }),
     }
   )
+
   const timeFilter = getMatchTimeFilterLabel()
 
-  const leagueId = selectedLeague ?? ''
+  const fullData: Record<string, (EntityId | MatchResult)[]> = useMemo(() => {
+    let final = {}
+    if (leagues) {
+      timeFilter.forEach((f) => {
+        const time = f.date
+        const filterStartDate = dayjs(time)
+        const filterEndDate = filterStartDate.endOf('day')
+        const endDate =
+          time === 'All' ? dayjsTz(dayjs()).add(6, 'day') : filterEndDate
+        const startDate = time === 'All' ? dayjsTz(dayjs()) : filterStartDate
 
-  return (
-    <View sx={{ mt: '$3', minHeight: 500 }}>
+        const filtered = leagues.ids.reduce((prev, cur) => {
+          const matches = leagues.entities[cur] as MatchResult[]
+
+          const filtered =
+            time !== 'All'
+              ? matches.filter((match) => {
+                  const { matchDayjs } = getMatchTime(match.globalshowtime)
+                  return (
+                    startDate.format('D') === matchDayjs.format('D') &&
+                    matchDayjs.isAfter(startDate) &&
+                    matchDayjs.isBefore(endDate)
+                  )
+                })
+              : matches
+
+          if (filtered.length > 0) prev.push(cur)
+          return prev.concat(filtered)
+        }, [] as (EntityId | MatchResult)[])
+
+        final[f.date] = filtered
+      })
+    }
+
+    return final
+  }, [leagues])
+  const visibleTimeFilter = timeFilter.filter(
+    (el) => fullData[el.date]?.length > 0
+  )
+
+  const filteredData = useMemo(() => {
+    return fullData[selectedTime] ?? []
+  }, [selectedTime, fullData])
+
+  const leagueTab = useMemo(() => {
+    return filteredData.filter((d) => typeof d === 'string')
+  }, [filteredData]) as EntityId[]
+
+  return isFetching ? (
+    <ActivityIndicator size={'large'} />
+  ) : (
+    <View ref={matchRef} sx={{ mt: '$3', minHeight: 500 }}>
       {/* <Divider /> */}
       <DripsyGradient
         gradient={'surface'}
@@ -50,13 +102,15 @@ export default function MatchList({}: Props) {
           borderTopColor: '$primary.50',
         }}
       >
-        {timeFilter.map((f) => {
+        {visibleTimeFilter.map((f) => {
           return (
             <Pressable
               key={f.label}
               onPress={() => {
                 setSelectedTime(f.date ?? 'all')
-                f.date === 'all' && setSelectedLeague(undefined)
+                setTimeout(() => {
+                  tableRef?.current?.jumpTo(0)
+                }, 300)
               }}
             >
               <Text
@@ -75,24 +129,24 @@ export default function MatchList({}: Props) {
         })}
       </DripsyGradient>
       <MatchLeagueSelector
-        ids={leagues.ids}
-        onChange={setSelectedLeague}
-        value={leagueId}
+        ids={leagueTab}
+        onChange={(v) => {
+          matchRef?.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'end',
+          })
+
+          const goTo = filteredData?.findIndex((el) => el === v)
+          setTimeout(() => {
+            tableRef?.current?.jumpTo(goTo)
+          }, 300)
+        }}
+        value={''}
       />
-
-      {leagues.entities[leagueId]?.[0] && (
-        <MatchListHeader
-          data={leagues.entities[leagueId]?.[0]}
-          height={BAR_HEIGHT}
-        />
-      )}
-
       <MatchListTable
-        data={leagues.entities[leagueId]}
-        leagueId={leagueId}
-        fullData={leagues.entities}
-        allLeagueId={leagues.ids}
-        selectedTime={selectedTime ? selectedTime : ''}
+        filterKey={selectedTime}
+        ref={tableRef}
+        data={filteredData}
       />
     </View>
   )
@@ -112,7 +166,7 @@ const getMatchTimeFilterLabel = () => {
     date: 'All',
     label: 'common.all',
   })
-  for (let i = 0; i < 7; i++) {
+  for (let i = 0; i < 10; i++) {
     const date = gmt7.add(i, 'day')
     const dateObject: DateArrayType = {}
 
@@ -130,4 +184,25 @@ const getMatchTimeFilterLabel = () => {
     dateArray.push(dateObject) // Push the dateObject into the dateArray
   }
   return dateArray
+}
+
+const getMatchTime = (globalshowtime: string) => {
+  let time = '-'
+  let date = '-'
+  let matchUnixDate = 0
+  let matchDayjs = {} as dayjs.Dayjs
+  try {
+    const gmt8 = dayjs(globalshowtime, 'MM/DD hh:mmA')
+    const gmt7 = dayjsTz(gmt8)
+
+    if (gmt7.isValid()) {
+      time = gmt7.format('HH:mm')
+      date = gmt7.format('DD/MM')
+      matchUnixDate = gmt7.unix()
+      matchDayjs = gmt7
+    }
+  } catch (e) {
+    // Android Hermes will hit error if using dayjsTz
+  }
+  return { time, date, matchUnixDate, matchDayjs }
 }
