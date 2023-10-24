@@ -6,13 +6,11 @@ import useLocalization from 'app/provider/localization'
 import dayjsTz from 'app/utils/dayjs'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
-import { Pressable, Text, View } from 'dripsy'
-import { startTransition, useEffect, useMemo, useRef, useState } from 'react'
+import { ActivityIndicator, Pressable, Text, View } from 'dripsy'
+import { ElementRef, useMemo, useRef, useState } from 'react'
 import { matchGroupByLeague, useGetRecoMatchQuery } from 'services/matchApi'
-import MatchListHeader from './MatchListHeader'
-import MatchListTable from './MatchListTable'
-import { League, MatchResult } from 'services/matchApi.type'
-import { Dictionary } from 'lodash'
+import { MatchResult } from 'services/matchApi.type'
+import MatchListTable, { MatchListMethod } from './MatchListTable'
 dayjs.extend(customParseFormat)
 
 type Props = {}
@@ -20,31 +18,26 @@ type Props = {}
 const BAR_HEIGHT = 50
 
 export default function MatchList({}: Props) {
-  const [selectedLeague, setSelectedLeague] = useState<EntityId>()
   const [selectedTime, setSelectedTime] = useState<string>('All')
-  const [fullData, setFullData] = useState<
-    Record<string, (EntityId | MatchResult)[]>
-  >({})
 
-  const tableRef = useRef()
-  const matchRef = useRef()
-  const [data, setData] = useState<(EntityId | MatchResult)[]>([])
+  const tableRef = useRef<MatchListMethod>()
+  const matchRef = useRef<View>()
+
   const desktop = useIsDesktop()
   const { t } = useLocalization()
-  const leagues = useGetRecoMatchQuery(
+  const { leagues, isFetching } = useGetRecoMatchQuery(
     { isApp: !desktop },
     {
-      selectFromResult: (resp) => matchGroupByLeague(resp),
+      selectFromResult: (resp) => ({
+        ...resp,
+        leagues: matchGroupByLeague(resp),
+      }),
     }
   )
+
   const timeFilter = getMatchTimeFilterLabel()
-  const visibleTimeFilter = timeFilter.filter(
-    (el) => fullData[el.date]?.length > 0
-  )
 
-  const leagueId = selectedLeague ?? ''
-
-  useEffect(() => {
+  const fullData: Record<string, (EntityId | MatchResult)[]> = useMemo(() => {
     let final = {}
     if (leagues) {
       timeFilter.forEach((f) => {
@@ -76,18 +69,25 @@ export default function MatchList({}: Props) {
 
         final[f.date] = filtered
       })
-      console.log('final', final)
-
-      setFullData(final)
     }
+
+    return final
   }, [leagues])
+  const visibleTimeFilter = timeFilter.filter(
+    (el) => fullData[el.date]?.length > 0
+  )
 
-  useEffect(() => {
-    if (fullData[selectedTime])
-      startTransition(() => setData(fullData[selectedTime]))
-  }, [selectedTime, selectedLeague, fullData])
+  const filteredData = useMemo(() => {
+    return fullData[selectedTime] ?? []
+  }, [selectedTime, fullData])
 
-  return (
+  const leagueTab = useMemo(() => {
+    return filteredData.filter((d) => typeof d === 'string')
+  }, [filteredData]) as EntityId[]
+
+  return isFetching ? (
+    <ActivityIndicator size={'large'} />
+  ) : (
     <View ref={matchRef} sx={{ mt: '$3', minHeight: 500 }}>
       {/* <Divider /> */}
       <DripsyGradient
@@ -108,7 +108,9 @@ export default function MatchList({}: Props) {
               key={f.label}
               onPress={() => {
                 setSelectedTime(f.date ?? 'all')
-                f.date === 'all' && setSelectedLeague(undefined)
+                setTimeout(() => {
+                  tableRef?.current?.jumpTo(0)
+                }, 300)
               }}
             >
               <Text
@@ -127,29 +129,25 @@ export default function MatchList({}: Props) {
         })}
       </DripsyGradient>
       <MatchLeagueSelector
-        ids={leagues.ids}
+        ids={leagueTab}
         onChange={(v) => {
           matchRef?.current?.scrollIntoView({
             behavior: 'smooth',
             block: 'end',
           })
 
-          const goTo = data.findIndex((el) => el === v)
+          const goTo = filteredData?.findIndex((el) => el === v)
           setTimeout(() => {
             tableRef?.current?.jumpTo(goTo)
           }, 300)
         }}
-        value={leagueId}
+        value={''}
       />
-
-      {leagues.entities[leagueId]?.[0] && (
-        <MatchListHeader
-          data={leagues.entities[leagueId]?.[0]}
-          height={BAR_HEIGHT}
-        />
-      )}
-
-      <MatchListTable ref={tableRef} data={data} />
+      <MatchListTable
+        filterKey={selectedTime}
+        ref={tableRef}
+        data={filteredData}
+      />
     </View>
   )
 }

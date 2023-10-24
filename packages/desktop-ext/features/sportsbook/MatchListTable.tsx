@@ -1,45 +1,39 @@
-import { Dictionary, EntityId } from '@reduxjs/toolkit'
+import { EntityId } from '@reduxjs/toolkit'
 import { FlashList } from '@shopify/flash-list'
-import Accordian from 'app/components/Accordian'
-import Icon from 'app/components/Icon'
-import Button from 'app/components/common/Button'
 import DataTableCell from 'app/components/dataTable/DataTableCell'
 import DataTableRow from 'app/components/dataTable/DataTableRow'
 import { SabaGamePayload } from 'app/constants/game'
-import {
-  MatchHandicapType,
-  MatchLeagueTabIconMapping,
-} from 'app/constants/recMatchMapping'
+import { MatchHandicapType } from 'app/constants/recMatchMapping'
 import useIsDesktop from 'app/hooks/useIsDesktop'
-import useLocalization from 'app/provider/localization'
-import { useAppSelector } from 'app/provider/redux/store'
 import { ActionType, getAction } from 'app/utils/actionGenerator'
 import dayjsTz from 'app/utils/dayjs'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
-import { ActivityIndicator, Row, ScrollView, Text, View, styled } from 'dripsy'
+import { View } from 'dripsy'
+import { MotiView } from 'moti'
 import React, {
-  Fragment,
   forwardRef,
   useEffect,
   useImperativeHandle,
+  useMemo,
   useRef,
   useState,
 } from 'react'
-import { useWindowDimensions } from 'react-native'
+import { useInView } from 'react-intersection-observer'
 import { Game } from 'services/gameApi.type'
-import { League, MatchResult } from 'services/matchApi.type'
+import { MatchResult } from 'services/matchApi.type'
 import { SolitoImage } from 'solito/image'
 import { MEDIA_DOMAIN } from '../../../../apps/next/config/env'
-import DataTableTitle from 'app/components/dataTable/DataTableTitle'
-import useIntersectionObserver from 'app/hooks/useIntersectionObserver'
 import MatchListHeader from './MatchListHeader'
-import { MotiView } from 'moti'
-import { mergeRefs } from 'utils/mergeRefs'
+import Button from 'app/components/common/Button'
+import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
+import keyBy from 'lodash/keyBy'
 dayjs.extend(customParseFormat)
 
 interface MatchListTableProps {
   data: (EntityId | MatchResult)[]
+  filterKey: string
 }
 
 interface MatchListCellDataProps {
@@ -71,83 +65,101 @@ const handicapTypeArr = [
   MatchHandicapType.HALF_TIME_DOUBLE,
 ]
 
+export interface MatchListMethod {
+  jumpTo: (index: number) => void
+}
+
 const ROW_HEIGHT = 143
 
-const MatchListTable = forwardRef(({ data }: MatchListTableProps, ref) => {
-  const isDesktop = useIsDesktop()
-  const flashListRef = useRef()
+const MatchListTable = forwardRef<MatchListMethod, MatchListTableProps>(
+  ({ data, filterKey }: MatchListTableProps, ref) => {
+    const leagueTabs = keyBy(data, 'LeagueId')
 
-  const onPress = (match: MatchResult) => {
-    getAction({
-      type: ActionType.GAME,
-      payload: {
-        desktopMode: isDesktop,
-        game: {
-          ...SabaGamePayload,
-          params: {
-            leaguekey: match.LeagueId.toString(),
-            matchid: match.EventId.toString(),
-          },
-        } as Game,
-      },
-    })()
-  }
+    const isDesktop = useIsDesktop()
+    const flashListRef = useRef()
 
-  const stickyHeaderIndices = data
-    .map((item, index) => {
-      if (typeof item === 'string') {
-        return index
-      } else {
-        return null
+    const onPress = (match: MatchResult) => {
+      getAction({
+        type: ActionType.GAME,
+        payload: {
+          desktopMode: isDesktop,
+          game: {
+            ...SabaGamePayload,
+            params: {
+              leaguekey: match.LeagueId.toString(),
+              matchid: match.EventId.toString(),
+            },
+          } as Game,
+        },
+      })()
+    }
+
+    const [stickyIndices, setStickyIndices] = useState<number[]>([])
+
+    useEffect(() => {
+      setStickyIndices([])
+      setTimeout(() =>
+        setStickyIndices(
+          data
+            .map((item, index) => (typeof item === 'string' ? index : -1))
+            .filter((index) => index > -1)
+        )
+      )
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [filterKey])
+
+    function jumpTo(index: number) {
+      // ref.current?.scrollToIndex(stickyHeaderIndices[index])
+      flashListRef.current.scrollToIndex({
+        animated: true,
+        index: index,
+      })
+    }
+
+    useImperativeHandle(ref, () => {
+      return {
+        jumpTo,
       }
     })
-    .filter((item) => item !== null) as number[]
 
-  function jumpTo(index: number) {
-    // ref.current?.scrollToIndex(stickyHeaderIndices[index])
-    flashListRef.current.scrollToIndex({
-      animated: true,
-      index: index,
-    })
-  }
+    return (
+      <View sx={{ height: 750 }}>
+        <FlashList
+          // style={{ height: 500 }}
+          ref={flashListRef}
+          data={data}
+          estimatedItemSize={143}
+          keyExtractor={(item) =>
+            typeof item === 'string' || typeof item === 'number'
+              ? item.toString()
+              : item?.EventId.toString()
+          }
+          stickyHeaderIndices={stickyIndices}
+          extraData={data}
+          getItemType={(item) => {
+            // To achieve better performance, specify the type based on the item
+            return typeof item === 'string' || typeof item === 'number'
+              ? 'sectionHeader'
+              : 'row'
+          }}
+          renderItem={({ index, item }) => {
+            if (typeof item === 'string' || typeof item === 'number') {
+              // Rendering header
+              // const sample = data.find(
+              //   (m) => typeof m === 'object' && m.LeagueId.toString() === item
+              // )
+              const sample = leagueTabs[item]
 
-  useImperativeHandle(ref, () => {
-    return {
-      jumpTo,
-    }
-  })
+              return <MatchListHeader data={sample} height={50} />
+            } else {
+              // Render item
+              const homeFlag = `${MEDIA_DOMAIN}/nvclub${item.HomeImagePath}`
+              const awayFlag = `${MEDIA_DOMAIN}/nvclub${item.AwayImagePath}`
+              const { date, matchUnixDate, time, matchDayjs } = getMatchTime(
+                item.globalshowtime
+              )
 
-  return (
-    <View sx={{ height: 750 }}>
-      <FlashList
-        style={{ height: 500 }}
-        ref={flashListRef}
-        data={data}
-        estimatedItemSize={143}
-        stickyHeaderIndices={stickyHeaderIndices}
-        getItemType={(item) => {
-          // To achieve better performance, specify the type based on the item
-          return typeof item === 'string' || typeof item === 'number'
-            ? 'sectionHeader'
-            : 'row'
-        }}
-        renderItem={({ index, item }) => {
-          if (typeof item === 'string' || typeof item === 'number') {
-            // Rendering header
-            const sample = data.find(
-              (m) => typeof m === 'object' && m.LeagueId.toString() === item
-            )
-            return <MatchListHeader data={sample} height={50} />
-          } else {
-            // Render item
-            const homeFlag = `${MEDIA_DOMAIN}/nvclub${item.HomeImagePath}`
-            const awayFlag = `${MEDIA_DOMAIN}/nvclub${item.AwayImagePath}`
-            const { date, matchUnixDate, time, matchDayjs } = getMatchTime(
-              item.globalshowtime
-            )
-
-            return (
-              <View key={item}>
+              return (
                 <MatchListCellRow
                   awayFlag={awayFlag}
                   date={date}
@@ -157,14 +169,14 @@ const MatchListTable = forwardRef(({ data }: MatchListTableProps, ref) => {
                   onPress={onPress}
                   time={time}
                 />
-              </View>
-            )
-          }
-        }}
-      />
-    </View>
-  )
-})
+              )
+            }
+          }}
+        />
+      </View>
+    )
+  }
+)
 
 const MatchListCellRow = ({
   index,
@@ -175,7 +187,10 @@ const MatchListCellRow = ({
   item,
   onPress,
 }: MatchListCellRowProps) => {
-  const [inView, ref] = useIntersectionObserver()
+  const { ref, inView, entry } = useInView({
+    /* Optional options */
+    threshold: 0,
+  })
 
   return (
     <View
@@ -224,8 +239,11 @@ const MatchListCellData = ({
   name,
   onPress,
 }: MatchListCellDataProps) => {
+  const { t } = useLocalization()
+  const isLoggedIn = useAppSelector((state) => state.auth.info?.token)
+
   return (
-    <DataTableRow sx={{ height: 45 }}>
+    <DataTableRow key={dateTime} sx={{ height: 45 }}>
       <DataTableCell
         sx={{
           py: '$0',
@@ -282,7 +300,6 @@ const MatchListCellData = ({
         }}
       >
         {handicapTypeArr.map((d, i) => {
-          // console.log(i)
           //Length is 3 if it is 1x2 Full Time & 1x2 Half Time
           //Selection ID 0 is Home while 1 is Away,
           //Selection ID for Away is 2 when it is 1x2 Full Time & 1x2 Half Time (Length===2)
@@ -308,6 +325,7 @@ const MatchListCellData = ({
           return (
             // eslint-disable-next-line react/jsx-key
             <View
+              key={`${i} + ${item.EventId}`}
               sx={{
                 flexDirection: 'row',
                 flex: isTimeDouble ? 0.6 : 1.1,
@@ -380,7 +398,7 @@ const MatchListCellData = ({
           borderColor: 'rgba(255,255,255,0.6)',
         }}
       >
-        {/* {selectionType === 'away' && onPress && isLoggedIn ? (
+        {selectionType === 'away' && onPress && isLoggedIn ? (
           <Button
             contentProps={{ sx: { py: '$1', px: '$2' } }}
             titleProps={{ sx: { fontSize: [12, 12, 12, 12, 14] } }}
@@ -390,7 +408,7 @@ const MatchListCellData = ({
           </Button>
         ) : (
           ''
-        )} */}
+        )}
       </DataTableCell>
     </DataTableRow>
   )
