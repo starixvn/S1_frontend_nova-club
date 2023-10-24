@@ -71,7 +71,8 @@ const DepositForm = ({ DepositCategoryId }) => {
         label:
           depositPayment.category_id === DepositPaymentMethodCategoryId.CRYPTO
             ? MAP_CRYPTO_PROTOCOL[item.bankTypeId]
-            : `${t('deposit.channel')} ${index + 1}`,
+            : // : `${t('deposit.channel')} ${index + 1}`,
+              `${item.payment_account_name}`,
         value: index.toString(),
         icon: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.account_icon}`,
       }
