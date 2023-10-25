@@ -15,7 +15,7 @@ const BankTransferContent = () => {
 
       <View sx={{ width: horizontalMode ? '90%' : '100%' }}>
         <PendingTransaction
-          paymentMethod={DepositPaymentMethodCategoryId.TOP_UP}
+          paymentMethod={DepositPaymentMethodCategoryId.LOCAL_BANK}
         />
       </View>
     </ScrollView>
