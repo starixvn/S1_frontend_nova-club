@@ -5,6 +5,7 @@ import DesktopWithdrawalHistoryItem from 'app/features/account/history/dekstop/D
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { ReportCommonStatus, ReportTransactionType } from 'app/utils/constant'
+import isDesktop from 'app/utils/isDesktop'
 import dayjs from 'dayjs'
 import { ActivityIndicator, Text, View } from 'dripsy'
 import React, { useEffect } from 'react'
@@ -22,6 +23,7 @@ const WithdrawalTransactions = ({
   withdrawalType = WITHDRAWAL_TYPE.ALL,
 }: WithdrawalTransactionsProps) => {
   const { t } = useLocalization()
+  const desktop = isDesktop()
   const lang = useAppSelector((s) => s.setting.locale)
   const { data, isFetching, isLoading, refetch } = usePlayerReportQuery(
     {
@@ -63,13 +65,17 @@ const WithdrawalTransactions = ({
           color="$primary.100"
         />
       ) : data?.data?.row_count_total ?? 0 > 0 ? (
-        data?.data?.rows.map((item, index) => (
-          <DesktopWithdrawalHistoryItem
-            key={item.tx_code}
-            item={item}
-            index={index}
-          />
-        ))
+        data?.data?.rows.map((item, index) => {
+          return desktop ? (
+            <DesktopWithdrawalHistoryItem
+              key={item.tx_code}
+              item={item}
+              index={index}
+            />
+          ) : (
+            <WithdrawalHistoryItem key={item.tx_code} item={item} />
+          )
+        })
       ) : (
         <EmptyResult />
       )}
