@@ -1,12 +1,11 @@
-import { SxProp, View, styled, useDripsyTheme } from 'dripsy'
-import React from 'react'
-import SectionLabel from './SectionLabel'
-import { Platform, ViewProps } from 'react-native'
-import Shadow from './Shadow'
-import { Text } from 'dripsy'
-import TouchableOpacity from './pressable/TouchableOpacity'
-import { useRouter } from 'solito/router'
 import useLocalization from 'app/provider/localization'
+import { SxProp, Text, View, styled, useDripsyTheme } from 'dripsy'
+import React from 'react'
+import { Platform, ViewProps } from 'react-native'
+import { useRouter } from 'solito/router'
+import SectionLabel from './SectionLabel'
+import Shadow from './Shadow'
+import TouchableOpacity from './pressable/TouchableOpacity'
 
 interface SectionHeaderProps extends ViewProps {
   sx?: SxProp
@@ -20,6 +19,7 @@ export default function SectionHeader({
   title,
   seeMoreUrl,
   sx,
+  children,
   ...rest
 }: SectionHeaderProps) {
   const { theme } = useDripsyTheme()
@@ -58,7 +58,9 @@ export default function SectionHeader({
           }}
           {...rest}
         >
-          <SectionLabel icon={icon} title={title} />
+          <SectionLabel icon={icon} title={title}>
+            {children}
+          </SectionLabel>
           {seeMoreUrl && (
             <TouchableOpacity
               sx={{
