@@ -146,7 +146,7 @@ export default function NavigationHeader({}) {
       </View>
       <FloatingLiveChatDesktop />
 
-      <FloatingContent BottomTabBarHeight={BOTTOM_TAB_BAR_HEIGHT} />
+      {/* <FloatingContent BottomTabBarHeight={BOTTOM_TAB_BAR_HEIGHT} /> */}
     </>
   )
 }

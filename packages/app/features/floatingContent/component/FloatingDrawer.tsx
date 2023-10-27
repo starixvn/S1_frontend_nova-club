@@ -40,7 +40,7 @@ const FloatingDrawer = ({
             transition={{ type: 'timing', duration: 500 }}
           >
             <ContentOffset>
-              <HalloweenFloat size={size} />
+              {/* <HalloweenFloat size={size} /> */}
               {!isDesktop && <LiveChatButton />}
             </ContentOffset>
           </ContentOverlay>

@@ -26,7 +26,7 @@ const FloatingContent = ({
   const bottomTabIconHeightOffset = 30
   const bottomTabBarHeight = isDesktop ? 0 : BottomTabBarHeight
   const PlinkoIconAdditionalHeight = 75
-  const NUMBER_OF_FLOATING_CONTENT = isDesktop ? 1 : 2
+  const NUMBER_OF_FLOATING_CONTENT = isDesktop ? 1 : 1
   const iconSize = Math.min(80, width * 0.18)
   const floatingDrawerOffset =
     bottomTabBarHeight + bottom + bottomTabIconHeightOffset
