@@ -9,10 +9,11 @@ import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
 import { Row, View, useResponsiveValue } from 'dripsy'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import MatchSection from './MatchSection'
+import uniqBy from 'lodash/uniqBy'
 
 export default function SportsbookScreen() {
   const { t } = useLocalization()
@@ -26,6 +27,11 @@ export default function SportsbookScreen() {
   const commissionList = GetCommissionList()
 
   const numColumns = useResponsiveValue([2, 3, 3, 4])
+
+  const providers = useMemo(() => {
+    if (data) return uniqBy(data, (d) => [d.gpc, d.gtc].join())
+    else return []
+  }, [data])
 
   function renderItem({ item, index }: { item: Game; index: number }) {
     const { name } = item
@@ -68,7 +74,7 @@ export default function SportsbookScreen() {
       key={numColumns}
       estimatedItemSize={160}
       showsVerticalScrollIndicator={false}
-      data={data}
+      data={providers}
       renderItem={renderItem}
       numColumns={numColumns}
       contentContainerStyle={{

@@ -4,10 +4,11 @@ import {
   GetGameRebateValue,
 } from 'app/components/game/GameUtilityAction'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import DropdownContent from '../DropdownContent'
 import { NAVIGATION_DROPDOWN_MENU } from '../NavigationHeaderProvider'
+import uniqBy from 'lodash/uniqBy'
 
 type Props = {}
 
@@ -20,10 +21,15 @@ export default function Sportsbook({}: Props) {
 
   const commissionList = GetCommissionList()
 
+  const providers = useMemo(() => {
+    if (data) return uniqBy(data, (d) => [d.gpc, d.gtc].join())
+    else return []
+  }, [data])
+
   return (
     <DropdownContent menu={NAVIGATION_DROPDOWN_MENU.Sportsbook}>
-      {data &&
-        data.map((g) => {
+      {providers &&
+        providers.map((g) => {
           return (
             <GameCard
               // absoluteName

@@ -5,8 +5,9 @@ import {
 } from 'app/components/game/GameUtilityAction'
 import { GAME_TYPE_CODE } from 'app/utils/constant'
 import { Row, useResponsiveValue } from 'dripsy'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
+import uniqBy from 'lodash/uniqBy'
 
 export default function GameList({}) {
   const commissionList = GetCommissionList()
@@ -16,6 +17,11 @@ export default function GameList({}) {
     GAME_TYPE_CODE.VIRTUAL_SPORTS,
   ])
   const isHFive = useResponsiveValue([true, true, true, false])
+
+  const providers = useMemo(() => {
+    if (data) return uniqBy(data, (d) => [d.gpc, d.gtc].join())
+    else return []
+  }, [data])
 
   return (
     <Row
@@ -28,7 +34,7 @@ export default function GameList({}) {
         py: ['$3', '$4'],
       }}
     >
-      {data?.map((g) => {
+      {providers?.map((g) => {
         return (
           <GameCard
             showRebate={true}
