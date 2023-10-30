@@ -7,6 +7,7 @@ import { useWindowDimensions } from 'react-native'
 import { useDispatch } from 'react-redux'
 import FloatingDrawer from './component/FloatingDrawer'
 import ToggleFloatingDrawerButton from './component/ToggleFloatingDrawerButton'
+import { View } from 'dripsy'
 
 const FloatingContent = ({
   BottomTabBarHeight,
@@ -22,31 +23,32 @@ const FloatingContent = ({
   const { bottom } = useSafeArea()
 
   // const isFloatingVisible = isLoggedIn
-  const DESKTOP_BOTTOM_OFFSET = 60
-  const bottomTabIconHeightOffset = 30
-  const bottomTabBarHeight = isDesktop ? 0 : BottomTabBarHeight
-  const PlinkoIconAdditionalHeight = 75
+  const DESKTOP_BOTTOM_POSITION = 100
+  const DRAWER_BOTTON_POSITION = 70
+  const DRAWER_BUTTON_HEIGHT = 60
+  const ICON_SIZE = Math.min(80, width * 0.18)
   const NUMBER_OF_FLOATING_CONTENT = isDesktop ? 1 : 1
-  const iconSize = Math.min(80, width * 0.18)
-  const floatingDrawerOffset =
-    bottomTabBarHeight + bottom + bottomTabIconHeightOffset
-  const floatingDrawerHeight =
-    iconSize * NUMBER_OF_FLOATING_CONTENT + 20 + PlinkoIconAdditionalHeight
-  const floatButtonOffset =
-    floatingDrawerHeight / (NUMBER_OF_FLOATING_CONTENT + 1) +
-    (isDesktop ? DESKTOP_BOTTOM_OFFSET - 50 : 0)
-  const drawerButtonOffset = bottomTabBarHeight + bottom + floatButtonOffset
+
+  const BOTTOM_TAB_HEIGHT = isDesktop ? 0 : BottomTabBarHeight
+
+  const DRAWER_HEIGHT = ICON_SIZE * NUMBER_OF_FLOATING_CONTENT + 40
+  const MOBILE_BOTTOM_POSITION =
+    BOTTOM_TAB_HEIGHT + bottom + DRAWER_BOTTON_POSITION
+  const DRAWER_BUTTON_POSITION =
+    (isDesktop ? DESKTOP_BOTTOM_POSITION : MOBILE_BOTTOM_POSITION) +
+    DRAWER_HEIGHT * 0.5 -
+    DRAWER_BUTTON_HEIGHT * 0.5
 
   return (
     <>
       <FloatingDrawer
         visible={isFloatingDrawerOpen}
-        size={iconSize}
+        size={ICON_SIZE}
         floatingDrawerOffset={
-          isDesktop ? DESKTOP_BOTTOM_OFFSET : floatingDrawerOffset
+          isDesktop ? DESKTOP_BOTTOM_POSITION : MOBILE_BOTTOM_POSITION
         }
         isDesktop={isDesktop}
-        floatingDrawerHeight={floatingDrawerHeight}
+        floatingDrawerHeight={DRAWER_HEIGHT}
       />
       <ToggleFloatingDrawerButton
         isDesktop={isDesktop}
@@ -54,7 +56,7 @@ const FloatingContent = ({
           dispatch(SettingActions.setFloatingDrawer(!isFloatingDrawerOpen))
         }}
         visible={isFloatingDrawerOpen}
-        drawerButtonOffset={drawerButtonOffset}
+        drawerButtonOffset={DRAWER_BUTTON_POSITION}
       />
     </>
   )
