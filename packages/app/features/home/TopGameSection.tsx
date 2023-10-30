@@ -47,7 +47,7 @@ export default function TopGameSection(props) {
           sx={{
             px: '$3',
             // py: '$1',
-            height: '100%',
+            height: 24,
             bg: '$primary.500',
             borderRadius: 24,
             alignItems: 'center',
