@@ -34,7 +34,7 @@ export const WithdrawalHistoryItemContent = ({ item }) => {
         alignSelf: 'stretch',
         flexDirection: 'row',
         p: '$3',
-        pr: '$2',
+        pr: '$1',
         alignItems: 'center',
       }}
     >
@@ -79,7 +79,7 @@ export const WithdrawalHistoryItemContent = ({ item }) => {
         </CellView>
       </View>
 
-      <View sx={{ flexBasis: 36, alignItems: 'flex-end' }}>
+      <View sx={{ flexBasis: 28, alignItems: 'flex-end' }}>
         {item.notes && (
           <IconButton
             name="notice"

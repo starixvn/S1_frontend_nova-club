@@ -13,7 +13,7 @@ export const WithdrawalTableHeader = [
   { label: 'common.date', textStyle: { flex: 1, textAlign: 'left' } },
   { label: 'common.amount', textStyle: { flex: 1, textAlign: 'center' } },
   { label: 'deposit.status', textStyle: { flex: 1, textAlign: 'center' } },
-  { label: '', textStyle: { flexBasis: 12 } },
+  { label: '', textStyle: { flexBasis: 24 } },
 ]
 
 const DesktopWithdrawalHistoryItem = ({ item, index }) => {
@@ -61,7 +61,7 @@ const DesktopWithdrawalHistoryItem = ({ item, index }) => {
         </Text>
       </CellView>
 
-      <View sx={{ flexBasis: 12, alignItems: 'flex-end' }}>
+      <View sx={{ flexBasis: 24, alignItems: 'flex-end' }}>
         {item.notes && (
           <IconButton
             name="notice"
