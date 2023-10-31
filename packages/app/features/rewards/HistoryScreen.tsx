@@ -90,6 +90,7 @@ const TransactionHistory = () => {
         bg: '$secondary',
         width: '100%',
         mx: 'auto',
+        alignItems: 'center',
       }}
     >
       <View
@@ -110,7 +111,8 @@ const TransactionHistory = () => {
           enabledLabel={false}
           placeholder={t(selected.coin_redemption_type || 'common.all')}
           sx={{
-            flex: Platform.select({ web: 1 }),
+            // flex: Platform.select({ web: 1 }),
+            flex: [0, 1],
             mr: [0, 10],
             mb: [10, 0],
           }}
@@ -132,7 +134,8 @@ const TransactionHistory = () => {
           sx={{
             alignItems: 'center',
             justifyContent: 'center',
-            flex: Platform.select({ web: 2 }),
+            // flex: Platform.select({ web: 2 }),
+            flex: [0, 2],
           }}
         >
           <DatePicker
@@ -206,12 +209,13 @@ const HistoryItem = ({ item, index }) => {
       </CellView>
 
       <CellView index={2}>
-        <Text sx={{}}>{item.eventName}</Text>
+        <Text sx={{ textAlign: 'center' }}>{item.eventName}</Text>
       </CellView>
       <CellView index={3}>
         <Text
           sx={{
             color: item.amount.includes('-') ? '#ed5c66' : '#00FF19',
+            textAlign: 'center',
           }}
         >
           {item.amount.includes('-')
