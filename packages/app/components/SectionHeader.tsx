@@ -67,7 +67,9 @@ export default function SectionHeader({
             title={title}
             titleProps={titleProps}
             iconProps={iconProps}
-          />
+          >
+            {children}
+          </SectionLabel>
           {seeMoreUrl && (
             <TouchableOpacity
               sx={{
@@ -80,7 +82,6 @@ export default function SectionHeader({
               </Text>
             </TouchableOpacity>
           )}
-          {children}
         </View>
       </Shadow>
     </Root>
