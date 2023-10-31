@@ -84,35 +84,18 @@ const ProfileQuickNavigation = () => {
           <Text
             numberOfLines={2}
             sx={{
-              borderRadius: 15,
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: CARD_SIZE,
-              height: CARD_SIZE,
+              fontWeight: '500',
+              px: 5,
+              lineHeight: 12,
+              textAlign: 'center',
+              textTransform: 'uppercase',
+              fontSize: 9,
+              color: 'white',
             }}
           >
-            <Icon
-              name={r.icon ?? 'notice'}
-              color={'white'}
-              size={24}
-              sx={{ p: 10 }}
-            />
-            <Text
-              numberOfLines={2}
-              sx={{
-                fontWeight: '500',
-                px: 5,
-                lineHeight: 12,
-                textAlign: 'center',
-                textTransform: 'uppercase',
-                fontSize: 9,
-                color: 'white',
-              }}
-            >
-              {t(r.label)}
-            </Text>
-          </Gradient>
-        </MessageBadge>
+            {t(r.label)}
+          </Text>
+        </Gradient>
       </Pressable>
     )
   }
