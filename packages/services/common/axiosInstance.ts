@@ -141,7 +141,7 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
   // After login, backend will be using `locale` selected in `playerProfile` api
 
   // const currentLocale = state?.setting.locale ?? LANGUAGE_CODE.VIETNAM
-  config.headers['X-Lang'] = state?.setting.locale ?? LANGUAGE_CODE.ENGLISH
+  config.headers['X-Lang'] = state?.setting.locale ?? LANGUAGE_CODE.VIETNAM
 
   return config
 }
