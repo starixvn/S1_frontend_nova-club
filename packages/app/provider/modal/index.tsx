@@ -39,6 +39,7 @@ export type ModalStackParams = {
   }
   PinModal: { onConfirm(...args: any): any; onForgotPin(...args: any): any }
   NoticeModal: { notice: [] }
+  NotesModal: { id: string; data: Record<any, any>[] }
   WithdrawalConfirmationModal: {
     withdrawalInfo: Record<any, any>
     bankLogo: string
@@ -79,6 +80,7 @@ const _dynamicModal: Record<keyof ModalStackParams, () => Promise<any>> = {
   AlertModal: () => import('app/components/modal/AlertModal'),
   ReferralModal: () => import('app/components/modal/ReferralModal'),
   NoticeModal: () => import('app/components/modal/NoticeModal'),
+  NotesModal: () => import('app/components/modal/NotesModal'),
   DeleteBankAccountModal: () =>
     import('app/components/modal/DeleteBankAccountModal'),
   PinModal: () => import('app/components/modal/PinModal'),
@@ -134,6 +136,9 @@ const modalConfig: ModalConfigType = {
   },
   NoticeModal: {
     modal: getDynamicComponent('NoticeModal'),
+  },
+  NotesModal: {
+    modal: getDynamicComponent('NotesModal'),
   },
   DeleteBankAccountModal: {
     modal: getDynamicComponent('DeleteBankAccountModal'),

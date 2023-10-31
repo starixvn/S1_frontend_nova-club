@@ -90,7 +90,7 @@ const BankSelection = ({
               onPress={onAddNewAccount}
               containerStyle={{
                 width: 120,
-                aspectRatio: 2 / 1,
+                aspectRatio: 16 / 9,
               }}
             />
           )}
@@ -160,8 +160,10 @@ export const AddNewAccount = ({
           ...containerStyle,
         }}
       >
-        <Icon name="add" size={12} sx={{ p: 12 }} />
-        <Text>{isCrypto ? t('menu.cryptoWallet') : t('menu.bankAccount')}</Text>
+        <Icon name="add" size={12} sx={{ mr: 4 }} />
+        <Text sx={{ textAlign: 'center', fontSize: 15 }}>
+          {isCrypto ? t('menu.cryptoWallet') : t('menu.bankAccount')}
+        </Text>
       </Row>
     </TouchableOpacity>
   )

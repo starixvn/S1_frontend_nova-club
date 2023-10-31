@@ -1,38 +1,73 @@
 import { getStatusColor } from 'app/config/status'
-import { toThousandSeparator } from 'app/utils'
-import { Text, useDripsyTheme, View } from 'dripsy'
+import { copyToClipboard, toThousandSeparator } from 'app/utils'
+import { styled, Text, useDripsyTheme, View } from 'dripsy'
 import React from 'react'
 import TransactionHistoryItemBox from './TransactionHistoryItemBox'
 import DateTimeCell from './DateTimeCell'
+import IconButton from 'app/components/IconButton'
+import { ReportWithdrawalItem } from 'services/playerApi.type'
+import { useModal } from 'react-native-modalfy'
 
-const CELL_DATE_WIDTH = 1
-const CELL_AMOUNT_WIDTH = 1
-const CELL_STATUS_WIDTH = 1
+export const WithdrawalTableHeader = [
+  { label: 'deposit.id', textStyle: { flex: 1.5, textAlign: 'left' } },
+  { label: 'common.date', textStyle: { flex: 1, textAlign: 'left' } },
+  { label: 'common.amount', textStyle: { flex: 1, textAlign: 'center' } },
+  { label: 'deposit.status', textStyle: { flex: 1, textAlign: 'center' } },
+]
 
-const WithdrawalHistoryItem = ({ item }) => {
-  const { theme } = useDripsyTheme()
+const WithdrawalHistoryItem = ({ item }: { item: ReportWithdrawalItem }) => {
   return (
     <TransactionHistoryItemBox>
-      <View
+      <WithdrawalHistoryItemContent item={item} />
+    </TransactionHistoryItemBox>
+  )
+}
+
+export const WithdrawalHistoryItemContent = ({ item }) => {
+  const { theme } = useDripsyTheme()
+  const { openModal } = useModal()
+
+  return (
+    <View
+      sx={{
+        flex: 1,
+        alignSelf: 'stretch',
+        flexDirection: 'row',
+        p: '$3',
+        pr: '$1',
+        alignItems: 'center',
+      }}
+    >
+      <CellView
+        index={0}
         sx={{
-          flex: 1,
-          alignSelf: 'stretch',
           flexDirection: 'row',
-          p: '$3',
           alignItems: 'center',
+          gap: '$2',
         }}
       >
-        <View style={{ flex: CELL_DATE_WIDTH }}>
-          <DateTimeCell date={item.date} />
-        </View>
+        <Text sx={{ minWidth: 125 }}>{item.tx_code}</Text>
+        <IconButton
+          name="copy"
+          color={'white'}
+          size={14}
+          sx={{ pl: 0 }}
+          onPress={() => copyToClipboard(item.tx_code)}
+        />
+      </CellView>
 
-        <View style={{ flex: CELL_AMOUNT_WIDTH }}>
+      <CellView index={1}>
+        <DateTimeCell date={item.date} />
+      </CellView>
+
+      <View>
+        <CellView index={2}>
           <Text sx={{ textAlign: 'center' }}>
             {toThousandSeparator(item.amount)}
           </Text>
-        </View>
+        </CellView>
 
-        <View style={{ flex: CELL_STATUS_WIDTH }}>
+        <CellView index={3}>
           <Text
             sx={{
               textAlign: 'center',
@@ -41,10 +76,30 @@ const WithdrawalHistoryItem = ({ item }) => {
           >
             {item.status}
           </Text>
-        </View>
+        </CellView>
       </View>
-    </TransactionHistoryItemBox>
+
+      <View sx={{ flexBasis: 28, alignItems: 'flex-end' }}>
+        {item.notes && (
+          <IconButton
+            name="notice"
+            color={'white'}
+            size={14}
+            onPress={() =>
+              openModal('NotesModal', {
+                id: item.tx_code,
+                data: item.notes,
+              })
+            }
+          />
+        )}
+      </View>
+    </View>
   )
 }
+
+const CellView = styled(View)(({ index }: { index: number }) => ({
+  ...WithdrawalTableHeader[index]?.textStyle,
+}))
 
 export default WithdrawalHistoryItem
