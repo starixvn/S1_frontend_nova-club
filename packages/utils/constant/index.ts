@@ -391,7 +391,7 @@ export enum WALLET {
 
 export enum MaxLength {
   AMOUNT = 9,
-  CARD = 19,
+  CARD = 23,
 }
 
 export enum GAME_TYPE_CODE {

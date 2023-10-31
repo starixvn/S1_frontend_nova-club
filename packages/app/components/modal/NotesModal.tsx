@@ -13,7 +13,7 @@ const NotesModal = ({ modal: { closeModal, getParam } }) => {
 
   return (
     <ModalWrapper>
-      <ModalContent title={`${t('deposit.id')}: ${id}`} close={closeModal}>
+      <ModalContent title={`ID: ${id}`} close={closeModal}>
         <View sx={{ maxHeight: 600 }}>
           {data.map((item, index) => (
             <View key={index}>

@@ -11,6 +11,7 @@ import React, { useEffect } from 'react'
 import { usePlayerReportQuery } from 'services/playerApi'
 
 import { WITHDRAWAL_TYPE } from 'services/playerApi.type'
+import isDesktop from 'app/utils/isDesktop'
 
 type WithdrawalTransactionsProps = {
   status?: ReportCommonStatus
