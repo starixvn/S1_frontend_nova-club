@@ -42,7 +42,10 @@ export default function TopGameSection(props) {
   )
   return (
     <View {...props}>
-      <SectionHeader icon="crown" title={t('game.category.recommended')}>
+      <SectionHeader
+        icon="crown"
+        title={t('game.category.recommended').toUpperCase()}
+      >
         <View
           sx={{
             px: '$3',
