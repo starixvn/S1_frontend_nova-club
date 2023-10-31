@@ -1,11 +1,9 @@
-import { Row, SxProp, Text, View, styled, useDripsyTheme } from 'dripsy'
-import React from 'react'
-import Icon, { IconProps } from './Icon'
-import { MotiView } from 'moti'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
-import { Shadow } from 'react-native-shadow-2'
-import ShadowButton from './ShadowButton'
+import { Row, SxProp, Text } from 'dripsy'
+import React from 'react'
 import { ViewProps } from 'react-native'
+import Icon, { IconProps } from './Icon'
+import ShadowButton from './ShadowButton'
 
 interface SectionLabelProps extends ViewProps {
   sx?: SxProp
@@ -19,6 +17,7 @@ export default function SectionLabel({
   iconProps,
   title,
   sx,
+  children,
 }: SectionLabelProps) {
   return (
     <Row sx={{ alignItems: 'center', ...sx }}>
@@ -42,6 +41,7 @@ export default function SectionLabel({
       >
         {title}
       </Text>
+      {children}
     </Row>
   )
 }

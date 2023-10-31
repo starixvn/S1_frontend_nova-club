@@ -28,7 +28,7 @@ export default function TopGameCard({
   sx,
 }: TopGameCardProps) {
   const { t } = useLocalization()
-  const labelWidth = useResponsiveValue([55, 70])
+  const labelWidth = useResponsiveValue([60, 75])
   const [videoStatus, setVideoStatus] = useState(true)
 
   //backend declare that only mp4 for video
@@ -112,7 +112,7 @@ export default function TopGameCard({
               transform: [{ rotate: '315deg' }],
             }}
           >
-            <Text sx={{ fontSize: [7, 9] }}>{t('home.ongoing')}</Text>
+            <Text sx={{ fontSize: [7, 9] }}>{t('home.specialRebate')}</Text>
           </View>
         )}
       </View>

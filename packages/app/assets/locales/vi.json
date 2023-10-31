@@ -96,8 +96,8 @@
     "password": "Mật khẩu",
     "phone": "Số ĐT",
     "pin": "Mã PIN",
-    "player": "Người chơi",
     "playNow": "Chơi Ngay",
+    "player": "Người chơi",
     "playerId": "ID người chơi",
     "playerName": "Tên người chơi",
     "points": "điểm",
@@ -147,9 +147,9 @@
     "depositAmount": "Số tiền nạp",
     "depositConfirmation": "Xác nhận thông tin gửi tiền",
     "depositMethod": {
-      "instantTransfer": "Chuyển khoản nhanh",
       "bankTransfer": "Chuyển khoản",
       "crypto": "Tiền ảo",
+      "instantTransfer": "Chuyển khoản nhanh",
       "momo": "MOMO",
       "onlineBanking": "Cổng thanh toán",
       "qrPay": "QR Pay",
@@ -203,7 +203,8 @@
         "won": "XIN CHÚC MỪNG!",
         "won2": "BẠN ĐÃ TRÚNG THƯỞNG"
       },
-      "tnc": {}
+      "tnc": {
+      }
     },
     "claim": "ĐỔI VÉ THƯỞNG CỦA BẠN NGAY",
     "jackpot": "Jackpot (chia phần thưởng): 100,000,000 VND",
@@ -288,7 +289,7 @@
       "liveCasino": "Sòng bài",
       "localGame": "Thuần Việt",
       "lottery": "Keno / Xổ số",
-      "recommended": "GAMES ĐƯỢC ĐỀ XUẤT",
+      "recommended": "ĐƯỢC ĐỀ XUẤT",
       "slots": "Quay hũ",
       "sportsbook": "Thể thao"
     },
@@ -315,7 +316,9 @@
     "joinNow": "THAM GIA",
     "joinsUs": "THAM GIA VỚI CHÚNG TÔI & BẮT ĐẦU KIẾM TIỀN THƯỞNG!",
     "ongoing": "ĐANG DIỄN RA",
-    "playNow": "CHƠI NGAY"
+    "playNow": "CHƠI NGAY",
+    "specialRebate": "Hoàn trả đặc biệt",
+    "upTo": "LÊN ĐẾN 1.5%"
   },
   "leaderboard": {
     "minPoints": "Điểm tối thiểu",
@@ -441,8 +444,8 @@
   },
   "referral": {
     "code": "Mã giới thiệu",
-    "link": "Đường dẫn để giới thiệu",
     "howTo": "Cách giới thiệu bạn cùng chơi",
+    "link": "Đường dẫn để giới thiệu",
     "qrCode": "Mã giới thiệu",
     "referNumber": "Số bạn giới thiệu",
     "referralStatement": "Nhận ngay hoa hồng lên đến 0.5% khi giới thiệu bạn bè",
@@ -451,12 +454,12 @@
     "shareContent": "Nhận hoa hồng giới thiệu bạn bè với những phần thưởng đặc biệt với mã code của riêng bạn.",
     "shareMessage": "Chia sẻ & nhận thưởng",
     "steps": {
-      "step1": "Bước 1",
-      "step2": "Bước 2",
-      "step3": "Bước 3",
       "n1": "Chia sẻ mã/đường dẫn của bạn",
       "n2": "Bạn cùng chơi đăng ký bằng mã/đường dẫn, nạp tiền và tận hưởng trò chơi",
-      "n3": "Nhận hoa hồng từ doanh thu cược của bạn cùng chơi (không giới hạn)"
+      "n3": "Nhận hoa hồng từ doanh thu cược của bạn cùng chơi (không giới hạn)",
+      "step1": "Bước 1",
+      "step2": "Bước 2",
+      "step3": "Bước 3"
     },
     "title": "Giới thiệu",
     "totalCom": "Tổng số hoa hồng bạn nhận"

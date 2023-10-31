@@ -96,8 +96,8 @@
     "password": "Password",
     "phone": "Phone Number",
     "pin": "Pin",
-    "player": "Player",
     "playNow": "Play now",
+    "player": "Player",
     "playerId": "Player ID",
     "playerName": "Player Name",
     "points": "Points",
@@ -147,9 +147,9 @@
     "depositAmount": "Deposit Amount",
     "depositConfirmation": "Deposit Confirmation",
     "depositMethod": {
-      "instantTransfer": "Instant Transfer",
       "bankTransfer": "Bank Transfer",
       "crypto": "Crypto",
+      "instantTransfer": "Instant Transfer",
       "momo": "MOMO",
       "onlineBanking": "Online Banking",
       "qrPay": "QR Pay",
@@ -203,7 +203,8 @@
         "won": "CONGRATULATIONS!",
         "won2": "YOU'VE WON TOTAL"
       },
-      "tnc": {}
+      "tnc": {
+      }
     },
     "claim": "CLAIM YOUR BONUS TICKET NOW",
     "jackpot": "Jackpot (Shared Pool Prize): 100,000,000 VND",
@@ -288,7 +289,7 @@
       "liveCasino": "Live Casino",
       "localGame": "Local Game",
       "lottery": "Keno/Lottery",
-      "recommended": "Recommended Games",
+      "recommended": "Recommended",
       "slots": "Slots",
       "sportsbook": "Sportsbook"
     },
@@ -315,7 +316,9 @@
     "joinNow": "JOIN NOW",
     "joinsUs": "JOINS US & START EARNING BONUS!",
     "ongoing": "ON GOING",
-    "playNow": "PLAY NOW"
+    "playNow": "PLAY NOW",
+    "specialRebate": "Special Rebate",
+    "upTo": "UP TO 1.5%"
   },
   "leaderboard": {
     "minPoints": "Min Points",
@@ -441,8 +444,8 @@
   },
   "referral": {
     "code": "Referral Code",
-    "link": "Referral Link",
     "howTo": "How to refer friends",
+    "link": "Referral Link",
     "qrCode": "Referral QR Code",
     "referNumber": "No. of referred friends",
     "referralStatement": "Earn up to 0.5% commission from friend you refer",
@@ -451,12 +454,12 @@
     "shareContent": "Get exclusive referral bonuses when your friend signs up using your referral code",
     "shareMessage": "Share & Earn",
     "steps": {
-      "step1": "Step 1",
-      "step2": "Step 2",
-      "step3": "Step 3",
       "n1": "Invite friends by sharing your unique referral code",
       "n2": "Your friends register, deposit and play",
-      "n3": "Earn commission from your friend's turnover (unlimited)"
+      "n3": "Earn commission from your friend's turnover (unlimited)",
+      "step1": "Step 1",
+      "step2": "Step 2",
+      "step3": "Step 3"
     },
     "title": "Referral",
     "totalCom": "Total commission earn"
