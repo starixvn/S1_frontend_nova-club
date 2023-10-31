@@ -26,7 +26,7 @@ const FortuneCatTnc = () => {
           <BonusRow
             title={t('rewards.tnc.fortuneCat.grand')}
             imageSrc={`${IMAGE_DOMAIN}/cat-orange.png`}
-            desc="= 88TR VND"
+            desc={`= 88${t('common.million')} VND`}
           />
 
           <BonusRow
