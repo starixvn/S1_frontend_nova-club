@@ -1,5 +1,5 @@
 // const withPlugins = require('next-compose-plugins');
-const APP_ENV = process.env.APP_ENV || 'stag'
+const APP_ENV = process.env.APP_ENV || 'prod'
 const result = require('dotenv').config({
   path: `../../env/.env.${APP_ENV}`,
 })
