@@ -39,10 +39,7 @@ const FloatingDrawer = ({
             exit={{ transform: [{ translateX: 100 }], opacity: 0 }}
             transition={{ type: 'timing', duration: 500 }}
           >
-            <ContentOffset>
-              <HalloweenFloat size={size} />
-              {!isDesktop && <LiveChatButton />}
-            </ContentOffset>
+            <ContentOffset>{!isDesktop && <LiveChatButton />}</ContentOffset>
           </ContentOverlay>
         )}
       </AnimatePresence>
@@ -65,12 +62,11 @@ const ContentOverlay = styled(MotiView)({
   borderTopLeftRadius: 10,
   borderBottomLeftRadius: 10,
   height: '100%',
-  justifyContent: 'center',
 })
 const ContentOffset = styled(View)({
   py: '$2',
-  pl: '$1',
+  height: '100%',
   alignItems: 'center',
-  paddingRight: '$1',
+  justifyContent: 'center',
 })
 export default memo(FloatingDrawer)

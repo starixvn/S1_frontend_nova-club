@@ -45,7 +45,6 @@ const DrawerButtonContainer = styled(View)(
 )
 
 const DrawerButton = styled(TouchableOpacity)({
-  height: 100,
   width: 40,
   alignItems: 'flex-end',
   justifyContent: 'center',
