@@ -97,7 +97,8 @@ const TransactionHistory = () => {
         sx={{
           width: '100%',
           maxWidth: 600,
-          mx: 'auto',
+          mr: 'auto',
+          ml: 'auto',
           flexDirection: ['column', 'row'],
           justifyContent: 'space-between',
           alignItems: 'stretch',
