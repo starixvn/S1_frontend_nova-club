@@ -90,7 +90,7 @@ const TransactionHistory = () => {
         bg: '$secondary',
         width: '100%',
         mx: 'auto',
-        alignItems: 'center',
+        // alignItems: 'center',
       }}
     >
       <View
