@@ -176,7 +176,9 @@ const QRCodeDownloadGuideItem = ({
             justifyContent: 'center',
           }}
         >
-          <Text sx={{ textAlign: 'center' }}>Under Maintenance</Text>
+          <Text sx={{ textAlign: 'center' }}>
+            {t('common.underMaintenance')}
+          </Text>
         </View>
       )}
 
