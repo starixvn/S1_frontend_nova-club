@@ -160,7 +160,7 @@ export const AnimatedButton = ({ onPress, children }) => {
             color: '$error',
             fontWeight: '900',
             lineHeight: 12,
-            fontSize: 8,
+            fontSize: [8, 10],
             textAlign: 'center',
           }}
         >
