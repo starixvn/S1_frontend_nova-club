@@ -6,9 +6,10 @@ import LiveChatButton from './LiveChatButton'
 import isDesktop from 'app/utils/isDesktop'
 import QRCode from 'react-native-qrcode-svg'
 import { REFERRAL_DOMAIN } from '@env'
-import { Linking } from 'react-native'
+import { Linking, Platform } from 'react-native'
 import { Text } from 'dripsy'
 import useLocalization from 'app/provider/localization'
+import { getOs } from 'utils/platform'
 
 interface FloatingContentSwitchProps {
   visible: boolean
@@ -31,6 +32,7 @@ const FloatingDownloadDrawer = ({
   floatingDrawerHeight,
 }: FloatingContentSwitchProps) => {
   const { t } = useLocalization()
+  const maintenance = getOs()
 
   return (
     <FloatingContentContainer
@@ -48,7 +50,10 @@ const FloatingDownloadDrawer = ({
             transition={{ type: 'timing', duration: 500 }}
           >
             <ContentOffset>
-              <Pressable onPress={() => Linking.openURL(REFERRAL_DOMAIN)}>
+              <Pressable
+                disabled
+                onPress={() => Linking.openURL(REFERRAL_DOMAIN)}
+              >
                 <QRCode
                   value={REFERRAL_DOMAIN}
                   size={100}
@@ -56,6 +61,26 @@ const FloatingDownloadDrawer = ({
                   quietZone={12}
                 />
               </Pressable>
+
+              {maintenance && (
+                <View
+                  pointerEvents="none"
+                  sx={{
+                    width: 102,
+                    aspectRatio: 1 / 1,
+                    bg: 'rgba(0,0,0,0.8)',
+                    position: 'absolute',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 10,
+                  }}
+                >
+                  <Text sx={{ textAlign: 'center' }}>
+                    {t('common.underMaintenance')}
+                  </Text>
+                </View>
+              )}
+
               <Text sx={{ textAlign: 'center', mt: '$2', fontWeight: 'bold' }}>
                 {t('forceDownload.downloadApp')}
               </Text>

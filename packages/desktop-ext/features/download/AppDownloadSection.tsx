@@ -74,6 +74,7 @@ const AppDownloadSection = () => {
               label="download.ios"
               device={'ios'}
               width={qrWidth}
+              maintenance
             />
             <QRCodeDownloadGuideItem
               label="download.android"
@@ -151,21 +152,40 @@ const QRCodeDownloadGuideItem = ({
   label,
   width,
   device,
+  maintenance = false,
 }: {
   label: string
   width: number
   device: string
+  maintenance?: boolean
 }) => {
   const { t } = useLocalization()
   const { openModal } = useModal()
   return (
     <View sx={{ alignItems: 'center' }}>
       <QRCode value={REFERRAL_DOMAIN} size={width} ecl="H" quietZone={12} />
+
+      {maintenance && (
+        <View
+          sx={{
+            width,
+            aspectRatio: 1 / 1,
+            bg: 'rgba(0,0,0,0.8)',
+            position: 'absolute',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Text sx={{ textAlign: 'center' }}>Under Maintenance</Text>
+        </View>
+      )}
+
       <Text sx={{ fontWeight: 'bold', pt: '$1', pb: '$2' }}>{t(label)}</Text>
       <Button
         sx={{ borderRadius: 30 }}
         contentProps={{ sx: { py: '$1', px: ['$3', '$3', '$3', '$3', '$4'] } }}
         titleProps={{ sx: { fontSize: 12 } }}
+        disabled={maintenance}
         onPress={() => openModal('DownloadGuideModal', { label: device })}
       >
         {t('download.downloadGuide')}
