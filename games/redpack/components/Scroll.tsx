@@ -18,7 +18,7 @@ type Props = {}
 export default function Scroll({}: Props) {
   const { width, height } = useWindowSize()
   const { data: balance } = useGetCoinQuery()
-  const { isSpinEnabled } = useGameConfig(RewardGameKeyMap.SPIN_N_WIN, balance)
+  const { isSpinEnabled } = useGameConfig(RewardGameKeyMap.ANGPAO_HUNT, balance)
 
   const bgWidth = Math.min(500, width)
 

@@ -17,6 +17,6 @@ export default function useGameConfig(
 
   return {
     ...config,
-    isSpinEnabled: !config || (balance != null && balance > config.cost),
+    isSpinEnabled: !config || (balance != null && balance >= config.cost),
   }
 }
