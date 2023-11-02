@@ -2930,6 +2930,49 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@games/mystery-drop@*, @games/mystery-drop@workspace:games/mystery-drop":
+  version: 0.0.0-use.local
+  resolution: "@games/mystery-drop@workspace:games/mystery-drop"
+  dependencies:
+    "@assetpack/cli": ~0.3.4
+    "@assetpack/core": ~0.3.4
+    "@assetpack/plugin-compress": ~0.3.4
+    "@assetpack/plugin-ffmpeg": ~0.3.4
+    "@assetpack/plugin-json": ~0.3.4
+    "@assetpack/plugin-manifest": ~0.3.4
+    "@assetpack/plugin-mipmap": ~0.3.4
+    "@assetpack/plugin-texture-packer": ~0.3.4
+    "@assetpack/plugin-webfont": ~0.3.4
+    "@games/shared": "*"
+    "@pixi/filter-drop-shadow": ^5.2.0
+    "@pixi/react": ^7.1.0
+    "@pixi/react-animated": ^7.1.0
+    "@pixi/sound": ^5.0.0
+    "@pixi/ui": ^0.5.6
+    "@turbo/gen": ^1.10.12
+    "@types/node": ^20.5.2
+    "@types/react": ^18.2.0
+    "@types/react-dom": ^18.2.0
+    eslint-config-custom: "*"
+    gsap: ^3.11.4
+    pixi-filters: ^5.1.1
+    pixi-spine: ^4.0.3
+    pixi.js: ^7.2.4
+    react-spring: ^9.7.2
+    tsconfig: "*"
+    typed-signals: ^2.5.0
+    typescript: ^5.0.4
+  peerDependencies:
+    "@games/config": "*"
+    "@reduxjs/toolkit": "*"
+    react: "*"
+    react-redux: "*"
+    rewards: "*"
+    utils: "*"
+    utils-pixi: "*"
+  languageName: unknown
+  linkType: soft
+
 "@games/redpack@*, @games/redpack@workspace:games/redpack":
   version: 0.0.0-use.local
   resolution: "@games/redpack@workspace:games/redpack"
@@ -17616,6 +17659,7 @@ __metadata:
   dependencies:
     "@games/fortune-cat": "*"
     "@games/golden-cat": "*"
+    "@games/mystery-drop": "*"
     "@games/redpack": "*"
     "@games/spin-and-win": "*"
     "@reduxjs/toolkit": ^1.9.5

@@ -43,6 +43,11 @@ const rewardGameListConfig: Array<RewardGameListConfig> = [
     image: `${STATIC_IMAGE_URL}/lucky_catspin.jpg`,
   },
   {
+    key: RewardGameKeyMap.MYSTERY_DROP,
+    image: `${STATIC_IMAGE_URL}/mega.jpg`,
+    route: '/rewards/games/fortune-cat',
+  },
+  {
     key: RewardGameKeyMap.FORTUNE_CAT,
     image: `${STATIC_IMAGE_URL}/mega.jpg`,
     route: '/rewards/games/fortune-cat',
@@ -65,9 +70,10 @@ const RewardGameList = ({ onLoaded }: { onLoaded?: () => void }) => {
             (rewardGame) => rewardGame.key === game.key
           )
 
+          const mysteryGame = rewardGameListConfig[3]
           return {
             ...game,
-            _data: selectedGame,
+            _data: mysteryGame,
           }
         })
 

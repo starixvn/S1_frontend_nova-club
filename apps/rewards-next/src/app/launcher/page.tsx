@@ -16,6 +16,7 @@ const keyToGameRouteMap: Record<RewardGameKeyMap, string> = {
   [RewardGameKeyMap.FORTUNE_CAT]: '/fortune-cat',
   [RewardGameKeyMap.GOLDEN_CAT]: '/golden-cat',
   [RewardGameKeyMap.SPIN_N_WIN]: '/spin-and-win',
+  [RewardGameKeyMap.MYSTERY_DROP]: '/mystery-drop',
 } as const
 
 const Launcher = () => {

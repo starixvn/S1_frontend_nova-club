@@ -1,0 +1,145 @@
+{
+  "bundles": [
+    {
+      "name": "default",
+      "assets": []
+    },
+    {
+      "name": "images",
+      "assets": [
+        {
+          "name": "images/board-body.png",
+          "srcs": [
+            "images/board-body.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/board-button.png",
+          "srcs": [
+            "images/board-button.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/board-header.png",
+          "srcs": [
+            "images/board-header.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/game-bg.png",
+          "srcs": [
+            "images/game-bg.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/game-body.png",
+          "srcs": [
+            "images/game-body.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/game-header.png",
+          "srcs": [
+            "images/game-header.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/pot-blue.png",
+          "srcs": [
+            "images/pot-blue.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/pot-green.png",
+          "srcs": [
+            "images/pot-green.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/pot-highlight.png",
+          "srcs": [
+            "images/pot-highlight.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/pot-purple.png",
+          "srcs": [
+            "images/pot-purple.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/pot-red.png",
+          "srcs": [
+            "images/pot-red.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/tael.png",
+          "srcs": [
+            "images/tael.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
