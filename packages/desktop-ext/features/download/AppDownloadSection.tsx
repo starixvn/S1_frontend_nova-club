@@ -74,7 +74,7 @@ const AppDownloadSection = () => {
               label="download.ios"
               device={'ios'}
               width={qrWidth}
-              maintenance
+              // maintenance
             />
             <QRCodeDownloadGuideItem
               label="download.android"

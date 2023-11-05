@@ -32,7 +32,7 @@ const FloatingDownloadDrawer = ({
   floatingDrawerHeight,
 }: FloatingContentSwitchProps) => {
   const { t } = useLocalization()
-  const maintenance = getOs()
+  const maintenance = false // getOs() // This was forced to true when app download link was unavailable at appstore.
 
   return (
     <FloatingContentContainer
