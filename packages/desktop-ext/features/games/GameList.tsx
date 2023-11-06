@@ -45,6 +45,10 @@ export default function GameList({
     )
   }, [games])
 
+  useEffect(() => {
+    setSearch(undefined)
+  }, [label])
+
   const { getTagName } = useGetTagName()
 
   // Sort according to gameCategoryTagTypes seq
@@ -98,6 +102,7 @@ export default function GameList({
   return (
     <View {...rest}>
       <GameListSectionGrid.Header
+        key={label}
         onSearch={(t) => {
           startTransition(() => setSearch(t))
         }}
