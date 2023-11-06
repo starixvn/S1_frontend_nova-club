@@ -9,20 +9,14 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <View sx={{ zIndex: -1 }}>
-      <Container sx={{ pt: '$5' }}>
-        {/* <Row sx={{ py: '$3', px: '6%', justifyContent: 'space-between' }}>
-          <Text>{t('footer.note1')}</Text>
-          <Text>{t('footer.note2')}</Text>
-        </Row> */}
-        <FooterNav />
-        <Channel />
-        <FooterAction />
-        <Providers />
-        <Powered />
-        <Copyright />
-      </Container>
-    </View>
+    <Container sx={{ pt: '$5' }}>
+      <FooterNav />
+      <Channel />
+      <FooterAction />
+      <Providers />
+      <Powered />
+      <Copyright />
+    </Container>
   )
 }
 
