@@ -117,24 +117,16 @@ const SelectionItem = ({
             aspectRatio: 16 / 9,
             alignItems: 'center',
             justifyContent: 'center',
-            bg: 'white',
+            // bg: 'white',
           }}
         >
-          {isCrypto ? (
-            <Text
-              sx={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center' }}
-            >
-              {label.replace('-', ' ')}
-            </Text>
-          ) : (
-            <SolitoImage
-              fill
-              alt="bank image"
-              src={img}
-              contentFit={imageMode}
-              placeholder="empty"
-            />
-          )}
+          <SolitoImage
+            fill
+            alt="bank image"
+            src={img}
+            contentFit={imageMode}
+            placeholder="empty"
+          />
         </View>
       </SelectedContainer>
     </Pressable>

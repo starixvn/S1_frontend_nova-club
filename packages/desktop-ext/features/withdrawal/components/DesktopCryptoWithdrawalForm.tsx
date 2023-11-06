@@ -71,6 +71,7 @@ const DesktopCryptoWithdrawalForm = () => {
         list={channelList}
         selected={selectedChannel?.value}
         onPress={handleSelectChannel}
+        imageMode='contain'
       />
 
       {walletAddressList && (
