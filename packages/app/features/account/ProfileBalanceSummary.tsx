@@ -2,11 +2,12 @@ import Icon from 'app/components/Icon'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { toCurrency } from 'app/utils'
-import { Currency } from 'utils/constant'
 import { ActivityIndicator, Text, View, styled, useDripsyTheme } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti/build'
 import { useState } from 'react'
 import { TouchableOpacity, useWindowDimensions } from 'react-native'
+import { SolitoImage } from 'solito/image'
+import { Currency } from 'utils/constant'
 
 interface HiddenItemProps {
   color: string
@@ -116,8 +117,8 @@ const ProfileBalanceSummary = ({
             <View sx={{ backgroundColor: '$primary.100', width: 1 }} />
             <HiddenItem
               color={theme.colors.$secondary[100]}
-              iconName="gift"
-              label={t('common.reward')}
+              iconName="vui-coin"
+              label={t('rewards.coin')}
               isLoading={isLoading}
               value={reward}
               currency={currency}
@@ -140,7 +141,18 @@ const HiddenItem = ({
   return (
     <HiddenItemContainer>
       <View sx={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Icon name={iconName} color={color} sx={{ px: 5 }} size={18} />
+        {iconName === 'vui-coin' ? (
+          <SolitoImage
+            src={require('app/assets/images/rewards/coin.png')}
+            width={22}
+            height={22}
+            // fill
+            contentFit="contain"
+            alt=""
+          />
+        ) : (
+          <Icon name={iconName} color={color} sx={{ px: 5 }} size={18} />
+        )}
         <ProfileSummaryText fontSize={12} px={10}>
           {label}
         </ProfileSummaryText>

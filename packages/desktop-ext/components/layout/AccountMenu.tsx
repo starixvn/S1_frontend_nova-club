@@ -7,6 +7,7 @@ import { View } from 'dripsy'
 import React, { useMemo } from 'react'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { usePlayerBalanceQuery } from 'services/walletApi'
+import { useGetCoinQuery } from 'services/rewardApi'
 
 export const ACCOUNT_MENU_HEIGHT = 160 // can remove this if the component inside can have dynamic height
 export default function AccountMenu({}) {
@@ -14,6 +15,11 @@ export default function AccountMenu({}) {
 
   const { data: playerData } = usePlayerProfileQuery(undefined, {
     skip: !isLoggedIn,
+  })
+
+  const { data: rewardsCoin } = useGetCoinQuery(undefined, {
+    skip: !isLoggedIn,
+    refetchOnMountOrArgChange: true,
   })
 
   const currency = playerData?.currency as Currency
@@ -37,7 +43,7 @@ export default function AccountMenu({}) {
       <ProfileHeaderCard data={playerData} />
       <ProfileBalanceSummary
         cash={data?.totalBalance ?? 0}
-        reward={data?.totalReward ?? 0}
+        reward={rewardsCoin ?? 0}
         isLoading={isFetching}
         currency={currency}
       />
