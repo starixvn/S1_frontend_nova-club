@@ -8,8 +8,7 @@ import { useAppDispatch } from 'rewards/provider/redux/store'
 import {
   RewardGameKeyMap,
   RewardPostMessageType,
-  iFrameRewardOrigin,
-  type RewardPostMessagePayload,
+  type RewardPostMessagePayload
 } from 'utils/rewards'
 
 const keyToGameRouteMap: Record<RewardGameKeyMap, string> = {
@@ -26,13 +25,6 @@ const Launcher = () => {
 
   const handleGameRoute = useCallback(
     (event: MessageEvent<RewardPostMessagePayload>) => {
-      if (
-        event.origin !== iFrameRewardOrigin &&
-        typeof window.ReactNativeWebView === 'undefined'
-      ) {
-        return
-      }
-
       const data =
         typeof window.ReactNativeWebView === 'undefined'
           ? event.data

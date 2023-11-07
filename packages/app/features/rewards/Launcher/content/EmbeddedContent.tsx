@@ -1,3 +1,4 @@
+import { DEV_DOMAIN } from '@env'
 import WebView from 'app/components/WebView'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useDripsyTheme } from 'dripsy'
@@ -18,6 +19,8 @@ const EmbeddedContent = (props: EmbeddedContentProps) => {
   const webviewRef = useRef<ElementRef<typeof RNWebview>>(null)
   const authInfo = useAppSelector((state) => state.auth.info)
   const locale = useAppSelector((state) => state.setting.locale)
+
+  const url = `${DEV_DOMAIN}${domainUrl}` // on APP, we need default domain to launch game at h5
 
   const stringifyPayload = () => {
     const payload: RewardPostMessagePayload = {
@@ -48,7 +51,7 @@ const EmbeddedContent = (props: EmbeddedContentProps) => {
   return (
     <WebView
       ref={webviewRef}
-      url={domainUrl}
+      url={url}
       style={{ backgroundColor: 'transparent' }}
       onMessage={onMessage}
       containerStyle={{ flex: 1, backgroundColor: theme.colors?.$background }}
