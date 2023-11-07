@@ -5,7 +5,7 @@ import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import validation from 'app/utils/validation'
-import { View } from 'dripsy'
+import { Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect, useMemo } from 'react'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
@@ -13,6 +13,8 @@ import { useUpdateTransferPinMutation } from 'services/pinApi'
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import UnderlinePinField from '../UnderlinePinField'
+import LinkPressable from 'app/components/pressable/LinkPressable'
+import { FONT_TOP_OFFSET } from 'app/constants/font'
 
 type ChangePinFormValues = {
   oldPin: string
@@ -125,7 +127,13 @@ const ChangePinScreen = () => {
   return (
     <FormContainer>
       {memoPin}
-      <View sx={{ flexDirection: 'row', justifyContent: 'center' }}>
+      <LinkPressable href={'/account/manage-credentials/forgot-pin'}>
+        <Text sx={{ mt: FONT_TOP_OFFSET, textAlign: 'right' }}>
+          {t('manageCredentials.pin.forgotPin')}?
+        </Text>
+      </LinkPressable>
+
+      <View sx={{ alignItems: 'center' }}>
         {desktop && <View sx={{ width: '20%', minWidth: 100 }} />}
         <Button
           onPress={submitForm}
@@ -137,7 +145,7 @@ const ChangePinScreen = () => {
                   width: '55%',
                   maxWidth: 350,
                 }
-              : { width: '80%', maxWidth: 350 }),
+              : { width: '100%' }),
           }}
         >
           {t('common.submit')}
