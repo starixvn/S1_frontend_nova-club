@@ -1,7 +1,7 @@
 import Icon from 'app/components/Icon'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import { toCurrency } from 'app/utils'
+import { toCurrency, toThousandSeparator } from 'app/utils'
 import { ActivityIndicator, Text, View, styled, useDripsyTheme } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti/build'
 import { useState } from 'react'
@@ -72,7 +72,7 @@ const ProfileBalanceSummary = ({
             <ActivityIndicator color={'$secondary.100'} />
           ) : (
             <ProfileSummaryText px={5} color={theme.colors.$secondary[100]}>
-              {toCurrency(reward + cash, currency, {
+              {toCurrency(cash, currency, {
                 symbol: false,
                 hideTruncatedThousand: false,
               })}
@@ -121,7 +121,6 @@ const ProfileBalanceSummary = ({
               label={t('rewards.coin')}
               isLoading={isLoading}
               value={reward}
-              currency={currency}
             />
           </MotiView>
         )}
@@ -173,7 +172,7 @@ const HiddenItem = ({
                   symbol: false,
                   hideTruncatedThousand: false,
                 })
-              : value}
+              : toThousandSeparator(value.toString())}
           </ProfileSummaryText>
         )}
       </View>
