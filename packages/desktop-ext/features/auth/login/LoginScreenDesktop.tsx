@@ -18,15 +18,14 @@ const { useParam } = createParam<{ t: LoginType }>()
 
 export default function LoginScreenDesktop({ modal }: Props) {
   const { t } = useLocalization()
-  const [urlType, setUrlType] = useParam('t', { initial: LoginType.Member })
-
-  const modalType = modal?.getParam('t', LoginType.Agent)
-  const type = modalType ?? urlType
+  const [urlType, setUrlType] = useParam('t')
+  const modalType = modal?.getParam('t')
+  const type = modalType ?? urlType ?? LoginType.Member
 
   const agentToken = useAppSelector((s) => s.agent.access_token)
   const memberToken = useAppSelector((state) => state.auth.info?.token)
 
-  const isAgentLogin = useMemo(() => type === LoginType.Agent, [type])
+  const isAgentLogin = type === LoginType.Agent
   const [index, setIndex] = useState(0)
   const { replace } = useRouter()
 

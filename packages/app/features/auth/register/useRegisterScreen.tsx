@@ -43,20 +43,16 @@ export default function useRegisterScreen(
   const { replace } = useRouter()
   const { closeModal, currentModal } = useModal()
 
-  const [routes, setRoutes] = useState([memberRoute, agentRoute])
-
   const [currentScreen, setCurrentScreen] = useState<Register_Screen>(
     Register_Screen.SET_USERNAME
   )
 
-  const [paramType, setIsAgentLogin] = useParam('t', {
-    initial: LoginType.Member,
-  })
+  const [paramType, setIsAgentLogin] = useParam('t')
   const type = paramType ?? modalType
+
   const [index, setIndex] = useState(0)
   const [isSubmitting, setIsSubmitting] = useState(false)
-
-  const isAgentLogin = useMemo(() => type === LoginType.Agent, [type])
+  const isAgentLogin = type === LoginType.Agent
 
   const agentToken = useAppSelector((s) => s.agent.access_token)
 
@@ -87,14 +83,17 @@ export default function useRegisterScreen(
     setIndex(value)
   }
 
+  const routes = useMemo(
+    () => (memberToken ? [agentRoute] : [memberRoute, agentRoute]),
+    [memberToken]
+  )
+
   useEffect(() => {
     const initT = routes.find((e) => {
       return e.type === type
     })
     if (initT) setIndex(initT.index)
-
-    if (memberToken) setRoutes([agentRoute])
-  }, [])
+  }, [routes, type])
 
   const handleMemberRegister = async (
     {

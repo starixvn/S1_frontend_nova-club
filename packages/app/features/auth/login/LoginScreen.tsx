@@ -40,12 +40,12 @@ export default function LoginScreen() {
   const { replace } = useRouter()
 
   const [isBiometricAvailable, setIsBiometricAvailable] = useState(false)
-  const [routes, setRoutes] = useState([memberRoute, agentRoute])
 
-  const [type, setType] = useParam('t', { initial: LoginType.Member })
+  const paramObj = useParam('t') // dont set initial value, so can wait till first render to get exact value
+  const [type, setType] = paramObj
   const [index, setIndex] = useState(0)
 
-  const isAgentLogin = useMemo(() => type === LoginType.Agent, [type])
+  const isAgentLogin = type === LoginType.Agent
   const { checkBiometricEnabled, loginWithBiometric } = useLoginProcess()
 
   useEffect(() => {
@@ -66,17 +66,23 @@ export default function LoginScreen() {
     setIndex(value)
   }
 
-  useEffect(() => {
-    const initT = routes.find((e) => {
-      return e.type === type
-    })
-    if (initT) setIndex(initT.index)
+  const routes = useMemo(
+    () => (memberToken ? [agentRoute] : [memberRoute, agentRoute]),
+    [memberToken]
+  )
 
-    if (memberToken) {
-      if (type !== 'agent') replace('/')
-      else setRoutes([agentRoute])
+  useEffect(() => {
+    if (!type) setIndex(0)
+    // skip 1 frame for useParam to be able to grab value from query
+    else if (type) {
+      const initT = routes.find((e) => {
+        return e.type === type
+      })
+      if (initT) setIndex(initT.index)
+
+      if (memberToken && type !== 'agent') replace('/')
     }
-  }, [])
+  }, [type])
 
   return (
     <AuthLayout
