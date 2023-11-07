@@ -61,6 +61,10 @@ function GameSectionByProviderItem({
     )
   }, [games])
 
+  useEffect(() => {
+    setSearch(undefined)
+  }, [gpc])
+
   // Sort according to gameCategoryTagTypes seq
   const sortedTagsArray = sortBy(tags, (tag) => {
     const filterTag = gameCategoryTagTypes?.filter((el) => el.gtc === 'slots')
