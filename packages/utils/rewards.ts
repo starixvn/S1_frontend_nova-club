@@ -1,7 +1,5 @@
 import { CONTENT_URI, DEV_DOMAIN, MEDIA_DOMAIN } from '@env'
-import { store } from 'app/provider/redux/store'
 import { LoginResult } from 'services/authApi.type'
-import { LANGUAGE_CODE } from './constant'
 
 export enum RewardPostMessageType {
   gameSecretKey = 'game-secretKey',
@@ -31,13 +29,15 @@ export const iFrameRewardOrigin =
 
 export const getRewardLauncherURL = () => {
   const path = '/rewards/games/launcher'
-  let domain = DEV_DOMAIN
+  // let domain = DEV_DOMAIN
 
-  if (__DEV__) {
-    domain = LOCAL_HOST_ORIGIN
-  }
+  // if (__DEV__) {
+  //   domain = LOCAL_HOST_ORIGIN
+  // }
 
-  return `${domain}${path}`
+  // return `${domain}${path}`
+
+  return path
 }
 
 export enum RewardGameKeyMap {

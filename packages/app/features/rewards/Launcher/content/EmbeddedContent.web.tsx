@@ -1,10 +1,6 @@
 import { useAppSelector } from 'app/provider/redux/store'
 import React, { ElementRef, useEffect, useRef } from 'react'
-import {
-  RewardPostMessagePayload,
-  RewardPostMessageType,
-  iFrameRewardOrigin,
-} from 'utils/rewards'
+import { RewardPostMessagePayload, RewardPostMessageType } from 'utils/rewards'
 
 interface EmbeddedContentProps {
   domainUrl: string
@@ -25,16 +21,13 @@ const EmbeddedContent = (props: EmbeddedContentProps) => {
      * start listening before `postMessage` to iFrame
      */
     setTimeout(() => {
-      iframeRef.current?.contentWindow?.postMessage(
-        {
-          type: RewardPostMessageType.gameSecretKey,
-          payload: {
-            secretKey: gameKey,
-            locale,
-          },
-        } as RewardPostMessagePayload,
-        iFrameRewardOrigin
-      )
+      iframeRef.current?.contentWindow?.postMessage({
+        type: RewardPostMessageType.gameSecretKey,
+        payload: {
+          secretKey: gameKey,
+          locale,
+        },
+      } as RewardPostMessagePayload)
 
       onLoadCompleted?.()
     }, 100)
@@ -42,10 +35,6 @@ const EmbeddedContent = (props: EmbeddedContentProps) => {
 
   function handleTokenExpired(e: MessageEvent<RewardPostMessagePayload>) {
     try {
-      if (e.origin !== iFrameRewardOrigin) {
-        return
-      }
-
       const eventData = e.data
       if (eventData) {
         const data =
