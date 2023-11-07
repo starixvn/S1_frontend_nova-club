@@ -191,12 +191,14 @@ const LoginForm = ({
       <Button
         onPress={() => {
           if (isAgentLoginWithDesktopModal) {
-            closeModal('AgentLoginModal')
-            setTimeout(() => {
-              openModal('RegisterModal', {
-                t: LoginType.Agent,
+            closeModal('AgentLoginModal', () => {
+              setTimeout(() => {
+                openModal('RegisterModal', {
+                  t: LoginType.Agent,
+                })
               })
-            }, 500)
+            })
+
             return
           }
           push({

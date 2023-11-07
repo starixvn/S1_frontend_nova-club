@@ -43,9 +43,8 @@ function useForgotPassword(rootView: RefObject<RNView>, modalType?: LoginType) {
     ForgotPassword_Screen.GET_OTP
   )
 
-  const [urlType] = useParam('t', { initial: LoginType.Member })
-
-  const type = modalType ?? urlType
+  const [urlType] = useParam('t')
+  const type = modalType ?? urlType ?? LoginType.Member
 
   const [recoverPassword] = usePasswordRecoveryMutation()
   const { agentResetPassword, agentSendOTP, isAgentLoading, isAgentSuccess } =
