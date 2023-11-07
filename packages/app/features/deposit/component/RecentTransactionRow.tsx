@@ -1,7 +1,7 @@
 import DepositHistoryItem from 'app/features/account/history/DepositHistoryItem'
+import DesktopDepositHistoryItem from 'app/features/account/history/dekstop/DesktopDepositHistoryItem'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import { ReportResult } from 'services/playerApi.type'
-import HorizontalTransactionRowList from './HorizontalTransactionRowList'
 
 type RecentTransactionRowProps = {
   item: ReportResult
@@ -13,7 +13,7 @@ const RecentTransactionRow = ({ item, index }) => {
   return (
     <>
       {horizontalMode ? (
-        <HorizontalTransactionRowList item={item} index={index} />
+        <DesktopDepositHistoryItem key={index} item={item} index={index} />
       ) : (
         <DepositHistoryItem item={item} />
       )}
