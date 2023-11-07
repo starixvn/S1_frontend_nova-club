@@ -12,6 +12,7 @@ import ProfileOverviewCard from './ProfileOverviewCard'
 import ProfileQuickNavigation from './ProfileQuickNavigation'
 import WalletButton from './WalletButton'
 import { Currency, HEADER_HEIGHT } from 'utils/constant'
+import { useGetCoinQuery } from 'services/rewardApi'
 
 export default function ProfileScreen() {
   const { bottom, top } = useSafeArea()
@@ -20,11 +21,15 @@ export default function ProfileScreen() {
   const { data: playerData } = usePlayerProfileQuery(undefined, {
     refetchOnMountOrArgChange: true,
   })
+  const { data: rewardsCoin } = useGetCoinQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  })
 
   const currency = playerData?.currency ?? Currency.VND.toString()
   const { data, isFetching } = usePlayerBalanceQuery(undefined, {
     refetchOnMountOrArgChange: true,
   })
+
   const profileHeaderHeight = HEADER_HEIGHT + (top ? top + 15 : 40)
 
   return (
@@ -42,7 +47,7 @@ export default function ProfileScreen() {
         <View sx={{ alignItems: 'center', width }}>
           <ProfileBalanceSummary
             cash={data?.totalBalance ?? 0}
-            reward={data?.totalReward ?? 0}
+            reward={rewardsCoin ?? 0}
             isLoading={isFetching}
             currency={currency as Currency}
           />
