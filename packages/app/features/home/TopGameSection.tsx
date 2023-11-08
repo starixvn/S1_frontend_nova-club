@@ -53,6 +53,27 @@ export default function TopGameSection(props) {
     return 0
   }, [commissionList, data])
 
+  const animatedText = useMemo(
+    () => (
+      <StyledMotiText
+        key={uptoRate.toString() + lang}
+        from={{ scale: 1 }}
+        animate={{ scale: 1.1 }}
+        transition={{
+          loop: true,
+          type: 'timing',
+          duration: 500,
+        }}
+        sx={{ mt: FONT_TOP_OFFSET }}
+      >
+        {t('home.upTo', {
+          percent: uptoRate,
+        })}
+      </StyledMotiText>
+    ),
+    [lang, uptoRate]
+  )
+
   return (
     <View {...props}>
       <SectionHeader
@@ -71,21 +92,7 @@ export default function TopGameSection(props) {
               justifyContent: 'center',
             }}
           >
-            <StyledMotiText
-              key={lang}
-              from={{ scale: 1 }}
-              animate={{ scale: 1.1 }}
-              transition={{
-                loop: true,
-                type: 'timing',
-                duration: 500,
-              }}
-              sx={{ mt: FONT_TOP_OFFSET }}
-            >
-              {t('home.upTo', {
-                percent: uptoRate,
-              })}
-            </StyledMotiText>
+            {animatedText}
           </View>
         )}
       </SectionHeader>
