@@ -75,6 +75,7 @@ const DepositForm = ({ DepositCategoryId }) => {
               `${item.payment_account_name}`,
         value: index.toString(),
         icon: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.account_icon}`,
+        limit: { min: item.minDeposit, max: item.maxDeposit },
       }
     }
   )

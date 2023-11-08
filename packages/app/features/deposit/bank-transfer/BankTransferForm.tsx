@@ -70,6 +70,7 @@ const BankTransferForm = () => {
         label: item.bank_branch,
         value: item.bankTypeId.toString(),
         icon: getBankLogo(item.bank_code),
+        limit: { min: item.minDeposit, max: item.maxDeposit },
       }
     }) ?? []
 

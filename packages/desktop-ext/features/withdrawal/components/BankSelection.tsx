@@ -9,6 +9,8 @@ import { SelectOptions } from 'services/common/types'
 import { SolitoImageProps } from 'solito/build/image/image.types'
 import { SolitoImage } from 'solito/image'
 import { ImageContentFit } from 'expo-image'
+import { toCurrency } from 'app/utils'
+import { usePlayerProfileQuery } from 'services/playerApi'
 
 type Prettier<T> = {
   [K in keyof T]: T[K]
@@ -61,7 +63,6 @@ const BankSelection = ({
           sx={{
             py: '$3',
             gap: '$1',
-            alignItems: 'center',
             flexWrap: 'wrap',
           }}
         >
@@ -81,6 +82,7 @@ const BankSelection = ({
                   img={item.icon}
                   onPress={handlePress}
                   imageMode={imageMode}
+                  limit={item.limit}
                 />
               )
             })}
@@ -107,29 +109,65 @@ const SelectionItem = ({
   img,
   onPress,
   imageMode,
+  limit,
 }) => {
+  const { t } = useLocalization()
+  const { currency } = usePlayerProfileQuery()
+
+  const minAmount = toCurrency(limit?.min ?? 0, currency, {
+    symbol: false,
+    forceDecimal: false,
+  })
+
+  const maxAmount = toCurrency(limit?.max ?? 0, currency, {
+    symbol: false,
+    forceDecimal: false,
+  })
   return (
-    <Pressable onPress={onPress}>
-      <SelectedContainer isActive={isActive}>
+    <View>
+      <Pressable onPress={onPress}>
+        <SelectedContainer isActive={isActive}>
+          <View
+            sx={{
+              width: 120,
+              aspectRatio: 16 / 9,
+              alignItems: 'center',
+              justifyContent: 'center',
+              // bg: 'white',
+            }}
+          >
+            <SolitoImage
+              fill
+              alt="bank image"
+              src={img}
+              contentFit={imageMode}
+              placeholder="empty"
+            />
+          </View>
+        </SelectedContainer>
+      </Pressable>
+      {limit && (
         <View
           sx={{
-            width: 120,
-            aspectRatio: 16 / 9,
-            alignItems: 'center',
+            flex: 1,
+            flexDirection: 'row',
+            mt: '$1',
+            px: '$2',
+            gap: 4,
             justifyContent: 'center',
-            // bg: 'white',
           }}
         >
-          <SolitoImage
-            fill
-            alt="bank image"
-            src={img}
-            contentFit={imageMode}
-            placeholder="empty"
-          />
+          <StyledTextContainer>
+            <StyledMinMaxText>{`${t('deposit.minLimit')}:`}</StyledMinMaxText>
+            <StyledMinMaxText>{`${t('deposit.maxLimit')}:`}</StyledMinMaxText>
+          </StyledTextContainer>
+          <StyledTextContainer>
+            <StyledMinMaxText2>{`${minAmount}`}</StyledMinMaxText2>
+            <StyledMinMaxText2>{`${maxAmount}`}</StyledMinMaxText2>
+          </StyledTextContainer>
         </View>
-      </SelectedContainer>
-    </Pressable>
+      )}
+    </View>
   )
 }
 
@@ -178,5 +216,20 @@ const SelectedContainer = styled(View)(
     overflow: 'hidden',
   })
 )
+export const StyledTextContainer = styled(View)({
+  justifyContent: 'flex-start',
+  minWidth: 40,
+  maxWidth: 60,
+})
 
+export const StyledMinMaxText = styled(Text)({
+  fontSize: 10,
+  textAlign: 'right',
+  flex: 1,
+})
+export const StyledMinMaxText2 = styled(Text)({
+  fontSize: 10,
+  textAlign: 'left',
+  flex: 1,
+})
 export default BankSelection

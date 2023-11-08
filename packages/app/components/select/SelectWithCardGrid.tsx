@@ -1,6 +1,9 @@
 import BankEmpty from 'app/features/bank/components/BankEmpty'
-import { View } from 'dripsy'
+import useLocalization from 'app/provider/localization'
+import { toCurrency } from 'app/utils'
+import { Text, View, styled } from 'dripsy'
 import React, { ReactNode } from 'react'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import { SolitoImage } from 'solito/image'
 import TouchableOpacity from '../pressable/TouchableOpacity'
 import Select, { SelectProps } from './Select'
@@ -12,6 +15,8 @@ export type SelectWithCardGridProps<T> = Omit<
 
 function SelectWithCardGrid<T>(props: SelectWithCardGridProps<T>) {
   const { options, isProvider = false, renderEmpty, onSelected } = props
+  const { t } = useLocalization()
+  const { currency } = usePlayerProfileQuery()
 
   const squareStyle = isProvider
     ? {
@@ -38,32 +43,55 @@ function SelectWithCardGrid<T>(props: SelectWithCardGridProps<T>) {
           >
             {options && options.length > 0 ? (
               options.map((option, index) => {
+                const limit = option?.limit
+
+                const minAmount = toCurrency(limit?.min ?? 0, currency, {
+                  symbol: false,
+                  forceDecimal: false,
+                })
+
+                const maxAmount = toCurrency(limit?.max ?? 0, currency, {
+                  symbol: false,
+                  forceDecimal: false,
+                })
+
                 return (
-                  <TouchableOpacity
-                    key={index}
-                    sx={{
-                      m: '$1',
-                      borderRadius: 15,
-                      borderWidth: 2,
-                      overflow: 'hidden',
-                      height: 72,
-                      aspectRatio: 3 / 2,
-                      ...squareStyle,
-                    }}
-                    onPress={() => {
-                      onSelected(option.value)
-                      closeActionSheet()
-                    }}
-                  >
-                    {option.icon && (
-                      <SolitoImage
-                        src={option.icon}
-                        resizeMode="contain"
-                        fill
-                        alt=""
-                      />
+                  <View key={index}>
+                    <TouchableOpacity
+                      sx={{
+                        m: '$1',
+                        borderRadius: 15,
+                        borderWidth: 2,
+                        overflow: 'hidden',
+                        height: 72,
+                        aspectRatio: 3 / 2,
+                        ...squareStyle,
+                      }}
+                      onPress={() => {
+                        onSelected(option.value)
+                        closeActionSheet()
+                      }}
+                    >
+                      {option.icon && (
+                        <SolitoImage
+                          src={option.icon}
+                          resizeMode="contain"
+                          fill
+                          alt=""
+                        />
+                      )}
+                    </TouchableOpacity>
+                    {limit && (
+                      <View sx={{ flex: 1 }}>
+                        <StyledMinMaxText>
+                          {`${t('deposit.minMax')}:`}
+                        </StyledMinMaxText>
+                        <StyledMinMaxText>
+                          {`${minAmount}/${maxAmount}`}
+                        </StyledMinMaxText>
+                      </View>
                     )}
-                  </TouchableOpacity>
+                  </View>
                 )
               })
             ) : (
@@ -81,5 +109,22 @@ function SelectWithCardGrid<T>(props: SelectWithCardGridProps<T>) {
     />
   )
 }
+
+export const StyledTextContainer = styled(View)({
+  justifyContent: 'flex-start',
+  minWidth: 30,
+  maxWidth: 50,
+})
+
+export const StyledMinMaxText = styled(Text)({
+  fontSize: 12,
+  textAlign: 'center',
+  color: 'black',
+})
+export const StyledMinMaxText2 = styled(Text)({
+  fontSize: 12,
+  textAlign: 'left',
+  color: 'black',
+})
 
 export default SelectWithCardGrid
