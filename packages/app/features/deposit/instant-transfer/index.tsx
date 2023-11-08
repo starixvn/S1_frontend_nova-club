@@ -1,7 +1,7 @@
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import MenuNotice from 'app/components/navigation/MenuNotice'
 import useLocalization from 'app/provider/localization'
-import { DEPOSIT_NOTES } from 'app/utils/constant'
+import { DEPOSIT_NOTES } from 'utils/constant'
 import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import InstantTransferContent from './InstantTransferContent'
