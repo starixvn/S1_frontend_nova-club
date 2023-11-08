@@ -325,7 +325,7 @@
     "ongoing": "ĐANG DIỄN RA",
     "playNow": "CHƠI NGAY",
     "specialRebate": "Hoàn trả đặc biệt",
-    "upTo": "LÊN ĐẾN 1.5%"
+    "upTo": "LÊN ĐẾN %{percent}%"
   },
   "leaderboard": {
     "minPoints": "Điểm tối thiểu",
