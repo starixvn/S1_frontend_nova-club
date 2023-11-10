@@ -223,7 +223,7 @@ export const StyledTextContainer = styled(View)({
 })
 
 export const StyledMinMaxText = styled(Text)({
-  fontSize: 10,
+  fontSize: 12,
   textAlign: 'right',
   flex: 1,
 })
