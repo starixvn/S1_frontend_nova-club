@@ -20,6 +20,12 @@
     "readAndAgree": "I have read & agree the",
     "referrerInfo": "Referrer information",
     "register": "Register",
+    "registerSuccess": {
+      "a1": "THANK YOU FOR BECOME OUR AGENT",
+      "a2": "Join us on Telegram for more information and fastest support.",
+      "m1": "YOUR REGISTRATION IS SUCCESSFUL",
+      "m2": "Follow us on Telegram to get latest updates and more exclusive promotions."
+    },
     "rememberMe": "Remember Me",
     "resend": "Send",
     "resetPasswordHeader": "Reset Password",

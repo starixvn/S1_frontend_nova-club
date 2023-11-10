@@ -20,6 +20,12 @@
     "readAndAgree": "Tôi đã đọc và đồng ý",
     "referrerInfo": "Thông tin người giới thiệu",
     "register": "ĐĂNG KÝ",
+    "registerSuccess": {
+      "a1": "CÁM ƠN BẠN ĐÃ ĐĂNG KÝ LÀM ĐẠI LÝ",
+      "a2": "Tham gia nhóm Telegram ngay để nhận cập nhật và được hỗ trợ nhanh nhất.",
+      "m1": "BẠN ĐÃ ĐĂNG KÝ THÀNH CÔNG",
+      "m2": "Theo dõi chúng tôi trên Telegram để nhận cập nhật và khuyến mãi hấp dẫn sớm nhất."
+    },
     "rememberMe": "Lưu để đăng nhập lần sau",
     "resend": "Gởi",
     "resetPasswordHeader": "Đặt lại mật khẩu",
@@ -207,8 +213,7 @@
         "won": "XIN CHÚC MỪNG!",
         "won2": "BẠN ĐÃ TRÚNG THƯỞNG"
       },
-      "tnc": {
-      }
+      "tnc": {}
     },
     "claim": "ĐỔI VÉ THƯỞNG CỦA BẠN NGAY",
     "jackpot": "Jackpot (chia phần thưởng): 100,000,000 VND",
@@ -320,7 +325,7 @@
     "checkIn": "ĐIỂM DANH",
     "earnNow": "KIẾM XU",
     "hireAgent": "TUYỂN ĐẠI LÝ",
-    "joinNow": "THAM GIA",
+    "joinNow": "THAM GIA NGAY",
     "joinsUs": "THAM GIA VỚI CHÚNG TÔI & BẮT ĐẦU KIẾM TIỀN THƯỞNG!",
     "ongoing": "ĐANG DIỄN RA",
     "playNow": "CHƠI NGAY",

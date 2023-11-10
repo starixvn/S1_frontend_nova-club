@@ -14,7 +14,7 @@ import validation from 'app/utils/validation'
 import { FormikHelpers, useFormik } from 'formik'
 import { useDynamicAnimation } from 'moti'
 import { RefObject, useCallback, useEffect, useMemo, useState } from 'react'
-import { Platform, View as RNView } from 'react-native'
+import { Linking, Platform, View as RNView } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useRegisterMutation } from 'services/authApi'
 import { LoginResult, Shield_Action } from 'services/authApi.type'
@@ -25,6 +25,9 @@ import * as Yup from 'yup'
 import { LoginType } from '../AuthLayout'
 import { RegisterFormValues } from './RegisterScreen'
 import { agentRoute, memberRoute } from '../login/LoginScreen'
+import { SettingActions } from 'app/store/setting.slice'
+import useIsDesktop from 'app/hooks/useIsDesktop'
+import useLocalization from 'app/provider/localization'
 
 const { useParam } = createParam<{ t: LoginType }>()
 
@@ -37,11 +40,13 @@ export default function useRegisterScreen(
   rootView: RefObject<RNView>,
   modalType?: LoginType
 ) {
+  const { t } = useLocalization()
   const { showAlert } = useAlert()
   const width = useContainerWidth(rootView)
   const dispatch = useAppDispatch()
   const { replace } = useRouter()
   const { closeModal, currentModal } = useModal()
+  const desktop = useIsDesktop()
 
   const [currentScreen, setCurrentScreen] = useState<Register_Screen>(
     Register_Screen.SET_USERNAME
@@ -72,6 +77,7 @@ export default function useRegisterScreen(
 
   const isLoggedIn = useAppSelector((s) => !!s.auth.info)
   const memberToken = useAppSelector((state) => state.auth.info?.token)
+  const { openModal } = useModal()
 
   const { data } = usePlayerProfileQuery(undefined, {
     skip: !isLoggedIn,
@@ -141,7 +147,33 @@ export default function useRegisterScreen(
         closeModal()
       }
 
-      replace('/')
+      // replace('/')
+
+      //temporary disable auto popup till modal closed
+      dispatch(TempSettingActions.toggleTriggerPopupEvent(false))
+      dispatch(SettingActions.toggleTriggerPopupTutorial(false))
+      setTimeout(
+        () => {
+          openModal('ActionableModal', {
+            title: t('authentication.registerSuccess.m1'),
+            message: t('authentication.registerSuccess.m2'),
+            onClose: () => {
+              dispatch(TempSettingActions.toggleTriggerPopupEvent(true))
+              dispatch(SettingActions.toggleTriggerPopupTutorial(true))
+
+              replace('/')
+            },
+            actions: [
+              {
+                label: t('home.joinNow'),
+                onPress: () => Linking.openURL('https://t.me/cungvui123'),
+              },
+            ],
+          })
+        },
+        desktop ? 1000 : 300
+      )
+
       setStatus(true)
     } else {
       showAlert(message)
@@ -182,7 +214,25 @@ export default function useRegisterScreen(
         closeModal()
       }
 
-      replace('/agent/profile')
+      // replace('/agent/profile')
+
+      //temporary disable auto popup till modal closed
+      setTimeout(
+        () => {
+          openModal('ActionableModal', {
+            title: t('authentication.registerSuccess.a1'),
+            message: t('authentication.registerSuccess.a2'),
+            onClose: () => replace('/agent/profile'),
+            actions: [
+              {
+                label: t('home.joinNow'),
+                onPress: () => Linking.openURL('https://t.me/vui123Daily'),
+              },
+            ],
+          })
+        },
+        desktop ? 1000 : 300
+      )
       /* to indicate the register is successfull and used to persist loading on submit button */
       setStatus(true)
     } else {

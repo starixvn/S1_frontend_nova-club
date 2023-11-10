@@ -5,6 +5,7 @@ import ModalContent from './ModalContent'
 import ModalWrapper from './ModalWrapper'
 
 const ActionableModal = ({ modal: { closeModal, getParam } }) => {
+  const title = getParam('title')
   const message = getParam('message', '')
   const actions = getParam('actions')
   const onClose = getParam('onClose')
@@ -21,6 +22,7 @@ const ActionableModal = ({ modal: { closeModal, getParam } }) => {
   return (
     <ModalWrapper sx={{ width: Math.min(500, width * 0.9) }}>
       <ModalContent
+        title={title}
         isShowHeader={isShowHeader}
         actions={actions}
         close={closeModal}
