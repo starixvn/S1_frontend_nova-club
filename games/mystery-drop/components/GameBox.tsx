@@ -5,6 +5,8 @@ import { GamePackageName } from '../config'
 import { useWindowSize } from 'utils-pixi/resize/ResizeProvider'
 import { useItemsLayout } from './Util'
 import FlipCard from './FlipCard'
+import NiceModal from '@ebay/nice-modal-react'
+import WinModal from './WinModal'
 
 export const possibleResult = [1, 2, 3, 4]
 
@@ -42,14 +44,22 @@ const GameBox = () => {
     // sound.play('audio/click.mp3')
   }
 
+  const handleWin = (result) => {
+    NiceModal.show(WinModal, {
+      winPrize: result as number,
+      onClose: () => console.log('close'),
+    })
+  }
+
   useEffect(() => {
-    // if (prizePress === 3) {
-    //   sound.play('audio/win.mp3')
-    //   setTimeout(() => {
-    //     setPrizePress(0)
-    //     onComplete()
-    //   }, 2000)
-    // }
+    if (prizePress === 3) {
+      // sound.play('audio/win.mp3')
+      setTimeout(() => {
+        handleWin(800000)
+        setPrizePress(0)
+        // onComplete()
+      }, 2000)
+    }
   }, [prizePress])
 
   return (

@@ -41,9 +41,75 @@
           }
         },
         {
-          "name": "images/game-bg.png",
+          "name": "images/board-win.png",
           "srcs": [
-            "images/game-bg.png"
+            "images/board-win.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/cloud01.png",
+          "srcs": [
+            "images/cloud01.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/cloud02.png",
+          "srcs": [
+            "images/cloud02.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/cloud03.png",
+          "srcs": [
+            "images/cloud03.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/cloud04.png",
+          "srcs": [
+            "images/cloud04.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/cloud05.png",
+          "srcs": [
+            "images/cloud05.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/game-bg.jpg",
+          "srcs": [
+            "images/game-bg.jpg"
           ],
           "data": {
             "tags": {
@@ -66,6 +132,28 @@
           "name": "images/game-header.png",
           "srcs": [
             "images/game-header.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/money01.png",
+          "srcs": [
+            "images/money01.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/money02.png",
+          "srcs": [
+            "images/money02.png"
           ],
           "data": {
             "tags": {
@@ -121,6 +209,17 @@
           "name": "images/pot-red.png",
           "srcs": [
             "images/pot-red.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/pot-shadow.png",
+          "srcs": [
+            "images/pot-shadow.png"
           ],
           "data": {
             "tags": {

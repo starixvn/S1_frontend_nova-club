@@ -23,6 +23,7 @@ const MysteryModal = ({ modal: { closeModal } }) => {
 
   const handlePress = () => {
     closeModal()
+    push('/mystery-drop-tnc')
   }
 
   const containerWidth = Math.min(380, width)
