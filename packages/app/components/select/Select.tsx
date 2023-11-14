@@ -18,6 +18,8 @@ import ActionSheet, { ActionSheetProps } from '../actionSheet/ActionSheet'
 import Input, { InputProps } from '../form/Input'
 import Icon from '../Icon'
 import { InputLabelProps } from '../Label'
+import { toCurrency } from 'app/utils'
+import { usePlayerProfileQuery } from 'services/playerApi'
 
 const StyledPressable = styled(Pressable)({
   borderRadius: 9,
@@ -40,6 +42,7 @@ export type Options<T> = {
   label: string
   value: T
   id?: string
+  limit?: { min: string; max: string }
 }
 
 export type SelectProps<T> = {
@@ -179,6 +182,7 @@ const Select = <T,>(
   } = props
 
   const { t } = useLocalization()
+  const { currency } = usePlayerProfileQuery()
   const { sheetId: passedSheetId, ...actionSheetProp } = _actionSheet || {}
   const { bottom } = useSafeArea()
   const [isOpen, toggleIsOpen] = useReducer((state) => !state, false)
@@ -275,6 +279,15 @@ const Select = <T,>(
             : options && options.length > 0
             ? options.map((item, index) => {
                 const isSelected = item.value === value
+                const limit = item.limit
+                const minAmount = toCurrency(limit?.min ?? 0, currency, {
+                  symbol: false,
+                  forceDecimal: false,
+                })
+                const maxAmount = toCurrency(limit?.max ?? 0, currency, {
+                  symbol: false,
+                  forceDecimal: false,
+                })
 
                 return (
                   <Pressable
@@ -288,6 +301,9 @@ const Select = <T,>(
                       borderTopWidth: index === 0 ? 2 : 0,
                       borderBottomWidth: 2,
                       borderColor: '$primary.100',
+                      flexDirection: 'row',
+                      alignItems: 'flex-start',
+                      justifyContent: 'space-between',
                     }}
                     style={({ pressed }) => ({
                       opacity: pressed ? 0.7 : 1,
@@ -301,10 +317,22 @@ const Select = <T,>(
                       sx={{
                         color: 'white',
                         fontWeight: '500',
+                        flex: 0.6,
                       }}
                     >
                       {t(item.label)}
                     </Text>
+
+                    {limit && (
+                      <View sx={{ flex: 0.4 }}>
+                        <StyledMinMaxText>
+                          {`${t('deposit.minMax')}:`}
+                        </StyledMinMaxText>
+                        <StyledMinMaxText>
+                          {`${minAmount}/${maxAmount}`}
+                        </StyledMinMaxText>
+                      </View>
+                    )}
                   </Pressable>
                 )
               })
@@ -314,6 +342,11 @@ const Select = <T,>(
     </View>
   )
 }
+
+const StyledMinMaxText = styled(Text)({
+  fontSize: 16,
+  textAlign: 'right',
+})
 
 Select.displayName = 'Select'
 
