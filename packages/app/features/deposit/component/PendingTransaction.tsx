@@ -1,15 +1,16 @@
 import RefreshButton from 'app/components/RefreshButton'
 import EmptyResult from 'app/components/dataTable/EmptyResult'
+import HistoryHeader from 'app/components/history/HistoryHeader'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
+import { DepositTableHeader } from 'app/features/account/history/dekstop/DesktopDepositHistoryItem'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { ReportDepositStatus, ReportTransactionType } from 'utils/constant'
 import dayjsTz from 'app/utils/dayjs'
 import { ActivityIndicator, ScrollView, Text, View } from 'dripsy'
 import { useEffect } from 'react'
 import { usePlayerReportQuery } from 'services/playerApi'
-import HorizontalTransactionRowListHeader from './HorizontalTransactionRowListHeader'
+import { ReportDepositStatus, ReportTransactionType } from 'utils/constant'
 import RecentTransactionRow from './RecentTransactionRow'
 
 type PendingTransactionProps = {
@@ -65,8 +66,8 @@ const PendingTransaction = ({ paymentMethod }: PendingTransactionProps) => {
         <RefreshButton loading={isFetching} onPress={refetch} />
       </View>
       {horizontalMode && (
-        <View sx={{ bg: '$primary.200', py: 2, mb: 20 }}>
-          <HorizontalTransactionRowListHeader />
+        <View sx={{ bg: '$primary.200', mb: 20 }}>
+          <HistoryHeader data={DepositTableHeader} />
         </View>
       )}
       <ScrollView>
@@ -81,7 +82,7 @@ const PendingTransaction = ({ paymentMethod }: PendingTransactionProps) => {
             <RecentTransactionRow
               key={item.tx_code}
               item={item}
-              index={index + 1}
+              index={index}
             />
           ))
         ) : (

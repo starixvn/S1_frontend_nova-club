@@ -143,7 +143,7 @@ const TransactionHistory = () => {
       switch (selected.selectedTransType) {
         case ReportTransactionType.DEPOSIT:
           return desktop ? (
-            <DesktopDepositHistoryItem item={item} index={index} />
+            <DesktopDepositHistoryItem key={index} item={item} index={index} />
           ) : (
             <DepositHistoryItem item={item} />
           )

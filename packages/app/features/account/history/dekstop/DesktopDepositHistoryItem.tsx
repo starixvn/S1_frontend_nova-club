@@ -43,29 +43,7 @@ export const DepositTableHeader = [
   },
   { label: 'common.amount', textStyle: { flex: 1 } },
   { label: 'deposit.status', textStyle: { flex: 2 } },
-]
-
-const CONFIRMATION_FIELDS = [
-  {
-    label: 'transaction.id',
-    value: 'transactionId',
-  },
-  {
-    label: 'deposit.paymentMode',
-    value: 'paymentMethod',
-  },
-  {
-    label: 'common.date',
-    value: 'date',
-  },
-  {
-    label: 'menu.tab.status',
-    value: 'status',
-  },
-  {
-    label: 'common.amount',
-    value: 'amount',
-  },
+  { label: '', textStyle: { flexBasis: 24 } },
 ]
 
 const DesktopDepositHistoryItem = ({
@@ -112,7 +90,6 @@ const DesktopDepositHistoryItem = ({
         index={2}
         sx={{
           flexDirection: 'row',
-          alignItems: 'center',
           gap: '$2',
         }}
       >
@@ -130,7 +107,7 @@ const DesktopDepositHistoryItem = ({
       <CellView index={3}>
         <DateTimeCell
           date={item.date}
-          sx={{ textAlign: 'left', fontSize: FONT_SIZE, py: 2 }}
+          sx={{ textAlign: 'left', fontSize: FONT_SIZE }}
         />
       </CellView>
 
@@ -143,7 +120,7 @@ const DesktopDepositHistoryItem = ({
       <CellView index={5}>
         <Text
           sx={{
-            textAlign: 'center',
+            textAlign: 'right',
             color: getStatusColor(item.status, theme),
             fontSize: FONT_SIZE,
           }}
@@ -164,7 +141,7 @@ const DesktopDepositHistoryItem = ({
                 /* */
                 textDecorationLine: 'underline',
                 color: '$tertiary',
-                textAlign: 'center',
+                textAlign: 'right',
               }}
               onPress={handleUploadReceipt}
             >
@@ -172,6 +149,22 @@ const DesktopDepositHistoryItem = ({
             </Text>
           )}
       </CellView>
+
+      <View sx={{ flexBasis: 24, alignItems: 'flex-end' }}>
+        {item.notes && (
+          <IconButton
+            name="notice"
+            color={'white'}
+            size={14}
+            onPress={() =>
+              openModal('NotesModal', {
+                id: item.secure_id,
+                data: item.notes,
+              })
+            }
+          />
+        )}
+      </View>
     </CellViewContainer>
   )
 }
@@ -180,7 +173,6 @@ export const CellViewContainer = styled(Row)({
   flex: 1,
   alignSelf: 'stretch',
   py: '$2',
-  alignItems: 'center',
 })
 
 export const CellView = styled(View)(({ index }: { index: number }) => ({

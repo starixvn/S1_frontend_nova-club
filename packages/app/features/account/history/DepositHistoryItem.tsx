@@ -17,7 +17,7 @@ import { ReportDepositItem } from 'services/playerApi.type'
 import DateTimeCell from './DateTimeCell'
 import { Currency } from 'utils/constant'
 
-export const CELL_PAYMENT_WIDTH = 0.48
+export const CELL_PAYMENT_WIDTH = 0.5
 export const CELL_DATE_WIDTH = 0.2
 export const CELL_STATUS_WIDTH = 0.3
 const FONT_SIZE = 14
@@ -84,7 +84,6 @@ const DepositHistoryItem = ({ item }: TransactionHistoryItemProps) => {
           flexDirection: 'row',
           p: '$2',
           pb: '$0',
-          alignItems: 'center',
         }}
       >
         <View sx={{ flex: CELL_PAYMENT_WIDTH }}>
@@ -105,11 +104,10 @@ const DepositHistoryItem = ({ item }: TransactionHistoryItemProps) => {
               </IconWrap>
             </Shadow>
 
-            <View>
+            <View sx={{ flex: 1 }}>
               <View
                 sx={{
                   flexDirection: 'row',
-                  justifyContent: 'space-between',
                   alignItems: 'center',
                 }}
               >
@@ -123,7 +121,14 @@ const DepositHistoryItem = ({ item }: TransactionHistoryItemProps) => {
                   onPress={() => copyToClipboard(item.secure_id)}
                 />
               </View>
-              <Text sx={{ flex: 1, fontSize: FONT_SIZE, fontWeight: 'bold' }}>
+              <Text
+                sx={{
+                  fontSize: FONT_SIZE,
+                  fontWeight: 'bold',
+                  flexWrap: 'wrap',
+                  flex: 1,
+                }}
+              >
                 {t(category?.name)}
               </Text>
             </View>
@@ -133,7 +138,7 @@ const DepositHistoryItem = ({ item }: TransactionHistoryItemProps) => {
         <View style={{ flex: CELL_DATE_WIDTH }}>
           <DateTimeCell
             date={item.date}
-            sx={{ textAlign: 'left', fontSize: FONT_SIZE, py: 2 }}
+            sx={{ textAlign: 'left', fontSize: FONT_SIZE }}
           />
         </View>
 
@@ -151,6 +156,22 @@ const DepositHistoryItem = ({ item }: TransactionHistoryItemProps) => {
             {item.status}
           </Text>
         </View>
+
+        <View sx={{ flexBasis: 24, alignItems: 'flex-end' }}>
+          {item.notes && (
+            <IconButton
+              name="notice"
+              color={'white'}
+              size={14}
+              onPress={() =>
+                openModal('NotesModal', {
+                  id: item.secure_id,
+                  data: item.notes,
+                })
+              }
+            />
+          )}
+        </View>
       </View>
       {!item.bank_slip_attachment &&
         item.second_category_flag ===
@@ -159,8 +180,9 @@ const DepositHistoryItem = ({ item }: TransactionHistoryItemProps) => {
             numberOfLines={1}
             sx={{
               fontSize: FONT_SIZE,
-              px: '$3',
+              px: '$2',
               pb: '$2',
+              mr: 24,
               textDecorationLine: 'underline',
               color: '$tertiary',
               textAlign: 'right',
