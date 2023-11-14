@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import NiceModal, { useModal } from '@ebay/nice-modal-react'
 import { AssetBasePath } from '@games/config'
-import { useEffect, useState } from 'react'
-import './modal.css'
+import { Back, gsap } from 'gsap'
+import { useEffect } from 'react'
 
 type WinModalProps = {
   winPrize: number
@@ -13,38 +13,45 @@ export const WinModal = NiceModal.create(
   ({ winPrize, onClose }: WinModalProps) => {
     const modal = useModal()
     const width = window.innerWidth
-    console.log('🚀 ~ file: WinModal.tsx:14 ~ width:', width)
     const height = window.innerHeight
-    const [scale, setScale] = useState(0)
+    const headWidth = width > 500 ? 500 : width
+    const AssetPath = `${AssetBasePath}/assets/mystery-drop/images`
 
-    const handleClick = () => {
+    const handleClose = () => {
       onClose && onClose()
       modal.remove()
     }
 
-    const AssetPath = `${AssetBasePath}/assets/mystery-drop/images`
-
-    const headWidth = width > 500 ? 500 : width
-
     useEffect(() => {
-      setTimeout(() => {
-        setScale(1)
-      }, 300)
+      gsap.fromTo(
+        '.scale-in-center',
+        { scale: 0.1 },
+        {
+          scale: 1,
+          duration: 0.5,
+          ease: Back.easeOut,
+        }
+      )
+      gsap.to('.light', {
+        rotate: 360,
+        duration: 10,
+        repeat: -1,
+        ease: 'none',
+      })
     }, [])
 
     return (
       <div
-        className="root"
-        // style={{
-        //   position: 'absolute',
-        //   top: 0,
-        //   left: 0,
-        //   right: 0,
-        //   bottom: 0,
-        //   backgroundColor: ' #00000099',
-        //   fontFamily: 'Avertastd Regular',
-        // }}
-        onClick={handleClick}
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: ' #00000099',
+          fontFamily: 'Avertastd Regular',
+        }}
+        onClick={handleClose}
       >
         <div
           className="scale-in-center"
@@ -53,20 +60,46 @@ export const WinModal = NiceModal.create(
             alignItems: 'center',
             flexDirection: 'column',
             marginTop: height * 0.1,
-            // transform: `scale(${scale})`,
-            // transition: 'all .5s',
           }}
         >
           <img
+            className="light"
+            src={`${AssetPath}/shine-effect.png`}
+            alt=""
+            style={{
+              width: headWidth,
+              zIndex: 1,
+              position: 'absolute',
+              top: -40,
+            }}
+          />
+
+          <div
+            style={{
+              display: 'flex',
+              width: headWidth,
+              justifyContent: 'flex-end',
+              paddingRight: 60,
+            }}
+          >
+            <img
+              src={`${AssetBasePath}/assets/shared/images/ic_cross.png`}
+              alt=""
+              width={36}
+              height={36}
+              onClick={handleClose}
+            />
+          </div>
+          <img
             src={`${AssetPath}/board-win.png`}
             alt=""
-            style={{ width: headWidth, zIndex: 2 }}
+            style={{ width: headWidth, zIndex: 3 }}
           />
-          <div style={{ position: 'relative' }}>
+          <div style={{ position: 'relative', zIndex: 2 }}>
             <img
               src={`${AssetPath}/board-body.png`}
               alt=""
-              style={{ width: width * 0.8, marginTop: -50, zIndex: 1 }}
+              style={{ width: width * 0.8, marginTop: -50 }}
             />
             <div
               style={{

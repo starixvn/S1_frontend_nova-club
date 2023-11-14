@@ -140,6 +140,17 @@
           }
         },
         {
+          "name": "images/light-effect.png",
+          "srcs": [
+            "images/light-effect.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
           "name": "images/money01.png",
           "srcs": [
             "images/money01.png"
@@ -220,6 +231,17 @@
           "name": "images/pot-shadow.png",
           "srcs": [
             "images/pot-shadow.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/shine-effect.png",
+          "srcs": [
+            "images/shine-effect.png"
           ],
           "data": {
             "tags": {

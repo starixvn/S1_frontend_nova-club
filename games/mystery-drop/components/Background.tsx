@@ -1,20 +1,12 @@
 import { AssetBasePath } from '@games/config'
-import {
-  Container,
-  PixiRef,
-  Sprite,
-  TilingSprite,
-  useApp,
-  useTick,
-} from '@pixi/react'
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { useWindowSize } from 'utils-pixi/resize/ResizeProvider'
-import { GamePackageName } from '../config'
-import { Circ, Cubic, Expo, Power2, Sine, gsap } from 'gsap'
+import { Container, PixiRef, Sprite } from '@pixi/react'
+import { Sine, gsap } from 'gsap'
 import { PixiPlugin } from 'gsap/PixiPlugin'
 import * as PIXI from 'pixi.js'
+import { useEffect, useMemo, useRef } from 'react'
+import { useWindowSize } from 'utils-pixi/resize/ResizeProvider'
 import { ISprite } from 'utils-pixi/type'
-import { CustomWiggle } from 'gsap/all'
+import { GamePackageName } from '../config'
 
 type Props = {}
 
@@ -29,13 +21,7 @@ gsap.registerPlugin(PixiPlugin)
 PixiPlugin.registerPIXI(PIXI)
 
 export default function Background({}: Props) {
-  const app = useApp()
-  const waveSpeed = 1
-  const [rotation, setRotation] = useState(0)
-  const [waveX, setWaveX] = useState(0)
   const { width, height } = useWindowSize()
-  const [cloudX, setCloudX] = useState({ x: CLOUD_INIT_X_1 })
-  const [cloud2X, setCloud2X] = useState({ x: CLOUD_INIT_X_2 ?? 0 })
   const cloudRef1 = useRef<PixiRef<ISprite>>(null)
   const cloudRef2 = useRef<PixiRef<ISprite>>(null)
   const cloudRef3 = useRef<PixiRef<ISprite>>(null)
@@ -54,20 +40,6 @@ export default function Background({}: Props) {
       height: height,
     }
   }, [width])
-
-  // useTick((delta) => {
-  //   // Update wave position / Movement speed
-  //   const cloudHover = amplitude * Math.sin((2 * Math.PI * Date.now()) / period)
-  //   setWaveX(waveX + 1)
-  //   setCloudX({
-  //     x: cloudX.x > width - CLOUD_INIT_X_1 ? CLOUD_INIT_X_1 : cloudX.x + 2,
-  //   })
-  //   setCloud2X({
-  //     x: cloud2X.x > width - CLOUD_INIT_X_1 ? CLOUD_INIT_X_1 : cloud2X.x + 2,
-  //   })
-
-  //   delta && setRotation(rotation + 0.003 * delta)
-  // })
 
   const animationCloudMovement = () => {
     gsap.fromTo(
