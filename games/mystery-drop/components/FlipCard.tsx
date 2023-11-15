@@ -67,7 +67,7 @@ const FlipCard = ({
   }, [])
 
   useEffect(() => {
-    if (win) {
+    if (win && open) {
       gsap.to(winRef.current, {
         pixi: { alpha: 1, scale: 0.425 },
         delay: 1,

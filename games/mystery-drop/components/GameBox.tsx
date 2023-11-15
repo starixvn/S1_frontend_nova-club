@@ -8,19 +8,17 @@ import FlipCard from './FlipCard'
 import NiceModal from '@ebay/nice-modal-react'
 import WinModal from './WinModal'
 
-export const possibleResult = [1, 2, 3, 4]
+export const possibleResult = [1, 2, 3]
 
 export const potDict = {
   1: `${AssetBasePath}/assets/${GamePackageName}/images/pot-blue.png`,
   2: `${AssetBasePath}/assets/${GamePackageName}/images/pot-green.png`,
   3: `${AssetBasePath}/assets/${GamePackageName}/images/pot-red.png`,
-  4: `${AssetBasePath}/assets/${GamePackageName}/images/pot-purple.png`,
 }
 export const prizeDict = {
   1: `${AssetBasePath}/assets/${GamePackageName}/images/pot-highlight.png`,
   2: `${AssetBasePath}/assets/${GamePackageName}/images/pot-highlight.png`,
   3: `${AssetBasePath}/assets/${GamePackageName}/images/pot-highlight.png`,
-  4: `${AssetBasePath}/assets/${GamePackageName}/images/pot-highlight.png`,
 }
 
 const GameBox = () => {

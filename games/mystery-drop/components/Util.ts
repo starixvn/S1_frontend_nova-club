@@ -25,7 +25,7 @@ export const useItemsLayout = ({ width, height, result = 0 }) => {
     const frequencyCounter = {}
     const filteredArray = possibleResult.filter((value) => value !== result)
 
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 4; i++) {
       let randomNum = Math.floor(Math.random() * filteredArray.length)
 
       while (
@@ -40,7 +40,7 @@ export const useItemsLayout = ({ width, height, result = 0 }) => {
         (frequencyCounter[filteredArray[randomNum]] || 0) + 1
     }
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 5; i++) {
       randoms.push(result)
     }
 
