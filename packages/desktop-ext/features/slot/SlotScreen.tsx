@@ -38,7 +38,7 @@ type Params = {
 }
 const { useParam } = createParam<Params>()
 
-const GameCategory = [GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]
+const GameCategory = [GAME_TYPE_CODE.SLOTS]
 
 function SlotScreen({}: Props) {
   const [provider, setProvider] = useParam('provider', {
