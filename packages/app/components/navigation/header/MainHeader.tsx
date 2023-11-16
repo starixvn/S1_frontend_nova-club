@@ -23,6 +23,7 @@ import {
   View,
   styled,
   useDripsyTheme,
+  useResponsiveValue,
 } from 'dripsy'
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
@@ -34,28 +35,58 @@ import HeaderAuthentication from './HeaderAuthentication'
 import HeaderDeposit from './HeaderDeposit'
 import HeaderLanguageToggle from './HeaderLanguageToggle'
 import HeaderOverview from './HeaderOverview'
+import isBetween from 'dayjs/plugin/isBetween'
+import dayjs from 'dayjs'
+import { SolitoImage } from 'solito/image'
+dayjs.extend(isBetween)
 
 const LogoSize = [HEADER_HEIGHT * 0.5, HEADER_HEIGHT * 0.75]
 
 const Logo = () => {
   const lang = useAppSelector((s) => s.setting.locale)
+  const showChristmasTheme = useResponsiveValue([false, false, false, true])
+  const themeLogoWidth = useResponsiveValue([0, 0, 0, 190, 260])
+
+  const isChristmasDate = dayjs().isBetween(
+    dayjs('2023-11-30T17:00:00.000Z'),
+    dayjs('2023-12-31T17:00:00.000Z')
+  )
+
+  const LOGO_PATH =
+    lang === 'en'
+      ? isChristmasDate
+        ? `${MEDIA_DOMAIN}${CONTENT_URI}/event/christmas/logo-christmas-en.png`
+        : `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered.png`
+      : isChristmasDate
+      ? `${MEDIA_DOMAIN}${CONTENT_URI}/event/christmas/logo-christmas-vi.png`
+      : `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered-vn.png`
+
   return (
-    <Link href="/">
-      <Image
-        source={{
-          uri:
-            lang === 'en'
-              ? `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered.png`
-              : `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered-vn.png`,
-        }}
-        alt="header-logo"
-        sx={{
-          height: LogoSize,
-          aspectRatio: 292 / 88,
-          marginLeft: -5,
-        }}
-      />
-    </Link>
+    <Row sx={{ alignItems: 'center' }}>
+      <Link href="/">
+        <Image
+          source={{
+            uri: LOGO_PATH,
+          }}
+          alt="header-logo"
+          sx={{
+            height: LogoSize,
+            aspectRatio: 292 / 88,
+            marginLeft: -5,
+          }}
+        />
+      </Link>
+
+      {isChristmasDate && showChristmasTheme && (
+        <SolitoImage
+          src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/christmas/header-christmas-desktop.png`}
+          height={60}
+          width={themeLogoWidth}
+          contentPosition="bottom center"
+          alt=""
+        />
+      )}
+    </Row>
   )
 }
 
