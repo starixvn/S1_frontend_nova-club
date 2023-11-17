@@ -1,9 +1,8 @@
 import { Provider } from 'app/provider'
 import { Stack } from 'expo-router'
 
-import messaging from '@react-native-firebase/messaging'
 import notifee from '@notifee/react-native'
-import useNotification from 'app/hooks/notification/useNotification'
+import messaging from '@react-native-firebase/messaging'
 
 // Register background handler
 messaging().setBackgroundMessageHandler(async (remoteMessage) => {
@@ -26,8 +25,6 @@ export default function Root() {
   //     router.replace('/')
   //   })
   // }
-
-  useNotification()
 
   return (
     <Provider>
