@@ -61,7 +61,7 @@ const GameCard = ({
   const [loaded, setLoaded] = useState(false)
   const desktopMode = useIsDesktop()
   const ss = useSx()
-  const { tags } = rest
+  const { tags, gpc } = rest
 
   const lang = useAppSelector((s) => s.setting.locale)
 
@@ -174,7 +174,7 @@ const GameCard = ({
           </AnimatePresence>
         )}
       </View>
-      <GameTagsLabel tags={tags ?? []} size={gameTagSize} />
+      <GameTagsLabel tags={tags ?? []} size={gameTagSize} gpc={gpc} />
       {!!displayName && (
         <Text
           sx={{
