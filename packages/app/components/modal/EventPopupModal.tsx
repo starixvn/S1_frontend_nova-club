@@ -1,74 +1,82 @@
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { LoginType } from 'app/features/auth/AuthLayout'
+import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
+import { SettingActions } from 'app/store/setting.slice'
+import {
+  PopupMapping,
+  getCarouselBannerActionGenerator,
+} from 'app/utils/carouselBannerActionGenerator'
 import dayjs from 'dayjs'
 import isBetween from 'dayjs/plugin/isBetween'
 import { ActivityIndicator, ScrollView, View } from 'dripsy'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
+import { useBannerQuery } from 'services/contentApi'
 import { useRouter } from 'solito/router'
 import Image from '../common/Image'
 import TouchableOpacity from '../pressable/TouchableOpacity'
-import { SettingActions } from 'app/store/setting.slice'
 dayjs.extend(isBetween)
 
 const EventPopupModal = ({ modal: { closeModal } }) => {
+  const { data } = useBannerQuery()
+  const popUpBanner =
+    data?.filter((el) => el.banner_display_page === 'popup') ?? []
+
   const { width, height } = useContainerDimension()
   const [isLoading, setLoading] = useState(true)
-  const agentToken = useAppSelector((s) => s.agent.access_token)
-  const rewardPopup = useAppSelector((s) => s.setting.rewardPopup)
+
   const { push } = useRouter()
   const { openModal } = useModal()
   const desktop = useIsDesktop()
   const dispatch = useAppDispatch()
+  const locale = useAppSelector((s) => s.setting.locale)
+  const agentToken = useAppSelector((s) => s.agent.access_token)
+  const rewardPopup = useAppSelector((s) => s.setting.rewardPopup)
+
+  const bannerSeq = rewardPopup % popUpBanner?.length
+  const banner = popUpBanner.find((el, index) => index === bannerSeq)
 
   useEffect(() => {
     dispatch(SettingActions.toggleRewardPopupSwitch())
   }, [])
 
-  const handlePress = () => {
+  const onPressCallback = useCallback(() => {
     closeModal()
-    if (rewardPopup === 3) {
-      agentToken
-        ? push('/agent/profile')
-        : desktop
-        ? setTimeout(() => {
-            openModal('AgentLoginModal', {
-              t: LoginType.Agent,
-            })
-          }, 500)
-        : push({
-            pathname: '/auth/login',
-            query: {
-              t: LoginType.Agent,
-            },
-          })
-    } else {
-      if (desktop) {
-        push('/rewards/redeem/list')
-        rewardPopup === 1 &&
-          setTimeout(() => {
-            openModal('DailyCheckInModal')
-          }, 500)
-      } else {
-        rewardPopup === 1
-          ? push('/rewards/daily')
-          : push('/rewards/redeem/list')
-      }
+
+    const mappedBannerAction = PopupMapping.find(
+      (el) => el.url === banner?.banner_url
+    )
+
+    const defaultBannerAction = {
+      desktopType: banner?.banner_url_redirection,
+      type: banner?.banner_url_redirection,
+      payload: {
+        uri: banner?.banner_url,
+        desktopUri: banner?.banner_url,
+      },
     }
-  }
+
+    const bannerAction = mappedBannerAction
+      ? mappedBannerAction.bannerAction
+      : defaultBannerAction
+    const actionType = desktop ? bannerAction.desktopType : bannerAction.type
+
+    const action = getCarouselBannerActionGenerator(
+      bannerAction,
+      desktop,
+      actionType
+    )
+
+    setTimeout(() => {
+      action({ push, locale, openModal })
+    }, 500)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [banner?.banner_url])
 
   const imageWidth = Math.min(380, width * 0.7)
   const imageHeight = imageWidth / (800 / 1100)
-
-  const imageUrl =
-    rewardPopup === 1
-      ? `${MEDIA_DOMAIN}${CONTENT_URI}/popup-daily-checkin.jpg`
-      : rewardPopup === 2
-      ? `${MEDIA_DOMAIN}${CONTENT_URI}/popup-rewards.png`
-      : `${MEDIA_DOMAIN}${CONTENT_URI}/popup-agent-recruitment-v7.jpg?v=1`
 
   return (
     <View
@@ -78,7 +86,7 @@ const EventPopupModal = ({ modal: { closeModal } }) => {
     >
       <ScrollView bounces={false}>
         <TouchableOpacity
-          onPress={handlePress}
+          onPress={onPressCallback}
           sx={{
             width: imageWidth,
             height: imageHeight,
@@ -88,7 +96,7 @@ const EventPopupModal = ({ modal: { closeModal } }) => {
           <>
             <Image
               source={{
-                uri: imageUrl,
+                uri: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${banner?.banner_image}`,
               }}
               style={{
                 flex: 1,

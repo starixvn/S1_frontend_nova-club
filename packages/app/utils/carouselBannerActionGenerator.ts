@@ -1,15 +1,45 @@
-import { LIVECHAT_URL, REFERRAL_DOMAIN } from '@env'
-import { LaunchGame } from 'app/features/game/GameLauncher'
-import i18n from 'app/provider/localization/i18n'
+import { LoginType } from 'app/features/auth/AuthLayout'
 import { Linking } from 'react-native'
-import { useModal } from 'react-native-modalfy'
-import { Game } from 'services/gameApi.type'
 
 export enum CarouselBannerActionType {
   INTERNAL_REDIRECT = 'internalRedirect',
   EXTERNAL_REDIRECT = 'externalRedirect',
   MODAL = 'modal',
 }
+
+export enum PopupBannerActionType {
+  INTERNAL_REDIRECT = 'int',
+  EXTERNAL_REDIRECT = 'ext',
+  MODAL = 'modal',
+}
+
+export const PopupMapping = [
+  {
+    url: '/rewards/daily',
+    bannerAction: {
+      desktopType: PopupBannerActionType.MODAL,
+      type: PopupBannerActionType.INTERNAL_REDIRECT,
+      payload: {
+        uri: '/rewards/daily',
+        desktopUri: 'DailyCheckInModal',
+      },
+    },
+  },
+  {
+    url: '/auth/login?t=agent',
+    bannerAction: {
+      desktopType: PopupBannerActionType.MODAL,
+      type: PopupBannerActionType.INTERNAL_REDIRECT,
+      payload: {
+        uri: '/auth/login',
+        desktopUri: 'AgentLoginModal',
+        params: {
+          t: LoginType.Agent,
+        },
+      },
+    },
+  },
+]
 
 interface InternalRedirectPayload {
   uri: string
@@ -18,8 +48,10 @@ interface InternalRedirectPayload {
 }
 
 interface ActionRedirect {
-  type: CarouselBannerActionType.INTERNAL_REDIRECT
-  desktopType: CarouselBannerActionType
+  type:
+    | CarouselBannerActionType.INTERNAL_REDIRECT
+    | PopupBannerActionType.INTERNAL_REDIRECT
+  desktopType: CarouselBannerActionType | PopupBannerActionType
   payload: BannerCarouselActionPayload
 }
 
@@ -30,14 +62,16 @@ type CarouselBannerActionRedirectParams = {
 }
 
 interface ActionExternalRedirect {
-  type: CarouselBannerActionType.EXTERNAL_REDIRECT
-  desktopType: CarouselBannerActionType
+  type:
+    | CarouselBannerActionType.EXTERNAL_REDIRECT
+    | PopupBannerActionType.EXTERNAL_REDIRECT
+  desktopType: CarouselBannerActionType | PopupBannerActionType
   payload: BannerCarouselActionPayload
 }
 
 interface ActionModal {
-  type: CarouselBannerActionType.MODAL
-  desktopType: CarouselBannerActionType
+  type: CarouselBannerActionType.MODAL | PopupBannerActionType.MODAL
+  desktopType: CarouselBannerActionType | PopupBannerActionType
   payload: BannerCarouselActionPayload
 }
 
@@ -52,10 +86,11 @@ export type BannerAction = ActionRedirect | ActionExternalRedirect | ActionModal
 export function getCarouselBannerActionGenerator(
   action: BannerAction,
   isDesktop: boolean,
-  actionType: CarouselBannerActionType
+  actionType: CarouselBannerActionType | PopupBannerActionType
 ): (p?: CarouselBannerActionRedirectParams) => void {
   //   console.log(action)
   switch (actionType) {
+    case PopupBannerActionType.INTERNAL_REDIRECT:
     case CarouselBannerActionType.INTERNAL_REDIRECT: {
       const payload = action.payload
       if (!payload || !payload.uri) return () => {}
@@ -101,6 +136,7 @@ export function getCarouselBannerActionGenerator(
       }
     }
 
+    case PopupBannerActionType.EXTERNAL_REDIRECT:
     case CarouselBannerActionType.EXTERNAL_REDIRECT: {
       if (!action.payload || !action.payload.uri) return () => {}
       const { uri, desktopUri } = action.payload

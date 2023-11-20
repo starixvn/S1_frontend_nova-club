@@ -64,7 +64,7 @@ const initialState: Setting = {
   floatingDrawer: true,
   tutorialLocation: undefined,
   triggerPopupTutorial: true,
-  rewardPopup: 0,
+  rewardPopup: -1,
 }
 
 const settingSlice = createSlice({
@@ -169,7 +169,7 @@ const settingSlice = createSlice({
       state.tutorialLocation = action.payload
     },
     toggleRewardPopupSwitch: (state) => {
-      state.rewardPopup = state.rewardPopup >= 3 ? 1 : state.rewardPopup + 1
+      state.rewardPopup = state.rewardPopup + 1
     },
   },
   extraReducers: (builder) => {
