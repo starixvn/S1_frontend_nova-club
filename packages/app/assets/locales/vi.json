@@ -61,6 +61,7 @@
     "title": "Bảng hoa hồng"
   },
   "common": {
+    "action": "",
     "active": "Đang hoạt động",
     "agent": "Đại lý",
     "agentLogin": "Đăng nhập đại lý",
@@ -640,6 +641,7 @@
     "placeholderTransferId": "Vui lòng nhập ID giới thiệu",
     "qrTransfer": "Chuyển quỹ bằng QR",
     "receive": "Nhận",
+    "receiveFund": "Nhận quỹ",
     "transferTitle": "Chuyển quỹ",
     "transferableAmount": "Số tiền có thể chuyển"
   },

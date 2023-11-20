@@ -61,6 +61,7 @@
     "title": "Commision Table"
   },
   "common": {
+    "action": "Action",
     "active": "Active",
     "agent": "Agent",
     "agentLogin": "Agent Login",
@@ -640,6 +641,7 @@
     "placeholderTransferId": "Please enter ID",
     "qrTransfer": "QR Transfer",
     "receive": "Receive",
+    "receiveFund": "Receive",
     "transferTitle": "Transfer",
     "transferableAmount": "Transferable Amount"
   },
