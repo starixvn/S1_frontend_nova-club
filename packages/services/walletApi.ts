@@ -1,6 +1,8 @@
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
+  GetUsernameByCodeArgs,
+  GetUsernameByCodeResult,
   PlayerBalance,
   PlayerBalanceArgs,
   PlayerBalanceResult,
@@ -88,6 +90,18 @@ export const walletApi = baseApiWithTag.injectEndpoints({
       }),
       invalidatesTags: ['Balance'],
     }),
+    getUsernameByCode: builder.query<
+      IResponse<GetUsernameByCodeResult>,
+      GetUsernameByCodeArgs
+    >({
+      query: (queryArgs) => ({
+        url: `/player_api/getUsernameByCode`,
+        method: 'POST',
+        data: {
+          ...queryArgs,
+        },
+      }),
+    }),
   }),
 })
 
@@ -98,4 +112,5 @@ export const {
   useTransferMutation,
   useTransferAllToOneMutation,
   useTransferMemberToMemberMutation,
+  useLazyGetUsernameByCodeQuery,
 } = walletApi

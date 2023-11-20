@@ -2,7 +2,7 @@ import IconButton from 'app/components/IconButton'
 import MoneyInput from 'app/components/MoneyInput'
 import Button from 'app/components/common/Button'
 import FormContainer from 'app/components/form/FormContainer'
-import Input from 'app/components/form/Input'
+import Input, { Label } from 'app/components/form/Input'
 import AvailableBalance from 'app/features/withdrawal/components/AvailableBalance'
 import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
@@ -14,21 +14,22 @@ import {
   toDisplayAmount,
   toRealAmount,
 } from 'app/utils'
-import { Currency } from 'utils/constant'
-import validation from 'app/utils/validation'
+import validation, { getErrorMessage } from 'app/utils/validation'
 import validationRule from 'app/utils/validationRule'
-import { ScrollView } from 'dripsy'
+import { Row, ScrollView, Text } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import {
+  useLazyGetUsernameByCodeQuery,
   usePlayerBalanceQuery,
   useTransferMemberToMemberMutation,
 } from 'services/walletApi'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
+import { Currency } from 'utils/constant'
 import * as Yup from 'yup'
 
 type IdTransferFormValues = {
@@ -47,7 +48,11 @@ const IdTransfer = ({ isIDTransfer = false }: { isIDTransfer?: boolean }) => {
   const { push } = useRouter()
   const dispatch = useAppDispatch()
   const [postTransferMemberToMember] = useTransferMemberToMemberMutation()
+  const [getUsernameByCode] = useLazyGetUsernameByCodeQuery()
   const [referralCode] = useParam('referralCode', { initial: '' })
+
+  const [idUsername, setIdUsername] = useState('')
+  const [usernameErrorMsg, setUsernameErrorMsg] = useState('')
 
   const { data } = usePlayerBalanceQuery(undefined, {
     refetchOnMountOrArgChange: true,
@@ -182,25 +187,56 @@ const IdTransfer = ({ isIDTransfer = false }: { isIDTransfer?: boolean }) => {
     }
   }, [isPinExist])
 
+  const onCheckIdTransfer = async () => {
+    if (!errors.idTransfer) {
+      try {
+        const { success, data } = await getUsernameByCode({
+          to_invitation_code: values.idTransfer,
+        }).unwrap()
+
+        if (success) {
+          setIdUsername(data?.username ?? '')
+          setUsernameErrorMsg('')
+        }
+      } catch (error) {
+        setIdUsername('')
+        const errorMessage = getErrorMessage(error)
+        setUsernameErrorMsg(errorMessage)
+      }
+    }
+  }
+
   return (
     <FormContainer>
       <ScrollView>
         <AvailableBalance label={t('transfer.transferableAmount')} isTransfer />
 
         <Input
+          id="idTransfer"
+          nativeID="idTransfer"
           label={t('transfer.idTransfer')}
           placeholder={t('transfer.placeholderTransferId')}
-          value={values.idTransfer}
           onChangeText={handleChange('idTransfer')}
-          onBlur={handleBlur('idTransfer')}
+          onBlur={(e) => {
+            handleBlur(e)
+            onCheckIdTransfer()
+          }}
+          // onBlur={handleBlur('idTransfer')}
           error={
             touched.idTransfer && errors.idTransfer
               ? t(errors.idTransfer, {
                   field: t('transfer.idTransfer'),
                 })
+              : usernameErrorMsg
+              ? usernameErrorMsg
               : undefined
           }
         />
+
+        <Row sx={{ mb: '$2' }}>
+          <Label sx={{ mr: '$2' }}>{t('common.username')}:</Label>
+          <Text>{idUsername}</Text>
+        </Row>
 
         <MoneyInput
           label={t('common.amount')}
@@ -234,7 +270,7 @@ const IdTransfer = ({ isIDTransfer = false }: { isIDTransfer?: boolean }) => {
 
         <Button
           onPress={handleSubmit}
-          disabled={!isValid || !dirty}
+          disabled={!isValid || !dirty || usernameErrorMsg !== ''}
           sx={{ mt: '$4' }}
         >
           {t('common.confirm')}
