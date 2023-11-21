@@ -84,3 +84,12 @@ export type TransferMemberToMemberArgs = {
 export type TransferMemberToMemberResult = {
   wallet: PlayerBalanceResult
 }
+
+export type GetUsernameByCodeArgs = {
+  to_invitation_code: string
+}
+
+export type GetUsernameByCodeResult = {
+  username: string
+  to_invitation_code: string
+}
