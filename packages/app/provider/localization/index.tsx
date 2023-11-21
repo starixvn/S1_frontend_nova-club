@@ -1,64 +1,91 @@
 import { I18n, Scope, TranslateOptions } from 'i18n-js'
-import React, { createContext, useContext, useMemo } from 'react'
-import { useAppSelector } from '../redux/store'
-import i18n from './i18n'
+import React, { useEffect } from 'react'
 
-const LocalizationContext = createContext<{
-  t: (scope: Scope, options?: TranslateOptions) => string
-}>(null)
+import {
+  TolgeeProvider,
+  TolgeeStaticData,
+  TreeTranslationsData,
+  useTranslate,
+} from '@tolgee/react'
+import { localizationApi } from 'services/localizationApi'
+import { sleep } from 'utils/common'
+import { LANGUAGE_CODE, LANGUAGE_NAMESPACE } from 'utils/constant'
+import { store, useAppSelector } from '../redux/store'
+import { tolgee } from 'app/integrations/tolgee'
+import vi from 'app/assets/locales/vi.json'
 
 export type Translate = (scope: Scope, options?: TranslateOptions) => string
 
 interface LocalizationProviderProps {
   children: React.ReactNode
-  locale: string
+  locale: LANGUAGE_CODE
   module?: string
   i18n: I18n
 }
 
-export const LocalizationProvider: React.FC<LocalizationProviderProps> = ({
-  children,
-  locale,
-  i18n,
-  module,
-}) => {
-  const localizationContext = useMemo(
-    () => ({
-      t: (scope: Scope = '', options?: TranslateOptions) =>
-        i18n.translate(module ? `${module}.${scope}` : scope, {
-          locale,
-          ...options,
-        }),
-    }),
-    [locale, i18n]
-  )
+export function getLanguageFetcher(
+  locale: LANGUAGE_CODE,
+  namespace: LANGUAGE_NAMESPACE,
+  fallbackTranslation: TreeTranslationsData
+) {
+  return async () => {
+    // This is to ensure redux provider run 1 frame first before executing api
+    await sleep(0)
+    try {
+      const resp = await store
+        .dispatch(
+          localizationApi.endpoints.translations.initiate({
+            locale,
+            namespace,
+          })
+        )
+        .unwrap()
 
-  return (
-    <LocalizationContext.Provider value={localizationContext}>
-      {children}
-    </LocalizationContext.Provider>
-  )
-}
-
-export default function useLocalization() {
-  return useContext(LocalizationContext)
-}
-
-export function useAgentLocalization() {
-  const { t } = useLocalization()
-
-  return {
-    t: (scope: Scope, options?: TranslateOptions) =>
-      t(`agent.${scope}`, { ...options }),
+      return resp[locale]
+    } catch (e) {
+      return fallbackTranslation
+    }
   }
 }
 
-export const LocalizationProviderRedux = ({ children }) => {
-  const locale = useAppSelector((s) => s.setting.locale)
+export function prepareTolgeeStaticDataByNamespace(
+  namespace: LANGUAGE_NAMESPACE,
+  fallbackTranslation: TreeTranslationsData
+): TolgeeStaticData {
+  const staticData = {}
 
-  return (
-    <LocalizationProvider locale={locale} i18n={i18n}>
-      {children}
-    </LocalizationProvider>
-  )
+  Object.values(LANGUAGE_CODE).forEach((locale) => {
+    staticData[`${locale}:${namespace}`] = getLanguageFetcher(
+      locale,
+      namespace,
+      fallbackTranslation
+    )
+  })
+
+  return staticData
+}
+
+tolgee.addStaticData(
+  prepareTolgeeStaticDataByNamespace(LANGUAGE_NAMESPACE.MEMBER, vi)
+)
+export const LocalizationProvider: React.FC<LocalizationProviderProps> = ({
+  children,
+}) => {
+  return <TolgeeProvider tolgee={tolgee}>{children}</TolgeeProvider>
+}
+
+export default function useLocalization() {
+  return useTranslate(LANGUAGE_NAMESPACE.MEMBER)
+}
+
+export function useAgentLocalization() {
+  return useTranslate(LANGUAGE_NAMESPACE.AGENT)
+}
+
+export const LocalizationProviderRedux = ({ children }) => {
+  // // This is preserved to trigger rerender on language changed
+  const locale = useAppSelector((s) => s.setting.locale)
+  if (tolgee.getLanguage() !== locale) tolgee.changeLanguage(locale)
+
+  return <TolgeeProvider tolgee={tolgee}>{children}</TolgeeProvider>
 }

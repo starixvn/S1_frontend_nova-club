@@ -1,6 +1,5 @@
 import { LIVECHAT_URL, REFERRAL_DOMAIN } from '@env'
 import { LaunchGame } from 'app/features/game/GameLauncher'
-import i18n from 'app/provider/localization/i18n'
 import { Linking } from 'react-native'
 import { Game } from 'services/gameApi.type'
 

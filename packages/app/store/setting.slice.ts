@@ -3,6 +3,7 @@ import dayjs, { Dayjs } from 'dayjs'
 import { LaunchGamePayload } from './gameLauncher.slice'
 import { isBannedTrackingCode } from 'app/utils/referralUtil'
 import { LANGUAGE_CODE } from 'utils/constant'
+import { tolgee } from 'app/integrations/tolgee'
 
 interface PopUpExpire {
   [key: string]: Dayjs | null
@@ -72,6 +73,7 @@ const settingSlice = createSlice({
   initialState: initialState,
   reducers: {
     setLocale: (state, action: PayloadAction<string>) => {
+      tolgee.changeLanguage(action.payload)
       state.locale = action.payload as LANGUAGE_CODE
     },
     setPopUpExpiry: (state, action: PayloadAction<string>) => {

@@ -12,4 +12,7 @@ declare module '@env' {
   export const LIVECHAT_URL: string
   export const AGENT_API_DOMAIN: string
   export const REWARDS_BASE_PATH: string
+  export const LOCALIZATION_DOMAIN: string
+  export const LOCALIZATION_KEY: string
+  export const LOCALIZATION_PROJECT_ID: string
 }

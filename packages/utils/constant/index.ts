@@ -5,6 +5,11 @@ export enum LANGUAGE_CODE {
   VIETNAM = 'vi',
 }
 
+export enum LANGUAGE_NAMESPACE {
+  MEMBER = 'Member',
+  AGENT = 'Agent',
+}
+
 export const LANGUAGE_SUBTAG = {
   [LANGUAGE_CODE.ENGLISH]: 'en',
   [LANGUAGE_CODE.VIETNAM]: 'vi',

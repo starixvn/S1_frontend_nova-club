@@ -1,8 +1,14 @@
-import Header from 'agent/navigation/Header'
+import { tolgee } from 'app/integrations/tolgee'
+import { prepareTolgeeStaticDataByNamespace } from 'app/provider/localization'
 import { Stack } from 'expo-router'
 import { View } from 'react-native'
-import AgentShareholderTabBar from 'agent/navigation/components/AgentTabNavigator/AgentShareholderTabs'
-import AnnouncementSection from 'agent/components/Announcement/AnnouncementSection'
+import { LANGUAGE_NAMESPACE } from 'utils/constant'
+
+import vi from 'agent/assets/locales/agent-vi.json'
+
+tolgee.addStaticData(
+  prepareTolgeeStaticDataByNamespace(LANGUAGE_NAMESPACE.AGENT, vi)
+)
 
 export default function Root() {
   return (
