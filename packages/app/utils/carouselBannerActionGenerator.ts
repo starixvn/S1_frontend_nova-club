@@ -122,13 +122,13 @@ export function getCarouselBannerActionGenerator(
       const payload = action.payload
       if (!payload || !payload.uri) return () => {}
 
-      const { uri, desktopUri } = payload
+      const { uri, desktopUri, params } = payload
 
       return (p?: CarouselBannerActionRedirectParams) => {
         try {
           if (p) {
             const { openModal } = p
-            openModal(isDesktop ? desktopUri : uri)
+            openModal(isDesktop ? desktopUri : uri, params)
           }
         } catch (e) {
           console.log('Open Modal Error error', e)
