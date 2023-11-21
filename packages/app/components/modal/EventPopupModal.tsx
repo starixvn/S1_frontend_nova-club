@@ -68,6 +68,9 @@ const EventPopupModal = ({ modal: { closeModal } }) => {
       actionType
     )
 
+    if (desktop && banner?.banner_url === '/rewards/daily')
+      push('/rewards/redeem/list')
+
     setTimeout(() => {
       action({ push, locale, openModal })
     }, 500)
