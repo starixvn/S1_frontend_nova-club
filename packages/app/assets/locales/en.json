@@ -228,6 +228,33 @@
       "ineligibleSpin": "Ineligible To Spin",
       "registerSpin": "REGISTER AND SPIN"
     },
+    "mystery": {
+      "games": "MYSTERY DROPS QUALIFYING GAMES",
+      "grand": "Grand",
+      "hitRange": "Hit range",
+      "how": {
+        "n1": "Play the games with \"MYSTERY DROPS\" tag",
+        "n2": "Receive a surprise notification from Vui123 \\nOpen the mystery box to win one of the type of Jackpot",
+        "t1": "Deposit and play qualifying games",
+        "t2": "Chance to win the Jackpot",
+        "title": "HOW TO PARTICIPATE"
+      },
+      "intro": {
+        "n1": "Introducing to Vui123 new Jackpot system called MYSTERY DROPS.",
+        "n2": "There are 3 types of Progressive Jackpot: Grand, Major and Mini, with difference hit range to be won.",
+        "n3": "All qualified players will automatically take part in Jackpot.",
+        "n4": "Jackpot would drop to qualified players, anytime, anyone!",
+        "n5": "Qualified players are those who deposited and played on qualifying games.",
+        "n6": "Join now and become our qualified players. The next lucky winner could be you!",
+        "title": "MYSTERY DROP INTRODUCTION"
+      },
+      "latestWins": "LATEST WINS",
+      "major": "Major",
+      "mini": "Mini",
+      "title": "MYSTERY DROPS",
+      "tnc": "MYSTERY DROPS TERMS & CONDITIONS",
+      "totalJackpot": "TOTAL JACKPOT POOL"
+    },
     "next": "PLAY NEXT",
     "prediction": {
       "event": "Prediction Event",
@@ -409,6 +436,28 @@
       "n6": "Kindly please contact our 24/7 LIVECHAT if your transaction is still pending for more than 5 minutes."
     },
     "importantNotice": "Important Notice",
+    "mystery": {
+      "n1": "The \"MYSTERY DROPS\" promo is open for ALL Vui123’s players.",
+      "n10": "Jackpot will drop anytime to any qualified player within the hit range.",
+      "n11": "Winner will receives a pop up notification from Vui123 and has chance to win one of the type of Jackpot by opening the mystery box.",
+      "n12": "Jackpot displayed in real-time during the entire promo period.",
+      "n13": "Jackpot winning amounts may differ from the display due to time delay.",
+      "n14": "Jackpot prizes will be credited to player's wallet.",
+      "n15": "Jackpot prizes are subject to 1x rollover upon withdrawal.",
+      "n16": "Vui123 reserves the right to add and/or remove qualifying games from the list.",
+      "n17": "Vui123 reserves the right to amend or withdraw the event at any time.",
+      "n18": "Vui123 assumes no responsibility for any system or connection problems that may affect any end user.",
+      "n19": "Vui123 is the sole arbiter of the event and its decision is final.",
+      "n2": "The promo is not available to the players who have been excluded by Vui123.",
+      "n20": "Vui123 Standards Terms & Conditions apply.",
+      "n3": "This promo will run from 12 December 2023 (12pm, GMT +7) to 31 March 2024 (11.59pm, GMT +7).",
+      "n4": "There are three types of Progressive Jackpot to be won: Grand, Major or Mini.",
+      "n5": "The initial winning amount of Jackpots are: \nMini - 1 million VND \nMajor - 10 million VND \nGrand - 100 million VND",
+      "n6": "The winning amounts of Jackpots are progressive and grow with each qualifying bet.",
+      "n7": "Qualifying bet are each of the valid bets on qualifying games.",
+      "n8": "Qualified players will automatically take part in the promo",
+      "n9": "Qualified players are those who deposited and played on qualifying games."
+    },
     "qr": {
       "n1": "Scan with your app to transfer balance"
     },

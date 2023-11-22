@@ -1,5 +1,6 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import useWindowResize from 'app/hooks/useWindowResize'
+import useLocalization from 'app/provider/localization'
 import { Text, View, styled } from 'dripsy'
 import React, { useEffect } from 'react'
 import { SolitoImage } from 'solito/image'
@@ -10,17 +11,26 @@ type PrizeProps = {
 }
 
 const Prize = ({ width, type = 'grand' }: PrizeProps) => {
+  const { t } = useLocalization()
   let boardImage
+  let textShadowColor
+  let typeText
 
   switch (type) {
     case 'grand':
       boardImage = require('app/assets/images/events/mystery/board-grand.png')
+      textShadowColor = '#F80000EB'
+      typeText = 'event.mystery.grand'
       break
     case 'major':
       boardImage = require('app/assets/images/events/mystery/board-major.png')
+      textShadowColor = '#00CEFFEB'
+      typeText = 'event.mystery.major'
       break
     case 'mini':
       boardImage = require('app/assets/images/events/mystery/board-mini.png')
+      textShadowColor = '#0AF800EB'
+      typeText = 'event.mystery.mini'
       break
 
     default:
@@ -32,8 +42,8 @@ const Prize = ({ width, type = 'grand' }: PrizeProps) => {
       <SolitoImage
         src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/${type}.png`}
         alt=""
-        width={width * 0.6}
-        height={width * 0.6}
+        width={width * 0.5}
+        height={width * 0.5}
         style={{ zIndex: 10 }}
       />
       <View sx={{ position: 'relative' }}>
@@ -42,7 +52,7 @@ const Prize = ({ width, type = 'grand' }: PrizeProps) => {
           alt=""
           width={width}
           height={width * 0.945}
-          style={{ marginTop: -75, zIndex: 1 }}
+          style={{ marginTop: -width * 0.5 * 0.5, zIndex: 1 }}
         />
         <View
           sx={{
@@ -54,9 +64,20 @@ const Prize = ({ width, type = 'grand' }: PrizeProps) => {
             zIndex: 4,
           }}
         >
-          <Text>Grand</Text>
-          <Text sx={{ fontWeight: 'bold', fontSize: 20 }}>VND 123,456,789</Text>
-          <SmallText>Hit range:</SmallText>
+          <Text>{t(typeText)}</Text>
+          <Text
+            sx={{
+              my: '$1',
+              fontWeight: 'bold',
+              fontSize: 20,
+              textShadowColor,
+              textShadowOffset: { width: 0, height: 0 },
+              textShadowRadius: 12,
+            }}
+          >
+            VND 123,456,789
+          </Text>
+          <SmallText>{t('event.mystery.hitRange')}:</SmallText>
           <SmallText>VND 50,000 - VND 70,000</SmallText>
         </View>
       </View>
@@ -66,6 +87,7 @@ const Prize = ({ width, type = 'grand' }: PrizeProps) => {
 
 const SmallText = styled(Text)({
   fontSize: 12,
+  opacity: 0.5,
 })
 
 export default Prize

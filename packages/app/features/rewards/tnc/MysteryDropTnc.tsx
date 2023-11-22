@@ -1,40 +1,48 @@
-import { Text, View } from 'dripsy'
-import React from 'react'
-import JackpotPool from './MysteryDrop/JackpotPool'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
-import Prize from './MysteryDrop/Prize'
 import useWindowResize from 'app/hooks/useWindowResize'
+import { View, useResponsiveValue } from 'dripsy'
+import React from 'react'
+import IntroColumn from './MysteryDrop/IntroColumn'
+import MysteryGame from './MysteryDrop/MysteryGame'
+import WinnerColumn from './MysteryDrop/WinnerColumn'
+import JackpotPool from './MysteryDrop/JackpotPool'
+import Prize from './MysteryDrop/Prize'
+import HowTo from './MysteryDrop/HowTo'
+import TnC from './MysteryDrop/TnC'
+import useLocalization from 'app/provider/localization'
 
 const MysteryDropTnc = () => {
+  const { t } = useLocalization()
   const { width } = useWindowResize()
+  const primaryPrizeWidth = useResponsiveValue([width * 0.7, width * 0.55])
+  const secondaryPrizeWidth = useResponsiveValue([width * 0.45, width * 0.4])
 
   return (
-    <PageWithBackHeader
-      header={{
-        title: 'Mystery Drop',
-      }}
-    >
-      <View>
+    <PageWithBackHeader header={{ title: t('event.mystery.title') }}>
+      <View sx={{ mb: '$5' }}>
         <JackpotPool />
-        <View sx={{ alignItems: 'center' }}>
-          <Prize width={width * 0.7} type="grand" />
-        </View>
-        <View
-          sx={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            gap: 12,
-          }}
-        >
-          <Prize width={width * 0.45} type="major" />
-          <Prize width={width * 0.45} type="mini" />
-        </View>
+        <View sx={{ mt: '$3', px: ['$pagePadding', '$5'] }}>
+          <View sx={{ alignItems: 'center' }}>
+            <Prize width={primaryPrizeWidth} type="grand" />
+          </View>
+          <View
+            sx={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              gap: 12,
+              mt: [-60, -160],
+            }}
+          >
+            <Prize width={secondaryPrizeWidth} type="major" />
+            <Prize width={secondaryPrizeWidth} type="mini" />
+          </View>
 
-        <Text sx={{ textAlign: 'center' }}>
-          {`Vui123 is introducing an exclusive feature Mystery Drops. We’ve added mystery jackpots to your favourite games. There are 3 progressive jackpot levels, Major, Grand, and Mega. Play the games with the tag ‘Mystery Drops’ and make bets starting from 0.5 EUR (or equivalents in other fiat currencies).
-          
-          No extra money is charged for the participation. Once you make a qualifying bet, you participate automatically. The jackpots are awarded in real time as real money, no wagering requirement. Each next bet can be winning!`}
-        </Text>
+          <IntroColumn />
+          <WinnerColumn />
+          <MysteryGame />
+          <HowTo />
+          <TnC />
+        </View>
       </View>
     </PageWithBackHeader>
   )
