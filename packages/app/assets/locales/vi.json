@@ -61,7 +61,7 @@
     "title": "Bảng hoa hồng"
   },
   "common": {
-    "action": "",
+    "action": "Thao tác",
     "active": "Đang hoạt động",
     "agent": "Đại lý",
     "agentLogin": "Đăng nhập đại lý",
@@ -217,7 +217,8 @@
         "won": "XIN CHÚC MỪNG!",
         "won2": "BẠN ĐÃ TRÚNG THƯỞNG"
       },
-      "tnc": {}
+      "tnc": {
+      }
     },
     "claim": "ĐỔI VÉ THƯỞNG CỦA BẠN NGAY",
     "jackpot": "Jackpot (chia phần thưởng): 100,000,000 VND",
