@@ -36,7 +36,7 @@ const WinPrizeText = ({
       <Text
         x={0}
         y={15}
-        text={`VND ${balanceDisplay}`}
+        text={balanceDisplay}
         anchor={[0.5, 0.5]}
         style={textStyle}
       />
