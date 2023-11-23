@@ -41,6 +41,7 @@ export default function HorizontalGameList({
               width={size}
               height={size}
               key={g.gtc === GAME_TYPE_CODE.LIVE_DEALER ? g.gpc : g.gc}
+              isMysteryIconLower={false}
               {...g}
             />
           )

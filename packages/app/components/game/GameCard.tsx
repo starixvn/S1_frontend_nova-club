@@ -39,6 +39,7 @@ export interface GameCardProps extends PressableProps, LaunchGamePayload {
   rebateTop?: boolean
   gameTagSize?: GAME_TAG_SIZE
   isDualVersion?: boolean
+  isMysteryIconLower?: boolean
 }
 
 const GameCard = ({
@@ -61,7 +62,7 @@ const GameCard = ({
   const [loaded, setLoaded] = useState(false)
   const desktopMode = useIsDesktop()
   const ss = useSx()
-  const { tags, gpc } = rest
+  const { tags, gpc, isMysteryIconLower } = rest
 
   const lang = useAppSelector((s) => s.setting.locale)
 
@@ -174,7 +175,12 @@ const GameCard = ({
           </AnimatePresence>
         )}
       </View>
-      <GameTagsLabel tags={tags ?? []} size={gameTagSize} gpc={gpc} />
+      <GameTagsLabel
+        tags={tags ?? []}
+        size={gameTagSize}
+        gpc={gpc}
+        isMysteryIconLower={isMysteryIconLower}
+      />
       {!!displayName && (
         <Text
           sx={{
