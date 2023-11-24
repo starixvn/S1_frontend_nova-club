@@ -45,7 +45,7 @@ const rewardGameListConfig: Array<RewardGameListConfig> = [
   {
     key: RewardGameKeyMap.MYSTERY_DROP,
     image: `${STATIC_IMAGE_URL}/mega.jpg`,
-    route: '/rewards/games/fortune-cat',
+    route: '/rewards/games/mystery-drop',
   },
   {
     key: RewardGameKeyMap.FORTUNE_CAT,
@@ -65,19 +65,37 @@ const RewardGameList = ({ onLoaded }: { onLoaded?: () => void }) => {
     return createSelector(
       (res: { data?: CoinRedemptionRow[] }) => res.data,
       (data) => {
-        const combinedData = data?.map((game) => {
-          const selectedGame = rewardGameListConfig.find(
-            (rewardGame) => rewardGame.key === game.key
-          )
+        const combinedData =
+          data?.map((game) => {
+            const selectedGame = rewardGameListConfig.find(
+              (rewardGame) => rewardGame.key === game.key
+            )
+            return {
+              ...game,
+              _data: selectedGame,
+            }
+          }) ?? []
 
-          const mysteryGame = rewardGameListConfig[3]
-          return {
-            ...game,
-            _data: mysteryGame,
-          }
-        })
+        const mysteryGame = {
+          cost: 1,
+          game_type: '1',
+          key: '123456',
+          name: 'QUAY LÀ TRÚNG',
+          seq: 1,
+          _data: rewardGameListConfig[3],
+        }
 
-        return combinedData
+        const insertAt = 3
+        const newData = [
+          // Items before the insertion point:
+          ...combinedData?.slice(0, insertAt),
+          // New item:
+          mysteryGame,
+          // Items after the insertion point:
+          ...combinedData?.slice(insertAt),
+        ]
+
+        return newData
       }
     )
   }, [])

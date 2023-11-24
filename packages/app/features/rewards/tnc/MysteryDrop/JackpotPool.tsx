@@ -5,10 +5,19 @@ import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { toThousandSeparator } from 'app/utils'
 import { Text, View, useResponsiveValue } from 'dripsy'
-import React, { useState } from 'react'
+import React, {
+  RefAttributes,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { SolitoImage } from 'solito/image'
 import { CountUp } from 'use-count-up'
 import useFetchMysteryDrops from './useFetchMysteryDrops'
+import { Easing, Image } from 'react-native'
+import { SolitoImageProps } from 'solito/build/image/image.types'
+import { MotiView } from 'moti'
 
 const JackpotPool = () => {
   const { width } = useWindowResize()
@@ -23,9 +32,68 @@ const JackpotPool = () => {
 
   const background = isDesktop ? 'bg-jackpot-desktop.jpg' : 'bg-jackpot.png'
   const logo = isDesktop
-    ? `banner-desktop-${locale}.png`
-    : `banner-mobile-${locale}.png`
+    ? `logo-desktop-${locale}.png`
+    : `logo-mobile-${locale}.png`
+  const logoElement = isDesktop ? `logo-desktop` : `logo-mobile`
 
+  const animateElement01 = useMemo(
+    () => (
+      <MotiView
+        key={'element01'}
+        from={{ translateY: -10 }}
+        animate={{ translateY: 10 }}
+        transition={{
+          loop: true,
+          type: 'timing',
+          duration: 3000,
+          delay: 500,
+        }}
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          alignItems: 'center',
+        }}
+      >
+        <SolitoImage
+          src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/${logoElement}-01.png`}
+          alt=""
+          width={logoWidth}
+          height={logoHeight}
+        />
+      </MotiView>
+    ),
+    []
+  )
+
+  const animateElement02 = useMemo(
+    () => (
+      <MotiView
+        key={'element02'}
+        from={{ translateY: -10 }}
+        animate={{ translateY: 10 }}
+        transition={{
+          loop: true,
+          type: 'timing',
+          duration: 3000,
+        }}
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          alignItems: 'center',
+        }}
+      >
+        <SolitoImage
+          src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/${logoElement}-02.png`}
+          alt=""
+          width={logoWidth}
+          height={logoHeight}
+        />
+      </MotiView>
+    ),
+    []
+  )
   return (
     <View sx={{ mb: '$4', position: 'relative' }}>
       <SolitoImage
@@ -36,12 +104,16 @@ const JackpotPool = () => {
         style={{ position: 'absolute' }}
       />
 
-      <View sx={{ justifyContent: 'center', alignItems: 'center', mt: '$4' }}>
+      <View sx={{ position: 'relative', mt: '$4' }}>
+        {animateElement01}
+        {animateElement02}
+
         <SolitoImage
           src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/${logo}`}
           alt=""
           width={logoWidth}
           height={logoHeight}
+          style={{ marginHorizontal: 'auto' }}
         />
 
         <JackpotBoard />

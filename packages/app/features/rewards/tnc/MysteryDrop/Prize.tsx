@@ -29,17 +29,17 @@ const Prize = ({ width, type = 'grand', prize }: PrizeProps) => {
 
   switch (type) {
     case 'grand':
-      boardImage = require('app/assets/images/events/mystery/board-grand.png')
+      boardImage = `${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/board-grand.png`
       textShadowColor = '#F80000EB'
       typeText = 'event.mystery.grand'
       break
     case 'major':
-      boardImage = require('app/assets/images/events/mystery/board-major.png')
+      boardImage = `${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/board-major.png`
       textShadowColor = '#00CEFFEB'
       typeText = 'event.mystery.major'
       break
     case 'mini':
-      boardImage = require('app/assets/images/events/mystery/board-mini.png')
+      boardImage = `${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/board-mini.png`
       textShadowColor = '#0AF800EB'
       typeText = 'event.mystery.mini'
       break

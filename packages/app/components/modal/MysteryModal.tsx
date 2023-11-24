@@ -14,16 +14,18 @@ import TouchableOpacity from '../pressable/TouchableOpacity'
 import { SettingActions } from 'app/store/setting.slice'
 import { SolitoImage } from 'solito/image'
 import IconButton from '../IconButton'
+import useWindowResize from 'app/hooks/useWindowResize'
+import useLocalization from 'app/provider/localization'
 dayjs.extend(isBetween)
 
 const MysteryModal = ({ modal: { closeModal } }) => {
-  const { width, height } = useContainerDimension()
-  const [isLoading, setLoading] = useState(true)
+  const { width, height } = useWindowResize()
+  const { t } = useLocalization()
   const { push } = useRouter()
 
   const handlePress = () => {
     closeModal()
-    push('/mystery-drop-tnc')
+    push('/rewards/redeem/list')
   }
 
   const containerWidth = Math.min(380, width)
@@ -46,26 +48,39 @@ const MysteryModal = ({ modal: { closeModal } }) => {
           alignItems: 'center',
         }}
       >
-        <View sx={{ width: '100%', height: '100%', alignItems: 'center' }}>
+        <View
+          sx={{
+            width: '100%',
+            height: '100%',
+            alignItems: 'center',
+          }}
+        >
           <Image
-            source={require('app/assets/images/events/mystery/board-header.png')}
+            source={{
+              uri: `${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/board-header.png`,
+            }}
             sx={{ width: '100%', aspectRatio: 706 / 552, zIndex: 2 }}
             alt=""
           />
           <View>
             <Image
-              source={require('app/assets/images/events/mystery/board-body.png')}
+              source={{
+                uri: `${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/board-body.png`,
+              }}
               sx={{ width: width * 0.7, aspectRatio: 1000 / 717, mt: -70 }}
               alt=""
             />
             <StyledTextContainer>
-              <Text>You won a ticket to enter</Text>
-              <Text>Mystery Drops jackpot.</Text>
+              <Text sx={{ textAlign: 'center' }}>
+                {t('event.mystery.winContent')}
+              </Text>
             </StyledTextContainer>
 
             <StyledButtonContainer>
               <Image
-                source={require('app/assets/images/events/mystery/board-button.png')}
+                source={{
+                  uri: `${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/board-button.png`,
+                }}
                 sx={{ width: width * 0.3, aspectRatio: 536 / 166 }}
                 alt=""
               />
@@ -76,7 +91,7 @@ const MysteryModal = ({ modal: { closeModal } }) => {
                   fontWeight: 'bold',
                 }}
               >
-                OPEN
+                {t('common.open')}
               </Text>
             </StyledButtonContainer>
           </View>
@@ -92,6 +107,7 @@ const StyledTextContainer = styled(View)({
   left: 0,
   right: 0,
   alignItems: 'center',
+  px: '$3',
 })
 
 const StyledButtonContainer = styled(View)({

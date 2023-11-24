@@ -5,7 +5,7 @@ import { MysteryEventPrize } from 'services/eventApi.type'
 
 const useFetchMysteryDrops = () => {
   const { data, refetch } = useGetMysteryEventQuery()
-  const delay = [5000, 10000]
+  const delay = [10000, 15000]
 
   useRandomInterval(() => refetch(), ...delay)
 

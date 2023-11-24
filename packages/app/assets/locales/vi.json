@@ -100,6 +100,7 @@
     "more": "Thêm",
     "next": "Tiếp theo",
     "noInfoAvailable": "Không Có Thông Tin",
+    "open": "MỞ",
     "otp": "OTP",
     "overview": "Tổng quan",
     "password": "Mật khẩu",
@@ -217,7 +218,8 @@
         "won": "XIN CHÚC MỪNG!",
         "won2": "BẠN ĐÃ TRÚNG THƯỞNG"
       },
-      "tnc": {}
+      "tnc": {
+      }
     },
     "claim": "ĐỔI VÉ THƯỞNG CỦA BẠN NGAY",
     "jackpot": "Jackpot (chia phần thưởng): 100,000,000 VND",
@@ -253,7 +255,8 @@
       "mini": "KHUYẾN KHÍCH",
       "title": "LỘC RƠI TIỀN VỀ",
       "tnc": "ĐIỀU KIỆN VÀ ĐIỀU KHOẢN LỘC RƠI TIỀN VỀ",
-      "totalJackpot": "TỔNG THƯỞNG JACKPOT "
+      "totalJackpot": "TỔNG THƯỞNG JACKPOT ",
+      "winContent": "Bạn đã nhận được vé tham gia \nJackpot LỘC RƠI TIỀN VỀ"
     },
     "next": "CHƠI TIẾP",
     "prediction": {
