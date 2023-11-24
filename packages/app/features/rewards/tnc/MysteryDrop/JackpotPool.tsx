@@ -152,11 +152,13 @@ const JackpotBoard = () => {
           {t('event.mystery.totalJackpot')}
         </Text>
         <Text
+          adjustsFontSizeToFit
           sx={{
             textAlign: 'center',
-            fontSize: [36, 42],
+            fontSize: [28, 32, 36, 42],
             color: 'yellow',
             fontWeight: 'bold',
+            lineHeight: 40,
           }}
         >
           {`VND `}

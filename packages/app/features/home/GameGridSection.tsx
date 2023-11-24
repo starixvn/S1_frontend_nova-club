@@ -18,6 +18,7 @@ export const SPORT_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/sportsbook_450
 export const SLOT_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/slot_350.mp4`
 
 export const SABA_PROMO_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/rebate_350.mp4`
+export const MYSTERY_DROP_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop.mp4`
 
 const config = [
   {
@@ -47,13 +48,12 @@ const config = [
   },
   {
     col: 3,
-    src: SABA_PROMO_IMG,
+    src: MYSTERY_DROP_IMG,
     type: 'video',
     action: {
-      type: ActionType.GAME,
+      type: ActionType.INTERNAL_REDIRECT,
       payload: {
-        desktopMode: false,
-        game: SabaGamePayload,
+        uri: '/rewards/mystery-drop-tnc',
       },
     },
   },

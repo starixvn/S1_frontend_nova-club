@@ -25,7 +25,7 @@ const MysteryModal = ({ modal: { closeModal } }) => {
 
   const handlePress = () => {
     closeModal()
-    push('/rewards/redeem/list')
+    push('/rewards/mystery-drop-tnc')
   }
 
   const containerWidth = Math.min(380, width)

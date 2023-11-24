@@ -62,6 +62,7 @@ export const TitleText = styled(Text)({
   fontWeight: 'bold',
   fontSize: 24,
   textAlign: 'center',
+  lineHeight: 32,
 })
 
 export default IntroColumn

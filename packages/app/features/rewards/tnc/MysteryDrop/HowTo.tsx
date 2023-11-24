@@ -25,13 +25,13 @@ const HowTo = () => {
         {HOW_LIST.map((item, index) => (
           <Row key={index} sx={{ alignItems: 'center' }}>
             <SolitoImage
-              src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/how0${
+              src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/how${
                 index + 1
               }.png`}
-              width={30}
-              height={60}
+              width={50}
+              height={40}
               alt=""
-              style={{ flexBasis: 100 }}
+              style={{ flexBasis: 80 }}
             />
             <View sx={{ flex: 1 }}>
               <TextSubtitle>{t(item.title)}</TextSubtitle>
@@ -61,7 +61,6 @@ export const DesktopHowTo = () => {
               width={50}
               height={40}
               alt=""
-              style={{}}
             />
 
             <View sx={{ alignItems: 'center' }}>

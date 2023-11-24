@@ -82,7 +82,7 @@ const Prize = ({ width, type = 'grand', prize }: PrizeProps) => {
                 sx={{
                   my: '$1',
                   fontWeight: 'bold',
-                  fontSize: 20,
+                  fontSize: [18, 20],
                   textShadowColor,
                   textShadowOffset: { width: 0, height: 0 },
                   textShadowRadius: 12,

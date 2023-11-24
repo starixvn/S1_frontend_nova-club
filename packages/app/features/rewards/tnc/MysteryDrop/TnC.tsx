@@ -1,6 +1,6 @@
 import Icon from 'app/components/Icon'
 import useLocalization from 'app/provider/localization'
-import { Row, Text, View } from 'dripsy'
+import { Pressable, Row, Text, View } from 'dripsy'
 import { MotiView } from 'moti'
 import React, { useState } from 'react'
 import { MYSTERY_DROPS_TNC } from 'utils/constant'
@@ -38,13 +38,12 @@ const TnC = () => {
           ))}
         </MotiView>
       ) : (
-        <Row
-          sx={{ alignItems: 'center', mt: '$3', cursor: 'pointer' }}
-          onClick={() => setShowMore(true)}
-        >
-          <Text sx={{ ml: 24, mr: '$2' }}>{t('common.showMore')}</Text>
-          <Icon name="down" />
-        </Row>
+        <Pressable onPress={() => setShowMore(true)}>
+          <Row sx={{ alignItems: 'center', mt: '$3', cursor: 'pointer' }}>
+            <Text sx={{ ml: 24, mr: '$2' }}>{t('common.showMore')}</Text>
+            <Icon name="down" />
+          </Row>
+        </Pressable>
       )}
     </View>
   )
