@@ -1,17 +1,28 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import useWindowResize from 'app/hooks/useWindowResize'
 import useLocalization from 'app/provider/localization'
+import { toThousandSeparator } from 'app/utils'
 import { Text, View, styled } from 'dripsy'
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
+import { MysteryEventPrize } from 'services/eventApi.type'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import { SolitoImage } from 'solito/image'
+import { CountUp } from 'use-count-up'
 
 type PrizeProps = {
   width: number
   type: 'grand' | 'major' | 'mini'
+  prize: MysteryEventPrize
 }
 
-const Prize = ({ width, type = 'grand' }: PrizeProps) => {
+const defaultPrize: MysteryEventPrize = { amt: '0', min: '0', max: '0' }
+
+const Prize = ({ width, type = 'grand', prize }: PrizeProps) => {
   const { t } = useLocalization()
+  const { currency } = usePlayerProfileQuery()
+  const [prevPrize, setPrevPrize] = useState(500000)
+
+  const randomInterval = Math.floor(Math.random() * (7 - 3 + 1) + 3)
+
   let boardImage
   let textShadowColor
   let typeText
@@ -65,20 +76,39 @@ const Prize = ({ width, type = 'grand' }: PrizeProps) => {
           }}
         >
           <Text>{t(typeText)}</Text>
-          <Text
-            sx={{
-              my: '$1',
-              fontWeight: 'bold',
-              fontSize: 20,
-              textShadowColor,
-              textShadowOffset: { width: 0, height: 0 },
-              textShadowRadius: 12,
-            }}
-          >
-            VND 123,456,789
-          </Text>
-          <SmallText>{t('event.mystery.hitRange')}:</SmallText>
-          <SmallText>VND 50,000 - VND 70,000</SmallText>
+          {prize && (
+            <>
+              <Text
+                sx={{
+                  my: '$1',
+                  fontWeight: 'bold',
+                  fontSize: 20,
+                  textShadowColor,
+                  textShadowOffset: { width: 0, height: 0 },
+                  textShadowRadius: 12,
+                }}
+              >
+                {`VND `}
+                <CountUp
+                  key={prize.amt}
+                  isCounting
+                  start={prevPrize}
+                  end={Number(prize.amt)}
+                  duration={randomInterval}
+                  easing="easeOutCubic"
+                  thousandsSeparator=","
+                  onComplete={() => setPrevPrize(Number(prize.amt))}
+                />
+              </Text>
+
+              <SmallText>{t('event.mystery.hitRange')}:</SmallText>
+              <SmallText>{`VND ${toThousandSeparator(
+                prize.min.toString()
+              )} - VND ${toThousandSeparator(
+                prize.max.toString()
+              )}`}</SmallText>
+            </>
+          )}
         </View>
       </View>
     </View>
@@ -86,8 +116,9 @@ const Prize = ({ width, type = 'grand' }: PrizeProps) => {
 }
 
 const SmallText = styled(Text)({
-  fontSize: 12,
+  fontSize: 10,
   opacity: 0.5,
+  textAlign: 'center',
 })
 
 export default Prize

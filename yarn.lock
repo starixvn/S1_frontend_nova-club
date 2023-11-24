@@ -9903,6 +9903,7 @@ __metadata:
     react-web-share: ^2.0.2
     redux-persist: ^6.0.0
     typescript: ^5.0.4
+    use-count-up: ^3.0.1
     yup: ^1.1.1
   languageName: unknown
   linkType: soft
@@ -20216,6 +20217,26 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 7913df383a5a6fcb399212eedefaac2e0c6f843555202d4e3010bac3848afe38ecaa3d0d6500ad1d936fbeffd637e6c517e68edb024af5e6beca7f27f3ce7b21
+  languageName: node
+  linkType: hard
+
+"use-count-up@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "use-count-up@npm:3.0.1"
+  dependencies:
+    use-elapsed-time: 3.0.2
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: 0e5b659acd52bdf401d943605d19c425bc7acdce5f4486b3bd6dfd6b70dadcb68f279df09140976b3038d6de34f3eb5fe47136af04e3789861dfecd943906ea3
+  languageName: node
+  linkType: hard
+
+"use-elapsed-time@npm:3.0.2":
+  version: 3.0.2
+  resolution: "use-elapsed-time@npm:3.0.2"
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: 9ba8ef6d05b8137fd715ace7303edc2fdc412f372f158bfa659926b0cb356654be84664f912d016f99deb2f3951236443feb84b78318755d5984c340dcb418a6
   languageName: node
   linkType: hard
 

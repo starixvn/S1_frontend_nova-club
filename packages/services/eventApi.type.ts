@@ -1,3 +1,5 @@
+import { Currency } from 'utils/constant'
+
 export interface WcTicketCountResp {
   count: number
 }
@@ -30,4 +32,16 @@ export interface TicketSpinResult {
   amount: string
   formatted_amount: string
   err: string
+}
+
+export type MysteryEventResult = {
+  currency: Currency
+  name: string
+  prize: MysteryEventPrize[]
+}
+
+export type MysteryEventPrize = {
+  amt: string
+  max: string
+  min: string
 }

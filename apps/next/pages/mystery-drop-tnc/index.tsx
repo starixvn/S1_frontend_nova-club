@@ -18,8 +18,15 @@ const LazyMobileScreen = dynamic(
     ssr: false,
   }
 )
+const LazyDesktopScreen = dynamic(
+  () => import('desktop-ext/features/event/MysteryDrops'),
+  {
+    loading: () => <ActivityIndicator />,
+    ssr: false,
+  }
+)
 
-const MysteryDropTnc = withAdaptiveScreen(LazyMobileScreen, LazyMobileScreen)
+const MysteryDropTnc = withAdaptiveScreen(LazyMobileScreen, LazyDesktopScreen)
 
 MysteryDropTnc.DesktopLayout = DesktopBaseLayout
 

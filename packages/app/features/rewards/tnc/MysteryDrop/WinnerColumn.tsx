@@ -11,17 +11,48 @@ const WinnerColumn = () => {
   return (
     <View
       sx={{
-        my: '$5',
         bg: 'rgba(50, 50, 90, 0.5)',
         borderRadius: 16,
         p: '$3',
+        mb: '$4',
       }}
     >
-      <View sx={{ alignItems: 'center' }}>
-        <Icon name="mystery-win" size={60} sx={{ mt: 0 }} />
+      <View sx={{ alignItems: 'center', mb: '$3' }}>
+        <Icon name="mystery-win" size={60} sx={{ mb: '$2' }} />
         <Text sx={{ fontWeight: 'bold' }}>{t('event.mystery.latestWins')}</Text>
       </View>
 
+      <WinnerColumnContent />
+    </View>
+  )
+}
+
+export const DesktopWinnerColumn = () => {
+  const { t } = useLocalization()
+
+  return (
+    <View
+      sx={{
+        bg: 'rgba(50, 50, 90, 0.5)',
+        borderRadius: 16,
+        p: '$3',
+        justifyContent: 'space-between',
+        height: '100%',
+      }}
+    >
+      <View sx={{ alignItems: 'center', mb: '$3' }}>
+        <Icon name="mystery-win" size={80} sx={{ mt: -50, mb: '$2' }} />
+        <Text sx={{ fontWeight: 'bold' }}>{t('event.mystery.latestWins')}</Text>
+      </View>
+
+      <WinnerColumnContent />
+    </View>
+  )
+}
+
+const WinnerColumnContent = () => {
+  return (
+    <>
       {[1, 2, 3, 4, 5].map((item, index) => (
         <Row
           key={item}
@@ -45,7 +76,7 @@ const WinnerColumn = () => {
           <Text>VND 100,000</Text>
         </Row>
       ))}
-    </View>
+    </>
   )
 }
 

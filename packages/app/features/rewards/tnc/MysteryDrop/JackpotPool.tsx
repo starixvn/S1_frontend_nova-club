@@ -5,35 +5,43 @@ import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { toThousandSeparator } from 'app/utils'
 import { Text, View, useResponsiveValue } from 'dripsy'
-import React from 'react'
+import React, { useState } from 'react'
 import { SolitoImage } from 'solito/image'
+import { CountUp } from 'use-count-up'
+import useFetchMysteryDrops from './useFetchMysteryDrops'
 
 const JackpotPool = () => {
   const { width } = useWindowResize()
   const isDesktop = useIsDesktop()
-  const logoWidth = useResponsiveValue([width, 400])
+
+  const bgWidth = useResponsiveValue([width, width, width])
+  const bgHeight = isDesktop ? bgWidth * 0.5625 : width * 0.802
+  const logoWidth = useResponsiveValue([width, 600, 600, 1000])
+  const logoHeight = isDesktop ? logoWidth * 0.3 : logoWidth * 0.5387
 
   const locale = useAppSelector((s) => s.setting.locale)
 
+  const background = isDesktop ? 'bg-jackpot-desktop.jpg' : 'bg-jackpot.png'
   const logo = isDesktop
     ? `banner-desktop-${locale}.png`
     : `banner-mobile-${locale}.png`
 
   return (
-    <View sx={{ mb: '$4' }}>
+    <View sx={{ mb: '$4', position: 'relative' }}>
       <SolitoImage
-        src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/bg-jackpot.png`}
+        src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/${background}`}
         alt=""
-        width={width}
-        height={width * 0.802}
+        width={bgWidth}
+        height={bgHeight}
         style={{ position: 'absolute' }}
       />
+
       <View sx={{ justifyContent: 'center', alignItems: 'center', mt: '$4' }}>
         <SolitoImage
           src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/${logo}`}
           alt=""
           width={logoWidth}
-          height={200}
+          height={logoHeight}
         />
 
         <JackpotBoard />
@@ -46,6 +54,9 @@ const JackpotBoard = () => {
   const { t } = useLocalization()
   const { width } = useWindowResize()
   const jackpotWidth = useResponsiveValue([width - width * 0.1, 500])
+  const [prevPrize, setPrevPrize] = useState(0)
+
+  const { jackpot } = useFetchMysteryDrops()
 
   return (
     <View
@@ -65,18 +76,28 @@ const JackpotBoard = () => {
           position: 'absolute',
         }}
       >
-        <Text sx={{ textAlign: 'center' }}>
+        <Text sx={{ textAlign: 'center', fontWeight: 'bold', fontSize: 18 }}>
           {t('event.mystery.totalJackpot')}
         </Text>
         <Text
           sx={{
             textAlign: 'center',
-            fontSize: 36,
+            fontSize: [36, 42],
             color: 'yellow',
             fontWeight: 'bold',
           }}
         >
-          {`VND ${toThousandSeparator('123456789')}`.toUpperCase()}
+          {`VND `}
+          <CountUp
+            key={jackpot}
+            isCounting
+            start={prevPrize}
+            end={jackpot}
+            duration={3}
+            easing="easeOutCubic"
+            thousandsSeparator=","
+            onComplete={() => setPrevPrize(Number(jackpot))}
+          />
         </Text>
       </View>
     </View>
