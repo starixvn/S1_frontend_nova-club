@@ -16,6 +16,7 @@ import { useBannerQuery } from 'services/contentApi'
 import { useRouter } from 'solito/router'
 import Image from '../common/Image'
 import TouchableOpacity from '../pressable/TouchableOpacity'
+import { TempSettingActions } from 'app/store/tempSetting.slice'
 dayjs.extend(isBetween)
 
 const EventPopupModal = ({ modal: { closeModal } }) => {
@@ -39,6 +40,10 @@ const EventPopupModal = ({ modal: { closeModal } }) => {
 
   useEffect(() => {
     dispatch(SettingActions.toggleRewardPopupSwitch())
+
+    return () => {
+      dispatch(TempSettingActions.toggleTriggerPopupChristmasEvent(true))
+    }
   }, [])
 
   const onPressCallback = useCallback(() => {

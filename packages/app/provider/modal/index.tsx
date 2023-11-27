@@ -71,6 +71,7 @@ type DefaultModalStackParams = {
     t: LoginType
   }
   EventPopupModal: undefined
+  ChristmasGiftModal: undefined
   HalloweenWinModal: undefined
   DepositQrModal: { qrCode: string }
   DailyCheckInModal: undefined
@@ -139,6 +140,7 @@ const _dynamicModal: Record<keyof ModalStackParams, () => Promise<any>> = {
   ForgotPasswordModal: () =>
     import('desktop-ext/features/auth/forgotPassword/ForgotPasswordScreen'),
   EventPopupModal: () => import('app/components/modal/EventPopupModal'),
+  ChristmasGiftModal: () => import('app/components/modal/ChristmasGiftModal'),
   DepositQrModal: () => import('app/components/modal/DepositQrModal'),
   DailyCheckInModal: () => import('app/components/modal/DailyCheckInModal'),
   RewardGameModal: () => import('app/components/modal/RewardGameModal'),
@@ -222,6 +224,9 @@ const modalConfig: ModalConfigType = {
   },
   EventPopupModal: {
     modal: getDynamicComponent('EventPopupModal'),
+  },
+  ChristmasGiftModal: {
+    modal: getDynamicComponent('ChristmasGiftModal'),
   },
   DepositQrModal: {
     modal: getDynamicComponent('DepositQrModal'),

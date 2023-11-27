@@ -8,6 +8,7 @@ interface settingStateProps {
   syncShieldActionType: Shield_Action
   syncShieldStatus: boolean
   splashScreenLoaded: boolean
+  triggerPopupChristmasEvent: boolean
 }
 
 const initialState: settingStateProps = {
@@ -17,6 +18,7 @@ const initialState: settingStateProps = {
   syncShieldActionType: Shield_Action.NONE,
   syncShieldStatus: false,
   splashScreenLoaded: false,
+  triggerPopupChristmasEvent: false,
 }
 
 const tempSettingSlice = createSlice({
@@ -42,6 +44,12 @@ const tempSettingSlice = createSlice({
     },
     setSplashScreenLoaded: (state, action: PayloadAction<boolean>) => {
       state.splashScreenLoaded = action.payload
+    },
+    toggleTriggerPopupChristmasEvent: (
+      state,
+      action: PayloadAction<boolean>
+    ) => {
+      state.triggerPopupChristmasEvent = action.payload
     },
   },
 })
