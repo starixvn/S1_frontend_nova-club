@@ -46,7 +46,7 @@ const WinPrizeText = ({ balance = 0, width, ...rest }: WinPrizeTextProps) => {
       />
       <Text
         x={width * 0.47}
-        text={`VND ${balanceDisplay}`}
+        text={balanceDisplay}
         anchor={[1, 0.5]}
         style={textStyle}
       />
