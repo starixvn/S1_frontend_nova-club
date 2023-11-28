@@ -1,21 +1,21 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { createSelector } from '@reduxjs/toolkit'
+import SectionHeader from 'app/components/SectionHeader'
 import FormContainer from 'app/components/form/FormContainer'
 import useIsDesktop from 'app/hooks/useIsDesktop'
+import useLocalization from 'app/provider/localization'
 import { ModalStackParams } from 'app/provider/modal'
-import { ActivityIndicator, P, Row, ScrollView, View } from 'dripsy'
+import { useAppSelector } from 'app/provider/redux/store'
+import { ActivityIndicator, Row, ScrollView, View } from 'dripsy'
 import React, { useCallback, useEffect, useMemo } from 'react'
+import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useGetCoinRedemptionListQuery } from 'services/rewardApi'
 import { CoinRedemptionRow } from 'services/rewardApi.type'
 import { useRouter } from 'solito/router'
+import { RewardGameKeyMap } from 'utils/rewards'
 import RewardCard, { RewardGameTag } from './components/RewardCard'
 import RewardCardFull from './components/RewardCardFull'
-import { RewardGameKeyMap } from 'utils/rewards'
-import { Platform } from 'react-native'
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import SectionHeader from 'app/components/SectionHeader'
-import useLocalization from 'app/provider/localization'
-import { useAppSelector } from 'app/provider/redux/store'
 
 type RewardGameListConfig = {
   key: RewardGameKeyMap
@@ -41,11 +41,6 @@ const rewardGameListConfig: Array<RewardGameListConfig> = [
   {
     key: RewardGameKeyMap.GOLDEN_CAT,
     image: `${STATIC_IMAGE_URL}/lucky_catspin.jpg`,
-  },
-  {
-    key: RewardGameKeyMap.MYSTERY_DROP,
-    image: `${STATIC_IMAGE_URL}/mega.jpg`,
-    route: '/rewards/games/mystery-drop',
   },
   {
     key: RewardGameKeyMap.FORTUNE_CAT,
@@ -76,26 +71,7 @@ const RewardGameList = ({ onLoaded }: { onLoaded?: () => void }) => {
             }
           }) ?? []
 
-        const mysteryGame = {
-          cost: 1,
-          game_type: '1',
-          key: '123456',
-          name: 'QUAY LÀ TRÚNG',
-          seq: 1,
-          _data: rewardGameListConfig[3],
-        }
-
-        const insertAt = 3
-        const newData = [
-          // Items before the insertion point:
-          ...combinedData?.slice(0, insertAt),
-          // New item:
-          mysteryGame,
-          // Items after the insertion point:
-          ...combinedData?.slice(insertAt),
-        ]
-
-        return newData
+        return combinedData
       }
     )
   }, [])

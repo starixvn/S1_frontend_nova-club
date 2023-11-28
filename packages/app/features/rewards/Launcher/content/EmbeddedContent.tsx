@@ -38,8 +38,14 @@ const EmbeddedContent = (props: EmbeddedContentProps) => {
   function onMessage(e) {
     try {
       const message = JSON.parse(e.nativeEvent.data)
+
       switch (message.type) {
         case RewardPostMessageType.sessionExpired: {
+          // When RewardGameLauncher is unmounted, it will trigger refresh balance and auto redirect to login
+          onTokenExpired?.()
+          break
+        }
+        case RewardPostMessageType.endGame: {
           // When RewardGameLauncher is unmounted, it will trigger refresh balance and auto redirect to login
           onTokenExpired?.()
           break

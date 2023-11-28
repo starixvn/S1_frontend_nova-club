@@ -7,6 +7,10 @@ import { useItemsLayout } from './Util'
 import FlipCard from './FlipCard'
 import NiceModal from '@ebay/nice-modal-react'
 import WinModal from './WinModal'
+import {
+  useGetMysteryCheckQuery,
+  useSetMysteryClaimMutation,
+} from 'services/eventApi'
 
 export const possibleResult = [1, 2, 3]
 
@@ -29,12 +33,21 @@ const GameBox = () => {
   const bgWidth = Math.min(500, width)
   const boxWidth = bgWidth >= 500 ? bgWidth * 0.8 : bgWidth * 0.9
   const [prizePress, setPrizePress] = useState(0)
-  const result = 1
+  // const result = 1
+  const [claimReward] = useSetMysteryClaimMutation()
+  const { data, result, isLoading } = useGetMysteryCheckQuery(undefined, {
+    selectFromResult: ({ data, isLoading }) => ({
+      ...data,
+      isLoading,
+      result: Number(data?.data?.prize),
+    }),
+    refetchOnMountOrArgChange: true,
+  })
 
   const contentPosition = useItemsLayout({
     width: boxWidth * 0.6,
     height: boxWidth * 0.6,
-    result,
+    result: Number(result),
   })
 
   const handleClick = (prizeAmount: number) => {
@@ -42,20 +55,31 @@ const GameBox = () => {
     // sound.play('audio/click.mp3')
   }
 
-  const handleWin = (result) => {
+  const handleWin = () => {
     NiceModal.show(WinModal, {
-      winPrize: result as number,
-      onClose: () => console.log('close'),
+      winPrize: data?.bonus,
+      type: data?.prize,
     })
+  }
+
+  const handleClaim = async () => {
+    console.log('data', data)
+    const { data: claimData } = await claimReward({
+      code: data?.key ?? '',
+    })
+      .unwrap()
+      .catch((error) => {
+        return error
+      })
   }
 
   useEffect(() => {
     if (prizePress === 3) {
       // sound.play('audio/win.mp3')
       setTimeout(() => {
-        handleWin(800000)
+        handleWin()
         setPrizePress(0)
-        // onComplete()
+        handleClaim()
       }, 2000)
     }
   }, [prizePress])
@@ -70,21 +94,23 @@ const GameBox = () => {
       />
 
       <Container position={[0, boxWidth / 2]}>
-        {contentPosition.map((item, index) => {
-          const prize = item.prize
+        {contentPosition
+          ? contentPosition.map((item, index) => {
+              const prize = item.prize
 
-          return (
-            <FlipCard
-              key={index}
-              position={item.position}
-              disabled={prizePress === 3}
-              image={potDict[prize]}
-              winImage={result === prize ? prizeDict[prize] : undefined}
-              onComplete={() => handleClick(prize)}
-              win={result === prize && prizePress === 3}
-            />
-          )
-        })}
+              return (
+                <FlipCard
+                  key={index}
+                  position={item.position}
+                  disabled={prizePress === 3}
+                  image={potDict[prize]}
+                  winImage={result === prize ? prizeDict[prize] : undefined}
+                  onComplete={() => handleClick(prize)}
+                  win={result === prize && prizePress === 3}
+                />
+              )
+            })
+          : null}
       </Container>
     </Container>
   )

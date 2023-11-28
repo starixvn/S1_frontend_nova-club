@@ -53,7 +53,7 @@ const config = [
     action: {
       type: ActionType.INTERNAL_REDIRECT,
       payload: {
-        uri: '/rewards/mystery-drop-tnc',
+        uri: '/rewards/mystery-drop',
       },
     },
   },

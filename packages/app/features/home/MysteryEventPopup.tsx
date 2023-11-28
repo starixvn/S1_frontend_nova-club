@@ -1,24 +1,37 @@
 import { useAppSelector } from 'app/provider/redux/store'
-import { TempSettingActions } from 'app/store/tempSetting.slice'
 import React, { useEffect } from 'react'
 import { useModal } from 'react-native-modalfy'
 import { useDispatch } from 'react-redux'
+import { useGetMysteryCheckQuery } from 'services/eventApi'
 
 const MysteryEventPopup = () => {
   const dispatch = useDispatch()
-  const { openModal } = useModal()
+  const { openModal, closeModal, currentModal } = useModal()
+  const { data } = useGetMysteryCheckQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  })
 
   const isLoggedIn = useAppSelector((s) => !!s.auth.info)
+  const showPopup = useAppSelector((s) => s.tempSetting.triggerPopupEvent)
+  const showTutorial = useAppSelector((s) => s.setting.triggerPopupTutorial)
 
   useEffect(() => {
-    const setTimeoutId = setTimeout(() => {
-      openModal('MysteryModal')
-    }, 1000)
+    let openMysteryModalInstance: NodeJS.Timeout
+
+    if (isLoggedIn && !showTutorial && data?.data?.key) {
+      if (currentModal === 'MysteryModal') {
+        closeModal('MysteryModal')
+      }
+
+      openMysteryModalInstance = setTimeout(() => {
+        openModal('MysteryModal')
+      }, 1000)
+    }
 
     return () => {
-      clearTimeout(setTimeoutId)
+      clearTimeout(openMysteryModalInstance)
     }
-  }, [isLoggedIn])
+  }, [isLoggedIn, data, showPopup, showTutorial])
 
   return <></>
 }

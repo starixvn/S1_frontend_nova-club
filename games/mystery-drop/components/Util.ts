@@ -66,6 +66,7 @@ export const useItemsLayout = ({ width, height, result = 0 }) => {
   useEffect(() => {
     let res
     if (result) res = handleSetReward(result)
+    else return
 
     const cellWidth = width / 2
 

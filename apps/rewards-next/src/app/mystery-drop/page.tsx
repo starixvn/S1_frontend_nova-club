@@ -7,7 +7,7 @@ export default function Home() {
     <main>
       <AssetPreloader
         name="mystery-drop"
-        image={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/images/lucky_catspin.jpg`}
+        image={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/images/mystery_event.jpg`}
       >
         <MysteryDropGame />
       </AssetPreloader>

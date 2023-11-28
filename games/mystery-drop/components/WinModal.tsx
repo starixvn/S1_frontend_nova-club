@@ -3,23 +3,56 @@ import NiceModal, { useModal } from '@ebay/nice-modal-react'
 import { AssetBasePath } from '@games/config'
 import { Back, gsap } from 'gsap'
 import { useEffect } from 'react'
+import { RewardPostMessageType } from 'utils/rewards'
+import { toThousandSeparator } from 'utils-pixi/helper'
 
 type WinModalProps = {
   winPrize: number
+  type: string
   onClose?: () => void
 }
 
 export const WinModal = NiceModal.create(
-  ({ winPrize, onClose }: WinModalProps) => {
+  ({ winPrize, type, onClose }: WinModalProps) => {
     const modal = useModal()
     const width = window.innerWidth
     const height = window.innerHeight
     const headWidth = width > 500 ? 500 : width
     const AssetPath = `${AssetBasePath}/assets/mystery-drop/images`
+    let prizeType
+    let boardImage
+
+    switch (type) {
+      case '1':
+        prizeType = 'JACKPOT KHUYẾN KHÍCH'
+        boardImage = `${AssetPath}/board-win-green-vi.png`
+        break
+      case '2':
+        prizeType = 'JACKPOT LỘC PHÁT'
+        boardImage = `${AssetPath}/board-win-blue-vi.png`
+        break
+      case '3':
+        prizeType = 'JACKPOT ĐẠI PHÁT'
+        boardImage = `${AssetPath}/board-win-red-vi.png`
+        break
+
+      default:
+        prizeType = 'JACKPOT KHUYẾN KHÍCH'
+        boardImage = `${AssetPath}/board-win-green-vi.png`
+        break
+    }
 
     const handleClose = () => {
       onClose && onClose()
       modal.remove()
+
+      const payload = JSON.stringify({
+        type: RewardPostMessageType.endGame,
+      })
+
+      if (window.ReactNativeWebView)
+        window.ReactNativeWebView.postMessage(payload)
+      else window.parent.postMessage(payload)
     }
 
     useEffect(() => {
@@ -50,6 +83,9 @@ export const WinModal = NiceModal.create(
           bottom: 0,
           backgroundColor: ' #00000099',
           fontFamily: 'Avertastd Regular',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
         onClick={handleClose}
       >
@@ -59,7 +95,6 @@ export const WinModal = NiceModal.create(
             display: 'flex',
             alignItems: 'center',
             flexDirection: 'column',
-            marginTop: height * 0.1,
           }}
         >
           <img
@@ -91,7 +126,7 @@ export const WinModal = NiceModal.create(
             />
           </div>
           <img
-            src={`${AssetPath}/board-win.png`}
+            src={boardImage}
             alt=""
             style={{ width: headWidth, zIndex: 3 }}
           />
@@ -99,7 +134,7 @@ export const WinModal = NiceModal.create(
             <img
               src={`${AssetPath}/board-body.png`}
               alt=""
-              style={{ width: width * 0.8, marginTop: -50 }}
+              style={{ width: headWidth * 0.8, marginTop: -50 }}
             />
             <div
               style={{
@@ -113,7 +148,7 @@ export const WinModal = NiceModal.create(
                 flexDirection: 'column',
               }}
             >
-              <div style={{ color: 'white', fontSize: 20 }}>You Win</div>
+              <div style={{ color: 'white', fontSize: 20 }}>Bạn nhận được</div>
               <h1
                 style={{
                   color: '#FFE200',
@@ -121,9 +156,9 @@ export const WinModal = NiceModal.create(
                   fontFamily: 'Avertastd Bold',
                 }}
               >
-                {winPrize}
+                {toThousandSeparator(winPrize)}
               </h1>
-              <div style={{ color: 'white', fontSize: 20 }}>GRAND JACKPOT</div>
+              <div style={{ color: 'white', fontSize: 20 }}>{prizeType}</div>
             </div>
           </div>
         </div>

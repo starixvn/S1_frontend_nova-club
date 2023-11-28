@@ -45,3 +45,15 @@ export type MysteryEventPrize = {
   max: string
   min: string
 }
+
+export type MysteryCheckResult = {
+  bonus: string
+  currency: string
+  key: string
+  name: string
+  prize: string
+}
+
+export type MysteryClaimArgs = {
+  code: string
+}

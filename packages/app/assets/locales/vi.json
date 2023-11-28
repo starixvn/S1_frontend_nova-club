@@ -218,8 +218,7 @@
         "won": "XIN CHÚC MỪNG!",
         "won2": "BẠN ĐÃ TRÚNG THƯỞNG"
       },
-      "tnc": {
-      }
+      "tnc": {}
     },
     "claim": "ĐỔI VÉ THƯỞNG CỦA BẠN NGAY",
     "jackpot": "Jackpot (chia phần thưởng): 100,000,000 VND",
@@ -670,6 +669,24 @@
         "tnc1": "Chạm biểu tượng để xem giải thưởng.",
         "tnc2": "Ba biểu tượng trùng nhau đầu tiên là giải thưởng của bạn.",
         "tnc3": "Bạn có thể trúng một trong các giải sau: Độc Đắc, Đại Phát, Hồng Phát, Tiểu Phát"
+      },
+      "mysteryDrop": {
+        "date": "Thời gian khuyến mãi: 12/12/2023 - 31/03/2024",
+        "how1": "Ba giải thưởng ĐẠI PHÁT, LỘC PHÁT, và KHUYẾN KHÍCH với khoảng thưởng khác nhau đang chờ bạn.",
+        "how2": "Chạm biểu tượng để xem giải thưởng.",
+        "how3": "Ba biểu tượng trùng nhau đầu tiên là giải thưởng của bạn.",
+        "how4": "Số tiền thắng nằm trong khoảng thưởng Jackpot rơi trúng. ",
+        "grand": "ĐẠI PHÁT",
+        "major": "LỘC PHÁT",
+        "mini": "KHUYẾN KHÍCH",
+        "tnc1": "Khuyến mãi này dành cho TẤT CẢ người chơi của Vui123.",
+        "tnc2": "Khuyến mãi này không dành cho người chơi vi phạm quy định của Vui123.",
+        "tnc3": "Giải thưởng tiền mặt sẽ được ghi có trong ví của người chơi.",
+        "tnc4": "Tiền thưởng Jackpot phải trải qua 1x vòng cược trước khi rút tiền.",
+        "tnc5": "Vé thưởng phải được quy đổi trong thời gian khuyến mãi. Vé chưa quy đổi sẽ bị hủy khi chương trình kết thúc.",
+        "tnc6": "Vui123 có quyền hoãn và hủy Khuyến Mãi bất cứ lúc nào.",
+        "tnc7": "Vui123 có quyền đưa ra quyết định duy nhất và quyết định của Vui123 là quyết định cuối cùng.",
+        "tnc8": "Áp dụng Điều Khoản & Điều Kiện Chung của Vui123."
       },
       "goldenCat": {
         "bonus1": "0 mèo = 0 VND",

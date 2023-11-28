@@ -1,35 +1,56 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import { LoginType } from 'app/features/auth/AuthLayout'
-import useContainerDimension from 'app/hooks/useContainerDimension'
 import useIsDesktop from 'app/hooks/useIsDesktop'
-import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
-import dayjs from 'dayjs'
-import isBetween from 'dayjs/plugin/isBetween'
-import { ActivityIndicator, ScrollView, Text, View, styled } from 'dripsy'
-import React, { useEffect, useState } from 'react'
-import { useModal } from 'react-native-modalfy'
-import { useRouter } from 'solito/router'
-import Image from '../common/Image'
-import TouchableOpacity from '../pressable/TouchableOpacity'
-import { SettingActions } from 'app/store/setting.slice'
-import { SolitoImage } from 'solito/image'
-import IconButton from '../IconButton'
 import useWindowResize from 'app/hooks/useWindowResize'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
+import dayjs from 'dayjs'
+import isBetween from 'dayjs/plugin/isBetween'
+import { Text, View, styled, useResponsiveValue } from 'dripsy'
+import React, { useEffect } from 'react'
+import { useModal } from 'react-native-modalfy'
+import { useRouter } from 'solito/router'
+import { RewardGameKeyMap } from 'utils/rewards'
+import IconButton from '../IconButton'
+import Image from '../common/Image'
+import TouchableOpacity from '../pressable/TouchableOpacity'
 dayjs.extend(isBetween)
 
 const MysteryModal = ({ modal: { closeModal } }) => {
   const { width, height } = useWindowResize()
   const { t } = useLocalization()
   const { push } = useRouter()
+  const isDesktop = useIsDesktop()
+  const { openModal } = useModal()
+  const lang = useAppSelector((state) => state.setting.locale)
 
   const handlePress = () => {
     closeModal()
-    push('/rewards/mystery-drop-tnc')
+
+    if (isDesktop) {
+      setTimeout(() => {
+        openModal('RewardGameModal', {
+          persistent: true,
+          key: RewardGameKeyMap.MYSTERY_DROP,
+        })
+      }, 500)
+    } else {
+      push({
+        pathname: '/rewards/launcher',
+        query: {
+          key: RewardGameKeyMap.MYSTERY_DROP,
+        },
+      })
+    }
   }
 
-  const containerWidth = Math.min(380, width)
+  const containerWidth = useResponsiveValue([380])
   const containerHeight = containerWidth / (800 / 1100)
+
+  useEffect(() => {
+    return () => {
+      closeModal('EventPopupModal')
+    }
+  }, [])
 
   return (
     <View
@@ -57,7 +78,7 @@ const MysteryModal = ({ modal: { closeModal } }) => {
         >
           <Image
             source={{
-              uri: `${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/board-header.png`,
+              uri: `${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/board-congrats-${lang}.png`,
             }}
             sx={{ width: '100%', aspectRatio: 706 / 552, zIndex: 2 }}
             alt=""
@@ -67,7 +88,11 @@ const MysteryModal = ({ modal: { closeModal } }) => {
               source={{
                 uri: `${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/board-body.png`,
               }}
-              sx={{ width: width * 0.7, aspectRatio: 1000 / 717, mt: -70 }}
+              sx={{
+                width: containerWidth * 0.9,
+                aspectRatio: 1000 / 717,
+                mt: -70,
+              }}
               alt=""
             />
             <StyledTextContainer>
@@ -81,7 +106,7 @@ const MysteryModal = ({ modal: { closeModal } }) => {
                 source={{
                   uri: `${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/board-button.png`,
                 }}
-                sx={{ width: width * 0.3, aspectRatio: 536 / 166 }}
+                sx={{ width: containerWidth / 2, aspectRatio: 536 / 166 }}
                 alt=""
               />
               <Text

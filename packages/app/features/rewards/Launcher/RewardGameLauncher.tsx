@@ -11,7 +11,11 @@ import { walletApi } from 'services/walletApi'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 import { LANGUAGE_CODE } from 'utils/constant'
-import { getRewardLauncherURL, getRewardTitleImage } from 'utils/rewards'
+import {
+  RewardGameKeyMap,
+  getRewardLauncherURL,
+  getRewardTitleImage,
+} from 'utils/rewards'
 import { getTncComponent } from '../tnc/utils/getTncComponent'
 import RewardContent from './content/RewardContent'
 
@@ -47,12 +51,20 @@ const RewardGameLauncher = () => {
       },
     })
 
-    showAlert({
-      message: 'Session expired.',
-      onClose: () => {
-        handlePlatformExpired()
-      },
-    })
+    console.log(
+      '🚀 ~ file: RewardGameLauncher.tsx:56 ~ onTokenExpired ~ gamekey:',
+      gamekey
+    )
+    if (gamekey === RewardGameKeyMap.MYSTERY_DROP) {
+      handlePlatformExpired()
+    } else {
+      showAlert({
+        message: 'Session expired.',
+        onClose: () => {
+          handlePlatformExpired()
+        },
+      })
+    }
   }
 
   useEffect(() => {

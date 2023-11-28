@@ -4,13 +4,14 @@ import SpinWinTnc from '../SpinWinTnc'
 import AngpaoTnc from '../AngpaoTnc'
 import GoldenCatTnc from '../GoldenCatTnc'
 import FortuneCatTnc from '../FortuneCatTnc'
+import MysteryDropTnc from '../MysteryDropTnc'
 
 const TncComponent = {
   [RewardGameKeyMap.ANGPAO_HUNT]: <AngpaoTnc />,
   [RewardGameKeyMap.FORTUNE_CAT]: <FortuneCatTnc />,
   [RewardGameKeyMap.GOLDEN_CAT]: <GoldenCatTnc />,
   [RewardGameKeyMap.SPIN_N_WIN]: <SpinWinTnc />,
-  [RewardGameKeyMap.MYSTERY_DROP]: <SpinWinTnc />,
+  [RewardGameKeyMap.MYSTERY_DROP]: <MysteryDropTnc />,
 }
 
 export const getTncComponent = (gameKey: string) => {

@@ -679,6 +679,25 @@
         "tnc2": "Number of cat appear is your prizes.",
         "tnc3": "Coin will be deducted for every new spin."
       },
+      "mysteryDrop": {
+        "date": "Campaign Period: 12/12/2023 - 31/03/2024",
+        "how1": "There are three types of Progressive Jackpot to be won: GRAND, MAJOR or MINI.",
+        "how2": "Tap the icon to reveal prizes.",
+        "how3": "The first three similar symbols are your winning prizes.",
+        "how4": "Winning amount is the value between the hit range of Jackpot drops.",
+        "grand": "GRAND",
+        "major": "MAJOR",
+        "mini": "MINI",
+        "minor": "MINOR",
+        "tnc1": "The promo is open for ALL Vui123’s players.",
+        "tnc2": "The promo is not available to the players who have been excluded by Vui123.",
+        "tnc3": "Jackpot prizes will be credited to player's wallet.",
+        "tnc4": "Jackpot prizes are subject to 1x rollover upon withdrawal.",
+        "tnc5": "All tickets must be claimed within the campaign period. Unclaimed tickets will be forfeited after the campaign ends.",
+        "tnc6": "Vui123 reserves the right to amend or withdraw the event at any time",
+        "tnc7": "Vui123 is the sole arbiter of the event and its decision is final",
+        "tnc8": "Vui123 Standards Terms & Conditions apply"
+      },
       "spinWin": {
         "tnc1": "Tap the SPIN button to start the game.",
         "tnc2": "Once rotation stops, the item landed is your prizes.",

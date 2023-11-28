@@ -41,6 +41,39 @@
           }
         },
         {
+          "name": "images/board-win-blue-vi.png",
+          "srcs": [
+            "images/board-win-blue-vi.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/board-win-green-vi.png",
+          "srcs": [
+            "images/board-win-green-vi.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/board-win-red-vi.png",
+          "srcs": [
+            "images/board-win-red-vi.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
           "name": "images/board-win.png",
           "srcs": [
             "images/board-win.png"

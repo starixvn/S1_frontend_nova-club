@@ -45,6 +45,9 @@ const EmbeddedContent = (props: EmbeddedContentProps) => {
         if (data.type === RewardPostMessageType.sessionExpired) {
           onTokenExpired?.()
           return
+        } else if (data.type === RewardPostMessageType.endGame) {
+          onTokenExpired?.()
+          return
         }
       }
     } catch (e) {

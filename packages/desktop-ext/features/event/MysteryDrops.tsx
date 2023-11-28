@@ -1,22 +1,15 @@
-import HowTo, { DesktopHowTo } from 'app/features/rewards/tnc/MysteryDrop/HowTo'
-import IntroColumn, {
-  DekstopIntroColumn,
-} from 'app/features/rewards/tnc/MysteryDrop/IntroColumn'
-import JackpotPool from 'app/features/rewards/tnc/MysteryDrop/JackpotPool'
-import MysteryGame from 'app/features/rewards/tnc/MysteryDrop/MysteryGame'
-import Prize from 'app/features/rewards/tnc/MysteryDrop/Prize'
-import TnC from 'app/features/rewards/tnc/MysteryDrop/TnC'
-import WinnerColumn, {
-  DesktopWinnerColumn,
-} from 'app/features/rewards/tnc/MysteryDrop/WinnerColumn'
-import useFetchMysteryDrops from 'app/features/rewards/tnc/MysteryDrop/useFetchMysteryDrops'
-import MysteryDropTnc from 'app/features/rewards/tnc/MysteryDropTnc'
-import useWindowResize from 'app/hooks/useWindowResize'
-import { Container, Row, View, useResponsiveValue } from 'dripsy'
+import { DesktopHowTo } from 'app/features/event/mysteryDrop/components/HowTo'
+import { DekstopIntroColumn } from 'app/features/event/mysteryDrop/components/IntroColumn'
+import JackpotPool from 'app/features/event/mysteryDrop/components/JackpotPool'
+import MysteryGame from 'app/features/event/mysteryDrop/components/MysteryGame'
+import Prize from 'app/features/event/mysteryDrop/components/Prize'
+import TnC from 'app/features/event/mysteryDrop/components/TnC'
+import { DesktopWinnerColumn } from 'app/features/event/mysteryDrop/components/WinnerColumn'
+import useFetchMysteryDrops from 'app/features/event/mysteryDrop/components/useFetchMysteryDrops'
+import { Container, Row, View } from 'dripsy'
 import React from 'react'
 
 const MysteryDrops = () => {
-  const { width } = useWindowResize()
   const primaryPrizeWidth = 330
   const secondaryPrizeWidth = 300
 

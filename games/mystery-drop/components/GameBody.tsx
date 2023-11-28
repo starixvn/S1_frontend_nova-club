@@ -10,17 +10,9 @@ import WinModal from './WinModal'
 const GameBody = () => {
   const { width, height } = useWindowSize()
 
-  const handleWin = (result) => {
-    console.log('click modal')
-    NiceModal.show(WinModal, {
-      winPrize: result as number,
-      onClose: () => console.log('close'),
-    })
-  }
-
   return (
     <Container x={width * 0.5} y={height * 0.2}>
-      <Container eventMode="static" onpointertap={() => handleWin(2000)}>
+      <Container>
         <Sprite
           anchor={{ x: 0.5, y: 0 }}
           scale={0.7}
@@ -29,8 +21,8 @@ const GameBody = () => {
 
         <Text
           x={0}
-          y={70}
-          text={`Match 3 to win`}
+          y={75}
+          text={`Ghép 3 để thắng`}
           anchor={[0.5, 0.5]}
           style={textStyle}
         />

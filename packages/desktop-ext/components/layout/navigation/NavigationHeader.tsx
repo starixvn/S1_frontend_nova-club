@@ -79,7 +79,7 @@ const MENU: MenuProps[] = [
     label: 'menu.leaderboard',
   },
   {
-    route: '/rewards/mystery-drop-tnc',
+    route: '/rewards/mystery-drop',
     label: 'event.mystery.title',
   },
   {
