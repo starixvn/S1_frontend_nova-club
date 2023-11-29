@@ -1,8 +1,10 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Icon from 'app/components/Icon'
 import useLocalization from 'app/provider/localization'
+import { toCurrency, toThousandSeparator } from 'app/utils'
 import { Row, Text, View } from 'dripsy'
 import React from 'react'
+import { useGetMysteryWinnerQuery } from 'services/eventApi'
 import { SolitoImage } from 'solito/image'
 
 const WinnerColumn = () => {
@@ -36,7 +38,6 @@ export const DesktopWinnerColumn = () => {
         bg: 'rgba(50, 50, 90, 0.5)',
         borderRadius: 16,
         p: '$3',
-        justifyContent: 'space-between',
         height: '100%',
       }}
     >
@@ -51,32 +52,37 @@ export const DesktopWinnerColumn = () => {
 }
 
 const WinnerColumnContent = () => {
+  const { data } = useGetMysteryWinnerQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  })
   return (
-    <>
-      {[1, 2, 3, 4, 5].map((item, index) => (
-        <Row
-          key={item}
-          sx={{
-            p: '$2',
-            borderRadius: 8,
-            justifyContent: 'space-between',
-            bg: index % 2 === 0 ? '$primary.500' : 'transparent',
-          }}
-        >
-          <Row>
-            <SolitoImage
-              src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/ic-thropy.png`}
-              width={24}
-              height={24}
-              alt=""
-              style={{ marginHorizontal: 16 }}
-            />
-            <Text>xxxx</Text>
+    <View>
+      {data &&
+        data?.length > 0 &&
+        data.map((item, index) => (
+          <Row
+            key={index}
+            sx={{
+              p: '$2',
+              borderRadius: 8,
+              justifyContent: 'space-between',
+              bg: index % 2 === 0 ? '$primary.500' : 'transparent',
+            }}
+          >
+            <Row>
+              <SolitoImage
+                src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/ic-thropy.png`}
+                width={24}
+                height={24}
+                alt=""
+                style={{ marginHorizontal: 16 }}
+              />
+              <Text>{item.username}</Text>
+            </Row>
+            <Text>{`VND ${toThousandSeparator(item.amt)}`}</Text>
           </Row>
-          <Text>VND 100,000</Text>
-        </Row>
-      ))}
-    </>
+        ))}
+    </View>
   )
 }
 

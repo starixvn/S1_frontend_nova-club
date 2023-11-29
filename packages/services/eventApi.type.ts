@@ -57,3 +57,13 @@ export type MysteryCheckResult = {
 export type MysteryClaimArgs = {
   code: string
 }
+
+export type MysteryWinnerResult = {
+  count: number
+  list: MysteryWinner[]
+}
+
+export type MysteryWinner = {
+  amt: string
+  username: string
+}

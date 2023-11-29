@@ -6,6 +6,8 @@ import {
   MysteryClaimArgs,
   MysteryEventPrize,
   MysteryEventResult,
+  MysteryWinner,
+  MysteryWinnerResult,
   TicketSpinBalance,
   TicketSpinResult,
 } from './eventApi.type'
@@ -52,10 +54,13 @@ export const eventApi = baseApiWithTag.injectEndpoints({
         },
       }),
     }),
-    getMysteryWinner: builder.query<IResponse<TicketSpinBalance>, void>({
+    getMysteryWinner: builder.query<MysteryWinner[], void>({
       query: () => ({
         url: `/player_api/getMysteryWinner`,
       }),
+      transformResponse: ({ data }: { data: MysteryWinnerResult }) => {
+        return data?.list ?? []
+      },
     }),
   }),
 })
