@@ -41,8 +41,8 @@ const RewardGameLauncher = () => {
     return
   }
 
-  const onTokenExpired = () => {
-    const handlePlatformExpired = Platform.select({
+  const onBack = () => {
+    Platform.select({
       web: () => {
         replace('/')
       },
@@ -50,21 +50,15 @@ const RewardGameLauncher = () => {
         back()
       },
     })
+  }
 
-    console.log(
-      '🚀 ~ file: RewardGameLauncher.tsx:56 ~ onTokenExpired ~ gamekey:',
-      gamekey
-    )
-    if (gamekey === RewardGameKeyMap.MYSTERY_DROP) {
-      handlePlatformExpired()
-    } else {
-      showAlert({
-        message: 'Session expired.',
-        onClose: () => {
-          handlePlatformExpired()
-        },
-      })
-    }
+  const onTokenExpired = () => {
+    showAlert({
+      message: 'Session expired.',
+      onClose: () => {
+        onBack()
+      },
+    })
   }
 
   useEffect(() => {
@@ -99,6 +93,7 @@ const RewardGameLauncher = () => {
         domainUrl={DOMAIN_URL}
         gameKey={gamekey}
         onTokenExpired={onTokenExpired}
+        onEndGame={onBack}
       />
     </PageWithBackHeader>
   )

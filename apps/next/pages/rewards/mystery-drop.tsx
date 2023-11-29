@@ -1,4 +1,3 @@
-import { DesktopBaseLayout } from 'components/layouts/desktop'
 import withAdaptiveScreen from 'desktop-ext/hoc/withAdaptiveScreen'
 import { ActivityIndicator } from 'dripsy'
 import dynamic from 'next/dynamic'
@@ -19,7 +18,5 @@ const LazyDesktopScreen = dynamic(
 )
 
 const MysteryDropEvent = withAdaptiveScreen(LazyMobileScreen, LazyDesktopScreen)
-
-MysteryDropEvent.DesktopLayout = DesktopBaseLayout
 
 export default MysteryDropEvent

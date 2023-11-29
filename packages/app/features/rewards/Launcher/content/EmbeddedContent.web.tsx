@@ -7,10 +7,12 @@ interface EmbeddedContentProps {
   onLoadCompleted?: () => void
   gameKey: string
   onTokenExpired?: () => void
+  onEndGame?: () => void
 }
 
 const EmbeddedContent = (props: EmbeddedContentProps) => {
-  const { domainUrl, onLoadCompleted, gameKey, onTokenExpired } = props
+  const { domainUrl, onLoadCompleted, gameKey, onTokenExpired, onEndGame } =
+    props
   const locale = useAppSelector((state) => state.setting.locale)
 
   const iframeRef = useRef<ElementRef<'iframe'>>(null)
@@ -46,7 +48,7 @@ const EmbeddedContent = (props: EmbeddedContentProps) => {
           onTokenExpired?.()
           return
         } else if (data.type === RewardPostMessageType.endGame) {
-          onTokenExpired?.()
+          onEndGame?.()
           return
         }
       }
