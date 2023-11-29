@@ -14,8 +14,10 @@ const TnC = () => {
   const morePart = MYSTERY_DROPS_TNC.slice(5)
 
   return (
-    <View sx={{ my: '$3' }}>
-      <TitleText>{t('event.mystery.tnc')}</TitleText>
+    <View sx={{ my: '$4' }}>
+      <Text sx={{ fontWeight: 'bold', py: '$1' }}>
+        {t('event.mystery.tnc')}
+      </Text>
 
       {firstPart.map((item, index) => (
         <Row key={index} sx={{ mb: '$2' }}>

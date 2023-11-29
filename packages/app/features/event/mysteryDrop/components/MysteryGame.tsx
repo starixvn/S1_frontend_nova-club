@@ -10,7 +10,7 @@ const MysteryGame = () => {
   const { t } = useLocalization()
   return (
     <View sx={{ mb: '$4' }}>
-      <TitleText sx={{ mx: 'auto', width: 300, textAlign: 'center' }}>
+      <TitleText sx={{ mx: 'auto', textAlign: 'center' }}>
         {t('event.mystery.games')}
       </TitleText>
 

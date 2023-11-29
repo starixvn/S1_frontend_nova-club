@@ -48,7 +48,9 @@ const MysteryDrops = () => {
 
           <MysteryGame />
           <DesktopHowTo />
-          <TnC />
+          <View sx={{ mx: '$4' }}>
+            <TnC />
+          </View>
         </View>
       </Container>
     </>
