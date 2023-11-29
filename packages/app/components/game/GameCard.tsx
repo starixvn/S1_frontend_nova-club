@@ -39,7 +39,7 @@ export interface GameCardProps extends PressableProps, LaunchGamePayload {
   rebateTop?: boolean
   gameTagSize?: GAME_TAG_SIZE
   isDualVersion?: boolean
-  isMysteryIconLower?: boolean
+  isFullCard?: boolean
 }
 
 const GameCard = ({
@@ -62,7 +62,7 @@ const GameCard = ({
   const [loaded, setLoaded] = useState(false)
   const desktopMode = useIsDesktop()
   const ss = useSx()
-  const { tags, gpc, isMysteryIconLower } = rest
+  const { tags, gpc, isFullCard } = rest
 
   const lang = useAppSelector((s) => s.setting.locale)
 
@@ -179,7 +179,7 @@ const GameCard = ({
         tags={tags ?? []}
         size={gameTagSize}
         gpc={gpc}
-        isMysteryIconLower={isMysteryIconLower}
+        isFullCard={isFullCard}
       />
       {!!displayName && (
         <Text

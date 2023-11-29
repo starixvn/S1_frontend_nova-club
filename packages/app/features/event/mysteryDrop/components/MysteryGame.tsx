@@ -4,6 +4,7 @@ import { TitleText } from './IntroColumn'
 import HorizontalGameList from 'app/components/game/HorizontalGameList'
 import { MYSTERY_DROP_GAME_LIST } from './MysteryGameList'
 import useLocalization from 'app/provider/localization'
+import { GAME_TAG_SIZE } from 'app/components/game/GameTagsLabel'
 
 const MysteryGame = () => {
   const { t } = useLocalization()
@@ -14,7 +15,11 @@ const MysteryGame = () => {
       </TitleText>
 
       <View>
-        <HorizontalGameList data={MYSTERY_DROP_GAME_LIST} size={160} />
+        <HorizontalGameList
+          data={MYSTERY_DROP_GAME_LIST}
+          size={[160]}
+          tagSize={GAME_TAG_SIZE.lg}
+        />
       </View>
     </View>
   )

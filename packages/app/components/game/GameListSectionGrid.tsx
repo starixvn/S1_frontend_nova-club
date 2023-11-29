@@ -212,7 +212,7 @@ const GameListSectionGridList = ({
               containerSx={{
                 aspectRatio,
               }}
-              isMysteryIconLower={false}
+              isFullCard
               {...g}
             />
           )
