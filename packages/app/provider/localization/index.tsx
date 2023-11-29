@@ -1,5 +1,5 @@
 import { I18n, Scope, TranslateOptions } from 'i18n-js'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import {
   TolgeeProvider,
@@ -7,12 +7,12 @@ import {
   TreeTranslationsData,
   useTranslate,
 } from '@tolgee/react'
+import vi from 'app/assets/locales/vi.json'
+import { tolgee } from 'app/integrations/tolgee'
 import { localizationApi } from 'services/localizationApi'
 import { sleep } from 'utils/common'
 import { LANGUAGE_CODE, LANGUAGE_NAMESPACE } from 'utils/constant'
 import { store, useAppSelector } from '../redux/store'
-import { tolgee } from 'app/integrations/tolgee'
-import vi from 'app/assets/locales/vi.json'
 
 export type Translate = (scope: Scope, options?: TranslateOptions) => string
 
@@ -43,6 +43,7 @@ export function getLanguageFetcher(
 
       return resp[locale]
     } catch (e) {
+      console.log('Failed to get language', e)
       return fallbackTranslation
     }
   }
@@ -74,18 +75,42 @@ export const LocalizationProvider: React.FC<LocalizationProviderProps> = ({
   return <TolgeeProvider tolgee={tolgee}>{children}</TolgeeProvider>
 }
 
+function useTolgeeTranslate(ns: LANGUAGE_NAMESPACE) {
+  const { t: tolgeeT } = useTranslate(ns)
+
+  function t(key: string, placeholders) {
+    return tolgeeT(
+      key,
+      ' ', // render empty string if no translation available / while being downloaded
+      placeholders
+    )
+  }
+
+  return { t }
+}
+
 export default function useLocalization() {
-  return useTranslate(LANGUAGE_NAMESPACE.MEMBER)
+  return useTolgeeTranslate(LANGUAGE_NAMESPACE.MEMBER)
 }
 
 export function useAgentLocalization() {
-  return useTranslate(LANGUAGE_NAMESPACE.AGENT)
+  return useTolgeeTranslate(LANGUAGE_NAMESPACE.AGENT)
 }
 
 export const LocalizationProviderRedux = ({ children }) => {
-  // // This is preserved to trigger rerender on language changed
   const locale = useAppSelector((s) => s.setting.locale)
-  if (tolgee.getLanguage() !== locale) tolgee.changeLanguage(locale)
+  if (!tolgee.isRunning()) {
+    tolgee.changeLanguage(locale) // load initial language
+  }
 
-  return <TolgeeProvider tolgee={tolgee}>{children}</TolgeeProvider>
+  return (
+    <TolgeeProvider
+      tolgee={tolgee}
+      options={{
+        useSuspense: false, // prevents render blocking before tolgee done downloading translation
+      }}
+    >
+      {children}
+    </TolgeeProvider>
+  )
 }
