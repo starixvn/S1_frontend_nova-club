@@ -15,6 +15,7 @@ const useResetRTKQState = () => {
     dispatch(TempSettingActions.toggleTriggerPopupEvent(true))
     dispatch(TempSettingActions.setLuckyDrawTriggered(false))
     dispatch(TempSettingActions.setSyncShieldStatus(false))
+    dispatch(TempSettingActions.setChristmasPopUpTriggered(false))
     dispatch(SettingActions.removeReferral())
     dispatch(SettingActions.setLocale(LANGUAGE_CODE.VIETNAM))
     dispatch(SettingActions.toggleTriggerPopupTutorial(true))

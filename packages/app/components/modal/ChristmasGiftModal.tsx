@@ -16,7 +16,9 @@ import { useModal } from 'react-native-modalfy'
 import Image from '../common/Image'
 import { useRouter } from 'solito/router'
 import { useClaimEventCoinMutation } from 'services/rewardApi'
-import useAlert from 'app/hooks/useAlert'
+import { IResponse } from 'services/common/types'
+import { ClaimEventCoinResult } from 'services/rewardApi.type'
+import Icon from '../Icon'
 
 const list = [
   'rewards.tnc.christmas.tnc.n1',
@@ -31,8 +33,7 @@ const list = [
 
 const ChristmasGiftModal = ({ modal: { closeModal } }) => {
   const { push } = useRouter()
-  const { showAlert } = useAlert()
-  const [redeemCoin] = useClaimEventCoinMutation()
+  const [redeemCoin, { isLoading: isRequesting }] = useClaimEventCoinMutation()
   const { width, height } = useContainerDimension()
   const [isLoading, setLoading] = useState(true)
   const [redeemed, setRedeemed] = useState(false)
@@ -41,19 +42,23 @@ const ChristmasGiftModal = ({ modal: { closeModal } }) => {
   const imageWidth = Math.min(450, width * 0.7)
   const imageHeight = imageWidth / (900 / 1100)
 
-  const handleClose = () => {
-    closeModal()
-    push('/rewards')
+  const gotoRewards = () => {
+    closeModal('ChristmasGiftModal', () => push('/rewards/redeem/list'))
   }
 
   async function redeem() {
-    const { data, success, message } = await redeemCoin('upload2').unwrap()
+    const { data, success } = await redeemCoin('upload2')
+      .unwrap()
+      .catch((e: IResponse<ClaimEventCoinResult>) => {
+        closeModal()
+        return e
+      })
 
     if (success && data) {
       setAmount(data.coin_amount)
       setRedeemed(true)
     } else {
-      showAlert(message)
+      closeModal()
     }
   }
 
@@ -111,7 +116,7 @@ const ChristmasGiftModal = ({ modal: { closeModal } }) => {
                           {amount}
                         </Text>
                         <Image
-                          source={require('app/assets/images/events/christmas/coin.png')}
+                          source={require('app/assets/images/rewards/coin.png')}
                           style={{
                             width: 25,
                             height: 25,
@@ -138,7 +143,7 @@ const ChristmasGiftModal = ({ modal: { closeModal } }) => {
                       </View>
                     )}
                   </View>
-                  <Pressable onPress={handleClose}>
+                  <Pressable onPress={gotoRewards}>
                     <MotiImage
                       source={require('app/assets/images/events/christmas/button-bg.png')}
                       style={{
@@ -199,7 +204,14 @@ const ChristmasGiftModal = ({ modal: { closeModal } }) => {
                     bottom: '18%',
                   }}
                 >
-                  <Pressable onPress={redeem}>
+                  <Pressable
+                    onPress={redeem}
+                    disabled={isRequesting}
+                    sx={{
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
                     <MotiImage
                       source={require('app/assets/images/events/christmas/button-bg.png')}
                       style={{
@@ -219,22 +231,21 @@ const ChristmasGiftModal = ({ modal: { closeModal } }) => {
                     <View
                       sx={{
                         position: 'absolute',
-                        bottom: '7%',
-                        left: 0,
-                        right: 0,
                       }}
                     >
-                      <Image
-                        source={require('app/assets/images/events/christmas/redeem.png')}
-                        sx={{
-                          width: imageWidth / 3.5,
-                          height: imageWidth / 3.5,
-                          alignSelf: 'center',
-                          justifySelf: 'center',
-                        }}
-                        resizeMode="contain"
-                        alt="close"
-                      />
+                      {isRequesting ? (
+                        <ActivityIndicator color="$primary.100" />
+                      ) : (
+                        <Image
+                          source={require('app/assets/images/events/christmas/redeem.png')}
+                          sx={{
+                            width: imageWidth / 3.5,
+                            height: imageWidth / 3.5,
+                          }}
+                          resizeMode="contain"
+                          alt="close"
+                        />
+                      )}
                     </View>
                   </Pressable>
                 </View>
@@ -307,27 +318,11 @@ const ActionButton = ({ handleClose }: ActionButtonProps) => {
           })
         }
       >
-        <Image
-          source={require('app/assets/images/events/christmas/tncBtn.png')}
-          style={{
-            width: 25,
-            height: 25,
-          }}
-          resizeMode="contain"
-          alt="tncBtn"
-        />
+        <Icon name="tnc" size={30} />
       </Pressable>
 
       <Pressable onPress={handleClose}>
-        <Image
-          source={require('app/assets/images/events/christmas/close.png')}
-          style={{
-            width: 25,
-            height: 25,
-          }}
-          resizeMode="contain"
-          alt="close"
-        />
+        <Icon name="cross" size={30} />
       </Pressable>
     </View>
   )
