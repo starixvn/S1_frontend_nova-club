@@ -1,8 +1,6 @@
 import LazyIndicator from 'app/components/LazyIndicator'
-import TutorialScreen from 'app/components/navigation/TutorialScreen'
 import MainHeader from 'app/components/navigation/header/MainHeader'
 import withLazyLoad from 'app/hoc/withLazyLoad'
-import { useAppSelector } from 'app/provider/redux/store'
 import LiveChat from 'components/LiveChat'
 import NavigationHeader, {
   NAVIGATION_HEIGHT,
@@ -27,20 +25,6 @@ export default function BaseLayout({ children }: { children: ReactNode }) {
 
   const [loading, setLoading] = useState(false)
   const [url, setUrl] = useState()
-  const isLoggedIn = useAppSelector((s) => !!s.auth.info)
-  const showTutorial = useAppSelector((s) => s.setting.triggerPopupTutorial)
-
-  const [showAfterDelay, setShowAfterDelay] = useState(false)
-
-  useEffect(() => {
-    const setTimeoutId = setTimeout(() => {
-      setShowAfterDelay(true)
-    }, 500)
-
-    return () => {
-      clearTimeout(setTimeoutId)
-    }
-  }, [isLoggedIn, showTutorial])
 
   useEffect(() => {
     const handleStart = (url) => url !== router.asPath && setLoading(true)
@@ -101,7 +85,6 @@ export default function BaseLayout({ children }: { children: ReactNode }) {
       </AnimatePresence>
       <LiveChat />
       <LazyFooter />
-      {isLoggedIn && showTutorial && showAfterDelay && <TutorialScreen />}
     </div>
   )
 }
