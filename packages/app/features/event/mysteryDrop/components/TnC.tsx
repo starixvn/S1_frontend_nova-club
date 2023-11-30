@@ -1,6 +1,6 @@
 import Icon from 'app/components/Icon'
 import useLocalization from 'app/provider/localization'
-import { Pressable, Row, Text, View } from 'dripsy'
+import { Pressable, Row, Text, View, styled } from 'dripsy'
 import { MotiView } from 'moti'
 import React, { useState } from 'react'
 import { MYSTERY_DROPS_TNC } from 'utils/constant'
@@ -15,14 +15,14 @@ const TnC = () => {
 
   return (
     <View sx={{ my: '$4' }}>
-      <Text sx={{ fontWeight: 'bold', py: '$1' }}>
+      <TitleText sx={{ fontWeight: 'bold', py: '$1', textAlign: 'left' }}>
         {t('event.mystery.tnc')}
-      </Text>
+      </TitleText>
 
       {firstPart.map((item, index) => (
         <Row key={index} sx={{ mb: '$2' }}>
-          <Text sx={{ flexBasis: 24, mr: '$2' }}>{index + 1}.</Text>
-          <Text sx={{ flex: 1 }}>{t(item)}</Text>
+          <StyledText sx={{ flexBasis: 24, mr: '$2' }}>{index + 1}.</StyledText>
+          <StyledText sx={{ flex: 1 }}>{t(item)}</StyledText>
         </Row>
       ))}
 
@@ -34,8 +34,10 @@ const TnC = () => {
         >
           {morePart.map((item, index) => (
             <Row key={index} sx={{ mb: '$2' }}>
-              <Text sx={{ flexBasis: 24, mr: '$2' }}>{index + 6}.</Text>
-              <Text sx={{ flex: 1 }}>{t(item)}</Text>
+              <StyledText sx={{ flexBasis: 24, mr: '$2' }}>
+                {index + 6}.
+              </StyledText>
+              <StyledText sx={{ flex: 1 }}>{t(item)}</StyledText>
             </Row>
           ))}
         </MotiView>
@@ -50,5 +52,9 @@ const TnC = () => {
     </View>
   )
 }
+
+const StyledText = styled(Text)({
+  fontSize: [16, 14],
+})
 
 export default TnC

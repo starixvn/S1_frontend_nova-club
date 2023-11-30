@@ -84,7 +84,7 @@ const ListContainer = styled(View)({
   gap: 12,
 })
 const TextSubtitle = styled(Text)({
-  fontSize: 20,
+  fontSize: 18,
   fontWeight: 'bold',
 })
 const TextNotes = styled(Text)({

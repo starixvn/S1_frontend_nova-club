@@ -6630,6 +6630,7 @@ __metadata:
     react-native-svg: ^13.9.0
     react-web-share: ^2.0.2
     solito: 3.2.6
+    use-count-up: ^3.0.1
     utils: "*"
     zeego: ^1.5.1
   languageName: unknown
@@ -9903,7 +9904,6 @@ __metadata:
     react-web-share: ^2.0.2
     redux-persist: ^6.0.0
     typescript: ^5.0.4
-    use-count-up: ^3.0.1
     yup: ^1.1.1
   languageName: unknown
   linkType: soft
