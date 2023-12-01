@@ -35,7 +35,7 @@ const EmbeddedContent = (props: EmbeddedContentProps) => {
     }, 100)
   }
 
-  function handleTokenExpired(e: MessageEvent<RewardPostMessagePayload>) {
+  function onMessage(e: MessageEvent<RewardPostMessagePayload>) {
     try {
       const eventData = e.data
       if (eventData) {
@@ -53,14 +53,14 @@ const EmbeddedContent = (props: EmbeddedContentProps) => {
         }
       }
     } catch (e) {
-      console.error('handleTokenExpired error', e)
+      console.error('onMessage error', e)
     }
   }
 
   useEffect(() => {
-    window.addEventListener('message', handleTokenExpired)
+    window.addEventListener('message', onMessage)
     return () => {
-      window.removeEventListener('message', handleTokenExpired)
+      window.removeEventListener('message', onMessage)
     }
   }, [])
 

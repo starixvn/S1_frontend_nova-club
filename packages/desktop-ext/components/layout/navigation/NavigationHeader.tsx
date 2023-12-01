@@ -75,10 +75,6 @@ const MENU: MenuProps[] = [
     label: 'game.category.lottery',
   },
   {
-    route: '/account/leaderboard',
-    label: 'menu.leaderboard',
-  },
-  {
     route: '/rewards/mystery-drop',
     label: 'event.mystery.title',
   },
@@ -183,7 +179,7 @@ const MenuButton = ({ icon, label, route, style, menu }: MenuButtonProps) => {
         position: 'relative',
         justifyContent: 'center',
         flex: 1,
-        px: icon ? '$2' : ['$2', '$2', '$2', 6, 14, 25],
+        px: icon ? '$3' : ['$2', '$2', '$2', 6, 14, 25],
         alignItems: 'center',
       }}
       containerStyle={{ position: 'relative', ...style }}
