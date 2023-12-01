@@ -151,7 +151,6 @@ export default function useRegisterScreen(
 
       //temporary disable auto popup till modal closed
       dispatch(TempSettingActions.toggleTriggerPopupEvent(false))
-      dispatch(SettingActions.toggleTriggerPopupTutorial(false))
       setTimeout(
         () => {
           openModal('ActionableModal', {
@@ -159,7 +158,6 @@ export default function useRegisterScreen(
             message: t('authentication.registerSuccess.m2'),
             onClose: () => {
               dispatch(TempSettingActions.toggleTriggerPopupEvent(true))
-              dispatch(SettingActions.toggleTriggerPopupTutorial(true))
 
               replace('/')
             },
