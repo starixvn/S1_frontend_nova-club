@@ -18,16 +18,16 @@ import WinMessageBox from './WinMessageBox'
 import WinPrizeText from './WinPrizeText'
 import { RewardGameKeyMap } from 'utils/rewards'
 
-export const possibleResult = [88000, 888000, 8800000, 88000000]
+export const possibleResult = [388000, 888000, 8800000, 88000000]
 
 export const catDict = {
-  88000: `${AssetBasePath}/assets/${GamePackageName}/images/cat_88.png`,
+  388000: `${AssetBasePath}/assets/${GamePackageName}/images/cat_88.png`,
   888000: `${AssetBasePath}/assets/${GamePackageName}/images/cat_888.png`,
   8800000: `${AssetBasePath}/assets/${GamePackageName}/images/cat_8800.png`,
   88000000: `${AssetBasePath}/assets/${GamePackageName}/images/cat_grand.png`,
 }
 export const prizeDict = {
-  88000: `${AssetBasePath}/assets/${GamePackageName}/images/win_88.png`,
+  388000: `${AssetBasePath}/assets/${GamePackageName}/images/win_88.png`,
   888000: `${AssetBasePath}/assets/${GamePackageName}/images/win_888.png`,
   8800000: `${AssetBasePath}/assets/${GamePackageName}/images/win_8800.png`,
   88000000: `${AssetBasePath}/assets/${GamePackageName}/images/win_grand.png`,
