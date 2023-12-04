@@ -6,6 +6,9 @@ import {
   TolgeeStaticData,
   TreeTranslationsData,
   useTranslate,
+  DefaultParamType,
+  CombinedOptions,
+  TranslationKey,
 } from '@tolgee/react'
 import vi from 'app/assets/locales/vi.json'
 import { tolgee } from 'app/integrations/tolgee'
@@ -78,7 +81,10 @@ export const LocalizationProvider: React.FC<LocalizationProviderProps> = ({
 function useTolgeeTranslate(ns: LANGUAGE_NAMESPACE) {
   const { t: tolgeeT } = useTranslate(ns)
 
-  function t(key: string, placeholders) {
+  const t = (
+    key: TranslationKey,
+    placeholders?: CombinedOptions<DefaultParamType>
+  ) => {
     return tolgeeT(
       key,
       ' ', // render empty string if no translation available / while being downloaded

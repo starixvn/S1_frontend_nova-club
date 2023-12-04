@@ -19,7 +19,7 @@ export default function Transfer({}) {
             name="notice"
             onPress={() =>
               openModal('NoticeModal', {
-                notice: [t(TRANSFER_NOTES)],
+                notice: [TRANSFER_NOTES],
               })
             }
           />
