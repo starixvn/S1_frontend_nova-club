@@ -195,17 +195,6 @@
           }
         },
         {
-          "name": "images/money02.png",
-          "srcs": [
-            "images/money02.png"
-          ],
-          "data": {
-            "tags": {
-              "m": true
-            }
-          }
-        },
-        {
           "name": "images/pot-blue.png",
           "srcs": [
             "images/pot-blue.png"
@@ -253,17 +242,6 @@
           "name": "images/pot-red.png",
           "srcs": [
             "images/pot-red.png"
-          ],
-          "data": {
-            "tags": {
-              "m": true
-            }
-          }
-        },
-        {
-          "name": "images/pot-shadow.png",
-          "srcs": [
-            "images/pot-shadow.png"
           ],
           "data": {
             "tags": {
