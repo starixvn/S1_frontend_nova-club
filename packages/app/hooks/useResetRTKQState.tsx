@@ -17,7 +17,6 @@ const useResetRTKQState = () => {
     dispatch(TempSettingActions.setSyncShieldStatus(false))
     dispatch(SettingActions.removeReferral())
     dispatch(SettingActions.setLocale(LANGUAGE_CODE.VIETNAM))
-    dispatch(SettingActions.toggleTriggerPopupTutorial(true))
   }, [dispatch])
 
   return {

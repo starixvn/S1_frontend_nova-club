@@ -1,7 +1,6 @@
 import Icon from 'app/components/Icon'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
-import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
-import { SettingActions } from 'app/store/setting.slice'
+import { useAppSelector } from 'app/provider/redux/store'
 import { toCurrency, toThousandSeparator } from 'app/utils'
 import {
   ActivityIndicator,
@@ -17,8 +16,6 @@ import { usePlayerBalanceQuery } from 'services/walletApi'
 import { SolitoImage } from 'solito/image'
 import { useRouter } from 'solito/router'
 import { Currency } from 'utils/constant'
-import useWindowResize from 'app/hooks/useWindowResize'
-import { usePlayerProfileQuery } from 'services/playerApi'
 
 interface HeaderButtonProps {
   icon?: string
@@ -109,11 +106,7 @@ interface HeaderOverviewProps {
 
 const HeaderOverview = ({}: HeaderOverviewProps) => {
   const { push } = useRouter()
-  const dispatch = useAppDispatch()
   const token = useAppSelector((s) => s.auth.info?.token)
-  const showTutorial = useAppSelector((s) => s.setting.triggerPopupTutorial)
-
-  const { username } = usePlayerProfileQuery()
 
   const {
     data: playerBalance,
@@ -129,19 +122,6 @@ const HeaderOverview = ({}: HeaderOverviewProps) => {
 
   const width = useResponsiveValue([100, 120, 150])
   const coinRef = useRef()
-
-  const dimensions = useWindowResize()
-
-  useEffect(() => {
-    if (showTutorial) {
-      // coinRef?.current?.getBoundingClientRect()
-      coinRef.current?.measure((width, height, px, py, fx, fy) => {
-        const location = { fx, fy, px, py, width, height }
-
-        dispatch(SettingActions.setTutorialLocation(location))
-      })
-    }
-  }, [dimensions, balance, showTutorial, username])
 
   useEffect(() => {
     refetch
