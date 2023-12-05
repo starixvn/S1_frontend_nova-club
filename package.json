@@ -50,7 +50,7 @@
     "codepush:ios:soft": "cd apps/expo && yarn codepush:ios:soft",
     "codepush:android:soft": "cd apps/expo && yarn codepush:android:soft",
     "git:branch:local": "git branch --merged | grep -v master",
-    "git:branch": "git branch -r --merged | sed 's/origin\///' | grep -v master",
+    "git:branch": "git branch -r --merged | sed 's/origin///' | grep -v master",
     "git:branch:sunarto": "yarn git:branch | grep /sunarto",
     "git:branch:delete-local": "thisisforreference only ==> xargs -n 1 git branch -d",
     "git:branch:delete-origin": "thisisforreference only ==> xargs -n 1 git push --delete origin",

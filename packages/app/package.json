@@ -3,6 +3,7 @@
   "name": "app",
   "main": "index.ts",
   "dependencies": {
+    "@tolgee/react": "^5.16.0",
     "dayjs": "^1.11.7",
     "dripsy": "4.3.3",
     "expo-image-picker": "^14.1.1",

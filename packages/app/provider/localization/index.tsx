@@ -1,64 +1,122 @@
 import { I18n, Scope, TranslateOptions } from 'i18n-js'
-import React, { createContext, useContext, useMemo } from 'react'
-import { useAppSelector } from '../redux/store'
-import i18n from './i18n'
+import React from 'react'
 
-const LocalizationContext = createContext<{
-  t: (scope: Scope, options?: TranslateOptions) => string
-}>(null)
+import {
+  TolgeeProvider,
+  TolgeeStaticData,
+  TreeTranslationsData,
+  useTranslate,
+  DefaultParamType,
+  CombinedOptions,
+  TranslationKey,
+} from '@tolgee/react'
+import vi from 'app/assets/locales/vi.json'
+import { tolgee } from 'app/integrations/tolgee'
+import { localizationApi } from 'services/localizationApi'
+import { sleep } from 'utils/common'
+import { LANGUAGE_CODE, LANGUAGE_NAMESPACE } from 'utils/constant'
+import { store, useAppSelector } from '../redux/store'
 
 export type Translate = (scope: Scope, options?: TranslateOptions) => string
 
 interface LocalizationProviderProps {
   children: React.ReactNode
-  locale: string
+  locale: LANGUAGE_CODE
   module?: string
   i18n: I18n
 }
 
+export function getLanguageFetcher(
+  locale: LANGUAGE_CODE,
+  namespace: LANGUAGE_NAMESPACE,
+  fallbackTranslation: TreeTranslationsData
+) {
+  return async () => {
+    // This is to ensure redux provider run 1 frame first before executing api
+    await sleep(0)
+    try {
+      const resp = await store
+        .dispatch(
+          localizationApi.endpoints.translations.initiate({
+            locale,
+            namespace,
+          })
+        )
+        .unwrap()
+
+      return resp[locale]
+    } catch (e) {
+      console.log('Failed to get language', e)
+      return fallbackTranslation
+    }
+  }
+}
+
+export function prepareTolgeeStaticDataByNamespace(
+  namespace: LANGUAGE_NAMESPACE,
+  fallbackTranslation: TreeTranslationsData
+): TolgeeStaticData {
+  const staticData = {}
+
+  Object.values(LANGUAGE_CODE).forEach((locale) => {
+    staticData[`${locale}:${namespace}`] = getLanguageFetcher(
+      locale,
+      namespace,
+      fallbackTranslation
+    )
+  })
+
+  return staticData
+}
+
+tolgee.addStaticData(
+  prepareTolgeeStaticDataByNamespace(LANGUAGE_NAMESPACE.MEMBER, vi)
+)
 export const LocalizationProvider: React.FC<LocalizationProviderProps> = ({
   children,
-  locale,
-  i18n,
-  module,
 }) => {
-  const localizationContext = useMemo(
-    () => ({
-      t: (scope: Scope = '', options?: TranslateOptions) =>
-        i18n.translate(module ? `${module}.${scope}` : scope, {
-          locale,
-          ...options,
-        }),
-    }),
-    [locale, i18n]
-  )
+  return <TolgeeProvider tolgee={tolgee}>{children}</TolgeeProvider>
+}
 
-  return (
-    <LocalizationContext.Provider value={localizationContext}>
-      {children}
-    </LocalizationContext.Provider>
-  )
+function useTolgeeTranslate(ns: LANGUAGE_NAMESPACE) {
+  const { t: tolgeeT } = useTranslate(ns)
+
+  const t = (
+    key: TranslationKey,
+    placeholders?: CombinedOptions<DefaultParamType>
+  ) => {
+    return tolgeeT(
+      key,
+      ' ', // render empty string if no translation available / while being downloaded
+      placeholders
+    )
+  }
+
+  return { t }
 }
 
 export default function useLocalization() {
-  return useContext(LocalizationContext)
+  return useTolgeeTranslate(LANGUAGE_NAMESPACE.MEMBER)
 }
 
 export function useAgentLocalization() {
-  const { t } = useLocalization()
-
-  return {
-    t: (scope: Scope, options?: TranslateOptions) =>
-      t(`agent.${scope}`, { ...options }),
-  }
+  return useTolgeeTranslate(LANGUAGE_NAMESPACE.AGENT)
 }
 
 export const LocalizationProviderRedux = ({ children }) => {
   const locale = useAppSelector((s) => s.setting.locale)
+  if (!tolgee.isRunning()) {
+    tolgee.changeLanguage(locale) // load initial language
+  }
 
   return (
-    <LocalizationProvider locale={locale} i18n={i18n}>
+    <TolgeeProvider
+      tolgee={tolgee}
+      options={{
+        useSuspense: false, // prevents render blocking before tolgee done downloading translation
+      }}
+    >
       {children}
-    </LocalizationProvider>
+    </TolgeeProvider>
   )
 }

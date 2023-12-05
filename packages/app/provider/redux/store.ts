@@ -23,6 +23,7 @@ import { Setting, settingReducer } from 'app/store/setting.slice'
 import { baseApi } from '../../../services/baseApi'
 import { storage } from './persistStorage/index'
 import agentAuthReducer from 'agent/store/agentAuthReducer'
+import { localizationApi } from 'services/localizationApi'
 
 const migrations = {
   6: (s: PersistedState) => {},
@@ -65,11 +66,16 @@ const persistConfig: PersistConfig<any> = {
   ],
 }
 
-const middlerwares = [baseApi.middleware, agentBaseApi.middleware]
+const middlerwares = [
+  baseApi.middleware,
+  agentBaseApi.middleware,
+  localizationApi.middleware,
+]
 
 const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
   [agentBaseApi.reducerPath]: agentBaseApi.reducer,
+  [localizationApi.reducerPath]: localizationApi.reducer,
   // alert: alertReducer,
   auth: authReducer,
   // bank: bankReducer,

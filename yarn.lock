@@ -5680,6 +5680,33 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tolgee/core@npm:5.16.0":
+  version: 5.16.0
+  resolution: "@tolgee/core@npm:5.16.0"
+  checksum: 9994d30d07fcb63f5cf79249e28b32d7881dce535730390f673c0875d3fd15b196ef79e0ddabf158a6fab41dd43582e4696ca4c5a38ea4119f63007a87e69e90
+  languageName: node
+  linkType: hard
+
+"@tolgee/react@npm:^5.16.0":
+  version: 5.16.0
+  resolution: "@tolgee/react@npm:5.16.0"
+  dependencies:
+    "@tolgee/web": 5.16.0
+  peerDependencies:
+    react: ^16.14.0 || ^17.0.1 || ^18.1.0
+  checksum: 8f31d59ad2042d7cc57603d3e45b0c2ccafc38efc742a605ef8f4fcd869b28473c250d1fd0633098d04f6c08b980f6182665380844d847ec3b74ec570feaad94
+  languageName: node
+  linkType: hard
+
+"@tolgee/web@npm:5.16.0":
+  version: 5.16.0
+  resolution: "@tolgee/web@npm:5.16.0"
+  dependencies:
+    "@tolgee/core": 5.16.0
+  checksum: 94837c6f307ebf8e7ed426a659e7d73106b1b62469be910162ab8aa8c9193bd32eeec4856dfd587aef926eaecbebdef17de42039dfefeaec639203b533dde8a4
+  languageName: node
+  linkType: hard
+
 "@tootallnate/once@npm:2":
   version: 2.0.0
   resolution: "@tootallnate/once@npm:2.0.0"
@@ -6544,6 +6571,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "app@workspace:packages/app"
   dependencies:
+    "@tolgee/react": ^5.16.0
     dayjs: ^1.11.7
     dripsy: 4.3.3
     expo-image-picker: ^14.1.1
