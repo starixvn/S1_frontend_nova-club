@@ -1,9 +1,11 @@
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
+  ClaimEventCoinResult,
   Coin,
   CoinRedemptionList,
   DailyCoinSettingResult,
+  EligibleEventCoin,
   RedemptionResult,
 } from './rewardApi.type'
 
@@ -61,6 +63,20 @@ export const rewardApi = baseApiWithTag.injectEndpoints({
         }
       },
     }),
+    getEligibleEventCoin: builder.query<IResponse<EligibleEventCoin>, void>({
+      query: () => ({
+        url: `/player_api/getEligibleEventCoin`,
+      }),
+    }),
+    claimEventCoin: builder.mutation<IResponse<ClaimEventCoinResult>, string>({
+      query: (event_code) => ({
+        url: `/player_api/claimEventCoin`,
+        data: {
+          event_code,
+        },
+      }),
+      invalidatesTags: ['CheckInProgress', 'Coin'],
+    }),
   }),
 })
 
@@ -70,4 +86,6 @@ export const {
   useGetCoinRedemptionListQuery,
   useCheckInDailyCoinMutation,
   useGetDailyCoinQuery,
+  useLazyGetEligibleEventCoinQuery,
+  useClaimEventCoinMutation,
 } = rewardApi

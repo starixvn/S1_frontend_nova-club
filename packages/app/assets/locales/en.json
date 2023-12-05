@@ -587,6 +587,21 @@
         "tnc2": "The value shows is your prizes.",
         "tnc3": "Coin will be deducted for every Angpao open."
       },
+      "christmas": {
+        "eventTitle": "CHRISTMAS GIVEAWAY",
+        "period": "Campaign Period: 01-31/12/2023",
+        "how": "How To Redeem",
+        "tnc": {
+          "n1": "Vui Coin is given randomly to lucky members.",
+          "n2": "Lucky members will see the pop up message instantly after login.",
+          "n3": "Vui Coin will be credited to player's wallet after redeem.",
+          "n4": "Player can use the Vui Coin at MY REWARDS HUB.",
+          "n5": "Bonus in MY REWARDS HUB is subject to 1x rollover before the withdrawal.",
+          "n6": "Vui123 reserves the right to amend or withdraw the event at any time.",
+          "n7": "Vui123 is the sole arbiter of the event and its decision is final.",
+          "n8": "Vui123 Standards Terms & Conditions apply."
+        }
+      },
       "dailyCheckIn": {
         "tnc1": "Check in daily to earn Vui Coin",
         "tnc2": "Deposit 100k VND for 1 check in token",

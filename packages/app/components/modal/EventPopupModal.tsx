@@ -16,12 +16,18 @@ import { useBannerQuery } from 'services/contentApi'
 import { useRouter } from 'solito/router'
 import Image from '../common/Image'
 import TouchableOpacity from '../pressable/TouchableOpacity'
+import { TempSettingActions } from 'app/store/tempSetting.slice'
 dayjs.extend(isBetween)
 
 const EventPopupModal = ({ modal: { closeModal } }) => {
-  const { data } = useBannerQuery()
-  const popUpBanner =
-    data?.filter((el) => el.banner_display_page === 'popup') ?? []
+  const { popUpBanner } = useBannerQuery(undefined, {
+    selectFromResult: (d) => {
+      return {
+        popUpBanner: d.data?.filter((el) => el.banner_display_page === 'popup'),
+        ...d,
+      }
+    },
+  })
 
   const { width, height } = useContainerDimension()
   const [isLoading, setLoading] = useState(true)
@@ -39,6 +45,10 @@ const EventPopupModal = ({ modal: { closeModal } }) => {
 
   useEffect(() => {
     dispatch(SettingActions.toggleRewardPopupSwitch())
+
+    return () => {
+      dispatch(TempSettingActions.toggleTriggerPopupChristmasEvent(true))
+    }
   }, [])
 
   const onPressCallback = useCallback(() => {

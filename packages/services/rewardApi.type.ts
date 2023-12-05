@@ -29,3 +29,16 @@ export interface Coin {
 }
 
 export type CoinRedemptionList = RowData<CoinRedemptionRow>
+
+export interface EligibleEventCoin {
+  list: EventCode[]
+}
+
+export interface ClaimEventCoinResult {
+  event_code: string
+  coin_amount: string
+}
+
+interface EventCode {
+  event_code: string
+}

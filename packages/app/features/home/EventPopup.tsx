@@ -1,33 +1,108 @@
 import { useAppSelector } from 'app/provider/redux/store'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import { useDispatch } from 'react-redux'
 import { useBannerQuery } from 'services/contentApi'
+import { useLazyGetEligibleEventCoinQuery } from 'services/rewardApi'
 
 const EventPopup = () => {
   const dispatch = useDispatch()
   const { openModal } = useModal()
 
-  const { data } = useBannerQuery()
-  const popUpBanner =
-    data?.filter((el) => el.banner_display_page === 'popup') ?? []
+  const { popUpBanner, isSuccess, isError } = useBannerQuery(undefined, {
+    selectFromResult: (d) => {
+      return {
+        popUpBanner:
+          d.data?.filter((el) => el.banner_display_page === 'popup') ?? [],
+        ...d,
+      }
+    },
+  })
+
+  const [getEligibleEventCoin] = useLazyGetEligibleEventCoinQuery()
 
   const isLoggedIn = useAppSelector((s) => !!s.auth.info)
   const showPopup = useAppSelector((s) => s.tempSetting.triggerPopupEvent)
+  const showChristmasPopup = useAppSelector(
+    (s) => s.tempSetting.triggerPopupChristmasEvent
+  )
+  const isChristmasPopUpTriggered = useAppSelector(
+    (s) => s.tempSetting.isChristmasPopUpTriggered
+  )
+  const [eligibleChristmasEvent, setEligibleChristmasEvent] = useState(false)
+
+  const CheckEligibleEventCoin = async () => {
+    try {
+      const { success, data } = await getEligibleEventCoin().unwrap()
+
+      if (success && data) {
+        const isChristmasEvent = data.list?.some((e) => {
+          return e.event_code === 'upload2'
+        })
+
+        if (isChristmasEvent) {
+          setEligibleChristmasEvent(true)
+        }
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   useEffect(() => {
-    const setTimeoutId = setTimeout(() => {
-      if (isLoggedIn && showPopup && popUpBanner.length > 0) {
-        openModal('EventPopupModal')
-        dispatch(TempSettingActions.toggleTriggerPopupEvent(false))
-      }
-    }, 500)
+    if (isLoggedIn && !isChristmasPopUpTriggered) CheckEligibleEventCoin()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoggedIn, isChristmasPopUpTriggered])
 
-    return () => {
-      clearTimeout(setTimeoutId)
+  useEffect(() => {
+    if (
+      (isSuccess || isError) &&
+      popUpBanner.length === 0 &&
+      !isChristmasPopUpTriggered
+    ) {
+      // trigger xmas pop up if no popupBanner to sequence
+      dispatch(TempSettingActions.toggleTriggerPopupChristmasEvent(true))
     }
-  }, [isLoggedIn, showPopup, popUpBanner])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess, isError, isChristmasPopUpTriggered])
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      if (showPopup && popUpBanner.length > 0) {
+        const setTimeoutId = setTimeout(() => {
+          openModal('EventPopupModal')
+          dispatch(TempSettingActions.toggleTriggerPopupEvent(false))
+        }, 500)
+
+        return () => {
+          clearTimeout(setTimeoutId)
+        }
+      }
+
+      // showChristmasPopup will be true after EventPopupModal has been closed
+      // or when popUpBanner length is 0
+      else if (
+        showChristmasPopup &&
+        eligibleChristmasEvent &&
+        !isChristmasPopUpTriggered
+      ) {
+        openModal('ChristmasGiftModal')
+        dispatch(TempSettingActions.toggleTriggerPopupChristmasEvent(false))
+      }
+    } else if (eligibleChristmasEvent) {
+      // on APP, HomeScreen does not recreate, so once true for previous member,
+      // another member have to set back to false
+      setEligibleChristmasEvent(false)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    isLoggedIn,
+    showPopup,
+    popUpBanner,
+    showChristmasPopup,
+    isChristmasPopUpTriggered,
+  ])
 
   return <></>
 }

@@ -588,6 +588,21 @@
         "tnc2": "Giải thưởng của bạn là giá trị của bao.",
         "tnc3": "Xu sẽ bị trừ sau mỗi lần bạn mở bao."
       },
+      "christmas": {
+        "eventTitle": "VUI GIÁNG SINH, RINH QUÀ KHỦNG",
+        "period": "Thời gian khuyến mãi: 01-31/12/2023",
+        "how": "Cách nhận thưởng",
+        "tnc": {
+          "n1": "Xu Vui sẽ được phát ngẫu nhiên đến các thành viên may mắn.",
+          "n2": "Thành viên may mắn sẽ nhìn thấy ngay thông báo sau khi đăng nhập.",
+          "n3": "Xu Vui sẽ được chuyển đến ví thành viên sau khi thực hiện quy đổi.",
+          "n4": "Thành viên có thể sử dụng Xu Vui tại mục PHẦN THƯỞNG CỦA TÔI",
+          "n5": "Các khuyến cần trải qua 1 vòng cược trước khi rút.",
+          "n6": "Vui123 có quyền hoãn và hủy Khuyến Mãi bất cứ lúc nào.",
+          "n7": "Vui123 có quyền đưa ra quyết định duy nhất và quyết định của Vui123 là quyết định cuối cùng.",
+          "n8": "Điều Khoản & Điều Kiện Chung Vui123 áp dụng."
+        }
+      },
       "dailyCheckIn": {
         "tnc1": "Điểm danh mỗi ngày để kiếm Xu Vui",
         "tnc2": "Nạp 100k VND để nhận 1 token điểm danh",
