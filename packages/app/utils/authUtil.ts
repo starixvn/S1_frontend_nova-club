@@ -23,7 +23,7 @@ export async function LogOut({ isTokenExpired = false } = {}) {
     setTimeout(() => {
       // store.dispatch(contentApi.endpoints.getRecoMatch.initiate())
       store.dispatch(contentApi.endpoints.banner.initiate())
-      store.dispatch(contentApi.endpoints.getJackpotAmount.initiate())
+      // store.dispatch(contentApi.endpoints.getJackpotAmount.initiate())
     }, 3000)
   } catch (error) {
     console.error(error)

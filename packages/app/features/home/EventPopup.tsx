@@ -41,7 +41,7 @@ const EventPopup = () => {
       const { success, data } = await getEligibleEventCoin().unwrap()
 
       if (success && data) {
-        const isChristmasEvent = data.list.some((e) => {
+        const isChristmasEvent = data.list?.some((e) => {
           return e.event_code === 'upload2'
         })
 
@@ -94,6 +94,10 @@ const EventPopup = () => {
         openModal('ChristmasGiftModal')
         dispatch(TempSettingActions.toggleTriggerPopupChristmasEvent(false))
       }
+    } else if (eligibleChristmasEvent) {
+      // on APP, HomeScreen does not recreate, so once true for previous member,
+      // another member have to set back to false
+      setEligibleChristmasEvent(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
