@@ -94,6 +94,7 @@ const WithdrawalForm = ({ isCrypto, selectedChannel }: WithdrawalFormProps) => {
         />
       ) : (
         <SelectWithCardGrid
+          autoTranslate={false}
           label={isCrypto ? t('bank.walletAddress') : t('bank.bankAccount')}
           subtitle={values.bank?.BankName}
           placeholder={

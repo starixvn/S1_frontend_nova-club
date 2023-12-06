@@ -54,9 +54,9 @@ const TransferScreen = () => {
 
   const [index, setIndex] = useState<number>(getIndexFromTab(tab))
   const [routes] = useState([
-    { key: 'first', title: t('transfer.receive'), index: 0 },
-    { key: 'second', title: t('transfer.idTransfer'), index: 1 },
-    { key: 'third', title: t('transfer.qrTransfer'), index: 2 },
+    { key: 'first', title: 'transfer.receive', index: 0 },
+    { key: 'second', title: 'transfer.idTransfer', index: 1 },
+    { key: 'third', title: 'transfer.qrTransfer', index: 2 },
   ])
 
   const RenderQRScanner = useCallback(() => {

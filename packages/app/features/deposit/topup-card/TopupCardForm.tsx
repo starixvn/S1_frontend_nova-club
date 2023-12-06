@@ -205,6 +205,7 @@ const TopupCardForm = () => {
           />
         ) : (
           <SelectWithCardGrid
+            autoTranslate={false}
             label={t('deposit.paymentMode')}
             placeholder={t('placeholder.paymentMode')}
             options={cardTypeList}

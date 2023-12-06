@@ -61,6 +61,7 @@ const AddBankAccountScreen = () => {
       <FormContainer>
         <RealNameForm formik={formik}>
           <SelectList
+            autoTranslate={false}
             isGrid
             label={t('bank.bank')}
             placeholder={t('placeholder.plsSelectBank')}

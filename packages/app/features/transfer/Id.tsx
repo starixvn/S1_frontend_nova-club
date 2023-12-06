@@ -209,7 +209,7 @@ const IdTransfer = ({ isIDTransfer = false }: { isIDTransfer?: boolean }) => {
   return (
     <FormContainer>
       <ScrollView>
-        <AvailableBalance label={t('transfer.transferableAmount')} isTransfer />
+        <AvailableBalance label={'transfer.transferableAmount'} isTransfer />
 
         <Input
           id="idTransfer"

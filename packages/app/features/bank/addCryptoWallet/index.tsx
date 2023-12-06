@@ -60,6 +60,7 @@ const AddCryptoWalletScreen = () => {
       <FormContainer>
         <RealNameForm formik={formik}>
           <SelectList
+            autoTranslate={false}
             label={t('bank.channel')}
             placeholder={t('bank.selectChannel')}
             options={sheetData}
