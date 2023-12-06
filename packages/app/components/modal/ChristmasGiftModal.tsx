@@ -19,6 +19,7 @@ import { useClaimEventCoinMutation } from 'services/rewardApi'
 import { IResponse } from 'services/common/types'
 import { ClaimEventCoinResult } from 'services/rewardApi.type'
 import Icon from '../Icon'
+import { FONT_TOP_OFFSET } from 'app/constants/font'
 
 const list = [
   'rewards.tnc.christmas.tnc.n1',
@@ -94,23 +95,26 @@ const ChristmasGiftModal = ({ modal: { closeModal } }) => {
                     alignSelf: 'center',
                     position: 'absolute',
                     bottom: '30%',
+                    height: '16%',
                   }}
                 >
                   <View
                     sx={{
+                      flex: 1,
                       flexDirection: 'row',
                       justifyContent: 'center',
+                      alignItems: 'center',
                     }}
                   >
                     {amount ? (
                       <>
                         <Text
                           sx={{
+                            mt: FONT_TOP_OFFSET,
                             alignSelf: 'center',
-                            mr: 10,
-                            lineHeight: 30,
+                            mr: ['$1', '$1', '$2', '$2'],
                             fontWeight: 'bold',
-                            fontSize: 20,
+                            fontSize: [18, 18, 18, 22],
                           }}
                         >
                           {amount}
@@ -118,29 +122,15 @@ const ChristmasGiftModal = ({ modal: { closeModal } }) => {
                         <Image
                           source={require('app/assets/images/rewards/coin.png')}
                           style={{
+                            height: '70%',
                             width: 25,
-                            height: 25,
                           }}
                           resizeMode="contain"
                           alt=""
                         />
                       </>
                     ) : (
-                      <View
-                        sx={{
-                          position: 'absolute',
-                          width: '100%',
-                          height: '100%',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <ActivityIndicator
-                          size="large"
-                          color="$primary.100"
-                          sx={{ position: 'absolute' }}
-                        />
-                      </View>
+                      <ActivityIndicator color="$primary.100" />
                     )}
                   </View>
                   <Pressable onPress={gotoRewards}>
@@ -318,11 +308,11 @@ const ActionButton = ({ handleClose }: ActionButtonProps) => {
           })
         }
       >
-        <Icon name="tnc" size={30} />
+        <Icon name="tnc" size={27} />
       </Pressable>
 
       <Pressable onPress={handleClose}>
-        <Icon name="cross" size={30} />
+        <Icon name="cross" size={25} />
       </Pressable>
     </View>
   )
