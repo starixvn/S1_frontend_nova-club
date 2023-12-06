@@ -28,7 +28,7 @@ export default function TopGameCard({
   sx,
 }: TopGameCardProps) {
   const { t } = useLocalization()
-  const labelWidth = useResponsiveValue([60, 75])
+  const labelWidth = useResponsiveValue([70, 75])
   const [videoStatus, setVideoStatus] = useState(true)
 
   //backend declare that only mp4 for video
@@ -101,10 +101,9 @@ export default function TopGameCard({
               width: labelWidth,
               position: 'absolute',
               zIndex: 1,
-              px: [10, 12],
+              px: 12,
               aspectRatio: 1,
-              textAlign: 'center',
-              alignItems: 'flex-end',
+              alignItems: 'center',
               justifyContent: 'flex-end',
               ml: -labelWidth / 2,
               mt: -labelWidth / 2,
@@ -112,7 +111,15 @@ export default function TopGameCard({
               transform: [{ rotate: '315deg' }],
             }}
           >
-            <Text sx={{ fontSize: [7, 9] }}>{t('home.specialRebate')}</Text>
+            <Text
+              sx={{
+                fontSize: [8, 9],
+                textAlign: 'center',
+                lineHeight: 10,
+              }}
+            >
+              {t('home.specialRebate')}
+            </Text>
           </View>
         )}
       </View>

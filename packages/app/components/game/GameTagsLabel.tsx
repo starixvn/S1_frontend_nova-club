@@ -26,7 +26,6 @@ const GameTagsLabel = ({
         right: 0,
         backgroundColor: isNew ? theme?.colors?.$secondary?.[500] : 'red',
         paddingHorizontal: 4,
-        paddingVertical: 2,
         borderRadius: 5,
         top: -5,
         alignItems: 'center',
