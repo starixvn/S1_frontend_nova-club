@@ -108,9 +108,7 @@ const SelectWithDropdown = <T,>({
                             alt=""
                           />
                         )}
-                        <Text sx={{ p: 8 }}>
-                          {autoTranslate ? t(item.label) : item.label}
-                        </Text>
+                        <Text sx={{ p: 8 }}>{t(item.label)}</Text>
                       </Row>
                     </DropdownMenuItem>
                   )
