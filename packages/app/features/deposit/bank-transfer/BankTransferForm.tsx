@@ -202,7 +202,6 @@ const BankTransferForm = () => {
           />
         ) : (
           <SelectWithCardGrid
-            autoTranslate={false}
             label={t('bank.bankAccount')}
             placeholder={t('placeholder.plsSelectBank')}
             options={sheetData}

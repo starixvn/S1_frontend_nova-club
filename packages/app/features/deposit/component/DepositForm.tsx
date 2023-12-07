@@ -196,7 +196,6 @@ const DepositForm = ({ DepositCategoryId }) => {
           />
         ) : (
           <SelectList
-            autoTranslate={false}
             label={t('deposit.selectChannel')}
             placeholder={t('deposit.selectChannel')}
             value={channelOptions && channelOptions[selectedValues]?.value}

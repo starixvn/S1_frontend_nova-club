@@ -51,7 +51,6 @@ const FieldSelectBank = ({ field, isLoading, formik }: FieldBankProps) => {
         />
       ) : (
         <SelectWithCardGrid
-          autoTranslate={false}
           label={t('bank.bank')}
           placeholder={t('placeholder.plsSelectBank')}
           options={bankList}

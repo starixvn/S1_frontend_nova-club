@@ -320,7 +320,7 @@ const Select = <T,>(
                         flex: 0.6,
                       }}
                     >
-                      {autoTranslate ? t(item.label) : item.label}
+                      {t(item.label)}
                     </Text>
 
                     {limit && (
