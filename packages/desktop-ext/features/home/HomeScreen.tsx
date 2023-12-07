@@ -1,10 +1,9 @@
 import LazyIndicator from 'app/components/LazyIndicator'
 import AnnouncementSection from 'app/features/home/Announcement/AnnouncementSection'
 import BannerSection from 'app/features/home/BannerSection'
-import EventPopup from 'app/features/home/EventPopup'
 import HireBanner from 'app/features/home/HireBanner'
 import HireBannerSecond from 'app/features/home/HireBannerSecond'
-import LuckyDrawTrigger from 'app/features/home/LuckyDrawTrigger'
+import ModalTriggers from 'app/features/home/EventModal'
 import TopGameSection from 'app/features/home/TopGameSection'
 import withLazyLoad from 'app/hoc/withLazyLoad'
 import useShield from 'app/hooks/useShield'
@@ -13,7 +12,6 @@ import { TempSettingActions } from 'app/store/tempSetting.slice'
 import { Container, Row, View } from 'dripsy'
 import dynamic from 'next/dynamic'
 import React, { useEffect } from 'react'
-import { useModal } from 'react-native-modalfy'
 import { Shield_Action } from 'services/authApi.type'
 
 const DeferredSection = dynamic(() => import('./DeferredSection'), {
@@ -28,11 +26,6 @@ export default function HomeScreen() {
   const username = useAppSelector((s) => s.auth.info?.playerName)
   const syncShieldActionType = useAppSelector(
     (s) => s.tempSetting.syncShieldActionType
-  )
-  const { openModal, closeModal, currentModal } = useModal()
-  const luckyDrawBalance = useAppSelector((s) => s.setting.luckyDrawBalance)
-  const retentionDrawBalance = useAppSelector(
-    (s) => s.setting.retentionDrawBalance
   )
 
   const syncShieldStatus = useAppSelector(
@@ -77,45 +70,8 @@ export default function HomeScreen() {
     }
   }, [])
 
-  useEffect(() => {
-    let openLuckyDrawModalInstance: NodeJS.Timeout
-
-    if (luckyDrawBalance) {
-      if (currentModal === 'LuckyDrawModal') {
-        closeModal('LuckyDrawModal')
-      }
-
-      openLuckyDrawModalInstance = setTimeout(() => {
-        openModal('LuckyDrawModal')
-      }, 2000)
-    }
-
-    return () => {
-      clearTimeout(openLuckyDrawModalInstance)
-    }
-  }, [luckyDrawBalance])
-
-  useEffect(() => {
-    let openLuckyDrawModalInstance: NodeJS.Timeout
-
-    if (retentionDrawBalance) {
-      if (currentModal === 'RetentionDrawModal') {
-        closeModal('RetentionDrawModal')
-      }
-
-      openLuckyDrawModalInstance = setTimeout(() => {
-        openModal('RetentionDrawModal')
-      }, 2000)
-    }
-
-    return () => {
-      clearTimeout(openLuckyDrawModalInstance)
-    }
-  }, [retentionDrawBalance])
-
   return (
-    <View sx={{}}>
-      <LuckyDrawTrigger />
+    <View>
       <BannerSection />
       <Container sx={{ gap: '$sectionBottomSpace' }}>
         <View
@@ -138,7 +94,7 @@ export default function HomeScreen() {
         <TopGameSection />
         <LazyDeferredSection />
       </Container>
-      <EventPopup />
+      <ModalTriggers />
     </View>
   )
 }

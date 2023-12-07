@@ -7,17 +7,22 @@ import { useDispatch } from 'react-redux'
 import { useRetentionSpinMutation } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 import SpinDrawContent from './SpinDrawContent'
+import { useWindowDimensions } from 'react-native'
 
-const RetentionDrawModal = ({ modal: { closeModal } }) => {
+const RetentionDrawModal = ({ modal: { getParam } }) => {
+  const { closeModal } = useModal()
+
   const dispatch = useDispatch()
   const { push } = useRouter()
   const { showAlert } = useAlert()
-  const { closeModal: closeTargetModal } = useModal()
 
   const [spinRetentionWheel] = useRetentionSpinMutation()
   const retentionDrawBalance = useAppSelector(
     (s) => s.setting.retentionDrawBalance
   )
+
+  const { width: windowWidth, height } = useWindowDimensions()
+  const width = Math.min(650, windowWidth * 0.8)
 
   const targetIndex = useRef(0)
   const [startAnimate, setStartAnimate] = useState(false)
@@ -62,14 +67,14 @@ const RetentionDrawModal = ({ modal: { closeModal } }) => {
   }
 
   const handleClose = () => {
-    closeTargetModal('RetentionDrawModal')
-    // closeTargetModal('RegisterModal')
+    closeModal()
+
     retentionDrawBalance > 0 &&
       dispatch(SettingActions.setRetentionDrawBalance(0))
   }
 
   const handleNavigateTnc = () => {
-    closeTargetModal('RetentionDrawModal')
+    closeModal()
     push('/retention-spin-tnc')
   }
 
@@ -107,6 +112,7 @@ const RetentionDrawModal = ({ modal: { closeModal } }) => {
       onClose={handleClose}
       onSpin={retentionSpin}
       onTnc={handleNavigateTnc}
+      dimension={{ width, height }}
     />
   )
 }

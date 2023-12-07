@@ -3,6 +3,7 @@ import LoadingModal from 'app/components/modal/LoadingModal'
 import { ActionsProps } from 'app/components/modal/ModalContent'
 import ModalWrapper from 'app/components/modal/ModalWrapper'
 import { LoginType } from 'app/features/auth/AuthLayout'
+import { HomeEventModalData } from 'app/features/home/EventModal/HomeEventModal'
 import { ActivityIndicator, useResponsiveValue } from 'dripsy'
 import dynamic from 'next/dynamic'
 import React from 'react'
@@ -70,8 +71,6 @@ type DefaultModalStackParams = {
   ForgotPasswordModal: {
     t: LoginType
   }
-  EventPopupModal: undefined
-  ChristmasGiftModal: undefined
   HalloweenWinModal: undefined
   DepositQrModal: { qrCode: string }
   DailyCheckInModal: undefined
@@ -85,6 +84,9 @@ type DefaultModalStackParams = {
     actions: ActionsProps[]
     message: string
     isShowHeader: boolean
+  }
+  HomeEventModal: {
+    data: HomeEventModalData[]
   }
 }
 
@@ -139,8 +141,6 @@ const _dynamicModal: Record<keyof ModalStackParams, () => Promise<any>> = {
   RetentionDrawModal: () => import('app/components/modal/RetentionDrawModal'),
   ForgotPasswordModal: () =>
     import('desktop-ext/features/auth/forgotPassword/ForgotPasswordScreen'),
-  EventPopupModal: () => import('app/components/modal/EventPopupModal'),
-  ChristmasGiftModal: () => import('app/components/modal/ChristmasGiftModal'),
   DepositQrModal: () => import('app/components/modal/DepositQrModal'),
   DailyCheckInModal: () => import('app/components/modal/DailyCheckInModal'),
   RewardGameModal: () => import('app/components/modal/RewardGameModal'),
@@ -148,6 +148,7 @@ const _dynamicModal: Record<keyof ModalStackParams, () => Promise<any>> = {
   ActionableModal: () => import('app/components/modal/ActionableModal'),
   HalloweenWinModal: () =>
     import('app/features/event/halloween/HalloweenWinModal'),
+  HomeEventModal: () => import('app/features/home/EventModal/HomeEventModal'),
 }
 
 function getDynamicComponent(key: DynamicModalType) {
@@ -222,12 +223,6 @@ const modalConfig: ModalConfigType = {
     modal: getDynamicComponent('ForgotPasswordModal'),
     backBehavior: 'none',
   },
-  EventPopupModal: {
-    modal: getDynamicComponent('EventPopupModal'),
-  },
-  ChristmasGiftModal: {
-    modal: getDynamicComponent('ChristmasGiftModal'),
-  },
   DepositQrModal: {
     modal: getDynamicComponent('DepositQrModal'),
   },
@@ -246,6 +241,10 @@ const modalConfig: ModalConfigType = {
   HalloweenWinModal: {
     modal: getDynamicComponent('HalloweenWinModal'),
   },
+  HomeEventModal: {
+    modal: getDynamicComponent('HomeEventModal'),
+    transitionOptions: (animatedValue) => ({}),
+  },
   ...agentModalConfig,
 }
 
@@ -259,15 +258,20 @@ const ModalProvider = ({ children }) => {
     backBehavior: 'pop',
     disableFlingGesture: true,
     transitionOptions: (animatedValue) => ({
-      opacity: animatedValue.interpolate({
-        inputRange: [0, 1, 2],
-        outputRange: [0, 1, 0.9],
-      }),
       transform: [
+        {
+          perspective: 2000,
+        },
+        {
+          translateX: animatedValue.interpolate({
+            inputRange: [0, 1, 2],
+            outputRange: [0, 0, 30],
+          }),
+        },
         {
           scale: animatedValue.interpolate({
             inputRange: [0, 1, 2],
-            outputRange: [0.01, 1, 0.01],
+            outputRange: [1.2, 1, 0.8],
           }),
         },
       ],

@@ -1,5 +1,4 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import useContainerDimension from 'app/hooks/useContainerDimension'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
@@ -7,53 +6,38 @@ import {
   PopupMapping,
   getCarouselBannerActionGenerator,
 } from 'app/utils/carouselBannerActionGenerator'
-import dayjs from 'dayjs'
-import isBetween from 'dayjs/plugin/isBetween'
-import { ActivityIndicator, ScrollView, View } from 'dripsy'
-import React, { useCallback, useEffect, useState } from 'react'
+import { ActivityIndicator, Image, Pressable, ScrollView, View } from 'dripsy'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
-import { useBannerQuery } from 'services/contentApi'
+import { BannerItem } from 'services/contentApi.type'
 import { useRouter } from 'solito/router'
-import Image from '../common/Image'
-import TouchableOpacity from '../pressable/TouchableOpacity'
-import { TempSettingActions } from 'app/store/tempSetting.slice'
-dayjs.extend(isBetween)
+import { useHomeEventModal } from '../../HomeEventModal'
 
-const EventPopupModal = ({ modal: { closeModal } }) => {
-  const { popUpBanner } = useBannerQuery(undefined, {
-    selectFromResult: (d) => {
-      return {
-        popUpBanner: d.data?.filter((el) => el.banner_display_page === 'popup'),
-        ...d,
-      }
-    },
-  })
+type Props = {
+  data: BannerItem
+}
 
-  const { width, height } = useContainerDimension()
+export default function Content({ data }: Props) {
+  const { width, height } = useHomeEventModal().dimension
   const [isLoading, setLoading] = useState(true)
+  const { openModal, closeModal } = useModal()
+
+  const callbackRef = useRef<() => void>()
 
   const { push } = useRouter()
-  const { openModal } = useModal()
   const desktop = useIsDesktop()
-  const dispatch = useAppDispatch()
   const locale = useAppSelector((s) => s.setting.locale)
-  const agentToken = useAppSelector((s) => s.agent.access_token)
-  const rewardPopup = useAppSelector((s) => s.setting.rewardPopup)
 
-  const bannerSeq = rewardPopup % popUpBanner?.length
-  const banner = popUpBanner.find((el, index) => index === bannerSeq)
+  const banner = data
 
   useEffect(() => {
-    dispatch(SettingActions.toggleRewardPopupSwitch())
-
     return () => {
-      dispatch(TempSettingActions.toggleTriggerPopupChristmasEvent(true))
+      callbackRef.current?.()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const onPressCallback = useCallback(() => {
-    closeModal()
-
     const mappedBannerAction = PopupMapping.find(
       (el) => el.url === banner?.banner_url
     )
@@ -78,17 +62,18 @@ const EventPopupModal = ({ modal: { closeModal } }) => {
       actionType
     )
 
-    if (desktop && banner?.banner_url === '/rewards/daily')
-      push('/rewards/redeem/list')
+    callbackRef.current = () => action({ push, locale, openModal })
 
-    setTimeout(() => {
-      action({ push, locale, openModal })
-    }, 500)
+    if (desktop && banner?.banner_url === '/rewards/daily') {
+      push('/rewards/redeem/list')
+    } else {
+      closeModal()
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [banner?.banner_url])
 
-  const imageWidth = Math.min(380, width * 0.7)
+  const imageWidth = Math.min(450, width * 0.95)
   const imageHeight = imageWidth / (800 / 1100)
 
   return (
@@ -98,7 +83,7 @@ const EventPopupModal = ({ modal: { closeModal } }) => {
       }}
     >
       <ScrollView bounces={false}>
-        <TouchableOpacity
+        <Pressable
           onPress={onPressCallback}
           sx={{
             width: imageWidth,
@@ -138,10 +123,8 @@ const EventPopupModal = ({ modal: { closeModal } }) => {
               </View>
             ) : null}
           </>
-        </TouchableOpacity>
+        </Pressable>
       </ScrollView>
     </View>
   )
 }
-
-export default EventPopupModal
