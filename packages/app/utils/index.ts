@@ -8,6 +8,7 @@ import {
   CURRENCY_TO_LANGUAGE,
   Currency,
   LANGUAGE_CODE,
+  LANGUAGE_NAMESPACE,
 } from 'utils/constant'
 /**
  * `expo-clipboard` version 2.1.1 is used due to v3 above need Expo SDK45
@@ -28,6 +29,7 @@ export async function copyToClipboard(
       type: 'success',
       text1: tolgee.t('common.copied', {
         locale: store.getState().setting.locale,
+        ns: LANGUAGE_NAMESPACE.MEMBER,
       }),
     })
   } catch (error) {
