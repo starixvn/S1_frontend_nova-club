@@ -19,9 +19,11 @@ const defaultPrize: MysteryEventPrize = { amt: '0', min: '0', max: '0' }
 const Prize = ({ width, type = 'grand', prize }: PrizeProps) => {
   const { t } = useLocalization()
   const { currency } = usePlayerProfileQuery()
-  const [prevPrize, setPrevPrize] = useState(500000)
+  const [prevPrize, setPrevPrize] = useState<number>()
 
   const randomInterval = Math.floor(Math.random() * (7 - 3 + 1) + 3)
+
+  const prizeAmount = Number(prize.amt)
 
   let boardImage
   let textShadowColor
@@ -78,35 +80,26 @@ const Prize = ({ width, type = 'grand', prize }: PrizeProps) => {
           <Text>{t(typeText)}</Text>
           {prize && (
             <>
-              <Text
-                sx={{
-                  my: '$1',
-                  fontWeight: 'bold',
-                  fontSize: [18, 20],
-                  textShadowColor,
-                  textShadowOffset: { width: 0, height: 0 },
-                  textShadowRadius: 12,
-                }}
-              >
-                {`VND `}
+              <PrizeText textShadowColor={textShadowColor}>
                 <CountUp
                   key={prize.amt}
                   isCounting
-                  start={prevPrize}
-                  end={Number(prize.amt)}
+                  start={prevPrize ? prevPrize : prizeAmount}
+                  end={prizeAmount}
                   duration={randomInterval}
                   easing="easeOutCubic"
                   thousandsSeparator=","
-                  onComplete={() => setPrevPrize(Number(prize.amt))}
+                  onComplete={() => setPrevPrize(prizeAmount)}
                 />
-              </Text>
+                {` VND`}
+              </PrizeText>
 
               <SmallText>{t('event.mystery.hitRange')}:</SmallText>
-              <SmallText>{`VND ${toThousandSeparator(
+              <SmallText>{`${toThousandSeparator(
                 prize.min.toString()
-              )} - VND ${toThousandSeparator(
+              )} VND - ${toThousandSeparator(
                 prize.max.toString()
-              )}`}</SmallText>
+              )} VND`}</SmallText>
             </>
           )}
         </View>
@@ -114,6 +107,19 @@ const Prize = ({ width, type = 'grand', prize }: PrizeProps) => {
     </View>
   )
 }
+
+const PrizeText = styled(Text)(
+  ({ textShadowColor }: { textShadowColor: string }) => ({
+    my: '$1',
+    fontWeight: 'bold',
+    fontSize: [18, 20],
+    textShadowColor,
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 12,
+    fontFamily: 'arial',
+    fontVariant: 'tabular-nums',
+  })
+)
 
 const SmallText = styled(Text)({
   fontSize: 10,

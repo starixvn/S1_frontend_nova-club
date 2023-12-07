@@ -1,17 +1,15 @@
 import { AssetBasePath } from '@games/config'
 import { Container, Sprite, Text } from '@pixi/react'
+import { TextStyle } from 'pixi.js'
+import { useWindowSize } from 'utils-pixi/resize/ResizeProvider'
 import { GamePackageName } from '../config'
 import GameBox from './GameBox'
-import { useWindowSize } from 'utils-pixi/resize/ResizeProvider'
-import { TextStyle } from 'pixi.js'
-import NiceModal from '@ebay/nice-modal-react'
-import WinModal from './WinModal'
 
 const GameBody = () => {
   const { width, height } = useWindowSize()
 
   return (
-    <Container x={width * 0.5} y={height * 0.2}>
+    <Container x={width * 0.5} y={height * 0.125}>
       <Container>
         <Sprite
           anchor={{ x: 0.5, y: 0 }}

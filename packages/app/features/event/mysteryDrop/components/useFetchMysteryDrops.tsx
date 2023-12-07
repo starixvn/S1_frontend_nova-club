@@ -13,10 +13,9 @@ const useFetchMysteryDrops = () => {
   const miniPrize = (data && data[1]) ?? defaultPrize
   const majorPrize = (data && data[2]) ?? defaultPrize
   const grandPrize = (data && data[3]) ?? defaultPrize
-  const _jackpot = data
+  const jackpot = data
     ? Number(miniPrize.amt) + Number(majorPrize.amt) + Number(grandPrize.amt)
-    : 0
-  const jackpot = Number(_jackpot.toFixed(2))
+    : undefined
 
   return {
     miniPrize,

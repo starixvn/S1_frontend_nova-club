@@ -20,6 +20,7 @@ const CLOUD_INIT_X_2 = 600 * CLOUD_SCALE
 gsap.registerPlugin(PixiPlugin)
 PixiPlugin.registerPIXI(PIXI)
 
+const BASE_DURATION = 50
 export default function Background({}: Props) {
   const { width, height } = useWindowSize()
   const cloudRef1 = useRef<PixiRef<ISprite>>(null)
@@ -47,7 +48,7 @@ export default function Background({}: Props) {
       { x: -CLOUD_INIT_X_1 },
       {
         x: width,
-        duration: 15,
+        duration: BASE_DURATION + 5,
         repeat: -1,
         ease: 'none',
       }
@@ -57,7 +58,7 @@ export default function Background({}: Props) {
       { x: -CLOUD_INIT_X_2 },
       {
         x: width,
-        duration: 19,
+        duration: BASE_DURATION + 9,
         repeat: -1,
         ease: 'none',
         delay: 2,
@@ -68,7 +69,7 @@ export default function Background({}: Props) {
       { x: -CLOUD_INIT_X_2 },
       {
         x: width,
-        duration: 18,
+        duration: BASE_DURATION + 8,
         repeat: -1,
         ease: 'none',
         delay: 3,
@@ -80,10 +81,10 @@ export default function Background({}: Props) {
       {
         x: -CLOUD_INIT_X_2,
         y: '-=20px',
-        duration: 12,
+        duration: BASE_DURATION + 2,
         repeat: -1,
         ease: 'none',
-        delay: 1,
+        delay: 2,
       }
     )
     gsap.fromTo(
@@ -92,7 +93,7 @@ export default function Background({}: Props) {
       {
         x: -CLOUD_INIT_X_2,
         y: '-=20px',
-        duration: 15,
+        duration: BASE_DURATION + 5,
         repeat: -1,
         ease: 'none',
       }
@@ -116,16 +117,6 @@ export default function Background({}: Props) {
         yoyo: true,
       }
     )
-    gsap.to(moneyRef1.current, {
-      pixi: { alpha: 1, scale: 0.4 },
-      repeat: -1,
-      yoyo: true,
-    })
-    gsap.to(moneyRef2.current, {
-      pixi: { alpha: 1, scale: 0.6 },
-      repeat: -1,
-      yoyo: true,
-    })
   }
 
   useEffect(() => {
@@ -149,8 +140,8 @@ export default function Background({}: Props) {
         anchor={{ x: 0.5, y: 0.5 }}
         scale={0.3}
         image={`${AssetBasePath}/assets/${GamePackageName}/images/money01.png`}
-        position={{ x: width * 0.5 - 100, y: height * 0.75 }}
-        alpha={0.7}
+        position={{ x: width * 0.2, y: height * 0.85 }}
+        alpha={1}
       />
       <Sprite
         ref={cloudRef5}
@@ -177,7 +168,7 @@ export default function Background({}: Props) {
         ref={moneyRef2}
         anchor={{ x: 0.5, y: 0.5 }}
         scale={0.5}
-        alpha={0.7}
+        alpha={1}
         image={`${AssetBasePath}/assets/${GamePackageName}/images/money01.png`}
         position={{ x: width - 108, y: height - 50 }}
       />

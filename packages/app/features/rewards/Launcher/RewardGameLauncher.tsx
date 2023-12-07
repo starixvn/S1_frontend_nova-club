@@ -41,16 +41,14 @@ const RewardGameLauncher = () => {
     return
   }
 
-  const onBack = () => {
-    Platform.select({
-      web: () => {
-        replace('/')
-      },
-      default: () => {
-        back()
-      },
-    })
-  }
+  const onBack = Platform.select({
+    web: () => {
+      replace('/')
+    },
+    default: () => {
+      back()
+    },
+  })
 
   const onTokenExpired = () => {
     showAlert({

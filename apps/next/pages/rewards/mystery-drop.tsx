@@ -10,7 +10,7 @@ const LazyMobileScreen = dynamic(
   }
 )
 const LazyDesktopScreen = dynamic(
-  () => import('desktop-ext/features/event/MysteryDrops'),
+  () => import('desktop-ext/features/event/MysteryDropEvent'),
   {
     loading: () => <ActivityIndicator />,
     ssr: false,

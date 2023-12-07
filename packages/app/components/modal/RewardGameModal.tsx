@@ -113,6 +113,7 @@ const RewardGameModal = ({
           domainUrl={domainUrl}
           gameKey={gameKey}
           onTokenExpired={handleDismiss}
+          onEndGame={handleDismiss}
         />
       </View>
     </View>

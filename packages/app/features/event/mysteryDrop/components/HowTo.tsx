@@ -23,7 +23,10 @@ const HowTo = () => {
       <TitleText>{t('event.mystery.how.title')}</TitleText>
       <ListContainer>
         {HOW_LIST.map((item, index) => (
-          <Row key={index} sx={{ alignItems: 'center' }}>
+          <Row
+            key={index}
+            sx={{ alignItems: 'center', mb: index === 0 ? '$2' : 0 }}
+          >
             <SolitoImage
               src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/how${
                 index + 1
@@ -65,7 +68,7 @@ export const DesktopHowTo = () => {
 
             <View sx={{ alignItems: 'center' }}>
               <TextSubtitle>{t(item.title)}</TextSubtitle>
-              <TextNotes sx={{ textAlign: 'center', fontSize: 12 }}>
+              <TextNotes sx={{ textAlign: 'center' }}>
                 {t(item.notes)}
               </TextNotes>
             </View>
@@ -79,16 +82,17 @@ export const DesktopHowTo = () => {
 const ListContainer = styled(View)({
   bg: '$primary.500',
   borderRadius: 16,
-  pr: '$2',
+  pr: '$3',
   py: '$3',
   gap: 12,
 })
 const TextSubtitle = styled(Text)({
   fontSize: 18,
   fontWeight: 'bold',
+  mb: '$1',
 })
 const TextNotes = styled(Text)({
-  fontSize: 14,
+  fontSize: [14, 15],
   opacity: 0.5,
 })
 export default HowTo

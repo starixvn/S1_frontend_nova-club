@@ -9,14 +9,15 @@ import useFetchMysteryDrops from 'app/features/event/mysteryDrop/components/useF
 import { Container, Row, View } from 'dripsy'
 import React from 'react'
 
-const MysteryDrops = () => {
+const MysteryDropEvent = () => {
   const primaryPrizeWidth = 330
   const secondaryPrizeWidth = 300
 
-  const { miniPrize, majorPrize, grandPrize } = useFetchMysteryDrops()
+  const { miniPrize, majorPrize, grandPrize, jackpot } = useFetchMysteryDrops()
+
   return (
     <>
-      <JackpotPool />
+      <JackpotPool jackpot={jackpot} />
       <Container sx={{ gap: '$sectionBottomSpace', maxWidth: 1000 }}>
         <View>
           <View
@@ -57,4 +58,4 @@ const MysteryDrops = () => {
   )
 }
 
-export default MysteryDrops
+export default MysteryDropEvent

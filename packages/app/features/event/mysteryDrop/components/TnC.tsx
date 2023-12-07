@@ -15,7 +15,14 @@ const TnC = () => {
 
   return (
     <View sx={{ my: '$4' }}>
-      <TitleText sx={{ fontWeight: 'bold', py: '$1', textAlign: 'left' }}>
+      <TitleText
+        sx={{
+          fontWeight: 'bold',
+          py: '$1',
+          textAlign: 'left',
+          fontSize: [15, 18],
+        }}
+      >
         {t('event.mystery.tnc')}
       </TitleText>
 
@@ -54,7 +61,7 @@ const TnC = () => {
 }
 
 const StyledText = styled(Text)({
-  fontSize: [16, 14],
+  fontSize: [14, 15],
 })
 
 export default TnC

@@ -14,7 +14,7 @@ const BonusRow = (props: BonusRowProps) => {
 
   return (
     <View sx={{ mt: '$2', flex: 1 }}>
-      <Text sx={{ my: '$1' }}>{title}</Text>
+      {title && <Text sx={{ my: '$1' }}>{title}</Text>}
       <Row sx={{ alignItems: 'center' }}>
         {!!imageSrc && (
           <SolitoImage

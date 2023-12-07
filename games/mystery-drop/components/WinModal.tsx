@@ -17,7 +17,7 @@ export const WinModal = NiceModal.create(
     const modal = useModal()
     const width = window.innerWidth
     const height = window.innerHeight
-    const headWidth = width > 500 ? 500 : width
+    const headWidth = width > 500 ? 450 : width
     const AssetPath = `${AssetBasePath}/assets/mystery-drop/images`
     let prizeType
     let boardImage
@@ -43,9 +43,6 @@ export const WinModal = NiceModal.create(
     }
 
     const handleClose = () => {
-      onClose && onClose()
-      modal.remove()
-
       const payload = JSON.stringify({
         type: RewardPostMessageType.endGame,
       })
@@ -53,6 +50,9 @@ export const WinModal = NiceModal.create(
       if (window.ReactNativeWebView)
         window.ReactNativeWebView.postMessage(payload)
       else window.parent.postMessage(payload)
+
+      onClose && onClose()
+      modal.remove()
     }
 
     useEffect(() => {
@@ -87,7 +87,6 @@ export const WinModal = NiceModal.create(
           alignItems: 'center',
           justifyContent: 'center',
         }}
-        onClick={handleClose}
       >
         <div
           className="scale-in-center"
@@ -96,6 +95,7 @@ export const WinModal = NiceModal.create(
             alignItems: 'center',
             flexDirection: 'column',
           }}
+          onClick={handleClose}
         >
           <img
             className="light"
@@ -120,8 +120,8 @@ export const WinModal = NiceModal.create(
             <img
               src={`${AssetBasePath}/assets/shared/images/ic_cross.png`}
               alt=""
-              width={36}
-              height={36}
+              width={20}
+              height={20}
               onClick={handleClose}
             />
           </div>
@@ -148,7 +148,7 @@ export const WinModal = NiceModal.create(
                 flexDirection: 'column',
               }}
             >
-              <div style={{ color: 'white', fontSize: 20 }}>Bạn nhận được</div>
+              <div style={{ color: 'white', fontSize: 24 }}>Bạn nhận được</div>
               <h1
                 style={{
                   color: '#FFE200',

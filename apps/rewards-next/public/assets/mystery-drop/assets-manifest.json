@@ -2,7 +2,26 @@
   "bundles": [
     {
       "name": "default",
-      "assets": []
+      "assets": [
+        {
+          "name": "audio/bgm.mp3",
+          "srcs": [
+            "audio/bgm.mp3"
+          ]
+        },
+        {
+          "name": "audio/click.mp3",
+          "srcs": [
+            "audio/click.mp3"
+          ]
+        },
+        {
+          "name": "audio/win.mp3",
+          "srcs": [
+            "audio/win.mp3"
+          ]
+        }
+      ]
     },
     {
       "name": "images",

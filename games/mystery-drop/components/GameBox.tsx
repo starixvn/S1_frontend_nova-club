@@ -11,6 +11,7 @@ import {
   useGetMysteryCheckQuery,
   useSetMysteryClaimMutation,
 } from 'services/eventApi'
+import { sound } from '@pixi/sound'
 
 export const possibleResult = [1, 2, 3]
 
@@ -52,7 +53,7 @@ const GameBox = () => {
 
   const handleClick = (prizeAmount: number) => {
     result === prizeAmount && setPrizePress(prizePress + 1)
-    // sound.play('audio/click.mp3')
+    sound.play('audio/click.mp3')
   }
 
   const handleWin = () => {
@@ -60,10 +61,11 @@ const GameBox = () => {
       winPrize: data?.bonus,
       type: data?.prize,
     })
+    sound.stop('audio/bgm.mp3')
+    sound.play('audio/win.mp3')
   }
 
   const handleClaim = async () => {
-    console.log('data', data)
     const { data: claimData } = await claimReward({
       code: data?.key ?? '',
     })
@@ -75,7 +77,6 @@ const GameBox = () => {
 
   useEffect(() => {
     if (prizePress === 3) {
-      // sound.play('audio/win.mp3')
       setTimeout(() => {
         handleWin()
         setPrizePress(0)

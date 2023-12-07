@@ -43,7 +43,7 @@ const MysteryModal = ({ modal: { closeModal } }) => {
     }
   }
 
-  const containerWidth = useResponsiveValue([380])
+  const containerWidth = useResponsiveValue([Math.min(380, width * 0.9)])
   const containerHeight = containerWidth / (800 / 1100)
 
   useEffect(() => {
@@ -61,52 +61,45 @@ const MysteryModal = ({ modal: { closeModal } }) => {
       <View sx={{ alignItems: 'flex-end', pr: '$4' }}>
         <IconButton name="cross" onPress={() => closeModal()} />
       </View>
-      <TouchableOpacity
-        onPress={handlePress}
+      <View
         sx={{
           width: containerWidth,
           height: containerHeight,
           alignItems: 'center',
         }}
       >
-        <View
-          sx={{
-            width: '100%',
-            height: '100%',
-            alignItems: 'center',
+        <Image
+          source={{
+            uri: `${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/board-congrats-${lang}.png`,
           }}
-        >
+          sx={{ width: '100%', aspectRatio: 706 / 552, zIndex: 2 }}
+          alt=""
+        />
+        <View>
           <Image
             source={{
-              uri: `${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/board-congrats-${lang}.png`,
+              uri: `${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/board-body.png`,
             }}
-            sx={{ width: '100%', aspectRatio: 706 / 552, zIndex: 2 }}
+            sx={{
+              width: containerWidth * 0.9,
+              aspectRatio: 1000 / 717,
+              mt: -70,
+            }}
             alt=""
           />
-          <View>
-            <Image
-              source={{
-                uri: `${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/board-body.png`,
-              }}
-              sx={{
-                width: containerWidth * 0.9,
-                aspectRatio: 1000 / 717,
-                mt: -70,
-              }}
-              alt=""
-            />
-            <StyledTextContainer>
-              <Text sx={{ textAlign: 'center' }}>
-                {t('event.mystery.winContent')}
-              </Text>
-            </StyledTextContainer>
+          <StyledTextContainer>
+            <Text sx={{ textAlign: 'center', fontSize: 18, lineHeight: 28 }}>
+              {t('event.mystery.winContent')}
+            </Text>
+          </StyledTextContainer>
 
+          <TouchableOpacity onPress={handlePress}>
             <StyledButtonContainer>
               <Image
                 source={{
                   uri: `${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/board-button.png`,
                 }}
-                sx={{ width: containerWidth / 2, aspectRatio: 536 / 166 }}
+                sx={{ width: containerWidth / 3, aspectRatio: 536 / 166 }}
                 alt=""
               />
               <Text
@@ -119,9 +112,9 @@ const MysteryModal = ({ modal: { closeModal } }) => {
                 {t('common.open')}
               </Text>
             </StyledButtonContainer>
-          </View>
+          </TouchableOpacity>
         </View>
-      </TouchableOpacity>
+      </View>
     </View>
   )
 }
@@ -137,7 +130,7 @@ const StyledTextContainer = styled(View)({
 
 const StyledButtonContainer = styled(View)({
   position: 'absolute',
-  bottom: 20,
+  bottom: 40,
   left: 0,
   right: 0,
   alignItems: 'center',

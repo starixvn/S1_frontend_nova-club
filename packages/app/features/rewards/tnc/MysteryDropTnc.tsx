@@ -50,24 +50,26 @@ const MysteryDropTnc = () => {
           <BonusRow
             imageSrc={`${IMAGE_DOMAIN}/pot-red.png`}
             desc={`= ${t('rewards.tnc.mysteryDrop.grand')}`}
-            size={150}
+            size={90}
           />
 
           <BonusRow
             imageSrc={`${IMAGE_DOMAIN}/pot-blue.png`}
             desc={`= ${t('rewards.tnc.mysteryDrop.major')}`}
-            size={150}
+            size={90}
           />
 
           <BonusRow
             imageSrc={`${IMAGE_DOMAIN}/pot-green.png`}
             desc={`= ${t('rewards.tnc.mysteryDrop.mini')}`}
-            size={150}
+            size={90}
           />
         </View>
       </GenericContainer>
 
-      <Text sx={{ fontWeight: 'bold', fontSize: '$2' }}>{t('common.tnc')}</Text>
+      <Text sx={{ fontWeight: 'bold', fontSize: '$2', pt: '$3' }}>
+        {t('common.tnc')}
+      </Text>
       <GenericContainer list={tncList} />
     </ScrollView>
   )

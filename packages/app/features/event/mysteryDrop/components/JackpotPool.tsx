@@ -3,23 +3,17 @@ import useIsDesktop from 'app/hooks/useIsDesktop'
 import useWindowResize from 'app/hooks/useWindowResize'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { toThousandSeparator } from 'app/utils'
-import { Text, View, useResponsiveValue } from 'dripsy'
-import React, {
-  RefAttributes,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+import { Row, Text, View, styled, useResponsiveValue } from 'dripsy'
+import { MotiView } from 'moti'
+import React, { useMemo, useState } from 'react'
 import { SolitoImage } from 'solito/image'
 import { CountUp } from 'use-count-up'
-import useFetchMysteryDrops from './useFetchMysteryDrops'
-import { Easing, Image } from 'react-native'
-import { SolitoImageProps } from 'solito/build/image/image.types'
-import { MotiView } from 'moti'
 
-const JackpotPool = () => {
+type JackpotProp = {
+  jackpot: number | undefined
+}
+
+const JackpotPool = ({ jackpot }: JackpotProp) => {
   const { width } = useWindowResize()
   const isDesktop = useIsDesktop()
 
@@ -94,6 +88,7 @@ const JackpotPool = () => {
     ),
     []
   )
+
   return (
     <View sx={{ mb: '$4', position: 'relative' }}>
       <SolitoImage
@@ -116,19 +111,19 @@ const JackpotPool = () => {
           style={{ marginHorizontal: 'auto' }}
         />
 
-        <JackpotBoard />
+        <JackpotBoard jackpot={jackpot} />
       </View>
     </View>
   )
 }
 
-const JackpotBoard = () => {
+const JackpotBoard = ({ jackpot }: JackpotProp) => {
   const { t } = useLocalization()
   const { width } = useWindowResize()
   const jackpotWidth = useResponsiveValue([width - width * 0.1, 500])
-  const [prevPrize, setPrevPrize] = useState(0)
+  const [prevPrize, setPrevPrize] = useState<number>()
 
-  const { jackpot } = useFetchMysteryDrops()
+  const total = jackpot && Math.trunc(jackpot / 1000)
 
   return (
     <View
@@ -151,31 +146,37 @@ const JackpotBoard = () => {
         <Text sx={{ textAlign: 'center', fontWeight: 'bold', fontSize: 18 }}>
           {t('event.mystery.totalJackpot')}
         </Text>
-        <Text
-          adjustsFontSizeToFit
-          sx={{
-            textAlign: 'center',
-            fontSize: [28, 32, 36, 42],
-            color: 'yellow',
-            fontWeight: 'bold',
-            lineHeight: 40,
-          }}
-        >
-          {`VND `}
-          <CountUp
-            key={jackpot}
-            isCounting
-            start={prevPrize}
-            end={jackpot}
-            duration={3}
-            easing="easeOutCubic"
-            thousandsSeparator=","
-            onComplete={() => setPrevPrize(Number(jackpot))}
-          />
-        </Text>
+        {total && (
+          <Row sx={{ justifyContent: 'space-between' }}>
+            <JackpotText>
+              <CountUp
+                key={jackpot}
+                isCounting
+                start={prevPrize ? prevPrize : total}
+                end={total}
+                duration={3}
+                easing="easeOutCubic"
+                thousandsSeparator=","
+                onComplete={() => setPrevPrize(total)}
+              />
+              {',000'}
+            </JackpotText>
+            <JackpotText>{` VND`}</JackpotText>
+          </Row>
+        )}
       </View>
     </View>
   )
 }
+
+const JackpotText = styled(Text)({
+  textAlign: 'right',
+  fontSize: [28, 32, 36, 42],
+  color: 'yellow',
+  fontWeight: 'bold',
+  lineHeight: 40,
+  fontFamily: 'arial',
+  fontVariant: 'tabular-nums',
+})
 
 export default JackpotPool
