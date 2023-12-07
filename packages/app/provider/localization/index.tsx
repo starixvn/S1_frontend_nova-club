@@ -2,13 +2,13 @@ import { I18n, Scope, TranslateOptions } from 'i18n-js'
 import React from 'react'
 
 import {
+  CombinedOptions,
+  DefaultParamType,
   TolgeeProvider,
   TolgeeStaticData,
+  TranslationKey,
   TreeTranslationsData,
   useTranslate,
-  DefaultParamType,
-  CombinedOptions,
-  TranslationKey,
 } from '@tolgee/react'
 import vi from 'app/assets/locales/vi.json'
 import { tolgee } from 'app/integrations/tolgee'
@@ -72,14 +72,9 @@ export function prepareTolgeeStaticDataByNamespace(
 tolgee.addStaticData(
   prepareTolgeeStaticDataByNamespace(LANGUAGE_NAMESPACE.MEMBER, vi)
 )
-export const LocalizationProvider: React.FC<LocalizationProviderProps> = ({
-  children,
-}) => {
-  return <TolgeeProvider tolgee={tolgee}>{children}</TolgeeProvider>
-}
 
 function useTolgeeTranslate(ns: LANGUAGE_NAMESPACE) {
-  const { t: tolgeeT } = useTranslate(ns)
+  const { t: tolgeeT, isLoading } = useTranslate(ns)
 
   const t = (
     key: TranslationKey,
@@ -87,7 +82,7 @@ function useTolgeeTranslate(ns: LANGUAGE_NAMESPACE) {
   ) => {
     return tolgeeT(
       key,
-      ' ', // render empty string if no translation available / while being downloaded
+      isLoading ? ' ' : key, // render empty string if no translation available / while being downloaded
       placeholders
     )
   }
