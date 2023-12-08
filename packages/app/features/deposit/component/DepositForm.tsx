@@ -8,14 +8,13 @@ import useCheckMobile from 'app/hooks/useCheckMobile'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { toDisplayAmount } from 'app/utils'
-import { Currency } from 'utils/constant'
 import validation from 'app/utils/validation'
+import BankSelection from 'desktop-ext/features/withdrawal/components/BankSelection'
 import { Text, View } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import React, { useEffect, useState } from 'react'
 import { Linking, Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
-import { SelectOptions } from 'services/common/types'
 import {
   useDepositPaymentListQuery,
   useSubmitDepositMutation,
@@ -27,19 +26,15 @@ import {
 } from 'services/deposit.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
+import { Currency } from 'utils/constant'
 import * as Yup from 'yup'
+import useDepositFailedMessage from '../tools/useDepositFailedMessage'
 import FieldAmount from './FieldAmount'
 import FieldSelectBank from './FieldSelectBank'
 import MinMaxLimitDetail from './MinMaxLimitDetail'
-import useDepositFailedMessage from '../tools/useDepositFailedMessage'
-import InputLabel from 'app/components/form/InputLabel'
-import HorizontalSelectBankCardGrid from './HorizontalSelectBankCardGrid'
-import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
-import SelectLists from 'app/components/form/Select/SelectLists'
-import BankSelection from 'desktop-ext/features/withdrawal/components/BankSelection'
 
 export type DepositValues = {
-  bank: SelectOptions | null
+  bank: string | null
   selectedChannel: AutoBankItem | null
   amount: string
   realAmount: number
@@ -65,8 +60,8 @@ const DepositForm = ({ DepositCategoryId }) => {
     (el) => el.category_id === DepositCategoryId
   )
 
-  const channelOptions = depositPayment?.list.map(
-    (item: AutoBankItem, index: number) => {
+  const channelOptions =
+    depositPayment?.list.map((item: AutoBankItem, index: number) => {
       return {
         label:
           depositPayment.category_id === DepositPaymentMethodCategoryId.CRYPTO
@@ -77,12 +72,10 @@ const DepositForm = ({ DepositCategoryId }) => {
         icon: `${MEDIA_DOMAIN}${CMS_CONTENT_URI}/${item.account_icon}`,
         limit: { min: item.minDeposit, max: item.maxDeposit },
       }
-    }
-  )
+    }) ?? []
 
   const [selectedValues, setSelectedValues] = useState(0)
   const selectedChannel = depositPayment?.list[selectedValues] as AutoBankItem
-
   const inputFields = Object.values(selectedChannel?.player_input_fields ?? {})
 
   const fieldBank = inputFields.find(
@@ -98,6 +91,10 @@ const DepositForm = ({ DepositCategoryId }) => {
 
   useEffect(() => {
     selectedChannel && setFieldValue('selectedChannel', selectedChannel)
+
+    fieldBank &&
+      fieldBank.bank_tree &&
+      setFieldValue('bank', Object.keys(fieldBank.bank_tree)[0])
   }, [selectedChannel])
 
   const onSubmit = async (
@@ -135,11 +132,11 @@ const DepositForm = ({ DepositCategoryId }) => {
           })
         } else {
           if (Platform.OS === 'web') {
-            Linking.openURL(result?.data?.url)
+            Linking.openURL(result?.data?.url ?? '')
           } else {
             const params = {
               title: depositPayment?.category_text,
-              depositUrl: encodeURIComponent(result?.data?.url),
+              depositUrl: encodeURIComponent(result?.data?.url ?? ''),
             }
 
             push('/deposit/deposit-loader', {
@@ -189,6 +186,7 @@ const DepositForm = ({ DepositCategoryId }) => {
       <View sx={{ px: horizontalMode ? 0 : '$4' }}>
         {horizontalMode ? (
           <BankSelection
+            subtitle=""
             label={t('deposit.selectChannel')}
             list={channelOptions}
             selected={channelOptions && channelOptions[selectedValues]?.value}
