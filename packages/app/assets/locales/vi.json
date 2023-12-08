@@ -86,7 +86,7 @@
     "download": "Tải về",
     "earn": "Xu nhận được",
     "enter": "",
-    "fileSizeExceeds": "kích thước tệp không được vượt quá %{size}",
+    "fileSizeExceeds": "kích thước tệp không được vượt quá {size}",
     "game": "Trò Chơi",
     "hello": "Xin chào!!",
     "history": "Lịch sử",
@@ -217,8 +217,7 @@
         "won": "XIN CHÚC MỪNG!",
         "won2": "BẠN ĐÃ TRÚNG THƯỞNG"
       },
-      "tnc": {
-      }
+      "tnc": {}
     },
     "claim": "ĐỔI VÉ THƯỞNG CỦA BẠN NGAY",
     "jackpot": "Jackpot (chia phần thưởng): 100,000,000 VND",
@@ -335,7 +334,7 @@
     "ongoing": "ĐANG DIỄN RA",
     "playNow": "CHƠI NGAY",
     "specialRebate": "Hoàn trả đặc biệt",
-    "upTo": "LÊN ĐẾN %{percent}%"
+    "upTo": "LÊN ĐẾN {percent}%"
   },
   "leaderboard": {
     "minPoints": "Điểm tối thiểu",
@@ -437,7 +436,7 @@
     }
   },
   "placeholder": {
-    "plsEnterAmount": "Vui lòng nhập số tiền %{field} của bạn",
+    "plsEnterAmount": "Vui lòng nhập số tiền {field} của bạn",
     "plsSelectBank": "Vui lòng chọn ngân hàng",
     "plsSelectCrypto": "Please Select Crypto",
     "plsSelectWalletAddress": "Vui lòng chọn địa chỉ ví tiền ảo của bạn"
@@ -667,20 +666,20 @@
   },
   "validation": {
     "alphanumeric": "6-18 ký tự chữ và số (A-Z, a-z, 0-9)",
-    "amount": "%{amount} ngoài hạn mức",
+    "amount": "{amount} ngoài hạn mức",
     "amount0": "Số tiền không được bằng 0",
-    "amountLessThan": "Số tiền không thể nhỏ hơn %{min}",
+    "amountLessThan": "Số tiền không thể nhỏ hơn {min}",
     "cryptoAddress": "Chọn phương thức rút tiền",
     "dailyLimitReached": "Bạn Đã Sử Dụng Hết Hạn Mức Trong Ngày",
     "email": "Định dạng email chưa đúng",
     "enterId": "Vui lòng nhập ID giới thiệu",
     "erc20Format": "Địa chỉ ví phải tương thích với chuẩn ERC20",
-    "exceedAvailableTransferBalance": "Vượt quá số dư khả dụng %{balance}",
+    "exceedAvailableTransferBalance": "Vượt quá số dư khả dụng {balance}",
     "insufficientBalance": "Số dư không đủ",
     "invalidAccountName": "Tên tài khoản không hợp lệ, chỉ có ký tự trong bảng chữ cái",
     "invalidOTPCode": "Mã OTP không hợp lệ",
     "invalidPhone": "Số điện thoại không hợp lệ",
-    "minMaxLimit": "Tối thiểu/Tối đa %{min}/%{max}",
+    "minMaxLimit": "Tối thiểu/Tối đa {min}/{max}",
     "needAccountNo": "Cần nhập số tài khoản",
     "numberOnly": "Chỉ nhập số",
     "otpLength": "OTP phải là số có 6 chữ số",
@@ -690,7 +689,7 @@
     "pin": "ID chỉ gồm số",
     "pinNotMatch": "Mã PIN phải giống nhau",
     "realName": "Vui lòng nhập họ tên thật",
-    "required": "%{field} là bắt buộc",
+    "required": "{field} là bắt buộc",
     "usdtFormat": "Địa chỉ ví phải tương thích với chuẩn ERC20 / TRC20",
     "userNameMinMaxLength": "Tên đăng nhập phải có 6-15 ký tự",
     "username": "Tên đăng nhập phải có 6-15 ký tự"
@@ -702,7 +701,7 @@
   },
   "withdrawal": {
     "eligibleAmount": "Số tiền có thể rút",
-    "exchangeRates": "Tỉ giá %{crypto}",
+    "exchangeRates": "Tỉ giá {crypto}",
     "options": "Địa chỉ ví không hợp lệ",
     "withdrawTo": "Rút tiền về",
     "withdrawalTitle": "Rút tiền"
