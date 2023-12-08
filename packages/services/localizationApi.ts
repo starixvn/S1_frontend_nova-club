@@ -26,6 +26,7 @@ export const localizationApi = createApi({
         params: {
           ns: namespace,
         },
+        timeout: 5000,
       }),
     }),
   }),
