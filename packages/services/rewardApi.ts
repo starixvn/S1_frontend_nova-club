@@ -1,11 +1,13 @@
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
+  ClaimChristmasEventCoinResult,
   ClaimEventCoinResult,
   Coin,
   CoinRedemptionList,
   DailyCoinSettingResult,
   EligibleEventCoin,
+  EventCode,
   RedemptionResult,
 } from './rewardApi.type'
 
@@ -77,6 +79,26 @@ export const rewardApi = baseApiWithTag.injectEndpoints({
       }),
       invalidatesTags: ['CheckInProgress', 'Coin'],
     }),
+    getChristmasEventCoin: builder.query<string | undefined, void>({
+      query: () => ({
+        url: `/player_api/getFCFSEligibleCoin`,
+      }),
+      transformResponse: ({ data }: { data: EventCode[] }) => {
+        return data.length > 0 ? data[0]?.event_code : undefined
+      },
+    }),
+    claimChristmasEventCoin: builder.mutation<
+      IResponse<ClaimChristmasEventCoinResult>,
+      string
+    >({
+      query: (event_code) => ({
+        url: `/player_api/claimFCFSCoin`,
+        data: {
+          event_code,
+        },
+      }),
+      invalidatesTags: ['CheckInProgress', 'Coin'],
+    }),
   }),
 })
 
@@ -89,4 +111,6 @@ export const {
   useGetEligibleEventCoinQuery,
   useLazyGetEligibleEventCoinQuery,
   useClaimEventCoinMutation,
+  useGetChristmasEventCoinQuery,
+  useClaimChristmasEventCoinMutation,
 } = rewardApi
