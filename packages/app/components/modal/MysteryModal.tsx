@@ -6,7 +6,7 @@ import { useAppSelector } from 'app/provider/redux/store'
 import dayjs from 'dayjs'
 import isBetween from 'dayjs/plugin/isBetween'
 import { Text, View, styled, useResponsiveValue } from 'dripsy'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useModal } from 'react-native-modalfy'
 import { useRouter } from 'solito/router'
 import { RewardGameKeyMap } from 'utils/rewards'
@@ -15,7 +15,7 @@ import Image from '../common/Image'
 import TouchableOpacity from '../pressable/TouchableOpacity'
 dayjs.extend(isBetween)
 
-const MysteryModal = ({ modal: { closeModal } }) => {
+const MysteryModal = ({ modal: { closeModal, closeAllModals } }) => {
   const { width, height } = useWindowResize()
   const { t } = useLocalization()
   const { push } = useRouter()
@@ -24,33 +24,27 @@ const MysteryModal = ({ modal: { closeModal } }) => {
   const lang = useAppSelector((state) => state.setting.locale)
 
   const handlePress = () => {
-    closeModal()
+    closeAllModals()
 
-    if (isDesktop) {
-      setTimeout(() => {
+    setTimeout(() => {
+      if (isDesktop) {
         openModal('RewardGameModal', {
           persistent: true,
           key: RewardGameKeyMap.MYSTERY_DROP,
         })
-      }, 500)
-    } else {
-      push({
-        pathname: '/rewards/launcher',
-        query: {
-          key: RewardGameKeyMap.MYSTERY_DROP,
-        },
-      })
-    }
+      } else {
+        push({
+          pathname: '/rewards/launcher',
+          query: {
+            key: RewardGameKeyMap.MYSTERY_DROP,
+          },
+        })
+      }
+    }, 500)
   }
 
   const containerWidth = useResponsiveValue([Math.min(380, width * 0.9)])
   const containerHeight = containerWidth / (800 / 1100)
-
-  useEffect(() => {
-    return () => {
-      closeModal('EventPopupModal')
-    }
-  }, [])
 
   return (
     <View

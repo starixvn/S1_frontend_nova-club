@@ -3,12 +3,12 @@ import NiceModal, { useModal } from '@ebay/nice-modal-react'
 import { AssetBasePath } from '@games/config'
 import { Back, gsap } from 'gsap'
 import { useEffect } from 'react'
-import { RewardPostMessageType } from 'utils/rewards'
 import { toThousandSeparator } from 'utils-pixi/helper'
+import { RewardPostMessageType } from 'utils/rewards'
 
 type WinModalProps = {
-  winPrize: number
-  type: string
+  winPrize: string | undefined
+  type: string | undefined
   onClose?: () => void
 }
 
@@ -16,7 +16,6 @@ export const WinModal = NiceModal.create(
   ({ winPrize, type, onClose }: WinModalProps) => {
     const modal = useModal()
     const width = window.innerWidth
-    const height = window.innerHeight
     const headWidth = width > 500 ? 450 : width
     const AssetPath = `${AssetBasePath}/assets/mystery-drop/images`
     let prizeType
@@ -166,5 +165,3 @@ export const WinModal = NiceModal.create(
     )
   }
 )
-
-export default WinModal

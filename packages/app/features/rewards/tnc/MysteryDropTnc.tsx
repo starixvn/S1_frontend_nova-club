@@ -1,11 +1,9 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import useLocalization from 'app/provider/localization'
-import { Row, ScrollView, Text, View } from 'dripsy'
+import { ScrollView, Text, View } from 'dripsy'
 import React from 'react'
 import BonusRow from './component/BonusRow'
 import GenericContainer from './component/GenericContainer'
-import { AssetBasePath } from '@games/config'
-import { GamePackageName } from '@games/mystery-drop/config'
 
 const howList = [
   'rewards.tnc.mysteryDrop.how1',

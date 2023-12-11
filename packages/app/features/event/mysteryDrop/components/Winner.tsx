@@ -1,7 +1,6 @@
 import Icon from 'app/components/Icon'
 import { Row, Text, View } from 'dripsy'
 import React from 'react'
-import { SolitoImage } from 'solito/image'
 
 const Winner = () => {
   return (

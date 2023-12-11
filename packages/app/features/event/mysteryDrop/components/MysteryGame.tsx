@@ -1,10 +1,10 @@
-import { Text, View } from 'dripsy'
+import { GAME_TAG_SIZE } from 'app/components/game/GameTagsLabel'
+import HorizontalGameList from 'app/components/game/HorizontalGameList'
+import useLocalization from 'app/provider/localization'
+import { View } from 'dripsy'
 import React from 'react'
 import { TitleText } from './IntroColumn'
-import HorizontalGameList from 'app/components/game/HorizontalGameList'
 import { MYSTERY_DROP_GAME_LIST } from './MysteryGameList'
-import useLocalization from 'app/provider/localization'
-import { GAME_TAG_SIZE } from 'app/components/game/GameTagsLabel'
 
 const MysteryGame = () => {
   const { t } = useLocalization()

@@ -7,11 +7,21 @@ export interface Coordinate {
 }
 
 export interface ItemLayout {
-  prize: number
+  prize?: number
   position: Coordinate
 }
 
-export const useItemsLayout = ({ width, height, result = 0 }) => {
+type ItemLayoutProps = {
+  width: number
+  height: number
+  result: number | undefined
+}
+
+export const useItemsLayout = ({
+  width,
+  height,
+  result = 0,
+}: ItemLayoutProps) => {
   // const { width, height } = frameSize
 
   const posY = height / 2
@@ -19,10 +29,10 @@ export const useItemsLayout = ({ width, height, result = 0 }) => {
 
   const [layoutItemPosition, setLayoutItemPosition] = useState<ItemLayout[]>([])
 
-  function handleSetReward(result) {
+  function handleSetReward(result: number) {
     if (!(result || result! >= 0)) return
     const randoms = []
-    const frequencyCounter = {}
+    const frequencyCounter: any = {}
     const filteredArray = possibleResult.filter((value) => value !== result)
 
     for (let i = 0; i < 4; i++) {
@@ -47,7 +57,7 @@ export const useItemsLayout = ({ width, height, result = 0 }) => {
     return shuffle(randoms)
   }
 
-  function shuffle(array) {
+  function shuffle(array: any) {
     let currentIndex = array.length,
       randomIndex
 
@@ -64,7 +74,7 @@ export const useItemsLayout = ({ width, height, result = 0 }) => {
   }
 
   useEffect(() => {
-    let res
+    let res: string | any[]
     if (result) res = handleSetReward(result)
     else return
 

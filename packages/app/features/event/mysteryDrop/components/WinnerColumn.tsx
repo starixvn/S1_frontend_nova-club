@@ -1,7 +1,7 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Icon from 'app/components/Icon'
 import useLocalization from 'app/provider/localization'
-import { toCurrency, toThousandSeparator } from 'app/utils'
+import { toThousandSeparator } from 'app/utils'
 import { Row, Text, View, styled } from 'dripsy'
 import React from 'react'
 import { useGetMysteryWinnerQuery } from 'services/eventApi'
