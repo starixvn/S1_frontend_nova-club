@@ -3,41 +3,38 @@ import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { toCurrency } from 'app/utils'
 import { Text, View } from 'dripsy'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import { usePlayerBalanceQuery } from 'services/walletApi'
 import { useGetAvailableWithdrawalAmountQuery } from 'services/withdrawal'
 
 type AvailableBalanceProps = {
   label?: string
-  isTransfer?: boolean
 }
 
 const AvailableBalance = ({
   label = 'withdrawal.eligibleAmount',
-  isTransfer = false,
 }: AvailableBalanceProps) => {
   const { t } = useLocalization()
   const desktop = useIsDesktop()
   const { currency } = usePlayerProfileQuery()
   const [delay, setDelay] = useState(true)
 
-  const { data } = usePlayerBalanceQuery(undefined, {
-    skip: !isTransfer,
-  })
-
   const { data: availableBalance } = useGetAvailableWithdrawalAmountQuery(
     undefined,
     {
-      skip: isTransfer,
+      refetchOnMountOrArgChange: true,
+      skip: delay,
     }
   )
 
-  // setTimeout(() => {
-  //   !isTransfer && setDelay(false)
-  // }, 2000)
+  // Delay fetch GetAvailableWithdrawalAmount api, since cannot fetch with playerBalance api at the same time
+  useEffect(() => {
+    setTimeout(() => {
+      setDelay(false)
+    }, 500)
+  }, [])
 
-  const balance = isTransfer ? data?.totalBalance : availableBalance?.balance
+  const balance = availableBalance?.balance
 
   return desktop ? (
     <DesktopBalance

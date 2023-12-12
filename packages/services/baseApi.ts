@@ -22,5 +22,6 @@ export const baseApiWithTag = baseApi.enhanceEndpoints({
     'Message',
     'Coin',
     'CheckInProgress',
+    'AvailableAmount',
   ],
 })
