@@ -74,7 +74,7 @@ export default function RetentionContent({}: Props) {
 
   const handleNavigateTnc = () => {
     // closeModal()
-    push('/retention-spin-tnc')
+    push('/event/retention/tnc')
   }
 
   const handleSpinMapping = (code: number) => {

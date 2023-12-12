@@ -9,14 +9,17 @@ import { IResponse } from 'services/common/types'
 import { useLazyEligibleSpinQuery } from 'services/playerApi'
 import { EligibleSpinResult } from 'services/playerApi.type'
 import { useHomeEvent } from '../../HomeEventProvider'
+import { useRouter } from 'solito/router'
 
 const LuckyDrawPriority = 30
+const LuckyDrawSource = 'LuckyDraw|Retention'
 const LuckyDrawTrigger = () => {
   const dispatch = useDispatch()
   const { showAlert } = useAlert()
+  const { push } = useRouter()
 
   const [getEligileSpin] = useLazyEligibleSpinQuery()
-  const { addResult } = useHomeEvent()
+  const { addResult, flagCompletedChecking } = useHomeEvent()
 
   const shieldStatus =
     useAppSelector((s) => s.tempSetting.syncShieldStatus) ?? ''
@@ -50,23 +53,25 @@ const LuckyDrawTrigger = () => {
 
         if (event) {
           const spinBalance = event?.wheel_info.totalBalance ?? 0
-          if (spinBalance > 0) {
-            if (event.event_type === 'registration') {
-              if ('note' in data) {
-                if (syncShieldActionType === Shield_Action.REGISTER) {
-                  showAlert(data.note)
-                }
+          // if (spinBalance > 0) {
+          if (event.event_type === 'registration') {
+            if ('note' in data) {
+              if (syncShieldActionType === Shield_Action.REGISTER) {
+                showAlert(data.note)
               }
-
-              handleRegistrationEvent(spinBalance)
-            } else if (event.event_type === 'retention') {
-              handleRetentionEvent(spinBalance)
             }
+
+            handleRegistrationEvent(spinBalance)
+          } else if (event.event_type === 'retention') {
+            handleRetentionEvent(spinBalance)
           }
+          // }
         }
       }
     } catch (e) {
       console.log('e', e)
+    } finally {
+      flagCompletedChecking(LuckyDrawSource)
     }
   }
 
@@ -75,6 +80,9 @@ const LuckyDrawTrigger = () => {
 
     addResult([
       {
+        tnc: () => {
+          push('/event/luckyspin/tnc')
+        },
         content: () => <LazyLuckyDrawContent />,
         priority: LuckyDrawPriority,
       },
@@ -86,6 +94,9 @@ const LuckyDrawTrigger = () => {
 
     addResult([
       {
+        tnc: () => {
+          push('/event/retention/tnc')
+        },
         content: () => <LazyRetentionContent />,
         priority: LuckyDrawPriority,
       },

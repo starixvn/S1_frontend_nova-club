@@ -65,7 +65,7 @@ export default function LuckyDrawContent({}: Props) {
   }
 
   const handleNavigateTnc = () => {
-    // closeModal(undefined, () => push('/lucky-spin-tnc'))
+    // closeModal(undefined, () => push('/event/luckyspin/tnc'))
   }
 
   const handleSpinMapping = (code: number) => {

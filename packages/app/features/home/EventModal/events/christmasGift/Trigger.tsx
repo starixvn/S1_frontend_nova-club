@@ -3,13 +3,16 @@ import dynamic from 'next/dynamic'
 import React, { useEffect } from 'react'
 import { rewardApi } from 'services/rewardApi'
 import { useHomeEvent } from '../../HomeEventProvider'
+import { useRouter } from 'solito/router'
 type Props = {}
 
 const ChristmasGiftPriority = 20
+const ChristmasGiftSource = 'ChristmasGift'
 // type UseQueryStateType = ReturnType<typeof useGetEligibleEventCoinQuery>
 
 export default function ChristmasGiftTrigger({}: Props) {
-  const { addResult } = useHomeEvent()
+  const { addResult, flagCompletedChecking } = useHomeEvent()
+  const { push } = useRouter()
 
   const dispatch = useAppDispatch()
 
@@ -22,9 +25,14 @@ export default function ChristmasGiftTrigger({}: Props) {
 
     if (isEligible)
       addResult({
+        tnc: () => {
+          push('/event/christmas-gift/tnc')
+        },
         content: () => <LazyContent />,
         priority: ChristmasGiftPriority,
       })
+
+    flagCompletedChecking(ChristmasGiftSource)
   }
 
   useEffect(() => {

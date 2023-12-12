@@ -62,13 +62,14 @@ export default function Content({ data }: Props) {
       actionType
     )
 
-    callbackRef.current = () => action({ push, locale, openModal })
-
     if (desktop && banner?.banner_url === '/rewards/daily') {
       push('/rewards/redeem/list')
-    } else {
-      closeModal()
     }
+
+    closeModal()
+
+    /* using open modal after desktop navigate will appear */
+    callbackRef.current = () => action({ push, locale, openModal })
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [banner?.banner_url])

@@ -106,7 +106,10 @@ export default function HomeEventModal({
     }
   }, [itemWidth, safeHeight])
 
-  function openCurrentTnc() {}
+  function openCurrentTnc() {
+    data[activeIndex]?.tnc && data[activeIndex]?.tnc()
+    closeModal()
+  }
 
   return (
     <HomeEventModalContext.Provider value={contextState}>

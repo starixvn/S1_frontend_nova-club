@@ -6,7 +6,7 @@ import {
   useContext,
   useEffect,
   useMemo,
-  useState
+  useState,
 } from 'react'
 import { useModal } from 'react-native-modalfy'
 
@@ -28,7 +28,6 @@ type CloseModal = UseModalContext['closeModal']
 
 const ModalQueueProvider = ({ children }: { children: ReactNode }) => {
   const [queues, setQueues] = useState<((() => void) | Promise<void>)[]>([])
-  const pathname = usePathname()
 
   const { openModal: openModalModalfy, closeModal: closeModalModalfy } =
     useModal()

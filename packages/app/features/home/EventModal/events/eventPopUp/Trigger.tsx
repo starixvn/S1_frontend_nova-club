@@ -6,8 +6,9 @@ import { useHomeEvent } from '../../HomeEventProvider'
 type Props = {}
 
 const EventPopUpPriority = 0
+const EventPopUpSource = 'EventPopUp'
 export default function EventPopUpTrigger({}: Props) {
-  const { addResult } = useHomeEvent()
+  const { addResult, flagCompletedChecking } = useHomeEvent()
 
   const dispatch = useAppDispatch()
 
@@ -25,6 +26,8 @@ export default function EventPopUpTrigger({}: Props) {
         }))
       )
     }
+
+    flagCompletedChecking(EventPopUpSource)
   }
 
   useEffect(() => {

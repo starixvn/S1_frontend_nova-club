@@ -66,7 +66,7 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
   }
 
   const handleNavigateTnc = () => {
-    closeModal(undefined, () => push('/lucky-spin-tnc'))
+    closeModal(undefined, () => push('/event/luckyspin/tnc'))
   }
 
   const handleSpinMapping = (code: number) => {

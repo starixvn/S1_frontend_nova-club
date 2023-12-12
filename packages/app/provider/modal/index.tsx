@@ -67,7 +67,6 @@ type DefaultModalStackParams = {
   }
   DepositCryptoModal: { data: SubmitDepositCryptoItem }
   LuckyDrawModal: undefined
-  RetentionDrawModal: undefined
   ForgotPasswordModal: {
     t: LoginType
   }
@@ -138,7 +137,6 @@ const _dynamicModal: Record<keyof ModalStackParams, () => Promise<any>> = {
   DownloadGuideModal: () =>
     import('desktop-ext/features/download/DownloadGuide'),
   LuckyDrawModal: () => import('app/components/modal/LuckyDrawModal'),
-  RetentionDrawModal: () => import('app/components/modal/RetentionDrawModal'),
   ForgotPasswordModal: () =>
     import('desktop-ext/features/auth/forgotPassword/ForgotPasswordScreen'),
   DepositQrModal: () => import('app/components/modal/DepositQrModal'),
@@ -215,9 +213,6 @@ const modalConfig: ModalConfigType = {
   },
   LuckyDrawModal: {
     modal: getDynamicComponent('LuckyDrawModal'),
-  },
-  RetentionDrawModal: {
-    modal: getDynamicComponent('RetentionDrawModal'),
   },
   ForgotPasswordModal: {
     modal: getDynamicComponent('ForgotPasswordModal'),
