@@ -74,11 +74,12 @@ export default function HomeEventProvider({ children }: Props) {
         data: resultsRef.current.sort((a, b) => b.priority - a.priority),
       },
       () => {
+        completedSourcesRef.current = []
         resultsRef.current = []
+        setReady(false)
       }
     )
   }
-
   useEffect(() => {
     /* for app when focused on home tab again */
     if (

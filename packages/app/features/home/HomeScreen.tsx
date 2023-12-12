@@ -13,6 +13,7 @@ import ModalTriggers from './EventModal'
 
 export default function HomeScreen() {
   const dispatch = useAppDispatch()
+  const isLoggedIn = useAppSelector((s) => !!s.auth.info)
   const username = useAppSelector((s) => s.auth.info?.playerName)
   const syncShieldActionType = useAppSelector(
     (s) => s.tempSetting.syncShieldActionType
@@ -48,8 +49,8 @@ export default function HomeScreen() {
   }
 
   useEffect(() => {
-    if (username) handleCheckShield()
-  }, [username])
+    if (username && isLoggedIn) handleCheckShield()
+  }, [username, isLoggedIn])
 
   return (
     <ScrollView

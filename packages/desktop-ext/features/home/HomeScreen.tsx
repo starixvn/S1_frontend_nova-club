@@ -23,6 +23,7 @@ const LazyDeferredSection = withLazyLoad(DeferredSection)
 
 export default function HomeScreen() {
   const dispatch = useAppDispatch()
+  const isLoggedIn = useAppSelector((s) => !!s.auth.info)
   const username = useAppSelector((s) => s.auth.info?.playerName)
   const syncShieldActionType = useAppSelector(
     (s) => s.tempSetting.syncShieldActionType
@@ -58,8 +59,8 @@ export default function HomeScreen() {
   }
 
   useEffect(() => {
-    if (username) handleCheckShield()
-  }, [username])
+    if (username && isLoggedIn) handleCheckShield()
+  }, [username, isLoggedIn])
 
   useEffect(() => {
     //Trivial fix to handle intersection observer unable to load the lazy component when switch to agent app and switch back to member app

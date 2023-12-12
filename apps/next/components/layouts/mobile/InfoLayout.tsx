@@ -25,7 +25,9 @@ const MapInfoRouteTitle = (currentPath: string) => {
   switch (currentPath) {
     case 'tnc':
     case '/event/luckyspin/tnc':
+    case '/event/retention/tnc':
     case '/event/christmas-gift/tnc':
+    case '/event/christmas-special/tnc':
       return 'common.tnc'
     case 'about-us':
       return 'footer.aboutUs'
