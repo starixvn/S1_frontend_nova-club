@@ -6,15 +6,21 @@ import { MobileInfoLayout } from 'components/layouts/mobile'
 import { ActivityIndicator } from 'dripsy'
 import dynamic from 'next/dynamic'
 
-const LazyEn = dynamic(() => import('app/features/retention-spin/tncEn'), {
-  loading: () => <ActivityIndicator />,
-  ssr: false,
-})
+const LazyEn = dynamic(
+  () => import('app/features/home/EventModal/tnc/retentionSpin/tncEn'),
+  {
+    loading: () => <ActivityIndicator />,
+    ssr: false,
+  }
+)
 
-const LazyVi = dynamic(() => import('app/features/retention-spin/tncVi'), {
-  loading: () => <ActivityIndicator />,
-  ssr: false,
-})
+const LazyVi = dynamic(
+  () => import('app/features/home/EventModal/tnc/retentionSpin/tncVi'),
+  {
+    loading: () => <ActivityIndicator />,
+    ssr: false,
+  }
+)
 
 const infoLocalizationMapping = {
   [LANGUAGE_CODE.ENGLISH]: LazyEn,

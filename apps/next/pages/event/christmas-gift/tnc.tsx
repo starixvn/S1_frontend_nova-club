@@ -6,26 +6,32 @@ import { MobileInfoLayout } from 'components/layouts/mobile'
 import { ActivityIndicator } from 'dripsy'
 import dynamic from 'next/dynamic'
 
-const LazyEn = dynamic(() => import('app/features/retention-spin/tncEn'), {
-  loading: () => <ActivityIndicator />,
-  ssr: false,
-})
+const LazyEn = dynamic(
+  () => import('app/features/home/EventModal/tnc/christmasGift'),
+  {
+    loading: () => <ActivityIndicator />,
+    ssr: false,
+  }
+)
 
-const LazyVi = dynamic(() => import('app/features/retention-spin/tncVi'), {
-  loading: () => <ActivityIndicator />,
-  ssr: false,
-})
+const LazyVi = dynamic(
+  () => import('app/features/home/EventModal/tnc/christmasGift'),
+  {
+    loading: () => <ActivityIndicator />,
+    ssr: false,
+  }
+)
 
 const infoLocalizationMapping = {
   [LANGUAGE_CODE.ENGLISH]: LazyEn,
   [LANGUAGE_CODE.VIETNAM]: LazyVi,
 }
 
-const RetentionSpinTnc: AdaptiveLayoutPage = () => (
+const ChristmasGiftTnc: AdaptiveLayoutPage = () => (
   <InfoScreen map={infoLocalizationMapping} />
 )
 
-RetentionSpinTnc.DesktopLayout = DesktopBaseLayout
-RetentionSpinTnc.MobileLayout = MobileInfoLayout
+ChristmasGiftTnc.DesktopLayout = DesktopBaseLayout
+ChristmasGiftTnc.MobileLayout = MobileInfoLayout
 
-export default RetentionSpinTnc
+export default ChristmasGiftTnc
