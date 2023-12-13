@@ -88,6 +88,20 @@ export const walletApi = baseApiWithTag.injectEndpoints({
           ...queryArgs,
         },
       }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled
+          // `onSuccess` side-effect
+          // delay api fetching, cannot fetch with balance api at the same time
+          setTimeout(() => {
+            dispatch(
+              dispatch(walletApi.util.invalidateTags(['AvailableAmount']))
+            )
+          }, 1000)
+        } catch (err) {
+          // `onError` side-effect
+        }
+      },
       invalidatesTags: ['Balance'],
     }),
     getUsernameByCode: builder.query<
