@@ -25,8 +25,6 @@ import * as Yup from 'yup'
 import { LoginType } from '../AuthLayout'
 import { RegisterFormValues } from './RegisterScreen'
 import { agentRoute, memberRoute } from '../login/LoginScreen'
-import { SettingActions } from 'app/store/setting.slice'
-import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 
 const { useParam } = createParam<{ t: LoginType }>()
@@ -46,7 +44,6 @@ export default function useRegisterScreen(
   const dispatch = useAppDispatch()
   const { replace } = useRouter()
   const { closeModal, currentModal } = useModal()
-  const desktop = useIsDesktop()
 
   const [currentScreen, setCurrentScreen] = useState<Register_Screen>(
     Register_Screen.SET_USERNAME
@@ -150,27 +147,23 @@ export default function useRegisterScreen(
       // replace('/')
 
       //temporary disable auto popup till modal closed
-      dispatch(TempSettingActions.toggleTriggerPopupEvent(false))
-      setTimeout(
-        () => {
-          openModal('ActionableModal', {
-            title: t('authentication.registerSuccess.m1'),
-            message: t('authentication.registerSuccess.m2'),
-            onClose: () => {
-              dispatch(TempSettingActions.toggleTriggerPopupEvent(true))
-
-              replace('/')
+      dispatch(TempSettingActions.setIsHomeEventModalTriggered(true))
+      setTimeout(() => {
+        openModal('ActionableModal', {
+          title: t('authentication.registerSuccess.m1'),
+          message: t('authentication.registerSuccess.m2'),
+          onClose: () => {
+            dispatch(TempSettingActions.setIsHomeEventModalTriggered(false))
+            replace('/')
+          },
+          actions: [
+            {
+              label: t('home.joinNow'),
+              onPress: () => Linking.openURL('https://t.me/cungvui123'),
             },
-            actions: [
-              {
-                label: t('home.joinNow'),
-                onPress: () => Linking.openURL('https://t.me/cungvui123'),
-              },
-            ],
-          })
-        },
-        desktop ? 1000 : 300
-      )
+          ],
+        })
+      }, 1000)
 
       setStatus(true)
     } else {
@@ -214,23 +207,19 @@ export default function useRegisterScreen(
 
       // replace('/agent/profile')
 
-      //temporary disable auto popup till modal closed
-      setTimeout(
-        () => {
-          openModal('ActionableModal', {
-            title: t('authentication.registerSuccess.a1'),
-            message: t('authentication.registerSuccess.a2'),
-            onClose: () => replace('/agent/profile'),
-            actions: [
-              {
-                label: t('home.joinNow'),
-                onPress: () => Linking.openURL('https://t.me/vui123Daily'),
-              },
-            ],
-          })
-        },
-        desktop ? 1000 : 300
-      )
+      setTimeout(() => {
+        openModal('ActionableModal', {
+          title: t('authentication.registerSuccess.a1'),
+          message: t('authentication.registerSuccess.a2'),
+          onClose: () => replace('/agent/profile'),
+          actions: [
+            {
+              label: t('home.joinNow'),
+              onPress: () => Linking.openURL('https://t.me/vui123Daily'),
+            },
+          ],
+        })
+      }, 1000)
       /* to indicate the register is successfull and used to persist loading on submit button */
       setStatus(true)
     } else {
