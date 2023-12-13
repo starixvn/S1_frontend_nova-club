@@ -1,5 +1,6 @@
 import { LIVECHAT_URL, REFERRAL_DOMAIN } from '@env'
 import { LaunchGame } from 'app/features/game/GameLauncher'
+import { store } from 'app/provider/redux/store'
 import { Linking } from 'react-native'
 import { Game } from 'services/gameApi.type'
 
@@ -24,6 +25,7 @@ export interface ActionLaunchGame {
 export interface ActionRedirect {
   type: ActionType.INTERNAL_REDIRECT
   payload: InternalRedirectPayload
+  loginRequired: boolean
 }
 
 export type ActionRedirectParams = {
@@ -78,13 +80,15 @@ export function getAction(action: Action): (p?: ActionRedirectParams) => void {
     case ActionType.INTERNAL_REDIRECT: {
       const payload = action.payload
       if (!payload || !payload.uri) return () => {}
-
       const { uri, params = {} } = payload
 
       return (p?: ActionRedirectParams) => {
         try {
           if (p) {
             const { push, locale } = p
+
+            if (action.loginRequired && !store.getState().auth.info)
+              return push('/auth/login')
 
             let replacedParams = { ...params }
             if (replacedParams.locale) {

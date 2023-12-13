@@ -51,9 +51,10 @@ const config = [
     src: MYSTERY_DROP_IMG,
     type: 'video',
     action: {
+      loginRequired: true,
       type: ActionType.INTERNAL_REDIRECT,
       payload: {
-        uri: '/rewards/mystery-drop',
+        uri: '/event/mystery-drop',
       },
     },
   },

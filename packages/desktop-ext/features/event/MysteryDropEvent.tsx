@@ -6,6 +6,7 @@ import Prize from 'app/features/event/mysteryDrop/components/Prize'
 import TnC from 'app/features/event/mysteryDrop/components/TnC'
 import { DesktopWinnerColumn } from 'app/features/event/mysteryDrop/components/WinnerColumn'
 import useFetchMysteryDrops from 'app/features/event/mysteryDrop/components/useFetchMysteryDrops'
+import useTncHandler from 'app/hooks/useTncHandler'
 import { Container, Row, View } from 'dripsy'
 import React from 'react'
 
@@ -14,6 +15,8 @@ const MysteryDropEvent = () => {
   const secondaryPrizeWidth = 300
 
   const { miniPrize, majorPrize, grandPrize, jackpot } = useFetchMysteryDrops()
+
+  useTncHandler()
 
   return (
     <>

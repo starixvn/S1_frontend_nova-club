@@ -12,6 +12,7 @@ import Prize from './components/Prize'
 import TnC from './components/TnC'
 import WinnerColumn from './components/WinnerColumn'
 import useFetchMysteryDrops from './components/useFetchMysteryDrops'
+import useTncHandler from 'app/hooks/useTncHandler'
 
 const MysteryDropEvent = () => {
   const { t } = useLocalization()
@@ -26,6 +27,8 @@ const MysteryDropEvent = () => {
   const { ScrollToTopButton, setScrollY } = useScrollToTop({
     innerRef: scrollRef,
   })
+
+  useTncHandler()
 
   return (
     <PageWithBackHeader
