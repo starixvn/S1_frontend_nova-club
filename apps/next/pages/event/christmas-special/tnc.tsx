@@ -7,7 +7,7 @@ import { ActivityIndicator } from 'dripsy'
 import dynamic from 'next/dynamic'
 
 const LazyEn = dynamic(
-  () => import('app/features/home/EventModal/tnc/christmasSpecial'),
+  () => import('app/features/home/EventModal/tnc/christmasSpecial/tncEn'),
   {
     loading: () => <ActivityIndicator />,
     ssr: false,
@@ -15,7 +15,7 @@ const LazyEn = dynamic(
 )
 
 const LazyVi = dynamic(
-  () => import('app/features/home/EventModal/tnc/christmasSpecial'),
+  () => import('app/features/home/EventModal/tnc/christmasSpecial/tncVi'),
   {
     loading: () => <ActivityIndicator />,
     ssr: false,
