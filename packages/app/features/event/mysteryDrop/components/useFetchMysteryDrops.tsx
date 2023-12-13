@@ -1,5 +1,4 @@
 import { useRandomInterval } from 'app/hooks/useRandomInterval'
-import React from 'react'
 import { useGetMysteryEventQuery } from 'services/eventApi'
 import { MysteryEventPrize } from 'services/eventApi.type'
 

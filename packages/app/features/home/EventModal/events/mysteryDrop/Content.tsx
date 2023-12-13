@@ -1,5 +1,4 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import IconButton from 'app/components/IconButton'
 import TouchableOpacity from 'app/components/pressable/TouchableOpacity'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
@@ -42,7 +41,7 @@ export default function MysteryDropContent({}: Props) {
     }, 500)
   }
 
-  const containerWidth = useResponsiveValue([Math.min(380, width * 0.9)])
+  const containerWidth = useResponsiveValue([Math.min(350, width * 1)])
 
   return (
     <View
