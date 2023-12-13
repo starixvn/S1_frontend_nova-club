@@ -22,7 +22,9 @@ export default function MysteryDropContent({}: Props) {
   const lang = useAppSelector((state) => state.setting.locale)
 
   const handlePress = () => {
-    closeModal(undefined, () => {
+    closeModal()
+
+    setTimeout(() => {
       if (isDesktop) {
         openModal('RewardGameModal', {
           persistent: true,
@@ -35,7 +37,7 @@ export default function MysteryDropContent({}: Props) {
             key: RewardGameKeyMap.MYSTERY_DROP,
           },
         })
-    })
+    }, 500)
   }
 
   const containerWidth = Math.min(350, width)
