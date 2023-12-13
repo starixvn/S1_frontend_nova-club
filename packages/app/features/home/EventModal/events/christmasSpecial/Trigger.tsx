@@ -16,18 +16,22 @@ export default function ChristmasSpecialTrigger({}: Props) {
   const dispatch = useAppDispatch()
 
   async function checkEligible() {
-    const isEligible = await dispatch(
-      rewardApi.endpoints.getChristmasEventCoin.initiate()
-    ).unwrap()
+    try {
+      const isEligible = await dispatch(
+        rewardApi.endpoints.getChristmasEventCoin.initiate()
+      ).unwrap()
 
-    if (isEligible)
-      addResult({
-        tnc: () => {
-          push('/event/christmas-special/tnc')
-        },
-        content: () => <LazyContent />,
-        priority: ChristmasSpecialPriority,
-      })
+      if (isEligible)
+        addResult({
+          tnc: () => {
+            push('/event/christmas-special/tnc')
+          },
+          content: () => <LazyContent />,
+          priority: ChristmasSpecialPriority,
+        })
+    } catch (e) {
+      console.log('Check Christmas Special Error', e)
+    }
 
     flagCompletedChecking(ChristmasSpecialSource)
   }

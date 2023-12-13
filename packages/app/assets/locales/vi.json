@@ -591,8 +591,7 @@
       "christmas": {
         "eventTitle": "VUI GIÁNG SINH, RINH QUÀ KHỦNG",
         "how": "Cách nhận thưởng",
-        "period": "Thời gian khuyến mãi: 01-31/12/2023",
-        "specialPeriod": "Thời gian áp dụng: ngày 25/12/2023 (12.00AM - 10.00AM - 8.00PM)",
+        "period": "Thời gian khuyến mãi: {period}",
         "tnc": {
           "n1": "Xu Vui sẽ được phát ngẫu nhiên đến các thành viên may mắn.",
           "n2": "Thành viên may mắn sẽ nhìn thấy ngay thông báo sau khi đăng nhập.",

@@ -1,12 +1,8 @@
-import Icon from 'app/components/Icon'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
-import GenericContainer from 'app/features/rewards/tnc/component/GenericContainer'
-import useLocalization from 'app/provider/localization'
 import {
   ActivityIndicator,
   Image,
   Pressable,
-  Row,
   ScrollView,
   Text,
   View,
@@ -18,27 +14,12 @@ import { useModal } from 'react-native-modalfy'
 import { IResponse } from 'services/common/types'
 import {
   useClaimChristmasEventCoinMutation,
-  useClaimEventCoinMutation,
   useGetChristmasEventCoinQuery,
 } from 'services/rewardApi'
-import {
-  ClaimChristmasEventCoinResult,
-  ClaimEventCoinResult,
-} from 'services/rewardApi.type'
+import { ClaimChristmasEventCoinResult } from 'services/rewardApi.type'
+import { SolitoImage } from 'solito/image'
 import { useRouter } from 'solito/router'
 import { useHomeEventModal } from '../../HomeEventModal'
-import { SolitoImage } from 'solito/image'
-
-const list = [
-  'rewards.tnc.christmas.tnc.n1',
-  'rewards.tnc.christmas.tnc.n2',
-  'rewards.tnc.christmas.tnc.n3',
-  'rewards.tnc.christmas.tnc.n4',
-  'rewards.tnc.christmas.tnc.n5',
-  'rewards.tnc.christmas.tnc.n6',
-  'rewards.tnc.christmas.tnc.n7',
-  'rewards.tnc.christmas.tnc.n8',
-]
 
 type Props = {}
 

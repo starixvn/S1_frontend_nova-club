@@ -1,12 +1,8 @@
-import Icon from 'app/components/Icon'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
-import GenericContainer from 'app/features/rewards/tnc/component/GenericContainer'
-import useLocalization from 'app/provider/localization'
 import {
   ActivityIndicator,
   Image,
   Pressable,
-  Row,
   ScrollView,
   Text,
   View,
@@ -20,17 +16,6 @@ import { useClaimEventCoinMutation } from 'services/rewardApi'
 import { ClaimEventCoinResult } from 'services/rewardApi.type'
 import { useRouter } from 'solito/router'
 import { useHomeEventModal } from '../../HomeEventModal'
-
-const list = [
-  'rewards.tnc.christmas.tnc.n1',
-  'rewards.tnc.christmas.tnc.n2',
-  'rewards.tnc.christmas.tnc.n3',
-  'rewards.tnc.christmas.tnc.n4',
-  'rewards.tnc.christmas.tnc.n5',
-  'rewards.tnc.christmas.tnc.n6',
-  'rewards.tnc.christmas.tnc.n7',
-  'rewards.tnc.christmas.tnc.n8',
-]
 
 type Props = {}
 
