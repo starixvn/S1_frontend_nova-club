@@ -50,7 +50,7 @@ export default function HireBanner() {
         <Label sx={{ color: '#00FFFF' }}>{t('home.banner.n3')}</Label>
       </MotiView>
     ),
-    [lang]
+    [t]
   )
 
   const handlePress = () => {
@@ -141,6 +141,7 @@ const Label = styled(Text)({
 })
 
 export const AnimatedButton = ({ onPress, children }) => {
+  const { t } = useLocalization()
   const lang = useAppSelector((state) => state.setting.locale)
 
   const animatedText = useMemo(
@@ -168,7 +169,7 @@ export const AnimatedButton = ({ onPress, children }) => {
         </Label>
       </MotiView>
     ),
-    [lang]
+    [t]
   )
 
   return (

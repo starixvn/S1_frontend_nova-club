@@ -44,7 +44,7 @@ export default function HireBannerSecond() {
         <Label sx={{ color: '#00FFFF' }}>{t('home.banner2.n3')}</Label>
       </MotiView>
     ),
-    [lang]
+    [t]
   )
 
   return (

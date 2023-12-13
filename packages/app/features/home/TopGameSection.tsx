@@ -71,7 +71,7 @@ export default function TopGameSection(props) {
         })}
       </StyledMotiText>
     ),
-    [lang, uptoRate]
+    [t, uptoRate]
   )
 
   return (
