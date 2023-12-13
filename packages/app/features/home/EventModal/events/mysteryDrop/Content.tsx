@@ -3,7 +3,7 @@ import TouchableOpacity from 'app/components/pressable/TouchableOpacity'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { Image, Text, View, styled, useResponsiveValue } from 'dripsy'
+import { Image, Text, View, styled } from 'dripsy'
 import React from 'react'
 import { useModal } from 'react-native-modalfy'
 import { useRouter } from 'solito/router'
@@ -22,26 +22,23 @@ export default function MysteryDropContent({}: Props) {
   const lang = useAppSelector((state) => state.setting.locale)
 
   const handlePress = () => {
-    closeModal()
-
-    setTimeout(() => {
+    closeModal(undefined, () => {
       if (isDesktop) {
         openModal('RewardGameModal', {
           persistent: true,
           key: RewardGameKeyMap.MYSTERY_DROP,
         })
-      } else {
+      } else
         push({
           pathname: '/rewards/launcher',
           query: {
             key: RewardGameKeyMap.MYSTERY_DROP,
           },
         })
-      }
-    }, 500)
+    })
   }
 
-  const containerWidth = useResponsiveValue([Math.min(350, width * 1)])
+  const containerWidth = Math.min(350, width)
 
   return (
     <View
