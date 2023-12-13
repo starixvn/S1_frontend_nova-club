@@ -81,7 +81,6 @@ const IdTransfer = ({ isIDTransfer = false }: { isIDTransfer?: boolean }) => {
       })
         .unwrap()
         .catch((error) => {
-          console.log('🚀 ~ file: Id.tsx:63 ~ IdTransfer ~ error:', error)
           showAlert(error)
           return error
         })
@@ -92,7 +91,6 @@ const IdTransfer = ({ isIDTransfer = false }: { isIDTransfer?: boolean }) => {
         push('/transfer/receive')
       }
     } catch (error) {
-      console.log('🚀 ~ >>>>>>~ error:', error)
       showAlert(error)
     } finally {
       actions.setSubmitting(false)
@@ -131,13 +129,11 @@ const IdTransfer = ({ isIDTransfer = false }: { isIDTransfer?: boolean }) => {
   const {
     handleChange,
     handleBlur,
-    isSubmitting,
     values,
     errors,
     touched,
     isValid,
     dirty,
-    submitForm,
     resetForm,
     setValues,
     setFieldValue,
@@ -209,13 +205,13 @@ const IdTransfer = ({ isIDTransfer = false }: { isIDTransfer?: boolean }) => {
   return (
     <FormContainer>
       <ScrollView>
-        <AvailableBalance label={t('transfer.transferableAmount')} isTransfer />
+        <AvailableBalance label={t('transfer.transferableAmount')} />
 
         <Input
-          id="idTransfer"
           nativeID="idTransfer"
           label={t('transfer.idTransfer')}
           placeholder={t('transfer.placeholderTransferId')}
+          value={values.idTransfer}
           onChangeText={handleChange('idTransfer')}
           onBlur={(e) => {
             handleBlur(e)
