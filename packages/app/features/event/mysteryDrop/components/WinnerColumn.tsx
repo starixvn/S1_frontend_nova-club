@@ -84,36 +84,6 @@ const WinnerColumnContent = () => {
             <WinnerText>{`VND ${toThousandSeparator(item.amt)}`}</WinnerText>
           </Row>
         ))}
-      {data &&
-        data?.length > 0 &&
-        data.map(
-          (item, index) =>
-            index < 2 && (
-              <Row
-                key={index}
-                sx={{
-                  p: '$2',
-                  borderRadius: 8,
-                  justifyContent: 'space-between',
-                  bg: index % 2 === 0 ? '$primary.500' : 'transparent',
-                }}
-              >
-                <Row>
-                  <SolitoImage
-                    src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/ic-thropy.png`}
-                    width={24}
-                    height={24}
-                    alt=""
-                    style={{ marginHorizontal: 16 }}
-                  />
-                  <Text sx={{ fontSize: 14 }}>{item.username}</Text>
-                </Row>
-                <Text sx={{ fontSize: 14 }}>{`VND ${toThousandSeparator(
-                  item.amt
-                )}`}</Text>
-              </Row>
-            )
-        )}
     </View>
   )
 }
