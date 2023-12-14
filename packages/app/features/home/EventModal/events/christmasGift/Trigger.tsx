@@ -21,7 +21,7 @@ export default function ChristmasGiftTrigger({}: Props) {
       rewardApi.endpoints.getEligibleEventCoin.initiate()
     )
       .unwrap()
-      .then((r) => !r.data?.list?.some((e) => e.event_code === 'upload2'))
+      .then((r) => r.data?.list?.some((e) => e.event_code === 'upload2'))
 
     if (isEligible)
       addResult({
