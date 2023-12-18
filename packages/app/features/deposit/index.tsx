@@ -4,16 +4,16 @@ import { PageWithBackHeader } from 'app/components/layouts/Page'
 import MenuNotice from 'app/components/navigation/MenuNotice'
 import { DepositMethodId } from 'app/config/deposit'
 import useLocalization from 'app/provider/localization'
+import dayjs from 'dayjs'
+import { ActivityIndicator, ScrollView, Text, View } from 'dripsy'
+import { useModal } from 'react-native-modalfy'
+import { usePlayerReportQuery } from 'services/playerApi'
+import { useRouter } from 'solito/router'
 import {
   DEPOSIT_NOTES,
   ReportDepositStatus,
   ReportTransactionType,
 } from 'utils/constant'
-import dayjsTz from 'app/utils/dayjs'
-import { ActivityIndicator, ScrollView, Text, View } from 'dripsy'
-import { useModal } from 'react-native-modalfy'
-import { usePlayerReportQuery } from 'services/playerApi'
-import { useRouter } from 'solito/router'
 import DepositCard from './component/DepositCard'
 import RecentTransactionRow from './component/RecentTransactionRow'
 import useDepositList from './tools/useDepositList'
@@ -35,8 +35,8 @@ const Deposit = () => {
       limit: 5,
       offset: 0,
       status: ReportDepositStatus.ALL,
-      time_from: dayjsTz().subtract(2, 'month').startOf('date').toISOString(),
-      time_to: dayjsTz().endOf('date').toISOString(),
+      time_from: dayjs().subtract(2, 'month').startOf('date').toISOString(),
+      time_to: dayjs().endOf('date').toISOString(),
       trans_type: ReportTransactionType.DEPOSIT,
     },
     { refetchOnMountOrArgChange: true }

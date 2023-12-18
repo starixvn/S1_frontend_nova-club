@@ -6,7 +6,7 @@ import { DepositTableHeader } from 'app/features/account/history/dekstop/Desktop
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import dayjsTz from 'app/utils/dayjs'
+import dayjs from 'dayjs'
 import { ActivityIndicator, ScrollView, Text, View } from 'dripsy'
 import { useEffect } from 'react'
 import { usePlayerReportQuery } from 'services/playerApi'
@@ -32,8 +32,8 @@ const PendingTransaction = ({ paymentMethod }: PendingTransactionProps) => {
       limit: 5,
       offset: 0,
       status: ReportDepositStatus.PENDING,
-      time_from: dayjsTz().subtract(2, 'month').startOf('date').toISOString(),
-      time_to: dayjsTz().endOf('date').toISOString(),
+      time_from: dayjs().subtract(2, 'month').startOf('date').toISOString(),
+      time_to: dayjs().endOf('date').toISOString(),
       trans_type: ReportTransactionType.DEPOSIT,
       bank_category_id: paymentMethod,
     },

@@ -1,19 +1,18 @@
 import HistoryListing from 'app/components/history/HistoryListing'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import { DateFilterOptions, ReportTransactionType } from 'utils/constant'
-import dayjsTz from 'app/utils/dayjs'
+import { ReportGameStatusOptions } from 'app/utils/constant'
+import dayjs from 'dayjs'
 import { View, useResponsiveValue } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import { useLazyPlayerReportQuery } from 'services/playerApi'
 import { ReportGameItem, ReportResult } from 'services/playerApi.type'
+import { DateFilterOptions, ReportTransactionType } from 'utils/constant'
 import FilterSelection from '../FilterSelection'
 import GameHistoryItem from '../GameHistoryItem'
 import DesktopGameHistoryItem, {
   GameTableHeader,
 } from '../dekstop/DesktopGameHistoryItem'
-import { ReportGameStatusOptions } from 'app/utils/constant'
-import dayjs from 'dayjs'
 
 type HistoryListingDataType = Extract<
   ReportResult['rows'],
@@ -31,8 +30,8 @@ const GameHistory = () => {
     selectedGame: ReportGameStatusOptions[0]?.value,
     selectedDate: DateFilterOptions[0]?.value,
     selectedGameStatus: ReportGameStatusOptions[0]?.value,
-    startDate: dayjsTz(undefined, 'Asia/Shanghai').startOf('date').toDate(),
-    endDate: dayjsTz(undefined, 'Asia/Shanghai').endOf('date').toDate(),
+    startDate: dayjs().startOf('date').toDate(),
+    endDate: dayjs().endOf('date').toDate(),
   })
 
   const [fetchParams, setFetchParams] = useState({

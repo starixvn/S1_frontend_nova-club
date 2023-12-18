@@ -1,19 +1,18 @@
 import HistoryListing from 'app/components/history/HistoryListing'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
+import dayjs from 'dayjs'
+import { Text, View, useResponsiveValue } from 'dripsy'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { useLazyPlayerReportQuery } from 'services/playerApi'
+import { ReportGameItem, ReportResult } from 'services/playerApi.type'
 import {
   DateFilterOptions,
   ReportDepositStatusOptions,
   ReportTransactionType,
   ReportTransactionTypeOptions,
 } from 'utils/constant'
-import dayjsTz from 'app/utils/dayjs'
-import isDesktop from 'app/utils/isDesktop'
-import dayjs from 'dayjs'
-import { Text, View, useResponsiveValue } from 'dripsy'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { useLazyPlayerReportQuery } from 'services/playerApi'
-import { ReportGameItem, ReportResult } from 'services/playerApi.type'
 import AdjustmentHistoryItem from '../AdjustmentHistoryItem'
 import BonusHistoryItem from '../BonusHistoryItem'
 import DepositHistoryItem from '../DepositHistoryItem'
@@ -43,7 +42,6 @@ import DesktopTransferHistoryItem, {
 import DesktopWithdrawalHistoryItem, {
   WithdrawalTableHeader,
 } from '../dekstop/DesktopWithdrawalHistoryItem'
-import useIsDesktop from 'app/hooks/useIsDesktop'
 
 type HistoryListingDataType = Exclude<
   ReportResult['rows'],
@@ -62,16 +60,16 @@ const TransactionHistory = () => {
     selectedStatus: ReportDepositStatusOptions[0]?.value,
     selectedDate: DateFilterOptions[0]?.value,
     selectedTransType: ReportTransactionTypeOptions[0]?.value,
-    startDate: dayjsTz(undefined, 'Asia/Shanghai').startOf('date').toDate(),
-    endDate: dayjsTz(undefined, 'Asia/Shanghai').endOf('date').toDate(),
+    startDate: dayjs().startOf('date').toDate(),
+    endDate: dayjs().endOf('date').toDate(),
     time_from: '',
     time_to: '',
   })
 
   const [fetchParams, setFetchParams] = useState({
     status: selected.selectedStatus,
-    time_from: dayjsTz(selected.startDate).toISOString(),
-    time_to: dayjsTz(selected.endDate).toISOString(),
+    time_from: dayjs(selected.startDate).toISOString(),
+    time_to: dayjs(selected.endDate).toISOString(),
     trans_type: selected.selectedTransType,
     is_reward_group_by: false,
   })
@@ -79,8 +77,8 @@ const TransactionHistory = () => {
   useEffect(() => {
     setFetchParams({
       status: selected.selectedStatus,
-      time_from: dayjsTz(selected.startDate).toISOString(),
-      time_to: dayjsTz(selected.endDate).toISOString(),
+      time_from: dayjs(selected.startDate).toISOString(),
+      time_to: dayjs(selected.endDate).toISOString(),
       trans_type: selected.selectedTransType,
       is_reward_group_by:
         selected.selectedTransType === ReportTransactionType.REBATE

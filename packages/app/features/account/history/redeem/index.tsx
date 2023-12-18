@@ -1,12 +1,12 @@
 import HistoryListing from 'app/components/history/HistoryListing'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import { ReportTransactionType } from 'utils/constant'
-import dayjsTz from 'app/utils/dayjs'
+import dayjs from 'dayjs'
 import { Text, View, useResponsiveValue } from 'dripsy'
 import React, { useState } from 'react'
 import { useLazyPlayerReportQuery } from 'services/playerApi'
 import { ReportGameItem, ReportResult } from 'services/playerApi.type'
+import { ReportTransactionType } from 'utils/constant'
 import DesktopRedeemHistoryItem, {
   RedeemTableHeader,
 } from '../dekstop/DesktopRedeemHistoryItem'
@@ -24,11 +24,8 @@ const RedeemHistory = () => {
   const [fetchData, result] = useLazyPlayerReportQuery()
 
   const [fetchParams, setFetchParams] = useState({
-    time_from: dayjsTz(undefined, 'Asia/Shanghai')
-      .subtract(2, 'month')
-      .startOf('date')
-      .toDate(),
-    time_to: dayjsTz(undefined, 'Asia/Shanghai').endOf('date').toDate(),
+    time_from: dayjs().subtract(2, 'month').startOf('date').toDate(),
+    time_to: dayjs().endOf('date').toDate(),
     trans_type: ReportTransactionType.COIN,
   })
 

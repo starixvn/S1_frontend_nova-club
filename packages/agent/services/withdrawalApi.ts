@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import { EndpointBuilderType } from 'services/common/types'
 import { agentBaseApiWithTag } from './agentBaseApi'
 import { IResponse } from './common/agentAxiosBaseQuery'
@@ -9,9 +10,6 @@ import {
   WithdrawalSubmissionInfo,
   WithdrawalSubmitFormArgs,
 } from './withdrawalApi.type'
-import { agentApi } from './agentApi'
-import dayjs from 'dayjs'
-import dayjsTz from 'app/utils/dayjs'
 
 export const withdrawalApi = agentBaseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
