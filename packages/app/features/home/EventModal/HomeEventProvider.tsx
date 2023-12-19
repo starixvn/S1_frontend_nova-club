@@ -80,7 +80,6 @@ export default function HomeEventProvider({ children }: Props) {
       }
     )
   }
-
   useEffect(() => {
     /* for app when focused on home tab again */
     if (

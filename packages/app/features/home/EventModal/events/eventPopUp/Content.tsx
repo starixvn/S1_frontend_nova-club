@@ -1,7 +1,6 @@
 import { CMS_CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import useIsDesktop from 'app/hooks/useIsDesktop'
-import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
-import { SettingActions } from 'app/store/setting.slice'
+import { useAppSelector } from 'app/provider/redux/store'
 import {
   PopupMapping,
   getCarouselBannerActionGenerator,

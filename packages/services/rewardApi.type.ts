@@ -39,6 +39,12 @@ export interface ClaimEventCoinResult {
   coin_amount: string
 }
 
-interface EventCode {
+export interface EventCode {
   event_code: string
+}
+
+export interface ClaimChristmasEventCoinResult {
+  event_code: string
+  amount: string
+  err: string
 }

@@ -1,8 +1,12 @@
 import useIsDesktop from 'app/hooks/useIsDesktop'
+import useTncHandler from 'app/hooks/useTncHandler'
 import React from 'react'
 
 const TncEn = () => {
   const isDesktop = useIsDesktop()
+
+  useTncHandler()
+
   return (
     <div>
       {isDesktop && <h2>TERMS & CONDITIONS</h2>}

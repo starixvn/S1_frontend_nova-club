@@ -17,20 +17,24 @@ export default function ChristmasGiftTrigger({}: Props) {
   const dispatch = useAppDispatch()
 
   async function checkEligible() {
-    const isEligible = await dispatch(
-      rewardApi.endpoints.getEligibleEventCoin.initiate()
-    )
-      .unwrap()
-      .then((r) => r.data?.list?.some((e) => e.event_code === 'upload2'))
+    try {
+      const isEligible = await dispatch(
+        rewardApi.endpoints.getEligibleEventCoin.initiate()
+      )
+        .unwrap()
+        .then((r) => r.data?.list?.some((e) => e.event_code === 'upload2'))
 
-    if (isEligible)
-      addResult({
-        tnc: () => {
-          push('/event/christmas-gift/tnc')
-        },
-        content: () => <LazyContent />,
-        priority: ChristmasGiftPriority,
-      })
+      if (isEligible)
+        addResult({
+          tnc: () => {
+            push('/event/christmas-gift/tnc')
+          },
+          content: () => <LazyContent />,
+          priority: ChristmasGiftPriority,
+        })
+    } catch (e) {
+      console.log('Check Christmas Gift Error', e)
+    }
 
     flagCompletedChecking(ChristmasGiftSource)
   }

@@ -21,10 +21,10 @@ const LuckyDrawTrigger = () => {
   const [getEligileSpin] = useLazyEligibleSpinQuery()
   const { addResult, flagCompletedChecking } = useHomeEvent()
 
-  const shieldStatus =
-    useAppSelector((s) => s.tempSetting.syncShieldStatus) ?? ''
-  const syncShieldActionType =
-    useAppSelector((s) => s.tempSetting.syncShieldActionType) ?? ''
+  const shieldStatus = useAppSelector((s) => s.tempSetting.syncShieldStatus)
+  const syncShieldActionType = useAppSelector(
+    (s) => s.tempSetting.syncShieldActionType
+  )
 
   const isHomeEventModalTriggered = useAppSelector(
     (state) => state.tempSetting.isHomeEventModalTriggered
