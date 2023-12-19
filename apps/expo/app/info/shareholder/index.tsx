@@ -14,7 +14,7 @@ const Shareholder = () => {
 
   return (
     <PageWithBackHeader
-      header={{ title: t('info.shareholder') }}
+      header={{ title: t('common.shareholder') }}
       disableScrollView
     >
       <View sx={{ flex: 1 }}>

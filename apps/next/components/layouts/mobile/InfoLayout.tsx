@@ -34,7 +34,7 @@ const MapInfoRouteTitle = (currentPath: string) => {
     //   return 'footer.contactUs'
     case 'shareholder':
       return 'common.shareholder'
-    case 'agent':
+    case 'info-agent':
       return 'common.agent'
     default:
       return 'VUI123'
