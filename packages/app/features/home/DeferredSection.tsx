@@ -1,10 +1,9 @@
 import GameListSectionAsyncByTag from 'app/components/game/GameListSectionAsyncByTag'
 import useLocalization from 'app/provider/localization'
-import { SlotType } from 'utils/constant'
 import { View } from 'dripsy'
 import React from 'react'
+import { SlotType } from 'utils/constant'
 import LeaderboardSection from './LeaderboardSection'
-import LuckyDrawTrigger from './LuckyDrawTrigger'
 import MatchSection from './Match/MatchSection'
 import ReferralSection from './Referral/ReferralSection'
 
@@ -36,7 +35,6 @@ export default function DeferredSection({}: Props) {
       <MatchSection />
       <LeaderboardSection />
       <ReferralSection />
-      <LuckyDrawTrigger />
     </View>
   )
 }

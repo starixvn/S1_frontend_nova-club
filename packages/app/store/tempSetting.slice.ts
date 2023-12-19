@@ -2,60 +2,41 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Shield_Action } from 'services/authApi.type'
 
 interface settingStateProps {
-  triggerPopupEvent: boolean
-  triggerPopupMessage: boolean
-  luckyDrawTriggered: boolean
   syncShieldActionType: Shield_Action
   syncShieldStatus: boolean
   splashScreenLoaded: boolean
-  triggerPopupChristmasEvent: boolean
-  isChristmasPopUpTriggered: boolean
+  isHomeEventModalTriggered: boolean
 }
 
 const initialState: settingStateProps = {
-  triggerPopupEvent: true,
-  triggerPopupMessage: true,
-  luckyDrawTriggered: false,
   syncShieldActionType: Shield_Action.NONE,
   syncShieldStatus: false,
   splashScreenLoaded: false,
-  triggerPopupChristmasEvent: false,
-  isChristmasPopUpTriggered: false,
+  isHomeEventModalTriggered: false,
 }
 
 const tempSettingSlice = createSlice({
   name: 'tempSetting',
   initialState,
   reducers: {
-    toggleTriggerPopupEvent: (state, action: PayloadAction<boolean>) => {
-      state.triggerPopupEvent = action.payload
+    setModalTriggered: (state, action) => {
+      // state.homeModalTriggeredCache = {
+      //   ...state.homeModalTriggeredCache,
+      //   ...Object(action.payload),
+      // }
     },
-    toggleTriggerPopupMessage: (state, action: PayloadAction<boolean>) => {
-      state.triggerPopupMessage = action.payload
-    },
-    setLuckyDrawTriggered: (state, action: PayloadAction<boolean>) => {
-      state.luckyDrawTriggered = action.payload
+    setIsHomeEventModalTriggered: (state, action: PayloadAction<boolean>) => {
+      state.isHomeEventModalTriggered = action.payload
     },
     setSyncShieldActionType: (state, action: PayloadAction<Shield_Action>) => {
       state.syncShieldActionType = action.payload
       state.syncShieldStatus = false
-      state.luckyDrawTriggered = false
     },
     setSyncShieldStatus: (state, action: PayloadAction<boolean>) => {
       state.syncShieldStatus = action.payload
     },
     setSplashScreenLoaded: (state, action: PayloadAction<boolean>) => {
       state.splashScreenLoaded = action.payload
-    },
-    setChristmasPopUpTriggered: (state, action: PayloadAction<boolean>) => {
-      state.isChristmasPopUpTriggered = action.payload
-    },
-    toggleTriggerPopupChristmasEvent: (
-      state,
-      action: PayloadAction<boolean>
-    ) => {
-      state.triggerPopupChristmasEvent = action.payload
-      if (action.payload === false) state.isChristmasPopUpTriggered = true
     },
   },
 })

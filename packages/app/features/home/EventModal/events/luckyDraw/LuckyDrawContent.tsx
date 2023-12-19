@@ -1,23 +1,21 @@
+import SpinDrawContent from 'app/components/modal/SpinDrawContent'
 import useAlert from 'app/hooks/useAlert'
-import { useAppSelector } from 'app/provider/redux/store'
+import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
-import { useRef, useState } from 'react'
-import { useModal } from 'react-native-modalfy'
-import { useDispatch } from 'react-redux'
-import { useRetentionSpinMutation } from 'services/playerApi'
+import React, { useRef, useState } from 'react'
+import { useLuckySpinMutation } from 'services/playerApi'
 import { useRouter } from 'solito/router'
-import SpinDrawContent from './SpinDrawContent'
+import { useHomeEventModal } from '../../HomeEventModal'
 
-const RetentionDrawModal = ({ modal: { closeModal } }) => {
-  const dispatch = useDispatch()
-  const { push } = useRouter()
+type Props = {}
+
+export default function LuckyDrawContent({}: Props) {
+  const dispatch = useAppDispatch()
   const { showAlert } = useAlert()
-  const { closeModal: closeTargetModal } = useModal()
+  const { dimension } = useHomeEventModal()
 
-  const [spinRetentionWheel] = useRetentionSpinMutation()
-  const retentionDrawBalance = useAppSelector(
-    (s) => s.setting.retentionDrawBalance
-  )
+  const [spinLuckyWheel] = useLuckySpinMutation()
+  const luckyDrawBalance = useAppSelector((s) => s.setting.luckyDrawBalance)
 
   const targetIndex = useRef(0)
   const [startAnimate, setStartAnimate] = useState(false)
@@ -26,12 +24,12 @@ const RetentionDrawModal = ({ modal: { closeModal } }) => {
   const [startAnimateWinPrizeFrame, setStartAnimateWinPrizeFrame] =
     useState(false)
 
-  const retentionSpin = async () => {
+  const spin = async () => {
     setLoopCount((prev) => prev + 20)
     setStartAnimate(true)
     setLoading(true)
 
-    const { data, success, message } = await spinRetentionWheel()
+    const { data, success, message } = await spinLuckyWheel()
       .unwrap()
       .catch((error) => {
         setLoading(false)
@@ -41,7 +39,7 @@ const RetentionDrawModal = ({ modal: { closeModal } }) => {
 
     if (success) {
       targetIndex.current = handleSpinMapping(data.code)
-      dispatch(SettingActions.setRetentionDrawBalance(0)) // this is to trigger the memoized wheel
+      dispatch(SettingActions.setLuckyDrawBalance(0)) // this is to trigger the memoized wheel
       // setSpinBalance((prev) => prev + 1)
 
       setTimeout(() => {
@@ -62,33 +60,30 @@ const RetentionDrawModal = ({ modal: { closeModal } }) => {
   }
 
   const handleClose = () => {
-    closeTargetModal('RetentionDrawModal')
-    // closeTargetModal('RegisterModal')
-    retentionDrawBalance > 0 &&
-      dispatch(SettingActions.setRetentionDrawBalance(0))
+    // closeModal()
+    luckyDrawBalance > 0 && dispatch(SettingActions.setLuckyDrawBalance(0))
   }
 
   const handleNavigateTnc = () => {
-    closeTargetModal('RetentionDrawModal')
-    push('/retention-spin-tnc')
+    // closeModal(undefined, () => push('/event/luckyspin/tnc'))
   }
 
   const handleSpinMapping = (code: number) => {
     switch (code) {
       case 1:
-        return 5 //0
+        return 9 //8
       case 2:
-        return 9 //30
+        return 1 //18
       case 3:
-        return 1 //50
+        return 6 //38
       case 4:
-        return 2 //80
+        return 2 //98
       case 5:
-        return 4 //100
+        return 4 //188
       case 6:
-        return 6 // 200
+        return 8 // 388
       case 7:
-        return 8 // 600
+        return 5 // 888
       default:
         return 3 //Dummy Prize, can be 0,3,7
     }
@@ -96,8 +91,8 @@ const RetentionDrawModal = ({ modal: { closeModal } }) => {
 
   return (
     <SpinDrawContent
-      balance={retentionDrawBalance}
-      srcPrize={require('app/assets/images/luckydraw/retention-prizes.png')}
+      balance={luckyDrawBalance}
+      srcPrize={require('app/assets/images/luckydraw/prizes.png')}
       targetIndex={targetIndex}
       loopCount={loopCount}
       startAnimate={startAnimate}
@@ -105,10 +100,9 @@ const RetentionDrawModal = ({ modal: { closeModal } }) => {
       isLoading={isLoading}
       setLoading={setLoading}
       onClose={handleClose}
-      onSpin={retentionSpin}
+      onSpin={spin}
       onTnc={handleNavigateTnc}
+      dimension={dimension}
     />
   )
 }
-
-export default RetentionDrawModal

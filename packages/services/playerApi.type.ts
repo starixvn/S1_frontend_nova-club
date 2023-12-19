@@ -193,7 +193,7 @@ export type EligibleSpinResult = {
   details: EligibleSpinItem[]
 }
 
-type EligibleSpinItem = {
+export type EligibleSpinItem = {
   event_code: string
   event_type: 'registration' | 'retention'
   wheel_info: WheelInfo

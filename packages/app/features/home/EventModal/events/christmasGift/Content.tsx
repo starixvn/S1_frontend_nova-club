@@ -1,8 +1,10 @@
+import Icon from 'app/components/Icon'
+import { FONT_TOP_OFFSET } from 'app/constants/font'
 import GenericContainer from 'app/features/rewards/tnc/component/GenericContainer'
-import useContainerDimension from 'app/hooks/useContainerDimension'
 import useLocalization from 'app/provider/localization'
 import {
   ActivityIndicator,
+  Image,
   Pressable,
   Row,
   ScrollView,
@@ -10,16 +12,14 @@ import {
   View,
 } from 'dripsy'
 import { MotiImage } from 'moti'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { ImageBackground } from 'react-native'
 import { useModal } from 'react-native-modalfy'
-import Image from '../common/Image'
-import { useRouter } from 'solito/router'
-import { useClaimEventCoinMutation } from 'services/rewardApi'
 import { IResponse } from 'services/common/types'
+import { useClaimEventCoinMutation } from 'services/rewardApi'
 import { ClaimEventCoinResult } from 'services/rewardApi.type'
-import Icon from '../Icon'
-import { FONT_TOP_OFFSET } from 'app/constants/font'
+import { useRouter } from 'solito/router'
+import { useHomeEventModal } from '../../HomeEventModal'
 
 const list = [
   'rewards.tnc.christmas.tnc.n1',
@@ -32,19 +32,22 @@ const list = [
   'rewards.tnc.christmas.tnc.n8',
 ]
 
-const ChristmasGiftModal = ({ modal: { closeModal } }) => {
+type Props = {}
+
+export default function ChristmasGiftContent({}: Props) {
   const { push } = useRouter()
   const [redeemCoin, { isLoading: isRequesting }] = useClaimEventCoinMutation()
-  const { width, height } = useContainerDimension()
+  const { width, height } = useHomeEventModal().dimension
   const [isLoading, setLoading] = useState(true)
   const [redeemed, setRedeemed] = useState(false)
   const [amount, setAmount] = useState('')
+  const { closeModal } = useModal()
 
-  const imageWidth = Math.min(450, width * 0.7)
+  const imageWidth = Math.min(450, width * 0.95)
   const imageHeight = imageWidth / (900 / 1100)
 
   const gotoRewards = () => {
-    closeModal('ChristmasGiftModal', () => push('/rewards/redeem/list'))
+    closeModal(undefined, () => push('/rewards/redeem/list'))
   }
 
   async function redeem() {
@@ -172,7 +175,6 @@ const ChristmasGiftModal = ({ modal: { closeModal } }) => {
                   </Pressable>
                 </View>
               </ImageBackground>
-              <ActionButton handleClose={() => closeModal()} />
             </>
           ) : (
             <>
@@ -240,7 +242,6 @@ const ChristmasGiftModal = ({ modal: { closeModal } }) => {
                   </Pressable>
                 </View>
               </ImageBackground>
-              <ActionButton handleClose={() => closeModal()} />
             </>
           )}
           {isLoading ? (
@@ -265,57 +266,3 @@ const ChristmasGiftModal = ({ modal: { closeModal } }) => {
     </View>
   )
 }
-
-type ActionButtonProps = {
-  handleClose?: () => void
-}
-
-const ActionButton = ({ handleClose }: ActionButtonProps) => {
-  const { openModal } = useModal()
-  const { t } = useLocalization()
-  return (
-    <View
-      sx={{
-        position: 'absolute',
-        flexDirection: 'row',
-        width: '100%',
-        justifyContent: 'space-between',
-      }}
-    >
-      <Pressable
-        onPress={() =>
-          openModal('RewardTncModal', {
-            content: (
-              <GenericContainer>
-                <Text sx={{ fontSize: 14, fontWeight: 'bold' }}>
-                  {t('rewards.tnc.christmas.eventTitle')}
-                </Text>
-                <Text sx={{ fontSize: 14, fontWeight: 'bold' }}>
-                  {t('rewards.tnc.christmas.period')}
-                </Text>
-                <View sx={{ pt: '$2' }}>
-                  {list.map((text, index) => {
-                    return (
-                      <Row key={index}>
-                        <Text sx={{ pr: '$2' }}>{index + 1}</Text>
-                        <Text>{t(text)}</Text>
-                      </Row>
-                    )
-                  })}
-                </View>
-              </GenericContainer>
-            ),
-          })
-        }
-      >
-        <Icon name="tnc" size={27} />
-      </Pressable>
-
-      <Pressable onPress={handleClose}>
-        <Icon name="cross" size={25} />
-      </Pressable>
-    </View>
-  )
-}
-
-export default ChristmasGiftModal

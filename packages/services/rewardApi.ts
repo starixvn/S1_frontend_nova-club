@@ -86,6 +86,7 @@ export const {
   useGetCoinRedemptionListQuery,
   useCheckInDailyCoinMutation,
   useGetDailyCoinQuery,
+  useGetEligibleEventCoinQuery,
   useLazyGetEligibleEventCoinQuery,
   useClaimEventCoinMutation,
 } = rewardApi

@@ -2,7 +2,7 @@ import useAlert from 'app/hooks/useAlert'
 import { useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
 import { useRef, useState } from 'react'
-import { useModal } from 'react-native-modalfy'
+import { useWindowDimensions } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { useLuckySpinMutation } from 'services/playerApi'
 import { useRouter } from 'solito/router'
@@ -12,10 +12,11 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
   const dispatch = useDispatch()
   const { push } = useRouter()
   const { showAlert } = useAlert()
-  const { closeModal: closeTargetModal } = useModal()
 
   const [spinLuckyWheel] = useLuckySpinMutation()
   const luckyDrawBalance = useAppSelector((s) => s.setting.luckyDrawBalance)
+  const { width: windowWidth, height } = useWindowDimensions()
+  const width = Math.min(650, windowWidth * 0.8)
 
   const targetIndex = useRef(0)
   const [startAnimate, setStartAnimate] = useState(false)
@@ -60,14 +61,12 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
   }
 
   const handleClose = () => {
-    closeTargetModal('LuckyDrawModal')
-    // closeTargetModal('RegisterModal')
+    closeModal()
     luckyDrawBalance > 0 && dispatch(SettingActions.setLuckyDrawBalance(0))
   }
 
   const handleNavigateTnc = () => {
-    closeTargetModal('LuckyDrawModal')
-    push('/lucky-spin-tnc')
+    closeModal(undefined, () => push('/event/luckyspin/tnc'))
   }
 
   const handleSpinMapping = (code: number) => {
@@ -104,6 +103,8 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
       onClose={handleClose}
       onSpin={spin}
       onTnc={handleNavigateTnc}
+      dimension={{ width, height }}
+      showActions
     />
   )
 }

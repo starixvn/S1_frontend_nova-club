@@ -6,26 +6,32 @@ import { MobileInfoLayout } from 'components/layouts/mobile'
 import { ActivityIndicator } from 'dripsy'
 import dynamic from 'next/dynamic'
 
-const LazyEn = dynamic(() => import('app/features/lucky-spin/tncEn'), {
-  loading: () => <ActivityIndicator />,
-  ssr: false,
-})
+const LazyEn = dynamic(
+  () => import('app/features/home/EventModal/tnc/retentionSpin/tncEn'),
+  {
+    loading: () => <ActivityIndicator />,
+    ssr: false,
+  }
+)
 
-const LazyVi = dynamic(() => import('app/features/lucky-spin/tncVi'), {
-  loading: () => <ActivityIndicator />,
-  ssr: false,
-})
+const LazyVi = dynamic(
+  () => import('app/features/home/EventModal/tnc/retentionSpin/tncVi'),
+  {
+    loading: () => <ActivityIndicator />,
+    ssr: false,
+  }
+)
 
 const infoLocalizationMapping = {
   [LANGUAGE_CODE.ENGLISH]: LazyEn,
   [LANGUAGE_CODE.VIETNAM]: LazyVi,
 }
 
-const LuckySpinTnc: AdaptiveLayoutPage = () => (
+const RetentionSpinTnc: AdaptiveLayoutPage = () => (
   <InfoScreen map={infoLocalizationMapping} />
 )
 
-LuckySpinTnc.DesktopLayout = DesktopBaseLayout
-LuckySpinTnc.MobileLayout = MobileInfoLayout
+RetentionSpinTnc.DesktopLayout = DesktopBaseLayout
+RetentionSpinTnc.MobileLayout = MobileInfoLayout
 
-export default LuckySpinTnc
+export default RetentionSpinTnc

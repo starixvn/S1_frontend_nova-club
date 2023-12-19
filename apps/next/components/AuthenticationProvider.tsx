@@ -23,7 +23,6 @@ const guestRoutes = [
   '/auth/register',
   '/auth/forgot-password',
   '/games',
-  '/lucky-spin-tnc',
   '/agent',
   '/event',
   '/tag/new',
