@@ -145,12 +145,11 @@ export const playerApi = baseApiWithTag.injectEndpoints({
       }),
     }),
     playerRealName: builder.mutation<IResponse, PlayerRealNameArgs>({
-      query: ({ username, realName }) => ({
+      query: (queryArgs) => ({
         url: `/player_api/playerRealName`,
         method: 'PUT',
         data: {
-          username,
-          realName,
+          ...queryArgs,
         },
       }),
       invalidatesTags: ['PlayerProfile'],
