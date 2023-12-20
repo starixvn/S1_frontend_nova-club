@@ -1,4 +1,8 @@
-import notifee, { AndroidStyle } from '@notifee/react-native'
+import notifee, {
+  AndroidStyle,
+  AndroidImportance,
+  NotificationAndroid,
+} from '@notifee/react-native'
 import messaging from '@react-native-firebase/messaging'
 
 type NotificationUtils = {
@@ -9,7 +13,8 @@ type NotificationUtils = {
 
 export const useNotificationUtils = (): NotificationUtils => {
   async function requestPermission() {
-    return (await messaging().requestPermission()) > 0
+    const setting = await notifee.requestPermission()
+    return setting ? setting.authorizationStatus > 0 : false
   }
 
   function registerForegroundHandler() {
@@ -28,6 +33,9 @@ export const useNotificationUtils = (): NotificationUtils => {
     const channelId = await notifee.createChannel({
       id: 'default',
       name: 'Default Channel',
+      importance: AndroidImportance.HIGH,
+      sound: 'default',
+      vibration: true,
     })
 
     try {
@@ -35,20 +43,26 @@ export const useNotificationUtils = (): NotificationUtils => {
       const imgUrl = data.fcm_options?.image
       const attachments = imgUrl ? [{ url: imgUrl }] : []
 
-      console.log(imgUrl)
+      let androidNotification: NotificationAndroid = {
+        channelId,
+        smallIcon: 'ic_notification',
+        largeIcon: 'ic_notification',
+      }
+
+      if (imgUrl) {
+        androidNotification.style = {
+          type: AndroidStyle.BIGPICTURE,
+          picture: imgUrl,
+        }
+      }
+
       await notifee.displayNotification({
         title: notification.title,
         body: notification.body,
         ios: {
           attachments,
         },
-        android: {
-          channelId,
-          style: {
-            type: AndroidStyle.BIGPICTURE,
-            picture: imgUrl,
-          },
-        },
+        android: androidNotification,
       })
     } catch (e) {
       console.log('on notification received error', e)
