@@ -8,6 +8,8 @@ import React, { ComponentProps, ReactNode, memo } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { SolitoImage } from 'solito/image'
 import { useModal } from 'react-native-modalfy'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import { useAppSelector } from 'app/provider/redux/store'
 
 type StyledContainerProps = {
   width: number
@@ -54,6 +56,7 @@ export default function AuthLayout({
 
 const LeftColumn = memo(
   ({ title, isAgent }: { title: string; isAgent?: boolean }) => {
+    const lang = useAppSelector((state) => state.setting.locale)
     return (
       <View
         sx={{
@@ -67,7 +70,7 @@ const LeftColumn = memo(
           {title}
         </Text>
         <SolitoImage
-          src={require('app/assets/images/common/logo.png')}
+          src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/auth/logo-${lang}.png`}
           alt="logo"
           width={128}
           height={80}
