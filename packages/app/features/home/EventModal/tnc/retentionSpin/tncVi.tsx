@@ -1,10 +1,8 @@
 import useIsDesktop from 'app/hooks/useIsDesktop'
-import useTncHandler from 'app/hooks/useTncHandler'
 import React from 'react'
 
 const TncVi = () => {
   const isDesktop = useIsDesktop()
-  useTncHandler()
 
   return (
     <div>

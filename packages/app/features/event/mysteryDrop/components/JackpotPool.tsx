@@ -123,7 +123,7 @@ const JackpotBoard = ({ jackpot }: JackpotProp) => {
   const jackpotWidth = useResponsiveValue([width - width * 0.1, 500])
   const [prevPrize, setPrevPrize] = useState<number>()
 
-  const total = jackpot && Math.trunc(jackpot / 1000)
+  const total = jackpot && Math.trunc(jackpot)
 
   return (
     <View
@@ -159,7 +159,6 @@ const JackpotBoard = ({ jackpot }: JackpotProp) => {
                 thousandsSeparator=","
                 onComplete={() => setPrevPrize(total)}
               />
-              {',000'}
             </JackpotText>
             <JackpotText>{` VND`}</JackpotText>
           </Row>

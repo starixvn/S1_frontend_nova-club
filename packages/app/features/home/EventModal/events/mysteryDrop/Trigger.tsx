@@ -19,7 +19,9 @@ export default function MysteryDropTrigger({}: Props) {
   async function checkEligible() {
     try {
       const isEligible = await dispatch(
-        eventApi.endpoints.getMysteryCheck.initiate()
+        eventApi.endpoints.getMysteryCheck.initiate(undefined, {
+          forceRefetch: true,
+        })
       )
         .unwrap()
         .then((r) => r?.data?.key)

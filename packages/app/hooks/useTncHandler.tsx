@@ -2,7 +2,6 @@ import { useAppDispatch } from 'app/provider/redux/store'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
 import { useEffect } from 'react'
 
-
 export default function useTncHandler() {
   const dispatch = useAppDispatch()
 

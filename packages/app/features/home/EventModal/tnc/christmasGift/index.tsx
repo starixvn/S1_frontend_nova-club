@@ -1,5 +1,4 @@
 import useIsDesktop from 'app/hooks/useIsDesktop'
-import useTncHandler from 'app/hooks/useTncHandler'
 import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
 import React from 'react'
@@ -18,8 +17,6 @@ const list = [
 const Tnc = () => {
   const isDesktop = useIsDesktop()
   const { t } = useLocalization()
-
-  useTncHandler()
 
   return (
     <View>
