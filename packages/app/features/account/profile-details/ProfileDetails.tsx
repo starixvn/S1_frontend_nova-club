@@ -38,14 +38,13 @@ const ProfileDetails = () => {
   const isPlayerName = !!playerData?.firstName
   const isDob = !!playerData?.birthdate
   const isTelegram = !!playerData?.telegram_id
+  const isEditable = !isPlayerName || !isDob || !isTelegram
 
   const desktop = useIsDesktop()
 
   const [updatePlayerName] = usePlayerRealNameMutation()
   const { showAlert } = useAlert()
   const { push } = useRouter()
-
-  const horizontalMode = useResponsiveValue([false, false, false, true, true])
 
   const onSubmit = async (
     { realName, dob, telegram }: UpdateNameValueProps,
@@ -126,8 +125,11 @@ const ProfileDetails = () => {
       disableScrollView
       hideHeader={desktop}
     >
-      <FormContainer sx={{ my: '$4' }} hidePadding>
-        {desktop ? (
+      <FormContainer
+        sx={desktop || !isEditable ? { my: '$4' } : { p: '$4' }}
+        hidePadding
+      >
+        {desktop || isEditable ? (
           <>
             {isPlayerName ? (
               <Input
@@ -248,6 +250,7 @@ const ProfileDetails = () => {
                 spellCheck={false}
                 onChangeText={handleChange('telegram')}
                 onBlur={handleBlur('telegram')}
+                maxLength={32}
                 error={
                   errors.telegram
                     ? t(errors.telegram, {
@@ -258,7 +261,7 @@ const ProfileDetails = () => {
               />
             )}
 
-            {(!isPlayerName || !isDob || !isTelegram) && (
+            {isEditable && (
               <Button
                 loading={isSubmitting}
                 disabled={!isValid || !dirty}
