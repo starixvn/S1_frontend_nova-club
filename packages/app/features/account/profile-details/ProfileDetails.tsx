@@ -87,7 +87,12 @@ const ProfileDetails = () => {
     },
     validationSchema: Yup.object({
       realName: validation.vietnameseCharacter,
-      dob: validation.stringRequired,
+      dob: Yup.date()
+        .required('validation.required')
+        .max(
+          dayjs().subtract(18, 'year').add(1, 'day').startOf('date').toDate(),
+          'validation.dobMinAge'
+        ),
       telegram: validation.stringRequired,
     }),
     onSubmit,
@@ -202,6 +207,13 @@ const ProfileDetails = () => {
                   .toDate()}
                 onChange={(value) =>
                   setFieldValue('dob', dayjs(value).toDate())
+                }
+                error={
+                  errors.dob
+                    ? t(errors.dob, {
+                        field: t('common.dob'),
+                      })
+                    : undefined
                 }
               />
             )}
