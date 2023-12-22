@@ -22,7 +22,7 @@ import * as Yup from 'yup'
 import MobileProfileItem from './MobileProfileItem'
 import DatePicker from 'app/components/form/DatePicker'
 import dayjs from 'dayjs'
-import { Row, Text, View, useResponsiveValue } from 'dripsy'
+import { Row, Text, View, styled, useResponsiveValue } from 'dripsy'
 
 type UpdateNameValueProps = {
   realName: string
@@ -56,15 +56,12 @@ const ProfileDetails = () => {
 
         const { success, message } = await updatePlayerName({
           realName: sanitizedRealName,
-          dob: typeof dob === 'string' ? dob : dob.format('YYYY-MM-DD'),
+          dob: typeof dob === 'string' ? dob : dayjs(dob).format('YYYY-MM-DD'),
           telegram_id: telegram,
         })
           .unwrap()
           .catch((e: IResponse) => {
-            console.log(
-              '🚀 ~ file: ProfileDetails.tsx:83 ~ ProfileDetails ~ e:',
-              e
-            )
+            console.log('🚀 ~ file:  ProfileDetails ~ e:', e)
             showAlert(e)
             return e
           })
@@ -85,7 +82,7 @@ const ProfileDetails = () => {
     enableReinitialize: true,
     initialValues: {
       realName: '',
-      dob: undefined,
+      dob: null,
       telegram: '',
     },
     validationSchema: Yup.object({
@@ -113,7 +110,11 @@ const ProfileDetails = () => {
     if (playerData) {
       setValues({
         realName: playerData.firstName,
-        dob: playerData.birthdate,
+        dob: isEditable
+          ? playerData.birthdate
+            ? dayjs(playerData.birthdate)
+            : null
+          : playerData.birthdate,
         telegram: playerData.telegram_id,
       })
     }
@@ -122,7 +123,6 @@ const ProfileDetails = () => {
   return (
     <PageWithBackHeader
       header={{ title: t('common.profile') }}
-      disableScrollView
       hideHeader={desktop}
     >
       <FormContainer
@@ -130,11 +130,11 @@ const ProfileDetails = () => {
         hidePadding
       >
         {desktop || isEditable ? (
-          <>
+          <View sx={{}}>
             {isPlayerName ? (
-              <Input
+              <DesktopInput
+                desktop={desktop}
                 responsive
-                inputContainerSx={{ flex: 1.8, flexGrow: 1.8 }}
                 label={t('common.realName')}
                 editable={false}
                 value={`${playerData?.firstName || ''} ${
@@ -142,8 +142,8 @@ const ProfileDetails = () => {
                 }`}
               />
             ) : (
-              <Input
-                inputContainerSx={{ flex: 1.8, flexGrow: 1.8 }}
+              <DesktopInput
+                desktop={desktop}
                 responsive
                 label={t('common.realName')}
                 value={values.realName}
@@ -162,16 +162,16 @@ const ProfileDetails = () => {
                 }
               />
             )}
-            <Input
+            <DesktopInput
+              desktop={desktop}
               responsive
-              inputContainerSx={{ flex: 1.8, flexGrow: 1.8 }}
               label={t('common.username')}
               editable={false}
               value={playerData?.username || ''}
             />
 
-            <Input
-              inputContainerSx={{ flex: 1.8, flexGrow: 1.8 }}
+            <DesktopInput
+              desktop={desktop}
               responsive
               label={t('common.phone')}
               editable={false}
@@ -179,9 +179,9 @@ const ProfileDetails = () => {
             />
 
             {isDob ? (
-              <Input
+              <DesktopInput
+                desktop={desktop}
                 responsive
-                inputContainerSx={{ flex: 1.8, flexGrow: 1.8 }}
                 label={t('common.dob')}
                 editable={false}
                 value={playerData?.birthdate}
@@ -189,9 +189,9 @@ const ProfileDetails = () => {
             ) : (
               <DatePicker
                 responsive
+                inputContainerSx={desktop ? { flex: 1.8, flexGrow: 1.8 } : {}}
                 label={t('common.dob')}
                 value={values.dob}
-                inputContainerSx={{ flex: 1.8, flexGrow: 1.8 }}
                 minimumDate={dayjs()
                   .subtract(100, 'year')
                   .startOf('date')
@@ -200,13 +200,16 @@ const ProfileDetails = () => {
                   .subtract(18, 'year')
                   .startOf('date')
                   .toDate()}
-                onChange={(value) => setFieldValue('dob', dayjs(value))}
+                onChange={(value) =>
+                  setFieldValue('dob', dayjs(value).toDate())
+                }
               />
             )}
 
-            <Input
-              inputContainerSx={{ flex: 1.8, flexGrow: 1.8 }}
+            <DesktopInput
+              desktop={desktop}
               responsive
+              inputContainerSx={desktop ? { flex: 1.8, flexGrow: 1.8 } : {}}
               label={t('common.playerId')}
               editable={false}
               value={playerData?.referral_code.toString() || ''}
@@ -223,8 +226,8 @@ const ProfileDetails = () => {
                 )
               }}
             />
-            <Input
-              inputContainerSx={{ flex: 1.8, flexGrow: 1.8 }}
+            <DesktopInput
+              desktop={desktop}
               responsive
               label={t('common.currency')}
               editable={false}
@@ -232,16 +235,16 @@ const ProfileDetails = () => {
             />
 
             {isTelegram ? (
-              <Input
+              <DesktopInput
+                desktop={desktop}
                 responsive
-                inputContainerSx={{ flex: 1.8, flexGrow: 1.8 }}
                 label={t('contact.telegram')}
                 editable={false}
                 value={playerData?.telegram_id}
               />
             ) : (
-              <Input
-                inputContainerSx={{ flex: 1.8, flexGrow: 1.8 }}
+              <DesktopInput
+                desktop={desktop}
                 responsive
                 label={t('contact.telegram')}
                 value={values.telegram}
@@ -266,12 +269,12 @@ const ProfileDetails = () => {
                 loading={isSubmitting}
                 disabled={!isValid || !dirty}
                 onPress={submitForm}
-                sx={{ mt: '$3', my: '$4', mx: '$6' }}
+                sx={{ mt: '$3', my: '$4', mx: '$5' }}
               >
                 {t('common.submit')}
               </Button>
             )}
-          </>
+          </View>
         ) : (
           <MobileProfileItem playerData={playerData} />
         )}
@@ -279,5 +282,14 @@ const ProfileDetails = () => {
     </PageWithBackHeader>
   )
 }
+
+const DesktopInput = styled(Input)(({ desktop }: { desktop: boolean }) =>
+  desktop
+    ? {
+        flex: 1.8,
+        flexGrow: 1.8,
+      }
+    : {}
+)
 
 export default ProfileDetails
