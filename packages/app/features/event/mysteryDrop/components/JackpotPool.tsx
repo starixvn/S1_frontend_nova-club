@@ -99,7 +99,7 @@ const JackpotPool = ({ jackpot }: JackpotProp) => {
         style={{ position: 'absolute' }}
       />
 
-      <View sx={{ position: 'relative', mt: '$4' }}>
+      <View sx={{ position: 'relative', mt: '$4', alignItems: 'center' }}>
         {animateElement01}
         {animateElement02}
 
@@ -108,7 +108,6 @@ const JackpotPool = ({ jackpot }: JackpotProp) => {
           alt=""
           width={logoWidth}
           height={logoHeight}
-          style={{ marginHorizontal: 'auto' }}
         />
 
         <JackpotBoard jackpot={jackpot} />
@@ -147,7 +146,7 @@ const JackpotBoard = ({ jackpot }: JackpotProp) => {
           {t('event.mystery.totalJackpot')}
         </Text>
         {total && (
-          <Row sx={{ justifyContent: 'space-between' }}>
+          <Row>
             <JackpotText>
               <CountUp
                 key={jackpot}

@@ -9,6 +9,7 @@ import { useModal } from 'react-native-modalfy'
 import { useRouter } from 'solito/router'
 import { RewardGameKeyMap } from 'utils/rewards'
 import { useHomeEventModal } from '../../HomeEventModal'
+import { ImageBackground } from 'react-native'
 
 type Props = {}
 
@@ -74,26 +75,32 @@ export default function MysteryDropContent({}: Props) {
           </Text>
         </StyledTextContainer>
 
-        <TouchableOpacity onPress={handlePress}>
-          <StyledButtonContainer>
-            <Image
+        <StyledButtonContainer>
+          <TouchableOpacity onPress={handlePress}>
+            <ImageBackground
               source={{
                 uri: `${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/board-button.png`,
               }}
-              sx={{ width: containerWidth / 3, aspectRatio: 536 / 166 }}
-              alt=""
-            />
-            <Text
-              sx={{
-                position: 'absolute',
-                color: '#5C3800',
-                fontWeight: 'bold',
+              style={{
+                width: containerWidth / 3,
+                aspectRatio: 536 / 166,
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
+              alt=""
             >
-              {t('common.open')}
-            </Text>
-          </StyledButtonContainer>
-        </TouchableOpacity>
+              <Text
+                sx={{
+                  position: 'absolute',
+                  color: '#5C3800',
+                  fontWeight: 'bold',
+                }}
+              >
+                {t('common.open')}
+              </Text>
+            </ImageBackground>
+          </TouchableOpacity>
+        </StyledButtonContainer>
       </View>
     </View>
   )
