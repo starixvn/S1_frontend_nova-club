@@ -11,6 +11,11 @@ import { useModal } from 'react-native-modalfy'
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { useAppSelector } from 'app/provider/redux/store'
 
+const LogoMapping = {
+  en: `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered.png`,
+  vi: `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered-vn.png`,
+}
+
 type StyledContainerProps = {
   width: number
 }
@@ -70,7 +75,7 @@ const LeftColumn = memo(
           {title}
         </Text>
         <SolitoImage
-          src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/auth/logo-${lang}.png`}
+          src={LogoMapping[lang]}
           alt="logo"
           width={128}
           height={80}
