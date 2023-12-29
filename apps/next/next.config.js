@@ -26,6 +26,7 @@ const nextConfig = {
   images: {
     disableStaticImages: true,
     domains: [
+      'localhost',
       'static-stage.gball8.com',
       'static.zzspeed.site',
       'bw88.io',

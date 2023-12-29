@@ -14,7 +14,7 @@ const Tnc = () => {
   const { t } = useLocalization()
   const { back } = useRouter()
 
-  const TNC_URL = `${DEV_DOMAIN}/event/luckyspin/tnc?locale=${lang}`
+  const TNC_URL = `${DEV_DOMAIN}/event/register/tnc?locale=${lang}`
 
   useEffect(() => {
     dispatch(TempSettingActions.setIsHomeEventModalTriggered(false))

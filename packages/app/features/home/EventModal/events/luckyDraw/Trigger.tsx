@@ -76,14 +76,12 @@ const LuckyDrawTrigger = () => {
   }
 
   function handleRegistrationEvent(balance: number = 0) {
-    dispatch(SettingActions.setLuckyDrawBalance(balance))
-
     addResult([
       {
         tnc: () => {
-          push('/event/luckyspin/tnc')
+          push('/event/register/tnc')
         },
-        content: () => <LazyLuckyDrawContent />,
+        content: () => <LazyRegistrationContent />,
         priority: LuckyDrawPriority,
       },
     ])
@@ -119,5 +117,5 @@ const LuckyDrawTrigger = () => {
 
 export default memo(LuckyDrawTrigger)
 
-const LazyLuckyDrawContent = dynamic(() => import('./LuckyDrawContent'))
+const LazyRegistrationContent = dynamic(() => import('./RegistrationContent'))
 const LazyRetentionContent = dynamic(() => import('./RetentionContent'))

@@ -39,3 +39,15 @@ export function modalDelaySubmission(callback) {
     callback()
   }, 250)
 }
+
+export function getSolitoImageSizes(sizes: number[]) {
+  const breakpoints = [576, 768, 992, 1200]
+
+  const requiredQueries = breakpoints.slice(0, sizes.length - 1)
+
+  const sizesStr = requiredQueries.reduce((acc, cur, index) => {
+    return `${acc} (max-width: ${cur - 1}px) ${sizes[index]}px, `
+  }, ``)
+
+  return `${sizesStr}${sizes[sizes.length - 1]}`
+}

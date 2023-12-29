@@ -135,6 +135,7 @@ export default function useRegisterScreen(
     }).unwrap()
 
     if (success) {
+      dispatch(TempSettingActions.setIsHomeEventModalTriggered(true))
       dispatch(AuthActions.setAuthInfo(data as LoginResult))
       dispatch(
         TempSettingActions.setSyncShieldActionType(Shield_Action.REGISTER)
@@ -147,7 +148,6 @@ export default function useRegisterScreen(
       // replace('/')
 
       //temporary disable auto popup till modal closed
-      dispatch(TempSettingActions.setIsHomeEventModalTriggered(true))
       setTimeout(() => {
         openModal('ActionableModal', {
           title: t('authentication.registerSuccess.m1'),

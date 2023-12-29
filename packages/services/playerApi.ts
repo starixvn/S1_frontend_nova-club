@@ -20,7 +20,7 @@ import {
 } from './playerApi.type'
 import { walletApi } from './walletApi'
 
-const playerApi = baseApiWithTag.injectEndpoints({
+export const playerApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
     playerProfile: builder.query<IResponse<ProfileResult>, void>({
       query: (queryArgs) => ({

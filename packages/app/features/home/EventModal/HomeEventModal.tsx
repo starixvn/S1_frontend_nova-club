@@ -16,13 +16,11 @@ import React, {
   useRef,
   useState,
 } from 'react'
-import { useWindowDimensions } from 'react-native'
+import { Platform, useWindowDimensions } from 'react-native'
 import { ModalComponentProp } from 'react-native-modalfy'
 import { interpolate } from 'react-native-reanimated'
 import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel'
 import { SolitoImage } from 'solito/image'
-
-const TabHeight = 100
 
 type HomeEventModalContextValue = {
   dimension: {
@@ -48,7 +46,7 @@ export interface HomeEventModalData {
 }
 
 export default function HomeEventModal({
-  modal: { closeModal, getParam },
+  modal: { closeModal, getParam, currentModal },
 }: ModalComponentProp<ModalStackParams, void, 'HomeEventModal'>) {
   const { width, height } = useWindowDimensions()
   const data = getParam('data', [])
@@ -62,8 +60,6 @@ export default function HomeEventModal({
   const carouselRef = useRef<ICarouselInstance>(null)
   const currentSelection = data[activeIndex]
   //   const selectedIndex = carouselRef.current?.getCurrentIndex() ?? 0
-
-  const containerHeight = safeHeight - TabHeight
   const centerOffset = width / 2 - itemWidth / 2
 
   const animationStyle = useCallback(
@@ -111,9 +107,12 @@ export default function HomeEventModal({
     closeModal()
   }
 
+  const isModalOnBackground = currentModal !== 'HomeEventModal'
+
   return (
     <HomeEventModalContext.Provider value={contextState}>
       <View
+        pointerEvents={isModalOnBackground ? 'none' : 'auto'}
         sx={{
           flex: 1,
           paddingTop: top,
@@ -186,17 +185,22 @@ export default function HomeEventModal({
             }}
             style={{
               width,
-              height: containerHeight,
+              height: safeHeight,
               alignItems: 'center',
             }}
             loop={false}
             data={data}
             renderItem={({ item, index }) => {
               const Content = item.content
+
               return (
                 <View
                   pointerEvents={
-                    activeIndex !== index || isPressDisabled ? 'none' : 'auto'
+                    isModalOnBackground ||
+                    activeIndex !== index ||
+                    (isPressDisabled && Platform.OS === 'web')
+                      ? 'none'
+                      : 'auto'
                   }
                   style={{
                     width: itemWidth,
