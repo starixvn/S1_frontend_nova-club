@@ -13,7 +13,14 @@ import { isBannedTrackingCode } from 'app/utils/referralUtil'
 import validation from 'app/utils/validation'
 import { FormikHelpers, useFormik } from 'formik'
 import { useDynamicAnimation } from 'moti'
-import { RefObject, useCallback, useEffect, useMemo, useState } from 'react'
+import {
+  RefObject,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { Linking, Platform, View as RNView } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useRegisterMutation } from 'services/authApi'
@@ -74,8 +81,8 @@ export default function useRegisterScreen(
 
   const isLoggedIn = useAppSelector((s) => !!s.auth.info)
   const memberToken = useAppSelector((state) => state.auth.info?.token)
-  const { openModal } = useModal()
-  const [unmountAction, setUnmountAction] = useState(false)
+  const { openModal, closeAllModals } = useModal()
+  const unmountAction = useRef<() => void>()
 
   const { data } = usePlayerProfileQuery(undefined, {
     skip: !isLoggedIn,
@@ -141,30 +148,16 @@ export default function useRegisterScreen(
         TempSettingActions.setSyncShieldActionType(Shield_Action.REGISTER)
       )
 
+      dispatch(TempSettingActions.setIsHomeEventModalTriggered(true))
+
       if (currentModal) {
         closeModal()
+        unmountAction.current = handleSuccessRegisterOpenModal
+      } else {
+        handleSuccessRegisterOpenModal()
       }
 
       // replace('/')
-
-      //temporary disable auto popup till modal closed
-      dispatch(TempSettingActions.setIsHomeEventModalTriggered(true))
-      setTimeout(() => {
-        openModal('ActionableModal', {
-          title: t('authentication.registerSuccess.m1'),
-          message: t('authentication.registerSuccess.m2'),
-          onClose: () => {
-            dispatch(TempSettingActions.setIsHomeEventModalTriggered(false))
-            replace('/')
-          },
-          actions: [
-            {
-              label: t('home.joinNow'),
-              onPress: () => Linking.openURL('https://t.me/cungvui123'),
-            },
-          ],
-        })
-      }, 1000)
 
       setStatus(true)
     } else {
@@ -204,9 +197,9 @@ export default function useRegisterScreen(
 
       if (currentModal) {
         closeModal()
-        setUnmountAction(true)
+        unmountAction.current = handleSuccessRegisterOpenModal
       } else {
-        handleAgentSuccessRegisterOpenModal()
+        handleSuccessRegisterOpenModal()
       }
 
       // replace('/agent/profile')
@@ -219,25 +212,40 @@ export default function useRegisterScreen(
     setIsSubmitting(false)
   }
 
+  const handleSuccessRegisterOpenModal = () => {
+    return isAgentLogin
+      ? openModal('ActionableModal', {
+          title: t('authentication.registerSuccess.a1'),
+          message: t('authentication.registerSuccess.a2'),
+          onClose: () => replace('/agent/profile'),
+          actions: [
+            {
+              label: t('home.joinNow'),
+              onPress: () => Linking.openURL('https://t.me/vui123Daily'),
+            },
+          ],
+        })
+      : openModal('ActionableModal', {
+          title: t('authentication.registerSuccess.m1'),
+          message: t('authentication.registerSuccess.m2'),
+          onClose: () => {
+            dispatch(TempSettingActions.setIsHomeEventModalTriggered(false))
+            replace('/')
+          },
+          actions: [
+            {
+              label: t('home.joinNow'),
+              onPress: () => Linking.openURL('https://t.me/cungvui123'),
+            },
+          ],
+        })
+  }
+
   useEffect(() => {
     return () => {
-      isAgentLogin && unmountAction && handleAgentSuccessRegisterOpenModal()
+      unmountAction.current && unmountAction.current()
     }
-  }, [currentModal, unmountAction])
-
-  function handleAgentSuccessRegisterOpenModal() {
-    openModal('ActionableModal', {
-      title: t('authentication.registerSuccess.a1'),
-      message: t('authentication.registerSuccess.a2'),
-      onClose: () => replace('/agent/profile'),
-      actions: [
-        {
-          label: t('home.joinNow'),
-          onPress: () => Linking.openURL('https://t.me/vui123Daily'),
-        },
-      ],
-    })
-  }
+  }, [unmountAction])
 
   const onSubmit = async (
     registerValues: RegisterFormValues,
@@ -318,6 +326,5 @@ export default function useRegisterScreen(
     onRegisterSuccess,
     onBack,
     currentScreen,
-    handleAgentSuccessRegisterOpenModal,
   }
 }
