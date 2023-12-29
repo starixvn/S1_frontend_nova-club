@@ -75,6 +75,7 @@ export default function useRegisterScreen(
   const isLoggedIn = useAppSelector((s) => !!s.auth.info)
   const memberToken = useAppSelector((state) => state.auth.info?.token)
   const { openModal } = useModal()
+  const [unmountAction, setUnmountAction] = useState(false)
 
   const { data } = usePlayerProfileQuery(undefined, {
     skip: !isLoggedIn,
@@ -203,29 +204,39 @@ export default function useRegisterScreen(
 
       if (currentModal) {
         closeModal()
+        setUnmountAction(true)
+      } else {
+        handleAgentSuccessRegisterOpenModal()
       }
 
       // replace('/agent/profile')
 
-      setTimeout(() => {
-        openModal('ActionableModal', {
-          title: t('authentication.registerSuccess.a1'),
-          message: t('authentication.registerSuccess.a2'),
-          onClose: () => replace('/agent/profile'),
-          actions: [
-            {
-              label: t('home.joinNow'),
-              onPress: () => Linking.openURL('https://t.me/vui123Daily'),
-            },
-          ],
-        })
-      }, 1000)
       /* to indicate the register is successfull and used to persist loading on submit button */
       setStatus(true)
     } else {
       showAlert(message)
     }
     setIsSubmitting(false)
+  }
+
+  useEffect(() => {
+    return () => {
+      isAgentLogin && unmountAction && handleAgentSuccessRegisterOpenModal()
+    }
+  }, [currentModal, unmountAction])
+
+  function handleAgentSuccessRegisterOpenModal() {
+    openModal('ActionableModal', {
+      title: t('authentication.registerSuccess.a1'),
+      message: t('authentication.registerSuccess.a2'),
+      onClose: () => replace('/agent/profile'),
+      actions: [
+        {
+          label: t('home.joinNow'),
+          onPress: () => Linking.openURL('https://t.me/vui123Daily'),
+        },
+      ],
+    })
   }
 
   const onSubmit = async (
@@ -307,5 +318,6 @@ export default function useRegisterScreen(
     onRegisterSuccess,
     onBack,
     currentScreen,
+    handleAgentSuccessRegisterOpenModal,
   }
 }
