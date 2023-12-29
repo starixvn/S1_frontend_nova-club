@@ -136,7 +136,7 @@ const RegisterForm = ({
       setUsernameErrorMsg('')
     }
 
-    setFieldValue('username', e, false)
+    setFieldValue('username', e)
   }
 
   const usernameActions = useCallback(() => {
@@ -154,7 +154,7 @@ const RegisterForm = ({
       handleCheckingUsername()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lang, usernameErrorMsg])
+  }, [lang])
 
   return (
     <StyledFormContainer {...rest}>
