@@ -37,6 +37,16 @@ const LEFT_MENU: MenuProps[] = [
   },
 ]
 
+const RIGHT_MENU: MenuProps[] = [
+  {
+    route: '/rewards/redeem/list',
+    icon: 'reward',
+    checkIsVisible: ({ token }) => {
+      return Boolean(token)
+    },
+  },
+]
+
 const MENU: MenuProps[] = [
   {
     route: '/sportsbook',
@@ -72,16 +82,6 @@ const MENU: MenuProps[] = [
   {
     route: '/account/leaderboard',
     label: 'menu.leaderboard',
-  },
-  {
-    route: '/rewards/redeem/list',
-    icon: 'reward',
-    checkIsVisible: ({ token }) => {
-      return Boolean(token)
-    },
-    // style: {
-    //   marginRight: 'auto',
-    // },
   },
   // {
   //   route: '/leaderboard',
@@ -138,6 +138,7 @@ export default function NavigationHeader({}) {
                 >
                   {renderMenu(MENU)}
                 </Row>
+                <Row>{renderMenu(RIGHT_MENU)}</Row>
               </Row>
             </Container>
           </DripsyGradient>
