@@ -4,7 +4,7 @@ import { Pressable, Row, Text, View, styled } from 'dripsy'
 import { MotiView } from 'moti'
 import React, { useState } from 'react'
 import { MYSTERY_DROPS_TNC } from 'utils/constant'
-import { TitleText } from './IntroColumn'
+import { TitleText } from './MysteryGame'
 
 const TnC = () => {
   const { t } = useLocalization()
@@ -18,7 +18,6 @@ const TnC = () => {
       <TitleText
         sx={{
           fontWeight: 'bold',
-          py: '$1',
           textAlign: 'left',
           fontSize: [15, 18],
         }}

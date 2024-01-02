@@ -1,6 +1,6 @@
 import Icon from 'app/components/Icon'
 import useLocalization from 'app/provider/localization'
-import { Text, View, styled } from 'dripsy'
+import { Text, View } from 'dripsy'
 import React from 'react'
 import { MSYTERY_INTRO } from 'utils/constant'
 
@@ -59,13 +59,5 @@ const IntroColumnContent = () => {
     </>
   )
 }
-
-export const TitleText = styled(Text)({
-  fontWeight: 'bold',
-  textAlign: 'center',
-  lineHeight: 32,
-  fontSize: 18,
-  mb: '$2',
-})
 
 export default IntroColumn

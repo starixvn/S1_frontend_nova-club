@@ -155,7 +155,7 @@ export const WinModal = NiceModal.create(
                   fontFamily: 'Avertastd Bold',
                 }}
               >
-                {toThousandSeparator(winPrize)}
+                {`${toThousandSeparator(winPrize)} VND`}
               </h1>
               <div style={{ color: 'white', fontSize: 20 }}>{prizeType}</div>
             </div>

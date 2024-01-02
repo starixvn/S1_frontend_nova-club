@@ -4,7 +4,6 @@ import { toThousandSeparator } from 'app/utils'
 import { Text, View, styled } from 'dripsy'
 import React, { useState } from 'react'
 import { MysteryEventPrize } from 'services/eventApi.type'
-import { usePlayerProfileQuery } from 'services/playerApi'
 import { SolitoImage } from 'solito/image'
 import { CountUp } from 'use-count-up'
 
@@ -18,10 +17,7 @@ const defaultPrize: MysteryEventPrize = { amt: '0', min: '0', max: '0' }
 
 const Prize = ({ width, type = 'grand', prize }: PrizeProps) => {
   const { t } = useLocalization()
-  const { currency } = usePlayerProfileQuery()
   const [prevPrize, setPrevPrize] = useState<number>()
-
-  const randomInterval = Math.floor(Math.random() * (7 - 3 + 1) + 3)
 
   const prizeAmount = Number(prize.amt)
 
@@ -86,7 +82,7 @@ const Prize = ({ width, type = 'grand', prize }: PrizeProps) => {
                   isCounting
                   start={prevPrize ? prevPrize : prizeAmount}
                   end={prizeAmount}
-                  duration={randomInterval}
+                  duration={3}
                   easing="easeOutCubic"
                   thousandsSeparator=","
                   onComplete={() => setPrevPrize(prizeAmount)}

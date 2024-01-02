@@ -41,7 +41,7 @@ const useScrollToTop = () => {
               duration: 250,
             }}
           >
-            <IconButton name="arrow-up" size={32} onPress={handleScrollTop} />
+            <IconButton name="arrow-up" size={18} onPress={handleScrollTop} />
           </AnimatedView>
         )}
       </AnimatePresence>

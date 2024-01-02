@@ -57,11 +57,14 @@ const WinnerColumnContent = () => {
   const { data } = useGetMysteryWinnerQuery(undefined, {
     refetchOnMountOrArgChange: true,
   })
+
+  const winnerData = data && data.slice(0, 5)
+
   return (
     <View>
-      {data &&
-        data?.length > 0 &&
-        data.map((item, index) => (
+      {winnerData &&
+        winnerData?.length > 0 &&
+        winnerData.map((item, index) => (
           <Row
             key={index}
             sx={{
@@ -81,7 +84,7 @@ const WinnerColumnContent = () => {
               />
               <WinnerText>{item.username}</WinnerText>
             </Row>
-            <WinnerText>{`VND ${toThousandSeparator(item.amt)}`}</WinnerText>
+            <WinnerText>{`${toThousandSeparator(item.amt)} VND`}</WinnerText>
           </Row>
         ))}
     </View>

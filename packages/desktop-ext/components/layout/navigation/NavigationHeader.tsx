@@ -79,9 +79,6 @@ const MENU: MenuProps[] = [
     route: '/event/mystery-drop',
     label: 'event.mystery.title',
     tag: 'game.new',
-    checkIsVisible: ({ token }) => {
-      return Boolean(token)
-    },
   },
   {
     route: '/rewards/redeem/list',

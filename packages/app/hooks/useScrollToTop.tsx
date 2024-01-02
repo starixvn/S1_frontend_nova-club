@@ -1,9 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import IconButton from '../components/IconButton'
-import { View, styled } from 'dripsy'
-import useWindowResize from 'app/hooks/useWindowResize'
+import { styled } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Platform } from 'react-native'
+import IconButton from '../components/IconButton'
 
 const useScrollToTop = ({ innerRef }) => {
   const [scrollY, setScrollY] = useState(0)

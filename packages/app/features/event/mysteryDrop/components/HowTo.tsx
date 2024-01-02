@@ -1,9 +1,9 @@
-import { Row, Text, View, styled } from 'dripsy'
-import React from 'react'
-import { TitleText } from './IntroColumn'
-import { SolitoImage } from 'solito/image'
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import useLocalization from 'app/provider/localization'
+import { Row, Text, View, styled } from 'dripsy'
+import React from 'react'
+import { SolitoImage } from 'solito/image'
+import { TitleText } from './MysteryGame'
 
 const HOW_LIST = [
   {

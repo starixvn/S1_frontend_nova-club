@@ -1,12 +1,8 @@
-import { useRandomInterval } from 'app/hooks/useRandomInterval'
 import { useGetMysteryEventQuery } from 'services/eventApi'
 import { MysteryEventPrize } from 'services/eventApi.type'
 
 const useFetchMysteryDrops = () => {
-  const { data, refetch } = useGetMysteryEventQuery()
-  const delay = [10000, 15000]
-
-  useRandomInterval(() => refetch(), ...delay)
+  const { data } = useGetMysteryEventQuery(undefined, { pollingInterval: 5000 })
 
   const defaultPrize: MysteryEventPrize = { amt: '0', min: '0', max: '0' }
   const miniPrize = (data && data[1]) ?? defaultPrize
