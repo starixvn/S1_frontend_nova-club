@@ -12,7 +12,8 @@ import usePathname from 'app/hooks/usePathname'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { HEADER_HEIGHT } from 'utils/constant'
+import dayjs from 'dayjs'
+import isBetween from 'dayjs/plugin/isBetween'
 import HeaderAuthenticationDesktop from 'desktop-ext/components/navigation/header/HeaderAuthentication'
 import {
   Container,
@@ -23,7 +24,6 @@ import {
   View,
   styled,
   useDripsyTheme,
-  useResponsiveValue,
 } from 'dripsy'
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
@@ -31,34 +31,37 @@ import { Platform } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { Link } from 'solito/link'
 import { useRouter } from 'solito/router'
+import { HEADER_HEIGHT } from 'utils/constant'
 import HeaderAuthentication from './HeaderAuthentication'
 import HeaderDeposit from './HeaderDeposit'
 import HeaderLanguageToggle from './HeaderLanguageToggle'
 import HeaderOverview from './HeaderOverview'
-import isBetween from 'dayjs/plugin/isBetween'
-import dayjs from 'dayjs'
-import { SolitoImage } from 'solito/image'
 dayjs.extend(isBetween)
 
 const LogoSize = [HEADER_HEIGHT * 0.5, HEADER_HEIGHT * 0.75]
 
 const Logo = () => {
   const lang = useAppSelector((s) => s.setting.locale)
-  const showChristmasTheme = useResponsiveValue([false, false, false, true])
-  const themeLogoWidth = useResponsiveValue([0, 0, 0, 190, 260])
+  // const showChristmasTheme = useResponsiveValue([false, false, false, true])
+  // const themeLogoWidth = useResponsiveValue([0, 0, 0, 190, 260])
 
-  const isChristmasDate = dayjs().isBetween(
-    dayjs('2023-11-30T17:00:00.000Z'),
-    dayjs('2023-12-31T17:00:00.000Z')
-  )
+  // const isChristmasDate = dayjs().isBetween(
+  //   dayjs('2023-11-30T17:00:00.000Z'),
+  //   dayjs('2023-12-31T17:00:00.000Z')
+  // )
+
+  // const LOGO_PATH =
+  //   lang === 'en'
+  //     ? isChristmasDate
+  //       ? `${MEDIA_DOMAIN}${CONTENT_URI}/event/christmas/logo-christmas-en.png`
+  //       : `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered.png`
+  //     : isChristmasDate
+  //     ? `${MEDIA_DOMAIN}${CONTENT_URI}/event/christmas/logo-christmas-vi.png`
+  //     : `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered-vn.png`
 
   const LOGO_PATH =
     lang === 'en'
-      ? isChristmasDate
-        ? `${MEDIA_DOMAIN}${CONTENT_URI}/event/christmas/logo-christmas-en.png`
-        : `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered.png`
-      : isChristmasDate
-      ? `${MEDIA_DOMAIN}${CONTENT_URI}/event/christmas/logo-christmas-vi.png`
+      ? `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered.png`
       : `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered-vn.png`
 
   return (
@@ -77,7 +80,7 @@ const Logo = () => {
         />
       </Link>
 
-      {isChristmasDate && showChristmasTheme && (
+      {/* {isChristmasDate && showChristmasTheme && (
         <SolitoImage
           src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/christmas/header-christmas-desktop.png`}
           height={60}
@@ -85,7 +88,7 @@ const Logo = () => {
           contentPosition="bottom center"
           alt=""
         />
-      )}
+      )} */}
     </Row>
   )
 }

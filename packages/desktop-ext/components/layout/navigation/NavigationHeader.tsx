@@ -1,25 +1,20 @@
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Divider from 'app/components/Divider'
 import DripsyMotiView from 'app/components/DripsyMotiView'
 import { DripsyGradient } from 'app/components/Gradient'
 import Icon from 'app/components/Icon'
 import usePathname from 'app/hooks/usePathname'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { Container, Pressable, Row, Text, View, styled } from 'dripsy'
 import { MotiPressable, useMotiPressable } from 'moti/interactions'
 import React, { startTransition } from 'react'
 import { ViewStyle } from 'react-native'
-import { useModal } from 'react-native-modalfy'
-import { SolitoImage } from 'solito/image'
 import { useLink } from 'solito/link'
 import FloatingLiveChatDesktop from './FloatingLiveChatDesktop'
 import {
   NAVIGATION_DROPDOWN_MENU,
   useNavigationHeader,
 } from './NavigationHeaderProvider'
-import FloatingContent from 'app/features/floatingContent'
-import { BOTTOM_TAB_BAR_HEIGHT } from 'app/components/navigation/BottomTabBar'
-import { useAppSelector } from 'app/provider/redux/store'
 
 interface MenuProps {
   icon?: string
@@ -31,7 +26,7 @@ interface MenuProps {
 }
 interface MenuButtonProps extends MenuProps {}
 
-const MENU: MenuProps[] = [
+const LEFT_MENU: MenuProps[] = [
   {
     route: '/download',
     icon: 'mobile',
@@ -39,10 +34,10 @@ const MENU: MenuProps[] = [
   {
     route: '/',
     icon: 'home',
-    // style: {
-    //   marginRight: 'auto',
-    // },
   },
+]
+
+const MENU: MenuProps[] = [
   {
     route: '/sportsbook',
     label: 'game.category.sportsbook',
@@ -96,13 +91,30 @@ const MENU: MenuProps[] = [
   //   },
   // },
 ]
-const LuckySpin =
-  `${MEDIA_DOMAIN}${CONTENT_URI}/lucky-spin/miniLuckyWheelv3.gif` as any
+
 export const NAVIGATION_HEIGHT = 50
 export default function NavigationHeader({}) {
   const toggleMenu = useNavigationHeader()
-  const { openModal } = useModal()
   const token = useAppSelector((s) => s.auth.info?.token)
+
+  const renderMenu = (menu: MenuProps[]) => {
+    return menu.map((m, j) => {
+      if (m.checkIsVisible?.({ token }) === false) {
+        return null
+      }
+
+      return (
+        <MenuButton
+          key={j}
+          label={m.label}
+          icon={m.icon}
+          route={m.route}
+          style={m.style}
+          menu={m.menu}
+        />
+      )
+    })
+  }
 
   return (
     <>
@@ -116,44 +128,16 @@ export default function NavigationHeader({}) {
             sx={{ height: NAVIGATION_HEIGHT, marginTop: 'auto' }}
           >
             <Container sx={{ alignItems: 'stretch', flex: 1 }}>
-              <Row
-                sx={{
-                  flex: 1,
-                  alignItems: 'stretch',
-                  justifyContent: 'space-evenly',
-                  // px: [0, 0, 0, '$pagePadding'],
-                }}
-              >
-                <Pressable
-                  sx={{ position: 'relative', top: NAVIGATION_HEIGHT - 55 }}
-                  onPress={() => {
-                    !token && openModal('LuckyDrawModal', {})
+              <Row sx={{ flex: 1, gap: '$2' }}>
+                <Row>{renderMenu(LEFT_MENU)}</Row>
+                <Row
+                  sx={{
+                    flex: 1,
+                    justifyContent: 'space-between',
                   }}
                 >
-                  <SolitoImage
-                    src={LuckySpin}
-                    alt="luckywheel"
-                    width={100}
-                    height={55}
-                  />
-                </Pressable>
-
-                {MENU.map((m, i) => {
-                  if (m.checkIsVisible?.({ token }) === false) {
-                    return null
-                  }
-
-                  return (
-                    <MenuButton
-                      key={i}
-                      label={m.label}
-                      icon={m.icon}
-                      route={m.route}
-                      style={m.style}
-                      menu={m.menu}
-                    />
-                  )
-                })}
+                  {renderMenu(MENU)}
+                </Row>
               </Row>
             </Container>
           </DripsyGradient>
