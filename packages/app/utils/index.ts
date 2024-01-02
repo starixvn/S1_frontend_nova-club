@@ -4,11 +4,15 @@ import { store } from 'app/provider/redux/store'
 import * as Clipboard from 'expo-clipboard'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import {
+  CONTENT_FROM_TOP,
+  CONTENT_FROM_TOP_2,
   CURRENCY_SEPARATOR,
   CURRENCY_TO_LANGUAGE,
   Currency,
+  HEADER_HEIGHT_OFFSET,
   LANGUAGE_CODE,
   LANGUAGE_NAMESPACE,
+  SCROLL_OFFSET_TOP,
 } from 'utils/constant'
 /**
  * `expo-clipboard` version 2.1.1 is used due to v3 above need Expo SDK45
@@ -309,4 +313,24 @@ export function humanFileSize(bytes: number): string {
     ' ' +
     ['B', 'KB', 'MB', 'GB', 'TB'][i]
   )
+}
+
+export const desktopScrollToElement = (elementId) => {
+  const element = document.getElementById(elementId)
+  if (element) {
+    const elementTop = element.getBoundingClientRect().top
+
+    // If the element is within the desired range, return early
+    if (elementTop > CONTENT_FROM_TOP && elementTop < CONTENT_FROM_TOP_2) {
+      return
+    }
+
+    // Scroll the element into view smoothly
+    element.scrollIntoView({ behavior: 'smooth' })
+
+    // Adjust the window scroll position if necessary
+    if (elementTop < SCROLL_OFFSET_TOP || elementTop > CONTENT_FROM_TOP) {
+      window.scrollBy(0, elementTop - HEADER_HEIGHT_OFFSET)
+    }
+  }
 }
