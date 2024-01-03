@@ -143,12 +143,11 @@ export default function useRegisterScreen(
     }).unwrap()
 
     if (success) {
+      dispatch(TempSettingActions.setIsHomeEventModalTriggered(true))
       dispatch(AuthActions.setAuthInfo(data as LoginResult))
       dispatch(
         TempSettingActions.setSyncShieldActionType(Shield_Action.REGISTER)
       )
-
-      dispatch(TempSettingActions.setIsHomeEventModalTriggered(true))
 
       if (currentModal) {
         closeModal()
