@@ -20,8 +20,8 @@ type prizeOptions = {
 }
 
 export const potDict: prizeOptions = {
-  1: `${AssetBasePath}/assets/${GamePackageName}/images/pot-blue.png`,
-  2: `${AssetBasePath}/assets/${GamePackageName}/images/pot-green.png`,
+  1: `${AssetBasePath}/assets/${GamePackageName}/images/pot-green.png`,
+  2: `${AssetBasePath}/assets/${GamePackageName}/images/pot-blue.png`,
   3: `${AssetBasePath}/assets/${GamePackageName}/images/pot-red.png`,
 }
 export const prizeDict: prizeOptions = {

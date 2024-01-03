@@ -5,7 +5,7 @@ import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Row, Text, View, styled, useResponsiveValue } from 'dripsy'
 import { MotiView } from 'moti'
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { SolitoImage } from 'solito/image'
 import { CountUp } from 'use-count-up'
 
@@ -120,9 +120,14 @@ const JackpotBoard = ({ jackpot }: JackpotProp) => {
   const { t } = useLocalization()
   const { width } = useWindowResize()
   const jackpotWidth = useResponsiveValue([width - width * 0.1, 500])
+  const [total, setTotal] = useState<number>()
   const [prevPrize, setPrevPrize] = useState<number>()
 
-  const total = jackpot && Math.trunc(jackpot)
+  useEffect(() => {
+    setTimeout(() => {
+      setTotal(jackpot)
+    }, 1000)
+  }, [jackpot])
 
   return (
     <View
@@ -153,7 +158,7 @@ const JackpotBoard = ({ jackpot }: JackpotProp) => {
                 isCounting
                 start={prevPrize ? prevPrize : total}
                 end={total}
-                duration={3}
+                duration={5}
                 easing="easeOutCubic"
                 thousandsSeparator=","
                 onComplete={() => setPrevPrize(total)}
