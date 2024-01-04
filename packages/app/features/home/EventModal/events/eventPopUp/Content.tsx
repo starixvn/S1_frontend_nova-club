@@ -6,7 +6,7 @@ import {
   getCarouselBannerActionGenerator,
 } from 'app/utils/carouselBannerActionGenerator'
 import { ActivityIndicator, Image, Pressable, ScrollView, View } from 'dripsy'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import { BannerItem } from 'services/contentApi.type'
 import { useRouter } from 'solito/router'
@@ -16,7 +16,7 @@ type Props = {
   data: BannerItem
 }
 
-export default function Content({ data }: Props) {
+const Content = memo(({ data }: Props) => {
   const { width, height } = useHomeEventModal().dimension
   const [isLoading, setLoading] = useState(true)
   const { openModal, closeModal } = useModal()
@@ -127,4 +127,6 @@ export default function Content({ data }: Props) {
       </ScrollView>
     </View>
   )
-}
+})
+
+export default Content

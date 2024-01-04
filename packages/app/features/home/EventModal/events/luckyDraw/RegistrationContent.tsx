@@ -2,7 +2,7 @@ import useAlert from 'app/hooks/useAlert'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch } from 'app/provider/redux/store'
 import { ActivityIndicator, Pressable, Text, View } from 'dripsy'
-import React, { ComponentProps, useState } from 'react'
+import React, { ComponentProps, memo, useEffect, useState } from 'react'
 import { IResponse } from 'services/common/types'
 import { playerApi } from 'services/playerApi'
 import { LuckySpinArgs } from 'services/playerApi.type'
@@ -27,7 +27,7 @@ type Props = {}
   Char: +2 on top of tile as he moves
 */
 
-export default function RegistrationContent({}: Props) {
+const RegistrationContent = memo(({}: Props) => {
   const dispatch = useAppDispatch()
   const { push } = useRouter()
   const { showAlert } = useAlert()
@@ -40,23 +40,19 @@ export default function RegistrationContent({}: Props) {
     if (result) {
       const isWin = result?.code > 0
 
-      let actions: ActionsProps[] = [
-        {
-          label: t('common.cancel'),
-        },
-      ]
-
-      if (isWin) {
-        actions.unshift({
-          label: t('rewards.checkInModal.depositNow'),
-          onPress: () => closeModal(undefined, () => push('/deposit')),
-        })
-      }
-
       showAlert({
         message: isWin ? result.note : t('event.lose2'),
         title: t(isWin ? 'event.won' : 'event.lose'),
-        actions,
+        actions: [
+          {
+            label: t('common.playNow'),
+            onPress: () => closeModal(undefined, () => push('/slots')),
+          },
+          {
+            label: t('common.close'),
+            bg: '$disabled',
+          },
+        ],
       })
     }
   }
@@ -127,7 +123,9 @@ export default function RegistrationContent({}: Props) {
       />
     </View>
   )
-}
+})
+
+export default RegistrationContent
 
 function RollButton({
   sx,

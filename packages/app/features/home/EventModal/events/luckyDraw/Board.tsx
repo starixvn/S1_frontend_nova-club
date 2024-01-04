@@ -2,7 +2,7 @@ import { useInterval } from 'app/hooks/useInterval'
 import { Row, View, styled } from 'dripsy'
 import { random } from 'lodash'
 import { MotiView, useDynamicAnimation } from 'moti'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { SolitoImage } from 'solito/image'
 import { useHomeEventModal } from '../../HomeEventModal'
 import {
@@ -183,7 +183,7 @@ export default function Board({ tiles, resultIndex, onAnimated }: Props) {
       <DiceSet
         targetValue={resultIndex ? resultIndex + 1 : undefined}
         size={diceWidth}
-        onAnimatad={animateNext}
+        onAnimated={animateNext}
       />
     </View>
   )
@@ -219,11 +219,11 @@ const CharacterJumping = styled(MotiView)(
 const DiceSet = ({
   size,
   targetValue,
-  onAnimatad,
+  onAnimated,
 }: {
   size: number
   targetValue?: number
-  onAnimatad?: () => void
+  onAnimated?: () => void
 }) => {
   const [diceResults, setDiceResults] = useState<DiceResults>(
     randomDiceResult([random(1, 6) as DiceResult, random(1, 6) as DiceResult])
@@ -231,7 +231,8 @@ const DiceSet = ({
 
   const [isRunning, setIsRunning] = useState(false)
 
-  let isFirstDicePattern = !!random(0, 1)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  let isFirstDicePattern = useMemo(() => !!random(0, 1), [diceResults])
 
   useEffect(() => {
     if (targetValue) {
@@ -241,7 +242,7 @@ const DiceSet = ({
         const diceResult = resultToDiceArray(targetValue)
         setDiceResults(diceResult)
         setIsRunning(false)
-        onAnimatad && onAnimatad()
+        onAnimated && onAnimated()
       }, random(1000, 2000))
 
       return () => clearTimeout(clearEffect)
@@ -270,12 +271,12 @@ const DiceSet = ({
     >
       <Dice
         size={size}
-        result={diceResults[0] as DiceResult}
+        result={diceResults[0]}
         pattern={isFirstDicePattern ? 1 : 2}
       />
       <Dice
         size={size}
-        result={diceResults[1] as DiceResult}
+        result={diceResults[1]}
         pattern={isFirstDicePattern ? 2 : 1}
       />
     </Row>
@@ -291,7 +292,6 @@ const Dice = ({
   pattern: 1 | 2
   size: number
 }) => {
-  console.log('result', result)
   return (
     <View>
       <SolitoImage
