@@ -25,7 +25,9 @@ const MapInfoRouteTitle = (currentPath: string) => {
   switch (currentPath) {
     case 'tnc':
     case '/event/luckyspin/tnc':
+    case '/event/retention/tnc':
     case '/event/christmas-gift/tnc':
+    case '/event/christmas-special/tnc':
       return 'common.tnc'
     case 'about-us':
       return 'footer.aboutUs'
@@ -33,7 +35,7 @@ const MapInfoRouteTitle = (currentPath: string) => {
     //   return 'footer.contactUs'
     case 'shareholder':
       return 'common.shareholder'
-    case 'agent':
+    case 'info-agent':
       return 'common.agent'
     default:
       return 'VUI123'

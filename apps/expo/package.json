@@ -1,5 +1,10 @@
 {
   "dependencies": {
+    "@formatjs/intl-datetimeformat": "^6.12.0",
+    "@formatjs/intl-getcanonicallocales": "^2.3.0",
+    "@formatjs/intl-locale": "^3.4.3",
+    "@formatjs/intl-numberformat": "^8.9.0",
+    "@formatjs/intl-pluralrules": "^5.2.10",
     "@notifee/react-native": "7.8.0",
     "@react-native-async-storage/async-storage": "1.18.1",
     "@react-native-community/datetimepicker": "6.7.3",
@@ -41,6 +46,7 @@
     "jsqr": "^1.4.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-intl": "^6.5.5",
     "react-merge-refs": "^2.0.2",
     "react-native": "0.71.8",
     "react-native-actions-sheet": "0.8.29",

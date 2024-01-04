@@ -13,18 +13,22 @@ export default function EventPopUpTrigger({}: Props) {
   const dispatch = useAppDispatch()
 
   async function filterAppearingBanners() {
-    const popups = await dispatch(contentApi.endpoints.banner.initiate())
-      .unwrap()
-      .then((r) => r.filter((b) => b.banner_display_page === 'popup'))
+    try {
+      const popups = await dispatch(contentApi.endpoints.banner.initiate())
+        .unwrap()
+        .then((r) => r.filter((b) => b.banner_display_page === 'popup'))
 
-    if (popups && popups.length > 0) {
-      addResult(
-        popups.map((p, i) => ({
-          // tnc: () => {},
-          content: () => <LazyContent data={p} />,
-          priority: EventPopUpPriority + i,
-        }))
-      )
+      if (popups && popups.length > 0) {
+        addResult(
+          popups.map((p, i) => ({
+            // tnc: () => {},
+            content: () => <LazyContent data={p} />,
+            priority: EventPopUpPriority + i,
+          }))
+        )
+      }
+    } catch (e) {
+      console.log('Check Event Pop Up Error', e)
     }
 
     flagCompletedChecking(EventPopUpSource)

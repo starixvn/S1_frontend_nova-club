@@ -1,21 +1,24 @@
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import useLocalization from 'app/provider/localization'
-
-import { useAppSelector } from 'app/provider/redux/store'
+import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
+import { TempSettingActions } from 'app/store/tempSetting.slice'
 import { View } from 'dripsy'
 import { useRouter } from 'expo-router'
-import React from 'react'
-import { useModal } from 'react-native-modalfy'
+import React, { useEffect } from 'react'
 import WebView from 'react-native-webview'
 import { DEV_DOMAIN } from '../../../next/config/env'
 
 const Tnc = () => {
+  const dispatch = useAppDispatch()
   const lang = useAppSelector((state) => state.setting.locale)
   const { t } = useLocalization()
 
-  const TNC_URL = `${DEV_DOMAIN}/christmas-tnc?locale=${lang}`
+  const TNC_URL = `${DEV_DOMAIN}/event/christmas-special/tnc?locale=${lang}`
   const { back } = useRouter()
-  const { openModal } = useModal()
+
+  useEffect(() => {
+    dispatch(TempSettingActions.setIsHomeEventModalTriggered(false))
+  }, [])
 
   return (
     <PageWithBackHeader

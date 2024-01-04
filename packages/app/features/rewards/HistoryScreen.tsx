@@ -2,7 +2,7 @@ import DatePicker from 'app/components/form/DatePicker'
 import HistoryListing from 'app/components/history/HistoryListing'
 import SelectList from 'app/components/select/SelectList'
 import useLocalization from 'app/provider/localization'
-import dayjsTz from 'app/utils/dayjs'
+import { toThousandSeparator } from 'app/utils'
 import dayjs from 'dayjs'
 import { Row, Text, View, styled, useDripsyTheme } from 'dripsy'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
@@ -19,8 +19,6 @@ import {
   CellViewContainer,
   TAB_NO,
 } from '../account/history/dekstop/DesktopDepositHistoryItem'
-import { Platform } from 'react-native'
-import { toThousandSeparator } from 'app/utils'
 
 type HistoryListingDataType = Exclude<
   ReportResult['rows'],
@@ -35,8 +33,8 @@ const TransactionHistory = () => {
   const [selected, setSelected] = useState({
     selectedStatus: ReportDepositStatusOptions[0]?.value,
     selectedDate: DateFilterOptions[0]?.value,
-    startDate: dayjsTz(undefined, 'Asia/Shanghai').startOf('date').toDate(),
-    endDate: dayjsTz(undefined, 'Asia/Shanghai').endOf('date').toDate(),
+    startDate: dayjs().startOf('date').toDate(),
+    endDate: dayjs().endOf('date').toDate(),
     trans_type: ReportTransactionType.COIN,
     coin_redemption_type: CoinRedemptionTypeOptions[0]?.value,
   })
@@ -151,9 +149,7 @@ const TransactionHistory = () => {
               setSelected({
                 ...selected,
                 selectedDate: DateFilterOptions[5]?.value,
-                startDate: dayjsTz(value, 'Asia/Shanghai')
-                  .startOf('date')
-                  .toDate(),
+                startDate: dayjs(value).startOf('date').toDate(),
               })
             }}
           />
@@ -169,7 +165,7 @@ const TransactionHistory = () => {
               setSelected({
                 ...selected,
                 selectedDate: DateFilterOptions[5]?.value,
-                endDate: dayjsTz(value, 'Asia/Shanghai').endOf('date').toDate(),
+                endDate: dayjs(value).endOf('date').toDate(),
               })
             }}
           />

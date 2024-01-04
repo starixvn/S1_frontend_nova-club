@@ -4,7 +4,6 @@ import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
 import React, { useRef, useState } from 'react'
 import { useLuckySpinMutation } from 'services/playerApi'
-import { useRouter } from 'solito/router'
 import { useHomeEventModal } from '../../HomeEventModal'
 
 type Props = {}

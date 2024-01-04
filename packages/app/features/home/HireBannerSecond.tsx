@@ -29,7 +29,7 @@ export default function HireBannerSecond() {
   const animatedText = useMemo(
     () => (
       <MotiView
-        key={lang}
+        key={t('home.banner2.n3')}
         from={{ scale: 0.8 }}
         animate={{ scale: 1 }}
         transition={{
@@ -44,7 +44,7 @@ export default function HireBannerSecond() {
         <Label sx={{ color: '#00FFFF' }}>{t('home.banner2.n3')}</Label>
       </MotiView>
     ),
-    [lang]
+    [t('home.banner2.n3')]
   )
 
   return (

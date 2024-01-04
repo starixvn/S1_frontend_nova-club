@@ -26,7 +26,11 @@ const Tnc = () => {
         <strong>{t('rewards.tnc.christmas.eventTitle')}</strong>
         <br />
       </div>
-      <p>{t('rewards.tnc.christmas.period')}</p>
+      <p>
+        {t('rewards.tnc.christmas.period', {
+          period: '01-31/12/2023',
+        })}
+      </p>
       <br />
 
       <div>

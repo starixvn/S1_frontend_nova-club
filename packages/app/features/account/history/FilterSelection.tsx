@@ -16,7 +16,6 @@ import {
   ReportTransactionTypeOptions,
 } from 'utils/constant'
 import { CONTENT_URI, MEDIA_DOMAIN } from '../../../../../apps/next/config/env'
-import dayjsTz from 'app/utils/dayjs'
 
 const TypeList = ReportTransactionTypeOptions
 const DateFilterList = DateFilterOptions
@@ -222,9 +221,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
               setSelected({
                 ...selected,
                 selectedDate: DateFilterOptions[5]?.value,
-                startDate: dayjsTz(value, 'Asia/Shanghai')
-                  .startOf('date')
-                  .toDate(),
+                startDate: dayjs(value).startOf('date').toDate(),
               })
             }
           />
@@ -239,7 +236,7 @@ const FilterSelection = ({ selected, setSelected, isTransaction = false }) => {
               setSelected({
                 ...selected,
                 selectedDate: DateFilterOptions[5]?.value,
-                endDate: dayjsTz(value, 'Asia/Shanghai').endOf('date').toDate(),
+                endDate: dayjs(value).endOf('date').toDate(),
               })
             }}
           />

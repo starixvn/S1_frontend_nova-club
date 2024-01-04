@@ -6,26 +6,32 @@ import { MobileInfoLayout } from 'components/layouts/mobile'
 import { ActivityIndicator } from 'dripsy'
 import dynamic from 'next/dynamic'
 
-const LazyEn = dynamic(() => import('app/features/christmas-tnc/tncEn'), {
-  loading: () => <ActivityIndicator />,
-  ssr: false,
-})
+const LazyEn = dynamic(
+  () => import('app/features/home/EventModal/tnc/christmasSpecial/tncEn'),
+  {
+    loading: () => <ActivityIndicator />,
+    ssr: false,
+  }
+)
 
-const LazyVi = dynamic(() => import('app/features/christmas-tnc/tncVi'), {
-  loading: () => <ActivityIndicator />,
-  ssr: false,
-})
+const LazyVi = dynamic(
+  () => import('app/features/home/EventModal/tnc/christmasSpecial/tncVi'),
+  {
+    loading: () => <ActivityIndicator />,
+    ssr: false,
+  }
+)
 
 const infoLocalizationMapping = {
   [LANGUAGE_CODE.ENGLISH]: LazyEn,
   [LANGUAGE_CODE.VIETNAM]: LazyVi,
 }
 
-const ChristmasTnc: AdaptiveLayoutPage = () => (
+const ChristmasSpecialTnc: AdaptiveLayoutPage = () => (
   <InfoScreen map={infoLocalizationMapping} />
 )
 
-ChristmasTnc.DesktopLayout = DesktopBaseLayout
-ChristmasTnc.MobileLayout = MobileInfoLayout
+ChristmasSpecialTnc.DesktopLayout = DesktopBaseLayout
+ChristmasSpecialTnc.MobileLayout = MobileInfoLayout
 
-export default ChristmasTnc
+export default ChristmasSpecialTnc

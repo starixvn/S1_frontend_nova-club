@@ -9,8 +9,8 @@ type AuthBannerProps = {
 }
 
 const BannerImage = {
-  AGENT: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/auth/agent_banner.png`,
-  PLAYER: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/auth/member_banner.png`,
+  AGENT: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/auth/agent-banner.jpg`,
+  PLAYER: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/auth/member-banner.jpg`,
 } as const
 
 const AuthBanner = (props: AuthBannerProps) => {

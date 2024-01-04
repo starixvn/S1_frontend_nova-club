@@ -1,13 +1,12 @@
 import Accordian from 'app/components/Accordian'
 import Image from 'app/components/common/Image'
 import { toThousandSeparator } from 'app/utils'
-import { ReportDepositStatus, ReportTransactionType } from 'utils/constant'
-import dayjsTz from 'app/utils/dayjs'
 import dayjs from 'dayjs'
 import { ActivityIndicator, Text, View, useDripsyTheme } from 'dripsy'
 import React, { useState } from 'react'
 import { useLazyPlayerReportQuery } from 'services/playerApi'
 import { ReportRewardItem } from 'services/playerApi.type'
+import { ReportDepositStatus, ReportTransactionType } from 'utils/constant'
 import { CONTENT_URI, MEDIA_DOMAIN } from '../../../../../apps/next/config/env'
 import DateTimeCell from './DateTimeCell'
 import TransactionHistoryItemBox from './TransactionHistoryItemBox'
@@ -17,7 +16,7 @@ const CELL_GAME_WIDTH = 1
 const CELL_AMOUNT_WIDTH = 1
 
 const RebateHistoryItem = ({ item }) => {
-  const [fetchData, result] = useLazyPlayerReportQuery()
+  const [fetchData] = useLazyPlayerReportQuery()
   const [dataDetails, setDataDetails] = useState([])
   const [firstLoading, setFirstLoading] = useState(true)
   const { theme } = useDripsyTheme()
@@ -27,8 +26,8 @@ const RebateHistoryItem = ({ item }) => {
       limit: 10,
       offset: 0,
       status: ReportDepositStatus.ALL,
-      time_from: dayjsTz(dayjs(date).startOf('date')).toISOString(),
-      time_to: dayjsTz(dayjs(date).endOf('date')).toISOString(),
+      time_from: dayjs(date).startOf('date').toISOString(),
+      time_to: dayjs(date).endOf('date').toISOString(),
       trans_type: ReportTransactionType.REBATE,
       is_reward_group_by: false,
     }).unwrap()

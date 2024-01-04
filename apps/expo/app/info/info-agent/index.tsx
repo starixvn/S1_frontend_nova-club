@@ -14,7 +14,7 @@ const Agent = () => {
   const TNC_URL = `${DEV_DOMAIN}/info/info-agent?locale=${lang}`
 
   return (
-    <PageWithBackHeader header={{ title: t('info.Agent') }} disableScrollView>
+    <PageWithBackHeader header={{ title: t('common.agent') }} disableScrollView>
       <View sx={{ flex: 1 }}>
         <WebView
           source={{ uri: TNC_URL }}

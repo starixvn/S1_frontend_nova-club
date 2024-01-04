@@ -56,7 +56,7 @@ export default function TopGameSection(props) {
   const animatedText = useMemo(
     () => (
       <StyledMotiText
-        key={uptoRate.toString() + lang}
+        key={uptoRate.toString() + t('home.upTo', { percent: uptoRate })}
         from={{ scale: 1 }}
         animate={{ scale: 1.1 }}
         transition={{
@@ -71,7 +71,7 @@ export default function TopGameSection(props) {
         })}
       </StyledMotiText>
     ),
-    [lang, uptoRate]
+    [t('home.upTo', { percent: uptoRate }), uptoRate]
   )
 
   return (

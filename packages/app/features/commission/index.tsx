@@ -12,6 +12,7 @@ import React, { ComponentProps, ReactNode } from 'react'
 import { Platform } from 'react-native'
 import { useCommissionTableQuery } from 'services/contentApi'
 import { CommissionTableResult } from 'services/contentApi.type'
+import groupBy from 'lodash/groupBy'
 
 type TitleCellProps = {
   border?: boolean
@@ -38,6 +39,7 @@ const CommissionTableScreen = () => {
   const { data: commissionList } = useCommissionTableQuery({
     currency: Currency.VND,
   })
+  const titleList = groupBy(commissionList, 'game_type')
 
   const fillColumn = (value) => {
     if ((value && value < 0) || typeof value === 'undefined') return '⎯'
@@ -87,6 +89,8 @@ const CommissionTableScreen = () => {
     item: CommissionTableResult
     index: number
   }) => {
+    if (titleList[item.game_type]!.length <= 1) return null
+
     const isTitle = item.is_game_type
     const paddingLeft = isTitle ? 12 : 24
 

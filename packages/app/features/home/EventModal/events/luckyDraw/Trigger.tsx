@@ -21,10 +21,10 @@ const LuckyDrawTrigger = () => {
   const [getEligileSpin] = useLazyEligibleSpinQuery()
   const { addResult, flagCompletedChecking } = useHomeEvent()
 
-  const shieldStatus =
-    useAppSelector((s) => s.tempSetting.syncShieldStatus) ?? ''
-  const syncShieldActionType =
-    useAppSelector((s) => s.tempSetting.syncShieldActionType) ?? ''
+  const shieldStatus = useAppSelector((s) => s.tempSetting.syncShieldStatus)
+  const syncShieldActionType = useAppSelector(
+    (s) => s.tempSetting.syncShieldActionType
+  )
 
   const isHomeEventModalTriggered = useAppSelector(
     (state) => state.tempSetting.isHomeEventModalTriggered
@@ -53,19 +53,19 @@ const LuckyDrawTrigger = () => {
 
         if (event) {
           const spinBalance = event?.wheel_info.totalBalance ?? 0
-          // if (spinBalance > 0) {
-          if (event.event_type === 'registration') {
-            if ('note' in data) {
-              if (syncShieldActionType === Shield_Action.REGISTER) {
-                showAlert(data.note)
+          if (spinBalance > 0) {
+            if (event.event_type === 'registration') {
+              if ('note' in data) {
+                if (syncShieldActionType === Shield_Action.REGISTER) {
+                  showAlert(data.note)
+                }
               }
-            }
 
-            handleRegistrationEvent(spinBalance)
-          } else if (event.event_type === 'retention') {
-            handleRetentionEvent(spinBalance)
+              handleRegistrationEvent(spinBalance)
+            } else if (event.event_type === 'retention') {
+              handleRetentionEvent(spinBalance)
+            }
           }
-          // }
         }
       }
     } catch (e) {
