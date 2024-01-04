@@ -24,7 +24,7 @@ export default function ChristmasGiftTrigger({}: Props) {
         })
       )
         .unwrap()
-        .then((r) => !r.data?.list?.some((e) => e.event_code === 'upload2'))
+        .then((r) => r.data?.list?.some((e) => e.event_code === 'upload2'))
 
       if (isEligible)
         addResult({

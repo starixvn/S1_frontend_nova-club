@@ -2,9 +2,6 @@ import { BaseQueryFn } from '@reduxjs/toolkit/dist/query'
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { axiosInstance } from './axiosInstance'
 import { IResponse } from './types'
-import { tolgee } from 'app/integrations/tolgee'
-import { store } from 'app/provider/redux/store'
-import { LANGUAGE_NAMESPACE } from 'utils/constant'
 
 export function axiosBaseQuery<T>(): BaseQueryFn<
   AxiosRequestConfig,
@@ -52,13 +49,7 @@ export function axiosBaseQuery<T>(): BaseQueryFn<
       console.error('axiosBaseQuery error', url, JSON.stringify(error))
       let errorObj: IResponse<T> = {
         code: -999,
-        message:
-          error.message === ''
-            ? tolgee.t('status.systemError', {
-                locale: store.getState().setting.locale,
-                ns: LANGUAGE_NAMESPACE.MEMBER,
-              })
-            : error.message,
+        message: error.message === '' ? 'status.systemError' : error.message,
         success: false,
         statusCode: error.response?.status,
       }
@@ -78,10 +69,7 @@ export function axiosBaseQuery<T>(): BaseQueryFn<
         }
       }
       if (error.message === 'Network Error') {
-        errorObj.message = tolgee.t('status.networkError', {
-          locale: store.getState().setting.locale,
-          ns: LANGUAGE_NAMESPACE.MEMBER,
-        })
+        errorObj.message = 'status.networkError'
       }
       return {
         error: errorObj,
