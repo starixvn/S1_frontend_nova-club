@@ -34,7 +34,7 @@ const RegistrationContent = memo(({}: Props) => {
   const [isRequesting, setRequesting] = useState(false)
   const [result, setResult] = useState<LuckySpinArgs>()
   const { t } = useLocalization()
-  const { closeModal } = useModal()
+  const { closeAllModals } = useModal()
 
   function onAnimated() {
     if (result) {
@@ -46,7 +46,7 @@ const RegistrationContent = memo(({}: Props) => {
         actions: [
           {
             label: t('common.playNow'),
-            onPress: () => closeModal(undefined, () => push('/slots')),
+            onPress: () => closeAllModals(() => push('/slots')),
           },
           {
             label: t('common.close'),
@@ -75,7 +75,15 @@ const RegistrationContent = memo(({}: Props) => {
         .unwrap()
         .catch((e: IResponse<LuckySpinArgs>) => {
           setRequesting(false)
-          showAlert(e)
+          showAlert({
+            message: e.message,
+            actions: [
+              {
+                label: t('common.close'),
+                onPress: () => closeAllModals(),
+              },
+            ],
+          })
           return e
         })
 
