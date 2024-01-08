@@ -40,6 +40,7 @@ const MarqueeFlip = ({
           showAlert({
             title: announcementList[currentIndex]?.value,
             message: announcementList[currentIndex]?.item.content,
+            disableAutoTranslation: true,
           })
         }
       }}
