@@ -6,14 +6,7 @@ import useGameScreen from 'app/features/games/useGameScreen'
 import RecentlyPlayedSection from 'app/features/home/RecentlyPlayedSection'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import {
-  CONTENT_FROM_TOP,
-  CONTENT_FROM_TOP_2,
-  GAME_TYPE_CODE,
-  GDC_GAME_CATEGORY,
-  HEADER_HEIGHT_OFFSET,
-  SCROLL_OFFSET_TOP,
-} from 'utils/constant'
+import { desktopScrollToElement } from 'app/utils'
 import LatestWinnerSection from 'desktop-ext/components/game/LatestWinnerSection'
 import {
   ActivityIndicator,
@@ -27,11 +20,11 @@ import {
 import { ResizeMode, Video } from 'expo-av'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Platform } from 'react-native'
+import { useBannerQuery } from 'services/contentApi'
 import { LatestWinnerType } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
+import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'utils/constant'
 import GameList from './GameList'
-import BannerCarousel from 'app/components/banner/BannerCarousel'
-import { useBannerQuery } from 'services/contentApi'
 
 type Props = {}
 
@@ -141,23 +134,7 @@ const GameTypeFilter = ({ onFilterClicked, currentRoute, ...rest }) => {
 
   const handleCurrentFilter = useCallback(() => {
     setCurrentFilter(currentRoute)
-    const element = document.getElementById('content')
-    if (element) {
-      const elementTop = element.getBoundingClientRect().top
-
-      // If the element is within the desired range, return early
-      if (elementTop > CONTENT_FROM_TOP && elementTop < CONTENT_FROM_TOP_2) {
-        return
-      }
-
-      // Scroll the element into view smoothly
-      element.scrollIntoView({ behavior: 'smooth' })
-
-      // Adjust the window scroll position if necessary
-      if (elementTop < SCROLL_OFFSET_TOP || elementTop > CONTENT_FROM_TOP) {
-        window.scrollBy(0, elementTop - HEADER_HEIGHT_OFFSET)
-      }
-    }
+    desktopScrollToElement('content')
   }, [currentRoute])
 
   useEffect(() => {

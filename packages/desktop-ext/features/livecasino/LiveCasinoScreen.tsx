@@ -1,24 +1,16 @@
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import SkeletonPlaceholder from 'app/components/SkeletonPlaceholder'
+import BannerCarousel from 'app/components/banner/BannerCarousel'
 import GameSectionByProviderItem from 'app/components/game/GameSectionByProviderItem'
 import RecentlyPlayedSection from 'app/features/home/RecentlyPlayedSection'
-import {
-  CONTENT_FROM_TOP,
-  CONTENT_FROM_TOP_2,
-  GAME_TYPE_CODE,
-  HEADER_HEIGHT_OFFSET,
-  ProviderImageCategory,
-  SCROLL_OFFSET_TOP,
-} from 'utils/constant'
+import { desktopScrollToElement } from 'app/utils'
 import ProviderList from 'desktop-ext/components/game/ProviderList'
 import { ActivityIndicator, Container, Row, View } from 'dripsy'
 import uniqBy from 'lodash/uniqBy'
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
+import { useBannerQuery } from 'services/contentApi'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { createParam } from 'solito'
-import { SolitoImage } from 'solito/image'
-import { useBannerQuery } from 'services/contentApi'
-import BannerCarousel from 'app/components/banner/BannerCarousel'
+import { GAME_TYPE_CODE, ProviderImageCategory } from 'utils/constant'
 
 type Props = {}
 
@@ -67,33 +59,17 @@ export default function LiveCasinoScreen({}: Props) {
 
   function onNavigate(index: number, gpc: string) {
     setProvider(gpc.toLowerCase())
-    const element = document.getElementById('content')
-    if (element) {
-      const elementTop = element.getBoundingClientRect().top
-
-      // If the element is within the desired range, return early
-      if (elementTop > CONTENT_FROM_TOP && elementTop < CONTENT_FROM_TOP_2) {
-        return
-      }
-
-      // Scroll the element into view smoothly
-      element.scrollIntoView({ behavior: 'smooth' })
-
-      // Adjust the window scroll position if necessary
-      if (elementTop < SCROLL_OFFSET_TOP || elementTop > CONTENT_FROM_TOP) {
-        window.scrollBy(0, elementTop - HEADER_HEIGHT_OFFSET)
-      }
-    }
+    desktopScrollToElement('content')
   }
+
+  useEffect(() => {
+    desktopScrollToElement('content')
+  }, [filteredGames])
+
   return (
     <Container>
       <View sx={{ width: '100%', aspectRatio: 1280 / 333, mb: '$3' }}>
         <SkeletonPlaceholder width={'100%'} height={'100%'}>
-          {/* <SolitoImage
-            src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/livecasino/dailywins_pp.jpg`}
-            alt="Dailywins"
-            fill
-          /> */}
           <BannerCarousel data={bannerList} />
         </SkeletonPlaceholder>
       </View>
