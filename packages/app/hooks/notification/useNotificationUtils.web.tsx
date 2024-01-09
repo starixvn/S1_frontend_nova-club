@@ -14,32 +14,6 @@ type NotificationUtils = {
 }
 
 export const useNotificationUtils = (): NotificationUtils => {
-  async function registerServiceWorker() {
-    return new Promise((resolve, reject) => {
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker
-          .register(
-            `/firebase-messaging-sw.js?firebaseConfig=${encodeURIComponent(
-              JSON.stringify(firebaseConfig)
-            )}`
-          )
-          .then(function (registration) {
-            console.log(
-              'Registration successful, scope is:',
-              registration.scope
-            )
-            resolve(registration)
-          })
-          .catch(function (err) {
-            console.log('Service worker registration failed, error:', err)
-            reject(err)
-          })
-      } else {
-        reject(new Error('Service Worker not supported'))
-      }
-    })
-  }
-
   async function requestPermission() {
     const permission = await Notification.requestPermission()
     return permission === 'granted'
@@ -63,8 +37,6 @@ export const useNotificationUtils = (): NotificationUtils => {
   async function getToken() {
     try {
       if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
-        await registerServiceWorker()
-
         const messaging = getMessaging(firebaseApp)
 
         const token = await firebaseGetToken(messaging, {
