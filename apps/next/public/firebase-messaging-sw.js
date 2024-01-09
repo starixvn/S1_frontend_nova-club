@@ -5,18 +5,9 @@ importScripts(
   'https://www.gstatic.com/firebasejs/10.5.2/firebase-messaging-compat.js'
 )
 
-const firebaseConfig = {
-  apiKey: 'AIzaSyA1MQd3RU-arPPduv65qcn5G8vOkLAZxkM',
-  authDomain: 'nova-club-staging.firebaseapp.com',
-  databaseURL:
-    'https://nova-club-staging-default-rtdb.asia-southeast1.firebasedatabase.app',
-  projectId: 'nova-club-staging',
-  storageBucket: 'nova-club-staging.appspot.com',
-  messagingSenderId: '401100497770',
-  appId: '1:401100497770:web:e9f510d8800020b34e7b13',
-}
-
-firebase.initializeApp(firebaseConfig)
+firebase.initializeApp(
+  JSON.parse(new URL(location).searchParams.get('firebaseConfig'))
+)
 
 const messaging = firebase.messaging()
 
