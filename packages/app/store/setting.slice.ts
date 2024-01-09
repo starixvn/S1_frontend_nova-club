@@ -48,6 +48,7 @@ export interface Setting {
   tutorialLocation: object | undefined
   triggerPopupTutorial: boolean
   rewardPopup: number
+  lastSubscribeUsername: string
 }
 // export const DomainListHintPostfix = '-DomainListHint'
 // export const DepositListHintPostfix = '-DepositListHint'
@@ -66,6 +67,7 @@ const initialState: Setting = {
   tutorialLocation: undefined,
   triggerPopupTutorial: true,
   rewardPopup: -1,
+  lastSubscribeUsername: '',
 }
 
 const settingSlice = createSlice({
@@ -172,6 +174,9 @@ const settingSlice = createSlice({
     },
     toggleRewardPopupSwitch: (state) => {
       state.rewardPopup = state.rewardPopup + 1
+    },
+    setLastSubscribeUsername: (state, action: PayloadAction<string>) => {
+      state.lastSubscribeUsername = action.payload
     },
   },
   extraReducers: (builder) => {
