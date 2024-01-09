@@ -53,6 +53,28 @@
       "name": "images",
       "assets": [
         {
+          "name": "images/coin.png",
+          "srcs": [
+            "images/coin.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/ic_cross.png",
+          "srcs": [
+            "images/ic_cross.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
           "name": "images/loading.png",
           "srcs": [
             "images/loading.png"

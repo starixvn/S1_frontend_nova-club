@@ -19,6 +19,7 @@
     "react-native-svg": "^13.9.0",
     "react-web-share": "^2.0.2",
     "solito": "3.2.6",
+    "use-count-up": "^3.0.1",
     "utils": "*",
     "zeego": "^1.5.1"
   },

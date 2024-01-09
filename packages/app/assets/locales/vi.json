@@ -100,6 +100,7 @@
     "more": "Thêm",
     "next": "Tiếp theo",
     "noInfoAvailable": "Không Có Thông Tin",
+    "open": "MỞ",
     "otp": "OTP",
     "overview": "Tổng quan",
     "password": "Mật khẩu",
@@ -228,6 +229,34 @@
       "appSpin": "ứng dụng để quay",
       "ineligibleSpin": "không đủ điều kiện để quay",
       "registerSpin": "ĐĂNG KÝ VÀ QUAY"
+    },
+    "mystery": {
+      "games": "CÁC GAME CÓ LỘC",
+      "grand": "ĐẠI PHÁT",
+      "hitRange": "Khoảng Thưởng",
+      "how": {
+        "n1": "Nạp tiền và tham gia chơi các game có lộc",
+        "n2": "Bạn sẽ nhận thông báo bất ngờ từ Vui123 \nMở hộp quà bí ẩn để có cơ hội nhận thưởng Jackpot",
+        "t1": "Cơ hội trúng Jackpot",
+        "t2": "Các game có lộc sẽ có nhãn nhận diện",
+        "title": "CÁCH THỨC THAM GIA"
+      },
+      "intro": {
+        "n1": "Jackpot hoàn toàn mới từ Vui123 - LỘC RƠI TIỀN VỀ",
+        "n2": "Ba giải thưởng Đại Phát, Lộc Phát, và Khuyến Khích với khoảng thưởng khác nhau đang chờ bạn. ",
+        "n3": "Tất cả người chơi đáp ứng yêu cầu của khuyến mãi đều được tham gia Jackpot. ",
+        "n4": "Jackpot sẽ rơi vào tay người chơi đáp ứng yêu cầu của khuyến mãi BẤT KỲ LÚC NÀO, ai cũng có thể thắng! ",
+        "n5": "Người chơi cần phải đáp ứng yêu cầu tiền nạp và tham gia chơi các game có lộc. ",
+        "n6": "Tham gia ngay để có cơ hội nhận tiền tỷ về tay! ",
+        "title": "HƯỚNG DẪN CHƠI GAME LỘC RƠI TIỀN VỀ"
+      },
+      "latestWins": "NGƯỜI THẮNG MỚI NHẤT",
+      "major": "LỘC PHÁT",
+      "mini": "KHUYẾN KHÍCH",
+      "title": "LỘC RƠI TIỀN VỀ",
+      "tnc": "ĐIỀU KIỆN VÀ ĐIỀU KHOẢN LỘC RƠI TIỀN VỀ",
+      "totalJackpot": "TỔNG THƯỞNG JACKPOT ",
+      "winContent": "Bạn đã nhận được vé tham gia \nJackpot LỘC RƠI TIỀN VỀ"
     },
     "next": "CHƠI TIẾP",
     "prediction": {
@@ -410,6 +439,28 @@
       "n6": "Vui lòng liên hệ bộ phận LIVECHAT 24/7 nếu lệnh gửi chậm trễ quá 5 phút."
     },
     "importantNotice": "THÔNG BÁO QUAN TRỌNG",
+    "mystery": {
+      "n1": "Khuyến mãi này dành cho TẤT CẢ người chơi của Vui123. ",
+      "n10": "Jackpot sẽ rơi vào tay người chơi đáp ứng yêu cầu của khuyến mãi bất kỳ lúc nào. ",
+      "n11": "Người chơi sẽ nhận thông báo từ Vui123 và có cơ hội nhận Jackpot khi mở hộp quà bí ẩn. ",
+      "n12": "Tiền thưởng Jackpot được cập nhật thời gian thực trong thời gian khuyến mãi diễn ra. ",
+      "n13": "Tiền thưởng Jackpot có thể khác khi hiển thị do thời gian chờ trong hệ thống. ",
+      "n14": "Tiền thưởng Jackpot sẽ được ghi có vào ví của người thắng. ",
+      "n15": "Tiền thưởng Jackpot phải trải qua 1x vòng cược trước khi rút tiền. ",
+      "n16": "Vui123 có quyền thêm và/hoặc bớt game hợp lệ trong khuyến mãi này.",
+      "n17": "Vui123 có quyền sửa đổi hoặc hủy Khuyến mãi bất cứ lúc nào.",
+      "n18": "Vui123 không chịu trách nhiệm cho các vấn đề về hệ thống hoặc kết nối mạng ảnh hưởng đến người chơi. ",
+      "n19": "Vui123 có quyền đưa ra quyết định duy nhất và quyết định của Vui123 là quyết định cuối cùng.",
+      "n2": "Khuyến mãi này không dành cho người chơi vi phạm quy định của Vui123. ",
+      "n20": "Áp dụng Điều khoản & Điều kiện của Vui123.",
+      "n3": "Khuyến mãi này diễn ra từ 12/12/2023 (12pm, GMT +7) đến 31/03/2024 (11.59pm, GMT +7).",
+      "n4": "Khuyến mãi có ba giải thưởng Đại Phát, Lộc Phát, và Khuyến Khích.",
+      "n5": "Số tiền khởi đầu của Jackpot mỗi giải là: \nKhuyến Khích - 1 triệu đồng \nLộc Phát - 10 triệu đồng \nĐại Phát - 100 triệu đồng",
+      "n6": "Số tiền thắng Jackpot được tích lũy qua từng cược hợp lệ. ",
+      "n7": "Cược được tính vào khuyến mãi là cược hợp lệ trong các trò chơi có lộc (có nhãn nhận diện).",
+      "n8": "Người chơi đủ điều kiện sẽ tự động được tham gia khuyến mãi này. ",
+      "n9": "Người chơi cần phải đáp ứng yêu cầu tiền nạp và tham gia chơi các game có lộc. "
+    },
     "qr": {
       "n1": "Quét bằng ứng dụng để chuyển số dư"
     },
@@ -619,6 +670,24 @@
         "tnc1": "Chạm biểu tượng để xem giải thưởng.",
         "tnc2": "Ba biểu tượng trùng nhau đầu tiên là giải thưởng của bạn.",
         "tnc3": "Bạn có thể trúng một trong các giải sau: Độc Đắc, Đại Phát, Hồng Phát, Tiểu Phát"
+      },
+      "mysteryDrop": {
+        "date": "Thời gian khuyến mãi: 12/12/2023 - 31/03/2024",
+        "how1": "Ba giải thưởng ĐẠI PHÁT, LỘC PHÁT, và KHUYẾN KHÍCH với khoảng thưởng khác nhau đang chờ bạn.",
+        "how2": "Chạm biểu tượng để xem giải thưởng.",
+        "how3": "Ba biểu tượng trùng nhau đầu tiên là giải thưởng của bạn.",
+        "how4": "Số tiền thắng nằm trong khoảng thưởng Jackpot rơi trúng. ",
+        "grand": "ĐẠI PHÁT",
+        "major": "LỘC PHÁT",
+        "mini": "KHUYẾN KHÍCH",
+        "tnc1": "Khuyến mãi này dành cho TẤT CẢ người chơi của Vui123.",
+        "tnc2": "Khuyến mãi này không dành cho người chơi vi phạm quy định của Vui123.",
+        "tnc3": "Giải thưởng tiền mặt sẽ được ghi có trong ví của người chơi.",
+        "tnc4": "Tiền thưởng Jackpot phải trải qua 1x vòng cược trước khi rút tiền.",
+        "tnc5": "Vé thưởng phải được quy đổi trong thời gian khuyến mãi. Vé chưa quy đổi sẽ bị hủy khi chương trình kết thúc.",
+        "tnc6": "Vui123 có quyền hoãn và hủy Khuyến Mãi bất cứ lúc nào.",
+        "tnc7": "Vui123 có quyền đưa ra quyết định duy nhất và quyết định của Vui123 là quyết định cuối cùng.",
+        "tnc8": "Áp dụng Điều Khoản & Điều Kiện Chung của Vui123."
       },
       "goldenCat": {
         "bonus1": "0 mèo = 0 VND",

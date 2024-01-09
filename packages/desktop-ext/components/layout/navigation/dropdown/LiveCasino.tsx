@@ -49,6 +49,7 @@ export default function LiveCasino({}: Props) {
               key={g.gpc}
               sx={{ width: '11%' }}
               img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/main/${g.gpc.toLowerCase()}.png`}
+              {...g}
             />
           )
         })}

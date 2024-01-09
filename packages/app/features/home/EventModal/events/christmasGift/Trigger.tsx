@@ -19,7 +19,9 @@ export default function ChristmasGiftTrigger({}: Props) {
   async function checkEligible() {
     try {
       const isEligible = await dispatch(
-        rewardApi.endpoints.getEligibleEventCoin.initiate()
+        rewardApi.endpoints.getEligibleEventCoin.initiate(undefined, {
+          forceRefetch: true,
+        })
       )
         .unwrap()
         .then((r) => r.data?.list?.some((e) => e.event_code === 'upload2'))

@@ -2,8 +2,14 @@
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
+  MysteryCheckResult,
+  MysteryClaimArgs,
+  MysteryEventPrize,
+  MysteryEventResult,
+  MysteryWinner,
+  MysteryWinnerResult,
   TicketSpinBalance,
-  TicketSpinResult
+  TicketSpinResult,
 } from './eventApi.type'
 
 export const eventApi = baseApiWithTag.injectEndpoints({
@@ -26,6 +32,36 @@ export const eventApi = baseApiWithTag.injectEndpoints({
       }),
       invalidatesTags: ['TicketBalance'],
     }),
+    getMysteryEvent: builder.query<MysteryEventPrize[], void>({
+      query: () => ({
+        url: `/player_api/getMysteryEvent`,
+      }),
+      transformResponse: ({ data }: { data: MysteryEventResult }) => {
+        return data?.prize ?? []
+      },
+    }),
+    getMysteryCheck: builder.query<IResponse<MysteryCheckResult>, void>({
+      query: () => ({
+        url: `/player_api/getMysteryCheck`,
+      }),
+    }),
+    setMysteryClaim: builder.mutation<IResponse<void>, MysteryClaimArgs>({
+      query: (queryArgs) => ({
+        url: `/player_api/setMysteryClaim`,
+        method: 'POST',
+        data: {
+          ...queryArgs,
+        },
+      }),
+    }),
+    getMysteryWinner: builder.query<MysteryWinner[], void>({
+      query: () => ({
+        url: `/player_api/getMysteryWinner`,
+      }),
+      transformResponse: ({ data }: { data: MysteryWinnerResult }) => {
+        return data?.list ?? []
+      },
+    }),
   }),
 })
 
@@ -33,4 +69,8 @@ export const {
   useCheckTicketSpinQuery,
   useTicketSpinMutation,
   useLuckyDrawMutation,
+  useGetMysteryEventQuery,
+  useGetMysteryCheckQuery,
+  useGetMysteryWinnerQuery,
+  useSetMysteryClaimMutation,
 } = eventApi

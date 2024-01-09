@@ -1,6 +1,8 @@
-import { Text, useDripsyTheme } from 'dripsy'
-import { MotiView } from 'moti'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import { Text, useDripsyTheme, useResponsiveValue } from 'dripsy'
 import React from 'react'
+import { SolitoImage } from 'solito/image'
+import GameTagIconAnimation from './GameTagIconAnimation'
 
 export enum GAME_TAG_SIZE {
   lg = 'lg',
@@ -10,48 +12,51 @@ export enum GAME_TAG_SIZE {
 const GameTagsLabel = ({
   tags,
   size = GAME_TAG_SIZE.lg,
+  gpc,
+  isFullCard = false,
 }: {
   tags: string[]
   size?: GAME_TAG_SIZE
+  gpc?: string
+  isFullCard?: boolean
 }) => {
   const hasTags = tags?.includes('hot') || tags?.includes('new')
   const isNew = tags?.includes('new')
   const fs = size === GAME_TAG_SIZE.lg ? [10] : [7]
   const { theme } = useDripsyTheme()
+  const mysteryTop = useResponsiveValue([8, 0, 0, 0, 0, 12, 18])
 
-  return hasTags ? (
-    <MotiView
-      style={{
-        position: 'absolute',
-        right: 0,
-        backgroundColor: isNew ? theme?.colors?.$secondary?.[500] : 'red',
-        paddingHorizontal: 4,
-        borderRadius: 5,
-        top: -5,
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-      from={{
-        scale: 1,
-      }}
-      animate={{
-        scale: 1.25,
-      }}
-      transition={{
-        loop: true,
-        type: 'timing',
-        duration: 500,
+  const isMystery = gpc === 'SABA' || gpc === 'O789'
+
+  return hasTags || isMystery ? (
+    <GameTagIconAnimation
+      sx={{
+        backgroundColor: isMystery
+          ? 'transparent'
+          : isNew
+          ? theme?.colors?.$secondary?.[500]
+          : 'red',
+        top: isMystery ? (isFullCard ? -8 : mysteryTop) : -5,
       }}
     >
-      <Text
-        sx={{
-          fontWeight: 'bold',
-          fontSize: fs,
-        }}
-      >
-        {isNew ? 'NEW' : 'HOT'}
-      </Text>
-    </MotiView>
+      {isMystery ? (
+        <SolitoImage
+          src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/ic-saba-mystery.png`}
+          width={size === GAME_TAG_SIZE.lg ? 22 : 18}
+          height={size === GAME_TAG_SIZE.lg ? 22 : 18}
+          alt="mystery"
+        />
+      ) : (
+        <Text
+          sx={{
+            fontWeight: 'bold',
+            fontSize: fs,
+          }}
+        >
+          {isNew ? 'NEW' : 'HOT'}
+        </Text>
+      )}
+    </GameTagIconAnimation>
   ) : null
 }
 

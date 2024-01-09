@@ -550,6 +550,37 @@ export const GRID_ROW = [
   },
 ]
 
+export const MSYTERY_INTRO = [
+  'event.mystery.intro.n1',
+  'event.mystery.intro.n2',
+  'event.mystery.intro.n3',
+  'event.mystery.intro.n4',
+  'event.mystery.intro.n5',
+]
+
+export const MYSTERY_DROPS_TNC = [
+  'notes.mystery.n1',
+  'notes.mystery.n2',
+  'notes.mystery.n3',
+  'notes.mystery.n4',
+  'notes.mystery.n5',
+  'notes.mystery.n6',
+  'notes.mystery.n7',
+  'notes.mystery.n8',
+  'notes.mystery.n9',
+  'notes.mystery.n10',
+  'notes.mystery.n11',
+  'notes.mystery.n12',
+  'notes.mystery.n13',
+  'notes.mystery.n14',
+  'notes.mystery.n15',
+  'notes.mystery.n16',
+  'notes.mystery.n17',
+  'notes.mystery.n18',
+  'notes.mystery.n19',
+  'notes.mystery.n20',
+]
+
 export const ALL = 'ALL'
 export const HOT = 'hot'
 

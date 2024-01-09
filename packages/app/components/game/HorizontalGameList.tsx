@@ -12,11 +12,13 @@ import { GAME_TAG_SIZE } from './GameTagsLabel'
 interface HorizontalGameListProps extends ScrollViewProps {
   data: Game[]
   size?: number[]
+  tagSize?: GAME_TAG_SIZE
 }
 
 export default function HorizontalGameList({
   data,
   size = [80, 100],
+  tagSize = GAME_TAG_SIZE.sm,
   ...rest
 }: HorizontalGameListProps) {
   const shadowSize = useResponsiveValue(size)
@@ -37,10 +39,11 @@ export default function HorizontalGameList({
           return (
             <GameCard
               // name={g.name[locale]}
-              gameTagSize={GAME_TAG_SIZE.sm}
+              gameTagSize={tagSize}
               width={size}
               height={size}
               key={g.gtc === GAME_TYPE_CODE.LIVE_DEALER ? g.gpc : g.gc}
+              isFullCard
               {...g}
             />
           )

@@ -27,6 +27,7 @@ interface MenuProps {
   route: string
   style?: ViewStyle
   menu?: NAVIGATION_DROPDOWN_MENU
+  tag?: string
   checkIsVisible?: (args: { token?: string }) => boolean
 }
 interface MenuButtonProps extends MenuProps {}
@@ -75,8 +76,9 @@ const MENU: MenuProps[] = [
     label: 'game.category.lottery',
   },
   {
-    route: '/account/leaderboard',
-    label: 'menu.leaderboard',
+    route: '/event/mystery-drop',
+    label: 'event.mystery.title',
+    tag: 'game.new',
   },
   {
     route: '/rewards/redeem/list',
@@ -151,6 +153,7 @@ export default function NavigationHeader({}) {
                       route={m.route}
                       style={m.style}
                       menu={m.menu}
+                      tag={m.tag}
                     />
                   )
                 })}
@@ -168,7 +171,14 @@ export default function NavigationHeader({}) {
 
 const DripsyMotiPressable = styled(MotiPressable)()
 
-const MenuButton = ({ icon, label, route, style, menu }: MenuButtonProps) => {
+const MenuButton = ({
+  icon,
+  label,
+  route,
+  style,
+  menu,
+  tag,
+}: MenuButtonProps) => {
   const linkProps = useLink({ href: route })
   const setDropdownMenu = useNavigationHeader()
   const { t } = useLocalization()
@@ -179,7 +189,7 @@ const MenuButton = ({ icon, label, route, style, menu }: MenuButtonProps) => {
         position: 'relative',
         justifyContent: 'center',
         flex: 1,
-        px: icon ? '$3' : ['$2', '$2', '$2', 10, 14, 25],
+        px: icon ? '$3' : ['$2', '$2', '$2', 6, 14, 25],
         alignItems: 'center',
       }}
       containerStyle={{ position: 'relative', ...style }}
@@ -191,9 +201,26 @@ const MenuButton = ({ icon, label, route, style, menu }: MenuButtonProps) => {
       {icon ? (
         <Icon name={icon} size={22} />
       ) : (
-        <Text sx={{ fontSize: [10, 10, 10, 12, 14] }}>
-          {t(label).toUpperCase()}
-        </Text>
+        <View>
+          <Text sx={{ fontSize: [10, 10, 10, 12, 14] }}>
+            {t(label).toUpperCase()}
+          </Text>
+          <Text
+            sx={{
+              position: 'absolute',
+              top: -16,
+              right: 0,
+              fontSize: 10,
+              fontWeight: 'bold',
+              bg: 'red',
+              px: '$2',
+              borderBottomLeftRadius: 6,
+              borderBottomRightRadius: 6,
+            }}
+          >
+            {tag && t(tag).toUpperCase()}
+          </Text>
+        </View>
       )}
       <Indicator route={route} />
     </DripsyMotiPressable>

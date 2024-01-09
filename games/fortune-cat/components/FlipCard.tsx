@@ -10,7 +10,23 @@ import * as PIXI from 'pixi.js'
 gsap.registerPlugin(PixiPlugin)
 PixiPlugin.registerPIXI(PIXI)
 
-const FlipCard = ({ position, image, winImage, onComplete, win, disabled }) => {
+type FlipCardPros = {
+  position: number
+  image: string
+  winImage: string
+  onComplete: () => void
+  win: boolean
+  disabled: boolean
+}
+
+const FlipCard = ({
+  position,
+  image,
+  winImage,
+  onComplete,
+  win,
+  disabled,
+}: FlipCardPros) => {
   const [open, setOpen] = useState(false)
   const coinRef = useRef<PixiRef<ISprite>>(null)
   const prizeRef = useRef<PixiRef<ISprite>>(null)
