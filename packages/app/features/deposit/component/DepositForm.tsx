@@ -203,7 +203,7 @@ const DepositForm = ({ DepositCategoryId }) => {
           />
         )}
       </View>
-      <View
+      {/* <View
         sx={{
           pt: horizontalMode ? '$4' : 0,
         }}
@@ -215,7 +215,7 @@ const DepositForm = ({ DepositCategoryId }) => {
             maxAmount={maxAmount}
           />
         )}
-      </View>
+      </View> */}
       <View sx={{ px: horizontalMode ? 0 : '$4' }}>
         <FieldSelectBank
           field={fieldBank}
