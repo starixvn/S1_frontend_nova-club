@@ -38,27 +38,28 @@ import HeaderOverview from './HeaderOverview'
 import isBetween from 'dayjs/plugin/isBetween'
 import dayjs from 'dayjs'
 import { SolitoImage } from 'solito/image'
+import { Video, ResizeMode } from 'expo-av'
 dayjs.extend(isBetween)
 
 const LogoSize = [HEADER_HEIGHT * 0.5, HEADER_HEIGHT * 0.75]
 
 const Logo = () => {
   const lang = useAppSelector((s) => s.setting.locale)
-  const showChristmasTheme = useResponsiveValue([false, false, false, true])
+  const showTheme = useResponsiveValue([false, false, false, true])
   const themeLogoWidth = useResponsiveValue([0, 0, 0, 190, 260])
 
-  const isChristmasDate = dayjs().isBetween(
-    dayjs('2023-11-30T17:00:00.000Z'),
-    dayjs('2023-12-31T17:00:00.000Z')
+  const isCNY = dayjs().isBetween(
+    dayjs('2024-01-01T17:00:00.000Z'),
+    dayjs('2024-02-29T17:00:00.000Z')
   )
 
   const LOGO_PATH =
     lang === 'en'
-      ? isChristmasDate
-        ? `${MEDIA_DOMAIN}${CONTENT_URI}/event/christmas/logo-christmas-en.png`
+      ? isCNY
+        ? `${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/cny/cny-logo-en.png`
         : `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered.png`
-      : isChristmasDate
-      ? `${MEDIA_DOMAIN}${CONTENT_URI}/event/christmas/logo-christmas-vi.png`
+      : isCNY
+      ? `${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/cny/cny-logo-vi.png`
       : `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered-vn.png`
 
   return (
@@ -77,7 +78,23 @@ const Logo = () => {
         />
       </Link>
 
-      {isChristmasDate && showChristmasTheme && (
+      {isCNY && showTheme && (
+        <Video
+          isMuted
+          isLooping
+          shouldPlay
+          resizeMode={ResizeMode.CONTAIN}
+          source={{
+            uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/cny/cny-animation.mp4`,
+          }}
+          useNativeControls={false}
+          style={{ height: 60, width: 213 }}
+          videoStyle={{
+            position: Platform.OS === 'web' ? 'relative' : 'absolute',
+          }}
+        />
+      )}
+      {/* {isCNY && showTheme && (
         <SolitoImage
           src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/christmas/header-christmas-desktop.png`}
           height={60}
@@ -85,7 +102,7 @@ const Logo = () => {
           contentPosition="bottom center"
           alt=""
         />
-      )}
+      )} */}
     </Row>
   )
 }

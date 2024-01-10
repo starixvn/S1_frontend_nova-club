@@ -10,6 +10,7 @@ import Deferrable from './Deferrable'
 import GameGridSection from './GameGridSection'
 import HireBanner from './HireBanner'
 import ModalTriggers from './EventModal'
+import CnyTheme, { CnyDragon, CnyFireCracker } from './CnyTheme'
 
 export default function HomeScreen() {
   const dispatch = useAppDispatch()
@@ -67,6 +68,9 @@ export default function HomeScreen() {
       <GameGridSection />
       <Deferrable />
       <ModalTriggers />
+
+      <CnyFireCracker />
+      <CnyDragon />
     </ScrollView>
   )
 }
