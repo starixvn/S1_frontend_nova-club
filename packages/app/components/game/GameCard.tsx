@@ -40,6 +40,7 @@ export interface GameCardProps extends PressableProps, LaunchGamePayload {
   gameTagSize?: GAME_TAG_SIZE
   isDualVersion?: boolean
   isFullCard?: boolean
+  isDropdownContent?: boolean
 }
 
 const GameCard = ({
@@ -56,6 +57,7 @@ const GameCard = ({
   showRebate = false,
   gameTagSize = GAME_TAG_SIZE.lg,
   isDualVersion = false,
+  isDropdownContent = false,
   ...rest
 }: GameCardProps) => {
   const lastLoadedRef = useRef(img)
@@ -136,90 +138,94 @@ const GameCard = ({
       onPress={onClick}
       {...rest}
     >
-      <View
-        sx={{
-          height,
-          width: '100%',
-          aspectRatio: 1,
-          position: 'relative',
-          borderRadius: 10,
-          overflow: 'hidden',
-          pointerEvents: 'none',
-          ...containerSx,
-        }}
+      <MotiView
+        from={isDropdownContent ? { translateX: -24, translateY: 24 } : {}}
+        animate={{ translateX: 0, translateY: 0 }}
       >
-        <SolitoImage
-          unoptimized
-          onLoadingComplete={() => {
-            startTransition(() => setLoaded(true))
-          }}
-          fill
-          loading="lazy"
-          alt={displayName ?? ''}
-          contentFit="contain"
-          key={imageSrc}
-          src={imageSrc}
-        />
-        {Platform.OS !== 'android' && (
-          <AnimatePresence>
-            {!loaded && (
-              <MotiView
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                style={{
-                  ...StyleSheet.absoluteFillObject,
-                  backgroundColor: 'rgba(150,150,255,0.3)',
-                }}
-              />
-            )}
-          </AnimatePresence>
-        )}
-      </View>
-      <GameTagsLabel
-        tags={tags ?? []}
-        size={gameTagSize}
-        gpc={gpc}
-        isFullCard={isFullCard}
-      />
-      {!!displayName && (
-        <Text
-          sx={{
-            textAlign: 'center',
-            fontWeight: 'bold',
-            mt: '$2',
-            fontSize: [12, 14],
-          }}
-        >
-          {displayName}
-        </Text>
-      )}
-      {showRebate && (
-        <LabelContainer rebateTop={rebateTop}>
-          {isRebateLoading ? (
-            <ActivityIndicator color={'$primary.100'} />
-          ) : (
-            <GameRebateLabel key={rebateText} rebateText={rebateText} />
-          )}
-        </LabelContainer>
-      )}
-      {isDualVersion && (
         <View
           sx={{
-            position: 'absolute',
+            height,
             width: '100%',
-            alignItems: 'flex-end',
-            bottom: '$2',
-            right: '$2',
+            aspectRatio: 1,
+            position: 'relative',
+            borderRadius: 10,
+            overflow: 'hidden',
+            pointerEvents: 'none',
+            ...containerSx,
           }}
         >
-          <GameCardDualVersionButton
-            onPressPlayNow={onClick}
-            onPressDesktop={handleDesktopMode}
+          <SolitoImage
+            unoptimized
+            onLoadingComplete={() => {
+              startTransition(() => setLoaded(true))
+            }}
+            fill
+            loading="lazy"
+            alt={displayName ?? ''}
+            contentFit="contain"
+            key={imageSrc}
+            src={imageSrc}
           />
+          {Platform.OS !== 'android' && (
+            <AnimatePresence>
+              {!loaded && (
+                <MotiView
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  style={{
+                    ...StyleSheet.absoluteFillObject,
+                    backgroundColor: 'rgba(150,150,255,0.3)',
+                  }}
+                />
+              )}
+            </AnimatePresence>
+          )}
         </View>
-      )}
+        <GameTagsLabel
+          tags={tags ?? []}
+          size={gameTagSize}
+          gpc={gpc}
+          isFullCard={isFullCard}
+        />
+        {!!displayName && (
+          <Text
+            sx={{
+              textAlign: 'center',
+              fontWeight: 'bold',
+              mt: '$2',
+              fontSize: [12, 14],
+            }}
+          >
+            {displayName}
+          </Text>
+        )}
+        {showRebate && (
+          <LabelContainer rebateTop={rebateTop}>
+            {isRebateLoading ? (
+              <ActivityIndicator color={'$primary.100'} />
+            ) : (
+              <GameRebateLabel key={rebateText} rebateText={rebateText} />
+            )}
+          </LabelContainer>
+        )}
+        {isDualVersion && (
+          <View
+            sx={{
+              position: 'absolute',
+              width: '100%',
+              alignItems: 'flex-end',
+              bottom: '$2',
+              right: '$2',
+            }}
+          >
+            <GameCardDualVersionButton
+              onPressPlayNow={onClick}
+              onPressDesktop={handleDesktopMode}
+            />
+          </View>
+        )}
 
-      {/* {showRebate && (
+        {/* {showRebate && (
         <View
           sx={{
             position: 'absolute',
@@ -243,6 +249,7 @@ const GameCard = ({
           )}
         </View>
       )} */}
+      </MotiView>
     </Root>
   )
 }
