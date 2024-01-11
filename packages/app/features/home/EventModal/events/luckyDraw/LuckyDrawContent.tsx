@@ -5,6 +5,7 @@ import { SettingActions } from 'app/store/setting.slice'
 import React, { useRef, useState } from 'react'
 import { useLuckySpinMutation } from 'services/playerApi'
 import { useHomeEventModal } from '../../HomeEventModal'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 type Props = {}
 
@@ -91,7 +92,7 @@ export default function LuckyDrawContent({}: Props) {
   return (
     <SpinDrawContent
       balance={luckyDrawBalance}
-      srcPrize={require('app/assets/images/luckydraw/prizes.png')}
+      srcPrize={`${MEDIA_DOMAIN}${CONTENT_URI}/event/luckydraw/prizes.png`}
       targetIndex={targetIndex}
       loopCount={loopCount}
       startAnimate={startAnimate}

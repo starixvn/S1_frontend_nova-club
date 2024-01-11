@@ -5,7 +5,7 @@ import { SolitoImage } from 'solito/image'
 import LiveChatButton from '../floatingContent/component/LiveChatButton'
 
 type Props = {
-  iconProps: ComponentProps<typeof SolitoImage>
+  iconProps: Omit<ComponentProps<typeof SolitoImage>, 'width' | 'height'>
   title: string
   description: string
 }

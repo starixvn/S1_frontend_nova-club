@@ -10,6 +10,7 @@ import React from 'react'
 import { ImageBackground } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { DEV_DOMAIN } from '../../../../../apps/next/config/env'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 const DrawerReferral = ({ imageHeight }: { imageHeight: number | string }) => {
   const { t } = useLocalization()
@@ -32,7 +33,7 @@ const DrawerReferral = ({ imageHeight }: { imageHeight: number | string }) => {
       }}
     >
       <ImageBackground
-        source={require('../../../assets/images/banner_referral.jpg')}
+        source={{ uri: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banner_referral.jpg` }}
         style={{
           // aspectRatio: 380 / 600,
           // maxHeight: 380,

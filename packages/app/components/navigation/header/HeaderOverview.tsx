@@ -1,3 +1,4 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Icon from 'app/components/Icon'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
 import { useAppSelector } from 'app/provider/redux/store'
@@ -61,7 +62,7 @@ const HeaderButton = ({
           ) : (
             <Pressable onPress={onPress} sx={{ ml: -8 }}>
               <SolitoImage
-                src={require('app/assets/images/rewards/btn_rewards.png')}
+                src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/btn_rewards.png`}
                 alt="icon"
                 // fill
                 width={50}

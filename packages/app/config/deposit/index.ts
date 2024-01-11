@@ -1,3 +1,5 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+
 export enum DepositPaymentMethodCategoryId {
   LOCAL_BANK = 7,
   ONLINE_BANK = 1,
@@ -128,7 +130,7 @@ export const PaymentMethod: PaymentMethodProps[] = [
 export const getPaymentMethodLogo = (bankCode: string) => {
   const logo = PaymentMethod.find((el) => el.bank_code === bankCode)?.image
 
-  return logo ?? require('../../assets/images/empty-result.png')
+  return logo ?? `${MEDIA_DOMAIN}${CONTENT_URI}/v2/common/empty-result.png`
 }
 
 export default PaymentMethod

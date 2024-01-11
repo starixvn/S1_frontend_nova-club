@@ -1,3 +1,4 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
 import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
@@ -46,7 +47,7 @@ const TutorialScreen = () => {
           <StyleOverlayView>
             <StyleHighlightView location={location}>
               <SolitoImage
-                src={require('app/assets/images/rewards/btn_rewards.png')}
+                src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/btn_rewards.png`}
                 alt="icon"
                 width={50}
                 height={20}

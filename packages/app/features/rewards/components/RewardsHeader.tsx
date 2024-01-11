@@ -1,3 +1,4 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Header from 'app/components/common/Header'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
 import useLocalization from 'app/provider/localization'
@@ -46,7 +47,7 @@ const CoinHeaderDisplay = () => {
         alt="Vui Coin"
         width={COIN_SIZE}
         height={COIN_SIZE}
-        src={require('app/assets/images/rewards/coin.png')}
+        src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/coin.png`}
       />
       {data != null ? (
         <Text

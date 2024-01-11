@@ -12,6 +12,7 @@ import { Easing } from 'react-native-reanimated'
 import { useRouter } from 'solito/router'
 import IconButton from '../IconButton'
 import { MotifiedImage } from '../common/Image'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 const SpinDrawContent = ({
   balance,
@@ -68,7 +69,7 @@ const SpinDrawContent = ({
           type: 'timing',
           easing: Easing.bezier(0, 0.62, 0.19, 1.01),
         }}
-        source={srcPrize}
+        source={{ uri: srcPrize }}
         sx={{
           width: Math.min(275, width * 0.9),
           height: Math.min(275, width * 0.9),
@@ -98,7 +99,9 @@ const SpinDrawContent = ({
         from={{ scale: 0 }}
         animate={{ scale: 1 }}
         resizeMode="contain"
-        source={require('app/assets/images/luckydraw/coins.png')}
+        source={{
+          uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/luckydraw/coins.png`,
+        }}
       />
       <View
         sx={{
@@ -125,7 +128,9 @@ const SpinDrawContent = ({
             }}
           >
             <MotifiedImage
-              source={require('app/assets/images/luckydraw/lucky-spin.png')}
+              source={{
+                uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/luckydraw/lucky-spin.png`,
+              }}
               from={{ scale: 0 }}
               animate={{ scale: 1 }}
               delay={200}
@@ -138,7 +143,9 @@ const SpinDrawContent = ({
               }}
             />
             <MotifiedImage
-              source={require('app/assets/images/luckydraw/pin.png')}
+              source={{
+                uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/luckydraw/pin.png`,
+              }}
               from={{ scale: 0 }}
               animate={{ scale: 1 }}
               delay={200}
@@ -175,7 +182,9 @@ const SpinDrawContent = ({
                 style={{ position: 'absolute', zIndex: 10 }}
               >
                 <MotifiedImage
-                  source={require('app/assets/images/luckydraw/shine-curve.png')}
+                  source={{
+                    uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/luckydraw/shine-curve.png`,
+                  }}
                   sx={{
                     zIndex: 10,
                     width: shinyWidth,
@@ -210,7 +219,9 @@ const SpinDrawContent = ({
               }}
             >
               <MotifiedImage
-                source={require('app/assets/images/luckydraw/btnSpin.png')}
+                source={{
+                  uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/luckydraw/btnSpin.png`,
+                }}
                 from={{
                   scale: 0,
                   height: [
@@ -371,7 +382,9 @@ const HintButton = ({
 const PurpleTableImage = ({ width }) => {
   return (
     <MotifiedImage
-      source={require('app/assets/images/luckydraw/table.png')}
+      source={{
+        uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/luckydraw/table.png`,
+      }}
       from={{ scale: 0 }}
       animate={{ scale: 1 }}
       delay={200}
@@ -389,7 +402,9 @@ const PurpleTableImage = ({ width }) => {
 const LuckySpinWheelFrame = ({ width }) => {
   return (
     <MotifiedImage
-      source={require('app/assets/images/luckydraw/frame.png')}
+      source={{
+        uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/luckydraw/frame.png`,
+      }}
       sx={{
         zIndex: 1,
         position: 'absolute',
@@ -404,7 +419,9 @@ const LuckySpinWheelFrame = ({ width }) => {
 const LuckySpinLogo = ({ width }: { width: number }) => {
   return (
     <MotifiedImage
-      source={require('app/assets/images/luckydraw/logo.png')}
+      source={{
+        uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/luckydraw/logo.png`,
+      }}
       from={{ scale: 0 }}
       animate={{ scale: 1 }}
       delay={200}
@@ -422,7 +439,9 @@ const LuckySpinLogo = ({ width }: { width: number }) => {
 const WinningAnimationFrame = () => {
   return (
     <MotifiedImage
-      source={require('app/assets/images/luckydraw/win_prize_frame.png')}
+      source={{
+        uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/luckydraw/win_prize_frame.png`,
+      }}
       from={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       delay={100}

@@ -1,3 +1,4 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import { useAgentLocalization } from 'app/provider/localization'
 import { Image, Text, View } from 'dripsy'
@@ -24,7 +25,9 @@ const EmptyResult = ({ text, _text, ...props }: IHistoryEmpty) => {
       {...restProps}
     >
       <Image
-        source={require('app/assets/images/empty-result.png')}
+        source={{
+          uri: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/common/empty-result.png`,
+        }}
         sx={{
           aspectRatio: 1,
           width: width * 0.25,

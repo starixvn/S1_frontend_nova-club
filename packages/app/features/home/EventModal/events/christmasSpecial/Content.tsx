@@ -20,6 +20,7 @@ import { ClaimChristmasEventCoinResult } from 'services/rewardApi.type'
 import { SolitoImage } from 'solito/image'
 import { useRouter } from 'solito/router'
 import { useHomeEventModal } from '../../HomeEventModal'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 type Props = {}
 
@@ -133,7 +134,9 @@ export default function ChristmasSpecialContent({}: Props) {
                             {amount}
                           </Text>
                           <Image
-                            source={require('app/assets/images/rewards/coin.png')}
+                            source={{
+                              uri: `${MEDIA_DOMAIN}${CONTENT_URI}/rewards/coin.png`,
+                            }}
                             style={{
                               height: '70%',
                               width: 25,

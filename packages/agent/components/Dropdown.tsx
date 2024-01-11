@@ -4,7 +4,6 @@ import { Platform, StyleSheet } from 'react-native'
 import { MotiView } from 'moti'
 import { ComponentProps, createContext, useContext } from 'react'
 import { useCallback, useMemo } from 'react'
-import Ionicons from '@expo/vector-icons/build/Ionicons'
 import Icon from './Icon'
 
 const DropdownMenuRoot = Dropdown.Root
@@ -233,7 +232,7 @@ const DripsyIcon = styled(Dropdown.ItemIcon)({
   justifyContent: 'center',
 })
 
-type IconProps = ComponentProps<typeof Ionicons>
+type IconProps = ComponentProps<typeof Icon>
 
 const DropdownMenuItemIcon = Dropdown.create(
   ({

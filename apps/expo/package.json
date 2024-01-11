@@ -95,7 +95,7 @@
     "start:staging": "APP_ENV=stag yarn start --clear",
     "start:soft": "APP_ENV=soft yarn start --clear",
     "start:pre": "APP_ENV=pre yarn start --clear",
-    "start:prod": "yarn start --clear",
+    "start:prod": "APP_ENV=prod yarn start --clear",
     "android": "expo run:android",
     "ios": "expo run:ios",
     "clean-codepush": "rm -rf codepush && mkdir codepush && mkdir codepush/android && mkdir codepush/ios",

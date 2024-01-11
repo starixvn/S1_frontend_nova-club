@@ -70,7 +70,6 @@ type DefaultModalStackParams = {
   ForgotPasswordModal: {
     t: LoginType
   }
-  HalloweenWinModal: undefined
   DepositQrModal: { qrCode: string }
   DailyCheckInModal: undefined
   RewardGameModal: {
@@ -144,8 +143,6 @@ const _dynamicModal: Record<keyof ModalStackParams, () => Promise<any>> = {
   RewardGameModal: () => import('app/components/modal/RewardGameModal'),
   RewardTncModal: () => import('app/components/modal/RewardTncModal'),
   ActionableModal: () => import('app/components/modal/ActionableModal'),
-  HalloweenWinModal: () =>
-    import('app/features/event/halloween/HalloweenWinModal'),
   HomeEventModal: () => import('app/features/home/EventModal/HomeEventModal'),
 }
 
@@ -232,9 +229,6 @@ const modalConfig: ModalConfigType = {
   },
   ActionableModal: {
     modal: getDynamicComponent('ActionableModal'),
-  },
-  HalloweenWinModal: {
-    modal: getDynamicComponent('HalloweenWinModal'),
   },
   HomeEventModal: {
     modal: getDynamicComponent('HomeEventModal'),

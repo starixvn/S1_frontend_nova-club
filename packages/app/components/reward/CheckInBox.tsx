@@ -1,15 +1,15 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import useLocalization from 'app/provider/localization'
 import { toThousandSeparator } from 'app/utils'
 import { getErrorMessage } from 'app/utils/validation'
 import {
   ActivityIndicator,
-  Image,
   Pressable,
   Row,
   Text,
   View,
   styled,
-  useResponsiveValue,
+  useResponsiveValue
 } from 'dripsy'
 import React, { ComponentProps, useState } from 'react'
 import { Platform, StyleSheet } from 'react-native'
@@ -156,10 +156,12 @@ const SmallBox = ({ day, reward, active }: BoxProps) => {
       <CoinImage />
       <BoxTextGroup reward={reward} day={day} />
       {active && (
-        <Image
-          source={require('app/assets/images/rewards/tick.png')}
+        <SolitoImage
+          src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/tick.png`}
           alt="coin"
-          sx={styles.tickPosition}
+          width={20}
+          height={20}
+          style={styles.tickPosition}
         />
       )}
     </BoxContainer>
@@ -193,10 +195,12 @@ const BigBox = ({ day, reward, active }: BoxProps) => {
       </View>
       <View />
       {active && (
-        <Image
-          source={require('app/assets/images/rewards/tick.png')}
+        <SolitoImage
+          src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/tick.png`}
           alt="coin"
-          sx={styles.tickPosition}
+          height={20}
+          width={20}
+          style={styles.tickPosition}
         />
       )}
     </BoxContainer>
@@ -286,7 +290,7 @@ const CoinImage = styled(
     return (
       <SolitoImage
         alt="coin"
-        src={require('app/assets/images/rewards/coin.png')}
+        src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/coin.png`}
         width={size}
         height={size}
         {...props}
@@ -325,8 +329,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -7,
     right: -7,
-    height: 20,
-    width: 20,
   },
 })
 

@@ -1,4 +1,4 @@
-import { createIconSetFromIcoMoon } from '@expo/vector-icons'
+import createIconSetFromIcoMoon from '@expo/vector-icons/createIconSetFromIcoMoon'
 import { styled } from 'dripsy'
 import React, { ComponentProps } from 'react'
 

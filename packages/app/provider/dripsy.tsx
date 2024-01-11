@@ -38,10 +38,6 @@ const theme = makeTheme({
       '800': webFont(AvertaStd.Bold.name),
       '900': webFont(AvertaStd.Black.name),
     },
-    [BeVietnamPro.Regular.name]: {
-      default: webFont(BeVietnamPro.Black.name),
-      '900': webFont(BeVietnamPro.Black.name),
-    },
   },
   breakpoints: [576, 768, 992, 1200, 1400],
   layout: {

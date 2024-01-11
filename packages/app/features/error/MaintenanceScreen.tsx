@@ -1,9 +1,5 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import Image from 'app/components/common/Image'
-import { Row, ScrollView, Text, View } from 'dripsy'
 import React from 'react'
-import { SolitoImage } from 'solito/image'
-import LiveChatButton from '../floatingContent/component/LiveChatButton'
 import ErrorDisplays from './ErrorDisplays'
 
 type Props = {}
@@ -12,7 +8,7 @@ export default function MaintenanceScreen({}: Props) {
   return (
     <ErrorDisplays
       iconProps={{
-        src: require('app/assets/images/ic_maintenance.png'),
+        src: `${MEDIA_DOMAIN}${CONTENT_URI}/ic_maintenance.png`,
         alt: 'Maintenance',
       }}
       title={'HỆ THỐNG ĐANG BẢO TRÌ'}

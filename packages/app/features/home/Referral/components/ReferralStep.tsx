@@ -1,6 +1,4 @@
-import Step1 from 'app/assets/images/referral/step1.png'
-import Step2 from 'app/assets/images/referral/step2.png'
-import Step3 from 'app/assets/images/referral/step3.png'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import useLocalization from 'app/provider/localization'
 import { Text, View, useResponsiveValue } from 'dripsy'
 import { useWindowDimensions } from 'react-native'
@@ -14,17 +12,17 @@ const ReferralStep = () => {
     {
       title: t('referral.steps.step1'),
       body: t('referral.steps.n1'),
-      image: Step1,
+      image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/referral/step1.png`,
     },
     {
       title: t('referral.steps.step2'),
       body: t('referral.steps.n2'),
-      image: Step2,
+      image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/referral/step2.png`,
     },
     {
       title: t('referral.steps.step3'),
       body: t('referral.steps.n3'),
-      image: Step3,
+      image: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/referral/step3.png`,
     },
   ]
 

@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux'
 import { useLuckySpinMutation } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 import SpinDrawContent from './SpinDrawContent'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 const LuckyDrawModal = ({ modal: { closeModal } }) => {
   const dispatch = useDispatch()
@@ -93,7 +94,7 @@ const LuckyDrawModal = ({ modal: { closeModal } }) => {
   return (
     <SpinDrawContent
       balance={luckyDrawBalance}
-      srcPrize={require('app/assets/images/luckydraw/prizes.png')}
+      srcPrize={`${MEDIA_DOMAIN}${CONTENT_URI}/event/luckydraw/prizes.png`}
       targetIndex={targetIndex}
       loopCount={loopCount}
       startAnimate={startAnimate}

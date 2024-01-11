@@ -3,11 +3,10 @@ import useAlert from 'app/hooks/useAlert'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
 import React, { useRef, useState } from 'react'
-import {
-  useRetentionSpinMutation
-} from 'services/playerApi'
+import { useRetentionSpinMutation } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 import { useHomeEventModal } from '../../HomeEventModal'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 type Props = {}
 
@@ -101,7 +100,7 @@ export default function RetentionContent({}: Props) {
   return (
     <SpinDrawContent
       balance={retentionDrawBalance}
-      srcPrize={require('app/assets/images/luckydraw/retention-prizes.png')}
+      srcPrize={`${MEDIA_DOMAIN}${CONTENT_URI}/event/luckydraw/retention-prizes.png`}
       targetIndex={targetIndex}
       loopCount={loopCount}
       startAnimate={startAnimate}
