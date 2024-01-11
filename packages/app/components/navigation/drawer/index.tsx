@@ -16,9 +16,9 @@ export default function Drawer({ children }) {
   const drawerWidth = Math.min(250, width)
   const drawerHeight = height - HEADER_HEIGHT - top
   const useDrawerAnimation = useAnimationState({
-    from: { translateX: width },
+    from: { translateX: drawerWidth },
     //multiplier should opposite with drawer container width
-    toggle: { translateX: width - drawerWidth + 5 },
+    toggle: { translateX: 0 },
   })
   const isDesktop = useIsDesktop()
   const { isOpen, toggleDrawer } = useDrawer()
@@ -79,11 +79,12 @@ const DrawerContainer = styled(MotiView)(
     width: number
     height: number
   }) => ({
-    position: 'absolute',
+    position: Platform.OS === 'web' ? 'fixed' : 'absolute',
     width,
     height: '100%',
     zIndex: 1,
     top: offsetTop,
+    right: 0,
     bg: '$primary.500',
     // bg: 'blue',
   })
