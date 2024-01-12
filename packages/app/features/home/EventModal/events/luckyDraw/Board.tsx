@@ -243,7 +243,7 @@ const DiceSet = ({
         setDiceResults(diceResult)
         setIsRunning(false)
         onAnimated && onAnimated()
-      }, random(1000, 2000))
+      }, random(2000, 4000))
 
       return () => clearTimeout(clearEffect)
     }
@@ -255,7 +255,7 @@ const DiceSet = ({
     () => {
       setDiceResults(randomDiceResult(diceResults))
     },
-    isRunning ? 100 : null
+    isRunning ? 75 : null
   )
 
   return (
@@ -294,6 +294,7 @@ const Dice = ({
 }) => {
   return (
     <View>
+      <PreloadDiceImages />
       <SolitoImage
         src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/register/dice/No${result}-0${pattern}.png`}
         width={size}
@@ -307,6 +308,27 @@ const Dice = ({
         alt="dice-shadow"
         style={{ zIndex: 1 }}
       />
+    </View>
+  )
+}
+
+function PreloadDiceImages() {
+  return (
+    <View sx={{ opacity: 0, position: 'absolute' }}>
+      {[1, 2].map((num1) => {
+        return [1, 2, 3, 4, 5, 6].map((num2) => {
+          return (
+            <SolitoImage
+              key={num1 + num2}
+              src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/register/dice/No${num2}-0${num1}.png`}
+              width={20}
+              height={20}
+              alt="dice-shadow"
+              style={{ zIndex: 1 }}
+            />
+          )
+        })
+      })}
     </View>
   )
 }

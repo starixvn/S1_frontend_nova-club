@@ -16,6 +16,7 @@ import { Currency } from 'utils/constant'
 import { ActionsProps } from 'app/components/modal/ModalContent'
 import { useModal } from 'react-native-modalfy'
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import { random } from 'lodash'
 
 type Props = {}
 
@@ -63,7 +64,7 @@ const RegistrationContent = memo(({}: Props) => {
 
       // await sleep(500)
       // setResult({
-      //   code: 2,
+      //   code: random(1, 9),
       //   note: '',
       // })
 
@@ -151,15 +152,15 @@ function RollButton({
         px: '$2',
         alignItems: 'center',
         justifyContent: 'center',
-        width: '60%',
-        aspectRatio: 550 / 112,
+        width: '30%',
+        aspectRatio: 200 / 68,
         pb: '1%',
         ...sx,
       }}
       {...rest}
     >
       <SolitoImage
-        src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/register/roll-btn.png`}
+        src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/register/roll-btn.png?v=2`}
         alt="roll button"
         fill
       />
