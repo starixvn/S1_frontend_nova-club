@@ -7,10 +7,12 @@ interface EmbeddedContentProps {
   onLoadCompleted?: () => void
   gameKey: string
   onTokenExpired?: () => void
+  onEndGame?: () => void
 }
 
 const EmbeddedContent = (props: EmbeddedContentProps) => {
-  const { domainUrl, onLoadCompleted, gameKey, onTokenExpired } = props
+  const { domainUrl, onLoadCompleted, gameKey, onTokenExpired, onEndGame } =
+    props
   const locale = useAppSelector((state) => state.setting.locale)
 
   const iframeRef = useRef<ElementRef<'iframe'>>(null)
@@ -33,7 +35,7 @@ const EmbeddedContent = (props: EmbeddedContentProps) => {
     }, 100)
   }
 
-  function handleTokenExpired(e: MessageEvent<RewardPostMessagePayload>) {
+  function onMessage(e: MessageEvent<RewardPostMessagePayload>) {
     try {
       const eventData = e.data
       if (eventData) {
@@ -45,17 +47,20 @@ const EmbeddedContent = (props: EmbeddedContentProps) => {
         if (data.type === RewardPostMessageType.sessionExpired) {
           onTokenExpired?.()
           return
+        } else if (data.type === RewardPostMessageType.endGame) {
+          onEndGame?.()
+          return
         }
       }
     } catch (e) {
-      console.error('handleTokenExpired error', e)
+      console.error('onMessage error', e)
     }
   }
 
   useEffect(() => {
-    window.addEventListener('message', handleTokenExpired)
+    window.addEventListener('message', onMessage)
     return () => {
-      window.removeEventListener('message', handleTokenExpired)
+      window.removeEventListener('message', onMessage)
     }
   }, [])
 

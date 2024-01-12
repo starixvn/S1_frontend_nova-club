@@ -18,6 +18,7 @@ import WithdrawalRoutes from 'desktop-ext/routes/withdrawalRoutes'
 import { Container, Row, View, styled } from 'dripsy'
 import { useEffect, useState } from 'react'
 import TabNavMenu from './TabNavMenu'
+import { useCryptoBankQuery } from 'services/bank'
 
 export default function WalletLayout({
   children,
@@ -26,6 +27,11 @@ export default function WalletLayout({
 }) {
   const currentPath = usePathname()
   const { paymentMethodList, isLoading } = useDepositList()
+  const { data: cryptoBankList } = useCryptoBankQuery()
+  console.log(
+    '🚀 ~ file: WalletLayout.tsx:31 ~ cryptoBankList:',
+    cryptoBankList
+  )
 
   const [menuRoutes, setMenuRoutes] = useState(TransferRoutes)
   const [noticeNotes, setNoticeNotes] = useState<string[] | undefined>(
@@ -51,7 +57,11 @@ export default function WalletLayout({
       return
     }
     if (currentPath.includes(WALLET_PATH.WITHDRAWAL)) {
-      setMenuRoutes(WithdrawalRoutes)
+      let routes = WithdrawalRoutes
+      if (cryptoBankList && cryptoBankList.length === 0)
+        routes = routes.filter((el) => el.key !== 'Crypto')
+
+      setMenuRoutes(routes)
       setNoticeNotes(WITHDRAWAL_NOTES)
       return
     }

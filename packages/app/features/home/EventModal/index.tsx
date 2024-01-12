@@ -5,6 +5,7 @@ import ChristmasGiftTrigger from './events/christmasGift/Trigger'
 import ChristmasSpecialTrigger from './events/christmasSpecial/Trigger'
 import EventPopUpTrigger from './events/eventPopUp/Trigger'
 import LuckyDrawTrigger from './events/luckyDraw/Trigger'
+import MysteryDropTrigger from './events/mysteryDrop/Trigger'
 
 export default function ModalTriggers() {
   return (
@@ -12,6 +13,7 @@ export default function ModalTriggers() {
       <EventPopUpTrigger />
       <LuckyDrawTrigger />
       <ChristmasGiftTrigger />
+      <MysteryDropTrigger />
       <ChristmasSpecialTrigger />
     </HomeEventProvider>
   )

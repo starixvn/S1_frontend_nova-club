@@ -1,21 +1,21 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { createSelector } from '@reduxjs/toolkit'
+import SectionHeader from 'app/components/SectionHeader'
 import FormContainer from 'app/components/form/FormContainer'
 import useIsDesktop from 'app/hooks/useIsDesktop'
+import useLocalization from 'app/provider/localization'
 import { ModalStackParams } from 'app/provider/modal'
-import { ActivityIndicator, P, Row, ScrollView, View } from 'dripsy'
+import { useAppSelector } from 'app/provider/redux/store'
+import { ActivityIndicator, Row, ScrollView, View } from 'dripsy'
 import React, { useCallback, useEffect, useMemo } from 'react'
+import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useGetCoinRedemptionListQuery } from 'services/rewardApi'
 import { CoinRedemptionRow } from 'services/rewardApi.type'
 import { useRouter } from 'solito/router'
+import { RewardGameKeyMap } from 'utils/rewards'
 import RewardCard, { RewardGameTag } from './components/RewardCard'
 import RewardCardFull from './components/RewardCardFull'
-import { RewardGameKeyMap } from 'utils/rewards'
-import { Platform } from 'react-native'
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import SectionHeader from 'app/components/SectionHeader'
-import useLocalization from 'app/provider/localization'
-import { useAppSelector } from 'app/provider/redux/store'
 
 type RewardGameListConfig = {
   key: RewardGameKeyMap
@@ -60,16 +60,16 @@ const RewardGameList = ({ onLoaded }: { onLoaded?: () => void }) => {
     return createSelector(
       (res: { data?: CoinRedemptionRow[] }) => res.data,
       (data) => {
-        const combinedData = data?.map((game) => {
-          const selectedGame = rewardGameListConfig.find(
-            (rewardGame) => rewardGame.key === game.key
-          )
-
-          return {
-            ...game,
-            _data: selectedGame,
-          }
-        })
+        const combinedData =
+          data?.map((game) => {
+            const selectedGame = rewardGameListConfig.find(
+              (rewardGame) => rewardGame.key === game.key
+            )
+            return {
+              ...game,
+              _data: selectedGame,
+            }
+          }) ?? []
 
         return combinedData
       }

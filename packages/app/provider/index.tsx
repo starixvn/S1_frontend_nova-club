@@ -8,6 +8,7 @@ import GameLauncher from 'app/features/game/GameLauncher'
 import Branch from 'app/integrations/branch/Branch'
 import ReferralTrigger from 'app/components/ReferralTrigger'
 import Shield from 'app/integrations/shield/Shield'
+import Notification from 'app/integrations/notification/Notification'
 
 export function Provider({ children }: { children: React.ReactNode }) {
   return (
@@ -20,6 +21,7 @@ export function Provider({ children }: { children: React.ReactNode }) {
               <GameLauncher />
               <Branch />
               <Shield />
+              <Notification />
               <ReferralTrigger />
             </ModalProvider>
           </DrawerProvider>

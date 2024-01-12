@@ -13,7 +13,14 @@ import { isBannedTrackingCode } from 'app/utils/referralUtil'
 import validation from 'app/utils/validation'
 import { FormikHelpers, useFormik } from 'formik'
 import { useDynamicAnimation } from 'moti'
-import { RefObject, useCallback, useEffect, useMemo, useState } from 'react'
+import {
+  RefObject,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { Linking, Platform, View as RNView } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { useRegisterMutation } from 'services/authApi'
@@ -74,7 +81,8 @@ export default function useRegisterScreen(
 
   const isLoggedIn = useAppSelector((s) => !!s.auth.info)
   const memberToken = useAppSelector((state) => state.auth.info?.token)
-  const { openModal } = useModal()
+  const { openModal, closeAllModals } = useModal()
+  const unmountAction = useRef<() => void>()
 
   const { data } = usePlayerProfileQuery(undefined, {
     skip: !isLoggedIn,
@@ -144,27 +152,12 @@ export default function useRegisterScreen(
 
       if (currentModal) {
         closeModal()
+        unmountAction.current = handleSuccessRegisterOpenModal
+      } else {
+        handleSuccessRegisterOpenModal()
       }
 
       // replace('/')
-
-      //temporary disable auto popup till modal closed
-      setTimeout(() => {
-        openModal('ActionableModal', {
-          title: t('authentication.registerSuccess.m1'),
-          message: t('authentication.registerSuccess.m2'),
-          onClose: () => {
-            dispatch(TempSettingActions.setIsHomeEventModalTriggered(false))
-            replace('/')
-          },
-          actions: [
-            {
-              label: t('home.joinNow'),
-              onPress: () => Linking.openURL('https://t.me/cungvui123'),
-            },
-          ],
-        })
-      }, 1000)
 
       setStatus(true)
     } else {
@@ -204,12 +197,24 @@ export default function useRegisterScreen(
 
       if (currentModal) {
         closeModal()
+        unmountAction.current = handleSuccessRegisterOpenModal
+      } else {
+        handleSuccessRegisterOpenModal()
       }
 
       // replace('/agent/profile')
 
-      setTimeout(() => {
-        openModal('ActionableModal', {
+      /* to indicate the register is successfull and used to persist loading on submit button */
+      setStatus(true)
+    } else {
+      showAlert(message)
+    }
+    setIsSubmitting(false)
+  }
+
+  const handleSuccessRegisterOpenModal = () => {
+    return isAgentLogin
+      ? openModal('ActionableModal', {
           title: t('authentication.registerSuccess.a1'),
           message: t('authentication.registerSuccess.a2'),
           onClose: () => replace('/agent/profile'),
@@ -220,14 +225,27 @@ export default function useRegisterScreen(
             },
           ],
         })
-      }, 1000)
-      /* to indicate the register is successfull and used to persist loading on submit button */
-      setStatus(true)
-    } else {
-      showAlert(message)
-    }
-    setIsSubmitting(false)
+      : openModal('ActionableModal', {
+          title: t('authentication.registerSuccess.m1'),
+          message: t('authentication.registerSuccess.m2'),
+          onClose: () => {
+            dispatch(TempSettingActions.setIsHomeEventModalTriggered(false))
+            replace('/')
+          },
+          actions: [
+            {
+              label: t('home.joinNow'),
+              onPress: () => Linking.openURL('https://t.me/cungvui123'),
+            },
+          ],
+        })
   }
+
+  useEffect(() => {
+    return () => {
+      unmountAction.current && unmountAction.current()
+    }
+  }, [unmountAction])
 
   const onSubmit = async (
     registerValues: RegisterFormValues,

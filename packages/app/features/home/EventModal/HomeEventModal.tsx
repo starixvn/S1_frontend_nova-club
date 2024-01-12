@@ -2,7 +2,9 @@ import Icon from 'app/components/Icon'
 import IconButton from 'app/components/IconButton'
 import TouchableOpacity from 'app/components/pressable/TouchableOpacity'
 import { ModalStackParams } from 'app/provider/modal'
+import { useAppDispatch } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
+import { TempSettingActions } from 'app/store/tempSetting.slice'
 import { View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
 import { MotiPressable } from 'moti/interactions'
@@ -48,6 +50,7 @@ export interface HomeEventModalData {
 export default function HomeEventModal({
   modal: { closeModal, getParam, currentModal },
 }: ModalComponentProp<ModalStackParams, void, 'HomeEventModal'>) {
+  const dispatch = useAppDispatch()
   const { width, height } = useWindowDimensions()
   const data = getParam('data', [])
 
@@ -104,6 +107,9 @@ export default function HomeEventModal({
 
   function openCurrentTnc() {
     data[activeIndex]?.tnc && data[activeIndex]?.tnc()
+
+    dispatch(TempSettingActions.setIsHomeEventModalTriggered(false))
+
     closeModal()
   }
 

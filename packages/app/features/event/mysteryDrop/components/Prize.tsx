@@ -1,0 +1,126 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import useLocalization from 'app/provider/localization'
+import { toThousandSeparator } from 'app/utils'
+import { Text, View, styled } from 'dripsy'
+import React, { useState } from 'react'
+import { MysteryEventPrize } from 'services/eventApi.type'
+import { SolitoImage } from 'solito/image'
+import { CountUp } from 'use-count-up'
+
+type PrizeProps = {
+  width: number
+  type: 'grand' | 'major' | 'mini'
+  prize: MysteryEventPrize
+}
+
+const defaultPrize: MysteryEventPrize = { amt: '0', min: '0', max: '0' }
+
+const Prize = ({ width, type = 'grand', prize }: PrizeProps) => {
+  const { t } = useLocalization()
+  const [prevPrize, setPrevPrize] = useState<number>()
+
+  const prizeAmount = Number(prize.amt)
+
+  let boardImage
+  let textShadowColor
+  let typeText
+
+  switch (type) {
+    case 'grand':
+      boardImage = `${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/board-grand.png`
+      textShadowColor = '#F80000EB'
+      typeText = 'event.mystery.grand'
+      break
+    case 'major':
+      boardImage = `${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/board-major.png`
+      textShadowColor = '#00CEFFEB'
+      typeText = 'event.mystery.major'
+      break
+    case 'mini':
+      boardImage = `${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/board-mini.png`
+      textShadowColor = '#0AF800EB'
+      typeText = 'event.mystery.mini'
+      break
+
+    default:
+      break
+  }
+
+  return (
+    <View sx={{ alignItems: 'center', width }}>
+      <SolitoImage
+        src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/mystery-drop/${type}.png`}
+        alt=""
+        width={width * 0.5}
+        height={width * 0.5}
+        style={{ zIndex: 10 }}
+      />
+      <View sx={{ position: 'relative' }}>
+        <SolitoImage
+          src={boardImage}
+          alt=""
+          width={width}
+          height={width * 0.945}
+          style={{ marginTop: -width * 0.5 * 0.5, zIndex: 1 }}
+        />
+        <View
+          sx={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 4,
+          }}
+        >
+          <Text>{t(typeText)}</Text>
+          {prize && (
+            <>
+              <PrizeText textShadowColor={textShadowColor}>
+                <CountUp
+                  key={prize.amt}
+                  isCounting
+                  start={prevPrize ? prevPrize : prizeAmount}
+                  end={prizeAmount}
+                  duration={3}
+                  easing="easeOutCubic"
+                  thousandsSeparator=","
+                  onComplete={() => setPrevPrize(prizeAmount)}
+                />
+                {` VND`}
+              </PrizeText>
+
+              <SmallText>{t('event.mystery.hitRange')}:</SmallText>
+              <SmallText>{`${toThousandSeparator(
+                prize.min.toString()
+              )} VND - ${toThousandSeparator(
+                prize.max.toString()
+              )} VND`}</SmallText>
+            </>
+          )}
+        </View>
+      </View>
+    </View>
+  )
+}
+
+const PrizeText = styled(Text)(
+  ({ textShadowColor }: { textShadowColor: string }) => ({
+    my: '$1',
+    fontWeight: 'bold',
+    fontSize: [18, 20],
+    textShadowColor,
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 12,
+    fontFamily: 'arial',
+    fontVariant: 'tabular-nums',
+  })
+)
+
+const SmallText = styled(Text)({
+  fontSize: 10,
+  opacity: 0.5,
+  textAlign: 'center',
+})
+
+export default Prize

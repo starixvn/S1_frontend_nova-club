@@ -1,16 +1,16 @@
+import useLocalization from 'app/provider/localization'
 import { Text } from 'dripsy'
 import React, { useEffect } from 'react'
+import { useWindowDimensions } from 'react-native'
 import ModalContent from './ModalContent'
 import ModalWrapper from './ModalWrapper'
-import { useWindowDimensions } from 'react-native'
-import Button from '../common/Button'
-import useLocalization from 'app/provider/localization'
 
 const AlertModal = ({ modal: { closeModal, getParam } }) => {
   const title = getParam('title')
   const message = getParam('message', '')
   const actions = getParam('actions')
   const onClose = getParam('onClose')
+  const disableAutoTranslation = getParam('disableAutoTranslation', false)
 
   const { width } = useWindowDimensions()
   const { t } = useLocalization()
@@ -25,7 +25,7 @@ const AlertModal = ({ modal: { closeModal, getParam } }) => {
     <ModalWrapper sx={{ width: Math.min(500, width * 0.9) }}>
       <ModalContent title={title} actions={actions} close={closeModal}>
         <Text sx={{ textAlign: 'center', fontSize: [14, 14, 14, 16] }}>
-          {t(message)}
+          {disableAutoTranslation ? message : t(message)}
         </Text>
       </ModalContent>
     </ModalWrapper>

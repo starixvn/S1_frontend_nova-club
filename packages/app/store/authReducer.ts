@@ -31,6 +31,7 @@ const playerSlice = createSlice({
     setIsLogoutActionTriggered: (state, action: PayloadAction<boolean>) => {
       state.isLogoutActionTriggered = action.payload
     },
+    
   },
   extraReducers: (builder) => {
     builder.addCase(LOGOUT_ACTION, (state, action) => {

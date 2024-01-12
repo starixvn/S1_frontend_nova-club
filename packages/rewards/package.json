@@ -5,6 +5,7 @@
   "dependencies": {
     "@games/fortune-cat": "*",
     "@games/golden-cat": "*",
+    "@games/mystery-drop": "*",
     "@games/redpack": "*",
     "@games/spin-and-win": "*",
     "@reduxjs/toolkit": "^1.9.5",

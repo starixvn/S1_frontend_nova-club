@@ -8,10 +8,17 @@ interface RewardLauncherContentProps {
   domainUrl: string
   gameKey: string
   onTokenExpired?: () => void
+  onEndGame?: () => void
 }
 
 const RewardContent = (props: RewardLauncherContentProps) => {
-  const { isShowEmbeddedContent, domainUrl, gameKey, onTokenExpired } = props
+  const {
+    isShowEmbeddedContent,
+    domainUrl,
+    gameKey,
+    onTokenExpired,
+    onEndGame,
+  } = props
 
   const [isLoadCompleted, toggleIsLoadCompleted] = useReducer(
     (state) => !state,
@@ -37,6 +44,7 @@ const RewardContent = (props: RewardLauncherContentProps) => {
           domainUrl={domainUrl}
           gameKey={gameKey}
           onTokenExpired={onTokenExpired}
+          onEndGame={onEndGame}
           onLoadCompleted={() => {
             if (!isLoadCompleted) {
               toggleIsLoadCompleted()

@@ -3,14 +3,7 @@ import BannerCarousel from 'app/components/banner/BannerCarousel'
 import GameSectionByProviderItem from 'app/components/game/GameSectionByProviderItem'
 import RecentlyPlayedSection from 'app/features/home/RecentlyPlayedSection'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
-import {
-  CONTENT_FROM_TOP,
-  CONTENT_FROM_TOP_2,
-  GAME_TYPE_CODE,
-  HEADER_HEIGHT_OFFSET,
-  ProviderImageCategory,
-  SCROLL_OFFSET_TOP,
-} from 'utils/constant'
+import { desktopScrollToElement } from 'app/utils'
 import LatestWinnerSection from 'desktop-ext/components/game/LatestWinnerSection'
 import ProviderList from 'desktop-ext/components/game/ProviderList'
 import {
@@ -25,11 +18,12 @@ import { ResizeMode, Video } from 'expo-av'
 import uniqBy from 'lodash/uniqBy'
 import React, { startTransition, useEffect, useMemo, useState } from 'react'
 import { Platform } from 'react-native'
-import { useBannerQuery, useSlotBannerQuery } from 'services/contentApi'
+import { useBannerQuery } from 'services/contentApi'
 import { useGameListMultipleQuery } from 'services/gameApi'
 import { Game, LatestWinnerType } from 'services/gameApi.type'
 import { createParam } from 'solito'
 import { SolitoImage } from 'solito/image'
+import { GAME_TYPE_CODE, ProviderImageCategory } from 'utils/constant'
 
 type Props = {}
 
@@ -80,24 +74,12 @@ function SlotScreen({}: Props) {
 
   function onNavigate(index: number, gpc: string) {
     setProvider(gpc?.toLowerCase())
-    const element = document.getElementById('content')
-    if (element) {
-      const elementTop = element.getBoundingClientRect().top
-
-      // If the element is within the desired range, return early
-      if (elementTop > CONTENT_FROM_TOP && elementTop < CONTENT_FROM_TOP_2) {
-        return
-      }
-
-      // Scroll the element into view smoothly
-      element.scrollIntoView({ behavior: 'smooth' })
-
-      // Adjust the window scroll position if necessary
-      if (elementTop < SCROLL_OFFSET_TOP || elementTop > CONTENT_FROM_TOP) {
-        window.scrollBy(0, elementTop - HEADER_HEIGHT_OFFSET)
-      }
-    }
+    desktopScrollToElement('content')
   }
+
+  useEffect(() => {
+    desktopScrollToElement('content')
+  }, [filteredGames])
 
   return (
     <Container>

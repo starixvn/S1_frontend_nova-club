@@ -11,7 +11,11 @@ import { walletApi } from 'services/walletApi'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 import { LANGUAGE_CODE } from 'utils/constant'
-import { getRewardLauncherURL, getRewardTitleImage } from 'utils/rewards'
+import {
+  RewardGameKeyMap,
+  getRewardLauncherURL,
+  getRewardTitleImage,
+} from 'utils/rewards'
 import { getTncComponent } from '../tnc/utils/getTncComponent'
 import RewardContent from './content/RewardContent'
 
@@ -37,20 +41,20 @@ const RewardGameLauncher = () => {
     return
   }
 
-  const onTokenExpired = () => {
-    const handlePlatformExpired = Platform.select({
-      web: () => {
-        replace('/')
-      },
-      default: () => {
-        back()
-      },
-    })
+  const onBack = Platform.select({
+    web: () => {
+      replace('/')
+    },
+    default: () => {
+      back()
+    },
+  })
 
+  const onTokenExpired = () => {
     showAlert({
       message: 'Session expired.',
       onClose: () => {
-        handlePlatformExpired()
+        onBack()
       },
     })
   }
@@ -87,6 +91,7 @@ const RewardGameLauncher = () => {
         domainUrl={DOMAIN_URL}
         gameKey={gamekey}
         onTokenExpired={onTokenExpired}
+        onEndGame={onBack}
       />
     </PageWithBackHeader>
   )
