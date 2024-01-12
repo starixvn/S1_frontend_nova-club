@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, Easing, StyleSheet } from 'react-native'
 const styles = StyleSheet.create({
   snowflake: {
-    color: 'white',
+    color: 'pink',
     position: 'absolute',
   },
 })
@@ -15,7 +15,8 @@ const FALL_DURATIONS = {
   medium: [15000, 30000],
   slow: [30000, 60000],
 }
-const SNOWFLAKE_TYPES = ['🌸']
+// const SNOWFLAKE_TYPES = ['🌸','❀','✿']
+const SNOWFLAKE_TYPES = ['✿']
 
 export default function SakuraFlake({ scene, fallSpeed }) {
   const [config, setConfig] = useState(() =>
