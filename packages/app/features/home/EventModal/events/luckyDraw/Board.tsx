@@ -269,6 +269,7 @@ const DiceSet = ({
         justifyContent: 'center',
       }}
     >
+      <PreloadDiceImages size={size} />
       <Dice
         size={size}
         result={diceResults[0]}
@@ -294,7 +295,6 @@ const Dice = ({
 }) => {
   return (
     <View>
-      <PreloadDiceImages />
       <SolitoImage
         src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/register/dice/No${result}-0${pattern}.png`}
         width={size}
@@ -312,19 +312,19 @@ const Dice = ({
   )
 }
 
-function PreloadDiceImages() {
+function PreloadDiceImages({ size }: { size: number }) {
   return (
-    <View sx={{ opacity: 0, position: 'absolute' }}>
+    <View sx={{ opacity: 0 }}>
       {[1, 2].map((num1) => {
         return [1, 2, 3, 4, 5, 6].map((num2) => {
           return (
             <SolitoImage
               key={num1 + num2}
               src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/register/dice/No${num2}-0${num1}.png`}
-              width={20}
-              height={20}
+              width={size}
+              height={size}
               alt="dice-shadow"
-              style={{ zIndex: 1 }}
+              style={{ zIndex: 1, position: 'absolute' }}
             />
           )
         })
