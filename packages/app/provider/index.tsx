@@ -8,6 +8,7 @@ import GameLauncher from 'app/features/game/GameLauncher'
 import Branch from 'app/integrations/branch/Branch'
 import ReferralTrigger from 'app/components/ReferralTrigger'
 import Shield from 'app/integrations/shield/Shield'
+import SakuraFall from 'app/components/sakura/SakuraFall'
 
 export function Provider({ children }: { children: React.ReactNode }) {
   return (
@@ -21,6 +22,7 @@ export function Provider({ children }: { children: React.ReactNode }) {
               <Branch />
               <Shield />
               <ReferralTrigger />
+              <SakuraFall />
             </ModalProvider>
           </DrawerProvider>
           <RootToast />

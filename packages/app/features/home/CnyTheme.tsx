@@ -17,6 +17,7 @@ export const CnyFireCracker = () => {
           duration: 1000,
         }}
         style={{ position: 'absolute', top: 0, right: 12 }}
+        pointerEvents="none"
       >
         <SolitoImage
           src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/cny/firecracker.png`}
@@ -65,15 +66,30 @@ export const CnyRedPacket = () => {
 }
 
 export const CnyLantern = () => {
-  return (
-    <SolitoImage
-      src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/cny/lantern.png`}
-      width={30}
-      height={100}
-      style={{ position: 'absolute', top: 30, left: 8 }}
-      alt=""
-    />
+  const AnimateLantern = useMemo(
+    () => (
+      <MotiView
+        key={'lantern'}
+        from={{ rotate: '3deg', translateX: -3 }}
+        animate={{ rotate: '-3deg', translateX: 3 }}
+        transition={{
+          loop: true,
+          type: 'timing',
+          duration: 1000,
+        }}
+        style={{ position: 'absolute', top: 30, left: 10 }}
+      >
+        <SolitoImage
+          src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/cny/lantern.png`}
+          width={30}
+          height={100}
+          alt=""
+        />
+      </MotiView>
+    ),
+    []
   )
+  return <>{AnimateLantern}</>
 }
 
 export const CnyFlower2 = () => {
@@ -167,7 +183,10 @@ export const CnyDragon = () => {
     []
   )
   return (
-    <View style={{ position: 'absolute', marginTop: '20%', right: -70 }}>
+    <View
+      style={{ position: 'absolute', marginTop: '20%', right: -70 }}
+      pointerEvents="none"
+    >
       {AnimateDragon}
       {AnimateCloud}
       {AnimateDragonTail}
