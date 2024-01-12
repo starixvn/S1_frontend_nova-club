@@ -141,6 +141,7 @@ const GameCard = ({
       <MotiView
         from={isDropdownContent ? { translateX: -24, translateY: 24 } : {}}
         animate={{ translateX: 0, translateY: 0 }}
+        transition={{ type: 'timing' }}
       >
         <View
           sx={{
