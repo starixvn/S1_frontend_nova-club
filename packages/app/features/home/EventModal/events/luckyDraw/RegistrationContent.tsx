@@ -52,6 +52,7 @@ const RegistrationContent = memo(({}: Props) => {
           {
             label: t('common.close'),
             bg: '$disabled',
+            onPress: () => closeAllModals(),
           },
         ],
       })
