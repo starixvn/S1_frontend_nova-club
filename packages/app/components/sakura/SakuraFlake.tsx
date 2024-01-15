@@ -1,5 +1,4 @@
-import { MotiText, MotiView } from 'moti'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Animated, Easing, StyleSheet } from 'react-native'
 const styles = StyleSheet.create({
   snowflake: {
@@ -19,12 +18,11 @@ const FALL_DURATIONS = {
 const SNOWFLAKE_TYPES = ['✿']
 
 export default function SakuraFlake({ scene, fallSpeed }) {
-  const [config, setConfig] = useState(() =>
-    getConfig({ scene, fallSpeed, initialDelay: true })
-  )
+  const [config, setConfig] = useState(() => getConfig({ scene, fallSpeed }))
   const animatedY = useRef(new Animated.Value(START_Y_POSITION)).current
   const animatedRotation = useRef(new Animated.Value(0)).current
   const animatedSideMovement = useRef(new Animated.Value(0)).current
+  const animatedOpacity = useRef(new Animated.Value(1)).current
 
   const runAnimation = useCallback(() => {
     animatedY.setValue(START_Y_POSITION)
@@ -72,8 +70,12 @@ export default function SakuraFlake({ scene, fallSpeed }) {
         useNativeDriver: true,
       }),
     ]).start(() => {
-      const newConfig = getConfig({ scene, fallSpeed })
-      setConfig(newConfig)
+      Animated.timing(animatedOpacity, {
+        toValue: 0,
+        useNativeDriver: true,
+      }).start(() => {
+        setConfig(null)
+      })
     })
   }, [fallSpeed, scene])
 
@@ -83,6 +85,8 @@ export default function SakuraFlake({ scene, fallSpeed }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [config])
+
+  if (config === null) return <></>
 
   const rotate = animatedRotation.interpolate({
     inputRange: [0, 1],
@@ -108,7 +112,7 @@ export default function SakuraFlake({ scene, fallSpeed }) {
         {
           left: config.xPosition,
           fontSize: config.size,
-          opacity: config.opacity,
+          opacity: animatedOpacity,
         },
       ]}
     >
@@ -117,21 +121,17 @@ export default function SakuraFlake({ scene, fallSpeed }) {
   )
 }
 
-function getConfig({ scene, initialDelay = false, fallSpeed } = {}) {
+function getConfig({ scene, fallSpeed = 'slow' } = {}) {
   const { width } = scene
-  let speed = 'medium'
-  if (FALL_SPEEDS.includes(fallSpeed)) {
-    speed = fallSpeed
-  }
 
   const size = randomInt(10, 20)
-  const opacity = randomInt(4, 10) / 10
-  const type = SNOWFLAKE_TYPES[randomInt(0, 2)]
+  const opacity = randomInt(8, 10) / 10
+  const type = SNOWFLAKE_TYPES[0]
   const xPosition = randomInt(0, width)
 
   //fall animation
-  const fallDuration = randomInt(...FALL_DURATIONS[speed])
-  const fallDelay = randomInt(500, initialDelay ? 20000 : 10000)
+  const fallDuration = randomInt(...FALL_DURATIONS[fallSpeed])
+  const fallDelay = randomInt(500, 30000)
   // rotate animation
   const rotationDuration = randomInt(2000, 10000)
   const rotationDirection = randomInt(0, 1)

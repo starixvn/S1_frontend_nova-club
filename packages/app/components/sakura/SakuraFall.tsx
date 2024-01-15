@@ -4,7 +4,7 @@ import SakuraFlake from './SakuraFlake'
 
 export default function SakuraFall() {
   const snowflakesCount = 15
-  const fallSpeed = 'medium'
+  const fallSpeed = 'slow'
 
   const [scene, setScene] = React.useState(null)
 
