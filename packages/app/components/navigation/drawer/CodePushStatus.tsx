@@ -78,8 +78,8 @@ export default function CodePushStatus({}: Props) {
       <View sx={{ mb: '$1', height: 70, justifyContent: 'flex-end' }}>
         {renderIndicator()}
       </View>
-      <Text sx={{ fontSize: 14, textAlign: 'center' }}>
-        {`${currentVersion}.${
+      <Text sx={{ fontSize: 12, textAlign: 'center' }}>
+        {`v${currentVersion}.${
           localPackage ? localPackage.label.replace('v', '') : '0'
         }`}
       </Text>
