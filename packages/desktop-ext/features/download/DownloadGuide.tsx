@@ -191,6 +191,7 @@ const DownloadGuide = ({ modal: { closeModal, getParam } }) => {
                 ref={ref}
                 loop
                 width={225}
+                height={450}
                 autoPlay
                 autoPlayInterval={5000}
                 data={data}
