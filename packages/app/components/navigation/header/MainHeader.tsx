@@ -12,7 +12,8 @@ import usePathname from 'app/hooks/usePathname'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { HEADER_HEIGHT } from 'utils/constant'
+import dayjs from 'dayjs'
+import isBetween from 'dayjs/plugin/isBetween'
 import HeaderAuthenticationDesktop from 'desktop-ext/components/navigation/header/HeaderAuthentication'
 import {
   Container,
@@ -29,16 +30,14 @@ import { StatusBar } from 'expo-status-bar'
 import React from 'react'
 import { Platform } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
+import { SolitoImage } from 'solito/image'
 import { Link } from 'solito/link'
 import { useRouter } from 'solito/router'
+import { HEADER_HEIGHT } from 'utils/constant'
 import HeaderAuthentication from './HeaderAuthentication'
 import HeaderDeposit from './HeaderDeposit'
 import HeaderLanguageToggle from './HeaderLanguageToggle'
 import HeaderOverview from './HeaderOverview'
-import isBetween from 'dayjs/plugin/isBetween'
-import dayjs from 'dayjs'
-import { SolitoImage } from 'solito/image'
-import { Video, ResizeMode } from 'expo-av'
 dayjs.extend(isBetween)
 
 const LogoSize = [HEADER_HEIGHT * 0.5, HEADER_HEIGHT * 0.75]
@@ -79,30 +78,14 @@ const Logo = () => {
       </Link>
 
       {isCNY && showTheme && (
-        <Video
-          isMuted
-          isLooping
-          shouldPlay
-          resizeMode={ResizeMode.CONTAIN}
-          source={{
-            uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/cny/cny-animation.mp4`,
-          }}
-          useNativeControls={false}
-          style={{ height: 60, width: 213 }}
-          videoStyle={{
-            position: Platform.OS === 'web' ? 'relative' : 'absolute',
-          }}
-        />
-      )}
-      {/* {isCNY && showTheme && (
         <SolitoImage
-          src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/christmas/header-christmas-desktop.png`}
+          src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/cny/cny-theme-logo.gif`}
           height={60}
-          width={themeLogoWidth}
+          width={213}
           contentPosition="bottom center"
           alt=""
         />
-      )} */}
+      )}
     </Row>
   )
 }
