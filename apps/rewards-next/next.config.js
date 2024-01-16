@@ -13,6 +13,7 @@ Object.keys(result.parsed).forEach((key) => {
 const nextConfig = {
   basePath: env.REWARDS_BASE_PATH,
   images: {
+    domains: ['localhost'],
     remotePatterns: [
       {
         protocol: 'https',

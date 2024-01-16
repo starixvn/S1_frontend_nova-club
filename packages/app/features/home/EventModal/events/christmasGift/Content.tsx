@@ -8,7 +8,7 @@ import {
   View,
 } from 'dripsy'
 import { MotiImage } from 'moti'
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 import { ImageBackground } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { IResponse } from 'services/common/types'
@@ -19,7 +19,7 @@ import { useHomeEventModal } from '../../HomeEventModal'
 
 type Props = {}
 
-export default function ChristmasGiftContent({}: Props) {
+const ChristmasGiftContent = memo(({}: Props) => {
   const { push } = useRouter()
   const [redeemCoin, { isLoading: isRequesting }] = useClaimEventCoinMutation()
   const { width, height } = useHomeEventModal().dimension
@@ -250,4 +250,6 @@ export default function ChristmasGiftContent({}: Props) {
       </ScrollView>
     </View>
   )
-}
+})
+
+export default ChristmasGiftContent

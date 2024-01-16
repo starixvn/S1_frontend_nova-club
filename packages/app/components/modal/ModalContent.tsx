@@ -11,7 +11,7 @@ import Button from '../common/Button'
 export interface ActionsProps {
   label: string
   loading?: boolean
-  onPress: (e: GestureResponderEvent) => void
+  onPress?: (e: GestureResponderEvent) => void
   bg?: string
   disableAutoClose?: boolean
 }

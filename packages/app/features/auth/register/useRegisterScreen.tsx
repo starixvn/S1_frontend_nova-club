@@ -143,6 +143,7 @@ export default function useRegisterScreen(
     }).unwrap()
 
     if (success) {
+      // This must be flagged true, before auth resuls it set.
       dispatch(TempSettingActions.setIsHomeEventModalTriggered(true))
       dispatch(AuthActions.setAuthInfo(data as LoginResult))
       dispatch(

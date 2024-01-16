@@ -2,16 +2,14 @@ import SpinDrawContent from 'app/components/modal/SpinDrawContent'
 import useAlert from 'app/hooks/useAlert'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
-import React, { useRef, useState } from 'react'
-import {
-  useRetentionSpinMutation
-} from 'services/playerApi'
+import React, { memo, useRef, useState } from 'react'
+import { useRetentionSpinMutation } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 import { useHomeEventModal } from '../../HomeEventModal'
 
 type Props = {}
 
-export default function RetentionContent({}: Props) {
+const RetentionContent = memo(({}: Props) => {
   const dispatch = useAppDispatch()
   const { push } = useRouter()
   const { showAlert } = useAlert()
@@ -114,4 +112,6 @@ export default function RetentionContent({}: Props) {
       dimension={dimension}
     />
   )
-}
+})
+
+export default RetentionContent
