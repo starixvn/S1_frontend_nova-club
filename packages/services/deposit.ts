@@ -24,6 +24,7 @@ const depositApi = baseApiWithTag.injectEndpoints({
         method: 'POST',
         data: { ...queryArgs },
       }),
+      providesTags: ['DepositPaymentList'],
     }),
 
     submitDeposit: builder.mutation<
@@ -50,7 +51,7 @@ const depositApi = baseApiWithTag.injectEndpoints({
           ...queryArgs,
         },
       }),
-      invalidatesTags: ['Balance', 'Report'],
+      invalidatesTags: ['Balance', 'Report', 'DepositPaymentList'],
     }),
     uploadDepositSlip: builder.mutation<
       IResponse<string>,
