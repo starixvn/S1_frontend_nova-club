@@ -1,3 +1,4 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Image from 'app/components/common/Image'
 import useContainerDimension from 'app/hooks/useContainerDimension'
 import useLocalization from 'app/provider/localization'
@@ -16,12 +17,15 @@ const BankEmpty = ({ size = 'big', message }: BankEmptyProps) => {
   return (
     <StyledViewNoResult>
       <Image
-        source={require('app/assets/images/empty-result.png')}
+        source={{
+          uri: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/common/empty-result.png`,
+        }}
         style={{
           aspectRatio: 1,
           marginBottom: 12,
           height: ICON_SIZE,
         }}
+        alt="empty"
       />
       <Text sx={{ color: '#72859A' }}>{message}</Text>
     </StyledViewNoResult>

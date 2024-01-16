@@ -1,14 +1,13 @@
-import CoinImage from 'app/assets/images/leaderboard/coin.png'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Icon from 'app/components/Icon'
 import DataTable from 'app/components/dataTable/DataTable'
 import DataTableCell from 'app/components/dataTable/DataTableCell'
 import DataTableHeader from 'app/components/dataTable/DataTableHeader'
 import DataTableRow from 'app/components/dataTable/DataTableRow'
 import DataTableTitle from 'app/components/dataTable/DataTableTitle'
-import { getRankStatusImage, getRankingImage } from 'app/config/leaderboard'
+import { getRankStatusImage } from 'app/config/leaderboard'
 import useLocalization from 'app/provider/localization'
-import { toThousandSeparator } from 'app/utils'
-import { Row, Text, View } from 'dripsy'
+import { Row, Text } from 'dripsy'
 import React from 'react'
 import { useGetLeaderboardQuery } from 'services/contentApi'
 import { SolitoImage } from 'solito/image'
@@ -45,7 +44,7 @@ const LeaderboardTable = ({ maxRow = 10 }: { maxRow?: number }) => {
           <DataTableRow key={item.rank} size="big">
             <DataTableCell center sx={firstCellStyle}>
               <SolitoImage
-                src={getRankingImage(item.rank)}
+                src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/leaderboard/${item.rank}.png`}
                 fill
                 alt={`${item.rank}}`}
               />
@@ -59,7 +58,7 @@ const LeaderboardTable = ({ maxRow = 10 }: { maxRow?: number }) => {
             <DataTableCell center={false} sx={thirdCellStyle}>
               <Row sx={{ alignItems: 'center', maxWidth: '80%' }}>
                 <SolitoImage
-                  src={CoinImage}
+                  src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/leaderboard/coin.png`}
                   height={18}
                   width={18}
                   alt={`${index} coin`}

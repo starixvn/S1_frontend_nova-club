@@ -12,11 +12,7 @@ const withLazyLoad = <P extends object>(
         setHasLoaded(true)
       }
     }, [isInView, hasLoaded])
-    return (
-      <div ref={ref}>
-        {hasLoaded ? <WrappedComponent {...props} /> : <div></div>}
-      </div>
-    )
+    return hasLoaded ? <WrappedComponent {...props} /> : <div ref={ref} />
   }
 }
 export default withLazyLoad

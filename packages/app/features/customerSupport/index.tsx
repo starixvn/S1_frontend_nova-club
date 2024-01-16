@@ -11,6 +11,7 @@ import React from 'react'
 import { Linking, Platform } from 'react-native'
 import { Shadow } from 'react-native-shadow-2'
 import useSupportItemList from './useSupportItemList'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 const CustomerSupportScreen = () => {
   const { t } = useLocalization()
@@ -29,7 +30,9 @@ const CustomerSupportScreen = () => {
       <View sx={!isDesktop && { flex: 1, alignItems: 'center' }}>
         {!isDesktop && (
           <Image
-            source={require('app/assets/images/common/logo-circle.png')}
+            source={{
+              uri: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/common/logo-circle.png`,
+            }}
             alt="logo"
             style={{ height: 150, aspectRatio: 1 / 1, marginVertical: 24 }}
           />

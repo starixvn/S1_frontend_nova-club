@@ -3,6 +3,7 @@ import { Pressable, Row, Text, View, styled, useDripsyTheme } from 'dripsy'
 import { ComponentProps, memo } from 'react'
 import { RewardGameKeyMap } from 'utils/rewards'
 import { SolitoImage } from 'solito/image'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 const StyledContainer = styled(View)({
   flexGrow: 0,
@@ -83,7 +84,7 @@ const RewardCard = (props: GameCardProps) => {
           }}
         >
           <SolitoImage
-            src={require('app/assets/images/rewards/coin.png')}
+            src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/coin.png`}
             width={20}
             height={20}
             // fill

@@ -6,6 +6,7 @@ import React, { memo, useRef, useState } from 'react'
 import { useRetentionSpinMutation } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 import { useHomeEventModal } from '../../HomeEventModal'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 type Props = {}
 
@@ -99,7 +100,7 @@ const RetentionContent = memo(({}: Props) => {
   return (
     <SpinDrawContent
       balance={retentionDrawBalance}
-      srcPrize={require('app/assets/images/luckydraw/retention-prizes.png')}
+      srcPrize={`${MEDIA_DOMAIN}${CONTENT_URI}/event/luckydraw/retention-prizes.png`}
       targetIndex={targetIndex}
       loopCount={loopCount}
       startAnimate={startAnimate}

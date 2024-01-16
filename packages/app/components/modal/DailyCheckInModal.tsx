@@ -54,7 +54,9 @@ const DailyCheckInModal = ({ modal: { closeModal, getParam } }) => {
       </TransparentHeaderBackground>
       <View sx={{ width: 500, height: 500 }}>
         <ImageBackground
-          source={require('app/assets/images/rewards/check_in_bg.png')}
+          source={{
+            uri: `${MEDIA_DOMAIN}${CONTENT_URI}/rewards/check_in_bg.png`,
+          }}
           resizeMode="cover"
           imageStyle={{ aspectRatio: 1 }}
           style={{

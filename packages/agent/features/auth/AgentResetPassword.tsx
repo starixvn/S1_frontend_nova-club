@@ -1,3 +1,4 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Button from 'agent/components/Button'
 import Input from 'agent/components/Input'
 import TimerButton, {
@@ -182,7 +183,7 @@ const AgentResetPassword = () => {
           }}
         >
           <Image
-            source={require('app/assets/images/auth/pwd.jpg')}
+            source={{ uri: `${MEDIA_DOMAIN}${CONTENT_URI}/agent/auth/pwd.jpg` }}
             sx={{
               height: 325,
               width,
@@ -191,7 +192,7 @@ const AgentResetPassword = () => {
             alt=""
           />
           <Image
-            source={require('app/assets/images/logo.png')}
+            source={require('app/assets/images/common/logo.png')}
             sx={{
               position: 'absolute',
               height: Math.min(75, width * 0.25),

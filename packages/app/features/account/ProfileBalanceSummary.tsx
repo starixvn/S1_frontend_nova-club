@@ -1,3 +1,4 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Icon from 'app/components/Icon'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
@@ -142,7 +143,7 @@ const HiddenItem = ({
       <View sx={{ flexDirection: 'row', alignItems: 'center' }}>
         {iconName === 'vui-coin' ? (
           <SolitoImage
-            src={require('app/assets/images/rewards/coin.png')}
+            src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/coin.png`}
             width={22}
             height={22}
             // fill

@@ -10,11 +10,10 @@ import React from 'react'
 import { ImageBackground } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { DEV_DOMAIN } from '../../../../../apps/next/config/env'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
-const DrawerReferral = ({ imageHeight }: { imageHeight: number | string }) => {
+const DrawerReferral = () => {
   const { t } = useLocalization()
-  const { bottom } = useSafeArea()
-  const { height } = useContainerDimension()
 
   const isLoggedIn = useAppSelector((s) => !!s.auth.info)
   const { data: playerData } = usePlayerProfileQuery(undefined, {
@@ -24,23 +23,14 @@ const DrawerReferral = ({ imageHeight }: { imageHeight: number | string }) => {
   const referralLink = `${DEV_DOMAIN}/download?ref=${playerData?.referral_code}`
 
   return (
-    <View
-      sx={{
-        height: height - 325 + bottom,
-        // bg: 'red',
-        justifyContent: 'flex-end',
-      }}
-    >
+    <View sx={{}}>
       <ImageBackground
-        source={require('../../../assets/images/banner_referral.jpg')}
+        source={{ uri: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banner_referral.jpg` }}
         style={{
-          // aspectRatio: 380 / 600,
-          // maxHeight: 380,
-          height: imageHeight,
+          height: 300,
           width: '100%',
           alignItems: 'center',
           justifyContent: 'center',
-          // backgroundColor: 'green',
         }}
         resizeMode="cover"
       >
@@ -62,14 +52,13 @@ const DrawerReferral = ({ imageHeight }: { imageHeight: number | string }) => {
               width: '100%',
             }}
           >
-            <Text
-              sx={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center' }}
-            >
+            <Text sx={{ fontWeight: 'bold', textAlign: 'center' }}>
               {t('referral.shareMessage')}
             </Text>
             <Text
               sx={{
                 fontSize: 10,
+                lineHeight: 13,
                 fontWeight: '700',
                 textAlign: 'center',
                 marginTop: 10,

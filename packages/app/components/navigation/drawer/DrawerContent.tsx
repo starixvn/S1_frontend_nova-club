@@ -12,6 +12,8 @@ import { ScrollView as rScrollView } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 import DrawerReferral from './DrawerReferral'
+import CodePushStatus from './CodePushStatus'
+import Button from 'app/components/common/Button'
 
 export default function DrawerContent() {
   const { t } = useLocalization()
@@ -24,10 +26,9 @@ export default function DrawerContent() {
 
   const isAgentLoggedIn = useAppSelector((s) => !!s.agent.access_token)
   const isLoggedIn = useAppSelector((s) => !!s.auth.info)
-  const { isCreditMember, data: playerData } = usePlayerProfileQuery(
-    undefined,
-    { skip: !isLoggedIn }
-  )
+  const { data: playerData } = usePlayerProfileQuery(undefined, {
+    skip: !isLoggedIn,
+  })
   const isPlayerName = !!playerData?.firstName
   const handleDesktopAccountVerification = () => {
     showAlert(
@@ -106,17 +107,6 @@ export default function DrawerContent() {
         push('/account/customer-support')
       },
     },
-    {
-      iconName: 'logout',
-      text: 'common.logout',
-      onPress: async () => {
-        try {
-          await logout()
-        } catch (error) {
-          console.error(error)
-        }
-      },
-    },
   ]
 
   const handleDismiss = () => {
@@ -127,34 +117,16 @@ export default function DrawerContent() {
     <View
       sx={{
         flex: 1,
-        // display: 'flex',
-        height: '100%',
-        // flexDirection: 'column',
-        // bg: 'yellow',
-        // justifyContent: 'space-between',
+        justifyContent: 'space-between',
       }}
     >
       <ScrollView
-        sx={
-          {
-            // width: '100%',
-            // position: 'absolute',
-            // height: height - HEADER_HEIGHT - top,
-            // borderTopWidth: 1,
-            // borderColor: '$primary.600',
-            // flex: 1,
-            // bg: 'red',
-          }
-        }
+        sx={{}}
         contentContainerSx={{
-          // bg: '$primary.500',
-          minHeight: 400,
-          // bg: 'green',
-          height: '100%',
-          // flex: 1,
-          // height,
+          flexGrow: 1,
         }}
         ref={scrollRef}
+        bounces={false}
       >
         <View>
           {MENU_LIST.map((item, index) => {
@@ -187,9 +159,29 @@ export default function DrawerContent() {
             )
           })}
         </View>
+        <Button
+          leftIcon={{ name: 'logout' }}
+          sx={{
+            alignSelf: 'center',
+            bg: '$placeholder',
+            borderRadius: 30,
+            my: '$3',
+          }}
+          onPress={async () => {
+            try {
+              handleDismiss()
+              await logout()
+            } catch (error) {
+              console.error(error)
+            }
+          }}
+        >
+          {t('common.logout')}
+        </Button>
+        <CodePushStatus />
       </ScrollView>
 
-      <DrawerReferral imageHeight={380} />
+      <DrawerReferral />
     </View>
   )
 }

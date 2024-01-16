@@ -16,6 +16,7 @@ import Icon from '../Icon'
 import Label from '../Label'
 import { DropdownMenuContent } from './DropMenu'
 import { SelectProps } from './Select'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 export const DropdownMenuRoot = DropdownMenu.Root
 export const DropdownMenuTrigger = DropdownMenu.Trigger
@@ -117,7 +118,9 @@ const SelectWithDropdown = <T,>({
                 renderEmpty()
               ) : (
                 <Image
-                  source={require('app/assets/images/empty-result.png')}
+                  source={{
+                    uri: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/common/empty-result.png`,
+                  }}
                   sx={{
                     aspectRatio: 1,
                     width: 100,

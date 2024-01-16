@@ -3,6 +3,8 @@ import { Stack } from 'expo-router'
 
 import notifee from '@notifee/react-native'
 import messaging from '@react-native-firebase/messaging'
+import CodePushProvider from 'app/provider/CodePushProvider'
+import FontProvider from 'app/provider/FontProvider'
 
 // Register background handler
 messaging().setBackgroundMessageHandler(async (remoteMessage) => {
@@ -27,15 +29,19 @@ export default function Root() {
   // }
 
   return (
-    <Provider>
-      <Stack
-        screenOptions={{ headerShown: false }}
-        /* initialRouteName doesnt work on expo-rtouer 
+    <CodePushProvider>
+      <FontProvider>
+        <Provider>
+          <Stack
+            screenOptions={{ headerShown: false }}
+            /* initialRouteName doesnt work on expo-rtouer 
         initialRouteName="splashscreen"
         */
-      >
-        <Stack.Screen name="(Member)" />
-      </Stack>
-    </Provider>
+          >
+            <Stack.Screen name="(Member)" />
+          </Stack>
+        </Provider>
+      </FontProvider>
+    </CodePushProvider>
   )
 }

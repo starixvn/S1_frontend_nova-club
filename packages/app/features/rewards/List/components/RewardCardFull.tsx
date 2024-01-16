@@ -1,3 +1,4 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Button, { ButtonProps } from 'app/components/common/Button'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
 import { Row } from 'dripsy'
@@ -55,7 +56,7 @@ const RewardCardFull = (props: RewardCardFullProps) => {
             }}
           >
             <SolitoImage
-              src={require('app/assets/images/rewards/coin.png')}
+              src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/coin.png`}
               width={26}
               height={26}
               contentFit="contain"

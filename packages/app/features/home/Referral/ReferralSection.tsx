@@ -1,5 +1,4 @@
-import GiftImage from 'app/assets/images/referral/gift.png'
-import SpeakerImage from 'app/assets/images/referral/speaker.png'
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { View, styled } from 'dripsy'
 import React from 'react'
 import { ImageBackground } from 'react-native'
@@ -11,7 +10,9 @@ const ReferralSection = () => {
   return (
     <View sx={{ width: '100%' }}>
       <ImageBackground
-        source={require('app/assets/images/referral/referral-bg.jpg')}
+        source={{
+          uri: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/referral/referral-bg.jpg?v=1`,
+        }}
         style={{ width: '100%', height: 220 }}
         imageStyle={{
           resizeMode: 'cover',
@@ -43,7 +44,7 @@ const ReferralSection = () => {
             }}
           >
             <SolitoImage
-              src={GiftImage}
+              src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/referral/gift.png`}
               width={IMAGE_SIZE}
               height={IMAGE_SIZE}
               resizeMode="contain"
@@ -51,7 +52,7 @@ const ReferralSection = () => {
               style={{ position: 'absolute', left: '-10%' }}
             />
             <StyledImage
-              src={SpeakerImage}
+              src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/referral/speaker.png`}
               width={IMAGE_SIZE}
               height={IMAGE_SIZE}
               resizeMode="contain"

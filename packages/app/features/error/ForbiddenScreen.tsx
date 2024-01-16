@@ -1,3 +1,4 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import React from 'react'
 import ErrorDisplays from './ErrorDisplays'
 
@@ -7,7 +8,7 @@ export default function ForbiddenScreen({}: Props) {
   return (
     <ErrorDisplays
       iconProps={{
-        src: require('app/assets/images/ic_forbidden.png'),
+        src: `${MEDIA_DOMAIN}${CONTENT_URI}/ic_forbidden.png`,
         alt: 'Forbidden',
       }}
       title="BẠN KHÔNG CÓ QUYỀN TRUY CẬP"
