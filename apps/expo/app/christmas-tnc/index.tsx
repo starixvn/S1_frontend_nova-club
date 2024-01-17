@@ -16,10 +16,6 @@ const Tnc = () => {
   const TNC_URL = `${DEV_DOMAIN}/event/christmas-special/tnc?locale=${lang}`
   const { back } = useRouter()
 
-  useEffect(() => {
-    dispatch(TempSettingActions.setIsHomeEventModalTriggered(false))
-  }, [])
-
   return (
     <PageWithBackHeader
       header={{

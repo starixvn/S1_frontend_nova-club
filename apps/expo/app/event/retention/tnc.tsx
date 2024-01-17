@@ -16,10 +16,6 @@ const Tnc = () => {
 
   const TNC_URL = `${DEV_DOMAIN}/event/retention/tnc?locale=${lang}`
 
-  useEffect(() => {
-    dispatch(TempSettingActions.setIsHomeEventModalTriggered(false))
-  }, [])
-
   return (
     <PageWithBackHeader
       header={{

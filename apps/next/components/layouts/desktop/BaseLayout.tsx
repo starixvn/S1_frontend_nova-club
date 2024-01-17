@@ -61,13 +61,13 @@ export default function BaseLayout({ children }: { children: ReactNode }) {
             exit={{ opacity: 0, translateY: 250 }}
             transition={{ type: 'timing' }}
             style={{
-              zIndex: 1,
+              zIndex: 99,
               alignItems: 'center',
               justifyContent: 'flex-end',
               position: 'fixed',
               left: 0,
               right: 0,
-              height: 250,
+              top: 0,
               bottom: 0,
               backgroundImage:
                 'linear-gradient(to top,rgb(13, 32, 53), transparent)',
