@@ -70,6 +70,11 @@ const GameLauncher = () => {
       )
 
       if (isSabaDesktopMode) {
+        if (checkMaintenance('SABA')) {
+          showAlert(t('game.underMaintenance'))
+          return
+        }
+
         dispatch(SettingActions.addRecentGame(payload))
         let url = '/sportsbook/saba'
         if (payload.params) url += `?${paramsToQuery(payload.params)}`
