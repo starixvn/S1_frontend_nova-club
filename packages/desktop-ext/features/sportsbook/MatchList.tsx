@@ -118,7 +118,7 @@ export default function MatchList({}: Props) {
                 sx={{
                   fontSize: 12,
                   fontWeight: 'bold',
-                  color: f.date === selectedTime ? 'white' : '#80ceff',
+                  color: f.date === selectedTime ? '$selectionColor' : 'white',
                   textTransform: 'capitalize',
                 }}
               >
