@@ -155,6 +155,10 @@ const nextConfig = {
             ? `${REWARD_URI}/:path*`
             : `http://localhost:3001${REWARD_URI}/:path*`,
       },
+      {
+        source: '/health',
+        destination: '/api/health',
+      },
     ]
   },
 }

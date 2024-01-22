@@ -4,6 +4,7 @@ import { SplashScreenHandler, SplashScreenTask } from './useSplashScreen'
 import firestore from '@react-native-firebase/firestore'
 import { Version, isNewVersionAvailable } from 'app/utils/rn-helper'
 import { Linking, Platform } from 'react-native'
+import { Currency } from 'utils/constant'
 export const checkVersionUpdated: SplashScreenTask = (context) => async () => {
   const { t, showAlert } = context
   let isUptoDate = true
@@ -65,9 +66,12 @@ export const checkMaintenance: SplashScreenTask = (context) => async () => {
 
   try {
     const { error, data } = await dispatch(
-      contentApi.endpoints.getLeaderboard.initiate(undefined, {
-        forceRefetch: true,
-      })
+      contentApi.endpoints.commissionTable.initiate(
+        { currency: Currency.VND },
+        {
+          forceRefetch: true,
+        }
+      )
     )
 
     isForbidden = error?.statusCode === 403
