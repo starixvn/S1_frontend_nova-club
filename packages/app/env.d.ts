@@ -17,4 +17,5 @@ declare module '@env' {
   export const LOCALIZATION_PROJECT_ID: string
   export const NOTIFICATION_SERVICE_API: string
   export const VAPID_KEY: string
+  export const FPS_SRC: string
 }

@@ -27,3 +27,5 @@ export const NEXT_PUBLIC_STORAGE_BUCKET = process.env.NEXT_PUBLIC_STORAGE_BUCKET
 export const NEXT_PUBLIC_MESSAGING_SENDER_ID =
   process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID
 export const NEXT_PUBLIC_APP_ID = process.env.NEXT_PUBLIC_APP_ID
+
+export const FPS_SRC = process.env.FPS_SRC
