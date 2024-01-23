@@ -29,14 +29,14 @@ export default function SakuraFlake({ scene, fallSpeed }) {
     animatedRotation.setValue(0)
     animatedSideMovement.setValue(0)
 
-    Animated.loop(
-      Animated.timing(animatedRotation, {
-        toValue: 1,
-        duration: config.rotationDuration,
-        useNativeDriver: true,
-        easing: Easing.linear,
-      })
-    ).start()
+    // Animated.loop(
+    //   Animated.timing(animatedRotation, {
+    //     toValue: 1,
+    //     duration: config.rotationDuration,
+    //     useNativeDriver: true,
+    //     easing: Easing.linear,
+    //   })
+    // ).start()
 
     Animated.loop(
       Animated.sequence([

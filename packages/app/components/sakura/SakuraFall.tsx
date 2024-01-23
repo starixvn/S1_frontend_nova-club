@@ -1,11 +1,15 @@
 import React, { useMemo } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { Platform, StyleSheet, View } from 'react-native'
 import SakuraFlake from './SakuraFlake'
+import { useAppSelector } from 'app/provider/redux/store'
 
 export default function SakuraFall() {
   const snowflakesCount = 15
   const fallSpeed = 'slow'
 
+  const splashScreenLoaded = useAppSelector(
+    (s) => s.tempSetting.splashScreenLoaded
+  )
   const [scene, setScene] = React.useState(null)
 
   const dimensionsStyle = styles.stretchDimensions
@@ -28,7 +32,7 @@ export default function SakuraFall() {
     [scene, fallSpeed]
   )
 
-  return (
+  return splashScreenLoaded || Platform.OS === 'web' ? (
     <View
       style={[styles.container, dimensionsStyle]}
       onLayout={onLayout}
@@ -36,7 +40,7 @@ export default function SakuraFall() {
     >
       {!!scene && getSnowFall}
     </View>
-  )
+  ) : null
 }
 
 const styles = StyleSheet.create({
