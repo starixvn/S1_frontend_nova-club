@@ -11,12 +11,14 @@ type AccountDefailProps = {
   accountName: string
   accountNumber: string
   qrCode?: string
+  referenceCode?: string
 }
 
 const AccountDetail = ({
   accountName,
   accountNumber,
   qrCode,
+  referenceCode,
 }: AccountDefailProps) => {
   const { t } = useLocalization()
   const horizontalMode = useIsDesktop()
@@ -78,6 +80,23 @@ const AccountDetail = ({
                 color={'white'}
                 size={12}
                 onPress={() => copyToClipboard(accountNumber)}
+              />
+            </View>
+          </View>
+          <View sx={{ mt: '$2' }}>
+            <Text>{t('bank.receiptReference')} :</Text>
+            <View
+              sx={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}
+            >
+              <Text>{referenceCode}</Text>
+              <IconButton
+                name={'copy'}
+                color={'white'}
+                size={12}
+                onPress={() => copyToClipboard(referenceCode)}
               />
             </View>
           </View>

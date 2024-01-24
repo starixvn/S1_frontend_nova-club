@@ -106,6 +106,7 @@ const BankTransferForm = () => {
         amount: realAmount,
         bank_type_id: bank?.bankTypeId ?? 0,
         payment_account_id: bank?.pay_acc_id ?? 0,
+        reference_code: bank?.referenceCode,
       })
         .unwrap()
         .catch((error) => {
@@ -237,6 +238,7 @@ const BankTransferForm = () => {
             accountName={values.bank.bank_acc_name}
             accountNumber={values.bank.bank_acc_no}
             qrCode={values.bank.bankQR}
+            referenceCode={values.bank.referenceCode}
           />
         )}
       </View>

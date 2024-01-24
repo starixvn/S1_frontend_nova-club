@@ -45,6 +45,7 @@ export type SubmitManualDepositArgs = {
   bank_type_id: number
   payment_account_id: number
   username?: string
+  reference_code?: string
 }
 
 export type SubmitManualDepositResult = {
@@ -108,6 +109,7 @@ export type ManualBankItem = {
   order: number
   pay_acc_id: number
   bankQR: string
+  referenceCode: string
 }
 
 export type PlayerInputFieldsAmount = {
