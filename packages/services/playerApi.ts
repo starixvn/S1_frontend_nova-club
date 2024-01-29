@@ -155,6 +155,12 @@ export const playerApi = baseApiWithTag.injectEndpoints({
       }),
       invalidatesTags: ['PlayerProfile'],
     }),
+    onlineCheck: builder.mutation<IResponse<void>, void>({
+      query: () => ({
+        url: `/player_api/onlineCheck`,
+        method: 'POST',
+      }),
+    }),
   }),
 })
 
@@ -194,4 +200,5 @@ export const {
   useLazyFreeSpinQuery,
   useLazyEligibleSpinQuery,
   usePlayerRealNameMutation,
+  useOnlineCheckMutation,
 } = playerApi
