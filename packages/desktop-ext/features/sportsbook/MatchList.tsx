@@ -19,6 +19,7 @@ const BAR_HEIGHT = 50
 
 export default function MatchList({}: Props) {
   const [selectedTime, setSelectedTime] = useState<string>('All')
+  const [selectedLeague, setSelectedLeague] = useState<EntityId>()
 
   const tableRef = useRef<MatchListMethod>()
   const matchRef = useRef<View>()
@@ -36,6 +37,7 @@ export default function MatchList({}: Props) {
   )
 
   const timeFilter = getMatchTimeFilterLabel()
+  const leagueId = selectedLeague ?? leagues.ids[0] ?? ''
 
   const fullData: Record<string, (EntityId | MatchResult)[]> = useMemo(() => {
     let final = {}
@@ -118,7 +120,7 @@ export default function MatchList({}: Props) {
                 sx={{
                   fontSize: 12,
                   fontWeight: 'bold',
-                  color: f.date === selectedTime ? 'white' : '#80ceff',
+                  color: f.date === selectedTime ? '$selectionColor' : 'white',
                   textTransform: 'capitalize',
                 }}
               >
@@ -131,6 +133,7 @@ export default function MatchList({}: Props) {
       <MatchLeagueSelector
         ids={leagueTab}
         onChange={(v) => {
+          setSelectedLeague(v)
           matchRef?.current?.scrollIntoView({
             behavior: 'smooth',
             block: 'end',
@@ -141,7 +144,7 @@ export default function MatchList({}: Props) {
             tableRef?.current?.jumpTo(goTo)
           }, 300)
         }}
-        value={''}
+        value={leagueId}
       />
       <MatchListTable
         filterKey={selectedTime}
