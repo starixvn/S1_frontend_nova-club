@@ -4,7 +4,6 @@ import { AgentAuthActions } from 'agent/store/agentAuthReducer'
 import { MOBILE_PREFIX } from 'app/constants/country'
 import useAlert from 'app/hooks/useAlert'
 import useContainerWidth from 'app/hooks/useContainerWidth'
-import useUniqueId from 'app/hooks/useUniqueId'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { AuthActions } from 'app/store/authReducer'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
@@ -64,6 +63,7 @@ export default function useRegisterScreen(
   const isAgentLogin = type === LoginType.Agent
 
   const agentToken = useAppSelector((s) => s.agent.access_token)
+  const deviceId = useAppSelector((s) => s.tempSetting.deviceId)
 
   const { agentCurrency } = useUserInfoQuery(undefined, {
     selectFromResult: ({ data }) => ({
@@ -74,7 +74,6 @@ export default function useRegisterScreen(
 
   const referral = useAppSelector((s) => s.setting.referral)
   const trackingCode = referral?.trackingCode
-  const { uuid } = useUniqueId()
   const [register] = useRegisterMutation()
   const [agentRegister] = useAgentRegisterMutation()
   const [getUserInfo] = useLazyUserInfoQuery()
@@ -130,7 +129,7 @@ export default function useRegisterScreen(
         ? trackingCode
         : undefined,
       verify_code: verifyCode,
-      platform_uuid: uuid ?? '',
+      platform_uuid: deviceId ?? '',
       device_os:
         Platform.OS !== 'web'
           ? Platform.OS === 'ios'
