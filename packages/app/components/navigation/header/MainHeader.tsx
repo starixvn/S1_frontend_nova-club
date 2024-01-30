@@ -48,7 +48,7 @@ const Logo = () => {
   const themeLogoWidth = useResponsiveValue([0, 0, 0, 190, 260])
 
   const isCNY = dayjs().isBetween(
-    dayjs('2024-01-01T17:00:00.000Z'),
+    dayjs('2024-02-01T17:00:00.000Z'),
     dayjs('2024-02-29T17:00:00.000Z')
   )
 
