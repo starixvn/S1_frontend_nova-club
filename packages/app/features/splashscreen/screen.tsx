@@ -113,7 +113,7 @@ export default function SplashScreen() {
           //   height
           // ),
         }}
-        source={require('app/assets/videos/vui123-splash.mp4')}
+        source={require('app/assets/videos/cny-splash.mp4')}
         resizeMode={ResizeMode.COVER}
         useNativeControls={false}
       />
