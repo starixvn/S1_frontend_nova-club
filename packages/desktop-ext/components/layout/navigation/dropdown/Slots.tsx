@@ -54,6 +54,7 @@ export default function Slots({}: Props) {
               key={g.gpc}
               sx={{ width: '11%' }}
               img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/slots/${g.gpc.toLowerCase()}.png`}
+              isDropdownContent
             />
           )
         })}

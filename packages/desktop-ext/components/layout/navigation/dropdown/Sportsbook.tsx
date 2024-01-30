@@ -42,6 +42,7 @@ export default function Sportsbook({}: Props) {
               // displayName={g.name[locale]}
               key={g.gc + g.gpc}
               sx={{ width: '11%' }}
+              isDropdownContent
               {...g}
               // img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/main/${g.gpc?.toLowerCase()}.png`}
             />
