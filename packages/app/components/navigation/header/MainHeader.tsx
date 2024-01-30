@@ -24,11 +24,13 @@ import {
   View,
   styled,
   useDripsyTheme,
+  useResponsiveValue,
 } from 'dripsy'
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
 import { Platform } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
+import { SolitoImage } from 'solito/image'
 import { Link } from 'solito/link'
 import { useRouter } from 'solito/router'
 import { HEADER_HEIGHT } from 'utils/constant'
@@ -42,26 +44,21 @@ const LogoSize = [HEADER_HEIGHT * 0.5, HEADER_HEIGHT * 0.75]
 
 const Logo = () => {
   const lang = useAppSelector((s) => s.setting.locale)
-  // const showChristmasTheme = useResponsiveValue([false, false, false, true])
-  // const themeLogoWidth = useResponsiveValue([0, 0, 0, 190, 260])
+  const showTheme = useResponsiveValue([false, false, false, true])
+  const themeLogoWidth = useResponsiveValue([0, 0, 0, 190, 260])
 
-  // const isChristmasDate = dayjs().isBetween(
-  //   dayjs('2023-11-30T17:00:00.000Z'),
-  //   dayjs('2023-12-31T17:00:00.000Z')
-  // )
-
-  // const LOGO_PATH =
-  //   lang === 'en'
-  //     ? isChristmasDate
-  //       ? `${MEDIA_DOMAIN}${CONTENT_URI}/event/christmas/logo-christmas-en.png`
-  //       : `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered.png`
-  //     : isChristmasDate
-  //     ? `${MEDIA_DOMAIN}${CONTENT_URI}/event/christmas/logo-christmas-vi.png`
-  //     : `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered-vn.png`
+  const isCNY = dayjs().isBetween(
+    dayjs('2024-02-01T17:00:00.000Z'),
+    dayjs('2024-02-29T17:00:00.000Z')
+  )
 
   const LOGO_PATH =
     lang === 'en'
-      ? `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered.png`
+      ? isCNY
+        ? `${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/cny/cny-logo-en.png`
+        : `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered.png`
+      : isCNY
+      ? `${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/cny/cny-logo-vi.png`
       : `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered-vn.png`
 
   return (
@@ -80,15 +77,15 @@ const Logo = () => {
         />
       </Link>
 
-      {/* {isChristmasDate && showChristmasTheme && (
+      {isCNY && showTheme && (
         <SolitoImage
-          src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/christmas/header-christmas-desktop.png`}
+          src={`${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/cny/cny-theme-logo.gif`}
           height={60}
-          width={themeLogoWidth}
+          width={213}
           contentPosition="bottom center"
           alt=""
         />
-      )} */}
+      )}
     </Row>
   )
 }

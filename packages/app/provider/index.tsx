@@ -9,6 +9,7 @@ import Branch from 'app/integrations/branch/Branch'
 import ReferralTrigger from 'app/components/ReferralTrigger'
 import Shield from 'app/integrations/shield/Shield'
 import Notification from 'app/integrations/notification/Notification'
+import SakuraFall from 'app/components/sakura/SakuraFall'
 
 export function Provider({ children }: { children: React.ReactNode }) {
   return (
@@ -23,6 +24,7 @@ export function Provider({ children }: { children: React.ReactNode }) {
               <Shield />
               <Notification />
               <ReferralTrigger />
+              <SakuraFall />
             </ModalProvider>
           </DrawerProvider>
           <RootToast />

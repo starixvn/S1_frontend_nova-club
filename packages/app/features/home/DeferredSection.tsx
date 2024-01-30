@@ -6,6 +6,7 @@ import { SlotType } from 'utils/constant'
 import LeaderboardSection from './LeaderboardSection'
 import MatchSection from './Match/MatchSection'
 import ReferralSection from './Referral/ReferralSection'
+import { CnyFlower2, CnyLantern } from './CnyTheme'
 
 type Props = {}
 
@@ -20,6 +21,9 @@ export default function DeferredSection({}: Props) {
         icon="star"
         seeMoreUrl="/tag/new"
       />
+
+      <CnyLantern />
+
       <GameListSectionAsyncByTag
         tag={SlotType.JACKPOT}
         title={t('game.jackpot').toUpperCase()}
@@ -34,7 +38,11 @@ export default function DeferredSection({}: Props) {
       />
       <MatchSection />
       <LeaderboardSection />
-      <ReferralSection />
+
+      <View>
+        <ReferralSection />
+        <CnyFlower2 />
+      </View>
     </View>
   )
 }
