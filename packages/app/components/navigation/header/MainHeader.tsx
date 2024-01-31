@@ -48,7 +48,7 @@ const Logo = () => {
   const themeLogoWidth = useResponsiveValue([0, 0, 0, 190, 260])
 
   const isCNY = dayjs().isBetween(
-    dayjs('2024-02-01T17:00:00.000Z'),
+    dayjs('2024-01-01T17:00:00.000Z'),
     dayjs('2024-02-29T17:00:00.000Z')
   )
 
@@ -86,6 +86,21 @@ const Logo = () => {
           alt=""
         />
       )}
+      {/* <Video
+          source={{
+            uri: `${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/cny/cny-theme-logo.gif`,
+          }}
+          videoStyle={{ position: 'relative', height: '100%' }}
+          isMuted
+          isLooping
+          shouldPlay
+          style={{
+            height: 60,
+            width: 213,
+          }}
+          resizeMode={ResizeMode.CONTAIN}
+          useNativeControls={false}
+        /> */}
     </Row>
   )
 }
@@ -119,7 +134,9 @@ const MainHeader = () => {
   return (
     <View
       sx={{
-        bg: '$primary.500',
+        // bg: '$primary.500',
+        bg: '#3A3A66',
+        // bg: window.screen.colorDepth < 30 ? '#32325b' : '#3A3A66',
       }}
     >
       <StatusBar style="light" />
