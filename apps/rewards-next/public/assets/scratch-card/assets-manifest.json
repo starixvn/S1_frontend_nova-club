@@ -1,0 +1,109 @@
+{
+  "bundles": [
+    {
+      "name": "default",
+      "assets": [
+        {
+          "name": "audio/bgm.mp3",
+          "srcs": [
+            "audio/bgm.mp3"
+          ]
+        },
+        {
+          "name": "audio/click.mp3",
+          "srcs": [
+            "audio/click.mp3"
+          ]
+        },
+        {
+          "name": "audio/win.mp3",
+          "srcs": [
+            "audio/win.mp3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "images",
+      "assets": [
+        {
+          "name": "images/bg.png",
+          "srcs": [
+            "images/bg.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/board.png",
+          "srcs": [
+            "images/board.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/frame.png",
+          "srcs": [
+            "images/frame.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/golden-egg.png",
+          "srcs": [
+            "images/golden-egg.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/red-egg.png",
+          "srcs": [
+            "images/red-egg.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/scratch.png",
+          "srcs": [
+            "images/scratch.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        },
+        {
+          "name": "images/win-frame.png",
+          "srcs": [
+            "images/win-frame.png"
+          ],
+          "data": {
+            "tags": {
+              "m": true
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

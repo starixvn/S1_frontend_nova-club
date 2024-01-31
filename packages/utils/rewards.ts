@@ -52,6 +52,7 @@ export enum RewardGameKeyMap {
   GOLDEN_CAT = 'H51DDF',
   FORTUNE_CAT = '8ZWYC7',
   MYSTERY_DROP = '5U7WMZ',
+  SCRATCH_CARD = 'SCR2CH',
 }
 
 const STATIC_IMAGE_URL = `${MEDIA_DOMAIN}${CONTENT_URI}/rewards/title`
@@ -63,6 +64,7 @@ export const getRewardTitleImage = (gameKey, lang) => {
     [RewardGameKeyMap.GOLDEN_CAT]: `${STATIC_IMAGE_URL}/golden-cat-${lang}.png`,
     [RewardGameKeyMap.SPIN_N_WIN]: `${STATIC_IMAGE_URL}/spin-win-${lang}.png`,
     [RewardGameKeyMap.MYSTERY_DROP]: `${STATIC_IMAGE_URL}/mystery-event-${lang}.png`,
+    [RewardGameKeyMap.SCRATCH_CARD]: `${STATIC_IMAGE_URL}/mystery-event-${lang}.png`,
   } satisfies Record<RewardGameKeyMap, string>
 
   return rewardTitleImageMap[gameKey]

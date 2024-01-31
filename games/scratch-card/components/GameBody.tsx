@@ -1,0 +1,122 @@
+import NiceModal from '@ebay/nice-modal-react'
+import { AssetBasePath } from '@games/config'
+import { AlertModal } from '@games/shared/components/AlertModal'
+import CoinBalance from '@games/shared/components/CoinBalance'
+import { Container, Sprite } from '@pixi/react'
+import { useState } from 'react'
+import { useAppDispatch } from 'rewards/provider/redux/store'
+import { IResponse } from 'services/common/types'
+import { rewardApi, useGetCoinQuery } from 'services/rewardApi'
+import { RedemptionResult } from 'services/rewardApi.type'
+import { checkRedeemSuccess } from 'utils-pixi/helper'
+import { useWindowSize } from 'utils-pixi/resize/ResizeProvider'
+import { GamePackageName } from '../config'
+import ActionBox from './ActionBox'
+import PrizeBox from './PrizeBox'
+import { Prize } from './Util'
+
+export const possibleResult = [0, 30000, 50000, 70000, 90000, 200000, 500000]
+
+export const prizeDict = {
+  0: `${AssetBasePath}/assets/${GamePackageName}/images/red-egg.png`,
+  30000: `${AssetBasePath}/assets/${GamePackageName}/images/red-egg.png`,
+  50000: `${AssetBasePath}/assets/${GamePackageName}/images/red-egg.png`,
+  70000: `${AssetBasePath}/assets/${GamePackageName}/images/red-egg.png`,
+  90000: `${AssetBasePath}/assets/${GamePackageName}/images/red-egg.png`,
+  200000: `${AssetBasePath}/assets/${GamePackageName}/images/golden-egg.png`,
+  500000: `${AssetBasePath}/assets/${GamePackageName}/images/golden-egg.png`,
+}
+
+const GameBody = () => {
+  const { width, height } = useWindowSize()
+  const dispatch = useAppDispatch()
+  const [startGame, setStartGame] = useState(false)
+  const [totalBalance, setTotalBalance] = useState(0)
+  const [result, setResult] = useState<RedemptionResult>()
+
+  const bgWidth = Math.min(500, width)
+
+  const boxWidth = bgWidth >= 500 ? 400 : 320
+  const positionY = bgWidth >= 500 ? 350 : 400
+
+  const textPosY = bgWidth >= 500 ? bgWidth * 1.3 : bgWidth * 1.6
+
+  const { data: balance } = useGetCoinQuery()
+
+  const getResult = async () => {
+    try {
+      setResult(undefined)
+      setStartGame(true)
+      const { data } = await dispatch(
+        rewardApi.endpoints.redeemCoin.initiate('SCR2CH')
+      )
+        .unwrap()
+        .catch((e: IResponse<RedemptionResult>) => {
+          return e
+        })
+
+      if (data && checkRedeemSuccess(data)) {
+        setResult(data)
+      } else {
+        throw data?.err
+          ? data?.err
+          : 'Rất tiếc! Đã xảy ra lỗi, vui lòng thử lại.'
+      }
+    } catch (e) {
+      // failed
+      NiceModal.show(AlertModal, {
+        message: e as string,
+        onClose: () => setStartGame(false),
+      })
+    }
+  }
+
+  // Show the modal and pass arguments as props
+  const handleStart = () => {
+    getResult()
+  }
+
+  const handleComplete = () => {
+    setStartGame(false)
+    result && setTotalBalance(totalBalance + Number(result?.amount))
+  }
+
+  return (
+    <Container anchor={0.5} x={width / 2} y={0}>
+      <Container x={0} y={positionY}>
+        <Sprite
+          image={`${AssetBasePath}/assets/${GamePackageName}/images/board.png`}
+          anchor={{ x: 0.5, y: 0.5 }}
+          width={boxWidth}
+          height={boxWidth}
+        />
+        {result && (
+          <PrizeBox
+            boxWidth={boxWidth}
+            result={Number(result.amount) as Prize}
+            onComplete={handleComplete}
+          />
+        )}
+
+        <Sprite
+          image={`${AssetBasePath}/assets/${GamePackageName}/images/frame.png`}
+          anchor={{ x: 0.5, y: 0.5 }}
+          y={-2}
+          width={boxWidth * 1.2}
+          height={boxWidth * 1.2}
+        />
+      </Container>
+
+      <ActionBox
+        y={textPosY}
+        boxWidth={boxWidth}
+        balance={totalBalance}
+        onPress={handleStart}
+        disabled={startGame}
+      />
+      <CoinBalance balance={balance} x={boxWidth * 0.55} y={50} />
+    </Container>
+  )
+}
+
+export default GameBody

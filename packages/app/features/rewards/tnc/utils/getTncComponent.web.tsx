@@ -6,6 +6,7 @@ const TncComponent = {
   [RewardGameKeyMap.FORTUNE_CAT]: dynamic(() => import('../FortuneCatTnc')),
   [RewardGameKeyMap.GOLDEN_CAT]: dynamic(() => import('../GoldenCatTnc')),
   [RewardGameKeyMap.SPIN_N_WIN]: dynamic(() => import('../SpinWinTnc')),
+  [RewardGameKeyMap.SCRATCH_CARD]: dynamic(() => import('../SpinWinTnc')),
   [RewardGameKeyMap.MYSTERY_DROP]: dynamic(() => import('../MysteryDropTnc')),
 }
 

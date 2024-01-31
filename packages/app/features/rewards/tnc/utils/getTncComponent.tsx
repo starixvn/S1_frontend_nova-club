@@ -12,6 +12,7 @@ const TncComponent = {
   [RewardGameKeyMap.GOLDEN_CAT]: <GoldenCatTnc />,
   [RewardGameKeyMap.SPIN_N_WIN]: <SpinWinTnc />,
   [RewardGameKeyMap.MYSTERY_DROP]: <MysteryDropTnc />,
+  [RewardGameKeyMap.SCRATCH_CARD]: <MysteryDropTnc />,
 }
 
 export const getTncComponent = (gameKey: string) => {

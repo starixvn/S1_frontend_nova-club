@@ -18,3 +18,11 @@ export function checkRedeemSuccess(data) {
 export function toThousandSeparator(num) {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
+
+export function toThousandAbbreviation(amount: number) {
+  return amount
+    ? Math.floor(amount / 1000)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ',') + 'K'
+    : '0'
+}
