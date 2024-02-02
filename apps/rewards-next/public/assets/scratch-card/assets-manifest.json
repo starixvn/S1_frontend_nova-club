@@ -10,15 +10,15 @@
           ]
         },
         {
-          "name": "audio/click.mp3",
+          "name": "audio/scratch.mp3",
           "srcs": [
-            "audio/click.mp3"
+            "audio/scratch.mp3"
           ]
         },
         {
-          "name": "audio/win.mp3",
+          "name": "audio/winning.mp3",
           "srcs": [
-            "audio/win.mp3"
+            "audio/winning.mp3"
           ]
         }
       ]

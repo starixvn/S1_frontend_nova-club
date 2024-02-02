@@ -6,12 +6,8 @@ export default function ScratchCard() {
   return (
     <main>
       <AssetPreloader
-        imageProps={{
-          width: 300,
-          height: 300 / (660 / 350),
-        }}
         name="scratch-card"
-        image={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/images/mega.jpg`}
+        image={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/images/scratch_card.png`}
       >
         <ScratchCardGame />
       </AssetPreloader>

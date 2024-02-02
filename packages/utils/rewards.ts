@@ -64,7 +64,7 @@ export const getRewardTitleImage = (gameKey, lang) => {
     [RewardGameKeyMap.GOLDEN_CAT]: `${STATIC_IMAGE_URL}/golden-cat-${lang}.png`,
     [RewardGameKeyMap.SPIN_N_WIN]: `${STATIC_IMAGE_URL}/spin-win-${lang}.png`,
     [RewardGameKeyMap.MYSTERY_DROP]: `${STATIC_IMAGE_URL}/mystery-event-${lang}.png`,
-    [RewardGameKeyMap.SCRATCH_CARD]: `${STATIC_IMAGE_URL}/mystery-event-${lang}.png`,
+    [RewardGameKeyMap.SCRATCH_CARD]: `${STATIC_IMAGE_URL}/scratch-card-${lang}.png`,
   } satisfies Record<RewardGameKeyMap, string>
 
   return rewardTitleImageMap[gameKey]

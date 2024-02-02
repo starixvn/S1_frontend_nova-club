@@ -34,7 +34,7 @@ const rewardGameListConfig: Array<RewardGameListConfig> = [
   },
   {
     key: RewardGameKeyMap.SCRATCH_CARD,
-    image: `${STATIC_IMAGE_URL}/lucky_angpao.jpg`,
+    image: `${STATIC_IMAGE_URL}/scratch_card.png`,
   },
   {
     key: RewardGameKeyMap.ANGPAO_HUNT,

@@ -1,26 +1,60 @@
-import { AssetBasePath } from '@games/config'
-import { Container, Sprite, Text } from '@pixi/react'
+import { Container, PixiRef, Sprite, Text } from '@pixi/react'
+import { gsap } from 'gsap'
+import { PixiPlugin } from 'gsap/PixiPlugin'
+import * as PIXI from 'pixi.js'
 import { TextStyle } from 'pixi.js'
+import { useEffect, useRef } from 'react'
 import { toThousandAbbreviation } from 'utils-pixi/helper'
-import { GamePackageName } from '../config'
+import { useWindowSize } from 'utils-pixi/resize/ResizeProvider'
+import { ISprite } from 'utils-pixi/type'
 import { prizeDict } from './GameBody'
 import { ItemLayout } from './Util'
-import { useWindowSize } from 'utils-pixi/resize/ResizeProvider'
 
-const PrizeEgg = ({ item }: { item: ItemLayout }) => {
+gsap.registerPlugin(PixiPlugin)
+PixiPlugin.registerPIXI(PIXI)
+
+const PrizeEgg = ({
+  item,
+  win,
+  winImage,
+}: {
+  item: ItemLayout
+  win: boolean
+  winImage: string | undefined
+}) => {
   const { width } = useWindowSize()
 
   const frameWidth = width >= 500 ? 0.65 : 0.51
   const eggWidth = width >= 500 ? 0.6 : 0.55
 
+  const winRef = useRef<PixiRef<ISprite>>(null)
+
+  /* Setup Timeline Animation */
+  useEffect(() => {
+    console.log('🚀 ~ useEffect ~ win:', win)
+    if (win && winImage) {
+      gsap.to(winRef.current, {
+        pixi: { alpha: 1 },
+        duration: 0.3,
+        repeat: 4,
+        yoyo: true,
+      })
+    }
+  }, [win])
+
   return (
     <Container>
-      <Sprite
-        anchor={0.5}
-        scale={frameWidth}
-        position={item.position}
-        image={`${AssetBasePath}/assets/${GamePackageName}/images/win-frame.png`}
-      />
+      {winImage && (
+        <Sprite
+          ref={winRef}
+          anchor={0.5}
+          alpha={0}
+          scale={frameWidth}
+          position={item.position}
+          image={winImage}
+        />
+      )}
+
       <Sprite
         anchor={0.5}
         scale={eggWidth}

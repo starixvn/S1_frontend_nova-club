@@ -2,7 +2,7 @@ import NiceModal from '@ebay/nice-modal-react'
 import { AssetBasePath } from '@games/config'
 import { AlertModal } from '@games/shared/components/AlertModal'
 import CoinBalance from '@games/shared/components/CoinBalance'
-import { Container, Sprite } from '@pixi/react'
+import { Container, Sprite, Text } from '@pixi/react'
 import { useState } from 'react'
 import { useAppDispatch } from 'rewards/provider/redux/store'
 import { IResponse } from 'services/common/types'
@@ -14,6 +14,7 @@ import { GamePackageName } from '../config'
 import ActionBox from './ActionBox'
 import PrizeBox from './PrizeBox'
 import { Prize } from './Util'
+import { TextStyle } from 'pixi.js'
 
 export const possibleResult = [0, 30000, 50000, 70000, 90000, 200000, 500000]
 
@@ -31,6 +32,7 @@ const GameBody = () => {
   const { width, height } = useWindowSize()
   const dispatch = useAppDispatch()
   const [startGame, setStartGame] = useState(false)
+  const [autoScratch, setAutoScratch] = useState(false)
   const [totalBalance, setTotalBalance] = useState(0)
   const [result, setResult] = useState<RedemptionResult>()
 
@@ -73,16 +75,26 @@ const GameBody = () => {
 
   // Show the modal and pass arguments as props
   const handleStart = () => {
-    getResult()
+    startGame ? setAutoScratch(true) : getResult()
   }
 
   const handleComplete = () => {
     setStartGame(false)
+    setAutoScratch(false)
     result && setTotalBalance(totalBalance + Number(result?.amount))
   }
 
   return (
     <Container anchor={0.5} x={width / 2} y={0}>
+      <Container y={190}>
+        <Text
+          x={0}
+          text={'TÌM       TRỨNG GIỐNG NHAU'}
+          anchor={[0.5, 1]}
+          style={whiteText}
+        />
+        <Text x={-100} text={'3'} anchor={[0.5, 0.9]} style={yellowText} />
+      </Container>
       <Container x={0} y={positionY}>
         <Sprite
           image={`${AssetBasePath}/assets/${GamePackageName}/images/board.png`}
@@ -94,10 +106,20 @@ const GameBody = () => {
           <PrizeBox
             boxWidth={boxWidth}
             result={Number(result.amount) as Prize}
+            autoScratch={autoScratch}
             onComplete={handleComplete}
           />
         )}
 
+        {!startGame && (
+          <Sprite
+            image={`${AssetBasePath}/assets/${GamePackageName}/images/scratch.png`}
+            anchor={{ x: 0.5, y: 0.5 }}
+            scale={{ x: 0.5, y: 0.5 }}
+            width={boxWidth}
+            height={boxWidth}
+          />
+        )}
         <Sprite
           image={`${AssetBasePath}/assets/${GamePackageName}/images/frame.png`}
           anchor={{ x: 0.5, y: 0.5 }}
@@ -112,11 +134,24 @@ const GameBody = () => {
         boxWidth={boxWidth}
         balance={totalBalance}
         onPress={handleStart}
-        disabled={startGame}
+        startGame={startGame}
       />
       <CoinBalance balance={balance} x={boxWidth * 0.55} y={50} />
     </Container>
   )
 }
 
+export const whiteText = new TextStyle({
+  fontFamily: 'AvertaStd Bold',
+  fontSize: 24,
+  fontWeight: 'bold',
+  fill: ['#ffffff'],
+})
+
+export const yellowText = new TextStyle({
+  fontFamily: 'AvertaStd Bold',
+  fontSize: 48,
+  fontWeight: 'bold',
+  fill: ['#FDFE00'],
+})
 export default GameBody

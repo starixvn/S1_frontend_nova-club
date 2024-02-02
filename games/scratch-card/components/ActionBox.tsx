@@ -8,14 +8,14 @@ type ActionBoxProps = {
   balance?: number
   boxWidth: number
   onPress: () => void
-  disabled: boolean
+  startGame: boolean
 } & ComponentProps<IContainer>
 
 const ActionBox = ({
   balance = 0,
   boxWidth,
   y,
-  disabled,
+  startGame,
   onPress,
 }: ActionBoxProps) => {
   const balanceDisplay = useAnimatedAmount(balance, { tickPerSecond: 10000 })
@@ -46,12 +46,7 @@ const ActionBox = ({
         />
       </Container>
 
-      <Container
-        y={y}
-        x={10}
-        onpointertap={onPress}
-        eventMode={disabled ? 'none' : 'static'}
-      >
+      <Container y={y} x={10} onpointertap={onPress} eventMode={'static'}>
         <Graphics
           draw={(g) => {
             g.lineStyle(5, 0xffffff, 1)
@@ -62,7 +57,7 @@ const ActionBox = ({
         />
         <Text
           x={(boxWidth / 1.75) * 0.5}
-          text="PLAY NEXT"
+          text={startGame ? 'SCRATCH' : 'PLAY NEXT'}
           anchor={[0.5, 0.5]}
           style={textStyle2}
         />
