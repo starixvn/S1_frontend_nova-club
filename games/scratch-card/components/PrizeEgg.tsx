@@ -31,7 +31,6 @@ const PrizeEgg = ({
 
   /* Setup Timeline Animation */
   useEffect(() => {
-    console.log('🚀 ~ useEffect ~ win:', win)
     if (win && winImage) {
       gsap.to(winRef.current, {
         pixi: { alpha: 1 },

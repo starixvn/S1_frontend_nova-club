@@ -16,9 +16,9 @@
           ]
         },
         {
-          "name": "audio/winning.mp3",
+          "name": "audio/win.mp3",
           "srcs": [
-            "audio/winning.mp3"
+            "audio/win.mp3"
           ]
         }
       ]

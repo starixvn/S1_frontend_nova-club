@@ -3,6 +3,7 @@ import { AssetBasePath } from '@games/config'
 import { AlertModal } from '@games/shared/components/AlertModal'
 import CoinBalance from '@games/shared/components/CoinBalance'
 import { Container, Sprite, Text } from '@pixi/react'
+import { TextStyle } from 'pixi.js'
 import { useState } from 'react'
 import { useAppDispatch } from 'rewards/provider/redux/store'
 import { IResponse } from 'services/common/types'
@@ -12,9 +13,8 @@ import { checkRedeemSuccess } from 'utils-pixi/helper'
 import { useWindowSize } from 'utils-pixi/resize/ResizeProvider'
 import { GamePackageName } from '../config'
 import ActionBox from './ActionBox'
-import PrizeBox from './PrizeBox'
+import PrizeBoxJs from './PrizeBoxJs'
 import { Prize } from './Util'
-import { TextStyle } from 'pixi.js'
 
 export const possibleResult = [0, 30000, 50000, 70000, 90000, 200000, 500000]
 
@@ -29,7 +29,7 @@ export const prizeDict = {
 }
 
 const GameBody = () => {
-  const { width, height } = useWindowSize()
+  const { width } = useWindowSize()
   const dispatch = useAppDispatch()
   const [startGame, setStartGame] = useState(false)
   const [autoScratch, setAutoScratch] = useState(false)
@@ -102,8 +102,8 @@ const GameBody = () => {
           width={boxWidth}
           height={boxWidth}
         />
-        {result && (
-          <PrizeBox
+        {result && startGame && (
+          <PrizeBoxJs
             boxWidth={boxWidth}
             result={Number(result.amount) as Prize}
             autoScratch={autoScratch}
@@ -132,7 +132,8 @@ const GameBody = () => {
       <ActionBox
         y={textPosY}
         boxWidth={boxWidth}
-        balance={totalBalance}
+        balance={balance}
+        totalBalance={totalBalance}
         onPress={handleStart}
         startGame={startGame}
       />

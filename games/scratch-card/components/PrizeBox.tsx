@@ -1,6 +1,7 @@
 import { AssetBasePath } from '@games/config'
-import { Container, Graphics, Sprite, useApp, useTick } from '@pixi/react'
+import { Container, Graphics, Sprite, useTick } from '@pixi/react'
 import { sound } from '@pixi/sound'
+import { Graphics as PixiGraphics } from 'pixi.js'
 import { useEffect, useRef, useState } from 'react'
 import { GamePackageName } from '../config'
 import PrizeEgg from './PrizeEgg'
@@ -19,9 +20,7 @@ const PrizeBox = ({
   autoScratch,
   onComplete,
 }: PrizeBoxProps) => {
-  const app = useApp()
-  const [prizePress, setPrizePress] = useState(0)
-  const mask = useRef(null)
+  const mask = useRef<PixiGraphics>(null)
   const [isDrawing, setIsDrawing] = useState(false)
   const [currentPosition, setCurrentPosition] = useState({ x: 0, y: 0 })
   const [goToPosition, setGoToPosition] = useState({ x: 0, y: 0 })
@@ -35,6 +34,7 @@ const PrizeBox = ({
   // graphics.endFill()
 
   useTick((delta) => {
+    // When square haven't fully cover mask
     autoScratch &&
       autoPositionY > -boxWidth &&
       setAutoPositionY(autoPositionY - 5)
@@ -43,11 +43,12 @@ const PrizeBox = ({
   useEffect(() => {
     console.log('autoScatch', autoScratch)
     if (autoScratch) {
-      mask?.current.beginFill(0)
-      mask?.current.drawRect(-boxWidth / 2, autoPositionY, boxWidth, boxWidth)
-      mask?.current.endFill()
+      mask?.current?.beginFill(0)
+      mask?.current?.drawRect(-boxWidth / 2, autoPositionY, boxWidth, boxWidth)
+      mask?.current?.endFill()
     }
 
+    // Square fully uncover mask
     autoScratch && autoPositionY <= -(boxWidth - 100) && handleWin()
   }, [autoScratch, autoPositionY])
 
@@ -58,9 +59,9 @@ const PrizeBox = ({
     !isDrawing && setGoToPosition({ x, y })
     setIsDrawing(true)
 
-    mask.current.lineStyle(40, 0xffffff) // Adjust the scratch line style
-    mask.current.moveTo(x - 200, y - 200)
-    // mask.current.moveTo(-50, -50)
+    mask?.current?.lineStyle(40, 0xffffff) // Adjust the scratch line style
+    mask?.current?.moveTo(x - 200, y - 200)
+    // mask?.current?.moveTo(-50, -50)
   }
 
   const stopDrawing = () => {
@@ -75,8 +76,8 @@ const PrizeBox = ({
 
     setGoToPosition({ x: x - 30, y: y - 30 })
 
-    mask?.current.lineTo(x - 200, y - 200)
-    mask?.current.endFill()
+    mask?.current?.lineTo(x - 200, y - 200)
+    mask?.current?.endFill()
   }
 
   const contentPosition = useItemsLayout({
@@ -100,8 +101,6 @@ const PrizeBox = ({
     }
   }, [win])
 
-  useTick((delta) => {})
-
   return (
     <Container
       eventMode="static"
@@ -123,7 +122,6 @@ const PrizeBox = ({
           scale={{ x: 0.5, y: 0.5 }}
           width={boxWidth}
           height={boxWidth}
-          isMask
         />
         {contentPosition.map((item, index) => (
           <PrizeEgg
