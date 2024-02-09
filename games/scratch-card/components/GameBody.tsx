@@ -102,16 +102,14 @@ const GameBody = () => {
           width={boxWidth}
           height={boxWidth}
         />
-        {result && startGame && (
+        {result && startGame ? (
           <PrizeBoxJs
             boxWidth={boxWidth}
             result={Number(result.amount) as Prize}
             autoScratch={autoScratch}
             onComplete={handleComplete}
           />
-        )}
-
-        {!startGame && (
+        ) : (
           <Sprite
             image={`${AssetBasePath}/assets/${GamePackageName}/images/scratch.png`}
             anchor={{ x: 0.5, y: 0.5 }}

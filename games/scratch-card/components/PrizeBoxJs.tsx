@@ -32,7 +32,7 @@ const PrizeBoxJs = ({
   let isScratching = false
 
   // prepare circle texture, that will be our brush
-  const brush = new PIXI.Graphics().beginFill(0xffffff).drawCircle(0, 0, 50)
+  const brush = new PIXI.Graphics().beginFill(0xffffff).drawCircle(0, 0, 35)
 
   const removeMask = new PIXI.Graphics()
     .beginFill(0xffffff)
