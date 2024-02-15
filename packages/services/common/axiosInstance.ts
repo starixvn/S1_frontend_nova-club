@@ -1,7 +1,7 @@
 import { API_DOMAIN, API_KEY } from '@env'
 import { EnhancedStore } from '@reduxjs/toolkit'
 import { RootState } from 'app/provider/redux/store'
-import { getFpsParams } from 'app/utils/fps/fpsGenerator'
+import { getFpsParams } from 'utils/fps/fpsGenerator'
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { Platform } from 'react-native'
 import { LANGUAGE_CODE } from 'utils/constant'
@@ -131,6 +131,7 @@ const onRequestFullfilled = async (config: AxiosRequestConfig) => {
   // ref: https://stackoverflow.com/a/56973866
 
   if (Platform.OS === 'web') {
+    /* Rewards site might not be able to getFpsParams, make sure the url does not include api consumed on Rewards site */
     const fpsNeeded = [
       '/player_api/login',
       '/player_api/register',

@@ -3,7 +3,7 @@ import { EnhancedStore } from '@reduxjs/toolkit'
 import { AGENT_LANGUAGE_CODE } from 'agent/constant/language'
 import { RootState } from 'app/provider/redux/store'
 import { LANGUAGE_CODE } from 'utils/constant'
-import { generateFPSParams } from 'app/utils/fps/fpsGenerator'
+import { getFpsParams } from 'utils/fps/fpsGenerator'
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 
 export enum AuthURL {
@@ -67,7 +67,7 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
   type RequestParams = {
     black_b?: string
     username?: string
-  } & ReturnType<typeof generateFPSParams>
+  } & ReturnType<typeof getFpsParams>
 
   let { url, headers, baseURL, data } = config
   const requestParams: RequestParams = {} as RequestParams
