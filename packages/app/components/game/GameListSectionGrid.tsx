@@ -279,7 +279,7 @@ const TagButton = ({ isActive, children = '', ...rest }) => {
               mt: FONT_TOP_OFFSET,
               fontSize: 11,
               fontWeight: '900',
-              color: isActive ? 'white' : '$tertiary',
+              color: isActive ? '$tertiary' : 'white',
               textAlign: 'center',
             }}
           >

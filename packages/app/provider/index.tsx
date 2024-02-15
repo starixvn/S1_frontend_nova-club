@@ -1,14 +1,16 @@
-import { Dripsy } from './dripsy'
-import { LocalizationProviderRedux } from './localization'
-import ReduxProvider from './redux'
-import ModalProvider from './modal'
+import ReferralTrigger from 'app/components/ReferralTrigger'
 import RootToast from 'app/components/RootToast'
 import DrawerProvider from 'app/components/navigation/drawer/DrawerProvider'
+import SakuraFall from 'app/components/sakura/SakuraFall'
+import RegisterUniqueId from 'app/features/device/RegisterDeviceId'
 import GameLauncher from 'app/features/game/GameLauncher'
 import Branch from 'app/integrations/branch/Branch'
-import ReferralTrigger from 'app/components/ReferralTrigger'
-import Shield from 'app/integrations/shield/Shield'
 import Notification from 'app/integrations/notification/Notification'
+import Shield from 'app/integrations/shield/Shield'
+import { Dripsy } from './dripsy'
+import { LocalizationProviderRedux } from './localization'
+import ModalProvider from './modal'
+import ReduxProvider from './redux'
 
 export function Provider({ children }: { children: React.ReactNode }) {
   return (
@@ -23,6 +25,8 @@ export function Provider({ children }: { children: React.ReactNode }) {
               <Shield />
               <Notification />
               <ReferralTrigger />
+              <SakuraFall />
+              <RegisterUniqueId />
             </ModalProvider>
           </DrawerProvider>
           <RootToast />

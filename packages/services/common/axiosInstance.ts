@@ -1,10 +1,10 @@
 import { API_DOMAIN, API_KEY } from '@env'
 import { EnhancedStore } from '@reduxjs/toolkit'
-
 import { RootState } from 'app/provider/redux/store'
-import { LANGUAGE_CODE } from 'utils/constant'
-import { generateFPSParams } from 'app/utils/fps/fpsGenerator'
+import { getFpsParams } from 'app/utils/fps/fpsGenerator'
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
+import { Platform } from 'react-native'
+import { LANGUAGE_CODE } from 'utils/constant'
 
 // const API_DOMAIN = 'https://stage.gball8.com/api/nv88_api/v1'
 // const API_KEY = 'zl9oo0vtrtbih1fufvq8pk8stvqprad8'
@@ -59,11 +59,11 @@ const axiosInstance = axios.create({
   ],
 })
 
-const onRequestFullfilled = (config: AxiosRequestConfig) => {
+const onRequestFullfilled = async (config: AxiosRequestConfig) => {
   type RequestParams = {
     black_b?: string
     username?: string
-  } & ReturnType<typeof generateFPSParams>
+  } & Partial<ReturnType<typeof getFpsParams>>
 
   let { url, headers, baseURL } = config
   const requestParams: RequestParams = {} as RequestParams
@@ -72,10 +72,17 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
 
   if (baseURL && baseURL?.startsWith(API_DOMAIN) && url?.startsWith('/')) {
     const { token, playerName } = state?.auth.info || {}
+    const { deviceId } = state?.tempSetting || {}
 
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`
     }
+
+    /* append device id */
+    if (deviceId) {
+      config.headers['device_id'] = deviceId
+    }
+    /* */
 
     if (
       playerName &&
@@ -122,6 +129,19 @@ const onRequestFullfilled = (config: AxiosRequestConfig) => {
   // IOS 13.3 added security where GET request should not have body data ( use query param instead)
   // if config.data is {} on GET method , ios will reject as well.
   // ref: https://stackoverflow.com/a/56973866
+
+  if (Platform.OS === 'web') {
+    const fpsNeeded = [
+      '/player_api/login',
+      '/player_api/register',
+      '/player_api/submitDeposit',
+      '/player_api/submitManualDeposit',
+      '/player_api/submitWithdrawal',
+    ]
+
+    if (fpsNeeded.includes(url!)) Object.assign(requestParams, getFpsParams())
+  }
+
   if (
     typeof window !== 'undefined' &&
     (config.data || (requestParams && Object.keys(requestParams).length > 0))

@@ -8,6 +8,7 @@ import { useWindowDimensions } from 'react-native'
 import { useRouter } from 'solito/router'
 import { getOs } from 'utils/platform'
 import GameGridSectionItem from './GameGridSectionItem'
+import { CnyFlower, CnyRedPacket } from './CnyTheme'
 
 export const SHAREHOLDER_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/agent-recruitment_220.mp4`
 export const FISHING_IMG = `${MEDIA_DOMAIN}${CONTENT_URI}/v2/videos/fishing_350.mp4`
@@ -153,6 +154,7 @@ export default function GameGridSection() {
         return (
           <GameGridSectionItem
             key={i}
+            index={i}
             sx={{
               width,
               height,
@@ -169,6 +171,9 @@ export default function GameGridSection() {
           />
         )
       })}
+
+      <CnyFlower />
+      <CnyRedPacket />
     </Row>
   )
 }

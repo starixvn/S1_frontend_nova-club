@@ -21,6 +21,7 @@ import {
   SEO_URL,
 } from 'app/constants/seo'
 import Script from 'next/script'
+import { FPS_SRC } from '@env'
 
 function MyApp({ ...rest }: AdaptiveAppProps) {
   useFonts(AvertaStdUseFont)
@@ -63,6 +64,7 @@ function MyApp({ ...rest }: AdaptiveAppProps) {
           })(window,document,'script','dataLayer','GTM-5NXZ9QR');
         `}
       </Script>
+      <Script type="text/javascript" src={FPS_SRC} async defer />
       <Provider>
         <AuthenticationProvider>
           <AdaptiveLayout {...rest} />

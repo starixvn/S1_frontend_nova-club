@@ -122,7 +122,7 @@ const MatchLeagueSelectorTab = memo(
             sx={{ fontSize: 26 }}
             // state={iconColorFade}
             // animatedProps={color}
-            color={active ? 'white' : '$tertiary'}
+            color={active ? '$tertiary' : 'white'}
           />
         </IconContainer>
       </Pressable>

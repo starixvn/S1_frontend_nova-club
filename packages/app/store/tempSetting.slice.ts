@@ -6,6 +6,7 @@ interface settingStateProps {
   syncShieldStatus: boolean
   splashScreenLoaded: boolean
   isHomeEventModalTriggered: boolean
+  deviceId?: string // to be hydrated from local storage / async storage by RegisterUniqueId.tsx
 }
 
 const initialState: settingStateProps = {
@@ -37,6 +38,9 @@ const tempSettingSlice = createSlice({
     },
     setSplashScreenLoaded: (state, action: PayloadAction<boolean>) => {
       state.splashScreenLoaded = action.payload
+    },
+    setDeviceId: (state, action: PayloadAction<string>) => {
+      state.deviceId = action.payload
     },
   },
 })
