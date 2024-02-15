@@ -1,10 +1,9 @@
 import { API_DOMAIN, API_KEY } from '@env'
 import { EnhancedStore } from '@reduxjs/toolkit'
 import { RootState } from 'app/provider/redux/store'
-import { getFpsParams } from 'utils/fps/fpsGenerator'
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
-import { Platform } from 'react-native'
 import { LANGUAGE_CODE } from 'utils/constant'
+import { appendFpsParams, getFpsParams } from 'utils/fps/fpsGenerator'
 
 // const API_DOMAIN = 'https://stage.gball8.com/api/nv88_api/v1'
 // const API_KEY = 'zl9oo0vtrtbih1fufvq8pk8stvqprad8'
@@ -106,7 +105,7 @@ const onRequestFullfilled = async (config: AxiosRequestConfig) => {
   //   config.headers['Cache-Control'] = 'no-cache'
   // }
 
-  /** FRAUD DETECTION (No longer using FPS and IOVATION) */
+  /** FRAUD DETECTION (No longer using IOVATION) */
   // const fraudDetectionNeeded = ['/player_api/createPlayer', '/player_api/login']
 
   // if (fraudDetectionNeeded.includes(url!)) {
@@ -125,24 +124,11 @@ const onRequestFullfilled = async (config: AxiosRequestConfig) => {
   //   }
   // }
   /** FRAUD DETECTION */
+  appendFpsParams(url, requestParams)
 
   // IOS 13.3 added security where GET request should not have body data ( use query param instead)
   // if config.data is {} on GET method , ios will reject as well.
   // ref: https://stackoverflow.com/a/56973866
-
-  if (Platform.OS === 'web') {
-    /* Rewards site might not be able to getFpsParams, make sure the url does not include api consumed on Rewards site */
-    const fpsNeeded = [
-      '/player_api/login',
-      '/player_api/register',
-      '/player_api/submitDeposit',
-      '/player_api/submitManualDeposit',
-      '/player_api/submitWithdrawal',
-    ]
-
-    if (fpsNeeded.includes(url!)) Object.assign(requestParams, getFpsParams())
-  }
-
   if (
     typeof window !== 'undefined' &&
     (config.data || (requestParams && Object.keys(requestParams).length > 0))
