@@ -1,12 +1,12 @@
 import { AssetBasePath } from '@games/config'
-import { Container, Sprite, useApp, useTick } from '@pixi/react'
+import { Container, PixiRef, Sprite, useApp, useTick } from '@pixi/react'
+import { IMediaInstance, sound } from '@pixi/sound'
 import * as PIXI from 'pixi.js'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useWindowSize } from 'utils-pixi/resize/ResizeProvider'
 import { GamePackageName } from '../config'
 import PrizeEgg from './PrizeEgg'
 import { Prize, useItemsLayout } from './Util'
-import { sound } from '@pixi/sound'
 
 type PrizeBoxProps = {
   boxWidth: number
@@ -14,6 +14,10 @@ type PrizeBoxProps = {
   autoScratch: boolean
   onComplete: () => void
 }
+
+let lastDrawnPoint: PIXI.Point | null
+const line = new PIXI.Graphics()
+const BRUSH_SIZE = 35
 
 const PrizeBoxJs = ({
   boxWidth,
@@ -23,39 +27,39 @@ const PrizeBoxJs = ({
 }: PrizeBoxProps) => {
   const app = useApp()
   const boardRef = useRef(null)
+  const scratchPlayingInstance = useRef<IMediaInstance>()
+  const maskRef = useRef<PixiRef<typeof Sprite>>(null)
+  const containerRef = useRef<PixiRef<typeof Container>>(null)
   const { width } = useWindowSize()
 
   const [win, setWin] = useState(false)
   const [autoPositionX, setAutoPositionX] = useState(width) // clear mask from left
 
-  // avoid using state to prevent redrawing
-  let isScratching = false
-
   // prepare circle texture, that will be our brush
-  const brush = new PIXI.Graphics().beginFill(0xffffff).drawCircle(0, 0, 35)
+  const brush = new PIXI.Graphics()
+    .beginFill(0xffffff)
+    .drawCircle(0, 0, BRUSH_SIZE)
 
   const removeMask = new PIXI.Graphics()
     .beginFill(0xffffff)
-    .drawRect(0, 0, boxWidth * 2, boxWidth * 2)
+    .drawRect(0, 0, boxWidth, boxWidth)
   const autoScratchremoveMask = new PIXI.Graphics()
     .beginFill(0xffffff)
-    .drawRect(autoPositionX, 0, boxWidth, boxWidth * 2)
+    .drawRect(autoPositionX, 0, boxWidth, boxWidth)
 
   const renderTexture = useMemo(
     () =>
       PIXI.RenderTexture.create({
-        width: boxWidth * 2,
-        height: boxWidth * 2,
+        width: boxWidth,
+        height: boxWidth,
       }),
     []
   )
 
-  const renderTextureSprite = new PIXI.Sprite(renderTexture)
-
   useTick((delta) => {
     // When square haven't fully cover mask
     if (autoScratch && !win) {
-      autoPositionX > 0 ? setAutoPositionX(autoPositionX - 5) : handleWinGame()
+      autoPositionX > 0 ? setAutoPositionX(autoPositionX - 10) : handleWinGame()
 
       app.renderer.render(autoScratchremoveMask, {
         renderTexture: renderTexture,
@@ -81,8 +85,7 @@ const PrizeBoxJs = ({
     }
 
     const percentageRevealed = (visiblePixels / totalPixels) * 100
-
-    if (percentageRevealed > 20) handleClearMask()
+    if (percentageRevealed >= 90) handleClearMask()
   }
 
   const handleClearMask = () => {
@@ -93,8 +96,11 @@ const PrizeBoxJs = ({
 
     handleWinGame()
   }
+
   const handleWinGame = () => {
-    sound.stop('audio/scratch.mp3')
+    scratchPlayingInstance.current?.destroy()
+    scratchPlayingInstance.current = undefined
+
     sound.play('audio/win.mp3')
     setWin(true)
     setTimeout(() => {
@@ -102,29 +108,30 @@ const PrizeBoxJs = ({
     }, 2000)
   }
 
-  const pointerMove = (e) => {
-    if (isScratching) {
-      brush.position.copyFrom(e.global)
+  const pointerMove = async (e) => {
+    if (!win && containerRef.current) {
+      const point = containerRef.current?.toLocal(e.global)
+      const offset = boxWidth * 0.5
+      point.x += offset
+      point.y += offset
+
+      brush.position.copyFrom(point)
       app.renderer.render(brush, {
         renderTexture: renderTexture,
         clear: false,
         skipUpdateTransform: false,
       })
 
+      if (
+        !scratchPlayingInstance.current ||
+        scratchPlayingInstance.current.progress >= 1
+      )
+        scratchPlayingInstance.current = await sound.play('audio/scratch.mp3', {
+          volume: 5,
+        })
+
       checkPercentage()
     }
-  }
-
-  const pointerDown = (e) => {
-    isScratching = true
-    pointerMove(e)
-    sound.play('audio/scratch.mp3', { loop: true })
-  }
-
-  const pointerUp = () => {
-    isScratching = false
-    sound.stop('audio/scratch.mp3')
-    // app.renderer.render(brush, renderTexture, false, null, true);
   }
 
   const contentPosition = useItemsLayout({
@@ -142,18 +149,27 @@ const PrizeBoxJs = ({
         anchor={0.5}
       />
 
+      <Sprite
+        ref={maskRef}
+        width={boxWidth}
+        height={boxWidth}
+        anchor={0.5}
+        texture={renderTexture}
+      />
+
       <Container
-        mask={renderTextureSprite}
+        mask={maskRef.current}
+        ref={containerRef}
+        height={boxWidth}
+        width={boxWidth}
+        anchor={0.5}
         eventMode="static"
         pointermove={pointerMove}
-        pointerdown={pointerDown}
-        pointerup={pointerUp}
       >
         <Sprite
           ref={boardRef}
           image={`${AssetBasePath}/assets/${GamePackageName}/images/board.png`}
           anchor={{ x: 0.5, y: 0.5 }}
-          scale={{ x: 0.5, y: 0.5 }}
           width={boxWidth}
           height={boxWidth}
         />

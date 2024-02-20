@@ -29,11 +29,11 @@ const rewardGameListConfig: Array<RewardGameListConfig> = [
   {
     key: RewardGameKeyMap.SPIN_N_WIN,
     image: `${STATIC_IMAGE_URL}/spin_win.jpg`,
-    // tag: RewardGameTag.NEW,
     route: '/rewards/games/spin-and-win',
   },
   {
     key: RewardGameKeyMap.SCRATCH_CARD,
+    tag: RewardGameTag.NEW,
     image: `${STATIC_IMAGE_URL}/scratch_card.png`,
   },
   {

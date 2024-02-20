@@ -16,32 +16,28 @@ import ActionBox from './ActionBox'
 import PrizeBoxJs from './PrizeBoxJs'
 import { Prize } from './Util'
 
-export const possibleResult = [0, 30000, 50000, 70000, 90000, 200000, 500000]
-
 export const prizeDict = {
   0: `${AssetBasePath}/assets/${GamePackageName}/images/red-egg.png`,
   30000: `${AssetBasePath}/assets/${GamePackageName}/images/red-egg.png`,
-  50000: `${AssetBasePath}/assets/${GamePackageName}/images/red-egg.png`,
-  70000: `${AssetBasePath}/assets/${GamePackageName}/images/red-egg.png`,
+  60000: `${AssetBasePath}/assets/${GamePackageName}/images/red-egg.png`,
   90000: `${AssetBasePath}/assets/${GamePackageName}/images/red-egg.png`,
-  200000: `${AssetBasePath}/assets/${GamePackageName}/images/golden-egg.png`,
+  150000: `${AssetBasePath}/assets/${GamePackageName}/images/red-egg.png`,
+  200000: `${AssetBasePath}/assets/${GamePackageName}/images/red-egg.png`,
   500000: `${AssetBasePath}/assets/${GamePackageName}/images/golden-egg.png`,
 }
 
+export const possibleResult = Object.keys(prizeDict)
+
 const GameBody = () => {
-  const { width } = useWindowSize()
+  const { width, height } = useWindowSize()
   const dispatch = useAppDispatch()
   const [startGame, setStartGame] = useState(false)
   const [autoScratch, setAutoScratch] = useState(false)
   const [totalBalance, setTotalBalance] = useState(0)
   const [result, setResult] = useState<RedemptionResult>()
 
-  const bgWidth = Math.min(500, width)
-
-  const boxWidth = bgWidth >= 500 ? 400 : 320
-  const positionY = bgWidth >= 500 ? 350 : 400
-
-  const textPosY = bgWidth >= 500 ? bgWidth * 1.3 : bgWidth * 1.6
+  const boxWidth = Math.min(Math.min(width * 0.8, height * 0.8), 400)
+  const outerBoxWidth = boxWidth * 1.2
 
   const { data: balance } = useGetCoinQuery()
 
@@ -85,8 +81,8 @@ const GameBody = () => {
   }
 
   return (
-    <Container anchor={0.5} x={width / 2} y={0}>
-      <Container y={190}>
+    <Container x={width * 0.5} y={height * 0.5}>
+      <Container anchor={0.5} y={-boxWidth * 0.62}>
         <Text
           x={0}
           text={'TÌM       TRỨNG GIỐNG NHAU'}
@@ -95,14 +91,14 @@ const GameBody = () => {
         />
         <Text x={-100} text={'3'} anchor={[0.5, 0.9]} style={yellowText} />
       </Container>
-      <Container x={0} y={positionY}>
+      <Container anchor={0.5}>
         <Sprite
           image={`${AssetBasePath}/assets/${GamePackageName}/images/board.png`}
           anchor={{ x: 0.5, y: 0.5 }}
           width={boxWidth}
           height={boxWidth}
         />
-        {result && startGame ? (
+        {result ? (
           <PrizeBoxJs
             boxWidth={boxWidth}
             result={Number(result.amount) as Prize}
@@ -122,20 +118,25 @@ const GameBody = () => {
           image={`${AssetBasePath}/assets/${GamePackageName}/images/frame.png`}
           anchor={{ x: 0.5, y: 0.5 }}
           y={-2}
-          width={boxWidth * 1.2}
-          height={boxWidth * 1.2}
+          width={outerBoxWidth}
+          height={outerBoxWidth}
         />
       </Container>
 
       <ActionBox
-        y={textPosY}
-        boxWidth={boxWidth}
+        y={outerBoxWidth * 0.62}
+        boxWidth={outerBoxWidth}
         balance={balance}
         totalBalance={totalBalance}
         onPress={handleStart}
         startGame={startGame}
       />
-      <CoinBalance balance={balance} x={boxWidth * 0.55} y={50} />
+      <CoinBalance
+        balance={balance}
+        x={outerBoxWidth * 0.5}
+        anchor={0}
+        y={-height * 0.44}
+      />
     </Container>
   )
 }

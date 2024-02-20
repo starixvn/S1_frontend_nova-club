@@ -1,7 +1,7 @@
 import useAnimatedAmount from '@games/shared/hooks/useAnimatedAmount'
 import { Container, Graphics, Text } from '@pixi/react'
-import { TextStyle } from 'pixi.js'
-import { ComponentProps, useState } from 'react'
+import { ITextStyle, TextStyle } from 'pixi.js'
+import { ComponentProps, useMemo, useState } from 'react'
 import { IContainer } from 'utils-pixi/type'
 
 type ActionBoxProps = {
@@ -16,9 +16,9 @@ const ActionBox = ({
   balance = 0,
   totalBalance = 0,
   boxWidth,
-  y,
   startGame,
   onPress,
+  ...rest
 }: ActionBoxProps) => {
   const [isFirstStart, setIsFirstStart] = useState(true)
   const balanceDisplay = useAnimatedAmount(totalBalance, {
@@ -31,67 +31,75 @@ const ActionBox = ({
     onPress()
   }
 
+  const fontStyles = useMemo(() => {
+    const defaultStyle: Partial<ITextStyle> = {
+      fontFamily: 'AvertaStd Bold',
+      fontWeight: 'bold',
+      align: 'center',
+      fontSize: boxWidth * 0.041,
+    }
+
+    return [
+      new TextStyle({ ...defaultStyle, fill: '#fff' }),
+      new TextStyle({ ...defaultStyle, fill: '#5DC758' }),
+    ]
+  }, [boxWidth])
+
+  const buttonWidth = boxWidth * 0.46
+  const buttonHeight = boxWidth * 0.14
+
   return (
-    <Container>
-      <Container x={0} y={y} anchor={[0.5, 0.5]}>
+    <Container {...rest}>
+      <Container width={buttonWidth} height={buttonHeight} x={-boxWidth * 0.25}>
         <Graphics
+          key={boxWidth + 'left'}
+          anchor={0.5}
           draw={(g) => {
             g.lineStyle(5, 0xffffff, 1)
-            g.drawRoundedRect(boxWidth * -0.6, -35, boxWidth / 1.75, 70, 100)
+            g.drawRoundedRect(
+              -buttonWidth * 0.5,
+              -buttonHeight * 0.5,
+              buttonWidth,
+              buttonHeight,
+              100
+            )
             g.endFill()
           }}
         />
         <Text
-          x={boxWidth * -0.3}
-          y={-15}
-          text="TOTAL WON"
-          anchor={[0.5, 0.5]}
-          style={textStyle}
-        />
-        <Text
-          x={boxWidth * -0.3}
-          y={15}
-          text={balanceDisplay}
-          anchor={[0.5, 0.5]}
-          style={textStyle}
+          anchor={0.5}
+          text={`TỔNG TIỀN THẮNG\n${balanceDisplay}`}
+          style={fontStyles[0]}
         />
       </Container>
-
       <Container
-        y={y}
-        x={10}
+        anchor={1}
+        x={boxWidth * 0.25}
         onpointertap={handleClick}
         eventMode={disabled ? 'none' : 'static'}
       >
         <Graphics
+          key={boxWidth + 'right'}
           draw={(g) => {
             g.beginFill(disabled ? '#CCC' : '#FFFFFF', 1)
-            g.drawRoundedRect(0, -35, boxWidth / 1.75, 70, 100)
+            g.drawRoundedRect(
+              -buttonWidth * 0.5,
+              -buttonHeight * 0.5,
+              buttonWidth,
+              buttonHeight,
+              100
+            )
             g.endFill()
           }}
         />
         <Text
-          x={(boxWidth / 1.75) * 0.5}
-          text={isFirstStart ? 'START' : startGame ? 'SCRATCH' : 'PLAY NEXT'}
-          anchor={[0.5, 0.5]}
-          style={textStyle2}
+          text={isFirstStart ? 'BẮT ĐẦU' : startGame ? 'TỰ ĐỘNG CÀO' : 'CHƠI TIẾP'}
+          anchor={0.5}
+          style={fontStyles[1]}
         />
       </Container>
     </Container>
   )
 }
-
-export const textStyle = new TextStyle({
-  fontFamily: 'AvertaStd Bold',
-  fontSize: 22,
-  fontWeight: 'bold',
-  fill: ['#ffffff'],
-})
-export const textStyle2 = new TextStyle({
-  fontFamily: 'AvertaStd Bold',
-  fontSize: 22,
-  fontWeight: 'bold',
-  fill: ['#5DC758'],
-})
 
 export default ActionBox

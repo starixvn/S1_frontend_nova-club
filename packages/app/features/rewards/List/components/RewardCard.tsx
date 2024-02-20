@@ -4,6 +4,7 @@ import { ComponentProps, memo } from 'react'
 import { RewardGameKeyMap } from 'utils/rewards'
 import { SolitoImage } from 'solito/image'
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import useLocalization from 'app/provider/localization'
 
 const StyledContainer = styled(View)({
   flexGrow: 0,
@@ -32,6 +33,7 @@ interface GameCardProps extends ComponentProps<typeof Pressable> {
 }
 
 const RewardCard = (props: GameCardProps) => {
+  const { t } = useLocalization()
   const {
     src,
     cost,
@@ -53,8 +55,8 @@ const RewardCard = (props: GameCardProps) => {
     }
 
     const color = {
-      [RewardGameTag.NEW]: colors.$selectionColor,
-      [RewardGameTag.HOT]: colors.$error,
+      [RewardGameTag.NEW]: '$secondary.500',
+      [RewardGameTag.HOT]: '$error',
     }
 
     return color[tag] ?? color[RewardGameTag.NEW]
@@ -100,7 +102,7 @@ const RewardCard = (props: GameCardProps) => {
             offset={[0.5, 1]}
             startColor={'rgba(0,0,0,0.2)'}
             distance={1}
-            style={{
+            sx={{
               paddingLeft: 16,
               paddingRight: 12,
               paddingVertical: 4,
@@ -121,7 +123,7 @@ const RewardCard = (props: GameCardProps) => {
                 fontWeight: 'bold',
               }}
             >
-              {tag}
+              {t('game.new')}
             </Text>
           </Shadow>
         )}
