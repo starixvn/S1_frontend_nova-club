@@ -1,16 +1,19 @@
 import { DrawerContext } from 'app/hooks/useDrawer'
 import useIsDesktop from 'app/hooks/useIsDesktop'
-import { useAppSelector } from 'app/provider/redux/store'
+import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { useCallback, useState } from 'react'
 import { Platform } from 'react-native'
+import { playerApi } from 'services/playerApi'
 import { MemoDrawer } from '.'
 
 const DrawerProvider = ({ children }) => {
+  const dispatch = useAppDispatch()
   const [isOpen, setOpen] = useState(false)
   const isDesktop = useIsDesktop()
 
   const toggleDrawer = useCallback((open?: boolean) => {
     setOpen((prev) => (open === undefined ? !prev : open))
+    dispatch(playerApi.endpoints.onlineCheck.initiate())
   }, [])
 
   const splashScreenLoaded = useAppSelector(
