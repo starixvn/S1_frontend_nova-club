@@ -31,7 +31,7 @@ export const possibleResult = Object.keys(prizeDict)
 const GameBody = () => {
   const { width, height } = useWindowSize()
   const dispatch = useAppDispatch()
-  const [startGame, setStartGame] = useState(false)
+  const [gameStarted, setGameStarted] = useState(false)
   const [autoScratch, setAutoScratch] = useState(false)
   const [totalBalance, setTotalBalance] = useState(0)
   const [result, setResult] = useState<RedemptionResult>()
@@ -44,7 +44,7 @@ const GameBody = () => {
   const getResult = async () => {
     try {
       setResult(undefined)
-      setStartGame(true)
+      setGameStarted(true)
       const { data } = await dispatch(
         rewardApi.endpoints.redeemCoin.initiate('SCR2CH')
       )
@@ -64,18 +64,18 @@ const GameBody = () => {
       // failed
       NiceModal.show(AlertModal, {
         message: e as string,
-        onClose: () => setStartGame(false),
+        onClose: () => setGameStarted(false),
       })
     }
   }
 
   // Show the modal and pass arguments as props
   const handleStart = () => {
-    startGame ? setAutoScratch(true) : getResult()
+    gameStarted ? setAutoScratch(true) : getResult()
   }
 
   const handleComplete = () => {
-    setStartGame(false)
+    setGameStarted(false)
     setAutoScratch(false)
     result && setTotalBalance(totalBalance + Number(result?.amount))
   }
@@ -129,7 +129,7 @@ const GameBody = () => {
         balance={balance}
         totalBalance={totalBalance}
         onPress={handleStart}
-        startGame={startGame}
+        gameStarted={gameStarted}
       />
       <CoinBalance
         balance={balance}

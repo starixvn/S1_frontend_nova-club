@@ -15,8 +15,6 @@ type PrizeBoxProps = {
   onComplete: () => void
 }
 
-let lastDrawnPoint: PIXI.Point | null
-const line = new PIXI.Graphics()
 const BRUSH_SIZE = 35
 
 const PrizeBoxJs = ({
@@ -103,9 +101,12 @@ const PrizeBoxJs = ({
 
     sound.play('audio/win.mp3')
     setWin(true)
-    setTimeout(() => {
-      onComplete()
-    }, 2000)
+    setTimeout(
+      () => {
+        onComplete()
+      },
+      result === 0 ? 0 : 2000
+    )
   }
 
   const pointerMove = async (e) => {

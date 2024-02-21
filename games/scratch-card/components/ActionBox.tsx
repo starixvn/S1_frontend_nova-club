@@ -9,14 +9,14 @@ type ActionBoxProps = {
   totalBalance: number
   boxWidth: number
   onPress: () => void
-  startGame: boolean
+  gameStarted: boolean
 } & ComponentProps<IContainer>
 
 const ActionBox = ({
   balance = 0,
   totalBalance = 0,
   boxWidth,
-  startGame,
+  gameStarted,
   onPress,
   ...rest
 }: ActionBoxProps) => {
@@ -93,7 +93,9 @@ const ActionBox = ({
           }}
         />
         <Text
-          text={isFirstStart ? 'BẮT ĐẦU' : startGame ? 'TỰ ĐỘNG CÀO' : 'CHƠI TIẾP'}
+          text={
+            isFirstStart ? 'BẮT ĐẦU' : gameStarted ? 'TỰ ĐỘNG CÀO' : 'CHƠI TIẾP'
+          }
           anchor={0.5}
           style={fontStyles[1]}
         />

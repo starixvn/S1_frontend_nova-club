@@ -31,7 +31,7 @@ const PrizeEgg = ({
 
   /* Setup Timeline Animation */
   useEffect(() => {
-    if (win && winImage) {
+    if (win && winImage && item.prize !== 0) {
       gsap.to(winRef.current, {
         pixi: { alpha: 1 },
         duration: 0.3,
@@ -64,9 +64,7 @@ const PrizeEgg = ({
         position={item.position}
         text={toThousandAbbreviation(item.prize)}
         anchor={[0.5, 0.5]}
-        style={
-          item.prize === 200000 || item.prize === 500000 ? redText : whiteText
-        }
+        style={item.prize === 500000 ? redText : whiteText}
       />
     </Container>
   )
