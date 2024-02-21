@@ -3,6 +3,7 @@ import { Text, useDripsyTheme, useResponsiveValue } from 'dripsy'
 import React from 'react'
 import { SolitoImage } from 'solito/image'
 import GameTagIconAnimation from './GameTagIconAnimation'
+import useLocalization from 'app/provider/localization'
 
 export enum GAME_TAG_SIZE {
   lg = 'lg',
@@ -20,6 +21,7 @@ const GameTagsLabel = ({
   gpc?: string
   isFullCard?: boolean
 }) => {
+  const { t } = useLocalization()
   const hasTags = tags?.includes('hot') || tags?.includes('new')
   const isNew = tags?.includes('new')
   const fs = size === GAME_TAG_SIZE.lg ? [10] : [7]
@@ -53,7 +55,7 @@ const GameTagsLabel = ({
             fontSize: fs,
           }}
         >
-          {isNew ? 'NEW' : 'HOT'}
+          {isNew ? t('game.new').toUpperCase() : 'HOT'}
         </Text>
       )}
     </GameTagIconAnimation>
