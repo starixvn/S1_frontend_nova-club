@@ -2,7 +2,7 @@ import shuffle from 'lodash/shuffle'
 import { useEffect, useState } from 'react'
 import { possibleResult, prizeDict } from './GameBody'
 
-export type Prize = keyof typeof prizeDict
+export type Prize = keyof typeof prizeDict | 0
 export interface Coordinate {
   x: number
   y: number
@@ -36,9 +36,11 @@ export const useItemsLayout = ({
       (value) => value !== result
     ) as Prize[]
 
-    result !== 0
-      ? resultArray.push(prize, prize, prize)
-      : resultArray.push(prize, prize, 30000)
+    if (result !== 0) resultArray.push(prize, prize, prize)
+    else {
+      const randomValue = shuffle(filteredResults).slice(0, 3)
+      resultArray.push(...randomValue)
+    }
     resultArray.push(...filteredResults)
 
     return shuffle(resultArray)

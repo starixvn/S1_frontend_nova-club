@@ -17,7 +17,6 @@ import PrizeBoxJs from './PrizeBoxJs'
 import { Prize } from './Util'
 
 export const prizeDict = {
-  0: `${AssetBasePath}/assets/${GamePackageName}/images/red-egg.png`,
   30000: `${AssetBasePath}/assets/${GamePackageName}/images/red-egg.png`,
   60000: `${AssetBasePath}/assets/${GamePackageName}/images/red-egg.png`,
   90000: `${AssetBasePath}/assets/${GamePackageName}/images/red-egg.png`,
