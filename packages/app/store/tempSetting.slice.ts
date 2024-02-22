@@ -7,6 +7,7 @@ interface settingStateProps {
   splashScreenLoaded: boolean
   isHomeEventModalTriggered: boolean
   deviceId?: string // to be hydrated from local storage / async storage by RegisterUniqueId.tsx
+  isFloatingMysteryVisible: boolean
 }
 
 const initialState: settingStateProps = {
@@ -14,6 +15,7 @@ const initialState: settingStateProps = {
   syncShieldStatus: false,
   splashScreenLoaded: false,
   isHomeEventModalTriggered: false,
+  isFloatingMysteryVisible: false,
 }
 
 const tempSettingSlice = createSlice({
@@ -28,6 +30,9 @@ const tempSettingSlice = createSlice({
     },
     setIsHomeEventModalTriggered: (state, action: PayloadAction<boolean>) => {
       state.isHomeEventModalTriggered = action.payload
+    },
+    setIsFloatingMysteryVisible: (state, action: PayloadAction<boolean>) => {
+      state.isFloatingMysteryVisible = action.payload
     },
     setSyncShieldActionType: (state, action: PayloadAction<Shield_Action>) => {
       state.syncShieldActionType = action.payload

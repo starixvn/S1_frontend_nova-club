@@ -18,6 +18,7 @@ import {
 } from 'utils/rewards'
 import { getTncComponent } from '../tnc/utils/getTncComponent'
 import RewardContent from './content/RewardContent'
+import { eventApi } from 'services/eventApi'
 
 const DOMAIN_URL = getRewardLauncherURL()
 
@@ -69,6 +70,12 @@ const RewardGameLauncher = () => {
 
       dispatch(
         rewardApi.endpoints.getCoin.initiate(undefined, {
+          forceRefetch: true,
+        })
+      )
+
+      dispatch(
+        eventApi.endpoints.getMysteryCheck.initiate(undefined, {
           forceRefetch: true,
         })
       )

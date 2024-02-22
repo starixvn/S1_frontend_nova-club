@@ -570,6 +570,7 @@ export const MYSTERY_DROPS_TNC = [
   'notes.mystery.n9',
   'notes.mystery.n10',
   'notes.mystery.n11',
+  'notes.mystery.n11a',
   'notes.mystery.n12',
   'notes.mystery.n13',
   'notes.mystery.n14',

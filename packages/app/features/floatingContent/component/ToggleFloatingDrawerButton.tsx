@@ -23,7 +23,7 @@ const ToggleFloatingDrawerButton = ({
         <DrawerIconContainer>
           <MotiView
             animate={{
-              transform: [{ rotateZ: visible ? '0deg' : '180deg' }],
+              transform: [{ rotateZ: visible ? '180deg' : '0deg' }],
             }}
             transition={{ type: 'timing', duration: 500 }}
           >
@@ -39,13 +39,13 @@ const DrawerButtonContainer = styled(View)(
   ({ bottom, isDesktop }: { bottom: number; isDesktop: boolean }) => ({
     position: isDesktop ? 'fixed' : 'absolute',
     zIndex: 9,
-    right: 0,
+    left: 0,
     bottom,
   })
 )
 
 const DrawerButton = styled(TouchableOpacity)({
-  width: 40,
+  width: 20,
   alignItems: 'flex-end',
   justifyContent: 'center',
 })
@@ -53,8 +53,8 @@ const DrawerButton = styled(TouchableOpacity)({
 const DrawerIconContainer = styled(View)({
   height: 60,
   backgroundColor: '$primary.200',
-  borderTopLeftRadius: 10,
-  borderBottomLeftRadius: 10,
+  borderTopRightRadius: 10,
+  borderBottomRightRadius: 10,
   width: 20,
   justifyContent: 'center',
   alignItems: 'center',
