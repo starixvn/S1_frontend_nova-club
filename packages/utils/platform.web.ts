@@ -3,3 +3,5 @@ export function getOs() {
   else if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) return 'ios'
   else return 'any'
 }
+
+export function getUserAgent() {}
