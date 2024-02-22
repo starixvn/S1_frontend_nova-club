@@ -6,9 +6,9 @@ export function getOs() {
 }
 
 export async function getUserAgent() {
-  const res = await DeviceInfo.getUserAgent().then((userAgent) => {
-    return userAgent
-  })
-
-  return res
+  try {
+    return DeviceInfo.getUserAgent()
+  } catch (error) {
+    console.log('🚀 ~ getUserAgent ~ error:', error)
+  }
 }

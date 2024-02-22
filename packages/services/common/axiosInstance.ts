@@ -163,8 +163,9 @@ const onRequestFullfilled = async (config: AxiosRequestConfig) => {
 
   // const currentLocale = state?.setting.locale ?? LANGUAGE_CODE.VIETNAM
   config.headers['X-Lang'] = state?.setting.locale ?? LANGUAGE_CODE.VIETNAM
+
   const userAgent = await getUserAgent()
-  config.headers['User-Agent'] = userAgent
+  if (userAgent) config.headers['X-User-Agent'] = userAgent
 
   return config
 }

@@ -4,4 +4,6 @@ export function getOs() {
   else return 'any'
 }
 
-export function getUserAgent() {}
+export async function getUserAgent(): Promise<string | undefined> {
+  return Promise.resolve(undefined)
+}
