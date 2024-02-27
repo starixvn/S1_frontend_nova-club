@@ -3,3 +3,7 @@ export function getOs() {
   else if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) return 'ios'
   else return 'any'
 }
+
+export async function getUserAgent(): Promise<string | undefined> {
+  return Promise.resolve(undefined)
+}

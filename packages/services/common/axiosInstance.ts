@@ -5,6 +5,7 @@ import { getFpsParams } from 'app/utils/fps/fpsGenerator'
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { Platform } from 'react-native'
 import { LANGUAGE_CODE } from 'utils/constant'
+import { getUserAgent } from 'utils/platform'
 
 // const API_DOMAIN = 'https://stage.gball8.com/api/nv88_api/v1'
 // const API_KEY = 'zl9oo0vtrtbih1fufvq8pk8stvqprad8'
@@ -162,6 +163,9 @@ const onRequestFullfilled = async (config: AxiosRequestConfig) => {
 
   // const currentLocale = state?.setting.locale ?? LANGUAGE_CODE.VIETNAM
   config.headers['X-Lang'] = state?.setting.locale ?? LANGUAGE_CODE.VIETNAM
+
+  const userAgent = await getUserAgent()
+  if (userAgent) config.headers['X-Useragent'] = userAgent
 
   return config
 }
