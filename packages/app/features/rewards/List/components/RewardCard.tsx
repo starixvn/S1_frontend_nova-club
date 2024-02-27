@@ -65,7 +65,6 @@ const RewardCard = (props: GameCardProps) => {
 
   return (
     <StyledContainer {...containerProps}>
-      <GameTagsLabel tags={tag} size={GAME_TAG_SIZE.lg} />
       <StyledPressable
         sx={{ width: '100%', aspectRatio: 1 }}
         style={({ pressed }) => ({
@@ -111,6 +110,7 @@ const RewardCard = (props: GameCardProps) => {
       >
         {gameName}
       </Text>
+      <GameTagsLabel tags={tag} size={GAME_TAG_SIZE.lg} />
     </StyledContainer>
   )
 }
