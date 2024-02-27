@@ -59,6 +59,20 @@ const nextConfig = {
       ],
     },
   ],
+  webpack: (
+    config,
+    { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
+  ) => {
+    config.resolve.extensions = [
+      '.web.js',
+      '.web.jsx',
+      '.web.ts',
+      '.web.tsx',
+      ...config.resolve.extensions,
+    ]
+    // Important: return the modified config
+    return config
+  },
 }
 
 module.exports = nextConfig
