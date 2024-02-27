@@ -32,13 +32,18 @@ export const useItemsLayout = ({
   function handleSetReward(prize: Prize) {
     const resultArray: Prize[] = []
     const arrayNumber = possibleResult.map(Number)
+
     const filteredResults = arrayNumber.filter(
       (value) => value !== result
     ) as Prize[]
 
-    if (result !== 0) resultArray.push(prize, prize, prize)
-    else {
-      const randomValue = shuffle(filteredResults).slice(0, 3)
+    if (result !== 0) {
+      const randomValue = shuffle(filteredResults)[0]
+
+      resultArray.push(prize, prize, prize, randomValue)
+    } else {
+      const randomValue = shuffle(filteredResults).slice(0, 4)
+
       resultArray.push(...randomValue)
     }
     resultArray.push(...filteredResults)
