@@ -40,7 +40,7 @@ import HeaderLanguageToggle from './HeaderLanguageToggle'
 import HeaderOverview from './HeaderOverview'
 dayjs.extend(isBetween)
 
-const LogoSize = [HEADER_HEIGHT * 0.5, HEADER_HEIGHT * 0.75]
+const LogoSize = [HEADER_HEIGHT * 0.5, HEADER_HEIGHT]
 
 const Logo = () => {
   const lang = useAppSelector((s) => s.setting.locale)
