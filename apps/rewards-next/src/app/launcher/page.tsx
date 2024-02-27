@@ -8,7 +8,7 @@ import { useAppDispatch } from 'rewards/provider/redux/store'
 import {
   RewardGameKeyMap,
   RewardPostMessageType,
-  type RewardPostMessagePayload
+  type RewardPostMessagePayload,
 } from 'utils/rewards'
 
 const keyToGameRouteMap: Record<RewardGameKeyMap, string> = {
@@ -17,6 +17,7 @@ const keyToGameRouteMap: Record<RewardGameKeyMap, string> = {
   [RewardGameKeyMap.GOLDEN_CAT]: '/golden-cat',
   [RewardGameKeyMap.SPIN_N_WIN]: '/spin-and-win',
   [RewardGameKeyMap.MYSTERY_DROP]: '/mystery-drop',
+  [RewardGameKeyMap.SCRATCH_CARD]: '/scratch-card',
 } as const
 
 const Launcher = () => {

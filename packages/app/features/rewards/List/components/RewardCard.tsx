@@ -4,6 +4,8 @@ import { ComponentProps, memo } from 'react'
 import { RewardGameKeyMap } from 'utils/rewards'
 import { SolitoImage } from 'solito/image'
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import useLocalization from 'app/provider/localization'
+import GameTagsLabel, { GAME_TAG_SIZE } from 'app/components/game/GameTagsLabel'
 
 const StyledContainer = styled(View)({
   flexGrow: 0,
@@ -32,6 +34,7 @@ interface GameCardProps extends ComponentProps<typeof Pressable> {
 }
 
 const RewardCard = (props: GameCardProps) => {
+  const { t } = useLocalization()
   const {
     src,
     cost,
@@ -53,8 +56,8 @@ const RewardCard = (props: GameCardProps) => {
     }
 
     const color = {
-      [RewardGameTag.NEW]: colors.$selectionColor,
-      [RewardGameTag.HOT]: colors.$error,
+      [RewardGameTag.NEW]: '$secondary.500',
+      [RewardGameTag.HOT]: '$error',
     }
 
     return color[tag] ?? color[RewardGameTag.NEW]
@@ -62,6 +65,7 @@ const RewardCard = (props: GameCardProps) => {
 
   return (
     <StyledContainer {...containerProps}>
+      <GameTagsLabel tags={tag} size={GAME_TAG_SIZE.lg} />
       <StyledPressable
         sx={{ width: '100%', aspectRatio: 1 }}
         style={({ pressed }) => ({
@@ -94,37 +98,6 @@ const RewardCard = (props: GameCardProps) => {
 
           <Text sx={{ fontWeight: 'bold' }}>{cost}</Text>
         </Row>
-
-        {!!tag && (
-          <Shadow
-            offset={[0.5, 1]}
-            startColor={'rgba(0,0,0,0.2)'}
-            distance={1}
-            style={{
-              paddingLeft: 16,
-              paddingRight: 12,
-              paddingVertical: 4,
-              borderBottomLeftRadius: 50,
-              backgroundColor: getTagColor(tag),
-            }}
-            containerStyle={{
-              position: 'absolute',
-              right: 0,
-              top: 0,
-            }}
-          >
-            <Text
-              sx={{
-                textTransform: 'uppercase',
-                textAlign: 'center',
-                fontSize: '$0',
-                fontWeight: 'bold',
-              }}
-            >
-              {tag}
-            </Text>
-          </Shadow>
-        )}
       </StyledPressable>
 
       <Text

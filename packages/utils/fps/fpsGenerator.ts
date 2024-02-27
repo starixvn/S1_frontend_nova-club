@@ -77,6 +77,10 @@
 //   }
 // }
 
+export function appendFpsParams(url, requestParams = {}) {
+  // NOOP for App, please check on .web
+}
+
 export const getFpsParams = () => {
   return {
     bi: '',

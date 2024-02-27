@@ -6,7 +6,7 @@ import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { ModalStackParams } from 'app/provider/modal'
 import { useAppSelector } from 'app/provider/redux/store'
-import { ActivityIndicator, Row, ScrollView, View } from 'dripsy'
+import { ActivityIndicator, Row, ScrollView, View, scales } from 'dripsy'
 import React, { useCallback, useEffect, useMemo } from 'react'
 import { Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
@@ -29,8 +29,12 @@ const rewardGameListConfig: Array<RewardGameListConfig> = [
   {
     key: RewardGameKeyMap.SPIN_N_WIN,
     image: `${STATIC_IMAGE_URL}/spin_win.jpg`,
-    // tag: RewardGameTag.NEW,
     route: '/rewards/games/spin-and-win',
+  },
+  {
+    key: RewardGameKeyMap.SCRATCH_CARD,
+    tag: RewardGameTag.NEW,
+    image: `${STATIC_IMAGE_URL}/scratch_card.png`,
   },
   {
     key: RewardGameKeyMap.ANGPAO_HUNT,

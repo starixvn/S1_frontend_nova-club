@@ -81,6 +81,18 @@
 //   return params
 // }
 
+export function appendFpsParams(url: string, requestParams = {}) {
+  const fpsNeeded = [
+    '/player_api/login',
+    '/player_api/register',
+    '/player_api/submitDeposit',
+    '/player_api/submitManualDeposit',
+    '/player_api/submitWithdrawal',
+  ]
+
+  if (fpsNeeded.includes(url!)) Object.assign(requestParams, getFpsParams())
+}
+
 export const getFpsParams = () => {
   const __bi = document.getElementById('__bi')
   const __di = document.getElementById('__di')
