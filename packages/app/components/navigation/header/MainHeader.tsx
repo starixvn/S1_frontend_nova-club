@@ -42,24 +42,24 @@ dayjs.extend(isBetween)
 
 const LogoSize = [HEADER_HEIGHT * 0.5, HEADER_HEIGHT]
 
+export const isCNY = dayjs().isBetween(
+  dayjs('2024-01-01T17:00:00.000Z'),
+  dayjs('2024-02-29T17:00:00.000Z')
+)
+
 const Logo = () => {
   const lang = useAppSelector((s) => s.setting.locale)
   const showTheme = useResponsiveValue([false, false, false, true])
   const themeLogoWidth = useResponsiveValue([0, 0, 0, 190, 260])
 
-  const isCNY = dayjs().isBetween(
-    dayjs('2024-01-01T17:00:00.000Z'),
-    dayjs('2024-02-29T17:00:00.000Z')
-  )
-
   const LOGO_PATH =
     lang === 'en'
       ? isCNY
         ? `${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/cny/cny-logo-en.png`
-        : `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered.png`
+        : `${MEDIA_DOMAIN}${CONTENT_URI}/vui123-logo-en.png`
       : isCNY
       ? `${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/cny/cny-logo-vi.png`
-      : `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered-vn.png`
+      : `${MEDIA_DOMAIN}${CONTENT_URI}/vui123-logo-vi.png`
 
   return (
     <Row sx={{ alignItems: 'center' }}>
