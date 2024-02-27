@@ -3,7 +3,6 @@ import { EnhancedStore } from '@reduxjs/toolkit'
 import { RootState } from 'app/provider/redux/store'
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { LANGUAGE_CODE } from 'utils/constant'
-import { getUserAgent } from 'utils/platform'
 import { appendFpsParams, getFpsParams } from 'utils/fps/fpsGenerator'
 
 // const API_DOMAIN = 'https://stage.gball8.com/api/nv88_api/v1'
@@ -151,8 +150,8 @@ const onRequestFullfilled = async (config: AxiosRequestConfig) => {
   // const currentLocale = state?.setting.locale ?? LANGUAGE_CODE.VIETNAM
   config.headers['X-Lang'] = state?.setting.locale ?? LANGUAGE_CODE.VIETNAM
 
-  const userAgent = await getUserAgent()
-  if (userAgent) config.headers['X-Useragent'] = userAgent
+  // const userAgent = await getUserAgent()
+  // if (userAgent) config.headers['X-Useragent'] = userAgent
 
   return config
 }
