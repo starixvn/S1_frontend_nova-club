@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stg-n88club-h5
+  labels:
+    run: stg-n88club-h5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: stg-n88club-h5
+  template:
+    metadata:
+      labels:
+        run: stg-n88club-h5
+    spec:
+      containers:
+        - name: stg-n88club-h5
+          image: hub.beacora.com/vui123/web-${ENV}:${CI_COMMIT_TAG}
+          resources:
+            limits:
+              cpu: 1
+              memory: 2000Mi
+            requests:
+              cpu: 300m
+              memory: 500Mi
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+
+      volumes:
+        - name: nfs-www-volume
+          nfs:
+            server: nfs.n88club.local
+            path: /mnt/k8sdata/em/www/web_static/static/nvclub/nova-club
+            readOnly: false
+      imagePullSecrets:
+        - name: regsecret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: stg-n88club-h5
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 10.17.102.3
+  ports:
+    - port: 80
+      targetPort: 3000
+      name: http
+  selector:
+    run: stg-n88club-h5

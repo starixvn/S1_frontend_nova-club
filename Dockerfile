@@ -1,11 +1,18 @@
 # syntax=docker/dockerfile:experimental
 
+ARG ENV=prod
+
 # Install dependencies only when needed
 FROM node:16-alpine AS deps
+
+# redeclare argument for scope inside FROM
+# https://docs.docker.com/reference/dockerfile/#understand-how-arg-and-from-interact
+ARG ENV 
+
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
-RUN apk add --no-cache rsync
-RUN apk add git
+# RUN apk add --no-cache rsync
+# RUN apk add git
 WORKDIR /workspace-install
 
 COPY .yarnrc.yml ./.yarnrc.yml
@@ -24,6 +31,7 @@ RUN yarn install
 
 # Rebuild the source code only when needed
 FROM node:16-alpine AS builder 
+ARG ENV
 
 WORKDIR /app
 
@@ -32,7 +40,7 @@ COPY --from=deps /workspace-install/node_modules ./node_modules
 
 ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN yarn build:web
+RUN yarn build:web:${ENV}
 
 # **********rsync here , copy static & public folder to mnt
 
@@ -42,14 +50,16 @@ RUN yarn build:web
 # Production image, copy all the files and run next
 FROM node:16-alpine AS runner
 WORKDIR /app
-RUN apk add --no-cache rsync
+# RUN apk add --no-cache rsync
+RUN apk add curl
+RUN apk --no-cache add busybox-extras
 
 ENV NODE_ENV production
 # Uncomment the following line in case you want to disable telemetry during runtime.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+# RUN addgroup --system --gid 1001 nodejs
+# RUN adduser --system --uid 1001 nextjs
 
 # COPY --from=builder /app/apps/next/next.config.js \
 #                     /app/apps/next/package.json \
@@ -62,10 +72,10 @@ RUN adduser --system --uid 1001 nextjs
 
 # Automatically leverage output traces to reduce image size 
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder --chown=nextjs:nodejs /app/apps/next/.next/standalone/apps/next ./
-COPY --from=builder --chown=nextjs:nodejs /app/apps/next/.next/standalone/node_modules ./node_modules
-COPY --from=builder --chown=nextjs:nodejs /app/apps/next/.next/static ./.next/static
-COPY --from=builder --chown=nextjs:nodejs /app/apps/next/public ./public
+COPY --from=builder --chown=root:root /app/apps/next/.next/standalone/apps/next ./
+COPY --from=builder --chown=root:root /app/apps/next/.next/standalone/node_modules ./node_modules
+COPY --from=builder --chown=root:root /app/apps/next/.next/static ./.next/static
+COPY --from=builder --chown=root:root /app/apps/next/public ./public
 
 #RUN mkdir -p /app/public/images \
 #   mount -t nfs -o nolock -o vers=4 nfs.n88club-stage.local:/mnt/k8sdata/em/www/web_static/static/nvclub/nova-club /app/public/images \
@@ -77,7 +87,7 @@ COPY --from=builder --chown=nextjs:nodejs /app/apps/next/public ./public
 # RUN chmod 600 /app/.rsyncd.secrets
 # RUN rsync -av --password-file=/app/.rsyncd.secrets /app/.next/static/ root@nfs-next.n88club.local::web_static/nova-club/next
 
-USER nextjs
+# USER nextjs
 
 EXPOSE 3000
 

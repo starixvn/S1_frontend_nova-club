@@ -1,3 +1,5 @@
+ARG ENV=prod
+
 FROM node:16-alpine AS base
 
 # This Dockerfile is copy-pasted into our main docs at /docs/handbook/deploying-with-docker.
@@ -15,6 +17,8 @@ RUN turbo prune --scope=rewards-next --docker
 
 # Add lockfile and package.json's of isolated subworkspace
 FROM base AS installer
+
+ARG ENV 
 RUN apk add --no-cache libc6-compat
 RUN apk update
 WORKDIR /app
@@ -37,7 +41,7 @@ COPY --from=builder /app/out/full/ .
 # ARG TURBO_TOKEN
 # ENV TURBO_TOKEN=$TURBO_TOKEN
 
-RUN yarn build:rewards
+RUN yarn build:rewards:${ENV}
 
 FROM base AS runner
 WORKDIR /app

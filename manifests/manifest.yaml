@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${KUBE_PODNAME}
+  labels:
+    run: ${KUBE_PODNAME}
+spec:
+  replicas: ${KUBE_REPLICA}
+  selector:
+    matchLabels:
+      run: ${KUBE_PODNAME}
+  template:
+    metadata:
+      labels:
+        run: ${KUBE_PODNAME}
+    spec:
+      containers:
+        - name: ${KUBE_PODNAME}
+          image: ${DOCKER_IMAGE_NAME}
+          resources:
+            limits:
+              cpu: ${KUBE_LIMIT_CPU}
+              memory: ${KUBE_LIMIT_MEMORY}
+            requests:
+              cpu: 500m
+              memory: 500Mi
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+      imagePullSecrets:
+        - name: regsecret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${KUBE_PODNAME}
+spec:
+  type: LoadBalancer
+  # loadBalancerIP: 10.17.102.3
+  loadBalancerIP: ${KUBE_LOADBALANCER}
+  ports:
+    - port: 80
+      targetPort: 3000
+      name: http
+  selector:
+    run: ${KUBE_PODNAME}

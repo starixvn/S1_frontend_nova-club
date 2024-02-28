@@ -1,0 +1,82 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  ENV: 'prod'
+  MAIN_IMAGE: 'hub.beacora.com/vui123/web-${ENV}:${CI_COMMIT_TAG}'
+  REWARDS_IMAGE: 'hub.beacora.com/vui123/web-rewards-${ENV}:${CI_COMMIT_TAG}'
+
+.build-template: &build_job
+  stage: build
+  image: docker
+  environment:
+    name: $ENV
+  script:
+    - docker build --build-arg="ENV=${ENV}" -t ${DOCKER_IMAGE_NAME} -f ${DOCKERFILE_NAME} .
+    - docker push ${DOCKER_IMAGE_NAME}
+    - echo "built ${DOCKER_IMAGE_NAME}"
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^ProdV/
+      when: always
+  tags:
+    - stgrun01
+
+.deploy-template: &deploy_job
+  stage: deploy
+  environment:
+    name: $ENV
+  script:
+    - echo "Deploying ${CI_COMMIT_TAG}"
+    - cat manifests/manifest.yaml | envsubst | kubectl --kubeconfig=../../../../../.kube/config apply -f -
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^ProdV/
+      when: always
+  tags:
+    - stgrun01
+
+build:
+  extends: .build-template
+  variables:
+    DOCKER_IMAGE_NAME: ${MAIN_IMAGE}
+    DOCKERFILE_NAME: 'Dockerfile'
+  <<: *build_job
+
+build-rewards:
+  extends: .build-template
+  variables:
+    DOCKER_IMAGE_NAME: ${REWARDS_IMAGE}
+    DOCKERFILE_NAME: 'Dockerfile.rewards'
+  <<: *build_job
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^ProdV/
+      when: manual
+
+deploy:
+  variables:
+    DOCKER_IMAGE_NAME: ${MAIN_IMAGE}
+    KUBE_PODNAME: 'stg-n88club-h5'
+    KUBE_REPLICA: '1'
+    KUBE_LOADBALANCER: '10.17.102.3'
+    KUBE_LIMIT_CPU: '1'
+    KUBE_LIMIT_MEMORY: '2000Mi'
+  needs: ['build']
+  <<: *deploy_job
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^ProdV/
+      when: manual
+
+deploy-rewards:
+  variables:
+    DOCKER_IMAGE_NAME: ${REWARDS_IMAGE}
+    KUBE_PODNAME: 'stg-n88club-h5-rewards'
+    KUBE_REPLICA: '1'
+    KUBE_LOADBALANCER: '10.17.102.4'
+    KUBE_LIMIT_CPU: '0.5'
+    KUBE_LIMIT_MEMORY: '1000Mi'
+  needs: ['build-rewards']
+  <<: *deploy_job
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^ProdV/
+      when: manual
+
