@@ -117,7 +117,7 @@ export default function SplashScreen() {
         source={
           isCNY
             ? require('app/assets/videos/cny-splash.mp4')
-            : require('app/assets/videos/mystery-splash.mp4')
+            : require('app/assets/videos/ms-splash.mp4')
         }
         resizeMode={ResizeMode.COVER}
         useNativeControls={false}
