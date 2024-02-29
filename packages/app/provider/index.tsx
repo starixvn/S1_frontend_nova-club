@@ -12,8 +12,16 @@ import { Dripsy } from './dripsy'
 import { LocalizationProviderRedux } from './localization'
 import ModalProvider from './modal'
 import ReduxProvider from './redux'
+import dayjs from 'dayjs'
+import isBetween from 'dayjs/plugin/isBetween'
+
+dayjs.extend(isBetween)
 
 export function Provider({ children }: { children: React.ReactNode }) {
+  const isCNY = dayjs().isBetween(
+    dayjs('2024-01-01T17:00:00.000Z'),
+    dayjs('2024-02-29T17:00:00.000Z')
+  )
   return (
     <Dripsy>
       <ReduxProvider>
@@ -26,7 +34,7 @@ export function Provider({ children }: { children: React.ReactNode }) {
               <Shield />
               <Notification />
               <ReferralTrigger />
-              <SakuraFall />
+              {isCNY && <SakuraFall />}
               <RegisterUniqueId />
               <OnlineTracking />
             </ModalProvider>

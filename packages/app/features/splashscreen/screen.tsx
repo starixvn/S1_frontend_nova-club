@@ -18,6 +18,7 @@ import CodePush from 'react-native-code-push'
 import { useRouter } from 'solito/router'
 import CodePushUpdateBar from './CodePushUpdateBar'
 import { checkMaintenance, checkVersionUpdated } from './splashScreenChecks'
+import { isCNY } from 'app/components/navigation/header/MainHeader'
 
 export default function SplashScreen() {
   const dispatch = useAppDispatch()
@@ -113,7 +114,11 @@ export default function SplashScreen() {
           //   height
           // ),
         }}
-        source={require('app/assets/videos/mystery-splash.mp4')}
+        source={
+          isCNY
+            ? require('app/assets/videos/cny-splash.mp4')
+            : require('app/assets/videos/mystery-splash.mp4')
+        }
         resizeMode={ResizeMode.COVER}
         useNativeControls={false}
       />

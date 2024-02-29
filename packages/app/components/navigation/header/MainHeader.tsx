@@ -42,15 +42,15 @@ dayjs.extend(isBetween)
 
 const LogoSize = [HEADER_HEIGHT * 0.5, HEADER_HEIGHT * 0.75]
 
+export const isCNY = dayjs().isBetween(
+  dayjs('2024-01-01T17:00:00.000Z'),
+  dayjs('2024-02-29T17:00:00.000Z')
+)
+
 const Logo = () => {
   const lang = useAppSelector((s) => s.setting.locale)
   const showTheme = useResponsiveValue([false, false, false, true])
   const themeLogoWidth = useResponsiveValue([0, 0, 0, 190, 260])
-
-  const isCNY = dayjs().isBetween(
-    dayjs('2024-01-01T17:00:00.000Z'),
-    dayjs('2024-02-29T17:00:00.000Z')
-  )
 
   const LOGO_PATH =
     lang === 'en'
