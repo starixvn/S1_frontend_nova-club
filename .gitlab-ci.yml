@@ -28,7 +28,7 @@ variables:
     name: $ENV
   script:
     - echo "Deploying ${CI_COMMIT_TAG}"
-    - cat manifests/manifest.yaml | envsubst | kubectl apply -f -
+    - cat manifests/manifest.yaml | envsubst | kubectl --kubeconfig=../../../../../.kube/config apply -f -
   rules:
     - if: $CI_COMMIT_TAG =~ /^ProdV/
       when: always
@@ -60,7 +60,9 @@ deploy:
     KUBE_LOADBALANCER: '10.17.102.3'
     KUBE_LIMIT_CPU: '1'
     KUBE_LIMIT_MEMORY: '2000Mi'
-  needs: ['build']
+  needs:
+    - job: build
+      optional: true
   <<: *deploy_job
   rules:
     - if: $CI_COMMIT_TAG =~ /^ProdV/
@@ -74,7 +76,9 @@ deploy-rewards:
     KUBE_LOADBALANCER: '10.17.102.4'
     KUBE_LIMIT_CPU: '0.5'
     KUBE_LIMIT_MEMORY: '1000Mi'
-  needs: ['build-rewards']
+  needs:
+    - job: build-rewards
+      optional: true
   <<: *deploy_job
   rules:
     - if: $CI_COMMIT_TAG =~ /^ProdV/
