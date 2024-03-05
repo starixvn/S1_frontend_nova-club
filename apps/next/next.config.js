@@ -30,6 +30,7 @@ const nextConfig = {
       'static-stage.gball8.com',
       'static.zzspeed.site',
       'bw88.io',
+      'static-stage.beviking.net',
     ],
   },
   reactStrictMode: false,
