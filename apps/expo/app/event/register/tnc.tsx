@@ -1,15 +1,13 @@
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import useLocalization from 'app/provider/localization'
-import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
-import { TempSettingActions } from 'app/store/tempSetting.slice'
+import { useAppSelector } from 'app/provider/redux/store'
 import { View } from 'dripsy'
 import { useRouter } from 'expo-router'
-import React, { useEffect } from 'react'
+import React from 'react'
 import WebView from 'react-native-webview'
 import { DEV_DOMAIN } from '../../../../next/config/env'
 
 const Tnc = () => {
-  const dispatch = useAppDispatch()
   const lang = useAppSelector((state) => state.setting.locale)
   const { t } = useLocalization()
   const { back } = useRouter()
