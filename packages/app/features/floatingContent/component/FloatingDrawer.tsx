@@ -34,9 +34,9 @@ const FloatingDrawer = ({
       <AnimatePresence>
         {visible && (
           <ContentOverlay
-            from={{ transform: [{ translateX: 100 }], opacity: 0 }}
+            from={{ transform: [{ translateX: -100 }], opacity: 0 }}
             animate={{ transform: [{ translateX: 0 }], opacity: 1 }}
-            exit={{ transform: [{ translateX: 100 }], opacity: 0 }}
+            exit={{ transform: [{ translateX: -100 }], opacity: 0 }}
             transition={{ type: 'timing', duration: 500 }}
           >
             <ContentOffset>{!isDesktop && <LiveChatButton />}</ContentOffset>
@@ -49,7 +49,7 @@ const FloatingDrawer = ({
 const FloatingContentContainer = styled(View)(
   ({ bottom, height, isDesktop }: FloatingContentContainerProps) => ({
     zIndex: 9,
-    right: 0,
+    left: 0,
     bottom,
     position: isDesktop ? 'fixed' : 'absolute',
     height,

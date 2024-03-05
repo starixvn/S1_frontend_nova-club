@@ -91,7 +91,7 @@ export default function GameList({
 
   useEffect(() => {
     if (seqTags.length) {
-      const defaultTag = tags.find((tag) => tag === HOT)
+      const defaultTag = tags.find((tag) => tag === ALL)
 
       startTransition(() => {
         setFilter(defaultTag ?? ALL)

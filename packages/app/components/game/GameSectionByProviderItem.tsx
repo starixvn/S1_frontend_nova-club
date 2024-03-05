@@ -23,6 +23,7 @@ import Button from '../common/Button'
 import GameListSectionGrid from './GameListSectionGrid'
 import { useGameCategoryTagTypesQuery } from 'services/gameApi'
 import sortBy from 'lodash/sortBy'
+import usePathname from 'app/hooks/usePathname'
 
 function GameSectionByProviderItem({
   gpc,
@@ -53,6 +54,7 @@ function GameSectionByProviderItem({
 
   const { data: gameCategoryTagTypes } = useGameCategoryTagTypesQuery()
   const { getTagName } = useGetTagName()
+  const pathname = usePathname()
 
   const tags = useMemo(() => {
     return games.reduce(
@@ -92,7 +94,9 @@ function GameSectionByProviderItem({
 
   useEffect(() => {
     if (seqTags.length) {
-      const defaultTag = tags.find((tag) => tag === HOT)
+      const defaultTag = tags.find((tag) =>
+        pathname.includes('/games') ? tag === ALL : tag === HOT
+      )
 
       startTransition(() => {
         setFilter(defaultTag ?? ALL)

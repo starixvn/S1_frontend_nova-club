@@ -6,8 +6,8 @@ import { useRouter } from 'solito/router'
 import { useHomeEvent } from '../../HomeEventProvider'
 type Props = {}
 
-const MysteryDropPriority = 40
-const MysteryDropSource = 'MysteryDrop'
+export const MysteryDropPriority = 40
+export const MysteryDropSource = 'MysteryDrop'
 // type UseQueryStateType = ReturnType<typeof useGetEligibleEventCoinQuery>
 
 export default function MysteryDropTrigger({}: Props) {
