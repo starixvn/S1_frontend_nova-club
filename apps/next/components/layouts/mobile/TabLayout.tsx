@@ -3,6 +3,7 @@ import BottomTabBar, {
   BOTTOM_TAB_BAR_HEIGHT,
 } from 'app/components/navigation/BottomTabBar'
 import MainHeader from 'app/components/navigation/header/MainHeader'
+import DraggableFloatingMystery from 'app/features/floatingContent/DraggableFloatingMystery'
 import { ReactNode } from 'react'
 import { HEADER_HEIGHT } from 'utils/constant'
 
@@ -37,6 +38,7 @@ const FloatedHeader = () => (
   </div>
 )
 
+//H5 floating mystery
 const FloatedBottomBar = () => {
   return (
     <div
@@ -49,6 +51,7 @@ const FloatedBottomBar = () => {
         height: BOTTOM_TAB_BAR_HEIGHT + 15,
       }}
     >
+      <DraggableFloatingMystery />
       <BottomTabBar />
     </div>
   )

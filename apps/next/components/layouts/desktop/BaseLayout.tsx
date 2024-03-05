@@ -1,5 +1,6 @@
 import LazyIndicator from 'app/components/LazyIndicator'
 import MainHeader from 'app/components/navigation/header/MainHeader'
+import DraggableFloatingMystery from 'app/features/floatingContent/DraggableFloatingMystery'
 import withLazyLoad from 'app/hoc/withLazyLoad'
 import LiveChat from 'components/LiveChat'
 import NavigationHeader, {
@@ -83,6 +84,8 @@ export default function BaseLayout({ children }: { children: ReactNode }) {
           </MotiView>
         )}
       </AnimatePresence>
+      {/** Desktop floating mystery */}
+      <DraggableFloatingMystery />
       <LiveChat />
       <LazyFooter />
     </div>

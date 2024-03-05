@@ -13,6 +13,7 @@ import { getRewardLauncherURL, getRewardTitleImage } from 'utils/rewards'
 import IconButton from '../IconButton'
 import Image from '../common/Image'
 import TransparentHeaderBackground from './components/TransparentHeaderBackground'
+import { eventApi } from 'services/eventApi'
 
 type RewardGameModalProps = ModalComponentProp<
   ModalStackParams,
@@ -50,6 +51,11 @@ const RewardGameModal = ({
 
     dispatch(
       rewardApi.endpoints.getCoin.initiate(undefined, {
+        forceRefetch: true,
+      })
+    )
+    dispatch(
+      eventApi.endpoints.getMysteryCheck.initiate(undefined, {
         forceRefetch: true,
       })
     )
