@@ -55,9 +55,9 @@ build-rewards:
 deploy:
   variables:
     DOCKER_IMAGE_NAME: ${MAIN_IMAGE}
-    KUBE_PODNAME: 'stg-n88club-h5'
-    KUBE_REPLICA: '1'
-    KUBE_LOADBALANCER: '10.17.102.3'
+    KUBE_PODNAME: 'prod-n88club-h5'
+    KUBE_REPLICA: '6'
+    KUBE_LOADBALANCER: '10.7.102.3'
     KUBE_LIMIT_CPU: '1'
     KUBE_LIMIT_MEMORY: '2000Mi'
   needs:
@@ -71,9 +71,9 @@ deploy:
 deploy-rewards:
   variables:
     DOCKER_IMAGE_NAME: ${REWARDS_IMAGE}
-    KUBE_PODNAME: 'stg-n88club-h5-rewards'
-    KUBE_REPLICA: '1'
-    KUBE_LOADBALANCER: '10.17.102.4'
+    KUBE_PODNAME: 'prod-n88club-h5-rewards'
+    KUBE_REPLICA: '2'
+    KUBE_LOADBALANCER: '10.7.102.4'
     KUBE_LIMIT_CPU: '0.5'
     KUBE_LIMIT_MEMORY: '1000Mi'
   needs:
