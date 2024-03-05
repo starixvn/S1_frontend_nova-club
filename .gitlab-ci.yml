@@ -20,7 +20,7 @@ variables:
     - if: $CI_COMMIT_TAG =~ /^ProdV/
       when: always
   tags:
-    - stgrun01
+    - gitrun01
 
 .deploy-template: &deploy_job
   stage: deploy
@@ -33,7 +33,7 @@ variables:
     - if: $CI_COMMIT_TAG =~ /^ProdV/
       when: always
   tags:
-    - stgrun01
+    - gitrun01
 
 build:
   extends: .build-template
