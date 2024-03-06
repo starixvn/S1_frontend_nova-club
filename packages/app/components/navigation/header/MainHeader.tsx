@@ -40,7 +40,7 @@ import HeaderLanguageToggle from './HeaderLanguageToggle'
 import HeaderOverview from './HeaderOverview'
 dayjs.extend(isBetween)
 
-const LogoSize = [HEADER_HEIGHT * 0.5, HEADER_HEIGHT * 0.9]
+const LogoSize = [HEADER_HEIGHT * 0.8, HEADER_HEIGHT * 0.9]
 
 export const isCNY = dayjs().isBetween(
   dayjs('2024-01-01T17:00:00.000Z'),
