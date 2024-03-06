@@ -212,7 +212,9 @@ const Retention3Content = memo(({}: Props) => {
                     <ActivityIndicator color="$primary.100" />
                   ) : (
                     <ButtonText>
-                      {redeemed ? t('common.playNow') : t('common.redeem')}
+                      {redeemed
+                        ? t('common.playNow').toUpperCase()
+                        : t('retention.redeem').toUpperCase()}
                     </ButtonText>
                   )}
                 </View>

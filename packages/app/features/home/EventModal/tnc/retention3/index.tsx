@@ -68,9 +68,9 @@ const Tnc = () => {
         `}</style>
 
         <View>
-          {isDesktop && <h2>{t('common.tnc')}</h2>}
+          {isDesktop && <h2>{t('common.tnc').toUpperCase()}</h2>}
           <h3>
-            <strong>{t('rewards.tnc.christmas.how')}</strong>
+            <strong>{t('rewards.tnc.christmas.how').toUpperCase()}</strong>
             <br />
           </h3>
 
