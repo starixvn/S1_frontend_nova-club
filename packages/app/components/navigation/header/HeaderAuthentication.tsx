@@ -18,13 +18,25 @@ const HeaderAuthentication = () => {
       }}
     >
       <Button
-        sx={{ minWidth: 100, borderRadius: 20 }}
+        sx={{ minWidth: 90, borderRadius: 20 }}
+        contentStyle={{
+          paddingLeft: 6,
+          paddingRight: 6,
+          paddingTop: 6,
+          paddingBottom: 6,
+        }}
         onPress={() => push('/auth/login')}
       >
         {t('authentication.login')}
       </Button>
       <Button
-        sx={{ bg: '$primary.300', minWidth: 100, borderRadius: 20 }}
+        sx={{ bg: '$primary.300', minWidth: 90, borderRadius: 20 }}
+        contentStyle={{
+          paddingLeft: 6,
+          paddingRight: 6,
+          paddingTop: 6,
+          paddingBottom: 6,
+        }}
         titleProps={{ sx: { fontSize: 14 } }}
         onPress={() => push('/auth/register')}
       >

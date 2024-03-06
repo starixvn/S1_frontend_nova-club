@@ -4,6 +4,8 @@ import { ScrollView, View } from 'dripsy'
 import React from 'react'
 import { useRouter } from 'solito/router'
 import AuthHeader from './components/AuthHeader'
+import DownloadButton from 'app/components/DownloadButton'
+import { Platform } from 'react-native'
 
 interface AuthLayoutProps {
   showBackButton?: boolean
@@ -45,6 +47,9 @@ export default function AuthLayout({
       >
         {/* <AuthBanner bannerRatio={BANNER_RATIO} /> */}
         <View sx={{ alignItems: 'center' }}>{children}</View>
+
+        {Platform.OS === 'web' && <DownloadButton />}
+
         <View sx={{ alignItems: 'center', mb: bottom + 8 }}>
           <LanguageSwitch />
         </View>

@@ -7,13 +7,14 @@ import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { copyToClipboard } from 'app/utils'
 import { Text, View } from 'dripsy'
 import React from 'react'
-import { ImageBackground } from 'react-native'
+import { ImageBackground, useWindowDimensions } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { DEV_DOMAIN } from '../../../../../apps/next/config/env'
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 
 const DrawerReferral = () => {
   const { t } = useLocalization()
+  const { height } = useWindowDimensions()
 
   const isLoggedIn = useAppSelector((s) => !!s.auth.info)
   const { data: playerData } = usePlayerProfileQuery(undefined, {
@@ -22,12 +23,14 @@ const DrawerReferral = () => {
 
   const referralLink = `${DEV_DOMAIN}/download?ref=${playerData?.referral_code}`
 
+  const referralHeight = height > 750 ? 300 : 200
+
   return (
     <View sx={{}}>
       <ImageBackground
         source={{ uri: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/banner_referral.jpg` }}
         style={{
-          height: 300,
+          height: referralHeight,
           width: '100%',
           alignItems: 'center',
           justifyContent: 'center',
