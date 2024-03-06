@@ -6,6 +6,8 @@ variables:
   ENV: 'prod'
   MAIN_IMAGE: 'hub.beacora.com/vui123/web-${ENV}:${CI_COMMIT_TAG}'
   REWARDS_IMAGE: 'hub.beacora.com/vui123/web-rewards-${ENV}:${CI_COMMIT_TAG}'
+  MAIN_VERSION_FILE: 'apps/next/public/v.json'
+  REWARDS_VERSION_FILE: 'apps/rewards-next/public/v.json'
 
 .build-template: &build_job
   stage: build
@@ -13,6 +15,7 @@ variables:
   environment:
     name: $ENV
   script:
+    - echo ${CI_COMMIT_TAG} > ${VERSION_FILE}
     - docker build --build-arg="ENV=${ENV}" -t ${DOCKER_IMAGE_NAME} -f ${DOCKERFILE_NAME} .
     - docker push ${DOCKER_IMAGE_NAME}
     - echo "built ${DOCKER_IMAGE_NAME}"
@@ -40,6 +43,7 @@ build:
   variables:
     DOCKER_IMAGE_NAME: ${MAIN_IMAGE}
     DOCKERFILE_NAME: 'Dockerfile'
+    VERSION_FILE: ${MAIN_VERSION_FILE}
   <<: *build_job
 
 build-rewards:
@@ -47,6 +51,7 @@ build-rewards:
   variables:
     DOCKER_IMAGE_NAME: ${REWARDS_IMAGE}
     DOCKERFILE_NAME: 'Dockerfile.rewards'
+    VERSION_FILE: ${REWARDS_VERSION_FILE}
   <<: *build_job
   rules:
     - if: $CI_COMMIT_TAG =~ /^ProdV/
