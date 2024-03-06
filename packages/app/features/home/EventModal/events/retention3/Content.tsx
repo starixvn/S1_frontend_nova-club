@@ -1,28 +1,27 @@
+import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
+import AvertaStd from 'app/assets/fonts/Averta'
 import { FONT_TOP_OFFSET } from 'app/constants/font'
+import useLocalization from 'app/provider/localization'
 import {
   ActivityIndicator,
-  Image,
   Pressable,
+  Row,
   ScrollView,
   Text,
   View,
   styled,
   useResponsiveValue,
 } from 'dripsy'
-import { AnimatePresence, MotiImage, MotiView, useAnimationState } from 'moti'
-import React, { memo, useMemo, useState } from 'react'
+import { AnimatePresence, MotiView } from 'moti'
+import React, { memo, useState } from 'react'
 import { ImageBackground } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { IResponse } from 'services/common/types'
 import { useClaimEventCoinMutation } from 'services/rewardApi'
 import { ClaimEventCoinResult } from 'services/rewardApi.type'
+import { SolitoImage } from 'solito/image'
 import { useRouter } from 'solito/router'
 import { useHomeEventModal } from '../../HomeEventModal'
-import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import useLocalization from 'app/provider/localization'
-import AvertaStd from 'app/assets/fonts/Averta'
-import { SolitoImage } from 'solito/image'
-import { Row } from 'dripsy'
 
 type Props = {}
 
@@ -62,11 +61,7 @@ const Retention3Content = memo(({}: Props) => {
   }
 
   return (
-    <View
-      sx={{
-        height: Math.min(height, imageHeight),
-      }}
-    >
+    <View sx={{ height: Math.min(height, imageHeight) }}>
       <ScrollView bounces={false}>
         <ImageBackground
           source={{
@@ -91,7 +86,7 @@ const Retention3Content = memo(({}: Props) => {
               >
                 <View
                   sx={{
-                    height: 80,
+                    height: 50,
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}
@@ -120,34 +115,37 @@ const Retention3Content = memo(({}: Props) => {
                       sx={{
                         mt: FONT_TOP_OFFSET,
                         fontWeight: 'bold',
-                        fontSize: 20,
+                        fontSize: [18, 20],
                       }}
                     >
                       {t('retention.receive')}
                     </Text>
-                    {amount ? (
-                      <Row sx={{ alignItems: 'center' }}>
-                        <Text
-                          sx={{
-                            mt: FONT_TOP_OFFSET,
-                            alignSelf: 'center',
-                            mr: ['$1', '$1', '$2', '$2'],
-                            fontWeight: 'bold',
-                            fontSize: [18, 18, 18, 32],
-                          }}
-                        >
-                          {amount}
-                        </Text>
-                        <SolitoImage
-                          src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/coin.png`}
-                          height={25}
-                          width={25}
-                          alt=""
-                        />
-                      </Row>
-                    ) : (
-                      <ActivityIndicator color="$primary.100" />
-                    )}
+
+                    <View sx={{ mt: '$2' }}>
+                      {amount ? (
+                        <Row sx={{ alignItems: 'center' }}>
+                          <Text
+                            sx={{
+                              mt: FONT_TOP_OFFSET,
+                              alignSelf: 'center',
+                              mr: ['$1', '$1', '$2', '$2'],
+                              fontWeight: 'bold',
+                              fontSize: [18, 18, 18, 32],
+                            }}
+                          >
+                            {amount}
+                          </Text>
+                          <SolitoImage
+                            src={`${MEDIA_DOMAIN}${CONTENT_URI}/rewards/coin.png`}
+                            height={25}
+                            width={25}
+                            alt=""
+                          />
+                        </Row>
+                      ) : (
+                        <ActivityIndicator color="$primary.100" />
+                      )}
+                    </View>
                   </View>
                 </View>
               </MotiView>
@@ -255,6 +253,7 @@ const BoldText = styled(Text)({
   width: 180,
   fontSize: 24,
   textAlign: 'center',
+  lineHeight: 28,
 })
 
 const ScrollText = styled(BoldText)({
@@ -269,6 +268,7 @@ const CongratsText = styled(BoldText)({
   width: 350,
   fontSize: 32,
   color: '#FFBA00',
+  lineHeight: 40,
 })
 
 export default Retention3Content
