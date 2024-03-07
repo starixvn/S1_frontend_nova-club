@@ -22,12 +22,8 @@ export default function Drawer({ children }) {
   })
   const isDesktop = useIsDesktop()
   const { isOpen, toggleDrawer } = useDrawer()
-  const [offsetTop, setOffsetTop] = useState(0)
 
   useEffect(() => {
-    if (Platform.OS === 'web') {
-      setOffsetTop(document.documentElement.scrollTop)
-    }
     if (isOpen) {
       useDrawerAnimation.transitionTo('toggle')
       Platform.OS === 'web' &&
@@ -37,7 +33,7 @@ export default function Drawer({ children }) {
       Platform.OS === 'web' &&
         document.documentElement.classList.remove('overflow-hidden')
     }
-  }, [isOpen, useDrawerAnimation, width, isDesktop])
+  }, [isOpen, useDrawerAnimation, width])
 
   return (
     <View
@@ -51,7 +47,7 @@ export default function Drawer({ children }) {
       <DrawerContainer
         width={drawerWidth}
         height={drawerHeight}
-        offsetTop={top + offsetTop}
+        offsetTop={top}
         state={useDrawerAnimation}
         transition={{ type: 'timing' }}
       >
