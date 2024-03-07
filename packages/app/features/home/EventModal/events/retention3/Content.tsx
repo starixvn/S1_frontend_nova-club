@@ -45,7 +45,7 @@ const Retention3Content = memo(({}: Props) => {
 
   async function redeem() {
     setRedeemed(!redeemed)
-    const { data, success } = await redeemCoin('upload3')
+    const { data, success } = await redeemCoin('retention3')
       .unwrap()
       .catch((e: IResponse<ClaimEventCoinResult>) => {
         closeModal()

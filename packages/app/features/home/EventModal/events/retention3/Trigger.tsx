@@ -23,7 +23,7 @@ export default function Retention3Trigger({}: Props) {
         })
       )
         .unwrap()
-        .then((r) => r.data?.list?.some((e) => e.event_code === 'upload3'))
+        .then((r) => r.data?.list?.some((e) => e.event_code === 'retention3'))
 
       if (isEligible)
         addResult({
