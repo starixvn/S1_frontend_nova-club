@@ -77,5 +77,5 @@ export async function isURLSupported(platform: SocialMedia) {
 
   const supported = await Linking.canOpenURL(scheme)
 
-  return supported ? scheme : backUpScheme
+  return scheme !== '' && supported ? scheme : backUpScheme
 }

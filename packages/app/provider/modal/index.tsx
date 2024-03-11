@@ -58,6 +58,9 @@ type DefaultModalStackParams = {
   RegisterModal: {
     t: LoginType
   }
+  LoginModal: {
+    t: LoginType
+  }
   DownloadGuideModal: {
     label: string
     onClose(...args: any): any
@@ -129,6 +132,8 @@ const _dynamicModal: Record<keyof ModalStackParams, () => Promise<any>> = {
     import('app/features/deposit/bank-transfer/DepositConfirmationModal'),
   RegisterModal: () =>
     import('desktop-ext/features/auth/register/RegisterScreen'),
+  LoginModal: () =>
+    import('desktop-ext/features/auth/login/LoginScreenDesktop'),
   AgentLoginModal: () =>
     import('desktop-ext/features/auth/login/LoginScreenDesktop'),
   DepositCryptoModal: () =>
@@ -196,6 +201,10 @@ const modalConfig: ModalConfigType = {
   },
   RegisterModal: {
     modal: getDynamicComponent('RegisterModal'),
+    backBehavior: 'none',
+  },
+  LoginModal: {
+    modal: getDynamicComponent('LoginModal'),
     backBehavior: 'none',
   },
   AgentLoginModal: {

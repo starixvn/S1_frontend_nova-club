@@ -189,6 +189,10 @@ export type PlayerRealNameArgs = {
   realName: string
 }
 
+export type EligibleSpinArgs = {
+  code?: string
+}
+
 export type EligibleSpinResult = {
   details: EligibleSpinItem[]
 }
