@@ -3,6 +3,7 @@ export const HEADER_HEIGHT = 60
 export enum LANGUAGE_CODE {
   ENGLISH = 'en',
   VIETNAM = 'vi',
+  THAILAND = 'th',
 }
 
 export enum LANGUAGE_NAMESPACE {
@@ -37,7 +38,7 @@ export const currencyListMapper: { [key: number]: string } = {
 
 export enum Currency {
   // MYR = 2,
-  // THB = 4,
+  THB = 'THB',
   // RMB = 13,
   // IDR = 15,
   VND = 'VND',

@@ -21,6 +21,11 @@ import { useRouter } from 'solito/router'
 import { DEV_DOMAIN } from '../../../../../apps/next/config/env'
 import ReceiveOTPContact from '../components/ReceiveOTPContact'
 import { RegisterFormValues } from './RegisterScreen'
+import SelectList from 'app/components/select/SelectList'
+import {
+  CURRENCY_SELECTION,
+  MOBILE_PREFIX_BY_CURRENCY,
+} from 'app/config/currency'
 
 const StyledFormContainer = styled(FormContainer)({
   py: '$4',
@@ -84,7 +89,8 @@ const AccountVerificationForm = ({
       const { data, message, success } = await sendOtp({
         username: values.username?.toLowerCase(),
         // WIP: Prefix should not be hardcoded
-        contactNumber: '84' + values.contactNumber,
+        contactNumber:
+          MOBILE_PREFIX_BY_CURRENCY[values.currency] + values.contactNumber,
       }).unwrap()
 
       OTPRef.current?.startOtpTimer()
@@ -139,13 +145,30 @@ const AccountVerificationForm = ({
     isDesktop ? Linking.openURL(tncUrl) : push('/info/tnc')
   }
 
+  const handleSelected = (value) => {
+    const currency = CURRENCY_SELECTION?.find((el) => el.value === value)
+
+    setFieldValue('currency', currency?.value)
+  }
+
+  console.log('values', values)
+
   return (
     <StyledFormContainer {...rest}>
+      <SelectList
+        enabledLabel={false}
+        label={t('common.currency')}
+        placeholder={t('common.currency')}
+        options={CURRENCY_SELECTION}
+        value={values.currency}
+        onSelected={(e) => handleSelected(e)}
+      />
+
       <Input
         inputContainerSx={{ width: '100%' }}
         icon="icon-hp"
         textContentType="telephoneNumber"
-        prefix="+84"
+        prefix={'+' + MOBILE_PREFIX_BY_CURRENCY[values.currency]}
         inputMode="numeric"
         keyboardType="number-pad"
         maxLength={9}

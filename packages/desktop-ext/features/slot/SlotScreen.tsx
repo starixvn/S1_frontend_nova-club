@@ -21,6 +21,7 @@ import { Platform } from 'react-native'
 import { useBannerQuery } from 'services/contentApi'
 import { useGameListMultipleQuery } from 'services/gameApi'
 import { Game, LatestWinnerType } from 'services/gameApi.type'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import { createParam } from 'solito'
 import { SolitoImage } from 'solito/image'
 import { GAME_TYPE_CODE, ProviderImageCategory } from 'utils/constant'
@@ -45,7 +46,8 @@ function SlotScreen({}: Props) {
 
   const [filteredGames, setFilteredGames] = useState<Game[]>()
 
-  const { data: banner } = useBannerQuery()
+  const { currency } = usePlayerProfileQuery()
+  const { data: banner } = useBannerQuery({ currency })
   const bannerList = banner?.filter((el) => el.banner_display_page === 'slots')
 
   const { data: games } = useGameListMultipleQuery({

@@ -2,7 +2,7 @@ import { API_DOMAIN, API_KEY } from '@env'
 import { EnhancedStore } from '@reduxjs/toolkit'
 import { RootState } from 'app/provider/redux/store'
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
-import { LANGUAGE_CODE } from 'utils/constant'
+import { Currency, LANGUAGE_CODE } from 'utils/constant'
 import { getUserAgent } from 'utils/deviceInfo'
 import { appendFpsParams, getFpsParams } from 'utils/fps/fpsGenerator'
 
@@ -63,6 +63,7 @@ const onRequestFullfilled = async (config: AxiosRequestConfig) => {
   type RequestParams = {
     black_b?: string
     username?: string
+    currency?: string
   } & Partial<ReturnType<typeof getFpsParams>>
 
   let { url, headers, baseURL } = config
@@ -94,10 +95,23 @@ const onRequestFullfilled = async (config: AxiosRequestConfig) => {
       }
     }
 
+    // Multi currency API mandatory params
+    if (!config.data || 'currency' in config.data === false)
+      requestParams.currency = state?.setting.currency
+
     config.headers = {
       ...headers,
       api_key: API_KEY,
     }
+
+    //Replace multi currency url
+    const positionToInsert = url.indexOf('/', 2)
+    const newUrl =
+      url.slice(0, positionToInsert) + '/v1' + url.slice(positionToInsert)
+
+    config.baseURL = baseURL.replace('/v1', '')
+    config.url = newUrl
+
     console.log(`Request ${config.url} : `, config.data)
   }
 
@@ -154,6 +168,7 @@ const onRequestFullfilled = async (config: AxiosRequestConfig) => {
   const userAgent = await getUserAgent()
   if (userAgent) config.headers['X-Useragent'] = userAgent
 
+  console.log('CONFIG>>>', config.data)
   return config
 }
 

@@ -13,6 +13,7 @@ import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { ReactNode, useEffect, useState } from 'react'
 import { HEADER_HEIGHT } from 'utils/constant'
+import FloatingOverlay from 'app/features/floatingContent/FloatingOverlay'
 
 const Footer = dynamic(() => import('desktop-ext/components/layout/Footer'), {
   loading: () => <LazyIndicator />,
@@ -88,6 +89,7 @@ export default function BaseLayout({ children }: { children: ReactNode }) {
       <DraggableFloatingMystery />
       <LiveChat />
       <LazyFooter />
+      <FloatingOverlay />
     </div>
   )
 }

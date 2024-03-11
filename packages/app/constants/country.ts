@@ -3,5 +3,6 @@ export enum COUNTRY_CODE {
 }
 
 export enum MOBILE_PREFIX {
-  VND = '+84',
+  VND = '84',
+  THB = '66',
 }

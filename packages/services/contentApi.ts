@@ -13,15 +13,16 @@ import {
   LeaderboardResult,
   RankingItem,
 } from './contentApi.type'
+import { Currency } from 'utils/constant'
 
 /**
  * @param builder Pass builder from `createApi` *endpoints*
  */
 export const contentApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
-    banner: builder.query<BannerItem[], void>({
-      query: () => ({
-        url: `/static_api/getBannerList`,
+    banner: builder.query<BannerItem[], { currency: Currency }>({
+      query: ({ currency }) => ({
+        url: `/static_api/bannerList/${currency ?? Currency.VND}`,
         method: 'GET',
       }),
       transformResponse: ({ data }: { data: BannerResult }) => {

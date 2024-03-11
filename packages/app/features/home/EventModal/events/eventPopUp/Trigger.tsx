@@ -3,18 +3,22 @@ import dynamic from 'next/dynamic'
 import React, { useEffect } from 'react'
 import { contentApi } from 'services/contentApi'
 import { useHomeEvent } from '../../HomeEventProvider'
+import { usePlayerProfileQuery } from 'services/playerApi'
 type Props = {}
 
 const EventPopUpPriority = 0
 const EventPopUpSource = 'EventPopUp'
 export default function EventPopUpTrigger({}: Props) {
+  const { currency } = usePlayerProfileQuery()
   const { addResult, flagCompletedChecking } = useHomeEvent()
 
   const dispatch = useAppDispatch()
 
   async function filterAppearingBanners() {
     try {
-      const popups = await dispatch(contentApi.endpoints.banner.initiate())
+      const popups = await dispatch(
+        contentApi.endpoints.banner.initiate({ currency })
+      )
         .unwrap()
         .then((r) => r.filter((b) => b.banner_display_page === 'popup'))
 

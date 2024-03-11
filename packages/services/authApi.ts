@@ -61,12 +61,9 @@ export const authApi = baseApiWithTag.injectEndpoints({
       IResponse<{ verify_code: string }>,
       RegisterOtpQueryArgs
     >({
-      query: ({ contactNumber, username }) => ({
+      query: (queryArgs) => ({
         url: `/player_api/sendRegistrationOtp`,
-        data: {
-          contactNumber,
-          username,
-        },
+        data: { ...queryArgs },
       }),
     }),
     sendPasswordRecoveryOtp: builder.mutation<

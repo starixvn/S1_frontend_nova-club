@@ -16,6 +16,7 @@ import React, { useMemo } from 'react'
 import { useBannerQuery } from 'services/contentApi'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import { GAME_TYPE_CODE } from 'utils/constant'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 
@@ -23,7 +24,8 @@ export default function LiveCasinoScreen() {
   const { data } = useGetGameListByCategoryQuery([GAME_TYPE_CODE.LIVE_DEALER])
   const { t } = useLocalization()
   const commissionList = GetCommissionList()
-  const { data: banner } = useBannerQuery()
+  const { currency } = usePlayerProfileQuery()
+  const { data: banner } = useBannerQuery({ currency })
   const bannerList = banner?.filter(
     (el) => el.banner_display_page === 'live_casino'
   )

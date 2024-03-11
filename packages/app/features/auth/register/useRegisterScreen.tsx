@@ -7,7 +7,7 @@ import useContainerWidth from 'app/hooks/useContainerWidth'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { AuthActions } from 'app/store/authReducer'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
-import { APP_DEVICE_ANDROID, APP_DEVICE_IOS } from 'utils/constant'
+import { APP_DEVICE_ANDROID, APP_DEVICE_IOS, Currency } from 'utils/constant'
 import { isBannedTrackingCode } from 'app/utils/referralUtil'
 import validation from 'app/utils/validation'
 import { FormikHelpers, useFormik } from 'formik'
@@ -32,6 +32,7 @@ import { LoginType } from '../AuthLayout'
 import { RegisterFormValues } from './RegisterScreen'
 import { agentRoute, memberRoute } from '../login/LoginScreen'
 import useLocalization from 'app/provider/localization'
+import { MOBILE_PREFIX_BY_CURRENCY } from 'app/config/currency'
 
 const { useParam } = createParam<{ t: LoginType }>()
 
@@ -112,6 +113,7 @@ export default function useRegisterScreen(
       confirmPassword,
       verifyCode,
       terms,
+      currency,
       contactNumber,
     }: RegisterFormValues,
     { setStatus }: FormikHelpers<RegisterFormValues>
@@ -120,8 +122,9 @@ export default function useRegisterScreen(
       username,
       password,
       cpassword: confirmPassword,
+      currency,
       // WIP: Prefix should not be hardcoded
-      contactNumber: '84' + contactNumber,
+      contactNumber: MOBILE_PREFIX_BY_CURRENCY[currency] + contactNumber,
       terms,
       tracking_code: !!agentToken
         ? ''
@@ -266,6 +269,7 @@ export default function useRegisterScreen(
       username: '',
       password: '',
       confirmPassword: '',
+      currency: Currency.VND,
       contactNumber: '',
       verifyCode: '',
       terms: false,
@@ -275,6 +279,7 @@ export default function useRegisterScreen(
       password: validation.password,
       confirmPassword: validation.confirmPassword,
       contactNumber: validation.phoneNumber,
+      currency: validation.stringRequired,
       verifyCode: validation.verifyCode,
       terms: Yup.bool()
         .required('validation.required')

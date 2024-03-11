@@ -9,6 +9,7 @@ import uniqBy from 'lodash/uniqBy'
 import React, { useEffect, useMemo } from 'react'
 import { useBannerQuery } from 'services/contentApi'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import { createParam } from 'solito'
 import { GAME_TYPE_CODE, ProviderImageCategory } from 'utils/constant'
 
@@ -31,7 +32,8 @@ export default function LiveCasinoScreen({}: Props) {
     GAME_TYPE_CODE.LIVE_DEALER,
   ])
 
-  const { data: banner } = useBannerQuery()
+  const { currency } = usePlayerProfileQuery()
+  const { data: banner } = useBannerQuery({ currency })
   const bannerList = banner?.filter(
     (el) => el.banner_display_page === 'live_casino'
   )

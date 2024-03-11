@@ -94,8 +94,7 @@ const ForgotPasswordForm = ({
   const sendOTP = async () => {
     try {
       const { data, message, success } = await sendOtp({
-        contactNumber:
-          MOBILE_PREFIX.VND.replace('+', '') + values.contactNumber,
+        contactNumber: MOBILE_PREFIX.VND + values.contactNumber,
       })
         .unwrap()
         .catch((error) => {

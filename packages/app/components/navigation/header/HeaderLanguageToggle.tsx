@@ -2,21 +2,36 @@ import { DripsyGradient } from 'app/components/Gradient'
 import { LanguageButton } from 'app/components/LanguageSwitch'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
-import { LANGUAGE_CODE } from 'utils/constant'
+import { TempSettingActions } from 'app/store/tempSetting.slice'
 import { View, styled } from 'dripsy'
 import React from 'react'
+import { contentApi } from 'services/contentApi'
+import { usePlayerProfileQuery } from 'services/playerApi'
+import { LANGUAGE_CODE } from 'utils/constant'
+import LanguageDropdown from '../LanguageDropdown'
 
 type Props = {}
 
 export default function HeaderLanguageToggle({}: Props) {
   const dispatch = useAppDispatch()
+  const { currency } = usePlayerProfileQuery()
+
   const lang = useAppSelector((state) => state.setting.locale)
+  const isLanguageMenuVisible = useAppSelector(
+    (s) => s.tempSetting.isLanguageMenuVisible
+  )
+
   const setLanguage = (value: LANGUAGE_CODE) => {
     dispatch(SettingActions.setLocale(value))
+    dispatch(
+      contentApi.endpoints.banner.initiate({ currency }, { forceRefetch: true })
+    )
   }
   const onChangeLanguage = (value: LANGUAGE_CODE) => {
-    setLanguage(value)
+    // setLanguage(value)
+    dispatch(TempSettingActions.setIsOverlayVisible(!isLanguageMenuVisible))
   }
+
   return (
     <HeaderLanguageButtonContainer>
       <HeaderLanguageButtonInnerContainer gradient="button">
@@ -33,6 +48,8 @@ export default function HeaderLanguageToggle({}: Props) {
           imageSx={{ borderWidth: 1.5 }}
         />
       </HeaderLanguageButtonInnerContainer>
+
+      <LanguageDropdown />
     </HeaderLanguageButtonContainer>
   )
 }
@@ -42,6 +59,8 @@ const HeaderLanguageButtonContainer = styled(View)({
   borderRadius: 50,
   alignItems: 'center',
   justifyContent: 'center',
+  zIndex: 100,
+  position: 'relative',
 })
 
 const HeaderLanguageButtonInnerContainer = styled(DripsyGradient)({

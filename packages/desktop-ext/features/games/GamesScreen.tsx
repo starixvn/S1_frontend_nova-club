@@ -20,6 +20,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { Platform } from 'react-native'
 import { useBannerQuery } from 'services/contentApi'
 import { LatestWinnerType } from 'services/gameApi.type'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import { SolitoImage } from 'solito/image'
 import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'utils/constant'
 import GameList from './GameList'
@@ -32,7 +33,8 @@ function GamesScreen({}: Props) {
     useGameScreen(SUB_ROUTES.local.route)
   const showSlotVideo = useResponsiveValue([false, false, false, false, true])
 
-  const { data: banner } = useBannerQuery()
+  const { currency } = usePlayerProfileQuery()
+  const { data: banner } = useBannerQuery({ currency })
   const bannerList = banner?.filter(
     (el) => el.banner_display_page === 'local_game'
   )

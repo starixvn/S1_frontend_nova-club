@@ -137,6 +137,7 @@ const MainHeader = () => {
         // bg: '$primary.500',
         bg: '#3A3A66',
         // bg: window.screen.colorDepth < 30 ? '#32325b' : '#3A3A66',
+        zIndex: 1,
       }}
     >
       <StatusBar style="light" />

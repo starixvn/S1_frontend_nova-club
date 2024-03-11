@@ -1,17 +1,22 @@
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
-import { LANGUAGE_CODE } from 'utils/constant'
 import { Image, Pressable, SxProp, View } from 'dripsy'
+import { AnimatePresence, MotiView } from 'moti'
 import React, { useState } from 'react'
 import { ViewProps } from 'react-native'
-import { usePlayerLangMutation } from '../../services/playerApi'
-import { AnimatePresence, MotiImage, MotiView } from 'moti'
+import { contentApi } from 'services/contentApi'
+import { LANGUAGE_CODE } from 'utils/constant'
+import {
+  usePlayerLangMutation,
+  usePlayerProfileQuery,
+} from '../../services/playerApi'
 
 const LANGUAGE_BUTTON_SIZE = 25
 
 const LANGUAGE_TO_FLAG_ICON = {
   [LANGUAGE_CODE.ENGLISH]: require('../assets/images/common/en.jpg'),
   [LANGUAGE_CODE.VIETNAM]: require('../assets/images/common/vn.jpg'),
+  [LANGUAGE_CODE.THAILAND]: require('../assets/images/common/th.jpg'),
 }
 
 const enum UPDATE_STATE {
@@ -83,6 +88,7 @@ export default function LanguageSwitch({ ...rest }: ViewProps) {
   const lang = useAppSelector((state) => state.setting.locale)
   const [updateState, setUpdateState] = useState(UPDATE_STATE.COMPLETED)
   const [updateLanguage] = usePlayerLangMutation()
+  const { currency } = usePlayerProfileQuery()
 
   const submitLanguage = async (value: LANGUAGE_CODE) => {
     if (updateState === UPDATE_STATE.UPDATING) return
@@ -109,6 +115,9 @@ export default function LanguageSwitch({ ...rest }: ViewProps) {
 
   const setLanguage = (value: LANGUAGE_CODE) => {
     dispatch(SettingActions.setLocale(value))
+    dispatch(
+      contentApi.endpoints.banner.initiate({ currency }, { forceRefetch: true })
+    )
   }
 
   const onChangeLanguage = (value: LANGUAGE_CODE) => {

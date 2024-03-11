@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import dayjs, { Dayjs } from 'dayjs'
 import { LaunchGamePayload } from './gameLauncher.slice'
 import { isBannedTrackingCode } from 'app/utils/referralUtil'
-import { LANGUAGE_CODE } from 'utils/constant'
+import { Currency, LANGUAGE_CODE } from 'utils/constant'
 import { tolgee } from 'app/integrations/tolgee'
 
 interface PopUpExpire {
@@ -26,6 +26,7 @@ interface Credential {
 
 export interface Setting {
   locale: LANGUAGE_CODE
+  currency: Currency
   referral?: Referral
   shieldSessionID?: string
   popUpExpiry: PopUpExpire
@@ -56,6 +57,7 @@ export interface Setting {
 
 const initialState: Setting = {
   locale: LANGUAGE_CODE.VIETNAM,
+  currency: Currency.VND,
   popUpExpiry: {},
   recentGames: [],
   recentGameResources: {},
@@ -77,6 +79,9 @@ const settingSlice = createSlice({
     setLocale: (state, action: PayloadAction<string>) => {
       tolgee.changeLanguage(action.payload)
       state.locale = action.payload as LANGUAGE_CODE
+    },
+    setCurrency: (state, action: PayloadAction<string>) => {
+      state.currency = action.payload as Currency
     },
     setPopUpExpiry: (state, action: PayloadAction<string>) => {
       state.popUpExpiry[action.payload] = dayjs().add(1, 'day')

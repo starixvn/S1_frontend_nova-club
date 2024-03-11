@@ -26,13 +26,13 @@ import agentAuthReducer from 'agent/store/agentAuthReducer'
 import { localizationApi } from 'services/localizationApi'
 
 const migrations = {
-  6: (s: PersistedState) => {},
   7: (s: PersistedState) => {},
+  8: (s: PersistedState) => {},
 }
 
 const persistConfig: PersistConfig<any> = {
   key: 'root',
-  version: 7,
+  version: 8,
   storage,
   whitelist: ['auth', 'agent', 'setting'],
   migrate: createMigrate(migrations, { debug: true }),

@@ -8,10 +8,11 @@ import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
 import groupBy from 'lodash/groupBy'
 import uniqBy from 'lodash/uniqBy'
-import React, { useCallback, useEffect, useMemo, useRef } from 'react'
+import { default as React, default as React, useCallback, useEffect, useMemo, useRef } from 'react'
 import { Platform } from 'react-native'
 import { useBannerQuery } from 'services/contentApi'
 import { useGameListMultipleQuery } from 'services/gameApi'
+import { usePlayerProfileQuery } from 'services/playerApi'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 import { GAME_TYPE_CODE, ProviderImageCategory } from 'utils/constant'
@@ -40,7 +41,8 @@ function SlotScreen() {
     },
   })
 
-  const { data: banner } = useBannerQuery()
+  const { currency } = usePlayerProfileQuery()
+  const { data: banner } = useBannerQuery({ currency })
   const bannerList = banner?.filter((el) => el.banner_display_page === 'slots')
 
   const { data: games, isUninitialized } = useGameListMultipleQuery({

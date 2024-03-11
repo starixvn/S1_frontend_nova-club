@@ -66,7 +66,7 @@ function useForgotPassword(rootView: RefObject<RNView>, modalType?: LoginType) {
           password,
           cpassword: confirmPassword,
           // WIP: Prefix should not be hardcoded
-          contactNumber: MOBILE_PREFIX.VND.replace('+', '') + contactNumber,
+          contactNumber: MOBILE_PREFIX.VND + contactNumber,
           verify_code: verifyCode,
         })
           .unwrap()
