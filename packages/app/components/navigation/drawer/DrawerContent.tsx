@@ -1,19 +1,22 @@
+import { REFERRAL_DOMAIN } from '@env'
 import Icon from 'app/components/Icon'
+import ShadowButton from 'app/components/ShadowButton'
+import Button from 'app/components/common/Button'
 import { LoginType } from 'app/features/auth/AuthLayout'
+import useSupportItemList from 'app/features/customerSupport/useSupportItemList'
 import useAlert from 'app/hooks/useAlert'
 import { useDrawer } from 'app/hooks/useDrawer'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useOnAppLogout from 'app/hooks/useOnAppLogout'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { Pressable, ScrollView, Text, View } from 'dripsy'
+import { Pressable, Row, ScrollView, Text, View } from 'dripsy'
 import React, { useEffect, useRef } from 'react'
-import { ScrollView as rScrollView } from 'react-native'
+import { Linking, Platform, ScrollView as rScrollView } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
-import DrawerReferral from './DrawerReferral'
 import CodePushStatus from './CodePushStatus'
-import Button from 'app/components/common/Button'
+import DrawerReferral from './DrawerReferral'
 
 export default function DrawerContent() {
   const { t } = useLocalization()
@@ -22,6 +25,7 @@ export default function DrawerContent() {
   const { logout } = useOnAppLogout()
   const desktop = useIsDesktop()
   const { showAlert } = useAlert()
+  const mediaList = useSupportItemList()
   const scrollRef = useRef<rScrollView>(null)
 
   const isAgentLoggedIn = useAppSelector((s) => !!s.agent.access_token)
@@ -107,6 +111,14 @@ export default function DrawerContent() {
         push('/account/customer-support')
       },
     },
+    {
+      iconName: 'app-download',
+      text: 'common.download',
+      onPress: () => {
+        Linking.openURL(REFERRAL_DOMAIN)
+      },
+      visible: Platform.OS === 'web',
+    },
   ]
 
   const handleDismiss = () => {
@@ -129,7 +141,7 @@ export default function DrawerContent() {
         bounces={false}
       >
         <View>
-          {MENU_LIST.map((item, index) => {
+          {MENU_LIST.filter((el) => el.visible !== false).map((item, index) => {
             return (
               <Pressable
                 key={index}
@@ -159,6 +171,36 @@ export default function DrawerContent() {
             )
           })}
         </View>
+
+        <Row
+          sx={{
+            justifyContent: 'space-evenly',
+            alignItems: 'center',
+            my: '$3',
+          }}
+        >
+          {mediaList.map((item) => (
+            <Pressable
+              key={item.icon}
+              onPress={() => {
+                console.log('first')
+                if (Platform.OS !== 'web') Linking.openURL(item.href)
+              }}
+              href={item.href}
+              hrefAttrs={{
+                rel: 'noreferrer',
+                target: '_blank',
+              }}
+            >
+              <ShadowButton
+                containerStyle={{ aspectRatio: 1 / 1, borderRadius: 50 }}
+              >
+                <Icon name={item.icon} size={24} style={{ padding: 6 }} />
+              </ShadowButton>
+            </Pressable>
+          ))}
+        </Row>
+
         <Button
           leftIcon={{ name: 'logout' }}
           sx={{
