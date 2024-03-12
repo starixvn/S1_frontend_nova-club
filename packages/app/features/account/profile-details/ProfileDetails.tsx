@@ -57,7 +57,7 @@ const ProfileDetails = () => {
         const { success, message } = await updatePlayerName({
           realName: sanitizedRealName,
           dob: typeof dob === 'string' ? dob : dayjs(dob).format('YYYY-MM-DD'),
-          telegram_id: telegram,
+          telegram_id: telegram ? telegram : undefined,
         })
           .unwrap()
           .catch((e: IResponse) => {
@@ -87,13 +87,13 @@ const ProfileDetails = () => {
     },
     validationSchema: Yup.object({
       realName: validation.vietnameseCharacter,
-      dob: Yup.date()
-        .required('validation.required')
-        .max(
-          dayjs().subtract(18, 'year').add(1, 'day').startOf('date').toDate(),
-          'validation.dobMinAge'
-        ),
-      telegram: validation.stringRequired,
+      // dob: Yup.date()
+      //   .required('validation.required')
+      //   .max(
+      //     dayjs().subtract(18, 'year').add(1, 'day').startOf('date').toDate(),
+      //     'validation.dobMinAge'
+      //   ),
+      // telegram: validation.stringRequired,
     }),
     onSubmit,
   })
