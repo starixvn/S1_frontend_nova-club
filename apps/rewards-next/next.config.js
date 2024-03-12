@@ -21,6 +21,10 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'static-stage.beviking.net',
+      },
+      {
+        protocol: 'https',
         hostname: 'static.zzspeed.site',
       },
     ],
