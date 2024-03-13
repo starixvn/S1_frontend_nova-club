@@ -29,19 +29,19 @@ export default function ReferralTrigger({}) {
     if (ref) {
       const filterRef = ref.replace(/[^0-9a-zA-Z]/g, '')
 
-      if (!referral || filterRef !== referral.trackingCode) {
-        dispatch(
-          SettingActions.setReferral({
-            trackingCode: ref,
-          })
-        )
+      // if (!referral || filterRef !== referral.trackingCode) {
+      dispatch(
+        SettingActions.setReferral({
+          trackingCode: ref,
+        })
+      )
 
-        if (isDesktop)
-          setTimeout(() => {
-            !pathname.includes('/auth/login') && openModal('RegisterModal')
-          }, 2000)
-        else push('/auth/register')
-      }
+      if (isDesktop)
+        setTimeout(() => {
+          !pathname.includes('/auth/login') && openModal('RegisterModal')
+        }, 2000)
+      else push('/auth/register')
+      // }
     }
   }, [ref, token])
 
