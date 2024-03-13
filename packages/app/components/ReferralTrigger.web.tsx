@@ -32,7 +32,7 @@ export default function ReferralTrigger({}) {
       // if (!referral || filterRef !== referral.trackingCode) {
       dispatch(
         SettingActions.setReferral({
-          trackingCode: ref,
+          trackingCode: filterRef,
         })
       )
 
