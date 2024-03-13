@@ -23,7 +23,10 @@ const DownloadPage = () => {
       return
     }
 
-    replace('/auth/register')
+    //Delay 1 sec to store referral code
+    setTimeout(() => {
+      replace('/auth/register')
+    }, 1000)
   }, [desktop, memberToken, replace])
 
   return (
