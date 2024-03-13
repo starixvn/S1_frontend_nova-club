@@ -588,7 +588,6 @@ export const RETARGETING_TNC = [
   'tnc.retargeting.n3',
   'tnc.retargeting.n4',
   'tnc.retargeting.n5',
-  'tnc.retargeting.n6',
   'tnc.retargeting.n7',
   'tnc.retargeting.n8',
   'tnc.retargeting.n9',

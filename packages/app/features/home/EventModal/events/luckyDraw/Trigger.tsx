@@ -62,9 +62,10 @@ const LuckyDrawTrigger = () => {
               }
 
               handleRegistrationEvent(spinBalance)
-            } else if (event.event_type === 'retention') {
-              handleRetentionEvent(spinBalance)
             }
+            // else if (event.event_type === 'retention') {
+            //   handleRetentionEvent(spinBalance)
+            // }
           }
         }
       }
