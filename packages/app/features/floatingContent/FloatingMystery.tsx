@@ -1,6 +1,5 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import Icon from 'app/components/Icon'
-import IconButton from 'app/components/IconButton'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
@@ -19,11 +18,13 @@ const FloatingMystery = ({ disabled }) => {
   const { openModal } = useModal()
   const { push } = useRouter()
   const visible = useAppSelector((s) => s.tempSetting.isFloatingMysteryVisible)
+  const isLoggedIn = useAppSelector((s) => !!s.auth.info)
   const isDesktop = useIsDesktop()
 
   const { data } = useGetMysteryCheckQuery(undefined, {
     refetchOnMountOrArgChange: true,
     refetchOnFocus: true,
+    skip: !isLoggedIn,
   })
   const isMysteryEligible = data?.data?.key
 
