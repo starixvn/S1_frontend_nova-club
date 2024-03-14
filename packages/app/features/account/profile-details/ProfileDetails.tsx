@@ -1,15 +1,18 @@
 import IconButton from 'app/components/IconButton'
 import Button from 'app/components/common/Button'
+import DatePicker from 'app/components/form/DatePicker'
 import FormContainer from 'app/components/form/FormContainer'
-import Input, { Label } from 'app/components/form/Input'
+import Input from 'app/components/form/Input'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import useAlert from 'app/hooks/useAlert'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import { useAppSelector } from 'app/provider/redux/store'
 import { copyToClipboard } from 'app/utils'
 import validation from 'app/utils/validation'
+import dayjs from 'dayjs'
+import { View, styled } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
+import isEmpty from 'lodash/isEmpty'
 import React, { useEffect } from 'react'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { IResponse } from 'services/common/types'
@@ -20,9 +23,6 @@ import {
 import { useRouter } from 'solito/router'
 import * as Yup from 'yup'
 import MobileProfileItem from './MobileProfileItem'
-import DatePicker from 'app/components/form/DatePicker'
-import dayjs from 'dayjs'
-import { Row, Text, View, styled, useResponsiveValue } from 'dripsy'
 
 type UpdateNameValueProps = {
   realName: string
@@ -36,7 +36,8 @@ const ProfileDetails = () => {
     refetchOnMountOrArgChange: true,
   })
   const isPlayerName = !!playerData?.firstName
-  const isDob = !!playerData?.birthdate
+  const isDob =
+    !!playerData?.birthdate && playerData?.birthdate !== 'Invalid Date'
   const isTelegram = !!playerData?.telegram_id
   const isEditable = !isPlayerName || !isDob || !isTelegram
 
@@ -53,12 +54,7 @@ const ProfileDetails = () => {
     try {
       if (realName) {
         const sanitizedRealName = realName.trim().replace(/\s\s+/g, ' ')
-        const dateOfBirth =
-          dob && dob !== 'Invalid Date'
-            ? typeof dob === 'string'
-              ? dob
-              : dayjs(dob).format('YYYY-MM-DD')
-            : undefined
+        const dateOfBirth = dob ? dayjs(dob).format('YYYY-MM-DD') : undefined
 
         const { success, message } = await updatePlayerName({
           realName: sanitizedRealName,
@@ -93,13 +89,13 @@ const ProfileDetails = () => {
     },
     validationSchema: Yup.object({
       realName: validation.vietnameseCharacter,
-      // dob: Yup.date()
-      //   .required('validation.required')
-      //   .max(
-      //     dayjs().subtract(18, 'year').add(1, 'day').startOf('date').toDate(),
-      //     'validation.dobMinAge'
-      //   ),
-      // telegram: validation.stringRequired,
+      dob: Yup.date()
+        // .required('validation.required')
+        .max(
+          dayjs().subtract(18, 'year').add(1, 'day').startOf('date').toDate(),
+          'validation.dobMinAge'
+        ),
+      telegram: Yup.string(),
     }),
     onSubmit,
   })
@@ -109,11 +105,13 @@ const ProfileDetails = () => {
     handleBlur,
     setFieldValue,
     setValues,
+    setFieldTouched,
     isSubmitting,
     values,
     errors,
     isValid,
     dirty,
+    touched,
     submitForm,
   } = formik
 
@@ -189,7 +187,7 @@ const ProfileDetails = () => {
               value={playerData?.contractNumber || ''}
             />
 
-            {isDob && playerData?.birthdate !== 'Invalid Date' ? (
+            {isDob ? (
               <DesktopInput
                 desktop={desktop}
                 responsive
@@ -211,9 +209,10 @@ const ProfileDetails = () => {
                   .subtract(18, 'year')
                   .startOf('date')
                   .toDate()}
-                onChange={(value) =>
+                onChange={(value) => {
                   setFieldValue('dob', dayjs(value).toDate())
-                }
+                  setFieldTouched('dob')
+                }}
                 error={
                   errors.dob
                     ? t(errors.dob, {
@@ -269,7 +268,10 @@ const ProfileDetails = () => {
                 autoComplete="off"
                 autoCorrect={false}
                 spellCheck={false}
-                onChangeText={handleChange('telegram')}
+                onChangeText={(e) => {
+                  setFieldValue('telegram', e)
+                  setFieldTouched('telegram', true)
+                }}
                 onBlur={handleBlur('telegram')}
                 maxLength={32}
                 error={
@@ -285,7 +287,7 @@ const ProfileDetails = () => {
             {isEditable && (
               <Button
                 loading={isSubmitting}
-                disabled={!isValid || !dirty}
+                disabled={!isValid || !dirty || isEmpty(touched)}
                 onPress={submitForm}
                 sx={{ mt: '$3', my: '$4', mx: '$5' }}
               >
