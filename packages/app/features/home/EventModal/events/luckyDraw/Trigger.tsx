@@ -32,7 +32,7 @@ const LuckyDrawTrigger = () => {
 
   const CheckEligibleSpin = async () => {
     try {
-      const { success, data } = await getEligileSpin()
+      const { success, data } = await getEligileSpin({})
         .unwrap()
         .catch((e: IResponse<EligibleSpinResult>) => {
           // only show the finish claim error on register success
@@ -62,10 +62,9 @@ const LuckyDrawTrigger = () => {
               }
 
               handleRegistrationEvent(spinBalance)
+            } else if (event.event_type === 'retention') {
+              handleRetentionEvent(spinBalance)
             }
-            // else if (event.event_type === 'retention') {
-            //   handleRetentionEvent(spinBalance)
-            // }
           }
         }
       }
@@ -94,7 +93,7 @@ const LuckyDrawTrigger = () => {
     addResult([
       {
         tnc: () => {
-          push('/event/retention/tnc')
+          push('/event/retargeting/tnc')
         },
         content: () => <LazyRetentionContent />,
         priority: LuckyDrawPriority,
@@ -119,4 +118,4 @@ const LuckyDrawTrigger = () => {
 export default memo(LuckyDrawTrigger)
 
 const LazyRegistrationContent = dynamic(() => import('./RegistrationContent'))
-const LazyRetentionContent = dynamic(() => import('./RetentionContent'))
+const LazyRetentionContent = dynamic(() => import('../retargeting/Content'))

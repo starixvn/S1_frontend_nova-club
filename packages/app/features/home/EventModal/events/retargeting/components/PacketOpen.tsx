@@ -9,7 +9,7 @@ import { BoldText } from './BoldText'
 import { useModal } from 'react-native-modalfy'
 import { appendWithThousandUnit, toCurrency } from 'app/utils'
 
-const PacketOpen = ({ angpaoWidth, amount, onRedeem }) => {
+const PacketOpen = ({ angpaoWidth, amount = 0, onRedeem }) => {
   const { t } = useLocalization()
   const { push } = useRouter()
   const { closeModal } = useModal()

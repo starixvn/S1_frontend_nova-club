@@ -4,7 +4,7 @@ import { ScrollView, View, useResponsiveValue } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
 import React, { memo, useMemo, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
-import { useLuckySpinMutation } from 'services/playerApi'
+import { useRetentionSpinMutation } from 'services/playerApi'
 import { SolitoImage } from 'solito/image'
 import { useHomeEventModal } from '../../HomeEventModal'
 import PacketClose from './components/PacketClose'
@@ -25,7 +25,7 @@ const RetargetingContent = memo(({}: Props) => {
   const [redeemed, setRedeemed] = useState(false)
   const [amount, setAmount] = useState()
   const { openModal, closeModal } = useModal()
-  const [redeemPacket] = useLuckySpinMutation()
+  const [retentionSpin] = useRetentionSpinMutation()
   const angpaoWidthMultiplier = useResponsiveValue([0.55, 0.5, 0.4])
 
   const imageWidth = Math.min(450, width * 0.95)
@@ -38,7 +38,7 @@ const RetargetingContent = memo(({}: Props) => {
     try {
       setIsLoading(true)
 
-      const { data, success } = await redeemPacket()
+      const { data, success } = await retentionSpin()
         .unwrap()
         .catch((error) => {
           openModal('AlertModal', {
