@@ -53,10 +53,16 @@ const ProfileDetails = () => {
     try {
       if (realName) {
         const sanitizedRealName = realName.trim().replace(/\s\s+/g, ' ')
+        const dateOfBirth =
+          dob && dob !== 'Invalid Date'
+            ? typeof dob === 'string'
+              ? dob
+              : dayjs(dob).format('YYYY-MM-DD')
+            : undefined
 
         const { success, message } = await updatePlayerName({
           realName: sanitizedRealName,
-          dob: typeof dob === 'string' ? dob : dayjs(dob).format('YYYY-MM-DD'),
+          dob: dateOfBirth,
           telegram_id: telegram ? telegram : undefined,
         })
           .unwrap()
@@ -82,7 +88,7 @@ const ProfileDetails = () => {
     enableReinitialize: true,
     initialValues: {
       realName: '',
-      dob: null,
+      dob: undefined,
       telegram: '',
     },
     validationSchema: Yup.object({
@@ -116,9 +122,9 @@ const ProfileDetails = () => {
       setValues({
         realName: playerData.firstName,
         dob: isEditable
-          ? playerData.birthdate
+          ? playerData.birthdate && playerData.birthdate !== 'Invalid Date'
             ? dayjs(playerData.birthdate)
-            : null
+            : undefined
           : playerData.birthdate,
         telegram: playerData.telegram_id,
       })
@@ -183,7 +189,7 @@ const ProfileDetails = () => {
               value={playerData?.contractNumber || ''}
             />
 
-            {isDob ? (
+            {isDob && playerData?.birthdate !== 'Invalid Date' ? (
               <DesktopInput
                 desktop={desktop}
                 responsive

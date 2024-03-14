@@ -187,8 +187,8 @@ export type FreeSpinResult = {
 
 export type PlayerRealNameArgs = {
   realName: string
-  dob: string
-  telegram_id: string
+  dob?: string
+  telegram_id?: string
 }
 
 export type EligibleSpinResult = {
