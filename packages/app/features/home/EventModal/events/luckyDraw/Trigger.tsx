@@ -63,7 +63,7 @@ const LuckyDrawTrigger = () => {
 
               handleRegistrationEvent(spinBalance)
             } else if (event.event_type === 'retention') {
-              handleRetentionEvent(spinBalance)
+              handleRetentionEvent(spinBalance, event.secret_key)
             }
           }
         }
@@ -87,7 +87,7 @@ const LuckyDrawTrigger = () => {
     ])
   }
 
-  function handleRetentionEvent(balance: number = 0) {
+  function handleRetentionEvent(balance: number = 0, code) {
     dispatch(SettingActions.setRetentionDrawBalance(balance))
 
     addResult([
@@ -95,7 +95,7 @@ const LuckyDrawTrigger = () => {
         tnc: () => {
           push('/event/retargeting/tnc')
         },
-        content: () => <LazyRetentionContent />,
+        content: () => <LazyRetentionContent code={code} />,
         priority: LuckyDrawPriority,
       },
     ])

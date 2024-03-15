@@ -17,6 +17,7 @@ import {
   ReportArgs,
   // ReportArgs,
   ReportResult,
+  RetentionSpinArgs,
 } from './playerApi.type'
 import { walletApi } from './walletApi'
 
@@ -126,10 +127,14 @@ export const playerApi = baseApiWithTag.injectEndpoints({
         }
       },
     }),
-    retentionSpin: builder.mutation<IResponse<LuckySpinArgs>, void>({
+    retentionSpin: builder.mutation<
+      IResponse<LuckySpinArgs>,
+      RetentionSpinArgs
+    >({
       query: (queryArgs) => ({
         url: `/player_api/retentionFreeWheelSpin`,
         method: 'POST',
+        data: { ...queryArgs },
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {

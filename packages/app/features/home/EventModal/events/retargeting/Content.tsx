@@ -10,7 +10,7 @@ import { useHomeEventModal } from '../../HomeEventModal'
 import PacketClose from './components/PacketClose'
 import PacketOpen from './components/PacketOpen'
 
-type Props = {}
+type Props = { code: string }
 
 const PrizePool = {
   1: 30000,
@@ -19,7 +19,7 @@ const PrizePool = {
   4: 100000,
 }
 
-const RetargetingContent = memo(({}: Props) => {
+const RetargetingContent = memo(({ code }: Props) => {
   const { width, height } = useHomeEventModal().dimension
   const [isLoading, setIsLoading] = useState(false)
   const [redeemed, setRedeemed] = useState(false)
@@ -38,7 +38,7 @@ const RetargetingContent = memo(({}: Props) => {
     try {
       setIsLoading(true)
 
-      const { data, success } = await retentionSpin()
+      const { data, success } = await retentionSpin({ code })
         .unwrap()
         .catch((error) => {
           openModal('AlertModal', {

@@ -175,6 +175,10 @@ export type LuckySpinArgs = {
   note: string
 }
 
+export type RetentionSpinArgs = {
+  code?: string
+}
+
 export type FreeSpinArgs = {
   username: string
 }
