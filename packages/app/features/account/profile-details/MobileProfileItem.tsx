@@ -29,12 +29,17 @@ const MobileProfileItem = ({ playerData }: MobileProfileDetailsProps) => {
         label={t('common.phone')}
         value={playerData?.contractNumber}
       />
+      <ProfileItem label={t('common.dob')} value={playerData?.birthdate} />
       <ProfileItem
         label={t('common.playerId')}
         value={playerData?.referral_code.toString()}
         copy
       />
       <ProfileItem label={t('common.currency')} value={playerData?.currency} />
+      <ProfileItem
+        label={t('contact.telegram')}
+        value={playerData?.telegram_id}
+      />
     </>
   ) : (
     <ActivityIndicator sx={{ minHeight: 300 }} size={'large'} />

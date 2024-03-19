@@ -37,6 +37,7 @@ export interface ProfileResult {
   vip_level_display: string
   verified_phone: number
   member_type: MEMBER_TYPE
+  telegram_id: string
 }
 
 export interface ProfileQueryArgs {
@@ -185,8 +186,9 @@ export type FreeSpinResult = {
 }
 
 export type PlayerRealNameArgs = {
-  username: string
   realName: string
+  dob?: string
+  telegram_id?: string
 }
 
 export type EligibleSpinResult = {

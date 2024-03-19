@@ -1,16 +1,19 @@
 import IconButton from 'app/components/IconButton'
 import Button from 'app/components/common/Button'
+import DatePicker from 'app/components/form/DatePicker'
 import FormContainer from 'app/components/form/FormContainer'
 import Input from 'app/components/form/Input'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import useAlert from 'app/hooks/useAlert'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import { useAppSelector } from 'app/provider/redux/store'
 import { copyToClipboard } from 'app/utils'
 import validation from 'app/utils/validation'
+import dayjs from 'dayjs'
+import { View, styled } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import React from 'react'
+import isEmpty from 'lodash/isEmpty'
+import React, { useEffect } from 'react'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { IResponse } from 'services/common/types'
 import {
@@ -23,51 +26,50 @@ import MobileProfileItem from './MobileProfileItem'
 
 type UpdateNameValueProps = {
   realName: string
+  dob: dayjs.Dayjs | string | undefined
+  telegram: string
 }
 
 const ProfileDetails = () => {
-  const { token } = useAppSelector((state) => state.auth.info) || {}
   const { t } = useLocalization()
   const { data: playerData } = usePlayerProfileQuery(undefined, {
-    skip: !token,
+    refetchOnMountOrArgChange: true,
   })
   const isPlayerName = !!playerData?.firstName
+  const isDob =
+    !!playerData?.birthdate && playerData?.birthdate !== 'Invalid Date'
+  const isTelegram = !!playerData?.telegram_id
+  const isEditable = !isPlayerName || !isDob || !isTelegram
+
   const desktop = useIsDesktop()
 
   const [updatePlayerName] = usePlayerRealNameMutation()
   const { showAlert } = useAlert()
   const { push } = useRouter()
 
-  async function updateRealName(realName) {
-    const { success, message } = await updatePlayerName({
-      realName,
-      username: playerData?.username ?? '',
-    })
-      .unwrap()
-      .catch((e: IResponse) => {
-        console.log('error', e)
-        showAlert(e)
-        return e
-      })
-
-    if (success) {
-      Toast.show({ type: 'success', text1: message })
-      return true
-    }
-
-    return false
-  }
-
   const onSubmit = async (
-    { realName }: UpdateNameValueProps,
+    { realName, dob, telegram }: UpdateNameValueProps,
     actions: FormikHelpers<UpdateNameValueProps>
   ) => {
     try {
       if (realName) {
         const sanitizedRealName = realName.trim().replace(/\s\s+/g, ' ')
-        const success = await updateRealName(sanitizedRealName)
+        const dateOfBirth = dob ? dayjs(dob).format('YYYY-MM-DD') : undefined
+
+        const { success, message } = await updatePlayerName({
+          realName: sanitizedRealName,
+          dob: dateOfBirth,
+          telegram_id: telegram ? telegram : undefined,
+        })
+          .unwrap()
+          .catch((e: IResponse) => {
+            console.log('🚀 ~ file:  ProfileDetails ~ e:', e)
+            showAlert(e)
+            return e
+          })
 
         if (success) {
+          Toast.show({ type: 'success', text1: message })
           setTimeout(() => {
             push('/deposit')
           }, 150)
@@ -82,9 +84,18 @@ const ProfileDetails = () => {
     enableReinitialize: true,
     initialValues: {
       realName: '',
+      dob: undefined,
+      telegram: '',
     },
     validationSchema: Yup.object({
       realName: validation.vietnameseCharacter,
+      dob: Yup.date()
+        // .required('validation.required')
+        .max(
+          dayjs().subtract(18, 'year').add(1, 'day').startOf('date').toDate(),
+          'validation.dobMinAge'
+        ),
+      telegram: Yup.string(),
     }),
     onSubmit,
   })
@@ -92,26 +103,47 @@ const ProfileDetails = () => {
   const {
     handleChange,
     handleBlur,
+    setFieldValue,
+    setValues,
+    setFieldTouched,
     isSubmitting,
     values,
     errors,
     isValid,
     dirty,
+    touched,
     submitForm,
   } = formik
+
+  useEffect(() => {
+    if (playerData) {
+      setValues({
+        realName: playerData.firstName,
+        dob: isEditable
+          ? playerData.birthdate && playerData.birthdate !== 'Invalid Date'
+            ? dayjs(playerData.birthdate)
+            : undefined
+          : playerData.birthdate,
+        telegram: playerData.telegram_id,
+      })
+    }
+  }, [playerData])
+
   return (
     <PageWithBackHeader
       header={{ title: t('common.profile') }}
-      disableScrollView
       hideHeader={desktop}
     >
-      <FormContainer sx={{ my: '$4' }} hidePadding>
-        {desktop ? (
-          <>
-            {isPlayerName && desktop ? (
-              <Input
+      <FormContainer
+        sx={desktop || !isEditable ? { my: '$4' } : { p: '$4' }}
+        hidePadding
+      >
+        {desktop || isEditable ? (
+          <View sx={{}}>
+            {isPlayerName ? (
+              <DesktopInput
+                desktop={desktop}
                 responsive
-                inputContainerSx={{ flex: 1.8, flexGrow: 1.8 }}
                 label={t('common.realName')}
                 editable={false}
                 value={`${playerData?.firstName || ''} ${
@@ -119,8 +151,8 @@ const ProfileDetails = () => {
                 }`}
               />
             ) : (
-              <Input
-                inputContainerSx={{ flex: 1.8, flexGrow: 1.8 }}
+              <DesktopInput
+                desktop={desktop}
                 responsive
                 label={t('common.realName')}
                 value={values.realName}
@@ -139,24 +171,62 @@ const ProfileDetails = () => {
                 }
               />
             )}
-            <Input
+            <DesktopInput
+              desktop={desktop}
               responsive
-              inputContainerSx={{ flex: 1.8, flexGrow: 1.8 }}
               label={t('common.username')}
               editable={false}
               value={playerData?.username || ''}
             />
 
-            <Input
-              inputContainerSx={{ flex: 1.8, flexGrow: 1.8 }}
+            <DesktopInput
+              desktop={desktop}
               responsive
               label={t('common.phone')}
               editable={false}
               value={playerData?.contractNumber || ''}
             />
-            <Input
-              inputContainerSx={{ flex: 1.8, flexGrow: 1.8 }}
+
+            {isDob ? (
+              <DesktopInput
+                desktop={desktop}
+                responsive
+                label={t('common.dob')}
+                editable={false}
+                value={playerData?.birthdate}
+              />
+            ) : (
+              <DatePicker
+                responsive
+                inputContainerSx={desktop ? { flex: 1.8, flexGrow: 1.8 } : {}}
+                label={t('common.dob')}
+                value={values.dob}
+                minimumDate={dayjs()
+                  .subtract(100, 'year')
+                  .startOf('date')
+                  .toDate()}
+                maximumDate={dayjs()
+                  .subtract(18, 'year')
+                  .startOf('date')
+                  .toDate()}
+                onChange={(value) => {
+                  setFieldValue('dob', dayjs(value).toDate())
+                  setFieldTouched('dob')
+                }}
+                error={
+                  errors.dob
+                    ? t(errors.dob, {
+                        field: t('common.dob'),
+                      })
+                    : undefined
+                }
+              />
+            )}
+
+            <DesktopInput
+              desktop={desktop}
               responsive
+              inputContainerSx={desktop ? { flex: 1.8, flexGrow: 1.8 } : {}}
               label={t('common.playerId')}
               editable={false}
               value={playerData?.referral_code.toString() || ''}
@@ -173,25 +243,58 @@ const ProfileDetails = () => {
                 )
               }}
             />
-            <Input
-              inputContainerSx={{ flex: 1.8, flexGrow: 1.8 }}
+            <DesktopInput
+              desktop={desktop}
               responsive
               label={t('common.currency')}
               editable={false}
               value={playerData?.currency || ''}
             />
 
-            {!isPlayerName && (
+            {isTelegram ? (
+              <DesktopInput
+                desktop={desktop}
+                responsive
+                label={t('contact.telegram')}
+                editable={false}
+                value={playerData?.telegram_id}
+              />
+            ) : (
+              <DesktopInput
+                desktop={desktop}
+                responsive
+                label={t('contact.telegram')}
+                value={values.telegram}
+                autoComplete="off"
+                autoCorrect={false}
+                spellCheck={false}
+                onChangeText={(e) => {
+                  setFieldValue('telegram', e)
+                  setFieldTouched('telegram', true)
+                }}
+                onBlur={handleBlur('telegram')}
+                maxLength={32}
+                error={
+                  errors.telegram
+                    ? t(errors.telegram, {
+                        field: t('contact.telegram'),
+                      })
+                    : undefined
+                }
+              />
+            )}
+
+            {isEditable && (
               <Button
                 loading={isSubmitting}
-                disabled={!isValid || !dirty}
+                disabled={!isValid || !dirty || isEmpty(touched)}
                 onPress={submitForm}
-                sx={{ mt: '$3', my: '$4', mx: '$6' }}
+                sx={{ mt: '$3', my: '$4', mx: '$5' }}
               >
                 {t('common.submit')}
               </Button>
             )}
-          </>
+          </View>
         ) : (
           <MobileProfileItem playerData={playerData} />
         )}
@@ -199,5 +302,14 @@ const ProfileDetails = () => {
     </PageWithBackHeader>
   )
 }
+
+const DesktopInput = styled(Input)(({ desktop }: { desktop: boolean }) =>
+  desktop
+    ? {
+        flex: 1.8,
+        flexGrow: 1.8,
+      }
+    : {}
+)
 
 export default ProfileDetails

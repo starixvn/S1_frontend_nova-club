@@ -10,7 +10,15 @@ import Input, { InputProps } from '../Input'
 
 export interface DatePickerProps
   extends Omit<RNDatePickerProps, 'date' | 'onConfirm'>,
-    Pick<InputProps, 'editable' | 'placeholder' | 'error'> {
+    Pick<
+      InputProps,
+      | 'editable'
+      | 'placeholder'
+      | 'error'
+      | 'responsive'
+      | 'label'
+      | 'inputContainerSx'
+    > {
   value?: Date
   onChange?: (date?: Date) => void
   inputSx?: SxProp
@@ -51,6 +59,7 @@ export default function DatePicker({
         placeholder={placeholder}
         error={error}
         value={value ? dayjs(value).format('YYYY-MM-DD').toString() : ''}
+        {...rest}
       />
       <RNDatePicker
         title={t('common.selectDate')}
