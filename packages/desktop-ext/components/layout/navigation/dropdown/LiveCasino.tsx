@@ -42,13 +42,14 @@ export default function LiveCasino({}: Props) {
                 commissionList,
               })}
               showRebate={true}
+              rebateTop
               onPress={() => push(`/livecasino/${g.gpc.toLowerCase()}`)}
               // displayName={
               //   providerStatus ? providerStatus[g]?.system_name : undefined
               // }
               key={g.gpc}
               sx={{ width: '11%' }}
-              img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/main/${g.gpc.toLowerCase()}.png`}
+              img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/gameV2/provider/main/${g.gpc.toLowerCase()}.png`}
               isDropdownContent
               {...g}
             />

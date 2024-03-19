@@ -14,6 +14,7 @@ import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import MatchSection from './MatchSection'
 import uniqBy from 'lodash/uniqBy'
+import HireBanner from '../home/HireBanner'
 
 export default function SportsbookScreen() {
   const { t } = useLocalization()
@@ -88,6 +89,10 @@ export default function SportsbookScreen() {
             icon="sportbook"
           />
           <MatchSection />
+
+          <View sx={{ mx: '$3' }}>
+            <HireBanner />
+          </View>
         </View>
       }
     />

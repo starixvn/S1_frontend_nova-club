@@ -47,13 +47,14 @@ export default function Slots({}: Props) {
                 commissionList,
               })}
               showRebate={true}
+              rebateTop
               onPress={() => push(`/slots/${g.gpc.toLowerCase()}`)}
               // displayName={
               //   providerStatus ? providerStatus[g]?.system_name : undefined
               // }
               key={g.gpc}
               sx={{ width: '11%' }}
-              img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/slots/${g.gpc.toLowerCase()}.png`}
+              img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/gameV2/provider/slots/${g.gpc.toLowerCase()}.png`}
               isDropdownContent
             />
           )

@@ -38,6 +38,7 @@ export default function GameList({}) {
         return (
           <GameCard
             showRebate={true}
+            rebateTop
             rebateText={GetGameRebateValue({
               gtc: g.gtc,
               gpc: g.gpc,

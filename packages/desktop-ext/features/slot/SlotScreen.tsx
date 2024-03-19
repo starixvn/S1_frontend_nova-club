@@ -154,7 +154,7 @@ function SlotScreen({}: Props) {
               />
               <SolitoImage
                 fill
-                src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/colored/all.jpg`}
+                src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/gameV2/provider/colored/all.png`}
                 alt={'all slots'}
               />
             </Pressable>

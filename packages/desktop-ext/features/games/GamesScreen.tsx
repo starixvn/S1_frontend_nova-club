@@ -144,6 +144,7 @@ const GameTypeFilter = ({ onFilterClicked, currentRoute, ...rest }) => {
   return (
     <View sx={{ gap: '$2', width: [175, 175, 175, 175] }} {...rest}>
       {DesktopGamesFilter.map((r, i) => {
+        console.log('🚀 ~ GameTypeFilter ~ r:', r)
         const isActive = r.route === currentFilter
 
         return (
@@ -174,10 +175,10 @@ const GameTypeFilter = ({ onFilterClicked, currentRoute, ...rest }) => {
             <SolitoImage
               style={{ position: 'absolute' }}
               fill
-              src={require('app/assets/images/game/bgAllProviders.jpg')}
+              src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/gameV2/provider/games/${r.key?.toLowerCase()}.png`}
               alt={'bg'}
             />
-            <Row sx={{ alignItems: 'center', flex: 1, px: '$2' }}>
+            {/* <Row sx={{ alignItems: 'center', flex: 1, px: '$2' }}>
               <View
                 sx={{
                   flex: 0.9,
@@ -197,7 +198,7 @@ const GameTypeFilter = ({ onFilterClicked, currentRoute, ...rest }) => {
               >
                 {t(r.label)}
               </Text>
-            </Row>
+            </Row> */}
           </Pressable>
         )
       })}

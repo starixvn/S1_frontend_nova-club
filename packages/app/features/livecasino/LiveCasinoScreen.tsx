@@ -76,7 +76,7 @@ export default function LiveCasinoScreen() {
             mx: isMiddle ? `${spacePercentage * 1.5}%` : `${spacePercentage}%`,
           }}
           {...item}
-          img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/main/${item.gpc.toLowerCase()}.png`}
+          img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/gameV2/provider/main/${item.gpc.toLowerCase()}.png`}
         />
       </Row>
     )

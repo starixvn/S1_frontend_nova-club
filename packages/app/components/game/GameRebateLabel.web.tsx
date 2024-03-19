@@ -2,7 +2,7 @@ import AvertaStd from 'app/assets/fonts/Averta'
 import { useResponsiveValue } from 'dripsy'
 import React from 'react'
 
-const GameRebateLabel = ({ rebateText, background = 'rgba(0,0,0,0.7)' }) => {
+const GameRebateLabel = ({ rebateText, background = 'rgba(0,0,0,1)' }) => {
   const labelSize = useResponsiveValue([11])
   return (
     <div
@@ -12,7 +12,7 @@ const GameRebateLabel = ({ rebateText, background = 'rgba(0,0,0,0.7)' }) => {
         borderRadius: 15,
         minWidth: 30,
         display: 'flex',
-        paddingBlock: 5,
+        paddingBlock: 2,
         fontSize: labelSize,
         fontWeight: 'bold',
         fontFamily: AvertaStd.Bold.name,

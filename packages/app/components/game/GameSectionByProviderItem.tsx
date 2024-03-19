@@ -126,7 +126,7 @@ function GameSectionByProviderItem({
             <SolitoImage
               height={25}
               width={90}
-              src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${gpc?.toLowerCase()}.png`}
+              src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/gameV2/provider/white/${gpc?.toLowerCase()}.png`}
               contentFit="contain"
               alt={gpc}
             />

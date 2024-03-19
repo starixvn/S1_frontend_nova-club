@@ -67,7 +67,7 @@ export default function SelectProvider({
                 <SolitoImage
                   fill
                   alt={value}
-                  src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${value?.toLowerCase()}.png`}
+                  src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/gameV2/provider/white/${value?.toLowerCase()}.png`}
                 />
               )}
             </View>
@@ -140,7 +140,7 @@ export default function SelectProvider({
                     height={20}
                     width={90}
                     alt={p.gpc}
-                    src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${p?.gpc?.toLowerCase()}.png`}
+                    src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/gameV2/provider/white/${p?.gpc?.toLowerCase()}.png`}
                     resizeMode="contain"
                   />
                   <GameRebateLabel

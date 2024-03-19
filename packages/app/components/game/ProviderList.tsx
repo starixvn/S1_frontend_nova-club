@@ -50,7 +50,7 @@ export default function ProviderList({
                 >
                   <SolitoImage
                     fill
-                    src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/colored/${imageCategory}/${g.gpc?.toLowerCase()}.jpg`}
+                    src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/gameV2/provider/colored/${imageCategory}/${g.gpc?.toLowerCase()}.png`}
                     alt={g.gpc}
                   />
                 </Pressable>

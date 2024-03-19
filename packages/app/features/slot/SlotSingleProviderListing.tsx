@@ -135,7 +135,7 @@ const SlotSingleProviderListing = ({
                       alt={provider}
                       height={20}
                       width={100}
-                      src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${provider.toLowerCase()}.png`}
+                      src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/gameV2/provider/white/${provider.toLowerCase()}.png`}
                     />
                     <View sx={{ justifyContent: 'center', px: '$2' }}>
                       <GameRebateLabel

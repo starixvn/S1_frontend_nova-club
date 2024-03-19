@@ -18,7 +18,7 @@ const GameRebateLabel = ({ rebateText, background = 'rgba(0,0,0,0.7)' }) => {
         style={{
           fontWeight: 'bold',
           fontSize: labelSize,
-          color: '#FFEA61',
+          color: '#FFAD1A',
           textAlign: 'center',
         }}
         from={{
