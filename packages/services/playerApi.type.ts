@@ -176,6 +176,10 @@ export type LuckySpinArgs = {
   note: string
 }
 
+export type RetentionSpinArgs = {
+  code?: string
+}
+
 export type FreeSpinArgs = {
   username: string
 }
@@ -189,6 +193,10 @@ export type PlayerRealNameArgs = {
   realName: string
   dob?: string
   telegram_id?: string
+}
+
+export type EligibleSpinArgs = {
+  code?: string
 }
 
 export type EligibleSpinResult = {

@@ -25,7 +25,7 @@
     "web:soft": "APP_ENV=soft turbo dev",
     "web:pre": "APP_ENV=pre turbo dev",
     "web:rewards": "yarn workspace rewards-next dev",
-    "kill:web": "kill -9 $(lsof -ti:3000,3001)",
+    "kill": "kill -9 $(lsof -ti:3000,3001)",
     "build:web": "yarn workspace next-app build",
     "build:web:prod": "APP_ENV=prod yarn build:web",
     "build:web:staging": "APP_ENV=staging yarn build:web",

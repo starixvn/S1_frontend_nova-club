@@ -2,8 +2,8 @@ import { Currency } from 'utils/constant'
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
+  EligibleSpinArgs,
   EligibleSpinResult,
-  FreeSpinArgs,
   FreeSpinResult,
   LuckySpinArgs,
   MEMBER_TYPE,
@@ -17,6 +17,7 @@ import {
   ReportArgs,
   // ReportArgs,
   ReportResult,
+  RetentionSpinArgs,
 } from './playerApi.type'
 import { walletApi } from './walletApi'
 
@@ -97,10 +98,16 @@ export const playerApi = baseApiWithTag.injectEndpoints({
         },
       }),
     }),
-    eligibleSpin: builder.query<IResponse<EligibleSpinResult>, void>({
-      query: () => ({
+    eligibleSpin: builder.query<
+      IResponse<EligibleSpinResult>,
+      EligibleSpinArgs
+    >({
+      query: (queryArgs) => ({
         url: `/player_api/getEligibleEvents`,
         method: 'POST',
+        data: {
+          ...queryArgs,
+        },
       }),
     }),
     luckySpin: builder.mutation<IResponse<LuckySpinArgs>, void>({
@@ -120,10 +127,14 @@ export const playerApi = baseApiWithTag.injectEndpoints({
         }
       },
     }),
-    retentionSpin: builder.mutation<IResponse<LuckySpinArgs>, void>({
+    retentionSpin: builder.mutation<
+      IResponse<LuckySpinArgs>,
+      RetentionSpinArgs
+    >({
       query: (queryArgs) => ({
         url: `/player_api/retentionFreeWheelSpin`,
         method: 'POST',
+        data: { ...queryArgs },
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
@@ -198,6 +209,7 @@ export const {
   useRetentionSpinMutation,
   useLazyFreeSpinQuery,
   useLazyEligibleSpinQuery,
+  useEligibleSpinQuery,
   usePlayerRealNameMutation,
   useOnlineCheckMutation,
 } = playerApi

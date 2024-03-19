@@ -8,10 +8,15 @@ const FONT_SIZE = 16
 const NoticeModal = ({ modal: { closeModal, getParam } }) => {
   const notice = getParam('notice', [])
   const noticeModule = getParam('noticeModule', '')
+  const title = getParam('title')
 
   return (
     <ModalWrapper>
-      <NoticeContent notice={notice} noticeModule={noticeModule} />
+      <NoticeContent
+        notice={notice}
+        noticeModule={noticeModule}
+        title={title}
+      />
     </ModalWrapper>
   )
 }
