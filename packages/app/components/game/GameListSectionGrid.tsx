@@ -106,22 +106,15 @@ const GameListSectionGridSearch = ({ onSearch }) => {
 
   return (
     <View
-      sx={{
-        justifyContent: 'center',
-        mr: '$2',
-        borderRadius: 30,
-        borderWidth: 0.5,
-        borderColor: '$primary.100',
-        my: '$1',
-        width: '100%',
-        maxWidth: 150,
-      }}
+      sx={{ justifyContent: 'center', mr: '$2', width: '100%', maxWidth: 150 }}
     >
       <View
         sx={{
+          borderRadius: 30,
+          borderWidth: 0.5,
+          borderColor: '$primary.100',
           px: [10, '$3'],
           bg: '$primary.700',
-          borderRadius: 30,
           width: '100%',
           justifyContent: 'center',
         }}
