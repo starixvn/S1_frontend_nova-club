@@ -66,7 +66,7 @@ function SlotScreen({}: Props) {
     startTransition(() =>
       setFilteredGames(
         provider && games
-          ? games.filter((g) => g.gpc.toLowerCase() == provider)
+          ? games.filter((g) => g.gpc.toLowerCase() === provider.toLowerCase())
           : games
       )
     )

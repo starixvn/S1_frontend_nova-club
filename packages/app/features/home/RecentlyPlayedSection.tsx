@@ -1,14 +1,14 @@
 import { DripsyGradient } from 'app/components/Gradient'
+import Icon from 'app/components/Icon'
 import SectionLabel from 'app/components/SectionLabel'
 import HorizontalGameList from 'app/components/game/HorizontalGameList'
+import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'utils/constant'
 import { Pressable, Row, View } from 'dripsy'
-import React, { useMemo, useState } from 'react'
-import Icon from 'app/components/Icon'
 import { MotiView } from 'moti'
-import useIsDesktop from 'app/hooks/useIsDesktop'
+import React, { useMemo, useState } from 'react'
+import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'utils/constant'
 
 interface RecentlyPlayedSectionProps {
   gameTypes?: GAME_TYPE_CODE[]

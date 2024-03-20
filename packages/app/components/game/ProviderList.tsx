@@ -1,9 +1,9 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import useLocalization from 'app/provider/localization'
-import { ProviderImageCategory } from 'utils/constant'
 import { ActivityIndicator, Pressable, Row, View } from 'dripsy'
 import React from 'react'
 import { SolitoImage } from 'solito/image'
+import { ProviderImageCategory } from 'utils/constant'
 import SectionHeader from '../SectionHeader'
 import { GameProviderCategory } from './GameUtilityAction'
 
@@ -18,7 +18,7 @@ export default function ProviderList({
 }: {
   data?: GameProviderCategory[]
   imageCategory: ProviderImageCategory
-  onNavigateProvider: (index: number, gpc: string) => void
+  onNavigateProvider: (gpc: string) => void
 }) {
   const { t } = useLocalization()
   return (
@@ -38,7 +38,7 @@ export default function ProviderList({
               return (
                 <Pressable
                   key={i}
-                  onPress={() => onNavigateProvider(i, g.gpc)}
+                  onPress={() => onNavigateProvider(g.gpc)}
                   sx={{
                     width: width,
                     m: spaces,

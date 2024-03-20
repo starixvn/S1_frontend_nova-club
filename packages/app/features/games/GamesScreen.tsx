@@ -2,17 +2,13 @@ import { FlashList } from '@shopify/flash-list'
 import GamePageHeader from 'app/components/GamePageHeader'
 import IconButtonGradientGroup from 'app/components/IconButtonGradientGroup'
 import IconButtonGradientToggle from 'app/components/IconButtonGradientToggle'
-import GameSectionByProviderItem from 'app/components/game/GameSectionByProviderItem'
+import { GetCommissionList } from 'app/components/game/GameUtilityAction'
 import ProviderList from 'app/components/game/ProviderList'
-import {
-  ALL,
-  GAME_TYPE_CODE,
-  GDC_GAME_CATEGORY,
-  HEADER_HEIGHT,
-  ProviderImageCategory,
-} from 'utils/constant'
-import { ActivityIndicator, View, useResponsiveValue } from 'dripsy'
+import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
+import useLocalization from 'app/provider/localization'
+import { ScrollView, View, useResponsiveValue } from 'dripsy'
 import groupBy from 'lodash/groupBy'
+import uniqBy from 'lodash/uniqBy'
 import React, {
   startTransition,
   useEffect,
@@ -25,17 +21,17 @@ import { useGameListMultipleQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
+import {
+  ALL,
+  GAME_TYPE_CODE,
+  GDC_GAME_CATEGORY,
+  HEADER_HEIGHT,
+  ProviderImageCategory,
+} from 'utils/constant'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 import TopGameSection from '../home/TopGameSection'
-import GamesSingleProviderListing from './GamesSingleProviderListing'
+import SlotSingleProviderListing from '../slot/SlotSingleProviderListing'
 import { MobileGamesFilter, SUB_ROUTES } from './subroutes'
-import useLocalization from 'app/provider/localization'
-import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
-import uniqBy from 'lodash/uniqBy'
-import {
-  GetCommissionList,
-  GetGameRebateValue,
-} from 'app/components/game/GameUtilityAction'
 
 type Params = {
   type?: string
@@ -141,7 +137,7 @@ const GamesScreen = () => {
     }
   }
 
-  function onViewMore(gpc: string, tag: string = 'All') {
+  function handleSelectProvider(gpc: string, tag: string = 'All') {
     if (Platform.OS === 'web') push(`/games/${type}/${gpc}/${tag}`)
     else {
       push('/gamesByProvider?provider=' + gpc.toLowerCase() + `&tag=${tag}`)
@@ -154,95 +150,76 @@ const GamesScreen = () => {
   }
 
   // console.log('params', type, provider)
-  if (provider && Platform.OS === 'web') {
-    if (!gamesByProviders || !filteredGames) return <ActivityIndicator />
-    return (
-      <GamesSingleProviderListing
-        showRebate={type !== ALL}
-        commissionList={commissionList}
-        tag={params?.[2] ?? 'ALL'}
-        games={gamesByProviders[provider.toUpperCase()] ?? []}
-        provider={provider}
-        type={type}
-        onFilterClicked={onFilterClicked}
-        onBack={onProviderBack}
-        gameCategoryTagTranslation={gameCategoryTagTranslation}
-      />
-    )
-  }
+  // if (provider && Platform.OS === 'web') {
+  //   if (!gamesByProviders || !filteredGames) return <ActivityIndicator />
+  //   return (
+  //     <GamesSingleProviderListing
+  //       showRebate={type !== ALL}
+  //       commissionList={commissionList}
+  //       tag={params?.[2] ?? 'ALL'}
+  //       games={gamesByProviders[provider.toUpperCase()] ?? []}
+  //       provider={provider}
+  //       type={type}
+  //       onFilterClicked={onFilterClicked}
+  //       onBack={onProviderBack}
+  //       gameCategoryTagTranslation={gameCategoryTagTranslation}
+  //     />
+  //   )
+  // }
 
   return (
-    <FlashList
-      ref={flashListRef}
-      estimatedItemSize={302}
-      data={gameGroup}
-      contentContainerStyle={{
-        paddingBottom: 40,
-      }}
-      renderItem={({ item }) => {
-        if (item && item[0]) {
-          const { gpc, gtc } = item[0]
-          return (
-            <GameSectionByProviderItem
-              gpc={gpc}
-              games={item}
-              onViewMore={onViewMore}
-              gameCategoryTagTranslation={gameCategoryTagTranslation}
-              showRebate={type !== ALL}
-              rebate={GetGameRebateValue({
-                gtc: gtc ?? '',
-                gpc: gpc ?? '',
-                commissionList,
-              })}
-            />
-          )
-        } else return null
-      }}
-      ListHeaderComponent={
-        <View sx={{ gap: '$3', my: '$3' }}>
-          <GamePageHeader icon="games1" title={t('game.category.games')} />
-          <IconButtonGradientGroup
-            sx={{
-              flex: 1,
-              minWidth: ['100%', 450],
-              alignSelf: 'center',
-            }}
-          >
-            {MobileGamesFilter.map((r, i) => {
-              return (
-                <IconButtonGradientToggle
-                  sx={{ flex: 1 }}
-                  key={r.label}
-                  active={
-                    type !== ALL ? r.route.includes(type) : r.route === '/games'
-                  }
-                  label={r.label}
-                  size={mobileGamesFilterResponsiveSize}
-                  icon={r.icon ?? 'notice'}
-                  labelProps={{ style: { fontSize: 11 }, numberOfLines: 2 }}
-                  onPress={() => onFilterClicked(r, i)}
-                />
-              )
-            })}
-          </IconButtonGradientGroup>
-          <RecentlyPlayedSection
-            gameTypes={[
-              GAME_TYPE_CODE.GAMES,
-              GAME_TYPE_CODE.FISHING,
-              GAME_TYPE_CODE.LOTTERY,
-            ]}
-            gameCategories={[GDC_GAME_CATEGORY.CARDGAME]}
-          />
-          <TopGameSection />
-          <View ref={scrollingRef} nativeID="scrollingPoint" />
-          <ProviderList
-            data={providers}
-            onNavigateProvider={onNavigate}
-            imageCategory={ProviderImageCategory.Games}
-          />
-        </View>
-      }
-    />
+    <ScrollView>
+      <View sx={{ gap: '$3', my: '$3' }}>
+        <GamePageHeader icon="games1" title={t('game.category.games')} />
+        <IconButtonGradientGroup
+          sx={{
+            flex: 1,
+            minWidth: ['100%', 450],
+            alignSelf: 'center',
+          }}
+        >
+          {MobileGamesFilter.map((r, i) => {
+            return (
+              <IconButtonGradientToggle
+                sx={{ flex: 1 }}
+                key={r.label}
+                active={
+                  type !== ALL ? r.route.includes(type) : r.route === '/games'
+                }
+                label={r.label}
+                size={mobileGamesFilterResponsiveSize}
+                icon={r.icon ?? 'notice'}
+                labelProps={{ style: { fontSize: 11 }, numberOfLines: 2 }}
+                onPress={() => onFilterClicked(r, i)}
+              />
+            )
+          })}
+        </IconButtonGradientGroup>
+        <RecentlyPlayedSection
+          gameTypes={[
+            GAME_TYPE_CODE.GAMES,
+            GAME_TYPE_CODE.FISHING,
+            GAME_TYPE_CODE.LOTTERY,
+          ]}
+          gameCategories={[GDC_GAME_CATEGORY.CARDGAME]}
+        />
+        <TopGameSection />
+        <View ref={scrollingRef} nativeID="scrollingPoint" />
+        <ProviderList
+          data={providers}
+          onNavigateProvider={handleSelectProvider}
+          imageCategory={ProviderImageCategory.Games}
+        />
+
+        <SlotSingleProviderListing
+          gtc={GAME_TYPE_CODE.SLOTS}
+          commissionList={commissionList}
+          games={provider ? gamesByProviders[provider.toUpperCase()] : games}
+          provider={provider}
+          gameCategoryTagTranslation={gameCategoryTagTranslation}
+        />
+      </View>
+    </ScrollView>
   )
 }
 

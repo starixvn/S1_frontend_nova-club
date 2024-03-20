@@ -26,8 +26,6 @@ const GameListSectionGridHeader = ({
   children,
   showRebate = false,
   rebateValue,
-  showSeeMore = false,
-  onSeeMore,
 }) => {
   const isDesktop = useIsDesktop()
   const { push } = useRouter()
@@ -59,17 +57,15 @@ const GameListSectionGridHeader = ({
             {children}
             {showRebate && !isDesktop && (
               <View sx={{ justifyContent: 'center', pl: '$2' }}>
-                <GameRebateLabel
-                  background={'rgba(0,0,0,0.6)'}
-                  rebateText={rebateValue}
-                />
+                <GameRebateLabel rebateText={rebateValue} />
               </View>
             )}
           </View>
         </View>
       </View>
 
-      {isDesktop
+      {onSearch && <GameListSectionGridSearch onSearch={onSearch} />}
+      {/* {isDesktop
         ? onSearch && <GameListSectionGridSearch onSearch={onSearch} />
         : showSeeMore && (
             <TouchableOpacity
@@ -83,7 +79,7 @@ const GameListSectionGridHeader = ({
                 {t('common.seeMore')} {'>>'}
               </Text>
             </TouchableOpacity>
-          )}
+          )} */}
     </View>
   )
 }
@@ -127,6 +123,7 @@ const GameListSectionGridSearch = ({ onSearch }) => {
           bg: '$primary.700',
           borderRadius: 30,
           width: '100%',
+          justifyContent: 'center',
         }}
       >
         <View sx={{ width: '100%', borderRadius: 20 }}>

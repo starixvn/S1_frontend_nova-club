@@ -50,7 +50,7 @@ function GameSectionByProviderItem({
   const locale = useAppSelector((s) => s.setting.locale)
   const [filter, setFilter] = useState('hot')
   const [search, setSearch] = useState<string>()
-  const count = useResponsiveValue([8, 10, 12, 999, 999])
+  const count = useResponsiveValue([108, 10, 12, 999, 999])
 
   const { data: gameCategoryTagTypes } = useGameCategoryTagTypesQuery()
   const { getTagName } = useGetTagName()
