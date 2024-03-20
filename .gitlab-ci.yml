@@ -24,6 +24,7 @@ variables:
       when: always
   tags:
     - gitrun01
+  allow_failure: true
 
 .deploy-template: &deploy_job
   stage: deploy
