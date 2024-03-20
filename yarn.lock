@@ -6007,6 +6007,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-native-community/netinfo@npm:^11.3.1":
+  version: 11.3.1
+  resolution: "@react-native-community/netinfo@npm:11.3.1"
+  peerDependencies:
+    react-native: ">=0.59"
+  checksum: 435601f7c7567a8610cfcb267f9d1ef4148cdb859b30d9220bfd345ba6ac5615db351b55040c7ff9379ebbe5b38f7ba14aaa03b22f0ea710a0c65efd02bcff0d
+  languageName: node
+  linkType: hard
+
 "@react-native-firebase/analytics@npm:18.3.0":
   version: 18.3.0
   resolution: "@react-native-firebase/analytics@npm:18.3.0"
@@ -10664,6 +10673,7 @@ __metadata:
     "@notifee/react-native": 7.8.0
     "@react-native-async-storage/async-storage": 1.18.1
     "@react-native-community/datetimepicker": 6.7.3
+    "@react-native-community/netinfo": ^11.3.1
     "@react-native-firebase/analytics": 18.3.0
     "@react-native-firebase/app": 18.3.0
     "@react-native-firebase/crashlytics": 18.3.0

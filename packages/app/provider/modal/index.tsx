@@ -89,6 +89,10 @@ type DefaultModalStackParams = {
   HomeEventModal: {
     data: HomeEventModalData[]
   }
+  ConnectionModal: {
+    message: string
+    title: string
+  }
 }
 
 /**
@@ -149,6 +153,7 @@ const _dynamicModal: Record<keyof ModalStackParams, () => Promise<any>> = {
   RewardTncModal: () => import('app/components/modal/RewardTncModal'),
   ActionableModal: () => import('app/components/modal/ActionableModal'),
   HomeEventModal: () => import('app/features/home/EventModal/HomeEventModal'),
+  ConnectionModal: () => import('app/components/modal/ConnectionModal'),
 }
 
 function getDynamicComponent(key: DynamicModalType) {
@@ -242,6 +247,11 @@ const modalConfig: ModalConfigType = {
   HomeEventModal: {
     modal: getDynamicComponent('HomeEventModal'),
     transitionOptions: (animatedValue) => ({}),
+  },
+  ConnectionModal: {
+    modal: getDynamicComponent('ConnectionModal'),
+    backBehavior: 'none',
+    disableFlingGesture: true,
   },
   ...agentModalConfig,
 }

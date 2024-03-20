@@ -11,6 +11,7 @@ import GameGridSection from './GameGridSection'
 import HireBanner from './HireBanner'
 import ModalTriggers from './EventModal'
 import CnyTheme, { CnyDragon, CnyFireCracker } from './CnyTheme'
+import ConnectionCheck from 'app/components/ConnectionCheck'
 
 export default function HomeScreen() {
   const dispatch = useAppDispatch()
@@ -68,7 +69,7 @@ export default function HomeScreen() {
       <GameGridSection />
       <Deferrable />
       <ModalTriggers />
-
+      <ConnectionCheck />
       <CnyFireCracker />
       <CnyDragon />
     </ScrollView>
