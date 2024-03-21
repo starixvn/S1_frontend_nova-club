@@ -32,7 +32,8 @@ variables:
     name: $ENV
   script:
     - echo "Deploying ${CI_COMMIT_TAG}"
-    - cat manifests/manifest.yaml | envsubst | kubectl --kubeconfig=../../../../../.kube/config apply -f -
+    - envsubst < manifests/manifest.yaml >> manifests/deployment.yaml
+    - kubectl apply -f manifests/deployment.yaml
   rules:
     - if: $CI_COMMIT_TAG =~ /^ProdV/
       when: always
