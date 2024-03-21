@@ -1,11 +1,9 @@
 import { CONTENT_URI, MEDIA_DOMAIN, REFERRAL_DOMAIN } from '@env'
-import Icon from 'app/components/Icon'
 import Button from 'app/components/common/Button'
 import useContainerWidth from 'app/hooks/useContainerWidth'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
-import { Image, Pressable, Text, View, useResponsiveValue } from 'dripsy'
-import { ResizeMode, Video } from 'expo-av'
+import { Image, Text, View } from 'dripsy'
 import React, { useRef, useState } from 'react'
 import { ImageBackground, View as RNView } from 'react-native'
 import { useModal } from 'react-native-modalfy'
@@ -91,7 +89,7 @@ const AppDownloadSection = () => {
           aspectRatio: 16 / 9,
         }}
       >
-        {!isPlaying && (
+        {/* {!isPlaying && (
           <Pressable
             onPress={() => {
               setIsPlaying(!isPlaying)
@@ -128,9 +126,9 @@ const AppDownloadSection = () => {
               </View>
             </ImageBackground>
           </Pressable>
-        )}
+        )} 
 
-        {isPlaying && (
+         {isPlaying && (
           <Video
             source={{ uri: HowToInstall }}
             videoStyle={{ position: 'relative', height: '100%' }}
@@ -142,7 +140,17 @@ const AppDownloadSection = () => {
             }}
             resizeMode={ResizeMode.CONTAIN}
           />
-        )}
+        )} */}
+
+        <iframe
+          width="100%"
+          height="100%"
+          src="https://www.youtube.com/embed/NlscDsne5Jc?si=a_xKOjwlhyHNjDdW?autoplay=1"
+          title="YouTube video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          style={{ border: 0 }}
+        />
       </View>
     </View>
   )
