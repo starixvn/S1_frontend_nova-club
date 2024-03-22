@@ -1,3 +1,4 @@
+import { CheckModuleExist as ConnectionCheck } from 'app/components/netInfo/CheckModuleExist'
 import useShield from 'app/hooks/useShield'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
@@ -6,12 +7,11 @@ import { useEffect } from 'react'
 import { Shield_Action } from 'services/authApi.type'
 import AnnouncementSection from './Announcement/AnnouncementSection'
 import BannerSection from './BannerSection'
+import { CnyDragon, CnyFireCracker } from './CnyTheme'
 import Deferrable from './Deferrable'
+import ModalTriggers from './EventModal'
 import GameGridSection from './GameGridSection'
 import HireBanner from './HireBanner'
-import ModalTriggers from './EventModal'
-import CnyTheme, { CnyDragon, CnyFireCracker } from './CnyTheme'
-import ConnectionCheck from 'app/components/ConnectionCheck'
 
 export default function HomeScreen() {
   const dispatch = useAppDispatch()
