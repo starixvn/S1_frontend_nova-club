@@ -1,5 +1,4 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import Icon from 'app/components/Icon'
 import { LaunchGame } from 'app/features/game/GameLauncher'
 import { DesktopGamesFilter, SUB_ROUTES } from 'app/features/games/subroutes'
 import useGameScreen from 'app/features/games/useGameScreen'
@@ -13,7 +12,6 @@ import {
   Container,
   Pressable,
   Row,
-  Text,
   View,
   useResponsiveValue,
 } from 'dripsy'
@@ -144,7 +142,6 @@ const GameTypeFilter = ({ onFilterClicked, currentRoute, ...rest }) => {
   return (
     <View sx={{ gap: '$2', width: [175, 175, 175, 175] }} {...rest}>
       {DesktopGamesFilter.map((r, i) => {
-        console.log('🚀 ~ GameTypeFilter ~ r:', r)
         const isActive = r.route === currentFilter
 
         return (

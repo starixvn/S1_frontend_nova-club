@@ -12,7 +12,7 @@ const DraggableFloatingMystery = () => {
       sx={{
         position: 'absolute',
         right: 12,
-        bottom: isDekstop ? 20 : 120,
+        bottom: 180,
         zIndex: 2,
       }}
     >

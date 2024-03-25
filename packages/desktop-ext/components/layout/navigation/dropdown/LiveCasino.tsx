@@ -48,7 +48,7 @@ export default function LiveCasino({}: Props) {
               //   providerStatus ? providerStatus[g]?.system_name : undefined
               // }
               key={g.gpc}
-              sx={{ width: '11%' }}
+              sx={{ width: '10%' }}
               img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/gameV2/provider/main/${g.gpc.toLowerCase()}.png`}
               isDropdownContent
               {...g}

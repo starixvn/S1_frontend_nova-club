@@ -81,7 +81,9 @@ const SlotSingleProviderListing = ({
   const column = useResponsiveValue([4, 5, 6])
 
   const filteredGames = useMemo(() => {
-    return filter === ALL ? games : games.filter((g) => g.tags.includes(filter))
+    return filter === ALL
+      ? games
+      : games && games.filter((g) => g.tags.includes(filter))
   }, [filter, games])
 
   const searchedGame = useMemo(() => {
@@ -115,6 +117,7 @@ const SlotSingleProviderListing = ({
 
   return (
     <View
+      nativeID={`gameSection${provider}`}
       sx={{
         flex: 1,
         bg: '$primary.700',
@@ -172,7 +175,7 @@ const SlotSingleProviderListing = ({
       <View style={{ height: 500 }}>
         <FlashList
           ref={flashListRef}
-          contentContainerStyle={{ paddingBottom: bottom, paddingTop: 12 }}
+          contentContainerStyle={{ paddingTop: 12 }}
           key={column}
           estimatedItemSize={100}
           // data={searchedGame ?? filteredGames}

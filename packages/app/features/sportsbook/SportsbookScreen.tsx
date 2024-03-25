@@ -89,10 +89,6 @@ export default function SportsbookScreen() {
             icon="sportbook"
           />
           <MatchSection />
-
-          <View sx={{ mx: '$3' }}>
-            <HireBanner />
-          </View>
         </View>
       }
     />

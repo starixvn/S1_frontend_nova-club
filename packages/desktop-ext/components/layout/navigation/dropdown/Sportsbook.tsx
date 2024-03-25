@@ -26,7 +26,6 @@ export default function Sportsbook({}: Props) {
     else return []
   }, [data])
 
-  console.log('🚀 ~ providers ~ providers:', providers)
   return (
     <DropdownContent menu={NAVIGATION_DROPDOWN_MENU.Sportsbook}>
       {providers &&
@@ -43,7 +42,7 @@ export default function Sportsbook({}: Props) {
               rebateTop
               // displayName={g.name[locale]}
               key={g.gc + g.gpc}
-              sx={{ width: '11%' }}
+              sx={{ width: '10%' }}
               isDropdownContent
               {...g}
               // img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/gameV2/provider/main/${g.gpc?.toLowerCase()}.png`}

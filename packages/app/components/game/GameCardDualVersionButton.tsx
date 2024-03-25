@@ -19,13 +19,13 @@ const GameCardDualVersionButton = ({
         sx={{
           backgroundColor: '$secondary.550',
           borderColor: '$secondary.150',
-          mb: 12,
+          mb: 4,
         }}
         onPress={onPressPlayNow}
       >
         <Text
           sx={{
-            fontSize: 13,
+            fontSize: 10,
             fontWeight: 'bold',
             textAlign: 'center',
             textTransform: 'capitalize',
@@ -45,7 +45,7 @@ const GameCardDualVersionButton = ({
         <Text
           sx={{
             mt: FONT_TOP_OFFSET,
-            fontSize: 13,
+            fontSize: 10,
             fontWeight: 'bold',
             textAlign: 'center',
           }}
@@ -65,6 +65,6 @@ const GameButton = styled(TouchableOpacity)({
   borderRadius: 12,
   p: 2,
   width: '40%',
-  maxWidth: 70,
+  maxWidth: 60,
   justifyContent: 'center',
 })
