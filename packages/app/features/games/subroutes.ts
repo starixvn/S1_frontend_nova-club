@@ -17,6 +17,7 @@ export const Route_GameCategory: Record<keyof typeof Route, GAME_TYPE_CODE> = {
 
 export const SUB_ROUTES = {
   'keno-lottery': {
+    key: 'lotto',
     label: 'game.category.lottery',
     icon: 'lotto',
     route: Route['keno-lottery'],
@@ -30,6 +31,7 @@ export const SUB_ROUTES = {
     },
   },
   fishing: {
+    key: 'fishing',
     label: 'game.category.fishing',
     icon: 'fishing',
     route: Route['fishing'],
@@ -43,6 +45,7 @@ export const SUB_ROUTES = {
     },
   },
   card: {
+    key: 'card',
     label: 'game.category.cardGame',
     icon: 'card-game',
     route: Route['card'],
@@ -51,6 +54,7 @@ export const SUB_ROUTES = {
     },
   },
   local: {
+    key: 'games',
     label: 'game.category.localGame',
     icon: 'games',
     route: Route['local'],
@@ -75,6 +79,7 @@ export const DefaultFilter = [
 export const DesktopGamesFilter = [
   ...DefaultFilter,
   {
+    key: 'slot',
     label: 'game.category.slots',
     icon: 'sl',
     route: '/slots',

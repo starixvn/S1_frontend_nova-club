@@ -26,7 +26,7 @@ function BottomTabBar() {
     if (item.path === '/') {
       isSamePath = pathname === item.path
     } else {
-      isSamePath = pathname === item.path
+      isSamePath = pathname.includes(item.path)
     }
 
     return isSamePath

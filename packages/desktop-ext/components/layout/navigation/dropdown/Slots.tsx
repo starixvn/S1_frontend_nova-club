@@ -4,11 +4,11 @@ import {
   GetCommissionList,
   GetGameRebateValue,
 } from 'app/components/game/GameUtilityAction'
-import { GAME_TYPE_CODE } from 'utils/constant'
 import uniqBy from 'lodash/uniqBy'
 import React, { useMemo } from 'react'
 import { useGameListMultipleQuery } from 'services/gameApi'
 import { useRouter } from 'solito/router'
+import { GAME_TYPE_CODE } from 'utils/constant'
 import DropdownContent from '../DropdownContent'
 import { NAVIGATION_DROPDOWN_MENU } from '../NavigationHeaderProvider'
 
@@ -47,13 +47,14 @@ export default function Slots({}: Props) {
                 commissionList,
               })}
               showRebate={true}
+              rebateTop
               onPress={() => push(`/slots/${g.gpc.toLowerCase()}`)}
               // displayName={
               //   providerStatus ? providerStatus[g]?.system_name : undefined
               // }
               key={g.gpc}
-              sx={{ width: '11%' }}
-              img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/slots/${g.gpc.toLowerCase()}.png`}
+              sx={{ width: ['9%', '9%', '9%', '9%', '10%'] }}
+              img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/gameV2/provider/slots/${g.gpc.toLowerCase()}.png`}
               isDropdownContent
             />
           )

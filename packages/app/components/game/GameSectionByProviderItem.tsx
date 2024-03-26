@@ -50,7 +50,7 @@ function GameSectionByProviderItem({
   const locale = useAppSelector((s) => s.setting.locale)
   const [filter, setFilter] = useState('hot')
   const [search, setSearch] = useState<string>()
-  const count = useResponsiveValue([8, 10, 12, 999, 999])
+  const count = useResponsiveValue([108, 10, 12, 999, 999])
 
   const { data: gameCategoryTagTypes } = useGameCategoryTagTypesQuery()
   const { getTagName } = useGetTagName()
@@ -126,7 +126,7 @@ function GameSectionByProviderItem({
             <SolitoImage
               height={25}
               width={90}
-              src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${gpc?.toLowerCase()}.png`}
+              src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/gameV2/provider/white/${gpc?.toLowerCase()}.png`}
               contentFit="contain"
               alt={gpc}
             />

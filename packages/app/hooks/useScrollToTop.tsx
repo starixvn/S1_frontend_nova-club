@@ -4,7 +4,13 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { Platform } from 'react-native'
 import IconButton from '../components/IconButton'
 
-const useScrollToTop = ({ innerRef }) => {
+const useScrollToTop = ({
+  innerRef,
+  liftButton,
+}: {
+  innerRef: React.MutableRefObject<null>
+  liftButton?: boolean
+}) => {
   const [scrollY, setScrollY] = useState(0)
   const [showButton, setShowButton] = useState<boolean>(true)
 
@@ -36,7 +42,7 @@ const useScrollToTop = ({ innerRef }) => {
               duration: 250,
             }}
           >
-            <IconButton name="arrow-up" size={32} onPress={handleScrollTop} />
+            <IconButton name="arrow-up" size={18} onPress={handleScrollTop} />
           </AnimatedView>
         )}
       </AnimatePresence>
@@ -51,8 +57,8 @@ const useScrollToTop = ({ innerRef }) => {
 }
 
 const AnimatedView = styled(MotiView)({
-  position: Platform.OS === 'web' ? 'fixed' : 'absolute',
-  bottom: 50,
+  position: 'absolute',
+  bottom: 35,
   right: 30,
   p: '$2',
   borderRadius: 50,

@@ -26,7 +26,7 @@ const DraggableFloatingMystery = () => {
           position: isDekstop ? 'fixed' : 'absolute',
           left: isDekstop ? 12 : undefined,
           right: isDekstop ? undefined : 12,
-          bottom: isDekstop ? 20 : 120,
+          bottom: isDekstop ? 20 : 160,
           zIndex: 2,
         }}
       >

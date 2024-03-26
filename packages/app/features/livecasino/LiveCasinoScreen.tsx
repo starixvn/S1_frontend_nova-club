@@ -1,23 +1,23 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { FlashList } from '@shopify/flash-list'
 import GamePageHeader from 'app/components/GamePageHeader'
+import ScrollToTopWrapper from 'app/components/ScrollToTopWrapper'
 import SectionHeader from 'app/components/SectionHeader'
+import BannerCarousel from 'app/components/banner/BannerCarousel'
 import GameCard from 'app/components/game/GameCard'
 import {
   GetCommissionList,
   GetGameRebateValue,
 } from 'app/components/game/GameUtilityAction'
 import useLocalization from 'app/provider/localization'
-import { GAME_TYPE_CODE } from 'utils/constant'
 import { Row, View, useResponsiveValue } from 'dripsy'
 import groupBy from 'lodash/groupBy'
 import React, { useMemo } from 'react'
+import { useBannerQuery } from 'services/contentApi'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
-import { SolitoImage } from 'solito/image'
+import { GAME_TYPE_CODE } from 'utils/constant'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
-import BannerCarousel from 'app/components/banner/BannerCarousel'
-import { useBannerQuery } from 'services/contentApi'
 
 export default function LiveCasinoScreen() {
   const { data } = useGetGameListByCategoryQuery([GAME_TYPE_CODE.LIVE_DEALER])
@@ -76,40 +76,45 @@ export default function LiveCasinoScreen() {
             mx: isMiddle ? `${spacePercentage * 1.5}%` : `${spacePercentage}%`,
           }}
           {...item}
-          img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/main/${item.gpc.toLowerCase()}.png`}
+          img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/gameV2/provider/main/${item.gpc.toLowerCase()}.png`}
         />
       </Row>
     )
   }
 
   return (
-    <FlashList
-      key={numColumns}
-      estimatedItemSize={160}
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{
-        paddingBottom: 30,
-      }}
-      data={firstGameOfEachProvider}
-      renderItem={renderItem}
-      numColumns={numColumns}
-      extraData={commissionList}
-      ListHeaderComponent={
-        <View sx={{ gap: '$3', my: '$3' }}>
-          <GamePageHeader title={t('game.category.liveCasino')} icon="casino" />
+    <ScrollToTopWrapper>
+      <FlashList
+        key={numColumns}
+        estimatedItemSize={160}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingBottom: 30,
+        }}
+        data={firstGameOfEachProvider}
+        renderItem={renderItem}
+        numColumns={numColumns}
+        extraData={commissionList}
+        ListHeaderComponent={
+          <View sx={{ gap: '$3', my: '$3' }}>
+            <GamePageHeader
+              title={t('game.category.liveCasino')}
+              icon="casino"
+            />
 
-          <View sx={{ width: '100%', aspectRatio: 1280 / 333 }}>
-            {/* <SolitoImage
+            <View sx={{ width: '100%', aspectRatio: 1280 / 333 }}>
+              {/* <SolitoImage
               fill
               src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/livecasino/pp-live-casino.jpg`}
               alt="dailywins"
             /> */}
-            <BannerCarousel data={bannerList} />
+              <BannerCarousel data={bannerList} />
+            </View>
+            <RecentlyPlayedSection gameTypes={[GAME_TYPE_CODE.LIVE_DEALER]} />
+            <SectionHeader title={t('common.provider')} icon="all" />
           </View>
-          <RecentlyPlayedSection gameTypes={[GAME_TYPE_CODE.LIVE_DEALER]} />
-          <SectionHeader title={t('common.provider')} icon="all" />
-        </View>
-      }
-    />
+        }
+      />
+    </ScrollToTopWrapper>
   )
 }

@@ -3,7 +3,7 @@ import { AnimatePresence, MotiView } from 'moti'
 import React, { useEffect, useMemo, useState } from 'react'
 import IconButton from '../components/IconButton'
 
-const useScrollToTop = () => {
+const useScrollToTop = ({ liftButton }: { liftButton: boolean }) => {
   const [showButton, setShowButton] = useState<boolean>(false)
 
   const handleScrollTop = () => {
@@ -40,6 +40,7 @@ const useScrollToTop = () => {
               type: 'timing',
               duration: 250,
             }}
+            liftButton={liftButton}
           >
             <IconButton name="arrow-up" size={18} onPress={handleScrollTop} />
           </AnimatedView>
@@ -54,16 +55,18 @@ const useScrollToTop = () => {
   }
 }
 
-const AnimatedView = styled(MotiView)({
-  position: 'fixed',
-  bottom: 50,
-  right: 30,
-  p: '$2',
-  borderRadius: 50,
-  bg: '$primary.300',
-  alignItems: 'center',
-  justifyContent: 'center',
-  zIndex: 9999,
-})
+const AnimatedView = styled(MotiView)(
+  ({ liftButton }: { liftButton: boolean }) => ({
+    position: 'fixed',
+    bottom: liftButton ? 115 : 50,
+    right: 30,
+    p: '$2',
+    borderRadius: 50,
+    bg: '$primary.300',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 9999,
+  })
+)
 
 export default useScrollToTop

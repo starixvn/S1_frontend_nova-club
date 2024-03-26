@@ -1,34 +1,22 @@
-import { FlashList } from '@shopify/flash-list'
 import GamePageHeader from 'app/components/GamePageHeader'
-import GameSectionByProviderItem from 'app/components/game/GameSectionByProviderItem'
+import ScrollToTopWrapper from 'app/components/ScrollToTopWrapper'
+import BannerCarousel from 'app/components/banner/BannerCarousel'
+import { GetCommissionList } from 'app/components/game/GameUtilityAction'
 import ProviderList from 'app/components/game/ProviderList'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
 import useLocalization from 'app/provider/localization'
-import { GAME_TYPE_CODE, ProviderImageCategory } from 'utils/constant'
-import { ActivityIndicator, View } from 'dripsy'
-import uniqBy from 'lodash/uniqBy'
+import { View } from 'dripsy'
 import groupBy from 'lodash/groupBy'
-import React, {
-  startTransition,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+import uniqBy from 'lodash/uniqBy'
+import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 import { Platform } from 'react-native'
-import { useBannerQuery, useSlotBannerFullQuery } from 'services/contentApi'
+import { useBannerQuery } from 'services/contentApi'
 import { useGameListMultipleQuery } from 'services/gameApi'
-import { Game } from 'services/gameApi.type'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
+import { GAME_TYPE_CODE, ProviderImageCategory } from 'utils/constant'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 import SlotSingleProviderListing from './SlotSingleProviderListing'
-import {
-  GetCommissionList,
-  GetGameRebateValue,
-} from 'app/components/game/GameUtilityAction'
-import BannerCarousel from 'app/components/banner/BannerCarousel'
 
 type Params = {
   provider?: string
@@ -41,7 +29,7 @@ const GameCategory = [GAME_TYPE_CODE.SLOTS]
 function SlotScreen() {
   const { t } = useLocalization()
   const { push } = useRouter()
-  const [gameGroup, setGameGroup] = useState<Game[][]>()
+  const scrollRef = useRef()
   const commissionList = GetCommissionList()
   const [provider, setProvider] = useParam('provider', {
     initial: undefined,
@@ -74,121 +62,83 @@ function SlotScreen() {
   }, [games])
 
   useEffect(() => {
-    const gamesGroup = Object.values(gamesByProviders).filter(
-      (v) => v.length > 0
-    )
+    provider && onNavigate(provider)
+  }, [provider])
 
-    if (gamesGroup.length > 0) {
-      startTransition(() => {
-        setGameGroup(gamesGroup)
-      })
-    }
-  }, [gamesByProviders])
+  // useEffect(() => {
+  //   const gamesGroup = Object.values(gamesByProviders).filter(
+  //     (v) => v.length > 0
+  //   )
 
-  const flashListRef = useRef<FlashList<Game[]>>(null)
+  //   if (gamesGroup.length > 0) {
+  //     startTransition(() => {
+  //       setGameGroup(gamesGroup)
+  //     })
+  //   }
+  // }, [gamesByProviders])
 
-  function onNavigate(index: number, gpc: string) {
+  function onNavigate(provider: string) {
     if (Platform.OS === 'web') {
       document
-        .getElementById(`gameSection${gpc}`)
+        .getElementById(`gameSection${provider}`)
         ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
     } else {
-      flashListRef.current?.scrollToIndex({
+      scrollRef.current?.scrollTo({
+        y: 600,
         animated: true,
-        index,
       })
     }
   }
 
-  const onViewMore = useCallback((gpc: string) => {
-    if (Platform.OS === 'web') push(`/slots/${gpc}`)
-    else
-      push({
-        pathname: `/slotsByProvider?provider=${gpc.toLowerCase()}`,
-      })
+  const handleSelectProvider = useCallback((gpc: string) => {
+    setProvider(gpc)
   }, [])
 
   // if (!isDelayed || isUninitialized)
   //   return <ActivityIndicator color="$tertiary" sx={{ my: '$3' }} />
 
-  if (provider && Platform.OS === 'web') {
-    if (!gamesByProviders) return <ActivityIndicator />
+  // if (provider && Platform.OS === 'web') {
+  //   if (!gamesByProviders) return <ActivityIndicator />
 
-    return (
-      <SlotSingleProviderListing
-        gtc={GAME_TYPE_CODE.SLOTS}
-        commissionList={commissionList}
-        games={gamesByProviders[provider.toUpperCase()]}
-        provider={provider}
-        onBack={() => {
-          setProvider(undefined)
-        }}
-        gameCategoryTagTranslation={gameCategoryTagTranslation}
-      />
-    )
-  }
+  //   return (
+  //     <SlotSingleProviderListing
+  //       gtc={GAME_TYPE_CODE.SLOTS}
+  //       commissionList={commissionList}
+  //       games={gamesByProviders[provider.toUpperCase()]}
+  //       provider={provider}
+  //       onBack={() => {
+  //         setProvider(undefined)
+  //       }}
+  //       gameCategoryTagTranslation={gameCategoryTagTranslation}
+  //     />
+  //   )
+  // }
 
   return (
-    <FlashList
-      ref={flashListRef}
-      estimatedItemSize={302}
-      data={gameGroup}
-      contentContainerStyle={{
-        paddingBottom: 40,
-      }}
-      renderItem={({ item }) => {
-        if (item && item[0]) {
-          const { gpc, gtc } = item[0]
-          return (
-            <GameSectionByProviderItem
-              gpc={gpc}
-              games={item}
-              onViewMore={onViewMore}
-              gameCategoryTagTranslation={gameCategoryTagTranslation}
-              rebate={GetGameRebateValue({
-                gtc: GAME_TYPE_CODE.SLOTS,
-                gpc: gpc ?? '',
-                commissionList,
-              })}
-            />
-          )
-        } else return null
-      }}
-      ListHeaderComponent={
-        <View sx={{ gap: '$3', my: '$3' }}>
-          <GamePageHeader icon="sl" title={t('game.category.slots')} />
-          <View sx={{ width: '100%', aspectRatio: 1280 / 333 }}>
-            <BannerCarousel data={bannerList} bannerType="slot" />
-          </View>
-          <RecentlyPlayedSection
-            gameTypes={[GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]}
-          />
-          {/* <GameListSectionAsyncByTag
-            tag={SlotType.NEW}
-            title={t('game.new').toUpperCase()}
-            icon="star"
-            delay={100}
-          />
-          <GameListSectionAsyncByTag
-            tag={SlotType.JACKPOT}
-            title={t('game.jackpot').toUpperCase()}
-            icon="jackpot"
-            delay={500}
-          />
-          <GameListSectionAsyncByTag
-            tag={SlotType.MEGAWAY}
-            title={'MEGAWAY'}
-            icon="megaway"
-            delay={1000}
-          /> */}
-          <ProviderList
-            data={providers}
-            onNavigateProvider={onNavigate}
-            imageCategory={ProviderImageCategory.Slot}
-          />
+    <ScrollToTopWrapper ref={scrollRef}>
+      <View sx={{ gap: '$3', my: '$3', paddingBottom: 0 }}>
+        <GamePageHeader icon="sl" title={t('game.category.slots')} />
+        <View sx={{ width: '100%', aspectRatio: 1280 / 333 }}>
+          <BannerCarousel data={bannerList} bannerType="slot" />
         </View>
-      }
-    />
+        <RecentlyPlayedSection
+          gameTypes={[GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]}
+        />
+        <ProviderList
+          data={providers}
+          onNavigateProvider={handleSelectProvider}
+          imageCategory={ProviderImageCategory.Slot}
+        />
+
+        <SlotSingleProviderListing
+          gtc={GAME_TYPE_CODE.SLOTS}
+          commissionList={commissionList}
+          games={provider ? gamesByProviders[provider.toUpperCase()] : games}
+          provider={provider}
+          gameCategoryTagTranslation={gameCategoryTagTranslation}
+        />
+      </View>
+    </ScrollToTopWrapper>
   )
 }
 

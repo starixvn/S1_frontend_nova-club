@@ -66,7 +66,7 @@ function SlotScreen({}: Props) {
     startTransition(() =>
       setFilteredGames(
         provider && games
-          ? games.filter((g) => g.gpc.toLowerCase() == provider)
+          ? games.filter((g) => g.gpc.toLowerCase() === provider.toLowerCase())
           : games
       )
     )
@@ -135,7 +135,7 @@ function SlotScreen({}: Props) {
             <Pressable
               onPress={() => setProvider(undefined)}
               sx={{
-                width: [175, 175, 175, 175],
+                width: 180,
                 aspectRatio: 230 / 80,
                 overflow: 'hidden',
                 borderWidth: 2,
@@ -154,7 +154,7 @@ function SlotScreen({}: Props) {
               />
               <SolitoImage
                 fill
-                src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/colored/all.jpg`}
+                src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/gameV2/provider/colored/all.png`}
                 alt={'all slots'}
               />
             </Pressable>

@@ -1,6 +1,6 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { GAME_TYPE_CODE, ProviderImageCategory } from 'utils/constant'
-import { Pressable, View } from 'dripsy'
+import { Pressable, View, useResponsiveValue } from 'dripsy'
 import React, { Dispatch, SetStateAction } from 'react'
 import { ViewProps } from 'react-native'
 import { SolitoImage } from 'solito/image'
@@ -25,8 +25,9 @@ export default function ProviderList({
   handleProvider,
   ...rest
 }: ProviderListProps) {
+  const imageWidth = useResponsiveValue([180])
   return (
-    <View sx={{ gap: '$2', width: [175, 175, 175, 175] }} {...rest}>
+    <View sx={{ width: imageWidth }} {...rest}>
       {children}
       {data.map((g, i) => {
         const isActive = g.gpc === provider?.toUpperCase()
@@ -38,7 +39,7 @@ export default function ProviderList({
               handleProvider(g.gpc.toUpperCase())
             }}
             sx={{
-              width: [175, 175, 175, 175],
+              width: imageWidth,
               aspectRatio: 230 / 80,
               overflow: 'hidden',
               borderWidth: 2,
@@ -56,7 +57,7 @@ export default function ProviderList({
             />
             <SolitoImage
               fill
-              src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/colored/${imageCategory}/${g.gpc?.toLowerCase()}.jpg`}
+              src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/gameV2/provider/colored/${imageCategory}/${g.gpc?.toLowerCase()}.png`}
               alt={g.gpc}
             />
           </Pressable>

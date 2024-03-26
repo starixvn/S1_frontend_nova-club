@@ -9,7 +9,7 @@ export const SabaGamePayload: Game = {
     vi: 'SABA Sports',
   },
   gtc: GAME_TYPE_CODE.SPORTS,
-  img: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/saba-gamelaunch.png`,
+  img: `${MEDIA_DOMAIN}${CONTENT_URI}/v2/gameV2/saba-gamelaunch.png`,
   gpc: 'SABA',
   tags: [],
 }

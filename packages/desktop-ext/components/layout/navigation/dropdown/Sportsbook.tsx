@@ -39,12 +39,13 @@ export default function Sportsbook({}: Props) {
                 commissionList,
               })}
               showRebate={true}
+              rebateTop
               // displayName={g.name[locale]}
               key={g.gc + g.gpc}
-              sx={{ width: '11%' }}
+              sx={{ width: ['9%', '9%', '9%', '9%', '10%'] }}
               isDropdownContent
               {...g}
-              // img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/main/${g.gpc?.toLowerCase()}.png`}
+              // img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/gameV2/provider/main/${g.gpc?.toLowerCase()}.png`}
             />
           )
         })}

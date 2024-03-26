@@ -1,34 +1,30 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
 import { FlashList } from '@shopify/flash-list'
-import Icon from 'app/components/Icon'
-import SectionLabel from 'app/components/SectionLabel'
-import Shadow from 'app/components/Shadow'
 import GameCard from 'app/components/game/GameCard'
 import GameListSectionGrid from 'app/components/game/GameListSectionGrid'
-import GameRebateLabel from 'app/components/game/GameRebateLabel'
 import { GetGameRebateValue } from 'app/components/game/GameUtilityAction'
 import {
   GameCategoryTagTranslation,
   useGetTagName,
 } from 'app/hooks/appState/game/useGameCategoryTag'
+import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { ALL } from 'utils/constant'
-import {
-  Pressable,
-  Row,
-  SxProp,
-  View,
-  useDripsyTheme,
-  useResponsiveValue,
-} from 'dripsy'
+import { SxProp, Text, View, useResponsiveValue } from 'dripsy'
+import sortBy from 'lodash/sortBy'
 import union from 'lodash/union'
-import React, { startTransition, useEffect, useMemo, useState } from 'react'
+import React, {
+  startTransition,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { CommissionTableResult } from 'services/contentApi.type'
 import { useGameCategoryTagTypesQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
 import { SolitoImage } from 'solito/image'
-import sortBy from 'lodash/sortBy'
+import { ALL } from 'utils/constant'
 
 interface SlotSingleProviderListingProps {
   games: Game[]
@@ -42,25 +38,25 @@ interface SlotSingleProviderListingProps {
   gtc: string
   hideTag?: boolean
 }
+
+const ITEM_PER_PAGE = 20
+
 const SlotSingleProviderListing = ({
   games,
   provider,
-  icon,
-  title = '',
-  onBack,
   sx,
   gameCategoryTagTranslation,
   gtc,
   commissionList = [],
   hideTag,
 }: SlotSingleProviderListingProps) => {
+  const { t } = useLocalization()
   const { top, bottom } = useSafeArea()
-
-  const { theme } = useDripsyTheme()
   const locale = useAppSelector((s) => s.setting.locale)
+  const flashListRef = useRef<FlashList<Game>>(null)
   const [filter, setFilter] = useState<string>(ALL)
   const [search, setSearch] = useState<string>()
-  const [filteredGames, setFilteredGames] = useState<Game[]>([])
+  const [pageNumber, setPageNumber] = useState(1)
   const { data: gameCategoryTagTypes } = useGameCategoryTagTypesQuery()
   const { getTagName } = useGetTagName()
 
@@ -70,7 +66,7 @@ const SlotSingleProviderListing = ({
         (distinctTags, currentGame) => union(distinctTags, currentGame.tags),
         []
       )
-    } else return ['ALL']
+    } else return []
   }, [games])
 
   // Sort according to gameCategoryTagTypes seq
@@ -83,6 +79,11 @@ const SlotSingleProviderListing = ({
   const seqTags = [ALL, ...sortedTagsArray]
 
   const column = useResponsiveValue([4, 5, 6])
+
+  const filteredGames = useMemo(() => {
+    return filter === ALL ? games : games.filter((g) => g.tags.includes(filter))
+  }, [filter, games])
+
   const searchedGame = useMemo(() => {
     return search
       ? filteredGames.filter((g) => {
@@ -91,74 +92,66 @@ const SlotSingleProviderListing = ({
       : undefined
   }, [search, filteredGames, locale])
 
+  const items = useMemo(() => {
+    return searchedGame
+      ? searchedGame?.slice(0, ITEM_PER_PAGE * pageNumber) ?? []
+      : filteredGames &&
+          (filteredGames?.slice(0, ITEM_PER_PAGE * pageNumber) ?? [])
+  }, [searchedGame, filteredGames, pageNumber])
+
   useEffect(() => {
-    if (games) {
-      startTransition(() => {
-        let filtered = games
-        if (filter !== ALL)
-          filtered = games.filter((g) => {
-            return g.tags && g.tags.includes(filter)
-          })
-        setFilteredGames(filtered)
+    setSearch('')
+    setFilter(ALL)
+    setPageNumber(1)
+    setTimeout(() => {
+      flashListRef.current?.scrollToOffset({
+        animated: true,
+        offset: 0,
       })
-    }
-  }, [games, filter])
+    }, 1000)
+  }, [provider])
+
+  const onLoadMoreItems = () => {
+    setPageNumber((p) => p + 1)
+  }
 
   return (
     <View
-      sx={{ flex: 1, bg: '$primary.700', pt: top ? top + 10 : '$3', ...sx }}
+      nativeID={`gameSection${provider}`}
+      sx={{
+        flex: 1,
+        bg: '$primary.700',
+        pt: top ? top + 10 : '$3',
+        ...sx,
+      }}
     >
-      <View sx={{ gap: '$3' }}>
-        <Row sx={{ justifyContent: 'space-between' }}>
-          <Pressable onPress={onBack}>
-            <Shadow
-              safeRender
-              offset={[0, -1]}
-              startColor={theme?.colors?.$primary?.[100]}
-              distance={1}
-              sx={{ borderTopRightRadius: 20, borderBottomRightRadius: 20 }}
-            >
-              <Row
-                sx={{
-                  bg: '$primary.300',
-                  borderTopRightRadius: 20,
-                  borderBottomRightRadius: 20,
-                  alignItems: 'center',
-                  py: ['$2'],
-                  px: ['$1'],
-                }}
-              >
-                <Icon name="back" />
-                {provider && (
-                  <>
-                    <SolitoImage
-                      alt={provider}
-                      height={20}
-                      width={100}
-                      src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/white/${provider.toLowerCase()}.png`}
-                    />
-                    <View sx={{ justifyContent: 'center', px: '$2' }}>
-                      <GameRebateLabel
-                        background={'rgba(0,0,0,0.6)'}
-                        rebateText={GetGameRebateValue({
-                          commissionList,
-                          gpc: provider.toUpperCase(),
-                          gtc,
-                        })}
-                      />
-                    </View>
-                  </>
-                )}
-                {icon && <SectionLabel icon={icon} title={title} />}
-              </Row>
-            </Shadow>
-          </Pressable>
-          <GameListSectionGrid.Search
-            onSearch={(t) => {
-              startTransition(() => setSearch(t))
-            }}
-          />
-        </Row>
+      <View>
+        <GameListSectionGrid.Header
+          key={provider} //add key to fix the rebate value animation stop working after sometime/ not in view
+          showRebate={!!provider}
+          rebateValue={GetGameRebateValue({
+            commissionList,
+            gpc: provider?.toUpperCase() ?? '',
+            gtc,
+          })}
+          onSearch={(t) => {
+            startTransition(() => setSearch(t))
+          }}
+        >
+          <View sx={{ flexDirection: 'row' }}>
+            {provider ? (
+              <SolitoImage
+                height={25}
+                width={90}
+                src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/gameV2/provider/white/${provider?.toLowerCase()}.png`}
+                contentFit="contain"
+                alt={provider}
+              />
+            ) : (
+              <Text sx={{ fontWeight: '900' }}>{t('common.all')}</Text>
+            )}
+          </View>
+        </GameListSectionGrid.Header>
 
         {!hideTag && (
           <GameListSectionGrid.TagBody>
@@ -166,7 +159,7 @@ const SlotSingleProviderListing = ({
               const isActive = filter === f
               return (
                 <GameListSectionGrid.TagButton
-                  key={f}
+                  key={'TAG' + f}
                   onPress={() => {
                     setFilter(f)
                   }}
@@ -179,12 +172,14 @@ const SlotSingleProviderListing = ({
           </GameListSectionGrid.TagBody>
         )}
       </View>
-      <View style={{ flex: 1 }}>
+      <View style={{ height: 500 }}>
         <FlashList
+          ref={flashListRef}
           contentContainerStyle={{ paddingBottom: bottom, paddingTop: 12 }}
           key={column}
           estimatedItemSize={100}
-          data={searchedGame ?? filteredGames}
+          // data={searchedGame ?? filteredGames}
+          data={items}
           numColumns={column}
           renderItem={({ item }: { item: Game }) => {
             return (
@@ -200,10 +195,13 @@ const SlotSingleProviderListing = ({
                   sx={{ width: '85%' }}
                   {...item}
                   displayName={item.name[locale]}
+                  isFullCard
                 />
               </View>
             )
           }}
+          onEndReached={onLoadMoreItems}
+          onEndReachedThreshold={0.5}
         />
       </View>
     </View>

@@ -1,3 +1,4 @@
+import ScrollToTopWrapper from 'app/components/ScrollToTopWrapper'
 import useShield from 'app/hooks/useShield'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
@@ -6,11 +7,11 @@ import { useEffect } from 'react'
 import { Shield_Action } from 'services/authApi.type'
 import AnnouncementSection from './Announcement/AnnouncementSection'
 import BannerSection from './BannerSection'
+import { CnyDragon, CnyFireCracker } from './CnyTheme'
 import Deferrable from './Deferrable'
+import ModalTriggers from './EventModal'
 import GameGridSection from './GameGridSection'
 import HireBanner from './HireBanner'
-import ModalTriggers from './EventModal'
-import CnyTheme, { CnyDragon, CnyFireCracker } from './CnyTheme'
 
 export default function HomeScreen() {
   const dispatch = useAppDispatch()
@@ -54,23 +55,25 @@ export default function HomeScreen() {
   }, [username, isLoggedIn])
 
   return (
-    <ScrollView
-      bounces={false}
-      showsVerticalScrollIndicator={false}
-      sx={{ flex: 1 }}
-      contentContainerSx={{ pb: '$1' }}
-    >
-      <BannerSection />
-      <View sx={{ gap: ['$2', '$3'], pt: ['$2', '$3'], px: '$3' }}>
-        <AnnouncementSection />
-        <HireBanner />
-      </View>
-      <GameGridSection />
-      <Deferrable />
-      <ModalTriggers />
+    <ScrollToTopWrapper>
+      <ScrollView
+        bounces={false}
+        showsVerticalScrollIndicator={false}
+        sx={{ flex: 1 }}
+        contentContainerSx={{ pb: '$1' }}
+      >
+        <BannerSection />
+        <View sx={{ gap: ['$2', '$3'], pt: ['$2', '$3'], px: '$3' }}>
+          <AnnouncementSection />
+          <HireBanner />
+        </View>
+        <GameGridSection />
+        <Deferrable />
+        <ModalTriggers />
 
-      <CnyFireCracker />
-      <CnyDragon />
-    </ScrollView>
+        <CnyFireCracker />
+        <CnyDragon />
+      </ScrollView>
+    </ScrollToTopWrapper>
   )
 }

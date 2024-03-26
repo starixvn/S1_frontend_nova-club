@@ -215,8 +215,8 @@ const GameCard = ({
               position: 'absolute',
               width: '100%',
               alignItems: 'flex-end',
-              bottom: '$2',
-              right: '$2',
+              top: '45%',
+              right: '10%',
             }}
           >
             <GameCardDualVersionButton
@@ -269,22 +269,23 @@ const LabelContainer = styled(View)(({ rebateTop }: { rebateTop?: boolean }) =>
         py: [25, 30, 35, 35, 35],
         width: '100%',
         position: 'absolute',
-        top: 0,
-        right: 0,
+        // top: ['16%', 24, 32, 0, 0, 32],
+        top: ['16%', '16%', '16%', '5%'],
+        right: 4,
         justifyContent: 'flex-end',
         flexDirection: 'row',
-        pr: '$2',
+        pr: '5%',
         alignItems: 'center',
       }
     : {
         py: [6],
         width: '100%',
         position: 'absolute',
-        bottom: 0,
+        top: 50,
         right: 0,
         justifyContent: 'flex-end',
         flexDirection: 'row',
-        pr: '$2',
+        pr: '$3',
         alignItems: 'center',
       }
 )

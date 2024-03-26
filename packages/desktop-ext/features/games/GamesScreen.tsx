@@ -1,5 +1,4 @@
 import { CONTENT_URI, MEDIA_DOMAIN } from '@env'
-import Icon from 'app/components/Icon'
 import { LaunchGame } from 'app/features/game/GameLauncher'
 import { DesktopGamesFilter, SUB_ROUTES } from 'app/features/games/subroutes'
 import useGameScreen from 'app/features/games/useGameScreen'
@@ -13,7 +12,6 @@ import {
   Container,
   Pressable,
   Row,
-  Text,
   View,
   useResponsiveValue,
 } from 'dripsy'
@@ -174,10 +172,10 @@ const GameTypeFilter = ({ onFilterClicked, currentRoute, ...rest }) => {
             <SolitoImage
               style={{ position: 'absolute' }}
               fill
-              src={require('app/assets/images/game/bgAllProviders.jpg')}
+              src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/gameV2/provider/games/${r.key?.toLowerCase()}.png`}
               alt={'bg'}
             />
-            <Row sx={{ alignItems: 'center', flex: 1, px: '$2' }}>
+            {/* <Row sx={{ alignItems: 'center', flex: 1, px: '$2' }}>
               <View
                 sx={{
                   flex: 0.9,
@@ -197,7 +195,7 @@ const GameTypeFilter = ({ onFilterClicked, currentRoute, ...rest }) => {
               >
                 {t(r.label)}
               </Text>
-            </Row>
+            </Row> */}
           </Pressable>
         )
       })}

@@ -1,6 +1,7 @@
 import { Text, styled } from 'dripsy'
 import TouchableOpacity from '../pressable/TouchableOpacity'
 import useLocalization from 'app/provider/localization'
+import { FONT_TOP_OFFSET } from 'app/constants/font'
 
 type GameCardDualVersionButtonProps = {
   onPressPlayNow: () => void
@@ -16,9 +17,9 @@ const GameCardDualVersionButton = ({
     <>
       <GameButton
         sx={{
-          backgroundColor: '$secondary.300',
-          borderColor: '$secondary.100',
-          mb: '$2',
+          backgroundColor: '$secondary.550',
+          borderColor: '$secondary.150',
+          mb: 4,
         }}
         onPress={onPressPlayNow}
       >
@@ -43,6 +44,7 @@ const GameCardDualVersionButton = ({
       >
         <Text
           sx={{
+            mt: FONT_TOP_OFFSET,
             fontSize: 10,
             fontWeight: 'bold',
             textAlign: 'center',
@@ -60,8 +62,9 @@ export default GameCardDualVersionButton
 
 const GameButton = styled(TouchableOpacity)({
   borderWidth: 2,
-  borderRadius: 5,
+  borderRadius: 12,
   p: 2,
   width: '40%',
   maxWidth: 60,
+  justifyContent: 'center',
 })
