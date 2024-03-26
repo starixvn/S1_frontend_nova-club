@@ -53,7 +53,7 @@ export default function Slots({}: Props) {
               //   providerStatus ? providerStatus[g]?.system_name : undefined
               // }
               key={g.gpc}
-              sx={{ width: '10%' }}
+              sx={{ width: ['9%', '9%', '9%', '9%', '10%'] }}
               img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/gameV2/provider/slots/${g.gpc.toLowerCase()}.png`}
               isDropdownContent
             />

@@ -81,9 +81,7 @@ const SlotSingleProviderListing = ({
   const column = useResponsiveValue([4, 5, 6])
 
   const filteredGames = useMemo(() => {
-    return filter === ALL
-      ? games
-      : games && games.filter((g) => g.tags.includes(filter))
+    return filter === ALL ? games : games.filter((g) => g.tags.includes(filter))
   }, [filter, games])
 
   const searchedGame = useMemo(() => {
@@ -105,10 +103,12 @@ const SlotSingleProviderListing = ({
     setSearch('')
     setFilter(ALL)
     setPageNumber(1)
-    flashListRef.current?.scrollToIndex({
-      animated: true,
-      index: 0,
-    })
+    setTimeout(() => {
+      flashListRef.current?.scrollToOffset({
+        animated: true,
+        offset: 0,
+      })
+    }, 1000)
   }, [provider])
 
   const onLoadMoreItems = () => {
@@ -175,7 +175,7 @@ const SlotSingleProviderListing = ({
       <View style={{ height: 500 }}>
         <FlashList
           ref={flashListRef}
-          contentContainerStyle={{ paddingTop: 12 }}
+          contentContainerStyle={{ paddingBottom: bottom, paddingTop: 12 }}
           key={column}
           estimatedItemSize={100}
           // data={searchedGame ?? filteredGames}

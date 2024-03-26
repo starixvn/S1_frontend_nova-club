@@ -1,11 +1,11 @@
 import GamePageHeader from 'app/components/GamePageHeader'
+import ScrollToTopWrapper from 'app/components/ScrollToTopWrapper'
 import BannerCarousel from 'app/components/banner/BannerCarousel'
 import { GetCommissionList } from 'app/components/game/GameUtilityAction'
 import ProviderList from 'app/components/game/ProviderList'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
-import useScrollToTop from 'app/hooks/useScrollToTop'
 import useLocalization from 'app/provider/localization'
-import { ScrollView, View } from 'dripsy'
+import { View } from 'dripsy'
 import groupBy from 'lodash/groupBy'
 import uniqBy from 'lodash/uniqBy'
 import React, { useCallback, useEffect, useMemo, useRef } from 'react'
@@ -29,6 +29,7 @@ const GameCategory = [GAME_TYPE_CODE.SLOTS]
 function SlotScreen() {
   const { t } = useLocalization()
   const { push } = useRouter()
+  const scrollRef = useRef()
   const commissionList = GetCommissionList()
   const [provider, setProvider] = useParam('provider', {
     initial: undefined,
@@ -37,12 +38,6 @@ function SlotScreen() {
         ? templateFromUrl[0]
         : undefined
     },
-  })
-
-  const scrollRef = useRef(null)
-  const { ScrollToTopButton, setScrollY } = useScrollToTop({
-    innerRef: scrollRef,
-    liftButton: true,
   })
 
   const { data: banner } = useBannerQuery()
@@ -120,37 +115,30 @@ function SlotScreen() {
   // }
 
   return (
-    <>
-      <ScrollView
-        ref={scrollRef}
-        onScroll={(event) => setScrollY(event.nativeEvent.contentOffset.y)}
-        scrollEventThrottle={16}
-      >
-        <View sx={{ gap: '$3', my: '$3', paddingBottom: 0 }}>
-          <GamePageHeader icon="sl" title={t('game.category.slots')} />
-          <View sx={{ width: '100%', aspectRatio: 1280 / 333 }}>
-            <BannerCarousel data={bannerList} bannerType="slot" />
-          </View>
-          <RecentlyPlayedSection
-            gameTypes={[GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]}
-          />
-          <ProviderList
-            data={providers}
-            onNavigateProvider={handleSelectProvider}
-            imageCategory={ProviderImageCategory.Slot}
-          />
-
-          <SlotSingleProviderListing
-            gtc={GAME_TYPE_CODE.SLOTS}
-            commissionList={commissionList}
-            games={provider ? gamesByProviders[provider.toUpperCase()] : games}
-            provider={provider}
-            gameCategoryTagTranslation={gameCategoryTagTranslation}
-          />
+    <ScrollToTopWrapper ref={scrollRef}>
+      <View sx={{ gap: '$3', my: '$3', paddingBottom: 0 }}>
+        <GamePageHeader icon="sl" title={t('game.category.slots')} />
+        <View sx={{ width: '100%', aspectRatio: 1280 / 333 }}>
+          <BannerCarousel data={bannerList} bannerType="slot" />
         </View>
-      </ScrollView>
-      {ScrollToTopButton}
-    </>
+        <RecentlyPlayedSection
+          gameTypes={[GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]}
+        />
+        <ProviderList
+          data={providers}
+          onNavigateProvider={handleSelectProvider}
+          imageCategory={ProviderImageCategory.Slot}
+        />
+
+        <SlotSingleProviderListing
+          gtc={GAME_TYPE_CODE.SLOTS}
+          commissionList={commissionList}
+          games={provider ? gamesByProviders[provider.toUpperCase()] : games}
+          provider={provider}
+          gameCategoryTagTranslation={gameCategoryTagTranslation}
+        />
+      </View>
+    </ScrollToTopWrapper>
   )
 }
 

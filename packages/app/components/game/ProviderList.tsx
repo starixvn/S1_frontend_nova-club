@@ -41,7 +41,7 @@ export default function ProviderList({
                   onPress={() => onNavigateProvider(g.gpc)}
                   sx={{
                     width: width,
-                    m: spaces,
+                    mx: spaces,
                     // maxWidth: 240,
                     aspectRatio: 240 / 80,
                     overflow: 'hidden',

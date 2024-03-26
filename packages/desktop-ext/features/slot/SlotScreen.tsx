@@ -135,7 +135,7 @@ function SlotScreen({}: Props) {
             <Pressable
               onPress={() => setProvider(undefined)}
               sx={{
-                width: [175, 175, 175, 175],
+                width: 180,
                 aspectRatio: 230 / 80,
                 overflow: 'hidden',
                 borderWidth: 2,

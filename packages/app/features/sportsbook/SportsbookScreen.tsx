@@ -1,5 +1,6 @@
 import { FlashList } from '@shopify/flash-list'
 import GamePageHeader from 'app/components/GamePageHeader'
+import ScrollToTopWrapper from 'app/components/ScrollToTopWrapper'
 import GameCard from 'app/components/game/GameCard'
 import {
   GetCommissionList,
@@ -7,14 +8,13 @@ import {
 } from 'app/components/game/GameUtilityAction'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { GAME_TYPE_CODE } from 'utils/constant'
 import { Row, View, useResponsiveValue } from 'dripsy'
+import uniqBy from 'lodash/uniqBy'
 import React, { useMemo } from 'react'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
+import { GAME_TYPE_CODE } from 'utils/constant'
 import MatchSection from './MatchSection'
-import uniqBy from 'lodash/uniqBy'
-import HireBanner from '../home/HireBanner'
 
 export default function SportsbookScreen() {
   const { t } = useLocalization()
@@ -71,26 +71,28 @@ export default function SportsbookScreen() {
   }
 
   return (
-    <FlashList
-      key={numColumns}
-      estimatedItemSize={160}
-      showsVerticalScrollIndicator={false}
-      data={providers}
-      renderItem={renderItem}
-      numColumns={numColumns}
-      contentContainerStyle={{
-        paddingBottom: 40,
-      }}
-      extraData={commissionList}
-      ListHeaderComponent={
-        <View sx={{ gap: '$3', my: '$3' }}>
-          <GamePageHeader
-            title={t('game.category.sportsbook')}
-            icon="sportbook"
-          />
-          <MatchSection />
-        </View>
-      }
-    />
+    <ScrollToTopWrapper>
+      <FlashList
+        key={numColumns}
+        estimatedItemSize={160}
+        showsVerticalScrollIndicator={false}
+        data={providers}
+        renderItem={renderItem}
+        numColumns={numColumns}
+        contentContainerStyle={{
+          paddingBottom: 40,
+        }}
+        extraData={commissionList}
+        ListHeaderComponent={
+          <View sx={{ gap: '$3', my: '$3' }}>
+            <GamePageHeader
+              title={t('game.category.sportsbook')}
+              icon="sportbook"
+            />
+            <MatchSection />
+          </View>
+        }
+      />
+    </ScrollToTopWrapper>
   )
 }

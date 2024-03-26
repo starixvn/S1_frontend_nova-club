@@ -42,7 +42,7 @@ export default function Sportsbook({}: Props) {
               rebateTop
               // displayName={g.name[locale]}
               key={g.gc + g.gpc}
-              sx={{ width: '10%' }}
+              sx={{ width: ['9%', '9%', '9%', '9%', '10%'] }}
               isDropdownContent
               {...g}
               // img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/gameV2/provider/main/${g.gpc?.toLowerCase()}.png`}
