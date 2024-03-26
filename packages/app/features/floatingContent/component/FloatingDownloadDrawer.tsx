@@ -50,10 +50,7 @@ const FloatingDownloadDrawer = ({
             transition={{ type: 'timing', duration: 500 }}
           >
             <ContentOffset>
-              <Pressable
-                disabled
-                onPress={() => Linking.openURL(REFERRAL_DOMAIN)}
-              >
+              <Pressable onPress={() => Linking.openURL(REFERRAL_DOMAIN)}>
                 <QRCode
                   value={REFERRAL_DOMAIN}
                   size={100}
