@@ -56,10 +56,10 @@ const Logo = () => {
     lang === 'en'
       ? isCNY
         ? `${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/cny/cny-logo-en.png`
-        : `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered.png`
+        : `${MEDIA_DOMAIN}${CONTENT_URI}/vui123-logo-en.png`
       : isCNY
       ? `${MEDIA_DOMAIN}${CONTENT_URI}/event/2024/cny/cny-logo-vi.png`
-      : `${MEDIA_DOMAIN}${CONTENT_URI}/logo-powered-vn.png`
+      : `${MEDIA_DOMAIN}${CONTENT_URI}/vui123-logo-vi.png`
 
   return (
     <Row sx={{ alignItems: 'center' }}>
