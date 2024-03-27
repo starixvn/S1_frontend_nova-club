@@ -32,7 +32,8 @@ export type MatchCarouselProps = Omit<
 const MatchCarousel = forwardRef<ICarouselInstance, MatchCarouselProps>(
   ({ data, animationKey, ...rest }: MatchCarouselProps, ref) => {
     const width = useWindowDimensions().width
-    const itemWidth = Math.min(500, width * 0.8)
+    const resWidth = useResponsiveValue([500, 500, 500, 400, 400, 500])
+    const itemWidth = Math.min(resWidth, width * 0.8)
     const carouselRef = useRef<ICarouselInstance>(null)
 
     const scoreHeight = useResponsiveValue(SCORE_HEIGHT)
@@ -110,7 +111,7 @@ const MatchCarousel = forwardRef<ICarouselInstance, MatchCarouselProps>(
           renderItem={({ item }) => (
             <MatchItem match={item} width={itemWidth} onPress={onPress} />
           )}
-          width={width}
+          width={itemWidth}
           height={height}
           panGestureHandlerProps={{
             activeOffsetX: [-10, 10],
