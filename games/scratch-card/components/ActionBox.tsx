@@ -3,6 +3,8 @@ import { Container, Graphics, Text } from '@pixi/react'
 import { ITextStyle, TextStyle } from 'pixi.js'
 import { ComponentProps, useMemo, useState } from 'react'
 import { IContainer } from 'utils-pixi/type'
+import useGameConfig from '@games/shared/hooks/useGameConfig'
+import { RewardGameKeyMap } from 'utils/rewards'
 
 type ActionBoxProps = {
   balance?: number
@@ -24,7 +26,10 @@ const ActionBox = ({
   const balanceDisplay = useAnimatedAmount(totalBalance, {
     tickPerSecond: 10000,
   })
-  const disabled = balance < 2
+  const { isSpinEnabled } = useGameConfig(
+    RewardGameKeyMap.SCRATCH_CARD,
+    balance
+  )
 
   const handleClick = () => {
     setIsFirstStart(false)
@@ -76,12 +81,12 @@ const ActionBox = ({
         anchor={1}
         x={boxWidth * 0.25}
         onpointertap={handleClick}
-        eventMode={disabled ? 'none' : 'static'}
+        eventMode={isSpinEnabled ? 'static' : 'none'}
       >
         <Graphics
           key={boxWidth + 'right'}
           draw={(g) => {
-            g.beginFill(disabled ? '#CCC' : '#FFFFFF', 1)
+            g.beginFill(isSpinEnabled ? '#FFFFFF' : '#CCC', 1)
             g.drawRoundedRect(
               -buttonWidth * 0.5,
               -buttonHeight * 0.5,

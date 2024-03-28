@@ -71,7 +71,7 @@ const Logo = () => {
           alt="header-logo"
           sx={{
             height: LogoSize,
-            aspectRatio: 292 / 88,
+            aspectRatio: isCNY ? 292 / 88 : 1000 / 350,
             marginLeft: -5,
           }}
         />
