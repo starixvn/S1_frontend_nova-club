@@ -1,10 +1,11 @@
 import SessionHandler from 'app/components/SessionHandler'
 import BottomTabBar from 'app/components/navigation/BottomTabBar'
 import MainHeader from 'app/components/navigation/header/MainHeader'
+import DraggableFloatingMystery from 'app/features/floatingContent/DraggableFloatingMystery'
+import FloatingOverlay from 'app/features/floatingContent/FloatingOverlay'
 import { useAppSelector } from 'app/provider/redux/store'
 import { Tabs } from 'expo-router'
 import { View } from 'react-native'
-import DraggableFloatingMystery from 'app/features/floatingContent/DraggableFloatingMystery'
 
 export default function Root() {
   const splashScreenLoaded = useAppSelector(
@@ -19,6 +20,7 @@ export default function Root() {
           <MainHeader />
           {/** APP floating mystery */}
           <DraggableFloatingMystery />
+          <FloatingOverlay />
         </>
       )}
       <Tabs

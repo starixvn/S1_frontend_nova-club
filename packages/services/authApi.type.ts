@@ -58,6 +58,7 @@ export type CheckUsernameQueryArgs = Pick<LoginQueryArgs, 'username'>
 export interface RegisterOtpQueryArgs {
   contactNumber: string
   username: string
+  currency: string
 }
 
 export interface ForgotPasswordOtpQueryArgs {

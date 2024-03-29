@@ -91,6 +91,7 @@ const AccountVerificationForm = ({
         // WIP: Prefix should not be hardcoded
         contactNumber:
           MOBILE_PREFIX_BY_CURRENCY[values.currency] + values.contactNumber,
+        currency: values.currency,
       }).unwrap()
 
       OTPRef.current?.startOtpTimer()
@@ -150,8 +151,6 @@ const AccountVerificationForm = ({
 
     setFieldValue('currency', currency?.value)
   }
-
-  console.log('values', values)
 
   return (
     <StyledFormContainer {...rest}>

@@ -5,6 +5,7 @@ export const CURRENCY_LANGUAGE_LIST = [
   {
     title: 'Thailand',
     currency: Currency.THB,
+    localeLang: LANGUAGE_CODE.THAILAND,
     image: require('app/assets/images/common/th.jpg'),
     language: [
       {
@@ -20,6 +21,7 @@ export const CURRENCY_LANGUAGE_LIST = [
   {
     title: 'Vietnam',
     currency: Currency.VND,
+    localeLang: LANGUAGE_CODE.VIETNAM,
     image: require('app/assets/images/common/vn.jpg'),
     language: [
       {

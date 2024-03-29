@@ -9,14 +9,20 @@ import { contentApi } from 'services/contentApi'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { LANGUAGE_CODE } from 'utils/constant'
 import LanguageDropdown from '../LanguageDropdown'
+import { Platform } from 'react-native'
+import useIsDesktop from 'app/hooks/useIsDesktop'
+import { CURRENCY_LANGUAGE_LIST } from 'app/config/currency'
 
 type Props = {}
 
 export default function HeaderLanguageToggle({}: Props) {
+  const isDekstop = useIsDesktop()
   const dispatch = useAppDispatch()
   const { currency } = usePlayerProfileQuery()
 
+  const isLoggedIn = useAppSelector((s) => !!s.auth.info)
   const lang = useAppSelector((state) => state.setting.locale)
+  const currentCurrency = useAppSelector((state) => state.setting.currency)
   const isLanguageMenuVisible = useAppSelector(
     (s) => s.tempSetting.isLanguageMenuVisible
   )
@@ -27,9 +33,20 @@ export default function HeaderLanguageToggle({}: Props) {
       contentApi.endpoints.banner.initiate({ currency }, { forceRefetch: true })
     )
   }
-  const onChangeLanguage = (value: LANGUAGE_CODE) => {
-    // setLanguage(value)
-    dispatch(TempSettingActions.setIsOverlayVisible(!isLanguageMenuVisible))
+  const onChangeLanguage = () => {
+    const tempCurrency = CURRENCY_LANGUAGE_LIST.find(
+      (el) => el.currency === currentCurrency
+    )
+
+    if (isLoggedIn && tempCurrency) {
+      const toLang =
+        lang === tempCurrency.localeLang
+          ? LANGUAGE_CODE.ENGLISH
+          : tempCurrency.localeLang
+
+      setLanguage(toLang as LANGUAGE_CODE)
+    } else
+      dispatch(TempSettingActions.setIsOverlayVisible(!isLanguageMenuVisible))
   }
 
   return (
@@ -38,18 +55,12 @@ export default function HeaderLanguageToggle({}: Props) {
         <LanguageButton
           size={26}
           languageCode={lang}
-          onPress={() =>
-            onChangeLanguage(
-              lang === LANGUAGE_CODE.VIETNAM
-                ? LANGUAGE_CODE.ENGLISH
-                : LANGUAGE_CODE.VIETNAM
-            )
-          }
+          onPress={onChangeLanguage}
           imageSx={{ borderWidth: 1.5 }}
         />
       </HeaderLanguageButtonInnerContainer>
 
-      <LanguageDropdown />
+      {Platform.OS === 'web' && <LanguageDropdown />}
     </HeaderLanguageButtonContainer>
   )
 }
@@ -59,7 +70,7 @@ const HeaderLanguageButtonContainer = styled(View)({
   borderRadius: 50,
   alignItems: 'center',
   justifyContent: 'center',
-  zIndex: 100,
+  zIndex: 10,
   position: 'relative',
 })
 
