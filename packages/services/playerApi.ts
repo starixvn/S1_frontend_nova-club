@@ -25,14 +25,14 @@ export const playerApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
     playerProfile: builder.query<IResponse<ProfileResult>, void>({
       query: (queryArgs) => ({
-        url: `/player_api/getPlayerProfile`,
+        url: `/player_api/v1/getPlayerProfile`,
         method: 'POST',
       }),
       providesTags: ['PlayerProfile'],
     }),
     sendUpdateProfileOTP: builder.mutation<IResponse<string>, void>({
       query: (queryArgs) => ({
-        url: `/player_api/updateRealNameOtp`,
+        url: `/player_api/v1/updateRealNameOtp`,
         method: 'POST',
       }),
     }),
@@ -41,7 +41,7 @@ export const playerApi = baseApiWithTag.injectEndpoints({
       ProfileUpdateArgs
     >({
       query: (queryArgs) => ({
-        url: `/player_api/playerProfile`,
+        url: `/player_api/v1/playerProfile`,
         method: 'PUT',
         data: {
           ...queryArgs,
@@ -54,7 +54,7 @@ export const playerApi = baseApiWithTag.injectEndpoints({
       PlayerOverviewArgs
     >({
       query: (queryArgs) => ({
-        url: `/player_api/getPlayerOverview`,
+        url: `/player_api/v1/getPlayerOverview`,
         method: 'POST',
         data: {
           ...queryArgs,
@@ -71,7 +71,7 @@ export const playerApi = baseApiWithTag.injectEndpoints({
       void
     >({
       query: () => ({
-        url: `/player_api/getPlayerOverviewSummary`,
+        url: `/player_api/v1/getPlayerOverviewSummary`,
         method: 'POST',
       }),
     }),
@@ -80,7 +80,7 @@ export const playerApi = baseApiWithTag.injectEndpoints({
       ReportArgs
     >({
       query: (queryArgs) => ({
-        url: `/player_api/getPlayerReport`,
+        url: `/player_api/v1/getPlayerReport`,
         method: 'POST',
         headers: { 'X-Lang': 'en' },
         data: {
@@ -91,7 +91,7 @@ export const playerApi = baseApiWithTag.injectEndpoints({
     }),
     playerLang: builder.mutation<string, PlayerLangArgs>({
       query: ({ lang }) => ({
-        url: `/player_api/lang`,
+        url: `/player_api/v1/lang`,
         method: 'PUT',
         data: {
           lang,
@@ -103,7 +103,7 @@ export const playerApi = baseApiWithTag.injectEndpoints({
       EligibleSpinArgs
     >({
       query: (queryArgs) => ({
-        url: `/player_api/getEligibleEvents`,
+        url: `/player_api/v1/getEligibleEvents`,
         method: 'POST',
         data: {
           ...queryArgs,
@@ -112,7 +112,7 @@ export const playerApi = baseApiWithTag.injectEndpoints({
     }),
     luckySpin: builder.mutation<IResponse<LuckySpinArgs>, void>({
       query: (queryArgs) => ({
-        url: `/player_api/registerFreeWheelSpin`,
+        url: `/player_api/v1/registerFreeWheelSpin`,
         method: 'POST',
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
@@ -132,7 +132,7 @@ export const playerApi = baseApiWithTag.injectEndpoints({
       RetentionSpinArgs
     >({
       query: (queryArgs) => ({
-        url: `/player_api/retentionFreeWheelSpin`,
+        url: `/player_api/v1/retentionFreeWheelSpin`,
         method: 'POST',
         data: { ...queryArgs },
       }),
@@ -151,13 +151,13 @@ export const playerApi = baseApiWithTag.injectEndpoints({
     // soon to be deprecated, use eligibleSpin to get register spin balance
     freeSpin: builder.query<IResponse<FreeSpinResult>, void>({
       query: () => ({
-        url: `/player_api/getRegisterFreeWheelSpin`,
+        url: `/player_api/v1/getRegisterFreeWheelSpin`,
         method: 'POST',
       }),
     }),
     playerRealName: builder.mutation<IResponse, PlayerRealNameArgs>({
       query: (queryArgs) => ({
-        url: `/player_api/playerRealName`,
+        url: `/player_api/v1/playerRealName`,
         method: 'PUT',
         data: {
           ...queryArgs,
@@ -167,7 +167,7 @@ export const playerApi = baseApiWithTag.injectEndpoints({
     }),
     onlineCheck: builder.mutation<IResponse<void>, void>({
       query: () => ({
-        url: `/player_api/onlineCheck`,
+        url: `/player_api/v1/onlineCheck`,
         method: 'POST',
       }),
     }),

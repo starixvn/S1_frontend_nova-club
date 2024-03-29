@@ -20,7 +20,7 @@ const depositApi = baseApiWithTag.injectEndpoints({
       DepositPaymentListArgs
     >({
       query: (queryArgs) => ({
-        url: `/player_api/depositPaymentList`,
+        url: `/player_api/v1/depositPaymentList`,
         method: 'POST',
         data: { ...queryArgs },
       }),
@@ -32,7 +32,7 @@ const depositApi = baseApiWithTag.injectEndpoints({
       SubmitDepositArgs
     >({
       query: (queryArgs) => ({
-        url: `/player_api/submitDeposit`,
+        url: `/player_api/v1/submitDeposit`,
         method: 'POST',
         data: {
           ...queryArgs,
@@ -45,7 +45,7 @@ const depositApi = baseApiWithTag.injectEndpoints({
       SubmitManualDepositArgs
     >({
       query: (queryArgs) => ({
-        url: `/player_api/submitManualDeposit`,
+        url: `/player_api/v1/submitManualDeposit`,
         method: 'POST',
         data: {
           ...queryArgs,
@@ -58,7 +58,7 @@ const depositApi = baseApiWithTag.injectEndpoints({
       UploadDepositSlipArgs
     >({
       query: (queryArgs) => ({
-        url: `/player_api/uploadPlayerDepositSlip`,
+        url: `/player_api/v1/uploadPlayerDepositSlip`,
         method: 'POST',
         headers: { post: { 'Content-Type': 'multipart/form-data' } },
         data: queryArgs,

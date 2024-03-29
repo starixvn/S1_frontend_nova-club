@@ -17,19 +17,19 @@ export const eventApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
     checkTicketSpin: builder.query<IResponse<TicketSpinBalance>, void>({
       query: () => ({
-        url: `/player_api/checkPlayerTicEligibleSpin`,
+        url: `/player_api/v1/checkPlayerTicEligibleSpin`,
       }),
       providesTags: ['TicketBalance'],
     }),
     ticketSpin: builder.mutation<IResponse<TicketSpinResult[]>, void>({
       query: () => ({
-        url: `/player_api/playerTicFreeWheelSpin`,
+        url: `/player_api/v1/playerTicFreeWheelSpin`,
       }),
       invalidatesTags: ['TicketBalance'],
     }),
     luckyDraw: builder.mutation<IResponse<TicketSpinResult>, void>({
       query: () => ({
-        url: `/player_api/playerTicFreeWheelSpin`,
+        url: `/player_api/v1/playerTicFreeWheelSpin`,
       }),
       invalidatesTags: ['TicketBalance'],
     }),
@@ -43,12 +43,12 @@ export const eventApi = baseApiWithTag.injectEndpoints({
     }),
     getMysteryCheck: builder.query<IResponse<MysteryCheckResult>, void>({
       query: () => ({
-        url: `/player_api/getMysteryCheck`,
+        url: `/player_api/v1/getMysteryCheck`,
       }),
     }),
     setMysteryClaim: builder.mutation<IResponse<void>, MysteryClaimArgs>({
       query: (queryArgs) => ({
-        url: `/player_api/setMysteryClaim`,
+        url: `/player_api/v1/setMysteryClaim`,
         method: 'POST',
         data: {
           ...queryArgs,

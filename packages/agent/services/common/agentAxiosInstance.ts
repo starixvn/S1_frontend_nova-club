@@ -8,7 +8,7 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 
 export enum AuthURL {
   // AGENT LOGOUT URL TOBE INSERTED
-  LOGOUT = '/player_api/logout',
+  LOGOUT = '/player_api/v1/logout',
 }
 
 enum RESPONSE_STATUS {

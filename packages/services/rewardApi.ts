@@ -16,7 +16,7 @@ export const rewardApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
     getCoin: builder.query<number | undefined, void>({
       query: () => ({
-        url: `/player_api/getCoin`,
+        url: `/player_api/v1/getCoin`,
       }),
       transformResponse: (r: IResponse<{ balance: string }>) => {
         return Number(r.data?.balance) ?? undefined
@@ -25,7 +25,7 @@ export const rewardApi = baseApiWithTag.injectEndpoints({
     }),
     redeemCoin: builder.mutation<IResponse<RedemptionResult>, string>({
       query: (secret_key) => ({
-        url: `/player_api/coinRedemption`,
+        url: `/player_api/v1/coinRedemption`,
         data: {
           secret_key,
         },
@@ -46,13 +46,13 @@ export const rewardApi = baseApiWithTag.injectEndpoints({
     }),
     checkInDailyCoin: builder.mutation<IResponse, void>({
       query: () => ({
-        url: `/player_api/checkInDailyCoin`,
+        url: `/player_api/v1/checkInDailyCoin`,
       }),
       invalidatesTags: ['CheckInProgress', 'Coin'],
     }),
     getDailyCoin: builder.query<DailyCoinSettingResult, void>({
       query: () => ({
-        url: `/player_api/getDailyCoin`,
+        url: `/player_api/v1/getDailyCoin`,
       }),
       providesTags: ['CheckInProgress'],
       transformResponse(r: IResponse<DailyCoinSettingResult>) {
@@ -71,12 +71,12 @@ export const rewardApi = baseApiWithTag.injectEndpoints({
     }),
     getEligibleEventCoin: builder.query<IResponse<EligibleEventCoin>, void>({
       query: () => ({
-        url: `/player_api/getEligibleEventCoin`,
+        url: `/player_api/v1/getEligibleEventCoin`,
       }),
     }),
     claimEventCoin: builder.mutation<IResponse<ClaimEventCoinResult>, string>({
       query: (event_code) => ({
-        url: `/player_api/claimEventCoin`,
+        url: `/player_api/v1/claimEventCoin`,
         data: {
           event_code,
         },
@@ -85,7 +85,7 @@ export const rewardApi = baseApiWithTag.injectEndpoints({
     }),
     getChristmasEventCoin: builder.query<string | undefined, void>({
       query: () => ({
-        url: `/player_api/getFCFSEligibleCoin`,
+        url: `/player_api/v1/getFCFSEligibleCoin`,
       }),
       transformResponse: ({ data }: { data: EventCode[] }) => {
         return data.length > 0 ? data[0]?.event_code : undefined
@@ -96,7 +96,7 @@ export const rewardApi = baseApiWithTag.injectEndpoints({
       string
     >({
       query: (event_code) => ({
-        url: `/player_api/claimFCFSCoin`,
+        url: `/player_api/v1/claimFCFSCoin`,
         data: {
           event_code,
         },

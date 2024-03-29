@@ -9,7 +9,7 @@ const changePasswordApi = baseApiWithTag.injectEndpoints({
       ChangePasswordArgs
     >({
       query: (queryArgs) => ({
-        url: `/player_api/password`,
+        url: `/player_api/v1/password`,
         method: 'PUT',
         data: {
           ...queryArgs,

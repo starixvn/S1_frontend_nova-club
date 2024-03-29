@@ -58,7 +58,7 @@ export const contentApi = baseApiWithTag.injectEndpoints({
       CommissionQueryArgs
     >({
       query: ({ currency }) => ({
-        url: `/player_api/getProviderAndGameTypeCommission`,
+        url: `/player_api/v1/getProviderAndGameTypeCommission`,
         data: {
           currency,
         },

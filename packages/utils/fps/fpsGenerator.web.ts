@@ -83,11 +83,11 @@
 
 export function appendFpsParams(url: string, requestParams = {}) {
   const fpsNeeded = [
-    '/player_api/login',
-    '/player_api/register',
-    '/player_api/submitDeposit',
-    '/player_api/submitManualDeposit',
-    '/player_api/submitWithdrawal',
+    '/player_api/v1/login',
+    '/player_api/v1/register',
+    '/player_api/v1/submitDeposit',
+    '/player_api/v1/submitManualDeposit',
+    '/player_api/v1/submitWithdrawal',
   ]
 
   if (fpsNeeded.includes(url!)) Object.assign(requestParams, getFpsParams())

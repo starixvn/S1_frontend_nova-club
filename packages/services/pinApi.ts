@@ -13,7 +13,7 @@ const pinApi = baseApiWithTag.injectEndpoints({
       CreateTransferPinArgs
     >({
       query: (queryArgs) => ({
-        url: `/player_api/transferPin`,
+        url: `/player_api/v1/transferPin`,
         method: 'POST',
         data: {
           ...queryArgs,
@@ -25,7 +25,7 @@ const pinApi = baseApiWithTag.injectEndpoints({
       UpdateTransferPinArgs
     >({
       query: (queryArgs) => ({
-        url: `/player_api/transferPin`,
+        url: `/player_api/v1/transferPin`,
         method: 'PUT',
         data: {
           ...queryArgs,
@@ -34,7 +34,7 @@ const pinApi = baseApiWithTag.injectEndpoints({
     }),
     transferPinRecovery: builder.mutation<IResponse<string>, RecoverPinArgs>({
       query: (queryArgs) => ({
-        url: `/player_api/transferPinRecovery`,
+        url: `/player_api/v1/transferPinRecovery`,
         method: 'POST',
         data: {
           ...queryArgs,
@@ -43,7 +43,7 @@ const pinApi = baseApiWithTag.injectEndpoints({
     }),
     transferPinRecoveryOtp: builder.mutation<IResponse<string>, object>({
       query: (queryArgs) => ({
-        url: `/player_api/transferPinRecoveryOtp`,
+        url: `/player_api/v1/transferPinRecoveryOtp`,
         method: 'POST',
         data: {
           ...queryArgs,

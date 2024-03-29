@@ -37,7 +37,7 @@ export const gameApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
     goToGame: builder.mutation<IResponse<GotoGameResult>, GetGameUrlQueryArgs>({
       query: ({ token, ...params }) => ({
-        url: `/player_api/gotogame`,
+        url: `/player_api/v1/gotogame`,
         data: params,
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       }),
@@ -53,7 +53,7 @@ export const gameApi = baseApiWithTag.injectEndpoints({
     }),
     gameList: builder.query<IResponse<GameConfig[]>, GameListQueryArgs>({
       query: (data) => ({
-        url: `/player_api/v1/getGameList`,
+        url: `/player_api/v1/v1/getGameList`,
         data,
       }),
     }),

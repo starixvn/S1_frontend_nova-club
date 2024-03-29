@@ -15,7 +15,7 @@ const withdrawalApi = baseApiWithTag.injectEndpoints({
       SubmitWithdrawalArgs | void
     >({
       query: (queryArgs) => ({
-        url: `/player_api/submitWithdrawal`,
+        url: `/player_api/v1/submitWithdrawal`,
         method: 'POST',
         data: {
           ...queryArgs,
@@ -38,7 +38,7 @@ const withdrawalApi = baseApiWithTag.injectEndpoints({
       CryptoExchangeRateArgs
     >({
       query: (queryArgs) => ({
-        url: `/player_api/getCryptoExchangeRate`,
+        url: `/player_api/v1/getCryptoExchangeRate`,
         method: 'POST',
         data: {
           ...queryArgs,
@@ -50,7 +50,7 @@ const withdrawalApi = baseApiWithTag.injectEndpoints({
       void
     >({
       query: () => ({
-        url: `/player_api/getAvailWithdrawAmount`,
+        url: `/player_api/v1/getAvailWithdrawAmount`,
         method: 'POST',
         data: {},
       }),

@@ -24,7 +24,7 @@ const bankApi = baseApiWithTag.injectEndpoints({
      */
     playerBank: builder.query<PlayerBankResult[], PlayerBankArgs | void>({
       query: (queryArgs) => ({
-        url: `/player_api/getPlayerWithdrawalBankList`,
+        url: `/player_api/v1/getPlayerWithdrawalBankList`,
         method: 'POST',
         data: {
           ...queryArgs,
@@ -40,7 +40,7 @@ const bankApi = baseApiWithTag.injectEndpoints({
       addPlayerBankAccArgs
     >({
       query: (queryArgs) => ({
-        url: `/player_api/addWithdrawalBankAcc`,
+        url: `/player_api/v1/addWithdrawalBankAcc`,
         method: 'POST',
         data: {
           ...queryArgs,
@@ -53,7 +53,7 @@ const bankApi = baseApiWithTag.injectEndpoints({
       DeletePlayerBankAccArgs
     >({
       query: (queryArgs) => ({
-        url: `/player_api/deleteWithdrawalBank`,
+        url: `/player_api/v1/deleteWithdrawalBank`,
         method: 'POST',
         data: {
           ...queryArgs,
@@ -70,7 +70,7 @@ const bankApi = baseApiWithTag.injectEndpoints({
       WithdrawalBankArgs | void
     >({
       query: (queryArgs) => ({
-        url: `/player_api/getWithdrawalBankList`,
+        url: `/player_api/v1/getWithdrawalBankList`,
         method: 'POST',
         data: {
           ...queryArgs,
@@ -85,7 +85,7 @@ const bankApi = baseApiWithTag.injectEndpoints({
       CryptoWithdrawalBankArgs | void
     >({
       query: (queryArgs) => ({
-        url: `/player_api/getCryptoWithdrawalBankList`,
+        url: `/player_api/v1/getCryptoWithdrawalBankList`,
         method: 'POST',
         data: {
           ...queryArgs,

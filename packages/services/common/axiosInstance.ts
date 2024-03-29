@@ -10,7 +10,7 @@ import { appendFpsParams, getFpsParams } from 'utils/fps/fpsGenerator'
 // const API_KEY = 'zl9oo0vtrtbih1fufvq8pk8stvqprad8'
 
 export enum AuthURL {
-  LOGOUT = '/player_api/logout',
+  LOGOUT = '/player_api/v1/logout',
 }
 
 enum RESPONSE_STATUS {
@@ -112,13 +112,13 @@ const onRequestFullfilled = async (config: AxiosRequestConfig) => {
     console.log(`Request ${config.url} : `, config.data)
   }
 
-  // const cacheControlNeeded = ['/player_api/transfer']
+  // const cacheControlNeeded = ['/player_api/v1/transfer']
   // if (cacheControlNeeded.includes(url!)) {
   //   config.headers['Cache-Control'] = 'no-cache'
   // }
 
   /** FRAUD DETECTION (No longer using IOVATION) */
-  // const fraudDetectionNeeded = ['/player_api/createPlayer', '/player_api/login']
+  // const fraudDetectionNeeded = ['/player_api/v1/createPlayer', '/player_api/v1/login']
 
   // if (fraudDetectionNeeded.includes(url!)) {
   //   headers = {

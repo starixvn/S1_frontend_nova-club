@@ -12,7 +12,7 @@ const messageApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
     message: builder.query<Message[], void>({
       query: () => ({
-        url: `/player_api/message`,
+        url: `/player_api/v1/message`,
         method: 'POST',
       }),
       transformResponse: (r: IResponse<MessageResult>) => {
@@ -25,7 +25,7 @@ const messageApi = baseApiWithTag.injectEndpoints({
       MessageDetailsArgs
     >({
       query: (queryArgs) => ({
-        url: `/player_api/messageDetails`,
+        url: `/player_api/v1/messageDetails`,
         method: 'POST',
         data: {
           ...queryArgs,
@@ -35,7 +35,7 @@ const messageApi = baseApiWithTag.injectEndpoints({
     }),
     deleteMessages: builder.mutation<IResponse, DeleteMessageQueryArgs>({
       query: ({ isDeleteAll, ids }) => ({
-        url: `/player_api/message`,
+        url: `/player_api/v1/message`,
         method: 'DELETE',
         data: {
           delete_all: isDeleteAll,
