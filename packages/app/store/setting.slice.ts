@@ -2,8 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { tolgee } from 'app/integrations/tolgee'
 import { isBannedTrackingCode } from 'app/utils/referralUtil'
 import dayjs, { Dayjs } from 'dayjs'
-import { Currency, LANGUAGE_CODE } from 'utils/constant'
+import { Currency, CURRENCY_TO_LANGUAGE, LANGUAGE_CODE } from 'utils/constant'
 import { LaunchGamePayload } from './gameLauncher.slice'
+import authReducer, { AuthActions } from './authReducer'
 
 interface PopUpExpire {
   [key: string]: Dayjs | null
@@ -185,6 +186,14 @@ const settingSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(AuthActions.setAuthInfo, (state, action) => {
+      const currency = action.payload.currency
+      return {
+        ...state,
+        currency: action.payload.currency,
+        locale: CURRENCY_TO_LANGUAGE[currency],
+      }
+    })
     // reset sessionID every restart
     // builder.addCase(REHYDRATE, (state, action) => {
     //   state.shieldSessionID = undefined

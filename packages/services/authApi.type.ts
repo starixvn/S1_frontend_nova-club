@@ -1,3 +1,5 @@
+import { Currency } from 'utils/constant'
+
 export enum Shield_Platform {
   WEB = 'WEB',
   APP = 'APP',
@@ -19,6 +21,7 @@ export interface LoginResult {
   playerName: string
   token: string
   note?: string
+  currency: Currency
 }
 
 export interface RegisterInvalidResult {
@@ -41,6 +44,7 @@ export interface RegisterQueryArgs {
   cpassword: string
   device_os: string
   password: string
+  currency: Currency
   registered_by: string
   terms: boolean
   tracking_code?: string
