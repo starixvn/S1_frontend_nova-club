@@ -56,7 +56,6 @@ export default function useLoginProcess() {
 
   async function completeSuccessLoginHandler(data: LoginResult) {
     dispatch(AuthActions.setAuthInfo(data))
-    dispatch(SettingActions.setCurrency(data.currency))
     // useResponsiveValue([push('/'), push('/'), push('/'), undefined, undefined])
     replace('/')
   }
