@@ -5577,6 +5577,35 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@radix-ui/react-popper@patch:@radix-ui/react-popper@npm%3A1.1.2#./.yarn/patches/@radix-ui-react-popper-npm-1.1.2-2ec2059680.patch::locator=vuifit%40workspace%3A.":
+  version: 1.1.2
+  resolution: "@radix-ui/react-popper@patch:@radix-ui/react-popper@npm%3A1.1.2#./.yarn/patches/@radix-ui-react-popper-npm-1.1.2-2ec2059680.patch::version=1.1.2&hash=c409ca&locator=vuifit%40workspace%3A."
+  dependencies:
+    "@babel/runtime": ^7.13.10
+    "@floating-ui/react-dom": ^2.0.0
+    "@radix-ui/react-arrow": 1.0.3
+    "@radix-ui/react-compose-refs": 1.0.1
+    "@radix-ui/react-context": 1.0.1
+    "@radix-ui/react-primitive": 1.0.3
+    "@radix-ui/react-use-callback-ref": 1.0.1
+    "@radix-ui/react-use-layout-effect": 1.0.1
+    "@radix-ui/react-use-rect": 1.0.1
+    "@radix-ui/react-use-size": 1.0.1
+    "@radix-ui/rect": 1.0.1
+  peerDependencies:
+    "@types/react": "*"
+    "@types/react-dom": "*"
+    react: ^16.8 || ^17.0 || ^18.0
+    react-dom: ^16.8 || ^17.0 || ^18.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    "@types/react-dom":
+      optional: true
+  checksum: 292cb3d34eed4a0c3ca3387aecc9b047532669083c2fb70b06d2e4170f81f125efaf6fc215ea0e47c26042e9e62ca3da5b3964a8490f8b48a17833cabdbc8f4e
+  languageName: node
+  linkType: hard
+
 "@radix-ui/react-portal@npm:1.0.3":
   version: 1.0.3
   resolution: "@radix-ui/react-portal@npm:1.0.3"
@@ -15609,6 +15638,7 @@ __metadata:
   resolution: "next-app@workspace:apps/next"
   dependencies:
     "@expo/next-adapter": 5.0.2
+    "@radix-ui/react-popper": 1.1.2
     "@types/howler": ^2.2.7
     "@types/lodash": "*"
     "@types/matter-js": ^0.18.5

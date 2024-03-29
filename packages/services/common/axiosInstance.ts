@@ -165,7 +165,6 @@ const onRequestFullfilled = async (config: AxiosRequestConfig) => {
   const userAgent = await getUserAgent()
   if (userAgent) config.headers['X-Useragent'] = userAgent
 
-  console.log('CONFIG>>>', config.data)
   return config
 }
 
