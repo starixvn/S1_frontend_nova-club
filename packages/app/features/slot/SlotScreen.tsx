@@ -8,7 +8,13 @@ import useLocalization from 'app/provider/localization'
 import { View } from 'dripsy'
 import groupBy from 'lodash/groupBy'
 import uniqBy from 'lodash/uniqBy'
-import { default as React, default as React, useCallback, useEffect, useMemo, useRef } from 'react'
+import {
+  default as React,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react'
 import { Platform } from 'react-native'
 import { selectBannerByPage, useBannerQuery } from 'services/contentApi'
 import { useGameListMultipleQuery } from 'services/gameApi'

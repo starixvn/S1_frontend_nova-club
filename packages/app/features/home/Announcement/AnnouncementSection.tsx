@@ -7,11 +7,9 @@ const ANNOUNCEMENT_HEIGHT = 30
 const ANNOUNCEMENT_CONTEXT_COLOR = '#97FFF4'
 
 export default function AnnouncementSection() {
-  const { locale, currency } = useDefaultParamSelector()
-  const { isUninitialized, data: announcements } = useAnnouncementQuery({
-    locale,
-    currency,
-  })
+  const defaultParams = useDefaultParamSelector()
+  const { isUninitialized, data: announcements } =
+    useAnnouncementQuery(defaultParams)
 
   const marquees = useMemo(() => {
     if (announcements == null) return []

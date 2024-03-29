@@ -1,13 +1,12 @@
-import { useAppSelector } from 'app/provider/redux/store'
+import useDefaultParamSelector from 'app/hooks/useDefaultParamSelector'
 import { View } from 'dripsy'
 import React from 'react'
 import { useAnnouncementQuery } from 'services/contentApi'
-import MessageCard from './components/MessageCard'
 import AnnouncementCard from './components/AnnouncementCard'
 
 const AnnouncementScreen = () => {
-  const locale = useAppSelector((s) => s.setting.locale)
-  const { data } = useAnnouncementQuery(locale)
+  const defaultParams = useDefaultParamSelector()
+  const { data } = useAnnouncementQuery(defaultParams)
 
   return (
     <View>

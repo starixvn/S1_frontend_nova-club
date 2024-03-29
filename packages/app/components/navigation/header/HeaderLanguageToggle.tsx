@@ -29,9 +29,6 @@ export default function HeaderLanguageToggle({}: Props) {
 
   const setLanguage = (value: LANGUAGE_CODE) => {
     dispatch(SettingActions.setLocale(value))
-    dispatch(
-      contentApi.endpoints.banner.initiate({ currency }, { forceRefetch: true })
-    )
   }
   const onChangeLanguage = () => {
     const tempCurrency = CURRENCY_LANGUAGE_LIST.find(

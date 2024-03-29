@@ -15,7 +15,7 @@ const useResetRTKQState = () => {
     dispatch(TempSettingActions.setIsHomeEventModalTriggered(false))
     dispatch(TempSettingActions.setSyncShieldStatus(false))
     dispatch(SettingActions.removeReferral())
-    dispatch(SettingActions.setLocale(LANGUAGE_CODE.VIETNAM))
+    // dispatch(SettingActions.setLocale(LANGUAGE_CODE.VIETNAM))
   }, [dispatch])
 
   return {

@@ -35,16 +35,16 @@ function GamesScreen({}: Props) {
     useGameScreen(SUB_ROUTES.local.route)
   const showSlotVideo = useResponsiveValue([false, false, false, false, true])
 
-  const currency = useAppSelector((s) => s.setting.currency)
+  // const currency = useAppSelector((s) => s.setting.currency)
 
-  const { banners } = useBannerQuery(currency, {
-    selectFromResult: (s) => {
-      return {
-        ...s,
-        banners: selectBannerByPage(s.data, BannerPage.LocalGame),
-      }
-    },
-  })
+  // const { banners } = useBannerQuery(currency, {
+  //   selectFromResult: (s) => {
+  //     return {
+  //       ...s,
+  //       banners: selectBannerByPage(s.data, BannerPage.LocalGame),
+  //     }
+  //   },
+  // })
 
   const handleVgaming = () => {
     LaunchGame({

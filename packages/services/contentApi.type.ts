@@ -33,6 +33,7 @@ export enum BannerPage {
   Slot = 'slots',
   LocalGame = 'local_game',
   LiveCasino = 'live_casino',
+  Popup = 'popup',
 }
 export interface LeaderboardResult {
   custId: number

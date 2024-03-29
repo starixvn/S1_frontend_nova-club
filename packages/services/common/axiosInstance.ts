@@ -97,7 +97,7 @@ const onRequestFullfilled = async (config: AxiosRequestConfig) => {
     }
     if (currency) {
       if (
-        config.method?.toLowerCase() === 'post' &&
+        config.method?.toLowerCase() !== 'get' &&
         (!config.data || 'currency' in config.data === false)
       ) {
         requestParams.currency = currency

@@ -115,9 +115,6 @@ export default function LanguageSwitch({ ...rest }: ViewProps) {
 
   const setLanguage = (value: LANGUAGE_CODE) => {
     dispatch(SettingActions.setLocale(value))
-    dispatch(
-      contentApi.endpoints.banner.initiate({ currency }, { forceRefetch: true })
-    )
   }
 
   const onChangeLanguage = (value: LANGUAGE_CODE) => {
