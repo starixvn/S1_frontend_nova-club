@@ -16,6 +16,7 @@ import React, { startTransition, useEffect, useMemo, useState } from 'react'
 import { ViewProps } from 'react-native'
 import { useGameCategoryTagTypesQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
+import useDefaultParamSelector from 'app/hooks/useDefaultParamSelector'
 interface Props extends ViewProps {
   label: string
   games: Game[]
@@ -33,9 +34,9 @@ export default function GameList({
   const [provider, setProvider] = useState<string | undefined>()
   const [search, setSearch] = useState<string>()
   const { t } = useLocalization()
-  const locale = useAppSelector((s) => s.setting.locale)
+  const { locale, currency } = useDefaultParamSelector()
   const commissionList = GetCommissionList()
-  const { data: gameCategoryTagTypes } = useGameCategoryTagTypesQuery()
+  const { data: gameCategoryTagTypes } = useGameCategoryTagTypesQuery(currency)
 
   const tags = useMemo(() => {
     setProvider(undefined)

@@ -8,6 +8,7 @@ import SkeletonPlaceholder from '../SkeletonPlaceholder'
 import GameCard from './GameCard'
 import { GAME_TYPE_CODE } from 'utils/constant'
 import { GAME_TAG_SIZE } from './GameTagsLabel'
+import { useAppSelector } from 'app/provider/redux/store'
 
 interface HorizontalGameListProps extends ScrollViewProps {
   data: Game[]
@@ -22,6 +23,7 @@ export default function HorizontalGameList({
   ...rest
 }: HorizontalGameListProps) {
   const shadowSize = useResponsiveValue(size)
+  const locale = useAppSelector((s) => s.setting.locale)
 
   return (
     <DraggableScrollView
@@ -45,6 +47,8 @@ export default function HorizontalGameList({
               key={g.gtc === GAME_TYPE_CODE.LIVE_DEALER ? g.gpc : g.gc}
               isFullCard
               {...g}
+              img={g.img[locale]}
+              xImg={g.xImg?.[locale]}
             />
           )
         })

@@ -51,8 +51,9 @@ function GameSectionByProviderItem({
   const [filter, setFilter] = useState('hot')
   const [search, setSearch] = useState<string>()
   const count = useResponsiveValue([108, 10, 12, 999, 999])
+  const currency = useAppSelector((s) => s.setting.currency)
 
-  const { data: gameCategoryTagTypes } = useGameCategoryTagTypesQuery()
+  const { data: gameCategoryTagTypes } = useGameCategoryTagTypesQuery(currency)
   const { getTagName } = useGetTagName()
   const pathname = usePathname()
 

@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import dayjs, { Dayjs } from 'dayjs'
-import { LaunchGamePayload } from './gameLauncher.slice'
-import { isBannedTrackingCode } from 'app/utils/referralUtil'
-import { Currency, LANGUAGE_CODE } from 'utils/constant'
 import { tolgee } from 'app/integrations/tolgee'
+import { isBannedTrackingCode } from 'app/utils/referralUtil'
+import dayjs, { Dayjs } from 'dayjs'
+import { Currency, LANGUAGE_CODE } from 'utils/constant'
+import { LaunchGamePayload } from './gameLauncher.slice'
 
 interface PopUpExpire {
   [key: string]: Dayjs | null

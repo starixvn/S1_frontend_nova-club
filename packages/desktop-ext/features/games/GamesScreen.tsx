@@ -18,12 +18,14 @@ import {
 import { ResizeMode, Video } from 'expo-av'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Platform } from 'react-native'
-import { useBannerQuery } from 'services/contentApi'
+import { selectBannerByPage, useBannerQuery } from 'services/contentApi'
 import { LatestWinnerType } from 'services/gameApi.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { SolitoImage } from 'solito/image'
 import { GAME_TYPE_CODE, GDC_GAME_CATEGORY } from 'utils/constant'
 import GameList from './GameList'
+import { useAppSelector } from 'app/provider/redux/store'
+import { BannerPage } from 'services/contentApi.type'
 
 type Props = {}
 
@@ -33,11 +35,16 @@ function GamesScreen({}: Props) {
     useGameScreen(SUB_ROUTES.local.route)
   const showSlotVideo = useResponsiveValue([false, false, false, false, true])
 
-  const { currency } = usePlayerProfileQuery()
-  const { data: banner } = useBannerQuery({ currency })
-  const bannerList = banner?.filter(
-    (el) => el.banner_display_page === 'local_game'
-  )
+  const currency = useAppSelector((s) => s.setting.currency)
+
+  const { banners } = useBannerQuery(currency, {
+    selectFromResult: (s) => {
+      return {
+        ...s,
+        banners: selectBannerByPage(s.data, BannerPage.LocalGame),
+      }
+    },
+  })
 
   const handleVgaming = () => {
     LaunchGame({
@@ -72,7 +79,7 @@ function GamesScreen({}: Props) {
             style={{ width: '100%', height: '100%' }}
             src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/game/vGaming.jpg`}
           />
-          {/* <BannerCarousel data={bannerList} ratio={480 / 320} /> */}
+          {/* <BannerCarousel data={banners} ratio={480 / 320} /> */}
         </Pressable>
         {showSlotVideo && (
           <View sx={{ flex: 1, minHeight: 300 }}>

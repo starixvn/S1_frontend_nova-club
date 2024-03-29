@@ -5,28 +5,30 @@ import { FONT_TOP_OFFSET } from 'app/constants/font'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { Text, View, styled } from 'dripsy'
+import { View, styled } from 'dripsy'
 import maxBy from 'lodash/maxBy'
 import uniqBy from 'lodash/uniqBy'
 import { MotiText } from 'moti'
 import React, { useMemo } from 'react'
 import { useCommissionTableQuery } from 'services/contentApi'
-import { useFeaturedGameListQuery } from 'services/gameApi'
-import { Currency } from 'utils/constant'
+import {
+  selectFeaturedGameByCategory,
+  useFeaturedGameListQuery,
+} from 'services/gameApi'
 
 export default function TopGameSection(props) {
   const { t } = useLocalization()
-  const lang = useAppSelector((state) => state.setting.locale)
+  const currency = useAppSelector((state) => state.setting.currency)
 
   const { data: commissionList } = useCommissionTableQuery({
-    currency: Currency.VND,
+    currency,
   })
 
-  const { data } = useFeaturedGameListQuery(undefined, {
+  const { data } = useFeaturedGameListQuery(currency, {
     selectFromResult: (s) => {
       return {
         ...s,
-        data: s.data?.filter((g) => g.cat === '2'),
+        data: selectFeaturedGameByCategory(s, '2'),
       }
     },
   })

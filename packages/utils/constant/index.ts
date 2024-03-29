@@ -45,6 +45,8 @@ export enum Currency {
   // CRYPTO = 96,
 }
 
+export const DEFAULT_CURRENCY = Currency.VND
+
 export const CURRENCY_TO_LANGUAGE = {
   [Currency.VND]: LANGUAGE_CODE.VIETNAM,
 }

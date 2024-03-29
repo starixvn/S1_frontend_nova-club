@@ -26,7 +26,7 @@ export const authApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
     login: builder.mutation<IResponse<LoginResult>, LoginQueryArgs>({
       query: ({ username, password }) => ({
-        url: `/player_api/login`,
+        url: `/player_api/v1/login`,
         data: {
           username,
           password,

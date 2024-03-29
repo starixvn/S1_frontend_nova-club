@@ -7,6 +7,7 @@ import { GetCommissionList } from 'app/components/game/GameUtilityAction'
 import ProviderList from 'app/components/game/ProviderList'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { View, useResponsiveValue } from 'dripsy'
 import groupBy from 'lodash/groupBy'
 import uniqBy from 'lodash/uniqBy'
@@ -51,7 +52,9 @@ const GamesScreen = () => {
   const commissionList = GetCommissionList()
   const scrollingRef = useRef<View>()
   const scrollRef = useRef()
+  const currency = useAppSelector((s) => s.setting.currency)
   const { data: games } = useGameListMultipleQuery({
+    currency,
     game_category: GameCategory,
     gdc_game_category: [GDC_GAME_CATEGORY.CARDGAME],
   })

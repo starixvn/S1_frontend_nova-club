@@ -6,8 +6,8 @@ import {
   GetCommissionList,
   GetGameRebateValue,
 } from 'app/components/game/GameUtilityAction'
+import useDefaultParamSelector from 'app/hooks/useDefaultParamSelector'
 import useLocalization from 'app/provider/localization'
-import { useAppSelector } from 'app/provider/redux/store'
 import { Row, View, useResponsiveValue } from 'dripsy'
 import uniqBy from 'lodash/uniqBy'
 import React, { useMemo } from 'react'
@@ -18,13 +18,16 @@ import MatchSection from './MatchSection'
 
 export default function SportsbookScreen() {
   const { t } = useLocalization()
-  const locale = useAppSelector((s) => s.setting.locale)
+  const { locale, currency } = useDefaultParamSelector()
 
-  const { data } = useGetGameListByCategoryQuery([
-    GAME_TYPE_CODE.SPORTS,
-    GAME_TYPE_CODE.E_SPORTS,
-    GAME_TYPE_CODE.VIRTUAL_SPORTS,
-  ])
+  const { data } = useGetGameListByCategoryQuery({
+    currency,
+    categories: [
+      GAME_TYPE_CODE.SPORTS,
+      GAME_TYPE_CODE.E_SPORTS,
+      GAME_TYPE_CODE.VIRTUAL_SPORTS,
+    ],
+  })
   const commissionList = GetCommissionList()
 
   const numColumns = useResponsiveValue([2, 3, 3, 4])
@@ -65,6 +68,8 @@ export default function SportsbookScreen() {
           }}
           isDualVersion
           {...item}
+          img={item.img[locale]}
+          xImg={item.xImg?.[locale]}
         />
       </Row>
     )

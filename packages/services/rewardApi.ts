@@ -1,5 +1,6 @@
+import { Currency, DEFAULT_CURRENCY } from 'utils/constant'
 import { baseApiWithTag } from './baseApi'
-import { EndpointBuilderType, IResponse } from './common/types'
+import { DefaultParams, EndpointBuilderType, IResponse } from './common/types'
 import {
   ClaimChristmasEventCoinResult,
   ClaimEventCoinResult,
@@ -31,9 +32,12 @@ export const rewardApi = baseApiWithTag.injectEndpoints({
       }),
       invalidatesTags: ['Coin'],
     }),
-    getCoinRedemptionList: builder.query<CoinRedemptionList['rows'], void>({
-      query: () => ({
-        url: `/static_api/getCoinRedemptionList`,
+    getCoinRedemptionList: builder.query<
+      CoinRedemptionList['rows'],
+      DefaultParams
+    >({
+      query: ({ currency = DEFAULT_CURRENCY }) => ({
+        url: `/static_api/v1/getCoinRedemptionList/${currency}`,
         method: 'GET',
       }),
       transformResponse(r: IResponse<Pick<CoinRedemptionList, 'rows'>>) {

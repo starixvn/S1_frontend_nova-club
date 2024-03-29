@@ -10,7 +10,7 @@ import groupBy from 'lodash/groupBy'
 import uniqBy from 'lodash/uniqBy'
 import { default as React, default as React, useCallback, useEffect, useMemo, useRef } from 'react'
 import { Platform } from 'react-native'
-import { useBannerQuery } from 'services/contentApi'
+import { selectBannerByPage, useBannerQuery } from 'services/contentApi'
 import { useGameListMultipleQuery } from 'services/gameApi'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { createParam } from 'solito'
@@ -18,6 +18,8 @@ import { useRouter } from 'solito/router'
 import { GAME_TYPE_CODE, ProviderImageCategory } from 'utils/constant'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 import SlotSingleProviderListing from './SlotSingleProviderListing'
+import { useAppSelector } from 'app/provider/redux/store'
+import { BannerPage } from 'services/contentApi.type'
 
 type Params = {
   provider?: string
@@ -41,11 +43,19 @@ function SlotScreen() {
     },
   })
 
-  const { currency } = usePlayerProfileQuery()
-  const { data: banner } = useBannerQuery({ currency })
-  const bannerList = banner?.filter((el) => el.banner_display_page === 'slots')
+  const currency = useAppSelector((s) => s.setting.currency)
 
-  const { data: games, isUninitialized } = useGameListMultipleQuery({
+  const { banners } = useBannerQuery(currency, {
+    selectFromResult: (s) => {
+      return {
+        ...s,
+        banners: selectBannerByPage(s.data, BannerPage.Slot),
+      }
+    },
+  })
+
+  const { data: games } = useGameListMultipleQuery({
+    currency,
     game_category: GameCategory,
   })
   const { gameCategoryTagTranslation } = useGameCategoryTag(GameCategory)
@@ -121,7 +131,7 @@ function SlotScreen() {
       <View sx={{ gap: '$3', my: '$3', paddingBottom: 0 }}>
         <GamePageHeader icon="sl" title={t('game.category.slots')} />
         <View sx={{ width: '100%', aspectRatio: 1280 / 333 }}>
-          <BannerCarousel data={bannerList} bannerType="slot" />
+          <BannerCarousel data={banners} bannerType="slot" />
         </View>
         <RecentlyPlayedSection
           gameTypes={[GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]}

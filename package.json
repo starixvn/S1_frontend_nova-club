@@ -22,6 +22,7 @@
     "native:ios": "cd apps/expo && yarn ios",
     "web:prod": "APP_ENV=prod turbo dev",
     "web:staging": "APP_ENV=staging turbo dev",
+    "web:staging2": "APP_ENV=staging2 turbo dev",
     "web:soft": "APP_ENV=soft turbo dev",
     "web:pre": "APP_ENV=pre turbo dev",
     "web:rewards": "yarn workspace rewards-next dev",

@@ -8,6 +8,7 @@ import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 import GamesSingleProviderListing from './GamesSingleProviderListing'
 import { SUB_ROUTES } from './subroutes'
+import { useAppSelector } from 'app/provider/redux/store'
 
 type Props = {}
 
@@ -25,7 +26,9 @@ const GameCategory = [
 ]
 
 export default function GamesByProviderScreen({}: Props) {
+  const currency = useAppSelector((s) => s.setting.currency)
   const { data: games } = useGameListMultipleQuery({
+    currency,
     game_category: GameCategory,
     gdc_game_category: [GDC_GAME_CATEGORY.CARDGAME],
   })

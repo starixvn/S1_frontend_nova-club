@@ -9,15 +9,21 @@ import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { GAME_TYPE_CODE } from 'utils/constant'
 import DropdownContent from '../DropdownContent'
 import { NAVIGATION_DROPDOWN_MENU } from '../NavigationHeaderProvider'
+import { useAppSelector } from 'app/provider/redux/store'
+import useDefaultParamSelector from 'app/hooks/useDefaultParamSelector'
 
 type Props = {}
 
 export default function Sportsbook({}: Props) {
-  const { data } = useGetGameListByCategoryQuery([
-    GAME_TYPE_CODE.SPORTS,
-    GAME_TYPE_CODE.E_SPORTS,
-    GAME_TYPE_CODE.VIRTUAL_SPORTS,
-  ])
+  const { locale, currency } = useDefaultParamSelector()
+  const { data } = useGetGameListByCategoryQuery({
+    currency,
+    categories: [
+      GAME_TYPE_CODE.SPORTS,
+      GAME_TYPE_CODE.E_SPORTS,
+      GAME_TYPE_CODE.VIRTUAL_SPORTS,
+    ],
+  })
 
   const commissionList = GetCommissionList()
 
@@ -45,7 +51,8 @@ export default function Sportsbook({}: Props) {
               sx={{ width: ['9%', '9%', '9%', '9%', '10%'] }}
               isDropdownContent
               {...g}
-              // img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/gameV2/provider/main/${g.gpc?.toLowerCase()}.png`}
+              img={g.img[locale]}
+              xImg={g.xImg?.[locale]}
             />
           )
         })}

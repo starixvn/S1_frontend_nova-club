@@ -11,6 +11,7 @@ import { useRouter } from 'solito/router'
 import { GAME_TYPE_CODE } from 'utils/constant'
 import DropdownContent from '../DropdownContent'
 import { NAVIGATION_DROPDOWN_MENU } from '../NavigationHeaderProvider'
+import { useAppSelector } from 'app/provider/redux/store'
 
 type Props = {}
 
@@ -22,17 +23,21 @@ export default function Slots({}: Props) {
   //   GAME_TYPE_CODE.FISHING,
   // ])
 
+  const currency = useAppSelector((s) => s.setting.currency)
+
   const { data } = useGameListMultipleQuery({
+    currency,
     game_category: [GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING],
   })
 
   const providers = useMemo(() => {
-    if (data)
+    if (data) {
+      console.log('data', data)
       return uniqBy(
         data.map(({ gtc, gpc }) => ({ gtc, gpc })),
         'gpc'
       )
-    else return []
+    } else return []
   }, [data])
 
   return (

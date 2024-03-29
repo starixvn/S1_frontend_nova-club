@@ -11,14 +11,19 @@ import {
   GetCommissionList,
   GetGameRebateValue,
 } from 'app/components/game/GameUtilityAction'
+import { useAppSelector } from 'app/provider/redux/store'
 
 type Props = {}
 
 export default function LiveCasino({}: Props) {
   const { push } = useRouter()
   const commissionList = GetCommissionList()
+  const currency = useAppSelector((s) => s.setting.currency)
 
-  const { data } = useGetGameListByCategoryQuery([GAME_TYPE_CODE.LIVE_DEALER])
+  const { data } = useGetGameListByCategoryQuery({
+    currency,
+    categories: [GAME_TYPE_CODE.LIVE_DEALER],
+  })
   // const { data: providerStatus } = useGameProviderListQuery()
 
   const providers = useMemo(() => {
@@ -52,6 +57,7 @@ export default function LiveCasino({}: Props) {
               img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/gameV2/provider/main/${g.gpc.toLowerCase()}.png`}
               isDropdownContent
               {...g}
+              xImg={undefined}
             />
           )
         })}

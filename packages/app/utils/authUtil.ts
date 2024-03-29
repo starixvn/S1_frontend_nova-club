@@ -3,7 +3,7 @@ import { store } from 'app/provider/redux/store'
 import { modalfy } from 'react-native-modalfy'
 import { authApi } from 'services/authApi'
 import { contentApi } from 'services/contentApi'
-import { LOGOUT_ACTION } from 'utils/constant'
+import { Currency, LOGOUT_ACTION } from 'utils/constant'
 
 export async function LogOut({ isTokenExpired = false } = {}) {
   const { openModal, closeModal } = modalfy<ModalStackParams>()
@@ -20,11 +20,15 @@ export async function LogOut({ isTokenExpired = false } = {}) {
 
     await store.dispatch({ type: LOGOUT_ACTION })
     // replace('/')
-    setTimeout(() => {
-      // store.dispatch(contentApi.endpoints.getRecoMatch.initiate())
-      store.dispatch(contentApi.endpoints.banner.initiate())
-      // store.dispatch(contentApi.endpoints.getJackpotAmount.initiate())
-    }, 3000)
+    // setTimeout(() => {
+    //   // store.dispatch(contentApi.endpoints.getRecoMatch.initiate())
+    //   store.dispatch(
+    //     contentApi.endpoints.banner.initiate({
+    //       currency: Currency.THB,
+    //     })
+    //   )
+    //   // store.dispatch(contentApi.endpoints.getJackpotAmount.initiate())
+    // }, 3000)
   } catch (error) {
     console.error(error)
     return error

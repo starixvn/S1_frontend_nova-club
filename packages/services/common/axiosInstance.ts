@@ -6,7 +6,7 @@ import { Currency, LANGUAGE_CODE } from 'utils/constant'
 import { getUserAgent } from 'utils/deviceInfo'
 import { appendFpsParams, getFpsParams } from 'utils/fps/fpsGenerator'
 
-// const API_DOMAIN = 'https://stage.gball8.com/api/nv88_api/v1'
+// const API_DOMAIN = 'https://stage.gball8.com/api/nv88_api'
 // const API_KEY = 'zl9oo0vtrtbih1fufvq8pk8stvqprad8'
 
 export enum AuthURL {
@@ -36,7 +36,7 @@ export const configureAxios = (newConfig: CustomConfig) => {
 const isUsingRootDomain = false
 
 const axiosInstance = axios.create({
-  baseURL: `${isUsingRootDomain ? '/api/nv88_api/v1' : API_DOMAIN}`,
+  baseURL: `${isUsingRootDomain ? '/api/nv88_api' : API_DOMAIN}`,
   timeout: DEFAULT_TIMEOUT,
   transformRequest: [
     (data, headers) => {
@@ -74,6 +74,7 @@ const onRequestFullfilled = async (config: AxiosRequestConfig) => {
   if (baseURL && baseURL?.startsWith(API_DOMAIN) && url?.startsWith('/')) {
     const { token, playerName } = state?.auth.info || {}
     const { deviceId } = state?.tempSetting || {}
+    const currency = state?.setting.currency
 
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`
@@ -94,23 +95,19 @@ const onRequestFullfilled = async (config: AxiosRequestConfig) => {
         requestParams.username = playerName
       }
     }
-
-    // Multi currency API mandatory params
-    if (!config.data || 'currency' in config.data === false)
-      requestParams.currency = state?.setting.currency
+    if (currency) {
+      if (
+        config.method?.toLowerCase() === 'post' &&
+        (!config.data || 'currency' in config.data === false)
+      ) {
+        requestParams.currency = currency
+      }
+    }
 
     config.headers = {
       ...headers,
       api_key: API_KEY,
     }
-
-    //Replace multi currency url
-    const positionToInsert = url.indexOf('/', 2)
-    const newUrl =
-      url.slice(0, positionToInsert) + '/v1' + url.slice(positionToInsert)
-
-    config.baseURL = baseURL.replace('/v1', '')
-    config.url = newUrl
 
     console.log(`Request ${config.url} : `, config.data)
   }

@@ -38,7 +38,7 @@ export const configureAgentAxios = (newConfig: CustomConfig) => {
 const isUsingRootDomain = false
 
 const agentAxiosInstance = axios.create({
-  baseURL: `${isUsingRootDomain ? '/api/nv88_api/v1' : AGENT_API_DOMAIN}`,
+  baseURL: `${isUsingRootDomain ? '/api/nv88_api' : AGENT_API_DOMAIN}`,
   timeout: DEFAULT_TIMEOUT,
   transformRequest: [
     (data, headers) => {

@@ -17,8 +17,9 @@ const useGameCategoryTag = (
   gameTypes: GAME_TYPE_CODE[],
   options?: UseQueryOption
 ) => {
+  const currency = useAppSelector((s) => s.setting.currency)
   const { data: gameCategoryTagTypes } = useGameCategoryTagTypesQuery(
-    undefined,
+    currency,
     options as any // Without `any` type casting, the `data` will become `any` type
   )
 

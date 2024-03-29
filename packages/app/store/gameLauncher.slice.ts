@@ -2,7 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Platform } from 'react-native'
 import { Game } from 'services/gameApi.type'
 
-export type LaunchGamePayload = Partial<Game> & {
+export type LaunchGamePayload = Partial<Omit<Game, 'img' | 'xImg'>> & {
+  img: string
+  xImg?: string
   desktopMode?: boolean
   params?: Record<string, string> // Params will turn to query parameters, it must be casted to string
 }

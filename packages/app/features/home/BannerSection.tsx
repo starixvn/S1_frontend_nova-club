@@ -1,13 +1,19 @@
 import BannerCarousel from 'app/components/banner/BannerCarousel'
-import React from 'react'
-import { useBannerQuery } from 'services/contentApi'
-import { usePlayerProfileQuery } from 'services/playerApi'
+import { useAppSelector } from 'app/provider/redux/store'
+import React, { useMemo } from 'react'
+import { selectBannerByPage, useBannerQuery } from 'services/contentApi'
+import { BannerPage } from 'services/contentApi.type'
 
 export default function BannerSection() {
-  const { currency } = usePlayerProfileQuery()
+  const currency = useAppSelector((s) => s.setting.currency)
+  const { banners } = useBannerQuery(currency, {
+    selectFromResult: (s) => {
+      return {
+        ...s,
+        banners: selectBannerByPage(s.data, BannerPage.Main),
+      }
+    },
+  })
 
-  const { data } = useBannerQuery({ currency })
-  const bannerList = data?.filter((el) => el.banner_display_page === 'main')
-
-  return <BannerCarousel data={bannerList} />
+  return <BannerCarousel data={banners} />
 }

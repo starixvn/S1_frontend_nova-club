@@ -22,6 +22,11 @@ export interface IResponse<T = void> {
   statusCode?: number
 }
 
+export interface DefaultParams {
+  locale: string
+  currency: string
+}
+
 export type SelectOptions = {
   value: string
   label: string

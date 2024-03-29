@@ -12,7 +12,7 @@ import { Currency } from 'utils/constant'
 import { Row, Text, View, styled } from 'dripsy'
 import React, { startTransition, useEffect, useRef, useState } from 'react'
 import { useLatestWinnerQuery } from 'services/gameApi'
-import { LatestWinner, LatestWinnerType } from 'services/gameApi.type'
+import { Game, LatestWinner, LatestWinnerType } from 'services/gameApi.type'
 
 type Props = {
   type: LatestWinnerType
@@ -22,8 +22,9 @@ const SHOW_COUNT = 4
 
 export default function LatestWinnerSection({ type }: Props) {
   const offsetIndexRef = useRef(SHOW_COUNT - 1)
+  const currency = useAppSelector((s) => s.setting.currency)
 
-  const { data } = useLatestWinnerQuery(type)
+  const { data } = useLatestWinnerQuery({ type, currency })
 
   const [display, setDisplay] = useState<LatestWinner[]>()
   useEffect(() => {
@@ -87,14 +88,22 @@ export default function LatestWinnerSection({ type }: Props) {
   )
 }
 
-const LatestWinnerItem = ({ game, username, amount }) => {
+const LatestWinnerItem = ({
+  game,
+  username,
+  amount,
+}: {
+  game: Game
+  username: string
+  amount: number
+}) => {
   const locale = useAppSelector((s) => s.setting.locale)
 
   return (
     <DripsyMotiView
       key={username}
       from={{ rotateX: '90deg' }}
-      animate={{ rotateX: 0 }}
+      animate={{ rotateX: '0deg' }}
       sx={{
         height: 60,
         borderRadius: 15,
@@ -108,7 +117,12 @@ const LatestWinnerItem = ({ game, username, amount }) => {
         }}
       >
         <Row sx={{ alignItems: 'center', gap: '$2' }}>
-          <GameCard containerSx={{ height: 50 }} {...game} />
+          <GameCard
+            containerSx={{ height: 50 }}
+            {...game}
+            img={game.img[locale]}
+            xImg={game.xImg?.[locale]}
+          />
           <View sx={{ flex: 1, gap: '$1' }}>
             <Label>{username}</Label>
             <Label>{game.name[locale]}</Label>

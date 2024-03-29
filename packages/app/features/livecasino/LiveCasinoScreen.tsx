@@ -10,26 +10,34 @@ import {
   GetGameRebateValue,
 } from 'app/components/game/GameUtilityAction'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { Row, View, useResponsiveValue } from 'dripsy'
 import groupBy from 'lodash/groupBy'
 import React, { useMemo } from 'react'
-import { useBannerQuery } from 'services/contentApi'
+import { selectBannerByPage, useBannerQuery } from 'services/contentApi'
 import { useGetGameListByCategoryQuery } from 'services/gameApi'
 import { Game } from 'services/gameApi.type'
-import { usePlayerProfileQuery } from 'services/playerApi'
 import { GAME_TYPE_CODE } from 'utils/constant'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
+import { BannerPage } from 'services/contentApi.type'
 
 export default function LiveCasinoScreen() {
-  const { data } = useGetGameListByCategoryQuery([GAME_TYPE_CODE.LIVE_DEALER])
+  const currency = useAppSelector((s) => s.setting.currency)
+  const { data } = useGetGameListByCategoryQuery({
+    categories: [GAME_TYPE_CODE.LIVE_DEALER],
+    currency,
+  })
+
   const { t } = useLocalization()
   const commissionList = GetCommissionList()
-  const { currency } = usePlayerProfileQuery()
-  const { data: banner } = useBannerQuery({ currency })
-  const bannerList = banner?.filter(
-    (el) => el.banner_display_page === 'live_casino'
-  )
-
+  const { banners } = useBannerQuery(currency, {
+    selectFromResult: (s) => {
+      return {
+        ...s,
+        banners: selectBannerByPage(s.data, BannerPage.LiveCasino),
+      }
+    },
+  })
   const firstGameOfEachProvider = useMemo(() => {
     if (data) {
       const groupedGames = groupBy(data, 'gpc')
@@ -78,7 +86,8 @@ export default function LiveCasinoScreen() {
             mx: isMiddle ? `${spacePercentage * 1.5}%` : `${spacePercentage}%`,
           }}
           {...item}
-          img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/gameV2/provider/main/${item.gpc.toLowerCase()}.png`}
+          img={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/game/provider/main/${item.gpc.toLowerCase()}.png`}
+          xImg={undefined}
         />
       </Row>
     )
@@ -110,7 +119,7 @@ export default function LiveCasinoScreen() {
               src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/banners/livecasino/pp-live-casino.jpg`}
               alt="dailywins"
             /> */}
-              <BannerCarousel data={bannerList} />
+              <BannerCarousel data={banners} />
             </View>
             <RecentlyPlayedSection gameTypes={[GAME_TYPE_CODE.LIVE_DEALER]} />
             <SectionHeader title={t('common.provider')} icon="all" />

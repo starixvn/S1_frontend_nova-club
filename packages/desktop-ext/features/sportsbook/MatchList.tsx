@@ -11,6 +11,7 @@ import { ElementRef, useMemo, useRef, useState } from 'react'
 import { matchGroupByLeague, useGetRecoMatchQuery } from 'services/matchApi'
 import { MatchResult } from 'services/matchApi.type'
 import MatchListTable, { MatchListMethod } from './MatchListTable'
+import { useAppSelector } from 'app/provider/redux/store'
 dayjs.extend(customParseFormat)
 
 type Props = {}
@@ -23,11 +24,11 @@ export default function MatchList({}: Props) {
 
   const tableRef = useRef<MatchListMethod>()
   const matchRef = useRef<View>()
-
+  const currency = useAppSelector((s) => s.setting.currency)
   const desktop = useIsDesktop()
   const { t } = useLocalization()
   const { leagues, isFetching } = useGetRecoMatchQuery(
-    { isApp: !desktop },
+    { isApp: !desktop, currency },
     {
       selectFromResult: (resp) => ({
         ...resp,

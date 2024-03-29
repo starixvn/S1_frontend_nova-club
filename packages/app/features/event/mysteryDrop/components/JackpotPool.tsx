@@ -145,28 +145,27 @@ const JackpotBoard = ({ jackpot }: JackpotProp) => {
       <View
         sx={{
           position: 'absolute',
+          alignItems: 'center',
         }}
       >
         <Text sx={{ textAlign: 'center', fontWeight: 'bold', fontSize: 18 }}>
           {t('event.mystery.totalJackpot')}
         </Text>
-        {total && (
-          <Row>
-            <JackpotText>
-              <CountUp
-                key={jackpot}
-                isCounting
-                start={prevPrize ? prevPrize : total}
-                end={total}
-                duration={5}
-                easing="easeOutCubic"
-                thousandsSeparator=","
-                onComplete={() => setPrevPrize(total)}
-              />
-            </JackpotText>
-            <JackpotText>{` VND`}</JackpotText>
-          </Row>
-        )}
+        <Row>
+          <JackpotText>
+            <CountUp
+              key={jackpot}
+              isCounting
+              start={prevPrize ? prevPrize : total}
+              end={total}
+              duration={5}
+              easing="easeOutCubic"
+              thousandsSeparator=","
+              onComplete={() => setPrevPrize(total)}
+            />
+          </JackpotText>
+          <JackpotText>{` VND`}</JackpotText>
+        </Row>
       </View>
     </View>
   )

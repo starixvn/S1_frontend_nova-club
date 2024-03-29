@@ -46,22 +46,22 @@ const RewardCard = (props: GameCardProps) => {
     ...pressableProps
   } = props
 
-  const {
-    theme: { colors },
-  } = useDripsyTheme()
+  // const {
+  //   theme: { colors },
+  // } = useDripsyTheme()
 
-  const getTagColor = (tag: string) => {
-    if (!colors) {
-      return '#000000'
-    }
+  // const getTagColor = (tag: string) => {
+  //   if (!colors) {
+  //     return '#000000'
+  //   }
 
-    const color = {
-      [RewardGameTag.NEW]: '$secondary.500',
-      [RewardGameTag.HOT]: '$error',
-    }
+  //   const color = {
+  //     [RewardGameTag.NEW]: '$secondary.500',
+  //     [RewardGameTag.HOT]: '$error',
+  //   }
 
-    return color[tag] ?? color[RewardGameTag.NEW]
-  }
+  //   return color[tag] ?? color[RewardGameTag.NEW]
+  // }
 
   return (
     <StyledContainer {...containerProps}>
@@ -110,7 +110,7 @@ const RewardCard = (props: GameCardProps) => {
       >
         {gameName}
       </Text>
-      <GameTagsLabel tags={tag} size={GAME_TAG_SIZE.lg} />
+      {tag && <GameTagsLabel tags={tag} size={GAME_TAG_SIZE.lg} />}
     </StyledContainer>
   )
 }

@@ -1,4 +1,5 @@
 import {
+  Currency,
   GAME_TYPE_CODE,
   GDC_GAME_CATEGORY,
   LANGUAGE_CODE,
@@ -44,7 +45,14 @@ export interface GameListQueryArgs {
 }
 
 export interface GetGameListByTagsArgs {
+  currency: Currency
   tags: string[]
+  limit?: number
+}
+
+export interface GetGameListByCategoriesArgs {
+  currency: Currency
+  categories: string[]
   limit?: number
 }
 
@@ -68,8 +76,8 @@ export interface Game {
   gc: string
   gpc: string
   gtc: GAME_TYPE_CODE
-  img: string
-  xImg?: string
+  img: Record<LANGUAGE_CODE, string>
+  xImg?: Record<LANGUAGE_CODE, string>
   name: Record<LANGUAGE_CODE, string>
   tags: string[]
   gdc_cat?: GDC_GAME_CATEGORY
@@ -78,7 +86,7 @@ export interface Game {
 
 export type FeaturedGame = Omit<Game, 'gdc_cat' | 'params'> & {
   cat: '1' | '2'
-  ongoing: boolean
+  ongoing?: boolean
 }
 
 export interface GameListDefaultData<T> {
@@ -97,6 +105,7 @@ export interface GetFeaturedGameListResult {
 }
 
 export interface GameScreenMultipleRequest {
+  currency: Currency
   game_category?: GAME_TYPE_CODE[]
   gdc_game_category?: GDC_GAME_CATEGORY[]
 }

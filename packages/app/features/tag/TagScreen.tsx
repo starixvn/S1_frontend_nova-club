@@ -11,6 +11,7 @@ import { Game } from 'services/gameApi.type'
 import { createParam } from 'solito'
 import SlotSingleProviderListing from '../slot/SlotSingleProviderListing'
 import { useRouter } from 'solito/router'
+import { useAppSelector } from 'app/provider/redux/store'
 
 type Params = {
   tag?: string
@@ -27,6 +28,7 @@ const { useParam } = createParam<Params>()
 const TagScreen = () => {
   const { back } = useRouter()
   const { t } = useLocalization()
+  const currency = useAppSelector((s) => s.setting.currency)
 
   const [tagGameGroup, setTagGameGroup] = useState<Game[]>([])
 
@@ -47,9 +49,8 @@ const TagScreen = () => {
   }, [])
 
   const { data: games } = useGetGameListByTagsQuery(
-    { tags: [tag || ''], limit: 1000 },
+    { tags: [tag || ''], limit: 1000, currency },
     {
-      refetchOnMountOrArgChange: true,
       skip: !isDelayed,
     }
   )

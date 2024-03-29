@@ -4,13 +4,14 @@ import { View } from 'dripsy'
 import React, { useState } from 'react'
 import { matchGroupByLeague, useGetRecoMatchQuery } from 'services/matchApi'
 import MatchLeagueSelector from './MatchLeagueSelector'
+import { useAppSelector } from 'app/provider/redux/store'
 
 export default function MatchSection() {
   const desktop = useIsDesktop()
   const [selectedLeague, setSelectedLeague] = useState<string>()
-
+  const currency = useAppSelector((s) => s.setting.currency)
   const { leagues, data } = useGetRecoMatchQuery(
-    { isApp: !desktop },
+    { isApp: !desktop, currency },
     {
       selectFromResult: (resp) => ({
         ...resp,

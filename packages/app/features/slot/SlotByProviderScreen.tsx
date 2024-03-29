@@ -7,6 +7,7 @@ import { useRouter } from 'solito/router'
 import SlotSingleProviderListing from './SlotSingleProviderListing'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
 import { GetCommissionList } from 'app/components/game/GameUtilityAction'
+import { useAppSelector } from 'app/provider/redux/store'
 
 type Props = {}
 
@@ -19,7 +20,9 @@ const { useParam } = createParam<Params>()
 const GameCategory = [GAME_TYPE_CODE.SLOTS, GAME_TYPE_CODE.FISHING]
 
 export default function SlotByProviderScreen({}: Props) {
+  const currency = useAppSelector((s) => s.setting.currency)
   const { data: games } = useGameListMultipleQuery({
+    currency,
     game_category: GameCategory,
   })
   const { gameCategoryTagTranslation } = useGameCategoryTag(GameCategory)

@@ -239,6 +239,8 @@ const GamesSingleProviderListing = ({
                     sx={{ width: '85%' }}
                     {...item}
                     displayName={item.name[locale]}
+                    img={item.img[locale]}
+                    xImg={item.xImg?.[locale]}
                   />
                 </View>
               )

@@ -9,6 +9,7 @@ import { EndpointBuilderType, IResponse } from './common/types'
 import { League, MatchResult } from './matchApi.type'
 import dayjs from 'dayjs'
 import groupBy from 'lodash/groupBy'
+import { Currency } from 'utils/constant'
 
 const matchAdapter = createEntityAdapter<MatchResult>({
   selectId: (match) => match.EventId,
@@ -19,9 +20,12 @@ const matchAdapter = createEntityAdapter<MatchResult>({
 
 export const matchApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
-    getRecoMatch: builder.query<MatchResult[], { isApp: boolean }>({
-      query: ({ isApp }) => ({
-        url: `/static_api/getRecoMatchV2/${isApp ? 1 : 0}`,
+    getRecoMatch: builder.query<
+      MatchResult[],
+      { isApp: boolean; currency: Currency }
+    >({
+      query: ({ isApp, currency }) => ({
+        url: `/static_api/v1/getRecoMatchV2/${isApp ? 1 : 0}/${currency}`,
         method: 'GET',
       }),
       transformResponse: (responseData: IResponse<MatchResult[]>) => {
