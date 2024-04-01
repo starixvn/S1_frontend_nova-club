@@ -21,7 +21,6 @@ const DailyMax = ({
   dailyMax = '0',
   ...rest
 }: DailyMaxProps) => {
-  console.log('🚀 ~ dailyMax:', dailyMax)
   const { t } = useLocalization()
   const { currency } = usePlayerProfileQuery()
   const label =
