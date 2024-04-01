@@ -14,6 +14,7 @@ export enum LANGUAGE_NAMESPACE {
 export const LANGUAGE_SUBTAG = {
   [LANGUAGE_CODE.ENGLISH]: 'en',
   [LANGUAGE_CODE.VIETNAM]: 'vi',
+  [LANGUAGE_CODE.THAILAND]: 'th',
 }
 
 //For Desktop Scroll to Content offset and configuration
@@ -58,6 +59,10 @@ export const CURRENCY_SEPARATOR = {
     thousands: ',',
   },
   [LANGUAGE_CODE.VIETNAM]: {
+    decimal: '.',
+    thousands: ',',
+  },
+  [LANGUAGE_CODE.THAILAND]: {
     decimal: '.',
     thousands: ',',
   },
