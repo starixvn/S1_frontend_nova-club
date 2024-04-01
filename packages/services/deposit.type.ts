@@ -126,3 +126,8 @@ export type PlayerInputFieldsBank = {
   name: string
   type: string
 }
+
+export type AvailableDepositAmountResult = {
+  current: string
+  max: string
+}

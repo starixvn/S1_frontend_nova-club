@@ -28,10 +28,6 @@ export default function WalletLayout({
   const currentPath = usePathname()
   const { paymentMethodList, isLoading } = useDepositList()
   const { data: cryptoBankList } = useCryptoBankQuery()
-  console.log(
-    '🚀 ~ file: WalletLayout.tsx:31 ~ cryptoBankList:',
-    cryptoBankList
-  )
 
   const [menuRoutes, setMenuRoutes] = useState(TransferRoutes)
   const [noticeNotes, setNoticeNotes] = useState<string[] | undefined>(

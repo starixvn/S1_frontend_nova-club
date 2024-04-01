@@ -59,7 +59,7 @@ const withdrawalApi = baseApiWithTag.injectEndpoints({
       }: {
         data: AvailableWithdrawalAmountResult
       }) => {
-        return { balance: data?.balance }
+        return { ...data }
       },
       providesTags: ['AvailableAmount'],
     }),

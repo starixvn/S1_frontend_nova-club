@@ -1,17 +1,18 @@
 import DepositMethodCard from 'app/components/DepositMethodCard'
 import { PageWithBackHeader } from 'app/components/layouts/Page'
 import MenuNotice from 'app/components/navigation/MenuNotice'
+import { DepositMethodId, PAYMENT_METHOD } from 'app/config/deposit'
 import useLocalization from 'app/provider/localization'
-import { WITHDRAWAL_NOTES } from 'utils/constant'
 import { Text, View, styled } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
-import { useCryptoBankQuery, usePlayerBankQuery } from 'services/bank'
+import { useCryptoBankQuery } from 'services/bank'
+import { useGetAvailableWithdrawalAmountQuery } from 'services/withdrawal'
 import { useRouter } from 'solito/router'
+import { WITHDRAWAL_NOTES } from 'utils/constant'
+import DailyMax from '../deposit/component/DailyMax'
 import AvailableBalance from './components/AvailableBalance'
 import WithdrawalTransactions from './components/WithdrawalTransactions'
-import { FLAG_PAYMENT_TYPE_BANK } from 'app/constants/crypto'
-import { DepositMethodId, PAYMENT_METHOD } from 'app/config/deposit'
 
 const WithdrawalScreen = () => {
   const { t } = useLocalization()
@@ -22,6 +23,7 @@ const WithdrawalScreen = () => {
   ])
 
   const { data: cryptoBankList } = useCryptoBankQuery()
+  const { data: availAmount } = useGetAvailableWithdrawalAmountQuery()
 
   useEffect(() => {
     cryptoBankList &&
@@ -58,6 +60,13 @@ const WithdrawalScreen = () => {
       <StyledView>
         <View sx={{ p: '$pagePadding' }}>
           <AvailableBalance />
+          <DailyMax
+            type="withdrawal"
+            amount={availAmount?.current}
+            dailyMax={availAmount?.max}
+            sx={{ py: '$0' }}
+          />
+
           <Text sx={{ my: 12 }}>{t('withdrawal.options')}</Text>
           <View
             sx={{

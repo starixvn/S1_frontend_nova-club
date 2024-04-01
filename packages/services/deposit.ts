@@ -1,6 +1,7 @@
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
+  AvailableDepositAmountResult,
   DepositPaymentListArgs,
   DepositPaymentListResult,
   SubmitDepositArgs,
@@ -9,6 +10,7 @@ import {
   SubmitManualDepositResult,
   UploadDepositSlipArgs,
 } from './deposit.type'
+import { AvailableWithdrawalAmountResult } from './withdrawal.type'
 
 const depositApi = baseApiWithTag.injectEndpoints({
   endpoints: (builder: EndpointBuilderType) => ({
@@ -38,7 +40,7 @@ const depositApi = baseApiWithTag.injectEndpoints({
           ...queryArgs,
         },
       }),
-      invalidatesTags: ['Balance', 'Report'],
+      invalidatesTags: ['Balance', 'Report', 'AvailableDepositAmount'],
     }),
     submitManualDeposit: builder.mutation<
       IResponse<SubmitManualDepositResult>,
@@ -51,7 +53,12 @@ const depositApi = baseApiWithTag.injectEndpoints({
           ...queryArgs,
         },
       }),
-      invalidatesTags: ['Balance', 'Report', 'DepositPaymentList'],
+      invalidatesTags: [
+        'Balance',
+        'Report',
+        'DepositPaymentList',
+        'AvailableDepositAmount',
+      ],
     }),
     uploadDepositSlip: builder.mutation<
       IResponse<string>,
@@ -65,6 +72,23 @@ const depositApi = baseApiWithTag.injectEndpoints({
       }),
       invalidatesTags: ['Report'],
     }),
+    getAvailableDepositAmount: builder.query<
+      AvailableDepositAmountResult,
+      void
+    >({
+      query: () => ({
+        url: `/player_api/getAvailDepositAmount`,
+        method: 'POST',
+      }),
+      transformResponse: ({
+        data,
+      }: {
+        data: AvailableWithdrawalAmountResult
+      }) => {
+        return { ...data }
+      },
+      providesTags: ['AvailableDepositAmount'],
+    }),
   }),
 })
 
@@ -73,4 +97,5 @@ export const {
   useSubmitDepositMutation,
   useSubmitManualDepositMutation,
   useUploadDepositSlipMutation,
+  useGetAvailableDepositAmountQuery,
 } = depositApi

@@ -1,5 +1,5 @@
+import Button from 'app/components/common/Button'
 import Input from 'app/components/form/Input'
-import InputLabel from 'app/components/form/InputLabel'
 import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
 import { getBankLogo } from 'app/config/bank'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
@@ -12,8 +12,8 @@ import {
   toDisplayAmount,
   toRealAmount,
 } from 'app/utils'
-import { Currency } from 'utils/constant'
 import validation from 'app/utils/validation'
+import BankSelection from 'desktop-ext/features/withdrawal/components/BankSelection'
 import { Pressable, Text, View, styled } from 'dripsy'
 import * as ImagePicker from 'expo-image-picker'
 import { FormikHelpers, useFormik } from 'formik'
@@ -23,19 +23,19 @@ import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import {
   useDepositPaymentListQuery,
+  useGetAvailableDepositAmountQuery,
   useSubmitManualDepositMutation,
 } from 'services/deposit'
 import { ManualBankItem } from 'services/deposit.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
+import { Currency } from 'utils/constant'
 import * as Yup from 'yup'
 import BankSlipUpload, {
   BankSlipUploadMethod,
 } from '../component/BankSlipUpload'
-import HorizontalSelectBankCardGrid from '../component/HorizontalSelectBankCardGrid'
-import AccountDetail from './AccountDetail'
+import DailyMax from '../component/DailyMax'
 import useDepositFailedMessage from '../tools/useDepositFailedMessage'
-import Button from 'app/components/common/Button'
-import BankSelection from 'desktop-ext/features/withdrawal/components/BankSelection'
+import AccountDetail from './AccountDetail'
 
 type BankTransferValues = {
   bank: ManualBankItem | undefined
@@ -60,6 +60,8 @@ const BankTransferForm = () => {
   const depositPayment = data?.data?.result?.manual?.find(
     (el) => el.category_id === DepositPaymentMethodCategoryId.LOCAL_BANK
   )
+
+  const { data: dailyData } = useGetAvailableDepositAmountQuery()
 
   const horizontalMode = useIsDesktop()
   const { dispatchDepositFailedMessage } = useDepositFailedMessage()
@@ -193,6 +195,11 @@ const BankTransferForm = () => {
   return (
     <View sx={{ pt: '$3' }}>
       <View sx={{ px: horizontalMode ? 0 : '$4' }}>
+        <DailyMax
+          type="deposit"
+          amount={dailyData?.current}
+          dailyMax={dailyData?.max}
+        />
         {horizontalMode ? (
           <BankSelection
             label={t('bank.bank')}
