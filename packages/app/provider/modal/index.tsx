@@ -6,7 +6,7 @@ import { LoginType } from 'app/features/auth/AuthLayout'
 import { HomeEventModalData } from 'app/features/home/EventModal/HomeEventModal'
 import { ActivityIndicator, useResponsiveValue } from 'dripsy'
 import dynamic from 'next/dynamic'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Easing } from 'react-native'
 import {
   ModalStackConfig,
@@ -257,42 +257,45 @@ const modalConfig: ModalConfigType = {
 }
 
 const ModalProvider = ({ children }) => {
-  const stack = createModalStack(modalConfig, {
-    containerStyle: {
-      maxWidth: useResponsiveValue([768, 768, '100%']),
-      zIndex: 2,
-    },
-    backdropOpacity: 0.6,
-    backBehavior: 'pop',
-    disableFlingGesture: true,
-    transitionOptions: (animatedValue) => ({
-      transform: [
-        {
-          perspective: 2000,
-        },
-        {
-          translateX: animatedValue.interpolate({
-            inputRange: [0, 1, 2],
-            outputRange: [0, 0, 30],
-          }),
-        },
-        {
-          scale: animatedValue.interpolate({
-            inputRange: [0, 1, 2],
-            outputRange: [1.2, 1, 0.8],
-          }),
-        },
-      ],
-    }),
-    animateInConfig: {
-      easing: Easing.bezier(0.42, -0.03, 0.27, 0.95),
-      duration: 450,
-    },
-    animateOutConfig: {
-      easing: Easing.bezier(0.42, -0.03, 0.27, 0.95),
-      duration: 450,
-    },
-  })
+  const maxWidth = useResponsiveValue([768, 768, '100%'])
+  const stack = useMemo(() => {
+    return createModalStack(modalConfig, {
+      containerStyle: {
+        maxWidth,
+        zIndex: 2,
+      },
+      backdropOpacity: 0.6,
+      backBehavior: 'pop',
+      disableFlingGesture: true,
+      transitionOptions: (animatedValue) => ({
+        transform: [
+          {
+            perspective: 2000,
+          },
+          {
+            translateX: animatedValue.interpolate({
+              inputRange: [0, 1, 2],
+              outputRange: [0, 0, 30],
+            }),
+          },
+          {
+            scale: animatedValue.interpolate({
+              inputRange: [0, 1, 2],
+              outputRange: [1.2, 1, 0.8],
+            }),
+          },
+        ],
+      }),
+      animateInConfig: {
+        easing: Easing.bezier(0.42, -0.03, 0.27, 0.95),
+        duration: 450,
+      },
+      animateOutConfig: {
+        easing: Easing.bezier(0.42, -0.03, 0.27, 0.95),
+        duration: 450,
+      },
+    })
+  }, [maxWidth])
 
   return <RNMModalProvider stack={stack}>{children}</RNMModalProvider>
 }
