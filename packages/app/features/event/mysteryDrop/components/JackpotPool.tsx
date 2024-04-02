@@ -122,6 +122,7 @@ const JackpotBoard = ({ jackpot }: JackpotProp) => {
   const jackpotWidth = useResponsiveValue([width - width * 0.1, 500])
   const [total, setTotal] = useState<number>()
   const [prevPrize, setPrevPrize] = useState<number>()
+  const currency = useAppSelector((s) => s.setting.currency)
 
   useEffect(() => {
     setTimeout(() => {
@@ -155,7 +156,7 @@ const JackpotBoard = ({ jackpot }: JackpotProp) => {
           <JackpotText>
             <CountUp
               key={jackpot}
-              isCounting
+              isCounting={!!total}
               start={prevPrize ? prevPrize : total}
               end={total}
               duration={5}
@@ -164,7 +165,7 @@ const JackpotBoard = ({ jackpot }: JackpotProp) => {
               onComplete={() => setPrevPrize(total)}
             />
           </JackpotText>
-          <JackpotText>{` VND`}</JackpotText>
+          <JackpotText>{` ${currency.toUpperCase()}`}</JackpotText>
         </Row>
       </View>
     </View>

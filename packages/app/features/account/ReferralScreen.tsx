@@ -24,7 +24,6 @@ const ReferralScreen = () => {
   const desktop = useIsDesktop()
 
   const { data: playerData } = usePlayerProfileQuery()
-  const currency = playerData?.currency as Currency
 
   const { token } = useAppSelector((state) => state.auth.info) || {}
   const { data, isFetching } = usePlayerOverviewSummaryQuery(undefined, {

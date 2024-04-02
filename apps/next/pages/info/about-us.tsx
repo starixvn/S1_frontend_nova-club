@@ -19,6 +19,7 @@ const LazyVi = dynamic(() => import('app/features/info/aboutUs/AboutUsVi'), {
 const infoLocalizationMapping = {
   [LANGUAGE_CODE.ENGLISH]: LazyEn,
   [LANGUAGE_CODE.VIETNAM]: LazyVi,
+  [LANGUAGE_CODE.THAILAND]: LazyEn,
 }
 
 const AboutUs: AdaptiveLayoutPage = () => (

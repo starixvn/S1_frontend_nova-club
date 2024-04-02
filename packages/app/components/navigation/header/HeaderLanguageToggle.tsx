@@ -1,24 +1,19 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import { LanguageButton } from 'app/components/LanguageSwitch'
+import { CURRENCY_LANGUAGE_LIST } from 'app/config/currency'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
 import { View, styled } from 'dripsy'
 import React from 'react'
-import { contentApi } from 'services/contentApi'
-import { usePlayerProfileQuery } from 'services/playerApi'
+import { Platform } from 'react-native'
 import { LANGUAGE_CODE } from 'utils/constant'
 import LanguageDropdown from '../LanguageDropdown'
-import { Platform } from 'react-native'
-import useIsDesktop from 'app/hooks/useIsDesktop'
-import { CURRENCY_LANGUAGE_LIST } from 'app/config/currency'
 
 type Props = {}
 
 export default function HeaderLanguageToggle({}: Props) {
-  const isDekstop = useIsDesktop()
   const dispatch = useAppDispatch()
-  const { currency } = usePlayerProfileQuery()
 
   const isLoggedIn = useAppSelector((s) => !!s.auth.info)
   const lang = useAppSelector((state) => state.setting.locale)

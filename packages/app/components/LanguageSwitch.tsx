@@ -4,11 +4,9 @@ import { Image, Pressable, SxProp, View } from 'dripsy'
 import { AnimatePresence, MotiView } from 'moti'
 import React, { useState } from 'react'
 import { ViewProps } from 'react-native'
-import { contentApi } from 'services/contentApi'
 import { LANGUAGE_CODE } from 'utils/constant'
 import {
-  usePlayerLangMutation,
-  usePlayerProfileQuery,
+  usePlayerLangMutation
 } from '../../services/playerApi'
 
 const LANGUAGE_BUTTON_SIZE = 25
@@ -88,7 +86,6 @@ export default function LanguageSwitch({ ...rest }: ViewProps) {
   const lang = useAppSelector((state) => state.setting.locale)
   const [updateState, setUpdateState] = useState(UPDATE_STATE.COMPLETED)
   const [updateLanguage] = usePlayerLangMutation()
-  const { currency } = usePlayerProfileQuery()
 
   const submitLanguage = async (value: LANGUAGE_CODE) => {
     if (updateState === UPDATE_STATE.UPDATING) return

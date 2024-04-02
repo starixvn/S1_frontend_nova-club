@@ -25,6 +25,7 @@ const LazyVi = dynamic(
 const infoLocalizationMapping = {
   [LANGUAGE_CODE.ENGLISH]: LazyEn,
   [LANGUAGE_CODE.VIETNAM]: LazyVi,
+  [LANGUAGE_CODE.THAILAND]: LazyEn,
 }
 
 const Shareholder: AdaptiveLayoutPage = () => (

@@ -36,6 +36,7 @@ export const getCryptoProtocol = (bankCode) => {
     case 'USDT-TRC20':
       return 'TRC20'
     case 'BTC':
+    case 'W-BTC':
       return 'BTC'
     case 'ETH':
       return 'ETH'

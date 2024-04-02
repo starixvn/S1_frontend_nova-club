@@ -43,6 +43,7 @@ const DesktopWithdrawalForm = () => {
       />
 
       <WithdrawalConfirm
+        loading={formik.isSubmitting}
         disabled={!isValid || !dirty || !Number(availableBalance?.balance)}
         onPress={withdrawalConfirmation}
       />

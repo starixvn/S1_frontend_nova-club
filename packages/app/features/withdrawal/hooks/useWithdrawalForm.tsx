@@ -108,9 +108,8 @@ const useWithdrawalForm = ({ isCrypto = false, minMax }) => {
     { bank, realAmount }: WithdrawalValues,
     actions: FormikHelpers<WithdrawalValues>
   ) => {
-    console.log('submitting')
     try {
-      const { data, success, message } = await postSubmitWithdrawal({
+      const { success, message } = await postSubmitWithdrawal({
         amount: realAmount,
         bank_details_id: bank?.PlayerBankDetailsId ?? 0,
       })
