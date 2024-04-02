@@ -104,13 +104,13 @@ export default function DrawerContent() {
         push('/history/transaction')
       },
     },
-    {
-      iconName: 'cs',
-      text: 'contact.customerSupport',
-      onPress: () => {
-        push('/account/customer-support')
-      },
-    },
+    // {
+    //   iconName: 'cs',
+    //   text: 'contact.customerSupport',
+    //   onPress: () => {
+    //     push('/account/customer-support')
+    //   },
+    // },
     {
       iconName: 'app-download',
       text: 'common.download',
