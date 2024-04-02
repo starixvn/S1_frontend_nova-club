@@ -48,6 +48,10 @@ function MyApp({ ...rest }: AdaptiveAppProps) {
           content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, viewport-fit=cover"
         />
         <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta
+          name="google-site-verification"
+          content="D0qEt--tpMP6BopuJFXl5DOtHU-laWyyIn8QFev7A4E"
+        />
         {/* <meta
           name="apple-mobile-web-app-status-bar-style"
           content="black-translucent"
