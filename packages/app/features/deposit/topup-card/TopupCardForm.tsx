@@ -50,7 +50,9 @@ const TopupCardForm = () => {
   })
   const { dispatchDepositFailedMessage } = useDepositFailedMessage()
 
-  const { data: dailyData } = useGetAvailableDepositAmountQuery()
+  const { data: dailyData } = useGetAvailableDepositAmountQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  })
   const depositPayment = data?.data?.result.auto.find(
     (el) => el.category_id === DepositPaymentMethodCategoryId.TOP_UP
   )

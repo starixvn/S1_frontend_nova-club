@@ -23,7 +23,6 @@ export const baseApiWithTag = baseApi.enhanceEndpoints({
     'Coin',
     'CheckInProgress',
     'AvailableAmount',
-    'AvailableDepositAmount',
     'DepositPaymentList',
   ],
 })

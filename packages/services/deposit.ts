@@ -40,7 +40,7 @@ const depositApi = baseApiWithTag.injectEndpoints({
           ...queryArgs,
         },
       }),
-      invalidatesTags: ['Balance', 'Report', 'AvailableDepositAmount'],
+      invalidatesTags: ['Balance', 'Report'],
     }),
     submitManualDeposit: builder.mutation<
       IResponse<SubmitManualDepositResult>,
@@ -53,12 +53,7 @@ const depositApi = baseApiWithTag.injectEndpoints({
           ...queryArgs,
         },
       }),
-      invalidatesTags: [
-        'Balance',
-        'Report',
-        'DepositPaymentList',
-        'AvailableDepositAmount',
-      ],
+      invalidatesTags: ['Balance', 'Report', 'DepositPaymentList', ,],
     }),
     uploadDepositSlip: builder.mutation<
       IResponse<string>,
@@ -79,15 +74,16 @@ const depositApi = baseApiWithTag.injectEndpoints({
       query: () => ({
         url: `/player_api/getAvailDepositAmount`,
         method: 'POST',
+        keepUnusedDataFor: 5,
       }),
       transformResponse: ({
         data,
       }: {
         data: AvailableWithdrawalAmountResult
       }) => {
-        return { ...data }
+        return data
       },
-      providesTags: ['AvailableDepositAmount'],
+      extraOptions: { refetchOnMount: true },
     }),
   }),
 })

@@ -61,7 +61,9 @@ const BankTransferForm = () => {
     (el) => el.category_id === DepositPaymentMethodCategoryId.LOCAL_BANK
   )
 
-  const { data: dailyData } = useGetAvailableDepositAmountQuery()
+  const { data: dailyData } = useGetAvailableDepositAmountQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  })
 
   const horizontalMode = useIsDesktop()
   const { dispatchDepositFailedMessage } = useDepositFailedMessage()

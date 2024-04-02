@@ -26,7 +26,9 @@ const Deposit = () => {
   const { openModal } = useModal()
 
   const { paymentMethodList, isLoading } = useDepositList()
-  const { data } = useGetAvailableDepositAmountQuery()
+  const { data } = useGetAvailableDepositAmountQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  })
 
   const {
     data: transactionData,

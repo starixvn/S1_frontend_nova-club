@@ -56,7 +56,9 @@ const DepositForm = ({ DepositCategoryId }) => {
   const { data, isLoading, isFetching } = useDepositPaymentListQuery({
     is_mobile: isMobile ? 0 : 1,
   })
-  const { data: dailyData } = useGetAvailableDepositAmountQuery()
+  const { data: dailyData } = useGetAvailableDepositAmountQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  })
 
   const depositPayment = data?.data?.result.auto.find(
     (el) => el.category_id === DepositCategoryId

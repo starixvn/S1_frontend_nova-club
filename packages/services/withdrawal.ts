@@ -1,7 +1,6 @@
 import { baseApiWithTag } from './baseApi'
 import { EndpointBuilderType, IResponse } from './common/types'
 import {
-  Avail,
   AvailableWithdrawalAmountResult,
   CryptoExchangeRateArgs,
   CryptoExchangeRateResult,
@@ -52,14 +51,13 @@ const withdrawalApi = baseApiWithTag.injectEndpoints({
       query: () => ({
         url: `/player_api/getAvailWithdrawAmount`,
         method: 'POST',
-        data: {},
       }),
       transformResponse: ({
         data,
       }: {
         data: AvailableWithdrawalAmountResult
       }) => {
-        return { ...data }
+        return data
       },
       providesTags: ['AvailableAmount'],
     }),
