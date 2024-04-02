@@ -1,13 +1,12 @@
+import Input from 'app/components/form/Input'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { toCleanAmount, toCurrency, toRealAmount } from 'app/utils'
-import { Currency } from 'utils/constant'
+import { Text } from 'dripsy'
 import { FormikProps } from 'formik'
 import React from 'react'
 import { PlayerInputFieldsAmount } from 'services/deposit.type'
-import { usePlayerProfileQuery } from 'services/playerApi'
 import { DepositValues } from './DepositForm'
-import Input from 'app/components/form/Input'
-import { Text } from 'dripsy'
 
 type FieldAmountProps = {
   field: PlayerInputFieldsAmount
@@ -23,8 +22,7 @@ const FieldAmount = ({
   formik,
 }: FieldAmountProps) => {
   const { t } = useLocalization()
-  const { data: playerData } = usePlayerProfileQuery()
-  const currency = playerData?.currency as Currency
+  const currency = useAppSelector((state) => state.setting.currency)
 
   const { handleBlur, values, errors, touched, setValues } = formik
 

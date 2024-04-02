@@ -7,6 +7,7 @@ import useAlert from 'app/hooks/useAlert'
 import useCheckMobile from 'app/hooks/useCheckMobile'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { toDisplayAmount } from 'app/utils'
 import validation from 'app/utils/validation'
 import BankSelection from 'desktop-ext/features/withdrawal/components/BankSelection'
@@ -24,14 +25,11 @@ import {
   PlayerInputFieldsAmount,
   PlayerInputFieldsBank,
 } from 'services/deposit.type'
-import { usePlayerProfileQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
-import { Currency } from 'utils/constant'
 import * as Yup from 'yup'
 import useDepositFailedMessage from '../tools/useDepositFailedMessage'
 import FieldAmount from './FieldAmount'
 import FieldSelectBank from './FieldSelectBank'
-import MinMaxLimitDetail from './MinMaxLimitDetail'
 
 export type DepositValues = {
   bank: string | null
@@ -46,8 +44,8 @@ const DepositForm = ({ DepositCategoryId }) => {
   const { showAlert } = useAlert()
   const { openModal } = useModal()
   const [postSubmitDeposit] = useSubmitDepositMutation()
-  const { data: playerData } = usePlayerProfileQuery()
-  const currency = playerData?.currency as Currency
+
+  const currency = useAppSelector((state) => state.setting.currency)
   const horizontalMode = useIsDesktop()
   const { dispatchDepositFailedMessage } = useDepositFailedMessage()
 

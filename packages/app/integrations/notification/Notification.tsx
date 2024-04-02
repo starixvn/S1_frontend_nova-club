@@ -8,13 +8,13 @@ import {
   useSubscribeTopicMutation,
   useUnsubscribeMutation,
 } from 'services/subscriptionApi'
-import { Currency } from 'utils/constant'
 
 const Notification = () => {
   const username = useAppSelector((state) => state.auth.info?.playerName)
   const lastSubscribedUsername = useAppSelector(
     (state) => state.setting.lastSubscribeUsername
   )
+  const currency = useAppSelector((state) => state.setting.currency)
   const [topicSubscription] = useSubscribeTopicMutation()
   const [subscribeMember] = useSubscribeMutation()
   const [unSubscribeMember] = useUnsubscribeMutation()
@@ -83,7 +83,7 @@ const Notification = () => {
   ) {
     subscribeMember({
       brand: 'v123',
-      currency: Currency.VND,
+      currency: currency,
       memberId: usernameToSubscribe,
       fcmToken: token,
     })

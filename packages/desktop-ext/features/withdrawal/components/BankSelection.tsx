@@ -3,14 +3,13 @@ import TouchableOpacity from 'app/components/pressable/TouchableOpacity'
 import useLocalization from 'app/provider/localization'
 import { Pressable, Row, SxProp, Text, View, styled } from 'dripsy'
 
-import React, { ComponentProps } from 'react'
+import React from 'react'
 
-import { SelectOptions } from 'services/common/types'
-import { SolitoImageProps } from 'solito/build/image/image.types'
-import { SolitoImage } from 'solito/image'
-import { ImageContentFit } from 'expo-image'
+import { useAppSelector } from 'app/provider/redux/store'
 import { toCurrency } from 'app/utils'
-import { usePlayerProfileQuery } from 'services/playerApi'
+import { ImageContentFit } from 'expo-image'
+import { SelectOptions } from 'services/common/types'
+import { SolitoImage } from 'solito/image'
 
 type Prettier<T> = {
   [K in keyof T]: T[K]
@@ -112,7 +111,7 @@ const SelectionItem = ({
   limit,
 }) => {
   const { t } = useLocalization()
-  const { currency } = usePlayerProfileQuery()
+  const currency = useAppSelector((state) => state.setting.currency)
 
   const minAmount = toCurrency(limit?.min ?? 0, currency, {
     symbol: false,

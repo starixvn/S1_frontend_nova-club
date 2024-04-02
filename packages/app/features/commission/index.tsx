@@ -5,14 +5,14 @@ import { PageWithBackHeader } from 'app/components/layouts/Page'
 import { ScrollFlashList } from 'app/hoc/withCustomScroll'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
-import { Currency } from 'utils/constant'
 import { SxProp, View } from 'dripsy'
+import groupBy from 'lodash/groupBy'
 import React, { ComponentProps, ReactNode } from 'react'
 import { Platform } from 'react-native'
 import { useCommissionTableQuery } from 'services/contentApi'
 import { CommissionTableResult } from 'services/contentApi.type'
-import groupBy from 'lodash/groupBy'
 
 type TitleCellProps = {
   border?: boolean
@@ -36,8 +36,9 @@ const CommissionTableScreen = () => {
   const { t } = useLocalization()
   const desktop = useIsDesktop()
   const { bottom } = useSafeArea()
+  const currency = useAppSelector((state) => state.setting.currency)
   const { data: commissionList } = useCommissionTableQuery({
-    currency: Currency.VND,
+    currency,
   })
   const titleList = groupBy(commissionList, 'game_type')
 

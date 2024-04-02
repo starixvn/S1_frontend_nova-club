@@ -108,6 +108,7 @@ interface HeaderOverviewProps {
 const HeaderOverview = ({}: HeaderOverviewProps) => {
   const { push } = useRouter()
   const token = useAppSelector((s) => s.auth.info?.token)
+  const currency = useAppSelector((s) => s.setting.currency)
 
   const {
     data: playerBalance,
@@ -143,7 +144,7 @@ const HeaderOverview = ({}: HeaderOverviewProps) => {
         <HeaderButton
           icon="wallet"
           label="Balance"
-          value={toCurrency(playerBalance?.totalBalance ?? '-', Currency.VND, {
+          value={toCurrency(playerBalance?.totalBalance ?? '-', currency, {
             symbol: false,
           })}
           isLoading={isMainWalletLoading}

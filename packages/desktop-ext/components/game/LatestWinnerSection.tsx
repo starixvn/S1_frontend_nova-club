@@ -8,7 +8,6 @@ import { useInterval } from 'app/hooks/useInterval'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { toCurrency } from 'app/utils'
-import { Currency } from 'utils/constant'
 import { Row, Text, View, styled } from 'dripsy'
 import React, { startTransition, useEffect, useRef, useState } from 'react'
 import { useLatestWinnerQuery } from 'services/gameApi'
@@ -98,6 +97,7 @@ const LatestWinnerItem = ({
   amount: number
 }) => {
   const locale = useAppSelector((s) => s.setting.locale)
+  const currency = useAppSelector((state) => state.setting.currency)
 
   return (
     <DripsyMotiView
@@ -130,7 +130,7 @@ const LatestWinnerItem = ({
           <Label
             sx={{ ml: 'auto', fontWeight: 'bold', mr: '$2', fontSize: 16 }}
           >
-            {toCurrency(amount, Currency.VND, {
+            {toCurrency(amount, currency, {
               symbol: false,
             })}
           </Label>

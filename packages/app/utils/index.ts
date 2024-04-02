@@ -8,6 +8,7 @@ import {
   CONTENT_FROM_TOP_2,
   CURRENCY_SEPARATOR,
   CURRENCY_TO_LANGUAGE,
+  CURRENCY_WITH_THOUSAND_FORMAT,
   Currency,
   HEADER_HEIGHT_OFFSET,
   LANGUAGE_CODE,
@@ -116,8 +117,7 @@ export function toCurrency(
     }
   }
 
-  const language = CURRENCY_TO_LANGUAGE[currency]
-  joined = appendWithThousandUnit(joined ?? '', language)
+  joined = appendWithThousandUnit(joined ?? '', currency)
 
   if (multiplier) {
     joined += multiplier
@@ -133,9 +133,13 @@ export function toCurrency(
  */
 export function appendWithThousandUnit(
   amount: string,
-  language: LANGUAGE_CODE = LANGUAGE_CODE.ENGLISH
+  currency: Currency = Currency.VND
 ) {
+  const language = CURRENCY_TO_LANGUAGE[currency]
+
   if (!amount) return amount
+  if (!CURRENCY_WITH_THOUSAND_FORMAT.includes(currency))
+    return toThousandSeparator(amount, language)
 
   let wholeNumber = amount
   const isContainDecimal = amount.includes('.')
@@ -208,7 +212,7 @@ export function toThousandSeparator(
   text: string,
   language: LANGUAGE_CODE = LANGUAGE_CODE.VIETNAM
 ) {
-  if (!text) return 0
+  if (!text) return '0'
 
   const separatorSymbol = CURRENCY_SEPARATOR[language].thousands
   const significants = text.toString().split('.')

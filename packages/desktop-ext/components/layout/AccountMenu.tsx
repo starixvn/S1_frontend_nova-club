@@ -2,12 +2,11 @@ import ProfileBalanceSummary from 'app/features/account/ProfileBalanceSummary'
 import ProfileHeaderCard from 'app/features/account/ProfileHeaderCard'
 import ProfileOverviewCard from 'app/features/account/ProfileOverviewCard'
 import { useAppSelector } from 'app/provider/redux/store'
-import { Currency } from 'utils/constant'
 import { View } from 'dripsy'
-import React, { useMemo } from 'react'
+import React from 'react'
 import { usePlayerProfileQuery } from 'services/playerApi'
-import { usePlayerBalanceQuery } from 'services/walletApi'
 import { useGetCoinQuery } from 'services/rewardApi'
+import { usePlayerBalanceQuery } from 'services/walletApi'
 
 export const ACCOUNT_MENU_HEIGHT = 160 // can remove this if the component inside can have dynamic height
 export default function AccountMenu({}) {
@@ -22,7 +21,7 @@ export default function AccountMenu({}) {
     refetchOnMountOrArgChange: true,
   })
 
-  const currency = playerData?.currency as Currency
+  const currency = useAppSelector((state) => state.setting.currency)
   const { isFetching, data } = usePlayerBalanceQuery(undefined, {
     skip: !isLoggedIn,
   })

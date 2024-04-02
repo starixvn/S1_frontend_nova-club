@@ -1,10 +1,10 @@
 import Input from 'app/components/form/Input'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { toCurrency } from 'app/utils'
 import { Text, View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
-import { usePlayerProfileQuery } from 'services/playerApi'
 import { useGetAvailableWithdrawalAmountQuery } from 'services/withdrawal'
 
 type AvailableBalanceProps = {
@@ -16,7 +16,7 @@ const AvailableBalance = ({
 }: AvailableBalanceProps) => {
   const { t } = useLocalization()
   const desktop = useIsDesktop()
-  const { currency } = usePlayerProfileQuery()
+  const currency = useAppSelector((state) => state.setting.currency)
   const [delay, setDelay] = useState(true)
 
   const { data: availableBalance } = useGetAvailableWithdrawalAmountQuery(

@@ -1,18 +1,16 @@
 import ModalContent from 'app/components/modal/ModalContent'
 import ModalWrapper from 'app/components/modal/ModalWrapper'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { toCurrency } from 'app/utils'
-import { Currency } from 'utils/constant'
 import { Text, View } from 'dripsy'
-import { usePlayerProfileQuery } from 'services/playerApi'
 
 const DepositConfirmationModal = ({ modal: { closeModal, getParam } }) => {
   const { t } = useLocalization()
   const amount = getParam('amount', '')
   const callback = getParam('callback')
 
-  const { data: playerData } = usePlayerProfileQuery()
-  const currency = playerData?.currency as Currency
+  const currency = useAppSelector((state) => state.setting.currency)
 
   const handleDismiss = () => {
     closeModal()

@@ -16,6 +16,7 @@ import { Shadow } from 'react-native-shadow-2'
 import { ReportDepositItem } from 'services/playerApi.type'
 import DateTimeCell from './DateTimeCell'
 import { Currency } from 'utils/constant'
+import { useAppSelector } from 'app/provider/redux/store'
 
 export const CELL_PAYMENT_WIDTH = 0.5
 export const CELL_DATE_WIDTH = 0.2
@@ -54,12 +55,13 @@ const DepositHistoryItem = ({ item }: TransactionHistoryItemProps) => {
   const { theme } = useDripsyTheme()
   const { t } = useLocalization()
   const { openModal } = useModal()
+  const currency = useAppSelector((state) => state.setting.currency)
 
   const category = PaymentMethod.find(
     (el) => el.categoryId === item.second_category_flag
   ) as PaymentMethodProps
 
-  const amount = toCurrency(item.amount, Currency.VND, {
+  const amount = toCurrency(item.amount, currency, {
     symbol: false,
   })
 

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { usePlayerProfileQuery } from 'services/playerApi'
+import { useAppSelector } from 'app/provider/redux/store'
+import { useEffect, useState } from 'react'
 import { useLazyCryptoExchangeRateQuery } from 'services/withdrawal'
 
 const useCryptoRates = (selectedChannel) => {
   const [convertedAmount, setConvertedAmount] = useState(0)
-  const { currency } = usePlayerProfileQuery()
+  const currency = useAppSelector((state) => state.setting.currency)
 
   const [getCryptoRates, { isFetching: ratesLoading }] =
     useLazyCryptoExchangeRateQuery()

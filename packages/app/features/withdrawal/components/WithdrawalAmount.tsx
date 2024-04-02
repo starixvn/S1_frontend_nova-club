@@ -1,14 +1,13 @@
 import IconButton from 'app/components/IconButton'
 import MoneyInput from 'app/components/MoneyInput'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { toCleanAmount, toCurrency, toRealAmount } from 'app/utils'
 import { FormikProps } from 'formik'
 import React from 'react'
-import { usePlayerProfileQuery } from 'services/playerApi'
-import { usePlayerBalanceQuery } from 'services/walletApi'
+import { useGetAvailableWithdrawalAmountQuery } from 'services/withdrawal'
 import { MinMax } from '../hooks/useCryptoSelection'
 import { WithdrawalValues } from '../hooks/useWithdrawalForm'
-import { useGetAvailableWithdrawalAmountQuery } from 'services/withdrawal'
 
 type WithdrawalAmountProps = {
   isCrypto?: boolean
@@ -21,8 +20,7 @@ const WithdrawalAmount = ({
   minMax,
 }: WithdrawalAmountProps) => {
   const { t } = useLocalization()
-
-  const { currency } = usePlayerProfileQuery()
+  const currency = useAppSelector((state) => state.setting.currency)
 
   const { data: availableBalance } = useGetAvailableWithdrawalAmountQuery()
 

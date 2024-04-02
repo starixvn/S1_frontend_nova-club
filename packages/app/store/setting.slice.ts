@@ -188,6 +188,7 @@ const settingSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(AuthActions.setAuthInfo, (state, action) => {
       const currency = action.payload.currency
+      console.log('🚀 ~ builder.addCase ~ currency:', currency)
       return {
         ...state,
         currency: action.payload.currency,

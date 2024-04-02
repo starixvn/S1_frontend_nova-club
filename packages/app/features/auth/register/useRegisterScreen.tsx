@@ -1,13 +1,14 @@
 import { useAgentRegisterMutation } from 'agent/services/authApi'
 import { useLazyUserInfoQuery, useUserInfoQuery } from 'agent/services/userApi'
 import { AgentAuthActions } from 'agent/store/agentAuthReducer'
+import { MOBILE_PREFIX_BY_CURRENCY } from 'app/config/currency'
 import { MOBILE_PREFIX } from 'app/constants/country'
 import useAlert from 'app/hooks/useAlert'
 import useContainerWidth from 'app/hooks/useContainerWidth'
+import useLocalization from 'app/provider/localization'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { AuthActions } from 'app/store/authReducer'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
-import { APP_DEVICE_ANDROID, APP_DEVICE_IOS, Currency } from 'utils/constant'
 import { isBannedTrackingCode } from 'app/utils/referralUtil'
 import validation from 'app/utils/validation'
 import { FormikHelpers, useFormik } from 'formik'
@@ -27,12 +28,11 @@ import { LoginResult, Shield_Action } from 'services/authApi.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
+import { APP_DEVICE_ANDROID, APP_DEVICE_IOS } from 'utils/constant'
 import * as Yup from 'yup'
 import { LoginType } from '../AuthLayout'
-import { RegisterFormValues } from './RegisterScreen'
 import { agentRoute, memberRoute } from '../login/LoginScreen'
-import useLocalization from 'app/provider/localization'
-import { MOBILE_PREFIX_BY_CURRENCY } from 'app/config/currency'
+import { RegisterFormValues } from './RegisterScreen'
 
 const { useParam } = createParam<{ t: LoginType }>()
 
@@ -81,6 +81,7 @@ export default function useRegisterScreen(
 
   const isLoggedIn = useAppSelector((s) => !!s.auth.info)
   const memberToken = useAppSelector((state) => state.auth.info?.token)
+  const currency = useAppSelector((state) => state.setting.currency)
   const { openModal, closeAllModals } = useModal()
   const unmountAction = useRef<() => void>()
 
@@ -269,7 +270,7 @@ export default function useRegisterScreen(
       username: '',
       password: '',
       confirmPassword: '',
-      currency: Currency.VND,
+      currency: currency,
       contactNumber: '',
       verifyCode: '',
       terms: false,

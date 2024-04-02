@@ -1,19 +1,20 @@
+import Button from 'app/components/common/Button'
 import Input from 'app/components/form/Input'
-import InputLabel from 'app/components/form/InputLabel'
 import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
 import { getBankLogo } from 'app/config/bank'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
 import useAlert from 'app/hooks/useAlert'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import {
   toCleanAmount,
   toCurrency,
   toDisplayAmount,
   toRealAmount,
 } from 'app/utils'
-import { Currency } from 'utils/constant'
 import validation from 'app/utils/validation'
+import BankSelection from 'desktop-ext/features/withdrawal/components/BankSelection'
 import { Pressable, Text, View, styled } from 'dripsy'
 import * as ImagePicker from 'expo-image-picker'
 import { FormikHelpers, useFormik } from 'formik'
@@ -26,16 +27,12 @@ import {
   useSubmitManualDepositMutation,
 } from 'services/deposit'
 import { ManualBankItem } from 'services/deposit.type'
-import { usePlayerProfileQuery } from 'services/playerApi'
 import * as Yup from 'yup'
 import BankSlipUpload, {
   BankSlipUploadMethod,
 } from '../component/BankSlipUpload'
-import HorizontalSelectBankCardGrid from '../component/HorizontalSelectBankCardGrid'
-import AccountDetail from './AccountDetail'
 import useDepositFailedMessage from '../tools/useDepositFailedMessage'
-import Button from 'app/components/common/Button'
-import BankSelection from 'desktop-ext/features/withdrawal/components/BankSelection'
+import AccountDetail from './AccountDetail'
 
 type BankTransferValues = {
   bank: ManualBankItem | undefined
@@ -55,8 +52,8 @@ const BankTransferForm = () => {
     is_mobile: 1,
   })
   const [submitDeposit] = useSubmitManualDepositMutation()
-  const { data: playerData } = usePlayerProfileQuery()
-  const currency = playerData?.currency as Currency
+
+  const currency = useAppSelector((state) => state.setting.currency)
   const depositPayment = data?.data?.result?.manual?.find(
     (el) => el.category_id === DepositPaymentMethodCategoryId.LOCAL_BANK
   )

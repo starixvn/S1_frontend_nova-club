@@ -1,9 +1,9 @@
 import BankEmpty from 'app/features/bank/components/BankEmpty'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { toCurrency } from 'app/utils'
 import { Text, View, styled } from 'dripsy'
 import React, { ReactNode } from 'react'
-import { usePlayerProfileQuery } from 'services/playerApi'
 import { SolitoImage } from 'solito/image'
 import TouchableOpacity from '../pressable/TouchableOpacity'
 import Select, { SelectProps } from './Select'
@@ -16,7 +16,7 @@ export type SelectWithCardGridProps<T> = Omit<
 function SelectWithCardGrid<T>(props: SelectWithCardGridProps<T>) {
   const { options, isProvider = false, renderEmpty, onSelected } = props
   const { t } = useLocalization()
-  const { currency } = usePlayerProfileQuery()
+  const currency = useAppSelector((state) => state.setting.currency)
 
   const squareStyle = isProvider
     ? {

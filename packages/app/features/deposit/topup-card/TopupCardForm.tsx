@@ -1,14 +1,14 @@
 import { CONTENT_URI, DEV_DOMAIN, MEDIA_DOMAIN } from '@env'
+import Button from 'app/components/common/Button'
 import Input from 'app/components/form/Input'
-import InputLabel from 'app/components/form/InputLabel'
 import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
 import useAlert from 'app/hooks/useAlert'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { toCleanAmount, toCleanCard, toCurrency, toRealAmount } from 'app/utils'
-import { MaxLength, TopUpCard } from 'utils/constant'
 import validation from 'app/utils/validation'
+import BankSelection from 'desktop-ext/features/withdrawal/components/BankSelection'
 import { Text, View, styled } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { Pressable } from 'react-native'
@@ -18,15 +18,12 @@ import {
   useSubmitDepositMutation,
 } from 'services/deposit'
 import { AutoBankItem, PlayerInputFieldsBank } from 'services/deposit.type'
-import { usePlayerProfileQuery } from 'services/playerApi'
+import { MaxLength, TopUpCard } from 'utils/constant'
 import * as Yup from 'yup'
-import HorizontalSelectBankCardGrid from '../component/HorizontalSelectBankCardGrid'
-import ValueCard from './ValueCard'
-import Button from 'app/components/common/Button'
 import useDepositFailedMessage, {
   FailedMessageModule,
 } from '../tools/useDepositFailedMessage'
-import BankSelection from 'desktop-ext/features/withdrawal/components/BankSelection'
+import ValueCard from './ValueCard'
 
 type TopupValues = {
   realAmount: number
@@ -43,7 +40,7 @@ const TopupCardForm = () => {
   const { t } = useLocalization()
   const { showAlert } = useAlert()
   const [postSubmitDeposit] = useSubmitDepositMutation()
-  const { currency } = usePlayerProfileQuery()
+  const currency = useAppSelector((state) => state.setting.currency)
   const horizontalMode = useIsDesktop()
   const { data } = useDepositPaymentListQuery({
     is_mobile: horizontalMode ? 1 : 0,

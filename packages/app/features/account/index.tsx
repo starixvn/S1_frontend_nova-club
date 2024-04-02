@@ -1,18 +1,19 @@
 import LanguageSwitch from 'app/components/LanguageSwitch'
 import Screen from 'app/components/layouts/Screen'
+import { useAppSelector } from 'app/provider/redux/store'
 import { useSafeArea } from 'app/provider/safe-area/use-safe-area'
 import { View } from 'dripsy'
 import React from 'react'
 import { Platform, useWindowDimensions } from 'react-native'
 import { usePlayerProfileQuery } from 'services/playerApi'
+import { useGetCoinQuery } from 'services/rewardApi'
 import { usePlayerBalanceQuery } from 'services/walletApi'
+import { Currency, HEADER_HEIGHT } from 'utils/constant'
 import ProfileBalanceSummary from './ProfileBalanceSummary'
 import ProfileHeader from './ProfileHeader'
 import ProfileOverviewCard from './ProfileOverviewCard'
 import ProfileQuickNavigation from './ProfileQuickNavigation'
 import WalletButton from './WalletButton'
-import { Currency, HEADER_HEIGHT } from 'utils/constant'
-import { useGetCoinQuery } from 'services/rewardApi'
 
 export default function ProfileScreen() {
   const { bottom, top } = useSafeArea()
@@ -25,7 +26,8 @@ export default function ProfileScreen() {
     refetchOnMountOrArgChange: true,
   })
 
-  const currency = playerData?.currency ?? Currency.VND.toString()
+  const currency = useAppSelector((state) => state.setting.currency)
+
   const { data, isFetching } = usePlayerBalanceQuery(undefined, {
     refetchOnMountOrArgChange: true,
   })

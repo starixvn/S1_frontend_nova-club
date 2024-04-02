@@ -48,6 +48,8 @@ export enum Currency {
 
 export const DEFAULT_CURRENCY = Currency.VND
 
+export const CURRENCY_WITH_THOUSAND_FORMAT = [Currency.VND]
+
 export const CURRENCY_TO_LANGUAGE = {
   [Currency.VND]: LANGUAGE_CODE.VIETNAM,
   [Currency.THB]: LANGUAGE_CODE.THAILAND,

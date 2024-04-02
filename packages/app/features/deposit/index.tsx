@@ -10,6 +10,8 @@ import { useModal } from 'react-native-modalfy'
 import { usePlayerReportQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 import {
+  CURRENCY_WITH_THOUSAND_FORMAT,
+  Currency,
   DEPOSIT_NOTES,
   ReportDepositStatus,
   ReportTransactionType,
@@ -69,6 +71,12 @@ const Deposit = () => {
         break
     }
   }
+
+  console.log(
+    'Currency',
+    CURRENCY_WITH_THOUSAND_FORMAT.includes(Currency.VND),
+    CURRENCY_WITH_THOUSAND_FORMAT.includes(Currency.THB)
+  )
 
   return (
     <PageWithBackHeader
