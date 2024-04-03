@@ -1,12 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { LANGUAGE_CODE } from 'utils/constant'
+import { Currency, LANGUAGE_CODE } from 'utils/constant'
 
 export interface Setting {
   locale: LANGUAGE_CODE
+  currency: Currency
 }
 
 const initialState: Setting = {
   locale: LANGUAGE_CODE.VIETNAM,
+  currency: Currency.VND,
 }
 
 const settingSlice = createSlice({
@@ -15,6 +17,9 @@ const settingSlice = createSlice({
   reducers: {
     setLocale: (state, action: PayloadAction<string>) => {
       state.locale = action.payload as LANGUAGE_CODE
+    },
+    setCurrency: (state, action: PayloadAction<Currency>) => {
+      state.currency = action.payload
     },
   },
 })

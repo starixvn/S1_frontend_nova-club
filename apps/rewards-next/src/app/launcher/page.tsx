@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { AuthActions } from 'rewards/provider/redux/reducers/authReducer'
 import { SettingActions } from 'rewards/provider/redux/reducers/settingReducer'
-import { useAppDispatch } from 'rewards/provider/redux/store'
+import { useAppDispatch, useAppSelector } from 'rewards/provider/redux/store'
 import {
   RewardGameKeyMap,
   RewardPostMessageType,
@@ -25,8 +25,10 @@ const Launcher = () => {
   const [error, setError] = useState('')
   const dispatch = useAppDispatch()
 
+  const currency = useAppSelector((s) => s.setting.currency)
   const handleGameRoute = useCallback(
     (event: MessageEvent<RewardPostMessagePayload>) => {
+      console.log('handleGameRoute', event)
       const data =
         typeof window.ReactNativeWebView === 'undefined'
           ? event.data
