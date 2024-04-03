@@ -3,7 +3,7 @@ import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import { toCurrency } from 'app/utils'
-import { Text, View } from 'dripsy'
+import { A, ActivityIndicator, Text, View } from 'dripsy'
 import React, { useEffect, useState } from 'react'
 import { useGetAvailableWithdrawalAmountQuery } from 'services/withdrawal'
 
@@ -19,13 +19,14 @@ const AvailableBalance = ({
   const currency = useAppSelector((state) => state.setting.currency)
   const [delay, setDelay] = useState(true)
 
-  const { data: availableBalance } = useGetAvailableWithdrawalAmountQuery(
-    undefined,
-    {
-      refetchOnMountOrArgChange: true,
-      skip: delay,
-    }
-  )
+  const {
+    data: availableBalance,
+    isLoading,
+    isUninitialized,
+  } = useGetAvailableWithdrawalAmountQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+    skip: delay,
+  })
 
   // Delay fetch GetAvailableWithdrawalAmount api, since cannot fetch with playerBalance api at the same time
   useEffect(() => {
@@ -41,35 +42,42 @@ const AvailableBalance = ({
       label={t(label)}
       totalBalance={balance}
       currency={currency}
+      isLoading={isLoading || isUninitialized}
     />
   ) : (
     <MobileBalance
       label={t(label)}
       totalBalance={balance}
       currency={currency}
+      isLoading={isLoading || isUninitialized}
     />
   )
 }
 
-const MobileBalance = ({ label, totalBalance, currency }) => (
+const MobileBalance = ({ label, totalBalance, currency, isLoading }) => (
   <View
     sx={{
       pb: '$4',
       flexDirection: 'row',
       justifyContent: 'space-between',
+      alignItems: 'center',
     }}
   >
     <Text>{`${label} :`}</Text>
-    <Text>
-      {toCurrency(totalBalance, currency, {
-        symbol: false,
-        hideTruncatedThousand: false,
-      })}
-    </Text>
+    {isLoading ? (
+      <ActivityIndicator color="$primary.100" />
+    ) : (
+      <Text>
+        {toCurrency(totalBalance, currency, {
+          symbol: false,
+          hideTruncatedThousand: false,
+        })}
+      </Text>
+    )}
   </View>
 )
 
-const DesktopBalance = ({ label, totalBalance, currency }) => (
+const DesktopBalance = ({ label, totalBalance, currency, isLoading }) => (
   <Input
     label={label}
     value={toCurrency(totalBalance, currency, {
@@ -77,6 +85,7 @@ const DesktopBalance = ({ label, totalBalance, currency }) => (
       hideTruncatedThousand: false,
     })}
     editable={false}
+    action={isLoading ? <ActivityIndicator color="$primary.100" /> : null}
   />
 )
 

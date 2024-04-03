@@ -161,7 +161,7 @@ const TopupCardForm = () => {
       setValues({
         ...values,
         cardValue: text,
-        realAmount: toRealAmount(amountNumber),
+        realAmount: toRealAmount(amountNumber, currency),
       })
     }
   }

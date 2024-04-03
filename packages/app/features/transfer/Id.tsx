@@ -9,16 +9,18 @@ import useLocalization from 'app/provider/localization'
 import { useAppDispatch } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
 import {
+  isThousandCurrency,
   toCleanAmount,
   toCurrency,
   toDisplayAmount,
   toRealAmount,
+  toThousandSeparator,
 } from 'app/utils'
 import validation, { getErrorMessage } from 'app/utils/validation'
 import validationRule from 'app/utils/validationRule'
 import { Row, ScrollView, Text } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { usePlayerProfileQuery } from 'services/playerApi'
@@ -121,7 +123,7 @@ const IdTransfer = ({ isIDTransfer = false }: { isIDTransfer?: boolean }) => {
       setValues({
         ...values,
         amount: cleanText ? cleanText : '',
-        realAmount: toRealAmount(amountNumber),
+        realAmount: toRealAmount(amountNumber, currency),
       })
     }
   }
@@ -149,16 +151,16 @@ const IdTransfer = ({ isIDTransfer = false }: { isIDTransfer?: boolean }) => {
   }
 
   const handleMaxAmount = () => {
-    const value = toCurrency(Number(data?.totalBalance), currency, {
-      symbol: false,
-      hideTruncatedThousand: false,
-    })
-
-    setValues({
-      ...values,
-      amount: value.slice(0, -1),
-      realAmount: toRealAmount(value.replaceAll(',', '')),
-    })
+    if (data?.totalBalance) {
+      const realAmount = Number(data?.totalBalance)
+      setValues({
+        ...values,
+        amount: toThousandSeparator(
+          toDisplayAmount(realAmount, currency).toString()
+        ),
+        realAmount,
+      })
+    }
   }
 
   useEffect(() => {
@@ -202,6 +204,8 @@ const IdTransfer = ({ isIDTransfer = false }: { isIDTransfer?: boolean }) => {
     }
   }
 
+  const isShowingK = useMemo(() => isThousandCurrency(currency), [currency])
+
   return (
     <FormContainer>
       <ScrollView>
@@ -239,6 +243,7 @@ const IdTransfer = ({ isIDTransfer = false }: { isIDTransfer?: boolean }) => {
           placeholder={t('transfer.placeholderTransferAmount')}
           keyboardType="number-pad"
           value={values.amount}
+          isThousandCurrency={isShowingK}
           onChangeText={onAmountChanged}
           onBlur={handleBlur('amount')}
           maxLength={13}

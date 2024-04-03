@@ -8,6 +8,7 @@ import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
 import {
+  isThousandCurrency,
   toCleanAmount,
   toCurrency,
   toDisplayAmount,
@@ -18,7 +19,7 @@ import BankSelection from 'desktop-ext/features/withdrawal/components/BankSelect
 import { Pressable, Text, View, styled } from 'dripsy'
 import * as ImagePicker from 'expo-image-picker'
 import { FormikHelpers, useFormik } from 'formik'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { TextInput } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
@@ -33,6 +34,7 @@ import BankSlipUpload, {
 } from '../component/BankSlipUpload'
 import useDepositFailedMessage from '../tools/useDepositFailedMessage'
 import AccountDetail from './AccountDetail'
+import MoneyInput from 'app/components/MoneyInput'
 
 type BankTransferValues = {
   bank: ManualBankItem | undefined
@@ -175,7 +177,7 @@ const BankTransferForm = () => {
       setValues({
         ...values,
         amount: cleanText ? cleanText : '',
-        realAmount: toRealAmount(amountNumber),
+        realAmount: toRealAmount(amountNumber, currency),
       })
     }
   }
@@ -186,6 +188,8 @@ const BankTransferForm = () => {
       callback: () => handleSubmit(),
     })
   }
+
+  const isShowingK = useMemo(() => isThousandCurrency(currency), [currency])
 
   return (
     <View sx={{ pt: '$3' }}>
@@ -241,7 +245,7 @@ const BankTransferForm = () => {
       </View>
 
       <View sx={{ px: horizontalMode ? 0 : '$4' }}>
-        <Input
+        <MoneyInput
           label={t('deposit.depositAmount')}
           placeholder={t('validation.minMaxLimit', {
             min: toCurrency(limit.minAmount ?? 0, currency, {
@@ -253,17 +257,11 @@ const BankTransferForm = () => {
               forceDecimal: false,
             }),
           })}
+          isThousandCurrency={isShowingK}
           value={values.amount}
           onBlur={handleBlur('amount')}
           onChangeText={onAmountChanged}
           ref={amountFieldRef}
-          action={() => (
-            <>
-              <Text sx={{ color: '$secondary.100' }}>
-                = {values.amount ? values.amount : 0}K
-              </Text>
-            </>
-          )}
           error={
             touched.amount && errors.amount
               ? t(errors.amount, {

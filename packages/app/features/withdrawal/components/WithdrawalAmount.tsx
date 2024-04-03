@@ -2,12 +2,20 @@ import IconButton from 'app/components/IconButton'
 import MoneyInput from 'app/components/MoneyInput'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { toCleanAmount, toCurrency, toRealAmount } from 'app/utils'
+import {
+  isThousandCurrency,
+  toCleanAmount,
+  toCurrency,
+  toDisplayAmount,
+  toRealAmount,
+  toThousandSeparator,
+} from 'app/utils'
 import { FormikProps } from 'formik'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useGetAvailableWithdrawalAmountQuery } from 'services/withdrawal'
 import { MinMax } from '../hooks/useCryptoSelection'
 import { WithdrawalValues } from '../hooks/useWithdrawalForm'
+import { Currency } from 'utils/constant'
 
 type WithdrawalAmountProps = {
   isCrypto?: boolean
@@ -28,28 +36,31 @@ const WithdrawalAmount = ({
     formik
 
   const handleMaxAmount = () => {
-    const value = toCurrency(Number(availableBalance?.balance), currency, {
-      symbol: false,
-      hideTruncatedThousand: false,
-    })
-
-    setValues({
-      ...values,
-      amount: value.slice(0, -1),
-      realAmount: toRealAmount(value.replaceAll(',', '')),
-    })
+    if (availableBalance?.balance) {
+      const realAmount = Number(availableBalance?.balance)
+      setValues({
+        ...values,
+        amount: toThousandSeparator(
+          toDisplayAmount(realAmount, currency).toString()
+        ),
+        realAmount,
+      })
+    }
   }
 
   function onAmountChanged(text: string) {
     if (text != null) {
       const { cleanText, amountNumber } = toCleanAmount(text)
+
       setValues({
         ...values,
         amount: cleanText ? cleanText : '',
-        realAmount: toRealAmount(amountNumber),
+        realAmount: toRealAmount(amountNumber, currency),
       })
     }
   }
+
+  const isShowingK = useMemo(() => isThousandCurrency(currency), [currency])
 
   return (
     <MoneyInput
@@ -64,6 +75,7 @@ const WithdrawalAmount = ({
           forceDecimal: false,
         }),
       })}
+      isThousandCurrency={isShowingK}
       keyboardType="number-pad"
       onChangeText={onAmountChanged}
       onBlur={handleBlur('amount')}

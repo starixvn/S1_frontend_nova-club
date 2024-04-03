@@ -155,7 +155,7 @@ export function appendWithThousandUnit(
 
   const MIN_AMOUNT = 100
   const formattedRemainder =
-    parsedWholeNumber < MIN_AMOUNT ? '0' : remainder.substring(0, 1)
+    parsedWholeNumber < MIN_AMOUNT ? '0' : remainder.substring(0, 2)
 
   if (quotient === '0' && formattedRemainder === '0') return '0'
 
