@@ -77,6 +77,7 @@ const GamesScreen = () => {
   // if (!route && defaultType) setType(defaultType)
 
   useEffect(() => {
+    setProvider('')
     if (route && route.filter && games) {
       const filtered = route.filter(games)
       startTransition(() => setFilteredGames(filtered))
@@ -214,7 +215,9 @@ const GamesScreen = () => {
         <SlotSingleProviderListing
           gtc={GAME_TYPE_CODE.SLOTS}
           commissionList={commissionList}
-          games={provider ? gamesByProviders[provider.toUpperCase()] : games}
+          games={
+            provider ? gamesByProviders[provider.toUpperCase()] : filteredGames
+          }
           provider={provider}
           gameCategoryTagTranslation={gameCategoryTagTranslation}
         />
