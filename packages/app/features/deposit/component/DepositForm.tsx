@@ -17,6 +17,7 @@ import { Linking, Platform } from 'react-native'
 import { useModal } from 'react-native-modalfy'
 import {
   useDepositPaymentListQuery,
+  useGetAvailableDepositAmountQuery,
   useSubmitDepositMutation,
 } from 'services/deposit'
 import {
@@ -29,9 +30,9 @@ import { useRouter } from 'solito/router'
 import { Currency } from 'utils/constant'
 import * as Yup from 'yup'
 import useDepositFailedMessage from '../tools/useDepositFailedMessage'
+import DailyMax from './DailyMax'
 import FieldAmount from './FieldAmount'
 import FieldSelectBank from './FieldSelectBank'
-import MinMaxLimitDetail from './MinMaxLimitDetail'
 
 export type DepositValues = {
   bank: string | null
@@ -54,6 +55,9 @@ const DepositForm = ({ DepositCategoryId }) => {
   const { isMobile } = useCheckMobile()
   const { data, isLoading, isFetching } = useDepositPaymentListQuery({
     is_mobile: isMobile ? 0 : 1,
+  })
+  const { data: dailyData } = useGetAvailableDepositAmountQuery(undefined, {
+    refetchOnMountOrArgChange: true,
   })
 
   const depositPayment = data?.data?.result.auto.find(
@@ -184,6 +188,11 @@ const DepositForm = ({ DepositCategoryId }) => {
   return (
     <View sx={{ pt: '$3' }}>
       <View sx={{ px: horizontalMode ? 0 : '$4' }}>
+        <DailyMax
+          type="deposit"
+          amount={dailyData?.current}
+          dailyMax={dailyData?.max}
+        />
         {horizontalMode ? (
           <BankSelection
             subtitle=""

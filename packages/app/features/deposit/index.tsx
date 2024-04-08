@@ -7,6 +7,7 @@ import useLocalization from 'app/provider/localization'
 import dayjs from 'dayjs'
 import { ActivityIndicator, ScrollView, Text, View } from 'dripsy'
 import { useModal } from 'react-native-modalfy'
+import { useGetAvailableDepositAmountQuery } from 'services/deposit'
 import { usePlayerReportQuery } from 'services/playerApi'
 import { useRouter } from 'solito/router'
 import {
@@ -14,6 +15,7 @@ import {
   ReportDepositStatus,
   ReportTransactionType,
 } from 'utils/constant'
+import DailyMax from './component/DailyMax'
 import DepositCard from './component/DepositCard'
 import RecentTransactionRow from './component/RecentTransactionRow'
 import useDepositList from './tools/useDepositList'
@@ -24,6 +26,9 @@ const Deposit = () => {
   const { openModal } = useModal()
 
   const { paymentMethodList, isLoading } = useDepositList()
+  const { data } = useGetAvailableDepositAmountQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  })
 
   const {
     data: transactionData,
@@ -86,6 +91,13 @@ const Deposit = () => {
         <ActivityIndicator sx={{ my: '$6' }} color={'$primary.100'} />
       ) : paymentMethodList.length > 0 ? (
         <>
+          <DailyMax
+            type="deposit"
+            amount={data?.current}
+            dailyMax={data?.max}
+            sx={{ px: '$4', pt: '$4' }}
+          />
+
           <Text sx={{ my: '$3', mx: '$4' }}>{t('deposit.choose')}</Text>
           <View
             sx={{

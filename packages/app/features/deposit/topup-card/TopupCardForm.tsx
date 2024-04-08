@@ -1,32 +1,32 @@
 import { CONTENT_URI, DEV_DOMAIN, MEDIA_DOMAIN } from '@env'
+import Button from 'app/components/common/Button'
 import Input from 'app/components/form/Input'
-import InputLabel from 'app/components/form/InputLabel'
 import SelectWithCardGrid from 'app/components/select/SelectWithCardGrid'
 import { DepositPaymentMethodCategoryId } from 'app/config/deposit'
 import useAlert from 'app/hooks/useAlert'
 import useIsDesktop from 'app/hooks/useIsDesktop'
 import useLocalization from 'app/provider/localization'
 import { toCleanAmount, toCleanCard, toCurrency, toRealAmount } from 'app/utils'
-import { MaxLength, TopUpCard } from 'utils/constant'
 import validation from 'app/utils/validation'
+import BankSelection from 'desktop-ext/features/withdrawal/components/BankSelection'
 import { Text, View, styled } from 'dripsy'
 import { FormikHelpers, useFormik } from 'formik'
 import { Pressable } from 'react-native'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import {
   useDepositPaymentListQuery,
+  useGetAvailableDepositAmountQuery,
   useSubmitDepositMutation,
 } from 'services/deposit'
 import { AutoBankItem, PlayerInputFieldsBank } from 'services/deposit.type'
 import { usePlayerProfileQuery } from 'services/playerApi'
+import { MaxLength, TopUpCard } from 'utils/constant'
 import * as Yup from 'yup'
-import HorizontalSelectBankCardGrid from '../component/HorizontalSelectBankCardGrid'
-import ValueCard from './ValueCard'
-import Button from 'app/components/common/Button'
+import DailyMax from '../component/DailyMax'
 import useDepositFailedMessage, {
   FailedMessageModule,
 } from '../tools/useDepositFailedMessage'
-import BankSelection from 'desktop-ext/features/withdrawal/components/BankSelection'
+import ValueCard from './ValueCard'
 
 type TopupValues = {
   realAmount: number
@@ -50,6 +50,9 @@ const TopupCardForm = () => {
   })
   const { dispatchDepositFailedMessage } = useDepositFailedMessage()
 
+  const { data: dailyData } = useGetAvailableDepositAmountQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  })
   const depositPayment = data?.data?.result.auto.find(
     (el) => el.category_id === DepositPaymentMethodCategoryId.TOP_UP
   )
@@ -194,6 +197,11 @@ const TopupCardForm = () => {
   return (
     <View sx={{ pt: '$3' }}>
       <View sx={{ px: horizontalMode ? 0 : '$4' }}>
+        <DailyMax
+          type="deposit"
+          amount={dailyData?.current}
+          dailyMax={dailyData?.max}
+        />
         {horizontalMode ? (
           <BankSelection
             label={t('deposit.paymentMode')}

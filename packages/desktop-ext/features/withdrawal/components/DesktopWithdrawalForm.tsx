@@ -3,8 +3,8 @@ import WithdrawalConfirm from 'app/features/withdrawal/components/WithdrawalConf
 import useWithdrawalForm from 'app/features/withdrawal/hooks/useWithdrawalForm'
 import useLocalization from 'app/provider/localization'
 import React from 'react'
-import BankSelection from './BankSelection'
 import { useGetAvailableWithdrawalAmountQuery } from 'services/withdrawal'
+import BankSelection from './BankSelection'
 
 const DesktopWithdrawalForm = () => {
   const { t } = useLocalization()
