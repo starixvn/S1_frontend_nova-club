@@ -2,9 +2,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { tolgee } from 'app/integrations/tolgee'
 import { isBannedTrackingCode } from 'app/utils/referralUtil'
 import dayjs, { Dayjs } from 'dayjs'
-import { Currency, CURRENCY_TO_LANGUAGE, LANGUAGE_CODE } from 'utils/constant'
+import { Currency, LANGUAGE_CODE } from 'utils/constant'
+import {
+  CURRENCY_TO_LANGUAGE,
+  LANGUAGE_TO_CURRENCY,
+} from 'utils/constant/currency'
+import { AuthActions } from './authReducer'
 import { LaunchGamePayload } from './gameLauncher.slice'
-import authReducer, { AuthActions } from './authReducer'
 
 interface PopUpExpire {
   [key: string]: Dayjs | null
@@ -80,9 +84,21 @@ const settingSlice = createSlice({
     setLocale: (state, action: PayloadAction<string>) => {
       tolgee.changeLanguage(action.payload)
       state.locale = action.payload as LANGUAGE_CODE
+
+      /* This logic only workable if each currency is using 2 languages, and 1 of them is EN */
+      if (state.locale !== LANGUAGE_CODE.ENGLISH) {
+        state.currency = LANGUAGE_TO_CURRENCY[state.locale]
+      }
     },
     setCurrency: (state, action: PayloadAction<string>) => {
       state.currency = action.payload as Currency
+    },
+    setLocaleCurrency: (
+      state,
+      action: PayloadAction<{ locale: LANGUAGE_CODE; currency: Currency }>
+    ) => {
+      state.currency = action.payload.currency
+      state.locale = action.payload.locale
     },
     setPopUpExpiry: (state, action: PayloadAction<string>) => {
       state.popUpExpiry[action.payload] = dayjs().add(1, 'day')

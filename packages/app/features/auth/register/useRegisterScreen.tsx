@@ -1,7 +1,6 @@
 import { useAgentRegisterMutation } from 'agent/services/authApi'
 import { useLazyUserInfoQuery, useUserInfoQuery } from 'agent/services/userApi'
 import { AgentAuthActions } from 'agent/store/agentAuthReducer'
-import { MOBILE_PREFIX_BY_CURRENCY } from 'app/config/currency'
 import { MOBILE_PREFIX } from 'app/constants/country'
 import useAlert from 'app/hooks/useAlert'
 import useContainerWidth from 'app/hooks/useContainerWidth'
@@ -33,6 +32,7 @@ import * as Yup from 'yup'
 import { LoginType } from '../AuthLayout'
 import { agentRoute, memberRoute } from '../login/LoginScreen'
 import { RegisterFormValues } from './RegisterScreen'
+import { MOBILE_PREFIX_BY_CURRENCY } from 'utils/constant/currency'
 
 const { useParam } = createParam<{ t: LoginType }>()
 

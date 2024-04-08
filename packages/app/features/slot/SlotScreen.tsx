@@ -5,6 +5,7 @@ import { GetCommissionList } from 'app/components/game/GameUtilityAction'
 import ProviderList from 'app/components/game/ProviderList'
 import useGameCategoryTag from 'app/hooks/appState/game/useGameCategoryTag'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { View } from 'dripsy'
 import groupBy from 'lodash/groupBy'
 import uniqBy from 'lodash/uniqBy'
@@ -17,15 +18,13 @@ import {
 } from 'react'
 import { Platform } from 'react-native'
 import { selectBannerByPage, useBannerQuery } from 'services/contentApi'
+import { BannerPage } from 'services/contentApi.type'
 import { useGameListMultipleQuery } from 'services/gameApi'
-import { usePlayerProfileQuery } from 'services/playerApi'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
 import { GAME_TYPE_CODE, ProviderImageCategory } from 'utils/constant'
 import RecentlyPlayedSection from '../home/RecentlyPlayedSection'
 import SlotSingleProviderListing from './SlotSingleProviderListing'
-import { useAppSelector } from 'app/provider/redux/store'
-import { BannerPage } from 'services/contentApi.type'
 
 type Params = {
   provider?: string
@@ -37,7 +36,6 @@ const GameCategory = [GAME_TYPE_CODE.SLOTS]
 
 function SlotScreen() {
   const { t } = useLocalization()
-  const { push } = useRouter()
   const scrollRef = useRef()
   const commissionList = GetCommissionList()
   const [provider, setProvider] = useParam('provider', {

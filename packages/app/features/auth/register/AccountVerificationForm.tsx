@@ -25,7 +25,7 @@ import SelectList from 'app/components/select/SelectList'
 import {
   CURRENCY_SELECTION,
   MOBILE_PREFIX_BY_CURRENCY,
-} from 'app/config/currency'
+} from 'utils/constant/currency'
 
 const StyledFormContainer = styled(FormContainer)({
   py: '$4',

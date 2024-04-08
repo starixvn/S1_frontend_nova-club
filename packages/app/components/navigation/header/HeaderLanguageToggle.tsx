@@ -1,6 +1,5 @@
 import { DripsyGradient } from 'app/components/Gradient'
 import { LanguageButton } from 'app/components/LanguageSwitch'
-import { CURRENCY_LANGUAGE_LIST } from 'app/config/currency'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
 import { TempSettingActions } from 'app/store/tempSetting.slice'
@@ -9,6 +8,7 @@ import React from 'react'
 import { Platform } from 'react-native'
 import { LANGUAGE_CODE } from 'utils/constant'
 import LanguageDropdown from '../LanguageDropdown'
+import { CURRENCY_LANGUAGE_LIST } from 'utils/constant/currency'
 
 type Props = {}
 

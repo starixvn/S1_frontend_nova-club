@@ -7,6 +7,7 @@ import PaymentMethod, {
 import { getStatusColor } from 'app/config/status'
 import TransactionHistoryItemBox from 'app/features/account/history/TransactionHistoryItemBox'
 import useLocalization from 'app/provider/localization'
+import { useAppSelector } from 'app/provider/redux/store'
 import { copyToClipboard, toCurrency, toThousandSeparator } from 'app/utils'
 import dayjsTz from 'app/utils/dayjs'
 import { Text, View, styled, useDripsyTheme } from 'dripsy'
@@ -15,8 +16,6 @@ import { useModal } from 'react-native-modalfy'
 import { Shadow } from 'react-native-shadow-2'
 import { ReportDepositItem } from 'services/playerApi.type'
 import DateTimeCell from './DateTimeCell'
-import { Currency } from 'utils/constant'
-import { useAppSelector } from 'app/provider/redux/store'
 
 export const CELL_PAYMENT_WIDTH = 0.5
 export const CELL_DATE_WIDTH = 0.2

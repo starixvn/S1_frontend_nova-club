@@ -11,12 +11,6 @@ export enum LANGUAGE_NAMESPACE {
   AGENT = 'Agent',
 }
 
-export const LANGUAGE_SUBTAG = {
-  [LANGUAGE_CODE.ENGLISH]: 'en',
-  [LANGUAGE_CODE.VIETNAM]: 'vi',
-  [LANGUAGE_CODE.THAILAND]: 'th',
-}
-
 //For Desktop Scroll to Content offset and configuration
 export const CONTENT_FROM_TOP = 120
 export const CONTENT_FROM_TOP_2 = 130
@@ -47,28 +41,6 @@ export enum Currency {
 }
 
 export const DEFAULT_CURRENCY = Currency.VND
-
-export const CURRENCY_WITH_THOUSAND_FORMAT = [Currency.VND]
-
-export const CURRENCY_TO_LANGUAGE = {
-  [Currency.VND]: LANGUAGE_CODE.VIETNAM,
-  [Currency.THB]: LANGUAGE_CODE.THAILAND,
-}
-
-export const CURRENCY_SEPARATOR = {
-  [LANGUAGE_CODE.ENGLISH]: {
-    decimal: '.',
-    thousands: ',',
-  },
-  [LANGUAGE_CODE.VIETNAM]: {
-    decimal: '.',
-    thousands: ',',
-  },
-  [LANGUAGE_CODE.THAILAND]: {
-    decimal: '.',
-    thousands: ',',
-  },
-}
 
 export enum PLATFORM_CODE {
   WEB = 0,

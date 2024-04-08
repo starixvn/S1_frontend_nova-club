@@ -1,4 +1,3 @@
-import { CURRENCY_LANGUAGE_LIST } from 'app/config/currency'
 import FloatingOverlay from 'app/features/floatingContent/FloatingOverlay'
 import { useAppDispatch, useAppSelector } from 'app/provider/redux/store'
 import { SettingActions } from 'app/store/setting.slice'
@@ -9,6 +8,7 @@ import React from 'react'
 import { Platform } from 'react-native'
 import { SolitoImage } from 'solito/image'
 import BouncePressable from '../pressable/BouncePressable'
+import { CURRENCY_LANGUAGE_LIST } from 'utils/constant/currency'
 
 const ICON_SIZE = 32
 
@@ -19,8 +19,8 @@ const LanguageDropdown = () => {
     (s) => s.tempSetting.isLanguageMenuVisible
   )
   const handlePress = (item, currency) => {
-    dispatch(SettingActions.setLocale(item.value))
     dispatch(SettingActions.setCurrency(currency))
+    dispatch(SettingActions.setLocale(item.value))
 
     dispatch(TempSettingActions.setIsOverlayVisible(false))
   }

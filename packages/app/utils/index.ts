@@ -6,15 +6,17 @@ import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import {
   CONTENT_FROM_TOP,
   CONTENT_FROM_TOP_2,
-  CURRENCY_SEPARATOR,
-  CURRENCY_TO_LANGUAGE,
-  CURRENCY_WITH_THOUSAND_FORMAT,
   Currency,
   HEADER_HEIGHT_OFFSET,
   LANGUAGE_CODE,
   LANGUAGE_NAMESPACE,
   SCROLL_OFFSET_TOP,
 } from 'utils/constant'
+import {
+  CURRENCY_SEPARATOR,
+  CURRENCY_TO_LANGUAGE,
+  CURRENCY_WITH_THOUSAND_FORMAT,
+} from 'utils/constant/currency'
 /**
  * `expo-clipboard` version 2.1.1 is used due to v3 above need Expo SDK45
  * to support, and `setStringAsync` can't be used in IOS

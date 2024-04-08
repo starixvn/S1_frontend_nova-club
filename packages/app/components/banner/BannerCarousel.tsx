@@ -6,13 +6,7 @@ import {
   CarouselBannerActionType,
   getCarouselBannerActionGenerator,
 } from 'app/utils/carouselBannerActionGenerator'
-import {
-  Pressable,
-  Row,
-  SxProp,
-  View,
-  useDripsyTheme
-} from 'dripsy'
+import { Pressable, Row, SxProp, View, useDripsyTheme } from 'dripsy'
 import React, { useCallback, useRef, useState } from 'react'
 import { Linking, Platform, View as RNView } from 'react-native'
 import { useModal } from 'react-native-modalfy'
@@ -65,6 +59,7 @@ export default function BannerCarousel({
   const height = width / ratio
 
   const showCarousel = data != null && width > 0
+  const isMoreThan1 = data && data.length > 1
 
   return (
     <View
@@ -80,7 +75,7 @@ export default function BannerCarousel({
       {/* <Text>{width + ' ' + height}</Text> */}
       {showCarousel ? (
         <Carousel
-          loop
+          enabled={isMoreThan1}
           windowSize={3}
           width={width}
           height={height}
@@ -110,7 +105,7 @@ export default function BannerCarousel({
           {...rest}
         />
       ) : null}
-      {data && data.length > 0 && (
+      {isMoreThan1 && (
         <Row
           sx={{
             height: 20,

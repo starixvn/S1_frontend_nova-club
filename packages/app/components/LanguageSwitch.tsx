@@ -5,9 +5,7 @@ import { AnimatePresence, MotiView } from 'moti'
 import React, { useState } from 'react'
 import { ViewProps } from 'react-native'
 import { LANGUAGE_CODE } from 'utils/constant'
-import {
-  usePlayerLangMutation
-} from '../../services/playerApi'
+import { usePlayerLangMutation } from '../../services/playerApi'
 
 const LANGUAGE_BUTTON_SIZE = 25
 
