@@ -40,7 +40,7 @@ const depositApi = baseApiWithTag.injectEndpoints({
           ...queryArgs,
         },
       }),
-      invalidatesTags: ['Balance', 'Report'],
+      invalidatesTags: ['Balance', 'Report', 'AvailableDepositAmount'],
     }),
     submitManualDeposit: builder.mutation<
       IResponse<SubmitManualDepositResult>,
@@ -53,7 +53,12 @@ const depositApi = baseApiWithTag.injectEndpoints({
           ...queryArgs,
         },
       }),
-      invalidatesTags: ['Balance', 'Report', 'DepositPaymentList'],
+      invalidatesTags: [
+        'Balance',
+        'Report',
+        'DepositPaymentList',
+        'AvailableDepositAmount',
+      ],
     }),
     uploadDepositSlip: builder.mutation<
       IResponse<string>,
@@ -83,7 +88,7 @@ const depositApi = baseApiWithTag.injectEndpoints({
       }) => {
         return data
       },
-      extraOptions: { refetchOnMount: true },
+      providesTags: ['AvailableDepositAmount'],
     }),
   }),
 })

@@ -20,17 +20,7 @@ const withdrawalApi = baseApiWithTag.injectEndpoints({
           ...queryArgs,
         },
       }),
-      invalidatesTags: ['Balance', 'Report'],
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled
-          // `onSuccess` side-effect
-          // dispatch(dispatch(walletApi.util.invalidateTags(['Balance'])))
-          // dispatch(dispatch(playerApi.util.invalidateTags(['Report'])))
-        } catch (err) {
-          // `onError` side-effect
-        }
-      },
+      invalidatesTags: ['Balance', 'Report', 'AvailableAmount'],
     }),
     cryptoExchangeRate: builder.query<
       IResponse<CryptoExchangeRateResult>,
