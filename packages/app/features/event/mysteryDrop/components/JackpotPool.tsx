@@ -3,7 +3,14 @@ import useIsDesktop from 'app/hooks/useIsDesktop'
 import useWindowResize from 'app/hooks/useWindowResize'
 import useLocalization from 'app/provider/localization'
 import { useAppSelector } from 'app/provider/redux/store'
-import { Row, Text, View, styled, useResponsiveValue } from 'dripsy'
+import {
+  ActivityIndicator,
+  Row,
+  Text,
+  View,
+  styled,
+  useResponsiveValue,
+} from 'dripsy'
 import { MotiView } from 'moti'
 import React, { useEffect, useMemo, useState } from 'react'
 import { SolitoImage } from 'solito/image'
@@ -148,24 +155,32 @@ const JackpotBoard = ({ jackpot }: JackpotProp) => {
           alignItems: 'center',
         }}
       >
-        <Text sx={{ textAlign: 'center', fontWeight: 'bold', fontSize: 18 }}>
-          {t('event.mystery.totalJackpot')}
-        </Text>
-        <Row>
-          <JackpotText>
-            <CountUp
-              key={jackpot}
-              isCounting={!!total}
-              start={prevPrize ? prevPrize : total}
-              end={total}
-              duration={5}
-              easing="easeOutCubic"
-              thousandsSeparator=","
-              onComplete={() => setPrevPrize(total)}
-            />
-          </JackpotText>
-          <JackpotText>{` ${currency.toUpperCase()}`}</JackpotText>
-        </Row>
+        {total ? (
+          <>
+            <Text
+              sx={{ textAlign: 'center', fontWeight: 'bold', fontSize: 18 }}
+            >
+              {t('event.mystery.totalJackpot')}
+            </Text>
+            <Row>
+              <JackpotText>
+                <CountUp
+                  key={jackpot}
+                  isCounting={!!total}
+                  start={prevPrize ? prevPrize : total}
+                  end={total}
+                  duration={5}
+                  easing="easeOutCubic"
+                  thousandsSeparator=","
+                  onComplete={() => setPrevPrize(total)}
+                />
+              </JackpotText>
+              <JackpotText>{` ${currency.toUpperCase()}`}</JackpotText>
+            </Row>
+          </>
+        ) : (
+          <ActivityIndicator color={'$secondary.500'} size={'large'} />
+        )}
       </View>
     </View>
   )
