@@ -69,8 +69,9 @@ export default function MatchItem({ width, match, onPress }: Props) {
           src={`${MEDIA_DOMAIN}${CONTENT_URI}/v2/match/fullbg.jpg`}
           alt="live match"
           width={width}
-          height={width / 3}
-          resizeMode="cover"
+          height={Math.ceil(width / 3)}
+          contentFit="cover"
+          priority
         />
         <Logo image={homeFlag} sx={{ left: '17%' }} size={width * 0.15} />
         <Logo image={awayFlag} sx={{ right: '17%' }} size={width * 0.15} />

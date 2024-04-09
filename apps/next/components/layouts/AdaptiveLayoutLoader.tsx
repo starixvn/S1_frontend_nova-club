@@ -16,6 +16,7 @@ export default function AdaptiveLayoutLoader({}: Props) {
       }}
     >
       <SolitoImage
+        priority
         width={201}
         height={72}
         alt="vui123"
